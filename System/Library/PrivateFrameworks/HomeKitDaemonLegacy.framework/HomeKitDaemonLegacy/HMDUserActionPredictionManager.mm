@@ -15,7 +15,7 @@
 
 - (void)zoneManagerDidStop:(id)stop
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   stopCopy = stop;
   workQueue = [(HMDUserActionPredictionManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -26,20 +26,18 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@User Action zone manager stopped", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@User Action zone manager stopped", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMDUserActionPredictionManager *)selfCopy setLocalZone:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)zoneManagerDidStart:(id)start
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   startCopy = start;
   workQueue = [(HMDUserActionPredictionManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -51,7 +49,7 @@
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v53 = v9;
+    v52 = v9;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@User Action zone manager started", buf, 0xCu);
   }
 
@@ -69,39 +67,39 @@
   localZone2 = [(HMDUserActionPredictionManager *)selfCopy localZone];
   [localZone2 startUp];
 
-  v44 = v14;
+  v43 = v14;
   [v14 markWithReason:@"Fetch models from backing store"];
   localZone3 = [(HMDUserActionPredictionManager *)selfCopy localZone];
-  v51 = 0;
-  v19 = [localZone3 fetchModelsOfType:objc_opt_class() error:&v51];
-  v43 = v51;
+  v50 = 0;
+  v19 = [localZone3 fetchModelsOfType:objc_opt_class() error:&v50];
+  v42 = v50;
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = v19;
-  v20 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
+  v20 = [obj countByEnumeratingWithState:&v46 objects:v56 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v48;
+    v22 = *v47;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v48 != v22)
+        if (*v47 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v47 + 1) + 8 * i);
+        v24 = *(*(&v46 + 1) + 8 * i);
         localZone4 = [(HMDUserActionPredictionManager *)selfCopy localZone];
         v26 = selfCopy;
         v27 = MEMORY[0x277CBEB98];
         hmbModelID = [v24 hmbModelID];
-        v56 = hmbModelID;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
+        v55 = hmbModelID;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
         v30 = [v27 setWithArray:v29];
         v31 = [MEMORY[0x277D17108] optionsWithLabel:@"Remove no longer used user action prediction"];
         v32 = [localZone4 removeModelIDs:v30 options:v31];
@@ -109,13 +107,13 @@
         selfCopy = v26;
       }
 
-      v21 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
+      v21 = [obj countByEnumeratingWithState:&v46 objects:v56 count:16];
     }
 
     while (v21);
   }
 
-  if (v43)
+  if (v42)
   {
     v33 = objc_autoreleasePoolPush();
     v34 = selfCopy;
@@ -124,9 +122,9 @@
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v53 = v36;
-      v54 = 2112;
-      v55 = v43;
+      v52 = v36;
+      v53 = 2112;
+      v54 = v42;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@User Action model fetch failed: %@", buf, 0x16u);
     }
 
@@ -141,16 +139,14 @@
     v40 = HMFGetLogIdentifier();
     v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(obj, "count")}];
     *buf = 138543618;
-    v53 = v40;
-    v54 = 2112;
-    v55 = v41;
+    v52 = v40;
+    v53 = 2112;
+    v54 = v41;
     _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_INFO, "%{public}@Startup User Action model fetch of %@ existing models is complete", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v37);
-  [v44 invalidate];
-
-  v42 = *MEMORY[0x277D85DE8];
+  [v43 invalidate];
 }
 
 - (BOOL)manager:(id)manager shouldShareWithUser:(id)user
@@ -163,7 +159,7 @@
 
 - (id)_removeZones
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDUserActionPredictionManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -173,16 +169,14 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Removing all user action prediction manager data", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Removing all user action prediction manager data", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   zoneManager = [(HMDUserActionPredictionManager *)selfCopy zoneManager];
   remove = [zoneManager remove];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return remove;
 }

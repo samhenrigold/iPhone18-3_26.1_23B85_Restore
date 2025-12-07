@@ -6,6 +6,7 @@
 - (id)initForMerchantIssue:(unint64_t)issue merchantIndustryCode:(int64_t)code mapsIdentifier:(unint64_t)identifier merchantName:(id)name merchantRawName:(id)rawName merchantIndustryCategory:(id)category merchantURL:(id)l merchantFormattedAddress:(id)self0 transactionTime:(double)self1 transactionType:(id)self2 transactionLocation:(id)self3 bankTransactionInformation:(id)self4;
 - (unint64_t)lookupTransactionType;
 - (void)setCorrelationId:(id)id;
+- (void)setIsAppleCard:(BOOL)card;
 - (void)setLookupTransactionType:(unint64_t)type;
 - (void)setMerchantAdamId:(id)id;
 - (void)setReportersComment:(id)comment;
@@ -169,6 +170,16 @@ LABEL_7:
   isAppleCard = [context isAppleCard];
 
   return isAppleCard;
+}
+
+- (void)setIsAppleCard:(BOOL)card
+{
+  cardCopy = card;
+  submissionParameters = [(GEORPFeedbackRequestParameters *)self->_requestParameters submissionParameters];
+  details = [submissionParameters details];
+  merchantLookupFeedback = [details merchantLookupFeedback];
+  context = [merchantLookupFeedback context];
+  [context setIsAppleCard:cardCopy];
 }
 
 - (unint64_t)lookupTransactionType

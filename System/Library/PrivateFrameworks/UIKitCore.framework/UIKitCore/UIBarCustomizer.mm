@@ -225,7 +225,7 @@ void __27___UIBarCustomizer__reflow__block_invoke(uint64_t a1)
   [v7 setCenter:{MidX, v6}];
 }
 
-void __27___UIBarCustomizer__reflow__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __27___UIBarCustomizer__reflow__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = [a2 _chiclet];
   v7 = [v5 anchorView];
@@ -310,7 +310,7 @@ void __53___UIBarCustomizer_dragInteraction_sessionWillBegin___block_invoke(uint
   [v5 layoutIfNeeded];
 }
 
-uint64_t __66___UIBarCustomizer__animateDropOrCancelForItem_animator_isCancel___block_invoke(uint64_t a1)
+void *__66___UIBarCustomizer__animateDropOrCancelForItem_animator_isCancel___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) jiggling];
   if ((result & 1) == 0)

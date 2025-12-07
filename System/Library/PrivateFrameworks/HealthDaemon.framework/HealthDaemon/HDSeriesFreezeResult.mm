@@ -14,7 +14,7 @@
   if (v7)
   {
     v7->_status = status;
-    v9 = [identifierCopy copy];
+    v9 = objc_msgSend_copy(identifierCopy);
     frozenIdentifier = v8->_frozenIdentifier;
     v8->_frozenIdentifier = v9;
   }

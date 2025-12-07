@@ -4,6 +4,8 @@
 - (id).cxx_construct;
 - (unsigned)watchNumericIdentifierFromString:(id)string;
 - (void)appendDay:(id)day;
+- (void)beginPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day;
+- (void)endPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day;
 @end
 
 @implementation MAIDayStreamProcessor
@@ -11,9 +13,9 @@
 - (MAIDayStreamProcessor)initWithConfig:(id)config
 {
   configCopy = config;
-  v70.receiver = self;
-  v70.super_class = MAIDayStreamProcessor;
-  v5 = [(MAIDayStreamProcessor *)&v70 init];
+  v72.receiver = self;
+  v72.super_class = MAIDayStreamProcessor;
+  v5 = [(MAIDayStreamProcessor *)&v72 init];
   if (v5)
   {
     v6 = objc_opt_new();
@@ -21,8 +23,6 @@
     v5->_watchIdentifiers = v6;
 
     LOBYTE(unsignedIntValue) = 0;
-    v35 = 0;
-    LOBYTE(v36) = 0;
     v37 = 0;
     LOBYTE(v38) = 0;
     v39 = 0;
@@ -30,17 +30,17 @@
     v41 = 0;
     LOBYTE(v42) = 0;
     v43 = 0;
-    v44 = 0;
+    LOBYTE(v44) = 0;
     v45 = 0;
-    LOBYTE(v46) = 0;
+    v46 = 0;
     v47 = 0;
-    v53 = 0;
-    v48 = 0;
-    LOBYTE(v49) = 0;
-    v54 = 0x1800000018;
-    v55 = 1;
-    LOBYTE(v56) = 0;
-    v57 = 0;
+    LOBYTE(v48) = 0;
+    v49 = 0;
+    v55 = 0;
+    v50 = 0;
+    LOBYTE(v51) = 0;
+    v56 = 0x1800000018;
+    v57 = 1;
     LOBYTE(v58) = 0;
     v59 = 0;
     LOBYTE(v60) = 0;
@@ -49,16 +49,18 @@
     v63 = 0;
     LOBYTE(v64) = 0;
     v65 = 0;
-    v66 = 0;
+    LOBYTE(v66) = 0;
     v67 = 0;
-    LOBYTE(__p) = 0;
+    v68 = 0;
     v69 = 0;
+    LOBYTE(__p) = 0;
+    v71 = 0;
     userReportedCycleLength = [configCopy userReportedCycleLength];
 
     if (userReportedCycleLength)
     {
       userReportedCycleLength2 = [configCopy userReportedCycleLength];
-      v35 = !v35;
+      v37 = !v37;
       unsignedIntValue = [userReportedCycleLength2 unsignedIntValue];
     }
 
@@ -68,8 +70,8 @@
     {
       julianDayOfUserReportedCycleLength2 = [configCopy julianDayOfUserReportedCycleLength];
       unsignedIntValue2 = [julianDayOfUserReportedCycleLength2 unsignedIntValue];
-      v39 = 1;
-      v38 = unsignedIntValue2;
+      v41 = 1;
+      v40 = unsignedIntValue2;
     }
 
     userReportedMenstruationLength = [configCopy userReportedMenstruationLength];
@@ -78,8 +80,8 @@
     {
       userReportedMenstruationLength2 = [configCopy userReportedMenstruationLength];
       unsignedIntValue3 = [userReportedMenstruationLength2 unsignedIntValue];
-      v37 = 1;
-      v36 = unsignedIntValue3;
+      v39 = 1;
+      v38 = unsignedIntValue3;
     }
 
     julianDayOfUserReportedMenstruationLength = [configCopy julianDayOfUserReportedMenstruationLength];
@@ -88,8 +90,8 @@
     {
       julianDayOfUserReportedMenstruationLength2 = [configCopy julianDayOfUserReportedMenstruationLength];
       unsignedIntValue4 = [julianDayOfUserReportedMenstruationLength2 unsignedIntValue];
-      v41 = 1;
-      v40 = unsignedIntValue4;
+      v43 = 1;
+      v42 = unsignedIntValue4;
     }
 
     birthDateComponents = [configCopy birthDateComponents];
@@ -103,19 +105,19 @@
 
       if (v23 >= 1.0 && v23 <= 200.0)
       {
-        v26 = v23;
-        v46 = v26;
-        v47 = 1;
-        v25 = [MEMORY[0x277CCABB0] numberWithDouble:v23];
-        [(MAIDayStreamProcessor *)v5 setUserAgeInYears:v25];
+        v27 = v23;
+        v48 = v27;
+        v49 = 1;
+        v26 = [MEMORY[0x277CCABB0] numberWithDouble:v23];
+        [(MAIDayStreamProcessor *)v5 setUserAgeInYears:v26];
       }
 
       else
       {
-        v25 = ha_get_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+        v26 = ha_get_log(v24);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
         {
-          [(MAIDayStreamProcessor *)v25 initWithConfig:v23];
+          [(MAIDayStreamProcessor *)v26 initWithConfig:v23];
         }
       }
     }
@@ -125,49 +127,50 @@
     if (deviationInput)
     {
       deviationInput2 = [configCopy deviationInput];
-      HealthAlgorithms::deviationInput(deviationInput2, v33);
-      v49 = v33[0];
-      v50 = v33[1];
-      v51 = v33[2];
-      v52 = v33[3];
-      if ((v53 & 1) == 0)
+      HealthAlgorithms::deviationInput(deviationInput2, v35);
+      v51 = v35[0];
+      v52 = v35[1];
+      v53 = v35[2];
+      v54 = v35[3];
+      if ((v55 & 1) == 0)
       {
-        v53 = 1;
+        v55 = 1;
       }
     }
 
     todayAsJulianDay = [configCopy todayAsJulianDay];
-    if ((v43 & 1) == 0)
+    if ((v45 & 1) == 0)
     {
-      v43 = 1;
+      v45 = 1;
     }
 
-    v42 = todayAsJulianDay;
-    if (_os_feature_enabled_impl())
+    v44 = todayAsJulianDay;
+    v31 = _os_feature_enabled_impl();
+    if (v31)
     {
-      v30 = ha_get_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v32 = ha_get_log(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v33[0]) = 0;
-        _os_log_impl(&dword_2588F5000, v30, OS_LOG_TYPE_DEFAULT, "MenstrualAlgorithms/dayStreamUpdate is enabled", v33, 2u);
+        LOWORD(v35[0]) = 0;
+        _os_log_impl(&dword_2588F5000, v32, OS_LOG_TYPE_DEFAULT, "MenstrualAlgorithms/dayStreamUpdate is enabled", v35, 2u);
       }
 
-      v31 = 1;
+      v33 = 1;
     }
 
     else
     {
-      v30 = ha_get_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v32 = ha_get_log(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v33[0]) = 0;
-        _os_log_impl(&dword_2588F5000, v30, OS_LOG_TYPE_DEFAULT, "MenstrualAlgorithms/dayStreamUpdate is disabled", v33, 2u);
+        LOWORD(v35[0]) = 0;
+        _os_log_impl(&dword_2588F5000, v32, OS_LOG_TYPE_DEFAULT, "MenstrualAlgorithms/dayStreamUpdate is disabled", v35, 2u);
       }
 
-      v31 = 0;
+      v33 = 0;
     }
 
-    v55 = v31;
+    v57 = v33;
     operator new();
   }
 
@@ -181,12 +184,12 @@
   watchIdentifier = [wristTemperature watchIdentifier];
   v7 = [(MAIDayStreamProcessor *)self watchNumericIdentifierFromString:watchIdentifier];
 
-  if (self->_julianDayOfLastInput.__engaged_ && (val = self->_julianDayOfLastInput.var0.__val_, val >= [dayCopy julianDay]))
+  if (self->_julianDayOfLastInput.__engaged_ && (val = self->_julianDayOfLastInput.var0.__val_, v9 = [dayCopy julianDay], val >= v9))
   {
-    v23 = ha_get_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v24 = ha_get_log(v9);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
-      [MAIHistoricalAnalyzer appendDay:v23];
+      [MAIHistoricalAnalyzer appendDay:v24];
     }
   }
 
@@ -194,77 +197,77 @@
   {
     self->_julianDayOfLastInput.var0.__val_ = [dayCopy julianDay];
     self->_julianDayOfLastInput.__engaged_ = 1;
-    v9 = dayCopy;
-    v27 = 0;
-    LOBYTE(v28) = 0;
-    v29 = 0;
+    v10 = dayCopy;
+    v28 = 0;
+    LOBYTE(v29) = 0;
+    v30 = 0;
     LOBYTE(sampleCount) = 0;
-    v31 = 0;
+    v32 = 0;
     LOBYTE(sampleCount2) = 0;
-    v33 = 0;
-    LOBYTE(v34) = 0;
-    v36 = 0;
-    v25 = 0;
-    LOBYTE(v26) = 0;
-    LODWORD(v24) = [v9 julianDay];
-    DWORD1(v24) = [v9 flow];
-    BYTE8(v24) = [v9 spotting];
-    HIDWORD(v24) = [v9 ovulationTestResult];
-    sedentaryHeartRateStatistics = [v9 sedentaryHeartRateStatistics];
+    v34 = 0;
+    LOBYTE(v35) = 0;
+    v37 = 0;
+    v26 = 0;
+    LOBYTE(v27) = 0;
+    LODWORD(v25) = [v10 julianDay];
+    DWORD1(v25) = [v10 flow];
+    BYTE8(v25) = [v10 spotting];
+    HIDWORD(v25) = [v10 ovulationTestResult];
+    sedentaryHeartRateStatistics = [v10 sedentaryHeartRateStatistics];
     lowerPercentile = [sedentaryHeartRateStatistics lowerPercentile];
 
     if (lowerPercentile)
     {
       lowerPercentile2 = [sedentaryHeartRateStatistics lowerPercentile];
       [lowerPercentile2 floatValue];
-      v26 = v13;
-      v27 = 1;
+      v27 = v14;
+      v28 = 1;
 
-      v31 = 1;
+      v32 = 1;
       sampleCount = [sedentaryHeartRateStatistics sampleCount];
     }
 
     else
     {
       sampleCount = 0;
-      v31 = 1;
+      v32 = 1;
     }
 
-    sleepHeartRateStatistics = [v9 sleepHeartRateStatistics];
+    sleepHeartRateStatistics = [v10 sleepHeartRateStatistics];
     lowerPercentile3 = [sleepHeartRateStatistics lowerPercentile];
 
     if (lowerPercentile3)
     {
       lowerPercentile4 = [sleepHeartRateStatistics lowerPercentile];
       [lowerPercentile4 floatValue];
-      v28 = v17;
-      v29 = 1;
+      v29 = v18;
+      v30 = 1;
 
-      v33 = 1;
+      v34 = 1;
       sampleCount2 = [sleepHeartRateStatistics sampleCount];
     }
 
     else
     {
       sampleCount2 = 0;
-      v33 = 1;
+      v34 = 1;
     }
 
-    wristTemperature2 = [v9 wristTemperature];
+    wristTemperature2 = [v10 wristTemperature];
 
     if (wristTemperature2)
     {
-      wristTemperature3 = [v9 wristTemperature];
+      wristTemperature3 = [v10 wristTemperature];
       [wristTemperature3 temperatureCelsius];
-      v21 = v20;
-
       v22 = v21;
-      v34 = v7;
-      v35 = v22;
-      v36 = 1;
+
+      v23 = v22;
+      v35 = v7;
+      v36 = v23;
+      v37 = 1;
     }
 
-    Nightingale::ngt_DayStreamProcessor::appendDay(self->_dayStreamProcessor.__ptr_, &v24);
+    Nightingale::ngt_DayStreamProcessor::appendDay(self->_dayStreamProcessor.__ptr_, &v25);
   }
 }
 
@@ -294,6 +297,22 @@
   return watchIdentifiers2;
 }
 
+- (void)beginPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day
+{
+  ptr = self->_dayStreamProcessor.__ptr_;
+  v6 = ha_phase_to_algs_phase(phase);
+
+  Nightingale::ngt_DayStreamProcessor::begin_phase(ptr, v6, day);
+}
+
+- (void)endPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day
+{
+  ptr = self->_dayStreamProcessor.__ptr_;
+  v6 = ha_phase_to_algs_phase(phase);
+
+  Nightingale::ngt_DayStreamProcessor::end_phase(ptr, v6, day);
+}
+
 - (MAIDayStreamProcessorOutput)analyzeWithMostRecentMenstrualFlowJulianDayUpdated:(SEL)updated
 {
   v161[35] = *MEMORY[0x277D85DE8];
@@ -312,32 +331,32 @@
   }
 
   Nightingale::ngt_DayStreamProcessor::analyze(self->_dayStreamProcessor.__ptr_, v9 & 0xFFFFFF00 | a4 & ~(a4 >> 31) | ((a4 > 0) << 32), 1, &v97);
-  [v8 setIsUserInactive:v122];
+  v10 = [v8 setIsUserInactive:v122];
   if (v120 == 1)
   {
-    v10 = HealthAlgorithms::deviationAnalysis(v119);
-    [v8 setDeviationAnalysis:v10];
+    v11 = HealthAlgorithms::deviationAnalysis(v119);
+    [v8 setDeviationAnalysis:v11];
   }
 
   if (v159 == 1)
   {
     v96 = retrieve_id_for_core_analytics();
     v160[0] = @"awakeSHRMissingRate";
-    LODWORD(v11) = v138;
-    v92 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+    LODWORD(v12) = v138;
+    v92 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
     v161[0] = v92;
     v160[1] = @"calFWErr";
     if (v127)
     {
-      v12 = v126;
+      v13 = v126;
     }
 
     else
     {
-      v12 = 1000;
+      v13 = 1000;
     }
 
-    v91 = [MEMORY[0x277CCABB0] numberWithInt:v12];
+    v91 = [MEMORY[0x277CCABB0] numberWithInt:v13];
     v161[1] = v91;
     v160[2] = @"currentCycleFactor";
     v90 = [MEMORY[0x277CCABB0] numberWithInt:v132];
@@ -369,15 +388,15 @@
     v160[11] = @"dlFWErr";
     if (v125)
     {
-      v13 = v124;
+      v14 = v124;
     }
 
     else
     {
-      v13 = 1000;
+      v14 = 1000;
     }
 
-    v81 = [MEMORY[0x277CCABB0] numberWithInt:v13];
+    v81 = [MEMORY[0x277CCABB0] numberWithInt:v14];
     v161[11] = v81;
     v160[12] = @"fertileWindowPeriodUpdateCombination";
     v80 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v137];
@@ -419,40 +438,40 @@
     v68 = [MEMORY[0x277CCABB0] numberWithInt:v139];
     v161[24] = v68;
     v160[25] = @"percentile30NightSHRCountOver45Days";
-    v14 = [MEMORY[0x277CCABB0] numberWithInt:v142];
-    v161[25] = v14;
+    v15 = [MEMORY[0x277CCABB0] numberWithInt:v142];
+    v161[25] = v15;
     v160[26] = @"percentile50NightSHRCountOver45Days";
-    v15 = [MEMORY[0x277CCABB0] numberWithInt:v140];
-    v161[26] = v15;
+    v16 = [MEMORY[0x277CCABB0] numberWithInt:v140];
+    v161[26] = v16;
     v160[27] = @"periodPredictionMethod";
-    v16 = [MEMORY[0x277CCABB0] numberWithInt:v130];
-    v161[27] = v16;
+    v17 = [MEMORY[0x277CCABB0] numberWithInt:v130];
+    v161[27] = v17;
     v161[28] = v96;
     v160[28] = @"pseudoDeviceID";
     v160[29] = @"ratioAwakeSedentaryHeartRateCountMoreThan12";
-    LODWORD(v17) = v143;
-    v18 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
-    v161[29] = v18;
+    LODWORD(v18) = v143;
+    v19 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
+    v161[29] = v19;
     v160[30] = @"ratioAwakeSedentaryHeartRateCountMoreThan18";
-    LODWORD(v19) = v144;
-    v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-    v161[30] = v20;
+    LODWORD(v20) = v144;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    v161[30] = v21;
     v160[31] = @"ratioAwakeSedentaryHeartRateCountMoreThan24";
-    LODWORD(v21) = v145;
-    v22 = [MEMORY[0x277CCABB0] numberWithFloat:v21];
-    v161[31] = v22;
+    LODWORD(v22) = v145;
+    v23 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
+    v161[31] = v23;
     v160[32] = @"ratioSleepSedentaryHeartRateCountMoreThan12";
-    LODWORD(v23) = v146;
-    v24 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
-    v161[32] = v24;
+    LODWORD(v24) = v146;
+    v25 = [MEMORY[0x277CCABB0] numberWithFloat:v24];
+    v161[32] = v25;
     v160[33] = @"ratioSleepSedentaryHeartRateCountMoreThan18";
-    LODWORD(v25) = v147;
-    v26 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
-    v161[33] = v26;
+    LODWORD(v26) = v147;
+    v27 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
+    v161[33] = v27;
     v160[34] = @"ratioSleepSedentaryHeartRateCountMoreThan24";
-    LODWORD(v27) = v148;
-    v28 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
-    v161[34] = v28;
+    LODWORD(v28) = v148;
+    v29 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
+    v161[34] = v29;
     v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v161 forKeys:v160 count:35];
 
     *p_var1 = v67;
@@ -460,183 +479,183 @@
 
   else
   {
-    v29 = ha_get_log();
-    v96 = v29;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = ha_get_log(v10);
+    v96 = v30;
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      [MAIDayStreamProcessor analyzeWithMostRecentMenstrualFlowJulianDayUpdated:v29];
+      [MAIDayStreamProcessor analyzeWithMostRecentMenstrualFlowJulianDayUpdated:v30];
     }
   }
 
   if (v120 == 1)
   {
-    v30 = retrieve_id_for_core_analytics();
-    v31 = v121;
+    v31 = retrieve_id_for_core_analytics();
+    v32 = v121;
     userAgeInYears = [(MAIDayStreamProcessor *)selfCopy userAgeInYears];
-    v95->var2 = HealthAlgorithms::deviationAnalysisHIDCoreAnalytics(v119, v30, v31, userAgeInYears);
+    v95->var2 = HealthAlgorithms::deviationAnalysisHIDCoreAnalytics(v119, v31, v32, userAgeInYears);
   }
 
-  v33 = [MEMORY[0x277CBEB18] arrayWithCapacity:{0x4EC4EC4EC4EC4EC5 * ((v100 - __p) >> 3), v67}];
-  v34 = __p;
-  v35 = v100;
+  v34 = [MEMORY[0x277CBEB18] arrayWithCapacity:{0x4EC4EC4EC4EC4EC5 * ((v100 - __p) >> 3), v67}];
+  v35 = __p;
+  v36 = v100;
   if (__p != v100)
   {
     do
     {
-      if (*(v34 + 40) == 1)
+      if (*(v35 + 40) == 1)
       {
-        v36 = objc_opt_new();
-        [v36 setJulianDayOfWindowStart:*v34];
-        if (*(v34 + 40) == 1)
+        v37 = objc_opt_new();
+        [v37 setJulianDayOfWindowStart:*v35];
+        if (*(v35 + 40) == 1)
         {
-          [v36 setStartProbabilityMean:*(v34 + 1)];
-          [v36 setStartProbabilityStdDev:*(v34 + 2)];
+          [v37 setStartProbabilityMean:*(v35 + 1)];
+          [v37 setStartProbabilityStdDev:*(v35 + 2)];
         }
 
-        if (*(v34 + 80) == 1)
+        if (*(v35 + 80) == 1)
         {
-          [v36 setEndProbabilityMean:*(v34 + 6)];
-          [v36 setEndProbabilityStdDev:*(v34 + 7)];
+          [v37 setEndProbabilityMean:*(v35 + 6)];
+          [v37 setEndProbabilityStdDev:*(v35 + 7)];
         }
 
-        [v36 setLowRange:{v34[22], v34[23]}];
-        [v36 setDaysOffsetFromCalendarMethod:v34[24]];
-        v37 = v34[25];
-        if (v37 >= 4)
+        [v37 setLowRange:{v35[22], v35[23]}];
+        [v37 setDaysOffsetFromCalendarMethod:v35[24]];
+        v38 = v35[25];
+        if (v38 >= 4)
         {
-          v38 = 3;
+          v39 = 3;
         }
 
         else
         {
-          v38 = 3 - v37;
+          v39 = 3 - v38;
         }
 
-        [v36 setPredictionPrimarySource:v38];
-        [v33 addObject:v36];
+        [v37 setPredictionPrimarySource:v39];
+        [v34 addObject:v37];
       }
 
-      v34 += 26;
+      v35 += 26;
     }
 
-    while (v34 != v35);
+    while (v35 != v36);
   }
 
-  [v8 setFertilityPredictions:v33];
-  v39 = [MEMORY[0x277CBEB18] arrayWithCapacity:0x4EC4EC4EC4EC4EC5 * ((v98 - v97) >> 3)];
-  v40 = v97;
-  v41 = v98;
+  [v8 setFertilityPredictions:v34];
+  v40 = [MEMORY[0x277CBEB18] arrayWithCapacity:0x4EC4EC4EC4EC4EC5 * ((v98 - v97) >> 3)];
+  v41 = v97;
+  v42 = v98;
   if (v97 != v98)
   {
     do
     {
-      v42 = objc_opt_new();
-      [v42 setJulianDayOfWindowStart:*v40];
-      if (*(v40 + 40) == 1)
+      v43 = objc_opt_new();
+      [v43 setJulianDayOfWindowStart:*v41];
+      if (*(v41 + 40) == 1)
       {
-        [v42 setStartProbabilityMean:*(v40 + 1)];
-        [v42 setStartProbabilityStdDev:*(v40 + 2)];
+        [v43 setStartProbabilityMean:*(v41 + 1)];
+        [v43 setStartProbabilityStdDev:*(v41 + 2)];
       }
 
-      if (*(v40 + 80) == 1)
+      if (*(v41 + 80) == 1)
       {
-        [v42 setEndProbabilityMean:*(v40 + 6)];
-        [v42 setEndProbabilityStdDev:*(v40 + 7)];
+        [v43 setEndProbabilityMean:*(v41 + 6)];
+        [v43 setEndProbabilityStdDev:*(v41 + 7)];
       }
 
-      [v42 setLowRange:{v40[22], v40[23]}];
-      [v42 setDaysOffsetFromCalendarMethod:v40[24]];
-      v43 = v40[25];
-      if (v43 >= 4)
+      [v43 setLowRange:{v41[22], v41[23]}];
+      [v43 setDaysOffsetFromCalendarMethod:v41[24]];
+      v44 = v41[25];
+      if (v44 >= 4)
       {
-        v44 = 3;
+        v45 = 3;
       }
 
       else
       {
-        v44 = 3 - v43;
+        v45 = 3 - v44;
       }
 
-      [v42 setPredictionPrimarySource:v44];
-      [v39 addObject:v42];
+      [v43 setPredictionPrimarySource:v45];
+      [v40 addObject:v43];
 
-      v40 += 26;
+      v41 += 26;
     }
 
-    while (v40 != v41);
+    while (v41 != v42);
   }
 
-  if ((v121 & 1) != 0 && [v39 count])
+  if ((v121 & 1) != 0 && [v40 count])
   {
-    firstObject = [v39 firstObject];
+    firstObject = [v40 firstObject];
     [firstObject setIsOngoingMenstruation:1];
   }
 
-  [v8 setMenstruationPredictions:v39];
-  v46 = objc_opt_new();
-  [v8 setStats:v46];
+  [v8 setMenstruationPredictions:v40];
+  v47 = objc_opt_new();
+  [v8 setStats:v47];
 
   if (v102 == 1)
   {
-    v47 = [MEMORY[0x277CCABB0] numberWithInt:v101];
+    v48 = [MEMORY[0x277CCABB0] numberWithInt:v101];
     stats = [v8 stats];
-    [stats setMedianCycleLength:v47];
+    [stats setMedianCycleLength:v48];
   }
 
   if (v104 == 1)
   {
-    v49 = [MEMORY[0x277CCABB0] numberWithInt:v103];
+    v50 = [MEMORY[0x277CCABB0] numberWithInt:v103];
     stats2 = [v8 stats];
-    [stats2 setMedianMenstruationLength:v49];
+    [stats2 setMedianMenstruationLength:v50];
   }
 
   if (v110 == 1)
   {
-    v51 = [MEMORY[0x277CCABB0] numberWithInt:v109];
+    v52 = [MEMORY[0x277CCABB0] numberWithInt:v109];
     stats3 = [v8 stats];
-    [stats3 setLowerCycleLengthPercentile:v51];
+    [stats3 setLowerCycleLengthPercentile:v52];
   }
 
   if (v106 == 1)
   {
-    v53 = [MEMORY[0x277CCABB0] numberWithInt:v105];
+    v54 = [MEMORY[0x277CCABB0] numberWithInt:v105];
     stats4 = [v8 stats];
-    [stats4 setLowerMenstruationLengthPercentile:v53];
+    [stats4 setLowerMenstruationLengthPercentile:v54];
   }
 
   if (v112 == 1)
   {
-    v55 = [MEMORY[0x277CCABB0] numberWithInt:v111];
+    v56 = [MEMORY[0x277CCABB0] numberWithInt:v111];
     stats5 = [v8 stats];
-    [stats5 setUpperCycleLengthPercentile:v55];
+    [stats5 setUpperCycleLengthPercentile:v56];
   }
 
   if (v108 == 1)
   {
-    v57 = [MEMORY[0x277CCABB0] numberWithInt:v107];
+    v58 = [MEMORY[0x277CCABB0] numberWithInt:v107];
     stats6 = [v8 stats];
-    [stats6 setUpperMenstruationLengthPercentile:v57];
+    [stats6 setUpperMenstruationLengthPercentile:v58];
   }
 
   if (v114 == 1)
   {
-    v59 = [MEMORY[0x277CCABB0] numberWithInt:v113];
+    v60 = [MEMORY[0x277CCABB0] numberWithInt:v113];
     stats7 = [v8 stats];
-    [stats7 setNumberOfCyclesFound:v59];
+    [stats7 setNumberOfCyclesFound:v60];
   }
 
   if (v116 == 1)
   {
-    v61 = [MEMORY[0x277CCABB0] numberWithInt:v115];
+    v62 = [MEMORY[0x277CCABB0] numberWithInt:v115];
     stats8 = [v8 stats];
-    [stats8 setJulianDayOfFirstCycleStart:v61];
+    [stats8 setJulianDayOfFirstCycleStart:v62];
   }
 
   if (v118 == 1)
   {
-    v63 = [MEMORY[0x277CCABB0] numberWithInt:v117];
+    v64 = [MEMORY[0x277CCABB0] numberWithInt:v117];
     stats9 = [v8 stats];
-    [stats9 setJulianDayOfLastCycleStart:v63];
+    [stats9 setJulianDayOfLastCycleStart:v64];
   }
 
   if (__p)
@@ -651,7 +670,6 @@
     operator delete(v97);
   }
 
-  v66 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -665,11 +683,10 @@
 
 - (void)initWithConfig:(os_log_t)log .cold.1(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_fault_impl(&dword_2588F5000, log, OS_LOG_TYPE_FAULT, "age of %f years doesn't make sense: ignoring it", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_fault_impl(&dword_2588F5000, log, OS_LOG_TYPE_FAULT, "age of %f years doesn't make sense: ignoring it", &v2, 0xCu);
 }
 
 @end

@@ -47,7 +47,7 @@
       v25 = geometry3;
       if (geometry3)
       {
-        [geometry3 duration];
+        objc_msgSend_duration(geometry3);
       }
 
       else

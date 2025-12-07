@@ -77,6 +77,7 @@
 - (void)resetPredictedOutputDevice;
 - (void)setApplicationProcessID:(int)d;
 - (void)setCommunicationChannelDelegate:(id)delegate;
+- (void)setMuted:(BOOL)muted;
 - (void)setOutputDevice:(id)device options:(id)options;
 - (void)setOutputDevice:(id)device options:(id)options completionHandler:(id)handler;
 - (void)setOutputDevices:(id)devices;
@@ -347,7 +348,7 @@ id __23__AVOutputContext_impl__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __32__AVOutputContext_outputContext__block_invoke(uint64_t a1)
+void *__32__AVOutputContext_outputContext__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(*(a1 + 32)) initWithOutputContextImpl:{objc_msgSend(objc_msgSend(*(a1 + 32), "defaultOutputContextImplClass"), "platformDependentScreenOrVideoContext")}];
   outputContext_sSharedContext = result;
@@ -391,42 +392,41 @@ uint64_t __32__AVOutputContext_outputContext__block_invoke(uint64_t a1)
 
 + (id)allSharedAudioOutputContexts
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v4 = [objc_msgSend(self "defaultOutputContextImplClass")];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [[self alloc] initWithOutputContextImpl:*(*(&v12 + 1) + 8 * v8)];
+        v9 = [[self alloc] initWithOutputContextImpl:*(*(&v11 + 1) + 8 * v8)];
         [array addObject:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return array;
 }
 
@@ -551,10 +551,10 @@ void *__43__AVOutputContext_getApplicationProcessID___block_invoke(void *result)
 
 - (void)setApplicationProcessID:(int)d
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
-    v11 = 0;
+    v10 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -570,7 +570,6 @@ void *__43__AVOutputContext_getApplicationProcessID___block_invoke(void *result)
   dCopy = d;
   av_readwrite_dispatch_queue_write(ivarAccessQueue, block);
   [-[AVOutputContext impl](self "impl")];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__AVOutputContext_setApplicationProcessID___block_invoke(uint64_t result)
@@ -602,7 +601,7 @@ uint64_t __43__AVOutputContext_setApplicationProcessID___block_invoke(uint64_t r
 
 - (void)setOutputDevice:(id)device options:(id)options completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [options objectForKeyedSubscript:@"AVOutputContextSetOutputDevicePasswordKey"];
   [options objectForKeyedSubscript:@"AVOutputContextSetOutputDeviceCancelIfAuthRequiredKey"];
   [options objectForKeyedSubscript:@"AVOutputContextSetOutputDeviceSuppressUserInteractionOnSenderOnlyKey"];
@@ -614,32 +613,33 @@ uint64_t __43__AVOutputContext_setApplicationProcessID___block_invoke(uint64_t r
   [options objectForKeyedSubscript:@"AVOutputContextSetOutputDeviceFadePlaybackKey"];
   if (dword_1ED6F6B88)
   {
-    v20 = 0;
+    v15 = UpTimeNanoseconds;
+    v18 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
+    UpTimeNanoseconds = v15;
   }
 
-  v14 = [(AVOutputContext *)self impl:v16];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __61__AVOutputContext_setOutputDevice_options_completionHandler___block_invoke;
-  v18[3] = &unk_1E794F290;
-  v18[9] = handler;
-  v18[10] = UpTimeNanoseconds;
-  v18[4] = self;
-  v18[5] = v12;
-  v18[6] = v9;
-  v18[7] = v10;
-  v18[8] = device;
-  [v14 setOutputDevice:device options:options completionHandler:v18];
-  v15 = *MEMORY[0x1E69E9840];
+  impl = [(AVOutputContext *)self impl];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __61__AVOutputContext_setOutputDevice_options_completionHandler___block_invoke;
+  v16[3] = &unk_1E794F290;
+  v16[9] = handler;
+  v16[10] = UpTimeNanoseconds;
+  v16[4] = self;
+  v16[5] = v12;
+  v16[6] = v9;
+  v16[7] = v10;
+  v16[8] = device;
+  [impl setOutputDevice:device options:options completionHandler:v16];
 }
 
 uint64_t __61__AVOutputContext_setOutputDevice_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -652,7 +652,6 @@ uint64_t __61__AVOutputContext_setOutputDevice_options_completionHandler___block
   FigGetUpTimeNanoseconds();
   if (dword_1ED6F6B88)
   {
-    v6 = *(a1 + 80);
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -666,10 +665,9 @@ uint64_t __61__AVOutputContext_setOutputDevice_options_completionHandler___block
   result = *(a1 + 72);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -694,10 +692,10 @@ uint64_t __61__AVOutputContext_setOutputDevice_options_completionHandler___block
 
 - (BOOL)setOutputDevice:(id)device forFeatures:(unint64_t)features
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
-    v20 = 0;
+    v17 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -714,13 +712,13 @@ uint64_t __61__AVOutputContext_setOutputDevice_options_completionHandler___block
   block[4] = self;
   block[5] = features;
   av_readwrite_dispatch_queue_write(ivarAccessQueue, block);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __47__AVOutputContext_setOutputDevice_forFeatures___block_invoke_2;
-  v17[3] = &unk_1E794F2B8;
-  v17[4] = v9;
-  v17[5] = array;
-  [(AVOutputContext *)self setOutputDevice:device options:0 completionHandler:v17];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __47__AVOutputContext_setOutputDevice_forFeatures___block_invoke_2;
+  v14[3] = &unk_1E794F2B8;
+  v14[4] = v9;
+  v14[5] = array;
+  [(AVOutputContext *)self setOutputDevice:device options:0 completionHandler:v14];
   [v9 lock];
   firstObject = [array firstObject];
   if (firstObject)
@@ -735,7 +733,6 @@ uint64_t __61__AVOutputContext_setOutputDevice_options_completionHandler___block
 
   [v9 unlock];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -750,7 +747,7 @@ uint64_t __47__AVOutputContext_setOutputDevice_forFeatures___block_invoke_2(uint
 
 - (void)setOutputDevice:(id)device options:(id)options
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [options objectForKeyedSubscript:@"AVOutputContextSetOutputDevicePasswordKey"];
   [options objectForKeyedSubscript:@"AVOutputContextSetOutputDeviceCancelIfAuthRequiredKey"];
   [options objectForKeyedSubscript:@"AVOutputContextSetOutputDeviceSuppressUserInteractionOnSenderOnlyKey"];
@@ -763,110 +760,102 @@ uint64_t __47__AVOutputContext_setOutputDevice_forFeatures___block_invoke_2(uint
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVOutputContext *)self setOutputDevice:device options:options completionHandler:0, v9, v10];
-  v8 = *MEMORY[0x1E69E9840];
+  [(AVOutputContext *)self setOutputDevice:device options:options completionHandler:0];
 }
 
 + (void)resetOutputDeviceForAllOutputContexts
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
-    v17 = 0;
+    v14 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v14 = 0u;
-  v15 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   defaultOutputContextImplClass = [self defaultOutputContextImplClass];
   v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&defaultOutputContextImplClass count:1];
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v10;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v12 + 1) + 8 * i) resetOutputDeviceForAllOutputContexts];
+        [*(*(&v9 + 1) + 8 * i) resetOutputDeviceForAllOutputContexts];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)outputContextExistsWithRemoteOutputDevice
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   defaultOutputContextImplClass = [self defaultOutputContextImplClass];
   v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&defaultOutputContextImplClass count:1];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v15 count:16];
-  if (v3)
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v14 count:16];
+  if (!v3)
   {
-    v4 = v3;
-    outputContextExistsWithRemoteOutputDevice = 0;
-    v6 = *v11;
-    do
+    return 0;
+  }
+
+  v4 = v3;
+  outputContextExistsWithRemoteOutputDevice = 0;
+  v6 = *v10;
+  do
+  {
+    for (i = 0; i != v4; ++i)
     {
-      for (i = 0; i != v4; ++i)
+      if (*v10 != v6)
       {
-        if (*v11 != v6)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        if (outputContextExistsWithRemoteOutputDevice)
-        {
-          outputContextExistsWithRemoteOutputDevice = 1;
-        }
-
-        else
-        {
-          outputContextExistsWithRemoteOutputDevice = [*(*(&v10 + 1) + 8 * i) outputContextExistsWithRemoteOutputDevice];
-        }
+        objc_enumerationMutation(v2);
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      if (outputContextExistsWithRemoteOutputDevice)
+      {
+        outputContextExistsWithRemoteOutputDevice = 1;
+      }
+
+      else
+      {
+        outputContextExistsWithRemoteOutputDevice = [*(*(&v9 + 1) + 8 * i) outputContextExistsWithRemoteOutputDevice];
+      }
     }
 
-    while (v4);
+    v4 = [v2 countByEnumeratingWithState:&v9 objects:v14 count:16];
   }
 
-  else
-  {
-    outputContextExistsWithRemoteOutputDevice = 0;
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
+  while (v4);
   return outputContextExistsWithRemoteOutputDevice;
 }
 
 - (void)outputContextImpl:(id)impl didInitiateDestinationChange:(id)change
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"AVOutputContextDestinationChangeKey";
-  v11[0] = change;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"AVOutputContextDestinationChangeKey";
+  v8[0] = change;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -874,18 +863,17 @@ uint64_t __47__AVOutputContext_setOutputDevice_forFeatures___block_invoke_2(uint
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v7 = *MEMORY[0x1E69E9840];
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)outputContextImpl:(id)impl didChangeOutputDeviceWithInitiator:(id)initiator
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if (initiator)
   {
-    v10 = @"AVOutputContextDestinationChangeInitiatorKey";
-    v11[0] = initiator;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v7 = @"AVOutputContextDestinationChangeInitiatorKey";
+    v8[0] = initiator;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
@@ -900,13 +888,12 @@ uint64_t __47__AVOutputContext_setOutputDevice_forFeatures___block_invoke_2(uint
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v7 = *MEMORY[0x1E69E9840];
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)outputContextImplDidChangeGlobalOutputDeviceConfiguration:(id)configuration
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (AVOutputContextIsSystemContextAllowed_onceToken != -1)
   {
     AVOutputContextIsSystemContextAllowed_cold_1();
@@ -921,15 +908,13 @@ uint64_t __47__AVOutputContext_setOutputDevice_forFeatures___block_invoke_2(uint
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
+    [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputContextImpl:(id)impl didChangeOutputDevicesWithInitiator:(id)initiator reason:(id)reason deviceID:(id)d previousDeviceIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v13 = dictionary;
   if (initiator)
@@ -959,13 +944,12 @@ uint64_t __47__AVOutputContext_setOutputDevice_forFeatures___block_invoke_2(uint
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v15 = *MEMORY[0x1E69E9840];
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)setOutputDevices:(id)devices
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -973,43 +957,41 @@ uint64_t __47__AVOutputContext_setOutputDevice_forFeatures___block_invoke_2(uint
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVOutputContext *)self setOutputDevices:devices options:0 completionHandler:0, v7, v8];
-  v6 = *MEMORY[0x1E69E9840];
+  [(AVOutputContext *)self setOutputDevices:devices options:0 completionHandler:0];
 }
 
 - (void)setOutputDevices:(id)devices options:(id)options completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   UpTimeNanoseconds = FigGetUpTimeNanoseconds();
   v10 = [devices description];
   [options objectForKeyedSubscript:@"AVOutputContextSetOutputDevicesOptionFadePlayback"];
   if (dword_1ED6F6B88)
   {
-    v18 = 0;
+    v15 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v12 = [(AVOutputContext *)self impl:v14];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __62__AVOutputContext_setOutputDevices_options_completionHandler___block_invoke;
-  v16[3] = &unk_1E794F2E0;
-  v16[4] = self;
-  v16[5] = v10;
-  v16[6] = options;
-  v16[7] = devices;
-  v16[8] = handler;
-  v16[9] = UpTimeNanoseconds;
-  [v12 setOutputDevices:devices options:options completionHandler:v16];
-  v13 = *MEMORY[0x1E69E9840];
+  impl = [(AVOutputContext *)self impl];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __62__AVOutputContext_setOutputDevices_options_completionHandler___block_invoke;
+  v13[3] = &unk_1E794F2E0;
+  v13[4] = self;
+  v13[5] = v10;
+  v13[6] = options;
+  v13[7] = devices;
+  v13[8] = handler;
+  v13[9] = UpTimeNanoseconds;
+  [impl setOutputDevices:devices options:options completionHandler:v13];
 }
 
 uint64_t __62__AVOutputContext_setOutputDevices_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1022,8 +1004,7 @@ uint64_t __62__AVOutputContext_setOutputDevices_options_completionHandler___bloc
   FigGetUpTimeNanoseconds();
   if (dword_1ED6F6B88)
   {
-    v6 = *(a1 + 72);
-    v23 = 0;
+    v19 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -1032,52 +1013,51 @@ uint64_t __62__AVOutputContext_setOutputDevices_options_completionHandler___bloc
 
   if ([a2 status] == 2 && (objc_msgSend(objc_msgSend(*(a1 + 32), "outputContextType"), "isEqualToString:", @"AVOutputContextTypeGroupControl") & 1) == 0 && (objc_msgSend(objc_msgSend(*(a1 + 32), "outputContextType"), "isEqualToString:", @"AVOutputContextTypeSharedSystemRemotePool") & 1) == 0)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v8 = *(a1 + 56);
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
-    if (v9)
+    v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v7 = *(a1 + 56);
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v20 count:16];
+    if (v8)
     {
-      v10 = v9;
-      v11 = *v19;
+      v9 = v8;
+      v10 = *v15;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v11)
+          if (*v15 != v10)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          if ([v13 ID])
+          v12 = *(*(&v14 + 1) + 8 * i);
+          if ([v12 ID])
           {
-            [v13 updateFrecencyScore];
+            [v12 updateFrecencyScore];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v20 count:16];
       }
 
-      while (v10);
+      while (v9);
     }
   }
 
   result = *(a1 + 64);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)addOutputDevice:(id)device options:(id)options completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [options objectForKeyedSubscript:@"AVOutputContextAddOutputDeviceOptionAuthorizationToken"];
   [options objectForKeyedSubscript:@"AVOutputContextAddOutputDeviceCancelIfAuthRequiredKey"];
   v9 = [options objectForKeyedSubscript:@"AVOutputContextAddOutputDeviceOptionInitiator"];
@@ -1087,32 +1067,33 @@ uint64_t __62__AVOutputContext_setOutputDevices_options_completionHandler___bloc
   [options objectForKeyedSubscript:@"AVOutputContextAddOutputDeviceOptionFadePlayback"];
   if (dword_1ED6F6B88)
   {
-    v20 = 0;
+    v15 = v9;
+    v18 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
+    v9 = v15;
   }
 
-  v14 = [(AVOutputContext *)self impl:v16];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __61__AVOutputContext_addOutputDevice_options_completionHandler___block_invoke;
-  v18[3] = &unk_1E794F290;
-  v18[9] = handler;
-  v18[10] = UpTimeNanoseconds;
-  v18[4] = self;
-  v18[5] = v12;
-  v18[6] = v9;
-  v18[7] = v10;
-  v18[8] = device;
-  [v14 addOutputDevice:device options:options completionHandler:v18];
-  v15 = *MEMORY[0x1E69E9840];
+  impl = [(AVOutputContext *)self impl];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __61__AVOutputContext_addOutputDevice_options_completionHandler___block_invoke;
+  v16[3] = &unk_1E794F290;
+  v16[9] = handler;
+  v16[10] = UpTimeNanoseconds;
+  v16[4] = self;
+  v16[5] = v12;
+  v16[6] = v9;
+  v16[7] = v10;
+  v16[8] = device;
+  [impl addOutputDevice:device options:options completionHandler:v16];
 }
 
 uint64_t __61__AVOutputContext_addOutputDevice_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1125,7 +1106,6 @@ uint64_t __61__AVOutputContext_addOutputDevice_options_completionHandler___block
   FigGetUpTimeNanoseconds();
   if (dword_1ED6F6B88)
   {
-    v6 = *(a1 + 80);
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1139,16 +1119,15 @@ uint64_t __61__AVOutputContext_addOutputDevice_options_completionHandler___block
   result = *(a1 + 72);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)addOutputDevice:(id)device
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1156,42 +1135,40 @@ uint64_t __61__AVOutputContext_addOutputDevice_options_completionHandler___block
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVOutputContext *)self addOutputDevice:device options:0 completionHandler:0, v7, v8];
-  v6 = *MEMORY[0x1E69E9840];
+  [(AVOutputContext *)self addOutputDevice:device options:0 completionHandler:0];
 }
 
 - (void)removeOutputDevice:(id)device options:(id)options completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   UpTimeNanoseconds = FigGetUpTimeNanoseconds();
   v10 = [device description];
   [options objectForKeyedSubscript:@"AVOutputContextRemoveOutputDeviceOptionFadePlayback"];
   if (dword_1ED6F6B88)
   {
-    v18 = 0;
+    v15 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v12 = [(AVOutputContext *)self impl:v14];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __64__AVOutputContext_removeOutputDevice_options_completionHandler___block_invoke;
-  v16[3] = &unk_1E794F308;
-  v16[7] = handler;
-  v16[8] = UpTimeNanoseconds;
-  v16[4] = self;
-  v16[5] = v10;
-  v16[6] = options;
-  [v12 removeOutputDevice:device options:options completionHandler:v16];
-  v13 = *MEMORY[0x1E69E9840];
+  impl = [(AVOutputContext *)self impl];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __64__AVOutputContext_removeOutputDevice_options_completionHandler___block_invoke;
+  v13[3] = &unk_1E794F308;
+  v13[7] = handler;
+  v13[8] = UpTimeNanoseconds;
+  v13[4] = self;
+  v13[5] = v10;
+  v13[6] = options;
+  [impl removeOutputDevice:device options:options completionHandler:v13];
 }
 
 uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1204,7 +1181,6 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   FigGetUpTimeNanoseconds();
   if (dword_1ED6F6B88)
   {
-    v6 = *(a1 + 64);
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1213,16 +1189,15 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   result = *(a1 + 56);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)removeOutputDevice:(id)device
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1230,13 +1205,12 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVOutputContext *)self removeOutputDevice:device options:0 completionHandler:0, v7, v8];
-  v6 = *MEMORY[0x1E69E9840];
+  [(AVOutputContext *)self removeOutputDevice:device options:0 completionHandler:0];
 }
 
 - (void)outputContextImplDidChangePredictedOutputDevice:(id)device
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1245,12 +1219,11 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetPredictedOutputDevice
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1258,13 +1231,12 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [-[AVOutputContext impl](self impl];
-  v4 = *MEMORY[0x1E69E9840];
+  [-[AVOutputContext impl](self "impl")];
 }
 
 - (void)outputContextImplDidChangeProvidesControlForAllVolumeFeatures:(id)features
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1273,7 +1245,6 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (float)volume
@@ -1286,7 +1257,7 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
 
 - (void)outputContextImplDidChangeVolume:(id)volume
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1295,12 +1266,11 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputContextImplDidChangeCanSetVolume:(id)volume
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1309,12 +1279,11 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputContextImplDidChangeCanMute:(id)mute
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1323,12 +1292,11 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputContextImplDidChangeMute:(id)mute
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1337,7 +1305,6 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setVolume:(float)volume
@@ -1376,9 +1343,17 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   return [impl isMuted];
 }
 
+- (void)setMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  impl = [(AVOutputContext *)self impl];
+
+  [impl setMuted:mutedCopy];
+}
+
 - (void)outputContextImplDidChangeVolumeControlType:(id)type
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1387,7 +1362,6 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)outgoingCommunicationChannel
@@ -1399,7 +1373,7 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
 
 - (id)openCommunicationChannelWithOptions:(id)options error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1407,14 +1381,12 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = [-[AVOutputContext impl](self impl];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [-[AVOutputContext impl](self "impl")];
 }
 
 - (void)setCommunicationChannelDelegate:(id)delegate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1423,12 +1395,11 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
   }
 
   objc_storeWeak(&self->_outputContext->communicationChannelDelegate, delegate);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputContextImplOutgoingCommunicationChannelDidBecomeAvailable:(id)available
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   communicationChannelDelegate = [(AVOutputContext *)self communicationChannelDelegate];
   if (objc_opt_respondsToSelector())
   {
@@ -1439,7 +1410,7 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [communicationChannelDelegate outputContextOutgoingCommunicationChannelDidBecomeAvailable:{self, v8, v9}];
+    [communicationChannelDelegate outputContextOutgoingCommunicationChannelDidBecomeAvailable:self];
   }
 
   else if (dword_1ED6F6B88)
@@ -1448,13 +1419,11 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
     os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputContextImpl:(id)impl didReceiveData:(id)data fromCommunicationChannel:(id)channel
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   communicationChannelDelegate = [(AVOutputContext *)self communicationChannelDelegate];
   if (objc_opt_respondsToSelector())
   {
@@ -1465,7 +1434,7 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [communicationChannelDelegate outputContext:self didReceiveData:data fromCommunicationChannel:{channel, v12, v13}];
+    [communicationChannelDelegate outputContext:self didReceiveData:data fromCommunicationChannel:channel];
   }
 
   else if (dword_1ED6F6B88)
@@ -1474,13 +1443,11 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
     os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputContextImpl:(id)impl didCloseCommunicationChannel:(id)channel
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   communicationChannelDelegate = [(AVOutputContext *)self communicationChannelDelegate];
   if (objc_opt_respondsToSelector())
   {
@@ -1491,7 +1458,7 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [communicationChannelDelegate outputContext:self didCloseCommunicationChannel:{channel, v10, v11}];
+    [communicationChannelDelegate outputContext:self didCloseCommunicationChannel:channel];
   }
 
   else if (dword_1ED6F6B88)
@@ -1500,8 +1467,6 @@ uint64_t __64__AVOutputContext_removeOutputDevice_options_completionHandler___bl
     os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputContextImpl:(id)impl didExpireWithReplacement:(id)replacement
@@ -1558,7 +1523,6 @@ LABEL_11:
     if (CFArrayGetCount(theArray) >= 1)
     {
       v11 = 0;
-      v12 = *MEMORY[0x1E69AF188];
       do
       {
         CFArrayGetValueAtIndex(theArray, v11);

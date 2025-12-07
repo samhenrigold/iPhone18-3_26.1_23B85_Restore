@@ -5,7 +5,7 @@
 
 void ___MRHandlePlaybackQueueRequest_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -17,26 +17,26 @@ void ___MRHandlePlaybackQueueRequest_block_invoke(uint64_t a1, void *a2, void *a
     {
       [*(a1 + 40) invalidatationTimestamp];
       v10 = v9;
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       v11 = [v5 contentItems];
-      v12 = [v11 countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v32 objects:v44 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v34;
+        v14 = *v33;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v34 != v14)
+            if (*v33 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v33 + 1) + 8 * i);
+            v16 = *(*(&v32 + 1) + 8 * i);
             v17 = [v16 metadata];
 
             if (v17 && MRContentItemGetInferredTimestamp(v16) == 0.0)
@@ -45,7 +45,7 @@ void ___MRHandlePlaybackQueueRequest_block_invoke(uint64_t a1, void *a2, void *a
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v33 objects:v45 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v32 objects:v44 count:16];
         }
 
         while (v13);
@@ -87,11 +87,11 @@ void ___MRHandlePlaybackQueueRequest_block_invoke(uint64_t a1, void *a2, void *a
         v26 = [MEMORY[0x1E695DF00] date];
         [v26 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138543874;
-        v38 = @"MRHandlePlaybackQueueRequest";
-        v39 = 2114;
-        v40 = v25;
-        v41 = 2048;
-        v42 = v31;
+        v37 = @"MRHandlePlaybackQueueRequest";
+        v38 = 2114;
+        v39 = v25;
+        v40 = 2048;
+        v41 = v31;
         v28 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v29 = v24;
         v30 = 32;
@@ -105,13 +105,13 @@ void ___MRHandlePlaybackQueueRequest_block_invoke(uint64_t a1, void *a2, void *a
       v26 = [MEMORY[0x1E695DF00] date];
       [v26 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v38 = @"MRHandlePlaybackQueueRequest";
-      v39 = 2114;
-      v40 = v25;
-      v41 = 2112;
-      v42 = v5;
-      v43 = 2048;
-      v44 = v27;
+      v37 = @"MRHandlePlaybackQueueRequest";
+      v38 = 2114;
+      v39 = v25;
+      v40 = 2112;
+      v41 = v5;
+      v42 = 2048;
+      v43 = v27;
       v28 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v29 = v24;
       v30 = 42;
@@ -123,8 +123,6 @@ LABEL_27:
   }
 
   (*(*(a1 + 64) + 16))();
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void ___MRHandlePlaybackQueueRequest_block_invoke_100(id *a1)
@@ -180,15 +178,12 @@ void ___MRHandlePlaybackQueueRequest_block_invoke_2(void *a1, void *a2, void *a3
 
 void ___MRHandlePlaybackQueueRequest_block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 48) requestIdentifier];
   v3 = [MEMORY[0x1E695DF00] date];
   [v3 timeIntervalSinceDate:*(a1 + 56)];
   OUTLINED_FUNCTION_2_14();
   OUTLINED_FUNCTION_4_11();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

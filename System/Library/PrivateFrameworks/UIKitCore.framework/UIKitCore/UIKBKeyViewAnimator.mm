@@ -513,7 +513,7 @@ uint64_t __58__UIKBKeyViewAnimator__fadeInKeyView_duration_completion___block_in
   pathCopy = path;
   v11 = [v7 animationWithKeyPath:pathCopy];
   [v11 setBeginTime:1.0e-100];
-  LODWORD(v7) = [pathCopy isEqualToString:@"opacity"];
+  LODWORD(v7) = objc_msgSend_isEqualToString_(pathCopy);
 
   v12 = 0.4;
   if (!v7)

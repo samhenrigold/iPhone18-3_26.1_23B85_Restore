@@ -1,4 +1,4 @@
-BOOL std::__insertion_sort_incomplete[abi:fn200100]<std::_ClassicAlgPolicy,std::greater<long> &,long *>(void *a1, uint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:fn200100]<std::_ClassicAlgPolicy,std::greater<long> &,long *>(uint64_t *a1, uint64_t *a2)
 {
   v2 = a2 - a1;
   if (v2 > 2)
@@ -603,24 +603,25 @@ uint64_t *std::vector<long,TInlineBufferAllocator<long,30ul>>::__insert_with_siz
     v16 = 8 * a4;
     do
     {
-      v17 = *v5++;
+      v17 = *v5;
+      v5 += 8;
       *v14++ = v17;
       v16 -= 8;
     }
 
     while (v16);
     *&v38 = v15;
-    memcpy(v15, 0, *(v6 + 8));
+    memcpy(v15, 0, v6[1]);
     v18 = *(&v37 + 1);
     v19 = *v6;
-    *&v38 = v38 + *(v6 + 8);
-    *(v6 + 8) = 0;
+    *&v38 = v38 + v6[1];
+    v6[1] = 0;
     v20 = (v18 + v19);
     memcpy((v18 + v19), v19, -v19);
     v21 = *v6;
     *v6 = v20;
-    v22 = *(v6 + 16);
-    *(v6 + 8) = v38;
+    v22 = v6[2];
+    *(v6 + 1) = v38;
     *&v38 = v21;
     *(&v38 + 1) = v22;
     *&v37 = v21;
@@ -668,13 +669,13 @@ uint64_t *std::vector<long,TInlineBufferAllocator<long,30ul>>::__insert_with_siz
     v26 = *v23;
     v23 += 8;
     *v25++ = v26;
-    ++v24;
+    v24 += 8;
   }
 
   result[1] = v24;
   if (v8 >> 3 >= 1)
   {
-    v31 = &v24[-a4];
+    v31 = v24 - 8 * a4;
     if (v31 >= v8)
     {
       v33 = v24;
@@ -682,7 +683,7 @@ uint64_t *std::vector<long,TInlineBufferAllocator<long,30ul>>::__insert_with_siz
 
     else
     {
-      v32 = &v24[-a4];
+      v32 = (v24 - 8 * a4);
       v33 = v24;
       do
       {
@@ -1456,7 +1457,7 @@ LABEL_85:
 
     if (v50 >= *(v14 + 8 * *(a2 - 1)))
     {
-      v67 = v10 + 1;
+      v67 = (v10 + 1);
       do
       {
         v10 = v67;
@@ -1465,7 +1466,7 @@ LABEL_85:
           break;
         }
 
-        ++v67;
+        v67 += 8;
         v15 = *(v14 + 8 * *v10);
       }
 
@@ -2284,7 +2285,7 @@ unint64_t TAATKerxEngine::KernRuns(TRunGlue **a1, _BYTE *a2, int *a3)
   }
 
   v6 = v4[11];
-  v7 = *(v6 + 4);
+  v7 = *(v6 + 1);
   if (!v7)
   {
     return 1;
@@ -2293,8 +2294,8 @@ unint64_t TAATKerxEngine::KernRuns(TRunGlue **a1, _BYTE *a2, int *a3)
   v8 = bswap32(v7);
   v9 = v6 + 8;
   v10 = *v4;
-  v11 = *(*v4 + 520);
-  v12 = *(*v4 + 528);
+  v11 = *(*v4 + 65);
+  v12 = *(*v4 + 66);
   v4[1] = v11;
   v4[2] = v12;
   if (*(v10 + 516) == 1)
@@ -2330,10 +2331,10 @@ unint64_t TAATKerxEngine::KernRuns(TRunGlue **a1, _BYTE *a2, int *a3)
     if (v19 || (v20 = v9 + bswap32(*v9), v20 > v17))
     {
 LABEL_263:
-      v180 = TFont::DebugDescription(*(*v4 + 496));
+      v180 = TFont::DebugDescription(*(*v4 + 62));
       CFLog();
 
-      v179 = *(*(*v4 + 496) + 408);
+      v179 = *(*(*v4 + 62) + 408);
       (*(*v179 + 496))(v179);
       result = 0;
       v4[11] = 0;
@@ -2362,7 +2363,7 @@ LABEL_263:
       v186 = v13;
       if (v13 < (v4[15] - v23) >> 3)
       {
-        v24 = *(v23 + 8 * v13);
+        v24 = *(v23 + v13);
         if (v24)
         {
           v25 = TRunGlue::CoveredByBitmap(*v4, v24, *(*v4 + 8));
@@ -2393,7 +2394,7 @@ LABEL_263:
           v27 = bswap32(*v18);
           if (!v4[48])
           {
-            InitializedGraphicsFont = *(*(*v4 + 496) + 408);
+            InitializedGraphicsFont = *(*(*v4 + 62) + 408);
             if (InitializedGraphicsFont)
             {
               InitializedGraphicsFont = TBaseFont::GetInitializedGraphicsFont(InitializedGraphicsFont);
@@ -3052,7 +3053,7 @@ LABEL_247:
 
         *&v216[32] = v101;
         v103 = *v4;
-        v104 = *(*v4 + 16);
+        v104 = *(*v4 + 2);
         v105 = TAATKerxEngine::KerxOrderedList::ProcessGlyphsT<TRunGlue::TGlyphInVector>;
         if (v104)
         {
@@ -3262,7 +3263,7 @@ LABEL_262:
         {
           v195 = *(&v197 + 1);
           *&v196 = &v195;
-          v87 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>((v213 + 6), &v195);
+          v87 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>((v213 + 6), &v195, &std::piecewise_construct, &v196);
           *&v15 = 0xAAAAAAAAAAAAAAAALL;
           *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
           *(v87 + 42) = 1;
@@ -3407,24 +3408,24 @@ LABEL_5:
   os_unfair_lock_unlock((v5 + 424));
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
-void TAATKerxEngine::ProcessKerxIndexArrayWithTupleScalars(TAATKerxEngine *a1, uint64_t a2, void **a3, unsigned int a4, double *a5, _BYTE *a6)
+void TAATKerxEngine::ProcessKerxIndexArrayWithTupleScalars(TAATKerxEngine *a1, uint64_t a2, TRunGlue ***a3, unsigned int a4, double *a5, _BYTE *a6)
 {
   if (a4)
   {
@@ -3728,10 +3729,10 @@ void TAATKerxEngine::ProcessKerxIndexArrayWithTupleScalars(TAATKerxEngine *a1, u
 
           if (v33 + v25)
           {
-            v36 = a3[19] + (v33 + v25);
+            v36 = (a3[19] + 2 * (v33 + v25));
             v37 = a3[2];
             v38 = a3[3];
-            v39 = v37 > v36 || (v36 + 1) > v38;
+            v39 = v37 > v36 || v36 + 2 > v38;
             v40 = !v39;
             if (a4)
             {
@@ -3946,11 +3947,11 @@ LABEL_39:
       if ((*(v3 + 35) & 0x40) != 0)
       {
         v52 = v9;
-        v54[0] = v13;
-        v54[2] = v54;
+        v54 = v13;
+        v55 = &v54;
         v41 = (v37 + 6);
         v42 = v14;
-        v43 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(v41, v54);
+        v43 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(v41, &v54, v14, &v55);
         v14 = v42;
         if (v23 == 0x8000)
         {
@@ -4182,9 +4183,9 @@ LABEL_40:
       v34 = *a1;
       if ((*(a1 + 35) & 0x40) != 0)
       {
-        v49[0] = v11;
-        v49[2] = v49;
-        v38 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>((v34 + 6), v49);
+        v49 = v11;
+        v50 = &v49;
+        v38 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>((v34 + 6), &v49, &std::piecewise_construct, &v50);
         if (v20 == 0x8000)
         {
           *(v38 + 42) = 1;
@@ -4265,15 +4266,15 @@ LABEL_40:
   }
 }
 
-void TAATKerxEngine::KerxOrderedList::ProcessGlyphsT<TRunGlue::TGlyph>(void **a1, _BYTE *a2)
+void TAATKerxEngine::KerxOrderedList::ProcessGlyphsT<TRunGlue::TGlyph>(void **result, _BYTE *a2)
 {
-  if (!a1[8])
+  if (!result[8])
   {
     return;
   }
 
-  v4 = a1[2];
-  v33 = **a1;
+  v4 = result[2];
+  v33 = **result;
   v34 = 0;
   v5 = TRunGlue::length(v33);
   v6 = TRunGlue::TGlyph::glyphID(&v33);
@@ -4295,12 +4296,12 @@ void TAATKerxEngine::KerxOrderedList::ProcessGlyphsT<TRunGlue::TGlyph>(void **a1
       goto LABEL_7;
     }
 
-    if (*(a1 + 29) >= v7)
+    if (*(result + 29) >= v7)
     {
-      if (*(a1[8] + v7))
+      if (*(result[8] + v7))
       {
-        v12 = *(a1 + 28);
-        if (v12 > (*(a1[8] + v7) - 1))
+        v12 = *(result + 28);
+        if (v12 > (*(result[8] + v7) - 1))
         {
           break;
         }
@@ -4317,7 +4318,7 @@ LABEL_7:
     }
   }
 
-  v13 = *(a1[8] + v7) - 1;
+  v13 = *(result[8] + v7) - 1;
   v14 = &v9[6 * v13];
   while (1)
   {
@@ -4353,19 +4354,19 @@ LABEL_20:
     goto LABEL_7;
   }
 
-  v17 = a1[9];
-  v18 = a1[10];
+  v17 = result[9];
+  v18 = result[10];
   v19 = bswap32(v16[2]) >> 16;
   if (v17 == v18)
   {
     goto LABEL_41;
   }
 
-  v20 = a1[2];
-  v21 = a1[1] + v19;
+  v20 = result[2];
+  v21 = result[1] + v19;
   v22 = v18 - v17;
   v23 = v18 - v17;
-  v24 = a1[3];
+  v24 = result[3];
   v25 = &v21[v22 >> 2];
   v27 = v20 > v21 || v25 < v21 || v25 > v24;
   if (!v27)
@@ -4403,7 +4404,7 @@ LABEL_38:
 LABEL_41:
     if (v19)
     {
-      TAATKerxEngine::HandleKern<TRunGlue::TGlyph>(*a1, v33, v34, v19, *(a1 + 8));
+      TAATKerxEngine::HandleKern<TRunGlue::TGlyph>(*result, v33, v34, v19, *(result + 8));
       *a2 = 1;
     }
 
@@ -4411,7 +4412,7 @@ LABEL_41:
   }
 }
 
-void *std::__split_buffer<unsigned char const*,TInlineBufferAllocator<unsigned char const*,30ul> &>::__split_buffer(void *a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__split_buffer<unsigned char const*,TInlineBufferAllocator<unsigned char const*,30ul> &>::__split_buffer(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   a1[3] = 0;
   a1[4] = a4;
@@ -4697,18 +4698,18 @@ void TAATKerxEngine::HandleKern<TRunGlue::TGlyph>(void *a1, uint64_t a2, uint64_
   v5 = a4;
   if ((a5 & 0x40000000) != 0)
   {
-    v22[0] = a3;
-    v22[2] = v22;
+    v22 = a3;
+    v23 = &v22;
     if (a4 == -32768)
     {
-      v11 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>((a1 + 6), v22);
+      v11 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>((a1 + 6), &v22, &std::piecewise_construct, &v23);
       *(v11 + 42) = 1;
       *(v11 + 20) = 0;
     }
 
     else
     {
-      v19 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>((a1 + 6), v22);
+      v19 = std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>((a1 + 6), &v22, &std::piecewise_construct, &v23);
       *(v19 + 20) += v5;
     }
   }
@@ -4772,48 +4773,48 @@ void TAATKerxEngine::HandleKern<TRunGlue::TGlyph>(void *a1, uint64_t a2, uint64_
   }
 }
 
-void *std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(uint64_t a1, uint64_t *a2)
+void *std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(uint64_t a1, uint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<long,TAATDeltaYListEntry>,std::__map_value_compare<long,std::__value_type<long,TAATDeltaYListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TAATDeltaYListEntry>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -5092,7 +5093,7 @@ uint64_t Provider(uint64_t a1, uint64_t *a2, const __CFDictionary **a3, void *a4
   return *a4 + 2 * a1;
 }
 
-uint64_t std::vector<unsigned char,TInlineBufferAllocator<unsigned char,4ul>>::__vallocate[abi:fn200100](void *a1, uint64_t a2)
+uint64_t std::vector<unsigned char,TInlineBufferAllocator<unsigned char,4ul>>::__vallocate[abi:fn200100](uint64_t *a1, uint64_t a2)
 {
   if (a2 < 0)
   {
@@ -5112,7 +5113,7 @@ uint64_t std::vector<unsigned char,TInlineBufferAllocator<unsigned char,4ul>>::_
   return result;
 }
 
-uint64_t std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__vallocate[abi:fn200100](void *a1, uint64_t a2)
+uint64_t std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__vallocate[abi:fn200100](uint64_t *a1, uint64_t a2)
 {
   if (a2 < 0)
   {
@@ -5199,7 +5200,7 @@ __CFString *TCFBase<TRun>::ClassDebug(uint64_t a1)
 
 void TCFBase_NEW<CTGlyphRun,TRun const&>(const TRun *a1@<X0>, void *a2@<X8>)
 {
-  v4 = TCFBase<TRun>::Allocate();
+  v4 = TCFBase<TRun>::Allocate(392);
   v5 = v4;
   if (v4)
   {
@@ -5218,7 +5219,7 @@ void TCFBase_NEW<CTGlyphRun,TRun const&>(const TRun *a1@<X0>, void *a2@<X8>)
 
 void *TCFBase_NEW<CTGlyphRun,TRun const&,CFRange &,TRun::SubrangingStyle &>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, int *a3@<X2>, void *a4@<X8>)
 {
-  result = TCFBase<TRun>::Allocate();
+  result = TCFBase<TRun>::Allocate(392);
   v9 = result;
   if (result)
   {
@@ -5239,7 +5240,7 @@ void *TCFBase_NEW<CTGlyphRun,TRun const&,CFRange &,TRun::SubrangingStyle &>@<X0>
   return result;
 }
 
-unint64_t emoji_compression_decode(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, char a5, uint8_t *a6, _WORD *a7)
+unint64_t emoji_compression_decode(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint8_t *a6, _WORD *a7)
 {
   v7 = a2 - 12;
   if (a2 < 0xC)
@@ -5279,6 +5280,7 @@ unint64_t emoji_compression_decode(uint64_t a1, unint64_t a2, uint64_t a3, unint
     return 0;
   }
 
+  v15 = a5;
   v16 = a6;
   if (!a6)
   {
@@ -5294,7 +5296,7 @@ unint64_t emoji_compression_decode(uint64_t a1, unint64_t a2, uint64_t a3, unint
   v20[1] = v12;
   v20[2] = v13;
   v20[3] = 4 * v13;
-  v18 = vImageCompressionDecode_BGRA8888(a1 + 12, v7, v20, a5, v16);
+  v18 = vImageCompressionDecode_BGRA8888(a1 + 12, v7, v20, v15, v16);
   if (!a6)
   {
     free(v16);
@@ -5382,14 +5384,14 @@ void TGlyphEncoder::AppendRunClone(uint64_t a1, atomic_ullong *a2, uint64_t a3, 
   }
 }
 
-void *TCFBase_NEW<CTRubyRun,CTRun *&,BOOL>@<X0>(uint64_t *a1@<X0>, char *a2@<X1>, void *a3@<X8>)
+void *TCFBase_NEW<CTRubyRun,CTRun *&,BOOL>@<X0>(void *a1@<X8>, uint64_t *a2@<X0>, char *a3@<X1>)
 {
-  result = TCFBase<TRun>::Allocate();
+  result = TCFBase<TRun>::Allocate(848);
   v7 = result;
   if (result)
   {
-    v8 = *a1;
-    v9 = *a2;
+    v8 = *a2;
+    v9 = *a3;
     result[2] = 0;
     result[3] = 0;
     result[4] = 0;
@@ -5400,17 +5402,17 @@ void *TCFBase_NEW<CTRubyRun,CTRun *&,BOOL>@<X0>(uint64_t *a1@<X0>, char *a2@<X1>
     result = TRubyRun::TRubyRun((result + 9), v8, v9);
   }
 
-  *a3 = v7;
+  *a1 = v7;
   return result;
 }
 
-void *TCFBase_NEW<CTTateChuYokoRun,CTRun *&>@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *TCFBase_NEW<CTTateChuYokoRun,CTRun *&>@<X0>(void *a1@<X8>, uint64_t *a2@<X0>)
 {
-  result = TCFBase<TRun>::Allocate();
+  result = TCFBase<TRun>::Allocate(416);
   v5 = result;
   if (result)
   {
-    v6 = *a1;
+    v6 = *a2;
     result[2] = 0;
     result[3] = 0;
     result[4] = 0;
@@ -5421,13 +5423,13 @@ void *TCFBase_NEW<CTTateChuYokoRun,CTRun *&>@<X0>(uint64_t *a1@<X0>, void *a2@<X
     result = TTateChuYokoRun::TTateChuYokoRun((result + 9), v6);
   }
 
-  *a2 = v5;
+  *a1 = v5;
   return result;
 }
 
 void *TCFBase_NEW<CTTextEncapsulationRun,CTRun *&>(void *a1, uint64_t *a2)
 {
-  result = TCFBase<TRun>::Allocate();
+  result = TCFBase<TRun>::Allocate(464);
   v5 = result;
   if (result)
   {
@@ -5451,7 +5453,7 @@ void TGlyphEncoder::CreateRun(atomic_ullong *this, CFRange a2, const TAttributes
   length = a2.length;
   location = a2.location;
   *this = 0xAAAAAAAAAAAAAAAALL;
-  v11 = TCFBase<TRun>::Allocate();
+  v11 = TCFBase<TRun>::Allocate(392);
   v12 = v11;
   if (v11)
   {
@@ -5560,7 +5562,7 @@ uint64_t std::__function::__value_func<void ()(CFRange,unsigned int,BOOL *)>::~_
 
 void CTEmojiImageRun::CloneEntire(void *a1@<X0>, void *a2@<X8>)
 {
-  v4 = TCFBase<TRun>::Allocate();
+  v4 = TCFBase<TRun>::Allocate(408);
   v5 = v4;
   if (v4)
   {
@@ -5583,7 +5585,7 @@ void CTEmojiImageRun::CloneEntire(void *a1@<X0>, void *a2@<X8>)
 
 void CTEmojiImageRun::CloneRange(uint64_t a1@<X0>, uint64_t a2@<X1>, CFIndex a3@<X2>, int a4@<W3>, void *a5@<X8>)
 {
-  v10 = TCFBase<TRun>::Allocate();
+  v10 = TCFBase<TRun>::Allocate(408);
   v11 = v10;
   if (v10)
   {
@@ -5606,7 +5608,7 @@ void CTEmojiImageRun::CloneRange(uint64_t a1@<X0>, uint64_t a2@<X1>, CFIndex a3@
 
 void CTMetricsDelegateRun::CloneEntire(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = TCFBase<TRun>::Allocate();
+  v4 = TCFBase<TRun>::Allocate(392);
   v5 = v4;
   if (v4)
   {
@@ -5627,7 +5629,7 @@ void CTMetricsDelegateRun::CloneEntire(uint64_t a1@<X0>, void *a2@<X8>)
 
 void CTMetricsDelegateRun::CloneRange(uint64_t a1@<X0>, uint64_t a2@<X1>, CFIndex a3@<X2>, int a4@<W3>, void *a5@<X8>)
 {
-  v10 = TCFBase<TRun>::Allocate();
+  v10 = TCFBase<TRun>::Allocate(392);
   v11 = v10;
   if (v10)
   {
@@ -5652,18 +5654,18 @@ void CTRubyRun::CloneEntire(uint64_t a1@<X0>, void *a2@<X8>)
   *a2 = atomic_exchange(&v3, 0);
 }
 
-void CTRubyRun::CloneRange(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, void *a5@<X8>)
+void CTRubyRun::CloneRange(uint64_t a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, int a4@<W3>, void *a5@<X8>)
 {
   v8[0] = a2;
   v8[1] = a3;
   v7 = a4;
-  TCFBase_NEW<CTRubyRun,TRubyRun const&,CFRange &,TRun::SubrangingStyle &>(a1 + 72, v8, &v7, &v6);
+  TCFBase_NEW<CTRubyRun,TRubyRun const&,CFRange &,TRun::SubrangingStyle &>(&v6, a1 + 72, v8, &v7);
   *a5 = atomic_exchange(&v6, 0);
 }
 
-void TCFBase_NEW<CTRubyRun,TRubyRun const&>(const TRubyRun *a1@<X0>, void *a2@<X8>)
+void TCFBase_NEW<CTRubyRun,TRubyRun const&>(const TRubyRun *a1@<X0>, TRubyRun **a2@<X8>)
 {
-  v4 = TCFBase<TRun>::Allocate();
+  v4 = TCFBase<TRun>::Allocate(848);
   v5 = v4;
   if (v4)
   {
@@ -5680,15 +5682,15 @@ void TCFBase_NEW<CTRubyRun,TRubyRun const&>(const TRubyRun *a1@<X0>, void *a2@<X
   *a2 = v5;
 }
 
-void *TCFBase_NEW<CTRubyRun,TRubyRun const&,CFRange &,TRun::SubrangingStyle &>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, int *a3@<X2>, void *a4@<X8>)
+void *TCFBase_NEW<CTRubyRun,TRubyRun const&,CFRange &,TRun::SubrangingStyle &>@<X0>(void *a1@<X8>, uint64_t a2@<X0>, unint64_t *a3@<X1>, int *a4@<X2>)
 {
-  result = TCFBase<TRun>::Allocate();
+  result = TCFBase<TRun>::Allocate(848);
   v9 = result;
   if (result)
   {
-    v10 = *a2;
-    v11 = a2[1];
-    v12 = *a3;
+    v10 = *a3;
+    v11 = a3[1];
+    v12 = *a4;
     result[2] = 0;
     result[3] = 0;
     result[4] = 0;
@@ -5696,10 +5698,10 @@ void *TCFBase_NEW<CTRubyRun,TRubyRun const&,CFRange &,TRun::SubrangingStyle &>@<
     result[6] = result + 9;
     result[7] = CTRubyRun::CloneEntire;
     result[8] = CTRubyRun::CloneRange;
-    result = TRubyRun::TRubyRun((result + 9), a1, v10, v11, v12);
+    result = TRubyRun::TRubyRun((result + 9), a2, v10, v11, v12);
   }
 
-  *a4 = v9;
+  *a1 = v9;
   return result;
 }
 
@@ -5714,13 +5716,13 @@ void CTTateChuYokoRun::CloneRange(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a
   v8[0] = a2;
   v8[1] = a3;
   v7 = a4;
-  TCFBase_NEW<CTTateChuYokoRun,TTateChuYokoRun const&,CFRange &,TRun::SubrangingStyle &>(a1 + 72, v8, &v7, &v6);
+  TCFBase_NEW<CTTateChuYokoRun,TTateChuYokoRun const&,CFRange &,TRun::SubrangingStyle &>(&v6, a1 + 72, v8, &v7);
   *a5 = atomic_exchange(&v6, 0);
 }
 
-void TCFBase_NEW<CTTateChuYokoRun,TTateChuYokoRun const&>(const TTateChuYokoRun *a1@<X0>, void *a2@<X8>)
+void TCFBase_NEW<CTTateChuYokoRun,TTateChuYokoRun const&>(const TTateChuYokoRun *a1@<X0>, TTateChuYokoRun **a2@<X8>)
 {
-  v4 = TCFBase<TRun>::Allocate();
+  v4 = TCFBase<TRun>::Allocate(416);
   v5 = v4;
   if (v4)
   {
@@ -5737,15 +5739,15 @@ void TCFBase_NEW<CTTateChuYokoRun,TTateChuYokoRun const&>(const TTateChuYokoRun 
   *a2 = v5;
 }
 
-void *TCFBase_NEW<CTTateChuYokoRun,TTateChuYokoRun const&,CFRange &,TRun::SubrangingStyle &>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, int *a3@<X2>, void *a4@<X8>)
+void *TCFBase_NEW<CTTateChuYokoRun,TTateChuYokoRun const&,CFRange &,TRun::SubrangingStyle &>@<X0>(void *a1@<X8>, uint64_t a2@<X0>, uint64_t *a3@<X1>, int *a4@<X2>)
 {
-  result = TCFBase<TRun>::Allocate();
+  result = TCFBase<TRun>::Allocate(416);
   v9 = result;
   if (result)
   {
-    v10 = *a2;
-    v11 = a2[1];
-    v12 = *a3;
+    v10 = *a3;
+    v11 = a3[1];
+    v12 = *a4;
     result[2] = 0;
     result[3] = 0;
     result[4] = 0;
@@ -5753,16 +5755,16 @@ void *TCFBase_NEW<CTTateChuYokoRun,TTateChuYokoRun const&,CFRange &,TRun::Subran
     result[6] = result + 9;
     result[7] = CTTateChuYokoRun::CloneEntire;
     result[8] = CTTateChuYokoRun::CloneRange;
-    result = TTateChuYokoRun::TTateChuYokoRun((result + 9), a1, v10, v11, v12);
+    result = TTateChuYokoRun::TTateChuYokoRun((result + 9), a2, v10, v11, v12);
   }
 
-  *a4 = v9;
+  *a1 = v9;
   return result;
 }
 
 void CTTextEncapsulationRun::CloneEntire(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = TCFBase<TRun>::Allocate();
+  v4 = TCFBase<TRun>::Allocate(464);
   v5 = v4;
   if (v4)
   {
@@ -5780,9 +5782,9 @@ void CTTextEncapsulationRun::CloneEntire(uint64_t a1@<X0>, void *a2@<X8>)
   *a2 = atomic_exchange(&v6, 0);
 }
 
-void CTTextEncapsulationRun::CloneRange(uint64_t a1@<X0>, uint64_t a2@<X1>, CFIndex a3@<X2>, int a4@<W3>, void *a5@<X8>)
+void CTTextEncapsulationRun::CloneRange(void *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, CFIndex a4@<X2>, int a5@<W3>)
 {
-  v10 = TCFBase<TRun>::Allocate();
+  v10 = TCFBase<TRun>::Allocate(464);
   v11 = v10;
   if (v10)
   {
@@ -5793,11 +5795,11 @@ void CTTextEncapsulationRun::CloneRange(uint64_t a1@<X0>, uint64_t a2@<X1>, CFIn
     v10[6] = v10 + 9;
     v10[7] = CTTextEncapsulationRun::CloneEntire;
     v10[8] = CTTextEncapsulationRun::CloneRange;
-    TTextEncapsulationRun::TTextEncapsulationRun((v10 + 9), a1 + 72, a2, a3, a4);
+    TTextEncapsulationRun::TTextEncapsulationRun((v10 + 9), a2 + 72, a3, a4, a5);
   }
 
   v12 = v11;
-  *a5 = atomic_exchange(&v12, 0);
+  *a1 = atomic_exchange(&v12, 0);
 }
 
 __n128 std::__function::__func<TGlyphEncoder::AppendUnmappedCharRun(unsigned int,TCFRef<CTRun *> &,__CTFont const*,CFRange &,CFRange,TInlineVector<long,30ul> &,std::unique_ptr<TFontCascade const> &,__CFString const*,TGlyphEncoder::ClusterMatching,BOOL)::$_0,std::allocator<TGlyphEncoder::AppendUnmappedCharRun(unsigned int,TCFRef<CTRun *> &,__CTFont const*,CFRange &,CFRange,TInlineVector<long,30ul> &,std::unique_ptr<TFontCascade const> &,__CFString const*,TGlyphEncoder::ClusterMatching,BOOL)::$_0>,BOOL ()(CFRange,unsigned int)>::__clone(uint64_t a1, uint64_t a2)
@@ -5861,7 +5863,7 @@ LABEL_23:
   result = u_hasBinaryProperty(v4, UCHAR_DEFAULT_IGNORABLE_CODE_POINT);
   if (result)
   {
-    return !IsVisibleFormatter(v4);
+    return IsVisibleFormatter(v4) ^ 1;
   }
 
   return result;
@@ -5883,9 +5885,9 @@ uint64_t std::__function::__value_func<BOOL ()(CFRange,unsigned int)>::~__value_
   return a1;
 }
 
-uint64_t TTypesetter::GetLevelsProvider@<X0>(uint64_t result@<X0>, uint64_t *a2@<X8>)
+void TTypesetter::GetLevelsProvider(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v3 = *(result + 32);
+  v3 = *(a1 + 32);
   if (!v3)
   {
     *a2 = 0;
@@ -5905,10 +5907,10 @@ uint64_t TTypesetter::GetLevelsProvider@<X0>(uint64_t result@<X0>, uint64_t *a2@
   if (!v4)
   {
 LABEL_7:
-    if ((*(result + 40) & 2) == 0)
+    if ((*(a1 + 40) & 2) == 0)
     {
       v6 = 0xAAAAAAAAAAAAAAAALL;
-      (*(**(result + 8) + 32))(&v6);
+      (*(**(a1 + 8) + 32))(&v6);
       if (atomic_load_explicit(&v6, memory_order_acquire))
       {
         atomic_load_explicit(&v6, memory_order_acquire);
@@ -5920,8 +5922,6 @@ LABEL_7:
 
     operator new();
   }
-
-  return result;
 }
 
 uint64_t TRunGlue::operator=(uint64_t a1, __int128 *a2)
@@ -6054,7 +6054,7 @@ void TTypesetter::SetVerticalFont(atomic_ullong *this, TRun *a2, const __CTFont 
   TStorageRange::ResetAdvances((this + 24), v4, RenderingStyle & 0xFFFFFFFFFFLL);
 }
 
-void *std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pair<UScriptCode,long>,1ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<std::pair<UScriptCode,long> const*>,std::__wrap_iter<std::pair<UScriptCode,long> const*>>(void *result, __int128 *a2, __int128 *a3, unint64_t a4)
+uint64_t *std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pair<UScriptCode,long>,1ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<std::pair<UScriptCode,long> const*>,std::__wrap_iter<std::pair<UScriptCode,long> const*>>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v6 = a2;
   v7 = result;
@@ -6062,13 +6062,12 @@ void *std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pair<U
   if (a4 <= (result[2] - *result) >> 4)
   {
     v13 = result[1];
-    if (a4 <= (v13 - v8) >> 4)
+    if (a4 <= v13 - v8)
     {
       while (v6 != a3)
       {
         *v8 = *v6;
-        *(v8 + 1) = *(v6++ + 1);
-        v8 += 16;
+        *(v8++ + 1) = *(v6++ + 1);
       }
     }
 
@@ -6080,8 +6079,7 @@ void *std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pair<U
         do
         {
           *v8 = *v6;
-          *(v8 + 1) = *(v6++ + 1);
-          v8 += 16;
+          *(v8++ + 1) = *(v6++ + 1);
         }
 
         while (v6 != v14);
@@ -6094,9 +6092,8 @@ void *std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pair<U
         do
         {
           v15 = *v14++;
-          *v13 = v15;
-          v13 += 16;
-          v8 += 16;
+          *v13++ = v15;
+          ++v8;
         }
 
         while (v14 != a3);
@@ -6134,8 +6131,7 @@ void *std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pair<U
     while (v6 != a3)
     {
       v12 = *v6++;
-      *v8 = v12;
-      v8 += 16;
+      *v8++ = v12;
     }
   }
 
@@ -6169,7 +6165,7 @@ void std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pair<US
   }
 }
 
-uint64_t std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pair<UScriptCode,long>,1ul>>::__vallocate[abi:fn200100](void *a1, unint64_t a2)
+uint64_t std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pair<UScriptCode,long>,1ul>>::__vallocate[abi:fn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 >> 60)
   {
@@ -6191,7 +6187,7 @@ uint64_t std::vector<std::pair<UScriptCode,long>,TInlineBufferAllocator<std::pai
   return result;
 }
 
-void *std::vector<unsigned char,TInlineBufferAllocator<unsigned char,4ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned char,TInlineBufferAllocator<unsigned char,4ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = __src;
   v7 = result;
@@ -6300,7 +6296,7 @@ void std::vector<unsigned char,TInlineBufferAllocator<unsigned char,4ul>>::__vde
   }
 }
 
-void *std::vector<unsigned int,TInlineBufferAllocator<unsigned int,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned int const*>,std::__wrap_iter<unsigned int const*>>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned int,TInlineBufferAllocator<unsigned int,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned int const*>,std::__wrap_iter<unsigned int const*>>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = __src;
   v7 = result;
@@ -6328,9 +6324,9 @@ void *std::vector<unsigned int,TInlineBufferAllocator<unsigned int,30ul>>::__ass
         v14 = v7[1];
       }
 
-      v16 = v6 + v15;
+      v16 = &v6[v15];
       v17 = v14;
-      if (v6 + v15 != a3)
+      if (&v6[v15] != a3)
       {
         v17 = v14;
         v18 = v14;
@@ -6338,8 +6334,7 @@ void *std::vector<unsigned int,TInlineBufferAllocator<unsigned int,30ul>>::__ass
         {
           v19 = *v16;
           v16 += 4;
-          *v18 = v19;
-          v18 += 4;
+          *v18++ = v19;
           v17 += 4;
         }
 
@@ -6378,7 +6373,8 @@ void *std::vector<unsigned int,TInlineBufferAllocator<unsigned int,30ul>>::__ass
     result = std::vector<unsigned int,TInlineBufferAllocator<unsigned int,30ul>>::__vallocate[abi:fn200100](v7, v11);
     for (i = v7[1]; v6 != a3; i += 4)
     {
-      v13 = *v6++;
+      v13 = *v6;
+      v6 += 4;
       *i = v13;
     }
   }
@@ -6451,7 +6447,7 @@ CFTypeID CTLineGetTypeID(void)
 
 uint64_t TCFBase_NEW<CTLine,std::shared_ptr<TCharStream const> const&>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
-  result = TCFBase<TLine>::Allocate();
+  result = TCFBase<TLine>::Allocate(264);
   if (result)
   {
     v6 = *a1;
@@ -6503,7 +6499,7 @@ CFArrayRef CTLineCreateWithRunArray(CFArrayRef theArray)
 
     else
     {
-      v2 = TCFBase<TLine>::Allocate();
+      v2 = TCFBase<TLine>::Allocate(264);
       v3 = v2;
       if (v2)
       {
@@ -6537,7 +6533,7 @@ CFArrayRef CTLineCreateWithRunArray(CFArrayRef theArray)
   return v1;
 }
 
-uint64_t CTLineCreateWithUniCharProvider(const unsigned __int16 *(*a1)(uint64_t, uint64_t *, const __CFDictionary **, void *), void (*a2)(const unsigned __int16 *, void *), void *a3)
+unint64_t CTLineCreateWithUniCharProvider(const unsigned __int16 *(*a1)(uint64_t, uint64_t *, const __CFDictionary **, void *), void (*a2)(const unsigned __int16 *, void *), void *a3)
 {
   __dst[34] = *MEMORY[0x1E69E9840];
   if (a1)
@@ -6663,7 +6659,7 @@ unint64_t CTLineCopyCaretPathForStringIndex(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  TLine::CopyCaretPath(*(a1 + 40), a2, &v4);
+  TLine::CopyCaretPath(&v4, *(a1 + 40), a2);
   v2 = atomic_exchange(&v4, 0);
 
   return v2;
@@ -6676,17 +6672,17 @@ unint64_t CTLineCopyHighlightPathForStringRange(uint64_t a1, CFRange a2)
     return 0;
   }
 
-  TLine::CopyHighlightPath(*(a1 + 40), a2, &v4);
+  TLine::CopyHighlightPath(&v4, *(a1 + 40), a2);
   v2 = atomic_exchange(&v4, 0);
 
   return v2;
 }
 
-void CTLineDrawAttributedString(const __CFAttributedString *a1)
+void CTLineDrawAttributedString(const __CFAttributedString *a1, CGContext *a2)
 {
   __dst[34] = *MEMORY[0x1E69E9840];
   memcpy(__dst, &unk_18475AF50, 0x110uLL);
-  TTypesetterAttrString::TTypesetterAttrString(__dst, a1, 0);
+  TTypesetterAttrString::TTypesetterAttrString(__dst, a1, 0, 0);
 }
 
 void *CTLineCreateCopyWithAttributeOverrides(void *a1, uint64_t a2)
@@ -6817,7 +6813,7 @@ void *CTLineCreateCopyWithAttributeOverrides(void *a1, uint64_t a2)
     if (v14)
     {
       memcpy(__dst, &unk_18475AF50, sizeof(__dst));
-      TTypesetterAttrString::TTypesetterAttrString(__dst, v10, 0);
+      TTypesetterAttrString::TTypesetterAttrString(__dst, v10, 0, 0);
     }
   }
 
@@ -6892,17 +6888,17 @@ uint64_t CTLineHasBidiLevels(uint64_t result)
   return result;
 }
 
-uint64_t **CTLineCreateTruncatedLineWithTokenCallback(uint64_t **a1, int a2, uint64_t a3, uint64_t a4, double a5)
+void *CTLineCreateTruncatedLineWithTokenCallback(void *a1, int a2, double a3, uint64_t a4, uint64_t a5)
 {
-  if (a3)
+  if (a4)
   {
     v6 = v8;
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
     v8[2] = __CTLineCreateTruncatedLineWithTokenCallback_block_invoke;
     v8[3] = &__block_descriptor_48_e58_____CTRun__32__0____CTLine__8____qq_16____CFDictionary__24l;
-    v8[4] = a3;
-    v8[5] = a4;
+    v8[4] = a4;
+    v8[5] = a5;
   }
 
   else
@@ -6910,7 +6906,7 @@ uint64_t **CTLineCreateTruncatedLineWithTokenCallback(uint64_t **a1, int a2, uin
     v6 = 0;
   }
 
-  return CreateTruncatedLine(a1, a2, 0, v6, a5);
+  return CreateTruncatedLine(a1, a2, 0, a3, v6);
 }
 
 void CTLineSyncWithRuns(uint64_t a1)
@@ -6931,7 +6927,7 @@ CFIndex CTLineSuggestLineBreakWithOffset(CFIndex result, const TLine *a2, double
   return result;
 }
 
-CFIndex TTypesetter::SuggestLineBreak(TTypesetter *this, const TLine *a2, uint64_t a3, double a4, double a5, uint64_t *a6)
+CFIndex TTypesetter::SuggestLineBreak(TLine **this, const TLine *a2, uint64_t a3, double a4, double a5, uint64_t *a6)
 {
   v13 = *MEMORY[0x1E69E9840];
   v6 = *this;
@@ -6948,7 +6944,7 @@ CFIndex TTypesetter::SuggestLineBreak(TTypesetter *this, const TLine *a2, uint64
   return v7;
 }
 
-uint64_t CTLineSuggestClusterBreakWithOffset(uint64_t result, const TLine *a2, double a3, double a4, uint64_t a5, uint64_t *a6)
+CFIndex CTLineSuggestClusterBreakWithOffset(CFIndex result, const TLine *a2, double a3, double a4, uint64_t a5, uint64_t *a6)
 {
   if (result)
   {
@@ -7347,11 +7343,11 @@ uint64_t TLine::GetWidthOfRuns(uint64_t this, CFRange a2)
   return this;
 }
 
-void TLine::CopyCaretPath(TLine *this@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
+void TLine::CopyCaretPath(uint64_t *__return_ptr a1@<X8>, TLine *this@<X0>, uint64_t a3@<X1>)
 {
   if (!*this || *(this + 3) == *(this + 2))
   {
-    *a3 = 0;
+    *a1 = 0;
   }
 
   else
@@ -7362,7 +7358,7 @@ void TLine::CopyCaretPath(TLine *this@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>
     {
       v7 = *(this + 14);
       v8 = *(this + 15);
-      TLine::CharIndexToOffsets(this, a2);
+      TLine::CharIndexToOffsets(this, a3);
       if (v9 == v10)
       {
         v11 = -v8;
@@ -7390,15 +7386,15 @@ void TLine::CopyCaretPath(TLine *this@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>
       explicit = atomic_exchange(&Mutable, 0);
     }
 
-    *a3 = explicit;
+    *a1 = explicit;
   }
 }
 
-void TLine::CopyHighlightPath(TLine *this@<X0>, CFRange a2@<0:X1, 8:X2>, unint64_t *a3@<X8>)
+void TLine::CopyHighlightPath(uint64_t *__return_ptr a1@<X8>, TLine *this@<X0>, CFRange a3@<0:X1, 8:X2>)
 {
-  if (!*this || ((location = a2.location, v6 = *(this + 9), v7 = *(this + 10), v8 = v7 + v6, a2.location + a2.length >= v7 + v6) ? (v9 = v7 + v6) : (v9 = a2.location + a2.length), v6 <= a2.location ? (v10 = a2.location < v8) : (v10 = 0), v10 ? (v12 = v9 - a2.location) : (a2.location <= v6 ? (v11 = v6 < a2.location + a2.length) : (v11 = 0), v11 ? (v12 = v9 - v6, location = *(this + 9)) : (location = 0, v12 = 0)), v12 <= 0 || (v14 = *(this + 2), v13 = *(this + 3), v15 = v13 - v14, v13 == v14)))
+  if (!*this || ((location = a3.location, v6 = *(this + 9), v7 = *(this + 10), v8 = v7 + v6, a3.location + a3.length >= v7 + v6) ? (v9 = v7 + v6) : (v9 = a3.location + a3.length), v6 <= a3.location ? (v10 = a3.location < v8) : (v10 = 0), v10 ? (v12 = v9 - a3.location) : (a3.location <= v6 ? (v11 = v6 < a3.location + a3.length) : (v11 = 0), v11 ? (v12 = v9 - v6, location = *(this + 9)) : (location = 0, v12 = 0)), v12 <= 0 || (v14 = *(this + 2), v13 = *(this + 3), v15 = v13 - v14, v13 == v14)))
   {
-    *a3 = 0;
+    *a1 = 0;
     return;
   }
 
@@ -7412,7 +7408,7 @@ void TLine::CopyHighlightPath(TLine *this@<X0>, CFRange a2@<0:X1, 8:X2>, unint64
   v17 = *(this + 2);
   if (*(this + 3) != v17)
   {
-    v43 = a3;
+    v43 = a1;
     v18 = v15 >> 3;
     v19 = *(*(*v17 + 40) + 312);
     if (!v19)
@@ -7503,9 +7499,9 @@ void TLine::CopyHighlightPath(TLine *this@<X0>, CFRange a2@<0:X1, 8:X2>, unint64
     }
 
     explicit = atomic_exchange(&Mutable, 0);
-    a3 = v43;
+    a1 = v43;
 LABEL_44:
-    *a3 = explicit;
+    *a1 = explicit;
 
     return;
   }
@@ -7543,7 +7539,7 @@ LABEL_8:
     }
 
     t1.a = -3.72066208e-103;
-    TAttributes::CopyForegroundColorForContext((v9 + 40), c, v5, &t1);
+    TAttributes::CopyForegroundColorForContext(&t1, (v9 + 40), c, v5);
     if (atomic_load_explicit(&t1, memory_order_acquire))
     {
       if (CGColorGetAlpha(atomic_load_explicit(&t1, memory_order_acquire)) < 1.0)
@@ -7900,7 +7896,7 @@ unint64_t TLine::AttachToPreviousRun(unint64_t this, unint64_t a2, uint64_t a3)
   return this;
 }
 
-unint64_t TLine::GetMappedCharsInRange(unint64_t a1, uint64_t a2, uint64_t a3, size_t *a4)
+unint64_t TLine::GetMappedCharsInRange(uint64_t a1, char *a2, uint64_t a3, size_t *a4)
 {
   a4[1] = *a4;
   result = TLine::FindRunWithCharIndex(a1, a2, 1);
@@ -7913,20 +7909,20 @@ unint64_t TLine::GetMappedCharsInRange(unint64_t a1, uint64_t a2, uint64_t a3, s
   else
   {
     v10 = *(*(v9 + 8 * result) + 40);
-    v11 = v10[1];
-    v12 = v10[2];
-    v13 = v12 + v11;
-    if (v12 + v11 >= a2 + a3)
+    v11 = *(v10 + 8);
+    v12 = *(v10 + 16);
+    v13 = &v11[v12];
+    if (&v11[v12] >= &a2[a3])
     {
-      v14 = a2 + a3;
+      v14 = &a2[a3];
     }
 
     else
     {
-      v14 = v12 + v11;
+      v14 = &v11[v12];
     }
 
-    if (a2 <= v11 && v11 < a2 + a3)
+    if (a2 <= v11 && v11 < &a2[a3])
     {
       v17 = v14 - v11;
     }
@@ -7959,14 +7955,14 @@ unint64_t TLine::GetMappedCharsInRange(unint64_t a1, uint64_t a2, uint64_t a3, s
     {
       do
       {
-        v10 = v10[3];
+        v10 = *(v10 + 24);
         if (!v10)
         {
           break;
         }
 
-        v20 = v10[2] >= v18 ? v18 : v10[2];
-        result = TRun::AppendMappedCharsInRange(v10, v10[1], v20, a4);
+        v20 = *(v10 + 16) >= v18 ? v18 : *(v10 + 16);
+        result = TRun::AppendMappedCharsInRange(v10, *(v10 + 8), v20, a4);
         v18 -= v20;
       }
 
@@ -7977,7 +7973,7 @@ unint64_t TLine::GetMappedCharsInRange(unint64_t a1, uint64_t a2, uint64_t a3, s
   return result;
 }
 
-BOOL TLine::SplitRun(_BOOL8 result, unint64_t a2, uint64_t a3)
+uint64_t TLine::SplitRun(uint64_t result, unint64_t a2, uint64_t a3)
 {
   v3 = *(result + 16);
   v4 = (result + 16);
@@ -8013,7 +8009,7 @@ BOOL TLine::SplitRun(_BOOL8 result, unint64_t a2, uint64_t a3)
       v16 = (*(v7 + 16) + 8 * a2);
       v18 = explicit;
       std::vector<CTRun *,TInlineBufferAllocator<CTRun *,3ul>>::insert(v4, v16, &v18);
-      TRun::TruncateBeginToChar(v9, v10 + a3);
+      TRun::TruncateBeginToChar(v9, (v10 + a3));
     }
 
     return v12 > 0;
@@ -8072,7 +8068,7 @@ uint64_t TLine::AbsorbRunFollowing(TLine *this, unint64_t a2)
   return result;
 }
 
-unint64_t TLine::NormalizeRange(TLine *this, CFRange a2, uint64_t *a3, unint64_t *a4)
+CFIndex TLine::NormalizeRange(TLine *this, CFRange a2, uint64_t *a3, CFIndex *a4)
 {
   length = a2.length;
   location = a2.location;
@@ -8083,7 +8079,7 @@ unint64_t TLine::NormalizeRange(TLine *this, CFRange a2, uint64_t *a3, unint64_t
     result = TLine::FindRunWithCharIndex(this, location, 1);
     *a4 = result;
     v10 = *(this + 2);
-    if (result >= (*(this + 3) - v10) >> 3)
+    if (result >= ((*(this + 3) - v10) >> 3))
     {
       break;
     }
@@ -8105,10 +8101,10 @@ unint64_t TLine::NormalizeRange(TLine *this, CFRange a2, uint64_t *a3, unint64_t
   return result;
 }
 
-unint64_t TLine::SetLevelRange(void *a1, CFRange a2, char a3, int a4)
+CFIndex TLine::SetLevelRange(TLine *a1, CFRange a2, char a3, int a4)
 {
-  v4 = a1 + 2;
-  if (a1[3] == a1[2])
+  v4 = (a1 + 16);
+  if (*(a1 + 3) == *(a1 + 2))
   {
     return 0;
   }
@@ -8118,8 +8114,8 @@ unint64_t TLine::SetLevelRange(void *a1, CFRange a2, char a3, int a4)
   v47 = 0xAAAAAAAAAAAAAAAALL;
   v48 = 0xAAAAAAAAAAAAAAAALL;
   result = TLine::NormalizeRange(a1, a2, &v48, &v47);
-  v12 = a1[2];
-  if (v47 >= ((a1[3] - v12) >> 3))
+  v12 = *(a1 + 2);
+  if (v47 >= ((*(a1 + 3) - v12) >> 3))
   {
 LABEL_39:
     __break(1u);
@@ -8151,8 +8147,8 @@ LABEL_39:
 
         if (v14 >= 1)
         {
-          v16 = a1[2];
-          if (v47 >= ((a1[3] - v16) >> 3))
+          v16 = *(a1 + 2);
+          if (v47 >= ((*(a1 + 3) - v16) >> 3))
           {
             goto LABEL_39;
           }
@@ -8169,8 +8165,8 @@ LABEL_39:
             if (v25 >= 1)
             {
               v26 = v47;
-              v27 = a1[2];
-              if (v47 >= ((a1[3] - v27) >> 3))
+              v27 = *(a1 + 2);
+              if (v47 >= ((*(a1 + 3) - v27) >> 3))
               {
                 goto LABEL_39;
               }
@@ -8200,14 +8196,14 @@ LABEL_39:
                   explicit = atomic_load_explicit(&v45, memory_order_acquire);
                   v34 = v47;
                   v35 = ++v47;
-                  v36 = (a1[2] + 8 * v34);
+                  v36 = (*(a1 + 2) + 8 * v34);
                   v49 = explicit;
                   std::vector<CTRun *,TInlineBufferAllocator<CTRun *,3ul>>::insert(v4, v36, &v49);
                   v37 = *(v41 + 32);
                   v38 = (v37 + 24);
                   if (!v37)
                   {
-                    v38 = a1 + 11;
+                    v38 = (a1 + 88);
                   }
 
                   *v38 = v31;
@@ -8224,8 +8220,8 @@ LABEL_39:
               else
               {
                 result = TLine::SplitRun(a1, v47, v25);
-                v39 = a1[2];
-                if (v26 >= (a1[3] - v39) >> 3)
+                v39 = *(a1 + 2);
+                if (v26 >= (*(a1 + 3) - v39) >> 3)
                 {
                   goto LABEL_39;
                 }
@@ -8291,7 +8287,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t TLine::SeparateCharWithGlyphIndex(TLine *this, uint64_t *a2, uint64_t a3)
+uint64_t TLine::SeparateCharWithGlyphIndex(TLine *this, uint64_t *a2, CFIndex a3)
 {
   v87[1] = *MEMORY[0x1E69E9840];
   v3 = *a2;
@@ -8707,7 +8703,7 @@ void std::vector<TRun *,TInlineBufferAllocator<TRun *,3ul>>::push_back[abi:fn200
   *(a1 + 8) = v5;
 }
 
-unint64_t TLine::SetTrailingWhitespaceLevel(TLine *this, char a2)
+CFIndex TLine::SetTrailingWhitespaceLevel(TLine *this, char a2)
 {
   result = TLine::GetTrailingWhitespace(this, v6);
   v5.length = v6[0];
@@ -9164,162 +9160,162 @@ double std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:fn200100]<TLine::Enu
   return result;
 }
 
-__n128 std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(double *a1, double *a2, unint64_t a3, __n128 *a4, __n128 result)
+__n128 std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(uint64_t a1, double *a2, unint64_t a3, uint64_t a4, __n128 result, double a6, double a7, uint8x8_t a8)
 {
   if (a3)
   {
-    v5 = a4;
-    v8 = a1;
+    v8 = a4;
+    v11 = a1;
     if (a3 == 2)
     {
-      v10 = (a2 - 4);
+      v13 = (a2 - 4);
       if (*(a2 - 4) >= *a1)
       {
-        v25 = *(a1 + 2);
+        v28 = *(a1 + 16);
         *a4 = *a1;
-        a4[1] = v25;
-        result = *v10;
-        v12 = *(a2 - 2);
+        *(a4 + 16) = v28;
+        result = *v13;
+        v15 = *(a2 - 1);
       }
 
       else
       {
-        v11 = *(a2 - 2);
-        *a4 = *v10;
-        a4[1] = v11;
+        v14 = *(a2 - 1);
+        *a4 = *v13;
+        *(a4 + 16) = v14;
         result = *a1;
-        v12 = *(a1 + 2);
+        v15 = *(a1 + 16);
       }
 
-      a4[2] = result;
-      a4[3] = v12;
+      *(a4 + 32) = result;
+      *(a4 + 48) = v15;
     }
 
     else if (a3 == 1)
     {
       result = *a1;
-      v9 = *(a1 + 2);
+      v12 = *(a1 + 16);
       *a4 = *a1;
-      a4[1] = v9;
+      *(a4 + 16) = v12;
     }
 
     else if (a3 > 8)
     {
-      v26 = &a1[4 * (a3 >> 1)];
-      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(a1, v26, a3 >> 1, a4, a3 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(&v8[2 * (a3 >> 1)], a2, a3 - (a3 >> 1), &v5[2 * (a3 >> 1)], a3 - (a3 >> 1));
-      v27 = &v8[2 * (a3 >> 1)];
-      while (v27 != a2)
+      v29 = (a1 + 32 * (a3 >> 1));
+      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(a1, v29, a3 >> 1, a4, a3 >> 1, result.n128_f64[0], a6, a7, a8);
+      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>((v11 + 32 * (a3 >> 1)), a2, a3 - (a3 >> 1), (v8 + 32 * (a3 >> 1)), a3 - (a3 >> 1), v30, v31, v32, v33);
+      v34 = v11 + 32 * (a3 >> 1);
+      while (v34 != a2)
       {
-        if (v27->n128_f64[0] >= v8->n128_f64[0])
+        if (*v34 >= *v11)
         {
-          result = *v8;
-          v28 = v8[1];
-          v8 += 2;
+          result = *v11;
+          v35 = *(v11 + 16);
+          v11 += 32;
         }
 
         else
         {
-          result = *v27;
-          v28 = v27[1];
-          v27 += 2;
+          result = *v34;
+          v35 = *(v34 + 16);
+          v34 += 32;
         }
 
-        *v5 = result;
-        v5[1] = v28;
-        v5 += 2;
-        if (v8 == v26)
+        *v8 = result;
+        *(v8 + 16) = v35;
+        v8 += 32;
+        if (v11 == v29)
         {
-          while (v27 != a2)
+          while (v34 != a2)
           {
-            result = *v27;
-            v30 = v27[1];
-            v27 += 2;
-            *v5 = result;
-            v5[1] = v30;
-            v5 += 2;
+            result = *v34;
+            v37 = *(v34 + 16);
+            v34 += 32;
+            *v8 = result;
+            *(v8 + 16) = v37;
+            v8 += 32;
           }
 
           return result;
         }
       }
 
-      while (v8 != v26)
+      while (v11 != v29)
       {
-        result = *v8;
-        v29 = v8[1];
-        v8 += 2;
-        *v5 = result;
-        v5[1] = v29;
-        v5 += 2;
+        result = *v11;
+        v36 = *(v11 + 16);
+        v11 += 32;
+        *v8 = result;
+        *(v8 + 16) = v36;
+        v8 += 32;
       }
     }
 
     else if (a1 != a2)
     {
       result = *a1;
-      v13 = *(a1 + 2);
+      v16 = *(a1 + 16);
       *a4 = *a1;
-      a4[1] = v13;
-      v14 = (a1 + 4);
-      if (a1 + 4 != a2)
+      *(a4 + 16) = v16;
+      v17 = a1 + 32;
+      if ((a1 + 32) != a2)
       {
-        v15 = 0;
-        v16 = a4;
-        v17 = a4;
+        v18 = 0;
+        v19 = a4;
+        v20 = a4;
         do
         {
-          v18 = v17->n128_f64[0];
-          v17 += 2;
-          if (v14->n128_f64[0] >= v18)
+          v21 = *v20;
+          v20 += 32;
+          if (*v17 >= v21)
           {
-            result = *v14;
-            v24 = v14[1];
-            *v17 = *v14;
-            v17[1] = v24;
+            result = *v17;
+            v27 = *(v17 + 16);
+            *v20 = *v17;
+            *(v20 + 16) = v27;
           }
 
           else
           {
-            v19 = v16[1];
-            *v17 = *v16;
-            v17[1] = v19;
-            v20 = a4;
-            if (v16 != a4)
+            v22 = v19[1];
+            *v20 = *v19;
+            *(v20 + 16) = v22;
+            v23 = a4;
+            if (v19 != a4)
             {
-              v21 = v15;
+              v24 = v18;
               while (1)
               {
-                v20 = (a4 + v21);
-                if (v14->n128_f64[0] >= *(a4[-2].n128_f64 + v21))
+                v23 = (a4 + v24);
+                if (*v17 >= *(a4 + v24 - 32))
                 {
                   break;
                 }
 
-                v22 = *(a4 + v21 - 16);
-                *v20 = *(a4 + v21 - 32);
-                v20[1] = v22;
-                v21 -= 32;
-                if (!v21)
+                v25 = *(a4 + v24 - 16);
+                *v23 = *(a4 + v24 - 32);
+                v23[1] = v25;
+                v24 -= 32;
+                if (!v24)
                 {
-                  v20 = a4;
+                  v23 = a4;
                   break;
                 }
               }
             }
 
-            result = *v14;
-            v23 = v14[1];
-            *v20 = *v14;
-            v20[1] = v23;
+            result = *v17;
+            v26 = *(v17 + 16);
+            *v23 = *v17;
+            v23[1] = v26;
           }
 
-          v14 += 2;
-          v15 += 32;
-          v16 = v17;
+          v17 += 32;
+          v18 += 32;
+          v19 = v20;
         }
 
-        while (v14 != a2);
+        while (v17 != a2);
       }
     }
   }
@@ -9327,7 +9323,7 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,T
   return result;
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,TLine::SeparateCharWithGlyphIndex(long *,long)::$_0 &,TRun **,false>(uint64_t result, uint64_t *a2, uint64_t a3, char a4)
+uint64_t *std::__introsort<std::_ClassicAlgPolicy,TLine::SeparateCharWithGlyphIndex(long *,long)::$_0 &,TRun **,false>(uint64_t *result, uint64_t *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -9368,10 +9364,10 @@ LABEL_2:
     {
       v51 = v8 + 1;
       v84 = v8[1];
-      v52 = (v8 + 2);
+      v52 = v8 + 2;
       v12 = v8[2];
       v85 = *v8;
-      v86 = v84[1];
+      v86 = *(v84 + 8);
       v87 = *(*v8 + 8);
       v88 = *(v12 + 8);
       if (v86 >= v87)
@@ -9384,7 +9380,7 @@ LABEL_2:
         *v51 = v12;
         *v52 = v84;
         v89 = v8;
-        v90 = (v8 + 1);
+        v90 = v8 + 1;
         result = v84;
         if (v88 >= v87)
         {
@@ -9395,14 +9391,14 @@ LABEL_2:
       else
       {
         v89 = v8;
-        v90 = (v8 + 2);
+        v90 = v8 + 2;
         result = *v8;
         if (v88 >= v86)
         {
           *v8 = v84;
           v8[1] = v85;
           v89 = v8 + 1;
-          v90 = (v8 + 2);
+          v90 = v8 + 2;
           result = v85;
           if (v88 >= v87)
           {
@@ -9485,7 +9481,7 @@ LABEL_140:
       v133 = 8;
       while (1)
       {
-        v134 = *(v8 + v52);
+        v134 = *(v52 + v8);
         v52 = v133;
         v135 = *v51;
         v12 = *(*v51 + 8);
@@ -9495,7 +9491,7 @@ LABEL_140:
         }
 
 LABEL_187:
-        v133 = v52 + 8;
+        v133 = (v52 + 1);
         if (++v51 == a2)
         {
           return result;
@@ -9506,7 +9502,7 @@ LABEL_187:
       while (1)
       {
         v51[v136] = v134;
-        if (!(v52 + v136 * 8))
+        if (!&v52[v136])
         {
           break;
         }
@@ -9526,7 +9522,7 @@ LABEL_190:
       v84 = v12;
 LABEL_191:
       v137 = *(a2 - 1);
-      if (*(v137 + 8) < v84[1])
+      if (*(v137 + 8) < *(v84 + 8))
       {
         *v52 = v137;
         *(a2 - 1) = v84;
@@ -10000,7 +9996,7 @@ LABEL_71:
         goto LABEL_189;
       }
 
-      v64 = (v52 - 8);
+      v64 = v52 - 1;
 LABEL_80:
       if (v64 != v8)
       {
@@ -10041,7 +10037,7 @@ LABEL_85:
 
     if (v52 >= *(*(a2 - 1) + 8))
     {
-      v68 = v8 + 1;
+      v68 = (v8 + 1);
       do
       {
         v8 = v68;
@@ -10050,7 +10046,7 @@ LABEL_85:
           break;
         }
 
-        ++v68;
+        v68 += 8;
         v12 = *(*v8 + 8);
       }
 
@@ -10132,7 +10128,7 @@ LABEL_99:
       while (v8 < v69);
     }
 
-    v75 = v8 - 1;
+    v75 = (v8 - 1);
     if (v8 - 1 != v7)
     {
       *v7 = *v75;

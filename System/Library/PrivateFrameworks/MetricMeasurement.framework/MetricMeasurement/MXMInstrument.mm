@@ -110,30 +110,30 @@ LABEL_6:
 
 - (void)_prepareIteration:(id *)iteration options:(id)options instrumentals:(id)instrumentals errors:(id)errors
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   instrumentalsCopy = instrumentals;
   val = errors;
   v9 = dispatch_group_create();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v10 = instrumentalsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v11)
   {
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
+        v14 = *(*(&v28 + 1) + 8 * i);
         v15 = objc_initWeak(&location, v14);
         v16 = objc_opt_respondsToSelector();
 
@@ -145,20 +145,20 @@ LABEL_6:
           block[1] = 3221225472;
           block[2] = __64__MXMInstrument__prepareIteration_options_instrumentals_errors___block_invoke;
           block[3] = &unk_2798C98B0;
-          objc_copyWeak(&v26, &location);
-          v25 = optionsCopy;
-          objc_copyWeak(&v27, &from);
+          objc_copyWeak(&v25, &location);
+          v24 = optionsCopy;
+          objc_copyWeak(&v26, &from);
           dispatch_group_async(v9, instrumentalsQueue, block);
 
-          objc_destroyWeak(&v27);
           objc_destroyWeak(&v26);
+          objc_destroyWeak(&v25);
           objc_destroyWeak(&from);
         }
 
         objc_destroyWeak(&location);
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v11);
@@ -167,8 +167,6 @@ LABEL_6:
   v18 = dispatch_time(0, 10000000000);
   dispatch_group_wait(v9, v18);
   iteration->var4 = 1;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __64__MXMInstrument__prepareIteration_options_instrumentals_errors___block_invoke(uint64_t a1)
@@ -189,13 +187,12 @@ void __64__MXMInstrument__prepareIteration_options_instrumentals_errors___block_
 - (void)_setupAndRunWithIteration:(id *)iteration spawnThread:(BOOL)thread attrs:(_opaque_pthread_attr_t *)attrs pthread:(_opaque_pthread_t *)pthread returnCode:(unint64_t *)code
 {
   threadCopy = thread;
-  v68 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   if (!iteration)
   {
     [MXMInstrument _setupAndRunWithIteration:spawnThread:attrs:pthread:returnCode:];
   }
 
-  var4 = iteration->var4;
   if (iteration->var3)
   {
     if (iteration->var4)
@@ -210,8 +207,8 @@ LABEL_5:
   {
     if (!iteration->var4)
     {
-      v51 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrumentErrorDomain" reason:@"Iteration is uninitialized." userInfo:0];
-      objc_exception_throw(v51);
+      v52 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrumentErrorDomain" reason:@"Iteration is uninitialized." userInfo:0];
+      objc_exception_throw(v52);
     }
 
     if (iteration->var4)
@@ -230,86 +227,86 @@ LABEL_8:
   iteration->var3 = 1;
   if (!threadCopy)
   {
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x2020000000;
-    v61 = 0;
-    v13 = iteration->var14;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x2020000000;
+    v62 = 0;
+    v12 = iteration->var14;
     if (iteration->var20 != 0.0 && iteration->var21 != 0.0)
     {
-      v14 = +[MXMProxyServiceManager shared];
+      v13 = +[MXMProxyServiceManager shared];
       var20 = iteration->var20;
       var21 = iteration->var21;
-      *&v62 = MEMORY[0x277D85DD0];
-      *(&v62 + 1) = 3221225472;
-      v63 = __MXMQuiesceBeforeIteration_block_invoke;
-      v64 = &unk_2798C9900;
-      v65 = v13;
-      v66 = &v58;
-      [v14 _quiesceBeforeIteration:&v62 timeout:var20 response:var21];
+      *&v63 = MEMORY[0x277D85DD0];
+      *(&v63 + 1) = 3221225472;
+      v64 = __MXMQuiesceBeforeIteration_block_invoke;
+      v65 = &unk_2798C9900;
+      v66 = v12;
+      v67 = &v59;
+      [v13 _quiesceBeforeIteration:&v63 timeout:var20 response:var21];
     }
 
-    v17 = v59[3];
-    _Block_object_dispose(&v58, 8);
-    if (v17 == 6)
+    v16 = v60[3];
+    _Block_object_dispose(&v59, 8);
+    if (v16 == 6)
     {
       *code = 6;
-      goto LABEL_61;
+      return;
     }
 
-    v53 = iteration->var22;
-    v18 = _MXMGetLog();
+    v54 = iteration->var22;
+    v18 = _MXMGetLog(v54, v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v62) = 138412290;
-      *(&v62 + 4) = v53;
-      _os_log_impl(&dword_258DAA000, v18, OS_LOG_TYPE_DEBUG, "Attempting to uncache before iteration with config: %@", &v62, 0xCu);
+      LODWORD(v63) = 138412290;
+      *(&v63 + 4) = v54;
+      _os_log_impl(&dword_258DAA000, v18, OS_LOG_TYPE_DEBUG, "Attempting to uncache before iteration with config: %@", &v63, 0xCu);
     }
 
-    if (iteration->var22 && [v53 count])
+    if (iteration->var22 && [v54 count])
     {
       v18 = +[MXMProxyServiceManager shared];
-      [v18 _uncacheBeforeIteration:v53 response:&__block_literal_global_5];
+      [v18 _uncacheBeforeIteration:v54 response:&__block_literal_global_5];
     }
 
-    v52 = iteration->var23;
-    v19 = _MXMGetLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v53 = iteration->var23;
+    v20 = _MXMGetLog(v53, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v62) = 138412290;
-      *(&v62 + 4) = v52;
-      _os_log_impl(&dword_258DAA000, v19, OS_LOG_TYPE_DEBUG, "Attempting to terminate before iteration with config: %@", &v62, 0xCu);
+      LODWORD(v63) = 138412290;
+      *(&v63 + 4) = v53;
+      _os_log_impl(&dword_258DAA000, v20, OS_LOG_TYPE_DEBUG, "Attempting to terminate before iteration with config: %@", &v63, 0xCu);
     }
 
-    if (iteration->var23 && [v52 count])
+    if (iteration->var23 && [v53 count])
     {
-      v20 = +[MXMProxyServiceManager shared];
-      [v20 _terminateProcessesBeforeIteration:v52 response:&__block_literal_global_275];
+      v21 = +[MXMProxyServiceManager shared];
+      [v21 _terminateProcessesBeforeIteration:v53 response:&__block_literal_global_275];
     }
 
-    v21 = iteration->var19;
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x2020000000;
-    v61 = 1;
+    v22 = iteration->var19;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x2020000000;
+    v62 = 1;
     if (iteration->var18)
     {
-      v22 = +[MXMProxyServiceManager shared];
-      *&v62 = MEMORY[0x277D85DD0];
-      *(&v62 + 1) = 3221225472;
-      v63 = __MXMStartPerformanceTraceCollection_block_invoke;
-      v64 = &unk_2798C9948;
-      v65 = &v58;
-      [v22 _startPerformanceTrace:v21 response:&v62];
+      v23 = +[MXMProxyServiceManager shared];
+      *&v63 = MEMORY[0x277D85DD0];
+      *(&v63 + 1) = 3221225472;
+      v64 = __MXMStartPerformanceTraceCollection_block_invoke;
+      v65 = &unk_2798C9948;
+      v66 = &v59;
+      [v23 _startPerformanceTrace:v22 response:&v63];
 
-      if (v59[3] == 1)
+      if (v60[3] == 1)
       {
-        if (!v21 || ([v21 objectForKeyedSubscript:@"requiredForTestContinuation"], (v22 = objc_claimAutoreleasedReturnValue()) != 0))
+        if (!v22 || ([v22 objectForKeyedSubscript:@"requiredForTestContinuation"], (v23 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          v23 = [v21 objectForKeyedSubscript:@"requiredForTestContinuation"];
-          bOOLValue = [v23 BOOLValue];
+          v24 = [v22 objectForKeyedSubscript:@"requiredForTestContinuation"];
+          bOOLValue = [v24 BOOLValue];
 
-          if (v21)
+          if (v22)
           {
 
             if ((bOOLValue & 1) == 0)
@@ -325,45 +322,45 @@ LABEL_8:
         }
 
         [iteration->var14 setActive:0];
-        v35 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrumentErrorDomain" reason:@"Unable to start performance trace collection. See error logs for more detail." userInfo:0];
-        objc_exception_throw(v35);
+        v37 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrumentErrorDomain" reason:@"Unable to start performance trace collection. See error logs for more detail." userInfo:0];
+        objc_exception_throw(v37);
       }
     }
 
 LABEL_35:
-    v25 = v59[3];
-    _Block_object_dispose(&v58, 8);
+    v26 = v60[3];
+    _Block_object_dispose(&v59, 8);
 
-    v26 = iteration->var25;
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x2020000000;
-    v61 = 1;
+    v27 = iteration->var25;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x2020000000;
+    v62 = 1;
     if (iteration->var24)
     {
-      v27 = +[MXMProxyServiceManager shared];
-      *&v62 = MEMORY[0x277D85DD0];
-      *(&v62 + 1) = 3221225472;
-      v63 = __MXMStartFunctionCoverageCollection_block_invoke;
-      v64 = &unk_2798C9970;
-      v65 = &v58;
-      [v27 _startFunctionCoverageCollection:v26 response:&v62];
+      v28 = +[MXMProxyServiceManager shared];
+      *&v63 = MEMORY[0x277D85DD0];
+      *(&v63 + 1) = 3221225472;
+      v64 = __MXMStartFunctionCoverageCollection_block_invoke;
+      v65 = &unk_2798C9970;
+      v66 = &v59;
+      [v28 _startFunctionCoverageCollection:v27 response:&v63];
 
-      if (v59[3] == 1)
+      if (v60[3] == 1)
       {
-        if (v26)
+        if (v27)
         {
-          v27 = [v26 objectForKeyedSubscript:@"requiredForTestContinuation"];
-          if (!v27)
+          v28 = [v27 objectForKeyedSubscript:@"requiredForTestContinuation"];
+          if (!v28)
           {
             goto LABEL_49;
           }
         }
 
-        v28 = [v26 objectForKeyedSubscript:@"requiredForTestContinuation"];
-        bOOLValue2 = [v28 BOOLValue];
+        v29 = [v27 objectForKeyedSubscript:@"requiredForTestContinuation"];
+        bOOLValue2 = [v29 BOOLValue];
 
-        if (v26)
+        if (v27)
         {
 
           if ((bOOLValue2 & 1) == 0)
@@ -373,8 +370,8 @@ LABEL_35:
 
 LABEL_49:
           [iteration->var14 setActive:0];
-          v36 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrumentErrorDomain" reason:@"Unable to start function coverage collection. See error logs for more detail." userInfo:0];
-          objc_exception_throw(v36);
+          v38 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrumentErrorDomain" reason:@"Unable to start function coverage collection. See error logs for more detail." userInfo:0];
+          objc_exception_throw(v38);
         }
 
         if (bOOLValue2)
@@ -385,46 +382,46 @@ LABEL_49:
     }
 
 LABEL_41:
-    v30 = v59[3];
-    _Block_object_dispose(&v58, 8);
+    v31 = v60[3];
+    _Block_object_dispose(&v59, 8);
 
-    *code = MXMRunBlockIteration(iteration);
-    if (!v25)
+    *code = MXMRunBlockIteration(iteration, v32);
+    if (!v26)
     {
-      v31 = v21;
-      v58 = 0;
-      v59 = &v58;
-      v60 = 0x2020000000;
-      v61 = 0;
-      v32 = iteration->var14;
-      v33 = +[MXMProxyServiceManager shared];
-      *&v62 = MEMORY[0x277D85DD0];
-      *(&v62 + 1) = 3221225472;
-      v63 = __MXMStopPerformanceTraceCollection_block_invoke;
-      v64 = &unk_2798C9998;
-      v34 = v32;
-      v65 = v34;
-      v66 = &v58;
-      [v33 _stopPerformanceTrace:&v62];
+      v33 = v22;
+      v59 = 0;
+      v60 = &v59;
+      v61 = 0x2020000000;
+      v62 = 0;
+      v34 = iteration->var14;
+      v35 = +[MXMProxyServiceManager shared];
+      *&v63 = MEMORY[0x277D85DD0];
+      *(&v63 + 1) = 3221225472;
+      v64 = __MXMStopPerformanceTraceCollection_block_invoke;
+      v65 = &unk_2798C9998;
+      v36 = v34;
+      v66 = v36;
+      v67 = &v59;
+      [v35 _stopPerformanceTrace:&v63];
 
-      if (v59[3] == 3)
+      if (v60[3] == 3)
       {
-        if (v31)
+        if (v33)
         {
-          v18 = [v31 objectForKeyedSubscript:@"requiredForTestContinuation"];
+          v18 = [v33 objectForKeyedSubscript:@"requiredForTestContinuation"];
           if (!v18)
           {
 LABEL_63:
-            [v34 setActive:0];
-            v46 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrumentErrorDomain" reason:@"Unable to collect performance trace. See error logs for more detail." userInfo:0];
-            objc_exception_throw(v46);
+            [v36 setActive:0];
+            v47 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrumentErrorDomain" reason:@"Unable to collect performance trace. See error logs for more detail." userInfo:0];
+            objc_exception_throw(v47);
           }
         }
 
-        v37 = [v31 objectForKeyedSubscript:@"requiredForTestContinuation"];
-        bOOLValue3 = [v37 BOOLValue];
+        v39 = [v33 objectForKeyedSubscript:@"requiredForTestContinuation"];
+        bOOLValue3 = [v39 BOOLValue];
 
-        if (v31)
+        if (v33)
         {
 
           if (bOOLValue3)
@@ -439,45 +436,45 @@ LABEL_63:
         }
       }
 
-      _Block_object_dispose(&v58, 8);
+      _Block_object_dispose(&v59, 8);
     }
 
-    if (v30)
+    if (v31)
     {
 LABEL_60:
 
-      goto LABEL_61;
+      return;
     }
 
-    v39 = v26;
+    v41 = v27;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x2020000000;
+    v62 = 0;
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x2020000000;
     v58 = 0;
-    v59 = &v58;
-    v60 = 0x2020000000;
-    v61 = 0;
-    v54 = 0;
-    v55 = &v54;
-    v56 = 0x2020000000;
-    v57 = 0;
-    v40 = iteration->var14;
-    v41 = +[MXMProxyServiceManager shared];
-    *&v62 = MEMORY[0x277D85DD0];
-    *(&v62 + 1) = 3221225472;
-    v63 = __MXMStopFunctionCoverageCollection_block_invoke;
-    v64 = &unk_2798C99C0;
-    v42 = v40;
-    v65 = v42;
-    v66 = &v58;
-    v67 = &v54;
-    [v41 _stopFunctionCoverageCollection:&v62];
+    v42 = iteration->var14;
+    v43 = +[MXMProxyServiceManager shared];
+    *&v63 = MEMORY[0x277D85DD0];
+    *(&v63 + 1) = 3221225472;
+    v64 = __MXMStopFunctionCoverageCollection_block_invoke;
+    v65 = &unk_2798C99C0;
+    v44 = v42;
+    v66 = v44;
+    v67 = &v59;
+    v68 = &v55;
+    [v43 _stopFunctionCoverageCollection:&v63];
 
-    if (v59[3] == 3)
+    if (v60[3] == 3)
     {
-      if (!v39 || ([v39 objectForKeyedSubscript:@"requiredForTestContinuation"], (v41 = objc_claimAutoreleasedReturnValue()) != 0))
+      if (!v41 || ([v41 objectForKeyedSubscript:@"requiredForTestContinuation"], (v43 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v43 = [v39 objectForKeyedSubscript:@"requiredForTestContinuation"];
-        bOOLValue4 = [v43 BOOLValue];
+        v45 = [v41 objectForKeyedSubscript:@"requiredForTestContinuation"];
+        bOOLValue4 = [v45 BOOLValue];
 
-        if (v39)
+        if (v41)
         {
 
           if ((bOOLValue4 & 1) == 0)
@@ -492,46 +489,43 @@ LABEL_60:
         }
       }
 
-      [v42 setActive:0];
-      v47 = MEMORY[0x277CBEAD8];
-      v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to stop and post process function coverage. See error logs for more detail. %d", *(v55 + 6)];
-      v49 = [v47 exceptionWithName:@"MXMInstrumentErrorDomain" reason:v48 userInfo:0];
-      v50 = v49;
+      [v44 setActive:0];
+      v48 = MEMORY[0x277CBEAD8];
+      v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to stop and post process function coverage. See error logs for more detail. %d", *(v56 + 6)];
+      v50 = [v48 exceptionWithName:@"MXMInstrumentErrorDomain" reason:v49 userInfo:0];
+      v51 = v50;
 
-      objc_exception_throw(v49);
+      objc_exception_throw(v50);
     }
 
 LABEL_59:
 
-    _Block_object_dispose(&v54, 8);
-    _Block_object_dispose(&v58, 8);
+    _Block_object_dispose(&v55, 8);
+    _Block_object_dispose(&v59, 8);
 
     goto LABEL_60;
   }
 
-  *&v62 = 0;
+  *&v63 = 0;
   if (!iteration->var16)
   {
     [MXMInstrument _setupAndRunWithIteration:spawnThread:attrs:pthread:returnCode:];
   }
 
-  if (pthread_create(&v62, attrs, MXMRunBlockIteration, iteration))
+  if (pthread_create(&v63, attrs, MXMRunBlockIteration, iteration))
   {
     [MXMInstrument _setupAndRunWithIteration:spawnThread:attrs:pthread:returnCode:];
   }
 
   else if (pthread)
   {
-    *pthread = v62;
+    *pthread = v63;
   }
-
-LABEL_61:
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_transitionWithState:(unint64_t)state iteration:(id *)iteration instrumentals:(id)instrumentals
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   instrumentalsCopy = instrumentals;
   if (!state)
   {
@@ -558,11 +552,11 @@ LABEL_61:
   {
     v9 = 48;
 LABEL_12:
-    v22 = *(&iteration->var0 + v9);
+    v21 = *(&iteration->var0 + v9);
     goto LABEL_14;
   }
 
-  v22 = 0;
+  v21 = 0;
 LABEL_14:
   if (state == 2)
   {
@@ -583,56 +577,54 @@ LABEL_14:
   v11 = *(&iteration->var0 + v10);
 LABEL_20:
   stateCopy = state;
-  if ((state & 0xFFFFFFFFFFFFFFFDLL) != 1 && !v22)
+  if ((state & 0xFFFFFFFFFFFFFFFDLL) != 1 && !v21)
   {
     [MXMInstrument _transitionWithState:iteration:instrumentals:];
   }
 
   v13 = dispatch_group_create();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = instrumentalsCopy;
-  v14 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v14 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v14)
   {
-    v15 = *v26;
+    v15 = *v25;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v26 != v15)
+        if (*v25 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        objc_initWeak(&location, *(*(&v25 + 1) + 8 * i));
+        objc_initWeak(&location, *(*(&v24 + 1) + 8 * i));
         instrumentalsQueue = [(MXMInstrument *)self instrumentalsQueue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __62__MXMInstrument__transitionWithState_iteration_instrumentals___block_invoke;
         block[3] = &unk_2798C98D8;
-        v24[1] = stateCopy;
-        objc_copyWeak(v24, &location);
-        v24[3] = iteration;
-        v24[4] = a2;
-        v24[2] = v22;
+        v23[1] = stateCopy;
+        objc_copyWeak(v23, &location);
+        v23[3] = iteration;
+        v23[4] = a2;
+        v23[2] = v21;
         block[4] = self;
-        v24[5] = v11;
+        v23[5] = v11;
         dispatch_group_async(v13, instrumentalsQueue, block);
 
-        objc_destroyWeak(v24);
+        objc_destroyWeak(v23);
         objc_destroyWeak(&location);
       }
 
-      v14 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v14 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -761,7 +753,7 @@ LABEL_27:
 
 - (BOOL)startWithError:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   if ([(MXMInstrument *)self active]&& [(MXMInstrument *)self currentIteration]&& [(MXMInstrument *)self currentIteration][152])
   {
     currentIteration = [(MXMInstrument *)self currentIteration];
@@ -770,17 +762,18 @@ LABEL_17:
     currentIteration->var4 = 1;
     array = [(MXMInstrument *)self _transitionWithState:1 iteration:currentIteration instrumentals:currentIteration->var15];
     dispatch_group_wait(array, 0xFFFFFFFFFFFFFFFFLL);
-    v22 = 0;
+    v23 = 0;
     thread_selfcounts();
     currentIteration->var7 = mach_continuous_time();
     currentIteration->var5 = mach_absolute_time();
-    currentIteration->var9 = [MEMORY[0x277CBEAA8] date];
-    currentIteration->var11 = v22;
-    v18 = _MXMGetInstrumentsLog();
-    if (os_signpost_enabled(v18))
+    date = [MEMORY[0x277CBEAA8] date];
+    currentIteration->var9 = date;
+    currentIteration->var11 = v23;
+    v20 = _MXMGetInstrumentsLog(date, v19);
+    if (os_signpost_enabled(v20))
     {
-      *v21 = 0;
-      _os_signpost_emit_with_name_impl(&dword_258DAA000, v18, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Instrument_Iteration_User_Work", "isAnimation=YES ", v21, 2u);
+      *v22 = 0;
+      _os_signpost_emit_with_name_impl(&dword_258DAA000, v20, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Instrument_Iteration_User_Work", "isAnimation=YES ", v22, 2u);
     }
 
     v8 = 1;
@@ -836,9 +829,9 @@ LABEL_17:
       if (error)
       {
         v16 = MEMORY[0x277CCA9B8];
-        v25 = *MEMORY[0x277CCA068];
-        v26[0] = @"Failed to prepare all instrumentals.";
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+        v26 = *MEMORY[0x277CCA068];
+        v27[0] = @"Failed to prepare all instrumentals.";
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
         *error = [v16 errorWithDomain:@"MXMInstrumentErrorDomain" code:1 userInfo:v17];
       }
 
@@ -852,26 +845,23 @@ LABEL_17:
   if (error)
   {
     v6 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA068];
-    v24 = @"Cannot start. Instrument already active.";
-    array = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v24 = *MEMORY[0x277CCA068];
+    v25 = @"Cannot start. Instrument already active.";
+    array = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     [v6 errorWithDomain:@"MXMInstrumentErrorDomain" code:1 userInfo:array];
     *error = v8 = 0;
 LABEL_20:
 
-    goto LABEL_21;
+    return v8;
   }
 
-  v8 = 0;
-LABEL_21:
-  v19 = *MEMORY[0x277D85DE8];
-  return v8;
+  return 0;
 }
 
 - (id)stopWithError:(id *)error
 {
-  v42[1] = *MEMORY[0x277D85DE8];
-  v6 = _MXMGetInstrumentsLog();
+  v41[1] = *MEMORY[0x277D85DE8];
+  v6 = _MXMGetInstrumentsLog(self, a2);
   if (os_signpost_enabled(v6))
   {
     *buf = 0;
@@ -895,7 +885,7 @@ LABEL_21:
     currentIteration->var12 = *buf;
     currentIteration->var8 = v8;
     currentIteration->var6 = v7;
-    v32 = date;
+    v31 = date;
     currentIteration->var10 = date;
     currentIteration->var3 = 2;
     currentIteration->var4 = 1;
@@ -903,36 +893,36 @@ LABEL_21:
     v13 = dispatch_time(0, 1000000000);
     dispatch_group_wait(v12, v13);
     v14 = [(MXMInstrument *)self _transitionWithState:3 iteration:currentIteration instrumentals:currentIteration->var15];
-    v30 = [(MXMInstrument *)self _transitionWithState:4 iteration:currentIteration instrumentals:currentIteration->var15];
-    dispatch_group_wait(v30, 0xFFFFFFFFFFFFFFFFLL);
-    v31 = v14;
+    v29 = [(MXMInstrument *)self _transitionWithState:4 iteration:currentIteration instrumentals:currentIteration->var15];
+    dispatch_group_wait(v29, 0xFFFFFFFFFFFFFFFFLL);
+    v30 = v14;
     dispatch_group_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
     v15 = objc_alloc_init(MXMMutableSampleData);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v16 = currentIteration->var15;
-    v17 = [v16 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v36;
+      v19 = *v35;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v36 != v19)
+          if (*v35 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v35 + 1) + 8 * i);
+          v21 = *(*(&v34 + 1) + 8 * i);
+          v32 = 0;
           v33 = 0;
-          v34 = 0;
-          [v21 harvestData:&v34 error:&v33];
-          v22 = v34;
-          v23 = v33;
+          [v21 harvestData:&v33 error:&v32];
+          v22 = v33;
+          v23 = v32;
           v24 = v23;
           if (v22)
           {
@@ -952,7 +942,7 @@ LABEL_21:
           [(MXMMutableSampleData *)v15 appendData:v22];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v18);
@@ -973,7 +963,7 @@ LABEL_21:
       [(MXMInstrument *)self setCurrentIteration:0];
     }
 
-    date = v32;
+    date = v31;
 
     goto LABEL_24;
   }
@@ -981,9 +971,9 @@ LABEL_21:
   if (error)
   {
     v27 = MEMORY[0x277CCA9B8];
-    v41 = *MEMORY[0x277CCA068];
-    v42[0] = @"Cannot stop. Instrument is inactive.";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v40 = *MEMORY[0x277CCA068];
+    v41[0] = @"Cannot stop. Instrument is inactive.";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     [v27 errorWithDomain:@"MXMInstrumentErrorDomain" code:1 userInfo:v12];
     *error = v15 = 0;
 LABEL_24:
@@ -994,16 +984,14 @@ LABEL_24:
   v15 = 0;
 LABEL_25:
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)measureAutomatically:(unint64_t)automatically options:(id)options block:(id)block
 {
   automaticallyCopy = automatically;
-  v85 = a2;
-  v114 = *MEMORY[0x277D85DE8];
+  v84 = a2;
+  v113 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   blockCopy = block;
   if (!blockCopy)
@@ -1025,8 +1013,8 @@ LABEL_25:
 
   if ((v13 & 1) == 0)
   {
-    v80 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrument" reason:@"Invalid options" userInfo:0];
-    objc_exception_throw(v80);
+    v79 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MXMInstrument" reason:@"Invalid options" userInfo:0];
+    objc_exception_throw(v79);
   }
 
   v14 = [optionsCopy objectForKeyedSubscript:@"com.apple.metricmeasurement.instrument.options.ThreadId"];
@@ -1047,11 +1035,11 @@ LABEL_25:
   v17 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.PerformanceTraceEnabled" userOptions:optionsCopy];
   bOOLValue = [v17 BOOLValue];
 
-  v86 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.PerformanceTraceConfigurations" userOptions:optionsCopy];
+  v85 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.PerformanceTraceConfigurations" userOptions:optionsCopy];
   v18 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.PerfdataEnabled" userOptions:optionsCopy];
   bOOLValue2 = [v18 BOOLValue];
 
-  v84 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.PerfdataTestName" userOptions:optionsCopy];
+  v83 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.PerfdataTestName" userOptions:optionsCopy];
   v19 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.QuiesceCpuIdlePercent" userOptions:optionsCopy];
   [v19 doubleValue];
   v21 = v20;
@@ -1063,52 +1051,53 @@ LABEL_25:
   v25 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.SkipMetricMeasurement" userOptions:optionsCopy];
   bOOLValue3 = [v25 BOOLValue];
 
-  v96 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.UncacheBetweenIterations" userOptions:optionsCopy];
-  v95 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.TerminateProcessBetweenIterations" userOptions:optionsCopy];
+  v95 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.UncacheBetweenIterations" userOptions:optionsCopy];
+  v94 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.TerminateProcessBetweenIterations" userOptions:optionsCopy];
   v27 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.FunctionCoverageEnabled" userOptions:optionsCopy];
   bOOLValue4 = [v27 BOOLValue];
 
-  v90 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.FunctionCoverageConfiguration" userOptions:optionsCopy];
+  v28 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.FunctionCoverageConfiguration" userOptions:optionsCopy];
+  v89 = v28;
   if (bOOLValue3)
   {
-    v28 = _MXMGetLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v30 = _MXMGetLog(v28, v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(buf.__sig) = 0;
-      _os_log_impl(&dword_258DAA000, v28, OS_LOG_TYPE_DEBUG, "Skipping metric measurement as SkipMetricMeasurement was set to true.", &buf, 2u);
+      _os_log_impl(&dword_258DAA000, v30, OS_LOG_TYPE_DEBUG, "Skipping metric measurement as SkipMetricMeasurement was set to true.", &buf, 2u);
     }
   }
 
-  if (bOOLValue && [v86 count])
+  if (bOOLValue && [v85 count])
   {
-    v29 = [v86 count];
+    v31 = [v85 count];
   }
 
   else
   {
-    v29 = bOOLValue;
+    v31 = bOOLValue;
   }
 
-  v30 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.ScheduleKickOffOnNewThread" userOptions:optionsCopy];
-  bOOLValue5 = [v30 BOOLValue];
+  v32 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.ScheduleKickOffOnNewThread" userOptions:optionsCopy];
+  bOOLValue5 = [v32 BOOLValue];
 
-  v32 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.EnableThreadParallelization" userOptions:optionsCopy];
-  bOOLValue6 = [v32 BOOLValue];
+  v34 = [(MXMInstrument *)selfCopy _valueWithOption:@"com.apple.metricmeasurement.instrument.options.EnableThreadParallelization" userOptions:optionsCopy];
+  bOOLValue6 = [v34 BOOLValue];
 
   if (bOOLValue6 & bOOLValue5 & 1) == 0 && (bOOLValue5)
   {
     [MXMInstrument measureAutomatically:options:block:];
   }
 
-  v89 = blockCopy;
+  v88 = blockCopy;
   if (bOOLValue6)
   {
-    v34 = unsignedIntegerValue;
+    v36 = unsignedIntegerValue;
   }
 
   else
   {
-    v34 = bOOLValue5 & 1;
+    v36 = bOOLValue5 & 1;
   }
 
   if ((((automaticallyCopy & 3) != 0) & bOOLValue5) == 1)
@@ -1117,297 +1106,294 @@ LABEL_25:
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v35 = objc_autoreleasePoolPush();
-  v81[1] = v81;
-  v82 = v35;
+  v80[1] = v80;
+  v81 = objc_autoreleasePoolPush();
   MEMORY[0x28223BE20]();
-  v36 = (8 * unsignedIntegerValue + 15) & 0xFFFFFFFFFFFFFFF0;
+  v37 = (8 * unsignedIntegerValue + 15) & 0xFFFFFFFFFFFFFFF0;
   if (8 * unsignedIntegerValue >= 0x200)
   {
-    v37 = 512;
+    v38 = 512;
   }
 
   else
   {
-    v37 = 8 * unsignedIntegerValue;
+    v38 = 8 * unsignedIntegerValue;
   }
 
-  v101 = v81 - v36;
-  bzero(v81 - v36, v37);
+  v100 = v80 - v37;
+  bzero(v80 - v37, v38);
   if (bOOLValue5)
   {
-    v38 = 8 * v34;
-    v94 = malloc_type_malloc(v38, 0x2004093837F09uLL);
-    bzero(v94, v38);
+    v39 = 8 * v36;
+    v93 = malloc_type_malloc(v39, 0x2004093837F09uLL);
+    bzero(v93, v39);
   }
 
   else
   {
-    v94 = 0;
+    v93 = 0;
   }
 
   MEMORY[0x28223BE20]();
-  v100 = v81 - v36;
-  memset(v81 - v36, 255, 8 * unsignedIntegerValue);
-  v39 = selfCopy;
+  v99 = v80 - v37;
+  memset(v80 - v37, 255, 8 * unsignedIntegerValue);
+  v40 = selfCopy;
   [(MXMInstrument *)selfCopy setActive:1];
-  v40 = v89;
+  v41 = v88;
   if (unsignedIntegerValue)
   {
-    v97 = unsignedIntegerValue;
-    v98 = bOOLValue5;
-    v92 = 0;
-    v41 = 0;
-    v42 = unsignedIntegerValue - 1;
-    v88 = unsignedIntegerValue - v29;
+    v96 = unsignedIntegerValue;
+    v97 = bOOLValue5;
+    v91 = 0;
+    v42 = 0;
+    v43 = unsignedIntegerValue - 1;
+    v87 = unsignedIntegerValue - v31;
     do
     {
-      v43 = optionsCopy;
-      v44 = malloc_type_malloc(0xE0uLL, 0x1080040BB297B25uLL);
-      [(MXMInstrument *)v39 instrumentals];
-      v46 = v45 = v39;
-      v47 = [(MXMInstrument *)v45 _makeInstrumentalsForIteration:v46 shouldCopy:unsignedIntegerValue != 1];
+      v44 = optionsCopy;
+      v45 = malloc_type_malloc(0xE0uLL, 0x1080040BB297B25uLL);
+      [(MXMInstrument *)v40 instrumentals];
+      v47 = v46 = v40;
+      v48 = [(MXMInstrument *)v46 _makeInstrumentalsForIteration:v47 shouldCopy:unsignedIntegerValue != 1];
 
-      *(v44 + 3) = 0;
-      v44[32] = 0;
-      *(v44 + 4) = 0;
-      *(v44 + 5) = 0;
-      *(v44 + 6) = 0;
-      *(v44 + 168) = 0u;
-      *(v44 + 9) = 0;
-      *(v44 + 10) = 0;
-      *(v44 + 27) = 0;
-      *(v44 + 18) = 0;
-      *(v44 + 19) = 0;
-      *(v44 + 16) = v45;
-      *(v44 + 17) = 0;
-      v44[160] = 0;
-      *(v44 + 184) = 0u;
-      *(v44 + 193) = 0u;
-      *v44 = v41;
-      *(v44 + 1) = unsignedIntegerValue;
-      *(v44 + 15) = 3;
-      v48 = v47;
-      *(v44 + 17) = v48;
-      v49 = _Block_copy(v40);
-      *(v44 + 15) = automaticallyCopy;
-      v111 = array;
-      *(v44 + 18) = v49;
-      *(v44 + 19) = &v111;
-      v50 = bOOLValue4;
-      if (v41 != v42)
+      *(v45 + 3) = 0;
+      v45[32] = 0;
+      *(v45 + 4) = 0;
+      *(v45 + 5) = 0;
+      *(v45 + 6) = 0;
+      *(v45 + 168) = 0u;
+      *(v45 + 9) = 0;
+      *(v45 + 10) = 0;
+      *(v45 + 27) = 0;
+      *(v45 + 18) = 0;
+      *(v45 + 19) = 0;
+      *(v45 + 16) = v46;
+      *(v45 + 17) = 0;
+      v45[160] = 0;
+      *(v45 + 184) = 0u;
+      *(v45 + 193) = 0u;
+      *v45 = v42;
+      *(v45 + 1) = unsignedIntegerValue;
+      *(v45 + 15) = 3;
+      v49 = v48;
+      *(v45 + 17) = v49;
+      v50 = _Block_copy(v41);
+      *(v45 + 15) = automaticallyCopy;
+      v110 = array;
+      *(v45 + 18) = v50;
+      *(v45 + 19) = &v110;
+      v51 = bOOLValue4;
+      if (v42 != v43)
       {
-        v50 = 0;
+        v51 = 0;
       }
 
-      if (v50 == 1)
+      if (v51 == 1)
       {
-        v44[208] = 1;
-        *(v44 + 27) = v90;
-        unsignedIntegerValue = v97;
-        optionsCopy = v43;
+        v45[208] = 1;
+        *(v45 + 27) = v89;
+        unsignedIntegerValue = v96;
+        optionsCopy = v44;
       }
 
       else
       {
-        if (v41 >= v88)
+        if (v42 >= v87)
         {
-          v51 = bOOLValue;
+          v52 = bOOLValue;
         }
 
         else
         {
-          v51 = 0;
+          v52 = 0;
         }
 
-        optionsCopy = v43;
-        if (v51 == 1)
+        optionsCopy = v44;
+        if (v52 == 1)
         {
-          v44[160] = 1;
-          v52 = [v86 count];
-          v53 = v92;
-          unsignedIntegerValue = v97;
-          if (v52 > v92)
+          v45[160] = 1;
+          v53 = [v85 count];
+          v54 = v91;
+          unsignedIntegerValue = v96;
+          if (v53 > v91)
           {
-            v54 = [v86 objectAtIndex:v92];
-            v53 = v92;
-            *(v44 + 21) = v54;
+            v55 = [v85 objectAtIndex:v91];
+            v54 = v91;
+            *(v45 + 21) = v55;
           }
 
-          v92 = v53 + 1;
+          v91 = v54 + 1;
         }
 
         else
         {
-          unsignedIntegerValue = v97;
+          unsignedIntegerValue = v96;
         }
       }
 
-      *(v44 + 22) = v21;
-      *(v44 + 23) = v24;
-      v55 = v95;
-      *(v44 + 24) = v96;
-      *(v44 + 25) = v55;
-      v39 = selfCopy;
-      [(MXMInstrument *)selfCopy _prepareIteration:v44 options:optionsCopy instrumentals:v48 errors:0];
-      if (v98)
+      *(v45 + 22) = v21;
+      *(v45 + 23) = v24;
+      v56 = v94;
+      *(v45 + 24) = v95;
+      *(v45 + 25) = v56;
+      v40 = selfCopy;
+      [(MXMInstrument *)selfCopy _prepareIteration:v45 options:optionsCopy instrumentals:v49 errors:0];
+      if (v97)
       {
         memset(&buf, 0, sizeof(buf));
         pthread_attr_init(&buf);
         pthread_attr_setschedpolicy(&buf, 4);
         pthread_attr_set_qos_class_np(&buf, QOS_CLASS_USER_INTERACTIVE, 0);
-        v110 = 0;
-        [(MXMInstrument *)v39 _setupAndRunWithIteration:v44 spawnThread:1 attrs:&buf pthread:&v110 returnCode:0];
-        *(v94 + v41) = v110;
+        v109 = 0;
+        [(MXMInstrument *)v40 _setupAndRunWithIteration:v45 spawnThread:1 attrs:&buf pthread:&v109 returnCode:0];
+        *(v93 + v42) = v109;
         pthread_attr_destroy(&buf);
       }
 
       else
       {
-        [(MXMInstrument *)v39 setCurrentIteration:v44];
-        [(MXMInstrument *)v39 _setupAndRunWithIteration:v44 spawnThread:0 attrs:0 pthread:0 returnCode:&v100[8 * v41]];
-        [(MXMInstrument *)v39 setCurrentIteration:0];
+        [(MXMInstrument *)v40 setCurrentIteration:v45];
+        [(MXMInstrument *)v40 _setupAndRunWithIteration:v45 spawnThread:0 attrs:0 pthread:0 returnCode:&v99[8 * v42]];
+        [(MXMInstrument *)v40 setCurrentIteration:0];
       }
 
-      *&v101[8 * v41] = v44;
-      if (*(v44 + 22) == 0.0 || *(v44 + 23) == 0.0)
+      *&v100[8 * v42] = v45;
+      if (*(v45 + 22) == 0.0 || *(v45 + 23) == 0.0)
       {
       }
 
       else
       {
-        v56 = +[MXMInstrument activeInstrument];
-        v57 = v56[8];
+        v57 = +[MXMInstrument activeInstrument];
+        v58 = v57[8];
 
-        v70 = v57 == 1;
-        v39 = selfCopy;
-        if (!v70)
+        v71 = v58 == 1;
+        v40 = selfCopy;
+        if (!v71)
         {
           break;
         }
       }
 
-      ++v41;
+      ++v42;
     }
 
-    while (v41 < unsignedIntegerValue);
-    v58 = 0;
-    v59 = 0x2798C9000uLL;
-    LOBYTE(bOOLValue5) = v98;
-    v87 = optionsCopy;
+    while (v42 < unsignedIntegerValue);
+    v59 = 0;
+    v60 = 0x2798C9000uLL;
+    LOBYTE(bOOLValue5) = v97;
+    v86 = optionsCopy;
     do
     {
-      v60 = objc_alloc_init(*(v59 + 432));
-      v61 = *&v101[8 * v58];
-      [(MXMInstrument *)v39 setCurrentIteration:v61];
+      v61 = objc_alloc_init(*(v60 + 432));
+      v62 = *&v100[8 * v59];
+      [(MXMInstrument *)v40 setCurrentIteration:v62];
       if (bOOLValue5)
       {
-        pthread_join(*(v94 + v58), &v100[8 * v58]);
+        pthread_join(*(v93 + v59), &v99[8 * v59]);
       }
 
-      if (*&v100[8 * v58])
+      if (*&v99[8 * v59])
       {
-        [(MXMInstrument *)v39 setActive:0];
+        [(MXMInstrument *)v40 setActive:0];
         v75 = MEMORY[0x277CBEAD8];
-        v76 = *v61;
-        v77 = [MEMORY[0x277CCACA8] stringWithFormat:@"Non-zero exit code from iteration [%i] code=%i", *v61, *&v100[8 * v58]];
-        v78 = [v75 exceptionWithName:@"Failed to run Block" reason:v77 userInfo:0];
-        v79 = v78;
+        v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"Non-zero exit code from iteration [%i] code=%i", *v62, *&v99[8 * v59]];
+        v77 = [v75 exceptionWithName:@"Failed to run Block" reason:v76 userInfo:0];
+        v78 = v77;
 
-        objc_exception_throw(v78);
+        objc_exception_throw(v77);
       }
 
       if ((automaticallyCopy & 2) != 0)
       {
-        v108 = 0u;
-        v109 = 0u;
-        v106 = 0u;
         v107 = 0u;
-        bOOLValue5 = v61[17];
-        v62 = [bOOLValue5 countByEnumeratingWithState:&v106 objects:v112 count:16];
-        if (v62)
+        v108 = 0u;
+        v105 = 0u;
+        v106 = 0u;
+        bOOLValue5 = *(v62 + 17);
+        v63 = [bOOLValue5 countByEnumeratingWithState:&v105 objects:v111 count:16];
+        if (v63)
         {
-          v63 = v62;
-          v64 = *v107;
+          v64 = v63;
+          v65 = *v106;
           do
           {
-            for (i = 0; i != v63; ++i)
+            for (i = 0; i != v64; ++i)
             {
-              if (*v107 != v64)
+              if (*v106 != v65)
               {
                 objc_enumerationMutation(bOOLValue5);
               }
 
-              v66 = *(*(&v106 + 1) + 8 * i);
+              v67 = *(*(&v105 + 1) + 8 * i);
+              v103 = 0;
               v104 = 0;
-              v105 = 0;
-              [v66 harvestData:&v105 error:&v104];
-              v67 = v105;
+              [v67 harvestData:&v104 error:&v103];
               v68 = v104;
-              v69 = v68;
-              if (v67)
+              v69 = v103;
+              v70 = v69;
+              if (v68)
               {
-                v70 = v68 == 0;
+                v71 = v69 == 0;
               }
 
               else
               {
-                v70 = 0;
+                v71 = 0;
               }
 
-              if (!v70)
+              if (!v71)
               {
                 [MXMInstrument measureAutomatically:options:block:];
               }
 
-              [v60 appendData:v67];
+              [v61 appendData:v68];
             }
 
-            v63 = [bOOLValue5 countByEnumeratingWithState:&v106 objects:v112 count:16];
+            v64 = [bOOLValue5 countByEnumeratingWithState:&v105 objects:v111 count:16];
           }
 
-          while (v63);
+          while (v64);
         }
 
-        [array setObject:v60 atIndexedSubscript:v58];
-        optionsCopy = v87;
-        v40 = v89;
-        v39 = selfCopy;
-        unsignedIntegerValue = v97;
-        LOBYTE(bOOLValue5) = v98;
-        v59 = 0x2798C9000;
+        [array setObject:v61 atIndexedSubscript:v59];
+        optionsCopy = v86;
+        v41 = v88;
+        v40 = selfCopy;
+        unsignedIntegerValue = v96;
+        LOBYTE(bOOLValue5) = v97;
+        v60 = 0x2798C9000;
       }
 
-      _Block_release(v61[18]);
+      _Block_release(*(v62 + 18));
 
-      free(v61);
-      [(MXMInstrument *)v39 setCurrentIteration:0];
+      free(v62);
+      [(MXMInstrument *)v40 setCurrentIteration:0];
 
-      ++v58;
+      ++v59;
     }
 
-    while (v58 != unsignedIntegerValue);
+    while (v59 != unsignedIntegerValue);
   }
 
-  [(MXMInstrument *)v39 setCurrentIteration:0];
+  [(MXMInstrument *)v40 setCurrentIteration:0];
   if (bOOLValue5)
   {
-    free(v94);
+    free(v93);
   }
 
-  objc_autoreleasePoolPop(v82);
-  v71 = v84;
+  objc_autoreleasePoolPop(v81);
+  v72 = v83;
   if (bOOLValue2)
   {
-    [(MXMInstrument *)v39 _makePerfDataFromMXMResults:array testName:v84];
+    [(MXMInstrument *)v40 _makePerfDataFromMXMResults:array testName:v83];
   }
 
-  if ([(MXMInstrument *)v39 active])
+  if ([(MXMInstrument *)v40 active])
   {
-    [(MXMInstrument *)v39 setActive:0];
+    [(MXMInstrument *)v40 setActive:0];
   }
 
-  v72 = *MEMORY[0x277D85DE8];
   v73 = array;
 
   return v73;
@@ -1415,7 +1401,7 @@ LABEL_25:
 
 - (void)_makePerfDataFromMXMResults:(id)results testName:(id)name
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   nameCopy = name;
   __sizep = 0;
@@ -1423,137 +1409,135 @@ LABEL_25:
   v8 = open_memstream(&__bufp, &__sizep);
   if (v8)
   {
-    v9 = v8;
+    v10 = v8;
     [nameCopy UTF8String];
     if (pdwriter_open_stream())
     {
       selfCopy = self;
-      v33 = nameCopy;
+      v34 = nameCopy;
       if ([resultsCopy count])
       {
-        v10 = 0;
-        v34 = resultsCopy;
+        v12 = 0;
+        v35 = resultsCopy;
         do
         {
-          v35 = v10;
-          v11 = [resultsCopy objectAtIndexedSubscript:v10];
-          v38 = 0u;
+          v36 = v12;
+          v13 = [resultsCopy objectAtIndexedSubscript:v12];
           v39 = 0u;
           v40 = 0u;
           v41 = 0u;
-          obj = v11;
-          v12 = [v11 countByEnumeratingWithState:&v38 objects:v45 count:16];
-          if (v12)
+          v42 = 0u;
+          obj = v13;
+          v14 = [v13 countByEnumeratingWithState:&v39 objects:v46 count:16];
+          if (v14)
           {
-            v13 = v12;
-            v37 = *v39;
+            v15 = v14;
+            v38 = *v40;
             do
             {
-              for (i = 0; i != v13; ++i)
+              for (i = 0; i != v15; ++i)
               {
-                if (*v39 != v37)
+                if (*v40 != v38)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v15 = *(*(&v38 + 1) + 8 * i);
-                v16 = [v15 attributeWithName:@"XCT Reporting Display Name"];
-                stringValue = [v16 stringValue];
+                v17 = *(*(&v39 + 1) + 8 * i);
+                v18 = [v17 attributeWithName:@"XCT Reporting Display Name"];
+                stringValue = [v18 stringValue];
 
-                samples = [v15 samples];
+                samples = [v17 samples];
                 firstObject = [samples firstObject];
                 asMeasurementValue = [firstObject asMeasurementValue];
 
                 unit = [asMeasurementValue unit];
-                v22 = [asMeasurementValue measurementByConvertingToUnit:unit];
+                v24 = [asMeasurementValue measurementByConvertingToUnit:unit];
                 [stringValue UTF8String];
                 unit2 = [asMeasurementValue unit];
                 symbol = [unit2 symbol];
                 [symbol UTF8String];
-                [v22 doubleValue];
+                [v24 doubleValue];
                 pdwriter_new_value();
               }
 
-              v13 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+              v15 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
             }
 
-            while (v13);
+            while (v15);
           }
 
-          resultsCopy = v34;
-          v10 = v35 + 1;
+          resultsCopy = v35;
+          v12 = v36 + 1;
         }
 
-        while (v35 + 1 < [v34 count]);
+        while (v36 + 1 < [v35 count]);
       }
 
       pdwriter_close();
-      v25 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:__bufp length:__sizep freeWhenDone:1];
+      v27 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:__bufp length:__sizep freeWhenDone:1];
       perfMetricsPerfdata = selfCopy->_perfMetricsPerfdata;
-      selfCopy->_perfMetricsPerfdata = v25;
+      selfCopy->_perfMetricsPerfdata = v27;
 
-      nameCopy = v33;
+      nameCopy = v34;
     }
 
     else
     {
-      v29 = _MXMGetLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = _MXMGetLog(0, v11);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_258DAA000, v29, OS_LOG_TYPE_ERROR, "unable to open stream to write perfdata", buf, 2u);
+        _os_log_impl(&dword_258DAA000, v31, OS_LOG_TYPE_ERROR, "unable to open stream to write perfdata", buf, 2u);
       }
 
-      v30 = self->_perfMetricsPerfdata;
+      v32 = self->_perfMetricsPerfdata;
       self->_perfMetricsPerfdata = 0;
 
-      fclose(v9);
+      fclose(v10);
       free(__bufp);
     }
   }
 
   else
   {
-    v27 = _MXMGetLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = _MXMGetLog(0, v9);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_258DAA000, v27, OS_LOG_TYPE_ERROR, "unable to open stream to write perfdata", buf, 2u);
+      _os_log_impl(&dword_258DAA000, v29, OS_LOG_TYPE_ERROR, "unable to open stream to write perfdata", buf, 2u);
     }
 
-    v28 = self->_perfMetricsPerfdata;
+    v30 = self->_perfMetricsPerfdata;
     self->_perfMetricsPerfdata = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_makeInstrumentalsForIteration:(id)iteration shouldCopy:(BOOL)copy
 {
   copyCopy = copy;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   iterationCopy = iteration;
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(iterationCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = iterationCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         v13 = v12;
         if (copyCopy)
         {
@@ -1562,16 +1546,14 @@ LABEL_25:
           v13 = v14;
         }
 
-        [v6 addObject:{v13, v17}];
+        [v6 addObject:{v13, v16}];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

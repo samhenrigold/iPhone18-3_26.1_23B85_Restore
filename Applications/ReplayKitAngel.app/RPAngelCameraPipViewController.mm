@@ -15,6 +15,7 @@
 - (void)startPipSession;
 - (void)stopPipSession;
 - (void)updateViewGeometry;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 @end
 
@@ -356,6 +357,24 @@ LABEL_12:
   [view setBackgroundColor:v4];
 
   [(RPAngelCameraPipViewController *)self updateViewGeometry];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (__RPLogLevel <= 1u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v7 = "[RPAngelCameraPipViewController viewDidDisappear:]";
+    v8 = 1024;
+    v9 = 142;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
+  }
+
+  v5.receiver = self;
+  v5.super_class = RPAngelCameraPipViewController;
+  [(RPAngelCameraPipViewController *)&v5 viewDidDisappear:disappearCopy];
+  [(RPAngelCameraPipViewController *)self stopPipSession];
 }
 
 - (void)viewDidLayoutSubviews

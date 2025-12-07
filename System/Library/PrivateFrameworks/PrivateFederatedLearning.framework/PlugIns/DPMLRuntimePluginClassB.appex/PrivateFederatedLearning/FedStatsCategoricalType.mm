@@ -103,31 +103,29 @@
     selfCopy = self;
     if (v7)
     {
-      v11 = [dictCopy objectForKey:@"categories"];
-      v12 = objc_claimAutoreleasedReturnValue();
+      v12 = v11 = [dictCopy objectForKey:@"categories"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v75 = 0u;
-        v76 = 0u;
-        v73 = 0u;
-        v74 = 0u;
+        v71 = 0u;
+        v72 = 0u;
+        v69 = 0u;
+        v70 = 0u;
         v11 = v11;
-        v13 = [v11 countByEnumeratingWithState:&v73 objects:v80 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v69 objects:v76 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v74;
+          v15 = *v70;
 LABEL_11:
           v16 = 0;
           while (1)
           {
-            if (*v74 != v15)
+            if (*v70 != v15)
             {
               objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v73 + 1) + 8 * v16);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -136,7 +134,7 @@ LABEL_11:
 
             if (v14 == ++v16)
             {
-              v14 = [v11 countByEnumeratingWithState:&v73 objects:v80 count:16];
+              v14 = [v11 countByEnumeratingWithState:&v69 objects:v76 count:16];
               if (v14)
               {
                 goto LABEL_11;
@@ -157,13 +155,13 @@ LABEL_49:
 
 LABEL_17:
 
-        v18 = [NSSet setWithArray:v11];
-        v19 = [v18 count];
-        v20 = [v11 count];
+        v17 = [NSSet setWithArray:v11];
+        v18 = [v17 count];
+        v19 = [v11 count];
 
-        if (v19 == v20)
+        if (v18 == v19)
         {
-          v21 = [[self alloc] initWithCategories:v11];
+          v20 = [[self alloc] initWithCategories:v11];
 LABEL_60:
 
           goto LABEL_62;
@@ -175,31 +173,29 @@ LABEL_60:
 
     if (v8)
     {
-      v11 = [dictCopy objectForKey:@"categoryMap"];
-      v12 = objc_claimAutoreleasedReturnValue();
+      v12 = v11 = [dictCopy objectForKey:@"categoryMap"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v71 = 0u;
-        v72 = 0u;
-        v69 = 0u;
-        v70 = 0u;
+        v67 = 0u;
+        v68 = 0u;
+        v65 = 0u;
+        v66 = 0u;
         v11 = v11;
-        v23 = [v11 countByEnumeratingWithState:&v69 objects:v79 count:16];
-        if (v23)
+        v22 = [v11 countByEnumeratingWithState:&v65 objects:v75 count:16];
+        if (v22)
         {
-          v24 = v23;
-          v25 = *v70;
+          v23 = v22;
+          v24 = *v66;
           do
           {
-            for (i = 0; i != v24; i = i + 1)
+            for (i = 0; i != v23; ++i)
             {
-              if (*v70 != v25)
+              if (*v66 != v24)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v27 = *(*(&v69 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -207,48 +203,46 @@ LABEL_60:
               }
             }
 
-            v24 = [v11 countByEnumeratingWithState:&v69 objects:v79 count:16];
+            v23 = [v11 countByEnumeratingWithState:&v65 objects:v75 count:16];
           }
 
-          while (v24);
+          while (v23);
         }
 
         allKeys = [v11 allKeys];
-        v29 = [allKeys sortedArrayUsingSelector:"compare:"];
+        v27 = [allKeys sortedArrayUsingSelector:"compare:"];
 
-        v30 = +[NSMutableDictionary dictionary];
-        v65 = 0u;
-        v66 = 0u;
-        v67 = 0u;
-        v68 = 0u;
-        v31 = v29;
-        v32 = [v31 countByEnumeratingWithState:&v65 objects:v78 count:16];
-        if (!v32)
+        v28 = +[NSMutableDictionary dictionary];
+        v61 = 0u;
+        v62 = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        v29 = v27;
+        v30 = [v29 countByEnumeratingWithState:&v61 objects:v74 count:16];
+        if (!v30)
         {
           goto LABEL_48;
         }
 
-        v58 = 0;
-        v33 = *v66;
-        v34 = &INSupportedMediaCategories_ptr;
-        v54 = v31;
+        v54 = 0;
+        v31 = *v62;
+        v50 = v29;
         while (1)
         {
-          v35 = 0;
-          v51 = v32;
+          v32 = 0;
+          v47 = v30;
           do
           {
-            if (*v66 != v33)
+            if (*v62 != v31)
             {
-              v36 = v35;
-              objc_enumerationMutation(v31);
-              v35 = v36;
+              v33 = v32;
+              objc_enumerationMutation(v29);
+              v32 = v33;
             }
 
-            v52 = v35;
-            v56 = *(*(&v65 + 1) + 8 * v35);
-            v37 = [v11 objectForKey:?];
-            v38 = v34[144];
+            v48 = v32;
+            v52 = *(*(&v61 + 1) + 8 * v32);
+            v34 = [v11 objectForKey:?];
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -260,43 +254,43 @@ LABEL_60:
 LABEL_73:
 
 LABEL_74:
-              v21 = 0;
+              v20 = 0;
               goto LABEL_75;
             }
 
-            v63 = 0u;
-            v64 = 0u;
-            v61 = 0u;
-            v62 = 0u;
-            v53 = v37;
-            obj = v37;
-            v39 = [obj countByEnumeratingWithState:&v61 objects:v77 count:16];
-            if (!v39)
+            v59 = 0u;
+            v60 = 0u;
+            v57 = 0u;
+            v58 = 0u;
+            v49 = v34;
+            obj = v34;
+            v35 = [obj countByEnumeratingWithState:&v57 objects:v73 count:16];
+            if (!v35)
             {
               goto LABEL_46;
             }
 
-            v40 = v39;
-            v57 = *v62;
-            v50 = v33;
+            v36 = v35;
+            v53 = *v58;
+            v46 = v31;
             while (2)
             {
-              for (j = 0; j != v40; j = j + 1)
+              for (j = 0; j != v36; j = j + 1)
               {
-                if (*v62 != v57)
+                if (*v58 != v53)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v42 = *(*(&v61 + 1) + 8 * j);
+                v38 = *(*(&v57 + 1) + 8 * j);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v37 = v53;
-                  v31 = v54;
+                  v34 = v49;
+                  v29 = v50;
                   if (error)
                   {
-                    v49 = v12;
+                    v45 = v12;
                     goto LABEL_71;
                   }
 
@@ -305,35 +299,35 @@ LABEL_72:
                   goto LABEL_73;
                 }
 
-                [v30 allKeys];
-                v44 = v43 = v30;
-                v45 = [v44 containsObject:v42];
+                [v28 allKeys];
+                v40 = v39 = v28;
+                v41 = [v40 containsObject:v38];
 
-                if (v45)
+                if (v41)
                 {
-                  v30 = v43;
-                  v37 = v53;
-                  v31 = v54;
+                  v28 = v39;
+                  v34 = v49;
+                  v29 = v50;
                   if (error)
                   {
-                    v49 = @"Subcategories must be distinct";
+                    v45 = @"Subcategories must be distinct";
 LABEL_71:
-                    *error = [FedStatsError errorWithCode:302 description:v49];
+                    *error = [FedStatsError errorWithCode:302 description:v45];
                   }
 
                   goto LABEL_72;
                 }
 
-                v46 = [FedStatsCategoricalTypeSubcategory categoryWithSuperCategory:v56 index:v58];
-                [v43 setObject:v46 forKey:v42];
+                v42 = [FedStatsCategoricalTypeSubcategory categoryWithSuperCategory:v52 index:v54];
+                [v39 setObject:v42 forKey:v38];
 
-                v30 = v43;
+                v28 = v39;
               }
 
-              v40 = [obj countByEnumeratingWithState:&v61 objects:v77 count:16];
+              v36 = [obj countByEnumeratingWithState:&v57 objects:v73 count:16];
               self = selfCopy;
-              v33 = v50;
-              if (v40)
+              v31 = v46;
+              if (v36)
               {
                 continue;
               }
@@ -343,19 +337,18 @@ LABEL_71:
 
 LABEL_46:
 
-            ++v58;
-            v35 = v52 + 1;
-            v31 = v54;
-            v34 = &INSupportedMediaCategories_ptr;
+            ++v54;
+            v32 = v48 + 1;
+            v29 = v50;
           }
 
-          while ((v52 + 1) != v51);
-          v32 = [v54 countByEnumeratingWithState:&v65 objects:v78 count:16];
-          if (!v32)
+          while ((v48 + 1) != v47);
+          v30 = [v50 countByEnumeratingWithState:&v61 objects:v74 count:16];
+          if (!v30)
           {
 LABEL_48:
 
-            v47 = [[self alloc] initWithCategoryMap:v30 categories:v31];
+            v43 = [[self alloc] initWithCategoryMap:v28 categories:v29];
             goto LABEL_56;
           }
         }
@@ -366,19 +359,18 @@ LABEL_48:
 
     if (v9)
     {
-      v11 = [dictCopy objectForKey:@"categoryFile"];
-      v12 = objc_claimAutoreleasedReturnValue();
+      v12 = v11 = [dictCopy objectForKey:@"categoryFile"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v60 = 0;
-        v30 = [FedStatsSQLiteCategoryDatabase databaseWithFileURL:v11 error:&v60];
-        v31 = v60;
-        if (v30)
+        v56 = 0;
+        v28 = [FedStatsSQLiteCategoryDatabase databaseWithFileURL:v11 error:&v56];
+        v29 = v56;
+        if (v28)
         {
-          v47 = [[self alloc] initWithCategoryFile:v30];
+          v43 = [[self alloc] initWithCategoryFile:v28];
 LABEL_56:
-          v21 = v47;
+          v20 = v43;
         }
 
         else
@@ -388,8 +380,8 @@ LABEL_56:
             goto LABEL_74;
           }
 
-          [FedStatsError errorWithCode:302 underlyingError:v31 description:@"Cannot create database from the provided URL"];
-          *error = v21 = 0;
+          [FedStatsError errorWithCode:302 underlyingError:v29 description:@"Cannot create database from the provided URL"];
+          *error = v20 = 0;
         }
 
 LABEL_75:
@@ -401,33 +393,33 @@ LABEL_57:
       if (error)
       {
         [FedStatsError errorWithCode:302 description:v12];
-        *error = v21 = 0;
+        *error = v20 = 0;
         goto LABEL_60;
       }
 
 LABEL_59:
-      v21 = 0;
+      v20 = 0;
       goto LABEL_60;
     }
   }
 
   else if (error)
   {
-    v81[0] = @"categories";
-    v81[1] = @"categoryMap";
-    v81[2] = @"categoryFile";
-    v11 = [NSArray arrayWithObjects:v81 count:3];
+    v77[0] = @"categories";
+    v77[1] = @"categoryMap";
+    v77[2] = @"categoryFile";
+    v11 = [NSArray arrayWithObjects:v77 count:3];
     v12 = [v11 componentsJoinedByString:{@", "}];
-    v22 = [NSString stringWithFormat:@"You're allowed to have exactly one of {%@} as key in parameters", v12];
-    *error = [FedStatsError errorWithCode:301 description:v22];
+    v21 = [NSString stringWithFormat:@"You're allowed to have exactly one of {%@} as key in parameters", v12];
+    *error = [FedStatsError errorWithCode:301 description:v21];
 
     goto LABEL_59;
   }
 
-  v21 = 0;
+  v20 = 0;
 LABEL_62:
 
-  return v21;
+  return v20;
 }
 
 - (id)encodeToIndex:(id)index possibleError:(id *)error

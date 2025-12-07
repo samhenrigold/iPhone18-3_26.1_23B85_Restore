@@ -46,14 +46,14 @@ LABEL_23:
     }
 
     v18 = v6->_modelEspresso;
-    if (v18 && ([(VCPCNNModelEspresso *)v18 inputBlob], (v19 = v6->_modelEspresso) != 0))
+    if (v18 && (objc_msgSend_inputBlob(v18), (v19 = v6->_modelEspresso) != 0))
     {
-      [(VCPCNNModelEspresso *)v19 inputBlob];
+      objc_msgSend_inputBlob(v19);
       v20 = v6->_modelEspresso;
       v21 = v31 * v33;
       if (v20)
       {
-        [(VCPCNNModelEspresso *)v20 inputBlob];
+        objc_msgSend_inputBlob(v20);
         v22 = v30;
 LABEL_12:
         v23 = v21 * v22;
@@ -71,12 +71,12 @@ LABEL_12:
         v25 = v6->_modelEspresso;
         if (v25)
         {
-          [(VCPCNNModelEspresso *)v25 inputBlob];
+          objc_msgSend_inputBlob(v25);
           v26 = v6->_modelEspresso;
           v6->_inputWidth = v32;
           if (v26)
           {
-            [(VCPCNNModelEspresso *)v26 inputBlob];
+            objc_msgSend_inputBlob(v26);
             v27 = v33;
           }
 
@@ -281,7 +281,7 @@ LABEL_24:
     goto LABEL_8;
   }
 
-  [(VCPCNNModelEspresso *)modelEspresso outputBlob];
+  objc_msgSend_outputBlob(modelEspresso);
   v5 = self->_modelEspresso;
   v33 = v38;
   if (!v5)
@@ -299,7 +299,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  [(VCPCNNModelEspresso *)v5 outputBlob];
+  objc_msgSend_outputBlob(v5);
   v6 = v37;
   v7 = self->_modelEspresso;
   if (!v7)
@@ -307,12 +307,12 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  [(VCPCNNModelEspresso *)v7 outputBlob];
+  objc_msgSend_outputBlob(v7);
   v8 = self->_modelEspresso;
   v9 = v36;
   if (v8)
   {
-    [(VCPCNNModelEspresso *)v8 outputBlob];
+    objc_msgSend_outputBlob(v8);
     v10 = *buf;
     if (!v37)
     {

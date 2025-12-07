@@ -4,9 +4,12 @@
 - (id)presentationControllerForPresentedViewController:(id)controller presentingViewController:(id)viewController sourceViewController:(id)sourceViewController;
 - (void)dealloc;
 - (void)dismissWithCompletion:(id)completion;
+- (void)setIsShowingSearchResults:(BOOL)results;
 - (void)setIsShowingSearchResults:(BOOL)results animated:(BOOL)animated;
 - (void)setUpNavigationController:(id)controller;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ICSERootViewController
@@ -157,6 +160,29 @@
   [(ICSERootViewController *)&v4 dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = +[ICNAController sharedController];
+  v6 = [NSURL URLWithString:kICNASharingExtensionReferralURL];
+  [v5 startSessionWithReferralURL:v6 referralApplication:0];
+
+  v7.receiver = self;
+  v7.super_class = ICSERootViewController;
+  [(ICSERootViewController *)&v7 viewWillAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = +[ICNAController sharedController];
+  [v5 endSessionSynchronously:0 endReason:1];
+
+  v6.receiver = self;
+  v6.super_class = ICSERootViewController;
+  [(ICSERootViewController *)&v6 viewWillDisappear:disappearCopy];
+}
+
 - (void)setUpNavigationController:(id)controller
 {
   controllerCopy = controller;
@@ -210,6 +236,33 @@
   {
 
     [(ICSERootViewController *)self setIsShowingSearchResults:?];
+  }
+}
+
+- (void)setIsShowingSearchResults:(BOOL)results
+{
+  if (self->_isShowingSearchResults != results)
+  {
+    v11[9] = v3;
+    v11[10] = v4;
+    resultsCopy = results;
+    self->_isShowingSearchResults = results;
+    ic_presentationController = [(ICSERootViewController *)self ic_presentationController];
+    [ic_presentationController setIsShowingSearchResults:resultsCopy];
+
+    containerViewController = [(ICSERootViewController *)self containerViewController];
+    [containerViewController setIsShowingTableContainer:resultsCopy];
+
+    ic_presentationController2 = [(ICSERootViewController *)self ic_presentationController];
+    containerView = [ic_presentationController2 containerView];
+    [containerView setNeedsLayout];
+
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000D2B0;
+    v11[3] = &unk_1000F2390;
+    v11[4] = self;
+    [UIView animateWithDuration:v11 animations:0.0];
   }
 }
 

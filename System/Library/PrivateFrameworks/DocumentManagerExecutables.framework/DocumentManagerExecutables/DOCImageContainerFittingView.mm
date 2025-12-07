@@ -92,7 +92,7 @@
   specialized DOCImageContainerFittingView.dragInteraction(_:itemsForBeginning:)(interactionCopy, session);
 
   swift_unknownObjectRelease();
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDragItem);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDragItem, 0x277D75470);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;

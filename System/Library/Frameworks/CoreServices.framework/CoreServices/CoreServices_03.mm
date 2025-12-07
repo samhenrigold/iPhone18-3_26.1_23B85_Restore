@@ -25,8 +25,8 @@ void FSEventStreamRelease(FSEventStreamRef streamRef)
     {
       if ((*streamRef & 0x80000000) != 0)
       {
-        v2 = fsevent_default_log();
-        if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+        v3 = fsevent_default_log(streamRef, v1);
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
         {
           FSEventStreamRelease_cold_1();
         }
@@ -35,15 +35,15 @@ void FSEventStreamRelease(FSEventStreamRef streamRef)
       else
       {
 
-        _FSEventStreamDeallocate(streamRef);
+        _FSEventStreamDeallocate(streamRef, v1);
       }
     }
   }
 
   else
   {
-    v1 = fsevent_default_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = fsevent_default_log(0, v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamRelease_cold_2();
     }
@@ -58,47 +58,47 @@ void FSEventStreamStop(FSEventStreamRef streamRef)
     {
       if (*(streamRef + 49))
       {
-        v2 = *(streamRef + 45);
-        if (v2 && *(streamRef + 92) == 3)
+        v3 = *(streamRef + 45);
+        if (v3 && *(streamRef + 92) == 3)
         {
-          dispatch_suspend(v2);
+          dispatch_suspend(v3);
           *(streamRef + 92) = 2;
         }
 
-        v3 = *(streamRef + 47);
-        if (v3)
+        v4 = *(streamRef + 47);
+        if (v4)
         {
           cancel_source(streamRef + 47, streamRef + 96);
           *(streamRef + 49) = 0;
         }
 
-        v4 = *(streamRef + 26);
-        if (v4)
+        v5 = *(streamRef + 26);
+        if (v5)
         {
-          CFMachPortSetInvalidationCallBack(v4, 0);
+          CFMachPortSetInvalidationCallBack(v5, 0);
           CFMachPortInvalidate(*(streamRef + 26));
           CFRelease(*(streamRef + 26));
           *(streamRef + 26) = 0;
         }
 
-        if (!v3)
+        if (!v4)
         {
           dispose_f2d_private_port(*(streamRef + 49));
           *(streamRef + 49) = 0;
         }
 
-        v5 = *(streamRef + 52);
-        if (v5)
+        v6 = *(streamRef + 52);
+        if (v6)
         {
-          CFFileDescriptorDisableCallBacks(v5, 1uLL);
+          CFFileDescriptorDisableCallBacks(v6, 1uLL);
         }
 
-        v6 = *(streamRef + 54);
-        if (v6)
+        v7 = *(streamRef + 54);
+        if (v7)
         {
           if (*(streamRef + 110) == 3)
           {
-            dispatch_suspend(v6);
+            dispatch_suspend(v7);
             *(streamRef + 110) = 2;
           }
         }
@@ -108,8 +108,8 @@ void FSEventStreamStop(FSEventStreamRef streamRef)
 
       else
       {
-        v8 = fsevent_default_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = fsevent_default_log(streamRef, v1);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           FSEventStreamStop_cold_1();
         }
@@ -119,8 +119,8 @@ void FSEventStreamStop(FSEventStreamRef streamRef)
 
   else
   {
-    v7 = fsevent_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = fsevent_default_log(0, v1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamStop_cold_2();
     }
@@ -148,8 +148,8 @@ void FSEventStreamInvalidate(FSEventStreamRef streamRef)
     {
       if (*(streamRef + 188))
       {
-        v2 = fsevent_default_log();
-        if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+        v3 = fsevent_default_log(streamRef, v1);
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
         {
           FSEventStreamInvalidate_cold_1();
         }
@@ -157,29 +157,29 @@ void FSEventStreamInvalidate(FSEventStreamRef streamRef)
 
       *(streamRef + 189) = 1;
       _FSEventStreamUnscheduleFromRunLoops(streamRef);
-      v3 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, streamRef + 192);
+      v4 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, streamRef + 192);
       pthread_mutex_lock(&FSEvents_streamDict_mutex);
-      CFDictionaryRemoveValue(FSEvents_streamDict, v3);
+      CFDictionaryRemoveValue(FSEvents_streamDict, v4);
       pthread_mutex_unlock(&FSEvents_streamDict_mutex);
-      CFRelease(v3);
-      v4 = *(streamRef + 25);
-      if (v4)
+      CFRelease(v4);
+      v5 = *(streamRef + 25);
+      if (v5)
       {
-        CFMachPortInvalidate(v4);
+        CFMachPortInvalidate(v5);
         CFRelease(*(streamRef + 25));
         *(streamRef + 25) = 0;
-        v5 = *(streamRef + 26);
-        if (v5)
+        v6 = *(streamRef + 26);
+        if (v6)
         {
-          CFMachPortSetInvalidationCallBack(v5, 0);
+          CFMachPortSetInvalidationCallBack(v6, 0);
           CFRelease(*(streamRef + 26));
           *(streamRef + 26) = 0;
         }
 
-        v6 = *(streamRef + 27);
-        if (v6)
+        v7 = *(streamRef + 27);
+        if (v7)
         {
-          CFRelease(v6);
+          CFRelease(v7);
           *(streamRef + 27) = 0;
         }
       }
@@ -203,16 +203,16 @@ void FSEventStreamInvalidate(FSEventStreamRef streamRef)
 
       if ((*(streamRef + 184) & 4) != 0)
       {
-        v8 = *(streamRef + 52);
-        if (v8)
+        v9 = *(streamRef + 52);
+        if (v9)
         {
-          CFFileDescriptorInvalidate(v8);
+          CFFileDescriptorInvalidate(v9);
           CFRelease(*(streamRef + 52));
           *(streamRef + 52) = 0;
-          v9 = *(streamRef + 53);
-          if (v9)
+          v10 = *(streamRef + 53);
+          if (v10)
           {
-            CFRelease(v9);
+            CFRelease(v10);
             *(streamRef + 53) = 0;
           }
         }
@@ -227,8 +227,8 @@ void FSEventStreamInvalidate(FSEventStreamRef streamRef)
 
     else
     {
-      v10 = fsevent_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = fsevent_default_log(streamRef, v1);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         FSEventStreamInvalidate_cold_2();
       }
@@ -237,8 +237,8 @@ void FSEventStreamInvalidate(FSEventStreamRef streamRef)
 
   else
   {
-    v7 = fsevent_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = fsevent_default_log(0, v1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamInvalidate_cold_3();
     }
@@ -271,18 +271,18 @@ void __create_d2f_port_source_block_invoke_2(uint64_t a1)
   FSEventStreamRelease(v2);
 }
 
-void dispose_d2f_port(mach_port_name_t name)
+void dispose_d2f_port(uint64_t name)
 {
   if (name)
   {
     v1 = mach_port_mod_refs(*MEMORY[0x1E69E9A60], name, 1u, -1);
     if (v1)
     {
-      v2 = v1;
-      v3 = fsevent_default_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v3 = v1;
+      v4 = fsevent_default_log(v1, v2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        dispose_d2f_port_cold_1(v2);
+        dispose_d2f_port_cold_1(v3);
       }
     }
   }
@@ -295,7 +295,7 @@ FSEventStreamRef FSEventStreamCreateRelativeToDevice(CFAllocatorRef allocator, F
     return _FSEventStreamCreate("FSEventStreamCreateRelativeToDevice", allocator, callback, &context->version, deviceToWatch, pathsToWatchRelativeToDevice, sinceWhen, (latency * 1000000.0), flags);
   }
 
-  v9 = fsevent_default_log();
+  v9 = fsevent_default_log(allocator, callback);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     FSEventStreamCreateRelativeToDevice_cold_1();
@@ -313,14 +313,16 @@ void __create_f2d_private_port_source_block_invoke_2(uint64_t a1)
   FSEventStreamRelease(v2);
 }
 
-void dispose_f2d_private_port(mach_port_name_t a1)
+void dispose_f2d_private_port(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    if (f2d_unregister_rpc(a1))
+    v1 = result;
+    v2 = f2d_unregister_rpc(result);
+    if (v2)
     {
-      v2 = fsevent_default_log();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v4 = fsevent_default_log(v2, v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         dispose_f2d_private_port_cold_1();
       }
@@ -328,14 +330,14 @@ void dispose_f2d_private_port(mach_port_name_t a1)
 
     else
     {
-      v3 = mach_port_deallocate(*MEMORY[0x1E69E9A60], a1);
-      if (v3)
+      v5 = mach_port_deallocate(*MEMORY[0x1E69E9A60], v1);
+      if (v5)
       {
-        v4 = v3;
-        v5 = fsevent_default_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v7 = v5;
+        v8 = fsevent_default_log(v5, v6);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          dispose_f2d_private_port_cold_2(v4);
+          dispose_f2d_private_port_cold_2(v7);
         }
       }
     }
@@ -402,14 +404,15 @@ uint64_t f2d_unregister_rpc(int a1)
   return v5;
 }
 
-void _FSEventStreamDeallocate(char *ptr)
+void _FSEventStreamDeallocate(char *ptr, uint64_t a2)
 {
   if (ptr)
   {
+    v2 = ptr;
     if (*ptr)
     {
-      v2 = fsevent_default_log();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v3 = fsevent_default_log(ptr, a2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         _FSEventStreamDeallocate_cold_1();
       }
@@ -419,161 +422,162 @@ void _FSEventStreamDeallocate(char *ptr)
     {
       if (ptr[188])
       {
-        v4 = fsevent_default_log();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+        v5 = fsevent_default_log(ptr, a2);
+        ptr = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+        if (ptr)
         {
           _FSEventStreamDeallocate_cold_2();
         }
       }
 
-      if (*(ptr + 27) || *(ptr + 45))
+      if (*(v2 + 27) || *(v2 + 45))
       {
-        v5 = fsevent_default_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v6 = fsevent_default_log(ptr, a2);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           _FSEventStreamDeallocate_cold_3();
         }
       }
 
-      v6 = *(ptr + 1);
-      if (v6)
+      v7 = *(v2 + 1);
+      if (v7)
       {
-        v7 = *(ptr + 10);
-        if (v7)
+        v8 = *(v2 + 10);
+        if (v8)
         {
-          v8 = *(ptr + 9);
-          *(ptr + 9) = 0;
-          if (v8 >= 1)
+          v9 = *(v2 + 9);
+          *(v2 + 9) = 0;
+          if (v9 >= 1)
           {
-            v9 = 0;
-            v10 = v8 & 0x7FFFFFFF;
+            v10 = 0;
+            v11 = v9 & 0x7FFFFFFF;
             do
             {
-              v11 = *(*(ptr + 10) + 8 * v9);
-              if (v11)
-              {
-                CFAllocatorDeallocate(v6, v11);
-              }
-
-              v12 = *(ptr + 49);
+              v12 = *(*(v2 + 10) + 8 * v10);
               if (v12)
               {
-                v13 = *(v12 + 32 * v9 + 24);
-                if (v13)
-                {
-                  free(v13);
-                  v12 = *(ptr + 49);
-                }
-
-                v14 = v12 + 32 * v9;
-                v15 = *(v14 + 16);
-                if (v15)
-                {
-                  if (*(v14 + 8) >= 1)
-                  {
-                    v16 = 0;
-                    do
-                    {
-                      close(*(*(v12 + 32 * v9 + 16) + 4 * v16++));
-                      v12 = *(ptr + 49);
-                      v17 = v12 + 32 * v9;
-                    }
-
-                    while (v16 < *(v17 + 8));
-                    v15 = *(v17 + 16);
-                  }
-
-                  free(v15);
-                  v12 = *(ptr + 49);
-                }
-
-                close(*(v12 + 32 * v9 + 4));
+                CFAllocatorDeallocate(v7, v12);
               }
 
-              ++v9;
+              v13 = *(v2 + 49);
+              if (v13)
+              {
+                v14 = *(v13 + 32 * v10 + 24);
+                if (v14)
+                {
+                  free(v14);
+                  v13 = *(v2 + 49);
+                }
+
+                v15 = v13 + 32 * v10;
+                v16 = *(v15 + 16);
+                if (v16)
+                {
+                  if (*(v15 + 8) >= 1)
+                  {
+                    v17 = 0;
+                    do
+                    {
+                      close(*(*(v13 + 32 * v10 + 16) + 4 * v17++));
+                      v13 = *(v2 + 49);
+                      v18 = v13 + 32 * v10;
+                    }
+
+                    while (v17 < *(v18 + 8));
+                    v16 = *(v18 + 16);
+                  }
+
+                  free(v16);
+                  v13 = *(v2 + 49);
+                }
+
+                close(*(v13 + 32 * v10 + 4));
+              }
+
+              ++v10;
             }
 
-            while (v9 != v10);
-            v7 = *(ptr + 10);
+            while (v10 != v11);
+            v8 = *(v2 + 10);
           }
 
-          CFAllocatorDeallocate(v6, v7);
-          CFAllocatorDeallocate(v6, *(ptr + 11));
-          v18 = *(ptr + 49);
-          if (v18)
-          {
-            CFAllocatorDeallocate(v6, v18);
-          }
-
-          v19 = *(ptr + 50);
+          CFAllocatorDeallocate(v7, v8);
+          CFAllocatorDeallocate(v7, *(v2 + 11));
+          v19 = *(v2 + 49);
           if (v19)
           {
-            CFAllocatorDeallocate(v6, v19);
+            CFAllocatorDeallocate(v7, v19);
+          }
+
+          v20 = *(v2 + 50);
+          if (v20)
+          {
+            CFAllocatorDeallocate(v7, v20);
           }
         }
 
         for (i = 104; i != 168; i += 8)
         {
-          v21 = *&ptr[i];
-          if (v21)
+          v22 = *&v2[i];
+          if (v22)
           {
-            free(v21);
-            *&ptr[i] = 0;
+            free(v22);
+            *&v2[i] = 0;
           }
         }
 
-        *(ptr + 12) = 0;
-        v22 = *(ptr + 44);
-        if (v22)
-        {
-          dispatch_release(v22);
-        }
-
-        v23 = *(ptr + 6);
+        *(v2 + 12) = 0;
+        v23 = *(v2 + 44);
         if (v23)
         {
-          v23(*(ptr + 4));
+          dispatch_release(v23);
         }
 
-        *(ptr + 56) = 0;
-        *(ptr + 26) = 0u;
-        *(ptr + 27) = 0u;
-        *(ptr + 24) = 0u;
-        *(ptr + 25) = 0u;
-        *(ptr + 22) = 0u;
-        *(ptr + 23) = 0u;
-        *(ptr + 20) = 0u;
-        *(ptr + 21) = 0u;
-        *(ptr + 18) = 0u;
-        *(ptr + 19) = 0u;
-        *(ptr + 16) = 0u;
-        *(ptr + 17) = 0u;
-        *(ptr + 14) = 0u;
-        *(ptr + 15) = 0u;
-        *(ptr + 12) = 0u;
-        *(ptr + 13) = 0u;
-        *(ptr + 10) = 0u;
-        *(ptr + 11) = 0u;
-        *(ptr + 8) = 0u;
-        *(ptr + 9) = 0u;
-        *(ptr + 6) = 0u;
-        *(ptr + 7) = 0u;
-        *(ptr + 4) = 0u;
-        *(ptr + 5) = 0u;
-        *(ptr + 2) = 0u;
-        *(ptr + 3) = 0u;
-        *ptr = 0u;
-        *(ptr + 1) = 0u;
-        CFAllocatorDeallocate(v6, ptr);
-        CFRelease(v6);
+        v24 = *(v2 + 6);
+        if (v24)
+        {
+          v24(*(v2 + 4));
+        }
+
+        *(v2 + 56) = 0;
+        *(v2 + 26) = 0u;
+        *(v2 + 27) = 0u;
+        *(v2 + 24) = 0u;
+        *(v2 + 25) = 0u;
+        *(v2 + 22) = 0u;
+        *(v2 + 23) = 0u;
+        *(v2 + 20) = 0u;
+        *(v2 + 21) = 0u;
+        *(v2 + 18) = 0u;
+        *(v2 + 19) = 0u;
+        *(v2 + 16) = 0u;
+        *(v2 + 17) = 0u;
+        *(v2 + 14) = 0u;
+        *(v2 + 15) = 0u;
+        *(v2 + 12) = 0u;
+        *(v2 + 13) = 0u;
+        *(v2 + 10) = 0u;
+        *(v2 + 11) = 0u;
+        *(v2 + 8) = 0u;
+        *(v2 + 9) = 0u;
+        *(v2 + 6) = 0u;
+        *(v2 + 7) = 0u;
+        *(v2 + 4) = 0u;
+        *(v2 + 5) = 0u;
+        *(v2 + 2) = 0u;
+        *(v2 + 3) = 0u;
+        *v2 = 0u;
+        *(v2 + 1) = 0u;
+        CFAllocatorDeallocate(v7, v2);
+        CFRelease(v7);
       }
     }
   }
 
   else
   {
-    v3 = fsevent_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = fsevent_default_log(0, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       _FSEventStreamDeallocate_cold_4();
     }
@@ -617,7 +621,7 @@ id uidPointerToDomain(const unsigned int *a1)
 
 uint64_t _LSDatabaseContextStartAccessingWithDomain(LaunchServices::DatabaseContext *a1, uint64_t a2, void *a3)
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   PerThreadStateReference = LaunchServices::DatabaseContext::getPerThreadStateReference(a1);
   v7 = LaunchServices::DatabaseContext::getLog(PerThreadStateReference);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -625,148 +629,135 @@ uint64_t _LSDatabaseContextStartAccessingWithDomain(LaunchServices::DatabaseCont
     _LSDatabaseContextStartAccessingWithDomain_cold_1(PerThreadStateReference, a2, v7);
   }
 
-  v8 = *(PerThreadStateReference + 4);
-  if (v8 == 0x7FFFFFFFFFFFFFFFLL)
+  v9 = *(PerThreadStateReference + 4);
+  if (v9 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v28 = [MEMORY[0x1E696AAA8] currentHandler];
-    v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSDatabaseContextStartAccessingWithDomain(_LSDServiceDomain *const __strong _Nonnull, LSDatabaseContextAccessOptions, NSError *__autoreleasing * _Nullable)"}];
-    [v28 handleFailureInFunction:v29 file:@"LSDatabaseContext.mm" lineNumber:164 description:@"Called +startAccessingReturningError: a ludicrous number of times without calling +stopAccessing. This is likely a bug in the Launch Services client."];
+    v33 = [MEMORY[0x1E696AAA8] currentHandler];
+    v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSDatabaseContextStartAccessingWithDomain(_LSDServiceDomain *const __strong _Nonnull, LSDatabaseContextAccessOptions, NSError *__autoreleasing * _Nullable)"}];
+    [v33 handleFailureInFunction:v34 file:@"LSDatabaseContext.mm" lineNumber:164 description:@"Called +startAccessingReturningError: a ludicrous number of times without calling +stopAccessing. This is likely a bug in the Launch Services client."];
 
-    v8 = *(PerThreadStateReference + 4);
+    v9 = *(PerThreadStateReference + 4);
   }
 
-  if (v8 >= 1)
+  if (v9 < 1)
   {
-    if ((a2 & 2) != 0)
+    v19 = [(_LSDServiceDomain *)a1 resolvedDomainUID];
+    v20 = v19;
+    v22 = [__LSDefaultsGetSharedInstance(v19 v21)];
+    if (v20 && v22 != v20 && v22 && (v24 = _LSGetAuditTokenForSelf(v22, v23), !_LSCheckEntitlementForAuditToken(v24, @"com.apple.private.xpc.launchd.per-user-lookup")))
     {
       if (a3)
       {
-        v34 = *MEMORY[0x1E696A278];
-        v35[0] = @"LSDatabaseContextAccessOptionAlwaysUpdate cannot be specified while the database is already being accessed.";
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
-        *a3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 16, v20, "_LSDatabaseContextStartAccessingWithDomain", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSDatabaseContext.mm", 171);
+        v35 = *MEMORY[0x1E696A278];
+        v36 = @"This process is not privileged enough to access XPC services on another user account.";
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+        *a3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 13, v30, "_LSDatabaseContextStartAccessingWithDomain", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSDatabaseContext.mm", 187);
       }
-
-      goto LABEL_42;
     }
 
-    v9 = [(_LSDServiceDomain *)a1 resolvedSessionKey];
-    if (*PerThreadStateReference)
+    else
     {
-      v10 = v9;
-      SessionKey = _LSDatabaseGetSessionKey(**PerThreadStateReference);
-      if ((v10 & 0x100000000) != 0)
+      if (LaunchServices::Database::Context::_get(PerThreadStateReference, a1, a2))
       {
-        v13 = HIDWORD(SessionKey) & 1;
+        result = 1;
+        *(PerThreadStateReference + 4) = 1;
+        return result;
       }
 
-      else
+      if (a3)
       {
-        LOBYTE(v13) = (SessionKey & 0x100000000) == 0 && v10 == SessionKey;
-        if ((SessionKey & 0x100000000) == 0 && v10 != SessionKey)
+        v27 = +[_LSDServiceDomain defaultServiceDomain];
+        v28 = LaunchServices::Database::Context::_get(PerThreadStateReference, v27, 0);
+
+        if (v28)
         {
-          v14 = [__LSDefaultsGetSharedInstance() proxyUIDForUID:SessionKey];
-          if (v14 != [__LSDefaultsGetSharedInstance() proxyUIDForUID:v10])
-          {
-            goto LABEL_18;
-          }
-
-          goto LABEL_33;
+          v29 = 0;
         }
+
+        else
+        {
+          v29 = *(PerThreadStateReference + 3);
+        }
+
+        *a3 = v29;
       }
 
-      if (v13)
+      if (*PerThreadStateReference && *(PerThreadStateReference + 16) == 1)
       {
+        _LSContextDestroy(*PerThreadStateReference);
+      }
+
+      v31 = *(PerThreadStateReference + 1);
+      *PerThreadStateReference = 0;
+      *(PerThreadStateReference + 1) = 0;
+
+      *(PerThreadStateReference + 16) = 0;
+      v32 = *(PerThreadStateReference + 3);
+      *(PerThreadStateReference + 3) = 0;
+    }
+
+    return 0;
+  }
+
+  if ((a2 & 2) != 0)
+  {
+    if (a3)
+    {
+      v39 = *MEMORY[0x1E696A278];
+      v40[0] = @"LSDatabaseContextAccessOptionAlwaysUpdate cannot be specified while the database is already being accessed.";
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+      *a3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 16, v26, "_LSDatabaseContextStartAccessingWithDomain", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSDatabaseContext.mm", 171);
+    }
+
+    return 0;
+  }
+
+  v10 = [(_LSDServiceDomain *)a1 resolvedSessionKey];
+  if (*PerThreadStateReference)
+  {
+    v11 = v10;
+    SessionKey = _LSDatabaseGetSessionKey(**PerThreadStateReference);
+    if ((v11 & 0x100000000) != 0)
+    {
+      v15 = HIDWORD(SessionKey) & 1;
+    }
+
+    else
+    {
+      LOBYTE(v15) = (SessionKey & 0x100000000) == 0 && v11 == SessionKey;
+      if ((SessionKey & 0x100000000) == 0 && v11 != SessionKey)
+      {
+        v16 = [__LSDefaultsGetSharedInstance(SessionKey v13)];
+        if (v16 != [__LSDefaultsGetSharedInstance(v16 v17)])
+        {
+          goto LABEL_18;
+        }
+
 LABEL_33:
         ++*(PerThreadStateReference + 4);
-        result = 1;
-        goto LABEL_43;
+        return 1;
       }
     }
+
+    if (v15)
+    {
+      goto LABEL_33;
+    }
+  }
 
 LABEL_18:
-    if (a3)
-    {
-      v32 = *MEMORY[0x1E696A278];
-      v33 = @"LSDatabaseContext cannot take a user ID while the database is already being accessed.";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-      *a3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 56, v15, "_LSDatabaseContextStartAccessingWithDomain", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSDatabaseContext.mm", 175);
-    }
-
-LABEL_42:
-    result = 0;
-    goto LABEL_43;
-  }
-
-  v16 = [(_LSDServiceDomain *)a1 resolvedDomainUID];
-  v17 = [__LSDefaultsGetSharedInstance() proxyUIDForCurrentEffectiveUID];
-  if (v16)
+  if (a3)
   {
-    if (v17 != v16)
-    {
-      if (v17)
-      {
-        v18 = _LSGetAuditTokenForSelf();
-        if (!_LSCheckEntitlementForAuditToken(v18, @"com.apple.private.xpc.launchd.per-user-lookup"))
-        {
-          if (a3)
-          {
-            v30 = *MEMORY[0x1E696A278];
-            v31 = @"This process is not privileged enough to access XPC services on another user account.";
-            v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-            *a3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 13, v24, "_LSDatabaseContextStartAccessingWithDomain", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSDatabaseContext.mm", 187);
-          }
-
-          goto LABEL_42;
-        }
-      }
-    }
+    v37 = *MEMORY[0x1E696A278];
+    v38 = @"LSDatabaseContext cannot take a user ID while the database is already being accessed.";
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    *a3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 56, v18, "_LSDatabaseContextStartAccessingWithDomain", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSDatabaseContext.mm", 175);
   }
 
-  if (!LaunchServices::Database::Context::_get(PerThreadStateReference, a1, a2))
-  {
-    if (a3)
-    {
-      v21 = +[_LSDServiceDomain defaultServiceDomain];
-      v22 = LaunchServices::Database::Context::_get(PerThreadStateReference, v21, 0);
-
-      if (v22)
-      {
-        v23 = 0;
-      }
-
-      else
-      {
-        v23 = *(PerThreadStateReference + 3);
-      }
-
-      *a3 = v23;
-    }
-
-    if (*PerThreadStateReference && *(PerThreadStateReference + 16) == 1)
-    {
-      _LSContextDestroy(*PerThreadStateReference);
-    }
-
-    v25 = *(PerThreadStateReference + 1);
-    *PerThreadStateReference = 0;
-    *(PerThreadStateReference + 1) = 0;
-
-    *(PerThreadStateReference + 16) = 0;
-    v26 = *(PerThreadStateReference + 3);
-    *(PerThreadStateReference + 3) = 0;
-
-    goto LABEL_42;
-  }
-
-  result = 1;
-  *(PerThreadStateReference + 4) = 1;
-LABEL_43:
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
-uint64_t std::vector<LaunchServices::Types::EnumeratedTypeUnitOrDynamicTypeIdentifier>::push_back[abi:nn200100](void *a1, uint64_t a2)
+void *std::vector<LaunchServices::Types::EnumeratedTypeUnitOrDynamicTypeIdentifier>::push_back[abi:nn200100](void *a1, uint64_t a2)
 {
   v4 = a1[1];
   if (v4 >= a1[2])
@@ -780,7 +771,7 @@ uint64_t std::vector<LaunchServices::Types::EnumeratedTypeUnitOrDynamicTypeIdent
     v5 = *(a2 + 13);
     v4[1] = *(a2 + 8);
     *(v4 + 13) = v5;
-    result = (v4 + 3);
+    result = v4 + 3;
   }
 
   a1[1] = result;
@@ -832,9 +823,9 @@ uint64_t std::vector<LaunchServices::Types::EnumeratedTypeUnitOrDynamicTypeIdent
   return v9;
 }
 
-void sub_18166F560(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18166F560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<LaunchServices::Types::EnumeratedTypeUnitOrDynamicTypeIdentifier>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1034,28 +1025,28 @@ Class LaunchServices::DMFSupport::initDMFApplicationPolicyMonitor(LaunchServices
 
 void LaunchServices::DMFSupport::reloadAllPolicies(void *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E695DFA8] set];
-  v21 = 0;
+  v20 = 0;
+  v17 = 0;
   v18 = 0;
   v19 = 0;
-  v20 = 0;
   v3 = +[_LSDServiceDomain defaultServiceDomain];
-  v4 = LaunchServices::Database::Context::_get(&v18, v3, 0);
+  v4 = LaunchServices::Database::Context::_get(&v17, v3, 0);
 
   if (v4)
   {
     StringForCFString = _LSDatabaseGetStringForCFString(*v4, @"Hidden", 0);
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v23 = ___ZN14LaunchServices10DMFSupportL15getAllBundleIDsEv_block_invoke;
-    v24 = &unk_1E6A1C0D8;
-    v27 = StringForCFString;
-    v26 = v4;
-    v25 = v2;
+    v22 = ___ZN14LaunchServices10DMFSupportL15getAllBundleIDsEv_block_invoke;
+    v23 = &unk_1E6A1C0D8;
+    v26 = StringForCFString;
+    v25 = v4;
+    v24 = v2;
     _LSEnumerateViableBundlesOfClass(v4, 2, &buf);
-    v7 = v25;
+    v7 = v24;
   }
 
   else
@@ -1063,38 +1054,38 @@ void LaunchServices::DMFSupport::reloadAllPolicies(void *a1)
     v7 = LaunchServices::DMFSupport::getLog(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v15 = +[_LSDServiceDomain defaultServiceDomain];
-      v16 = LaunchServices::Database::Context::_get(&v18, v15, 0);
+      v14 = +[_LSDServiceDomain defaultServiceDomain];
+      v15 = LaunchServices::Database::Context::_get(&v17, v14, 0);
 
-      if (v16)
+      if (v15)
       {
-        v17 = 0;
+        v16 = 0;
       }
 
       else
       {
-        v17 = v21;
+        v16 = v20;
       }
 
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v17;
+      *(&buf + 4) = v16;
       _os_log_error_impl(&dword_18162D000, v7, OS_LOG_TYPE_ERROR, "Failed to get database context: %{public}@", &buf, 0xCu);
     }
   }
 
   v8 = [v2 allObjects];
-  if (v18 && v20 == 1)
+  if (v17 && v19 == 1)
   {
-    _LSContextDestroy(v18);
+    _LSContextDestroy(v17);
   }
 
-  v9 = v19;
+  v9 = v18;
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
 
+  v19 = 0;
+  v10 = v20;
   v20 = 0;
-  v10 = v21;
-  v21 = 0;
 
   v12 = LaunchServices::DMFSupport::getLog(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
@@ -1106,7 +1097,6 @@ void LaunchServices::DMFSupport::reloadAllPolicies(void *a1)
   }
 
   [v1 requestPoliciesForBundleIdentifiers:v8 completionHandler:&__block_literal_global_25];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14LaunchServices10DMFSupportL15getAllBundleIDsEv_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1116,12 +1106,11 @@ void ___ZN14LaunchServices10DMFSupportL15getAllBundleIDsEv_block_invoke(uint64_t
     v4 = *(a3 + 352);
     if (!v4 || v4 != *(a1 + 48))
     {
-      v5 = *(a3 + 12);
       [(_LSDatabase *)**(a1 + 40) store];
-      v6 = _CSStringCopyCFString();
-      if (v6)
+      v5 = _CSStringCopyCFString();
+      if (v5)
       {
-        [*(a1 + 32) addObject:v6];
+        [*(a1 + 32) addObject:v5];
       }
     }
   }
@@ -1173,23 +1162,23 @@ void ___ZN14LaunchServices10DMFSupportL17reloadAllPoliciesEP27DMFApplicationPoli
 
 void LaunchServices::DMFSupport::addKnownPoliciesToCache(void *a1, int a2)
 {
-  v61 = *MEMORY[0x1E69E9840];
-  v38 = a1;
-  v3 = [v38 mutableCopy];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = ___ZN14LaunchServices10DMFSupportL23addKnownPoliciesToCacheEP12NSDictionaryIP8NSStringP8NSNumberEb_block_invoke;
-  v42[3] = &unk_1E6A1C100;
+  v60 = *MEMORY[0x1E69E9840];
+  v37 = a1;
+  v3 = [v37 mutableCopy];
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = ___ZN14LaunchServices10DMFSupportL23addKnownPoliciesToCacheEP12NSDictionaryIP8NSStringP8NSNumberEb_block_invoke;
+  v41[3] = &unk_1E6A1C100;
   v4 = v3;
-  v43 = v4;
-  [v38 enumerateKeysAndObjectsUsingBlock:v42];
-  v40 = v4;
+  v42 = v4;
+  [v37 enumerateKeysAndObjectsUsingBlock:v41];
+  v39 = v4;
   os_unfair_lock_lock(&LaunchServices::DMFSupport::allPoliciesLock);
   v5 = [LaunchServices::DMFSupport::allPolicies copy];
   v6 = v5;
   if (a2)
   {
-    v7 = [v40 copy];
+    v7 = [v39 copy];
     v8 = LaunchServices::DMFSupport::allPolicies;
     LaunchServices::DMFSupport::allPolicies = v7;
   }
@@ -1210,7 +1199,7 @@ void LaunchServices::DMFSupport::addKnownPoliciesToCache(void *a1, int a2)
 
     v8 = v11;
 
-    [v8 addEntriesFromDictionary:v40];
+    [v8 addEntriesFromDictionary:v39];
     v12 = [v8 copy];
     v13 = LaunchServices::DMFSupport::allPolicies;
     LaunchServices::DMFSupport::allPolicies = v12;
@@ -1218,39 +1207,39 @@ void LaunchServices::DMFSupport::addKnownPoliciesToCache(void *a1, int a2)
 
   os_unfair_lock_unlock(&LaunchServices::DMFSupport::allPoliciesLock);
   v14 = v6;
-  v41 = v40;
-  v39 = LaunchServices::DMFSupport::getNotificationCenter(0);
-  if (v39)
+  v40 = v39;
+  v38 = LaunchServices::DMFSupport::getNotificationCenter(0);
+  if (v38)
   {
     v15 = [MEMORY[0x1E695DFA8] set];
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 3221225472;
-    v56[2] = ___ZN14LaunchServices10DMFSupportL16postNotificationEP12NSDictionaryIP8NSStringP8NSNumberES7__block_invoke;
-    v56[3] = &unk_1E6A1B008;
-    v16 = v41;
-    v57 = v16;
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = ___ZN14LaunchServices10DMFSupportL16postNotificationEP12NSDictionaryIP8NSStringP8NSNumberES7__block_invoke;
+    v55[3] = &unk_1E6A1B008;
+    v16 = v40;
+    v56 = v16;
     v17 = v15;
-    v58 = v17;
-    [v14 enumerateKeysAndObjectsUsingBlock:v56];
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
+    v57 = v17;
+    [v14 enumerateKeysAndObjectsUsingBlock:v55];
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v18 = v16;
-    v19 = [v18 countByEnumeratingWithState:&v52 objects:v60 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v51 objects:v59 count:16];
     if (v19)
     {
-      v20 = *v53;
+      v20 = *v52;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v53 != v20)
+          if (*v52 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          v22 = *(*(&v52 + 1) + 8 * i);
+          v22 = *(*(&v51 + 1) + 8 * i);
           v23 = [v14 objectForKeyedSubscript:v22];
           v24 = v23 == 0;
 
@@ -1260,7 +1249,7 @@ void LaunchServices::DMFSupport::addKnownPoliciesToCache(void *a1, int a2)
           }
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v52 objects:v60 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v51 objects:v59 count:16];
       }
 
       while (v19);
@@ -1269,41 +1258,41 @@ void LaunchServices::DMFSupport::addKnownPoliciesToCache(void *a1, int a2)
     if ([v17 count])
     {
       v25 = [MEMORY[0x1E695DF70] array];
-      v51 = 0;
+      v50 = 0;
+      v47 = 0;
       v48 = 0;
       v49 = 0;
-      v50 = 0;
       v26 = +[_LSDServiceDomain defaultServiceDomain];
-      v27 = LaunchServices::Database::Context::_get(&v48, v26, 0);
+      v27 = LaunchServices::Database::Context::_get(&v47, v26, 0);
 
       if (v27)
       {
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
         v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
         v29 = v17;
-        v30 = [v29 countByEnumeratingWithState:&v44 objects:v59 count:16];
+        v30 = [v29 countByEnumeratingWithState:&v43 objects:v58 count:16];
         if (v30)
         {
-          v31 = *v45;
+          v31 = *v44;
           do
           {
             for (j = 0; j != v30; ++j)
             {
-              if (*v45 != v31)
+              if (*v44 != v31)
               {
                 objc_enumerationMutation(v29);
               }
 
-              v33 = [LSApplicationProxy applicationProxyForIdentifier:*(*(&v44 + 1) + 8 * j) withContext:v27];
+              v33 = [LSApplicationProxy applicationProxyForIdentifier:*(*(&v43 + 1) + 8 * j) withContext:v27];
               if (v33)
               {
                 [v25 addObject:v33];
               }
             }
 
-            v30 = [v29 countByEnumeratingWithState:&v44 objects:v59 count:16];
+            v30 = [v29 countByEnumeratingWithState:&v43 objects:v58 count:16];
           }
 
           while (v30);
@@ -1316,19 +1305,19 @@ void LaunchServices::DMFSupport::addKnownPoliciesToCache(void *a1, int a2)
         LaunchServices::DMFSupport::addKnownPoliciesToCache();
       }
 
-      [v39 postNotificationName:@"com.apple.launchservices.private._LSDMFPolicyDidChangeNotification" object:v25];
-      if (v48 && v50 == 1)
+      [v38 postNotificationName:@"com.apple.launchservices.private._LSDMFPolicyDidChangeNotification" object:v25];
+      if (v47 && v49 == 1)
       {
-        _LSContextDestroy(v48);
+        _LSContextDestroy(v47);
       }
 
-      v35 = v49;
+      v35 = v48;
+      v47 = 0;
       v48 = 0;
-      v49 = 0;
 
+      v49 = 0;
+      v36 = v50;
       v50 = 0;
-      v36 = v51;
-      v51 = 0;
     }
 
     else
@@ -1349,8 +1338,6 @@ void LaunchServices::DMFSupport::addKnownPoliciesToCache(void *a1, int a2)
       LaunchServices::DMFSupport::addKnownPoliciesToCache();
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14LaunchServices10DMFSupportL23addKnownPoliciesToCacheEP12NSDictionaryIP8NSStringP8NSNumberEb_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1417,19 +1404,19 @@ id *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<LSRecord 
 
 uint64_t LSDefaultAppCategoryMayBeChanged(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = LSGetDefaultAppCategoryInfoForCategory(a1);
   v3 = *(v2 + 3);
   if (!v3)
   {
-    goto LABEL_6;
+    return 1;
   }
 
   v4 = LaunchServices::EligibilityCache::shared(v2);
-  v19 = 0;
-  v5 = LaunchServices::EligibilityCache::cachedAnswerForDomain(v4, v3, &v19);
+  v21[0] = 0;
+  v5 = LaunchServices::EligibilityCache::cachedAnswerForDomain(v4, v3, v21);
   v7 = v6;
-  v8 = v19;
+  v8 = v21[0];
   v9 = v8;
   if (v7)
   {
@@ -1441,25 +1428,23 @@ uint64_t LSDefaultAppCategoryMayBeChanged(uint64_t a1)
     if (v5 == 4)
     {
 
-LABEL_6:
-      HasPreferenceEverBeenSetForDefaultAppCategory = 1;
-      goto LABEL_22;
+      return 1;
     }
 
-    v11 = _LSDefaultLog();
+    v11 = _LSDefaultLog(v8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
       *&buf[4] = v3;
-      LOWORD(v23) = 1024;
-      *(&v23 + 2) = v5;
+      LOWORD(v24) = 1024;
+      *(&v24 + 2) = v5;
       _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_DEFAULT, "uncommon answer for domain %d: %d", buf, 0xEu);
     }
   }
 
   else
   {
-    v11 = _LSDefaultLog();
+    v11 = _LSDefaultLog(v8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       LSDefaultAppCategoryMayBeChanged_cold_1();
@@ -1467,72 +1452,67 @@ LABEL_6:
   }
 
 LABEL_12:
-  if (LSGetDefaultAppCategoryInfoForCategory(a1)[56])
+  v12 = LSGetDefaultAppCategoryInfoForCategory(a1);
+  if (v12[56])
   {
-    HasPreferenceEverBeenSetForDefaultAppCategory = 0;
+    return 0;
   }
 
-  else if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(v12 v13)])
   {
-    HasPreferenceEverBeenSetForDefaultAppCategory = _LSServer_HasPreferenceEverBeenSetForDefaultAppCategory(a1);
+    return _LSServer_HasPreferenceEverBeenSetForDefaultAppCategory(a1, v14);
+  }
+
+  *buf = 0;
+  v24 = buf;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__31;
+  v27 = __Block_byref_object_dispose__31;
+  v28 = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = __Block_byref_object_copy__31;
+  v21[4] = __Block_byref_object_dispose__31;
+  v22 = 0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = ___ZL48_LSHasPreferenceEverBeenSetForDefaultAppCategory20LSDefaultAppCategory_block_invoke;
+  v20[3] = &unk_1E6A18DF0;
+  v20[4] = v21;
+  v15 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = ___ZL48_LSHasPreferenceEverBeenSetForDefaultAppCategory20LSDefaultAppCategory_block_invoke_2;
+  v19[3] = &unk_1E6A1D130;
+  v19[4] = buf;
+  v19[5] = v21;
+  [v15 getHasEverChangedPreferredAppForCategory:a1 completion:v19];
+
+  v16 = *(v24 + 5);
+  if (v16)
+  {
+    v10 = [v16 BOOLValue];
   }
 
   else
   {
-    *buf = 0;
-    v23 = buf;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__31;
-    v26 = __Block_byref_object_dispose__31;
-    v27 = 0;
-    v19 = 0;
-    v20[0] = &v19;
-    v20[1] = 0x3032000000;
-    v20[2] = __Block_byref_object_copy__31;
-    v20[3] = __Block_byref_object_dispose__31;
-    v21 = 0;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = ___ZL48_LSHasPreferenceEverBeenSetForDefaultAppCategory20LSDefaultAppCategory_block_invoke;
-    v18[3] = &unk_1E6A18DF0;
-    v18[4] = &v19;
-    v12 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v18];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = ___ZL48_LSHasPreferenceEverBeenSetForDefaultAppCategory20LSDefaultAppCategory_block_invoke_2;
-    v17[3] = &unk_1E6A1D130;
-    v17[4] = buf;
-    v17[5] = &v19;
-    [v12 getHasEverChangedPreferredAppForCategory:a1 completion:v17];
-
-    v13 = *(v23 + 5);
-    if (v13)
+    v17 = _LSDefaultLog(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      HasPreferenceEverBeenSetForDefaultAppCategory = [v13 BOOLValue];
+      LSDefaultAppCategoryMayBeChanged_cold_2();
     }
 
-    else
-    {
-      v14 = _LSDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        LSDefaultAppCategoryMayBeChanged_cold_2(v20);
-      }
-
-      HasPreferenceEverBeenSetForDefaultAppCategory = 0;
-    }
-
-    _Block_object_dispose(&v19, 8);
-
-    _Block_object_dispose(buf, 8);
+    v10 = 0;
   }
 
-LABEL_22:
-  v15 = *MEMORY[0x1E69E9840];
-  return HasPreferenceEverBeenSetForDefaultAppCategory;
+  _Block_object_dispose(v21, 8);
+
+  _Block_object_dispose(buf, 8);
+  return v10;
 }
 
-void sub_181670B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_181670B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -1736,7 +1716,7 @@ uint64_t _LSShouldSetWeakBindingOnOpenByDefault()
 
 uint64_t getFileHandleForOpeningResourceIfNecessary(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = a2;
   v11 = a3;
@@ -1806,16 +1786,16 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v24 = *MEMORY[0x1E696A798];
-  v25 = *__error();
-  v28 = *MEMORY[0x1E696A278];
-  v29[0] = @"open(2) failed when opening resource to open";
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-  v19 = _LSMakeNSErrorImpl(v24, v25, v26, "getFileHandleForOpeningResourceIfNecessary", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 1675);
+  v23 = *MEMORY[0x1E696A798];
+  v24 = *__error();
+  v27 = *MEMORY[0x1E696A278];
+  v28[0] = @"open(2) failed when opening resource to open";
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v19 = _LSMakeNSErrorImpl(v23, v24, v25, "getFileHandleForOpeningResourceIfNecessary", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 1675);
 
   if (a5)
   {
-    v27 = v19;
+    v26 = v19;
     v21 = 0;
     v18 = 0;
     *a5 = v19;
@@ -1829,7 +1809,6 @@ LABEL_17:
 
 LABEL_19:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -1906,29 +1885,28 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:nn200100]<std::allocator<L
 
 uint64_t LaunchServices::BindingEvaluation::BindingEligibilityChecker::isDefaultAppCategoryBindingEligibile(uint64_t a1, id **a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(*(a4 + 8) + 352);
   [(_LSDatabase *)**a2 store];
-  v6 = _CSStringCopyCFString();
-  v7 = [v6 isEqualToString:@"System"];
+  v5 = _CSStringCopyCFString();
+  v6 = [v5 isEqualToString:@"System"];
 
-  if (v7)
+  if (v6)
   {
     return 1;
   }
 
   if (*(a3 + 56) == 1)
   {
-    v10 = LaunchServices::EligibilityCache::shared(v8);
-    v11 = *(a3 + 24);
+    v9 = LaunchServices::EligibilityCache::shared(v7);
+    v10 = *(a3 + 24);
 
-    return LaunchServices::EligibilityCache::eligibleForDomainFailingClosed(v10, v11);
+    return LaunchServices::EligibilityCache::eligibleForDomainFailingClosed(v9, v10);
   }
 
   else
   {
-    v12 = *a3;
+    v11 = *a3;
 
-    return LSDefaultAppCategoryMayBeChanged(v12);
+    return LSDefaultAppCategoryMayBeChanged(v11);
   }
 }
 
@@ -1959,33 +1937,32 @@ BOOL LaunchServices::BindingEvaluation::BindingEligibilityChecker::isBundleEligi
   }
 }
 
-id _LSOpenLog()
+id _LSOpenLog(uint64_t a1)
 {
   if (_LSOpenLog_once != -1)
   {
     _LSOpenLog_cold_1();
   }
 
-  v1 = _LSOpenLog_result;
+  v2 = _LSOpenLog_result;
 
-  return v1;
+  return v2;
 }
 
 void LaunchServices::BindingEvaluator::CreateWithURLScheme(LaunchServices::BindingEvaluator *this@<X0>, id *a2@<X8>)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  LaunchServices::BindingEvaluator::BindingEvaluator(a2);
-  v5 = _LSBindingLog();
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = LaunchServices::BindingEvaluator::BindingEvaluator(a2);
+  v5 = _LSBindingLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138477827;
-    v9 = this;
+    v8 = this;
     _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEBUG, "BindingEvaluator::CreateWithURLScheme(%{private}@)", buf, 0xCu);
   }
 
   LaunchServices::BindingEvaluation::logToFile(@"Creating binding evaluator for URL scheme %@", v6, this);
   objc_storeStrong(a2 + 1, this);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 char *LSDefaultAppCategoryGetInfoForSubordinateClaim(int a1, void *a2)
@@ -2027,40 +2004,40 @@ LABEL_10:
 
 void LaunchServices::BindingEvaluator::evaluateBindings(LaunchServices::BindingEvaluator *a1@<X0>, LSContext *a2@<X1>, void **a3@<X2>, NSString *a4@<X3>, uint64_t *a5@<X8>)
 {
-  v24[13] = *MEMORY[0x1E69E9840];
+  v23[13] = *MEMORY[0x1E69E9840];
   *a5 = 0;
   a5[1] = 0;
   a5[2] = 0;
-  LaunchServices::BindingEvaluation::State::State(v22, a2, a1);
+  LaunchServices::BindingEvaluation::State::State(&v21, a2, a1);
   if (a3)
   {
-    v9 = LaunchServices::BindingEvaluation::State::getTypeRecord(v22);
+    v9 = LaunchServices::BindingEvaluation::State::getTypeRecord(&v21);
     v10 = *a3;
     *a3 = v9;
   }
 
-  LaunchServices::BindingEvaluation::runEvaluator(v22, a4, &v19);
-  if (v19 != v20)
+  LaunchServices::BindingEvaluation::runEvaluator(&v21, a4, &v18);
+  if (v18 != v19)
   {
-    std::vector<LSBinding>::reserve(a5, 0x4EC4EC4EC4EC4EC5 * (v20 - v19));
-    std::vector<LSBinding>::__insert_with_size[abi:nn200100]<std::__wrap_iter<LaunchServices::BindingEvaluation::ExtendedBinding *>,std::__wrap_iter<LaunchServices::BindingEvaluation::ExtendedBinding *>>(a5, *a5, v19, v20, 0x4EC4EC4EC4EC4EC5 * (v20 - v19));
-    if (((LaunchServices::BindingEvaluation::gIsReasonTrackingEnabled & 1) != 0 || (*(a1 + 110) & 2) != 0) && v20 != v19)
+    std::vector<LSBinding>::reserve(a5, 0x4EC4EC4EC4EC4EC5 * ((v19 - v18) >> 3));
+    std::vector<LSBinding>::__insert_with_size[abi:nn200100]<std::__wrap_iter<LaunchServices::BindingEvaluation::ExtendedBinding *>,std::__wrap_iter<LaunchServices::BindingEvaluation::ExtendedBinding *>>(a5, *a5, v18, v19, 0x4EC4EC4EC4EC4EC5 * ((v19 - v18) >> 3));
+    if (((LaunchServices::BindingEvaluation::gIsReasonTrackingEnabled & 1) != 0 || (*(a1 + 110) & 2) != 0) && v19 != v18)
     {
       v11 = 0;
-      if ((0x4EC4EC4EC4EC4EC5 * (v20 - v19)) <= 1)
+      if ((0x4EC4EC4EC4EC4EC5 * ((v19 - v18) >> 3)) <= 1)
       {
         v12 = 1;
       }
 
       else
       {
-        v12 = 0x4EC4EC4EC4EC4EC5 * (v20 - v19);
+        v12 = 0x4EC4EC4EC4EC4EC5 * ((v19 - v18) >> 3);
       }
 
       v13 = 40;
       do
       {
-        v14 = LaunchServices::BindingEvaluation::getReasonFromBinding(&v19[v11]);
+        v14 = LaunchServices::BindingEvaluation::getReasonFromBinding(&v18[v11]);
         v15 = v14;
         if (v14)
         {
@@ -2074,7 +2051,7 @@ void LaunchServices::BindingEvaluator::evaluateBindings(LaunchServices::BindingE
 
         objc_storeStrong((*a5 + v13), v16);
 
-        v11 += 13;
+        v11 += 26;
         v13 += 56;
         --v12;
       }
@@ -2083,40 +2060,37 @@ void LaunchServices::BindingEvaluator::evaluateBindings(LaunchServices::BindingE
     }
   }
 
-  v21 = &v19;
-  std::vector<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::MallocZoneAllocator<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::BindingEvaluation::BindingMallocZone>>::__destroy_vector::operator()[abi:nn200100](&v21);
+  v20 = &v18;
+  std::vector<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::MallocZoneAllocator<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::BindingEvaluation::BindingMallocZone>>::__destroy_vector::operator()[abi:nn200100](&v20);
 
-  v19 = v24;
-  std::vector<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::MallocZoneAllocator<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::BindingEvaluation::BindingMallocZone>>::__destroy_vector::operator()[abi:nn200100](&v19);
-  LaunchServices::BindingEvaluator::~BindingEvaluator(&v23, v17);
-  v18 = *MEMORY[0x1E69E9840];
+  v18 = v23;
+  std::vector<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::MallocZoneAllocator<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::BindingEvaluation::BindingMallocZone>>::__destroy_vector::operator()[abi:nn200100](&v18);
+  LaunchServices::BindingEvaluator::~BindingEvaluator(&v22, v17);
 }
 
-void sub_1816720DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1816720DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
   va_arg(va2, void);
-  va_copy(v7, va);
+  va_copy(v8, va);
   std::vector<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::MallocZoneAllocator<LaunchServices::BindingEvaluation::ExtendedBinding,LaunchServices::BindingEvaluation::BindingMallocZone>>::__destroy_vector::operator()[abi:nn200100](va1);
   LaunchServices::BindingEvaluation::State::~State(va2);
   std::vector<LSBinding>::__destroy_vector::operator()[abi:nn200100](va2);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<LSBinding>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<LSBinding>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x492492492492493)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::allocator<LSBinding>::allocate_at_least[abi:nn200100](result, a2);
     }
 
@@ -2126,9 +2100,9 @@ void *std::vector<LSBinding>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_181672204(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_181672204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<LSBinding>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2305,7 +2279,7 @@ void _LSServer_PerformOpenOperation(void *a1, void *a2, void *a3, char a4, __int
     v28 = v42;
     if (v22)
     {
-      [v22 auditToken];
+      objc_msgSend_auditToken(v22);
     }
   }
 
@@ -2412,44 +2386,42 @@ id openOptionsModifiedForOneTapOpen(void *a1, void *a2)
 
     if (v8)
     {
-      v9 = _LSOpenLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _LSOpenLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         openOptionsModifiedForOneTapOpen_cold_1();
       }
     }
 
-    v10 = *MEMORY[0x1E69E9BA8];
     [v3 fileSystemRepresentation];
-    v11 = *MEMORY[0x1E69E9BE0];
-    v12 = sandbox_extension_issue_file();
-    if (v12)
+    v11 = sandbox_extension_issue_file();
+    if (v11)
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
-      [v5 setObject:v13 forKeyedSubscript:@"LSFPSandboxExtensionKey"];
+      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
+      [v5 setObject:v12 forKeyedSubscript:@"LSFPSandboxExtensionKey"];
     }
 
     else
     {
-      v15 = *__error();
-      v13 = _LSOpenLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = __error();
+      v12 = _LSOpenLog(v14);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         openOptionsModifiedForOneTapOpen_cold_2();
       }
     }
 
-    v14 = [v5 copy];
+    v13 = [v5 copy];
   }
 
   else
   {
-    v14 = v4;
+    v13 = v4;
   }
 
-  v16 = v14;
+  v15 = v13;
 
-  return v16;
+  return v15;
 }
 
 void ___ZL19_LSAsyncOpenContextU13block_pointerFvvE_block_invoke(uint64_t a1)
@@ -2465,35 +2437,35 @@ void ___ZL19_LSAsyncOpenContextU13block_pointerFvvE_block_invoke(uint64_t a1)
 
 void _LSOpenOperationPerformContinueAfterAsyncGather(void *a1, void *a2, void *a3, int a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10)
 {
-  v234 = *MEMORY[0x1E69E9840];
+  v246 = *MEMORY[0x1E69E9840];
   v16 = a1;
-  v199 = a2;
-  v207 = a3;
-  v200 = a5;
-  v202 = a6;
-  v205 = a7;
-  v201 = a8;
-  v206 = a9;
-  v203 = v16;
-  v204 = a10;
-  _LSAssertRunningInServer("void _LSOpenOperationPerformContinueAfterAsyncGather(NSURL *__strong, NSFileHandle *__strong, NSString *__strong, BOOL, NSString *__strong, NSDictionary<NSString *,id> *__strong, NSDictionary<NSString *,id> *__strong, __strong id<LSOpenResourceOperationDelegate>, NSXPCConnection *__strong, __strong _LSDOpenServiceCompletionHandler)");
+  v211 = a2;
+  v219 = a3;
+  v212 = a5;
+  v214 = a6;
+  v217 = a7;
+  v213 = a8;
+  v218 = a9;
+  v215 = v16;
+  v216 = a10;
+  _LSAssertRunningInServer("void _LSOpenOperationPerformContinueAfterAsyncGather(NSURL *__strong, NSFileHandle *__strong, NSString *__strong, BOOL, NSString *__strong, NSDictionary<NSString *,id> *__strong, NSDictionary<NSString *,id> *__strong, __strong id<LSOpenResourceOperationDelegate>, NSXPCConnection *__strong, __strong _LSDOpenServiceCompletionHandler)", v17);
   if (!v16)
   {
-    v197 = 0;
-    v19 = 0;
+    v209 = 0;
     v20 = 0;
     v21 = 0;
     v22 = 0;
+    v23 = 0;
     goto LABEL_184;
   }
 
   if ([v16 isFileURL])
   {
-    v190 = [LSApplicationProxy applicationProxyForIdentifier:v207];
-    v17 = objc_opt_class();
-    v18 = [v205 objectForKey:@"FileProviderString"];
-    v19 = v18;
-    if (v17 && v18)
+    v202 = [LSApplicationProxy applicationProxyForIdentifier:v219];
+    v18 = objc_opt_class();
+    v19 = [v217 objectForKey:@"FileProviderString"];
+    v20 = v19;
+    if (v18 && v19)
     {
       if (objc_opt_isKindOfClass())
       {
@@ -2501,148 +2473,152 @@ void _LSOpenOperationPerformContinueAfterAsyncGather(void *a1, void *a2, void *a
       }
     }
 
-    else if (v18)
+    else if (v19)
     {
       goto LABEL_36;
     }
 
-    v28 = objc_opt_class();
-    v29 = [v202 objectForKey:@"FileProviderString"];
-    v30 = v29;
-    if (v28 && v29 && (objc_opt_isKindOfClass() & 1) == 0)
+    v29 = objc_opt_class();
+    v30 = [v214 objectForKey:@"FileProviderString"];
+    v31 = v30;
+    if (v29 && v30 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v19 = 0;
+      v20 = 0;
     }
 
     else
     {
-      v19 = v30;
+      v20 = v31;
     }
 
 LABEL_36:
-    v46 = objc_opt_class();
-    v47 = [v205 objectForKey:@"RequireOpenInPlace"];
-    v48 = v47;
-    if (v46 && v47 && (objc_opt_isKindOfClass() & 1) == 0)
+    v48 = objc_opt_class();
+    v49 = [v217 objectForKey:@"RequireOpenInPlace"];
+    v50 = v49;
+    if (v48 && v49 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v48 = 0;
+      v50 = 0;
     }
 
-    v49 = [v48 BOOLValue];
+    v51 = [v50 BOOLValue];
 
-    if (v49)
+    if (v51)
     {
-      v197 = 1;
+      v209 = 1;
     }
 
     else
     {
-      v50 = objc_opt_class();
-      v51 = [v202 objectForKey:@"RequireOpenInPlace"];
-      v52 = v51;
-      if (v50 && v51 && (objc_opt_isKindOfClass() & 1) == 0)
+      v52 = objc_opt_class();
+      v53 = [v214 objectForKey:@"RequireOpenInPlace"];
+      v54 = v53;
+      if (v52 && v53 && (objc_opt_isKindOfClass() & 1) == 0)
       {
 
-        v52 = 0;
+        v54 = 0;
       }
 
-      v197 = [v52 BOOLValue];
+      v209 = [v54 BOOLValue];
     }
 
-    v53 = objc_opt_class();
-    v54 = [v205 objectForKey:@"LSMoveDocumentOnOpen"];
-    v55 = v54;
-    if (v53 && v54 && (objc_opt_isKindOfClass() & 1) == 0)
+    v55 = objc_opt_class();
+    v56 = [v217 objectForKey:@"LSMoveDocumentOnOpen"];
+    v57 = v56;
+    if (v55 && v56 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v55 = 0;
+      v57 = 0;
     }
 
-    v56 = [v55 BOOLValue];
+    v58 = [v57 BOOLValue];
 
-    if (v56)
+    if (v58)
     {
       goto LABEL_57;
     }
 
-    v57 = objc_opt_class();
-    v58 = [v202 objectForKey:@"LSMoveDocumentOnOpen"];
-    v59 = v58;
-    if (v57 && v58 && (objc_opt_isKindOfClass() & 1) == 0)
+    v59 = objc_opt_class();
+    v60 = [v214 objectForKey:@"LSMoveDocumentOnOpen"];
+    v61 = v60;
+    if (v59 && v60 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v59 = 0;
+      v61 = 0;
     }
 
-    v60 = [v59 BOOLValue];
+    v62 = [v61 BOOLValue];
 
-    if (v60)
+    if (v62)
     {
 LABEL_57:
-      v61 = [v206 _xpcConnection];
-      v187 = _LSCheckEntitlementForXPCConnection(v61, @"com.apple.launchservices.MoveDocumentOnOpen") != 0;
+      v63 = [v218 _xpcConnection];
+      v199 = _LSCheckEntitlementForXPCConnection(v63, @"com.apple.launchservices.MoveDocumentOnOpen") != 0;
 
-      if (v19)
+      if (v20)
       {
 LABEL_58:
-        v62 = 0;
+        v64 = 0;
         goto LABEL_64;
       }
     }
 
     else
     {
-      v187 = 0;
-      if (v19)
+      v199 = 0;
+      if (v20)
       {
         goto LABEL_58;
       }
     }
 
-    v63 = [v190 dataContainerURL];
-    if (v63)
+    v65 = [v202 dataContainerURL];
+    if (v65)
     {
-      v64 = [v16 absoluteString];
-      v65 = [v63 absoluteString];
-      [v64 rangeOfString:v65 options:8];
-      v67 = v66;
+      v66 = [v16 absoluteString];
+      v67 = [v65 absoluteString];
+      [v66 rangeOfString:v67 options:8];
+      v69 = v68;
 
-      v62 = v67 == 0;
+      v64 = v69 == 0;
     }
 
     else
     {
-      v62 = 1;
+      v64 = 1;
     }
 
 LABEL_64:
-    if (v197 && ([v190 supportsOpenInPlace] & 1) == 0)
+    if (v209)
     {
-      v91 = _LSDefaultLog();
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+      v70 = [v202 supportsOpenInPlace];
+      if ((v70 & 1) == 0)
       {
-        *buf = 138412546;
-        *&buf[4] = v16;
-        *&buf[12] = 2112;
-        *&buf[14] = v207;
-        _os_log_impl(&dword_18162D000, v91, OS_LOG_TYPE_DEFAULT, "Document %@ requires open-in-place but target (%@) does not support it.", buf, 0x16u);
+        v96 = _LSDefaultLog(v70);
+        if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412546;
+          *&buf[4] = v16;
+          *&buf[12] = 2112;
+          *&buf[14] = v219;
+          _os_log_impl(&dword_18162D000, v96, OS_LOG_TYPE_DEFAULT, "Document %@ requires open-in-place but target (%@) does not support it.", buf, 0x16u);
+        }
+
+        v97 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 444);
+        v216[2](v216, 0, v97);
+
+        goto LABEL_182;
       }
-
-      v92 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 444);
-      v204[2](v204, 0, v92);
-
-      goto LABEL_182;
     }
 
-    v186 = v62;
-    v68 = v206;
-    v69 = v190;
-    v70 = v16;
-    if (v68)
+    v198 = v64;
+    v71 = v218;
+    v72 = v202;
+    v73 = v16;
+    if (v71)
     {
-      if (v69)
+      if (v72)
       {
         goto LABEL_68;
       }
@@ -2650,333 +2626,335 @@ LABEL_64:
 
     else
     {
-      v176 = [MEMORY[0x1E696AAA8] currentHandler];
-      v177 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSCheckIfXPCConnectionCanReadDocument(NSXPCConnection *__strong, LSApplicationProxy *__strong, NSURL *__strong, NSError *__autoreleasing *)"}];
-      [v176 handleFailureInFunction:v177 file:@"LSOpenOperation.mm" lineNumber:1245 description:{@"Invalid parameter not satisfying: %@", @"clientXPCConnection != nil"}];
+      v188 = [MEMORY[0x1E696AAA8] currentHandler];
+      v189 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSCheckIfXPCConnectionCanReadDocument(NSXPCConnection *__strong, LSApplicationProxy *__strong, NSURL *__strong, NSError *__autoreleasing *)"}];
+      [v188 handleFailureInFunction:v189 file:@"LSOpenOperation.mm" lineNumber:1245 description:{@"Invalid parameter not satisfying: %@", @"clientXPCConnection != nil"}];
 
-      if (v69)
+      if (v72)
       {
         goto LABEL_68;
       }
     }
 
-    v178 = [MEMORY[0x1E696AAA8] currentHandler];
-    v179 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSCheckIfXPCConnectionCanReadDocument(NSXPCConnection *__strong, LSApplicationProxy *__strong, NSURL *__strong, NSError *__autoreleasing *)"}];
-    [v178 handleFailureInFunction:v179 file:@"LSOpenOperation.mm" lineNumber:1246 description:{@"Invalid parameter not satisfying: %@", @"targetApp != nil"}];
+    v190 = [MEMORY[0x1E696AAA8] currentHandler];
+    v191 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSCheckIfXPCConnectionCanReadDocument(NSXPCConnection *__strong, LSApplicationProxy *__strong, NSURL *__strong, NSError *__autoreleasing *)"}];
+    [v190 handleFailureInFunction:v191 file:@"LSOpenOperation.mm" lineNumber:1246 description:{@"Invalid parameter not satisfying: %@", @"targetApp != nil"}];
 
 LABEL_68:
-    v71 = objc_autoreleasePoolPush();
+    v74 = objc_autoreleasePoolPush();
     memset(buf, 0, 32);
-    if (v68)
+    if (v71)
     {
-      [v68 auditToken];
+      objc_msgSend_auditToken(v71);
     }
 
-    if ([FSNode canReadURL:v70 fromSandboxWithAuditToken:buf]|| (v72 = _CFURLCopyPromiseURLOfLogicalURL()) != 0 && (v73 = [FSNode canReadURL:v72 fromSandboxWithAuditToken:buf], v72, v73))
+    if ([FSNode canReadURL:v73 fromSandboxWithAuditToken:buf]|| (v75 = _CFURLCopyPromiseURLOfLogicalURL(), (v76 = v75) != 0) && (v77 = [FSNode canReadURL:v75 fromSandboxWithAuditToken:buf], v76, v77))
     {
-      v74 = 0;
-      v75 = 1;
+      v78 = 0;
+      v79 = 1;
     }
 
     else
     {
-      v76 = _LSDefaultLog();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+      v80 = _LSDefaultLog(v75);
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
       {
-        *v230 = 67109635;
-        *&v230[4] = [v68 processIdentifier];
-        *&v230[8] = 2113;
-        *&v230[10] = v70;
-        *&v230[18] = 2113;
-        *&v230[20] = v69;
-        _os_log_impl(&dword_18162D000, v76, OS_LOG_TYPE_DEFAULT, "pid %i does not have read access to document %{private}@ in order to open it in target %{private}@.", v230, 0x1Cu);
+        *v242 = 67109635;
+        *&v242[4] = [v71 processIdentifier];
+        *&v242[8] = 2113;
+        *&v242[10] = v73;
+        *&v242[18] = 2113;
+        *&v242[20] = v72;
+        _os_log_impl(&dword_18162D000, v80, OS_LOG_TYPE_DEFAULT, "pid %i does not have read access to document %{private}@ in order to open it in target %{private}@.", v242, 0x1Cu);
       }
 
-      v74 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 1, 0, "_LSCheckIfXPCConnectionCanReadDocument", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 1274);
-      v75 = 0;
+      v78 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 1, 0, "_LSCheckIfXPCConnectionCanReadDocument", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 1274);
+      v79 = 0;
     }
 
-    objc_autoreleasePoolPop(v71);
-    if (v75)
+    objc_autoreleasePoolPop(v74);
+    if (v79)
     {
-      v77 = 0;
+      v81 = 0;
     }
 
     else
     {
-      v78 = v74;
-      v77 = v74;
+      v82 = v78;
+      v81 = v78;
     }
 
-    v79 = v77;
-    v80 = v79;
-    if ((v75 & 1) == 0)
+    v83 = v81;
+    v84 = v83;
+    if ((v79 & 1) == 0)
     {
-      v204[2](v204, 0, v79);
+      v216[2](v216, 0, v83);
 
       goto LABEL_182;
     }
 
-    v81 = v69 == 0;
+    v85 = v72 == 0;
 
-    v82 = v69;
-    v188 = v70;
-    if (v81)
+    v86 = v72;
+    v200 = v73;
+    if (v85)
     {
-      v180 = [MEMORY[0x1E696AAA8] currentHandler];
-      v181 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSCheckIfApplicationCanOpenUSBOrSMBDocument(LSApplicationProxy *__strong, NSURL *__strong, NSError *__autoreleasing *)"}];
-      [v180 handleFailureInFunction:v181 file:@"LSOpenOperation.mm" lineNumber:1291 description:{@"Invalid parameter not satisfying: %@", @"targetApp != nil"}];
+      v192 = [MEMORY[0x1E696AAA8] currentHandler];
+      v193 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSCheckIfApplicationCanOpenUSBOrSMBDocument(LSApplicationProxy *__strong, NSURL *__strong, NSError *__autoreleasing *)"}];
+      [v192 handleFailureInFunction:v193 file:@"LSOpenOperation.mm" lineNumber:1291 description:{@"Invalid parameter not satisfying: %@", @"targetApp != nil"}];
     }
 
-    v83 = objc_autoreleasePoolPush();
-    *v224 = 0;
-    v84 = *MEMORY[0x1E695DDA8];
-    v85 = [v188 getResourceValue:v224 forKey:*MEMORY[0x1E695DDA8] error:0];
-    v86 = *v224;
-    if ((v85 & 1) == 0)
+    v87 = objc_autoreleasePoolPush();
+    *v236 = 0;
+    v88 = *MEMORY[0x1E695DDA8];
+    v89 = [v200 getResourceValue:v236 forKey:*MEMORY[0x1E695DDA8] error:0];
+    v90 = *v236;
+    if ((v89 & 1) == 0)
     {
-      v87 = _CFURLCopyPromiseURLOfLogicalURL();
-      v219 = 0;
-      [v87 getResourceValue:&v219 forKey:v84 error:0];
-      v88 = v219;
+      v91 = _CFURLCopyPromiseURLOfLogicalURL();
+      v231 = 0;
+      [v91 getResourceValue:&v231 forKey:v88 error:0];
+      v92 = v231;
 
-      v86 = v88;
+      v90 = v92;
     }
 
-    if (v86 && ([v86 BOOLValue] & 1) == 0)
+    if (v90 && (v93 = [v90 BOOLValue], (v93 & 1) == 0))
     {
-      v93 = _LSDefaultLog();
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
+      v98 = _LSDefaultLog(v93);
+      if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
       {
         *buf = 138478083;
-        *&buf[4] = v188;
+        *&buf[4] = v200;
         *&buf[12] = 2113;
-        *&buf[14] = v82;
-        _os_log_impl(&dword_18162D000, v93, OS_LOG_TYPE_INFO, "Document %{private}@ is on USB/SMB. Checking if application %{private}@ can open such documents.", buf, 0x16u);
+        *&buf[14] = v86;
+        _os_log_impl(&dword_18162D000, v98, OS_LOG_TYPE_INFO, "Document %{private}@ is on USB/SMB. Checking if application %{private}@ can open such documents.", buf, 0x16u);
       }
 
-      v94 = [v82 platform];
-      v95 = [v94 unsignedIntegerValue];
+      v99 = [v86 platform];
+      v100 = [v99 unsignedIntegerValue];
 
-      v96 = [v82 sdkVersion];
-      v97 = v96;
-      v98 = @"1.0";
-      if (v96)
+      v101 = [v86 sdkVersion];
+      v102 = v101;
+      v103 = @"1.0";
+      if (v101)
       {
-        v98 = v96;
+        v103 = v101;
       }
 
-      v184 = v98;
+      v196 = v103;
 
-      if ((v95 - 11) >= 2)
+      if ((v100 - 11) >= 2)
       {
-        v112 = +[LSApplicationWorkspace defaultWorkspace];
-        v90 = [v112 isVersion:v184 greaterThanOrEqualToVersion:@"13.0"];
+        v117 = +[LSApplicationWorkspace defaultWorkspace];
+        v95 = [v117 isVersion:v196 greaterThanOrEqualToVersion:@"13.0"];
 
-        if (v90)
+        if (v95)
         {
-          v113 = _LSDefaultLog();
-          if (os_log_type_enabled(v113, OS_LOG_TYPE_INFO))
+          v119 = _LSDefaultLog(v118);
+          if (os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
           {
             *buf = 138478083;
-            *&buf[4] = v82;
+            *&buf[4] = v86;
             *&buf[12] = 2114;
-            *&buf[14] = v184;
-            _os_log_impl(&dword_18162D000, v113, OS_LOG_TYPE_INFO, "Application %{private}@ was linked against SDK %{public}@ and so can open documents on USB/SMB.", buf, 0x16u);
+            *&buf[14] = v196;
+            _os_log_impl(&dword_18162D000, v119, OS_LOG_TYPE_INFO, "Application %{private}@ was linked against SDK %{public}@ and so can open documents on USB/SMB.", buf, 0x16u);
           }
 
-          v89 = 0;
+          v94 = 0;
         }
 
         else
         {
-          v114 = _LSDefaultLog();
-          if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+          v120 = _LSDefaultLog(v118);
+          if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138478083;
-            *&buf[4] = v82;
+            *&buf[4] = v86;
             *&buf[12] = 2114;
-            *&buf[14] = v184;
-            _os_log_impl(&dword_18162D000, v114, OS_LOG_TYPE_DEFAULT, "Application %{private}@ was linked against SDK %{public}@ and so CANNOT open documents on USB/SMB.", buf, 0x16u);
+            *&buf[14] = v196;
+            _os_log_impl(&dword_18162D000, v120, OS_LOG_TYPE_DEFAULT, "Application %{private}@ was linked against SDK %{public}@ and so CANNOT open documents on USB/SMB.", buf, 0x16u);
           }
 
-          v115 = *MEMORY[0x1E696A278];
-          *v230 = @"SDKVersion";
-          *&v230[8] = v115;
-          *buf = v184;
+          v121 = *MEMORY[0x1E696A278];
+          *v242 = @"SDKVersion";
+          *&v242[8] = v121;
+          *buf = v196;
           *&buf[8] = @"SDK too old to support SMB/USB documents (iOS 13.0 required.)";
-          v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v230 count:2];
-          v89 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, v113, "_LSCheckIfApplicationCanOpenUSBOrSMBDocument", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 1317);
+          v119 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v242 count:2];
+          v94 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, v119, "_LSCheckIfApplicationCanOpenUSBOrSMBDocument", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 1317);
         }
       }
 
       else
       {
-        v89 = 0;
-        LOBYTE(v90) = 1;
+        v94 = 0;
+        LOBYTE(v95) = 1;
       }
     }
 
     else
     {
-      v89 = 0;
-      LOBYTE(v90) = 1;
+      v94 = 0;
+      LOBYTE(v95) = 1;
     }
 
-    objc_autoreleasePoolPop(v83);
-    if (v90)
+    objc_autoreleasePoolPop(v87);
+    if (v95)
     {
-      v116 = 0;
+      v122 = 0;
     }
 
     else
     {
-      v117 = v89;
-      v116 = v89;
+      v123 = v94;
+      v122 = v94;
     }
 
-    v118 = v116;
-    v119 = v118;
-    if ((v90 & 1) == 0)
+    v124 = v122;
+    v125 = v124;
+    if ((v95 & 1) == 0)
     {
-      v204[2](v204, 0, v118);
+      v216[2](v216, 0, v124);
 
       goto LABEL_182;
     }
 
-    v120 = objc_opt_class();
-    v121 = [v205 objectForKey:@"LSSetHandlerOnDocumentOpenKey"];
-    v122 = v121;
-    if (v120 && v121)
+    v126 = objc_opt_class();
+    v127 = [v217 objectForKey:@"LSSetHandlerOnDocumentOpenKey"];
+    v128 = v127;
+    if (v126 && v127)
     {
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
 
 LABEL_135:
-        v122 = 0;
-        v123 = _LSShouldSetWeakBindingOnOpenByDefault();
+        v128 = 0;
+        v129 = _LSShouldSetWeakBindingOnOpenByDefault();
         goto LABEL_136;
       }
     }
 
-    else if (!v121)
+    else if (!v127)
     {
       goto LABEL_135;
     }
 
-    v123 = [v122 BOOLValue];
+    v129 = [v128 BOOLValue];
 LABEL_136:
-    if (!v123 || !v82 || !a4 || ![v188 isFileURL])
+    if (!v129 || !v86 || !a4 || ![v200 isFileURL])
     {
       goto LABEL_174;
     }
 
-    v193 = v82;
-    v124 = v188;
-    v185 = v122;
-    v125 = [FSNode alloc];
-    v223 = 0;
-    v126 = [(FSNode *)v125 initWithURL:v124 flags:0 error:&v223];
-    v127 = v223;
-    if (!v126)
+    v205 = v86;
+    v130 = v200;
+    v197 = v128;
+    v131 = [FSNode alloc];
+    v235 = 0;
+    v132 = [(FSNode *)v131 initWithURL:v130 flags:0 error:&v235];
+    v133 = v235;
+    v134 = v133;
+    if (!v132)
     {
-      v135 = _LSDefaultLog();
-      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
+      v145 = _LSDefaultLog(v133);
+      if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138478083;
-        *&buf[4] = v124;
+        *&buf[4] = v130;
         *&buf[12] = 2114;
-        *&buf[14] = v127;
-        _os_log_impl(&dword_18162D000, v135, OS_LOG_TYPE_DEFAULT, "Could not create node for resource URL %{private}@ for default handler update: %{public}@", buf, 0x16u);
+        *&buf[14] = v134;
+        _os_log_impl(&dword_18162D000, v145, OS_LOG_TYPE_DEFAULT, "Could not create node for resource URL %{private}@ for default handler update: %{public}@", buf, 0x16u);
       }
 
       goto LABEL_173;
     }
 
-    v222 = 0;
-    v219 = 0;
-    v220 = 0;
-    v221 = 0;
-    v128 = +[_LSDServiceDomain defaultServiceDomain];
-    v129 = LaunchServices::Database::Context::_get(&v219, v128, 0);
+    v234 = 0;
+    v231 = 0;
+    v232 = 0;
+    v233 = 0;
+    v135 = +[_LSDServiceDomain defaultServiceDomain];
+    v136 = LaunchServices::Database::Context::_get(&v231, v135, 0);
 
-    if (!v129)
+    if (!v136)
     {
-      v136 = _LSDefaultLog();
-      if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
+      v146 = _LSDefaultLog(v137);
+      if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
       {
-        v137 = +[_LSDServiceDomain defaultServiceDomain];
-        v138 = LaunchServices::Database::Context::_get(&v219, v137, 0);
+        v147 = +[_LSDServiceDomain defaultServiceDomain];
+        v148 = LaunchServices::Database::Context::_get(&v231, v147, 0);
 
-        if (v138)
+        if (v148)
         {
-          v139 = 0;
+          v149 = 0;
         }
 
         else
         {
-          v139 = v222;
+          v149 = v234;
         }
 
         *buf = 138543362;
-        *&buf[4] = v139;
-        _os_log_impl(&dword_18162D000, v136, OS_LOG_TYPE_DEFAULT, "Could not create database context for default handler update: %{public}@", buf, 0xCu);
+        *&buf[4] = v149;
+        _os_log_impl(&dword_18162D000, v146, OS_LOG_TYPE_DEFAULT, "Could not create database context for default handler update: %{public}@", buf, 0xCu);
       }
 
-      v183 = v127;
+      v195 = v134;
       goto LABEL_169;
     }
 
-    LaunchServices::TypeEvaluator::TypeEvaluator(v218, v126);
-    v182 = LaunchServices::TypeEvaluator::getTypeIdentifier(v218, v129, 0);
-    if (!v182)
+    LaunchServices::TypeEvaluator::TypeEvaluator(v230, v132);
+    v194 = LaunchServices::TypeEvaluator::getTypeIdentifier(v230, &v136->db, 0);
+    if (!v194)
     {
-      v132 = _LSDefaultLog();
-      if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138478083;
-        *&buf[4] = v126;
-        *&buf[12] = 2114;
-        *&buf[14] = v127;
-        _os_log_impl(&dword_18162D000, v132, OS_LOG_TYPE_DEFAULT, "Could not get UTI for node %{private}@ for default handler update: %{public}@", buf, 0x16u);
-      }
-
-      v183 = v127;
-      goto LABEL_165;
-    }
-
-    v130 = [FSNode alloc];
-    v131 = [v193 bundleURL];
-    v217 = v127;
-    v132 = [(FSNode *)v130 initWithURL:v131 flags:0 error:&v217];
-    v183 = v217;
-
-    if (!v132)
-    {
-      v140 = _LSDefaultLog();
+      v140 = _LSDefaultLog(0);
       if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138478083;
-        *&buf[4] = v193;
+        *&buf[4] = v132;
         *&buf[12] = 2114;
-        *&buf[14] = v183;
-        _os_log_impl(&dword_18162D000, v140, OS_LOG_TYPE_DEFAULT, "Could not get node for app %{private}@: %{public}@", buf, 0x16u);
+        *&buf[14] = v134;
+        _os_log_impl(&dword_18162D000, v140, OS_LOG_TYPE_DEFAULT, "Could not get UTI for node %{private}@ for default handler update: %{public}@", buf, 0x16u);
       }
 
-      v132 = 0;
+      v195 = v134;
       goto LABEL_165;
     }
 
-    v216 = 0;
-    v133 = v193;
-    if (_LSBundleFindWithNode(v129, v132, &v216, 0))
+    v138 = [FSNode alloc];
+    v139 = [v205 bundleURL];
+    v229 = v134;
+    v140 = [(FSNode *)v138 initWithURL:v139 flags:0 error:&v229];
+    v195 = v229;
+
+    if (!v140)
     {
-      v134 = _LSDefaultLog();
-      if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
+      v150 = _LSDefaultLog(v141);
+      if (os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138478083;
+        *&buf[4] = v205;
+        *&buf[12] = 2114;
+        *&buf[14] = v195;
+        _os_log_impl(&dword_18162D000, v150, OS_LOG_TYPE_DEFAULT, "Could not get node for app %{private}@: %{public}@", buf, 0x16u);
+      }
+
+      v140 = 0;
+      goto LABEL_165;
+    }
+
+    v228 = 0;
+    v142 = v205;
+    v143 = _LSBundleFindWithNode(v136, v140, &v228, 0);
+    if (v143)
+    {
+      v144 = _LSDefaultLog(v143);
+      if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138477827;
-        *&buf[4] = v193;
-        _os_log_impl(&dword_18162D000, v134, OS_LOG_TYPE_DEFAULT, "Could not get unit for app %{private}@", buf, 0xCu);
+        *&buf[4] = v205;
+        _os_log_impl(&dword_18162D000, v144, OS_LOG_TYPE_DEFAULT, "Could not get unit for app %{private}@", buf, 0xCu);
       }
 
       goto LABEL_165;
@@ -2986,20 +2964,21 @@ LABEL_136:
     *&buf[8] = 0;
     *&buf[16] = 0;
     *&buf[24] = 0u;
-    v233 = 0u;
-    if (!_LSGetBindingForNodeOrSchemeOrUTI(v129, 0, 0, v182, v216, 14, 0, 12320, buf) && *&buf[24])
+    v245 = 0u;
+    if (!_LSGetBindingForNodeOrSchemeOrUTI(v136, 0, 0, v194, v228, 14, 0, 12320, buf) && *&buf[24])
     {
-      if (_LSClaimFlagsAreWildcard(*(*&buf[24] + 8)))
+      v180 = _LSClaimFlagsAreWildcard(*(*&buf[24] + 8));
+      if (v180)
       {
-        v170 = _LSDefaultLog();
-        if (os_log_type_enabled(v170, OS_LOG_TYPE_INFO))
+        v181 = _LSDefaultLog(v180);
+        if (os_log_type_enabled(v181, OS_LOG_TYPE_INFO))
         {
-          v171 = [v193 bundleIdentifier];
-          *v230 = 138478083;
-          *&v230[4] = v171;
-          *&v230[12] = 2113;
-          *&v230[14] = v126;
-          _os_log_impl(&dword_18162D000, v170, OS_LOG_TYPE_INFO, "App %{private}@ claims %{private}@ via a wildcard UTI, so won't set default handler.", v230, 0x16u);
+          v182 = [v205 bundleIdentifier];
+          *v242 = 138478083;
+          *&v242[4] = v182;
+          *&v242[12] = 2113;
+          *&v242[14] = v132;
+          _os_log_impl(&dword_18162D000, v181, OS_LOG_TYPE_INFO, "App %{private}@ claims %{private}@ via a wildcard UTI, so won't set default handler.", v242, 0x16u);
         }
 
 LABEL_246:
@@ -3008,377 +2987,377 @@ LABEL_164:
 LABEL_165:
 
 LABEL_169:
-        if (v219 && v221 == 1)
+        if (v231 && v233 == 1)
         {
-          _LSContextDestroy(v219);
+          _LSContextDestroy(v231);
         }
 
-        v143 = v220;
-        v219 = 0;
-        v220 = 0;
+        v153 = v232;
+        v231 = 0;
+        v232 = 0;
 
-        v221 = 0;
-        v144 = v222;
-        v222 = 0;
+        v233 = 0;
+        v154 = v234;
+        v234 = 0;
 
-        v127 = v183;
+        v134 = v195;
 LABEL_173:
 
-        v122 = v185;
+        v128 = v197;
 LABEL_174:
 
-        if (!v186)
+        if (!v198)
         {
-          v147 = _LSDefaultLog();
-          if (os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
+          v158 = _LSDefaultLog(v155);
+          if (os_log_type_enabled(v158, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            *&buf[4] = v188;
+            *&buf[4] = v200;
             *&buf[12] = 2112;
-            *&buf[14] = v207;
-            _os_log_impl(&dword_18162D000, v147, OS_LOG_TYPE_DEFAULT, "Not copying %@ to Inbox for %@", buf, 0x16u);
+            *&buf[14] = v219;
+            _os_log_impl(&dword_18162D000, v158, OS_LOG_TYPE_DEFAULT, "Not copying %@ to Inbox for %@", buf, 0x16u);
           }
 
-          v21 = v188;
-          v22 = 0;
+          v22 = v200;
+          v23 = 0;
           goto LABEL_183;
         }
 
-        v145 = _LSGetInboxURLForBundleIdentifier(v207);
-        if (v145)
+        v156 = _LSGetInboxURLForBundleIdentifier(v219);
+        if (v156)
         {
-          v209[0] = MEMORY[0x1E69E9820];
-          v209[1] = 3221225472;
-          v209[2] = ___ZL47_LSOpenOperationPerformContinueAfterAsyncGatherP5NSURLP12NSFileHandleP8NSStringbS4_P12NSDictionaryIS4_P11objc_objectES9_PU42objcproto31LSOpenResourceOperationDelegate11objc_objectP15NSXPCConnectionU13block_pointerFvbP7NSErrorE_block_invoke;
-          v209[3] = &unk_1E6A1D4E8;
-          v210 = v201;
-          v211 = v68;
-          v212 = v205;
-          v213 = v202;
-          v214 = v207;
-          v215 = v204;
-          _LSCopyOrMoveFileResource(v188, v199, v200, v145, v187, v209);
+          v221[0] = MEMORY[0x1E69E9820];
+          v221[1] = 3221225472;
+          v221[2] = ___ZL47_LSOpenOperationPerformContinueAfterAsyncGatherP5NSURLP12NSFileHandleP8NSStringbS4_P12NSDictionaryIS4_P11objc_objectES9_PU42objcproto31LSOpenResourceOperationDelegate11objc_objectP15NSXPCConnectionU13block_pointerFvbP7NSErrorE_block_invoke;
+          v221[3] = &unk_1E6A1D4E8;
+          v222 = v213;
+          v223 = v71;
+          v224 = v217;
+          v225 = v214;
+          v226 = v219;
+          v227 = v216;
+          _LSCopyOrMoveFileResource(v200, v211, v212, v156, v199, v221);
 
-          v146 = v210;
+          v157 = v222;
         }
 
         else
         {
-          v146 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 486);
-          v204[2](v204, 0, v146);
+          v157 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 486);
+          v216[2](v216, 0, v157);
         }
 
 LABEL_182:
-        v21 = 0;
-        v22 = 1;
+        v22 = 0;
+        v23 = 1;
 LABEL_183:
 
         LOBYTE(v16) = 0;
-        v20 = 0;
+        v21 = 0;
         goto LABEL_184;
       }
 
       if (*&buf[24] && !*(*&buf[24] + 12))
       {
-        v170 = _LSDefaultLog();
-        if (os_log_type_enabled(v170, OS_LOG_TYPE_INFO))
+        v181 = _LSDefaultLog(v180);
+        if (os_log_type_enabled(v181, OS_LOG_TYPE_INFO))
         {
-          *v230 = 138478083;
-          *&v230[4] = v124;
-          *&v230[12] = 2113;
-          *&v230[14] = v183;
-          _os_log_impl(&dword_18162D000, v170, OS_LOG_TYPE_INFO, "App %{private}@'s claim for resource URL %{private}@ has a handler rank of None. Will skip weak default handler.", v230, 0x16u);
+          *v242 = 138478083;
+          *&v242[4] = v130;
+          *&v242[12] = 2113;
+          *&v242[14] = v195;
+          _os_log_impl(&dword_18162D000, v181, OS_LOG_TYPE_INFO, "App %{private}@'s claim for resource URL %{private}@ has a handler rank of None. Will skip weak default handler.", v242, 0x16u);
         }
 
         goto LABEL_246;
       }
     }
 
-    *v230 = 0;
-    *&v230[8] = 0;
-    *&v230[16] = 0;
-    *&v230[24] = 0u;
-    v231 = 0u;
-    if (!_LSGetBindingForNodeOrSchemeOrUTI(v129, 0, 0, v182, 0, 14, 0, 12320, v230) && (v172 = *v129, [v193 bundleIdentifier], v173 = objc_claimAutoreleasedReturnValue(), StringForCFString = _LSDatabaseGetStringForCFString(v172, v173, 0), v173, v133 = v193, *&v230[8]) && *(*&v230[8] + 12) == StringForCFString)
+    *v242 = 0;
+    *&v242[8] = 0;
+    *&v242[16] = 0;
+    *&v242[24] = 0u;
+    v243 = 0u;
+    if (!_LSGetBindingForNodeOrSchemeOrUTI(v136, 0, 0, v194, 0, 14, 0, 12320, v242) && (db = v136->db, [v205 bundleIdentifier], v184 = objc_claimAutoreleasedReturnValue(), StringForCFString = _LSDatabaseGetStringForCFString(db, v184, 0), v184, v142 = v205, *&v242[8]) && *(*&v242[8] + 12) == StringForCFString)
     {
-      v141 = _LSDefaultLog();
-      if (os_log_type_enabled(v141, OS_LOG_TYPE_DEBUG))
+      v151 = _LSDefaultLog(v186);
+      if (os_log_type_enabled(v151, OS_LOG_TYPE_DEBUG))
       {
-        v175 = [v193 bundleIdentifier];
-        _LSOpenOperationPerformContinueAfterAsyncGather(v126, v175, v224, v141);
+        v187 = [v205 bundleIdentifier];
+        _LSOpenOperationPerformContinueAfterAsyncGather(v132, v187, v236, v151);
       }
     }
 
     else
     {
       MEMORY[0x1865D7C40]();
-      v141 = [(_LSDService *)_LSDModifyService XPCProxyWithErrorHandler:?];
-      v142 = [v133 bundleIdentifier];
-      memset(v229, 0, sizeof(v229));
-      *v224 = MEMORY[0x1E69E9820];
-      v225 = 3221225472;
-      v226 = ___ZL23_LSUpdateDefaultHandlerP18LSApplicationProxyP5NSURL_block_invoke_161;
-      v227 = &unk_1E6A1D510;
-      v228 = v133;
-      [v141 setHandler:v142 version:v229 roles:0xFFFFFFFFLL forContentType:v182 completionHandler:v224];
+      v151 = [(_LSDService *)_LSDModifyService XPCProxyWithErrorHandler:?];
+      v152 = [v142 bundleIdentifier];
+      memset(v241, 0, sizeof(v241));
+      *v236 = MEMORY[0x1E69E9820];
+      v237 = 3221225472;
+      v238 = ___ZL23_LSUpdateDefaultHandlerP18LSApplicationProxyP5NSURL_block_invoke_161;
+      v239 = &unk_1E6A1D510;
+      v240 = v142;
+      [v151 setHandler:v152 version:v241 roles:0xFFFFFFFFLL forContentType:v194 completionHandler:v236];
     }
 
     goto LABEL_164;
   }
 
-  v23 = [v16 scheme];
-  v24 = [v23 caseInsensitiveCompare:@"search"];
-  v20 = v24 == 0;
+  v24 = [v16 scheme];
+  v25 = [v24 caseInsensitiveCompare:@"search"];
+  v21 = v25 == 0;
 
-  if (!v24)
+  if (!v25)
   {
-    v31 = objc_opt_class();
-    v32 = [v205 objectForKey:@"LSOpenSensitiveURLOption"];
-    v33 = v32;
-    if (v31 && v32 && (objc_opt_isKindOfClass() & 1) == 0)
+    v32 = objc_opt_class();
+    v33 = [v217 objectForKey:@"LSOpenSensitiveURLOption"];
+    v34 = v33;
+    if (v32 && v33 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v33 = 0;
+      v34 = 0;
     }
 
-    v34 = [v33 BOOLValue];
+    v35 = [v34 BOOLValue];
 
-    if (v34)
+    if (v35)
     {
-      v35 = [v206 _xpcConnection];
-      v36 = _LSCheckOpenSensitiveURLForXPCConnection(v35, [v16 absoluteString]);
+      v37 = [v218 _xpcConnection];
+      v38 = _LSCheckOpenSensitiveURLForXPCConnection(v37, [v16 absoluteString]);
 
-      if (v36)
+      if (v38)
       {
-        v37 = [v16 host];
+        v39 = [v16 host];
 
-        v21 = v16;
-        v197 = 0;
-        v19 = 0;
+        v22 = v16;
+        v209 = 0;
+        v20 = 0;
         LOBYTE(v16) = 0;
-        v22 = 0;
-        v20 = 1;
-        v207 = v37;
+        v23 = 0;
+        v21 = 1;
+        v219 = v39;
         goto LABEL_184;
       }
     }
 
-    v38 = _LSDefaultLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v40 = _LSDefaultLog(v36);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_18162D000, v38, OS_LOG_TYPE_DEFAULT, "The 'search:' scheme requires the com.apple.springboard.opensensitiveurl entitlement", buf, 2u);
+      _os_log_impl(&dword_18162D000, v40, OS_LOG_TYPE_DEFAULT, "The 'search:' scheme requires the com.apple.springboard.opensensitiveurl entitlement", buf, 2u);
     }
 
-    v39 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 1, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 537);
-    v204[2](v204, 0, v39);
+    v41 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 1, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 537);
+    v216[2](v216, 0, v41);
 
-    v21 = 0;
+    v22 = 0;
 LABEL_28:
     LOBYTE(v16) = 0;
-    v19 = 0;
-    v197 = 0;
-    v40 = v207;
-    v41 = v207 != 0;
+    v20 = 0;
+    v209 = 0;
+    v42 = v219;
+    v43 = v219 != 0;
 LABEL_187:
-    v22 = 1;
+    v23 = 1;
     goto LABEL_188;
   }
 
-  v25 = [v16 scheme];
-  v26 = [v25 caseInsensitiveCompare:@"com-apple-audiounit"];
+  v26 = [v16 scheme];
+  v27 = [v26 caseInsensitiveCompare:@"com-apple-audiounit"];
 
-  if (!v26)
+  if (!v27)
   {
-    v21 = v16;
-    _LSAudioUnitURLOpen(v21);
-    v204[2](v204, 1, 0);
+    v22 = v16;
+    _LSAudioUnitURLOpen(v22);
+    v216[2](v216, 1, 0);
     goto LABEL_28;
   }
 
-  v27 = +[LSApplicationWorkspace defaultWorkspace];
+  v28 = +[LSApplicationWorkspace defaultWorkspace];
   if (a4)
   {
-    v21 = v16;
+    v22 = v16;
     LOBYTE(v16) = 0;
   }
 
   else
   {
-    v42 = objc_opt_class();
-    v43 = [v205 objectForKey:@"NoOverrides"];
-    v44 = v43;
-    if (v42 && v43 && (objc_opt_isKindOfClass() & 1) == 0)
+    v44 = objc_opt_class();
+    v45 = [v217 objectForKey:@"NoOverrides"];
+    v46 = v45;
+    if (v44 && v45 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v44 = 0;
+      v46 = 0;
     }
 
-    LOBYTE(v16) = [v44 BOOLValue];
+    LOBYTE(v16) = [v46 BOOLValue];
 
     if (v16)
     {
-      v45 = 0;
+      v47 = 0;
     }
 
     else
     {
-      v99 = [[_LSURLOverride alloc] initWithOriginalURL:v203];
-      v45 = [(_LSURLOverride *)v99 overrideURL];
+      v104 = [[_LSURLOverride alloc] initWithOriginalURL:v215];
+      v47 = [(_LSURLOverride *)v104 overrideURL];
     }
 
-    v100 = v203;
-    if (v45)
+    v105 = v215;
+    if (v47)
     {
-      v100 = v45;
+      v105 = v47;
     }
 
-    v21 = v100;
+    v22 = v105;
   }
 
-  if (!v207)
+  if (!v219)
   {
-    v101 = [v27 applicationForOpeningResource:v21];
-    v207 = [v101 bundleIdentifier];
+    v106 = [v28 applicationForOpeningResource:v22];
+    v219 = [v106 bundleIdentifier];
   }
 
-  v102 = [(NSURL *)v21 scheme];
-  if (!v102)
-  {
-    goto LABEL_112;
-  }
-
-  v103 = +[_LSCanOpenURLManager sharedManager];
-  v104 = [v103 schemeTypeOfScheme:v102];
-
-  if (v104 != 1)
+  v107 = [(NSURL *)v22 scheme];
+  if (!v107)
   {
     goto LABEL_112;
   }
 
-  v105 = objc_opt_class();
-  v106 = [v205 objectForKey:@"LSOpenSensitiveURLOption"];
-  v107 = v106;
-  if (v105 && v106 && (objc_opt_isKindOfClass() & 1) == 0)
-  {
+  v108 = +[_LSCanOpenURLManager sharedManager];
+  v109 = [v108 schemeTypeOfScheme:v107];
 
-    v107 = 0;
+  if (v109 != 1)
+  {
+    goto LABEL_112;
   }
 
-  v108 = [v107 BOOLValue];
-
-  if (!v108 || ([v206 _xpcConnection], v109 = objc_claimAutoreleasedReturnValue(), v110 = _LSCheckOpenSensitiveURLForXPCConnection(v109, -[NSURL absoluteString](v21, "absoluteString")), v109, !v110))
+  v110 = objc_opt_class();
+  v111 = [v217 objectForKey:@"LSOpenSensitiveURLOption"];
+  v112 = v111;
+  if (v110 && v111 && (objc_opt_isKindOfClass() & 1) == 0)
   {
-    v111 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 1, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 579);
-    v204[2](v204, 0, v111);
 
-    v22 = 1;
+    v112 = 0;
+  }
+
+  v113 = [v112 BOOLValue];
+
+  if (!v113 || ([v218 _xpcConnection], v114 = objc_claimAutoreleasedReturnValue(), v115 = _LSCheckOpenSensitiveURLForXPCConnection(v114, -[NSURL absoluteString](v22, "absoluteString")), v114, !v115))
+  {
+    v116 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 1, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 579);
+    v216[2](v216, 0, v116);
+
+    v23 = 1;
   }
 
   else
   {
 LABEL_112:
-    v22 = 0;
+    v23 = 0;
   }
 
-  v197 = 0;
-  v19 = 0;
-  v20 = 1;
+  v209 = 0;
+  v20 = 0;
+  v21 = 1;
 LABEL_184:
-  v40 = v207;
-  v41 = v207 != 0;
-  if ((v22 & 1) == 0 && !v207)
+  v42 = v219;
+  v43 = v219 != 0;
+  if ((v23 & 1) == 0 && !v219)
   {
-    v148 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 589);
-    v204[2](v204, 0, v148);
+    v159 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, 0, "_LSOpenOperationPerformContinueAfterAsyncGather", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenOperation.mm", 589);
+    v216[2](v216, 0, v159);
 
-    v41 = 0;
-    v40 = 0;
+    v43 = 0;
+    v42 = 0;
     goto LABEL_187;
   }
 
 LABEL_188:
-  v208 = v40;
-  _LSSchemeApprovalRememberForBouncebackCheck(v206, v40);
-  if (v22)
+  v220 = v42;
+  _LSSchemeApprovalRememberForBouncebackCheck(v218, v42);
+  if (v23)
   {
     goto LABEL_232;
   }
 
-  v149 = _LSGetOptionsDictionaryContainingSourceApplication(v206, 0, v21, 0, 0, 0, 0, v205);
-  v150 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v202];
-  if (v21)
+  v160 = _LSGetOptionsDictionaryContainingSourceApplication(v218, 0, v22, 0, 0, 0, 0, v217);
+  v161 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v214];
+  if (v22)
   {
-    [v149 setObject:v21 forKeyedSubscript:getFBSOpenApplicationOptionKeyPayloadURL()];
+    [v160 setObject:v22 forKeyedSubscript:getFBSOpenApplicationOptionKeyPayloadURL()];
   }
 
-  if (v20)
+  if (v21)
   {
-    v151 = objc_opt_class();
-    v152 = [v149 objectForKey:@"ReferrerURL"];
-    v153 = v152;
-    if (v151 && v152)
+    v162 = objc_opt_class();
+    v163 = [v160 objectForKey:@"ReferrerURL"];
+    v164 = v163;
+    if (v162 && v163)
     {
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
 
-        v153 = 0;
+        v164 = 0;
         goto LABEL_213;
       }
     }
 
-    else if (!v152)
+    else if (!v163)
     {
       goto LABEL_213;
     }
 
-    v198 = v208;
-    v159 = @"com.apple.launchservices.receivereferrerrurl";
-    v160 = !v41;
-    if (!v159)
+    v210 = v220;
+    v170 = @"com.apple.launchservices.receivereferrerrurl";
+    v171 = !v43;
+    if (!v170)
     {
-      v160 = 1;
+      v171 = 1;
     }
 
-    if ((v160 & 1) == 0)
+    if ((v171 & 1) == 0)
     {
-      *v230 = 0;
-      if (!_LSContextInit(v230))
+      *v242 = 0;
+      if (!_LSContextInit(v242))
       {
-        LODWORD(v229[0]) = 0;
-        v219 = 0;
+        LODWORD(v241[0]) = 0;
+        v231 = 0;
         memset(buf, 0, 32);
-        if (_LSBundleFindWithInfo(v230, 0, v198, 0, buf, 0, 128, v229, &v219))
+        if (_LSBundleFindWithInfo(v242, 0, v210, 0, buf, 0, 128, v241, &v231))
         {
-          v168 = 1;
+          v178 = 1;
         }
 
         else
         {
-          v194 = *v230;
-          v191 = *(v219 + 35);
-          v189 = v159;
-          v195 = _LSPlistGet(v194, v191);
-          v169 = _LSPlistDataGetValueForKey(v195, v189, 0);
+          v206 = *v242;
+          v203 = v231[35];
+          v201 = v170;
+          v207 = _LSPlistGet(v206, v203);
+          v179 = _LSPlistDataGetValueForKey(v207, v201, 0);
 
-          if (v169 && (objc_opt_respondsToSelector() & 1) != 0)
+          if (v179 && (objc_opt_respondsToSelector() & 1) != 0)
           {
-            v196 = [v169 BOOLValue];
+            v208 = [v179 BOOLValue];
           }
 
           else
           {
-            v196 = 0;
+            v208 = 0;
           }
 
-          v168 = v196 ^ 1;
+          v178 = v208 ^ 1;
         }
 
-        _LSContextDestroy(v230);
+        _LSContextDestroy(v242);
 
-        if ((v168 & 1) == 0)
+        if ((v178 & 1) == 0)
         {
-          [v150 setObject:v153 forKeyedSubscript:@"ReferrerURL"];
+          [v161 setObject:v164 forKeyedSubscript:@"ReferrerURL"];
         }
 
         goto LABEL_212;
@@ -3386,102 +3365,101 @@ LABEL_188:
     }
 
 LABEL_212:
-    [v149 removeObjectForKey:@"ReferrerURL"];
+    [v160 removeObjectForKey:@"ReferrerURL"];
 LABEL_213:
-    if ((v16 & 1) != 0 && _LSBundleIdentifierIsPlatformWebBrowser(v208))
+    if ((v16 & 1) != 0 && _LSBundleIdentifierIsPlatformWebBrowser(v220))
     {
-      [v150 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"NoOverrides"];
+      [v161 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"NoOverrides"];
     }
 
-    [v149 removeObjectForKey:@"NoOverrides"];
-    if ([v150 count])
+    [v160 removeObjectForKey:@"NoOverrides"];
+    if ([v161 count])
     {
-      [v149 setObject:v150 forKeyedSubscript:getFBSOpenApplicationOptionKeyPayloadAnnotation()];
+      [v160 setObject:v161 forKeyedSubscript:getFBSOpenApplicationOptionKeyPayloadAnnotation()];
     }
 
     goto LABEL_219;
   }
 
-  if (v19)
+  if (v20)
   {
-    v154 = objc_opt_class();
-    v155 = [v149 objectForKey:@"__PayloadOptions"];
-    v156 = v155;
-    if (v154 && v155 && (objc_opt_isKindOfClass() & 1) == 0)
+    v165 = objc_opt_class();
+    v166 = [v160 objectForKey:@"__PayloadOptions"];
+    v167 = v166;
+    if (v165 && v166 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v156 = 0;
+      v167 = 0;
     }
 
-    v157 = [v156 mutableCopy];
+    v168 = [v167 mutableCopy];
 
-    [v157 setObject:v19 forKeyedSubscript:@"FileProviderString"];
-    v158 = [MEMORY[0x1E696AD98] numberWithBool:v197];
-    [v157 setObject:v158 forKeyedSubscript:@"RequireOpenInPlace"];
+    [v168 setObject:v20 forKeyedSubscript:@"FileProviderString"];
+    v169 = [MEMORY[0x1E696AD98] numberWithBool:v209];
+    [v168 setObject:v169 forKeyedSubscript:@"RequireOpenInPlace"];
 
-    [v149 setObject:v157 forKeyedSubscript:@"__PayloadOptions"];
-    [v149 setObject:MEMORY[0x1E695E118] forKeyedSubscript:getFBSOpenApplicationOptionKeyDocumentOpen4LS()];
-    [v150 removeObjectForKey:@"FileProviderString"];
-    [v150 removeObjectForKey:@"RequireOpenInPlace"];
+    [v160 setObject:v168 forKeyedSubscript:@"__PayloadOptions"];
+    [v160 setObject:MEMORY[0x1E695E118] forKeyedSubscript:getFBSOpenApplicationOptionKeyDocumentOpen4LS()];
+    [v161 removeObjectForKey:@"FileProviderString"];
+    [v161 removeObjectForKey:@"RequireOpenInPlace"];
   }
 
-  if ([v150 count])
+  if ([v161 count])
   {
-    [v149 setObject:v150 forKeyedSubscript:getFBSOpenApplicationOptionKeyPayloadAnnotation()];
+    [v160 setObject:v161 forKeyedSubscript:getFBSOpenApplicationOptionKeyPayloadAnnotation()];
   }
 
-  [v149 setObject:MEMORY[0x1E695E110] forKeyedSubscript:getFBSOpenApplicationOptionKeyActivateSuspended()];
+  [v160 setObject:MEMORY[0x1E695E110] forKeyedSubscript:getFBSOpenApplicationOptionKeyActivateSuspended()];
 LABEL_219:
-  v161 = objc_opt_class();
-  v162 = [v149 objectForKey:@"LSBlockUntilComplete"];
-  v163 = v162;
-  if (v161 && v162)
+  v172 = objc_opt_class();
+  v173 = [v160 objectForKey:@"LSBlockUntilComplete"];
+  v174 = v173;
+  if (v172 && v173)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v163 = 0;
+      v174 = 0;
 LABEL_225:
-      v164 = 0;
+      v175 = 0;
       goto LABEL_226;
     }
   }
 
-  else if (!v162)
+  else if (!v173)
   {
     goto LABEL_225;
   }
 
-  v164 = [v163 BOOLValue];
-  [v149 removeObjectForKey:@"LSBlockUntilComplete"];
+  v175 = [v174 BOOLValue];
+  [v160 removeObjectForKey:@"LSBlockUntilComplete"];
 LABEL_226:
 
-  v165 = objc_alloc_init(_LSSpringBoardCall);
-  [(_LSSpringBoardCall *)v165 setBundleIdentifier:v208];
-  [(_LSSpringBoardCall *)v165 setLaunchOptions:v149];
-  if (v19)
+  v176 = objc_alloc_init(_LSSpringBoardCall);
+  [(_LSSpringBoardCall *)v176 setBundleIdentifier:v220];
+  [(_LSSpringBoardCall *)v176 setLaunchOptions:v160];
+  if (v20)
   {
-    v166 = 1;
+    v177 = 1;
   }
 
   else
   {
-    v166 = v20;
+    v177 = v21;
   }
 
-  if (v166 == 1)
+  if (v177 == 1)
   {
-    [(_LSSpringBoardCall *)v165 setClientXPCConnection:v206];
+    [(_LSSpringBoardCall *)v176 setClientXPCConnection:v218];
   }
 
-  [(_LSSpringBoardCall *)v165 setCallCompletionHandlerWhenFullyComplete:v164];
-  [(_LSSpringBoardCall *)v165 callWithCompletionHandler:v204];
+  [(_LSSpringBoardCall *)v176 setCallCompletionHandlerWhenFullyComplete:v175];
+  [(_LSSpringBoardCall *)v176 callWithCompletionHandler:v216];
 
 LABEL_232:
-  v167 = *MEMORY[0x1E69E9840];
 }
 
-void sub_181674D84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, uint64_t a14, _Unwind_Exception *exception_object, uint64_t a16, void *a17, void *a18, uint64_t a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53)
+void sub_181674D84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, uint64_t a14, _Unwind_Exception *exception_object, uint64_t a16, void *a17, void *a18, uint64_t a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53)
 {
   LaunchServices::Database::Context::~Context(&a43);
 
@@ -3490,37 +3468,37 @@ void sub_181674D84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t _LSGetSchemeType(NSString *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
-    v12 = [MEMORY[0x1E696AAA8] currentHandler];
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_LSURLSchemeType _LSGetSchemeType(NSString *__strong)"];
-    [v12 handleFailureInFunction:v13 file:@"LSCanOpenURLManager.mm" lineNumber:734 description:{@"Invalid parameter not satisfying: %@", @"scheme != nil"}];
+    v11 = [MEMORY[0x1E696AAA8] currentHandler];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_LSURLSchemeType _LSGetSchemeType(NSString *__strong)"];
+    [v11 handleFailureInFunction:v12 file:@"LSCanOpenURLManager.mm" lineNumber:734 description:{@"Invalid parameter not satisfying: %@", @"scheme != nil"}];
   }
 
-  v19 = 0;
+  v18 = 0;
+  v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = 0;
   v2 = +[_LSDServiceDomain defaultServiceDomain];
-  v3 = LaunchServices::Database::Context::_get(&v16, v2, 0);
+  v3 = LaunchServices::Database::Context::_get(&v15, v2, 0);
 
   if (v3)
   {
     v4 = v1;
     if (!v1)
     {
-      v14 = [MEMORY[0x1E696AAA8] currentHandler];
-      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"_LSURLSchemeType _LSGetSchemeType(LSContext *, NSString *__strong)"}];
-      [v14 handleFailureInFunction:v15 file:@"LSCanOpenURLManager.mm" lineNumber:708 description:{@"Invalid parameter not satisfying: %@", @"scheme != nil"}];
+      v13 = [MEMORY[0x1E696AAA8] currentHandler];
+      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"_LSURLSchemeType _LSGetSchemeType(LSContext *, NSString *__strong)"}];
+      [v13 handleFailureInFunction:v14 file:@"LSCanOpenURLManager.mm" lineNumber:708 description:{@"Invalid parameter not satisfying: %@", @"scheme != nil"}];
     }
 
-    [_LSCanOpenURLManager bindingEvaluatorForScheme:v4];
-    LaunchServices::BindingEvaluator::evaluateBindings(v22, v3, 0, v20);
-    v5 = v20[0];
+    objc_msgSend_bindingEvaluatorForScheme_(_LSCanOpenURLManager);
+    LaunchServices::BindingEvaluator::evaluateBindings(v21, v3, 0, v19);
+    v5 = v19[0];
     v6 = -1;
-    while (v5 != v20[1])
+    while (v5 != v19[1])
     {
       v7 = *(v5 + 24);
       if (v7)
@@ -3537,9 +3515,9 @@ uint64_t _LSGetSchemeType(NSString *a1)
       v5 += 56;
     }
 
-    v21 = v20;
-    std::vector<LSBinding>::__destroy_vector::operator()[abi:nn200100](&v21);
-    LaunchServices::BindingEvaluator::~BindingEvaluator(v22);
+    v20 = v19;
+    std::vector<LSBinding>::__destroy_vector::operator()[abi:nn200100](&v20);
+    LaunchServices::BindingEvaluator::~BindingEvaluator(v21);
   }
 
   else
@@ -3547,26 +3525,25 @@ uint64_t _LSGetSchemeType(NSString *a1)
     v6 = -1;
   }
 
-  if (v16 && v18 == 1)
+  if (v15 && v17 == 1)
   {
-    _LSContextDestroy(v16);
+    _LSContextDestroy(v15);
   }
 
-  v8 = v17;
+  v8 = v16;
+  v15 = 0;
   v16 = 0;
+
   v17 = 0;
-
+  v9 = v18;
   v18 = 0;
-  v9 = v19;
-  v19 = 0;
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-void sub_181675644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_181675644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   LaunchServices::Database::Context::~Context(va);
   _Unwind_Resume(a1);
@@ -3622,66 +3599,66 @@ LaunchServices::URLOverrides::State *LaunchServices::URLOverrides::State::State(
 
   if (*v6 || *(this + 10) == 1)
   {
-    v13 = v5;
-    pthread_mutex_lock(&LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::lock);
-    if (!LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::cachedICloudHosts || (v14 = *&LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::nextFetchTime, [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate], v14 < v15))
+    v15 = v5;
+    v16 = pthread_mutex_lock(&LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::lock);
+    if (!LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::cachedICloudHosts || (v18 = *&LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::nextFetchTime, v16 = [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate], v18 < v19))
     {
-      v16 = [__LSDefaultsGetSharedInstance() isServer];
-      if ((v16 & 1) != 0 || (v16 = [__LSDefaultsGetSharedInstance() hasServer], (v16 & 1) == 0))
+      v20 = [__LSDefaultsGetSharedInstance(v16 v17)];
+      if ((v20 & 1) != 0 || (v20 = [__LSDefaultsGetSharedInstance(v20 v21)], (v20 & 1) == 0))
       {
-        v19 = LaunchServices::URLOverrides::getLog(v16);
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v24 = LaunchServices::URLOverrides::getLog(v20);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           LaunchServices::URLOverrides::State::State();
         }
 
-        v18 = _LSServer_GetiCloudHostNames();
-        v20 = [v18 copy];
-        v21 = LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::cachedICloudHosts;
-        LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::cachedICloudHosts = v20;
+        v23 = _LSServer_GetiCloudHostNames();
+        v25 = [v23 copy];
+        v26 = LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::cachedICloudHosts;
+        LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::cachedICloudHosts = v25;
       }
 
       else
       {
-        v17 = LaunchServices::URLOverrides::getLog(v16);
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = LaunchServices::URLOverrides::getLog(v20);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           LaunchServices::URLOverrides::State::State();
         }
 
-        v18 = [(_LSDService *)_LSDOpenService synchronousXPCProxyWithErrorHandler:?];
-        [v18 getiCloudHostNamesWithCompletionHandler:&__block_literal_global_246];
+        v23 = [(_LSDService *)_LSDOpenService synchronousXPCProxyWithErrorHandler:?];
+        [v23 getiCloudHostNamesWithCompletionHandler:&__block_literal_global_246];
       }
 
       [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-      *&LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::nextFetchTime = v22 + 86400.0;
+      *&LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::nextFetchTime = v27 + 86400.0;
     }
 
-    v23 = [LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::cachedICloudHosts copy];
+    v28 = [LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::cachedICloudHosts copy];
     pthread_mutex_unlock(&LaunchServices::URLOverrides::checkForiCloudHost(NSURLComponents *)::lock);
-    v24 = [(NSURLComponents *)v13 host];
-    v25 = [v24 lowercaseString];
+    v29 = [(NSURLComponents *)v15 host];
+    v30 = [v29 lowercaseString];
 
-    if (v25)
+    if (v30)
     {
-      v26 = [v23 containsObject:v25];
+      v31 = [v28 containsObject:v30];
     }
 
     else
     {
-      v26 = 0;
+      v31 = 0;
     }
 
-    *(this + 12) = v26;
+    *(this + 12) = v31;
   }
 
-  v27 = [__LSDefaultsGetSharedInstance() isInXCTestRigInsecure];
+  v32 = [__LSDefaultsGetSharedInstance(v13 v14)];
   if (!LaunchServices::URLOverrides::gUseMacOverrides)
   {
-    v27 = 0;
+    v32 = 0;
   }
 
-  if (v27 == 1)
+  if (v32 == 1)
   {
     *(this + 13) = [LaunchServices::URLOverrides::gUseMacOverrides BOOLValue];
   }
@@ -3708,7 +3685,7 @@ id LaunchServices::URLOverrides::getLog(LaunchServices::URLOverrides *this)
   return v2;
 }
 
-CFTypeRef _LSCopyBundleIdentifierForXPCConnection(void *a1, int a2)
+CFTypeRef _LSCopyBundleIdentifierForXPCConnection(void *a1, uint64_t a2)
 {
   v3 = a1;
   xpc_connection_get_audit_token();
@@ -3993,8 +3970,8 @@ LABEL_72:
         }
       }
 
-      [v18 removeObjectForKey:getUISOpenApplicationOptionClickAttribution()];
-      v57 = _LSDefaultLog();
+      v60 = [v18 removeObjectForKey:getUISOpenApplicationOptionClickAttribution()];
+      v57 = _LSDefaultLog(v60);
       if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109379;
@@ -4009,8 +3986,6 @@ LABEL_72:
   }
 
 LABEL_73:
-
-  v60 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -4040,7 +4015,7 @@ void sub_181677468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void _LSSchemeApprovalRememberForBouncebackCheck(void *a1, void *a2)
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (v3)
@@ -4055,7 +4030,7 @@ void _LSSchemeApprovalRememberForBouncebackCheck(void *a1, void *a2)
   }
 
   v7 = v4;
-  v8 = _LSSchemeApprovalGetBouncebackHistory();
+  v8 = _LSSchemeApprovalGetBouncebackHistory(v7);
   objc_sync_enter(v8);
   v9 = v6;
   if (!v6)
@@ -4063,15 +4038,15 @@ void _LSSchemeApprovalRememberForBouncebackCheck(void *a1, void *a2)
     v9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = v9;
+  v12[0] = v9;
   v10 = v7;
   if (!v7)
   {
     v10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   [v8 addObject:v11];
 
   if (!v7)
@@ -4088,8 +4063,6 @@ void _LSSchemeApprovalRememberForBouncebackCheck(void *a1, void *a2)
   }
 
   objc_sync_exit(v8);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void sub_181678300(_Unwind_Exception *a1)
@@ -4103,7 +4076,7 @@ void sub_181678300(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-CFTypeRef _LSCopyBundleIdentifierForAuditToken(__int128 *a1, int a2)
+CFTypeRef _LSCopyBundleIdentifierForAuditToken(_OWORD *a1, uint64_t a2)
 {
   if (a1)
   {
@@ -4111,15 +4084,15 @@ CFTypeRef _LSCopyBundleIdentifierForAuditToken(__int128 *a1, int a2)
     v5 = v4;
     if (v4 && object_getClass(v4) == MEMORY[0x1E69E9F10])
     {
-      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:xpc_string_get_string_ptr(v5)];
+      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:xpc_string_get_string_ptr(v5)];
       *atoken.val = 0;
-      _LSSplitApplicationIdentifier(v14, 0, &atoken);
+      _LSSplitApplicationIdentifier(v13, 0, &atoken);
       if (*atoken.val)
       {
-        v13 = *atoken.val;
+        v12 = *atoken.val;
 
 LABEL_17:
-        return v13;
+        return v12;
       }
     }
 
@@ -4129,17 +4102,17 @@ LABEL_17:
     *atoken.val = *a1;
     *&atoken.val[4] = v7;
     audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, &pidp, 0, 0);
-    if (v6 == pidp && (MainBundle = CFBundleGetMainBundle()) != 0 && (Unique = CFRetain(MainBundle)) != 0 || (v10 = _LSCopyBundleURLForAuditToken(a1, a2)) != 0 && (v11 = *MEMORY[0x1E695E480], Unique = _CFBundleCreateUnique(), CFRelease(v10), Unique))
+    if (v6 == pidp && (MainBundle = CFBundleGetMainBundle()) != 0 && (Unique = CFRetain(MainBundle)) != 0 || (v10 = _LSCopyBundleURLForAuditToken(a1, a2)) != 0 && (Unique = _CFBundleCreateUnique(), CFRelease(v10), Unique))
     {
       Identifier = CFBundleGetIdentifier(Unique);
       if (Identifier)
       {
-        v13 = CFRetain(Identifier);
+        v12 = CFRetain(Identifier);
       }
 
       else
       {
-        v13 = 0;
+        v12 = 0;
       }
 
       CFRelease(Unique);
@@ -4147,7 +4120,7 @@ LABEL_17:
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
 
     goto LABEL_17;
@@ -4182,7 +4155,7 @@ _BYTE *__copy_helper_block_ea8_96c48_ZTSNSt3__18optionalIU8__strongP12NSDictiona
 
 void _LSSchemeApprovalFindWithCompletionHandler(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = a2;
   v11 = a3;
@@ -4195,9 +4168,9 @@ void _LSSchemeApprovalFindWithCompletionHandler(void *a1, void *a2, void *a3, ui
       goto LABEL_39;
     }
 
-    v49 = *MEMORY[0x1E696A278];
-    v50 = @"invalid input parameters";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v48 = *MEMORY[0x1E696A278];
+    v49 = @"invalid input parameters";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
     v17 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v16, "_LSSchemeApprovalFindWithCompletionHandler", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSSchemeApproval.mm", 157);
     (v13)[2](v13, 0, v17);
     goto LABEL_8;
@@ -4228,32 +4201,32 @@ void _LSSchemeApprovalFindWithCompletionHandler(void *a1, void *a2, void *a3, ui
         goto LABEL_14;
       }
 
-      v35 = v10;
-      v36 = [LSBundleProxy bundleProxyForIdentifier:v16];
-      v37 = [LSBundleProxy bundleProxyForIdentifier:v35];
-      v38 = v37;
-      if (v36 && v37)
+      v34 = v10;
+      v35 = [LSBundleProxy bundleProxyForIdentifier:v16];
+      v36 = [LSBundleProxy bundleProxyForIdentifier:v34];
+      v37 = v36;
+      if (v35 && v36)
       {
-        v42 = v35;
+        v41 = v34;
         if (objc_opt_respondsToSelector())
         {
-          v44 = [v36 teamID];
+          v43 = [v35 teamID];
         }
 
         else
         {
-          v44 = 0;
+          v43 = 0;
         }
 
         if (objc_opt_respondsToSelector())
         {
-          v39 = [v38 teamID];
-          v40 = v39;
-          if (v44 && v39)
+          v38 = [v37 teamID];
+          v39 = v38;
+          if (v43 && v38)
           {
-            v41 = [v44 isEqual:v39];
+            v40 = [v43 isEqual:v38];
 
-            if (v41)
+            if (v40)
             {
               goto LABEL_14;
             }
@@ -4264,10 +4237,10 @@ void _LSSchemeApprovalFindWithCompletionHandler(void *a1, void *a2, void *a3, ui
 
         else
         {
-          v40 = 0;
+          v39 = 0;
         }
 
-        v35 = v42;
+        v34 = v41;
       }
 
 LABEL_54:
@@ -4284,19 +4257,19 @@ LABEL_12:
         goto LABEL_14;
       }
 
-      v43 = v10;
+      v42 = v10;
       v20 = v11;
-      v48 = 0;
+      v47 = 0;
+      v44 = 0;
       v45 = 0;
       v46 = 0;
-      v47 = 0;
       v21 = +[_LSDServiceDomain defaultServiceDomain];
-      v22 = LaunchServices::Database::Context::_get(&v45, v21, 0);
+      v22 = LaunchServices::Database::Context::_get(&v44, v21, 0);
 
-      if (v22 && (v23 = _LSDatabaseGetStringForCFString(*v22, v20, 1)) != 0 && (HandlerPref = LSHandlerPref::GetHandlerPref(*v22, v23, 5, 0)) != 0)
+      if (v22 && (v23 = _LSDatabaseGetStringForCFString(*v22, v20, 1), v23) && (HandlerPref = LSHandlerPref::GetHandlerPref(*v22, v23, 5, 0)) != 0)
       {
         v25 = LSHandlerPref::roleHandler(HandlerPref, 0xFFFFFFFF, 0);
-        StringForCFString = _LSDatabaseGetStringForCFString(*v22, v43, 0);
+        StringForCFString = _LSDatabaseGetStringForCFString(*v22, v42, 0);
         if (v25)
         {
           v27 = v25 == StringForCFString;
@@ -4315,18 +4288,18 @@ LABEL_12:
         v28 = 1;
       }
 
-      if (v45 && v47 == 1)
+      if (v44 && v46 == 1)
       {
-        _LSContextDestroy(v45);
+        _LSContextDestroy(v44);
       }
 
-      v30 = v46;
+      v30 = v45;
+      v44 = 0;
       v45 = 0;
-      v46 = 0;
 
+      v46 = 0;
+      v31 = v47;
       v47 = 0;
-      v31 = v48;
-      v48 = 0;
 
       if ((v28 & 1) == 0)
       {
@@ -4342,15 +4315,15 @@ LABEL_12:
 
       if ((v32 & 1) == 0)
       {
-        _LSSchemeApprovalUsePreferenceOrPromptWithCompletionHandler(v9, v16, v43, v20, a4, v13);
+        _LSSchemeApprovalUsePreferenceOrPromptWithCompletionHandler(v9, v16, v42, v20, a4, v13);
         goto LABEL_38;
       }
 
-      v51 = *MEMORY[0x1E696A278];
-      v52[0] = @"invalid input parameters";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
-      v34 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v17, "_LSSchemeApprovalFindWithCompletionHandler", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSSchemeApproval.mm", 151);
-      (v13)[2](v13, 0, v34);
+      v50 = *MEMORY[0x1E696A278];
+      v51[0] = @"invalid input parameters";
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+      v33 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v17, "_LSSchemeApprovalFindWithCompletionHandler", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSSchemeApproval.mm", 151);
+      (v13)[2](v13, 0, v33);
 
 LABEL_8:
 LABEL_38:
@@ -4371,27 +4344,26 @@ LABEL_14:
 
   v13[2](v13, 1, 0);
 LABEL_39:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t _LSCopyDataContainerURLFromContainermanager(void *a1, uint64_t a2, unsigned int a3)
+uint64_t _LSCopyDataContainerURLFromContainermanager(void *a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v3 = a3;
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v6 = _LSDefaultLog();
+  v6 = _LSDefaultLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 138412802;
-    *&v13[4] = v5;
-    v14 = 2048;
-    v15 = a2;
-    v16 = 2048;
-    v17 = a3;
-    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "querying MCM for container for %@, class %llx, platform %lu", v13, 0x20u);
+    *v12 = 138412802;
+    *&v12[4] = v5;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "querying MCM for container for %@, class %llx, platform %lu", v12, 0x20u);
   }
 
-  *v13 = 1;
+  *v12 = 1;
   [v5 UTF8String];
   v7 = container_create_or_lookup_path_for_platform();
   if (v7)
@@ -4403,16 +4375,15 @@ uint64_t _LSCopyDataContainerURLFromContainermanager(void *a1, uint64_t a2, unsi
 
   else
   {
-    v10 = _LSDefaultLog();
+    v10 = _LSDefaultLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      _LSCopyDataContainerURLFromContainermanager_cold_1(v5, v13);
+      _LSCopyDataContainerURLFromContainermanager_cold_1(v5, v12);
     }
 
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -4495,12 +4466,12 @@ LABEL_16:
   return v7;
 }
 
-void sub_181678F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_181678F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v19 - 96), 8);
+  _Block_object_dispose((v26 - 96), 8);
 
   _Unwind_Resume(a1);
 }
@@ -4544,50 +4515,49 @@ id _LSDatabaseCreateSnapshot(void *a1, void *a2)
 uint64_t _LSSchemeApprovalBundleIsAppleInternal(NSString *a1)
 {
   v1 = a1;
-  v9 = 0;
-  p_super = [LSBundleRecord bundleRecordWithBundleIdentifier:v1 allowPlaceholder:0 error:&v9];
-  v3 = v9;
+  v10 = 0;
+  p_super = [LSBundleRecord bundleRecordWithBundleIdentifier:v1 allowPlaceholder:0 error:&v10];
+  v3 = v10;
   if (p_super)
   {
     goto LABEL_4;
   }
 
-  v8 = v3;
-  v4 = [[LSApplicationRecord alloc] initWithBundleIdentifierOfSystemPlaceholder:v1 error:&v8];
-  v5 = v8;
+  v9 = v3;
+  v4 = [[LSApplicationRecord alloc] initWithBundleIdentifierOfSystemPlaceholder:v1 error:&v9];
+  v5 = v9;
 
   if (v4)
   {
     v3 = v5;
     p_super = &v4->super.super.super;
 LABEL_4:
-    v6 = [p_super isAppleInternal];
+    v7 = [p_super isAppleInternal];
     goto LABEL_5;
   }
 
-  p_super = _LSDefaultLog();
+  p_super = _LSDefaultLog(v6);
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
   {
     _LSSchemeApprovalBundleIsAppleInternal(v5, p_super);
   }
 
-  v6 = 0;
+  v7 = 0;
   v3 = v5;
 LABEL_5:
 
-  return v6;
+  return v7;
 }
 
 void _LSSchemeApprovalBundleIsAppleInternal(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Error fetching bundle record for scheme approval: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Error fetching bundle record for scheme approval: %@", &v2, 0xCu);
 }
 
-void sub_181679594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_181679594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -4603,11 +4573,12 @@ void _LSGetDMFPolicyWithCompletionHandler(uint64_t a1, void *a2)
   v5[3] = &unk_1E6A1C060;
   v6 = v3;
   v4 = v3;
-  LaunchServices::DMFSupport::getPolicyWithCompletionHandler(a1, 3u, v5);
+  LaunchServices::DMFSupport::getPolicyWithCompletionHandler(a1, 3, v5);
 }
 
-void LaunchServices::DMFSupport::getPolicyWithCompletionHandler(uint64_t a1, unsigned int a2, void *a3)
+void LaunchServices::DMFSupport::getPolicyWithCompletionHandler(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = [MEMORY[0x1E695DFD8] setWithObject:a1];
   v8[0] = MEMORY[0x1E69E9820];
@@ -4616,21 +4587,21 @@ void LaunchServices::DMFSupport::getPolicyWithCompletionHandler(uint64_t a1, uns
   v8[3] = &unk_1E6A1C088;
   v7 = v5;
   v9 = v7;
-  LaunchServices::DMFSupport::getPoliciesWithCompletionHandler(v6, a2, v8);
+  LaunchServices::DMFSupport::getPoliciesWithCompletionHandler(v6, v3, v8);
 }
 
 void LaunchServices::DMFSupport::getPoliciesWithCompletionHandler(void *a1, unsigned int a2, void *a3)
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v38 = a3;
+  v37 = a3;
   if (!v5)
   {
-    v51 = *MEMORY[0x1E696A278];
-    v52 = @"bundleIDs";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+    v50 = *MEMORY[0x1E696A278];
+    v51 = @"bundleIDs";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
     v15 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v6, "getPoliciesWithCompletionHandler", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/LSDMFSupport.mm", 314);
-    v38[2](v38, 0, v15);
+    v37[2](v37, 0, v15);
 LABEL_35:
 
     goto LABEL_36;
@@ -4639,25 +4610,25 @@ LABEL_35:
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (a2)
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v7 = v5;
-    v9 = [v7 countByEnumeratingWithState:&v47 objects:v58 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v46 objects:v57 count:16];
     if (v9)
     {
-      v10 = *v48;
+      v10 = *v47;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v48 != v10)
+          if (*v47 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v47 + 1) + 8 * i);
+          v12 = *(*(&v46 + 1) + 8 * i);
           v13 = LaunchServices::DMFSupport::getCachedPolicy(v12, v8);
           if (v13)
           {
@@ -4665,7 +4636,7 @@ LABEL_35:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v47 objects:v58 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v46 objects:v57 count:16];
       }
 
       while (v9);
@@ -4678,21 +4649,21 @@ LABEL_35:
     v15 = LaunchServices::DMFSupport::getMonitor((a2 & 1));
     if (v15)
     {
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = ___ZN14LaunchServices10DMFSupportL32getPoliciesWithCompletionHandlerEP5NSSetIP8NSStringEhU13block_pointerFvP12NSDictionaryIS3_P8NSNumberEP7NSErrorE_block_invoke;
-      v44[3] = &unk_1E6A1C128;
-      v46 = a2 & 1;
-      v45 = v38;
-      v16 = MEMORY[0x1865D71B0](v44);
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = ___ZN14LaunchServices10DMFSupportL32getPoliciesWithCompletionHandlerEP5NSSetIP8NSStringEhU13block_pointerFvP12NSDictionaryIS3_P8NSNumberEP7NSErrorE_block_invoke;
+      v43[3] = &unk_1E6A1C128;
+      v45 = a2 & 1;
+      v44 = v37;
+      v16 = MEMORY[0x1865D71B0](v43);
       v17 = LaunchServices::DMFSupport::getLog(v16);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         v18 = [v5 count];
         *buf = 134283777;
-        v55 = v18;
-        v56 = 1024;
-        v57 = (a2 >> 1) & 1;
+        v54 = v18;
+        v55 = 1024;
+        v56 = (a2 >> 1) & 1;
         _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_INFO, "requesting DMF policies for %{private}zu identifiers, async? %d", buf, 0x12u);
       }
 
@@ -4704,9 +4675,9 @@ LABEL_35:
 
       else
         v19 = {;
-        v43 = 0;
-        v20 = [v15 requestPoliciesForBundleIdentifiers:v19 withError:&v43];
-        v21 = v43;
+        v42 = 0;
+        v20 = [v15 requestPoliciesForBundleIdentifiers:v19 withError:&v42];
+        v21 = v42;
 
         (*(v16 + 2))(v16, v20, v21);
       }
@@ -4720,25 +4691,25 @@ LABEL_35:
         LaunchServices::DMFSupport::getPoliciesWithCompletionHandler(v22, v23, v24, v25, v26, v27, v28, v29);
       }
 
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v30 = v5;
-      v31 = [v30 countByEnumeratingWithState:&v39 objects:v53 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v38 objects:v52 count:16];
       if (v31)
       {
-        v32 = *v40;
+        v32 = *v39;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v40 != v32)
+            if (*v39 != v32)
             {
               objc_enumerationMutation(v30);
             }
 
-            v34 = *(*(&v39 + 1) + 8 * j);
+            v34 = *(*(&v38 + 1) + 8 * j);
             v35 = [v6 objectForKeyedSubscript:v34];
             v36 = v35 == 0;
 
@@ -4748,22 +4719,20 @@ LABEL_35:
             }
           }
 
-          v31 = [v30 countByEnumeratingWithState:&v39 objects:v53 count:16];
+          v31 = [v30 countByEnumeratingWithState:&v38 objects:v52 count:16];
         }
 
         while (v31);
       }
 
-      (v38)[2](v38, v6, 0);
+      (v37)[2](v37, v6, 0);
     }
 
     goto LABEL_35;
   }
 
-  (v38)[2](v38, v6, 0);
+  (v37)[2](v37, v6, 0);
 LABEL_36:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t MDTCopierGetTypeID()
@@ -5063,25 +5032,24 @@ CFErrorRef MDTCreateError(const __CFString *a1, CFIndex a2, int a3, uint64_t a4)
   userInfoKeys[2] = *MEMORY[0x1E695E620];
   userInfoValues = @"/Library/Caches/com.apple.xbs/Sources/MobileDataTransit/Client.c";
   cf = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-  v13 = a4;
+  v12 = a4;
   v7 = CFErrorCreateWithUserInfoKeysAndValues(0, a1, a2, userInfoKeys, &userInfoValues, 3);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 void __MDTCopierMachCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  memset(v9, 0, 60);
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v8, 0, 60);
   v5 = *(a2 + 20);
   if ((v5 - 78) <= 0xFFFFFFF1)
   {
-    MDTR_server(a2, v9);
+    MDTR_server(a2, v8);
     v5 = *(a2 + 20);
   }
 
@@ -5092,8 +5060,6 @@ void __MDTCopierMachCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     *(a4 + 96) = v7;
     (*(a4 + 16))(a4, 3, 0, v7, *(a4 + 24));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 __CFRunLoopSource *MDTCopierScheduleWithRunLoop(uint64_t a1, __CFRunLoop *a2, const __CFString *a3)
@@ -5140,8 +5106,7 @@ BOOL MDTCopierStart(uint64_t a1)
   }
 
   v6 = copyCString(*(a1 + 80));
-  v7 = *(a1 + 104);
-  v8 = MDT_start(*(a1 + 40));
+  v7 = MDT_start(*(a1 + 40));
   CFAllocatorDeallocate(0, v2);
   CFAllocatorDeallocate(0, v3);
   if (v4)
@@ -5154,7 +5119,7 @@ BOOL MDTCopierStart(uint64_t a1)
     CFAllocatorDeallocate(0, v6);
   }
 
-  return v8 == 0;
+  return v7 == 0;
 }
 
 const __CFURL *copyCStringPath(const __CFURL *result)
@@ -5442,17 +5407,17 @@ uint64_t MDT_start(uint64_t a1)
   v10 = v9;
   v12 = v11;
   v13 = v1;
-  v38 = *MEMORY[0x1E69E9840];
-  memset(v37, 0, 480);
+  v37 = *MEMORY[0x1E69E9840];
+  memset(v36, 0, 480);
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  *(&v36 + 1) = *MEMORY[0x1E69E99E0];
-  v14 = &v35 - 64;
+  *(&v35 + 1) = *MEMORY[0x1E69E99E0];
+  v14 = &v34 - 64;
   if (MEMORY[0x1EEE9AC40])
   {
-    v15 = mig_strncpy_zerofill(v37 + 8, v2, 1024);
-    LODWORD(v37[0]) = 0;
-    DWORD1(v37[0]) = v15;
+    v15 = mig_strncpy_zerofill(v36 + 8, v2, 1024);
+    LODWORD(v36[0]) = 0;
+    DWORD1(v36[0]) = v15;
     v16 = (v15 + 3) & 0xFFFFFFFC;
     v17 = v14 + v16;
     v18 = mig_strncpy_zerofill(v17 + 1072, v12, 1024);
@@ -5472,9 +5437,9 @@ uint64_t MDT_start(uint64_t a1)
 
   else
   {
-    v26 = mig_strncpy(v37 + 8, v2, 1024);
-    LODWORD(v37[0]) = 0;
-    DWORD1(v37[0]) = v26;
+    v26 = mig_strncpy(v36 + 8, v2, 1024);
+    LODWORD(v36[0]) = 0;
+    DWORD1(v36[0]) = v26;
     v16 = (v26 + 3) & 0xFFFFFFFC;
     v27 = v14 + v16;
     v28 = mig_strncpy(v27 + 1072, v12, 1024);
@@ -5496,17 +5461,15 @@ uint64_t MDT_start(uint64_t a1)
   *(v24 + 3132) = 0;
   v32 = (v25 + 3) & 0xFFFFFFFC;
   *(v24 + v32 + 3140) = v4;
-  LODWORD(v35) = 19;
-  *(&v35 + 1) = v13;
-  *&v36 = 0x38E38E3B00000000;
+  LODWORD(v34) = 19;
+  *(&v34 + 1) = v13;
+  *&v35 = 0x38E38E3B00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v35);
+    voucher_mach_msg_set(&v34);
   }
 
-  result = mach_msg(&v35, 1, v19 + v16 + v22 + v32 + 72, 0, 0, 0, 0);
-  v34 = *MEMORY[0x1E69E9840];
-  return result;
+  return mach_msg(&v34, 1, v19 + v16 + v22 + v32 + 72, 0, 0, 0, 0);
 }
 
 uint64_t MDTR_server(uint64_t a1, uint64_t a2)
@@ -5549,7 +5512,7 @@ LABEL_10:
   return 1;
 }
 
-uint64_t fsevent_default_log()
+uint64_t fsevent_default_log(uint64_t a1, uint64_t a2)
 {
   if (fsevent_default_log_once != -1)
   {
@@ -5566,7 +5529,7 @@ os_log_t __fsevent_default_log_block_invoke()
   return result;
 }
 
-atomic_uint *_FSEventStreamRetainAndReturnSelf(atomic_uint *a1)
+atomic_uint *_FSEventStreamRetainAndReturnSelf(atomic_uint *a1, uint64_t a2)
 {
   if (a1)
   {
@@ -5575,8 +5538,8 @@ atomic_uint *_FSEventStreamRetainAndReturnSelf(atomic_uint *a1)
 
   else
   {
-    v2 = fsevent_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = fsevent_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       _FSEventStreamRetainAndReturnSelf_cold_1();
     }
@@ -5589,8 +5552,8 @@ CFStringRef FSEventStreamCopyDescription(ConstFSEventStreamRef streamRef)
 {
   if (!streamRef)
   {
-    v18 = fsevent_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = fsevent_default_log(0, v1);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamCopyDescription_cold_2();
     }
@@ -5598,11 +5561,11 @@ CFStringRef FSEventStreamCopyDescription(ConstFSEventStreamRef streamRef)
     return 0;
   }
 
-  v2 = malloc_type_malloc((*(streamRef + 18) << 10) + 1024, 0x68187881uLL);
-  if (!v2)
+  v3 = malloc_type_malloc((*(streamRef + 18) << 10) + 1024, 0x68187881uLL);
+  if (!v3)
   {
-    v19 = fsevent_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = fsevent_default_log(0, v4);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamCopyDescription_cold_1();
     }
@@ -5610,40 +5573,39 @@ CFStringRef FSEventStreamCopyDescription(ConstFSEventStreamRef streamRef)
     return 0;
   }
 
-  v3 = v2;
-  v4 = &v2[sprintf(v2, "FSEventStreamRef @ %p:\n", streamRef)];
-  v5 = &v4[sprintf(v4, "   allocator = %p\n", *(streamRef + 1))];
-  v6 = &v5[sprintf(v5, "   callback = %p\n", *(streamRef + 2))];
-  v7 = *(streamRef + 24);
-  v8 = &v6[sprintf(v6, "   context = {%lu, %p, %p, %p, %p}\n", *(streamRef + 3), *(streamRef + 4), *(streamRef + 5), *(streamRef + 6), *(streamRef + 7))];
-  v9 = &v8[sprintf(v8, "   numPathsToWatch = %lu\n", *(streamRef + 9))];
-  v10 = &v9[sprintf(v9, "   pathsToWatch = %p\n", *(streamRef + 10))];
+  v5 = v3;
+  v6 = &v3[sprintf(v3, "FSEventStreamRef @ %p:\n", streamRef)];
+  v7 = &v6[sprintf(v6, "   allocator = %p\n", *(streamRef + 1))];
+  v8 = &v7[sprintf(v7, "   callback = %p\n", *(streamRef + 2))];
+  v9 = &v8[sprintf(v8, "   context = {%lu, %p, %p, %p, %p}\n", *(streamRef + 3), *(streamRef + 4), *(streamRef + 5), *(streamRef + 6), *(streamRef + 7))];
+  v10 = &v9[sprintf(v9, "   numPathsToWatch = %lu\n", *(streamRef + 9))];
+  v11 = &v10[sprintf(v10, "   pathsToWatch = %p\n", *(streamRef + 10))];
   if (*(streamRef + 9) >= 1)
   {
-    v11 = 0;
+    v12 = 0;
     do
     {
-      v10 += sprintf(v10, "        pathsToWatch[%d] = '%s'\n", v11, *(*(streamRef + 10) + 8 * v11));
-      ++v11;
+      v11 += sprintf(v11, "        pathsToWatch[%d] = '%s'\n", v12, *(*(streamRef + 10) + 8 * v12));
+      ++v12;
     }
 
-    while (*(streamRef + 9) > v11);
+    while (*(streamRef + 9) > v12);
   }
 
-  v12 = &v10[sprintf(v10, "   latestEventId = %lld\n", *(streamRef + 21))];
-  v13 = &v12[sprintf(v12, "   latency = %llu (microseconds)\n", *(streamRef + 22))];
-  v14 = &v13[sprintf(v13, "   flags = 0x%08x\n", *(streamRef + 46))];
-  v15 = sprintf(v14, "\trunLoop = %p\n", *(streamRef + 28));
-  sprintf(&v14[v15], "\trunLoopMode = %p\n", *(streamRef + 29));
-  v16 = CFStringCreateWithCString(*MEMORY[0x1E695E480], v3, 0x8000100u);
-  free(v3);
-  return v16;
+  v13 = &v11[sprintf(v11, "   latestEventId = %lld\n", *(streamRef + 21))];
+  v14 = &v13[sprintf(v13, "   latency = %llu (microseconds)\n", *(streamRef + 22))];
+  v15 = &v14[sprintf(v14, "   flags = 0x%08x\n", *(streamRef + 46))];
+  v16 = sprintf(v15, "\trunLoop = %p\n", *(streamRef + 28));
+  sprintf(&v15[v16], "\trunLoopMode = %p\n", *(streamRef + 29));
+  v17 = CFStringCreateWithCString(*MEMORY[0x1E695E480], v5, 0x8000100u);
+  free(v5);
+  return v17;
 }
 
-void FSEventsClientPortCallback()
+void FSEventsClientPortCallback(uint64_t a1, uint64_t a2)
 {
-  v0 = fsevent_default_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = fsevent_default_log(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     FSEventsClientPortCallback_cold_1();
   }
@@ -5656,8 +5618,8 @@ FSEventStreamEventId FSEventStreamGetLatestEventId(ConstFSEventStreamRef streamR
     return *(streamRef + 21);
   }
 
-  v2 = fsevent_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = fsevent_default_log(streamRef, v1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     FSEventStreamGetLatestEventId_cold_1();
   }
@@ -5672,8 +5634,8 @@ dev_t FSEventStreamGetDeviceBeingWatched(ConstFSEventStreamRef streamRef)
     return *(streamRef + 16);
   }
 
-  v2 = fsevent_default_log();
-  result = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
+  v3 = fsevent_default_log(streamRef, v1);
+  result = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
   if (result)
   {
     FSEventStreamGetDeviceBeingWatched_cold_1();
@@ -5687,8 +5649,8 @@ CFArrayRef FSEventStreamCopyPathsBeingWatched(ConstFSEventStreamRef streamRef)
 {
   if (!streamRef)
   {
-    v11 = fsevent_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = fsevent_default_log(0, v1);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamCopyPathsBeingWatched_cold_4();
     }
@@ -5696,11 +5658,11 @@ CFArrayRef FSEventStreamCopyPathsBeingWatched(ConstFSEventStreamRef streamRef)
     return 0;
   }
 
-  v2 = malloc_type_calloc(*(streamRef + 9), 8uLL, 0x6004044C4A2DFuLL);
-  if (!v2)
+  v3 = malloc_type_calloc(*(streamRef + 9), 8uLL, 0x6004044C4A2DFuLL);
+  if (!v3)
   {
-    v12 = fsevent_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = fsevent_default_log(0, v4);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamCopyPathsBeingWatched_cold_3();
     }
@@ -5708,43 +5670,43 @@ CFArrayRef FSEventStreamCopyPathsBeingWatched(ConstFSEventStreamRef streamRef)
     return 0;
   }
 
-  v3 = v2;
-  v4 = *(streamRef + 9);
-  v5 = *MEMORY[0x1E695E480];
-  if (v4 >= 1)
+  v5 = v3;
+  v6 = *(streamRef + 9);
+  v7 = *MEMORY[0x1E695E480];
+  if (v6 >= 1)
   {
-    v6 = 0;
+    v8 = 0;
     while (1)
     {
-      v7 = CFStringCreateWithFileSystemRepresentation(v5, *(*(streamRef + 10) + 8 * v6));
-      if (!v7)
+      v9 = CFStringCreateWithFileSystemRepresentation(v7, *(*(streamRef + 10) + 8 * v8));
+      if (!v9)
       {
         break;
       }
 
-      v3[v6++] = v7;
-      v4 = *(streamRef + 9);
-      if (v4 <= v6)
+      v5[v8++] = v9;
+      v6 = *(streamRef + 9);
+      if (v6 <= v8)
       {
         goto LABEL_7;
       }
     }
 
-    v13 = fsevent_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = fsevent_default_log(0, v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      FSEventStreamCopyPathsBeingWatched_cold_2(streamRef + 10, v6);
+      FSEventStreamCopyPathsBeingWatched_cold_2();
     }
 
     goto LABEL_20;
   }
 
 LABEL_7:
-  v8 = CFArrayCreate(v5, v3, v4, MEMORY[0x1E695E9C0]);
-  if (!v8)
+  v11 = CFArrayCreate(v7, v5, v6, MEMORY[0x1E695E9C0]);
+  if (!v11)
   {
-    v14 = fsevent_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v18 = fsevent_default_log(0, v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamCopyPathsBeingWatched_cold_1();
     }
@@ -5752,40 +5714,40 @@ LABEL_7:
 LABEL_20:
     if (*(streamRef + 9) >= 1)
     {
-      v15 = 0;
+      v19 = 0;
       do
       {
-        v16 = v3[v15];
-        if (!v16)
+        v20 = v5[v19];
+        if (!v20)
         {
           break;
         }
 
-        CFRelease(v16);
-        ++v15;
+        CFRelease(v20);
+        ++v19;
       }
 
-      while (*(streamRef + 9) > v15);
+      while (*(streamRef + 9) > v19);
     }
 
-    free(v3);
+    free(v5);
     return 0;
   }
 
-  v9 = v8;
+  v13 = v11;
   if (*(streamRef + 9) >= 1)
   {
-    v10 = 0;
+    v14 = 0;
     do
     {
-      CFRelease(v3[v10++]);
+      CFRelease(v5[v14++]);
     }
 
-    while (*(streamRef + 9) > v10);
+    while (*(streamRef + 9) > v14);
   }
 
-  free(v3);
-  return v9;
+  free(v5);
+  return v13;
 }
 
 void FSEventStreamScheduleWithRunLoop(FSEventStreamRef streamRef, CFRunLoopRef runLoop, CFStringRef runLoopMode)
@@ -5798,10 +5760,11 @@ void FSEventStreamScheduleWithRunLoop(FSEventStreamRef streamRef, CFRunLoopRef r
       if (*(streamRef + 48))
       {
 LABEL_4:
-        if (_createAndAddRunLoopSource("FSEventStreamScheduleWithRunLoop", streamRef, runLoop, runLoopMode))
+        v7 = _createAndAddRunLoopSource("FSEventStreamScheduleWithRunLoop", streamRef, runLoop, runLoopMode);
+        if (v7)
         {
-          v7 = fsevent_default_log();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v9 = fsevent_default_log(v7, v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             FSEventStreamScheduleWithRunLoop_cold_2();
           }
@@ -5821,11 +5784,11 @@ LABEL_4:
             context.retain = _FSEventStreamRetainAndReturnSelf;
             context.release = FSEventStreamRelease;
             context.copyDescription = FSEventStreamCopyDescription;
-            v11 = CFFileDescriptorCreate(0, *(streamRef + 102), 1u, cffd_callback, &context);
-            *(streamRef + 52) = v11;
-            if (v11)
+            v15 = CFFileDescriptorCreate(0, *(streamRef + 102), 1u, cffd_callback, &context);
+            *(streamRef + 52) = v15;
+            if (v15)
             {
-              RunLoopSource = CFFileDescriptorCreateRunLoopSource(0, v11, 0);
+              RunLoopSource = CFFileDescriptorCreateRunLoopSource(0, v15, 0);
               *(streamRef + 53) = RunLoopSource;
               if (RunLoopSource)
               {
@@ -5834,8 +5797,8 @@ LABEL_4:
 
               else
               {
-                v16 = fsevent_default_log();
-                if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+                v22 = fsevent_default_log(0, v18);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
                 {
                   FSEventStreamScheduleWithRunLoop_cold_3();
                 }
@@ -5848,8 +5811,8 @@ LABEL_4:
 
             else
             {
-              v15 = fsevent_default_log();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              v21 = fsevent_default_log(0, v16);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 FSEventStreamScheduleWithRunLoop_cold_4();
               }
@@ -5860,24 +5823,25 @@ LABEL_4:
         return;
       }
 
-      if (!allocate_d2f_port("FSEventStreamScheduleWithRunLoop", streamRef))
+      d2f_port = allocate_d2f_port("FSEventStreamScheduleWithRunLoop", streamRef);
+      if (!d2f_port)
       {
         pthread_mutex_lock(&FSEvents_streamDict_mutex);
-        v13 = *MEMORY[0x1E695E480];
+        v19 = *MEMORY[0x1E695E480];
         if (!FSEvents_streamDict)
         {
-          FSEvents_streamDict = CFDictionaryCreateMutable(v13, 0, MEMORY[0x1E695E9D8], 0);
+          FSEvents_streamDict = CFDictionaryCreateMutable(v19, 0, MEMORY[0x1E695E9D8], 0);
         }
 
-        v14 = CFNumberCreate(v13, kCFNumberIntType, v6);
-        CFDictionaryAddValue(FSEvents_streamDict, v14, streamRef);
+        v20 = CFNumberCreate(v19, kCFNumberIntType, v6);
+        CFDictionaryAddValue(FSEvents_streamDict, v20, streamRef);
         pthread_mutex_unlock(&FSEvents_streamDict_mutex);
-        CFRelease(v14);
+        CFRelease(v20);
         goto LABEL_4;
       }
 
-      v10 = fsevent_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = fsevent_default_log(d2f_port, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         FSEventStreamScheduleWithRunLoop_cold_1();
       }
@@ -5885,8 +5849,8 @@ LABEL_4:
 
     else
     {
-      v9 = fsevent_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = fsevent_default_log(streamRef, 0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         FSEventStreamScheduleWithRunLoop_cold_5();
       }
@@ -5895,20 +5859,20 @@ LABEL_4:
 
   else
   {
-    v8 = fsevent_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = fsevent_default_log(0, runLoop);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamScheduleWithRunLoop_cold_6();
     }
   }
 }
 
-uint64_t _createAndAddRunLoopSource(int a1, uint64_t a2, CFRunLoopRef rl, CFRunLoopMode mode)
+uint64_t _createAndAddRunLoopSource(uint64_t a1, uint64_t a2, CFRunLoopRef rl, CFRunLoopMode mode)
 {
   v5 = *(a2 + 192);
   if (!v5)
   {
-    v10 = fsevent_default_log();
+    v10 = fsevent_default_log(a1, v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       _createAndAddRunLoopSource_cold_4();
@@ -5922,7 +5886,7 @@ uint64_t _createAndAddRunLoopSource(int a1, uint64_t a2, CFRunLoopRef rl, CFRunL
     v8 = *(a2 + 216);
     if (!v8)
     {
-      v9 = fsevent_default_log();
+      v9 = fsevent_default_log(a1, 0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         _createAndAddRunLoopSource_cold_1();
@@ -5936,8 +5900,8 @@ LABEL_11:
     return 0;
   }
 
-  memset(&v16, 0, sizeof(v16));
-  v11 = CFMachPortCreateWithPort(0, v5, FSEventsClientProcessMessageCallback, &v16, 0);
+  memset(&v18, 0, sizeof(v18));
+  v11 = CFMachPortCreateWithPort(0, v5, FSEventsClientProcessMessageCallback, &v18, 0);
   *(a2 + 200) = v11;
   if (v11)
   {
@@ -5949,8 +5913,8 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    v15 = fsevent_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = fsevent_default_log(0, v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       _createAndAddRunLoopSource_cold_2();
     }
@@ -5962,8 +5926,8 @@ LABEL_11:
 
   else
   {
-    v14 = fsevent_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = fsevent_default_log(0, v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       _createAndAddRunLoopSource_cold_3();
     }
@@ -6008,7 +5972,7 @@ void FSEventStreamUnscheduleFromRunLoop(FSEventStreamRef streamRef, CFRunLoopRef
 
       else
       {
-        v10 = fsevent_default_log();
+        v10 = fsevent_default_log(streamRef, 0);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           FSEventStreamUnscheduleFromRunLoop_cold_1();
@@ -6018,7 +5982,7 @@ void FSEventStreamUnscheduleFromRunLoop(FSEventStreamRef streamRef, CFRunLoopRef
 
     else
     {
-      v9 = fsevent_default_log();
+      v9 = fsevent_default_log(streamRef, 0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         FSEventStreamUnscheduleFromRunLoop_cold_2();
@@ -6028,7 +5992,7 @@ void FSEventStreamUnscheduleFromRunLoop(FSEventStreamRef streamRef, CFRunLoopRef
 
   else
   {
-    v8 = fsevent_default_log();
+    v8 = fsevent_default_log(0, runLoop);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamUnscheduleFromRunLoop_cold_3();
@@ -6036,21 +6000,21 @@ void FSEventStreamUnscheduleFromRunLoop(FSEventStreamRef streamRef, CFRunLoopRef
   }
 }
 
-void __FSEventStreamSetDispatchQueue_block_invoke(uint64_t a1)
+void __FSEventStreamSetDispatchQueue_block_invoke(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   if (*(v1 + 188))
   {
     if (!*(v1 + 189))
     {
-      process_dir_events(*(a1 + 40), v1);
+      process_dir_events(*(result + 40), v1);
     }
   }
 }
 
-void process_dir_events(int a1, void *a2)
+void process_dir_events(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v5 = a2[49];
   v4 = a2[50];
   v6 = a2[9];
@@ -6059,11 +6023,12 @@ void process_dir_events(int a1, void *a2)
   v7 = kevent(a1, 0, 0, v4, v6, &timeout);
   if ((v7 & 0x80000000) != 0)
   {
-    v36 = *__error();
-    v37 = fsevent_default_log();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v38 = __error();
+    v39 = *v38;
+    v41 = fsevent_default_log(v38, v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      process_dir_events_cold_1(v36);
+      process_dir_events_cold_1(v39);
     }
   }
 
@@ -6081,22 +6046,23 @@ void process_dir_events(int a1, void *a2)
         udata = v4->udata;
       }
 
-      if (udata < 0 || udata >= v6 || (v10 = v5 + 32 * udata, v11 = *(v10 + 4), v11 < 0) || (v12 = *(v10 + 24)) == 0)
+      if (udata < 0 || udata >= v6 || (v11 = v5 + 32 * udata, v7 = *(v11 + 4), (v7 & 0x80000000) != 0) || (v12 = *(v11 + 24)) == 0)
       {
-        v20 = fsevent_default_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v22 = fsevent_default_log(v7, v8);
+        v7 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+        if (v7)
         {
           if (udata >= v6)
           {
-            v26 = 0;
-            v25 = -1;
+            v28 = 0;
+            v27 = -1;
           }
 
           else
           {
-            v24 = v5 + 32 * udata;
-            v25 = *(v24 + 4);
-            v26 = *(v24 + 24);
+            v26 = v5 + 32 * udata;
+            v27 = *(v26 + 4);
+            v28 = *(v26 + 24);
           }
 
           buf.st_dev = 136316162;
@@ -6106,67 +6072,71 @@ void process_dir_events(int a1, void *a2)
           HIWORD(buf.st_gid) = 1024;
           buf.st_rdev = v6;
           *(&buf.st_rdev + 2) = 1024;
-          *(&buf.st_rdev + 6) = v25;
+          *(&buf.st_rdev + 6) = v27;
           WORD1(buf.st_atimespec.tv_sec) = 2048;
-          *(&buf.st_atimespec.tv_sec + 4) = v26;
+          *(&buf.st_atimespec.tv_sec + 4) = v28;
           p_buf = &buf;
-          v17 = v20;
-          v18 = "%s: index in event (%ld) not valid (%d max; fdtbl %d name %p)";
-          v19 = 44;
+          v19 = v22;
+          v20 = "%s: index in event (%ld) not valid (%d max; fdtbl %d name %p)";
+          v21 = 44;
           goto LABEL_39;
         }
       }
 
       else
       {
-        if (*v10)
+        if (*v11)
         {
-          if (watch_path("process_dir_events", a1, v12, v4, v5 + 32 * udata, udata))
+          v7 = watch_path("process_dir_events", a1, v12, v4, v5 + 32 * udata, udata);
+          if (v7)
           {
-            v21 = fsevent_default_log();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v23 = fsevent_default_log(v7, v8);
+            v7 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+            if (v7)
             {
-              v34 = *(v10 + 24);
+              v36 = *(v11 + 24);
               buf.st_dev = 136315394;
               *&buf.st_mode = "process_dir_events";
               WORD2(buf.st_ino) = 2080;
-              *(&buf.st_ino + 6) = v34;
-              _os_log_error_impl(&dword_18162D000, v21, OS_LOG_TYPE_ERROR, "%s: creation: watch_path() failed for '%s'", &buf, 0x16u);
+              *(&buf.st_ino + 6) = v36;
+              _os_log_error_impl(&dword_18162D000, v23, OS_LOG_TYPE_ERROR, "%s: creation: watch_path() failed for '%s'", &buf, 0x16u);
             }
           }
 
-          if (*v10)
+          if (*v11)
           {
             goto LABEL_17;
           }
 
           root_dir_event_callback(a2, udata, 32);
-          if ((*v10 & 8) == 0)
+          if ((*v11 & 8) == 0)
           {
             goto LABEL_17;
           }
 
-          if (!watch_all_parents("process_dir_events", a1, *(v10 + 24), v5 + 32 * udata, udata))
+          v7 = watch_all_parents("process_dir_events", a1, *(v11 + 24), v5 + 32 * udata, udata);
+          if (!v7)
           {
             goto LABEL_17;
           }
 
-          v22 = fsevent_default_log();
-          if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v24 = fsevent_default_log(v7, v8);
+          v7 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+          if (!v7)
           {
             goto LABEL_17;
           }
 
-          v23 = *(v10 + 24);
+          v25 = *(v11 + 24);
           buf.st_dev = 136315394;
           *&buf.st_mode = "process_dir_events";
           WORD2(buf.st_ino) = 2080;
-          *(&buf.st_ino + 6) = v23;
+          *(&buf.st_ino + 6) = v25;
           p_buf = &buf;
-          v17 = v22;
-          v18 = "%s: creation: watch_all_parents() failed for '%s'";
+          v19 = v24;
+          v20 = "%s: creation: watch_all_parents() failed for '%s'";
 LABEL_51:
-          v19 = 22;
+          v21 = 22;
           goto LABEL_39;
         }
 
@@ -6179,117 +6149,135 @@ LABEL_51:
           }
 
           root_dir_event_callback(a2, udata, 32);
-          if (watch_path("process_dir_events", a1, *(v10 + 24), v4, v5 + 32 * udata, udata))
+          v7 = watch_path("process_dir_events", a1, *(v11 + 24), v4, v5 + 32 * udata, udata);
+          if (v7)
           {
-            v27 = fsevent_default_log();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v29 = fsevent_default_log(v7, v8);
+            v7 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+            if (v7)
             {
-              v35 = *(v10 + 24);
+              v37 = *(v11 + 24);
               buf.st_dev = 136315394;
               *&buf.st_mode = "process_dir_events";
               WORD2(buf.st_ino) = 2080;
-              *(&buf.st_ino + 6) = v35;
-              _os_log_error_impl(&dword_18162D000, v27, OS_LOG_TYPE_ERROR, "%s: delete: watch_path() failed for '%s'", &buf, 0x16u);
+              *(&buf.st_ino + 6) = v37;
+              _os_log_error_impl(&dword_18162D000, v29, OS_LOG_TYPE_ERROR, "%s: delete: watch_path() failed for '%s'", &buf, 0x16u);
             }
           }
 
-          if ((*v10 & 8) == 0)
+          if ((*v11 & 8) == 0)
           {
             goto LABEL_17;
           }
 
-          if (!watch_all_parents("process_dir_events", a1, *(v10 + 24), v5 + 32 * udata, udata))
+          v7 = watch_all_parents("process_dir_events", a1, *(v11 + 24), v5 + 32 * udata, udata);
+          if (!v7)
           {
             goto LABEL_17;
           }
 
-          v28 = fsevent_default_log();
-          if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v30 = fsevent_default_log(v7, v8);
+          v7 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+          if (!v7)
           {
             goto LABEL_17;
           }
 
-          v29 = *(v10 + 24);
+          v31 = *(v11 + 24);
           buf.st_dev = 136315394;
           *&buf.st_mode = "process_dir_events";
           WORD2(buf.st_ino) = 2080;
-          *(&buf.st_ino + 6) = v29;
+          *(&buf.st_ino + 6) = v31;
           p_buf = &buf;
-          v17 = v28;
-          v18 = "%s: delete: watch_all_parents() failed for '%s'";
+          v19 = v30;
+          v20 = "%s: delete: watch_all_parents() failed for '%s'";
           goto LABEL_51;
         }
 
         memset(&buf, 0, sizeof(buf));
-        if (!fcntl(v11, 50, __s1))
+        v14 = fcntl(v7, 50, __s1);
+        if (!v14)
         {
-          if (!strcmp(__s1, *(v10 + 24)) && !lstat(__s1, &buf))
+          if (!strcmp(__s1, *(v11 + 24)))
           {
-            goto LABEL_17;
-          }
-
-          root_dir_event_callback(a2, udata, 32);
-          if ((*v10 & 4) != 0)
-          {
-            free(*(v10 + 24));
-            *(v10 + 24) = strdup(__s1);
-          }
-
-          else if (watch_path("process_dir_events", a1, *(v10 + 24), v4, v5 + 32 * udata, udata))
-          {
-            v30 = fsevent_default_log();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v7 = lstat(__s1, &buf);
+            if (!v7)
             {
-              v31 = *(v10 + 24);
-              *v40 = 136315394;
-              v41 = "process_dir_events";
-              v42 = 2080;
-              v43 = v31;
-              _os_log_error_impl(&dword_18162D000, v30, OS_LOG_TYPE_ERROR, "%s: rename: watch_path() failed for '%s'", v40, 0x16u);
+              goto LABEL_17;
             }
           }
 
-          if ((*v10 & 8) == 0)
+          root_dir_event_callback(a2, udata, 32);
+          if ((*v11 & 4) != 0)
+          {
+            free(*(v11 + 24));
+            v7 = strdup(__s1);
+            *(v11 + 24) = v7;
+          }
+
+          else
+          {
+            v7 = watch_path("process_dir_events", a1, *(v11 + 24), v4, v5 + 32 * udata, udata);
+            if (v7)
+            {
+              v32 = fsevent_default_log(v7, v8);
+              v7 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
+              if (v7)
+              {
+                v33 = *(v11 + 24);
+                *v43 = 136315394;
+                v44 = "process_dir_events";
+                v45 = 2080;
+                v46 = v33;
+                _os_log_error_impl(&dword_18162D000, v32, OS_LOG_TYPE_ERROR, "%s: rename: watch_path() failed for '%s'", v43, 0x16u);
+              }
+            }
+          }
+
+          if ((*v11 & 8) == 0)
           {
             goto LABEL_17;
           }
 
-          if (!watch_all_parents("process_dir_events", a1, *(v10 + 24), v5 + 32 * udata, udata))
+          v7 = watch_all_parents("process_dir_events", a1, *(v11 + 24), v5 + 32 * udata, udata);
+          if (!v7)
           {
             goto LABEL_17;
           }
 
-          v32 = fsevent_default_log();
-          if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v34 = fsevent_default_log(v7, v8);
+          v7 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
+          if (!v7)
           {
             goto LABEL_17;
           }
 
-          v33 = *(v10 + 24);
-          *v40 = 136315394;
-          v41 = "process_dir_events";
-          v42 = 2080;
-          v43 = v33;
-          p_buf = v40;
-          v17 = v32;
-          v18 = "%s: rename: watch_all_parents() failed for '%s'";
+          v35 = *(v11 + 24);
+          *v43 = 136315394;
+          v44 = "process_dir_events";
+          v45 = 2080;
+          v46 = v35;
+          p_buf = v43;
+          v19 = v34;
+          v20 = "%s: rename: watch_all_parents() failed for '%s'";
           goto LABEL_51;
         }
 
-        v14 = fsevent_default_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = fsevent_default_log(v14, v15);
+        v7 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+        if (v7)
         {
-          v15 = *(v10 + 4);
-          *v40 = 136315394;
-          v41 = "process_dir_events";
-          v42 = 1024;
-          LODWORD(v43) = v15;
-          p_buf = v40;
-          v17 = v14;
-          v18 = "%s: failed to get the new path for fd %d";
-          v19 = 18;
+          v17 = *(v11 + 4);
+          *v43 = 136315394;
+          v44 = "process_dir_events";
+          v45 = 1024;
+          LODWORD(v46) = v17;
+          p_buf = v43;
+          v19 = v16;
+          v20 = "%s: failed to get the new path for fd %d";
+          v21 = 18;
 LABEL_39:
-          _os_log_error_impl(&dword_18162D000, v17, OS_LOG_TYPE_ERROR, v18, p_buf, v19);
+          _os_log_error_impl(&dword_18162D000, v19, OS_LOG_TYPE_ERROR, v20, p_buf, v21);
         }
       }
 
@@ -6297,8 +6285,6 @@ LABEL_17:
       ++v4;
     }
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __FSEventStreamSetDispatchQueue_block_invoke_2(uint64_t a1)
@@ -6312,17 +6298,18 @@ void __FSEventStreamSetDispatchQueue_block_invoke_2(uint64_t a1)
 
 FSEventStreamEventId FSEventStreamFlushAsync(FSEventStreamRef streamRef)
 {
-  v5 = 0;
+  v8 = 0;
   if (streamRef)
   {
     if (*(streamRef + 188))
     {
       if (*(streamRef + 25))
       {
-        if (f2d_flush_rpc(*(streamRef + 49), &v5))
+        v2 = f2d_flush_rpc(*(streamRef + 49), &v8);
+        if (v2)
         {
-          v1 = fsevent_default_log();
-          if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+          v4 = fsevent_default_log(v2, v3);
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
           {
             FSEventStreamFlushAsync_cold_1();
           }
@@ -6332,8 +6319,8 @@ FSEventStreamEventId FSEventStreamFlushAsync(FSEventStreamRef streamRef)
 
     else
     {
-      v3 = fsevent_default_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v6 = fsevent_default_log(streamRef, v1);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         FSEventStreamFlushAsync_cold_2();
       }
@@ -6342,35 +6329,35 @@ FSEventStreamEventId FSEventStreamFlushAsync(FSEventStreamRef streamRef)
 
   else
   {
-    v2 = fsevent_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v5 = fsevent_default_log(0, v1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamFlushAsync_cold_3();
     }
   }
 
-  return v5;
+  return v8;
 }
 
 void FSEventStreamFlushSync(FSEventStreamRef streamRef)
 {
-  v14 = 0;
+  v21 = 0;
   if (streamRef)
   {
     if (*(streamRef + 188))
     {
       if (*(streamRef + 25) || *(streamRef + 45))
       {
-        v2 = *(streamRef + 28);
-        if (v2 || *(streamRef + 45))
+        v3 = *(streamRef + 28);
+        if (v3 || *(streamRef + 45))
         {
-          v3 = *(streamRef + 27);
-          if (v3 || *(streamRef + 45))
+          v4 = *(streamRef + 27);
+          if (v4 || *(streamRef + 45))
           {
-            if (v2)
+            if (v3)
             {
-              CFRunLoopAddSource(v2, v3, @"com.apple.FSEvents");
-              v13 = 0;
+              CFRunLoopAddSource(v3, v4, @"com.apple.FSEvents");
+              v20 = 0;
                 ;
               }
             }
@@ -6380,10 +6367,11 @@ void FSEventStreamFlushSync(FSEventStreamRef streamRef)
               pthread_mutex_lock((streamRef + 240));
               while (*(streamRef + 190))
               {
-                if (pthread_cond_wait((streamRef + 304), (streamRef + 240)))
+                v7 = pthread_cond_wait((streamRef + 304), (streamRef + 240));
+                if (v7)
                 {
-                  v6 = fsevent_default_log();
-                  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+                  v9 = fsevent_default_log(v7, v8);
+                  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
                   {
                     FSEventStreamFlushSync_cold_1();
                   }
@@ -6395,24 +6383,26 @@ void FSEventStreamFlushSync(FSEventStreamRef streamRef)
               pthread_mutex_unlock((streamRef + 240));
             }
 
-            if (f2d_flush_rpc(*(streamRef + 49), &v14))
+            v10 = f2d_flush_rpc(*(streamRef + 49), &v21);
+            if (v10)
             {
-              v7 = fsevent_default_log();
-              if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+              v12 = fsevent_default_log(v10, v11);
+              v10 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+              if (v10)
               {
                 FSEventStreamFlushSync_cold_2();
               }
             }
 
-            if (!v14)
+            if (!v21)
             {
               goto LABEL_46;
             }
 
-            if (v14 > 0)
+            if (v21 > 0)
             {
-              *(streamRef + 56) = v14;
-              v13 = 0;
+              *(streamRef + 56) = v21;
+              v20 = 0;
               if (*(streamRef + 28))
               {
                   ;
@@ -6424,10 +6414,11 @@ void FSEventStreamFlushSync(FSEventStreamRef streamRef)
                 pthread_mutex_lock((streamRef + 240));
                 while (*(streamRef + 21) < *(streamRef + 56))
                 {
-                  if (pthread_cond_wait((streamRef + 304), (streamRef + 240)))
+                  v16 = pthread_cond_wait((streamRef + 304), (streamRef + 240));
+                  if (v16)
                   {
-                    v11 = fsevent_default_log();
-                    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+                    v18 = fsevent_default_log(v16, v17);
+                    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
                     {
                       FSEventStreamFlushSync_cold_4();
                     }
@@ -6441,17 +6432,17 @@ void FSEventStreamFlushSync(FSEventStreamRef streamRef)
 
               *(streamRef + 56) = 0;
 LABEL_46:
-              v12 = *(streamRef + 28);
-              if (v12)
+              v19 = *(streamRef + 28);
+              if (v19)
               {
-                CFRunLoopRemoveSource(v12, *(streamRef + 27), @"com.apple.FSEvents");
+                CFRunLoopRemoveSource(v19, *(streamRef + 27), @"com.apple.FSEvents");
               }
 
               return;
             }
 
-            v8 = fsevent_default_log();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+            v13 = fsevent_default_log(v10, v11);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               FSEventStreamFlushSync_cold_3();
             }
@@ -6459,8 +6450,8 @@ LABEL_46:
 
           else
           {
-            v10 = fsevent_default_log();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            v15 = fsevent_default_log(v3, 0);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               FSEventStreamFlushSync_cold_5();
             }
@@ -6469,8 +6460,8 @@ LABEL_46:
 
         else
         {
-          v9 = fsevent_default_log();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v14 = fsevent_default_log(0, v1);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             FSEventStreamFlushSync_cold_6();
           }
@@ -6480,8 +6471,8 @@ LABEL_46:
 
     else
     {
-      v5 = fsevent_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = fsevent_default_log(streamRef, v1);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         FSEventStreamFlushSync_cold_7();
       }
@@ -6490,8 +6481,8 @@ LABEL_46:
 
   else
   {
-    v4 = fsevent_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = fsevent_default_log(0, v1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       FSEventStreamFlushSync_cold_8();
     }
@@ -6502,36 +6493,34 @@ uint64_t _runRunLoopOnceForFlushSync(uint64_t a1, uint64_t a2, int *a3, _DWORD *
 {
   v28 = *MEMORY[0x1E69E9840];
   v8 = CFRunLoopRunInMode(@"com.apple.FSEvents", 5.0, 1u);
-  v9 = v8;
-  if (v8 <= kCFRunLoopRunStopped)
+  v10 = v8;
+  if (v8 <= 2)
   {
-    if (v8 == kCFRunLoopRunFinished)
+    if (v8 == 1)
     {
-      v13 = fsevent_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = fsevent_default_log(v8, v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         _runRunLoopOnceForFlushSync_cold_2();
       }
 
-      goto LABEL_13;
+      return 1;
     }
 
-    if (v8 == kCFRunLoopRunStopped)
+    if (v8 == 2)
     {
-      v10 = fsevent_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = fsevent_default_log(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         _runRunLoopOnceForFlushSync_cold_1();
       }
 
-LABEL_13:
-      result = 1;
-      goto LABEL_19;
+      return 1;
     }
 
 LABEL_9:
-    v12 = fsevent_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = fsevent_default_log(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v18 = 136315906;
       v19 = a1;
@@ -6540,62 +6529,56 @@ LABEL_9:
       v22 = 2080;
       v23 = "UNKNOWN";
       v24 = 1024;
-      v25 = v9;
-      _os_log_error_impl(&dword_18162D000, v12, OS_LOG_TYPE_ERROR, "%s(streamRef = %p): ERROR: CFRunLoopRunInMode() => %s (%d)", &v18, 0x26u);
+      v25 = v10;
+      _os_log_error_impl(&dword_18162D000, v13, OS_LOG_TYPE_ERROR, "%s(streamRef = %p): ERROR: CFRunLoopRunInMode() => %s (%d)", &v18, 0x26u);
     }
 
-    goto LABEL_13;
+    return 1;
   }
 
-  if (v8 == kCFRunLoopRunTimedOut)
+  if (v8 != 3)
   {
-    v14 = *a3;
-    if ((*a3 & ~(-1 << *a4)) == 0)
+    if (v8 == 4)
     {
-      v15 = fsevent_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        v17 = (*a3 + 1) * 5.0;
-        v18 = 136316162;
-        v19 = a1;
-        v20 = 2048;
-        v21 = a2;
-        v22 = 2080;
-        v23 = "The run loop timed out.";
-        v24 = 1024;
-        v25 = 3;
-        v26 = 2048;
-        v27 = v17;
-        _os_log_error_impl(&dword_18162D000, v15, OS_LOG_TYPE_ERROR, "%s(streamRef = %p): WARNING: CFRunLoopRunInMode() => %s (%d) (%.2f seconds)", &v18, 0x30u);
-      }
-
-      ++*a4;
-      v14 = *a3;
+      return 0;
     }
 
-    result = 0;
-    *a3 = v14 + 1;
+    goto LABEL_9;
   }
 
-  else
+  v15 = *a3;
+  if ((*a3 & ~(-1 << *a4)) == 0)
   {
-    if (v8 != kCFRunLoopRunHandledSource)
+    v16 = fsevent_default_log(v8, v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_9;
+      v17 = (*a3 + 1) * 5.0;
+      v18 = 136316162;
+      v19 = a1;
+      v20 = 2048;
+      v21 = a2;
+      v22 = 2080;
+      v23 = "The run loop timed out.";
+      v24 = 1024;
+      v25 = 3;
+      v26 = 2048;
+      v27 = v17;
+      _os_log_error_impl(&dword_18162D000, v16, OS_LOG_TYPE_ERROR, "%s(streamRef = %p): WARNING: CFRunLoopRunInMode() => %s (%d) (%.2f seconds)", &v18, 0x30u);
     }
 
-    result = 0;
+    ++*a4;
+    v15 = *a3;
   }
 
-LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
+  result = 0;
+  *a3 = v15 + 1;
   return result;
 }
 
 FSEventStreamEventId FSEventsGetLastEventIdForDeviceBeforeTime(dev_t dev, CFAbsoluteTime time)
 {
   v6 = 0;
-  v4 = FSEvents_connect();
+  v4 = FSEvents_connect("FSEventsGetLastEventIdForDeviceBeforeTime");
   result = 0;
   if (!v4)
   {
@@ -6608,14 +6591,14 @@ FSEventStreamEventId FSEventsGetLastEventIdForDeviceBeforeTime(dev_t dev, CFAbso
 
 Boolean FSEventsPurgeEventsForDeviceUpToEventId(dev_t dev, FSEventStreamEventId eventId)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  if (FSEvents_connect())
+  v19 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  if (FSEvents_connect("FSEventsPurgeEventsForDeviceUpToEventId"))
   {
     goto LABEL_2;
   }
 
-  v17[0] = 0;
+  v18[0] = 0;
   v5 = getfsstat(0, 0, 2);
   if ((v5 & 0x80000000) == 0)
   {
@@ -6650,15 +6633,15 @@ LABEL_15:
     }
   }
 
-  syslog(2, "dev %d (%s) : purging events up to event id %lld", dev, v17, eventId);
-  if (!f2d_purge_events_for_device_up_to_event_id_rpc(FSEvents_f2d_public_port, dev, eventId, &v16))
+  syslog(2, "dev %d (%s) : purging events up to event id %lld", dev, v18, eventId);
+  v13 = f2d_purge_events_for_device_up_to_event_id_rpc(FSEvents_f2d_public_port, dev, eventId, &v17);
+  if (!v13)
   {
-    LOBYTE(v4) = v16 == 0;
-    goto LABEL_20;
+    return v17 == 0;
   }
 
-  v13 = fsevent_default_log();
-  v4 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+  v15 = fsevent_default_log(v13, v14);
+  v4 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
   if (v4)
   {
     FSEventsPurgeEventsForDeviceUpToEventId_cold_1();
@@ -6666,8 +6649,6 @@ LABEL_2:
     LOBYTE(v4) = 0;
   }
 
-LABEL_20:
-  v14 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -6680,33 +6661,32 @@ void FSEventStreamShow(ConstFSEventStreamRef streamRef)
     fprintf(*v2, "   allocator = %p\n", *(streamRef + 1));
     fprintf(*v2, "   callback = %p\n", *(streamRef + 2));
     fprintf(*v2, "   f2d_private_port = 0x%x\n", *(streamRef + 49));
-    v3 = *(streamRef + 24);
     fprintf(*v2, "   context = {%lu, %p, %p, %p, %p}\n", *(streamRef + 3), *(streamRef + 4), *(streamRef + 5), *(streamRef + 6), *(streamRef + 7));
     fprintf(*v2, "   numPathsToWatch = %lu\n", *(streamRef + 9));
     fprintf(*v2, "   pathsToWatch = %p\n", *(streamRef + 10));
     if (*(streamRef + 9) >= 1)
     {
-      v4 = 0;
+      v3 = 0;
       do
       {
-        fprintf(*v2, "        pathsToWatch[%d] = '%s'\n", v4, *(*(streamRef + 10) + 8 * v4));
-        ++v4;
+        fprintf(*v2, "        pathsToWatch[%d] = '%s'\n", v3, *(*(streamRef + 10) + 8 * v3));
+        ++v3;
       }
 
-      while (*(streamRef + 9) > v4);
+      while (*(streamRef + 9) > v3);
     }
 
     fprintf(*v2, "   numPathsToExclude = %lu\n", *(streamRef + 12));
     if (*(streamRef + 12) >= 1)
     {
-      v5 = 0;
+      v4 = 0;
       do
       {
-        fprintf(*v2, "        pathsToExclude[%d] = '%s'\n", v5, *(streamRef + v5 + 13));
-        ++v5;
+        fprintf(*v2, "        pathsToExclude[%d] = '%s'\n", v4, *(streamRef + v4 + 13));
+        ++v4;
       }
 
-      while (*(streamRef + 12) > v5);
+      while (*(streamRef + 12) > v4);
     }
 
     fprintf(*v2, "   latestEventId = %lld\n", *(streamRef + 21));
@@ -6783,108 +6763,117 @@ void server_gone_StreamRef_callback(uint64_t a1)
       *(a1 + 192) = 0;
     }
 
-    if (FSEvents_connect())
+    v10 = FSEvents_connect("server_gone_StreamRef_callback");
+    if (v10)
     {
-      v10 = fsevent_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = fsevent_default_log(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         server_gone_StreamRef_callback_cold_1();
       }
     }
 
-    else if (allocate_d2f_port("server_gone_StreamRef_callback", a1))
-    {
-      v11 = fsevent_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        server_gone_StreamRef_callback_cold_2();
-      }
-    }
-
-    else if (register_with_server(a1, "server_gone_StreamRef_callback", *(a1 + 192), *(a1 + 64), *(a1 + 72), *(a1 + 80), -1, *(a1 + 176), *(a1 + 184), (a1 + 196)))
-    {
-      v12 = fsevent_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        server_gone_StreamRef_callback_cold_3((a1 + 196));
-      }
-    }
-
     else
     {
-      v13 = CFNumberCreate(v2, kCFNumberIntType, (a1 + 192));
-      pthread_mutex_lock(&FSEvents_streamDict_mutex);
-      CFDictionaryAddValue(FSEvents_streamDict, v13, a1);
-      pthread_mutex_unlock(&FSEvents_streamDict_mutex);
-      CFRelease(v13);
-      if (v5)
+      d2f_port = allocate_d2f_port("server_gone_StreamRef_callback", a1);
+      if (d2f_port)
       {
-        if (create_d2f_port_source(a1))
+        v15 = fsevent_default_log(d2f_port, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          resume_source(*(a1 + 360), (a1 + 368));
-        }
-
-        if (create_f2d_private_port_source(a1))
-        {
-          resume_source(*(a1 + 376), (a1 + 384));
+          server_gone_StreamRef_callback_cold_2();
         }
       }
 
-      else if (*(a1 + 224))
+      else
       {
-        context.version = 0;
-        context.info = a1;
-        context.retain = _FSEventStreamRetainAndReturnSelf;
-        context.release = FSEventStreamRelease;
-        context.copyDescription = FSEventStreamCopyDescription;
-        v14 = CFMachPortCreateWithPort(0, *(a1 + 196), FSEventsClientPortCallback, &context, 0);
-        *(a1 + 208) = v14;
-        if (v14)
+        v16 = register_with_server(a1, "server_gone_StreamRef_callback", *(a1 + 192), *(a1 + 64), *(a1 + 72), *(a1 + 80), -1, *(a1 + 176), *(a1 + 184), (a1 + 196));
+        if (v16)
         {
-          CFMachPortSetInvalidationCallBack(v14, server_gone_callback);
-          _createAndAddRunLoopSource("server_gone_StreamRef_callback", a1, *(a1 + 224), *(a1 + 232));
+          v18 = fsevent_default_log(v16, v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          {
+            server_gone_StreamRef_callback_cold_3();
+          }
         }
 
         else
         {
-          v15 = fsevent_default_log();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v19 = CFNumberCreate(v2, kCFNumberIntType, (a1 + 192));
+          pthread_mutex_lock(&FSEvents_streamDict_mutex);
+          CFDictionaryAddValue(FSEvents_streamDict, v19, a1);
+          pthread_mutex_unlock(&FSEvents_streamDict_mutex);
+          CFRelease(v19);
+          if (v5)
           {
-            server_gone_StreamRef_callback_cold_4();
+            if (create_d2f_port_source(a1))
+            {
+              resume_source(*(a1 + 360), (a1 + 368));
+            }
+
+            if (create_f2d_private_port_source(a1))
+            {
+              resume_source(*(a1 + 376), (a1 + 384));
+            }
           }
+
+          else if (*(a1 + 224))
+          {
+            context.version = 0;
+            context.info = a1;
+            context.retain = _FSEventStreamRetainAndReturnSelf;
+            context.release = FSEventStreamRelease;
+            context.copyDescription = FSEventStreamCopyDescription;
+            v20 = CFMachPortCreateWithPort(0, *(a1 + 196), FSEventsClientPortCallback, &context, 0);
+            *(a1 + 208) = v20;
+            if (v20)
+            {
+              CFMachPortSetInvalidationCallBack(v20, server_gone_callback);
+              _createAndAddRunLoopSource("server_gone_StreamRef_callback", a1, *(a1 + 224), *(a1 + 232));
+            }
+
+            else
+            {
+              v22 = fsevent_default_log(0, v21);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+              {
+                server_gone_StreamRef_callback_cold_4();
+              }
+            }
+          }
+
+          FSEventStreamRetain(a1);
+          if (*(a1 + 72) >= 1)
+          {
+            v23 = 0;
+            do
+            {
+              root_dir_event_callback(a1, v23++, 5);
+            }
+
+            while (*(a1 + 72) > v23);
+          }
+
+          FSEventStreamRelease(a1);
         }
       }
-
-      FSEventStreamRetain(a1);
-      if (*(a1 + 72) >= 1)
-      {
-        v16 = 0;
-        do
-        {
-          root_dir_event_callback(a1, v16++, 5);
-        }
-
-        while (*(a1 + 72) > v16);
-      }
-
-      FSEventStreamRelease(a1);
     }
   }
 }
 
 void root_dir_event_callback(uint64_t a1, int a2, int a3)
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 16);
   if (!v3)
   {
-    goto LABEL_23;
+    return;
   }
 
   v6 = caller_path(*(*(a1 + 80) + 8 * a2), *(*(a1 + 88) + 4 * a2));
-  v25 = v6;
-  v24 = a3;
-  v28[0] = 0;
+  v29 = v6;
+  v28 = a3;
+  v32[0] = 0;
   v7 = *(a1 + 184);
   if ((v7 & 0x40) != 0)
   {
@@ -6892,24 +6881,24 @@ void root_dir_event_callback(uint64_t a1, int a2, int a3)
     v9 = CFStringCreateWithFileSystemRepresentation(*MEMORY[0x1E695E480], v6);
     if (v9)
     {
-      v10 = v9;
+      v11 = v9;
       values = v9;
       keys = @"path";
       cf = CFDictionaryCreate(v8, &keys, &values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       if (cf)
       {
-        v11 = CFArrayCreate(v8, &cf, 1, MEMORY[0x1E695E9C0]);
-        if (v11)
+        v13 = CFArrayCreate(v8, &cf, 1, MEMORY[0x1E695E9C0]);
+        if (v13)
         {
-          v12 = v11;
-          (*(a1 + 16))(a1, *(a1 + 32), 1, v11, &v24, v28);
-          CFRelease(v12);
+          v15 = v13;
+          (*(a1 + 16))(a1, *(a1 + 32), 1, v13, &v28, v32);
+          CFRelease(v15);
         }
 
         else
         {
-          v20 = fsevent_default_log();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v25 = fsevent_default_log(0, v14);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             root_dir_event_callback_cold_1();
           }
@@ -6920,76 +6909,73 @@ void root_dir_event_callback(uint64_t a1, int a2, int a3)
 
       else
       {
-        v18 = fsevent_default_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v23 = fsevent_default_log(0, v12);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           root_dir_event_callback_cold_2();
         }
       }
 
-      v16 = v10;
+      v21 = v11;
       goto LABEL_22;
     }
 
-    v17 = fsevent_default_log();
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v22 = fsevent_default_log(0, v10);
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_23;
+      return;
     }
 
 LABEL_13:
     root_dir_event_callback_cold_3();
-    goto LABEL_23;
+    return;
   }
 
   if ((v7 & 1) == 0)
   {
-    v3(a1, *(a1 + 32), 1, &v25, &v24, v28);
-    goto LABEL_23;
+    v3(a1, *(a1 + 32), 1, &v29, &v28, v32);
+    return;
   }
 
-  v13 = *MEMORY[0x1E695E480];
+  v16 = *MEMORY[0x1E695E480];
   cf = CFStringCreateWithFileSystemRepresentation(*MEMORY[0x1E695E480], v6);
   if (!cf)
   {
-    v19 = fsevent_default_log();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v24 = fsevent_default_log(0, v17);
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_23;
+      return;
     }
 
     goto LABEL_13;
   }
 
-  v14 = CFArrayCreate(v13, &cf, 1, MEMORY[0x1E695E9C0]);
-  if (v14)
+  v18 = CFArrayCreate(v16, &cf, 1, MEMORY[0x1E695E9C0]);
+  if (v18)
   {
-    v15 = v14;
-    (*(a1 + 16))(a1, *(a1 + 32), 1, v14, &v24, v28);
-    CFRelease(v15);
-    v16 = cf;
+    v20 = v18;
+    (*(a1 + 16))(a1, *(a1 + 32), 1, v18, &v28, v32);
+    CFRelease(v20);
+    v21 = cf;
 LABEL_22:
-    CFRelease(v16);
-    goto LABEL_23;
+    CFRelease(v21);
+    return;
   }
 
-  v22 = fsevent_default_log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v26 = fsevent_default_log(0, v19);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     root_dir_event_callback_cold_1();
   }
-
-LABEL_23:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t watch_path(const char *a1, int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t watch_path(const char *a1, int a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v10 = 0;
-  v57 = *MEMORY[0x1E69E9840];
-  memset(&v44, 0, sizeof(v44));
+  v68 = *MEMORY[0x1E69E9840];
+  memset(&v55, 0, sizeof(v55));
   v11 = -1;
-  memset(&v43, 0, sizeof(v43));
+  memset(&v54, 0, sizeof(v54));
   v12 = 1;
   v13 = 0xFFFFFFFFLL;
   v14 = 1;
@@ -6998,7 +6984,7 @@ uint64_t watch_path(const char *a1, int a2, const char *a3, uint64_t a4, uint64_
     v15 = v10;
     v10 = v12;
     realpath_DARWIN_EXTSN(a3, &__s);
-    if (v55)
+    if (v66)
     {
       v16 = 0;
       while (1)
@@ -7010,10 +6996,10 @@ uint64_t watch_path(const char *a1, int a2, const char *a3, uint64_t a4, uint64_
         }
 
         __error();
-        my_dirname(&__s, v56);
-        realpath_DARWIN_EXTSN(v56, &__s);
+        my_dirname(&__s, v67);
+        realpath_DARWIN_EXTSN(v67, &__s);
         ++v16;
-        if (!v55)
+        if (!v66)
         {
           goto LABEL_8;
         }
@@ -7029,23 +7015,25 @@ LABEL_11:
     if (v11 < 0)
     {
 LABEL_8:
-      v11 = open(&__s, 0x8000);
-      if (v11 < 0)
+      v18 = open(&__s, 0x8000);
+      v11 = v18;
+      if ((v18 & 0x80000000) != 0)
       {
-        v31 = fsevent_default_log();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v41 = fsevent_default_log(v18, v19);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           watch_path_cold_2();
         }
 
-        __error();
-        v33 = fsevent_default_log();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v43 = __error();
+        v45 = fsevent_default_log(v43, v44);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           watch_path_cold_3();
         }
 
-        v13 = *__error();
+        v33 = __error();
+        v13 = *v33;
         goto LABEL_47;
       }
 
@@ -7054,22 +7042,23 @@ LABEL_8:
 
 LABEL_12:
     fcntl(v11, 2, 1);
-    if (v14 || (v18 = open(&__s, 0), v18 < 0))
+    if (v14 || (v20 = open(&__s, 0), v20 < 0))
     {
-      v20 = v15;
+      v24 = v15;
     }
 
     else
     {
-      v19 = v18;
-      fstat(v11, &v44);
-      fstat(v19, &v43);
-      close(v19);
-      close(v11);
-      if (v44.st_ino == v43.st_ino)
+      v21 = v20;
+      fstat(v11, &v55);
+      fstat(v21, &v54);
+      close(v21);
+      v22 = close(v11);
+      if (v55.st_ino == v54.st_ino)
       {
-        v34 = fsevent_default_log();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v46 = fsevent_default_log(v22, v23);
+        v33 = os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
+        if (v33)
         {
           watch_path_cold_1();
         }
@@ -7078,7 +7067,7 @@ LABEL_12:
         goto LABEL_47;
       }
 
-      v20 = v15;
+      v24 = v15;
       v11 = -1;
     }
 
@@ -7086,94 +7075,98 @@ LABEL_12:
     *(a4 + 8) = 0x270021FFFCLL;
     *(a4 + 16) = 0;
     *(a4 + 24) = a6;
-    v13 = kevent(a2, a4, 1, 0, 0, 0);
-    if ((v13 & 0x80000000) != 0)
+    v25 = kevent(a2, a4, 1, 0, 0, 0);
+    v13 = v25;
+    if ((v25 & 0x80000000) != 0)
     {
-      v21 = fsevent_default_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v27 = fsevent_default_log(v25, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v39 = *(a5 + 24);
-        v27 = __error();
-        v28 = strerror(*v27);
+        v50 = *(a5 + 24);
+        v37 = __error();
+        v38 = strerror(*v37);
         *buf = 136316162;
-        v46 = a1;
-        v47 = 2080;
+        v57 = a1;
+        v58 = 2080;
         p_s = "watch_path";
-        v49 = 1024;
-        v50 = v11;
-        v51 = 2080;
-        *v52 = v39;
-        *&v52[8] = 2080;
-        v53[0] = v28;
-        _os_log_error_impl(&dword_18162D000, v21, OS_LOG_TYPE_ERROR, "%s: %s: error trying to add kqueue for fd %d (%s; %s)", buf, 0x30u);
+        v60 = 1024;
+        v61 = v11;
+        v62 = 2080;
+        *v63 = v50;
+        *&v63[8] = 2080;
+        v64[0] = v38;
+        _os_log_error_impl(&dword_18162D000, v27, OS_LOG_TYPE_ERROR, "%s: %s: error trying to add kqueue for fd %d (%s; %s)", buf, 0x30u);
       }
     }
 
-    v22 = *(a5 + 4);
-    if ((v22 & 0x80000000) == 0)
+    v28 = *(a5 + 4);
+    if ((v28 & 0x80000000) == 0)
     {
-      *a4 = v22;
+      *a4 = v28;
       *(a4 + 8) = 0x270002FFFCLL;
       *(a4 + 16) = 0;
       *(a4 + 24) = a6;
-      v13 = kevent(a2, a4, 1, 0, 0, 0);
-      if ((v13 & 0x80000000) != 0)
+      v29 = kevent(a2, a4, 1, 0, 0, 0);
+      v13 = v29;
+      if ((v29 & 0x80000000) != 0)
       {
-        v23 = fsevent_default_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v31 = fsevent_default_log(v29, v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v40 = *(a5 + 4);
-          v29 = __error();
-          v30 = strerror(*v29);
+          v51 = *(a5 + 4);
+          v39 = __error();
+          v40 = strerror(*v39);
           *buf = 136315906;
-          v46 = a1;
-          v47 = 2080;
+          v57 = a1;
+          v58 = 2080;
           p_s = "watch_path";
-          v49 = 1024;
-          v50 = v40;
-          v51 = 2080;
-          *v52 = v30;
-          _os_log_error_impl(&dword_18162D000, v23, OS_LOG_TYPE_ERROR, "%s: %s: error removing fd %d from kqueue (%s)", buf, 0x26u);
+          v60 = 1024;
+          v61 = v51;
+          v62 = 2080;
+          *v63 = v40;
+          _os_log_error_impl(&dword_18162D000, v31, OS_LOG_TYPE_ERROR, "%s: %s: error removing fd %d from kqueue (%s)", buf, 0x26u);
         }
       }
 
       close(*(a5 + 4));
     }
 
-    v24 = *a5 & 0xFFFFFFFE;
+    v32 = *a5 & 0xFFFFFFFE;
     if (v16)
     {
-      ++v24;
+      ++v32;
     }
 
-    *a5 = v24;
+    *a5 = v32;
     *(a5 + 4) = v11;
-    v25 = open(&__s, 0);
-    if (v25 < 0)
+    v33 = open(&__s, 0);
+    v35 = v33;
+    if ((v33 & 0x80000000) != 0)
     {
       break;
     }
 
-    fstat(v11, &v44);
-    fstat(v25, &v43);
-    close(v25);
-    if (v44.st_ino == v43.st_ino)
+    fstat(v11, &v55);
+    fstat(v35, &v54);
+    v33 = close(v35);
+    if (v55.st_ino == v54.st_ino)
     {
       goto LABEL_41;
     }
 
-    v26 = fsevent_default_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v36 = fsevent_default_log(v33, v34);
+    v33 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+    if (v33)
     {
       *buf = 136315394;
-      v46 = "watch_path";
-      v47 = 2080;
+      v57 = "watch_path";
+      v58 = 2080;
       p_s = &__s;
-      _os_log_error_impl(&dword_18162D000, v26, OS_LOG_TYPE_ERROR, "%s: watching path(%s) renamed while registering watchroot", buf, 0x16u);
+      _os_log_error_impl(&dword_18162D000, v36, OS_LOG_TYPE_ERROR, "%s: watching path(%s) renamed while registering watchroot", buf, 0x16u);
     }
 
 LABEL_32:
-    v14 = v25 >= 0;
+    v14 = v35 >= 0;
     v12 = v10 + 1;
     if (v10 == 1000)
     {
@@ -7187,47 +7180,47 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  if (!fcntl(*(a5 + 4), 50, buf))
+  v33 = fcntl(*(a5 + 4), 50, buf);
+  if (!v33)
   {
     free(*(a5 + 24));
-    *(a5 + 24) = strdup(buf);
+    v33 = strdup(buf);
+    *(a5 + 24) = v33;
   }
 
 LABEL_41:
-  if (v20 != 999 && (v11 & 0x80000000) == 0)
+  if (v24 != 999 && (v11 & 0x80000000) == 0)
   {
-    v13 = 0;
-    goto LABEL_49;
+    return 0;
   }
 
 LABEL_47:
-  v35 = fsevent_default_log();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  v47 = fsevent_default_log(v33, v34);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
-    v38 = strerror(v13);
+    v49 = strerror(v13);
     *buf = 136316418;
-    v46 = "watch_path";
-    v47 = 2080;
+    v57 = "watch_path";
+    v58 = 2080;
     p_s = a3;
-    v49 = 1024;
-    v50 = v11;
-    v51 = 1024;
-    *v52 = v10;
-    *&v52[4] = 1024;
-    *&v52[6] = v13;
-    LOWORD(v53[0]) = 2080;
-    *(v53 + 2) = v38;
-    _os_log_error_impl(&dword_18162D000, v35, OS_LOG_TYPE_ERROR, "%s: watching path (%s) fd(%d) retry (%d) failed (%d):(%s)", buf, 0x32u);
+    v60 = 1024;
+    v61 = v11;
+    v62 = 1024;
+    *v63 = v10;
+    *&v63[4] = 1024;
+    *&v63[6] = v13;
+    LOWORD(v64[0]) = 2080;
+    *(v64 + 2) = v49;
+    _os_log_error_impl(&dword_18162D000, v47, OS_LOG_TYPE_ERROR, "%s: watching path (%s) fd(%d) retry (%d) failed (%d):(%s)", buf, 0x32u);
   }
 
-LABEL_49:
-  v36 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
-uint64_t watch_all_parents(uint64_t a1, int kq, char *__s, uint64_t a4, uint64_t a5)
+uint64_t watch_all_parents(uint64_t a1, uint64_t kq, char *__s, uint64_t a4, uint64_t a5)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v8 = kq;
+  v42 = *MEMORY[0x1E69E9840];
   memset(&changelist, 0, sizeof(changelist));
   v10 = *(a4 + 16);
   if (v10)
@@ -7243,7 +7236,7 @@ uint64_t watch_all_parents(uint64_t a1, int kq, char *__s, uint64_t a4, uint64_t
           *&changelist.filter = 0x200002FFFCLL;
           changelist.data = 0;
           changelist.udata = (a5 | 0x80000000);
-          kevent(kq, &changelist, 1, 0, 0, 0);
+          kevent(v8, &changelist, 1, 0, 0, 0);
           close(*(*(a4 + 16) + 4 * i));
           v11 = *(a4 + 8);
         }
@@ -7260,8 +7253,8 @@ uint64_t watch_all_parents(uint64_t a1, int kq, char *__s, uint64_t a4, uint64_t
   if (__s && *__s)
   {
     my_dirname(__s, __sa);
-    v13 = v40;
-    realpath_DARWIN_EXTSN(__sa, v40);
+    v13 = v41;
+    realpath_DARWIN_EXTSN(__sa, v41);
     v14 = 0;
     do
     {
@@ -7288,7 +7281,7 @@ uint64_t watch_all_parents(uint64_t a1, int kq, char *__s, uint64_t a4, uint64_t
       *(a4 + 8) = v14;
       do
       {
-        v22 = open(v40, 0x8000);
+        v22 = open(v41, 0x8000);
         *(*(a4 + 16) + 4 * v20) = v22;
         if ((v22 & 0x80000000) == 0)
         {
@@ -7297,56 +7290,56 @@ uint64_t watch_all_parents(uint64_t a1, int kq, char *__s, uint64_t a4, uint64_t
           *&changelist.filter = 0x200021FFFCLL;
           changelist.data = 0;
           changelist.udata = (a5 | 0x80000000);
-          if (kevent(kq, &changelist, 1, 0, 0, 0) < 0)
+          v23 = kevent(v8, &changelist, 1, 0, 0, 0);
+          if ((v23 & 0x80000000) != 0)
           {
-            v23 = fsevent_default_log();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v25 = fsevent_default_log(v23, v24);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              v24 = *(*(a4 + 16) + 4 * v20);
-              v25 = __error();
-              v26 = strerror(*v25);
+              v26 = *(*(a4 + 16) + 4 * v20);
+              v27 = __error();
+              v28 = strerror(*v27);
               *buf = 136316162;
-              v30 = a1;
-              v31 = 2080;
-              v32 = "watch_all_parents";
-              v33 = 1024;
-              v34 = v24;
-              v35 = 2080;
-              v36 = v40;
-              v37 = 2080;
-              v38 = v26;
-              _os_log_error_impl(&dword_18162D000, v23, OS_LOG_TYPE_ERROR, "%s: %s: error trying to add kqueue for fd %d (%s; %s)", buf, 0x30u);
+              v31 = a1;
+              v32 = 2080;
+              v33 = "watch_all_parents";
+              v34 = 1024;
+              v35 = v26;
+              v36 = 2080;
+              v37 = v41;
+              v38 = 2080;
+              v39 = v28;
+              _os_log_error_impl(&dword_18162D000, v25, OS_LOG_TYPE_ERROR, "%s: %s: error trying to add kqueue for fd %d (%s; %s)", buf, 0x30u);
             }
           }
         }
 
         __strcpy_chk();
-        my_dirname(__sa, v40);
+        my_dirname(__sa, v41);
         result = 0;
         ++v20;
       }
 
-      while (v20 < v21 && v40[1]);
+      while (v20 < v21 && v41[1]);
     }
 
     else
     {
-      result = 12;
+      return 12;
     }
   }
 
   else
   {
-    v17 = fsevent_default_log();
+    v17 = fsevent_default_log(v10, kq);
     result = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
     if (result)
     {
       watch_all_parents_cold_1();
-      result = 0;
+      return 0;
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7392,240 +7385,164 @@ char *my_dirname(char *__s, char *a2)
 uint64_t FSEventsClientProcessMessageCallback(uint64_t a1)
 {
   MEMORY[0x1EEE9AC00](a1);
-  v5 = *MEMORY[0x1E69E9840];
-  result = FSEventsD2F_server(v1, v4);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *MEMORY[0x1E69E9840];
+  return FSEventsD2F_server(v1, v3);
 }
 
 void FSEventStreamStart_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamStart_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamStart_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void register_with_server_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void register_with_server_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void register_with_server_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void register_with_server_cold_4()
 {
   OUTLINED_FUNCTION_9();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = OUTLINED_FUNCTION_16(v1, v2);
-  mach_error_string(v3);
+  v2 = OUTLINED_FUNCTION_16(v0, v1);
+  mach_error_string(v2);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x26u);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x26u);
 }
 
 void register_with_server_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void register_with_server_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void register_with_server_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamRetainAndReturnSelf_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void FSEventStreamRelease_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamRelease_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void FSEventStreamCopyDescription_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamCopyDescription_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamStop_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamStop_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void dispose_f2d_private_port_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v7 = *MEMORY[0x1E69E9840];
   mach_error_string(v0);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void dispose_f2d_private_port_cold_2(mach_error_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   mach_error_string(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void implementation_callback_rpc_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void implementation_callback_rpc_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void implementation_callback_rpc_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void implementation_callback_rpc_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_5()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_6()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void implementation_callback_rpc_cold_7(uint8_t *buf, void *a2, os_log_t log)
@@ -7635,761 +7552,483 @@ void implementation_callback_rpc_cold_7(uint8_t *buf, void *a2, os_log_t log)
   _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "%s: ERROR: CFNumberCreate() => NULL\n", buf, 0xCu);
 }
 
-void implementation_callback_rpc_cold_9()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_10()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void implementation_callback_rpc_cold_11()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_12()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_13()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_14()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_15()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_16()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_17()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void implementation_callback_rpc_cold_18()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamRetain_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamGetLatestEventId_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamGetDeviceBeingWatched_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void FSEventStreamCopyPathsBeingWatched_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void FSEventStreamCopyPathsBeingWatched_cold_2(void *a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *(*a1 + 8 * a2);
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void FSEventStreamCopyPathsBeingWatched_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamCopyPathsBeingWatched_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamCreate_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamCreate_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamCreate_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void _FSEventStreamCreate_cold_4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamCreate_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamCreate_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamCreate_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void _FSEventStreamCreate_cold_8()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamCreate_cold_9()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamCreateRelativeToDevice_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamDeallocate_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamDeallocate_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamDeallocate_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _FSEventStreamDeallocate_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamScheduleWithRunLoop_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v7 = *MEMORY[0x1E69E9840];
   mach_error_string(v0);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamScheduleWithRunLoop_cold_2()
 {
   OUTLINED_FUNCTION_14();
-  v7 = *MEMORY[0x1E69E9840];
   mach_error_string(v0);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void FSEventStreamScheduleWithRunLoop_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void FSEventStreamScheduleWithRunLoop_cold_4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamScheduleWithRunLoop_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamScheduleWithRunLoop_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void allocate_d2f_port_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = OUTLINED_FUNCTION_16(v1, v2);
-  mach_error_string(v3);
+  v2 = OUTLINED_FUNCTION_16(v0, v1);
+  mach_error_string(v2);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x26u);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x26u);
 }
 
 void _createAndAddRunLoopSource_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _createAndAddRunLoopSource_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _createAndAddRunLoopSource_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _createAndAddRunLoopSource_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamUnscheduleFromRunLoop_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamUnscheduleFromRunLoop_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamUnscheduleFromRunLoop_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamSetDispatchQueue_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v7 = *MEMORY[0x1E69E9840];
   mach_error_string(v0);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void FSEventStreamSetDispatchQueue_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamSetDispatchQueue_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void process_dir_events_cold_1(int a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   strerror(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushAsync_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v7 = *MEMORY[0x1E69E9840];
   mach_error_string(v0);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushAsync_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushAsync_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushSync_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushSync_cold_2()
 {
   OUTLINED_FUNCTION_9();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = OUTLINED_FUNCTION_16(v1, v2);
-  mach_error_string(v3);
+  v2 = OUTLINED_FUNCTION_16(v0, v1);
+  mach_error_string(v2);
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x26u);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x26u);
 }
 
 void FSEventStreamFlushSync_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushSync_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushSync_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushSync_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushSync_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamFlushSync_cold_8()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _runRunLoopOnceForFlushSync_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_13_0();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _runRunLoopOnceForFlushSync_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_13_0();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamInvalidate_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamInvalidate_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventStreamInvalidate_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void dispose_d2f_port_cold_1(mach_error_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   mach_error_string(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void FSEvents_connect_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = OUTLINED_FUNCTION_16(v1, v2);
-  bootstrap_strerror(v3);
+  v2 = OUTLINED_FUNCTION_16(v0, v1);
+  bootstrap_strerror(v2);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
 }
 
 void FSEventsCopyUUIDForDevice_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void FSEventsPurgeEventsForDeviceUpToEventId_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void server_gone_StreamRef_callback_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void server_gone_StreamRef_callback_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void server_gone_StreamRef_callback_cold_3(int *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void root_dir_event_callback_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void root_dir_event_callback_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void root_dir_event_callback_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void watch_path_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void watch_path_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x30u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x30u);
 }
 
 void watch_path_cold_3()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x30u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x30u);
 }
 
 void watch_all_parents_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void receive_and_dispatch_rcv_msg_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void receive_and_dispatch_rcv_msg_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t f2d_flush_rpc(int a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12 = 0u;
+  v12 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
@@ -8430,8 +8069,8 @@ uint64_t f2d_flush_rpc(int a1, void *a2)
               v7 = *&msg[32];
               if (!*&msg[32])
               {
-                *a2 = v12;
-                goto LABEL_24;
+                *a2 = v11;
+                return v7;
               }
 
               goto LABEL_23;
@@ -8474,14 +8113,12 @@ uint64_t f2d_flush_rpc(int a1, void *a2)
 
 LABEL_23:
       mach_msg_destroy(msg);
-      goto LABEL_24;
+      return v7;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -8704,12 +8341,10 @@ void _XCFRelease(int a1, CFTypeRef cf)
 
 uint64_t _XCFStringHashCaseInsensitive(const __CFString *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
   if (!CStringPtr)
   {
-    v20 = 0u;
-    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
     v16 = 0u;
@@ -8717,95 +8352,92 @@ uint64_t _XCFStringHashCaseInsensitive(const __CFString *a1)
     v14 = 0u;
     v15 = 0u;
     v12 = 0u;
-    *v13 = 0u;
-    if (a1 && (v7 = CFGetTypeID(a1), v7 == CFStringGetTypeID()))
+    v13 = 0u;
+    v10 = 0u;
+    *v11 = 0u;
+    if (a1 && (v6 = CFGetTypeID(a1), CStringPtr = CFStringGetTypeID(), v6 == CStringPtr))
     {
       Length = CFStringGetLength(a1);
-      if (XCFBufInitWithCFStringRange(&v12, a1, 0, Length, 0))
+      CStringPtr = XCFBufInitWithCFStringRange(&v10, a1, 0, Length, 0);
+      if (CStringPtr)
       {
-        v9 = _XCFHash8BitCaseInsensitive(v12, DWORD2(v12));
-        if (v13[0])
+        v8 = _XCFHash8BitCaseInsensitive(v10, DWORD2(v10));
+        if (v11[0])
         {
-          free(v13[0]);
+          free(v11[0]);
         }
 
-LABEL_14:
-        v11 = *MEMORY[0x1E69E9840];
-        return v9;
+        return v8;
       }
     }
 
     else
     {
-      *&v12 = &v13[1] + 4;
-      DWORD2(v12) = 0;
-      LODWORD(v13[1]) = 127;
-      v13[0] = 0;
-      BYTE4(v13[1]) = 0;
+      *&v10 = &v11[1] + 4;
+      DWORD2(v10) = 0;
+      LODWORD(v11[1]) = 127;
+      v11[0] = 0;
+      BYTE4(v11[1]) = 0;
     }
 
-    v10 = _LSDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = _LSDefaultLog(CStringPtr);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      _XCFStringHashCaseInsensitive_cold_1(v10);
+      _XCFStringHashCaseInsensitive_cold_1(v9);
     }
 
-    v9 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   v3 = CStringPtr;
   v4 = strlen(CStringPtr);
-  v5 = *MEMORY[0x1E69E9840];
 
   return _XCFHash8BitCaseInsensitive(v3, v4);
 }
 
 CFArrayRef XCFArrayCreateWithSet(const __CFAllocator *a1, CFSetRef theSet, const CFArrayCallBacks *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   Count = CFSetGetCount(theSet);
   v7 = Count;
-  v8 = v12;
+  v8 = v11;
   if (Count >= 0x101)
   {
     v8 = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
   }
 
-  memset(v12, 0, 512);
+  memset(v11, 0, 512);
   CFSetGetValues(theSet, v8);
   v9 = CFArrayCreate(a1, v8, v7, a3);
-  if (v8 != v12)
+  if (v8 != v11)
   {
     free(v8);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 CFSetRef XCFSetCreateWithArray(const __CFAllocator *a1, CFArrayRef theArray, const CFSetCallBacks *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   Count = CFArrayGetCount(theArray);
   v7 = Count;
-  v8 = v12;
+  v8 = v11;
   if (Count >= 0x101)
   {
     v8 = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
   }
 
-  memset(v12, 0, 512);
-  v14.location = 0;
-  v14.length = v7;
-  CFArrayGetValues(theArray, v14, v8);
+  memset(v11, 0, 512);
+  v13.location = 0;
+  v13.length = v7;
+  CFArrayGetValues(theArray, v13, v8);
   v9 = CFSetCreate(a1, v8, v7, a3);
-  if (v8 != v12)
+  if (v8 != v11)
   {
     free(v8);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -8988,7 +8620,7 @@ const __CFString *XCFURLCopyRelativeFileSystemPath(const __CFURL *a1, const __CF
 
 void XCFURLEnumerate(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = v7;
   if (a1)
@@ -9014,41 +8646,41 @@ LABEL_3:
   if (v9)
   {
     v10 = v9;
-    v18 = 0;
+    v17 = 0;
     while (1)
     {
+      v15 = 0;
       v16 = 0;
-      v17 = 0;
-      v11 = MEMORY[0x1865D57C0](v10, &v17, &v16);
+      v11 = MEMORY[0x1865D57C0](v10, &v16, &v15);
       v12 = v11;
       if (v11 > 2)
       {
         if (v11 == 3)
         {
-          v14 = _LSDefaultLog();
+          v14 = _LSDefaultLog(3);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 138478083;
-            v20 = a1;
-            v21 = 2114;
-            v22 = v16;
+            v19 = a1;
+            v20 = 2114;
+            v21 = v15;
             _os_log_error_impl(&dword_18162D000, v14, OS_LOG_TYPE_ERROR, "Error (non-fatal) enumerating %{private}@: %{public}@", buf, 0x16u);
           }
 
-          (v8)[2](v8, v10, 0, v16, &v18);
+          (v8)[2](v8, v10, 0, v15, &v17);
           goto LABEL_18;
         }
 
         if (v11 != 4)
         {
 LABEL_11:
-          v13 = _LSDefaultLog();
+          v13 = _LSDefaultLog(v11);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138478083;
-            v20 = a1;
-            v21 = 2048;
-            v22 = v12;
+            v19 = a1;
+            v20 = 2048;
+            v21 = v12;
             _os_log_debug_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEBUG, "Unexpected CFURLEnumeratorResult when enumerating %{private}@: %lli", buf, 0x16u);
           }
         }
@@ -9056,7 +8688,7 @@ LABEL_11:
 
       else if (v11 == 1)
       {
-        (v8)[2](v8, v10, v17, 0, &v18);
+        (v8)[2](v8, v10, v16, 0, &v17);
       }
 
       else
@@ -9066,32 +8698,30 @@ LABEL_11:
           goto LABEL_11;
         }
 
-        v18 = 1;
+        v17 = 1;
       }
 
 LABEL_18:
 
-      if (v18)
+      if (v17)
       {
         CFRelease(v10);
         break;
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-id _LSGetFrontBoardOptionsDictionaryClasses()
+id _LSGetFrontBoardOptionsDictionaryClasses(uint64_t a1)
 {
   if (_LSGetFrontBoardOptionsDictionaryClasses_once != -1)
   {
     _LSGetFrontBoardOptionsDictionaryClasses_cold_1();
   }
 
-  v1 = _LSGetFrontBoardOptionsDictionaryClasses_result;
+  v2 = _LSGetFrontBoardOptionsDictionaryClasses_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t _XCFHash8BitCaseInsensitive(unsigned __int8 *a1, unint64_t a2)
@@ -9149,7 +8779,7 @@ Class initBSServiceConnectionEndpoint()
 
   result = objc_getClass("BSServiceConnectionEndpoint");
   classBSServiceConnectionEndpoint = result;
-  getBSServiceConnectionEndpointClass[0] = BSServiceConnectionEndpointFunction;
+  getBSServiceConnectionEndpointClass = BSServiceConnectionEndpointFunction;
   return result;
 }
 
@@ -9162,7 +8792,7 @@ Class initUISClickAttribution()
 
   result = objc_getClass("UISClickAttribution");
   classUISClickAttribution = result;
-  getUISClickAttributionClass[0] = UISClickAttributionFunction;
+  getUISClickAttributionClass = UISClickAttributionFunction;
   return result;
 }
 
@@ -9175,11 +8805,11 @@ Class initUISPasteSharingToken()
 
   result = objc_getClass("UISPasteSharingToken");
   classUISPasteSharingToken = result;
-  getUISPasteSharingTokenClass[0] = UISPasteSharingTokenFunction;
+  getUISPasteSharingTokenClass = UISPasteSharingTokenFunction;
   return result;
 }
 
-uint64_t CSBindableKeyMapNextKey()
+uint64_t CSBindableKeyMapNextKey(uint64_t a1, uint64_t a2)
 {
   Header = CSMapGetHeader();
   if (!Header)
@@ -9187,9 +8817,9 @@ uint64_t CSBindableKeyMapNextKey()
     return 0;
   }
 
-  v1 = *Header;
+  v3 = *Header;
   CSMapWriteToHeader();
-  return v1;
+  return v3;
 }
 
 id fileSystemRealPath(void *a1, void *a2)
@@ -9244,27 +8874,28 @@ void sub_181685CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t _FSNodeGetNonFictionalDeviceNumber(FSNode *a1)
 {
+  v8 = 0;
   v7 = 0;
-  v6 = 0;
-  v1 = [(FSNode *)a1 getDeviceNumber:&v7 error:&v6];
-  v2 = v6;
+  v1 = [(FSNode *)a1 getDeviceNumber:&v8 error:&v7];
+  v2 = v7;
+  v3 = v2;
   if (v1)
   {
-    v3 = v7;
+    v4 = v8;
   }
 
   else
   {
-    v4 = _LSDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _LSDefaultLog(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      _FSNodeGetNonFictionalDeviceNumber(v2, v4);
+      _FSNodeGetNonFictionalDeviceNumber(v3, v5);
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_18168656C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
@@ -9276,24 +8907,22 @@ void sub_18168656C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 id anonymous namespace::LSDefaultApplicationQueryServerStateManager::modify(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v9 = &unk_1EEF61C98;
-  v10 = a2;
-  v12 = &v9;
-  v3 = LaunchServices::LSStatePlist::modify(a1, &v9);
-  std::__function::__value_func<objc_object * ()(objc_object *,NSError *)>::~__value_func[abi:nn200100](&v9);
+  v14 = *MEMORY[0x1E69E9840];
+  v8 = &unk_1EEF61C98;
+  v9 = a2;
+  v11 = &v8;
+  v3 = LaunchServices::LSStatePlist::modify(a1, &v8);
+  std::__function::__value_func<objc_object * ()(objc_object *,NSError *)>::~__value_func[abi:nn200100](&v8);
   v4 = os_transaction_create();
-  v5 = _LSServer_GetIOQueue();
-  v9 = MEMORY[0x1E69E9820];
-  v10 = 3221225472;
-  v11 = ___ZN12_GLOBAL__N_143LSDefaultApplicationQueryServerStateManager12scheduleSaveEv_block_invoke;
-  v12 = &unk_1E6A18D78;
-  v14 = a1;
+  v5 = _LSServer_GetIOQueue(v4);
+  v8 = MEMORY[0x1E69E9820];
+  v9 = 3221225472;
+  v10 = ___ZN12_GLOBAL__N_143LSDefaultApplicationQueryServerStateManager12scheduleSaveEv_block_invoke;
+  v11 = &unk_1E6A18D78;
+  v13 = a1;
   v6 = v4;
-  v13 = v6;
-  _LSDispatchCoalescedAfterDelay((a1 + 64), v5, &v9, 1.0);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v12 = v6;
+  _LSDispatchCoalescedAfterDelay((a1 + 64), v5, &v8, 1.0);
 
   return v3;
 }
@@ -9323,53 +8952,53 @@ void sub_181689328(_Unwind_Exception *a1)
 
 BOOL anonymous namespace::LSDefaultApplicationQueryServerStateManager::validatePlist(_anonymous_namespace_::LSDefaultApplicationQueryServerStateManager *this, objc_object *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v17 = this;
+  v28 = *MEMORY[0x1E69E9840];
+  v16 = this;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    obj = v17;
-    v2 = [(_anonymous_namespace_::LSDefaultApplicationQueryServerStateManager *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    obj = v16;
+    v2 = [(_anonymous_namespace_::LSDefaultApplicationQueryServerStateManager *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v2)
     {
-      v3 = *v24;
+      v3 = *v23;
       v4 = 1;
       do
       {
         for (i = 0; i != v2; ++i)
         {
-          if (*v24 != v3)
+          if (*v23 != v3)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v23 + 1) + 8 * i);
+          v6 = *(*(&v22 + 1) + 8 * i);
           if (_NSIsNSString())
           {
             v7 = [(_anonymous_namespace_::LSDefaultApplicationQueryServerStateManager *)obj objectForKey:v6];
-            v21 = 0u;
-            v22 = 0u;
-            v19 = 0u;
             v20 = 0u;
+            v21 = 0u;
+            v18 = 0u;
+            v19 = 0u;
             v8 = v7;
-            v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
             if (v9)
             {
-              v10 = *v20;
+              v10 = *v19;
               do
               {
                 for (j = 0; j != v9; ++j)
                 {
-                  if (*v20 != v10)
+                  if (*v19 != v10)
                   {
                     objc_enumerationMutation(v8);
                   }
 
-                  v12 = *(*(&v19 + 1) + 8 * j);
+                  v12 = *(*(&v18 + 1) + 8 * j);
                   if (_NSIsNSString())
                   {
                     v13 = [v8 objectForKey:v12];
@@ -9391,7 +9020,7 @@ BOOL anonymous namespace::LSDefaultApplicationQueryServerStateManager::validateP
                   }
                 }
 
-                v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
+                v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
               }
 
               while (v9);
@@ -9404,7 +9033,7 @@ BOOL anonymous namespace::LSDefaultApplicationQueryServerStateManager::validateP
           }
         }
 
-        v2 = [(_anonymous_namespace_::LSDefaultApplicationQueryServerStateManager *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v2 = [(_anonymous_namespace_::LSDefaultApplicationQueryServerStateManager *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v2);
@@ -9421,7 +9050,6 @@ BOOL anonymous namespace::LSDefaultApplicationQueryServerStateManager::validateP
     v4 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -9449,87 +9077,392 @@ uint64_t std::__function::__value_func<BOOL ()(objc_object *)>::~__value_func[ab
   return a1;
 }
 
-void anonymous namespace::LSDefaultApplicationQueryState::fromValidatedPlist(_anonymous_namespace_::LSDefaultApplicationQueryState *this@<X0>, void *a2@<X8>)
+void anonymous namespace::LSDefaultApplicationQueryState::fromValidatedPlist(uint64_t *__return_ptr a1@<X8>, _anonymous_namespace_::LSDefaultApplicationQueryState *this@<X0>)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v16 = this;
-  v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v30 = 0u;
-  v31 = 0u;
+  v34 = *MEMORY[0x1E69E9840];
+  v14 = this;
+  v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v28 = 0u;
   v29 = 0u;
-  obj = v16;
-  v3 = [(_anonymous_namespace_::LSDefaultApplicationQueryState *)obj countByEnumeratingWithState:&v28 objects:v35 count:16, v16];
-  if (v3)
+  v26 = 0u;
+  v27 = 0u;
+  obj = v14;
+  v2 = [(_anonymous_namespace_::LSDefaultApplicationQueryState *)obj countByEnumeratingWithState:&v26 objects:v33 count:16, v14];
+  if (v2)
   {
-    v18 = *v29;
+    v16 = *v27;
     do
     {
-      v20 = v3;
-      for (i = 0; i != v20; ++i)
+      v18 = v2;
+      for (i = 0; i != v18; ++i)
       {
-        if (*v29 != v18)
+        if (*v27 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v28 + 1) + 8 * i);
-        v23 = [(_anonymous_namespace_::LSDefaultApplicationQueryState *)obj objectForKey:v5];
-        v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v22 = v5;
-        v26 = 0u;
-        v27 = 0u;
+        v4 = *(*(&v26 + 1) + 8 * i);
+        v21 = [(_anonymous_namespace_::LSDefaultApplicationQueryState *)obj objectForKey:v4];
+        v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v20 = v4;
         v24 = 0u;
         v25 = 0u;
-        v7 = v23;
-        v8 = [v7 countByEnumeratingWithState:&v24 objects:v34 count:16];
-        if (v8)
+        v22 = 0u;
+        v23 = 0u;
+        v6 = v21;
+        v7 = [v6 countByEnumeratingWithState:&v22 objects:v32 count:16];
+        if (v7)
         {
-          v9 = *v25;
+          v8 = *v23;
           do
           {
-            for (j = 0; j != v8; ++j)
+            for (j = 0; j != v7; ++j)
             {
-              if (*v25 != v9)
+              if (*v23 != v8)
               {
-                objc_enumerationMutation(v7);
+                objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v24 + 1) + 8 * j);
-              v12 = [v7 objectForKey:v11];
-              v13 = [LSDefaultApplicationQueryEntry createFromPlistRepresentation:v12];
-              if (v13)
+              v10 = *(*(&v22 + 1) + 8 * j);
+              v11 = [v6 objectForKey:v10];
+              v12 = [LSDefaultApplicationQueryEntry createFromPlistRepresentation:v11];
+              if (v12)
               {
-                [v6 setObject:v13 forKey:v11];
+                [v5 setObject:v12 forKey:v10];
               }
 
               else
               {
-                v14 = _LSDefaultLog();
-                if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+                v13 = _LSDefaultLog(0);
+                if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412290;
-                  v33 = v12;
-                  _os_log_fault_impl(&dword_18162D000, v14, OS_LOG_TYPE_FAULT, "couldn't make query entry from category dict %@!", buf, 0xCu);
+                  v31 = v11;
+                  _os_log_fault_impl(&dword_18162D000, v13, OS_LOG_TYPE_FAULT, "couldn't make query entry from category dict %@!", buf, 0xCu);
                 }
               }
             }
 
-            v8 = [v7 countByEnumeratingWithState:&v24 objects:v34 count:16];
+            v7 = [v6 countByEnumeratingWithState:&v22 objects:v32 count:16];
           }
 
-          while (v8);
+          while (v7);
         }
 
-        [v19 setObject:v6 forKey:v22];
+        [v17 setObject:v5 forKey:v20];
       }
 
-      v3 = [(_anonymous_namespace_::LSDefaultApplicationQueryState *)obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v2 = [(_anonymous_namespace_::LSDefaultApplicationQueryState *)obj countByEnumeratingWithState:&v26 objects:v33 count:16];
     }
 
-    while (v3);
+    while (v2);
   }
 
-  *a2 = v19;
-  v15 = *MEMORY[0x1E69E9840];
+  *a1 = v17;
+}
+
+uint64_t std::__function::__func<anonymous namespace::LSDefaultApplicationQueryServerStateManager::modify(std::function<anonymous namespace::LSDefaultApplicationQueryState ()(anonymous namespace::LSDefaultApplicationQueryState)> const&)::{lambda(objc_object *,NSError *)#1},std::allocator<anonymous namespace::LSDefaultApplicationQueryServerStateManager::modify(std::function<anonymous namespace::LSDefaultApplicationQueryState ()(anonymous namespace::LSDefaultApplicationQueryState)> const&)::{lambda(objc_object *,NSError *)#1}>,objc_object * ()(objc_object *,NSError *)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1EEF61C98;
+  a2[1] = v2;
+  return result;
+}
+
+id std::__function::__func<anonymous namespace::LSDefaultApplicationQueryServerStateManager::modify(std::function<anonymous namespace::LSDefaultApplicationQueryState ()(anonymous namespace::LSDefaultApplicationQueryState)> const&)::{lambda(objc_object *,NSError *)#1},std::allocator<anonymous namespace::LSDefaultApplicationQueryServerStateManager::modify(std::function<anonymous namespace::LSDefaultApplicationQueryState ()(anonymous namespace::LSDefaultApplicationQueryState)> const&)::{lambda(objc_object *,NSError *)#1}>,objc_object * ()(objc_object *,NSError *)>::operator()(uint64_t a1, id *a2, void **a3)
+{
+  v41[16] = *MEMORY[0x1E69E9840];
+  v4 = *a3;
+  v5 = *a2;
+  v22 = v5;
+  v23 = v4;
+  v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v31 = v24;
+  if (v5)
+  {
+    v6 = v41[0];
+    v31 = v41[0];
+
+    v24 = v6;
+  }
+
+  v7 = *(a1 + 8);
+  v8 = *(v7 + 24);
+  if (!v8)
+  {
+    std::__throw_bad_function_call[abi:nn200100]();
+  }
+
+  (*(*v8 + 48))(&v30);
+
+  v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  obj = v30;
+  v9 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+  if (v9)
+  {
+    v26 = *v37;
+    do
+    {
+      v28 = v9;
+      for (i = 0; i != v28; ++i)
+      {
+        if (*v37 != v26)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v11 = *(*(&v36 + 1) + 8 * i);
+        v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v13 = [v30 objectForKey:{v11, v22, v23}];
+        v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
+        v14 = v13;
+        v15 = [v14 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        if (v15)
+        {
+          v16 = *v33;
+          do
+          {
+            for (j = 0; j != v15; ++j)
+            {
+              if (*v33 != v16)
+              {
+                objc_enumerationMutation(v14);
+              }
+
+              v18 = *(*(&v32 + 1) + 8 * j);
+              v19 = [v14 objectForKey:v18];
+              v20 = [v19 plistRepresentation];
+
+              [v12 setObject:v20 forKey:v18];
+            }
+
+            v15 = [v14 countByEnumeratingWithState:&v32 objects:v40 count:16];
+          }
+
+          while (v15);
+        }
+
+        [v27 setObject:v12 forKey:v11];
+      }
+
+      v9 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+    }
+
+    while (v9);
+  }
+
+  return v27;
+}
+
+void *anonymous namespace::LSDefaultApplicationQueryState::LSDefaultApplicationQueryState(void *a1, id *a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v5 = *a2;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
+  {
+    v7 = *v14;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v14 != v7)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [*a2 objectForKey:{v9, v13}];
+        v11 = [v10 mutableCopy];
+        [v4 setObject:v11 forKey:v9];
+      }
+
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v6);
+  }
+
+  *a1 = v4;
+  return a1;
+}
+
+uint64_t std::__function::__value_func<objc_object * ()(objc_object *,NSError *)>::~__value_func[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+void ___ZN12_GLOBAL__N_143LSDefaultApplicationQueryServerStateManager12scheduleSaveEv_block_invoke(uint64_t a1)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v1 = LaunchServices::LSStatePlist::save(*(a1 + 40));
+  v2 = _LSDefaultLog(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = 138412290;
+    v4 = v1;
+    _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "LSDefaultApplicationQueryServerStateManager saved state with error %@", &v3, 0xCu);
+  }
+}
+
+void sub_18168AA0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9)
+{
+  v14 = v13;
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t _LSAliasAdd(void *a1, void *a2, void *a3)
+{
+  v13[1] = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a2;
+  if (v5 && (v7 = [(_LSDatabase *)v5 store], v6) && v7)
+  {
+    [(_LSDatabase *)v5 store];
+    [(_LSDatabase *)v5 schema];
+    [v6 length];
+    [v6 bytes];
+    v8 = CSStoreAllocUnitWithData();
+    v9 = v8;
+    if (a3 && !v8)
+    {
+      _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -9493, 0, "_LSAliasAdd", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSAlias.mm", 27);
+      *a3 = v9 = 0;
+    }
+  }
+
+  else
+  {
+    if (a3)
+    {
+      v12 = *MEMORY[0x1E696A278];
+      v13[0] = @"invalid input parameters";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      *a3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v10, "_LSAliasAdd", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSAlias.mm", 31);
+    }
+
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+uint64_t _LSAliasAddNode(void *a1, void *a2, void *a3)
+{
+  v13[1] = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a2;
+  if (v5 && (v7 = [(_LSDatabase *)v5 store], v6) && v7)
+  {
+    v8 = [v6 bookmarkDataRelativeToNode:0 error:a3];
+    if (v8)
+    {
+      v9 = _LSAliasAdd(v5, v8, a3);
+    }
+
+    else
+    {
+      v9 = 4294956486;
+    }
+  }
+
+  else
+  {
+    if (a3)
+    {
+      v12 = *MEMORY[0x1E696A278];
+      v13[0] = @"invalid input parameters";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      *a3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v10, "_LSAliasAddNode", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSAlias.mm", 54);
+    }
+
+    v9 = 4294956486;
+  }
+
+  return v9;
+}
+
+uint64_t _LSAliasAddURL(void *a1, void *a2, void *a3)
+{
+  v13[1] = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a2;
+  if (v5 && (v7 = -[_LSDatabase store](v5), v6) && v7 && [v6 isFileURL])
+  {
+    v8 = [[FSNode alloc] initWithURL:v6 flags:0 error:a3];
+    if (v8)
+    {
+      v9 = _LSAliasAddNode(v5, v8, a3);
+    }
+
+    else
+    {
+      v9 = 4294956486;
+    }
+  }
+
+  else
+  {
+    if (a3)
+    {
+      v12 = *MEMORY[0x1E696A278];
+      v13[0] = @"invalid input parameters";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      *a3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v10, "_LSAliasAddURL", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSAlias.mm", 78);
+    }
+
+    v9 = 4294956486;
+  }
+
+  return v9;
+}
+
+uint64_t _LSAliasRemove(void *a1, uint64_t a2)
+{
+  v2 = a2;
+  v3 = a1;
+  v4 = v3;
+  if (v3)
+  {
+    v5 = [(_LSDatabase *)v3 store];
+    v6 = 4294967246;
+    if (v2 && v5)
+    {
+      [(_LSDatabase *)v4 store];
+      [(_LSDatabase *)v4 schema];
+      CSStoreFreeUnit();
+      v6 = 0;
+    }
+  }
+
+  else
+  {
+    v6 = 4294967246;
+  }
+
+  return v6;
 }

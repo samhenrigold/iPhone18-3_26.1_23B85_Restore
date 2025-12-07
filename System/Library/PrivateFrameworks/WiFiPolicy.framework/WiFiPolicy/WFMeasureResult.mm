@@ -309,23 +309,23 @@
 
     if (numAcAttempted == numAcFailed)
     {
-      v13 = @"_All";
+      v11 = @"_All";
     }
 
     else
     {
-      v20 = numAcFailed;
-      v21 = numAcAttempted - numAcFailed;
-      v13 = @"_%luACF_%luP";
+      v12 = numAcFailed;
+      v13 = numAcAttempted - numAcFailed;
+      v11 = @"_%luACF_%luP";
     }
   }
 
   else
   {
-    v13 = @"_OK";
+    v11 = @"_OK";
   }
 
-  [string appendFormat:v13, v20, v21];
+  [string appendFormat:v11, v12, v13];
   if (!v4)
   {
 LABEL_16:
@@ -338,9 +338,7 @@ LABEL_16:
   }
 
 LABEL_28:
-  trafficClassBESucceededLarge = self->_trafficClassBESucceededLarge;
-  trafficClassBESucceededSmall = self->_trafficClassBESucceededSmall;
-  [string appendFormat:@"_BEL%d:%d_S%d:%d", trafficClassBESucceededLarge, self->_trafficClassBEAttemptedLarge, trafficClassBESucceededSmall, self->_trafficClassBEAttemptedSmall];
+  [string appendFormat:@"_BEL%d:%d_S%d:%d", self->_trafficClassBESucceededLarge, self->_trafficClassBEAttemptedLarge, self->_trafficClassBESucceededSmall, self->_trafficClassBEAttemptedSmall];
   if (!v5)
   {
 LABEL_17:
@@ -353,9 +351,7 @@ LABEL_17:
   }
 
 LABEL_29:
-  trafficClassBKSucceededLarge = self->_trafficClassBKSucceededLarge;
-  trafficClassBKSucceededSmall = self->_trafficClassBKSucceededSmall;
-  [string appendFormat:@"_BKL%d:%d_S%d:%d", trafficClassBKSucceededLarge, self->_trafficClassBKAttemptedLarge, trafficClassBKSucceededSmall, self->_trafficClassBKAttemptedSmall];
+  [string appendFormat:@"_BKL%d:%d_S%d:%d", self->_trafficClassBKSucceededLarge, self->_trafficClassBKAttemptedLarge, self->_trafficClassBKSucceededSmall, self->_trafficClassBKAttemptedSmall];
   if (!v6)
   {
 LABEL_18:
@@ -368,15 +364,11 @@ LABEL_18:
   }
 
 LABEL_30:
-  trafficClassVOSucceededLarge = self->_trafficClassVOSucceededLarge;
-  trafficClassVOSucceededSmall = self->_trafficClassVOSucceededSmall;
-  [string appendFormat:@"_VOL%d:%d_S%d:%d", trafficClassVOSucceededLarge, self->_trafficClassVOAttemptedLarge, trafficClassVOSucceededSmall, self->_trafficClassVOAttemptedSmall];
+  [string appendFormat:@"_VOL%d:%d_S%d:%d", self->_trafficClassVOSucceededLarge, self->_trafficClassVOAttemptedLarge, self->_trafficClassVOSucceededSmall, self->_trafficClassVOAttemptedSmall];
   if (v7)
   {
 LABEL_19:
-    trafficClassVISucceededLarge = self->_trafficClassVISucceededLarge;
-    trafficClassVISucceededSmall = self->_trafficClassVISucceededSmall;
-    [string appendFormat:@"_VIL%d:%d_S%d:%d", trafficClassVISucceededLarge, self->_trafficClassVIAttemptedLarge, trafficClassVISucceededSmall, self->_trafficClassVIAttemptedSmall];
+    [string appendFormat:@"_VIL%d:%d_S%d:%d", self->_trafficClassVISucceededLarge, self->_trafficClassVIAttemptedLarge, self->_trafficClassVISucceededSmall, self->_trafficClassVIAttemptedSmall];
   }
 
 LABEL_20:
@@ -447,60 +439,63 @@ LABEL_20:
     for (i = 0; i < outCount; ++i)
     {
       Attributes = property_getAttributes(v5[i]);
-      if (!Attributes)
+      if (Attributes)
       {
-        goto LABEL_7;
-      }
+        v8 = Attributes;
+        v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:Attributes];
+        v10 = [v9 hasPrefix:@"T@"];
 
-      v8 = Attributes;
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:Attributes];
-      v10 = [v9 hasPrefix:@"T@"];
+        if (v10)
+        {
+          continue;
+        }
 
-      if ((v10 & 1) == 0)
-      {
         v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
         v12 = [v11 hasPrefix:@"T#"];
 
-        if ((v12 & 1) == 0)
+        if (v12)
         {
-          v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
-          v14 = [v13 hasPrefix:@"T:"];
+          continue;
+        }
 
-          if ((v14 & 1) == 0)
+        v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
+        v14 = [v13 hasPrefix:@"T:"];
+
+        if (v14)
+        {
+          continue;
+        }
+      }
+
+      v15 = [MEMORY[0x277CCACA8] stringWithCString:property_getName(v5[i]) encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+      uppercaseLetterCharacterSet = [MEMORY[0x277CCA900] uppercaseLetterCharacterSet];
+      v17 = [v15 rangeOfCharacterFromSet:uppercaseLetterCharacterSet];
+      v19 = v18;
+
+      if (([v15 hasSuffix:@"ResultsValid"] & 1) == 0 && (v17 != 0x7FFFFFFFFFFFFFFFLL || v19 != 0))
+      {
+        v21 = [v15 substringToIndex:v17];
+        v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ResultsValid", v21];
+        v23 = objc_opt_class();
+        if (class_getProperty(v23, [v22 UTF8String]))
+        {
+          v24 = [(WFMeasureResult *)self valueForKey:v22];
+          if (v24)
           {
-LABEL_7:
-            v15 = [MEMORY[0x277CCACA8] stringWithCString:property_getName(v5[i]) encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-            uppercaseLetterCharacterSet = [MEMORY[0x277CCA900] uppercaseLetterCharacterSet];
-            v17 = [v15 rangeOfCharacterFromSet:uppercaseLetterCharacterSet];
-            v19 = v18;
-
-            if (([v15 hasSuffix:@"ResultsValid"] & 1) == 0 && (v17 != 0x7FFFFFFFFFFFFFFFLL || v19 != 0))
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
             {
-              v21 = [v15 substringToIndex:v17];
-              v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ResultsValid", v21];
-              v23 = objc_opt_class();
-              if (class_getProperty(v23, [v22 UTF8String]))
+              if ([v24 BOOLValue])
               {
-                v24 = [(WFMeasureResult *)self valueForKey:v22];
-                if (v24)
-                {
-                  objc_opt_class();
-                  if (objc_opt_isKindOfClass())
-                  {
-                    if ([v24 BOOLValue])
-                    {
-                      [v27 addObject:v15];
-                    }
-                  }
-                }
-              }
-
-              else
-              {
-                v24 = 0;
+                [v27 addObject:v15];
               }
             }
           }
+        }
+
+        else
+        {
+          v24 = 0;
         }
       }
     }

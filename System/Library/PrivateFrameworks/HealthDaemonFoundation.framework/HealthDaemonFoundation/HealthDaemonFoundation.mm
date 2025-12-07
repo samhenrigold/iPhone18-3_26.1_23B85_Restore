@@ -58,7 +58,7 @@ id HDSQLiteEntityDisambiguatedDatabaseTable(void *a1)
 
 void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt *a1, int a2, void *a3)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v5 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -83,7 +83,7 @@ void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt *a1, int a2, void *a3)
     if (objc_opt_isKindOfClass())
     {
       [v5 timeIntervalSinceReferenceDate];
-      sqlite3_bind_double(a1, a2, v9);
+      sqlite3_bind_double(a1, a2, v8);
     }
 
     else
@@ -93,24 +93,24 @@ void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt *a1, int a2, void *a3)
       {
         if ([v5 length] >= 0x7FFFFFFF)
         {
-          v16 = [MEMORY[0x277CCA890] currentHandler];
-          v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt * _Nonnull, int, id  _Nullable __strong)"}];
-          [v16 handleFailureInFunction:v17 file:@"HDSQLiteDatabase.mm" lineNumber:1505 description:{@"NSData parameter passed to SQLiteBindFoundationValueToStatement (%lu bytes) is larger than maximum allowed SQLite blob (%lu bytes)", objc_msgSend(v5, "length"), 0x7FFFFFFFLL}];
+          v15 = [MEMORY[0x277CCA890] currentHandler];
+          v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt * _Nonnull, int, id  _Nullable __strong)"}];
+          [v15 handleFailureInFunction:v16 file:@"HDSQLiteDatabase.mm" lineNumber:1505 description:{@"NSData parameter passed to SQLiteBindFoundationValueToStatement (%lu bytes) is larger than maximum allowed SQLite blob (%lu bytes)", objc_msgSend(v5, "length"), 0x7FFFFFFFLL}];
         }
 
-        v10 = [v5 bytes];
-        v11 = [v5 length];
-        if (v10)
+        v9 = [v5 bytes];
+        v10 = [v5 length];
+        if (v9)
         {
-          v12 = v10;
+          v11 = v9;
         }
 
         else
         {
-          v12 = "";
+          v11 = "";
         }
 
-        sqlite3_bind_blob(a1, a2, v12, v11, 0xFFFFFFFFFFFFFFFFLL);
+        sqlite3_bind_blob(a1, a2, v11, v10, 0xFFFFFFFFFFFFFFFFLL);
       }
 
       else
@@ -118,10 +118,10 @@ void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt *a1, int a2, void *a3)
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v20[0] = 0;
-          v20[1] = 0;
-          [v5 getUUIDBytes:v20];
-          sqlite3_bind_blob(a1, a2, v20, 16, 0xFFFFFFFFFFFFFFFFLL);
+          v19[0] = 0;
+          v19[1] = 0;
+          [v5 getUUIDBytes:v19];
+          sqlite3_bind_blob(a1, a2, v19, 16, 0xFFFFFFFFFFFFFFFFLL);
         }
 
         else
@@ -129,17 +129,17 @@ void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt *a1, int a2, void *a3)
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v18 = [MEMORY[0x277CCA890] currentHandler];
-            v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt * _Nonnull, int, id  _Nullable __strong)"}];
-            [v18 handleFailureInFunction:v19 file:@"HDSQLiteDatabase.mm" lineNumber:1514 description:{@"Binding unexpected value class %@", objc_opt_class()}];
+            v17 = [MEMORY[0x277CCA890] currentHandler];
+            v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt * _Nonnull, int, id  _Nullable __strong)"}];
+            [v17 handleFailureInFunction:v18 file:@"HDSQLiteDatabase.mm" lineNumber:1514 description:{@"Binding unexpected value class %@", objc_opt_class()}];
           }
 
-          v13 = [v5 objCType];
-          v14 = *v13;
-          if ((v14 == 102 || v14 == 100) && !v13[1])
+          v12 = [v5 objCType];
+          v13 = *v12;
+          if ((v13 == 102 || v13 == 100) && !v12[1])
           {
             [v5 doubleValue];
-            sqlite3_bind_double(a1, a2, v15);
+            sqlite3_bind_double(a1, a2, v14);
           }
 
           else
@@ -155,13 +155,11 @@ void HDSQLiteBindFoundationValueToStatement(sqlite3_stmt *a1, int a2, void *a3)
   {
     sqlite3_bind_null(a1, a2);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void _BindValueToStatement(void *a1, sqlite3_stmt *a2, int *a3)
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v5 = a1;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -220,9 +218,9 @@ LABEL_20:
       {
         if (v5)
         {
-          v21 = [MEMORY[0x277CCA890] currentHandler];
-          v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void _BindValueToStatement(__strong id, sqlite3_stmt *, int *)"}];
-          [v21 handleFailureInFunction:v22 file:@"HDSQLitePredicate.m" lineNumber:1172 description:{@"Unsupported predicate value: %@", v5}];
+          v20 = [MEMORY[0x277CCA890] currentHandler];
+          v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void _BindValueToStatement(__strong id, sqlite3_stmt *, int *)"}];
+          [v20 handleFailureInFunction:v21 file:@"HDSQLitePredicate.m" lineNumber:1172 description:{@"Unsupported predicate value: %@", v5}];
         }
 
         else
@@ -233,11 +231,11 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v23[0] = 0;
-      v23[1] = 0;
-      [v5 getUUIDBytes:v23];
+      v22[0] = 0;
+      v22[1] = 0;
+      [v5 getUUIDBytes:v22];
       v16 = *a3;
-      v17 = v23;
+      v17 = v22;
       v15 = a2;
       v14 = 16;
     }
@@ -261,8 +259,6 @@ LABEL_20:
   sqlite3_bind_text(a2, v6, v8, -1, 0xFFFFFFFFFFFFFFFFLL);
 LABEL_21:
   ++*a3;
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 id HDSQLiteEntityDisambiguatedSQLForProperty(void *a1, void *a2)
@@ -341,10 +337,11 @@ id HDSQLiteRow::columnAsNaturalType(HDSQLiteRow *this, int a2)
   return v5;
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t OUTLINED_FUNCTION_0_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11)
@@ -354,7 +351,7 @@ uint64_t OUTLINED_FUNCTION_0_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   return v12;
 }
 
-uint64_t OUTLINED_FUNCTION_0_10()
+uint64_t OUTLINED_FUNCTION_0_10(uint64_t a1)
 {
 
   return NSRequestConcreteImplementation();
@@ -394,18 +391,11 @@ __CFString *HDSQLiteDatabaseNamePrefix(void *a1)
   return v2;
 }
 
-void OUTLINED_FUNCTION_2_1(uint64_t a1, ...)
+void OUTLINED_FUNCTION_2_1(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
+  va_start(va, a2);
 
-  [(HDAssertionManager *)v1 _lock_enumerateActiveAssertionsWithIdentifier:v2 handler:va];
-}
-
-uint64_t *OUTLINED_FUNCTION_2_2@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  [(HDAssertionManager *)v2 _lock_enumerateActiveAssertionsWithIdentifier:v3 handler:va];
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::~__hash_table(uint64_t a1)
@@ -455,57 +445,57 @@ sqlite3_int64 HDSQLiteRow::columnAsInt64(HDSQLiteRow *this, int a2)
   return sqlite3_column_int64(v4, v5);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::__emplace_unique_key_args<char const*,char const*,int &>(void *a1, const char **a2)
+uint64_t **std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::__emplace_unique_key_args<char const*,char const*,int &>(float *a1, const char **a2, void *a3, _DWORD *a4)
 {
-  v2 = *a2;
-  v3 = **a2;
-  if (v3)
+  v4 = *a2;
+  v5 = **a2;
+  if (v5)
   {
-    v4 = 0;
-    v5 = (v2 + 1);
+    v6 = 0;
+    v7 = (v4 + 1);
     do
     {
-      v4 = (1025 * (v4 + v3)) ^ ((1025 * (v4 + v3)) >> 6);
-      v6 = *v5++;
-      v3 = v6;
+      v6 = (1025 * (v6 + v5)) ^ ((1025 * (v6 + v5)) >> 6);
+      v8 = *v7++;
+      v5 = v8;
     }
 
-    while (v6);
-    v7 = 9 * v4;
+    while (v8);
+    v9 = 9 * v6;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  v8 = v7 ^ (v7 >> 11);
-  v9 = 32769 * v8;
-  v10 = a1[1];
-  if (!*&v10)
+  v10 = v9 ^ (v9 >> 11);
+  v11 = 32769 * v10;
+  v12 = *(a1 + 2);
+  if (!*&v12)
   {
     goto LABEL_23;
   }
 
-  v11 = vcnt_s8(v10);
-  v11.i16[0] = vaddlv_u8(v11);
-  v12 = v11.u32[0];
-  if (v11.u32[0] > 1uLL)
+  v13 = vcnt_s8(v12);
+  v13.i16[0] = vaddlv_u8(v13);
+  v14 = v13.u32[0];
+  if (v13.u32[0] > 1uLL)
   {
-    v13 = 32769 * v8;
-    if (v9 >= *&v10)
+    v15 = 32769 * v10;
+    if (v11 >= *&v12)
     {
-      v13 = v9 % *&v10;
+      v15 = v11 % *&v12;
     }
   }
 
   else
   {
-    v13 = v9 & (*&v10 - 1);
+    v15 = v11 & (*&v12 - 1);
   }
 
-  v14 = *(*a1 + 8 * v13);
-  if (!v14 || (v15 = *v14) == 0)
+  v16 = *(*a1 + 8 * v15);
+  if (!v16 || (v17 = *v16) == 0)
   {
 LABEL_23:
     operator new();
@@ -513,44 +503,44 @@ LABEL_23:
 
   while (1)
   {
-    v16 = v15[1];
-    if (v16 == v9)
+    v18 = v17[1];
+    if (v18 == v11)
     {
       break;
     }
 
-    if (v12 > 1)
+    if (v14 > 1)
     {
-      if (v16 >= *&v10)
+      if (v18 >= *&v12)
       {
-        v16 %= *&v10;
+        v18 %= *&v12;
       }
     }
 
     else
     {
-      v16 &= *&v10 - 1;
+      v18 &= *&v12 - 1;
     }
 
-    if (v16 != v13)
+    if (v18 != v15)
     {
       goto LABEL_23;
     }
 
 LABEL_22:
-    v15 = *v15;
-    if (!v15)
+    v17 = *v17;
+    if (!v17)
     {
       goto LABEL_23;
     }
   }
 
-  if (strcmp(v15[2], v2))
+  if (strcmp(v17[2], v4))
   {
     goto LABEL_22;
   }
 
-  return v15;
+  return v17;
 }
 
 uint64_t HDSQLiteColumnWithName(uint64_t a1, void *a2)
@@ -561,10 +551,10 @@ uint64_t HDSQLiteColumnWithName(uint64_t a1, void *a2)
   return v4;
 }
 
-uint64_t HDSQLiteRow::indexOfColumn(sqlite3_stmt **this, const char *a2)
+uint64_t HDSQLiteRow::indexOfColumn(HDSQLiteRow *this, const char *a2)
 {
   v8 = a2;
-  if (!this[6])
+  if (!*(this + 6))
   {
     v7 = 0;
     if (*(this + 5) >= 1)
@@ -572,8 +562,8 @@ uint64_t HDSQLiteRow::indexOfColumn(sqlite3_stmt **this, const char *a2)
       v3 = 0;
       do
       {
-        v6 = sqlite3_column_name(this[1], v3);
-        std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::__emplace_unique_key_args<char const*,char const*,int &>(this + 3, &v6);
+        v6 = sqlite3_column_name(*(this + 1), v3);
+        std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::__emplace_unique_key_args<char const*,char const*,int &>(this + 6, &v6, &v6, &v7);
         v3 = v7 + 1;
         v7 = v3;
       }
@@ -783,9 +773,9 @@ LABEL_7:
   return v5;
 }
 
-void sub_2515703B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_2515703B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -850,7 +840,7 @@ uint64_t HDSQLiteColumnWithNameAsInt64(uint64_t a1, void *a2)
   return v5;
 }
 
-uint64_t __HDSQLiteEntityForProperty_block_invoke(void *a1, id *a2, _BYTE *a3)
+void *__HDSQLiteEntityForProperty_block_invoke(void *a1, id *a2, _BYTE *a3)
 {
   result = [*a2 isEqualToString:a1[4]];
   if (result)
@@ -881,26 +871,21 @@ uint64_t sub_251570844()
     v4 = *(v3 + 16);
     if (v4)
     {
-      v15 = v2;
       sub_2515BBA2C();
-      v5 = (v3 + 48);
+      v5 = v3 + 48;
       do
       {
-        v7 = *(v5 - 2);
-        v6 = *(v5 - 1);
-        v8 = *v5;
-        v5 += 3;
+        v5 += 24;
 
         sub_2515B17CC();
-        v9 = sub_2515B19B0();
-        v10 = objc_allocWithZone(HDSQLiteEntityColumnDefinitionObject);
-        v11 = sub_2515BB8DC();
-        v12 = sub_2515BB8DC();
+        v6 = sub_2515B19B0();
+        v7 = objc_allocWithZone(HDSQLiteEntityColumnDefinitionObject);
+        v8 = sub_2515BB8DC();
+        v9 = sub_2515BB8DC();
 
-        [v10 initWithName:v11 columnType:v12 keyPathType:v9];
+        [v7 initWithName:v8 columnType:v9 keyPathType:v6];
 
         sub_2515BBA0C();
-        v13 = *(v15 + 16);
         sub_2515BBA3C();
         sub_2515BBA4C();
         sub_2515BBA1C();
@@ -908,12 +893,6 @@ uint64_t sub_251570844()
       }
 
       while (v4);
-
-      return v15;
-    }
-
-    else
-    {
     }
   }
 
@@ -1121,10 +1100,11 @@ id _HDDateForSQLiteValue(void *a1)
   return a1;
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void OUTLINED_FUNCTION_1_4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1143,7 +1123,7 @@ void OUTLINED_FUNCTION_1_5(os_unfair_lock_s *a1)
 
 uint64_t HDSQLiteStatementBinder::HDSQLiteStatementBinder(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   *a1 = a2;
   *(a1 + 8) = 0u;
@@ -1152,37 +1132,36 @@ uint64_t HDSQLiteStatementBinder::HDSQLiteStatementBinder(uint64_t a1, uint64_t 
   *(a1 + 48) = 0u;
   *(a1 + 64) = 0u;
   *(a1 + 80) = 1065353216;
-  v17 = 1;
+  v16 = 1;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = [*(*(&v13 + 1) + 8 * i) UTF8String];
-        std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::__emplace_unique_key_args<char const*,char const*,int &>((a1 + 8), &v12);
-        ++v17;
+        v11 = [*(*(&v12 + 1) + 8 * i) UTF8String];
+        std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::__emplace_unique_key_args<char const*,char const*,int &>((a1 + 8), &v11, &v11, &v16);
+        ++v16;
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v7);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1214,60 +1193,60 @@ uint64_t **HDSQLiteStatementBinder::_recordBoundProperty(HDSQLiteStatementBinder
     [v4 handleFailureInFunction:v5 file:@"HDSQLiteStatementBinder_Internal.h" lineNumber:162 description:{@"Attempt to bind property '%s' twice.", v6}];
   }
 
-  return std::__hash_table<char const*,HDSQLiteStatementBinder::_Hash,HDSQLiteStatementBinder::_Comparison,std::allocator<char const*>>::__emplace_unique_key_args<char const*,char const* const&>(this + 6, &v6);
+  return std::__hash_table<char const*,HDSQLiteStatementBinder::_Hash,HDSQLiteStatementBinder::_Comparison,std::allocator<char const*>>::__emplace_unique_key_args<char const*,char const* const&>(this + 6, &v6, &v6);
 }
 
-uint64_t **std::__hash_table<char const*,HDSQLiteStatementBinder::_Hash,HDSQLiteStatementBinder::_Comparison,std::allocator<char const*>>::__emplace_unique_key_args<char const*,char const* const&>(void *a1, const char **a2)
+uint64_t **std::__hash_table<char const*,HDSQLiteStatementBinder::_Hash,HDSQLiteStatementBinder::_Comparison,std::allocator<char const*>>::__emplace_unique_key_args<char const*,char const* const&>(void *a1, const char **a2, void *a3)
 {
-  v2 = *a2;
-  v3 = **a2;
-  if (v3)
+  v3 = *a2;
+  v4 = **a2;
+  if (v4)
   {
-    v4 = 0;
-    v5 = (v2 + 1);
+    v5 = 0;
+    v6 = (v3 + 1);
     do
     {
-      v4 = (1025 * (v4 + v3)) ^ ((1025 * (v4 + v3)) >> 6);
-      v6 = *v5++;
-      v3 = v6;
+      v5 = (1025 * (v5 + v4)) ^ ((1025 * (v5 + v4)) >> 6);
+      v7 = *v6++;
+      v4 = v7;
     }
 
-    while (v6);
-    v7 = 9 * v4;
+    while (v7);
+    v8 = 9 * v5;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = v7 ^ (v7 >> 11);
-  v9 = 32769 * v8;
-  v10 = a1[1];
-  if (!*&v10)
+  v9 = v8 ^ (v8 >> 11);
+  v10 = 32769 * v9;
+  v11 = a1[1];
+  if (!*&v11)
   {
     goto LABEL_23;
   }
 
-  v11 = vcnt_s8(v10);
-  v11.i16[0] = vaddlv_u8(v11);
-  v12 = v11.u32[0];
-  if (v11.u32[0] > 1uLL)
+  v12 = vcnt_s8(v11);
+  v12.i16[0] = vaddlv_u8(v12);
+  v13 = v12.u32[0];
+  if (v12.u32[0] > 1uLL)
   {
-    v13 = 32769 * v8;
-    if (v9 >= *&v10)
+    v14 = 32769 * v9;
+    if (v10 >= *&v11)
     {
-      v13 = v9 % *&v10;
+      v14 = v10 % *&v11;
     }
   }
 
   else
   {
-    v13 = v9 & (*&v10 - 1);
+    v14 = v10 & (*&v11 - 1);
   }
 
-  v14 = *(*a1 + 8 * v13);
-  if (!v14 || (v15 = *v14) == 0)
+  v15 = *(*a1 + 8 * v14);
+  if (!v15 || (v16 = *v15) == 0)
   {
 LABEL_23:
     operator new();
@@ -1275,44 +1254,44 @@ LABEL_23:
 
   while (1)
   {
-    v16 = v15[1];
-    if (v16 == v9)
+    v17 = v16[1];
+    if (v17 == v10)
     {
       break;
     }
 
-    if (v12 > 1)
+    if (v13 > 1)
     {
-      if (v16 >= *&v10)
+      if (v17 >= *&v11)
       {
-        v16 %= *&v10;
+        v17 %= *&v11;
       }
     }
 
     else
     {
-      v16 &= *&v10 - 1;
+      v17 &= *&v11 - 1;
     }
 
-    if (v16 != v13)
+    if (v17 != v14)
     {
       goto LABEL_23;
     }
 
 LABEL_22:
-    v15 = *v15;
-    if (!v15)
+    v16 = *v16;
+    if (!v16)
     {
       goto LABEL_23;
     }
   }
 
-  if (strcmp(v15[2], v2))
+  if (strcmp(v16[2], v3))
   {
     goto LABEL_22;
   }
 
-  return v15;
+  return v16;
 }
 
 uint64_t HDSQLiteStatementBinder::indexForProperty(HDSQLiteStatementBinder *this, const char *a2)
@@ -1460,7 +1439,6 @@ uint64_t sub_251572318()
 
 uint64_t sub_251572350()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -1507,7 +1485,6 @@ uint64_t sub_2515724EC()
 
 uint64_t sub_251572524()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -1521,7 +1498,6 @@ uint64_t sub_25157259C()
 
 uint64_t sub_2515725D4()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -1570,24 +1546,22 @@ void collectStatementStrings(int a1, sqlite3_stmt *pStmt, void *a3)
 
 void __HDAssertionTimeForContextType_block_invoke()
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithInteger:1];
-  v7[0] = v0;
-  v8[0] = &unk_286385C08;
+  v6[0] = v0;
+  v7[0] = &unk_286385C08;
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:2];
-  v7[1] = v1;
-  v8[1] = &unk_286385C20;
+  v6[1] = v1;
+  v7[1] = &unk_286385C20;
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:3];
-  v7[2] = v2;
-  v8[2] = &unk_286385C38;
+  v6[2] = v2;
+  v7[2] = &unk_286385C38;
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:4];
-  v7[3] = v3;
-  v8[3] = &unk_286385C50;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v6[3] = v3;
+  v7[3] = &unk_286385C50;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
   v5 = HDAssertionTimeForContextType_mapping;
   HDAssertionTimeForContextType_mapping = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 id _HDXPCPeriodicActivityLastSuccessfulRunUserDefaultsKey(void *a1)
@@ -1639,17 +1613,11 @@ id _HDXPCPeriodicActivityErrorCountUserDefaultsKey(void *a1)
   return v3;
 }
 
-void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
-}
-
-uint64_t OUTLINED_FUNCTION_4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 64);
-  return result;
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 BOOL OUTLINED_FUNCTION_6()
@@ -1856,199 +1824,199 @@ void _LogOrAppend(void *a1, void *a2, int a3)
 
 id HDSQLiteSchemaDiff(void *a1, void *a2)
 {
-  v246 = *MEMORY[0x277D85DE8];
+  v245 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x277CBEB18] array];
   v6 = MEMORY[0x277CBEB98];
-  v159 = v3;
+  v158 = v3;
   v7 = [v3 allKeys];
   v8 = [v6 setWithArray:v7];
 
   v9 = MEMORY[0x277CBEB98];
-  v158 = v4;
+  v157 = v4;
   v10 = [v4 allKeys];
-  v161 = [v9 setWithArray:v10];
+  v160 = [v9 setWithArray:v10];
 
-  v194 = 0u;
-  v195 = 0u;
-  v192 = 0u;
   v193 = 0u;
+  v194 = 0u;
+  v191 = 0u;
+  v192 = 0u;
   obj = v8;
   v11 = 0x277CCA000uLL;
-  v162 = v5;
-  v163 = [obj countByEnumeratingWithState:&v192 objects:v233 count:16];
-  if (v163)
+  v161 = v5;
+  v162 = [obj countByEnumeratingWithState:&v191 objects:v232 count:16];
+  if (v162)
   {
-    v160 = *v193;
+    v159 = *v192;
     do
     {
-      for (i = 0; i != v163; ++i)
+      for (i = 0; i != v162; ++i)
       {
-        if (*v193 != v160)
+        if (*v192 != v159)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v192 + 1) + 8 * i);
-        v14 = [v161 member:v13];
+        v13 = *(*(&v191 + 1) + 8 * i);
+        v14 = [v160 member:v13];
 
         if (v14)
         {
-          v164 = i;
-          v15 = [v159 objectForKeyedSubscript:v13];
-          v16 = [v158 objectForKeyedSubscript:v13];
+          v163 = i;
+          v15 = [v158 objectForKeyedSubscript:v13];
+          v16 = [v157 objectForKeyedSubscript:v13];
           v17 = v5;
-          v174 = v13;
+          v173 = v13;
           v18 = v15;
-          v168 = v16;
+          v167 = v16;
           v19 = [MEMORY[0x277CBEB58] set];
-          v176 = [MEMORY[0x277CBEB58] set];
+          v175 = [MEMORY[0x277CBEB58] set];
+          v203 = 0u;
           v204 = 0u;
           v205 = 0u;
           v206 = 0u;
-          v207 = 0u;
           v20 = [v18 tables];
-          v21 = [v20 countByEnumeratingWithState:&v204 objects:v236 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v203 objects:v235 count:16];
           if (v21)
           {
             v22 = v21;
-            v23 = *v205;
+            v23 = *v204;
             do
             {
               for (j = 0; j != v22; ++j)
               {
-                if (*v205 != v23)
+                if (*v204 != v23)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                [v19 addObject:*(*(&v204 + 1) + 8 * j)];
+                [v19 addObject:*(*(&v203 + 1) + 8 * j)];
               }
 
-              v22 = [v20 countByEnumeratingWithState:&v204 objects:v236 count:16];
+              v22 = [v20 countByEnumeratingWithState:&v203 objects:v235 count:16];
             }
 
             while (v22);
           }
 
-          v202 = 0u;
-          v203 = 0u;
-          v200 = 0u;
           v201 = 0u;
-          v25 = [v168 tables];
-          v26 = [v25 countByEnumeratingWithState:&v200 objects:v235 count:16];
+          v202 = 0u;
+          v199 = 0u;
+          v200 = 0u;
+          v25 = [v167 tables];
+          v26 = [v25 countByEnumeratingWithState:&v199 objects:v234 count:16];
           if (v26)
           {
             v27 = v26;
-            v28 = *v201;
+            v28 = *v200;
             do
             {
               for (k = 0; k != v27; ++k)
               {
-                if (*v201 != v28)
+                if (*v200 != v28)
                 {
                   objc_enumerationMutation(v25);
                 }
 
-                [v176 addObject:*(*(&v200 + 1) + 8 * k)];
+                [v175 addObject:*(*(&v199 + 1) + 8 * k)];
               }
 
-              v27 = [v25 countByEnumeratingWithState:&v200 objects:v235 count:16];
+              v27 = [v25 countByEnumeratingWithState:&v199 objects:v234 count:16];
             }
 
             while (v27);
           }
 
-          v198 = 0u;
-          v199 = 0u;
-          v196 = 0u;
           v197 = 0u;
-          v175 = v19;
-          v170 = [v175 countByEnumeratingWithState:&v196 objects:v234 count:16];
-          if (v170)
+          v198 = 0u;
+          v195 = 0u;
+          v196 = 0u;
+          v174 = v19;
+          v169 = [v174 countByEnumeratingWithState:&v195 objects:v233 count:16];
+          if (v169)
           {
-            v169 = *v197;
-            v166 = v17;
-            v167 = v18;
+            v168 = *v196;
+            v165 = v17;
+            v166 = v18;
             do
             {
-              for (m = 0; m != v170; ++m)
+              for (m = 0; m != v169; ++m)
               {
-                if (*v197 != v169)
+                if (*v196 != v168)
                 {
-                  objc_enumerationMutation(v175);
+                  objc_enumerationMutation(v174);
                 }
 
-                v31 = *(*(&v196 + 1) + 8 * m);
-                v32 = [v176 member:v31];
+                v31 = *(*(&v195 + 1) + 8 * m);
+                v32 = [v175 member:v31];
 
                 v33 = *(v11 + 3240);
                 if (!v32)
                 {
-                  v37 = [v33 stringWithFormat:@"LHS: %@: extra table '%@'", v174, v31];
+                  v37 = [v33 stringWithFormat:@"LHS: %@: extra table '%@'", v173, v31];
                   [v17 addObject:v37];
                   goto LABEL_111;
                 }
 
-                v173 = m;
-                v34 = [v33 stringWithFormat:@"%@: %@", v174, v31];
-                v172 = [v18 tables];
-                v35 = [v172 objectForKeyedSubscript:v31];
-                v171 = [v168 tables];
-                v36 = [v171 objectForKeyedSubscript:v31];
-                v187 = v17;
+                v172 = m;
+                v34 = [v33 stringWithFormat:@"%@: %@", v173, v31];
+                v171 = [v18 tables];
+                v35 = [v171 objectForKeyedSubscript:v31];
+                v170 = [v167 tables];
+                v36 = [v170 objectForKeyedSubscript:v31];
+                v186 = v17;
                 v37 = v34;
                 v38 = v35;
                 v39 = MEMORY[0x277CBEB98];
-                v185 = v38;
+                v184 = v38;
                 v40 = [v38 columns];
                 v41 = [v40 allKeys];
                 v42 = [v39 setWithArray:v41];
 
                 v43 = MEMORY[0x277CBEB98];
-                v186 = v36;
+                v185 = v36;
                 v44 = [v36 columns];
                 v45 = [v44 allKeys];
-                v181 = [v43 setWithArray:v45];
+                v180 = [v43 setWithArray:v45];
 
-                v230 = 0u;
-                v231 = 0u;
-                v228 = 0u;
                 v229 = 0u;
+                v230 = 0u;
+                v227 = 0u;
+                v228 = 0u;
                 v46 = v42;
-                v177 = v46;
-                v182 = [v46 countByEnumeratingWithState:&v228 objects:v245 count:16];
-                if (!v182)
+                v176 = v46;
+                v181 = [v46 countByEnumeratingWithState:&v227 objects:v244 count:16];
+                if (!v181)
                 {
                   goto LABEL_59;
                 }
 
-                v180 = *v229;
-                v183 = v37;
+                v179 = *v228;
+                v182 = v37;
                 do
                 {
-                  for (n = 0; n != v182; ++n)
+                  for (n = 0; n != v181; ++n)
                   {
-                    if (*v229 != v180)
+                    if (*v228 != v179)
                     {
-                      objc_enumerationMutation(v177);
+                      objc_enumerationMutation(v176);
                     }
 
-                    v48 = *(*(&v228 + 1) + 8 * n);
-                    v49 = [v181 member:v48];
+                    v48 = *(*(&v227 + 1) + 8 * n);
+                    v49 = [v180 member:v48];
 
                     if (!v49)
                     {
                       v51 = [*(v11 + 3240) stringWithFormat:@"LHS: %@: extra column '%@'", v37, v48];
-                      [v187 addObject:v51];
+                      [v186 addObject:v51];
                       goto LABEL_57;
                     }
 
-                    v50 = [v185 columns];
+                    v50 = [v184 columns];
                     v51 = [v50 objectForKeyedSubscript:v48];
 
-                    v52 = [v186 columns];
+                    v52 = [v185 columns];
                     v53 = [v52 objectForKeyedSubscript:v48];
 
                     v54 = [v51 type];
@@ -2061,12 +2029,12 @@ id HDSQLiteSchemaDiff(void *a1, void *a2)
                       v58 = [v51 type];
                       v59 = [v53 type];
                       v60 = [v57 stringWithFormat:@"%@: Column %@ types differ: %@ vs %@", v37, v48, v58, v59];
-                      [v187 addObject:v60];
+                      [v186 addObject:v60];
                     }
 
                     v61 = [v51 defaultValue];
                     v62 = [v53 defaultValue];
-                    v184 = v48;
+                    v183 = v48;
                     if (v61 == v62)
                     {
                       goto LABEL_42;
@@ -2080,8 +2048,8 @@ LABEL_41:
                       v68 = *(v11 + 3240);
                       v61 = [v51 defaultValue];
                       v62 = [v53 defaultValue];
-                      v69 = [v68 stringWithFormat:@"%@: Column %@ default values differ: %@ vs %@", v37, v184, v61, v62];
-                      [v187 addObject:v69];
+                      v69 = [v68 stringWithFormat:@"%@: Column %@ default values differ: %@ vs %@", v37, v183, v61, v62];
+                      [v186 addObject:v69];
 
 LABEL_42:
                       goto LABEL_43;
@@ -2092,7 +2060,7 @@ LABEL_42:
                     v66 = [v53 defaultValue];
                     v67 = [v65 isEqualToString:v66];
 
-                    v37 = v183;
+                    v37 = v182;
                     if ((v67 & 1) == 0)
                     {
                       goto LABEL_41;
@@ -2102,22 +2070,22 @@ LABEL_43:
                     v70 = [v51 isNullable];
                     if (v70 != [v53 isNullable])
                     {
-                      v71 = [*(v11 + 3240) stringWithFormat:@"%@: Column %@ nullability differs: %d vs %d", v37, v184, objc_msgSend(v51, "isNullable"), objc_msgSend(v53, "isNullable")];
-                      [v187 addObject:v71];
+                      v71 = [*(v11 + 3240) stringWithFormat:@"%@: Column %@ nullability differs: %d vs %d", v37, v183, objc_msgSend(v51, "isNullable"), objc_msgSend(v53, "isNullable")];
+                      [v186 addObject:v71];
                     }
 
                     v72 = [v51 isPrimaryKey];
                     if (v72 != [v53 isPrimaryKey])
                     {
-                      v73 = [*(v11 + 3240) stringWithFormat:@"%@: Column %@ pk status differs: %d vs %d", v37, v184, objc_msgSend(v51, "isPrimaryKey"), objc_msgSend(v53, "isPrimaryKey")];
-                      [v187 addObject:v73];
+                      v73 = [*(v11 + 3240) stringWithFormat:@"%@: Column %@ pk status differs: %d vs %d", v37, v183, objc_msgSend(v51, "isPrimaryKey"), objc_msgSend(v53, "isPrimaryKey")];
+                      [v186 addObject:v73];
                     }
 
                     v74 = [v51 isAutoincrement];
                     if (v74 != [v53 isAutoincrement])
                     {
-                      v75 = [*(v11 + 3240) stringWithFormat:@"%@: Column %@ nullability differs: %d vs %d", v37, v184, objc_msgSend(v51, "isAutoincrement"), objc_msgSend(v53, "isAutoincrement")];
-                      [v187 addObject:v75];
+                      v75 = [*(v11 + 3240) stringWithFormat:@"%@: Column %@ nullability differs: %d vs %d", v37, v183, objc_msgSend(v51, "isAutoincrement"), objc_msgSend(v53, "isAutoincrement")];
+                      [v186 addObject:v75];
                     }
 
                     v76 = [v51 foreignKeyTargetTable];
@@ -2142,241 +2110,241 @@ LABEL_43:
                       {
                       }
 
-                      v179 = *(v11 + 3240);
+                      v178 = *(v11 + 3240);
                       v76 = [v51 foreignKeyTargetTable];
                       v77 = [v51 foreignKeyTargetColumn];
-                      v178 = HDSQLForForeignKeyDeletionAction([v51 deletionAction]);
+                      v177 = HDSQLForForeignKeyDeletionAction([v51 deletionAction]);
                       v83 = [v53 foreignKeyTargetTable];
                       v84 = [v53 foreignKeyTargetColumn];
                       HDSQLForForeignKeyDeletionAction([v53 deletionAction]);
                       v86 = v85 = v11;
-                      v87 = [v179 stringWithFormat:@"%@: Column %@ foreign key differs: %@(%@) %@ vs %@(%@) %@", v183, v184, v76, v77, v178, v83, v84, v86];
-                      [v187 addObject:v87];
+                      v87 = [v178 stringWithFormat:@"%@: Column %@ foreign key differs: %@(%@) %@ vs %@(%@) %@", v182, v183, v76, v77, v177, v83, v84, v86];
+                      [v186 addObject:v87];
 
                       v11 = v85;
                     }
 
 LABEL_56:
-                    v37 = v183;
+                    v37 = v182;
 LABEL_57:
                   }
 
-                  v46 = v177;
-                  v182 = [v177 countByEnumeratingWithState:&v228 objects:v245 count:16];
+                  v46 = v176;
+                  v181 = [v176 countByEnumeratingWithState:&v227 objects:v244 count:16];
                 }
 
-                while (v182);
+                while (v181);
 LABEL_59:
 
-                v226 = 0u;
-                v227 = 0u;
-                v224 = 0u;
                 v225 = 0u;
-                v88 = v181;
-                v89 = [v88 countByEnumeratingWithState:&v224 objects:&v241 count:16];
+                v226 = 0u;
+                v223 = 0u;
+                v224 = 0u;
+                v88 = v180;
+                v89 = [v88 countByEnumeratingWithState:&v223 objects:&v240 count:16];
                 if (v89)
                 {
                   v90 = v89;
-                  v91 = *v225;
+                  v91 = *v224;
                   do
                   {
                     for (ii = 0; ii != v90; ++ii)
                     {
-                      if (*v225 != v91)
+                      if (*v224 != v91)
                       {
                         objc_enumerationMutation(v88);
                       }
 
-                      v93 = *(*(&v224 + 1) + 8 * ii);
+                      v93 = *(*(&v223 + 1) + 8 * ii);
                       v94 = [v46 member:v93];
 
                       if (!v94)
                       {
                         v95 = [*(v11 + 3240) stringWithFormat:@"RHS: %@: extra column '%@'", v37, v93];
-                        [v187 addObject:v95];
+                        [v186 addObject:v95];
                       }
                     }
 
-                    v90 = [v88 countByEnumeratingWithState:&v224 objects:&v241 count:16];
+                    v90 = [v88 countByEnumeratingWithState:&v223 objects:&v240 count:16];
                   }
 
                   while (v90);
                 }
 
-                v222 = 0u;
-                v223 = 0u;
-                v220 = 0u;
                 v221 = 0u;
-                v96 = [v185 indices];
-                v97 = [v96 countByEnumeratingWithState:&v220 objects:v240 count:16];
+                v222 = 0u;
+                v219 = 0u;
+                v220 = 0u;
+                v96 = [v184 indices];
+                v97 = [v96 countByEnumeratingWithState:&v219 objects:v239 count:16];
                 if (v97)
                 {
                   v98 = v97;
-                  v99 = *v221;
+                  v99 = *v220;
                   do
                   {
                     for (jj = 0; jj != v98; ++jj)
                     {
-                      if (*v221 != v99)
+                      if (*v220 != v99)
                       {
                         objc_enumerationMutation(v96);
                       }
 
-                      v101 = *(*(&v220 + 1) + 8 * jj);
-                      v102 = [v186 indices];
+                      v101 = *(*(&v219 + 1) + 8 * jj);
+                      v102 = [v185 indices];
                       v103 = [v102 containsObject:v101];
 
                       if ((v103 & 1) == 0)
                       {
                         v104 = [*(v11 + 3240) stringWithFormat:@"LHS: %@: extra index '%@'", v37, v101];
-                        [v187 addObject:v104];
+                        [v186 addObject:v104];
                       }
                     }
 
-                    v98 = [v96 countByEnumeratingWithState:&v220 objects:v240 count:16];
+                    v98 = [v96 countByEnumeratingWithState:&v219 objects:v239 count:16];
                   }
 
                   while (v98);
                 }
 
-                v218 = 0u;
-                v219 = 0u;
-                v216 = 0u;
                 v217 = 0u;
-                v105 = [v186 indices];
-                v106 = [v105 countByEnumeratingWithState:&v216 objects:v239 count:16];
+                v218 = 0u;
+                v215 = 0u;
+                v216 = 0u;
+                v105 = [v185 indices];
+                v106 = [v105 countByEnumeratingWithState:&v215 objects:v238 count:16];
                 if (v106)
                 {
                   v107 = v106;
-                  v108 = *v217;
+                  v108 = *v216;
                   do
                   {
                     for (kk = 0; kk != v107; ++kk)
                     {
-                      if (*v217 != v108)
+                      if (*v216 != v108)
                       {
                         objc_enumerationMutation(v105);
                       }
 
-                      v110 = *(*(&v216 + 1) + 8 * kk);
-                      v111 = [v185 indices];
+                      v110 = *(*(&v215 + 1) + 8 * kk);
+                      v111 = [v184 indices];
                       v112 = [v111 containsObject:v110];
 
                       if ((v112 & 1) == 0)
                       {
                         v113 = [*(v11 + 3240) stringWithFormat:@"RHS: %@: extra index '%@'", v37, v110];
-                        [v187 addObject:v113];
+                        [v186 addObject:v113];
                       }
                     }
 
-                    v107 = [v105 countByEnumeratingWithState:&v216 objects:v239 count:16];
+                    v107 = [v105 countByEnumeratingWithState:&v215 objects:v238 count:16];
                   }
 
                   while (v107);
                 }
 
-                v214 = 0u;
-                v215 = 0u;
-                v212 = 0u;
                 v213 = 0u;
-                v114 = [v185 triggers];
-                v115 = [v114 countByEnumeratingWithState:&v212 objects:v238 count:16];
+                v214 = 0u;
+                v211 = 0u;
+                v212 = 0u;
+                v114 = [v184 triggers];
+                v115 = [v114 countByEnumeratingWithState:&v211 objects:v237 count:16];
                 if (v115)
                 {
                   v116 = v115;
-                  v117 = *v213;
+                  v117 = *v212;
                   do
                   {
                     for (mm = 0; mm != v116; ++mm)
                     {
-                      if (*v213 != v117)
+                      if (*v212 != v117)
                       {
                         objc_enumerationMutation(v114);
                       }
 
-                      v119 = *(*(&v212 + 1) + 8 * mm);
-                      v120 = [v186 triggers];
+                      v119 = *(*(&v211 + 1) + 8 * mm);
+                      v120 = [v185 triggers];
                       v121 = [v120 containsObject:v119];
 
                       if ((v121 & 1) == 0)
                       {
                         v122 = [*(v11 + 3240) stringWithFormat:@"LHS: %@: extra trigger '%@'", v37, v119];
-                        [v187 addObject:v122];
+                        [v186 addObject:v122];
                       }
                     }
 
-                    v116 = [v114 countByEnumeratingWithState:&v212 objects:v238 count:16];
+                    v116 = [v114 countByEnumeratingWithState:&v211 objects:v237 count:16];
                   }
 
                   while (v116);
                 }
 
-                v210 = 0u;
-                v211 = 0u;
-                v208 = 0u;
                 v209 = 0u;
-                v123 = [v186 triggers];
-                v124 = [v123 countByEnumeratingWithState:&v208 objects:v237 count:16];
+                v210 = 0u;
+                v207 = 0u;
+                v208 = 0u;
+                v123 = [v185 triggers];
+                v124 = [v123 countByEnumeratingWithState:&v207 objects:v236 count:16];
                 if (v124)
                 {
                   v125 = v124;
-                  v126 = *v209;
+                  v126 = *v208;
                   do
                   {
                     for (nn = 0; nn != v125; ++nn)
                     {
-                      if (*v209 != v126)
+                      if (*v208 != v126)
                       {
                         objc_enumerationMutation(v123);
                       }
 
-                      v128 = *(*(&v208 + 1) + 8 * nn);
-                      v129 = [v185 triggers];
+                      v128 = *(*(&v207 + 1) + 8 * nn);
+                      v129 = [v184 triggers];
                       v130 = [v129 containsObject:v128];
 
                       if ((v130 & 1) == 0)
                       {
                         v131 = [*(v11 + 3240) stringWithFormat:@"RHS: %@: extra trigger '%@'", v37, v128];
-                        [v187 addObject:v131];
+                        [v186 addObject:v131];
                       }
                     }
 
-                    v125 = [v123 countByEnumeratingWithState:&v208 objects:v237 count:16];
+                    v125 = [v123 countByEnumeratingWithState:&v207 objects:v236 count:16];
                   }
 
                   while (v125);
                 }
 
-                v132 = [v185 createTableSchema];
+                v132 = [v184 createTableSchema];
                 v133 = [v132 containsString:@"WITHOUT ROWID"];
 
-                v134 = [v186 createTableSchema];
+                v134 = [v185 createTableSchema];
                 v135 = [v134 containsString:@"WITHOUT ROWID"];
 
                 if (!v133)
                 {
                   v136 = @"RHS table constructed WITHOUT ROWID, but LHS table is not";
-                  v17 = v166;
-                  v18 = v167;
-                  v137 = v172;
-                  m = v173;
-                  v138 = v171;
+                  v17 = v165;
+                  v18 = v166;
+                  v137 = v171;
+                  m = v172;
+                  v138 = v170;
                   if (!v135)
                   {
                     goto LABEL_110;
                   }
 
 LABEL_109:
-                  [v187 addObject:v136];
+                  [v186 addObject:v136];
                   goto LABEL_110;
                 }
 
                 v136 = @"LHS table constructed WITHOUT ROWID, but RHS table is not";
-                v17 = v166;
-                v18 = v167;
-                v137 = v172;
-                m = v173;
-                v138 = v171;
+                v17 = v165;
+                v18 = v166;
+                v137 = v171;
+                m = v172;
+                v138 = v170;
                 if ((v135 & 1) == 0)
                 {
                   goto LABEL_109;
@@ -2387,49 +2355,49 @@ LABEL_110:
 LABEL_111:
               }
 
-              v170 = [v175 countByEnumeratingWithState:&v196 objects:v234 count:16];
+              v169 = [v174 countByEnumeratingWithState:&v195 objects:v233 count:16];
             }
 
-            while (v170);
+            while (v169);
           }
 
-          v244 = 0u;
           v243 = 0u;
           v242 = 0u;
           v241 = 0u;
-          v139 = v176;
-          v140 = [v139 countByEnumeratingWithState:&v241 objects:v245 count:16];
+          v240 = 0u;
+          v139 = v175;
+          v140 = [v139 countByEnumeratingWithState:&v240 objects:v244 count:16];
           if (v140)
           {
             v141 = v140;
-            v142 = *v242;
+            v142 = *v241;
             do
             {
               for (i1 = 0; i1 != v141; ++i1)
               {
-                if (*v242 != v142)
+                if (*v241 != v142)
                 {
                   objc_enumerationMutation(v139);
                 }
 
-                v144 = *(*(&v241 + 1) + 8 * i1);
-                v145 = [v175 member:v144];
+                v144 = *(*(&v240 + 1) + 8 * i1);
+                v145 = [v174 member:v144];
 
                 if (!v145)
                 {
-                  v146 = [*(v11 + 3240) stringWithFormat:@"RHS: %@: extra table '%@'", v174, v144];
+                  v146 = [*(v11 + 3240) stringWithFormat:@"RHS: %@: extra table '%@'", v173, v144];
                   [v17 addObject:v146];
                 }
               }
 
-              v141 = [v139 countByEnumeratingWithState:&v241 objects:v245 count:16];
+              v141 = [v139 countByEnumeratingWithState:&v240 objects:v244 count:16];
             }
 
             while (v141);
           }
 
-          v5 = v162;
-          i = v164;
+          v5 = v161;
+          i = v163;
         }
 
         else
@@ -2439,70 +2407,70 @@ LABEL_111:
         }
       }
 
-      v163 = [obj countByEnumeratingWithState:&v192 objects:v233 count:16];
+      v162 = [obj countByEnumeratingWithState:&v191 objects:v232 count:16];
     }
 
-    while (v163);
+    while (v162);
   }
 
-  v190 = 0u;
-  v191 = 0u;
-  v188 = 0u;
   v189 = 0u;
-  v147 = v161;
-  v148 = [v147 countByEnumeratingWithState:&v188 objects:v232 count:16];
+  v190 = 0u;
+  v187 = 0u;
+  v188 = 0u;
+  v147 = v160;
+  v148 = [v147 countByEnumeratingWithState:&v187 objects:v231 count:16];
   if (v148)
   {
     v149 = v148;
-    v150 = *v189;
+    v150 = *v188;
     do
     {
       for (i2 = 0; i2 != v149; ++i2)
       {
-        if (*v189 != v150)
+        if (*v188 != v150)
         {
           objc_enumerationMutation(v147);
         }
 
-        v152 = *(*(&v188 + 1) + 8 * i2);
+        v152 = *(*(&v187 + 1) + 8 * i2);
         v153 = [obj member:v152];
 
         if (!v153)
         {
           v154 = [*(v11 + 3240) stringWithFormat:@"RHS has extra database '%@'", v152];
-          [v162 addObject:v154];
+          [v161 addObject:v154];
         }
       }
 
-      v149 = [v147 countByEnumeratingWithState:&v188 objects:v232 count:16];
+      v149 = [v147 countByEnumeratingWithState:&v187 objects:v231 count:16];
     }
 
     while (v149);
   }
 
-  v155 = v162;
-  v156 = *MEMORY[0x277D85DE8];
-  return v162;
+  v155 = v161;
+  return v161;
 }
 
-void sub_25157C508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25157C508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25157C630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25157C630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25157E178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_25157E178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 104), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 104), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2537,7 +2505,7 @@ void sub_251581118(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t _SqliteEventTrace(int a1, sqlite3 *a2, sqlite3_stmt *pStmt, char *a4)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (a1 == 1)
   {
     if (_ShouldProfileSQL(a4))
@@ -2551,7 +2519,7 @@ uint64_t _SqliteEventTrace(int a1, sqlite3 *a2, sqlite3_stmt *pStmt, char *a4)
         if (v32)
         {
           *buf = 136315138;
-          *v42 = v30;
+          *v41 = v30;
           _os_log_impl(&dword_25156C000, v31, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
         }
 
@@ -2561,7 +2529,7 @@ uint64_t _SqliteEventTrace(int a1, sqlite3 *a2, sqlite3_stmt *pStmt, char *a4)
       else if (v32)
       {
         *buf = 136315138;
-        *v42 = a4;
+        *v41 = a4;
         _os_log_impl(&dword_25156C000, v31, OS_LOG_TYPE_INFO, "(unexpanded) %s", buf, 0xCu);
       }
     }
@@ -2586,9 +2554,9 @@ uint64_t _SqliteEventTrace(int a1, sqlite3 *a2, sqlite3_stmt *pStmt, char *a4)
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
         {
           *buf = 134218242;
-          *v42 = v7 / 1000000;
-          *&v42[8] = 2080;
-          v43 = v8;
+          *v41 = v7 / 1000000;
+          *&v41[8] = 2080;
+          v42 = v8;
           _os_log_impl(&dword_25156C000, v14, OS_LOG_TYPE_INFO, "[TIME: %llu ms] :: %s", buf, 0x16u);
         }
 
@@ -2601,7 +2569,7 @@ uint64_t _SqliteEventTrace(int a1, sqlite3 *a2, sqlite3_stmt *pStmt, char *a4)
           if (os_log_type_enabled(*v13, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            *v42 = v15;
+            *v41 = v15;
             _os_log_impl(&dword_25156C000, v16, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
           }
 
@@ -2625,13 +2593,13 @@ uint64_t _SqliteEventTrace(int a1, sqlite3 *a2, sqlite3_stmt *pStmt, char *a4)
               if (os_log_type_enabled(*v13, OS_LOG_TYPE_INFO))
               {
                 *buf = 67109890;
-                *v42 = v19;
-                *&v42[4] = 1024;
-                *&v42[6] = v20;
-                LOWORD(v43) = 1024;
-                *(&v43 + 2) = v21;
-                HIWORD(v43) = 2080;
-                v44 = v22;
+                *v41 = v19;
+                *&v41[4] = 1024;
+                *&v41[6] = v20;
+                LOWORD(v42) = 1024;
+                *(&v42 + 2) = v21;
+                HIWORD(v42) = 2080;
+                v43 = v22;
                 _os_log_impl(&dword_25156C000, v23, OS_LOG_TYPE_INFO, "    %d %d %d %s", buf, 0x1Eu);
               }
             }
@@ -2641,19 +2609,19 @@ uint64_t _SqliteEventTrace(int a1, sqlite3 *a2, sqlite3_stmt *pStmt, char *a4)
           }
 
           *ppStmt = 0u;
+          v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
           v24 = [MEMORY[0x277CCACC8] callStackSymbols];
           v25 = [v24 countByEnumeratingWithState:ppStmt objects:buf count:16];
           if (v25)
           {
-            v26 = *v36;
+            v26 = *v35;
             do
             {
               for (i = 0; i != v25; ++i)
               {
-                if (*v36 != v26)
+                if (*v35 != v26)
                 {
                   objc_enumerationMutation(v24);
                 }
@@ -2663,9 +2631,9 @@ uint64_t _SqliteEventTrace(int a1, sqlite3 *a2, sqlite3_stmt *pStmt, char *a4)
                 v29 = *v13;
                 if (os_log_type_enabled(*v13, OS_LOG_TYPE_INFO))
                 {
-                  *v39 = 138412290;
-                  v40 = v28;
-                  _os_log_impl(&dword_25156C000, v29, OS_LOG_TYPE_INFO, "    %@", v39, 0xCu);
+                  *v38 = 138412290;
+                  v39 = v28;
+                  _os_log_impl(&dword_25156C000, v29, OS_LOG_TYPE_INFO, "    %@", v38, 0xCu);
                 }
               }
 
@@ -2679,7 +2647,6 @@ uint64_t _SqliteEventTrace(int a1, sqlite3 *a2, sqlite3_stmt *pStmt, char *a4)
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2705,21 +2672,19 @@ id HDSQLiteErrorFromDatabase(sqlite3 *a1, sqlite3_stmt *a2, void *a3)
 
 id HDSQLiteDatabaseErrorFromSQLiteError(void *a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = *MEMORY[0x277CCA450];
-  v10[0] = *MEMORY[0x277CCA7E8];
-  v10[1] = v2;
-  v11[0] = v1;
+  v9[0] = *MEMORY[0x277CCA7E8];
+  v9[1] = v2;
+  v10[0] = v1;
   v3 = MEMORY[0x277CCACA8];
   v4 = [v1 localizedDescription];
   v5 = [v3 stringWithFormat:@"SQLite error: %@", v4];
-  v11[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.healthd.SQLite" code:2 userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2786,9 +2751,9 @@ void HDSQLiteRow::~HDSQLiteRow(HDSQLiteRow *this)
   JUMPOUT(0x25307A210);
 }
 
-void sub_251584060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_251584060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -2808,9 +2773,9 @@ void sub_251584908(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_251585DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, ...)
+void sub_251585DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -2818,16 +2783,16 @@ void sub_251585DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 id HDSQLiteErrorWithExtendedCode(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v18[0] = @"extended_error_code";
+  v17[0] = @"extended_error_code";
   v10 = [MEMORY[0x277CCABB0] numberWithInt:a1];
-  v18[1] = @"error_message";
-  v19[0] = v10;
-  v19[1] = v7;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v17[1] = @"error_message";
+  v18[0] = v10;
+  v18[1] = v7;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v12 = [v11 mutableCopy];
 
   v13 = &stru_28637B800;
@@ -2852,8 +2817,6 @@ id HDSQLiteErrorWithExtendedCode(uint64_t a1, void *a2, void *a3, void *a4)
   [v12 setObject:v14 forKey:*MEMORY[0x277CCA450]];
   v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.SQLite" code:a1 userInfo:v12];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
@@ -2873,39 +2836,38 @@ void sub_251587170(_Unwind_Exception *a1)
 
 uint64_t HDSQLiteBindFoundationValuesToStatement(sqlite3_stmt *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = a3;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        HDSQLiteBindFoundationValueToStatement(a1, a2, *(*(&v11 + 1) + 8 * v8));
+        HDSQLiteBindFoundationValueToStatement(a1, a2, *(*(&v10 + 1) + 8 * v8));
         a2 = (a2 + 1);
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -2926,8 +2888,9 @@ void HDSQLiteBindStringToStatement(sqlite3_stmt *a1, int a2, void *a3)
   sqlite3_bind_text(a1, a2, v6, -1, 0xFFFFFFFFFFFFFFFFLL);
 }
 
-id HDSQLiteFoundationValueForStatementColumn(sqlite3_stmt *a1, int a2)
+id HDSQLiteFoundationValueForStatementColumn(sqlite3_stmt *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = sqlite3_column_type(a1, a2);
   if (v4 > 2)
   {
@@ -2935,7 +2898,7 @@ id HDSQLiteFoundationValueForStatementColumn(sqlite3_stmt *a1, int a2)
     {
       if (v4 == 3)
       {
-        v5 = HDSQLiteStringValueForStatementColumn(a1, a2);
+        v5 = HDSQLiteStringValueForStatementColumn(a1, v2);
         goto LABEL_11;
       }
 
@@ -2951,17 +2914,17 @@ id HDSQLiteFoundationValueForStatementColumn(sqlite3_stmt *a1, int a2)
     {
       if (v4 == 2)
       {
-        v5 = [objc_alloc(MEMORY[0x277CCABB0]) initWithDouble:{sqlite3_column_double(a1, a2)}];
+        v5 = [objc_alloc(MEMORY[0x277CCABB0]) initWithDouble:{sqlite3_column_double(a1, v2)}];
         goto LABEL_11;
       }
 
 LABEL_8:
-      v6 = sqlite3_column_blob(a1, a2);
-      v5 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v6 length:{sqlite3_column_bytes(a1, a2)}];
+      v6 = sqlite3_column_blob(a1, v2);
+      v5 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v6 length:{sqlite3_column_bytes(a1, v2)}];
       goto LABEL_11;
     }
 
-    v5 = [objc_alloc(MEMORY[0x277CCABB0]) initWithLongLong:{sqlite3_column_int64(a1, a2)}];
+    v5 = [objc_alloc(MEMORY[0x277CCABB0]) initWithLongLong:{sqlite3_column_int64(a1, v2)}];
   }
 
 LABEL_11:
@@ -2992,7 +2955,6 @@ void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4)
 uint64_t __HDXPCProcessNameFromAuditToken_block_invoke()
 {
   getpid();
-  v0 = *MEMORY[0x277D861D8];
   result = sandbox_check();
   HDXPCProcessNameFromAuditToken_pidInfoAllowed = result == 0;
   return result;
@@ -3005,9 +2967,9 @@ void sub_25158881C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25158A1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25158A1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3046,30 +3008,30 @@ uint64_t HDSQLiteComparisonTypeForPredicateOperator(unint64_t a1)
   return 0;
 }
 
-void _HDCFNotificationCallback(uint64_t a1, uint64_t a2)
+void _HDCFNotificationCallback(void *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&_pendingNotificationsLock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = _pendingNotifications;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v14 != v7)
+      if (*v13 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v13 + 1) + 8 * v8);
+      v9 = *(*(&v12 + 1) + 8 * v8);
       if ([v9 notification] == a1)
       {
         break;
@@ -3077,7 +3039,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -3112,8 +3074,6 @@ LABEL_9:
 LABEL_14:
     os_unfair_lock_unlock(&_pendingNotificationsLock);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *HDUserNotificationResponseButtonToString(uint64_t a1)
@@ -3196,9 +3156,9 @@ void __hd_xpc_dispatch_event_block_invoke(uint64_t a1, void *a2)
   _Block_object_dispose(&v12, 8);
 }
 
-void sub_25158F174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25158F174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3319,29 +3279,29 @@ void sub_25158F8CC(_Unwind_Exception *a1)
 
 id HDSQLiteEntityCreateTableSQL(void *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, void *a6, void *a7, char a8)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v15 = a1;
   v16 = a4;
-  v42 = a5;
-  v41 = a6;
-  v39 = a7;
+  v41 = a5;
+  v40 = a6;
+  v38 = a7;
   v17 = objc_alloc_init(MEMORY[0x277CCAB68]);
   objc_msgSend(v17, "appendFormat:", @"CREATE TABLE IF NOT EXISTS %@ ("), v15, v15, v16, v17;
-  v53[0] = 0;
-  v53[1] = v53;
-  v53[2] = 0x2020000000;
-  v54 = 1;
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v49 = __HDSQLiteEntityCreateTableSQL_block_invoke;
-  v50 = &unk_2796BE3C0;
-  v52 = v53;
+  v52[0] = 0;
+  v52[1] = v52;
+  v52[2] = 0x2020000000;
+  v53 = 1;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v48 = __HDSQLiteEntityCreateTableSQL_block_invoke;
+  v49 = &unk_2796BE3C0;
+  v51 = v52;
   v18 = v17;
-  v51 = v18;
-  v43 = v16;
-  v40 = v15;
-  v19 = v48;
-  v55 = 0;
+  v50 = v18;
+  v42 = v16;
+  v39 = v15;
+  v19 = v47;
+  v54 = 0;
   if (a3)
   {
     v20 = a3 - 1;
@@ -3349,7 +3309,7 @@ id HDSQLiteEntityCreateTableSQL(void *a1, uint64_t a2, uint64_t a3, void *a4, vo
     do
     {
       v22 = *(v21 - 2);
-      v23 = [v43 objectForKeyedSubscript:v22];
+      v23 = [v42 objectForKeyedSubscript:v22];
       HasForeignKey = HDKeyPathTypeHasForeignKey(*v21);
       if (v23)
       {
@@ -3368,16 +3328,16 @@ id HDSQLiteEntityCreateTableSQL(void *a1, uint64_t a2, uint64_t a3, void *a4, vo
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v58 = v22;
-          v59 = 2112;
-          v60 = v40;
+          v57 = v22;
+          v58 = 2112;
+          v59 = v39;
           _os_log_fault_impl(&dword_25156C000, v26, OS_LOG_TYPE_FAULT, "Expected foreign key for column %@ of table %@ and none found", buf, 0x16u);
         }
       }
 
       v27 = [[_HDSQLiteEntityColumn alloc] initWithName:v22 columnType:*(v21 - 1) keyPathType:*v21 foreignKey:v23];
-      (v49)(v19, v27, &v55);
-      v28 = v55;
+      (v48)(v19, v27, &v54);
+      v28 = v54;
 
       v29 = v20-- == 0;
       v21 += 24;
@@ -3386,46 +3346,46 @@ id HDSQLiteEntityCreateTableSQL(void *a1, uint64_t a2, uint64_t a3, void *a4, vo
     while (((v28 | v29) & 1) == 0);
   }
 
-  if (v42)
+  if (v41)
   {
-    if ([v42 count] <= 1)
+    if ([v41 count] <= 1)
     {
       __assert_rtn("HDSQLiteEntityCreateTableSQL", "HDSQLiteEntity.mm", 682, "primaryKeyColumns.count >= 2");
     }
 
-    v30 = [v42 componentsJoinedByString:{@", "}];
+    v30 = [v41 componentsJoinedByString:{@", "}];
     [v18 appendFormat:@", PRIMARY KEY(%@)", v30];
   }
 
-  if ([v41 count])
+  if ([v40 count])
   {
-    v31 = [v41 componentsJoinedByString:{@", "}];
+    v31 = [v40 componentsJoinedByString:{@", "}];
     [v18 appendFormat:@", UNIQUE(%@)", v31];
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
-  v32 = v39;
-  v33 = [v32 countByEnumeratingWithState:&v44 objects:v56 count:16];
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v32 = v38;
+  v33 = [v32 countByEnumeratingWithState:&v43 objects:v55 count:16];
   if (v33)
   {
-    v34 = *v45;
+    v34 = *v44;
     do
     {
       for (i = 0; i != v33; ++i)
       {
-        if (*v45 != v34)
+        if (*v44 != v34)
         {
           objc_enumerationMutation(v32);
         }
 
-        v36 = [*(*(&v44 + 1) + 8 * i) SQLCheckConstraint];
+        v36 = [*(*(&v43 + 1) + 8 * i) SQLCheckConstraint];
         [v18 appendFormat:@", CHECK(%@)", v36];
       }
 
-      v33 = [v32 countByEnumeratingWithState:&v44 objects:v56 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v43 objects:v55 count:16];
     }
 
     while (v33);
@@ -3437,16 +3397,16 @@ id HDSQLiteEntityCreateTableSQL(void *a1, uint64_t a2, uint64_t a3, void *a4, vo
     [v18 appendString:@" WITHOUT ROWID"];
   }
 
-  _Block_object_dispose(v53, 8);
-  v37 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v52, 8);
 
   return v18;
 }
 
-void sub_25158FF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, char a36)
+void sub_25158FF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, ...)
 {
-  _Block_object_dispose(&a36, 8);
+  va_start(va, a35);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3532,9 +3492,9 @@ void sub_251590C48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_251590D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_251590D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -3547,15 +3507,15 @@ void sub_251590FE4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25159120C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25159120C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::~__hash_table(va1);
   std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::~__hash_table(va);
   _Unwind_Resume(a1);
@@ -3568,8 +3528,10 @@ void sub_2515915B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_251591BC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, char a45)
+void sub_251591BC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
+
   if (__p)
   {
     operator delete(__p);
@@ -3580,7 +3542,7 @@ void sub_251591BC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a42);
   }
 
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
@@ -3605,7 +3567,7 @@ uint64_t **HDSQLiteRow::setColumnNames(uint64_t **result, const char ***a2)
     v4 = result;
     do
     {
-      result = std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::__emplace_unique_key_args<char const*,char const*,int &>(v4 + 3, v2);
+      result = std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::__emplace_unique_key_args<char const*,char const*,int &>((v4 + 24), v2, v2, &v5);
       ++v5;
       ++v2;
     }
@@ -3616,12 +3578,12 @@ uint64_t **HDSQLiteRow::setColumnNames(uint64_t **result, const char ***a2)
   return result;
 }
 
-uint64_t __copy_helper_block_ea8_56c43_ZTSNSt3__16vectorIPKcNS_9allocatorIS2_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_ea8_56c43_ZTSNSt3__16vectorIPKcNS_9allocatorIS2_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  v2 = a1 + 56;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 56);
+  v2[2] = 0;
   return std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(v2, *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 3);
 }
 
@@ -3635,7 +3597,7 @@ void __destroy_helper_block_ea8_56c43_ZTSNSt3__16vectorIPKcNS_9allocatorIS2_EEEE
   }
 }
 
-void sub_251591FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_251591FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -3649,22 +3611,22 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2515921A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2515921A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_251592380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_251592380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_251592580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_251592580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -3706,14 +3668,14 @@ id HDSQLiteRow::columnAsNumber(HDSQLiteRow *this, int a2)
   return v5;
 }
 
-void sub_25159293C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_25159293C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_251592B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_251592B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -3729,7 +3691,7 @@ uint64_t __HDSQLiteEntityDisambiguatedDatabaseTable_block_invoke()
 
 void __HDSQLiteEntityEnumerateColumns_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = [*(a1 + 32) objectForKeyedSubscript:v4];
   HasForeignKey = HDKeyPathTypeHasForeignKey(*(a2 + 16));
@@ -3750,14 +3712,12 @@ void __HDSQLiteEntityEnumerateColumns_block_invoke(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       v9 = [*(a1 + 48) databaseTable];
-      __HDSQLiteEntityEnumerateColumns_block_invoke_cold_1(v4, v9, v12, v8);
+      __HDSQLiteEntityEnumerateColumns_block_invoke_cold_1(v4, v9, v11, v8);
     }
   }
 
   v10 = [[_HDSQLiteEntityColumn alloc] initWithName:v4 columnType:*(a2 + 8) keyPathType:*(a2 + 16) foreignKey:v5];
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __HDSQLiteEntityCreateTableSQL_block_invoke(uint64_t a1, void *a2)
@@ -3815,7 +3775,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<char const*>>(uint64_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3837,7 +3797,7 @@ void sub_2515931B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<char const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3888,7 +3848,7 @@ void sub_251593E28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2515954A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_2515954A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -3902,21 +3862,21 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25159564C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_25159564C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_251595AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_251595AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_251596A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id a27)
+void sub_251596A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id a27)
 {
   _Block_object_dispose(&a22, 8);
 
@@ -3944,7 +3904,7 @@ void sub_2515973CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -3954,7 +3914,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -3967,12 +3927,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -3995,9 +3955,9 @@ void _HDSQLiteCompareBuildVersions(sqlite3_context *a1, int a2, sqlite3_value **
   {
     if (sqlite3_value_type(*a3) != 5 && sqlite3_value_type(a3[1]) != 5)
     {
-      sqlite3_value_text(*a3);
-      sqlite3_value_text(a3[1]);
-      HDCompareBuildVersionStrings();
+      v5 = sqlite3_value_text(*a3);
+      v6 = sqlite3_value_text(a3[1]);
+      HDCompareBuildVersionStrings(v5, v6);
     }
 
     sqlite3_result_null(a1);
@@ -4012,48 +3972,42 @@ void _HDSQLiteCompareBuildVersions(sqlite3_context *a1, int a2, sqlite3_value **
 
 void _HDSQLiteGenerateUUID(sqlite3_context *a1, int a2, sqlite3_value **a3)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CCAD78]);
-  v6[0] = 0;
-  v6[1] = 0;
-  [v4 getUUIDBytes:v6];
-  sqlite3_result_blob(a1, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
+  v5[1] = 0;
+  [v4 getUUIDBytes:v5];
+  sqlite3_result_blob(a1, v5, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 void _HDSQLiteConvertUUIDString(sqlite3_context *a1, int a2, sqlite3_value **a3)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   if (a2 == 1)
   {
     if (sqlite3_value_type(*a3) == 5)
     {
-      v5 = *MEMORY[0x277D85DE8];
 
       sqlite3_result_null(a1);
     }
 
     else
     {
-      v7 = sqlite3_value_text(*a3);
-      v8 = strlen(v7);
-      v9 = objc_alloc(MEMORY[0x277CCAD78]);
-      v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v7 length:v8 encoding:1];
-      v11 = [v9 initWithUUIDString:v10];
+      v5 = sqlite3_value_text(*a3);
+      v6 = strlen(v5);
+      v7 = objc_alloc(MEMORY[0x277CCAD78]);
+      v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v5 length:v6 encoding:1];
+      v9 = [v7 initWithUUIDString:v8];
 
-      v13[0] = 0;
-      v13[1] = 0;
-      [v11 getUUIDBytes:v13];
-      sqlite3_result_blob(a1, v13, 16, 0xFFFFFFFFFFFFFFFFLL);
-
-      v12 = *MEMORY[0x277D85DE8];
+      v10[0] = 0;
+      v10[1] = 0;
+      [v9 getUUIDBytes:v10];
+      sqlite3_result_blob(a1, v10, 16, 0xFFFFFFFFFFFFFFFFLL);
     }
   }
 
   else
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     sqlite3_result_error(a1, "Improper number of arguments.", 1);
   }
@@ -4150,7 +4104,7 @@ void _HDSQLiteCompareQuantityMetadataValues(sqlite3_context *a1, int a2, sqlite3
 
 void _HDSQLiteMD5(sqlite3_context *a1, int a2, sqlite3_value **a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (a2 == 1)
   {
     if (sqlite3_value_type(*a3) == 5)
@@ -4167,18 +4121,16 @@ void _HDSQLiteMD5(sqlite3_context *a1, int a2, sqlite3_value **a3)
 
     CC_MD5(v5, v6, md);
     sqlite3_result_blob(a1, md, 16, 0xFFFFFFFFFFFFFFFFLL);
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = *MEMORY[0x277D85DE8];
 
     sqlite3_result_error(a1, "Improper number of arguments.", 1);
   }
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4191,14 +4143,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -4249,15 +4201,15 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, const char *a2, int a3)
+void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, char *a2, int a3)
 {
-  v5 = std::regex_traits<char>::regex_traits(a1);
-  LODWORD(v5[1].__loc_.__locale_) = a3;
-  *(&v5[1].__loc_.__locale_ + 4) = 0u;
-  *(&v5[1].__col_ + 4) = 0u;
-  HIDWORD(v5[2].__ct_) = 0;
-  strlen(a2);
-  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>();
+  v6 = std::regex_traits<char>::regex_traits(a1);
+  LODWORD(v6[1].__loc_.__locale_) = a3;
+  *(&v6[1].__loc_.__locale_ + 4) = 0u;
+  *(&v6[1].__col_ + 4) = 0u;
+  HIDWORD(v6[2].__ct_) = 0;
+  v7 = strlen(a2);
+  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(a1, a2, &a2[v7]);
 }
 
 void sub_2515980A0(_Unwind_Exception *a1)
@@ -4372,7 +4324,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, a2, a3);
@@ -4386,7 +4338,7 @@ LABEL_8:
   while (v8 != a3 && *v8 == 124)
   {
     v9 = a1->__end_;
-    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, (v8 + 1), a3);
+    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, v8 + 1, a3);
     if (v10 == v8 + 1)
     {
       goto LABEL_8;
@@ -4459,7 +4411,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<ch
   return v8;
 }
 
-std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *__s, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, unsigned __int8 *__s, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = memchr(__s, 10, a3 - __s);
@@ -4481,7 +4433,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
   std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, __s, v8);
   if (v8 != a3)
   {
-    v8 = (v8 + 1);
+    ++v8;
   }
 
   while (v8 != a3)
@@ -4512,7 +4464,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
 
     else
     {
-      v8 = (&v10->__traits_.__loc_.__locale_ + 1);
+      v8 = v10 + 1;
     }
   }
 
@@ -5317,38 +5269,37 @@ void std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a
 
 void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
 {
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(&v23, 0, 17);
+  memset(&v22, 0, 17);
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   memset(&__p, 0, sizeof(__p));
   v4 = (*(a1 + 44) + 1);
   v5 = *(a2 + 16);
-  v19.first = *(a2 + 24);
-  v19.second = v19.first;
-  v19.matched = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v19);
+  v18.first = *(a2 + 24);
+  v18.second = v18.first;
+  v18.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v18);
+  v19 = v5;
   v20 = v5;
-  v21 = v5;
-  v22 = 0;
-  v23 = v19;
-  v25 = v5;
-  v24 = 1;
-  v6 = *(a2 + 88) & 0xFFF;
-  v7 = *(a2 + 16);
-  if (v7 == *(a2 + 8))
+  v21 = 0;
+  v22 = v18;
+  v24 = v5;
+  v23 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
   {
-    v8 = *(a2 + 92);
+    v7 = *(a2 + 92);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v7))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
@@ -5359,8 +5310,8 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
   begin = __p.__begin_;
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  if (v10 < 2)
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v9 < 2)
   {
 LABEL_10:
     if (!begin)
@@ -5371,21 +5322,21 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  v12 = *(a2 + 32);
-  v13 = 2;
-  v14 = 1;
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
   do
   {
-    v15 = &begin[v14];
-    v16 = v12 + 24 * v11;
-    *v16 = v15->std::pair<const char *, const char *>;
-    *(v16 + 16) = v15->matched;
-    v14 = v13;
-    ++v11;
+    v14 = &begin[v13];
+    v15 = v11 + 24 * v10;
+    *v15 = v14->std::pair<const char *, const char *>;
+    *(v15 + 16) = v14->matched;
+    v13 = v12;
+    ++v10;
   }
 
-  while (v10 > v13++);
+  while (v9 > v12++);
 LABEL_11:
   __p.__end_ = begin;
   operator delete(begin);
@@ -5689,7 +5640,7 @@ void std::vector<std::sub_match<char const*>>::assign(std::vector<std::csub_matc
   }
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -5709,10 +5660,10 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::sub_match<char c
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(a1, a2);
   }
@@ -5744,7 +5695,7 @@ uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, u
     result = v3 + 96;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -5814,21 +5765,21 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)16
   __cxa_throw(exception, MEMORY[0x277D82700], MEMORY[0x277D82628]);
 }
 
-uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
   if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
   {
     std::vector<char const*>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 5) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 5);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 5) >= 0x155555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) >= 0x155555555555555)
   {
     v6 = 0x2AAAAAAAAAAAAAALL;
   }
@@ -5871,14 +5822,14 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   *(v7 + 85) = *(a2 + 85);
   *(v7 + 80) = v9;
   *&v18 = 96 * v2 + 96;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 96 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::__state<char>>,std::__state<char>*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -5887,9 +5838,9 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   return v15;
 }
 
-void sub_25159AAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25159AAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::__state<char>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5912,29 +5863,29 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::_
     v6 = a2;
     do
     {
-      v7 = *(v6 + 1);
+      v7 = *(v6 + 16);
       *a4 = *v6;
       *(a4 + 16) = v7;
       *(a4 + 40) = 0;
       *(a4 + 48) = 0;
       *(a4 + 32) = 0;
-      *(a4 + 32) = *(v6 + 2);
-      *(a4 + 48) = v6[6];
-      v6[4] = 0;
-      v6[5] = 0;
-      v6[6] = 0;
+      *(a4 + 32) = *(v6 + 32);
+      *(a4 + 48) = *(v6 + 48);
+      *(v6 + 32) = 0;
+      *(v6 + 40) = 0;
+      *(v6 + 48) = 0;
       *(a4 + 56) = 0;
       *(a4 + 64) = 0;
       *(a4 + 72) = 0;
-      *(a4 + 56) = *(v6 + 7);
-      *(a4 + 72) = v6[9];
-      v6[7] = 0;
-      v6[8] = 0;
-      v6[9] = 0;
-      v8 = v6[10];
+      *(a4 + 56) = *(v6 + 56);
+      *(a4 + 72) = *(v6 + 72);
+      *(v6 + 56) = 0;
+      *(v6 + 64) = 0;
+      *(v6 + 72) = 0;
+      v8 = *(v6 + 80);
       *(a4 + 85) = *(v6 + 85);
       *(a4 + 80) = v8;
-      v6 += 12;
+      v6 += 96;
       a4 += 96;
     }
 
@@ -6153,7 +6104,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned lo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6175,7 +6126,7 @@ void sub_25159AFF4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6197,7 +6148,7 @@ void sub_25159B068(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7096,7 +7047,6 @@ uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t re
     if (*(a2 + 24) - v5 >= v4)
     {
       v7 = result;
-      v8 = *(v3 + 8) != *v3;
       if (v4 < 1)
       {
 LABEL_10:
@@ -7106,17 +7056,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v9 = 0;
+      v8 = 0;
       while (1)
       {
-        v10 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v9));
-        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v9));
-        if (v10 != result)
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
         {
           break;
         }
 
-        if (v4 == ++v9)
+        if (v4 == ++v8)
         {
           v5 = *(a2 + 16);
           goto LABEL_10;
@@ -7442,7 +7392,7 @@ LABEL_24:
     {
       v13 = 0;
       v14 = 0;
-      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12[v13].first.__r_.__value_.__r.__words, &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v13].second.__r_.__value_.__l.__data_) >= 1)
+      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v12[v13], &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v13].second) >= 1)
       {
         ++v14;
         v12 = this->__ranges_.__begin_;
@@ -7698,7 +7648,7 @@ LABEL_87:
   {
     v47 = 0;
     v48 = 0;
-    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v33[v47].first.__r_.__value_.__r.__words, &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v47].second.__r_.__value_.__l.__data_) >= 1)
+    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v33[v47], &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v47].second) >= 1)
     {
       ++v48;
       v33 = this->__ranges_.__begin_;
@@ -8185,7 +8135,7 @@ void sub_25159D9EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -8357,7 +8307,7 @@ LABEL_28:
         {
           v20 = v30;
 LABEL_46:
-          std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v6, *v20, *(v20 + 1));
+          std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v6, *v20, v20[1]);
           goto LABEL_47;
         }
 
@@ -9289,11 +9239,11 @@ LABEL_74:
   }
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -9569,4 +9519,86 @@ LABEL_5:
   }
 
   std::vector<char>::push_back[abi:ne200100](a1 + 64, &v7);
+}
+
+void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+{
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  if (v4 >= v5)
+  {
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 4);
+    v10 = v9 + 1;
+    if (v9 + 1 > 0x555555555555555)
+    {
+      std::vector<char const*>::__throw_length_error[abi:ne200100]();
+    }
+
+    v11 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 4);
+    if (2 * v11 > v10)
+    {
+      v10 = 2 * v11;
+    }
+
+    if (v11 >= 0x2AAAAAAAAAAAAAALL)
+    {
+      v12 = 0x555555555555555;
+    }
+
+    else
+    {
+      v12 = v10;
+    }
+
+    v20.__end_cap_.__value_ = a1;
+    if (v12)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string,std::string>>>(a1, v12);
+    }
+
+    v13 = 48 * v9;
+    v14 = *a2;
+    *(v13 + 16) = *(a2 + 2);
+    *v13 = v14;
+    *(a2 + 1) = 0;
+    *(a2 + 2) = 0;
+    *a2 = 0;
+    v15 = *(a2 + 24);
+    *(v13 + 40) = *(a2 + 5);
+    *(v13 + 24) = v15;
+    *(a2 + 4) = 0;
+    *(a2 + 5) = 0;
+    *(a2 + 3) = 0;
+    v8 = 48 * v9 + 48;
+    v16 = *(a1 + 8) - *a1;
+    v17 = v13 - v16;
+    memcpy((v13 - v16), *a1, v16);
+    v18 = *a1;
+    *a1 = v17;
+    *(a1 + 8) = v8;
+    v19 = *(a1 + 16);
+    *(a1 + 16) = 0;
+    v20.__end_ = v18;
+    v20.__end_cap_.__value_ = v19;
+    v20.__first_ = v18;
+    v20.__begin_ = v18;
+    std::__split_buffer<std::pair<std::string,std::string>>::~__split_buffer(&v20);
+  }
+
+  else
+  {
+    v6 = *a2;
+    *(v4 + 16) = *(a2 + 2);
+    *v4 = v6;
+    *(a2 + 8) = 0uLL;
+    *a2 = 0;
+    v7 = *(a2 + 24);
+    *(v4 + 40) = *(a2 + 5);
+    *(v4 + 24) = v7;
+    a2[2] = 0uLL;
+    *(a2 + 3) = 0;
+    v8 = v4 + 48;
+  }
+
+  *(a1 + 8) = v8;
 }

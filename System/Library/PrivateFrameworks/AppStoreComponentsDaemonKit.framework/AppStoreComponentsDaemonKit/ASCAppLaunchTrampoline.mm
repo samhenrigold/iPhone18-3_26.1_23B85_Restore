@@ -3,6 +3,7 @@
 - (ASCAppLaunchTrampoline)init;
 - (ASCAppLaunchTrampoline)initWithWorkspace:(id)workspace;
 - (id)handleURL:(id)l workspace:(id)workspace;
+- (id)openApplicationWithBundleIdentifier:(id)identifier payloadURL:(id)l universalLinkRequired:(BOOL)required workspace:(id)workspace;
 - (id)openApplicationWithBundleIdentifier:(id)identifier payloadURL:(id)l workspace:(id)workspace;
 - (id)productPageURLForAdamId:(id)id deeplink:(id)deeplink eventId:(id)eventId encodedMetrics:(id)metrics sourceApplication:(id)application openInGamesUI:(id)i;
 @end
@@ -54,18 +55,18 @@ uint64_t __29__ASCAppLaunchTrampoline_log__block_invoke()
 
 - (id)handleURL:(id)l workspace:(id)workspace
 {
-  v104[1] = *MEMORY[0x277D85DE8];
+  v103[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   workspaceCopy = workspace;
   v7 = objc_alloc_init(MEMORY[0x277CEE600]);
   v8 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:lCopy resolvingAgainstBaseURL:1];
-  v75 = v8;
+  v74 = v8;
   if (!v8 || (v9 = v8, [v8 queryItems], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "count"), v10, !v11))
   {
     v56 = MEMORY[0x277CCA9B8];
-    v103 = *MEMORY[0x277CCA450];
-    v104[0] = @"Failed while parsing input URL, URL components was nil or empty.";
-    v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v104 forKeys:&v103 count:1];
+    v102 = *MEMORY[0x277CCA450];
+    v103[0] = @"Failed while parsing input URL, URL components was nil or empty.";
+    v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:&v102 count:1];
     v58 = v56;
     v59 = 0;
 LABEL_51:
@@ -84,54 +85,54 @@ LABEL_51:
   if ((v14 & 1) == 0)
   {
     v60 = MEMORY[0x277CCA9B8];
-    v101 = *MEMORY[0x277CCA450];
-    v102 = @"Received URL unsuitable for app launch trampoline.";
-    v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+    v100 = *MEMORY[0x277CCA450];
+    v101 = @"Received URL unsuitable for app launch trampoline.";
+    v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
     v58 = v60;
     v59 = 1;
     goto LABEL_51;
   }
 
-  v73 = v7;
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
+  v72 = v7;
   v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   queryItems = [v9 queryItems];
-  v16 = [queryItems countByEnumeratingWithState:&v94 objects:v100 count:16];
+  v16 = [queryItems countByEnumeratingWithState:&v93 objects:v99 count:16];
   if (!v16)
   {
 
     v18 = 0;
+    v76 = 0;
     v77 = 0;
     v78 = 0;
     v79 = 0;
     v80 = 0;
     v81 = 0;
-    v82 = 0;
     goto LABEL_57;
   }
 
   v17 = v16;
-  v72 = lCopy;
-  v81 = 0;
-  v82 = 0;
-  v79 = 0;
+  v71 = lCopy;
   v80 = 0;
-  v77 = 0;
+  v81 = 0;
   v78 = 0;
+  v79 = 0;
+  v76 = 0;
+  v77 = 0;
   v18 = 0;
-  v19 = *v95;
+  v19 = *v94;
   do
   {
     for (i = 0; i != v17; ++i)
     {
-      if (*v95 != v19)
+      if (*v94 != v19)
       {
         objc_enumerationMutation(queryItems);
       }
 
-      v21 = *(*(&v94 + 1) + 8 * i);
+      v21 = *(*(&v93 + 1) + 8 * i);
       name = [v21 name];
       lowercaseString2 = [name lowercaseString];
       if ([lowercaseString2 isEqualToString:@"appid"])
@@ -161,7 +162,7 @@ LABEL_51:
         {
           v29 = v21;
 
-          v82 = v29;
+          v81 = v29;
           continue;
         }
       }
@@ -180,7 +181,7 @@ LABEL_51:
         {
           v33 = v21;
 
-          v81 = v33;
+          v80 = v33;
           continue;
         }
       }
@@ -199,7 +200,7 @@ LABEL_51:
         {
           v37 = v21;
 
-          v79 = v37;
+          v78 = v37;
           continue;
         }
       }
@@ -218,7 +219,7 @@ LABEL_51:
         {
           v41 = v21;
 
-          v80 = v41;
+          v79 = v41;
           continue;
         }
       }
@@ -237,7 +238,7 @@ LABEL_51:
         {
           v45 = v21;
 
-          v78 = v45;
+          v77 = v45;
           continue;
         }
       }
@@ -252,9 +253,9 @@ LABEL_51:
       {
         value7 = [v21 value];
 
-        if (value7 && !v80)
+        if (value7 && !v79)
         {
-          v80 = v21;
+          v79 = v21;
           continue;
         }
       }
@@ -273,7 +274,7 @@ LABEL_51:
         {
           v52 = v21;
 
-          v77 = v52;
+          v76 = v52;
         }
       }
 
@@ -282,39 +283,39 @@ LABEL_51:
       }
     }
 
-    v17 = [queryItems countByEnumeratingWithState:&v94 objects:v100 count:16];
+    v17 = [queryItems countByEnumeratingWithState:&v93 objects:v99 count:16];
   }
 
   while (v17);
 
   if (!v18)
   {
-    lCopy = v72;
-    v7 = v73;
+    lCopy = v71;
+    v7 = v72;
     goto LABEL_57;
   }
 
-  lCopy = v72;
-  v7 = v73;
-  if (!v82)
+  lCopy = v71;
+  v7 = v72;
+  if (!v81)
   {
 LABEL_57:
-    v64 = MEMORY[0x277CCA9B8];
-    v98 = *MEMORY[0x277CCA450];
-    v99 = @"Missing required parameters for app launch.";
-    v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
-    value9 = [v64 errorWithDomain:@"ASCAppLaunchTrampolineErrorDomain" code:2 userInfo:v65];
+    v63 = MEMORY[0x277CCA9B8];
+    v97 = *MEMORY[0x277CCA450];
+    v98 = @"Missing required parameters for app launch.";
+    v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+    value9 = [v63 errorWithDomain:@"ASCAppLaunchTrampolineErrorDomain" code:2 userInfo:v64];
 
     [v7 finishWithError:value9];
-    v66 = v7;
+    v65 = v7;
     goto LABEL_61;
   }
 
-  value9 = [v81 value];
+  value9 = [v80 value];
 
   if (value9)
   {
-    value10 = [v81 value];
+    value10 = [v80 value];
     stringByRemovingPercentEncoding = [value10 stringByRemovingPercentEncoding];
 
     if (stringByRemovingPercentEncoding)
@@ -328,43 +329,41 @@ LABEL_57:
     }
   }
 
-  value11 = [v82 value];
-  v68 = [workspaceCopy openApplicationWithBundleIdentifier:value11 payloadURL:value9];
+  value11 = [v81 value];
+  v67 = [workspaceCopy openApplicationWithBundleIdentifier:value11 payloadURL:value9];
 
-  v92[0] = MEMORY[0x277D85DD0];
-  v92[1] = 3221225472;
-  v92[2] = __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke;
-  v92[3] = &unk_2784B1878;
-  v69 = v73;
-  v93 = v69;
-  [v68 addSuccessBlock:v92];
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke_2;
-  v83[3] = &unk_2784B18C8;
-  v83[4] = selfCopy;
+  v91[0] = MEMORY[0x277D85DD0];
+  v91[1] = 3221225472;
+  v91[2] = __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke;
+  v91[3] = &unk_2784B1878;
+  v68 = v72;
+  v92 = v68;
+  [v67 addSuccessBlock:v91];
+  v82[0] = MEMORY[0x277D85DD0];
+  v82[1] = 3221225472;
+  v82[2] = __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke_2;
+  v82[3] = &unk_2784B18C8;
+  v82[4] = selfCopy;
   v18 = v18;
-  v84 = v18;
-  v81 = v81;
-  v85 = v81;
+  v83 = v18;
+  v80 = v80;
+  v84 = v80;
+  v78 = v78;
+  v85 = v78;
   v79 = v79;
   v86 = v79;
-  v80 = v80;
-  v87 = v80;
-  v78 = v78;
-  v88 = v78;
   v77 = v77;
-  v89 = v77;
+  v87 = v77;
+  v76 = v76;
+  v88 = v76;
+  v69 = v68;
+  v89 = v69;
+  v90 = workspaceCopy;
+  [v67 addErrorBlock:v82];
   v70 = v69;
-  v90 = v70;
-  v91 = workspaceCopy;
-  [v68 addErrorBlock:v83];
-  v71 = v70;
 
 LABEL_61:
 LABEL_52:
-
-  v62 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -377,13 +376,13 @@ void __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke(uint64_t a1
 
 void __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke_2(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[ASCAppLaunchTrampoline log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v22 = v3;
+    v21 = v3;
     _os_log_impl(&dword_222629000, v4, OS_LOG_TYPE_INFO, "Unable to open application, reason %{public}@. Attempting to open product page URL", buf, 0xCu);
   }
 
@@ -399,31 +398,29 @@ void __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke_2(uint64_t 
   if (v12)
   {
     v13 = [*(a1 + 96) openProductURL:v12];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke_48;
-    v17[3] = &unk_2784B18A0;
-    v18 = *(a1 + 88);
-    [v13 addFinishBlock:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke_48;
+    v16[3] = &unk_2784B18A0;
+    v17 = *(a1 + 88);
+    [v13 addFinishBlock:v16];
   }
 
   else
   {
     v14 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20 = @"Failed to construct product page URL.";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19 = @"Failed to construct product page URL.";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v13 = [v14 errorWithDomain:@"ASCAppLaunchTrampolineErrorDomain" code:3 userInfo:v15];
 
     [*(a1 + 88) finishWithError:v13];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke_48(uint64_t a1, int a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -440,15 +437,13 @@ void __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke_48(uint64_t
     }
 
     v8 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = @"Failed to open product page.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = @"Failed to open product page.";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v6 = [v8 errorWithDomain:@"ASCAppLaunchTrampolineErrorDomain" code:4 userInfo:v9];
 
     [*(a1 + 32) finishWithError:v6];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)openApplicationWithBundleIdentifier:(id)identifier payloadURL:(id)l workspace:(id)workspace
@@ -488,15 +483,44 @@ void __83__ASCAppLaunchTrampoline_openApplicationWithBundleIdentifier_payloadURL
 
 void __83__ASCAppLaunchTrampoline_openApplicationWithBundleIdentifier_payloadURL_workspace___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
-  v6 = *MEMORY[0x277CCA450];
-  v7[0] = @"Failed to open app.";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x277CCA450];
+  v6[0] = @"Failed to open app.";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"ASCAppLaunchTrampolineErrorDomain" code:5 userInfo:v3];
 
   [*(a1 + 32) finishWithError:v4];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (id)openApplicationWithBundleIdentifier:(id)identifier payloadURL:(id)l universalLinkRequired:(BOOL)required workspace:(id)workspace
+{
+  requiredCopy = required;
+  v9 = MEMORY[0x277CEE600];
+  workspaceCopy = workspace;
+  lCopy = l;
+  identifierCopy = identifier;
+  v13 = objc_alloc_init(v9);
+  v14 = [workspaceCopy openApplicationWithBundleIdentifier:identifierCopy payloadURL:lCopy universalLinkRequired:requiredCopy];
+
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __105__ASCAppLaunchTrampoline_openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired_workspace___block_invoke;
+  v22[3] = &unk_2784B1878;
+  v15 = v13;
+  v23 = v15;
+  [v14 addSuccessBlock:v22];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __105__ASCAppLaunchTrampoline_openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired_workspace___block_invoke_2;
+  v20[3] = &unk_2784B18F0;
+  v16 = v15;
+  v21 = v16;
+  [v14 addErrorBlock:v20];
+  v17 = v21;
+  v18 = v16;
+
+  return v16;
 }
 
 void __105__ASCAppLaunchTrampoline_openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired_workspace___block_invoke(uint64_t a1)
@@ -507,15 +531,14 @@ void __105__ASCAppLaunchTrampoline_openApplicationWithBundleIdentifier_payloadUR
 
 void __105__ASCAppLaunchTrampoline_openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired_workspace___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
-  v6 = *MEMORY[0x277CCA450];
-  v7[0] = @"Failed to open app.";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x277CCA450];
+  v6[0] = @"Failed to open app.";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"ASCAppLaunchTrampolineErrorDomain" code:5 userInfo:v3];
 
   [*(a1 + 32) finishWithError:v4];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)productPageURLForAdamId:(id)id deeplink:(id)deeplink eventId:(id)eventId encodedMetrics:(id)metrics sourceApplication:(id)application openInGamesUI:(id)i
@@ -585,11 +608,10 @@ void __105__ASCAppLaunchTrampoline_openApplicationWithBundleIdentifier_payloadUR
 
 void __46__ASCAppLaunchTrampoline_handleURL_workspace___block_invoke_48_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_222629000, a2, OS_LOG_TYPE_ERROR, "Unable to open product page, reason %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_222629000, a2, OS_LOG_TYPE_ERROR, "Unable to open product page, reason %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -425,11 +425,11 @@ LABEL_12:
   [(HUTimerIntervalPickerView *)self _setLabel:_makeNewComponentLabel2 forComponent:component];
 }
 
-uint64_t __68__HUTimerIntervalPickerView__fadeLabelForComponent_toText_animated___block_invoke_2(uint64_t result, int a2)
+id *__68__HUTimerIntervalPickerView__fadeLabelForComponent_toText_animated___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) removeFromSuperview];
+    return [result[4] removeFromSuperview];
   }
 
   return result;

@@ -382,18 +382,18 @@ void __69__CNUIPRLikenessResolver_likenessesForContact_options_workScheduler___b
   CNRunWithLock();
 }
 
-uint64_t __69__CNUIPRLikenessResolver_likenessesForContact_options_workScheduler___block_invoke_39(uint64_t a1)
+void *__69__CNUIPRLikenessResolver_likenessesForContact_options_workScheduler___block_invoke_39(uint64_t a1)
 {
   result = [*(a1 + 32) setObject:0 forKeyedSubscript:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = 1;
   return result;
 }
 
-uint64_t __69__CNUIPRLikenessResolver_likenessesForContact_options_workScheduler___block_invoke_2(uint64_t result)
+id *__69__CNUIPRLikenessResolver_likenessesForContact_options_workScheduler___block_invoke_2(id *result)
 {
-  if ((*(*(*(result + 56) + 8) + 24) & 1) == 0)
+  if ((*(*(result[7] + 1) + 24) & 1) == 0)
   {
-    return [*(result + 32) setObject:*(result + 48) forKeyedSubscript:*(result + 40)];
+    return [result[4] setObject:result[6] forKeyedSubscript:result[5]];
   }
 
   return result;
@@ -520,18 +520,18 @@ void __73__CNUIPRLikenessResolver_badgeObservableWithLikenessBadge_workScheduler
   CNRunWithLock();
 }
 
-uint64_t __73__CNUIPRLikenessResolver_badgeObservableWithLikenessBadge_workScheduler___block_invoke_43(uint64_t a1)
+void *__73__CNUIPRLikenessResolver_badgeObservableWithLikenessBadge_workScheduler___block_invoke_43(uint64_t a1)
 {
   result = [*(a1 + 32) setObject:0 forKeyedSubscript:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = 1;
   return result;
 }
 
-uint64_t __73__CNUIPRLikenessResolver_badgeObservableWithLikenessBadge_workScheduler___block_invoke_2(uint64_t result)
+id *__73__CNUIPRLikenessResolver_badgeObservableWithLikenessBadge_workScheduler___block_invoke_2(id *result)
 {
-  if ((*(*(*(result + 56) + 8) + 24) & 1) == 0)
+  if ((*(*(result[7] + 1) + 24) & 1) == 0)
   {
-    return [*(result + 32) setObject:*(result + 48) forKeyedSubscript:*(result + 40)];
+    return [result[4] setObject:result[6] forKeyedSubscript:result[5]];
   }
 
   return result;

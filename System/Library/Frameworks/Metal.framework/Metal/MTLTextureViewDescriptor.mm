@@ -61,26 +61,26 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v12[18] = *MEMORY[0x1E69E9840];
+  v11[18] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v11.receiver = self;
-  v11.super_class = MTLTextureViewDescriptor;
-  v6 = [(MTLTextureViewDescriptor *)&v11 description];
-  v12[0] = v4;
-  v12[1] = @"pixelFormat =";
-  v12[2] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.pixelFormat)];
-  v12[3] = v4;
-  v12[4] = @"textureType =";
-  v12[5] = MTLTextureTypeString(self->_private.textureType);
-  v12[6] = v4;
-  v12[7] = @"levels =";
-  v12[8] = NSStringFromRange(self->_private.levels);
-  v12[9] = v4;
-  v12[10] = @"slices =";
-  v12[11] = NSStringFromRange(self->_private.slices);
-  v12[12] = v4;
-  v12[13] = @"writeAccessPattern =";
+  v10.receiver = self;
+  v10.super_class = MTLTextureViewDescriptor;
+  v6 = [(MTLTextureViewDescriptor *)&v10 description];
+  v11[0] = v4;
+  v11[1] = @"pixelFormat =";
+  v11[2] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.pixelFormat)];
+  v11[3] = v4;
+  v11[4] = @"textureType =";
+  v11[5] = MTLTextureTypeString(self->_private.textureType);
+  v11[6] = v4;
+  v11[7] = @"levels =";
+  v11[8] = NSStringFromRange(self->_private.levels);
+  v11[9] = v4;
+  v11[10] = @"slices =";
+  v11[11] = NSStringFromRange(self->_private.slices);
+  v11[12] = v4;
+  v11[13] = @"writeAccessPattern =";
   writeAccessPattern = self->_private.writeAccessPattern;
   if (writeAccessPattern > 2)
   {
@@ -92,13 +92,11 @@
     v8 = *(&off_1E6EEB7E8 + writeAccessPattern);
   }
 
-  v12[14] = v8;
-  v12[15] = v4;
-  v12[16] = @"swizzle =";
-  v12[17] = MTLTextureSwizzleString(self->_private.swizzle);
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v12, 18), "componentsJoinedByString:", @" "];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v11[14] = v8;
+  v11[15] = v4;
+  v11[16] = @"swizzle =";
+  v11[17] = MTLTextureSwizzleString(self->_private.swizzle);
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v11, 18), "componentsJoinedByString:", @" "];
 }
 
 - (_NSRange)levelRange

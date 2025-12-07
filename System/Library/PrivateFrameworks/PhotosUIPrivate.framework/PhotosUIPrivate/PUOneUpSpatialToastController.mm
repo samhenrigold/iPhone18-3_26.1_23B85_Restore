@@ -29,7 +29,7 @@
 
 + (NSString)downloadErrorDomain
 {
-  static PUOneUpSpatialToastController.downloadErrorDomain.getter();
+  static PUOneUpSpatialToastController.downloadErrorDomain.getter(self, a2);
   v2 = sub_1B3C9C5A8();
 
   return v2;

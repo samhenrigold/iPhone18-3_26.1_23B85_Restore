@@ -296,7 +296,7 @@ LABEL_9:
     v28.f64[0] = v19;
     if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_f64(v28), vceqzq_f64(*&v130[24]))))) & 1) == 0)
     {
-      std::deque<_UIVelocityIntegratorDataSample>::push_back(&self->_samples.__map_.__first_, v121);
+      std::deque<_UIVelocityIntegratorDataSample>::push_back(&self->_samples, v121);
       *&self->_totalTranslation.var0.x = 0u;
       *&self->_totalTranslation.var0.z = 0u;
       return;
@@ -723,7 +723,7 @@ LABEL_112:
       }
 
 LABEL_114:
-      std::deque<_UIVelocityIntegratorDataSample>::push_back(&self->_samples.__map_.__first_, v121);
+      std::deque<_UIVelocityIntegratorDataSample>::push_back(&self->_samples, v121);
       return;
     }
 
@@ -798,7 +798,7 @@ LABEL_23:
 
 - (CGPoint)position
 {
-  [(_UIVelocityIntegrator *)self position3D];
+  objc_msgSend_position3D(self, a2);
   v3 = 0.0;
   v2 = 0.0;
   result.y = v3;
@@ -808,7 +808,7 @@ LABEL_23:
 
 - (CGVector)acceleration
 {
-  [(_UIVelocityIntegrator *)self acceleration3D];
+  objc_msgSend_acceleration3D(self, a2);
   v3 = 0.0;
   v2 = 0.0;
   result.dy = v3;

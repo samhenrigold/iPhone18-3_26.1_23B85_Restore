@@ -46,8 +46,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1000809C4(appear);
+  sub_1000809C4(appearCopy);
 }
 
 - (double)tableView:(id)view heightForFooterInSection:(int64_t)section
@@ -74,10 +75,10 @@
   sub_100080AD4(section);
   if (v6)
   {
-
-    v7 = sub_100080C98(section);
-    [v7 systemLayoutSizeFittingSize:{UILayoutFittingCompressedSize.width, UILayoutFittingCompressedSize.height}];
-    v9 = v8;
+    v6, v6, v7, v8, v9, v10, v11, v12;
+    v13 = sub_100080C98(section);
+    [v13 systemLayoutSizeFittingSize:{UILayoutFittingCompressedSize.width, UILayoutFittingCompressedSize.height}];
+    v15 = v14;
   }
 
   else
@@ -86,7 +87,7 @@
     return 2.22507386e-308;
   }
 
-  return v9;
+  return v15;
 }
 
 - (void)tableView:(id)view willDisplayHeaderView:(id)headerView forSection:(int64_t)section

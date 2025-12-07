@@ -274,7 +274,6 @@ LABEL_52:
             selfCopy = self;
             errorCopy = error;
             v52 = v51 = dataCopy;
-            v53 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             dataCopy = v51;
@@ -338,7 +337,7 @@ LABEL_55:
 LABEL_57:
             v11 = 0;
             self->_firstWeekday = v37;
-            v54 = 16;
+            v53 = 16;
             goto LABEL_66;
           }
 
@@ -384,9 +383,9 @@ LABEL_63:
 LABEL_65:
             v11 = 0;
             self->_minimumDaysInFirstWeek = v27;
-            v54 = 17;
+            v53 = 17;
 LABEL_66:
-            *(&self->super.super.isa + v54) = 1;
+            *(&self->super.super.isa + v53) = 1;
             goto LABEL_67;
           }
 
@@ -415,22 +414,21 @@ LABEL_66:
 LABEL_70:
   if (!*&v7[*v10])
   {
-    v58 = 1;
+    v56 = 1;
     goto LABEL_74;
   }
 
 LABEL_71:
-  v55 = objc_opt_class();
-  v11 = NSStringFromClass(v55);
-  v56 = *&v7[*v10];
-  v57 = CCInvalidBufferErrorForMessage();
+  v54 = objc_opt_class();
+  v11 = NSStringFromClass(v54);
+  v55 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_72:
-  v58 = 0;
+  v56 = 0;
 LABEL_74:
 
-  return v58;
+  return v56;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueDateComponentsCalendar)initWithIdentifier:(unsigned int)identifier timeZoneIdentifier:(id)zoneIdentifier localeIdentifier:(id)localeIdentifier firstWeekday:(id)weekday minimumDaysInFirstWeek:(id)week error:(id *)error
@@ -440,7 +438,7 @@ LABEL_74:
   weekdayCopy = weekday;
   weekCopy = week;
   v18 = objc_opt_new();
-  v38 = zoneIdentifierCopy;
+  v36 = zoneIdentifierCopy;
   if (identifier)
   {
     v19 = CCValidateEnumField();
@@ -488,28 +486,26 @@ LABEL_8:
       v20 = v25;
 LABEL_12:
       self = selfCopy2;
-      v28 = 0x1E696A000uLL;
       weekCopy = v22;
       weekdayCopy = v21;
       if (v21)
       {
         objc_opt_class();
-        v29 = CCValidateIsInstanceOfExpectedClass();
-        v30 = v20;
+        v28 = CCValidateIsInstanceOfExpectedClass();
+        v29 = v20;
 
         localeIdentifierCopy = v26;
-        v31 = errorCopy2;
-        if (!v29)
+        v30 = errorCopy2;
+        if (!v28)
         {
           CCSetError();
           selfCopy3 = 0;
-          v20 = v30;
+          v20 = v29;
           goto LABEL_25;
         }
 
         [weekdayCopy longLongValue];
         CCPBDataWriterWriteInt64Field();
-        v28 = 0x1E696A000;
         if (!weekCopy)
         {
           goto LABEL_15;
@@ -518,28 +514,27 @@ LABEL_12:
 
       else
       {
-        v30 = v20;
+        v29 = v20;
         localeIdentifierCopy = v26;
-        v31 = errorCopy2;
+        v30 = errorCopy2;
         if (!weekCopy)
         {
 LABEL_15:
-          v20 = v30;
+          v20 = v29;
 LABEL_22:
           immutableData = [v18 immutableData];
-          self = [(CCItemMessage *)self initWithData:immutableData error:v31];
+          self = [(CCItemMessage *)self initWithData:immutableData error:v30];
 
           selfCopy3 = self;
           goto LABEL_25;
         }
       }
 
-      v33 = *(v28 + 3480);
       objc_opt_class();
-      v34 = CCValidateIsInstanceOfExpectedClass();
-      v20 = v30;
+      v32 = CCValidateIsInstanceOfExpectedClass();
+      v20 = v29;
 
-      if (v34)
+      if (v32)
       {
         [weekCopy longLongValue];
         CCPBDataWriterWriteInt64Field();

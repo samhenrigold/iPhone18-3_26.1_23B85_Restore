@@ -46,8 +46,8 @@
   if (swift_unknownObjectWeakLoadStrong())
   {
     swift_getObjectType();
-    v4[3] = type metadata accessor for TTRIAccountsListsSectionHeaderView();
-    v4[4] = sub_100337B00(&qword_10077F948, type metadata accessor for TTRIAccountsListsSectionHeaderView);
+    v4[3] = type metadata accessor for TTRIAccountsListsSectionHeaderView(0);
+    v4[4] = sub_100337B00(&qword_10077F948, type metadata accessor for TTRIAccountsListsSectionHeaderView, &unk_10063B7D8);
     v4[0] = self;
     selfCopy = self;
     dispatch thunk of TTRITreeViewCellDelegate.treeCellViewToggleExpandState(_:)();
@@ -71,7 +71,7 @@
   swift_unknownObjectRelease();
   sub_100335A24();
 
-  sub_100004758(&v5);
+  sub_100004758(v5);
 }
 
 - (NSString)accessibilityIdentifier
@@ -135,7 +135,7 @@ LABEL_6:
     v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v8 = v7;
 
-    sub_100058000(&unk_100771E10);
+    sub_100058000(&unk_100771E10, &qword_100634270);
     v9 = swift_allocObject();
     *(v9 + 16) = xmmword_10062D400;
     *(v9 + 32) = v6;
@@ -152,7 +152,7 @@ LABEL_6:
   selfCopy = self;
   sub_100336960();
   static TTRAccesibility.General.Label.Separator.getter();
-  sub_100058000(&unk_100781F20);
+  sub_100058000(&unk_100781F20, &unk_10062D7E0);
   sub_10006089C();
   BidirectionalCollection<>.joined(separator:)();
 
@@ -195,7 +195,7 @@ LABEL_6:
 
   if (v3)
   {
-    sub_100003540(0, &qword_10076BCE0);
+    sub_100003540(0, &qword_10076BCE0, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -212,7 +212,7 @@ LABEL_6:
   isa = actions;
   if (actions)
   {
-    sub_100003540(0, &qword_10076BCE0);
+    sub_100003540(0, &qword_10076BCE0, UIAccessibilityCustomAction_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     selfCopy = self;
     isa = Array._bridgeToObjectiveC()().super.isa;
@@ -224,7 +224,7 @@ LABEL_6:
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for TTRIAccountsListsSectionHeaderView();
+  v7.super_class = type metadata accessor for TTRIAccountsListsSectionHeaderView(0);
   [(TTRIAccountsListsSectionHeaderView *)&v7 setAccessibilityCustomActions:isa];
 }
 

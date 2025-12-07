@@ -26,7 +26,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   os_unfair_lock_lock(&self->_lock);
   commandBlock = [(HMDThreadCommandTimer *)self commandBlock];
@@ -41,13 +41,13 @@
     {
       v10 = HMFGetLogIdentifier();
       v11 = [(HMDThreadCommandTimer *)selfCopy _commandTypeValueToString:[(HMDThreadCommandTimer *)selfCopy commandType]];
-      v17 = 138543874;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v11;
-      v21 = 2048;
+      v16 = 138543874;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      v20 = 2048;
       commandCount = [(HMDThreadCommandTimer *)selfCopy commandCount];
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Executing deferred thread command %@ now with id(%lu)", &v17, 0x20u);
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Executing deferred thread command %@ now with id(%lu)", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -64,21 +64,19 @@
     {
       v14 = HMFGetLogIdentifier();
       v15 = [(HMDThreadCommandTimer *)selfCopy _commandTypeValueToString:[(HMDThreadCommandTimer *)selfCopy commandType]];
-      v17 = 138543874;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v15;
-      v21 = 2048;
+      v16 = 138543874;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v15;
+      v20 = 2048;
       commandCount = [(HMDThreadCommandTimer *)selfCopy commandCount];
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Execution block not found for thread command %@ with id(%lu)", &v17, 0x20u);
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Execution block not found for thread command %@ with id(%lu)", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)currentlyScheduledCommand
@@ -103,7 +101,7 @@
 
 - (void)abort
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   commandTimer = [(HMDThreadCommandTimer *)self commandTimer];
   isRunning = [commandTimer isRunning];
@@ -120,13 +118,13 @@
     {
       v9 = HMFGetLogIdentifier();
       v10 = [(HMDThreadCommandTimer *)selfCopy _commandTypeValueToString:[(HMDThreadCommandTimer *)selfCopy commandType]];
-      v13 = 138543874;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      v17 = 2048;
+      v12 = 138543874;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v10;
+      v16 = 2048;
       commandCount = [(HMDThreadCommandTimer *)selfCopy commandCount];
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Not executing deferred thread command %@ with id(%lu). Sending nil completion", &v13, 0x20u);
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Not executing deferred thread command %@ with id(%lu). Sending nil completion", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -137,12 +135,11 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWithBlock:(id)block completion:(id)completion commandType:(int64_t)type
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
@@ -161,13 +158,13 @@
     {
       v16 = HMFGetLogIdentifier();
       v17 = [(HMDThreadCommandTimer *)selfCopy _commandTypeValueToString:[(HMDThreadCommandTimer *)selfCopy commandType]];
-      v28 = 138543874;
-      v29 = v16;
-      v30 = 2112;
-      v31 = v17;
-      v32 = 2048;
+      v27 = 138543874;
+      v28 = v16;
+      v29 = 2112;
+      v30 = v17;
+      v31 = 2048;
       commandCount = [(HMDThreadCommandTimer *)selfCopy commandCount];
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Not executing deferred thread command %@ with id(%lu). Sending nil completion", &v28, 0x20u);
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Not executing deferred thread command %@ with id(%lu). Sending nil completion", &v27, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -188,15 +185,15 @@
     v23 = [(HMDThreadCommandTimer *)selfCopy2 _commandTypeValueToString:[(HMDThreadCommandTimer *)selfCopy2 commandType]];
     delayInSecs = [(HMDThreadCommandTimer *)selfCopy2 delayInSecs];
     commandCount2 = [(HMDThreadCommandTimer *)selfCopy2 commandCount];
-    v28 = 138544130;
-    v29 = v22;
-    v30 = 2112;
-    v31 = v23;
-    v32 = 2112;
+    v27 = 138544130;
+    v28 = v22;
+    v29 = 2112;
+    v30 = v23;
+    v31 = 2112;
     commandCount = delayInSecs;
-    v34 = 2048;
-    v35 = commandCount2;
-    _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Scheduling deferred thread command %@ to execute after %@ secs with id(%lu)", &v28, 0x2Au);
+    v33 = 2048;
+    v34 = commandCount2;
+    _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Scheduling deferred thread command %@ to execute after %@ secs with id(%lu)", &v27, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v19);
@@ -204,7 +201,6 @@
   [commandTimer3 resume];
 
   os_unfair_lock_unlock(&self->_lock);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDThreadCommandTimer)initWithTimer:(id)timer
@@ -257,12 +253,11 @@
 
 uint64_t __36__HMDThreadCommandTimer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_78771;
-  logCategory__hmf_once_v6_78771 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_78771;
+  logCategory__hmf_once_v6_78771 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

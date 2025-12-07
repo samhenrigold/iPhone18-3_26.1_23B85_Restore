@@ -166,9 +166,9 @@
 
 - (void)layoutSubviews
 {
-  v39.receiver = self;
-  v39.super_class = SKUIChartColumnsView;
-  [(SKUIChartColumnsView *)&v39 layoutSubviews];
+  v43.receiver = self;
+  v43.super_class = SKUIChartColumnsView;
+  [(SKUIChartColumnsView *)&v43 layoutSubviews];
   [(SKUIChartColumnsView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -243,17 +243,17 @@ LABEL_13:
         if (v16 > 1)
         {
           v32 = [(NSArray *)self->_headerViews objectAtIndex:v29];
-          [v32 frame];
-          SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v31, 0.0, v28, v18, v4, v6, v8, v10);
+          frame = [v32 frame];
+          SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v31, 0.0, v28, v18, v4, v6, v8, v10, frame, v34);
           [v32 setFrame:?];
         }
 
-        v33 = [(NSArray *)self->_columnViews objectAtIndex:v29];
-        [v33 frame];
-        SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v31, 0.0, v28, v10, v4, v6, v8, v10);
-        [v33 setFrame:?];
-        v35 = columnChangeAnimationCount < 1 && v29 >= v16;
-        [v33 setHidden:v35];
+        v35 = [(NSArray *)self->_columnViews objectAtIndex:v29];
+        frame2 = [v35 frame];
+        SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v31, 0.0, v28, v10, v4, v6, v8, v10, frame2, v37);
+        [v35 setFrame:?];
+        v39 = columnChangeAnimationCount < 1 && v29 >= v16;
+        [v35 setHidden:v39];
         v31 = v31 + v28;
 
         ++v29;
@@ -262,22 +262,22 @@ LABEL_13:
       while (v14 != v29);
     }
 
-    v36 = v10 + -15.0;
-    [(UIView *)self->_borderView0 setFrame:v28, self->_contentInset.top + 15.0, v19, v36];
+    v40 = v10 + -15.0;
+    [(UIView *)self->_borderView0 setFrame:v28, self->_contentInset.top + 15.0, v19, v40];
     [(UIView *)self->_borderView0 setHidden:v16 < 2];
-    [(UIView *)self->_borderView1 setFrame:v28 + v28, self->_contentInset.top + 15.0, v19, v36];
+    [(UIView *)self->_borderView1 setFrame:v28 + v28, self->_contentInset.top + 15.0, v19, v40];
     borderView1 = self->_borderView1;
-    v38 = v16 < 3;
+    v42 = v16 < 3;
   }
 
   else
   {
     [(UIView *)self->_borderView0 setHidden:1];
     borderView1 = self->_borderView1;
-    v38 = 1;
+    v42 = 1;
   }
 
-  [(UIView *)borderView1 setHidden:v38];
+  [(UIView *)borderView1 setHidden:v42];
 }
 
 - (void)_headerViewAction:(id)action

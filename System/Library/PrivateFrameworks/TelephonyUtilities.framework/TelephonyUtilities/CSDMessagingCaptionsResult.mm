@@ -341,37 +341,35 @@ LABEL_19:
   toCopy = to;
   if ((*&self->_has & 0x10) != 0)
   {
-    utteranceComplete = self->_utteranceComplete;
     PBDataWriterWriteBOOLField();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v6 = self->_tokens;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v7)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = self->_tokens;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v18;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v12 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_text)
@@ -382,7 +380,6 @@ LABEL_19:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    utteranceNumber = self->_utteranceNumber;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -394,7 +391,6 @@ LABEL_14:
       }
 
 LABEL_20:
-      utteranceStartTimestamp = self->_utteranceStartTimestamp;
       PBDataWriterWriteDoubleField();
       if ((*&self->_has & 1) == 0)
       {
@@ -410,7 +406,6 @@ LABEL_20:
     goto LABEL_14;
   }
 
-  updateNumber = self->_updateNumber;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -422,7 +417,6 @@ LABEL_15:
   if (has)
   {
 LABEL_16:
-    utteranceDuration = self->_utteranceDuration;
     PBDataWriterWriteDoubleField();
   }
 
@@ -610,7 +604,6 @@ LABEL_14:
     goto LABEL_12;
   }
 
-  v5 = *(equalCopy + 52);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 52) & 0x10) == 0)
@@ -618,7 +611,6 @@ LABEL_14:
       goto LABEL_12;
     }
 
-    v10 = *(equalCopy + 48);
     if (self->_utteranceComplete)
     {
       if ((*(equalCopy + 48) & 1) == 0)
@@ -692,7 +684,7 @@ LABEL_14:
     goto LABEL_12;
   }
 
-  v8 = (*(equalCopy + 52) & 1) == 0;
+  v7 = (*(equalCopy + 52) & 1) == 0;
   if ((*&self->_has & 1) == 0)
   {
     goto LABEL_13;
@@ -700,15 +692,15 @@ LABEL_14:
 
   if ((*(equalCopy + 52) & 1) != 0 && self->_utteranceDuration == *(equalCopy + 1))
   {
-    v8 = 1;
+    v7 = 1;
     goto LABEL_13;
   }
 
 LABEL_12:
-  v8 = 0;
+  v7 = 0;
 LABEL_13:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

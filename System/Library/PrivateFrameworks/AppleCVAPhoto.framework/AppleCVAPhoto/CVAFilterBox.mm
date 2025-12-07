@@ -230,31 +230,13 @@ LABEL_31:
     boxIntermediateTexture_r = v11->_boxIntermediateTexture_r;
     v11->_boxIntermediateTexture_r = v20;
 
-    if (!v11->_boxIntermediateTexture_rgba)
-    {
-      goto LABEL_13;
-    }
-
-    if (!v11->_boxIntermediateTexture_r)
-    {
-      goto LABEL_13;
-    }
-
-    sub_1DED422A0(p_box_float_pass_horiz_kernel, contextCopy, v25, v26);
-    if (!p_box_float_pass_horiz_kernel)
-    {
-      goto LABEL_13;
-    }
-
-    sub_1DED422A0(p_box_float4_pass_horiz_kernel, contextCopy, v28, v29);
-    if (p_box_float4_pass_horiz_kernel && (sub_1DED422A0(p_box_normValid_float_pass_vert_kernel, contextCopy, v31, v32), p_box_normValid_float_pass_vert_kernel) && (sub_1DED422A0(p_box_norm_float_pass_vert_kernel, contextCopy, v34, v35), p_box_norm_float_pass_vert_kernel) && (sub_1DED422A0(p_box_float_pass_vert_kernel, contextCopy, v37, v38), p_box_float_pass_vert_kernel) && (sub_1DED422A0(p_box_normValid_float4_pass_vert_kernel, contextCopy, v40, v41), p_box_normValid_float4_pass_vert_kernel) && (sub_1DED422A0(p_box_norm_float4_pass_vert_kernel, contextCopy, v43, v44), p_box_norm_float4_pass_vert_kernel) && (sub_1DED422A0(p_box_float4_pass_vert_kernel, contextCopy, v46, v47), p_box_float4_pass_vert_kernel))
+    if (v11->_boxIntermediateTexture_rgba && v11->_boxIntermediateTexture_r && (sub_1DED422A0(p_box_float_pass_horiz_kernel, contextCopy, v25, v26), p_box_float_pass_horiz_kernel) && (sub_1DED422A0(p_box_float4_pass_horiz_kernel, contextCopy, v28, v29), p_box_float4_pass_horiz_kernel) && (sub_1DED422A0(p_box_normValid_float_pass_vert_kernel, contextCopy, v31, v32), p_box_normValid_float_pass_vert_kernel) && (sub_1DED422A0(p_box_norm_float_pass_vert_kernel, contextCopy, v34, v35), p_box_norm_float_pass_vert_kernel) && (sub_1DED422A0(p_box_float_pass_vert_kernel, contextCopy, v37, v38), p_box_float_pass_vert_kernel) && (sub_1DED422A0(p_box_normValid_float4_pass_vert_kernel, contextCopy, v40, v41), p_box_normValid_float4_pass_vert_kernel) && (sub_1DED422A0(p_box_norm_float4_pass_vert_kernel, contextCopy, v43, v44), p_box_norm_float4_pass_vert_kernel) && (sub_1DED422A0(p_box_float4_pass_vert_kernel, contextCopy, v46, v47), p_box_float4_pass_vert_kernel))
     {
       v22 = v11;
     }
 
     else
     {
-LABEL_13:
       v22 = 0;
     }
 

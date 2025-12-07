@@ -26,13 +26,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1CA15592C();
+  sub_1CA15592C(selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1CA1559B0();
+  sub_1CA1559B0(selfCopy);
 }
 
 - (_TtC27AppleMediaServicesUIDynamic19ErrorViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -57,6 +57,7 @@
 + (void)_setHasCompletedBuddyWithKey:(id)key version:(int64_t)version;
 + (void)_setHasCompletedBuddyWithVersion:(int64_t)version;
 + (void)resetSharedBehavior;
++ (void)setForceBuddy:(BOOL)buddy;
 + (void)setSharedBehavior:(id)behavior;
 - (BOOL)_hasProductTypePrefix:(id)prefix;
 - (BOOL)enableBloodPressureValidations;
@@ -117,6 +118,7 @@
 - (void)resetSupportsCloudSync;
 - (void)setCurrentDeviceDisplayName:(id)name;
 - (void)setCurrentOSVersionStruct:(id *)struct;
+- (void)setEnableBloodPressureValidations:(BOOL)validations;
 - (void)setFitnessMode:(unint64_t)mode;
 - (void)setFutureMigrationsEnabled:(BOOL)enabled;
 - (void)setIsAppleWatch:(BOOL)watch;
@@ -128,6 +130,9 @@
 - (void)setPerformsAutomaticUserDomainConceptProcessing:(BOOL)processing;
 - (void)setRunningInStoreDemoModeF201:(BOOL)f201;
 - (void)setShouldReceiveECGSamples:(BOOL)samples;
+- (void)setSupportsActiveQueryDaemonTransactions:(BOOL)transactions;
+- (void)setSupportsCachedSleepDaySummaryQueries:(BOOL)queries;
+- (void)setSupportsCachedStatisticsCollectionQueries:(BOOL)queries;
 - (void)setSupportsCloudSync:(BOOL)sync;
 - (void)setSupportsCloudSyncSharding:(BOOL)sharding;
 - (void)setSupportsCloudSyncStagingShard:(BOOL)shard;
@@ -135,6 +140,8 @@
 - (void)setSupportsOntologyDatabaseFutureMigrations:(BOOL)migrations;
 - (void)setSupportsPeriodicFullCloudSync:(BOOL)sync;
 - (void)setSupportsPeriodicLiteCloudSync:(BOOL)sync;
+- (void)setSupportsSwimmingWorkoutSessions:(BOOL)sessions;
+- (void)setTinkerModeEnabled:(BOOL)enabled;
 @end
 
 @implementation _HKBehavior
@@ -185,12 +192,12 @@
 
 - (BOOL)futureMigrationsEnabled
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock(&self->_overrideBehaviorLock);
-  v7[0] = &unk_1F05F5FD8;
-  v7[1] = &selfCopy;
-  v8 = v7;
+  v6[0] = &unk_1F05F5FD8;
+  v6[1] = &selfCopy;
+  v7 = v6;
   os_unfair_lock_lock(&self->_futureMigrationsEnabled._loadLock);
   if (self->_futureMigrationsEnabled._hasLoaded)
   {
@@ -199,38 +206,37 @@
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v8 + 48))(v8);
+    value = (*(*v7 + 48))(v7);
     self->_futureMigrationsEnabled._value = value;
     self->_futureMigrationsEnabled._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_futureMigrationsEnabled._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
   os_unfair_lock_unlock(&selfCopy->_overrideBehaviorLock);
-  v4 = *MEMORY[0x1E69E9840];
   return value & 1;
 }
 
 - (NSString)currentDeviceProductType
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8[0] = &unk_1F05F5F48;
-  v8[1] = &__block_literal_global_229;
-  v9 = v8;
+  v9 = *MEMORY[0x1E69E9840];
+  v7[0] = &unk_1F05F5F48;
+  v7[1] = &__block_literal_global_229;
+  v8 = v7;
   os_unfair_lock_lock(&self->_currentDeviceProductType._loadLock);
   if (!self->_currentDeviceProductType._hasLoaded)
   {
-    if (!v9)
+    if (!v8)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v3 = (*(*v9 + 48))(v9);
+    v3 = (*(*v8 + 48))(v8);
     value = self->_currentDeviceProductType._value;
     self->_currentDeviceProductType._value = v3;
 
@@ -239,8 +245,7 @@
 
   v5 = self->_currentDeviceProductType._value;
   os_unfair_lock_unlock(&self->_currentDeviceProductType._loadLock);
-  std::__function::__value_func<NSString * ()(void)>::~__value_func[abi:ne200100](v8);
-  v6 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<NSString * ()(void)>::~__value_func[abi:ne200100](v7);
 
   return v5;
 }
@@ -452,27 +457,27 @@
 
 + (BOOL)anyPairedWatchHasFlightsClimbedCapability
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   sharedInstance = [getNRPairedDeviceRegistryClass() sharedInstance];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   getSetupCompletedDevices = [sharedInstance getSetupCompletedDevices];
-  v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(getSetupCompletedDevices);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"D1DBCF21-D875-4EA8-B63E-8182578C0B0C"];
         LOBYTE(v7) = [v7 supportsCapability:v8];
 
@@ -483,7 +488,7 @@
         }
       }
 
-      v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -496,7 +501,6 @@
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -511,27 +515,27 @@ LABEL_11:
 
 + (BOOL)allPairedWatchesSupportHeartRateMotionContexts
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   sharedInstance = [getNRPairedDeviceRegistryClass() sharedInstance];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   getSetupCompletedDevices = [sharedInstance getSetupCompletedDevices];
-  v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(getSetupCompletedDevices);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"E17D2903-B868-4E6C-8E76-6D4939BEED44"];
         LOBYTE(v7) = [v7 supportsCapability:v8];
 
@@ -542,7 +546,7 @@ LABEL_11:
         }
       }
 
-      v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -555,7 +559,6 @@ LABEL_11:
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -572,57 +575,53 @@ LABEL_11:
 
 + (BOOL)allPairedWatchesSupportBradycardiaDetection
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if ([self allPairedWatchesSupportHeartRateMotionContexts])
+  v16 = *MEMORY[0x1E69E9840];
+  if (![self allPairedWatchesSupportHeartRateMotionContexts])
   {
-    sharedInstance = [getNRPairedDeviceRegistryClass() sharedInstance];
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    getSetupCompletedDevices = [sharedInstance getSetupCompletedDevices];
-    v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v4)
+    return 0;
+  }
+
+  sharedInstance = [getNRPairedDeviceRegistryClass() sharedInstance];
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  getSetupCompletedDevices = [sharedInstance getSetupCompletedDevices];
+  v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
+  {
+    v5 = *v12;
+    while (2)
     {
-      v5 = *v13;
-      while (2)
+      for (i = 0; i != v4; ++i)
       {
-        for (i = 0; i != v4; ++i)
+        if (*v12 != v5)
         {
-          if (*v13 != v5)
-          {
-            objc_enumerationMutation(getSetupCompletedDevices);
-          }
-
-          getNRWatchOSVersionForRemoteDevice(*(*(&v12 + 1) + 8 * i));
-          getNRVersionIsGreaterThanOrEqual(v7);
-          if (!v8)
-          {
-            v9 = 0;
-            goto LABEL_13;
-          }
+          objc_enumerationMutation(getSetupCompletedDevices);
         }
 
-        v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v4)
+        getNRWatchOSVersionForRemoteDevice(*(*(&v11 + 1) + 8 * i));
+        getNRVersionIsGreaterThanOrEqual(v7);
+        if (!v8)
         {
-          continue;
+          v9 = 0;
+          goto LABEL_13;
         }
-
-        break;
       }
+
+      v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v4)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v9 = 1;
+  v9 = 1;
 LABEL_13:
-  }
 
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -646,19 +645,19 @@ LABEL_13:
 
 - (_HKFeatureFlags)features
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8[0] = &unk_1F05F5CB8;
-  v8[1] = &__block_literal_global_132;
-  v9 = v8;
+  v9 = *MEMORY[0x1E69E9840];
+  v7[0] = &unk_1F05F5CB8;
+  v7[1] = &__block_literal_global_132;
+  v8 = v7;
   os_unfair_lock_lock(&self->_featureFlags._loadLock);
   if (!self->_featureFlags._hasLoaded)
   {
-    if (!v9)
+    if (!v8)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v3 = (*(*v9 + 48))(v9);
+    v3 = (*(*v8 + 48))(v8);
     value = self->_featureFlags._value;
     self->_featureFlags._value = v3;
 
@@ -667,8 +666,7 @@ LABEL_13:
 
   v5 = self->_featureFlags._value;
   os_unfair_lock_unlock(&self->_featureFlags._loadLock);
-  std::__function::__value_func<_HKFeatureFlags * ()(void)>::~__value_func[abi:ne200100](v8);
-  v6 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<_HKFeatureFlags * ()(void)>::~__value_func[abi:ne200100](v7);
 
   return v5;
 }
@@ -716,9 +714,9 @@ LABEL_13:
 
 - (BOOL)isProdFused
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5D48;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5D48;
+  v6 = v5;
   os_unfair_lock_lock(&self->_isProdFused._loadLock);
   if (self->_isProdFused._hasLoaded)
   {
@@ -727,19 +725,18 @@ LABEL_13:
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_isProdFused._value = value;
     self->_isProdFused._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_isProdFused._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -754,9 +751,9 @@ LABEL_13:
 
 - (BOOL)isVirtualDevice
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5DC8;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5DC8;
+  v6 = v5;
   os_unfair_lock_lock(&self->_isVirtualDevice._loadLock);
   if (self->_isVirtualDevice._hasLoaded)
   {
@@ -765,19 +762,18 @@ LABEL_13:
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_isVirtualDevice._value = value;
     self->_isVirtualDevice._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_isVirtualDevice._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -804,6 +800,13 @@ LABEL_13:
   isTestingDevice = [sharedBehavior isTestingDevice];
 
   return isTestingDevice;
+}
+
++ (void)setForceBuddy:(BOOL)buddy
+{
+  buddyCopy = buddy;
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  [standardUserDefaults setBool:buddyCopy forKey:@"ForceBuddy"];
 }
 
 + (id)currentDeviceName
@@ -889,9 +892,9 @@ LABEL_13:
 + (id)currentOSVersion
 {
   sharedBehavior = [self sharedBehavior];
-  currentOSVersion = [sharedBehavior currentOSVersion];
+  v3 = objc_msgSend_currentOSVersion(sharedBehavior);
 
-  return currentOSVersion;
+  return v3;
 }
 
 + ($9FE6E10C8CE45DBC9A88DFDEA39A390D)currentOSVersionStruct
@@ -900,7 +903,7 @@ LABEL_13:
   v6 = sharedBehavior;
   if (sharedBehavior)
   {
-    [sharedBehavior currentOSVersionStruct];
+    objc_msgSend_currentOSVersionStruct(sharedBehavior);
   }
 
   else
@@ -948,42 +951,38 @@ LABEL_6:
 
 + (BOOL)_healthAppNotInstalled
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   sharedBehavior = [self sharedBehavior];
   isAppleWatch = [sharedBehavior isAppleWatch];
 
   if (isAppleWatch)
   {
+    return 0;
+  }
+
+  v16 = 0;
+  v5 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:@"com.apple.Health" allowPlaceholder:1 error:&v16];
+  v6 = v16;
+  v7 = v6;
+  if (v6 && (v8 = [v6 hk_isErrorInDomain:*MEMORY[0x1E696A768] code:-10814], (v8 & 1) == 0))
+  {
+    _HKInitializeLogging(v8, v9);
+    v12 = HKLogInfrastructure(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v13 = objc_opt_class();
+      localizedDescription = [v7 localizedDescription];
+      [(_HKBehavior *)v13 _healthAppNotInstalled:localizedDescription];
+    }
+
     v4 = 0;
   }
 
   else
   {
-    v13 = 0;
-    v5 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:@"com.apple.Health" allowPlaceholder:1 error:&v13];
-    v6 = v13;
-    v7 = v6;
-    if (v6 && ([v6 hk_isErrorInDomain:*MEMORY[0x1E696A768] code:-10814] & 1) == 0)
-    {
-      _HKInitializeLogging();
-      v8 = HKLogInfrastructure();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        v9 = objc_opt_class();
-        localizedDescription = [v7 localizedDescription];
-        [(_HKBehavior *)v9 _healthAppNotInstalled:localizedDescription];
-      }
-
-      v4 = 0;
-    }
-
-    else
-    {
-      v4 = v5 == 0;
-    }
+    v4 = v5 == 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -1022,6 +1021,17 @@ LABEL_6:
 
     return [v6 _tinkerModeEnabled];
   }
+}
+
+- (void)setTinkerModeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  os_unfair_lock_lock(&self->_overrideBehaviorLock);
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+  overriddenTinkerModeEnabled = self->_overriddenTinkerModeEnabled;
+  self->_overriddenTinkerModeEnabled = v5;
+
+  os_unfair_lock_unlock(&self->_overrideBehaviorLock);
 }
 
 - (BOOL)healthAppHidden
@@ -1131,6 +1141,17 @@ LABEL_6:
   }
 }
 
+- (void)setSupportsCachedStatisticsCollectionQueries:(BOOL)queries
+{
+  queriesCopy = queries;
+  os_unfair_lock_lock(&self->_overrideBehaviorLock);
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:queriesCopy];
+  overriddenSupportsCachedStatisticsCollectionQueries = self->_overriddenSupportsCachedStatisticsCollectionQueries;
+  self->_overriddenSupportsCachedStatisticsCollectionQueries = v5;
+
+  os_unfair_lock_unlock(&self->_overrideBehaviorLock);
+}
+
 - (BOOL)supportsCachedSleepDaySummaryQueries
 {
   os_unfair_lock_lock(&self->_overrideBehaviorLock);
@@ -1150,6 +1171,17 @@ LABEL_6:
   }
 }
 
+- (void)setSupportsCachedSleepDaySummaryQueries:(BOOL)queries
+{
+  queriesCopy = queries;
+  os_unfair_lock_lock(&self->_overrideBehaviorLock);
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:queriesCopy];
+  overriddenSupportsCachedSleepDaySummaryQueries = self->_overriddenSupportsCachedSleepDaySummaryQueries;
+  self->_overriddenSupportsCachedSleepDaySummaryQueries = v5;
+
+  os_unfair_lock_unlock(&self->_overrideBehaviorLock);
+}
+
 - (BOOL)supportsActiveQueryDaemonTransactions
 {
   os_unfair_lock_lock(&self->_overrideBehaviorLock);
@@ -1167,6 +1199,17 @@ LABEL_6:
 
     return _os_feature_enabled_impl();
   }
+}
+
+- (void)setSupportsActiveQueryDaemonTransactions:(BOOL)transactions
+{
+  transactionsCopy = transactions;
+  os_unfair_lock_lock(&self->_overrideBehaviorLock);
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:transactionsCopy];
+  overriddenSupportsActiveQueryDaemonTransactions = self->_overriddenSupportsActiveQueryDaemonTransactions;
+  self->_overriddenSupportsActiveQueryDaemonTransactions = v5;
+
+  os_unfair_lock_unlock(&self->_overrideBehaviorLock);
 }
 
 - (BOOL)supportsSecondaryProfiles
@@ -1209,9 +1252,9 @@ LABEL_6:
 
 - (BOOL)runningInStoreDemoModeF201
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5EC8;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5EC8;
+  v6 = v5;
   os_unfair_lock_lock(&self->_runningInStoreDemoModeF201._loadLock);
   if (self->_runningInStoreDemoModeF201._hasLoaded)
   {
@@ -1220,19 +1263,18 @@ LABEL_6:
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_runningInStoreDemoModeF201._value = value;
     self->_runningInStoreDemoModeF201._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_runningInStoreDemoModeF201._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1247,16 +1289,16 @@ LABEL_6:
 
 - (BOOL)shouldReceiveECGSamples
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __38___HKBehavior_shouldReceiveECGSamples__block_invoke;
-  v6[3] = &unk_1E7384E68;
-  v8 = 0;
-  v6[4] = self;
-  v7[0] = &unk_1F05F5708;
-  v7[1] = _Block_copy(v6);
-  v8 = v7;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __38___HKBehavior_shouldReceiveECGSamples__block_invoke;
+  v5[3] = &unk_1E7384E68;
+  v7 = 0;
+  v5[4] = self;
+  v6[0] = &unk_1F05F5708;
+  v6[1] = _Block_copy(v5);
+  v7 = v6;
   os_unfair_lock_lock(&self->_shouldReceiveECGSamples._loadLock);
   if (self->_shouldReceiveECGSamples._hasLoaded)
   {
@@ -1265,19 +1307,18 @@ LABEL_6:
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v8 + 48))(v8);
+    value = (*(*v7 + 48))(v7);
     self->_shouldReceiveECGSamples._value = value;
     self->_shouldReceiveECGSamples._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_shouldReceiveECGSamples._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
   return value & 1;
 }
 
@@ -1359,7 +1400,7 @@ LABEL_6:
   v9 = objc_opt_class();
   if (v9)
   {
-    [v9 _currentOSVersionStruct];
+    objc_msgSend__currentOSVersionStruct(v9);
   }
 
   else
@@ -1540,19 +1581,19 @@ LABEL_6:
 
 - (NSString)currentDeviceSerialNumber
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8[0] = &unk_1F05F5F48;
-  v8[1] = &__block_literal_global_234;
-  v9 = v8;
+  v9 = *MEMORY[0x1E69E9840];
+  v7[0] = &unk_1F05F5F48;
+  v7[1] = &__block_literal_global_234;
+  v8 = v7;
   os_unfair_lock_lock(&self->_currentDeviceSerialNumber._loadLock);
   if (!self->_currentDeviceSerialNumber._hasLoaded)
   {
-    if (!v9)
+    if (!v8)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v3 = (*(*v9 + 48))(v9);
+    v3 = (*(*v8 + 48))(v8);
     value = self->_currentDeviceSerialNumber._value;
     self->_currentDeviceSerialNumber._value = v3;
 
@@ -1561,8 +1602,7 @@ LABEL_6:
 
   v5 = self->_currentDeviceSerialNumber._value;
   os_unfair_lock_unlock(&self->_currentDeviceSerialNumber._loadLock);
-  std::__function::__value_func<NSString * ()(void)>::~__value_func[abi:ne200100](v8);
-  v6 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<NSString * ()(void)>::~__value_func[abi:ne200100](v7);
 
   return v5;
 }
@@ -1580,7 +1620,7 @@ LABEL_6:
   v6 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   else
@@ -1632,6 +1672,17 @@ LABEL_6:
   return bOOLValue;
 }
 
+- (void)setSupportsSwimmingWorkoutSessions:(BOOL)sessions
+{
+  sessionsCopy = sessions;
+  os_unfair_lock_lock(&self->_overrideBehaviorLock);
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:sessionsCopy];
+  overriddenSupportsSwimmingWorkoutSessions = self->_overriddenSupportsSwimmingWorkoutSessions;
+  self->_overriddenSupportsSwimmingWorkoutSessions = v5;
+
+  os_unfair_lock_unlock(&self->_overrideBehaviorLock);
+}
+
 - (void)setFutureMigrationsEnabled:(BOOL)enabled
 {
   os_unfair_lock_lock(&self->_overrideBehaviorLock);
@@ -1645,12 +1696,12 @@ LABEL_6:
 
 - (BOOL)supportsOntologyDatabaseFutureMigrations
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock(&self->_overrideBehaviorLock);
-  v7[0] = &unk_1F05F6058;
-  v7[1] = &selfCopy;
-  v8 = v7;
+  v6[0] = &unk_1F05F6058;
+  v6[1] = &selfCopy;
+  v7 = v6;
   os_unfair_lock_lock(&self->_ontologyDatabaseFutureMigrationsEnabled._loadLock);
   if (self->_ontologyDatabaseFutureMigrationsEnabled._hasLoaded)
   {
@@ -1659,20 +1710,19 @@ LABEL_6:
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v8 + 48))(v8);
+    value = (*(*v7 + 48))(v7);
     self->_ontologyDatabaseFutureMigrationsEnabled._value = value;
     self->_ontologyDatabaseFutureMigrationsEnabled._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_ontologyDatabaseFutureMigrationsEnabled._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
   os_unfair_lock_unlock(&selfCopy->_overrideBehaviorLock);
-  v4 = *MEMORY[0x1E69E9840];
   return value & 1;
 }
 
@@ -1689,12 +1739,12 @@ LABEL_6:
 
 - (BOOL)performsAutomaticUserDomainConceptProcessing
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock(&self->_overrideBehaviorLock);
-  v7[0] = &unk_1F05F60D8;
-  v7[1] = &selfCopy;
-  v8 = v7;
+  v6[0] = &unk_1F05F60D8;
+  v6[1] = &selfCopy;
+  v7 = v6;
   os_unfair_lock_lock(&self->_performsAutomaticUserDomainConceptProcessing._loadLock);
   if (self->_performsAutomaticUserDomainConceptProcessing._hasLoaded)
   {
@@ -1703,20 +1753,19 @@ LABEL_6:
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v8 + 48))(v8);
+    value = (*(*v7 + 48))(v7);
     self->_performsAutomaticUserDomainConceptProcessing._value = value;
     self->_performsAutomaticUserDomainConceptProcessing._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_performsAutomaticUserDomainConceptProcessing._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
   os_unfair_lock_unlock(&selfCopy->_overrideBehaviorLock);
-  v4 = *MEMORY[0x1E69E9840];
   return value & 1;
 }
 
@@ -1744,10 +1793,10 @@ LABEL_6:
 
 - (BOOL)supportsCloudSync
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_247_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_247_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_supportsCloudSync._loadLock);
   if (self->_supportsCloudSync._hasLoaded)
   {
@@ -1756,19 +1805,18 @@ LABEL_6:
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_supportsCloudSync._value = value;
     self->_supportsCloudSync._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_supportsCloudSync._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1782,16 +1830,16 @@ LABEL_6:
 
 - (BOOL)supportsCloudSyncSharding
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __40___HKBehavior_supportsCloudSyncSharding__block_invoke;
-  v6[3] = &unk_1E7384E68;
-  v8 = 0;
-  v6[4] = self;
-  v7[0] = &unk_1F05F5708;
-  v7[1] = _Block_copy(v6);
-  v8 = v7;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __40___HKBehavior_supportsCloudSyncSharding__block_invoke;
+  v5[3] = &unk_1E7384E68;
+  v7 = 0;
+  v5[4] = self;
+  v6[0] = &unk_1F05F5708;
+  v6[1] = _Block_copy(v5);
+  v7 = v6;
   os_unfair_lock_lock(&self->_supportsCloudSyncSharding._loadLock);
   if (self->_supportsCloudSyncSharding._hasLoaded)
   {
@@ -1800,19 +1848,18 @@ LABEL_6:
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v8 + 48))(v8);
+    value = (*(*v7 + 48))(v7);
     self->_supportsCloudSyncSharding._value = value;
     self->_supportsCloudSyncSharding._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_supportsCloudSyncSharding._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
   return value & 1;
 }
 
@@ -1827,16 +1874,16 @@ LABEL_6:
 
 - (BOOL)supportsCloudSyncStagingShard
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __44___HKBehavior_supportsCloudSyncStagingShard__block_invoke;
-  v6[3] = &unk_1E7384E68;
-  v8 = 0;
-  v6[4] = self;
-  v7[0] = &unk_1F05F5708;
-  v7[1] = _Block_copy(v6);
-  v8 = v7;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __44___HKBehavior_supportsCloudSyncStagingShard__block_invoke;
+  v5[3] = &unk_1E7384E68;
+  v7 = 0;
+  v5[4] = self;
+  v6[0] = &unk_1F05F5708;
+  v6[1] = _Block_copy(v5);
+  v7 = v6;
   os_unfair_lock_lock(&self->_supportsCloudSyncStagingShard._loadLock);
   if (self->_supportsCloudSyncStagingShard._hasLoaded)
   {
@@ -1845,19 +1892,18 @@ LABEL_6:
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v8 + 48))(v8);
+    value = (*(*v7 + 48))(v7);
     self->_supportsCloudSyncStagingShard._value = value;
     self->_supportsCloudSyncStagingShard._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_supportsCloudSyncStagingShard._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
   return value & 1;
 }
 
@@ -1872,16 +1918,16 @@ LABEL_6:
 
 - (BOOL)supportsPeriodicFullCloudSync
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __44___HKBehavior_supportsPeriodicFullCloudSync__block_invoke;
-  v6[3] = &unk_1E7384E68;
-  v8 = 0;
-  v6[4] = self;
-  v7[0] = &unk_1F05F5708;
-  v7[1] = _Block_copy(v6);
-  v8 = v7;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __44___HKBehavior_supportsPeriodicFullCloudSync__block_invoke;
+  v5[3] = &unk_1E7384E68;
+  v7 = 0;
+  v5[4] = self;
+  v6[0] = &unk_1F05F5708;
+  v6[1] = _Block_copy(v5);
+  v7 = v6;
   os_unfair_lock_lock(&self->_supportsPeriodicFullCloudSync._loadLock);
   if (self->_supportsPeriodicFullCloudSync._hasLoaded)
   {
@@ -1890,19 +1936,18 @@ LABEL_6:
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v8 + 48))(v8);
+    value = (*(*v7 + 48))(v7);
     self->_supportsPeriodicFullCloudSync._value = value;
     self->_supportsPeriodicFullCloudSync._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_supportsPeriodicFullCloudSync._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
   return value & 1;
 }
 
@@ -1917,16 +1962,16 @@ LABEL_6:
 
 - (BOOL)supportsPeriodicLiteCloudSync
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __44___HKBehavior_supportsPeriodicLiteCloudSync__block_invoke;
-  v6[3] = &unk_1E7384E68;
-  v8 = 0;
-  v6[4] = self;
-  v7[0] = &unk_1F05F5708;
-  v7[1] = _Block_copy(v6);
-  v8 = v7;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __44___HKBehavior_supportsPeriodicLiteCloudSync__block_invoke;
+  v5[3] = &unk_1E7384E68;
+  v7 = 0;
+  v5[4] = self;
+  v6[0] = &unk_1F05F5708;
+  v6[1] = _Block_copy(v5);
+  v7 = v6;
   os_unfair_lock_lock(&self->_supportsPeriodicLiteCloudSync._loadLock);
   if (self->_supportsPeriodicLiteCloudSync._hasLoaded)
   {
@@ -1935,19 +1980,18 @@ LABEL_6:
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v8 + 48))(v8);
+    value = (*(*v7 + 48))(v7);
     self->_supportsPeriodicLiteCloudSync._value = value;
     self->_supportsPeriodicLiteCloudSync._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_supportsPeriodicLiteCloudSync._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
   return value & 1;
 }
 
@@ -1962,16 +2006,16 @@ LABEL_6:
 
 - (BOOL)supportsCoordinatedCloudSync
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __43___HKBehavior_supportsCoordinatedCloudSync__block_invoke;
-  v6[3] = &unk_1E7384E68;
-  v8 = 0;
-  v6[4] = self;
-  v7[0] = &unk_1F05F5708;
-  v7[1] = _Block_copy(v6);
-  v8 = v7;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __43___HKBehavior_supportsCoordinatedCloudSync__block_invoke;
+  v5[3] = &unk_1E7384E68;
+  v7 = 0;
+  v5[4] = self;
+  v6[0] = &unk_1F05F5708;
+  v6[1] = _Block_copy(v5);
+  v7 = v6;
   os_unfair_lock_lock(&self->_supportsCoordinatedCloudSync._loadLock);
   if (self->_supportsCoordinatedCloudSync._hasLoaded)
   {
@@ -1980,19 +2024,18 @@ LABEL_6:
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v8 + 48))(v8);
+    value = (*(*v7 + 48))(v7);
     self->_supportsCoordinatedCloudSync._value = value;
     self->_supportsCoordinatedCloudSync._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_supportsCoordinatedCloudSync._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
   return value & 1;
 }
 
@@ -2011,6 +2054,13 @@ LABEL_6:
   bloodPressureValidationsEnabled = [features bloodPressureValidationsEnabled];
 
   return bloodPressureValidationsEnabled;
+}
+
+- (void)setEnableBloodPressureValidations:(BOOL)validations
+{
+  validationsCopy = validations;
+  features = [(_HKBehavior *)self features];
+  [features setBloodPressureValidationsEnabled:validationsCopy];
 }
 
 - (BOOL)processHasLoadedUIKit

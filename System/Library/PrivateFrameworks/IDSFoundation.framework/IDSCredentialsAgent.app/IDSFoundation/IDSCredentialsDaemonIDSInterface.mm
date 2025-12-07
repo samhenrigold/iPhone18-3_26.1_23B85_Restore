@@ -4,6 +4,8 @@
 - (BOOL)_sendIDSMessage:(id)message timeOut:(id)out queueOneIdentifier:(id)identifier forcedIdentifier:(id)forcedIdentifier options:(id)options identifier:(id *)a8;
 - (BOOL)_sendIDSPairingMessage:(id)message queueOneIdentifier:(id)identifier;
 - (BOOL)_sendIDSPairingMessage:(id)message timeOut:(id)out queueOneIdentifier:(id)identifier forcedIdentifier:(id)forcedIdentifier;
+- (BOOL)_storeIDSMessageForLaterDeliveryIfNecessary:(id)necessary queueOneIdentifier:(id)identifier completionBlock:(id)block isPairing:(BOOL)pairing;
+- (BOOL)_storeIDSMessageForLaterDeliveryIfNecessary:(id)necessary timeOut:(id)out queueOneIdentifier:(id)identifier forcedIdentifier:(id)forcedIdentifier completionBlock:(id)block isPairing:(BOOL)pairing;
 - (IDSCredentialsDaemonIDSInterface)init;
 - (IDSCredentialsDaemonIDSInterface)initWithIDSService:(id)service;
 - (id)_credentialUniqueIDFromMessageIdentifier:(id)identifier;
@@ -664,6 +666,71 @@ LABEL_34:
   }
 
   return v20;
+}
+
+- (BOOL)_storeIDSMessageForLaterDeliveryIfNecessary:(id)necessary queueOneIdentifier:(id)identifier completionBlock:(id)block isPairing:(BOOL)pairing
+{
+  pairingCopy = pairing;
+  v10 = IDSMaxMessageTimeout;
+  blockCopy = block;
+  identifierCopy = identifier;
+  necessaryCopy = necessary;
+  v14 = [NSNumber numberWithDouble:v10];
+  LOBYTE(pairingCopy) = [(IDSCredentialsDaemonIDSInterface *)self _storeIDSMessageForLaterDeliveryIfNecessary:necessaryCopy timeOut:v14 queueOneIdentifier:identifierCopy forcedIdentifier:0 completionBlock:blockCopy isPairing:pairingCopy];
+
+  return pairingCopy;
+}
+
+- (BOOL)_storeIDSMessageForLaterDeliveryIfNecessary:(id)necessary timeOut:(id)out queueOneIdentifier:(id)identifier forcedIdentifier:(id)forcedIdentifier completionBlock:(id)block isPairing:(BOOL)pairing
+{
+  pairingCopy = pairing;
+  necessaryCopy = necessary;
+  outCopy = out;
+  identifierCopy = identifier;
+  forcedIdentifierCopy = forcedIdentifier;
+  blockCopy = block;
+  accounts = [(IDSService *)self->_idsService accounts];
+  v20 = [accounts count];
+
+  if (!v20)
+  {
+    v21 = objc_alloc_init(NSMutableDictionary);
+    v22 = [NSNumber numberWithBool:pairingCopy];
+    if (v22)
+    {
+      CFDictionarySetValue(v21, @"IDSQueuedMessageIsPairing", v22);
+    }
+
+    if (necessaryCopy)
+    {
+      CFDictionarySetValue(v21, @"IDSQueuedMessageRequest", necessaryCopy);
+    }
+
+    if (outCopy)
+    {
+      CFDictionarySetValue(v21, @"IDSQueuedMessageTimeout", outCopy);
+    }
+
+    if (identifierCopy)
+    {
+      CFDictionarySetValue(v21, @"IDSQueuedMessageQueueOneIdentifier", identifierCopy);
+    }
+
+    if (forcedIdentifierCopy)
+    {
+      CFDictionarySetValue(v21, @"IDSQueuedMessageForceIdentifier", forcedIdentifierCopy);
+    }
+
+    v23 = objc_retainBlock(blockCopy);
+    if (v23)
+    {
+      CFDictionarySetValue(v21, @"IDSQueuedMessageCompletionBlock", v23);
+    }
+
+    [(NSMutableArray *)self->_queuedMessages addObject:v21];
+  }
+
+  return v20 == 0;
 }
 
 - (void)forwardIPCRequestToIDS:(id)s withCompletionBlock:(id)block

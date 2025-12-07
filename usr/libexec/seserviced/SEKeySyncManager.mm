@@ -22,28 +22,25 @@
 
 - (NSString)ptcViewName
 {
-  v2 = *(self + OBJC_IVAR____TtC10seserviced16SEKeySyncManager_ptcViewName);
-  v3 = *(self + OBJC_IVAR____TtC10seserviced16SEKeySyncManager_ptcViewName + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 + (void)kickOff
 {
   v2 = sub_100068FC4(&qword_100504250, &qword_10040D610);
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  v5 = &v9 - v4;
+  v4 = &v8 - v3;
   ObjCClassMetadata = swift_getObjCClassMetadata();
-  v7 = type metadata accessor for TaskPriority();
-  (*(*(v7 - 8) + 56))(v5, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = ObjCClassMetadata;
-  sub_1001F9BE8(0, 0, v5, &unk_10040C600, v8);
+  v6 = type metadata accessor for TaskPriority();
+  (*(*(v6 - 8) + 56))(v4, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = ObjCClassMetadata;
+  sub_1001F9BE8(0, 0, v4, &unk_10040C600, v7);
 }
 
 - (void)onDarwinNotification:(id)notification
@@ -97,18 +94,17 @@
 - (void)onAlarm:(id)alarm
 {
   v4 = sub_100068FC4(&qword_100504250, &qword_10040D610);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v10 - v6;
-  v8 = type metadata accessor for TaskPriority();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = swift_allocObject();
-  *(v9 + 16) = 0;
-  *(v9 + 24) = 0;
-  *(v9 + 32) = self;
-  *(v9 + 40) = 8;
+  v6 = &v9 - v5;
+  v7 = type metadata accessor for TaskPriority();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = swift_allocObject();
+  *(v8 + 16) = 0;
+  *(v8 + 24) = 0;
+  *(v8 + 32) = self;
+  *(v8 + 40) = 8;
 
-  sub_1001F9BE8(0, 0, v7, &unk_10040C570, v9);
+  sub_1001F9BE8(0, 0, v6, &unk_10040C570, v8);
 }
 
 @end

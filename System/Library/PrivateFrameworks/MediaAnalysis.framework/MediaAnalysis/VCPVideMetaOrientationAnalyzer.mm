@@ -94,7 +94,7 @@ LABEL_12:
       v31[0] = @"start";
       if (v7)
       {
-        [v7 time];
+        objc_msgSend_time(v7);
       }
 
       else
@@ -108,7 +108,7 @@ LABEL_12:
       v31[1] = @"duration";
       if (v7)
       {
-        [v7 duration];
+        objc_msgSend_duration(v7);
       }
 
       else

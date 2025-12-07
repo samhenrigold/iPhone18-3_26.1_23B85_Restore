@@ -98,7 +98,7 @@
 
 - (void)main
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   authorization = [(__HMFLocationManagerOperation *)self authorization];
   v4 = NSStringFromSelector(sel_isAuthorized);
   [authorization addObserver:self forKeyPath:v4 options:0 context:HMFLocationAuthorizationRequestAuthorizedContext];
@@ -114,16 +114,16 @@
     manager = [(__HMFLocationManagerOperation *)self manager];
     v8 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v10 = HMFGetOSLogHandle();
-    v11 = v10;
+    v11 = HMFGetOSLogHandle(selfCopy, v10);
+    v12 = v11;
     if (manager)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v12 = HMFGetLogIdentifier(selfCopy);
-        v21 = 138543362;
-        v22 = v12;
-        _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Requesting authorization", &v21, 0xCu);
+        v13 = HMFGetLogIdentifier(selfCopy);
+        v22 = 138543362;
+        v23 = v13;
+        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@Requesting authorization", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -143,37 +143,35 @@
 
     else
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v18 = HMFGetLogIdentifier(selfCopy);
-        v21 = 138543362;
-        v22 = v18;
-        _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Missing internal location manager", &v21, 0xCu);
+        v20 = HMFGetLogIdentifier(selfCopy);
+        v22 = 138543362;
+        v23 = v20;
+        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_ERROR, "%{public}@Missing internal location manager", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
-      v19 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:11 reason:@"Unexpected internal state."];
-      [(HMFOperation *)selfCopy cancelWithError:v19];
+      v21 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:11 reason:@"Unexpected internal state."];
+      [(HMFOperation *)selfCopy cancelWithError:v21];
     }
   }
 
   else
   {
-    v14 = objc_autoreleasePoolPush();
+    v15 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v16 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = HMFGetOSLogHandle(selfCopy2, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v17 = HMFGetLogIdentifier(selfCopy2);
-      v21 = 138543362;
-      v22 = v17;
-      _os_log_impl(&dword_22ADEC000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Unable to request authorization", &v21, 0xCu);
+      v19 = HMFGetLogIdentifier(selfCopy2);
+      v22 = 138543362;
+      v23 = v19;
+      _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Unable to request authorization", &v22, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v14);
+    objc_autoreleasePoolPop(v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

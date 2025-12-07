@@ -7,6 +7,7 @@
 - (void)_leaveProvisionalRemoteManagementAndErase;
 - (void)_performReEnroll;
 - (void)_performReEnrollAfterPINVerification;
+- (void)_resetWithMode:(int)mode;
 - (void)_showEraseDeviceAlert;
 - (void)_showLeaveProvisionalRemoteManagementAlert;
 - (void)_showLeaveProvisionalRemoteManagementExpiredAlert;
@@ -19,6 +20,7 @@
 - (void)profileViewControllerDidSelectPoll:(id)poll;
 - (void)profileViewControllerDidSelectRemoveProfile:(id)profile;
 - (void)profileViewControllerDidSelectUpdateProfile:(id)profile;
+- (void)setInstallState:(int)state animated:(BOOL)animated;
 - (void)updateTitleForProfileInstallationState:(int)state;
 @end
 
@@ -28,30 +30,23 @@
 {
   profileCopy = profile;
   v5 = +[MCUIWatchManager shared];
-  v6 = 0x277D03278;
-  if (v5)
+  v6 = objc_opt_new();
+
+  v10.receiver = self;
+  v10.super_class = MCRemoveProfileViewController;
+  v7 = [(MCInstallProfileViewController *)&v10 initWithProfile:profileCopy viewMode:2 profileUIDataProvider:v6];
+
+  if (v7)
   {
-    v6 = off_2798612F8;
+    objc_storeStrong(&v7->_profileUIDataProvider, v6);
+    v7->_cachedHasYorktownWatch = 0;
+    [(MCRemoveProfileViewController *)v7 updateTitleForProfileInstallationState:1];
+    v9.receiver = v7;
+    v9.super_class = MCRemoveProfileViewController;
+    [(MCUIViewController *)&v9 updateExtendedLayoutIncludesOpaqueBars];
   }
 
-  v7 = *v6;
-  v8 = objc_opt_new();
-
-  v12.receiver = self;
-  v12.super_class = MCRemoveProfileViewController;
-  v9 = [(MCInstallProfileViewController *)&v12 initWithProfile:profileCopy viewMode:2 profileUIDataProvider:v8];
-
-  if (v9)
-  {
-    objc_storeStrong(&v9->_profileUIDataProvider, v8);
-    v9->_cachedHasYorktownWatch = 0;
-    [(MCRemoveProfileViewController *)v9 updateTitleForProfileInstallationState:1];
-    v11.receiver = v9;
-    v11.super_class = MCRemoveProfileViewController;
-    [(MCUIViewController *)&v11 updateExtendedLayoutIncludesOpaqueBars];
-  }
-
-  return v9;
+  return v7;
 }
 
 - (void)updateTitleForProfileInstallationState:(int)state
@@ -74,6 +69,25 @@
   v6 = MCUILocalizedString(v4);
   navigationItem = [(MCRemoveProfileViewController *)self navigationItem];
   [navigationItem setTitle:v6];
+}
+
+- (void)setInstallState:(int)state animated:(BOOL)animated
+{
+  v8.receiver = self;
+  v8.super_class = MCRemoveProfileViewController;
+  [(MCInstallProfileViewController *)&v8 setInstallState:*&state animated:animated];
+  updatingProfile = [(MCRemoveProfileViewController *)self updatingProfile];
+
+  if (state == 1)
+  {
+    if (updatingProfile)
+    {
+      updatingProfile2 = [(MCRemoveProfileViewController *)self updatingProfile];
+      [(MCInstallProfileViewController *)self setProfile:updatingProfile2];
+
+      [(MCRemoveProfileViewController *)self setUpdatingProfile:0];
+    }
+  }
 }
 
 - (void)profileViewControllerDidSelectRemoveProfile:(id)profile
@@ -672,6 +686,15 @@ LABEL_7:
   v4 = 1;
   [(MCRemoveProfileViewController *)self setCachedHasYorktownWatch:1];
   return v4;
+}
+
+- (void)_resetWithMode:(int)mode
+{
+  v3 = *&mode;
+  v4 = SBSSpringBoardServerPort();
+  NSLog(&cfstr_CallingSbdatar.isa, v3, v4);
+  v5 = SBDataReset();
+  NSLog(&cfstr_SbdataresetRet.isa, v5);
 }
 
 @end

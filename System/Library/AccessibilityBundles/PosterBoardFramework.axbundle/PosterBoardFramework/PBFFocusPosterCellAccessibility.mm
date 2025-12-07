@@ -31,7 +31,7 @@
 - (id)accessibilityLabel
 {
   v2 = [(PBFFocusPosterCellAccessibility *)self safeValueForKey:@"posterPreview"];
-  v3 = AXMappedLabelOrValueForPosterPreview(v2);
+  v3 = AXMappedLabelOrValueForPosterPreview(v2, 1);
   v4 = v3;
   if (v3)
   {
@@ -62,7 +62,7 @@ LABEL_6:
 - (id)accessibilityValue
 {
   v3 = [(PBFFocusPosterCellAccessibility *)self safeValueForKey:@"posterPreview"];
-  accessibilityValue = AXMappedLabelOrValueForPosterPreview(v3);
+  accessibilityValue = AXMappedLabelOrValueForPosterPreview(v3, 0);
   if (!accessibilityValue)
   {
     v8.receiver = self;
@@ -116,12 +116,12 @@ LABEL_6:
 
 - (id)_axWidgetNames
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   v3 = [(PBFFocusPosterCellAccessibility *)self safeValueForKey:@"posterPreview"];
   v4 = [v3 safeArrayForKey:@"suggestedComplications"];
   array = [MEMORY[0x29EDB8DE8] array];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
-  v29 = v3;
+  v28 = v3;
   v7 = [v3 safeValueForKey:@"subtitleComplication"];
   v8 = [(PBFFocusPosterCellAccessibility *)self _axWidgetDescriptorFromLookupInfo:v7];
 
@@ -131,72 +131,70 @@ LABEL_6:
     [array axSafelyAddObject:v9];
   }
 
-  v28 = v8;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
+  v27 = v8;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v10 = v4;
-  v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v35;
+    v13 = *v34;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v35 != v13)
+        if (*v34 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [(PBFFocusPosterCellAccessibility *)self _axWidgetDescriptorFromLookupInfo:*(*(&v34 + 1) + 8 * i)];
+        v15 = [(PBFFocusPosterCellAccessibility *)self _axWidgetDescriptorFromLookupInfo:*(*(&v33 + 1) + 8 * i)];
         AXMapAppNameToWidgets(v15, dictionary);
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v12);
   }
 
-  v27 = v10;
+  v26 = v10;
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   allKeys = [dictionary allKeys];
-  v17 = [allKeys countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v17 = [allKeys countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v21 = [dictionary objectForKey:*(*(&v30 + 1) + 8 * j)];
+        v21 = [dictionary objectForKey:*(*(&v29 + 1) + 8 * j)];
         v22 = AXFormatAndListWithElements();
         v23 = __UIAXStringForVariables();
         [array axSafelyAddObject:{v23, v22, @"__AXStringForVariablesSentinel"}];
       }
 
-      v18 = [allKeys countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v18 = [allKeys countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v18);
   }
 
   v24 = AXFormatAndListWithElements();
-
-  v25 = *MEMORY[0x29EDCA608];
 
   return v24;
 }
@@ -255,20 +253,14 @@ LABEL_6:
 
 uint64_t __69__PBFFocusPosterCellAccessibility__axWidgetDescriptorFromLookupInfo___block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x29C2E7EC0](@"PRSWidget") pbf_PRSWidgetFromComplicationLookupInfo:*(a1 + 32) uniqueIdentifier:&stru_2A229E280 intent:0];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x29C2E7EC0](@"PRSWidget") pbf_PRSWidgetFromComplicationLookupInfo:*(a1 + 32) uniqueIdentifier:&stru_2A229E280 intent:0];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __69__PBFFocusPosterCellAccessibility__axWidgetDescriptorFromLookupInfo___block_invoke_2(uint64_t a1)
 {
-  v2 = [objc_alloc(MEMORY[0x29C2E7EC0](@"PRComplicationDescriptor")) initWithPRSWidget:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(MEMORY[0x29C2E7EC0](@"PRComplicationDescriptor")) initWithPRSWidget:*(a1 + 32)];
 
   return MEMORY[0x2A1C71028]();
 }

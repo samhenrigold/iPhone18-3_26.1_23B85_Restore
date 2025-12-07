@@ -24,14 +24,20 @@
   v4 = _Block_copy(completion);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
+    v5 = swift_allocObject();
+    *(v5 + 16) = v4;
     v4 = sub_10016D3D8;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   swift_getObjCClassMetadata();
   swift_unknownObjectRetain();
   sub_1001F1FB0();
-  sub_1000081F4(v4);
+  sub_1000081F4(v4, v5);
 
   swift_unknownObjectRelease();
 }
@@ -41,14 +47,20 @@
   v4 = _Block_copy(completion);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
+    v5 = swift_allocObject();
+    *(v5 + 16) = v4;
     v4 = sub_10016D258;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   swift_getObjCClassMetadata();
   swift_unknownObjectRetain();
   sub_1001F2164();
-  sub_1000081F4(v4);
+  sub_1000081F4(v4, v5);
 
   swift_unknownObjectRelease();
 }

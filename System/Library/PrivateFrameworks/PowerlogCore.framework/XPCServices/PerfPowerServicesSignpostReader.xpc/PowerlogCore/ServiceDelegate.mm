@@ -8,7 +8,7 @@
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v7 = PLLogSignpostReader();
+  v7 = PLLogSignpostReader(connectionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_10000A838(listenerCopy, connectionCopy, v7);
@@ -16,26 +16,27 @@
 
   processIdentifier = [connectionCopy processIdentifier];
   v9 = [connectionCopy valueForEntitlement:@"com.apple.PerfPowerServices.signpost-reading"];
-  if (objc_opt_respondsToSelector() & 1) != 0 && ([v9 BOOLValue])
+  if (objc_opt_respondsToSelector() & 1) != 0 && (v10 = [v9 BOOLValue], (v10))
   {
-    v10 = PLLogSignpostReader();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = PLLogSignpostReader(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000A938(processIdentifier, v10, v11, v12, v13, v14, v15, v16);
+      sub_10000A938(processIdentifier, v11, v12, v13, v14, v15, v16, v17);
     }
 
     NSLog(@"In the listener of the Signpost Reader XPCService");
-    v17 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___XPCSignpostReaderProtocol];
-    [connectionCopy setExportedInterface:v17];
+    v18 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___XPCSignpostReaderProtocol];
+    [connectionCopy setExportedInterface:v18];
 
-    v18 = objc_opt_new();
-    [connectionCopy setExportedObject:v18];
-    if (_os_feature_enabled_impl())
+    v19 = objc_opt_new();
+    [connectionCopy setExportedObject:v19];
+    v20 = _os_feature_enabled_impl();
+    if (v20)
     {
-      v19 = PLLogSignpostReader();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v21 = PLLogSignpostReader(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        sub_10000A9A4(v19);
+        sub_10000A9A4(v21);
       }
 
       [connectionCopy setInterruptionHandler:&stru_1000143E8];
@@ -43,22 +44,21 @@
     }
 
     [connectionCopy resume];
-    v20 = 1;
+    v22 = 1;
   }
 
   else
   {
-    [connectionCopy invalidate];
-    v18 = PLLogSignpostReader();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = PLLogSignpostReader([connectionCopy invalidate]);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      sub_10000A8C0(processIdentifier, v18);
+      sub_10000A8C0(processIdentifier, v19);
     }
 
-    v20 = 0;
+    v22 = 0;
   }
 
-  return v20;
+  return v22;
 }
 
 @end

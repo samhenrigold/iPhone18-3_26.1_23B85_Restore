@@ -143,7 +143,7 @@ LABEL_9:
 
   else
   {
-    selfCopy = fskit_std_log();
+    selfCopy = fskit_std_log(0);
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
     {
       [FSTaskOptions(Project) setURL:lCopy forKey:&selfCopy->super];
@@ -166,7 +166,7 @@ LABEL_9:
 
   else
   {
-    selfCopy = fskit_std_log();
+    selfCopy = fskit_std_log(0);
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
     {
       [FSTaskOptions(Project) setURL:lCopy forKey:&selfCopy->super];

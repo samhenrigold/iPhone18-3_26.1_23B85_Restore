@@ -30,7 +30,7 @@
 - (void)viewIsAppearing:(BOOL)appearing
 {
   appearingCopy = appearing;
-  v5 = sub_1000F24EC(&qword_100ADD440);
+  v5 = sub_1000F24EC(&qword_100ADD440, &unk_10094D548);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   v8 = type metadata accessor for SceneSplitViewController(0);
@@ -42,7 +42,7 @@
   (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
   v11 = OBJC_IVAR____TtC7Journal24SceneSplitViewController_stateToRestore;
   swift_beginAccess();
-  sub_100014318(v7, selfCopy + v11, &qword_100ADD440);
+  sub_100014318(v7, selfCopy + v11, &qword_100ADD440, &unk_10094D548);
   swift_endAccess();
 }
 
@@ -75,7 +75,7 @@
   selfCopy = self;
   userActivity = [(SceneSplitViewController *)selfCopy userActivity];
   type metadata accessor for SceneSplitViewController(0);
-  sub_10000C59C(&unk_100ADD4F0, type metadata accessor for SceneSplitViewController);
+  sub_10000C59C(&unk_100ADD4F0, type metadata accessor for SceneSplitViewController, &unk_10094D4F4);
   RestorableController.addRestorableState(_:to:)();
 
   sub_10000D628(v6, type metadata accessor for SceneSplitViewController.State);
@@ -83,13 +83,13 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  sub_1000F24EC(&unk_100AD4780);
+  sub_1000F24EC(&unk_100AD4780, &unk_100941070);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100941D50;
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC7Journal24SceneSplitViewController_splitView);
   *(v3 + 32) = v4;
   v5 = v4;
-  sub_1000F24EC(&unk_100ADD5A0);
+  sub_1000F24EC(&unk_100ADD5A0, &unk_1009432C0);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -127,7 +127,7 @@
 
   [*(&self->super.super.super.isa + *v11) pushViewController:controller animated:{areAnimationsEnabled, v12, v13}];
 
-  sub_100004F84(&v12, &qword_100AD13D0);
+  sub_100004F84(&v12, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (_TtC7Journal24SceneSplitViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -177,7 +177,7 @@
   sub_1002E9C44(action, v11);
   v9 = v8;
 
-  sub_100004F84(v11, &qword_100AD13D0);
+  sub_100004F84(v11, &qword_100AD13D0, &unk_100942DB0);
   return v9 & 1;
 }
 
@@ -209,7 +209,7 @@
   if (v6)
   {
     v8 = v6;
-    sub_1000065A8(0, &qword_100AD4C80);
+    sub_1000065A8(0, &qword_100AD4C80, UIViewController_ptr);
     v6 = _bridgeAnythingToObjectiveC<A>(_:)();
   }
 
@@ -218,7 +218,7 @@
 
 - (void)startExport:(id)export
 {
-  v5 = sub_1000F24EC(&qword_100AD5170);
+  v5 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v5 - 8);
   v7 = v14 - v6;
   if (export)
@@ -246,7 +246,7 @@
   v13[4] = selfCopy3;
   sub_1003E9628(0, 0, v7, &unk_10094D600, v13);
 
-  sub_100004F84(v14, &qword_100AD13D0);
+  sub_100004F84(v14, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (BOOL)accessibilityPerformMagicTap
@@ -259,7 +259,7 @@
 
 - (void)startExportDemo:(id)demo
 {
-  v5 = sub_1000F24EC(&qword_100AD5170);
+  v5 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v5 - 8);
   v7 = v14 - v6;
   if (demo)
@@ -294,7 +294,7 @@
   *(v13 + 48) = selfCopy3;
   sub_1003E9628(0, 0, v7, &unk_100966548, v13);
 
-  sub_100004F84(v14, &qword_100AD13D0);
+  sub_100004F84(v14, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)startExportDebug:(id)debug
@@ -321,7 +321,7 @@
   v6 = qword_100B30290;
   sub_10073C800(v6, self, 0);
 
-  sub_100004F84(v7, &qword_100AD13D0);
+  sub_100004F84(v7, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)startPrintDebug:(id)debug
@@ -347,7 +347,7 @@
 
   sub_10073D4E8(self, 0);
 
-  sub_100004F84(v6, &qword_100AD13D0);
+  sub_100004F84(v6, &qword_100AD13D0, &unk_100942DB0);
 }
 
 @end

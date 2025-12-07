@@ -15,7 +15,7 @@
 + (NSString)reuseIdentifier
 {
   type metadata accessor for RoutingAdvisoryInfoFooterView();
-  sub_1000CE6B8(&qword_101916178);
+  sub_1000CE6B8(&qword_101916178, &qword_1011F5E48);
   String.init<A>(describing:)();
   v2 = String._bridgeToObjectiveC()();
 
@@ -40,7 +40,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_100269B34();
+  sub_100269B34(selfCopy, v2);
 }
 
 - (id)tapActionHandler
@@ -93,7 +93,7 @@
 - (void)updateDescriptionInfo:(id)info tapHandler:(id)handler
 {
   v5 = _Block_copy(handler);
-  sub_100014C84(0, &qword_101916168);
+  sub_100014C84(0, &qword_101916168, GEOAdvisoryNotice_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   if (v5)
   {
@@ -121,12 +121,12 @@
 
 + (double)getEstimatedFooterHeight:(id)height maxWidth:(double)width
 {
-  sub_100014C84(0, &qword_101916168);
+  sub_100014C84(0, &qword_101916168, GEOAdvisoryNotice_ptr);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_10026ABDC(v5, width);
-  v7 = v6;
+  sub_10026ABDC(v5, v6, width);
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 @end

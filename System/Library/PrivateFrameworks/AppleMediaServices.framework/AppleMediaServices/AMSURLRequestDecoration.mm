@@ -40,11 +40,11 @@
   return v14;
 }
 
-id __68__AMSURLRequestDecoration_addMescalHeaderToRequest_type_bag_logKey___block_invoke(uint64_t a1, void *a2, void *a3)
+id __68__AMSURLRequestDecoration_addMescalHeaderToRequest_type_bag_logKey___block_invoke(void *a1, void *a2, void *a3)
 {
   v36 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = *(a1 + 32);
+  v6 = a1[4];
   v7 = a2;
   v8 = AMSSetLogKey(v6);
   v9 = [v7 value];
@@ -919,7 +919,7 @@ id __81__AMSURLRequestDecoration_addGUIDParameterToRequest_bag_preservingQueryEn
   return v18;
 }
 
-void __81__AMSURLRequestDecoration_addStoreFrontHeaderToRequest_forAccount_mediaType_bag___block_invoke(uint64_t a1, void *a2)
+void __81__AMSURLRequestDecoration_addStoreFrontHeaderToRequest_forAccount_mediaType_bag___block_invoke(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -961,11 +961,11 @@ void __81__AMSURLRequestDecoration_addStoreFrontHeaderToRequest_forAccount_media
   }
 }
 
-id __81__AMSURLRequestDecoration_addStoreFrontHeaderToRequest_forAccount_mediaType_bag___block_invoke_64(uint64_t a1, void *a2)
+id __81__AMSURLRequestDecoration_addStoreFrontHeaderToRequest_forAccount_mediaType_bag___block_invoke_64(id *a1, void *a2)
 {
   v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = [*(a1 + 32) valueForHTTPHeaderField:@"X-Apple-Store-Front"];
+  v4 = [a1[4] valueForHTTPHeaderField:@"X-Apple-Store-Front"];
   if (v4)
   {
     v5 = +[AMSLogConfig sharedConfig];

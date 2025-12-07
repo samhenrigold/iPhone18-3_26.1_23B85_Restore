@@ -28,21 +28,21 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   contentContext = [(FCTagSearchOperation *)self contentContext];
 
   if (!contentContext && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search operation requires a content context"];
-    v9 = 136315906;
-    v10 = "[FCTagSearchOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCTagSearchOperation.m";
-    v13 = 1024;
-    v14 = 70;
-    v15 = 2114;
-    v16 = v7;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search operation requires a content context"];
+    v8 = 136315906;
+    v9 = "[FCTagSearchOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCTagSearchOperation.m";
+    v12 = 1024;
+    v13 = 70;
+    v14 = 2114;
+    v15 = v6;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   if ([(FCTagSearchOperation *)self tagType]== 2 || [(FCTagSearchOperation *)self tagType]== 1)
@@ -54,33 +54,22 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search operation requires a channel or topic tag type"];
-      v9 = 136315906;
-      v10 = "[FCTagSearchOperation validateOperation]";
-      v11 = 2080;
-      v12 = "FCTagSearchOperation.m";
-      v13 = 1024;
-      v14 = 74;
-      v15 = 2114;
-      v16 = v8;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search operation requires a channel or topic tag type"];
+      v8 = 136315906;
+      v9 = "[FCTagSearchOperation validateOperation]";
+      v10 = 2080;
+      v11 = "FCTagSearchOperation.m";
+      v12 = 1024;
+      v13 = 74;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
     }
 
     v4 = 0;
   }
 
-  if (contentContext)
-  {
-    result = v4;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return contentContext && v4;
 }
 
 - (void)prepareOperation

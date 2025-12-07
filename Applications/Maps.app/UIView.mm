@@ -333,9 +333,8 @@ LABEL_6:
 
 - (void)_maps_applyGlassBackgroundForButton:(BOOL)button buttonBackgroundType:(unint64_t)type allowAdaptive:(BOOL)adaptive isCarPlay:(BOOL)play
 {
-  adaptiveCopy = adaptive;
   selfCopy = self;
-  UIView._maps_applyGlassBackground(forButton:buttonBackgroundType:allowAdaptive:isCarPlay:)(button, type, adaptiveCopy, play);
+  UIView._maps_applyGlassBackground(forButton:buttonBackgroundType:allowAdaptive:isCarPlay:)(button, type, adaptive, play);
 }
 
 - (void)_maps_applyGlassBackgroundForButton:(BOOL)button withColor:(id)color allowAdaptive:(BOOL)adaptive isCarPlay:(BOOL)play

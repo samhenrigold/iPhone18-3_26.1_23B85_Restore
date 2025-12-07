@@ -19,7 +19,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  AnonymousConnectionDelegate.executor(_:needsConfirmationWith:)();
+  AnonymousConnectionDelegate.executor(_:needsConfirmationWith:)(selfCopy, requestCopy);
 }
 
 - (void)executor:(id)executor needsActionConfirmationWithRequest:(id)request
@@ -27,7 +27,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  AnonymousConnectionDelegate.executor(_:needsActionConfirmationWith:)();
+  AnonymousConnectionDelegate.executor(_:needsActionConfirmationWith:)(selfCopy, requestCopy);
 }
 
 - (void)executor:(id)executor needsDisambiguationWithRequest:(id)request
@@ -35,7 +35,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  AnonymousConnectionDelegate.executor(_:needsDisambiguationWith:)();
+  AnonymousConnectionDelegate.executor(_:needsDisambiguationWith:)(selfCopy, requestCopy);
 }
 
 - (void)executor:(id)executor needsValueWithRequest:(id)request
@@ -83,7 +83,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  AnonymousConnectionDelegate.executor(_:needsContinueInAppWith:)();
+  AnonymousConnectionDelegate.executor(_:needsContinueInAppWith:)(selfCopy, requestCopy);
 }
 
 - (void)executorWillLaunchApplicationInForeground:(id)foreground
@@ -98,7 +98,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  AnonymousConnectionDelegate.executor(_:needsChoiceWith:)();
+  AnonymousConnectionDelegate.executor(_:needsChoiceWith:)(selfCopy, requestCopy);
 }
 
 - (void)executor:(id)executor needsAppProtectionUnlockWithCompletionHandler:(id)handler

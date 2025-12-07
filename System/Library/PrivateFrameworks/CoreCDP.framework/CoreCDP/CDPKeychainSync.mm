@@ -1,6 +1,7 @@
 @interface CDPKeychainSync
 + (BOOL)isUserVisibleKeychainSyncEnabled;
 + (void)removeNonViewAwarePeersFromCircleWithContext:(id)context completion:(id)completion;
++ (void)setUserVisibleKeychainSyncEnabled:(BOOL)enabled withCompletion:(id)completion;
 + (void)synchronizeKeychainSyncForContext:(id)context withCompletion:(id)completion;
 @end
 
@@ -14,7 +15,7 @@
   os_activity_scope_enter(v2, &state);
   v3 = objc_alloc_init(CDPDaemonConnection);
   v4 = [(CDPDaemonConnection *)v3 synchronousDaemonWithErrorHandler:&__block_literal_global_9];
-  v5 = _CDPLogSystem();
+  v5 = _CDPLogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -44,7 +45,7 @@
 void __51__CDPKeychainSync_isUserVisibleKeychainSyncEnabled__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __51__CDPKeychainSync_isUserVisibleKeychainSyncEnabled__block_invoke_cold_1();
@@ -53,8 +54,8 @@ void __51__CDPKeychainSync_isUserVisibleKeychainSyncEnabled__block_invoke(uint64
 
 void __51__CDPKeychainSync_isUserVisibleKeychainSyncEnabled__block_invoke_17(uint64_t a1, int a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v4 = _CDPLogSystem();
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = _CDPLogSystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"DISABLED";
@@ -63,19 +64,63 @@ void __51__CDPKeychainSync_isUserVisibleKeychainSyncEnabled__block_invoke_17(uin
       v5 = @"ENABLED";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1DED99000, v4, OS_LOG_TYPE_DEFAULT, "User-visible keychain sync status is %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_1DED99000, v4, OS_LOG_TYPE_DEFAULT, "User-visible keychain sync status is %@", &v6, 0xCu);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-  v6 = *MEMORY[0x1E69E9840];
+}
+
++ (void)setUserVisibleKeychainSyncEnabled:(BOOL)enabled withCompletion:(id)completion
+{
+  enabledCopy = enabled;
+  v23 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  v6 = _os_activity_create(&dword_1DED99000, "cdp: Keychain Status Change", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v6, &state);
+  v7 = objc_alloc_init(CDPDaemonConnection);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke;
+  v18[3] = &unk_1E869D588;
+  v8 = completionCopy;
+  v19 = v8;
+  v9 = [(CDPDaemonConnection *)v7 daemonWithErrorHandler:v18];
+  v10 = _CDPLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = @"DISABLED";
+    if (enabledCopy)
+    {
+      v11 = @"ENABLED";
+    }
+
+    *buf = 138412290;
+    v22 = v11;
+    _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "Setting user-visible keychain sync to %@", buf, 0xCu);
+  }
+
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_25;
+  v14[3] = &unk_1E869DD60;
+  v17 = enabledCopy;
+  v12 = v8;
+  v16 = v12;
+  v13 = v7;
+  v15 = v13;
+  [v9 setUserVisibleKeychainSyncEnabled:enabledCopy withCompletion:v14];
+
+  os_activity_scope_leave(&state);
 }
 
 void __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __51__CDPKeychainSync_isUserVisibleKeychainSyncEnabled__block_invoke_cold_1();
@@ -90,9 +135,9 @@ void __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___bl
 
 void __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_25(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (a2)
   {
@@ -109,7 +154,7 @@ void __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___bl
       }
 
       *buf = 138412290;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "User-visibile keychain sync set to %@", buf, 0xCu);
     }
   }
@@ -119,19 +164,17 @@ void __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___bl
     __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_25_cold_1(a1, v5, v7);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_26;
-  v12[3] = &unk_1E869DD38;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_26;
+  v11[3] = &unk_1E869DD38;
   v9 = *(a1 + 40);
-  v16 = a2;
-  v15 = v9;
-  v13 = v5;
-  v14 = *(a1 + 32);
+  v15 = a2;
+  v14 = v9;
+  v12 = v5;
+  v13 = *(a1 + 32);
   v10 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  dispatch_async(MEMORY[0x1E69E96A0], v11);
 }
 
 void __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_26(uint64_t a1)
@@ -162,7 +205,7 @@ void __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___bl
   v9 = completionCopy;
   v18 = v9;
   v10 = [(CDPDaemonConnection *)v8 daemonWithErrorHandler:v17];
-  v11 = _CDPLogSystem();
+  v11 = _CDPLogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     +[CDPKeychainSync removeNonViewAwarePeersFromCircleWithContext:completion:];
@@ -184,7 +227,7 @@ void __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___bl
 void __75__CDPKeychainSync_removeNonViewAwarePeersFromCircleWithContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __75__CDPKeychainSync_removeNonViewAwarePeersFromCircleWithContext_completion___block_invoke_cold_1();
@@ -200,7 +243,7 @@ void __75__CDPKeychainSync_removeNonViewAwarePeersFromCircleWithContext_completi
 void __75__CDPKeychainSync_removeNonViewAwarePeersFromCircleWithContext_completion___block_invoke_29(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (a2)
   {
@@ -256,7 +299,7 @@ void __75__CDPKeychainSync_removeNonViewAwarePeersFromCircleWithContext_completi
   v9 = completionCopy;
   v18 = v9;
   v10 = [(CDPDaemonConnection *)v8 daemonWithErrorHandler:v17];
-  v11 = _CDPLogSystem();
+  v11 = _CDPLogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     +[CDPKeychainSync removeNonViewAwarePeersFromCircleWithContext:completion:];
@@ -278,7 +321,7 @@ void __75__CDPKeychainSync_removeNonViewAwarePeersFromCircleWithContext_completi
 void __68__CDPKeychainSync_synchronizeKeychainSyncForContext_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__CDPKeychainSync_synchronizeKeychainSyncForContext_withCompletion___block_invoke_cold_1();
@@ -294,7 +337,7 @@ void __68__CDPKeychainSync_synchronizeKeychainSyncForContext_withCompletion___bl
 void __68__CDPKeychainSync_synchronizeKeychainSyncForContext_withCompletion___block_invoke_31(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (a2)
   {
@@ -334,61 +377,20 @@ void __68__CDPKeychainSync_synchronizeKeychainSyncForContext_withCompletion___bl
   [v3 invalidate];
 }
 
-void __51__CDPKeychainSync_isUserVisibleKeychainSyncEnabled__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while checking if user-visible keychain sync is enabled: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __68__CDPKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_25_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = @"DISABLED";
   if (*(a1 + 48))
   {
     v3 = @"ENABLED";
   }
 
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1DED99000, log, OS_LOG_TYPE_ERROR, "Failed to set user-visibile keychain sync set to %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __75__CDPKeychainSync_removeNonViewAwarePeersFromCircleWithContext_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while remove non-view-aware peers: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __75__CDPKeychainSync_removeNonViewAwarePeersFromCircleWithContext_completion___block_invoke_29_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to remove non-view-aware peers from the circle: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__CDPKeychainSync_synchronizeKeychainSyncForContext_withCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while synchronizing keychain state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__CDPKeychainSync_synchronizeKeychainSyncForContext_withCompletion___block_invoke_31_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to synchronize keychain state with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1DED99000, log, OS_LOG_TYPE_ERROR, "Failed to set user-visibile keychain sync set to %@: %@", &v4, 0x16u);
 }
 
 @end

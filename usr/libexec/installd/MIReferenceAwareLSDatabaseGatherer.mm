@@ -1,6 +1,7 @@
 @interface MIReferenceAwareLSDatabaseGatherer
 - (BOOL)performGatherWithError:(id *)error;
 - (BOOL)scanExecutableBundle:(id)bundle inContainer:(id)container forPersona:(id)persona withError:(id *)error;
+- (MIReferenceAwareLSDatabaseGatherer)initWithOptions:(unint64_t)options forTargetUID:(unsigned int)d enumerator:(id)enumerator;
 - (void)_generateSerializedPlacholderIfNeededForContainer:(id)container;
 @end
 
@@ -112,6 +113,21 @@ LABEL_16:
 LABEL_19:
 
   return v13;
+}
+
+- (MIReferenceAwareLSDatabaseGatherer)initWithOptions:(unint64_t)options forTargetUID:(unsigned int)d enumerator:(id)enumerator
+{
+  v5 = *&d;
+  v9.receiver = self;
+  v9.super_class = MIReferenceAwareLSDatabaseGatherer;
+  v6 = [(MIReferenceAwareLSDatabaseGatherer *)&v9 initWithOptions:options enumerator:enumerator];
+  v7 = v6;
+  if (v6)
+  {
+    [(MIReferenceAwareLSDatabaseGatherer *)v6 setTargetUID:v5];
+  }
+
+  return v7;
 }
 
 - (BOOL)performGatherWithError:(id *)error

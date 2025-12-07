@@ -10,13 +10,15 @@
 
 - (void)safeAreaInsetsDidChange
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for PhotosDetailsViewHeaderTungstenLayout();
-  v2 = v3.receiver;
-  [(PhotosDetailsViewHeaderTungstenLayout *)&v3 safeAreaInsetsDidChange];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for PhotosDetailsViewHeaderTungstenLayout(0);
+  v2 = v6.receiver;
+  [(PhotosDetailsViewHeaderTungstenLayout *)&v6 safeAreaInsetsDidChange];
+  v5 = 1;
+  v3 = OBJC_IVAR____TtC12PhotosUICore37PhotosDetailsViewHeaderTungstenLayout_updateFlags;
   swift_beginAccess();
-  sub_1A43F78DC();
-  PXGLayout.invalidate<A>(updateFlags:with:)();
+  v4 = sub_1A43F78DC();
+  PXGLayout.invalidate<A>(updateFlags:with:)(v2 + v3, &v5, &type metadata for PhotosDetailsViewHeaderTungstenLayout.InvalidatableEntities, v4);
 }
 
 - (Class)viewClassForSpriteAtIndex:(unsigned int)index inLayout:(id)layout

@@ -1,6 +1,6 @@
 @interface UICollectionViewController(HUAdditions)
+- (BOOL)hu_shouldScrollToTop;
 - (id)hu_actionSheetWithTitle:()HUAdditions message:indexPath:;
-- (uint64_t)hu_shouldScrollToTop;
 @end
 
 @implementation UICollectionViewController(HUAdditions)
@@ -28,7 +28,7 @@
   return v9;
 }
 
-- (uint64_t)hu_shouldScrollToTop
+- (BOOL)hu_shouldScrollToTop
 {
   if (![self isViewLoaded])
   {

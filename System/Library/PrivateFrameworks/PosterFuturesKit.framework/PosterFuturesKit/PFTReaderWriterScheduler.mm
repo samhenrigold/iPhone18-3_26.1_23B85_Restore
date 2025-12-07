@@ -92,12 +92,11 @@
 uint64_t __47__PFTReaderWriterScheduler_performReaderBlock___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) activateReader:*(a1 + 40)];
-  v2 = *(a1 + 48);
   (*(*(a1 + 56) + 16))();
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
 
-  return [v3 removeReader:v4];
+  return [v2 removeReader:v3];
 }
 
 - (id)performWriterBlock:(id)block
@@ -129,12 +128,11 @@ uint64_t __47__PFTReaderWriterScheduler_performReaderBlock___block_invoke(uint64
 uint64_t __47__PFTReaderWriterScheduler_performWriterBlock___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) activateWriter:*(a1 + 40)];
-  v2 = *(a1 + 48);
   (*(*(a1 + 56) + 16))();
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
 
-  return [v3 removeWriter:v4];
+  return [v2 removeWriter:v3];
 }
 
 - (void)performSynchronousReaderBlock:(id)block

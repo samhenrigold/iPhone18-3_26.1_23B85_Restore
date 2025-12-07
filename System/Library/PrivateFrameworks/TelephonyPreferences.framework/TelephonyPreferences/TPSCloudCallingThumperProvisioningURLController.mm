@@ -54,7 +54,7 @@
 
 - (void)enableCapability
 {
-  v3 = TPSLog();
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -131,7 +131,7 @@ LABEL_5:
 
 - (void)didChangeThumperCallingProvisionalURLForSenderIdentityWithUUID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   subscriptionContext = [(TPSCloudCallingURLController *)self subscriptionContext];
   uuid = [subscriptionContext uuid];
@@ -139,18 +139,16 @@ LABEL_5:
 
   if (v7)
   {
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TPSLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = dCopy;
-      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "Thumper calling provisioning URL changed for sender identity with UUID %@.", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = dCopy;
+      _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Thumper calling provisioning URL changed for sender identity with UUID %@.", &v11, 0xCu);
     }
 
     [(TPSCloudCallingURLController *)self reloadWebViewController];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

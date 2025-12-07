@@ -60,7 +60,7 @@
 
 - (void)stopUpdatingLocation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   [(GEOPerformanceEventLogger *)self->_performanceEventLogger logPerformanceEvent:"[MNSimulationLocationProvider stopUpdatingLocation]"];
   v3 = MNGetMNNavigationSimulationLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -95,13 +95,13 @@
           _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "Setting simulated location to %{private}f, %{private}f", buf, 0x16u);
         }
 
-        v22 = 0u;
-        memset(v23, 0, 28);
-        v20 = 0u;
         v21 = 0u;
+        memset(v22, 0, 28);
         v19 = 0u;
+        v20 = 0u;
+        v18 = 0u;
         memset(buf, 0, sizeof(buf));
-        [lastLocation clientLocation];
+        objc_msgSend_clientLocation(lastLocation);
         *&buf[44] = 0;
         if (*&buf[28] == 1.79769313e308)
         {
@@ -109,17 +109,17 @@
         }
 
         v12 = objc_alloc(MEMORY[0x1E6985C40]);
-        v16[6] = v21;
-        v16[7] = v22;
-        v17[0] = v23[0];
-        *(v17 + 12) = *(v23 + 12);
-        v16[2] = *&buf[32];
-        v16[3] = *&buf[48];
-        v16[4] = v19;
-        v16[5] = v20;
-        v16[0] = *buf;
-        v16[1] = *&buf[16];
-        v13 = [v12 initWithClientLocation:v16];
+        v15[6] = v20;
+        v15[7] = v21;
+        v16[0] = v22[0];
+        *(v16 + 12) = *(v22 + 12);
+        v15[2] = *&buf[32];
+        v15[3] = *&buf[48];
+        v15[4] = v18;
+        v15[5] = v19;
+        v15[0] = *buf;
+        v15[1] = *&buf[16];
+        v13 = [v12 initWithClientLocation:v15];
         v14 = objc_alloc_init(MEMORY[0x1E695FC40]);
         [v14 setLocationRepeatBehavior:1];
         [v14 clearSimulatedLocations];
@@ -149,8 +149,6 @@
       _os_log_impl(&dword_1D311E000, lastLocation, OS_LOG_TYPE_ERROR, "-stopUpdatingLocation called after location updates have already been stopped.", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startUpdatingLocation
@@ -188,7 +186,7 @@
 
 - (void)_resetLocationUpdateInterval
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   locationUpdateTimer = self->_locationUpdateTimer;
   if (locationUpdateTimer)
   {
@@ -215,29 +213,27 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v18 = v6;
+      v17 = v6;
       _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "Running navigation simulation with update interval of %0.2f seconds", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     v8 = [MNDispatchTimer alloc];
     v9 = MNNavigationQueue();
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invoke;
-    v15[3] = &unk_1E8430EA0;
-    objc_copyWeak(&v16, buf);
-    v10 = [(MNDispatchTimer *)v8 initWithTime:1 repeating:v9 queue:v15 handler:v6];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invoke;
+    v14[3] = &unk_1E8430EA0;
+    objc_copyWeak(&v15, buf);
+    v10 = [(MNDispatchTimer *)v8 initWithTime:1 repeating:v9 queue:v14 handler:v6];
     v12 = self->_locationUpdateTimer;
     p_locationUpdateTimer = &self->_locationUpdateTimer;
     *p_locationUpdateTimer = v10;
 
     [*p_locationUpdateTimer activate];
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invoke(uint64_t a1)
@@ -248,9 +244,9 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
 
 - (void)_sendLocationUpdate
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   [(GEOPerformanceEventLogger *)self->_performanceEventLogger logPerformanceEvent:"[MNSimulationLocationProvider _sendLocationUpdate]"];
-  v52 = [(MNSimulatedLocationGenerator *)self->_locationGenerator nextSimulatedLocationWithElapsedTime:1.0];
+  v51 = [(MNSimulatedLocationGenerator *)self->_locationGenerator nextSimulatedLocationWithElapsedTime:1.0];
   v3 = MNGetMNNavigationSimulationLog();
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
 
@@ -259,15 +255,15 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
     currentStateType = [(MNSimulatedLocationGenerator *)self->_locationGenerator currentStateType];
     v6 = currentStateType;
     v7 = MEMORY[0x1E696AD60];
-    if (v52)
+    if (v51)
     {
-      [v52 coordinate];
+      [v51 coordinate];
       v9 = v8;
-      [v52 coordinate];
+      [v51 coordinate];
       v11 = v10;
-      [v52 course];
+      [v51 course];
       v13 = v12;
-      [v52 speed];
+      [v51 speed];
       if (v6 > 0xA)
       {
         v15 = @"Unknown";
@@ -306,12 +302,12 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v69 = v17;
+      v68 = v17;
       _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
-  if (v52)
+  if (v51)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     v21 = objc_opt_respondsToSelector();
@@ -319,37 +315,37 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
     if (v21)
     {
       v22 = objc_loadWeakRetained(&self->_delegate);
-      [v22 locationProvider:self didUpdateLocation:v52];
+      [v22 locationProvider:self didUpdateLocation:v51];
     }
   }
 
   if (self->_simulateGeoFences)
   {
-    v49 = self->_monitoredGeoFences;
-    objc_sync_enter(v49);
+    v48 = self->_monitoredGeoFences;
+    objc_sync_enter(v48);
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     obj = self->_monitoredGeoFences;
-    v23 = [(NSMutableArray *)obj countByEnumeratingWithState:&v61 objects:v67 count:16];
+    v23 = [(NSMutableArray *)obj countByEnumeratingWithState:&v60 objects:v66 count:16];
     if (v23)
     {
-      v50 = 0;
+      v49 = 0;
       v24 = 0;
-      v25 = *v62;
+      v25 = *v61;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v62 != v25)
+          if (*v61 != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v61 + 1) + 8 * i);
+          v27 = *(*(&v60 + 1) + 8 * i);
           v28 = [(NSMutableArray *)self->_currentGeoFences indexOfObject:v27];
-          rawLocation = [v52 rawLocation];
+          rawLocation = [v51 rawLocation];
           [rawLocation coordinate];
           v30 = [v27 containsCoordinate:?];
 
@@ -378,19 +374,19 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
             if (v34)
             {
               [(NSMutableArray *)self->_currentGeoFences removeObjectAtIndex:v28];
-              v35 = v50;
-              if (!v50)
+              v35 = v49;
+              if (!v49)
               {
                 v35 = [MEMORY[0x1E695DF70] arrayWithCapacity:1];
               }
 
-              v50 = v35;
+              v49 = v35;
               [v35 addObject:v27];
             }
           }
         }
 
-        v23 = [(NSMutableArray *)obj countByEnumeratingWithState:&v61 objects:v67 count:16];
+        v23 = [(NSMutableArray *)obj countByEnumeratingWithState:&v60 objects:v66 count:16];
       }
 
       while (v23);
@@ -398,94 +394,90 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
 
     else
     {
-      v50 = 0;
+      v49 = 0;
       v24 = 0;
     }
 
-    objc_sync_exit(v49);
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
+    objc_sync_exit(v48);
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v36 = v24;
-    v37 = [v36 countByEnumeratingWithState:&v57 objects:v66 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v56 objects:v65 count:16];
     if (v37)
     {
-      v38 = *v58;
+      v38 = *v57;
       do
       {
         for (j = 0; j != v37; ++j)
         {
-          if (*v58 != v38)
+          if (*v57 != v38)
           {
             objc_enumerationMutation(v36);
           }
 
-          v40 = *(*(&v57 + 1) + 8 * j);
+          v40 = *(*(&v56 + 1) + 8 * j);
           v41 = objc_loadWeakRetained(&self->_delegate);
           [v41 locationProvider:self didEnterRegion:v40];
         }
 
-        v37 = [v36 countByEnumeratingWithState:&v57 objects:v66 count:16];
+        v37 = [v36 countByEnumeratingWithState:&v56 objects:v65 count:16];
       }
 
       while (v37);
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
-    v42 = v50;
-    v43 = [v42 countByEnumeratingWithState:&v53 objects:v65 count:16];
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v42 = v49;
+    v43 = [v42 countByEnumeratingWithState:&v52 objects:v64 count:16];
     if (v43)
     {
-      v44 = *v54;
+      v44 = *v53;
       do
       {
         for (k = 0; k != v43; ++k)
         {
-          if (*v54 != v44)
+          if (*v53 != v44)
           {
             objc_enumerationMutation(v42);
           }
 
-          v46 = *(*(&v53 + 1) + 8 * k);
+          v46 = *(*(&v52 + 1) + 8 * k);
           v47 = objc_loadWeakRetained(&self->_delegate);
           [v47 locationProvider:self didExitRegion:v46];
         }
 
-        v43 = [v42 countByEnumeratingWithState:&v53 objects:v65 count:16];
+        v43 = [v42 countByEnumeratingWithState:&v52 objects:v64 count:16];
       }
 
       while (v43);
     }
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUpdateIntervalSpeedMultiplier:(double)multiplier
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (vabdd_f64(self->_updateIntervalSpeedMultiplier, multiplier) >= 0.01)
   {
     v5 = MNGetMNNavigationSimulationLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 1.0 / self->_updateIntervalSpeedMultiplier;
-      v8 = 134218240;
-      v9 = v6;
-      v10 = 2048;
-      v11 = 1.0 / multiplier;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "Setting simulation update interval from %0.2fs to %0.2fs.", &v8, 0x16u);
+      v7 = 134218240;
+      v8 = v6;
+      v9 = 2048;
+      v10 = 1.0 / multiplier;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "Setting simulation update interval from %0.2fs to %0.2fs.", &v7, 0x16u);
     }
 
     self->_updateIntervalSpeedMultiplier = multiplier;
     [(MNSimulationLocationProvider *)self _resetLocationUpdateInterval];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -581,12 +573,12 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
 
 - (MNSimulationLocationProvider)initWithSimulationParameters:(id)parameters alternateRouteInfos:(id)infos
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   infosCopy = infos;
-  v45.receiver = self;
-  v45.super_class = MNSimulationLocationProvider;
-  v8 = [(MNSimulationLocationProvider *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = MNSimulationLocationProvider;
+  v8 = [(MNSimulationLocationProvider *)&v44 init];
   if (v8)
   {
     v9 = [objc_alloc(MEMORY[0x1E69A2338]) initWithClassName:@"MNSimulationLocationProvider"];
@@ -600,37 +592,37 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
       firstObject = [infosCopy firstObject];
       if ([infosCopy count] >= 2)
       {
-        v36 = v8;
-        v37 = parametersCopy;
-        v40 = objc_alloc_init(MNRouteDivergenceFinder);
+        v35 = v8;
+        v36 = parametersCopy;
+        v39 = objc_alloc_init(MNRouteDivergenceFinder);
         route = [firstObject route];
         [route endRouteCoordinate];
 
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
         v42 = 0u;
-        v35 = infosCopy;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v34 = infosCopy;
         obj = infosCopy;
-        v14 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+        v14 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
         if (v14)
         {
           v15 = v14;
-          v39 = *v42;
+          v38 = *v41;
           do
           {
             v16 = 0;
             do
             {
-              if (*v42 != v39)
+              if (*v41 != v38)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v17 = *(*(&v41 + 1) + 8 * v16);
+              v17 = *(*(&v40 + 1) + 8 * v16);
               route2 = [firstObject route];
               route3 = [v17 route];
-              v20 = [(MNRouteDivergenceFinder *)v40 findFirstDivergenceBetweenRoute:route2 andRoute:route3];
+              v20 = [(MNRouteDivergenceFinder *)v39 findFirstDivergenceBetweenRoute:route2 andRoute:route3];
               firstObject2 = [v20 firstObject];
               [firstObject2 routeCoordinate];
 
@@ -645,15 +637,15 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
             }
 
             while (v15 != v16);
-            v15 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+            v15 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
           }
 
           while (v15);
         }
 
-        v8 = v36;
-        parametersCopy = v37;
-        infosCopy = v35;
+        v8 = v35;
+        parametersCopy = v36;
+        infosCopy = v34;
       }
 
       v23 = MNGetMNNavigationSimulationLog();
@@ -662,7 +654,7 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
         route4 = [firstObject route];
         name = [route4 name];
         *buf = 138412290;
-        v47 = name;
+        v46 = name;
       }
 
       [parametersCopy setInitialRoute:firstObject];
@@ -686,7 +678,6 @@ void __60__MNSimulationLocationProvider__resetLocationUpdateInterval__block_invo
     v32 = v8;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

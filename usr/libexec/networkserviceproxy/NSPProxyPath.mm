@@ -12,11 +12,14 @@
 - (id)multiHopConfigurationHash;
 - (id)singleHopConfigurationHash;
 - (void)dealloc;
+- (void)enableFailOpen:(BOOL)open;
 - (void)encodeWithCoder:(id)coder;
 - (void)handleNetworkCharacteristicsChange:(id)change;
+- (void)reportErrorForNetworkRegistration:(id)registration error:(int)error withOptions:(id)options;
 - (void)resetError;
 - (void)resetStats;
 - (void)updateConfigEpoch:(id)epoch;
+- (void)updateGeohashSharing:(BOOL)sharing;
 - (void)updateIngressProxy:(id)proxy egressProxy:(id)egressProxy proxyPathWeight:(unint64_t)weight;
 @end
 
@@ -283,6 +286,25 @@ LABEL_6:
   [(NSPProxyPath *)self resetMultiHopProxyAgent];
 }
 
+- (void)enableFailOpen:(BOOL)open
+{
+  openCopy = open;
+  if ([(NSPProxyPath *)self allowFailOpen]!= open)
+  {
+    [(NSPProxyPath *)self setAllowFailOpen:openCopy];
+    [(NSPProxyPath *)self resetSingleHopProxyAgent];
+
+    [(NSPProxyPath *)self resetMultiHopProxyAgent];
+  }
+}
+
+- (void)updateGeohashSharing:(BOOL)sharing
+{
+  [(NSPProxyPath *)self setGeohashSharingEnabled:sharing];
+
+  [(NSPProxyPath *)self resetMultiHopProxyAgent];
+}
+
 - (void)updateConfigEpoch:(id)epoch
 {
   [(NSPProxyPath *)self setConfigEpoch:epoch];
@@ -500,6 +522,468 @@ LABEL_6:
     [multiHopRegistration[3] resetError];
     multiHopRegistration = v6;
   }
+}
+
+- (void)reportErrorForNetworkRegistration:(id)registration error:(int)error withOptions:(id)options
+{
+  v6 = *&error;
+  registrationCopy = registration;
+  buffer = 0u;
+  memset(v52, 0, sizeof(v52));
+  v9 = [options objectForKeyedSubscript:NWNetworkAgentStartOptionClientUUID];
+  if (!v9)
+  {
+    interface = 0;
+    v16 = 0;
+    v11 = 0;
+LABEL_8:
+    v17 = 0;
+    goto LABEL_22;
+  }
+
+  v10 = [NWPath pathForClientID:v9];
+  v11 = v10;
+  if (!v10)
+  {
+    interface = 0;
+    v16 = 0;
+    goto LABEL_8;
+  }
+
+  interface = [v10 interface];
+  parameters = [v11 parameters];
+  v13 = [parameters pid];
+  effectiveProcessUUID = [parameters effectiveProcessUUID];
+  v48 = v9;
+  if (v13)
+  {
+    if (proc_pidinfo(v13, 13, 1uLL, &buffer, 64) == 64)
+    {
+      v15 = registrationCopy;
+      v16 = v52;
+    }
+
+    else
+    {
+      v19 = nplog_obj();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 67109120;
+        *&buf[4] = v13;
+        _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to convert from PID (%d) to process name", buf, 8u);
+      }
+
+      v15 = registrationCopy;
+
+      v16 = 0;
+    }
+
+    v18 = ne_copy_signing_identifier_for_pid();
+    if (v18)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    v15 = registrationCopy;
+    v16 = 0;
+    v18 = 0;
+  }
+
+  if (effectiveProcessUUID)
+  {
+    *buf = 0;
+    *&buf[8] = 0;
+    [effectiveProcessUUID getUUIDBytes:buf];
+    v18 = NEHelperCacheCopySigningIdentifierMapping();
+  }
+
+LABEL_16:
+  if (v18 && xpc_get_type(v18) == &_xpc_type_string && (string_ptr = xpc_string_get_string_ptr(v18)) != 0)
+  {
+    v17 = [NSString stringWithUTF8String:string_ptr];
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  if (v17)
+  {
+    delegate = [(NSPProxyPath *)self delegate];
+    [delegate reportActivityForApp:v17 path:0];
+  }
+
+  registrationCopy = v15;
+  v9 = v48;
+LABEL_22:
+  v21 = nplog_obj();
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  if ((v6 & 0xFFFF0000) == 0xFF0000)
+  {
+    if (v22)
+    {
+      if (!v16)
+      {
+        v16 = "none";
+      }
+
+      v23 = sub_1000423BC(registrationCopy);
+      *buf = 67109890;
+      *&buf[4] = v6;
+      *&buf[8] = 2080;
+      *&buf[10] = v16;
+      *&buf[18] = 2112;
+      *&buf[20] = v17;
+      *&buf[28] = 2112;
+      *&buf[30] = v23;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Received epoch (%u) from %s (%@) for %@ agent", buf, 0x26u);
+    }
+
+    delegate2 = [(NSPProxyPath *)self delegate];
+    [delegate2 reportEpoch:v6];
+    goto LABEL_28;
+  }
+
+  if (v6)
+  {
+    if (!v22)
+    {
+      goto LABEL_39;
+    }
+
+    if (!v16)
+    {
+      v16 = "none";
+    }
+
+    v26 = sub_1000423BC(registrationCopy);
+    interfaceName = [interface interfaceName];
+    *buf = 67110146;
+    *&buf[4] = v6;
+    *&buf[8] = 2080;
+    *&buf[10] = v16;
+    *&buf[18] = 2112;
+    *&buf[20] = v17;
+    *&buf[28] = 2112;
+    *&buf[30] = v26;
+    *&buf[38] = 2112;
+    *&buf[40] = interfaceName;
+    v28 = "Received error (%d) from %s (%@) for %@ agent on interface %@";
+    v29 = v21;
+    v30 = 48;
+  }
+
+  else
+  {
+    if (!v22)
+    {
+      goto LABEL_39;
+    }
+
+    if (!v16)
+    {
+      v16 = "none";
+    }
+
+    v26 = sub_1000423BC(registrationCopy);
+    interfaceName = [interface interfaceName];
+    *buf = 136315906;
+    *&buf[4] = v16;
+    *&buf[12] = 2112;
+    *&buf[14] = v17;
+    *&buf[22] = 2112;
+    *&buf[24] = v26;
+    *&buf[32] = 2112;
+    *&buf[34] = interfaceName;
+    v28 = "Received success indication from %s (%@) for %@ agent on interface %@";
+    v29 = v21;
+    v30 = 42;
+  }
+
+  _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, v28, buf, v30);
+
+LABEL_39:
+  multiHopRegistration = [(NSPProxyPath *)self multiHopRegistration];
+
+  if (multiHopRegistration == registrationCopy)
+  {
+    networkMultiHopAgentStatistics = [(NSPProxyPath *)self networkMultiHopAgentStatistics];
+  }
+
+  else
+  {
+    singleHopRegistration = [(NSPProxyPath *)self singleHopRegistration];
+
+    if (singleHopRegistration != registrationCopy)
+    {
+      delegate2 = 0;
+      goto LABEL_45;
+    }
+
+    networkMultiHopAgentStatistics = [(NSPProxyPath *)self networkSingleHopAgentStatistics];
+  }
+
+  delegate2 = networkMultiHopAgentStatistics;
+LABEL_45:
+  interface2 = [v11 interface];
+  type = [interface2 type];
+
+  if (type == 1)
+  {
+    v36 = registrationCopy;
+    v37 = [NPUtilities copyCurrentNetworkCharacteristicsForPath:v11];
+    v38 = [v37 objectForKeyedSubscript:@"Signature"];
+    if (delegate2)
+    {
+      v39 = *(delegate2 + 8);
+    }
+
+    else
+    {
+      v39 = 0;
+    }
+
+    v40 = [v39 objectForKeyedSubscript:@"Signature"];
+    v41 = v40;
+    if (v38 && v40 && ([v38 isEqual:v40] & 1) == 0)
+    {
+      v47 = nplog_obj();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "ignore error, network signature does not match", buf, 2u);
+      }
+
+      registrationCopy = v36;
+      goto LABEL_28;
+    }
+
+    registrationCopy = v36;
+  }
+
+  if (v6 > 1099)
+  {
+    if (v6 > 1199)
+    {
+      if ((v6 - 1200) > 7)
+      {
+LABEL_89:
+        if (v6 == 1301)
+        {
+          if (delegate2)
+          {
+            ++*(delegate2 + 112);
+          }
+
+          delegate3 = [(NSPProxyPath *)self delegate];
+          delegate4 = delegate3;
+          v45 = 1301;
+          goto LABEL_78;
+        }
+
+        if (v6 == 1302)
+        {
+          if (delegate2)
+          {
+            ++*(delegate2 + 120);
+          }
+
+          delegate3 = [(NSPProxyPath *)self delegate];
+          delegate4 = delegate3;
+          v45 = 1302;
+          goto LABEL_78;
+        }
+
+        goto LABEL_117;
+      }
+
+      v42 = 1 << (v6 + 80);
+      if ((v42 & 0x51) == 0)
+      {
+        if ((v42 & 0xA2) != 0)
+        {
+          if (delegate2)
+          {
+            ++*(delegate2 + 96);
+          }
+
+LABEL_77:
+          delegate3 = [(NSPProxyPath *)self delegate];
+          delegate4 = delegate3;
+          v45 = v6;
+LABEL_78:
+          v25 = interface;
+          [delegate3 reportProxyError:v45 interface:interface proxyPath:self];
+LABEL_79:
+
+          goto LABEL_80;
+        }
+
+        goto LABEL_89;
+      }
+
+LABEL_69:
+      if (delegate2)
+      {
+        ++*(delegate2 + 88);
+      }
+
+      goto LABEL_77;
+    }
+
+    if ((v6 - 1100) <= 7)
+    {
+      if (((1 << (v6 - 76)) & 0x33) != 0)
+      {
+        goto LABEL_69;
+      }
+
+      if (v6 == 1106)
+      {
+        if (delegate2)
+        {
+          ++*(delegate2 + 80);
+        }
+
+        delegate3 = [(NSPProxyPath *)self delegate];
+        delegate4 = delegate3;
+        v45 = 1106;
+        goto LABEL_78;
+      }
+
+      if (v6 == 1107)
+      {
+        if (delegate2)
+        {
+          ++*(delegate2 + 104);
+        }
+
+        delegate3 = [(NSPProxyPath *)self delegate];
+        delegate4 = delegate3;
+        v45 = 1107;
+        goto LABEL_78;
+      }
+    }
+
+LABEL_117:
+    if (delegate2)
+    {
+      ++*(delegate2 + 56);
+    }
+
+    goto LABEL_77;
+  }
+
+  if ((v6 & 0x80000000) != 0)
+  {
+    if ((v6 + 65568) <= 0x1E)
+    {
+      if (((1 << (v6 + 32)) & 0x4004C000) != 0)
+      {
+        if (delegate2)
+        {
+          ++*(delegate2 + 72);
+        }
+
+        goto LABEL_77;
+      }
+
+      if (v6 == -65568)
+      {
+        if (delegate2)
+        {
+          ++*(delegate2 + 64);
+        }
+
+        delegate3 = [(NSPProxyPath *)self delegate];
+        delegate4 = delegate3;
+        v45 = 4294901728;
+        goto LABEL_78;
+      }
+    }
+
+    goto LABEL_117;
+  }
+
+  if (v6 <= 60)
+  {
+    switch(v6)
+    {
+      case 0:
+        if (delegate2)
+        {
+          *(delegate2 + 120) = 0;
+          *(delegate2 + 104) = 0u;
+          *(delegate2 + 88) = 0u;
+          *(delegate2 + 72) = 0u;
+          *(delegate2 + 56) = 0u;
+          *(delegate2 + 40) = 0u;
+          *(delegate2 + 24) = 0u;
+          *(delegate2 + 16) = 1;
+        }
+
+        delegate4 = [(NSPProxyPath *)self delegate];
+        v25 = interface;
+        [delegate4 reportProxySuccessOnInterface:interface proxyPath:self];
+        goto LABEL_79;
+      case 1:
+LABEL_28:
+        v25 = interface;
+        goto LABEL_80;
+      case 0x3C:
+        if (delegate2)
+        {
+          ++*(delegate2 + 24);
+        }
+
+        delegate3 = [(NSPProxyPath *)self delegate];
+        delegate4 = delegate3;
+        v45 = 60;
+        goto LABEL_78;
+    }
+
+    goto LABEL_117;
+  }
+
+  if (v6 == 61)
+  {
+    if (delegate2)
+    {
+      ++*(delegate2 + 32);
+    }
+
+    delegate3 = [(NSPProxyPath *)self delegate];
+    delegate4 = delegate3;
+    v45 = 61;
+    goto LABEL_78;
+  }
+
+  if (v6 != 64)
+  {
+    if (v6 == 65)
+    {
+      if (delegate2)
+      {
+        ++*(delegate2 + 48);
+      }
+
+      goto LABEL_28;
+    }
+
+    goto LABEL_117;
+  }
+
+  v25 = interface;
+  if (delegate2)
+  {
+    ++*(delegate2 + 40);
+  }
+
+LABEL_80:
 }
 
 - (void)dealloc

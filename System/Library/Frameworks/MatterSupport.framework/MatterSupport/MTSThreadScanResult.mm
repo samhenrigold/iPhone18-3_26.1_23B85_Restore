@@ -38,7 +38,7 @@
 
 - (MTSThreadScanResult)initWithCoder:(id)coder
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSTSR.ck.networkName"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSTSR.ck.panID"];
@@ -57,46 +57,45 @@
   if (v16 && v15 && v14 && v13 && v12 && v9 && v10 && v11)
   {
     v18 = [(MTSThreadScanResult *)self initWithNetworkName:v16 panID:v15 extendedPANID:v14 channel:v13 extendedAddress:v12 rssi:v9 version:v10 lqi:v11];
-    v26 = v18;
+    v25 = v18;
   }
 
   else
   {
-    v24 = v10;
+    v23 = v10;
     context = objc_autoreleasePoolPush();
     selfCopy = self;
     v20 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v27 = HMFGetLogIdentifier();
+      v26 = HMFGetLogIdentifier();
       *buf = 138545410;
-      v29 = v27;
-      v30 = 2112;
-      v31 = v16;
-      v32 = 2112;
-      v33 = v15;
-      v34 = 2112;
-      v35 = v14;
-      v36 = 2112;
-      v37 = v13;
-      v38 = 2112;
-      v39 = v12;
-      v40 = 2112;
-      v41 = v9;
-      v42 = 2112;
-      v43 = v24;
-      v44 = 2112;
-      v45 = v17;
+      v28 = v26;
+      v29 = 2112;
+      v30 = v16;
+      v31 = 2112;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v14;
+      v35 = 2112;
+      v36 = v13;
+      v37 = 2112;
+      v38 = v12;
+      v39 = 2112;
+      v40 = v9;
+      v41 = 2112;
+      v42 = v23;
+      v43 = 2112;
+      v44 = v17;
       _os_log_impl(&dword_239824000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded networkName: %@, panID: %@, extendedPANID: %@, channel: %@, extendedAddress: %@, rssi: %@, version: %@, lqi: %@", buf, 0x5Cu);
     }
 
-    v26 = selfCopy;
+    v25 = selfCopy;
     objc_autoreleasePoolPop(context);
     v18 = 0;
-    v10 = v24;
+    v10 = v23;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

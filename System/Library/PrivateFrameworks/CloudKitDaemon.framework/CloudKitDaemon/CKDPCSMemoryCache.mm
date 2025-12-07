@@ -19,7 +19,7 @@
 
 - (void)_lockedEvictEntriesFromCache
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_accessQueue(self, a2, v2);
   dispatch_assert_queue_V2(v4);
 
@@ -30,7 +30,7 @@
   objc_msgSend_minAge(self, v15, v16);
   v18 = v14 - v17;
   v19 = qword_280D583E0;
-  v71 = v10;
+  v70 = v10;
   if (v10 > objc_msgSend_maxEntries(self, v20, v21) || v10 && v19 != 1 && (objc_msgSend_oldestCacheEntry(self, v22, v23), v24 < v18))
   {
     LODWORD(v24) = 1068708659;
@@ -40,25 +40,8 @@
     }
 
     v25 = v19 == 2 ? 1.2 : *&v24;
-    v26 = objc_msgSend_maxEntries(self, v22, v23, v24, v10);
-    objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v27, v28);
-    v30 = v29;
-    objc_msgSend_minAge(self, v31, v32);
-    v34 = v33;
-    objc_msgSend_oldestCacheEntry(self, v35, v36);
-    if (v37 != 0.0)
+    if ((v26 = objc_msgSend_maxEntries(self, v22, v23, v24, v10), objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v27, v28), v30 = v29, objc_msgSend_minAge(self, v31, v32), v34 = v33, objc_msgSend_oldestCacheEntry(self, v35, v36), v37 != 0.0) && (objc_msgSend_oldestCacheEntry(self, v22, v23), v38 < v30 + v34 * ((2.0 - v25) * -5.0)) || (v10 = -(v26 - (v70 * v25))) != 0)
     {
-      objc_msgSend_oldestCacheEntry(self, v22, v23);
-      if (v38 < v30 + v34 * ((2.0 - v25) * -5.0))
-      {
-        goto LABEL_10;
-      }
-    }
-
-    v10 = -(v26 - (v71 * v25));
-    if (v10)
-    {
-LABEL_10:
       if (*MEMORY[0x277CBC880] != -1)
       {
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -68,34 +51,34 @@ LABEL_10:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        v78 = v10;
-        v79 = 2048;
+        v77 = v10;
+        v78 = 2048;
         selfCopy2 = self;
         _os_log_debug_impl(&dword_22506F000, v39, OS_LOG_TYPE_DEBUG, "Attempting to evict %lu items from PCS memory cache %p", buf, 0x16u);
       }
 
       objc_msgSend_keysSortedByValueUsingComparator_(v7, v40, &unk_28385DBC0);
+      v71 = 0u;
       v72 = 0u;
       v73 = 0u;
-      v74 = 0u;
-      v41 = v75 = 0u;
-      v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, &v72, v76, 16);
+      v41 = v74 = 0u;
+      v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, &v71, v75, 16);
       if (v43)
       {
         v45 = v43;
         v46 = 0;
-        v47 = *v73;
+        v47 = *v72;
         v48 = 1.79769313e308;
         while (2)
         {
           for (i = 0; i != v45; ++i)
           {
-            if (*v73 != v47)
+            if (*v72 != v47)
             {
               objc_enumerationMutation(v41);
             }
 
-            v50 = *(*(&v72 + 1) + 8 * i);
+            v50 = *(*(&v71 + 1) + 8 * i);
             v51 = objc_msgSend_objectForKey_(v7, v44, v50);
             objc_msgSend_lastAccess(v51, v52, v53);
             if (v56 < v48)
@@ -111,7 +94,7 @@ LABEL_10:
             }
 
             objc_msgSend_lastAccess(v51, v54, v55);
-            if (v60 <= v18 || v71 - v46 > objc_msgSend_maxEntries(self, v58, v59))
+            if (v60 <= v18 || v70 - v46 > objc_msgSend_maxEntries(self, v58, v59))
             {
               objc_msgSend_removeObjectForKey_(v7, v58, v50);
               ++v46;
@@ -119,7 +102,7 @@ LABEL_10:
             }
           }
 
-          v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v44, &v72, v76, 16);
+          v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v44, &v71, v75, 16);
           if (v45)
           {
             continue;
@@ -146,8 +129,8 @@ LABEL_33:
           if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
           {
             *buf = 134218240;
-            v78 = v46;
-            v79 = 2048;
+            v77 = v46;
+            v78 = 2048;
             selfCopy2 = self;
             _os_log_debug_impl(&dword_22506F000, v63, OS_LOG_TYPE_DEBUG, "Evicted %lu items from PCS memory cache %p", buf, 0x16u);
           }
@@ -163,12 +146,10 @@ LABEL_33:
     }
   }
 
-  if (objc_msgSend_count(v7, v22, v23, v71))
+  if (objc_msgSend_count(v7, v22, v23, v70))
   {
     objc_msgSend_startEvictionTimer(CKDPCSMemoryCache, v68, v69);
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 + (void)startEvictionTimer

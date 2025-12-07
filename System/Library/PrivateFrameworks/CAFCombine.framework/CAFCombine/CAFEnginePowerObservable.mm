@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFEnginePowerObservable.enginePowerService(_:didUpdatePowerState:)();
+  CAFEnginePowerObservable.enginePowerService(_:didUpdatePowerState:)(selfCopy, state);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

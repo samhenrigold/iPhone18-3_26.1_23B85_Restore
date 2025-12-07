@@ -173,7 +173,8 @@ LABEL_11:
     v11 = qword_1000B84A0;
     if (sub_10000C57C())
     {
-      sub_100040E5C(&_mh_execute_header, v37, v38, "Failed to deserialize response error", v39, v40, v41, v42, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      sub_100040E5C(&_mh_execute_header, v37, v38, "Failed to deserialize response error", v39, v40, v41, v42, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     sub_100040E40();
@@ -207,7 +208,7 @@ LABEL_11:
     *buf = 0;
     v36 = "Failed to deserialize serial number";
 LABEL_82:
-    sub_100040E5C(&_mh_execute_header, v30, v31, v36, v32, v33, v34, v35, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100, buf[0]);
+    sub_100040E5C(&_mh_execute_header, v30, v31, v36, v32, v33, v34, v35, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100);
 LABEL_37:
     sub_100040E40();
     sub_100040E7C();
@@ -232,7 +233,8 @@ LABEL_44:
     v11 = qword_1000B84A0;
     if (sub_10000C57C())
     {
-      sub_100040E5C(&_mh_execute_header, v43, v44, "Failed to deserialize ecid", v45, v46, v47, v48, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      sub_100040E5C(&_mh_execute_header, v43, v44, "Failed to deserialize ecid", v45, v46, v47, v48, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     sub_100040E40();
@@ -253,7 +255,8 @@ LABEL_44:
     v26 = v13;
     if (sub_10000C57C())
     {
-      sub_100040E5C(&_mh_execute_header, v49, v50, "Failed to deserialize board ID", v51, v52, v53, v54, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      sub_100040E5C(&_mh_execute_header, v49, v50, "Failed to deserialize board ID", v51, v52, v53, v54, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     sub_100040E40();
@@ -276,7 +279,8 @@ LABEL_44:
     v26 = v13;
     if (sub_10000C57C())
     {
-      sub_100040E5C(&_mh_execute_header, v55, v56, "Failed to deserialize chip ID", v57, v58, v59, v60, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      sub_100040E5C(&_mh_execute_header, v55, v56, "Failed to deserialize chip ID", v57, v58, v59, v60, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     sub_100040E40();
@@ -299,7 +303,8 @@ LABEL_44:
     v26 = v13;
     if (sub_10000C57C())
     {
-      sub_100040E5C(&_mh_execute_header, v61, v62, "Failed to deserialize security domain", v63, v64, v65, v66, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      sub_100040E5C(&_mh_execute_header, v61, v62, "Failed to deserialize security domain", v63, v64, v65, v66, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     sub_100040E40();
@@ -321,7 +326,8 @@ LABEL_44:
     v26 = v13;
     if (sub_10000C57C())
     {
-      sub_100040E5C(&_mh_execute_header, v67, v68, "Failed to deserialize ap nonce", v69, v70, v71, v72, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      sub_100040E5C(&_mh_execute_header, v67, v68, "Failed to deserialize ap nonce", v69, v70, v71, v72, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     v95 = 0;
@@ -479,7 +485,8 @@ LABEL_22:
     v26 = v13;
     if (sub_10000C57C())
     {
-      sub_100040E5C(&_mh_execute_header, v73, v74, "Failed to deserialize production mode", v75, v76, v77, v78, v83, v84, v5, v92, v6, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      sub_100040E5C(&_mh_execute_header, v73, v74, "Failed to deserialize production mode", v75, v76, v77, v78, v83, v84, v5, v92, v6, v9, v95, v96, v97, v98, v99, v100);
     }
 
     v95 = 0;

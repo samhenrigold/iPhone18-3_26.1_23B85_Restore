@@ -352,7 +352,7 @@ LABEL_9:
     videoTrack = self->_videoTrack;
     if (videoTrack)
     {
-      [(AVAssetTrack *)videoTrack timeRange];
+      objc_msgSend_timeRange(videoTrack);
     }
 
     else
@@ -714,14 +714,14 @@ LABEL_33:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Video track transform is invalid", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Video track transform is invalid", v2, v3, v4, v5);
 }
 
 - (void)initWithPath:shouldScaleAndPad:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d failed!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d failed!", v2, v3, v4, v5);
 }
 
 - (void)loadVideoTrackFromList:error:.cold.1()
@@ -735,7 +735,7 @@ LABEL_33:
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_8_16();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to load video tracks error=%@", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to load video tracks error=%@", v2, v3, v4, v5);
     }
   }
 
@@ -788,7 +788,7 @@ LABEL_33:
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_8_16();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to load metadata tracks error=%@", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to load metadata tracks error=%@", v2, v3, v4, v5);
     }
   }
 
@@ -817,7 +817,7 @@ LABEL_33:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create the semaphore", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create the semaphore", v2, v3, v4, v5);
 }
 
 - (void)initializeAssetReader
@@ -830,7 +830,7 @@ LABEL_33:
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_8_16();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unablle to load assed url=%@", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unablle to load assed url=%@", v2, v3, v4, v5);
     }
   }
 
@@ -841,7 +841,7 @@ LABEL_33:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize AssetReader", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize AssetReader", v2, v3, v4, v5);
 }
 
 - (void)setWidth:height:.cold.1()
@@ -866,7 +866,7 @@ LABEL_33:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d requested frameIndex smaller than previously decoded frame index, rewind the video to the beginning", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d requested frameIndex smaller than previously decoded frame index, rewind the video to the beginning", v2, v3, v4, v5);
 }
 
 - (void)createPixelBufferForFrameIndex:.cold.2()
@@ -878,7 +878,7 @@ LABEL_33:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize AssetReader", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize AssetReader", v2, v3, v4, v5);
     }
   }
 }
@@ -887,7 +887,7 @@ LABEL_33:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d error: copyNextSampleBuffer returned NULL", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d error: copyNextSampleBuffer returned NULL", v2, v3, v4, v5);
 }
 
 - (void)createPixelBufferForFrameIndex:.cold.4()
@@ -899,7 +899,7 @@ LABEL_33:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize AssetReader", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize AssetReader", v2, v3, v4, v5);
     }
   }
 }
@@ -913,7 +913,7 @@ LABEL_33:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d failed to rescale pixel buffer", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d failed to rescale pixel buffer", v2, v3, v4, v5);
     }
   }
 }
@@ -927,7 +927,7 @@ LABEL_33:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d error: copyNextSampleBuffer failed", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d error: copyNextSampleBuffer failed", v2, v3, v4, v5);
     }
   }
 }
@@ -941,7 +941,7 @@ LABEL_33:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d error: copyNextSampleBuffer returned NULL (while skipping frames)", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d error: copyNextSampleBuffer returned NULL (while skipping frames)", v2, v3, v4, v5);
     }
   }
 }

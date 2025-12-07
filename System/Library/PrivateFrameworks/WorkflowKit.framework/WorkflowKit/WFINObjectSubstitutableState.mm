@@ -54,25 +54,25 @@
 
   v10 = v9;
 
-  v11 = 0;
+  isEqualToString = 0;
   if (v7 && v10)
   {
     identifier = [v7 identifier];
     identifier2 = [v10 identifier];
-    if ([identifier isEqualToString:identifier2])
+    if (objc_msgSend_isEqualToString_(identifier))
     {
-      v11 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
       spokenPhrase = [v7 spokenPhrase];
       spokenPhrase2 = [v10 spokenPhrase];
-      v11 = [spokenPhrase isEqualToString:spokenPhrase2];
+      isEqualToString = objc_msgSend_isEqualToString_(spokenPhrase);
     }
   }
 
-  return v11;
+  return isEqualToString;
 }
 
 - (void)processWithContext:(id)context userInputRequiredHandler:(id)handler valueHandler:(id)valueHandler
@@ -120,20 +120,19 @@ void __89__WFINObjectSubstitutableState_processWithContext_userInputRequiredHand
 {
   v7 = a2;
   v8 = *(a1 + 40);
-  v13 = v7;
+  v12 = v7;
   if (v7)
   {
-    v9 = *(a1 + 32);
-    v10 = a5;
-    v11 = [objc_alloc(objc_msgSend(objc_opt_class() "processingValueClass"))];
-    (*(v8 + 16))(v8, v11, v10);
+    v9 = a5;
+    v10 = [objc_alloc(objc_msgSend(objc_opt_class() "processingValueClass"))];
+    (*(v8 + 16))(v8, v10, v9);
   }
 
   else
   {
-    v12 = *(v8 + 16);
-    v11 = a5;
-    v12(v8, 0, v11);
+    v11 = *(v8 + 16);
+    v10 = a5;
+    v11(v8, 0, v10);
   }
 }
 

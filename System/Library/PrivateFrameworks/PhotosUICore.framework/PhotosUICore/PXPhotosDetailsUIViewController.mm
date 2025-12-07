@@ -1723,9 +1723,9 @@ void __86__PXPhotosDetailsUIViewController_viewWillTransitionToSize_withTransiti
   _specManager = [(PXPhotosDetailsUIViewController *)self _specManager];
   spec = [_specManager spec];
 
-  options = [(PXPhotosDetailsUIViewController *)self options];
+  v13 = objc_msgSend_options(self);
   showAssetsWidget = [v9 showAssetsWidget];
-  if ((options & 2) != 0)
+  if ((v13 & 2) != 0)
   {
     v15 = 0;
   }
@@ -1737,7 +1737,7 @@ void __86__PXPhotosDetailsUIViewController_viewWillTransitionToSize_withTransiti
 
   v121 = v15;
   _shouldShowMovieHeader = 0;
-  if (([v9 showHeaderWidget] & ((options & 2) == 0)) == 1 && (options & 8) == 0)
+  if (([v9 showHeaderWidget] & ((v13 & 2) == 0)) == 1 && (v13 & 8) == 0)
   {
     _shouldShowMovieHeader = [(PXPhotosDetailsUIViewController *)self _shouldShowMovieHeader];
     v131[0] = MEMORY[0x1E69E9820];
@@ -1750,7 +1750,7 @@ void __86__PXPhotosDetailsUIViewController_viewWillTransitionToSize_withTransiti
 
   v111 = v6;
   showPlacesWidget = [v9 showPlacesWidget];
-  if ((options & 8) != 0)
+  if ((v13 & 8) != 0)
   {
     v17 = 0;
   }
@@ -1766,7 +1766,7 @@ void __86__PXPhotosDetailsUIViewController_viewWillTransitionToSize_withTransiti
 
   showSharedLibraryWidget = [v9 showSharedLibraryWidget];
   showAlbumAttributionWidget = [v9 showAlbumAttributionWidget];
-  if ((options & 0x82) == 2)
+  if ((v13 & 0x82) == 2)
   {
     v21 = showAlbumAttributionWidget;
   }
@@ -1781,7 +1781,7 @@ void __86__PXPhotosDetailsUIViewController_viewWillTransitionToSize_withTransiti
   showVisualLookUpWidget = [v9 showVisualLookUpWidget];
   showTimeWidget = [v9 showTimeWidget];
   showEXIFWidget = [v9 showEXIFWidget];
-  v128 = (options >> 1) & 1;
+  v128 = (v13 >> 1) & 1;
   if (canShowInternalUI)
   {
     v118 = [v9 showAssetDescriptionWidget] & v128;
@@ -1810,7 +1810,7 @@ void __86__PXPhotosDetailsUIViewController_viewWillTransitionToSize_withTransiti
   if ([spec enableActionsWidget])
   {
     showActionsWidget = [v9 showActionsWidget];
-    if ((options & 8) != 0)
+    if ((v13 & 8) != 0)
     {
       v29 = 0;
     }
@@ -1828,7 +1828,7 @@ void __86__PXPhotosDetailsUIViewController_viewWillTransitionToSize_withTransiti
     v110 = 0;
   }
 
-  v30 = [v9 showCaptionHashtagsWidget] & (options >> 1);
+  v30 = [v9 showCaptionHashtagsWidget] & (v13 >> 1);
   if (userInterfaceIdiom == 5)
   {
     v31 = 0;
@@ -1843,7 +1843,7 @@ void __86__PXPhotosDetailsUIViewController_viewWillTransitionToSize_withTransiti
   v107 = v4 - 1;
   if ([v108 enableMemoriesLivingOnFeedback])
   {
-    v109 = ((options & 8) == 0) & ~[*MEMORY[0x1E69DDA98] isRunningTest];
+    v109 = ((v13 & 8) == 0) & ~[*MEMORY[0x1E69DDA98] isRunningTest];
   }
 
   else
@@ -1861,7 +1861,7 @@ void __86__PXPhotosDetailsUIViewController_viewWillTransitionToSize_withTransiti
     v35 = v11[2](v11, v34, 0);
   }
 
-  else if ((options & 2) == 0)
+  else if ((v13 & 2) == 0)
   {
     goto LABEL_40;
   }
@@ -1892,7 +1892,7 @@ LABEL_40:
   v43 = showVisualLookUpWidget & v128;
   if ((showVisualLookUpWidget & v128) == 0 || v40)
   {
-    if ((options & 2) == 0)
+    if ((v13 & 2) == 0)
     {
       goto LABEL_48;
     }
@@ -1975,7 +1975,7 @@ LABEL_48:
     self->__previewWidget = v71;
   }
 
-  v73 = (options & 2) == 0;
+  v73 = (v13 & 2) == 0;
   if (v120)
   {
     v74 = objc_alloc_init(PXUIMapWidget);
@@ -1991,13 +1991,13 @@ LABEL_48:
 
       v58 = v126;
       v60 = v122;
-      v73 = (options & 2) == 0;
+      v73 = (v13 & 2) == 0;
       if (v79)
       {
         v80 = objc_alloc_init(_TtC12PhotosUICore29PhotosDetailsNoLocationWidget);
         v81 = v11[2](v11, v80, v32);
 
-        v73 = (options & 2) == 0;
+        v73 = (v13 & 2) == 0;
       }
     }
 
@@ -2034,13 +2034,13 @@ LABEL_79:
     goto LABEL_80;
   }
 
-  if ((options & 2) != 0)
+  if ((v13 & 2) != 0)
   {
     goto LABEL_79;
   }
 
 LABEL_80:
-  if ((options & 0x800) != 0)
+  if ((v13 & 0x800) != 0)
   {
     v92 = objc_alloc_init(PXDemoTilingControllerWidget);
     v93 = v11[2](v11, v92, 1);
@@ -2051,7 +2051,7 @@ LABEL_80:
     v96 = objc_alloc_init(PXDemoDynamicViewWidget);
     v97 = v11[2](v11, v96, 1);
 
-    v73 = (options & 2) == 0;
+    v73 = (v13 & 2) == 0;
   }
 
   if (v109)
@@ -2063,9 +2063,9 @@ LABEL_80:
   if (v110)
   {
     v100 = objc_alloc_init(PXPhotosDetailsActionsUIWidget);
-    [(PXPhotosDetailsActionsUIWidget *)v100 setAllowRevealInMomentAction:(options >> 4) & 1];
+    [(PXPhotosDetailsActionsUIWidget *)v100 setAllowRevealInMomentAction:(v13 >> 4) & 1];
     [(PXPhotosDetailsActionsUIWidget *)v100 setAllowCreateMemoryAction:v73];
-    [(PXPhotosDetailsActionsUIWidget *)v100 setAllowInternalFileRadarAction:(options >> 6) & 1];
+    [(PXPhotosDetailsActionsUIWidget *)v100 setAllowInternalFileRadarAction:(v13 >> 6) & 1];
     v101 = v11[2](v11, v100, v32);
   }
 
@@ -2267,10 +2267,10 @@ void __47__PXPhotosDetailsUIViewController__loadWidgets__block_invoke_3(uint64_t
     v19 = v18;
     v21 = v20;
     v23 = v22;
-    [(PXPhotosDetailsUIViewController *)self contentEdgeInsets];
+    objc_msgSend_contentEdgeInsets(self);
     if (v24 > 0.0)
     {
-      [(PXPhotosDetailsUIViewController *)self contentEdgeInsets];
+      objc_msgSend_contentEdgeInsets(self);
       v26 = v25;
       [scrollView adjustedContentInset];
       v21 = v26 - v27;
@@ -2489,7 +2489,7 @@ LABEL_10:
   [(PXPhotosDetailsUIViewController *)&v12 preferredContentSize];
   v4 = v3;
   v6 = v5;
-  if (([(PXPhotosDetailsUIViewController *)self options]& 8) != 0)
+  if ((objc_msgSend_options(self) & 8) != 0)
   {
     view = [(PXPhotosDetailsUIViewController *)self view];
     [view frame];
@@ -3013,7 +3013,7 @@ void __49__PXPhotosDetailsUIViewController_viewDidAppear___block_invoke_3(uint64
   v14.super_class = PXPhotosDetailsUIViewController;
   [(PXPhotosDetailsUIViewController *)&v14 viewDidLoad];
   spec = [(PXFeatureSpecManager *)self->__specManager spec];
-  if ((-[PXPhotosDetailsUIViewController options](self, "options") & 4) == 0 && [spec shouldInitializeBarsController])
+  if ((objc_msgSend_options(self) & 4) == 0 && [spec shouldInitializeBarsController])
   {
     [(UIViewController *)self px_enableBarAppearance];
     v4 = objc_alloc(self->__barsControllerClass);
@@ -3092,15 +3092,15 @@ void __49__PXPhotosDetailsUIViewController_viewDidAppear___block_invoke_3(uint64
     [(PXPhotosDetailsContext *)v11->_context registerChangeObserver:v11 context:PXPhotosDetailsContextObservationContext_71810];
     if (configurationCopy)
     {
-      options = [configurationCopy options];
+      v12 = objc_msgSend_options(configurationCopy);
     }
 
     else
     {
-      options = 0;
+      v12 = 0;
     }
 
-    v11->_options = options;
+    v11->_options = v12;
     v13 = PXViewControllerEventTrackerCreateWithPhotosDetailsContext(v11->_context);
     eventTracker = v11->_eventTracker;
     v11->_eventTracker = v13;

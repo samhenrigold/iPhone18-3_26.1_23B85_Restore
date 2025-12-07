@@ -76,7 +76,7 @@ LABEL_22:
 
 + (id)OPACKFromValue:(id)value error:(id *)error
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   identifier = [valueCopy identifier];
   publicKey = [valueCopy publicKey];
@@ -84,14 +84,14 @@ LABEL_22:
 
   if ([identifier length] && objc_msgSend(data, "length"))
   {
-    v14[0] = @"i";
-    v14[1] = @"d";
-    v15[0] = identifier;
-    v15[1] = data;
-    v14[2] = @"p";
+    v13[0] = @"i";
+    v13[1] = @"d";
+    v14[0] = identifier;
+    v14[1] = data;
+    v13[2] = @"p";
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(valueCopy, "permissions")}];
-    v15[2] = v9;
-    error = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+    v14[2] = v9;
+    error = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
   }
 
   else if (error)
@@ -102,8 +102,6 @@ LABEL_22:
 
     error = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return error;
 }

@@ -100,12 +100,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -124,15 +123,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  unlockEnabled = self->_unlockEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    passcodeEnabled = self->_passcodeEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
@@ -243,7 +240,6 @@ LABEL_4:
       goto LABEL_15;
     }
 
-    v7 = *(equalCopy + 13);
     if (self->_unlockEnabled)
     {
       if ((*(equalCopy + 13) & 1) == 0)

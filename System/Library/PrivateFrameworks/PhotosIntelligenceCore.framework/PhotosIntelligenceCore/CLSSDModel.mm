@@ -108,9 +108,7 @@ LABEL_6:
   landscapeCityscapeNode = self->_landscapeCityscapeNode;
   self->_landscapeCityscapeNode = v5;
 
-  v7 = [[CLSSignalNode alloc] initWithIdentifier:2147482622 name:@"Food Drink Foodie" operatingPoint:0.962 highPrecisionOperatingPoint:0.962 highRecallOperatingPoint:0.962];
-  foodDrinkFoodieNode = self->_foodDrinkFoodieNode;
-  self->_foodDrinkFoodieNode = v7;
+  self->_foodDrinkFoodieNode = [[CLSSignalNode alloc] initWithIdentifier:2147482622 name:@"Food Drink Foodie" operatingPoint:0.962 highPrecisionOperatingPoint:0.962 highRecallOperatingPoint:0.962];
 
   MEMORY[0x2821F96F8]();
 }
@@ -126,9 +124,7 @@ LABEL_6:
   landscapeCityscapeNode = self->_landscapeCityscapeNode;
   self->_landscapeCityscapeNode = v5;
 
-  v7 = [[CLSSignalNode alloc] initWithIdentifier:2147482622 name:@"Food Drink Foodie" operatingPoint:0.99 highPrecisionOperatingPoint:0.99 highRecallOperatingPoint:0.99];
-  foodDrinkFoodieNode = self->_foodDrinkFoodieNode;
-  self->_foodDrinkFoodieNode = v7;
+  self->_foodDrinkFoodieNode = [[CLSSignalNode alloc] initWithIdentifier:2147482622 name:@"Food Drink Foodie" operatingPoint:0.99 highPrecisionOperatingPoint:0.99 highRecallOperatingPoint:0.99];
 
   MEMORY[0x2821F96F8]();
 }
@@ -144,19 +140,17 @@ LABEL_6:
   landscapeCityscapeNode = self->_landscapeCityscapeNode;
   self->_landscapeCityscapeNode = v5;
 
-  v7 = [[CLSSignalNode alloc] initWithIdentifier:2147482622 name:@"Food Drink Foodie" operatingPoint:0.99 highPrecisionOperatingPoint:0.99 highRecallOperatingPoint:0.99];
-  foodDrinkFoodieNode = self->_foodDrinkFoodieNode;
-  self->_foodDrinkFoodieNode = v7;
+  self->_foodDrinkFoodieNode = [[CLSSignalNode alloc] initWithIdentifier:2147482622 name:@"Food Drink Foodie" operatingPoint:0.99 highPrecisionOperatingPoint:0.99 highRecallOperatingPoint:0.99];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSSDModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSSDModel;
-  v4 = [(CLSSDModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSSDModel;
+  v4 = [(CLSSDModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -171,12 +165,12 @@ LABEL_6:
             v6 = objc_opt_class();
             *buf = 67109378;
             versionCopy = version;
-            v12 = 2112;
-            v13 = v6;
+            v11 = 2112;
+            v12 = v6;
             _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
           }
 
-          v5 = 0;
+          return 0;
         }
 
         else
@@ -197,7 +191,6 @@ LABEL_6:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

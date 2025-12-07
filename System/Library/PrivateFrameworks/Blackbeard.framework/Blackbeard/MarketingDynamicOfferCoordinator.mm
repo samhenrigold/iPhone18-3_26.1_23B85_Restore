@@ -19,22 +19,19 @@
 {
   v7 = sub_1E65DB628();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = self + OBJC_IVAR____TtC10Blackbeard32MarketingDynamicOfferCoordinator_eventHub;
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v13 = *(v12 + 1);
     swift_getObjectType();
     errorCopy = error;
     selfCopy = self;
     sub_1E65DB618();
-    sub_1E5FB96FC(&unk_1ED079C30, MEMORY[0x1E69CD580]);
+    sub_1E5FB96FC(&unk_1ED079C30, MEMORY[0x1E69CD580], MEMORY[0x1E69CD578]);
     sub_1E65DDDE8();
 
     swift_unknownObjectRelease();
-    (*(v8 + 8))(v11, v7);
+    (*(v8 + 8))(v10, v7);
   }
 }
 

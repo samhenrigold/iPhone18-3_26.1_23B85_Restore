@@ -50,7 +50,7 @@
 
 - (void)perfProblemDetectedOnMac:(id)mac
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   macCopy = mac;
   v4 = +[STYFrameworkHelper sharedHelper];
   logHandle = [v4 logHandle];
@@ -66,45 +66,45 @@
 
   if (v8 == -1000)
   {
-    v27[0] = @"observedLatency_in_ms";
+    v26[0] = @"observedLatency_in_ms";
     v9 = MEMORY[0x277CCABB0];
     [macCopy observedLatencyInMs];
     v10 = [v9 numberWithFloat:?];
-    v28[0] = v10;
-    v27[1] = @"threshold_in_ms";
+    v27[0] = v10;
+    v26[1] = @"threshold_in_ms";
     v11 = MEMORY[0x277CCABB0];
     [macCopy targetLatencyInMs];
     v12 = [v11 numberWithFloat:?];
-    v28[1] = v12;
-    v27[2] = @"scenarioID";
+    v27[1] = v12;
+    v26[2] = @"scenarioID";
     scenario2 = [macCopy scenario];
     scenarioID = [scenario2 scenarioID];
-    v28[2] = scenarioID;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+    v27[2] = scenarioID;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
   }
 
   else
   {
-    v25[0] = @"observedFramerate_fps";
+    v24[0] = @"observedFramerate_fps";
     v16 = MEMORY[0x277CCABB0];
     [macCopy observedFps];
     v10 = [v16 numberWithFloat:?];
-    v26[0] = v10;
-    v25[1] = @"threshold_fps";
+    v25[0] = v10;
+    v24[1] = @"threshold_fps";
     v17 = MEMORY[0x277CCABB0];
     [macCopy targetFps];
     v12 = [v17 numberWithFloat:?];
-    v26[1] = v12;
-    v25[2] = @"scenarioID";
+    v25[1] = v12;
+    v24[2] = @"scenarioID";
     scenario2 = [macCopy scenario];
     scenarioID = [scenario2 scenarioID];
-    v26[2] = scenarioID;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v25[2] = scenarioID;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
   }
 
-  v24 = 0;
+  v23 = 0;
   v18 = DRTailspinRequest();
-  v19 = v24;
+  v19 = v23;
   v20 = +[STYFrameworkHelper sharedHelper];
   logHandle2 = [v20 logHandle];
 
@@ -121,13 +121,11 @@
   {
     [STYGeneralSignpostMonitorHelper perfProblemDetectedOnMac:];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)perfProblemDetected:(id)detected tailspinFilenamePrefix:(id)prefix
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   detectedCopy = detected;
   prefixCopy = prefix;
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(detectedCopy, "hash")}];
@@ -153,35 +151,35 @@
     scenario = [detectedCopy scenario];
     scenarioID = [scenario scenarioID];
     *buf = 138413570;
-    v32 = scenarioID;
-    v33 = 2112;
-    v34 = v10;
-    v35 = 2048;
+    v31 = scenarioID;
+    v32 = 2112;
+    v33 = v10;
+    v34 = 2048;
     unsignedLongLongValue = [v11 unsignedLongLongValue];
-    v37 = 2048;
+    v36 = 2048;
     unsignedLongLongValue2 = [v12 unsignedLongLongValue];
-    v39 = 1024;
+    v38 = 1024;
     intValue = [v7 intValue];
-    v41 = 2112;
-    v42 = kSTYEplReportType;
+    v40 = 2112;
+    v41 = kSTYEplReportType;
     _os_log_debug_impl(&dword_2656CE000, logHandle2, OS_LOG_TYPE_DEBUG, "[Signpost: %@] Request details area as follows:\n\t Filename prefix : %@\n\t interval begin timestamp : %llu\n\t interval end timestamp : %llu\n\t Request identifier %d\n\t Report Type : %@", buf, 0x3Au);
   }
 
-  v29[0] = kSTYScenarioReportRefKey;
-  v29[1] = kSTYTailspinFilenameKey;
-  v30[0] = v7;
-  v30[1] = v10;
-  v29[2] = kSTYScenarioStartTimeKey;
-  v29[3] = kSTYScenarioEndTimeKey;
-  v30[2] = v11;
-  v30[3] = v12;
-  v29[4] = kSTYScenarioReportKey;
-  v29[5] = kSTYReportTypeKey;
-  v30[4] = detectedCopy;
-  v30[5] = kSTYEplReportType;
-  v29[6] = kSTYReasonKey;
-  v30[6] = @"EPL Request";
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:7];
+  v28[0] = kSTYScenarioReportRefKey;
+  v28[1] = kSTYTailspinFilenameKey;
+  v29[0] = v7;
+  v29[1] = v10;
+  v28[2] = kSTYScenarioStartTimeKey;
+  v28[3] = kSTYScenarioEndTimeKey;
+  v29[2] = v11;
+  v29[3] = v12;
+  v28[4] = kSTYScenarioReportKey;
+  v28[5] = kSTYReportTypeKey;
+  v29[4] = detectedCopy;
+  v29[5] = kSTYEplReportType;
+  v28[6] = kSTYReasonKey;
+  v29[6] = @"EPL Request";
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:7];
   [outstandingTailspinSaveRequests setObject:detectedCopy forKey:v7];
   [perfIssueDetectionTimeLogs setObject:date forKey:v7];
   LocalCenter = CFNotificationCenterGetLocalCenter();
@@ -192,13 +190,11 @@
   block[1] = 3221225472;
   block[2] = __78__STYGeneralSignpostMonitorHelper_perfProblemDetected_tailspinFilenamePrefix___block_invoke;
   block[3] = &unk_279B9B4C0;
-  v27 = v7;
-  v28 = detectedCopy;
+  v26 = v7;
+  v27 = detectedCopy;
   v21 = detectedCopy;
   v22 = v7;
   dispatch_after(v19, v20, block);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __78__STYGeneralSignpostMonitorHelper_perfProblemDetected_tailspinFilenamePrefix___block_invoke(uint64_t a1)
@@ -222,7 +218,7 @@ void __78__STYGeneralSignpostMonitorHelper_perfProblemDetected_tailspinFilenameP
 
 - (void)handleInterval:(id)interval
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   endEvent = [intervalCopy endEvent];
   v6 = eventEndToNow(endEvent);
@@ -237,16 +233,16 @@ void __78__STYGeneralSignpostMonitorHelper_perfProblemDetected_tailspinFilenameP
 
   if (v6 <= 5000.0)
   {
-    v32[0] = 0;
-    v32[1] = v32;
-    v32[2] = 0x3032000000;
-    v32[3] = __Block_byref_object_copy__0;
-    v32[4] = __Block_byref_object_dispose__0;
+    v31[0] = 0;
+    v31[1] = v31;
+    v31[2] = 0x3032000000;
+    v31[3] = __Block_byref_object_copy__0;
+    v31[4] = __Block_byref_object_dispose__0;
     v11 = intervalCopy;
-    v33 = v11;
-    v31 = 0;
-    v12 = [STYScenarioReport reportFromSignpostInterval:v11 error:&v31];
-    v13 = v31;
+    v32 = v11;
+    v30 = 0;
+    v12 = [STYScenarioReport reportFromSignpostInterval:v11 error:&v30];
+    v13 = v30;
     v14 = v13;
     if (v12)
     {
@@ -265,7 +261,7 @@ void __78__STYGeneralSignpostMonitorHelper_perfProblemDetected_tailspinFilenameP
             scenario = [v12 scenario];
             scenarioID = [scenario scenarioID];
             *buf = 138412290;
-            v35 = scenarioID;
+            v34 = scenarioID;
             _os_log_impl(&dword_2656CE000, logHandle2, OS_LOG_TYPE_DEFAULT, "[Signpost: %@] Deferring app launch tailspin to special app launch monitoring ", buf, 0xCu);
           }
 
@@ -287,18 +283,18 @@ LABEL_27:
         }
       }
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke;
-      v30[3] = &unk_279B9B7E8;
-      v30[4] = self;
-      v30[5] = v32;
-      v24 = MEMORY[0x26675BCB0](v30);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke;
+      v29[3] = &unk_279B9B7E8;
+      v29[4] = self;
+      v29[5] = v31;
+      v24 = MEMORY[0x26675BCB0](v29);
       v25 = +[STYPerformanceChecker sharedPerfChecker];
       [v25 checkPerformanceOfScenarioReport:v12 completionHandler:v24];
 
 LABEL_28:
-      _Block_object_dispose(v32, 8);
+      _Block_object_dispose(v31, 8);
 
       goto LABEL_29;
     }
@@ -320,8 +316,8 @@ LABEL_28:
 
       else if ([v14 code] == -2000)
       {
-        v28 = +[STYFrameworkHelper sharedHelper];
-        logHandle2 = [v28 logHandle];
+        v27 = +[STYFrameworkHelper sharedHelper];
+        logHandle2 = [v27 logHandle];
 
         if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEBUG))
         {
@@ -334,8 +330,8 @@ LABEL_28:
 
       else
       {
-        v29 = +[STYFrameworkHelper sharedHelper];
-        logHandle2 = [v29 logHandle];
+        v28 = +[STYFrameworkHelper sharedHelper];
+        logHandle2 = [v28 logHandle];
 
         if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEBUG))
         {
@@ -369,12 +365,11 @@ LABEL_28:
   }
 
 LABEL_29:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = v8;
@@ -391,11 +386,11 @@ void __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke(uint64_
       v15 = v14;
       [v9 targetLatencyInMs];
       *buf = 138412802;
-      v62 = v13;
-      v63 = 2048;
-      v64 = v15;
-      v65 = 2048;
-      v66 = v16;
+      v61 = v13;
+      v62 = 2048;
+      v63 = v15;
+      v64 = 2048;
+      v65 = v16;
       _os_log_impl(&dword_2656CE000, v11, OS_LOG_TYPE_DEFAULT, "[Signpost: %@] Observed latency of %.0f ms was below threshold of %.0f ms", buf, 0x20u);
     }
 
@@ -413,126 +408,125 @@ LABEL_7:
     {
       v18 = [v7 localizedDescription];
       *buf = 138412290;
-      v62 = v18;
+      v61 = v18;
       _os_log_impl(&dword_2656CE000, v11, OS_LOG_TYPE_DEFAULT, "Perf check failed. Description: %@ ", buf, 0xCu);
     }
 
     goto LABEL_7;
   }
 
-  v20 = [v8 scenario];
-  v21 = [v20 kpi];
+  v19 = [v8 scenario];
+  v20 = [v19 kpi];
 
-  v22 = +[STYFrameworkHelper sharedHelper];
-  v23 = [v22 logHandle];
+  v21 = +[STYFrameworkHelper sharedHelper];
+  v22 = [v21 logHandle];
 
-  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-  if (v21 == -1000)
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+  if (v20 == -1000)
   {
-    if (!v24)
+    if (!v23)
     {
       goto LABEL_15;
     }
 
-    v25 = [v9 scenario];
-    v26 = [v25 scenarioID];
+    v24 = [v9 scenario];
+    v25 = [v24 scenarioID];
     [v9 observedLatencyInMs];
-    v28 = v27;
+    v27 = v26;
     [v9 targetLatencyInMs];
     *buf = 138412802;
-    v62 = v26;
-    v63 = 2048;
-    v64 = v28;
-    v65 = 2048;
-    v66 = v29;
-    v30 = "[Signpost: %@]  observed latency of %.0f ms was above threshold of %.0f ms";
-    v31 = v23;
-    v32 = 32;
+    v61 = v25;
+    v62 = 2048;
+    v63 = v27;
+    v64 = 2048;
+    v65 = v28;
+    v29 = "[Signpost: %@]  observed latency of %.0f ms was above threshold of %.0f ms";
+    v30 = v22;
+    v31 = 32;
   }
 
   else
   {
-    if (!v24)
+    if (!v23)
     {
       goto LABEL_15;
     }
 
-    v25 = [v9 scenario];
-    v26 = [v25 scenarioID];
+    v24 = [v9 scenario];
+    v25 = [v24 scenarioID];
     [v9 observedFps];
     *buf = 138412546;
-    v62 = v26;
-    v63 = 2048;
-    v64 = v33;
-    v30 = " %@'s observed framerate of %.0f was below threshold. Initiating diagnostic collection";
-    v31 = v23;
-    v32 = 22;
+    v61 = v25;
+    v62 = 2048;
+    v63 = v32;
+    v29 = " %@'s observed framerate of %.0f was below threshold. Initiating diagnostic collection";
+    v30 = v22;
+    v31 = 22;
   }
 
-  _os_log_impl(&dword_2656CE000, v31, OS_LOG_TYPE_DEFAULT, v30, buf, v32);
+  _os_log_impl(&dword_2656CE000, v30, OS_LOG_TYPE_DEFAULT, v29, buf, v31);
 
 LABEL_15:
-  v34 = dateOfLastTailspinRequest;
-  v35 = [MEMORY[0x277CBEAA8] date];
-  v36 = v35;
-  v37 = dateOfLastTailspinRequest;
-  if (!v34)
+  v33 = dateOfLastTailspinRequest;
+  v34 = [MEMORY[0x277CBEAA8] date];
+  v35 = v34;
+  v36 = dateOfLastTailspinRequest;
+  if (!v33)
   {
-    dateOfLastTailspinRequest = v35;
+    dateOfLastTailspinRequest = v34;
 
-    v45 = htInteractionQueue;
+    v44 = htInteractionQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke_390;
     block[3] = &unk_279B9B7C0;
-    v46 = *(a1 + 32);
-    v60 = *(a1 + 40);
-    block[4] = v46;
-    v59 = v9;
-    dispatch_async(v45, block);
-    v44 = v59;
+    v45 = *(a1 + 32);
+    v59 = *(a1 + 40);
+    block[4] = v45;
+    v58 = v9;
+    dispatch_async(v44, block);
+    v43 = v58;
     goto LABEL_19;
   }
 
-  [v35 timeIntervalSinceDate:dateOfLastTailspinRequest];
-  v39 = v38;
+  [v34 timeIntervalSinceDate:dateOfLastTailspinRequest];
+  v38 = v37;
 
-  if (v39 > 60.0)
+  if (v38 > 60.0)
   {
-    v40 = htInteractionQueue;
-    v51 = MEMORY[0x277D85DD0];
-    v52 = 3221225472;
-    v53 = __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke_2;
-    v54 = &unk_279B9B7C0;
-    v41 = *(a1 + 32);
-    v57 = *(a1 + 40);
-    v55 = v41;
-    v56 = v9;
-    dispatch_async(v40, &v51);
-    v42 = [MEMORY[0x277CBEAA8] date];
-    v43 = dateOfLastTailspinRequest;
-    dateOfLastTailspinRequest = v42;
+    v39 = htInteractionQueue;
+    v50 = MEMORY[0x277D85DD0];
+    v51 = 3221225472;
+    v52 = __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke_2;
+    v53 = &unk_279B9B7C0;
+    v40 = *(a1 + 32);
+    v56 = *(a1 + 40);
+    v54 = v40;
+    v55 = v9;
+    dispatch_async(v39, &v50);
+    v41 = [MEMORY[0x277CBEAA8] date];
+    v42 = dateOfLastTailspinRequest;
+    dateOfLastTailspinRequest = v41;
 
-    v44 = v56;
+    v43 = v55;
 LABEL_19:
 
     goto LABEL_8;
   }
 
-  v47 = +[STYFrameworkHelper sharedHelper];
-  v48 = [v47 logHandle];
+  v46 = +[STYFrameworkHelper sharedHelper];
+  v47 = [v46 logHandle];
 
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
     __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke_cold_1(a1);
   }
 
-  v49 = *(*(a1 + 40) + 8);
-  v50 = *(v49 + 40);
-  *(v49 + 40) = 0;
+  v48 = *(*(a1 + 40) + 8);
+  v49 = *(v48 + 40);
+  *(v48 + 40) = 0;
 
 LABEL_8:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke_390(uint64_t a1)
@@ -613,70 +607,54 @@ void __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke_2(uint6
 
 - (void)perfProblemDetectedOnMac:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 scenario];
   v2 = [v1 scenarioID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)perfProblemDetectedOnMac:.cold.2()
 {
   OUTLINED_FUNCTION_11();
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [v0 scenario];
   v2 = [v1 scenarioID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)perfProblemDetectedOnMac:(void *)a1 .cold.3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 scenario];
   v2 = [v1 scenarioID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)perfProblemDetected:(void *)a1 tailspinFilenamePrefix:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 scenario];
   v2 = [v1 scenarioID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __78__STYGeneralSignpostMonitorHelper_perfProblemDetected_tailspinFilenamePrefix___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(v1 + 40) scenario];
   v3 = [v2 scenarioID];
   [*v0 intValue];
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInterval:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   +[STYUserScenarioCache sharedCache];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_13();
@@ -684,8 +662,6 @@ void __78__STYGeneralSignpostMonitorHelper_perfProblemDetected_tailspinFilenameP
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInterval:.cold.2()
@@ -711,7 +687,6 @@ void __78__STYGeneralSignpostMonitorHelper_perfProblemDetected_tailspinFilenameP
 
 - (void)handleInterval:.cold.6()
 {
-  v9 = *MEMORY[0x277D85DE8];
   +[STYUserScenarioCache sharedCache];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_13();
@@ -719,32 +694,24 @@ void __78__STYGeneralSignpostMonitorHelper_perfProblemDetected_tailspinFilenameP
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __50__STYGeneralSignpostMonitorHelper_handleInterval___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = +[STYUserScenarioCache sharedCache];
   v3 = [v2 scenarioIdForSignpostInterval:*(*(*(a1 + 40) + 8) + 40)];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEmit:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 scenario];
   v2 = [v1 scenarioID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

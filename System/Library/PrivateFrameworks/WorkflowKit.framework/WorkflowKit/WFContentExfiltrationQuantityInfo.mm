@@ -10,16 +10,16 @@
   nameCopy = name;
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = [nameCopy isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v6)
+  if (isEqualToString)
   {
     goto LABEL_2;
   }
 
   v8 = objc_opt_class();
   v9 = NSStringFromClass(v8);
-  v10 = [nameCopy isEqualToString:v9];
+  v10 = objc_msgSend_isEqualToString_(nameCopy);
 
   if (v10)
   {
@@ -29,15 +29,15 @@
 
   v12 = objc_opt_class();
   v13 = NSStringFromClass(v12);
-  v14 = [nameCopy isEqualToString:v13];
+  v14 = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v14 & 1) != 0 || (v15 = objc_opt_class(), NSStringFromClass(v15), v16 = objc_claimAutoreleasedReturnValue(), v17 = [nameCopy isEqualToString:v16], v16, (v17))
+  if (v14 & 1) != 0 || (v15 = objc_opt_class(), NSStringFromClass(v15), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend_isEqualToString_(nameCopy), v16, (v17))
   {
 LABEL_2:
     v7 = 50;
   }
 
-  else if ([nameCopy isEqualToString:@"WFHKSampleContentItem"])
+  else if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v7 = 0;
   }
@@ -46,7 +46,7 @@ LABEL_2:
   {
     v18 = objc_opt_class();
     v19 = NSStringFromClass(v18);
-    [nameCopy isEqualToString:v19];
+    objc_msgSend_isEqualToString_(nameCopy);
 
     v7 = 0x7FFFFFFFFFFFFFFFLL;
   }
@@ -67,7 +67,7 @@ LABEL_5:
       appDescriptor = [origin appDescriptor];
       bundleIdentifier = [appDescriptor bundleIdentifier];
 
-      if ([bundleIdentifier isEqualToString:*MEMORY[0x1E69E0E48]])
+      if (objc_msgSend_isEqualToString_(bundleIdentifier))
       {
 LABEL_4:
         v6 = 50;
@@ -76,28 +76,28 @@ LABEL_8:
         goto LABEL_9;
       }
 
-      if (([bundleIdentifier isEqualToString:*MEMORY[0x1E69E0E58]] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(bundleIdentifier) & 1) == 0)
       {
-        if ([bundleIdentifier isEqualToString:*MEMORY[0x1E69E0F08]])
+        if (objc_msgSend_isEqualToString_(bundleIdentifier))
         {
           goto LABEL_4;
         }
 
-        if ([bundleIdentifier isEqualToString:*MEMORY[0x1E69E0EF0]])
+        if (objc_msgSend_isEqualToString_(bundleIdentifier))
         {
           v6 = 20;
           goto LABEL_8;
         }
 
-        if ([bundleIdentifier isEqualToString:*MEMORY[0x1E69E0E88]])
+        if (objc_msgSend_isEqualToString_(bundleIdentifier))
         {
           v6 = 100;
           goto LABEL_8;
         }
 
-        if (([bundleIdentifier isEqualToString:*MEMORY[0x1E69E0EE8]] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(bundleIdentifier) & 1) == 0)
         {
-          if ([bundleIdentifier isEqualToString:*MEMORY[0x1E69E0ED0]])
+          if (objc_msgSend_isEqualToString_(bundleIdentifier))
           {
             v6 = 100;
           }

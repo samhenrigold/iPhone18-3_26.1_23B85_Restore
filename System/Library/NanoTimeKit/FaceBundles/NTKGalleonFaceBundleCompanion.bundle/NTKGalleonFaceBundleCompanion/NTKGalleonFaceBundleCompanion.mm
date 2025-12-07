@@ -113,16 +113,16 @@ id sub_23BE929C8(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
   return v18;
 }
 
-id sub_23BE92A80()
+id sub_23BE92A80(uint64_t a1)
 {
   if (qword_27E1DD6E8 != -1)
   {
     sub_23BEA4204();
   }
 
-  v1 = qword_27E1DD6E0;
+  v2 = qword_27E1DD6E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_23BE92AC4(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
@@ -225,7 +225,7 @@ void sub_23BE94A4C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
   objc_msgSend_renderInContext_(v11, v9, v5, v10);
 }
 
-void sub_23BE94C84(void **a1, void *a2)
+void sub_23BE94C84(id *a1, void *a2)
 {
   v18 = a2;
   v6 = objc_msgSend_superview(a1[4], v3, v4, v5);

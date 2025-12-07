@@ -17,6 +17,7 @@
 - (void)setColorMaterialEnabled:(GLBOOLean)colorMaterialEnabled;
 - (void)setLightModelAmbientColor:(GLKVector4)lightModelAmbientColor;
 - (void)setLightModelTwoSided:(GLBOOLean)lightModelTwoSided;
+- (void)setLightingType:(GLKLightingType)lightingType;
 - (void)setTextureOrder:(NSArray *)textureOrder;
 - (void)setUseConstantColor:(GLBOOLean)useConstantColor;
 - (void)updateBaseEffect;
@@ -273,6 +274,34 @@ LABEL_12:
   }
 }
 
+- (void)setLightingType:(GLKLightingType)lightingType
+{
+  if (self->_lightingType != lightingType)
+  {
+    v3 = *&lightingType;
+    light0 = self->_light0;
+    if (light0)
+    {
+      [(GLKEffectPropertyLight *)light0 setLightingType:*&lightingType];
+    }
+
+    light1 = self->_light1;
+    if (light1)
+    {
+      [(GLKEffectPropertyLight *)light1 setLightingType:v3];
+    }
+
+    light2 = self->_light2;
+    if (light2)
+    {
+      [(GLKEffectPropertyLight *)light2 setLightingType:v3];
+    }
+
+    self->_lightingType = v3;
+    self->_effectStale = 1;
+  }
+}
+
 - (void)setUseConstantColor:(GLBOOLean)useConstantColor
 {
   if (self->_useConstantColor != useConstantColor)
@@ -504,10 +533,6 @@ LABEL_12:
 
 - (GLKVector4)lightModelAmbientColor
 {
-  x = self->_lightModelAmbientColor.x;
-  y = self->_lightModelAmbientColor.y;
-  z = self->_lightModelAmbientColor.z;
-  w = self->_lightModelAmbientColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;

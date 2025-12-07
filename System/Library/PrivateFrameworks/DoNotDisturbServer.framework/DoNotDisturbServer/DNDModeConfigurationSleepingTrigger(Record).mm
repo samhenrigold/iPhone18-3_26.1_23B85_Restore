@@ -17,15 +17,13 @@
 
 - (id)dictionaryRepresentationWithContext:()Record
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"class";
-  v5[1] = @"enabledSetting";
-  v6[0] = @"DNDModeConfigurationSleepingTrigger";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"class";
+  v4[1] = @"enabledSetting";
+  v5[0] = @"DNDModeConfigurationSleepingTrigger";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "enabledSetting")}];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }

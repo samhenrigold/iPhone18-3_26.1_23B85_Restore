@@ -6,7 +6,7 @@
 - (id)_invocationForSelector:(SEL)selector;
 - (id)classesForSelector:(SEL)selector argumentIndex:(unint64_t)index ofReply:(BOOL)reply;
 - (id)debugDescription;
-- (uint64_t)debugDescription;
+- (void)debugDescription;
 - (void)setClasses:(id)classes forSelector:(SEL)selector argumentIndex:(unint64_t)index ofReply:(BOOL)reply;
 @end
 
@@ -133,7 +133,7 @@ LABEL_13:
   return v6;
 }
 
-- (uint64_t)debugDescription
+- (void)debugDescription
 {
   v2 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"["];
   v3 = *(self + 12);
@@ -166,7 +166,7 @@ LABEL_13:
           return result;
         }
 
-        v11 = WTF::fastMalloc((8 * v10));
+        v11 = WTF::fastMalloc(v10, (8 * v10));
         v9 = *v5;
         v12 = WTF::HashTable<void const*,void const*,WTF::IdentityExtractor,WTF::DefaultHash<void const*>,WTF::HashTraits<void const*>,WTF::HashTraits<void const*>,WTF::FastMalloc>::begin(*v5);
         if (!v9)
@@ -198,7 +198,7 @@ LABEL_12:
         do
         {
           v17 = *v12++;
-          *(v11 + v16) = v17;
+          v11[v16] = v17;
           while (v12 != v13 && (*v12 + 1) <= 1)
           {
             ++v12;
@@ -222,7 +222,7 @@ LABEL_12:
         v20 = 0;
       }
 
-      _ZNSt3__111__introsortINS_15_RangeAlgPolicyERZZZ44___WKRemoteObjectInterface_debugDescription_ENK3__1clIN3WTF6VectorINS4_7HashSetIPKvNS4_11DefaultHashIS8_EENS4_10HashTraitsIS8_EENS4_15HashTableTraitsELNS4_17ShouldValidateKeyE1EEELm0ENS4_15CrashOnOverflowELm16ENS4_10FastMallocEEEEEDaRT_ENKUlSL_E_clISF_EESJ_SL_EUlS8_S8_E_PS8_Lb0EEEvT1_SR_T0_NS_15iterator_traitsISR_E15difference_typeEb(v11, v11 + v16, v20, 1);
+      _ZNSt3__111__introsortINS_15_RangeAlgPolicyERZZZ44___WKRemoteObjectInterface_debugDescription_ENK3__1clIN3WTF6VectorINS4_7HashSetIPKvNS4_11DefaultHashIS8_EENS4_10HashTraitsIS8_EENS4_15HashTableTraitsELNS4_17ShouldValidateKeyE1EEELm0ENS4_15CrashOnOverflowELm16ENS4_10FastMallocEEEEEDaRT_ENKUlSL_E_clISF_EESJ_SL_EUlS8_S8_E_PS8_Lb0EEEvT1_SR_T0_NS_15iterator_traitsISR_E15difference_typeEb(v11, &v11[v16], v20, 1);
       if (v18)
       {
         v21 = 0;
@@ -342,7 +342,7 @@ LABEL_37:
         }
 
         v18 = *(*(&v19 + 1) + 8 * v13);
-        WTF::HashTable<void const*,void const*,WTF::IdentityExtractor,WTF::DefaultHash<void const*>,WTF::HashTraits<void const*>,WTF::HashTraits<void const*>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(v17, &v23, &v18);
+        WTF::HashTable<void const*,void const*,WTF::IdentityExtractor,WTF::DefaultHash<void const*>,WTF::HashTraits<void const*>,WTF::HashTraits<void const*>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(&v17, &v23, &v18);
         ++v13;
       }
 

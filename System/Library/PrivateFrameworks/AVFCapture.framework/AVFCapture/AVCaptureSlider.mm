@@ -43,9 +43,9 @@
 
 - (AVCaptureSlider)initWithLocalizedTitle:(id)title symbolName:(id)name minValue:(float)value maxValue:(float)maxValue
 {
-  v14.receiver = self;
-  v14.super_class = AVCaptureSlider;
-  initSubclass = [(AVCaptureControl *)&v14 initSubclass];
+  v16.receiver = self;
+  v16.super_class = AVCaptureSlider;
+  initSubclass = [(AVCaptureControl *)&v16 initSubclass];
   v11 = initSubclass;
   if (initSubclass)
   {
@@ -53,7 +53,7 @@
     {
       v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, value, maxValue}];
 
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v13, v14))
       {
         objc_exception_throw(v12);
       }
@@ -80,9 +80,9 @@
 
 - (AVCaptureSlider)initWithLocalizedTitle:(id)title symbolName:(id)name minValue:(float)value maxValue:(float)maxValue step:(float)step
 {
-  v19.receiver = self;
-  v19.super_class = AVCaptureSlider;
-  initSubclass = [(AVCaptureControl *)&v19 initSubclass];
+  v21.receiver = self;
+  v21.super_class = AVCaptureSlider;
+  initSubclass = [(AVCaptureControl *)&v21 initSubclass];
   v13 = initSubclass;
   if (initSubclass)
   {
@@ -115,7 +115,7 @@
 
     v16 = [v14 exceptionWithName:v15 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, *&stepCopy}];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v17, v18))
     {
       objc_exception_throw(v16);
     }
@@ -202,7 +202,7 @@
 LABEL_8:
       [MEMORY[0x1E696AEC0] stringWithFormat:v7, value, minValue];
       v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v8, v9))
       {
         objc_exception_throw(v8);
       }

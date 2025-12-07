@@ -80,79 +80,79 @@
 {
   v6 = sub_1BA4A1998();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A1918();
   viewCopy = view;
   selfCopy = self;
-  CompoundDataSourceCollectionViewController.collectionView(_:didSelectItemAt:)(viewCopy, v9);
+  CompoundDataSourceCollectionViewController.collectionView(_:didSelectItemAt:)(viewCopy, v10);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 - (id)collectionView:(id)view contextMenuConfigurationForItemAtIndexPath:(id)path point:(CGPoint)point
 {
   v7 = sub_1BA4A1998();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7, v9);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A1918();
   viewCopy = view;
   selfCopy = self;
-  v13 = _s18HealthExperienceUI42CompoundDataSourceCollectionViewControllerC010collectionH0_33contextMenuConfigurationForItemAt5pointSo09UIContextlM0CSgSo012UICollectionH0C_10Foundation9IndexPathVSo7CGPointVtF_0(viewCopy);
+  v14 = _s18HealthExperienceUI42CompoundDataSourceCollectionViewControllerC010collectionH0_33contextMenuConfigurationForItemAt5pointSo09UIContextlM0CSgSo012UICollectionH0C_10Foundation9IndexPathVSo7CGPointVtF_0(viewCopy);
 
-  (*(v8 + 8))(v10, v7);
+  (*(v8 + 8))(v11, v7);
 
-  return v13;
+  return v14;
 }
 
 - (id)collectionView:(id)view targetIndexPathForMoveOfItemFromOriginalIndexPath:(id)path atCurrentIndexPath:(id)indexPath toProposedIndexPath:(id)proposedIndexPath
 {
   v7 = sub_1BA4A1998();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v28 - v12;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v28 - v15;
-  MEMORY[0x1EEE9AC00](v17);
-  v19 = &v28 - v18;
+  MEMORY[0x1EEE9AC00](v7, v9);
+  v11 = &v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12, v13);
+  v15 = &v32 - v14;
+  MEMORY[0x1EEE9AC00](v16, v17);
+  v19 = &v32 - v18;
+  MEMORY[0x1EEE9AC00](v20, v21);
+  v23 = &v32 - v22;
   sub_1BA4A1918();
   sub_1BA4A1918();
   sub_1BA4A1918();
   selfCopy = self;
-  v21 = *sub_1B9F23FB0();
-  v22 = (*(v21 + 360))(v16, v10);
+  v25 = *sub_1B9F23FB0();
+  v26 = (*(v25 + 360))(v19, v11);
 
-  v23 = *(v8 + 8);
-  v23(v13, v7);
-  if (v22)
+  v27 = *(v8 + 8);
+  v27(v15, v7);
+  if (v26)
   {
-    v24 = v16;
+    v28 = v19;
   }
 
   else
   {
-    v24 = v10;
+    v28 = v11;
   }
 
-  if (v22)
+  if (v26)
   {
-    v25 = v10;
+    v29 = v11;
   }
 
   else
   {
-    v25 = v16;
+    v29 = v19;
   }
 
-  v23(v24, v7);
-  (*(v8 + 32))(v19, v25, v7);
-  v26 = sub_1BA4A18F8();
-  v23(v19, v7);
+  v27(v28, v7);
+  (*(v8 + 32))(v23, v29, v7);
+  v30 = sub_1BA4A18F8();
+  v27(v23, v7);
 
-  return v26;
+  return v30;
 }
 
 @end

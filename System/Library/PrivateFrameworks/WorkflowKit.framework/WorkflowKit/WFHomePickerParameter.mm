@@ -69,32 +69,32 @@ void __93__WFHomePickerParameter_loadDefaultSerializedRepresentationForEnumerati
 
 void __87__WFHomePickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = [MEMORY[0x1E695DF70] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = +[WFHomeManager sharedManager];
   v5 = [v4 homes];
 
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       v9 = 0;
       do
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * v9);
+        v10 = *(*(&v17 + 1) + 8 * v9);
         v11 = [WFStringSubstitutableState alloc];
         v12 = WFSerializableHomeIdentifier(v10);
         v13 = [(WFVariableSubstitutableParameterState *)v11 initWithValue:v12];
@@ -104,7 +104,7 @@ void __87__WFHomePickerParameter_loadPossibleStatesForEnumeration_searchTerm_com
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -115,8 +115,6 @@ void __87__WFHomePickerParameter_loadPossibleStatesForEnumeration_searchTerm_com
   v15 = *(a1 + 32);
   v16 = [objc_alloc(MEMORY[0x1E696E918]) initWithSections:v2];
   (*(v15 + 16))(v15, v16, 0);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (WFHomePickerParameter)initWithDefinition:(id)definition

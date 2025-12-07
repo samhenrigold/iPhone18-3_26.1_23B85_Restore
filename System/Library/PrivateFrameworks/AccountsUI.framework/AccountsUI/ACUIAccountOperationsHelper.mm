@@ -239,7 +239,6 @@ void __74__ACUIAccountOperationsHelper_saveAccount_requireVerification_completio
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v41, 0);
   objc_storeStrong(&v42, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __74__ACUIAccountOperationsHelper_saveAccount_requireVerification_completion___block_invoke_3(uint64_t a1, char a2, id obj)
@@ -367,7 +366,6 @@ void __95__ACUIAccountOperationsHelper_saveAccount_withDataclassActions_requireV
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v12, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __95__ACUIAccountOperationsHelper_saveAccount_withDataclassActions_requireVerification_completion___block_invoke_8(uint64_t a1, char a2, id obj)
@@ -425,172 +423,171 @@ void __95__ACUIAccountOperationsHelper_saveAccount_withDataclassActions_requireV
 
 void __45__ACUIAccountOperationsHelper_removeAccount___block_invoke(id *a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v54[2] = a1;
-  v54[1] = a1;
+  v56 = *MEMORY[0x277D85DE8];
+  v53[2] = a1;
+  v53[1] = a1;
   [a1[4] setIsRemovingAccount:1];
-  v24 = MEMORY[0x277D85CD0];
+  v23 = MEMORY[0x277D85CD0];
   v1 = MEMORY[0x277D85CD0];
-  v22 = v24;
-  dispatch_sync(v22, &__block_literal_global_2);
-  MEMORY[0x277D82BD8](v22);
-  v54[0] = [*(a1[4] + 1) dataclassActionsForAccountDeletion:a1[5]];
-  v2 = v24;
-  v25 = v24;
-  dispatch_sync(v25, &__block_literal_global_10);
-  MEMORY[0x277D82BD8](v25);
-  v51 = 0;
+  v21 = v23;
+  dispatch_sync(v21, &__block_literal_global_2);
+  MEMORY[0x277D82BD8](v21);
+  v53[0] = [*(a1[4] + 1) dataclassActionsForAccountDeletion:a1[5]];
+  v2 = v23;
+  v24 = v23;
+  dispatch_sync(v24, &__block_literal_global_10);
+  MEMORY[0x277D82BD8](v24);
+  v50 = 0;
   IsSyncable = 0;
   if (ACDAccountSyncEnabled())
   {
-    v52 = ACDAccountSyncDevices();
-    v51 = 1;
+    v51 = ACDAccountSyncDevices();
+    v50 = 1;
     IsSyncable = 0;
-    if ([v52 count])
+    if ([v51 count])
     {
-      v3 = a1[5];
       IsSyncable = ACDAccountSyncAccountIsSyncable();
     }
   }
 
-  if (v51)
+  if (v50)
   {
-    MEMORY[0x277D82BD8](v52);
+    MEMORY[0x277D82BD8](v51);
   }
 
-  v53 = IsSyncable & 1;
-  v50 = 0;
+  v52 = IsSyncable & 1;
+  v49 = 0;
   if (IsSyncable)
   {
-    v4 = [MEMORY[0x277CBEAC0] dictionary];
+    v3 = [MEMORY[0x277CBEAC0] dictionary];
   }
 
   else
   {
-    v4 = [a1[4] _desiredDataclassActionsFromPossibleActions:v54[0] forAccount:a1[5] withError:0];
+    v3 = [a1[4] _desiredDataclassActionsFromPossibleActions:v53[0] forAccount:a1[5] withError:0];
   }
 
-  v5 = v50;
-  v50 = v4;
-  MEMORY[0x277D82BD8](v5);
-  if (v50)
+  v4 = v49;
+  v49 = v3;
+  MEMORY[0x277D82BD8](v4);
+  if (v49)
   {
-    v49 = 1;
-    v48 = 0;
-    v20 = [a1[4] delegate];
-    v46 = 0;
-    v21 = 0;
+    v48 = 1;
+    v47 = 0;
+    v19 = [a1[4] delegate];
+    v45 = 0;
+    v20 = 0;
     if (objc_opt_respondsToSelector())
     {
-      v19 = 1;
-      if (v53)
+      v18 = 1;
+      if (v52)
       {
-        v18 = 1;
+        v17 = 1;
         if ([a1[5] isActive])
         {
-          v47 = [a1[5] enabledDataclasses];
-          v46 = 1;
-          v18 = [v47 count] == 0;
+          v46 = [a1[5] enabledDataclasses];
+          v45 = 1;
+          v17 = [v46 count] == 0;
         }
 
-        v19 = v18;
+        v18 = v17;
       }
 
-      v21 = v19;
+      v20 = v18;
     }
 
-    if (v46)
+    if (v45)
     {
-      MEMORY[0x277D82BD8](v47);
+      MEMORY[0x277D82BD8](v46);
     }
 
-    MEMORY[0x277D82BD8](v20);
-    if (v21)
+    MEMORY[0x277D82BD8](v19);
+    if (v20)
     {
-      v17 = [a1[4] delegate];
-      v49 = [v17 operationsHelper:a1[4] shouldRemoveAccount:a1[5]];
-      MEMORY[0x277D82BD8](v17);
+      v16 = [a1[4] delegate];
+      v48 = [v16 operationsHelper:a1[4] shouldRemoveAccount:a1[5]];
+      MEMORY[0x277D82BD8](v16);
       goto LABEL_28;
     }
 
-    v15 = [a1[4] delegate];
-    v16 = objc_opt_respondsToSelector();
-    MEMORY[0x277D82BD8](v15);
-    if (v16)
+    v14 = [a1[4] delegate];
+    v15 = objc_opt_respondsToSelector();
+    MEMORY[0x277D82BD8](v14);
+    if (v15)
     {
-      v13 = [a1[4] delegate];
-      v14 = [v13 operationsHelper:a1[4] shouldRemoveOrDisableAccount:a1[5]];
-      MEMORY[0x277D82BD8](v13);
-      v45 = v14;
+      v12 = [a1[4] delegate];
+      v13 = [v12 operationsHelper:a1[4] shouldRemoveOrDisableAccount:a1[5]];
+      MEMORY[0x277D82BD8](v12);
+      v44 = v13;
       location = _ACUILogSystem();
-      v43 = OS_LOG_TYPE_DEBUG;
+      v42 = OS_LOG_TYPE_DEBUG;
       if (os_log_type_enabled(location, OS_LOG_TYPE_DEBUG))
       {
-        v12 = [MEMORY[0x277CCABB0] numberWithInteger:v45];
-        __os_log_helper_16_2_3_8_32_4_0_8_64(v56, "[ACUIAccountOperationsHelper removeAccount:]_block_invoke", 167, v12);
-        _os_log_debug_impl(&dword_23DC86000, location, v43, "%s (%d) The button index came back with response - %@", v56, 0x1Cu);
-        MEMORY[0x277D82BD8](v12);
+        v11 = [MEMORY[0x277CCABB0] numberWithInteger:v44];
+        __os_log_helper_16_2_3_8_32_4_0_8_64(v55, "[ACUIAccountOperationsHelper removeAccount:]_block_invoke", 167, v11);
+        _os_log_debug_impl(&dword_23DC86000, location, v42, "%s (%d) The button index came back with response - %@", v55, 0x1Cu);
+        MEMORY[0x277D82BD8](v11);
       }
 
       objc_storeStrong(&location, 0);
-      if (v45 == 1)
+      if (v44 == 1)
       {
-        v49 = 0;
-        v48 = 1;
+        v48 = 0;
+        v47 = 1;
       }
 
-      else if (v45 == 2)
+      else if (v44 == 2)
       {
-        v49 = 1;
+        v48 = 1;
         goto LABEL_28;
       }
 
-      v49 = 0;
+      v48 = 0;
     }
 
 LABEL_28:
-    if (v49)
+    if (v48)
     {
-      v11 = [a1[4] delegate];
-      [v11 operationsHelper:a1[4] willRemoveAccount:a1[5]];
-      MEMORY[0x277D82BD8](v11);
-      v35 = MEMORY[0x277D85DD0];
-      v36 = -1073741824;
-      v37 = 0;
-      v38 = __45__ACUIAccountOperationsHelper_removeAccount___block_invoke_16;
-      v39 = &unk_278BFA688;
-      v40 = MEMORY[0x277D82BE0](a1[4]);
-      v41 = MEMORY[0x277D82BE0](a1[5]);
-      v42 = MEMORY[0x23EEFC830](&v35);
-      [*(a1[4] + 1) removeAccount:a1[5] withDataclassActions:v50 completion:v42];
-      objc_storeStrong(&v42, 0);
+      v10 = [a1[4] delegate];
+      [v10 operationsHelper:a1[4] willRemoveAccount:a1[5]];
+      MEMORY[0x277D82BD8](v10);
+      v34 = MEMORY[0x277D85DD0];
+      v35 = -1073741824;
+      v36 = 0;
+      v37 = __45__ACUIAccountOperationsHelper_removeAccount___block_invoke_16;
+      v38 = &unk_278BFA688;
+      v39 = MEMORY[0x277D82BE0](a1[4]);
+      v40 = MEMORY[0x277D82BE0](a1[5]);
+      v41 = MEMORY[0x23EEFC830](&v34);
+      [*(a1[4] + 1) removeAccount:a1[5] withDataclassActions:v49 completion:v41];
       objc_storeStrong(&v41, 0);
       objc_storeStrong(&v40, 0);
+      objc_storeStrong(&v39, 0);
     }
 
-    else if (v48)
+    else if (v47)
     {
       [a1[4] setIsRemovingAccount:0];
       [a1[4] setIsSavingAccount:1];
-      v7 = [MEMORY[0x277CBEB58] set];
+      v6 = [MEMORY[0x277CBEB58] set];
       [a1[5] setEnabledDataclasses:?];
-      MEMORY[0x277D82BD8](v7);
+      MEMORY[0x277D82BD8](v6);
       [a1[5] setActive:0];
-      v8 = [a1[4] delegate];
-      [v8 operationsHelper:a1[4] willSaveAccount:a1[5]];
-      MEMORY[0x277D82BD8](v8);
-      v10 = *(a1[4] + 1);
-      v9 = a1[5];
-      v28 = MEMORY[0x277D85DD0];
-      v29 = -1073741824;
-      v30 = 0;
-      v31 = __45__ACUIAccountOperationsHelper_removeAccount___block_invoke_2_18;
-      v32 = &unk_278BFA688;
-      v33 = MEMORY[0x277D82BE0](a1[4]);
-      v34 = MEMORY[0x277D82BE0](a1[5]);
-      [v10 saveVerifiedAccount:v9 withCompletionHandler:&v28];
-      objc_storeStrong(&v34, 0);
+      v7 = [a1[4] delegate];
+      [v7 operationsHelper:a1[4] willSaveAccount:a1[5]];
+      MEMORY[0x277D82BD8](v7);
+      v9 = *(a1[4] + 1);
+      v8 = a1[5];
+      v27 = MEMORY[0x277D85DD0];
+      v28 = -1073741824;
+      v29 = 0;
+      v30 = __45__ACUIAccountOperationsHelper_removeAccount___block_invoke_2_18;
+      v31 = &unk_278BFA688;
+      v32 = MEMORY[0x277D82BE0](a1[4]);
+      v33 = MEMORY[0x277D82BE0](a1[5]);
+      [v9 saveVerifiedAccount:v8 withCompletionHandler:&v27];
       objc_storeStrong(&v33, 0);
+      objc_storeStrong(&v32, 0);
     }
 
     else
@@ -598,10 +595,10 @@ LABEL_28:
       oslog = _ACUILogSystem();
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = [a1[5] identifier];
-        __os_log_helper_16_2_3_8_32_4_0_8_64(v55, "[ACUIAccountOperationsHelper removeAccount:]_block_invoke_3", 202, v6);
-        _os_log_impl(&dword_23DC86000, oslog, OS_LOG_TYPE_DEFAULT, "%s (%d) ACUIAccountOperationsDelegate canceled the removal of account %@.", v55, 0x1Cu);
-        MEMORY[0x277D82BD8](v6);
+        v5 = [a1[5] identifier];
+        __os_log_helper_16_2_3_8_32_4_0_8_64(v54, "[ACUIAccountOperationsHelper removeAccount:]_block_invoke_3", 202, v5);
+        _os_log_impl(&dword_23DC86000, oslog, OS_LOG_TYPE_DEFAULT, "%s (%d) ACUIAccountOperationsDelegate canceled the removal of account %@.", v54, 0x1Cu);
+        MEMORY[0x277D82BD8](v5);
       }
 
       objc_storeStrong(&oslog, 0);
@@ -609,24 +606,22 @@ LABEL_28:
     }
   }
 
-  objc_storeStrong(&v50, 0);
-  objc_storeStrong(v54, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(&v49, 0);
+  objc_storeStrong(v53, 0);
 }
 
 void __45__ACUIAccountOperationsHelper_removeAccount___block_invoke_16(uint64_t a1, char a2, id obj)
 {
-  v8 = a1;
-  v7 = a2;
+  v7 = a1;
+  v6 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
   [*(a1 + 32) setIsRemovingAccount:0];
-  v5 = [*(a1 + 32) delegate];
-  [v5 operationsHelper:*(a1 + 32) didRemoveAccount:*(a1 + 40) withSuccess:v7 & 1 error:location];
-  MEMORY[0x277D82BD8](v5);
-  if (v7)
+  v4 = [*(a1 + 32) delegate];
+  [v4 operationsHelper:*(a1 + 32) didRemoveAccount:*(a1 + 40) withSuccess:v6 & 1 error:location];
+  MEMORY[0x277D82BD8](v4);
+  if (v6)
   {
-    v3 = *(a1 + 40);
     ACDAccountSyncMarkAccountDeleted();
   }
 
@@ -850,7 +845,6 @@ LABEL_29:
   objc_storeStrong(&v57, 0);
   objc_storeStrong(&v59, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v62;
 
   return v7;

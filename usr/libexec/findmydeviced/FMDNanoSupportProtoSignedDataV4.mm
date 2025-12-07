@@ -76,8 +76,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  errorOccurred = self->_errorOccurred;
-  v7 = toCopy;
   PBDataWriterWriteBOOLField();
   if (self->_signedData)
   {
@@ -89,35 +87,35 @@
     PBDataWriterWriteDataField();
   }
 
-  v6 = v7;
+  v4 = toCopy;
   if (self->_refKeySignature)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_refKeyAttestation)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_finalRequestJsonData)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_refKeyError)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_signatureError)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 }
 
@@ -212,7 +210,6 @@
     goto LABEL_20;
   }
 
-  v5 = *(equalCopy + 64);
   if (self->_errorOccurred)
   {
     if ((*(equalCopy + 64) & 1) == 0)
@@ -224,7 +221,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_20:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_21;
   }
 
@@ -282,17 +279,17 @@ LABEL_20:
   signatureError = self->_signatureError;
   if (signatureError | *(equalCopy + 5))
   {
-    v13 = [(NSString *)signatureError isEqual:?];
+    v12 = [(NSString *)signatureError isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_21:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

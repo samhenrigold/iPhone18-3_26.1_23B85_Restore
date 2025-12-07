@@ -11,7 +11,10 @@
 - (void)applyFinalFeedbackForActionResponse:(id)response engagementType:(unint64_t)type context:(id)context;
 - (void)decayCounts;
 - (void)logHeuristicFeedback:(id)feedback;
+- (void)logHeuristicFeedbackToPortraitForAction:(id)action withActionType:(unsigned __int16)type;
+- (void)logHeuristicFeedbackToSuggestionsForAction:(id)action withActionType:(unsigned __int16)type;
 - (void)receiveFeedbackWithActionResponse:(id)response context:(id)context;
+- (void)receiveLockscreenFeedbackWithAction:(id)action actionResponse:(id)response engagement:(BOOL)engagement triggeredByUserInteraction:(BOOL)interaction;
 - (void)receiveLockscreenFeedbackWithAction:(id)action actionResponse:(id)response engagement:(BOOL)engagement triggeredByUserInteraction:(BOOL)interaction currentDate:(id)date;
 - (void)receiveUIFeedbackResult:(id)result;
 - (void)resetData;
@@ -283,8 +286,8 @@ LABEL_17:
 
   if (!context)
   {
-    v20 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = __atxlog_handle_feedback(v17);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [ATXActionFeedback receiveUIFeedbackResult:];
     }
@@ -298,8 +301,8 @@ LABEL_17:
 
   if ((isKindOfClass & 1) == 0)
   {
-    v20 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v22 = __atxlog_handle_feedback(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       [ATXActionFeedback receiveUIFeedbackResult:];
     }
@@ -334,21 +337,22 @@ LABEL_15:
 - (void)_assertHistogram:(id)histogram weight:(float)weight
 {
   histogramCopy = histogram;
+  v6 = histogramCopy;
   if (!histogramCopy)
   {
-    v6 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_feedback(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ATXActionFeedback _assertHistogram:weight:];
     }
 
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"attempted to update a nil histogram in action feedback"];
+    histogramCopy = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"attempted to update a nil histogram in action feedback"];
   }
 
   if (weight < 0.0)
   {
-    v7 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_feedback(histogramCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ATXActionFeedback _assertHistogram:weight:];
     }
@@ -408,13 +412,13 @@ LABEL_15:
 
 - (void)applyFinalFeedbackForActionResponse:(id)response engagementType:(unint64_t)type context:(id)context
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   contextCopy = context;
-  v10 = __atxlog_handle_feedback();
-  v111 = responseCopy;
+  v10 = __atxlog_handle_feedback(contextCopy);
+  v117 = responseCopy;
   selfCopy = self;
-  v108 = contextCopy;
+  v114 = contextCopy;
   typeCopy = type;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
@@ -426,21 +430,21 @@ LABEL_15:
     engagedAction = [responseCopy engagedAction];
     explicitlyDismissedActions = [responseCopy explicitlyDismissedActions];
     *buf = 138413570;
-    v127 = v11;
-    v128 = 2112;
-    v129 = v12;
-    v130 = 2112;
-    v131 = v13;
-    v132 = 2112;
-    v133 = shownActions;
+    v133 = v11;
     v134 = 2112;
-    v135 = engagedAction;
+    v135 = v12;
     v136 = 2112;
-    v137 = explicitlyDismissedActions;
+    v137 = v13;
+    v138 = 2112;
+    v139 = shownActions;
+    v140 = 2112;
+    v141 = engagedAction;
+    v142 = 2112;
+    v143 = explicitlyDismissedActions;
     _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "applyFinalFeedbackForActionResponse called with engagement type: %@, consumerSubType: %@, feedbackStage: %@, shownActions:%@, engagedAction:%@, explicitlyRejectedActions:%@", buf, 0x3Eu);
 
     self = selfCopy;
-    contextCopy = v108;
+    contextCopy = v114;
 
     type = typeCopy;
   }
@@ -470,10 +474,10 @@ LABEL_15:
   timeContext = [contextCopy timeContext];
   date = [timeContext date];
 
-  v113 = actionKey;
+  v119 = actionKey;
   if (actionKey)
   {
-    v27 = 0;
+    v28 = 0;
     if (type > 4)
     {
       if (type - 7 >= 4)
@@ -502,85 +506,85 @@ LABEL_15:
     engagedAction4 = [responseCopy engagedAction];
     isHeuristic = [engagedAction4 isHeuristic];
 
-    v30 = __atxlog_handle_feedback();
-    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
+    v32 = __atxlog_handle_feedback(v31);
+    v33 = os_log_type_enabled(v32, OS_LOG_TYPE_INFO);
     if (isHeuristic)
     {
-      if (v31)
+      if (v33)
       {
         *buf = 134218242;
-        v127 = v18;
-        v128 = 2112;
-        v129 = actionKey;
-        _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_INFO, "Final engagement of weight %f feedback for heuristic action prediction: %@", buf, 0x16u);
+        v133 = v18;
+        v134 = 2112;
+        v135 = actionKey;
+        _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_INFO, "Final engagement of weight %f feedback for heuristic action prediction: %@", buf, 0x16u);
       }
 
       engagedAction5 = [responseCopy engagedAction];
       heuristic = [engagedAction5 heuristic];
-      *&v34 = v18;
-      [(ATXActionFeedback *)self _updateAppLaunchHistogram:35 bundleId:heuristic context:contextCopy weight:v34];
+      *&v36 = v18;
+      [(ATXActionFeedback *)self _updateAppLaunchHistogram:35 bundleId:heuristic context:contextCopy weight:v36];
     }
 
     else
     {
-      if (v31)
+      if (v33)
       {
         *buf = 134218242;
-        v127 = v18;
-        v128 = 2112;
-        v129 = actionKey;
-        _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_INFO, "Final engagement feedback of weight %f for model-based action prediction: %@", buf, 0x16u);
+        v133 = v18;
+        v134 = 2112;
+        v135 = actionKey;
+        _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_INFO, "Final engagement feedback of weight %f for model-based action prediction: %@", buf, 0x16u);
       }
 
       engagedAction5 = [responseCopy engagedAction];
       heuristic = [engagedAction5 bundleId];
-      v35 = [_ATXActionUtils getActionTypeFromActionKey:actionKey];
-      *&v36 = v18;
-      [(ATXActionFeedback *)self _updateAppLaunchCategoricalHistogram:33 bundleId:heuristic category:v35 context:contextCopy weight:v36];
+      v37 = [_ATXActionUtils getActionTypeFromActionKey:actionKey];
+      *&v38 = v18;
+      [(ATXActionFeedback *)self _updateAppLaunchCategoricalHistogram:33 bundleId:heuristic category:v37 context:contextCopy weight:v38];
     }
 
     engagedAction6 = [responseCopy engagedAction];
     slotSet = [engagedAction6 slotSet];
 
-    v39 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    v42 = __atxlog_handle_feedback(v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
     {
       [ATXActionFeedback applyFinalFeedbackForActionResponse:engagementType:context:];
     }
 
     if (v18 == 0.0)
     {
-      v40 = __atxlog_handle_feedback();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v44 = __atxlog_handle_feedback(v43);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         [MEMORY[0x277CEB2E8] actionFeedbackStageToString:{objc_msgSend(responseCopy, "feedbackStage")}];
-        v41 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        v42 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:{objc_msgSend(responseCopy, "consumerSubType")}];
+        v45 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        v46 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:{objc_msgSend(responseCopy, "consumerSubType")}];
         *buf = 138412546;
-        v127 = v41;
-        v128 = 2112;
-        v129 = v42;
-        _os_log_impl(&dword_2263AA000, v40, OS_LOG_TYPE_DEFAULT, "Encountered confirmation feedback with a weight of 0 for feedbackStage=%@ and consumerSubType=%@", buf, 0x16u);
+        v133 = v45;
+        v134 = 2112;
+        v135 = v46;
+        _os_log_impl(&dword_2263AA000, v44, OS_LOG_TYPE_DEFAULT, "Encountered confirmation feedback with a weight of 0 for feedbackStage=%@ and consumerSubType=%@", buf, 0x16u);
       }
     }
 
     else
     {
       dataStore = self->_dataStore;
-      v40 = [_ATXActionUtils getActionTypeFromActionKey:actionKey];
+      v44 = [_ATXActionUtils getActionTypeFromActionKey:actionKey];
       engagedAction7 = [responseCopy engagedAction];
       bundleId = [engagedAction7 bundleId];
       engagedAction8 = [responseCopy engagedAction];
       engagedAction9 = [responseCopy engagedAction];
       actionUUID = [engagedAction9 actionUUID];
-      LOBYTE(v101) = [responseCopy consumerSubType];
-      [(_ATXDataStore *)dataStore recordConfirms:2 rejects:v40 forFeedbackType:bundleId forActionType:engagedAction8 bundleId:slotSet action:actionUUID slotSet:v18 actionUUID:0.0 date:date consumerSubType:v101 geohash:geohash coarseGeohash:coarseGeohash];
+      LOBYTE(v107) = [responseCopy consumerSubType];
+      [(_ATXDataStore *)dataStore recordConfirms:2 rejects:v44 forFeedbackType:bundleId forActionType:engagedAction8 bundleId:slotSet action:actionUUID slotSet:v18 actionUUID:0.0 date:date consumerSubType:v107 geohash:geohash coarseGeohash:coarseGeohash];
 
       type = typeCopy;
     }
   }
 
-  v27 = 0;
+  v28 = 0;
   if (type > 3)
   {
     if (type - 7 >= 4)
@@ -597,14 +601,14 @@ LABEL_10:
       }
 
 LABEL_43:
-      v56 = __atxlog_handle_feedback();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+      v60 = __atxlog_handle_feedback(v27);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
       {
         [MEMORY[0x277CEB2E8] engagementTypeToString:type];
-        v57 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        v61 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
         *buf = 138412290;
-        v127 = v57;
-        _os_log_impl(&dword_2263AA000, v56, OS_LOG_TYPE_INFO, "Exact slot match required on non-rejected items for engagement type %@", buf, 0xCu);
+        v133 = v61;
+        _os_log_impl(&dword_2263AA000, v60, OS_LOG_TYPE_INFO, "Exact slot match required on non-rejected items for engagement type %@", buf, 0xCu);
       }
 
       engagedAction10 = [responseCopy engagedAction];
@@ -617,7 +621,7 @@ LABEL_43:
   if (type < 2)
   {
 LABEL_37:
-    v27 = 1;
+    v28 = 1;
     goto LABEL_38;
   }
 
@@ -626,73 +630,75 @@ LABEL_37:
 LABEL_41:
     engagedAction10 = [responseCopy matchingIntentDonatedAction];
 LABEL_46:
-    matchingIntentDonatedAction = engagedAction10;
-    v27 = 1;
+    v118 = engagedAction10;
+    v28 = 1;
     goto LABEL_47;
   }
 
   if (type != 3)
   {
 LABEL_38:
-    v51 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v56 = __atxlog_handle_feedback(v27);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       [ATXActionFeedback applyFinalFeedbackForActionResponse:type engagementType:? context:?];
     }
 
-    v52 = MEMORY[0x277CBEAD8];
-    v53 = *MEMORY[0x277CBE658];
-    v54 = [MEMORY[0x277CEB2E8] engagementTypeToString:type];
-    [v52 raise:v53 format:{@"Invalid engagement type of %@ encountered", v54}];
+    v57 = MEMORY[0x277CBEAD8];
+    v58 = *MEMORY[0x277CBE658];
+    v59 = [MEMORY[0x277CEB2E8] engagementTypeToString:type];
+    [v57 raise:v58 format:{@"Invalid engagement type of %@ encountered", v59}];
 
-    matchingIntentDonatedAction = 0;
+    v118 = 0;
     goto LABEL_47;
   }
 
-  v49 = __atxlog_handle_feedback();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+  v53 = __atxlog_handle_feedback(v27);
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
   {
     [MEMORY[0x277CEB2E8] engagementTypeToString:3];
-    v50 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v54 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     *buf = 138412290;
-    v127 = v50;
-    _os_log_impl(&dword_2263AA000, v49, OS_LOG_TYPE_INFO, "Only actionKey match required on non-rejected items for engagement type %@", buf, 0xCu);
+    v133 = v54;
+    _os_log_impl(&dword_2263AA000, v53, OS_LOG_TYPE_INFO, "Only actionKey match required on non-rejected items for engagement type %@", buf, 0xCu);
   }
 
-  matchingIntentDonatedAction = [responseCopy matchingIntentDonatedAction];
-  v27 = 0;
+  engagedAction10 = [responseCopy matchingIntentDonatedAction];
+  v118 = engagedAction10;
+  v28 = 0;
 LABEL_47:
-  v58 = __atxlog_handle_feedback();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+  v62 = __atxlog_handle_feedback(engagedAction10);
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
   {
     [ATXActionFeedback applyFinalFeedbackForActionResponse:responseCopy engagementType:? context:?];
   }
 
-  v114 = objc_opt_new();
-  v120 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  v123 = 0u;
+  v120 = objc_opt_new();
+  v126 = 0u;
+  v127 = 0u;
+  v128 = 0u;
+  v129 = 0u;
   shownActions2 = [responseCopy shownActions];
-  v60 = [shownActions2 countByEnumeratingWithState:&v120 objects:v125 count:16];
-  if (v60)
+  v64 = [shownActions2 countByEnumeratingWithState:&v126 objects:v131 count:16];
+  if (v64)
   {
-    v61 = v60;
-    v62 = *v121;
-    v63 = 1;
+    v65 = v64;
+    v66 = *v127;
+    v67 = 1;
     do
     {
-      for (i = 0; i != v61; ++i)
+      for (i = 0; i != v65; ++i)
       {
-        if (*v121 != v62)
+        if (*v127 != v66)
         {
           objc_enumerationMutation(shownActions2);
         }
 
-        v65 = *(*(&v120 + 1) + 8 * i);
-        if (v27)
+        v69 = *(*(&v126 + 1) + 8 * i);
+        if (v28)
         {
-          if ([_ATXActionUtils isContainmentBetweenAction:matchingIntentDonatedAction other:*(*(&v120 + 1) + 8 * i)])
+          v70 = [_ATXActionUtils isContainmentBetweenAction:v118 other:*(*(&v126 + 1) + 8 * i)];
+          if (v70)
           {
             goto LABEL_61;
           }
@@ -700,169 +706,167 @@ LABEL_47:
 
         else
         {
-          actionKey2 = [*(*(&v120 + 1) + 8 * i) actionKey];
-          v67 = [v113 isEqualToString:actionKey2];
+          actionKey2 = [*(*(&v126 + 1) + 8 * i) actionKey];
+          v72 = [v119 isEqualToString:actionKey2];
 
-          if (v67)
+          if (v72)
           {
             goto LABEL_61;
           }
         }
 
-        v68 = __atxlog_handle_feedback();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+        v73 = __atxlog_handle_feedback(v70);
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218498;
-          v127 = v20;
-          v128 = 2048;
-          v129 = v63;
-          v130 = 2112;
-          v131 = v65;
-          _os_log_debug_impl(&dword_2263AA000, v68, OS_LOG_TYPE_DEBUG, "Rejecting (with weight %f at rank %lu) action: %@", buf, 0x20u);
+          v133 = v20;
+          v134 = 2048;
+          v135 = v67;
+          v136 = 2112;
+          v137 = v69;
+          _os_log_debug_impl(&dword_2263AA000, v73, OS_LOG_TYPE_DEBUG, "Rejecting (with weight %f at rank %lu) action: %@", buf, 0x20u);
         }
 
-        [v114 addObject:v65];
+        [v120 addObject:v69];
 LABEL_61:
-        ++v63;
+        ++v67;
       }
 
-      v61 = [shownActions2 countByEnumeratingWithState:&v120 objects:v125 count:16];
+      v65 = [shownActions2 countByEnumeratingWithState:&v126 objects:v131 count:16];
     }
 
-    while (v61);
+    while (v65);
   }
 
-  v69 = __atxlog_handle_feedback();
-  v70 = v114;
-  if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+  v75 = __atxlog_handle_feedback(v74);
+  v76 = v120;
+  if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
   {
-    [ATXActionFeedback applyFinalFeedbackForActionResponse:v114 engagementType:? context:?];
+    [ATXActionFeedback applyFinalFeedbackForActionResponse:v120 engagementType:? context:?];
   }
 
-  v71 = v111;
-  v73 = selfCopy;
-  v72 = v108;
-  if ([v114 count])
+  v77 = v117;
+  v79 = selfCopy;
+  v78 = v114;
+  if ([v120 count])
   {
-    v74 = objc_alloc(MEMORY[0x277CBEB98]);
-    explicitlyDismissedActions2 = [v111 explicitlyDismissedActions];
-    v105 = [v74 initWithArray:explicitlyDismissedActions2];
+    v80 = objc_alloc(MEMORY[0x277CBEB98]);
+    explicitlyDismissedActions2 = [v117 explicitlyDismissedActions];
+    v111 = [v80 initWithArray:explicitlyDismissedActions2];
 
-    v118 = 0u;
-    v119 = 0u;
-    v116 = 0u;
-    v117 = 0u;
-    obj = v114;
-    v76 = [obj countByEnumeratingWithState:&v116 objects:v124 count:16];
-    if (v76)
+    v124 = 0u;
+    v125 = 0u;
+    v122 = 0u;
+    v123 = 0u;
+    obj = v120;
+    v82 = [obj countByEnumeratingWithState:&v122 objects:v130 count:16];
+    if (v82)
     {
-      v77 = v76;
-      v115 = *v117;
-      v78 = off_278594000;
+      v83 = v82;
+      v121 = *v123;
+      v84 = off_278594000;
       do
       {
-        v79 = 0;
-        v109 = v77;
+        v85 = 0;
+        v115 = v83;
         do
         {
-          if (*v117 != v115)
+          if (*v123 != v121)
           {
             objc_enumerationMutation(obj);
           }
 
-          v80 = *(*(&v116 + 1) + 8 * v79);
-          heuristic2 = [v80 heuristic];
-          v82 = [heuristic2 length];
+          v86 = *(*(&v122 + 1) + 8 * v85);
+          heuristic2 = [v86 heuristic];
+          v88 = [heuristic2 length];
 
-          if (v82)
+          if (v88)
           {
-            heuristic3 = [v80 heuristic];
-            *&v84 = v20;
-            [(ATXActionFeedback *)v73 _updateAppLaunchHistogram:36 bundleId:heuristic3 context:v72 weight:v84];
+            heuristic3 = [v86 heuristic];
+            *&v90 = v20;
+            [(ATXActionFeedback *)v79 _updateAppLaunchHistogram:36 bundleId:heuristic3 context:v78 weight:v90];
           }
 
           else
           {
-            heuristic3 = [v80 bundleId];
-            v85 = v78[204];
-            actionKey3 = [v80 actionKey];
-            v87 = [(__objc2_class *)v85 getActionTypeFromActionKey:actionKey3];
-            *&v88 = v20;
-            [(ATXActionFeedback *)v73 _updateAppLaunchCategoricalHistogram:34 bundleId:heuristic3 category:v87 context:v72 weight:v88];
+            heuristic3 = [v86 bundleId];
+            v91 = v84[204];
+            actionKey3 = [v86 actionKey];
+            v93 = [(__objc2_class *)v91 getActionTypeFromActionKey:actionKey3];
+            *&v94 = v20;
+            [(ATXActionFeedback *)v79 _updateAppLaunchCategoricalHistogram:34 bundleId:heuristic3 category:v93 context:v78 weight:v94];
           }
 
           if (v20 == 0.0)
           {
-            slotSet2 = __atxlog_handle_feedback();
+            slotSet2 = __atxlog_handle_feedback(v95);
             if (os_log_type_enabled(slotSet2, OS_LOG_TYPE_DEFAULT))
             {
-              [MEMORY[0x277CEB2E8] actionFeedbackStageToString:{objc_msgSend(v111, "feedbackStage")}];
-              v90 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v91 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:{objc_msgSend(v111, "consumerSubType")}];
+              [MEMORY[0x277CEB2E8] actionFeedbackStageToString:{objc_msgSend(v117, "feedbackStage")}];
+              v97 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v98 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:{objc_msgSend(v117, "consumerSubType")}];
               *buf = 138412546;
-              v127 = v90;
-              v128 = 2112;
-              v129 = v91;
+              v133 = v97;
+              v134 = 2112;
+              v135 = v98;
               _os_log_impl(&dword_2263AA000, slotSet2, OS_LOG_TYPE_DEFAULT, "Encountered rejection feedback with a weight of 0 for feedbackStage=%@ and consumerSubType=%@", buf, 0x16u);
             }
           }
 
           else
           {
-            slotSet2 = [v80 slotSet];
-            v92 = v73->_dataStore;
-            if ([v105 containsObject:v80])
+            slotSet2 = [v86 slotSet];
+            v99 = v79->_dataStore;
+            if ([v111 containsObject:v86])
             {
-              v93 = 2;
+              v100 = 2;
             }
 
             else
             {
-              v93 = 1;
+              v100 = 1;
             }
 
-            v94 = v78;
-            v95 = v78[204];
-            actionKey4 = [v80 actionKey];
-            v97 = [(__objc2_class *)v95 getActionTypeFromActionKey:actionKey4];
-            bundleId2 = [v80 bundleId];
-            actionUUID2 = [v80 actionUUID];
-            LOBYTE(v101) = [v111 consumerSubType];
-            [(_ATXDataStore *)v92 recordConfirms:v93 rejects:v97 forFeedbackType:bundleId2 forActionType:v80 bundleId:slotSet2 action:actionUUID2 slotSet:0.0 actionUUID:v20 date:date consumerSubType:v101 geohash:geohash coarseGeohash:coarseGeohash];
+            v101 = v84;
+            v102 = v84[204];
+            actionKey4 = [v86 actionKey];
+            v104 = [(__objc2_class *)v102 getActionTypeFromActionKey:actionKey4];
+            bundleId2 = [v86 bundleId];
+            actionUUID2 = [v86 actionUUID];
+            LOBYTE(v107) = [v117 consumerSubType];
+            [(_ATXDataStore *)v99 recordConfirms:v100 rejects:v104 forFeedbackType:bundleId2 forActionType:v86 bundleId:slotSet2 action:actionUUID2 slotSet:0.0 actionUUID:v20 date:date consumerSubType:v107 geohash:geohash coarseGeohash:coarseGeohash];
 
-            v73 = selfCopy;
-            v72 = v108;
+            v79 = selfCopy;
+            v78 = v114;
 
-            v78 = v94;
-            v77 = v109;
+            v84 = v101;
+            v83 = v115;
           }
 
-          ++v79;
+          ++v85;
         }
 
-        while (v77 != v79);
-        v77 = [obj countByEnumeratingWithState:&v116 objects:v124 count:16];
+        while (v83 != v85);
+        v83 = [obj countByEnumeratingWithState:&v122 objects:v130 count:16];
       }
 
-      while (v77);
+      while (v83);
     }
 
-    v71 = v111;
-    v70 = v114;
+    v77 = v117;
+    v76 = v120;
   }
 
-  [(ATXActionFeedback *)v73 sessionLogWithActionResponse:v71 engagementType:typeCopy context:v72];
-  [(ATXActionFeedback *)v73 logHeuristicFeedback:v71];
+  [(ATXActionFeedback *)v79 sessionLogWithActionResponse:v77 engagementType:typeCopy context:v78];
+  [(ATXActionFeedback *)v79 logHeuristicFeedback:v77];
   ATXUpdatePredictionsDefaultInterval(3);
-
-  v100 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionLogWithActionResponse:(id)response engagementType:(unint64_t)type context:(id)context
 {
   contextCopy = context;
   responseCopy = response;
-  v9 = __atxlog_handle_feedback();
+  v9 = __atxlog_handle_feedback(responseCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [ATXActionFeedback sessionLogWithActionResponse:engagementType:context:];
@@ -873,17 +877,17 @@ LABEL_61:
 
 - (void)receiveFeedbackWithActionResponse:(id)response context:(id)context
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   contextCopy = context;
   obj = self;
-  objc_sync_enter(obj);
-  v7 = __atxlog_handle_feedback();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v7 = objc_sync_enter(obj);
+  v8 = __atxlog_handle_feedback(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v79 = responseCopy;
-    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "receiveFeedbackWithActionResponse called with actionResponse of %@", buf, 0xCu);
+    v84 = responseCopy;
+    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_INFO, "receiveFeedbackWithActionResponse called with actionResponse of %@", buf, 0xCu);
   }
 
   feedbackStage = [responseCopy feedbackStage];
@@ -894,17 +898,17 @@ LABEL_61:
       if (feedbackStage == 5)
       {
         engagedAction = [responseCopy engagedAction];
-        v24 = engagedAction == 0;
+        v26 = engagedAction == 0;
 
-        if (!v24)
+        if (!v26)
         {
           engagedAction2 = [responseCopy engagedAction];
-          v26 = [engagedAction2 actionType] == 1;
+          v28 = [engagedAction2 actionType] == 1;
 
-          if (v26)
+          if (v28)
           {
-            v27 = __atxlog_handle_feedback();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v30 = __atxlog_handle_feedback(v29);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               [ATXActionFeedback receiveFeedbackWithActionResponse:context:];
             }
@@ -915,10 +919,11 @@ LABEL_61:
 
           engagedAction3 = [responseCopy engagedAction];
           [(ATXRecentActionEngagementCache *)obj->_recentEngagementCache addEngagedAction:engagedAction3];
-          if ([engagedAction3 isHeuristic])
+          isHeuristic = [engagedAction3 isHeuristic];
+          if (isHeuristic)
           {
-            v32 = __atxlog_handle_feedback();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+            v36 = __atxlog_handle_feedback(isHeuristic);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
               [ATXActionFeedback receiveFeedbackWithActionResponse:context:];
             }
@@ -927,30 +932,31 @@ LABEL_61:
           else
           {
             intent = [engagedAction3 intent];
-            if (intent && (v34 = [engagedAction3 isHeuristic], intent, (v34 & 1) == 0))
+            v38 = intent;
+            if (intent && (v39 = [engagedAction3 isHeuristic], v38, (v39 & 1) == 0))
             {
               actionKey = [engagedAction3 actionKey];
-              v32 = [_ATXActionUtils getActionTypeFromActionKey:actionKey];
+              v36 = [_ATXActionUtils getActionTypeFromActionKey:actionKey];
 
-              v36 = objc_alloc(MEMORY[0x277CCA970]);
+              v41 = objc_alloc(MEMORY[0x277CCA970]);
               timeContext = [contextCopy timeContext];
               date = [timeContext date];
               timeContext2 = [contextCopy timeContext];
               date2 = [timeContext2 date];
-              v41 = [v36 initWithStartDate:date endDate:date2];
+              v46 = [v41 initWithStartDate:date endDate:date2];
 
-              v42 = objc_alloc(MEMORY[0x277CEB5D8]);
+              v47 = objc_alloc(MEMORY[0x277CEB5D8]);
               bundleId = [engagedAction3 bundleId];
-              v44 = [v42 initWithBundleId:bundleId intentType:v32 dateInterval:v41 action:engagedAction3];
+              v49 = [v47 initWithBundleId:bundleId intentType:v36 dateInterval:v46 action:engagedAction3];
 
-              LODWORD(v45) = 1.0;
-              [(ATXAppIntentMonitor *)obj->_appIntentMonitor updateActionPredictionPipelineForIntentEvent:v44 weight:0 appSessionStartDate:0 appSessionEndDate:v45];
+              LODWORD(v50) = 1.0;
+              [(ATXAppIntentMonitor *)obj->_appIntentMonitor updateActionPredictionPipelineForIntentEvent:v49 weight:0 appSessionStartDate:0 appSessionEndDate:v50];
             }
 
             else
             {
-              v32 = __atxlog_handle_feedback();
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+              v36 = __atxlog_handle_feedback(intent);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
               {
                 [ATXActionFeedback receiveFeedbackWithActionResponse:context:];
               }
@@ -970,20 +976,20 @@ LABEL_61:
 
 LABEL_16:
       engagedAction4 = [responseCopy engagedAction];
-      v18 = engagedAction4 == 0;
+      v19 = engagedAction4 == 0;
 
-      if (!v18)
+      if (!v19)
       {
-        v19 = __atxlog_handle_feedback();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v21 = __atxlog_handle_feedback(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           engagedAction5 = [responseCopy engagedAction];
-          [(ATXActionFeedback *)engagedAction5 receiveFeedbackWithActionResponse:buf context:v19];
+          [(ATXActionFeedback *)engagedAction5 receiveFeedbackWithActionResponse:buf context:v21];
         }
 
-        v21 = MEMORY[0x277CBEAD8];
+        v23 = MEMORY[0x277CBEAD8];
         engagedAction6 = [responseCopy engagedAction];
-        [v21 raise:*MEMORY[0x277CBE658] format:{@"non-nil engagedAction in lock screen expiration feedback: %@", engagedAction6}];
+        [v23 raise:*MEMORY[0x277CBE658] format:{@"non-nil engagedAction in lock screen expiration feedback: %@", engagedAction6}];
       }
 
 LABEL_25:
@@ -997,9 +1003,9 @@ LABEL_25:
     if ((feedbackStage - 2) < 2)
     {
       engagedAction7 = [responseCopy engagedAction];
-      v10 = engagedAction7 == 0;
+      v11 = engagedAction7 == 0;
 
-      if (v10)
+      if (v11)
       {
         [(ATXActionFeedback *)obj applyFinalFeedbackForActionResponse:responseCopy engagementType:5 context:contextCopy];
       }
@@ -1011,31 +1017,31 @@ LABEL_25:
         [(ATXRecentActionEngagementCache *)recentEngagementCache addEngagedAction:engagedAction8];
       }
 
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
-      v73 = 0u;
+      v79 = 0u;
+      v80 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       engagedAction3 = [responseCopy explicitlyDismissedActions];
-      v29 = [engagedAction3 countByEnumeratingWithState:&v72 objects:v77 count:16];
-      if (v29)
+      v32 = [engagedAction3 countByEnumeratingWithState:&v77 objects:v82 count:16];
+      if (v32)
       {
-        v30 = *v73;
+        v33 = *v78;
         do
         {
-          for (i = 0; i != v29; ++i)
+          for (i = 0; i != v32; ++i)
           {
-            if (*v73 != v30)
+            if (*v78 != v33)
             {
               objc_enumerationMutation(engagedAction3);
             }
 
-            [(ATXRecentActionEngagementCache *)obj->_recentEngagementCache addEngagedAction:*(*(&v72 + 1) + 8 * i)];
+            [(ATXRecentActionEngagementCache *)obj->_recentEngagementCache addEngagedAction:*(*(&v77 + 1) + 8 * i)];
           }
 
-          v29 = [engagedAction3 countByEnumeratingWithState:&v72 objects:v77 count:16];
+          v32 = [engagedAction3 countByEnumeratingWithState:&v77 objects:v82 count:16];
         }
 
-        while (v29);
+        while (v32);
       }
 
 LABEL_44:
@@ -1047,35 +1053,35 @@ LABEL_44:
     {
 LABEL_45:
       consumerSubType = [responseCopy consumerSubType];
-      v16 = [MEMORY[0x277CEBCF0] uiTypeForActionConsumerSubType:consumerSubType];
-      v70 = 0u;
-      v71 = 0u;
-      v68 = 0u;
-      v69 = 0u;
+      v17 = [MEMORY[0x277CEBCF0] uiTypeForActionConsumerSubType:consumerSubType];
+      v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
       shownActions = [responseCopy shownActions];
-      v48 = [shownActions countByEnumeratingWithState:&v68 objects:v76 count:16];
-      if (!v48)
+      v53 = [shownActions countByEnumeratingWithState:&v73 objects:v81 count:16];
+      if (!v53)
       {
         goto LABEL_70;
       }
 
-      v49 = *v69;
+      v54 = *v74;
       while (1)
       {
-        v50 = 0;
+        v55 = 0;
         do
         {
-          if (*v69 != v49)
+          if (*v74 != v54)
           {
             objc_enumerationMutation(shownActions);
           }
 
-          v51 = *(*(&v68 + 1) + 8 * v50);
-          actionKey2 = [v51 actionKey];
+          v56 = *(*(&v73 + 1) + 8 * v55);
+          actionKey2 = [v56 actionKey];
           engagedAction9 = [responseCopy engagedAction];
-          v54 = [engagedAction9 isEqual:v51];
+          v59 = [engagedAction9 isEqual:v56];
 
-          if (v54)
+          if (v59)
           {
             engagedAction10 = [responseCopy engagedAction];
             if ([engagedAction10 actionType] == 1)
@@ -1084,20 +1090,20 @@ LABEL_45:
               goto LABEL_54;
             }
 
-            v56 = [responseCopy feedbackStage] == 5;
+            v62 = [responseCopy feedbackStage] == 5;
 
-            if (v56)
+            if (v62)
             {
 LABEL_54:
-              v57 = __atxlog_handle_feedback();
-              if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+              v63 = __atxlog_handle_feedback(v61);
+              if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
               {
-                *v67 = 0;
-                _os_log_impl(&dword_2263AA000, v57, OS_LOG_TYPE_INFO, "logging direct engagement on NSUserActivity-based UI or background-executable intent interaction", v67, 2u);
+                *v72 = 0;
+                _os_log_impl(&dword_2263AA000, v63, OS_LOG_TYPE_INFO, "logging direct engagement on NSUserActivity-based UI or background-executable intent interaction", v72, 2u);
               }
 
 LABEL_57:
-              v58 = 4;
+              v64 = 4;
             }
 
             else
@@ -1108,38 +1114,38 @@ LABEL_57:
               }
 
               matchingIntentDonatedAction = [responseCopy matchingIntentDonatedAction];
-              if (matchingIntentDonatedAction && (v60 = [responseCopy matchingIntentWasCompleteMatch], matchingIntentDonatedAction, (v60 & 1) != 0))
+              if (matchingIntentDonatedAction && (v66 = [responseCopy matchingIntentWasCompleteMatch], matchingIntentDonatedAction, (v66 & 1) != 0))
               {
-                v58 = 2;
+                v64 = 2;
               }
 
               else
               {
                 matchingIntentDonatedAction2 = [responseCopy matchingIntentDonatedAction];
-                if (matchingIntentDonatedAction2 && (v62 = [responseCopy matchingIntentWasCompleteMatch], matchingIntentDonatedAction2, !v62))
+                if (matchingIntentDonatedAction2 && (v68 = [responseCopy matchingIntentWasCompleteMatch], matchingIntentDonatedAction2, !v68))
                 {
-                  v58 = 3;
+                  v64 = 3;
                 }
 
                 else
                 {
-                  v58 = 6;
+                  v64 = 6;
                 }
               }
             }
 
-            [(ATXActionFeedback *)obj applyFinalFeedbackForActionResponse:responseCopy engagementType:v58 context:contextCopy];
+            [(ATXActionFeedback *)obj applyFinalFeedbackForActionResponse:responseCopy engagementType:v64 context:contextCopy];
           }
 
-          [(_ATXDataStore *)obj->_dataStore updateOrInsertPredictionsAndFeedbackForAppAction:actionKey2 feedbackReceived:v54 forUIType:v16];
+          [(_ATXDataStore *)obj->_dataStore updateOrInsertPredictionsAndFeedbackForAppAction:actionKey2 feedbackReceived:v59 forUIType:v17];
 
-          ++v50;
+          ++v55;
         }
 
-        while (v48 != v50);
-        v63 = [shownActions countByEnumeratingWithState:&v68 objects:v76 count:16];
-        v48 = v63;
-        if (!v63)
+        while (v53 != v55);
+        v69 = [shownActions countByEnumeratingWithState:&v73 objects:v81 count:16];
+        v53 = v69;
+        if (!v69)
         {
 LABEL_70:
 
@@ -1151,33 +1157,42 @@ LABEL_70:
     goto LABEL_16;
   }
 
-  v13 = __atxlog_handle_feedback();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = __atxlog_handle_feedback(feedbackStage);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v14 = [MEMORY[0x277CEB2E8] actionFeedbackStageToString:{objc_msgSend(responseCopy, "feedbackStage")}];
-    [(ATXActionFeedback *)v14 receiveFeedbackWithActionResponse:buf context:v13];
+    v15 = [MEMORY[0x277CEB2E8] actionFeedbackStageToString:{objc_msgSend(responseCopy, "feedbackStage")}];
+    [(ATXActionFeedback *)v15 receiveFeedbackWithActionResponse:buf context:v14];
   }
 
-  v15 = MEMORY[0x277CBEAD8];
-  v16 = [MEMORY[0x277CEB2E8] actionFeedbackStageToString:{objc_msgSend(responseCopy, "feedbackStage")}];
-  [v15 raise:*MEMORY[0x277CBE658] format:{@"invalid feedbackStage of %@ on ATXActionResponse", v16}];
+  v16 = MEMORY[0x277CBEAD8];
+  v17 = [MEMORY[0x277CEB2E8] actionFeedbackStageToString:{objc_msgSend(responseCopy, "feedbackStage")}];
+  [v16 raise:*MEMORY[0x277CBE658] format:{@"invalid feedbackStage of %@ on ATXActionResponse", v17}];
 LABEL_71:
 
   objc_sync_exit(obj);
-  v64 = *MEMORY[0x277D85DE8];
+}
+
+- (void)receiveLockscreenFeedbackWithAction:(id)action actionResponse:(id)response engagement:(BOOL)engagement triggeredByUserInteraction:(BOOL)interaction
+{
+  interactionCopy = interaction;
+  engagementCopy = engagement;
+  responseCopy = response;
+  actionCopy = action;
+  v12 = objc_opt_new();
+  [(ATXActionFeedback *)self receiveLockscreenFeedbackWithAction:actionCopy actionResponse:responseCopy engagement:engagementCopy triggeredByUserInteraction:interactionCopy currentDate:v12];
 }
 
 - (void)receiveLockscreenFeedbackWithAction:(id)action actionResponse:(id)response engagement:(BOOL)engagement triggeredByUserInteraction:(BOOL)interaction currentDate:(id)date
 {
   interactionCopy = interaction;
   engagementCopy = engagement;
-  v50 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   responseCopy = response;
   dateCopy = date;
   sel_getName(a2);
   v16 = os_transaction_create();
-  v17 = __atxlog_handle_feedback();
+  v17 = __atxlog_handle_feedback(v16);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     actionKey = [actionCopy actionKey];
@@ -1194,30 +1209,31 @@ LABEL_71:
     }
 
     *buf = 138412802;
-    v45 = actionKey;
-    v47 = v21;
-    v46 = 2112;
+    v48 = actionKey;
+    v50 = v21;
+    v49 = 2112;
     if (interactionCopy)
     {
       v20 = @"YES";
     }
 
-    v48 = 2112;
-    v49 = v20;
+    v51 = 2112;
+    v52 = v20;
     _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "received lockscreen feedback for actionKey: %@ with engagment: %@ and triggeredByUserInteraction: %@", buf, 0x20u);
   }
 
   buf[0] = 0;
   v22 = *MEMORY[0x277CEBD00];
-  if (CFPreferencesGetAppBooleanValue(@"displayDonationsOnLockscreen", *MEMORY[0x277CEBD00], buf))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"displayDonationsOnLockscreen", *MEMORY[0x277CEBD00], buf);
+  if (AppBooleanValue)
   {
-    v23 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = __atxlog_handle_feedback(AppBooleanValue);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v24 = "Developer mode detected -- skipping lock screen action feedback for notification";
+      v25 = "Developer mode detected -- skipping lock screen action feedback for notification";
 LABEL_14:
-      _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, v24, buf, 2u);
+      _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, 2u);
       goto LABEL_15;
     }
 
@@ -1225,13 +1241,14 @@ LABEL_14:
   }
 
   buf[0] = 0;
-  if (CFPreferencesGetAppBooleanValue(@"zkwActionsDemoModeEnabled", v22, buf))
+  v26 = CFPreferencesGetAppBooleanValue(@"zkwActionsDemoModeEnabled", v22, buf);
+  if (v26)
   {
-    v23 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = __atxlog_handle_feedback(v26);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v24 = "Demo mode detected -- skipping lock screen action feedback for notification";
+      v25 = "Demo mode detected -- skipping lock screen action feedback for notification";
       goto LABEL_14;
     }
 
@@ -1243,10 +1260,11 @@ LABEL_15:
   if (!engagementCopy || interactionCopy)
   {
     predictionContextForCurrentContext = [(ATXPredictionContextBuilderProtocol *)self->_predictionContextBuilder predictionContextForCurrentContext];
+    v29 = predictionContextForCurrentContext;
     if (!predictionContextForCurrentContext)
     {
-      v29 = __atxlog_handle_feedback();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = __atxlog_handle_feedback(0);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [ATXActionFeedback receiveLockscreenFeedbackWithAction:actionResponse:engagement:triggeredByUserInteraction:currentDate:];
       }
@@ -1260,8 +1278,8 @@ LABEL_15:
       {
         if (!engagementCopy || !interactionCopy)
         {
-          v31 = __atxlog_handle_feedback();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v33 = __atxlog_handle_feedback(predictionContextForCurrentContext);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             [ATXActionFeedback receiveLockscreenFeedbackWithAction:actionResponse:engagement:triggeredByUserInteraction:currentDate:];
           }
@@ -1274,9 +1292,9 @@ LABEL_15:
 
         if (userActivity)
         {
-          v40 = actionCopy;
-          v33 = MEMORY[0x277CBEA60];
-          v34 = &v40;
+          v43 = actionCopy;
+          v35 = MEMORY[0x277CBEA60];
+          v36 = &v43;
         }
 
         else
@@ -1286,62 +1304,60 @@ LABEL_15:
 
           if (atx_supportsBackgroundExecution)
           {
-            v39 = actionCopy;
-            v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
-            [responseCopy updateConsumerSubType:22 engagedAction:actionCopy shownActions:v28 feedbackStage:5 explicitlyDismissedActions:0 searchedActionType:4 engagedAppString:0 uiFeedbackDate:{dateCopy, v38}];
+            v42 = actionCopy;
+            v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+            [responseCopy updateConsumerSubType:22 engagedAction:actionCopy shownActions:v30 feedbackStage:5 explicitlyDismissedActions:0 searchedActionType:4 engagedAppString:0 uiFeedbackDate:{dateCopy, v41}];
             goto LABEL_32;
           }
 
-          v37 = __atxlog_handle_feedback();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v40 = __atxlog_handle_feedback(v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v45 = actionCopy;
-            _os_log_impl(&dword_2263AA000, v37, OS_LOG_TYPE_DEFAULT, "received lockscreen feedback for action with non-background executable Intent: %@", buf, 0xCu);
+            v48 = actionCopy;
+            _os_log_impl(&dword_2263AA000, v40, OS_LOG_TYPE_DEFAULT, "received lockscreen feedback for action with non-background executable Intent: %@", buf, 0xCu);
           }
 
-          v38 = actionCopy;
-          v33 = MEMORY[0x277CBEA60];
-          v34 = &v38;
+          v41 = actionCopy;
+          v35 = MEMORY[0x277CBEA60];
+          v36 = &v41;
         }
 
-        v28 = [v33 arrayWithObjects:v34 count:1];
-        [responseCopy updateConsumerSubType:22 engagedAction:actionCopy shownActions:v28 feedbackStage:2 explicitlyDismissedActions:0 searchedActionType:4 engagedAppString:0 uiFeedbackDate:{dateCopy, v38}];
+        v30 = [v35 arrayWithObjects:v36 count:1];
+        [responseCopy updateConsumerSubType:22 engagedAction:actionCopy shownActions:v30 feedbackStage:2 explicitlyDismissedActions:0 searchedActionType:4 engagedAppString:0 uiFeedbackDate:{dateCopy, v41}];
         goto LABEL_32;
       }
 
-      v42 = actionCopy;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
-      v41 = actionCopy;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
-      [responseCopy updateConsumerSubType:22 engagedAction:0 shownActions:v28 feedbackStage:2 explicitlyDismissedActions:v30 searchedActionType:4 engagedAppString:0 uiFeedbackDate:dateCopy];
+      v45 = actionCopy;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+      v44 = actionCopy;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
+      [responseCopy updateConsumerSubType:22 engagedAction:0 shownActions:v30 feedbackStage:2 explicitlyDismissedActions:v32 searchedActionType:4 engagedAppString:0 uiFeedbackDate:dateCopy];
     }
 
     else
     {
-      v43 = actionCopy;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
-      [responseCopy updateConsumerSubType:22 engagedAction:0 shownActions:v28 feedbackStage:4 explicitlyDismissedActions:0 searchedActionType:4 engagedAppString:0 uiFeedbackDate:{dateCopy, v38}];
+      v46 = actionCopy;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+      [responseCopy updateConsumerSubType:22 engagedAction:0 shownActions:v30 feedbackStage:4 explicitlyDismissedActions:0 searchedActionType:4 engagedAppString:0 uiFeedbackDate:{dateCopy, v41}];
     }
 
 LABEL_32:
 
-    [(ATXActionFeedback *)self receiveFeedbackWithActionResponse:responseCopy context:predictionContextForCurrentContext];
+    [(ATXActionFeedback *)self receiveFeedbackWithActionResponse:responseCopy context:v29];
 LABEL_33:
 
     goto LABEL_16;
   }
 
-  v26 = __atxlog_handle_feedback();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v27 = __atxlog_handle_feedback(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     [ATXActionFeedback receiveLockscreenFeedbackWithAction:actionResponse:engagement:triggeredByUserInteraction:currentDate:];
   }
 
   [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"received lockscreen feedback with triggeredByUserInteraction: NO and engagement: YES"];
 LABEL_16:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unloadCachedHistograms
@@ -1368,7 +1384,7 @@ LABEL_16:
 
 - (void)logHeuristicFeedback:(id)feedback
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   engagedAction = [feedbackCopy engagedAction];
   if (engagedAction)
@@ -1387,26 +1403,26 @@ LABEL_16:
     }
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   shownActions = [feedbackCopy shownActions];
-  v12 = [shownActions countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v12 = [shownActions countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v31;
+    v14 = *v30;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(shownActions);
         }
 
-        v16 = *(*(&v30 + 1) + 8 * i);
+        v16 = *(*(&v29 + 1) + 8 * i);
         heuristic2 = [v16 heuristic];
 
         if (heuristic2)
@@ -1416,32 +1432,32 @@ LABEL_16:
         }
       }
 
-      v13 = [shownActions countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v13 = [shownActions countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v13);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   explicitlyDismissedActions = [feedbackCopy explicitlyDismissedActions];
-  v19 = [explicitlyDismissedActions countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v19 = [explicitlyDismissedActions countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v27;
+    v21 = *v26;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v27 != v21)
+        if (*v26 != v21)
         {
           objc_enumerationMutation(explicitlyDismissedActions);
         }
 
-        v23 = *(*(&v26 + 1) + 8 * j);
+        v23 = *(*(&v25 + 1) + 8 * j);
         heuristic3 = [v23 heuristic];
 
         if (heuristic3)
@@ -1450,13 +1466,190 @@ LABEL_16:
         }
       }
 
-      v20 = [explicitlyDismissedActions countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v20 = [explicitlyDismissedActions countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v20);
   }
+}
 
-  v25 = *MEMORY[0x277D85DE8];
+- (void)logHeuristicFeedbackToSuggestionsForAction:(id)action withActionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  actionCopy = action;
+  heuristicMetadata = [actionCopy heuristicMetadata];
+  if (heuristicMetadata)
+  {
+    v7 = heuristicMetadata;
+    heuristicMetadata2 = [actionCopy heuristicMetadata];
+    v9 = *MEMORY[0x277CEB210];
+    v10 = [heuristicMetadata2 objectForKeyedSubscript:*MEMORY[0x277CEB210]];
+
+    if (v10)
+    {
+      heuristic = [actionCopy heuristic];
+      v12 = [heuristic hasPrefix:@"checkInForEvent"];
+
+      if (v12)
+      {
+        userActivity = [actionCopy userActivity];
+        activityType = [userActivity activityType];
+        v15 = [activityType isEqualToString:*MEMORY[0x277CCA850]];
+
+        if (v15)
+        {
+          v16 = 26;
+        }
+
+        else
+        {
+          v16 = 25;
+        }
+
+        v25 = 0;
+        v26 = &v25;
+        v27 = 0x2050000000;
+        v17 = getSGSuggestionsServiceClass_softClass;
+        v28 = getSGSuggestionsServiceClass_softClass;
+        if (!getSGSuggestionsServiceClass_softClass)
+        {
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __getSGSuggestionsServiceClass_block_invoke;
+          v24[3] = &unk_2785967D8;
+          v24[4] = &v25;
+          __getSGSuggestionsServiceClass_block_invoke(v24);
+          v17 = v26[3];
+        }
+
+        v18 = v17;
+        _Block_object_dispose(&v25, 8);
+        if (!v17)
+        {
+          [ATXActionFeedback logHeuristicFeedbackToSuggestionsForAction:withActionType:];
+        }
+
+        v20 = __atxlog_handle_heuristic(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        {
+          [ATXActionFeedback logHeuristicFeedbackToSuggestionsForAction:withActionType:];
+        }
+
+        serviceForEvents = [v17 serviceForEvents];
+        heuristicMetadata3 = [actionCopy heuristicMetadata];
+        v23 = [heuristicMetadata3 objectForKeyedSubscript:v9];
+        [serviceForEvents logEventInteractionForEventWithUniqueKey:v23 interface:v16 actionType:typeCopy];
+      }
+    }
+  }
+}
+
+- (void)logHeuristicFeedbackToPortraitForAction:(id)action withActionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  actionCopy = action;
+  heuristicMetadata = [actionCopy heuristicMetadata];
+  if (heuristicMetadata)
+  {
+    v7 = heuristicMetadata;
+    heuristicMetadata2 = [actionCopy heuristicMetadata];
+    v9 = [heuristicMetadata2 objectForKeyedSubscript:@"eventIdentifier"];
+
+    if (v9)
+    {
+      heuristic = [actionCopy heuristic];
+      v11 = [heuristic hasPrefix:@"showExtraordinaryEvent"];
+
+      if (v11)
+      {
+        v13 = 4;
+        goto LABEL_9;
+      }
+
+      heuristic2 = [actionCopy heuristic];
+      if ([heuristic2 hasPrefix:@"meetingDND"])
+      {
+      }
+
+      else
+      {
+        heuristic3 = [actionCopy heuristic];
+        v16 = [heuristic3 hasPrefix:@"suggestedEventDND"];
+
+        if ((v16 & 1) == 0)
+        {
+          heuristic4 = [actionCopy heuristic];
+          v22 = [heuristic4 hasPrefix:@"runningLate"];
+
+          if (v22)
+          {
+            v13 = 3;
+          }
+
+          else
+          {
+            heuristic5 = [actionCopy heuristic];
+            v24 = [heuristic5 hasPrefix:@"sendETA"];
+
+            if (v24)
+            {
+              v13 = 10;
+            }
+
+            else
+            {
+              heuristic6 = [actionCopy heuristic];
+              v26 = [heuristic6 hasPrefix:@"requestRideToNextEvent"];
+
+              if (v26)
+              {
+                v13 = 5;
+              }
+
+              else
+              {
+                heuristic7 = [actionCopy heuristic];
+                v28 = [heuristic7 hasPrefix:@"setAlarmForUnusualEarlyEvents"];
+
+                if ((v28 & 1) == 0)
+                {
+                  v18 = __atxlog_handle_heuristic(v12);
+                  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+                  {
+                    [ATXActionFeedback logHeuristicFeedbackToPortraitForAction:actionCopy withActionType:?];
+                  }
+
+                  goto LABEL_12;
+                }
+
+                v13 = 9;
+              }
+            }
+          }
+
+LABEL_9:
+          v17 = __atxlog_handle_heuristic(v12);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          {
+            [ATXActionFeedback logHeuristicFeedbackToPortraitForAction:withActionType:];
+          }
+
+          v18 = objc_opt_new();
+          heuristicMetadata3 = [actionCopy heuristicMetadata];
+          v20 = [heuristicMetadata3 objectForKeyedSubscript:*MEMORY[0x277CEB208]];
+          [v18 logEventInteractionForEventWithEventIdentifier:v20 interface:v13 actionType:typeCopy];
+
+LABEL_12:
+          goto LABEL_13;
+        }
+      }
+
+      v13 = 7;
+      goto LABEL_9;
+    }
+  }
+
+LABEL_13:
 }
 
 - (void)applyFinalFeedbackForActionResponse:(uint64_t)a1 engagementType:(uint64_t)a2 context:.cold.1(uint64_t a1, uint64_t a2)
@@ -1473,43 +1666,34 @@ LABEL_16:
 
 - (void)applyFinalFeedbackForActionResponse:engagementType:context:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Final slot set in engagment feedback for action prediction: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Final slot set in engagment feedback for action prediction: %@", v1, 0xCu);
 }
 
 - (void)applyFinalFeedbackForActionResponse:(uint64_t)a1 engagementType:context:.cold.4(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CEB2E8] engagementTypeToString:a1];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5_1(v2, v3, v4, v5, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyFinalFeedbackForActionResponse:(void *)a1 engagementType:context:.cold.5(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 shownActions];
   [v1 count];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyFinalFeedbackForActionResponse:(void *)a1 engagementType:context:.cold.6(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receiveFeedbackWithActionResponse:(NSObject *)a3 context:.cold.1(void *a1, uint64_t a2, NSObject *a3)
@@ -1535,13 +1719,10 @@ LABEL_16:
 
 - (void)logHeuristicFeedbackToPortraitForAction:(void *)a1 withActionType:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 heuristic];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5_1(v2, v3, v4, v5, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

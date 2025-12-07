@@ -753,7 +753,6 @@ LABEL_122:
         NSStringFromClass(v83);
         errorCopy = error;
         v85 = v84 = dataCopy;
-        v86 = *&v7[*v10];
         v11 = CCSkipFieldErrorForMessage();
 
         dataCopy = v84;
@@ -775,22 +774,21 @@ LABEL_122:
 LABEL_128:
   if (!*&v7[*v10])
   {
-    v90 = 1;
+    v88 = 1;
     goto LABEL_132;
   }
 
 LABEL_129:
-  v87 = objc_opt_class();
-  v11 = NSStringFromClass(v87);
-  v88 = *&v7[*v10];
-  v89 = CCInvalidBufferErrorForMessage();
+  v86 = objc_opt_class();
+  v11 = NSStringFromClass(v86);
+  v87 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_130:
-  v90 = 0;
+  v88 = 0;
 LABEL_132:
 
-  return v90;
+  return v88;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueDecimalMantissa)initWithX_0:(id)x_0 x_0Type:(unsigned int)type x_1:(id)x_1 x_1Type:(unsigned int)x_1Type x_2:(id)x_2 x_2Type:(unsigned int)x_2Type x_3:(id)x_3 x_3Type:(unsigned int)self0 x_4:(id)self1 x_4Type:(unsigned int)self2 x_5:(id)self3 x_5Type:(unsigned int)self4 x_6:(id)self5 x_6Type:(unsigned int)self6 x_7:(id)self7 x_7Type:(unsigned int)self8 error:(id *)self9

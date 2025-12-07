@@ -85,8 +85,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"coordinates";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"coordinates";
   coordinates = [(CAFRouteLeg *)self coordinates];
   arrayRepresentation = [coordinates arrayRepresentation];
   null = arrayRepresentation;
@@ -95,8 +95,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"destination";
+  v15[0] = null;
+  v14[1] = @"destination";
   destination = [(CAFRouteLeg *)self destination];
   dictionaryRepresentation = [destination dictionaryRepresentation];
   null2 = dictionaryRepresentation;
@@ -105,8 +105,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"origin";
+  v15[1] = null2;
+  v14[2] = @"origin";
   origin = [(CAFRouteLeg *)self origin];
   dictionaryRepresentation2 = [origin dictionaryRepresentation];
   null3 = dictionaryRepresentation2;
@@ -115,8 +115,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v16[2] = null3;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = null3;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
   if (!dictionaryRepresentation2)
   {
   }
@@ -128,8 +128,6 @@
   if (!arrayRepresentation)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

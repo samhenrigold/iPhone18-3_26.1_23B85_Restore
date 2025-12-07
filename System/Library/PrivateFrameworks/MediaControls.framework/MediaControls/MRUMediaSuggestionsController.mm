@@ -104,34 +104,35 @@
 
 void __59__MRUMediaSuggestionsController_playSuggestion_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = MCLogCategoryDefault(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = objc_opt_class();
-      v6 = *(a1 + 40);
+      v6 = objc_opt_class();
+      v7 = *(a1 + 40);
       *buf = 138543874;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v6;
-      v14 = 2114;
-      v15 = v3;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Error trying to play suggestion: %{public}@ error: %{public}@", buf, 0x20u);
+      v12 = v6;
+      v13 = 2114;
+      v14 = v7;
+      v15 = 2114;
+      v16 = v4;
+      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Error trying to play suggestion: %{public}@ error: %{public}@", buf, 0x20u);
     }
   }
 
   if (*(a1 + 48))
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __59__MRUMediaSuggestionsController_playSuggestion_completion___block_invoke_1;
-    v7[3] = &unk_1E7663FD8;
-    v9 = *(a1 + 48);
-    v8 = v3;
-    dispatch_async(MEMORY[0x1E69E96A0], v7);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __59__MRUMediaSuggestionsController_playSuggestion_completion___block_invoke_1;
+    v8[3] = &unk_1E7663FD8;
+    v10 = *(a1 + 48);
+    v9 = v4;
+    dispatch_async(MEMORY[0x1E69E96A0], v8);
   }
 }
 
@@ -166,7 +167,7 @@ void __59__MRUMediaSuggestionsController_playSuggestion_completion___block_invok
 
 - (void)updateMediaSuggestions
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   nowPlayingInfo = [(MRUMetadataController *)self->_metadataController nowPlayingInfo];
   mediaSuggestions = [(MRUMediaSuggestionsDataSource *)self->_dataSource mediaSuggestions];
   v5 = [mediaSuggestions objectForKeyedSubscript:self->_context];
@@ -187,12 +188,12 @@ void __59__MRUMediaSuggestionsController_playSuggestion_completion___block_invok
 
   if ([(MRUEndpointController *)self->_endpointController isEndpointDiscovered])
   {
-    v30 = [(MRUEndpointController *)self->_endpointController state]== 3;
+    v31 = objc_msgSend_state(self->_endpointController) == 3;
   }
 
   else
   {
-    v30 = 0;
+    v31 = 0;
   }
 
   isDeviceLocked = [(MRULockScreenMonitor *)self->_lockscreenMonitor isDeviceLocked];
@@ -200,7 +201,7 @@ void __59__MRUMediaSuggestionsController_playSuggestion_completion___block_invok
   showPlaceholder = [nowPlayingInfo showPlaceholder];
   isQueueHandoffActive = self->_isQueueHandoffActive;
   v15 = +[MRUFeatureFlagProvider isMediaSuggestionsDevEnabled];
-  v29 = v7;
+  v30 = v7;
   v16 = !isDeviceLocked;
   v17 = v15 || v10;
   v18 = v7 >= 4 || v15;
@@ -215,7 +216,7 @@ void __59__MRUMediaSuggestionsController_playSuggestion_completion___block_invok
     v20 = isQueueHandoffActive | ~MRUseInternalUI() | ~v18;
   }
 
-  if (((v20 | isPlaying) & 1) == 0 && v30)
+  if (((v20 | isPlaying) & 1) == 0 && v31)
   {
     if ((v17 | showPlaceholder))
     {
@@ -233,33 +234,33 @@ void __59__MRUMediaSuggestionsController_playSuggestion_completion___block_invok
   if (![(NSArray *)self->_mediaSuggestions isEqualToArray:v21])
   {
     objc_storeStrong(&self->_mediaSuggestions, v19);
-    v22 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = MCLogCategoryDefault(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = objc_opt_class();
-      v24 = self->_isQueueHandoffActive;
+      v24 = objc_opt_class();
+      v25 = self->_isQueueHandoffActive;
       isPlaying2 = [nowPlayingInfo isPlaying];
       showPlaceholder2 = [nowPlayingInfo showPlaceholder];
       context = self->_context;
       *buf = 138545410;
-      v32 = v23;
-      v33 = 2048;
-      v34 = v29;
-      v35 = 1024;
-      v36 = v16;
-      v37 = 1024;
-      v38 = v24;
-      v39 = 1024;
-      v40 = isPlaying2;
-      v41 = 1024;
-      v42 = v30;
-      v43 = 1024;
-      v44 = v17;
-      v45 = 1024;
-      v46 = showPlaceholder2;
-      v47 = 2114;
-      v48 = context;
-      _os_log_impl(&dword_1A20FC000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ update media suggestions: #%lu | unlocked: %{BOOL}u | QHO: %{BOOL}u | playing: %{BOOL}u, connected: %{BOOL}u | elapsed: %{BOOL}u | placeholder: %{BOOL}u | context: %{public}@", buf, 0x44u);
+      v33 = v24;
+      v34 = 2048;
+      v35 = v30;
+      v36 = 1024;
+      v37 = v16;
+      v38 = 1024;
+      v39 = v25;
+      v40 = 1024;
+      v41 = isPlaying2;
+      v42 = 1024;
+      v43 = v31;
+      v44 = 1024;
+      v45 = v17;
+      v46 = 1024;
+      v47 = showPlaceholder2;
+      v48 = 2114;
+      v49 = context;
+      _os_log_impl(&dword_1A20FC000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ update media suggestions: #%lu | unlocked: %{BOOL}u | QHO: %{BOOL}u | playing: %{BOOL}u, connected: %{BOOL}u | elapsed: %{BOOL}u | placeholder: %{BOOL}u | context: %{public}@", buf, 0x44u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -291,36 +292,37 @@ void __59__MRUMediaSuggestionsController_playSuggestion_completion___block_invok
 
 void __53__MRUMediaSuggestionsController_updateLastPlayedDate__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = MCLogCategoryDefault(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = *(a1 + 40);
+      v9 = objc_opt_class();
+      v10 = *(a1 + 40);
       *buf = 138412802;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_ERROR, "%@, failed to get the last playing date for origin: %@, error: %@", buf, 0x20u);
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_ERROR, "%@, failed to get the last playing date for origin: %@, error: %@", buf, 0x20u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __53__MRUMediaSuggestionsController_updateLastPlayedDate__block_invoke_7;
-  v11[3] = &unk_1E7663980;
-  objc_copyWeak(&v13, (a1 + 48));
-  v12 = v5;
-  v10 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __53__MRUMediaSuggestionsController_updateLastPlayedDate__block_invoke_7;
+  v12[3] = &unk_1E7663980;
+  objc_copyWeak(&v14, (a1 + 48));
+  v13 = v5;
+  v11 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v12);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v14);
 }
 
 void __53__MRUMediaSuggestionsController_updateLastPlayedDate__block_invoke_7(uint64_t a1)

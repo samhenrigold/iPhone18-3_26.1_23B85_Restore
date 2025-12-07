@@ -118,8 +118,8 @@ LABEL_11:
   testName = [(MapsAppTest *)self testName];
   NSLog(@"test is %@", testName);
 
-  options = [(MapsAppTest *)self options];
-  v5 = [options _mapstest_mapTypeWithDefaultType:0];
+  v4 = objc_msgSend_options(self);
+  v5 = [v4 _mapstest_mapTypeWithDefaultType:0];
   self->_switchToType = v5;
   v6 = 1;
   if (!v5)

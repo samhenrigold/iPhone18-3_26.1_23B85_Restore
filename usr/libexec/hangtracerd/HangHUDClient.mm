@@ -32,9 +32,9 @@
 - (HangHUDClient)initWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v20.receiver = self;
-  v20.super_class = HangHUDClient;
-  v5 = [(HangHUDClient *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = HangHUDClient;
+  v5 = [(HangHUDClient *)&v21 init];
   if (v5)
   {
     v6 = +[HangHUDServiceSpecification machName];
@@ -43,35 +43,35 @@
     endpoint = v5->_endpoint;
     v5->_endpoint = v8;
 
-    v10 = v5->_endpoint;
-    if (v10)
+    v11 = v5->_endpoint;
+    if (v11)
     {
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_100014A58;
-      v18[3] = &unk_100055430;
-      v19 = identifierCopy;
-      v11 = [BSServiceConnection connectionWithEndpoint:v10 clientContextBuilder:v18];
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100014A58;
+      v19[3] = &unk_100055430;
+      v20 = identifierCopy;
+      v12 = [BSServiceConnection connectionWithEndpoint:v11 clientContextBuilder:v19];
       connection = v5->_connection;
-      v5->_connection = v11;
+      v5->_connection = v12;
 
-      v13 = v5->_connection;
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_100014AD0;
-      v16[3] = &unk_100055480;
-      v17 = v5;
-      [(BSServiceConnectionClient *)v13 configureConnection:v16];
+      v14 = v5->_connection;
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100014AD0;
+      v17[3] = &unk_100055480;
+      v18 = v5;
+      [(BSServiceConnectionClient *)v14 configureConnection:v17];
 
-      v14 = v19;
+      v15 = v20;
     }
 
     else
     {
-      v14 = sub_100003824();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_100003824(v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_100031ED8(v14);
+        sub_100031ED8(v15);
       }
     }
   }
@@ -97,7 +97,7 @@
 {
   infoCopy = info;
   completionCopy = completion;
-  v8 = sub_100003824();
+  v8 = sub_100003824(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100031FA0(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -106,8 +106,8 @@
   [(BSServiceConnectionClient *)self->_connection activate];
   connection = self->_connection;
   v17 = [RBSDomainAttribute attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v28 = v17;
-  v18 = [NSArray arrayWithObjects:&v28 count:1];
+  v29 = v17;
+  v18 = [NSArray arrayWithObjects:&v29 count:1];
   v19 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v18];
 
   if (v19)
@@ -117,10 +117,10 @@
 
   else
   {
-    v20 = sub_100003824();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = sub_100003824(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100032018(v20, v21, v22, v23, v24, v25, v26, v27);
+      sub_100032018(v21, v22, v23, v24, v25, v26, v27, v28);
     }
   }
 }
@@ -129,7 +129,7 @@
 {
   recordCopy = record;
   completionCopy = completion;
-  v8 = sub_100003824();
+  v8 = sub_100003824(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100032090(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -138,8 +138,8 @@
   [(BSServiceConnectionClient *)self->_connection activate];
   connection = self->_connection;
   v17 = [RBSDomainAttribute attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v28 = v17;
-  v18 = [NSArray arrayWithObjects:&v28 count:1];
+  v29 = v17;
+  v18 = [NSArray arrayWithObjects:&v29 count:1];
   v19 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v18];
 
   if (v19)
@@ -149,10 +149,10 @@
 
   else
   {
-    v20 = sub_100003824();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = sub_100003824(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100032018(v20, v21, v22, v23, v24, v25, v26, v27);
+      sub_100032018(v21, v22, v23, v24, v25, v26, v27, v28);
     }
   }
 }
@@ -161,7 +161,7 @@
 {
   configurationCopy = configuration;
   completionCopy = completion;
-  v8 = sub_100003824();
+  v8 = sub_100003824(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100032108(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -170,8 +170,8 @@
   [(BSServiceConnectionClient *)self->_connection activate];
   connection = self->_connection;
   v17 = [RBSDomainAttribute attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v28 = v17;
-  v18 = [NSArray arrayWithObjects:&v28 count:1];
+  v29 = v17;
+  v18 = [NSArray arrayWithObjects:&v29 count:1];
   v19 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v18];
 
   if (v19)
@@ -181,10 +181,10 @@
 
   else
   {
-    v20 = sub_100003824();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = sub_100003824(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100032018(v20, v21, v22, v23, v24, v25, v26, v27);
+      sub_100032018(v21, v22, v23, v24, v25, v26, v27, v28);
     }
   }
 }
@@ -193,7 +193,7 @@
 {
   statesCopy = states;
   completionCopy = completion;
-  v8 = sub_100003824();
+  v8 = sub_100003824(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100032180(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -202,8 +202,8 @@
   [(BSServiceConnectionClient *)self->_connection activate];
   connection = self->_connection;
   v17 = [RBSDomainAttribute attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v28 = v17;
-  v18 = [NSArray arrayWithObjects:&v28 count:1];
+  v29 = v17;
+  v18 = [NSArray arrayWithObjects:&v29 count:1];
   v19 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v18];
 
   if (v19)
@@ -213,10 +213,10 @@
 
   else
   {
-    v20 = sub_100003824();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = sub_100003824(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100032018(v20, v21, v22, v23, v24, v25, v26, v27);
+      sub_100032018(v21, v22, v23, v24, v25, v26, v27, v28);
     }
   }
 }
@@ -224,7 +224,7 @@
 - (void)clearHUDWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100003824();
+  v5 = sub_100003824(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000321F8(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -233,8 +233,8 @@
   [(BSServiceConnectionClient *)self->_connection activate];
   connection = self->_connection;
   v14 = [RBSDomainAttribute attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v25 = v14;
-  v15 = [NSArray arrayWithObjects:&v25 count:1];
+  v26 = v14;
+  v15 = [NSArray arrayWithObjects:&v26 count:1];
   v16 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v15];
 
   if (v16)
@@ -244,10 +244,10 @@
 
   else
   {
-    v17 = sub_100003824();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sub_100003824(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_100032018(v17, v18, v19, v20, v21, v22, v23, v24);
+      sub_100032018(v18, v19, v20, v21, v22, v23, v24, v25);
     }
   }
 }

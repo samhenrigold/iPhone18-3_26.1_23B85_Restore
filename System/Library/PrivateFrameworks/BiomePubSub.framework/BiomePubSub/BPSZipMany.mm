@@ -77,7 +77,7 @@
 
 - (id)_tryConstructResultArray
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   bufferResultCount = [(BPSZipMany *)self bufferResultCount];
   publishers = [(BPSZipMany *)self publishers];
   v5 = [publishers count];
@@ -85,26 +85,26 @@
   if (bufferResultCount == v5)
   {
     v6 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     buffer = [(BPSZipMany *)self buffer];
-    v8 = [buffer countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [buffer countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(buffer);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
+          v12 = *(*(&v17 + 1) + 8 * i);
           null = [MEMORY[0x1E695DFB0] null];
           v14 = [v12 isEqual:null];
 
@@ -118,7 +118,7 @@
           [v6 addObject:v12];
         }
 
-        v9 = [buffer countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [buffer countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v9)
         {
           continue;
@@ -137,8 +137,6 @@ LABEL_13:
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -204,33 +202,33 @@ LABEL_13:
 
 - (BOOL)completed
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   publishers = [(BPSZipMany *)self publishers];
-  v3 = [publishers countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [publishers countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(publishers);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) completed])
+        if ([*(*(&v7 + 1) + 8 * i) completed])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [publishers countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [publishers countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -242,7 +240,6 @@ LABEL_13:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

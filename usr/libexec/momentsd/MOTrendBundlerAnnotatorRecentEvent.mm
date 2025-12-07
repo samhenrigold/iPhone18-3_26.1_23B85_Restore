@@ -207,15 +207,15 @@ LABEL_33:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v129 = "[MOTrendBundlerAnnotatorRecentEvent _annotateEvents:withSourceEventForSet:]";
-    v130 = 2048;
-    v131 = [eventsCopy count];
+    v126 = "[MOTrendBundlerAnnotatorRecentEvent _annotateEvents:withSourceEventForSet:]";
+    v127 = 2048;
+    v128 = [eventsCopy count];
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s, event count, %lu", buf, 0x16u);
   }
 
   if (![eventsCopy count] || !objc_msgSend(setCopy, "count"))
   {
-    v30 = 0;
+    v29 = 0;
     goto LABEL_69;
   }
 
@@ -227,13 +227,13 @@ LABEL_33:
   firstObject = [setCopy firstObject];
   category = [firstObject category];
 
-  v99 = v10;
+  v96 = v10;
   if (category == 2)
   {
     [(MOEventBundle *)v10 setBundleSuperType:2];
     [(MOEventBundle *)v10 setBundleSubType:203];
     [NSPredicate predicateWithFormat:@"%K = %lu", @"provider", 5];
-    v98 = v96 = eventsCopy;
+    v95 = v93 = eventsCopy;
     v13 = [eventsCopy filteredArrayUsingPredicate:?];
     if ([v13 count])
     {
@@ -242,210 +242,205 @@ LABEL_33:
       [(MOEventBundle *)v10 setAction:v15];
     }
 
-    v110 = v13;
-    v104 = objc_opt_new();
+    v107 = v13;
+    v101 = objc_opt_new();
     [setCopy valueForKeyPath:@"@distinctUnionOfObjects.workoutType"];
-    v124 = 0u;
-    v125 = 0u;
-    v126 = 0u;
-    obj = v127 = 0u;
-    v16 = [obj countByEnumeratingWithState:&v124 objects:v138 count:16];
+    v121 = 0u;
+    v122 = 0u;
+    v123 = 0u;
+    obj = v124 = 0u;
+    v16 = [obj countByEnumeratingWithState:&v121 objects:v135 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v125;
+      v18 = *v122;
       do
       {
         for (i = 0; i != v17; i = i + 1)
         {
-          if (*v125 != v18)
+          if (*v122 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = [NSPredicate predicateWithFormat:@"%K = %@", @"workoutType", *(*(&v124 + 1) + 8 * i)];
+          v20 = [NSPredicate predicateWithFormat:@"%K = %@", @"workoutType", *(*(&v121 + 1) + 8 * i)];
           v21 = [setCopy filteredArrayUsingPredicate:v20];
           v22 = setCopy;
           v23 = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:0];
-          v137 = v23;
-          v24 = [NSArray arrayWithObjects:&v137 count:1];
+          v134 = v23;
+          v24 = [NSArray arrayWithObjects:&v134 count:1];
           v25 = [v21 sortedArrayUsingDescriptors:v24];
 
           firstObject2 = [v25 firstObject];
-          [v104 addObject:firstObject2];
+          [v101 addObject:firstObject2];
 
           setCopy = v22;
         }
 
-        v17 = [obj countByEnumeratingWithState:&v124 objects:v138 count:16];
+        v17 = [obj countByEnumeratingWithState:&v121 objects:v135 count:16];
       }
 
       while (v17);
     }
 
-    resources = [(MOEventBundle *)v99 resources];
+    resources = [(MOEventBundle *)v96 resources];
     if (resources)
     {
-      resources2 = [(MOEventBundle *)v99 resources];
-      v108 = [resources2 mutableCopy];
-
-      v29 = &GEOPOICategoryGasStation_ptr;
+      resources2 = [(MOEventBundle *)v96 resources];
+      v105 = [resources2 mutableCopy];
     }
 
     else
     {
-      v29 = &GEOPOICategoryGasStation_ptr;
-      v108 = objc_opt_new();
+      v105 = objc_opt_new();
     }
 
-    v58 = v29[233];
-    v59 = objc_opt_new();
-    v60 = v29[233];
-    v61 = objc_opt_new();
+    v57 = objc_opt_new();
+    v58 = objc_opt_new();
+    v117 = 0u;
+    v118 = 0u;
+    v119 = 0u;
     v120 = 0u;
-    v121 = 0u;
-    v122 = 0u;
-    v123 = 0u;
-    v39 = v110;
-    v62 = [v39 countByEnumeratingWithState:&v120 objects:v136 count:16];
-    if (v62)
+    v38 = v107;
+    v59 = [v38 countByEnumeratingWithState:&v117 objects:v133 count:16];
+    if (v59)
     {
-      v63 = v62;
-      v64 = *v121;
-      v106 = v61;
-      v107 = v59;
-      v100 = *v121;
-      v101 = v39;
+      v60 = v59;
+      v61 = *v118;
+      v103 = v58;
+      v104 = v57;
+      v97 = *v118;
+      v98 = v38;
       do
       {
-        v65 = 0;
-        v102 = v63;
+        v62 = 0;
+        v99 = v60;
         do
         {
-          if (*v121 != v64)
+          if (*v118 != v61)
           {
-            objc_enumerationMutation(v39);
+            objc_enumerationMutation(v38);
           }
 
-          v66 = *(*(&v120 + 1) + 8 * v65);
-          if ([v66 category] == 2)
+          v63 = *(*(&v117 + 1) + 8 * v62);
+          if ([v63 category] == 2)
           {
-            [v66 patterns];
-            v67 = v105 = v65;
-            v68 = [v67 objectForKey:@"kEventResourcePatternWorkoutInfoDictArray"];
+            [v63 patterns];
+            v64 = v102 = v62;
+            v65 = [v64 objectForKey:@"kEventResourcePatternWorkoutInfoDictArray"];
 
-            v65 = v105;
-            if (v68)
+            v62 = v102;
+            if (v65)
             {
-              v118 = 0u;
-              v119 = 0u;
+              v115 = 0u;
               v116 = 0u;
-              v117 = 0u;
-              patterns = [v66 patterns];
-              v70 = [patterns objectForKeyedSubscript:@"kEventResourcePatternWorkoutInfoDictArray"];
+              v113 = 0u;
+              v114 = 0u;
+              patterns = [v63 patterns];
+              v67 = [patterns objectForKeyedSubscript:@"kEventResourcePatternWorkoutInfoDictArray"];
 
-              v109 = v70;
-              v71 = [v70 countByEnumeratingWithState:&v116 objects:v135 count:16];
-              if (v71)
+              v106 = v67;
+              v68 = [v67 countByEnumeratingWithState:&v113 objects:v132 count:16];
+              if (v68)
               {
-                v72 = v71;
-                v73 = *v117;
+                v69 = v68;
+                v70 = *v114;
                 do
                 {
-                  for (j = 0; j != v72; j = j + 1)
+                  for (j = 0; j != v69; j = j + 1)
                   {
-                    if (*v117 != v73)
+                    if (*v114 != v70)
                     {
-                      objc_enumerationMutation(v109);
+                      objc_enumerationMutation(v106);
                     }
 
-                    v75 = *(*(&v116 + 1) + 8 * j);
-                    v76 = [v75 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIdentifierFromProvider"];
-                    if ([(MOTrendBundlerAnnotatorRecentEvent *)self _isStringUnique:v76 inThis:v59])
+                    v72 = *(*(&v113 + 1) + 8 * j);
+                    v73 = [v72 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIdentifierFromProvider"];
+                    if ([(MOTrendBundlerAnnotatorRecentEvent *)self _isStringUnique:v73 inThis:v57])
                     {
-                      [v59 addObject:v76];
-                      v77 = objc_opt_new();
-                      v78 = [v75 objectForKeyedSubscript:@"kEventResourcePatternWorkoutStartDate"];
-                      [v77 setObject:v78 forKey:@"MOWorkoutMetaDataKeyStartDate"];
+                      [v57 addObject:v73];
+                      v74 = objc_opt_new();
+                      v75 = [v72 objectForKeyedSubscript:@"kEventResourcePatternWorkoutStartDate"];
+                      [v74 setObject:v75 forKey:@"MOWorkoutMetaDataKeyStartDate"];
 
-                      v79 = [v75 objectForKeyedSubscript:@"kEventResourcePatternWorkoutEndDate"];
-                      [v77 setObject:v79 forKey:@"MOWorkoutMetaDataKeyEndDate"];
+                      v76 = [v72 objectForKeyedSubscript:@"kEventResourcePatternWorkoutEndDate"];
+                      [v74 setObject:v76 forKey:@"MOWorkoutMetaDataKeyEndDate"];
 
-                      v80 = [v75 objectForKeyedSubscript:@"kEventResourcePatternWorkoutType"];
-                      [v77 setObject:v80 forKey:@"MOWorkoutMetaDataKeyActivityType"];
+                      v77 = [v72 objectForKeyedSubscript:@"kEventResourcePatternWorkoutType"];
+                      [v74 setObject:v77 forKey:@"MOWorkoutMetaDataKeyActivityType"];
 
-                      v81 = [v75 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIsIndoors"];
+                      v78 = [v72 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIsIndoors"];
 
-                      if (v81)
+                      if (v78)
                       {
-                        v82 = [v75 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIsIndoors"];
-                        [v77 setObject:v82 forKey:@"MOWorkoutMetaDataKeyIsIndoors"];
+                        v79 = [v72 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIsIndoors"];
+                        [v74 setObject:v79 forKey:@"MOWorkoutMetaDataKeyIsIndoors"];
                       }
 
                       else
                       {
-                        [v77 setObject:&__kCFBooleanFalse forKey:@"MOWorkoutMetaDataKeyIsIndoors"];
+                        [v74 setObject:&__kCFBooleanFalse forKey:@"MOWorkoutMetaDataKeyIsIndoors"];
                       }
 
-                      [v77 setObject:v76 forKey:@"MOWorkoutMetaDataKeyWorkoutID"];
-                      v83 = [[MOResource alloc] initWithName:@"Workout" type:10 dict:v77 value:0.0];
-                      allKeys = [v77 allKeys];
-                      v85 = [allKeys containsObject:@"kEventResourcePatternWorkoutIdentifierFromProvider"];
+                      [v74 setObject:v73 forKey:@"MOWorkoutMetaDataKeyWorkoutID"];
+                      v80 = [[MOResource alloc] initWithName:@"Workout" type:10 dict:v74 value:0.0];
+                      allKeys = [v74 allKeys];
+                      v82 = [allKeys containsObject:@"kEventResourcePatternWorkoutIdentifierFromProvider"];
 
-                      if (v85)
+                      if (v82)
                       {
-                        v86 = [v77 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIdentifierFromProvider"];
-                        [(MOResource *)v83 setSourceEventIdentifier:v86];
+                        v83 = [v74 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIdentifierFromProvider"];
+                        [(MOResource *)v80 setSourceEventIdentifier:v83];
                       }
 
-                      [v108 addObject:v83];
-                      v87 = [MOAction alloc];
-                      v88 = [v75 objectForKeyedSubscript:@"kEventResourcePatternWorkoutType"];
-                      v89 = [(MOAction *)v87 initWithActionName:v88 actionType:4];
+                      [v105 addObject:v80];
+                      v84 = [MOAction alloc];
+                      v85 = [v72 objectForKeyedSubscript:@"kEventResourcePatternWorkoutType"];
+                      v86 = [(MOAction *)v84 initWithActionName:v85 actionType:4];
 
-                      v90 = [v77 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIdentifierFromProvider"];
-                      [(MOAction *)v89 setSourceEventIdentifier:v90];
+                      v87 = [v74 objectForKeyedSubscript:@"kEventResourcePatternWorkoutIdentifierFromProvider"];
+                      [(MOAction *)v86 setSourceEventIdentifier:v87];
 
-                      v61 = v106;
-                      [v106 addObject:v89];
+                      v58 = v103;
+                      [v103 addObject:v86];
 
-                      v59 = v107;
+                      v57 = v104;
                     }
                   }
 
-                  v72 = [v109 countByEnumeratingWithState:&v116 objects:v135 count:16];
+                  v69 = [v106 countByEnumeratingWithState:&v113 objects:v132 count:16];
                 }
 
-                while (v72);
+                while (v69);
               }
 
-              v64 = v100;
-              v39 = v101;
-              v63 = v102;
-              v65 = v105;
+              v61 = v97;
+              v38 = v98;
+              v60 = v99;
+              v62 = v102;
             }
           }
 
-          v65 = v65 + 1;
+          v62 = v62 + 1;
         }
 
-        while (v65 != v63);
-        v63 = [v39 countByEnumeratingWithState:&v120 objects:v136 count:16];
+        while (v62 != v60);
+        v60 = [v38 countByEnumeratingWithState:&v117 objects:v133 count:16];
       }
 
-      while (v63);
+      while (v60);
     }
 
-    [(MOTrendBundlerAnnotatorRecentEvent *)self _assignResourcePriorityScore:v108];
-    v57 = v99;
-    [(MOEventBundle *)v99 setResources:v108];
-    if ([v61 count])
+    [(MOTrendBundlerAnnotatorRecentEvent *)self _assignResourcePriorityScore:v105];
+    v56 = v96;
+    [(MOEventBundle *)v96 setResources:v105];
+    if ([v58 count])
     {
-      [(MOEventBundle *)v99 setActions:v61];
+      [(MOEventBundle *)v96 setActions:v58];
     }
 
-    eventsCopy = v96;
-    v40 = v104;
+    eventsCopy = v93;
+    v39 = v101;
     goto LABEL_64;
   }
 
@@ -456,8 +451,8 @@ LABEL_33:
   {
     [(MOEventBundle *)v10 setBundleSuperType:3];
     [(MOEventBundle *)v10 setBundleSubType:303];
-    v33 = [[MOAction alloc] initWithActionName:@"Conversations" actionType:1 actionSubtype:4];
-    [(MOEventBundle *)v10 setAction:v33];
+    v32 = [[MOAction alloc] initWithActionName:@"Conversations" actionType:1 actionSubtype:4];
+    [(MOEventBundle *)v10 setAction:v32];
 
     firstObject4 = [setCopy firstObject];
     eventIdentifier = [firstObject4 eventIdentifier];
@@ -465,111 +460,111 @@ LABEL_33:
     [action setSourceEventIdentifier:eventIdentifier];
 
     firstObject5 = [setCopy firstObject];
-    v38 = [(MOTrendBundlerAnnotatorRecentEvent *)self _personsFromEvent:firstObject5];
-    [(MOEventBundle *)v10 setPersons:v38];
+    v37 = [(MOTrendBundlerAnnotatorRecentEvent *)self _personsFromEvent:firstObject5];
+    [(MOEventBundle *)v10 setPersons:v37];
 
-    v98 = [NSPredicate predicateWithFormat:@"%K = %lu", @"provider", 5];
-    v39 = [eventsCopy filteredArrayUsingPredicate:?];
-    if (![v39 count])
+    v95 = [NSPredicate predicateWithFormat:@"%K = %lu", @"provider", 5];
+    v38 = [eventsCopy filteredArrayUsingPredicate:?];
+    if (![v38 count])
     {
-      v57 = v10;
+      v56 = v10;
 LABEL_65:
 
-      v91 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleManager);
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
+      v88 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleManager);
+      if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
       {
         firstObject6 = [setCopy firstObject];
         category3 = [firstObject6 category];
         *buf = 136315650;
-        v129 = "[MOTrendBundlerAnnotatorRecentEvent _annotateEvents:withSourceEventForSet:]";
-        v130 = 2112;
-        v131 = v99;
-        v132 = 2048;
-        v133 = category3;
-        _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_INFO, "%s, bundle, %@, event category, %lu", buf, 0x20u);
+        v126 = "[MOTrendBundlerAnnotatorRecentEvent _annotateEvents:withSourceEventForSet:]";
+        v127 = 2112;
+        v128 = v96;
+        v129 = 2048;
+        v130 = category3;
+        _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "%s, bundle, %@, event category, %lu", buf, 0x20u);
 
-        v57 = v99;
+        v56 = v96;
       }
 
-      v30 = v57;
+      v29 = v56;
       goto LABEL_68;
     }
 
-    v114 = 0u;
-    v115 = 0u;
+    v111 = 0u;
     v112 = 0u;
-    v113 = 0u;
-    v40 = v39;
-    v41 = [v40 countByEnumeratingWithState:&v112 objects:v134 count:16];
-    if (v41)
+    v109 = 0u;
+    v110 = 0u;
+    v39 = v38;
+    v40 = [v39 countByEnumeratingWithState:&v109 objects:v131 count:16];
+    if (v40)
     {
-      v42 = v41;
-      v95 = setCopy;
-      v97 = eventsCopy;
-      v43 = *v113;
+      v41 = v40;
+      v92 = setCopy;
+      v94 = eventsCopy;
+      v42 = *v110;
       do
       {
-        for (k = 0; k != v42; k = k + 1)
+        for (k = 0; k != v41; k = k + 1)
         {
-          if (*v113 != v43)
+          if (*v110 != v42)
           {
-            objc_enumerationMutation(v40);
+            objc_enumerationMutation(v39);
           }
 
-          v45 = *(*(&v112 + 1) + 8 * k);
-          patterns2 = [v45 patterns];
-          v47 = [patterns2 objectForKeyedSubscript:@"kEventPatternType"];
-          intValue = [v47 intValue];
+          v44 = *(*(&v109 + 1) + 8 * k);
+          patterns2 = [v44 patterns];
+          v46 = [patterns2 objectForKeyedSubscript:@"kEventPatternType"];
+          intValue = [v46 intValue];
 
           if (intValue == 1)
           {
-            patterns3 = [v45 patterns];
-            v50 = [patterns3 objectForKeyedSubscript:@"kEventPatternTrendFeatureType"];
-            intValue2 = [v50 intValue];
+            patterns3 = [v44 patterns];
+            v49 = [patterns3 objectForKeyedSubscript:@"kEventPatternTrendFeatureType"];
+            intValue2 = [v49 intValue];
 
             if (intValue2 == 2)
             {
-              patterns4 = [v45 patterns];
-              v53 = [patterns4 objectForKeyedSubscript:@"kEventPatternTrendNumFeatures"];
-              [v53 doubleValue];
-              v55 = v54;
+              patterns4 = [v44 patterns];
+              v52 = [patterns4 objectForKeyedSubscript:@"kEventPatternTrendNumFeatures"];
+              [v52 doubleValue];
+              v54 = v53;
               maximumFeatureCountForFrequencyTrend = self->_maximumFeatureCountForFrequencyTrend;
 
-              if (v55 > maximumFeatureCountForFrequencyTrend)
+              if (v54 > maximumFeatureCountForFrequencyTrend)
               {
-                [(MOEventBundle *)v99 setIsAggregatedAndSuppressed:1];
+                [(MOEventBundle *)v96 setIsAggregatedAndSuppressed:1];
               }
             }
           }
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v112 objects:v134 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v109 objects:v131 count:16];
       }
 
-      while (v42);
-      v39 = v40;
-      setCopy = v95;
-      eventsCopy = v97;
+      while (v41);
+      v38 = v39;
+      setCopy = v92;
+      eventsCopy = v94;
     }
 
     else
     {
-      v39 = v40;
+      v38 = v39;
     }
 
-    v57 = v99;
+    v56 = v96;
 LABEL_64:
 
     goto LABEL_65;
   }
 
-  v30 = 0;
-  v57 = v10;
+  v29 = 0;
+  v56 = v10;
 LABEL_68:
 
 LABEL_69:
 
-  return v30;
+  return v29;
 }
 
 - (void)_assignResourcePriorityScore:(id)score

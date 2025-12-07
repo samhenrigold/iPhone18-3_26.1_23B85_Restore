@@ -179,7 +179,7 @@ void __75__EKCalendarEditor_initWithCalendar_eventStore_entityType_limitedToSour
 - (void)_updateAppEntityAnnotationsIfNeeded
 {
   calendar = [(EKAbstractCalendarEditor *)self calendar];
-  if (CalendarLinkLibraryCore() && calendar && ([calendar isNew] & 1) == 0)
+  if (CalendarLinkLibraryCore(0) && calendar && ([calendar isNew] & 1) == 0)
   {
     view = [(EKCalendarEditor *)self view];
     [view Cal_annotateWithCalendar:calendar];

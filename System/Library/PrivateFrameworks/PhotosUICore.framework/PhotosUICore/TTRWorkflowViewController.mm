@@ -86,7 +86,7 @@
 {
   selfCopy = self;
   viewControllers = [(TTRWorkflowViewController *)selfCopy viewControllers];
-  sub_1A3C52C70(0, &qword_1EB126B10);
+  sub_1A3C52C70(0, &qword_1EB126B10, 0x1E69DD258);
   v5 = sub_1A524CA34();
 
   if (v5 >> 62)

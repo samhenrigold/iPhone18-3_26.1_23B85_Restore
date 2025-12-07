@@ -16,143 +16,143 @@
 
 - (BOOL)extractToBatch:(id)batch maximumCount:(unint64_t)count maximumResourceSize:(unint64_t)size error:(id *)error
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v119 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
-  v113 = 0;
-  v114 = &v113;
-  v115 = 0x2020000000;
-  v116 = 1;
-  v107 = 0;
-  v108 = &v107;
-  v109 = 0x3032000000;
-  v110 = __Block_byref_object_copy__13768;
-  v111 = __Block_byref_object_dispose__13769;
   v112 = 0;
+  v113 = &v112;
+  v114 = 0x2020000000;
+  v115 = 1;
+  v106 = 0;
+  v107 = &v106;
+  v108 = 0x3032000000;
+  v109 = __Block_byref_object_copy__13768;
+  v110 = __Block_byref_object_dispose__13769;
+  v111 = 0;
   maximumCount = self->_maximumCount;
   if (maximumCount >= count)
   {
     maximumCount = count;
   }
 
-  v67 = maximumCount;
+  v66 = maximumCount;
   selfCopy = self;
   storage = [(CPLBatchExtractionStep *)self storage];
   sizeCopy = size;
-  v57 = a2;
+  v56 = a2;
   v11 = objc_opt_class();
   scopeIdentifier = [(CPLBatchExtractionStep *)self scopeIdentifier];
   v13 = [storage allChangesWithClass:v11 scopeIdentifier:scopeIdentifier changeType:0];
 
-  v73 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
+  v72 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v104 = 0u;
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   obj = v13;
-  v14 = [obj countByEnumeratingWithState:&v103 objects:v119 count:16];
+  v14 = [obj countByEnumeratingWithState:&v102 objects:v118 count:16];
   if (v14)
   {
-    v68 = *v104;
+    v67 = *v103;
     do
     {
       v15 = 0;
-      v69 = v14;
+      v68 = v14;
       do
       {
-        if (*v104 != v68)
+        if (*v103 != v67)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v103 + 1) + 8 * v15);
+        v16 = *(*(&v102 + 1) + 8 * v15);
         v17 = objc_autoreleasePoolPush();
         scopedIdentifier = [v16 scopedIdentifier];
-        if (([v73 containsObject:scopedIdentifier] & 1) == 0)
+        if (([v72 containsObject:scopedIdentifier] & 1) == 0)
         {
-          [v73 addObject:scopedIdentifier];
+          [v72 addObject:scopedIdentifier];
           masterScopedIdentifier = [v16 masterScopedIdentifier];
-          v71 = masterScopedIdentifier;
-          if (masterScopedIdentifier && ((-[NSMutableSet containsObject:](selfCopy->_alreadySeenMasterScopedIdentifiers, "containsObject:", masterScopedIdentifier) & 1) == 0 ? ([storage changeWithScopedIdentifier:v71], v72 = objc_claimAutoreleasedReturnValue()) : (v72 = 0), -[NSMutableSet addObject:](selfCopy->_alreadySeenMasterScopedIdentifiers, "addObject:", v71), v72))
+          v70 = masterScopedIdentifier;
+          if (masterScopedIdentifier && ((-[NSMutableSet containsObject:](selfCopy->_alreadySeenMasterScopedIdentifiers, "containsObject:", masterScopedIdentifier) & 1) == 0 ? ([storage changeWithScopedIdentifier:v70], v71 = objc_claimAutoreleasedReturnValue()) : (v71 = 0), -[NSMutableSet addObject:](selfCopy->_alreadySeenMasterScopedIdentifiers, "addObject:", v70), v71))
           {
-            if ([v72 isFullRecord])
+            if ([v71 isFullRecord])
             {
-              v98 = 0;
-              v99 = &v98;
-              v100 = 0x2020000000;
-              v21 = v72;
-              v101 = [v72 effectiveResourceSizeToUploadUsingStorage:storage];
-              v61 = v67 - 1;
-              if (v67 == 1)
+              v97 = 0;
+              v98 = &v97;
+              v99 = 0x2020000000;
+              v21 = v71;
+              v100 = [v71 effectiveResourceSizeToUploadUsingStorage:storage];
+              v60 = v66 - 1;
+              if (v66 == 1)
               {
-                [(NSMutableSet *)selfCopy->_alreadySeenMasterScopedIdentifiers removeObject:v71];
+                [(NSMutableSet *)selfCopy->_alreadySeenMasterScopedIdentifiers removeObject:v70];
                 [batchCopy setFull:1];
                 v19 = 2;
-                v67 = 1;
+                v66 = 1;
               }
 
               else
               {
-                v94 = 0;
-                v95 = &v94;
-                v96 = 0x2020000000;
-                v97 = 0;
+                v93 = 0;
+                v94 = &v93;
+                v95 = 0x2020000000;
+                v96 = 0;
                 v22 = objc_alloc(MEMORY[0x1E695DF70]);
-                if (v61 >= 0x64)
+                if (v60 >= 0x64)
                 {
                   v23 = 100;
                 }
 
                 else
                 {
-                  v23 = v67 - 1;
+                  v23 = v66 - 1;
                 }
 
                 v24 = [v22 initWithCapacity:v23];
-                v85[0] = MEMORY[0x1E69E9820];
-                v85[1] = 3221225472;
-                v85[2] = __83__CPLNewAssetExtractionStep_extractToBatch_maximumCount_maximumResourceSize_error___block_invoke;
-                v85[3] = &unk_1E861DCB0;
-                v89 = &v107;
-                v90 = &v113;
-                v86 = v73;
-                v60 = v24;
-                v87 = v60;
-                v91 = &v98;
-                v62 = storage;
-                v88 = v62;
-                v92 = &v94;
-                v93 = v67 - 1;
-                v65 = MEMORY[0x1E128EBA0](v85);
-                if ((v65)[2](v65, scopedIdentifier, v16))
+                v84[0] = MEMORY[0x1E69E9820];
+                v84[1] = 3221225472;
+                v84[2] = __83__CPLNewAssetExtractionStep_extractToBatch_maximumCount_maximumResourceSize_error___block_invoke;
+                v84[3] = &unk_1E861DCB0;
+                v88 = &v106;
+                v89 = &v112;
+                v85 = v72;
+                v59 = v24;
+                v86 = v59;
+                v90 = &v97;
+                v61 = storage;
+                v87 = v61;
+                v91 = &v93;
+                v92 = v66 - 1;
+                v64 = MEMORY[0x1E128EBA0](v84);
+                if ((v64)[2](v64, scopedIdentifier, v16))
                 {
-                  v83 = 0u;
-                  v84 = 0u;
-                  v81 = 0u;
                   v82 = 0u;
-                  v25 = [v62 allChangesWithClass:objc_opt_class() relatedScopedIdentifier:v71];
-                  v26 = [v25 countByEnumeratingWithState:&v81 objects:v118 count:16];
+                  v83 = 0u;
+                  v80 = 0u;
+                  v81 = 0u;
+                  v25 = [v61 allChangesWithClass:objc_opt_class() relatedScopedIdentifier:v70];
+                  v26 = [v25 countByEnumeratingWithState:&v80 objects:v117 count:16];
                   if (v26)
                   {
-                    v27 = *v82;
+                    v27 = *v81;
                     while (2)
                     {
                       for (i = 0; i != v26; ++i)
                       {
-                        if (*v82 != v27)
+                        if (*v81 != v27)
                         {
                           objc_enumerationMutation(v25);
                         }
 
-                        v29 = *(*(&v81 + 1) + 8 * i);
+                        v29 = *(*(&v80 + 1) + 8 * i);
                         scopedIdentifier2 = [v29 scopedIdentifier];
-                        if (([scopedIdentifier2 isEqual:scopedIdentifier] & 1) == 0 && ((v65)[2](v65, scopedIdentifier2, v29) & 1) == 0)
+                        if (([scopedIdentifier2 isEqual:scopedIdentifier] & 1) == 0 && ((v64)[2](v64, scopedIdentifier2, v29) & 1) == 0)
                         {
 
                           goto LABEL_40;
                         }
                       }
 
-                      v26 = [v25 countByEnumeratingWithState:&v81 objects:v118 count:16];
+                      v26 = [v25 countByEnumeratingWithState:&v80 objects:v117 count:16];
                       if (v26)
                       {
                         continue;
@@ -165,12 +165,12 @@
 LABEL_40:
                 }
 
-                if (*(v114 + 24) != 1)
+                if (*(v113 + 24) != 1)
                 {
                   goto LABEL_66;
                 }
 
-                if (v95[3] <= v61)
+                if (v94[3] <= v60)
                 {
                   goto LABEL_45;
                 }
@@ -181,14 +181,14 @@ LABEL_40:
                 if (!v34)
                 {
 LABEL_47:
-                  [(NSMutableSet *)selfCopy->_alreadySeenMasterScopedIdentifiers removeObject:v71];
+                  [(NSMutableSet *)selfCopy->_alreadySeenMasterScopedIdentifiers removeObject:v70];
                   [batchCopy setFull:1];
                   goto LABEL_66;
                 }
 
-                [v60 removeLastObject];
+                [v59 removeLastObject];
 LABEL_45:
-                v35 = v99[3];
+                v35 = v98[3];
                 v36 = sizeCopy;
                 if (v35 > sizeCopy)
                 {
@@ -200,7 +200,7 @@ LABEL_45:
                     goto LABEL_47;
                   }
 
-                  v35 = v99[3];
+                  v35 = v98[3];
                   v36 = sizeCopy;
                 }
 
@@ -212,42 +212,42 @@ LABEL_45:
                 }
 
                 sizeCopy = v40;
-                [batchCopy addChange:v72 fromStorage:v62];
-                v41 = (v108 + 5);
-                v80 = v108[5];
-                v42 = [v62 removeChange:v72 error:&v80];
-                objc_storeStrong(v41, v80);
-                *(v114 + 24) = v42;
+                [batchCopy addChange:v71 fromStorage:v61];
+                v41 = (v107 + 5);
+                v79 = v107[5];
+                v42 = [v61 removeChange:v71 error:&v79];
+                objc_storeStrong(v41, v79);
+                *(v113 + 24) = v42;
                 if (!v42)
                 {
                   goto LABEL_66;
                 }
 
-                v78 = 0u;
-                v79 = 0u;
-                v76 = 0u;
                 v77 = 0u;
-                v43 = v60;
-                v44 = [v43 countByEnumeratingWithState:&v76 objects:v117 count:16];
+                v78 = 0u;
+                v75 = 0u;
+                v76 = 0u;
+                v43 = v59;
+                v44 = [v43 countByEnumeratingWithState:&v75 objects:v116 count:16];
                 if (v44)
                 {
-                  v45 = *v77;
+                  v45 = *v76;
 LABEL_54:
                   v46 = 0;
                   while (1)
                   {
-                    if (*v77 != v45)
+                    if (*v76 != v45)
                     {
                       objc_enumerationMutation(v43);
                     }
 
-                    v47 = *(*(&v76 + 1) + 8 * v46);
-                    [batchCopy addChange:v47 fromStorage:v62];
-                    v48 = (v108 + 5);
-                    v75 = v108[5];
-                    LOBYTE(v47) = [v62 removeChange:v47 error:&v75];
-                    objc_storeStrong(v48, v75);
-                    *(v114 + 24) = v47;
+                    v47 = *(*(&v75 + 1) + 8 * v46);
+                    [batchCopy addChange:v47 fromStorage:v61];
+                    v48 = (v107 + 5);
+                    v74 = v107[5];
+                    LOBYTE(v47) = [v61 removeChange:v47 error:&v74];
+                    objc_storeStrong(v48, v74);
+                    *(v113 + 24) = v47;
                     if ((v47 & 1) == 0)
                     {
                       break;
@@ -255,7 +255,7 @@ LABEL_54:
 
                     if (v44 == ++v46)
                     {
-                      v44 = [v43 countByEnumeratingWithState:&v76 objects:v117 count:16];
+                      v44 = [v43 countByEnumeratingWithState:&v75 objects:v116 count:16];
                       if (v44)
                       {
                         goto LABEL_54;
@@ -266,31 +266,31 @@ LABEL_54:
                   }
                 }
 
-                if (v114[3])
+                if (v113[3])
                 {
-                  if (v95[3] >= v61 || sizeCopy >> 11 <= 4)
+                  if (v94[3] >= v60 || sizeCopy >> 11 <= 4)
                   {
                     [batchCopy setFull:1];
                     goto LABEL_66;
                   }
 
                   v50 = [v43 count];
-                  v67 = v61 - v50;
-                  if (v61 == v50)
+                  v66 = v60 - v50;
+                  if (v60 == v50)
                   {
                     if ((_CPLSilentLogging & 1) == 0)
                     {
-                      v54 = __CPLGenericOSLogDomain();
-                      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+                      v53 = __CPLGenericOSLogDomain();
+                      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 0;
-                        _os_log_impl(&dword_1DC05A000, v54, OS_LOG_TYPE_ERROR, "Batch should have at least one place left", buf, 2u);
+                        _os_log_impl(&dword_1DC05A000, v53, OS_LOG_TYPE_ERROR, "Batch should have at least one place left", buf, 2u);
                       }
                     }
 
                     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-                    v56 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLBatchExtractionStep.m"];
-                    [currentHandler handleFailureInMethod:v57 object:selfCopy file:v56 lineNumber:543 description:@"Batch should have at least one place left"];
+                    v55 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLBatchExtractionStep.m"];
+                    [currentHandler handleFailureInMethod:v56 object:selfCopy file:v55 lineNumber:543 description:@"Batch should have at least one place left"];
 
                     abort();
                   }
@@ -304,11 +304,11 @@ LABEL_66:
                   v19 = 2;
                 }
 
-                _Block_object_dispose(&v94, 8);
-                v21 = v72;
+                _Block_object_dispose(&v93, 8);
+                v21 = v71;
               }
 
-              _Block_object_dispose(&v98, 8);
+              _Block_object_dispose(&v97, 8);
 LABEL_69:
 
               goto LABEL_70;
@@ -317,36 +317,36 @@ LABEL_69:
 
           else
           {
-            v72 = 0;
+            v71 = 0;
           }
 
           [batchCopy addChange:v16 fromStorage:storage];
-          v31 = (v108 + 5);
-          v102 = v108[5];
-          v32 = [storage removeChange:v16 error:&v102];
-          objc_storeStrong(v31, v102);
-          *(v114 + 24) = v32;
+          v31 = (v107 + 5);
+          v101 = v107[5];
+          v32 = [storage removeChange:v16 error:&v101];
+          objc_storeStrong(v31, v101);
+          *(v113 + 24) = v32;
           if (v32)
           {
-            v21 = v72;
-            if (v67 != 1)
+            v21 = v71;
+            if (v66 != 1)
             {
-              --v67;
+              --v66;
               v19 = 3;
               goto LABEL_69;
             }
 
             [batchCopy setFull:1];
-            v67 = 0;
+            v66 = 0;
           }
 
           else
           {
-            --v67;
+            --v66;
           }
 
           v19 = 2;
-          v21 = v72;
+          v21 = v71;
           goto LABEL_69;
         }
 
@@ -362,8 +362,8 @@ LABEL_70:
         ++v15;
       }
 
-      while (v15 != v69);
-      v14 = [obj countByEnumeratingWithState:&v103 objects:v119 count:16];
+      while (v15 != v68);
+      v14 = [obj countByEnumeratingWithState:&v102 objects:v118 count:16];
     }
 
     while (v14);
@@ -371,17 +371,16 @@ LABEL_70:
 
 LABEL_77:
 
-  v51 = *(v114 + 24);
-  if (error && (v114[3] & 1) == 0)
+  v51 = *(v113 + 24);
+  if (error && (v113[3] & 1) == 0)
   {
-    *error = v108[5];
-    v51 = *(v114 + 24);
+    *error = v107[5];
+    v51 = *(v113 + 24);
   }
 
-  _Block_object_dispose(&v107, 8);
-  _Block_object_dispose(&v113, 8);
+  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(&v112, 8);
 
-  v52 = *MEMORY[0x1E69E9840];
   return v51 & 1;
 }
 

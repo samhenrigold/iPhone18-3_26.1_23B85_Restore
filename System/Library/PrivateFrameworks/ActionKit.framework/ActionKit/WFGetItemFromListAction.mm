@@ -6,7 +6,7 @@
 
 - (void)runWithInput:(id)input error:(id *)error
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   getListRepresentation = [input getListRepresentation];
   numberOfItems = [getListRepresentation numberOfItems];
   if (numberOfItems)
@@ -43,44 +43,44 @@ LABEL_8:
 
     if ([v9 isEqualToString:@"Item At Index"])
     {
-      v15 = [(WFGetItemFromListAction *)self parameterValueForKey:@"WFItemIndex" ofClass:objc_opt_class()];
-      integerValue = [v15 integerValue];
-      v17 = integerValue;
-      if (v15 && integerValue > 0)
+      v14 = [(WFGetItemFromListAction *)self parameterValueForKey:@"WFItemIndex" ofClass:objc_opt_class()];
+      integerValue = [v14 integerValue];
+      v16 = integerValue;
+      if (v14 && integerValue > 0)
       {
         if (integerValue <= v8)
         {
           output2 = [(WFGetItemFromListAction *)self output];
           items2 = [getListRepresentation items];
-          v34 = [items2 objectAtIndex:v17 - 1];
-          [output2 addItem:v34];
+          v33 = [items2 objectAtIndex:v16 - 1];
+          [output2 addItem:v33];
         }
 
         else
         {
-          v18 = MEMORY[0x277CCA9B8];
-          v19 = *MEMORY[0x277CCA5B8];
-          v65 = *MEMORY[0x277CCA450];
-          v20 = MEMORY[0x277CCACA8];
-          v21 = WFLocalizedString(@"The index you specified was outside of the possible range (you asked for item %1$d, and the list has only %2$d).");
-          v22 = [v20 localizedStringWithFormat:v21, v17, v8];
-          v66 = v22;
-          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
-          *error = [v18 errorWithDomain:v19 code:33 userInfo:v23];
+          v17 = MEMORY[0x277CCA9B8];
+          v18 = *MEMORY[0x277CCA5B8];
+          v64 = *MEMORY[0x277CCA450];
+          v19 = MEMORY[0x277CCACA8];
+          v20 = WFLocalizedString(@"The index you specified was outside of the possible range (you asked for item %1$d, and the list has only %2$d).");
+          v21 = [v19 localizedStringWithFormat:v20, v16, v8];
+          v65 = v21;
+          v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+          *error = [v17 errorWithDomain:v18 code:33 userInfo:v22];
         }
       }
 
       else
       {
-        v26 = MEMORY[0x277CCA9B8];
-        v27 = *MEMORY[0x277CCA5B8];
-        v67 = *MEMORY[0x277CCA450];
-        v28 = MEMORY[0x277CCACA8];
-        v29 = WFLocalizedString(@"You asked for item %d, but the first item is at index 1.");
-        v30 = [v28 localizedStringWithFormat:v29, v17];
-        v68[0] = v30;
-        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:&v67 count:1];
-        *error = [v26 errorWithDomain:v27 code:33 userInfo:v31];
+        v25 = MEMORY[0x277CCA9B8];
+        v26 = *MEMORY[0x277CCA5B8];
+        v66 = *MEMORY[0x277CCA450];
+        v27 = MEMORY[0x277CCACA8];
+        v28 = WFLocalizedString(@"You asked for item %d, but the first item is at index 1.");
+        v29 = [v27 localizedStringWithFormat:v28, v16];
+        v67[0] = v29;
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:&v66 count:1];
+        *error = [v25 errorWithDomain:v26 code:33 userInfo:v30];
       }
 
       goto LABEL_9;
@@ -93,11 +93,11 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v24 = [(WFGetItemFromListAction *)self parameterValueForKey:@"WFItemRangeStart" ofClass:objc_opt_class()];
-    v58 = v24;
-    if (v24)
+    v23 = [(WFGetItemFromListAction *)self parameterValueForKey:@"WFItemRangeStart" ofClass:objc_opt_class()];
+    v57 = v23;
+    if (v23)
     {
-      integerValue2 = [v24 integerValue];
+      integerValue2 = [v23 integerValue];
     }
 
     else
@@ -105,11 +105,11 @@ LABEL_9:
       integerValue2 = 1;
     }
 
-    v35 = [(WFGetItemFromListAction *)self parameterValueForKey:@"WFItemRangeEnd" ofClass:objc_opt_class()];
-    v36 = v35;
-    if (v35)
+    v34 = [(WFGetItemFromListAction *)self parameterValueForKey:@"WFItemRangeEnd" ofClass:objc_opt_class()];
+    v35 = v34;
+    if (v34)
     {
-      integerValue3 = [v35 integerValue];
+      integerValue3 = [v34 integerValue];
     }
 
     else
@@ -117,19 +117,19 @@ LABEL_9:
       integerValue3 = [getListRepresentation numberOfItems];
     }
 
-    v38 = integerValue3;
+    v37 = integerValue3;
     if (integerValue2 <= 0)
     {
-      v56 = MEMORY[0x277CCA9B8];
-      v39 = *MEMORY[0x277CCA5B8];
-      v63 = *MEMORY[0x277CCA450];
-      v46 = MEMORY[0x277CCACA8];
-      v41 = WFLocalizedString(@"The range you specified was outside of the possible range (you asked for items %1$d through %2$d, but the first item is at index 1).");
-      v42 = [v46 stringWithFormat:v41, integerValue2, v38];
-      v64 = v42;
-      v43 = MEMORY[0x277CBEAC0];
-      v44 = &v64;
-      v45 = &v63;
+      v55 = MEMORY[0x277CCA9B8];
+      v38 = *MEMORY[0x277CCA5B8];
+      v62 = *MEMORY[0x277CCA450];
+      v45 = MEMORY[0x277CCACA8];
+      v40 = WFLocalizedString(@"The range you specified was outside of the possible range (you asked for items %1$d through %2$d, but the first item is at index 1).");
+      v41 = [v45 stringWithFormat:v40, integerValue2, v37];
+      v63 = v41;
+      v42 = MEMORY[0x277CBEAC0];
+      v43 = &v63;
+      v44 = &v62;
     }
 
     else
@@ -138,59 +138,57 @@ LABEL_9:
       {
         if (integerValue3 <= v8)
         {
-          v51 = integerValue2 - 1;
+          v50 = integerValue2 - 1;
           do
           {
             output3 = [(WFGetItemFromListAction *)self output];
             items3 = [getListRepresentation items];
-            v54 = [items3 objectAtIndex:v51];
-            [output3 addItem:v54];
+            v53 = [items3 objectAtIndex:v50];
+            [output3 addItem:v53];
 
-            ++v51;
+            ++v50;
           }
 
-          while (v38 != v51);
+          while (v37 != v50);
           goto LABEL_32;
         }
 
-        v57 = MEMORY[0x277CCA9B8];
-        v55 = *MEMORY[0x277CCA5B8];
-        v59 = *MEMORY[0x277CCA450];
-        v50 = MEMORY[0x277CCACA8];
-        v41 = WFLocalizedString(@"The range you specified was outside of the possible range (you asked for items %1$d through %2$d, and the list has only %3$d).");
-        v42 = [v50 stringWithFormat:v41, integerValue2, v38, v8];
-        v60 = v42;
-        v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-        v49 = v55;
-        v48 = v57;
+        v56 = MEMORY[0x277CCA9B8];
+        v54 = *MEMORY[0x277CCA5B8];
+        v58 = *MEMORY[0x277CCA450];
+        v49 = MEMORY[0x277CCACA8];
+        v40 = WFLocalizedString(@"The range you specified was outside of the possible range (you asked for items %1$d through %2$d, and the list has only %3$d).");
+        v41 = [v49 stringWithFormat:v40, integerValue2, v37, v8];
+        v59 = v41;
+        v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        v48 = v54;
+        v47 = v56;
 LABEL_31:
-        *error = [v48 errorWithDomain:v49 code:33 userInfo:v47];
+        *error = [v47 errorWithDomain:v48 code:33 userInfo:v46];
 
 LABEL_32:
         goto LABEL_9;
       }
 
-      v56 = MEMORY[0x277CCA9B8];
-      v39 = *MEMORY[0x277CCA5B8];
-      v61 = *MEMORY[0x277CCA450];
-      v40 = MEMORY[0x277CCACA8];
-      v41 = WFLocalizedString(@"The range you specified was invalid (you asked for items %1$d through %2$d).");
-      v42 = [v40 stringWithFormat:v41, integerValue2, v38];
-      v62 = v42;
-      v43 = MEMORY[0x277CBEAC0];
-      v44 = &v62;
-      v45 = &v61;
+      v55 = MEMORY[0x277CCA9B8];
+      v38 = *MEMORY[0x277CCA5B8];
+      v60 = *MEMORY[0x277CCA450];
+      v39 = MEMORY[0x277CCACA8];
+      v40 = WFLocalizedString(@"The range you specified was invalid (you asked for items %1$d through %2$d).");
+      v41 = [v39 stringWithFormat:v40, integerValue2, v37];
+      v61 = v41;
+      v42 = MEMORY[0x277CBEAC0];
+      v43 = &v61;
+      v44 = &v60;
     }
 
-    v47 = [v43 dictionaryWithObjects:v44 forKeys:v45 count:1];
-    v48 = v56;
-    v49 = v39;
+    v46 = [v42 dictionaryWithObjects:v43 forKeys:v44 count:1];
+    v47 = v55;
+    v48 = v38;
     goto LABEL_31;
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

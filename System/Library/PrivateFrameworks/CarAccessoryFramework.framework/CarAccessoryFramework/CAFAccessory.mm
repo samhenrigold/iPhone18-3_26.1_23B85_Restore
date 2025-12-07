@@ -110,13 +110,13 @@ void __44__CAFAccessory__sharedServiceGroupInitQueue__block_invoke()
 
 - (CAFAccessory)initWithCar:(id)car pluginID:(id)d config:(id)config
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   carCopy = car;
   dCopy = d;
   configCopy = config;
-  v91.receiver = self;
-  v91.super_class = CAFAccessory;
-  v11 = [(CAFAccessory *)&v91 init];
+  v93.receiver = self;
+  v93.super_class = CAFAccessory;
+  v11 = [(CAFAccessory *)&v93 init];
   v12 = v11;
   if (v11)
   {
@@ -140,205 +140,204 @@ void __44__CAFAccessory__sharedServiceGroupInitQueue__block_invoke()
 
     if (*(v12 + 48))
     {
-      v16 = [CAFCarConfiguration getType:configCopy];
-      v17 = *(v12 + 56);
-      *(v12 + 56) = v16;
+      v17 = [CAFCarConfiguration getType:configCopy];
+      v18 = *(v12 + 56);
+      *(v12 + 56) = v17;
 
       if (*(v12 + 56))
       {
-        v18 = [CAFCarConfiguration getUUID:*(v12 + 40) instanceID:*(v12 + 48)];
-        v19 = *(v12 + 64);
-        *(v12 + 64) = v18;
+        v20 = [CAFCarConfiguration getUUID:*(v12 + 40) instanceID:*(v12 + 48)];
+        v21 = *(v12 + 64);
+        *(v12 + 64) = v20;
 
-        v20 = [CAFAccessoryTypes accessoryNameForType:*(v12 + 56)];
-        v21 = *(v12 + 72);
-        *(v12 + 72) = v20;
+        v22 = [CAFAccessoryTypes accessoryNameForType:*(v12 + 56)];
+        v23 = *(v12 + 72);
+        *(v12 + 72) = v22;
 
         objc_opt_class();
-        v22 = [configCopy objectForKeyedSubscript:@"version"];
-        if (v22 && (objc_opt_isKindOfClass() & 1) != 0)
+        v24 = [configCopy objectForKeyedSubscript:@"version"];
+        if (v24 && (objc_opt_isKindOfClass() & 1) != 0)
         {
-          v23 = v22;
+          v25 = v24;
         }
 
         else
         {
-          v23 = 0;
+          v25 = 0;
         }
 
-        v25 = *(v12 + 24);
-        *(v12 + 24) = v23;
+        v27 = *(v12 + 24);
+        *(v12 + 24) = v25;
 
-        v26 = objc_alloc(MEMORY[0x277CF89C0]);
+        v28 = objc_alloc(MEMORY[0x277CF89C0]);
         observerProtocol = [objc_opt_class() observerProtocol];
-        v28 = [v26 initWithProtocol:observerProtocol];
-        v29 = *(v12 + 136);
-        *(v12 + 136) = v28;
+        v30 = [v28 initWithProtocol:observerProtocol];
+        v31 = *(v12 + 136);
+        *(v12 + 136) = v30;
 
-        v30 = [[CAFCachedDescription alloc] initWithCacheable:v12];
-        v31 = *(v12 + 80);
-        *(v12 + 80) = v30;
+        v32 = [[CAFCachedDescription alloc] initWithCacheable:v12];
+        v33 = *(v12 + 80);
+        *(v12 + 80) = v32;
 
-        v32 = [[CAFValueMonitor alloc] initWithDelegate:v12];
-        v33 = *(v12 + 88);
-        *(v12 + 88) = v32;
+        v34 = [[CAFValueMonitor alloc] initWithDelegate:v12];
+        v35 = *(v12 + 88);
+        *(v12 + 88) = v34;
 
-        v34 = objc_opt_new();
+        v36 = objc_opt_new();
         obj = objc_opt_new();
-        v35 = objc_opt_new();
+        v37 = objc_opt_new();
         objc_opt_class();
-        v36 = [configCopy objectForKeyedSubscript:@"services"];
-        if (v36 && (objc_opt_isKindOfClass() & 1) != 0)
+        v38 = [configCopy objectForKeyedSubscript:@"services"];
+        if (v38 && (objc_opt_isKindOfClass() & 1) != 0)
         {
-          v37 = v36;
+          v39 = v38;
         }
 
         else
         {
-          v37 = 0;
+          v39 = 0;
         }
 
-        v76 = carCopy;
+        v78 = carCopy;
 
-        if (v37)
+        if (v39)
         {
-          v86[0] = MEMORY[0x277D85DD0];
-          v86[1] = 3221225472;
-          v86[2] = __44__CAFAccessory_initWithCar_pluginID_config___block_invoke;
-          v86[3] = &unk_27890D458;
-          v87 = v12;
-          v88 = v34;
-          v89 = obj;
-          v90 = v35;
-          [v37 enumerateObjectsUsingBlock:v86];
+          v88[0] = MEMORY[0x277D85DD0];
+          v88[1] = 3221225472;
+          v88[2] = __44__CAFAccessory_initWithCar_pluginID_config___block_invoke;
+          v88[3] = &unk_27890D458;
+          v89 = v12;
+          v90 = v36;
+          v91 = obj;
+          v92 = v37;
+          [v39 enumerateObjectsUsingBlock:v88];
         }
 
-        v71 = v35;
-        v72 = v37;
-        v74 = configCopy;
-        v75 = dCopy;
+        v73 = v37;
+        v74 = v39;
+        v76 = configCopy;
+        v77 = dCopy;
         os_unfair_lock_lock((v12 + 12));
-        objc_storeStrong((v12 + 32), v34);
-        v73 = v34;
-        allValues = [v34 allValues];
-        v39 = *(v12 + 96);
+        objc_storeStrong((v12 + 32), v36);
+        v75 = v36;
+        allValues = [v36 allValues];
+        v41 = *(v12 + 96);
         *(v12 + 96) = allValues;
 
-        v40 = objc_opt_new();
-        v82 = 0u;
-        v83 = 0u;
+        v42 = objc_opt_new();
         v84 = 0u;
         v85 = 0u;
-        v41 = *(v12 + 96);
-        v42 = [v41 countByEnumeratingWithState:&v82 objects:v93 count:16];
-        if (v42)
+        v86 = 0u;
+        v87 = 0u;
+        v43 = *(v12 + 96);
+        v44 = [v43 countByEnumeratingWithState:&v84 objects:v95 count:16];
+        if (v44)
         {
-          v43 = v42;
-          v44 = *v83;
+          v45 = v44;
+          v46 = *v85;
           do
           {
-            for (i = 0; i != v43; ++i)
+            for (i = 0; i != v45; ++i)
             {
-              if (*v83 != v44)
+              if (*v85 != v46)
               {
-                objc_enumerationMutation(v41);
+                objc_enumerationMutation(v43);
               }
 
-              characteristics = [*(*(&v82 + 1) + 8 * i) characteristics];
+              characteristics = [*(*(&v84 + 1) + 8 * i) characteristics];
               allValues2 = [characteristics allValues];
-              [v40 addObjectsFromArray:allValues2];
+              [v42 addObjectsFromArray:allValues2];
             }
 
-            v43 = [v41 countByEnumeratingWithState:&v82 objects:v93 count:16];
+            v45 = [v43 countByEnumeratingWithState:&v84 objects:v95 count:16];
           }
 
-          while (v43);
+          while (v45);
         }
 
-        objc_storeStrong((v12 + 104), v40);
-        v48 = objc_opt_new();
-        v78 = 0u;
-        v79 = 0u;
+        objc_storeStrong((v12 + 104), v42);
+        v50 = objc_opt_new();
         v80 = 0u;
         v81 = 0u;
-        v49 = *(v12 + 96);
-        v50 = [v49 countByEnumeratingWithState:&v78 objects:v92 count:16];
-        if (v50)
+        v82 = 0u;
+        v83 = 0u;
+        v51 = *(v12 + 96);
+        v52 = [v51 countByEnumeratingWithState:&v80 objects:v94 count:16];
+        if (v52)
         {
-          v51 = v50;
-          v52 = *v79;
+          v53 = v52;
+          v54 = *v81;
           do
           {
-            for (j = 0; j != v51; ++j)
+            for (j = 0; j != v53; ++j)
             {
-              if (*v79 != v52)
+              if (*v81 != v54)
               {
-                objc_enumerationMutation(v49);
+                objc_enumerationMutation(v51);
               }
 
-              controls = [*(*(&v78 + 1) + 8 * j) controls];
+              controls = [*(*(&v80 + 1) + 8 * j) controls];
               allValues3 = [controls allValues];
-              [v48 addObjectsFromArray:allValues3];
+              [v50 addObjectsFromArray:allValues3];
             }
 
-            v51 = [v49 countByEnumeratingWithState:&v78 objects:v92 count:16];
+            v53 = [v51 countByEnumeratingWithState:&v80 objects:v94 count:16];
           }
 
-          while (v51);
+          while (v53);
         }
 
-        objc_storeStrong((v12 + 112), v48);
+        objc_storeStrong((v12 + 112), v50);
         objc_storeStrong((v12 + 120), obj);
-        v56 = *(v12 + 128);
-        *(v12 + 128) = v71;
-        v57 = v71;
+        v58 = *(v12 + 128);
+        *(v12 + 128) = v73;
+        v59 = v73;
 
         os_unfair_lock_unlock((v12 + 12));
         cachedDescription = [v12 cachedDescription];
         [cachedDescription setNeedsRefreshDescription];
 
-        v59 = CAFAccessoryLogging();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+        v62 = CAFAccessoryLogging(v61);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
         {
-          [(CAFAccessory *)v12 initWithCar:v59 pluginID:v60 config:v61, v62, v63, v64, v65];
+          [(CAFAccessory *)v12 initWithCar:v62 pluginID:v63 config:v64, v65, v66, v67, v68];
         }
 
         [*(v12 + 88) signalReadyToMonitor];
         receivedAllValues = [*(v12 + 88) receivedAllValues];
 
         [v12 setReceivedAllValues:receivedAllValues];
-        dCopy = v75;
-        carCopy = v76;
-        configCopy = v74;
+        dCopy = v77;
+        carCopy = v78;
+        configCopy = v76;
         goto LABEL_38;
       }
 
-      v68 = CAFAccessoryLogging();
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+      v71 = CAFAccessoryLogging(v19);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
-        [CAFAccessory initWithCar:(v12 + 48) pluginID:v68 config:?];
+        [CAFAccessory initWithCar:(v12 + 48) pluginID:v71 config:?];
       }
     }
 
     else
     {
-      v24 = CAFAccessoryLogging();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = CAFAccessoryLogging(v16);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [CAFAccessory initWithCar:v24 pluginID:? config:?];
+        [CAFAccessory initWithCar:v26 pluginID:? config:?];
       }
     }
 
-    v67 = 0;
+    v70 = 0;
     goto LABEL_43;
   }
 
 LABEL_38:
-  v67 = v12;
+  v70 = v12;
 LABEL_43:
 
-  v69 = *MEMORY[0x277D85DE8];
-  return v67;
+  return v70;
 }
 
 void __44__CAFAccessory_initWithCar_pluginID_config___block_invoke(uint64_t a1, void *a2)
@@ -349,7 +348,7 @@ void __44__CAFAccessory_initWithCar_pluginID_config___block_invoke(uint64_t a1, 
   if (!v4 || (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v11 = CAFAccessoryLogging();
+    v11 = CAFAccessoryLogging(v27);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __44__CAFAccessory_initWithCar_pluginID_config___block_invoke_cold_2(a1);
@@ -418,8 +417,8 @@ void __44__CAFAccessory_initWithCar_pluginID_config___block_invoke(uint64_t a1, 
 
     else
     {
-      v27 = CAFAccessoryLogging();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = CAFAccessoryLogging(0);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         __44__CAFAccessory_initWithCar_pluginID_config___block_invoke_cold_1(v5);
       }
@@ -445,7 +444,7 @@ LABEL_17:
   if (self->_receivedAllValues != values)
   {
     valuesCopy = values;
-    v5 = CAFAccessoryLogging();
+    v5 = CAFAccessoryLogging(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v11 = @"NO";
@@ -479,16 +478,16 @@ LABEL_17:
       cachedDescription = [(CAFAccessory *)self cachedDescription];
       [cachedDescription setNeedsRefreshDescription];
 
-      v7 = CARSignpostLogForCategory();
-      if (os_signpost_enabled(v7))
+      v8 = CARSignpostLogForCategory();
+      if (os_signpost_enabled(v8))
       {
         v13 = 138412290;
         selfCopy2 = self;
-        _os_signpost_emit_with_name_impl(&dword_231618000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReceivedAllValues", "%@", &v13, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_231618000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReceivedAllValues", "%@", &v13, 0xCu);
       }
 
-      v8 = [(CAFAccessory *)self car];
-      [v8 _accessoryReceivedAllValues:self];
+      v9 = [(CAFAccessory *)self car];
+      [v9 _accessoryReceivedAllValues:self];
 
       observers = [(CAFAccessory *)self observers];
       [observers accessoryDidUpdate:self receivedAllValues:1];
@@ -496,15 +495,13 @@ LABEL_17:
 
     else
     {
-      observers = CAFGeneralLogging();
+      observers = CAFGeneralLogging(v6);
       if (os_log_type_enabled(observers, OS_LOG_TYPE_FAULT))
       {
         [CAFService setReceivedAllValues:observers];
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)servicesForType:(id)type
@@ -531,9 +528,9 @@ LABEL_17:
 
 - (void)refreshCharacteristics
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_231618000, a2, a3, "%{public}@ refreshing", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_3(&dword_231618000, a2, a3, "%{public}@ refreshing", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)registerObserver:(id)observer
@@ -664,9 +661,9 @@ void __49__CAFAccessory__serviceDidUpdate_characteristic___block_invoke(uint64_t
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_231618000, a2, a3, "%{public}@ time to invalidate", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_3(&dword_231618000, a2, a3, "%{public}@ time to invalidate", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (id)currentDescriptionForCache:(id)cache
@@ -712,54 +709,46 @@ void __49__CAFAccessory__serviceDidUpdate_characteristic___block_invoke(uint64_t
 
 - (void)initWithCar:(uint64_t)a3 pluginID:(uint64_t)a4 config:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_231618000, a2, a3, "%{public}@ done", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_231618000, a2, a3, "%{public}@ done", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithCar:(uint64_t *)a1 pluginID:(uint64_t *)a2 config:(os_log_t)log .cold.2(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_231618000, log, OS_LOG_TYPE_ERROR, "Parsing accessory config from pluginID: %@ instanceID: %@ failed for categoryType", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_231618000, log, OS_LOG_TYPE_ERROR, "Parsing accessory config from pluginID: %@ instanceID: %@ failed for categoryType", &v5, 0x16u);
 }
 
 - (void)initWithCar:(uint64_t *)a1 pluginID:(NSObject *)a2 config:.cold.3(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Parsing accessory config from pluginID: %@ failed for instanceID", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Parsing accessory config from pluginID: %@ failed for instanceID", &v3, 0xCu);
 }
 
 void __44__CAFAccessory_initWithCar_pluginID_config___block_invoke_cold_1(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = [*a1 pluginID];
   v3 = [*a1 instanceID];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1(&dword_231618000, v4, v5, "Creating service from pluginID: %@ instanceID: %@ failed", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_231618000, v4, v5, "Creating service from pluginID: %@ instanceID: %@ failed", v6, v7, v8, v9);
 }
 
 void __44__CAFAccessory_initWithCar_pluginID_config___block_invoke_cold_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) pluginID];
   v3 = [*(a1 + 32) instanceID];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1(&dword_231618000, v4, v5, "Parsing accessory config from pluginID: %@ instanceID: %@ failed for service", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_231618000, v4, v5, "Parsing accessory config from pluginID: %@ instanceID: %@ failed for service", v6, v7, v8, v9);
 }
 
 @end

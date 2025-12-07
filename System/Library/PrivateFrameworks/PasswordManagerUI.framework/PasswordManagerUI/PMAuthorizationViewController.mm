@@ -4,6 +4,7 @@
 - (PMAuthorizationViewController)initWithPresentationContext:(id)context activity:(id)activity;
 - (id)_cableClientViewControllerWithLoginChoice:(id)choice;
 - (id)_controllerForCABLEAuthenticatorError:(id)error;
+- (id)_initialViewControllerForPresentationContext:(id)context expandingOtherLoginChoices:(BOOL)choices;
 - (id)_presentationContextControllerTitle;
 - (id)_securityKeyRequestViewController;
 - (id)_setUpContainerViewControllerWithCredentialRequestViewController:(id)controller;
@@ -22,6 +23,7 @@
 - (void)_pushCABLEClientViewControllerForCABLELoginChoice:(id)choice;
 - (void)_pushCABLEConnectingViewController;
 - (void)_pushPlatformKeyViewControllerWithSubtitle:(id)subtitle;
+- (void)_pushRequestPaneViewControllerWithExpandedLoginChoiceList:(BOOL)list;
 - (void)_pushSecurityKeyViewController;
 - (void)_pushSecurityKeyViewController:(id)controller;
 - (void)_pushSecurityKeyViewControllerWithError:(int64_t)error;
@@ -43,6 +45,7 @@
 - (void)requestPaneViewControllerNeedsReload:(id)reload;
 - (void)requestPaneViewControllerStartCABLEAuthentication:(id)authentication;
 - (void)updateInterfaceWithLoginChoices:(id)choices;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PMAuthorizationViewController
@@ -112,10 +115,10 @@ LABEL_8:
   }
 }
 
-void __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block_invoke()
+void __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block_invoke_cold_1();
   }
@@ -123,7 +126,7 @@ void __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block
 
 void __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block_invoke_4(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _initialViewControllerForPresentationContext:*(*(a1 + 32) + 992) expandingOtherLoginChoices:1];
   v3 = v2;
   v4 = *(a1 + 32);
@@ -131,8 +134,8 @@ void __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block
   {
     [v2 setDelegate:v4];
     v5 = *(*(a1 + 32) + 1000);
-    v8[0] = v3;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v3;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [v5 setViewControllers:v6 animated:1];
   }
 
@@ -140,14 +143,12 @@ void __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block
   {
     os_activity_apply(*(v4 + 1008), &__block_literal_global_6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block_invoke_2()
+void __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __65__PMAuthorizationViewController_updateInterfaceWithLoginChoices___block_invoke_2_cold_1();
   }
@@ -269,6 +270,82 @@ void __110__PMAuthorizationViewController_pushOrUpdateBasicPaneViewControllerWit
   return overrideHeader2;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v25 = *MEMORY[0x277D85DE8];
+  v5 = WBS_LOG_CHANNEL_PREFIXServiceLifecycle(self, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    *buf = 138543362;
+    v24 = objc_opt_class();
+    _os_log_impl(&dword_21C6E5000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ will appear", buf, 0xCu);
+  }
+
+  v22.receiver = self;
+  v22.super_class = PMAuthorizationViewController;
+  [(PMAuthorizationViewController *)&v22 viewWillAppear:appearCopy];
+  isBeingPresented = [(PMAuthorizationViewController *)self isBeingPresented];
+  if (isBeingPresented)
+  {
+    _setUpInitialViewController = [(PMAuthorizationViewController *)self _setUpInitialViewController];
+    v10 = _setUpInitialViewController;
+    if (!_setUpInitialViewController)
+    {
+LABEL_13:
+
+      return;
+    }
+
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __48__PMAuthorizationViewController_viewWillAppear___block_invoke;
+    aBlock[3] = &unk_27831CA50;
+    aBlock[4] = self;
+    v21 = _setUpInitialViewController;
+    v11 = _Block_copy(aBlock);
+    loginChoices = [(ASCAuthorizationPresentationContext *)self->_presentationContext loginChoices];
+    if ([loginChoices count] == 1)
+    {
+      loginChoices2 = [(ASCAuthorizationPresentationContext *)self->_presentationContext loginChoices];
+      firstObject = [loginChoices2 firstObject];
+      v15 = [(PMAuthorizationViewController *)self _shouldPresentSignInWithAppleForkingAlertForLoginChoice:firstObject];
+
+      if (v15)
+      {
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __48__PMAuthorizationViewController_viewWillAppear___block_invoke_3;
+        v18[3] = &unk_27831CAA0;
+        v19 = v11;
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __48__PMAuthorizationViewController_viewWillAppear___block_invoke_4;
+        v17[3] = &unk_27831C9D8;
+        v17[4] = self;
+        [(PMAuthorizationViewController *)self _presentSignInWithAppleForkingAlertWithContinueHandler:v18 cancelHandler:v17];
+
+LABEL_12:
+        goto LABEL_13;
+      }
+    }
+
+    else
+    {
+    }
+
+    v11[2](v11);
+    goto LABEL_12;
+  }
+
+  v16 = WBS_LOG_CHANNEL_PREFIXServiceLifecycle(isBeingPresented, v8);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  {
+    [PMAuthorizationViewController viewWillAppear:];
+  }
+}
+
 uint64_t __48__PMAuthorizationViewController_viewWillAppear___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
@@ -328,7 +405,7 @@ void __48__PMAuthorizationViewController_viewWillAppear___block_invoke_4(uint64_
 
 - (id)_setUpInitialViewController
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = [(PMAuthorizationViewController *)self _initialViewControllerForPresentationContext:self->_presentationContext];
   if (v3)
   {
@@ -341,27 +418,198 @@ void __48__PMAuthorizationViewController_viewWillAppear___block_invoke_4(uint64_
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     v6 = MEMORY[0x277CCA9B8];
     v7 = *MEMORY[0x277CF0400];
-    v12 = *MEMORY[0x277CCA470];
-    v13[0] = @"No view controller specified for request.";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA470];
+    v12[0] = @"No view controller specified for request.";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v6 errorWithDomain:v7 code:1 userInfo:v8];
     [WeakRetained authorizationViewController:self didCompleteWithCredential:0 error:v9];
 
     v4 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
-void __60__PMAuthorizationViewController__setUpInitialViewController__block_invoke()
+void __60__PMAuthorizationViewController__setUpInitialViewController__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __60__PMAuthorizationViewController__setUpInitialViewController__block_invoke_cold_1();
   }
+}
+
+- (id)_initialViewControllerForPresentationContext:(id)context expandingOtherLoginChoices:(BOOL)choices
+{
+  choicesCopy = choices;
+  v42[1] = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  cableAuthenticatorURL = [contextCopy cableAuthenticatorURL];
+
+  if (cableAuthenticatorURL)
+  {
+    if ([contextCopy shouldRequireCABLEAuthenticatorConsent])
+    {
+      _securityKeyRequestViewController2 = [objc_alloc(MEMORY[0x277CBA938]) initWithPresentationContext:contextCopy];
+      cancelBarButtonItem = [(ASCredentialRequestPaneViewController *)_securityKeyRequestViewController2 cancelBarButtonItem];
+      v42[0] = cancelBarButtonItem;
+      v10 = MEMORY[0x277CBEA60];
+      v11 = v42;
+    }
+
+    else
+    {
+      _securityKeyRequestViewController2 = objc_alloc_init(MEMORY[0x277CBA930]);
+      cancelBarButtonItem = [(ASCredentialRequestPaneViewController *)_securityKeyRequestViewController2 cancelBarButtonItem];
+      v41 = cancelBarButtonItem;
+      v10 = MEMORY[0x277CBEA60];
+      v11 = &v41;
+    }
+
+    cancelBarButtonItem2 = [v10 arrayWithObjects:v11 count:1];
+    as_navigationItem = [(PMCredentialPickerViewController *)_securityKeyRequestViewController2 as_navigationItem];
+    [as_navigationItem setRightBarButtonItems:cancelBarButtonItem2];
+    goto LABEL_8;
+  }
+
+  loginChoices = [contextCopy loginChoices];
+  if ([loginChoices count])
+  {
+  }
+
+  else
+  {
+    isProxiedRequest = [contextCopy isProxiedRequest];
+
+    if ((isProxiedRequest & 1) == 0)
+    {
+      v22 = MEMORY[0x277CBA970];
+      serviceName = [(ASCAuthorizationPresentationContext *)self->_presentationContext serviceName];
+      cancelBarButtonItem = [v22 noCredentialsErrorWithServiceName:serviceName];
+
+      _securityKeyRequestViewController2 = [objc_alloc(MEMORY[0x277CBA918]) initWithConfiguration:cancelBarButtonItem];
+      cancelBarButtonItem2 = [(ASCredentialRequestPaneViewController *)_securityKeyRequestViewController2 cancelBarButtonItem];
+      v40 = cancelBarButtonItem2;
+      as_navigationItem = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+      as_navigationItem2 = [(PMCredentialPickerViewController *)_securityKeyRequestViewController2 as_navigationItem];
+      [as_navigationItem2 setRightBarButtonItems:as_navigationItem];
+
+LABEL_8:
+      goto LABEL_39;
+    }
+  }
+
+  requestTypes = [contextCopy requestTypes];
+  cancelBarButtonItem = [contextCopy loginChoices];
+  cancelBarButtonItem2 = [MEMORY[0x277D49A50] sharedMonitor];
+  if (([cancelBarButtonItem2 isKeychainSyncEnabled] & 1) == 0 && (objc_msgSend(cancelBarButtonItem2, "canKeychainSyncBeEnabled") & 1) == 0)
+  {
+    externalPasskeyLoginChoiceCount = [contextCopy externalPasskeyLoginChoiceCount];
+    v18 = [cancelBarButtonItem safari_filterObjectsUsingBlock:&__block_literal_global_35];
+
+    if (!externalPasskeyLoginChoiceCount)
+    {
+      requestTypes &= 0xFFFFFFFFFFFFFFF3;
+    }
+
+    cancelBarButtonItem = v18;
+  }
+
+  if (requestTypes == 32)
+  {
+    firstObject = [cancelBarButtonItem firstObject];
+    if ([cancelBarButtonItem count] != 1 || objc_msgSend(firstObject, "loginChoiceKind") != 3 || objc_msgSend(firstObject, "credentialKind") != 2)
+    {
+      _securityKeyRequestViewController2 = 0;
+LABEL_27:
+
+      if (_securityKeyRequestViewController2)
+      {
+        goto LABEL_34;
+      }
+
+      goto LABEL_28;
+    }
+
+    _securityKeyRequestViewController = [(PMAuthorizationViewController *)self _securityKeyRequestViewController];
+LABEL_25:
+    _securityKeyRequestViewController2 = _securityKeyRequestViewController;
+    goto LABEL_27;
+  }
+
+  if (requestTypes == 16)
+  {
+    _securityKeyRequestViewController2 = [(PMAuthorizationViewController *)self _securityKeyRequestViewController];
+    if (_securityKeyRequestViewController2)
+    {
+      goto LABEL_34;
+    }
+
+    goto LABEL_28;
+  }
+
+  if (-[PMAuthorizationViewController _shouldPresentCABLEAsInitialViewControllerForRequestTypes:shouldAllowSecurityKeysFromCABLEView:](self, "_shouldPresentCABLEAsInitialViewControllerForRequestTypes:shouldAllowSecurityKeysFromCABLEView:", requestTypes, [contextCopy shouldAllowSecurityKeysFromCABLEView]))
+  {
+    firstObject = [cancelBarButtonItem firstObject];
+    _securityKeyRequestViewController = [objc_alloc(MEMORY[0x277CBA928]) initWithPresentationContext:self->_presentationContext loginChoice:firstObject activity:self->_authorizationActivity];
+    goto LABEL_25;
+  }
+
+LABEL_28:
+  loginChoices2 = [(ASCAuthorizationPresentationContext *)self->_presentationContext loginChoices];
+  if ([loginChoices2 count])
+  {
+
+    goto LABEL_33;
+  }
+
+  isProxiedRequest2 = [(ASCAuthorizationPresentationContext *)self->_presentationContext isProxiedRequest];
+
+  if (!isProxiedRequest2)
+  {
+LABEL_33:
+    _securityKeyRequestViewController2 = [[_TtC17PasswordManagerUI32PMCredentialPickerViewController alloc] initWithPresentationContext:contextCopy shouldExpandOtherLoginChoices:choicesCopy activity:self->_authorizationActivity];
+    if (!_securityKeyRequestViewController2)
+    {
+      goto LABEL_39;
+    }
+
+    goto LABEL_34;
+  }
+
+  v26 = [objc_alloc(MEMORY[0x277CBA9B0]) initWithPersona:3 presentationContext:contextCopy];
+  _securityKeyRequestViewController2 = [objc_alloc(MEMORY[0x277CBA9A8]) initWithConfiguration:v26];
+  [(PMCredentialPickerViewController *)_securityKeyRequestViewController2 setAuthenticationDelegate:self];
+
+LABEL_34:
+  as_navigationItem3 = [(PMCredentialPickerViewController *)_securityKeyRequestViewController2 as_navigationItem];
+  leftBarButtonItems = [as_navigationItem3 leftBarButtonItems];
+  v29 = [leftBarButtonItems count];
+
+  if (!v29)
+  {
+    _titleBarButtonItem = [(PMAuthorizationViewController *)self _titleBarButtonItem];
+    as_navigationItem4 = [(PMCredentialPickerViewController *)_securityKeyRequestViewController2 as_navigationItem];
+    [as_navigationItem4 setLeftBarButtonItem:_titleBarButtonItem];
+  }
+
+  as_navigationItem5 = [(PMCredentialPickerViewController *)_securityKeyRequestViewController2 as_navigationItem];
+  rightBarButtonItems = [as_navigationItem5 rightBarButtonItems];
+  v34 = [rightBarButtonItems count];
+
+  if (!v34)
+  {
+    cancelBarButtonItem3 = [(ASCredentialRequestPaneViewController *)_securityKeyRequestViewController2 cancelBarButtonItem];
+    v39 = cancelBarButtonItem3;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+    as_navigationItem6 = [(PMCredentialPickerViewController *)_securityKeyRequestViewController2 as_navigationItem];
+    [as_navigationItem6 setRightBarButtonItems:v36];
+  }
+
+  [(ASCredentialRequestPaneViewController *)_securityKeyRequestViewController2 setDelegate:self];
+LABEL_39:
+
+  return _securityKeyRequestViewController2;
 }
 
 uint64_t __105__PMAuthorizationViewController__initialViewControllerForPresentationContext_expandingOtherLoginChoices___block_invoke(uint64_t a1, void *a2)
@@ -421,7 +669,7 @@ uint64_t __105__PMAuthorizationViewController__initialViewControllerForPresentat
 
 - (void)_presentNewPINEntryInterface
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   self->_isPresentingNewPINEntryView = 1;
   v3 = [objc_alloc(MEMORY[0x277CBA9B0]) initWithPersona:2 presentationContext:self->_presentationContext];
   v4 = [objc_alloc(MEMORY[0x277CBA9A8]) initWithConfiguration:v3];
@@ -432,30 +680,28 @@ uint64_t __105__PMAuthorizationViewController__initialViewControllerForPresentat
   [as_navigationItem setLeftBarButtonItem:_titleBarButtonItem];
 
   cancelBarButtonItem = [v4 cancelBarButtonItem];
-  v11[0] = cancelBarButtonItem;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = cancelBarButtonItem;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   as_navigationItem2 = [v4 as_navigationItem];
   [as_navigationItem2 setRightBarButtonItems:v8];
 
   [(ASNavigationController *)self->_navigationController pushViewController:v4 animated:0];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentManualPasswordEntryInterface
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBA9B0]) initWithPersona:3 presentationContext:self->_presentationContext];
   v4 = [objc_alloc(MEMORY[0x277CBA9A8]) initWithConfiguration:v3];
   [v4 setDelegate:self];
   [v4 setAuthenticationDelegate:self];
   cancelBarButtonItem = [v4 cancelBarButtonItem];
-  v9[0] = cancelBarButtonItem;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = cancelBarButtonItem;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   as_navigationItem = [v4 as_navigationItem];
   [as_navigationItem setRightBarButtonItems:v6];
 
   [(ASNavigationController *)self->_navigationController pushViewController:v4 animated:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentSignInWithAppleForkingAlertWithContinueHandler:(id)handler cancelHandler:(id)cancelHandler
@@ -529,12 +775,12 @@ uint64_t __105__PMAuthorizationViewController__initialViewControllerForPresentat
 
 - (void)_pushSecurityKeyViewController:(id)controller
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   [controllerCopy setDelegate:self];
   cancelBarButtonItem = [controllerCopy cancelBarButtonItem];
-  v11[0] = cancelBarButtonItem;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = cancelBarButtonItem;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   as_navigationItem = [controllerCopy as_navigationItem];
   [as_navigationItem setRightBarButtonItems:v6];
 
@@ -543,70 +789,63 @@ uint64_t __105__PMAuthorizationViewController__initialViewControllerForPresentat
   [as_navigationItem2 setLeftBarButtonItem:_titleBarButtonItem];
 
   [(ASNavigationController *)self->_navigationController pushViewController:controllerCopy animated:1];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pushPlatformKeyViewControllerWithSubtitle:(id)subtitle
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBA970] signInFailedErrorWithSubtitle:subtitle];
   v5 = [objc_alloc(MEMORY[0x277CBA918]) initWithConfiguration:v4];
   [v5 setDelegate:self];
   cancelBarButtonItem = [v5 cancelBarButtonItem];
-  v13[0] = cancelBarButtonItem;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = cancelBarButtonItem;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   as_navigationItem = [v5 as_navigationItem];
   [as_navigationItem setRightBarButtonItems:v7];
 
   navigationController = self->_navigationController;
-  v12 = v5;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = v5;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   [(ASNavigationController *)navigationController setViewControllers:v10 animated:1];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pushActivateSecurityKeyAgainViewController
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBA980]) initWithPresentationContext:self->_presentationContext reinsertSecurityKey:1];
   _titleBarButtonItem = [(PMAuthorizationViewController *)self _titleBarButtonItem];
   v5 = _titleBarButtonItem;
   if (_titleBarButtonItem)
   {
-    v13[0] = _titleBarButtonItem;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = _titleBarButtonItem;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     as_navigationItem = [v3 as_navigationItem];
     [as_navigationItem setLeftBarButtonItems:v6];
   }
 
   cancelBarButtonItem = [v3 cancelBarButtonItem];
-  v12 = cancelBarButtonItem;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = cancelBarButtonItem;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   as_navigationItem2 = [v3 as_navigationItem];
   [as_navigationItem2 setRightBarButtonItems:v9];
 
   [v3 setDelegate:self];
   [(ASNavigationController *)self->_navigationController pushViewController:v3 animated:1];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cableClientViewControllerWithLoginChoice:(id)choice
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBA928];
   choiceCopy = choice;
   v6 = [[v4 alloc] initWithPresentationContext:self->_presentationContext loginChoice:choiceCopy activity:self->_authorizationActivity];
 
   [v6 setDelegate:self];
   cancelBarButtonItem = [v6 cancelBarButtonItem];
-  v12[0] = cancelBarButtonItem;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = cancelBarButtonItem;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   as_navigationItem = [v6 as_navigationItem];
   [as_navigationItem setRightBarButtonItems:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -619,40 +858,36 @@ uint64_t __105__PMAuthorizationViewController__initialViewControllerForPresentat
 
 - (void)_pushCABLEConnectingViewController
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBA930]);
   [v3 setDelegate:self];
   cancelBarButtonItem = [v3 cancelBarButtonItem];
-  v11[0] = cancelBarButtonItem;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = cancelBarButtonItem;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   as_navigationItem = [v3 as_navigationItem];
   [as_navigationItem setRightBarButtonItems:v5];
 
   navigationController = self->_navigationController;
-  v10 = v3;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v9 = v3;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   [(ASNavigationController *)navigationController setViewControllers:v8 animated:1];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pushCABLEAuthenticatingViewController
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBA920]) initWithPresentationContext:self->_presentationContext];
   [v3 setDelegate:self];
   cancelBarButtonItem = [v3 cancelBarButtonItem];
-  v11[0] = cancelBarButtonItem;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = cancelBarButtonItem;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   as_navigationItem = [v3 as_navigationItem];
   [as_navigationItem setRightBarButtonItems:v5];
 
   navigationController = self->_navigationController;
-  v10 = v3;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v9 = v3;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   [(ASNavigationController *)navigationController setViewControllers:v8 animated:1];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startCABLEClientWithLoginChoice:(id)choice
@@ -674,20 +909,18 @@ uint64_t __105__PMAuthorizationViewController__initialViewControllerForPresentat
   [WeakRetained authorizationViewController:self didRequestCredentialForLoginChoice:choiceCopy authenticatedContext:0 completionHandler:&__block_literal_global_63];
 }
 
-void __66__PMAuthorizationViewController__startCABLEClientWithLoginChoice___block_invoke(uint64_t a1)
+void __66__PMAuthorizationViewController__startCABLEClientWithLoginChoice___block_invoke(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 1016);
-    v4 = v2;
+    v4 = *(*(a1 + 32) + 1016);
+    v5 = v3;
     v6[0] = 67109120;
-    v6[1] = [v3 isBluetoothEnabled];
-    _os_log_impl(&dword_21C6E5000, v4, OS_LOG_TYPE_DEFAULT, "Starting caBLE client: bluetoothEnabled: %{BOOL}d", v6, 8u);
+    v6[1] = [v4 isBluetoothEnabled];
+    _os_log_impl(&dword_21C6E5000, v5, OS_LOG_TYPE_DEFAULT, "Starting caBLE client: bluetoothEnabled: %{BOOL}d", v6, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startCABLEClientForSingleLoginChoiceIfNeeded
@@ -731,19 +964,19 @@ void __66__PMAuthorizationViewController__startCABLEClientWithLoginChoice___bloc
   [(SFWirelessSettingsController *)wirelessSettingsController setBluetoothEnabled:1];
 }
 
-void __97__PMAuthorizationViewController__enableBluetoothAndShowCABLEClientViewControllerWithLoginChoice___block_invoke()
+void __97__PMAuthorizationViewController__enableBluetoothAndShowCABLEClientViewControllerWithLoginChoice___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_21C6E5000, v0, OS_LOG_TYPE_DEFAULT, "Enabling Bluetooth", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_21C6E5000, v2, OS_LOG_TYPE_DEFAULT, "Enabling Bluetooth", v3, 2u);
   }
 }
 
 - (void)_pushCABLEAuthenticatorCredentialPickerViewControllerWithPresentationContext:(id)context
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   objc_storeStrong(&self->_presentationContext, context);
   v6 = [[_TtC17PasswordManagerUI32PMCredentialPickerViewController alloc] initWithPresentationContext:contextCopy shouldExpandOtherLoginChoices:0 activity:self->_authorizationActivity];
@@ -751,14 +984,14 @@ void __97__PMAuthorizationViewController__enableBluetoothAndShowCABLEClientViewC
   if (v6)
   {
     cancelBarButtonItem = [(ASCredentialRequestPaneViewController *)v6 cancelBarButtonItem];
-    v18 = cancelBarButtonItem;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    v17 = cancelBarButtonItem;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
     as_navigationItem = [(PMCredentialPickerViewController *)v6 as_navigationItem];
     [as_navigationItem setRightBarButtonItems:v8];
 
     navigationController = self->_navigationController;
-    v17 = v6;
-    WeakRetained = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v6;
+    WeakRetained = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     [(ASNavigationController *)navigationController setViewControllers:WeakRetained animated:1];
   }
 
@@ -768,20 +1001,18 @@ void __97__PMAuthorizationViewController__enableBluetoothAndShowCABLEClientViewC
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277CF0400];
-    v19 = *MEMORY[0x277CCA470];
-    v20[0] = @"No view controller specified for request.";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA470];
+    v19[0] = @"No view controller specified for request.";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v15 = [v12 errorWithDomain:v13 code:1 userInfo:v14];
     [WeakRetained authorizationViewController:self didCompleteWithCredential:0 error:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-void __110__PMAuthorizationViewController__pushCABLEAuthenticatorCredentialPickerViewControllerWithPresentationContext___block_invoke()
+void __110__PMAuthorizationViewController__pushCABLEAuthenticatorCredentialPickerViewControllerWithPresentationContext___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __110__PMAuthorizationViewController__pushCABLEAuthenticatorCredentialPickerViewControllerWithPresentationContext___block_invoke_cold_1();
   }
@@ -789,51 +1020,49 @@ void __110__PMAuthorizationViewController__pushCABLEAuthenticatorCredentialPicke
 
 - (void)_showCABLEAuthenticatorError:(id)error
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = [(PMAuthorizationViewController *)self _controllerForCABLEAuthenticatorError:error];
   cancelBarButtonItem = [v4 cancelBarButtonItem];
-  v12[0] = cancelBarButtonItem;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = cancelBarButtonItem;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   as_navigationItem = [v4 as_navigationItem];
   [as_navigationItem setRightBarButtonItems:v6];
 
   navigationController = self->_navigationController;
-  v11 = v4;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v10 = v4;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
   [(ASNavigationController *)navigationController setViewControllers:v9 animated:1];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_controllerForCABLEAuthenticatorError:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   mEMORY[0x277D49DC8] = [MEMORY[0x277D49DC8] sharedManager];
   getEnabledExtensionsSynchronously = [mEMORY[0x277D49DC8] getEnabledExtensionsSynchronously];
 
-  v7 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v24;
+    v10 = *v23;
     while (2)
     {
       v11 = 0;
       v12 = v9;
       do
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(getEnabledExtensionsSynchronously);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * v11);
+        v9 = *(*(&v22 + 1) + 8 * v11);
 
         mEMORY[0x277D49DC8]2 = [MEMORY[0x277D49DC8] sharedManager];
         v14 = [mEMORY[0x277D49DC8]2 extensionSupportsPasskeys:v9];
@@ -849,7 +1078,7 @@ void __110__PMAuthorizationViewController__pushCABLEAuthenticatorCredentialPicke
       }
 
       while (v8 != v11);
-      v8 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         continue;
@@ -876,8 +1105,6 @@ LABEL_12:
   }
 
   [v20 setDelegate:self];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -925,20 +1152,18 @@ LABEL_12:
   objc_destroyWeak(&location);
 }
 
-void __57__PMAuthorizationViewController__startCABLEAuthenticator__block_invoke(uint64_t a1)
+void __57__PMAuthorizationViewController__startCABLEAuthenticator__block_invoke(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 1016);
-    v4 = v2;
+    v4 = *(*(a1 + 32) + 1016);
+    v5 = v3;
     v6[0] = 67109120;
-    v6[1] = [v3 isBluetoothEnabled];
-    _os_log_impl(&dword_21C6E5000, v4, OS_LOG_TYPE_DEFAULT, "Starting caBLE authenticator: bluetoothEnabled: %{BOOL}d", v6, 8u);
+    v6[1] = [v4 isBluetoothEnabled];
+    _os_log_impl(&dword_21C6E5000, v5, OS_LOG_TYPE_DEFAULT, "Starting caBLE authenticator: bluetoothEnabled: %{BOOL}d", v6, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__PMAuthorizationViewController__startCABLEAuthenticator__block_invoke_74(uint64_t a1, void *a2, void *a3)
@@ -981,24 +1206,22 @@ void __57__PMAuthorizationViewController__startCABLEAuthenticator__block_invoke_
 
 - (void)_showEnableBluetoothViewControllerForCABLEAuthenticator
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBA958]) initWithPresentationContext:self->_presentationContext activity:self->_authorizationActivity];
   [v3 setDelegate:self];
   cancelBarButtonItem = [v3 cancelBarButtonItem];
-  v9[0] = cancelBarButtonItem;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = cancelBarButtonItem;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   as_navigationItem = [v3 as_navigationItem];
   [as_navigationItem setRightBarButtonItems:v5];
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __88__PMAuthorizationViewController__showEnableBluetoothViewControllerForCABLEAuthenticator__block_invoke;
-  v8[3] = &unk_27831C9D8;
-  v8[4] = self;
-  [v3 setEnableBluetoothHandler:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __88__PMAuthorizationViewController__showEnableBluetoothViewControllerForCABLEAuthenticator__block_invoke;
+  v7[3] = &unk_27831C9D8;
+  v7[4] = self;
+  [v3 setEnableBluetoothHandler:v7];
   [(ASNavigationController *)self->_navigationController pushViewController:v3 animated:1];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enableBluetoothAndShowCABLEConnectingViewController
@@ -1010,13 +1233,13 @@ void __57__PMAuthorizationViewController__startCABLEAuthenticator__block_invoke_
   [(SFWirelessSettingsController *)wirelessSettingsController setBluetoothEnabled:1];
 }
 
-void __85__PMAuthorizationViewController__enableBluetoothAndShowCABLEConnectingViewController__block_invoke()
+void __85__PMAuthorizationViewController__enableBluetoothAndShowCABLEConnectingViewController__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_21C6E5000, v0, OS_LOG_TYPE_DEFAULT, "Enabling Bluetooth", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_21C6E5000, v2, OS_LOG_TYPE_DEFAULT, "Enabling Bluetooth", v3, 2u);
   }
 }
 
@@ -1084,10 +1307,52 @@ LABEL_12:
   [WeakRetained dismissAndPresentAgain:self];
 }
 
-void __91__PMAuthorizationViewController__pushRequestPaneViewControllerWithExpandedLoginChoiceList___block_invoke()
+- (void)_pushRequestPaneViewControllerWithExpandedLoginChoiceList:(BOOL)list
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  listCopy = list;
+  v19[1] = *MEMORY[0x277D85DE8];
+  v5 = [[_TtC17PasswordManagerUI32PMCredentialPickerViewController alloc] initWithPresentationContext:self->_presentationContext shouldExpandOtherLoginChoices:list activity:self->_authorizationActivity];
+  v6 = v5;
+  if (!v5)
+  {
+    os_activity_apply(self->_authorizationActivity, &__block_literal_global_79);
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    v12 = MEMORY[0x277CCA9B8];
+    v13 = *MEMORY[0x277CF0400];
+    v18 = *MEMORY[0x277CCA470];
+    v19[0] = @"No view controller specified for request.";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v15 = [v12 errorWithDomain:v13 code:1 userInfo:v14];
+    [WeakRetained authorizationViewController:self didCompleteWithCredential:0 error:v15];
+
+LABEL_6:
+    goto LABEL_7;
+  }
+
+  [(ASCredentialRequestPaneViewController *)v5 setDelegate:self];
+  cancelBarButtonItem = [(ASCredentialRequestPaneViewController *)v6 cancelBarButtonItem];
+  v17 = cancelBarButtonItem;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  as_navigationItem = [(PMCredentialPickerViewController *)v6 as_navigationItem];
+  [as_navigationItem setRightBarButtonItems:v8];
+
+  navigationController = self->_navigationController;
+  if (!listCopy)
+  {
+    v16 = v6;
+    WeakRetained = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    [(ASNavigationController *)navigationController setViewControllers:WeakRetained animated:0];
+    goto LABEL_6;
+  }
+
+  [(ASNavigationController *)navigationController pushViewController:v6 animated:1];
+LABEL_7:
+}
+
+void __91__PMAuthorizationViewController__pushRequestPaneViewControllerWithExpandedLoginChoiceList___block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __110__PMAuthorizationViewController__pushCABLEAuthenticatorCredentialPickerViewControllerWithPresentationContext___block_invoke_cold_1();
   }
@@ -1160,14 +1425,14 @@ void __98__PMAuthorizationViewController_passwordAuthenticationViewController_co
   }
 }
 
-uint64_t __98__PMAuthorizationViewController_passwordAuthenticationViewController_completedWithUserEnteredPIN___block_invoke_3(uint64_t result)
+void *__98__PMAuthorizationViewController_passwordAuthenticationViewController_completedWithUserEnteredPIN___block_invoke_3(void *result)
 {
-  v2 = *(result + 32);
-  if (*(v2 + 1048) == *(result + 48))
+  v2 = *(result + 4);
+  if (*(v2 + 1048) == *(result + 6))
   {
     *(v2 + 1048) = 0;
-    v3 = *(result + 32);
-    v4 = [*(result + 40) code];
+    v3 = *(result + 4);
+    v4 = [*(result + 5) code];
 
     return [v3 _pushSecurityKeyViewControllerWithError:v4];
   }

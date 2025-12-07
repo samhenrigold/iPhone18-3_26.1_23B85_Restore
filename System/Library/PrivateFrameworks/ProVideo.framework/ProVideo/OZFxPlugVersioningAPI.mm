@@ -70,28 +70,28 @@
   v3 = *&creation;
   cntrl = self->_fxPlugLock.__cntrl_;
   ptr = self->_fxPlugLock.__ptr_;
-  v16 = cntrl;
+  v9 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v17, &ptr);
-  if (v16)
+  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v10, &ptr);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
-  v6 = *v17[0];
-  if (*v17[0])
+  v6 = *v10[0];
+  if (*v10[0])
   {
-    TXParagraphStyleFolder_Factory::createInstance(*v17[0], v5);
+    TXParagraphStyleFolder_Factory::createInstance(*v10[0], v5);
     (*(*v6 + 184))(v6, v3);
-    PCPrint("File %s, line %d should not have been reached:\n\t", v7, v8, v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Ozone/Effects/FxFilter/OZFxPlugHostPropertiesAPI.mm");
+    PCPrint("File %s, line %d should not have been reached:\n\t", "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Ozone/Effects/FxFilter/OZFxPlugHostPropertiesAPI.mm", 215);
     pcAbortImpl();
   }
 
-  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v17);
+  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v10);
   return 0;
 }
 

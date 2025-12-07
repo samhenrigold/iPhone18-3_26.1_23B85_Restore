@@ -46,15 +46,15 @@
 {
   v19 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  objc_storeWeak(&self->_delegate, delegateCopy);
-  v5 = DILogHandleDeviceManager();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = objc_storeWeak(&self->_delegate, delegateCopy);
+  v6 = DILogHandleDeviceManager(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v16 = &stru_285D02BA8;
     v17 = 2112;
     v18 = delegateCopy;
-    _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Delegate set to %@", buf, 0x16u);
+    _os_log_impl(&dword_249DA7000, v6, OS_LOG_TYPE_DEFAULT, "%@Delegate set to %@", buf, 0x16u);
   }
 
   if (delegateCopy)
@@ -62,7 +62,7 @@
     connectionManager = [(DIDeviceManager *)self connectionManager];
     manager = [connectionManager manager];
     connection = [manager connection];
-    v9 = [connection remoteObjectProxyWithErrorHandler:&__block_literal_global_5];
+    v10 = [connection remoteObjectProxyWithErrorHandler:&__block_literal_global_5];
     connectionManager2 = [(DIDeviceManager *)self connectionManager];
     manager2 = [connectionManager2 manager];
     clientContext = [manager2 clientContext];
@@ -71,28 +71,24 @@
     v14[2] = __31__DIDeviceManager_setDelegate___block_invoke_2;
     v14[3] = &unk_278FB9168;
     v14[4] = self;
-    [v9 loadDevicesWithContext:clientContext completionHandler:v14];
+    [v10 loadDevicesWithContext:clientContext completionHandler:v14];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __31__DIDeviceManager_setDelegate___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = DILogHandleDeviceManager();
+  v3 = DILogHandleDeviceManager(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [v2 localizedDescription];
-    v6 = 138412546;
-    v7 = &stru_285D02BA8;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Set delegate proxy error: %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = &stru_285D02BA8;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Set delegate proxy error: %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __31__DIDeviceManager_setDelegate___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -100,17 +96,18 @@ void __31__DIDeviceManager_setDelegate___block_invoke_2(uint64_t a1, void *a2, v
   v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = DILogHandleDeviceManager();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = DILogHandleDeviceManager(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v6 localizedDescription];
+      v9 = [v7 localizedDescription];
       v10 = 138412546;
       v11 = &stru_285D02BA8;
       v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_249DA7000, v7, OS_LOG_TYPE_ERROR, "%@Set delegate load devices error: %@", &v10, 0x16u);
+      v13 = v9;
+      _os_log_impl(&dword_249DA7000, v8, OS_LOG_TYPE_ERROR, "%@Set delegate load devices error: %@", &v10, 0x16u);
     }
   }
 
@@ -122,37 +119,34 @@ void __31__DIDeviceManager_setDelegate___block_invoke_2(uint64_t a1, void *a2, v
       goto LABEL_7;
     }
 
-    v7 = DILogHandleDeviceManager();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = DILogHandleDeviceManager(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v10 = 138412290;
       v11 = &stru_285D02BA8;
-      _os_log_impl(&dword_249DA7000, v7, OS_LOG_TYPE_ERROR, "%@Set delegate load devices. Devices are nil", &v10, 0xCu);
+      _os_log_impl(&dword_249DA7000, v8, OS_LOG_TYPE_ERROR, "%@Set delegate load devices. Devices are nil", &v10, 0xCu);
     }
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentDevice:(id)device
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = DILogHandleDeviceManager();
+  v5 = DILogHandleDeviceManager(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = &stru_285D02BA8;
-    v10 = 2112;
-    v11 = deviceCopy;
-    _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Setting Current Device: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = &stru_285D02BA8;
+    v9 = 2112;
+    v10 = deviceCopy;
+    _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Setting Current Device: %@", &v7, 0x16u);
   }
 
   currentDevice = self->_currentDevice;
   self->_currentDevice = deviceCopy;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)devices
@@ -167,15 +161,15 @@ LABEL_7:
 
 - (void)didAddDevice:(id)device
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = DILogHandleDeviceManager();
+  v5 = DILogHandleDeviceManager(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v19 = &stru_285D02BA8;
-    v20 = 2112;
-    v21 = deviceCopy;
+    v18 = &stru_285D02BA8;
+    v19 = 2112;
+    v20 = deviceCopy;
     _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Did add device %@", buf, 0x16u);
   }
 
@@ -203,16 +197,14 @@ LABEL_7:
     connectionManager2 = [(DIDeviceManager *)self connectionManager];
     manager = [connectionManager2 manager];
     clientQueue = [manager clientQueue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __32__DIDeviceManager_didAddDevice___block_invoke;
-    v16[3] = &unk_278FB8E48;
-    v16[4] = self;
-    v17 = deviceCopy;
-    [DIUtilities onQueue:clientQueue block:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __32__DIDeviceManager_didAddDevice___block_invoke;
+    v15[3] = &unk_278FB8E48;
+    v15[4] = self;
+    v16 = deviceCopy;
+    [DIUtilities onQueue:clientQueue block:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __32__DIDeviceManager_didAddDevice___block_invoke(uint64_t a1)
@@ -225,7 +217,7 @@ void __32__DIDeviceManager_didAddDevice___block_invoke(uint64_t a1)
 {
   v43 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
-  v5 = DILogHandleDeviceManager();
+  v5 = DILogHandleDeviceManager(devicesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -241,37 +233,39 @@ void __32__DIDeviceManager_didAddDevice___block_invoke(uint64_t a1)
   v34 = 0u;
   v6 = devicesCopy;
   v7 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v9 = v7;
   if (v7)
   {
-    v9 = *v34;
+    v10 = *v34;
     *&v8 = 138412546;
     v27 = v8;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v34 != v9)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * v10);
-        v12 = DILogHandleDeviceManager();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v12 = *(*(&v33 + 1) + 8 * v11);
+        v13 = DILogHandleDeviceManager(v7);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = v27;
           v40 = &stru_285D02BA8;
           v41 = 2112;
-          v42 = v11;
-          _os_log_impl(&dword_249DA7000, v12, OS_LOG_TYPE_DEFAULT, "%@%@", buf, 0x16u);
+          v42 = v12;
+          _os_log_impl(&dword_249DA7000, v13, OS_LOG_TYPE_DEFAULT, "%@%@", buf, 0x16u);
         }
 
-        ++v10;
+        ++v11;
       }
 
-      while (v7 != v10);
+      while (v9 != v11);
       v7 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v9 = v7;
     }
 
     while (v7);
@@ -283,50 +277,50 @@ void __32__DIDeviceManager_didAddDevice___block_invoke(uint64_t a1)
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v14 = v6;
-  v15 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v15)
+  v15 = v6;
+  v16 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  if (v16)
   {
-    v16 = *v30;
+    v17 = *v30;
     do
     {
-      v17 = 0;
+      v18 = 0;
       do
       {
-        if (*v30 != v16)
+        if (*v30 != v17)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v15);
         }
 
-        v18 = *(*(&v29 + 1) + 8 * v17);
+        v19 = *(*(&v29 + 1) + 8 * v18);
         connectionManager = [(DIDeviceManager *)self connectionManager];
-        [v18 setConnectionManager:connectionManager];
+        [v19 setConnectionManager:connectionManager];
 
-        stateExpiration = [v18 stateExpiration];
-        [v18 setStateExpiration:stateExpiration];
+        stateExpiration = [v19 stateExpiration];
+        [v19 setStateExpiration:stateExpiration];
 
-        if ([v18 isCurrentDevice])
+        if ([v19 isCurrentDevice])
         {
-          [(DIDeviceManager *)self setCurrentDevice:v18];
+          [(DIDeviceManager *)self setCurrentDevice:v19];
         }
 
-        ++v17;
+        ++v18;
       }
 
-      while (v15 != v17);
-      v15 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      while (v16 != v18);
+      v16 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
-  [(DIDeviceManager *)self setDevices:v14];
+  [(DIDeviceManager *)self setDevices:v15];
   objc_sync_exit(devices);
 
   delegate = [(DIDeviceManager *)self delegate];
-  v22 = objc_opt_respondsToSelector();
+  v23 = objc_opt_respondsToSelector();
 
-  if (v22)
+  if (v23)
   {
     connectionManager2 = [(DIDeviceManager *)self connectionManager];
     manager = [connectionManager2 manager];
@@ -338,8 +332,6 @@ void __32__DIDeviceManager_didAddDevice___block_invoke(uint64_t a1)
     v28[4] = self;
     [DIUtilities onQueue:clientQueue block:v28];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __34__DIDeviceManager_didLoadDevices___block_invoke(uint64_t a1)
@@ -350,15 +342,15 @@ void __34__DIDeviceManager_didLoadDevices___block_invoke(uint64_t a1)
 
 - (void)didRemoveDevice:(id)device
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = DILogHandleDeviceManager();
+  v5 = DILogHandleDeviceManager(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v20 = &stru_285D02BA8;
-    v21 = 2112;
-    v22 = deviceCopy;
+    v19 = &stru_285D02BA8;
+    v20 = 2112;
+    v21 = deviceCopy;
     _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Did remove device %@", buf, 0x16u);
   }
 
@@ -386,16 +378,14 @@ void __34__DIDeviceManager_didLoadDevices___block_invoke(uint64_t a1)
     connectionManager = [(DIDeviceManager *)self connectionManager];
     manager = [connectionManager manager];
     clientQueue = [manager clientQueue];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __35__DIDeviceManager_didRemoveDevice___block_invoke;
-    v17[3] = &unk_278FB8E48;
-    v17[4] = self;
-    v18 = deviceCopy;
-    [DIUtilities onQueue:clientQueue block:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __35__DIDeviceManager_didRemoveDevice___block_invoke;
+    v16[3] = &unk_278FB8E48;
+    v16[4] = self;
+    v17 = deviceCopy;
+    [DIUtilities onQueue:clientQueue block:v16];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __35__DIDeviceManager_didRemoveDevice___block_invoke(uint64_t a1)
@@ -406,105 +396,110 @@ void __35__DIDeviceManager_didRemoveDevice___block_invoke(uint64_t a1)
 
 - (void)didUpdateDevice:(id)device
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v4 = DILogHandleDeviceManager();
+  v4 = DILogHandleDeviceManager(deviceCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v34 = &stru_285D02BA8;
-    v35 = 2112;
-    v36 = deviceCopy;
+    v35 = &stru_285D02BA8;
+    v36 = 2112;
+    v37 = deviceCopy;
     _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_DEFAULT, "%@Did update device %@", buf, 0x16u);
   }
 
   obj = [(DIDeviceManager *)self devices];
-  objc_sync_enter(obj);
-  v5 = DILogHandleDeviceManager();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = objc_sync_enter(obj);
+  v6 = DILogHandleDeviceManager(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = v6;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       devices = [(DIDeviceManager *)self devices];
-      v8 = [devices count];
+      v9 = [devices count];
       *buf = 138412546;
-      v34 = &stru_285D02BA8;
-      v35 = 2048;
-      v36 = v8;
-      _os_log_impl(&dword_249DA7000, v6, OS_LOG_TYPE_DEFAULT, "%@Devices %lu", buf, 0x16u);
+      v35 = &stru_285D02BA8;
+      v36 = 2048;
+      v37 = v9;
+      _os_log_impl(&dword_249DA7000, v7, OS_LOG_TYPE_DEFAULT, "%@Devices %lu", buf, 0x16u);
     }
   }
 
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   devices2 = [(DIDeviceManager *)self devices];
-  v10 = [devices2 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v10)
+  v11 = [devices2 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v12 = v11;
+  if (v11)
   {
-    v11 = *v28;
+    v13 = *v29;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v14 = 0;
+      do
       {
-        if (*v28 != v11)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(devices2);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
-        v14 = DILogHandleDeviceManager();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = *(*(&v28 + 1) + 8 * v14);
+        v16 = DILogHandleDeviceManager(v11);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v34 = &stru_285D02BA8;
-          v35 = 2112;
-          v36 = v13;
-          _os_log_impl(&dword_249DA7000, v14, OS_LOG_TYPE_DEFAULT, "%@%@", buf, 0x16u);
+          v35 = &stru_285D02BA8;
+          v36 = 2112;
+          v37 = v15;
+          _os_log_impl(&dword_249DA7000, v16, OS_LOG_TYPE_DEFAULT, "%@%@", buf, 0x16u);
         }
+
+        ++v14;
       }
 
-      v10 = [devices2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      while (v12 != v14);
+      v11 = [devices2 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v12 = v11;
     }
 
-    while (v10);
+    while (v11);
   }
 
-  v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
   devices3 = [(DIDeviceManager *)self devices];
-  v16 = [devices3 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v16)
+  v18 = [devices3 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (v18)
   {
-    v17 = *v24;
+    v19 = *v25;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v24 != v17)
+        if (*v25 != v19)
         {
           objc_enumerationMutation(devices3);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * j);
-        if ([v19 isEqual:{deviceCopy, obj}])
+        v21 = *(*(&v24 + 1) + 8 * i);
+        if ([v21 isEqual:{deviceCopy, obj}])
         {
-          [v19 updateWithDevice:deviceCopy updateState:1];
+          [v21 updateWithDevice:deviceCopy updateState:1];
         }
       }
 
-      v16 = [devices3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v18 = [devices3 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
-    while (v16);
+    while (v18);
   }
 
   objc_sync_exit(obj);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpcManagerDidPerformDaemonCheckIn:(id)in

@@ -82,9 +82,9 @@
       observers = self->_observers;
     }
 
-    v8 = [(NSHashTable *)observers containsObject:v9];
+    v8 = objc_msgSend_containsObject_(observers);
     observerCopy = v9;
-    if (!v8)
+    if ((v8 & 1) == 0)
     {
       [(NSHashTable *)self->_observers addObject:v9];
       observerCopy = v9;

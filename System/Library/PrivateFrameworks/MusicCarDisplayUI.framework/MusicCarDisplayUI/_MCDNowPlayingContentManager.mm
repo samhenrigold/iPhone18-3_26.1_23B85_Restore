@@ -276,11 +276,11 @@
 {
   if (count <= 0)
   {
-    v6 = MCDGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MCDGeneralLogging(self);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v7 = "Disabling up next queue; no items in queue.";
+      v8 = "Disabling up next queue; no items in queue.";
       goto LABEL_12;
     }
 
@@ -293,17 +293,17 @@ LABEL_13:
   v5 = nowPlayingItem;
   if (nowPlayingItem)
   {
-    [nowPlayingItem duration];
+    objc_msgSend_duration(nowPlayingItem);
 
-    if (v14)
+    if (v16)
     {
-      v6 = MCDGeneralLogging();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = MCDGeneralLogging(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v7 = "Disabling up next queue; livestreaming content.";
+        v8 = "Disabling up next queue; livestreaming content.";
 LABEL_12:
-        _os_log_impl(&dword_25AD8E000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 2u);
+        _os_log_impl(&dword_25AD8E000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
         goto LABEL_13;
       }
 
@@ -313,22 +313,22 @@ LABEL_12:
 
   else
   {
-    v14 = 0;
-    v12 = 0u;
+    v16 = 0;
+    v14 = 0u;
+    v15 = 0u;
     v13 = 0u;
-    v11 = 0u;
   }
 
-  v8 = [(_MCDNowPlayingContentManager *)self bundleID:v11];
-  v9 = [v8 isEqualToString:@"com.apple.iBooks"];
+  v9 = [(_MCDNowPlayingContentManager *)self bundleID:v13];
+  v10 = [v9 isEqualToString:@"com.apple.iBooks"];
 
-  if (v9)
+  if (v10)
   {
-    v6 = MCDGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MCDGeneralLogging(v11);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v7 = "Disabling up next queue for AudioBooks.";
+      v8 = "Disabling up next queue for AudioBooks.";
       goto LABEL_12;
     }
 
@@ -528,10 +528,10 @@ LABEL_9:
         goto LABEL_13;
       }
 
-      v16 = MEMORY[0x277CCACA8];
-      v17 = MCDCarDisplayBundle();
-      v18 = [v17 localizedStringForKey:@"COMPOSED_BY_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-      currentPlayingSong3 = [v16 localizedStringWithFormat:v18, name2];
+      v17 = MEMORY[0x277CCACA8];
+      v18 = MCDCarDisplayBundle(v16);
+      v19 = [v18 localizedStringForKey:@"COMPOSED_BY_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+      currentPlayingSong3 = [v17 localizedStringWithFormat:v19, name2];
 
       [v7 addObject:currentPlayingSong3];
     }
@@ -566,7 +566,7 @@ LABEL_13:
 
   else
   {
-    v7 = MCDCarDisplayBundle();
+    v7 = MCDCarDisplayBundle(0);
     v6 = [v7 localizedStringForKey:@"NOT_PLAYING_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
   }
 
@@ -608,7 +608,7 @@ LABEL_13:
   v7 = nowPlayingItem;
   if (nowPlayingItem)
   {
-    [nowPlayingItem duration];
+    objc_msgSend_duration(nowPlayingItem);
   }
 
   else
@@ -617,7 +617,7 @@ LABEL_13:
     v9 = _requestResponseItem;
     if (_requestResponseItem)
     {
-      [_requestResponseItem duration];
+      objc_msgSend_duration(_requestResponseItem);
     }
 
     else
@@ -664,7 +664,7 @@ LABEL_13:
   v4 = nowPlayingItem;
   if (nowPlayingItem)
   {
-    [nowPlayingItem duration];
+    objc_msgSend_duration(nowPlayingItem);
     if (v7)
     {
       v5 = 4;
@@ -716,13 +716,13 @@ LABEL_13:
 
   if (totalItemCount <= 1)
   {
-    v9 = MCDGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = MCDGeneralLogging(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v10 = "Disabling up next queue; no items in queue.";
+      v11 = "Disabling up next queue; no items in queue.";
 LABEL_12:
-      _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 2u);
+      _os_log_impl(&dword_25AD8E000, v10, OS_LOG_TYPE_DEFAULT, v11, buf, 2u);
       goto LABEL_13;
     }
 
@@ -730,56 +730,56 @@ LABEL_12:
   }
 
   nowPlayingItem = [(_MCDNowPlayingContentManager *)self nowPlayingItem];
-  v12 = nowPlayingItem;
+  v13 = nowPlayingItem;
   if (!nowPlayingItem)
   {
-    v20 = 0;
-    v18 = 0u;
-    v19 = 0u;
-    v17 = 0u;
+    v23 = 0;
+    v21 = 0u;
+    v22 = 0u;
+    v20 = 0u;
 
 LABEL_9:
-    v13 = [(_MCDNowPlayingContentManager *)self bundleID:v17];
-    v14 = [v13 isEqualToString:@"com.apple.iBooks"];
+    v15 = [(_MCDNowPlayingContentManager *)self bundleID:v20];
+    v16 = [v15 isEqualToString:@"com.apple.iBooks"];
 
-    if (!v14)
+    if (!v16)
     {
-      v15 = 1;
+      v18 = 1;
       goto LABEL_14;
     }
 
-    v9 = MCDGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = MCDGeneralLogging(v17);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v10 = "Disabling up next queue for AudioBooks.";
+      v11 = "Disabling up next queue for AudioBooks.";
       goto LABEL_12;
     }
 
     goto LABEL_13;
   }
 
-  [nowPlayingItem duration];
+  objc_msgSend_duration(nowPlayingItem);
 
-  if ((v20 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
     goto LABEL_9;
   }
 
-  v9 = MCDGeneralLogging();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = MCDGeneralLogging(v14);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    v10 = "Disabling up next queue; livestreaming content.";
+    v11 = "Disabling up next queue; livestreaming content.";
     goto LABEL_12;
   }
 
 LABEL_13:
 
-  v15 = 0;
+  v18 = 0;
 LABEL_14:
 
-  return v15;
+  return v18;
 }
 
 - (BOOL)nowPlayingViewControllerCanRepeat:(id)repeat
@@ -879,24 +879,18 @@ LABEL_14:
 
   if (v5)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v8 = MCDGeneralLogging(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = MCDGeneralLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v9[0] = 67109120;
-      v9[1] = [(_MCDNowPlayingContentManager *)self shouldHideBackButton];
-      _os_log_impl(&dword_25AD8E000, v7, OS_LOG_TYPE_DEFAULT, "Hiding back button: %d", v9, 8u);
-    }
-
-    result = [(_MCDNowPlayingContentManager *)self shouldHideBackButton];
+    v9[0] = 67109120;
+    v9[1] = [(_MCDNowPlayingContentManager *)self shouldHideBackButton];
+    _os_log_impl(&dword_25AD8E000, v8, OS_LOG_TYPE_DEFAULT, "Hiding back button: %d", v9, 8u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(_MCDNowPlayingContentManager *)self shouldHideBackButton];
 }
 
 - (NSString)nowPlayingBundleID

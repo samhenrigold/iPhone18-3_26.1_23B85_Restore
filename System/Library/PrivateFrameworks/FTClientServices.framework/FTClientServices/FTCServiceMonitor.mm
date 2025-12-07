@@ -9,25 +9,24 @@
 
 - (FTCServiceMonitor)initWithServiceType:(int64_t)type
 {
-  v8.receiver = self;
-  v8.super_class = FTCServiceMonitor;
-  v4 = [(FTCServiceMonitor *)&v8 init];
-  v5 = v4;
+  v12.receiver = self;
+  v12.super_class = FTCServiceMonitor;
+  v4 = [(FTCServiceMonitor *)&v12 init];
+  v7 = v4;
   if (v4)
   {
     v4->_type = type;
     if (type <= 2)
     {
-      v6 = off_278FF1938[type];
       IMUserScopedNotification();
     }
 
-    [MEMORY[0x277CFB990] weakRefWithObject:v5];
-    v5->_token = IMDispatchForNotify();
-    [(FTCServiceMonitor *)v5 _updateAvailability];
+    objc_msgSend_weakRefWithObject_(MEMORY[0x277CFB990], v5, v7, v6);
+    v7->_token = IMDispatchForNotify();
+    objc_msgSend__updateAvailability(v7, v8, v9, v10);
   }
 
-  return v5;
+  return v7;
 }
 
 - (void)dealloc
@@ -40,9 +39,12 @@
 
 - (void)_postAvailability:(int64_t)availability
 {
-  v5 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:availability];
-  v4 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v5, @"availability", 0}];
-  [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
+  v5 = objc_alloc(MEMORY[0x277CCABB0]);
+  v17 = objc_msgSend_initWithInteger_(v5, v6, availability, v7);
+  v8 = objc_alloc(MEMORY[0x277CBEAC0]);
+  v11 = objc_msgSend_initWithObjectsAndKeys_(v8, v9, v17, v10, @"availability", 0);
+  v15 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v12, v13, v14);
+  objc_msgSend___mainThreadPostNotificationName_object_userInfo_(v15, v16, @"__kFTCServiceMonitorAvailabilityDidChangeNotification", self, v11);
 }
 
 - (void)_updateAvailability
@@ -59,75 +61,60 @@
     v6 = OSLogHandleForRegistrationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      serviceType = [(FTCServiceMonitor *)self serviceType];
-      if ((serviceType + 1) > 3)
-      {
-        v8 = @"Unknown";
-      }
-
-      else
-      {
-        v8 = off_278FF1950[serviceType + 1];
-      }
-
-      if ((availability + 2) > 3)
-      {
-        v9 = @"Unknown";
-      }
-
-      else
-      {
-        v9 = off_278FF1970[availability + 2];
-      }
-
-      v10 = self->_availability + 2;
-      if (v10 > 3)
+      v10 = objc_msgSend_serviceType(self, v7, v8, v9);
+      if ((v10 + 1) > 3)
       {
         v11 = @"Unknown";
       }
 
       else
       {
-        v11 = off_278FF1970[v10];
+        v11 = off_278FF1950[v10 + 1];
+      }
+
+      if ((availability + 2) > 3)
+      {
+        v12 = @"Unknown";
+      }
+
+      else
+      {
+        v12 = off_278FF1970[availability + 2];
+      }
+
+      v13 = self->_availability + 2;
+      if (v13 > 3)
+      {
+        v14 = @"Unknown";
+      }
+
+      else
+      {
+        v14 = off_278FF1970[v13];
       }
 
       *buf = 138413058;
       selfCopy = self;
       v27 = 2112;
-      v28 = v8;
+      v28 = v11;
       v29 = 2112;
-      v30 = v9;
+      v30 = v12;
       v31 = 2112;
-      v32 = v11;
+      v32 = v14;
       _os_log_impl(&dword_24A9AC000, v6, OS_LOG_TYPE_DEFAULT, "%@ updating availability for %@   => from %@ to %@", buf, 0x2Au);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && MarcoShouldLogRegistration())
+    if (os_log_shim_legacy_logging_enabled())
     {
-      serviceType2 = [(FTCServiceMonitor *)self serviceType];
-      if ((serviceType2 + 1) <= 3)
+      if (MarcoShouldLogRegistration())
       {
-        v19 = off_278FF1950[serviceType2 + 1];
+        objc_msgSend_serviceType(self, v15, v17, v16);
+        sub_24A9ACE54(@"ServiceAvailability", @"%@ updating availability for %@   => from %@ to %@", v18, v19, v20, v21, v22, v23, self);
       }
-
-      if ((availability + 2) <= 3)
-      {
-        v20 = off_278FF1970[availability + 2];
-      }
-
-      v21 = self->_availability + 2;
-      if (v21 <= 3)
-      {
-        v22 = off_278FF1970[v21];
-      }
-
-      sub_24A9ACE54(@"ServiceAvailability", @"%@ updating availability for %@   => from %@ to %@", v13, v14, v15, v16, v17, v18, self);
     }
 
-    [(FTCServiceMonitor *)self _postAvailability:self->_availability];
+    objc_msgSend__postAvailability_(self, v15, self->_availability, v16);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

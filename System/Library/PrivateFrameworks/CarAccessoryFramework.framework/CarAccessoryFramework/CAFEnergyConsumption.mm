@@ -19,6 +19,7 @@
 - (NSMeasurement)averageEnergyEfficiency;
 - (NSMeasurement)energyEfficiency;
 - (NSMeasurement)energyEfficiencyMax;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -257,6 +258,81 @@
   v3 = energyEfficiencyMaxCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000035000012"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    energyEfficiencyCharacteristic = [(CAFEnergyConsumption *)self energyEfficiencyCharacteristic];
+    uniqueIdentifier2 = [energyEfficiencyCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      energyEfficiency = [(CAFEnergyConsumption *)self energyEfficiency];
+      [observers energyConsumptionService:self didUpdateEnergyEfficiency:energyEfficiency];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000035000017"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    averageEnergyEfficiencyCharacteristic = [(CAFEnergyConsumption *)self averageEnergyEfficiencyCharacteristic];
+    uniqueIdentifier4 = [averageEnergyEfficiencyCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      energyEfficiency = [(CAFEnergyConsumption *)self averageEnergyEfficiency];
+      [observers energyConsumptionService:self didUpdateAverageEnergyEfficiency:energyEfficiency];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000041000021"])
+  {
+LABEL_13:
+
+    goto LABEL_14;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  energyEfficiencyMaxCharacteristic = [(CAFEnergyConsumption *)self energyEfficiencyMaxCharacteristic];
+  uniqueIdentifier6 = [energyEfficiencyMaxCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    energyEfficiency = [(CAFEnergyConsumption *)self energyEfficiencyMax];
+    [observers energyConsumptionService:self didUpdateEnergyEfficiencyMax:energyEfficiency];
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  v23.receiver = self;
+  v23.super_class = CAFEnergyConsumption;
+  [(CAFService *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForEnergyEfficiency

@@ -27,24 +27,25 @@
   first = self->_first;
   second = self->_second;
 
-  return [(CLPair *)v4 initWithFirst:first second:second];
+  return objc_msgSend_initWithFirst_second_(v4, v5, first, second);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeInt:-[CLPair first](self forKey:{"first"), @"first"}];
-  second = [(CLPair *)self second];
+  v6 = objc_msgSend_first(self, a2, coder, v3);
+  objc_msgSend_encodeInt_forKey_(coder, v7, v6, @"first");
+  v12 = objc_msgSend_second(self, v8, v9, v10);
 
-  [coder encodeInt:second forKey:@"second"];
+  objc_msgSend_encodeInt_forKey_(coder, v11, v12, @"second");
 }
 
 - (CLPair)initWithCoder:(id)coder
 {
   v4 = [CLPair alloc];
-  v5 = [coder decodeIntForKey:@"first"];
-  v6 = [coder decodeIntForKey:@"second"];
+  v7 = objc_msgSend_decodeIntForKey_(coder, v5, @"first", v6);
+  v11 = objc_msgSend_decodeIntForKey_(coder, v8, @"second", v9);
 
-  return [(CLPair *)v4 initWithFirst:v5 second:v6];
+  return objc_msgSend_initWithFirst_second_(v4, v10, v7, v11);
 }
 
 @end

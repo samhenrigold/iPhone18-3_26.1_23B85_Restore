@@ -10,47 +10,47 @@
 
 + (BOOL)checkConflictingAttributes:(id)attributes error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   attributesCopy = attributes;
-  v6 = [attributesCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [attributesCopy countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(attributesCopy);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v11 = attributesCopy;
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              if (v10 != *(*(&v19 + 1) + 8 * j) && (![v10 allowedWithAttribute:? error:?] || !objc_msgSend(v10, "hasMandatoryAttributes:error:", v11, error)))
+              if (v10 != *(*(&v18 + 1) + 8 * j) && (![v10 allowedWithAttribute:? error:?] || !objc_msgSend(v10, "hasMandatoryAttributes:error:", v11, error)))
               {
 
                 v16 = 0;
@@ -58,7 +58,7 @@
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
             if (v13)
             {
               continue;
@@ -69,7 +69,7 @@
         }
       }
 
-      v7 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
       v16 = 1;
     }
 
@@ -83,13 +83,12 @@
 
 LABEL_21:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)isAssertionValidForContext:(id)context error:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (!contextCopy)
   {
@@ -144,48 +143,48 @@ LABEL_5:
   if ([attributes count])
   {
     selfCopy = self;
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v15 = attributes;
-    v16 = [v15 countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v49 objects:v53 count:16];
     if (v16)
     {
       v17 = v16;
-      v47 = assertionDescriptor;
+      v46 = assertionDescriptor;
       obj = v15;
-      v43 = a2;
-      v45 = attributes;
+      v42 = a2;
+      v44 = attributes;
       errorCopy = error;
       v18 = contextCopy;
       v19 = 0;
-      v20 = *v51;
+      v20 = *v50;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v51 != v20)
+          if (*v50 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v50 + 1) + 8 * i);
+          v22 = *(*(&v49 + 1) + 8 * i);
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
-          v49 = 0;
-          v24 = [v22 isValidForContext:v18 withError:&v49];
-          v25 = v49;
+          v48 = 0;
+          v24 = [v22 isValidForContext:v18 withError:&v48];
+          v25 = v48;
           v26 = v25;
           if ((v24 & 1) == 0)
           {
             if (!v25)
             {
-              [(RBAssertionDescriptorValidator *)v43 isAssertionValidForContext:selfCopy error:v22];
+              [(RBAssertionDescriptorValidator *)v42 isAssertionValidForContext:selfCopy error:v22];
             }
 
             contextCopy = v18;
-            assertionDescriptor = v47;
+            assertionDescriptor = v46;
             if (errorCopy)
             {
               v27 = v26;
@@ -193,14 +192,14 @@ LABEL_5:
             }
 
             LOBYTE(error) = 0;
-            attributes = v45;
+            attributes = v44;
             goto LABEL_43;
           }
 
           v19 |= isKindOfClass;
         }
 
-        v17 = [obj countByEnumeratingWithState:&v50 objects:v54 count:{16, v43}];
+        v17 = [obj countByEnumeratingWithState:&v49 objects:v53 count:{16, v42}];
         if (v17)
         {
           continue;
@@ -210,8 +209,8 @@ LABEL_5:
       }
 
       contextCopy = v18;
-      assertionDescriptor = v47;
-      attributes = v45;
+      assertionDescriptor = v46;
+      attributes = v44;
       error = errorCopy;
       if (v19)
       {
@@ -278,22 +277,21 @@ LABEL_38:
 
 LABEL_43:
 
-  v41 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (id)_errorWithDescription:(uint64_t)description
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (description)
   {
     v2 = MEMORY[0x277CCA9B8];
     v3 = *MEMORY[0x277D47050];
-    v10 = *MEMORY[0x277CCA470];
-    v11[0] = a2;
+    v9 = *MEMORY[0x277CCA470];
+    v10[0] = a2;
     v4 = MEMORY[0x277CBEAC0];
     v5 = a2;
-    v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [v2 errorWithDomain:v3 code:2 userInfo:v6];
   }
 
@@ -302,35 +300,33 @@ LABEL_43:
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)_flattenedAttributesFromContext:(void *)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (context)
   {
     assertionDescriptor = [v3 assertionDescriptor];
     v6 = [MEMORY[0x277CBEB58] set];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     attributes = [assertionDescriptor attributes];
-    v8 = [attributes countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [attributes countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(attributes);
           }
@@ -339,7 +335,7 @@ LABEL_43:
           [v6 unionSet:v12];
         }
 
-        v9 = [attributes countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [attributes countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -350,8 +346,6 @@ LABEL_43:
   {
     v6 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

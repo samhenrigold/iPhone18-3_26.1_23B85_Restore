@@ -172,7 +172,7 @@ LABEL_10:
 
 - (SUDescriptor)initWithCoder:(id)coder
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(SUDescriptor *)self init];
   if (v5)
@@ -318,17 +318,16 @@ LABEL_10:
     [(SUDescriptor *)v5 setSplatComboBuildVersion:v44];
 
     v45 = MEMORY[0x277CBEB98];
+    v50 = objc_opt_class();
     v51 = objc_opt_class();
     v52 = objc_opt_class();
-    v53 = objc_opt_class();
-    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:3];
-    v47 = [v45 setWithArray:{v46, v51, v52}];
+    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:3];
+    v47 = [v45 setWithArray:{v46, v50, v51}];
 
     v48 = [coderCopy decodeObjectOfClasses:v47 forKey:@"systemPartitionPadding"];
     [(SUDescriptor *)v5 setSystemPartitionPadding:v48];
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -775,25 +774,14 @@ LABEL_48:
                   if ((flagsCopy & 2) != 0)
                   {
                     isSplombo = [(SUDescriptor *)self isSplombo];
-                    if (isSplombo != [v9 isSplombo])
+                    if (isSplombo != [v9 isSplombo] || (v33 = MEMORY[0x277D64400], -[SUDescriptor splatComboBuildVersion](self, "splatComboBuildVersion"), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "splatComboBuildVersion"), v35 = objc_claimAutoreleasedReturnValue(), LOBYTE(v33) = objc_msgSend(v33, "stringIsEqual:to:", v34, v35), v35, v34, (v33 & 1) == 0))
                     {
-                      goto LABEL_13;
-                    }
-
-                    v33 = MEMORY[0x277D64400];
-                    splatComboBuildVersion = [(SUDescriptor *)self splatComboBuildVersion];
-                    splatComboBuildVersion2 = [v9 splatComboBuildVersion];
-                    LOBYTE(v33) = [v33 stringIsEqual:splatComboBuildVersion to:splatComboBuildVersion2];
-
-                    if ((v33 & 1) == 0)
-                    {
-LABEL_13:
                       v36 = MEMORY[0x277CCACA8];
                       isSplombo2 = [(SUDescriptor *)self isSplombo];
-                      splatComboBuildVersion3 = [(SUDescriptor *)self splatComboBuildVersion];
+                      splatComboBuildVersion = [(SUDescriptor *)self splatComboBuildVersion];
                       isSplombo3 = [v9 isSplombo];
-                      splatComboBuildVersion4 = [v9 splatComboBuildVersion];
-                      v41 = [v36 stringWithFormat:@"%@ 'Splombo' ([%d, %@] != [%d, %@])", v13, isSplombo2, splatComboBuildVersion3, isSplombo3, splatComboBuildVersion4];
+                      splatComboBuildVersion2 = [v9 splatComboBuildVersion];
+                      v41 = [v36 stringWithFormat:@"%@ 'Splombo' ([%d, %@] != [%d, %@])", v13, isSplombo2, splatComboBuildVersion, isSplombo3, splatComboBuildVersion2];
 
 LABEL_36:
                       goto LABEL_37;
@@ -942,8 +930,8 @@ LABEL_25:
                   {
                     v95 = MEMORY[0x277CCACA8];
                     isSplombo4 = [(SUDescriptor *)self isSplombo];
-                    splatComboBuildVersion5 = [(SUDescriptor *)self splatComboBuildVersion];
-                    v41 = [v95 stringWithFormat:@"%@ 'Splombo' ([%d, %@] != [%d, %@])", v13, isSplombo4, splatComboBuildVersion5, v99, productBuildVersion7];
+                    splatComboBuildVersion3 = [(SUDescriptor *)self splatComboBuildVersion];
+                    v41 = [v95 stringWithFormat:@"%@ 'Splombo' ([%d, %@] != [%d, %@])", v13, isSplombo4, splatComboBuildVersion3, v99, productBuildVersion7];
 
                     goto LABEL_36;
                   }

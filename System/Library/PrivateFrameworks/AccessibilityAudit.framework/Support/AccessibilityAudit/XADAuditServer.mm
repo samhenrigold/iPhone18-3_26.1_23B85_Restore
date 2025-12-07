@@ -28,6 +28,8 @@
 - (void)didReceiveAccessibilityNotification:(int)notification;
 - (void)eventManager:(id)manager eventToHighlightElement:(id)element;
 - (void)eventManager:(id)manager eventToHighlightPoint:(CGPoint)point;
+- (void)eventManager:(id)manager notificationReceived:(int)received notification:(id)notification traits:(id)traits label:(id)label value:(id)value hint:(id)hint identifier:(id)self0;
+- (void)eventManager:(id)manager stoppedSnarfingEvents:(BOOL)events;
 - (void)eventManager:(id)manager systemFocusDidMoveToElement:(id)element;
 - (void)frontmostApplicationsDidChange;
 - (void)highlightElement:(id)element;
@@ -36,6 +38,7 @@
 - (void)inspectorManager:(id)manager inspectorFocusDidChange:(id)change;
 - (void)inspectorManager:(id)manager inspectorMonitoredEventTypeChanged:(unint64_t)changed;
 - (void)resume;
+- (void)setApplicationStateNotificationsEnabled:(BOOL)enabled;
 @end
 
 @implementation XADAuditServer
@@ -233,6 +236,26 @@
 
   connection = [(XADAuditServer *)self connection];
   [connection sendControlAsync:v40 replyHandler:0];
+}
+
+- (void)setApplicationStateNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8.receiver = self;
+  v8.super_class = XADAuditServer;
+  if ([(XADAuditServer *)&v8 applicationStateNotificationsEnabled]!= enabled)
+  {
+    v7.receiver = self;
+    v7.super_class = XADAuditServer;
+    [(XADAuditServer *)&v7 setApplicationStateNotificationsEnabled:enabledCopy];
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_100009004;
+    v5[3] = &unk_100018B08;
+    v6 = enabledCopy;
+    v5[4] = self;
+    dispatch_async(&_dispatch_main_q, v5);
+  }
 }
 
 - (id)deviceCaptureScreenshot
@@ -757,6 +780,20 @@ LABEL_12:
   [(XADAuditServer *)self set_deviceActivelyTargeted:1];
 }
 
+- (void)eventManager:(id)manager stoppedSnarfingEvents:(BOOL)events
+{
+  v5 = [XADInspectorManager sharedManager:manager];
+  dispatchQueue = [v5 dispatchQueue];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10000B27C;
+  v8[3] = &unk_100018B30;
+  v9 = v5;
+  selfCopy = self;
+  v7 = v5;
+  dispatch_async(dispatchQueue, v8);
+}
+
 - (void)eventManager:(id)manager eventToHighlightElement:(id)element
 {
   elementCopy = element;
@@ -1252,6 +1289,99 @@ LABEL_38:
       block[4] = self;
       dispatch_after(v6, &_dispatch_main_q, block);
     }
+  }
+}
+
+- (void)eventManager:(id)manager notificationReceived:(int)received notification:(id)notification traits:(id)traits label:(id)label value:(id)value hint:(id)hint identifier:(id)self0
+{
+  v13 = *&received;
+  notificationCopy = notification;
+  traitsCopy = traits;
+  labelCopy = label;
+  valueCopy = value;
+  hintCopy = hint;
+  identifierCopy = identifier;
+  [(XADAuditServer *)self didReceiveAccessibilityNotification:v13];
+  if ([notificationCopy length])
+  {
+    v20 = +[AXAuditObjectTransportManager sharedManager];
+    if ([(XADAuditServer *)self hostAPIVersion]< 6)
+    {
+      v27 = [v20 transportDictionaryForObject:notificationCopy];
+    }
+
+    else
+    {
+      v21 = &stru_100019368;
+      if (traitsCopy)
+      {
+        v22 = traitsCopy;
+      }
+
+      else
+      {
+        v22 = &stru_100019368;
+      }
+
+      if (labelCopy)
+      {
+        v23 = labelCopy;
+      }
+
+      else
+      {
+        v23 = &stru_100019368;
+      }
+
+      if (valueCopy)
+      {
+        v24 = valueCopy;
+      }
+
+      else
+      {
+        v24 = &stru_100019368;
+      }
+
+      if (hintCopy)
+      {
+        v25 = hintCopy;
+      }
+
+      else
+      {
+        v25 = &stru_100019368;
+      }
+
+      if (identifierCopy)
+      {
+        v21 = identifierCopy;
+      }
+
+      v26 = [NSDictionary dictionaryWithObjectsAndKeys:notificationCopy, kAXAuditNotificationDictKeyNotification, v22, kAXAuditNotificationDictKeyTraits, v23, kAXAuditNotificationDictKeyLabel, v24, kAXAuditNotificationDictKeyValue, v25, kAXAuditNotificationDictKeyHint, v21, kAXAuditNotificationDictKeyIdentifier, 0];
+      v27 = [v20 transportDictionaryForObject:v26];
+    }
+
+    if (v27)
+    {
+      v28 = [DTXMessage messageWithSelector:"hostInspectorNotificationReceived:" objectArguments:v27, 0];
+    }
+
+    else
+    {
+      +[NSNull null];
+      v33 = labelCopy;
+      v29 = traitsCopy;
+      v31 = v30 = v20;
+      v28 = [DTXMessage messageWithSelector:"hostInspectorNotificationReceived:" objectArguments:v31, 0];
+
+      v20 = v30;
+      traitsCopy = v29;
+      labelCopy = v33;
+    }
+
+    connection = [(XADAuditServer *)self connection];
+    [connection sendControlAsync:v28 replyHandler:0];
   }
 }
 

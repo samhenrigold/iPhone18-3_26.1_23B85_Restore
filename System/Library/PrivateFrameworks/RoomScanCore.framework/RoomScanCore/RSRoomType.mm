@@ -301,11 +301,11 @@
 
 - (RSRoomType)initWithDictionaryRepresentation:(id)representation withGroupId:(unsigned int)id
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
-  v76.receiver = self;
-  v76.super_class = RSRoomType;
-  v6 = [(RSRoomType *)&v76 init];
+  v72.receiver = self;
+  v72.super_class = RSRoomType;
+  v6 = [(RSRoomType *)&v72 init];
   v8 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v7, @"insideRoom");
   v6->_insideRoom = objc_msgSend_intValue(v8, v9, v10);
 
@@ -321,36 +321,31 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v68 = v20;
+    v67 = v20;
   }
 
   else
   {
-    v68 = 0;
+    v67 = 0;
   }
 
-  if (v68)
+  if (v67)
   {
-    sub_26230F05C(v68, &v6[1].super.isa);
+    sub_26230F05C(v67, &v6[1].super.isa);
   }
 
   v6->_groupId = id;
-  v66 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v21, @"polygon");
-  v67 = objc_msgSend_objectForKeyedSubscript_(v66, v22, @"points");
-  v24 = objc_msgSend_objectForKeyedSubscript_(v66, v23, @"type");
-  v65 = objc_msgSend_intValue(v24, v25, v26);
+  v65 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v21, @"polygon");
+  v66 = objc_msgSend_objectForKeyedSubscript_(v65, v22, @"points");
+  v24 = objc_msgSend_objectForKeyedSubscript_(v65, v23, @"type");
+  v64 = objc_msgSend_intValue(v24, v25, v26);
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  obj = v67;
-  if (objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, &v72, v77, 16))
+  memset(v71, 0, sizeof(v71));
+  obj = v66;
+  if (objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, v71, v73, 16))
   {
-    *v73;
-    *v73;
-    v29 = **(&v72 + 1);
-    v30 = objc_msgSend_objectForKeyedSubscript_(**(&v72 + 1), v28, @"x");
+    v29 = *v71[0].super_class;
+    v30 = objc_msgSend_objectForKeyedSubscript_(*v71[0].super_class, v28, @"x");
     objc_msgSend_floatValue(v30, v31, v32);
 
     v34 = objc_msgSend_objectForKeyedSubscript_(v29, v33, @"y");
@@ -366,7 +361,7 @@
     v43 = v40;
     if (v40)
     {
-      *(v40 + 8) = v65;
+      *(v40 + 8) = v64;
     }
 
     v44 = objc_msgSend_copy(v40, v41, v42);
@@ -386,22 +381,21 @@
   {
     v51 = objc_msgSend_objectAtIndexedSubscript_(v47, v50, 0);
     objc_msgSend_floatValue(v51, v52, v53);
-    v71 = v54;
+    v70 = v54;
     v56 = objc_msgSend_objectAtIndexedSubscript_(v47, v55, 1);
     objc_msgSend_floatValue(v56, v57, v58);
-    *v6->_polygonCenter = __PAIR64__(v59, v71);
+    *v6->_polygonCenter = __PAIR64__(v59, v70);
   }
 
   v60 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v50, @"story");
   v6->storyLevel = objc_msgSend_integerValue(v60, v61, v62);
 
-  v63 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)dictionaryRepresentation
 {
-  v70[2] = *MEMORY[0x277D85DE8];
+  v69[2] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
   *&v5 = self->_confidenceScore;
   v8 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v6, v7, v5);
@@ -419,39 +413,38 @@
   v24 = objc_msgSend_type(self->_polygon, v22, v23);
   v26 = objc_msgSend_numberWithInt_(v21, v25, v24);
   objc_msgSend_setObject_forKeyedSubscript_(v20, v27, v26, @"type");
-  v68 = v20;
+  v67 = v20;
 
   v32 = objc_msgSend_array(MEMORY[0x277CBEB18], v28, v29);
   for (i = 0; objc_msgSend_count(self->_polygon, v30, v31) > i; ++i)
   {
     v36 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v34, v35);
-    v69 = HIDWORD(*(objc_msgSend_points(self->_polygon, v37, v38) + 8 * i));
+    v68 = HIDWORD(*(objc_msgSend_points(self->_polygon, v37, v38) + 8 * i));
     v41 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v39, v40);
     objc_msgSend_setObject_forKeyedSubscript_(v36, v42, v41, @"x");
 
-    HIDWORD(v43) = v69;
-    LODWORD(v43) = v69;
+    HIDWORD(v43) = v68;
+    LODWORD(v43) = v68;
     v46 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v44, v45, v43);
     objc_msgSend_setObject_forKeyedSubscript_(v36, v47, v46, @"y");
 
     objc_msgSend_addObject_(v32, v48, v36);
   }
 
-  objc_msgSend_setObject_forKeyedSubscript_(v68, v34, v32, @"points");
-  objc_msgSend_setObject_forKeyedSubscript_(v4, v49, v68, @"polygon");
+  objc_msgSend_setObject_forKeyedSubscript_(v67, v34, v32, @"points");
+  objc_msgSend_setObject_forKeyedSubscript_(v4, v49, v67, @"polygon");
   v52 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v50, v51, *self->_polygonCenter);
-  v70[0] = v52;
+  v69[0] = v52;
   LODWORD(v53) = *&self->_polygonCenter[4];
   v56 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v54, v55, v53);
-  v70[1] = v56;
-  v58 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v57, v70, 2);
+  v69[1] = v56;
+  v58 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v57, v69, 2);
   objc_msgSend_setObject_forKeyedSubscript_(v4, v59, v58, @"polygonCenter");
 
   v61 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v60, self->storyLevel);
   objc_msgSend_setObject_forKeyedSubscript_(v4, v62, v61, @"story");
 
   v65 = objc_msgSend_copy(v4, v63, v64);
-  v66 = *MEMORY[0x277D85DE8];
 
   return v65;
 }

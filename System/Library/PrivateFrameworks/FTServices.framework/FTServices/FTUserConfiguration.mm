@@ -36,10 +36,10 @@
 
 - (FTUserConfiguration)init
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = FTUserConfiguration;
-  v2 = [(FTUserConfiguration *)&v15 init];
+  v17 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = FTUserConfiguration;
+  v2 = [(FTUserConfiguration *)&v14 init];
   v3 = v2;
   if (v2)
   {
@@ -53,7 +53,7 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v17 = processName;
+        v16 = processName;
         _os_log_impl(&dword_195925000, v6, OS_LOG_TYPE_DEFAULT, "Not building UserConfiguration cache for {processName: %@}", buf, 0xCu);
       }
 
@@ -76,13 +76,12 @@
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (NSArray)selectedPhoneNumberRegistrationSubscriptionLabels
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x19A8B8420](@"com.apple.conference", @"phoneNumberRegistrationSubscriptionLabel");
   if (!v3)
   {
@@ -92,8 +91,8 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7[0] = v3;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = v3;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
     [(FTUserConfiguration *)self setSelectedPhoneNumberRegistrationSubscriptionLabels:v4];
     goto LABEL_7;
   }
@@ -111,8 +110,6 @@ LABEL_6:
   }
 
 LABEL_7:
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -148,34 +145,33 @@ LABEL_7:
 
 - (__CTServerConnection)ctServerConnection
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   ctServerConnection = self->_ctServerConnection;
   if (!ctServerConnection)
   {
     objc_initWeak(&location, self);
     v4 = im_primary_queue();
-    objc_copyWeak(&v19, &location);
-    v5 = *MEMORY[0x1E695E480];
+    objc_copyWeak(&v17, &location);
     ctServerConnection = _CTServerConnectionCreateOnTargetQueue();
 
     if (ctServerConnection)
     {
-      v6 = *MEMORY[0x1E6965288];
-      v7 = _CTServerConnectionRegisterForNotification();
-      v8 = v7;
-      if (v7)
+      v5 = *MEMORY[0x1E6965288];
+      v6 = _CTServerConnectionRegisterForNotification();
+      v7 = v6;
+      if (v6)
       {
-        v9 = HIDWORD(v7);
-        v10 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v8 = HIDWORD(v6);
+        v9 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v22 = v6;
+          v20 = v5;
+          v21 = 1024;
+          v22 = v7;
           v23 = 1024;
           v24 = v8;
-          v25 = 1024;
-          v26 = v9;
-          _os_log_impl(&dword_195925000, v10, OS_LOG_TYPE_ERROR, "Failed to register CT server DataAccessPolicyChanged notification %@ (domain: %d error: %d).", buf, 0x18u);
+          _os_log_impl(&dword_195925000, v9, OS_LOG_TYPE_ERROR, "Failed to register CT server DataAccessPolicyChanged notification %@ (domain: %d error: %d).", buf, 0x18u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
@@ -186,25 +182,25 @@ LABEL_7:
         }
       }
 
-      v11 = *MEMORY[0x1E6965260];
-      v12 = _CTServerConnectionRegisterForNotification();
-      v13 = v12;
-      if (!v12)
+      v10 = *MEMORY[0x1E6965260];
+      v11 = _CTServerConnectionRegisterForNotification();
+      v12 = v11;
+      if (!v11)
       {
         goto LABEL_17;
       }
 
-      v14 = HIDWORD(v12);
-      v15 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v13 = HIDWORD(v11);
+      v14 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v22 = v11;
+        v20 = v10;
+        v21 = 1024;
+        v22 = v12;
         v23 = 1024;
         v24 = v13;
-        v25 = 1024;
-        v26 = v14;
-        _os_log_impl(&dword_195925000, v15, OS_LOG_TYPE_ERROR, "Failed to register CT server ConnectionInvalidated notification %@ (domain: %d error: %d).", buf, 0x18u);
+        _os_log_impl(&dword_195925000, v14, OS_LOG_TYPE_ERROR, "Failed to register CT server ConnectionInvalidated notification %@ (domain: %d error: %d).", buf, 0x18u);
       }
 
       if (!os_log_shim_legacy_logging_enabled())
@@ -215,11 +211,11 @@ LABEL_7:
 
     else
     {
-      v16 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_195925000, v16, OS_LOG_TYPE_ERROR, "Failed to create CT server connection", buf, 2u);
+        _os_log_impl(&dword_195925000, v15, OS_LOG_TYPE_ERROR, "Failed to create CT server connection", buf, 2u);
       }
 
       if (!os_log_shim_legacy_logging_enabled())
@@ -235,19 +231,18 @@ LABEL_17:
     if (self->_shouldCacheCTConnection)
     {
       self->_ctServerConnection = ctServerConnection;
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v17);
       objc_destroyWeak(&location);
-      ctServerConnection = self->_ctServerConnection;
+      return self->_ctServerConnection;
     }
 
     else
     {
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v17);
       objc_destroyWeak(&location);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return ctServerConnection;
 }
 
@@ -268,18 +263,18 @@ LABEL_17:
 - (void)_setAppCellularDataEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if ([(FTUserConfiguration *)self ctServerConnection])
   {
-    v10 = *MEMORY[0x1E6965230];
+    v9 = *MEMORY[0x1E6965230];
     v4 = MEMORY[0x1E6965238];
     if (!enabledCopy)
     {
       v4 = MEMORY[0x1E6965240];
     }
 
-    v11[0] = *v4;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = *v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     _CTServerConnectionSetCellularUsagePolicy();
   }
 
@@ -289,7 +284,7 @@ LABEL_17:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v9 = @"com.apple.facetime";
+      v8 = @"com.apple.facetime";
       _os_log_impl(&dword_195925000, v6, OS_LOG_TYPE_ERROR, "Failed to set the data usage policy for bundle %@", buf, 0xCu);
     }
 
@@ -300,13 +295,11 @@ LABEL_17:
       _IDSLogTransport();
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_getCellularDataEnabledForBundleID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -321,11 +314,11 @@ LABEL_17:
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v13 = 0;
-          v14 = 1024;
-          v15 = v6;
-          v16 = 1024;
-          v17 = HIDWORD(v6);
+          v12 = 0;
+          v13 = 1024;
+          v14 = v6;
+          v15 = 1024;
+          v16 = HIDWORD(v6);
           _os_log_impl(&dword_195925000, v7, OS_LOG_TYPE_DEFAULT, "_getCellularDataEnabledForBundleID copied cellularPolicy %@ {ctError.domain: %d, ctError.error: %d}", buf, 0x18u);
         }
       }
@@ -344,7 +337,7 @@ LABEL_17:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v13 = dCopy;
+        v12 = dCopy;
         _os_log_impl(&dword_195925000, v9, OS_LOG_TYPE_ERROR, "Failed to get the data usage policy for bundle %@", buf, 0xCu);
       }
 
@@ -367,13 +360,12 @@ LABEL_17:
     bOOLValue = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
 - (BOOL)_getWifiDataAllowedForBundleID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -388,11 +380,11 @@ LABEL_17:
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v13 = 0;
-          v14 = 1024;
-          v15 = v6;
-          v16 = 1024;
-          v17 = HIDWORD(v6);
+          v12 = 0;
+          v13 = 1024;
+          v14 = v6;
+          v15 = 1024;
+          v16 = HIDWORD(v6);
           _os_log_impl(&dword_195925000, v7, OS_LOG_TYPE_DEFAULT, "_getWifiDataAllowedForBundleID copied cellularPolicy %@ {ctError.domain: %d, ctError.error: %d}", buf, 0x18u);
         }
       }
@@ -411,7 +403,7 @@ LABEL_17:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v13 = dCopy;
+        v12 = dCopy;
         _os_log_impl(&dword_195925000, v9, OS_LOG_TYPE_ERROR, "Failed to get the data usage policy for bundle %@", buf, 0xCu);
       }
 
@@ -434,7 +426,6 @@ LABEL_17:
     bOOLValue = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
@@ -458,34 +449,33 @@ LABEL_17:
   {
     pthread_mutex_lock(&stru_1ED768518);
     [(FTUserConfiguration *)self _setupUsageHandlerIfNeeded];
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = sub_19592BEB4;
-    v19 = sub_19592BFE8;
-    v20 = [(NSMutableDictionary *)self->_nonBTAllowedCache objectForKey:dCopy];
-    if (!v16[5])
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x3032000000;
+    v17 = sub_19592BEB4;
+    v18 = sub_19592BFE8;
+    v19 = [(NSMutableDictionary *)self->_nonBTAllowedCache objectForKey:dCopy];
+    if (!v15[5])
     {
       v5 = [MEMORY[0x1E69A61A0] weakRefWithObject:self];
-      v13[0] = 0;
-      v13[1] = v13;
-      v13[2] = 0x2020000000;
-      v14 = 1;
+      v12[0] = 0;
+      v12[1] = v12;
+      v12[2] = 0x2020000000;
+      v13 = 1;
       v6 = dispatch_semaphore_create(0);
-      usageClient = self->_usageClient;
       [dCopy UTF8String];
-      v10 = dCopy;
-      v11 = v5;
-      v12 = v6;
+      v9 = dCopy;
+      v10 = v5;
+      v11 = v6;
       network_usage_policy_get_for_bundle();
-      dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
+      dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
 
-      _Block_object_dispose(v13, 8);
+      _Block_object_dispose(v12, 8);
     }
 
     pthread_mutex_unlock(&stru_1ED768518);
-    bOOLValue = [v16[5] BOOLValue];
-    _Block_object_dispose(&v15, 8);
+    bOOLValue = [v15[5] BOOLValue];
+    _Block_object_dispose(&v14, 8);
   }
 
   else
@@ -553,24 +543,23 @@ LABEL_17:
 
 - (void)silentlySetSelectedPhoneNumberRegistrationSubscriptionLabels:(id)labels
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   labelsCopy = labels;
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = labelsCopy;
-    _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Setting persisted phone number registration subscription label {subscriptionLabels: %@}", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = labelsCopy;
+    _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Setting persisted phone number registration subscription label {subscriptionLabels: %@}", &v5, 0xCu);
   }
 
   IMSetDomainValueForKey();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIsDeviceInDualPhoneIdentityMode:(BOOL)mode
 {
   modeCopy = mode;
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -580,19 +569,18 @@ LABEL_17:
       v5 = @"YES";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Setting persisted dual phone identity mode {isDeviceInDualPhoneIdentityMode: %@}", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Setting persisted dual phone identity mode {isDeviceInDualPhoneIdentityMode: %@}", &v6, 0xCu);
   }
 
   IMSetDomainBoolForKey();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIsDeviceInManualPhoneSelectionMode:(BOOL)mode
 {
   modeCopy = mode;
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -602,13 +590,12 @@ LABEL_17:
       v5 = @"YES";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Setting persisted manual phone identity mode {isDeviceInManualPhoneSelectionMode: %@}", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Setting persisted manual phone identity mode {isDeviceInManualPhoneSelectionMode: %@}", &v6, 0xCu);
   }
 
   IMSetDomainBoolForKey();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_nonWifiFaceTimeEntitled

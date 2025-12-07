@@ -14,9 +14,9 @@
 
 - (id)_currentTimelineEntry
 {
-  v12.receiver = self;
-  v12.super_class = NTKLauncherComplicationDataSourceAccessibility;
-  _currentTimelineEntry = [(NTKLauncherComplicationDataSourceAccessibility *)&v12 _currentTimelineEntry];
+  v11.receiver = self;
+  v11.super_class = NTKLauncherComplicationDataSourceAccessibility;
+  _currentTimelineEntry = [(NTKLauncherComplicationDataSourceAccessibility *)&v11 _currentTimelineEntry];
   complicationTemplate = [_currentTimelineEntry complicationTemplate];
   if (_accessibilityComplicationTemplateContainsSimpleImage())
   {
@@ -27,9 +27,9 @@
       [v6 setAccessibilityLabel:v5];
 
       v7 = [complicationTemplate safeValueForKey:@"imageProvider"];
-      v9 = accessibilityLocalizedString(@"double.tap.to.open.complication.hint", v8);
-      v10 = [NSString stringWithFormat:v9, v5];
-      [v7 setAccessibilityHint:v10];
+      v8 = accessibilityLocalizedString(@"double.tap.to.open.complication.hint");
+      v9 = [NSString stringWithFormat:v8, v5];
+      [v7 setAccessibilityHint:v9];
     }
   }
 

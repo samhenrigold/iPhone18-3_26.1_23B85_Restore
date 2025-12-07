@@ -12,39 +12,40 @@
 
 - (ARSIPersonDetectionTechnique)init
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v3 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.persondetectiontechnique");
-  v10.receiver = self;
-  v10.super_class = ARSIPersonDetectionTechnique;
-  v4 = [(ARMLImageProcessingTechnique *)&v10 initWithDispatchQueue:v3 networkInputScaleBeforeRotation:1 delegateInference:256.0, 256.0];
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.persondetectiontechnique", 0xFFFFFFFFLL);
+  v11.receiver = self;
+  v11.super_class = ARSIPersonDetectionTechnique;
+  v4 = [(ARMLImageProcessingTechnique *)&v11 initWithDispatchQueue:v3 networkInputScaleBeforeRotation:1 delegateInference:256.0, 256.0];
+  v5 = v4;
   if (v4)
   {
-    v5 = _ARLogTechnique();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _ARLogTechnique(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138543618;
-      v12 = v7;
-      v13 = 2048;
-      v14 = v4;
-      _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running person detection technique by SceneIntelligence", buf, 0x16u);
+      v13 = v8;
+      v14 = 2048;
+      v15 = v5;
+      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running person detection technique by SceneIntelligence", buf, 0x16u);
     }
 
-    v4->_lastTimestamp = -1.0;
-    v4->_imageNetworkSize = vdupq_n_s64(0x4070000000000000uLL);
-    v8 = [ARKitUserDefaults objectForKey:@"com.apple.arkit.personDetectionTechnique.mergeLargelyOverlappingBoundingBoxes" useCache:0];
-    v4->_mergeLargelyOverlappingBoxes = [v8 BOOLValue];
+    v5->_lastTimestamp = -1.0;
+    v5->_imageNetworkSize = vdupq_n_s64(0x4070000000000000uLL);
+    v9 = [ARKitUserDefaults objectForKey:@"com.apple.arkit.personDetectionTechnique.mergeLargelyOverlappingBoundingBoxes" useCache:0];
+    v5->_mergeLargelyOverlappingBoxes = [v9 BOOLValue];
 
-    [(ARMLImageProcessingTechnique *)v4 setAllowedResamplingImageSize:256.0, 256.0];
+    [(ARMLImageProcessingTechnique *)v5 setAllowedResamplingImageSize:256.0, 256.0];
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)_prepareOnce:(BOOL)once
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = [objc_alloc(MEMORY[0x1E69C9CD8]) initWithComputeEngine:1 andNetworkConfiguration:0];
   algorithm = self->_algorithm;
   self->_algorithm = v4;
@@ -56,32 +57,32 @@
       [ARSIPersonDetectionTechnique _prepareOnce:];
     }
 
-    v6 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v7 = _ARLogGeneral();
-    v8 = v7;
-    if (v6 == 1)
+    v7 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v8 = _ARLogGeneral(v6);
+    v9 = v8;
+    if (v7 == 1)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         *buf = 138543618;
-        v18 = v10;
-        v19 = 2048;
+        v20 = v11;
+        v21 = 2048;
         selfCopy2 = self;
-        _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: SIPersonDetectorAlgorithm could not be initialized!", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: SIPersonDetectorAlgorithm could not be initialized!", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138543618;
-      v18 = v12;
-      v19 = 2048;
+      v20 = v13;
+      v21 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: SIPersonDetectorAlgorithm could not be initialized!", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: SIPersonDetectorAlgorithm could not be initialized!", buf, 0x16u);
     }
 
     if (ARSkipCrashOnCrash(void)::onceToken != -1)
@@ -91,18 +92,18 @@
 
     if ((ARSkipCrashOnCrash(void)::skipCrashOnCrash & 1) == 0)
     {
-      v13 = MEMORY[0x1E696AEC0];
-      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SIPersonDetectorAlgorithm could not be initialized!"];
-      v15 = [v13 stringWithFormat:@"ARCrash: %@", v14];
+      v14 = MEMORY[0x1E696AEC0];
+      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SIPersonDetectorAlgorithm could not be initialized!"];
+      v16 = [v14 stringWithFormat:@"ARCrash: %@", v15];
 
-      v16 = v15;
-      qword_1EBF41A28 = strdup([v15 UTF8String]);
-      if (!ARInternalOSBuild())
+      v17 = v16;
+      qword_1EBF41A28 = strdup([v16 UTF8String]);
+      if (!ARInternalOSBuild(qword_1EBF41A28, v18))
       {
         abort();
       }
 
-      ARAbortWithError(v15);
+      ARAbortWithError(v16);
     }
   }
 }
@@ -160,11 +161,11 @@
 
   else
   {
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [(ARSIPersonDetectionTechnique *)self _startMLRunNetworkSignpostWithTimestamp:?];
     v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
     -[SIPersonDetectorAlgorithm runWithInput:output:](self->_algorithm, "runWithInput:output:", [v11 pixelBuffer], v13);
-    [v11 timestamp];
+    objc_msgSend_timestamp(v11);
     [(ARSIPersonDetectionTechnique *)self _endMLRunNetworkSignpostWithTimestamp:?];
     height = [(ARSIPersonDetectionTechnique *)self createResultDataFromAlgorithmOutput:v13 imageDataForNeuralNetwork:v11 inputImageData:v11 rotationNeeded:tensor regionOfInterest:width, height];
     v17[0] = height;
@@ -176,7 +177,7 @@
 
 - (id)createResultDataFromAlgorithmOutput:(id)output imageDataForNeuralNetwork:(id)network inputImageData:(id)data rotationNeeded:(int64_t)needed regionOfInterest:(CGSize)interest
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   outputCopy = output;
   networkCopy = network;
   v12 = objc_opt_new();
@@ -200,28 +201,28 @@
 
   v29 = objc_opt_new();
   [v29 setDetectedObjects:v12];
-  [networkCopy timestamp];
+  objc_msgSend_timestamp(networkCopy);
   [v29 setTimestamp:?];
   if (self->_mergeLargelyOverlappingBoxes)
   {
     LODWORD(v30) = 1058642330;
     v31 = [v29 mergeOverlappingDetectionsWithThreshold:v30];
 
-    v32 = _ARLogTechnique();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    v33 = _ARLogTechnique(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      v33 = objc_opt_class();
-      v34 = NSStringFromClass(v33);
+      v34 = objc_opt_class();
+      v35 = NSStringFromClass(v34);
       detectedObjects = [v31 detectedObjects];
-      v37 = 138544130;
-      v38 = v34;
-      v39 = 2048;
+      v38 = 138544130;
+      v39 = v35;
+      v40 = 2048;
       selfCopy = self;
-      v41 = 1024;
-      v42 = [detectedObjects count];
-      v43 = 1024;
-      v44 = [v12 count];
-      _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Detections %d / %d.", &v37, 0x22u);
+      v42 = 1024;
+      v43 = [detectedObjects count];
+      v44 = 1024;
+      v45 = [v12 count];
+      _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Detections %d / %d.", &v38, 0x22u);
     }
   }
 

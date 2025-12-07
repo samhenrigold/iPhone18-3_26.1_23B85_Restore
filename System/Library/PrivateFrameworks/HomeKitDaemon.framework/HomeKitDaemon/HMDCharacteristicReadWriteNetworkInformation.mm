@@ -10,7 +10,7 @@
 
 - (void)refreshNetworkInformation
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [(HMDCharacteristicReadWriteNetworkInformation *)self _refreshWifiInformation];
   [(HMDCharacteristicReadWriteNetworkInformation *)self _refreshBluetoothInformation];
   default_evaluator = nw_path_create_default_evaluator();
@@ -31,20 +31,18 @@
 
   if (nw_path_get_ipv4_network_signature())
   {
-    v5 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v10 length:20];
+    v5 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v9 length:20];
     [(HMDCharacteristicReadWriteNetworkInformation *)self setIpv4Signature:v5];
   }
 
   if (nw_path_get_ipv6_network_signature())
   {
-    v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v9 length:20];
+    v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v8 length:20];
     [(HMDCharacteristicReadWriteNetworkInformation *)self setIpv6Signature:v6];
   }
 
   HMFUptime();
   [(HMDCharacteristicReadWriteNetworkInformation *)self setTimeIntervalNetworkInformationCache:?];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__HMDCharacteristicReadWriteNetworkInformation_refreshNetworkInformation__block_invoke(uint64_t a1, void *a2)
@@ -141,7 +139,7 @@ uint64_t __73__HMDCharacteristicReadWriteNetworkInformation_refreshNetworkInform
 
 - (void)_handleWifiCurrentNetworkChangedNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -149,15 +147,13 @@ uint64_t __73__HMDCharacteristicReadWriteNetworkInformation_refreshNetworkInform
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Wifi current network configuration changed. Refresh network information.", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Wifi current network configuration changed. Refresh network information.", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDCharacteristicReadWriteNetworkInformation *)selfCopy refreshNetworkInformation];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCharacteristicReadWriteNetworkInformation)initWithWifiManager:(id)manager

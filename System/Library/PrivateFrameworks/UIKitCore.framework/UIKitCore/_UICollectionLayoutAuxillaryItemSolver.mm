@@ -1049,9 +1049,9 @@ LABEL_17:
           {
             auxillaryItem = [(_UICollectionLayoutFramesQueryResult *)*(*(&v19 + 1) + 8 * v10) auxillaryItem];
             elementKind = [auxillaryItem elementKind];
-            v15 = [elementKind isEqualToString:a2];
+            isEqualToString = objc_msgSend_isEqualToString_(elementKind);
 
-            if (v15)
+            if (isEqualToString)
             {
               v17 = v11;
 

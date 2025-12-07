@@ -56,16 +56,21 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -75,13 +80,11 @@
     LODWORD(v28) = 138412290;
     *(&v28 + 4) = objc_opt_class();
     v7 = *(&v28 + 4);
-    LODWORD(v22) = 12;
-    v21 = &v28;
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Operation started", &v28, 12);
 
     if (v8)
     {
-      v9 = [NSString stringWithCString:v8 encoding:4, &v28, v22];
+      v9 = [NSString stringWithCString:v8 encoding:4];
       free(v8);
       v21 = v9;
       SSFileLog();
@@ -106,47 +109,51 @@
       v12 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v12 shouldLog];
+    LODWORD(v13) = [v12 shouldLog];
     shouldLogToDisk = [v12 shouldLogToDisk];
     oSLogObject2 = [v12 OSLogObject];
     v16 = oSLogObject2;
     if (shouldLogToDisk)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v13) = v13 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog2 &= 2u;
+      v13 = v13;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v13 &= 2u;
+    }
+
+    if (v13)
     {
       LODWORD(location[0]) = 138412290;
       *(location + 4) = objc_opt_class();
       v17 = *(location + 4);
       LODWORD(v22) = 12;
-      v21 = location;
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, v16, 0, "%@: Terminating with no account", location, v22);
 
       if (!v18)
       {
-LABEL_27:
+LABEL_29:
 
         v19 = SSError();
         v20 = *(*(&v28 + 1) + 40);
         *(*(&v28 + 1) + 40) = v19;
 
-        goto LABEL_28;
+        goto LABEL_30;
       }
 
-      v16 = [NSString stringWithCString:v18 encoding:4, location, v22];
+      v16 = [NSString stringWithCString:v18 encoding:4];
       free(v18);
       v21 = v16;
       SSFileLog();
     }
 
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
   objc_initWeak(location, self);
@@ -169,7 +176,7 @@ LABEL_27:
 
   objc_destroyWeak(&v26);
   objc_destroyWeak(location);
-LABEL_28:
+LABEL_30:
   [(AcceptTermsAndConditionsOperation *)self setError:*(*(&v28 + 1) + 40), v21];
   [(AcceptTermsAndConditionsOperation *)self setSuccess:self->_result];
   _Block_object_dispose(&v28, 8);
@@ -273,23 +280,28 @@ LABEL_28:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v9 = objc_opt_class();
@@ -299,22 +311,20 @@ LABEL_28:
     v10 = @"YES";
   }
 
-  v20 = 138412546;
-  v21 = v9;
-  v22 = 2112;
-  v23 = v10;
+  v19 = 138412546;
+  v20 = v9;
+  v21 = 2112;
+  v22 = v10;
   v11 = v9;
-  LODWORD(v18) = 22;
-  v17 = &v20;
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Ending alert with acceptance: %@", &v19, 22);
 
   if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, &v20, v18];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     v17 = oSLogObject;
     SSFileLog();
-LABEL_13:
+LABEL_14:
   }
 
   [(AcceptTermsAndConditionsOperation *)self lock];
@@ -335,12 +345,12 @@ LABEL_13:
   [(AcceptTermsAndConditionsOperation *)self unlock];
   if (self->_userAccepted)
   {
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_10009E518;
-    v19[3] = &unk_100327538;
-    v19[4] = self;
-    [(AcceptTermsAndConditionsOperation *)self _acceptTermsAndConditionsWithBlock:v19];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10009E518;
+    v18[3] = &unk_100327538;
+    v18[4] = self;
+    [(AcceptTermsAndConditionsOperation *)self _acceptTermsAndConditionsWithBlock:v18];
   }
 
   if (alertSemaphore)
@@ -402,16 +412,21 @@ LABEL_13:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -422,15 +437,13 @@ LABEL_13:
     v10 = v9;
     *location = 138412546;
     *&location[4] = v9;
-    v45 = 2048;
-    v46 = [copyActivePowerAssertionIdentifiers count];
-    LODWORD(v31) = 22;
-    v30 = location;
-    v11 = _os_log_send_and_compose_impl();
+    v44 = 2048;
+    v45 = [copyActivePowerAssertionIdentifiers count];
+    v11 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Disabling %lu power assertions before user interaction", location, 22);
 
     if (v11)
     {
-      v12 = [NSString stringWithCString:v11 encoding:4, location, v31];
+      v12 = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       v30 = v12;
       SSFileLog();
@@ -441,28 +454,28 @@ LABEL_13:
   {
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v13 = copyActivePowerAssertionIdentifiers;
-  v14 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v14)
   {
-    v15 = *v39;
+    v15 = *v38;
     do
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v39 != v15)
+        if (*v38 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        [v3 releasePowerAssertion:{*(*(&v38 + 1) + 8 * i), v30}];
+        [v3 releasePowerAssertion:{*(*(&v37 + 1) + 8 * i), v30}];
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v14);
@@ -490,41 +503,41 @@ LABEL_13:
 
   objc_initWeak(location, self);
   v25 = +[SpringBoardUtility sharedInstance];
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_10009EE20;
-  v36[3] = &unk_100327560;
-  objc_copyWeak(&v37, location);
-  v36[4] = self;
-  [v25 activateAlertWithDescription:v18 options:v19 completionBlock:v36];
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = sub_10009EE20;
+  v35[3] = &unk_100327560;
+  objc_copyWeak(&v36, location);
+  v35[4] = self;
+  [v25 activateAlertWithDescription:v18 options:v19 completionBlock:v35];
 
   dispatch_semaphore_wait(self->_alertSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(location);
 
   [v17 endShowingDialog];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v26 = v13;
-  v27 = [v26 countByEnumeratingWithState:&v32 objects:v42 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v31 objects:v41 count:16];
   if (v27)
   {
-    v28 = *v33;
+    v28 = *v32;
     do
     {
       for (j = 0; j != v27; j = j + 1)
       {
-        if (*v33 != v28)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(v26);
         }
 
-        [v3 takePowerAssertion:{*(*(&v32 + 1) + 8 * j), v30}];
+        [v3 takePowerAssertion:{*(*(&v31 + 1) + 8 * j), v30}];
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v32 objects:v42 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v31 objects:v41 count:16];
     }
 
     while (v27);

@@ -96,14 +96,14 @@
     [v3 setObject:clientMetricIdentifier forKeyedSubscript:@"clientMetricIdentifier"];
   }
 
-  v27 = [v3 copy];
+  v27 = objc_msgSend_copy(v3);
 
   return v27;
 }
 
 - (HMDSiriCommandEvent)initWithDuration:(unint64_t)duration actionType:(id)type outcome:(id)outcome numberOfEntities:(unint64_t)entities numberOfFailures:(unint64_t)failures numberOfIncompletions:(unint64_t)incompletions serverConfigurationVersion:(unint64_t)version configurationVersion:(unint64_t)self0 lastSyncedConfigurationVersion:(unint64_t)self1
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   outcomeCopy = outcome;
   v20 = outcomeCopy;
@@ -116,7 +116,7 @@
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v30;
+      v36 = v30;
       v31 = "%{public}@Can't init HMDSiriCommandEvent: actionType is nil";
 LABEL_12:
       _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_DEFAULT, v31, buf, 0xCu);
@@ -138,7 +138,7 @@ LABEL_13:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v30;
+      v36 = v30;
       v31 = "%{public}@Can't init HMDSiriCommandEvent: outcome is nil";
       goto LABEL_12;
     }
@@ -146,9 +146,9 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v35.receiver = self;
-  v35.super_class = HMDSiriCommandEvent;
-  v21 = [(HMMLogEvent *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = HMDSiriCommandEvent;
+  v21 = [(HMMLogEvent *)&v34 init];
   if (v21)
   {
     currentActivity = [MEMORY[0x277D0F770] currentActivity];
@@ -177,7 +177,6 @@ LABEL_13:
   v27 = selfCopy2;
 LABEL_14:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

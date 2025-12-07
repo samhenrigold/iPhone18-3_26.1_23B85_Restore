@@ -54,28 +54,29 @@
   controllerCopy = controller;
   [(PSCloudStorageOffersManager *)self _setupFlowWithNavigationController:controllerCopy modally:modallyCopy];
   commerceDelegate = self->_commerceDelegate;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
   v8 = getCommerceOffersSymbolLoc_ptr;
-  v14 = getCommerceOffersSymbolLoc_ptr;
+  v15 = getCommerceOffersSymbolLoc_ptr;
   if (!getCommerceOffersSymbolLoc_ptr)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __getCommerceOffersSymbolLoc_block_invoke;
-    v10[3] = &unk_1E71DBC78;
-    v10[4] = &v11;
-    __getCommerceOffersSymbolLoc_block_invoke(v10);
-    v8 = v12[3];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __getCommerceOffersSymbolLoc_block_invoke;
+    v11[3] = &unk_1E71DBC78;
+    v11[4] = &v12;
+    __getCommerceOffersSymbolLoc_block_invoke(v11);
+    v8 = v13[3];
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v12, 8);
   if (!v8)
   {
-    v9 = [PSContactsAuthorizationLevelController dealloc];
-    _Block_object_dispose(&v11, 8);
-    _Unwind_Resume(v9);
+    [PSContactsAuthorizationLevelController dealloc];
+    v10 = v9;
+    _Block_object_dispose(&v12, 8);
+    _Unwind_Resume(v10);
   }
 
   [(CommerceRemoteUIDelegate *)commerceDelegate loadURLforKey:*v8];
@@ -245,57 +246,57 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v5 = objc_opt_respondsToSelector();
 
-  v6 = _PSLoggingFacility();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = _PSLoggingFacility(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "calling delegate managerDidCancel:", buf, 2u);
+      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "calling delegate managerDidCancel:", buf, 2u);
     }
 
-    v6 = objc_loadWeakRetained(&self->_delegate);
-    [v6 managerDidCancel:self];
+    v7 = objc_loadWeakRetained(&self->_delegate);
+    [v7 managerDidCancel:self];
   }
 
-  else if (v7)
+  else if (v8)
   {
-    *v8 = 0;
-    _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "client did not implement managerDidCancel: -- will not be notified", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "client did not implement managerDidCancel: -- will not be notified", v9, 2u);
   }
 }
 
 - (void)commerceDelegate:(id)delegate didCompleteWithError:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   errorCopy = error;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v9 = objc_opt_respondsToSelector();
 
-  v10 = _PSLoggingFacility();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v11 = _PSLoggingFacility(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (v9)
   {
-    if (v11)
+    if (v12)
     {
-      v13 = 138543362;
-      v14 = errorCopy;
-      _os_log_impl(&dword_18B008000, v10, OS_LOG_TYPE_DEFAULT, "calling delegate manager:didCompleteWithError:%{public}@", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = errorCopy;
+      _os_log_impl(&dword_18B008000, v11, OS_LOG_TYPE_DEFAULT, "calling delegate manager:didCompleteWithError:%{public}@", &v14, 0xCu);
     }
 
-    v12 = objc_loadWeakRetained(&self->_delegate);
-    [v12 manager:self didCompleteWithError:errorCopy];
+    v13 = objc_loadWeakRetained(&self->_delegate);
+    [v13 manager:self didCompleteWithError:errorCopy];
   }
 
   else
   {
-    if (v11)
+    if (v12)
     {
-      v13 = 138543362;
-      v14 = errorCopy;
-      _os_log_impl(&dword_18B008000, v10, OS_LOG_TYPE_DEFAULT, "client did not implement manager:didCompleteWithError: (error:%{public}@)", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = errorCopy;
+      _os_log_impl(&dword_18B008000, v11, OS_LOG_TYPE_DEFAULT, "client did not implement manager:didCompleteWithError: (error:%{public}@)", &v14, 0xCu);
     }
 
     [(PSCloudStorageOffersManager *)self commerceDelegateDidCancel:delegateCopy];

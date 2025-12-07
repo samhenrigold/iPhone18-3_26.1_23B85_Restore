@@ -221,110 +221,103 @@ LABEL_5:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  voicemailNumber = self->_voicemailNumber;
-  v13 = toCopy;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 2) != 0)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteInt64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    remoteUID = self->_remoteUID;
     PBDataWriterWriteInt64Field();
     has = self->_has;
   }
 
-  v9 = v13;
+  v5 = toCopy;
   if (has)
   {
-    date = self->_date;
     PBDataWriterWriteDoubleField();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_sender)
   {
     PBDataWriterWriteStringField();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_callbackNumber)
   {
     PBDataWriterWriteStringField();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteInt32Field();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_dataPath)
   {
     PBDataWriterWriteStringField();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    flags = self->_flags;
     PBDataWriterWriteInt32Field();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_voicemailBody)
   {
     PBDataWriterWriteSubmessage();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_voicemailTranscript)
   {
     PBDataWriterWriteSubmessage();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_receiverDestinationID)
   {
     PBDataWriterWriteStringField();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_nphReceiverISOCountryCode)
   {
     PBDataWriterWriteStringField();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_providerID)
   {
     PBDataWriterWriteStringField();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_conversationIDString)
   {
     PBDataWriterWriteStringField();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_callUUIDString)
   {
     PBDataWriterWriteStringField();
-    v9 = v13;
+    v5 = toCopy;
   }
 
   if (self->_simID)
   {
     PBDataWriterWriteStringField();
-    v9 = v13;
+    v5 = toCopy;
   }
 }
 
@@ -550,7 +543,6 @@ LABEL_5:
     goto LABEL_51;
   }
 
-  v5 = *(equalCopy + 136);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 136) & 2) == 0 || self->_identifier != *(equalCopy + 2))
@@ -606,7 +598,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 136);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 136) & 8) == 0 || self->_duration != *(equalCopy + 18))
@@ -626,14 +617,13 @@ LABEL_5:
     if (![(NSString *)dataPath isEqual:?])
     {
 LABEL_51:
-      v20 = 0;
+      v17 = 0;
       goto LABEL_52;
     }
 
     has = self->_has;
   }
 
-  v11 = *(equalCopy + 136);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 136) & 0x10) == 0 || self->_flags != *(equalCopy + 19))
@@ -710,17 +700,17 @@ LABEL_51:
   simID = self->_simID;
   if (simID | *(equalCopy + 14))
   {
-    v20 = [(NSString *)simID isEqual:?];
+    v17 = [(NSString *)simID isEqual:?];
   }
 
   else
   {
-    v20 = 1;
+    v17 = 1;
   }
 
 LABEL_52:
 
-  return v20;
+  return v17;
 }
 
 - (unint64_t)hash

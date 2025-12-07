@@ -15,6 +15,7 @@
 - (void)audioStreamProvider:(id)provider audioBufferAvailable:(id)available;
 - (void)audioStreamProvider:(id)provider didStopStreamUnexpectedly:(int64_t)unexpectedly;
 - (void)dealloc;
+- (void)opportuneSpeakEventMonitor:(id)monitor didStreamStateChanged:(BOOL)changed;
 - (void)setAsset:(id)asset;
 - (void)shouldProcessAudio:(id)audio;
 - (void)siriClientBehaviorMonitor:(id)monitor didStartStreamWithContext:(id)context successfully:(BOOL)successfully option:(id)option withEventUUID:(id)d;
@@ -79,6 +80,20 @@
     block[4] = self;
     dispatch_async(queue, block);
   }
+}
+
+- (void)opportuneSpeakEventMonitor:(id)monitor didStreamStateChanged:(BOOL)changed
+{
+  v5 = [(CSOpportuneSpeakEventMonitor *)self->_opportuneSpeakEventMonitor audioProviderUUID:monitor];
+  queue = self->_queue;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100066378;
+  v8[3] = &unk_100253C48;
+  v8[4] = self;
+  v9 = v5;
+  v7 = v5;
+  dispatch_async(queue, v8);
 }
 
 - (void)_transitHearstAPEnable:(BOOL)enable

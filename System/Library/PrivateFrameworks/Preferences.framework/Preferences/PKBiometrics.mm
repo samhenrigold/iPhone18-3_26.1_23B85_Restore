@@ -31,62 +31,62 @@
   return v2;
 }
 
-void __30__PKBiometrics_sharedInstance__block_invoke()
+void __30__PKBiometrics_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedInstance_sharedInstance;
-  sharedInstance_sharedInstance = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v1;
 }
 
 - (PKBiometrics)init
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v23.receiver = self;
-  v23.super_class = PKBiometrics;
-  v2 = [(PKBiometrics *)&v23 init];
+  v33 = *MEMORY[0x1E69E9840];
+  v25.receiver = self;
+  v25.super_class = PKBiometrics;
+  v2 = [(PKBiometrics *)&v25 init];
   if (v2)
   {
+    v23 = 0u;
+    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
     availableDevices = [MEMORY[0x1E698F388] availableDevices];
-    v4 = [availableDevices countByEnumeratingWithState:&v19 objects:v30 count:16];
+    v4 = [availableDevices countByEnumeratingWithState:&v21 objects:v32 count:16];
     if (!v4)
     {
       goto LABEL_20;
     }
 
     v5 = v4;
-    v6 = *v20;
+    v6 = *v22;
     while (1)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(availableDevices);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         type = [v8 type];
         if (type == 1)
         {
-          v17 = 0;
-          v14 = [MEMORY[0x1E698F398] deviceWithDescriptor:v8 error:&v17];
-          v11 = v17;
+          v19 = 0;
+          v15 = [MEMORY[0x1E698F398] deviceWithDescriptor:v8 error:&v19];
+          v11 = v19;
           touchIDDevice = v2->_touchIDDevice;
-          v2->_touchIDDevice = v14;
+          v2->_touchIDDevice = v15;
 
           if (v11)
           {
             goto LABEL_18;
           }
 
-          v13 = _PSLoggingFacility();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = _PSLoggingFacility(v17);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            [(PKBiometrics *)&v26 init];
+            [(PKBiometrics *)&v28 init];
           }
 
           goto LABEL_15;
@@ -94,9 +94,9 @@ void __30__PKBiometrics_sharedInstance__block_invoke()
 
         if (type == 2)
         {
-          v18 = 0;
-          v10 = [MEMORY[0x1E698F390] deviceWithDescriptor:v8 error:&v18];
-          v11 = v18;
+          v20 = 0;
+          v10 = [MEMORY[0x1E698F390] deviceWithDescriptor:v8 error:&v20];
+          v11 = v20;
           pearlDevice = v2->_pearlDevice;
           v2->_pearlDevice = v10;
 
@@ -105,10 +105,10 @@ void __30__PKBiometrics_sharedInstance__block_invoke()
             goto LABEL_18;
           }
 
-          v13 = _PSLoggingFacility();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = _PSLoggingFacility(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            [(PKBiometrics *)&v28 init];
+            [(PKBiometrics *)&v30 init];
           }
 
 LABEL_15:
@@ -116,16 +116,16 @@ LABEL_15:
           goto LABEL_18;
         }
 
-        v11 = _PSLoggingFacility();
+        v11 = _PSLoggingFacility(type);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          [(PKBiometrics *)v24 init:v8];
+          [(PKBiometrics *)v26 init:v8];
         }
 
 LABEL_18:
       }
 
-      v5 = [availableDevices countByEnumeratingWithState:&v19 objects:v30 count:16];
+      v5 = [availableDevices countByEnumeratingWithState:&v21 objects:v32 count:16];
       if (!v5)
       {
 LABEL_20:
@@ -141,40 +141,41 @@ LABEL_20:
 - (id)identitiesForIdentityType:(int64_t)type
 {
   v3 = [(PKBiometrics *)self deviceForType:[(PKBiometrics *)self deviceTypeForIdentityType:type]];
-  v9 = 0;
-  v4 = [v3 identitiesWithError:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [v3 identitiesWithError:&v10];
+  v5 = v10;
+  v6 = v5;
   if (v5)
   {
-    v6 = _PSLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _PSLoggingFacility(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PKBiometrics identitiesForIdentityType:];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = v4;
+    v8 = v4;
   }
 
-  return v7;
+  return v8;
 }
 
 - (int64_t)maximumIdentityCountForIdentityType:(int64_t)type
 {
   v3 = [(PKBiometrics *)self deviceForType:[(PKBiometrics *)self deviceTypeForIdentityType:type]];
-  v9 = 0;
-  v4 = [v3 maxIdentityCountWithError:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [v3 maxIdentityCountWithError:&v10];
+  v5 = v10;
   integerValue = [v4 integerValue];
 
   if (v5)
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _PSLoggingFacility(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [PKBiometrics maximumIdentityCountForIdentityType:];
     }
@@ -190,10 +191,11 @@ LABEL_20:
   identityCopy = identity;
   [identityCopy setName:name];
   v7 = -[PKBiometrics deviceForType:](self, "deviceForType:", -[PKBiometrics deviceTypeForIdentityType:](self, "deviceTypeForIdentityType:", [identityCopy type]));
-  v12 = 0;
-  v8 = [v7 updateIdentity:identityCopy error:&v12];
+  v13 = 0;
+  v8 = [v7 updateIdentity:identityCopy error:&v13];
 
-  v9 = v12;
+  v9 = v13;
+  v10 = v9;
   if (v8)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -202,7 +204,7 @@ LABEL_20:
 
   else
   {
-    defaultCenter = _PSLoggingFacility();
+    defaultCenter = _PSLoggingFacility(v9);
     if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_ERROR))
     {
       [PKBiometrics setName:forIdentity:];
@@ -216,10 +218,11 @@ LABEL_20:
 {
   identityCopy = identity;
   v5 = -[PKBiometrics deviceForType:](self, "deviceForType:", -[PKBiometrics deviceTypeForIdentityType:](self, "deviceTypeForIdentityType:", [identityCopy type]));
-  v10 = 0;
-  v6 = [v5 removeIdentity:identityCopy error:&v10];
+  v11 = 0;
+  v6 = [v5 removeIdentity:identityCopy error:&v11];
 
-  v7 = v10;
+  v7 = v11;
+  v8 = v7;
   if (v6)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -228,7 +231,7 @@ LABEL_20:
 
   else
   {
-    defaultCenter = _PSLoggingFacility();
+    defaultCenter = _PSLoggingFacility(v7);
     if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_ERROR))
     {
       [PKBiometrics removeIdentity:];
@@ -248,9 +251,9 @@ LABEL_20:
   }
 
   pearlDevice2 = [(PKBiometrics *)self pearlDevice];
-  v10 = 0;
-  v5 = [pearlDevice2 supportsPeriocularEnrollmentWithError:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [pearlDevice2 supportsPeriocularEnrollmentWithError:&v11];
+  v6 = v11;
 
   if (v5)
   {
@@ -259,8 +262,8 @@ LABEL_20:
 
   else
   {
-    v8 = _PSLoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PSLoggingFacility(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [PKBiometrics isPeriocularEnrollmentSupported];
     }
@@ -285,7 +288,7 @@ LABEL_20:
 
   else
   {
-    v4 = _PSLoggingFacility();
+    v4 = _PSLoggingFacility(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [PKBiometrics deviceForType:];
@@ -302,7 +305,7 @@ LABEL_20:
   typeCopy = type;
   if ((type - 1) >= 2)
   {
-    v4 = _PSLoggingFacility();
+    v4 = _PSLoggingFacility(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [PKBiometrics deviceTypeForIdentityType:];
@@ -420,7 +423,7 @@ LABEL_20:
   return v25;
 }
 
-unint64_t __48__PKBiometrics_nextIdentityNameForIdentityType___block_invoke_2(uint64_t a1, unint64_t a2, unint64_t a3, _BYTE *a4)
+char *__48__PKBiometrics_nextIdentityNameForIdentityType___block_invoke_2(uint64_t a1, char *a2, char *a3, _BYTE *a4)
 {
   result = [*(a1 + 32) count];
   if (result >= a2 && result - a2 < a3)

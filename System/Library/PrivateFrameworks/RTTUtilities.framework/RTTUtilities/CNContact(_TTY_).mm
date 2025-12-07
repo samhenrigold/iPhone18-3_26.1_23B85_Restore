@@ -18,18 +18,18 @@
 
 + (id)contactForPhoneNumber:()_TTY_
 {
-  v18[5] = *MEMORY[0x277D85DE8];
+  v17[5] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBDA78];
   v4 = a3;
   v5 = [v3 descriptorForRequiredKeysForStyle:0];
   v6 = *MEMORY[0x277CBCFC0];
-  v18[0] = v5;
-  v18[1] = v6;
+  v17[0] = v5;
+  v17[1] = v6;
   v7 = *MEMORY[0x277CBD020];
-  v18[2] = *MEMORY[0x277CBD098];
-  v18[3] = v7;
-  v18[4] = *MEMORY[0x277CBD158];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:5];
+  v17[2] = *MEMORY[0x277CBD098];
+  v17[3] = v7;
+  v17[4] = *MEMORY[0x277CBD158];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:5];
 
   v9 = +[RTTTelephonyUtilities sharedUtilityProvider];
   contactStore = [v9 contactStore];
@@ -40,8 +40,6 @@
   v14 = [contactStore unifiedContactsMatchingPredicate:v13 keysToFetch:v8 error:0];
 
   firstObject = [v14 firstObject];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

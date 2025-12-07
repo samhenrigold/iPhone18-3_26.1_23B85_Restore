@@ -43,14 +43,14 @@
   v4 = sub_1E1AEF55C();
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1E1AEF50C();
 
-  if (sub_1E1AB2820() && (swift_beginAccess(), swift_unknownObjectWeakLoadStrong()))
+  if (sub_1E1AB2820(v8) && (swift_beginAccess(), swift_unknownObjectWeakLoadStrong()))
   {
-    v8 = *&self->assetObserver[15];
+    v9 = *&self->assetObserver[15];
     ObjectType = swift_getObjectType();
-    (*(v8 + 16))(ObjectType, v8);
+    (*(v9 + 16))(ObjectType, v9);
 
     swift_unknownObjectRelease();
   }

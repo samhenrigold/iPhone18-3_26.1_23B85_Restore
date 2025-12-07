@@ -46,36 +46,36 @@
 
 - (id)description
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithCapacity:10];
   [v3 appendFormat:@"level: %ld", -[NWNetworkAdviceUpdate level](self, "level")];
   applications = [(NWNetworkAdviceUpdate *)self applications];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [applications countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [applications countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(applications);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         bundleIdentifier = [v9 bundleIdentifier];
         state = [v9 state];
         reason = [v9 reason];
         [v3 appendFormat:@", (%@, %ld, %@)", bundleIdentifier, state, reason];
       }
 
-      v6 = [applications countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [applications countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -83,18 +83,16 @@
 
   v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:v3];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (NWNetworkAdviceUpdate)initWithDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v27.receiver = self;
-  v27.super_class = NWNetworkAdviceUpdate;
-  v5 = [(NWNetworkAdviceUpdate *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = NWNetworkAdviceUpdate;
+  v5 = [(NWNetworkAdviceUpdate *)&v26 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"detail"];
@@ -104,31 +102,31 @@
       -[NWNetworkAdviceUpdate setLevel:](v5, "setLevel:", [v6 integerValue]);
     }
 
-    v21 = v5;
+    v20 = v5;
     v7 = [dictionaryCopy objectForKeyedSubscript:@"states"];
-    v22 = dictionaryCopy;
+    v21 = dictionaryCopy;
     v8 = [dictionaryCopy objectForKeyedSubscript:@"reasons"];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v24;
+      v13 = *v23;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
+          v15 = *(*(&v22 + 1) + 8 * i);
           v16 = objc_alloc_init(NWAppAdvice);
           [(NWAppAdvice *)v16 setBundleIdentifier:v15];
           v17 = [v9 objectForKeyedSubscript:v15];
@@ -153,7 +151,7 @@
           [v12 addObject:v16];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v11);
@@ -164,13 +162,12 @@
       v12 = 0;
     }
 
-    v5 = v21;
-    [(NWNetworkAdviceUpdate *)v21 setApplications:v12];
+    v5 = v20;
+    [(NWNetworkAdviceUpdate *)v20 setApplications:v12];
 
-    dictionaryCopy = v22;
+    dictionaryCopy = v21;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

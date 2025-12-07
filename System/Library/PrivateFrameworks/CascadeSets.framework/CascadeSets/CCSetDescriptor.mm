@@ -38,32 +38,32 @@
 
 + (id)setDescriptorsFromResourceDescriptors:(id)descriptors error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   v6 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = descriptorsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
-        v20 = 0;
-        v13 = [CCSetDescriptor setDescriptorFromDescriptor:v12 error:&v20];
-        v14 = v20;
+        v12 = *(*(&v20 + 1) + 8 * i);
+        v19 = 0;
+        v13 = [CCSetDescriptor setDescriptorFromDescriptor:v12 error:&v19];
+        v14 = v19;
         if (v13)
         {
           v15 = v14 == 0;
@@ -86,7 +86,7 @@
         [v6 addObject:v13];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -94,8 +94,6 @@
 
   v17 = [v6 copy];
 LABEL_14:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

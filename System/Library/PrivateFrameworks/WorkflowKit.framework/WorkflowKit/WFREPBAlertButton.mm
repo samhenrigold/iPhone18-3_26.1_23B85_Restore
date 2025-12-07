@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)styleAsString:(int)string;
 - (int)StringAsStyle:(id)style;
 - (void)copyTo:(id)to;
 - (void)mergeFrom:(id)from;
@@ -62,11 +63,9 @@
     __assert_rtn("[WFREPBAlertButton writeTo:]", "WFREPBAlertButton.m", 94, "nil != self->_title");
   }
 
-  v7 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
-  style = self->_style;
   PBDataWriterWriteInt32Field();
-  preferred = self->_preferred;
   PBDataWriterWriteBOOLField();
 }
 
@@ -114,17 +113,17 @@
 - (int)StringAsStyle:(id)style
 {
   styleCopy = style;
-  if ([styleCopy isEqualToString:@"Default"])
+  if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 0;
   }
 
-  else if ([styleCopy isEqualToString:@"Cancel"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 1;
   }
 
-  else if ([styleCopy isEqualToString:@"Destructive"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 2;
   }
@@ -132,6 +131,21 @@
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)styleAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83744F8[string];
   }
 
   return v4;

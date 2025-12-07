@@ -19,9 +19,11 @@
 
 uint64_t __23__CNTCC_sharedInstance__block_invoke()
 {
-  sharedInstance_cn_once_object_0 = objc_alloc_init(CNTCC);
+  v0 = objc_alloc_init(CNTCC);
+  v1 = sharedInstance_cn_once_object_0;
+  sharedInstance_cn_once_object_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (int)accessPreflight

@@ -1,49 +1,57 @@
 @interface MessageMomentsAVCDelegate
+- (void)moments:(id)moments capabilitiesDidChange:(unsigned int)change;
 - (void)moments:(id)moments didEndProcessingRequest:(id)request stillImageURL:(id)l movieURL:(id)rL error:(id)error;
 - (void)momentsServerDidDisconnect:(id)disconnect;
 @end
 
 @implementation MessageMomentsAVCDelegate
 
+- (void)moments:(id)moments capabilitiesDidChange:(unsigned int)change
+{
+  v4 = *&change;
+  momentsCopy = moments;
+  selfCopy = self;
+  sub_10000F3D4(momentsCopy, v4);
+}
+
 - (void)moments:(id)moments didEndProcessingRequest:(id)request stillImageURL:(id)l movieURL:(id)rL error:(id)error
 {
   v13 = sub_10000BEC0(&unk_100058FA0, &unk_10003F260);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = __chkstk_darwin(v13 - 8);
-  v17 = &v28 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v19 = &v28 - v18;
+  v14 = __chkstk_darwin(v13 - 8);
+  v16 = &v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v18 = &v27 - v17;
   if (l)
   {
     sub_10003958C();
-    v20 = sub_1000395CC();
-    v21 = 0;
+    v19 = sub_1000395CC();
+    v20 = 0;
   }
 
   else
   {
-    v20 = sub_1000395CC();
-    v21 = 1;
+    v19 = sub_1000395CC();
+    v20 = 1;
   }
 
-  v22 = 1;
-  sub_10000E998(v19, v21, 1, v20);
+  v21 = 1;
+  sub_10000E998(v18, v20, 1, v19);
   if (rL)
   {
     sub_10003958C();
-    v22 = 0;
+    v21 = 0;
   }
 
-  v23 = sub_1000395CC();
-  sub_10000E998(v17, v22, 1, v23);
+  v22 = sub_1000395CC();
+  sub_10000E998(v16, v21, 1, v22);
   momentsCopy = moments;
   requestCopy = request;
   errorCopy = error;
   selfCopy = self;
-  sub_10000F4EC(momentsCopy, requestCopy, v19, v17, error);
+  sub_10000F4EC(momentsCopy, requestCopy, v18, v16, error);
 
-  sub_10000F990(v17, &unk_100058FA0, &unk_10003F260);
-  sub_10000F990(v19, &unk_100058FA0, &unk_10003F260);
+  sub_10000F990(v16, &unk_100058FA0, &unk_10003F260);
+  sub_10000F990(v18, &unk_100058FA0, &unk_10003F260);
 }
 
 - (void)momentsServerDidDisconnect:(id)disconnect

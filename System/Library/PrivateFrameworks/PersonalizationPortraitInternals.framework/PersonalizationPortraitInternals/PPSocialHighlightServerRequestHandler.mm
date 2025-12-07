@@ -64,7 +64,7 @@
 
 - (void)feedbackForAttribution:(id)attribution type:(unint64_t)type client:(id)client variant:(id)variant completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   attributionCopy = attribution;
   clientCopy = client;
   variantCopy = variant;
@@ -73,13 +73,13 @@
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v34 = attributionCopy;
-    v35 = 2048;
+    v33 = attributionCopy;
+    v34 = 2048;
     typeCopy = type;
-    v37 = 2112;
-    v38 = clientCopy;
-    v39 = 2112;
-    v40 = variantCopy;
+    v36 = 2112;
+    v37 = clientCopy;
+    v38 = 2112;
+    v39 = variantCopy;
     _os_log_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightServer: feedbackForAttribution: %@ type: %lu client: '%@' variant: '%@'", buf, 0x2Au);
   }
 
@@ -95,9 +95,9 @@
   }
 
   v20 = +[PPLocalSocialHighlightStore defaultStore];
-  v30 = 0;
-  v21 = [v20 feedbackForAttribution:attributionCopy type:type client:clientCopy variant:variantCopy error:&v30];
-  v22 = v30;
+  v29 = 0;
+  v21 = [v20 feedbackForAttribution:attributionCopy type:type client:clientCopy variant:variantCopy error:&v29];
+  v22 = v29;
 
   v23 = pp_social_highlights_signpost_handle();
   v24 = v23;
@@ -115,21 +115,19 @@
   else
   {
     v25 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v31 = @"PPServerSideErrorInfoKey";
+    v30 = @"PPServerSideErrorInfoKey";
     v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", v22];
-    v32 = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v31 = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     v28 = [v25 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v27];
 
     (completionCopy)[2](completionCopy, 0, v28);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)feedbackForHighlight:(id)highlight type:(unint64_t)type client:(id)client variant:(id)variant completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   highlightCopy = highlight;
   clientCopy = client;
   variantCopy = variant;
@@ -138,13 +136,13 @@
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v34 = highlightCopy;
-    v35 = 2048;
+    v33 = highlightCopy;
+    v34 = 2048;
     typeCopy = type;
-    v37 = 2112;
-    v38 = clientCopy;
-    v39 = 2112;
-    v40 = variantCopy;
+    v36 = 2112;
+    v37 = clientCopy;
+    v38 = 2112;
+    v39 = variantCopy;
     _os_log_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightServer: feedbackForHighlight: %@ type: %lu client: '%@' variant: '%@'", buf, 0x2Au);
   }
 
@@ -160,9 +158,9 @@
   }
 
   v20 = +[PPLocalSocialHighlightStore defaultStore];
-  v30 = 0;
-  v21 = [v20 feedbackForHighlight:highlightCopy type:type client:clientCopy variant:variantCopy error:&v30];
-  v22 = v30;
+  v29 = 0;
+  v21 = [v20 feedbackForHighlight:highlightCopy type:type client:clientCopy variant:variantCopy error:&v29];
+  v22 = v29;
 
   v23 = pp_social_highlights_signpost_handle();
   v24 = v23;
@@ -180,28 +178,26 @@
   else
   {
     v25 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v31 = @"PPServerSideErrorInfoKey";
+    v30 = @"PPServerSideErrorInfoKey";
     v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", v22];
-    v32 = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v31 = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     v28 = [v25 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v27];
 
     (completionCopy)[2](completionCopy, 0, v28);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attributionForIdentifier:(id)identifier completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v7 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = identifierCopy;
+    v25 = identifierCopy;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightServer: attributionForIdentifier: %@", buf, 0xCu);
   }
 
@@ -217,9 +213,9 @@
   }
 
   v12 = +[PPLocalSocialHighlightStore defaultStore];
-  v22 = 0;
-  v13 = [v12 attributionForIdentifier:identifierCopy error:&v22];
-  v14 = v22;
+  v21 = 0;
+  v13 = [v12 attributionForIdentifier:identifierCopy error:&v21];
+  v14 = v21;
 
   v15 = pp_social_highlights_signpost_handle();
   v16 = v15;
@@ -237,21 +233,19 @@
   else
   {
     v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v23 = @"PPServerSideErrorInfoKey";
+    v22 = @"PPServerSideErrorInfoKey";
     v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", v14];
-    v24 = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v23 = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v20 = [v17 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v19];
 
     (completionCopy)[2](completionCopy, 0, v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rankedHighlightsForSyncedItems:(id)items client:(id)client variant:(id)variant queryId:(unint64_t)id
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   clientCopy = client;
   variantCopy = variant;
@@ -259,30 +253,28 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v26 = [itemsCopy count];
-    v27 = 2112;
-    v28 = clientCopy;
-    v29 = 2048;
+    v25 = [itemsCopy count];
+    v26 = 2112;
+    v27 = clientCopy;
+    v28 = 2048;
     idCopy = id;
     _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightServer: rankedHighlightsForSyncedItems: %tu client: '%@' queryId: %llu", buf, 0x20u);
   }
 
   queryManager = self->_queryManager;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedItems_client_variant_queryId___block_invoke;
-  v19[3] = &unk_2789774A0;
-  v20 = itemsCopy;
-  v21 = clientCopy;
-  v22 = variantCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedItems_client_variant_queryId___block_invoke;
+  v18[3] = &unk_2789774A0;
+  v19 = itemsCopy;
+  v20 = clientCopy;
+  v21 = variantCopy;
   selfCopy = self;
   idCopy2 = id;
   v15 = variantCopy;
   v16 = clientCopy;
   v17 = itemsCopy;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v18];
 }
 
 void __95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedItems_client_variant_queryId___block_invoke(void *a1)
@@ -353,25 +345,24 @@ void __95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedItems_
   }
 }
 
-uint64_t __95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedItems_client_variant_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
+void *__95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedItems_client_variant_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x1F4)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x1F4)
   {
-    v8 = 500;
+    v7 = 500;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x1F5;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x1F5;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 
@@ -390,7 +381,7 @@ uint64_t __95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedIt
 
 - (void)rankedHighlightsWithLimit:(unint64_t)limit client:(id)client variant:(id)variant queryId:(unint64_t)id
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   variantCopy = variant;
   v12 = pp_xpc_server_log_handle();
@@ -398,14 +389,14 @@ uint64_t __95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedIt
   {
     *buf = 134219010;
     limitCopy = limit;
-    v27 = 2112;
-    v28 = clientCopy;
-    v29 = 2112;
-    v30 = variantCopy;
-    v31 = 2048;
+    v26 = 2112;
+    v27 = clientCopy;
+    v28 = 2112;
+    v29 = variantCopy;
+    v30 = 2048;
     idCopy = id;
-    v33 = 1024;
-    v34 = qos_class_self();
+    v32 = 1024;
+    v33 = qos_class_self();
     _os_log_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightServer: enqueue rankedHighlightsWithLimit: %tu client: '%@' variant: '%@' queryId: %llu qos: %du", buf, 0x30u);
   }
 
@@ -419,8 +410,8 @@ uint64_t __95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedIt
   block[1] = 3221225472;
   block[2] = __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_2;
   block[3] = &unk_278975258;
-  v20 = clientCopy;
-  v21 = variantCopy;
+  v19 = clientCopy;
+  v20 = variantCopy;
   limitCopy2 = limit;
   idCopy2 = id;
   selfCopy = self;
@@ -430,13 +421,11 @@ uint64_t __95__PPSocialHighlightServerRequestHandler_rankedHighlightsForSyncedIt
   v17 = dispatch_block_create(0, block);
   [(PPXPCServerPipelinedBatchQueryManager *)self->_queryManager waitForBlockWithRequestThrottle:v17];
   dispatch_async(v16, v17);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_2(void *a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -449,11 +438,11 @@ void __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_clien
     *&buf[12] = 2112;
     *&buf[14] = v3;
     *&buf[22] = 2112;
-    v33 = v4;
-    v34 = 2048;
-    v35 = v6;
-    v36 = 1024;
-    v37 = qos_class_self();
+    v32 = v4;
+    v33 = 2048;
+    v34 = v6;
+    v35 = 1024;
+    v36 = qos_class_self();
     _os_log_impl(&dword_23224A000, v2, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightServer: execute rankedHighlightsWithLimit: %tu client: '%@' variant: '%@' queryId: %llu qos: %du", buf, 0x30u);
   }
 
@@ -473,9 +462,9 @@ void __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_clien
   v13 = a1[5];
   v14 = a1[7];
   v15 = *(a1[6] + 32);
-  v31 = 0;
-  v16 = [v11 rankedHighlightsWithLimit:v14 client:v12 variant:v13 applicationIdentifiers:v15 error:&v31];
-  v17 = v31;
+  v30 = 0;
+  v16 = [v11 rankedHighlightsWithLimit:v14 client:v12 variant:v13 applicationIdentifiers:v15 error:&v30];
+  v17 = v30;
 
   v18 = pp_social_highlights_signpost_handle();
   v19 = v18;
@@ -495,55 +484,52 @@ void __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_clien
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v33 = 0;
+    v32 = 0;
     v20 = *(a1[6] + 16);
     v21 = a1[8];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_2_77;
-    v28[3] = &unk_278977680;
-    v29 = v16;
-    v30 = buf;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_3;
-    v25[3] = &unk_2789776A8;
-    v22 = a1[8];
-    v26 = a1[6];
-    v27 = v22;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_2_77;
+    v27[3] = &unk_278977680;
+    v28 = v16;
+    v29 = buf;
     v24[0] = MEMORY[0x277D85DD0];
     v24[1] = 3221225472;
-    v24[2] = __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_5;
-    v24[3] = &unk_2789776D0;
-    v24[4] = v26;
-    v24[5] = v22;
-    [v20 sendBatchedResultForQueryWithName:@"rankedHighlightsWithLimit" queryId:v21 batchGenerator:v28 sendError:v25 sendBatch:v24];
+    v24[2] = __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_3;
+    v24[3] = &unk_2789776A8;
+    v22 = a1[8];
+    v25 = a1[6];
+    v26 = v22;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_5;
+    v23[3] = &unk_2789776D0;
+    v23[4] = v25;
+    v23[5] = v22;
+    [v20 sendBatchedResultForQueryWithName:@"rankedHighlightsWithLimit" queryId:v21 batchGenerator:v27 sendError:v24 sendBatch:v23];
 
     _Block_object_dispose(buf, 8);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_2_77(uint64_t a1, BOOL *a2)
+void *__90__PPSocialHighlightServerRequestHandler_rankedHighlightsWithLimit_client_variant_queryId___block_invoke_2_77(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x1F4)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x1F4)
   {
-    v8 = 500;
+    v7 = 500;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x1F5;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x1F5;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 

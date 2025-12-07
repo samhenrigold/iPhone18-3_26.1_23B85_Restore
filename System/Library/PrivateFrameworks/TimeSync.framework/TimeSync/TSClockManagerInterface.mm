@@ -20,7 +20,7 @@
   if (v3)
   {
     os_unfair_lock_lock(&_clockManagerInterfacesLock);
-    [_clockManagerInterfaces addObject:v3];
+    [_clockManagerInterfaces addObject:?];
     os_unfair_lock_unlock(&_clockManagerInterfacesLock);
   }
 
@@ -39,13 +39,13 @@ void __31__TSClockManagerInterface_init__block_invoke()
 - (void)addToClockManager
 {
   clockManager = [(TSClockManagerInterface *)self clockManager];
-  [clockManager addClient:self];
+  [clockManager addClient:?];
 }
 
 - (void)removeFromClockManager
 {
   clockManager = [(TSClockManagerInterface *)self clockManager];
-  [clockManager removeClient:self];
+  [clockManager removeClient:?];
 }
 
 - (void)interruptedConnectionForClockManager:(id)manager
@@ -58,7 +58,7 @@ void __31__TSClockManagerInterface_init__block_invoke()
 
   [(TSClockManagerInterface *)self removeFromClockManager];
   os_unfair_lock_lock(&_clockManagerInterfacesLock);
-  [_clockManagerInterfaces removeObject:self];
+  [_clockManagerInterfaces removeObject:?];
 
   os_unfair_lock_unlock(&_clockManagerInterfacesLock);
 }

@@ -9,20 +9,20 @@
 
 + (id)sharedCommands
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __36___UIDefaultCommands_sharedCommands__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (qword_1ED49E538 != -1)
   {
     dispatch_once(&qword_1ED49E538, block);
   }
 
-  v1 = _MergedGlobals_1134;
+  v2 = _MergedGlobals_1134;
 
-  return v1;
+  return v2;
 }
 
 - (void)fixedDefaultCommands

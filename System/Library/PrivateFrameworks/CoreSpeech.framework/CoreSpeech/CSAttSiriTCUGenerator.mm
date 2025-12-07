@@ -10,8 +10,10 @@
 - (id)_generateTCUs:(id)us withRequestID:(id)d uresInvocationType:(id)type;
 - (id)_generateTCUsFromExistingTCUs:(id)us;
 - (int64_t)_getPhraseTypeFromUresInvocationType:(id)type;
+- (void)_deliverTCUUpdateForTCUId:(id)id withTCUAccepted:(BOOL)accepted forRequestId:(id)requestId isFinal:(BOOL)final;
 - (void)_deliverTRPCandidatePackage:(id)package;
 - (void)_deliverTRPDetected:(id)detected withTRPId:(id)id;
+- (void)_doTrpTcuMappingWithTrpid:(id)trpid speechPackage:(id)package forceTrpSelection:(BOOL)selection;
 - (void)_emitSpeechStopDetectedWithTrpId:(id)id withHostTime:(unint64_t)time;
 - (void)_emitTRPCreatedEventWithTRPId:(id)id withResultCandidateId:(id)candidateId withRequestId:(id)requestId;
 - (void)_emitTRPRequestLinkEventWithTRPId:(id)id withRequestId:(id)requestId;
@@ -87,41 +89,37 @@
 {
   metricsCopy = metrics;
   idCopy = id;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   tcuReceivers = [(CSAttSiriTCUGenerator *)self tcuReceivers];
-  v9 = [tcuReceivers countByEnumeratingWithState:&v34 objects:v44 count:16];
+  v9 = [tcuReceivers countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     do
     {
       v12 = 0;
       do
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(tcuReceivers);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * v12);
-        if (v13)
+        v13 = *(*(&v33 + 1) + 8 * v12);
+        if (v13 && (objc_opt_respondsToSelector() & 1) != 0)
         {
-          v14 = *(*(&v34 + 1) + 8 * v12);
-          if (objc_opt_respondsToSelector())
-          {
-            [v13 attSiriNode:self selectedTRPId:idCopy withMetrics:metricsCopy];
-          }
+          [v13 attSiriNode:self selectedTRPId:idCopy withMetrics:metricsCopy];
         }
 
         v12 = v12 + 1;
       }
 
       while (v10 != v12);
-      v10 = [tcuReceivers countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v10 = [tcuReceivers countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
     while (v10);
@@ -129,59 +127,59 @@
 
   if (!self->_isMultiUserRequest)
   {
-    v16 = [(CSAttSiriTCUCache *)self->_tcuCache getTCUPackageWithTrpId:idCopy];
-    speechPackage = [v16 speechPackage];
+    v15 = [(CSAttSiriTCUCache *)self->_tcuCache getTCUPackageWithTrpId:idCopy];
+    speechPackage = [v15 speechPackage];
     goto LABEL_16;
   }
 
   multiUserTrpCache = self->_multiUserTrpCache;
   if (multiUserTrpCache && self->_requestId)
   {
-    v16 = [(NSMutableDictionary *)multiUserTrpCache objectForKeyedSubscript:?];
-    trpCandidateList = [v16 trpCandidateList];
+    v15 = [(NSMutableDictionary *)multiUserTrpCache objectForKeyedSubscript:?];
+    trpCandidateList = [v15 trpCandidateList];
     firstObject = [trpCandidateList firstObject];
     tcuList = [firstObject tcuList];
     firstObject2 = [tcuList firstObject];
     speechPackage = [firstObject2 speechPackage];
 
 LABEL_16:
-    v38[0] = @"leadingSilence";
+    v37[0] = @"leadingSilence";
     [CSAttSiriSpeechPackageHelper getFirstTokenLeadingSilenceFromSpeechPackage:speechPackage];
-    v23 = [NSNumber numberWithDouble:v22 * 1000.0];
-    v39[0] = v23;
-    v38[1] = @"trailingSilence";
+    v22 = [NSNumber numberWithDouble:v21 * 1000.0];
+    v38[0] = v22;
+    v37[1] = @"trailingSilence";
     [CSAttSiriSpeechPackageHelper getLastTokenTrailingSilenceFromSpeechPackage:speechPackage];
-    v25 = [NSNumber numberWithDouble:v24 * 1000.0];
-    v39[1] = v25;
-    v38[2] = @"endTime";
+    v24 = [NSNumber numberWithDouble:v23 * 1000.0];
+    v38[1] = v24;
+    v37[2] = @"endTime";
     [CSAttSiriSpeechPackageHelper getLastTokenEndTimeFromSpeechPackage:speechPackage];
-    v27 = [NSNumber numberWithDouble:v26 * 1000.0];
-    v39[2] = v27;
-    v28 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:3];
+    v26 = [NSNumber numberWithDouble:v25 * 1000.0];
+    v38[2] = v26;
+    v27 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:3];
 
     [(CSEndpointDelayReporter *)self->_epdDelayReporter setStopRecordingHostTime:mach_absolute_time()];
     epdDelayReporter = self->_epdDelayReporter;
     [metricsCopy totalAudioRecorded];
     [(CSEndpointDelayReporter *)epdDelayReporter setEndpointTimeInMs:?];
     -[CSEndpointDelayReporter setEndpointBufferHostTime:](self->_epdDelayReporter, "setEndpointBufferHostTime:", [metricsCopy endpointBufferHostTime]);
-    v30 = self->_epdDelayReporter;
+    v29 = self->_epdDelayReporter;
     [CSAttSiriSpeechPackageHelper getLastTokenSilenceStartFromSpeechPackage:speechPackage];
-    [(CSEndpointDelayReporter *)v30 setUserSpeakingEndedTimeInMs:v31 * 1000.0];
-    [(CSEndpointDelayReporter *)self->_epdDelayReporter setSpeechRecognizedContext:v28 withEndpointerMetrics:metricsCopy withTrpId:idCopy];
+    [(CSEndpointDelayReporter *)v29 setUserSpeakingEndedTimeInMs:v30 * 1000.0];
+    [(CSEndpointDelayReporter *)self->_epdDelayReporter setSpeechRecognizedContext:v27 withEndpointerMetrics:metricsCopy withTrpId:idCopy];
     [(CSEndpointDelayReporter *)self->_epdDelayReporter reportEndpointDelayIfNeed];
 
     goto LABEL_19;
   }
 
-  v32 = CSLogCategoryRequest;
+  v31 = CSLogCategoryRequest;
   if (os_log_type_enabled(CSLogCategoryRequest, OS_LOG_TYPE_ERROR))
   {
     requestId = self->_requestId;
     *buf = 136315394;
-    v41 = "[CSAttSiriTCUGenerator _reportEndpointMetrics:forTrpId:]";
-    v42 = 2112;
-    v43 = requestId;
-    _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%s No Valid MultiUser TRPCache found for Multiuser requestId(%@), Bailing out!", buf, 0x16u);
+    v40 = "[CSAttSiriTCUGenerator _reportEndpointMetrics:forTrpId:]";
+    v41 = 2112;
+    v42 = requestId;
+    _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%s No Valid MultiUser TRPCache found for Multiuser requestId(%@), Bailing out!", buf, 0x16u);
   }
 
 LABEL_19:
@@ -598,6 +596,61 @@ LABEL_10:
   return uUIDString;
 }
 
+- (void)_deliverTCUUpdateForTCUId:(id)id withTCUAccepted:(BOOL)accepted forRequestId:(id)requestId isFinal:(BOOL)final
+{
+  finalCopy = final;
+  acceptedCopy = accepted;
+  idCopy = id;
+  requestIdCopy = requestId;
+  v12 = CSLogCategoryRequest;
+  if (os_log_type_enabled(CSLogCategoryRequest, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v25 = "[CSAttSiriTCUGenerator _deliverTCUUpdateForTCUId:withTCUAccepted:forRequestId:isFinal:]";
+    v26 = 2114;
+    v27 = requestIdCopy;
+    v28 = 1024;
+    v29 = acceptedCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s Publishing update for requestId: %{public}@ tcuAccepted: %d", buf, 0x1Cu);
+  }
+
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  tcuReceivers = [(CSAttSiriTCUGenerator *)self tcuReceivers];
+  v14 = [tcuReceivers countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v20;
+    do
+    {
+      v17 = 0;
+      do
+      {
+        if (*v20 != v16)
+        {
+          objc_enumerationMutation(tcuReceivers);
+        }
+
+        v18 = *(*(&v19 + 1) + 8 * v17);
+        if (objc_opt_respondsToSelector())
+        {
+          [v18 didReceiveTCUUpdateForTCUId:idCopy withTCUAccepted:acceptedCopy forRequestId:requestIdCopy isFinal:finalCopy];
+        }
+
+        v17 = v17 + 1;
+      }
+
+      while (v15 != v17);
+      v15 = [tcuReceivers countByEnumeratingWithState:&v19 objects:v23 count:16];
+    }
+
+    while (v15);
+  }
+}
+
 - (void)_deliverTRPDetected:(id)detected withTRPId:(id)id
 {
   detectedCopy = detected;
@@ -888,6 +941,42 @@ LABEL_10:
     }
 
     [(CSAttSiriTCUGenerator *)self _deliverTRPDetected:metricsCopy withTRPId:idCopy];
+  }
+}
+
+- (void)_doTrpTcuMappingWithTrpid:(id)trpid speechPackage:(id)package forceTrpSelection:(BOOL)selection
+{
+  selectionCopy = selection;
+  trpidCopy = trpid;
+  packageCopy = package;
+  if (self->_usesAutomaticEndpointing)
+  {
+    v10 = [(CSTrpTcuMapper *)self->_tcuTrpMapper processTRPWithId:trpidCopy withSpeechPackage:packageCopy enforceTrpSelection:selectionCopy];
+    v11 = CSLogCategoryRequest;
+    if (os_log_type_enabled(CSLogCategoryRequest, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = 136315394;
+      v14 = "[CSAttSiriTCUGenerator _doTrpTcuMappingWithTrpid:speechPackage:forceTrpSelection:]";
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s matchingEPMetrics:%@", &v13, 0x16u);
+    }
+
+    if (v10)
+    {
+      [(CSAttSiriTCUGenerator *)self _sendSelectedTrpId:trpidCopy endpointerMetrics:v10];
+    }
+  }
+
+  else
+  {
+    v12 = CSLogCategoryRequest;
+    if (os_log_type_enabled(CSLogCategoryRequest, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = 136315138;
+      v14 = "[CSAttSiriTCUGenerator _doTrpTcuMappingWithTrpid:speechPackage:forceTrpSelection:]";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s Don't run TCU selection for manual endpointing mode", &v13, 0xCu);
+    }
   }
 }
 

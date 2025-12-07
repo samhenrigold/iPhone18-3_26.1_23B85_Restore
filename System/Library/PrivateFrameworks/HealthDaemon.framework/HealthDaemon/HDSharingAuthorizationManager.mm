@@ -172,33 +172,33 @@ BOOL __100__HDSharingAuthorizationManager_sharingAuthorizationsMarkedForDeletion
 
 uint64_t __84__HDSharingAuthorizationManager_recipientIdentifiersForSharingAuthorizations_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v20 = a3;
-    v9 = *v23;
+    v19 = a3;
+    v9 = *v22;
     while (2)
     {
       a3 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * a3);
-        v21 = 0;
-        v11 = [HDSharingAuthorizationsEntity recipientIdentifiersForSharingAuthorization:v10 databaseTransaction:v5 error:&v21, v20];
-        v12 = v21;
+        v10 = *(*(&v21 + 1) + 8 * a3);
+        v20 = 0;
+        v11 = [HDSharingAuthorizationsEntity recipientIdentifiersForSharingAuthorization:v10 databaseTransaction:v5 error:&v20, v19];
+        v12 = v20;
         v13 = v12;
         if (!v11)
         {
@@ -207,10 +207,10 @@ uint64_t __84__HDSharingAuthorizationManager_recipientIdentifiersForSharingAutho
           LODWORD(a3) = v15 == 0;
           if (v15)
           {
-            if (v20)
+            if (v19)
             {
               v17 = v15;
-              *v20 = v16;
+              *v19 = v16;
             }
 
             else
@@ -229,7 +229,7 @@ uint64_t __84__HDSharingAuthorizationManager_recipientIdentifiersForSharingAutho
       }
 
       while (v8 != a3);
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v8)
       {
         continue;
@@ -242,7 +242,6 @@ uint64_t __84__HDSharingAuthorizationManager_recipientIdentifiersForSharingAutho
   v14 = 1;
 LABEL_15:
 
-  v18 = *MEMORY[0x277D85DE8];
   return (a3 | v14) & 1;
 }
 
@@ -361,7 +360,7 @@ void __105__HDSharingAuthorizationManager__addSharingAuthorizations_recipientIde
 
 - (BOOL)_removeSharingAuthorizations:(void *)authorizations recipientIdentifier:(void *)identifier databaseTransaction:(void *)transaction error:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v9 = a2;
   authorizationsCopy = authorizations;
   identifierCopy = identifier;
@@ -371,21 +370,21 @@ void __105__HDSharingAuthorizationManager__addSharingAuthorizations_recipientIde
     goto LABEL_21;
   }
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __108__HDSharingAuthorizationManager__removeSharingAuthorizations_recipientIdentifier_databaseTransaction_error___block_invoke;
-  v28[3] = &unk_278613830;
-  v28[4] = self;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __108__HDSharingAuthorizationManager__removeSharingAuthorizations_recipientIdentifier_databaseTransaction_error___block_invoke;
+  v27[3] = &unk_278613830;
+  v27[4] = self;
   v12 = v9;
-  v29 = v12;
+  v28 = v12;
   v13 = authorizationsCopy;
-  v30 = v13;
-  [identifierCopy onCommit:v28 orRollback:0];
+  v29 = v13;
+  [identifierCopy onCommit:v27 orRollback:0];
   if ([v13 type] == 1)
   {
-    v27 = 0;
-    v14 = [HDSharingRelationshipEntity entityWithRecipientIdentifier:v13 databaseTransaction:identifierCopy error:&v27];
-    v15 = v27;
+    v26 = 0;
+    v14 = [HDSharingRelationshipEntity entityWithRecipientIdentifier:v13 databaseTransaction:identifierCopy error:&v26];
+    v15 = v26;
     if (v15)
     {
       v16 = v15;
@@ -410,9 +409,9 @@ LABEL_19:
     if (v14)
     {
       date = [MEMORY[0x277CBEAA8] date];
-      v26 = 0;
-      v20 = [v14 setDateModified:date databaseTransaction:identifierCopy error:&v26];
-      v21 = v26;
+      v25 = 0;
+      v20 = [v14 setDateModified:date databaseTransaction:identifierCopy error:&v25];
+      v21 = v25;
 
       if ((v20 & 1) == 0)
       {
@@ -444,8 +443,8 @@ LABEL_19:
       {
         *buf = 138543618;
         selfCopy = self;
-        v33 = 2112;
-        v34 = v13;
+        v32 = 2112;
+        v33 = v13;
         _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Removing authorizations from non-existent relationship with recipient %@", buf, 0x16u);
       }
 
@@ -457,7 +456,6 @@ LABEL_19:
 LABEL_20:
 
 LABEL_21:
-  v24 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -611,12 +609,12 @@ void __69__HDSharingAuthorizationManager_revokeRecipientWithIdentifier_error___b
 
 - (void)deleteMarkedSharingAuthorizations
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v9 = 0;
-  v5 = [(HDHealthEntity *)HDSharingAuthorizationsEntity performWriteTransactionWithHealthDatabase:database error:&v9 block:&__block_literal_global_194];
-  v6 = v9;
+  v8 = 0;
+  v5 = [(HDHealthEntity *)HDSharingAuthorizationsEntity performWriteTransactionWithHealthDatabase:database error:&v8 block:&__block_literal_global_194];
+  v6 = v8;
 
   if (!v5)
   {
@@ -626,13 +624,11 @@ void __69__HDSharingAuthorizationManager_revokeRecipientWithIdentifier_error___b
     {
       *buf = 138543618;
       selfCopy = self;
-      v12 = 2114;
-      v13 = v6;
+      v11 = 2114;
+      v12 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Error removing marked sharing authorizations %{public}@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)insertOrUpdateCodableRelationships:(id)relationships syncProvenance:(int64_t)provenance error:(id *)error
@@ -655,38 +651,38 @@ void __69__HDSharingAuthorizationManager_revokeRecipientWithIdentifier_error___b
 
 uint64_t __89__HDSharingAuthorizationManager_insertOrUpdateCodableRelationships_syncProvenance_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __89__HDSharingAuthorizationManager_insertOrUpdateCodableRelationships_syncProvenance_error___block_invoke_2;
-  v46[3] = &unk_278613968;
-  v46[4] = *(a1 + 32);
-  v38 = v4;
-  [v4 onCommit:v46 orRollback:0];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __89__HDSharingAuthorizationManager_insertOrUpdateCodableRelationships_syncProvenance_error___block_invoke_2;
+  v45[3] = &unk_278613968;
+  v45[4] = *(a1 + 32);
+  v37 = v4;
+  [v4 onCommit:v45 orRollback:0];
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = *(a1 + 40);
-  v5 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+  v5 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v43;
-    v35 = *v43;
-    v36 = a1;
+    v7 = *v42;
+    v34 = *v42;
+    v35 = a1;
 LABEL_3:
     v8 = 0;
-    v37 = v6;
+    v36 = v6;
     while (1)
     {
-      if (*v43 != v7)
+      if (*v42 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v42 + 1) + 8 * v8);
+      v9 = *(*(&v41 + 1) + 8 * v8);
       if ([v9 recipientType] != 1)
       {
         goto LABEL_20;
@@ -706,23 +702,23 @@ LABEL_3:
       }
 
       v16 = [v9 syncIdentity];
-      v41 = 0;
-      v17 = [HDSyncIdentity syncIdentityWithCodable:v16 error:&v41];
-      v18 = v41;
+      v40 = 0;
+      v17 = [HDSyncIdentity syncIdentityWithCodable:v16 error:&v40];
+      v18 = v40;
 
       if (v17)
       {
-        v19 = objc_loadWeakRetained((*(v36 + 32) + 8));
+        v19 = objc_loadWeakRetained((*(v35 + 32) + 8));
         v20 = [v19 syncIdentityManager];
-        v40 = v18;
-        v21 = [v20 concreteIdentityForIdentity:v17 shouldCreate:1 transaction:v38 error:&v40];
-        v22 = v40;
+        v39 = v18;
+        v21 = [v20 concreteIdentityForIdentity:v17 shouldCreate:1 transaction:v37 error:&v39];
+        v22 = v39;
 
         if (v21)
         {
 
           v15 = v21;
-          a1 = v36;
+          a1 = v35;
 LABEL_11:
           v23 = *(a1 + 32);
           v24 = [v9 sharingAuthorizations];
@@ -732,7 +728,7 @@ LABEL_11:
           v27 = [v26 dateWithTimeIntervalSinceReferenceDate:?];
           v28 = *(a1 + 48);
           v29 = [v15 entity];
-          LODWORD(v23) = [v23 insertOrUpdateRecipientIdentifier:v12 sharingAuthorizations:v25 dateModified:v27 syncProvenance:v28 syncIdentity:objc_msgSend(v29 databaseTransaction:"persistentID") error:{v38, a3}];
+          LODWORD(v23) = [v23 insertOrUpdateRecipientIdentifier:v12 sharingAuthorizations:v25 dateModified:v27 syncProvenance:v28 syncIdentity:objc_msgSend(v29 databaseTransaction:"persistentID") error:{v37, a3}];
 
           if (!v23)
           {
@@ -741,8 +737,8 @@ LABEL_11:
             goto LABEL_24;
           }
 
-          v7 = v35;
-          v6 = v37;
+          v7 = v34;
+          v6 = v36;
           goto LABEL_19;
         }
 
@@ -751,26 +747,26 @@ LABEL_11:
         if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
         {
           *buf = 138543362;
-          v48 = v22;
+          v47 = v22;
           _os_log_fault_impl(&dword_228986000, v30, OS_LOG_TYPE_FAULT, "HDSharingRelationshipEntity ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
         }
 
         v15 = 0;
         v18 = v22;
-        v7 = v35;
-        a1 = v36;
-        v6 = v37;
+        v7 = v34;
+        a1 = v35;
+        v6 = v36;
       }
 
       else
       {
         _HKInitializeLogging();
         v30 = HKLogSharing();
-        a1 = v36;
+        a1 = v35;
         if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
         {
           *buf = 138543362;
-          v48 = v18;
+          v47 = v18;
           _os_log_fault_impl(&dword_228986000, v30, OS_LOG_TYPE_FAULT, "HDSharingRelationshipEntity SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
         }
       }
@@ -779,7 +775,7 @@ LABEL_19:
 LABEL_20:
       if (v6 == ++v8)
       {
-        v6 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+        v6 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -793,93 +789,91 @@ LABEL_20:
   v31 = 1;
 LABEL_24:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
-uint64_t __89__HDSharingAuthorizationManager_insertOrUpdateCodableRelationships_syncProvenance_error___block_invoke_2(uint64_t result)
+void *__89__HDSharingAuthorizationManager_insertOrUpdateCodableRelationships_syncProvenance_error___block_invoke_2(void *result)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v28 = *MEMORY[0x277D85DE8];
+  v1 = result[4];
   if (v1)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v2 = *(v1 + 24);
-    v3 = [v2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v24;
+      v5 = *v23;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v24 != v5)
+          if (*v23 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v23 + 1) + 8 * i);
+          v7 = *(*(&v22 + 1) + 8 * i);
           v8 = *(v1 + 16);
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __69__HDSharingAuthorizationManager__notifyAuthorizationsAddedAndRemoved__block_invoke;
-          v22[3] = &unk_2786292F8;
-          v22[4] = v1;
-          v22[5] = v7;
-          [v8 notifyObservers:v22];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __69__HDSharingAuthorizationManager__notifyAuthorizationsAddedAndRemoved__block_invoke;
+          v21[3] = &unk_2786292F8;
+          v21[4] = v1;
+          v21[5] = v7;
+          [v8 notifyObservers:v21];
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v4);
     }
 
     [*(v1 + 24) removeAllObjects];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = *(v1 + 32);
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v27 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (j = 0; j != v11; ++j)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * j);
+          v14 = *(*(&v17 + 1) + 8 * j);
           v15 = *(v1 + 16);
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __69__HDSharingAuthorizationManager__notifyAuthorizationsAddedAndRemoved__block_invoke_2;
-          v17[3] = &unk_2786292F8;
-          v17[4] = v1;
-          v17[5] = v14;
-          [v15 notifyObservers:v17];
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __69__HDSharingAuthorizationManager__notifyAuthorizationsAddedAndRemoved__block_invoke_2;
+          v16[3] = &unk_2786292F8;
+          v16[4] = v1;
+          v16[5] = v14;
+          [v15 notifyObservers:v16];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v27 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v26 count:16];
       }
 
       while (v11);
     }
 
-    result = [*(v1 + 32) removeAllObjects];
+    return [*(v1 + 32) removeAllObjects];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 

@@ -16,9 +16,10 @@
 
 - (_TtCE5UIKitCSo41UIKeyboardCandidateSceneHostingController37UIKeyboardCandidateSceneSpecification)init
 {
-  v3.receiver = self;
-  v3.super_class = _s37UIKeyboardCandidateSceneSpecificationCMa();
-  return [(UIKeyboardCandidateSceneHostingController.UIKeyboardCandidateSceneSpecification *)&v3 init];
+  v3 = _s37UIKeyboardCandidateSceneSpecificationCMa();
+  v6.receiver = self;
+  v6.super_class = v4;
+  return [(UIKeyboardCandidateSceneHostingController.UIKeyboardCandidateSceneSpecification *)&v6 init];
 }
 
 @end

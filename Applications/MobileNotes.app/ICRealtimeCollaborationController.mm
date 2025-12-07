@@ -54,7 +54,7 @@
   v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = OBJC_IVAR___ICRealtimeCollaborationController_stateMachine;
   swift_beginAccess();
-  v8 = type metadata accessor for FastSyncStateMachine();
+  v8 = type metadata accessor for FastSyncStateMachine(0);
   v9 = (*(*(v8 - 8) + 48))(self + v7, 1, v8);
   v10 = 0;
   if (!v9)

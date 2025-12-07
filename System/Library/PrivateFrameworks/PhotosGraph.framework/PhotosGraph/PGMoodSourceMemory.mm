@@ -33,7 +33,7 @@
 
 - (id)_plistMoodIdentifiersWithGraph:(id)graph
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   if ([(PGMoodSourceMemory *)self _shouldProcessSource])
   {
     enrichedMemory = [(PGMoodSource *)self enrichedMemory];
@@ -64,30 +64,30 @@
         subcategory = [assetCollection2 memorySubcategory];
       }
 
-      v14 = subcategory;
+      v13 = subcategory;
 
       v5 = &unk_284485A90;
       if (category != 212 && category != 215)
       {
-        v15 = [MEMORY[0x277CD98D8] stringForCategory:category];
-        capitalizedString = [v15 capitalizedString];
-        v17 = [capitalizedString stringByReplacingOccurrencesOfString:@" " withString:&stru_2843F5C58];
+        v14 = [MEMORY[0x277CD98D8] stringForCategory:category];
+        capitalizedString = [v14 capitalizedString];
+        v16 = [capitalizedString stringByReplacingOccurrencesOfString:@" " withString:&stru_2843F5C58];
 
-        v18 = [MEMORY[0x277CD98D8] stringForSubcategory:v14];
-        capitalizedString2 = [v18 capitalizedString];
-        v20 = [capitalizedString2 stringByReplacingOccurrencesOfString:@" " withString:&stru_2843F5C58];
+        v17 = [MEMORY[0x277CD98D8] stringForSubcategory:v13];
+        capitalizedString2 = [v17 capitalizedString];
+        v19 = [capitalizedString2 stringByReplacingOccurrencesOfString:@" " withString:&stru_2843F5C58];
 
-        v21 = [v17 containsString:@"Holiday"];
-        if (category != 218 && (v21 & 1) != 0 || ([v20 containsString:@"Holiday"] & 1) != 0)
+        v20 = [v16 containsString:@"Holiday"];
+        if (category != 218 && (v20 & 1) != 0 || ([v19 containsString:@"Holiday"] & 1) != 0)
         {
           v5 = &unk_284485AA8;
         }
 
         else
         {
-          v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", v17, v20];
-          v23[0] = v22;
-          v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+          v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", v16, v19];
+          v22[0] = v21;
+          v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
         }
       }
     }
@@ -97,8 +97,6 @@
   {
     v5 = MEMORY[0x277CBEBF8];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

@@ -1,3 +1,20 @@
+void sub_1D595D914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, std::exception_vtbl *a11, void **a12, std::exception a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
+{
+  mediaplatform::PlatformErrorCondition::~PlatformErrorCondition(&a13);
+  *(v38 - 128) = &unk_1F50DE578;
+  a13.__vftable = (v38 - 120);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a13);
+  if (*(a12 + 119) < 0)
+  {
+    operator delete(*a10);
+  }
+
+  a13.__vftable = a11;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a13);
+  mlcore::LocalizedSectionsInfo::~LocalizedSectionsInfo(a12);
+  _Unwind_Resume(a1);
+}
+
 uint64_t mediaplatform::SQLOrderingTerm::sql@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v17);
@@ -127,20 +144,20 @@ LABEL_39:
   return MEMORY[0x1DA6EDCB0](&v25);
 }
 
-void sub_1D595DEC8(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+void sub_1D595DEC8(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  va_start(va, a21);
-  if (a7 < 0)
+  va_start(va, a25);
+  if (SHIBYTE(a11) < 0)
   {
-    operator delete(__p);
+    operator delete(a9);
   }
 
-  std::ostringstream::~ostringstream(&a8);
+  std::ostringstream::~ostringstream(&a12);
   MEMORY[0x1DA6EDCB0](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *mediaplatform::NameForCollateType(_BYTE *a1, int a2)
+void *mediaplatform::NameForCollateType(void *a1, int a2)
 {
   if ((a2 - 1) >= 3)
   {
@@ -154,7 +171,7 @@ _BYTE *mediaplatform::NameForCollateType(_BYTE *a1, int a2)
   return std::string::basic_string[abi:ne200100]<0>(a1, v2);
 }
 
-_BYTE *mediaplatform::NameForOrderingType(_BYTE *a1, int a2)
+void *mediaplatform::NameForOrderingType(void *a1, int a2)
 {
   if (a2)
   {
@@ -927,17 +944,17 @@ void sub_1D595F4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a59);
   }
 
-  if (a75 < 0)
+  if (a69 < 0)
   {
-    operator delete(a74);
+    operator delete(a68);
   }
 
-  if (a73 < 0)
+  if (a67 < 0)
   {
-    operator delete(a72);
+    operator delete(a66);
   }
 
-  STACK[0x218] = v81;
+  STACK[0x218] = v75;
   if (SLOBYTE(STACK[0x237]) < 0)
   {
     operator delete(STACK[0x220]);
@@ -948,7 +965,7 @@ void sub_1D595F4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x200]);
   }
 
-  STACK[0x260] = v80;
+  STACK[0x260] = v74;
   if (SLOBYTE(STACK[0x27F]) < 0)
   {
     operator delete(STACK[0x268]);
@@ -959,7 +976,7 @@ void sub_1D595F4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x248]);
   }
 
-  STACK[0x2A8] = v79;
+  STACK[0x2A8] = v73;
   if (SLOBYTE(STACK[0x2C7]) < 0)
   {
     operator delete(STACK[0x2B0]);
@@ -970,7 +987,7 @@ void sub_1D595F4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x290]);
   }
 
-  STACK[0x2F0] = v78;
+  STACK[0x2F0] = v72;
   if (SLOBYTE(STACK[0x30F]) < 0)
   {
     operator delete(STACK[0x2F8]);
@@ -981,7 +998,7 @@ void sub_1D595F4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x2D8]);
   }
 
-  STACK[0x338] = v77;
+  STACK[0x338] = v71;
   if (SLOBYTE(STACK[0x357]) < 0)
   {
     operator delete(STACK[0x340]);
@@ -998,7 +1015,7 @@ void sub_1D595F4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x368]);
   }
 
-  STACK[0x3E8] = v76;
+  STACK[0x3E8] = v70;
   if (SLOBYTE(STACK[0x407]) < 0)
   {
     operator delete(STACK[0x3F0]);
@@ -1009,7 +1026,7 @@ void sub_1D595F4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x3D0]);
   }
 
-  STACK[0x430] = v75;
+  STACK[0x430] = v69;
   if (SLOBYTE(STACK[0x44F]) < 0)
   {
     operator delete(STACK[0x438]);
@@ -1148,7 +1165,7 @@ void sub_1D595F4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x7F0]);
   }
 
-  mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(v82 - 248);
+  mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(v76 - 248);
   if (SLOBYTE(STACK[0x85F]) < 0)
   {
     operator delete(STACK[0x848]);
@@ -1159,20 +1176,20 @@ void sub_1D595F4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x860]);
   }
 
-  *(v82 - 160) = a40;
-  if (*(v82 - 129) < 0)
+  *(v76 - 160) = a40;
+  if (*(v76 - 129) < 0)
   {
-    operator delete(*(v82 - 152));
+    operator delete(*(v76 - 152));
   }
 
-  if (*(v82 - 161) < 0)
+  if (*(v76 - 161) < 0)
   {
-    operator delete(*(v82 - 184));
+    operator delete(*(v76 - 184));
   }
 
-  if (*(v82 - 89) < 0)
+  if (*(v76 - 89) < 0)
   {
-    operator delete(*(v82 - 112));
+    operator delete(*(v76 - 112));
   }
 
   _Unwind_Resume(a1);
@@ -1273,7 +1290,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
     v213 = *(a7 + 8);
   }
 
-  v39 = (v37 + 36);
+  v39 = v37 + 36;
   v38 = *(v37 + 36);
   v214 = *(v37 + 32);
   v212 = &unk_1F50D8958;
@@ -1517,13 +1534,13 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
     v140 = *(a23 + 8);
   }
 
-  v43 = (v41 + 36);
+  v43 = v41 + 36;
   v42 = *(v41 + 36);
   v141 = *(v41 + 32);
   v44 = a24;
   v139 = &unk_1F50D8958;
   v142 = v42;
-  v143 = *(v43 + 2);
+  v143 = *(v43 + 8);
   v134 = &unk_1F50D86E0;
   if (*(a24 + 31) < 0)
   {
@@ -1537,7 +1554,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
   }
 
   v45 = a25;
-  v47 = (v44 + 36);
+  v47 = v44 + 36;
   v46 = *(v44 + 36);
   v136 = *(v44 + 32);
   v134 = &unk_1F50D8958;
@@ -1573,7 +1590,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
   }
 
   v49 = a27;
-  v51 = (v48 + 36);
+  v51 = v48 + 36;
   v50 = *(v48 + 36);
   v127 = *(v48 + 32);
   v125 = &unk_1F50D8958;
@@ -1617,7 +1634,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
     v116 = *(a28 + 8);
   }
 
-  v54 = (v52 + 36);
+  v54 = v52 + 36;
   v53 = *(v52 + 36);
   v117 = *(v52 + 32);
   v118 = v53;
@@ -2412,7 +2429,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
   *(a1 + 1712) = *(v67 + 32);
   *(a1 + 1680) = &unk_1F50D8958;
   v69 = *v39;
-  *(a1 + 1724) = *(v39 + 2);
+  *(a1 + 1724) = *(v39 + 8);
   *(a1 + 1716) = v69;
   *(a1 + 1680) = &unk_1F50D7AC0;
   *(a1 + 1728) = &unk_1F50D86E0;
@@ -2709,7 +2726,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
   *(a1 + 2560) = *(v92 + 32);
   *(a1 + 2528) = &unk_1F50D8958;
   v94 = *v113;
-  *(a1 + 2572) = *(v113 + 2);
+  *(a1 + 2572) = *(v113 + 8);
   *(a1 + 2564) = v94;
   *(a1 + 2528) = &unk_1F50D7AC0;
   *(a1 + 2576) = &unk_1F50D86E0;
@@ -2730,7 +2747,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
   *(a1 + 2608) = *(v95 + 32);
   *(a1 + 2576) = &unk_1F50D8958;
   v97 = *v47;
-  *(a1 + 2620) = *(v47 + 2);
+  *(a1 + 2620) = *(v47 + 8);
   *(a1 + 2612) = v97;
   *(a1 + 2576) = &unk_1F50D7AC0;
   *(a1 + 2624) = &unk_1F50D86E0;
@@ -2770,7 +2787,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
   *(a1 + 2704) = *(v100 + 32);
   *(a1 + 2672) = &unk_1F50D8958;
   v102 = *v112;
-  *(a1 + 2716) = *(v112 + 2);
+  *(a1 + 2716) = *(v112 + 8);
   *(a1 + 2708) = v102;
   *(a1 + 2672) = &unk_1F50D7AC0;
   *(a1 + 2720) = &unk_1F50D86E0;
@@ -2824,7 +2841,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,long long,long lon
   *(a1 + 2816) = *(v108 + 32);
   *(a1 + 2784) = &unk_1F50D8958;
   v110 = *v54;
-  *(a1 + 2828) = *(v54 + 2);
+  *(a1 + 2828) = *(v54 + 8);
   *(a1 + 2820) = v110;
   *(a1 + 2784) = &unk_1F50D7AC0;
   return a1;
@@ -3005,9 +3022,16 @@ void sub_1D59639E8(unint64_t a1)
   JUMPOUT(0x1D596392CLL);
 }
 
-void sub_1D5963A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,std::string,std::string,long long,long long,mediaplatform::Data,int,int,int,int,std::string,int,int,int,int,int,int,mediaplatform::Data,int,long long,long long,long long,int,long long,std::string,long long>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D5963A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3045,9 +3069,9 @@ void mediaplatform::DatabaseTable<long long,std::string,std::string,long long,lo
   mediaplatform::ColumnNamesApplier::operator()<long long>(a2, a1 + 80);
 }
 
-void sub_1D5963C04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D5963C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }

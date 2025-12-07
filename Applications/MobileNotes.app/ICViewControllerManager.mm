@@ -14174,7 +14174,7 @@ LABEL_11:
 
 + (void)createDonationOf:(NSURL *)of transcript:(NSString *)transcript date:(NSDate *)date isFeedbackPositive:(BOOL)positive completionHandler:(id)handler
 {
-  v13 = sub_10015DA04(&qword_1006C2170);
+  v13 = sub_10015DA04(&qword_1006C2170, &unk_100538AA0);
   __chkstk_darwin(v13 - 8);
   v15 = &v24 - v14;
   v16 = _Block_copy(handler);

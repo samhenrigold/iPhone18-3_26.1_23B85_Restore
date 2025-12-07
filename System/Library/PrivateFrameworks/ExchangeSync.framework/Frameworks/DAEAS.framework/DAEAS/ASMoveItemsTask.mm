@@ -11,20 +11,20 @@
 
 - (void)addSourceID:(id)d sourceFolder:(id)folder destinatonFolder:(id)destinatonFolder
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   folderCopy = folder;
   destinatonFolderCopy = destinatonFolder;
   v11 = destinatonFolderCopy;
   if (dCopy && folderCopy && destinatonFolderCopy)
   {
-    v17[0] = @"MoveItemsSourceIDKey";
-    v17[1] = @"MoveItemsSourceFolder";
-    v18[0] = dCopy;
-    v18[1] = folderCopy;
-    v17[2] = @"MoveItemsDestFolderKey";
-    v18[2] = destinatonFolderCopy;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v16[0] = @"MoveItemsSourceIDKey";
+    v16[1] = @"MoveItemsSourceFolder";
+    v17[0] = dCopy;
+    v17[1] = folderCopy;
+    v16[2] = @"MoveItemsDestFolderKey";
+    v17[2] = destinatonFolderCopy;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
     moveItems = [(ASMoveItemsTask *)self moveItems];
 
     if (!moveItems)
@@ -36,8 +36,6 @@
     moveItems2 = [(ASMoveItemsTask *)self moveItems];
     [moveItems2 addObject:v12];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)getTopLevelToken:(char *)token outStatusCodePage:(char *)page outStatusToken:(char *)statusToken
@@ -50,7 +48,7 @@
 
 - (BOOL)processContext:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -189,13 +187,12 @@ LABEL_17:
   v21 = 0;
 LABEL_31:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (void)finishWithError:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (errorCopy)
@@ -225,8 +222,8 @@ LABEL_31:
       {
         *buf = 138412546;
         selfCopy = objc_opt_class();
-        v27 = 2112;
-        v28 = errorCopy;
+        v26 = 2112;
+        v27 = errorCopy;
         v10 = selfCopy;
         _os_log_impl(&dword_24A0AC000, v8, v9, "%@ failed: %@", buf, 0x16u);
       }
@@ -248,8 +245,8 @@ LABEL_31:
       {
         *buf = 138412546;
         selfCopy = objc_opt_class();
-        v27 = 2112;
-        v28 = v8;
+        v26 = 2112;
+        v27 = v8;
         v15 = selfCopy;
         _os_log_impl(&dword_24A0AC000, v13, v14, "%@ Parsed response of %@", buf, 0x16u);
       }
@@ -280,18 +277,16 @@ LABEL_31:
 
   else
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __35__ASMoveItemsTask_finishWithError___block_invoke;
-    v21[3] = &unk_278FC7D70;
-    v21[4] = self;
-    v24 = v6;
-    v22 = errorCopy;
-    v23 = commonValue;
-    [(ASTask *)self finishWithError:v22 afterDelegateCallout:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __35__ASMoveItemsTask_finishWithError___block_invoke;
+    v20[3] = &unk_278FC7D70;
+    v20[4] = self;
+    v23 = v6;
+    v21 = errorCopy;
+    v22 = commonValue;
+    [(ASTask *)self finishWithError:v21 afterDelegateCallout:v20];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __35__ASMoveItemsTask_finishWithError___block_invoke(uint64_t a1)
@@ -302,30 +297,30 @@ void __35__ASMoveItemsTask_finishWithError___block_invoke(uint64_t a1)
 
 - (id)requestBody
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 switchToCodePage:5];
   [v3 openTag:5];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   moveItems = [(ASMoveItemsTask *)self moveItems];
-  v5 = [moveItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [moveItems countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(moveItems);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         [v3 openTag:6];
         v10 = [v9 objectForKeyedSubscript:@"MoveItemsSourceIDKey"];
         [v3 appendTag:7 withStringContent:v10];
@@ -339,7 +334,7 @@ void __35__ASMoveItemsTask_finishWithError___block_invoke(uint64_t a1)
         [v3 closeTag:6];
       }
 
-      v6 = [moveItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [moveItems countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -348,39 +343,31 @@ void __35__ASMoveItemsTask_finishWithError___block_invoke(uint64_t a1)
   [v3 closeTag:5];
   data = [v3 data];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
 - (int64_t)taskStatusForExchangeStatus:(int)status
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (status >= 8)
+  v13 = *MEMORY[0x277D85DE8];
+  if (status < 8)
   {
-    v5 = DALoggingwithCategory();
-    v6 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v5, v6))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 1024;
-      statusCopy = status;
-      _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v10, 0x12u);
-    }
-
-    result = 10;
+    return qword_24A14E000[status];
   }
 
-  else
+  v5 = DALoggingwithCategory();
+  v6 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v5, v6))
   {
-    result = qword_24A14E000[status];
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 1024;
+    statusCopy = status;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v9, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 10;
 }
 
 @end

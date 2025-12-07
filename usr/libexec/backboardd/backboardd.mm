@@ -352,9 +352,9 @@ BOOL sub_1000030E8()
   return v0;
 }
 
-void sub_1000031C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000031C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -587,18 +587,18 @@ void sub_1000037C8(uint64_t a1)
   }
 }
 
-void sub_100003C00(uint64_t a1)
+void sub_100003C00(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   if ((*(v1 + 66) & 1) == 0)
   {
     *(v1 + 66) = 1;
-    [*(*(a1 + 32) + 32) invalidate];
-    v3 = *(a1 + 32);
+    [*(*(result + 32) + 32) invalidate];
+    v3 = *(result + 32);
     v4 = *(v3 + 32);
     *(v3 + 32) = 0;
 
-    v5 = *(a1 + 32);
+    v5 = *(result + 32);
     if (*(v5 + 48))
     {
 
@@ -749,19 +749,19 @@ void sub_100004674(uint64_t a1)
   **(a1 + 32) = [v2 isTethered];
 }
 
-void sub_100004BA4(uint64_t a1, uint64_t a2)
+void sub_100004BA4(uint64_t result, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0 && *(a1 + 24) == 1 && *(a1 + 4) == 56)
+  if ((*result & 0x80000000) != 0 && *(result + 24) == 1 && *(result + 4) == 56)
   {
-    if (*(a1 + 38) << 16 == 1114112)
+    if (*(result + 38) << 16 == 1114112)
     {
-      if (!*(a1 + 56) && *(a1 + 60) > 0x1Fu)
+      if (!*(result + 56) && *(result + 60) > 0x1Fu)
       {
-        v4 = *(a1 + 28);
-        v5 = *(a1 + 48);
-        v6 = *(a1 + 52);
-        v7 = *(a1 + 92);
-        v8[0] = *(a1 + 76);
+        v4 = *(result + 28);
+        v5 = *(result + 48);
+        v6 = *(result + 52);
+        v7 = *(result + 92);
+        v8[0] = *(result + 76);
         v8[1] = v7;
         sub_100004C68(v4, v5, v6, v8);
         *(a2 + 32) = 0;
@@ -992,19 +992,8 @@ double sub_100005754(uint64_t a1)
 void sub_100005ACC(void *a1)
 {
   v1 = a1;
-  if (qword_100126160)
+  if (qword_100126160 || (+[BKHIDSystemInterface sharedInstance](BKHIDSystemInterface, "sharedInstance"), v2 = objc_claimAutoreleasedReturnValue(), [v2 HIDSystemChannel], v3 = objc_claimAutoreleasedReturnValue(), v4 = qword_100126160, qword_100126160 = v3, v4, v2, qword_100126160))
   {
-    goto LABEL_3;
-  }
-
-  v2 = +[BKHIDSystemInterface sharedInstance];
-  v3 = [v2 HIDSystemChannel];
-  v4 = qword_100126160;
-  qword_100126160 = v3;
-
-  if (qword_100126160)
-  {
-LABEL_3:
     dispatch_mach_receive_barrier();
   }
 
@@ -1372,7 +1361,7 @@ uint64_t sub_100006994(uint64_t a1, void *a2, void *a3, uint64_t a4)
   return v9;
 }
 
-uint64_t sub_100006AF8(_BYTE *a1, void *a2)
+uint64_t sub_100006AF8(_BYTE *a1, _OWORD *a2)
 {
   if (!sub_100006994("_BKHIDXXRequestProximityStatusEvent", BKProximityStatusEventEntitlement, BKBackBoardClientEntitlement, a2))
   {
@@ -1390,7 +1379,7 @@ uint64_t sub_100006AF8(_BYTE *a1, void *a2)
   }
 
   v6 = +[BKHIDUISensorController sharedInstance];
-  [v6 requestProximityStatusEventForReason:v4 versionedPID:{BSVersionedPIDForAuditToken(), *a2, a2[1], a2[2], a2[3]}];
+  [v6 requestProximityStatusEventForReason:v4 versionedPID:{BSVersionedPIDForAuditToken(), *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3)}];
 
   return 0;
 }
@@ -1447,8 +1436,10 @@ void sub_100006CE4(uint64_t a1)
   sub_100032E78(1, v2);
 }
 
-void sub_100006DEC(int a1, int a2, char a3, float a4, float a5)
+void sub_100006DEC(uint64_t a1, uint64_t a2, char a3, float a4, float a5)
 {
+  v6 = a2;
+  v7 = a1;
   v10 = fminf(a4, 1.0);
   if (v10 >= 0.0)
   {
@@ -1462,7 +1453,7 @@ void sub_100006DEC(int a1, int a2, char a3, float a4, float a5)
 
   v12 = BKLogBacklight();
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-  if (a1)
+  if (v7)
   {
     if (v13)
     {
@@ -1507,7 +1498,7 @@ void sub_100006DEC(int a1, int a2, char a3, float a4, float a5)
     notify_register_check("com.apple.backboardd.backlight.changed", &dword_100124660);
   }
 
-  sub_100032E78(a2, v11);
+  sub_100032E78(v6, v11);
   if (dword_100124660 != -1 && (a3 & 1) == 0)
   {
     if (a4 <= 0.9)
@@ -1597,9 +1588,9 @@ uint64_t sub_10000717C(void *a1)
   return v3;
 }
 
-void sub_1000072A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000072A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1737,9 +1728,9 @@ id sub_1000076E8()
   return v0;
 }
 
-void sub_1000077D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000077D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1753,23 +1744,22 @@ id sub_1000077E8(uint64_t a1)
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       v9 = NSStringFromSelector(*(a1 + 40));
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = *(a1 + 32);
-      v14 = 138544642;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v12;
-      v18 = 2048;
-      v19 = v13;
-      v20 = 2114;
-      v21 = @"BKTouchDeliveryStatisticsLoggingObserver.m";
-      v22 = 1024;
-      v23 = 294;
-      v24 = 2114;
-      v25 = v8;
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v14, 0x3Au);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = *(a1 + 32);
+      v13 = 138544642;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v11;
+      v17 = 2048;
+      v18 = v12;
+      v19 = 2114;
+      v20 = @"BKTouchDeliveryStatisticsLoggingObserver.m";
+      v21 = 1024;
+      v22 = 294;
+      v23 = 2114;
+      v24 = v8;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v13, 0x3Au);
     }
 
     [v8 UTF8String];
@@ -1946,9 +1936,9 @@ void sub_100008008(uint64_t a1)
   }
 }
 
-uint64_t sub_100008070(uint64_t a1, void *a2)
+uint64_t sub_100008070(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
+  v4 = a2;
   *(a1 + 16) = xmmword_1000BF9E0;
   *(a1 + 48) = 0u;
   *(a1 + 64) = 0u;
@@ -1965,15 +1955,13 @@ uint64_t sub_100008070(uint64_t a1, void *a2)
   *(a1 + 8) = a1 + 32;
   *(a1 + 200) = 0;
   *(a1 + 200) = mach_absolute_time();
-  v4 = v3;
+  v5 = v4;
   DigitizerEvent = IOHIDEventCreateDigitizerEvent();
-  v6 = v4[1];
-  [v6 senderID];
+  v7 = v5[1];
+  [v7 senderID];
   IOHIDEventSetSenderID();
 
-  v7 = *(v4 + 206);
   IOHIDEventSetIntegerValue();
-  v8 = *(v4 + 207);
   IOHIDEventSetIntegerValue();
 
   if (*a1)
@@ -2002,54 +1990,53 @@ void sub_1000081A4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000081F0(uint64_t a1)
+uint64_t sub_1000081F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 200);
   DigitizerEvent = IOHIDEventCreateDigitizerEvent();
-  v4 = (a1 + 8);
-  v5 = *(a1 + 16);
-  if (v5 < *(a1 + 24))
+  v6 = (a1 + 8);
+  v7 = *(a1 + 16);
+  if (v7 < *(a1 + 24))
   {
-    v6 = *v4;
+    v8 = *v6;
 LABEL_12:
-    v6[v5] = DigitizerEvent;
-    *(a1 + 16) = v5 + 1;
+    v8[v7] = DigitizerEvent;
+    *(a1 + 16) = v7 + 1;
     return DigitizerEvent;
   }
 
-  v7 = BKLogTouchEvents();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v9 = BKLogTouchEvents();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(a1 + 24);
+    v14 = *(a1 + 24);
     *buf = 134218240;
-    v14 = a1 + 8;
-    v15 = 1024;
-    v16 = v12;
-    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "array:%p exceeded capacity:%d; moving to heap", buf, 0x12u);
+    v16 = a1 + 8;
+    v17 = 1024;
+    v18 = v14;
+    _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "array:%p exceeded capacity:%d; moving to heap", buf, 0x12u);
   }
 
-  v8 = *(a1 + 24);
-  v9 = malloc_type_calloc(2 * v8, 8uLL, 0x2004093837F09uLL);
-  if (v9)
+  v10 = *(a1 + 24);
+  v11 = malloc_type_calloc(2 * v10, 8uLL, 0x2004093837F09uLL);
+  if (v11)
   {
-    v6 = v9;
-    if (v8)
+    v8 = v11;
+    if (v10)
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        v9[i] = *(*v4 + i);
+        v11[i] = *(*v6 + i);
       }
     }
 
     if (*(a1 + 192) == 1)
     {
-      free(*v4);
+      free(*v6);
     }
 
-    *(a1 + 8) = v6;
-    *(a1 + 24) = 2 * v8;
+    *(a1 + 8) = v8;
+    *(a1 + 24) = 2 * v10;
     *(a1 + 192) = 1;
-    v5 = *(a1 + 16);
+    v7 = *(a1 + 16);
     goto LABEL_12;
   }
 
@@ -2065,8 +2052,7 @@ uint64_t sub_10000839C(uint64_t *a1)
     v4 = 8 * v2;
     do
     {
-      v5 = *v3++;
-      v6 = *a1;
+      v3 += 8;
       IOHIDEventAppendEvent();
       v4 -= 8;
     }
@@ -2454,7 +2440,7 @@ id sub_100008F48()
   return v0;
 }
 
-uint64_t *sub_100009074(uint64_t *a1)
+id *sub_100009074(id *a1)
 {
   sub_100081F08(a1[1], *a1);
 
@@ -2887,9 +2873,9 @@ id sub_10000A500(void *a1)
   return v6;
 }
 
-void sub_10000A65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000A65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3133,14 +3119,14 @@ unint64_t sub_10000B60C()
   return result;
 }
 
-size_t sub_10000B658(size_t a1, int64_t a2, char a3)
+void *sub_10000B658(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_10000B678(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-size_t sub_10000B678(size_t result, int64_t a2, char a3, void *a4)
+void *sub_10000B678(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -3187,7 +3173,7 @@ LABEL_30:
   }
 
   sub_10000C550(&qword_1001240A8, &unk_1000BF730);
-  v10 = *(_s15RegionContainerVMa() - 8);
+  v10 = *(_s15RegionContainerVMa(0) - 8);
   v11 = *(v10 + 72);
   v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
   v13 = swift_allocObject();
@@ -3200,7 +3186,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -3208,7 +3194,7 @@ LABEL_29:
   v13[2] = v8;
   v13[3] = 2 * ((result - v12) / v11);
 LABEL_19:
-  v15 = *(_s15RegionContainerVMa() - 8);
+  v15 = *(_s15RegionContainerVMa(0) - 8);
   if (v5)
   {
     if (v13 < a4 || (v16 = (*(v15 + 80) + 32) & ~*(v15 + 80), v13 + v16 >= a4 + v16 + *(v15 + 72) * v8))
@@ -3232,43 +3218,39 @@ LABEL_19:
   return v13;
 }
 
-void sub_10000B850(uint64_t a1, void *a2)
+void sub_10000B850(unint64_t a1, void *a2)
 {
   v4 = sub_10000C550(&qword_100124088, &qword_1000BF710);
   v5 = *(v4 - 8);
-  v6 = (v5[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v89 = &v70 - v7;
-  v8 = (*(*(sub_10000C550(&qword_100124090, &qword_1000BF718) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v88 = &v70 - v9;
-  v86 = sub_10000C550(&qword_100124098, &qword_1000BF720);
-  v10 = *(*(v86 - 8) + 64);
-  v11 = (__chkstk_darwin)();
-  v91 = &v70 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v92 = &v70 - v13;
-  v90 = _s15RegionContainerVMa();
-  v82 = *(v90 - 8);
-  v14 = *(v82 + 64);
-  v15 = __chkstk_darwin(v90);
-  v94 = (&v70 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v15);
-  v18 = &v70 - v17;
-  v78 = type metadata accessor for Region();
-  v71 = *(v78 - 8);
-  v19 = *(v71 + 64);
-  v20 = __chkstk_darwin(v78);
-  v85 = &v70 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __chkstk_darwin(v20);
-  v84 = &v70 - v23;
-  __chkstk_darwin(v22);
-  v79 = &v70 - v24;
-  v25 = String._bridgeToObjectiveC()();
-  v93 = a2;
-  [a2 removeAnnotationsForKeyPath:v25];
+  __chkstk_darwin(v4);
+  v82 = &v63 - v6;
+  v7 = sub_10000C550(&qword_100124090, &qword_1000BF718);
+  __chkstk_darwin(v7 - 8);
+  v81 = &v63 - v8;
+  v79 = sub_10000C550(&qword_100124098, &qword_1000BF720);
+  v9 = __chkstk_darwin(v79);
+  v84 = &v63 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v85 = &v63 - v11;
+  v83 = _s15RegionContainerVMa(0);
+  v75 = *(v83 - 8);
+  v12 = __chkstk_darwin(v83);
+  v87 = (&v63 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v12);
+  v15 = &v63 - v14;
+  v71 = type metadata accessor for Region();
+  v64 = *(v71 - 8);
+  v16 = __chkstk_darwin(v71);
+  v78 = &v63 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = __chkstk_darwin(v16);
+  v77 = &v63 - v19;
+  __chkstk_darwin(v18);
+  v72 = &v63 - v20;
+  v21 = String._bridgeToObjectiveC()();
+  v86 = a2;
+  [a2 removeAnnotationsForKeyPath:v21];
 
-  v26 = a1 >> 62;
+  v22 = a1 >> 62;
   if (a1 >> 62)
   {
     goto LABEL_42;
@@ -3279,11 +3261,11 @@ void sub_10000B850(uint64_t a1, void *a2)
     Region.init(x:y:)();
     for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = _CocoaArrayWrapper.endIndex.getter())
     {
-      v28 = &_swiftEmptyArrayStorage;
-      v80 = v4;
+      v24 = &_swiftEmptyArrayStorage;
+      v73 = v4;
       if (i)
       {
-        v96[0] = &_swiftEmptyArrayStorage;
+        v89[0] = &_swiftEmptyArrayStorage;
         sub_10000B658(0, i & ~(i >> 63), 0);
         if (i < 0)
         {
@@ -3291,90 +3273,90 @@ void sub_10000B850(uint64_t a1, void *a2)
           return;
         }
 
-        v28 = v96[0];
-        v70 = v5;
-        if (v26)
+        v24 = v89[0];
+        v63 = v5;
+        if (v22)
         {
-          v72 = a1 & 0xFFFFFFFFFFFFFF8;
-          v30 = _CocoaArrayWrapper.endIndex.getter();
-          v29 = a1;
+          v65 = a1 & 0xFFFFFFFFFFFFFF8;
+          v26 = _CocoaArrayWrapper.endIndex.getter();
+          v25 = a1;
         }
 
         else
         {
-          v29 = a1;
-          v72 = a1 & 0xFFFFFFFFFFFFFF8;
-          v30 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v25 = a1;
+          v65 = a1 & 0xFFFFFFFFFFFFFF8;
+          v26 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
         }
 
-        v31 = 0;
-        v77 = v29 & 0xC000000000000001;
-        v74 = v71 + 16;
-        v73 = (v71 + 8);
-        v81 = v30 & ~(v30 >> 63);
-        v76 = v29;
-        v75 = i;
-        v32 = v84;
-        v33 = (v71 + 16);
-        while (v81 != v31)
+        v27 = 0;
+        v70 = v25 & 0xC000000000000001;
+        v67 = v64 + 16;
+        v66 = (v64 + 8);
+        v74 = v26 & ~(v26 >> 63);
+        v69 = v25;
+        v68 = i;
+        v28 = v77;
+        v29 = (v64 + 16);
+        while (v74 != v27)
         {
-          v83 = v28;
-          if (v77)
+          v76 = v24;
+          if (v70)
           {
-            v34 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+            v30 = specialized _ArrayBuffer._getElementSlowPath(_:)();
           }
 
           else
           {
-            if (v31 >= *(v72 + 16))
+            if (v27 >= *(v65 + 16))
             {
               goto LABEL_41;
             }
 
-            v34 = *(v29 + 8 * v31 + 32);
+            v30 = *(v25 + 8 * v27 + 32);
           }
 
-          v35 = v34;
-          v87 = v34;
-          [v34 rect];
+          v31 = v30;
+          v80 = v30;
+          [v30 rect];
           Region.init(_:)();
-          [v35 _exclusiveTouchNormalizedSubRectInReferenceSpace];
-          v36 = v85;
+          [v31 _exclusiveTouchNormalizedSubRectInReferenceSpace];
+          v32 = v78;
           Region.init(_:)();
-          v37 = v90;
-          v38 = *v33;
-          v39 = v78;
-          (*v33)(&v18[*(v90 + 20)], v32, v78);
-          a1 = v18;
+          v33 = v83;
+          v34 = *v29;
+          v35 = v71;
+          (*v29)(&v15[*(v83 + 20)], v28, v71);
+          a1 = v15;
           Region.subtract(_:)();
-          v38(&v18[*(v37 + 24)], v36, v39);
+          v34(&v15[*(v33 + 24)], v32, v35);
           Region.subtract(_:)();
-          *v18 = v31;
+          *v15 = v27;
           Region.formUnion(_:)();
-          v5 = v73;
-          v40 = *v73;
-          (*v73)(v36, v39);
-          v40(v32, v39);
+          v5 = v66;
+          v36 = *v66;
+          (*v66)(v32, v35);
+          v36(v28, v35);
 
-          v28 = v83;
-          v96[0] = v83;
-          v42 = v83[2];
-          v41 = v83[3];
-          v26 = v42 + 1;
-          if (v42 >= v41 >> 1)
+          v24 = v76;
+          v89[0] = v76;
+          v38 = v76[2];
+          v37 = v76[3];
+          v22 = v38 + 1;
+          if (v38 >= v37 >> 1)
           {
-            sub_10000B658(v41 > 1, v42 + 1, 1);
-            v28 = v96[0];
+            sub_10000B658((v37 > 1), v38 + 1, 1);
+            v24 = v89[0];
           }
 
-          ++v31;
-          v28[2] = v26;
-          sub_10000C5E4(v18, v28 + ((*(v82 + 80) + 32) & ~*(v82 + 80)) + *(v82 + 72) * v42);
-          v4 = v80;
-          v29 = v76;
-          if (v75 == v31)
+          ++v27;
+          v24[2] = v22;
+          sub_10000C5E4(v15, v24 + ((*(v75 + 80) + 32) & ~*(v75 + 80)) + *(v75 + 72) * v38);
+          v4 = v73;
+          v25 = v69;
+          if (v68 == v27)
           {
-            v5 = v70;
+            v5 = v63;
             goto LABEL_19;
           }
         }
@@ -3383,84 +3365,82 @@ void sub_10000B850(uint64_t a1, void *a2)
       else
       {
 LABEL_19:
-        a1 = v28[2];
+        a1 = v24[2];
         if (!a1)
         {
 LABEL_37:
 
-          (*(v71 + 8))(v79, v78);
+          (*(v64 + 8))(v72, v71);
           return;
         }
 
-        v81 = v28 + ((*(v82 + 80) + 32) & ~*(v82 + 80));
-        v87 = (v5 + 4);
-        v18 = &protocol witness table for Int;
-        v83 = v28;
-        while (a1 <= v28[2])
+        v74 = v24 + ((*(v75 + 80) + 32) & ~*(v75 + 80));
+        v80 = (v5 + 4);
+        v15 = &protocol witness table for Int;
+        v76 = v24;
+        while (a1 <= v24[2])
         {
           --a1;
-          v44 = v94;
-          sub_10000C648(v81 + *(v82 + 72) * a1, v94);
-          v45 = v44 + *(v90 + 20);
-          v46 = v88;
+          sub_10000C648(v74 + *(v75 + 72) * a1, v87);
+          v40 = v81;
           Region.rects.getter();
-          v85 = *v87;
-          (v85)(v89, v46, v4);
+          v78 = *v80;
+          (v78)(v82, v40, v4);
           v5 = *(*(swift_getOpaqueTypeConformance2() + 8) + 8);
           dispatch thunk of Sequence.makeIterator()();
           sub_10000C550(&qword_1001240A0, &qword_1000BF728);
           swift_getAssociatedConformanceWitness();
           dispatch thunk of IteratorProtocol.next()();
-          v84 = a1;
-          if ((v99 & 1) == 0)
+          v77 = a1;
+          if ((v92 & 1) == 0)
           {
-            v48 = 0;
+            v42 = 0;
             while (1)
             {
-              v47 = v48 + 1;
-              if (__OFADD__(v48, 1))
+              v41 = v42 + 1;
+              if (__OFADD__(v42, 1))
               {
                 break;
               }
 
-              v50 = *v96;
-              v49 = *&v96[1];
-              v51 = [objc_opt_self() annotationWithRectangleSize:{v97, v98}];
-              v52 = [objc_opt_self() relativeToTopLeftOfSuper:{v50, v49}];
-              [v52 setDefinedInReferenceSpace:1];
-              [v51 setLocation:v52];
-              v53 = objc_opt_self();
-              v54 = *v94;
-              [v51 setStyleModifier:{objc_msgSend(v53, "colorVariationStyleWithIndex:", *v94)}];
+              v44 = *v89;
+              v43 = *&v89[1];
+              v45 = [objc_opt_self() annotationWithRectangleSize:{v90, v91}];
+              v46 = [objc_opt_self() relativeToTopLeftOfSuper:{v44, v43}];
+              [v46 setDefinedInReferenceSpace:1];
+              [v45 setLocation:v46];
+              v47 = objc_opt_self();
+              v48 = *v87;
+              [v45 setStyleModifier:{objc_msgSend(v47, "colorVariationStyleWithIndex:", *v87)}];
               swift_unknownObjectRelease();
-              v96[0] = 0;
-              v96[1] = 0xE000000000000000;
+              v89[0] = 0;
+              v89[1] = 0xE000000000000000;
               _StringGuts.grow(_:)(24);
 
-              v95 = v54;
-              strcpy(v96, "hit-test-rgns.");
-              HIBYTE(v96[1]) = -18;
-              v55._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-              String.append(_:)(v55);
+              v88 = v48;
+              strcpy(v89, "hit-test-rgns.");
+              HIBYTE(v89[1]) = -18;
+              v49._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+              String.append(_:)(v49);
 
-              v56._countAndFlagsBits = 0x2E6C6C75662ELL;
-              v56._object = 0xE600000000000000;
-              String.append(_:)(v56);
-              v95 = v48;
-              v57._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-              String.append(_:)(v57);
+              v50._countAndFlagsBits = 0x2E6C6C75662ELL;
+              v50._object = 0xE600000000000000;
+              String.append(_:)(v50);
+              v88 = v42;
+              v51._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+              String.append(_:)(v51);
 
-              v58 = String._bridgeToObjectiveC()();
+              v52 = String._bridgeToObjectiveC()();
 
-              [v93 setAnnotation:v51 forKeyPath:v58];
+              [v86 setAnnotation:v45 forKeyPath:v52];
 
               sub_10000C550(&qword_1001240A0, &qword_1000BF728);
               swift_getAssociatedConformanceWitness();
               dispatch thunk of IteratorProtocol.next()();
-              ++v48;
-              if (v99 == 1)
+              ++v42;
+              if (v92 == 1)
               {
-                a1 = v84;
+                a1 = v77;
                 goto LABEL_30;
               }
             }
@@ -3469,63 +3449,62 @@ LABEL_37:
             goto LABEL_36;
           }
 
-          v47 = 0;
+          v41 = 0;
 LABEL_30:
-          v59 = v92;
-          *&v92[*(v86 + 36)] = v47;
-          sub_10000B3DC(v59);
-          v60 = v94 + *(v90 + 24);
-          v61 = v88;
+          v53 = v85;
+          *&v85[*(v79 + 36)] = v41;
+          sub_10000B3DC(v53);
+          v54 = v81;
           Region.rects.getter();
-          (v85)(v89, v61, v4);
+          (v78)(v82, v54, v4);
           dispatch thunk of Sequence.makeIterator()();
           dispatch thunk of IteratorProtocol.next()();
-          if ((v99 & 1) == 0)
+          if ((v92 & 1) == 0)
           {
-            v62 = 0;
+            v55 = 0;
             while (1)
             {
-              v26 = v62 + 1;
-              if (__OFADD__(v62, 1))
+              v22 = v55 + 1;
+              if (__OFADD__(v55, 1))
               {
                 break;
               }
 
-              v64 = *v96;
-              v63 = *&v96[1];
-              v5 = [objc_opt_self() annotationWithRectangleSize:{v97, v98}];
-              v65 = [objc_opt_self() relativeToTopLeftOfSuper:{v64, v63}];
-              [v65 setDefinedInReferenceSpace:1];
-              [v5 setLocation:v65];
+              v57 = *v89;
+              v56 = *&v89[1];
+              v5 = [objc_opt_self() annotationWithRectangleSize:{v90, v91}];
+              v58 = [objc_opt_self() relativeToTopLeftOfSuper:{v57, v56}];
+              [v58 setDefinedInReferenceSpace:1];
+              [v5 setLocation:v58];
               [v5 setStyleModifier:{objc_msgSend(objc_opt_self(), "crosshatchedBackgroundStyle")}];
               swift_unknownObjectRelease();
-              v96[0] = 0;
-              v96[1] = 0xE000000000000000;
+              v89[0] = 0;
+              v89[1] = 0xE000000000000000;
               _StringGuts.grow(_:)(29);
 
-              strcpy(v96, "hit-test-rgns.");
-              HIBYTE(v96[1]) = -18;
-              v95 = *v94;
-              v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-              String.append(_:)(v66);
+              strcpy(v89, "hit-test-rgns.");
+              HIBYTE(v89[1]) = -18;
+              v88 = *v87;
+              v59._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+              String.append(_:)(v59);
 
-              v67._countAndFlagsBits = 0x6973756C6378652ELL;
-              v67._object = 0xEB000000002E6576;
-              String.append(_:)(v67);
-              v95 = v62;
-              v68._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-              String.append(_:)(v68);
+              v60._countAndFlagsBits = 0x6973756C6378652ELL;
+              v60._object = 0xEB000000002E6576;
+              String.append(_:)(v60);
+              v88 = v55;
+              v61._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+              String.append(_:)(v61);
 
-              v69 = String._bridgeToObjectiveC()();
+              v62 = String._bridgeToObjectiveC()();
 
-              [v93 setAnnotation:v5 forKeyPath:v69];
+              [v86 setAnnotation:v5 forKeyPath:v62];
 
               dispatch thunk of IteratorProtocol.next()();
-              ++v62;
-              if (v99 == 1)
+              ++v55;
+              if (v92 == 1)
               {
-                v4 = v80;
-                a1 = v84;
+                v4 = v73;
+                a1 = v77;
                 goto LABEL_22;
               }
             }
@@ -3535,13 +3514,13 @@ LABEL_36:
             goto LABEL_37;
           }
 
-          v26 = 0;
+          v22 = 0;
 LABEL_22:
-          v43 = v91;
-          *&v91[*(v86 + 36)] = v26;
-          sub_10000B3DC(v43);
-          sub_10000C6AC(v94);
-          v28 = v83;
+          v39 = v84;
+          *&v84[*(v79 + 36)] = v22;
+          sub_10000B3DC(v39);
+          sub_10000C6AC(v87);
+          v24 = v76;
           if (!a1)
           {
             goto LABEL_37;
@@ -3570,7 +3549,6 @@ uint64_t sub_10000C550(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -3578,7 +3556,7 @@ uint64_t sub_10000C550(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t _s15RegionContainerVMa()
+uint64_t _s15RegionContainerVMa(uint64_t a1)
 {
   result = qword_100125D50;
   if (!qword_100125D50)
@@ -3591,29 +3569,29 @@ uint64_t _s15RegionContainerVMa()
 
 uint64_t sub_10000C5E4(uint64_t a1, uint64_t a2)
 {
-  v4 = _s15RegionContainerVMa();
+  v4 = _s15RegionContainerVMa(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_10000C648(uint64_t a1, uint64_t a2)
 {
-  v4 = _s15RegionContainerVMa();
+  v4 = _s15RegionContainerVMa(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_10000C6AC(uint64_t a1)
 {
-  v2 = _s15RegionContainerVMa();
+  v2 = _s15RegionContainerVMa(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_10000C734()
+uint64_t sub_10000C734(uint64_t a1)
 {
   result = type metadata accessor for Region();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -3985,9 +3963,9 @@ void sub_100010260(uint64_t a1)
   }
 }
 
-void sub_100010574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100010574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4007,9 +3985,9 @@ void sub_1000105A4(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_10001084C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001084C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4062,31 +4040,30 @@ void sub_100010984(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
 void sub_100010DB8(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v15 = a2;
+  v14 = a2;
   v7 = a3;
   v8 = a4;
-  if (!v15)
+  if (!v14)
   {
     v9 = [NSString stringWithFormat:@"we expect the controller to exist"];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       v10 = NSStringFromSelector(*(a1 + 72));
-      v11 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = *(a1 + 32);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = *(a1 + 32);
       *buf = 138544642;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v13;
-      v20 = 2048;
-      v21 = v14;
-      v22 = 2114;
-      v23 = @"BKMousePointerServiceServer.m";
-      v24 = 1024;
-      v25 = 281;
-      v26 = 2114;
-      v27 = v9;
+      v16 = v10;
+      v17 = 2114;
+      v18 = v12;
+      v19 = 2048;
+      v20 = v13;
+      v21 = 2114;
+      v22 = @"BKMousePointerServiceServer.m";
+      v23 = 1024;
+      v24 = 281;
+      v25 = 2114;
+      v26 = v9;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
@@ -4096,7 +4073,7 @@ void sub_100010DB8(uint64_t a1, void *a2, void *a3, void *a4)
     JUMPOUT(0x100010F50);
   }
 
-  [v15 getHitTestContextsAtPoint:*(a1 + 40) withAdditionalContexts:*(a1 + 48) onDisplay:*(a1 + 56) withCompletion:*(a1 + 64)];
+  [v14 getHitTestContextsAtPoint:*(a1 + 40) withAdditionalContexts:*(a1 + 48) onDisplay:*(a1 + 56) withCompletion:*(a1 + 64)];
 }
 
 void sub_100011050(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -4286,9 +4263,9 @@ void sub_100011FC0(uint64_t a1, void *a2, uint64_t a3, void *a4)
   [v6 setGlobalPointerPosition:v7 process:{*(a1 + 32), *(a1 + 40)}];
 }
 
-void sub_100012140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100012140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4302,9 +4279,9 @@ id sub_100012158(uint64_t a1)
   return result;
 }
 
-void sub_10001229C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001229C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4358,10 +4335,11 @@ void sub_100012388(uint64_t a1)
   }
 }
 
-void sub_100012884(uint64_t a1, void *a2, unsigned int a3, int64_t a4, CGFloat *a5, int64_t a6)
+void sub_100012884(uint64_t a1, void *a2, uint64_t a3, int64_t a4, CGFloat *a5, int64_t a6)
 {
   if (a1)
   {
+    v9 = a3;
     v12 = objc_alloc_init(BKHitTestResultPathLocation);
     v16 = v12;
     if (v12)
@@ -4377,7 +4355,7 @@ void sub_100012884(uint64_t a1, void *a2, unsigned int a3, int64_t a4, CGFloat *
       v12->_contextRelationship = a6;
     }
 
-    sub_100012938(a1, a2, a3, v12);
+    sub_100012938(a1, a2, v9, v12);
   }
 }
 
@@ -4427,12 +4405,10 @@ void sub_100012A74(uint64_t a1, id *a2)
   v2 = *(a1 + 32);
   if (a2)
   {
-    v3 = a2;
     a2 = a2[2];
-    v4 = *(v3 + 2);
   }
 
-  v5 = a2;
+  v3 = a2;
   (*(v2 + 16))(v2);
 }
 
@@ -4525,91 +4501,80 @@ id sub_10001350C(uint64_t a1)
 
 id sub_100013708(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   IntegerValue = IOHIDEventGetIntegerValue();
-  v4 = *(a1 + 32);
-  v5 = IOHIDEventGetIntegerValue();
-  v6 = *(a1 + 32);
-  v7 = IOHIDEventGetIntegerValue() != 0;
-  v8 = +[NSMutableDictionary dictionary];
-  v9 = [NSString stringWithFormat:@"0x%02x", IntegerValue];
-  [v8 setObject:v9 forKeyedSubscript:@"usagePage"];
+  v2 = IOHIDEventGetIntegerValue();
+  v3 = IOHIDEventGetIntegerValue() != 0;
+  v4 = +[NSMutableDictionary dictionary];
+  v5 = [NSString stringWithFormat:@"0x%02x", IntegerValue];
+  [v4 setObject:v5 forKeyedSubscript:@"usagePage"];
 
-  v10 = [NSString stringWithFormat:@"0x%02x", v5];
-  [v8 setObject:v10 forKeyedSubscript:@"usage"];
+  v6 = [NSString stringWithFormat:@"0x%02x", v2];
+  [v4 setObject:v6 forKeyedSubscript:@"usage"];
 
-  v11 = [NSNumber numberWithInt:v7];
-  [v8 setObject:v11 forKeyedSubscript:@"down"];
+  v7 = [NSNumber numberWithInt:v3];
+  [v4 setObject:v7 forKeyedSubscript:@"down"];
 
-  v12 = *(a1 + 32);
-  v13 = [NSNumber numberWithInt:IOHIDEventGetIntegerValue()];
-  [v8 setObject:v13 forKeyedSubscript:@"count"];
+  v8 = [NSNumber numberWithInt:IOHIDEventGetIntegerValue()];
+  [v4 setObject:v8 forKeyedSubscript:@"count"];
 
-  v14 = *(a1 + 32);
-  v15 = [NSNumber numberWithInt:IOHIDEventGetIntegerValue()];
-  [v8 setObject:v15 forKeyedSubscript:@"longPress"];
+  v9 = [NSNumber numberWithInt:IOHIDEventGetIntegerValue()];
+  [v4 setObject:v9 forKeyedSubscript:@"longPress"];
 
-  v16 = *(a1 + 32);
   Phase = IOHIDEventGetPhase();
   if (Phase)
   {
-    v18 = [NSNumber numberWithUnsignedShort:Phase];
-    [v8 setObject:v18 forKeyedSubscript:@"phase"];
+    v11 = [NSNumber numberWithUnsignedShort:Phase];
+    [v4 setObject:v11 forKeyedSubscript:@"phase"];
   }
 
-  v21 = @"buttonEvent";
-  v22 = v8;
-  v19 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v14 = @"buttonEvent";
+  v15 = v4;
+  v12 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
 
-  return v19;
+  return v12;
 }
 
 id sub_100013960(uint64_t a1)
 {
-  v2 = *(a1 + 32);
+  IOHIDEventGetFloatValue();
+  v2 = v1;
   IOHIDEventGetFloatValue();
   v4 = v3;
-  v5 = *(a1 + 32);
   IOHIDEventGetFloatValue();
-  v7 = v6;
-  v8 = *(a1 + 32);
-  IOHIDEventGetFloatValue();
-  v10 = v9;
-  v11 = *(a1 + 32);
+  v6 = v5;
   IntegerValue = IOHIDEventGetIntegerValue();
-  v22 = @"gyro";
-  v20[0] = @"x";
-  v13 = [NSNumber numberWithDouble:v4];
-  v21[0] = v13;
-  v20[1] = @"y";
-  v14 = [NSNumber numberWithDouble:v7];
-  v21[1] = v14;
-  v20[2] = @"z";
-  v15 = [NSNumber numberWithDouble:v10];
-  v21[2] = v15;
-  v20[3] = @"type";
-  v16 = [NSNumber numberWithUnsignedInt:IntegerValue];
-  v21[3] = v16;
-  v17 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:4];
-  v23 = v17;
-  v18 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v17 = @"gyro";
+  v15[0] = @"x";
+  v8 = [NSNumber numberWithDouble:v2];
+  v16[0] = v8;
+  v15[1] = @"y";
+  v9 = [NSNumber numberWithDouble:v4];
+  v16[1] = v9;
+  v15[2] = @"z";
+  v10 = [NSNumber numberWithDouble:v6];
+  v16[2] = v10;
+  v15[3] = @"type";
+  v11 = [NSNumber numberWithUnsignedInt:IntegerValue];
+  v16[3] = v11;
+  v12 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v18 = v12;
+  v13 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
 
-  return v18;
+  return v13;
 }
 
 id sub_100013B28(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   IOHIDEventGetFloatValue();
-  v8 = @"ambientLightSensor";
-  v6 = @"level";
-  v2 = [NSNumber numberWithDouble:?];
-  v7 = v2;
-  v3 = [NSDictionary dictionaryWithObjects:&v7 forKeys:&v6 count:1];
-  v9 = v3;
-  v4 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v7 = @"ambientLightSensor";
+  v5 = @"level";
+  v1 = [NSNumber numberWithDouble:?];
+  v6 = v1;
+  v2 = [NSDictionary dictionaryWithObjects:&v6 forKeys:&v5 count:1];
+  v8 = v2;
+  v3 = [NSDictionary dictionaryWithObjects:&v8 forKeys:&v7 count:1];
 
-  return v4;
+  return v3;
 }
 
 void sub_100013FA8(uint64_t a1, void *a2, void *a3)
@@ -5385,6 +5350,13 @@ uint64_t start(uint64_t a1, CFIndex *a2)
   return 0;
 }
 
+void sub_1000175B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_1000175D0(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -5490,7 +5462,7 @@ void sub_100017828(id a1)
 
 void sub_100017A08(id a1)
 {
-  v1 = sub_1000300C0("BKDisplayServices MiG Server");
+  v1 = sub_1000300C0("BKDisplayServices MiG Server", "com.apple.backboard.display.services", &off_1000FE2B8);
   v2 = qword_100125DB0;
   qword_100125DB0 = v1;
 }
@@ -6213,16 +6185,15 @@ void sub_10001A758(uint64_t a1)
     if (v6)
     {
       v9 = [v7 associatedDisplay];
-      v10 = *(a1 + 48);
-      v11 = BSEqualObjects();
+      v10 = BSEqualObjects();
 
-      if ((v11 & 1) == 0)
+      if ((v10 & 1) == 0)
       {
-        v12 = [*(a1 + 40) senderDescriptor];
-        v13 = [v12 mutableCopy];
+        v11 = [*(a1 + 40) senderDescriptor];
+        v12 = [v11 mutableCopy];
 
-        [v13 setAssociatedDisplay:*(a1 + 48)];
-        [v4 setOverrideSenderDescriptor:v13];
+        [v12 setAssociatedDisplay:*(a1 + 48)];
+        [v4 setOverrideSenderDescriptor:v12];
       }
     }
 
@@ -6243,10 +6214,10 @@ void sub_10001A758(uint64_t a1)
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v14 = [*(a1 + 40) senderID];
-      v15 = 134217984;
-      v16 = v14;
-      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "unknown touch pad sender 0x%llX", &v15, 0xCu);
+      v13 = [*(a1 + 40) senderID];
+      v14 = 134217984;
+      v15 = v13;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "unknown touch pad sender 0x%llX", &v14, 0xCu);
     }
   }
 }
@@ -6273,18 +6244,15 @@ void sub_10001AC7C(uint64_t a1)
   }
 
   v5 = [v2 appendUnsignedInteger:v4 withName:@"contextID" format:1];
-  v6 = *(a1 + 40);
-  v7 = *(v6 + 40);
-  if (v7)
+  v6 = *(*(a1 + 40) + 40);
+  if (v6)
   {
-    [*(a1 + 32) appendString:v7 withName:@"displayUUID"];
-    v6 = *(a1 + 40);
+    [*(a1 + 32) appendString:v6 withName:@"displayUUID"];
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(v6 + 32);
-  v10 = BSProcessDescriptionForPID();
-  [v8 appendString:v10 withName:@"process"];
+  v7 = *(a1 + 32);
+  v8 = BSProcessDescriptionForPID();
+  [v7 appendString:v8 withName:@"process"];
 }
 
 void sub_10001ADD4(uint64_t a1, void *a2)
@@ -6303,12 +6271,12 @@ void sub_10001ADEC(uint64_t a1, void *a2)
   }
 }
 
-id sub_10001AE04(CGFloat a1, CGFloat a2, uint64_t a3, int a4, void *a5, void *a6, void *a7, void *a8)
+id sub_10001AE04(uint64_t a1, int a2, void *a3, void *a4, void *a5, void *a6, CGFloat a7, CGFloat a8)
 {
-  v14 = a5;
-  v15 = a6;
-  v16 = a7;
-  v17 = a8;
+  v14 = a3;
+  v15 = a4;
+  v16 = a5;
+  v17 = a6;
   objc_opt_self();
   v18 = [v14 uniqueId];
   v19 = [v16 displayController];
@@ -6321,8 +6289,8 @@ id sub_10001AE04(CGFloat a1, CGFloat a2, uint64_t a3, int a4, void *a5, void *a6
 
   v21 = 0;
   v22 = 0;
-  v54 = a4;
-  if (a4)
+  v54 = a2;
+  if (a2)
   {
     v22 = sub_10000ED90(BKDisplayController, 0, 1, 0, v51);
     v21 = &v59;
@@ -6339,7 +6307,7 @@ id sub_10001AE04(CGFloat a1, CGFloat a2, uint64_t a3, int a4, void *a5, void *a6
     p_obj = 0;
   }
 
-  v24 = [v19 contextIDAtCAScreenLocation:v18 displayUUID:v22 options:p_obj securityAnalysis:v58 results:{a1, a2}];
+  v24 = [v19 contextIDAtCAScreenLocation:v18 displayUUID:v22 options:p_obj securityAnalysis:v58 results:{a7, a8}];
   if (v21)
   {
     objc_storeStrong(v21, obj);
@@ -6349,7 +6317,7 @@ id sub_10001AE04(CGFloat a1, CGFloat a2, uint64_t a3, int a4, void *a5, void *a6
   {
     v46 = v22;
     v25 = LODWORD(v58[0]);
-    if (a4)
+    if (a2)
     {
       v26 = DWORD1(v58[0]);
       v27 = BKLogMousePointer();
@@ -6424,8 +6392,8 @@ LABEL_25:
           {
             v32->_slotID = v26;
 LABEL_29:
-            v32->_hitTestPoint.x = a1;
-            v32->_hitTestPoint.y = a2;
+            v32->_hitTestPoint.x = a7;
+            v32->_hitTestPoint.y = a8;
           }
         }
 
@@ -6445,7 +6413,7 @@ LABEL_29:
           v37 = [v36 authenticationSpecificationForSlotID:v26 registrantEntitled:&v56];
           v38 = sub_10000ED90(BKDisplayController, 0, 0, v37, v51);
           memset(v62, 0, sizeof(v62));
-          [v19 contextIDAtCAScreenLocation:v18 displayUUID:v38 options:0 securityAnalysis:v62 results:{a1, a2}];
+          [v19 contextIDAtCAScreenLocation:v18 displayUUID:v38 options:0 securityAnalysis:v62 results:{a7, a8}];
           if (DWORD1(v62[0]) == v26)
           {
             v39 = sub_10000EBFC(v62);
@@ -6623,9 +6591,9 @@ void sub_10001B7E0(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_10001BAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001BAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6660,36 +6628,32 @@ void sub_10001C024(uint64_t a1)
     if (([v3 containsIndex:v4] & 1) == 0)
     {
       [*(*(a1 + 32) + 48) addIndex:*(a1 + 40)];
-      v5 = [BSProcessDeathWatcher alloc];
-      v6 = *(*(a1 + 32) + 16);
-      v15 = *(a1 + 40);
-      v7 = [v5 initWithPID:? queue:? deathHandler:?];
-      v8 = *(*(a1 + 32) + 32);
-      v9 = [NSNumber numberWithInt:*(a1 + 40)];
-      [v8 setObject:v7 forKey:v9];
+      v5 = [[BSProcessDeathWatcher alloc] initWithPID:? queue:? deathHandler:?];
+      v6 = *(*(a1 + 32) + 32);
+      v7 = [NSNumber numberWithInt:*(a1 + 40)];
+      [v6 setObject:v5 forKey:v7];
     }
   }
 
   else
   {
     [v3 removeIndex:v4];
-    v10 = *(*(a1 + 32) + 32);
-    v11 = [NSNumber numberWithInt:*(a1 + 40)];
-    v12 = [v10 objectForKey:v11];
-    [v12 invalidate];
+    v8 = *(*(a1 + 32) + 32);
+    v9 = [NSNumber numberWithInt:*(a1 + 40)];
+    v10 = [v8 objectForKey:v9];
+    [v10 invalidate];
 
-    v13 = *(*(a1 + 32) + 32);
-    v14 = [NSNumber numberWithInt:*(a1 + 40)];
-    [v13 removeObjectForKey:v14];
+    v11 = *(*(a1 + 32) + 32);
+    v12 = [NSNumber numberWithInt:*(a1 + 40)];
+    [v11 removeObjectForKey:v12];
   }
 }
 
 void sub_10001C370(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [BSProtobufSerialization buildSchemaForClass:objc_opt_class() builder:&stru_1000FA3A0];
-  v3 = qword_100125D80;
-  qword_100125D80 = v2;
+  v1 = [BSProtobufSerialization buildSchemaForClass:objc_opt_class() builder:&stru_1000FA3A0];
+  v2 = qword_100125D80;
+  qword_100125D80 = v1;
 }
 
 void sub_10001C3EC(uint64_t a1)
@@ -6741,46 +6705,46 @@ void sub_10001C5D8(uint64_t a1)
   **(a1 + 32) = [v2 isALSSupported];
 }
 
-uint64_t sub_10001C634(_BYTE *a1, int a2)
+uint64_t sub_10001C634(_BYTE *a1, int a2, uint64_t a3)
 {
-  v4 = BSPIDForAuditToken();
+  v5 = BSPIDForAuditToken();
   if (!*a1)
   {
-    v5 = 0;
+    v6 = 0;
     goto LABEL_7;
   }
 
-  v5 = [NSString stringWithUTF8String:a1];
-  if (v5)
+  v6 = [NSString stringWithUTF8String:a1];
+  if (v6)
   {
 LABEL_7:
-    v8 = +[BKTouchDeliveryGenericGestureFocusObserver sharedInstance];
-    v11 = _NSConcreteStackBlock;
-    v12 = 3221225472;
-    v13 = sub_10001C7A0;
-    v14 = &unk_1000FA360;
-    v15 = v5;
-    v16 = v4;
-    v17 = a2;
-    v6 = v5;
-    v9 = [BKSHIDEventDeferringResolution build:&v11];
-    [v8 setEventDestination:v9 forDisplayUUID:{v6, v11, v12, v13, v14}];
+    v9 = +[BKTouchDeliveryGenericGestureFocusObserver sharedInstance];
+    v12 = _NSConcreteStackBlock;
+    v13 = 3221225472;
+    v14 = sub_10001C7A0;
+    v15 = &unk_1000FA360;
+    v16 = v6;
+    v17 = v5;
+    v18 = a2;
+    v7 = v6;
+    v10 = [BKSHIDEventDeferringResolution build:&v12];
+    [v9 setEventDestination:v10 forDisplayUUID:{v7, v12, v13, v14, v15}];
 
-    v7 = 0;
+    v8 = 0;
     goto LABEL_8;
   }
 
-  v6 = BKLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = BKLogCommon();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "ClaimGenericGestureFocus: could not convert UUID to UTF-8", buf, 2u);
+    _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "ClaimGenericGestureFocus: could not convert UUID to UTF-8", buf, 2u);
   }
 
-  v7 = 5;
+  v8 = 5;
 LABEL_8:
 
-  return v7;
+  return v8;
 }
 
 void sub_10001C7A0(uint64_t a1, void *a2)
@@ -6845,44 +6809,44 @@ void sub_10001C99C(uint64_t a1)
   [v2 playHapticForClickState:*(a1 + 32) clickSpeed:*(a1 + 36)];
 }
 
-void sub_10001C9F4(uint64_t a1, unsigned int a2)
+void sub_10001C9F4(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   if (a1 && a2)
   {
-    v2 = [[NSData alloc] initWithBytesNoCopy:a1 length:a2 freeWhenDone:0];
-    v3 = objc_opt_class();
-    v4 = [NSSet setWithObjects:v3, objc_opt_class(), 0];
-    v5 = [NSObject bs_secureObjectFromData:v2 ofClasses:v4];
+    v3 = [[NSData alloc] initWithBytesNoCopy:a1 length:a2 freeWhenDone:0];
+    v4 = objc_opt_class();
+    v5 = [NSSet setWithObjects:v4, objc_opt_class(), 0];
+    v6 = [NSObject bs_secureObjectFromData:v3 ofClasses:v5];
 
-    if (v5)
+    if (v6)
     {
-      v6 = BSPIDForAuditToken();
-      v7 = +[BKHIDEventProcessorRegistry sharedInstance];
-      v8 = [v7 eventProcessorOfClass:objc_opt_class()];
+      v7 = BSPIDForAuditToken();
+      v8 = +[BKHIDEventProcessorRegistry sharedInstance];
+      v9 = [v8 eventProcessorOfClass:objc_opt_class()];
 
-      [v8 postTouchAnnotations:v5 sourcePID:v6];
+      [v9 postTouchAnnotations:v6 sourcePID:v7];
     }
 
     else
     {
-      v9 = BKLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = BKLogCommon();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v11 = "_BKHIDXXPostTouchAnnotations";
-        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s: Error unarchiving touch annotations", buf, 0xCu);
+        v12 = "_BKHIDXXPostTouchAnnotations";
+        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s: Error unarchiving touch annotations", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v2 = BKLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = BKLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v11 = "_BKHIDXXPostTouchAnnotations";
-      _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%s: no data received", buf, 0xCu);
+      v12 = "_BKHIDXXPostTouchAnnotations";
+      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%s: no data received", buf, 0xCu);
     }
   }
 }
@@ -7149,19 +7113,15 @@ void sub_10001D6E4(uint64_t a1)
 
   v3 = sub_100005110();
   v4 = *(a1 + 32);
-  v6 = *(a1 + 36);
-  v7 = *(a1 + 52);
   v5 = BSVersionedPIDForAuditToken();
   sub_100091D58(v3, v2, v4, v5);
 }
 
 void sub_10001D768(uint64_t a1)
 {
-  v2 = sub_100005110();
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 48);
-  v3 = BSVersionedPIDForAuditToken();
-  sub_1000923C0(v2, 3, v3);
+  v1 = sub_100005110();
+  v2 = BSVersionedPIDForAuditToken();
+  sub_1000923C0(v1, 3, v2);
 }
 
 void sub_10001D7C8(uint64_t a1)
@@ -7255,115 +7215,114 @@ void sub_10001DB74(uint64_t a1)
   [v2 setAutoBrightnessEnabled:*(a1 + 32) != 0];
 }
 
-uint64_t sub_10001DBD4(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, _OWORD *a5)
+uint64_t sub_10001DBD4(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, _OWORD *a5)
 {
-  v10 = sub_10001DFD4(a5);
-  if ([v10 count])
+  v7 = a2;
+  v9 = sub_10001DFD4(a5);
+  if ([v9 count])
   {
-    v11 = objc_opt_class();
-    v12 = sub_10001E0A0("SetPersistentServiceProperties", v11, a1, a2);
-    if (v12)
+    v10 = objc_opt_class();
+    v11 = sub_10001E0A0("SetPersistentServiceProperties", v10, a1, v7);
+    if (v11)
     {
-      v30 = objc_opt_class();
-      v31 = a4;
+      v28 = objc_opt_class();
+      v29 = a4;
+      v12 = objc_opt_class();
       v13 = objc_opt_class();
       v14 = objc_opt_class();
       v15 = objc_opt_class();
       v16 = objc_opt_class();
       v17 = objc_opt_class();
-      v18 = objc_opt_class();
-      v19 = [NSSet setWithObjects:v13, v14, v15, v16, v17, v18, objc_opt_class(), 0];
-      v20 = sub_10001E2AC("SetPersistentServiceProperties", v30, v19, a3, v31);
+      v18 = [NSSet setWithObjects:v12, v13, v14, v15, v16, v17, objc_opt_class(), 0];
+      v19 = sub_10001E2AC("SetPersistentServiceProperties", v28, v18, a3, v29);
 
-      if (v20 && CFPropertyListIsValid(v20, kCFPropertyListXMLFormat_v1_0))
+      if (v19 && CFPropertyListIsValid(v19, kCFPropertyListXMLFormat_v1_0))
       {
-        v21 = sub_1000526D8();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v20 = sub_1000526D8();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = a5[1];
-          *buf = *a5;
           BSVersionedPIDForAuditToken();
-          v23 = BSProcessDescriptionForPID();
-          *buf = 138543874;
-          *&buf[4] = v23;
-          *&buf[12] = 2114;
-          *&buf[14] = v20;
-          v38 = 2114;
-          v39 = v12;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "SetPersistentServiceProperties process:%{public}@ set:%{public}@ for senders matching:%{public}@", buf, 0x20u);
+          v21 = BSProcessDescriptionForPID();
+          buf = 138543874;
+          buf_4 = v21;
+          buf_12 = 2114;
+          buf_14 = v19;
+          v39 = 2114;
+          v40 = v11;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "SetPersistentServiceProperties process:%{public}@ set:%{public}@ for senders matching:%{public}@", &buf, 0x20u);
         }
 
-        v34 = 0u;
-        v35 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v24 = v10;
-        v25 = [v24 countByEnumeratingWithState:&v32 objects:v36 count:16];
-        if (v25)
+        v30 = 0u;
+        v31 = 0u;
+        v22 = v9;
+        v23 = [v22 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        if (v23)
         {
-          v26 = *v33;
+          v24 = *v31;
           do
           {
-            for (i = 0; i != v25; ++i)
+            for (i = 0; i != v23; ++i)
             {
-              if (*v33 != v26)
+              if (*v31 != v24)
               {
-                objc_enumerationMutation(v24);
+                objc_enumerationMutation(v22);
               }
 
-              [*(*(&v32 + 1) + 8 * i) setPersistentProperties:v20 forSenderDescriptor:v12];
+              [*(*(&v30 + 1) + 8 * i) setPersistentProperties:v19 forSenderDescriptor:v11];
             }
 
-            v25 = [v24 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v23 = [v22 countByEnumeratingWithState:&v30 objects:v34 count:16];
           }
 
-          while (v25);
+          while (v23);
         }
       }
 
       else
       {
-        v24 = sub_1000526D8();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v22 = sub_1000526D8();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          *buf = 138543362;
-          *&buf[4] = v20;
-          _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "SetPersistentServiceProperties: bad properties %{public}@", buf, 0xCu);
+          buf = 138543362;
+          buf_4 = v19;
+          _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "SetPersistentServiceProperties: bad properties %{public}@", &buf, 0xCu);
         }
 
-        v25 = 5;
+        v23 = 5;
       }
     }
 
     else
     {
-      v20 = sub_1000526D8();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = sub_1000526D8();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        *buf = 0;
-        _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "SetPersistentServiceProperties failed to decode sender descriptor", buf, 2u);
+        LOWORD(buf) = 0;
+        _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "SetPersistentServiceProperties failed to decode sender descriptor", &buf, 2u);
       }
 
-      v25 = 5;
+      v23 = 5;
     }
   }
 
   else
   {
-    v12 = sub_1000526D8();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = sub_1000526D8();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       BSPIDForAuditToken();
-      v29 = BSProcessDescriptionForPID();
-      *buf = 138543362;
-      *&buf[4] = v29;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "SetPersistentServiceProperties: %{public}@ is not entitled", buf, 0xCu);
+      v27 = BSProcessDescriptionForPID();
+      buf = 138543362;
+      buf_4 = v27;
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "SetPersistentServiceProperties: %{public}@ is not entitled", &buf, 0xCu);
     }
 
-    v25 = 5;
+    v23 = 5;
   }
 
-  return v25;
+  return v23;
 }
 
 id sub_10001DFD4(uint64_t a1)
@@ -7525,7 +7484,7 @@ uint64_t sub_10001E4D8(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a
   v13 = sub_10001DFD4(a7);
   if ([v13 count])
   {
-    v38 = a6;
+    v37 = a6;
     v14 = objc_opt_class();
     v15 = sub_10001E0A0("GetPersistentServiceProperties", v14, a1, a2);
     v16 = objc_opt_class();
@@ -7533,26 +7492,25 @@ uint64_t sub_10001E4D8(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a
     v18 = sub_10001E2AC("GetPersistentServiceProperties", v16, v17, a3, a4);
 
     v19 = [v18 count];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v20 = v18;
-    v21 = [v20 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v44;
+      v23 = *v43;
       while (2)
       {
-        for (i = 0; i != v22; i = i + 1)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v44 != v23)
+          if (*v43 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v43 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -7561,7 +7519,7 @@ uint64_t sub_10001E4D8(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v42 objects:v47 count:16];
         if (v22)
         {
           continue;
@@ -7577,53 +7535,53 @@ uint64_t sub_10001E4D8(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a
       {
 LABEL_29:
 
-        v34 = 0;
+        v33 = 0;
         goto LABEL_33;
       }
 
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
-      v26 = v13;
-      v27 = [v26 countByEnumeratingWithState:&v39 objects:v47 count:16];
-      if (v27)
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v25 = v13;
+      v26 = [v25 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      if (v26)
       {
-        v28 = v27;
-        v29 = *v40;
+        v27 = v26;
+        v28 = *v39;
         while (2)
         {
-          for (j = 0; j != v28; j = j + 1)
+          for (j = 0; j != v27; j = j + 1)
           {
-            if (*v40 != v29)
+            if (*v39 != v28)
             {
-              objc_enumerationMutation(v26);
+              objc_enumerationMutation(v25);
             }
 
-            v31 = [*(*(&v39 + 1) + 8 * j) persistentPropertiesForKeys:v20 forSenderDescriptor:v15];
-            if ([v31 count])
+            v30 = [*(*(&v38 + 1) + 8 * j) persistentPropertiesForKeys:v20 forSenderDescriptor:v15];
+            if ([v30 count])
             {
-              v32 = [v31 bs_secureEncoded];
-              if (v32)
+              v31 = [v30 bs_secureEncoded];
+              if (v31)
               {
-                v36 = v32;
-                *a5 = [v32 bs_bytesForMIG];
-                *v38 = [v36 bs_lengthForMIG];
+                v35 = v31;
+                *a5 = [v31 bs_bytesForMIG];
+                *v37 = [v35 bs_lengthForMIG];
 
                 goto LABEL_28;
               }
 
-              v33 = sub_1000526D8();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+              v32 = sub_1000526D8();
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "GetPersistentServiceProperties failed to encode properties", buf, 2u);
+                _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "GetPersistentServiceProperties failed to encode properties", buf, 2u);
               }
             }
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v39 objects:v47 count:16];
-          if (v28)
+          v27 = [v25 countByEnumeratingWithState:&v38 objects:v46 count:16];
+          if (v27)
           {
             continue;
           }
@@ -7636,12 +7594,12 @@ LABEL_29:
     else
     {
 LABEL_26:
-      v26 = sub_1000526D8();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = sub_1000526D8();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v50 = v20;
-        _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "GetPersistentServiceProperties: bad property keys %{public}@", buf, 0xCu);
+        v49 = v20;
+        _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "GetPersistentServiceProperties: bad property keys %{public}@", buf, 0xCu);
       }
     }
 
@@ -7654,16 +7612,16 @@ LABEL_28:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     BSPIDForAuditToken();
-    v37 = BSProcessDescriptionForPID();
+    v36 = BSProcessDescriptionForPID();
     *buf = 138543362;
-    v50 = v37;
+    v49 = v36;
     _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "GetPersistentServiceProperties: %{public}@ is not entitled", buf, 0xCu);
   }
 
-  v34 = 5;
+  v33 = 5;
 LABEL_33:
 
-  return v34;
+  return v33;
 }
 
 void sub_10001E8C4(uint64_t a1, unsigned int a2, _OWORD *a3)
@@ -7921,7 +7879,7 @@ void sub_10001F1AC(uint64_t a1, unsigned int a2, int a3, unsigned __int8 *a4)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v21 = "_BKHIDXXVerifyEventProvenance";
+      v19 = "_BKHIDXXVerifyEventProvenance";
       _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%s: no data received", buf, 0xCu);
     }
 
@@ -7931,80 +7889,63 @@ void sub_10001F1AC(uint64_t a1, unsigned int a2, int a3, unsigned __int8 *a4)
   v6 = [[NSData alloc] initWithBytesNoCopy:a1 length:a2 freeWhenDone:0];
   if (!v6)
   {
-    v9 = BKLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = BKLogCommon();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "_BKHIDXXVerifyEventProvenance";
-      v22 = 2114;
-      v23 = 0;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s: Cannot create data (%{public}@)", buf, 0x16u);
+      v19 = "_BKHIDXXVerifyEventProvenance";
+      v20 = 2114;
+      v21 = 0;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%s: Cannot create data (%{public}@)", buf, 0x16u);
     }
 
-    v8 = 0;
+    v7 = 0;
+    goto LABEL_23;
+  }
+
+  if (a3 != 1 && a3 != 2 || (v9 = objc_opt_class()) == 0)
+  {
+LABEL_9:
+    v7 = 0;
     goto LABEL_24;
   }
 
-  if (a3 == 1)
+  v10 = v9;
+  v11 = +[BKHIDSystemInterface sharedInstance];
+  v12 = [v11 deliveryManager];
+
+  v17 = 0;
+  v13 = [BSProtobufSerialization decodeObjectOfClass:v10 fromData:v6 error:&v17];
+  v8 = v17;
+  if (!v13)
   {
-    v7 = BKSHIDEventSimpleProvenance_ptr;
-  }
-
-  else
-  {
-    if (a3 != 2)
-    {
-LABEL_9:
-      v8 = 0;
-      goto LABEL_25;
-    }
-
-    v7 = BKSHIDEventAuthenticationMessage_ptr;
-  }
-
-  v10 = *v7;
-  v11 = objc_opt_class();
-  if (!v11)
-  {
-    goto LABEL_9;
-  }
-
-  v12 = v11;
-  v13 = +[BKHIDSystemInterface sharedInstance];
-  v14 = [v13 deliveryManager];
-
-  v19 = 0;
-  v15 = [BSProtobufSerialization decodeObjectOfClass:v12 fromData:v6 error:&v19];
-  v9 = v19;
-  if (!v15)
-  {
-    v16 = BKLogCommon();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v14 = BKLogCommon();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "_BKHIDXXVerifyEventProvenance";
-      v22 = 2114;
-      v23 = v9;
-      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%s: Error decoding (%{public}@)", buf, 0x16u);
+      v19 = "_BKHIDXXVerifyEventProvenance";
+      v20 = 2114;
+      v21 = v8;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%s: Error decoding (%{public}@)", buf, 0x16u);
     }
 
-    v8 = 0;
-    goto LABEL_23;
+    v7 = 0;
+    goto LABEL_22;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = [v14 simpleProvenanceOriginator];
-    v8 = [v16 verifyAuthentic:v15];
-LABEL_23:
+    v14 = [v12 simpleProvenanceOriginator];
+    v7 = [v14 verifyAuthentic:v13];
+LABEL_22:
 
+LABEL_23:
 LABEL_24:
-LABEL_25:
 
     if (a4)
     {
-      *a4 = v8;
+      *a4 = v7;
     }
 
     return;
@@ -8013,27 +7954,27 @@ LABEL_25:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = [v14 authenticationOriginator];
-    v8 = [v16 validateMessage:v15]> 1;
-    goto LABEL_23;
+    v14 = [v12 authenticationOriginator];
+    v7 = [v14 validateMessage:v13]> 1;
+    goto LABEL_22;
   }
 
-  v17 = [NSString stringWithFormat:@"you forgot something: %@ not handled", v12];
+  v15 = [NSString stringWithFormat:@"you forgot something: %@ not handled", v10];
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    v18 = [NSString stringWithUTF8String:"kern_return_t _BKHIDXXVerifyEventProvenance(mach_port_t, bks_bytes_t, mach_msg_type_number_t, uint32_t, uint8_t *, audit_token_t)"];
+    v16 = [NSString stringWithUTF8String:"kern_return_t _BKHIDXXVerifyEventProvenance(mach_port_t, bks_bytes_t, mach_msg_type_number_t, uint32_t, uint8_t *, audit_token_t)"];
     *buf = 138544130;
-    v21 = v18;
-    v22 = 2114;
-    v23 = @"BKHIDServer_server.m";
-    v24 = 1024;
-    v25 = 1215;
-    v26 = 2114;
-    v27 = v17;
+    v19 = v16;
+    v20 = 2114;
+    v21 = @"BKHIDServer_server.m";
+    v22 = 1024;
+    v23 = 1215;
+    v24 = 2114;
+    v25 = v15;
     _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
   }
 
-  [v17 UTF8String];
+  [v15 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -8216,6 +8157,13 @@ id sub_1000225E4(uint64_t a1)
   return [v2 _queue_applyDefinitions:v3];
 }
 
+void sub_100022844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100022870(uint64_t a1, uint64_t a2, void *a3)
 {
   v23 = a3;
@@ -8382,17 +8330,17 @@ id sub_10002342C(id a1, id a2)
   }
 }
 
-void sub_1000236F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1000236F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v10 - 120), 8);
+  _Block_object_dispose((v17 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8514,19 +8462,17 @@ const __CFString *sub_100023DAC(uint64_t a1)
 uint64_t sub_10002419C(uint64_t a1)
 {
   dispatch_group_wait(*(*(a1 + 32) + 56), 0xFFFFFFFFFFFFFFFFLL);
-  v2 = *(*(a1 + 32) + 40);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 uint64_t sub_1000242E0(uint64_t a1)
 {
   dispatch_group_wait(*(*(a1 + 32) + 56), 0xFFFFFFFFFFFFFFFFLL);
-  v2 = *(*(a1 + 32) + 40);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 void sub_1000246EC(uint64_t a1)
@@ -8673,7 +8619,7 @@ void sub_100026DF0(uint64_t a1, void *a2)
   [v4 appendFormat:@"%@ (%d)", v5, **(a1 + 32)];
 }
 
-uint64_t sub_100026FBC()
+uint64_t sub_100026FBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   TouchSensitiveButtonEvent = IOHIDEventCreateTouchSensitiveButtonEvent();
   IOHIDEventSetSenderID();
@@ -8689,21 +8635,20 @@ void sub_100027088(uint64_t a1)
   v2 = [*(a1 + 32) appendDouble:@"positionDelta" withName:4 decimalPrecision:***(a1 + 40)];
   v3 = *(*(a1 + 40) + 8);
   v4 = *(a1 + 32);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100026DF0;
-  v12[3] = &unk_1000FA990;
-  v12[4] = v3;
-  [v4 appendCustomFormatWithName:@"stage" block:v12];
-  v5 = *(v3 + 4);
-  v6 = NSStringFromBKSHIDForceStageTransition();
-  [v4 appendString:v6 withName:@"transition"];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100026DF0;
+  v11[3] = &unk_1000FA990;
+  v11[4] = v3;
+  [v4 appendCustomFormatWithName:@"stage" block:v11];
+  v5 = NSStringFromBKSHIDForceStageTransition();
+  [v4 appendString:v5 withName:@"transition"];
 
-  v7 = [v4 appendDouble:@"nextThreshold" withName:4 decimalPrecision:*(v3 + 8)];
-  v8 = [v4 appendDouble:@"pressedThreshold" withName:4 decimalPrecision:*(v3 + 16)];
-  v9 = [v4 appendDouble:@"releasedThreshold" withName:4 decimalPrecision:*(v3 + 24)];
-  v10 = [v4 appendDouble:@"forceProgress" withName:4 decimalPrecision:*(v3 + 32)];
-  v11 = [v4 appendDouble:@"forceProgressVelocity" withName:4 decimalPrecision:*(v3 + 40)];
+  v6 = [v4 appendDouble:@"nextThreshold" withName:4 decimalPrecision:v3[1]];
+  v7 = [v4 appendDouble:@"pressedThreshold" withName:4 decimalPrecision:v3[2]];
+  v8 = [v4 appendDouble:@"releasedThreshold" withName:4 decimalPrecision:v3[3]];
+  v9 = [v4 appendDouble:@"forceProgress" withName:4 decimalPrecision:v3[4]];
+  v10 = [v4 appendDouble:@"forceProgressVelocity" withName:4 decimalPrecision:v3[5]];
 }
 
 id sub_10002723C(uint64_t a1)
@@ -8712,12 +8657,12 @@ id sub_10002723C(uint64_t a1)
   v3 = *(a1 + 32);
   if (v2 == 42)
   {
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000273F8;
-    v13[3] = &unk_1000FA990;
-    v13[4] = *(a1 + 40);
-    [v3 appendCustomFormatWithName:0 block:v13];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000273F8;
+    v12[3] = &unk_1000FA990;
+    v12[4] = *(a1 + 40);
+    [v3 appendCustomFormatWithName:0 block:v12];
   }
 
   else
@@ -8726,26 +8671,25 @@ id sub_10002723C(uint64_t a1)
   }
 
   v5 = *(a1 + 32);
-  v6 = *(a1 + 48);
-  v7 = NSStringFromBKSHIDForceStageTransition();
-  [v5 appendString:v7 withName:@"transition"];
+  v6 = NSStringFromBKSHIDForceStageTransition();
+  [v5 appendString:v6 withName:@"transition"];
 
   if ((*(a1 + 100) & 1) == 0)
   {
-    v8 = [*(a1 + 32) appendDouble:@"nextThreshold" withName:4 decimalPrecision:*(a1 + 56)];
+    v7 = [*(a1 + 32) appendDouble:@"nextThreshold" withName:4 decimalPrecision:*(a1 + 56)];
   }
 
   if ((*(a1 + 101) & 1) == 0)
   {
-    v9 = [*(a1 + 32) appendDouble:@"pressedThreshold" withName:4 decimalPrecision:*(a1 + 64)];
+    v8 = [*(a1 + 32) appendDouble:@"pressedThreshold" withName:4 decimalPrecision:*(a1 + 64)];
   }
 
   if ((*(a1 + 102) & 1) == 0)
   {
-    v10 = [*(a1 + 32) appendDouble:@"releasedThreshold" withName:4 decimalPrecision:*(a1 + 72)];
+    v9 = [*(a1 + 32) appendDouble:@"releasedThreshold" withName:4 decimalPrecision:*(a1 + 72)];
   }
 
-  v11 = [*(a1 + 32) appendDouble:@"progress" withName:4 decimalPrecision:*(a1 + 80)];
+  v10 = [*(a1 + 32) appendDouble:@"progress" withName:4 decimalPrecision:*(a1 + 80)];
   return [*(a1 + 32) appendDouble:@"progressVelocity" withName:4 decimalPrecision:*(a1 + 88)];
 }
 
@@ -8759,15 +8703,12 @@ void sub_1000273F8(uint64_t a1, void *a2)
 
 id sub_100027474(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   SenderID = IOHIDEventGetSenderID();
-  v4 = *(a1 + 40);
   IntegerValue = IOHIDEventGetIntegerValue();
-  v6 = *(a1 + 40);
-  v7 = IOHIDEventGetIntegerValue();
-  v8 = *(a1 + 32);
+  v4 = IOHIDEventGetIntegerValue();
+  v5 = *(a1 + 32);
 
-  return sub_100026E74(SenderID, IntegerValue, v7, v8);
+  return sub_100026E74(SenderID, IntegerValue, v4, v5);
 }
 
 uint64_t sub_1000274E4(uint64_t a1, uint64_t a2)
@@ -8780,72 +8721,72 @@ uint64_t sub_1000274E4(uint64_t a1, uint64_t a2)
   return IOHIDEventGetDataValue();
 }
 
-__CFString *sub_100027568(uint64_t a1)
+__CFString *sub_100027568(uint64_t a1, uint64_t a2)
 {
   if (IOHIDEventGetType() == 42)
   {
-    v2 = objc_alloc_init(BSDescriptionStream);
+    v3 = objc_alloc_init(BSDescriptionStream);
     SenderID = IOHIDEventGetSenderID();
     IntegerValue = IOHIDEventGetIntegerValue();
-    v5 = IOHIDEventGetIntegerValue();
-    sub_100026E74(SenderID, IntegerValue, v5, v2);
     v6 = IOHIDEventGetIntegerValue();
+    sub_100026E74(SenderID, IntegerValue, v6, v3);
+    v7 = IOHIDEventGetIntegerValue();
     IOHIDEventGetDoubleValue();
-    v8 = v7;
+    v9 = v8;
     IOHIDEventGetDoubleValue();
-    v10 = v9;
+    v11 = v10;
     IOHIDEventGetDoubleValue();
-    v12 = v11;
+    v13 = v12;
     IOHIDEventGetDoubleValue();
-    v14 = v13;
-    v15 = IOHIDEventGetIntegerValue();
-    if (v6)
+    v15 = v14;
+    v16 = IOHIDEventGetIntegerValue();
+    if (v7)
     {
-      v57[0] = _NSConcreteStackBlock;
-      v57[1] = 3221225472;
-      v57[2] = sub_100027D10;
-      v57[3] = &unk_1000FA970;
-      v58 = v6;
-      [v2 appendCustomFormatWithName:@"eventMask" block:v57];
+      v58[0] = _NSConcreteStackBlock;
+      v58[1] = 3221225472;
+      v58[2] = sub_100027D10;
+      v58[3] = &unk_1000FA970;
+      v59 = v7;
+      [v3 appendCustomFormatWithName:@"eventMask" block:v58];
     }
 
     else
     {
-      [v2 appendString:@"()" withName:@"eventMask"];
+      [v3 appendString:@"()" withName:@"eventMask"];
     }
 
-    v27 = [v2 appendPoint:@"position" withName:{v12, v14}];
-    v28 = [v2 appendPoint:@"positionDelta" withName:{v8, v10}];
-    v29 = [v2 appendBool:v15 > 0 withName:@"touch"];
-    v61 = 0u;
+    v28 = [v3 appendPoint:@"position" withName:{v13, v15}];
+    v29 = [v3 appendPoint:@"positionDelta" withName:{v9, v11}];
+    v30 = [v3 appendBool:v16 > 0 withName:@"touch"];
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v30 = IOHIDEventGetChildren();
-    v31 = [v30 countByEnumeratingWithState:&v61 objects:&v66 count:16];
-    if (v31)
+    v65 = 0u;
+    v31 = IOHIDEventGetChildren();
+    v32 = [v31 countByEnumeratingWithState:&v62 objects:&v67 count:16];
+    if (v32)
     {
-      v32 = v31;
-      v33 = *v62;
+      v33 = v32;
+      v34 = *v63;
 LABEL_22:
-      v34 = 0;
+      v35 = 0;
       while (1)
       {
-        if (*v62 != v33)
+        if (*v63 != v34)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v31);
         }
 
-        v35 = *(*(&v61 + 1) + 8 * v34);
+        v36 = *(*(&v62 + 1) + 8 * v35);
         if (IOHIDEventGetType() == 41)
         {
           break;
         }
 
-        if (v32 == ++v34)
+        if (v33 == ++v35)
         {
-          v32 = [v30 countByEnumeratingWithState:&v61 objects:&v66 count:16];
-          if (v32)
+          v33 = [v31 countByEnumeratingWithState:&v62 objects:&v67 count:16];
+          if (v33)
           {
             goto LABEL_22;
           }
@@ -8854,50 +8795,50 @@ LABEL_22:
         }
       }
 
-      if (!v35)
+      if (!v36)
       {
         goto LABEL_32;
       }
 
-      v36 = v2;
+      v37 = v3;
       if (IOHIDEventGetType() == 41)
       {
         IOHIDEventGetDoubleValue();
-        v38 = v37;
+        v39 = v38;
         IOHIDEventGetDoubleValue();
-        v40 = v39;
+        v41 = v40;
         IOHIDEventGetDoubleValue();
-        v42 = v41;
+        v43 = v42;
         IOHIDEventGetDoubleValue();
-        v44 = v43;
+        v45 = v44;
         IOHIDEventGetDoubleValue();
-        v46 = v45;
-        v47 = IOHIDEventGetIntegerValue();
+        v47 = v46;
         v48 = IOHIDEventGetIntegerValue();
-        v66 = _NSConcreteStackBlock;
-        v67 = 3221225472;
-        v68 = sub_10002723C;
-        v69 = &unk_1000FA760;
-        v78 = 42;
-        v49 = v36;
-        v70 = v49;
-        v71 = v48;
-        v72 = v47;
-        v79 = 0;
+        v49 = IOHIDEventGetIntegerValue();
+        v67 = _NSConcreteStackBlock;
+        v68 = 3221225472;
+        v69 = sub_10002723C;
+        v70 = &unk_1000FA760;
+        v79 = 42;
+        v50 = v37;
+        v71 = v50;
+        v72 = v49;
+        v73 = v48;
         v80 = 0;
-        v73 = v38;
-        v74 = v40;
         v81 = 0;
-        v75 = v42;
-        v76 = v44;
-        v77 = v46;
-        v50 = objc_retainBlock(&v66);
-        [v49 appendBodySectionWithName:@"force" block:v50];
+        v74 = v39;
+        v75 = v41;
+        v82 = 0;
+        v76 = v43;
+        v77 = v45;
+        v78 = v47;
+        v51 = objc_retainBlock(&v67);
+        [v50 appendBodySectionWithName:@"force" block:v51];
       }
 
       else
       {
-        [v36 appendString:@"not a ForceStage event" withName:0];
+        [v37 appendString:@"not a ForceStage event" withName:0];
       }
     }
 
@@ -8906,52 +8847,52 @@ LABEL_22:
 LABEL_28:
 
 LABEL_32:
-      [v2 appendString:@"<missing force subevent>" withName:0];
+      [v3 appendString:@"<missing force subevent>" withName:0];
     }
 
-    v52 = [v2 description];
+    v53 = [v3 description];
 LABEL_41:
 
     goto LABEL_42;
   }
 
-  v59 = 0;
   v60 = 0;
-  v16 = sub_1000274E4(a1, 8);
-  if (v16)
+  v61 = 0;
+  v17 = sub_1000274E4(a1, 8);
+  if (v17)
   {
-    v17 = v16;
-    v63 = 0u;
+    v18 = v17;
     v64 = 0u;
-    v61 = 0u;
+    v65 = 0u;
     v62 = 0u;
-    v18 = IOHIDEventGetChildren();
-    v19 = [v18 countByEnumeratingWithState:&v61 objects:&v66 count:16];
-    if (v19)
+    v63 = 0u;
+    v19 = IOHIDEventGetChildren();
+    v20 = [v19 countByEnumeratingWithState:&v62 objects:&v67 count:16];
+    if (v20)
     {
-      v20 = v19;
-      v21 = *v62;
+      v21 = v20;
+      v22 = *v63;
       while (2)
       {
-        for (i = 0; i != v20; i = i + 1)
+        for (i = 0; i != v21; i = i + 1)
         {
-          if (*v62 != v21)
+          if (*v63 != v22)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v19);
           }
 
-          v23 = *(*(&v61 + 1) + 8 * i);
-          v24 = IOHIDEventGetIntegerValue();
+          v24 = *(*(&v62 + 1) + 8 * i);
           v25 = IOHIDEventGetIntegerValue();
-          if (v24 == 65280 && v25 == 17)
+          v26 = IOHIDEventGetIntegerValue();
+          if (v25 == 65280 && v26 == 17)
           {
-            v20 = sub_1000274E4(v23, 48);
+            v21 = sub_1000274E4(v24, 48);
             goto LABEL_18;
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v61 objects:&v66 count:16];
-        if (v20)
+        v21 = [v19 countByEnumeratingWithState:&v62 objects:&v67 count:16];
+        if (v21)
         {
           continue;
         }
@@ -8961,52 +8902,52 @@ LABEL_41:
 
 LABEL_18:
 
-      v59 = v17;
-      v60 = v20;
+      v60 = v18;
+      v61 = v21;
     }
 
     else
     {
 
-      v59 = v17;
-      v60 = 0;
+      v60 = v18;
+      v61 = 0;
     }
 
-    v53 = objc_alloc_init(BSDescriptionStream);
-    *&v61 = _NSConcreteStackBlock;
-    *(&v61 + 1) = 3221225472;
-    *&v62 = sub_100027474;
-    *(&v62 + 1) = &unk_1000FCF78;
-    *&v63 = v53;
-    *(&v63 + 1) = a1;
-    v54 = v53;
-    [v54 appendProem:0 block:&v61];
+    v54 = objc_alloc_init(BSDescriptionStream);
+    *&v62 = _NSConcreteStackBlock;
+    *(&v62 + 1) = 3221225472;
+    *&v63 = sub_100027474;
+    *(&v63 + 1) = &unk_1000FCF78;
+    *&v64 = v54;
+    *(&v64 + 1) = a1;
     v55 = v54;
-    v66 = _NSConcreteStackBlock;
-    v67 = 3221225472;
-    v68 = sub_100027088;
-    v69 = &unk_1000FCF78;
-    v70 = v55;
-    v71 = &v59;
-    v2 = v55;
-    [v2 appendBodySectionWithName:0 block:&v66];
+    [v55 appendProem:0 block:&v62];
+    v56 = v55;
+    v67 = _NSConcreteStackBlock;
+    v68 = 3221225472;
+    v69 = sub_100027088;
+    v70 = &unk_1000FCF78;
+    v71 = v56;
+    v72 = &v60;
+    v3 = v56;
+    [v3 appendBodySectionWithName:0 block:&v67];
 
-    v52 = [v2 description];
+    v53 = [v3 description];
 
     goto LABEL_41;
   }
 
-  v51 = sub_100008528();
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+  v52 = sub_100008528();
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "data for TouchSensitiveButton event is corrupt", buf, 2u);
+    _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "data for TouchSensitiveButton event is corrupt", buf, 2u);
   }
 
-  v52 = @"<not a TouchSensitiveButton event>";
+  v53 = @"<not a TouchSensitiveButton event>";
 LABEL_42:
 
-  return v52;
+  return v53;
 }
 
 void sub_100027D10(uint64_t a1, void *a2)
@@ -9086,9 +9027,9 @@ id sub_100027F18(uint64_t a1)
   return v2;
 }
 
-void sub_10002815C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002815C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9169,4 +9110,18 @@ void sub_10002818C(uint64_t a1, void *a2)
 
     while (v13);
   }
+}
+
+void sub_100028378(void *a1, uint64_t a2)
+{
+  v3 = a1;
+  if (!v3 || (v6 = v3, v4 = [v3 isEqualToString:BKSDisplayUUIDMainKey], v6, v3 = v6, v4))
+  {
+
+    v3 = 0;
+  }
+
+  v7 = v3;
+  v5 = sub_100007D54(v3, "_BKDisplaySetDisabled");
+  [v5 setDisablesUpdates:a2];
 }

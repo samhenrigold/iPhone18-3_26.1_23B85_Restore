@@ -13,7 +13,7 @@
   v12 = objc_msgSend_series(seriesCopy, v7, v8, v9, v10);
   if (seriesCopy)
   {
-    objc_msgSend_position(seriesCopy, v11, v13, v14, v15);
+    objc_msgSend_position(seriesCopy, v13, v14, v15);
   }
 
   else

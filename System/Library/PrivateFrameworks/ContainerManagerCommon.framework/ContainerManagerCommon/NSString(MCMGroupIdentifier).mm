@@ -6,7 +6,6 @@
 
 - (id)stringByExtractingTeamIDPrefix
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [self cStringUsingEncoding:4];
   if ([self lengthOfBytesUsingEncoding:4] >= 0xC && *(v2 + 10) == 46)
   {
@@ -31,7 +30,6 @@
 
   v8 = 0;
 LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

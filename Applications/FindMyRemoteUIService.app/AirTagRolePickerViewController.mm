@@ -16,26 +16,24 @@
 
 - (int64_t)pickerView:(id)view numberOfRowsInComponent:(int64_t)component
 {
-  v5 = *&self->PRXPickerContentViewController_opaque[OBJC_IVAR____TtC21FindMyRemoteUIService30AirTagRolePickerViewController_viewModel];
-  v6 = sub_100006DB8();
-  v7 = *(v6 + 24);
-  v8 = type metadata accessor for AirTagRolePickerViewModel();
+  v5 = sub_100006DB8();
+  v6 = *(v5 + 24);
+  v7 = type metadata accessor for AirTagRolePickerViewModel();
   selfCopy = self;
-  v10 = v7(v8, v6);
+  v9 = v6(v7, v5);
 
-  v11 = *(v10 + 16);
+  v10 = *(v9 + 16);
 
-  return v11;
+  return v10;
 }
 
 - (id)pickerView:(id)view titleForRow:(int64_t)row forComponent:(int64_t)component
 {
-  v7 = *&self->PRXPickerContentViewController_opaque[OBJC_IVAR____TtC21FindMyRemoteUIService30AirTagRolePickerViewController_viewModel];
-  v8 = sub_100006DB8();
-  v9 = *(v8 + 24);
-  v10 = type metadata accessor for AirTagRolePickerViewModel();
+  v7 = sub_100006DB8();
+  v8 = *(v7 + 24);
+  v9 = type metadata accessor for AirTagRolePickerViewModel();
   selfCopy = self;
-  result = v9(v10, v8);
+  result = v8(v9, v7);
   if (row < 0)
   {
     __break(1u);
@@ -49,23 +47,18 @@ LABEL_7:
     return result;
   }
 
-  v13 = result + 16 * row;
-  v14 = *(v13 + 4);
-  v15 = *(v13 + 5);
+  v12 = String._bridgeToObjectiveC()();
 
-  v16 = String._bridgeToObjectiveC()();
-
-  return v16;
+  return v12;
 }
 
 - (void)pickerView:(id)view didSelectRow:(int64_t)row inComponent:(int64_t)component
 {
-  v7 = *&self->PRXPickerContentViewController_opaque[OBJC_IVAR____TtC21FindMyRemoteUIService30AirTagRolePickerViewController_viewModel];
-  v8 = sub_100006DB8();
-  v9 = *(v8 + 48);
-  v10 = type metadata accessor for AirTagRolePickerViewModel();
+  v7 = sub_100006DB8();
+  v8 = *(v7 + 48);
+  v9 = type metadata accessor for AirTagRolePickerViewModel();
   selfCopy = self;
-  v9(row, v10, v8);
+  v8(row, v9, v7);
 }
 
 @end

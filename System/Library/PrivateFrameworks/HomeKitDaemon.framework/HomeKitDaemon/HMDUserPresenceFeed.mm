@@ -36,45 +36,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_11;
-    }
-
-    user = [(HMDUserPresenceFeed *)self user];
-    uuid = [user uuid];
-    user2 = [(HMDUserPresenceFeed *)v6 user];
-    uuid2 = [user2 uuid];
-    v11 = [uuid isEqual:uuid2];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-
-    presenceAuthStatus = [(HMDUserPresenceFeed *)self presenceAuthStatus];
-    presenceAuthStatus2 = [(HMDUserPresenceFeed *)v6 presenceAuthStatus];
-    v14 = [presenceAuthStatus isEqual:presenceAuthStatus2];
-
-    if (!v14)
-    {
-      goto LABEL_11;
-    }
-
-    presenceComputeStatus = [(HMDUserPresenceFeed *)self presenceComputeStatus];
-    presenceComputeStatus2 = [(HMDUserPresenceFeed *)v6 presenceComputeStatus];
-    v17 = [presenceComputeStatus isEqual:presenceComputeStatus2];
-
-    if (!v17)
-    {
-      goto LABEL_11;
-    }
-
-    presenceRegion = [(HMDUserPresenceFeed *)self presenceRegion];
-    presenceRegion2 = [(HMDUserPresenceFeed *)v6 presenceRegion];
-    v20 = [presenceRegion isEqual:presenceRegion2];
-
-    if (v20)
+    if (v6 && (-[HMDUserPresenceFeed user](self, "user"), v7 = objc_claimAutoreleasedReturnValue(), [v7 uuid], v8 = objc_claimAutoreleasedReturnValue(), -[HMDUserPresenceFeed user](v6, "user"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "uuid"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v8, "isEqual:", v10), v10, v9, v8, v7, v11) && (-[HMDUserPresenceFeed presenceAuthStatus](self, "presenceAuthStatus"), v12 = objc_claimAutoreleasedReturnValue(), -[HMDUserPresenceFeed presenceAuthStatus](v6, "presenceAuthStatus"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqual:", v13), v13, v12, v14) && (-[HMDUserPresenceFeed presenceComputeStatus](self, "presenceComputeStatus"), v15 = objc_claimAutoreleasedReturnValue(), -[HMDUserPresenceFeed presenceComputeStatus](v6, "presenceComputeStatus"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, v17) && (-[HMDUserPresenceFeed presenceRegion](self, "presenceRegion"), v18 = objc_claimAutoreleasedReturnValue(), -[HMDUserPresenceFeed presenceRegion](v6, "presenceRegion"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v18, "isEqual:", v19), v19, v18, v20))
     {
       reason = [(HMDUserPresenceFeed *)self reason];
       reason2 = [(HMDUserPresenceFeed *)v6 reason];
@@ -83,7 +45,6 @@
 
     else
     {
-LABEL_11:
       v23 = 0;
     }
   }

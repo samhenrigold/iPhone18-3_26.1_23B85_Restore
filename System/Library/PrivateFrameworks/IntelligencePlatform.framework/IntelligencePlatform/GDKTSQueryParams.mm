@@ -2,7 +2,6 @@
 + (int64_t)roadTypeForString:(id)string;
 - (GDKTSQueryParams)initWithCoder:(id)coder;
 - (GDKTSQueryParams)initWithStartTime:(id)time endTime:(id)endTime inclusionType:(int64_t)type distanceMinInMeters:(id)meters distanceMaxInMeters:(id)inMeters elevationGainMinInMeters:(id)minInMeters elevationGainMaxInMeters:(id)maxInMeters durationMinInSeconds:(id)self0 durationMaxInSeconds:(id)self1 roadType:(id)self2 roadName:(id)self3 originId:(id)self4 destinationId:(id)self5;
-- (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -11,11 +10,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v4 = *&self->_startTime;
-  v5 = [v3 initWithFormat:@"GDKTSQueryParams<startTime: %@, endTime: %@, minDistance: %@, maxDistance: %@, minDuration: %@, maxDuration: %@, roadType: %@, roadName: %@, originId: %@, destinationId: %@>", self->_startTime, self->_endTime, self->_distanceMinInMeters, self->_distanceMaxInMeters, self->_durationMinInSeconds, self->_durationMaxInSeconds, self->_roadType, self->_roadName, self->_originId, self->_destinationId];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"GDKTSQueryParams<startTime: %@, endTime: %@, minDistance: %@, maxDistance: %@, minDuration: %@, maxDuration: %@, roadType: %@, roadName: %@, originId: %@, destinationId: %@>", self->_startTime, self->_endTime, self->_distanceMinInMeters, self->_distanceMaxInMeters, self->_durationMinInSeconds, self->_durationMaxInSeconds, self->_roadType, self->_roadName, self->_originId, self->_destinationId];
 
-  return v5;
+  return v2;
 }
 
 - (GDKTSQueryParams)initWithCoder:(id)coder
@@ -132,13 +129,6 @@
   destinationId = self->_destinationId;
   v30 = NSStringFromSelector(sel_destinationId);
   [coderCopy encodeObject:destinationId forKey:v30];
-}
-
-- (id)copyWithZone:(_NSZone *)zone
-{
-  v4 = [objc_opt_class() allocWithZone:zone];
-  v5 = *&self->_durationMaxInSeconds;
-  return [v4 initWithStartTime:self->_startTime endTime:self->_endTime inclusionType:self->_inclusionType distanceMinInMeters:self->_distanceMinInMeters distanceMaxInMeters:self->_distanceMaxInMeters elevationGainMinInMeters:self->_elevationGainMinInMeters elevationGainMaxInMeters:self->_elevationGainMaxInMeters durationMinInSeconds:self->_durationMinInSeconds durationMaxInSeconds:self->_durationMaxInSeconds roadType:self->_roadType roadName:self->_roadName originId:self->_originId destinationId:self->_destinationId];
 }
 
 - (GDKTSQueryParams)initWithStartTime:(id)time endTime:(id)endTime inclusionType:(int64_t)type distanceMinInMeters:(id)meters distanceMaxInMeters:(id)inMeters elevationGainMinInMeters:(id)minInMeters elevationGainMaxInMeters:(id)maxInMeters durationMinInSeconds:(id)self0 durationMaxInSeconds:(id)self1 roadType:(id)self2 roadName:(id)self3 originId:(id)self4 destinationId:(id)self5

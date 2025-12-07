@@ -8,12 +8,11 @@
 
 - (NSArray)turns
 {
-  v2 = *(self + OBJC_IVAR____TtC26DeepThoughtBiomeFoundation12Conversation_turns);
   type metadata accessor for ConversationTurn(0);
 
-  v3 = sub_248731230();
+  v2 = sub_248731230();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC26DeepThoughtBiomeFoundation12Conversation)initWithTurns:(id)turns

@@ -104,7 +104,7 @@
     v20 = 0u;
     v21 = 0u;
     v19 = 0u;
-    [v5 transform];
+    objc_msgSend_transform(v5);
     v18[0] = v19;
     v18[1] = v20;
     v18[2] = v21;
@@ -258,7 +258,7 @@ LABEL_13:
   v5 = NSStringFromCGRect(v13);
   [(CRLCanvasLayoutGeometry *)self size];
   v6 = NSStringFromCGSize(v12);
-  [(CRLCanvasLayoutGeometry *)self transform];
+  objc_msgSend_transform(self);
   v7 = NSStringFromCGAffineTransform(&transform);
   v8 = [NSString stringWithFormat:@"<%@ %p frame=%@ size=%@ xform=%@>", v4, self, v5, v6, v7];
 
@@ -316,7 +316,7 @@ LABEL_13:
 - (CRLCanvasInfoGeometry)infoGeometry
 {
   v3 = [CRLCanvasInfoGeometry alloc];
-  [(CRLCanvasLayoutGeometry *)self transform];
+  objc_msgSend_transform(self);
   [(CRLCanvasLayoutGeometry *)self size];
   v4 = [(CRLCanvasInfoGeometry *)v3 initWithTransform:&v6 size:?];
 
@@ -326,7 +326,7 @@ LABEL_13:
 - (id)geometryByTransformingBy:(CGAffineTransform *)by
 {
   memset(&v18, 0, sizeof(v18));
-  [(CRLCanvasLayoutGeometry *)self transform];
+  objc_msgSend_transform(self, a2);
   v5 = *&by->c;
   *&v16.a = *&by->a;
   *&v16.c = v5;
@@ -385,8 +385,8 @@ LABEL_13:
   fromCopy = from;
   if (fromCopy && (-[CRLCanvasLayoutGeometry frame](self, "frame"), v6 = v5, v8 = v7, [fromCopy frame], sub_10011ECC8(v6, v8, v9, v10)))
   {
-    [(CRLCanvasLayoutGeometry *)self transform];
-    [fromCopy transform];
+    objc_msgSend_transform(self);
+    objc_msgSend_transform(fromCopy);
     v11 = !sub_100139934(v14, &v13);
   }
 

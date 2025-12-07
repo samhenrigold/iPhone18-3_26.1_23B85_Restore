@@ -88,6 +88,7 @@
 - (void)_powerModificationDisableStateDidChange:(id)change;
 - (void)_powerStateChanged;
 - (void)_preferredNetworksDidChange:(id)change;
+- (void)_presentCellularOutrankAlertForNetwork:(id)network privateCellular:(BOOL)cellular;
 - (void)_presentContext:(id)context contextType:(unint64_t)type;
 - (void)_presentDeveloperOutrankAlertForNetwork:(id)network;
 - (void)_presentHotspotErrorContextWithDevice:(id)device hotspotError:(id)error failure:(int64_t)failure;
@@ -123,10 +124,13 @@
 - (void)airportSettingsViewControllerDidFinishEditingKnownNetworks:(id)networks;
 - (void)airportSettingsViewControllerDidStartEditingKnownNetworks:(id)networks;
 - (void)airportSettingsViewControllerDidTapDataUsage:(id)usage;
+- (void)airportSettingsViewControllerDidTapDiagnosticsMode:(id)mode showNANUI:(BOOL)i;
 - (void)dealloc;
 - (void)hotspotInterfaceDidUpdateNetworks:(id)networks;
 - (void)networkListViewController:(id)controller didTapRecord:(id)record;
 - (void)networkListViewController:(id)controller setAutoInstantOption:(int64_t)option;
+- (void)networkListViewController:(id)controller setWAPIEnabled:(BOOL)enabled;
+- (void)networkListViewController:(id)controller userDidChangePower:(BOOL)power;
 - (void)networkListViewController:(id)controller userDidChangePowerToggle:(unint64_t)toggle;
 - (void)networkListViewControllerDidAppear:(id)appear;
 - (void)networkListViewControllerDidDisappear:(id)disappear;
@@ -175,9 +179,9 @@
   if (!controllerCopy || !v12)
   {
     contentCachesContext = v12;
-    v24 = clientCopy;
+    v21 = clientCopy;
     v13 = 0;
-    goto LABEL_27;
+    goto LABEL_25;
   }
 
   v15 = NSProtocolFromString(&cfstr_Wfnetworklisti.isa);
@@ -188,9 +192,9 @@
     [WFNetworkListController initWithViewController:viewProvider:client:];
     interface = 0;
     contentCachesContext = v13;
-    v24 = clientCopy;
+    v21 = clientCopy;
     v13 = 0;
-    goto LABEL_27;
+    goto LABEL_25;
   }
 
   objc_storeStrong(&v13->_viewController, controller);
@@ -206,17 +210,10 @@
     if ((v18 & 1) == 0)
     {
       objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
-      v20 = off_279EBC2A8;
-      if ((isKindOfClass & 1) == 0)
-      {
-        v20 = off_279EBC2A0;
-      }
-
-      v21 = *v20;
-      v22 = objc_alloc_init(objc_opt_class());
+      objc_opt_isKindOfClass();
+      v19 = objc_alloc_init(objc_opt_class());
       viewProvider = v13->_viewProvider;
-      v13->_viewProvider = v22;
+      v13->_viewProvider = v19;
     }
   }
 
@@ -225,20 +222,20 @@
     [(WFNetworkListing *)v13->_viewController setDeviceCapability:WFCurrentDeviceCapability()];
   }
 
-  v24 = clientCopy;
+  v21 = clientCopy;
   if (!clientCopy)
   {
-    v24 = objc_alloc_init(WFClient);
+    v21 = objc_alloc_init(WFClient);
   }
 
-  objc_storeStrong(&v13->_wifiClient, v24);
-  v25 = objc_alloc_init(WFDiagnosticsManager);
+  objc_storeStrong(&v13->_wifiClient, v21);
+  v22 = objc_alloc_init(WFDiagnosticsManager);
   diagnosticsManager = v13->_diagnosticsManager;
-  v13->_diagnosticsManager = v25;
+  v13->_diagnosticsManager = v22;
 
-  v27 = [[WFNetworkListRandomMACManager alloc] initWithClient:v13->_wifiClient];
+  v24 = [[WFNetworkListRandomMACManager alloc] initWithClient:v13->_wifiClient];
   randomMACManager = v13->_randomMACManager;
-  v13->_randomMACManager = v27;
+  v13->_randomMACManager = v24;
 
   interface = [(WFClient *)v13->_wifiClient interface];
   if (interface)
@@ -250,13 +247,14 @@
 
   else
   {
-    v43 = WFLogForCategory(0);
-    v44 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v43 && os_log_type_enabled(v43, v44))
+    v41 = WFLogForCategory(0);
+    v42 = OSLogForWFLogLevel(1uLL);
+    v43 = v42;
+    if (WFCurrentLogLevel(v42, v44) && v41 && os_log_type_enabled(v41, v43))
     {
       *buf = 136315138;
       v47 = "[WFNetworkListController initWithViewController:viewProvider:client:]";
-      _os_log_impl(&dword_273ECD000, v43, v44, "%s: can't get WFInterface instance", buf, 0xCu);
+      _os_log_impl(&dword_273ECD000, v41, v43, "%s: can't get WFInterface instance", buf, 0xCu);
     }
   }
 
@@ -265,9 +263,9 @@
     [(WFNetworkListController *)v13 _setupWithoutInterface];
   }
 
-  v29 = objc_alloc_init(WFAssociationContextQueue);
+  v26 = objc_alloc_init(WFAssociationContextQueue);
   associationContextQueue = v13->_associationContextQueue;
-  v13->_associationContextQueue = v29;
+  v13->_associationContextQueue = v26;
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:v13 selector:sel__interfaceDidBecomeAvailable_ name:@"WFClientInterfaceAvailableNotification" object:0];
@@ -284,35 +282,35 @@
     v13->_lockdownModeEnabled = [mEMORY[0x277D243A0] enabled];
   }
 
-  v35 = WFLogForCategory(0);
-  v36 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v35 && os_log_type_enabled(v35, v36))
+  v32 = WFLogForCategory(0);
+  v33 = OSLogForWFLogLevel(3uLL);
+  v34 = v33;
+  if (WFCurrentLogLevel(v33, v35) >= 3 && v32 && os_log_type_enabled(v32, v34))
   {
-    v37 = "disabled";
+    v36 = "disabled";
     if (v13->_lockdownModeEnabled)
     {
-      v37 = "enabled";
+      v36 = "enabled";
     }
 
     *buf = 136315394;
     v47 = "[WFNetworkListController initWithViewController:viewProvider:client:]";
     v48 = 2080;
-    v49 = v37;
-    _os_log_impl(&dword_273ECD000, v35, v36, "%s: Lockdown mode is %s", buf, 0x16u);
+    v49 = v36;
+    _os_log_impl(&dword_273ECD000, v32, v34, "%s: Lockdown mode is %s", buf, 0x16u);
   }
 
   if (_os_feature_enabled_impl())
   {
-    v38 = objc_alloc_init(WFContentCachesContext);
+    v37 = objc_alloc_init(WFContentCachesContext);
     contentCachesContext = v13->_contentCachesContext;
-    v13->_contentCachesContext = v38;
-LABEL_27:
+    v13->_contentCachesContext = v37;
+LABEL_25:
   }
 
-  v40 = v13;
+  v39 = v13;
 
-  v41 = *MEMORY[0x277D85DE8];
-  return v40;
+  return v39;
 }
 
 - (WFNetworkListController)init
@@ -323,67 +321,68 @@ LABEL_27:
 
 - (void)_setupWithInterface:(id)interface
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
     *buf = 136315394;
-    v57 = "[WFNetworkListController _setupWithInterface:]";
-    v58 = 2112;
-    v59 = interfaceCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s: interface %@", buf, 0x16u);
+    v60 = "[WFNetworkListController _setupWithInterface:]";
+    v61 = 2112;
+    v62 = interfaceCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s: interface %@", buf, 0x16u);
   }
 
   objc_initWeak(&location, self);
-  v7 = [WFWiFiStateMonitor alloc];
+  v9 = [WFWiFiStateMonitor alloc];
   wifiClient = [(WFNetworkListController *)self wifiClient];
-  v50 = MEMORY[0x277D85DD0];
-  v51 = 3221225472;
-  v52 = __47__WFNetworkListController__setupWithInterface___block_invoke;
-  v53 = &unk_279EBD110;
-  objc_copyWeak(&v54, &location);
-  v9 = [(WFWiFiStateMonitor *)v7 initWithClient:wifiClient handler:&v50];
+  v53 = MEMORY[0x277D85DD0];
+  v54 = 3221225472;
+  v55 = __47__WFNetworkListController__setupWithInterface___block_invoke;
+  v56 = &unk_279EBD110;
+  objc_copyWeak(&v57, &location);
+  v11 = [(WFWiFiStateMonitor *)v9 initWithClient:wifiClient handler:&v53];
   stateMonitor = self->_stateMonitor;
-  self->_stateMonitor = v9;
+  self->_stateMonitor = v11;
 
-  [(WFWiFiStateMonitor *)self->_stateMonitor setIdentifier:@"com.apple.WiFiSettings", v50, v51, v52, v53];
-  v11 = objc_alloc_init(MEMORY[0x277CCABD8]);
+  [(WFWiFiStateMonitor *)self->_stateMonitor setIdentifier:@"com.apple.WiFiSettings", v53, v54, v55, v56];
+  v13 = objc_alloc_init(MEMORY[0x277CCABD8]);
   backgroundQueue = self->_backgroundQueue;
-  self->_backgroundQueue = v11;
+  self->_backgroundQueue = v13;
 
-  v13 = self->_backgroundQueue;
-  if (v13)
+  v15 = self->_backgroundQueue;
+  if (v15)
   {
-    [(NSOperationQueue *)v13 setQualityOfService:9];
+    [(NSOperationQueue *)v15 setQualityOfService:9];
     [(WFNetworkListController *)self _setupGASControllerWithInterface:interfaceCopy];
-    v14 = [WFScanManager alloc];
+    v16 = [WFScanManager alloc];
     wifiClient2 = [(WFNetworkListController *)self wifiClient];
-    v16 = [WFScanProxy scanProxyWithClient:wifiClient2];
-    v17 = [(WFScanManager *)v14 initWithScanProxy:v16 delegate:self];
+    v18 = [WFScanProxy scanProxyWithClient:wifiClient2];
+    v19 = [(WFScanManager *)v16 initWithScanProxy:v18 delegate:self];
     scanManager = self->_scanManager;
-    self->_scanManager = v17;
+    self->_scanManager = v19;
 
     if (self->_scanManager)
     {
-      v19 = objc_alloc_init(WFHotspotInterface);
+      v21 = objc_alloc_init(WFHotspotInterface);
       hotspotInterface = self->_hotspotInterface;
-      self->_hotspotInterface = v19;
+      self->_hotspotInterface = v21;
 
-      v21 = self->_hotspotInterface;
-      if (v21)
+      v23 = self->_hotspotInterface;
+      if (v23)
       {
-        [(WFHotspotInterface *)v21 setDelegate:self];
-        v22 = [[WFHealthManager alloc] initWithInterface:interfaceCopy];
+        [(WFHotspotInterface *)v23 setDelegate:self];
+        v24 = [[WFHealthManager alloc] initWithInterface:interfaceCopy];
         healthManager = self->_healthManager;
-        self->_healthManager = v22;
+        self->_healthManager = v24;
 
         if (self->_healthManager)
         {
-          v24 = objc_alloc_init(WFScanMetricsManager);
+          v26 = objc_alloc_init(WFScanMetricsManager);
           scanMetricsManager = self->_scanMetricsManager;
-          self->_scanMetricsManager = v24;
+          self->_scanMetricsManager = v26;
 
           if (self->_scanMetricsManager)
           {
@@ -398,7 +397,6 @@ LABEL_27:
             wifiClient3 = [(WFNetworkListController *)self wifiClient];
             -[WFNetworkListing setShowOtherNetwork:](self->_viewController, "setShowOtherNetwork:", [wifiClient3 isNetworkRestrictionActive] ^ 1);
 
-            viewProvider = self->_viewProvider;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -440,32 +438,33 @@ LABEL_27:
 
             if (![(WFNetworkListController *)self isSetup])
             {
-              v39 = WFLogForCategory(0);
-              v40 = OSLogForWFLogLevel(4uLL);
-              if (WFCurrentLogLevel() >= 4 && v39 && os_log_type_enabled(v39, v40))
+              v40 = WFLogForCategory(0);
+              v41 = OSLogForWFLogLevel(4uLL);
+              v42 = v41;
+              if (WFCurrentLogLevel(v41, v43) >= 4 && v40 && os_log_type_enabled(v40, v42))
               {
                 *buf = 0;
-                _os_log_impl(&dword_273ECD000, v39, v40, "Enabling auto join", buf, 2u);
+                _os_log_impl(&dword_273ECD000, v40, v42, "Enabling auto join", buf, 2u);
               }
 
               wifiClient4 = [(WFNetworkListController *)self wifiClient];
               [wifiClient4 setAutoJoinEnabled:1];
             }
 
-            viewController = self->_viewController;
             [(WFNetworkListController *)self setViewControllerSupportsCurrentNetworkSubtitle:objc_opt_respondsToSelector() & 1];
             if (![(WFNetworkListController *)self viewControllerSupportsCurrentNetworkSubtitle])
             {
-              v43 = WFLogForCategory(0);
-              v44 = OSLogForWFLogLevel(3uLL);
-              if (WFCurrentLogLevel() >= 3 && v43 && os_log_type_enabled(v43, v44))
+              v45 = WFLogForCategory(0);
+              v46 = OSLogForWFLogLevel(3uLL);
+              v47 = v46;
+              if (WFCurrentLogLevel(v46, v48) >= 3 && v45 && os_log_type_enabled(v45, v47))
               {
-                v45 = self->_viewController;
+                viewController = self->_viewController;
                 *buf = 136315394;
-                v57 = "[WFNetworkListController _setupWithInterface:]";
-                v58 = 2112;
-                v59 = v45;
-                _os_log_impl(&dword_273ECD000, v43, v44, "%s: %@ doesn't support currentNetworkSubtitle", buf, 0x16u);
+                v60 = "[WFNetworkListController _setupWithInterface:]";
+                v61 = 2112;
+                v62 = viewController;
+                _os_log_impl(&dword_273ECD000, v45, v47, "%s: %@ doesn't support currentNetworkSubtitle", buf, 0x16u);
               }
             }
 
@@ -493,10 +492,8 @@ LABEL_27:
     }
   }
 
-  objc_destroyWeak(&v54);
+  objc_destroyWeak(&v57);
   objc_destroyWeak(&location);
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WFNetworkListController__setupWithInterface___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -530,38 +527,38 @@ void __47__WFNetworkListController__setupWithInterface___block_invoke(uint64_t a
 
 void __60__WFNetworkListController__setupGASControllerWithInterface___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4 && os_log_type_enabled(v4, v6))
   {
-    v15 = 136315394;
-    v16 = "[WFNetworkListController _setupGASControllerWithInterface:]_block_invoke";
-    v17 = 1024;
-    v18 = a2;
-    _os_log_impl(&dword_273ECD000, v4, v5, "%s: HS20Supported %d", &v15, 0x12u);
+    v16 = 136315394;
+    v17 = "[WFNetworkListController _setupGASControllerWithInterface:]_block_invoke";
+    v18 = 1024;
+    v19 = a2;
+    _os_log_impl(&dword_273ECD000, v4, v6, "%s: HS20Supported %d", &v16, 0x12u);
   }
 
-  objc_copyWeak(&v15, (a1 + 40));
-  WeakRetained = objc_loadWeakRetained(&v15);
+  objc_copyWeak(&v16, (a1 + 40));
+  WeakRetained = objc_loadWeakRetained(&v16);
   [WeakRetained setHS20Supported:a2];
 
   if (a2)
   {
-    v7 = [WFGasQueryController alloc];
-    v8 = [*(a1 + 32) wifiClient];
-    v9 = [v8 cInterface];
-    v10 = [(WFGasQueryController *)v7 initWithInterface:v9];
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 112);
-    *(v11 + 112) = v10;
+    v9 = [WFGasQueryController alloc];
+    v10 = [*(a1 + 32) wifiClient];
+    v11 = [v10 cInterface];
+    v12 = [(WFGasQueryController *)v9 initWithInterface:v11];
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 112);
+    *(v13 + 112) = v12;
 
-    v13 = objc_loadWeakRetained(&v15);
-    [*(*(a1 + 32) + 112) setDelegate:v13];
+    v15 = objc_loadWeakRetained(&v16);
+    [*(*(a1 + 32) + 112) setDelegate:v15];
   }
 
-  objc_destroyWeak(&v15);
-  v14 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v16);
 }
 
 - (void)dealloc
@@ -576,14 +573,15 @@ void __60__WFNetworkListController__setupGASControllerWithInterface___block_invo
 
 - (void)_registerForApplicationNotifications
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    v10 = 136315138;
-    v11 = "[WFNetworkListController _registerForApplicationNotifications]";
-    _os_log_impl(&dword_273ECD000, v3, v4, "%s", &v10, 0xCu);
+    v11 = 136315138;
+    v12 = "[WFNetworkListController _registerForApplicationNotifications]";
+    _os_log_impl(&dword_273ECD000, v3, v5, "%s", &v11, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -597,31 +595,30 @@ void __60__WFNetworkListController__setupGASControllerWithInterface___block_invo
 
   defaultCenter4 = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter4 addObserver:self selector:sel__applicationWillEnterForeground_ name:*MEMORY[0x277D76758] object:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applicationWillEnterForeground:(id)foreground
 {
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_273ECD000, v4, v5, "entered foreground", v11, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_273ECD000, v4, v6, "entered foreground", v13, 2u);
   }
 
   scanMetricsManager = [(WFNetworkListController *)self scanMetricsManager];
   [scanMetricsManager reset];
 
   viewController = [(WFNetworkListController *)self viewController];
-  v8 = NSProtocolFromString(&cfstr_Wfknownnetwork.isa);
-  if ([viewController conformsToProtocol:v8])
+  v10 = NSProtocolFromString(&cfstr_Wfknownnetwork.isa);
+  if ([viewController conformsToProtocol:v10])
   {
     viewController2 = [(WFNetworkListController *)self viewController];
-    v10 = objc_opt_respondsToSelector();
+    v12 = objc_opt_respondsToSelector();
 
-    if ((v10 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
       return;
     }
@@ -637,14 +634,15 @@ void __60__WFNetworkListController__setupGASControllerWithInterface___block_invo
 
 - (void)_applicationDidEnterBackground:(id)background
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   backgroundCopy = background;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) && v5 && os_log_type_enabled(v5, v7))
   {
     *buf = 0;
-    _os_log_impl(&dword_273ECD000, v5, v6, "entered background", buf, 2u);
+    _os_log_impl(&dword_273ECD000, v5, v7, "entered background", buf, 2u);
   }
 
   scanMetricsManager = [(WFNetworkListController *)self scanMetricsManager];
@@ -656,48 +654,46 @@ void __60__WFNetworkListController__setupGASControllerWithInterface___block_invo
 
   if (isScanning)
   {
-    v10 = WFLogForCategory(0);
-    v11 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v10 && os_log_type_enabled(v10, v11))
+    v12 = WFLogForCategory(0);
+    v13 = OSLogForWFLogLevel(1uLL);
+    v14 = v13;
+    if (WFCurrentLogLevel(v13, v15) && v12 && os_log_type_enabled(v12, v14))
     {
       *buf = 136315138;
-      v19 = "[WFNetworkListController _applicationDidEnterBackground:]";
-      _os_log_impl(&dword_273ECD000, v10, v11, "%s: creating bg task to disable hotspot scanning", buf, 0xCu);
+      v22 = "[WFNetworkListController _applicationDidEnterBackground:]";
+      _os_log_impl(&dword_273ECD000, v12, v14, "%s: creating bg task to disable hotspot scanning", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-    v13 = [mEMORY[0x277D75128] beginBackgroundTaskWithExpirationHandler:&__block_literal_global_1];
+    v17 = [mEMORY[0x277D75128] beginBackgroundTaskWithExpirationHandler:&__block_literal_global_1];
 
-    v14 = dispatch_get_global_queue(21, 0);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __58__WFNetworkListController__applicationDidEnterBackground___block_invoke_100;
-    v16[3] = &unk_279EBD180;
-    objc_copyWeak(v17, buf);
-    v17[1] = v13;
-    dispatch_async(v14, v16);
+    v18 = dispatch_get_global_queue(21, 0);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __58__WFNetworkListController__applicationDidEnterBackground___block_invoke_100;
+    v19[3] = &unk_279EBD180;
+    objc_copyWeak(v20, buf);
+    v20[1] = v17;
+    dispatch_async(v18, v19);
 
-    objc_destroyWeak(v17);
+    objc_destroyWeak(v20);
     objc_destroyWeak(buf);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    v3 = 136315138;
-    v4 = "[WFNetworkListController _applicationDidEnterBackground:]_block_invoke";
-    _os_log_impl(&dword_273ECD000, v0, v1, "%s: failed to stop scanning", &v3, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFNetworkListController _applicationDidEnterBackground:]_block_invoke";
+    _os_log_impl(&dword_273ECD000, v0, v2, "%s: failed to stop scanning", &v4, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke_100(uint64_t a1)
@@ -713,10 +709,11 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
 {
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_273ECD000, v4, v5, "did become active", v11, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_273ECD000, v4, v6, "did become active", v13, 2u);
   }
 
   [(WFNetworkListController *)self _updatePowerState];
@@ -724,13 +721,13 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
   [wifiClient reloadConfiguration];
 
   viewController = [(WFNetworkListController *)self viewController];
-  v8 = NSProtocolFromString(&cfstr_Wfknownnetwork.isa);
-  if ([viewController conformsToProtocol:v8])
+  v10 = NSProtocolFromString(&cfstr_Wfknownnetwork.isa);
+  if ([viewController conformsToProtocol:v10])
   {
     viewController2 = [(WFNetworkListController *)self viewController];
-    v10 = objc_opt_respondsToSelector();
+    v12 = objc_opt_respondsToSelector();
 
-    if ((v10 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
       return;
     }
@@ -748,10 +745,11 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
 {
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_273ECD000, v4, v5, "will resign active", v10, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_273ECD000, v4, v6, "will resign active", v12, 2u);
   }
 
   if ([(WFNetworkListController *)self _shouldPauseScanning])
@@ -762,13 +760,13 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
   [(WFNetworkListController *)self _stopHotspotScan];
   [(WFNetworkListController *)self removeScanCache];
   viewController = [(WFNetworkListController *)self viewController];
-  v7 = NSProtocolFromString(&cfstr_Wfknownnetwork.isa);
-  if ([viewController conformsToProtocol:v7])
+  v9 = NSProtocolFromString(&cfstr_Wfknownnetwork.isa);
+  if ([viewController conformsToProtocol:v9])
   {
     viewController2 = [(WFNetworkListController *)self viewController];
-    v9 = objc_opt_respondsToSelector();
+    v11 = objc_opt_respondsToSelector();
 
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
       return;
     }
@@ -784,16 +782,17 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
 
 - (void)_cleanUpStatesForDismissal
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (![(WFNetworkListController *)self isSetup])
   {
     v3 = WFLogForCategory(0);
     v4 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+    v5 = v4;
+    if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
     {
-      v21 = 136315138;
-      v22 = "[WFNetworkListController _cleanUpStatesForDismissal]";
-      _os_log_impl(&dword_273ECD000, v3, v4, "%s: enabling autojoin", &v21, 0xCu);
+      v26 = 136315138;
+      v27 = "[WFNetworkListController _cleanUpStatesForDismissal]";
+      _os_log_impl(&dword_273ECD000, v3, v5, "%s: enabling autojoin", &v26, 0xCu);
     }
 
     wifiClient = [(WFNetworkListController *)self wifiClient];
@@ -804,19 +803,20 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
 
     if (associationContext)
     {
-      v7 = WFLogForCategory(0);
-      v8 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v7)
+      v9 = WFLogForCategory(0);
+      v10 = OSLogForWFLogLevel(1uLL);
+      v11 = v10;
+      if (WFCurrentLogLevel(v10, v12) && v9)
       {
-        v9 = v7;
-        if (os_log_type_enabled(v9, v8))
+        v13 = v9;
+        if (os_log_type_enabled(v13, v11))
         {
           associationContext2 = [(WFNetworkListController *)self associationContext];
-          v21 = 136315394;
-          v22 = "[WFNetworkListController _cleanUpStatesForDismissal]";
-          v23 = 2112;
-          v24 = associationContext2;
-          _os_log_impl(&dword_273ECD000, v9, v8, "%s: association context %@", &v21, 0x16u);
+          v26 = 136315394;
+          v27 = "[WFNetworkListController _cleanUpStatesForDismissal]";
+          v28 = 2112;
+          v29 = associationContext2;
+          _os_log_impl(&dword_273ECD000, v13, v11, "%s: association context %@", &v26, 0x16u);
         }
       }
 
@@ -825,25 +825,26 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
 
       if (state == 2)
       {
-        v13 = WFLogForCategory(0);
-        v14 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v13)
+        v17 = WFLogForCategory(0);
+        v18 = OSLogForWFLogLevel(1uLL);
+        v19 = v18;
+        if (WFCurrentLogLevel(v18, v20) && v17)
         {
-          v15 = v13;
-          if (os_log_type_enabled(v15, v14))
+          v21 = v17;
+          if (os_log_type_enabled(v21, v19))
           {
             associationContext4 = [(WFNetworkListController *)self associationContext];
             networkName = [associationContext4 networkName];
-            v21 = 136315394;
-            v22 = "[WFNetworkListController _cleanUpStatesForDismissal]";
-            v23 = 2112;
-            v24 = networkName;
-            _os_log_impl(&dword_273ECD000, v15, v14, "%s: canceling association to %@ waiting on user input due to backgrounding", &v21, 0x16u);
+            v26 = 136315394;
+            v27 = "[WFNetworkListController _cleanUpStatesForDismissal]";
+            v28 = 2112;
+            v29 = networkName;
+            _os_log_impl(&dword_273ECD000, v21, v19, "%s: canceling association to %@ waiting on user input due to backgrounding", &v26, 0x16u);
           }
         }
 
-        v18 = [MEMORY[0x277CCA9B8] associationErrorWithReason:15];
-        [(WFNetworkListController *)self _associationDidFinish:1 error:v18 network:0];
+        v24 = [MEMORY[0x277CCA9B8] associationErrorWithReason:15];
+        [(WFNetworkListController *)self _associationDidFinish:1 error:v24 network:0];
       }
 
       associationContextQueue = [(WFNetworkListController *)self associationContextQueue];
@@ -855,30 +856,29 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
     [(WFNetworkListController *)self setKnownHiddenNetworkNames:0];
     [(WFNetworkListController *)self setRetainedNetworkListController:0];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_networkRestrictionStateDidChange:(id)change
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   wifiClient = [(WFNetworkListController *)self wifiClient];
   isNetworkRestrictionActive = [wifiClient isNetworkRestrictionActive];
 
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6 && os_log_type_enabled(v6, v8))
   {
-    v22 = 136315394;
-    v23 = "[WFNetworkListController _networkRestrictionStateDidChange:]";
-    v24 = 1024;
-    v25 = isNetworkRestrictionActive;
-    _os_log_impl(&dword_273ECD000, v6, v7, "%s: network restriction did change (new state: %d)", &v22, 0x12u);
+    v23 = 136315394;
+    v24 = "[WFNetworkListController _networkRestrictionStateDidChange:]";
+    v25 = 1024;
+    v26 = isNetworkRestrictionActive;
+    _os_log_impl(&dword_273ECD000, v6, v8, "%s: network restriction did change (new state: %d)", &v23, 0x12u);
   }
 
-  v8 = isNetworkRestrictionActive ^ 1u;
+  v10 = isNetworkRestrictionActive ^ 1u;
   viewController = [(WFNetworkListController *)self viewController];
-  [viewController setShowOtherNetwork:v8];
+  [viewController setShowOtherNetwork:v10];
 
   viewController2 = [(WFNetworkListController *)self viewController];
   [viewController2 refresh];
@@ -886,12 +886,12 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
   scanManager = [(WFNetworkListController *)self scanManager];
   [scanManager pause];
 
-  if (v8)
+  if (v10)
   {
     scanManager2 = [(WFNetworkListController *)self scanManager];
     [scanManager2 resume];
 
-    [(WFNetworkListController *)self setCanScanForPersonalHotspots:v8];
+    [(WFNetworkListController *)self setCanScanForPersonalHotspots:v10];
     [(WFNetworkListController *)self _startHotspotScan];
   }
 
@@ -908,98 +908,95 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
 
     scanManager4 = [(WFNetworkListController *)self scanManager];
     networks = [(WFNetworkListController *)self networks];
-    v17 = [(WFNetworkListController *)self scanManager:scanManager4 filterScanResults:networks];
-    [(WFNetworkListController *)self setNetworks:v17];
+    v19 = [(WFNetworkListController *)self scanManager:scanManager4 filterScanResults:networks];
+    [(WFNetworkListController *)self setNetworks:v19];
 
     viewController4 = [(WFNetworkListController *)self viewController];
     networks2 = [(WFNetworkListController *)self networks];
     [viewController4 setNetworks:networks2];
 
-    [(WFNetworkListController *)self setCanScanForPersonalHotspots:v8];
+    [(WFNetworkListController *)self setCanScanForPersonalHotspots:v10];
     [(WFNetworkListController *)self _stopHotspotScan];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_powerModificationDisableStateDidChange:(id)change
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   wifiClient = [(WFNetworkListController *)self wifiClient];
   isPowerModificationDisabled = [wifiClient isPowerModificationDisabled];
 
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6 && os_log_type_enabled(v6, v8))
   {
-    v8 = "Enabled";
+    v10 = "Enabled";
     if (isPowerModificationDisabled)
     {
-      v8 = "Disabled";
+      v10 = "Disabled";
     }
 
-    v13 = 136315394;
-    v14 = "[WFNetworkListController _powerModificationDisableStateDidChange:]";
-    v15 = 2080;
-    v16 = v8;
-    _os_log_impl(&dword_273ECD000, v6, v7, "%s: Power Modification %s", &v13, 0x16u);
+    v14 = 136315394;
+    v15 = "[WFNetworkListController _powerModificationDisableStateDidChange:]";
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_273ECD000, v6, v8, "%s: Power Modification %s", &v14, 0x16u);
   }
 
   viewController = [(WFNetworkListController *)self viewController];
-  v10 = objc_opt_respondsToSelector();
+  v12 = objc_opt_respondsToSelector();
 
-  if (v10)
+  if (v12)
   {
     viewController2 = [(WFNetworkListController *)self viewController];
     [viewController2 powerModificationStateDidChange:isPowerModificationDisabled];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_managedAppleIDStateDidChange:(id)change
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   wifiClient = [(WFNetworkListController *)self wifiClient];
   isManagedAppleID = [wifiClient isManagedAppleID];
 
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6 && os_log_type_enabled(v6, v8))
   {
-    v8 = "Non-Managed";
+    v10 = "Non-Managed";
     if (isManagedAppleID)
     {
-      v8 = "Managed";
+      v10 = "Managed";
     }
 
-    v13 = 136315394;
-    v14 = "[WFNetworkListController _managedAppleIDStateDidChange:]";
-    v15 = 2080;
-    v16 = v8;
-    _os_log_impl(&dword_273ECD000, v6, v7, "%s: %s Account", &v13, 0x16u);
+    v14 = 136315394;
+    v15 = "[WFNetworkListController _managedAppleIDStateDidChange:]";
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_273ECD000, v6, v8, "%s: %s Account", &v14, 0x16u);
   }
 
   viewController = [(WFNetworkListController *)self viewController];
-  v10 = objc_opt_respondsToSelector();
+  v12 = objc_opt_respondsToSelector();
 
-  if (v10)
+  if (v12)
   {
     viewController2 = [(WFNetworkListController *)self viewController];
     [viewController2 managedAppleIDStateChange:isManagedAppleID];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeScanCache
 {
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_273ECD000, v3, v4, "removing scan cache", v8, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_273ECD000, v3, v5, "removing scan cache", v10, 2u);
   }
 
   [(WFNetworkListController *)self setNetworks:0];
@@ -1017,24 +1014,25 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
 
 - (void)_powerStateChanged
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   wifiClient = [(WFNetworkListController *)self wifiClient];
   -[WFNetworkListController setPowerState:](self, "setPowerState:", [wifiClient powered]);
 
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4)
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4)
   {
-    v6 = v4;
-    if (os_log_type_enabled(v6, v5))
+    v8 = v4;
+    if (os_log_type_enabled(v8, v6))
     {
       [(WFNetworkListController *)self powerState];
-      v7 = WFPowerStateToggleToString();
-      v11 = 136315394;
-      v12 = "[WFNetworkListController _powerStateChanged]";
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_273ECD000, v6, v5, "%s: power state changed to %@", &v11, 0x16u);
+      v9 = WFPowerStateToggleToString();
+      v12 = 136315394;
+      v13 = "[WFNetworkListController _powerStateChanged]";
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_273ECD000, v8, v6, "%s: power state changed to %@", &v12, 0x16u);
     }
   }
 
@@ -1055,163 +1053,161 @@ void __58__WFNetworkListController__applicationDidEnterBackground___block_invoke
     associationContextQueue = [(WFNetworkListController *)self associationContextQueue];
     [associationContextQueue removeAll];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePowerState
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
     *buf = 136315138;
-    v10 = "[WFNetworkListController _updatePowerState]";
-    _os_log_impl(&dword_273ECD000, v3, v4, "%s: updating power state", buf, 0xCu);
+    v11 = "[WFNetworkListController _updatePowerState]";
+    _os_log_impl(&dword_273ECD000, v3, v5, "%s: updating power state", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   wifiClient = [(WFNetworkListController *)self wifiClient];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __44__WFNetworkListController__updatePowerState__block_invoke;
-  v7[3] = &unk_279EBD138;
-  objc_copyWeak(&v8, buf);
-  v7[4] = self;
-  [wifiClient asyncPowered:v7];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__WFNetworkListController__updatePowerState__block_invoke;
+  v8[3] = &unk_279EBD138;
+  objc_copyWeak(&v9, buf);
+  v8[4] = self;
+  [wifiClient asyncPowered:v8];
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__WFNetworkListController__updatePowerState__block_invoke(uint64_t a1, unsigned int a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
     *buf = 136315394;
-    v30 = "[WFNetworkListController _updatePowerState]_block_invoke";
-    v31 = 1024;
-    v32 = a2;
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s: powered %d", buf, 0x12u);
+    v36 = "[WFNetworkListController _updatePowerState]_block_invoke";
+    v37 = 1024;
+    v38 = a2;
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s: powered %d", buf, 0x12u);
   }
 
-  v7 = [WeakRetained interface];
-  v8 = v7 == 0;
+  v9 = [WeakRetained interface];
+  v10 = v9 == 0;
 
-  if (v8)
+  if (v10)
   {
-    v9 = 3;
+    v11 = 3;
   }
 
   else
   {
-    v9 = a2;
+    v11 = a2;
   }
 
-  [WeakRetained setPowerState:v9];
-  v10 = [WeakRetained interface];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __44__WFNetworkListController__updatePowerState__block_invoke_114;
-  v27[3] = &unk_279EBD1C8;
-  objc_copyWeak(&v28, (a1 + 40));
-  [v10 asyncCurrentNetwork:v27];
+  [WeakRetained setPowerState:v11];
+  v12 = [WeakRetained interface];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __44__WFNetworkListController__updatePowerState__block_invoke_114;
+  v33[3] = &unk_279EBD1C8;
+  objc_copyWeak(&v34, (a1 + 40));
+  [v12 asyncCurrentNetwork:v33];
 
   if (a2)
   {
-    v11 = [MEMORY[0x277D75128] sharedApplication];
-    v12 = [v11 applicationState] == 0;
+    v13 = [MEMORY[0x277D75128] sharedApplication];
+    v14 = [v13 applicationState] == 0;
 
-    if (!v12)
+    if (!v14)
     {
-      v13 = WFLogForCategory(0);
-      v14 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v13 || !os_log_type_enabled(v13, v14))
+      v15 = WFLogForCategory(0);
+      v16 = OSLogForWFLogLevel(3uLL);
+      if (WFCurrentLogLevel(v16, v17) < 3 || !v15 || !os_log_type_enabled(v15, v16))
       {
         goto LABEL_21;
       }
 
       *buf = 0;
-      v15 = "WiFi application status is not active";
+      v18 = "WiFi application status is not active";
       goto LABEL_19;
     }
 
     if ([WeakRetained isAssociating])
     {
-      v13 = WFLogForCategory(0);
-      v14 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v13 || !os_log_type_enabled(v13, v14))
+      v15 = WFLogForCategory(0);
+      v16 = OSLogForWFLogLevel(3uLL);
+      if (WFCurrentLogLevel(v16, v19) < 3 || !v15 || !os_log_type_enabled(v15, v16))
       {
         goto LABEL_21;
       }
 
       *buf = 0;
-      v15 = "not resuming scans due to in progress association";
+      v18 = "not resuming scans due to in progress association";
 LABEL_19:
-      v16 = v13;
-      v17 = v14;
-      v18 = 2;
+      v20 = v15;
+      v21 = v16;
+      v22 = 2;
 LABEL_20:
-      _os_log_impl(&dword_273ECD000, v16, v17, v15, buf, v18);
+      _os_log_impl(&dword_273ECD000, v20, v21, v18, buf, v22);
 LABEL_21:
 
       goto LABEL_22;
     }
 
-    v20 = [*(a1 + 32) viewController];
-    v21 = objc_opt_respondsToSelector();
+    v23 = [*(a1 + 32) viewController];
+    v24 = objc_opt_respondsToSelector();
 
-    if (v21)
+    if (v24)
     {
-      v22 = [*(a1 + 32) viewController];
-      v23 = [v22 networkListVisible];
+      v25 = [*(a1 + 32) viewController];
+      v26 = [v25 networkListVisible];
 
-      if ((v23 & 1) == 0)
+      if ((v26 & 1) == 0)
       {
-        v13 = WFLogForCategory(0);
-        v26 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() < 3 || !v13 || !os_log_type_enabled(v13, v26))
+        v15 = WFLogForCategory(0);
+        v31 = OSLogForWFLogLevel(3uLL);
+        if (WFCurrentLogLevel(v31, v32) < 3 || !v15 || !os_log_type_enabled(v15, v31))
         {
           goto LABEL_21;
         }
 
         *buf = 136315138;
-        v30 = "[WFNetworkListController _updatePowerState]_block_invoke";
-        v15 = "%s: Skipping scanning for setup until wifi page is visible";
-        v16 = v13;
-        v17 = v26;
-        v18 = 12;
+        v36 = "[WFNetworkListController _updatePowerState]_block_invoke";
+        v18 = "%s: Skipping scanning for setup until wifi page is visible";
+        v20 = v15;
+        v21 = v31;
+        v22 = 12;
         goto LABEL_20;
       }
     }
 
-    v24 = WFLogForCategory(0);
-    v25 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v24 && os_log_type_enabled(v24, v25))
+    v27 = WFLogForCategory(0);
+    v28 = OSLogForWFLogLevel(3uLL);
+    v29 = v28;
+    if (WFCurrentLogLevel(v28, v30) >= 3 && v27 && os_log_type_enabled(v27, v29))
     {
       *buf = 136315138;
-      v30 = "[WFNetworkListController _updatePowerState]_block_invoke";
-      _os_log_impl(&dword_273ECD000, v24, v25, "%s: resuming scans due to power state", buf, 0xCu);
+      v36 = "[WFNetworkListController _updatePowerState]_block_invoke";
+      _os_log_impl(&dword_273ECD000, v27, v29, "%s: resuming scans due to power state", buf, 0xCu);
     }
 
     [WeakRetained _resumeScanning];
   }
 
 LABEL_22:
-  objc_destroyWeak(&v28);
-
-  v19 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v34);
 }
 
 void __44__WFNetworkListController__updatePowerState__block_invoke_114(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained isHS20Supported];
@@ -1227,52 +1223,51 @@ void __44__WFNetworkListController__updatePowerState__block_invoke_114(uint64_t 
         {
           v7 = WFLogForCategory(0);
           v8 = OSLogForWFLogLevel(3uLL);
-          if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+          v9 = v8;
+          if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
           {
-            v11 = 136315394;
-            v12 = "[WFNetworkListController _updatePowerState]_block_invoke";
-            v13 = 2112;
-            v14 = v3;
-            _os_log_impl(&dword_273ECD000, v7, v8, "%s: resolving profile for %@", &v11, 0x16u);
+            v12 = 136315394;
+            v13 = "[WFNetworkListController _updatePowerState]_block_invoke";
+            v14 = 2112;
+            v15 = v3;
+            _os_log_impl(&dword_273ECD000, v7, v9, "%s: resolving profile for %@", &v12, 0x16u);
           }
 
-          v9 = [WeakRetained gasController];
-          [v9 resolveProfileForNetwork:v3 handler:&__block_literal_global_118 force:1];
+          v11 = [WeakRetained gasController];
+          [v11 resolveProfileForNetwork:v3 handler:&__block_literal_global_118 force:1];
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __44__WFNetworkListController__updatePowerState__block_invoke_115(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = WFLogForCategory(5uLL);
   v7 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) && v6 && os_log_type_enabled(v6, v8))
   {
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_273ECD000, v6, v7, "resolved profile %@ error %@", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_273ECD000, v6, v8, "resolved profile %@ error %@", &v10, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startScanning
 {
   v3 = WFLogForCategory(6uLL);
   v4 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) && v3 && os_log_type_enabled(v3, v5))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_273ECD000, v3, v4, "start scanning", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_273ECD000, v3, v5, "start scanning", v8, 2u);
   }
 
   [(WFNetworkListController *)self _startHotspotScan];
@@ -1284,10 +1279,11 @@ void __44__WFNetworkListController__updatePowerState__block_invoke_115(uint64_t 
 {
   v3 = WFLogForCategory(6uLL);
   v4 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) && v3 && os_log_type_enabled(v3, v5))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_273ECD000, v3, v4, "stop scanning", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_273ECD000, v3, v5, "stop scanning", v8, 2u);
   }
 
   [(WFNetworkListController *)self _stopHotspotScan];
@@ -1299,10 +1295,11 @@ void __44__WFNetworkListController__updatePowerState__block_invoke_115(uint64_t 
 {
   v3 = WFLogForCategory(6uLL);
   v4 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) && v3 && os_log_type_enabled(v3, v5))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_273ECD000, v3, v4, "resume scans", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_273ECD000, v3, v5, "resume scans", v8, 2u);
   }
 
   [(WFNetworkListController *)self _startHotspotScan];
@@ -1340,17 +1337,17 @@ void __44__WFNetworkListController__updatePowerState__block_invoke_115(uint64_t 
   {
     hotspotInterface = [(WFNetworkListController *)self hotspotInterface];
     [hotspotInterface startBrowsing];
-    v3 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v4 = WFLogForCategory(0);
-    v5 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v4)
+    v3 = WFLogForCategory(0);
+    v4 = OSLogForWFLogLevel(3uLL);
+    v5 = v4;
+    if (WFCurrentLogLevel(v4, v6) >= 3 && v3)
     {
-      v6 = v4;
-      if (os_log_type_enabled(v6, v5))
+      v7 = v3;
+      if (os_log_type_enabled(v7, v5))
       {
         *buf = 136315650;
         v10 = "[WFNetworkListController _startHotspotScan]";
@@ -1358,11 +1355,9 @@ void __44__WFNetworkListController__updatePowerState__block_invoke_115(uint64_t 
         scanForPersonalHotspots = [(WFNetworkListController *)self scanForPersonalHotspots];
         v13 = 1024;
         canScanForPersonalHotspots = [(WFNetworkListController *)self canScanForPersonalHotspots];
-        _os_log_impl(&dword_273ECD000, v6, v5, "%s: hotspot scanning disabled (scan %d, canScan %d)", buf, 0x18u);
+        _os_log_impl(&dword_273ECD000, v7, v5, "%s: hotspot scanning disabled (scan %d, canScan %d)", buf, 0x18u);
       }
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1384,7 +1379,7 @@ void __44__WFNetworkListController__updatePowerState__block_invoke_115(uint64_t 
 
 void __59__WFNetworkListController__updateViewControllerScanResults__block_invoke(uint64_t a1)
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v159 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) networks];
 
   if (v1)
@@ -1399,227 +1394,232 @@ void __59__WFNetworkListController__updateViewControllerScanResults__block_invok
     v8 = [v6 setWithArray:v7];
     v9 = [v8 allObjects];
 
-    v97 = [MEMORY[0x277CBEB58] setWithArray:v9];
+    v118 = [MEMORY[0x277CBEB58] setWithArray:v9];
   }
 
   else
   {
-    v97 = [MEMORY[0x277CBEB58] set];
+    v118 = [MEMORY[0x277CBEB58] set];
   }
 
   v10 = [*(a1 + 32) hotspotInterface];
-  v98 = [v10 networks];
+  v119 = [v10 networks];
 
-  if (v98)
+  if (v119)
   {
-    v101 = [v97 mutableCopy];
-    v108 = [v101 mutableCopy];
-    v109 = [v98 mutableCopy];
-    v123 = 0u;
-    v124 = 0u;
-    v125 = 0u;
-    v126 = 0u;
-    obj = v98;
-    v102 = [obj countByEnumeratingWithState:&v123 objects:v137 count:16];
-    if (v102)
+    v122 = [v118 mutableCopy];
+    v129 = [v122 mutableCopy];
+    v130 = [v119 mutableCopy];
+    v144 = 0u;
+    v145 = 0u;
+    v146 = 0u;
+    v147 = 0u;
+    obj = v119;
+    v123 = [obj countByEnumeratingWithState:&v144 objects:v158 count:16];
+    if (v123)
     {
-      v100 = *v124;
+      v121 = *v145;
       do
       {
         v11 = 0;
         do
         {
-          if (*v124 != v100)
+          if (*v145 != v121)
           {
             v12 = v11;
             objc_enumerationMutation(obj);
             v11 = v12;
           }
 
-          v104 = v11;
+          v125 = v11;
           v13 = MEMORY[0x277CCAC30];
-          v110 = *(*(&v123 + 1) + 8 * v11);
-          v14 = [v110 ssid];
+          v131 = *(*(&v144 + 1) + 8 * v11);
+          v14 = [v131 ssid];
           v15 = [v13 predicateWithFormat:@"ssid == %@", v14];
-          v105 = [v109 filteredSetUsingPredicate:v15];
+          v126 = [v130 filteredSetUsingPredicate:v15];
 
-          if ([v105 count] >= 2)
+          if ([v126 count] >= 2)
           {
             v16 = WFLogForCategory(0);
             v17 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v16 && os_log_type_enabled(v16, v17))
+            v18 = v17;
+            if (WFCurrentLogLevel(v17, v19) >= 3 && v16 && os_log_type_enabled(v16, v18))
             {
               *buf = 0;
-              _os_log_impl(&dword_273ECD000, v16, v17, "More than one HS of same name nearby!", buf, 2u);
+              _os_log_impl(&dword_273ECD000, v16, v18, "More than one HS of same name nearby!", buf, 2u);
             }
 
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x3032000000;
-            v134 = __Block_byref_object_copy_;
-            v135 = __Block_byref_object_dispose_;
-            v136 = &stru_2882E4AD8;
-            v122[0] = MEMORY[0x277D85DD0];
-            v122[1] = 3221225472;
-            v122[2] = __59__WFNetworkListController__updateViewControllerScanResults__block_invoke_131;
-            v122[3] = &unk_279EBD1F0;
-            v122[4] = buf;
-            [v105 enumerateObjectsUsingBlock:v122];
-            v18 = WFLogForCategory(0);
-            v19 = OSLogForWFLogLevel(4uLL);
-            if (WFCurrentLogLevel() >= 4 && v18 && os_log_type_enabled(v18, v19))
+            v155 = __Block_byref_object_copy_;
+            v156 = __Block_byref_object_dispose_;
+            v157 = &stru_2882E4AD8;
+            v143[0] = MEMORY[0x277D85DD0];
+            v143[1] = 3221225472;
+            v143[2] = __59__WFNetworkListController__updateViewControllerScanResults__block_invoke_131;
+            v143[3] = &unk_279EBD1F0;
+            v143[4] = buf;
+            [v126 enumerateObjectsUsingBlock:v143];
+            v20 = WFLogForCategory(0);
+            v21 = OSLogForWFLogLevel(4uLL);
+            v22 = v21;
+            if (WFCurrentLogLevel(v21, v23) >= 4 && v20 && os_log_type_enabled(v20, v22))
             {
-              v20 = *(*&buf[8] + 40);
-              *v128 = 138412290;
-              v129 = v20;
-              _os_log_impl(&dword_273ECD000, v18, v19, "Hotspot networks: %@", v128, 0xCu);
+              v24 = *(*&buf[8] + 40);
+              *v149 = 138412290;
+              v150 = v24;
+              _os_log_impl(&dword_273ECD000, v20, v22, "Hotspot networks: %@", v149, 0xCu);
             }
 
-            v120 = 0u;
-            v121 = 0u;
-            v118 = 0u;
-            v119 = 0u;
-            v21 = v105;
-            v22 = [v21 countByEnumeratingWithState:&v118 objects:v132 count:16];
-            if (v22)
+            v141 = 0u;
+            v142 = 0u;
+            v139 = 0u;
+            v140 = 0u;
+            v25 = v126;
+            v26 = [v25 countByEnumeratingWithState:&v139 objects:v153 count:16];
+            if (v26)
             {
-              v23 = 0;
-              v24 = *v119;
+              v27 = 0;
+              v28 = *v140;
               do
               {
-                v25 = 0;
-                v26 = -v23;
-                v106 = v23 + v22;
+                v29 = 0;
+                v30 = -v27;
+                v127 = v27 + v26;
                 do
                 {
-                  if (*v119 != v24)
+                  if (*v140 != v28)
                   {
-                    objc_enumerationMutation(v21);
+                    objc_enumerationMutation(v25);
                   }
 
-                  v27 = *(*(&v118 + 1) + 8 * v25);
-                  if (v27)
+                  v31 = *(*(&v139 + 1) + 8 * v29);
+                  if (v31)
                   {
-                    v28 = v26 == v25;
+                    v32 = v30 == v29;
                   }
 
                   else
                   {
-                    v28 = 1;
+                    v32 = 1;
                   }
 
-                  if (v28)
+                  if (v32)
                   {
-                    v29 = WFLogForCategory(0);
-                    v30 = OSLogForWFLogLevel(4uLL);
-                    if (WFCurrentLogLevel() >= 4 && v29)
+                    v33 = WFLogForCategory(0);
+                    v34 = OSLogForWFLogLevel(4uLL);
+                    v35 = v34;
+                    if (WFCurrentLogLevel(v34, v36) >= 4 && v33)
                     {
-                      v31 = v29;
-                      if (os_log_type_enabled(v31, v30))
+                      v37 = v33;
+                      if (os_log_type_enabled(v37, v35))
                       {
-                        v32 = [v27 ssid];
-                        v33 = [v27 uniqueIdentifier];
-                        *v128 = 138412546;
-                        v129 = v32;
-                        v130 = 2048;
-                        v131 = v33;
-                        _os_log_impl(&dword_273ECD000, v31, v30, "Shown hotspot: %@, uniqueidentifier: %lu\n", v128, 0x16u);
+                        v38 = [v31 ssid];
+                        v39 = [v31 uniqueIdentifier];
+                        *v149 = 138412546;
+                        v150 = v38;
+                        v151 = 2048;
+                        v152 = v39;
+                        _os_log_impl(&dword_273ECD000, v37, v35, "Shown hotspot: %@, uniqueidentifier: %lu\n", v149, 0x16u);
                       }
                     }
                   }
 
                   else
                   {
-                    [v109 removeObject:*(*(&v118 + 1) + 8 * v25)];
+                    [v130 removeObject:*(*(&v139 + 1) + 8 * v29)];
                   }
 
-                  ++v25;
+                  ++v29;
                 }
 
-                while (v22 != v25);
-                v22 = [v21 countByEnumeratingWithState:&v118 objects:v132 count:16];
-                v23 = v106;
+                while (v26 != v29);
+                v26 = [v25 countByEnumeratingWithState:&v139 objects:v153 count:16];
+                v27 = v127;
               }
 
-              while (v22);
+              while (v26);
             }
 
             _Block_object_dispose(buf, 8);
           }
 
-          v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v110, "uniqueIdentifier")];
-          v35 = [WFNetworkProfile alloc];
-          v36 = [*(a1 + 32) interface];
-          v37 = [v36 currentNetwork];
-          v38 = [v37 matchingKnownNetworkProfile];
-          v107 = [(WFNetworkProfile *)v35 initWithCoreWiFiProfile:v38];
+          v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v131, "uniqueIdentifier")];
+          v41 = [WFNetworkProfile alloc];
+          v42 = [*(a1 + 32) interface];
+          v43 = [v42 currentNetwork];
+          v44 = [v43 matchingKnownNetworkProfile];
+          v128 = [(WFNetworkProfile *)v41 initWithCoreWiFiProfile:v44];
 
-          if (v110)
+          if (v131)
           {
-            if (v107)
+            if (v128)
             {
-              v39 = [(WFNetworkProfile *)v107 hotspotDeviceIdentifier];
-              v40 = [v39 isEqualToString:v34];
+              v45 = [(WFNetworkProfile *)v128 hotspotDeviceIdentifier];
+              v46 = [v45 isEqualToString:v40];
 
-              if (v40)
+              if (v46)
               {
-                v41 = WFLogForCategory(0);
-                v42 = OSLogForWFLogLevel(4uLL);
-                if (WFCurrentLogLevel() >= 4 && v41 && os_log_type_enabled(v41, v42))
+                v47 = WFLogForCategory(0);
+                v48 = OSLogForWFLogLevel(4uLL);
+                v49 = v48;
+                if (WFCurrentLogLevel(v48, v50) >= 4 && v47 && os_log_type_enabled(v47, v49))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_273ECD000, v41, v42, "Removing current connected hotspot from scan results", buf, 2u);
+                  _os_log_impl(&dword_273ECD000, v47, v49, "Removing current connected hotspot from scan results", buf, 2u);
                 }
 
-                [v109 removeObject:v110];
+                [v130 removeObject:v131];
               }
             }
           }
 
-          v117 = 0u;
-          v115 = 0u;
-          v116 = 0u;
-          v114 = 0u;
-          v43 = v101;
-          v44 = [v43 countByEnumeratingWithState:&v114 objects:v127 count:16];
-          if (v44)
+          v138 = 0u;
+          v136 = 0u;
+          v137 = 0u;
+          v135 = 0u;
+          v51 = v122;
+          v52 = [v51 countByEnumeratingWithState:&v135 objects:v148 count:16];
+          if (v52)
           {
-            v45 = *v115;
+            v53 = *v136;
             do
             {
-              for (i = 0; i != v44; ++i)
+              for (i = 0; i != v52; ++i)
               {
-                if (*v115 != v45)
+                if (*v136 != v53)
                 {
-                  objc_enumerationMutation(v43);
+                  objc_enumerationMutation(v51);
                 }
 
-                v47 = *(*(&v114 + 1) + 8 * i);
-                if (v47)
+                v55 = *(*(&v135 + 1) + 8 * i);
+                if (v55)
                 {
-                  v48 = [*(*(&v114 + 1) + 8 * i) ssid];
-                  v49 = [v110 ssid];
-                  if ([v48 isEqualToString:v49])
+                  v56 = [*(*(&v135 + 1) + 8 * i) ssid];
+                  v57 = [v131 ssid];
+                  if ([v56 isEqualToString:v57])
                   {
-                    v50 = [v47 iOSHotspot];
+                    v58 = [v55 iOSHotspot];
 
-                    if (v50)
+                    if (v58)
                     {
-                      v51 = WFLogForCategory(0);
-                      v52 = OSLogForWFLogLevel(4uLL);
-                      if (WFCurrentLogLevel() >= 4 && v51)
+                      v59 = WFLogForCategory(0);
+                      v60 = OSLogForWFLogLevel(4uLL);
+                      v61 = v60;
+                      if (WFCurrentLogLevel(v60, v62) >= 4 && v59)
                       {
-                        v53 = v51;
-                        if (os_log_type_enabled(v53, v52))
+                        v63 = v59;
+                        if (os_log_type_enabled(v63, v61))
                         {
-                          v54 = [v110 ssid];
+                          v64 = [v131 ssid];
                           *buf = 138412290;
-                          *&buf[4] = v54;
-                          _os_log_impl(&dword_273ECD000, v53, v52, "Removing AP record for hotspot ssid: %@", buf, 0xCu);
+                          *&buf[4] = v64;
+                          _os_log_impl(&dword_273ECD000, v63, v61, "Removing AP record for hotspot ssid: %@", buf, 0xCu);
                         }
                       }
 
-                      [v108 removeObject:v47];
+                      [v129 removeObject:v55];
                     }
                   }
 
@@ -1629,72 +1629,74 @@ void __59__WFNetworkListController__updateViewControllerScanResults__block_invok
                 }
               }
 
-              v44 = [v43 countByEnumeratingWithState:&v114 objects:v127 count:16];
+              v52 = [v51 countByEnumeratingWithState:&v135 objects:v148 count:16];
             }
 
-            while (v44);
+            while (v52);
           }
 
-          v11 = v104 + 1;
+          v11 = v125 + 1;
         }
 
-        while (v104 + 1 != v102);
-        v102 = [obj countByEnumeratingWithState:&v123 objects:v137 count:16];
+        while (v125 + 1 != v123);
+        v123 = [obj countByEnumeratingWithState:&v144 objects:v158 count:16];
       }
 
-      while (v102);
+      while (v123);
     }
 
-    v55 = WFLogForCategory(0);
-    v56 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v55)
+    v65 = WFLogForCategory(0);
+    v66 = OSLogForWFLogLevel(4uLL);
+    v67 = v66;
+    if (WFCurrentLogLevel(v66, v68) >= 4 && v65)
     {
-      v57 = v55;
-      if (os_log_type_enabled(v57, v56))
+      v69 = v65;
+      if (os_log_type_enabled(v69, v67))
       {
-        v58 = [v109 count];
-        v59 = [v108 count];
+        v70 = [v130 count];
+        v71 = [v129 count];
         *buf = 134218240;
-        *&buf[4] = v58;
+        *&buf[4] = v70;
         *&buf[12] = 2048;
-        *&buf[14] = v59;
-        _os_log_impl(&dword_273ECD000, v57, v56, "Hotspots count: %lu, AP count: %lu", buf, 0x16u);
+        *&buf[14] = v71;
+        _os_log_impl(&dword_273ECD000, v69, v67, "Hotspots count: %lu, AP count: %lu", buf, 0x16u);
       }
     }
 
-    v60 = [v108 mutableCopy];
-    [v60 unionSet:v109];
+    v72 = [v129 mutableCopy];
+    [v72 unionSet:v130];
   }
 
   else
   {
-    v60 = v97;
+    v72 = v118;
   }
 
   if ([*(a1 + 32) isAssociating])
   {
-    v61 = [*(a1 + 32) associationContext];
-    v62 = v61 == 0;
+    v73 = [*(a1 + 32) associationContext];
+    v74 = v73 == 0;
 
-    if (!v62)
+    if (!v74)
     {
-      v63 = WFLogForCategory(0);
-      v64 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v63 && os_log_type_enabled(v63, v64))
+      v75 = WFLogForCategory(0);
+      v76 = OSLogForWFLogLevel(1uLL);
+      v77 = v76;
+      if (WFCurrentLogLevel(v76, v78) && v75 && os_log_type_enabled(v75, v77))
       {
         *buf = 136315138;
         *&buf[4] = "[WFNetworkListController _updateViewControllerScanResults]_block_invoke";
-        _os_log_impl(&dword_273ECD000, v63, v64, "%s: update during association", buf, 0xCu);
+        _os_log_impl(&dword_273ECD000, v75, v77, "%s: update during association", buf, 0xCu);
       }
 
-      v65 = [*(a1 + 32) associationContext];
-      v66 = [v65 network];
-      if (v66)
+      v79 = [*(a1 + 32) associationContext];
+      v80 = [v79 network];
+      if (v80)
       {
         if ([*(a1 + 32) isAirPortSettings])
         {
-          v67 = [*(a1 + 32) associationContext];
-          v68 = [v67 network];
+          v81 = [*(a1 + 32) associationContext];
+          v82 = [v81 network];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
@@ -1708,120 +1710,124 @@ void __59__WFNetworkListController__updateViewControllerScanResults__block_invok
         {
         }
 
-        v87 = WFLogForCategory(0);
-        v88 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v87)
+        v105 = WFLogForCategory(0);
+        v106 = OSLogForWFLogLevel(1uLL);
+        v107 = v106;
+        if (WFCurrentLogLevel(v106, v108) && v105)
         {
-          v89 = v87;
-          if (os_log_type_enabled(v89, v88))
+          v109 = v105;
+          if (os_log_type_enabled(v109, v107))
           {
-            v90 = [*(a1 + 32) associationContext];
-            v91 = [v90 network];
+            v110 = [*(a1 + 32) associationContext];
+            v111 = [v110 network];
             *buf = 136315394;
             *&buf[4] = "[WFNetworkListController _updateViewControllerScanResults]_block_invoke";
             *&buf[12] = 2114;
-            *&buf[14] = v91;
-            _os_log_impl(&dword_273ECD000, v89, v88, "%s: removing associationCtx network %{public}@ from scan results", buf, 0x16u);
+            *&buf[14] = v111;
+            _os_log_impl(&dword_273ECD000, v109, v107, "%s: removing associationCtx network %{public}@ from scan results", buf, 0x16u);
           }
         }
 
-        v65 = [*(a1 + 32) associationContext];
-        v92 = [v65 network];
-        [v60 removeObject:v92];
+        v79 = [*(a1 + 32) associationContext];
+        v112 = [v79 network];
+        [v72 removeObject:v112];
       }
 
       goto LABEL_108;
     }
   }
 
-  v70 = [*(a1 + 32) interface];
-  v71 = [v70 currentNetwork];
+  v84 = [*(a1 + 32) interface];
+  v85 = [v84 currentNetwork];
 
-  if (v71)
+  if (v85)
   {
-    v72 = [*(a1 + 32) interface];
-    v65 = [v72 currentNetwork];
+    v86 = [*(a1 + 32) interface];
+    v79 = [v86 currentNetwork];
 
-    if (v65)
+    if (v79)
     {
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v134 = __Block_byref_object_copy_;
-      v135 = __Block_byref_object_dispose_;
-      v136 = objc_opt_new();
-      v113[0] = MEMORY[0x277D85DD0];
-      v113[1] = 3221225472;
-      v113[2] = __59__WFNetworkListController__updateViewControllerScanResults__block_invoke_142;
-      v113[3] = &unk_279EBD218;
-      v113[4] = *(a1 + 32);
-      v113[5] = buf;
-      [v60 enumerateObjectsUsingBlock:v113];
+      v155 = __Block_byref_object_copy_;
+      v156 = __Block_byref_object_dispose_;
+      v157 = objc_opt_new();
+      v134[0] = MEMORY[0x277D85DD0];
+      v134[1] = 3221225472;
+      v134[2] = __59__WFNetworkListController__updateViewControllerScanResults__block_invoke_142;
+      v134[3] = &unk_279EBD218;
+      v134[4] = *(a1 + 32);
+      v134[5] = buf;
+      [v72 enumerateObjectsUsingBlock:v134];
       if ([*(*&buf[8] + 40) count])
       {
-        v73 = WFLogForCategory(0);
-        v74 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v73 && os_log_type_enabled(v73, v74))
+        v87 = WFLogForCategory(0);
+        v88 = OSLogForWFLogLevel(3uLL);
+        v89 = v88;
+        if (WFCurrentLogLevel(v88, v90) >= 3 && v87 && os_log_type_enabled(v87, v89))
         {
-          v75 = *(*&buf[8] + 40);
-          *v128 = 136315394;
-          v129 = "[WFNetworkListController _updateViewControllerScanResults]_block_invoke_2";
-          v130 = 2112;
-          v131 = v75;
-          _os_log_impl(&dword_273ECD000, v73, v74, "%s: networks to remove from scan list='%@'", v128, 0x16u);
+          v91 = *(*&buf[8] + 40);
+          *v149 = 136315394;
+          v150 = "[WFNetworkListController _updateViewControllerScanResults]_block_invoke_2";
+          v151 = 2112;
+          v152 = v91;
+          _os_log_impl(&dword_273ECD000, v87, v89, "%s: networks to remove from scan list='%@'", v149, 0x16u);
         }
       }
 
-      v76 = *(*&buf[8] + 40);
-      v111[0] = MEMORY[0x277D85DD0];
-      v111[1] = 3221225472;
-      v111[2] = __59__WFNetworkListController__updateViewControllerScanResults__block_invoke_144;
-      v111[3] = &unk_279EBD240;
-      v112 = v60;
-      [v76 enumerateObjectsUsingBlock:v111];
-      if ([v65 isHotspot20])
+      v92 = *(*&buf[8] + 40);
+      v132[0] = MEMORY[0x277D85DD0];
+      v132[1] = 3221225472;
+      v132[2] = __59__WFNetworkListController__updateViewControllerScanResults__block_invoke_144;
+      v132[3] = &unk_279EBD240;
+      v133 = v72;
+      [v92 enumerateObjectsUsingBlock:v132];
+      if ([v79 isHotspot20])
       {
-        v77 = [v65 matchingKnownNetworkProfile];
-        v78 = v77;
-        if (v77)
+        v93 = [v79 matchingKnownNetworkProfile];
+        v94 = v93;
+        if (v93)
         {
-          v79 = [v77 displayedOperatorName];
-          v80 = [*(a1 + 32) viewController];
-          v81 = [v80 currentNetwork];
-          [v81 setHotspot20Name:v79];
+          v95 = [v93 displayedOperatorName];
+          v96 = [*(a1 + 32) viewController];
+          v97 = [v96 currentNetwork];
+          [v97 setHotspot20Name:v95];
         }
 
         else
         {
-          v79 = WFLogForCategory(0);
-          v96 = OSLogForWFLogLevel(4uLL);
-          if (WFCurrentLogLevel() >= 4 && v79 && os_log_type_enabled(v79, v96))
+          v95 = WFLogForCategory(0);
+          v115 = OSLogForWFLogLevel(4uLL);
+          v116 = v115;
+          if (WFCurrentLogLevel(v115, v117) >= 4 && v95 && os_log_type_enabled(v95, v116))
           {
-            *v128 = 136315394;
-            v129 = "[WFNetworkListController _updateViewControllerScanResults]_block_invoke_2";
-            v130 = 2112;
-            v131 = v65;
-            _os_log_impl(&dword_273ECD000, v79, v96, "%s: no profile for network='%@'", v128, 0x16u);
+            *v149 = 136315394;
+            v150 = "[WFNetworkListController _updateViewControllerScanResults]_block_invoke_2";
+            v151 = 2112;
+            v152 = v79;
+            _os_log_impl(&dword_273ECD000, v95, v116, "%s: no profile for network='%@'", v149, 0x16u);
           }
         }
       }
 
-      v82 = [*(a1 + 32) viewController];
-      v83 = [v82 currentNetwork];
-      v84 = [v83 isEqual:v65];
+      v98 = [*(a1 + 32) viewController];
+      v99 = [v98 currentNetwork];
+      v100 = [v99 isEqual:v79];
 
-      if ((v84 & 1) == 0)
+      if ((v100 & 1) == 0)
       {
-        v85 = WFLogForCategory(0);
-        v86 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v85 && os_log_type_enabled(v85, v86))
+        v101 = WFLogForCategory(0);
+        v102 = OSLogForWFLogLevel(3uLL);
+        v103 = v102;
+        if (WFCurrentLogLevel(v102, v104) >= 3 && v101 && os_log_type_enabled(v101, v103))
         {
-          *v128 = 136315138;
-          v129 = "[WFNetworkListController _updateViewControllerScanResults]_block_invoke";
-          _os_log_impl(&dword_273ECD000, v85, v86, "%s: view controller current network mismatch, force update", v128, 0xCu);
+          *v149 = 136315138;
+          v150 = "[WFNetworkListController _updateViewControllerScanResults]_block_invoke";
+          _os_log_impl(&dword_273ECD000, v101, v103, "%s: view controller current network mismatch, force update", v149, 0xCu);
         }
 
-        [*(a1 + 32) _updateViewControllerConnectedNetwork:v65];
+        [*(a1 + 32) _updateViewControllerConnectedNetwork:v79];
       }
 
       _Block_object_dispose(buf, 8);
@@ -1831,13 +1837,11 @@ LABEL_108:
   }
 
 LABEL_109:
-  v93 = [*(a1 + 32) viewController];
-  [v93 setNetworks:v60];
+  v113 = [*(a1 + 32) viewController];
+  [v113 setNetworks:v72];
 
-  v94 = [*(a1 + 32) scanMetricsManager];
-  [v94 ingestScanResults:v60];
-
-  v95 = *MEMORY[0x277D85DE8];
+  v114 = [*(a1 + 32) scanMetricsManager];
+  [v114 ingestScanResults:v72];
 }
 
 void __59__WFNetworkListController__updateViewControllerScanResults__block_invoke_131(uint64_t a1, void *a2)
@@ -1875,10 +1879,11 @@ void __59__WFNetworkListController__updateViewControllerScanResults__block_invok
 {
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_273ECD000, v3, v4, "scanning started", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_273ECD000, v3, v5, "scanning started", v7, 2u);
   }
 }
 
@@ -1909,7 +1914,7 @@ void __54__WFNetworkListController_scanManager_stateDidChange___block_invoke(uin
 
 - (void)scanManager:(id)manager updatedPartialResults:(id)results
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   selfCopy = self;
   networks = [(WFNetworkListController *)self networks];
@@ -1921,27 +1926,27 @@ void __54__WFNetworkListController_scanManager_stateDidChange___block_invoke(uin
   }
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v9 = resultsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v39;
+    v12 = *v38;
     v13 = MEMORY[0x277CBEC38];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v39 != v12)
+        if (*v38 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v38 + 1) + 8 * i);
+        v15 = *(*(&v37 + 1) + 8 * i);
         ssid = [v15 ssid];
         v17 = [v8 objectForKey:ssid];
 
@@ -1952,38 +1957,38 @@ void __54__WFNetworkListController_scanManager_stateDidChange___block_invoke(uin
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v11);
   }
 
-  v32 = v7;
+  v31 = v7;
   allObjects = [v7 allObjects];
   v20 = [allObjects mutableCopy];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v21 = allObjects;
-  v22 = [v21 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v35;
+    v24 = *v34;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v35 != v24)
+        if (*v34 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v34 + 1) + 8 * j);
+        v26 = *(*(&v33 + 1) + 8 * j);
         if (v26)
         {
-          ssid3 = [*(*(&v34 + 1) + 8 * j) ssid];
+          ssid3 = [*(*(&v33 + 1) + 8 * j) ssid];
           v28 = [v8 objectForKey:ssid3];
 
           if (v28)
@@ -1993,7 +1998,7 @@ void __54__WFNetworkListController_scanManager_stateDidChange___block_invoke(uin
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v23);
@@ -2006,8 +2011,6 @@ void __54__WFNetworkListController_scanManager_stateDidChange___block_invoke(uin
 
   [(WFNetworkListController *)selfCopy setNetworks:v29];
   [(WFNetworkListController *)selfCopy _updateViewControllerScanResults];
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanManagerScanningDidFinish:(id)finish withResults:(id)results error:(id)error
@@ -2028,7 +2031,7 @@ void __54__WFNetworkListController_scanManager_stateDidChange___block_invoke(uin
 
 void __74__WFNetworkListController_scanManagerScanningDidFinish_withResults_error___block_invoke(id *a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] viewController];
   v3 = objc_opt_respondsToSelector();
 
@@ -2043,127 +2046,130 @@ void __74__WFNetworkListController_scanManagerScanningDidFinish_withResults_erro
   {
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v6)
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) >= 3 && v6)
     {
-      v8 = v6;
-      if (os_log_type_enabled(v8, v7))
+      v10 = v6;
+      if (os_log_type_enabled(v10, v8))
       {
-        v9 = [a1[6] code];
-        v32 = 136315394;
-        v33 = "[WFNetworkListController scanManagerScanningDidFinish:withResults:error:]_block_invoke";
-        v34 = 2048;
-        *v35 = v9;
-        _os_log_impl(&dword_273ECD000, v8, v7, "%s: scan error (%ld), not updating UI scan list", &v32, 0x16u);
+        v11 = [a1[6] code];
+        v39 = 136315394;
+        v40 = "[WFNetworkListController scanManagerScanningDidFinish:withResults:error:]_block_invoke";
+        v41 = 2048;
+        *v42 = v11;
+        _os_log_impl(&dword_273ECD000, v10, v8, "%s: scan error (%ld), not updating UI scan list", &v39, 0x16u);
       }
     }
 
-    v10 = WFLogForCategory(0);
-    v11 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v10)
+    v12 = WFLogForCategory(0);
+    v13 = OSLogForWFLogLevel(3uLL);
+    v14 = v13;
+    if (WFCurrentLogLevel(v13, v15) >= 3 && v12)
     {
-      v12 = v10;
-      if (os_log_type_enabled(v12, v11))
+      v16 = v12;
+      if (os_log_type_enabled(v16, v14))
       {
-        v13 = [a1[4] networks];
-        v32 = 136315394;
-        v33 = "[WFNetworkListController scanManagerScanningDidFinish:withResults:error:]_block_invoke";
-        v34 = 2112;
-        *v35 = v13;
-        _os_log_impl(&dword_273ECD000, v12, v11, "%s: current networks %@", &v32, 0x16u);
+        v17 = [a1[4] networks];
+        v39 = 136315394;
+        v40 = "[WFNetworkListController scanManagerScanningDidFinish:withResults:error:]_block_invoke";
+        v41 = 2112;
+        *v42 = v17;
+        _os_log_impl(&dword_273ECD000, v16, v14, "%s: current networks %@", &v39, 0x16u);
       }
     }
 
-    v14 = [a1[4] networks];
+    v18 = [a1[4] networks];
 
-    v5 = v14;
+    v5 = v18;
   }
 
   [a1[4] setNetworks:v5];
-  v15 = [a1[5] hs20Networks];
+  v19 = [a1[5] hs20Networks];
   if ([a1[4] knownNetworksContainsHS20Networks])
   {
-    v16 = 1;
+    v20 = 1;
   }
 
   else
   {
-    v17 = [a1[4] wifiClient];
-    v16 = [v17 showAllHS20Networks];
+    v21 = [a1[4] wifiClient];
+    v20 = [v21 showAllHS20Networks];
   }
 
-  v18 = [a1[4] isHS20Supported];
-  if (v15)
+  v22 = [a1[4] isHS20Supported];
+  if (v19)
   {
-    v19 = WFLogForCategory(0);
-    v20 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v19 && os_log_type_enabled(v19, v20))
+    v23 = WFLogForCategory(0);
+    v24 = OSLogForWFLogLevel(3uLL);
+    v25 = v24;
+    if (WFCurrentLogLevel(v24, v26) >= 3 && v23 && os_log_type_enabled(v23, v25))
     {
-      v32 = 136315906;
-      v33 = "[WFNetworkListController scanManagerScanningDidFinish:withResults:error:]_block_invoke";
-      v34 = 1024;
-      *v35 = v18;
-      *&v35[4] = 1024;
-      *&v35[6] = v16;
-      v36 = 2112;
-      v37 = v15;
-      _os_log_impl(&dword_273ECD000, v19, v20, "%s: hs20Supported %d hs20ProfilesInstalled %d hs20 networks found in scan: %@", &v32, 0x22u);
+      v39 = 136315906;
+      v40 = "[WFNetworkListController scanManagerScanningDidFinish:withResults:error:]_block_invoke";
+      v41 = 1024;
+      *v42 = v22;
+      *&v42[4] = 1024;
+      *&v42[6] = v20;
+      v43 = 2112;
+      v44 = v19;
+      _os_log_impl(&dword_273ECD000, v23, v25, "%s: hs20Supported %d hs20ProfilesInstalled %d hs20 networks found in scan: %@", &v39, 0x22u);
     }
   }
 
-  if (v18 && (([v15 count] != 0) & v16) == 1)
+  if (v22 && (([v19 count] != 0) & v20) == 1)
   {
-    v21 = [a1[4] gasController];
-    [v21 resolveProfilesForNetworks:v15];
+    v27 = [a1[4] gasController];
+    [v27 resolveProfilesForNetworks:v19];
   }
 
   [a1[4] _updateViewControllerScanResults];
-  v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1[5], "count")}];
-  [v22 setValue:v23 forKey:@"count"];
+  v28 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1[5], "count")}];
+  [v28 setValue:v29 forKey:@"count"];
 
-  v24 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v24 postNotificationName:@"WFNetworkListControllerScanDidFinishNotification" object:a1[4] userInfo:v22];
+  v30 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v30 postNotificationName:@"WFNetworkListControllerScanDidFinishNotification" object:a1[4] userInfo:v28];
 
   if (!a1[6])
   {
-    v25 = WFLogForCategory(0);
-    v26 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v25 && os_log_type_enabled(v25, v26))
+    v31 = WFLogForCategory(0);
+    v32 = OSLogForWFLogLevel(3uLL);
+    v33 = v32;
+    if (WFCurrentLogLevel(v32, v34) >= 3 && v31 && os_log_type_enabled(v31, v33))
     {
-      LOWORD(v32) = 0;
-      _os_log_impl(&dword_273ECD000, v25, v26, "Remove all cache request sent to random manager because of a successful full cycle of scan!", &v32, 2u);
+      LOWORD(v39) = 0;
+      _os_log_impl(&dword_273ECD000, v31, v33, "Remove all cache request sent to random manager because of a successful full cycle of scan!", &v39, 2u);
     }
 
-    v27 = [a1[4] randomMACManager];
-    v28 = [a1[4] interface];
-    v29 = [v28 currentNetwork];
-    v30 = [v29 ssid];
-    [v27 resetCacheWithCurrentNetworkName:v30];
+    v35 = [a1[4] randomMACManager];
+    v36 = [a1[4] interface];
+    v37 = [v36 currentNetwork];
+    v38 = [v37 ssid];
+    [v35 resetCacheWithCurrentNetworkName:v38];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanManager:(id)manager didFindHotspotHelperNetworks:(id)networks
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   networksCopy = networks;
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6 && os_log_type_enabled(v6, v8))
   {
     *buf = 136315394;
-    v31 = "[WFNetworkListController scanManager:didFindHotspotHelperNetworks:]";
-    v32 = 2112;
-    v33 = networksCopy;
-    _os_log_impl(&dword_273ECD000, v6, v7, "%s: found hotspot helper networks %@", buf, 0x16u);
+    v36 = "[WFNetworkListController scanManager:didFindHotspotHelperNetworks:]";
+    v37 = 2112;
+    v38 = networksCopy;
+    _os_log_impl(&dword_273ECD000, v6, v8, "%s: found hotspot helper networks %@", buf, 0x16u);
   }
 
   if (!networksCopy)
   {
     [WFNetworkListController scanManager:didFindHotspotHelperNetworks:];
 LABEL_31:
-    v9 = 0;
+    v11 = 0;
     goto LABEL_28;
   }
 
@@ -2175,116 +2181,116 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v9 = [MEMORY[0x277CBEB58] set];
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v24 = networksCopy;
-  v10 = networksCopy;
-  v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v11)
+  v11 = [MEMORY[0x277CBEB58] set];
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v29 = networksCopy;
+  v12 = networksCopy;
+  v13 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v13)
   {
-    v12 = v11;
-    v13 = *v26;
+    v14 = v13;
+    v15 = *v31;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v26 != v13)
+        if (*v31 != v15)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v12);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v17 = *(*(&v30 + 1) + 8 * i);
         networks2 = [(WFNetworkListController *)self networks];
-        ssid = [v15 ssid];
-        v18 = [networks2 scanRecordWithSSID:ssid];
+        ssid = [v17 ssid];
+        v20 = [networks2 scanRecordWithSSID:ssid];
 
-        if (v18)
+        if (v20)
         {
-          [v9 addObject:v18];
+          [v11 addObject:v20];
         }
 
         else
         {
-          v19 = WFLogForCategory(0);
-          v20 = OSLogForWFLogLevel(3uLL);
-          if (WFCurrentLogLevel() >= 3 && v19 && os_log_type_enabled(v19, v20))
+          v21 = WFLogForCategory(0);
+          v22 = OSLogForWFLogLevel(3uLL);
+          v23 = v22;
+          if (WFCurrentLogLevel(v22, v24) >= 3 && v21 && os_log_type_enabled(v21, v23))
           {
             *buf = 136315394;
-            v31 = "[WFNetworkListController scanManager:didFindHotspotHelperNetworks:]";
-            v32 = 2112;
-            v33 = v15;
-            _os_log_impl(&dword_273ECD000, v19, v20, "%s no matching scan record for helper network %@", buf, 0x16u);
+            v36 = "[WFNetworkListController scanManager:didFindHotspotHelperNetworks:]";
+            v37 = 2112;
+            v38 = v17;
+            _os_log_impl(&dword_273ECD000, v21, v23, "%s no matching scan record for helper network %@", buf, 0x16u);
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v12);
+    while (v14);
   }
 
-  if ([v9 count])
+  if ([v11 count])
   {
-    v21 = WFLogForCategory(0);
-    v22 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v21 && os_log_type_enabled(v21, v22))
+    v25 = WFLogForCategory(0);
+    v26 = OSLogForWFLogLevel(3uLL);
+    v27 = v26;
+    if (WFCurrentLogLevel(v26, v28) >= 3 && v25 && os_log_type_enabled(v25, v27))
     {
       *buf = 136315394;
-      v31 = "[WFNetworkListController scanManager:didFindHotspotHelperNetworks:]";
-      v32 = 2112;
-      v33 = v9;
-      _os_log_impl(&dword_273ECD000, v21, v22, "%s: updating views for %@", buf, 0x16u);
+      v36 = "[WFNetworkListController scanManager:didFindHotspotHelperNetworks:]";
+      v37 = 2112;
+      v38 = v11;
+      _os_log_impl(&dword_273ECD000, v25, v27, "%s: updating views for %@", buf, 0x16u);
     }
 
-    [(WFNetworkListController *)self _updateViewsForNetworks:v9];
+    [(WFNetworkListController *)self _updateViewsForNetworks:v11];
   }
 
-  networksCopy = v24;
+  networksCopy = v29;
 LABEL_28:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanManager:(id)manager willStartScanRequest:(id)request
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = WFLogForCategory(6uLL);
   v6 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) && v5 && os_log_type_enabled(v5, v7))
   {
-    v8 = 138412290;
-    v9 = requestCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "scan request: %@ started", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = requestCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "scan request: %@ started", &v9, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanManager:(id)manager didFinishScanRequest:(id)request results:(id)results error:(id)error timeElapsed:(double)elapsed
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   resultsCopy = results;
   errorCopy = error;
   v14 = WFLogForCategory(6uLL);
   v15 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v14)
+  v16 = v15;
+  if (WFCurrentLogLevel(v15, v17) && v14)
   {
-    v16 = v14;
-    if (os_log_type_enabled(v16, v15))
+    v18 = v14;
+    if (os_log_type_enabled(v18, v16))
     {
       *buf = 138412802;
-      v32 = requestCopy;
-      v33 = 2048;
-      v34 = [resultsCopy count];
-      v35 = 2048;
+      v33 = requestCopy;
+      v34 = 2048;
+      v35 = [resultsCopy count];
+      v36 = 2048;
       elapsedCopy = elapsed;
-      _os_log_impl(&dword_273ECD000, v16, v15, "scan request: %@ finished with %lu results in %f sec", buf, 0x20u);
+      _os_log_impl(&dword_273ECD000, v18, v16, "scan request: %@ finished with %lu results in %f sec", buf, 0x20u);
     }
   }
 
@@ -2292,39 +2298,38 @@ LABEL_28:
 
   if (ssid)
   {
-    v18 = 2;
+    v20 = 2;
   }
 
   else
   {
-    v18 = [requestCopy channelListIncludesTwoFour] ^ 1;
+    v20 = [requestCopy channelListIncludesTwoFour] ^ 1;
   }
 
-  v29 = v18;
-  v19 = +[WFMetricsManager sharedManager];
-  v20 = [WFScanPerformanceEvent alloc];
+  v30 = v20;
+  v21 = +[WFMetricsManager sharedManager];
+  v22 = [WFScanPerformanceEvent alloc];
   firstScanFinished = [(WFNetworkListController *)self firstScanFinished];
-  v22 = [resultsCopy count];
-  v30 = resultsCopy;
+  v24 = [resultsCopy count];
+  v31 = resultsCopy;
   selfCopy = self;
   if (errorCopy)
   {
-    v24 = errorCopy;
+    v26 = errorCopy;
     errorCopy = [errorCopy code];
   }
 
   else
   {
-    v24 = 0;
+    v26 = 0;
   }
 
   lowPriorityScan = [requestCopy lowPriorityScan];
-  LOBYTE(v28) = [requestCopy applyRssiThresholdFilter];
-  v26 = [(WFScanPerformanceEvent *)v20 initWithScanReason:v29 timeElasped:elapsed firstScan:!firstScanFinished results:v22 errorCode:errorCopy lowPriority:lowPriorityScan rssiFilter:v28];
-  [v19 processEvent:v26];
+  LOBYTE(v29) = [requestCopy applyRssiThresholdFilter];
+  v28 = [(WFScanPerformanceEvent *)v22 initWithScanReason:v30 timeElasped:elapsed firstScan:!firstScanFinished results:v24 errorCode:errorCopy lowPriority:lowPriorityScan rssiFilter:v29];
+  [v21 processEvent:v28];
 
   [(WFNetworkListController *)selfCopy setFirstScanFinished:1];
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAssociating
@@ -2364,57 +2369,60 @@ LABEL_28:
 
 - (void)_associateToScanRecord:(id)record profile:(id)profile
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   profileCopy = profile;
   v8 = WFLogForCategory(5uLL);
   v9 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v8)
+  v10 = v9;
+  if (WFCurrentLogLevel(v9, v11) && v8)
   {
-    v10 = v8;
-    if (os_log_type_enabled(v10, v9))
+    v12 = v8;
+    if (os_log_type_enabled(v12, v10))
     {
       ssid = [recordCopy ssid];
       *buf = 138412290;
-      v50 = ssid;
-      _os_log_impl(&dword_273ECD000, v10, v9, "{ASSOC+} association started to %@", buf, 0xCu);
+      v57 = ssid;
+      _os_log_impl(&dword_273ECD000, v12, v10, "{ASSOC+} association started to %@", buf, 0xCu);
     }
   }
 
   if ([(WFNetworkListController *)self isAssociating])
   {
-    v12 = WFLogForCategory(0);
-    v13 = OSLogForWFLogLevel(2uLL);
-    if (WFCurrentLogLevel() >= 2 && v12)
+    v14 = WFLogForCategory(0);
+    v15 = OSLogForWFLogLevel(2uLL);
+    v16 = v15;
+    if (WFCurrentLogLevel(v15, v17) >= 2 && v14)
     {
-      v14 = v12;
-      if (os_log_type_enabled(v14, v13))
+      v18 = v14;
+      if (os_log_type_enabled(v18, v16))
       {
         associationContext = [(WFNetworkListController *)self associationContext];
         stateDescription = [associationContext stateDescription];
         associationContext2 = [(WFNetworkListController *)self associationContext];
         networkName = [associationContext2 networkName];
         *buf = 136315650;
-        v50 = "[WFNetworkListController _associateToScanRecord:profile:]";
-        v51 = 2112;
-        v52 = stateDescription;
-        v53 = 2112;
-        v54 = networkName;
-        _os_log_impl(&dword_273ECD000, v14, v13, "%s association state is <%@> with network %@", buf, 0x20u);
+        v57 = "[WFNetworkListController _associateToScanRecord:profile:]";
+        v58 = 2112;
+        v59 = stateDescription;
+        v60 = 2112;
+        v61 = networkName;
+        _os_log_impl(&dword_273ECD000, v18, v16, "%s association state is <%@> with network %@", buf, 0x20u);
       }
     }
   }
 
   _shouldPauseScanning = [(WFNetworkListController *)self _shouldPauseScanning];
-  v20 = WFLogForCategory(0);
-  v21 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v20 && os_log_type_enabled(v20, v21))
+  v24 = WFLogForCategory(0);
+  v25 = OSLogForWFLogLevel(4uLL);
+  v26 = v25;
+  if (WFCurrentLogLevel(v25, v27) >= 4 && v24 && os_log_type_enabled(v24, v26))
   {
     *buf = 136315394;
-    v50 = "[WFNetworkListController _associateToScanRecord:profile:]";
-    v51 = 1024;
-    LODWORD(v52) = _shouldPauseScanning;
-    _os_log_impl(&dword_273ECD000, v20, v21, "%s- should pause scanning %d", buf, 0x12u);
+    v57 = "[WFNetworkListController _associateToScanRecord:profile:]";
+    v58 = 1024;
+    LODWORD(v59) = _shouldPauseScanning;
+    _os_log_impl(&dword_273ECD000, v24, v26, "%s- should pause scanning %d", buf, 0x12u);
   }
 
   if (_shouldPauseScanning)
@@ -2440,17 +2448,17 @@ LABEL_28:
   }
 
   viewController2 = [(WFNetworkListController *)self viewController];
-  v25 = objc_opt_respondsToSelector();
+  v31 = objc_opt_respondsToSelector();
 
-  if (v25)
+  if (v31)
   {
-    v43 = MEMORY[0x277D85DD0];
-    v44 = 3221225472;
-    v45 = __58__WFNetworkListController__associateToScanRecord_profile___block_invoke;
-    v46 = &unk_279EBD290;
+    v50 = MEMORY[0x277D85DD0];
+    v51 = 3221225472;
+    v52 = __58__WFNetworkListController__associateToScanRecord_profile___block_invoke;
+    v53 = &unk_279EBD290;
     selfCopy = self;
-    v48 = recordCopy;
-    dispatch_async(MEMORY[0x277D85CD0], &v43);
+    v55 = recordCopy;
+    dispatch_async(MEMORY[0x277D85CD0], &v50);
   }
 
   else
@@ -2459,29 +2467,29 @@ LABEL_28:
     [viewController3 setCurrentNetwork:recordCopy];
   }
 
-  if ([(WFNetworkListController *)self viewControllerSupportsCurrentNetworkSubtitle:v43])
+  if ([(WFNetworkListController *)self viewControllerSupportsCurrentNetworkSubtitle:v50])
   {
     viewController4 = [(WFNetworkListController *)self viewController];
     [viewController4 setCurrentNetworkSubtitle:0];
   }
 
   viewController5 = [(WFNetworkListController *)self viewController];
-  v29 = objc_opt_respondsToSelector();
+  v35 = objc_opt_respondsToSelector();
 
   [recordCopy scaledRSSI];
-  v31 = v30;
-  if (v29)
+  v37 = v36;
+  if (v35)
   {
-    v32 = WFSignalBarsFromScaledRSSI();
+    v38 = WFSignalBarsFromScaledRSSI();
     viewController6 = [(WFNetworkListController *)self viewController];
-    [viewController6 setCurrentNetworkSignalBars:v32];
+    [viewController6 setCurrentNetworkSignalBars:v38];
   }
 
   else
   {
     viewController6 = [(WFNetworkListController *)self viewController];
-    LODWORD(v34) = v31;
-    [viewController6 setCurrentNetworkScaledRSSI:v34];
+    LODWORD(v40) = v37;
+    [viewController6 setCurrentNetworkScaledRSSI:v40];
   }
 
   viewController7 = [(WFNetworkListController *)self viewController];
@@ -2491,22 +2499,23 @@ LABEL_32:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v36 = recordCopy;
+    v42 = recordCopy;
     viewController8 = [(WFNetworkListController *)self viewController];
     currentNetworkState = [viewController8 currentNetworkState];
 
     if (currentNetworkState == 1)
     {
-      v39 = WFLogForCategory(0);
-      v40 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v39 && os_log_type_enabled(v39, v40))
+      v45 = WFLogForCategory(0);
+      v46 = OSLogForWFLogLevel(3uLL);
+      v47 = v46;
+      if (WFCurrentLogLevel(v46, v48) >= 3 && v45 && os_log_type_enabled(v45, v47))
       {
         *buf = 0;
-        _os_log_impl(&dword_273ECD000, v39, v40, "Joining a hotspot while another association is in progress", buf, 2u);
+        _os_log_impl(&dword_273ECD000, v45, v47, "Joining a hotspot while another association is in progress", buf, 2u);
       }
     }
 
-    [(WFNetworkListController *)self _associateToHotspotDevice:v36];
+    [(WFNetworkListController *)self _associateToHotspotDevice:v42];
   }
 
   else
@@ -2517,30 +2526,29 @@ LABEL_32:
       goto LABEL_44;
     }
 
-    v41 = recordCopy;
-    if ([v41 isUnconfiguredAccessory])
+    v49 = recordCopy;
+    if ([v49 isUnconfiguredAccessory])
     {
-      [(WFNetworkListController *)self _associateToUnconfiguredAccessory:v41];
+      [(WFNetworkListController *)self _associateToUnconfiguredAccessory:v49];
     }
 
-    else if ([v41 isHotspot20] && -[WFNetworkListController isHS20Supported](self, "isHS20Supported"))
+    else if ([v49 isHotspot20] && -[WFNetworkListController isHS20Supported](self, "isHS20Supported"))
     {
-      [(WFNetworkListController *)self _associateToHS20Network:v41];
+      [(WFNetworkListController *)self _associateToHS20Network:v49];
     }
 
-    else if ([v41 isEnterprise])
+    else if ([v49 isEnterprise])
     {
-      [(WFNetworkListController *)self _associateToEnterpriseNetwork:v41 profile:profileCopy];
+      [(WFNetworkListController *)self _associateToEnterpriseNetwork:v49 profile:profileCopy];
     }
 
     else
     {
-      [(WFNetworkListController *)self _associateToNetwork:v41 profile:profileCopy];
+      [(WFNetworkListController *)self _associateToNetwork:v49 profile:profileCopy];
     }
   }
 
 LABEL_44:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WFNetworkListController__associateToScanRecord_profile___block_invoke(uint64_t a1)
@@ -2554,36 +2562,36 @@ void __58__WFNetworkListController__associateToScanRecord_profile___block_invoke
 
 - (BOOL)_isChannelAllowedForScanPerCurrentLocale:(int64_t)locale
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   interface = [(WFNetworkListController *)self interface];
   deviceScanChannelsPerCurLocale = [interface deviceScanChannelsPerCurLocale];
 
-  v6 = [deviceScanChannelsPerCurLocale countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [deviceScanChannelsPerCurLocale countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(deviceScanChannelsPerCurLocale);
         }
 
-        if ([*(*(&v13 + 1) + 8 * i) channel] == locale)
+        if ([*(*(&v12 + 1) + 8 * i) channel] == locale)
         {
           v10 = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [deviceScanChannelsPerCurLocale countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [deviceScanChannelsPerCurLocale countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -2596,7 +2604,6 @@ void __58__WFNetworkListController__associateToScanRecord_profile___block_invoke
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2617,84 +2624,86 @@ LABEL_11:
 
 void __53__WFNetworkListController__associateToHotspotDevice___block_invoke(uint64_t a1)
 {
-  v187 = *MEMORY[0x277D85DE8];
-  v139 = [MEMORY[0x277CBEAA8] date];
+  v218 = *MEMORY[0x277D85DE8];
+  v170 = [MEMORY[0x277CBEAA8] date];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) && v2 && os_log_type_enabled(v2, v4))
   {
     *buf = 136315394;
     *&buf[4] = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
     *&buf[12] = 2112;
-    *&buf[14] = v139;
-    _os_log_impl(&dword_273ECD000, v2, v3, "%s: TIME: start %@", buf, 0x16u);
+    *&buf[14] = v170;
+    _os_log_impl(&dword_273ECD000, v2, v4, "%s: TIME: start %@", buf, 0x16u);
   }
 
-  v4 = +[WFMetricsManager sharedManager];
-  v5 = [WFInstantHotspotJoinEvent joinEventWithType:0 latency:0 channel:0 error:0.0];
-  [v4 processEvent:v5];
+  v6 = +[WFMetricsManager sharedManager];
+  v7 = [WFInstantHotspotJoinEvent joinEventWithType:0 latency:0 channel:0 error:0.0];
+  [v6 processEvent:v7];
 
-  v6 = 0;
+  v8 = 0;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v184 = __Block_byref_object_copy_;
-  v185 = __Block_byref_object_dispose_;
-  v186 = 0;
+  v215 = __Block_byref_object_copy_;
+  v216 = __Block_byref_object_dispose_;
+  v217 = 0;
   while (1)
   {
-    v7 = WFLogForCategory(0);
-    v8 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v7 && os_log_type_enabled(v7, v8))
+    v9 = WFLogForCategory(0);
+    v10 = OSLogForWFLogLevel(1uLL);
+    v11 = v10;
+    if (WFCurrentLogLevel(v10, v12) && v9 && os_log_type_enabled(v9, v11))
     {
-      *v179 = 136315138;
-      v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-      _os_log_impl(&dword_273ECD000, v7, v8, "%s: TIME: enabling remote hotspot", v179, 0xCu);
+      *v210 = 136315138;
+      v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+      _os_log_impl(&dword_273ECD000, v9, v11, "%s: TIME: enabling remote hotspot", v210, 0xCu);
     }
 
-    v9 = [*(a1 + 32) hotspotInterface];
-    v10 = *(a1 + 40);
-    v11 = *&buf[8];
+    v13 = [*(a1 + 32) hotspotInterface];
+    v14 = *(a1 + 40);
+    v15 = *&buf[8];
     obj = 0;
-    v12 = [v9 enableHotspot:v10 error:&obj];
-    objc_storeStrong((v11 + 40), obj);
+    v16 = [v13 enableHotspot:v14 error:&obj];
+    objc_storeStrong((v15 + 40), obj);
 
     if (!*(*&buf[8] + 40))
     {
-      v174 = 0u;
-      v175 = 0u;
-      v172 = 0u;
-      v173 = 0u;
-      v21 = [*(a1 + 32) interface];
-      v22 = [v21 deviceScanChannels];
+      v205 = 0u;
+      v206 = 0u;
+      v203 = 0u;
+      v204 = 0u;
+      v27 = [*(a1 + 32) interface];
+      v28 = [v27 deviceScanChannels];
 
-      v23 = [v22 countByEnumeratingWithState:&v172 objects:v178 count:16];
-      if (v23)
+      v29 = [v28 countByEnumeratingWithState:&v203 objects:v209 count:16];
+      if (v29)
       {
-        v24 = *v173;
+        v30 = *v204;
         while (2)
         {
-          for (i = 0; i != v23; ++i)
+          for (i = 0; i != v29; ++i)
           {
-            if (*v173 != v24)
+            if (*v204 != v30)
             {
-              objc_enumerationMutation(v22);
+              objc_enumerationMutation(v28);
             }
 
-            v26 = *(*(&v172 + 1) + 8 * i);
-            v27 = [v26 channel];
-            v28 = [v12 channel];
-            LODWORD(v27) = v27 == [v28 integerValue];
+            v32 = *(*(&v203 + 1) + 8 * i);
+            v33 = [v32 channel];
+            v34 = [v16 channel];
+            LODWORD(v33) = v33 == [v34 integerValue];
 
-            if (v27)
+            if (v33)
             {
-              v138 = v26;
+              v169 = v32;
               goto LABEL_40;
             }
           }
 
-          v23 = [v22 countByEnumeratingWithState:&v172 objects:v178 count:16];
-          if (v23)
+          v29 = [v28 countByEnumeratingWithState:&v203 objects:v209 count:16];
+          if (v29)
           {
             continue;
           }
@@ -2703,462 +2712,475 @@ void __53__WFNetworkListController__associateToHotspotDevice___block_invoke(uint
         }
       }
 
-      v138 = 0;
+      v169 = 0;
 LABEL_40:
 
-      v37 = +[WFMetricsManager sharedManager];
-      v38 = [MEMORY[0x277CBEAA8] date];
-      [v38 timeIntervalSinceDate:v139];
-      v40 = v39;
-      if (v138)
+      v45 = +[WFMetricsManager sharedManager];
+      v46 = [MEMORY[0x277CBEAA8] date];
+      [v46 timeIntervalSinceDate:v170];
+      v48 = v47;
+      if (v169)
       {
-        v41 = [v138 channel];
+        v49 = [v169 channel];
       }
 
       else
       {
-        v41 = 0;
+        v49 = 0;
       }
 
-      v42 = [WFInstantHotspotJoinEvent joinEventWithType:1 latency:v41 channel:0 error:v40];
-      [v37 processEvent:v42];
+      v50 = [WFInstantHotspotJoinEvent joinEventWithType:1 latency:v49 channel:0 error:v48];
+      [v45 processEvent:v50];
 
-      v136 = [MEMORY[0x277CBEAA8] date];
-      if (v138)
+      v167 = [MEMORY[0x277CBEAA8] date];
+      if (v169)
       {
-        v177 = v138;
-        v131 = [MEMORY[0x277CBEA60] arrayWithObjects:&v177 count:1];
+        v208 = v169;
+        v162 = [MEMORY[0x277CBEA60] arrayWithObjects:&v208 count:1];
       }
 
       else
       {
-        v43 = [*(a1 + 32) interface];
-        v131 = [v43 deviceScanChannels];
+        v51 = [*(a1 + 32) interface];
+        v162 = [v51 deviceScanChannels];
       }
 
-      v44 = [v12 name];
-      v137 = [WFScanRequest scanRequestForSSID:v44 channels:v131];
+      v52 = [v16 name];
+      v168 = [WFScanRequest scanRequestForSSID:v52 channels:v162];
 
-      if (!v137)
+      if (!v168)
       {
-        v104 = WFLogForCategory(0);
-        v105 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v104 && os_log_type_enabled(v104, v105))
+        v128 = WFLogForCategory(0);
+        v129 = OSLogForWFLogLevel(1uLL);
+        v130 = v129;
+        if (WFCurrentLogLevel(v129, v131) && v128 && os_log_type_enabled(v128, v130))
         {
-          *v179 = 136315138;
-          v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-          _os_log_impl(&dword_273ECD000, v104, v105, "%s: error creating scan request", v179, 0xCu);
+          *v210 = 136315138;
+          v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+          _os_log_impl(&dword_273ECD000, v128, v130, "%s: error creating scan request", v210, 0xCu);
         }
 
         [*(a1 + 32) _presentHotspotErrorContextWithDevice:*(a1 + 40) hotspotError:0 failure:4];
-        v106 = [*(a1 + 32) wifiClient];
-        [v106 setAutoJoinEnabled:1];
+        v132 = [*(a1 + 32) wifiClient];
+        [v132 setAutoJoinEnabled:1];
 
-        v107 = +[WFMetricsManager sharedManager];
-        v108 = [MEMORY[0x277CBEAA8] date];
-        [v108 timeIntervalSinceDate:v136];
-        v110 = v109;
-        if (v138)
+        v133 = +[WFMetricsManager sharedManager];
+        v134 = [MEMORY[0x277CBEAA8] date];
+        [v134 timeIntervalSinceDate:v167];
+        v136 = v135;
+        if (v169)
         {
-          v111 = [v138 channel];
+          v137 = [v169 channel];
         }
 
         else
         {
-          v111 = 0;
+          v137 = 0;
         }
 
-        v120 = [WFInstantHotspotJoinEvent joinEventWithType:2 latency:v111 channel:10001 error:v110];
-        [v107 processEvent:v120];
+        v148 = [WFInstantHotspotJoinEvent joinEventWithType:2 latency:v137 channel:10001 error:v136];
+        [v133 processEvent:v148];
 
-        v132 = WFLogForCategory(0);
-        v121 = OSLogForWFLogLevel(1uLL);
-        v135 = 0;
-        if (!WFCurrentLogLevel() || !v132)
+        v163 = WFLogForCategory(0);
+        v149 = OSLogForWFLogLevel(1uLL);
+        v150 = v149;
+        v166 = 0;
+        if (!WFCurrentLogLevel(v149, v151) || !v163)
         {
           goto LABEL_143;
         }
 
-        v122 = v132;
-        if (os_log_type_enabled(v122, v121))
+        v152 = v163;
+        if (os_log_type_enabled(v152, v150))
         {
-          v123 = [MEMORY[0x277CBEAA8] date];
-          *v179 = 136315394;
-          v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-          v181 = 2112;
-          v182 = v123;
-          _os_log_impl(&dword_273ECD000, v122, v121, "%s: TIME: end %@", v179, 0x16u);
+          v153 = [MEMORY[0x277CBEAA8] date];
+          *v210 = 136315394;
+          v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+          v212 = 2112;
+          v213 = v153;
+          _os_log_impl(&dword_273ECD000, v152, v150, "%s: TIME: end %@", v210, 0x16u);
         }
 
-        v135 = 0;
-        v132 = v122;
+        v166 = 0;
+        v163 = v152;
 LABEL_142:
 
 LABEL_143:
-        v35 = v131;
+        v43 = v162;
         goto LABEL_144;
       }
 
-      [v137 setDwellTime:110];
-      v132 = [v131 mutableCopy];
-      if (v138 && v132 && [v138 channel] >= 0x24)
+      [v168 setDwellTime:110];
+      v163 = [v162 mutableCopy];
+      if (v169 && v163 && [v169 channel] >= 0x24)
       {
-        if ([v138 channel] != 149 && objc_msgSend(*(a1 + 32), "_isChannelAllowedForScanPerCurrentLocale:", 149))
+        if ([v169 channel] != 149 && objc_msgSend(*(a1 + 32), "_isChannelAllowedForScanPerCurrentLocale:", 149))
         {
-          v45 = -[WFScanChannel initWithChannel:flags:]([WFScanChannel alloc], "initWithChannel:flags:", 149, [v138 flags]);
-          [v132 addObject:v45];
+          v53 = -[WFScanChannel initWithChannel:flags:]([WFScanChannel alloc], "initWithChannel:flags:", 149, [v169 flags]);
+          [v163 addObject:v53];
         }
 
-        if ([v138 channel] != 44 && objc_msgSend(*(a1 + 32), "_isChannelAllowedForScanPerCurrentLocale:", 44))
+        if ([v169 channel] != 44 && objc_msgSend(*(a1 + 32), "_isChannelAllowedForScanPerCurrentLocale:", 44))
         {
-          v46 = -[WFScanChannel initWithChannel:flags:]([WFScanChannel alloc], "initWithChannel:flags:", 44, [v138 flags]);
-          [v132 addObject:v46];
+          v54 = -[WFScanChannel initWithChannel:flags:]([WFScanChannel alloc], "initWithChannel:flags:", 44, [v169 flags]);
+          [v163 addObject:v54];
         }
       }
 
-      v47 = [v12 name];
-      v48 = [v132 copy];
-      v128 = [WFScanRequest scanRequestForSSID:v47 channels:v48];
+      v55 = [v16 name];
+      v56 = [v163 copy];
+      v159 = [WFScanRequest scanRequestForSSID:v55 channels:v56];
 
-      if (v128)
+      if (v159)
       {
-        [v128 setDwellTime:110];
-        v134 = dispatch_semaphore_create(0);
-        v135 = 0;
+        [v159 setDwellTime:110];
+        v165 = dispatch_semaphore_create(0);
         v166 = 0;
-        v167 = &v166;
-        v168 = 0x3032000000;
-        v169 = __Block_byref_object_copy_;
-        v170 = __Block_byref_object_dispose_;
-        v171 = 0;
+        v197 = 0;
+        v198 = &v197;
+        v199 = 0x3032000000;
+        v200 = __Block_byref_object_copy_;
+        v201 = __Block_byref_object_dispose_;
+        v202 = 0;
         do
         {
-          v49 = WFLogForCategory(0);
-          v50 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v49 && os_log_type_enabled(v49, v50))
+          v57 = WFLogForCategory(0);
+          v58 = OSLogForWFLogLevel(1uLL);
+          v59 = v58;
+          if (WFCurrentLogLevel(v58, v60) && v57 && os_log_type_enabled(v57, v59))
           {
-            *v179 = 136315138;
-            v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-            _os_log_impl(&dword_273ECD000, v49, v50, "%s: TIME: scanning for remote hotspot", v179, 0xCu);
+            *v210 = 136315138;
+            v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+            _os_log_impl(&dword_273ECD000, v57, v59, "%s: TIME: scanning for remote hotspot", v210, 0xCu);
           }
 
-          v162 = 0;
-          v163 = &v162;
-          v164 = 0x2020000000;
-          v165 = 0;
-          v51 = *(*&buf[8] + 40);
+          v193 = 0;
+          v194 = &v193;
+          v195 = 0x2020000000;
+          v196 = 0;
+          v61 = *(*&buf[8] + 40);
           *(*&buf[8] + 40) = 0;
 
-          v52 = [*(a1 + 32) interface];
-          v154[0] = MEMORY[0x277D85DD0];
-          v154[1] = 3221225472;
-          v154[2] = __53__WFNetworkListController__associateToHotspotDevice___block_invoke_167;
-          v154[3] = &unk_279EBD2B8;
-          v158 = buf;
-          v53 = v12;
-          v155 = v53;
-          v159 = &v166;
-          v160 = &v162;
-          v54 = v139;
-          v156 = v54;
-          v161 = 0x403E000000000000;
-          v55 = v134;
-          v157 = v55;
-          [v52 asyncScanRequest:v137 reply:v154];
+          v62 = [*(a1 + 32) interface];
+          v185[0] = MEMORY[0x277D85DD0];
+          v185[1] = 3221225472;
+          v185[2] = __53__WFNetworkListController__associateToHotspotDevice___block_invoke_167;
+          v185[3] = &unk_279EBD2B8;
+          v189 = buf;
+          v63 = v16;
+          v186 = v63;
+          v190 = &v197;
+          v191 = &v193;
+          v64 = v170;
+          v187 = v64;
+          v192 = 0x403E000000000000;
+          v65 = v165;
+          v188 = v65;
+          [v62 asyncScanRequest:v168 reply:v185];
 
-          dispatch_semaphore_wait(v55, 0xFFFFFFFFFFFFFFFFLL);
-          v56 = WFLogForCategory(0);
-          v57 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v56 && os_log_type_enabled(v56, v57))
+          dispatch_semaphore_wait(v65, 0xFFFFFFFFFFFFFFFFLL);
+          v66 = WFLogForCategory(0);
+          v67 = OSLogForWFLogLevel(1uLL);
+          v68 = v67;
+          if (WFCurrentLogLevel(v67, v69) && v66 && os_log_type_enabled(v66, v68))
           {
-            v58 = v167[5];
-            *v179 = 136315394;
-            v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke_2";
-            v181 = 2112;
-            v182 = v58;
-            _os_log_impl(&dword_273ECD000, v56, v57, "%s: TIME: directed scan for instant hotspot found %@", v179, 0x16u);
+            v70 = v198[5];
+            *v210 = 136315394;
+            v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke_2";
+            v212 = 2112;
+            v213 = v70;
+            _os_log_impl(&dword_273ECD000, v66, v68, "%s: TIME: directed scan for instant hotspot found %@", v210, 0x16u);
           }
 
-          if (*(v163 + 24) == 1)
+          if (*(v194 + 24) == 1)
           {
-            v59 = WFLogForCategory(0);
-            v60 = OSLogForWFLogLevel(1uLL);
-            v61 = 1;
-            if (WFCurrentLogLevel() && v59 && os_log_type_enabled(v59, v60))
+            v71 = WFLogForCategory(0);
+            v72 = OSLogForWFLogLevel(1uLL);
+            v73 = v72;
+            v75 = 1;
+            if (WFCurrentLogLevel(v72, v74) && v71 && os_log_type_enabled(v71, v73))
             {
-              *v179 = 136315138;
-              v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-              _os_log_impl(&dword_273ECD000, v59, v60, "%s: retrying scan ", v179, 0xCu);
+              *v210 = 136315138;
+              v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+              _os_log_impl(&dword_273ECD000, v71, v73, "%s: retrying scan ", v210, 0xCu);
             }
           }
 
-          else if (*(*&buf[8] + 40) || !v167[5])
+          else if (*(*&buf[8] + 40) || !v198[5])
           {
-            v62 = WFLogForCategory(0);
-            v63 = OSLogForWFLogLevel(1uLL);
-            if (WFCurrentLogLevel() && v62 && os_log_type_enabled(v62, v63))
+            v76 = WFLogForCategory(0);
+            v77 = OSLogForWFLogLevel(1uLL);
+            v78 = v77;
+            if (WFCurrentLogLevel(v77, v79) && v76 && os_log_type_enabled(v76, v78))
             {
-              v64 = *(*&buf[8] + 40);
-              *v179 = 136315394;
-              v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-              v181 = 2112;
-              v182 = v64;
-              _os_log_impl(&dword_273ECD000, v62, v63, "%s: error on directed scan for hotspot %@", v179, 0x16u);
+              v80 = *(*&buf[8] + 40);
+              *v210 = 136315394;
+              v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+              v212 = 2112;
+              v213 = v80;
+              _os_log_impl(&dword_273ECD000, v76, v78, "%s: error on directed scan for hotspot %@", v210, 0x16u);
             }
 
             [*(a1 + 32) _presentHotspotErrorContextWithDevice:*(a1 + 40) hotspotError:0 failure:4];
-            v65 = [*(a1 + 32) wifiClient];
-            [v65 setAutoJoinEnabled:1];
+            v81 = [*(a1 + 32) wifiClient];
+            [v81 setAutoJoinEnabled:1];
 
-            v66 = +[WFMetricsManager sharedManager];
-            v67 = [MEMORY[0x277CBEAA8] date];
-            [v67 timeIntervalSinceDate:v136];
-            v69 = v68;
-            if (v138)
+            v82 = +[WFMetricsManager sharedManager];
+            v83 = [MEMORY[0x277CBEAA8] date];
+            [v83 timeIntervalSinceDate:v167];
+            v85 = v84;
+            if (v169)
             {
-              v70 = [v138 channel];
+              v86 = [v169 channel];
             }
 
             else
             {
-              v70 = 0;
+              v86 = 0;
             }
 
-            v77 = *(*&buf[8] + 40);
-            if (v77)
+            v93 = *(*&buf[8] + 40);
+            if (v93)
             {
-              v78 = [v77 code];
+              v94 = [v93 code];
             }
 
             else
             {
-              v78 = 4;
+              v94 = 4;
             }
 
-            v79 = [WFInstantHotspotJoinEvent joinEventWithType:2 latency:v70 channel:v78 error:v69];
-            [v66 processEvent:v79];
+            v95 = [WFInstantHotspotJoinEvent joinEventWithType:2 latency:v86 channel:v94 error:v85];
+            [v82 processEvent:v95];
 
-            v59 = WFLogForCategory(0);
-            v80 = OSLogForWFLogLevel(1uLL);
-            v61 = 0;
-            if (WFCurrentLogLevel() && v59)
+            v71 = WFLogForCategory(0);
+            v96 = OSLogForWFLogLevel(1uLL);
+            v97 = v96;
+            v75 = 0;
+            if (WFCurrentLogLevel(v96, v98) && v71)
             {
-              v59 = v59;
-              if (os_log_type_enabled(v59, v80))
+              v71 = v71;
+              if (os_log_type_enabled(v71, v97))
               {
-                v81 = [MEMORY[0x277CBEAA8] date];
-                *v179 = 136315394;
-                v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-                v181 = 2112;
-                v182 = v81;
-                _os_log_impl(&dword_273ECD000, v59, v80, "%s: TIME: end %@", v179, 0x16u);
+                v99 = [MEMORY[0x277CBEAA8] date];
+                *v210 = 136315394;
+                v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+                v212 = 2112;
+                v213 = v99;
+                _os_log_impl(&dword_273ECD000, v71, v97, "%s: TIME: end %@", v210, 0x16u);
               }
 
-              v61 = 0;
+              v75 = 0;
             }
           }
 
           else
           {
-            v71 = +[WFMetricsManager sharedManager];
-            v72 = [MEMORY[0x277CBEAA8] date];
-            [v72 timeIntervalSinceDate:v136];
-            v74 = v73;
-            v75 = [v167[5] channel];
-            if (v75)
+            v87 = +[WFMetricsManager sharedManager];
+            v88 = [MEMORY[0x277CBEAA8] date];
+            [v88 timeIntervalSinceDate:v167];
+            v90 = v89;
+            v91 = [v198[5] channel];
+            if (v91)
             {
-              v129 = [v167[5] channel];
-              v76 = [v129 unsignedIntegerValue];
+              v160 = [v198[5] channel];
+              v92 = [v160 unsignedIntegerValue];
             }
 
             else
             {
-              v76 = 0;
+              v92 = 0;
             }
 
-            v82 = [WFInstantHotspotJoinEvent joinEventWithType:2 latency:v76 channel:0 error:v74];
-            [v71 processEvent:v82];
+            v100 = [WFInstantHotspotJoinEvent joinEventWithType:2 latency:v92 channel:0 error:v90];
+            [v87 processEvent:v100];
 
-            if (v75)
+            if (v91)
             {
             }
 
-            v130 = [MEMORY[0x277CBEAA8] date];
+            v161 = [MEMORY[0x277CBEAA8] date];
 
-            v83 = [v167[5] matchingKnownNetworkProfile];
+            v101 = [v198[5] matchingKnownNetworkProfile];
 
-            if (v83 && (v84 = [WFNetworkProfile alloc], [v167[5] matchingKnownNetworkProfile], v85 = objc_claimAutoreleasedReturnValue(), v133 = -[WFNetworkProfile initWithCoreWiFiProfile:](v84, "initWithCoreWiFiProfile:", v85), v85, v133))
+            if (v101 && (v102 = [WFNetworkProfile alloc], [v198[5] matchingKnownNetworkProfile], v103 = objc_claimAutoreleasedReturnValue(), v164 = -[WFNetworkProfile initWithCoreWiFiProfile:](v102, "initWithCoreWiFiProfile:", v103), v103, v164))
             {
-              v86 = [(WFNetworkProfile *)v133 mutableCopy];
+              v104 = [(WFNetworkProfile *)v164 mutableCopy];
             }
 
             else
             {
-              v86 = [WFMutableNetworkProfile mutableProfileForNetwork:v167[5]];
-              v133 = 0;
+              v104 = [WFMutableNetworkProfile mutableProfileForNetwork:v198[5]];
+              v164 = 0;
             }
 
-            v87 = [v53 password];
-            [v86 setPassword:v87];
+            v105 = [v63 password];
+            [v104 setPassword:v105];
 
-            [v86 setInstantHotspotJoin:1];
-            v88 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(*(a1 + 40), "uniqueIdentifier")];
-            [v86 setHotspotDeviceIdentifier:v88];
+            [v104 setInstantHotspotJoin:1];
+            v106 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(*(a1 + 40), "uniqueIdentifier")];
+            [v104 setHotspotDeviceIdentifier:v106];
 
-            v89 = WFLogForCategory(0);
-            v90 = OSLogForWFLogLevel(4uLL);
-            if (WFCurrentLogLevel() >= 4 && v89)
+            v107 = WFLogForCategory(0);
+            v108 = OSLogForWFLogLevel(4uLL);
+            v109 = v108;
+            if (WFCurrentLogLevel(v108, v110) >= 4 && v107)
             {
-              v91 = v89;
-              if (os_log_type_enabled(v91, v90))
+              v111 = v107;
+              if (os_log_type_enabled(v111, v109))
               {
-                v92 = [v86 ssid];
-                v93 = [v86 hotspotDeviceIdentifier];
-                *v179 = 138412546;
-                v180 = v92;
-                v181 = 2112;
-                v182 = v93;
-                _os_log_impl(&dword_273ECD000, v91, v90, "Saving device identifier for hotspot: %@, deviceID: %@", v179, 0x16u);
+                v112 = [v104 ssid];
+                v113 = [v104 hotspotDeviceIdentifier];
+                *v210 = 138412546;
+                v211 = v112;
+                v212 = 2112;
+                v213 = v113;
+                _os_log_impl(&dword_273ECD000, v111, v109, "Saving device identifier for hotspot: %@, deviceID: %@", v210, 0x16u);
               }
             }
 
             objc_initWeak(&location, *(a1 + 32));
-            v149 = 0;
-            v150 = &v149;
-            v151 = 0x2020000000;
-            v152 = 0;
-            v94 = WFLogForCategory(0);
-            v95 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v94 && os_log_type_enabled(v94, v95))
+            v180 = 0;
+            v181 = &v180;
+            v182 = 0x2020000000;
+            v183 = 0;
+            v114 = WFLogForCategory(0);
+            v115 = OSLogForWFLogLevel(3uLL);
+            v116 = v115;
+            if (WFCurrentLogLevel(v115, v117) >= 3 && v114 && os_log_type_enabled(v114, v116))
             {
-              *v179 = 0;
-              _os_log_impl(&dword_273ECD000, v94, v95, "Hotspot has been enabled and directed scan has been completed. Associate to hotspot.", v179, 2u);
+              *v210 = 0;
+              _os_log_impl(&dword_273ECD000, v114, v116, "Hotspot has been enabled and directed scan has been completed. Associate to hotspot.", v210, 2u);
             }
 
-            v96 = [*(a1 + 32) interface];
-            v97 = v167[5];
-            v140[0] = MEMORY[0x277D85DD0];
-            v140[1] = 3221225472;
-            v140[2] = __53__WFNetworkListController__associateToHotspotDevice___block_invoke_172;
-            v140[3] = &unk_279EBD2E0;
-            objc_copyWeak(v148, &location);
-            v146 = &v149;
-            v141 = v54;
-            v148[1] = 0x403E000000000000;
-            v142 = *(a1 + 40);
-            v135 = v130;
-            v143 = v135;
-            v147 = &v166;
-            v98 = v55;
-            v144 = v98;
-            v59 = v86;
-            v145 = v59;
-            [v96 asyncAssociateToNetwork:v97 profile:v59 reply:v140];
+            v118 = [*(a1 + 32) interface];
+            v119 = v198[5];
+            v171[0] = MEMORY[0x277D85DD0];
+            v171[1] = 3221225472;
+            v171[2] = __53__WFNetworkListController__associateToHotspotDevice___block_invoke_172;
+            v171[3] = &unk_279EBD2E0;
+            objc_copyWeak(v179, &location);
+            v177 = &v180;
+            v172 = v64;
+            v179[1] = 0x403E000000000000;
+            v173 = *(a1 + 40);
+            v166 = v161;
+            v174 = v166;
+            v178 = &v197;
+            v120 = v65;
+            v175 = v120;
+            v71 = v104;
+            v176 = v71;
+            [v118 asyncAssociateToNetwork:v119 profile:v71 reply:v171];
 
-            dispatch_semaphore_wait(v98, 0xFFFFFFFFFFFFFFFFLL);
-            v61 = *(v150 + 24);
-            if ((v61 & 1) == 0)
+            dispatch_semaphore_wait(v120, 0xFFFFFFFFFFFFFFFFLL);
+            v75 = *(v181 + 24);
+            if ((v75 & 1) == 0)
             {
-              v99 = WFLogForCategory(0);
-              v100 = OSLogForWFLogLevel(1uLL);
-              if (WFCurrentLogLevel() && v99)
+              v121 = WFLogForCategory(0);
+              v122 = OSLogForWFLogLevel(1uLL);
+              v123 = v122;
+              if (WFCurrentLogLevel(v122, v124) && v121)
               {
-                v101 = v99;
-                if (os_log_type_enabled(v101, v100))
+                v125 = v121;
+                if (os_log_type_enabled(v125, v123))
                 {
-                  v102 = [MEMORY[0x277CBEAA8] date];
-                  *v179 = 136315394;
-                  v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-                  v181 = 2112;
-                  v182 = v102;
-                  _os_log_impl(&dword_273ECD000, v101, v100, "%s: TIME: end %@", v179, 0x16u);
+                  v126 = [MEMORY[0x277CBEAA8] date];
+                  *v210 = 136315394;
+                  v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+                  v212 = 2112;
+                  v213 = v126;
+                  _os_log_impl(&dword_273ECD000, v125, v123, "%s: TIME: end %@", v210, 0x16u);
                 }
               }
             }
 
-            objc_destroyWeak(v148);
-            _Block_object_dispose(&v149, 8);
+            objc_destroyWeak(v179);
+            _Block_object_dispose(&v180, 8);
             objc_destroyWeak(&location);
           }
 
-          _Block_object_dispose(&v162, 8);
+          _Block_object_dispose(&v193, 8);
         }
 
-        while ((v61 & 1) != 0);
-        _Block_object_dispose(&v166, 8);
-        v103 = v171;
+        while ((v75 & 1) != 0);
+        _Block_object_dispose(&v197, 8);
+        v127 = v202;
       }
 
       else
       {
-        v112 = WFLogForCategory(0);
-        v113 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v112 && os_log_type_enabled(v112, v113))
+        v138 = WFLogForCategory(0);
+        v139 = OSLogForWFLogLevel(1uLL);
+        v140 = v139;
+        if (WFCurrentLogLevel(v139, v141) && v138 && os_log_type_enabled(v138, v140))
         {
-          *v179 = 136315138;
-          v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-          _os_log_impl(&dword_273ECD000, v112, v113, "%s: error creating scan request for retry", v179, 0xCu);
+          *v210 = 136315138;
+          v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+          _os_log_impl(&dword_273ECD000, v138, v140, "%s: error creating scan request for retry", v210, 0xCu);
         }
 
         [*(a1 + 32) _presentHotspotErrorContextWithDevice:*(a1 + 40) hotspotError:0 failure:4];
-        v114 = [*(a1 + 32) wifiClient];
-        [v114 setAutoJoinEnabled:1];
+        v142 = [*(a1 + 32) wifiClient];
+        [v142 setAutoJoinEnabled:1];
 
-        v115 = +[WFMetricsManager sharedManager];
-        v116 = [MEMORY[0x277CBEAA8] date];
-        [v116 timeIntervalSinceDate:v136];
-        v118 = v117;
-        if (v138)
+        v143 = +[WFMetricsManager sharedManager];
+        v144 = [MEMORY[0x277CBEAA8] date];
+        [v144 timeIntervalSinceDate:v167];
+        v146 = v145;
+        if (v169)
         {
-          v119 = [v138 channel];
+          v147 = [v169 channel];
         }
 
         else
         {
-          v119 = 0;
+          v147 = 0;
         }
 
-        v124 = [WFInstantHotspotJoinEvent joinEventWithType:2 latency:v119 channel:10001 error:v118];
-        [v115 processEvent:v124];
+        v154 = [WFInstantHotspotJoinEvent joinEventWithType:2 latency:v147 channel:10001 error:v146];
+        [v143 processEvent:v154];
 
-        v55 = WFLogForCategory(0);
-        v125 = OSLogForWFLogLevel(1uLL);
-        v135 = 0;
-        if (!WFCurrentLogLevel() || !v55)
+        v65 = WFLogForCategory(0);
+        v155 = OSLogForWFLogLevel(1uLL);
+        v156 = v155;
+        v166 = 0;
+        if (!WFCurrentLogLevel(v155, v157) || !v65)
         {
           goto LABEL_141;
         }
 
-        v103 = v55;
-        if (os_log_type_enabled(v103, v125))
+        v127 = v65;
+        if (os_log_type_enabled(v127, v156))
         {
-          v126 = [MEMORY[0x277CBEAA8] date];
-          *v179 = 136315394;
-          v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-          v181 = 2112;
-          v182 = v126;
-          _os_log_impl(&dword_273ECD000, v103, v125, "%s: TIME: end %@", v179, 0x16u);
+          v158 = [MEMORY[0x277CBEAA8] date];
+          *v210 = 136315394;
+          v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+          v212 = 2112;
+          v213 = v158;
+          _os_log_impl(&dword_273ECD000, v127, v156, "%s: TIME: end %@", v210, 0x16u);
         }
 
-        v135 = 0;
-        v55 = v103;
+        v166 = 0;
+        v65 = v127;
       }
 
 LABEL_141:
-      v122 = v128;
+      v152 = v159;
       goto LABEL_142;
     }
 
-    v13 = WFLogForCategory(0);
-    v14 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v13 && os_log_type_enabled(v13, v14))
+    v17 = WFLogForCategory(0);
+    v18 = OSLogForWFLogLevel(1uLL);
+    v19 = v18;
+    if (WFCurrentLogLevel(v18, v20) && v17 && os_log_type_enabled(v17, v19))
     {
-      v15 = *(*&buf[8] + 40);
-      *v179 = 136315394;
-      v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-      v181 = 2112;
-      v182 = v15;
-      _os_log_impl(&dword_273ECD000, v13, v14, "%s: error enabling hotspot: %@", v179, 0x16u);
+      v21 = *(*&buf[8] + 40);
+      *v210 = 136315394;
+      v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+      v212 = 2112;
+      v213 = v21;
+      _os_log_impl(&dword_273ECD000, v17, v19, "%s: error enabling hotspot: %@", v210, 0x16u);
     }
 
     if ([*(*&buf[8] + 40) code] == -71146)
@@ -3166,71 +3188,70 @@ LABEL_141:
       break;
     }
 
-    v16 = [*(a1 + 32) _shouldRetryRemoteHotspotEnableAfterError:{objc_msgSend(*(*&buf[8] + 40), "code")}];
-    if (v6 < 2)
+    v22 = [*(a1 + 32) _shouldRetryRemoteHotspotEnableAfterError:{objc_msgSend(*(*&buf[8] + 40), "code")}];
+    if (v8 < 2)
     {
-      v17 = v16;
+      v23 = v22;
     }
 
     else
     {
-      v17 = 0;
+      v23 = 0;
     }
 
-    if (v17 != 1 || ([MEMORY[0x277CBEAA8] date], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "timeIntervalSinceDate:", v139), v20 = v19 < 30.0, v18, !v20))
+    if (v23 != 1 || ([MEMORY[0x277CBEAA8] date], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "timeIntervalSinceDate:", v170), v26 = v25 < 30.0, v24, !v26))
     {
       [*(a1 + 32) _presentHotspotErrorContextWithDevice:*(a1 + 40) hotspotError:*(*&buf[8] + 40) failure:5];
       goto LABEL_33;
     }
 
-    ++v6;
+    ++v8;
   }
 
   [*(a1 + 32) _presentHotspotErrorContextWithDevice:*(a1 + 40) hotspotError:*(*&buf[8] + 40) failure:19];
 LABEL_33:
-  v29 = [*(a1 + 32) wifiClient];
-  [v29 setAutoJoinEnabled:1];
+  v35 = [*(a1 + 32) wifiClient];
+  [v35 setAutoJoinEnabled:1];
 
-  v30 = +[WFMetricsManager sharedManager];
-  v31 = [MEMORY[0x277CBEAA8] date];
-  [v31 timeIntervalSinceDate:v139];
-  v33 = +[WFInstantHotspotJoinEvent joinEventWithType:latency:channel:error:](WFInstantHotspotJoinEvent, "joinEventWithType:latency:channel:error:", 1, 0, [*(*&buf[8] + 40) code], v32);
-  [v30 processEvent:v33];
+  v36 = +[WFMetricsManager sharedManager];
+  v37 = [MEMORY[0x277CBEAA8] date];
+  [v37 timeIntervalSinceDate:v170];
+  v39 = +[WFInstantHotspotJoinEvent joinEventWithType:latency:channel:error:](WFInstantHotspotJoinEvent, "joinEventWithType:latency:channel:error:", 1, 0, [*(*&buf[8] + 40) code], v38);
+  [v36 processEvent:v39];
 
-  v138 = WFLogForCategory(0);
-  v34 = OSLogForWFLogLevel(1uLL);
-  v135 = 0;
-  if (!WFCurrentLogLevel() || !v138)
+  v169 = WFLogForCategory(0);
+  v40 = OSLogForWFLogLevel(1uLL);
+  v41 = v40;
+  v166 = 0;
+  if (!WFCurrentLogLevel(v40, v42) || !v169)
   {
-    v136 = 0;
+    v167 = 0;
     goto LABEL_145;
   }
 
-  v35 = v138;
-  if (os_log_type_enabled(v35, v34))
+  v43 = v169;
+  if (os_log_type_enabled(v43, v41))
   {
-    v36 = [MEMORY[0x277CBEAA8] date];
-    *v179 = 136315394;
-    v180 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-    v181 = 2112;
-    v182 = v36;
-    _os_log_impl(&dword_273ECD000, v35, v34, "%s: TIME: end %@", v179, 0x16u);
+    v44 = [MEMORY[0x277CBEAA8] date];
+    *v210 = 136315394;
+    v211 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+    v212 = 2112;
+    v213 = v44;
+    _os_log_impl(&dword_273ECD000, v43, v41, "%s: TIME: end %@", v210, 0x16u);
   }
 
-  v135 = 0;
-  v136 = 0;
-  v138 = v35;
+  v166 = 0;
+  v167 = 0;
+  v169 = v43;
 LABEL_144:
 
 LABEL_145:
   _Block_object_dispose(buf, 8);
-
-  v127 = *MEMORY[0x277D85DE8];
 }
 
 void __53__WFNetworkListController__associateToHotspotDevice___block_invoke_167(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -3265,34 +3286,33 @@ void __53__WFNetworkListController__associateToHotspotDevice___block_invoke_167(
   {
     v18 = WFLogForCategory(0);
     v19 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v18 && os_log_type_enabled(v18, v19))
+    v20 = v19;
+    if (WFCurrentLogLevel(v19, v21) && v18 && os_log_type_enabled(v18, v20))
     {
       *buf = 136315138;
-      v26 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-      _os_log_impl(&dword_273ECD000, v18, v19, "%s: scan failed, dispatch retry in 1 second", buf, 0xCu);
+      v27 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+      _os_log_impl(&dword_273ECD000, v18, v20, "%s: scan failed, dispatch retry in 1 second", buf, 0xCu);
     }
 
-    v20 = dispatch_time(0, 1000000000);
-    v21 = dispatch_get_global_queue(21, 0);
+    v22 = dispatch_time(0, 1000000000);
+    v23 = dispatch_get_global_queue(21, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __53__WFNetworkListController__associateToHotspotDevice___block_invoke_168;
     block[3] = &unk_279EBCFE0;
-    v24 = *(a1 + 48);
-    dispatch_after(v20, v21, block);
+    v25 = *(a1 + 48);
+    dispatch_after(v22, v23, block);
   }
 
   else
   {
     dispatch_semaphore_signal(*(a1 + 48));
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __53__WFNetworkListController__associateToHotspotDevice___block_invoke_172(uint64_t a1, char a2, void *a3)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
   v8 = WeakRetained;
@@ -3322,49 +3342,50 @@ void __53__WFNetworkListController__associateToHotspotDevice___block_invoke_172(
       v15 = 0;
     }
 
-    v31 = [WFInstantHotspotJoinEvent joinEventWithType:3 latency:v15 channel:0 error:v13];
-    [v10 processEvent:v31];
+    v33 = [WFInstantHotspotJoinEvent joinEventWithType:3 latency:v15 channel:0 error:v13];
+    [v10 processEvent:v33];
 
     if (v14)
     {
     }
 
-    v32 = +[WFMetricsManager sharedManager];
-    v33 = [MEMORY[0x277CBEAA8] date];
-    [v33 timeIntervalSinceDate:*(a1 + 32)];
-    v35 = v34;
-    v36 = [*(*(*(a1 + 80) + 8) + 40) channel];
-    if (v36)
+    v34 = +[WFMetricsManager sharedManager];
+    v35 = [MEMORY[0x277CBEAA8] date];
+    [v35 timeIntervalSinceDate:*(a1 + 32)];
+    v37 = v36;
+    v38 = [*(*(*(a1 + 80) + 8) + 40) channel];
+    if (v38)
     {
       v3 = [*(*(*(a1 + 80) + 8) + 40) channel];
-      v37 = [v3 unsignedIntegerValue];
+      v39 = [v3 unsignedIntegerValue];
     }
 
     else
     {
-      v37 = 0;
+      v39 = 0;
     }
 
-    v38 = [WFInstantHotspotJoinEvent joinEventWithType:4 latency:v37 channel:0 error:v35];
-    [v32 processEvent:v38];
+    v40 = [WFInstantHotspotJoinEvent joinEventWithType:4 latency:v39 channel:0 error:v37];
+    [v34 processEvent:v40];
 
-    if (v36)
+    if (v38)
     {
     }
 
-    v39 = WFLogForCategory(0);
-    v40 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v39)
+    v41 = WFLogForCategory(0);
+    v42 = OSLogForWFLogLevel(1uLL);
+    v43 = v42;
+    if (WFCurrentLogLevel(v42, v44) && v41)
     {
-      v41 = v39;
-      if (os_log_type_enabled(v41, v40))
+      v45 = v41;
+      if (os_log_type_enabled(v45, v43))
       {
-        v42 = [*(*(*(a1 + 80) + 8) + 40) ssid];
+        v46 = [*(*(*(a1 + 80) + 8) + 40) ssid];
         *buf = 136315394;
-        v48 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke_2";
-        v49 = 2112;
-        v50 = v42;
-        _os_log_impl(&dword_273ECD000, v41, v40, "%s: TIME: associated to hotspot %@ sucessfully", buf, 0x16u);
+        v51 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke_2";
+        v52 = 2112;
+        v53 = v46;
+        _os_log_impl(&dword_273ECD000, v45, v43, "%s: TIME: associated to hotspot %@ sucessfully", buf, 0x16u);
       }
     }
 
@@ -3379,85 +3400,84 @@ void __53__WFNetworkListController__associateToHotspotDevice___block_invoke_172(
     v18 = *(*(*(a1 + 72) + 8) + 24);
     v19 = WFLogForCategory(0);
     v20 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel())
+    v21 = v20;
+    if (WFCurrentLogLevel(v20, v22))
     {
-      v21 = v19 == 0;
+      v23 = v19 == 0;
     }
 
     else
     {
-      v21 = 1;
+      v23 = 1;
     }
 
-    v22 = !v21;
+    v24 = !v23;
     if (v18)
     {
-      if (v22 && os_log_type_enabled(v19, v20))
+      if (v24 && os_log_type_enabled(v19, v21))
       {
         *buf = 136315138;
-        v48 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-        _os_log_impl(&dword_273ECD000, v19, v20, "%s: association failed, dispatch retry in 1 second", buf, 0xCu);
+        v51 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+        _os_log_impl(&dword_273ECD000, v19, v21, "%s: association failed, dispatch retry in 1 second", buf, 0xCu);
       }
 
-      v23 = dispatch_time(0, 1000000000);
-      v24 = dispatch_get_global_queue(21, 0);
+      v25 = dispatch_time(0, 1000000000);
+      v26 = dispatch_get_global_queue(21, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __53__WFNetworkListController__associateToHotspotDevice___block_invoke_173;
       block[3] = &unk_279EBCFE0;
-      v46 = *(a1 + 56);
-      dispatch_after(v23, v24, block);
+      v49 = *(a1 + 56);
+      dispatch_after(v25, v26, block);
 
-      v25 = v46;
+      v27 = v49;
     }
 
     else
     {
-      if (v22 && os_log_type_enabled(v19, v20))
+      if (v24 && os_log_type_enabled(v19, v21))
       {
         *buf = 136315394;
-        v48 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
-        v49 = 2112;
-        v50 = v6;
-        _os_log_impl(&dword_273ECD000, v19, v20, "%s: error on associating to hotspot %@", buf, 0x16u);
+        v51 = "[WFNetworkListController _associateToHotspotDevice:]_block_invoke";
+        v52 = 2112;
+        v53 = v6;
+        _os_log_impl(&dword_273ECD000, v19, v21, "%s: error on associating to hotspot %@", buf, 0x16u);
       }
 
       [v8 _presentHotspotErrorContextWithDevice:*(a1 + 40) hotspotError:0 failure:13];
-      v25 = +[WFMetricsManager sharedManager];
-      v26 = [MEMORY[0x277CBEAA8] date];
-      [v26 timeIntervalSinceDate:*(a1 + 48)];
-      v28 = v27;
-      v29 = [*(*(*(a1 + 80) + 8) + 40) channel];
-      if (v29)
+      v27 = +[WFMetricsManager sharedManager];
+      v28 = [MEMORY[0x277CBEAA8] date];
+      [v28 timeIntervalSinceDate:*(a1 + 48)];
+      v30 = v29;
+      v31 = [*(*(*(a1 + 80) + 8) + 40) channel];
+      if (v31)
       {
         a1 = [*(*(*(a1 + 80) + 8) + 40) channel];
-        v30 = [a1 unsignedIntegerValue];
+        v32 = [a1 unsignedIntegerValue];
       }
 
       else
       {
-        v30 = 0;
+        v32 = 0;
       }
 
-      v43 = +[WFInstantHotspotJoinEvent joinEventWithType:latency:channel:error:](WFInstantHotspotJoinEvent, "joinEventWithType:latency:channel:error:", 3, v30, [v6 code], v28);
-      [v25 processEvent:v43];
+      v47 = +[WFInstantHotspotJoinEvent joinEventWithType:latency:channel:error:](WFInstantHotspotJoinEvent, "joinEventWithType:latency:channel:error:", 3, v32, [v6 code], v30);
+      [v27 processEvent:v47];
 
-      if (v29)
+      if (v31)
       {
       }
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_associateToNetwork:(id)network profile:(id)profile
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   profileCopy = profile;
   [(WFNetworkListController *)self _associationWillStart:networkCopy];
-  v74 = profileCopy;
+  v85 = profileCopy;
   v8 = [profileCopy mutableCopy];
   if (v8)
   {
@@ -3491,71 +3511,74 @@ void __53__WFNetworkListController__associateToHotspotDevice___block_invoke_172(
     [v9 setRandomMACAddress:v21];
     v22 = WFLogForCategory(8uLL);
     v23 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v22 && os_log_type_enabled(v22, v23))
+    v24 = v23;
+    if (WFCurrentLogLevel(v23, v25) && v22 && os_log_type_enabled(v22, v24))
     {
       *buf = 138412802;
-      v81 = v21;
-      v82 = 2112;
-      v83 = ssid;
-      v84 = 1024;
-      LODWORD(v85) = v19;
-      _os_log_impl(&dword_273ECD000, v22, v23, "using cached address='%@' for association to '%@' (private address enabled=%d)", buf, 0x1Cu);
+      v92 = v21;
+      v93 = 2112;
+      v94 = ssid;
+      v95 = 1024;
+      LODWORD(v96) = v19;
+      _os_log_impl(&dword_273ECD000, v22, v24, "using cached address='%@' for association to '%@' (private address enabled=%d)", buf, 0x1Cu);
     }
   }
 
   password = [v9 password];
-  v25 = password == 0;
+  v27 = password == 0;
 
-  if (v25)
+  if (v27)
   {
     scanManager = [(WFNetworkListController *)self scanManager];
-    v27 = [scanManager hotspotHelperForScanRecord:networkCopy];
+    v29 = [scanManager hotspotHelperForScanRecord:networkCopy];
 
-    if (v27)
+    if (v29)
     {
-      v28 = WFLogForCategory(0);
-      v29 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v28)
+      v30 = WFLogForCategory(0);
+      v31 = OSLogForWFLogLevel(3uLL);
+      v32 = v31;
+      if (WFCurrentLogLevel(v31, v33) >= 3 && v30)
       {
-        v30 = v28;
-        if (os_log_type_enabled(v30, v29))
+        v34 = v30;
+        if (os_log_type_enabled(v34, v32))
         {
-          ssid2 = [v27 ssid];
-          bundleIdentifier = [v27 bundleIdentifier];
+          ssid2 = [v29 ssid];
+          bundleIdentifier = [v29 bundleIdentifier];
           *buf = 138412546;
-          v81 = ssid2;
-          v82 = 2112;
-          v83 = bundleIdentifier;
-          _os_log_impl(&dword_273ECD000, v30, v29, "Found matching hotspot plugin network ssid: %@ (bundleIdentifier %@), using supplied password", buf, 0x16u);
+          v92 = ssid2;
+          v93 = 2112;
+          v94 = bundleIdentifier;
+          _os_log_impl(&dword_273ECD000, v34, v32, "Found matching hotspot plugin network ssid: %@ (bundleIdentifier %@), using supplied password", buf, 0x16u);
         }
       }
 
-      password2 = [v27 password];
+      password2 = [v29 password];
       [v9 setPassword:password2];
 
       [v9 setUserProvidedPassword:1];
-      bundleIdentifier2 = [v27 bundleIdentifier];
+      bundleIdentifier2 = [v29 bundleIdentifier];
       [v9 setOriginatorBundleIdentifier:bundleIdentifier2];
     }
   }
 
   if ([v9 shouldBeRemovedIfApplicationIsNoLongerInstalled])
   {
-    v35 = WFLogForCategory(0);
-    v36 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v35)
+    v39 = WFLogForCategory(0);
+    v40 = OSLogForWFLogLevel(1uLL);
+    v41 = v40;
+    if (WFCurrentLogLevel(v40, v42) && v39)
     {
-      v37 = v35;
-      if (os_log_type_enabled(v37, v36))
+      v43 = v39;
+      if (os_log_type_enabled(v43, v41))
       {
         originatorBundleIdentifier = [v9 originatorBundleIdentifier];
         *buf = 136315650;
-        v81 = "[WFNetworkListController _associateToNetwork:profile:]";
-        v82 = 2112;
-        v83 = v9;
-        v84 = 2114;
-        v85 = originatorBundleIdentifier;
-        _os_log_impl(&dword_273ECD000, v37, v36, "%s: removing application based network (%@) as it's host application (%{public}@) not installed", buf, 0x20u);
+        v92 = "[WFNetworkListController _associateToNetwork:profile:]";
+        v93 = 2112;
+        v94 = v9;
+        v95 = 2114;
+        v96 = originatorBundleIdentifier;
+        _os_log_impl(&dword_273ECD000, v43, v41, "%s: removing application based network (%@) as it's host application (%{public}@) not installed", buf, 0x20u);
       }
     }
 
@@ -3566,64 +3589,66 @@ void __53__WFNetworkListController__associateToHotspotDevice___block_invoke_172(
       wifiClient = [(WFNetworkListController *)self wifiClient];
       cInterface = [wifiClient cInterface];
       matchingKnownNetworkProfile3 = [networkCopy matchingKnownNetworkProfile];
-      v79 = 0;
-      v43 = [cInterface removeKnownNetworkProfile:matchingKnownNetworkProfile3 reason:2 error:&v79];
-      v44 = v79;
+      v90 = 0;
+      v49 = [cInterface removeKnownNetworkProfile:matchingKnownNetworkProfile3 reason:2 error:&v90];
+      v50 = v90;
 
-      if (v43)
+      if (v49)
       {
 LABEL_40:
 
-        v51 = [[WFNetworkProfile alloc] initWithNetwork:networkCopy];
-        v52 = [(WFNetworkProfile *)v51 mutableCopy];
+        v61 = [[WFNetworkProfile alloc] initWithNetwork:networkCopy];
+        v62 = [(WFNetworkProfile *)v61 mutableCopy];
 
-        v9 = v52;
+        v9 = v62;
         goto LABEL_41;
       }
 
-      v45 = WFLogForCategory(0);
-      v46 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v45)
+      v51 = WFLogForCategory(0);
+      v52 = OSLogForWFLogLevel(1uLL);
+      v53 = v52;
+      if (WFCurrentLogLevel(v52, v54) && v51)
       {
-        v47 = v45;
-        if (os_log_type_enabled(v47, v46))
+        v55 = v51;
+        if (os_log_type_enabled(v55, v53))
         {
           ssid3 = [networkCopy ssid];
           *buf = 138412546;
-          v81 = ssid3;
-          v82 = 2112;
-          v83 = v44;
-          _os_log_impl(&dword_273ECD000, v47, v46, "Failed to remove '%@' error='%@'", buf, 0x16u);
+          v92 = ssid3;
+          v93 = 2112;
+          v94 = v50;
+          _os_log_impl(&dword_273ECD000, v55, v53, "Failed to remove '%@' error='%@'", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v44 = WFLogForCategory(0);
-      v49 = OSLogForWFLogLevel(1uLL);
-      if (!WFCurrentLogLevel() || !v44)
+      v50 = WFLogForCategory(0);
+      v57 = OSLogForWFLogLevel(1uLL);
+      v58 = v57;
+      if (!WFCurrentLogLevel(v57, v59) || !v50)
       {
         goto LABEL_40;
       }
 
-      v45 = v44;
-      if (os_log_type_enabled(v45, v49))
+      v51 = v50;
+      if (os_log_type_enabled(v51, v58))
       {
         ssid4 = [networkCopy ssid];
         *buf = 138412290;
-        v81 = ssid4;
-        _os_log_impl(&dword_273ECD000, v45, v49, "no matching known network profile for '%@'", buf, 0xCu);
+        v92 = ssid4;
+        _os_log_impl(&dword_273ECD000, v51, v58, "no matching known network profile for '%@'", buf, 0xCu);
       }
 
-      v44 = v45;
+      v50 = v51;
     }
 
     goto LABEL_40;
   }
 
 LABEL_41:
-  if ([networkCopy securityMode] == 128 && (objc_msgSend(v9, "password"), v53 = objc_claimAutoreleasedReturnValue(), v54 = v53 == 0, v53, v54))
+  if ([networkCopy securityMode] == 128 && (objc_msgSend(v9, "password"), v63 = objc_claimAutoreleasedReturnValue(), v64 = v63 == 0, v63, v64))
   {
     associationContext = [(WFNetworkListController *)self associationContext];
     [associationContext setState:2];
@@ -3637,24 +3662,25 @@ LABEL_41:
 
     if (otherNetworkVC)
     {
-      v56 = WFLogForCategory(0);
-      v57 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v56)
+      v66 = WFLogForCategory(0);
+      v67 = OSLogForWFLogLevel(3uLL);
+      v68 = v67;
+      if (WFCurrentLogLevel(v67, v69) >= 3 && v66)
       {
-        v58 = v56;
-        if (os_log_type_enabled(v58, v57))
+        v70 = v66;
+        if (os_log_type_enabled(v70, v68))
         {
           otherNetworkVC2 = [(WFNetworkListController *)self otherNetworkVC];
           *buf = 138412290;
-          v81 = otherNetworkVC2;
-          _os_log_impl(&dword_273ECD000, v58, v57, "other network vc is visible %@", buf, 0xCu);
+          v92 = otherNetworkVC2;
+          _os_log_impl(&dword_273ECD000, v70, v68, "other network vc is visible %@", buf, 0xCu);
         }
       }
 
       otherNetworkVC3 = [(WFNetworkListController *)self otherNetworkVC];
-      v61 = objc_opt_respondsToSelector();
+      v73 = objc_opt_respondsToSelector();
 
-      if (v61)
+      if (v73)
       {
         otherNetworkVC4 = [(WFNetworkListController *)self otherNetworkVC];
         [otherNetworkVC4 setJoining:1];
@@ -3664,36 +3690,34 @@ LABEL_41:
     if ((_os_feature_enabled_impl() & 1) == 0)
     {
       otherNetworkVC5 = [(WFNetworkListController *)self otherNetworkVC];
-      v64 = objc_opt_respondsToSelector();
+      v76 = objc_opt_respondsToSelector();
 
-      if (v64)
+      if (v76)
       {
-        v65 = MEMORY[0x277CCACA8];
-        v66 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v67 = [v66 localizedStringForKey:@"kWFLocOtherNetworkJoiningPromptFormat" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+        v77 = MEMORY[0x277CCACA8];
+        v78 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v79 = [v78 localizedStringForKey:@"kWFLocOtherNetworkJoiningPromptFormat" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
         ssid5 = [networkCopy ssid];
-        v69 = [v65 stringWithFormat:v67, ssid5];
+        v81 = [v77 stringWithFormat:v79, ssid5];
         otherNetworkVC6 = [(WFNetworkListController *)self otherNetworkVC];
-        [otherNetworkVC6 setActivityString:v69];
+        [otherNetworkVC6 setActivityString:v81];
       }
     }
 
     objc_initWeak(buf, self);
     interface = [(WFNetworkListController *)self interface];
-    v75[0] = MEMORY[0x277D85DD0];
-    v75[1] = 3221225472;
-    v75[2] = __55__WFNetworkListController__associateToNetwork_profile___block_invoke;
-    v75[3] = &unk_279EBD308;
-    objc_copyWeak(&v78, buf);
-    v76 = networkCopy;
-    v77 = v9;
-    [interface asyncAssociateToNetwork:v76 profile:v77 reply:v75];
+    v86[0] = MEMORY[0x277D85DD0];
+    v86[1] = 3221225472;
+    v86[2] = __55__WFNetworkListController__associateToNetwork_profile___block_invoke;
+    v86[3] = &unk_279EBD308;
+    objc_copyWeak(&v89, buf);
+    v87 = networkCopy;
+    v88 = v9;
+    [interface asyncAssociateToNetwork:v87 profile:v88 reply:v86];
 
-    objc_destroyWeak(&v78);
+    objc_destroyWeak(&v89);
     objc_destroyWeak(buf);
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 void __55__WFNetworkListController__associateToNetwork_profile___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -3705,7 +3729,7 @@ void __55__WFNetworkListController__associateToNetwork_profile___block_invoke(ui
 
 - (void)_associateToEnterpriseNetwork:(id)network profile:(id)profile
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   profileCopy = profile;
   [(WFNetworkListController *)self _associationWillStart:networkCopy];
@@ -3723,15 +3747,16 @@ LABEL_10:
   {
     v14 = WFLogForCategory(5uLL);
     v15 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v14)
+    v16 = v15;
+    if (WFCurrentLogLevel(v15, v17) && v14)
     {
-      v16 = v14;
-      if (os_log_type_enabled(v16, v15))
+      v18 = v14;
+      if (os_log_type_enabled(v18, v16))
       {
         ssid = [networkCopy ssid];
         *buf = 138412290;
-        v42 = ssid;
-        _os_log_impl(&dword_273ECD000, v16, v15, "no existing profile for %@", buf, 0xCu);
+        v49 = ssid;
+        _os_log_impl(&dword_273ECD000, v18, v16, "no existing profile for %@", buf, 0xCu);
       }
     }
 
@@ -3742,20 +3767,21 @@ LABEL_10:
 LABEL_11:
   if ([v13 securityMode] == 1075)
   {
-    v18 = WFLogForCategory(5uLL);
-    v19 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v18)
+    v20 = WFLogForCategory(5uLL);
+    v21 = OSLogForWFLogLevel(1uLL);
+    v22 = v21;
+    if (WFCurrentLogLevel(v21, v23) && v20)
     {
-      v20 = v18;
-      if (os_log_type_enabled(v20, v19))
+      v24 = v20;
+      if (os_log_type_enabled(v24, v22))
       {
         ssid2 = [networkCopy ssid];
         securityMode = [networkCopy securityMode];
         *buf = 138543618;
-        v42 = ssid2;
-        v43 = 2048;
-        v44 = securityMode;
-        _os_log_impl(&dword_273ECD000, v20, v19, "%{public}@ security is any-encrpytion, proceeding with scanned network's security %ld", buf, 0x16u);
+        v49 = ssid2;
+        v50 = 2048;
+        v51 = securityMode;
+        _os_log_impl(&dword_273ECD000, v24, v22, "%{public}@ security is any-encrpytion, proceeding with scanned network's security %ld", buf, 0x16u);
       }
     }
 
@@ -3763,74 +3789,76 @@ LABEL_11:
   }
 
   canAttemptJoin = [v13 canAttemptJoin];
-  v24 = WFLogForCategory(5uLL);
-  v25 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel())
+  v28 = WFLogForCategory(5uLL);
+  v29 = OSLogForWFLogLevel(1uLL);
+  v30 = v29;
+  if (WFCurrentLogLevel(v29, v31))
   {
-    v26 = v24 == 0;
+    v32 = v28 == 0;
   }
 
   else
   {
-    v26 = 1;
+    v32 = 1;
   }
 
-  v27 = !v26;
+  v33 = !v32;
   if (canAttemptJoin)
   {
-    if (v27)
+    if (v33)
     {
-      v28 = v24;
-      if (os_log_type_enabled(v28, v25))
+      v34 = v28;
+      if (os_log_type_enabled(v34, v30))
       {
         ssid3 = [networkCopy ssid];
         *buf = 138412546;
-        v42 = ssid3;
-        v43 = 2112;
-        v44 = v13;
-        _os_log_impl(&dword_273ECD000, v28, v25, "proceeding with join for %@ (profile: %@)", buf, 0x16u);
+        v49 = ssid3;
+        v50 = 2112;
+        v51 = v13;
+        _os_log_impl(&dword_273ECD000, v34, v30, "proceeding with join for %@ (profile: %@)", buf, 0x16u);
       }
     }
 
-    v30 = WFLogForCategory(5uLL);
-    v31 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v30 && os_log_type_enabled(v30, v31))
+    v36 = WFLogForCategory(5uLL);
+    v37 = OSLogForWFLogLevel(1uLL);
+    v38 = v37;
+    if (WFCurrentLogLevel(v37, v39) && v36 && os_log_type_enabled(v36, v38))
     {
       *buf = 136315650;
-      v42 = "[WFNetworkListController _associateToEnterpriseNetwork:profile:]";
-      v43 = 2112;
-      v44 = networkCopy;
-      v45 = 2112;
-      v46 = profileCopy;
-      _os_log_impl(&dword_273ECD000, v30, v31, "%s: Invoking asyncAssociateToNetwork with network %@ profile %@", buf, 0x20u);
+      v49 = "[WFNetworkListController _associateToEnterpriseNetwork:profile:]";
+      v50 = 2112;
+      v51 = networkCopy;
+      v52 = 2112;
+      v53 = profileCopy;
+      _os_log_impl(&dword_273ECD000, v36, v38, "%s: Invoking asyncAssociateToNetwork with network %@ profile %@", buf, 0x20u);
     }
 
     objc_initWeak(buf, self);
     interface = [(WFNetworkListController *)self interface];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __65__WFNetworkListController__associateToEnterpriseNetwork_profile___block_invoke;
-    v37[3] = &unk_279EBD308;
-    objc_copyWeak(&v40, buf);
-    v38 = networkCopy;
-    v39 = v13;
-    [interface asyncAssociateToNetwork:v38 profile:v39 reply:v37];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __65__WFNetworkListController__associateToEnterpriseNetwork_profile___block_invoke;
+    v44[3] = &unk_279EBD308;
+    objc_copyWeak(&v47, buf);
+    v45 = networkCopy;
+    v46 = v13;
+    [interface asyncAssociateToNetwork:v45 profile:v46 reply:v44];
 
-    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v47);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    if (v27)
+    if (v33)
     {
-      v33 = v24;
-      if (os_log_type_enabled(v33, v25))
+      v41 = v28;
+      if (os_log_type_enabled(v41, v30))
       {
         ssid4 = [networkCopy ssid];
         *buf = 138412290;
-        v42 = ssid4;
-        _os_log_impl(&dword_273ECD000, v33, v25, "user credentials prompt required for %@", buf, 0xCu);
+        v49 = ssid4;
+        _os_log_impl(&dword_273ECD000, v41, v30, "user credentials prompt required for %@", buf, 0xCu);
       }
     }
 
@@ -3839,8 +3867,6 @@ LABEL_11:
 
     [(WFNetworkListController *)self _promptCredentialsForNetwork:networkCopy profile:v13];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __65__WFNetworkListController__associateToEnterpriseNetwork_profile___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -3852,114 +3878,115 @@ void __65__WFNetworkListController__associateToEnterpriseNetwork_profile___block
 
 - (void)_associateToHS20Network:(id)network
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   v5 = WFLogForCategory(5uLL);
   v6 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) && v5 && os_log_type_enabled(v5, v7))
   {
     *buf = 138412290;
-    v24 = networkCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "associating to HS20 network %@", buf, 0xCu);
+    v29 = networkCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "associating to HS20 network %@", buf, 0xCu);
   }
 
   matchingKnownNetworkProfile = [networkCopy matchingKnownNetworkProfile];
 
   if (matchingKnownNetworkProfile)
   {
-    v8 = WFLogForCategory(5uLL);
-    v9 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v8)
+    v10 = WFLogForCategory(5uLL);
+    v11 = OSLogForWFLogLevel(1uLL);
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) && v10)
     {
-      v10 = v8;
-      if (os_log_type_enabled(v10, v9))
+      v14 = v10;
+      if (os_log_type_enabled(v14, v12))
       {
         matchingKnownNetworkProfile2 = [networkCopy matchingKnownNetworkProfile];
         *buf = 138412290;
-        v24 = matchingKnownNetworkProfile2;
-        _os_log_impl(&dword_273ECD000, v10, v9, "using matchingKnownNetworkProfile %@", buf, 0xCu);
+        v29 = matchingKnownNetworkProfile2;
+        _os_log_impl(&dword_273ECD000, v14, v12, "using matchingKnownNetworkProfile %@", buf, 0xCu);
       }
     }
 
-    v12 = [WFNetworkProfile alloc];
+    v16 = [WFNetworkProfile alloc];
     matchingKnownNetworkProfile3 = [networkCopy matchingKnownNetworkProfile];
-    v14 = [(WFNetworkProfile *)v12 initWithCoreWiFiProfile:matchingKnownNetworkProfile3];
+    v18 = [(WFNetworkProfile *)v16 initWithCoreWiFiProfile:matchingKnownNetworkProfile3];
   }
 
   else
   {
     matchingKnownNetworkProfile3 = [(WFNetworkListController *)self gasController];
-    v14 = [matchingKnownNetworkProfile3 profileForNetwork:networkCopy];
+    v18 = [matchingKnownNetworkProfile3 profileForNetwork:networkCopy];
   }
 
-  v15 = v14;
+  v19 = v18;
 
-  if (v15)
+  if (v19)
   {
-    v16 = WFLogForCategory(5uLL);
-    v17 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v16 && os_log_type_enabled(v16, v17))
+    v20 = WFLogForCategory(5uLL);
+    v21 = OSLogForWFLogLevel(1uLL);
+    v22 = v21;
+    if (WFCurrentLogLevel(v21, v23) && v20 && os_log_type_enabled(v20, v22))
     {
       *buf = 138412290;
-      v24 = v15;
-      _os_log_impl(&dword_273ECD000, v16, v17, "using cached profile %@", buf, 0xCu);
+      v29 = v19;
+      _os_log_impl(&dword_273ECD000, v20, v22, "using cached profile %@", buf, 0xCu);
     }
 
-    [(WFNetworkListController *)self _associateToEnterpriseNetwork:networkCopy profile:v15];
+    [(WFNetworkListController *)self _associateToEnterpriseNetwork:networkCopy profile:v19];
   }
 
   else
   {
     objc_initWeak(buf, self);
     gasController = [(WFNetworkListController *)self gasController];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __51__WFNetworkListController__associateToHS20Network___block_invoke;
-    v20[3] = &unk_279EBD330;
-    objc_copyWeak(&v22, buf);
-    v21 = networkCopy;
-    [gasController resolveProfileForNetwork:v21 handler:v20 force:0];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __51__WFNetworkListController__associateToHS20Network___block_invoke;
+    v25[3] = &unk_279EBD330;
+    objc_copyWeak(&v27, buf);
+    v26 = networkCopy;
+    [gasController resolveProfileForNetwork:v26 handler:v25 force:0];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(buf);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __51__WFNetworkListController__associateToHS20Network___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = WFLogForCategory(5uLL);
   v8 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v7 && os_log_type_enabled(v7, v8))
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) && v7 && os_log_type_enabled(v7, v9))
   {
-    v11 = 138412546;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_273ECD000, v7, v8, "resolved profile %@ error %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_273ECD000, v7, v9, "resolved profile %@ error %@", &v12, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _associateToEnterpriseNetwork:*(a1 + 32) profile:v5];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_associateToUnconfiguredAccessory:(id)accessory
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   v5 = WFLogForCategory(5uLL);
   v6 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) && v5 && os_log_type_enabled(v5, v7))
   {
-    v8 = 138412290;
-    v9 = accessoryCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "associating to unconfigured accessory %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = accessoryCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "associating to unconfigured accessory %@", &v9, 0xCu);
   }
 
   if ([accessoryCopy unconfiguredAccessoryType] == 4)
@@ -3971,94 +3998,92 @@ void __51__WFNetworkListController__associateToHS20Network___block_invoke(uint64
   {
     [(WFNetworkListController *)self _runUnconfiguredJoinOperationForNetwork:accessoryCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_promptForSecureWACDevice:(id)device
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
     *buf = 136315394;
-    v36 = "[WFNetworkListController _promptForSecureWACDevice:]";
-    v37 = 2112;
-    v38 = deviceCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s: network %@", buf, 0x16u);
+    v37 = "[WFNetworkListController _promptForSecureWACDevice:]";
+    v38 = 2112;
+    v39 = deviceCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s: network %@", buf, 0x16u);
   }
 
-  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v29 = [v7 localizedStringForKey:@"kWFLocSecureWACPromptTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v30 = [v9 localizedStringForKey:@"kWFLocSecureWACPromptTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
 
-  v8 = MEMORY[0x277CCACA8];
+  v10 = MEMORY[0x277CCACA8];
   unconfiguredDeviceName = [deviceCopy unconfiguredDeviceName];
-  v28 = [v8 stringWithFormat:v29, unconfiguredDeviceName];
+  v29 = [v10 stringWithFormat:v30, unconfiguredDeviceName];
 
   viewController = [(WFNetworkListController *)self viewController];
   [viewController deviceCapability];
   IsChinaDevice = WFCapabilityIsChinaDevice();
 
-  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v13 = v12;
+  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v15 = v14;
   if (IsChinaDevice)
   {
-    v14 = @"kWFLocSecureWACPromptMessage_CH";
+    v16 = @"kWFLocSecureWACPromptMessage_CH";
   }
 
   else
   {
-    v14 = @"kWFLocSecureWACPromptMessage";
+    v16 = @"kWFLocSecureWACPromptMessage";
   }
 
-  v27 = [v12 localizedStringForKey:v14 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+  v28 = [v14 localizedStringForKey:v16 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
 
   objc_initWeak(buf, self);
-  v15 = [MEMORY[0x277D75110] alertControllerWithTitle:v28 message:v27 preferredStyle:1];
-  v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v17 = [MEMORY[0x277D75110] alertControllerWithTitle:v29 message:v28 preferredStyle:1];
+  v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   if (IsChinaDevice)
   {
-    [v16 localizedStringForKey:@"kWFLocSecureWACPromptButtonAdd_CH" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+    [v18 localizedStringForKey:@"kWFLocSecureWACPromptButtonAdd_CH" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
   }
 
   else
   {
-    [v16 localizedStringForKey:@"kWFLocSecureWACPromptButtonAdd" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+    [v18 localizedStringForKey:@"kWFLocSecureWACPromptButtonAdd" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
   }
-  v17 = ;
+  v19 = ;
 
-  v18 = MEMORY[0x277D750F8];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __53__WFNetworkListController__promptForSecureWACDevice___block_invoke;
-  v32[3] = &unk_279EBD358;
-  objc_copyWeak(&v34, buf);
-  v19 = deviceCopy;
-  v33 = v19;
-  v20 = [v18 actionWithTitle:v17 style:0 handler:v32];
-  [v15 addAction:v20];
-  [v15 setPreferredAction:v20];
-  v21 = MEMORY[0x277D750F8];
-  v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v23 = [v22 localizedStringForKey:@"kWFLocHomeAppRequiredButtonCancel" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __53__WFNetworkListController__promptForSecureWACDevice___block_invoke_2;
-  v30[3] = &unk_279EBD380;
-  objc_copyWeak(&v31, buf);
-  v24 = [v21 actionWithTitle:v23 style:1 handler:v30];
+  v20 = MEMORY[0x277D750F8];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __53__WFNetworkListController__promptForSecureWACDevice___block_invoke;
+  v33[3] = &unk_279EBD358;
+  objc_copyWeak(&v35, buf);
+  v21 = deviceCopy;
+  v34 = v21;
+  v22 = [v20 actionWithTitle:v19 style:0 handler:v33];
+  [v17 addAction:v22];
+  [v17 setPreferredAction:v22];
+  v23 = MEMORY[0x277D750F8];
+  v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v25 = [v24 localizedStringForKey:@"kWFLocHomeAppRequiredButtonCancel" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __53__WFNetworkListController__promptForSecureWACDevice___block_invoke_2;
+  v31[3] = &unk_279EBD380;
+  objc_copyWeak(&v32, buf);
+  v26 = [v23 actionWithTitle:v25 style:1 handler:v31];
 
-  [v15 addAction:v24];
+  [v17 addAction:v26];
   viewController2 = [(WFNetworkListController *)self viewController];
-  [viewController2 presentViewController:v15 animated:1 completion:0];
+  [viewController2 presentViewController:v17 animated:1 completion:0];
 
-  objc_destroyWeak(&v31);
-  objc_destroyWeak(&v34);
+  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v35);
 
   objc_destroyWeak(buf);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __53__WFNetworkListController__promptForSecureWACDevice___block_invoke(uint64_t a1)
@@ -4077,16 +4102,17 @@ void __53__WFNetworkListController__promptForSecureWACDevice___block_invoke_2(ui
 {
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) >= 3 && v2 && os_log_type_enabled(v2, v4))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_273ECD000, v2, v3, "Starting Home download", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_273ECD000, v2, v4, "Starting Home download", v6, 2u);
   }
 }
 
 - (void)_runUnconfiguredJoinOperationForNetwork:(id)network
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   v5 = MEMORY[0x277CBEB38];
   attributes = [networkCopy attributes];
@@ -4095,33 +4121,33 @@ void __53__WFNetworkListController__promptForSecureWACDevice___block_invoke_2(ui
   if ([networkCopy isUnconfiguredAccessorySTAOnly])
   {
     array = [MEMORY[0x277CBEB18] array];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     networks = [(WFNetworkListController *)self networks];
-    v10 = [networks countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v10 = [networks countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v10)
     {
-      v11 = *v27;
+      v11 = *v26;
       do
       {
         v12 = 0;
         do
         {
-          if (*v27 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(networks);
           }
 
-          attributes2 = [*(*(&v26 + 1) + 8 * v12) attributes];
+          attributes2 = [*(*(&v25 + 1) + 8 * v12) attributes];
           [array addObject:attributes2];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [networks countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v10 = [networks countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v10);
@@ -4137,29 +4163,27 @@ void __53__WFNetworkListController__promptForSecureWACDevice___block_invoke_2(ui
 
   objc_initWeak(&location, v16);
   objc_initWeak(&from, self);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __67__WFNetworkListController__runUnconfiguredJoinOperationForNetwork___block_invoke;
-  v20[3] = &unk_279EBD3A8;
-  objc_copyWeak(&v22, &location);
-  objc_copyWeak(&v23, &from);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __67__WFNetworkListController__runUnconfiguredJoinOperationForNetwork___block_invoke;
+  v19[3] = &unk_279EBD3A8;
+  objc_copyWeak(&v21, &location);
+  objc_copyWeak(&v22, &from);
   v17 = networkCopy;
-  v21 = v17;
-  [(WFUnconfiguredJoinOperation *)v16 setCompletionBlock:v20];
+  v20 = v17;
+  [(WFUnconfiguredJoinOperation *)v16 setCompletionBlock:v19];
   mainQueue = [MEMORY[0x277CCABD8] mainQueue];
   [mainQueue addOperation:v16];
 
-  objc_destroyWeak(&v23);
   objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __67__WFNetworkListController__runUnconfiguredJoinOperationForNetwork___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained error];
 
@@ -4167,54 +4191,54 @@ void __67__WFNetworkListController__runUnconfiguredJoinOperationForNetwork___blo
   {
     v4 = WFLogForCategory(0);
     v5 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v4)
+    v6 = v5;
+    if (WFCurrentLogLevel(v5, v7) && v4)
     {
-      v6 = v4;
-      if (os_log_type_enabled(v6, v5))
+      v8 = v4;
+      if (os_log_type_enabled(v8, v6))
       {
-        v7 = [WeakRetained error];
-        v12 = 138412290;
-        v13 = v7;
-        _os_log_impl(&dword_273ECD000, v6, v5, "Error joining unconfigured network %@", &v12, 0xCu);
+        v9 = [WeakRetained error];
+        v13 = 138412290;
+        v14 = v9;
+        _os_log_impl(&dword_273ECD000, v8, v6, "Error joining unconfigured network %@", &v13, 0xCu);
       }
     }
   }
 
-  v8 = objc_loadWeakRetained((a1 + 48));
-  v9 = [WeakRetained error];
-  v10 = [WeakRetained error];
-  [v8 _associationDidFinish:v9 == 0 error:v10 network:*(a1 + 32)];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = objc_loadWeakRetained((a1 + 48));
+  v11 = [WeakRetained error];
+  v12 = [WeakRetained error];
+  [v10 _associationDidFinish:v11 == 0 error:v12 network:*(a1 + 32)];
 }
 
 - (void)_openHomeAppForNetwork:(id)network
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
       unconfiguredDeviceID = [networkCopy unconfiguredDeviceID];
-      *v17 = 136315650;
-      *&v17[4] = "[WFNetworkListController _openHomeAppForNetwork:]";
-      v18 = 2112;
-      v19 = networkCopy;
-      v20 = 2112;
-      v21 = unconfiguredDeviceID;
-      _os_log_impl(&dword_273ECD000, v7, v6, "%s: network %@ (id: %{Public}@)", v17, 0x20u);
+      *v20 = 136315650;
+      *&v20[4] = "[WFNetworkListController _openHomeAppForNetwork:]";
+      v21 = 2112;
+      v22 = networkCopy;
+      v23 = 2112;
+      v24 = unconfiguredDeviceID;
+      _os_log_impl(&dword_273ECD000, v9, v7, "%s: network %@ (id: %{Public}@)", v20, 0x20u);
     }
   }
 
   if (!networkCopy)
   {
-    [WFNetworkListController _openHomeAppForNetwork:v17];
+    [WFNetworkListController _openHomeAppForNetwork:v20];
 LABEL_16:
-    v13 = *v17;
+    v15 = *v20;
     goto LABEL_13;
   }
 
@@ -4222,30 +4246,29 @@ LABEL_16:
 
   if (!unconfiguredDeviceID2)
   {
-    [WFNetworkListController _openHomeAppForNetwork:v17];
+    [WFNetworkListController _openHomeAppForNetwork:v20];
     goto LABEL_16;
   }
 
-  v10 = [MEMORY[0x277CBEBC0] URLWithString:@"com.apple.Home://reprovisionDevice/"];
+  v12 = [MEMORY[0x277CBEBC0] URLWithString:@"com.apple.Home://reprovisionDevice/"];
   unconfiguredDeviceID3 = [networkCopy unconfiguredDeviceID];
-  v12 = [(WFNetworkListController *)self _convertToHexString:unconfiguredDeviceID3];
-  v13 = [v10 URLByAppendingPathComponent:v12];
+  v14 = [(WFNetworkListController *)self _convertToHexString:unconfiguredDeviceID3];
+  v15 = [v12 URLByAppendingPathComponent:v14];
 
-  v14 = WFLogForCategory(0);
-  v15 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v14 && os_log_type_enabled(v14, v15))
+  v16 = WFLogForCategory(0);
+  v17 = OSLogForWFLogLevel(4uLL);
+  v18 = v17;
+  if (WFCurrentLogLevel(v17, v19) >= 4 && v16 && os_log_type_enabled(v16, v18))
   {
-    *v17 = 136315394;
-    *&v17[4] = "[WFNetworkListController _openHomeAppForNetwork:]";
-    v18 = 2112;
-    v19 = v13;
-    _os_log_impl(&dword_273ECD000, v14, v15, "%s: launchURL %@", v17, 0x16u);
+    *v20 = 136315394;
+    *&v20[4] = "[WFNetworkListController _openHomeAppForNetwork:]";
+    v21 = 2112;
+    v22 = v15;
+    _os_log_impl(&dword_273ECD000, v16, v18, "%s: launchURL %@", v20, 0x16u);
   }
 
-  [(WFNetworkListController *)self _openURL:v13];
+  [(WFNetworkListController *)self _openURL:v15];
 LABEL_13:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_convertToHexString:(id)string
@@ -4286,42 +4309,42 @@ LABEL_13:
 
 void __36__WFNetworkListController__openURL___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v4 = WFLogForCategory(0);
     v5 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+    v6 = v5;
+    if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
     {
-      v6 = *(a1 + 32);
-      v8 = 136315394;
-      v9 = "[WFNetworkListController _openURL:]_block_invoke";
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_273ECD000, v4, v5, "%s: failed to launch URL %@", &v8, 0x16u);
+      v8 = *(a1 + 32);
+      v9 = 136315394;
+      v10 = "[WFNetworkListController _openURL:]_block_invoke";
+      v11 = 2112;
+      v12 = v8;
+      _os_log_impl(&dword_273ECD000, v4, v6, "%s: failed to launch URL %@", &v9, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_associateToUserSuppliedNetwork:(id)network
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
       ssid = [networkCopy ssid];
       *buf = 136315394;
-      v20 = "[WFNetworkListController _associateToUserSuppliedNetwork:]";
-      v21 = 2112;
-      v22 = ssid;
-      _os_log_impl(&dword_273ECD000, v7, v6, "%s: joining other network %@", buf, 0x16u);
+      v21 = "[WFNetworkListController _associateToUserSuppliedNetwork:]";
+      v22 = 2112;
+      v23 = ssid;
+      _os_log_impl(&dword_273ECD000, v9, v7, "%s: joining other network %@", buf, 0x16u);
     }
   }
 
@@ -4329,23 +4352,21 @@ void __36__WFNetworkListController__openURL___block_invoke(uint64_t a1, uint64_t
   ssid2 = [networkCopy ssid];
   interface = [(WFNetworkListController *)self interface];
   deviceScanChannels = [interface deviceScanChannels];
-  v12 = [WFScanRequest scanRequestForSSID:ssid2 channels:deviceScanChannels];
+  v14 = [WFScanRequest scanRequestForSSID:ssid2 channels:deviceScanChannels];
 
   interface2 = [(WFNetworkListController *)self interface];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __59__WFNetworkListController__associateToUserSuppliedNetwork___block_invoke;
-  v16[3] = &unk_279EBD420;
-  v16[4] = self;
-  objc_copyWeak(&v18, buf);
-  v14 = networkCopy;
-  v17 = v14;
-  [interface2 asyncScanRequest:v12 reply:v16];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __59__WFNetworkListController__associateToUserSuppliedNetwork___block_invoke;
+  v17[3] = &unk_279EBD420;
+  v17[4] = self;
+  objc_copyWeak(&v19, buf);
+  v16 = networkCopy;
+  v18 = v16;
+  [interface2 asyncScanRequest:v14 reply:v17];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __59__WFNetworkListController__associateToUserSuppliedNetwork___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4358,57 +4379,58 @@ void __59__WFNetworkListController__associateToUserSuppliedNetwork___block_invok
   {
     v12 = WFLogForCategory(0);
     v13 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v12 && os_log_type_enabled(v12, v13))
+    v14 = v13;
+    if (WFCurrentLogLevel(v13, v15) >= 3 && v12 && os_log_type_enabled(v12, v14))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v12, v13, "In Lockdown Mode, prompting user", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v12, v14, "In Lockdown Mode, prompting user", buf, 2u);
     }
 
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __59__WFNetworkListController__associateToUserSuppliedNetwork___block_invoke_221;
     aBlock[3] = &unk_279EBD3F8;
-    objc_copyWeak(&v25, (a1 + 48));
-    v23 = *(a1 + 40);
-    v24 = v6;
-    v14 = _Block_copy(aBlock);
+    objc_copyWeak(&v27, (a1 + 48));
+    v25 = *(a1 + 40);
+    v26 = v6;
+    v16 = _Block_copy(aBlock);
     if ([*(a1 + 40) security])
     {
       if ([*(a1 + 40) security] == 1)
       {
-        v15 = 2;
+        v17 = 2;
       }
 
       else if ([*(a1 + 40) security] == 4)
       {
-        v15 = 1;
+        v17 = 1;
       }
 
       else
       {
-        v15 = 7;
+        v17 = 7;
       }
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
     }
 
-    v16 = MEMORY[0x277D7B9D8];
-    v17 = [*(a1 + 40) ssid];
-    v18 = [v16 lockdownModeAlertControllerWithNetworkName:v17 securityType:v15 completionHandler:v14];
+    v18 = MEMORY[0x277D7B9D8];
+    v19 = [*(a1 + 40) ssid];
+    v20 = [v18 lockdownModeAlertControllerWithNetworkName:v19 securityType:v17 completionHandler:v16];
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __59__WFNetworkListController__associateToUserSuppliedNetwork___block_invoke_223;
     block[3] = &unk_279EBD290;
     block[4] = *(a1 + 32);
-    v21 = v18;
-    v19 = v18;
+    v23 = v20;
+    v21 = v20;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v27);
   }
 
   else
@@ -4430,10 +4452,11 @@ void __59__WFNetworkListController__associateToUserSuppliedNetwork___block_invok
   {
     v3 = WFLogForCategory(0);
     v4 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+    v5 = v4;
+    if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v3, v4, "User declined joining non-secure network in Lockdown Mode- canceling association", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v3, v5, "User declined joining non-secure network in Lockdown Mode- canceling association", buf, 2u);
     }
 
     [MEMORY[0x277CCA9B8] associationErrorWithReason:6];
@@ -4460,23 +4483,24 @@ void __59__WFNetworkListController__associateToUserSuppliedNetwork___block_invok
 
 - (void)_associateToUserSuppliedNetworkHelper:(id)helper networks:(id)networks
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   helperCopy = helper;
   networksCopy = networks;
   v8 = objc_initWeak(&location, self);
   v9 = WFLogForCategory(0);
   v10 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v9 && os_log_type_enabled(v9, v10))
+  v11 = v10;
+  if (WFCurrentLogLevel(v10, v12) >= 3 && v9 && os_log_type_enabled(v9, v11))
   {
     *buf = 136315394;
-    v37 = "[WFNetworkListController _associateToUserSuppliedNetworkHelper:networks:]";
-    v38 = 2112;
-    v39 = networksCopy;
-    _os_log_impl(&dword_273ECD000, v9, v10, "%s: scan results %@", buf, 0x16u);
+    v40 = "[WFNetworkListController _associateToUserSuppliedNetworkHelper:networks:]";
+    v41 = 2112;
+    v42 = networksCopy;
+    _os_log_impl(&dword_273ECD000, v9, v11, "%s: scan results %@", buf, 0x16u);
   }
 
-  v11 = [networksCopy count];
-  if (v11 != 1)
+  v13 = [networksCopy count];
+  if (v13 != 1)
   {
     anyObject = 0;
 LABEL_14:
@@ -4484,28 +4508,29 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_networks___block_invoke_2;
     block[3] = &unk_279EBD470;
-    v30 = 0;
-    v31 = v11 == 1;
+    v33 = 0;
+    v34 = v13 == 1;
     block[4] = self;
     block[5] = self;
     anyObject = anyObject;
-    v28 = anyObject;
-    v29 = helperCopy;
+    v31 = anyObject;
+    v32 = helperCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
     goto LABEL_20;
   }
 
   anyObject = [networksCopy anyObject];
-  v13 = WFLogForCategory(0);
-  v14 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v13 && os_log_type_enabled(v13, v14))
+  v15 = WFLogForCategory(0);
+  v16 = OSLogForWFLogLevel(3uLL);
+  v17 = v16;
+  if (WFCurrentLogLevel(v16, v18) >= 3 && v15 && os_log_type_enabled(v15, v17))
   {
     *buf = 136315394;
-    v37 = "[WFNetworkListController _associateToUserSuppliedNetworkHelper:networks:]";
-    v38 = 2112;
-    v39 = anyObject;
-    _os_log_impl(&dword_273ECD000, v13, v14, "%s: found network %@", buf, 0x16u);
+    v40 = "[WFNetworkListController _associateToUserSuppliedNetworkHelper:networks:]";
+    v41 = 2112;
+    v42 = anyObject;
+    _os_log_impl(&dword_273ECD000, v15, v17, "%s: found network %@", buf, 0x16u);
   }
 
   if (![anyObject isNetworkSecurityModeMatch:{objc_msgSend(helperCopy, "security")}])
@@ -4519,51 +4544,49 @@ LABEL_14:
 
   if (matchingKnownNetworkProfile)
   {
-    v17 = [WFNetworkProfile alloc];
+    v21 = [WFNetworkProfile alloc];
     matchingKnownNetworkProfile2 = [anyObject2 matchingKnownNetworkProfile];
-    v19 = [(WFNetworkProfile *)v17 initWithCoreWiFiProfile:matchingKnownNetworkProfile2];
-    v20 = [(WFNetworkProfile *)v19 mutableCopy];
+    v23 = [(WFNetworkProfile *)v21 initWithCoreWiFiProfile:matchingKnownNetworkProfile2];
+    v24 = [(WFNetworkProfile *)v23 mutableCopy];
   }
 
   else
   {
-    v20 = [WFMutableNetworkProfile mutableProfileForNetwork:anyObject2];
+    v24 = [WFMutableNetworkProfile mutableProfileForNetwork:anyObject2];
   }
 
-  [v20 setUserProvidedPassword:1];
-  [v20 setHidden:1];
+  [v24 setUserProvidedPassword:1];
+  [v24 setHidden:1];
   if ([anyObject2 isEnterprise])
   {
     username = [helperCopy username];
-    [v20 setUsername:username];
+    [v24 setUsername:username];
 
     password = [helperCopy password];
-    [v20 setPassword:password];
+    [v24 setPassword:password];
 
-    [v20 setTLSIdentity:{objc_msgSend(helperCopy, "TLSIdentity")}];
+    [v24 setTLSIdentity:{objc_msgSend(helperCopy, "TLSIdentity")}];
   }
 
   else
   {
     password2 = [helperCopy password];
-    [v20 setPassword:password2];
+    [v24 setPassword:password2];
   }
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_networks___block_invoke;
-  v32[3] = &unk_279EBD268;
-  v32[4] = self;
-  v33 = anyObject2;
-  v34 = v20;
-  v24 = v20;
-  v25 = anyObject2;
-  dispatch_async(MEMORY[0x277D85CD0], v32);
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_networks___block_invoke;
+  v35[3] = &unk_279EBD268;
+  v35[4] = self;
+  v36 = anyObject2;
+  v37 = v24;
+  v28 = v24;
+  v29 = anyObject2;
+  dispatch_async(MEMORY[0x277D85CD0], v35);
 
 LABEL_20:
   objc_destroyWeak(&location);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_networks___block_invoke(uint64_t a1)
@@ -4592,77 +4615,77 @@ void __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_network
 
 void __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_networks___block_invoke_2(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) >= 3 && v2 && os_log_type_enabled(v2, v4))
   {
-    v4 = *(a1 + 64);
-    v5 = *(a1 + 65);
+    v6 = *(a1 + 64);
+    v7 = *(a1 + 65);
     *buf = 136315650;
-    v24 = "[WFNetworkListController _associateToUserSuppliedNetworkHelper:networks:]_block_invoke_2";
-    v25 = 1024;
-    *v26 = v4;
-    *&v26[4] = 1024;
-    *&v26[6] = v5;
-    _os_log_impl(&dword_273ECD000, v2, v3, "%s: other network not found (foundNetwork=%d mismatchedSecurity=%d)", buf, 0x18u);
+    v27 = "[WFNetworkListController _associateToUserSuppliedNetworkHelper:networks:]_block_invoke_2";
+    v28 = 1024;
+    *v29 = v6;
+    *&v29[4] = 1024;
+    *&v29[6] = v7;
+    _os_log_impl(&dword_273ECD000, v2, v4, "%s: other network not found (foundNetwork=%d mismatchedSecurity=%d)", buf, 0x18u);
   }
 
   if (*(a1 + 65))
   {
-    v6 = 17;
+    v8 = 17;
   }
 
   else
   {
-    v6 = 16;
+    v8 = 16;
   }
 
-  v7 = [MEMORY[0x277CCA9B8] associationErrorWithReason:v6];
-  v8 = WFLogForCategory(0);
-  v9 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v8)
+  v9 = [MEMORY[0x277CCA9B8] associationErrorWithReason:v8];
+  v10 = WFLogForCategory(0);
+  v11 = OSLogForWFLogLevel(3uLL);
+  v12 = v11;
+  if (WFCurrentLogLevel(v11, v13) >= 3 && v10)
   {
-    v10 = v8;
-    if (os_log_type_enabled(v10, v9))
+    v14 = v10;
+    if (os_log_type_enabled(v14, v12))
     {
-      v11 = [*(a1 + 32) credentialsContext];
+      v15 = [*(a1 + 32) credentialsContext];
       *buf = 136315650;
-      v24 = "[WFNetworkListController _associateToUserSuppliedNetworkHelper:networks:]_block_invoke";
-      v25 = 2112;
-      *v26 = v7;
-      *&v26[8] = 2112;
-      v27 = v11;
-      _os_log_impl(&dword_273ECD000, v10, v9, "%s: providing error %@ back to the credentials context %@", buf, 0x20u);
+      v27 = "[WFNetworkListController _associateToUserSuppliedNetworkHelper:networks:]_block_invoke";
+      v28 = 2112;
+      *v29 = v9;
+      *&v29[8] = 2112;
+      v30 = v15;
+      _os_log_impl(&dword_273ECD000, v14, v12, "%s: providing error %@ back to the credentials context %@", buf, 0x20u);
     }
   }
 
-  v12 = [*(a1 + 40) credentialsContext];
-  [v12 finishWithError:v7 forNetwork:*(a1 + 48) profile:0];
+  v16 = [*(a1 + 40) credentialsContext];
+  [v16 finishWithError:v9 forNetwork:*(a1 + 48) profile:0];
 
-  v13 = [[WFErrorContext alloc] initWithAssociationError:v7 network:*(a1 + 56) diagnosticsResult:0];
+  v17 = [[WFErrorContext alloc] initWithAssociationError:v9 network:*(a1 + 56) diagnosticsResult:0];
   objc_initWeak(buf, *(a1 + 40));
-  objc_initWeak(&location, v13);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_networks___block_invoke_226;
-  v19[3] = &unk_279EBD448;
-  objc_copyWeak(&v20, buf);
-  objc_copyWeak(&v21, &location);
-  [(WFErrorContext *)v13 setCompletionHandler:v19];
-  [*(a1 + 40) _presentContext:v13 contextType:0];
-  v14 = +[WFMetricsManager sharedManager];
-  v15 = [*(a1 + 56) security];
-  v16 = [v7 code];
-  v17 = [WFUserJoinEvent joinEventWithType:1 security:v15 error:v16 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-  [v14 processEvent:v17];
+  objc_initWeak(&location, v17);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_networks___block_invoke_226;
+  v22[3] = &unk_279EBD448;
+  objc_copyWeak(&v23, buf);
+  objc_copyWeak(&v24, &location);
+  [(WFErrorContext *)v17 setCompletionHandler:v22];
+  [*(a1 + 40) _presentContext:v17 contextType:0];
+  v18 = +[WFMetricsManager sharedManager];
+  v19 = [*(a1 + 56) security];
+  v20 = [v9 code];
+  v21 = [WFUserJoinEvent joinEventWithType:1 security:v19 error:v20 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+  [v18 processEvent:v21];
 
-  objc_destroyWeak(&v21);
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_networks___block_invoke_226(uint64_t a1)
@@ -4674,7 +4697,7 @@ void __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_network
 
 - (void)_handleAssociationResult:(BOOL)result error:(id)error network:(id)network profile:(id)profile shouldSaveProfile:(BOOL)saveProfile
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   networkCopy = network;
   profileCopy = profile;
@@ -4695,22 +4718,23 @@ void __74__WFNetworkListController__associateToUserSuppliedNetworkHelper_network
     {
       v20 = WFLogForCategory(5uLL);
       v21 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v20)
+      v22 = v21;
+      if (WFCurrentLogLevel(v21, v23) && v20)
       {
-        v22 = v20;
-        if (os_log_type_enabled(v22, v21))
+        v24 = v20;
+        if (os_log_type_enabled(v24, v22))
         {
           credentialsContext3 = [(WFNetworkListController *)self credentialsContext];
           [(WFNetworkListController *)self associationContext];
-          v24 = v78 = profileCopy;
-          networkName = [v24 networkName];
+          v26 = v89 = profileCopy;
+          networkName = [v26 networkName];
           *buf = 138412546;
-          v83 = credentialsContext3;
-          v84 = 2112;
-          v85 = networkName;
-          _os_log_impl(&dword_273ECD000, v22, v21, "credentials context (%@) in progress for %@, reusing for association", buf, 0x16u);
+          v94 = credentialsContext3;
+          v95 = 2112;
+          v96 = networkName;
+          _os_log_impl(&dword_273ECD000, v24, v22, "credentials context (%@) in progress for %@, reusing for association", buf, 0x16u);
 
-          profileCopy = v78;
+          profileCopy = v89;
         }
       }
 
@@ -4753,24 +4777,25 @@ LABEL_26:
           if (!result)
           {
 LABEL_31:
-            v48 = WFLogForCategory(5uLL);
-            v49 = OSLogForWFLogLevel(1uLL);
-            if (WFCurrentLogLevel() && v48)
+            v54 = WFLogForCategory(5uLL);
+            v55 = OSLogForWFLogLevel(1uLL);
+            v56 = v55;
+            if (WFCurrentLogLevel(v55, v57) && v54)
             {
-              v50 = v48;
-              if (os_log_type_enabled(v50, v49))
+              v58 = v54;
+              if (os_log_type_enabled(v58, v56))
               {
                 associationContext = [(WFNetworkListController *)self associationContext];
                 [associationContext networkName];
-                v52 = v80 = profileCopy;
+                v60 = v91 = profileCopy;
                 associationContext2 = [(WFNetworkListController *)self associationContext];
                 *buf = 138412546;
-                v83 = v52;
-                v84 = 2112;
-                v85 = associationContext2;
-                _os_log_impl(&dword_273ECD000, v50, v49, "association failed for %@ (context: %@)", buf, 0x16u);
+                v94 = v60;
+                v95 = 2112;
+                v96 = associationContext2;
+                _os_log_impl(&dword_273ECD000, v58, v56, "association failed for %@ (context: %@)", buf, 0x16u);
 
-                profileCopy = v80;
+                profileCopy = v91;
               }
             }
 
@@ -4786,9 +4811,9 @@ LABEL_31:
 
         if (originator == 2)
         {
-          v57 = +[WFMetricsManager sharedManager];
-          v63 = MEMORY[0x277CBEBF8];
-          v64 = 2;
+          v65 = +[WFMetricsManager sharedManager];
+          v71 = MEMORY[0x277CBEBF8];
+          v72 = 2;
         }
 
         else
@@ -4800,50 +4825,52 @@ LABEL_31:
               goto LABEL_46;
             }
 
-            v57 = +[WFMetricsManager sharedManager];
+            v65 = +[WFMetricsManager sharedManager];
             associationContext5 = [(WFNetworkListController *)self associationContext];
             sectionCounts = [associationContext5 sectionCounts];
             [(WFNetworkListController *)self associationContext];
-            v60 = v81 = profileCopy;
-            sectionNameJoined = [v60 sectionNameJoined];
-            v62 = [WFUserJoinEvent joinEventWithSecurity:securityMode error:code sectionCounts:sectionCounts sectionName:sectionNameJoined didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-            [v57 processEvent:v62];
+            v68 = v92 = profileCopy;
+            sectionNameJoined = [v68 sectionNameJoined];
+            v70 = [WFUserJoinEvent joinEventWithSecurity:securityMode error:code sectionCounts:sectionCounts sectionName:sectionNameJoined didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+            [v65 processEvent:v70];
 
-            profileCopy = v81;
+            profileCopy = v92;
 LABEL_45:
 
 LABEL_46:
-            v65 = WFLogForCategory(5uLL);
-            v66 = OSLogForWFLogLevel(1uLL);
-            if (WFCurrentLogLevel() && v65)
+            v73 = WFLogForCategory(5uLL);
+            v74 = OSLogForWFLogLevel(1uLL);
+            v75 = v74;
+            if (WFCurrentLogLevel(v74, v76) && v73)
             {
-              v67 = v65;
-              if (os_log_type_enabled(v67, v66))
+              v77 = v73;
+              if (os_log_type_enabled(v77, v75))
               {
                 associationContext6 = [(WFNetworkListController *)self associationContext];
                 networkName2 = [associationContext6 networkName];
                 associationContext7 = [(WFNetworkListController *)self associationContext];
                 *buf = 138412546;
-                v83 = networkName2;
-                v84 = 2112;
-                v85 = associationContext7;
-                _os_log_impl(&dword_273ECD000, v67, v66, "association completed for %@ (context: %@)", buf, 0x16u);
+                v94 = networkName2;
+                v95 = 2112;
+                v96 = associationContext7;
+                _os_log_impl(&dword_273ECD000, v77, v75, "association completed for %@ (context: %@)", buf, 0x16u);
               }
             }
 
             if (self->_associatingToOtherNetwork)
             {
-              v71 = WFLogForCategory(5uLL);
-              v72 = OSLogForWFLogLevel(1uLL);
-              if (WFCurrentLogLevel() && v71)
+              v81 = WFLogForCategory(5uLL);
+              v82 = OSLogForWFLogLevel(1uLL);
+              v83 = v82;
+              if (WFCurrentLogLevel(v82, v84) && v81)
               {
-                v73 = v71;
-                if (os_log_type_enabled(v73, v72))
+                v85 = v81;
+                if (os_log_type_enabled(v85, v83))
                 {
                   credentialsContext6 = [(WFNetworkListController *)self credentialsContext];
                   *buf = 138412290;
-                  v83 = credentialsContext6;
-                  _os_log_impl(&dword_273ECD000, v73, v72, "association originated from WFAssociationOriginatorOther, dismissing credentials context %@", buf, 0xCu);
+                  v94 = credentialsContext6;
+                  _os_log_impl(&dword_273ECD000, v85, v83, "association originated from WFAssociationOriginatorOther, dismissing credentials context %@", buf, 0xCu);
                 }
               }
 
@@ -4855,43 +4882,44 @@ LABEL_46:
             goto LABEL_59;
           }
 
-          v57 = +[WFMetricsManager sharedManager];
-          v63 = MEMORY[0x277CBEBF8];
-          v64 = 1;
+          v65 = +[WFMetricsManager sharedManager];
+          v71 = MEMORY[0x277CBEBF8];
+          v72 = 1;
         }
 
-        associationContext5 = [WFUserJoinEvent joinEventWithType:v64 security:securityMode error:code didRun:0 didPass:0 failedTests:v63];
-        [v57 processEvent:associationContext5];
+        associationContext5 = [WFUserJoinEvent joinEventWithType:v72 security:securityMode error:code didRun:0 didPass:0 failedTests:v71];
+        [v65 processEvent:associationContext5];
         goto LABEL_45;
       }
 
-      v36 = profileCopy;
+      v40 = profileCopy;
       credentialsContext4 = [(WFNetworkListController *)self credentialsContext];
       userSuppliedNetwork = [credentialsContext4 userSuppliedNetwork];
       ssid = [userSuppliedNetwork ssid];
       ssid2 = [networkCopy ssid];
-      v40 = [ssid isEqual:ssid2];
+      v44 = [ssid isEqual:ssid2];
 
-      if (v40)
+      if (v44)
       {
-        v41 = WFLogForCategory(5uLL);
-        v42 = OSLogForWFLogLevel(1uLL);
-        profileCopy = v36;
-        if (WFCurrentLogLevel() && v41)
+        v45 = WFLogForCategory(5uLL);
+        v46 = OSLogForWFLogLevel(1uLL);
+        v47 = v46;
+        profileCopy = v40;
+        if (WFCurrentLogLevel(v46, v48) && v45)
         {
-          v43 = v41;
-          if (os_log_type_enabled(v43, v42))
+          v49 = v45;
+          if (os_log_type_enabled(v49, v47))
           {
             credentialsContext8 = [(WFNetworkListController *)self credentialsContext];
             associationContext8 = [(WFNetworkListController *)self associationContext];
             [associationContext8 networkName];
             *buf = 138412546;
-            v83 = credentialsContext8;
-            v85 = v84 = 2112;
-            v44 = v85;
-            _os_log_impl(&dword_273ECD000, v43, v42, "credentials context (%@) in progress for other network %@, reusing for association", buf, 0x16u);
+            v94 = credentialsContext8;
+            v96 = v95 = 2112;
+            v50 = v96;
+            _os_log_impl(&dword_273ECD000, v49, v47, "credentials context (%@) in progress for other network %@, reusing for association", buf, 0x16u);
 
-            profileCopy = v36;
+            profileCopy = v40;
           }
         }
 
@@ -4901,43 +4929,42 @@ LABEL_46:
 
       else
       {
-        profileCopy = v36;
+        profileCopy = v40;
       }
     }
 
     goto LABEL_26;
   }
 
-  v27 = WFLogForCategory(5uLL);
-  v28 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v27)
+  v29 = WFLogForCategory(5uLL);
+  v30 = OSLogForWFLogLevel(1uLL);
+  v31 = v30;
+  if (WFCurrentLogLevel(v30, v32) && v29)
   {
-    v29 = v27;
-    if (os_log_type_enabled(v29, v28))
+    v33 = v29;
+    if (os_log_type_enabled(v33, v31))
     {
       associationContext9 = [(WFNetworkListController *)self associationContext];
       networkName3 = [associationContext9 networkName];
       [(WFNetworkListController *)self credentialsContext];
-      v33 = v32 = profileCopy;
+      v37 = v36 = profileCopy;
       *buf = 138412546;
-      v83 = networkName3;
-      v84 = 2112;
-      v85 = v33;
-      _os_log_impl(&dword_273ECD000, v29, v28, "%@ requires a scan before associating, preempting credentialsContext(%@) completion until scan is complete.", buf, 0x16u);
+      v94 = networkName3;
+      v95 = 2112;
+      v96 = v37;
+      _os_log_impl(&dword_273ECD000, v33, v31, "%@ requires a scan before associating, preempting credentialsContext(%@) completion until scan is complete.", buf, 0x16u);
 
-      profileCopy = v32;
+      profileCopy = v36;
     }
   }
 
   [(WFNetworkListController *)self _scanNetworkForAssociation:networkCopy profile:profileCopy];
 LABEL_59:
-
-  v76 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAssociationError:(id)error network:(id)network profile:(id)profile securityMode:(int64_t)mode associationContext:(id)context
 {
-  v126 = *MEMORY[0x277D85DE8];
+  v139 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   networkCopy = network;
   profileCopy = profile;
@@ -4952,20 +4979,21 @@ LABEL_59:
     code = 0;
   }
 
-  v102 = WFAssociationErrorCodeToString([errorCopy code]);
+  v115 = WFAssociationErrorCodeToString([errorCopy code]);
   v15 = WFLogForCategory(5uLL);
   v16 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v15 && os_log_type_enabled(v15, v16))
+  v17 = v16;
+  if (WFCurrentLogLevel(v16, v18) && v15 && os_log_type_enabled(v15, v17))
   {
     *buf = 138413058;
-    *v121 = networkCopy;
-    *&v121[8] = 2112;
-    *&v121[10] = profileCopy;
-    v122 = 2112;
-    v123 = errorCopy;
-    v124 = 2112;
-    v125 = v102;
-    _os_log_impl(&dword_273ECD000, v15, v16, "handling association failure for %@ (profile: %@) error: %@ (%@)", buf, 0x2Au);
+    *v134 = networkCopy;
+    *&v134[8] = 2112;
+    *&v134[10] = profileCopy;
+    v135 = 2112;
+    v136 = errorCopy;
+    v137 = 2112;
+    v138 = v115;
+    _os_log_impl(&dword_273ECD000, v15, v17, "handling association failure for %@ (profile: %@) error: %@ (%@)", buf, 0x2Au);
   }
 
   code2 = [errorCopy code];
@@ -4978,23 +5006,23 @@ LABEL_59:
 
       if ([errorCopy code] == 1)
       {
-        v19 = [[WFErrorContext alloc] initWithAssociationError:errorCopy network:networkCopy diagnosticsResult:0];
+        v21 = [[WFErrorContext alloc] initWithAssociationError:errorCopy network:networkCopy diagnosticsResult:0];
         objc_initWeak(buf, self);
-        objc_initWeak(&location, v19);
-        v112[0] = MEMORY[0x277D85DD0];
-        v112[1] = 3221225472;
-        v112[2] = __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke;
-        v112[3] = &unk_279EBD498;
-        v113 = networkCopy;
-        v114 = profileCopy;
-        v115 = errorCopy;
-        v116 = v102;
-        objc_copyWeak(&v117, buf);
-        objc_copyWeak(&v118, &location);
-        [(WFErrorContext *)v19 setCompletionHandler:v112];
-        [(WFNetworkListController *)self _presentContext:v19 contextType:0];
-        objc_destroyWeak(&v118);
-        objc_destroyWeak(&v117);
+        objc_initWeak(&location, v21);
+        v125[0] = MEMORY[0x277D85DD0];
+        v125[1] = 3221225472;
+        v125[2] = __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke;
+        v125[3] = &unk_279EBD498;
+        v126 = networkCopy;
+        v127 = profileCopy;
+        v128 = errorCopy;
+        v129 = v115;
+        objc_copyWeak(&v130, buf);
+        objc_copyWeak(&v131, &location);
+        [(WFErrorContext *)v21 setCompletionHandler:v125];
+        [(WFNetworkListController *)self _presentContext:v21 contextType:0];
+        objc_destroyWeak(&v131);
+        objc_destroyWeak(&v130);
 
         objc_destroyWeak(&location);
         objc_destroyWeak(buf);
@@ -5011,23 +5039,23 @@ LABEL_59:
       switch(originator)
       {
         case 2:
-          v56 = +[WFMetricsManager sharedManager];
-          v57 = [WFUserJoinEvent joinEventWithType:2 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-          [v56 processEvent:v57];
+          v64 = +[WFMetricsManager sharedManager];
+          v65 = [WFUserJoinEvent joinEventWithType:2 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+          [v64 processEvent:v65];
 
           break;
         case 1:
-          v54 = +[WFMetricsManager sharedManager];
-          v55 = [WFUserJoinEvent joinEventWithType:1 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-          [v54 processEvent:v55];
+          v62 = +[WFMetricsManager sharedManager];
+          v63 = [WFUserJoinEvent joinEventWithType:1 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+          [v62 processEvent:v63];
 
           break;
         case 0:
-          v46 = +[WFMetricsManager sharedManager];
+          v52 = +[WFMetricsManager sharedManager];
           sectionCounts = [contextCopy sectionCounts];
           sectionNameJoined = [contextCopy sectionNameJoined];
-          v49 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts sectionName:sectionNameJoined didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-          [v46 processEvent:v49];
+          v55 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts sectionName:sectionNameJoined didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+          [v52 processEvent:v55];
 
           break;
       }
@@ -5037,22 +5065,23 @@ LABEL_59:
 
     if (code2 == 6)
     {
-      v26 = WFLogForCategory(5uLL);
-      v27 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v26)
+      v28 = WFLogForCategory(5uLL);
+      v29 = OSLogForWFLogLevel(1uLL);
+      v30 = v29;
+      if (WFCurrentLogLevel(v29, v31) && v28)
       {
-        v28 = v26;
-        if (os_log_type_enabled(v28, v27))
+        v32 = v28;
+        if (os_log_type_enabled(v32, v30))
         {
           ssid = [networkCopy ssid];
           *buf = 138412290;
-          *v121 = ssid;
-          _os_log_impl(&dword_273ECD000, v28, v27, "User cancelled association to %@", buf, 0xCu);
+          *v134 = ssid;
+          _os_log_impl(&dword_273ECD000, v32, v30, "User cancelled association to %@", buf, 0xCu);
         }
       }
 
-      v30 = [MEMORY[0x277CCA9B8] associationErrorWithReason:6];
-      [(WFNetworkListController *)self _associationDidFinish:0 error:v30 network:0];
+      v34 = [MEMORY[0x277CCA9B8] associationErrorWithReason:6];
+      [(WFNetworkListController *)self _associationDidFinish:0 error:v34 network:0];
 
       associationContext3 = [(WFNetworkListController *)self associationContext];
       originator2 = [associationContext3 originator];
@@ -5060,23 +5089,23 @@ LABEL_59:
       switch(originator2)
       {
         case 2:
-          v83 = +[WFMetricsManager sharedManager];
-          v84 = [WFUserJoinEvent joinEventWithType:2 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-          [v83 processEvent:v84];
+          v97 = +[WFMetricsManager sharedManager];
+          v98 = [WFUserJoinEvent joinEventWithType:2 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+          [v97 processEvent:v98];
 
           break;
         case 1:
-          v81 = +[WFMetricsManager sharedManager];
-          v82 = [WFUserJoinEvent joinEventWithType:1 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-          [v81 processEvent:v82];
+          v95 = +[WFMetricsManager sharedManager];
+          v96 = [WFUserJoinEvent joinEventWithType:1 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+          [v95 processEvent:v96];
 
           break;
         case 0:
-          v33 = +[WFMetricsManager sharedManager];
+          v37 = +[WFMetricsManager sharedManager];
           sectionCounts2 = [contextCopy sectionCounts];
           sectionNameJoined2 = [contextCopy sectionNameJoined];
-          v36 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts2 sectionName:sectionNameJoined2 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-          [v33 processEvent:v36];
+          v40 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts2 sectionName:sectionNameJoined2 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+          [v37 processEvent:v40];
 
           break;
       }
@@ -5095,20 +5124,21 @@ LABEL_59:
       associationContext4 = [(WFNetworkListController *)self associationContext];
       [associationContext4 setState:2];
 
-      v63 = WFLogForCategory(5uLL);
-      v64 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v63)
+      v73 = WFLogForCategory(5uLL);
+      v74 = OSLogForWFLogLevel(1uLL);
+      v75 = v74;
+      if (WFCurrentLogLevel(v74, v76) && v73)
       {
-        v65 = v63;
-        if (os_log_type_enabled(v65, v64))
+        v77 = v73;
+        if (os_log_type_enabled(v77, v75))
         {
           code3 = [errorCopy code];
           ssid2 = [networkCopy ssid];
           *buf = 67109378;
-          *v121 = code3;
-          *&v121[4] = 2112;
-          *&v121[6] = ssid2;
-          _os_log_impl(&dword_273ECD000, v65, v64, "unhandled errorCode (%d) while associating to %@", buf, 0x12u);
+          *v134 = code3;
+          *&v134[4] = 2112;
+          *&v134[6] = ssid2;
+          _os_log_impl(&dword_273ECD000, v77, v75, "unhandled errorCode (%d) while associating to %@", buf, 0x12u);
         }
       }
 
@@ -5116,39 +5146,40 @@ LABEL_59:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 || [networkCopy iOSHotspot])
       {
-        v68 = +[WFMetricsManager sharedManager];
+        v80 = +[WFMetricsManager sharedManager];
         sectionCounts3 = [contextCopy sectionCounts];
         sectionNameJoined3 = [contextCopy sectionNameJoined];
-        v71 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts3 sectionName:sectionNameJoined3 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-        [v68 processEvent:v71];
+        v83 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts3 sectionName:sectionNameJoined3 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+        [v80 processEvent:v83];
 
-        v72 = WFLogForCategory(0);
-        v73 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v72)
+        v84 = WFLogForCategory(0);
+        v85 = OSLogForWFLogLevel(3uLL);
+        v86 = v85;
+        if (WFCurrentLogLevel(v85, v87) >= 3 && v84)
         {
-          v74 = v72;
-          if (os_log_type_enabled(v74, v73))
+          v88 = v84;
+          if (os_log_type_enabled(v88, v86))
           {
             ssid3 = [networkCopy ssid];
             *buf = 138412290;
-            *v121 = ssid3;
-            _os_log_impl(&dword_273ECD000, v74, v73, "Skip running velocity test as joining a personal hotspot network: %@", buf, 0xCu);
+            *v134 = ssid3;
+            _os_log_impl(&dword_273ECD000, v88, v86, "Skip running velocity test as joining a personal hotspot network: %@", buf, 0xCu);
           }
         }
 
-        v76 = [[WFErrorContext alloc] initWithAssociationError:errorCopy network:networkCopy diagnosticsResult:0];
-        objc_initWeak(buf, v76);
-        v109[0] = MEMORY[0x277D85DD0];
-        v109[1] = 3221225472;
-        v109[2] = __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_229;
-        v109[3] = &unk_279EBD4C0;
-        v109[4] = self;
-        objc_copyWeak(&v111, buf);
-        v110 = errorCopy;
-        [(WFErrorContext *)v76 setCompletionHandler:v109];
-        [(WFNetworkListController *)self _presentContext:v76 contextType:0];
+        v90 = [[WFErrorContext alloc] initWithAssociationError:errorCopy network:networkCopy diagnosticsResult:0];
+        objc_initWeak(buf, v90);
+        v122[0] = MEMORY[0x277D85DD0];
+        v122[1] = 3221225472;
+        v122[2] = __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_229;
+        v122[3] = &unk_279EBD4C0;
+        v122[4] = self;
+        objc_copyWeak(&v124, buf);
+        v123 = errorCopy;
+        [(WFErrorContext *)v90 setCompletionHandler:v122];
+        [(WFNetworkListController *)self _presentContext:v90 contextType:0];
 
-        objc_destroyWeak(&v111);
+        objc_destroyWeak(&v124);
         objc_destroyWeak(buf);
       }
 
@@ -5159,28 +5190,28 @@ LABEL_59:
         aBlock[2] = __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_2_230;
         aBlock[3] = &unk_279EBD4E8;
         aBlock[4] = self;
-        v108[1] = mode;
-        v108[2] = code;
-        v105 = contextCopy;
-        v106 = errorCopy;
-        v77 = networkCopy;
-        v107 = v77;
-        objc_copyWeak(v108, &location);
-        v78 = _Block_copy(aBlock);
-        if ([v77 supportsJoinFailureDiagnostics])
+        v121[1] = mode;
+        v121[2] = code;
+        v118 = contextCopy;
+        v119 = errorCopy;
+        v91 = networkCopy;
+        v120 = v91;
+        objc_copyWeak(v121, &location);
+        v92 = _Block_copy(aBlock);
+        if ([v91 supportsJoinFailureDiagnostics])
         {
           diagnosticsManager = [(WFNetworkListController *)self diagnosticsManager];
-          ssid4 = [v77 ssid];
-          [diagnosticsManager runJoinFailureDiagnosticsFor:ssid4 withUpdate:&__block_literal_global_236 result:v78];
+          ssid4 = [v91 ssid];
+          [diagnosticsManager runJoinFailureDiagnosticsFor:ssid4 withUpdate:&__block_literal_global_236 result:v92];
         }
 
         else
         {
-          diagnosticsManager = [v77 ssid];
-          (*(v78 + 2))(v78, 0, 0, diagnosticsManager);
+          diagnosticsManager = [v91 ssid];
+          (*(v92 + 2))(v92, 0, 0, diagnosticsManager);
         }
 
-        objc_destroyWeak(v108);
+        objc_destroyWeak(v121);
       }
 
       objc_destroyWeak(&location);
@@ -5192,16 +5223,16 @@ LABEL_59:
 
     if (originator3 == 2)
     {
-      v22 = +[WFMetricsManager sharedManager];
+      v24 = +[WFMetricsManager sharedManager];
       sectionCounts4 = [WFUserJoinEvent joinEventWithType:2 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-      [v22 processEvent:sectionCounts4];
+      [v24 processEvent:sectionCounts4];
     }
 
     else if (originator3 == 1)
     {
-      v22 = +[WFMetricsManager sharedManager];
+      v24 = +[WFMetricsManager sharedManager];
       sectionCounts4 = [WFUserJoinEvent joinEventWithType:1 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-      [v22 processEvent:sectionCounts4];
+      [v24 processEvent:sectionCounts4];
     }
 
     else
@@ -5211,42 +5242,44 @@ LABEL_59:
         goto LABEL_53;
       }
 
-      v22 = +[WFMetricsManager sharedManager];
+      v24 = +[WFMetricsManager sharedManager];
       sectionCounts4 = [contextCopy sectionCounts];
       sectionNameJoined4 = [contextCopy sectionNameJoined];
-      v25 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts4 sectionName:sectionNameJoined4 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-      [v22 processEvent:v25];
+      v27 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts4 sectionName:sectionNameJoined4 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+      [v24 processEvent:v27];
     }
 
 LABEL_53:
-    v58 = WFLogForCategory(5uLL);
-    v59 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v58)
+    v66 = WFLogForCategory(5uLL);
+    v67 = OSLogForWFLogLevel(1uLL);
+    v68 = v67;
+    if (WFCurrentLogLevel(v67, v69) && v66)
     {
-      v60 = v58;
-      if (os_log_type_enabled(v60, v59))
+      v70 = v66;
+      if (os_log_type_enabled(v70, v68))
       {
         ssid5 = [networkCopy ssid];
         *buf = 138412290;
-        *v121 = ssid5;
-        _os_log_impl(&dword_273ECD000, v60, v59, "Scan required to continue association to %@", buf, 0xCu);
+        *v134 = ssid5;
+        _os_log_impl(&dword_273ECD000, v70, v68, "Scan required to continue association to %@", buf, 0xCu);
       }
     }
 
     goto LABEL_59;
   }
 
-  v37 = WFLogForCategory(5uLL);
-  v38 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v37)
+  v41 = WFLogForCategory(5uLL);
+  v42 = OSLogForWFLogLevel(1uLL);
+  v43 = v42;
+  if (WFCurrentLogLevel(v42, v44) && v41)
   {
-    v39 = v37;
-    if (os_log_type_enabled(v39, v38))
+    v45 = v41;
+    if (os_log_type_enabled(v45, v43))
     {
       ssid6 = [networkCopy ssid];
       *buf = 138412290;
-      *v121 = ssid6;
-      _os_log_impl(&dword_273ECD000, v39, v38, "User input required for %@", buf, 0xCu);
+      *v134 = ssid6;
+      _os_log_impl(&dword_273ECD000, v45, v43, "User input required for %@", buf, 0xCu);
     }
   }
 
@@ -5256,29 +5289,29 @@ LABEL_53:
   if ([networkCopy isEnterprise])
   {
     userInfo = [errorCopy userInfo];
-    v43 = [userInfo objectForKey:@"kWFAssociationCertificateChainKey"];
+    v49 = [userInfo objectForKey:@"kWFAssociationCertificateChainKey"];
 
-    if (v43)
+    if (v49)
     {
-      [(WFNetworkListController *)self _promptTrustCertificateForNetwork:networkCopy certificateChain:v43 profile:profileCopy autoJoin:0];
+      [(WFNetworkListController *)self _promptTrustCertificateForNetwork:networkCopy certificateChain:v49 profile:profileCopy autoJoin:0];
 LABEL_36:
 
       goto LABEL_79;
     }
 
     userInfo2 = [errorCopy userInfo];
-    v87 = [userInfo2 objectForKey:@"kWFAssociationUsernameRequiredKey"];
-    if (v87)
+    v100 = [userInfo2 objectForKey:@"kWFAssociationUsernameRequiredKey"];
+    if (v100)
     {
     }
 
     else
     {
       userInfo3 = [errorCopy userInfo];
-      v89 = [userInfo3 objectForKey:@"kWFAssociationPasswordRequiredKey"];
-      v90 = v89 == 0;
+      v102 = [userInfo3 objectForKey:@"kWFAssociationPasswordRequiredKey"];
+      v103 = v102 == 0;
 
-      if (v90)
+      if (v103)
       {
         goto LABEL_84;
       }
@@ -5292,23 +5325,23 @@ LABEL_84:
     switch(originator4)
     {
       case 2:
-        v99 = +[WFMetricsManager sharedManager];
-        v100 = [WFUserJoinEvent joinEventWithType:2 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-        [v99 processEvent:v100];
+        v112 = +[WFMetricsManager sharedManager];
+        v113 = [WFUserJoinEvent joinEventWithType:2 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+        [v112 processEvent:v113];
 
         break;
       case 1:
-        v97 = +[WFMetricsManager sharedManager];
-        v98 = [WFUserJoinEvent joinEventWithType:1 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-        [v97 processEvent:v98];
+        v110 = +[WFMetricsManager sharedManager];
+        v111 = [WFUserJoinEvent joinEventWithType:1 security:mode error:code didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+        [v110 processEvent:v111];
 
         break;
       case 0:
-        v93 = +[WFMetricsManager sharedManager];
+        v106 = +[WFMetricsManager sharedManager];
         sectionCounts5 = [contextCopy sectionCounts];
         sectionNameJoined5 = [contextCopy sectionNameJoined];
-        v96 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts5 sectionName:sectionNameJoined5 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-        [v93 processEvent:v96];
+        v109 = [WFUserJoinEvent joinEventWithSecurity:mode error:code sectionCounts:sectionCounts5 sectionName:sectionNameJoined5 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+        [v106 processEvent:v109];
 
         break;
     }
@@ -5316,22 +5349,22 @@ LABEL_84:
     goto LABEL_36;
   }
 
-  v50 = WFLogForCategory(5uLL);
-  v51 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v50)
+  v56 = WFLogForCategory(5uLL);
+  v57 = OSLogForWFLogLevel(1uLL);
+  v58 = v57;
+  if (WFCurrentLogLevel(v57, v59) && v56)
   {
-    v52 = v50;
-    if (os_log_type_enabled(v52, v51))
+    v60 = v56;
+    if (os_log_type_enabled(v60, v58))
     {
       ssid7 = [networkCopy ssid];
       *buf = 138412290;
-      *v121 = ssid7;
-      _os_log_impl(&dword_273ECD000, v52, v51, "Recieved WFAssociationTrustRequiredErr for non-enterprise network %@", buf, 0xCu);
+      *v134 = ssid7;
+      _os_log_impl(&dword_273ECD000, v60, v58, "Recieved WFAssociationTrustRequiredErr for non-enterprise network %@", buf, 0xCu);
     }
   }
 
 LABEL_79:
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 void __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke(id *a1)
@@ -5359,34 +5392,33 @@ void __99__WFNetworkListController__handleAssociationError_network_profile_secur
 
 void __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(5uLL);
   v3 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) && v2 && os_log_type_enabled(v2, v4))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 56);
-    v12 = 138413058;
-    v13 = v4;
-    v14 = 2112;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&dword_273ECD000, v2, v3, "Dismissing error alert and prompting credentials for %@ (profile: %@) error: %@ (%@)", &v12, 0x2Au);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    v13 = 138413058;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2112;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    _os_log_impl(&dword_273ECD000, v2, v4, "Dismissing error alert and prompting credentials for %@ (profile: %@) error: %@ (%@)", &v13, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v9 = objc_loadWeakRetained((a1 + 72));
-  [WeakRetained _dismissErrorViewControllerWithContext:v9];
+  v11 = objc_loadWeakRetained((a1 + 72));
+  [WeakRetained _dismissErrorViewControllerWithContext:v11];
 
-  v10 = objc_loadWeakRetained((a1 + 64));
-  [v10 _promptCredentialsForNetwork:*(a1 + 32) profile:*(a1 + 40)];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = objc_loadWeakRetained((a1 + 64));
+  [v12 _promptCredentialsForNetwork:*(a1 + 32) profile:*(a1 + 40)];
 }
 
 uint64_t __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_229(uint64_t a1)
@@ -5403,101 +5435,102 @@ uint64_t __99__WFNetworkListController__handleAssociationError_network_profile_s
 
 void __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_2_230(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
-  v28 = a4;
+  v33 = a4;
   if (v7)
   {
     v9 = WFLogForCategory(0);
     v10 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v9 && os_log_type_enabled(v9, v10))
+    v11 = v10;
+    if (WFCurrentLogLevel(v10, v12) && v9 && os_log_type_enabled(v9, v11))
     {
       *buf = 138412546;
-      v34 = v28;
-      v35 = 2112;
-      v36 = v7;
-      _os_log_impl(&dword_273ECD000, v9, v10, "Diagnostics Error for ssid: %@ received: %@", buf, 0x16u);
+      v39 = v33;
+      v40 = 2112;
+      v41 = v7;
+      _os_log_impl(&dword_273ECD000, v9, v11, "Diagnostics Error for ssid: %@ received: %@", buf, 0x16u);
     }
   }
 
   if (v8)
   {
-    v11 = [v8 didPassTest];
-    v12 = [v8 failedTests];
+    v13 = [v8 didPassTest];
+    v14 = [v8 failedTests];
   }
 
   else
   {
-    v13 = WFLogForCategory(0);
-    v14 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v13 && os_log_type_enabled(v13, v14))
+    v15 = WFLogForCategory(0);
+    v16 = OSLogForWFLogLevel(1uLL);
+    v17 = v16;
+    if (WFCurrentLogLevel(v16, v18) && v15 && os_log_type_enabled(v15, v17))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v13, v14, "Empty diagnostics result returned", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v15, v17, "Empty diagnostics result returned", buf, 2u);
     }
 
-    v11 = 0;
-    v12 = MEMORY[0x277CBEBF8];
+    v13 = 0;
+    v14 = MEMORY[0x277CBEBF8];
   }
 
-  v15 = WFLogForCategory(0);
-  v16 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v15 && os_log_type_enabled(v15, v16))
+  v19 = WFLogForCategory(0);
+  v20 = OSLogForWFLogLevel(3uLL);
+  v21 = v20;
+  if (WFCurrentLogLevel(v20, v22) >= 3 && v19 && os_log_type_enabled(v19, v21))
   {
     *buf = 138412546;
-    v34 = v28;
-    v35 = 2112;
-    v36 = v8;
-    _os_log_impl(&dword_273ECD000, v15, v16, "Diagnostics result for ssid: %@ received: %@", buf, 0x16u);
+    v39 = v33;
+    v40 = 2112;
+    v41 = v8;
+    _os_log_impl(&dword_273ECD000, v19, v21, "Diagnostics result for ssid: %@ received: %@", buf, 0x16u);
   }
 
-  v17 = [*(a1 + 32) associationContext];
-  v18 = [v17 originator];
+  v23 = [*(a1 + 32) associationContext];
+  v24 = [v23 originator];
 
-  switch(v18)
+  switch(v24)
   {
     case 2:
-      v19 = +[WFMetricsManager sharedManager];
-      v22 = [WFUserJoinEvent joinEventWithType:2 security:*(a1 + 72) error:*(a1 + 80) didRun:1 didPass:v11 failedTests:v12];
-      [v19 processEvent:v22];
+      v25 = +[WFMetricsManager sharedManager];
+      v28 = [WFUserJoinEvent joinEventWithType:2 security:*(a1 + 72) error:*(a1 + 80) didRun:1 didPass:v13 failedTests:v14];
+      [v25 processEvent:v28];
       goto LABEL_24;
     case 1:
-      v19 = +[WFMetricsManager sharedManager];
-      v22 = [WFUserJoinEvent joinEventWithType:1 security:*(a1 + 72) error:*(a1 + 80) didRun:1 didPass:v11 failedTests:v12];
-      [v19 processEvent:v22];
+      v25 = +[WFMetricsManager sharedManager];
+      v28 = [WFUserJoinEvent joinEventWithType:1 security:*(a1 + 72) error:*(a1 + 80) didRun:1 didPass:v13 failedTests:v14];
+      [v25 processEvent:v28];
       goto LABEL_24;
     case 0:
-      v19 = +[WFMetricsManager sharedManager];
-      v21 = *(a1 + 72);
-      v20 = *(a1 + 80);
-      v22 = [*(a1 + 40) sectionCounts];
-      v23 = [*(a1 + 40) sectionNameJoined];
-      v24 = [WFUserJoinEvent joinEventWithSecurity:v21 error:v20 sectionCounts:v22 sectionName:v23 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
-      [v19 processEvent:v24];
+      v25 = +[WFMetricsManager sharedManager];
+      v27 = *(a1 + 72);
+      v26 = *(a1 + 80);
+      v28 = [*(a1 + 40) sectionCounts];
+      v29 = [*(a1 + 40) sectionNameJoined];
+      v30 = [WFUserJoinEvent joinEventWithSecurity:v27 error:v26 sectionCounts:v28 sectionName:v29 didRun:0 didPass:0 failedTests:MEMORY[0x277CBEBF8]];
+      [v25 processEvent:v30];
 
 LABEL_24:
       break;
   }
 
-  v25 = [[WFErrorContext alloc] initWithAssociationError:*(a1 + 48) network:*(a1 + 56) diagnosticsResult:v8];
-  objc_initWeak(buf, v25);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_231;
-  v29[3] = &unk_279EBD3A8;
-  objc_copyWeak(&v31, (a1 + 64));
-  objc_copyWeak(&v32, buf);
-  v30 = *(a1 + 48);
-  [(WFErrorContext *)v25 setCompletionHandler:v29];
+  v31 = [[WFErrorContext alloc] initWithAssociationError:*(a1 + 48) network:*(a1 + 56) diagnosticsResult:v8];
+  objc_initWeak(buf, v31);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_231;
+  v34[3] = &unk_279EBD3A8;
+  objc_copyWeak(&v36, (a1 + 64));
+  objc_copyWeak(&v37, buf);
+  v35 = *(a1 + 48);
+  [(WFErrorContext *)v31 setCompletionHandler:v34];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  [WeakRetained _presentContext:v25 contextType:0];
+  [WeakRetained _presentContext:v31 contextType:0];
 
-  objc_destroyWeak(&v32);
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(buf);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_231(uint64_t a1)
@@ -5512,36 +5545,34 @@ void __99__WFNetworkListController__handleAssociationError_network_profile_secur
 
 void __99__WFNetworkListController__handleAssociationError_network_profile_securityMode_associationContext___block_invoke_2_233(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_273ECD000, v3, v4, "Diagnostics event received: %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = v2;
+    _os_log_impl(&dword_273ECD000, v3, v5, "Diagnostics event received: %@", &v7, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_supportsWiFiPasswordSharing
 {
-  viewController = self->_viewController;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_viewController;
+  viewController = self->_viewController;
 
-  return [(WFNetworkListing *)v4 supportsWiFiPasswordSharing];
+  return [(WFNetworkListing *)viewController supportsWiFiPasswordSharing];
 }
 
 - (void)_promptCredentialsForNetwork:(id)network profile:(id)profile
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   profileCopy = profile;
   credentialsContext = [(WFNetworkListController *)self credentialsContext];
@@ -5550,142 +5581,147 @@ void __99__WFNetworkListController__handleAssociationError_network_profile_secur
   {
     v9 = WFLogForCategory(0);
     v10 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v9)
+    v11 = v10;
+    if (WFCurrentLogLevel(v10, v12) >= 3 && v9)
     {
       v9 = v9;
-      if (os_log_type_enabled(&v9->super, v10))
+      if (os_log_type_enabled(&v9->super, v11))
       {
         credentialsContext2 = [(WFNetworkListController *)self credentialsContext];
         *buf = 136315394;
-        v56 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]";
-        v57 = 2112;
-        v58 = credentialsContext2;
-        _os_log_impl(&dword_273ECD000, &v9->super, v10, "%s: reusing existing credentials context (%@)", buf, 0x16u);
+        v67 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]";
+        v68 = 2112;
+        v69 = credentialsContext2;
+        _os_log_impl(&dword_273ECD000, &v9->super, v11, "%s: reusing existing credentials context (%@)", buf, 0x16u);
       }
     }
   }
 
   else if ([(WFCredentialsContext *)networkCopy securityMode]== 128)
   {
-    v12 = [WFWAPICertificatePromptOperation alloc];
+    v14 = [WFWAPICertificatePromptOperation alloc];
     viewController = [(WFNetworkListController *)self viewController];
-    v9 = [(WFWAPICertificatePromptOperation *)v12 initWithRootViewController:viewController network:networkCopy];
+    v9 = [(WFWAPICertificatePromptOperation *)v14 initWithRootViewController:viewController network:networkCopy];
 
-    v14 = WFLogForCategory(0);
-    v15 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v14 && os_log_type_enabled(v14, v15))
+    v16 = WFLogForCategory(0);
+    v17 = OSLogForWFLogLevel(3uLL);
+    v18 = v17;
+    if (WFCurrentLogLevel(v17, v19) >= 3 && v16 && os_log_type_enabled(v16, v18))
     {
       *buf = 136315650;
-      v56 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]";
-      v57 = 2112;
-      v58 = networkCopy;
-      v59 = 2112;
-      v60 = profileCopy;
-      _os_log_impl(&dword_273ECD000, v14, v15, "%s: prompting WAPI cert for %@ (profile %@)", buf, 0x20u);
+      v67 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]";
+      v68 = 2112;
+      v69 = networkCopy;
+      v70 = 2112;
+      v71 = profileCopy;
+      _os_log_impl(&dword_273ECD000, v16, v18, "%s: prompting WAPI cert for %@ (profile %@)", buf, 0x20u);
     }
 
     objc_initWeak(buf, v9);
     objc_initWeak(&location, self);
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke;
-    v49[3] = &unk_279EBD530;
-    objc_copyWeak(&v52, buf);
-    objc_copyWeak(&v53, &location);
-    v50 = profileCopy;
-    v51 = networkCopy;
-    [(WFNetworkProfile *)v9 setCompletionBlock:v49];
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke;
+    v60[3] = &unk_279EBD530;
+    objc_copyWeak(&v63, buf);
+    objc_copyWeak(&v64, &location);
+    v61 = profileCopy;
+    v62 = networkCopy;
+    [(WFNetworkProfile *)v9 setCompletionBlock:v60];
     mainQueue = [MEMORY[0x277CCABD8] mainQueue];
     [mainQueue addOperation:v9];
 
-    objc_destroyWeak(&v53);
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v64);
+    objc_destroyWeak(&v63);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v17 = profileCopy;
-    v9 = v17;
-    if (!v17)
+    v21 = profileCopy;
+    v9 = v21;
+    if (!v21)
     {
       matchingKnownNetworkProfile = [(WFCredentialsContext *)networkCopy matchingKnownNetworkProfile];
 
-      if (!matchingKnownNetworkProfile || (v19 = [WFNetworkProfile alloc], [(WFCredentialsContext *)networkCopy matchingKnownNetworkProfile], v20 = objc_claimAutoreleasedReturnValue(), v21 = [(WFNetworkProfile *)v19 initWithCoreWiFiProfile:v20], v9 = [(WFNetworkProfile *)v21 mutableCopy], v21, v20, !v9))
+      if (!matchingKnownNetworkProfile || (v23 = [WFNetworkProfile alloc], [(WFCredentialsContext *)networkCopy matchingKnownNetworkProfile], v24 = objc_claimAutoreleasedReturnValue(), v25 = [(WFNetworkProfile *)v23 initWithCoreWiFiProfile:v24], v9 = [(WFNetworkProfile *)v25 mutableCopy], v25, v24, !v9))
       {
         v9 = [[WFNetworkProfile alloc] initWithNetwork:networkCopy];
-        v22 = WFLogForCategory(0);
-        v23 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v22 && os_log_type_enabled(v22, v23))
+        v26 = WFLogForCategory(0);
+        v27 = OSLogForWFLogLevel(1uLL);
+        v28 = v27;
+        if (WFCurrentLogLevel(v27, v29) && v26 && os_log_type_enabled(v26, v28))
         {
           *buf = 136315394;
-          v56 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]";
-          v57 = 2112;
-          v58 = networkCopy;
-          _os_log_impl(&dword_273ECD000, v22, v23, "%s: no existing profile for network %@", buf, 0x16u);
+          v67 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]";
+          v68 = 2112;
+          v69 = networkCopy;
+          _os_log_impl(&dword_273ECD000, v26, v28, "%s: no existing profile for network %@", buf, 0x16u);
         }
       }
     }
 
-    v24 = [[WFCredentialsContext alloc] initWithNetwork:networkCopy profile:v9 authTraits:[(WFNetworkListController *)self _defaultAuthTraits]];
+    v30 = [[WFCredentialsContext alloc] initWithNetwork:networkCopy profile:v9 authTraits:[(WFNetworkListController *)self _defaultAuthTraits]];
     if ([(WFNetworkListController *)self _supportsWiFiPasswordSharing])
     {
       if ([MEMORY[0x277D54CB0] passwordSharingAvailability])
       {
-        v25 = 0;
+        v31 = 0;
       }
 
       else
       {
-        v25 = [(WFCredentialsContext *)networkCopy securityMode]== 4 || [(WFCredentialsContext *)networkCopy securityMode]== 8 || [(WFCredentialsContext *)networkCopy securityMode]== 512 || [(WFCredentialsContext *)networkCopy securityMode]== 520;
+        v31 = [(WFCredentialsContext *)networkCopy securityMode]== 4 || [(WFCredentialsContext *)networkCopy securityMode]== 8 || [(WFCredentialsContext *)networkCopy securityMode]== 512 || [(WFCredentialsContext *)networkCopy securityMode]== 520;
       }
 
-      [(WFCredentialsContext *)v24 setPasswordSharingSupported:v25];
+      [(WFCredentialsContext *)v30 setPasswordSharingSupported:v31];
     }
 
-    v26 = WFLogForCategory(0);
-    v27 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v26 && os_log_type_enabled(v26, v27))
+    v32 = WFLogForCategory(0);
+    v33 = OSLogForWFLogLevel(3uLL);
+    v34 = v33;
+    if (WFCurrentLogLevel(v33, v35) >= 3 && v32 && os_log_type_enabled(v32, v34))
     {
       *buf = 136315650;
-      v56 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]";
-      v57 = 2112;
-      v58 = networkCopy;
-      v59 = 2112;
-      v60 = v17;
-      _os_log_impl(&dword_273ECD000, v26, v27, "%s: prompting for password (network %@ profile %@)", buf, 0x20u);
+      v67 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]";
+      v68 = 2112;
+      v69 = networkCopy;
+      v70 = 2112;
+      v71 = v21;
+      _os_log_impl(&dword_273ECD000, v32, v34, "%s: prompting for password (network %@ profile %@)", buf, 0x20u);
     }
 
     viewProvider = [(WFNetworkListController *)self viewProvider];
-    v29 = objc_opt_respondsToSelector();
+    v37 = objc_opt_respondsToSelector();
 
     viewProvider2 = [(WFNetworkListController *)self viewProvider];
-    v31 = [viewProvider2 credentialsViewControllerWithContext:v24];
+    v39 = [viewProvider2 credentialsViewControllerWithContext:v30];
 
-    if (v31)
+    if (v39)
     {
-      [(WFCredentialsContext *)v24 setProvider:v31];
-      if (v29)
+      [(WFCredentialsContext *)v30 setProvider:v39];
+      if (v37)
       {
-        v32 = WFLogForCategory(0);
-        v33 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v32 && os_log_type_enabled(v32, v33))
+        v40 = WFLogForCategory(0);
+        v41 = OSLogForWFLogLevel(3uLL);
+        v42 = v41;
+        if (WFCurrentLogLevel(v41, v43) >= 3 && v40 && os_log_type_enabled(v40, v42))
         {
           *buf = 138412546;
-          v56 = v31;
-          v57 = 2112;
-          v58 = v24;
-          _os_log_impl(&dword_273ECD000, v32, v33, "viewProvider will handle presentation of %@ (context %@)", buf, 0x16u);
+          v67 = v39;
+          v68 = 2112;
+          v69 = v30;
+          _os_log_impl(&dword_273ECD000, v40, v42, "viewProvider will handle presentation of %@ (context %@)", buf, 0x16u);
         }
 
         viewProvider3 = [(WFNetworkListController *)self viewProvider];
-        [viewProvider3 presentNetworkViewController:v31 forContext:v24];
+        [viewProvider3 presentNetworkViewController:v39 forContext:v30];
       }
 
       else
       {
-        viewProvider3 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v31];
+        viewProvider3 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v39];
         [viewProvider3 setModalPresentationStyle:2];
         if ([(WFNetworkListController *)self associatingToOtherNetwork])
         {
@@ -5696,38 +5732,38 @@ void __99__WFNetworkListController__handleAssociationError_network_profile_secur
         {
           [(WFNetworkListController *)self viewController];
         }
-        v37 = ;
-        [v37 presentViewController:viewProvider3 animated:1 completion:0];
+        v49 = ;
+        [v49 presentViewController:viewProvider3 animated:1 completion:0];
       }
 
-      [(WFNetworkListController *)self setCredentialsContext:v24];
-      [(WFNetworkListController *)self setVisibleContext:v24];
+      [(WFNetworkListController *)self setCredentialsContext:v30];
+      [(WFNetworkListController *)self setVisibleContext:v30];
       objc_initWeak(buf, self);
-      objc_initWeak(&location, v24);
+      objc_initWeak(&location, v30);
       objc_initWeak(&from, v9);
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke_247;
-      v45[3] = &unk_279EBD448;
-      objc_copyWeak(&v46, buf);
-      objc_copyWeak(&v47, &location);
-      [(WFCredentialsContext *)v24 setCancellationHandler:v45];
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke_2;
-      v39[3] = &unk_279EBD558;
-      objc_copyWeak(&v42, buf);
-      objc_copyWeak(&v43, &from);
-      v40 = v9;
-      objc_copyWeak(&v44, &location);
-      v41 = networkCopy;
-      [(WFCredentialsContext *)v24 setCompletionHandler:v39];
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke_247;
+      v56[3] = &unk_279EBD448;
+      objc_copyWeak(&v57, buf);
+      objc_copyWeak(&v58, &location);
+      [(WFCredentialsContext *)v30 setCancellationHandler:v56];
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke_2;
+      v50[3] = &unk_279EBD558;
+      objc_copyWeak(&v53, buf);
+      objc_copyWeak(&v54, &from);
+      v51 = v9;
+      objc_copyWeak(&v55, &location);
+      v52 = networkCopy;
+      [(WFCredentialsContext *)v30 setCompletionHandler:v50];
 
-      objc_destroyWeak(&v44);
-      objc_destroyWeak(&v43);
-      objc_destroyWeak(&v42);
-      objc_destroyWeak(&v47);
-      objc_destroyWeak(&v46);
+      objc_destroyWeak(&v55);
+      objc_destroyWeak(&v54);
+      objc_destroyWeak(&v53);
+      objc_destroyWeak(&v58);
+      objc_destroyWeak(&v57);
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
       objc_destroyWeak(buf);
@@ -5735,35 +5771,35 @@ void __99__WFNetworkListController__handleAssociationError_network_profile_secur
 
     else
     {
-      v35 = WFLogForCategory(0);
-      v36 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v35 && os_log_type_enabled(v35, v36))
+      v45 = WFLogForCategory(0);
+      v46 = OSLogForWFLogLevel(3uLL);
+      v47 = v46;
+      if (WFCurrentLogLevel(v46, v48) >= 3 && v45 && os_log_type_enabled(v45, v47))
       {
         *buf = 0;
-        _os_log_impl(&dword_273ECD000, v35, v36, "credentialsViewController is nil -- cancelling credentials prompt", buf, 2u);
+        _os_log_impl(&dword_273ECD000, v45, v47, "credentialsViewController is nil -- cancelling credentials prompt", buf, 2u);
       }
 
-      [(WFNetworkListController *)self _promptCredentialsForNetworkCancelled:v24];
+      [(WFNetworkListController *)self _promptCredentialsForNetworkCancelled:v30];
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke(id *a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = objc_loadWeakRetained(a1 + 7);
   if ([WeakRetained userCancelled])
   {
     v4 = WFLogForCategory(0);
     v5 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v4 && os_log_type_enabled(v4, v5))
+    v6 = v5;
+    if (WFCurrentLogLevel(v5, v7) >= 3 && v4 && os_log_type_enabled(v4, v6))
     {
       *buf = 136315138;
-      v28 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]_block_invoke";
-      _os_log_impl(&dword_273ECD000, v4, v5, "%s: User cancelled association", buf, 0xCu);
+      v31 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]_block_invoke";
+      _os_log_impl(&dword_273ECD000, v4, v6, "%s: User cancelled association", buf, 0xCu);
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -5775,74 +5811,74 @@ void __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_
     goto LABEL_21;
   }
 
-  v6 = [a1[4] mutableCopy];
-  if (!v6)
+  v8 = [a1[4] mutableCopy];
+  if (!v8)
   {
-    v7 = [a1[5] matchingKnownNetworkProfile];
+    v9 = [a1[5] matchingKnownNetworkProfile];
 
-    if (v7)
+    if (v9)
     {
-      v8 = [WFNetworkProfile alloc];
-      v9 = [a1[5] matchingKnownNetworkProfile];
-      v10 = [(WFNetworkProfile *)v8 initWithCoreWiFiProfile:v9];
-      v11 = [(WFNetworkProfile *)v10 mutableCopy];
+      v10 = [WFNetworkProfile alloc];
+      v11 = [a1[5] matchingKnownNetworkProfile];
+      v12 = [(WFNetworkProfile *)v10 initWithCoreWiFiProfile:v11];
+      v13 = [(WFNetworkProfile *)v12 mutableCopy];
 
-      if (v11)
+      if (v13)
       {
         goto LABEL_12;
       }
     }
 
-    v6 = [WFMutableNetworkProfile mutableProfileForNetwork:a1[5]];
+    v8 = [WFMutableNetworkProfile mutableProfileForNetwork:a1[5]];
   }
 
-  v11 = v6;
+  v13 = v8;
 LABEL_12:
-  v12 = [WeakRetained WAPIRootCertificate];
-  v13 = [WeakRetained WAPIIdentityPEMBlob];
-  v14 = WFWAPICertificateBlobString(v12, v13);
-  [v11 setPassword:v14];
+  v14 = [WeakRetained WAPIRootCertificate];
+  v15 = [WeakRetained WAPIIdentityPEMBlob];
+  v16 = WFWAPICertificateBlobString(v14, v15);
+  [v13 setPassword:v16];
 
-  [v11 setUserProvidedPassword:1];
-  v15 = [v11 password];
+  [v13 setUserProvidedPassword:1];
+  v17 = [v13 password];
 
-  if (v15)
+  if (v17)
   {
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke_241;
-    v23[3] = &unk_279EBD268;
-    v23[4] = v3;
-    v24 = a1[5];
-    v25 = v11;
-    dispatch_async(MEMORY[0x277D85CD0], v23);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke_241;
+    v26[3] = &unk_279EBD268;
+    v26[4] = v3;
+    v27 = a1[5];
+    v28 = v13;
+    dispatch_async(MEMORY[0x277D85CD0], v26);
   }
 
   else
   {
-    v16 = WFLogForCategory(0);
-    v17 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v16)
+    v18 = WFLogForCategory(0);
+    v19 = OSLogForWFLogLevel(1uLL);
+    v20 = v19;
+    if (WFCurrentLogLevel(v19, v21) && v18)
     {
-      v18 = v16;
-      if (os_log_type_enabled(v18, v17))
+      v22 = v18;
+      if (os_log_type_enabled(v22, v20))
       {
-        v19 = [WeakRetained WAPIRootCertificate];
-        v20 = [WeakRetained WAPIIdentityPEMBlob];
+        v23 = [WeakRetained WAPIRootCertificate];
+        v24 = [WeakRetained WAPIIdentityPEMBlob];
         *buf = 138412546;
-        v28 = v19;
-        v29 = 2112;
-        v30 = v20;
-        _os_log_impl(&dword_273ECD000, v18, v17, "Unable to create WAPI password from Root: %@ IdentityBlob: %@", buf, 0x16u);
+        v31 = v23;
+        v32 = 2112;
+        v33 = v24;
+        _os_log_impl(&dword_273ECD000, v22, v20, "Unable to create WAPI password from Root: %@ IdentityBlob: %@", buf, 0x16u);
       }
     }
 
-    v21 = [MEMORY[0x277CCA9B8] associationErrorWithReason:9];
-    [v3 _associationDidFinish:0 error:v21 network:0];
+    v25 = [MEMORY[0x277CCA9B8] associationErrorWithReason:9];
+    [v3 _associationDidFinish:0 error:v25 network:0];
   }
 
 LABEL_21:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke_240(uint64_t a1)
@@ -5862,94 +5898,94 @@ void __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_
 
 void __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_invoke_2(uint64_t a1, void *a2, int a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
   {
-    v22 = 136315650;
-    v23 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]_block_invoke_2";
-    v24 = 2112;
-    v25 = v5;
-    v26 = 1024;
-    v27 = a3;
-    _os_log_impl(&dword_273ECD000, v7, v8, "%s: credentials prompt complete, provider %@, shouldDismiss %d", &v22, 0x1Cu);
+    v25 = 136315650;
+    v26 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]_block_invoke_2";
+    v27 = 2112;
+    v28 = v5;
+    v29 = 1024;
+    v30 = a3;
+    _os_log_impl(&dword_273ECD000, v7, v9, "%s: credentials prompt complete, provider %@, shouldDismiss %d", &v25, 0x1Cu);
   }
 
-  v9 = objc_loadWeakRetained((a1 + 56));
-  v10 = [v9 mutableCopy];
+  v11 = objc_loadWeakRetained((a1 + 56));
+  v12 = [v11 mutableCopy];
 
-  v11 = [*(a1 + 32) password];
-  [v10 setPreviousPassword:v11];
+  v13 = [*(a1 + 32) password];
+  [v12 setPreviousPassword:v13];
 
-  [v10 setTLSIdentity:{objc_msgSend(v5, "TLSIdentity")}];
-  v12 = [v5 username];
-  [v10 setUsername:v12];
+  [v12 setTLSIdentity:{objc_msgSend(v5, "TLSIdentity")}];
+  v14 = [v5 username];
+  [v12 setUsername:v14];
 
-  v13 = [v5 password];
-  [v10 setPassword:v13];
+  v15 = [v5 password];
+  [v12 setPassword:v15];
 
-  [v10 setUserProvidedPassword:1];
-  v14 = objc_loadWeakRetained((a1 + 64));
-  v15 = [v14 passwordReceivedFromPasswordSharing];
+  [v12 setUserProvidedPassword:1];
+  v16 = objc_loadWeakRetained((a1 + 64));
+  v17 = [v16 passwordReceivedFromPasswordSharing];
 
-  if (v15)
+  if (v17)
   {
-    v16 = WFLogForCategory(0);
-    v17 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v16)
+    v18 = WFLogForCategory(0);
+    v19 = OSLogForWFLogLevel(3uLL);
+    v20 = v19;
+    if (WFCurrentLogLevel(v19, v21) >= 3 && v18)
     {
-      v18 = v16;
-      if (os_log_type_enabled(v18, v17))
+      v22 = v18;
+      if (os_log_type_enabled(v22, v20))
       {
-        v19 = [v10 ssid];
-        v22 = 136315394;
-        v23 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]_block_invoke";
-        v24 = 2112;
-        v25 = v19;
-        _os_log_impl(&dword_273ECD000, v18, v17, "%s: password for '%@' received from password sharing", &v22, 0x16u);
+        v23 = [v12 ssid];
+        v25 = 136315394;
+        v26 = "[WFNetworkListController _promptCredentialsForNetwork:profile:]_block_invoke";
+        v27 = 2112;
+        v28 = v23;
+        _os_log_impl(&dword_273ECD000, v22, v20, "%s: password for '%@' received from password sharing", &v25, 0x16u);
       }
     }
 
-    [v10 setAddedFromWiFiPasswordSharing:1];
+    [v12 setAddedFromWiFiPasswordSharing:1];
   }
 
-  [WeakRetained _associateToScanRecord:*(a1 + 40) profile:v10];
+  [WeakRetained _associateToScanRecord:*(a1 + 40) profile:v12];
   if (a3)
   {
-    v20 = objc_loadWeakRetained((a1 + 64));
-    [WeakRetained _dismissCredentialsViewControllerWithContext:v20];
+    v24 = objc_loadWeakRetained((a1 + 64));
+    [WeakRetained _dismissCredentialsViewControllerWithContext:v24];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_promptCredentialsForNetworkCancelled:(id)cancelled
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   cancelledCopy = cancelled;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
-    v9 = 136315138;
-    v10 = "[WFNetworkListController _promptCredentialsForNetworkCancelled:]";
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s: user cancelled credentials prompt", &v9, 0xCu);
+    v10 = 136315138;
+    v11 = "[WFNetworkListController _promptCredentialsForNetworkCancelled:]";
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s: user cancelled credentials prompt", &v10, 0xCu);
   }
 
-  v7 = [MEMORY[0x277CCA9B8] associationErrorWithReason:6];
-  [(WFNetworkListController *)self _associationDidFinish:0 error:v7 network:0];
+  v9 = [MEMORY[0x277CCA9B8] associationErrorWithReason:6];
+  [(WFNetworkListController *)self _associationDidFinish:0 error:v9 network:0];
 
   [(WFNetworkListController *)self _dismissCredentialsViewControllerWithContext:cancelledCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_promptTrustCertificateForNetwork:(id)network certificateChain:(id)chain profile:(id)profile autoJoin:(BOOL)join
 {
   joinCopy = join;
-  v50 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   chainCopy = chain;
   profileCopy = profile;
@@ -5962,11 +5998,12 @@ void __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_
     {
       v15 = WFLogForCategory(0);
       v16 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v15 && os_log_type_enabled(v15, v16))
+      v17 = v16;
+      if (WFCurrentLogLevel(v16, v18) >= 3 && v15 && os_log_type_enabled(v15, v17))
       {
         *buf = 136315138;
-        v45 = "[WFNetworkListController _promptTrustCertificateForNetwork:certificateChain:profile:autoJoin:]";
-        _os_log_impl(&dword_273ECD000, v15, v16, "%s: dismissing credentials view controller", buf, 0xCu);
+        v50 = "[WFNetworkListController _promptTrustCertificateForNetwork:certificateChain:profile:autoJoin:]";
+        _os_log_impl(&dword_273ECD000, v15, v17, "%s: dismissing credentials view controller", buf, 0xCu);
       }
 
       credentialsContext2 = [(WFNetworkListController *)self credentialsContext];
@@ -5974,49 +6011,51 @@ void __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_
     }
   }
 
-  v18 = WFLogForCategory(5uLL);
-  v19 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v18)
+  v20 = WFLogForCategory(5uLL);
+  v21 = OSLogForWFLogLevel(1uLL);
+  v22 = v21;
+  if (WFCurrentLogLevel(v21, v23) && v20)
   {
-    v20 = v18;
-    if (os_log_type_enabled(v20, v19))
+    v24 = v20;
+    if (os_log_type_enabled(v24, v22))
     {
       associationContext = [(WFNetworkListController *)self associationContext];
       *buf = 138413058;
-      v45 = networkCopy;
-      v46 = 1024;
-      *v47 = joinCopy;
-      *&v47[4] = 2112;
-      *&v47[6] = profileCopy;
-      v48 = 2112;
-      v49 = associationContext;
-      _os_log_impl(&dword_273ECD000, v20, v19, "prompting trust cert for %@ autojoin=%d (profile %@) - associationCtx: %@", buf, 0x26u);
+      v50 = networkCopy;
+      v51 = 1024;
+      *v52 = joinCopy;
+      *&v52[4] = 2112;
+      *&v52[6] = profileCopy;
+      v53 = 2112;
+      v54 = associationContext;
+      _os_log_impl(&dword_273ECD000, v24, v22, "prompting trust cert for %@ autojoin=%d (profile %@) - associationCtx: %@", buf, 0x26u);
     }
   }
 
-  v22 = [[WFCertificateContext alloc] initWithNetwork:networkCopy profile:profileCopy certificateChain:chainCopy];
+  v26 = [[WFCertificateContext alloc] initWithNetwork:networkCopy profile:profileCopy certificateChain:chainCopy];
   viewProvider = [(WFNetworkListController *)self viewProvider];
-  v24 = [viewProvider certificateViewControllerWithContext:v22];
+  v28 = [viewProvider certificateViewControllerWithContext:v26];
 
-  [(WFCertificateContext *)v22 setProvider:v24];
+  [(WFCertificateContext *)v26 setProvider:v28];
   viewProvider2 = [(WFNetworkListController *)self viewProvider];
-  v26 = objc_opt_respondsToSelector();
+  v30 = objc_opt_respondsToSelector();
 
-  if (v26)
+  if (v30)
   {
-    v27 = WFLogForCategory(0);
-    v28 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v27 && os_log_type_enabled(v27, v28))
+    v31 = WFLogForCategory(0);
+    v32 = OSLogForWFLogLevel(3uLL);
+    v33 = v32;
+    if (WFCurrentLogLevel(v32, v34) >= 3 && v31 && os_log_type_enabled(v31, v33))
     {
       *buf = 138412546;
-      v45 = v24;
-      v46 = 2112;
-      *v47 = v22;
-      _os_log_impl(&dword_273ECD000, v27, v28, "viewProvider will handle presentation of %@ (context %@)", buf, 0x16u);
+      v50 = v28;
+      v51 = 2112;
+      *v52 = v26;
+      _os_log_impl(&dword_273ECD000, v31, v33, "viewProvider will handle presentation of %@ (context %@)", buf, 0x16u);
     }
 
     viewProvider3 = [(WFNetworkListController *)self viewProvider];
-    [viewProvider3 presentNetworkViewController:v24 forContext:v22];
+    [viewProvider3 presentNetworkViewController:v28 forContext:v26];
   }
 
   else
@@ -6026,7 +6065,7 @@ void __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_
 
     if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
     {
-      [v24 setModalPresentationStyle:2];
+      [v28 setModalPresentationStyle:2];
     }
 
     if ([(WFNetworkListController *)self associatingToOtherNetwork])
@@ -6039,41 +6078,39 @@ void __64__WFNetworkListController__promptCredentialsForNetwork_profile___block_
       [(WFNetworkListController *)self viewController];
     }
     viewProvider3 = ;
-    [viewProvider3 presentViewController:v24 animated:1 completion:0];
+    [viewProvider3 presentViewController:v28 animated:1 completion:0];
   }
 
-  [(WFNetworkListController *)self setCertificateContext:v22];
-  [(WFNetworkListController *)self setVisibleContext:v22];
+  [(WFNetworkListController *)self setCertificateContext:v26];
+  [(WFNetworkListController *)self setVisibleContext:v26];
   objc_initWeak(buf, self);
   objc_initWeak(&location, profileCopy);
-  objc_initWeak(&from, v22);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __95__WFNetworkListController__promptTrustCertificateForNetwork_certificateChain_profile_autoJoin___block_invoke;
-  v35[3] = &unk_279EBD580;
-  objc_copyWeak(&v38, &location);
-  v41 = joinCopy;
-  objc_copyWeak(&v39, buf);
-  v32 = chainCopy;
-  v36 = v32;
-  v33 = networkCopy;
-  v37 = v33;
-  objc_copyWeak(&v40, &from);
-  [(WFCertificateContext *)v22 setCompletionHandler:v35];
-  objc_destroyWeak(&v40);
+  objc_initWeak(&from, v26);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __95__WFNetworkListController__promptTrustCertificateForNetwork_certificateChain_profile_autoJoin___block_invoke;
+  v40[3] = &unk_279EBD580;
+  objc_copyWeak(&v43, &location);
+  v46 = joinCopy;
+  objc_copyWeak(&v44, buf);
+  v38 = chainCopy;
+  v41 = v38;
+  v39 = networkCopy;
+  v42 = v39;
+  objc_copyWeak(&v45, &from);
+  [(WFCertificateContext *)v26 setCompletionHandler:v40];
+  objc_destroyWeak(&v45);
 
-  objc_destroyWeak(&v39);
-  objc_destroyWeak(&v38);
+  objc_destroyWeak(&v44);
+  objc_destroyWeak(&v43);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __95__WFNetworkListController__promptTrustCertificateForNetwork_certificateChain_profile_autoJoin___block_invoke(uint64_t a1, int a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -6090,60 +6127,60 @@ void __95__WFNetworkListController__promptTrustCertificateForNetwork_certificate
       [v7 setCertificateChain:*(a1 + 32)];
       v8 = WFLogForCategory(5uLL);
       v9 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v8)
+      v10 = v9;
+      if (WFCurrentLogLevel(v9, v11) && v8)
       {
-        v10 = v8;
-        if (os_log_type_enabled(v10, v9))
+        v12 = v8;
+        if (os_log_type_enabled(v12, v10))
         {
-          v11 = [v7 ssid];
-          v24 = 138412290;
-          v25 = v11;
-          _os_log_impl(&dword_273ECD000, v10, v9, "user accepted trust prompt for %@", &v24, 0xCu);
+          v13 = [v7 ssid];
+          v27 = 138412290;
+          v28 = v13;
+          _os_log_impl(&dword_273ECD000, v12, v10, "user accepted trust prompt for %@", &v27, 0xCu);
         }
       }
 
-      v12 = objc_loadWeakRetained((a1 + 56));
-      [v12 _associateToEnterpriseNetwork:*(a1 + 40) profile:v7];
+      v14 = objc_loadWeakRetained((a1 + 56));
+      [v14 _associateToEnterpriseNetwork:*(a1 + 40) profile:v7];
     }
 
     else
     {
-      v13 = WFLogForCategory(5uLL);
-      v14 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v13)
+      v15 = WFLogForCategory(5uLL);
+      v16 = OSLogForWFLogLevel(1uLL);
+      v17 = v16;
+      if (WFCurrentLogLevel(v16, v18) && v15)
       {
-        v15 = v13;
-        if (os_log_type_enabled(v15, v14))
+        v19 = v15;
+        if (os_log_type_enabled(v19, v17))
         {
-          v16 = [WeakRetained ssid];
-          v24 = 138412290;
-          v25 = v16;
-          _os_log_impl(&dword_273ECD000, v15, v14, "user did not accept trust prompt for %@", &v24, 0xCu);
+          v20 = [WeakRetained ssid];
+          v27 = 138412290;
+          v28 = v20;
+          _os_log_impl(&dword_273ECD000, v19, v17, "user did not accept trust prompt for %@", &v27, 0xCu);
         }
       }
 
       if (*(a1 + 72) == 1)
       {
-        v17 = objc_loadWeakRetained((a1 + 56));
-        v18 = [v17 wifiClient];
-        [v18 dispatchCertificateTrustAction:1 profile:WeakRetained];
+        v21 = objc_loadWeakRetained((a1 + 56));
+        v22 = [v21 wifiClient];
+        [v22 dispatchCertificateTrustAction:1 profile:WeakRetained];
       }
 
-      v19 = objc_loadWeakRetained((a1 + 56));
-      v20 = [MEMORY[0x277CCA9B8] associationErrorWithReason:6];
-      [v19 _associationDidFinish:0 error:v20 network:0];
+      v23 = objc_loadWeakRetained((a1 + 56));
+      v24 = [MEMORY[0x277CCA9B8] associationErrorWithReason:6];
+      [v23 _associationDidFinish:0 error:v24 network:0];
 
       v7 = objc_loadWeakRetained((a1 + 56));
-      v12 = [v7 interface];
-      [v12 disassociateFromCurrentNetwork];
+      v14 = [v7 interface];
+      [v14 disassociateFromCurrentNetwork];
     }
 
-    v21 = objc_loadWeakRetained((a1 + 56));
-    v22 = objc_loadWeakRetained((a1 + 64));
-    [v21 _dismissTrustViewControllerWithContext:v22];
+    v25 = objc_loadWeakRetained((a1 + 56));
+    v26 = objc_loadWeakRetained((a1 + 64));
+    [v25 _dismissTrustViewControllerWithContext:v26];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_getLockdownModeSecurityType:(id)type
@@ -6231,7 +6268,7 @@ LABEL_5:
 
 - (BOOL)_canStartAssociationToNetwork:(id)network
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   if ([(WFNetworkListController *)self _canPromptForInstantHotspot])
   {
@@ -6243,15 +6280,16 @@ LABEL_5:
     {
       v8 = WFLogForCategory(0);
       v9 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v8)
+      v10 = v9;
+      if (WFCurrentLogLevel(v9, v11) >= 3 && v8)
       {
-        v10 = v8;
-        if (os_log_type_enabled(v10, v9))
+        v12 = v8;
+        if (os_log_type_enabled(v12, v10))
         {
           viewController = [(WFNetworkListController *)self viewController];
           *buf = 138412290;
-          v86 = viewController;
-          _os_log_impl(&dword_273ECD000, v10, v9, "Personal Hotspot has clients, %@ requires user to be prompted before associating", buf, 0xCu);
+          v93 = viewController;
+          _os_log_impl(&dword_273ECD000, v12, v10, "Personal Hotspot has clients, %@ requires user to be prompted before associating", buf, 0xCu);
         }
       }
 
@@ -6260,18 +6298,18 @@ LABEL_5:
       aBlock[1] = 3221225472;
       aBlock[2] = __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke;
       aBlock[3] = &unk_279EBD138;
-      objc_copyWeak(&v84, buf);
-      v12 = networkCopy;
-      v83 = v12;
-      v13 = _Block_copy(aBlock);
-      v14 = MEMORY[0x277D7B9C8];
-      ssid = [v12 ssid];
-      v16 = [v14 hotspotAlertControllerWithNetworkName:ssid completionHandler:v13];
+      objc_copyWeak(&v91, buf);
+      v14 = networkCopy;
+      v90 = v14;
+      v15 = _Block_copy(aBlock);
+      v16 = MEMORY[0x277D7B9C8];
+      ssid = [v14 ssid];
+      v18 = [v16 hotspotAlertControllerWithNetworkName:ssid completionHandler:v15];
 
       viewController2 = [(WFNetworkListController *)self viewController];
-      [viewController2 presentViewController:v16 animated:1 completion:0];
+      [viewController2 presentViewController:v18 animated:1 completion:0];
 
-      objc_destroyWeak(&v84);
+      objc_destroyWeak(&v91);
       objc_destroyWeak(buf);
       goto LABEL_41;
     }
@@ -6283,31 +6321,32 @@ LABEL_5:
     {
       interface2 = [(WFNetworkListController *)self interface];
       currentNetwork = [interface2 currentNetwork];
-      v20 = [currentNetwork isEqual:networkCopy];
+      v22 = [currentNetwork isEqual:networkCopy];
 
-      if ((v20 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
-        v25 = WFLogForCategory(0);
-        v26 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v25 && os_log_type_enabled(v25, v26))
+        v27 = WFLogForCategory(0);
+        v28 = OSLogForWFLogLevel(3uLL);
+        v29 = v28;
+        if (WFCurrentLogLevel(v28, v30) >= 3 && v27 && os_log_type_enabled(v27, v29))
         {
           *buf = 0;
-          _os_log_impl(&dword_273ECD000, v25, v26, "In active CarPlay session, prompting user", buf, 2u);
+          _os_log_impl(&dword_273ECD000, v27, v29, "In active CarPlay session, prompting user", buf, 2u);
         }
 
         objc_initWeak(buf, self);
-        v79[0] = MEMORY[0x277D85DD0];
-        v79[1] = 3221225472;
-        v79[2] = __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_251;
-        v79[3] = &unk_279EBD138;
-        objc_copyWeak(&v81, buf);
-        v27 = networkCopy;
-        v80 = v27;
-        v28 = _Block_copy(v79);
-        ssid2 = [v27 ssid];
-        [(WFNetworkListController *)self _promptToDisableCarPlayForNetworkName:ssid2 handler:v28];
+        v86[0] = MEMORY[0x277D85DD0];
+        v86[1] = 3221225472;
+        v86[2] = __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_251;
+        v86[3] = &unk_279EBD138;
+        objc_copyWeak(&v88, buf);
+        v31 = networkCopy;
+        v87 = v31;
+        v32 = _Block_copy(v86);
+        ssid2 = [v31 ssid];
+        [(WFNetworkListController *)self _promptToDisableCarPlayForNetworkName:ssid2 handler:v32];
 
-        objc_destroyWeak(&v81);
+        objc_destroyWeak(&v88);
         objc_destroyWeak(buf);
         goto LABEL_41;
       }
@@ -6324,87 +6363,88 @@ LABEL_5:
 
       if ((isAllowedInLockdownMode & 1) == 0)
       {
-        v45 = WFLogForCategory(0);
-        v46 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v45 && os_log_type_enabled(v45, v46))
+        v51 = WFLogForCategory(0);
+        v52 = OSLogForWFLogLevel(3uLL);
+        v53 = v52;
+        if (WFCurrentLogLevel(v52, v54) >= 3 && v51 && os_log_type_enabled(v51, v53))
         {
           *buf = 0;
-          _os_log_impl(&dword_273ECD000, v45, v46, "In Lockdown Mode, prompting user", buf, 2u);
+          _os_log_impl(&dword_273ECD000, v51, v53, "In Lockdown Mode, prompting user", buf, 2u);
         }
 
         objc_initWeak(buf, self);
-        v76[0] = MEMORY[0x277D85DD0];
-        v76[1] = 3221225472;
-        v76[2] = __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_252;
-        v76[3] = &unk_279EBD138;
-        objc_copyWeak(&v78, buf);
-        v47 = networkCopy;
-        v77 = v47;
-        v48 = _Block_copy(v76);
-        scanResult2 = [v47 scanResult];
+        v83[0] = MEMORY[0x277D85DD0];
+        v83[1] = 3221225472;
+        v83[2] = __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_252;
+        v83[3] = &unk_279EBD138;
+        objc_copyWeak(&v85, buf);
+        v55 = networkCopy;
+        v84 = v55;
+        v56 = _Block_copy(v83);
+        scanResult2 = [v55 scanResult];
         if ([scanResult2 isOpen])
         {
         }
 
         else
         {
-          scanResult3 = [v47 scanResult];
+          scanResult3 = [v55 scanResult];
           isOWE = [scanResult3 isOWE];
 
           if ((isOWE & 1) == 0)
           {
-            scanResult4 = [v47 scanResult];
+            scanResult4 = [v55 scanResult];
             isWEP = [scanResult4 isWEP];
 
             if (isWEP)
             {
-              v52 = 2;
+              v60 = 2;
             }
 
             else
             {
-              scanResult5 = [v47 scanResult];
+              scanResult5 = [v55 scanResult];
               isWAPI = [scanResult5 isWAPI];
 
               if (isWAPI)
               {
-                v52 = 3;
+                v60 = 3;
               }
 
               else
               {
-                scanResult6 = [v47 scanResult];
+                scanResult6 = [v55 scanResult];
                 hasTKIPCipher = [scanResult6 hasTKIPCipher];
 
                 if (hasTKIPCipher)
                 {
-                  v52 = 4;
+                  v60 = 4;
                 }
 
                 else
                 {
-                  scanResult7 = [v47 scanResult];
+                  scanResult7 = [v55 scanResult];
                   isPasspoint = [scanResult7 isPasspoint];
 
                   if (isPasspoint)
                   {
-                    v52 = 5;
+                    v60 = 5;
                   }
 
                   else
                   {
-                    scanResult8 = [v47 scanResult];
+                    scanResult8 = [v55 scanResult];
                     matchingKnownNetworkProfile = [scanResult8 matchingKnownNetworkProfile];
                     isCaptive = [matchingKnownNetworkProfile isCaptive];
 
                     if (isCaptive)
                     {
-                      v52 = 6;
+                      v60 = 6;
                     }
 
                     else
                     {
-                      v52 = 7;
+                      v60 = 7;
                     }
                   }
                 }
@@ -6415,19 +6455,19 @@ LABEL_5:
           }
         }
 
-        v52 = 0;
+        v60 = 0;
 LABEL_40:
-        v53 = MEMORY[0x277D7B9D8];
-        ssid3 = [v47 ssid];
-        v55 = [v53 lockdownModeAlertControllerWithNetworkName:ssid3 securityType:v52 completionHandler:v48];
+        v61 = MEMORY[0x277D7B9D8];
+        ssid3 = [v55 ssid];
+        v63 = [v61 lockdownModeAlertControllerWithNetworkName:ssid3 securityType:v60 completionHandler:v56];
 
         viewController3 = [(WFNetworkListController *)self viewController];
-        [viewController3 presentViewController:v55 animated:1 completion:0];
+        [viewController3 presentViewController:v63 animated:1 completion:0];
 
-        objc_destroyWeak(&v78);
+        objc_destroyWeak(&v85);
         objc_destroyWeak(buf);
 LABEL_41:
-        v44 = 0;
+        v50 = 0;
         goto LABEL_42;
       }
     }
@@ -6446,44 +6486,45 @@ LABEL_41:
 
         if (securityMode == 520)
         {
-          v31 = WFLogForCategory(5uLL);
-          v32 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v31)
+          v35 = WFLogForCategory(5uLL);
+          v36 = OSLogForWFLogLevel(1uLL);
+          v37 = v36;
+          if (WFCurrentLogLevel(v36, v38) && v35)
           {
-            v33 = v31;
-            if (os_log_type_enabled(v33, v32))
+            v39 = v35;
+            if (os_log_type_enabled(v39, v37))
             {
-              v34 = WFStringFromWFSecurityModeExt(512);
-              v35 = WFStringFromWFSecurityModeExt([networkCopy securityMode]);
+              v40 = WFStringFromWFSecurityModeExt(512);
+              v41 = WFStringFromWFSecurityModeExt([networkCopy securityMode]);
               *buf = 138412802;
-              v86 = networkCopy;
-              v87 = 2112;
-              v88 = v34;
-              v89 = 2112;
-              v90 = v35;
-              _os_log_impl(&dword_273ECD000, v33, v32, "mismatched security for %@ (expected='%@', actual='%@')", buf, 0x20u);
+              v93 = networkCopy;
+              v94 = 2112;
+              v95 = v40;
+              v96 = 2112;
+              v97 = v41;
+              _os_log_impl(&dword_273ECD000, v39, v37, "mismatched security for %@ (expected='%@', actual='%@')", buf, 0x20u);
             }
           }
 
           objc_initWeak(buf, self);
-          v70 = MEMORY[0x277D85DD0];
-          v71 = 3221225472;
-          v72 = __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_253;
-          v73 = &unk_279EBD138;
-          objc_copyWeak(&v75, buf);
-          v36 = networkCopy;
-          v74 = v36;
-          v37 = _Block_copy(&v70);
-          v38 = WFWiFiLocalizedStringFromSecurityMode(512);
-          v39 = WFWiFiLocalizedStringFromSecurityMode([v36 securityMode]);
-          v40 = MEMORY[0x277D7BA00];
-          ssid4 = [v36 ssid];
-          v42 = [v40 securityMismatchAlertControllerWithNetworkName:ssid4 previousSecurity:v38 newSecurity:v39 completionHandler:v37];
+          v77 = MEMORY[0x277D85DD0];
+          v78 = 3221225472;
+          v79 = __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_253;
+          v80 = &unk_279EBD138;
+          objc_copyWeak(&v82, buf);
+          v42 = networkCopy;
+          v81 = v42;
+          v43 = _Block_copy(&v77);
+          v44 = WFWiFiLocalizedStringFromSecurityMode(512);
+          v45 = WFWiFiLocalizedStringFromSecurityMode([v42 securityMode]);
+          v46 = MEMORY[0x277D7BA00];
+          ssid4 = [v42 ssid];
+          v48 = [v46 securityMismatchAlertControllerWithNetworkName:ssid4 previousSecurity:v44 newSecurity:v45 completionHandler:v43];
 
           viewController4 = [(WFNetworkListController *)self viewController];
-          [viewController4 presentViewController:v42 animated:1 completion:0];
+          [viewController4 presentViewController:v48 animated:1 completion:0];
 
-          objc_destroyWeak(&v75);
+          objc_destroyWeak(&v82);
           objc_destroyWeak(buf);
           goto LABEL_41;
         }
@@ -6495,11 +6536,10 @@ LABEL_41:
     }
   }
 
-  v44 = 1;
+  v50 = 1;
 LABEL_42:
 
-  v57 = *MEMORY[0x277D85DE8];
-  return v44;
+  return v50;
 }
 
 void __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke(uint64_t a1, int a2)
@@ -6510,31 +6550,33 @@ void __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke(
   {
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() < 3 || !v6 || !os_log_type_enabled(v6, v7))
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) < 3 || !v6 || !os_log_type_enabled(v6, v8))
     {
       goto LABEL_13;
     }
 
-    v10 = 0;
-    v8 = "User declined to stop personal hotspot- canceling association";
-    v9 = &v10;
+    v14 = 0;
+    v10 = "User declined to stop personal hotspot- canceling association";
+    v11 = &v14;
     goto LABEL_12;
   }
 
   if (![WeakRetained _disablePersonalHotspot])
   {
     v6 = WFLogForCategory(0);
-    LOBYTE(v7) = OSLogForWFLogLevel(1uLL);
-    if (!WFCurrentLogLevel() || !v6 || !os_log_type_enabled(v6, v7))
+    v12 = OSLogForWFLogLevel(1uLL);
+    v8 = v12;
+    if (!WFCurrentLogLevel(v12, v13) || !v6 || !os_log_type_enabled(v6, v8))
     {
       goto LABEL_13;
     }
 
     *buf = 0;
-    v8 = "Failed to disable personal hotspot- canceling association";
-    v9 = buf;
+    v10 = "Failed to disable personal hotspot- canceling association";
+    v11 = buf;
 LABEL_12:
-    _os_log_impl(&dword_273ECD000, v6, v7, v8, v9, 2u);
+    _os_log_impl(&dword_273ECD000, v6, v8, v10, v11, 2u);
 LABEL_13:
 
     goto LABEL_14;
@@ -6549,27 +6591,28 @@ void __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  v8 = WFCurrentLogLevel() > 2 && v5 != 0;
+  v7 = v6;
+  v10 = WFCurrentLogLevel(v6, v8) > 2 && v5 != 0;
   if (a2)
   {
-    if (v8 && os_log_type_enabled(v5, v6))
+    if (v10 && os_log_type_enabled(v5, v7))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v5, v6, "Disssociating from current CarPlay network", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v5, v7, "Disssociating from current CarPlay network", buf, 2u);
     }
 
-    v9 = [WeakRetained interface];
-    [v9 disassociateFromCurrentNetwork];
+    v11 = [WeakRetained interface];
+    [v11 disassociateFromCurrentNetwork];
 
     [WeakRetained _associateToScanRecord:*(a1 + 32) profile:0];
   }
 
   else
   {
-    if (v8 && os_log_type_enabled(v5, v6))
+    if (v10 && os_log_type_enabled(v5, v7))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_273ECD000, v5, v6, "User declined to stop CarPlay session- canceling association", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_273ECD000, v5, v7, "User declined to stop CarPlay session- canceling association", v12, 2u);
     }
   }
 }
@@ -6590,10 +6633,11 @@ void __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_
   {
     v7 = WFLogForCategory(0);
     v8 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+    v9 = v8;
+    if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_273ECD000, v7, v8, "User declined joining non-secure network in Lockdown Mode- canceling association", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_273ECD000, v7, v9, "User declined joining non-secure network in Lockdown Mode- canceling association", v11, 2u);
     }
   }
 }
@@ -6603,23 +6647,24 @@ void __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WFLogForCategory(5uLL);
   v6 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel())
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8))
   {
-    v7 = v5 == 0;
+    v9 = v5 == 0;
   }
 
   else
   {
-    v7 = 1;
+    v9 = 1;
   }
 
-  v8 = !v7;
+  v10 = !v9;
   if (a2)
   {
-    if (v8 && os_log_type_enabled(v5, v6))
+    if (v10 && os_log_type_enabled(v5, v7))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v5, v6, "user accepted confirmation", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v5, v7, "user accepted confirmation", buf, 2u);
     }
 
     [WeakRetained _associateToScanRecord:*(a1 + 32) profile:0];
@@ -6627,17 +6672,17 @@ void __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_
 
   else
   {
-    if (v8 && os_log_type_enabled(v5, v6))
+    if (v10 && os_log_type_enabled(v5, v7))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_273ECD000, v5, v6, "user cancelled confirmation", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_273ECD000, v5, v7, "user cancelled confirmation", v11, 2u);
     }
   }
 }
 
 - (BOOL)_canStartAssociationToUserSuppliedNetwork:(id)network
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   if ([(WFNetworkListController *)self _canPromptForInstantHotspot])
   {
@@ -6649,15 +6694,16 @@ void __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_
     {
       v8 = WFLogForCategory(0);
       v9 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v8)
+      v10 = v9;
+      if (WFCurrentLogLevel(v9, v11) >= 3 && v8)
       {
-        v10 = v8;
-        if (os_log_type_enabled(v10, v9))
+        v12 = v8;
+        if (os_log_type_enabled(v12, v10))
         {
           viewController = [(WFNetworkListController *)self viewController];
           *buf = 138412290;
-          v39 = viewController;
-          _os_log_impl(&dword_273ECD000, v10, v9, "Personal Hotspot has clients, %@ requires user to be prompted before associating", buf, 0xCu);
+          v42 = viewController;
+          _os_log_impl(&dword_273ECD000, v12, v10, "Personal Hotspot has clients, %@ requires user to be prompted before associating", buf, 0xCu);
         }
       }
 
@@ -6666,21 +6712,21 @@ void __57__WFNetworkListController__canStartAssociationToNetwork___block_invoke_
       aBlock[1] = 3221225472;
       aBlock[2] = __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___block_invoke;
       aBlock[3] = &unk_279EBD138;
-      objc_copyWeak(&v37, buf);
-      v12 = networkCopy;
-      v36 = v12;
-      v13 = _Block_copy(aBlock);
-      v14 = MEMORY[0x277D7B9C8];
-      ssid = [v12 ssid];
-      v16 = [v14 hotspotAlertControllerWithNetworkName:ssid completionHandler:v13];
+      objc_copyWeak(&v40, buf);
+      v14 = networkCopy;
+      v39 = v14;
+      v15 = _Block_copy(aBlock);
+      v16 = MEMORY[0x277D7B9C8];
+      ssid = [v14 ssid];
+      v18 = [v16 hotspotAlertControllerWithNetworkName:ssid completionHandler:v15];
 
       otherNetworkVC = [(WFNetworkListController *)self otherNetworkVC];
-      [otherNetworkVC presentViewController:v16 animated:1 completion:0];
+      [otherNetworkVC presentViewController:v18 animated:1 completion:0];
 
-      objc_destroyWeak(&v37);
+      objc_destroyWeak(&v40);
       objc_destroyWeak(buf);
 LABEL_18:
-      v21 = 0;
+      v23 = 0;
       goto LABEL_19;
     }
   }
@@ -6691,42 +6737,42 @@ LABEL_18:
     {
       interface2 = [(WFNetworkListController *)self interface];
       currentNetwork = [interface2 currentNetwork];
-      v20 = [currentNetwork isEqual:networkCopy];
+      v22 = [currentNetwork isEqual:networkCopy];
 
-      if ((v20 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
-        v22 = WFLogForCategory(0);
-        v23 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v22 && os_log_type_enabled(v22, v23))
+        v24 = WFLogForCategory(0);
+        v25 = OSLogForWFLogLevel(3uLL);
+        v26 = v25;
+        if (WFCurrentLogLevel(v25, v27) >= 3 && v24 && os_log_type_enabled(v24, v26))
         {
           *buf = 0;
-          _os_log_impl(&dword_273ECD000, v22, v23, "In active CarPlay session, prompting user", buf, 2u);
+          _os_log_impl(&dword_273ECD000, v24, v26, "In active CarPlay session, prompting user", buf, 2u);
         }
 
         objc_initWeak(buf, self);
-        v29 = MEMORY[0x277D85DD0];
-        v30 = 3221225472;
-        v31 = __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___block_invoke_255;
-        v32 = &unk_279EBD138;
-        objc_copyWeak(&v34, buf);
-        v24 = networkCopy;
-        v33 = v24;
-        v25 = _Block_copy(&v29);
-        ssid2 = [v24 ssid];
-        [(WFNetworkListController *)self _promptToDisableCarPlayForNetworkName:ssid2 handler:v25];
+        v32 = MEMORY[0x277D85DD0];
+        v33 = 3221225472;
+        v34 = __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___block_invoke_255;
+        v35 = &unk_279EBD138;
+        objc_copyWeak(&v37, buf);
+        v28 = networkCopy;
+        v36 = v28;
+        v29 = _Block_copy(&v32);
+        ssid2 = [v28 ssid];
+        [(WFNetworkListController *)self _promptToDisableCarPlayForNetworkName:ssid2 handler:v29];
 
-        objc_destroyWeak(&v34);
+        objc_destroyWeak(&v37);
         objc_destroyWeak(buf);
         goto LABEL_18;
       }
     }
   }
 
-  v21 = 1;
+  v23 = 1;
 LABEL_19:
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v23;
 }
 
 void __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___block_invoke(uint64_t a1, int a2)
@@ -6737,31 +6783,33 @@ void __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___b
   {
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() < 3 || !v6 || !os_log_type_enabled(v6, v7))
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) < 3 || !v6 || !os_log_type_enabled(v6, v8))
     {
       goto LABEL_13;
     }
 
-    v10 = 0;
-    v8 = "User declined to stop personal hotspot- canceling association";
-    v9 = &v10;
+    v14 = 0;
+    v10 = "User declined to stop personal hotspot- canceling association";
+    v11 = &v14;
     goto LABEL_12;
   }
 
   if (![WeakRetained _disablePersonalHotspot])
   {
     v6 = WFLogForCategory(0);
-    LOBYTE(v7) = OSLogForWFLogLevel(1uLL);
-    if (!WFCurrentLogLevel() || !v6 || !os_log_type_enabled(v6, v7))
+    v12 = OSLogForWFLogLevel(1uLL);
+    v8 = v12;
+    if (!WFCurrentLogLevel(v12, v13) || !v6 || !os_log_type_enabled(v6, v8))
     {
       goto LABEL_13;
     }
 
     *buf = 0;
-    v8 = "Failed to disable personal hotspot- canceling association";
-    v9 = buf;
+    v10 = "Failed to disable personal hotspot- canceling association";
+    v11 = buf;
 LABEL_12:
-    _os_log_impl(&dword_273ECD000, v6, v7, v8, v9, 2u);
+    _os_log_impl(&dword_273ECD000, v6, v8, v10, v11, 2u);
 LABEL_13:
 
     goto LABEL_14;
@@ -6776,65 +6824,68 @@ void __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___b
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  v8 = WFCurrentLogLevel() > 2 && v5 != 0;
+  v7 = v6;
+  v10 = WFCurrentLogLevel(v6, v8) > 2 && v5 != 0;
   if (a2)
   {
-    if (v8 && os_log_type_enabled(v5, v6))
+    if (v10 && os_log_type_enabled(v5, v7))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v5, v6, "Disssociating from current CarPlay network", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v5, v7, "Disssociating from current CarPlay network", buf, 2u);
     }
 
-    v9 = [WeakRetained interface];
-    [v9 disassociateFromCurrentNetwork];
+    v11 = [WeakRetained interface];
+    [v11 disassociateFromCurrentNetwork];
 
     [WeakRetained _associateToUserSuppliedNetwork:*(a1 + 32)];
   }
 
   else
   {
-    if (v8 && os_log_type_enabled(v5, v6))
+    if (v10 && os_log_type_enabled(v5, v7))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_273ECD000, v5, v6, "User declined to stop CarPlay session- canceling association", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_273ECD000, v5, v7, "User declined to stop CarPlay session- canceling association", v12, 2u);
     }
   }
 }
 
 - (void)_associationWillStart:(id)start
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   startCopy = start;
   v5 = WFLogForCategory(5uLL);
   v6 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) && v5 && os_log_type_enabled(v5, v7))
   {
     *buf = 138412290;
-    v55 = startCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "association will start for %@", buf, 0xCu);
+    v62 = startCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "association will start for %@", buf, 0xCu);
   }
 
   associationContext = [(WFNetworkListController *)self associationContext];
-  if (associationContext && (v8 = associationContext, -[WFNetworkListController associationContext](self, "associationContext"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 state], v9, v8, v10 == 2))
+  if (associationContext && (v10 = associationContext, -[WFNetworkListController associationContext](self, "associationContext"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 state], v11, v10, v12 == 2))
   {
-    v11 = WFLogForCategory(0);
-    v12 = OSLogForWFLogLevel(2uLL);
-    if (WFCurrentLogLevel() >= 2 && v11)
+    v13 = WFLogForCategory(0);
+    v14 = OSLogForWFLogLevel(2uLL);
+    v15 = v14;
+    if (WFCurrentLogLevel(v14, v16) >= 2 && v13)
     {
-      v13 = v11;
-      if (os_log_type_enabled(v13, v12))
+      v17 = v13;
+      if (os_log_type_enabled(v17, v15))
       {
         associationContext2 = [(WFNetworkListController *)self associationContext];
         stateDescription = [associationContext2 stateDescription];
         associationContext3 = [(WFNetworkListController *)self associationContext];
         networkName = [associationContext3 networkName];
         *buf = 136315650;
-        v55 = "[WFNetworkListController _associationWillStart:]";
-        v56 = 2112;
-        v57 = stateDescription;
-        v58 = 2112;
-        v59 = networkName;
-        _os_log_impl(&dword_273ECD000, v13, v12, "%s association already in progress current state is <%@> with network %@", buf, 0x20u);
+        v62 = "[WFNetworkListController _associationWillStart:]";
+        v63 = 2112;
+        v64 = stateDescription;
+        v65 = 2112;
+        v66 = networkName;
+        _os_log_impl(&dword_273ECD000, v17, v15, "%s association already in progress current state is <%@> with network %@", buf, 0x20u);
       }
     }
 
@@ -6846,14 +6897,14 @@ void __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___b
   {
     if (startCopy)
     {
-      v52 = @"network";
-      v53 = startCopy;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+      v59 = @"network";
+      v60 = startCopy;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
     }
 
     else
     {
-      v19 = 0;
+      v23 = 0;
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -6861,29 +6912,29 @@ void __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___b
     block[2] = __49__WFNetworkListController__associationWillStart___block_invoke;
     block[3] = &unk_279EBD290;
     block[4] = self;
-    v49 = v19;
-    v51 = v49;
+    v56 = v23;
+    v58 = v56;
     dispatch_async(MEMORY[0x277D85CD0], block);
-    v20 = [[WFAssociationContext alloc] initWithNetwork:startCopy];
-    [(WFAssociationContext *)v20 setState:1];
+    v24 = [[WFAssociationContext alloc] initWithNetwork:startCopy];
+    [(WFAssociationContext *)v24 setState:1];
     scanMetricsManager = [(WFNetworkListController *)self scanMetricsManager];
-    v22 = [scanMetricsManager sectionNameForRecord:startCopy];
-    [(WFAssociationContext *)v20 setSectionNameJoined:v22];
+    v26 = [scanMetricsManager sectionNameForRecord:startCopy];
+    [(WFAssociationContext *)v24 setSectionNameJoined:v26];
 
     scanMetricsManager2 = [(WFNetworkListController *)self scanMetricsManager];
     sectionCounts = [scanMetricsManager2 sectionCounts];
-    [(WFAssociationContext *)v20 setSectionCounts:sectionCounts];
+    [(WFAssociationContext *)v24 setSectionCounts:sectionCounts];
 
     associationContextQueue = [(WFNetworkListController *)self associationContextQueue];
-    [associationContextQueue push:v20];
+    [associationContextQueue push:v24];
 
     associationContextQueue2 = [(WFNetworkListController *)self associationContextQueue];
     peek = [associationContextQueue2 peek];
 
     network = [peek network];
-    v29 = [network isEqual:startCopy];
+    v33 = [network isEqual:startCopy];
 
-    if (v29)
+    if (v33)
     {
       peek2 = peek;
     }
@@ -6892,35 +6943,36 @@ void __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___b
     {
       do
       {
-        v31 = WFLogForCategory(0);
-        v32 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v31)
+        v35 = WFLogForCategory(0);
+        v36 = OSLogForWFLogLevel(1uLL);
+        v37 = v36;
+        if (WFCurrentLogLevel(v36, v38) && v35)
         {
-          v33 = v31;
-          if (os_log_type_enabled(v33, v32))
+          v39 = v35;
+          if (os_log_type_enabled(v39, v37))
           {
             ssid = [startCopy ssid];
             *buf = 138412546;
-            v55 = ssid;
-            v56 = 2112;
-            v57 = peek;
-            _os_log_impl(&dword_273ECD000, v33, v32, "top association context in queue doesn't match current association attempt network: %@, skipping context: %@", buf, 0x16u);
+            v62 = ssid;
+            v63 = 2112;
+            v64 = peek;
+            _os_log_impl(&dword_273ECD000, v39, v37, "top association context in queue doesn't match current association attempt network: %@, skipping context: %@", buf, 0x16u);
           }
         }
 
         associationContextQueue3 = [(WFNetworkListController *)self associationContextQueue];
-        v36 = [associationContextQueue3 pop];
+        v42 = [associationContextQueue3 pop];
 
         associationContextQueue4 = [(WFNetworkListController *)self associationContextQueue];
         peek2 = [associationContextQueue4 peek];
 
         network2 = [peek2 network];
-        v39 = [network2 isEqual:startCopy];
+        v45 = [network2 isEqual:startCopy];
 
         peek = peek2;
       }
 
-      while (!v39);
+      while (!v45);
     }
 
     associationContextQueue5 = [(WFNetworkListController *)self associationContextQueue];
@@ -6931,27 +6983,26 @@ void __69__WFNetworkListController__canStartAssociationToUserSuppliedNetwork___b
     wifiClient = [(WFNetworkListController *)self wifiClient];
     [wifiClient setAutoJoinEnabled:0];
 
-    v43 = WFLogForCategory(5uLL);
-    v44 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v43)
+    v49 = WFLogForCategory(5uLL);
+    v50 = OSLogForWFLogLevel(1uLL);
+    v51 = v50;
+    if (WFCurrentLogLevel(v50, v52) && v49)
     {
-      v45 = v43;
-      if (os_log_type_enabled(v45, v44))
+      v53 = v49;
+      if (os_log_type_enabled(v53, v51))
       {
         associationContext5 = [(WFNetworkListController *)self associationContext];
         ssid2 = [startCopy ssid];
         *buf = 138412546;
-        v55 = associationContext5;
-        v56 = 2112;
-        v57 = ssid2;
-        _os_log_impl(&dword_273ECD000, v45, v44, "association context: %@ for %@", buf, 0x16u);
+        v62 = associationContext5;
+        v63 = 2112;
+        v64 = ssid2;
+        _os_log_impl(&dword_273ECD000, v53, v51, "association context: %@ for %@", buf, 0x16u);
       }
     }
 
-    associationContext4 = v49;
+    associationContext4 = v56;
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void __49__WFNetworkListController__associationWillStart___block_invoke(uint64_t a1)
@@ -6979,177 +7030,185 @@ void __49__WFNetworkListController__associationWillStart___block_invoke(uint64_t
 
 void __63__WFNetworkListController__associationDidFinish_error_network___block_invoke(uint64_t a1)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) associationContext];
   v3 = [v2 networkName];
 
   v4 = WFLogForCategory(5uLL);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
   {
-    v6 = *(a1 + 56);
+    v8 = *(a1 + 56);
     *buf = 138412546;
-    v69 = v3;
-    v70 = 1024;
-    LODWORD(v71) = v6;
-    _os_log_impl(&dword_273ECD000, v4, v5, "{ASSOC-} association finished for %@ - success %d", buf, 0x12u);
+    v90 = v3;
+    v91 = 1024;
+    LODWORD(v92) = v8;
+    _os_log_impl(&dword_273ECD000, v4, v6, "{ASSOC-} association finished for %@ - success %d", buf, 0x12u);
   }
 
   if (*(a1 + 40))
   {
-    v7 = WFLogForCategory(5uLL);
-    v8 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v7)
+    v9 = WFLogForCategory(5uLL);
+    v10 = OSLogForWFLogLevel(1uLL);
+    v11 = v10;
+    if (WFCurrentLogLevel(v10, v12) && v9)
     {
-      v9 = v7;
-      if (os_log_type_enabled(v9, v8))
+      v13 = v9;
+      if (os_log_type_enabled(v13, v11))
       {
-        v10 = WFAssociationErrorCodeToString([*(a1 + 40) code]);
-        v11 = *(a1 + 40);
+        v14 = WFAssociationErrorCodeToString([*(a1 + 40) code]);
+        v15 = *(a1 + 40);
         *buf = 138412546;
-        v69 = v10;
-        v70 = 2112;
-        v71 = v11;
-        _os_log_impl(&dword_273ECD000, v9, v8, "association failure: <%@> (error %@)", buf, 0x16u);
+        v90 = v14;
+        v91 = 2112;
+        v92 = v15;
+        _os_log_impl(&dword_273ECD000, v13, v11, "association failure: <%@> (error %@)", buf, 0x16u);
       }
     }
   }
 
-  v12 = [*(a1 + 32) credentialsContext];
+  v16 = [*(a1 + 32) credentialsContext];
 
-  if (v12)
+  if (v16)
   {
-    v13 = WFLogForCategory(5uLL);
-    v14 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v13 && os_log_type_enabled(v13, v14))
+    v17 = WFLogForCategory(5uLL);
+    v18 = OSLogForWFLogLevel(1uLL);
+    v19 = v18;
+    if (WFCurrentLogLevel(v18, v20) && v17 && os_log_type_enabled(v17, v19))
     {
       *buf = 138412290;
-      v69 = v3;
-      _os_log_impl(&dword_273ECD000, v13, v14, "dismissing credentials view controller for %@", buf, 0xCu);
+      v90 = v3;
+      _os_log_impl(&dword_273ECD000, v17, v19, "dismissing credentials view controller for %@", buf, 0xCu);
     }
 
-    v15 = *(a1 + 32);
-    v16 = [v15 credentialsContext];
-    [v15 _dismissCredentialsViewControllerWithContext:v16];
+    v21 = *(a1 + 32);
+    v22 = [v21 credentialsContext];
+    [v21 _dismissCredentialsViewControllerWithContext:v22];
   }
 
   if ([*(a1 + 32) isAssociating])
   {
-    v17 = [*(a1 + 32) associationContextQueue];
-    v18 = [v17 pop];
+    v23 = [*(a1 + 32) associationContextQueue];
+    v24 = [v23 pop];
 
-    v19 = [*(a1 + 32) associationContextQueue];
-    v20 = [v19 peek];
-    [*(a1 + 32) setAssociationContext:v20];
+    v25 = [*(a1 + 32) associationContextQueue];
+    v26 = [v25 peek];
+    [*(a1 + 32) setAssociationContext:v26];
 
     if ((*(a1 + 56) & 1) == 0)
     {
-      v21 = WFLogForCategory(0);
-      v22 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v21 && os_log_type_enabled(v21, v22))
+      v27 = WFLogForCategory(0);
+      v28 = OSLogForWFLogLevel(3uLL);
+      v29 = v28;
+      if (WFCurrentLogLevel(v28, v30) >= 3 && v27 && os_log_type_enabled(v27, v29))
       {
         *buf = 138412290;
-        v69 = v3;
-        _os_log_impl(&dword_273ECD000, v21, v22, "failed to associate to '%@', forcing current network update", buf, 0xCu);
+        v90 = v3;
+        _os_log_impl(&dword_273ECD000, v27, v29, "failed to associate to '%@', forcing current network update", buf, 0xCu);
       }
 
-      v23 = [*(a1 + 32) interface];
-      [v23 asyncCurrentNetwork:0];
+      v31 = [*(a1 + 32) interface];
+      [v31 asyncCurrentNetwork:0];
     }
 
-    v24 = *(a1 + 40);
-    v25 = v24;
-    if ((*(a1 + 56) & 1) == 0 && !v24)
+    v32 = *(a1 + 40);
+    v33 = v32;
+    if ((*(a1 + 56) & 1) == 0 && !v32)
     {
-      v25 = [MEMORY[0x277CCA9B8] associationErrorWithReason:12];
+      v33 = [MEMORY[0x277CCA9B8] associationErrorWithReason:12];
     }
 
-    if (v25)
+    if (v33)
     {
-      v66 = @"error";
-      v67 = v25;
-      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+      v87 = @"error";
+      v88 = v33;
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
     }
 
     else
     {
-      v34 = [*(a1 + 32) interface];
-      v35 = [v34 currentNetwork];
+      v46 = [*(a1 + 32) interface];
+      v47 = [v46 currentNetwork];
 
-      if (v35)
+      if (v47)
       {
-        v36 = [*(a1 + 32) interface];
-        v37 = [v36 currentNetwork];
-        v38 = [v37 copy];
+        v48 = [*(a1 + 32) interface];
+        v49 = [v48 currentNetwork];
+        v50 = [v49 copy];
 
-        v64 = @"network";
-        v65 = v38;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-        v39 = WFLogForCategory(5uLL);
-        v40 = OSLogForWFLogLevel(4uLL);
-        if (WFCurrentLogLevel() >= 4 && v39)
+        v85 = @"network";
+        v86 = v50;
+        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+        v51 = WFLogForCategory(5uLL);
+        v52 = OSLogForWFLogLevel(4uLL);
+        v53 = v52;
+        if (WFCurrentLogLevel(v52, v54) >= 4 && v51)
         {
-          v41 = v39;
-          if (os_log_type_enabled(v41, v40))
+          v55 = v51;
+          if (os_log_type_enabled(v55, v53))
           {
-            v42 = [*(a1 + 32) interface];
-            v43 = [v42 currentNetwork];
+            v56 = [*(a1 + 32) interface];
+            v57 = [v56 currentNetwork];
             *buf = 138412290;
-            v69 = v43;
-            _os_log_impl(&dword_273ECD000, v41, v40, "notifying with network from WFInterface %@", buf, 0xCu);
+            v90 = v57;
+            _os_log_impl(&dword_273ECD000, v55, v53, "notifying with network from WFInterface %@", buf, 0xCu);
           }
         }
       }
 
       else
       {
-        v56 = *(a1 + 48);
-        if (!v56)
+        v73 = *(a1 + 48);
+        if (!v73)
         {
-          v59 = WFLogForCategory(5uLL);
-          v60 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v59 && os_log_type_enabled(v59, v60))
+          v78 = WFLogForCategory(5uLL);
+          v79 = OSLogForWFLogLevel(1uLL);
+          v80 = v79;
+          if (WFCurrentLogLevel(v79, v81) && v78 && os_log_type_enabled(v78, v80))
           {
             *buf = 0;
-            _os_log_impl(&dword_273ECD000, v59, v60, "network to notify for WFNetworkListControllerAssociationNetworkKey is nil", buf, 2u);
+            _os_log_impl(&dword_273ECD000, v78, v80, "network to notify for WFNetworkListControllerAssociationNetworkKey is nil", buf, 2u);
           }
 
-          v26 = 0;
+          v34 = 0;
           goto LABEL_51;
         }
 
-        v62 = @"network";
-        v63 = v56;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-        v38 = WFLogForCategory(5uLL);
-        v57 = OSLogForWFLogLevel(4uLL);
-        if (WFCurrentLogLevel() >= 4 && v38 && os_log_type_enabled(v38, v57))
+        v83 = @"network";
+        v84 = v73;
+        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+        v50 = WFLogForCategory(5uLL);
+        v74 = OSLogForWFLogLevel(4uLL);
+        v75 = v74;
+        if (WFCurrentLogLevel(v74, v76) >= 4 && v50 && os_log_type_enabled(v50, v75))
         {
-          v58 = *(a1 + 48);
+          v77 = *(a1 + 48);
           *buf = 138412290;
-          v69 = v58;
-          _os_log_impl(&dword_273ECD000, v38, v57, "notifying with network from WFNetworkListController %@", buf, 0xCu);
+          v90 = v77;
+          _os_log_impl(&dword_273ECD000, v50, v75, "notifying with network from WFNetworkListController %@", buf, 0xCu);
         }
       }
     }
 
 LABEL_51:
-    v44 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v44 postNotificationName:@"WFNetworkListControllerAssociationDidFinishNotification" object:*(a1 + 32) userInfo:v26];
+    v58 = [MEMORY[0x277CCAB98] defaultCenter];
+    [v58 postNotificationName:@"WFNetworkListControllerAssociationDidFinishNotification" object:*(a1 + 32) userInfo:v34];
 
     if ([*(a1 + 32) associatingToOtherNetwork])
     {
-      v45 = WFLogForCategory(5uLL);
-      v46 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v45)
+      v59 = WFLogForCategory(5uLL);
+      v60 = OSLogForWFLogLevel(1uLL);
+      v61 = v60;
+      if (WFCurrentLogLevel(v60, v62) && v59)
       {
-        v47 = v45;
-        if (os_log_type_enabled(v47, v46))
+        v63 = v59;
+        if (os_log_type_enabled(v63, v61))
         {
-          v48 = [*(a1 + 32) otherNetworkVC];
+          v64 = [*(a1 + 32) otherNetworkVC];
           *buf = 138412290;
-          v69 = v48;
-          _os_log_impl(&dword_273ECD000, v47, v46, "association originated from otherNetworkVC: %@", buf, 0xCu);
+          v90 = v64;
+          _os_log_impl(&dword_273ECD000, v63, v61, "association originated from otherNetworkVC: %@", buf, 0xCu);
         }
       }
     }
@@ -7158,74 +7217,75 @@ LABEL_51:
     [*(a1 + 32) _updateViewControllerConnectedNetwork];
     if (*(a1 + 56) == 1 && [*(a1 + 32) isAirPortSettings] && (objc_msgSend(*(a1 + 48), "iOSHotspot") & 1) == 0)
     {
-      v49 = WFLogForCategory(0);
-      v50 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v49 && os_log_type_enabled(v49, v50))
+      v65 = WFLogForCategory(0);
+      v66 = OSLogForWFLogLevel(3uLL);
+      v67 = v66;
+      if (WFCurrentLogLevel(v66, v68) >= 3 && v65 && os_log_type_enabled(v65, v67))
       {
         *buf = 67109120;
-        LODWORD(v69) = 5;
-        _os_log_impl(&dword_273ECD000, v49, v50, "Scheduling a no internet test after successful association after %d seconds.", buf, 8u);
+        LODWORD(v90) = 5;
+        _os_log_impl(&dword_273ECD000, v65, v67, "Scheduling a no internet test after successful association after %d seconds.", buf, 8u);
       }
 
-      v51 = [*(a1 + 32) healthManager];
-      [v51 runNoInternetDiagnosticsAfter:5];
+      v69 = [*(a1 + 32) healthManager];
+      [v69 runNoInternetDiagnosticsAfter:5];
     }
 
     [*(a1 + 32) _resumeScanning];
     if ([*(a1 + 48) iOSHotspot])
     {
-      v52 = [*(a1 + 32) wifiClient];
-      v53 = [v52 interface];
-      [v53 asyncCurrentNetwork:0];
+      v70 = [*(a1 + 32) wifiClient];
+      v71 = [v70 interface];
+      [v71 asyncCurrentNetwork:0];
     }
 
-    v54 = dispatch_get_global_queue(21, 0);
+    v72 = dispatch_get_global_queue(21, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __63__WFNetworkListController__associationDidFinish_error_network___block_invoke_258;
     block[3] = &unk_279EBCFE0;
     block[4] = *(a1 + 32);
-    dispatch_async(v54, block);
+    dispatch_async(v72, block);
 
 LABEL_69:
     goto LABEL_70;
   }
 
-  v27 = WFLogForCategory(5uLL);
-  v28 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v27)
+  v35 = WFLogForCategory(5uLL);
+  v36 = OSLogForWFLogLevel(1uLL);
+  v37 = v36;
+  if (WFCurrentLogLevel(v36, v38) && v35)
   {
-    v29 = v27;
-    if (os_log_type_enabled(v29, v28))
+    v39 = v35;
+    if (os_log_type_enabled(v39, v37))
     {
-      v30 = [*(a1 + 32) associationContext];
-      v31 = [v30 stateDescription];
+      v40 = [*(a1 + 32) associationContext];
+      v41 = [v40 stateDescription];
       *buf = 138412290;
-      v69 = v31;
-      _os_log_impl(&dword_273ECD000, v29, v28, "no association in progress, current state: <%@>", buf, 0xCu);
+      v90 = v41;
+      _os_log_impl(&dword_273ECD000, v39, v37, "no association in progress, current state: <%@>", buf, 0xCu);
     }
   }
 
   [*(a1 + 32) _updateViewControllerConnectedNetwork];
   if (*(a1 + 56) == 1 && [*(a1 + 32) isAirPortSettings] && (objc_msgSend(*(a1 + 48), "iOSHotspot") & 1) == 0)
   {
-    v32 = WFLogForCategory(0);
-    v33 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v32 && os_log_type_enabled(v32, v33))
+    v42 = WFLogForCategory(0);
+    v43 = OSLogForWFLogLevel(3uLL);
+    v44 = v43;
+    if (WFCurrentLogLevel(v43, v45) >= 3 && v42 && os_log_type_enabled(v42, v44))
     {
       *buf = 67109120;
-      LODWORD(v69) = 3;
-      _os_log_impl(&dword_273ECD000, v32, v33, "Scheduling a no internet test after successful association after %d seconds.", buf, 8u);
+      LODWORD(v90) = 3;
+      _os_log_impl(&dword_273ECD000, v42, v44, "Scheduling a no internet test after successful association after %d seconds.", buf, 8u);
     }
 
-    v25 = [*(a1 + 32) healthManager];
-    [v25 runNoInternetDiagnosticsAfter:3];
+    v33 = [*(a1 + 32) healthManager];
+    [v33 runNoInternetDiagnosticsAfter:3];
     goto LABEL_69;
   }
 
 LABEL_70:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 void __63__WFNetworkListController__associationDidFinish_error_network___block_invoke_258(uint64_t a1)
@@ -7236,15 +7296,15 @@ void __63__WFNetworkListController__associationDidFinish_error_network___block_i
 
 - (void)_presentHotspotErrorContextWithDevice:(id)device hotspotError:(id)error failure:(int64_t)failure
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
   v10 = errorCopy;
   if (errorCopy)
   {
-    v25 = *MEMORY[0x277CCA7E8];
-    v26[0] = errorCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA7E8];
+    v25[0] = errorCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   }
 
   else
@@ -7256,23 +7316,21 @@ void __63__WFNetworkListController__associationDidFinish_error_network___block_i
   v13 = [[WFErrorContext alloc] initWithAssociationError:v12 network:deviceCopy diagnosticsResult:0];
   objc_initWeak(&location, self);
   objc_initWeak(&from, v13);
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __86__WFNetworkListController__presentHotspotErrorContextWithDevice_hotspotError_failure___block_invoke;
-  v19 = &unk_279EBD3A8;
-  objc_copyWeak(&v21, &location);
-  objc_copyWeak(&v22, &from);
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __86__WFNetworkListController__presentHotspotErrorContextWithDevice_hotspotError_failure___block_invoke;
+  v18 = &unk_279EBD3A8;
+  objc_copyWeak(&v20, &location);
+  objc_copyWeak(&v21, &from);
   v14 = v12;
-  v20 = v14;
-  [(WFErrorContext *)v13 setCompletionHandler:&v16];
-  [(WFNetworkListController *)self _presentContext:v13 contextType:0, v16, v17, v18, v19];
+  v19 = v14;
+  [(WFErrorContext *)v13 setCompletionHandler:&v15];
+  [(WFNetworkListController *)self _presentContext:v13 contextType:0, v15, v16, v17, v18];
 
-  objc_destroyWeak(&v22);
   objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __86__WFNetworkListController__presentHotspotErrorContextWithDevice_hotspotError_failure___block_invoke(uint64_t a1)
@@ -7301,7 +7359,7 @@ void __86__WFNetworkListController__presentHotspotErrorContextWithDevice_hotspot
 
 void __55__WFNetworkListController__presentContext_contextType___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) viewProvider];
   v3 = objc_opt_respondsToSelector();
 
@@ -7309,25 +7367,26 @@ void __55__WFNetworkListController__presentContext_contextType___block_invoke(ui
   if (v4 == 1)
   {
     v5 = *(a1 + 40);
-    v14 = WFLogForCategory(0);
-    v15 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v14 && os_log_type_enabled(v14, v15))
+    v18 = WFLogForCategory(0);
+    v19 = OSLogForWFLogLevel(1uLL);
+    v20 = v19;
+    if (WFCurrentLogLevel(v19, v21) && v18 && os_log_type_enabled(v18, v20))
     {
-      v34 = 136315394;
-      v35 = "[WFNetworkListController _presentContext:contextType:]_block_invoke";
-      v36 = 2112;
-      v37 = v5;
-      _os_log_impl(&dword_273ECD000, v14, v15, "%s: presenting lockdown mode context %@", &v34, 0x16u);
+      v41 = 136315394;
+      v42 = "[WFNetworkListController _presentContext:contextType:]_block_invoke";
+      v43 = 2112;
+      v44 = v5;
+      _os_log_impl(&dword_273ECD000, v18, v20, "%s: presenting lockdown mode context %@", &v41, 0x16u);
     }
 
-    v16 = [*(a1 + 32) viewProvider];
-    v17 = objc_opt_respondsToSelector();
+    v22 = [*(a1 + 32) viewProvider];
+    v23 = objc_opt_respondsToSelector();
 
-    if (v17)
+    if (v23)
     {
-      v18 = [*(a1 + 32) viewProvider];
-      v19 = [v18 networkLockdownModeViewControllerWithContext:v5];
-      [*(a1 + 32) setContextVC:v19];
+      v24 = [*(a1 + 32) viewProvider];
+      v25 = [v24 networkLockdownModeViewControllerWithContext:v5];
+      [*(a1 + 32) setContextVC:v25];
     }
   }
 
@@ -7341,38 +7400,40 @@ void __55__WFNetworkListController__presentContext_contextType___block_invoke(ui
     v5 = *(a1 + 40);
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v6 && os_log_type_enabled(v6, v7))
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) && v6 && os_log_type_enabled(v6, v8))
     {
-      v34 = 136315394;
-      v35 = "[WFNetworkListController _presentContext:contextType:]_block_invoke";
-      v36 = 2112;
-      v37 = v5;
-      _os_log_impl(&dword_273ECD000, v6, v7, "%s: presenting error context %@", &v34, 0x16u);
+      v41 = 136315394;
+      v42 = "[WFNetworkListController _presentContext:contextType:]_block_invoke";
+      v43 = 2112;
+      v44 = v5;
+      _os_log_impl(&dword_273ECD000, v6, v8, "%s: presenting error context %@", &v41, 0x16u);
     }
 
-    v8 = [*(a1 + 32) viewProvider];
-    v9 = [v8 networkErrorViewControllerWithContext:v5];
-    [*(a1 + 32) setContextVC:v9];
+    v10 = [*(a1 + 32) viewProvider];
+    v11 = [v10 networkErrorViewControllerWithContext:v5];
+    [*(a1 + 32) setContextVC:v11];
 
-    v10 = [*(a1 + 32) contextVC];
+    v12 = [*(a1 + 32) contextVC];
 
-    if (!v10)
+    if (!v12)
     {
-      v11 = WFLogForCategory(0);
-      v12 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v11)
+      v13 = WFLogForCategory(0);
+      v14 = OSLogForWFLogLevel(3uLL);
+      v15 = v14;
+      if (WFCurrentLogLevel(v14, v16) >= 3 && v13)
       {
-        v11 = v11;
-        if (os_log_type_enabled(v11, v12))
+        v13 = v13;
+        if (os_log_type_enabled(v13, v15))
         {
-          v13 = [*(a1 + 32) viewProvider];
-          v34 = 136315650;
-          v35 = "[WFNetworkListController _presentContext:contextType:]_block_invoke";
-          v36 = 2112;
-          v37 = v13;
-          v38 = 2112;
-          v39 = v5;
-          _os_log_impl(&dword_273ECD000, v11, v12, "%s: provider (%@) did not return view for error %@", &v34, 0x20u);
+          v17 = [*(a1 + 32) viewProvider];
+          v41 = 136315650;
+          v42 = "[WFNetworkListController _presentContext:contextType:]_block_invoke";
+          v43 = 2112;
+          v44 = v17;
+          v45 = 2112;
+          v46 = v5;
+          _os_log_impl(&dword_273ECD000, v13, v15, "%s: provider (%@) did not return view for error %@", &v41, 0x20u);
         }
       }
 
@@ -7380,108 +7441,109 @@ void __55__WFNetworkListController__presentContext_contextType___block_invoke(ui
     }
   }
 
-  v20 = [*(a1 + 32) contextVC];
-  [v5 setProvider:v20];
+  v26 = [*(a1 + 32) contextVC];
+  [v5 setProvider:v26];
 
   [*(a1 + 32) setVisibleContext:v5];
 LABEL_20:
   if ((v3 & 1) == 0)
   {
-    v27 = [*(a1 + 32) otherNetworkVC];
-    if (v27 && (v28 = *(*(a1 + 32) + 10), v27, v28 == 1))
+    v35 = [*(a1 + 32) otherNetworkVC];
+    if (v35 && (v36 = *(*(a1 + 32) + 10), v35, v36 == 1))
     {
-      v29 = [*(a1 + 32) otherNetworkVC];
+      v37 = [*(a1 + 32) otherNetworkVC];
     }
 
     else
     {
-      v30 = [*(a1 + 32) credentialsContext];
+      v38 = [*(a1 + 32) credentialsContext];
 
-      v31 = *(a1 + 32);
-      if (v30)
+      v39 = *(a1 + 32);
+      if (v38)
       {
-        v32 = [v31 credentialsContext];
-        v5 = [v32 provider];
+        v40 = [v39 credentialsContext];
+        v5 = [v40 provider];
 
 LABEL_34:
-        v11 = [*(a1 + 32) contextVC];
-        [v5 presentViewController:v11 animated:1 completion:0];
+        v13 = [*(a1 + 32) contextVC];
+        [v5 presentViewController:v13 animated:1 completion:0];
         goto LABEL_35;
       }
 
-      v29 = [v31 viewController];
+      v37 = [v39 viewController];
     }
 
-    v5 = v29;
+    v5 = v37;
     goto LABEL_34;
   }
 
-  v21 = WFLogForCategory(0);
-  v22 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v21)
+  v27 = WFLogForCategory(0);
+  v28 = OSLogForWFLogLevel(3uLL);
+  v29 = v28;
+  if (WFCurrentLogLevel(v28, v30) >= 3 && v27)
   {
-    v23 = v21;
-    if (os_log_type_enabled(v23, v22))
+    v31 = v27;
+    if (os_log_type_enabled(v31, v29))
     {
-      v24 = [*(a1 + 32) contextVC];
-      v25 = [*(a1 + 32) visibleContext];
-      v34 = 138412546;
-      v35 = v24;
-      v36 = 2112;
-      v37 = v25;
-      _os_log_impl(&dword_273ECD000, v23, v22, "viewProvider will handle presentation of %@ (context %@)", &v34, 0x16u);
+      v32 = [*(a1 + 32) contextVC];
+      v33 = [*(a1 + 32) visibleContext];
+      v41 = 138412546;
+      v42 = v32;
+      v43 = 2112;
+      v44 = v33;
+      _os_log_impl(&dword_273ECD000, v31, v29, "viewProvider will handle presentation of %@ (context %@)", &v41, 0x16u);
     }
   }
 
   v5 = [*(a1 + 32) viewProvider];
-  v11 = [*(a1 + 32) contextVC];
-  v26 = [*(a1 + 32) visibleContext];
-  [v5 presentNetworkViewController:v11 forContext:v26];
+  v13 = [*(a1 + 32) contextVC];
+  v34 = [*(a1 + 32) visibleContext];
+  [v5 presentNetworkViewController:v13 forContext:v34];
 
 LABEL_35:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scanNetworkForAssociation:(id)association profile:(id)profile
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   associationCopy = association;
   profileCopy = profile;
   v8 = WFLogForCategory(5uLL);
   v9 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v8 && os_log_type_enabled(v8, v9))
+  v10 = v9;
+  if (WFCurrentLogLevel(v9, v11) && v8 && os_log_type_enabled(v8, v10))
   {
     *buf = 138412546;
-    v26 = associationCopy;
-    v27 = 2112;
-    v28 = profileCopy;
-    _os_log_impl(&dword_273ECD000, v8, v9, "scanning to associate for network='%@' profile='%@'", buf, 0x16u);
+    v29 = associationCopy;
+    v30 = 2112;
+    v31 = profileCopy;
+    _os_log_impl(&dword_273ECD000, v8, v10, "scanning to associate for network='%@' profile='%@'", buf, 0x16u);
   }
 
   ssid = [associationCopy ssid];
   interface = [(WFNetworkListController *)self interface];
   deviceScanChannels = [interface deviceScanChannels];
-  v13 = [WFScanRequest scanRequestForSSID:ssid channels:deviceScanChannels];
+  v15 = [WFScanRequest scanRequestForSSID:ssid channels:deviceScanChannels];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     securityMode = 8;
-    if (v13)
+    if (v15)
     {
 LABEL_7:
       objc_initWeak(buf, self);
       interface2 = [(WFNetworkListController *)self interface];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __62__WFNetworkListController__scanNetworkForAssociation_profile___block_invoke;
-      v21[3] = &unk_279EBD5F8;
-      objc_copyWeak(&v24, buf);
-      v22 = associationCopy;
-      v23 = profileCopy;
-      [interface2 asyncScanRequest:v13 reply:v21];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __62__WFNetworkListController__scanNetworkForAssociation_profile___block_invoke;
+      v24[3] = &unk_279EBD5F8;
+      objc_copyWeak(&v27, buf);
+      v25 = associationCopy;
+      v26 = profileCopy;
+      [interface2 asyncScanRequest:v15 reply:v24];
 
-      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v27);
       objc_destroyWeak(buf);
       goto LABEL_14;
     }
@@ -7490,92 +7552,91 @@ LABEL_7:
   else
   {
     securityMode = [associationCopy securityMode];
-    if (v13)
+    if (v15)
     {
       goto LABEL_7;
     }
   }
 
-  v16 = WFLogForCategory(5uLL);
-  v17 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v16 && os_log_type_enabled(v16, v17))
+  v18 = WFLogForCategory(5uLL);
+  v19 = OSLogForWFLogLevel(1uLL);
+  v20 = v19;
+  if (WFCurrentLogLevel(v19, v21) && v18 && os_log_type_enabled(v18, v20))
   {
     *buf = 138412290;
-    v26 = associationCopy;
-    _os_log_impl(&dword_273ECD000, v16, v17, "failed to create scan request for network='%@'", buf, 0xCu);
+    v29 = associationCopy;
+    _os_log_impl(&dword_273ECD000, v18, v20, "failed to create scan request for network='%@'", buf, 0xCu);
   }
 
-  v18 = [MEMORY[0x277CCA9B8] associationErrorWithReason:12];
+  v22 = [MEMORY[0x277CCA9B8] associationErrorWithReason:12];
   associationContext = [(WFNetworkListController *)self associationContext];
-  [(WFNetworkListController *)self _handleAssociationError:v18 network:associationCopy profile:profileCopy securityMode:securityMode associationContext:associationContext];
+  [(WFNetworkListController *)self _handleAssociationError:v22 network:associationCopy profile:profileCopy securityMode:securityMode associationContext:associationContext];
 
 LABEL_14:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __62__WFNetworkListController__scanNetworkForAssociation_profile___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v8 = WFLogForCategory(5uLL);
   v9 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v8 && os_log_type_enabled(v8, v9))
+  v10 = v9;
+  if (WFCurrentLogLevel(v9, v11) && v8 && os_log_type_enabled(v8, v10))
   {
-    v10 = *(a1 + 32);
+    v12 = *(a1 + 32);
     *buf = 138412546;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
-    _os_log_impl(&dword_273ECD000, v8, v9, "scan completed for network='%@' results='%@'", buf, 0x16u);
+    v23 = v12;
+    v24 = 2112;
+    v25 = v6;
+    _os_log_impl(&dword_273ECD000, v8, v10, "scan completed for network='%@' results='%@'", buf, 0x16u);
   }
 
-  v11 = [WeakRetained associationContext];
-  [v11 setSecondaryScanCompleted:1];
+  v13 = [WeakRetained associationContext];
+  [v13 setSecondaryScanCompleted:1];
 
   if (!v5 && v6 && [v6 count])
   {
-    v12 = v17;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __62__WFNetworkListController__scanNetworkForAssociation_profile___block_invoke_2;
-    v17[3] = &unk_279EBD268;
-    v13 = v6;
+    v14 = v20;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __62__WFNetworkListController__scanNetworkForAssociation_profile___block_invoke_2;
+    v20[3] = &unk_279EBD268;
+    v15 = v6;
   }
 
   else
   {
-    v14 = WFLogForCategory(5uLL);
-    v15 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v14 && os_log_type_enabled(v14, v15))
+    v16 = WFLogForCategory(5uLL);
+    v17 = OSLogForWFLogLevel(1uLL);
+    v18 = v17;
+    if (WFCurrentLogLevel(v17, v19) && v16 && os_log_type_enabled(v16, v18))
     {
       *buf = 138412546;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v6;
-      _os_log_impl(&dword_273ECD000, v14, v15, "scan error='%@' results='%@'", buf, 0x16u);
+      v23 = v5;
+      v24 = 2112;
+      v25 = v6;
+      _os_log_impl(&dword_273ECD000, v16, v18, "scan error='%@' results='%@'", buf, 0x16u);
     }
 
-    v12 = v18;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __62__WFNetworkListController__scanNetworkForAssociation_profile___block_invoke_261;
-    v18[3] = &unk_279EBD268;
-    v13 = *(a1 + 32);
+    v14 = v21;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __62__WFNetworkListController__scanNetworkForAssociation_profile___block_invoke_261;
+    v21[3] = &unk_279EBD268;
+    v15 = *(a1 + 32);
   }
 
-  v12[4] = v13;
-  v12[5] = WeakRetained;
-  v12[6] = *(a1 + 40);
-  dispatch_async(MEMORY[0x277D85CD0], v12);
-
-  v16 = *MEMORY[0x277D85DE8];
+  v14[4] = v15;
+  v14[5] = WeakRetained;
+  v14[6] = *(a1 + 40);
+  dispatch_async(MEMORY[0x277D85CD0], v14);
 }
 
-void __62__WFNetworkListController__scanNetworkForAssociation_profile___block_invoke_261(uint64_t a1)
+void __62__WFNetworkListController__scanNetworkForAssociation_profile___block_invoke_261(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -7623,55 +7684,56 @@ void __62__WFNetworkListController__scanNetworkForAssociation_profile___block_in
 
 void __65__WFNetworkListController__updateViewControllerConnectedNetwork___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v3)
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) && v3)
   {
-    v5 = v3;
-    if (os_log_type_enabled(v5, v4))
+    v7 = v3;
+    if (os_log_type_enabled(v7, v5))
     {
       if (v2)
       {
-        v31 = [v2 ssid];
+        v34 = [v2 ssid];
       }
 
       else
       {
-        v31 = @"nil";
+        v34 = @"nil";
       }
 
-      v30 = [v2 hash];
-      v6 = [*(a1 + 40) viewController];
-      v7 = [v6 currentNetwork];
-      if (v7)
+      v33 = [v2 hash];
+      v8 = [*(a1 + 40) viewController];
+      v9 = [v8 currentNetwork];
+      if (v9)
       {
-        v29 = [*(a1 + 40) viewController];
-        v28 = [v29 currentNetwork];
-        v8 = [v28 ssid];
+        v32 = [*(a1 + 40) viewController];
+        v31 = [v32 currentNetwork];
+        v10 = [v31 ssid];
       }
 
       else
       {
-        v8 = @"nil";
+        v10 = @"nil";
       }
 
-      v9 = [*(a1 + 40) viewController];
-      v10 = [v9 currentNetwork];
+      v11 = [*(a1 + 40) viewController];
+      v12 = [v11 currentNetwork];
       *buf = 136316162;
-      v33 = "[WFNetworkListController _updateViewControllerConnectedNetwork:]_block_invoke";
-      v34 = 2112;
-      v35 = v31;
-      v36 = 2048;
-      v37 = v30;
-      v38 = 2112;
-      v39 = v8;
-      v40 = 2048;
-      v41 = [v10 hash];
-      _os_log_impl(&dword_273ECD000, v5, v4, "%s: current network is %@ (%lu), view controller current network: %@ (%lu)", buf, 0x34u);
+      v36 = "[WFNetworkListController _updateViewControllerConnectedNetwork:]_block_invoke";
+      v37 = 2112;
+      v38 = v34;
+      v39 = 2048;
+      v40 = v33;
+      v41 = 2112;
+      v42 = v10;
+      v43 = 2048;
+      v44 = [v12 hash];
+      _os_log_impl(&dword_273ECD000, v7, v5, "%s: current network is %@ (%lu), view controller current network: %@ (%lu)", buf, 0x34u);
 
-      if (v7)
+      if (v9)
       {
       }
 
@@ -7681,37 +7743,38 @@ void __65__WFNetworkListController__updateViewControllerConnectedNetwork___block
     }
   }
 
-  v11 = [*(a1 + 40) viewController];
-  [v11 setCurrentNetwork:v2];
+  v13 = [*(a1 + 40) viewController];
+  [v13 setCurrentNetwork:v2];
 
-  v12 = WFLogForCategory(0);
-  v13 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v12)
+  v14 = WFLogForCategory(0);
+  v15 = OSLogForWFLogLevel(1uLL);
+  v16 = v15;
+  if (WFCurrentLogLevel(v15, v17) && v14)
   {
-    v14 = v12;
-    if (os_log_type_enabled(v14, v13))
+    v18 = v14;
+    if (os_log_type_enabled(v18, v16))
     {
-      v15 = [*(a1 + 40) viewController];
-      v16 = [v15 currentNetwork];
+      v19 = [*(a1 + 40) viewController];
+      v20 = [v19 currentNetwork];
       *buf = 136315394;
-      v33 = "[WFNetworkListController _updateViewControllerConnectedNetwork:]_block_invoke";
-      v34 = 2112;
-      v35 = v16;
-      _os_log_impl(&dword_273ECD000, v14, v13, "%s: view controller current network updated to %@", buf, 0x16u);
+      v36 = "[WFNetworkListController _updateViewControllerConnectedNetwork:]_block_invoke";
+      v37 = 2112;
+      v38 = v20;
+      _os_log_impl(&dword_273ECD000, v18, v16, "%s: view controller current network updated to %@", buf, 0x16u);
     }
   }
 
-  v17 = [*(a1 + 40) viewController];
-  v18 = objc_opt_respondsToSelector();
+  v21 = [*(a1 + 40) viewController];
+  v22 = objc_opt_respondsToSelector();
 
-  v19 = [*(a1 + 40) latestLinkQuality];
-  v20 = v19;
-  if (v18)
+  v23 = [*(a1 + 40) latestLinkQuality];
+  v24 = v23;
+  if (v22)
   {
-    if (v19)
+    if (v23)
     {
-      v18 = [*(a1 + 40) latestLinkQuality];
-      [v18 scaledRssi];
+      v22 = [*(a1 + 40) latestLinkQuality];
+      [v22 scaledRssi];
     }
 
     else
@@ -7719,11 +7782,11 @@ void __65__WFNetworkListController__updateViewControllerConnectedNetwork___block
       [v2 scaledRSSI];
     }
 
-    v23 = WFSignalBarsFromScaledRSSI();
-    v24 = [*(a1 + 40) viewController];
-    [v24 setCurrentNetworkSignalBars:v23];
+    v27 = WFSignalBarsFromScaledRSSI();
+    v28 = [*(a1 + 40) viewController];
+    [v28 setCurrentNetworkSignalBars:v27];
 
-    if (!v20)
+    if (!v24)
     {
       goto LABEL_31;
     }
@@ -7733,10 +7796,10 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  if (v19)
+  if (v23)
   {
-    v18 = [*(a1 + 40) latestLinkQuality];
-    [v18 scaledRssi];
+    v22 = [*(a1 + 40) latestLinkQuality];
+    [v22 scaledRssi];
   }
 
   else
@@ -7744,12 +7807,12 @@ LABEL_30:
     [v2 scaledRSSI];
   }
 
-  v22 = v21;
-  v25 = [*(a1 + 40) viewController];
-  LODWORD(v26) = v22;
-  [v25 setCurrentNetworkScaledRSSI:v26];
+  v26 = v25;
+  v29 = [*(a1 + 40) viewController];
+  LODWORD(v30) = v26;
+  [v29 setCurrentNetworkScaledRSSI:v30];
 
-  if (v20)
+  if (v24)
   {
     goto LABEL_30;
   }
@@ -7759,8 +7822,6 @@ LABEL_31:
   [*(a1 + 40) _updateCurrentNetworkIPState:v2];
   [*(a1 + 40) _updateViewControllerScanResults];
   [*(a1 + 40) _updateHealthSubtitle];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ipStateDidChange:(id)change
@@ -7772,7 +7833,7 @@ LABEL_31:
 
   v8 = WFLogForCategory(0);
   associationContext3 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v8)
+  if (WFCurrentLogLevel(associationContext3, v10) >= 3 && v8)
   {
     network = v8;
     if (os_log_type_enabled(network, associationContext3))
@@ -7807,19 +7868,19 @@ LABEL_31:
   network2 = [associationContext4 network];
   if (network2)
   {
-    v15 = 1;
+    v16 = 1;
   }
 
   else
   {
-    v15 = currentNetwork == 0;
+    v16 = currentNetwork == 0;
   }
 
-  v16 = !v15;
+  v17 = !v16;
 
   if (!associationContext2)
   {
-    if (!v16)
+    if (!v17)
     {
       goto LABEL_18;
     }
@@ -7827,7 +7888,7 @@ LABEL_31:
     goto LABEL_17;
   }
 
-  if (v16)
+  if (v17)
   {
 LABEL_17:
     v18[0] = MEMORY[0x277D85DD0];
@@ -7840,8 +7901,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __45__WFNetworkListController__ipStateDidChange___block_invoke(uint64_t a1)
@@ -7858,79 +7917,76 @@ void __45__WFNetworkListController__ipStateDidChange___block_invoke(uint64_t a1)
     {
       v4 = WFLogForCategory(0);
       v5 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v4)
+      v6 = v5;
+      if (WFCurrentLogLevel(v5, v7) >= 3 && v4)
       {
-        v6 = v4;
-        if (os_log_type_enabled(v6, v5))
+        v8 = v4;
+        if (os_log_type_enabled(v8, v6))
         {
-          v7 = [*(a1 + 40) ssid];
+          v9 = [*(a1 + 40) ssid];
           *buf = 138412290;
-          v13 = v7;
-          _os_log_impl(&dword_273ECD000, v6, v5, "current network='%@' kicking off internet test upon receiving valid IP configuration", buf, 0xCu);
+          v13 = v9;
+          _os_log_impl(&dword_273ECD000, v8, v6, "current network='%@' kicking off internet test upon receiving valid IP configuration", buf, 0xCu);
         }
       }
 
-      v8 = [*(a1 + 32) healthManager];
-      [v8 runNoInternetDiagnosticsAfter:5];
+      v10 = [*(a1 + 32) healthManager];
+      [v10 runNoInternetDiagnosticsAfter:5];
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_updateCurrentNetworkIPState:(id)state
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ([(WFNetworkListController *)self isAssociating])
   {
     v5 = WFLogForCategory(0);
     v6 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v5)
+    v7 = v6;
+    if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
     {
       v5 = v5;
-      if (os_log_type_enabled(v5, v6))
+      if (os_log_type_enabled(v5, v7))
       {
         associationContext = [(WFNetworkListController *)self associationContext];
         stateDescription = [associationContext stateDescription];
         associationContext2 = [(WFNetworkListController *)self associationContext];
         networkName = [associationContext2 networkName];
         *buf = 136315650;
-        v17 = "[WFNetworkListController _updateCurrentNetworkIPState:]";
-        v18 = 2112;
-        v19 = stateDescription;
-        v20 = 2112;
-        v21 = networkName;
-        _os_log_impl(&dword_273ECD000, v5, v6, "%s IP state change while association state is <%@> with network %@", buf, 0x20u);
+        v18 = "[WFNetworkListController _updateCurrentNetworkIPState:]";
+        v19 = 2112;
+        v20 = stateDescription;
+        v21 = 2112;
+        v22 = networkName;
+        _os_log_impl(&dword_273ECD000, v5, v7, "%s IP state change while association state is <%@> with network %@", buf, 0x20u);
       }
     }
   }
 
   else
   {
-    v11 = dispatch_get_global_queue(21, 0);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __56__WFNetworkListController__updateCurrentNetworkIPState___block_invoke;
-    v13[3] = &unk_279EBD290;
-    v14 = stateCopy;
+    v13 = dispatch_get_global_queue(21, 0);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __56__WFNetworkListController__updateCurrentNetworkIPState___block_invoke;
+    v14[3] = &unk_279EBD290;
+    v15 = stateCopy;
     selfCopy = self;
-    dispatch_async(v11, v13);
+    dispatch_async(v13, v14);
 
-    v5 = v14;
+    v5 = v15;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WFNetworkListController__updateCurrentNetworkIPState___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = [*(a1 + 40) interface];
@@ -7941,33 +7997,32 @@ void __56__WFNetworkListController__updateCurrentNetworkIPState___block_invoke(u
 
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v6)
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) >= 3 && v6)
     {
-      v8 = v6;
-      if (os_log_type_enabled(v8, v7))
+      v10 = v6;
+      if (os_log_type_enabled(v10, v8))
       {
-        v9 = [*(a1 + 32) ssid];
+        v11 = [*(a1 + 32) ssid];
         *buf = 138412802;
-        v15 = v9;
-        v16 = 1024;
-        v17 = v3;
-        v18 = 1024;
-        v19 = v5;
-        _os_log_impl(&dword_273ECD000, v8, v7, "current network='%@' hasValidIP=%d wifiOutranked=%d", buf, 0x18u);
+        v16 = v11;
+        v17 = 1024;
+        v18 = v3;
+        v19 = 1024;
+        v20 = v5;
+        _os_log_impl(&dword_273ECD000, v10, v8, "current network='%@' hasValidIP=%d wifiOutranked=%d", buf, 0x18u);
       }
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __56__WFNetworkListController__updateCurrentNetworkIPState___block_invoke_265;
-    v11[3] = &unk_279EBD620;
-    v12 = v5;
-    v11[4] = *(a1 + 40);
-    v13 = v3;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __56__WFNetworkListController__updateCurrentNetworkIPState___block_invoke_265;
+    v12[3] = &unk_279EBD620;
+    v13 = v5;
+    v12[4] = *(a1 + 40);
+    v14 = v3;
+    dispatch_async(MEMORY[0x277D85CD0], v12);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WFNetworkListController__updateCurrentNetworkIPState___block_invoke_265(uint64_t a1)
@@ -8010,33 +8065,35 @@ void __56__WFNetworkListController__updateCurrentNetworkIPState___block_invoke_2
 
 - (BOOL)_disablePersonalHotspot
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
     *buf = 136315138;
     *&buf[4] = "[WFNetworkListController _disablePersonalHotspot]";
-    _os_log_impl(&dword_273ECD000, v3, v4, "%s: disabling personal hotspot", buf, 0xCu);
+    _os_log_impl(&dword_273ECD000, v3, v5, "%s: disabling personal hotspot", buf, 0xCu);
   }
 
   *buf = 0;
-  v5 = _MISAttach(buf);
-  if (v5)
+  v7 = _MISAttach(buf);
+  if (v7)
   {
-    v6 = v5;
+    v8 = v7;
     wifiClient = WFLogForCategory(0);
-    v8 = OSLogForWFLogLevel(1uLL);
-    v9 = 0;
-    if (WFCurrentLogLevel() && wifiClient)
+    v10 = OSLogForWFLogLevel(1uLL);
+    v11 = v10;
+    v13 = 0;
+    if (WFCurrentLogLevel(v10, v12) && wifiClient)
     {
-      if (os_log_type_enabled(wifiClient, v8))
+      if (os_log_type_enabled(wifiClient, v11))
       {
-        v17 = 67109120;
-        v18 = v6;
-        v10 = "Error: Unable to attach to MobileInternetSharing (err=%d)";
+        v24 = 67109120;
+        v25 = v8;
+        v14 = "Error: Unable to attach to MobileInternetSharing (err=%d)";
 LABEL_20:
-        _os_log_impl(&dword_273ECD000, wifiClient, v8, v10, &v17, 8u);
+        _os_log_impl(&dword_273ECD000, wifiClient, v11, v14, &v24, 8u);
         goto LABEL_21;
       }
 
@@ -8046,51 +8103,53 @@ LABEL_20:
 
   else
   {
-    v11 = _MISSetGlobalServiceState(*buf, 1022);
-    if (v11)
+    v15 = _MISSetGlobalServiceState(*buf, 1022);
+    if (v15)
     {
-      v12 = v11;
+      v16 = v15;
       wifiClient = WFLogForCategory(0);
-      v8 = OSLogForWFLogLevel(1uLL);
-      v9 = 0;
-      if (WFCurrentLogLevel() && wifiClient)
+      v17 = OSLogForWFLogLevel(1uLL);
+      v11 = v17;
+      v13 = 0;
+      if (WFCurrentLogLevel(v17, v18) && wifiClient)
       {
-        if (os_log_type_enabled(wifiClient, v8))
+        if (os_log_type_enabled(wifiClient, v11))
         {
-          v17 = 67109120;
-          v18 = v12;
-          v10 = "Error: Failed to turn off Personal Hotspot (err=%d)";
+          v24 = 67109120;
+          v25 = v16;
+          v14 = "Error: Failed to turn off Personal Hotspot (err=%d)";
           goto LABEL_20;
         }
 
 LABEL_21:
-        v9 = 0;
+        v13 = 0;
       }
     }
 
     else
     {
-      v13 = _MISSetGlobalServiceState(*buf, 1023);
-      if (!v13)
+      v19 = _MISSetGlobalServiceState(*buf, 1023);
+      if (!v19)
       {
         _MISDetach(*buf);
         wifiClient = [(WFNetworkListController *)self wifiClient];
         [wifiClient setMISState:0];
-        v9 = 1;
+        v13 = 1;
         goto LABEL_22;
       }
 
-      v14 = v13;
+      v20 = v19;
       wifiClient = WFLogForCategory(0);
-      v8 = OSLogForWFLogLevel(1uLL);
-      v9 = 0;
-      if (WFCurrentLogLevel() && wifiClient)
+      v21 = OSLogForWFLogLevel(1uLL);
+      v11 = v21;
+      v13 = 0;
+      if (WFCurrentLogLevel(v21, v22) && wifiClient)
       {
-        if (os_log_type_enabled(wifiClient, v8))
+        if (os_log_type_enabled(wifiClient, v11))
         {
-          v17 = 67109120;
-          v18 = v14;
-          v10 = "Error: Failed to re-enable Personal Hotspot (err=%d)";
+          v24 = 67109120;
+          v25 = v20;
+          v14 = "Error: Failed to re-enable Personal Hotspot (err=%d)";
           goto LABEL_20;
         }
 
@@ -8101,8 +8160,7 @@ LABEL_21:
 
 LABEL_22:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v13;
 }
 
 - (BOOL)_canPromptForCarPlay
@@ -8171,41 +8229,42 @@ LABEL_22:
 
 - (void)_networkHealthIssuesDidChange:(id)change
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if ([(WFNetworkListController *)self isAssociating])
   {
     objc_initWeak(&location, self);
     v5 = WFLogForCategory(0);
     v6 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v5)
+    v7 = v6;
+    if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
     {
-      v7 = v5;
-      if (os_log_type_enabled(v7, v6))
+      v9 = v5;
+      if (os_log_type_enabled(v9, v7))
       {
         associationContext = [(WFNetworkListController *)self associationContext];
         associationContext2 = [(WFNetworkListController *)self associationContext];
         networkName = [associationContext2 networkName];
         *buf = 136315650;
-        v18 = "[WFNetworkListController _networkHealthIssuesDidChange:]";
-        v19 = 2112;
-        v20 = associationContext;
-        v21 = 2112;
-        v22 = networkName;
-        _os_log_impl(&dword_273ECD000, v7, v6, "%s health issues changed while association state is in progress <%@> with network %@", buf, 0x20u);
+        v19 = "[WFNetworkListController _networkHealthIssuesDidChange:]";
+        v20 = 2112;
+        v21 = associationContext;
+        v22 = 2112;
+        v23 = networkName;
+        _os_log_impl(&dword_273ECD000, v9, v7, "%s health issues changed while association state is in progress <%@> with network %@", buf, 0x20u);
       }
     }
 
-    v11 = dispatch_time(0, 500000000);
+    v13 = dispatch_time(0, 500000000);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __57__WFNetworkListController__networkHealthIssuesDidChange___block_invoke;
     block[3] = &unk_279EBCDE8;
-    objc_copyWeak(&v15, &location);
-    v14 = changeCopy;
-    dispatch_after(v11, MEMORY[0x277D85CD0], block);
+    objc_copyWeak(&v16, &location);
+    v15 = changeCopy;
+    dispatch_after(v13, MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 
@@ -8213,8 +8272,6 @@ LABEL_22:
   {
     [(WFNetworkListController *)self _updateHealthSubtitle];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __57__WFNetworkListController__networkHealthIssuesDidChange___block_invoke(uint64_t a1)
@@ -8245,7 +8302,7 @@ void __57__WFNetworkListController__networkHealthIssuesDidChange___block_invoke(
 
 - (BOOL)_shouldShowLowDataModeForProfile:(id)profile
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   wifiClient = [(WFNetworkListController *)self wifiClient];
   isCellularOutrankingWiFi = [wifiClient isCellularOutrankingWiFi];
@@ -8254,20 +8311,21 @@ void __57__WFNetworkListController__networkHealthIssuesDidChange___block_invoke(
   {
     v7 = WFLogForCategory(0);
     v8 = OSLogForWFLogLevel(4uLL);
-    v9 = 1;
-    if (WFCurrentLogLevel() >= 4 && v7)
+    v9 = v8;
+    v11 = 1;
+    if (WFCurrentLogLevel(v8, v10) >= 4 && v7)
     {
       v7 = v7;
-      if (os_log_type_enabled(v7, v8))
+      if (os_log_type_enabled(v7, v9))
       {
         networkName = [profileCopy networkName];
-        v15 = 136315394;
-        v16 = "[WFNetworkListController _shouldShowLowDataModeForProfile:]";
-        v17 = 2112;
-        v18 = networkName;
-        _os_log_impl(&dword_273ECD000, v7, v8, "%s: Showing low data mode for: %@", &v15, 0x16u);
+        v18 = 136315394;
+        v19 = "[WFNetworkListController _shouldShowLowDataModeForProfile:]";
+        v20 = 2112;
+        v21 = networkName;
+        _os_log_impl(&dword_273ECD000, v7, v9, "%s: Showing low data mode for: %@", &v18, 0x16u);
 
-        v9 = 1;
+        v11 = 1;
       }
 
       goto LABEL_15;
@@ -8277,33 +8335,33 @@ void __57__WFNetworkListController__networkHealthIssuesDidChange___block_invoke(
   else
   {
     v7 = WFLogForCategory(0);
-    v11 = OSLogForWFLogLevel(4uLL);
-    v9 = 0;
-    if (WFCurrentLogLevel() >= 4 && v7)
+    v13 = OSLogForWFLogLevel(4uLL);
+    v14 = v13;
+    v11 = 0;
+    if (WFCurrentLogLevel(v13, v15) >= 4 && v7)
     {
       v7 = v7;
-      if (os_log_type_enabled(v7, v11))
+      if (os_log_type_enabled(v7, v14))
       {
         networkName2 = [profileCopy networkName];
-        v15 = 136315394;
-        v16 = "[WFNetworkListController _shouldShowLowDataModeForProfile:]";
-        v17 = 2112;
-        v18 = networkName2;
-        _os_log_impl(&dword_273ECD000, v7, v11, "%s: Not showing low data mode for: %@", &v15, 0x16u);
+        v18 = 136315394;
+        v19 = "[WFNetworkListController _shouldShowLowDataModeForProfile:]";
+        v20 = 2112;
+        v21 = networkName2;
+        _os_log_impl(&dword_273ECD000, v7, v14, "%s: Not showing low data mode for: %@", &v18, 0x16u);
       }
 
-      v9 = 0;
+      v11 = 0;
 LABEL_15:
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v11;
 }
 
 - (void)_updateHealthSubtitle
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   healthRecommendations = [(WFNetworkListController *)self healthRecommendations];
   v4 = MEMORY[0x277D7B9C0];
   allObjects = [healthRecommendations allObjects];
@@ -8352,119 +8410,110 @@ LABEL_15:
 
     v17 = WFLogForCategory(0);
     v18 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v17)
+    v19 = v18;
+    if (WFCurrentLogLevel(v18, v20) >= 3 && v17)
     {
-      v19 = healthRecommendations;
-      v20 = currentKnownNetworkProfile;
-      v21 = v17;
-      if (os_log_type_enabled(v21, v18))
+      v21 = healthRecommendations;
+      v22 = currentKnownNetworkProfile;
+      v23 = v17;
+      if (os_log_type_enabled(v23, v19))
       {
         [(WFNetworkListController *)self viewController];
-        v22 = v47 = currentNetwork;
-        currentNetwork2 = [v22 currentNetwork];
+        v24 = v52 = currentNetwork;
+        currentNetwork2 = [v24 currentNetwork];
         *buf = 138412546;
-        v49 = issueTitle;
-        v50 = 2112;
-        v51 = objc_opt_class();
-        v46 = v51;
-        _os_log_impl(&dword_273ECD000, v21, v18, "subtitle: %@, currentNetwork class: %@", buf, 0x16u);
+        v54 = issueTitle;
+        v55 = 2112;
+        v56 = objc_opt_class();
+        v51 = v56;
+        _os_log_impl(&dword_273ECD000, v23, v19, "subtitle: %@, currentNetwork class: %@", buf, 0x16u);
 
-        currentNetwork = v47;
+        currentNetwork = v52;
       }
 
-      currentKnownNetworkProfile = v20;
-      healthRecommendations = v19;
+      currentKnownNetworkProfile = v22;
+      healthRecommendations = v21;
     }
 
-    if (!issueTitle)
+    if (issueTitle && (-[WFNetworkListController viewController](self, "viewController"), v26 = objc_claimAutoreleasedReturnValue(), [v26 currentNetwork], v27 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v27, v26, (isKindOfClass & 1) != 0))
     {
-      goto LABEL_22;
-    }
+      viewController = [(WFNetworkListController *)self viewController];
+      currentNetworkSubtitle = [viewController currentNetworkSubtitle];
+      v31 = [currentNetworkSubtitle isEqualToString:issueTitle];
 
-    viewController = [(WFNetworkListController *)self viewController];
-    currentNetwork3 = [viewController currentNetwork];
-    objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-
-    if (isKindOfClass)
-    {
-      viewController2 = [(WFNetworkListController *)self viewController];
-      currentNetworkSubtitle = [viewController2 currentNetworkSubtitle];
-      v29 = [currentNetworkSubtitle isEqualToString:issueTitle];
-
-      if (v29)
+      if (v31)
       {
-        v30 = WFLogForCategory(0);
-        v31 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v30 && os_log_type_enabled(v30, v31))
+        v32 = WFLogForCategory(0);
+        v33 = OSLogForWFLogLevel(3uLL);
+        v34 = v33;
+        if (WFCurrentLogLevel(v33, v35) >= 3 && v32 && os_log_type_enabled(v32, v34))
         {
           *buf = 0;
-          _os_log_impl(&dword_273ECD000, v30, v31, "subtitle is equal to current one, not updating ", buf, 2u);
+          _os_log_impl(&dword_273ECD000, v32, v34, "subtitle is equal to current one, not updating ", buf, 2u);
         }
 
         goto LABEL_28;
       }
 
-      viewController3 = [(WFNetworkListController *)self viewController];
-      [viewController3 setCurrentNetworkSubtitle:issueTitle];
+      viewController2 = [(WFNetworkListController *)self viewController];
+      [viewController2 setCurrentNetworkSubtitle:issueTitle];
 
       if ([(WFNetworkListController *)self isAirPortSettings])
       {
         if (v6)
         {
-          v41 = [MEMORY[0x277CBEB98] setWithObjects:{v6, 0}];
+          v45 = [MEMORY[0x277CBEB98] setWithObjects:{v6, 0}];
         }
 
         else
         {
-          v41 = 0;
+          v45 = 0;
         }
 
-        v42 = +[WFMetricsManager sharedManager];
+        v46 = +[WFMetricsManager sharedManager];
         ssid = [currentNetwork ssid];
-        v44 = +[WFHealthUIEvent subtitleEventWithIssues:ssid:securityType:](WFHealthUIEvent, "subtitleEventWithIssues:ssid:securityType:", v41, ssid, [currentNetwork securityMode]);
-        [v42 processEvent:v44];
+        v48 = +[WFHealthUIEvent subtitleEventWithIssues:ssid:securityType:](WFHealthUIEvent, "subtitleEventWithIssues:ssid:securityType:", v45, ssid, [currentNetwork securityMode]);
+        [v46 processEvent:v48];
       }
 
-      v30 = WFLogForCategory(0);
-      v45 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v30)
+      v32 = WFLogForCategory(0);
+      v49 = OSLogForWFLogLevel(3uLL);
+      if (WFCurrentLogLevel(v49, v50) < 3 || !v32)
       {
         goto LABEL_28;
       }
 
-      v30 = v30;
-      if (!os_log_type_enabled(v30, v45))
+      v32 = v32;
+      if (!os_log_type_enabled(v32, v49))
       {
         goto LABEL_27;
       }
 
       ssid2 = [currentNetwork ssid];
       *buf = 138412546;
-      v49 = ssid2;
-      v50 = 2112;
-      v51 = issueTitle;
-      v35 = "Setting health subtitle for %@ to %@";
-      v36 = v30;
-      v37 = v45;
-      v38 = 22;
+      v54 = ssid2;
+      v55 = 2112;
+      v56 = issueTitle;
+      v40 = "Setting health subtitle for %@ to %@";
+      v41 = v32;
+      v42 = v49;
+      v43 = 22;
     }
 
     else
     {
-LABEL_22:
-      viewController4 = [(WFNetworkListController *)self viewController];
-      [viewController4 setCurrentNetworkSubtitle:0];
+      viewController3 = [(WFNetworkListController *)self viewController];
+      [viewController3 setCurrentNetworkSubtitle:0];
 
-      v30 = WFLogForCategory(0);
-      v33 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v30)
+      v32 = WFLogForCategory(0);
+      v37 = OSLogForWFLogLevel(3uLL);
+      if (WFCurrentLogLevel(v37, v38) < 3 || !v32)
       {
         goto LABEL_28;
       }
 
-      v30 = v30;
-      if (!os_log_type_enabled(v30, v33))
+      v32 = v32;
+      if (!os_log_type_enabled(v32, v37))
       {
 LABEL_27:
 
@@ -8474,48 +8523,35 @@ LABEL_28:
 
       ssid2 = [currentNetwork ssid];
       *buf = 138412290;
-      v49 = ssid2;
-      v35 = "Clearing health subtitle for %@";
-      v36 = v30;
-      v37 = v33;
-      v38 = 12;
+      v54 = ssid2;
+      v40 = "Clearing health subtitle for %@";
+      v41 = v32;
+      v42 = v37;
+      v43 = 12;
     }
 
-    _os_log_impl(&dword_273ECD000, v36, v37, v35, buf, v38);
+    _os_log_impl(&dword_273ECD000, v41, v42, v40, buf, v43);
 
     goto LABEL_27;
   }
 
 LABEL_29:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkListViewController:(id)controller didTapRecord:(id)record
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   recordCopy = record;
   if (recordCopy)
   {
-    if (self->_shouldShowDetailTapOnCurrentNetwork)
+    if (self->_shouldShowDetailTapOnCurrentNetwork || (-[WFNetworkListController associationContext](self, "associationContext"), v8 = objc_claimAutoreleasedReturnValue(), [v8 networkName], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(recordCopy, "ssid"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqualToString:", v10), v10, v9, v8, !v11))
     {
-      goto LABEL_8;
-    }
-
-    associationContext = [(WFNetworkListController *)self associationContext];
-    networkName = [associationContext networkName];
-    ssid = [recordCopy ssid];
-    v11 = [networkName isEqualToString:ssid];
-
-    if (!v11)
-    {
-LABEL_8:
       interface = [(WFNetworkListController *)self interface];
       currentNetwork = [interface currentNetwork];
-      v20 = [recordCopy isEqual:currentNetwork];
+      v21 = [recordCopy isEqual:currentNetwork];
 
-      if (v20)
+      if (v21)
       {
         interface2 = [(WFNetworkListController *)self interface];
         currentNetwork2 = [interface2 currentNetwork];
@@ -8523,20 +8559,21 @@ LABEL_8:
 
         if (carPlayType == 1)
         {
-          v24 = WFLogForCategory(0);
-          v25 = OSLogForWFLogLevel(3uLL);
-          if (WFCurrentLogLevel() >= 3 && v24)
+          v25 = WFLogForCategory(0);
+          v26 = OSLogForWFLogLevel(3uLL);
+          v27 = v26;
+          if (WFCurrentLogLevel(v26, v28) >= 3 && v25)
           {
-            v26 = v24;
-            if (os_log_type_enabled(v26, v25))
+            v29 = v25;
+            if (os_log_type_enabled(v29, v27))
             {
               interface3 = [(WFNetworkListController *)self interface];
               currentNetwork3 = [interface3 currentNetwork];
-              v52 = 136315394;
-              v53 = "[WFNetworkListController networkListViewController:didTapRecord:]";
-              v54 = 2112;
-              v55 = currentNetwork3;
-              _os_log_impl(&dword_273ECD000, v26, v25, "%s: tapped on carplay only network %@", &v52, 0x16u);
+              v61 = 136315394;
+              v62 = "[WFNetworkListController networkListViewController:didTapRecord:]";
+              v63 = 2112;
+              v64 = currentNetwork3;
+              _os_log_impl(&dword_273ECD000, v29, v27, "%s: tapped on carplay only network %@", &v61, 0x16u);
             }
           }
         }
@@ -8551,41 +8588,43 @@ LABEL_8:
             wifiClient2 = [(WFNetworkListController *)self wifiClient];
             cellularOutrankState = [wifiClient2 cellularOutrankState];
 
-            v35 = WFLogForCategory(0);
-            v36 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v35)
+            v38 = WFLogForCategory(0);
+            v39 = OSLogForWFLogLevel(3uLL);
+            v40 = v39;
+            if (WFCurrentLogLevel(v39, v41) >= 3 && v38)
             {
-              v37 = v35;
-              if (os_log_type_enabled(v37, v36))
+              v42 = v38;
+              if (os_log_type_enabled(v42, v40))
               {
                 interface4 = [(WFNetworkListController *)self interface];
                 currentNetwork4 = [interface4 currentNetwork];
-                v52 = 136315650;
-                v53 = "[WFNetworkListController networkListViewController:didTapRecord:]";
-                v54 = 2112;
-                v55 = currentNetwork4;
-                v56 = 2048;
-                v57 = cellularOutrankState;
-                _os_log_impl(&dword_273ECD000, v37, v36, "%s: tapped on current network when cellular is outranking wifi %@ - state: %lu", &v52, 0x20u);
+                v61 = 136315650;
+                v62 = "[WFNetworkListController networkListViewController:didTapRecord:]";
+                v63 = 2112;
+                v64 = currentNetwork4;
+                v65 = 2048;
+                v66 = cellularOutrankState;
+                _os_log_impl(&dword_273ECD000, v42, v40, "%s: tapped on current network when cellular is outranking wifi %@ - state: %lu", &v61, 0x20u);
               }
             }
 
             if (cellularOutrankState == 4)
             {
-              v40 = WFLogForCategory(0);
-              v41 = OSLogForWFLogLevel(3uLL);
-              if (WFCurrentLogLevel() >= 3 && v40)
+              v45 = WFLogForCategory(0);
+              v46 = OSLogForWFLogLevel(3uLL);
+              v47 = v46;
+              if (WFCurrentLogLevel(v46, v48) >= 3 && v45)
               {
-                v42 = v40;
-                if (os_log_type_enabled(v42, v41))
+                v49 = v45;
+                if (os_log_type_enabled(v49, v47))
                 {
                   interface5 = [(WFNetworkListController *)self interface];
                   currentNetwork5 = [interface5 currentNetwork];
-                  v52 = 136315394;
-                  v53 = "[WFNetworkListController networkListViewController:didTapRecord:]";
-                  v54 = 2112;
-                  v55 = currentNetwork5;
-                  _os_log_impl(&dword_273ECD000, v42, v41, "%s: tapped on current network when developer is outranking wifi %@", &v52, 0x16u);
+                  v61 = 136315394;
+                  v62 = "[WFNetworkListController networkListViewController:didTapRecord:]";
+                  v63 = 2112;
+                  v64 = currentNetwork5;
+                  _os_log_impl(&dword_273ECD000, v49, v47, "%s: tapped on current network when developer is outranking wifi %@", &v61, 0x16u);
                 }
               }
 
@@ -8606,20 +8645,21 @@ LABEL_8:
 
           if ([(WFNetworkListController *)self shouldShowDetailTapOnCurrentNetwork])
           {
-            v46 = WFLogForCategory(0);
-            v47 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v46)
+            v53 = WFLogForCategory(0);
+            v54 = OSLogForWFLogLevel(3uLL);
+            v55 = v54;
+            if (WFCurrentLogLevel(v54, v56) >= 3 && v53)
             {
-              v48 = v46;
-              if (os_log_type_enabled(v48, v47))
+              v57 = v53;
+              if (os_log_type_enabled(v57, v55))
               {
                 interface7 = [(WFNetworkListController *)self interface];
                 currentNetwork8 = [interface7 currentNetwork];
-                v52 = 136315394;
-                v53 = "[WFNetworkListController networkListViewController:didTapRecord:]";
-                v54 = 2112;
-                v55 = currentNetwork8;
-                _os_log_impl(&dword_273ECD000, v48, v47, "%s: showing settings for current network: %@", &v52, 0x16u);
+                v61 = 136315394;
+                v62 = "[WFNetworkListController networkListViewController:didTapRecord:]";
+                v63 = 2112;
+                v64 = currentNetwork8;
+                _os_log_impl(&dword_273ECD000, v57, v55, "%s: showing settings for current network: %@", &v61, 0x16u);
               }
             }
 
@@ -8638,168 +8678,167 @@ LABEL_8:
 
     interface6 = WFLogForCategory(0);
     v13 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && interface6 && os_log_type_enabled(interface6, v13))
+    if (WFCurrentLogLevel(v13, v14) && interface6 && os_log_type_enabled(interface6, v13))
     {
-      LOWORD(v52) = 0;
-      v14 = "Refuse repeat association request when tapping to show detail is not supported.";
-      v15 = interface6;
-      v16 = v13;
-      v17 = 2;
+      LOWORD(v61) = 0;
+      v15 = "Refuse repeat association request when tapping to show detail is not supported.";
+      v16 = interface6;
+      v17 = v13;
+      v18 = 2;
 LABEL_21:
-      _os_log_impl(&dword_273ECD000, v15, v16, v14, &v52, v17);
+      _os_log_impl(&dword_273ECD000, v16, v17, v15, &v61, v18);
     }
   }
 
   else
   {
     interface6 = WFLogForCategory(0);
-    v29 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && interface6 && os_log_type_enabled(interface6, v29))
+    v32 = OSLogForWFLogLevel(1uLL);
+    if (WFCurrentLogLevel(v32, v33) && interface6 && os_log_type_enabled(interface6, v32))
     {
-      v52 = 136315138;
-      v53 = "[WFNetworkListController networkListViewController:didTapRecord:]";
-      v14 = "%s- called with nil list record";
-      v15 = interface6;
-      v16 = v29;
-      v17 = 12;
+      v61 = 136315138;
+      v62 = "[WFNetworkListController networkListViewController:didTapRecord:]";
+      v15 = "%s- called with nil list record";
+      v16 = interface6;
+      v17 = v32;
+      v18 = 12;
       goto LABEL_21;
     }
   }
 
 LABEL_22:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkListViewControllerDidTapOtherNetwork:(id)network
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   [(WFNetworkListController *)self isAssociating];
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4 && os_log_type_enabled(v4, v6))
   {
     *buf = 0;
-    _os_log_impl(&dword_273ECD000, v4, v5, "User tapped join other network", buf, 2u);
+    _os_log_impl(&dword_273ECD000, v4, v6, "User tapped join other network", buf, 2u);
   }
 
   [(WFNetworkListController *)self _pauseScanning];
   viewProvider = [(WFNetworkListController *)self viewProvider];
-  v7 = objc_opt_respondsToSelector();
+  v9 = objc_opt_respondsToSelector();
 
-  v8 = objc_alloc_init(MEMORY[0x277CCAD78]);
-  uUIDString = [v8 UUIDString];
+  v10 = objc_alloc_init(MEMORY[0x277CCAD78]);
+  uUIDString = [v10 UUIDString];
 
   wifiClient = [(WFNetworkListController *)self wifiClient];
   hardwareMACAddress = [wifiClient hardwareMACAddress];
 
-  v12 = [[WFOtherNetworkContext alloc] initWithType:0 authTraits:[(WFNetworkListController *)self _defaultAuthTraits] supportRandomAddress:1 useRandomAddress:1 randomMACAddress:0 hardwareMACAddress:hardwareMACAddress];
-  if (v7)
+  v14 = [[WFOtherNetworkContext alloc] initWithType:0 authTraits:[(WFNetworkListController *)self _defaultAuthTraits] supportRandomAddress:1 useRandomAddress:1 randomMACAddress:0 hardwareMACAddress:hardwareMACAddress];
+  if (v9)
   {
     viewProvider2 = [(WFNetworkListController *)self viewProvider];
-    v14 = [viewProvider2 otherNetworkViewControllerWithContext:v12];
+    v16 = [viewProvider2 otherNetworkViewControllerWithContext:v14];
   }
 
   else
   {
-    v15 = objc_alloc(MEMORY[0x277D7B9F0]);
-    v16 = WFCurrentDeviceCapability();
+    v17 = objc_alloc(MEMORY[0x277D7B9F0]);
+    v18 = WFCurrentDeviceCapability();
     defaultAppearanceProxy = [MEMORY[0x277D7B980] defaultAppearanceProxy];
-    v14 = [v15 initWithOtherNetworkProviderContext:v12 deviceCapability:v16 appearanceProxy:defaultAppearanceProxy];
+    v16 = [v17 initWithOtherNetworkProviderContext:v14 deviceCapability:v18 appearanceProxy:defaultAppearanceProxy];
 
-    [v14 setDelegate:v12];
+    [v16 setDelegate:v14];
   }
 
-  if (v14)
+  if (v16)
   {
-    [(WFCredentialsContext *)v12 setProvider:v14];
-    [(WFNetworkListController *)self setCredentialsContext:v12];
-    [(WFNetworkListController *)self setVisibleContext:v12];
+    [(WFCredentialsContext *)v14 setProvider:v16];
+    [(WFNetworkListController *)self setCredentialsContext:v14];
+    [(WFNetworkListController *)self setVisibleContext:v14];
     objc_initWeak(&location, self);
-    objc_initWeak(&from, v12);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork___block_invoke;
-    v36[3] = &unk_279EBD648;
-    objc_copyWeak(&v37, &location);
-    objc_copyWeak(&v38, &from);
-    [(WFOtherNetworkContext *)v12 setPrivateAddressModeChangeHandler:v36];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork___block_invoke_302;
-    v33[3] = &unk_279EBD448;
-    objc_copyWeak(&v34, &location);
-    objc_copyWeak(&v35, &from);
-    [(WFCredentialsContext *)v12 setCancellationHandler:v33];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork___block_invoke_303;
-    v30[3] = &unk_279EBD670;
-    objc_copyWeak(&v31, &location);
-    objc_copyWeak(&v32, &from);
-    [(WFCredentialsContext *)v12 setCompletionHandler:v30];
-    [(WFNetworkListController *)self setOtherNetworkVC:v14];
+    objc_initWeak(&from, v14);
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork___block_invoke;
+    v41[3] = &unk_279EBD648;
+    objc_copyWeak(&v42, &location);
+    objc_copyWeak(&v43, &from);
+    [(WFOtherNetworkContext *)v14 setPrivateAddressModeChangeHandler:v41];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork___block_invoke_302;
+    v38[3] = &unk_279EBD448;
+    objc_copyWeak(&v39, &location);
+    objc_copyWeak(&v40, &from);
+    [(WFCredentialsContext *)v14 setCancellationHandler:v38];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork___block_invoke_303;
+    v35[3] = &unk_279EBD670;
+    objc_copyWeak(&v36, &location);
+    objc_copyWeak(&v37, &from);
+    [(WFCredentialsContext *)v14 setCompletionHandler:v35];
+    [(WFNetworkListController *)self setOtherNetworkVC:v16];
     viewProvider3 = [(WFNetworkListController *)self viewProvider];
-    v19 = objc_opt_respondsToSelector();
+    v21 = objc_opt_respondsToSelector();
 
-    if (v19)
+    if (v21)
     {
-      v20 = WFLogForCategory(0);
-      v21 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v20 && os_log_type_enabled(v20, v21))
+      v22 = WFLogForCategory(0);
+      v23 = OSLogForWFLogLevel(3uLL);
+      v24 = v23;
+      if (WFCurrentLogLevel(v23, v25) >= 3 && v22 && os_log_type_enabled(v22, v24))
       {
         *buf = 138412546;
-        v42 = v14;
-        v43 = 2112;
-        v44 = v12;
-        _os_log_impl(&dword_273ECD000, v20, v21, "viewProvider will handle presentation of %@ (context %@)", buf, 0x16u);
+        v47 = v16;
+        v48 = 2112;
+        v49 = v14;
+        _os_log_impl(&dword_273ECD000, v22, v24, "viewProvider will handle presentation of %@ (context %@)", buf, 0x16u);
       }
 
       viewProvider4 = [(WFNetworkListController *)self viewProvider];
-      [viewProvider4 presentNetworkViewController:v14 forContext:v12];
+      [viewProvider4 presentNetworkViewController:v16 forContext:v14];
     }
 
     else
     {
-      viewProvider4 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v14];
+      viewProvider4 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v16];
       [viewProvider4 setModalPresentationStyle:2];
       viewController = [(WFNetworkListController *)self viewController];
       [viewController presentViewController:viewProvider4 animated:1 completion:0];
     }
 
-    objc_destroyWeak(&v32);
-    objc_destroyWeak(&v31);
-    objc_destroyWeak(&v35);
-    objc_destroyWeak(&v34);
-    objc_destroyWeak(&v38);
     objc_destroyWeak(&v37);
+    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v39);
+    objc_destroyWeak(&v43);
+    objc_destroyWeak(&v42);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v23 = WFLogForCategory(0);
-    v24 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v23)
+    v27 = WFLogForCategory(0);
+    v28 = OSLogForWFLogLevel(1uLL);
+    v29 = v28;
+    if (WFCurrentLogLevel(v28, v30) && v27)
     {
-      v25 = v23;
-      if (os_log_type_enabled(v25, v24))
+      v31 = v27;
+      if (os_log_type_enabled(v31, v29))
       {
         viewProvider5 = [(WFNetworkListController *)self viewProvider];
         *buf = 136315650;
-        v42 = "[WFNetworkListController networkListViewControllerDidTapOtherNetwork:]";
-        v43 = 2112;
-        v44 = viewProvider5;
-        v45 = 1024;
-        v46 = v7 & 1;
-        _os_log_impl(&dword_273ECD000, v25, v24, "%s: otherNetworkVc is nil, view provider %@ (supportsOtherVc %d)", buf, 0x1Cu);
+        v47 = "[WFNetworkListController networkListViewControllerDidTapOtherNetwork:]";
+        v48 = 2112;
+        v49 = viewProvider5;
+        v50 = 1024;
+        v51 = v9 & 1;
+        _os_log_impl(&dword_273ECD000, v31, v29, "%s: otherNetworkVc is nil, view provider %@ (supportsOtherVc %d)", buf, 0x1Cu);
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork___block_invoke(uint64_t a1, uint64_t a2)
@@ -8831,93 +8870,123 @@ void __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork__
   {
     v11 = WFLogForCategory(0);
     v12 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v11 && os_log_type_enabled(v11, v12))
+    v13 = v12;
+    if (WFCurrentLogLevel(v12, v14) >= 3 && v11 && os_log_type_enabled(v11, v13))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_273ECD000, v11, v12, "Generating new private mac when join with random address mode", v17, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_273ECD000, v11, v13, "Generating new private mac when join with random address mode", v19, 2u);
     }
 
-    v13 = objc_loadWeakRetained(&to);
-    v14 = [v13 wifiClient];
-    v10 = [v14 newRandomMACAddressForSSID:v9];
+    v15 = objc_loadWeakRetained(&to);
+    v16 = [v15 wifiClient];
+    v10 = [v16 newRandomMACAddressForSSID:v9];
   }
 
-  v15 = objc_loadWeakRetained(&to);
-  v16 = [v15 wifiClient];
-  [v16 setRandomAddressModeForNetwork:v9 mode:a2 randomMAC:v10];
+  v17 = objc_loadWeakRetained(&to);
+  v18 = [v17 wifiClient];
+  [v18 setRandomAddressModeForNetwork:v9 mode:a2 randomMAC:v10];
 
   objc_destroyWeak(&to);
 }
 
 void __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork___block_invoke_302(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) >= 3 && v2 && os_log_type_enabled(v2, v4))
   {
-    v9 = 136315138;
-    v10 = "[WFNetworkListController networkListViewControllerDidTapOtherNetwork:]_block_invoke";
-    _os_log_impl(&dword_273ECD000, v2, v3, "%s: user cancelled credentials prompt", &v9, 0xCu);
+    v10 = 136315138;
+    v11 = "[WFNetworkListController networkListViewControllerDidTapOtherNetwork:]_block_invoke";
+    _os_log_impl(&dword_273ECD000, v2, v4, "%s: user cancelled credentials prompt", &v10, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = [MEMORY[0x277CCA9B8] associationErrorWithReason:6];
-  [WeakRetained _associationDidFinish:0 error:v5 network:0];
+  v7 = [MEMORY[0x277CCA9B8] associationErrorWithReason:6];
+  [WeakRetained _associationDidFinish:0 error:v7 network:0];
 
-  v6 = objc_loadWeakRetained((a1 + 32));
-  v7 = objc_loadWeakRetained((a1 + 40));
-  [v6 _dismissOtherNetworkViewControllerWithContext:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = objc_loadWeakRetained((a1 + 32));
+  v9 = objc_loadWeakRetained((a1 + 40));
+  [v8 _dismissOtherNetworkViewControllerWithContext:v9];
 }
 
 void __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork___block_invoke_303(uint64_t a1, void *a2, int a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
   {
-    v12 = 136315650;
-    v13 = "[WFNetworkListController networkListViewControllerDidTapOtherNetwork:]_block_invoke";
-    v14 = 2112;
-    v15 = v5;
-    v16 = 1024;
-    v17 = a3;
-    _os_log_impl(&dword_273ECD000, v7, v8, "%s: credentials prompt complete, provider %@, shouldDismiss %d", &v12, 0x1Cu);
+    v13 = 136315650;
+    v14 = "[WFNetworkListController networkListViewControllerDidTapOtherNetwork:]_block_invoke";
+    v15 = 2112;
+    v16 = v5;
+    v17 = 1024;
+    v18 = a3;
+    _os_log_impl(&dword_273ECD000, v7, v9, "%s: credentials prompt complete, provider %@, shouldDismiss %d", &v13, 0x1Cu);
   }
 
-  v9 = objc_loadWeakRetained((a1 + 40));
-  v10 = [v9 userSuppliedNetwork];
+  v11 = objc_loadWeakRetained((a1 + 40));
+  v12 = [v11 userSuppliedNetwork];
 
-  if ([WeakRetained _canStartAssociationToUserSuppliedNetwork:v10])
+  if ([WeakRetained _canStartAssociationToUserSuppliedNetwork:v12])
   {
-    [WeakRetained _associateToUserSuppliedNetwork:v10];
+    [WeakRetained _associateToUserSuppliedNetwork:v12];
+  }
+}
+
+- (void)networkListViewController:(id)controller userDidChangePower:(BOOL)power
+{
+  powerCopy = power;
+  v16 = *MEMORY[0x277D85DE8];
+  v6 = WFLogForCategory(0);
+  v7 = OSLogForWFLogLevel(3uLL);
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6 && os_log_type_enabled(v6, v8))
+  {
+    v10 = @"OFF";
+    if (powerCopy)
+    {
+      v10 = @"ON";
+    }
+
+    v14 = 138412290;
+    v15 = v10;
+    _os_log_impl(&dword_273ECD000, v6, v8, "User changed power state to %@", &v14, 0xCu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = +[WFMetricsManager sharedManager];
+  v12 = [WFUserEvent eventWithType:1 state:powerCopy];
+  [v11 processEvent:v12];
+
+  wifiClient = [(WFNetworkListController *)self wifiClient];
+  [wifiClient setPowered:powerCopy];
+
+  [(WFNetworkListController *)self _powerStateChanged];
 }
 
 - (void)networkListViewController:(id)controller userDidChangePowerToggle:(unint64_t)toggle
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7)
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7)
   {
-    v9 = v7;
-    if (os_log_type_enabled(v9, v8))
+    v11 = v7;
+    if (os_log_type_enabled(v11, v9))
     {
-      v10 = WFPowerStateToggleToString();
+      v12 = WFPowerStateToggleToString();
       *buf = 136315394;
-      v16 = "[WFNetworkListController networkListViewController:userDidChangePowerToggle:]";
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_273ECD000, v9, v8, "%s: User requested power state change to %@", buf, 0x16u);
+      v17 = "[WFNetworkListController networkListViewController:userDidChangePowerToggle:]";
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_273ECD000, v11, v9, "%s: User requested power state change to %@", buf, 0x16u);
     }
   }
 
@@ -8925,17 +8994,15 @@ void __71__WFNetworkListController_networkListViewControllerDidTapOtherNetwork__
   [(WFNetworkListController *)self setPowerState:[(WFNetworkListController *)self powerState]];
   objc_initWeak(buf, self);
   wifiClient = [(WFNetworkListController *)self wifiClient];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __78__WFNetworkListController_networkListViewController_userDidChangePowerToggle___block_invoke;
-  v13[3] = &unk_279EBD698;
-  objc_copyWeak(&v14, buf);
-  [wifiClient setPoweredToggle:toggle == 1 handler:v13];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __78__WFNetworkListController_networkListViewController_userDidChangePowerToggle___block_invoke;
+  v14[3] = &unk_279EBD698;
+  objc_copyWeak(&v15, buf);
+  [wifiClient setPoweredToggle:toggle == 1 handler:v14];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __78__WFNetworkListController_networkListViewController_userDidChangePowerToggle___block_invoke(uint64_t a1)
@@ -8946,45 +9013,45 @@ void __78__WFNetworkListController_networkListViewController_userDidChangePowerT
 
 - (void)setPowerState:(unint64_t)state
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (self->_powerState != state)
   {
     v5 = WFLogForCategory(0);
     v6 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v5)
+    v7 = v6;
+    if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
     {
-      v7 = v5;
-      if (os_log_type_enabled(v7, v6))
+      v9 = v5;
+      if (os_log_type_enabled(v9, v7))
       {
-        powerState = self->_powerState;
-        v9 = WFPowerStateToggleToString();
         v10 = WFPowerStateToggleToString();
-        v19 = 136315650;
-        v20 = "[WFNetworkListController setPowerState:]";
-        v21 = 2112;
-        v22 = v9;
+        v11 = WFPowerStateToggleToString();
+        v21 = 136315650;
+        v22 = "[WFNetworkListController setPowerState:]";
         v23 = 2112;
         v24 = v10;
-        _os_log_impl(&dword_273ECD000, v7, v6, "%s: power state changed from %@ to %@", &v19, 0x20u);
+        v25 = 2112;
+        v26 = v11;
+        _os_log_impl(&dword_273ECD000, v9, v7, "%s: power state changed from %@ to %@", &v21, 0x20u);
       }
     }
 
     self->_powerState = state;
     viewController = [(WFNetworkListController *)self viewController];
-    v12 = objc_opt_respondsToSelector();
+    v13 = objc_opt_respondsToSelector();
 
     viewController2 = [(WFNetworkListController *)self viewController];
     viewController3 = viewController2;
-    if (v12)
+    if (v13)
     {
       [viewController2 powerStateDidChangeToggle:self->_powerState];
     }
 
     else
     {
-      v15 = objc_opt_respondsToSelector();
+      v16 = objc_opt_respondsToSelector();
 
-      if (v15)
+      if (v16)
       {
         viewController3 = [(WFNetworkListController *)self viewController];
         [viewController3 powerStateDidChange:self->_powerState == 1];
@@ -8993,25 +9060,24 @@ void __78__WFNetworkListController_networkListViewController_userDidChangePowerT
       else
       {
         viewController3 = WFLogForCategory(0);
-        v16 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && viewController3)
+        v17 = OSLogForWFLogLevel(1uLL);
+        v18 = v17;
+        if (WFCurrentLogLevel(v17, v19) && viewController3)
         {
           viewController3 = viewController3;
-          if (os_log_type_enabled(viewController3, v16))
+          if (os_log_type_enabled(viewController3, v18))
           {
             viewController4 = [(WFNetworkListController *)self viewController];
-            v19 = 136315394;
-            v20 = "[WFNetworkListController setPowerState:]";
-            v21 = 2112;
-            v22 = viewController4;
-            _os_log_impl(&dword_273ECD000, viewController3, v16, "%s: viewController (%@) doesn't respond to power state change methods", &v19, 0x16u);
+            v21 = 136315394;
+            v22 = "[WFNetworkListController setPowerState:]";
+            v23 = 2112;
+            v24 = viewController4;
+            _os_log_impl(&dword_273ECD000, viewController3, v18, "%s: viewController (%@) doesn't respond to power state change methods", &v21, 0x16u);
           }
         }
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)networkListViewControllerCurrentPowerState:(id)state
@@ -9024,21 +9090,22 @@ void __78__WFNetworkListController_networkListViewController_userDidChangePowerT
 
 - (void)networkListViewControllerDidAppear:(id)appear
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4)
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4)
   {
-    v6 = v4;
-    if (os_log_type_enabled(v6, v5))
+    v8 = v4;
+    if (os_log_type_enabled(v8, v6))
     {
       interface = [(WFNetworkListController *)self interface];
       currentNetwork = [interface currentNetwork];
-      v20 = 138412546;
-      v21 = currentNetwork;
-      v22 = 1024;
+      v23 = 138412546;
+      v24 = currentNetwork;
+      v25 = 1024;
       isAssociating = [(WFNetworkListController *)self isAssociating];
-      _os_log_impl(&dword_273ECD000, v6, v5, "Network list view controller did appear, current network='%@', isAssociating=%d", &v20, 0x12u);
+      _os_log_impl(&dword_273ECD000, v8, v6, "Network list view controller did appear, current network='%@', isAssociating=%d", &v23, 0x12u);
     }
   }
 
@@ -9052,7 +9119,7 @@ void __78__WFNetworkListController_networkListViewController_userDidChangePowerT
     goto LABEL_15;
   }
 
-  v11 = currentNetwork2;
+  v13 = currentNetwork2;
   isAssociating2 = [(WFNetworkListController *)self isAssociating];
 
   if (isAssociating2)
@@ -9065,13 +9132,14 @@ LABEL_15:
   [(WFNetworkListController *)self _updateViewControllerConnectedNetwork];
   if ([(WFNetworkListController *)self isAirPortSettings])
   {
-    v13 = WFLogForCategory(0);
-    v14 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v13 && os_log_type_enabled(v13, v14))
+    v15 = WFLogForCategory(0);
+    v16 = OSLogForWFLogLevel(3uLL);
+    v17 = v16;
+    if (WFCurrentLogLevel(v16, v18) >= 3 && v15 && os_log_type_enabled(v15, v17))
     {
-      v20 = 67109120;
-      LODWORD(v21) = 5;
-      _os_log_impl(&dword_273ECD000, v13, v14, "Initial no Internet test will start after %d seconds for wifi list appearance.", &v20, 8u);
+      v23 = 67109120;
+      LODWORD(v24) = 5;
+      _os_log_impl(&dword_273ECD000, v15, v17, "Initial no Internet test will start after %d seconds for wifi list appearance.", &v23, 8u);
     }
 
     healthManager = [(WFNetworkListController *)self healthManager];
@@ -9079,37 +9147,37 @@ LABEL_15:
   }
 
 LABEL_16:
-  v16 = +[WFMetricsManager sharedManager];
-  v17 = [WFUserEvent eventWithType:0];
-  [v16 processEvent:v17];
+  v20 = +[WFMetricsManager sharedManager];
+  v21 = [WFUserEvent eventWithType:0];
+  [v20 processEvent:v21];
 
   wifiClient = [(WFNetworkListController *)self wifiClient];
-  LODWORD(v17) = [wifiClient isNetworkRestrictionActive];
+  LODWORD(v21) = [wifiClient isNetworkRestrictionActive];
 
-  [(WFNetworkListController *)self setCanScanForPersonalHotspots:v17 ^ 1];
-  v19 = *MEMORY[0x277D85DE8];
+  [(WFNetworkListController *)self setCanScanForPersonalHotspots:v21 ^ 1];
 }
 
 - (void)networkListViewControllerDidDisappear:(id)disappear
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4)
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4)
   {
-    v6 = v4;
-    if (os_log_type_enabled(v6, v5))
+    v8 = v4;
+    if (os_log_type_enabled(v8, v6))
     {
       isAssociating = [(WFNetworkListController *)self isAssociating];
-      v8 = @"NO";
+      v10 = @"NO";
       if (isAssociating)
       {
-        v8 = @"YES";
+        v10 = @"YES";
       }
 
-      v16 = 138412290;
-      v17 = v8;
-      _os_log_impl(&dword_273ECD000, v6, v5, "Network list view controller did disappear - associating %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v10;
+      _os_log_impl(&dword_273ECD000, v8, v6, "Network list view controller did disappear - associating %@", &v17, 0xCu);
     }
   }
 
@@ -9120,66 +9188,63 @@ LABEL_16:
   viewControllers = [navigationController viewControllers];
   if ([viewControllers count] == 1)
   {
-
-LABEL_11:
-    scanMetricsManager = [(WFNetworkListController *)self scanMetricsManager];
-    [scanMetricsManager submit];
-
-    goto LABEL_12;
   }
 
-  viewController2 = [(WFNetworkListController *)self viewController];
-  navigationController2 = [viewController2 navigationController];
-
-  if (!navigationController2)
+  else
   {
-    goto LABEL_11;
+    viewController2 = [(WFNetworkListController *)self viewController];
+    navigationController2 = [viewController2 navigationController];
+
+    if (navigationController2)
+    {
+      return;
+    }
   }
 
-LABEL_12:
-  v15 = *MEMORY[0x277D85DE8];
+  scanMetricsManager = [(WFNetworkListController *)self scanMetricsManager];
+  [scanMetricsManager submit];
 }
 
 - (void)networkListViewControllerDidFinish:(id)finish
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   finishCopy = finish;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
       isAssociating = [(WFNetworkListController *)self isAssociating];
-      v9 = @"NO";
-      v12 = "[WFNetworkListController networkListViewControllerDidFinish:]";
-      v11 = 136315650;
-      v13 = 2112;
-      v14 = finishCopy;
+      v11 = @"NO";
+      v13 = "[WFNetworkListController networkListViewControllerDidFinish:]";
+      v12 = 136315650;
+      v14 = 2112;
+      v15 = finishCopy;
       if (isAssociating)
       {
-        v9 = @"YES";
+        v11 = @"YES";
       }
 
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_273ECD000, v7, v6, "%s: %@ - associating %@", &v11, 0x20u);
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_273ECD000, v9, v7, "%s: %@ - associating %@", &v12, 0x20u);
     }
   }
 
   [(WFNetworkListController *)self _cleanUpStatesForDismissal];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)networkListViewController:(id)controller showSettingsForNetwork:(id)network context:(int64_t)context scrollToCellType:(unint64_t)type controller:(id)a7
 {
-  v252 = *MEMORY[0x277D85DE8];
+  v285 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   networkCopy = network;
-  v201 = a7;
+  v234 = a7;
   objc_opt_class();
-  v204 = networkCopy;
+  v237 = networkCopy;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
@@ -9189,30 +9254,30 @@ LABEL_12:
       selfCopy = self;
       interface = [(WFNetworkListController *)self interface];
       currentNetwork = [interface currentNetwork];
-      v17 = [currentNetwork isEqual:v204];
+      v19 = [currentNetwork isEqual:v237];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        matchingKnownNetworkProfile = v204;
-        v199 = [[WFNetworkScanRecord alloc] initWithCoreWiFiProfile:matchingKnownNetworkProfile];
+        matchingKnownNetworkProfile = v237;
+        v232 = [[WFNetworkScanRecord alloc] initWithCoreWiFiProfile:matchingKnownNetworkProfile];
         knownNetworksManager = [(WFNetworkListController *)selfCopy knownNetworksManager];
-        ssid = [(WFNetworkScanRecord *)v199 ssid];
-        v20 = [knownNetworksManager privateAddressConfigForNetworkName:ssid];
+        ssid = [(WFNetworkScanRecord *)v232 ssid];
+        v22 = [knownNetworksManager privateAddressConfigForNetworkName:ssid];
 
-        [(WFNetworkScanRecord *)v199 populatePrivateAddressConfig:v20];
+        [(WFNetworkScanRecord *)v232 populatePrivateAddressConfig:v22];
         interface2 = [(WFNetworkListController *)selfCopy interface];
         currentNetwork2 = [interface2 currentNetwork];
-        v23 = [currentNetwork2 isEquivalentRecord:v199];
+        v25 = [currentNetwork2 isEquivalentRecord:v232];
 
-        if (v201)
+        if (v234)
         {
-          [(WFNetworkScanRecord *)v199 setMatchingKnownNetworkProfile:matchingKnownNetworkProfile];
+          [(WFNetworkScanRecord *)v232 setMatchingKnownNetworkProfile:matchingKnownNetworkProfile];
 
           goto LABEL_43;
         }
 
-        if (v23)
+        if (v25)
         {
           goto LABEL_43;
         }
@@ -9223,25 +9288,26 @@ LABEL_12:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v37 = WFLogForCategory(0);
-          v38 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v37)
+          v41 = WFLogForCategory(0);
+          v42 = OSLogForWFLogLevel(1uLL);
+          v43 = v42;
+          if (WFCurrentLogLevel(v42, v44) && v41)
           {
-            v39 = v37;
-            if (os_log_type_enabled(v39, v38))
+            v45 = v41;
+            if (os_log_type_enabled(v45, v43))
             {
               *buf = 136315394;
-              *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-              *&v248[8] = 2112;
-              *&v248[10] = 0;
-              _os_log_impl(&dword_273ECD000, v39, v38, "%s: unknown class type for network='%@'", buf, 0x16u);
+              *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+              *&v281[8] = 2112;
+              *&v281[10] = 0;
+              _os_log_impl(&dword_273ECD000, v45, v43, "%s: unknown class type for network='%@'", buf, 0x16u);
             }
           }
 
-          v199 = 0;
-          if ((v17 & 1) == 0)
+          v232 = 0;
+          if ((v19 & 1) == 0)
           {
-            v42 = 0;
+            v48 = 0;
             goto LABEL_47;
           }
 
@@ -9249,39 +9315,40 @@ LABEL_12:
           goto LABEL_43;
         }
 
-        v199 = v204;
+        v232 = v237;
         gasController = [(WFNetworkListController *)selfCopy gasController];
-        [gasController resolveProfileForNetwork:v199 handler:&__block_literal_global_323 force:1];
+        [gasController resolveProfileForNetwork:v232 handler:&__block_literal_global_323 force:1];
 
         wifiClient = [(WFNetworkListController *)selfCopy wifiClient];
-        v26 = wifiClient;
-        if (v17)
+        v28 = wifiClient;
+        if (v19)
         {
           interface3 = [wifiClient interface];
           associatedOnIRInterface = [interface3 associatedOnIRInterface];
 
           if (associatedOnIRInterface)
           {
-            v29 = WFLogForCategory(0);
-            v30 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v29)
+            v31 = WFLogForCategory(0);
+            v32 = OSLogForWFLogLevel(3uLL);
+            v33 = v32;
+            if (WFCurrentLogLevel(v32, v34) >= 3 && v31)
             {
-              v31 = v29;
-              if (os_log_type_enabled(v31, v30))
+              v35 = v31;
+              if (os_log_type_enabled(v35, v33))
               {
-                title = [(WFNetworkScanRecord *)v199 title];
+                title = [(WFNetworkScanRecord *)v232 title];
                 *buf = 136315394;
-                *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-                *&v248[8] = 2112;
-                *&v248[10] = title;
-                _os_log_impl(&dword_273ECD000, v31, v30, "%s: Getting current network's(%@) profile from ir interface", buf, 0x16u);
+                *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+                *&v281[8] = 2112;
+                *&v281[10] = title;
+                _os_log_impl(&dword_273ECD000, v35, v33, "%s: Getting current network's(%@) profile from ir interface", buf, 0x16u);
               }
             }
 
             wifiClient2 = [(WFNetworkListController *)selfCopy wifiClient];
             interface4 = [wifiClient2 interface];
             irInterface = [interface4 irInterface];
-            scanResult = [(WFNetworkScanRecord *)v199 scanResult];
+            scanResult = [(WFNetworkScanRecord *)v232 scanResult];
             matchingKnownNetworkProfile = [irInterface knownNetworkProfileMatchingScanResult:scanResult];
           }
 
@@ -9302,80 +9369,81 @@ LABEL_12:
         else
         {
           cInterface2 = [wifiClient cInterface];
-          scanResult2 = [(WFNetworkScanRecord *)v199 scanResult];
+          scanResult2 = [(WFNetworkScanRecord *)v232 scanResult];
           matchingKnownNetworkProfile = [cInterface2 knownNetworkProfileMatchingScanResult:scanResult2];
 
           if (matchingKnownNetworkProfile)
           {
-            v42 = 0;
+            v48 = 0;
             goto LABEL_45;
           }
         }
 
-        v46 = WFLogForCategory(0);
-        v47 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v46)
+        v52 = WFLogForCategory(0);
+        v53 = OSLogForWFLogLevel(3uLL);
+        v54 = v53;
+        if (WFCurrentLogLevel(v53, v55) >= 3 && v52)
         {
-          v48 = v46;
-          if (os_log_type_enabled(v48, v47))
+          v56 = v52;
+          if (os_log_type_enabled(v56, v54))
           {
             *buf = 0;
-            _os_log_impl(&dword_273ECD000, v48, v47, "cwProfile not found in known networks list", buf, 2u);
+            _os_log_impl(&dword_273ECD000, v56, v54, "cwProfile not found in known networks list", buf, 2u);
           }
         }
 
-        matchingKnownNetworkProfile = [(WFNetworkScanRecord *)v199 matchingKnownNetworkProfile];
-        if (v17)
+        matchingKnownNetworkProfile = [(WFNetworkScanRecord *)v232 matchingKnownNetworkProfile];
+        if (v19)
         {
 LABEL_43:
           interface5 = [(WFNetworkListController *)selfCopy interface];
           currentNetwork3 = [interface5 currentNetwork];
-          v42 = [currentNetwork3 carPlayType] != 1;
+          v48 = [currentNetwork3 carPlayType] != 1;
 
           goto LABEL_44;
         }
       }
 
-      v42 = 0;
+      v48 = 0;
 LABEL_44:
       if (matchingKnownNetworkProfile)
       {
 LABEL_45:
-        v192 = [[WFNetworkProfile alloc] initWithCoreWiFiProfile:matchingKnownNetworkProfile];
+        v225 = [[WFNetworkProfile alloc] initWithCoreWiFiProfile:matchingKnownNetworkProfile];
         _hardwareMACAddress = [(WFNetworkListController *)selfCopy _hardwareMACAddress];
-        v51 = 0;
-        if (v42)
+        v59 = 0;
+        if (v48)
         {
 LABEL_46:
           interface6 = [(WFNetworkListController *)selfCopy interface];
           currentNetwork4 = [interface6 currentNetwork];
 
-          v196 = 1;
-          v54 = currentNetwork4;
+          v229 = 1;
+          v62 = currentNetwork4;
           goto LABEL_54;
         }
 
 LABEL_53:
-        v54 = v199;
-        v196 = 0;
-        v199 = v54;
+        v62 = v232;
+        v229 = 0;
+        v232 = v62;
 LABEL_54:
-        v205 = v54;
-        matchingKnownNetworkProfile2 = [(WFNetworkScanRecord *)v54 matchingKnownNetworkProfile];
+        v238 = v62;
+        matchingKnownNetworkProfile2 = [(WFNetworkScanRecord *)v62 matchingKnownNetworkProfile];
         nANServiceID = [matchingKnownNetworkProfile2 NANServiceID];
 
         if (_os_feature_enabled_impl())
         {
-          matchingKnownNetworkProfile3 = [(WFNetworkScanRecord *)v205 matchingKnownNetworkProfile];
+          matchingKnownNetworkProfile3 = [(WFNetworkScanRecord *)v238 matchingKnownNetworkProfile];
           if (matchingKnownNetworkProfile3)
           {
-            matchingKnownNetworkProfile4 = [(WFNetworkScanRecord *)v205 matchingKnownNetworkProfile];
+            matchingKnownNetworkProfile4 = [(WFNetworkScanRecord *)v238 matchingKnownNetworkProfile];
             networkProfile = matchingKnownNetworkProfile4;
           }
 
           else
           {
-            matchingKnownNetworkProfile4 = [(WFNetworkScanRecord *)v205 scanResult];
+            matchingKnownNetworkProfile4 = [(WFNetworkScanRecord *)v238 scanResult];
             networkProfile = [matchingKnownNetworkProfile4 networkProfile];
           }
 
@@ -9395,94 +9463,97 @@ LABEL_54:
           goto LABEL_104;
         }
 
-        isRandomMACAddressEnabled = [(WFNetworkScanRecord *)v205 isRandomMACAddressEnabled];
-        v64 = WFLogForCategory(8uLL);
-        v65 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v64)
+        isRandomMACAddressEnabled = [(WFNetworkScanRecord *)v238 isRandomMACAddressEnabled];
+        v74 = WFLogForCategory(8uLL);
+        v75 = OSLogForWFLogLevel(1uLL);
+        v76 = v75;
+        if (WFCurrentLogLevel(v75, v77) && v74)
         {
-          v66 = v64;
-          if (os_log_type_enabled(v66, v65))
+          v78 = v74;
+          if (os_log_type_enabled(v78, v76))
           {
-            ssid2 = [(WFNetworkScanRecord *)v205 ssid];
+            ssid2 = [(WFNetworkScanRecord *)v238 ssid];
             *buf = 67109378;
-            *v248 = isRandomMACAddressEnabled;
-            *&v248[4] = 2112;
-            *&v248[6] = ssid2;
-            _os_log_impl(&dword_273ECD000, v66, v65, "private address value=%d for '%@'", buf, 0x12u);
+            *v281 = isRandomMACAddressEnabled;
+            *&v281[4] = 2112;
+            *&v281[6] = ssid2;
+            _os_log_impl(&dword_273ECD000, v78, v76, "private address value=%d for '%@'", buf, 0x12u);
           }
         }
 
         randomMACManager = [(WFNetworkListController *)selfCopy randomMACManager];
-        ssid3 = [v204 ssid];
-        v70 = [randomMACManager isSSIDinCache:ssid3];
+        ssid3 = [v237 ssid];
+        v82 = [randomMACManager isSSIDinCache:ssid3];
 
-        if (v70)
+        if (v82)
         {
           randomMACManager2 = [(WFNetworkListController *)selfCopy randomMACManager];
-          ssid4 = [v204 ssid];
-          v73 = [randomMACManager2 shouldEnableRandomMACForSSID:ssid4];
+          ssid4 = [v237 ssid];
+          v85 = [randomMACManager2 shouldEnableRandomMACForSSID:ssid4];
 
-          v74 = WFLogForCategory(8uLL);
-          v75 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v74)
+          v86 = WFLogForCategory(8uLL);
+          v87 = OSLogForWFLogLevel(1uLL);
+          v88 = v87;
+          if (WFCurrentLogLevel(v87, v89) && v86)
           {
-            v76 = v74;
-            if (os_log_type_enabled(v76, v75))
+            v90 = v86;
+            if (os_log_type_enabled(v90, v88))
             {
-              ssid5 = [(WFNetworkScanRecord *)v205 ssid];
+              ssid5 = [(WFNetworkScanRecord *)v238 ssid];
               *buf = 67109634;
-              *v248 = v73;
-              *&v248[4] = 1024;
-              *&v248[6] = isRandomMACAddressEnabled;
-              *&v248[10] = 2112;
-              *&v248[12] = ssid5;
-              _os_log_impl(&dword_273ECD000, v76, v75, "overriding private address from scan cache (was=%d) value=%d for '%@'", buf, 0x18u);
+              *v281 = v85;
+              *&v281[4] = 1024;
+              *&v281[6] = isRandomMACAddressEnabled;
+              *&v281[10] = 2112;
+              *&v281[12] = ssid5;
+              _os_log_impl(&dword_273ECD000, v90, v88, "overriding private address from scan cache (was=%d) value=%d for '%@'", buf, 0x18u);
             }
           }
         }
 
         else
         {
-          v73 = isRandomMACAddressEnabled;
+          v85 = isRandomMACAddressEnabled;
         }
 
-        if (v196)
+        if (v229)
         {
           interface7 = [(WFNetworkListController *)selfCopy interface];
           currentNetwork5 = [interface7 currentNetwork];
           isRandomMACAddressEnabled2 = [currentNetwork5 isRandomMACAddressEnabled];
 
-          v81 = WFLogForCategory(8uLL);
-          v82 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v81)
+          v95 = WFLogForCategory(8uLL);
+          v96 = OSLogForWFLogLevel(1uLL);
+          v97 = v96;
+          if (WFCurrentLogLevel(v96, v98) && v95)
           {
-            v83 = v81;
-            if (os_log_type_enabled(v83, v82))
+            v99 = v95;
+            if (os_log_type_enabled(v99, v97))
             {
-              ssid6 = [(WFNetworkScanRecord *)v205 ssid];
+              ssid6 = [(WFNetworkScanRecord *)v238 ssid];
               *buf = 67109634;
-              *v248 = isRandomMACAddressEnabled2;
-              *&v248[4] = 1024;
-              *&v248[6] = v73;
-              *&v248[10] = 2112;
-              *&v248[12] = ssid6;
-              _os_log_impl(&dword_273ECD000, v83, v82, "overriding private address for current network (was=%d) value=%d for '%@'", buf, 0x18u);
+              *v281 = isRandomMACAddressEnabled2;
+              *&v281[4] = 1024;
+              *&v281[6] = v85;
+              *&v281[10] = 2112;
+              *&v281[12] = ssid6;
+              _os_log_impl(&dword_273ECD000, v99, v97, "overriding private address for current network (was=%d) value=%d for '%@'", buf, 0x18u);
             }
           }
         }
 
-        randomMACAddress = [(WFNetworkScanRecord *)v205 randomMACAddress];
-        v86 = [_hardwareMACAddress isEqualToString:randomMACAddress];
+        randomMACAddress = [(WFNetworkScanRecord *)v238 randomMACAddress];
+        v102 = [_hardwareMACAddress isEqualToString:randomMACAddress];
 
-        if (![(WFNetworkScanRecord *)v205 isSupervised])
+        if (![(WFNetworkScanRecord *)v238 isSupervised])
         {
-          randomMACAddress2 = [(WFNetworkScanRecord *)v205 randomMACAddress];
+          randomMACAddress2 = [(WFNetworkScanRecord *)v238 randomMACAddress];
           if (randomMACAddress2)
           {
-            randomMACAddress3 = [(WFNetworkScanRecord *)v205 randomMACAddress];
-            v89 = [_hardwareMACAddress isEqualToString:randomMACAddress3];
+            randomMACAddress3 = [(WFNetworkScanRecord *)v238 randomMACAddress];
+            v105 = [_hardwareMACAddress isEqualToString:randomMACAddress3];
 
-            if ((v89 & (nANServiceID == 0)) != 0)
+            if ((v105 & (nANServiceID == 0)) != 0)
             {
               goto LABEL_80;
             }
@@ -9494,27 +9565,28 @@ LABEL_54:
             if (!nANServiceID)
             {
 LABEL_80:
-              v90 = WFLogForCategory(8uLL);
-              v91 = OSLogForWFLogLevel(1uLL);
-              if (WFCurrentLogLevel() && v90)
+              v106 = WFLogForCategory(8uLL);
+              v107 = OSLogForWFLogLevel(1uLL);
+              v108 = v107;
+              if (WFCurrentLogLevel(v107, v109) && v106)
               {
-                v92 = v90;
-                if (os_log_type_enabled(v92, v91))
+                v110 = v106;
+                if (os_log_type_enabled(v110, v108))
                 {
-                  ssid7 = [(WFNetworkScanRecord *)v205 ssid];
-                  randomMACAddress4 = [(WFNetworkScanRecord *)v205 randomMACAddress];
+                  ssid7 = [(WFNetworkScanRecord *)v238 ssid];
+                  randomMACAddress4 = [(WFNetworkScanRecord *)v238 randomMACAddress];
                   *buf = 138412802;
-                  *v248 = ssid7;
-                  *&v248[8] = 2112;
-                  *&v248[10] = randomMACAddress4;
-                  *&v248[18] = 1024;
-                  *v249 = v86;
-                  _os_log_impl(&dword_273ECD000, v92, v91, "generating private address for '%@' (currentAddress=%@, usingHWAddress=%d)", buf, 0x1Cu);
+                  *v281 = ssid7;
+                  *&v281[8] = 2112;
+                  *&v281[10] = randomMACAddress4;
+                  *&v281[18] = 1024;
+                  *v282 = v102;
+                  _os_log_impl(&dword_273ECD000, v110, v108, "generating private address for '%@' (currentAddress=%@, usingHWAddress=%d)", buf, 0x1Cu);
                 }
               }
 
               randomMACManager3 = [(WFNetworkListController *)selfCopy randomMACManager];
-              v96 = [randomMACManager3 newScanRecordWithRandomMACFromScanRecord:v205];
+              v114 = [randomMACManager3 newScanRecordWithRandomMACFromScanRecord:v238];
 
               if (selfCopy->_isRandomMACManageFeatureEnabled)
               {
@@ -9522,9 +9594,9 @@ LABEL_80:
               }
 
               wifiClient6 = [(WFNetworkListController *)selfCopy wifiClient];
-              ssid8 = [(WFNetworkScanRecord *)v96 ssid];
-              isRandomMACAddressEnabled3 = [(WFNetworkScanRecord *)v96 isRandomMACAddressEnabled];
-              randomMACAddress5 = [(WFNetworkScanRecord *)v96 randomMACAddress];
+              ssid8 = [(WFNetworkScanRecord *)v114 ssid];
+              isRandomMACAddressEnabled3 = [(WFNetworkScanRecord *)v114 isRandomMACAddressEnabled];
+              randomMACAddress5 = [(WFNetworkScanRecord *)v114 randomMACAddress];
               [wifiClient6 setEnableRandomMACForNetwork:ssid8 enable:isRandomMACAddressEnabled3 randomMAC:randomMACAddress5];
 
               goto LABEL_98;
@@ -9533,76 +9605,77 @@ LABEL_80:
         }
 
         wifiClient6 = WFLogForCategory(8uLL);
-        v106 = OSLogForWFLogLevel(1uLL);
-        if (!WFCurrentLogLevel() || !wifiClient6)
+        v124 = OSLogForWFLogLevel(1uLL);
+        v125 = v124;
+        if (!WFCurrentLogLevel(v124, v126) || !wifiClient6)
         {
-          v96 = v205;
+          v114 = v238;
           goto LABEL_100;
         }
 
         ssid8 = wifiClient6;
-        if (os_log_type_enabled(ssid8, v106))
+        if (os_log_type_enabled(ssid8, v125))
         {
-          isSupervised = [(WFNetworkScanRecord *)v205 isSupervised];
-          randomMACAddress6 = [(WFNetworkScanRecord *)v205 randomMACAddress];
+          isSupervised = [(WFNetworkScanRecord *)v238 isSupervised];
+          randomMACAddress6 = [(WFNetworkScanRecord *)v238 randomMACAddress];
           *buf = 136316162;
-          *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-          *&v248[8] = 1024;
-          *&v248[10] = nANServiceID == 0;
-          *&v248[14] = 1024;
-          *&v248[16] = isSupervised;
-          *v249 = 2112;
-          *&v249[2] = randomMACAddress6;
-          v250 = 2112;
-          v251 = _hardwareMACAddress;
-          _os_log_impl(&dword_273ECD000, ssid8, v106, "%s: privateAddressSupported: %d, networkissupervised: %d, network random address from scan: %@, hardwareMac: %@", buf, 0x2Cu);
+          *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+          *&v281[8] = 1024;
+          *&v281[10] = nANServiceID == 0;
+          *&v281[14] = 1024;
+          *&v281[16] = isSupervised;
+          *v282 = 2112;
+          *&v282[2] = randomMACAddress6;
+          v283 = 2112;
+          v284 = _hardwareMACAddress;
+          _os_log_impl(&dword_273ECD000, ssid8, v125, "%s: privateAddressSupported: %d, networkissupervised: %d, network random address from scan: %@, hardwareMac: %@", buf, 0x2Cu);
         }
 
         wifiClient6 = ssid8;
-        v96 = v205;
+        v114 = v238;
 LABEL_98:
 
 LABEL_100:
 LABEL_101:
-        randomMACAddress7 = [(WFNetworkScanRecord *)v96 randomMACAddress];
-        privateAddressMode = [(WFNetworkScanRecord *)v199 privateAddressMode];
+        randomMACAddress7 = [(WFNetworkScanRecord *)v114 randomMACAddress];
+        privateAddressMode = [(WFNetworkScanRecord *)v232 privateAddressMode];
         if (!privateAddressMode)
         {
-          privateAddressMode = [(WFNetworkScanRecord *)v96 privateAddressMode];
+          privateAddressMode = [(WFNetworkScanRecord *)v114 privateAddressMode];
         }
 
-        v205 = v96;
+        v238 = v114;
 LABEL_104:
-        v194 = -[WFDetailContextPrivateAddressConfig initWithRandomMACAddress:hardwareMACAddress:privateAddressMode:connectedWithHardwareAddress:privateAddressSupported:]([WFDetailContextPrivateAddressConfig alloc], "initWithRandomMACAddress:hardwareMACAddress:privateAddressMode:connectedWithHardwareAddress:privateAddressSupported:", randomMACAddress7, _hardwareMACAddress, privateAddressMode, [_hardwareMACAddress isEqualToString:randomMACAddress7], nANServiceID == 0);
+        v227 = -[WFDetailContextPrivateAddressConfig initWithRandomMACAddress:hardwareMACAddress:privateAddressMode:connectedWithHardwareAddress:privateAddressSupported:]([WFDetailContextPrivateAddressConfig alloc], "initWithRandomMACAddress:hardwareMACAddress:privateAddressMode:connectedWithHardwareAddress:privateAddressSupported:", randomMACAddress7, _hardwareMACAddress, privateAddressMode, [_hardwareMACAddress isEqualToString:randomMACAddress7], nANServiceID == 0);
         interface8 = [(WFNetworkListController *)selfCopy interface];
         cInterface5 = [interface8 cInterface];
         deviceSupports6E = [cInterface5 deviceSupports6E];
 
-        if (v51)
+        if (v59)
         {
-          v112 = 0;
+          v132 = 0;
         }
 
         else
         {
-          v112 = [matchingKnownNetworkProfile wifiModeConfigurable] & deviceSupports6E;
+          v132 = [matchingKnownNetworkProfile wifiModeConfigurable] & deviceSupports6E;
         }
 
-        v193 = -[WFDetailContextWiFiModeConfig initWithConfigurable:wifiMode:]([WFDetailContextWiFiModeConfig alloc], "initWithConfigurable:wifiMode:", v112, [matchingKnownNetworkProfile disable6EMode]);
-        v113 = [WFDetailsContext alloc];
+        v226 = -[WFDetailContextWiFiModeConfig initWithConfigurable:wifiMode:]([WFDetailContextWiFiModeConfig alloc], "initWithConfigurable:wifiMode:", v132, [matchingKnownNetworkProfile disable6EMode]);
+        v133 = [WFDetailsContext alloc];
         interface9 = [(WFNetworkListController *)selfCopy interface];
         ipMonitor = [interface9 ipMonitor];
         interface10 = [(WFNetworkListController *)selfCopy interface];
-        v117 = [(WFDetailsContext *)v113 initWithNetwork:v205 profile:matchingKnownNetworkProfile ipMonitor:ipMonitor interface:interface10 privateMACConfig:v194 wifiModeConfig:v193];
+        v137 = [(WFDetailsContext *)v133 initWithNetwork:v238 profile:matchingKnownNetworkProfile ipMonitor:ipMonitor interface:interface10 privateMACConfig:v227 wifiModeConfig:v226];
 
-        [(WFDetailsContext *)v117 setEntryContext:context];
-        [(WFDetailsContext *)v117 setJoinable:context != 2];
+        [(WFDetailsContext *)v137 setEntryContext:context];
+        [(WFDetailsContext *)v137 setJoinable:context != 2];
         wifiClient7 = [(WFNetworkListController *)selfCopy wifiClient];
-        -[WFDetailsContext setDiagnosable:](v117, "setDiagnosable:", [wifiClient7 isDiagnosticsEnabled]);
+        -[WFDetailsContext setDiagnosable:](v137, "setDiagnosable:", [wifiClient7 isDiagnosticsEnabled]);
 
-        if (v196)
+        if (v229)
         {
-          if (v201)
+          if (v234)
           {
             [(WFNetworkListController *)selfCopy _sortedHealthRecommendations:1];
           }
@@ -9611,134 +9684,138 @@ LABEL_104:
           {
             [(WFNetworkListController *)selfCopy _sortedHealthRecommendations];
           }
-          v119 = ;
-          displayableHealthRecommendations = [v119 displayableHealthRecommendations];
-          [(WFDetailsContext *)v117 setRecommendations:displayableHealthRecommendations];
+          v139 = ;
+          displayableHealthRecommendations = [v139 displayableHealthRecommendations];
+          [(WFDetailsContext *)v137 setRecommendations:displayableHealthRecommendations];
 
-          v121 = +[WFMetricsManager sharedManager];
+          v141 = +[WFMetricsManager sharedManager];
           healthRecommendations = [(WFNetworkListController *)selfCopy healthRecommendations];
-          ssid9 = [(WFNetworkScanRecord *)v205 ssid];
-          v124 = [WFHealthUIEvent detailEventWithIssues:healthRecommendations ssid:ssid9 securityType:[(WFNetworkScanRecord *)v205 securityMode]];
-          [v121 processEvent:v124];
+          ssid9 = [(WFNetworkScanRecord *)v238 ssid];
+          v144 = [WFHealthUIEvent detailEventWithIssues:healthRecommendations ssid:ssid9 securityType:[(WFNetworkScanRecord *)v238 securityMode]];
+          [v141 processEvent:v144];
 
           if (objc_opt_respondsToSelector())
           {
             contentCachesContext = [(WFNetworkListController *)selfCopy contentCachesContext];
-            [(WFDetailsContext *)v117 setContentCachesContext:contentCachesContext];
+            [(WFDetailsContext *)v137 setContentCachesContext:contentCachesContext];
           }
         }
 
         privateAddressDisabledBySystemIssue = [MEMORY[0x277D7B9F8] privateAddressDisabledBySystemIssue];
         issueRecommendation = [privateAddressDisabledBySystemIssue issueRecommendation];
-        [(WFDetailsContext *)v117 setStaticPrivateMACFooterText:issueRecommendation];
+        [(WFDetailsContext *)v137 setStaticPrivateMACFooterText:issueRecommendation];
 
-        [(WFDetailsContext *)v117 setCurrent:v196];
+        [(WFDetailsContext *)v137 setCurrent:v229];
         accessoryIdentifier = [matchingKnownNetworkProfile accessoryIdentifier];
         if (_os_feature_enabled_impl())
         {
           isAirPortSettings = [(WFNetworkListController *)selfCopy isAirPortSettings];
           if (accessoryIdentifier && isAirPortSettings)
           {
-            v130 = WFLogForCategory(0);
-            v131 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v130)
+            v150 = WFLogForCategory(0);
+            v151 = OSLogForWFLogLevel(3uLL);
+            v152 = v151;
+            if (WFCurrentLogLevel(v151, v153) >= 3 && v150)
             {
-              v132 = v130;
-              if (os_log_type_enabled(v132, v131))
+              v154 = v150;
+              if (os_log_type_enabled(v154, v152))
               {
                 *buf = 136315394;
-                *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-                *&v248[8] = 2114;
-                *&v248[10] = accessoryIdentifier;
-                _os_log_impl(&dword_273ECD000, v132, v131, "%s: looking up device for accessory identifier = '%{public}@'", buf, 0x16u);
+                *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+                *&v281[8] = 2114;
+                *&v281[10] = accessoryIdentifier;
+                _os_log_impl(&dword_273ECD000, v154, v152, "%s: looking up device for accessory identifier = '%{public}@'", buf, 0x16u);
               }
             }
 
-            v190 = objc_alloc_init(MEMORY[0x277D04780]);
-            v133 = [MEMORY[0x277D04780] getDevicesWithFlags:8 session:v190 error:0];
-            v134 = WFLogForCategory(0);
-            v135 = OSLogForWFLogLevel(4uLL);
-            if (WFCurrentLogLevel() >= 4 && v134)
+            v223 = objc_alloc_init(MEMORY[0x277D04780]);
+            v155 = [MEMORY[0x277D04780] getDevicesWithFlags:8 session:v223 error:0];
+            v156 = WFLogForCategory(0);
+            v157 = OSLogForWFLogLevel(4uLL);
+            v158 = v157;
+            if (WFCurrentLogLevel(v157, v159) >= 4 && v156)
             {
-              v136 = v134;
-              if (os_log_type_enabled(v136, v135))
+              v160 = v156;
+              if (os_log_type_enabled(v160, v158))
               {
                 *buf = 136315394;
-                *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-                *&v248[8] = 2112;
-                *&v248[10] = v133;
-                _os_log_impl(&dword_273ECD000, v136, v135, "%s: devices found = '%@'", buf, 0x16u);
+                *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+                *&v281[8] = 2112;
+                *&v281[10] = v155;
+                _os_log_impl(&dword_273ECD000, v160, v158, "%s: devices found = '%@'", buf, 0x16u);
               }
             }
 
-            v244 = 0u;
-            v245 = 0u;
-            v242 = 0u;
-            v243 = 0u;
-            v137 = v133;
-            v138 = [v137 countByEnumeratingWithState:&v242 objects:v246 count:16];
-            if (v138)
+            v277 = 0u;
+            v278 = 0u;
+            v275 = 0u;
+            v276 = 0u;
+            v161 = v155;
+            v162 = [v161 countByEnumeratingWithState:&v275 objects:v279 count:16];
+            if (v162)
             {
-              v139 = *v243;
+              v163 = *v276;
               while (2)
               {
-                for (i = 0; i != v138; ++i)
+                for (i = 0; i != v162; ++i)
                 {
-                  if (*v243 != v139)
+                  if (*v276 != v163)
                   {
-                    objc_enumerationMutation(v137);
+                    objc_enumerationMutation(v161);
                   }
 
-                  v141 = *(*(&v242 + 1) + 8 * i);
-                  v142 = WFLogForCategory(0);
-                  v143 = OSLogForWFLogLevel(4uLL);
-                  if (WFCurrentLogLevel() >= 4 && v142)
+                  v165 = *(*(&v275 + 1) + 8 * i);
+                  v166 = WFLogForCategory(0);
+                  v167 = OSLogForWFLogLevel(4uLL);
+                  v168 = v167;
+                  if (WFCurrentLogLevel(v167, v169) >= 4 && v166)
                   {
-                    v144 = v142;
-                    if (os_log_type_enabled(v144, v143))
+                    v170 = v166;
+                    if (os_log_type_enabled(v170, v168))
                     {
-                      sSID = [v141 SSID];
+                      sSID = [v165 SSID];
                       *buf = 136315650;
-                      *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-                      *&v248[8] = 2112;
-                      *&v248[10] = v141;
-                      *&v248[18] = 2112;
-                      *v249 = sSID;
-                      _os_log_impl(&dword_273ECD000, v144, v143, "%s: device='%@' SSID='%@'", buf, 0x20u);
+                      *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+                      *&v281[8] = 2112;
+                      *&v281[10] = v165;
+                      *&v281[18] = 2112;
+                      *v282 = sSID;
+                      _os_log_impl(&dword_273ECD000, v170, v168, "%s: device='%@' SSID='%@'", buf, 0x20u);
                     }
                   }
 
-                  identifier = [v141 identifier];
-                  v147 = [identifier isEqualToString:accessoryIdentifier];
+                  identifier = [v165 identifier];
+                  v173 = [identifier isEqualToString:accessoryIdentifier];
 
-                  if (v147)
+                  if (v173)
                   {
-                    v148 = WFLogForCategory(0);
-                    v149 = OSLogForWFLogLevel(4uLL);
-                    if (WFCurrentLogLevel() >= 4 && v148)
+                    v174 = WFLogForCategory(0);
+                    v175 = OSLogForWFLogLevel(4uLL);
+                    v176 = v175;
+                    if (WFCurrentLogLevel(v175, v177) >= 4 && v174)
                     {
-                      v150 = v148;
-                      if (os_log_type_enabled(v150, v149))
+                      v178 = v174;
+                      if (os_log_type_enabled(v178, v176))
                       {
                         *buf = 136315394;
-                        *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-                        *&v248[8] = 2112;
-                        *&v248[10] = v141;
-                        _os_log_impl(&dword_273ECD000, v150, v149, "%s: device found = '%@', setting device to detail context", buf, 0x16u);
+                        *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+                        *&v281[8] = 2112;
+                        *&v281[10] = v165;
+                        _os_log_impl(&dword_273ECD000, v178, v176, "%s: device found = '%@', setting device to detail context", buf, 0x16u);
                       }
                     }
 
                     if (objc_opt_respondsToSelector())
                     {
-                      [(WFDetailsContext *)v117 setDaDevice:v141];
+                      [(WFDetailsContext *)v137 setDaDevice:v165];
                     }
 
                     goto LABEL_149;
                   }
                 }
 
-                v138 = [v137 countByEnumeratingWithState:&v242 objects:v246 count:16];
-                if (v138)
+                v162 = [v161 countByEnumeratingWithState:&v275 objects:v279 count:16];
+                if (v162)
                 {
                   continue;
                 }
@@ -9753,89 +9830,92 @@ LABEL_149:
 
         viewController = [(WFNetworkListController *)selfCopy viewController];
         objc_opt_class();
-        [(WFDetailsContext *)v117 setSupportsAirportManagement:(objc_opt_isKindOfClass() & 1) == 0];
+        [(WFDetailsContext *)v137 setSupportsAirportManagement:(objc_opt_isKindOfClass() & 1) == 0];
 
-        [(WFDetailsContext *)v117 setPrivacyProxyTierStatus:[(WFNetworkListController *)selfCopy privacyProxyFeatureTier]];
+        [(WFDetailsContext *)v137 setPrivacyProxyTierStatus:[(WFNetworkListController *)selfCopy privacyProxyFeatureTier]];
         wifiClient8 = [(WFNetworkListController *)selfCopy wifiClient];
-        v153 = [wifiClient8 cellularOutrankState] != 0;
+        v181 = [wifiClient8 cellularOutrankState] != 0;
         wifiClient9 = [(WFNetworkListController *)selfCopy wifiClient];
-        -[WFDetailsContext setWiFiOutranked:privateCellular:](v117, "setWiFiOutranked:privateCellular:", v153, [wifiClient9 cellularOutrankState] == 5);
+        -[WFDetailsContext setWiFiOutranked:privateCellular:](v137, "setWiFiOutranked:privateCellular:", v181, [wifiClient9 cellularOutrankState] == 5);
 
         wifiClient10 = [(WFNetworkListController *)selfCopy wifiClient];
-        -[WFDetailsContext setWiFiOutrankedDev:](v117, "setWiFiOutrankedDev:", [wifiClient10 cellularOutrankState] == 4);
+        -[WFDetailsContext setWiFiOutrankedDev:](v137, "setWiFiOutrankedDev:", [wifiClient10 cellularOutrankState] == 4);
 
-        [(WFDetailsContext *)v117 setCredentialsVisible:context == 2];
-        if ([(WFDetailsContext *)v117 shouldHideCredentials])
+        [(WFDetailsContext *)v137 setCredentialsVisible:context == 2];
+        if ([(WFDetailsContext *)v137 shouldHideCredentials])
         {
           ssid11 = WFLogForCategory(0);
-          v157 = OSLogForWFLogLevel(1uLL);
-          if (!WFCurrentLogLevel() || !ssid11)
+          v185 = OSLogForWFLogLevel(1uLL);
+          v186 = v185;
+          if (!WFCurrentLogLevel(v185, v187) || !ssid11)
           {
 LABEL_158:
 
-            [(WFDetailsContext *)v117 setScrollToCellType:typeCopy];
-            v161 = WFLogForCategory(0);
-            v162 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v161)
+            [(WFDetailsContext *)v137 setScrollToCellType:typeCopy];
+            v191 = WFLogForCategory(0);
+            v192 = OSLogForWFLogLevel(3uLL);
+            v193 = v192;
+            if (WFCurrentLogLevel(v192, v194) >= 3 && v191)
             {
-              v163 = v161;
-              if (os_log_type_enabled(v163, v162))
+              v195 = v191;
+              if (os_log_type_enabled(v195, v193))
               {
-                network = [(WFDetailsContext *)v117 network];
+                network = [(WFDetailsContext *)v137 network];
                 signalBars = [network signalBars];
                 *buf = 136315650;
-                *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-                *&v248[8] = 2112;
-                *&v248[10] = v117;
-                *&v248[18] = 2048;
-                *v249 = signalBars;
-                _os_log_impl(&dword_273ECD000, v163, v162, "%s: details context='%@' signalBars=%lu", buf, 0x20u);
+                *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+                *&v281[8] = 2112;
+                *&v281[10] = v137;
+                *&v281[18] = 2048;
+                *v282 = signalBars;
+                _os_log_impl(&dword_273ECD000, v195, v193, "%s: details context='%@' signalBars=%lu", buf, 0x20u);
               }
             }
 
             viewProvider = [(WFNetworkListController *)selfCopy viewProvider];
-            v167 = [viewProvider networkDetailsViewControllerWithContext:v117];
+            v199 = [viewProvider networkDetailsViewControllerWithContext:v137];
 
             viewProvider2 = [(WFNetworkListController *)selfCopy viewProvider];
-            v169 = objc_opt_respondsToSelector();
+            v201 = objc_opt_respondsToSelector();
 
-            if (v169)
+            if (v201)
             {
-              v170 = WFLogForCategory(0);
-              v171 = OSLogForWFLogLevel(3uLL);
-              if (WFCurrentLogLevel() >= 3 && v170)
+              v202 = WFLogForCategory(0);
+              v203 = OSLogForWFLogLevel(3uLL);
+              v204 = v203;
+              if (WFCurrentLogLevel(v203, v205) >= 3 && v202)
               {
-                v172 = v170;
-                if (os_log_type_enabled(v172, v171))
+                v206 = v202;
+                if (os_log_type_enabled(v206, v204))
                 {
                   *buf = 138412546;
-                  *v248 = v167;
-                  *&v248[8] = 2112;
-                  *&v248[10] = v117;
-                  _os_log_impl(&dword_273ECD000, v172, v171, "viewProvider will handle presentation of %@ (context %@)", buf, 0x16u);
+                  *v281 = v199;
+                  *&v281[8] = 2112;
+                  *&v281[10] = v137;
+                  _os_log_impl(&dword_273ECD000, v206, v204, "viewProvider will handle presentation of %@ (context %@)", buf, 0x16u);
                 }
               }
 
               viewProvider3 = [(WFNetworkListController *)selfCopy viewProvider];
-              [viewProvider3 presentNetworkViewController:v167 forContext:v117];
+              [viewProvider3 presentNetworkViewController:v199 forContext:v137];
             }
 
             else
             {
               viewController2 = [(WFNetworkListController *)selfCopy viewController];
               navigationController = [viewController2 navigationController];
-              v176 = navigationController == 0;
+              v210 = navigationController == 0;
 
-              if (v176)
+              if (v210)
               {
 LABEL_173:
-                [(WFDetailsContext *)v117 setProvider:v167];
-                v177 = +[WFMetricsManager sharedManager];
-                v178 = [WFUserEvent eventWithType:3 state:v196];
-                [v177 processEvent:v178];
+                [(WFDetailsContext *)v137 setProvider:v199];
+                v211 = +[WFMetricsManager sharedManager];
+                v212 = [WFUserEvent eventWithType:3 state:v229];
+                [v211 processEvent:v212];
 
-                objc_initWeak(buf, v117);
-                if (v201)
+                objc_initWeak(buf, v137);
+                if (v234)
                 {
                   [(WFNetworkListController *)selfCopy setRetainedNetworkListController:?];
                 }
@@ -9852,109 +9932,109 @@ LABEL_173:
                   objc_initWeak(&location, selfCopy);
                 }
 
-                v237[0] = MEMORY[0x277D85DD0];
-                v237[1] = 3221225472;
-                v237[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_335;
-                v237[3] = &unk_279EBD6E8;
-                objc_copyWeak(&v239, &location);
-                objc_copyWeak(v240, buf);
-                v181 = matchingKnownNetworkProfile;
-                v238 = v181;
-                v240[1] = context;
-                [(WFDetailsContext *)v117 setActionHandler:v237];
-                v233[0] = MEMORY[0x277D85DD0];
-                v233[1] = 3221225472;
-                v233[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_388;
-                v233[3] = &unk_279EBD710;
-                objc_copyWeak(&v235, buf);
-                objc_copyWeak(&v236, &location);
-                v12 = v199;
-                v234 = v12;
-                [(WFDetailsContext *)v117 setPrivateMACHandler:v233];
-                v229[0] = MEMORY[0x277D85DD0];
-                v229[1] = 3221225472;
-                v229[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_389;
-                v229[3] = &unk_279EBD738;
-                objc_copyWeak(&v231, buf);
-                v182 = v181;
-                v230 = v182;
-                objc_copyWeak(&v232, &location);
-                [(WFDetailsContext *)v117 setAutoJoinHandler:v229];
-                v225[0] = MEMORY[0x277D85DD0];
-                v225[1] = 3221225472;
-                v225[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_390;
-                v225[3] = &unk_279EBD738;
-                objc_copyWeak(&v227, buf);
-                v183 = v182;
-                v226 = v183;
-                objc_copyWeak(&v228, &location);
-                [(WFDetailsContext *)v117 setAutoLoginHandler:v225];
-                v221[0] = MEMORY[0x277D85DD0];
-                v221[1] = 3221225472;
-                v221[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_391;
-                v221[3] = &unk_279EBD738;
-                objc_copyWeak(&v223, buf);
-                v184 = v183;
-                v222 = v184;
-                objc_copyWeak(&v224, &location);
-                [(WFDetailsContext *)v117 setLowDataModeHandler:v221];
-                v217[0] = MEMORY[0x277D85DD0];
-                v217[1] = 3221225472;
-                v217[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_392;
-                v217[3] = &unk_279EBD738;
-                objc_copyWeak(&v219, buf);
-                v185 = v184;
-                v218 = v185;
-                objc_copyWeak(&v220, &location);
-                [(WFDetailsContext *)v117 setPrivacyProxyHandler:v217];
-                v213[0] = MEMORY[0x277D85DD0];
-                v213[1] = 3221225472;
-                v213[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_396;
-                v213[3] = &unk_279EBD788;
-                objc_copyWeak(&v215, buf);
-                v186 = v185;
-                v214 = v186;
-                objc_copyWeak(&v216, &location);
-                [(WFDetailsContext *)v117 setNetworkQualityHandler:v213];
-                objc_initWeak(&from, v117);
-                v207[0] = MEMORY[0x277D85DD0];
-                v207[1] = 3221225472;
-                v207[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_398;
-                v207[3] = &unk_279EBD7B0;
-                v187 = v186;
-                v208 = v187;
-                objc_copyWeak(&v210, &from);
-                objc_copyWeak(&v211, &location);
-                v209 = v204;
-                [(WFDetailsContext *)v117 setWiFiModeChangedHandler:v207];
-                [(WFNetworkListController *)selfCopy setDetailsContext:v117];
-                [(WFNetworkListController *)selfCopy setVisibleContext:v117];
-                v14 = v167;
+                v270[0] = MEMORY[0x277D85DD0];
+                v270[1] = 3221225472;
+                v270[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_335;
+                v270[3] = &unk_279EBD6E8;
+                objc_copyWeak(&v272, &location);
+                objc_copyWeak(v273, buf);
+                v215 = matchingKnownNetworkProfile;
+                v271 = v215;
+                v273[1] = context;
+                [(WFDetailsContext *)v137 setActionHandler:v270];
+                v266[0] = MEMORY[0x277D85DD0];
+                v266[1] = 3221225472;
+                v266[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_388;
+                v266[3] = &unk_279EBD710;
+                objc_copyWeak(&v268, buf);
+                objc_copyWeak(&v269, &location);
+                v12 = v232;
+                v267 = v12;
+                [(WFDetailsContext *)v137 setPrivateMACHandler:v266];
+                v262[0] = MEMORY[0x277D85DD0];
+                v262[1] = 3221225472;
+                v262[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_389;
+                v262[3] = &unk_279EBD738;
+                objc_copyWeak(&v264, buf);
+                v216 = v215;
+                v263 = v216;
+                objc_copyWeak(&v265, &location);
+                [(WFDetailsContext *)v137 setAutoJoinHandler:v262];
+                v258[0] = MEMORY[0x277D85DD0];
+                v258[1] = 3221225472;
+                v258[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_390;
+                v258[3] = &unk_279EBD738;
+                objc_copyWeak(&v260, buf);
+                v217 = v216;
+                v259 = v217;
+                objc_copyWeak(&v261, &location);
+                [(WFDetailsContext *)v137 setAutoLoginHandler:v258];
+                v254[0] = MEMORY[0x277D85DD0];
+                v254[1] = 3221225472;
+                v254[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_391;
+                v254[3] = &unk_279EBD738;
+                objc_copyWeak(&v256, buf);
+                v218 = v217;
+                v255 = v218;
+                objc_copyWeak(&v257, &location);
+                [(WFDetailsContext *)v137 setLowDataModeHandler:v254];
+                v250[0] = MEMORY[0x277D85DD0];
+                v250[1] = 3221225472;
+                v250[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_392;
+                v250[3] = &unk_279EBD738;
+                objc_copyWeak(&v252, buf);
+                v219 = v218;
+                v251 = v219;
+                objc_copyWeak(&v253, &location);
+                [(WFDetailsContext *)v137 setPrivacyProxyHandler:v250];
+                v246[0] = MEMORY[0x277D85DD0];
+                v246[1] = 3221225472;
+                v246[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_396;
+                v246[3] = &unk_279EBD788;
+                objc_copyWeak(&v248, buf);
+                v220 = v219;
+                v247 = v220;
+                objc_copyWeak(&v249, &location);
+                [(WFDetailsContext *)v137 setNetworkQualityHandler:v246];
+                objc_initWeak(&from, v137);
+                v240[0] = MEMORY[0x277D85DD0];
+                v240[1] = 3221225472;
+                v240[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_398;
+                v240[3] = &unk_279EBD7B0;
+                v221 = v220;
+                v241 = v221;
+                objc_copyWeak(&v243, &from);
+                objc_copyWeak(&v244, &location);
+                v242 = v237;
+                [(WFDetailsContext *)v137 setWiFiModeChangedHandler:v240];
+                [(WFNetworkListController *)selfCopy setDetailsContext:v137];
+                [(WFNetworkListController *)selfCopy setVisibleContext:v137];
+                v16 = v199;
 
-                objc_destroyWeak(&v211);
-                objc_destroyWeak(&v210);
+                objc_destroyWeak(&v244);
+                objc_destroyWeak(&v243);
 
                 objc_destroyWeak(&from);
-                objc_destroyWeak(&v216);
+                objc_destroyWeak(&v249);
 
-                objc_destroyWeak(&v215);
-                objc_destroyWeak(&v220);
+                objc_destroyWeak(&v248);
+                objc_destroyWeak(&v253);
 
-                objc_destroyWeak(&v219);
-                objc_destroyWeak(&v224);
+                objc_destroyWeak(&v252);
+                objc_destroyWeak(&v257);
 
-                objc_destroyWeak(&v223);
-                objc_destroyWeak(&v228);
+                objc_destroyWeak(&v256);
+                objc_destroyWeak(&v261);
 
-                objc_destroyWeak(&v227);
-                objc_destroyWeak(&v232);
+                objc_destroyWeak(&v260);
+                objc_destroyWeak(&v265);
 
-                objc_destroyWeak(&v231);
-                objc_destroyWeak(&v236);
-                objc_destroyWeak(&v235);
+                objc_destroyWeak(&v264);
+                objc_destroyWeak(&v269);
+                objc_destroyWeak(&v268);
 
-                objc_destroyWeak(v240);
-                objc_destroyWeak(&v239);
+                objc_destroyWeak(v273);
+                objc_destroyWeak(&v272);
                 objc_destroyWeak(&location);
                 objc_destroyWeak(buf);
 
@@ -9962,60 +10042,61 @@ LABEL_173:
               }
 
               viewProvider3 = [(WFNetworkListController *)selfCopy viewController];
-              [viewProvider3 wf_pushViewController:v167 animated:1];
+              [viewProvider3 wf_pushViewController:v199 animated:1];
             }
 
             goto LABEL_173;
           }
 
-          v158 = ssid11;
-          if (os_log_type_enabled(v158, v157))
+          v188 = ssid11;
+          if (os_log_type_enabled(v188, v186))
           {
-            ssid10 = [(WFNetworkScanRecord *)v205 ssid];
+            ssid10 = [(WFNetworkScanRecord *)v238 ssid];
             *buf = 136315394;
-            *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-            *&v248[8] = 2112;
-            *&v248[10] = ssid10;
-            _os_log_impl(&dword_273ECD000, v158, v157, "%s: Not setting credentials for network: %@ to keep it hidden", buf, 0x16u);
+            *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+            *&v281[8] = 2112;
+            *&v281[10] = ssid10;
+            _os_log_impl(&dword_273ECD000, v188, v186, "%s: Not setting credentials for network: %@ to keep it hidden", buf, 0x16u);
           }
 
-          ssid11 = v158;
+          ssid11 = v188;
         }
 
         else
         {
-          username = [(WFNetworkProfile *)v192 username];
-          [(WFDetailsContext *)v117 setUsername:username];
+          username = [(WFNetworkProfile *)v225 username];
+          [(WFDetailsContext *)v137 setUsername:username];
 
-          ssid11 = [(WFNetworkScanRecord *)v205 ssid];
-          v158 = [(WFNetworkListController *)selfCopy passwordToDisplayForSSID:ssid11];
-          [(WFDetailsContext *)v117 setPassword:v158];
+          ssid11 = [(WFNetworkScanRecord *)v238 ssid];
+          v188 = [(WFNetworkListController *)selfCopy passwordToDisplayForSSID:ssid11];
+          [(WFDetailsContext *)v137 setPassword:v188];
         }
 
         goto LABEL_158;
       }
 
 LABEL_47:
-      v55 = WFLogForCategory(0);
-      v56 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v55)
+      v63 = WFLogForCategory(0);
+      v64 = OSLogForWFLogLevel(3uLL);
+      v65 = v64;
+      if (WFCurrentLogLevel(v64, v66) >= 3 && v63)
       {
-        v57 = v55;
-        if (os_log_type_enabled(v57, v56))
+        v67 = v63;
+        if (os_log_type_enabled(v67, v65))
         {
           *buf = 136315394;
-          *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-          *&v248[8] = 2112;
-          *&v248[10] = v199;
-          _os_log_impl(&dword_273ECD000, v57, v56, "%s: nil CWFProfile for '%@', network is not a known network", buf, 0x16u);
+          *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+          *&v281[8] = 2112;
+          *&v281[10] = v232;
+          _os_log_impl(&dword_273ECD000, v67, v65, "%s: nil CWFProfile for '%@', network is not a known network", buf, 0x16u);
         }
       }
 
       _hardwareMACAddress = [(WFNetworkListController *)selfCopy _hardwareMACAddress];
-      v192 = 0;
+      v225 = 0;
       matchingKnownNetworkProfile = 0;
-      v51 = 1;
-      if (v42)
+      v59 = 1;
+      if (v48)
       {
         goto LABEL_46;
       }
@@ -10026,60 +10107,59 @@ LABEL_47:
 
   v12 = WFLogForCategory(0);
   v13 = OSLogForWFLogLevel(3uLL);
-  v14 = 0;
-  if (WFCurrentLogLevel() >= 3 && v12)
+  v14 = v13;
+  v16 = 0;
+  if (WFCurrentLogLevel(v13, v15) >= 3 && v12)
   {
-    if (os_log_type_enabled(v12, v13))
+    if (os_log_type_enabled(v12, v14))
     {
       *buf = 136315394;
-      *v248 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
-      *&v248[8] = 2112;
-      *&v248[10] = v204;
-      _os_log_impl(&dword_273ECD000, v12, v13, "%s: not showing settings for in progress hotspot join %@", buf, 0x16u);
+      *v281 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]";
+      *&v281[8] = 2112;
+      *&v281[10] = v237;
+      _os_log_impl(&dword_273ECD000, v12, v14, "%s: not showing settings for in progress hotspot join %@", buf, 0x16u);
     }
 
-    v14 = 0;
+    v16 = 0;
   }
 
 LABEL_179:
 
-  v188 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v16;
 }
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = WFLogForCategory(5uLL);
   v7 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) && v6 && os_log_type_enabled(v6, v8))
   {
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_273ECD000, v6, v7, "resolved profile %@ error %@", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_273ECD000, v6, v8, "resolved profile %@ error %@", &v10, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_335(uint64_t a1, uint64_t a2)
 {
-  v124 = *MEMORY[0x277D85DE8];
+  v139 = *MEMORY[0x277D85DE8];
   objc_copyWeak(&to, (a1 + 40));
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4 && os_log_type_enabled(v4, v6))
   {
     *buf = 136315394;
-    v121 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-    v122 = 2048;
-    v123 = a2;
-    _os_log_impl(&dword_273ECD000, v4, v5, "%s: performing details action=%lu", buf, 0x16u);
+    v136 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+    v137 = 2048;
+    v138 = a2;
+    _os_log_impl(&dword_273ECD000, v4, v6, "%s: performing details action=%lu", buf, 0x16u);
   }
 
   if (a2 <= 2)
@@ -10089,34 +10169,35 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
       if (a2 == 1)
       {
         WeakRetained = objc_loadWeakRetained((a1 + 48));
-        v11 = [WeakRetained network];
+        v13 = [WeakRetained network];
 
-        v42 = WFLogForCategory(0);
-        v43 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v42 && os_log_type_enabled(v42, v43))
+        v46 = WFLogForCategory(0);
+        v47 = OSLogForWFLogLevel(3uLL);
+        v48 = v47;
+        if (WFCurrentLogLevel(v47, v49) >= 3 && v46 && os_log_type_enabled(v46, v48))
         {
           *buf = 138412290;
-          v121 = v11;
-          _os_log_impl(&dword_273ECD000, v42, v43, "Launching AirPort Utility for network %@", buf, 0xCu);
+          v136 = v13;
+          _os_log_impl(&dword_273ECD000, v46, v48, "Launching AirPort Utility for network %@", buf, 0xCu);
         }
 
-        if (v11)
+        if (v13)
         {
-          v44 = +[WFMetricsManager sharedManager];
-          v45 = [WFUserEvent eventWithType:5];
-          [v44 processEvent:v45];
+          v50 = +[WFMetricsManager sharedManager];
+          v51 = [WFUserEvent eventWithType:5];
+          [v50 processEvent:v51];
 
-          v46 = MEMORY[0x277CEA3A8];
-          v47 = [v11 ssid];
-          v48 = [v11 bssid];
-          v49 = objc_loadWeakRetained(&to);
-          v50 = [v49 viewController];
-          [v46 launchAUForNetwork:v47 withMacAddress:v48 getAUFromAppStore:1 viewController:v50];
+          v52 = MEMORY[0x277CEA3A8];
+          v53 = [v13 ssid];
+          v54 = [v13 bssid];
+          v55 = objc_loadWeakRetained(&to);
+          v56 = [v55 viewController];
+          [v52 launchAUForNetwork:v53 withMacAddress:v54 getAUFromAppStore:1 viewController:v56];
         }
 
-        v51 = objc_loadWeakRetained(&to);
-        v52 = objc_loadWeakRetained((a1 + 48));
-        [v51 _dismissDetailsViewControllerWithContext:v52];
+        v57 = objc_loadWeakRetained(&to);
+        v58 = objc_loadWeakRetained((a1 + 48));
+        [v57 _dismissDetailsViewControllerWithContext:v58];
 
         goto LABEL_85;
       }
@@ -10126,217 +10207,222 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
         goto LABEL_86;
       }
 
-      v12 = objc_loadWeakRetained(&to);
-      v13 = objc_loadWeakRetained((a1 + 48));
-      [v12 _dismissDetailsViewControllerWithContext:v13];
+      v14 = objc_loadWeakRetained(&to);
+      v15 = objc_loadWeakRetained((a1 + 48));
+      [v14 _dismissDetailsViewControllerWithContext:v15];
 
-      v14 = objc_loadWeakRetained((a1 + 48));
-      v11 = [v14 network];
+      v16 = objc_loadWeakRetained((a1 + 48));
+      v13 = [v16 network];
 
-      v15 = objc_loadWeakRetained(&to);
-      [v15 _associateToScanRecord:v11];
+      v17 = objc_loadWeakRetained(&to);
+      [v17 _associateToScanRecord:v13];
 
-      v16 = objc_loadWeakRetained(&to);
-      v17 = [v16 associationContext];
-      [v17 setOriginator:2];
+      v18 = objc_loadWeakRetained(&to);
+      v19 = [v18 associationContext];
+      [v19 setOriginator:2];
 
       goto LABEL_85;
     }
 
-    v22 = +[WFMetricsManager sharedManager];
-    v23 = [WFUserEvent eventWithType:4];
-    [v22 processEvent:v23];
+    v24 = +[WFMetricsManager sharedManager];
+    v25 = [WFUserEvent eventWithType:4];
+    [v24 processEvent:v25];
 
-    v24 = objc_loadWeakRetained(&to);
-    v25 = objc_loadWeakRetained((a1 + 48));
-    [v24 _dismissDetailsViewControllerWithContext:v25];
+    v26 = objc_loadWeakRetained(&to);
+    v27 = objc_loadWeakRetained((a1 + 48));
+    [v26 _dismissDetailsViewControllerWithContext:v27];
 
-    v26 = objc_loadWeakRetained((a1 + 48));
-    v27 = [v26 network];
+    v28 = objc_loadWeakRetained((a1 + 48));
+    v29 = [v28 network];
 
-    v28 = objc_loadWeakRetained(&to);
-    v29 = [v28 interface];
-    v30 = [v29 currentNetwork];
-    v31 = [v27 isEqual:v30];
+    v30 = objc_loadWeakRetained(&to);
+    v31 = [v30 interface];
+    v32 = [v31 currentNetwork];
+    v33 = [v29 isEqual:v32];
 
-    if (v31)
+    if (v33)
     {
-      v114 = 1;
+      v129 = 1;
 LABEL_51:
-      v84 = [v27 carPlayType];
-      v85 = v84 == 2;
-      if (v84 != 2 && ((v114 ^ 1) & 1) == 0)
+      v92 = [v29 carPlayType];
+      v93 = v92 == 2;
+      if (v92 != 2 && ((v129 ^ 1) & 1) == 0)
       {
-        v86 = objc_loadWeakRetained(&to);
-        v87 = [v86 interface];
-        v88 = [v87 currentNetwork];
-        v85 = [v88 carPlayType] == 2;
+        v94 = objc_loadWeakRetained(&to);
+        v95 = [v94 interface];
+        v96 = [v95 currentNetwork];
+        v93 = [v96 carPlayType] == 2;
       }
 
-      v89 = objc_loadWeakRetained(&to);
-      v90 = [v89 networks];
-      v91 = [v90 mutableCopy];
+      v97 = objc_loadWeakRetained(&to);
+      v98 = [v97 networks];
+      v99 = [v98 mutableCopy];
 
-      [v91 removeObject:v27];
-      [v27 setKnown:0];
-      v92 = objc_loadWeakRetained(&to);
-      [v92 setNetworks:v91];
+      [v99 removeObject:v29];
+      [v29 setKnown:0];
+      v100 = objc_loadWeakRetained(&to);
+      [v100 setNetworks:v99];
 
-      v93 = dispatch_get_global_queue(21, 0);
+      v101 = dispatch_get_global_queue(21, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_337;
       block[3] = &unk_279EBD6C0;
-      objc_copyWeak(&v118, &to);
-      v116 = *(a1 + 32);
-      v11 = v27;
-      v117 = v11;
-      dispatch_async(v93, block);
+      objc_copyWeak(&v133, &to);
+      v131 = *(a1 + 32);
+      v13 = v29;
+      v132 = v13;
+      dispatch_async(v101, block);
 
-      if (v114)
+      if (v129)
       {
-        if (v85)
+        if (v93)
         {
-          v94 = WFLogForCategory(0);
-          v95 = OSLogForWFLogLevel(3uLL);
-          if (WFCurrentLogLevel() >= 3 && v94 && os_log_type_enabled(v94, v95))
+          v102 = WFLogForCategory(0);
+          v103 = OSLogForWFLogLevel(3uLL);
+          v104 = v103;
+          if (WFCurrentLogLevel(v103, v105) >= 3 && v102 && os_log_type_enabled(v102, v104))
           {
             *buf = 0;
-            _os_log_impl(&dword_273ECD000, v94, v95, "Network is CarPlayUserConfigured- not disassociating, changing current network type == CarPlayOnly", buf, 2u);
+            _os_log_impl(&dword_273ECD000, v102, v104, "Network is CarPlayUserConfigured- not disassociating, changing current network type == CarPlayOnly", buf, 2u);
           }
 
-          v96 = objc_loadWeakRetained(&to);
-          v97 = [v96 interface];
-          [v97 disassociateFromCarPlayUserConfiguredNetwork];
+          v106 = objc_loadWeakRetained(&to);
+          v107 = [v106 interface];
+          [v107 disassociateFromCarPlayUserConfiguredNetwork];
         }
 
         else
         {
-          v96 = objc_loadWeakRetained(&to);
-          v97 = [v96 interface];
-          [v97 disassociateFromCurrentNetwork];
+          v106 = objc_loadWeakRetained(&to);
+          v107 = [v106 interface];
+          [v107 disassociateFromCurrentNetwork];
         }
       }
 
       else
       {
-        if (!v11)
+        if (!v13)
         {
           goto LABEL_69;
         }
 
-        v98 = WFLogForCategory(0);
-        v99 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v98 && os_log_type_enabled(v98, v99))
+        v108 = WFLogForCategory(0);
+        v109 = OSLogForWFLogLevel(3uLL);
+        v110 = v109;
+        if (WFCurrentLogLevel(v109, v111) >= 3 && v108 && os_log_type_enabled(v108, v110))
         {
           *buf = 136315394;
-          v121 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-          v122 = 2112;
-          v123 = v11;
-          _os_log_impl(&dword_273ECD000, v98, v99, "%s: updating view for %@", buf, 0x16u);
+          v136 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+          v137 = 2112;
+          v138 = v13;
+          _os_log_impl(&dword_273ECD000, v108, v110, "%s: updating view for %@", buf, 0x16u);
         }
 
-        [v11 setHotspot20Name:0];
-        [v11 setHotspotPluginLabel:0];
-        v96 = objc_loadWeakRetained(&to);
-        v97 = [MEMORY[0x277CBEB98] setWithObject:v11];
-        [v96 _updateViewsForNetworks:v97];
+        [v13 setHotspot20Name:0];
+        [v13 setHotspotPluginLabel:0];
+        v106 = objc_loadWeakRetained(&to);
+        v107 = [MEMORY[0x277CBEB98] setWithObject:v13];
+        [v106 _updateViewsForNetworks:v107];
       }
 
 LABEL_69:
-      v100 = objc_loadWeakRetained(&to);
-      if ([v100 isHS20Supported])
+      v112 = objc_loadWeakRetained(&to);
+      if ([v112 isHS20Supported])
       {
-        v101 = [v11 isHotspot20];
+        v113 = [v13 isHotspot20];
 
-        if (!v101)
+        if (!v113)
         {
           goto LABEL_77;
         }
 
-        v102 = WFLogForCategory(0);
-        v103 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v102 && os_log_type_enabled(v102, v103))
+        v114 = WFLogForCategory(0);
+        v115 = OSLogForWFLogLevel(3uLL);
+        v116 = v115;
+        if (WFCurrentLogLevel(v115, v117) >= 3 && v114 && os_log_type_enabled(v114, v116))
         {
           *buf = 136315138;
-          v121 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-          _os_log_impl(&dword_273ECD000, v102, v103, "%s: network is hotspot 20", buf, 0xCu);
+          v136 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+          _os_log_impl(&dword_273ECD000, v114, v116, "%s: network is hotspot 20", buf, 0xCu);
         }
 
-        v100 = objc_loadWeakRetained(&to);
-        v104 = [v100 gasController];
-        [v104 removeProfileForNetwork:v11];
+        v112 = objc_loadWeakRetained(&to);
+        v118 = [v112 gasController];
+        [v118 removeProfileForNetwork:v13];
       }
 
 LABEL_77:
       if (*(a1 + 56) == 2)
       {
-        v105 = objc_loadWeakRetained(&to);
-        v106 = [v105 viewController];
-        v107 = [v106 conformsToProtocol:&unk_288336D30];
+        v119 = objc_loadWeakRetained(&to);
+        v120 = [v119 viewController];
+        v121 = [v120 conformsToProtocol:&unk_288336D30];
 
-        if (v107)
+        if (v121)
         {
-          v108 = WFLogForCategory(0);
-          v109 = OSLogForWFLogLevel(3uLL);
-          if (WFCurrentLogLevel() >= 3 && v108 && os_log_type_enabled(v108, v109))
+          v122 = WFLogForCategory(0);
+          v123 = OSLogForWFLogLevel(3uLL);
+          v124 = v123;
+          if (WFCurrentLogLevel(v123, v125) >= 3 && v122 && os_log_type_enabled(v122, v124))
           {
             *buf = 136315138;
-            v121 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-            _os_log_impl(&dword_273ECD000, v108, v109, "%s: refreshing view controller after forget network", buf, 0xCu);
+            v136 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+            _os_log_impl(&dword_273ECD000, v122, v124, "%s: refreshing view controller after forget network", buf, 0xCu);
           }
 
-          v110 = objc_loadWeakRetained(&to);
-          v111 = [v110 viewController];
+          v126 = objc_loadWeakRetained(&to);
+          v127 = [v126 viewController];
 
-          [v111 refreshKnownNetworksUpdateTableView:1];
+          [v127 refreshKnownNetworksUpdateTableView:1];
         }
       }
 
-      objc_destroyWeak(&v118);
+      objc_destroyWeak(&v133);
       goto LABEL_85;
     }
 
-    v53 = [v27 ssid];
-    v54 = objc_loadWeakRetained(&to);
-    v55 = [v54 interface];
-    v56 = [v55 currentNetwork];
-    v57 = [v56 ssid];
-    v114 = [v53 isEqualToString:v57];
-    if (v114)
+    v59 = [v29 ssid];
+    v60 = objc_loadWeakRetained(&to);
+    v61 = [v60 interface];
+    v62 = [v61 currentNetwork];
+    v63 = [v62 ssid];
+    v129 = [v59 isEqualToString:v63];
+    if (v129)
     {
-      v58 = objc_loadWeakRetained(&to);
-      v59 = [v58 interface];
-      v60 = [v59 currentNetwork];
-      v113 = [v27 isNetworkSecurityModeMatch:{objc_msgSend(v60, "securityModeExt")}];
+      v64 = objc_loadWeakRetained(&to);
+      v65 = [v64 interface];
+      v66 = [v65 currentNetwork];
+      v128 = [v29 isNetworkSecurityModeMatch:{objc_msgSend(v66, "securityModeExt")}];
 
-      if (!v113)
+      if (!v128)
       {
-        v114 = 0;
+        v129 = 0;
         goto LABEL_51;
       }
 
-      v53 = WFLogForCategory(0);
-      v61 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v53)
+      v59 = WFLogForCategory(0);
+      v67 = OSLogForWFLogLevel(3uLL);
+      v68 = v67;
+      if (WFCurrentLogLevel(v67, v69) < 3 || !v59)
       {
         goto LABEL_49;
       }
 
-      v54 = v53;
-      if (os_log_type_enabled(v54, v61))
+      v60 = v59;
+      if (os_log_type_enabled(v60, v68))
       {
-        v62 = objc_loadWeakRetained(&to);
-        v63 = [v62 interface];
-        v64 = [v63 currentNetwork];
+        v70 = objc_loadWeakRetained(&to);
+        v71 = [v70 interface];
+        v72 = [v71 currentNetwork];
         *buf = 138412546;
-        v121 = v64;
-        v122 = 2112;
-        v123 = v27;
-        _os_log_impl(&dword_273ECD000, v54, v61, "current network %@ isNotEqual to network to be forgotten %@, but ssid + security type match", buf, 0x16u);
+        v136 = v72;
+        v137 = 2112;
+        v138 = v29;
+        _os_log_impl(&dword_273ECD000, v60, v68, "current network %@ isNotEqual to network to be forgotten %@, but ssid + security type match", buf, 0x16u);
       }
 
-      v53 = v54;
+      v59 = v60;
     }
 
     else
@@ -10353,15 +10439,15 @@ LABEL_49:
     {
       if (a2 == 6)
       {
-        v18 = objc_loadWeakRetained((a1 + 48));
-        v19 = [v18 portalContext];
-        v11 = [v19 fullPortalURLString];
+        v20 = objc_loadWeakRetained((a1 + 48));
+        v21 = [v20 portalContext];
+        v13 = [v21 fullPortalURLString];
 
-        if (v11)
+        if (v13)
         {
-          v20 = [MEMORY[0x277D75128] sharedApplication];
-          v21 = [MEMORY[0x277CBEBC0] URLWithString:v11];
-          [v20 openURL:v21 options:MEMORY[0x277CBEC10] completionHandler:0];
+          v22 = [MEMORY[0x277D75128] sharedApplication];
+          v23 = [MEMORY[0x277CBEBC0] URLWithString:v13];
+          [v22 openURL:v23 options:MEMORY[0x277CBEC10] completionHandler:0];
         }
 
         goto LABEL_85;
@@ -10370,11 +10456,11 @@ LABEL_49:
       goto LABEL_86;
     }
 
-    v39 = objc_loadWeakRetained((a1 + 48));
-    v11 = [v39 network];
+    v43 = objc_loadWeakRetained((a1 + 48));
+    v13 = [v43 network];
 
-    v40 = objc_loadWeakRetained(&to);
-    [v40 _associateToScanRecord:v11];
+    v44 = objc_loadWeakRetained(&to);
+    [v44 _associateToScanRecord:v13];
 
 LABEL_85:
     goto LABEL_86;
@@ -10382,81 +10468,82 @@ LABEL_85:
 
   if (a2 != 3)
   {
-    v6 = objc_loadWeakRetained((a1 + 48));
-    v7 = [v6 recommendations];
-    if (v7)
+    v8 = objc_loadWeakRetained((a1 + 48));
+    v9 = [v8 recommendations];
+    if (v9)
     {
-      v8 = MEMORY[0x277CBEB98];
-      v9 = objc_loadWeakRetained((a1 + 48));
-      v10 = [v9 recommendations];
-      v11 = [v8 setWithArray:v10];
+      v10 = MEMORY[0x277CBEB98];
+      v11 = objc_loadWeakRetained((a1 + 48));
+      v12 = [v11 recommendations];
+      v13 = [v10 setWithArray:v12];
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    v65 = objc_loadWeakRetained((a1 + 48));
-    v66 = [v65 network];
+    v73 = objc_loadWeakRetained((a1 + 48));
+    v74 = [v73 network];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      v68 = objc_loadWeakRetained((a1 + 48));
-      v69 = [v68 network];
-      v70 = [v69 securityMode];
+      v76 = objc_loadWeakRetained((a1 + 48));
+      v77 = [v76 network];
+      v78 = [v77 securityMode];
     }
 
     else
     {
-      v70 = 0;
+      v78 = 0;
     }
 
-    v71 = +[WFMetricsManager sharedManager];
-    v72 = objc_loadWeakRetained((a1 + 48));
-    v73 = [v72 network];
-    v74 = [v73 ssid];
-    v75 = [WFHealthUIEvent tapLinkEventWithIssues:v11 ssid:v74 securityType:v70];
-    [v71 processEvent:v75];
+    v79 = +[WFMetricsManager sharedManager];
+    v80 = objc_loadWeakRetained((a1 + 48));
+    v81 = [v80 network];
+    v82 = [v81 ssid];
+    v83 = [WFHealthUIEvent tapLinkEventWithIssues:v13 ssid:v82 securityType:v78];
+    [v79 processEvent:v83];
 
-    v76 = MEMORY[0x277CCA8D8];
-    v77 = objc_loadWeakRetained(&to);
-    v78 = [v76 bundleForClass:objc_opt_class()];
-    v79 = [v78 localizedStringForKey:@"kWFLocSettingsRecommendationLinkURL" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+    v84 = MEMORY[0x277CCA8D8];
+    v85 = objc_loadWeakRetained(&to);
+    v86 = [v84 bundleForClass:objc_opt_class()];
+    v87 = [v86 localizedStringForKey:@"kWFLocSettingsRecommendationLinkURL" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
 
-    if (v79)
+    if (v87)
     {
-      v80 = [MEMORY[0x277D75128] sharedApplication];
-      v81 = [MEMORY[0x277CBEBC0] URLWithString:v79];
-      [v80 openURL:v81 options:MEMORY[0x277CBEC10] completionHandler:0];
+      v88 = [MEMORY[0x277D75128] sharedApplication];
+      v89 = [MEMORY[0x277CBEBC0] URLWithString:v87];
+      [v88 openURL:v89 options:MEMORY[0x277CBEC10] completionHandler:0];
     }
 
-    v82 = objc_loadWeakRetained(&to);
-    v83 = objc_loadWeakRetained((a1 + 48));
-    [v82 _dismissDetailsViewControllerWithContext:v83];
+    v90 = objc_loadWeakRetained(&to);
+    v91 = objc_loadWeakRetained((a1 + 48));
+    [v90 _dismissDetailsViewControllerWithContext:v91];
 
     goto LABEL_85;
   }
 
-  v32 = +[WFMetricsManager sharedManager];
-  v33 = [WFUserEvent eventWithType:6];
-  [v32 processEvent:v33];
+  v34 = +[WFMetricsManager sharedManager];
+  v35 = [WFUserEvent eventWithType:6];
+  [v34 processEvent:v35];
 
-  v34 = objc_loadWeakRetained(&to);
-  v35 = [v34 interface];
-  v36 = [v35 ipMonitor];
-  v37 = [v36 renewLease];
+  v36 = objc_loadWeakRetained(&to);
+  v37 = [v36 interface];
+  v38 = [v37 ipMonitor];
+  v39 = [v38 renewLease];
 
-  if ((v37 & 1) == 0)
+  if ((v39 & 1) == 0)
   {
-    v11 = WFLogForCategory(0);
-    v38 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v11 && os_log_type_enabled(v11, v38))
+    v13 = WFLogForCategory(0);
+    v40 = OSLogForWFLogLevel(1uLL);
+    v41 = v40;
+    if (WFCurrentLogLevel(v40, v42) && v13 && os_log_type_enabled(v13, v41))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v11, v38, "Renew lease failed", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v13, v41, "Renew lease failed", buf, 2u);
     }
 
     goto LABEL_85;
@@ -10464,7 +10551,6 @@ LABEL_85:
 
 LABEL_86:
   objc_destroyWeak(&to);
-  v112 = *MEMORY[0x277D85DE8];
 }
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_337(uint64_t a1)
@@ -10480,51 +10566,49 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
 
   v8 = WFLogForCategory(0);
   v9 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel())
+  if (WFCurrentLogLevel(v9, v10))
   {
-    v10 = v8 == 0;
+    v11 = v8 == 0;
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  v11 = !v10;
+  v12 = !v11;
   if (v6)
   {
-    if (v11 && os_log_type_enabled(v8, v9))
+    if (v12 && os_log_type_enabled(v8, v9))
     {
-      v12 = *(a1 + 40);
+      v13 = *(a1 + 40);
       *buf = 138412290;
-      v21 = v12;
-      v13 = "Removed network='%@'";
-      v14 = v8;
-      v15 = v9;
-      v16 = 12;
+      v21 = v13;
+      v14 = "Removed network='%@'";
+      v15 = v8;
+      v16 = v9;
+      v17 = 12;
 LABEL_14:
-      _os_log_impl(&dword_273ECD000, v14, v15, v13, buf, v16);
+      _os_log_impl(&dword_273ECD000, v15, v16, v14, buf, v17);
     }
   }
 
-  else if (v11 && os_log_type_enabled(v8, v9))
+  else if (v12 && os_log_type_enabled(v8, v9))
   {
-    v17 = *(a1 + 40);
+    v18 = *(a1 + 40);
     *buf = 138412546;
-    v21 = v17;
+    v21 = v18;
     v22 = 2112;
     v23 = v7;
-    v13 = "Failed to remove network='%@' error='%@'";
-    v14 = v8;
-    v15 = v9;
-    v16 = 22;
+    v14 = "Failed to remove network='%@' error='%@'";
+    v15 = v8;
+    v16 = v9;
+    v17 = 22;
     goto LABEL_14;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_388(id *a1, uint64_t a2)
+void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_388(id *a1, char *a2)
 {
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v5 = [WeakRetained privateAddressMode];
@@ -10574,87 +10658,90 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
       v17 = [v8 randomMACAddress];
       if (v17)
       {
-        v40 = [v8 randomMACAddress];
+        v46 = [v8 randomMACAddress];
       }
 
       else
       {
         v18 = objc_loadWeakRetained(a1 + 5);
         v19 = [v18 profile];
-        v40 = [v19 randomMACAddress];
+        v46 = [v19 randomMACAddress];
       }
 
       if (v5 == 1)
       {
         v20 = WFLogForCategory(0);
         v21 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v20 && os_log_type_enabled(v20, v21))
+        v22 = v21;
+        if (WFCurrentLogLevel(v21, v23) >= 3 && v20 && os_log_type_enabled(v20, v22))
         {
           *buf = 0;
-          _os_log_impl(&dword_273ECD000, v20, v21, "Generating new private mac when switched out of off mode", buf, 2u);
+          _os_log_impl(&dword_273ECD000, v20, v22, "Generating new private mac when switched out of off mode", buf, 2u);
         }
 
-        v22 = objc_loadWeakRetained(&to);
-        v23 = [v22 wifiClient];
-        v24 = [v8 ssid];
-        v25 = [v23 newRandomMACAddressForSSID:v24];
+        v24 = objc_loadWeakRetained(&to);
+        v25 = [v24 wifiClient];
+        v26 = [v8 ssid];
+        v27 = [v25 newRandomMACAddressForSSID:v26];
 
-        v40 = v25;
+        v46 = v27;
       }
 
-      v26 = objc_loadWeakRetained(&to);
-      v27 = [v26 wifiClient];
-      v28 = [v8 ssid];
-      [v27 setRandomAddressModeForNetwork:v28 mode:a2 randomMAC:v40];
+      v28 = objc_loadWeakRetained(&to);
+      v29 = [v28 wifiClient];
+      v30 = [v8 ssid];
+      [v29 setRandomAddressModeForNetwork:v30 mode:a2 randomMAC:v46];
 
-      v29 = objc_loadWeakRetained(a1 + 5);
-      if ([v29 isCurrent])
+      v31 = objc_loadWeakRetained(a1 + 5);
+      if ([v31 isCurrent])
       {
       }
 
       else
       {
-        v30 = objc_loadWeakRetained(&to);
-        v31 = [v30 interface];
-        v32 = [v31 currentNetwork];
-        v33 = [v32 ssid];
-        v34 = [a1[4] ssid];
-        v35 = [v33 isEqualToString:v34];
+        v32 = objc_loadWeakRetained(&to);
+        v33 = [v32 interface];
+        v34 = [v33 currentNetwork];
+        v35 = [v34 ssid];
+        v36 = [a1[4] ssid];
+        v37 = [v35 isEqualToString:v36];
 
-        if (!v35)
+        if (!v37)
         {
-          v11 = v40;
+          v11 = v46;
           goto LABEL_12;
         }
       }
 
-      v11 = v40;
+      v11 = v46;
       if (a2 == 3 && v5 == 2 || a2 == 2 && v5 == 3)
       {
         v12 = WFLogForCategory(0);
-        v36 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v12 && os_log_type_enabled(v12, v36))
+        v38 = OSLogForWFLogLevel(3uLL);
+        v39 = v38;
+        if (WFCurrentLogLevel(v38, v40) >= 3 && v12 && os_log_type_enabled(v12, v39))
         {
-          *v42 = 0;
-          _os_log_impl(&dword_273ECD000, v12, v36, "Do not disassociate for current network when transit between static and rotating", v42, 2u);
+          *v48 = 0;
+          _os_log_impl(&dword_273ECD000, v12, v39, "Do not disassociate for current network when transit between static and rotating", v48, 2u);
         }
       }
 
       else
       {
-        v37 = WFLogForCategory(0);
-        v38 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v37 && os_log_type_enabled(v37, v38))
+        v41 = WFLogForCategory(0);
+        v42 = OSLogForWFLogLevel(3uLL);
+        v43 = v42;
+        if (WFCurrentLogLevel(v42, v44) >= 3 && v41 && os_log_type_enabled(v41, v43))
         {
-          *v41 = 0;
-          _os_log_impl(&dword_273ECD000, v37, v38, "Disassociate for current network when private addres mode changes", v41, 2u);
+          *v47 = 0;
+          _os_log_impl(&dword_273ECD000, v41, v43, "Disassociate for current network when private addres mode changes", v47, 2u);
         }
 
         v12 = objc_loadWeakRetained(&to);
-        v39 = [v12 interface];
-        [v39 disassociateFromCurrentNetworkWithReason:33];
+        v45 = [v12 interface];
+        [v45 disassociateFromCurrentNetworkWithReason:33];
 
-        v11 = v40;
+        v11 = v46;
       }
     }
 
@@ -10665,7 +10752,7 @@ LABEL_12:
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_389(id *a1, int a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v5 = [WeakRetained network];
 
@@ -10677,48 +10764,50 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
     v8 = objc_loadWeakRetained(a1 + 6);
     v9 = [v8 wifiClient];
     v10 = [v9 cInterface];
-    v22 = 0;
-    v11 = [v10 updateKnownNetworkProfile:v7 properties:0 error:&v22];
-    v12 = v22;
+    v27 = 0;
+    v11 = [v10 updateKnownNetworkProfile:v7 properties:0 error:&v27];
+    v12 = v27;
 
     v13 = WFLogForCategory(0);
     if (v11)
     {
       v14 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v13)
+      v15 = v14;
+      if (WFCurrentLogLevel(v14, v16) < 3 || !v13)
       {
         goto LABEL_16;
       }
 
-      v15 = v13;
-      if (os_log_type_enabled(v15, v14))
+      v17 = v13;
+      if (os_log_type_enabled(v17, v15))
       {
-        v16 = [v5 ssid];
+        v18 = [v5 ssid];
         *buf = 138412546;
-        v24 = v16;
-        v25 = 1024;
-        LODWORD(v26) = a2;
-        _os_log_impl(&dword_273ECD000, v15, v14, "Auto join changed for '%@' set to '%d'", buf, 0x12u);
+        v29 = v18;
+        v30 = 1024;
+        LODWORD(v31) = a2;
+        _os_log_impl(&dword_273ECD000, v17, v15, "Auto join changed for '%@' set to '%d'", buf, 0x12u);
       }
     }
 
     else
     {
-      v18 = OSLogForWFLogLevel(1uLL);
-      if (!WFCurrentLogLevel() || !v13)
+      v22 = OSLogForWFLogLevel(1uLL);
+      v23 = v22;
+      if (!WFCurrentLogLevel(v22, v24) || !v13)
       {
         goto LABEL_16;
       }
 
-      v19 = v13;
-      if (os_log_type_enabled(v19, v18))
+      v25 = v13;
+      if (os_log_type_enabled(v25, v23))
       {
-        v20 = [v5 ssid];
+        v26 = [v5 ssid];
         *buf = 138412546;
-        v24 = v20;
-        v25 = 2112;
-        v26 = v12;
-        _os_log_impl(&dword_273ECD000, v19, v18, "failed saving auto join state for '%@' error='%@'", buf, 0x16u);
+        v29 = v26;
+        v30 = 2112;
+        v31 = v12;
+        _os_log_impl(&dword_273ECD000, v25, v23, "failed saving auto join state for '%@' error='%@'", buf, 0x16u);
       }
     }
 
@@ -10727,24 +10816,23 @@ LABEL_16:
   }
 
   v12 = WFLogForCategory(0);
-  v17 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v12 && os_log_type_enabled(v12, v17))
+  v19 = OSLogForWFLogLevel(1uLL);
+  v20 = v19;
+  if (WFCurrentLogLevel(v19, v21) && v12 && os_log_type_enabled(v12, v20))
   {
     *buf = 136315394;
-    v24 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-    v25 = 2112;
-    v26 = v5;
-    _os_log_impl(&dword_273ECD000, v12, v17, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
+    v29 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+    v30 = 2112;
+    v31 = v5;
+    _os_log_impl(&dword_273ECD000, v12, v20, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_390(id *a1, int a2)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v5 = [WeakRetained network];
 
@@ -10761,28 +10849,28 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
       v7 = MEMORY[0x277CBEC38];
     }
 
-    v29 = *MEMORY[0x277D29780];
-    v30[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v32 = *MEMORY[0x277D29780];
+    v33[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     [v6 setCaptiveProfile:v8];
     v9 = objc_loadWeakRetained(a1 + 6);
     v10 = [v9 wifiClient];
     v11 = [v10 cInterface];
-    v26 = 0;
-    v12 = [v11 updateKnownNetworkProfile:v6 properties:0 error:&v26];
-    v13 = v26;
+    v29 = 0;
+    v12 = [v11 updateKnownNetworkProfile:v6 properties:0 error:&v29];
+    v13 = v29;
 
     v14 = WFLogForCategory(0);
     if (v12)
     {
       v15 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v14)
+      if (WFCurrentLogLevel(v15, v16) < 3 || !v14)
       {
         goto LABEL_20;
       }
 
-      v16 = v14;
-      if (!os_log_type_enabled(v16, v15))
+      v17 = v14;
+      if (!os_log_type_enabled(v17, v15))
       {
 LABEL_19:
 
@@ -10790,68 +10878,67 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v17 = [v5 ssid];
+      v18 = [v5 ssid];
       *buf = 67109378;
-      *v28 = a2;
-      *&v28[4] = 2112;
-      *&v28[6] = v17;
-      v18 = "Set auto login='%d' for '%@'";
-      v19 = v16;
-      v20 = v15;
-      v21 = 18;
+      *v31 = a2;
+      *&v31[4] = 2112;
+      *&v31[6] = v18;
+      v19 = "Set auto login='%d' for '%@'";
+      v20 = v17;
+      v21 = v15;
+      v22 = 18;
     }
 
     else
     {
-      v23 = OSLogForWFLogLevel(1uLL);
-      if (!WFCurrentLogLevel() || !v14)
+      v26 = OSLogForWFLogLevel(1uLL);
+      if (!WFCurrentLogLevel(v26, v27) || !v14)
       {
         goto LABEL_20;
       }
 
-      v24 = v14;
-      if (!os_log_type_enabled(v24, v23))
+      v28 = v14;
+      if (!os_log_type_enabled(v28, v26))
       {
         goto LABEL_19;
       }
 
-      v17 = [v5 ssid];
+      v18 = [v5 ssid];
       *buf = 67109634;
-      *v28 = a2;
-      *&v28[4] = 2112;
-      *&v28[6] = v17;
-      *&v28[14] = 2112;
-      *&v28[16] = v13;
-      v18 = "failed setting auto login='%d' for '%@' error='%@'";
-      v19 = v24;
-      v20 = v23;
-      v21 = 28;
+      *v31 = a2;
+      *&v31[4] = 2112;
+      *&v31[6] = v18;
+      *&v31[14] = 2112;
+      *&v31[16] = v13;
+      v19 = "failed setting auto login='%d' for '%@' error='%@'";
+      v20 = v28;
+      v21 = v26;
+      v22 = 28;
     }
 
-    _os_log_impl(&dword_273ECD000, v19, v20, v18, buf, v21);
+    _os_log_impl(&dword_273ECD000, v20, v21, v19, buf, v22);
 
     goto LABEL_19;
   }
 
   v8 = WFLogForCategory(0);
-  v22 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v8 && os_log_type_enabled(v8, v22))
+  v23 = OSLogForWFLogLevel(1uLL);
+  v24 = v23;
+  if (WFCurrentLogLevel(v23, v25) && v8 && os_log_type_enabled(v8, v24))
   {
     *buf = 136315394;
-    *v28 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-    *&v28[8] = 2112;
-    *&v28[10] = v5;
-    _os_log_impl(&dword_273ECD000, v8, v22, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
+    *v31 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+    *&v31[8] = 2112;
+    *&v31[10] = v5;
+    _os_log_impl(&dword_273ECD000, v8, v24, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
   }
 
 LABEL_21:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_391(id *a1, int a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v5 = [WeakRetained network];
 
@@ -10873,48 +10960,50 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
     v9 = objc_loadWeakRetained(a1 + 6);
     v10 = [v9 wifiClient];
     v11 = [v10 cInterface];
-    v23 = 0;
-    v12 = [v11 updateKnownNetworkProfile:v7 properties:0 error:&v23];
-    v13 = v23;
+    v28 = 0;
+    v12 = [v11 updateKnownNetworkProfile:v7 properties:0 error:&v28];
+    v13 = v28;
 
     v14 = WFLogForCategory(0);
     if (v12)
     {
       v15 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v14)
+      v16 = v15;
+      if (WFCurrentLogLevel(v15, v17) < 3 || !v14)
       {
         goto LABEL_19;
       }
 
-      v16 = v14;
-      if (os_log_type_enabled(v16, v15))
+      v18 = v14;
+      if (os_log_type_enabled(v18, v16))
       {
-        v17 = [v5 ssid];
+        v19 = [v5 ssid];
         *buf = 138412546;
-        v25 = v17;
-        v26 = 1024;
-        LODWORD(v27) = a2;
-        _os_log_impl(&dword_273ECD000, v16, v15, "Low data mode changed for '%@' set to '%d'", buf, 0x12u);
+        v30 = v19;
+        v31 = 1024;
+        LODWORD(v32) = a2;
+        _os_log_impl(&dword_273ECD000, v18, v16, "Low data mode changed for '%@' set to '%d'", buf, 0x12u);
       }
     }
 
     else
     {
-      v19 = OSLogForWFLogLevel(1uLL);
-      if (!WFCurrentLogLevel() || !v14)
+      v23 = OSLogForWFLogLevel(1uLL);
+      v24 = v23;
+      if (!WFCurrentLogLevel(v23, v25) || !v14)
       {
         goto LABEL_19;
       }
 
-      v20 = v14;
-      if (os_log_type_enabled(v20, v19))
+      v26 = v14;
+      if (os_log_type_enabled(v26, v24))
       {
-        v21 = [v5 ssid];
+        v27 = [v5 ssid];
         *buf = 138412546;
-        v25 = v21;
-        v26 = 2112;
-        v27 = v13;
-        _os_log_impl(&dword_273ECD000, v20, v19, "failed saving low data mode state for '%@' error='%@'", buf, 0x16u);
+        v30 = v27;
+        v31 = 2112;
+        v32 = v13;
+        _os_log_impl(&dword_273ECD000, v26, v24, "failed saving low data mode state for '%@' error='%@'", buf, 0x16u);
       }
     }
 
@@ -10923,138 +11012,138 @@ LABEL_19:
   }
 
   v13 = WFLogForCategory(0);
-  v18 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v13 && os_log_type_enabled(v13, v18))
+  v20 = OSLogForWFLogLevel(1uLL);
+  v21 = v20;
+  if (WFCurrentLogLevel(v20, v22) && v13 && os_log_type_enabled(v13, v21))
   {
     *buf = 136315394;
-    v25 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-    v26 = 2112;
-    v27 = v5;
-    _os_log_impl(&dword_273ECD000, v13, v18, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
+    v30 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+    v31 = 2112;
+    v32 = v5;
+    _os_log_impl(&dword_273ECD000, v13, v21, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
   }
 
 LABEL_20:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_392(id *a1, uint64_t a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v5 = [WeakRetained network];
 
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6 && os_log_type_enabled(v6, v8))
   {
     *buf = 67109120;
-    *v29 = a2;
-    _os_log_impl(&dword_273ECD000, v6, v7, "Setting privacy proxy %d", buf, 8u);
+    *v36 = a2;
+    _os_log_impl(&dword_273ECD000, v6, v8, "Setting privacy proxy %d", buf, 8u);
   }
 
-  v8 = a1[4];
-  v9 = v8;
-  if (v8)
+  v10 = a1[4];
+  v11 = v10;
+  if (v10)
   {
-    [v8 setPrivacyProxyEnabled:a2];
-    v10 = objc_loadWeakRetained(a1 + 6);
-    v11 = [v10 wifiClient];
-    v12 = [v11 cInterface];
-    v27 = 0;
-    v13 = [v12 updateKnownNetworkProfile:v9 properties:0 error:&v27];
-    v14 = v27;
+    [v10 setPrivacyProxyEnabled:a2];
+    v12 = objc_loadWeakRetained(a1 + 6);
+    v13 = [v12 wifiClient];
+    v14 = [v13 cInterface];
+    v34 = 0;
+    v15 = [v14 updateKnownNetworkProfile:v11 properties:0 error:&v34];
+    v16 = v34;
 
-    v15 = WFLogForCategory(0);
-    if (v13)
+    v17 = WFLogForCategory(0);
+    if (v15)
     {
-      v16 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v15)
+      v18 = OSLogForWFLogLevel(3uLL);
+      v19 = v18;
+      if (WFCurrentLogLevel(v18, v20) >= 3 && v17)
       {
-        v17 = v15;
-        if (os_log_type_enabled(v17, v16))
+        v21 = v17;
+        if (os_log_type_enabled(v21, v19))
         {
-          v18 = [v5 ssid];
+          v22 = [v5 ssid];
           *buf = 138412546;
-          *v29 = v18;
-          *&v29[8] = 1024;
-          *&v29[10] = a2;
-          _os_log_impl(&dword_273ECD000, v17, v16, "Privacy proxy changed for '%@' set to '%d'", buf, 0x12u);
+          *v36 = v22;
+          *&v36[8] = 1024;
+          *&v36[10] = a2;
+          _os_log_impl(&dword_273ECD000, v21, v19, "Privacy proxy changed for '%@' set to '%d'", buf, 0x12u);
         }
       }
     }
 
     else
     {
-      v20 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v15 && os_log_type_enabled(v15, v20))
+      v26 = OSLogForWFLogLevel(1uLL);
+      v27 = v26;
+      if (WFCurrentLogLevel(v26, v28) && v17 && os_log_type_enabled(v17, v27))
       {
         *buf = 67240706;
-        *v29 = a2;
-        *&v29[4] = 2112;
-        *&v29[6] = v5;
-        *&v29[14] = 2112;
-        *&v29[16] = v14;
-        _os_log_impl(&dword_273ECD000, v15, v20, "Failed to set privacy proxy to=%{public}d for network='%@' error='%@'", buf, 0x1Cu);
+        *v36 = a2;
+        *&v36[4] = 2112;
+        *&v36[6] = v5;
+        *&v36[14] = 2112;
+        *&v36[16] = v16;
+        _os_log_impl(&dword_273ECD000, v17, v27, "Failed to set privacy proxy to=%{public}d for network='%@' error='%@'", buf, 0x1Cu);
       }
     }
   }
 
   else
   {
-    v14 = WFLogForCategory(0);
-    v19 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v14 && os_log_type_enabled(v14, v19))
+    v16 = WFLogForCategory(0);
+    v23 = OSLogForWFLogLevel(1uLL);
+    v24 = v23;
+    if (WFCurrentLogLevel(v23, v25) && v16 && os_log_type_enabled(v16, v24))
     {
       *buf = 136315394;
-      *v29 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-      *&v29[8] = 2112;
-      *&v29[10] = v5;
-      _os_log_impl(&dword_273ECD000, v14, v19, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
+      *v36 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+      *&v36[8] = 2112;
+      *&v36[10] = v5;
+      _os_log_impl(&dword_273ECD000, v16, v24, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
     }
   }
 
-  v21 = MEMORY[0x277D2CA68];
-  v22 = [v5 ssid];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_394;
-  v25[3] = &unk_279EBD760;
-  v26 = v5;
-  v23 = v5;
-  [v21 reportWiFiNetworkStatus:a2 networkName:v22 queue:MEMORY[0x277D85CD0] completionHandler:v25];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v29 = MEMORY[0x277D2CA68];
+  v30 = [v5 ssid];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_394;
+  v32[3] = &unk_279EBD760;
+  v33 = v5;
+  v31 = v5;
+  [v29 reportWiFiNetworkStatus:a2 networkName:v30 queue:MEMORY[0x277D85CD0] completionHandler:v32];
 }
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_394(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4)
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4)
   {
-    v6 = v4;
-    if (os_log_type_enabled(v6, v5))
+    v8 = v4;
+    if (os_log_type_enabled(v8, v6))
     {
-      v7 = [*(a1 + 32) ssid];
-      v9 = 136315650;
-      v10 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_273ECD000, v6, v5, "%s: reporting privacy proxy status for '%@' - error %@", &v9, 0x20u);
+      v9 = [*(a1 + 32) ssid];
+      v10 = 136315650;
+      v11 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_273ECD000, v8, v6, "%s: reporting privacy proxy status for '%@' - error %@", &v10, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_396(id *a1, void *a2, double a3)
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v7 = [WeakRetained network];
@@ -11063,31 +11152,31 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
   if (v8)
   {
     v9 = *MEMORY[0x277D29868];
-    v34[0] = *MEMORY[0x277D29860];
-    v34[1] = v9;
-    v35[0] = v5;
+    v37[0] = *MEMORY[0x277D29860];
+    v37[1] = v9;
+    v38[0] = v5;
     v10 = [MEMORY[0x277CCABB0] numberWithDouble:a3];
-    v35[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v38[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
 
     v12 = objc_loadWeakRetained(a1 + 6);
     v13 = [v12 wifiClient];
     v14 = [v13 cInterface];
-    v29 = 0;
-    v15 = [v14 updateKnownNetworkProfile:v8 OSSpecificAttributes:v11 error:&v29];
-    v16 = v29;
+    v32 = 0;
+    v15 = [v14 updateKnownNetworkProfile:v8 OSSpecificAttributes:v11 error:&v32];
+    v16 = v32;
 
     v17 = WFLogForCategory(0);
     if (v15)
     {
       v18 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v17)
+      if (WFCurrentLogLevel(v18, v19) < 3 || !v17)
       {
         goto LABEL_17;
       }
 
-      v19 = v17;
-      if (!os_log_type_enabled(v19, v18))
+      v20 = v17;
+      if (!os_log_type_enabled(v20, v18))
       {
 LABEL_16:
 
@@ -11095,129 +11184,129 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v20 = [v7 ssid];
+      v21 = [v7 ssid];
       *buf = 138412290;
-      v31 = v20;
-      v21 = "Set network responsiveness for '%@'";
-      v22 = v19;
-      v23 = v18;
-      v24 = 12;
+      v34 = v21;
+      v22 = "Set network responsiveness for '%@'";
+      v23 = v20;
+      v24 = v18;
+      v25 = 12;
     }
 
     else
     {
-      v26 = OSLogForWFLogLevel(1uLL);
-      if (!WFCurrentLogLevel() || !v17)
+      v29 = OSLogForWFLogLevel(1uLL);
+      if (!WFCurrentLogLevel(v29, v30) || !v17)
       {
         goto LABEL_17;
       }
 
-      v27 = v17;
-      if (!os_log_type_enabled(v27, v26))
+      v31 = v17;
+      if (!os_log_type_enabled(v31, v29))
       {
         goto LABEL_16;
       }
 
-      v20 = [v7 ssid];
+      v21 = [v7 ssid];
       *buf = 138412546;
-      v31 = v20;
-      v32 = 2112;
-      v33 = v16;
-      v21 = "failed setting network responsiveness for '%@' error='%@'";
-      v22 = v27;
-      v23 = v26;
-      v24 = 22;
+      v34 = v21;
+      v35 = 2112;
+      v36 = v16;
+      v22 = "failed setting network responsiveness for '%@' error='%@'";
+      v23 = v31;
+      v24 = v29;
+      v25 = 22;
     }
 
-    _os_log_impl(&dword_273ECD000, v22, v23, v21, buf, v24);
+    _os_log_impl(&dword_273ECD000, v23, v24, v22, buf, v25);
 
     goto LABEL_16;
   }
 
   v11 = WFLogForCategory(0);
-  v25 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v11 && os_log_type_enabled(v11, v25))
+  v26 = OSLogForWFLogLevel(1uLL);
+  v27 = v26;
+  if (WFCurrentLogLevel(v26, v28) && v11 && os_log_type_enabled(v11, v27))
   {
     *buf = 136315394;
-    v31 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
-    v32 = 2112;
-    v33 = v7;
-    _os_log_impl(&dword_273ECD000, v11, v25, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
+    v34 = "[WFNetworkListController networkListViewController:showSettingsForNetwork:context:scrollToCellType:controller:]_block_invoke";
+    v35 = 2112;
+    v36 = v7;
+    _os_log_impl(&dword_273ECD000, v11, v27, "%s: nil CWFNetworkProfile for network '%@'", buf, 0x16u);
   }
 
 LABEL_18:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __112__WFNetworkListController_networkListViewController_showSettingsForNetwork_context_scrollToCellType_controller___block_invoke_398(id *a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a1[4];
   if (!v4)
   {
     v5 = WFLogForCategory(0);
     v6 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v5)
+    v7 = v6;
+    if (WFCurrentLogLevel(v6, v8) && v5)
     {
-      v7 = v5;
-      if (os_log_type_enabled(v7, v6))
+      v9 = v5;
+      if (os_log_type_enabled(v9, v7))
       {
         WeakRetained = objc_loadWeakRetained(a1 + 6);
-        v9 = [WeakRetained network];
-        v10 = [v9 ssid];
+        v11 = [WeakRetained network];
+        v12 = [v11 ssid];
         *buf = 138412290;
-        v26 = v10;
-        _os_log_impl(&dword_273ECD000, v7, v6, "Trying to set wifi mode for empty profile for network: %@", buf, 0xCu);
+        v31 = v12;
+        _os_log_impl(&dword_273ECD000, v9, v7, "Trying to set wifi mode for empty profile for network: %@", buf, 0xCu);
       }
     }
   }
 
   [v4 setDisable6EMode:a2];
-  v11 = objc_loadWeakRetained(a1 + 7);
-  v12 = [v11 wifiClient];
-  v13 = [v12 cInterface];
-  v14 = [MEMORY[0x277CBEB98] setWithObject:&unk_288304888];
-  v24 = 0;
-  v15 = [v13 updateKnownNetworkProfile:v4 properties:v14 error:&v24];
-  v16 = v24;
+  v13 = objc_loadWeakRetained(a1 + 7);
+  v14 = [v13 wifiClient];
+  v15 = [v14 cInterface];
+  v16 = [MEMORY[0x277CBEB98] setWithObject:&unk_288304888];
+  v29 = 0;
+  v17 = [v15 updateKnownNetworkProfile:v4 properties:v16 error:&v29];
+  v18 = v29;
 
-  v17 = WFLogForCategory(0);
-  if (v15)
+  v19 = WFLogForCategory(0);
+  if (v17)
   {
-    v18 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v17)
+    v20 = OSLogForWFLogLevel(3uLL);
+    v21 = v20;
+    if (WFCurrentLogLevel(v20, v22) >= 3 && v19)
     {
-      v19 = v17;
-      if (os_log_type_enabled(v19, v18))
+      v23 = v19;
+      if (os_log_type_enabled(v23, v21))
       {
-        v20 = [a1[5] ssid];
+        v24 = [a1[5] ssid];
         *buf = 138412546;
-        v26 = v20;
-        v27 = 2048;
-        v28 = a2;
-        _os_log_impl(&dword_273ECD000, v19, v18, "disable 6e mode changed for '%@' set to '%ld'", buf, 0x16u);
+        v31 = v24;
+        v32 = 2048;
+        v33 = a2;
+        _os_log_impl(&dword_273ECD000, v23, v21, "disable 6e mode changed for '%@' set to '%ld'", buf, 0x16u);
       }
     }
   }
 
   else
   {
-    v21 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v17 && os_log_type_enabled(v17, v21))
+    v25 = OSLogForWFLogLevel(1uLL);
+    v26 = v25;
+    if (WFCurrentLogLevel(v25, v27) && v19 && os_log_type_enabled(v19, v26))
     {
-      v22 = a1[5];
+      v28 = a1[5];
       *buf = 134218498;
-      v26 = a2;
-      v27 = 2112;
-      v28 = v22;
-      v29 = 2112;
-      v30 = v16;
-      _os_log_impl(&dword_273ECD000, v17, v21, "Failed to set disable 6e mode to=%ld for network='%@' error='%@'", buf, 0x20u);
+      v31 = a2;
+      v32 = 2112;
+      v33 = v28;
+      v34 = 2112;
+      v35 = v18;
+      _os_log_impl(&dword_273ECD000, v19, v26, "Failed to set disable 6e mode to=%ld for network='%@' error='%@'", buf, 0x20u);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)networkListViewControllerWAPIEnabled:(id)enabled
@@ -11226,6 +11315,24 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
   isWAPIEnabled = [wifiClient isWAPIEnabled];
 
   return isWAPIEnabled;
+}
+
+- (void)networkListViewController:(id)controller setWAPIEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v12 = *MEMORY[0x277D85DE8];
+  v6 = WFLogForCategory(0);
+  v7 = OSLogForWFLogLevel(3uLL);
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6 && os_log_type_enabled(v6, v8))
+  {
+    v11[0] = 67109120;
+    v11[1] = enabledCopy;
+    _os_log_impl(&dword_273ECD000, v6, v8, "User changed WAPI enabled %d", v11, 8u);
+  }
+
+  wifiClient = [(WFNetworkListController *)self wifiClient];
+  [wifiClient setWAPIEnabled:enabledCopy];
 }
 
 - (BOOL)networkListViewControllerNetworkRestrictionActive:(id)active
@@ -11324,6 +11431,36 @@ void __112__WFNetworkListController_networkListViewController_showSettingsForNet
   return isKnownNetworkUIEnabled;
 }
 
+- (void)airportSettingsViewControllerDidTapDiagnosticsMode:(id)mode showNANUI:(BOOL)i
+{
+  iCopy = i;
+  modeCopy = mode;
+  v7 = WFLogForCategory(0);
+  v8 = OSLogForWFLogLevel(3uLL);
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
+  {
+    LOWORD(buf[0]) = 0;
+    _os_log_impl(&dword_273ECD000, v7, v9, "User tapped diagnostic cell", buf, 2u);
+  }
+
+  v11 = [objc_alloc(MEMORY[0x277D7B9B0]) initWithNANUI:iCopy];
+  objc_initWeak(buf, self);
+  objc_initWeak(&location, v11);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __88__WFNetworkListController_airportSettingsViewControllerDidTapDiagnosticsMode_showNANUI___block_invoke;
+  v12[3] = &unk_279EBD7D8;
+  objc_copyWeak(&v13, buf);
+  objc_copyWeak(&v14, &location);
+  [v11 setSaveHandler:v12];
+  [(WFNetworkListing *)self->_viewController wf_pushViewController:v11 animated:1];
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
+  objc_destroyWeak(buf);
+}
+
 void __88__WFNetworkListController_airportSettingsViewControllerDidTapDiagnosticsMode_showNANUI___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -11376,10 +11513,11 @@ void __88__WFNetworkListController_airportSettingsViewControllerDidTapDiagnostic
 {
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4 && os_log_type_enabled(v4, v6))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_273ECD000, v4, v5, "User tapped data usage cell", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_273ECD000, v4, v6, "User tapped data usage cell", v8, 2u);
   }
 
   [(WFNetworkListController *)self pushDataUsageViewController];
@@ -11403,28 +11541,28 @@ void __88__WFNetworkListController_airportSettingsViewControllerDidTapDiagnostic
 
 - (BOOL)removeKnownNetworks:(id)networks
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v25 = 0u;
+  v31 = *MEMORY[0x277D85DE8];
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
   networksCopy = networks;
-  v5 = [networksCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [networksCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v27;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v26 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(networksCopy);
         }
 
-        ssid = [*(*(&v25 + 1) + 8 * v8) ssid];
+        ssid = [*(*(&v26 + 1) + 8 * v8) ssid];
         interface = [(WFNetworkListController *)self interface];
         currentNetwork = [interface currentNetwork];
         ssid2 = [currentNetwork ssid];
@@ -11440,7 +11578,7 @@ void __88__WFNetworkListController_airportSettingsViewControllerDidTapDiagnostic
       }
 
       while (v6 != v8);
-      v6 = [networksCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [networksCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v6)
       {
         continue;
@@ -11467,14 +11605,14 @@ LABEL_11:
 
     v20 = WFLogForCategory(0);
     v21 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v20 && os_log_type_enabled(v20, v21))
+    v22 = v21;
+    if (WFCurrentLogLevel(v21, v23) && v20 && os_log_type_enabled(v20, v22))
     {
-      *v24 = 0;
-      _os_log_impl(&dword_273ECD000, v20, v21, "Disconnect from current network because user deleted it from known networks list", v24, 2u);
+      *v25 = 0;
+      _os_log_impl(&dword_273ECD000, v20, v22, "Disconnect from current network because user deleted it from known networks list", v25, 2u);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -11493,40 +11631,40 @@ LABEL_11:
 
 - (void)airportSettingsViewControllerDidStartEditingKnownNetworks:(id)networks
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   networksCopy = networks;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
-    v10 = 136315394;
-    v11 = "[WFNetworkListController airportSettingsViewControllerDidStartEditingKnownNetworks:]";
-    v12 = 2112;
-    v13 = networksCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s airportVC='%@'", &v10, 0x16u);
+    v11 = 136315394;
+    v12 = "[WFNetworkListController airportSettingsViewControllerDidStartEditingKnownNetworks:]";
+    v13 = 2112;
+    v14 = networksCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s airportVC='%@'", &v11, 0x16u);
   }
 
   [(WFNetworkListController *)self _pauseScanning];
-  v7 = +[WFMetricsManager sharedManager];
-  v8 = [WFUserEvent eventWithType:10];
-  [v7 processEvent:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = +[WFMetricsManager sharedManager];
+  v10 = [WFUserEvent eventWithType:10];
+  [v9 processEvent:v10];
 }
 
 - (void)airportSettingsViewControllerDidFinishEditingKnownNetworks:(id)networks
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   networksCopy = networks;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
-    v15 = 136315394;
-    v16 = "[WFNetworkListController airportSettingsViewControllerDidFinishEditingKnownNetworks:]";
-    v17 = 2112;
-    v18 = networksCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s airportVC='%@'", &v15, 0x16u);
+    v18 = 136315394;
+    v19 = "[WFNetworkListController airportSettingsViewControllerDidFinishEditingKnownNetworks:]";
+    v20 = 2112;
+    v21 = networksCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s airportVC='%@'", &v18, 0x16u);
   }
 
   interface = [(WFNetworkListController *)self interface];
@@ -11534,25 +11672,24 @@ LABEL_11:
 
   viewController = [(WFNetworkListController *)self viewController];
   currentNetwork2 = [viewController currentNetwork];
-  v11 = [currentNetwork2 isEqual:currentNetwork];
+  v13 = [currentNetwork2 isEqual:currentNetwork];
 
-  if ((v11 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v12 = WFLogForCategory(0);
-    v13 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v12 && os_log_type_enabled(v12, v13))
+    v14 = WFLogForCategory(0);
+    v15 = OSLogForWFLogLevel(3uLL);
+    v16 = v15;
+    if (WFCurrentLogLevel(v15, v17) >= 3 && v14 && os_log_type_enabled(v14, v16))
     {
-      v15 = 136315138;
-      v16 = "[WFNetworkListController airportSettingsViewControllerDidFinishEditingKnownNetworks:]";
-      _os_log_impl(&dword_273ECD000, v12, v13, "%s: refresh current network cell when exiting edit PNL", &v15, 0xCu);
+      v18 = 136315138;
+      v19 = "[WFNetworkListController airportSettingsViewControllerDidFinishEditingKnownNetworks:]";
+      _os_log_impl(&dword_273ECD000, v14, v16, "%s: refresh current network cell when exiting edit PNL", &v18, 0xCu);
     }
 
     [(WFNetworkListController *)self _updateViewControllerConnectedNetwork:currentNetwork];
   }
 
   [(WFNetworkListController *)self _resumeScanning];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushDataUsageViewController
@@ -11616,68 +11753,64 @@ void __74__WFNetworkListController__saveLogsWithComment_diagnosticsViewControlle
 {
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v3 = [WeakRetained error];
-  v27 = v3 == 0;
+  v23 = v3 == 0;
 
   v4 = [a1[4] viewController];
   [v4 deviceCapability];
   IsChinaDevice = WFCapabilityIsChinaDevice();
 
   v6 = MEMORY[0x277D75110];
-  v7 = a1[4];
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v9 = v8;
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = v7;
   if (v3)
   {
-    v10 = [v8 localizedStringForKey:@"kWFLocDiagnosticsAlertFailureTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-    v11 = a1[4];
-    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v13 = v12;
-    v14 = @"kWFLocDiagnosticsAlertFailureMessage";
-    v15 = @"kWFLocDiagnosticsAlertFailureMessage_CH";
+    v9 = [v7 localizedStringForKey:@"kWFLocDiagnosticsAlertFailureTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v11 = v10;
+    v12 = @"kWFLocDiagnosticsAlertFailureMessage";
+    v13 = @"kWFLocDiagnosticsAlertFailureMessage_CH";
   }
 
   else
   {
-    v10 = [v8 localizedStringForKey:@"kWFLocDiagnosticsAlertSuccessTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-    v16 = a1[4];
-    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v13 = v12;
-    v14 = @"kWFLocDiagnosticsAlertSuccessMessage";
-    v15 = @"kWFLocDiagnosticsAlertSuccessMessage_CH";
+    v9 = [v7 localizedStringForKey:@"kWFLocDiagnosticsAlertSuccessTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v11 = v10;
+    v12 = @"kWFLocDiagnosticsAlertSuccessMessage";
+    v13 = @"kWFLocDiagnosticsAlertSuccessMessage_CH";
   }
 
   if (IsChinaDevice)
   {
-    v17 = v15;
+    v14 = v13;
   }
 
   else
   {
-    v17 = v14;
+    v14 = v12;
   }
 
-  v18 = [v12 localizedStringForKey:v17 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-  v19 = [v6 alertControllerWithTitle:v10 message:v18 preferredStyle:1];
+  v15 = [v10 localizedStringForKey:v14 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+  v16 = [v6 alertControllerWithTitle:v9 message:v15 preferredStyle:1];
 
-  v20 = MEMORY[0x277D750F8];
-  v21 = a1[4];
-  v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v23 = [v22 localizedStringForKey:@"kWFLocDiagnosticsAlertOkTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __74__WFNetworkListController__saveLogsWithComment_diagnosticsViewController___block_invoke_4;
-  v28[3] = &unk_279EBD800;
-  objc_copyWeak(&v29, a1 + 6);
-  v30 = v27;
-  v24 = [v20 actionWithTitle:v23 style:0 handler:v28];
+  v17 = MEMORY[0x277D750F8];
+  v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v19 = [v18 localizedStringForKey:@"kWFLocDiagnosticsAlertOkTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __74__WFNetworkListController__saveLogsWithComment_diagnosticsViewController___block_invoke_4;
+  v24[3] = &unk_279EBD800;
+  objc_copyWeak(&v25, a1 + 6);
+  v26 = v23;
+  v20 = [v17 actionWithTitle:v19 style:0 handler:v24];
 
-  [v19 addAction:v24];
-  [v19 setPreferredAction:v24];
-  v25 = objc_loadWeakRetained(a1 + 6);
-  v26 = [v25 viewController];
-  [v26 presentViewController:v19 animated:1 completion:0];
+  [v16 addAction:v20];
+  [v16 setPreferredAction:v20];
+  v21 = objc_loadWeakRetained(a1 + 6);
+  v22 = [v21 viewController];
+  [v22 presentViewController:v16 animated:1 completion:0];
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v25);
 }
 
 void __74__WFNetworkListController__saveLogsWithComment_diagnosticsViewController___block_invoke_4(uint64_t a1)
@@ -11705,7 +11838,7 @@ void __74__WFNetworkListController__saveLogsWithComment_diagnosticsViewControlle
 
 - (void)_networkDidChangeNotification:(id)notification
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:@"WFInterfaceNetworkKey"];
@@ -11720,28 +11853,30 @@ void __74__WFNetworkListController__saveLogsWithComment_diagnosticsViewControlle
 
   v12 = WFLogForCategory(0);
   v13 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v12 && os_log_type_enabled(v12, v13))
+  v14 = v13;
+  if (WFCurrentLogLevel(v13, v15) >= 3 && v12 && os_log_type_enabled(v12, v14))
   {
-    v39 = 136315906;
-    *v40 = "[WFNetworkListController _networkDidChangeNotification:]";
-    *&v40[8] = 2048;
-    *&v40[10] = unsignedIntegerValue;
-    v41 = 2112;
-    v42 = v6;
-    v43 = 2112;
-    v44 = v8;
-    _os_log_impl(&dword_273ECD000, v12, v13, "%s: reason %lu network %@ previous %@", &v39, 0x2Au);
+    v52 = 136315906;
+    *v53 = "[WFNetworkListController _networkDidChangeNotification:]";
+    *&v53[8] = 2048;
+    *&v53[10] = unsignedIntegerValue;
+    v54 = 2112;
+    v55 = v6;
+    v56 = 2112;
+    v57 = v8;
+    _os_log_impl(&dword_273ECD000, v12, v14, "%s: reason %lu network %@ previous %@", &v52, 0x2Au);
   }
 
   if (unsignedIntegerValue == 1)
   {
-    v14 = WFLogForCategory(0);
-    v15 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v14 && os_log_type_enabled(v14, v15))
+    v16 = WFLogForCategory(0);
+    v17 = OSLogForWFLogLevel(1uLL);
+    v18 = v17;
+    if (WFCurrentLogLevel(v17, v19) && v16 && os_log_type_enabled(v16, v18))
     {
-      v39 = 136315138;
-      *v40 = "[WFNetworkListController _networkDidChangeNotification:]";
-      _os_log_impl(&dword_273ECD000, v14, v15, "%s: network changed due to captive network detection", &v39, 0xCu);
+      v52 = 136315138;
+      *v53 = "[WFNetworkListController _networkDidChangeNotification:]";
+      _os_log_impl(&dword_273ECD000, v16, v18, "%s: network changed due to captive network detection", &v52, 0xCu);
     }
   }
 
@@ -11751,21 +11886,22 @@ void __74__WFNetworkListController__saveLogsWithComment_diagnosticsViewControlle
   {
     detailsContext2 = [(WFNetworkListController *)self detailsContext];
     network = [detailsContext2 network];
-    v19 = [network isEquivalentRecord:v6];
+    v23 = [network isEquivalentRecord:v6];
 
     detailsContext3 = [(WFNetworkListController *)self detailsContext];
-    [detailsContext3 setCurrent:v19];
+    [detailsContext3 setCurrent:v23];
 
-    v21 = WFLogForCategory(0);
-    v22 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v21 && os_log_type_enabled(v21, v22))
+    v25 = WFLogForCategory(0);
+    v26 = OSLogForWFLogLevel(3uLL);
+    v27 = v26;
+    if (WFCurrentLogLevel(v26, v28) >= 3 && v25 && os_log_type_enabled(v25, v27))
     {
-      v39 = 67109120;
-      *v40 = v19;
-      _os_log_impl(&dword_273ECD000, v21, v22, "updating details context currentNetwork %d", &v39, 8u);
+      v52 = 67109120;
+      *v53 = v23;
+      _os_log_impl(&dword_273ECD000, v25, v27, "updating details context currentNetwork %d", &v52, 8u);
     }
 
-    if (v19)
+    if (v23)
     {
       _sortedHealthRecommendations = [(WFNetworkListController *)self _sortedHealthRecommendations];
     }
@@ -11778,46 +11914,49 @@ void __74__WFNetworkListController__saveLogsWithComment_diagnosticsViewControlle
     detailsContext4 = [(WFNetworkListController *)self detailsContext];
     [detailsContext4 setRecommendations:_sortedHealthRecommendations];
 
-    if (v19)
+    if (v23)
     {
     }
   }
 
-  v25 = WFLogForCategory(0);
-  v26 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v25 && os_log_type_enabled(v25, v26))
+  v31 = WFLogForCategory(0);
+  v32 = OSLogForWFLogLevel(3uLL);
+  v33 = v32;
+  if (WFCurrentLogLevel(v32, v34) >= 3 && v31 && os_log_type_enabled(v31, v33))
   {
-    v39 = 138412290;
-    *v40 = v6;
-    _os_log_impl(&dword_273ECD000, v25, v26, "network changed: %@", &v39, 0xCu);
+    v52 = 138412290;
+    *v53 = v6;
+    _os_log_impl(&dword_273ECD000, v31, v33, "network changed: %@", &v52, 0xCu);
   }
 
-  v27 = WFLogForCategory(0);
-  v28 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v27)
+  v35 = WFLogForCategory(0);
+  v36 = OSLogForWFLogLevel(3uLL);
+  v37 = v36;
+  if (WFCurrentLogLevel(v36, v38) >= 3 && v35)
   {
-    v29 = v27;
-    if (os_log_type_enabled(v29, v28))
+    v39 = v35;
+    if (os_log_type_enabled(v39, v37))
     {
       isAssociating = [(WFNetworkListController *)self isAssociating];
       associationContext = [(WFNetworkListController *)self associationContext];
       network2 = [associationContext network];
-      v39 = 67109378;
-      *v40 = isAssociating;
-      *&v40[4] = 2112;
-      *&v40[6] = network2;
-      _os_log_impl(&dword_273ECD000, v29, v28, "isAssociating: %d associating network %@", &v39, 0x12u);
+      v52 = 67109378;
+      *v53 = isAssociating;
+      *&v53[4] = 2112;
+      *&v53[6] = network2;
+      _os_log_impl(&dword_273ECD000, v39, v37, "isAssociating: %d associating network %@", &v52, 0x12u);
     }
   }
 
   if ([(WFNetworkListController *)self isAssociating])
   {
     gasController = WFLogForCategory(0);
-    v34 = OSLogForWFLogLevel(2uLL);
-    if (WFCurrentLogLevel() >= 2 && gasController && os_log_type_enabled(gasController, v34))
+    v44 = OSLogForWFLogLevel(2uLL);
+    v45 = v44;
+    if (WFCurrentLogLevel(v44, v46) >= 2 && gasController && os_log_type_enabled(gasController, v45))
     {
-      LOWORD(v39) = 0;
-      _os_log_impl(&dword_273ECD000, gasController, v34, "networkChanged callback during association with nil network", &v39, 2u);
+      LOWORD(v52) = 0;
+      _os_log_impl(&dword_273ECD000, gasController, v45, "networkChanged callback during association with nil network", &v52, 2u);
     }
 
 LABEL_44:
@@ -11836,13 +11975,14 @@ LABEL_44:
 
         if (!matchingKnownNetworkProfile)
         {
-          v36 = WFLogForCategory(0);
-          v37 = OSLogForWFLogLevel(3uLL);
-          if (WFCurrentLogLevel() >= 3 && v36 && os_log_type_enabled(v36, v37))
+          v48 = WFLogForCategory(0);
+          v49 = OSLogForWFLogLevel(3uLL);
+          v50 = v49;
+          if (WFCurrentLogLevel(v49, v51) >= 3 && v48 && os_log_type_enabled(v48, v50))
           {
-            v39 = 136315138;
-            *v40 = "[WFNetworkListController _networkDidChangeNotification:]";
-            _os_log_impl(&dword_273ECD000, v36, v37, "%s: new network is HS20, resolving profile", &v39, 0xCu);
+            v52 = 136315138;
+            *v53 = "[WFNetworkListController _networkDidChangeNotification:]";
+            _os_log_impl(&dword_273ECD000, v48, v50, "%s: new network is HS20, resolving profile", &v52, 0xCu);
           }
 
           gasController = [(WFNetworkListController *)self gasController];
@@ -11854,32 +11994,29 @@ LABEL_44:
   }
 
 LABEL_45:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __57__WFNetworkListController__networkDidChangeNotification___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = WFLogForCategory(5uLL);
   v7 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) && v6 && os_log_type_enabled(v6, v8))
   {
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_273ECD000, v6, v7, "resolved profile %@ error %@", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_273ECD000, v6, v8, "resolved profile %@ error %@", &v10, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_networkLinkQualityDidChangeNotification:(id)notification
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   userInfo = [notification userInfo];
   v5 = [userInfo objectForKey:@"WFInterfaceLinkQualityKey"];
 
@@ -11893,53 +12030,54 @@ void __57__WFNetworkListController__networkDidChangeNotification___block_invoke(
     {
       v8 = WFLogForCategory(0);
       v9 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v8)
+      v10 = v9;
+      if (WFCurrentLogLevel(v9, v11) >= 3 && v8)
       {
-        v10 = v8;
-        if (os_log_type_enabled(v10, v9))
+        v12 = v8;
+        if (os_log_type_enabled(v12, v10))
         {
           [v5 scaledRssi];
-          v12 = v11;
+          v14 = v13;
           [v5 scaledRssi];
-          v26 = 136315650;
-          v27 = "[WFNetworkListController _networkLinkQualityDidChangeNotification:]";
-          v28 = 2048;
-          v29 = v12;
-          v30 = 2048;
-          v31 = WFSignalBarsFromScaledRSSI();
-          _os_log_impl(&dword_273ECD000, v10, v9, "%s: linkQuality.scaledRssi %f bars %ld", &v26, 0x20u);
+          v27 = 136315650;
+          v28 = "[WFNetworkListController _networkLinkQualityDidChangeNotification:]";
+          v29 = 2048;
+          v30 = v14;
+          v31 = 2048;
+          v32 = WFSignalBarsFromScaledRSSI();
+          _os_log_impl(&dword_273ECD000, v12, v10, "%s: linkQuality.scaledRssi %f bars %ld", &v27, 0x20u);
         }
       }
 
       viewController2 = [(WFNetworkListController *)self viewController];
-      v14 = objc_opt_respondsToSelector();
+      v16 = objc_opt_respondsToSelector();
 
-      if (v14)
+      if (v16)
       {
         [v5 scaledRssi];
-        v15 = WFSignalBarsFromScaledRSSI();
+        v17 = WFSignalBarsFromScaledRSSI();
         viewController3 = [(WFNetworkListController *)self viewController];
-        [viewController3 setCurrentNetworkSignalBars:v15];
+        [viewController3 setCurrentNetworkSignalBars:v17];
       }
 
       else
       {
         if (os_signpost_enabled(MEMORY[0x277D86220]))
         {
-          LOWORD(v26) = 0;
-          _os_signpost_emit_with_name_impl(&dword_273ECD000, MEMORY[0x277D86220], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "set currentNetworkScaledRSSI", &unk_273F79F46, &v26, 2u);
+          LOWORD(v27) = 0;
+          _os_signpost_emit_with_name_impl(&dword_273ECD000, MEMORY[0x277D86220], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "set currentNetworkScaledRSSI", &unk_273F79F46, &v27, 2u);
         }
 
         [v5 scaledRssi];
-        v18 = v17;
+        v20 = v19;
         viewController4 = [(WFNetworkListController *)self viewController];
-        LODWORD(v20) = v18;
-        [viewController4 setCurrentNetworkScaledRSSI:v20];
+        LODWORD(v22) = v20;
+        [viewController4 setCurrentNetworkScaledRSSI:v22];
 
         if (os_signpost_enabled(MEMORY[0x277D86220]))
         {
-          LOWORD(v26) = 0;
-          _os_signpost_emit_with_name_impl(&dword_273ECD000, MEMORY[0x277D86220], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "set currentNetworkScaledRSSI", &unk_273F79F46, &v26, 2u);
+          LOWORD(v27) = 0;
+          _os_signpost_emit_with_name_impl(&dword_273ECD000, MEMORY[0x277D86220], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "set currentNetworkScaledRSSI", &unk_273F79F46, &v27, 2u);
         }
       }
     }
@@ -11966,13 +12104,11 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_interfaceDidBecomeAvailable:(id)available
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   wifiClient = [(WFNetworkListController *)self wifiClient];
   interface = [wifiClient interface];
 
@@ -11988,37 +12124,21 @@ LABEL_19:
     [(WFNetworkListController *)self setInterface:interface];
     [(WFNetworkListController *)self _updateViewControllerDisabled];
     [(WFNetworkListController *)self _updatePowerState];
-    if (![(WFNetworkListController *)self isSetup])
+    if (-[WFNetworkListController isSetup](self, "isSetup") && (-[WFNetworkListController viewController](self, "viewController"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_opt_respondsToSelector(), v7, (v8 & 1) != 0) && (-[WFNetworkListController viewController](self, "viewController"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 networkListVisible], v9, (v10 & 1) == 0))
     {
-      goto LABEL_7;
-    }
-
-    viewController = [(WFNetworkListController *)self viewController];
-    v8 = objc_opt_respondsToSelector();
-
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    viewController2 = [(WFNetworkListController *)self viewController];
-    networkListVisible = [viewController2 networkListVisible];
-
-    if ((networkListVisible & 1) == 0)
-    {
-      v12 = WFLogForCategory(0);
-      v13 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v12 && os_log_type_enabled(v12, v13))
+      v11 = WFLogForCategory(0);
+      v12 = OSLogForWFLogLevel(3uLL);
+      v13 = v12;
+      if (WFCurrentLogLevel(v12, v14) >= 3 && v11 && os_log_type_enabled(v11, v13))
       {
-        v14 = 136315138;
-        v15 = "[WFNetworkListController _interfaceDidBecomeAvailable:]";
-        _os_log_impl(&dword_273ECD000, v12, v13, "%s: Skipping scanning for setup until wifi page is visible", &v14, 0xCu);
+        v15 = 136315138;
+        v16 = "[WFNetworkListController _interfaceDidBecomeAvailable:]";
+        _os_log_impl(&dword_273ECD000, v11, v13, "%s: Skipping scanning for setup until wifi page is visible", &v15, 0xCu);
       }
     }
 
     else
     {
-LABEL_7:
       [(WFNetworkListController *)self startScanning];
     }
   }
@@ -12027,59 +12147,57 @@ LABEL_7:
   {
     [WFNetworkListController _interfaceDidBecomeAvailable:];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clientRestartedNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4)
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4)
   {
-    v6 = v4;
-    if (os_log_type_enabled(v6, v5))
+    v8 = v4;
+    if (os_log_type_enabled(v8, v6))
     {
-      v8 = 136315394;
-      v9 = "[WFNetworkListController _clientRestartedNotification:]";
-      v10 = 2048;
+      v9 = 136315394;
+      v10 = "[WFNetworkListController _clientRestartedNotification:]";
+      v11 = 2048;
       powerState = [(WFNetworkListController *)self powerState];
-      _os_log_impl(&dword_273ECD000, v6, v5, "%s: power state %lu", &v8, 0x16u);
+      _os_log_impl(&dword_273ECD000, v8, v6, "%s: power state %lu", &v9, 0x16u);
     }
   }
 
   [(WFNetworkListController *)self _updatePowerState];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_wifiPropertyDidChanged:(id)changed
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v38 = *MEMORY[0x277D85DE8];
   v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   changedCopy = changed;
   obj = [changedCopy userInfo];
-  v4 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v4 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v29;
+    v7 = *v32;
     *&v5 = 134217984;
-    v25 = v5;
+    v28 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
-        if ([v9 isEqualToString:{@"kWFClientUserInterfacePropertyATJKey", v25}])
+        v9 = *(*(&v31 + 1) + 8 * i);
+        if ([v9 isEqualToString:{@"kWFClientUserInterfacePropertyATJKey", v28}])
         {
           userInfo = [changedCopy userInfo];
           v11 = [userInfo objectForKey:@"kWFClientUserInterfacePropertyATJKey"];
@@ -12092,11 +12210,12 @@ LABEL_7:
           {
             v15 = WFLogForCategory(0);
             v16 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v15 && os_log_type_enabled(v15, v16))
+            v17 = v16;
+            if (WFCurrentLogLevel(v16, v18) >= 3 && v15 && os_log_type_enabled(v15, v17))
             {
-              *buf = v25;
-              v33 = integerValue;
-              _os_log_impl(&dword_273ECD000, v15, v16, "setting ask to join mode to %ld", buf, 0xCu);
+              *buf = v28;
+              v36 = integerValue;
+              _os_log_impl(&dword_273ECD000, v15, v17, "setting ask to join mode to %ld", buf, 0xCu);
             }
 
             viewController2 = [(WFNetworkListController *)self viewController];
@@ -12117,17 +12236,18 @@ LABEL_20:
 
           integerValue2 = [v11 integerValue];
           viewController3 = [(WFNetworkListController *)self viewController];
-          v21 = objc_opt_respondsToSelector();
+          v23 = objc_opt_respondsToSelector();
 
-          if (v21)
+          if (v23)
           {
-            v22 = WFLogForCategory(0);
-            v23 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v22 && os_log_type_enabled(v22, v23))
+            v24 = WFLogForCategory(0);
+            v25 = OSLogForWFLogLevel(3uLL);
+            v26 = v25;
+            if (WFCurrentLogLevel(v25, v27) >= 3 && v24 && os_log_type_enabled(v24, v26))
             {
-              *buf = v25;
-              v33 = integerValue2;
-              _os_log_impl(&dword_273ECD000, v22, v23, "setting auto hotspot join option to %ld", buf, 0xCu);
+              *buf = v28;
+              v36 = integerValue2;
+              _os_log_impl(&dword_273ECD000, v24, v26, "setting auto hotspot join option to %ld", buf, 0xCu);
             }
 
             viewController2 = [(WFNetworkListController *)self viewController];
@@ -12137,18 +12257,16 @@ LABEL_20:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v6 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
     while (v6);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_preferredNetworksDidChange:(id)change
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   userInfo = [changeCopy userInfo];
   v6 = [userInfo objectForKey:*MEMORY[0x277D02AA0]];
@@ -12168,12 +12286,13 @@ LABEL_20:
       if ([(WFNetworkListController *)self isAssociating]|| (integerValue - 3) < 0xFFFFFFFFFFFFFFFELL)
       {
         ssid = WFLogForCategory(0);
-        v21 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && ssid && os_log_type_enabled(ssid, v21))
+        v23 = OSLogForWFLogLevel(1uLL);
+        v24 = v23;
+        if (WFCurrentLogLevel(v23, v25) && ssid && os_log_type_enabled(ssid, v24))
         {
-          v34 = 136315138;
-          v35 = "[WFNetworkListController _preferredNetworksDidChange:]";
-          _os_log_impl(&dword_273ECD000, ssid, v21, "%s: preferred network change, do not update health subtitle while associating", &v34, 0xCu);
+          v39 = 136315138;
+          v40 = "[WFNetworkListController _preferredNetworksDidChange:]";
+          _os_log_impl(&dword_273ECD000, ssid, v24, "%s: preferred network change, do not update health subtitle while associating", &v39, 0xCu);
         }
       }
 
@@ -12188,14 +12307,15 @@ LABEL_20:
 
         v17 = WFLogForCategory(0);
         v18 = OSLogForWFLogLevel(3uLL);
-        v20 = WFCurrentLogLevel() > 2 && v17 != 0;
+        v19 = v18;
+        v22 = WFCurrentLogLevel(v18, v20) > 2 && v17 != 0;
         if (v16)
         {
-          if (v20 && os_log_type_enabled(v17, v18))
+          if (v22 && os_log_type_enabled(v17, v19))
           {
-            v34 = 136315138;
-            v35 = "[WFNetworkListController _preferredNetworksDidChange:]";
-            _os_log_impl(&dword_273ECD000, v17, v18, "%s: preferred network modified, updating health subtitle", &v34, 0xCu);
+            v39 = 136315138;
+            v40 = "[WFNetworkListController _preferredNetworksDidChange:]";
+            _os_log_impl(&dword_273ECD000, v17, v19, "%s: preferred network modified, updating health subtitle", &v39, 0xCu);
           }
 
           [(WFNetworkListController *)self _updateHealthSubtitle];
@@ -12203,11 +12323,11 @@ LABEL_20:
 
         else
         {
-          if (v20 && os_log_type_enabled(v17, v18))
+          if (v22 && os_log_type_enabled(v17, v19))
           {
-            v34 = 136315138;
-            v35 = "[WFNetworkListController _preferredNetworksDidChange:]";
-            _os_log_impl(&dword_273ECD000, v17, v18, "%s: preferred network modified, will not update health subtitle ", &v34, 0xCu);
+            v39 = 136315138;
+            v40 = "[WFNetworkListController _preferredNetworksDidChange:]";
+            _os_log_impl(&dword_273ECD000, v17, v19, "%s: preferred network modified, will not update health subtitle ", &v39, 0xCu);
           }
         }
       }
@@ -12218,57 +12338,56 @@ LABEL_20:
 
   if (accessoryIdentifier)
   {
-    v23 = integerValue == 2;
+    v27 = integerValue == 2;
   }
 
   else
   {
-    v23 = 0;
+    v27 = 0;
   }
 
-  if (v23)
+  if (v27)
   {
     networks = [(WFNetworkListController *)self networks];
     networkName2 = [v6 networkName];
-    v26 = [networks scanRecordWithSSID:networkName2];
+    v30 = [networks scanRecordWithSSID:networkName2];
 
-    v27 = WFLogForCategory(0);
-    v28 = OSLogForWFLogLevel(3uLL);
-    v30 = WFCurrentLogLevel() > 2 && v27 != 0;
-    if (v26)
+    v31 = WFLogForCategory(0);
+    v32 = OSLogForWFLogLevel(3uLL);
+    v33 = v32;
+    v36 = WFCurrentLogLevel(v32, v34) > 2 && v31 != 0;
+    if (v30)
     {
-      if (v30)
+      if (v36)
       {
-        v31 = v27;
-        if (os_log_type_enabled(v31, v28))
+        v37 = v31;
+        if (os_log_type_enabled(v37, v33))
         {
           displayFriendlyName = [v6 displayFriendlyName];
-          v34 = 136315650;
-          v35 = "[WFNetworkListController _preferredNetworksDidChange:]";
-          v36 = 2112;
-          v37 = displayFriendlyName;
-          v38 = 2112;
-          v39 = v6;
-          _os_log_impl(&dword_273ECD000, v31, v28, "%s found matching scan result, displayName='%@' profile='%@'", &v34, 0x20u);
+          v39 = 136315650;
+          v40 = "[WFNetworkListController _preferredNetworksDidChange:]";
+          v41 = 2112;
+          v42 = displayFriendlyName;
+          v43 = 2112;
+          v44 = v6;
+          _os_log_impl(&dword_273ECD000, v37, v33, "%s found matching scan result, displayName='%@' profile='%@'", &v39, 0x20u);
         }
       }
 
-      [v26 setMatchingKnownNetworkProfile:v6];
-      v27 = [MEMORY[0x277CBEB98] setWithObject:v26];
-      [(WFNetworkListController *)self _updateViewsForNetworks:v27];
+      [v30 setMatchingKnownNetworkProfile:v6];
+      v31 = [MEMORY[0x277CBEB98] setWithObject:v30];
+      [(WFNetworkListController *)self _updateViewsForNetworks:v31];
     }
 
-    else if (v30 && os_log_type_enabled(v27, v28))
+    else if (v36 && os_log_type_enabled(v31, v33))
     {
-      v34 = 136315394;
-      v35 = "[WFNetworkListController _preferredNetworksDidChange:]";
-      v36 = 2112;
-      v37 = v6;
-      _os_log_impl(&dword_273ECD000, v27, v28, "%s updated network was an accessory but was not found in the scan results profile='%@'", &v34, 0x16u);
+      v39 = 136315394;
+      v40 = "[WFNetworkListController _preferredNetworksDidChange:]";
+      v41 = 2112;
+      v42 = v6;
+      _os_log_impl(&dword_273ECD000, v31, v33, "%s updated network was an accessory but was not found in the scan results profile='%@'", &v39, 0x16u);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hotspotInterfaceDidUpdateNetworks:(id)networks
@@ -12276,19 +12395,19 @@ LABEL_20:
   v15 = *MEMORY[0x277D85DE8];
   if ([(WFNetworkListController *)self scanForPersonalHotspots]&& [(WFNetworkListController *)self canScanForPersonalHotspots])
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     [(WFNetworkListController *)self _updateViewControllerScanResults];
   }
 
   else
   {
-    v5 = WFLogForCategory(0);
-    v6 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v5)
+    v4 = WFLogForCategory(0);
+    v5 = OSLogForWFLogLevel(3uLL);
+    v6 = v5;
+    if (WFCurrentLogLevel(v5, v7) >= 3 && v4)
     {
-      v7 = v5;
-      if (os_log_type_enabled(v7, v6))
+      v8 = v4;
+      if (os_log_type_enabled(v8, v6))
       {
         v9 = 136315650;
         v10 = "[WFNetworkListController hotspotInterfaceDidUpdateNetworks:]";
@@ -12296,12 +12415,11 @@ LABEL_20:
         scanForPersonalHotspots = [(WFNetworkListController *)self scanForPersonalHotspots];
         v13 = 1024;
         canScanForPersonalHotspots = [(WFNetworkListController *)self canScanForPersonalHotspots];
-        _os_log_impl(&dword_273ECD000, v7, v6, "%s: hotspot scanning disabled (scan %d, canScan %d)", &v9, 0x18u);
+        _os_log_impl(&dword_273ECD000, v8, v6, "%s: hotspot scanning disabled (scan %d, canScan %d)", &v9, 0x18u);
       }
     }
 
     [(WFNetworkListController *)self _stopHotspotScan];
-    v8 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -12341,7 +12459,7 @@ LABEL_20:
 
 - (void)_updateViewControllerDisabled
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   viewController = [(WFNetworkListController *)self viewController];
   v4 = objc_opt_respondsToSelector();
 
@@ -12351,48 +12469,48 @@ LABEL_20:
 
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v6)
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) >= 3 && v6)
     {
-      v8 = v6;
-      if (os_log_type_enabled(v8, v7))
+      v10 = v6;
+      if (os_log_type_enabled(v10, v8))
       {
         viewController2 = [(WFNetworkListController *)self viewController];
-        v15 = 136315650;
-        v16 = "[WFNetworkListController _updateViewControllerDisabled]";
-        v17 = 2112;
-        v18 = viewController2;
-        v19 = 1024;
-        v20 = interface == 0;
-        _os_log_impl(&dword_273ECD000, v8, v7, "%s: setting view controller %@ disabled %d", &v15, 0x1Cu);
+        v18 = 136315650;
+        v19 = "[WFNetworkListController _updateViewControllerDisabled]";
+        v20 = 2112;
+        v21 = viewController2;
+        v22 = 1024;
+        v23 = interface == 0;
+        _os_log_impl(&dword_273ECD000, v10, v8, "%s: setting view controller %@ disabled %d", &v18, 0x1Cu);
       }
     }
 
-    v10 = interface == 0;
+    v12 = interface == 0;
 
     viewController3 = [(WFNetworkListController *)self viewController];
-    [viewController3 setDisabled:v10];
+    [viewController3 setDisabled:v12];
   }
 
   else
   {
     viewController3 = WFLogForCategory(0);
-    v12 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && viewController3)
+    v14 = OSLogForWFLogLevel(3uLL);
+    v15 = v14;
+    if (WFCurrentLogLevel(v14, v16) >= 3 && viewController3)
     {
       viewController3 = viewController3;
-      if (os_log_type_enabled(viewController3, v12))
+      if (os_log_type_enabled(viewController3, v15))
       {
         viewController4 = [(WFNetworkListController *)self viewController];
-        v15 = 136315394;
-        v16 = "[WFNetworkListController _updateViewControllerDisabled]";
-        v17 = 2112;
-        v18 = viewController4;
-        _os_log_impl(&dword_273ECD000, viewController3, v12, "%s: view controller %@ doesn't support disabled state", &v15, 0x16u);
+        v18 = 136315394;
+        v19 = "[WFNetworkListController _updateViewControllerDisabled]";
+        v20 = 2112;
+        v21 = viewController4;
+        _os_log_impl(&dword_273ECD000, viewController3, v15, "%s: view controller %@ doesn't support disabled state", &v18, 0x16u);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateHS20NetworksWithProfiles:(id)profiles names:(id)names
@@ -12449,37 +12567,38 @@ void __65__WFNetworkListController__updateHS20NetworksWithProfiles_names___block
 
 - (void)_stateMonitorChangedStates:(int64_t)states oldState:(int64_t)state
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7)
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7)
   {
-    v9 = v7;
-    if (os_log_type_enabled(v9, v8))
+    v11 = v7;
+    if (os_log_type_enabled(v11, v9))
     {
-      v10 = WFWiFiStateMonitorStringForState(state);
-      v11 = WFWiFiStateMonitorStringForState(states);
-      v21 = 136315650;
-      v22 = "[WFNetworkListController _stateMonitorChangedStates:oldState:]";
-      v23 = 2112;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v11;
-      _os_log_impl(&dword_273ECD000, v9, v8, "%s: %@ to %@", &v21, 0x20u);
+      v12 = WFWiFiStateMonitorStringForState(state);
+      v13 = WFWiFiStateMonitorStringForState(states);
+      v22 = 136315650;
+      v23 = "[WFNetworkListController _stateMonitorChangedStates:oldState:]";
+      v24 = 2112;
+      v25 = v12;
+      v26 = 2112;
+      v27 = v13;
+      _os_log_impl(&dword_273ECD000, v11, v9, "%s: %@ to %@", &v22, 0x20u);
     }
   }
 
   viewController = [(WFNetworkListController *)self viewController];
-  v13 = objc_opt_respondsToSelector();
+  v15 = objc_opt_respondsToSelector();
 
-  if (v13)
+  if (v15)
   {
     interface = [(WFNetworkListController *)self interface];
     currentNetwork = [interface currentNetwork];
     if ([currentNetwork carPlayType] == 1)
     {
 
-      v16 = 1;
+      v18 = 1;
     }
 
     else
@@ -12489,174 +12608,169 @@ void __65__WFNetworkListController__updateHS20NetworksWithProfiles_names___block
 
       if (states == 2)
       {
-        v16 = isCellularOutrankingWiFi;
+        v18 = isCellularOutrankingWiFi;
       }
 
       else
       {
-        v16 = 1;
+        v18 = 1;
       }
     }
 
     viewController2 = [(WFNetworkListController *)self viewController];
-    [viewController2 setUserAutoJoinEnabled:v16];
+    [viewController2 setUserAutoJoinEnabled:v18];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissCredentialsViewControllerWithContext:(id)context
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
       provider = [contextCopy provider];
-      v10 = 138412290;
-      v11 = provider;
-      _os_log_impl(&dword_273ECD000, v7, v6, "Dismissing credentials view controller %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = provider;
+      _os_log_impl(&dword_273ECD000, v9, v7, "Dismissing credentials view controller %@", &v11, 0xCu);
     }
   }
 
   [(WFNetworkListController *)self _dismissViewControllerForContext:contextCopy];
   [(WFNetworkListController *)self setCredentialsContext:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissTrustViewControllerWithContext:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
-    v10 = 138412290;
-    v11 = contextCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "Dismissing trust view controller %@", &v10, 0xCu);
+    v13 = 138412290;
+    v14 = contextCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "Dismissing trust view controller %@", &v13, 0xCu);
   }
 
-  v7 = WFLogForCategory(0);
-  v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+  v9 = WFLogForCategory(0);
+  v10 = OSLogForWFLogLevel(3uLL);
+  v11 = v10;
+  if (WFCurrentLogLevel(v10, v12) >= 3 && v9 && os_log_type_enabled(v9, v11))
   {
-    v10 = 136315650;
-    v11 = "[WFNetworkListController _dismissTrustViewControllerWithContext:]";
-    v12 = 2112;
-    v13 = contextCopy;
-    v14 = 2112;
-    v15 = contextCopy;
-    _os_log_impl(&dword_273ECD000, v7, v8, "%s: presentingVc %@ credentialsVc %@", &v10, 0x20u);
+    v13 = 136315650;
+    v14 = "[WFNetworkListController _dismissTrustViewControllerWithContext:]";
+    v15 = 2112;
+    v16 = contextCopy;
+    v17 = 2112;
+    v18 = contextCopy;
+    _os_log_impl(&dword_273ECD000, v9, v11, "%s: presentingVc %@ credentialsVc %@", &v13, 0x20u);
   }
 
   [(WFNetworkListController *)self _dismissViewControllerForContext:contextCopy];
   [(WFNetworkListController *)self setCertificateContext:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissDetailsViewControllerWithContext:(id)context
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
       provider = [contextCopy provider];
-      v10 = 138412290;
-      v11 = provider;
-      _os_log_impl(&dword_273ECD000, v7, v6, "Dismissing details view controller %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = provider;
+      _os_log_impl(&dword_273ECD000, v9, v7, "Dismissing details view controller %@", &v11, 0xCu);
     }
   }
 
   [(WFNetworkListController *)self _dismissViewControllerForContext:contextCopy];
   [(WFNetworkListController *)self setDetailsContext:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissErrorViewControllerWithContext:(id)context
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
       provider = [contextCopy provider];
-      v10 = 138412290;
-      v11 = provider;
-      _os_log_impl(&dword_273ECD000, v7, v6, "Dismissing error view controller %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = provider;
+      _os_log_impl(&dword_273ECD000, v9, v7, "Dismissing error view controller %@", &v11, 0xCu);
     }
   }
 
   [(WFNetworkListController *)self _dismissViewControllerForContext:contextCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissLockdownModeViewControllerWithContext:(id)context
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
       provider = [contextCopy provider];
-      v10 = 138412290;
-      v11 = provider;
-      _os_log_impl(&dword_273ECD000, v7, v6, "Dismissing lockdown mode view controller %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = provider;
+      _os_log_impl(&dword_273ECD000, v9, v7, "Dismissing lockdown mode view controller %@", &v11, 0xCu);
     }
   }
 
   [(WFNetworkListController *)self _dismissViewControllerForContext:contextCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissOtherNetworkViewControllerWithContext:(id)context
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
       provider = [contextCopy provider];
-      v10 = 138412290;
-      v11 = provider;
-      _os_log_impl(&dword_273ECD000, v7, v6, "Dismissing other network view controller %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = provider;
+      _os_log_impl(&dword_273ECD000, v9, v7, "Dismissing other network view controller %@", &v11, 0xCu);
     }
   }
 
   [(WFNetworkListController *)self _dismissViewControllerForContext:contextCopy];
   [(WFNetworkListController *)self _resumeScanning];
   [(WFNetworkListController *)self setCredentialsContext:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissViewControllerForContext:(id)context
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   viewProvider = [(WFNetworkListController *)self viewProvider];
   v6 = objc_opt_respondsToSelector();
@@ -12665,17 +12779,18 @@ void __65__WFNetworkListController__updateHS20NetworksWithProfiles_names___block
   {
     v7 = WFLogForCategory(0);
     v8 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v7)
+    v9 = v8;
+    if (WFCurrentLogLevel(v8, v10) >= 3 && v7)
     {
-      v9 = v7;
-      if (os_log_type_enabled(v9, v8))
+      v11 = v7;
+      if (os_log_type_enabled(v11, v9))
       {
         viewProvider2 = [(WFNetworkListController *)self viewProvider];
-        v44 = 136315394;
-        v45 = "[WFNetworkListController _dismissViewControllerForContext:]";
-        v46 = 2112;
-        v47 = viewProvider2;
-        _os_log_impl(&dword_273ECD000, v9, v8, "%s: provider (%@) handling dismissal", &v44, 0x16u);
+        v51 = 136315394;
+        v52 = "[WFNetworkListController _dismissViewControllerForContext:]";
+        v53 = 2112;
+        v54 = viewProvider2;
+        _os_log_impl(&dword_273ECD000, v11, v9, "%s: provider (%@) handling dismissal", &v51, 0x16u);
       }
     }
 
@@ -12692,27 +12807,28 @@ void __65__WFNetworkListController__updateHS20NetworksWithProfiles_names___block
     }
 
     provider2 = [contextCopy provider];
-    v14 = objc_opt_respondsToSelector();
+    v16 = objc_opt_respondsToSelector();
 
-    if ((v14 & 1) != 0 && ([contextCopy provider], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "wantsModalPresentation"), v15, v16))
+    if ((v16 & 1) != 0 && ([contextCopy provider], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "wantsModalPresentation"), v17, v18))
     {
       provider3 = [contextCopy provider];
-      v18 = objc_opt_respondsToSelector();
+      v20 = objc_opt_respondsToSelector();
 
-      v19 = WFLogForCategory(0);
-      v20 = OSLogForWFLogLevel(3uLL);
-      v22 = WFCurrentLogLevel() > 2 && v19 != 0;
-      if (v18)
+      v21 = WFLogForCategory(0);
+      v22 = OSLogForWFLogLevel(3uLL);
+      v23 = v22;
+      v26 = WFCurrentLogLevel(v22, v24) > 2 && v21 != 0;
+      if (v20)
       {
-        if (v22)
+        if (v26)
         {
-          v23 = v19;
-          if (os_log_type_enabled(v23, v20))
+          v27 = v21;
+          if (os_log_type_enabled(v27, v23))
           {
             provider4 = [contextCopy provider];
-            v44 = 138412290;
-            v45 = provider4;
-            _os_log_impl(&dword_273ECD000, v23, v20, "dismissing provider: %@", &v44, 0xCu);
+            v51 = 138412290;
+            v52 = provider4;
+            _os_log_impl(&dword_273ECD000, v27, v23, "dismissing provider: %@", &v51, 0xCu);
           }
         }
 
@@ -12721,15 +12837,15 @@ void __65__WFNetworkListController__updateHS20NetworksWithProfiles_names___block
 
       else
       {
-        if (v22)
+        if (v26)
         {
-          v32 = v19;
-          if (os_log_type_enabled(v32, v20))
+          v38 = v21;
+          if (os_log_type_enabled(v38, v23))
           {
             viewController = [(WFNetworkListController *)self viewController];
-            v44 = 138412290;
-            v45 = viewController;
-            _os_log_impl(&dword_273ECD000, v32, v20, "dismissing view controller: %@", &v44, 0xCu);
+            v51 = 138412290;
+            v52 = viewController;
+            _os_log_impl(&dword_273ECD000, v38, v23, "dismissing view controller: %@", &v51, 0xCu);
           }
         }
 
@@ -12742,21 +12858,22 @@ void __65__WFNetworkListController__updateHS20NetworksWithProfiles_names___block
 
     else
     {
-      v26 = WFLogForCategory(0);
-      v27 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v26)
+      v30 = WFLogForCategory(0);
+      v31 = OSLogForWFLogLevel(3uLL);
+      v32 = v31;
+      if (WFCurrentLogLevel(v31, v33) >= 3 && v30)
       {
-        v28 = v26;
-        if (os_log_type_enabled(v28, v27))
+        v34 = v30;
+        if (os_log_type_enabled(v34, v32))
         {
           provider6 = [contextCopy provider];
           viewController2 = [(WFNetworkListController *)self viewController];
           navigationController = [viewController2 navigationController];
-          v44 = 138412546;
-          v45 = provider6;
-          v46 = 2112;
-          v47 = navigationController;
-          _os_log_impl(&dword_273ECD000, v28, v27, "dismissing non-modal: %@ (navigationController: %@)", &v44, 0x16u);
+          v51 = 138412546;
+          v52 = provider6;
+          v53 = 2112;
+          v54 = navigationController;
+          _os_log_impl(&dword_273ECD000, v34, v32, "dismissing non-modal: %@ (navigationController: %@)", &v51, 0x16u);
         }
       }
 
@@ -12767,9 +12884,9 @@ void __65__WFNetworkListController__updateHS20NetworksWithProfiles_names___block
 
 LABEL_36:
   viewProvider4 = [(WFNetworkListController *)self viewProvider];
-  v35 = objc_opt_respondsToSelector();
+  v41 = objc_opt_respondsToSelector();
 
-  if (v35)
+  if (v41)
   {
     viewProvider5 = [(WFNetworkListController *)self viewProvider];
     provider7 = [contextCopy provider];
@@ -12781,166 +12898,166 @@ LABEL_36:
 
   if (detailsContext)
   {
-    v39 = WFLogForCategory(0);
-    v40 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v39)
+    v45 = WFLogForCategory(0);
+    v46 = OSLogForWFLogLevel(3uLL);
+    v47 = v46;
+    if (WFCurrentLogLevel(v46, v48) >= 3 && v45)
     {
-      v41 = v39;
-      if (os_log_type_enabled(v41, v40))
+      v49 = v45;
+      if (os_log_type_enabled(v49, v47))
       {
         detailsContext2 = [(WFNetworkListController *)self detailsContext];
-        v44 = 138412290;
-        v45 = detailsContext2;
-        _os_log_impl(&dword_273ECD000, v41, v40, "clearing detailsContext='%@'", &v44, 0xCu);
+        v51 = 138412290;
+        v52 = detailsContext2;
+        _os_log_impl(&dword_273ECD000, v49, v47, "clearing detailsContext='%@'", &v51, 0xCu);
       }
     }
 
     [(WFNetworkListController *)self setDetailsContext:0];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissVisibleContext
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   visibleContext = [(WFNetworkListController *)self visibleContext];
 
   if (visibleContext)
   {
     v4 = WFLogForCategory(0);
     v5 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v4)
+    v6 = v5;
+    if (WFCurrentLogLevel(v5, v7) >= 3 && v4)
     {
-      v6 = v4;
-      if (os_log_type_enabled(v6, v5))
+      v8 = v4;
+      if (os_log_type_enabled(v8, v6))
       {
         visibleContext2 = [(WFNetworkListController *)self visibleContext];
-        v10 = 136315394;
-        v11 = "[WFNetworkListController _dismissVisibleContext]";
-        v12 = 2112;
-        v13 = visibleContext2;
-        _os_log_impl(&dword_273ECD000, v6, v5, "%s: dismissing context %@", &v10, 0x16u);
+        v11 = 136315394;
+        v12 = "[WFNetworkListController _dismissVisibleContext]";
+        v13 = 2112;
+        v14 = visibleContext2;
+        _os_log_impl(&dword_273ECD000, v8, v6, "%s: dismissing context %@", &v11, 0x16u);
       }
     }
 
     visibleContext3 = [(WFNetworkListController *)self visibleContext];
     [(WFNetworkListController *)self _dismissViewControllerForContext:visibleContext3];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)handleURL:(id)l
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
     *buf = 136315394;
-    v88 = "[WFNetworkListController handleURL:]";
-    v89 = 2112;
-    *v90 = lCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s: handling URL %@", buf, 0x16u);
+    v105 = "[WFNetworkListController handleURL:]";
+    v106 = 2112;
+    *v107 = lCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s: handling URL %@", buf, 0x16u);
   }
 
-  v7 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
-  v8 = v7;
-  if (!v7)
+  v9 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
+  v10 = v9;
+  if (!v9)
   {
     [WFNetworkListController handleURL:];
-    v77 = 0;
-    v78 = 0;
+    v94 = 0;
+    v95 = 0;
     lastObject = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = 0;
-    v10 = 0;
-LABEL_91:
-    v22 = 0;
     v23 = 0;
-    v79 = 0;
+    v24 = 0;
+    v25 = 0;
+    v12 = 0;
+LABEL_91:
+    v26 = 0;
+    v27 = 0;
+    v96 = 0;
     goto LABEL_92;
   }
 
-  path = [v7 path];
-  v10 = path;
+  path = [v9 path];
+  v12 = path;
   if (!path)
   {
     [WFNetworkListController handleURL:];
-    v77 = 0;
-    v78 = 0;
+    v94 = 0;
+    v95 = 0;
     lastObject = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = 0;
+    v23 = 0;
+    v24 = 0;
+    v25 = 0;
     goto LABEL_91;
   }
 
   if ([(WFNetworkScanRecord *)path hasPrefix:@"/"])
   {
-    v11 = [(WFNetworkScanRecord *)v10 substringFromIndex:1];
+    v13 = [(WFNetworkScanRecord *)v12 substringFromIndex:1];
 
-    v10 = v11;
+    v12 = v13;
   }
 
-  stringByRemovingPercentEncoding = [(WFNetworkScanRecord *)v10 stringByRemovingPercentEncoding];
+  stringByRemovingPercentEncoding = [(WFNetworkScanRecord *)v12 stringByRemovingPercentEncoding];
 
-  v13 = [stringByRemovingPercentEncoding componentsSeparatedByString:@"#"];
-  firstObject = [v13 firstObject];
-  if ([v13 count] < 2)
+  v15 = [stringByRemovingPercentEncoding componentsSeparatedByString:@"#"];
+  firstObject = [v15 firstObject];
+  if ([v15 count] < 2)
   {
     lastObject = 0;
   }
 
   else
   {
-    lastObject = [v13 lastObject];
+    lastObject = [v15 lastObject];
   }
 
-  v16 = WFLogForCategory(0);
-  v17 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v16 && os_log_type_enabled(v16, v17))
+  v18 = WFLogForCategory(0);
+  v19 = OSLogForWFLogLevel(3uLL);
+  v20 = v19;
+  if (WFCurrentLogLevel(v19, v21) >= 3 && v18 && os_log_type_enabled(v18, v20))
   {
     *buf = 136315906;
-    v88 = "[WFNetworkListController handleURL:]";
-    v89 = 2112;
-    *v90 = stringByRemovingPercentEncoding;
-    *&v90[8] = 2112;
-    *&v90[10] = firstObject;
-    v91 = 2112;
-    v92 = lastObject;
-    _os_log_impl(&dword_273ECD000, v16, v17, "%s: path=%@, firstPathComponent=%@, offset=%@", buf, 0x2Au);
+    v105 = "[WFNetworkListController handleURL:]";
+    v106 = 2112;
+    *v107 = stringByRemovingPercentEncoding;
+    *&v107[8] = 2112;
+    *&v107[10] = firstObject;
+    v108 = 2112;
+    v109 = lastObject;
+    _os_log_impl(&dword_273ECD000, v18, v20, "%s: path=%@, firstPathComponent=%@, offset=%@", buf, 0x2Au);
   }
 
-  v78 = firstObject;
-  v79 = stringByRemovingPercentEncoding;
-  v77 = v13;
+  v95 = firstObject;
+  v96 = stringByRemovingPercentEncoding;
+  v94 = v15;
   if (![firstObject isEqualToString:@"NetworkDetails"] || !lastObject)
   {
-    v76 = lastObject;
+    v93 = lastObject;
     if ([stringByRemovingPercentEncoding isEqualToString:@"NetworkDetails"])
     {
-      v18 = [(WFNetworkListController *)self _handleCurrentNetworkDetailsURL:0];
-      v19 = 0;
-      v20 = 0;
-      v21 = 0;
-      v10 = 0;
-      v22 = 0;
+      v22 = [(WFNetworkListController *)self _handleCurrentNetworkDetailsURL:0];
       v23 = 0;
+      v24 = 0;
+      v25 = 0;
+      v12 = 0;
+      v26 = 0;
+      v27 = 0;
 LABEL_21:
-      lastObject = v76;
+      lastObject = v93;
       goto LABEL_55;
     }
 
     if ([stringByRemovingPercentEncoding isEqualToString:@"WiFiPower"])
     {
       viewController = [(WFNetworkListController *)self viewController];
-      v25 = objc_opt_respondsToSelector();
+      v29 = objc_opt_respondsToSelector();
 
-      if (v25)
+      if (v29)
       {
         viewController2 = [(WFNetworkListController *)self viewController];
         [viewController2 scrollToAirportCell:1];
@@ -12950,9 +13067,9 @@ LABEL_21:
     if ([stringByRemovingPercentEncoding isEqualToString:@"AskToJoin"])
     {
       viewController3 = [(WFNetworkListController *)self viewController];
-      v28 = objc_opt_respondsToSelector();
+      v32 = objc_opt_respondsToSelector();
 
-      if (v28)
+      if (v32)
       {
         viewController4 = [(WFNetworkListController *)self viewController];
         [viewController4 scrollToAirportCell:2];
@@ -12962,9 +13079,9 @@ LABEL_21:
     if ([stringByRemovingPercentEncoding isEqualToString:@"AutoJoinHotspot"])
     {
       viewController5 = [(WFNetworkListController *)self viewController];
-      v31 = objc_opt_respondsToSelector();
+      v35 = objc_opt_respondsToSelector();
 
-      if (v31)
+      if (v35)
       {
         viewController6 = [(WFNetworkListController *)self viewController];
         [viewController6 scrollToAirportCell:3];
@@ -12973,61 +13090,61 @@ LABEL_21:
 
     if (([stringByRemovingPercentEncoding isEqualToString:@"Credentials"] & 1) != 0 || objc_msgSend(stringByRemovingPercentEncoding, "isEqualToString:", @"TrustEnterprise"))
     {
-      v85 = 0;
-      v10 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:@"/var/mobile/Library/Caches/com.apple.wifi/LastEnterpriseNetwork.plist" options:0 error:&v85];
-      v20 = v85;
-      if (v10)
+      v102 = 0;
+      v12 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:@"/var/mobile/Library/Caches/com.apple.wifi/LastEnterpriseNetwork.plist" options:0 error:&v102];
+      v24 = v102;
+      if (v12)
       {
-        v71 = v10;
-        v22 = [MEMORY[0x277CCAC58] propertyListWithData:v10 options:0 format:0 error:0];
-        v19 = WiFiNetworkCreate();
-        if (!v19)
+        v88 = v12;
+        v26 = [MEMORY[0x277CCAC58] propertyListWithData:v12 options:0 format:0 error:0];
+        v23 = WiFiNetworkCreate();
+        if (!v23)
         {
           [WFNetworkListController handleURL:];
-          v21 = 0;
-          v10 = 0;
-          v18 = 0;
-          v23 = v71;
+          v25 = 0;
+          v12 = 0;
+          v22 = 0;
+          v27 = v88;
           goto LABEL_55;
         }
 
-        v10 = [[WFNetworkScanRecord alloc] initWithNetworkRef:v19];
-        v33 = [[WFNetworkProfile alloc] initWithNetworkRef:v19];
-        v21 = v33;
-        v74 = v8;
-        cf = v19;
-        if (v10)
+        v12 = [[WFNetworkScanRecord alloc] initWithNetworkRef:v23];
+        v37 = [[WFNetworkProfile alloc] initWithNetworkRef:v23];
+        v25 = v37;
+        v91 = v10;
+        cf = v23;
+        if (v12)
         {
-          if (v33)
+          if (v37)
           {
-            v72 = lCopy;
+            v89 = lCopy;
             networks = [(WFNetworkListController *)self networks];
-            v19 = [networks mutableCopy];
+            v23 = [networks mutableCopy];
 
-            if (!v19)
+            if (!v23)
             {
-              v19 = [MEMORY[0x277CBEB58] set];
+              v23 = [MEMORY[0x277CBEB58] set];
             }
 
-            [v19 addObject:v10];
-            [(WFNetworkListController *)self setNetworks:v19];
+            [v23 addObject:v12];
+            [(WFNetworkListController *)self setNetworks:v23];
             [(WFNetworkListController *)self _updateViewControllerScanResults];
             viewController7 = [(WFNetworkListController *)self viewController];
-            v36 = objc_opt_respondsToSelector();
+            v40 = objc_opt_respondsToSelector();
 
             viewController8 = [(WFNetworkListController *)self viewController];
-            v38 = viewController8;
-            if (v36)
+            v42 = viewController8;
+            if (v40)
             {
-              [viewController8 setCurrentNetwork:v10 previousNetwork:0 reason:0];
+              [viewController8 setCurrentNetwork:v12 previousNetwork:0 reason:0];
             }
 
             else
             {
-              [viewController8 setCurrentNetwork:v10];
+              [viewController8 setCurrentNetwork:v12];
             }
 
-            if ([v79 isEqualToString:@"Credentials"])
+            if ([v96 isEqualToString:@"Credentials"])
             {
               credentialsContext = [(WFNetworkListController *)self credentialsContext];
 
@@ -13037,135 +13154,139 @@ LABEL_21:
                 [credentialsContext2 cancel];
               }
 
-              [(WFNetworkListController *)self _associationWillStart:v10];
+              [(WFNetworkListController *)self _associationWillStart:v12];
               associationContext = [(WFNetworkListController *)self associationContext];
               [associationContext setState:2];
 
-              [(WFNetworkListController *)self _promptCredentialsForNetwork:v10 profile:v21];
+              [(WFNetworkListController *)self _promptCredentialsForNetwork:v12 profile:v25];
             }
 
-            else if ([v79 isEqualToString:@"TrustEnterprise"])
+            else if ([v96 isEqualToString:@"TrustEnterprise"])
             {
-              certificateChain = [(WFNetworkProfile *)v21 certificateChain];
+              certificateChain = [(WFNetworkProfile *)v25 certificateChain];
 
               if (!certificateChain)
               {
-                v46 = WFLogForCategory(0);
-                v69 = OSLogForWFLogLevel(1uLL);
-                v18 = 0;
-                if (WFCurrentLogLevel() && v46)
+                v50 = WFLogForCategory(0);
+                v84 = OSLogForWFLogLevel(1uLL);
+                v85 = v84;
+                v22 = 0;
+                if (WFCurrentLogLevel(v84, v86) && v50)
                 {
-                  if (os_log_type_enabled(v46, v69))
+                  if (os_log_type_enabled(v50, v85))
                   {
                     *buf = 136315394;
-                    v88 = "[WFNetworkListController handleURL:]";
-                    v89 = 2112;
-                    *v90 = v21;
-                    _os_log_impl(&dword_273ECD000, v46, v69, "%s: certificate chain is nil for profile %@", buf, 0x16u);
+                    v105 = "[WFNetworkListController handleURL:]";
+                    v106 = 2112;
+                    *v107 = v25;
+                    _os_log_impl(&dword_273ECD000, v50, v85, "%s: certificate chain is nil for profile %@", buf, 0x16u);
                   }
 
-                  v18 = 0;
+                  v22 = 0;
                 }
 
-                lCopy = v72;
+                lCopy = v89;
                 goto LABEL_54;
               }
 
-              [(WFNetworkListController *)self _associationWillStart:v10];
+              [(WFNetworkListController *)self _associationWillStart:v12];
               associationContext2 = [(WFNetworkListController *)self associationContext];
               [associationContext2 setState:2];
 
-              certificateChain2 = [(WFNetworkProfile *)v21 certificateChain];
-              [(WFNetworkListController *)self _promptTrustCertificateForNetwork:v10 certificateChain:certificateChain2 profile:v21 autoJoin:1];
+              certificateChain2 = [(WFNetworkProfile *)v25 certificateChain];
+              [(WFNetworkListController *)self _promptTrustCertificateForNetwork:v12 certificateChain:certificateChain2 profile:v25 autoJoin:1];
             }
 
-            v45 = WFScanRecordDeleteEnterprisePath();
-            v84 = v20;
-            v46 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:@"/var/mobile/Library/Caches/com.apple.wifi/LastEnterpriseNetwork.plist" options:0 error:&v84];
-            v47 = v84;
+            v49 = WFScanRecordDeleteEnterprisePath();
+            v101 = v24;
+            v50 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:@"/var/mobile/Library/Caches/com.apple.wifi/LastEnterpriseNetwork.plist" options:0 error:&v101];
+            v51 = v101;
 
-            v48 = WFLogForCategory(0);
-            v49 = OSLogForWFLogLevel(3uLL);
-            lCopy = v72;
-            if (WFCurrentLogLevel() >= 3 && v48 && os_log_type_enabled(v48, v49))
+            v52 = WFLogForCategory(0);
+            v53 = OSLogForWFLogLevel(3uLL);
+            v54 = v53;
+            lCopy = v89;
+            if (WFCurrentLogLevel(v53, v55) >= 3 && v52 && os_log_type_enabled(v52, v54))
             {
               *buf = 136315650;
-              v88 = "[WFNetworkListController handleURL:]";
-              v89 = 1024;
-              *v90 = v45;
-              *&v90[4] = 2112;
-              *&v90[6] = v46;
-              _os_log_impl(&dword_273ECD000, v48, v49, "%s: LastEnterpriseNetwork deletion successful: %d data: %@", buf, 0x1Cu);
+              v105 = "[WFNetworkListController handleURL:]";
+              v106 = 1024;
+              *v107 = v49;
+              *&v107[4] = 2112;
+              *&v107[6] = v50;
+              _os_log_impl(&dword_273ECD000, v52, v54, "%s: LastEnterpriseNetwork deletion successful: %d data: %@", buf, 0x1Cu);
             }
 
-            v18 = 1;
-            v20 = v47;
+            v22 = 1;
+            v24 = v51;
 LABEL_54:
-            v8 = v74;
+            v10 = v91;
 
             CFRelease(cf);
-            lastObject = v76;
-            v23 = v71;
+            lastObject = v93;
+            v27 = v88;
             goto LABEL_55;
           }
 
-          v46 = WFLogForCategory(0);
-          v68 = OSLogForWFLogLevel(1uLL);
-          v18 = 0;
-          v19 = 0;
-          if (!WFCurrentLogLevel() || !v46)
+          v50 = WFLogForCategory(0);
+          v81 = OSLogForWFLogLevel(1uLL);
+          v82 = v81;
+          v22 = 0;
+          v23 = 0;
+          if (!WFCurrentLogLevel(v81, v83) || !v50)
           {
-            v21 = 0;
+            v25 = 0;
             goto LABEL_54;
           }
 
-          if (os_log_type_enabled(v46, v68))
+          if (os_log_type_enabled(v50, v82))
           {
             *buf = 136315394;
-            v88 = "[WFNetworkListController handleURL:]";
-            v89 = 2112;
-            *v90 = cf;
-            _os_log_impl(&dword_273ECD000, v46, v68, "%s: unable to create network profile for enterprise networkRef %@", buf, 0x16u);
+            v105 = "[WFNetworkListController handleURL:]";
+            v106 = 2112;
+            *v107 = cf;
+            _os_log_impl(&dword_273ECD000, v50, v82, "%s: unable to create network profile for enterprise networkRef %@", buf, 0x16u);
           }
 
-          v19 = 0;
-          v21 = 0;
+          v23 = 0;
+          v25 = 0;
         }
 
         else
         {
-          v46 = WFLogForCategory(0);
-          v67 = OSLogForWFLogLevel(1uLL);
-          v18 = 0;
-          v19 = 0;
-          if (!WFCurrentLogLevel() || !v46)
+          v50 = WFLogForCategory(0);
+          v78 = OSLogForWFLogLevel(1uLL);
+          v79 = v78;
+          v22 = 0;
+          v23 = 0;
+          if (!WFCurrentLogLevel(v78, v80) || !v50)
           {
             goto LABEL_54;
           }
 
-          if (os_log_type_enabled(v46, v67))
+          if (os_log_type_enabled(v50, v79))
           {
             *buf = 136315394;
-            v88 = "[WFNetworkListController handleURL:]";
-            v89 = 2112;
-            *v90 = cf;
-            _os_log_impl(&dword_273ECD000, v46, v67, "%s: unable to create scan record for enterprise networkRef %@", buf, 0x16u);
+            v105 = "[WFNetworkListController handleURL:]";
+            v106 = 2112;
+            *v107 = cf;
+            _os_log_impl(&dword_273ECD000, v50, v79, "%s: unable to create scan record for enterprise networkRef %@", buf, 0x16u);
           }
 
-          v19 = 0;
+          v23 = 0;
         }
 
-        v18 = 0;
+        v22 = 0;
         goto LABEL_54;
       }
 
       [WFNetworkListController handleURL:];
-      v19 = 0;
-      v21 = 0;
-      v22 = 0;
       v23 = 0;
+      v25 = 0;
+      v26 = 0;
+      v27 = 0;
 LABEL_92:
-      v18 = 0;
+      v22 = 0;
       goto LABEL_55;
     }
 
@@ -13173,34 +13294,35 @@ LABEL_92:
     {
       if ([stringByRemovingPercentEncoding isEqualToString:@"proxycredentials"])
       {
-        v19 = 0;
-        v20 = 0;
-        v21 = 0;
-        v10 = 0;
-        v22 = 0;
         v23 = 0;
-        v18 = 1;
+        v24 = 0;
+        v25 = 0;
+        v12 = 0;
+        v26 = 0;
+        v27 = 0;
+        v22 = 1;
         goto LABEL_55;
       }
 
-      v61 = WFLogForCategory(0);
-      v62 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v61 && os_log_type_enabled(v61, v62))
+      v66 = WFLogForCategory(0);
+      v67 = OSLogForWFLogLevel(1uLL);
+      v68 = v67;
+      if (WFCurrentLogLevel(v67, v69) && v66 && os_log_type_enabled(v66, v68))
       {
         *buf = 136315394;
-        v88 = "[WFNetworkListController handleURL:]";
-        v89 = 2112;
-        *v90 = stringByRemovingPercentEncoding;
-        _os_log_impl(&dword_273ECD000, v61, v62, "%s: unknown path param %@", buf, 0x16u);
+        v105 = "[WFNetworkListController handleURL:]";
+        v106 = 2112;
+        *v107 = stringByRemovingPercentEncoding;
+        _os_log_impl(&dword_273ECD000, v66, v68, "%s: unknown path param %@", buf, 0x16u);
       }
 
-      v19 = 0;
-      v20 = 0;
-      v21 = 0;
-      v10 = 0;
-      v22 = 0;
       v23 = 0;
-      v18 = 0;
+      v24 = 0;
+      v25 = 0;
+      v12 = 0;
+      v26 = 0;
+      v27 = 0;
+      v22 = 0;
       goto LABEL_21;
     }
 
@@ -13211,48 +13333,48 @@ LABEL_92:
 
     else
     {
-      v73 = lCopy;
-      v75 = v8;
-      v82 = 0u;
-      v83 = 0u;
-      v80 = 0u;
-      v81 = 0u;
-      queryItems = [v8 queryItems];
-      v54 = [queryItems countByEnumeratingWithState:&v80 objects:v86 count:16];
-      if (!v54)
+      v90 = lCopy;
+      v92 = v10;
+      v99 = 0u;
+      v100 = 0u;
+      v97 = 0u;
+      v98 = 0u;
+      queryItems = [v10 queryItems];
+      v59 = [queryItems countByEnumeratingWithState:&v97 objects:v103 count:16];
+      if (!v59)
       {
 LABEL_70:
 
         value = 0;
-        lCopy = v73;
-        v8 = v75;
+        lCopy = v90;
+        v10 = v92;
         goto LABEL_83;
       }
 
-      v55 = v54;
-      v56 = *v81;
+      v60 = v59;
+      v61 = *v98;
 LABEL_64:
-      v57 = 0;
+      v62 = 0;
       while (1)
       {
-        if (*v81 != v56)
+        if (*v98 != v61)
         {
           objc_enumerationMutation(queryItems);
         }
 
-        v58 = *(*(&v80 + 1) + 8 * v57);
-        name = [v58 name];
-        v60 = [name isEqualToString:@"identifier"];
+        v63 = *(*(&v97 + 1) + 8 * v62);
+        name = [v63 name];
+        v65 = [name isEqualToString:@"identifier"];
 
-        if (v60)
+        if (v65)
         {
           break;
         }
 
-        if (v55 == ++v57)
+        if (v60 == ++v62)
         {
-          v55 = [queryItems countByEnumeratingWithState:&v80 objects:v86 count:16];
-          if (v55)
+          v60 = [queryItems countByEnumeratingWithState:&v97 objects:v103 count:16];
+          if (v60)
           {
             goto LABEL_64;
           }
@@ -13261,10 +13383,10 @@ LABEL_64:
         }
       }
 
-      value = [v58 value];
+      value = [v63 value];
 
-      lCopy = v73;
-      v8 = v75;
+      lCopy = v90;
+      v10 = v92;
       if (!value)
       {
         goto LABEL_83;
@@ -13273,56 +13395,57 @@ LABEL_64:
 
     if ([value length])
     {
-      v63 = WFLogForCategory(0);
-      v64 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v63 && os_log_type_enabled(v63, v64))
+      v70 = WFLogForCategory(0);
+      v71 = OSLogForWFLogLevel(3uLL);
+      v72 = v71;
+      if (WFCurrentLogLevel(v71, v73) >= 3 && v70 && os_log_type_enabled(v70, v72))
       {
         *buf = 138412290;
-        v88 = value;
-        _os_log_impl(&dword_273ECD000, v63, v64, "Trying to open Detail settings for accessory: %@", buf, 0xCu);
+        v105 = value;
+        _os_log_impl(&dword_273ECD000, v70, v72, "Trying to open Detail settings for accessory: %@", buf, 0xCu);
       }
 
       [(WFNetworkListController *)self _handleAccessoryDetailURL:value];
 LABEL_88:
 
-      v19 = 0;
-      v20 = 0;
-      v21 = 0;
-      v10 = 0;
-      v22 = 0;
       v23 = 0;
-      v18 = 1;
+      v24 = 0;
+      v25 = 0;
+      v12 = 0;
+      v26 = 0;
+      v27 = 0;
+      v22 = 1;
       goto LABEL_21;
     }
 
 LABEL_83:
-    v65 = WFLogForCategory(0);
-    v66 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v65 && os_log_type_enabled(v65, v66))
+    v74 = WFLogForCategory(0);
+    v75 = OSLogForWFLogLevel(1uLL);
+    v76 = v75;
+    if (WFCurrentLogLevel(v75, v77) && v74 && os_log_type_enabled(v74, v76))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v65, v66, "AccessoryDetails URL missing accessory identifier", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v74, v76, "AccessoryDetails URL missing accessory identifier", buf, 2u);
     }
 
     goto LABEL_88;
   }
 
-  v18 = [(WFNetworkListController *)self _handleCurrentNetworkDetailsURL:lastObject];
-  v19 = 0;
-  v20 = 0;
-  v21 = 0;
-  v10 = 0;
-  v22 = 0;
+  v22 = [(WFNetworkListController *)self _handleCurrentNetworkDetailsURL:lastObject];
   v23 = 0;
+  v24 = 0;
+  v25 = 0;
+  v12 = 0;
+  v26 = 0;
+  v27 = 0;
 LABEL_55:
 
-  v50 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v22;
 }
 
 - (BOOL)_handleAccessoryDetailURL:(id)l
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (_os_feature_enabled_impl())
   {
@@ -13335,49 +13458,50 @@ LABEL_55:
 
     v11 = WFLogForCategory(0);
     v12 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v11)
+    v13 = v12;
+    if (WFCurrentLogLevel(v12, v14) >= 4 && v11)
     {
-      v13 = v11;
-      if (os_log_type_enabled(v13, v12))
+      v15 = v11;
+      if (os_log_type_enabled(v15, v13))
       {
         *buf = 134217984;
-        v43 = [allObjects count];
-        _os_log_impl(&dword_273ECD000, v13, v12, "All profile count: %lu", buf, 0xCu);
+        v52 = [allObjects count];
+        _os_log_impl(&dword_273ECD000, v15, v13, "All profile count: %lu", buf, 0xCu);
       }
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v14 = allObjects;
-    v15 = [v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
-    if (v15)
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v16 = allObjects;
+    v17 = [v16 countByEnumeratingWithState:&v47 objects:v57 count:16];
+    if (v17)
     {
-      v16 = v15;
-      v17 = *v39;
+      v18 = v17;
+      v19 = *v48;
 LABEL_9:
-      v18 = 0;
+      v20 = 0;
       while (1)
       {
-        if (*v39 != v17)
+        if (*v48 != v19)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v16);
         }
 
-        v19 = *(*(&v38 + 1) + 8 * v18);
-        accessoryIdentifier = [v19 accessoryIdentifier];
-        v21 = [accessoryIdentifier isEqualToString:lCopy];
+        v21 = *(*(&v47 + 1) + 8 * v20);
+        accessoryIdentifier = [v21 accessoryIdentifier];
+        v23 = [accessoryIdentifier isEqualToString:lCopy];
 
-        if (v21)
+        if (v23)
         {
           break;
         }
 
-        if (v16 == ++v18)
+        if (v18 == ++v20)
         {
-          v16 = [v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
-          if (v16)
+          v18 = [v16 countByEnumeratingWithState:&v47 objects:v57 count:16];
+          if (v18)
           {
             goto LABEL_9;
           }
@@ -13386,46 +13510,48 @@ LABEL_9:
         }
       }
 
-      v24 = WFLogForCategory(0);
-      v25 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v24)
+      v28 = WFLogForCategory(0);
+      v29 = OSLogForWFLogLevel(3uLL);
+      v30 = v29;
+      if (WFCurrentLogLevel(v29, v31) >= 3 && v28)
       {
-        v26 = v24;
-        if (os_log_type_enabled(v26, v25))
+        v32 = v28;
+        if (os_log_type_enabled(v32, v30))
         {
-          networkName = [v19 networkName];
+          networkName = [v21 networkName];
           *buf = 138412546;
-          v43 = lCopy;
-          v44 = 2112;
-          v45 = networkName;
-          _os_log_impl(&dword_273ECD000, v26, v25, "Found matching accessory network profile for %@, network name: %@", buf, 0x16u);
+          v52 = lCopy;
+          v53 = 2112;
+          v54 = networkName;
+          _os_log_impl(&dword_273ECD000, v32, v30, "Found matching accessory network profile for %@, network name: %@", buf, 0x16u);
         }
       }
 
-      v28 = v19;
-      if (v28)
+      v34 = v21;
+      if (v34)
       {
-        v29 = WFLogForCategory(0);
-        v30 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v29)
+        v35 = WFLogForCategory(0);
+        v36 = OSLogForWFLogLevel(1uLL);
+        v37 = v36;
+        if (WFCurrentLogLevel(v36, v38) && v35)
         {
-          v31 = v29;
-          if (os_log_type_enabled(v31, v30))
+          v39 = v35;
+          if (os_log_type_enabled(v39, v37))
           {
-            networkName2 = [v28 networkName];
+            networkName2 = [v34 networkName];
             *buf = 136315650;
-            v43 = "[WFNetworkListController _handleAccessoryDetailURL:]";
-            v44 = 2112;
-            v45 = networkName2;
-            v46 = 2112;
-            v47 = lCopy;
-            _os_log_impl(&dword_273ECD000, v31, v30, "%s: successfully opened network detail for %@:  id:%@", buf, 0x20u);
+            v52 = "[WFNetworkListController _handleAccessoryDetailURL:]";
+            v53 = 2112;
+            v54 = networkName2;
+            v55 = 2112;
+            v56 = lCopy;
+            _os_log_impl(&dword_273ECD000, v39, v37, "%s: successfully opened network detail for %@:  id:%@", buf, 0x20u);
           }
         }
 
         viewController = [(WFNetworkListController *)self viewController];
-        [(WFNetworkListController *)self networkListViewController:viewController showSettingsForNetwork:v28];
-        v23 = 1;
+        [(WFNetworkListController *)self networkListViewController:viewController showSettingsForNetwork:v34];
+        v27 = 1;
         goto LABEL_38;
       }
     }
@@ -13435,54 +13561,55 @@ LABEL_9:
 LABEL_15:
     }
 
-    v28 = WFLogForCategory(0);
-    v34 = OSLogForWFLogLevel(1uLL);
-    v23 = 0;
-    if (WFCurrentLogLevel() && v28)
+    v34 = WFLogForCategory(0);
+    v42 = OSLogForWFLogLevel(1uLL);
+    v43 = v42;
+    v27 = 0;
+    if (WFCurrentLogLevel(v42, v44) && v34)
     {
-      viewController = v28;
-      if (os_log_type_enabled(viewController, v34))
+      viewController = v34;
+      if (os_log_type_enabled(viewController, v43))
       {
-        v35 = [v14 count];
+        v45 = [v16 count];
         *buf = 136315650;
-        v43 = "[WFNetworkListController _handleAccessoryDetailURL:]";
-        v44 = 2112;
-        v45 = lCopy;
-        v46 = 2048;
-        v47 = v35;
-        _os_log_impl(&dword_273ECD000, viewController, v34, "%s: Not found matching profile for %@ in all known %lu profiles, unable to show detail page", buf, 0x20u);
+        v52 = "[WFNetworkListController _handleAccessoryDetailURL:]";
+        v53 = 2112;
+        v54 = lCopy;
+        v55 = 2048;
+        v56 = v45;
+        _os_log_impl(&dword_273ECD000, viewController, v43, "%s: Not found matching profile for %@ in all known %lu profiles, unable to show detail page", buf, 0x20u);
       }
 
-      v23 = 0;
-      v28 = viewController;
+      v27 = 0;
+      v34 = viewController;
 LABEL_38:
     }
   }
 
   else
   {
-    v14 = WFLogForCategory(0);
-    v22 = OSLogForWFLogLevel(3uLL);
-    v23 = 0;
-    if (WFCurrentLogLevel() >= 3 && v14)
+    v16 = WFLogForCategory(0);
+    v24 = OSLogForWFLogLevel(3uLL);
+    v25 = v24;
+    v27 = 0;
+    if (WFCurrentLogLevel(v24, v26) >= 3 && v16)
     {
-      if (os_log_type_enabled(v14, v22))
+      if (os_log_type_enabled(v16, v25))
       {
         *buf = 0;
-        _os_log_impl(&dword_273ECD000, v14, v22, "failed to open accessoryView url: DeviceAccess FF in AccessorySetupKit is not enabled", buf, 2u);
+        _os_log_impl(&dword_273ECD000, v16, v25, "failed to open accessoryView url: DeviceAccess FF in AccessorySetupKit is not enabled", buf, 2u);
       }
 
-      v23 = 0;
+      v27 = 0;
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v27;
 }
 
 - (BOOL)_handleCurrentNetworkDetailsURL:(id)l
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if ([lCopy isEqualToString:@"AutoJoin"])
   {
@@ -13521,60 +13648,60 @@ LABEL_38:
 
     v11 = WFLogForCategory(0);
     v12 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v11)
+    v13 = v12;
+    if (WFCurrentLogLevel(v12, v14) >= 3 && v11)
     {
       v11 = v11;
-      if (os_log_type_enabled(v11, v12))
+      if (os_log_type_enabled(v11, v13))
       {
         interface3 = [(WFNetworkListController *)self interface];
         currentNetwork3 = [interface3 currentNetwork];
-        *v17 = 136315394;
-        *&v17[4] = "[WFNetworkListController _handleCurrentNetworkDetailsURL:]";
-        v18 = 2112;
-        v19 = currentNetwork3;
-        _os_log_impl(&dword_273ECD000, v11, v12, "%s: handling URL for current network (%@) details", v17, 0x16u);
+        *v18 = 136315394;
+        *&v18[4] = "[WFNetworkListController _handleCurrentNetworkDetailsURL:]";
+        v19 = 2112;
+        v20 = currentNetwork3;
+        _os_log_impl(&dword_273ECD000, v11, v13, "%s: handling URL for current network (%@) details", v18, 0x16u);
       }
     }
   }
 
   else
   {
-    [WFNetworkListController _handleCurrentNetworkDetailsURL:v17];
-    v11 = *v17;
+    [WFNetworkListController _handleCurrentNetworkDetailsURL:v18];
+    v11 = *v18;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return currentNetwork != 0;
 }
 
 - (id)keyValueDictionaryForURL:(id)l
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lCopy = l;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   resourceSpecifier = [lCopy resourceSpecifier];
   v6 = [resourceSpecifier componentsSeparatedByString:@"&"];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v18 + 1) + 8 * i) componentsSeparatedByString:{@"=", v18}];
+        v12 = [*(*(&v17 + 1) + 8 * i) componentsSeparatedByString:{@"=", v17}];
         if ([v12 count] == 2)
         {
           v13 = [v12 objectAtIndex:1];
@@ -13585,13 +13712,11 @@ LABEL_38:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -13606,25 +13731,61 @@ LABEL_38:
 
 - (void)_cellularOutrankNotification:(id)notification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
-    v10 = 136315394;
-    v11 = "[WFNetworkListController _cellularOutrankNotification:]";
-    v12 = 2112;
-    v13 = notificationCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s: received cellular outrank notification %@", &v10, 0x16u);
+    v11 = 136315394;
+    v12 = "[WFNetworkListController _cellularOutrankNotification:]";
+    v13 = 2112;
+    v14 = notificationCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s: received cellular outrank notification %@", &v11, 0x16u);
   }
 
   [(WFNetworkListController *)self _updateHealthSubtitle];
   interface = [(WFNetworkListController *)self interface];
   currentNetwork = [interface currentNetwork];
   [(WFNetworkListController *)self _updateCurrentNetworkIPState:currentNetwork];
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)_presentCellularOutrankAlertForNetwork:(id)network privateCellular:(BOOL)cellular
+{
+  cellularCopy = cellular;
+  v24 = *MEMORY[0x277D85DE8];
+  networkCopy = network;
+  objc_initWeak(&location, self);
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __82__WFNetworkListController__presentCellularOutrankAlertForNetwork_privateCellular___block_invoke;
+  aBlock[3] = &unk_279EBD138;
+  objc_copyWeak(&v20, &location);
+  v7 = networkCopy;
+  v19 = v7;
+  v8 = _Block_copy(aBlock);
+  v9 = WFLogForCategory(0);
+  v10 = OSLogForWFLogLevel(3uLL);
+  v11 = v10;
+  if (WFCurrentLogLevel(v10, v12) >= 3 && v9 && os_log_type_enabled(v9, v11))
+  {
+    *buf = 136315138;
+    v23 = "[WFNetworkListController _presentCellularOutrankAlertForNetwork:privateCellular:]";
+    _os_log_impl(&dword_273ECD000, v9, v11, "%s: showing cellular outrank prompt", buf, 0xCu);
+  }
+
+  v13 = MEMORY[0x277D7B998];
+  ssid = [v7 ssid];
+  viewController = [(WFNetworkListController *)self viewController];
+  [viewController deviceCapability];
+  v16 = [v13 cellularOutrankAlertControllerWithNetworkName:ssid chinaDevice:WFCapabilityIsChinaDevice() privateCellular:cellularCopy completionHandler:v8];
+
+  viewController2 = [(WFNetworkListController *)self viewController];
+  [viewController2 presentViewController:v16 animated:1 completion:0];
+
+  objc_destroyWeak(&v20);
+  objc_destroyWeak(&location);
 }
 
 void __82__WFNetworkListController__presentCellularOutrankAlertForNetwork_privateCellular___block_invoke(uint64_t a1, int a2)
@@ -13632,13 +13793,14 @@ void __82__WFNetworkListController__presentCellularOutrankAlertForNetwork_privat
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  v8 = WFCurrentLogLevel() > 2 && v5 != 0;
+  v7 = v6;
+  v10 = WFCurrentLogLevel(v6, v8) > 2 && v5 != 0;
   if (a2)
   {
-    if (v8 && os_log_type_enabled(v5, v6))
+    if (v10 && os_log_type_enabled(v5, v7))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v5, v6, "User accepted cellular outrank prompt", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v5, v7, "User accepted cellular outrank prompt", buf, 2u);
     }
 
     [WeakRetained _associateToScanRecord:*(a1 + 32)];
@@ -13646,57 +13808,57 @@ void __82__WFNetworkListController__presentCellularOutrankAlertForNetwork_privat
 
   else
   {
-    if (v8 && os_log_type_enabled(v5, v6))
+    if (v10 && os_log_type_enabled(v5, v7))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_273ECD000, v5, v6, "User declined cellular outrank prompt", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_273ECD000, v5, v7, "User declined cellular outrank prompt", v11, 2u);
     }
   }
 }
 
 - (void)_presentDeveloperOutrankAlertForNetwork:(id)network
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
-    v13 = 136315138;
-    v14 = "[WFNetworkListController _presentDeveloperOutrankAlertForNetwork:]";
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s: showing developer outrank prompt", &v13, 0xCu);
+    v14 = 136315138;
+    v15 = "[WFNetworkListController _presentDeveloperOutrankAlertForNetwork:]";
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s: showing developer outrank prompt", &v14, 0xCu);
   }
 
-  v7 = MEMORY[0x277D7B9A8];
+  v9 = MEMORY[0x277D7B9A8];
   ssid = [networkCopy ssid];
 
   viewController = [(WFNetworkListController *)self viewController];
   [viewController deviceCapability];
-  v10 = [v7 developerOutrankAlertControllerWithNetworkName:ssid chinaDevice:WFCapabilityIsChinaDevice() completionHandler:&__block_literal_global_544];
+  v12 = [v9 developerOutrankAlertControllerWithNetworkName:ssid chinaDevice:WFCapabilityIsChinaDevice() completionHandler:&__block_literal_global_544];
 
   viewController2 = [(WFNetworkListController *)self viewController];
-  [viewController2 presentViewController:v10 animated:1 completion:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [viewController2 presentViewController:v12 animated:1 completion:0];
 }
 
 void __67__WFNetworkListController__presentDeveloperOutrankAlertForNetwork___block_invoke(uint64_t a1, int a2)
 {
   if (a2)
   {
-    v5 = [MEMORY[0x277D3FB78] sharedManager];
+    v7 = [MEMORY[0x277D3FB78] sharedManager];
     v2 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=DEVELOPER_SETTINGS&path=NCO"];
-    [v5 processURL:v2 animated:1 fromSearch:0 withCompletion:&__block_literal_global_550];
+    [v7 processURL:v2 animated:1 fromSearch:0 withCompletion:&__block_literal_global_550];
   }
 
   else
   {
     v3 = WFLogForCategory(0);
     v4 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+    v5 = v4;
+    if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v3, v4, "User bypassed option to go to developer settings", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v3, v5, "User bypassed option to go to developer settings", buf, 2u);
     }
   }
 }
@@ -13705,10 +13867,11 @@ void __67__WFNetworkListController__presentDeveloperOutrankAlertForNetwork___blo
 {
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) >= 3 && v0 && os_log_type_enabled(v0, v2))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_273ECD000, v0, v1, "User taken to developer settings", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_273ECD000, v0, v2, "User taken to developer settings", v4, 2u);
   }
 }
 
@@ -13772,36 +13935,36 @@ void __67__WFNetworkListController__presentDeveloperOutrankAlertForNetwork___blo
 
 void __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   v2 = dispatch_semaphore_create(0);
   v3 = MEMORY[0x277D2CA68];
   v4 = dispatch_get_global_queue(33, 0);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke_2;
-  v18[3] = &unk_279EBD8C0;
-  v20 = &v21;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke_2;
+  v19[3] = &unk_279EBD8C0;
+  v21 = &v22;
   v5 = v2;
-  v19 = v5;
-  [v3 getStatus:v4 completionHandler:v18];
+  v20 = v5;
+  [v3 getStatus:v4 completionHandler:v19];
 
   v6 = dispatch_time(0, 15000000000);
   dispatch_semaphore_wait(v5, v6);
-  if (*(v22 + 6))
+  if (*(v23 + 6))
   {
     v7 = MEMORY[0x277D2CA68];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke_2_553;
-    v14[3] = &unk_279EBD8E8;
-    v16 = &v21;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke_2_553;
+    v15[3] = &unk_279EBD8E8;
+    v17 = &v22;
     v8 = v5;
-    v15 = v8;
-    [v7 getUserTier:v4 completionHandler:v14];
+    v16 = v8;
+    [v7 getUserTier:v4 completionHandler:v15];
 
     v9 = dispatch_time(0, 15000000000);
     dispatch_semaphore_wait(v8, v9);
@@ -13810,7 +13973,7 @@ void __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invo
     block[2] = __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke_555;
     block[3] = &unk_279EBD910;
     block[4] = *(a1 + 32);
-    block[5] = &v21;
+    block[5] = &v22;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -13818,51 +13981,50 @@ void __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invo
   {
     v10 = WFLogForCategory(0);
     v11 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v10 && os_log_type_enabled(v10, v11))
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) >= 3 && v10 && os_log_type_enabled(v10, v12))
     {
       *buf = 136315138;
-      v26 = "[WFNetworkListController _updatePrivacyProxyFeatureEnabled]_block_invoke";
-      _os_log_impl(&dword_273ECD000, v10, v11, "%s: privacy proxy feature is disabled", buf, 0xCu);
+      v27 = "[WFNetworkListController _updatePrivacyProxyFeatureEnabled]_block_invoke";
+      _os_log_impl(&dword_273ECD000, v10, v12, "%s: privacy proxy feature is disabled", buf, 0xCu);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke_552;
-    v17[3] = &unk_279EBCFE0;
-    v17[4] = *(a1 + 32);
-    dispatch_async(MEMORY[0x277D85CD0], v17);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke_552;
+    v18[3] = &unk_279EBCFE0;
+    v18[4] = *(a1 + 32);
+    dispatch_async(MEMORY[0x277D85CD0], v18);
   }
 
-  _Block_object_dispose(&v21, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 void __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6 && os_log_type_enabled(v6, v8))
   {
-    v9 = 136315650;
-    v10 = "[WFNetworkListController _updatePrivacyProxyFeatureEnabled]_block_invoke_2";
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_273ECD000, v6, v7, "%s: privacy proxy status=%d (error=%@)", &v9, 0x1Cu);
+    v10 = 136315650;
+    v11 = "[WFNetworkListController _updatePrivacyProxyFeatureEnabled]_block_invoke_2";
+    v12 = 1024;
+    v13 = a2;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_273ECD000, v6, v8, "%s: privacy proxy status=%d (error=%@)", &v10, 0x1Cu);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __60__WFNetworkListController__updatePrivacyProxyFeatureEnabled__block_invoke_2_553(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2 == 1)
   {
@@ -13879,19 +14041,19 @@ LABEL_5:
 
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
   {
-    v10 = 136315650;
-    v11 = "[WFNetworkListController _updatePrivacyProxyFeatureEnabled]_block_invoke_2";
-    v12 = 2048;
-    v13 = a2;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_273ECD000, v7, v8, "%s: privacy proxy user tier=%ld (error=%@)", &v10, 0x20u);
+    v11 = 136315650;
+    v12 = "[WFNetworkListController _updatePrivacyProxyFeatureEnabled]_block_invoke_2";
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_273ECD000, v7, v9, "%s: privacy proxy user tier=%ld (error=%@)", &v11, 0x20u);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshKnownHiddenNetworkNamesCache
@@ -13915,51 +14077,52 @@ void __63__WFNetworkListController__refreshKnownHiddenNetworkNamesCache__block_i
 
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
   {
     *buf = 0;
-    _os_log_impl(&dword_273ECD000, v7, v8, "refreshing known hidden network name cache", buf, 2u);
+    _os_log_impl(&dword_273ECD000, v7, v9, "refreshing known hidden network name cache", buf, 2u);
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __63__WFNetworkListController__refreshKnownHiddenNetworkNamesCache__block_invoke_562;
   block[3] = &unk_279EBD268;
-  v9 = *(a1 + 32);
+  v11 = *(a1 + 32);
+  v15 = v6;
+  v16 = v11;
+  v17 = v2;
+  v12 = v2;
   v13 = v6;
-  v14 = v9;
-  v15 = v2;
-  v10 = v2;
-  v11 = v6;
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
 void __63__WFNetworkListController__refreshKnownHiddenNetworkNamesCache__block_invoke_562(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v41 = *MEMORY[0x277D85DE8];
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v3)
   {
     v5 = v3;
     v6 = 0;
-    v7 = *v28;
+    v7 = *v33;
     *&v4 = 136315394;
-    v26 = v4;
+    v31 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v7)
+        if (*v33 != v7)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v32 + 1) + 8 * i);
         if ([v9 hiddenState] == 1)
         {
           v10 = [v9 networkName];
@@ -13972,40 +14135,42 @@ void __63__WFNetworkListController__refreshKnownHiddenNetworkNamesCache__block_i
             {
               v13 = WFLogForCategory(0);
               v14 = OSLogForWFLogLevel(4uLL);
-              if (WFCurrentLogLevel() >= 4 && v13 && os_log_type_enabled(v13, v14))
+              v15 = v14;
+              if (WFCurrentLogLevel(v14, v16) >= 4 && v13 && os_log_type_enabled(v13, v15))
               {
-                *buf = v26;
-                v32 = "[WFNetworkListController _refreshKnownHiddenNetworkNamesCache]_block_invoke";
-                v33 = 2112;
-                v34 = v9;
-                _os_log_impl(&dword_273ECD000, v13, v14, "%s: hidden network profile='%@'", buf, 0x16u);
+                *buf = v31;
+                v37 = "[WFNetworkListController _refreshKnownHiddenNetworkNamesCache]_block_invoke";
+                v38 = 2112;
+                v39 = v9;
+                _os_log_impl(&dword_273ECD000, v13, v15, "%s: hidden network profile='%@'", buf, 0x16u);
               }
 
-              v15 = *(a1 + 48);
-              v16 = [v9 networkName];
-              [v15 addObject:v16];
+              v17 = *(a1 + 48);
+              v18 = [v9 networkName];
+              [v17 addObject:v18];
             }
           }
         }
 
         if ([v9 isPasspoint])
         {
-          v17 = WFLogForCategory(0);
-          v18 = OSLogForWFLogLevel(4uLL);
-          if (WFCurrentLogLevel() >= 4 && v17 && os_log_type_enabled(v17, v18))
+          v19 = WFLogForCategory(0);
+          v20 = OSLogForWFLogLevel(4uLL);
+          v21 = v20;
+          if (WFCurrentLogLevel(v20, v22) >= 4 && v19 && os_log_type_enabled(v19, v21))
           {
-            *buf = v26;
-            v32 = "[WFNetworkListController _refreshKnownHiddenNetworkNamesCache]_block_invoke";
-            v33 = 2112;
-            v34 = v9;
-            _os_log_impl(&dword_273ECD000, v17, v18, "%s: passpoint network profile='%@'", buf, 0x16u);
+            *buf = v31;
+            v37 = "[WFNetworkListController _refreshKnownHiddenNetworkNamesCache]_block_invoke";
+            v38 = 2112;
+            v39 = v9;
+            _os_log_impl(&dword_273ECD000, v19, v21, "%s: passpoint network profile='%@'", buf, 0x16u);
           }
 
           v6 = 1;
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v5);
@@ -14016,25 +14181,25 @@ void __63__WFNetworkListController__refreshKnownHiddenNetworkNamesCache__block_i
     v6 = 0;
   }
 
-  v19 = WFLogForCategory(0);
-  v20 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v19 && os_log_type_enabled(v19, v20))
+  v23 = WFLogForCategory(0);
+  v24 = OSLogForWFLogLevel(3uLL);
+  v25 = v24;
+  if (WFCurrentLogLevel(v24, v26) >= 3 && v23 && os_log_type_enabled(v23, v25))
   {
-    v21 = *(a1 + 48);
+    v27 = *(a1 + 48);
     *buf = 138412546;
-    v32 = v21;
-    v33 = 1024;
-    LODWORD(v34) = v6 & 1;
-    _os_log_impl(&dword_273ECD000, v19, v20, "hidden known network names='%@' HS20NetworksFound='%d'", buf, 0x12u);
+    v37 = v27;
+    v38 = 1024;
+    LODWORD(v39) = v6 & 1;
+    _os_log_impl(&dword_273ECD000, v23, v25, "hidden known network names='%@' HS20NetworksFound='%d'", buf, 0x12u);
   }
 
-  v22 = [MEMORY[0x277CBEB98] setWithArray:*(a1 + 48)];
-  v23 = *(a1 + 40);
-  v24 = *(v23 + 240);
-  *(v23 + 240) = v22;
+  v28 = [MEMORY[0x277CBEB98] setWithArray:*(a1 + 48)];
+  v29 = *(a1 + 40);
+  v30 = *(v29 + 240);
+  *(v29 + 240) = v28;
 
   *(*(a1 + 40) + 16) = v6 & 1;
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (WFKnownNetworksProvider)knownNetworksManager
@@ -14057,7 +14222,7 @@ void __63__WFNetworkListController__refreshKnownHiddenNetworkNamesCache__block_i
 
 - (id)scanManager:(id)manager filterScanResults:(id)results
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   selfCopy = self;
   wifiClient = [(WFNetworkListController *)self wifiClient];
@@ -14065,94 +14230,92 @@ void __63__WFNetworkListController__refreshKnownHiddenNetworkNamesCache__block_i
 
   if (isNetworkRestrictionActive)
   {
-    v31 = [resultsCopy mutableCopy];
-    v34 = 0u;
+    v32 = [resultsCopy mutableCopy];
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v29 = resultsCopy;
+    v38 = 0u;
+    v30 = resultsCopy;
     obj = resultsCopy;
-    v8 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+    v8 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
     if (v8)
     {
       v9 = v8;
-      v33 = *v35;
+      v34 = *v36;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v35 != v33)
+          if (*v36 != v34)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v35 + 1) + 8 * i);
           matchingKnownNetworkProfile = [v11 matchingKnownNetworkProfile];
-          if (!matchingKnownNetworkProfile)
+          if (matchingKnownNetworkProfile)
           {
-            goto LABEL_9;
-          }
+            v13 = matchingKnownNetworkProfile;
+            wifiClient2 = [(WFNetworkListController *)selfCopy wifiClient];
+            whitelistingUUID = [wifiClient2 whitelistingUUID];
+            matchingKnownNetworkProfile2 = [v11 matchingKnownNetworkProfile];
+            oSSpecificAttributes = [matchingKnownNetworkProfile2 OSSpecificAttributes];
+            v18 = [oSSpecificAttributes objectForKeyedSubscript:@"PolicyUUID"];
+            v19 = [whitelistingUUID isEqualToString:v18];
 
-          v13 = matchingKnownNetworkProfile;
-          wifiClient2 = [(WFNetworkListController *)selfCopy wifiClient];
-          whitelistingUUID = [wifiClient2 whitelistingUUID];
-          matchingKnownNetworkProfile2 = [v11 matchingKnownNetworkProfile];
-          oSSpecificAttributes = [matchingKnownNetworkProfile2 OSSpecificAttributes];
-          v18 = [oSSpecificAttributes objectForKeyedSubscript:@"PolicyUUID"];
-          v19 = [whitelistingUUID isEqualToString:v18];
-
-          if ((v19 & 1) == 0)
-          {
-LABEL_9:
-            v20 = WFLogForCategory(0);
-            v21 = OSLogForWFLogLevel(4uLL);
-            if (WFCurrentLogLevel() >= 4 && v20)
+            if (v19)
             {
-              v22 = v20;
-              if (os_log_type_enabled(v22, v21))
-              {
-                wifiClient3 = [(WFNetworkListController *)selfCopy wifiClient];
-                whitelistingUUID2 = [wifiClient3 whitelistingUUID];
-                *buf = 136315650;
-                v39 = "[WFNetworkListController scanManager:filterScanResults:]";
-                v40 = 2112;
-                v41 = v11;
-                v42 = 2112;
-                v43 = whitelistingUUID2;
-                _os_log_impl(&dword_273ECD000, v22, v21, "%s: disregarding network='%@' no matching policyUUID (%@)", buf, 0x20u);
-              }
+              continue;
             }
-
-            [v31 removeObject:v11];
           }
+
+          v20 = WFLogForCategory(0);
+          v21 = OSLogForWFLogLevel(4uLL);
+          v22 = v21;
+          if (WFCurrentLogLevel(v21, v23) >= 4 && v20)
+          {
+            v24 = v20;
+            if (os_log_type_enabled(v24, v22))
+            {
+              wifiClient3 = [(WFNetworkListController *)selfCopy wifiClient];
+              whitelistingUUID2 = [wifiClient3 whitelistingUUID];
+              *buf = 136315650;
+              v40 = "[WFNetworkListController scanManager:filterScanResults:]";
+              v41 = 2112;
+              v42 = v11;
+              v43 = 2112;
+              v44 = whitelistingUUID2;
+              _os_log_impl(&dword_273ECD000, v24, v22, "%s: disregarding network='%@' no matching policyUUID (%@)", buf, 0x20u);
+            }
+          }
+
+          [v32 removeObject:v11];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+        v9 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
       }
 
       while (v9);
     }
 
-    v25 = v31;
-    v26 = v25;
-    resultsCopy = v29;
+    v27 = v32;
+    v28 = v27;
+    resultsCopy = v30;
   }
 
   else
   {
-    v25 = 0;
-    v26 = resultsCopy;
+    v27 = 0;
+    v28 = resultsCopy;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v28;
 }
 
 - (id)healthRecommendations:(BOOL)recommendations
 {
   recommendationsCopy = recommendations;
-  v122 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   interface = [(WFNetworkListController *)self interface];
   currentNetwork = [interface currentNetwork];
 
@@ -14163,32 +14326,33 @@ LABEL_9:
     if (!matchingKnownNetworkProfile)
     {
       gasController = [(WFNetworkListController *)self gasController];
-      v15 = [gasController profileForNetwork:currentNetwork];
+      v17 = [gasController profileForNetwork:currentNetwork];
       goto LABEL_12;
     }
 
     v8 = WFLogForCategory(0);
     v9 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v8)
+    v10 = v9;
+    if (WFCurrentLogLevel(v9, v11) >= 3 && v8)
     {
-      v10 = v8;
-      if (os_log_type_enabled(v10, v9))
+      v12 = v8;
+      if (os_log_type_enabled(v12, v10))
       {
         matchingKnownNetworkProfile2 = [currentNetwork matchingKnownNetworkProfile];
-        v118 = 136315394;
-        v119 = "[WFNetworkListController healthRecommendations:]";
-        v120 = 2112;
-        v121 = matchingKnownNetworkProfile2;
-        _os_log_impl(&dword_273ECD000, v10, v9, "%s: using matchingKnownNetworkProfile %@", &v118, 0x16u);
+        v125 = 136315394;
+        v126 = "[WFNetworkListController healthRecommendations:]";
+        v127 = 2112;
+        v128 = matchingKnownNetworkProfile2;
+        _os_log_impl(&dword_273ECD000, v12, v10, "%s: using matchingKnownNetworkProfile %@", &v125, 0x16u);
       }
     }
 
 LABEL_11:
-    v13 = [WFNetworkProfile alloc];
+    v15 = [WFNetworkProfile alloc];
     gasController = [currentNetwork matchingKnownNetworkProfile];
-    v15 = [(WFNetworkProfile *)v13 initWithCoreWiFiProfile:gasController];
+    v17 = [(WFNetworkProfile *)v15 initWithCoreWiFiProfile:gasController];
 LABEL_12:
-    v16 = v15;
+    v18 = v17;
 
     goto LABEL_19;
   }
@@ -14200,20 +14364,21 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  v17 = WFLogForCategory(0);
-  v18 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v17)
+  v19 = WFLogForCategory(0);
+  v20 = OSLogForWFLogLevel(4uLL);
+  v21 = v20;
+  if (WFCurrentLogLevel(v20, v22) >= 4 && v19)
   {
-    v19 = v17;
-    if (os_log_type_enabled(v19, v18))
+    v23 = v19;
+    if (os_log_type_enabled(v23, v21))
     {
-      v118 = 138412290;
-      v119 = currentNetwork;
-      _os_log_impl(&dword_273ECD000, v19, v18, "Network='%@' is not a known network", &v118, 0xCu);
+      v125 = 138412290;
+      v126 = currentNetwork;
+      _os_log_impl(&dword_273ECD000, v23, v21, "Network='%@' is not a known network", &v125, 0xCu);
     }
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_19:
   supportsWiFiHealth = [currentNetwork supportsWiFiHealth];
   viewController = [(WFNetworkListController *)self viewController];
@@ -14231,7 +14396,7 @@ LABEL_19:
   if (((recommendationsCopy | supportsHealthRecommendations) & supportsWiFiHealth & 1) == 0)
   {
     currentNetworkIssues = 0;
-    v28 = 0;
+    v32 = 0;
     goto LABEL_114;
   }
 
@@ -14243,7 +14408,7 @@ LABEL_19:
     healthManager = [(WFNetworkListController *)self healthManager];
     currentNetworkIssues = [healthManager currentNetworkIssues];
 
-    v28 = [MEMORY[0x277CBEB58] set];
+    v32 = [MEMORY[0x277CBEB58] set];
     if ([currentNetworkIssues count])
     {
       allObjects = [currentNetworkIssues allObjects];
@@ -14252,7 +14417,7 @@ LABEL_19:
 
     healthRecommendationOverrides = [(WFNetworkListController *)self healthRecommendationOverrides];
 
-    v31 = 0x277D7B000;
+    v35 = 0x277D7B000;
     if (!healthRecommendationOverrides)
     {
       goto LABEL_83;
@@ -14266,10 +14431,10 @@ LABEL_19:
 
     if (securityOverride == 1)
     {
-      v36 = MEMORY[0x277D7B9C0];
-      v37 = hiddenNetwork == 0;
-      v38 = 8;
-      v39 = 64;
+      v40 = MEMORY[0x277D7B9C0];
+      v41 = hiddenNetwork == 0;
+      v42 = 8;
+      v43 = 64;
     }
 
     else
@@ -14279,10 +14444,10 @@ LABEL_19:
 
       if (securityOverride2 == 2)
       {
-        v36 = MEMORY[0x277D7B9C0];
-        v37 = hiddenNetwork == 0;
-        v38 = 2;
-        v39 = 256;
+        v40 = MEMORY[0x277D7B9C0];
+        v41 = hiddenNetwork == 0;
+        v42 = 2;
+        v43 = 256;
       }
 
       else
@@ -14295,33 +14460,33 @@ LABEL_19:
           goto LABEL_49;
         }
 
-        v36 = MEMORY[0x277D7B9C0];
-        v37 = hiddenNetwork == 0;
-        v38 = 4;
-        v39 = 128;
+        v40 = MEMORY[0x277D7B9C0];
+        v41 = hiddenNetwork == 0;
+        v42 = 4;
+        v43 = 128;
       }
     }
 
-    if (v37)
+    if (v41)
     {
-      v44 = v38;
+      v48 = v42;
     }
 
     else
     {
-      v44 = v39;
+      v48 = v43;
     }
 
-    healthRecommendationOverrides5 = [v36 issueWithType:v44];
+    healthRecommendationOverrides5 = [v40 issueWithType:v48];
 
     [healthRecommendationOverrides5 setOverrideIssue:1];
     if (healthRecommendationOverrides5)
     {
       [MEMORY[0x277D7B9C0] issueWithType:8];
       objc_claimAutoreleasedReturnValue();
-      v45 = [OUTLINED_FUNCTION_0_3() containsObject:?];
+      v49 = [OUTLINED_FUNCTION_0_3() containsObject:?];
 
-      if (v45)
+      if (v49)
       {
         [MEMORY[0x277D7B9C0] issueWithType:8];
         objc_claimAutoreleasedReturnValue();
@@ -14330,9 +14495,9 @@ LABEL_19:
 
       [MEMORY[0x277D7B9C0] issueWithType:2];
       objc_claimAutoreleasedReturnValue();
-      v46 = [OUTLINED_FUNCTION_0_3() containsObject:?];
+      v50 = [OUTLINED_FUNCTION_0_3() containsObject:?];
 
-      if (v46)
+      if (v50)
       {
         [MEMORY[0x277D7B9C0] issueWithType:2];
         objc_claimAutoreleasedReturnValue();
@@ -14341,9 +14506,9 @@ LABEL_19:
 
       [MEMORY[0x277D7B9C0] issueWithType:4];
       objc_claimAutoreleasedReturnValue();
-      v47 = [OUTLINED_FUNCTION_0_3() containsObject:?];
+      v51 = [OUTLINED_FUNCTION_0_3() containsObject:?];
 
-      if (v47)
+      if (v51)
       {
         [MEMORY[0x277D7B9C0] issueWithType:4];
         objc_claimAutoreleasedReturnValue();
@@ -14352,9 +14517,9 @@ LABEL_19:
 
       [MEMORY[0x277D7B9C0] issueWithType:64];
       objc_claimAutoreleasedReturnValue();
-      v48 = [OUTLINED_FUNCTION_0_3() containsObject:?];
+      v52 = [OUTLINED_FUNCTION_0_3() containsObject:?];
 
-      if (v48)
+      if (v52)
       {
         [MEMORY[0x277D7B9C0] issueWithType:64];
         objc_claimAutoreleasedReturnValue();
@@ -14363,9 +14528,9 @@ LABEL_19:
 
       [MEMORY[0x277D7B9C0] issueWithType:256];
       objc_claimAutoreleasedReturnValue();
-      v49 = [OUTLINED_FUNCTION_0_3() containsObject:?];
+      v53 = [OUTLINED_FUNCTION_0_3() containsObject:?];
 
-      if (v49)
+      if (v53)
       {
         [MEMORY[0x277D7B9C0] issueWithType:256];
         objc_claimAutoreleasedReturnValue();
@@ -14374,9 +14539,9 @@ LABEL_19:
 
       [MEMORY[0x277D7B9C0] issueWithType:128];
       objc_claimAutoreleasedReturnValue();
-      v50 = [OUTLINED_FUNCTION_0_3() containsObject:?];
+      v54 = [OUTLINED_FUNCTION_0_3() containsObject:?];
 
-      if (v50)
+      if (v54)
       {
         [MEMORY[0x277D7B9C0] issueWithType:128];
         objc_claimAutoreleasedReturnValue();
@@ -14392,8 +14557,8 @@ LABEL_49:
       goto LABEL_52;
     }
 
-    v51 = [MEMORY[0x277D7B9C0] issueWithType:0x4000];
-    OUTLINED_FUNCTION_7_0(v51, v52);
+    v55 = [MEMORY[0x277D7B9C0] issueWithType:0x4000];
+    OUTLINED_FUNCTION_7_0(v55, v56);
 LABEL_51:
     [OUTLINED_FUNCTION_2_1() addObject:?];
 
@@ -14403,8 +14568,8 @@ LABEL_52:
 
     if (noInternetConnection)
     {
-      v55 = [MEMORY[0x277D7B9C0] issueWithType:1];
-      OUTLINED_FUNCTION_7_0(v55, v56);
+      v59 = [MEMORY[0x277D7B9C0] issueWithType:1];
+      OUTLINED_FUNCTION_7_0(v59, v60);
       [OUTLINED_FUNCTION_2_1() addObject:?];
     }
 
@@ -14413,8 +14578,8 @@ LABEL_52:
 
     if (legacyPHY)
     {
-      v59 = [MEMORY[0x277D7B9C0] issueWithType:16];
-      OUTLINED_FUNCTION_7_0(v59, v60);
+      v63 = [MEMORY[0x277D7B9C0] issueWithType:16];
+      OUTLINED_FUNCTION_7_0(v63, v64);
       [OUTLINED_FUNCTION_2_1() addObject:?];
     }
 
@@ -14423,8 +14588,8 @@ LABEL_52:
 
     if (commonSSID)
     {
-      v63 = [MEMORY[0x277D7B9C0] issueWithType:32];
-      OUTLINED_FUNCTION_7_0(v63, v64);
+      v67 = [MEMORY[0x277D7B9C0] issueWithType:32];
+      OUTLINED_FUNCTION_7_0(v67, v68);
       [OUTLINED_FUNCTION_2_1() addObject:?];
     }
 
@@ -14434,7 +14599,7 @@ LABEL_52:
     if (carrierNetwork)
     {
       carrierNetworkIssue = [MEMORY[0x277D7B9F8] carrierNetworkIssue];
-      OUTLINED_FUNCTION_7_0(carrierNetworkIssue, v68);
+      OUTLINED_FUNCTION_7_0(carrierNetworkIssue, v72);
       [OUTLINED_FUNCTION_2_1() addObject:?];
     }
 
@@ -14444,7 +14609,7 @@ LABEL_52:
     if (dnsFiltered)
     {
       dnsFilteredNetworkIssue = [MEMORY[0x277D7B9F8] dnsFilteredNetworkIssue];
-      OUTLINED_FUNCTION_7_0(dnsFilteredNetworkIssue, v72);
+      OUTLINED_FUNCTION_7_0(dnsFilteredNetworkIssue, v76);
       [OUTLINED_FUNCTION_2_1() addObject:?];
     }
 
@@ -14453,15 +14618,15 @@ LABEL_52:
 
     if (poorCoverageOverride)
     {
-      v75 = [MEMORY[0x277D7B9C0] issueWithType:0x100000];
-      OUTLINED_FUNCTION_7_0(v75, v76);
+      v79 = [MEMORY[0x277D7B9C0] issueWithType:0x100000];
+      OUTLINED_FUNCTION_7_0(v79, v80);
       [OUTLINED_FUNCTION_2_1() addObject:?];
     }
 
     healthRecommendationOverrides12 = [(WFNetworkListController *)self healthRecommendationOverrides];
     privateAddressOverride = [healthRecommendationOverrides12 privateAddressOverride];
 
-    v31 = 0x277D7B000uLL;
+    v35 = 0x277D7B000uLL;
     if (privateAddressOverride)
     {
       healthRecommendationOverrides13 = [(WFNetworkListController *)self healthRecommendationOverrides];
@@ -14496,7 +14661,7 @@ LABEL_52:
         }
       }
 
-      OUTLINED_FUNCTION_7_0(privateAddressDisabledBySystemIssue, v82);
+      OUTLINED_FUNCTION_7_0(privateAddressDisabledBySystemIssue, v86);
       [OUTLINED_FUNCTION_2_1() addObject:?];
     }
 
@@ -14513,7 +14678,7 @@ LABEL_72:
       {
         cellularOutrankDownload = [MEMORY[0x277D7B9A0] cellularOutrankDownload];
 LABEL_82:
-        OUTLINED_FUNCTION_7_0(cellularOutrankDownload, v90);
+        OUTLINED_FUNCTION_7_0(cellularOutrankDownload, v94);
         [OUTLINED_FUNCTION_2_1() addObject:?];
 
         goto LABEL_83;
@@ -14548,13 +14713,13 @@ LABEL_82:
     }
 
 LABEL_83:
-    if ([v16 canExposeIMSI])
+    if ([v18 canExposeIMSI])
     {
       carrierNetworkIssue2 = [MEMORY[0x277D7B9F8] carrierNetworkIssue];
       [OUTLINED_FUNCTION_2_1() addObject:?];
     }
 
-    if ([v16 isDNSHeuristicsFiltered])
+    if ([v18 isDNSHeuristicsFiltered])
     {
       dnsFilteredNetworkIssue2 = [MEMORY[0x277D7B9F8] dnsFilteredNetworkIssue];
       [OUTLINED_FUNCTION_2_1() addObject:?];
@@ -14565,28 +14730,29 @@ LABEL_83:
 
     if (disabledReason)
     {
-      v98 = WFLogForCategory(0);
-      v99 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v98)
+      v102 = WFLogForCategory(0);
+      v103 = OSLogForWFLogLevel(4uLL);
+      v104 = v103;
+      if (WFCurrentLogLevel(v103, v105) >= 4 && v102)
       {
-        v100 = v98;
-        if (os_log_type_enabled(v100, v99))
+        v106 = v102;
+        if (os_log_type_enabled(v106, v104))
         {
           [currentNetwork privateAddressConfig];
-          v102 = v101 = v31;
-          v118 = 136315394;
-          v119 = "[WFNetworkListController healthRecommendations:]";
-          v120 = 2112;
-          v121 = v102;
-          _os_log_impl(&dword_273ECD000, v100, v99, "%s: network.privateAddressConfig %@", &v118, 0x16u);
+          v108 = v107 = v35;
+          v125 = 136315394;
+          v126 = "[WFNetworkListController healthRecommendations:]";
+          v127 = 2112;
+          v128 = v108;
+          _os_log_impl(&dword_273ECD000, v106, v104, "%s: network.privateAddressConfig %@", &v125, 0x16u);
 
-          v31 = v101;
+          v35 = v107;
         }
       }
 
-      if (v16)
+      if (v18)
       {
-        originatorName = [v16 originatorName];
+        originatorName = [v18 originatorName];
       }
 
       else
@@ -14614,15 +14780,15 @@ LABEL_83:
         case 4:
           if (originatorName)
           {
-            v106 = originatorName;
+            v112 = originatorName;
           }
 
           else
           {
-            v106 = 0;
+            v112 = 0;
           }
 
-          [MEMORY[0x277D7B9F8] privateAddressDisabledByProfileIssueWithOrganizationName:v106 profileName:0 profileUUID:0];
+          [MEMORY[0x277D7B9F8] privateAddressDisabledByProfileIssueWithOrganizationName:v112 profileName:0 profileUUID:0];
           objc_claimAutoreleasedReturnValue();
 LABEL_104:
           [OUTLINED_FUNCTION_0_3() addObject:?];
@@ -14644,20 +14810,20 @@ LABEL_104:
       switch(cellularOutrankState)
       {
         case 1:
-          cellularOutrankSecurity = [*(v31 + 2464) cellularOutrankSecurity];
+          cellularOutrankSecurity = [*(v35 + 2464) cellularOutrankSecurity];
           goto LABEL_112;
         case 2:
-          cellularOutrankSecurity = [*(v31 + 2464) cellularOutrankPerformance];
+          cellularOutrankSecurity = [*(v35 + 2464) cellularOutrankPerformance];
           goto LABEL_112;
         case 3:
         case 4:
-          cellularOutrankSecurity = [*(v31 + 2464) cellularOutrankDownload];
+          cellularOutrankSecurity = [*(v35 + 2464) cellularOutrankDownload];
           goto LABEL_112;
         case 5:
-          cellularOutrankSecurity = [*(v31 + 2464) cellularOutrankPrivateNetwork];
+          cellularOutrankSecurity = [*(v35 + 2464) cellularOutrankPrivateNetwork];
 LABEL_112:
-          v112 = cellularOutrankSecurity;
-          [v28 addObject:cellularOutrankSecurity];
+          v118 = cellularOutrankSecurity;
+          [v32 addObject:cellularOutrankSecurity];
           goto LABEL_113;
         default:
           goto LABEL_114;
@@ -14667,75 +14833,75 @@ LABEL_112:
     goto LABEL_114;
   }
 
-  v112 = WFLogForCategory(0);
-  v117 = OSLogForWFLogLevel(3uLL);
+  v118 = WFLogForCategory(0);
+  v122 = OSLogForWFLogLevel(3uLL);
+  v123 = v122;
   currentNetworkIssues = 0;
-  if (WFCurrentLogLevel() >= 3 && v112)
+  if (WFCurrentLogLevel(v122, v124) >= 3 && v118)
   {
-    if (os_log_type_enabled(v112, v117))
+    if (os_log_type_enabled(v118, v123))
     {
-      v118 = 136315138;
-      v119 = "[WFNetworkListController healthRecommendations:]";
-      _os_log_impl(&dword_273ECD000, v112, v117, "%s: health ui is disabled", &v118, 0xCu);
+      v125 = 136315138;
+      v126 = "[WFNetworkListController healthRecommendations:]";
+      _os_log_impl(&dword_273ECD000, v118, v123, "%s: health ui is disabled", &v125, 0xCu);
     }
 
     currentNetworkIssues = 0;
-    v28 = 0;
+    v32 = 0;
   }
 
   else
   {
-    v28 = 0;
+    v32 = 0;
   }
 
 LABEL_113:
 
 LABEL_114:
-  if ([v28 count])
+  if ([v32 count])
   {
-    v113 = v28;
+    v119 = v32;
   }
 
   else
   {
-    v113 = 0;
+    v119 = 0;
   }
 
-  v114 = v113;
+  v120 = v119;
 
-  v115 = *MEMORY[0x277D85DE8];
-  return v113;
+  return v119;
 }
 
 - (id)airportSettingsViewController:(id)controller unconfiguredAccessoriesGroupHeaderTitle:(id)title
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   titleCopy = title;
   if (titleCopy)
   {
-    v20 = controllerCopy;
+    v19 = controllerCopy;
     v7 = objc_alloc_init(MEMORY[0x277CCA940]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v8 = titleCopy;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v20 + 1) + 8 * i);
           if ([v13 isUnconfiguredAccessory])
           {
             v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v13, "unconfiguredAccessoryType")}];
@@ -14743,7 +14909,7 @@ LABEL_114:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -14753,7 +14919,7 @@ LABEL_114:
     {
       if (![v7 countForObject:&unk_2883048A0] || objc_msgSend(v7, "countForObject:", &unk_2883048B8) || objc_msgSend(v7, "countForObject:", &unk_2883048D0) || objc_msgSend(v7, "countForObject:", &unk_2883048E8))
       {
-        controllerCopy = v20;
+        controllerCopy = v19;
         if ([v7 countForObject:&unk_2883048A0] && objc_msgSend(v7, "countForObject:", &unk_2883048B8) && !objc_msgSend(v7, "countForObject:", &unk_2883048D0) && !objc_msgSend(v7, "countForObject:", &unk_2883048E8))
         {
           v15 = @"kWFUnconfiguredAirportAndAirPlaySectionTitle";
@@ -14773,7 +14939,7 @@ LABEL_114:
       else
       {
         v15 = @"kWFUnconfiguredAirportSectionTitle";
-        controllerCopy = v20;
+        controllerCopy = v19;
       }
 
       v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -14783,7 +14949,7 @@ LABEL_114:
     else
     {
       v17 = 0;
-      controllerCopy = v20;
+      controllerCopy = v19;
     }
   }
 
@@ -14793,22 +14959,21 @@ LABEL_114:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (void)_updateViewsForNetworks:(id)networks
 {
-  v15 = *MEMORY[0x277D85DE8];
   networksCopy = networks;
   if (!networksCopy)
   {
     viewController2 = WFLogForCategory(0);
-    OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && viewController2 && OUTLINED_FUNCTION_4())
+    v8 = OSLogForWFLogLevel(3uLL);
+    if (WFCurrentLogLevel(v8, v9) >= 3 && viewController2 && OUTLINED_FUNCTION_4())
     {
-      OUTLINED_FUNCTION_4_1(&dword_273ECD000, v9, v10, "%s: nil networks", v11, v12, v13, v14, 2u);
+      LODWORD(v16) = 136315138;
+      *(&v16 + 4) = "[WFNetworkListController _updateViewsForNetworks:]";
+      OUTLINED_FUNCTION_4_1(&dword_273ECD000, v10, v11, "%s: nil networks", v12, v13, v14, v15, v16, "[WFNetworkListController _updateViewsForNetworks:]" >> 32);
     }
 
     goto LABEL_4;
@@ -14823,175 +14988,156 @@ LABEL_114:
     [viewController2 updateViewsForNetworks:networksCopy];
 LABEL_4:
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithViewController:viewProvider:client:.cold.1()
 {
   WFLogForCategory(0);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_8_0();
-  if (WFCurrentLogLevel() && v0 && OUTLINED_FUNCTION_9())
+  v1 = OUTLINED_FUNCTION_8_0();
+  if (WFCurrentLogLevel(v1, v2) && v0 && OUTLINED_FUNCTION_9())
   {
     OUTLINED_FUNCTION_6_0();
-    _os_log_impl(v1, v2, v3, v4, v5, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 - (void)scanManager:didFindHotspotHelperNetworks:.cold.1()
 {
-  v0 = *MEMORY[0x277D85DE8];
-  v1 = OUTLINED_FUNCTION_5_0();
-  v2 = WFLogForCategory(v1);
-  OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v2 && OUTLINED_FUNCTION_9())
+  v0 = OUTLINED_FUNCTION_5_0();
+  v1 = WFLogForCategory(v0);
+  v2 = OSLogForWFLogLevel(3uLL);
+  if (WFCurrentLogLevel(v2, v3) >= 3 && v1 && OUTLINED_FUNCTION_9())
   {
     OUTLINED_FUNCTION_6_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanManager:didFindHotspotHelperNetworks:.cold.2()
 {
-  v0 = *MEMORY[0x277D85DE8];
-  v1 = OUTLINED_FUNCTION_5_0();
-  v2 = WFLogForCategory(v1);
-  OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v2 && OUTLINED_FUNCTION_9())
+  v0 = OUTLINED_FUNCTION_5_0();
+  v1 = WFLogForCategory(v0);
+  v2 = OSLogForWFLogLevel(3uLL);
+  if (WFCurrentLogLevel(v2, v3) >= 3 && v1 && OUTLINED_FUNCTION_9())
   {
     OUTLINED_FUNCTION_6_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_openHomeAppForNetwork:(uint64_t *)a1 .cold.1(uint64_t *a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_5_0();
-  v4 = WFLogForCategory(v3);
-  OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && OUTLINED_FUNCTION_4())
+  v2 = OUTLINED_FUNCTION_5_0();
+  v3 = WFLogForCategory(v2);
+  v4 = OSLogForWFLogLevel(1uLL);
+  if (WFCurrentLogLevel(v4, v5) && v3 && OUTLINED_FUNCTION_4())
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v5, v6, "%s: nil network unconfiguredDeviceID", v7, v8, v9, v10, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFNetworkListController _openHomeAppForNetwork:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: nil network unconfiguredDeviceID", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
-  *a1 = v4;
-  v11 = *MEMORY[0x277D85DE8];
+  *a1 = v3;
 }
 
 - (void)_openHomeAppForNetwork:(uint64_t *)a1 .cold.2(uint64_t *a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_5_0();
-  v4 = WFLogForCategory(v3);
-  OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && OUTLINED_FUNCTION_4())
+  v2 = OUTLINED_FUNCTION_5_0();
+  v3 = WFLogForCategory(v2);
+  v4 = OSLogForWFLogLevel(1uLL);
+  if (WFCurrentLogLevel(v4, v5) && v3 && OUTLINED_FUNCTION_4())
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v5, v6, "%s: nil network", v7, v8, v9, v10, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFNetworkListController _openHomeAppForNetwork:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: nil network", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
-  *a1 = v4;
-  v11 = *MEMORY[0x277D85DE8];
+  *a1 = v3;
 }
 
 - (void)_interfaceDidBecomeAvailable:.cold.1()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_5_0();
-  WFLogForCategory(v2);
+  v1 = OUTLINED_FUNCTION_5_0();
+  WFLogForCategory(v1);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_8_0();
-  if (WFCurrentLogLevel() && v0 && OUTLINED_FUNCTION_9())
+  v2 = OUTLINED_FUNCTION_8_0();
+  if (WFCurrentLogLevel(v2, v3) && v0 && OUTLINED_FUNCTION_9())
   {
     OUTLINED_FUNCTION_6_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleURL:.cold.1()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_5_0();
-  WFLogForCategory(v2);
+  v1 = OUTLINED_FUNCTION_5_0();
+  WFLogForCategory(v1);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_8_0();
-  if (WFCurrentLogLevel() && v0 && OUTLINED_FUNCTION_10())
+  v2 = OUTLINED_FUNCTION_8_0();
+  if (WFCurrentLogLevel(v2, v3) && v0 && OUTLINED_FUNCTION_10())
   {
+    v10 = 136315394;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1(&dword_273ECD000, v3, v4, "%s: unable to create WiFiNetworkRef from scan dictionary: %@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_1(&dword_273ECD000, v4, v5, "%s: unable to create WiFiNetworkRef from scan dictionary: %@", v6, v7, v8, v9, v10);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleURL:.cold.2()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_5_0();
-  WFLogForCategory(v2);
+  v1 = OUTLINED_FUNCTION_5_0();
+  WFLogForCategory(v1);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_8_0();
-  if (WFCurrentLogLevel() && v0 && OUTLINED_FUNCTION_10())
+  v2 = OUTLINED_FUNCTION_8_0();
+  if (WFCurrentLogLevel(v2, v3) && v0 && OUTLINED_FUNCTION_10())
   {
+    v10 = 136315394;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1(&dword_273ECD000, v3, v4, "%s: Unable to serialize LastEnterpriseNetwork.plist (error %@)", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_1(&dword_273ECD000, v4, v5, "%s: Unable to serialize LastEnterpriseNetwork.plist (error %@)", v6, v7, v8, v9, v10);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleURL:.cold.3()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_5_0();
-  WFLogForCategory(v2);
+  v1 = OUTLINED_FUNCTION_5_0();
+  WFLogForCategory(v1);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_8_0();
-  if (WFCurrentLogLevel() && v0 && OUTLINED_FUNCTION_10())
+  v2 = OUTLINED_FUNCTION_8_0();
+  if (WFCurrentLogLevel(v2, v3) && v0 && OUTLINED_FUNCTION_10())
   {
+    v10 = 136315394;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1(&dword_273ECD000, v3, v4, "%s: missing path param (url %@)", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_1(&dword_273ECD000, v4, v5, "%s: missing path param (url %@)", v6, v7, v8, v9, v10);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleURL:.cold.4()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_5_0();
-  WFLogForCategory(v2);
+  v1 = OUTLINED_FUNCTION_5_0();
+  WFLogForCategory(v1);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_8_0();
-  if (WFCurrentLogLevel() && v0 && OUTLINED_FUNCTION_10())
+  v2 = OUTLINED_FUNCTION_8_0();
+  if (WFCurrentLogLevel(v2, v3) && v0 && OUTLINED_FUNCTION_10())
   {
+    v10 = 136315394;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1(&dword_273ECD000, v3, v4, "%s: missing path items (url %@)", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_1(&dword_273ECD000, v4, v5, "%s: missing path items (url %@)", v6, v7, v8, v9, v10);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCurrentNetworkDetailsURL:(uint64_t *)a1 .cold.1(uint64_t *a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_5_0();
-  v4 = WFLogForCategory(v3);
-  OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && OUTLINED_FUNCTION_4())
+  v2 = OUTLINED_FUNCTION_5_0();
+  v3 = WFLogForCategory(v2);
+  v4 = OSLogForWFLogLevel(1uLL);
+  if (WFCurrentLogLevel(v4, v5) && v3 && OUTLINED_FUNCTION_4())
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v5, v6, "%s: current network is nil", v7, v8, v9, v10, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFNetworkListController _handleCurrentNetworkDetailsURL:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: current network is nil", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
-  *a1 = v4;
-  v11 = *MEMORY[0x277D85DE8];
+  *a1 = v3;
 }
 
 @end

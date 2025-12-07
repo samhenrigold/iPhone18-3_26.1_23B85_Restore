@@ -7,25 +7,24 @@
 
 + (id)avt_numberWithFloat:()AVTExtension roundingBehavior:
 {
-  v5 = MEMORY[0x1E696AD98];
-  v6 = a4;
-  *&v7 = self;
-  v8 = [v5 numberWithFloat:v7];
-  v9 = [v8 avt_numberByRoundingWithBehavior:v6];
+  v4 = MEMORY[0x1E696AD98];
+  v5 = a4;
+  v6 = [v4 numberWithFloat:?];
+  v7 = [v6 avt_numberByRoundingWithBehavior:?];
 
-  return v9;
+  return v7;
 }
 
 - (id)avt_numberByRoundingWithBehavior:()AVTExtension
 {
-  v4 = MEMORY[0x1E696AB90];
-  v5 = a3;
-  v6 = [v4 alloc];
-  [self decimalValue];
-  v7 = [v6 initWithDecimal:v10];
-  v8 = [v7 decimalNumberByRoundingAccordingToBehavior:v5];
+  v3 = MEMORY[0x1E696AB90];
+  v4 = a3;
+  v5 = [v3 alloc];
+  [v9 decimalValue];
+  v6 = [v5 initWithDecimal:?];
+  v7 = [v6 decimalNumberByRoundingAccordingToBehavior:?];
 
-  return v8;
+  return v7;
 }
 
 @end

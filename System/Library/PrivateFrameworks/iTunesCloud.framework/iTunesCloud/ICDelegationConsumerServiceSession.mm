@@ -80,7 +80,7 @@
   [v7 enumerateObjectsUsingBlock:v8];
 }
 
-void __52__ICDelegationConsumerServiceSession__handleTimeout__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __52__ICDelegationConsumerServiceSession__handleTimeout__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
   v6 = [*(a1 + 32) count] - 1 == a3;

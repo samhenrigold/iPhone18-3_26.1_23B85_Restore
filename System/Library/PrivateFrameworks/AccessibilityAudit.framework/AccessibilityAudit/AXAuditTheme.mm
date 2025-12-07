@@ -26,7 +26,6 @@
 
 uint64_t __27__AXAuditTheme_sharedTheme__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedTheme_instance = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();

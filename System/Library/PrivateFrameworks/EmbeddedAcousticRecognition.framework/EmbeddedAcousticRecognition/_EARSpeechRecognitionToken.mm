@@ -43,7 +43,7 @@
   phoneSequenceCopy = phoneSequence;
   if (nameCopy)
   {
-    [nameCopy ear_toString];
+    objc_msgSend_ear_toString(nameCopy);
     if (sequenceCopy)
     {
       goto LABEL_3;
@@ -68,11 +68,11 @@ LABEL_6:
   }
 
 LABEL_3:
-  [sequenceCopy ear_toString];
+  objc_msgSend_ear_toString(sequenceCopy);
   if (phoneSequenceCopy)
   {
 LABEL_4:
-    [phoneSequenceCopy ear_toString];
+    objc_msgSend_ear_toString(phoneSequenceCopy);
     goto LABEL_8;
   }
 

@@ -62,7 +62,7 @@
       {
         v31 = 0;
         v32 = 0;
-        [(MIOTimeRangeMetadataTrackReader *)self grabNextTimeRangeMetadataSampleOfStream:v10 rangeStartTime:&v32 rangeEndTime:&v31 presentationTimeRange:0 error:error];
+        objc_msgSend_grabNextTimeRangeMetadataSampleOfStream_rangeStartTime_rangeEndTime_presentationTimeRange_error_(self);
         v29 = v25;
         v13 = v27;
         v30 = v26;
@@ -184,7 +184,7 @@ LABEL_35:
           {
             if (v21)
             {
-              [v21 valueAsTimeCode];
+              objc_msgSend_valueAsTimeCode(v21);
             }
 
             else
@@ -248,7 +248,7 @@ LABEL_35:
         {
           if (v38)
           {
-            [v38 timeRange];
+            objc_msgSend_timeRange(v38);
           }
 
           else

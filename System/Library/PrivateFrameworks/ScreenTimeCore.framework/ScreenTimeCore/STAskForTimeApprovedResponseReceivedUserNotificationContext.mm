@@ -84,7 +84,7 @@
 
 void __112__STAskForTimeApprovedResponseReceivedUserNotificationContext_customizeNotificationContent_withCompletionBlock___block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   [v2 setAllowedUnits:96];
   [v2 setUnitsStyle:3];
@@ -93,8 +93,8 @@ void __112__STAskForTimeApprovedResponseReceivedUserNotificationContext_customiz
   v3 = [v2 stringFromTimeInterval:?];
   v4 = MEMORY[0x1E696AEC0];
   v5 = [*(a1 + 32) parentName];
-  v17[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v7 = [v4 localizedUserNotificationStringForKey:@"AskForTimeApprovedResposeReceivedNotificationTitle" arguments:v6];
   [*(a1 + 40) setTitle:v7];
 
@@ -103,16 +103,16 @@ void __112__STAskForTimeApprovedResponseReceivedUserNotificationContext_customiz
   v10 = MEMORY[0x1E696AEC0];
   if (v8)
   {
-    v16[0] = v3;
-    v16[1] = v8;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = v3;
+    v15[1] = v8;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v12 = @"AskForTimeApprovedResposeReceivedNotificationBody";
   }
 
   else
   {
-    v15 = v3;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+    v14 = v3;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
     v12 = @"AskForTimeApprovedNoResourceResposeReceivedNotificationBody";
   }
 
@@ -121,8 +121,6 @@ void __112__STAskForTimeApprovedResponseReceivedUserNotificationContext_customiz
 
   [*(a1 + 40) setInterruptionLevel:2];
   (*(*(a1 + 48) + 16))();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -14,15 +14,19 @@
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
 - (void)presentAuthorizationViewControllerWithHints:(id)hints requestIdentifier:(id)identifier completion:(id)completion;
 - (void)viewControllerDidCancel:(id)cancel;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewServiceDidTerminateWithError:(id)error;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SOUIServiceViewController
 
 - (SOUIServiceViewController)init
 {
-  v3 = sub_100002204();
+  v3 = sub_100002204(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -37,10 +41,89 @@
   return [(SOUIServiceViewController *)&v5 init];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = sub_100002204(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v8 = "[SOUIServiceViewController viewWillAppear:]";
+    v9 = 2112;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
+  }
+
+  v6.receiver = self;
+  v6.super_class = SOUIServiceViewController;
+  [(SOUIServiceViewController *)&v6 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = sub_100002204(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v8 = "[SOUIServiceViewController viewDidAppear:]";
+    v9 = 2112;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
+  }
+
+  v6.receiver = self;
+  v6.super_class = SOUIServiceViewController;
+  [(SOUIServiceViewController *)&v6 viewDidAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = sub_100002204(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v8 = "[SOUIServiceViewController viewWillDisappear:]";
+    v9 = 2112;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
+  }
+
+  v6.receiver = self;
+  v6.super_class = SOUIServiceViewController;
+  [(SOUIServiceViewController *)&v6 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = sub_100002204(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    extensionViewController = self->_extensionViewController;
+    *buf = 136315650;
+    v9 = "[SOUIServiceViewController viewDidDisappear:]";
+    v10 = 2114;
+    v11 = extensionViewController;
+    v12 = 2112;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s extensionViewController = %{public}@ on %@", buf, 0x20u);
+  }
+
+  v7.receiver = self;
+  v7.super_class = SOUIServiceViewController;
+  [(SOUIServiceViewController *)&v7 viewDidDisappear:disappearCopy];
+  if (self->_extensionViewController)
+  {
+    [(SOUIServiceViewController *)self _cancelAuthorization];
+  }
+}
+
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100002204();
+  v6 = sub_100002204(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100004DE0();
@@ -57,7 +140,7 @@
 {
   contextCopy = context;
   completionCopy = completion;
-  v8 = sub_100002204();
+  v8 = sub_100002204(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -97,18 +180,18 @@
 {
   endpointCopy = endpoint;
   infoCopy = info;
-  v9 = sub_100002204();
+  v9 = sub_100002204(infoCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316163;
-    v69 = "[SOUIServiceViewController connectToDaemonWithXpcEndpoint:requestInfo:]";
-    v70 = 2114;
-    v71 = endpointCopy;
-    v72 = 2160;
-    v73 = 1752392040;
-    v74 = 2117;
-    v75 = infoCopy;
-    v76 = 2112;
+    v71 = "[SOUIServiceViewController connectToDaemonWithXpcEndpoint:requestInfo:]";
+    v72 = 2114;
+    v73 = endpointCopy;
+    v74 = 2160;
+    v75 = 1752392040;
+    v76 = 2117;
+    v77 = infoCopy;
+    v78 = 2112;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s xpcEndpoint: %{public}@, requestInfo: %{sensitive, mask.hash}@ on %@", buf, 0x34u);
   }
@@ -126,15 +209,15 @@
     }
 
 LABEL_11:
-    v18 = [sub_100002F9C() parameterErrorWithMessage:@"no requestInfo for UI service"];
-    [(SOUIServiceViewController *)self authorization:0 didCompleteWithCredential:0 error:v18];
+    v19 = [sub_100002F9C() parameterErrorWithMessage:@"no requestInfo for UI service"];
+    [(SOUIServiceViewController *)self authorization:0 didCompleteWithCredential:0 error:v19];
 LABEL_22:
 
     goto LABEL_23;
   }
 
-  v17 = sub_100002204();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = sub_100002204(v12);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     sub_100004E68();
   }
@@ -147,137 +230,137 @@ LABEL_22:
 LABEL_5:
   if (![(SOUIServiceViewController *)self _checkScreenLockStatus])
   {
-    v12 = [infoCopy valueForKey:@"extensionBundleIdentifier"];
-    v13 = [infoCopy valueForKey:@"httpHeaders"];
-    v14 = [infoCopy valueForKey:@"httpBody"];
-    v15 = [infoCopy valueForKey:@"url"];
-    v63 = v14;
-    v64 = v13;
-    v58 = v15;
-    if (v15)
+    v13 = [infoCopy valueForKey:@"extensionBundleIdentifier"];
+    v14 = [infoCopy valueForKey:@"httpHeaders"];
+    v15 = [infoCopy valueForKey:@"httpBody"];
+    v16 = [infoCopy valueForKey:@"url"];
+    v65 = v15;
+    v66 = v14;
+    v60 = v16;
+    if (v16)
     {
-      v16 = [NSURL URLWithString:v15];
+      v17 = [NSURL URLWithString:v16];
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    v59 = v12;
-    v62 = [infoCopy valueForKey:@"realm"];
-    v61 = [infoCopy valueForKey:@"extensionData"];
-    v65 = [infoCopy valueForKey:@"callerBundleIdentifier"];
-    v56 = [infoCopy valueForKey:@"auditTokenData"];
-    v60 = [infoCopy valueForKey:@"requestedOperation"];
-    v55 = [infoCopy valueForKey:@"authorizationOptions"];
-    v19 = [infoCopy valueForKey:@"useInternalExtensions"];
-    bOOLValue = [v19 BOOLValue];
+    v61 = v13;
+    v64 = [infoCopy valueForKey:@"realm"];
+    v63 = [infoCopy valueForKey:@"extensionData"];
+    v67 = [infoCopy valueForKey:@"callerBundleIdentifier"];
+    v58 = [infoCopy valueForKey:@"auditTokenData"];
+    v62 = [infoCopy valueForKey:@"requestedOperation"];
+    v57 = [infoCopy valueForKey:@"authorizationOptions"];
+    v20 = [infoCopy valueForKey:@"useInternalExtensions"];
+    bOOLValue = [v20 BOOLValue];
 
-    v21 = [infoCopy valueForKey:@"cfNetworkInterception"];
-    bOOLValue2 = [v21 BOOLValue];
+    v22 = [infoCopy valueForKey:@"cfNetworkInterception"];
+    bOOLValue2 = [v22 BOOLValue];
 
-    v22 = [infoCopy valueForKey:@"callerManaged"];
-    bOOLValue3 = [v22 BOOLValue];
+    v23 = [infoCopy valueForKey:@"callerManaged"];
+    bOOLValue3 = [v23 BOOLValue];
 
-    v23 = [infoCopy valueForKey:@"callerTeamIdentifier"];
-    v24 = [infoCopy valueForKey:@"localizedCallerDisplayName"];
-    v25 = [infoCopy valueForKey:@"enableUserInteraction"];
-    bOOLValue4 = [v25 BOOLValue];
+    v24 = [infoCopy valueForKey:@"callerTeamIdentifier"];
+    v25 = [infoCopy valueForKey:@"localizedCallerDisplayName"];
+    v26 = [infoCopy valueForKey:@"enableUserInteraction"];
+    bOOLValue4 = [v26 BOOLValue];
 
-    v26 = [infoCopy valueForKey:@"impersonationBundleIdentifier"];
-    v27 = [infoCopy valueForKey:@"screenLockedBehavior"];
-    self->_screenLockedBehavior = [v27 integerValue];
+    v27 = [infoCopy valueForKey:@"impersonationBundleIdentifier"];
+    v28 = [infoCopy valueForKey:@"screenLockedBehavior"];
+    self->_screenLockedBehavior = [v28 integerValue];
 
-    v28 = [infoCopy valueForKey:@"identifier"];
-    v29 = [infoCopy valueForKey:@"showOnCoverScreen"];
-    self->_showOnCoverScreen = [v29 BOOLValue];
+    v29 = [infoCopy valueForKey:@"identifier"];
+    v30 = [infoCopy valueForKey:@"showOnCoverScreen"];
+    self->_showOnCoverScreen = [v30 BOOLValue];
 
-    v30 = +[SOExtensionManager sharedInstance];
-    v31 = v30;
-    v54 = v24;
+    v31 = +[SOExtensionManager sharedInstance];
+    v32 = v31;
+    v56 = v25;
     if (bOOLValue)
     {
-      [v30 loadInternalExtension];
+      [v31 loadInternalExtension];
     }
 
     else
     {
-      [v30 loadExtensionWithBundleIdentifier:v59];
+      [v31 loadExtensionWithBundleIdentifier:v61];
     }
-    v32 = ;
+    v33 = ;
     extension = self->_extension;
-    self->_extension = v32;
+    self->_extension = v33;
 
-    v34 = sub_100002204();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v36 = sub_100002204(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       localizedExtensionDisplayName = [(SOExtension *)self->_extension localizedExtensionDisplayName];
       *buf = 138543362;
-      v69 = localizedExtensionDisplayName;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "loadedExtensionWithBundleIdentifier: extension = %{public}@", buf, 0xCu);
+      v71 = localizedExtensionDisplayName;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "loadedExtensionWithBundleIdentifier: extension = %{public}@", buf, 0xCu);
     }
 
-    v57 = endpointCopy;
+    v59 = endpointCopy;
 
-    v36 = self->_extension;
-    if (v36)
+    v38 = self->_extension;
+    if (v38)
     {
-      v37 = v28;
-      [(SOExtension *)v36 saveDelegate:self forRequestIdentifier:v28];
-      v38 = objc_alloc_init(SOAuthorizationRequestParameters);
-      [v38 setIdentifier:v28];
-      v50 = v16;
-      [v38 setUrl:v16];
-      [v38 setHttpHeaders:v64];
-      [v38 setHttpBody:v63];
-      [v38 setRealm:v62];
-      [v38 setExtensionData:v61];
-      [v38 setCallerBundleIdentifier:v65];
-      [v38 setRequestedOperation:v60];
-      v39 = v55;
-      [v38 setAuthorizationOptions:v55];
-      [v38 setCfNetworkInterception:bOOLValue2];
-      [v38 setCallerManaged:bOOLValue3];
-      v40 = v23;
-      [v38 setCallerTeamIdentifier:v23];
-      v41 = v24;
-      [v38 setLocalizedCallerDisplayName:v24];
-      v42 = v56;
-      [v38 setAuditTokenData:v56];
-      [v38 setEnableUserInteraction:bOOLValue4];
-      [v38 setImpersonationBundleIdentifier:v26];
-      v43 = self->_extension;
-      v66[0] = _NSConcreteStackBlock;
-      v66[1] = 3221225472;
-      v66[2] = sub_10000307C;
-      v66[3] = &unk_10000C3F8;
-      v66[4] = self;
-      v67 = v38;
-      v44 = v37;
-      v45 = v38;
-      v46 = v64;
-      v47 = v45;
-      v48 = v43;
-      v16 = v50;
-      [(SOExtension *)v48 requestAuthorizationViewControllerWithCompletion:v66];
+      v39 = v29;
+      [(SOExtension *)v38 saveDelegate:self forRequestIdentifier:v29];
+      v40 = objc_alloc_init(SOAuthorizationRequestParameters);
+      [v40 setIdentifier:v29];
+      v52 = v17;
+      [v40 setUrl:v17];
+      [v40 setHttpHeaders:v66];
+      [v40 setHttpBody:v65];
+      [v40 setRealm:v64];
+      [v40 setExtensionData:v63];
+      [v40 setCallerBundleIdentifier:v67];
+      [v40 setRequestedOperation:v62];
+      v41 = v57;
+      [v40 setAuthorizationOptions:v57];
+      [v40 setCfNetworkInterception:bOOLValue2];
+      [v40 setCallerManaged:bOOLValue3];
+      v42 = v24;
+      [v40 setCallerTeamIdentifier:v24];
+      v43 = v25;
+      [v40 setLocalizedCallerDisplayName:v25];
+      v44 = v58;
+      [v40 setAuditTokenData:v58];
+      [v40 setEnableUserInteraction:bOOLValue4];
+      [v40 setImpersonationBundleIdentifier:v27];
+      v45 = self->_extension;
+      v68[0] = _NSConcreteStackBlock;
+      v68[1] = 3221225472;
+      v68[2] = sub_10000307C;
+      v68[3] = &unk_10000C3F8;
+      v68[4] = self;
+      v69 = v40;
+      v46 = v39;
+      v47 = v40;
+      v48 = v66;
+      v49 = v47;
+      v50 = v45;
+      v17 = v52;
+      [(SOExtension *)v50 requestAuthorizationViewControllerWithCompletion:v68];
     }
 
     else
     {
-      v47 = [sub_100002F9C() internalErrorWithMessage:@"No active AppSSO IdP extension"];
+      v49 = [sub_100002F9C() internalErrorWithMessage:@"No active AppSSO IdP extension"];
       selfCopy2 = self;
-      v44 = v28;
-      [(SOUIServiceViewController *)selfCopy2 authorization:v28 didCompleteWithCredential:0 error:v47];
-      v46 = v64;
-      v39 = v55;
-      v42 = v56;
-      v40 = v23;
-      v41 = v54;
+      v46 = v29;
+      [(SOUIServiceViewController *)selfCopy2 authorization:v29 didCompleteWithCredential:0 error:v49];
+      v48 = v66;
+      v41 = v57;
+      v44 = v58;
+      v42 = v24;
+      v43 = v56;
     }
 
-    v18 = v59;
-    endpointCopy = v57;
+    v19 = v61;
+    endpointCopy = v59;
     goto LABEL_22;
   }
 
@@ -286,7 +369,7 @@ LABEL_23:
 
 - (void)viewDidLoad
 {
-  v3 = sub_100002204();
+  v3 = sub_100002204(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -323,65 +406,66 @@ LABEL_23:
 
 - (BOOL)_checkScreenLockStatus
 {
-  if (!SBSGetScreenLockStatus())
+  v3 = SBSGetScreenLockStatus();
+  if (!v3)
   {
     return 0;
   }
 
-  if (self->_showOnCoverScreen || [sub_100003660() isInternalBuild])
+  if (self->_showOnCoverScreen || (v3 = [sub_100003660() isInternalBuild], v3))
   {
-    v9 = sub_100002204();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_100002204(v3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_100004F04();
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
     screenLockedBehavior = self->_screenLockedBehavior;
-    v4 = sub_100002204();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+    v5 = sub_100002204(v3);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
     if (screenLockedBehavior == 2)
     {
-      if (v5)
+      if (v6)
       {
         sub_100004ED0();
       }
 
-      v6 = sub_100002F9C();
-      v7 = -5;
+      v7 = sub_100002F9C();
+      v8 = -5;
     }
 
     else
     {
-      if (v5)
+      if (v6)
       {
         sub_100004E9C();
       }
 
-      v6 = sub_100002F9C();
-      v7 = -3;
+      v7 = sub_100002F9C();
+      v8 = -3;
     }
 
-    v9 = [v6 errorWithCode:v7];
-    [(SOUIServiceViewController *)self authorization:0 didCompleteWithCredential:0 error:v9];
-    v8 = 1;
+    v10 = [v7 errorWithCode:v8];
+    [(SOUIServiceViewController *)self authorization:0 didCompleteWithCredential:0 error:v10];
+    v9 = 1;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)_dismiss
 {
-  v3 = sub_100002204();
+  v3 = sub_100002204(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v11 = "[SOUIServiceViewController _dismiss]";
-    v12 = 2112;
+    v12 = "[SOUIServiceViewController _dismiss]";
+    v13 = 2112;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -391,35 +475,35 @@ LABEL_23:
 
   if (self->_extension)
   {
-    v5 = v8;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v6 = sub_100003934;
+    v6 = v9;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v7 = sub_100003934;
   }
 
   else
   {
-    v7 = sub_100002204();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_100002204(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_100004F40();
     }
 
-    v5 = block;
+    v6 = block;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
-    v6 = sub_1000038D4;
+    v7 = sub_1000038D4;
   }
 
-  v5[2] = v6;
-  v5[3] = &unk_10000C420;
-  v5[4] = self;
-  dispatch_async(&_dispatch_main_q, v5);
+  v6[2] = v7;
+  v6[3] = &unk_10000C420;
+  v6[4] = self;
+  dispatch_async(&_dispatch_main_q, v6);
 }
 
 - (void)_extensionCleanup
 {
-  v3 = sub_100002204();
+  v3 = sub_100002204(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     extension = self->_extension;
@@ -443,7 +527,7 @@ LABEL_23:
 
 - (void)_cancelAuthorization
 {
-  v3 = sub_100002204();
+  v3 = sub_100002204(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     extension = self->_extension;
@@ -465,7 +549,7 @@ LABEL_23:
 - (void)handleButtonActions:(id)actions
 {
   actionsCopy = actions;
-  v5 = sub_100002204();
+  v5 = sub_100002204(actionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315650;
@@ -484,82 +568,85 @@ LABEL_23:
 {
   hintsCopy = hints;
   completionCopy = completion;
-  v9 = sub_100002204();
+  v9 = sub_100002204(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     extensionViewController = self->_extensionViewController;
     *buf = 136315906;
-    v29 = "[SOUIServiceViewController presentAuthorizationViewControllerWithHints:requestIdentifier:completion:]";
-    v30 = 2114;
-    v31 = extensionViewController;
-    v32 = 2114;
-    v33 = hintsCopy;
-    v34 = 2112;
+    v30 = "[SOUIServiceViewController presentAuthorizationViewControllerWithHints:requestIdentifier:completion:]";
+    v31 = 2114;
+    v32 = extensionViewController;
+    v33 = 2114;
+    v34 = hintsCopy;
+    v35 = 2112;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s extension viewController = %{public}@, hints = %{public}@ on %@", buf, 0x2Au);
   }
 
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_1000040D8;
-  v26[3] = &unk_10000C4B0;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_1000040D8;
+  v27[3] = &unk_10000C4B0;
   v11 = completionCopy;
-  v27 = v11;
-  v12 = objc_retainBlock(v26);
+  v28 = v11;
+  v12 = objc_retainBlock(v27);
   buf[0] = 0;
-  if (SBSGetScreenLockStatus() && (buf[0] || !self->_showOnCoverScreen && ([sub_100003660() isInternalBuild] & 1) == 0))
+  v13 = SBSGetScreenLockStatus();
+  if (v13)
   {
-    v13 = sub_100002204();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (buf[0] || !self->_showOnCoverScreen && (v13 = [sub_100003660() isInternalBuild], (v13 & 1) == 0))
     {
-      sub_1000050A4();
-    }
+      v14 = sub_100002204(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000050A4();
+      }
 
-    v14 = [sub_100002F9C() errorWithCode:-8 subcode:1 message:@"presentation of authorization view controller was denied because the device screen is locked"];
-    goto LABEL_18;
+      v15 = [sub_100002F9C() errorWithCode:-8 subcode:1 message:@"presentation of authorization view controller was denied because the device screen is locked"];
+      goto LABEL_18;
+    }
   }
 
-  v15 = self->_extensionViewController;
-  if (!v15)
+  v16 = self->_extensionViewController;
+  if (!v16)
   {
-    v22 = sub_100002F9C();
-    v23 = @"no extension authorization view controller";
+    v23 = sub_100002F9C();
+    v24 = @"no extension authorization view controller";
 LABEL_17:
-    v14 = [v22 internalErrorWithMessage:v23];
+    v15 = [v23 internalErrorWithMessage:v24];
 LABEL_18:
-    v21 = v14;
-    (v12[2])(v12, 0, v14);
+    v22 = v15;
+    (v12[2])(v12, 0, v15);
     goto LABEL_19;
   }
 
   childViewControllers = [(SOUIServiceViewController *)self childViewControllers];
   lastObject = [childViewControllers lastObject];
 
-  if (v15 == lastObject)
+  if (v16 == lastObject)
   {
-    v22 = sub_100002F9C();
-    v23 = @"extension authorization view controller already presented";
+    v23 = sub_100002F9C();
+    v24 = @"extension authorization view controller already presented";
     goto LABEL_17;
   }
 
   view = [(SOUIServiceViewController *)self view];
   [view setHidden:0];
 
-  v19 = [[SOUIAuthorizationViewController alloc] initWithExtensionViewController:self->_extensionViewController hints:hintsCopy presentViewControllerCompletion:v11];
-  [v19 setDelegate:self];
-  v20 = sub_100002204();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v20 = [[SOUIAuthorizationViewController alloc] initWithExtensionViewController:self->_extensionViewController hints:hintsCopy presentViewControllerCompletion:v11];
+  v21 = sub_100002204([v20 setDelegate:self]);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     sub_1000050D8();
   }
 
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_1000040F0;
-  v24[3] = &unk_10000C420;
-  v25 = v19;
-  v21 = v19;
-  [(SOUIServiceViewController *)self presentViewController:v21 animated:1 completion:v24];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_1000040F0;
+  v25[3] = &unk_10000C420;
+  v26 = v20;
+  v22 = v20;
+  [(SOUIServiceViewController *)self presentViewController:v22 animated:1 completion:v25];
 
 LABEL_19:
 }
@@ -568,7 +655,7 @@ LABEL_19:
 {
   credentialCopy = credential;
   errorCopy = error;
-  v9 = sub_100002204();
+  v9 = sub_100002204(errorCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
@@ -594,7 +681,7 @@ LABEL_19:
 
 - (void)viewControllerDidCancel:(id)cancel
 {
-  v4 = sub_100002204();
+  v4 = sub_100002204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     extensionViewController = self->_extensionViewController;
@@ -615,7 +702,7 @@ LABEL_19:
 
 - (void)viewServiceDidTerminateWithError:(id)error
 {
-  v4 = sub_100002204();
+  v4 = sub_100002204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
@@ -634,7 +721,7 @@ LABEL_19:
 {
   completionCopy = completion;
   authorizationCopy = authorization;
-  v8 = sub_100002204();
+  v8 = sub_100002204(authorizationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     extension = self->_extension;
@@ -653,10 +740,10 @@ LABEL_19:
 - (void)extensionCleanupWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100002204();
+  v5 = sub_100002204(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000051C4(self);
+    sub_1000051C4();
   }
 
   [(SOUIServiceViewController *)self _extensionCleanup];

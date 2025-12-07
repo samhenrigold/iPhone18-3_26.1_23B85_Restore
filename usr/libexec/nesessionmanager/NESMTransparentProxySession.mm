@@ -1,8 +1,23 @@
 @interface NESMTransparentProxySession
+- (void)plugin:(id)plugin didStartWithPID:(int)d error:(id)error;
 - (void)setConfigurationWithCompletionHandler:(id)handler;
 @end
 
 @implementation NESMTransparentProxySession
+
+- (void)plugin:(id)plugin didStartWithPID:(int)d error:(id)error
+{
+  v5 = *&d;
+  errorCopy = error;
+  pluginCopy = plugin;
+  server = [(NESMSession *)self server];
+  primaryPhysicalInterface = [server primaryPhysicalInterface];
+  interfaceName = [primaryPhysicalInterface interfaceName];
+  sub_10001AA48(pluginCopy, interfaceName);
+
+  stateHandler = [(NESMVPNSession *)self stateHandler];
+  [stateHandler handlePlugin:pluginCopy didStartWithPID:v5 error:errorCopy];
+}
 
 - (void)setConfigurationWithCompletionHandler:(id)handler
 {

@@ -355,30 +355,30 @@
 
 - (NCNotificationStructuredListViewController)init
 {
-  v10.receiver = self;
-  v10.super_class = NCNotificationStructuredListViewController;
-  v2 = [(NCNotificationStructuredListViewController *)&v10 init];
-  v3 = v2;
+  v11.receiver = self;
+  v11.super_class = NCNotificationStructuredListViewController;
+  v2 = [(NCNotificationStructuredListViewController *)&v11 init];
+  v4 = v2;
   if (v2)
   {
     v2->_backgroundBlurred = 1;
     v2->_itemSpacing = 8.0;
-    v4 = _NCNotificationListInsetMarginHorizontal();
-    v3->_insetMargins.top = 0.0;
-    v3->_insetMargins.left = v4;
-    v3->_insetMargins.bottom = 0.0;
-    v3->_insetMargins.right = v4;
-    v5 = objc_alloc_init(NCNotificationManagementViewPresenter);
-    managementViewPresenter = v3->_managementViewPresenter;
-    v3->_managementViewPresenter = v5;
+    v5 = _NCNotificationListInsetMarginHorizontal(v2, v3);
+    v4->_insetMargins.top = 0.0;
+    v4->_insetMargins.left = v5;
+    v4->_insetMargins.bottom = 0.0;
+    v4->_insetMargins.right = v5;
+    v6 = objc_alloc_init(NCNotificationManagementViewPresenter);
+    managementViewPresenter = v4->_managementViewPresenter;
+    v4->_managementViewPresenter = v6;
 
-    [(NCNotificationManagementViewPresenter *)v3->_managementViewPresenter setDelegate:v3];
-    v7 = objc_alloc_init(NCModeManager);
-    modeManager = v3->_modeManager;
-    v3->_modeManager = v7;
+    [(NCNotificationManagementViewPresenter *)v4->_managementViewPresenter setDelegate:v4];
+    v8 = objc_alloc_init(NCModeManager);
+    modeManager = v4->_modeManager;
+    v4->_modeManager = v8;
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)loadView
@@ -965,7 +965,7 @@ void __97__NCNotificationStructuredListViewController_viewWillTransitionToSize_w
     _os_log_impl(&dword_21E77E000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ turning filtering %@ for section %{public}@", v11, 0x20u);
   }
 
-  [(NCNotificationRootList *)self->_listModel toggleFilteringForSectionIdentifier:identifierCopy shouldFilter:filterCopy, *v11];
+  [(NCNotificationRootList *)self->_listModel toggleFilteringForSectionIdentifier:identifierCopy shouldFilter:filterCopy, *v11, *&v11[8]];
 }
 
 - (CGSize)effectiveContentSize
@@ -1792,7 +1792,7 @@ void __105__NCNotificationStructuredListViewController_notificationListBaseCompo
   _os_log_impl(&dword_21E77E000, v10, OS_LOG_TYPE_DEFAULT, v15, v24, 0x16u);
 
 LABEL_8:
-  [(NCNotificationStructuredListViewController *)self setNotificationViewControllerPresentingLongLook:controllerCopy, *v24, *&v24[16], v25];
+  [(NCNotificationStructuredListViewController *)self setNotificationViewControllerPresentingLongLook:controllerCopy, *v24, *&v24[8], v25];
   delegate = [(NCNotificationStructuredListViewController *)self delegate];
   if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -2181,7 +2181,7 @@ void __176__NCNotificationStructuredListViewController_notificationListComponent
 - (void)notificationListComponent:(id)component acceptedSummaryOnboarding:(BOOL)onboarding
 {
   onboardingCopy = onboarding;
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   componentCopy = component;
   v7 = *MEMORY[0x277D77DD0];
   v8 = os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_DEFAULT);
@@ -2191,9 +2191,9 @@ void __176__NCNotificationStructuredListViewController_notificationListComponent
     {
       v9 = v7;
       _logDescription = [(NCNotificationStructuredListViewController *)self _logDescription];
-      v24 = 138543362;
-      v25 = _logDescription;
-      _os_log_impl(&dword_21E77E000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ presenting digest onboarding flow", &v24, 0xCu);
+      v25 = 138543362;
+      v26 = _logDescription;
+      _os_log_impl(&dword_21E77E000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ presenting digest onboarding flow", &v25, 0xCu);
     }
 
     digestOnboardingSuggestionClient = [(NCNotificationStructuredListViewController *)self digestOnboardingSuggestionClient];
@@ -2206,22 +2206,22 @@ void __176__NCNotificationStructuredListViewController_notificationListComponent
     [date timeIntervalSinceDate:digestOnboardingSuggestionPresentationTime];
     [digestOnboardingSuggestionLogging logDigestOnboardingSuggestionWithOutcome:1 timeToResolution:?];
 
-    v16 = NCUserNotificationsUIKitFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_INTRODUCTION_DISMISS_BUTTON" value:&stru_282FE84F8 table:0];
-    v18 = [NCDigestOnboardingNavigationController navigationControllerWithOnboardingDelegate:self deferButtonText:v17 previousBundleIdentifiersSelection:self->_digestOnboardingLastBundleIdentifiersSelection previousDeliveryTimesSelection:self->_digestOnboardingLastScheduledDeliveryTimesSelection];
+    v17 = NCUserNotificationsUIKitFrameworkBundle(v16);
+    v18 = [v17 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_INTRODUCTION_DISMISS_BUTTON" value:&stru_282FE84F8 table:0];
+    v19 = [NCDigestOnboardingNavigationController navigationControllerWithOnboardingDelegate:self deferButtonText:v18 previousBundleIdentifiersSelection:self->_digestOnboardingLastBundleIdentifiersSelection previousDeliveryTimesSelection:self->_digestOnboardingLastScheduledDeliveryTimesSelection];
 
-    [(NCNotificationStructuredListViewController *)self _presentNavigationControllerAndBeginModalInteraction:v18 sender:componentCopy animated:1 completion:0];
+    [(NCNotificationStructuredListViewController *)self _presentNavigationControllerAndBeginModalInteraction:v19 sender:componentCopy animated:1 completion:0];
   }
 
   else
   {
     if (v8)
     {
-      v19 = v7;
+      v20 = v7;
       _logDescription2 = [(NCNotificationStructuredListViewController *)self _logDescription];
-      v24 = 138543362;
-      v25 = _logDescription2;
-      _os_log_impl(&dword_21E77E000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing digest onboarding suggestion", &v24, 0xCu);
+      v25 = 138543362;
+      v26 = _logDescription2;
+      _os_log_impl(&dword_21E77E000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing digest onboarding suggestion", &v25, 0xCu);
     }
 
     digestOnboardingSuggestionLogging2 = [(NCNotificationStructuredListViewController *)self digestOnboardingSuggestionLogging];

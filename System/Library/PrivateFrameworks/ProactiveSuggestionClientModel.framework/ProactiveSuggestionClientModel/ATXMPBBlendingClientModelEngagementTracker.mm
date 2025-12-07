@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)engagementTypeAsString:(int)string;
 - (int)StringAsEngagementType:(id)type;
 - (int)engagementType;
 - (unint64_t)hash;
@@ -73,6 +74,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)engagementTypeAsString:(int)string
+{
+  if ((string - 1) >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86A4E38[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEngagementType:(id)type
@@ -253,52 +269,49 @@ LABEL_15:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v7 = toCopy;
   if (self->_layoutType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_clientModelId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    numSuggestionsForClientModelInLayout = self->_numSuggestionsForClientModelInLayout;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    positionInClientModelCacheOfEngagedSuggestion = self->_positionInClientModelCacheOfEngagedSuggestion;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_consumerSubType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if ((v8 & 4) != 0)
+  v6 = self->_has;
+  if ((v6 & 4) != 0)
   {
-    engagementType = self->_engagementType;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
-    v8 = self->_has;
-    if ((v8 & 2) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 2) == 0)
     {
 LABEL_13:
-      if ((v8 & 1) == 0)
+      if ((v6 & 1) == 0)
       {
         goto LABEL_15;
       }
@@ -312,28 +325,26 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  consumerSubTypeCacheAge = self->_consumerSubTypeCacheAge;
   PBDataWriterWriteUint32Field();
-  toCopy = v12;
+  toCopy = v7;
   if (*&self->_has)
   {
 LABEL_14:
-    clientModelCacheAge = self->_clientModelCacheAge;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
 LABEL_15:
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_clientModelABGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 }
 
@@ -522,7 +533,6 @@ LABEL_9:
   }
 
   has = self->_has;
-  v8 = *(equalCopy + 72);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 72) & 8) == 0 || self->_numSuggestionsForClientModelInLayout != *(equalCopy + 16))
@@ -555,14 +565,13 @@ LABEL_9:
     if (![(NSString *)consumerSubType isEqual:?])
     {
 LABEL_38:
-      v13 = 0;
+      v11 = 0;
       goto LABEL_39;
     }
 
     has = self->_has;
   }
 
-  v10 = *(equalCopy + 72);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 72) & 4) == 0 || self->_engagementType != *(equalCopy + 13))
@@ -611,17 +620,17 @@ LABEL_38:
   clientModelABGroup = self->_clientModelABGroup;
   if (clientModelABGroup | *(equalCopy + 2))
   {
-    v13 = [(NSString *)clientModelABGroup isEqual:?];
+    v11 = [(NSString *)clientModelABGroup isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_39:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

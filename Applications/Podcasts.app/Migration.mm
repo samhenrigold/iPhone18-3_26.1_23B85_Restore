@@ -10,7 +10,7 @@
 {
   v3 = type metadata accessor for Date();
   v4 = *(v3 - 8);
-  v5 = __chkstk_darwin(v3);
+  v5 = __chkstk_darwin();
   v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v4 + 16))(v7, self + OBJC_IVAR____TtC8Podcasts9Migration_date, v3, v5);
   v8.super.isa = Date._bridgeToObjectiveC()().super.isa;

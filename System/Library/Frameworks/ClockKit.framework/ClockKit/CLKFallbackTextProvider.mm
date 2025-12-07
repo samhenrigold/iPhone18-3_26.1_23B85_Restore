@@ -35,7 +35,7 @@
   return initPrivate;
 }
 
-uint64_t __49__CLKFallbackTextProvider_initWithTextProviders___block_invoke(uint64_t a1, void *a2)
+void *__49__CLKFallbackTextProvider_initWithTextProviders___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 paused];
   if ((result & 1) == 0)
@@ -74,7 +74,7 @@ uint64_t __49__CLKFallbackTextProvider_initWithTextProviders___block_invoke(uint
   return v3;
 }
 
-uint64_t __52__CLKFallbackTextProvider_timeTravelUpdateFrequency__block_invoke(uint64_t a1, void *a2)
+void *__52__CLKFallbackTextProvider_timeTravelUpdateFrequency__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 timeTravelUpdateFrequency];
@@ -110,7 +110,7 @@ uint64_t __52__CLKFallbackTextProvider_timeTravelUpdateFrequency__block_invoke(u
   return v3;
 }
 
-uint64_t __43__CLKFallbackTextProvider__updateFrequency__block_invoke(uint64_t a1, void *a2)
+void *__43__CLKFallbackTextProvider__updateFrequency__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 _updateFrequency];

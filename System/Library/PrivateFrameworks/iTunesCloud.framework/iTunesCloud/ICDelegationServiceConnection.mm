@@ -1177,17 +1177,17 @@ void __98__ICDelegationServiceConnection_initWithConnectionRole_inputStream_outp
   }
 }
 
-uint64_t __98__ICDelegationServiceConnection_initWithConnectionRole_inputStream_outputStream_securitySettings___block_invoke_8(uint64_t result)
+void *__98__ICDelegationServiceConnection_initWithConnectionRole_inputStream_outputStream_securitySettings___block_invoke_8(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 32) == 1)
   {
-    return [*(v1 + 40) processData:*(result + 40)];
+    return [*(v1 + 40) processData:result[5]];
   }
 
   if (*(v1 + 33) == 1)
   {
-    return [*(v1 + 56) receievedData:*(result + 40)];
+    return [*(v1 + 56) receievedData:result[5]];
   }
 
   return result;

@@ -10,6 +10,7 @@
 - (void)restartNotificationTimer:(unint64_t)timer;
 - (void)showAuthenticatedSiriForDeviceID:(id)d;
 - (void)showPhoneAutoRelockNotification;
+- (void)showPhoneAutoUnlockNotificationWithBodyText:(id)text isUpsell:(BOOL)upsell;
 - (void)showRequestToUnlockNotification;
 - (void)showUnlockedByDeviceNotificationWithDeviceID:(id)d;
 @end
@@ -187,6 +188,68 @@
   v9 = notificationCopy;
   v8[4] = self;
   [(FLFollowUpController *)coreFollowUpController pendingFollowUpItemsWithCompletion:v8];
+}
+
+- (void)showPhoneAutoUnlockNotificationWithBodyText:(id)text isUpsell:(BOOL)upsell
+{
+  upsellCopy = upsell;
+  textCopy = text;
+  [(SDAutoUnlockNotificationsManager *)self clearPhoneAutoUnlockUpsellNotification:upsellCopy];
+  v7 = objc_alloc_init(FLFollowUpItem);
+  v8 = objc_alloc_init(FLFollowUpAction);
+  v9 = objc_alloc_init(FLFollowUpNotification);
+  v10 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Passcode#AUTO_UNLOCK_DEVICES_GROUP"];
+  [v8 setUrl:v10];
+
+  v11 = SFLocalizedStringForKey();
+  [v9 setTitle:v11];
+
+  [v9 setInformativeText:textCopy];
+  [v9 setActivateAction:v8];
+  [v9 setFrequency:0.0];
+  [v7 setUniqueIdentifier:@"com.apple.sharingd.phone-auto-unlock-upsell"];
+  [v7 setNotification:v9];
+  v27 = @"SDPhoneAutoUnlockNotificationUpsellKey";
+  v12 = [NSNumber numberWithBool:upsellCopy];
+  v28 = v12;
+  v13 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  [v7 setUserInfo:v13];
+
+  [v7 setDisplayStyle:24];
+  v14 = +[FLFollowUpNotification defaultOptions];
+  v26[0] = FLNotificationOptionBannerAlert;
+  v26[1] = FLNotificationOptionNotificationCenter;
+  v15 = [NSArray arrayWithObjects:v26 count:2];
+  v16 = [v14 setByAddingObjectsFromArray:v15];
+  notification = [v7 notification];
+  [notification setOptions:v16];
+
+  v18 = auto_unlock_log();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = @"NO";
+    if (upsellCopy)
+    {
+      v19 = @"YES";
+    }
+
+    *buf = 138412290;
+    v25 = v19;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Posting auto unlock notification (isUpsell=%@)", buf, 0xCu);
+  }
+
+  coreFollowUpController = self->coreFollowUpController;
+  v23 = 0;
+  [(FLFollowUpController *)coreFollowUpController postFollowUpItem:v7 error:&v23];
+  v21 = v23;
+  if (v21)
+  {
+    v22 = auto_unlock_log();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      sub_10008F118();
+    }
+  }
 }
 
 - (void)showPhoneAutoRelockNotification

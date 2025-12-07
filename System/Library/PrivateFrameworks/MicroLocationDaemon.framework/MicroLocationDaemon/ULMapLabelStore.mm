@@ -11,6 +11,9 @@
 - (id)_fetchRelatedModelMOWithUUID:(const uuid *)d;
 - (id)insertDataObjects:forLabelObjectID:andModelUUID:;
 - (uint64_t)insertDataObjects:forLabelObjectID:andModelUUID:;
+- (vector<ULMapLabelDO,)fetchInternalMapLabelsForModel:(ULMapLabelStore *)self limit:(SEL)limit ascending:(const uuid *)ascending;
+- (vector<ULMapLabelDO,)fetchMapLabelsForModel:(ULMapLabelStore *)self andContextLayers:(SEL)layers limit:(const uuid *)limit ascending:(const void *)ascending;
+- (vector<ULMapLabelDO,)fetchMapLabelsForModel:(ULMapLabelStore *)self forService:(SEL)service limit:(const uuid *)limit ascending:(const uuid *)ascending;
 @end
 
 @implementation ULMapLabelStore
@@ -39,7 +42,6 @@
 
 - (BOOL)insertDataObjects:(const void *)objects forLabelObjectID:(id)d andModelUUID:(const uuid *)iD
 {
-  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (*objects == *(objects + 1))
   {
@@ -49,9 +51,9 @@
   else
   {
     managedObjectContext = [(ULStore *)self managedObjectContext];
-    v13 = [(ULMapLabelStore *)self _fetchLabelMOWithObjectID:dCopy withManagedObjectContext:managedObjectContext];
+    v12 = [(ULMapLabelStore *)self _fetchLabelMOWithObjectID:dCopy withManagedObjectContext:managedObjectContext];
 
-    if (v13)
+    if (v12)
     {
       [(ULMapLabelStore *)self _fetchRelatedModelMOWithUUID:iD];
       if (objc_claimAutoreleasedReturnValue())
@@ -68,13 +70,12 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)insertMapLabelsWithRelatedLabelsObjectIDs:(const void *)ds
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = *ds;
   v4 = *(ds + 1);
   if (*ds == v4)
@@ -84,10 +85,10 @@
 
   else
   {
-    v26 = *(v3 + 216);
+    v25 = *(v3 + 216);
     do
     {
-      if (*(v3 + 216) != v26 || *(v3 + 224) != *(&v26 + 1))
+      if (*(v3 + 216) != v25 || *(v3 + 224) != *(&v25 + 1))
       {
         if (onceToken_MicroLocation_Default != -1)
         {
@@ -102,7 +103,7 @@
         }
 
         v16 = 0;
-        goto LABEL_24;
+        return v16 & 1;
       }
 
       v3 += 240;
@@ -110,10 +111,10 @@
 
     while (v3 != v4);
     *buf = 0;
-    v23 = buf;
-    v24 = 0x2020000000;
-    v25 = 0;
-    v8 = [(ULMapLabelStore *)self _fetchRelatedModelMOWithUUID:&v26];
+    v22 = buf;
+    v23 = 0x2020000000;
+    v24 = 0;
+    v8 = [(ULMapLabelStore *)self _fetchRelatedModelMOWithUUID:&v25];
     if (v8)
     {
       v9 = *ds;
@@ -141,15 +142,15 @@
       }
 
       managedObjectContext2 = [(ULStore *)self managedObjectContext];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __61__ULMapLabelStore_insertMapLabelsWithRelatedLabelsObjectIDs___block_invoke;
-      v21[3] = &unk_2798D44D8;
-      v21[4] = self;
-      v21[5] = buf;
-      [managedObjectContext2 performBlockAndWait:v21];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __61__ULMapLabelStore_insertMapLabelsWithRelatedLabelsObjectIDs___block_invoke;
+      v20[3] = &unk_2798D44D8;
+      v20[4] = self;
+      v20[5] = buf;
+      [managedObjectContext2 performBlockAndWait:v20];
 
-      v16 = v23[24];
+      v16 = v22[24];
     }
 
     else
@@ -161,8 +162,6 @@ LABEL_21:
     _Block_object_dispose(buf, 8);
   }
 
-LABEL_24:
-  v19 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
@@ -176,16 +175,16 @@ uint64_t __61__ULMapLabelStore_insertMapLabelsWithRelatedLabelsObjectIDs___block
 
 - (BOOL)insertLabelDOAndMapLabelDO:(const void *)o forScanningEventUUID:(const uuid *)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ((*(o + 152) & 1) == 0)
   {
-    [ULMapLabelStore insertLabelDOAndMapLabelDO:forScanningEventUUID:];
+    [ULMapLabelStore insertLabelDOAndMapLabelDO:a2 forScanningEventUUID:?];
   }
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v6 = [(ULMapLabelStore *)self _createLabelMOFromDO:o + 88 forScanningEventUUID:d andServiceUUID:o + 136];
   if (v6)
   {
@@ -196,15 +195,15 @@ uint64_t __61__ULMapLabelStore_insertMapLabelsWithRelatedLabelsObjectIDs___block
       if (v8)
       {
         managedObjectContext = [(ULStore *)self managedObjectContext];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __67__ULMapLabelStore_insertLabelDOAndMapLabelDO_forScanningEventUUID___block_invoke;
-        v14[3] = &unk_2798D44D8;
-        v14[4] = self;
-        v14[5] = &v15;
-        [managedObjectContext performBlockAndWait:v14];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __67__ULMapLabelStore_insertLabelDOAndMapLabelDO_forScanningEventUUID___block_invoke;
+        v13[3] = &unk_2798D44D8;
+        v13[4] = self;
+        v13[5] = &v14;
+        [managedObjectContext performBlockAndWait:v13];
 
-        v10 = *(v16 + 24);
+        v10 = *(v15 + 24);
 LABEL_16:
 
         goto LABEL_17;
@@ -243,8 +242,7 @@ LABEL_16:
   v10 = 0;
 LABEL_17:
 
-  _Block_object_dispose(&v15, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
   return v10 & 1;
 }
 
@@ -258,6 +256,117 @@ uint64_t __67__ULMapLabelStore_insertLabelDOAndMapLabelDO_forScanningEventUUID__
   v4 = *(a1 + 32);
 
   return [v4 deleteOldestRecordsIfFull];
+}
+
+- (vector<ULMapLabelDO,)fetchMapLabelsForModel:(ULMapLabelStore *)self forService:(SEL)service limit:(const uuid *)limit ascending:(const uuid *)ascending
+{
+  v7 = a7;
+  v25[1] = *MEMORY[0x277D85DE8];
+  retstr->var0 = 0;
+  retstr->var1 = 0;
+  retstr->var2 = 0;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:limit];
+  uUIDString = [v13 UUIDString];
+
+  v15 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:ascending];
+  uUIDString2 = [v15 UUIDString];
+
+  array = [MEMORY[0x277CBEB18] array];
+  v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K=%@", @"model", @"modelUUID", uUIDString];
+  [array addObject:v18];
+
+  v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K.%K=%@", @"label", @"service", @"serviceUUID", uUIDString2];
+  [array addObject:v19];
+
+  v20 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:v7];
+  v25[0] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  objc_msgSend__fetchMapLabelByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULMapLabelDO>::__vdeallocate(retstr);
+  *retstr = v23;
+  memset(&v23, 0, sizeof(v23));
+  v24 = &v23;
+  std::vector<ULMapLabelDO>::__destroy_vector::operator()[abi:ne200100](&v24);
+
+  objc_autoreleasePoolPop(v12);
+  return result;
+}
+
+- (vector<ULMapLabelDO,)fetchInternalMapLabelsForModel:(ULMapLabelStore *)self limit:(SEL)limit ascending:(const uuid *)ascending
+{
+  v6 = a6;
+  v21[1] = *MEMORY[0x277D85DE8];
+  retstr->var0 = 0;
+  retstr->var1 = 0;
+  retstr->var2 = 0;
+  v10 = objc_autoreleasePoolPush();
+  v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:ascending];
+  uUIDString = [v11 UUIDString];
+
+  array = [MEMORY[0x277CBEB18] array];
+  v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K = %@", @"model", @"modelUUID", uUIDString];
+  [array addObject:v14];
+
+  v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K = NIL AND %K.%K = NIL", @"label", @"service", @"label", @"scanningEvent"];
+  [array addObject:v15];
+
+  v16 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:v6];
+  v21[0] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  objc_msgSend__fetchMapLabelByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULMapLabelDO>::__vdeallocate(retstr);
+  *retstr = v19;
+  memset(&v19, 0, sizeof(v19));
+  v20 = &v19;
+  std::vector<ULMapLabelDO>::__destroy_vector::operator()[abi:ne200100](&v20);
+
+  objc_autoreleasePoolPop(v10);
+  return result;
+}
+
+- (vector<ULMapLabelDO,)fetchMapLabelsForModel:(ULMapLabelStore *)self andContextLayers:(SEL)layers limit:(const uuid *)limit ascending:(const void *)ascending
+{
+  v7 = a7;
+  v27[1] = *MEMORY[0x277D85DE8];
+  retstr->var0 = 0;
+  retstr->var1 = 0;
+  retstr->var2 = 0;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:limit];
+  uUIDString = [v13 UUIDString];
+
+  array = [MEMORY[0x277CBEB18] array];
+  array2 = [MEMORY[0x277CBEB18] array];
+  for (i = *(ascending + 2); i; i = *i)
+  {
+    if (i[2])
+    {
+      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+      [array2 addObject:v18];
+    }
+  }
+
+  v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K = %@", @"model", @"modelUUID", uUIDString];
+  [array addObject:v19];
+
+  v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K IN %@", @"label", @"contextLayerType", array2];
+  [array addObject:v20];
+
+  v21 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:v7];
+  v27[0] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  objc_msgSend__fetchMapLabelByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULMapLabelDO>::__vdeallocate(retstr);
+  *&retstr->var0 = v24;
+  retstr->var2 = v25;
+  v25 = 0;
+  v24 = 0uLL;
+  v26 = &v24;
+  std::vector<ULMapLabelDO>::__destroy_vector::operator()[abi:ne200100](&v26);
+
+  objc_autoreleasePoolPop(v12);
+  return result;
 }
 
 - (BOOL)deleteOrphanRecords
@@ -275,7 +384,7 @@ uint64_t __67__ULMapLabelStore_insertLabelDOAndMapLabelDO_forScanningEventUUID__
 
 - (id)_createLabelMOFromDO:(const void *)o forScanningEventUUID:(const uuid *)d andServiceUUID:(const uuid *)iD
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dbStore = [(ULStore *)self dbStore];
   v10 = (*(dbStore->var0 + 18))(dbStore);
   managedObjectContext = [(ULStore *)self managedObjectContext];
@@ -291,24 +400,24 @@ uint64_t __67__ULMapLabelStore_insertLabelDOAndMapLabelDO_forScanningEventUUID__
     if (v16)
     {
       *buf = 0;
-      v45 = buf;
-      v46 = 0x3032000000;
-      v47 = __Block_byref_object_copy__15;
-      v48 = __Block_byref_object_dispose__15;
-      v49 = 0;
+      v44 = buf;
+      v45 = 0x3032000000;
+      v46 = __Block_byref_object_copy__15;
+      v47 = __Block_byref_object_dispose__15;
+      v48 = 0;
       managedObjectContext3 = [(ULStore *)self managedObjectContext];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __76__ULMapLabelStore__createLabelMOFromDO_forScanningEventUUID_andServiceUUID___block_invoke;
-      v32[3] = &unk_2798D4868;
-      v36 = buf;
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __76__ULMapLabelStore__createLabelMOFromDO_forScanningEventUUID_andServiceUUID___block_invoke;
+      v31[3] = &unk_2798D4868;
+      v35 = buf;
       oCopy = o;
-      v33 = v12;
-      v34 = v16;
+      v32 = v12;
+      v33 = v16;
       selfCopy = self;
-      [managedObjectContext3 performBlockAndWait:v32];
+      [managedObjectContext3 performBlockAndWait:v31];
 
-      v18 = *(v45 + 5);
+      v18 = *(v44 + 5);
       if (v18)
       {
         v19 = v18;
@@ -326,13 +435,13 @@ uint64_t __67__ULMapLabelStore_insertLabelDOAndMapLabelDO_forScanningEventUUID__
         {
           v25 = objc_opt_class();
           v26 = NSStringFromClass(v25);
-          *v38 = 68289283;
-          v39 = 0;
-          v40 = 2082;
-          v41 = "";
-          v42 = 2113;
-          v43 = v26;
-          _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Failed to create label MO from DO, MO:%{private, location:escape_only}@}", v38, 0x1Cu);
+          *v37 = 68289283;
+          v38 = 0;
+          v39 = 2082;
+          v40 = "";
+          v41 = 2113;
+          v42 = v26;
+          _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Failed to create label MO from DO, MO:%{private, location:escape_only}@}", v37, 0x1Cu);
         }
 
         if (onceToken_MicroLocation_Default != -1)
@@ -345,13 +454,13 @@ uint64_t __67__ULMapLabelStore_insertLabelDOAndMapLabelDO_forScanningEventUUID__
         {
           v28 = objc_opt_class();
           v29 = NSStringFromClass(v28);
-          *v38 = 68289283;
-          v39 = 0;
-          v40 = 2082;
-          v41 = "";
-          v42 = 2113;
-          v43 = v29;
-          _os_signpost_emit_with_name_impl(&dword_258FE9000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to create label MO from DO", "{msg%{public}.0s:Failed to create label MO from DO, MO:%{private, location:escape_only}@}", v38, 0x1Cu);
+          *v37 = 68289283;
+          v38 = 0;
+          v39 = 2082;
+          v40 = "";
+          v41 = 2113;
+          v42 = v29;
+          _os_signpost_emit_with_name_impl(&dword_258FE9000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to create label MO from DO", "{msg%{public}.0s:Failed to create label MO from DO, MO:%{private, location:escape_only}@}", v37, 0x1Cu);
         }
 
         [(ULStore *)self resetMOC];
@@ -417,8 +526,6 @@ uint64_t __67__ULMapLabelStore_insertLabelDOAndMapLabelDO_forScanningEventUUID__
     v18 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
@@ -436,7 +543,6 @@ void __76__ULMapLabelStore__createLabelMOFromDO_forScanningEventUUID_andServiceU
 
 - (id)_fetchRelatedModelMOWithUUID:(const uuid *)d
 {
-  v13 = *MEMORY[0x277D85DE8];
   dbStore = [(ULStore *)self dbStore];
   v6 = (*(dbStore->var0 + 10))(dbStore);
   managedObjectContext = [(ULStore *)self managedObjectContext];
@@ -469,33 +575,31 @@ void __76__ULMapLabelStore__createLabelMOFromDO_forScanningEventUUID_andServiceU
     [(ULStore *)self resetMOC];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)_fetchLabelMOWithObjectID:(id)d withManagedObjectContext:(id)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__15;
-  v28 = __Block_byref_object_dispose__15;
-  v29 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __70__ULMapLabelStore__fetchLabelMOWithObjectID_withManagedObjectContext___block_invoke;
-  v20[3] = &unk_2798D4890;
-  v23 = &v24;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__15;
+  v27 = __Block_byref_object_dispose__15;
+  v28 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __70__ULMapLabelStore__fetchLabelMOWithObjectID_withManagedObjectContext___block_invoke;
+  v19[3] = &unk_2798D4890;
+  v22 = &v23;
   v8 = contextCopy;
-  v21 = v8;
+  v20 = v8;
   v9 = dCopy;
-  v22 = v9;
-  [v8 performBlockAndWait:v20];
-  v10 = v25[5];
+  v21 = v9;
+  [v8 performBlockAndWait:v19];
+  v10 = v24[5];
   if (!v10)
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -509,11 +613,11 @@ void __76__ULMapLabelStore__createLabelMOFromDO_forScanningEventUUID_andServiceU
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       *buf = 68289283;
-      v31 = 0;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2113;
-      v35 = v13;
+      v30 = 0;
+      v31 = 2082;
+      v32 = "";
+      v33 = 2113;
+      v34 = v13;
       _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Did not find related label for labelObjectID, MO:%{private, location:escape_only}@}", buf, 0x1Cu);
     }
 
@@ -528,22 +632,21 @@ void __76__ULMapLabelStore__createLabelMOFromDO_forScanningEventUUID_andServiceU
       v15 = objc_opt_class();
       v16 = NSStringFromClass(v15);
       *buf = 68289283;
-      v31 = 0;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2113;
-      v35 = v16;
+      v30 = 0;
+      v31 = 2082;
+      v32 = "";
+      v33 = 2113;
+      v34 = v16;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Did not find related label for labelObjectID", "{msg%{public}.0s:Did not find related label for labelObjectID, MO:%{private, location:escape_only}@}", buf, 0x1Cu);
     }
 
     [(ULStore *)self resetMOC];
-    v10 = v25[5];
+    v10 = v24[5];
   }
 
   v17 = v10;
 
-  _Block_object_dispose(&v24, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 
   return v17;
 }
@@ -558,30 +661,30 @@ void __70__ULMapLabelStore__fetchLabelMOWithObjectID_withManagedObjectContext___
 
 - (id)_createMapLabelMOFromDO:(const void *)o withLabelMO:(id)mO modelMO:(id)modelMO
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   mOCopy = mO;
   modelMOCopy = modelMO;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__15;
-  v33 = __Block_byref_object_dispose__15;
-  v34 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__15;
+  v32 = __Block_byref_object_dispose__15;
+  v33 = 0;
   managedObjectContext = [(ULStore *)self managedObjectContext];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __63__ULMapLabelStore__createMapLabelMOFromDO_withLabelMO_modelMO___block_invoke;
-  v23[3] = &unk_2798D4868;
-  v27 = &v29;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __63__ULMapLabelStore__createMapLabelMOFromDO_withLabelMO_modelMO___block_invoke;
+  v22[3] = &unk_2798D4868;
+  v26 = &v28;
   oCopy = o;
   v11 = mOCopy;
-  v24 = v11;
+  v23 = v11;
   v12 = modelMOCopy;
-  v25 = v12;
+  v24 = v12;
   selfCopy = self;
-  [managedObjectContext performBlockAndWait:v23];
+  [managedObjectContext performBlockAndWait:v22];
 
-  v13 = v30[5];
+  v13 = v29[5];
   if (!v13)
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -595,11 +698,11 @@ void __70__ULMapLabelStore__fetchLabelMOWithObjectID_withManagedObjectContext___
       v15 = objc_opt_class();
       v16 = NSStringFromClass(v15);
       *buf = 68289283;
-      v36 = 0;
-      v37 = 2082;
-      v38 = "";
-      v39 = 2113;
-      v40 = v16;
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2113;
+      v39 = v16;
       _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Failed to create mapLabel MO from DO, MO:%{private, location:escape_only}@}", buf, 0x1Cu);
     }
 
@@ -614,22 +717,21 @@ void __70__ULMapLabelStore__fetchLabelMOWithObjectID_withManagedObjectContext___
       v18 = objc_opt_class();
       v19 = NSStringFromClass(v18);
       *buf = 68289283;
-      v36 = 0;
-      v37 = 2082;
-      v38 = "";
-      v39 = 2113;
-      v40 = v19;
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2113;
+      v39 = v19;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to create mapLabel MO from DO", "{msg%{public}.0s:Failed to create mapLabel MO from DO, MO:%{private, location:escape_only}@}", buf, 0x1Cu);
     }
 
     [(ULStore *)self resetMOC];
-    v13 = v30[5];
+    v13 = v29[5];
   }
 
   v20 = v13;
 
-  _Block_object_dispose(&v29, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
 
   return v20;
 }
@@ -677,31 +779,31 @@ void __63__ULMapLabelStore__createMapLabelMOFromDO_withLabelMO_modelMO___block_i
   }
 }
 
-- (void)insertLabelDOAndMapLabelDO:forScanningEventUUID:.cold.1()
+- (void)insertLabelDOAndMapLabelDO:(uint64_t)a1 forScanningEventUUID:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(&dword_258FE9000, v0, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:insertLabelDOAndMapLabelDO:forScanningEventUUID is only valid for labels with fServiceUUID, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:insertLabelDOAndMapLabelDO:forScanningEventUUID is only valid for labels with fServiceUUID, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v1 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_signpost_enabled(v1))
+  v5 = _CLLogObjectForCategory_MicroLocation_Default(v3, v4);
+  if (os_signpost_enabled(v5))
   {
     OUTLINED_FUNCTION_1();
-    _os_signpost_emit_with_name_impl(&dword_258FE9000, v1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "insertLabelDOAndMapLabelDO:forScanningEventUUID is only valid for labels with fServiceUUID", "{msg%{public}.0s:insertLabelDOAndMapLabelDO:forScanningEventUUID is only valid for labels with fServiceUUID, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_signpost_emit_with_name_impl(&dword_258FE9000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "insertLabelDOAndMapLabelDO:forScanningEventUUID is only valid for labels with fServiceUUID", "{msg%{public}.0s:insertLabelDOAndMapLabelDO:forScanningEventUUID is only valid for labels with fServiceUUID, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v2 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v8 = _CLLogObjectForCategory_MicroLocation_Default(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:insertLabelDOAndMapLabelDO:forScanningEventUUID is only valid for labels with fServiceUUID, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:insertLabelDOAndMapLabelDO:forScanningEventUUID is only valid for labels with fServiceUUID, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/Persistence/DataStores/ULMapLabelStore.mm", 107, "[ULMapLabelStore insertLabelDOAndMapLabelDO:forScanningEventUUID:]");
   __break(1u);
 }
 

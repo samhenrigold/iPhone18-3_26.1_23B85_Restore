@@ -29,12 +29,10 @@ LABEL_7:
     return result;
   }
 
-  v7 = *(result + row + 4);
-
   sub_22830F6D4(0);
-  v8 = sub_228391FC0();
+  v7 = sub_228391FC0();
 
-  return v8;
+  return v7;
 }
 
 - (void)pickerView:(id)view didSelectRow:(int64_t)row inComponent:(int64_t)component

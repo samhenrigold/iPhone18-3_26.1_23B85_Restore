@@ -10,15 +10,15 @@
   v3 = OBJC_IVAR____TtCE14MusicUtilitiesCSo14NSUserDefaultsP33_0EE8F48931DDE162065F15584D7CE3A39_Observer_registeredSuites;
   *(&self->super.isa + v3) = sub_1003E39EC(_swiftEmptyArrayStorage);
   v4 = OBJC_IVAR____TtCE14MusicUtilitiesCSo14NSUserDefaultsP33_0EE8F48931DDE162065F15584D7CE3A39_Observer_lock;
-  type metadata accessor for UnfairLock();
-  v5 = swift_allocObject();
-  v6 = swift_slowAlloc();
-  *(v5 + 2) = v6;
-  *v6 = 0;
-  *(&self->super.isa + v4) = v5;
-  v8.receiver = self;
-  v8.super_class = _s9_ObserverCMa();
-  return [(NSUserDefaults._Observer *)&v8 init];
+  type metadata accessor for UnfairLock(0, v5);
+  v6 = swift_allocObject();
+  v7 = swift_slowAlloc();
+  *(v6 + 2) = v7;
+  *v7 = 0;
+  *(&self->super.isa + v4) = v6;
+  v10.receiver = self;
+  v10.super_class = _s9_ObserverCMa(0, v8);
+  return [(NSUserDefaults._Observer *)&v10 init];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

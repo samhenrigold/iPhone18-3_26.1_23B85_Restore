@@ -69,11 +69,10 @@
 
 - (id)toDict
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___AARawDataEvent_dictionary);
 
-  v3 = sub_1B6AB91F0();
+  v2 = sub_1B6AB91F0();
 
-  return v3;
+  return v2;
 }
 
 - (AARawDataEvent)init

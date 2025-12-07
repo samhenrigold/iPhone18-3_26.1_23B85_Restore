@@ -13,7 +13,7 @@
 - (CGRect)frame
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DOCEjectButton();
+  v6.super_class = type metadata accessor for DOCEjectButton(0);
   [(DOCEjectButton *)&v6 frame];
   result.size.height = v5;
   result.size.width = v4;
@@ -28,7 +28,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v8 = type metadata accessor for DOCEjectButton();
+  v8 = type metadata accessor for DOCEjectButton(0);
   v19.receiver = self;
   v19.super_class = v8;
   selfCopy = self;
@@ -70,7 +70,7 @@
 - (void)didMoveToWindow
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DOCEjectButton();
+  v3.super_class = type metadata accessor for DOCEjectButton(0);
   v2 = v3.receiver;
   [(DOCEjectButton *)&v3 didMoveToWindow];
   if (*(v2 + OBJC_IVAR____TtC26DocumentManagerExecutables14DOCEjectButton_iconUpdateNeeded) == 1)

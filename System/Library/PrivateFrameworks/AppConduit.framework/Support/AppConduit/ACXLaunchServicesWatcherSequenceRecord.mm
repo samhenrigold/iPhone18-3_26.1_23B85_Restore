@@ -71,7 +71,7 @@
         v14 = 0;
       }
 
-      if (v14 && (objc_opt_class(), (sub_100005D2C(v14) & 1) == 0))
+      if (v14 && (v15 = objc_opt_class(), (sub_100005D2C(v14, v15) & 1) == 0))
       {
         if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
         {

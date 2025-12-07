@@ -8,7 +8,7 @@
 - (void)appExceptionsDidUpdate
 {
   selfCopy = self;
-  sub_264CACB08();
+  sub_264CACB08(selfCopy);
 }
 
 - (_TtC20ScreenTimeSettingsUI28STAppExceptionsUpdateMonitor)init

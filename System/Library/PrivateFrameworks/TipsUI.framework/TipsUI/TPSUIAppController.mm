@@ -81,7 +81,7 @@
 
 - (void)overrideWidgetWithTip:(id)tip
 {
-  type metadata accessor for TipsContentModel();
+  type metadata accessor for TipsContentModel(0);
   tipCopy = tip;
   v4 = static TipsContentModel.shared()();
   if ([objc_opt_self() isInternalBuild])

@@ -1,13 +1,13 @@
-id MSNLog()
+id MSNLog(uint64_t a1)
 {
   if (MSNLog_once != -1)
   {
     MSNLog_cold_1();
   }
 
-  v1 = MSNLog_log;
+  v2 = MSNLog_log;
 
-  return v1;
+  return v2;
 }
 
 void __MSNMonitorStartServerMode_block_invoke_15(uint64_t a1, uint64_t a2, void *a3)
@@ -25,47 +25,47 @@ void __MSNMonitorStartServerMode_block_invoke_15(uint64_t a1, uint64_t a2, void 
 
 void __MSNMonitorStartServerMode_block_invoke_2(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (!v1)
   {
     g_uiState = 3;
-    goto LABEL_43;
+    return;
   }
 
+  v45 = 0u;
+  v46 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
   v2 = [v1 elements];
-  v3 = [v2 countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (!v3)
   {
 
     v5 = 0;
-    v19 = 0;
+    v20 = 0;
     v6 = 0;
     goto LABEL_29;
   }
 
   v4 = v3;
   v5 = 0;
-  v39 = 0;
+  v41 = 0;
   v6 = 0;
-  v7 = *v42;
+  v7 = *v44;
   v8 = *MEMORY[0x277D66F20];
-  v38 = *MEMORY[0x277D0ABA0];
+  v40 = *MEMORY[0x277D0ABA0];
   obj = v2;
   do
   {
     for (i = 0; i != v4; ++i)
     {
-      if (*v42 != v7)
+      if (*v44 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v41 + 1) + 8 * i);
+      v10 = *(*(&v43 + 1) + 8 * i);
       v11 = [v10 identifier];
       v12 = [v11 isEqualToString:v8];
 
@@ -82,13 +82,13 @@ LABEL_15:
       }
 
       v15 = [v10 identifier];
-      v16 = [v15 isEqualToString:v38];
+      v16 = [v15 isEqualToString:v40];
 
       if (v16)
       {
-        v13 = v39;
+        v13 = v41;
         v14 = v5;
-        v39 = v10;
+        v41 = v10;
         goto LABEL_15;
       }
 
@@ -108,19 +108,19 @@ LABEL_15:
       }
     }
 
-    v4 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v4 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
   }
 
   while (v4);
 
-  v19 = v39;
-  if (v39 || !v6)
+  v20 = v41;
+  if (v41 || !v6)
   {
-    if (v39)
+    if (v41)
     {
-      if (!v5 || (v21 = [v39 level], v21 > objc_msgSend(v5, "level")))
+      if (!v5 || (v22 = [v41 level], v19 = objc_msgSend(v5, "level"), v22 > v19))
       {
-        v22 = 1;
+        v23 = 1;
         goto LABEL_32;
       }
     }
@@ -130,42 +130,44 @@ LABEL_15:
 
   if (!v5)
   {
-    v19 = 0;
+    v20 = 0;
     goto LABEL_31;
   }
 
-  v20 = [v6 level];
-  v19 = 0;
-  if (v20 <= [v5 level])
+  v21 = [v6 level];
+  v19 = [v5 level];
+  v20 = 0;
+  if (v21 <= v19)
   {
 LABEL_29:
-    v22 = 3;
+    v23 = 3;
     goto LABEL_32;
   }
 
 LABEL_31:
-  v22 = 2;
+  v23 = 2;
 LABEL_32:
-  g_uiState = v22;
-  v23 = MSNLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  g_uiState = v23;
+  v24 = MSNLog(v19);
+  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
+  if (v25)
   {
     if (g_uiState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v30 = MSNLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = MSNLog(v25);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        __MSNMonitorStartServerMode_block_invoke_cold_1(v30, v31, v32, v33, v34, v35, v36, v37);
+        __MSNMonitorStartServerMode_block_invoke_cold_1(v32, v33, v34, v35, v36, v37, v38, v39);
       }
 
       abort();
     }
 
-    v24 = off_2798A3F28[g_uiState];
+    v26 = off_2798A3F28[g_uiState];
     *buf = 136315138;
-    v46 = v24;
-    _os_log_impl(&dword_258731000, v23, OS_LOG_TYPE_INFO, "Updated view state: %s", buf, 0xCu);
+    v48 = v26;
+    _os_log_impl(&dword_258731000, v24, OS_LOG_TYPE_INFO, "Updated view state: %s", buf, 0xCu);
   }
 
   if (g_uiState == 2)
@@ -175,51 +177,50 @@ LABEL_32:
       __MSNMonitorStartServerMode_block_invoke_2_cold_2();
     }
 
-    v25 = +[MSNTTR sharedInstance];
-    v26 = [v25 pendedTTR];
+    v27 = +[MSNTTR sharedInstance];
+    v28 = [v27 pendedTTR];
 
-    if (v26)
+    if (v28)
     {
-      v27 = MSNLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v30 = MSNLog(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_258731000, v27, OS_LOG_TYPE_INFO, "Home, continuing TTR.", buf, 2u);
+        _os_log_impl(&dword_258731000, v30, OS_LOG_TYPE_INFO, "Home, continuing TTR.", buf, 2u);
       }
 
-      v28 = +[MSNTTR sharedInstance];
-      [v28 continueTTR];
+      v31 = +[MSNTTR sharedInstance];
+      [v31 continueTTR];
     }
   }
-
-LABEL_43:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __MSNMonitorStartServerMode_block_invoke_49()
 {
-  v155[7] = *MEMORY[0x277D85DE8];
+  v158[7] = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
+  v1 = v0;
   if (s_lockPill)
   {
-    if ((os_variant_allows_internal_security_policies() & 1) == 0)
+    v2 = os_variant_allows_internal_security_policies();
+    if ((v2 & 1) == 0)
     {
       __MSNMonitorStartServerMode_block_invoke_49_cold_1();
     }
 
-    v1 = MSNLog();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+    v3 = MSNLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_258731000, v1, OS_LOG_TYPE_INFO, "Overriding pill state. This is not a production configuration.", buf, 2u);
+      _os_log_impl(&dword_258731000, v3, OS_LOG_TYPE_INFO, "Overriding pill state. This is not a production configuration.", buf, 2u);
     }
   }
 
   else if (g_microphoneState == 1)
   {
-    v2 = s_pillDataSource;
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:g_microphoneClient];
-    [v2 fetchPillRegistrationForProcess:v3 withCompletion:&__block_literal_global_87];
+    v4 = s_pillDataSource;
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:g_microphoneClient];
+    [v4 fetchPillRegistrationForProcess:v5 withCompletion:&__block_literal_global_87];
   }
 
   else
@@ -227,43 +228,44 @@ void __MSNMonitorStartServerMode_block_invoke_49()
     g_pillState = 0;
   }
 
-  v4 = g_microphoneState;
+  v6 = g_microphoneState;
   if (g_uiState)
   {
-    v5 = g_microphoneState == 0;
+    v7 = g_microphoneState == 0;
   }
 
   else
   {
-    v5 = 1;
+    v7 = 1;
   }
 
-  if (v5 || g_cameraState == 0 || g_keyboardState == 0)
+  if (v7 || g_cameraState == 0 || g_keyboardState == 0)
   {
-    v8 = MSNLog();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = MSNLog(v0);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    if (!v11)
     {
 LABEL_40:
 
       goto LABEL_68;
     }
 
-    v9 = "";
+    v12 = "";
     if (g_production)
     {
-      v10 = "";
+      v13 = "";
     }
 
     else
     {
-      v10 = "Testing: ";
+      v13 = "Testing: ";
     }
 
     if (g_uiState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v123 = MSNLog();
-      if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+      v126 = MSNLog(v11);
+      if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_239;
       }
@@ -272,8 +274,8 @@ LABEL_40:
     else if (g_cameraState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v123 = MSNLog();
-      if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+      v126 = MSNLog(v11);
+      if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_239;
       }
@@ -281,28 +283,28 @@ LABEL_40:
 
     else
     {
-      v11 = ":";
-      v12 = g_cameraClient;
+      v14 = ":";
+      v15 = g_cameraClient;
       if (g_cameraClient)
       {
-        v13 = ":";
+        v16 = ":";
       }
 
       else
       {
-        v13 = "";
+        v16 = "";
       }
 
       if (!g_cameraClient)
       {
-        v12 = "";
+        v15 = "";
       }
 
       if (g_microphoneState >= 4)
       {
         qword_27F958928 = "Unknown state";
-        v123 = MSNLog();
-        if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+        v126 = MSNLog(v11);
+        if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_239;
         }
@@ -312,19 +314,19 @@ LABEL_40:
       {
         if (g_microphoneClient)
         {
-          v9 = g_microphoneClient;
+          v12 = g_microphoneClient;
         }
 
         else
         {
-          v11 = "";
+          v14 = "";
         }
 
         if (g_pillState >= 3)
         {
           qword_27F958928 = "Unknown state";
-          v123 = MSNLog();
-          if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v126 = MSNLog(v11);
+          if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_239;
           }
@@ -334,46 +336,46 @@ LABEL_40:
         {
           if (g_keyboardState < 3)
           {
-            v14 = off_2798A3F28[g_uiState];
-            v15 = off_2798A3F48[g_cameraState];
-            v16 = off_2798A3F48[g_microphoneState];
-            v17 = off_2798A3F68[g_pillState];
-            v18 = off_2798A3F10[g_keyboardState];
-            v19 = g_cameraExceptionState;
+            v17 = off_2798A3F28[g_uiState];
+            v18 = off_2798A3F48[g_cameraState];
+            v19 = off_2798A3F48[g_microphoneState];
+            v20 = off_2798A3F68[g_pillState];
+            v21 = off_2798A3F10[g_keyboardState];
+            v22 = g_cameraExceptionState;
             *buf = 136317698;
             if (!g_cameraExceptionState)
             {
-              v19 = "None";
+              v22 = "None";
             }
 
-            *&buf[4] = v10;
+            *&buf[4] = v13;
             *&buf[12] = 2080;
-            *&buf[14] = v14;
+            *&buf[14] = v17;
             *&buf[22] = 2080;
-            v139 = v15;
-            *v140 = 2080;
-            *&v140[2] = v13;
-            *&v140[10] = 2080;
-            *&v140[12] = v12;
-            *&v140[20] = 2080;
-            *&v140[22] = v16;
-            v141 = 2080;
-            v142 = v11;
-            v143 = 2080;
-            v144 = v9;
-            v145 = 2080;
-            v146 = v17;
-            v147 = 2080;
-            v148 = v18;
-            v149 = 2080;
-            v150 = v19;
-            _os_log_impl(&dword_258731000, v8, OS_LOG_TYPE_INFO, "MediaSafetyNet state: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s) unknown.", buf, 0x70u);
+            v142 = v18;
+            *v143 = 2080;
+            *&v143[2] = v16;
+            *&v143[10] = 2080;
+            *&v143[12] = v15;
+            *&v143[20] = 2080;
+            *&v143[22] = v19;
+            v144 = 2080;
+            v145 = v14;
+            v146 = 2080;
+            v147 = v12;
+            v148 = 2080;
+            v149 = v20;
+            v150 = 2080;
+            v151 = v21;
+            v152 = 2080;
+            v153 = v22;
+            _os_log_impl(&dword_258731000, v10, OS_LOG_TYPE_INFO, "MediaSafetyNet state: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s) unknown.", buf, 0x70u);
             goto LABEL_40;
           }
 
           qword_27F958928 = "Unknown state";
-          v123 = MSNLog();
-          if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v126 = MSNLog(v11);
+          if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_239;
           }
@@ -382,12 +384,12 @@ LABEL_40:
     }
 
 LABEL_238:
-    __MSNMonitorStartServerMode_block_invoke_cold_1(v123, v116, v117, v118, v119, v120, v121, v122);
+    __MSNMonitorStartServerMode_block_invoke_cold_1(v126, v119, v120, v121, v122, v123, v124, v125);
     goto LABEL_239;
   }
 
-  v21 = (g_cameraState & 0xFFFFFFFE) == 2 && (g_microphoneState & 0xFFFFFFFE) == 2;
-  if (g_uiState == 3 || v21)
+  v24 = (g_cameraState & 0xFFFFFFFE) == 2 && (g_microphoneState & 0xFFFFFFFE) == 2;
+  if (g_uiState == 3 || v24)
   {
     goto LABEL_59;
   }
@@ -395,10 +397,10 @@ LABEL_238:
   if (g_microphoneState != 1 && g_cameraState != 1)
   {
     qword_27F958928 = "Expected at least one hot sensor.";
-    v123 = MSNLog();
-    if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+    v126 = MSNLog(v0);
+    if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
     {
-      __MSNMonitorStartServerMode_block_invoke_49_cold_2(v123, v125, v126, v127, v128, v129, v130, v131);
+      __MSNMonitorStartServerMode_block_invoke_49_cold_2(v126, v128, v129, v130, v131, v132, v133, v134);
     }
 
     goto LABEL_239;
@@ -406,71 +408,73 @@ LABEL_238:
 
   if (g_cameraState == 1)
   {
-    if (!HotCameraAllowed())
+    v0 = HotCameraAllowed();
+    if (!v0)
     {
       goto LABEL_69;
     }
 
-    v4 = g_microphoneState;
+    v6 = g_microphoneState;
   }
 
-  if (v4 != 1 || (HotMicAllowed() & 1) != 0)
+  if (v6 != 1 || (v0 = HotMicAllowed(), (v0 & 1) != 0))
   {
 LABEL_59:
     if (MSNValidateState_inconsistencyDuration)
     {
-      v23 = MSNLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v26 = MSNLog(v0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
         *&buf[4] = MSNValidateState_inconsistencyDuration;
-        _os_log_impl(&dword_258731000, v23, OS_LOG_TYPE_INFO, "MediaSafetyNet inconsistency ended after: %u", buf, 8u);
+        _os_log_impl(&dword_258731000, v26, OS_LOG_TYPE_INFO, "MediaSafetyNet inconsistency ended after: %u", buf, 8u);
       }
     }
 
     s_inconsistentCount = 0;
-    v24 = 2;
-    v25 = &MSNValidateState_inconsistencyDuration;
+    v27 = 2;
+    v28 = &MSNValidateState_inconsistencyDuration;
     goto LABEL_64;
   }
 
 LABEL_69:
-  v28 = ++s_inconsistentCount;
+  v30 = ++s_inconsistentCount;
   if (MSNValidateState_inconsistencyDuration != -1)
   {
     ++MSNValidateState_inconsistencyDuration;
   }
 
-  if (v28 < 0xA)
+  if (v30 < 0xA)
   {
-    if (!v28)
+    if (!v30)
     {
-      v24 = 1;
+      v27 = 1;
       goto LABEL_65;
     }
 
-    v8 = MSNLog();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = MSNLog(v0);
+    v47 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (!v47)
     {
       goto LABEL_40;
     }
 
-    v46 = "";
+    v48 = "";
     if (g_production)
     {
-      v47 = "";
+      v49 = "";
     }
 
     else
     {
-      v47 = "Testing: ";
+      v49 = "Testing: ";
     }
 
     if (g_uiState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v123 = MSNLog();
-      if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+      v126 = MSNLog(v47);
+      if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_239;
       }
@@ -479,8 +483,8 @@ LABEL_69:
     else if (g_cameraState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v123 = MSNLog();
-      if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+      v126 = MSNLog(v47);
+      if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_239;
       }
@@ -488,28 +492,28 @@ LABEL_69:
 
     else
     {
-      v48 = ":";
-      v49 = g_cameraClient;
+      v50 = ":";
+      v51 = g_cameraClient;
       if (g_cameraClient)
       {
-        v50 = ":";
+        v52 = ":";
       }
 
       else
       {
-        v50 = "";
+        v52 = "";
       }
 
       if (!g_cameraClient)
       {
-        v49 = "";
+        v51 = "";
       }
 
       if (g_microphoneState >= 4)
       {
         qword_27F958928 = "Unknown state";
-        v123 = MSNLog();
-        if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+        v126 = MSNLog(v47);
+        if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_239;
         }
@@ -519,19 +523,19 @@ LABEL_69:
       {
         if (g_microphoneClient)
         {
-          v46 = g_microphoneClient;
+          v48 = g_microphoneClient;
         }
 
         else
         {
-          v48 = "";
+          v50 = "";
         }
 
         if (g_pillState >= 3)
         {
           qword_27F958928 = "Unknown state";
-          v123 = MSNLog();
-          if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v126 = MSNLog(v47);
+          if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_239;
           }
@@ -541,50 +545,50 @@ LABEL_69:
         {
           if (g_keyboardState < 3)
           {
-            v51 = off_2798A3F28[g_uiState];
-            v52 = off_2798A3F48[g_cameraState];
-            v53 = off_2798A3F48[g_microphoneState];
-            v54 = off_2798A3F68[g_pillState];
-            v55 = off_2798A3F10[g_keyboardState];
-            v56 = g_cameraExceptionState;
+            v53 = off_2798A3F28[g_uiState];
+            v54 = off_2798A3F48[g_cameraState];
+            v55 = off_2798A3F48[g_microphoneState];
+            v56 = off_2798A3F68[g_pillState];
+            v57 = off_2798A3F10[g_keyboardState];
+            v58 = g_cameraExceptionState;
             if (!g_cameraExceptionState)
             {
-              v56 = "None";
+              v58 = "None";
             }
 
             *buf = 136318210;
-            *&buf[4] = v47;
+            *&buf[4] = v49;
             *&buf[12] = 2080;
-            *&buf[14] = v51;
+            *&buf[14] = v53;
             *&buf[22] = 2080;
-            v139 = v52;
-            *v140 = 2080;
-            *&v140[2] = v50;
-            *&v140[10] = 2080;
-            *&v140[12] = v49;
-            *&v140[20] = 2080;
-            *&v140[22] = v53;
-            v141 = 2080;
-            v142 = v48;
-            v143 = 2080;
-            v144 = v46;
-            v145 = 2080;
-            v146 = v54;
-            v147 = 2080;
-            v148 = v55;
-            v149 = 2080;
-            v150 = v56;
-            v151 = 2080;
-            v152 = "Inconsistent";
-            v153 = 1024;
-            v154 = s_inconsistentCount;
-            _os_log_error_impl(&dword_258731000, v8, OS_LOG_TYPE_ERROR, "MediaSafetyNet temporarily inconsistent state: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s) consistency: %s inconsistentCount: %i", buf, 0x80u);
+            v142 = v54;
+            *v143 = 2080;
+            *&v143[2] = v52;
+            *&v143[10] = 2080;
+            *&v143[12] = v51;
+            *&v143[20] = 2080;
+            *&v143[22] = v55;
+            v144 = 2080;
+            v145 = v50;
+            v146 = 2080;
+            v147 = v48;
+            v148 = 2080;
+            v149 = v56;
+            v150 = 2080;
+            v151 = v57;
+            v152 = 2080;
+            v153 = v58;
+            v154 = 2080;
+            v155 = "Inconsistent";
+            v156 = 1024;
+            v157 = s_inconsistentCount;
+            _os_log_error_impl(&dword_258731000, v10, OS_LOG_TYPE_ERROR, "MediaSafetyNet temporarily inconsistent state: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s) consistency: %s inconsistentCount: %i", buf, 0x80u);
             goto LABEL_40;
           }
 
           qword_27F958928 = "Unknown state";
-          v123 = MSNLog();
-          if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v126 = MSNLog(v47);
+          if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_239;
           }
@@ -600,91 +604,104 @@ LABEL_69:
     MSNMonitorStartServerMode_cold_2();
   }
 
-  v29 = "com.apple.MediaSafetyNet";
-  v30 = &g_cameraClient;
-  v31 = MSNFailureMode_failureMode;
-  v32 = 0x277CCA000uLL;
-  while (v31 > 3)
+  v31 = "com.apple.MediaSafetyNet";
+  v32 = &g_cameraClient;
+  v33 = MSNFailureMode_failureMode;
+  v34 = 0x277CCA000uLL;
+  while (v33 > 3)
   {
-    if (v31 == 4)
+    if (v33 == 4)
     {
-      v36 = v30;
-      v37 = v29;
-      log = os_variant_allows_internal_security_policies();
-      v38 = g_microphoneState;
-      v39 = g_microphoneClient;
-      v41 = g_microphoneState == 1 && g_microphoneClient != 0 && strcmp(g_microphoneClient, "corespeechd") == 0;
-      v42 = v38 != 1 || g_pillState == 2;
-      if (!v42 && !strcmp(v39, "callservicesd"))
+      v38 = v32;
+      v39 = v31;
+      v0 = os_variant_allows_internal_security_policies();
+      log = v0;
+      v40 = g_microphoneState;
+      v41 = g_microphoneClient;
+      if (g_microphoneState != 1 || g_microphoneClient == 0)
       {
-        v31 = 3;
-        v30 = v36;
+        v43 = 0;
       }
 
       else
       {
-        v30 = v36;
+        v0 = strcmp(g_microphoneClient, "corespeechd");
+        v43 = v0 == 0;
+      }
+
+      v44 = v40 != 1 || g_pillState == 2;
+      if (v44 || (v0 = strcmp(v41, "callservicesd"), v0))
+      {
+        v32 = v38;
         if (g_cameraState == 1)
         {
-          if (!strcmp(*v36, "com.apple.callservicesd"))
+          v0 = strcmp(*v38, "com.apple.callservicesd");
+          if (v0)
           {
-            v31 = 3;
+            v33 = 2;
           }
 
           else
           {
-            v31 = 2;
+            v33 = 3;
           }
         }
 
         else
         {
-          v31 = 2;
+          v33 = 2;
         }
       }
 
-      v32 = 0x277CCA000;
-      v29 = v37;
-      if (!v41 && (log & 1) != 0)
+      else
       {
-        v31 = 3;
+        v33 = 3;
+        v32 = v38;
+      }
+
+      v34 = 0x277CCA000;
+      v31 = v39;
+      if (!v43 && (log & 1) != 0)
+      {
+        v33 = 3;
       }
     }
 
     else
     {
-      if (v31 != 5)
+      if (v33 != 5)
       {
         goto LABEL_168;
       }
 
       if (g_cameraState == 1)
       {
-        v33 = 0;
-        if ((HotCameraAllowed() & 1) == 0 && *v30)
+        v0 = HotCameraAllowed();
+        v35 = 0;
+        if ((v0 & 1) == 0 && *v32)
         {
           if (MSNStateFailureWithMode_onceToken != -1)
           {
             __MSNMonitorStartServerMode_block_invoke_49_cold_9();
           }
 
-          v34 = MSNStateFailureWithMode_terminatingProcesses;
-          v35 = [*(v32 + 3240) stringWithUTF8String:*v30];
-          v33 = [v34 containsObject:v35];
+          v36 = MSNStateFailureWithMode_terminatingProcesses;
+          v37 = [*(v34 + 3240) stringWithUTF8String:*v32];
+          v35 = [v36 containsObject:v37];
 
-          v29 = "com.apple.MediaSafetyNet";
+          v31 = "com.apple.MediaSafetyNet";
         }
       }
 
       else
       {
-        v33 = 0;
+        v35 = 0;
       }
 
-      if ((v33 & 1) != 0 || g_microphoneState != 1)
+      if ((v35 & 1) != 0 || g_microphoneState != 1)
       {
-        v31 = 2;
-        if (v33)
+        v33 = 2;
+        if (v35)
         {
           goto LABEL_109;
         }
@@ -692,35 +709,35 @@ LABEL_69:
 
       else
       {
-        v43 = HotMicAllowed();
-        v31 = 2;
-        if ((v43 & 1) == 0 && g_microphoneClient)
+        v0 = HotMicAllowed();
+        v33 = 2;
+        if ((v0 & 1) == 0 && g_microphoneClient)
         {
           if (MSNStateFailureWithMode_onceToken_168 != -1)
           {
             __MSNMonitorStartServerMode_block_invoke_49_cold_10();
           }
 
-          v44 = MSNStateFailureWithMode_terminatingProcesses_167;
-          v45 = [*(v32 + 3240) stringWithUTF8String:g_microphoneClient];
-          LOBYTE(v44) = [v44 containsObject:v45];
+          v45 = MSNStateFailureWithMode_terminatingProcesses_167;
+          v46 = [*(v34 + 3240) stringWithUTF8String:g_microphoneClient];
+          LOBYTE(v45) = [v45 containsObject:v46];
 
-          v31 = 2;
-          v29 = "com.apple.MediaSafetyNet";
-          if (v44)
+          v33 = 2;
+          v31 = "com.apple.MediaSafetyNet";
+          if (v45)
           {
 LABEL_109:
-            v31 = 3;
+            v33 = 3;
           }
         }
       }
     }
   }
 
-  if (v31 == 1)
+  if (v33 == 1)
   {
-    v57 = MSNLog();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    v59 = MSNLog(v0);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_166;
     }
@@ -728,38 +745,25 @@ LABEL_109:
     goto LABEL_167;
   }
 
-  if (v31 != 2)
+  if (v33 != 2)
   {
-    if (v31 != 3)
+    if (v33 != 3)
     {
       goto LABEL_168;
     }
 
     if (g_production == 1)
     {
-      v155[0] = @"Mic";
-      v74 = [MEMORY[0x277CCACA8] stringWithUTF8String:MicrophoneStateDescription(g_microphoneState)];
-      *buf = v74;
-      v155[1] = @"Cam";
-      v75 = [MEMORY[0x277CCACA8] stringWithUTF8String:MicrophoneStateDescription(g_cameraState)];
-      *&buf[8] = v75;
-      v155[2] = @"MicClient";
+      v158[0] = @"Mic";
+      v76 = [MEMORY[0x277CCACA8] stringWithUTF8String:MicrophoneStateDescription(g_microphoneState)];
+      *buf = v76;
+      v158[1] = @"Cam";
+      v77 = [MEMORY[0x277CCACA8] stringWithUTF8String:MicrophoneStateDescription(g_cameraState)];
+      *&buf[8] = v77;
+      v158[2] = @"MicClient";
       if (g_microphoneClient)
       {
-        v76 = g_microphoneClient;
-      }
-
-      else
-      {
-        v76 = "None";
-      }
-
-      v77 = [MEMORY[0x277CCACA8] stringWithUTF8String:v76];
-      *&buf[16] = v77;
-      v155[3] = @"CamClient";
-      if (g_cameraClient)
-      {
-        v78 = g_cameraClient;
+        v78 = g_microphoneClient;
       }
 
       else
@@ -768,63 +772,65 @@ LABEL_109:
       }
 
       v79 = [MEMORY[0x277CCACA8] stringWithUTF8String:v78];
-      v139 = v79;
-      v155[4] = @"Pill";
-      v80 = [MEMORY[0x277CCACA8] stringWithUTF8String:PillStateDescription(g_pillState)];
-      *v140 = v80;
-      v155[5] = @"UI";
-      v81 = [MEMORY[0x277CCACA8] stringWithUTF8String:UIStateDescription(g_uiState)];
-      *&v140[8] = v81;
-      v155[6] = @"Kbd";
-      v82 = [MEMORY[0x277CCACA8] stringWithUTF8String:KeyboardStateDescription(g_keyboardState)];
-      *&v140[16] = v82;
-      v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v155 count:7];
+      *&buf[16] = v79;
+      v158[3] = @"CamClient";
+      if (g_cameraClient)
+      {
+        v80 = g_cameraClient;
+      }
+
+      else
+      {
+        v80 = "None";
+      }
+
+      v81 = [MEMORY[0x277CCACA8] stringWithUTF8String:v80];
+      v142 = v81;
+      v158[4] = @"Pill";
+      v82 = [MEMORY[0x277CCACA8] stringWithUTF8String:PillStateDescription(g_pillState)];
+      *v143 = v82;
+      v158[5] = @"UI";
+      v83 = [MEMORY[0x277CCACA8] stringWithUTF8String:UIStateDescription(g_uiState)];
+      *&v143[8] = v83;
+      v158[6] = @"Kbd";
+      v84 = [MEMORY[0x277CCACA8] stringWithUTF8String:KeyboardStateDescription(g_keyboardState)];
+      *&v143[16] = v84;
+      v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v158 count:7];
       AnalyticsSendEvent();
     }
 
-    v84 = MSNLog();
-    if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+    v86 = MSNLog(v0);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
     {
-      __MSNMonitorStartServerMode_block_invoke_49_cold_11(v84);
+      __MSNMonitorStartServerMode_block_invoke_49_cold_11();
     }
 
-    v137 = 0;
+    v140 = 0;
     if (g_production)
     {
-      v85 = "";
+      v87 = "";
     }
 
     else
     {
-      v85 = "Testing: ";
+      v87 = "Testing: ";
     }
 
-    v86 = UIStateDescription(g_uiState);
-    v87 = MicrophoneStateDescription(g_cameraState);
+    v88 = UIStateDescription(g_uiState);
+    v89 = MicrophoneStateDescription(g_cameraState);
     if (g_cameraClient)
     {
-      v88 = ":";
+      v90 = ":";
     }
 
     else
     {
-      v88 = "";
+      v90 = "";
     }
 
     if (g_cameraClient)
     {
-      v89 = g_cameraClient;
-    }
-
-    else
-    {
-      v89 = "";
-    }
-
-    v90 = MicrophoneStateDescription(g_microphoneState);
-    if (g_microphoneClient)
-    {
-      v91 = ":";
+      v91 = g_cameraClient;
     }
 
     else
@@ -832,95 +838,106 @@ LABEL_109:
       v91 = "";
     }
 
+    v92 = MicrophoneStateDescription(g_microphoneState);
     if (g_microphoneClient)
     {
-      v92 = g_microphoneClient;
+      v93 = ":";
     }
 
     else
     {
-      v92 = "";
+      v93 = "";
     }
 
-    v93 = PillStateDescription(g_pillState);
-    v94 = KeyboardStateDescription(g_keyboardState);
-    v95 = g_cameraExceptionState;
+    if (g_microphoneClient)
+    {
+      v94 = g_microphoneClient;
+    }
+
+    else
+    {
+      v94 = "";
+    }
+
+    v95 = PillStateDescription(g_pillState);
+    v96 = KeyboardStateDescription(g_keyboardState);
+    v97 = g_cameraExceptionState;
     if (!g_cameraExceptionState)
     {
-      v95 = "None";
+      v97 = "None";
     }
 
-    if (asprintf(&v137, "MediaSafetyNet failure with states: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s)", v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95) < 0)
+    if (asprintf(&v140, "MediaSafetyNet failure with states: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s)", v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97) < 0)
     {
-      v137 = 0;
+      v140 = 0;
     }
 
-    v96 = MEMORY[0x277CCACA8];
+    v98 = MEMORY[0x277CCACA8];
     if (g_production)
     {
-      v97 = "";
+      v99 = "";
     }
 
     else
     {
-      v97 = "Testing: ";
+      v99 = "Testing: ";
     }
 
-    v98 = UIStateDescription(g_uiState);
-    v99 = MicrophoneStateDescription(g_cameraState);
-    v100 = ":";
+    v100 = UIStateDescription(g_uiState);
+    v101 = MicrophoneStateDescription(g_cameraState);
+    v102 = ":";
     if (g_cameraClient)
     {
-      v101 = ":";
+      v103 = ":";
     }
 
     else
     {
-      v101 = "";
+      v103 = "";
     }
 
     if (g_cameraClient)
     {
-      v102 = g_cameraClient;
+      v104 = g_cameraClient;
+    }
+
+    else
+    {
+      v104 = "";
+    }
+
+    v105 = MicrophoneStateDescription(g_microphoneState);
+    if (g_microphoneClient)
+    {
+      v106 = g_microphoneClient;
     }
 
     else
     {
       v102 = "";
+      v106 = "";
     }
 
-    v103 = MicrophoneStateDescription(g_microphoneState);
-    if (g_microphoneClient)
-    {
-      v104 = g_microphoneClient;
-    }
-
-    else
-    {
-      v100 = "";
-      v104 = "";
-    }
-
-    v105 = PillStateDescription(g_pillState);
-    v106 = KeyboardStateDescription(g_keyboardState);
-    v107 = g_cameraExceptionState;
+    v107 = PillStateDescription(g_pillState);
+    v108 = KeyboardStateDescription(g_keyboardState);
+    v109 = g_cameraExceptionState;
     if (!g_cameraExceptionState)
     {
-      v107 = "None";
+      v109 = "None";
     }
 
-    v108 = [v96 stringWithFormat:@"MediaSafetyNet: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s)", v97, v98, v99, v101, v102, v103, v100, v104, v105, v106, v107];
-    CFPreferencesSetAppValue(@"MediaSafetyNetWaitingTTR", v108, @"com.apple.mediaserverd");
+    v110 = [v98 stringWithFormat:@"MediaSafetyNet: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s)", v99, v100, v101, v103, v104, v105, v102, v106, v107, v108, v109];
+    CFPreferencesSetAppValue(@"MediaSafetyNetWaitingTTR", v110, @"com.apple.mediaserverd");
 
-    v109 = [MEMORY[0x277CBEAA8] date];
-    CFPreferencesSetAppValue(@"MediaSafetyNetWaitingTTRDate", v109, @"com.apple.mediaserverd");
+    v111 = [MEMORY[0x277CBEAA8] date];
+    CFPreferencesSetAppValue(@"MediaSafetyNetWaitingTTRDate", v111, @"com.apple.mediaserverd");
 
-    CFPreferencesAppSynchronize(@"com.apple.mediaserverd");
-    qword_27F958928 = v137;
-    v123 = MSNLog();
-    if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+    v112 = CFPreferencesAppSynchronize(@"com.apple.mediaserverd");
+    qword_27F958928 = v140;
+    v126 = MSNLog(v112);
+    if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
     {
-      __MSNMonitorStartServerMode_block_invoke_49_cold_12(&v137, v123, v110, v111, v112, v113, v114, v115);
+      __MSNMonitorStartServerMode_block_invoke_49_cold_12(&v140, v126, v113, v114, v115, v116, v117, v118);
     }
 
 LABEL_239:
@@ -933,46 +950,46 @@ LABEL_239:
     __MSNMonitorStartServerMode_block_invoke_49_cold_14();
   }
 
-  v57 = MSNLog();
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+  v59 = MSNLog(v0);
+  if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
   {
 LABEL_166:
-    __MSNMonitorStartServerMode_block_invoke_49_cold_11(v57);
+    __MSNMonitorStartServerMode_block_invoke_49_cold_11();
   }
 
 LABEL_167:
 
 LABEL_168:
-  v24 = 1;
-  v25 = &s_inconsistentCount;
+  v27 = 1;
+  v28 = &s_inconsistentCount;
 LABEL_64:
-  *v25 = 0;
+  *v28 = 0;
 LABEL_65:
   if (MSNPeriodicLog_once != -1)
   {
     __MSNMonitorStartServerMode_block_invoke_49_cold_16();
   }
 
-  v26 = MSNPeriodicLog_log;
+  v29 = MSNPeriodicLog_log;
   if (os_log_type_enabled(MSNPeriodicLog_log, OS_LOG_TYPE_DEBUG))
   {
     if (g_production)
     {
-      v58 = "";
+      v60 = "";
     }
 
     else
     {
-      v58 = "Testing: ";
+      v60 = "Testing: ";
     }
 
-    v59 = g_uiState;
-    v60 = v26;
-    if (v59 >= 4)
+    v61 = g_uiState;
+    v62 = v29;
+    if (v61 >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v123 = MSNLog();
-      if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+      v126 = MSNLog(v62);
+      if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_239;
       }
@@ -981,8 +998,8 @@ LABEL_65:
     else if (g_cameraState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v123 = MSNLog();
-      if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+      v126 = MSNLog(v62);
+      if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_239;
       }
@@ -992,29 +1009,29 @@ LABEL_65:
     {
       if (g_cameraClient)
       {
-        v61 = ":";
+        v63 = ":";
       }
 
       else
       {
-        v61 = "";
+        v63 = "";
       }
 
       if (g_cameraClient)
       {
-        v62 = g_cameraClient;
+        v64 = g_cameraClient;
       }
 
       else
       {
-        v62 = "";
+        v64 = "";
       }
 
       if (g_microphoneState >= 4)
       {
         qword_27F958928 = "Unknown state";
-        v123 = MSNLog();
-        if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+        v126 = MSNLog(v62);
+        if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_239;
         }
@@ -1022,27 +1039,27 @@ LABEL_65:
 
       else
       {
-        v63 = g_microphoneClient;
+        v65 = g_microphoneClient;
         if (g_microphoneClient)
         {
-          v64 = ":";
+          v66 = ":";
         }
 
         else
         {
-          v64 = "";
+          v66 = "";
         }
 
         if (!g_microphoneClient)
         {
-          v63 = "";
+          v65 = "";
         }
 
         if (g_pillState >= 3)
         {
           qword_27F958928 = "Unknown state";
-          v123 = MSNLog();
-          if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v126 = MSNLog(v62);
+          if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_239;
           }
@@ -1050,62 +1067,62 @@ LABEL_65:
 
         else
         {
-          v132 = v64;
-          v133 = v63;
-          v134 = v62;
-          loga = v60;
+          v135 = v66;
+          v136 = v65;
+          v137 = v64;
+          loga = v62;
           if (g_keyboardState < 3)
           {
-            v65 = v61;
-            v66 = v58;
-            v67 = off_2798A3F28[v59];
-            v68 = off_2798A3F48[g_cameraState];
-            v69 = off_2798A3F48[g_microphoneState];
-            v70 = off_2798A3F68[g_pillState];
-            v71 = off_2798A3F10[g_keyboardState];
+            v67 = v63;
+            v68 = v60;
+            v69 = off_2798A3F28[v61];
+            v70 = off_2798A3F48[g_cameraState];
+            v71 = off_2798A3F48[g_microphoneState];
+            v72 = off_2798A3F68[g_pillState];
+            v73 = off_2798A3F10[g_keyboardState];
             if (g_cameraExceptionState)
             {
-              v72 = g_cameraExceptionState;
+              v74 = g_cameraExceptionState;
             }
 
             else
             {
-              v72 = "None";
+              v74 = "None";
             }
 
-            v73 = ConsistencyDescription(v24);
+            v75 = ConsistencyDescription(v27);
             *buf = 136317954;
-            *&buf[4] = v66;
+            *&buf[4] = v68;
             *&buf[12] = 2080;
-            *&buf[14] = v67;
+            *&buf[14] = v69;
             *&buf[22] = 2080;
-            v139 = v68;
-            *v140 = 2080;
-            *&v140[2] = v65;
-            *&v140[10] = 2080;
-            *&v140[12] = v134;
-            *&v140[20] = 2080;
-            *&v140[22] = v69;
-            v141 = 2080;
-            v142 = v132;
-            v143 = 2080;
-            v144 = v133;
-            v145 = 2080;
-            v146 = v70;
-            v147 = 2080;
-            v148 = v71;
-            v149 = 2080;
-            v150 = v72;
-            v151 = 2080;
-            v152 = v73;
-            v8 = loga;
+            v142 = v70;
+            *v143 = 2080;
+            *&v143[2] = v67;
+            *&v143[10] = 2080;
+            *&v143[12] = v137;
+            *&v143[20] = 2080;
+            *&v143[22] = v71;
+            v144 = 2080;
+            v145 = v135;
+            v146 = 2080;
+            v147 = v136;
+            v148 = 2080;
+            v149 = v72;
+            v150 = 2080;
+            v151 = v73;
+            v152 = 2080;
+            v153 = v74;
+            v154 = 2080;
+            v155 = v75;
+            v10 = loga;
             _os_log_debug_impl(&dword_258731000, loga, OS_LOG_TYPE_DEBUG, "MediaSafetyNet state: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s) consistency: %s", buf, 0x7Au);
             goto LABEL_40;
           }
 
           qword_27F958928 = "Unknown state";
-          v123 = MSNLog();
-          if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v126 = MSNLog(v62);
+          if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_239;
           }
@@ -1117,13 +1134,13 @@ LABEL_65:
   }
 
 LABEL_68:
-  objc_autoreleasePoolPop(v0);
-  v27 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v1);
 }
 
 void MSNMonitorSetCameraState(char a1)
 {
-  if (MediaSafetyNetIsLocalMonitor())
+  IsLocalMonitor = MediaSafetyNetIsLocalMonitor();
+  if (IsLocalMonitor)
   {
     if (MediaSafetyNetActive())
     {
@@ -1131,28 +1148,28 @@ void MSNMonitorSetCameraState(char a1)
       block[1] = 3221225472;
       block[2] = __MSNMonitorSetCameraState_block_invoke;
       block[3] = &__block_descriptor_33_e5_v8__0l;
-      v4 = a1;
+      v5 = a1;
       dispatch_sync(s_mediaSafetyNetQueue, block);
     }
   }
 
   else
   {
-    v2 = MSNLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = MSNLog(IsLocalMonitor);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       MSNMonitorSetCameraState_cold_1();
     }
   }
 }
 
-void MSNMonitorStartingCamera()
+void MSNMonitorStartingCamera(uint64_t a1)
 {
-  v0 = MSNLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = MSNLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_258731000, v0, OS_LOG_TYPE_INFO, "Starting cam.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_258731000, v1, OS_LOG_TYPE_INFO, "Starting cam.", v2, 2u);
   }
 }
 
@@ -1163,19 +1180,19 @@ void __MSNMonitorSetCameraState_block_invoke(uint64_t a1)
     case 1:
       if ((*(a1 + 32) & 1) == 0)
       {
-        MSNMonitorStoppingCamera();
+        MSNMonitorStoppingCamera(a1);
       }
 
       break;
     case 2:
       if (*(a1 + 32) == 1)
       {
-        MSNMonitorStartingCamera();
+        MSNMonitorStartingCamera(a1);
       }
 
       break;
     case 3:
-      v2 = MSNLog();
+      v2 = MSNLog(a1);
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         __MSNMonitorSetCameraState_block_invoke_cold_1();
@@ -1199,7 +1216,8 @@ void __MSNMonitorSetCameraState_block_invoke(uint64_t a1)
 
 void MSNMonitorSetCameraNonStandardCameraClient(uint64_t a1)
 {
-  if (MediaSafetyNetIsLocalMonitor())
+  IsLocalMonitor = MediaSafetyNetIsLocalMonitor();
+  if (IsLocalMonitor)
   {
     if (MediaSafetyNetActive())
     {
@@ -1214,8 +1232,8 @@ void MSNMonitorSetCameraNonStandardCameraClient(uint64_t a1)
 
   else
   {
-    v2 = MSNLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = MSNLog(IsLocalMonitor);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       MSNMonitorSetCameraState_cold_1();
     }
@@ -1254,7 +1272,7 @@ void __MSNMonitorSetLastCameraClient_block_invoke(uint64_t a1)
   {
     free(g_cameraClient);
     g_cameraClient = strdup(*(a1 + 32));
-    v2 = MSNLog();
+    v2 = MSNLog(g_cameraClient);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       __MSNMonitorSetLastCameraClient_block_invoke_cold_1(v2);
@@ -1264,7 +1282,8 @@ void __MSNMonitorSetLastCameraClient_block_invoke(uint64_t a1)
 
 void MSNMonitorSetLastCameraClient(uint64_t a1)
 {
-  if (MediaSafetyNetIsLocalMonitor())
+  IsLocalMonitor = MediaSafetyNetIsLocalMonitor();
+  if (IsLocalMonitor)
   {
     if (MediaSafetyNetActive())
     {
@@ -1279,8 +1298,8 @@ void MSNMonitorSetLastCameraClient(uint64_t a1)
 
   else
   {
-    v2 = MSNLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = MSNLog(IsLocalMonitor);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       MSNMonitorSetCameraState_cold_1();
     }
@@ -1308,13 +1327,14 @@ void __MSNMonitorStartServerMode_block_invoke(int a1, int token)
   }
 
   g_keyboardState = v3;
-  v4 = MSNLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v4 = MSNLog(state);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+  if (v5)
   {
     if (g_keyboardState >= 3)
     {
       qword_27F958928 = "Unknown state";
-      v7 = MSNLog();
+      v7 = MSNLog(v5);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __MSNMonitorStartServerMode_block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
@@ -1323,16 +1343,14 @@ void __MSNMonitorStartServerMode_block_invoke(int a1, int token)
       abort();
     }
 
-    v5 = off_2798A3F10[g_keyboardState];
+    v6 = off_2798A3F10[g_keyboardState];
     *buf = 136315138;
-    v17 = v5;
+    v17 = v6;
     _os_log_impl(&dword_258731000, v4, OS_LOG_TYPE_INFO, "Updated keyboard state: %s", buf, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-const char *ConsistencyDescription(int a1)
+const char *ConsistencyDescription(uint64_t a1)
 {
   if (a1 == 1)
   {
@@ -1342,7 +1360,7 @@ const char *ConsistencyDescription(int a1)
   if (a1 != 2)
   {
     qword_27F958928 = "Unknown state";
-    v2 = MSNLog();
+    v2 = MSNLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __MSNMonitorStartServerMode_block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -1356,7 +1374,8 @@ const char *ConsistencyDescription(int a1)
 
 void MSNMonitorSetLastMicrophoneClient(uint64_t a1)
 {
-  if (MediaSafetyNetIsLocalMonitor())
+  IsLocalMonitor = MediaSafetyNetIsLocalMonitor();
+  if (IsLocalMonitor)
   {
     if (MediaSafetyNetActive())
     {
@@ -1371,8 +1390,8 @@ void MSNMonitorSetLastMicrophoneClient(uint64_t a1)
 
   else
   {
-    v2 = MSNLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = MSNLog(IsLocalMonitor);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       MSNMonitorSetCameraState_cold_1();
     }
@@ -1385,7 +1404,7 @@ void __MSNMonitorSetLastMicrophoneClient_block_invoke(uint64_t a1)
   {
     free(g_microphoneClient);
     g_microphoneClient = strdup(*(a1 + 32));
-    v2 = MSNLog();
+    v2 = MSNLog(g_microphoneClient);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       __MSNMonitorSetLastMicrophoneClient_block_invoke_cold_1(v2);
@@ -1395,7 +1414,8 @@ void __MSNMonitorSetLastMicrophoneClient_block_invoke(uint64_t a1)
 
 void MSNMonitorSetMicrophoneState(char a1)
 {
-  if (MediaSafetyNetIsLocalMonitor())
+  IsLocalMonitor = MediaSafetyNetIsLocalMonitor();
+  if (IsLocalMonitor)
   {
     if (MediaSafetyNetActive())
     {
@@ -1403,28 +1423,28 @@ void MSNMonitorSetMicrophoneState(char a1)
       block[1] = 3221225472;
       block[2] = __MSNMonitorSetMicrophoneState_block_invoke;
       block[3] = &__block_descriptor_33_e5_v8__0l;
-      v4 = a1;
+      v5 = a1;
       dispatch_sync(s_mediaSafetyNetQueue, block);
     }
   }
 
   else
   {
-    v2 = MSNLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = MSNLog(IsLocalMonitor);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       MSNMonitorSetCameraState_cold_1();
     }
   }
 }
 
-void MSNMonitorStartingMicrophone()
+void MSNMonitorStartingMicrophone(uint64_t a1)
 {
-  v0 = MSNLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = MSNLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_258731000, v0, OS_LOG_TYPE_INFO, "Starting mic.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_258731000, v1, OS_LOG_TYPE_INFO, "Starting mic.", v2, 2u);
   }
 }
 
@@ -1435,19 +1455,19 @@ void __MSNMonitorSetMicrophoneState_block_invoke(uint64_t a1)
     case 1:
       if ((*(a1 + 32) & 1) == 0)
       {
-        MSNMonitorStoppingMicrophone();
+        MSNMonitorStoppingMicrophone(a1);
       }
 
       break;
     case 2:
       if (*(a1 + 32) == 1)
       {
-        MSNMonitorStartingMicrophone();
+        MSNMonitorStartingMicrophone(a1);
       }
 
       break;
     case 3:
-      v2 = MSNLog();
+      v2 = MSNLog(a1);
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         __MSNMonitorSetMicrophoneState_block_invoke_cold_1();
@@ -1471,11 +1491,10 @@ void __MSNMonitorSetMicrophoneState_block_invoke(uint64_t a1)
 
 void __MSNMonitorSetLastMicrophoneClient_block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = g_microphoneClient;
-  _os_log_debug_impl(&dword_258731000, log, OS_LOG_TYPE_DEBUG, "Last microphone client: %s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = g_microphoneClient;
+  _os_log_debug_impl(&dword_258731000, log, OS_LOG_TYPE_DEBUG, "Last microphone client: %s", &v1, 0xCu);
 }
 
 void __MSNPollStates_block_invoke(uint64_t a1, int a2)
@@ -1496,32 +1515,34 @@ uint64_t HotMicAllowed()
     return 1;
   }
 
-  v12 = v0;
-  v13 = v1;
-  if (_AXSCommandAndControlEnabled())
+  v16 = v0;
+  v17 = v1;
+  v2 = _AXSCommandAndControlEnabled();
+  if (v2)
   {
-    v2 = MSNLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = MSNLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v8 = 0;
-      v3 = "Command and Control enabled.";
-      v4 = &v8;
+      v12 = 0;
+      v4 = "Command and Control enabled.";
+      v5 = &v12;
 LABEL_12:
-      _os_log_impl(&dword_258731000, v2, OS_LOG_TYPE_INFO, v3, v4, 2u);
+      _os_log_impl(&dword_258731000, v3, OS_LOG_TYPE_INFO, v4, v5, 2u);
       goto LABEL_13;
     }
 
     goto LABEL_13;
   }
 
-  if (_AXSSoundDetectionRunning())
+  v7 = _AXSSoundDetectionRunning();
+  if (v7)
   {
-    v2 = MSNLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = MSNLog(v7);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v9 = 0;
-      v3 = "Sound Detection enabled.";
-      v4 = &v9;
+      v13 = 0;
+      v4 = "Sound Detection enabled.";
+      v5 = &v13;
       goto LABEL_12;
     }
 
@@ -1530,37 +1551,42 @@ LABEL_13:
     return 1;
   }
 
-  if (_AXSSwitchControlEnabledAndNeedsMicrophoneOnLockScreen())
+  v8 = _AXSSwitchControlEnabledAndNeedsMicrophoneOnLockScreen();
+  if (v8)
   {
-    v2 = MSNLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = MSNLog(v8);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v3 = "Switch Control sound triggers enabled.";
-      v4 = buf;
+      v4 = "Switch Control sound triggers enabled.";
+      v5 = buf;
       goto LABEL_12;
     }
 
     goto LABEL_13;
   }
 
-  if (_AXSLiveTranscriptionEnabled() && _AXSLiveTranscriptionMicOn())
+  if (_AXSLiveTranscriptionEnabled())
   {
-    v2 = MSNLog();
-    if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v9 = _AXSLiveTranscriptionMicOn();
+    if (v9)
     {
-      goto LABEL_13;
-    }
+      v3 = MSNLog(v9);
+      if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_13;
+      }
 
-    v11 = 0;
-    v3 = "LiveTranscription enabled.";
-    v4 = &v11;
-    goto LABEL_12;
+      v15 = 0;
+      v4 = "LiveTranscription enabled.";
+      v5 = &v15;
+      goto LABEL_12;
+    }
   }
 
-  v6 = [s_carplay carplayConnected];
+  v10 = [s_carplay carplayConnected];
   result = 1;
-  if ((v6 & 1) == 0 && g_keyboardState != 2)
+  if ((v10 & 1) == 0 && g_keyboardState != 2)
   {
     if (([s_exceptions isExceptionInEffect:0x2869B3A88] & 1) == 0 && (objc_msgSend(s_exceptions, "isExceptionInEffect:", 0x2869B39C8) & 1) == 0 && (objc_msgSend(s_exceptions, "isExceptionInEffect:", 0x2869B39E8) & 1) == 0 && (objc_msgSend(s_exceptions, "isExceptionInEffect:", 0x2869B3A08) & 1) == 0 && (objc_msgSend(s_exceptions, "isExceptionInEffect:", 0x2869B3A28) & 1) == 0 && (objc_msgSend(s_exceptions, "isExceptionInEffect:", 0x2869B3A48) & 1) == 0 && (objc_msgSend(s_exceptions, "isExceptionInEffect:", 0x2869B3A68) & 1) == 0 && (objc_msgSend(s_exceptions, "isExceptionInEffect:", 0x2869B3AC8) & 1) == 0 && (objc_msgSend(s_exceptions, "isExceptionInEffect:", 0x2869B3AE8) & 1) == 0)
     {
@@ -1569,8 +1595,8 @@ LABEL_13:
         return 0;
       }
 
-      v7 = g_microphoneClient;
-      if (!g_microphoneClient || strcmp(g_microphoneClient, "qrecord") && strcmp(v7, "auriotest") && strcmp(v7, "minilab") && strcmp(v7, "xctest") && strcmp(v7, "avcapture") && strcmp(v7, "halperformancemetrics") && strcmp(v7, "avvctest") && strcmp(v7, "audioloopback") && strcmp(v7, "algen") && strcmp(v7, "austriptool") && strcmp(v7, "dspprocess") && strcmp(v7, "auprocess") && strcmp(v7, "ssplay") && strcmp(v7, "vpiotest") && strcmp(v7, "multiroutetest") && strcmp(v7, "afinfo") && strcmp(v7, "afconvert") && strcmp(v7, "audiodetect") && strcmp(v7, "avrecord") && strcmp(v7, "qplay") && strcmp(v7, "auval") && strcmp(v7, "auvaltool") && strcmp(v7, "sounddiff") && strcmp(v7, "afmetadata") && strcmp(v7, "audioperftest") && strcmp(v7, "attentiond") && strcmp(v7, "audiotest") && strcmp(v7, "AVAudioDeviceTes") && strcmp(v7, "CoreContextAmbie"))
+      v11 = g_microphoneClient;
+      if (!g_microphoneClient || strcmp(g_microphoneClient, "qrecord") && strcmp(v11, "auriotest") && strcmp(v11, "minilab") && strcmp(v11, "xctest") && strcmp(v11, "avcapture") && strcmp(v11, "halperformancemetrics") && strcmp(v11, "avvctest") && strcmp(v11, "audioloopback") && strcmp(v11, "algen") && strcmp(v11, "austriptool") && strcmp(v11, "dspprocess") && strcmp(v11, "auprocess") && strcmp(v11, "ssplay") && strcmp(v11, "vpiotest") && strcmp(v11, "multiroutetest") && strcmp(v11, "afinfo") && strcmp(v11, "afconvert") && strcmp(v11, "audiodetect") && strcmp(v11, "avrecord") && strcmp(v11, "qplay") && strcmp(v11, "auval") && strcmp(v11, "auvaltool") && strcmp(v11, "sounddiff") && strcmp(v11, "afmetadata") && strcmp(v11, "audioperftest") && strcmp(v11, "attentiond") && strcmp(v11, "audiotest") && strcmp(v11, "AVAudioDeviceTes") && strcmp(v11, "CoreContextAmbie"))
       {
         return 0;
       }
@@ -1584,37 +1610,37 @@ LABEL_13:
 
 void MSNMonitorBeginException(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   [MEMORY[0x277CCACA8] stringWithUTF8String:a1];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v11 = v16 = 0u;
+  v10 = v15 = 0u;
   v2 = [MSNScopedExceptionsServer proxiesForException:?];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
-        v8 = MSNLog();
+        v7 = *(*(&v12 + 1) + 8 * v6);
+        v8 = MSNLog(v3);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v18 = a1;
-          v19 = 2112;
-          v20 = v7;
+          v17 = a1;
+          v18 = 2112;
+          v19 = v7;
           _os_log_debug_impl(&dword_258731000, v8, OS_LOG_TYPE_DEBUG, "Begin exception %s with proxy %@", buf, 0x16u);
         }
 
@@ -1625,49 +1651,49 @@ void MSNMonitorBeginException(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 
   objc_autoreleasePoolPop(context);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void MSNMonitorEndException(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   [MEMORY[0x277CCACA8] stringWithUTF8String:a1];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v11 = v16 = 0u;
+  v10 = v15 = 0u;
   v2 = [MSNScopedExceptionsServer proxiesForException:?];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
-        v8 = MSNLog();
+        v7 = *(*(&v12 + 1) + 8 * v6);
+        v8 = MSNLog(v3);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v18 = a1;
-          v19 = 2112;
-          v20 = v7;
+          v17 = a1;
+          v18 = 2112;
+          v19 = v7;
           _os_log_debug_impl(&dword_258731000, v8, OS_LOG_TYPE_DEBUG, "End exception %s with proxy %@", buf, 0x16u);
         }
 
@@ -1678,26 +1704,34 @@ void MSNMonitorEndException(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 
   objc_autoreleasePoolPop(context);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_258735120(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
 {
   _Block_object_dispose((v15 - 80), 8);
   objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_258735870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1719,43 +1753,38 @@ void __getSTDynamicActivityAttributionMonitorClass_block_invoke(uint64_t a1)
 
 void SystemStatusLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!SystemStatusLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __SystemStatusLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_2798A3E28;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __SystemStatusLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_2798A3E28;
+    v3 = 0;
     SystemStatusLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!SystemStatusLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __SystemStatusLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SystemStatusLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1792,23 +1821,23 @@ uint64_t __MSNLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void MSNMonitorStoppingCamera()
+void MSNMonitorStoppingCamera(uint64_t a1)
 {
-  v0 = MSNLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = MSNLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_258731000, v0, OS_LOG_TYPE_INFO, "Stopping cam.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_258731000, v1, OS_LOG_TYPE_INFO, "Stopping cam.", v2, 2u);
   }
 }
 
-void MSNMonitorStoppingMicrophone()
+void MSNMonitorStoppingMicrophone(uint64_t a1)
 {
-  v0 = MSNLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = MSNLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_258731000, v0, OS_LOG_TYPE_INFO, "Stopping mic.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_258731000, v1, OS_LOG_TYPE_INFO, "Stopping mic.", v2, 2u);
   }
 }
 
@@ -1825,13 +1854,14 @@ void MSNMonitorStart()
 
       else
       {
-        if ((_os_feature_enabled_impl() & 1) == 0)
+        v1 = _os_feature_enabled_impl();
+        if ((v1 & 1) == 0)
         {
           qword_27F958928 = "Not reachable";
-          v1 = MSNLog();
-          if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+          v2 = MSNLog(v1);
+          if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
           {
-            MSNMonitorStart_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
+            MSNMonitorStart_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
           }
 
           abort();
@@ -1847,10 +1877,10 @@ void MSNMonitorStart()
 
 void MSNMonitorStartServerMode(int a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   g_serverMode = a1;
-  v3 = MSNLog();
+  v3 = MSNLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     MSNMonitorStartServerMode_cold_1(v3);
@@ -1858,87 +1888,90 @@ void MSNMonitorStartServerMode(int a1)
 
   if (s_mediaSafetyNetQueue)
   {
-    v4 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v4 = s_mediaSafetyNetDisabledOnThisHardware == 0;
+    v5 = s_mediaSafetyNetDisabledOnThisHardware == 0;
   }
 
-  if (!v4)
+  if (!v5)
   {
-    v5 = MSNLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = MSNLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_258731000, v5, OS_LOG_TYPE_INFO, "MediaSafetyNet already initialized.", buf, 2u);
+      _os_log_impl(&dword_258731000, v6, OS_LOG_TYPE_INFO, "MediaSafetyNet already initialized.", buf, 2u);
     }
 
     goto LABEL_47;
   }
 
-  if (os_variant_has_factory_content())
+  has_factory_content = os_variant_has_factory_content();
+  if (has_factory_content)
   {
-    v6 = MSNLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = MSNLog(has_factory_content);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v7 = "Not using MediaSafetyNet on NonUI.";
+      v9 = "Not using MediaSafetyNet on NonUI.";
 LABEL_50:
-      _os_log_impl(&dword_258731000, v6, OS_LOG_TYPE_INFO, v7, buf, 2u);
+      _os_log_impl(&dword_258731000, v8, OS_LOG_TYPE_INFO, v9, buf, 2u);
     }
   }
 
   else
   {
-    v8 = MGCopyAnswer();
-    v9 = [v8 intValue];
-    if (v8)
+    v10 = MGCopyAnswer();
+    v11 = [v10 intValue];
+    v12 = v11;
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
 
-    if (v9 == 1)
+    if (v12 == 1)
     {
       goto LABEL_19;
     }
 
-    if (v9 != 2)
+    if (v12 != 2)
     {
-      v6 = MSNLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v8 = MSNLog(v11);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        v7 = "Not using MediaSafetyNet on devices of this type (not an iPhone/iPod).";
+        v9 = "Not using MediaSafetyNet on devices of this type (not an iPhone/iPod).";
         goto LABEL_50;
       }
 
       goto LABEL_51;
     }
 
-    if (MGGetProductType() != 3460419847)
+    v11 = MGGetProductType();
+    if (v11 != 3460419847)
     {
 LABEL_19:
-      v10 = MSNLog();
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+      v13 = MSNLog(v11);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
 
-      if (v11)
+      if (v14)
       {
-        v12 = MSNLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v16 = MSNLog(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v35 = ServerModeDescription(g_serverMode);
+          v42 = ServerModeDescription(g_serverMode);
           if (MSNFailureMode_defaultOnce != -1)
           {
             MSNMonitorStartServerMode_cold_2();
           }
 
           *buf = 136315394;
-          *&buf[4] = v35;
-          v55 = 2080;
-          v56 = FailureModeDescription(MSNFailureMode_failureMode);
-          _os_log_debug_impl(&dword_258731000, v12, OS_LOG_TYPE_DEBUG, "Starting MediaSafetyNet in server mode: %s failure mode: %s", buf, 0x16u);
+          *&buf[4] = v42;
+          v62 = 2080;
+          v63 = FailureModeDescription(MSNFailureMode_failureMode);
+          _os_log_debug_impl(&dword_258731000, v16, OS_LOG_TYPE_DEBUG, "Starting MediaSafetyNet in server mode: %s failure mode: %s", buf, 0x16u);
         }
       }
 
@@ -1946,77 +1979,78 @@ LABEL_19:
       notify_register_check("com.apple.MediaSafetyNet.connectionrequest", &out_token);
       notify_set_state(out_token, 1uLL);
       notify_post("com.apple.MediaSafetyNet.connectionrequest");
-      v13 = dispatch_queue_create("MediaSafetyNet", 0);
-      v14 = s_mediaSafetyNetQueue;
-      s_mediaSafetyNetQueue = v13;
+      v17 = dispatch_queue_create("MediaSafetyNet", 0);
+      v18 = s_mediaSafetyNetQueue;
+      s_mediaSafetyNetQueue = v17;
 
       if (s_mediaSafetyNetQueue)
       {
         g_uiState = 0;
         if (a1 == 1)
         {
-          v15 = 3;
+          v20 = 3;
         }
 
         else
         {
-          v15 = 2;
+          v20 = 2;
         }
 
-        g_cameraState = v15;
+        g_cameraState = v20;
         if (a1 == 2)
         {
-          v16 = 3;
+          v21 = 3;
         }
 
         else
         {
-          v16 = 2;
+          v21 = 2;
         }
 
-        g_microphoneState = v16;
+        g_microphoneState = v21;
         g_pillState = 0;
         g_keyboardState = 0;
-        v52 = -1;
-        if (!notify_register_dispatch("com.apple.keyboard.isOnScreen", &v52, s_mediaSafetyNetQueue, &__block_literal_global_13))
+        v59 = -1;
+        if (!notify_register_dispatch("com.apple.keyboard.isOnScreen", &v59, s_mediaSafetyNetQueue, &__block_literal_global_13))
         {
-          __MSNMonitorStartServerMode_block_invoke(0, v52);
+          __MSNMonitorStartServerMode_block_invoke(0, v59);
         }
 
-        v5 = [MEMORY[0x277D0AD20] configurationForDefaultMainDisplayMonitor];
-        [v5 setNeedsUserInteractivePriority:1];
-        [v5 setTransitionHandler:&__block_literal_global_18];
-        v17 = [MEMORY[0x277D0AD08] monitorWithConfiguration:v5];
-        v18 = s_monitor;
-        s_monitor = v17;
+        v6 = [MEMORY[0x277D0AD20] configurationForDefaultMainDisplayMonitor];
+        [v6 setNeedsUserInteractivePriority:1];
+        [v6 setTransitionHandler:&__block_literal_global_18];
+        v22 = [MEMORY[0x277D0AD08] monitorWithConfiguration:v6];
+        v23 = s_monitor;
+        s_monitor = v22;
 
         if (g_serverMode <= 1)
         {
-          v19 = objc_opt_new();
-          v20 = s_carplay;
-          s_carplay = v19;
+          v24 = objc_opt_new();
+          v25 = s_carplay;
+          s_carplay = v24;
         }
 
-        v21 = [MSNScopedExceptionsServer alloc];
-        v22 = [(MSNScopedExceptionsServer *)v21 initWithQueue:s_mediaSafetyNetQueue];
-        v23 = s_exceptions;
-        s_exceptions = v22;
+        v26 = [MSNScopedExceptionsServer alloc];
+        v27 = [(MSNScopedExceptionsServer *)v26 initWithQueue:s_mediaSafetyNetQueue];
+        v28 = s_exceptions;
+        s_exceptions = v27;
 
-        v24 = [MSNPillDataSourceServer alloc];
-        v25 = [(MSNPillDataSourceServer *)v24 initWithQueue:s_mediaSafetyNetQueue];
-        v26 = s_pillDataSource;
-        s_pillDataSource = v25;
+        v29 = [MSNPillDataSourceServer alloc];
+        v30 = [(MSNPillDataSourceServer *)v29 initWithQueue:s_mediaSafetyNetQueue];
+        v31 = s_pillDataSource;
+        s_pillDataSource = v30;
 
-        if (os_variant_allows_internal_security_policies())
+        state = os_variant_allows_internal_security_policies();
+        if (state)
         {
           *buf = 0;
           if (g_microphoneState != 3)
           {
-            v27 = MSNLog();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+            v33 = MSNLog(state);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
             {
               LOWORD(token) = 0;
-              _os_log_impl(&dword_258731000, v27, OS_LOG_TYPE_INFO, "Installing internal microphone override", &token, 2u);
+              _os_log_impl(&dword_258731000, v33, OS_LOG_TYPE_INFO, "Installing internal microphone override", &token, 2u);
             }
 
             token = -1;
@@ -2025,16 +2059,16 @@ LABEL_19:
               MSNMonitorStartServerMode_cold_3();
             }
 
-            notify_get_state(token, buf);
+            state = notify_get_state(token, buf);
           }
 
           if (g_cameraState != 3)
           {
-            v28 = MSNLog();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+            v34 = MSNLog(state);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
               LOWORD(token) = 0;
-              _os_log_impl(&dword_258731000, v28, OS_LOG_TYPE_INFO, "Installing internal camera override", &token, 2u);
+              _os_log_impl(&dword_258731000, v34, OS_LOG_TYPE_INFO, "Installing internal camera override", &token, 2u);
             }
 
             token = -1;
@@ -2053,15 +2087,15 @@ LABEL_19:
           }
         }
 
-        v29 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, s_mediaSafetyNetQueue);
-        v30 = s_timer;
-        s_timer = v29;
+        v35 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, s_mediaSafetyNetQueue);
+        v36 = s_timer;
+        s_timer = v35;
 
-        v31 = s_timer;
+        v38 = s_timer;
         if (s_timer)
         {
-          v32 = dispatch_time(0, 1000000000);
-          dispatch_source_set_timer(v31, v32, 0x3B9ACA00uLL, 0x5F5E100uLL);
+          v39 = dispatch_time(0, 1000000000);
+          dispatch_source_set_timer(v38, v39, 0x3B9ACA00uLL, 0x5F5E100uLL);
           dispatch_source_set_event_handler(s_timer, &__block_literal_global_51);
           dispatch_resume(s_timer);
 LABEL_47:
@@ -2070,56 +2104,55 @@ LABEL_47:
         }
 
         qword_27F958928 = "Failed to create timer";
-        v36 = MSNLog();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v43 = MSNLog(v37);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          MSNMonitorStartServerMode_cold_6(v36, v44, v45, v46, v47, v48, v49, v50);
+          MSNMonitorStartServerMode_cold_6(v43, v51, v52, v53, v54, v55, v56, v57);
         }
       }
 
       else
       {
         qword_27F958928 = "Unexpected NULL dispatch queue.";
-        v36 = MSNLog();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v43 = MSNLog(v19);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          MSNMonitorStartServerMode_cold_7(v36, v37, v38, v39, v40, v41, v42, v43);
+          MSNMonitorStartServerMode_cold_7(v43, v44, v45, v46, v47, v48, v49, v50);
         }
       }
 
       abort();
     }
 
-    v6 = MSNLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = MSNLog(3460419847);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v7 = "Not using MediaSafetyNet on specific devices.";
+      v9 = "Not using MediaSafetyNet on specific devices.";
       goto LABEL_50;
     }
   }
 
 LABEL_51:
 
-  v33 = MSNLog();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  v41 = MSNLog(v40);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_258731000, v33, OS_LOG_TYPE_INFO, "Not using MediaSafetyNet on this device.", buf, 2u);
+    _os_log_impl(&dword_258731000, v41, OS_LOG_TYPE_INFO, "Not using MediaSafetyNet on this device.", buf, 2u);
   }
 
   s_mediaSafetyNetDisabledOnThisHardware = 1;
 LABEL_54:
   objc_autoreleasePoolPop(v2);
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-char *ServerModeDescription(unsigned int a1)
+char *ServerModeDescription(uint64_t a1)
 {
   if (a1 >= 3)
   {
     qword_27F958928 = "Unknown mode";
-    v2 = MSNLog();
+    v2 = MSNLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       ServerModeDescription_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -2131,12 +2164,12 @@ char *ServerModeDescription(unsigned int a1)
   return off_2798A3EC8[a1];
 }
 
-char *FailureModeDescription(unsigned int a1)
+char *FailureModeDescription(uint64_t a1)
 {
   if (a1 >= 6)
   {
     qword_27F958928 = "Unknown mode";
-    v2 = MSNLog();
+    v2 = MSNLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       ServerModeDescription_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -2148,12 +2181,12 @@ char *FailureModeDescription(unsigned int a1)
   return off_2798A3EE0[a1];
 }
 
-char *KeyboardStateDescription(unsigned int a1)
+char *KeyboardStateDescription(uint64_t a1)
 {
   if (a1 >= 3)
   {
     qword_27F958928 = "Unknown state";
-    v2 = MSNLog();
+    v2 = MSNLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __MSNMonitorStartServerMode_block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -2165,12 +2198,12 @@ char *KeyboardStateDescription(unsigned int a1)
   return off_2798A3F10[a1];
 }
 
-char *UIStateDescription(unsigned int a1)
+char *UIStateDescription(uint64_t a1)
 {
   if (a1 >= 4)
   {
     qword_27F958928 = "Unknown state";
-    v2 = MSNLog();
+    v2 = MSNLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __MSNMonitorStartServerMode_block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -2205,7 +2238,7 @@ void __MSNMonitorStartServerMode_block_invoke_34(uint64_t a1, int a2)
 {
   v20 = *MEMORY[0x277D85DE8];
   g_production = 0;
-  v3 = MSNLog();
+  v3 = MSNLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -2230,13 +2263,14 @@ void __MSNMonitorStartServerMode_block_invoke_34(uint64_t a1, int a2)
   }
 
   g_microphoneState = v5;
-  v6 = MSNLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v6 = MSNLog(state);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  if (v7)
   {
     if (g_microphoneState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v9 = MSNLog();
+      v9 = MSNLog(v7);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __MSNMonitorStartServerMode_block_invoke_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
@@ -2245,21 +2279,19 @@ void __MSNMonitorStartServerMode_block_invoke_34(uint64_t a1, int a2)
       abort();
     }
 
-    v7 = off_2798A3F48[g_microphoneState];
+    v8 = off_2798A3F48[g_microphoneState];
     *buf = 136315138;
-    v19 = v7;
+    v19 = v8;
     _os_log_impl(&dword_258731000, v6, OS_LOG_TYPE_INFO, "Updated microphone state: %s", buf, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-char *MicrophoneStateDescription(unsigned int a1)
+char *MicrophoneStateDescription(uint64_t a1)
 {
   if (a1 >= 4)
   {
     qword_27F958928 = "Unknown state";
-    v2 = MSNLog();
+    v2 = MSNLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __MSNMonitorStartServerMode_block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -2275,7 +2307,7 @@ void __MSNMonitorStartServerMode_block_invoke_40(uint64_t a1, int a2)
 {
   v20 = *MEMORY[0x277D85DE8];
   g_production = 0;
-  v3 = MSNLog();
+  v3 = MSNLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -2300,13 +2332,14 @@ void __MSNMonitorStartServerMode_block_invoke_40(uint64_t a1, int a2)
   }
 
   g_cameraState = v5;
-  v6 = MSNLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v6 = MSNLog(state);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  if (v7)
   {
     if (g_cameraState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v9 = MSNLog();
+      v9 = MSNLog(v7);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __MSNMonitorStartServerMode_block_invoke_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
@@ -2315,46 +2348,46 @@ void __MSNMonitorStartServerMode_block_invoke_40(uint64_t a1, int a2)
       abort();
     }
 
-    v7 = off_2798A3F48[g_cameraState];
+    v8 = off_2798A3F48[g_cameraState];
     *buf = 136315138;
-    v19 = v7;
+    v19 = v8;
     _os_log_impl(&dword_258731000, v6, OS_LOG_TYPE_INFO, "Updated camera state: %s", buf, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __MSNMonitorStartServerMode_block_invoke_44(int a1, int token)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   g_production = 0;
   state64 = 0;
-  if (!notify_get_state(token, &state64))
+  state = notify_get_state(token, &state64);
+  if (!state)
   {
     if (state64)
     {
       g_pillState = state64;
       s_lockPill = 1;
-      v2 = MSNLog();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = MSNLog(state);
+      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
+      if (v4)
       {
         if (g_pillState < 3)
         {
-          v3 = off_2798A3F68[g_pillState];
+          v5 = off_2798A3F68[g_pillState];
           *buf = 136315138;
-          v17 = v3;
-          v4 = "Updated pill state: %s";
+          v19 = v5;
+          v6 = "Updated pill state: %s";
 LABEL_9:
-          _os_log_impl(&dword_258731000, v2, OS_LOG_TYPE_INFO, v4, buf, 0xCu);
+          _os_log_impl(&dword_258731000, v3, OS_LOG_TYPE_INFO, v6, buf, 0xCu);
           goto LABEL_10;
         }
 
         qword_27F958928 = "Unknown state";
-        v7 = MSNLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v9 = MSNLog(v4);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
 LABEL_15:
-          __MSNMonitorStartServerMode_block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
+          __MSNMonitorStartServerMode_block_invoke_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
         }
 
 LABEL_16:
@@ -2367,21 +2400,22 @@ LABEL_16:
     {
       s_lockPill = 0;
       g_pillState = 0;
-      v2 = MSNLog();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = MSNLog(state);
+      v7 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
+      if (v7)
       {
         if (g_pillState < 3)
         {
-          v5 = off_2798A3F68[g_pillState];
+          v8 = off_2798A3F68[g_pillState];
           *buf = 136315138;
-          v17 = v5;
-          v4 = "Reset pill state: %s";
+          v19 = v8;
+          v6 = "Reset pill state: %s";
           goto LABEL_9;
         }
 
         qword_27F958928 = "Unknown state";
-        v7 = MSNLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v9 = MSNLog(v7);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_15;
         }
@@ -2392,16 +2426,14 @@ LABEL_16:
 
 LABEL_10:
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-char *PillStateDescription(unsigned int a1)
+char *PillStateDescription(uint64_t a1)
 {
   if (a1 >= 3)
   {
     qword_27F958928 = "Unknown state";
-    v2 = MSNLog();
+    v2 = MSNLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __MSNMonitorStartServerMode_block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -2415,7 +2447,7 @@ char *PillStateDescription(unsigned int a1)
 
 void __MSNFailureMode_block_invoke()
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyExistsAndHasValidFormat = 0;
   AppIntegerValue = CFPreferencesGetAppIntegerValue(@"MediaSafetyNetFailureMode", @"com.apple.mediaserverd", &keyExistsAndHasValidFormat);
   if (keyExistsAndHasValidFormat)
@@ -2429,62 +2461,64 @@ void __MSNFailureMode_block_invoke()
   }
 
   MSNFailureMode_failureMode = v1;
-  if (os_variant_allows_internal_security_policies())
+  v2 = os_variant_allows_internal_security_policies();
+  if (v2)
   {
-    memset(&v16, 0, sizeof(v16));
-    if (!stat("/var/db/internal_disable_mediasafetynet_cookie", &v16))
+    memset(&v17, 0, sizeof(v17));
+    v2 = stat("/var/db/internal_disable_mediasafetynet_cookie", &v17);
+    if (!v2)
     {
-      v2 = MSNLog();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v3 = MSNLog(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        __MSNFailureMode_block_invoke_cold_1(v2);
+        __MSNFailureMode_block_invoke_cold_1(v3);
       }
 
       MSNFailureMode_failureMode = 1;
     }
   }
 
-  v3 = MSNLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = MSNLog(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+  if (v5)
   {
     if (MSNFailureMode_failureMode >= 6)
     {
       qword_27F958928 = "Unknown mode";
-      v7 = MSNLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = MSNLog(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        ServerModeDescription_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
+        ServerModeDescription_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
       }
 
       abort();
     }
 
-    v4 = "";
-    v5 = off_2798A3EE0[MSNFailureMode_failureMode];
+    v6 = "";
+    v7 = off_2798A3EE0[MSNFailureMode_failureMode];
     if (!keyExistsAndHasValidFormat)
     {
-      v4 = " default";
+      v6 = " default";
     }
 
-    v16.st_dev = 136315394;
-    *&v16.st_mode = v4;
-    WORD2(v16.st_ino) = 2080;
-    *(&v16.st_ino + 6) = v5;
-    _os_log_impl(&dword_258731000, v3, OS_LOG_TYPE_INFO, "MediaSafetyNet%s failure mode: %s", &v16, 0x16u);
+    v17.st_dev = 136315394;
+    *&v17.st_mode = v6;
+    WORD2(v17.st_ino) = 2080;
+    *(&v17.st_ino + 6) = v7;
+    _os_log_impl(&dword_258731000, v4, OS_LOG_TYPE_INFO, "MediaSafetyNet%s failure mode: %s", &v17, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t HotCameraAllowed()
 {
-  if (_AXSSwitchControlEnabledAndNeedsCameraOnLockScreen())
+  v0 = _AXSSwitchControlEnabledAndNeedsCameraOnLockScreen();
+  if (v0)
   {
-    v0 = MSNLog();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v1 = MSNLog(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_258731000, v0, OS_LOG_TYPE_INFO, "Switch Control enabled.", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_258731000, v1, OS_LOG_TYPE_INFO, "Switch Control enabled.", v4, 2u);
     }
 
     return 1;
@@ -2495,22 +2529,22 @@ uint64_t HotCameraAllowed()
     return 1;
   }
 
-  v2 = s_exceptions;
+  v3 = s_exceptions;
 
-  return [v2 isExceptionInEffect:0x2869B3B68];
+  return [v3 isExceptionInEffect:0x2869B3B68];
 }
 
-void __MSNStateFailureWithMode_block_invoke()
+void __MSNStateFailureWithMode_block_invoke(uint64_t a1)
 {
-  v82[7] = *MEMORY[0x277D85DE8];
+  v84[7] = *MEMORY[0x277D85DE8];
   if (g_production == 1)
   {
-    v81[0] = @"Mic";
+    v83[0] = @"Mic";
     if (g_microphoneState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v37 = MSNLog();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v39 = MSNLog(a1);
+      if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_85;
       }
@@ -2518,14 +2552,14 @@ void __MSNStateFailureWithMode_block_invoke()
 
     else
     {
-      v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F48[g_microphoneState]];
-      v82[0] = v0;
-      v81[1] = @"Cam";
+      v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F48[g_microphoneState]];
+      v84[0] = v1;
+      v83[1] = @"Cam";
       if (g_cameraState >= 4)
       {
         qword_27F958928 = "Unknown state";
-        v37 = MSNLog();
-        if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v39 = MSNLog(v1);
+        if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_85;
         }
@@ -2533,41 +2567,41 @@ void __MSNStateFailureWithMode_block_invoke()
 
       else
       {
-        v1 = v0;
-        v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F48[g_cameraState]];
-        v82[1] = v2;
-        v81[2] = @"MicClient";
+        v2 = v1;
+        v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F48[g_cameraState]];
+        v84[1] = v3;
+        v83[2] = @"MicClient";
         if (g_microphoneClient)
         {
-          v3 = g_microphoneClient;
+          v4 = g_microphoneClient;
         }
 
         else
         {
-          v3 = "None";
+          v4 = "None";
         }
 
-        v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:v3];
-        v82[2] = v4;
-        v81[3] = @"CamClient";
+        v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v4];
+        v84[2] = v5;
+        v83[3] = @"CamClient";
         if (g_cameraClient)
         {
-          v5 = g_cameraClient;
+          v6 = g_cameraClient;
         }
 
         else
         {
-          v5 = "None";
+          v6 = "None";
         }
 
-        v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
-        v82[3] = v6;
-        v81[4] = @"Pill";
+        v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
+        v84[3] = v7;
+        v83[4] = @"Pill";
         if (g_pillState >= 3)
         {
           qword_27F958928 = "Unknown state";
-          v37 = MSNLog();
-          if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v39 = MSNLog(v7);
+          if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_85;
           }
@@ -2575,15 +2609,15 @@ void __MSNStateFailureWithMode_block_invoke()
 
         else
         {
-          v7 = v6;
-          v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F68[g_pillState]];
-          v82[4] = v8;
-          v81[5] = @"UI";
+          v8 = v7;
+          v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F68[g_pillState]];
+          v84[4] = v9;
+          v83[5] = @"UI";
           if (g_uiState >= 4)
           {
             qword_27F958928 = "Unknown state";
-            v37 = MSNLog();
-            if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v39 = MSNLog(v9);
+            if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_85;
             }
@@ -2591,24 +2625,24 @@ void __MSNStateFailureWithMode_block_invoke()
 
           else
           {
-            v9 = v8;
-            v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F28[g_uiState]];
-            v82[5] = v10;
-            v81[6] = @"Kbd";
+            v10 = v9;
+            v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F28[g_uiState]];
+            v84[5] = v11;
+            v83[6] = @"Kbd";
             if (g_keyboardState < 3)
             {
-              v11 = v10;
-              v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F10[g_keyboardState]];
-              v82[6] = v12;
-              v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:7];
+              v12 = v11;
+              v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:off_2798A3F10[g_keyboardState]];
+              v84[6] = v13;
+              v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:7];
               AnalyticsSendEvent();
 
               goto LABEL_14;
             }
 
             qword_27F958928 = "Unknown state";
-            v37 = MSNLog();
-            if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v39 = MSNLog(v11);
+            if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_85;
             }
@@ -2617,35 +2651,36 @@ void __MSNStateFailureWithMode_block_invoke()
       }
     }
 
-    __MSNMonitorStartServerMode_block_invoke_cold_1(v37, v52, v53, v54, v55, v56, v57, v58);
+    __MSNMonitorStartServerMode_block_invoke_cold_1(v39, v54, v55, v56, v57, v58, v59, v60);
     goto LABEL_85;
   }
 
 LABEL_14:
-  v14 = MSNLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = MSNLog(a1);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    __MSNStateFailureWithMode_block_invoke_cold_6(v14);
+    __MSNStateFailureWithMode_block_invoke_cold_6(v15);
   }
 
-  v15 = MSNLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+  v17 = MSNLog(v16);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_FAULT);
+  if (v18)
   {
     if (g_production)
     {
-      v26 = "";
+      v28 = "";
     }
 
     else
     {
-      v26 = "Testing: ";
+      v28 = "Testing: ";
     }
 
     if (g_uiState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v37 = MSNLog();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v39 = MSNLog(v18);
+      if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_85;
       }
@@ -2656,8 +2691,8 @@ LABEL_14:
     if (g_cameraState >= 4)
     {
       qword_27F958928 = "Unknown state";
-      v37 = MSNLog();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v39 = MSNLog(v18);
+      if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_85;
       }
@@ -2665,36 +2700,8 @@ LABEL_14:
       goto LABEL_74;
     }
 
-    v27 = g_cameraClient;
+    v29 = g_cameraClient;
     if (g_cameraClient)
-    {
-      v28 = ":";
-    }
-
-    else
-    {
-      v28 = "";
-    }
-
-    if (!g_cameraClient)
-    {
-      v27 = "";
-    }
-
-    if (g_microphoneState >= 4)
-    {
-      qword_27F958928 = "Unknown state";
-      v37 = MSNLog();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_85;
-      }
-
-      goto LABEL_74;
-    }
-
-    v29 = g_microphoneClient;
-    if (g_microphoneClient)
     {
       v30 = ":";
     }
@@ -2704,16 +2711,44 @@ LABEL_14:
       v30 = "";
     }
 
-    if (!g_microphoneClient)
+    if (!g_cameraClient)
     {
       v29 = "";
+    }
+
+    if (g_microphoneState >= 4)
+    {
+      qword_27F958928 = "Unknown state";
+      v39 = MSNLog(v18);
+      if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_85;
+      }
+
+      goto LABEL_74;
+    }
+
+    v31 = g_microphoneClient;
+    if (g_microphoneClient)
+    {
+      v32 = ":";
+    }
+
+    else
+    {
+      v32 = "";
+    }
+
+    if (!g_microphoneClient)
+    {
+      v31 = "";
     }
 
     if (g_pillState >= 3)
     {
       qword_27F958928 = "Unknown state";
-      v37 = MSNLog();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v39 = MSNLog(v18);
+      if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_85;
       }
@@ -2723,49 +2758,49 @@ LABEL_14:
 
     if (g_keyboardState < 3)
     {
-      v31 = off_2798A3F28[g_uiState];
-      v32 = off_2798A3F48[g_cameraState];
-      v33 = off_2798A3F48[g_microphoneState];
-      v34 = off_2798A3F68[g_pillState];
-      v35 = off_2798A3F10[g_keyboardState];
-      v36 = g_cameraExceptionState;
+      v33 = off_2798A3F28[g_uiState];
+      v34 = off_2798A3F48[g_cameraState];
+      v35 = off_2798A3F48[g_microphoneState];
+      v36 = off_2798A3F68[g_pillState];
+      v37 = off_2798A3F10[g_keyboardState];
+      v38 = g_cameraExceptionState;
       if (!g_cameraExceptionState)
       {
-        v36 = "None";
+        v38 = "None";
       }
 
       *buf = 136317698;
-      v60 = v26;
-      v61 = 2080;
-      v62 = v31;
+      v62 = v28;
       v63 = 2080;
-      v64 = v32;
+      v64 = v33;
       v65 = 2080;
-      v66 = v28;
+      v66 = v34;
       v67 = 2080;
-      v68 = v27;
+      v68 = v30;
       v69 = 2080;
-      v70 = v33;
+      v70 = v29;
       v71 = 2080;
-      v72 = v30;
+      v72 = v35;
       v73 = 2080;
-      v74 = v29;
+      v74 = v32;
       v75 = 2080;
-      v76 = v34;
+      v76 = v31;
       v77 = 2080;
-      v78 = v35;
+      v78 = v36;
       v79 = 2080;
-      v80 = v36;
-      _os_log_fault_impl(&dword_258731000, v15, OS_LOG_TYPE_FAULT, "MediaSafetyNet failure with states: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s)", buf, 0x70u);
+      v80 = v37;
+      v81 = 2080;
+      v82 = v38;
+      _os_log_fault_impl(&dword_258731000, v17, OS_LOG_TYPE_FAULT, "MediaSafetyNet failure with states: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s)", buf, 0x70u);
       goto LABEL_17;
     }
 
     qword_27F958928 = "Unknown state";
-    v37 = MSNLog();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v39 = MSNLog(v18);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
 LABEL_74:
-      __MSNMonitorStartServerMode_block_invoke_cold_1(v37, v45, v46, v47, v48, v49, v50, v51);
+      __MSNMonitorStartServerMode_block_invoke_cold_1(v39, v47, v48, v49, v50, v51, v52, v53);
     }
 
 LABEL_85:
@@ -2775,26 +2810,26 @@ LABEL_85:
 
 LABEL_17:
 
-  v16 = +[MSNTTR sharedInstance];
+  v19 = +[MSNTTR sharedInstance];
   if (g_uiState >= 4)
   {
     qword_27F958928 = "Unknown state";
-    v37 = MSNLog();
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v39 = MSNLog(v19);
+    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_85;
     }
 
 LABEL_64:
-    __MSNMonitorStartServerMode_block_invoke_cold_1(v37, v38, v39, v40, v41, v42, v43, v44);
+    __MSNMonitorStartServerMode_block_invoke_cold_1(v39, v40, v41, v42, v43, v44, v45, v46);
     goto LABEL_85;
   }
 
   if (g_cameraState >= 4)
   {
     qword_27F958928 = "Unknown state";
-    v37 = MSNLog();
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v39 = MSNLog(v19);
+    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_85;
     }
@@ -2805,8 +2840,8 @@ LABEL_64:
   if (g_microphoneState >= 4)
   {
     qword_27F958928 = "Unknown state";
-    v37 = MSNLog();
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v39 = MSNLog(v19);
+    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_85;
     }
@@ -2817,8 +2852,8 @@ LABEL_64:
   if (g_pillState >= 3)
   {
     qword_27F958928 = "Unknown state";
-    v37 = MSNLog();
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v39 = MSNLog(v19);
+    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_85;
     }
@@ -2829,8 +2864,8 @@ LABEL_64:
   if (g_keyboardState >= 3)
   {
     qword_27F958928 = "Unknown state";
-    v37 = MSNLog();
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v39 = MSNLog(v19);
+    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_85;
     }
@@ -2838,51 +2873,49 @@ LABEL_64:
     goto LABEL_64;
   }
 
-  v17 = v16;
-  v18 = g_cameraClient;
-  v19 = g_microphoneClient;
+  v20 = v19;
+  v21 = g_cameraClient;
+  v22 = g_microphoneClient;
   if (g_microphoneClient)
   {
-    v20 = ":";
+    v23 = ":";
   }
 
   else
   {
-    v19 = "";
-    v20 = "";
+    v22 = "";
+    v23 = "";
   }
 
   if (g_cameraClient)
   {
-    v21 = ":";
+    v24 = ":";
   }
 
   else
   {
-    v18 = "";
     v21 = "";
+    v24 = "";
   }
 
   if (g_production)
   {
-    v22 = "";
+    v25 = "";
   }
 
   else
   {
-    v22 = "Testing: ";
+    v25 = "Testing: ";
   }
 
-  v23 = g_cameraExceptionState;
+  v26 = g_cameraExceptionState;
   if (!g_cameraExceptionState)
   {
-    v23 = "None";
+    v26 = "None";
   }
 
-  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"MediaSafetyNet: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s)", v22, off_2798A3F28[g_uiState], off_2798A3F48[g_cameraState], v21, v18, off_2798A3F48[g_microphoneState], v20, v19, off_2798A3F68[g_pillState], off_2798A3F10[g_keyboardState], v23];
-  [v17 beginTTRWithTitle:v24];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"MediaSafetyNet: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s)", v25, off_2798A3F28[g_uiState], off_2798A3F48[g_cameraState], v24, v21, off_2798A3F48[g_microphoneState], v23, v22, off_2798A3F68[g_pillState], off_2798A3F10[g_keyboardState], v26];
+  [v20 beginTTRWithTitle:v27];
 }
 
 void __MSNStateFailureWithMode_block_invoke_157()
@@ -2910,27 +2943,30 @@ uint64_t __MSNPeriodicLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x70u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x70u);
 }
 
 void CarPlayNotificationCallback(int a1, uint64_t a2, int a3, int a4, CFTypeRef cf)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = CFGetTypeID(cf);
-  if (v7 != CFDictionaryGetTypeID())
+  TypeID = CFDictionaryGetTypeID();
+  if (v7 != TypeID)
   {
     qword_27F958928 = "Unexpected notification payload type";
-    v12 = MSNLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = MSNLog(TypeID);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       CarPlayNotificationCallback_cold_1();
     }
@@ -2941,19 +2977,19 @@ LABEL_11:
   }
 
   Value = CFDictionaryGetValue(cf, *MEMORY[0x277D26E80]);
-  v9 = MSNLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = MSNLog(Value);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v15 = CFBooleanGetValue(Value);
-    _os_log_impl(&dword_258731000, v9, OS_LOG_TYPE_INFO, "Received notification of CarPlay status: %{BOOL}d", buf, 8u);
+    v16 = CFBooleanGetValue(Value);
+    _os_log_impl(&dword_258731000, v10, OS_LOG_TYPE_INFO, "Received notification of CarPlay status: %{BOOL}d", buf, 8u);
   }
 
-  if (!Value || (v10 = CFGetTypeID(Value), v10 != CFBooleanGetTypeID()))
+  if (!Value || (v12 = CFGetTypeID(Value), v11 = CFBooleanGetTypeID(), v12 != v11))
   {
     qword_27F958928 = "Unexpected notification payload type";
-    v12 = MSNLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = MSNLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       CarPlayNotificationCallback_cold_1();
     }
@@ -2961,35 +2997,33 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __CarPlayNotificationCallback_block_invoke;
-  v13[3] = &__block_descriptor_48_e5_v8__0l;
-  v13[4] = a2;
-  v13[5] = Value;
-  dispatch_async(s_mediaSafetyNetQueue, v13);
-  v11 = *MEMORY[0x277D85DE8];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __CarPlayNotificationCallback_block_invoke;
+  v14[3] = &__block_descriptor_48_e5_v8__0l;
+  v14[4] = a2;
+  v14[5] = Value;
+  dispatch_async(s_mediaSafetyNetQueue, v14);
 }
 
 void __CarPlayNotificationCallback_block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  *(*(a1 + 32) + 8) = CFBooleanGetValue(*(a1 + 40)) != 0;
-  v2 = MSNLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  Value = CFBooleanGetValue(*(a1 + 40));
+  *(*(a1 + 32) + 8) = Value != 0;
+  v3 = MSNLog(Value);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    Value = CFBooleanGetValue(*(a1 + 40));
+    v4 = CFBooleanGetValue(*(a1 + 40));
     v5[0] = 67109120;
-    v5[1] = Value;
-    _os_log_impl(&dword_258731000, v2, OS_LOG_TYPE_INFO, "Updated CarPlay status to: %{BOOL}d", v5, 8u);
+    v5[1] = v4;
+    _os_log_impl(&dword_258731000, v3, OS_LOG_TYPE_INFO, "Updated CarPlay status to: %{BOOL}d", v5, 8u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void sub_258739700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_258739700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3002,23 +3036,23 @@ void MSNTTRUserNotificationCallback(uint64_t a1, uint64_t a2)
 
 void *__getSBUserNotificationDismissOnLockSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!SpringBoardServicesLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __SpringBoardServicesLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_2798A3FC0;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __SpringBoardServicesLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_2798A3FC0;
+    v7 = 0;
     SpringBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = SpringBoardServicesLibraryCore_frameworkLibrary;
     if (SpringBoardServicesLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -3026,7 +3060,7 @@ void *__getSBUserNotificationDismissOnLockSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -3038,38 +3072,34 @@ LABEL_5:
   result = dlsym(v2, "SBUserNotificationDismissOnLock");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getSBUserNotificationDismissOnLockSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __SpringBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getLSApplicationWorkspaceClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!MobileCoreServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __MobileCoreServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2798A3FD8;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __MobileCoreServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2798A3FD8;
+    v6 = 0;
     MobileCoreServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (MobileCoreServicesLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -3077,7 +3107,7 @@ Class __getLSApplicationWorkspaceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -3092,100 +3122,100 @@ LABEL_4:
   }
 
   getLSApplicationWorkspaceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __MobileCoreServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MobileCoreServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void __MSNMonitorSetLastCameraClient_block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = g_cameraClient;
-  _os_log_debug_impl(&dword_258731000, log, OS_LOG_TYPE_DEBUG, "Last camera client: %s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = g_cameraClient;
+  _os_log_debug_impl(&dword_258731000, log, OS_LOG_TYPE_DEBUG, "Last camera client: %s", &v1, 0xCu);
 }
 
 void MSNMonitorStart_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Not reachable";
+  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void MSNMonitorStartServerMode_cold_1(NSObject *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109376;
-  v3[1] = _os_feature_enabled_impl();
-  v4 = 1024;
-  v5 = _os_feature_enabled_impl();
-  _os_log_debug_impl(&dword_258731000, a1, OS_LOG_TYPE_DEBUG, "Separate Cam: %i Separate Mic: %i", v3, 0xEu);
-  v2 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109376;
+  v2[1] = _os_feature_enabled_impl();
+  v3 = 1024;
+  v4 = _os_feature_enabled_impl();
+  _os_log_debug_impl(&dword_258731000, a1, OS_LOG_TYPE_DEBUG, "Separate Cam: %i Separate Mic: %i", v2, 0xEu);
 }
 
 void MSNMonitorStartServerMode_cold_6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Failed to create timer";
+  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void MSNMonitorStartServerMode_cold_7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Unexpected NULL dispatch queue.";
+  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ServerModeDescription_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Unknown mode";
+  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __MSNMonitorStartServerMode_block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Unknown state";
+  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __MSNMonitorStartServerMode_block_invoke_49_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Expected at least one hot sensor.";
+  OUTLINED_FUNCTION_1_0(&dword_258731000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __MSNMonitorStartServerMode_block_invoke_49_cold_11()
+{
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_3();
+  UIStateDescription(g_uiState);
+  MicrophoneStateDescription(g_cameraState);
+  MicrophoneStateDescription(g_microphoneState);
+  PillStateDescription(g_pillState);
+  KeyboardStateDescription(g_keyboardState);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2(&dword_258731000, v0, v1, "MediaSafetyNet failure with states: %sUI(%s) Cam(%s%s%s) Mic(%s%s%s) Pill(%s) Kbd(%s) CameraException(%s)", v2, v3, v4, v5);
+  OUTLINED_FUNCTION_4();
 }
 
 void __MSNMonitorStartServerMode_block_invoke_49_cold_12(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_1_0(&dword_258731000, a2, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void CarPlayNotificationCallback_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1_0(&dword_258731000, a2, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }

@@ -132,8 +132,9 @@
   v17 = *MEMORY[0x1E69E9840];
   v3 = +[BDSSyncUserDefaults isSignedIntoICloud];
   v4 = +[BDSSyncUserDefaults isCloudKitSyncOptedIn];
-  v5 = BDSCloudKitLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = v4;
+  v6 = BDSCloudKitLog(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     if (v3)
     {
@@ -145,7 +146,7 @@
       v8 = @"NO";
     }
 
-    if (v4)
+    if (v5)
     {
       v9 = @"YES";
     }
@@ -171,12 +172,10 @@
     v14 = v9;
     v15 = 2112;
     v16 = v10;
-    _os_log_debug_impl(&dword_1E45E0000, v5, OS_LOG_TYPE_DEBUG, "BDSLiverpoolStatusMonitor: dq_isCloudKitEnabled: signedIn = %@, cloudKit = %@, optedIn = %@", &v11, 0x20u);
+    _os_log_debug_impl(&dword_1E45E0000, v6, OS_LOG_TYPE_DEBUG, "BDSLiverpoolStatusMonitor: dq_isCloudKitEnabled: signedIn = %@, cloudKit = %@, optedIn = %@", &v11, 0x20u);
   }
 
-  result = v3 && v4 && [(BDSLiverpoolStatusMonitor *)self optedIn];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (v3 & v5) == 1 && [(BDSLiverpoolStatusMonitor *)self optedIn];
 }
 
 - (void)dq_archiveCurrentICloudIdentityToken
@@ -207,7 +206,7 @@
 
 - (void)updateWithOptedIn:(BOOL)in
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   isCloudKitEnabled = [(BDSLiverpoolStatusMonitor *)self isCloudKitEnabled];
   optedInKnown = [(BDSLiverpoolStatusMonitor *)self optedInKnown];
   if (in)
@@ -227,8 +226,7 @@
     [(BDSLiverpoolStatusMonitor *)self p_iCloudIdentityDidChange:0];
   }
 
-  [(BDSLiverpoolStatusMonitor *)self refreshICloudTokensAndUpdateWithOptedIn:isPrimaryAccountManagedAppleID];
-  v9 = BDSCloudKitLog();
+  v9 = BDSCloudKitLog([(BDSLiverpoolStatusMonitor *)self refreshICloudTokensAndUpdateWithOptedIn:isPrimaryAccountManagedAppleID]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     if ([(BDSLiverpoolStatusMonitor *)self isCloudKitEnabled])
@@ -251,14 +249,12 @@
       v11 = @"NO";
     }
 
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v11;
-    _os_log_impl(&dword_1E45E0000, v9, OS_LOG_TYPE_INFO, "BCLiverpoolStatusMonitor CloudKit=%{public}@ optedIn=%{public}@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2114;
+    v15 = v11;
+    _os_log_impl(&dword_1E45E0000, v9, OS_LOG_TYPE_INFO, "BCLiverpoolStatusMonitor CloudKit=%{public}@ optedIn=%{public}@", &v12, 0x16u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshICloudTokensAndUpdateWithOptedIn:(BOOL)in
@@ -393,30 +389,30 @@
 
 - (void)_notifyObserversWithCurrentToken:(id)token lastToken:(id)lastToken
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   lastTokenCopy = lastToken;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   observers = [(BDSLiverpoolStatusMonitor *)self observers];
-  v8 = [observers countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [observers countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(observers);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
+        v12 = *(*(&v24 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           notifyQueue = [(BDSLiverpoolStatusMonitor *)self notifyQueue];
@@ -425,8 +421,8 @@
           block[2] = sub_1E462AFE4;
           block[3] = &unk_1E8759FE0;
           block[4] = v12;
-          v23 = tokenCopy;
-          v24 = lastTokenCopy;
+          v22 = tokenCopy;
+          v23 = lastTokenCopy;
           dispatch_async(notifyQueue, block);
         }
 
@@ -434,7 +430,7 @@
       }
 
       while (v9 != v11);
-      v9 = [observers countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [observers countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
@@ -444,17 +440,15 @@
   if (coordinatingObserver && (objc_opt_respondsToSelector() & 1) != 0)
   {
     notifyQueue2 = [(BDSLiverpoolStatusMonitor *)self notifyQueue];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_1E462AFF4;
-    v18[3] = &unk_1E8759FE0;
-    v19 = coordinatingObserver;
-    v20 = tokenCopy;
-    v21 = lastTokenCopy;
-    dispatch_async(notifyQueue2, v18);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_1E462AFF4;
+    v17[3] = &unk_1E8759FE0;
+    v18 = coordinatingObserver;
+    v19 = tokenCopy;
+    v20 = lastTokenCopy;
+    dispatch_async(notifyQueue2, v17);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description

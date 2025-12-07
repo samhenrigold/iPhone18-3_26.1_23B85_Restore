@@ -1,8 +1,61 @@
 @interface UIScrollView
 - (id)_simulateScrollWithTranslation:(CGPoint)translation numIterations:(int)iterations duration:(double)duration reversed:(BOOL)reversed;
+- (void)_performTranslationScrollTest:(id)test duration:(double)duration iterations:(int)iterations scrollAxis:(unint64_t)axis;
 @end
 
 @implementation UIScrollView
+
+- (void)_performTranslationScrollTest:(id)test duration:(double)duration iterations:(int)iterations scrollAxis:(unint64_t)axis
+{
+  v7 = *&iterations;
+  testCopy = test;
+  [(UIScrollView *)self contentSize];
+  if (axis == 1)
+  {
+    [(UIScrollView *)self contentOffset];
+    v13 = v12;
+    [(UIScrollView *)self contentSize];
+    if (v13 >= v14 * 0.5)
+    {
+      [(UIScrollView *)self contentOffset];
+      v18 = -v20;
+    }
+
+    else
+    {
+      [(UIScrollView *)self contentSize];
+      v16 = v15;
+      [(UIScrollView *)self contentOffset];
+      v18 = v16 - v17;
+    }
+
+    v19 = 0.0;
+  }
+
+  else
+  {
+    v19 = v11;
+    v18 = 0.0;
+  }
+
+  if (duration == -1.0)
+  {
+    v21 = fabs(v18) + fabs(v19);
+    duration = v21 / 400.0;
+  }
+
+  v22 = +[UIApplication sharedApplication];
+  [v22 startedTest:testCopy];
+
+  duration = [(UIScrollView *)self _simulateScrollWithTranslation:v7 numIterations:0 duration:v18 reversed:v19, duration];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_100022DD8;
+  v26[3] = &unk_1000C2280;
+  v27 = testCopy;
+  v24 = testCopy;
+  v25 = [duration addSuccessBlock:v26];
+}
 
 - (id)_simulateScrollWithTranslation:(CGPoint)translation numIterations:(int)iterations duration:(double)duration reversed:(BOOL)reversed
 {

@@ -10,18 +10,18 @@
 
 - (CLFindMyAccessoryWildConfiguration)initWithDesiredNextKeyRollDate:(id)date keyRollInterval:(unsigned int)interval keysRemainingInWildPeriod:(unsigned __int16)period wildPeriodKeyCount:(unsigned __int16)count
 {
-  v12.receiver = self;
-  v12.super_class = CLFindMyAccessoryWildConfiguration;
-  v10 = [(CLFindMyAccessoryWildConfiguration *)&v12 init];
-  if (v10)
+  v15.receiver = self;
+  v15.super_class = CLFindMyAccessoryWildConfiguration;
+  v13 = [(CLFindMyAccessoryWildConfiguration *)&v15 init];
+  if (v13)
   {
-    v10->_desiredKeyRollDate = [date copy];
-    v10->_keyRollInterval = interval;
-    v10->_keysRemaining = period;
-    v10->_keyCount = count;
+    v13->_desiredKeyRollDate = objc_msgSend_copy(date, v10, v11, v12);
+    v13->_keyRollInterval = interval;
+    v13->_keysRemaining = period;
+    v13->_keyCount = count;
   }
 
-  return v10;
+  return v13;
 }
 
 - (void)dealloc
@@ -33,44 +33,47 @@
 
 - (id)encodeConfiguration
 {
-  -[NSDate timeIntervalSinceDate:](self->_desiredKeyRollDate, "timeIntervalSinceDate:", [MEMORY[0x1E695DF00] date]);
-  if (v3 <= 0.0)
+  desiredKeyRollDate = self->_desiredKeyRollDate;
+  v6 = objc_msgSend_date(MEMORY[0x1E695DF00], a2, v2, v3);
+  objc_msgSend_timeIntervalSinceDate_(desiredKeyRollDate, v7, v6, v8);
+  if (v10 <= 0.0)
   {
-    LODWORD(v4) = self->_keyRollInterval;
-    v3 = v3 + v4;
+    LODWORD(v11) = self->_keyRollInterval;
+    v10 = v10 + v11;
     keysRemaining = self->_keysRemaining;
-    v7 = keysRemaining != 0;
-    v5 = keysRemaining - 1;
-    if (v5 == 0 || !v7)
+    v14 = keysRemaining != 0;
+    v12 = keysRemaining - 1;
+    if (v12 == 0 || !v14)
     {
-      LOWORD(v5) = self->_keyCount;
+      LOWORD(v12) = self->_keyCount;
     }
 
-    self->_keysRemaining = v5;
+    self->_keysRemaining = v12;
   }
 
   else
   {
-    LOWORD(v5) = self->_keysRemaining;
+    LOWORD(v12) = self->_keysRemaining;
   }
 
-  v9 = (v3 * 1000.0);
-  v10 = v5;
+  v16 = (v10 * 1000.0);
+  v17 = v12;
   keyCount = self->_keyCount;
-  return [MEMORY[0x1E695DEF0] dataWithBytes:&v9 length:8];
+  return objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v9, &v16, 8);
 }
 
 - (CLFindMyAccessoryWildConfiguration)initWithCoder:(id)coder
 {
-  v6.receiver = self;
-  v6.super_class = CLFindMyAccessoryWildConfiguration;
-  v4 = [(CLFindMyAccessoryWildConfiguration *)&v6 init];
+  v14.receiver = self;
+  v14.super_class = CLFindMyAccessoryWildConfiguration;
+  v4 = [(CLFindMyAccessoryWildConfiguration *)&v14 init];
   if (v4)
   {
-    v4->_desiredKeyRollDate = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLFindMyAccessoryWildConfigurationRollDate"];
-    v4->_keyRollInterval = [coder decodeIntForKey:@"kCLFindMyAccessoryWildConfigurationKeyRollInterval"];
-    v4->_keysRemaining = [coder decodeIntForKey:@"kCLFindMyAccessoryWildConfigurationKeysRemaining"];
-    v4->_keyCount = [coder decodeIntForKey:@"kCLFindMyAccessoryWildConfigurationKeyCount"];
+    v5 = objc_opt_class();
+    v4->_desiredKeyRollDate = objc_msgSend_decodeObjectOfClass_forKey_(coder, v6, v5, @"kCLFindMyAccessoryWildConfigurationRollDate");
+    v4->_keyRollInterval = objc_msgSend_decodeIntForKey_(coder, v7, @"kCLFindMyAccessoryWildConfigurationKeyRollInterval", v8);
+    v4->_keysRemaining = objc_msgSend_decodeIntForKey_(coder, v9, @"kCLFindMyAccessoryWildConfigurationKeysRemaining", v10);
+    v4->_keyCount = objc_msgSend_decodeIntForKey_(coder, v11, @"kCLFindMyAccessoryWildConfigurationKeyCount", v12);
   }
 
   return v4;
@@ -78,12 +81,12 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeInt:self->_keyCount forKey:@"kCLFindMyAccessoryWildConfigurationKeyCount"];
-  [coder encodeInt:self->_keysRemaining forKey:@"kCLFindMyAccessoryWildConfigurationKeysRemaining"];
-  [coder encodeInt:self->_keyRollInterval forKey:@"kCLFindMyAccessoryWildConfigurationKeyRollInterval"];
+  objc_msgSend_encodeInt_forKey_(coder, a2, self->_keyCount, @"kCLFindMyAccessoryWildConfigurationKeyCount");
+  objc_msgSend_encodeInt_forKey_(coder, v5, self->_keysRemaining, @"kCLFindMyAccessoryWildConfigurationKeysRemaining");
+  objc_msgSend_encodeInt_forKey_(coder, v6, self->_keyRollInterval, @"kCLFindMyAccessoryWildConfigurationKeyRollInterval");
   desiredKeyRollDate = self->_desiredKeyRollDate;
 
-  [coder encodeObject:desiredKeyRollDate forKey:@"kCLFindMyAccessoryWildConfigurationRollDate"];
+  objc_msgSend_encodeObject_forKey_(coder, v7, desiredKeyRollDate, @"kCLFindMyAccessoryWildConfigurationRollDate");
 }
 
 @end

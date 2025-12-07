@@ -35,8 +35,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_100D41460(disappear);
+  sub_100D41460(disappearCopy, selfCopy);
 }
 
 - (void)processChanges:(id)changes forChangeSource:(id)source
@@ -54,7 +55,7 @@
 
 - (NSArray)decoratorOverlayRenderables
 {
-  sub_100006370(0, &qword_101A00020);
+  sub_100006370(0, &qword_101A00020, off_10182F790);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;

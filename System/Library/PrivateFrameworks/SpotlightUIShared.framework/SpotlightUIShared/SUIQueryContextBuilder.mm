@@ -8,30 +8,30 @@
 
 + (id)queryContextWithPerformEntityQueryCommands:(id)commands view:(id)view
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   commandsCopy = commands;
   viewCopy = view;
   v8 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v9 = commandsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -43,11 +43,11 @@
           fromSuggestion = 0;
         }
 
-        v16 = [MEMORY[0x277D65890] searchEntityWithCommand:v14 fromSuggestion:{fromSuggestion, v22}];
+        v16 = [MEMORY[0x277D65890] searchEntityWithCommand:v14 fromSuggestion:{fromSuggestion, v21}];
         [v8 addObject:v16];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
@@ -62,8 +62,6 @@
 
   [v17 setWhyQuery:8];
   [self setCommonPropertiesOnQueryContext:v17 withView:viewCopy];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

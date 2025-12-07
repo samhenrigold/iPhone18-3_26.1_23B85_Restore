@@ -5,6 +5,7 @@
 - (id)remoteIDObject;
 - (unint64_t)hash;
 - (unsigned)imapUID;
+- (void)setImapUID:(unsigned int)d;
 @end
 
 @implementation ECServerMessage
@@ -77,6 +78,17 @@
   }
 
   return [(NSNumber *)imapUID unsignedIntValue];
+}
+
+- (void)setImapUID:(unsigned int)d
+{
+  v3 = *&d;
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+  imapUID = self->_imapUID;
+  self->_imapUID = v5;
+
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", v3];
+  [(ECServerMessage *)self setRemoteID:?];
 }
 
 - (id)remoteIDObject

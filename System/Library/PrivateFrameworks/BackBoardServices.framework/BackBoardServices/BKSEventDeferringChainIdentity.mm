@@ -36,7 +36,7 @@
       if (v3 != objc_opt_class())
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        [currentHandler handleFailureInMethod:sel__init object:v1 file:@"BKSEventDeferringChainIdentity.m" lineNumber:63 description:@"BKSEventDeferringChainIdentity cannot be subclassed"];
+        [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
       }
     }
 
@@ -76,21 +76,17 @@
     }
 
     v5 = MEMORY[0x1E696ABC0];
-    v6 = *MEMORY[0x1E696A798];
-    v7 = &unk_1EF56BF90;
   }
 
   else
   {
     v5 = MEMORY[0x1E696ABC0];
-    v6 = *MEMORY[0x1E696A798];
-    v7 = &unk_1EF56BF68;
   }
 
-  v8 = [v5 errorWithDomain:v6 code:5 userInfo:v7];
-  v9 = v8;
+  v6 = [v5 errorWithDomain:? code:? userInfo:?];
+  v7 = v6;
   selfCopy = 0;
-  *error = v8;
+  *error = v6;
 LABEL_7:
 
   return selfCopy;
@@ -99,8 +95,8 @@ LABEL_7:
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v4 = [formatterCopy appendObject:self->_environment withName:0];
-  v5 = [formatterCopy appendObject:self->_display withName:@"display"];
+  v3 = [formatterCopy appendObject:? withName:?];
+  v4 = [formatterCopy appendObject:? withName:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -116,46 +112,40 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = equalCopy;
-    v6 = v5[1];
-    display = self->_display;
+    v4 = equalCopy;
     if (BSEqualObjects())
     {
-      v8 = v5[2];
-      environment = self->_environment;
-      v10 = BSEqualObjects();
+      v5 = BSEqualObjects();
     }
 
     else
     {
-      v10 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v5 = 0;
   }
 
-  return v10;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  display = self->_display;
-  v7 = coderCopy;
-  if (display)
+  v5 = coderCopy;
+  if (self->_display)
   {
-    [coderCopy encodeObject:display forKey:@"display"];
-    coderCopy = v7;
+    [coderCopy encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 
-  environment = self->_environment;
-  if (environment)
+  if (self->_environment)
   {
-    [v7 encodeObject:environment forKey:@"environment"];
-    coderCopy = v7;
+    [v5 encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 }
 
@@ -165,11 +155,13 @@ LABEL_7:
   v10.super_class = BKSEventDeferringChainIdentity;
   coderCopy = coder;
   v4 = [(BKSEventDeferringChainIdentity *)&v10 init];
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:{@"display", v10.receiver, v10.super_class}];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:v10.receiver forKey:v10.super_class];
   display = v4->_display;
   v4->_display = v5;
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"environment"];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
 
   environment = v4->_environment;
   v4->_environment = v7;
@@ -180,8 +172,8 @@ LABEL_7:
 - (BKSEventDeferringChainIdentity)init
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSEventDeferringChainIdentity init]"];
-  [currentHandler handleFailureInFunction:v4 file:@"BKSEventDeferringChainIdentity.m" lineNumber:52 description:@"cannot directly allocate BKSEventDeferringChainIdentity"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -208,15 +200,15 @@ LABEL_7:
 void __48__BKSEventDeferringChainIdentity_protobufSchema__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_display"];
-  [v2 addField:"_environment"];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 + (BKSEventDeferringChainIdentity)new
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSEventDeferringChainIdentity new]"];
-  [currentHandler handleFailureInFunction:v3 file:@"BKSEventDeferringChainIdentity.m" lineNumber:57 description:@"cannot directly allocate BKSEventDeferringChainIdentity"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }

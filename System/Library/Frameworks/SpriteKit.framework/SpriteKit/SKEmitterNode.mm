@@ -634,12 +634,12 @@ LABEL_15:
 - (void)setParticleBlendMode:(SKBlendMode)particleBlendMode
 {
   skcEmitterNode = self->_skcEmitterNode;
-  if (*(skcEmitterNode + 121) != particleBlendMode)
+  if (skcEmitterNode[121] != particleBlendMode)
   {
-    *(skcEmitterNode + 121) = particleBlendMode;
+    skcEmitterNode[121] = particleBlendMode;
   }
 
-  SKCNode::setBlendMode(*(skcEmitterNode + 74), particleBlendMode);
+  SKCNode::setBlendMode(skcEmitterNode[74], particleBlendMode);
 }
 
 - (SKAction)particleAction

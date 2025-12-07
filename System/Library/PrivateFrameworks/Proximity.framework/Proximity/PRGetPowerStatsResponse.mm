@@ -130,55 +130,7 @@
   {
     v5 = equalCopy;
     sleepDuration = [v5 sleepDuration];
-    if (sleepDuration != [(PRGetPowerStatsResponse *)self sleepDuration])
-    {
-      goto LABEL_19;
-    }
-
-    wakeDuration = [v5 wakeDuration];
-    if (wakeDuration != [(PRGetPowerStatsResponse *)self wakeDuration])
-    {
-      goto LABEL_19;
-    }
-
-    singleAntennaSearchDuration = [v5 singleAntennaSearchDuration];
-    if (singleAntennaSearchDuration != [(PRGetPowerStatsResponse *)self singleAntennaSearchDuration])
-    {
-      goto LABEL_19;
-    }
-
-    dualAntennaSearchDuration = [v5 dualAntennaSearchDuration];
-    if (dualAntennaSearchDuration != [(PRGetPowerStatsResponse *)self dualAntennaSearchDuration])
-    {
-      goto LABEL_19;
-    }
-
-    singleChainRxPacketDuration = [v5 singleChainRxPacketDuration];
-    if (singleChainRxPacketDuration != [(PRGetPowerStatsResponse *)self singleChainRxPacketDuration])
-    {
-      goto LABEL_19;
-    }
-
-    dualChainRxPacketDuration = [v5 dualChainRxPacketDuration];
-    if (dualChainRxPacketDuration != [(PRGetPowerStatsResponse *)self dualChainRxPacketDuration])
-    {
-      goto LABEL_19;
-    }
-
-    tripleChainRxPacketDuration = [v5 tripleChainRxPacketDuration];
-    if (tripleChainRxPacketDuration != [(PRGetPowerStatsResponse *)self tripleChainRxPacketDuration])
-    {
-      goto LABEL_19;
-    }
-
-    dspProcessingDuration = [v5 dspProcessingDuration];
-    if (dspProcessingDuration != [(PRGetPowerStatsResponse *)self dspProcessingDuration])
-    {
-      goto LABEL_19;
-    }
-
-    txDuration = [v5 txDuration];
-    if (txDuration == -[PRGetPowerStatsResponse txDuration](self, "txDuration") && (v15 = [v5 numPacketsReceived], v15 == -[PRGetPowerStatsResponse numPacketsReceived](self, "numPacketsReceived")) && (v16 = objc_msgSend(v5, "numPacketsTransmitted"), v16 == -[PRGetPowerStatsResponse numPacketsTransmitted](self, "numPacketsTransmitted")) && (v17 = objc_msgSend(v5, "sleepCount"), v17 == -[PRGetPowerStatsResponse sleepCount](self, "sleepCount")) && (v18 = objc_msgSend(v5, "wakeCount"), v18 == -[PRGetPowerStatsResponse wakeCount](self, "wakeCount")) && (v19 = objc_msgSend(v5, "pmgrSleepCount"), v19 == -[PRGetPowerStatsResponse pmgrSleepCount](self, "pmgrSleepCount")) && (v20 = objc_msgSend(v5, "pmgrDeepSleepCount"), v20 == -[PRGetPowerStatsResponse pmgrDeepSleepCount](self, "pmgrDeepSleepCount")))
+    if (sleepDuration == -[PRGetPowerStatsResponse sleepDuration](self, "sleepDuration") && (v7 = [v5 wakeDuration], v7 == -[PRGetPowerStatsResponse wakeDuration](self, "wakeDuration")) && (v8 = objc_msgSend(v5, "singleAntennaSearchDuration"), v8 == -[PRGetPowerStatsResponse singleAntennaSearchDuration](self, "singleAntennaSearchDuration")) && (v9 = objc_msgSend(v5, "dualAntennaSearchDuration"), v9 == -[PRGetPowerStatsResponse dualAntennaSearchDuration](self, "dualAntennaSearchDuration")) && (v10 = objc_msgSend(v5, "singleChainRxPacketDuration"), v10 == -[PRGetPowerStatsResponse singleChainRxPacketDuration](self, "singleChainRxPacketDuration")) && (v11 = objc_msgSend(v5, "dualChainRxPacketDuration"), v11 == -[PRGetPowerStatsResponse dualChainRxPacketDuration](self, "dualChainRxPacketDuration")) && (v12 = objc_msgSend(v5, "tripleChainRxPacketDuration"), v12 == -[PRGetPowerStatsResponse tripleChainRxPacketDuration](self, "tripleChainRxPacketDuration")) && (v13 = objc_msgSend(v5, "dspProcessingDuration"), v13 == -[PRGetPowerStatsResponse dspProcessingDuration](self, "dspProcessingDuration")) && (v14 = objc_msgSend(v5, "txDuration"), v14 == -[PRGetPowerStatsResponse txDuration](self, "txDuration")) && (v15 = objc_msgSend(v5, "numPacketsReceived"), v15 == -[PRGetPowerStatsResponse numPacketsReceived](self, "numPacketsReceived")) && (v16 = objc_msgSend(v5, "numPacketsTransmitted"), v16 == -[PRGetPowerStatsResponse numPacketsTransmitted](self, "numPacketsTransmitted")) && (v17 = objc_msgSend(v5, "sleepCount"), v17 == -[PRGetPowerStatsResponse sleepCount](self, "sleepCount")) && (v18 = objc_msgSend(v5, "wakeCount"), v18 == -[PRGetPowerStatsResponse wakeCount](self, "wakeCount")) && (v19 = objc_msgSend(v5, "pmgrSleepCount"), v19 == -[PRGetPowerStatsResponse pmgrSleepCount](self, "pmgrSleepCount")) && (v20 = objc_msgSend(v5, "pmgrDeepSleepCount"), v20 == -[PRGetPowerStatsResponse pmgrDeepSleepCount](self, "pmgrDeepSleepCount")))
     {
       deepSleepDuration = [v5 deepSleepDuration];
       v22 = deepSleepDuration == [(PRGetPowerStatsResponse *)self deepSleepDuration];
@@ -186,7 +138,6 @@
 
     else
     {
-LABEL_19:
       v22 = 0;
     }
   }

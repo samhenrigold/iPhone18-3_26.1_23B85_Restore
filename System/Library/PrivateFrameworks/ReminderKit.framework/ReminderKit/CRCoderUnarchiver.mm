@@ -440,7 +440,7 @@ LABEL_13:
 
 - (void)sortCompletionHandlers
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695DF70]);
   completionHandlers = [(CRCoderUnarchiver *)self completionHandlers];
   v5 = [v3 initWithCapacity:{objc_msgSend(completionHandlers, "count")}];
@@ -455,28 +455,28 @@ LABEL_13:
       break;
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     completionHandlers3 = [(CRCoderUnarchiver *)self completionHandlers];
-    v9 = [completionHandlers3 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v9 = [completionHandlers3 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (!v9)
     {
       goto LABEL_24;
     }
 
-    v10 = *v32;
+    v10 = *v31;
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v32 != v10)
+      if (*v31 != v10)
       {
         objc_enumerationMutation(completionHandlers3);
       }
 
-      v12 = *(*(&v31 + 1) + 8 * v11);
+      v12 = *(*(&v30 + 1) + 8 * v11);
       dependency = [v12 dependency];
       v14 = dependency == 0;
 
@@ -487,14 +487,14 @@ LABEL_5:
 
       if (v9 == ++v11)
       {
-        v9 = [completionHandlers3 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v9 = [completionHandlers3 countByEnumeratingWithState:&v30 objects:v35 count:16];
         if (!v9)
         {
 LABEL_24:
 
 LABEL_25:
-          v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:@"No topological sort of completion handlers." userInfo:0];
-          objc_exception_throw(v26);
+          v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:@"No topological sort of completion handlers." userInfo:0];
+          objc_exception_throw(v25);
         }
 
         goto LABEL_5;
@@ -512,25 +512,25 @@ LABEL_25:
     completionHandlers4 = [(CRCoderUnarchiver *)self completionHandlers];
     [completionHandlers4 removeObject:v15];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     completionHandlers5 = [(CRCoderUnarchiver *)self completionHandlers];
-    v18 = [completionHandlers5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v18 = [completionHandlers5 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v18)
     {
-      v19 = *v28;
+      v19 = *v27;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(completionHandlers5);
           }
 
-          v21 = *(*(&v27 + 1) + 8 * i);
+          v21 = *(*(&v26 + 1) + 8 * i);
           dependency2 = [v21 dependency];
           value = [v15 value];
           v24 = dependency2 == value;
@@ -541,7 +541,7 @@ LABEL_25:
           }
         }
 
-        v18 = [completionHandlers5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v18 = [completionHandlers5 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v18);
@@ -549,8 +549,6 @@ LABEL_25:
   }
 
   [(CRCoderUnarchiver *)self setCompletionHandlers:v5];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)indexForKey:(id)key

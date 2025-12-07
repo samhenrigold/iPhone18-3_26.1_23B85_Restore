@@ -100,7 +100,7 @@
 
 - (double)_projectedTargetForVelocity:(double)velocity
 {
-  [(ARFLSpring *)self value];
+  objc_msgSend_value(self, a2);
   projectionDeceleration = self->_projectionDeceleration;
 
   return ARFLDeceleratedRestPosition(v5, velocity, projectionDeceleration);
@@ -168,7 +168,7 @@
 - (void)step:(double)step
 {
   memcpy(v6, &self->_s, sizeof(v6));
-  ARFLCompoundSpringStep(v6, __src, step);
+  ARFLCompoundSpringStep(__src, v6, step);
   memcpy(&self->_s, __src, sizeof(self->_s));
   anchor = self->_s.anchor.anchor;
   self->_targetVelocity = (anchor - self->_previousTarget) / step * 0.25 + self->_targetVelocity * 0.75;

@@ -1,9 +1,9 @@
 @interface PKPGVTransitionContext
 + (PKPGVTransitionContext)_createForAnimatedTransition:(void *)transition withPassContext:(BOOL)context beginTerminal:;
-+ (PKPGVTransitionContext)_createForPanGestureWithPassContext:(void *)context velocity:(BOOL)velocity beginTerminal:;
++ (PKPGVTransitionContext)_createForPanGestureWithPassContext:(BOOL)context velocity:(double)velocity beginTerminal:;
 + (PKPGVTransitionContext)createForAnimatedTransition:(void *)transition withPassContext:;
 + (PKPGVTransitionContext)createForAnimatedTransition:(void *)transition withPassContext:(BOOL)context beginTerminal:;
-+ (PKPGVTransitionContext)createForPanGestureWithPassContext:(void *)context velocity:;
++ (PKPGVTransitionContext)createForPanGestureWithPassContext:(double)context velocity:;
 @end
 
 @implementation PKPGVTransitionContext
@@ -31,14 +31,14 @@
   return v8;
 }
 
-+ (PKPGVTransitionContext)_createForPanGestureWithPassContext:(void *)context velocity:(BOOL)velocity beginTerminal:
++ (PKPGVTransitionContext)_createForPanGestureWithPassContext:(BOOL)context velocity:(double)velocity beginTerminal:
 {
-  contextCopy = context;
+  v6 = a2;
   objc_opt_self();
-  v7 = [PKPGVTransitionContext _createForAnimatedTransition:contextCopy withPassContext:velocity beginTerminal:?];
+  v7 = [PKPGVTransitionContext _createForAnimatedTransition:v6 withPassContext:context beginTerminal:?];
 
   v7->_dragged = 1;
-  v7->_velocity = self;
+  v7->_velocity = velocity;
   return v7;
 }
 
@@ -60,11 +60,11 @@
   return v8;
 }
 
-+ (PKPGVTransitionContext)createForPanGestureWithPassContext:(void *)context velocity:
++ (PKPGVTransitionContext)createForPanGestureWithPassContext:(double)context velocity:
 {
-  contextCopy = context;
+  v4 = a2;
   v5 = objc_opt_self();
-  v6 = [(PKPGVTransitionContext *)self _createForPanGestureWithPassContext:v5 velocity:contextCopy beginTerminal:0];
+  v6 = [(PKPGVTransitionContext *)v5 _createForPanGestureWithPassContext:v4 velocity:0 beginTerminal:context];
 
   return v6;
 }

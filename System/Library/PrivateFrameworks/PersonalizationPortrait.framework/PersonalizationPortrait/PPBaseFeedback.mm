@@ -13,7 +13,7 @@
 
 - (id)description
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
@@ -24,29 +24,29 @@
   [v3 appendFormat:@"  mappingId : %@, ", self->_mappingId];
   [v3 appendFormat:@"  timestamp : %@, ", self->_timestamp];
   [v3 appendString:@"  feedbackItems : ["];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = self->_feedbackItems;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v3 appendFormat:@"%@, ", *(*(&v14 + 1) + 8 * i)];
+        [v3 appendFormat:@"%@, ", *(*(&v13 + 1) + 8 * i)];
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -54,8 +54,6 @@
 
   [v3 appendString:@"] }"];
   v11 = [v3 copy];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

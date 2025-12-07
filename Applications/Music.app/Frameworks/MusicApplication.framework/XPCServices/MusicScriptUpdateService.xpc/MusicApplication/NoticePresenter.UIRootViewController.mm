@@ -17,7 +17,7 @@
 
 - (void)loadView
 {
-  type metadata accessor for PassthroughView();
+  type metadata accessor for PassthroughView(0, a2);
   v3 = objc_allocWithZone(swift_getObjCClassFromMetadata());
   selfCopy = self;
   v4 = [v3 init];
@@ -32,13 +32,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1002FE6D8();
+  sub_1002FE6D8(selfCopy, v2);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1002FE8EC();
+  sub_1002FE8EC(selfCopy, v2);
 }
 
 - (_TtCC11MusicCoreUI15NoticePresenterP33_D8FBFBA4851A241D976DAD2E389878C120UIRootViewController)initWithNibName:(id)name bundle:(id)bundle

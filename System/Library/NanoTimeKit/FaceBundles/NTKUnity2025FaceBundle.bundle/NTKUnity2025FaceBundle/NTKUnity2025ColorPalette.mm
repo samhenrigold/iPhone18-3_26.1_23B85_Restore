@@ -13,44 +13,34 @@
     sub_23C09FAC8();
   }
 
-  v6 = MEMORY[0x277CCACA8];
-  configuration = [(NTKFaceColorPalette *)self configuration];
-  uniqueId = [configuration uniqueId];
-  v20.width = width;
-  v20.height = height;
-  v9 = NSStringFromCGSize(v20);
-  v10 = [v6 stringWithFormat:@"%@-%@", uniqueId, v9];
+  v7 = MEMORY[0x277CCACA8];
+  v8 = objc_msgSend_configuration(self, a2, v3);
+  v11 = objc_msgSend_uniqueId(v8, v9, v10);
+  v32.width = width;
+  v32.height = height;
+  v12 = NSStringFromCGSize(v32);
+  v14 = objc_msgSend_stringWithFormat_(v7, v13, @"%@-%@", v11, v12);
 
-  v11 = [qword_27E1EE110 objectForKey:v10];
-  if (!v11)
+  v18 = objc_msgSend_objectForKey_(qword_27E1EE110, v15, v14);
+  if (!v18)
   {
-    configuration2 = [(NTKFaceColorPalette *)self configuration];
-    colorOption = [configuration2 colorOption];
-    v14 = NTKUnity2025SettingIndexFromColorwayName(colorOption);
+    v19 = objc_msgSend_configuration(self, v16, v17);
+    v22 = objc_msgSend_colorOption(v19, v20, v21);
+    v23 = NTKUnity2025SettingIndexFromColorwayName(v22);
 
-    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    if (!v15)
+    v24 = MEMORY[0x277CCA8D8];
+    v25 = objc_opt_class();
+    v27 = objc_msgSend_bundleForClass_(v24, v26, v25);
+    if (!v27 || (NTKImageNamedFromBundle(), (v18 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      goto LABEL_8;
+      v29 = generateColorArray(v23);
+      v18 = NTKSwatchColorStripesImage();
     }
 
-    if ((v14 - 1) <= 4)
-    {
-      v16 = off_278BADF80[v14 - 1];
-    }
-
-    v11 = NTKImageNamedFromBundle();
-    if (!v11)
-    {
-LABEL_8:
-      v17 = generateColorArray(v14);
-      v11 = NTKSwatchColorStripesImage();
-    }
-
-    [qword_27E1EE110 setObject:v11 forKey:v10];
+    objc_msgSend_setObject_forKey_(qword_27E1EE110, v28, v18, v14);
   }
 
-  return v11;
+  return v18;
 }
 
 @end

@@ -286,62 +286,98 @@ LABEL_30:
 void __68__PKPassTileGroupView__populateHandleSizeCachesWithWidth_recompute___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 count])
+  v4 = [v3 count];
+  if (v4)
   {
-    if (*(*(a1 + 32) + 480) == 1)
+    v7 = v4;
+    v8 = *(a1 + 32);
+    if (*(v8 + 480) == 1)
     {
-      v4 = [v3 firstObject];
-      v5 = v4;
-      if (v4)
+      v9 = *(v8 + 512);
+      if (v4 <= v9)
       {
-        v6 = *(v4 + 16);
+        v10 = v9;
       }
 
       else
       {
-        v6 = 0;
+        v10 = v4;
       }
 
-      v7 = v6;
+      v11 = [v3 firstObject];
+      v12 = v11;
+      if (v11)
+      {
+        v13 = *(v11 + 16);
+      }
 
-      v8 = [v7 content];
+      else
+      {
+        v13 = 0;
+      }
 
-      v9 = [v8 metadata];
-      [v9 preferredStyle];
+      v14 = v13;
+
+      v15 = [v14 content];
+
+      v16 = [v15 metadata];
+      v17 = [v16 preferredStyle];
+
+      if (v17)
+      {
+        v18 = 0;
+      }
+
+      else
+      {
+        v18 = v7 == 1;
+      }
+
+      if (v18)
+      {
+        v7 = 1;
+      }
+
+      else
+      {
+        v7 = v10;
+      }
     }
 
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 0;
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 0;
-    PKFloatRoundToPixel();
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __68__PKPassTileGroupView__populateHandleSizeCachesWithWidth_recompute___block_invoke_2;
-    v12[3] = &unk_1E8015740;
-    v13 = *(a1 + 64);
-    v12[6] = v10;
-    v12[4] = &v18;
-    v12[5] = &v14;
-    [v3 enumerateObjectsUsingBlock:v12];
-    if (*(v15 + 24) == 1)
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
+    v26 = 0;
+    v6.n128_f64[0] = v7;
+    v5.n128_f64[0] = (*(a1 + 56) + (v7 - 1) * -8.0) / v7;
+    PKFloatRoundToPixel(v5, v6);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __68__PKPassTileGroupView__populateHandleSizeCachesWithWidth_recompute___block_invoke_2;
+    v21[3] = &unk_1E8015740;
+    v22 = *(a1 + 64);
+    v21[6] = v19;
+    v21[4] = &v27;
+    v21[5] = &v23;
+    [v3 enumerateObjectsUsingBlock:v21];
+    if (*(v24 + 24) == 1)
     {
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __68__PKPassTileGroupView__populateHandleSizeCachesWithWidth_recompute___block_invoke_3;
-      v11[3] = &unk_1E8015768;
-      v11[4] = &v18;
-      [v3 enumerateObjectsUsingBlock:v11];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __68__PKPassTileGroupView__populateHandleSizeCachesWithWidth_recompute___block_invoke_3;
+      v20[3] = &unk_1E8015768;
+      v20[4] = &v27;
+      [v3 enumerateObjectsUsingBlock:v20];
     }
 
     ++*(*(*(a1 + 40) + 8) + 24);
-    *(*(*(a1 + 48) + 8) + 24) = v19[3] + *(*(*(a1 + 48) + 8) + 24);
-    _Block_object_dispose(&v14, 8);
-    _Block_object_dispose(&v18, 8);
+    *(*(*(a1 + 48) + 8) + 24) = v28[3] + *(*(*(a1 + 48) + 8) + 24);
+    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v27, 8);
   }
 }
 
@@ -424,192 +460,209 @@ double __68__PKPassTileGroupView__populateHandleSizeCachesWithWidth_recompute___
 
 - (void)layoutSubviews
 {
-  v66 = *MEMORY[0x1E69E9840];
-  v64.receiver = self;
-  v64.super_class = PKPassTileGroupView;
-  [(PKPassTileGroupView *)&v64 layoutSubviews];
+  v87 = *MEMORY[0x1E69E9840];
+  v85.receiver = self;
+  v85.super_class = PKPassTileGroupView;
+  [(PKPassTileGroupView *)&v85 layoutSubviews];
   [(PKPassTileGroupView *)self bounds];
+  top = self->_contentInset.top;
   left = self->_contentInset.left;
   right = self->_contentInset.right;
-  v6 = v3 - (left + right);
-  v8 = v7 - (self->_contentInset.top + self->_contentInset.bottom);
-  v9 = self->_boundsSize.height != v8 || self->_boundsSize.width != v6;
-  self->_boundsSize.width = v6;
-  self->_boundsSize.height = v8;
-  [(PKPassTileGroupView *)self _populateHandleSizeCachesWithWidth:v9 recompute:v3 - (left + right)];
+  v8 = v7 + left;
+  v10 = v9 + top;
+  v11 = v3 - (left + right);
+  v13 = v12 - (top + self->_contentInset.bottom);
+  v14 = self->_boundsSize.height != v13 || self->_boundsSize.width != v11;
+  self->_boundsSize.width = v11;
+  self->_boundsSize.height = v13;
+  v15 = [(PKPassTileGroupView *)self _populateHandleSizeCachesWithWidth:v14 recompute:v3 - (left + right)];
   _shouldReverseLayoutDirection = [(PKPassTileGroupView *)self _shouldReverseLayoutDirection];
   if (_shouldReverseLayoutDirection)
   {
-    v11 = CGRectMaxXEdge;
+    v24 = CGRectMaxXEdge;
   }
 
   else
   {
-    v11 = CGRectMinXEdge;
+    v24 = CGRectMinXEdge;
   }
 
-  PKSizeAlignedInRect();
-  memset(&v62, 0, sizeof(v62));
-  remainder.origin.x = v12;
-  remainder.origin.y = v13;
-  remainder.size.width = v14;
-  remainder.size.height = v15;
-  v53 = [(NSMutableArray *)self->_itemViewsByRows count];
-  if (v53)
+  v17.n128_f64[0] = v11;
+  v18.n128_f64[0] = v15;
+  v19.n128_f64[0] = v8;
+  v20.n128_f64[0] = v10;
+  v21.n128_f64[0] = v11;
+  v22.n128_f64[0] = v13;
+  PKSizeAlignedInRect(1, v17, v18, v19, v20, v21, v22, v23);
+  memset(&v83, 0, sizeof(v83));
+  remainder.origin.x = v25;
+  remainder.origin.y = v26;
+  remainder.size.width = v27;
+  remainder.size.height = v28;
+  v74 = [(NSMutableArray *)self->_itemViewsByRows count];
+  if (v74)
   {
-    v16 = 0;
-    v56 = _shouldReverseLayoutDirection;
-    v17 = (_shouldReverseLayoutDirection ^ 1);
+    v29 = 0;
+    v77 = _shouldReverseLayoutDirection;
+    v30 = (_shouldReverseLayoutDirection ^ 1);
     do
     {
-      v18 = [(NSMutableArray *)self->_itemViewsByRows objectAtIndexedSubscript:v16];
-      v19 = [v18 count];
-      if (v19)
+      v31 = [(NSMutableArray *)self->_itemViewsByRows objectAtIndexedSubscript:v29];
+      v32 = [v31 count];
+      if (v32)
       {
-        v20 = v19;
-        v54 = v18;
-        v55 = v16;
-        v60 = 0u;
-        v61 = 0u;
-        v58 = 0u;
-        v59 = 0u;
-        v21 = v18;
-        v22 = [v21 countByEnumeratingWithState:&v58 objects:v65 count:16];
-        if (v22)
+        v33 = v32;
+        v75 = v31;
+        v76 = v29;
+        v81 = 0u;
+        v82 = 0u;
+        v79 = 0u;
+        v80 = 0u;
+        v34 = v31;
+        v35 = [v34 countByEnumeratingWithState:&v79 objects:v86 count:16];
+        if (v35)
         {
-          v23 = v22;
-          v24 = *v59;
-          v25 = 0.0;
+          v36 = v35;
+          v37 = *v80;
+          v38 = 0.0;
           do
           {
-            v26 = 0;
+            v39 = 0;
             do
             {
-              if (*v59 != v24)
+              if (*v80 != v37)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v34);
               }
 
-              v27 = *(*(&v58 + 1) + 8 * v26);
-              if (v27)
+              v40 = *(*(&v79 + 1) + 8 * v39);
+              if (v40)
               {
-                v28 = *(v27 + 32);
+                v41 = *(v40 + 32);
               }
 
               else
               {
-                v28 = 0.0;
+                v41 = 0.0;
               }
 
-              v25 = fmax(v28, v25);
-              ++v26;
+              v38 = fmax(v41, v38);
+              ++v39;
             }
 
-            while (v23 != v26);
-            v29 = [v21 countByEnumeratingWithState:&v58 objects:v65 count:16];
-            v23 = v29;
+            while (v36 != v39);
+            v42 = [v34 countByEnumeratingWithState:&v79 objects:v86 count:16];
+            v36 = v42;
           }
 
-          while (v29);
+          while (v42);
         }
 
         else
         {
-          v25 = 0.0;
+          v38 = 0.0;
         }
 
         memset(&slice, 0, sizeof(slice));
-        CGRectDivide(remainder, &slice, &remainder, v25, CGRectMinYEdge);
-        CGRectDivide(remainder, &v62, &remainder, 8.0, CGRectMinYEdge);
-        v30 = 0;
+        CGRectDivide(remainder, &slice, &remainder, v38, CGRectMinYEdge);
+        CGRectDivide(remainder, &v83, &remainder, 8.0, CGRectMinYEdge);
+        v43 = 0;
         do
         {
-          v31 = [v21 objectAtIndexedSubscript:v30];
-          v32 = v31;
-          if (v31)
+          v44 = [v34 objectAtIndexedSubscript:v43];
+          v45 = v44;
+          if (v44)
           {
-            v33 = *(v31 + 8);
-            v34 = *(v31 + 16);
+            v46 = *(v44 + 8);
+            v47 = *(v44 + 16);
           }
 
           else
           {
-            v33 = 0;
-            v34 = 0;
+            v46 = 0;
+            v47 = 0;
           }
 
-          v35 = 0.5;
-          if (v20 == 1)
+          v48 = 0.5;
+          if (v33 == 1)
           {
-            v35 = v17;
+            v48 = v30;
           }
 
-          if (v30)
+          if (v43)
           {
-            v36 = v35;
+            v49 = v48;
           }
 
           else
           {
-            v36 = v56;
+            v49 = v77;
           }
 
-          v37 = v34;
-          layer = [v37 layer];
+          v50 = v47;
+          layer = [v50 layer];
           [layer anchorPoint];
-          v41 = v40;
-          v42 = v39;
-          if (v36 != v40 || v39 != 0.0)
+          v54 = v53;
+          v55 = v52;
+          if (v49 != v53 || v52 != 0.0)
           {
             [layer bounds];
-            v44 = v43;
-            v46 = v45;
+            v57 = v56;
+            v59 = v58;
             [layer position];
-            v48 = v47;
-            v50 = v49;
-            [layer setAnchorPoint:{v36, 0.0}];
-            if ((v33 & 1) == 0)
+            v61 = v60;
+            v63 = v62;
+            [layer setAnchorPoint:{v49, 0.0}];
+            if ((v46 & 1) == 0)
             {
-              [layer setPosition:{v48 - v41 * v44 + v36 * v44, v50 - v42 * v46 + v46 * 0.0}];
+              [layer setPosition:{v61 - v54 * v57 + v49 * v57, v63 - v55 * v59 + v59 * 0.0}];
             }
           }
 
-          if (v32)
+          if (v45)
           {
-            v51 = *(v32 + 24);
+            v65 = *(v45 + 24);
+            v64 = *(v45 + 32);
           }
 
           else
           {
-            v51 = 0.0;
+            v64 = 0;
+            v65 = 0.0;
           }
 
-          CGRectDivide(slice, &v62, &slice, v51, v11);
-          PKSizeAlignedInRect();
-          v52 = self->_animated & ~v33;
-          [v37 pkui_setFrame:v52 & 1 animated:?];
-          [v37 layoutIfNeededAnimated:v52 & 1];
+          CGRectDivide(slice, &v83, &slice, v65, v24);
+          v66.n128_u64[0] = *&v83.origin.x;
+          v67.n128_u64[0] = *&v83.origin.y;
+          v68.n128_u64[0] = *&v83.size.width;
+          v69.n128_u64[0] = *&v83.size.height;
+          v70.n128_f64[0] = v65;
+          v71.n128_u64[0] = v64;
+          PKSizeAlignedInRect(1, v70, v71, v66, v67, v68, v69, v72);
+          v73 = self->_animated & ~v46;
+          [v50 pkui_setFrame:v73 & 1 animated:?];
+          [v50 layoutIfNeededAnimated:v73 & 1];
 
-          if (v32)
+          if (v45)
           {
-            *(v32 + 8) = 0;
+            *(v45 + 8) = 0;
           }
 
-          CGRectDivide(slice, &v62, &slice, 8.0, v11);
+          CGRectDivide(slice, &v83, &slice, 8.0, v24);
 
-          ++v30;
-          --v20;
+          ++v43;
+          --v33;
         }
 
-        while (v20);
-        v18 = v54;
-        v16 = v55;
+        while (v33);
+        v31 = v75;
+        v29 = v76;
       }
 
-      ++v16;
+      ++v29;
     }
 
-    while (v16 != v53);
+    while (v29 != v74);
   }
 }
 

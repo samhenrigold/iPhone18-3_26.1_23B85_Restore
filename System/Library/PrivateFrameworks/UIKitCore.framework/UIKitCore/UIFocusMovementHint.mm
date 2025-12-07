@@ -132,7 +132,7 @@
   [(UIFocusMovementHint *)self rotation];
   v7 = v6;
   v9 = v8;
-  [(UIFocusMovementHint *)self translation];
+  objc_msgSend_translation(self);
   v11 = v10;
   v13 = v12;
   *&v41.m31 = v38;
@@ -194,7 +194,7 @@
   v29 = *&v41.m23;
   *&retstr->m21 = *&v41.m21;
   *&retstr->m23 = v29;
-  result = [(UIFocusMovementHint *)self perspectiveTransform];
+  result = objc_msgSend_perspectiveTransform(self);
   retstr->m34 = v39;
   return result;
 }

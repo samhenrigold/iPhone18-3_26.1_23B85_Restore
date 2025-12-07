@@ -163,11 +163,12 @@
 
 - (BOOL)mutateAndReturnError:(id *)error handler:(id)handler
 {
-  v7 = _Block_copy(handler);
+  v5 = _Block_copy(handler);
+  v8[2] = v5;
   selfCopy = self;
-  GDVUGallery.mutate(handler:)();
+  GDVUGallery.mutate(handler:)(sub_1ABED2554, v8);
 
-  _Block_release(v7);
+  _Block_release(v5);
   return 1;
 }
 
@@ -211,7 +212,7 @@
   selfCopy = self;
   GDVUGallery.update(progressHandler:)(v8, v7);
 
-  sub_1ABAC9398(v8);
+  sub_1ABAC9398(v8, v7);
   return 1;
 }
 

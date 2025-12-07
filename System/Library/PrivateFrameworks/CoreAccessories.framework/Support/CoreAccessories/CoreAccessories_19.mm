@@ -1,3 +1,1951 @@
+CFDictionaryRef acc_accInfo_copyAccessoryInfoDictionary(uint64_t a1)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  pthread_mutex_lock((a1 + 112));
+  v2 = &kCFNull;
+  vld1q_dup_f64(v2);
+  OUTLINED_FUNCTION_2_39();
+  v12[0] = v3;
+  v12[1] = v4;
+  OUTLINED_FUNCTION_2_39();
+  v12[2] = v5;
+  v12[3] = v6;
+  OUTLINED_FUNCTION_2_39();
+  keys[0] = kCFACCInfo_Name;
+  keys[1] = kCFACCInfo_Manufacturer;
+  keys[2] = kCFACCInfo_Model;
+  keys[3] = kCFACCInfo_SerialNumber;
+  keys[4] = kCFACCInfo_HardwareVersion;
+  keys[5] = kCFACCInfo_FirmwareVersionActive;
+  keys[6] = kCFACCInfo_FirmwareVersionPending;
+  keys[7] = kCFACCInfo_PPID;
+  keys[8] = kCFACCInfo_AccessoryDeviceUID;
+  keys[9] = kCFACCInfo_RegionCode;
+  keys[10] = kCFACCInfo_DeviceCompatibility;
+  keys[11] = kCFACCInfo_VendorID;
+  v12[4] = v7;
+  v12[5] = v8;
+  keys[12] = kCFACCInfo_ProductID;
+  keys[13] = kCFACCInfo_AccessoryPlatformID;
+  v12[6] = vbslq_s8(vceqzq_s64(*(a1 + 96)), v9, *(a1 + 96));
+  v10 = CFDictionaryCreate(kCFAllocatorDefault, keys, v12, 14, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  pthread_mutex_unlock((a1 + 112));
+  return v10;
+}
+
+CFStringRef acc_accInfo_copyAccessoryInfoDescription(CFStringRef result)
+{
+  if (result)
+  {
+    v1 = result;
+    pthread_mutex_lock(&result[3].data);
+    v2 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"<ACCAccessoryInfo_t: name: %@; manufacturer: %@; model: %@; serialNumber: %@; hardwareVersion: %@; firmwareVersionActive: %@; firmwareVersionPending: %@; ppid: %@, regionCode: %@; deviceUID: %@>; deviceCompatibility: %@; vid/pid: %@/%@, accessoryPlatformID: %@", v1->isa, v1->info, v1->data, v1->length, v1[1].isa, v1[1].info, v1[1].data, v1[1].length, v1[2].info, v1[2].isa, v1[2].data, v1[2].length, v1[3].isa, v1[3].info);
+    pthread_mutex_unlock(&v1[3].data);
+    return v2;
+  }
+
+  return result;
+}
+
+CFTypeRef acc_accInfo_retainedProperty(uint64_t a1, int a2, CFTypeRef a3)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  pthread_mutex_lock((a1 + 112));
+  switch(a2)
+  {
+    case 0:
+      v6 = *a1;
+      if (*a1)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 1:
+      v6 = *(a1 + 8);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 2:
+      v6 = *(a1 + 16);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 3:
+      v6 = *(a1 + 24);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 4:
+      v6 = *(a1 + 32);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 5:
+      v6 = *(a1 + 40);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 6:
+      v6 = *(a1 + 48);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 7:
+      v6 = *(a1 + 56);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 8:
+      v6 = *(a1 + 64);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 9:
+      v6 = *(a1 + 72);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 10:
+      v6 = *(a1 + 80);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 11:
+      v6 = *(a1 + 88);
+      if (v6)
+      {
+        goto LABEL_25;
+      }
+
+      break;
+    case 12:
+      v6 = *(a1 + 96);
+      if (v6)
+      {
+LABEL_25:
+        a3 = CFRetain(v6);
+      }
+
+      break;
+    default:
+      a3 = 0;
+      break;
+  }
+
+  pthread_mutex_unlock((a1 + 112));
+  return a3;
+}
+
+BOOL acc_accInfo_isConsideredEmpty(uint64_t a1)
+{
+  if (!a1)
+  {
+    return 1;
+  }
+
+  pthread_mutex_lock((a1 + 112));
+  v3 = *a1 == 0 && *(a1 + 16) == 0;
+  pthread_mutex_unlock((a1 + 112));
+  return v3;
+}
+
+void _getPluginInstance_cold_2(NSObject *a1)
+{
+  v2 = NSStringFromProtocol(&OBJC_PROTOCOL___ACCPlatformLightningPluginProtocol);
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&_mh_execute_header, a1, OS_LOG_TYPE_ERROR, "[#Lightning] Could not find plugin conforming to %@!", &v3, 0xCu);
+}
+
+void platform_oobBtPairing2_startOobBtPairingHandler_cold_3(uint64_t a1, void *a2)
+{
+  v3 = [a2 componentUID];
+  v9 = [a2 componentID];
+  OUTLINED_FUNCTION_40_1();
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
+}
+
+void platform_oobBtPairing2_accessoryAttached_cold_6()
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void _sendStartOOBBTPairing_cold_3(void *a1)
+{
+  v1 = [a1 accessoryUID];
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_40_1();
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+}
+
+uint64_t iap2_identification_setIdentificationInfo(uint64_t a1, uint64_t a2)
+{
+  v2 = 0;
+  if (a1 && a2)
+  {
+    if (iap2_feature_getFeature(a1, 1u))
+    {
+      v4 = OUTLINED_FUNCTION_66_1();
+      if (*(iap2_feature_getFeature(v4, v5) + 8))
+      {
+        v6 = OUTLINED_FUNCTION_66_1();
+        Feature = iap2_feature_getFeature(v6, v7);
+        iap2_identification_releaseIdentInfo(*(Feature + 8));
+        v9 = OUTLINED_FUNCTION_66_1();
+        if (*(iap2_feature_getFeature(v9, v10) + 8))
+        {
+          v11 = OUTLINED_FUNCTION_66_1();
+          v13 = iap2_feature_getFeature(v11, v12);
+          free(*(v13 + 8));
+          v14 = OUTLINED_FUNCTION_66_1();
+          *(iap2_feature_getFeature(v14, v15) + 8) = 0;
+        }
+      }
+
+      v2 = 1;
+      v16 = OUTLINED_FUNCTION_66_1();
+      *(iap2_feature_getFeature(v16, v17) + 8) = a2;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return v2;
+}
+
+uint64_t iap2_identification_createRejectMessage(uint64_t a1)
+{
+  if (!a1)
+  {
+    return 1;
+  }
+
+  *(a1 + 136) = malloc_type_calloc(1uLL, 0x48uLL, 0x109004066C3AFE2uLL);
+  v2 = malloc_type_malloc(0xFFFFuLL, 0x170039DBuLL);
+  *(a1 + 144) = v2;
+  iAP2MsgInit(*(a1 + 136), 7427, v2, 0xFFFF, _iap2_identification_cleanupRejectMsg, 0);
+  v3 = OUTLINED_FUNCTION_22();
+  *(a1 + 152) = CFDataCreateMutable(v3, v4);
+  v5 = OUTLINED_FUNCTION_22();
+  *(a1 + 160) = CFDataCreateMutable(v5, v6);
+  *(a1 + 168) = 0;
+  v7 = OUTLINED_FUNCTION_22();
+  *(a1 + 176) = CFSetCreateMutable(v7, v8, 0);
+  v9 = OUTLINED_FUNCTION_22();
+  *(a1 + 184) = CFSetCreateMutable(v9, v10, 0);
+  v11 = OUTLINED_FUNCTION_22();
+  *(a1 + 120) = CFSetCreateMutable(v11, v12, v13);
+  v14 = OUTLINED_FUNCTION_22();
+  *(a1 + 192) = CFStringCreateMutable(v14, v15);
+  v16 = OUTLINED_FUNCTION_22();
+  *(a1 + 200) = CFStringCreateMutable(v16, v17);
+  v18 = OUTLINED_FUNCTION_22();
+  Mutable = CFStringCreateMutable(v18, v19);
+  *(a1 + 208) = Mutable;
+  if (!*(a1 + 136) || !*(a1 + 144) || !*(a1 + 152) || !*(a1 + 160) || !*(a1 + 176) || !*(a1 + 184) || !*(a1 + 120))
+  {
+    return 12;
+  }
+
+  v21 = Mutable;
+  result = 12;
+  if (*(a1 + 200) && v21)
+  {
+    v23 = *(a1 + 192);
+    if (v23)
+    {
+      CFStringAppend(v23, @"iapreject: Identification Rejected Details:\n");
+      CFStringAppendFormat(*(a1 + 200), 0, @"iapreject:  Param: %s", "MessagesSentByAccessory");
+      CFStringAppendFormat(*(a1 + 208), 0, @"iapreject:  Param: %s", "MessagesRcvdFromDevice");
+      return 0;
+    }
+
+    return 12;
+  }
+
+  return result;
+}
+
+uint64_t iap2_identification_processMessagesSet(uint64_t a1, unsigned __int16 *a2, unsigned int a3, int a4)
+{
+  if (!a1)
+  {
+    return 1;
+  }
+
+  v4 = a4;
+  if (a3)
+  {
+    if (a4)
+    {
+      v13 = 6;
+    }
+
+    else
+    {
+      v13 = 7;
+    }
+
+    _addRejectParam(a1, v13, 7u);
+    return 22;
+  }
+
+  else
+  {
+    v8 = a3 >> 1;
+    Mutable = CFSetCreateMutable(kCFAllocatorDefault, v8, 0);
+    if (a3)
+    {
+      do
+      {
+        v10 = *a2++;
+        CFSetAddValue(Mutable, (bswap32(v10) >> 16));
+        --v8;
+      }
+
+      while (v8);
+    }
+
+    if (v4)
+    {
+      v11 = *(a1 + 96);
+      if (v11)
+      {
+        CFRelease(v11);
+      }
+
+      result = 0;
+      *(a1 + 96) = Mutable;
+    }
+
+    else
+    {
+      v14 = *(a1 + 104);
+      if (v14)
+      {
+        CFRelease(v14);
+      }
+
+      result = 0;
+      *(a1 + 104) = Mutable;
+    }
+  }
+
+  return result;
+}
+
+uint64_t iap2_identification_cbIdentificationInfoParams(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = 1;
+  if (!a1 || !a3 || !a4)
+  {
+    return v4;
+  }
+
+  ParamID = iAP2MsgGetParamID(a3);
+  v9 = gLogObjects;
+  v10 = gNumLogObjects;
+  if (gLogObjects && gNumLogObjects >= 26)
+  {
+    v11 = *(gLogObjects + 200);
+  }
+
+  else
+  {
+    v11 = &_os_log_default;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      *v55 = v9;
+      OUTLINED_FUNCTION_2_1();
+      v56 = v10;
+      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v12, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+    }
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  {
+    OUTLINED_FUNCTION_21_9();
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Checking identification info group for paramID: %u...", buf, 8u);
+  }
+
+  ParamHandler = iap2_identification_getParamHandler(ParamID);
+  if (ParamHandler)
+  {
+    if (ParamHandler(a4, a1, a3))
+    {
+      valuePtr = ParamID;
+      v14 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+      CFArrayGetCount(_giAP2RequiredIdentificationParams);
+      v15 = OUTLINED_FUNCTION_26_1();
+      if (CFArrayContainsValue(v15, v57, v14))
+      {
+        IdentificationInfo = iap2_identification_getIdentificationInfo(a4);
+        if (!IdentificationInfo)
+        {
+          v25 = 0;
+          if (!v14)
+          {
+            goto LABEL_40;
+          }
+
+          goto LABEL_39;
+        }
+
+        CFSetAddValue(*(IdentificationInfo + 120), v14);
+        v17 = gLogObjects;
+        v18 = gNumLogObjects;
+        if (gLogObjects && gNumLogObjects >= 26)
+        {
+          v19 = *(gLogObjects + 200);
+        }
+
+        else
+        {
+          v19 = &_os_log_default;
+          if (OUTLINED_FUNCTION_21())
+          {
+            *buf = 134218240;
+            *v55 = v17;
+            OUTLINED_FUNCTION_2_1();
+            v56 = v18;
+            OUTLINED_FUNCTION_7_17();
+            _os_log_error_impl(v43, v44, v45, v46, v47, 0x12u);
+          }
+        }
+
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 67109120;
+          *v55 = valuePtr;
+          _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Added identification paramID: 0x%04X to received params set!", buf, 8u);
+        }
+      }
+
+      v25 = 1;
+      if (!v14)
+      {
+LABEL_40:
+        if ((v25 & 1) == 0)
+        {
+          if ((!gLogObjects || gNumLogObjects < 26) && OUTLINED_FUNCTION_21())
+          {
+            OUTLINED_FUNCTION_13_1();
+            OUTLINED_FUNCTION_7_17();
+            _os_log_error_impl(v48, v49, v50, v51, v52, 0x12u);
+          }
+
+          if (OUTLINED_FUNCTION_21())
+          {
+            OUTLINED_FUNCTION_21_9();
+            OUTLINED_FUNCTION_7_17();
+            _os_log_error_impl(v38, v39, v40, v41, v42, 8u);
+          }
+        }
+
+        return 0;
+      }
+
+LABEL_39:
+      CFRelease(v14);
+      goto LABEL_40;
+    }
+
+    if ((!gLogObjects || gNumLogObjects < 26) && OUTLINED_FUNCTION_21())
+    {
+      OUTLINED_FUNCTION_13_1();
+      OUTLINED_FUNCTION_7_17();
+      _os_log_error_impl(v33, v34, v35, v36, v37, 0x12u);
+    }
+
+    if (OUTLINED_FUNCTION_21())
+    {
+      OUTLINED_FUNCTION_21_9();
+      OUTLINED_FUNCTION_7_17();
+      _os_log_error_impl(v27, v28, v29, v30, v31, 8u);
+    }
+
+    return 1;
+  }
+
+  else
+  {
+    v20 = gLogObjects;
+    v21 = gNumLogObjects;
+    if (gLogObjects && gNumLogObjects >= 26)
+    {
+      v22 = *(gLogObjects + 200);
+    }
+
+    else
+    {
+      v22 = &_os_log_default;
+      if (OUTLINED_FUNCTION_27())
+      {
+        *buf = 134218240;
+        *v55 = v20;
+        OUTLINED_FUNCTION_2_1();
+        v56 = v21;
+        OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v32, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+      }
+    }
+
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      iAP2MsgGetMsgID(a1);
+      OUTLINED_FUNCTION_21_9();
+      *&v55[4] = 1024;
+      *&v55[6] = v23;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Unknown Param ID: %d for Msg ID: 0x%04X", buf, 0xEu);
+    }
+
+    v24 = iap2_identification_getIdentificationInfo(a4);
+    v4 = 1;
+    _addRejectParam(v24, ParamID, 1u);
+  }
+
+  return v4;
+}
+
+void *iap2_identification_getParamHandler(void *key)
+{
+  value = 0;
+  if (_giAP2IdentificationParamHandlers)
+  {
+    ValueIfPresent = CFDictionaryGetValueIfPresent(_giAP2IdentificationParamHandlers, key, &value);
+    if (!value)
+    {
+      if (ValueIfPresent)
+      {
+        if ((!gLogObjects || gNumLogObjects < 26) && OUTLINED_FUNCTION_21())
+        {
+          OUTLINED_FUNCTION_13_1();
+          OUTLINED_FUNCTION_7_17();
+          _os_log_error_impl(v8, v9, v10, v11, v12, 0x12u);
+        }
+
+        if (OUTLINED_FUNCTION_21())
+        {
+          OUTLINED_FUNCTION_21_9();
+          OUTLINED_FUNCTION_7_17();
+          _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+        }
+      }
+    }
+  }
+
+  return value;
+}
+
+BOOL iap2_identification_cancelIdentificationHandler(uint64_t *a1)
+{
+  if (a1)
+  {
+    if (gLogObjects)
+    {
+      v2 = gNumLogObjects < 26;
+    }
+
+    else
+    {
+      v2 = 1;
+    }
+
+    if (v2)
+    {
+      v8 = &_os_log_default;
+      if (OUTLINED_FUNCTION_21())
+      {
+        OUTLINED_FUNCTION_3();
+        OUTLINED_FUNCTION_8_0();
+        _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+      }
+    }
+
+    else
+    {
+      v8 = *(gLogObjects + 200);
+    }
+
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      OUTLINED_FUNCTION_15_1();
+      _os_log_impl(v9, v10, OS_LOG_TYPE_DEFAULT, v11, v12, 2u);
+    }
+
+    if ((iap2_identification_getState(a1) & 0xFFFFFFFD) == 1)
+    {
+      if ((!gLogObjects || gNumLogObjects < 26) && OUTLINED_FUNCTION_21())
+      {
+        OUTLINED_FUNCTION_3();
+        OUTLINED_FUNCTION_8_0();
+        _os_log_error_impl(v26, v27, v28, v29, v30, 0x12u);
+      }
+
+      v13 = OUTLINED_FUNCTION_66_1();
+      if (os_log_type_enabled(v13, v14))
+      {
+        OUTLINED_FUNCTION_15_1();
+        _os_log_impl(v15, v16, OS_LOG_TYPE_INFO, v17, v18, 2u);
+      }
+
+      iap2_identification_setIdentificationState(a1, 4);
+      AccessoryNotSupportedCF = acc_userNotifications_createAccessoryNotSupportedCF();
+      Identifier = acc_userNotifications_createIdentifier(@"identification", a1[1]);
+      ACCUNSetIdentifier(AccessoryNotSupportedCF, Identifier);
+      if (Identifier)
+      {
+        CFRelease(Identifier);
+      }
+
+      ParentConnection = acc_endpoint_getParentConnection(*a1);
+      v22 = acc_endpoint_getParentConnection(ParentConnection);
+      ACCUNSetGroupIdentifier(AccessoryNotSupportedCF, v22);
+      v23 = OUTLINED_FUNCTION_22();
+      ACCUNManagerPresentNotification(v23, v24);
+      if (AccessoryNotSupportedCF)
+      {
+        CFRelease(AccessoryNotSupportedCF);
+      }
+    }
+  }
+
+  return a1 != 0;
+}
+
+_BYTE *iap2_identification_handleIdentificationRejected(_BYTE *result)
+{
+  if (result)
+  {
+    v1 = result;
+    v15 = 0;
+    result = iap2_feature_getFeatureInfoEntries(&v15);
+    if (result)
+    {
+      v2 = v15;
+      if (v15)
+      {
+        v3 = 0;
+        v4 = (result + 8);
+        do
+        {
+          v5 = **v4;
+          if (v5 && *(v5 + 32))
+          {
+            v6 = gLogObjects;
+            v7 = gNumLogObjects;
+            if (gLogObjects)
+            {
+              v8 = gNumLogObjects < 26;
+            }
+
+            else
+            {
+              v8 = 1;
+            }
+
+            if (v8)
+            {
+              v13 = &_os_log_default;
+              if (OUTLINED_FUNCTION_21())
+              {
+                *buf = 134218240;
+                v17 = v6;
+                v18 = 1024;
+                v19 = v7;
+                OUTLINED_FUNCTION_8_0();
+                _os_log_error_impl(v9, v10, v11, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v12, 0x12u);
+                v13 = &_os_log_default;
+              }
+            }
+
+            else
+            {
+              v13 = *(gLogObjects + 200);
+            }
+
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+            {
+              v14 = *(v4 - 2);
+              *buf = 67109120;
+              LODWORD(v17) = v14;
+              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Clearing feature data for feature: %{coreacc:iAP2Feature_t}d...", buf, 8u);
+            }
+
+            result = (*(**v4 + 32))(v1);
+            v2 = v15;
+          }
+
+          ++v3;
+          v4 += 2;
+        }
+
+        while (v3 < v2);
+      }
+    }
+  }
+
+  return result;
+}
+
+void iap2_identification_identificationRejected()
+{
+  OUTLINED_FUNCTION_28_10();
+  if (v0)
+  {
+    v2 = v1;
+    if (v1)
+    {
+      v3 = v0;
+      v4 = (v1 + 136);
+      if (*(v1 + 136))
+      {
+        if (gLogObjects)
+        {
+          v5 = gNumLogObjects < 26;
+        }
+
+        else
+        {
+          v5 = 1;
+        }
+
+        if (v5)
+        {
+          v11 = &_os_log_default;
+          if (OUTLINED_FUNCTION_17())
+          {
+            OUTLINED_FUNCTION_3();
+            OUTLINED_FUNCTION_6_0();
+            OUTLINED_FUNCTION_10(v6, v7, v8, v9, v10);
+          }
+        }
+
+        else
+        {
+          v11 = *(gLogObjects + 200);
+        }
+
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          CFStringGetCStringPtr(*(v2 + 192), 0x8000100u);
+          OUTLINED_FUNCTION_6_0();
+          _os_log_impl(v12, v13, OS_LOG_TYPE_DEFAULT, v14, v15, 0xCu);
+        }
+
+        if (!iap2_sessionControl_sendOutgoingMessage(v3, *v4))
+        {
+          if (gLogObjects && gNumLogObjects >= 26)
+          {
+            v16 = *(gLogObjects + 200);
+          }
+
+          else
+          {
+            v16 = &_os_log_default;
+            if (OUTLINED_FUNCTION_21())
+            {
+              OUTLINED_FUNCTION_3();
+              OUTLINED_FUNCTION_8_0();
+              _os_log_error_impl(v17, v18, v19, v20, v21, 0x12u);
+            }
+          }
+
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          {
+            OUTLINED_FUNCTION_15_1();
+            _os_log_impl(v22, v23, OS_LOG_TYPE_DEFAULT, v24, v25, 8u);
+          }
+
+          goto LABEL_16;
+        }
+
+        *v4 = 0;
+        *(v2 + 144) = 0;
+      }
+
+      iap2_identification_setIdentificationState(v3, 3);
+LABEL_16:
+      iap2_identification_handleIdentificationRejected(v3);
+    }
+  }
+
+  OUTLINED_FUNCTION_29_8();
+}
+
+void iap2_identification_checkMsgIDList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
+{
+  OUTLINED_FUNCTION_28_10();
+  a22 = v23;
+  a23 = v26;
+  if (!v24)
+  {
+    goto LABEL_37;
+  }
+
+  v27 = v25;
+  if (!v25)
+  {
+    goto LABEL_37;
+  }
+
+  v28 = v24;
+  v29 = v25[12];
+  if (v29)
+  {
+    Count = CFSetGetCount(v29);
+    v31 = malloc_type_calloc(Count, 8uLL, 0x10040436913F5uLL);
+    CFSetGetValues(v27[12], v31);
+    if (Count < 1)
+    {
+      if (!v31)
+      {
+        goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      v32 = 0;
+      v33 = 1;
+      do
+      {
+        if (!CFSetContainsValue(v27[22], v31[v32]))
+        {
+          iap2_identification_rejectMsgID(v28, LOWORD(v31[v32]), 0, 1u);
+        }
+
+        v32 = v33;
+        v36 = Count > v33++;
+      }
+
+      while (v36);
+    }
+
+    free(v31);
+  }
+
+  else
+  {
+    v34 = gLogObjects;
+    v35 = gNumLogObjects;
+    if (gLogObjects)
+    {
+      v36 = gNumLogObjects < 26;
+    }
+
+    else
+    {
+      v36 = 1;
+    }
+
+    if (v36)
+    {
+      v38 = &_os_log_default;
+      if (OUTLINED_FUNCTION_27())
+      {
+        LODWORD(a9) = 134218240;
+        *(&a9 + 4) = v34;
+        OUTLINED_FUNCTION_3();
+        *(&a9 + 14) = v35;
+        OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v37, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &a9);
+      }
+    }
+
+    else
+    {
+      v38 = *(gLogObjects + 200);
+    }
+
+    if (OUTLINED_FUNCTION_27())
+    {
+      LOWORD(a9) = 0;
+      OUTLINED_FUNCTION_10_7(&_mh_execute_header, v38, v39, "pIdentInfo->messagesSentByAccSet = NULL", &a9);
+    }
+  }
+
+LABEL_21:
+  v40 = v27[13];
+  if (v40)
+  {
+    v41 = CFSetGetCount(v40);
+    v42 = malloc_type_calloc(v41, 8uLL, 0x10040436913F5uLL);
+    CFSetGetValues(v27[13], v42);
+    if (v41 >= 1)
+    {
+      v43 = 0;
+      v44 = 1;
+      do
+      {
+        if (!CFSetContainsValue(v27[23], v42[v43]))
+        {
+          iap2_identification_rejectMsgID(v28, LOWORD(v42[v43]), 1, 1u);
+        }
+
+        v43 = v44;
+        v36 = v41 > v44++;
+      }
+
+      while (v36);
+      goto LABEL_32;
+    }
+
+    if (v42)
+    {
+LABEL_32:
+      free(v42);
+    }
+  }
+
+  else
+  {
+    v45 = gLogObjects;
+    v46 = gNumLogObjects;
+    if ((!gLogObjects || gNumLogObjects < 26) && OUTLINED_FUNCTION_13())
+    {
+      LODWORD(a9) = 134218240;
+      *(&a9 + 4) = v45;
+      OUTLINED_FUNCTION_3();
+      *(&a9 + 14) = v46;
+      OUTLINED_FUNCTION_13_0();
+      _os_log_error_impl(v52, v53, v54, v55, v56, 0x12u);
+    }
+
+    if (OUTLINED_FUNCTION_13())
+    {
+      LOWORD(a9) = 0;
+      OUTLINED_FUNCTION_13_0();
+      _os_log_error_impl(v47, v48, v49, v50, v51, 2u);
+    }
+  }
+
+LABEL_37:
+  OUTLINED_FUNCTION_29_8();
+}
+
+BOOL iap2_identification_checkRequiredTransportComponentParam(uint64_t *a1, uint64_t a2, int a3)
+{
+  if (!a1)
+  {
+    return 1;
+  }
+
+  result = 1;
+  if (a2)
+  {
+    v6 = *a1;
+    if (v6)
+    {
+      result = 0;
+      switch(a3)
+      {
+        case 14:
+          if (*(v6 + 24) != 6)
+          {
+            goto LABEL_32;
+          }
+
+          OUTLINED_FUNCTION_20_10();
+          if (v9 >= 0xF)
+          {
+            if (*(*v8 + 56))
+            {
+              goto LABEL_32;
+            }
+          }
+
+          goto LABEL_27;
+        case 15:
+          if (!*(v6 + 24))
+          {
+            OUTLINED_FUNCTION_20_10();
+            if (v11 < 0x10 || !*(*v10 + 60))
+            {
+              goto LABEL_27;
+            }
+          }
+
+          goto LABEL_32;
+        case 16:
+          if (*(v6 + 24) == 8)
+          {
+            OUTLINED_FUNCTION_20_10();
+            if (v15 < 0x11 || !*(*v14 + 64))
+            {
+              goto LABEL_27;
+            }
+          }
+
+          goto LABEL_32;
+        case 17:
+          if ((*(v6 + 24) & 0xFFFFFFFE) == 2)
+          {
+            OUTLINED_FUNCTION_20_10();
+            if (v17 < 0x12 || !*(*v16 + 68))
+            {
+              goto LABEL_27;
+            }
+          }
+
+          goto LABEL_32;
+        case 24:
+          if (*(v6 + 24) != 4)
+          {
+            goto LABEL_32;
+          }
+
+          OUTLINED_FUNCTION_20_10();
+          if (v13 > 0x18)
+          {
+            if (*(*v12 + 96))
+            {
+              goto LABEL_32;
+            }
+          }
+
+LABEL_27:
+          _addRejectParam(a2, v7, 2u);
+          result = 1;
+          *(a2 + 132) = 1;
+          break;
+        case 26:
+          return result;
+        default:
+          if ((!gLogObjects || gNumLogObjects < 26) && OUTLINED_FUNCTION_13())
+          {
+            OUTLINED_FUNCTION_3();
+            OUTLINED_FUNCTION_13_0();
+            _os_log_error_impl(v23, v24, v25, v26, v27, 0x12u);
+          }
+
+          result = OUTLINED_FUNCTION_13();
+          if (!result)
+          {
+            return result;
+          }
+
+          OUTLINED_FUNCTION_13_0();
+          _os_log_error_impl(v18, v19, v20, v21, v22, 2u);
+LABEL_32:
+          result = 0;
+          break;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t iap2_identification_checkIdentificationInfoForRequiredTransportParam(void *a1, uint64_t a2)
+{
+  result = 1;
+  if (a1)
+  {
+    if (a2)
+    {
+      v4 = OUTLINED_FUNCTION_17_18();
+      v6 = iap2_identification_checkRequiredTransportComponentParam(v4, v5, 14);
+      v7 = OUTLINED_FUNCTION_17_18();
+      v9 = iap2_identification_checkRequiredTransportComponentParam(v7, v8, 15) || v6;
+      OUTLINED_FUNCTION_8_0();
+      v13 = iap2_identification_checkRequiredTransportComponentParam(v10, v11, v12);
+      v14 = OUTLINED_FUNCTION_17_18();
+      v16 = v9 | v13 | iap2_identification_checkRequiredTransportComponentParam(v14, v15, 17);
+      v17 = OUTLINED_FUNCTION_17_18();
+      return v16 | iap2_identification_checkRequiredTransportComponentParam(v17, v18, 24) | (*a1 == 0);
+    }
+  }
+
+  return result;
+}
+
+uint64_t iap2_identification_checkIdentificationInfoAll(uint64_t a1, uint64_t a2)
+{
+  if (!a1 || !a2)
+  {
+    return 1;
+  }
+
+  Feature = iap2_feature_getFeature(a1, 1u);
+  if (Feature)
+  {
+    v4 = Feature;
+    v5 = *(*(Feature + 8) + 112);
+    if (v5)
+    {
+      CFSetRemoveAllValues(v5);
+    }
+
+    else
+    {
+      *(*(v4 + 8) + 112) = CFSetCreateMutable(kCFAllocatorDefault, 0, 0);
+    }
+  }
+
+  return iap2_identification_checkIdentificationInfo(a1);
+}
+
+void _CFSetValidateRequiredIdentificationParamsApplierFunction(const __CFNumber *a1, uint64_t a2)
+{
+  if (a2)
+  {
+    valuePtr = 0;
+    CFNumberGetValue(a1, kCFNumberIntType, &valuePtr);
+    if (!CFSetContainsValue(*(a2 + 120), a1))
+    {
+      _addRejectParam(a2, valuePtr, 2u);
+      *(a2 + 132) = 1;
+    }
+  }
+}
+
+BOOL iap2_identification_identificationInfoHandler(_BOOL8 result)
+{
+  if (!result)
+  {
+    return result;
+  }
+
+  v1 = result;
+  if (!*result)
+  {
+    return 0;
+  }
+
+  if ((iap2_identification_getState(result) & 0xFFFFFFFD) == 1)
+  {
+    IdentificationInfo = iap2_identification_createIdentificationInfo();
+    if (!IdentificationInfo)
+    {
+      v3 = gLogObjects;
+      v4 = gNumLogObjects;
+      if ((!gLogObjects || gNumLogObjects < 26) && OUTLINED_FUNCTION_13())
+      {
+        *buf = 134218240;
+        v83 = v3;
+        OUTLINED_FUNCTION_14_16();
+        v84 = v4;
+        OUTLINED_FUNCTION_13_0();
+        _os_log_error_impl(v23, v24, v25, v26, v27, 0x12u);
+      }
+
+      result = OUTLINED_FUNCTION_13();
+      if (!result)
+      {
+        return result;
+      }
+
+      *buf = 0;
+      OUTLINED_FUNCTION_13_0();
+      _os_log_error_impl(v13, v14, v15, v16, v17, 2u);
+      return 0;
+    }
+
+    v8 = IdentificationInfo;
+    v9 = OUTLINED_FUNCTION_1_0();
+    if (!iap2_identification_setIdentificationInfo(v9, v10))
+    {
+      v11 = gLogObjects;
+      v12 = gNumLogObjects;
+      if ((!gLogObjects || gNumLogObjects < 26) && OUTLINED_FUNCTION_21())
+      {
+        *buf = 134218240;
+        v83 = v11;
+        OUTLINED_FUNCTION_14_16();
+        v84 = v12;
+        OUTLINED_FUNCTION_8_0();
+        _os_log_error_impl(v40, v41, v42, v43, v44, 0x12u);
+      }
+
+      if (OUTLINED_FUNCTION_21())
+      {
+        *buf = 0;
+        OUTLINED_FUNCTION_8_0();
+        _os_log_error_impl(v35, v36, v37, v38, v39, 2u);
+      }
+
+      free(v8);
+      return 0;
+    }
+
+    RejectMessage = iap2_identification_createRejectMessage(v8);
+    if (RejectMessage)
+    {
+LABEL_38:
+      v45 = gLogObjects;
+      v46 = gNumLogObjects;
+      if (gLogObjects && gNumLogObjects >= 26)
+      {
+        v47 = *(gLogObjects + 200);
+      }
+
+      else
+      {
+        v47 = &_os_log_default;
+        if (OUTLINED_FUNCTION_27())
+        {
+          *buf = 134218240;
+          v83 = v45;
+          OUTLINED_FUNCTION_14_16();
+          v84 = v46;
+          OUTLINED_FUNCTION_25_4();
+          OUTLINED_FUNCTION_10(v53, v54, v55, v56, v57);
+        }
+      }
+
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        LODWORD(v83) = RejectMessage;
+        OUTLINED_FUNCTION_25_4();
+        _os_log_impl(v48, v49, OS_LOG_TYPE_DEFAULT, v50, v51, 8u);
+      }
+
+      v52 = *(v8 + 8);
+      v81[0] = _NSConcreteStackBlock;
+      v81[1] = 0x40000000;
+      v81[2] = __iap2_identification_identificationInfoHandler_block_invoke;
+      v81[3] = &__block_descriptor_tmp_20;
+      v81[4] = v1;
+      v81[5] = v8;
+      iap2_sessionControl_authorizationHook_identification(v1, v52, v81);
+      return 0;
+    }
+
+    v29 = OUTLINED_FUNCTION_26_1();
+    v32 = iAP2MsgForEachParamDo(v29, v30, v31, v1);
+    if (v32)
+    {
+      RejectMessage = v32;
+      v33 = gLogObjects;
+      v34 = gNumLogObjects;
+      if ((!gLogObjects || gNumLogObjects < 26) && OUTLINED_FUNCTION_27())
+      {
+        *buf = 134218240;
+        v83 = v33;
+        OUTLINED_FUNCTION_14_16();
+        v84 = v34;
+        OUTLINED_FUNCTION_25_4();
+        OUTLINED_FUNCTION_10(v66, v67, v68, v69, v70);
+      }
+
+      if (OUTLINED_FUNCTION_27())
+      {
+        *buf = 67109120;
+        LODWORD(v83) = RejectMessage;
+        OUTLINED_FUNCTION_25_4();
+        _os_log_error_impl(v62, v63, OS_LOG_TYPE_ERROR, v64, v65, 8u);
+      }
+
+      goto LABEL_38;
+    }
+
+    v58 = _giAP2RequiredIdentificationParams;
+    v85.length = CFArrayGetCount(_giAP2RequiredIdentificationParams);
+    v85.location = 0;
+    CFArrayApplyFunction(v58, v85, _CFSetValidateRequiredIdentificationParamsApplierFunction, v8);
+    v59 = OUTLINED_FUNCTION_1_0();
+    v61 = iap2_identification_checkIdentificationInfoForRequiredTransportParam(v59, v60);
+    if (*(v8 + 132))
+    {
+      RejectMessage = -1;
+      goto LABEL_38;
+    }
+
+    if (v61)
+    {
+      RejectMessage = 1;
+      goto LABEL_38;
+    }
+
+    v71 = gLogObjects;
+    v72 = gNumLogObjects;
+    if (gLogObjects && gNumLogObjects >= 26)
+    {
+      v73 = *(gLogObjects + 200);
+    }
+
+    else
+    {
+      v73 = &_os_log_default;
+      if (OUTLINED_FUNCTION_17())
+      {
+        *buf = 134218240;
+        v83 = v71;
+        OUTLINED_FUNCTION_14_16();
+        v84 = v72;
+        OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v74, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+      }
+    }
+
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "IdentificationInfo params processed, checking identification info...", buf, 2u);
+    }
+
+    v75 = OUTLINED_FUNCTION_1_0();
+    v77 = iap2_identification_checkIdentificationInfoAll(v75, v76);
+    v78 = *(v8 + 8);
+    v79[0] = _NSConcreteStackBlock;
+    v79[1] = 0x40000000;
+    v79[2] = __iap2_identification_identificationInfoHandler_block_invoke_76;
+    v79[3] = &__block_descriptor_tmp_77;
+    v80 = v77;
+    v79[4] = v1;
+    v79[5] = v8;
+    iap2_sessionControl_authorizationHook_identification(v1, v78, v79);
+    return v77 == 0;
+  }
+
+  else
+  {
+    v5 = gLogObjects;
+    v6 = gNumLogObjects;
+    if (gLogObjects && gNumLogObjects >= 26)
+    {
+      v7 = *(gLogObjects + 200);
+    }
+
+    else
+    {
+      v7 = &_os_log_default;
+      if (OUTLINED_FUNCTION_13())
+      {
+        *buf = 134218240;
+        v83 = v5;
+        OUTLINED_FUNCTION_14_16();
+        v84 = v6;
+        OUTLINED_FUNCTION_13_0();
+        _os_log_error_impl(v18, v19, v20, v21, v22, 0x12u);
+      }
+    }
+
+    result = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (result)
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "After accessory has already completed Identify process once, any subsequent IdentificationInfo is ignored.", buf, 2u);
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+const __CFSet *iap2_identification_isIdentifiedForFeature(const __CFSet *result)
+{
+  if (result)
+  {
+    result = OUTLINED_FUNCTION_30_10(result);
+    if (result)
+    {
+      OUTLINED_FUNCTION_18_17();
+      if (v3 && (v4 = *(v2 + 8)) != 0)
+      {
+        result = *(v4 + 112);
+        if (result)
+        {
+          return (CFSetContainsValue(result, v1) != 0);
+        }
+      }
+
+      else
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t iap2_identification_isIdentifiedForCarPlay(uint64_t a1)
+{
+  if (!a1)
+  {
+    LOBYTE(v3) = 0;
+    return v3 & 1;
+  }
+
+  if (!iap2_feature_getFeature(a1, 1u))
+  {
+    goto LABEL_9;
+  }
+
+  OUTLINED_FUNCTION_18_17();
+  if (!v2)
+  {
+    goto LABEL_9;
+  }
+
+  v3 = *(v1 + 8);
+  if (v3)
+  {
+    if (!*(v3 + 112))
+    {
+LABEL_9:
+      LOBYTE(v3) = 0;
+      return v3 & 1;
+    }
+
+    LOBYTE(v3) = *(v3 + 128);
+  }
+
+  return v3 & 1;
+}
+
+uint64_t iap2_identification_isIdentifiedForWirelessCarPlay(uint64_t a1)
+{
+  if (!a1)
+  {
+    LOBYTE(v3) = 0;
+    return v3 & 1;
+  }
+
+  if (!iap2_feature_getFeature(a1, 1u))
+  {
+    goto LABEL_9;
+  }
+
+  OUTLINED_FUNCTION_18_17();
+  if (!v2)
+  {
+    goto LABEL_9;
+  }
+
+  v3 = *(v1 + 8);
+  if (v3)
+  {
+    if (!*(v3 + 112))
+    {
+LABEL_9:
+      LOBYTE(v3) = 0;
+      return v3 & 1;
+    }
+
+    LOBYTE(v3) = *(v3 + 129);
+  }
+
+  return v3 & 1;
+}
+
+uint64_t iap2_identification_isIdentifiedForUSBCarPlay(uint64_t a1)
+{
+  if (!a1)
+  {
+    LOBYTE(v3) = 0;
+    return v3 & 1;
+  }
+
+  if (!iap2_feature_getFeature(a1, 1u))
+  {
+    goto LABEL_9;
+  }
+
+  OUTLINED_FUNCTION_18_17();
+  if (!v2)
+  {
+    goto LABEL_9;
+  }
+
+  v3 = *(v1 + 8);
+  if (v3)
+  {
+    if (!*(v3 + 112))
+    {
+LABEL_9:
+      LOBYTE(v3) = 0;
+      return v3 & 1;
+    }
+
+    LOBYTE(v3) = *(v3 + 130);
+  }
+
+  return v3 & 1;
+}
+
+uint64_t iap2_identification_isIdentifiedForThemeAssets(uint64_t a1)
+{
+  if (!a1)
+  {
+    LOBYTE(v3) = 0;
+    return v3 & 1;
+  }
+
+  if (!iap2_feature_getFeature(a1, 1u))
+  {
+    goto LABEL_9;
+  }
+
+  OUTLINED_FUNCTION_18_17();
+  if (!v2)
+  {
+    goto LABEL_9;
+  }
+
+  v3 = *(v1 + 8);
+  if (v3)
+  {
+    if (!*(v3 + 112))
+    {
+LABEL_9:
+      LOBYTE(v3) = 0;
+      return v3 & 1;
+    }
+
+    LOBYTE(v3) = *(v3 + 131);
+  }
+
+  return v3 & 1;
+}
+
+void iap2_identification_setIdentifiedForFeature(uint64_t a1)
+{
+  if (a1)
+  {
+    v2 = OUTLINED_FUNCTION_30_10(a1);
+    if (v2)
+    {
+      v3 = *(v2 + 8);
+      if (v3)
+      {
+        v4 = *(v3 + 112);
+        if (v4)
+        {
+          CFSetAddValue(v4, v1);
+          if (gLogObjects && gNumLogObjects >= 26)
+          {
+            v5 = *(gLogObjects + 200);
+          }
+
+          else
+          {
+            v5 = &_os_log_default;
+            if (OUTLINED_FUNCTION_21())
+            {
+              OUTLINED_FUNCTION_3();
+              OUTLINED_FUNCTION_8_0();
+              _os_log_error_impl(v10, v11, v12, v13, v14, 0x12u);
+            }
+          }
+
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+          {
+            OUTLINED_FUNCTION_15_1();
+            _os_log_impl(v6, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 8u);
+          }
+        }
+      }
+    }
+  }
+}
+
+void *iap2_identification_getTransportComponent(void *result)
+{
+  if (!result)
+  {
+    return result;
+  }
+
+  result = OUTLINED_FUNCTION_30_10(result);
+  if (!result)
+  {
+    return result;
+  }
+
+  v4 = result[1];
+  if (!v4 || !*(v4 + 72))
+  {
+    return 0;
+  }
+
+  CFDictionaryGetCount(*(v4 + 72));
+  OUTLINED_FUNCTION_27_9();
+  __chkstk_darwin(v5);
+  OUTLINED_FUNCTION_23_9();
+  if (!v7)
+  {
+    v10 = OUTLINED_FUNCTION_26_1();
+    CFDictionaryGetKeysAndValues(v10, v11, v3);
+    return 0;
+  }
+
+  memset(v3, 170, v6);
+  v8 = OUTLINED_FUNCTION_26_1();
+  CFDictionaryGetKeysAndValues(v8, v9, v3);
+  if (v2 < 1)
+  {
+    return 0;
+  }
+
+  while (1)
+  {
+    result = *v3;
+    if (*v3)
+    {
+      if (*(result + 5) == v1)
+      {
+        break;
+      }
+    }
+
+    ++v3;
+    if (!--v2)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+CFDataRef iap2_identification_copyMacAddressForComponentID(uint64_t a1, int a2)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  IdentificationInfo = iap2_identification_getIdentificationInfo(a1);
+  if (!IdentificationInfo)
+  {
+    return 0;
+  }
+
+  if (!*(IdentificationInfo + 72))
+  {
+    return 0;
+  }
+
+  Count = CFDictionaryGetCount(*(IdentificationInfo + 72));
+  if (!Count)
+  {
+    return 0;
+  }
+
+  v5 = Count;
+  v6 = malloc_type_calloc(Count, 8uLL, 0xC0040B8AA526DuLL);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  v8 = OUTLINED_FUNCTION_26_1();
+  CFDictionaryGetKeysAndValues(v8, v9, v7);
+  if (v5 < 1)
+  {
+LABEL_26:
+    v18 = 0;
+    goto LABEL_35;
+  }
+
+  v10 = v7;
+  while (1)
+  {
+    v11 = *v10;
+    if (!*v10)
+    {
+      v14 = gLogObjects;
+      v15 = gNumLogObjects;
+      if (gLogObjects)
+      {
+        v16 = gNumLogObjects < 26;
+      }
+
+      else
+      {
+        v16 = 1;
+      }
+
+      if (v16)
+      {
+        v17 = &_os_log_default;
+        if (OUTLINED_FUNCTION_27())
+        {
+          *buf = 134218240;
+          *v26 = v14;
+          OUTLINED_FUNCTION_2_1();
+          *&v26[10] = v15;
+          _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+          v17 = &_os_log_default;
+        }
+      }
+
+      else
+      {
+        v17 = *(gLogObjects + 200);
+      }
+
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "transportComponent is NULL!", buf, 2u);
+      }
+
+      goto LABEL_25;
+    }
+
+    if (*v11 == a2)
+    {
+      v12 = *(v11 + 5);
+      if (v12 == 5 || v12 == 3)
+      {
+        break;
+      }
+    }
+
+LABEL_25:
+    ++v10;
+    if (!--v5)
+    {
+      goto LABEL_26;
+    }
+  }
+
+  v18 = CFDataCreate(kCFAllocatorDefault, v11 + 24, 6);
+  v19 = gLogObjects;
+  v20 = gNumLogObjects;
+  if (gLogObjects && gNumLogObjects >= 26)
+  {
+    v21 = *(gLogObjects + 200);
+  }
+
+  else
+  {
+    v21 = &_os_log_default;
+    if (OUTLINED_FUNCTION_17())
+    {
+      *buf = 134218240;
+      *v26 = v19;
+      OUTLINED_FUNCTION_2_1();
+      *&v26[10] = v20;
+      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v24, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+    }
+  }
+
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    v23 = *v11;
+    *buf = 67109378;
+    *v26 = v23;
+    *&v26[4] = 2112;
+    *&v26[6] = v18;
+    _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "iap2_identification_copyMacAddressForComponentID: componentID=%d macAddr=%@", buf, 0x12u);
+  }
+
+LABEL_35:
+  free(v7);
+  return v18;
+}
+
+void iap2_identification_setParamHandler()
+{
+  OUTLINED_FUNCTION_28_10();
+  v1 = v0;
+  v3 = v2;
+  v4 = _giAP2IdentificationParamHandlers;
+  if (_giAP2IdentificationParamHandlers)
+  {
+    goto LABEL_12;
+  }
+
+  _giAP2IdentificationParamHandlers = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, 0, 0);
+  if (!gLogObjects || gNumLogObjects < 26)
+  {
+    v11 = &_os_log_default;
+    if (OUTLINED_FUNCTION_17())
+    {
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_6_0();
+      OUTLINED_FUNCTION_10(v6, v7, v8, v9, v10);
+    }
+  }
+
+  else
+  {
+    v11 = *(gLogObjects + 200);
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_38_3(v23, v24, v25, v26, v27);
+  }
+
+  v4 = _giAP2IdentificationParamHandlers;
+  if (_giAP2IdentificationParamHandlers)
+  {
+LABEL_12:
+    CFDictionarySetValue(v4, v3, v1);
+    if (gLogObjects)
+    {
+      v12 = gNumLogObjects < 26;
+    }
+
+    else
+    {
+      v12 = 1;
+    }
+
+    if (v12)
+    {
+      v18 = &_os_log_default;
+      if (OUTLINED_FUNCTION_21())
+      {
+        OUTLINED_FUNCTION_3();
+        OUTLINED_FUNCTION_8_0();
+        _os_log_error_impl(v13, v14, v15, v16, v17, 0x12u);
+      }
+    }
+
+    else
+    {
+      v18 = *(gLogObjects + 200);
+    }
+
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      OUTLINED_FUNCTION_15_1();
+      _os_log_debug_impl(v19, v20, OS_LOG_TYPE_DEBUG, v21, v22, 8u);
+    }
+  }
+
+  OUTLINED_FUNCTION_29_8();
+}
+
+uint64_t iap2_identification_setRequiredIdentificationParam(int a1)
+{
+  valuePtr = a1;
+  if (!_giAP2RequiredIdentificationParams)
+  {
+    _giAP2RequiredIdentificationParams = CFArrayCreateMutable(kCFAllocatorDefault, 243, &kCFTypeArrayCallBacks);
+    v1 = gLogObjects;
+    v2 = gNumLogObjects;
+    if (!gLogObjects || gNumLogObjects < 26)
+    {
+      v9 = &_os_log_default;
+      if (OUTLINED_FUNCTION_13())
+      {
+        *buf = 134218240;
+        v24 = v1;
+        OUTLINED_FUNCTION_2_1();
+        v25 = v2;
+        OUTLINED_FUNCTION_13_0();
+        _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
+      }
+    }
+
+    else
+    {
+      v9 = *(gLogObjects + 200);
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      OUTLINED_FUNCTION_38_3(&_mh_execute_header, v9, v10, "Initialized required identification params set!", buf);
+    }
+
+    if (!_giAP2RequiredIdentificationParams)
+    {
+      return 0;
+    }
+  }
+
+  v11 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  CFArrayAppendValue(_giAP2RequiredIdentificationParams, v11);
+  if (v11)
+  {
+    CFRelease(v11);
+  }
+
+  v12 = gLogObjects;
+  v13 = gNumLogObjects;
+  if (gLogObjects)
+  {
+    v14 = gNumLogObjects < 26;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  if (v14)
+  {
+    v20 = &_os_log_default;
+    if (OUTLINED_FUNCTION_13())
+    {
+      *buf = 134218240;
+      v24 = v12;
+      OUTLINED_FUNCTION_2_1();
+      v25 = v13;
+      OUTLINED_FUNCTION_13_0();
+      _os_log_error_impl(v15, v16, v17, v18, v19, 0x12u);
+    }
+  }
+
+  else
+  {
+    v20 = *(gLogObjects + 200);
+  }
+
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109120;
+    LODWORD(v24) = valuePtr;
+    _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Added identification paramID: 0x%04X to required params set!", buf, 8u);
+  }
+
+  return 1;
+}
+
 _DWORD *_createFeature_21(_DWORD *result)
 {
   if (result)
@@ -20,12 +1968,12 @@ uint64_t _destroyFeature_21(uint64_t result)
     v2 = *result;
     if (*result)
     {
-      iap2_identification_releaseIdentInfo(*(v2 + 8));
-      v3 = *(v2 + 8);
+      iap2_identification_releaseIdentInfo(v2[1]);
+      v3 = v2[1];
       if (v3)
       {
         free(v3);
-        *(v2 + 8) = 0;
+        v2[1] = 0;
       }
 
       if (*v1)
@@ -44,13 +1992,6 @@ uint64_t _destroyFeature_21(uint64_t result)
   }
 
   return result;
-}
-
-void __iap2_identification_identificationInfoHandler_block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  iap2_identification_identificationRejected();
 }
 
 uint64_t iap2_sessionLog_start(uint64_t result)
@@ -194,7 +2135,7 @@ uint64_t iap2_sessionLog_parseIncomingMessage(uint64_t a1, uint64_t a2, unsigned
   return loggingProtocol_parseIncomingByteStream(a2, a3, v5);
 }
 
-BOOL iap2_sessionLog_sendOutgoingMessage(uint64_t a1, char *a2, unsigned int a3)
+BOOL iap2_sessionLog_sendOutgoingMessage(uint64_t a1, char *a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -258,38 +2199,33 @@ uint64_t iap2_oobBtPairing_accessoryInfoHandler(uint64_t a1, uint64_t a2)
     if (OUTLINED_FUNCTION_21())
     {
       OUTLINED_FUNCTION_9_22();
-      OUTLINED_FUNCTION_26_2(&_mh_execute_header, v45, v46, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+      OUTLINED_FUNCTION_26_2(&_mh_execute_header, v41, v42, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
     }
   }
 
   if (OUTLINED_FUNCTION_76())
   {
-    if (a1)
-    {
-      v5 = *(a1 + 8);
-    }
-
     OUTLINED_FUNCTION_17_19();
-    OUTLINED_FUNCTION_73_0(&_mh_execute_header, v4, v6, "iAP2OOBBTPairing AccessoryInfo Handler %@", buf);
+    OUTLINED_FUNCTION_73_0(&_mh_execute_header, v4, v5, "iAP2OOBBTPairing AccessoryInfo Handler %@", buf);
   }
 
-  v7 = 0;
+  v6 = 0;
   if (a1 && a2)
   {
-    v8 = OUTLINED_FUNCTION_21_1();
-    FirstParam = iAP2MsgGetFirstParam(v8, v9);
-    v56 = 0;
+    v7 = OUTLINED_FUNCTION_21_1();
+    FirstParam = iAP2MsgGetFirstParam(v7, v8);
+    v52 = 0;
     valuePtr = 0;
     if (FirstParam)
     {
+      v10 = 0;
       v11 = 0;
       v12 = 0;
       v13 = 0;
-      v14 = 0;
       while (1)
       {
         ParamID = iAP2MsgGetParamID(FirstParam);
-        v16 = ParamID;
+        v15 = ParamID;
         if (ParamID == 1)
         {
           break;
@@ -297,173 +2233,176 @@ uint64_t iap2_oobBtPairing_accessoryInfoHandler(uint64_t a1, uint64_t a2)
 
         if (ParamID)
         {
-          goto LABEL_20;
+          goto LABEL_18;
         }
 
-        DataAsU16 = iAP2MsgGetDataAsU16(FirstParam, &v56);
-        if (v56)
+        DataAsU16 = iAP2MsgGetDataAsU16(FirstParam, &v52);
+        if (v52)
         {
           MsgID = iAP2MsgGetMsgID(a2);
           printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 0, MsgID);
           return 0;
         }
 
-        v11 = DataAsU16;
+        v10 = DataAsU16;
         valuePtr = DataAsU16;
-        v12 = 1;
-LABEL_21:
-        v20 = OUTLINED_FUNCTION_21_1();
-        FirstParam = iAP2MsgGetNextParam(v20, v21, FirstParam);
+        v11 = 1;
+LABEL_19:
+        v19 = OUTLINED_FUNCTION_21_1();
+        FirstParam = iAP2MsgGetNextParam(v19, v20, FirstParam);
         if (!FirstParam)
         {
-          LODWORD(FirstParam) = v11;
-          goto LABEL_24;
+          LODWORD(FirstParam) = v10;
+          goto LABEL_22;
         }
       }
 
-      DataAsU32 = iAP2MsgGetDataAsU32(FirstParam, &v56);
-      if (v56)
+      DataAsU32 = iAP2MsgGetDataAsU32(FirstParam, &v52);
+      if (v52)
       {
-        v54 = iAP2MsgGetMsgID(a2);
-        printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 1, v54);
+        v50 = iAP2MsgGetMsgID(a2);
+        printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 1, v50);
         return 0;
       }
 
-      v13 = DataAsU32;
-      v14 = 1;
-LABEL_20:
-      v19 = iAP2MsgGetMsgID(a2);
-      printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v16, v19);
-      goto LABEL_21;
+      v12 = DataAsU32;
+      v13 = 1;
+LABEL_18:
+      v18 = iAP2MsgGetMsgID(a2);
+      printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v15, v18);
+      goto LABEL_19;
     }
 
-    v14 = 0;
     v13 = 0;
     v12 = 0;
-LABEL_24:
+    v11 = 0;
+LABEL_22:
     if (gLogObjects && gNumLogObjects >= 46)
     {
-      v22 = *(gLogObjects + 360);
+      v21 = *(gLogObjects + 360);
     }
 
     else
     {
-      v22 = &_os_log_default;
+      v21 = &_os_log_default;
       if (OUTLINED_FUNCTION_17())
       {
         OUTLINED_FUNCTION_11_16();
-        OUTLINED_FUNCTION_35(&_mh_execute_header, v47, v48, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+        OUTLINED_FUNCTION_35(&_mh_execute_header, v43, v44, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
       }
     }
 
     if (OUTLINED_FUNCTION_82())
     {
-      v23 = *(a1 + 8);
       OUTLINED_FUNCTION_17_19();
-      OUTLINED_FUNCTION_73_0(&_mh_execute_header, v22, v24, "iAP2OOBBTPairing AccessoryInfo: %@", buf);
+      OUTLINED_FUNCTION_73_0(&_mh_execute_header, v21, v22, "iAP2OOBBTPairing AccessoryInfo: %@", buf);
     }
 
     Feature = iap2_feature_getFeature(a1, 0xFu);
     if (Feature)
     {
-      v26 = Feature;
+      v24 = Feature;
       if (*(Feature + 28) == 1)
       {
         buf[0] = 0;
         if (iap2_identification_checkRequiredMsgIDs(a1, &gskMsgOOBBTPairingMainList, 5, buf))
         {
-          if (v14 & v12)
+          if (v13 & v11)
           {
-            v27 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt16Type, &valuePtr);
-            Value = CFDictionaryGetValue(*v26, v27);
-            v29 = iap2_identification_copyMacAddressForComponentID(a1, valuePtr);
-            v30 = gLogObjects;
-            v31 = gNumLogObjects;
+            v25 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt16Type, &valuePtr);
+            Value = CFDictionaryGetValue(*v24, v25);
+            v27 = iap2_identification_copyMacAddressForComponentID(a1, valuePtr);
+            v28 = gLogObjects;
+            v29 = gNumLogObjects;
             if (gLogObjects && gNumLogObjects >= 46)
             {
-              v32 = *(gLogObjects + 360);
+              v30 = *(gLogObjects + 360);
             }
 
             else
             {
-              v32 = &_os_log_default;
+              v30 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                *v58 = v30;
+                *v54 = v28;
                 OUTLINED_FUNCTION_5_0();
-                *&v58[10] = v31;
+                *&v54[10] = v29;
                 _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
             }
 
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
               *buf = 67109634;
-              *v58 = valuePtr;
-              *&v58[4] = 2112;
-              *&v58[6] = Value;
-              *&v58[14] = 2112;
-              *&v58[16] = v29;
-              _os_log_debug_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "iAP2OOBBTPairing AccessoryInfo: for componentID=%d, uuid=%@ accessoryMacAddr=%@", buf, 0x1Cu);
+              *v54 = valuePtr;
+              *&v54[4] = 2112;
+              *&v54[6] = Value;
+              *&v54[14] = 2112;
+              *&v54[16] = v27;
+              _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "iAP2OOBBTPairing AccessoryInfo: for componentID=%d, uuid=%@ accessoryMacAddr=%@", buf, 0x1Cu);
             }
 
             if (Value)
             {
-              v34 = v29 == 0;
+              v32 = v27 == 0;
             }
 
             else
             {
-              v34 = 1;
+              v32 = 1;
             }
 
-            v7 = !v34;
-            if (v34)
+            v6 = !v32;
+            if (v32)
             {
-              v39 = gLogObjects;
-              v40 = gNumLogObjects;
+              v36 = gLogObjects;
+              v37 = gNumLogObjects;
               if (gLogObjects && gNumLogObjects >= 46)
               {
-                v41 = *(gLogObjects + 360);
+                v38 = *(gLogObjects + 360);
               }
 
               else
               {
-                v41 = &_os_log_default;
+                v38 = &_os_log_default;
                 if (OUTLINED_FUNCTION_21())
                 {
                   *buf = 134218240;
-                  *v58 = v39;
+                  *v54 = v36;
                   OUTLINED_FUNCTION_5_0();
-                  *&v58[10] = v40;
-                  OUTLINED_FUNCTION_26_2(&_mh_execute_header, v51, v52, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+                  *&v54[10] = v37;
+                  OUTLINED_FUNCTION_26_2(&_mh_execute_header, v47, v48, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
                 }
               }
 
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
               {
-                v42 = *(a1 + 8);
                 OUTLINED_FUNCTION_17_19();
-                *&v58[8] = 2112;
-                *&v58[10] = Value;
-                *&v58[18] = 2112;
-                *&v58[20] = v29;
-                LOWORD(v59[0]) = 1024;
-                *(v59 + 2) = v43;
-                _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "iAP2OOBBTPairing AccessoryInfo: %@, no uuid(%@) or accesoryMacAddr(%@) for componentID %d, ignore message", buf, 0x26u);
+                *&v54[8] = 2112;
+                *&v54[10] = Value;
+                *&v54[18] = 2112;
+                *&v54[20] = v27;
+                LOWORD(v55[0]) = 1024;
+                *(v55 + 2) = v39;
+                _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "iAP2OOBBTPairing AccessoryInfo: %@, no uuid(%@) or accesoryMacAddr(%@) for componentID %d, ignore message", buf, 0x26u);
               }
             }
 
             else
             {
-              if (*(v26 + 24) != valuePtr)
+              if (*(v24 + 24) != valuePtr)
               {
-                *(v26 + 24) = valuePtr;
-                *(v26 + 16) = CFStringCreateCopy(kCFAllocatorDefault, Value);
+                *(v24 + 24) = valuePtr;
+                *(v24 + 16) = CFStringCreateCopy(kCFAllocatorDefault, Value);
               }
 
-              platform_oobBtPairing_accessoryInfo(*(a1 + 8), Value, v29, v13);
+              platform_oobBtPairing_accessoryInfo(*(a1 + 8), Value, v27, v12);
+            }
+
+            if (v25)
+            {
+              CFRelease(v25);
             }
 
             if (v27)
@@ -471,42 +2410,36 @@ LABEL_24:
               CFRelease(v27);
             }
 
-            if (v29)
-            {
-              CFRelease(v29);
-            }
-
-            return v7;
+            return v6;
           }
 
           if (gLogObjects && gNumLogObjects >= 46)
           {
-            v33 = *(gLogObjects + 360);
+            v31 = *(gLogObjects + 360);
           }
 
           else
           {
-            v33 = &_os_log_default;
+            v31 = &_os_log_default;
             if (OUTLINED_FUNCTION_17())
             {
               OUTLINED_FUNCTION_11_16();
-              OUTLINED_FUNCTION_35(&_mh_execute_header, v49, v50, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+              OUTLINED_FUNCTION_35(&_mh_execute_header, v45, v46, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
             }
           }
 
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
-            v35 = *(a1 + 8);
             OUTLINED_FUNCTION_17_19();
             OUTLINED_FUNCTION_5_0();
-            *&v58[10] = FirstParam;
-            *&v58[14] = v36;
-            *&v58[16] = v37;
-            *&v58[20] = v36;
-            *&v58[22] = v13;
-            *&v58[26] = v36;
-            v59[0] = v38;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "iAP2OOBBTPairing AccessoryInfo: %@, no componentID (%d / %d) or no deviceClass (%d / %d) parameter, ignore message", buf, 0x24u);
+            *&v54[10] = FirstParam;
+            *&v54[14] = v33;
+            *&v54[16] = v34;
+            *&v54[20] = v33;
+            *&v54[22] = v12;
+            *&v54[26] = v33;
+            v55[0] = v35;
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "iAP2OOBBTPairing AccessoryInfo: %@, no componentID (%d / %d) or no deviceClass (%d / %d) parameter, ignore message", buf, 0x24u);
           }
         }
       }
@@ -515,7 +2448,7 @@ LABEL_24:
     return 0;
   }
 
-  return v7;
+  return v6;
 }
 
 uint64_t iap2_oobBtPairing_completionInfoHandler(uint64_t a1, uint64_t a2)
@@ -531,19 +2464,14 @@ uint64_t iap2_oobBtPairing_completionInfoHandler(uint64_t a1, uint64_t a2)
     if (OUTLINED_FUNCTION_21())
     {
       OUTLINED_FUNCTION_9_22();
-      OUTLINED_FUNCTION_26_2(&_mh_execute_header, v33, v34, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+      OUTLINED_FUNCTION_26_2(&_mh_execute_header, v29, v30, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
     }
   }
 
   if (OUTLINED_FUNCTION_76())
   {
-    if (a1)
-    {
-      v5 = *(a1 + 8);
-    }
-
     OUTLINED_FUNCTION_17_19();
-    OUTLINED_FUNCTION_73_0(&_mh_execute_header, v4, v6, "iAP2OOBBTPairing CompletionInfo Handler %@", buf);
+    OUTLINED_FUNCTION_73_0(&_mh_execute_header, v4, v5, "iAP2OOBBTPairing CompletionInfo Handler %@", buf);
   }
 
   result = 0;
@@ -552,76 +2480,75 @@ uint64_t iap2_oobBtPairing_completionInfoHandler(uint64_t a1, uint64_t a2)
     return result;
   }
 
-  v8 = OUTLINED_FUNCTION_21_1();
-  FirstParam = iAP2MsgGetFirstParam(v8, v9);
-  v38 = 0;
+  v7 = OUTLINED_FUNCTION_21_1();
+  FirstParam = iAP2MsgGetFirstParam(v7, v8);
+  v34 = 0;
   if (FirstParam)
   {
     NextParam = FirstParam;
+    v11 = 0;
     v12 = 0;
-    v13 = 0;
     while (1)
     {
       ParamID = iAP2MsgGetParamID(NextParam);
       if (ParamID)
       {
-        v15 = ParamID;
+        v14 = ParamID;
         MsgID = iAP2MsgGetMsgID(a2);
-        printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v15, MsgID);
+        printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v14, MsgID);
       }
 
       else
       {
-        DataAsU8 = iAP2MsgGetDataAsU8(NextParam, &v38);
-        if (v38)
+        DataAsU8 = iAP2MsgGetDataAsU8(NextParam, &v34);
+        if (v34)
         {
-          v37 = iAP2MsgGetMsgID(a2);
-          printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 0, v37);
+          v33 = iAP2MsgGetMsgID(a2);
+          printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 0, v33);
           return 0;
         }
 
-        v12 = DataAsU8;
-        v13 = 1;
+        v11 = DataAsU8;
+        v12 = 1;
       }
 
-      v18 = OUTLINED_FUNCTION_21_1();
-      NextParam = iAP2MsgGetNextParam(v18, v19, NextParam);
+      v17 = OUTLINED_FUNCTION_21_1();
+      NextParam = iAP2MsgGetNextParam(v17, v18, NextParam);
       if (!NextParam)
       {
-        goto LABEL_21;
+        goto LABEL_19;
       }
     }
   }
 
-  v13 = 0;
   v12 = 0;
-LABEL_21:
+  v11 = 0;
+LABEL_19:
   if (gLogObjects && gNumLogObjects >= 46)
   {
-    v20 = *(gLogObjects + 360);
+    v19 = *(gLogObjects + 360);
   }
 
   else
   {
-    v20 = &_os_log_default;
+    v19 = &_os_log_default;
     if (OUTLINED_FUNCTION_17())
     {
       OUTLINED_FUNCTION_9_22();
-      OUTLINED_FUNCTION_35(&_mh_execute_header, v35, v36, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+      OUTLINED_FUNCTION_35(&_mh_execute_header, v31, v32, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
     }
   }
 
   if (OUTLINED_FUNCTION_82())
   {
-    v21 = *(a1 + 8);
     OUTLINED_FUNCTION_17_19();
-    OUTLINED_FUNCTION_73_0(&_mh_execute_header, v20, v22, "iAP2OOBBTPairing CompletionInfo: %@", buf);
+    OUTLINED_FUNCTION_73_0(&_mh_execute_header, v19, v20, "iAP2OOBBTPairing CompletionInfo: %@", buf);
   }
 
   result = iap2_feature_getFeature(a1, 0xFu);
   if (result)
   {
-    v23 = result;
+    v21 = result;
     if (*(result + 28) != 1)
     {
       return 0;
@@ -631,15 +2558,15 @@ LABEL_21:
     result = iap2_identification_checkRequiredMsgIDs(a1, &gskMsgOOBBTPairingMainList, 5, buf);
     if (result)
     {
-      if ((v13 & 1) != 0 && (v24 = *(v23 + 16)) != 0)
+      if ((v12 & 1) != 0 && (v22 = *(v21 + 16)) != 0)
       {
-        platform_oobBtPairing_completionStatus(*(a1 + 8), v24, v12);
-        *(v23 + 24) = -1;
-        v25 = *(v23 + 16);
-        if (v25)
+        platform_oobBtPairing_completionStatus(*(a1 + 8), v22, v11);
+        *(v21 + 24) = -1;
+        v23 = *(v21 + 16);
+        if (v23)
         {
-          CFRelease(v25);
-          *(v23 + 16) = 0;
+          CFRelease(v23);
+          *(v21 + 16) = 0;
         }
 
         return 1;
@@ -649,12 +2576,12 @@ LABEL_21:
       {
         if (gLogObjects && gNumLogObjects >= 46)
         {
-          v26 = *(gLogObjects + 360);
+          v24 = *(gLogObjects + 360);
         }
 
         else
         {
-          v26 = &_os_log_default;
+          v24 = &_os_log_default;
           if (OUTLINED_FUNCTION_27())
           {
             OUTLINED_FUNCTION_11_16();
@@ -662,19 +2589,17 @@ LABEL_21:
           }
         }
 
-        result = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+        result = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
         if (result)
         {
-          v27 = *(a1 + 8);
-          v28 = *(v23 + 16);
           OUTLINED_FUNCTION_17_19();
           OUTLINED_FUNCTION_5_0();
-          v40 = v29;
-          v41 = v30;
-          v42 = v31;
-          v43 = 2112;
-          v44 = v32;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "iAP2OOBBTPairing CompletionInfo: %@, no resultCode (%d / %d) parameter or no currentOOBBTPairingUID (%@), ignore message", buf, 0x22u);
+          v36 = v25;
+          v37 = v26;
+          v38 = v27;
+          v39 = 2112;
+          v40 = v28;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "iAP2OOBBTPairing CompletionInfo: %@, no resultCode (%d / %d) parameter or no currentOOBBTPairingUID (%@), ignore message", buf, 0x22u);
           return 0;
         }
       }
@@ -687,27 +2612,18 @@ LABEL_21:
 uint64_t iap2_oobBtPairing_startPairingHandler(uint64_t *a1, void *a2)
 {
   OUTLINED_FUNCTION_21_10();
-  if (v2 && v5 >= 46)
-  {
-    v8 = *(v2 + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_17())
+  if ((!v2 || v5 < 46) && OUTLINED_FUNCTION_17())
   {
     OUTLINED_FUNCTION_10_0();
-    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v43, v44, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v45, v46, v47, v48, v67);
+    HIWORD(v60) = v5;
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v36, v37, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v38, v39, v40, v41);
   }
 
   if (OUTLINED_FUNCTION_82())
   {
-    if (a1)
-    {
-      v9 = a1[1];
-    }
-
     OUTLINED_FUNCTION_38();
     OUTLINED_FUNCTION_27_0();
-    _os_log_impl(v10, v11, v12, v13, v14, 0xCu);
+    _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
   }
 
   if (!a1)
@@ -716,24 +2632,22 @@ uint64_t iap2_oobBtPairing_startPairingHandler(uint64_t *a1, void *a2)
   }
 
   Feature = iap2_feature_getFeature(a1, 0xFu);
-  v16 = *(v3 + 3928);
-  if (v16 && *(v4 + 3936) >= 46)
+  v14 = *(v3 + 3928);
+  v15 = *(v4 + 3936);
+  if ((!v14 || v15 < 46) && OUTLINED_FUNCTION_27())
   {
-    v17 = *(v16 + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_27())
-  {
+    LODWORD(v61) = 134218240;
+    HIDWORD(v61) = v14;
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v49, v50, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v51, v52, v53, v54, 0);
+    LOWORD(v62) = HIWORD(v15);
+    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v42, v43, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v44, v45, v46, v47, v61, HIDWORD(v14), v62);
   }
 
   if (OUTLINED_FUNCTION_76_1())
   {
-    v18 = a1[1];
     OUTLINED_FUNCTION_15_13();
     OUTLINED_FUNCTION_30();
-    _os_log_impl(v19, v20, v21, v22, v23, 0x16u);
+    _os_log_impl(v16, v17, v18, v19, v20, 0x16u);
   }
 
   if (!Feature)
@@ -742,57 +2656,49 @@ uint64_t iap2_oobBtPairing_startPairingHandler(uint64_t *a1, void *a2)
   }
 
   *(Feature + 24) = -1;
-  v24 = *(Feature + 16);
-  if (v24)
+  v21 = *(Feature + 16);
+  if (v21)
   {
-    CFRelease(v24);
+    CFRelease(v21);
     *(Feature + 16) = 0;
   }
 
-  v25 = *(v3 + 3928);
-  if (v25 && *(v4 + 3936) >= 46)
+  v22 = *(v3 + 3928);
+  if ((!v22 || *(v4 + 3936) < 46) && OUTLINED_FUNCTION_27())
   {
-    v26 = *(v25 + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_27())
-  {
+    LODWORD(v60) = 134218240;
+    *(&v60 + 4) = v22;
     OUTLINED_FUNCTION_1_2();
-    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v55, v56, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v57, v58, v59, v60, 0);
+    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v48, v49, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v50, v51, v52, v53, v60);
   }
 
   if (OUTLINED_FUNCTION_76_1())
   {
-    v27 = a1[1];
     OUTLINED_FUNCTION_38();
     OUTLINED_FUNCTION_30();
-    _os_log_impl(v28, v29, v30, v31, v32, 0xCu);
+    _os_log_impl(v23, v24, v25, v26, v27, 0xCu);
   }
 
-  v33 = OUTLINED_FUNCTION_49((a1 + 15), 176, a1[24]);
+  v28 = OUTLINED_FUNCTION_49((a1 + 15), 176, a1[24]);
   *(Feature + 28) = 1;
-  v34 = *(v3 + 3928);
-  if (v34 && *(v4 + 3936) >= 46)
+  v29 = *(v3 + 3928);
+  if ((!v29 || *(v4 + 3936) < 46) && OUTLINED_FUNCTION_17())
   {
-    v35 = *(v34 + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_17())
-  {
+    LODWORD(v60) = 134218240;
+    *(&v60 + 4) = v29;
     OUTLINED_FUNCTION_1_2();
-    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v61, v62, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v63, v64, v65, v66, 0);
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v54, v55, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v56, v57, v58, v59, v60);
   }
 
   if (OUTLINED_FUNCTION_82())
   {
-    v36 = a1[1];
-    iAP2MsgGetMsgID(v33);
+    iAP2MsgGetMsgID(v28);
     OUTLINED_FUNCTION_7();
     OUTLINED_FUNCTION_27_0();
-    _os_log_impl(v37, v38, v39, v40, v41, 0x12u);
+    _os_log_impl(v30, v31, v32, v33, v34, 0x12u);
   }
 
-  iap2_sessionControl_sendOutgoingMessage(a1, v33);
+  iap2_sessionControl_sendOutgoingMessage(a1, v28);
   platform_oobBtPairing_deleteParams(a2);
   return 1;
 }
@@ -800,28 +2706,18 @@ uint64_t iap2_oobBtPairing_startPairingHandler(uint64_t *a1, void *a2)
 BOOL iap2_oobBtPairing_pairingLinkKeyInfoHandler(uint64_t *a1, uint64_t a2)
 {
   v4 = gNumLogObjects;
-  if (gLogObjects && gNumLogObjects >= 46)
-  {
-    v5 = *(gLogObjects + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_17())
+  if ((!gLogObjects || gNumLogObjects < 46) && OUTLINED_FUNCTION_17())
   {
     OUTLINED_FUNCTION_10_0();
-    LODWORD(v90) = v4;
-    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v57, v58, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v59, v60, v61, v62, v87);
+    *&v79[14] = v4;
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v49, v50, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v51, v52, v53, v54);
   }
 
   if (OUTLINED_FUNCTION_82())
   {
-    if (a1)
-    {
-      v6 = a1[1];
-    }
-
     OUTLINED_FUNCTION_38();
     OUTLINED_FUNCTION_27_0();
-    _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
   }
 
   if (!a1)
@@ -830,27 +2726,22 @@ BOOL iap2_oobBtPairing_pairingLinkKeyInfoHandler(uint64_t *a1, uint64_t a2)
   }
 
   Feature = iap2_feature_getFeature(a1, 0xFu);
-  v13 = HIDWORD(gLogObjects);
-  v14 = gNumLogObjects;
-  if (gLogObjects && gNumLogObjects >= 46)
+  v11 = gLogObjects;
+  v12 = gNumLogObjects;
+  if ((!gLogObjects || gNumLogObjects < 46) && OUTLINED_FUNCTION_27())
   {
-    v15 = *(gLogObjects + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_27())
-  {
-    HIDWORD(v88) = v13;
+    *v79 = 134218240;
+    *&v79[4] = v11;
     OUTLINED_FUNCTION_3();
-    LODWORD(v90) = v14;
-    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v63, v64, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v65, v66, v67, v68, 0);
+    *&v79[14] = v12;
+    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v55, v56, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v57, v58, v59, v60, *v79, *&v79[16]);
   }
 
   if (OUTLINED_FUNCTION_76_1())
   {
-    v16 = a1[1];
     OUTLINED_FUNCTION_15_13();
     OUTLINED_FUNCTION_30();
-    _os_log_impl(v17, v18, v19, v20, v21, 0x16u);
+    _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
   }
 
   if (!Feature)
@@ -871,64 +2762,52 @@ BOOL iap2_oobBtPairing_pairingLinkKeyInfoHandler(uint64_t *a1, uint64_t a2)
 
   if (*(a2 + 16))
   {
-    v23 = gLogObjects;
-    v24 = gNumLogObjects;
+    v19 = gLogObjects;
+    v20 = gNumLogObjects;
     if (*(a2 + 24))
     {
-      if (gLogObjects && gNumLogObjects >= 46)
-      {
-        v25 = *(gLogObjects + 360);
-      }
-
-      else if (OUTLINED_FUNCTION_17())
+      if ((!gLogObjects || gNumLogObjects < 46) && OUTLINED_FUNCTION_17())
       {
         OUTLINED_FUNCTION_10_0();
-        LODWORD(v90) = v24;
-        OUTLINED_FUNCTION_21_2(&_mh_execute_header, v75, v76, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v77, v78, v79, v80, v87);
+        *&v79[14] = v20;
+        OUTLINED_FUNCTION_21_2(&_mh_execute_header, v67, v68, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v69, v70, v71, v72);
       }
 
       if (OUTLINED_FUNCTION_82())
       {
-        v30 = a1[1];
         OUTLINED_FUNCTION_38();
         OUTLINED_FUNCTION_27_0();
-        _os_log_impl(v31, v32, v33, v34, v35, 0xCu);
+        _os_log_impl(v25, v26, v27, v28, v29, 0xCu);
       }
 
-      v36 = OUTLINED_FUNCTION_49((a1 + 15), 178, a1[24]);
+      v30 = OUTLINED_FUNCTION_49((a1 + 15), 178, a1[24]);
       BytePtr = CFDataGetBytePtr(*(a2 + 16));
       CFDataGetLength(*(a2 + 16));
-      v38 = OUTLINED_FUNCTION_21_1();
-      v41 = iAP2MsgAddDataParam(v38, v39, 0, BytePtr, v40);
-      v42 = CFDataGetBytePtr(*(a2 + 24));
+      v32 = OUTLINED_FUNCTION_21_1();
+      v35 = iAP2MsgAddDataParam(v32, v33, 0, BytePtr, v34);
+      v36 = CFDataGetBytePtr(*(a2 + 24));
       CFDataGetLength(*(a2 + 24));
-      v43 = OUTLINED_FUNCTION_21_1();
-      if (iAP2MsgAddDataParam(v43, v44, 1, v42, v45) | v41)
+      v37 = OUTLINED_FUNCTION_21_1();
+      if (iAP2MsgAddDataParam(v37, v38, 1, v36, v39) | v35)
       {
-        v46 = gNumLogObjects;
-        if (gLogObjects && gNumLogObjects >= 46)
-        {
-          v47 = *(gLogObjects + 360);
-        }
-
-        else if (OUTLINED_FUNCTION_27())
+        v40 = gNumLogObjects;
+        if ((!gLogObjects || gNumLogObjects < 46) && OUTLINED_FUNCTION_27())
         {
           OUTLINED_FUNCTION_7();
-          LODWORD(v90) = v46;
-          OUTLINED_FUNCTION_17_2(&_mh_execute_header, v81, v82, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v83, v84, v85, v86, v87);
+          *&v79[14] = v40;
+          OUTLINED_FUNCTION_17_2(&_mh_execute_header, v73, v74, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v75, v76, v77, v78);
         }
 
         if (OUTLINED_FUNCTION_76_1())
         {
-          v50 = a1[1];
-          iAP2MsgGetMsgID(v36);
+          iAP2MsgGetMsgID(v30);
           OUTLINED_FUNCTION_7();
-          LODWORD(v90) = v51;
+          *&v79[14] = v43;
           OUTLINED_FUNCTION_30();
-          _os_log_impl(v52, v53, v54, v55, v56, 0x12u);
+          _os_log_impl(v44, v45, v46, v47, v48, 0x12u);
         }
 
-        iap2_sessionControl_sendOutgoingMessage(a1, v36);
+        iap2_sessionControl_sendOutgoingMessage(a1, v30);
       }
 
       platform_oobBtPairing_deleteParams(a2);
@@ -938,34 +2817,34 @@ BOOL iap2_oobBtPairing_pairingLinkKeyInfoHandler(uint64_t *a1, uint64_t a2)
 
   else
   {
-    v23 = gLogObjects;
-    v24 = gNumLogObjects;
+    v19 = gLogObjects;
+    v20 = gNumLogObjects;
   }
 
-  if (v23 && v24 >= 46)
+  if (v19 && v20 >= 46)
   {
-    v26 = *(v23 + 360);
+    v21 = *(v19 + 360);
   }
 
   else
   {
-    v26 = &_os_log_default;
+    v21 = &_os_log_default;
     if (OUTLINED_FUNCTION_17())
     {
       OUTLINED_FUNCTION_10_0();
-      LODWORD(v90) = v24;
-      OUTLINED_FUNCTION_21_2(&_mh_execute_header, v69, v70, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v71, v72, v73, v74, v87);
+      *&v79[14] = v20;
+      OUTLINED_FUNCTION_21_2(&_mh_execute_header, v61, v62, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v63, v64, v65, v66);
     }
   }
 
-  result = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+  result = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
   if (result)
   {
-    v27 = a1[1];
-    v28 = *(a2 + 16);
-    if (v28)
+    v22 = a1[1];
+    v23 = *(a2 + 16);
+    if (v23)
     {
-      Length = CFDataGetLength(v28);
+      Length = CFDataGetLength(v23);
     }
 
     else
@@ -973,24 +2852,24 @@ BOOL iap2_oobBtPairing_pairingLinkKeyInfoHandler(uint64_t *a1, uint64_t a2)
       Length = -1;
     }
 
-    v48 = *(a2 + 24);
-    if (v48)
+    v41 = *(a2 + 24);
+    if (v41)
     {
-      v49 = CFDataGetLength(v48);
+      v42 = CFDataGetLength(v41);
     }
 
     else
     {
-      v49 = -1;
+      v42 = -1;
     }
 
-    v87 = 138412802;
-    v88 = v27;
-    v89 = 2048;
-    v90 = Length;
-    v91 = 2048;
-    v92 = v49;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "iAP2OOBBTPairing pairingLinkKeyInfo %@, Invalid linkKey(%ld bytes) or deviceMacAddr(%ld bytes), message not sent!", &v87, 0x20u);
+    *v79 = 138412802;
+    *&v79[4] = v22;
+    *&v79[12] = 2048;
+    *&v79[14] = Length;
+    *&v79[22] = 2048;
+    v80 = v42;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "iAP2OOBBTPairing pairingLinkKeyInfo %@, Invalid linkKey(%ld bytes) or deviceMacAddr(%ld bytes), message not sent!", v79, 0x20u);
     return 0;
   }
 
@@ -1000,27 +2879,18 @@ BOOL iap2_oobBtPairing_pairingLinkKeyInfoHandler(uint64_t *a1, uint64_t a2)
 uint64_t iap2_oobBtPairing_stopPairingHandler(uint64_t *a1, void *a2)
 {
   OUTLINED_FUNCTION_21_10();
-  if (v2 && v5 >= 46)
-  {
-    v8 = *(v2 + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_17())
+  if ((!v2 || v5 < 46) && OUTLINED_FUNCTION_17())
   {
     OUTLINED_FUNCTION_10_0();
-    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v42, v43, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v44, v45, v46, v47, v66);
+    HIWORD(v59) = v5;
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v35, v36, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v37, v38, v39, v40);
   }
 
   if (OUTLINED_FUNCTION_82())
   {
-    if (a1)
-    {
-      v9 = a1[1];
-    }
-
     OUTLINED_FUNCTION_38();
     OUTLINED_FUNCTION_27_0();
-    _os_log_impl(v10, v11, v12, v13, v14, 0xCu);
+    _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
   }
 
   if (!a1)
@@ -1029,24 +2899,22 @@ uint64_t iap2_oobBtPairing_stopPairingHandler(uint64_t *a1, void *a2)
   }
 
   Feature = iap2_feature_getFeature(a1, 0xFu);
-  v16 = *(v3 + 3928);
-  if (v16 && *(v4 + 3936) >= 46)
+  v14 = *(v3 + 3928);
+  v15 = *(v4 + 3936);
+  if ((!v14 || v15 < 46) && OUTLINED_FUNCTION_27())
   {
-    v17 = *(v16 + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_27())
-  {
+    LODWORD(v60) = 134218240;
+    HIDWORD(v60) = v14;
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v48, v49, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v50, v51, v52, v53, 0);
+    LOWORD(v61) = HIWORD(v15);
+    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v41, v42, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v43, v44, v45, v46, v60, HIDWORD(v14), v61);
   }
 
   if (OUTLINED_FUNCTION_76_1())
   {
-    v18 = a1[1];
     OUTLINED_FUNCTION_15_13();
     OUTLINED_FUNCTION_30();
-    _os_log_impl(v19, v20, v21, v22, v23, 0x16u);
+    _os_log_impl(v16, v17, v18, v19, v20, 0x16u);
   }
 
   if (!Feature)
@@ -1054,50 +2922,42 @@ uint64_t iap2_oobBtPairing_stopPairingHandler(uint64_t *a1, void *a2)
     return 0;
   }
 
-  v24 = *(v3 + 3928);
-  if (v24 && *(v4 + 3936) >= 46)
+  v21 = *(v3 + 3928);
+  if ((!v21 || *(v4 + 3936) < 46) && OUTLINED_FUNCTION_27())
   {
-    v25 = *(v24 + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_27())
-  {
+    LODWORD(v59) = 134218240;
+    *(&v59 + 4) = v21;
     OUTLINED_FUNCTION_1_2();
-    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v54, v55, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v56, v57, v58, v59, 0);
+    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v47, v48, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v49, v50, v51, v52, v59);
   }
 
   if (OUTLINED_FUNCTION_76_1())
   {
-    v26 = a1[1];
     OUTLINED_FUNCTION_38();
     OUTLINED_FUNCTION_30();
-    _os_log_impl(v27, v28, v29, v30, v31, 0xCu);
+    _os_log_impl(v22, v23, v24, v25, v26, 0xCu);
   }
 
-  v32 = OUTLINED_FUNCTION_49((a1 + 15), 180, a1[24]);
+  v27 = OUTLINED_FUNCTION_49((a1 + 15), 180, a1[24]);
   *(Feature + 28) = 0;
-  v33 = *(v3 + 3928);
-  if (v33 && *(v4 + 3936) >= 46)
+  v28 = *(v3 + 3928);
+  if ((!v28 || *(v4 + 3936) < 46) && OUTLINED_FUNCTION_17())
   {
-    v34 = *(v33 + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_17())
-  {
+    LODWORD(v59) = 134218240;
+    *(&v59 + 4) = v28;
     OUTLINED_FUNCTION_1_2();
-    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v60, v61, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v62, v63, v64, v65, 0);
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v53, v54, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v55, v56, v57, v58, v59);
   }
 
   if (OUTLINED_FUNCTION_82())
   {
-    v35 = a1[1];
-    iAP2MsgGetMsgID(v32);
+    iAP2MsgGetMsgID(v27);
     OUTLINED_FUNCTION_7();
     OUTLINED_FUNCTION_27_0();
-    _os_log_impl(v36, v37, v38, v39, v40, 0x12u);
+    _os_log_impl(v29, v30, v31, v32, v33, 0x12u);
   }
 
-  iap2_sessionControl_sendOutgoingMessage(a1, v32);
+  iap2_sessionControl_sendOutgoingMessage(a1, v27);
   platform_oobBtPairing_deleteParams(a2);
   return 1;
 }
@@ -1147,51 +3007,46 @@ void *_createFeature_22(void *a1)
   return a1;
 }
 
-uint64_t _destroyFeature_22(void **a1, uint64_t a2)
+uint64_t _destroyFeature_22(CFTypeRef **a1, uint64_t a2)
 {
-  if (gLogObjects && gNumLogObjects >= 46)
-  {
-    v4 = *(gLogObjects + 360);
-  }
-
-  else if (OUTLINED_FUNCTION_17())
+  if ((!gLogObjects || gNumLogObjects < 46) && OUTLINED_FUNCTION_17())
   {
     OUTLINED_FUNCTION_10_0();
-    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v14, v15, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v16, v17, v18, v19, v20);
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v13, v14, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v15, v16, v17, v18);
   }
 
   if (OUTLINED_FUNCTION_82())
   {
     OUTLINED_FUNCTION_27_0();
-    _os_log_impl(v5, v6, v7, v8, v9, 2u);
+    _os_log_impl(v4, v5, v6, v7, v8, 2u);
   }
 
   result = 0;
   if (a1 && a2)
   {
-    v11 = *a1;
+    v10 = *a1;
     if (*a1)
     {
       platform_oobBtPairing_accessoryDetached(*(a2 + 8));
       platform_oobBTPairing_decrementUserCount();
-      if (*v11)
+      if (*v10)
       {
-        CFRelease(*v11);
-        *v11 = 0;
+        CFRelease(*v10);
+        *v10 = 0;
       }
 
-      v12 = v11[1];
+      v11 = v10[1];
+      if (v11)
+      {
+        CFRelease(v11);
+        v10[1] = 0;
+      }
+
+      v12 = v10[2];
       if (v12)
       {
         CFRelease(v12);
-        v11[1] = 0;
-      }
-
-      v13 = v11[2];
-      if (v13)
-      {
-        CFRelease(v13);
-        v11[2] = 0;
+        v10[2] = 0;
       }
 
       if (*a1)
@@ -1500,7 +3355,6 @@ uint64_t acc_protocolParser_init(uint64_t result)
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(*v1 + 25);
       OUTLINED_FUNCTION_15_1();
       _os_log_impl(v5, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 8u);
     }
@@ -1523,9 +3377,9 @@ BOOL acc_protocolParser_destroy(uint64_t a1, __n128 a2)
         v4 = 0;
         v5 = 0;
         a2.n128_u64[0] = 134218240;
-        v24 = a2;
+        v23 = a2;
         a2.n128_u64[0] = 67109120;
-        v25 = a2;
+        v24 = a2;
         do
         {
           v6 = v3[2];
@@ -1554,10 +3408,10 @@ BOOL acc_protocolParser_destroy(uint64_t a1, __n128 a2)
               v11 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                *buf = v24.n128_u32[0];
-                v27 = v8;
-                v28 = 1024;
-                v29 = v9;
+                *buf = v23.n128_u32[0];
+                v26 = v8;
+                v27 = 1024;
+                v28 = v9;
                 _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
                 v11 = &_os_log_default;
               }
@@ -1571,9 +3425,8 @@ BOOL acc_protocolParser_destroy(uint64_t a1, __n128 a2)
             v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
             if (v12)
             {
-              v20 = *(v3[2] + v4);
-              OUTLINED_FUNCTION_3_35(v12, v13, v14, v15, v16, v17, v18, v19, v24.n128_i64[0], v24.n128_i64[1], v25);
-              _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Cannot destroy parser for unknown protocol: %d", v21, 8u);
+              OUTLINED_FUNCTION_3_35(v12, v13, v14, v15, v16, v17, v18, v19, v23.n128_i64[0], v23.n128_i64[1], v24);
+              _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Cannot destroy parser for unknown protocol: %d", v20, 8u);
             }
           }
 
@@ -1592,8 +3445,8 @@ BOOL acc_protocolParser_destroy(uint64_t a1, __n128 a2)
         v3 = *a1;
       }
 
-      v22 = v3[2];
-      if (!v22 || (free(v22), *(*a1 + 16) = 0, (v3 = *a1) != 0))
+      v21 = v3[2];
+      if (!v21 || (free(v21), *(*a1 + 16) = 0, (v3 = *a1) != 0))
       {
         free(v3);
         *a1 = 0;
@@ -1604,7 +3457,7 @@ BOOL acc_protocolParser_destroy(uint64_t a1, __n128 a2)
   return a1 != 0;
 }
 
-uint64_t acc_protocolParser_detectProtocol(uint64_t *a1, CFDataRef theData)
+uint64_t acc_protocolParser_detectProtocol(CFDataRef **a1, CFDataRef theData)
 {
   result = 0;
   if (!a1 || !theData)
@@ -1683,11 +3536,11 @@ uint64_t acc_protocolParser_detectProtocol(uint64_t *a1, CFDataRef theData)
   CFDataAppendBytes(v7, BytePtr, v9);
   v10 = CFDataGetLength(**a1);
   v11 = v10;
-  v12 = *(*a1 + 8);
+  v12 = *(*a1 + 4);
   if (v10 < v12)
   {
     LODWORD(v12) = 0;
-    *(*a1 + 8) = 0;
+    *(*a1 + 4) = 0;
   }
 
   v13 = gLogObjects;
@@ -1734,7 +3587,7 @@ uint64_t acc_protocolParser_detectProtocol(uint64_t *a1, CFDataRef theData)
     {
       _runFSM(v16);
       v16 = *a1;
-      if (*(*a1 + 28))
+      if (*(*a1 + 7))
       {
         break;
       }
@@ -1781,7 +3634,7 @@ uint64_t acc_protocolParser_detectProtocol(uint64_t *a1, CFDataRef theData)
 
         _resetParser(*a1);
         v16 = *a1;
-        return *(v16 + 28);
+        return *(v16 + 7);
       }
 
       --v17;
@@ -1790,7 +3643,7 @@ uint64_t acc_protocolParser_detectProtocol(uint64_t *a1, CFDataRef theData)
     while (v17);
   }
 
-  return *(v16 + 28);
+  return *(v16 + 7);
 }
 
 void _resetParser(uint64_t a1)
@@ -1800,9 +3653,9 @@ void _resetParser(uint64_t a1)
     v2 = *a1;
     if (v2)
     {
-      v28.length = *(a1 + 8);
-      v28.location = 0;
-      CFDataDeleteBytes(v2, v28);
+      v27.length = *(a1 + 8);
+      v27.location = 0;
+      CFDataDeleteBytes(v2, v27);
       *(a1 + 8) = 0;
       *(a1 + 24) = 0;
       if (*(a1 + 25))
@@ -1810,9 +3663,9 @@ void _resetParser(uint64_t a1)
         v4 = 0;
         v5 = 0;
         *&v3 = 134218240;
-        v22 = v3;
+        v21 = v3;
         *&v3 = 67109120;
-        v23 = v3;
+        v22 = v3;
         do
         {
           v6 = *(a1 + 16);
@@ -1846,10 +3699,10 @@ void _resetParser(uint64_t a1)
               v11 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                *buf = v22;
-                v25 = v8;
-                v26 = 1024;
-                v27 = v9;
+                *buf = v21;
+                v24 = v8;
+                v25 = 1024;
+                v26 = v9;
                 _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
                 v11 = &_os_log_default;
               }
@@ -1863,9 +3716,8 @@ void _resetParser(uint64_t a1)
             v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
             if (v12)
             {
-              v20 = *(*(a1 + 16) + v4);
-              OUTLINED_FUNCTION_3_35(v12, v13, v14, v15, v16, v17, v18, v19, v22, *(&v22 + 1), v23);
-              _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Cannot reset parser for unknown protocol: %d", v21, 8u);
+              OUTLINED_FUNCTION_3_35(v12, v13, v14, v15, v16, v17, v18, v19, v21, *(&v21 + 1), v22);
+              _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Cannot reset parser for unknown protocol: %d", v20, 8u);
             }
           }
 
@@ -2001,9 +3853,9 @@ uint64_t t56_endpoint_publish(uint64_t a1)
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v37 = v2;
-      v38 = 1024;
-      v39 = v3;
+      v35 = v2;
+      v36 = 1024;
+      v37 = v3;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
     }
   }
@@ -2035,28 +3887,27 @@ uint64_t t56_endpoint_publish(uint64_t a1)
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        v37 = v6;
-        v38 = 1024;
-        v39 = v7;
+        v35 = v6;
+        v36 = 1024;
+        v37 = v7;
         OUTLINED_FUNCTION_7_29();
-        _os_log_error_impl(v27, v28, OS_LOG_TYPE_ERROR, v29, v30, 0x12u);
+        _os_log_error_impl(v25, v26, OS_LOG_TYPE_ERROR, v27, v28, 0x12u);
       }
     }
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(*a1 + 24);
       OUTLINED_FUNCTION_6_34();
       OUTLINED_FUNCTION_7_29();
-      _os_log_impl(v10, v11, OS_LOG_TYPE_DEFAULT, v12, v13, 0x12u);
+      _os_log_impl(v9, v10, OS_LOG_TYPE_DEFAULT, v11, v12, 0x12u);
     }
 
     if (acc_endpoint_isPublished(*a1))
     {
-      v14 = *(a1 + 16);
-      v15 = v14 ? CFStringCreateCopy(kCFAllocatorDefault, v14) : 0;
+      v13 = *(a1 + 16);
+      v14 = v13 ? CFStringCreateCopy(kCFAllocatorDefault, v13) : 0;
       t56_protocol_cleanup(*(a1 + 136), 0, 0);
-      if (!t56_protocol_init(*(a1 + 136), v15, 0, 1, 1u, *(a1 + 248), *(a1 + 256)))
+      if (!t56_protocol_init(*(a1 + 136), v14, 0, 1, 1u, *(a1 + 248), *(a1 + 256)))
       {
         a1 = 0;
         if (!v5)
@@ -2068,33 +3919,32 @@ uint64_t t56_endpoint_publish(uint64_t a1)
       }
     }
 
-    v16 = gLogObjects;
-    v17 = gNumLogObjects;
+    v15 = gLogObjects;
+    v16 = gNumLogObjects;
     if (gLogObjects && gNumLogObjects >= 61)
     {
-      v18 = *(gLogObjects + 480);
+      v17 = *(gLogObjects + 480);
     }
 
     else
     {
-      v18 = &_os_log_default;
+      v17 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
+        v35 = v15;
+        v36 = 1024;
         v37 = v16;
-        v38 = 1024;
-        v39 = v17;
         OUTLINED_FUNCTION_7_29();
-        _os_log_error_impl(v31, v32, OS_LOG_TYPE_ERROR, v33, v34, 0x12u);
+        _os_log_error_impl(v29, v30, OS_LOG_TYPE_ERROR, v31, v32, 0x12u);
       }
     }
 
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(*a1 + 24);
       OUTLINED_FUNCTION_6_34();
       OUTLINED_FUNCTION_7_29();
-      _os_log_impl(v20, v21, OS_LOG_TYPE_DEFAULT, v22, v23, 0x12u);
+      _os_log_impl(v18, v19, OS_LOG_TYPE_DEFAULT, v20, v21, 0x12u);
     }
 
     if (v5)
@@ -2102,15 +3952,15 @@ uint64_t t56_endpoint_publish(uint64_t a1)
       CFRetain(v5);
     }
 
-    v24 = dispatch_time(0, 100000000);
-    v25 = *(a1 + 32);
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 0x40000000;
-    v35[2] = __t56_endpoint_publish_block_invoke;
-    v35[3] = &__block_descriptor_tmp_4_3;
-    v35[4] = a1;
-    v35[5] = v5;
-    dispatch_after(v24, v25, v35);
+    v22 = dispatch_time(0, 100000000);
+    v23 = *(a1 + 32);
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 0x40000000;
+    v33[2] = __t56_endpoint_publish_block_invoke;
+    v33[3] = &__block_descriptor_tmp_4_3;
+    v33[4] = a1;
+    v33[5] = v5;
+    dispatch_after(v22, v23, v33);
     a1 = 1;
     if (v5)
     {
@@ -2165,7 +4015,8 @@ void t56_endpoint_create_cold_1(void *a1)
   v2 = logObjectForModule_40();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint = NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint = NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -2253,7 +4104,8 @@ void _t56_endpoint_handleMessage_cold_1(_BYTE *a1)
   v2 = logObjectForModule_40();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "dataOutBuffer not allocated", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "dataOutBuffer not allocated", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -2264,17 +4116,11 @@ void _t56_endpoint_handleMessage_cold_2(_BYTE *a1)
   v2 = logObjectForModule_40();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint = NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint = NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
-}
-
-void t56_endpoint_sendOutgoingData_cold_3(uint64_t a1)
-{
-  v6 = *(a1 + 16);
-  OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 void t56_endpoint_sendOutgoingData_cold_4(_BYTE *a1)
@@ -2282,7 +4128,8 @@ void t56_endpoint_sendOutgoingData_cold_4(_BYTE *a1)
   v2 = logObjectForModule_40();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "dataOutLen = 0", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "dataOutLen = 0", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -2293,26 +4140,25 @@ void t56_endpoint_sendOutgoingData_cold_5(_BYTE *a1)
   v2 = logObjectForModule_40();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pDataOut = NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pDataOut = NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
 }
 
-void t56_endpoint_sendOutgoingDataCF_cold_2(uint64_t a1)
+void t56_endpoint_sendOutgoingDataCF_cold_2()
 {
-  v1 = *(a1 + 16);
   OUTLINED_FUNCTION_3_36();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void t56_endpoint_sendOutgoingDataCF_cold_4(uint64_t a1)
+void t56_endpoint_sendOutgoingDataCF_cold_4()
 {
-  v1 = *(a1 + 16);
   OUTLINED_FUNCTION_3_36();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void t56_endpoint_sendOutgoingDataCF_cold_6(uint64_t a1, NSObject *a2)
@@ -2329,7 +4175,8 @@ void t56_endpoint_sendOutgoingDataCF_cold_7(_BYTE *a1)
   v2 = logObjectForModule_40();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint->pEndpoint = NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint->pEndpoint = NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -2340,7 +4187,8 @@ void t56_endpoint_sendOutgoingDataCF_cold_8(_BYTE *a1)
   v2 = logObjectForModule_40();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "dataOut = NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "dataOut = NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -2363,7 +4211,7 @@ LABEL_61:
     goto LABEL_62;
   }
 
-  OUTLINED_FUNCTION_16_7(a1);
+  OUTLINED_FUNCTION_16_7();
   if (v24)
   {
     v47 = logObjectForModule_41();
@@ -2605,29 +4453,29 @@ LABEL_62:
 
 uint64_t mfi4Auth_protocol_decryptPayload(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  *&v66 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v66 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v63 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v63 + 1) = 0xAAAAAAAAAAAAAAAALL;
   if (!a1)
   {
-    v40 = logObjectForModule_41();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v37 = logObjectForModule_41();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v67) = 0;
+      LOWORD(v64) = 0;
       goto LABEL_67;
     }
 
 LABEL_61:
-    v39 = 1;
+    v36 = 1;
     goto LABEL_54;
   }
 
-  OUTLINED_FUNCTION_16_7(a1);
+  OUTLINED_FUNCTION_16_7();
   if (v7)
   {
-    v40 = logObjectForModule_41();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v37 = logObjectForModule_41();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v67) = 0;
+      LOWORD(v64) = 0;
       goto LABEL_67;
     }
 
@@ -2637,16 +4485,16 @@ LABEL_61:
   v8 = v4;
   if (!v4)
   {
-    v40 = logObjectForModule_41();
-    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v37 = logObjectForModule_41();
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_61;
     }
 
-    LOWORD(v67) = 0;
+    LOWORD(v64) = 0;
 LABEL_67:
     OUTLINED_FUNCTION_6_35();
-    _os_log_error_impl(v52, v53, v54, v55, v56, v57);
+    _os_log_error_impl(v49, v50, v51, v52, v53, v54);
     goto LABEL_61;
   }
 
@@ -2662,8 +4510,8 @@ LABEL_67:
   }
 
   v15 = v14;
-  v64 = v10;
-  v66 = *(v12 + 6 + MsgLen - 22);
+  v61 = v10;
+  v63 = *(v12 + 6 + MsgLen - 22);
   v16 = _dumpSimpleHex([NSData dataWithBytes:v12 + 6 length:v13]);
   v17 = gLogObjects;
   v18 = gNumLogObjects;
@@ -2676,11 +4524,11 @@ LABEL_67:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v67 = 134218240;
-      v68 = v17;
-      v69 = 1024;
-      v70 = v18;
-      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v20, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v67);
+      v64 = 134218240;
+      v65 = v17;
+      v66 = 1024;
+      v67 = v18;
+      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v20, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v64);
     }
 
     v19 = &_os_log_default;
@@ -2689,12 +4537,12 @@ LABEL_67:
 
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v67 = 138412290;
-    v68 = v16;
-    OUTLINED_FUNCTION_79_0(&_mh_execute_header, v19, v22, "decryptPayload: cyphertext: %@", &v67);
+    v64 = 138412290;
+    v65 = v16;
+    OUTLINED_FUNCTION_79_0(&_mh_execute_header, v19, v22, "decryptPayload: cyphertext: %@", &v64);
   }
 
-  v23 = _dumpSimpleHex([NSData dataWithBytes:&v66 length:16]);
+  v23 = _dumpSimpleHex([NSData dataWithBytes:&v63 length:16]);
   if (gLogObjects && gNumLogObjects >= 56)
   {
     v24 = *(gLogObjects + 440);
@@ -2705,7 +4553,7 @@ LABEL_67:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_13_17();
-      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v48, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v67);
+      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v45, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v64);
     }
 
     v24 = &_os_log_default;
@@ -2714,9 +4562,9 @@ LABEL_67:
 
   if (OUTLINED_FUNCTION_39_7())
   {
-    v67 = 138412290;
-    v68 = v23;
-    OUTLINED_FUNCTION_79_0(&_mh_execute_header, v24, v26, "tag: %@", &v67);
+    v64 = 138412290;
+    v65 = v23;
+    OUTLINED_FUNCTION_79_0(&_mh_execute_header, v24, v26, "tag: %@", &v64);
   }
 
   if (gLogObjects && gNumLogObjects >= 56)
@@ -2729,7 +4577,7 @@ LABEL_67:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_13_17();
-      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v49, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v67);
+      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v46, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v64);
     }
 
     v27 = &_os_log_default;
@@ -2738,9 +4586,9 @@ LABEL_67:
 
   if (OUTLINED_FUNCTION_39_7())
   {
-    v67 = 134217984;
-    v68 = a3;
-    OUTLINED_FUNCTION_79_0(&_mh_execute_header, v27, v29, "decryptPayload: key_index: %zu", &v67);
+    v64 = 134217984;
+    v65 = a3;
+    OUTLINED_FUNCTION_79_0(&_mh_execute_header, v27, v29, "decryptPayload: key_index: %zu", &v64);
   }
 
   if (gLogObjects && gNumLogObjects >= 56)
@@ -2753,7 +4601,7 @@ LABEL_67:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_13_17();
-      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v50, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v67);
+      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v47, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v64);
     }
 
     v30 = &_os_log_default;
@@ -2763,18 +4611,14 @@ LABEL_67:
   if (OUTLINED_FUNCTION_39_7())
   {
     v33 = *(a1 + 144);
-    v67 = 67109120;
-    LODWORD(v68) = v33;
-    OUTLINED_FUNCTION_10_5(&_mh_execute_header, v30, v32, "decryptPayload: negotiatedVersion: %d", &v67);
+    v64 = 67109120;
+    LODWORD(v65) = v33;
+    OUTLINED_FUNCTION_10_5(&_mh_execute_header, v30, v32, "decryptPayload: negotiatedVersion: %d", &v64);
   }
 
   if (*(a1 + 144) < 3u)
   {
-    v34 = *(a1 + 96);
-    v36 = v64;
-    v35 = a3;
-    v37 = 0;
-    v38 = 0;
+    v35 = ccsigma_open(*(a1 + 96), a3, v61, 0, 0, v13, v12 + 6, v15, &v63);
   }
 
   else
@@ -2789,53 +4633,50 @@ LABEL_67:
       v34 = *(a1 + 96);
     }
 
-    v36 = v64;
-    v35 = a3;
-    v37 = 6;
-    v38 = v12;
+    v35 = ccsigma_open(v34, a3, v61, 6, v12, v13, v12 + 6, v15, &v63);
   }
 
-  v39 = ccsigma_open(v34, v35, v36, v37, v38, v13, v12 + 6, v15);
-  v40 = _dumpSimpleHex([NSData dataWithBytes:v15 length:v13, &v66]);
+  v36 = v35;
+  v37 = _dumpSimpleHex([NSData dataWithBytes:v15 length:v13]);
 
-  v41 = gLogObjects;
-  v42 = gNumLogObjects;
+  v38 = gLogObjects;
+  v39 = gNumLogObjects;
   if (gLogObjects && gNumLogObjects >= 56)
   {
-    v43 = *(gLogObjects + 440);
+    v40 = *(gLogObjects + 440);
   }
 
   else
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v67 = 134218240;
-      v68 = v41;
-      v69 = 1024;
-      v70 = v42;
-      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v44, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v67);
+      v64 = 134218240;
+      v65 = v38;
+      v66 = 1024;
+      v67 = v39;
+      OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v41, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v64);
     }
 
-    v43 = &_os_log_default;
-    v45 = &_os_log_default;
+    v40 = &_os_log_default;
+    v42 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    v67 = 138412290;
-    v68 = v40;
-    OUTLINED_FUNCTION_79_0(&_mh_execute_header, v43, v46, "decryptPayload: plainText: %@", &v67);
+    v64 = 138412290;
+    v65 = v37;
+    OUTLINED_FUNCTION_79_0(&_mh_execute_header, v40, v43, "decryptPayload: plainText: %@", &v64);
   }
 
-  if (v39)
+  if (v36)
   {
-    v51 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_21_0(v51))
+    v48 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_21_0(v48))
     {
-      v67 = 67109120;
-      LODWORD(v68) = v39;
+      v64 = 67109120;
+      LODWORD(v65) = v36;
       OUTLINED_FUNCTION_16_17();
-      _os_log_error_impl(v58, v59, v60, v61, v62, v63);
+      _os_log_error_impl(v55, v56, v57, v58, v59, v60);
     }
   }
 
@@ -2849,7 +4690,7 @@ LABEL_67:
   free(v15);
 LABEL_54:
 
-  return v39;
+  return v36;
 }
 
 uint64_t mfi4Auth_protocol_encryptOutgoingData(uint64_t a1)
@@ -2866,7 +4707,7 @@ uint64_t mfi4Auth_protocol_encryptOutgoingData(uint64_t a1)
     goto LABEL_49;
   }
 
-  OUTLINED_FUNCTION_16_7(a1);
+  OUTLINED_FUNCTION_16_7();
   if (v14)
   {
     v34 = logObjectForModule_41();
@@ -3051,8 +4892,8 @@ LABEL_50:
 
 uint64_t mfi4Auth_protocol_encryptPayload(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __CFString *a5)
 {
-  *&v61 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v61 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v57 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v57 + 1) = 0xAAAAAAAAAAAAAAAALL;
   v7 = *(a2 + 24);
   MsgLen = iAP2MsgGetMsgLen(a2);
   v9 = MsgLen;
@@ -3067,22 +4908,21 @@ uint64_t mfi4Auth_protocol_encryptPayload(uint64_t a1, uint64_t a2, uint64_t a3,
   v12 = v11;
   if (!a1)
   {
-    v44 = logObjectForModule_41();
-    if (!OUTLINED_FUNCTION_21_0(v44))
+    v41 = logObjectForModule_41();
+    if (!OUTLINED_FUNCTION_21_0(v41))
     {
-      goto LABEL_42;
+      goto LABEL_39;
     }
 
-    LOWORD(v62) = 0;
-LABEL_47:
+    LOWORD(v58) = 0;
+LABEL_44:
     OUTLINED_FUNCTION_6_35();
-    _os_log_error_impl(v47, v48, v49, v50, v51, v52);
-    goto LABEL_42;
+    _os_log_error_impl(v44, v45, v46, v47, v48, v49);
+    goto LABEL_39;
   }
 
   if (*(a1 + 30) != 1)
   {
-    v60 = a5;
     a5 = _dumpSimpleHex([NSData dataWithBytes:v7 + 6 length:v10]);
     v13 = gLogObjects;
     v14 = gNumLogObjects;
@@ -3095,11 +4935,11 @@ LABEL_47:
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v62 = 134218240;
-        v63 = v13;
-        v64 = 1024;
-        v65 = v14;
-        OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v16, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v62);
+        v58 = 134218240;
+        v59 = v13;
+        v60 = 1024;
+        v61 = v14;
+        OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v16, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v58);
       }
 
       v15 = &_os_log_default;
@@ -3108,9 +4948,9 @@ LABEL_47:
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v62 = 138412290;
-      v63 = a5;
-      OUTLINED_FUNCTION_79_0(&_mh_execute_header, v15, v18, "encryptPayload: plaintext: %@", &v62);
+      v58 = 138412290;
+      v59 = a5;
+      OUTLINED_FUNCTION_79_0(&_mh_execute_header, v15, v18, "encryptPayload: plaintext: %@", &v58);
     }
 
     v19 = gLogObjects;
@@ -3124,11 +4964,11 @@ LABEL_47:
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v62 = 134218240;
-        v63 = v19;
-        v64 = 1024;
-        v65 = v20;
-        OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v22, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v62);
+        v58 = 134218240;
+        v59 = v19;
+        v60 = 1024;
+        v61 = v20;
+        OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v22, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v58);
       }
 
       v21 = &_os_log_default;
@@ -3138,111 +4978,100 @@ LABEL_47:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       v25 = *(a1 + 144);
-      v62 = 67109120;
-      LODWORD(v63) = v25;
-      OUTLINED_FUNCTION_10_5(&_mh_execute_header, v21, v24, "decryptPayload: negotiatedVersion: %d", &v62);
+      v58 = 67109120;
+      LODWORD(v59) = v25;
+      OUTLINED_FUNCTION_10_5(&_mh_execute_header, v21, v24, "decryptPayload: negotiatedVersion: %d", &v58);
     }
 
     if (*(a1 + 144) < 3u)
     {
-      v27 = *(a1 + 96);
       OUTLINED_FUNCTION_30_11();
-      v32 = 0;
-      v33 = 0;
+      v30 = 0;
+      v31 = 0;
     }
 
     else
     {
-      if (v60)
-      {
-        v26 = **(a1 + 712);
-      }
-
-      else
-      {
-        v34 = *(a1 + 96);
-      }
-
       OUTLINED_FUNCTION_30_11();
-      v32 = 6;
-      v33 = v7;
+      v30 = 6;
+      v31 = v7;
     }
 
-    v35 = ccsigma_seal(v28, v29, v30, v32, v33, v10, v31, v12, v59);
-    if (v35)
+    v32 = ccsigma_seal(v26, v27, v28, v30, v31, v10, v29, v12, v56);
+    if (v32)
     {
-      v46 = logObjectForModule_41();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v43 = logObjectForModule_41();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v62) = 0;
+        LOWORD(v58) = 0;
         OUTLINED_FUNCTION_6_35();
-        _os_log_error_impl(v53, v54, v55, v56, v57, v58);
+        _os_log_error_impl(v50, v51, v52, v53, v54, v55);
       }
     }
 
     else
     {
       memcpy((v7 + 6), v12, v10);
-      *(v7 + v9) = v61;
-      v36 = _dumpSimpleHex([NSData dataWithBytes:v12 length:v10]);
+      *(v7 + v9) = v57;
+      v33 = _dumpSimpleHex([NSData dataWithBytes:v12 length:v10]);
 
-      v37 = gLogObjects;
-      v38 = gNumLogObjects;
+      v34 = gLogObjects;
+      v35 = gNumLogObjects;
       if (gLogObjects && gNumLogObjects >= 56)
       {
-        v39 = *(gLogObjects + 440);
+        v36 = *(gLogObjects + 440);
       }
 
       else
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v62 = 134218240;
-          v63 = v37;
-          v64 = 1024;
-          v65 = v38;
-          OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v40, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v62);
+          v58 = 134218240;
+          v59 = v34;
+          v60 = 1024;
+          v61 = v35;
+          OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v37, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v58);
         }
 
-        v39 = &_os_log_default;
-        v41 = &_os_log_default;
+        v36 = &_os_log_default;
+        v38 = &_os_log_default;
       }
 
       if (OUTLINED_FUNCTION_93())
       {
-        v62 = 138412290;
-        v63 = v36;
-        OUTLINED_FUNCTION_79_0(&_mh_execute_header, v39, v42, "encryptPayload: cyphertext: %@", &v62);
+        v58 = 138412290;
+        v59 = v33;
+        OUTLINED_FUNCTION_79_0(&_mh_execute_header, v36, v39, "encryptPayload: cyphertext: %@", &v58);
       }
 
-      v35 = 0;
-      a5 = v36;
+      v32 = 0;
+      a5 = v33;
     }
 
-    goto LABEL_36;
+    goto LABEL_33;
   }
 
-  v45 = logObjectForModule_41();
-  if (OUTLINED_FUNCTION_21_0(v45))
+  v42 = logObjectForModule_41();
+  if (OUTLINED_FUNCTION_21_0(v42))
   {
-    LOWORD(v62) = 0;
-    goto LABEL_47;
+    LOWORD(v58) = 0;
+    goto LABEL_44;
   }
 
-LABEL_42:
-  v35 = 1;
-LABEL_36:
+LABEL_39:
+  v32 = 1;
+LABEL_33:
 
   free(v12);
-  return v35;
+  return v32;
 }
 
 uint64_t mfi4Auth_protocol_initMessage_RequestAuthSetup(uint64_t a1)
 {
   if (!a1)
   {
-    v22 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_16(v22))
+    v20 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_16(v20))
     {
       goto LABEL_19;
     }
@@ -3252,11 +5081,11 @@ LABEL_17:
     return 1;
   }
 
-  OUTLINED_FUNCTION_8_6(a1);
+  OUTLINED_FUNCTION_8_6();
   if (v3)
   {
-    v23 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_16(v23))
+    v21 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_16(v21))
     {
       goto LABEL_19;
     }
@@ -3267,15 +5096,15 @@ LABEL_17:
   v4 = v2;
   if (!v2)
   {
-    v24 = logObjectForModule_41();
-    if (!OUTLINED_FUNCTION_16(v24))
+    v22 = logObjectForModule_41();
+    if (!OUTLINED_FUNCTION_16(v22))
     {
       goto LABEL_17;
     }
 
 LABEL_19:
     OUTLINED_FUNCTION_2_40();
-    _os_log_error_impl(v25, v26, v27, v28, v29, v30);
+    _os_log_error_impl(v23, v24, v25, v26, v27, v28);
     goto LABEL_17;
   }
 
@@ -3289,32 +5118,30 @@ LABEL_19:
   OUTLINED_FUNCTION_21_4();
   OUTLINED_FUNCTION_18_18();
   iAP2MsgInitWithSom(v6, v7, v8, v9, v10, v11, v12);
-  v13 = *v4;
-  v14 = *(v1 + 112);
   OUTLINED_FUNCTION_20_3();
-  iAP2MsgAddU8Param(v15, v16, v17, v18);
+  iAP2MsgAddU8Param(v13, v14, v15, v16);
   iAP2MsgAddU8Param(*v4, 0, 1, *(v1 + 113));
   iAP2MsgAddU8Param(*v4, 0, 2, 1);
   if (*(v1 + 120))
   {
-    v19 = 0;
+    v17 = 0;
     do
     {
-      iAP2MsgAddU8Param(*v4, 0, 3, *(v1 + 114 + v19++));
+      iAP2MsgAddU8Param(*v4, 0, 3, *(v1 + 114 + v17++));
     }
 
-    while (*(v1 + 120) > v19);
+    while (*(v1 + 120) > v17);
   }
 
   if (*(v1 + 136))
   {
-    v20 = 0;
+    v18 = 0;
     do
     {
-      iAP2MsgAddU8Param(*v4, 0, 4, *(v1 + 128 + v20++));
+      iAP2MsgAddU8Param(*v4, 0, 4, *(v1 + 128 + v18++));
     }
 
-    while (*(v1 + 136) > v20);
+    while (*(v1 + 136) > v18);
   }
 
   result = 0;
@@ -3326,8 +5153,8 @@ uint64_t mfi4Auth_protocol_initMessage_RequestAuthChallengeResponse(uint64_t a1)
 {
   if (!a1)
   {
-    v21 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_16(v21))
+    v19 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_16(v19))
     {
       goto LABEL_14;
     }
@@ -3335,11 +5162,11 @@ uint64_t mfi4Auth_protocol_initMessage_RequestAuthChallengeResponse(uint64_t a1)
     goto LABEL_15;
   }
 
-  OUTLINED_FUNCTION_8_6(a1);
+  OUTLINED_FUNCTION_8_6();
   if (v3)
   {
-    v22 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_16(v22))
+    v20 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_16(v20))
     {
       goto LABEL_14;
     }
@@ -3350,8 +5177,8 @@ uint64_t mfi4Auth_protocol_initMessage_RequestAuthChallengeResponse(uint64_t a1)
   v4 = v2;
   if (!v2)
   {
-    v23 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_16(v23))
+    v21 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_16(v21))
     {
       goto LABEL_14;
     }
@@ -3361,12 +5188,12 @@ uint64_t mfi4Auth_protocol_initMessage_RequestAuthChallengeResponse(uint64_t a1)
 
   if (*(v1 + 160))
   {
-    v24 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_16(v24))
+    v22 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_16(v22))
     {
 LABEL_14:
       OUTLINED_FUNCTION_2_40();
-      _os_log_error_impl(v25, v26, v27, v28, v29, v30);
+      _os_log_error_impl(v23, v24, v25, v26, v27, v28);
     }
 
 LABEL_15:
@@ -3381,13 +5208,11 @@ LABEL_15:
     return 0xFFFFFFFFLL;
   }
 
-  v6 = *(v1 + 144);
   OUTLINED_FUNCTION_21_4();
   OUTLINED_FUNCTION_18_18();
-  iAP2MsgInitWithSom(v7, v8, v9, v10, v11, v12, v13);
-  v14 = *v4;
+  iAP2MsgInitWithSom(v6, v7, v8, v9, v10, v11, v12);
   OUTLINED_FUNCTION_20_3();
-  iAP2MsgAddArrayU8Param(v15, v16, v17, v18, v19);
+  iAP2MsgAddArrayU8Param(v13, v14, v15, v16, v17);
   result = 0;
   *(v1 + 28) = 20757;
   return result;
@@ -3397,8 +5222,8 @@ uint64_t mfi4Auth_protocol_initMessage_RequestAuthStart(uint64_t a1)
 {
   if (!a1)
   {
-    v20 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_16(v20))
+    v18 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_16(v18))
     {
       goto LABEL_13;
     }
@@ -3408,11 +5233,11 @@ LABEL_11:
     return 1;
   }
 
-  OUTLINED_FUNCTION_8_6(a1);
+  OUTLINED_FUNCTION_8_6();
   if (v3)
   {
-    v21 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_16(v21))
+    v19 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_16(v19))
     {
       goto LABEL_13;
     }
@@ -3423,15 +5248,15 @@ LABEL_11:
   v4 = v2;
   if (!v2)
   {
-    v22 = logObjectForModule_41();
-    if (!OUTLINED_FUNCTION_16(v22))
+    v20 = logObjectForModule_41();
+    if (!OUTLINED_FUNCTION_16(v20))
     {
       goto LABEL_11;
     }
 
 LABEL_13:
     OUTLINED_FUNCTION_2_40();
-    _os_log_error_impl(v23, v24, v25, v26, v27, v28);
+    _os_log_error_impl(v21, v22, v23, v24, v25, v26);
     goto LABEL_11;
   }
 
@@ -3445,10 +5270,8 @@ LABEL_13:
   OUTLINED_FUNCTION_21_4();
   OUTLINED_FUNCTION_18_18();
   iAP2MsgInitWithSom(v6, v7, v8, v9, v10, v11, v12);
-  v13 = *v4;
-  v14 = *(v1 + 202);
   OUTLINED_FUNCTION_20_3();
-  iAP2MsgAddU16Param(v15, v16, v17, v18);
+  iAP2MsgAddU16Param(v13, v14, v15, v16);
   iAP2MsgAddArrayU8Param(*v4, 0, 1, (v1 + 206), 0x21u);
   result = 0;
   *(v1 + 28) = 20752;
@@ -3469,7 +5292,7 @@ uint64_t mfi4Auth_protocol_initSigmaContext(uint64_t a1, uint64_t a2, uint64_t a
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_4_6();
-      OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v142, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v143, v144, v145, v146, v225, v226, buf[0]);
+      OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v142, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v143, v144, v145, v146, v225, v226);
     }
 
     v7 = &_os_log_default;
@@ -3479,7 +5302,8 @@ uint64_t mfi4Auth_protocol_initSigmaContext(uint64_t a1, uint64_t a2, uint64_t a
   v9 = OUTLINED_FUNCTION_25_5();
   if (os_log_type_enabled(v9, v10))
   {
-    OUTLINED_FUNCTION_23_10(&_mh_execute_header, v11, v12, "mfi4Auth_protocol_initSigmaContext", v13, v14, v15, v16, v225, v226, 0);
+    *buf = 0;
+    OUTLINED_FUNCTION_23_10(&_mh_execute_header, v11, v12, "mfi4Auth_protocol_initSigmaContext", v13, v14, v15, v16, v225, v226);
   }
 
   if (!a1)
@@ -3535,7 +5359,7 @@ uint64_t mfi4Auth_protocol_initSigmaContext(uint64_t a1, uint64_t a2, uint64_t a
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_4_6();
-        OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v23, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v24, v25, v26, v27, v225, v226, buf[0]);
+        OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v23, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v24, v25, v26, v27, v225, v226);
       }
 
       v21 = &_os_log_default;
@@ -3545,7 +5369,8 @@ uint64_t mfi4Auth_protocol_initSigmaContext(uint64_t a1, uint64_t a2, uint64_t a
     v29 = OUTLINED_FUNCTION_25_5();
     if (os_log_type_enabled(v29, v30))
     {
-      OUTLINED_FUNCTION_23_10(&_mh_execute_header, v31, v32, "mfi4Auth_protocol_initSigmaContext: try prod identity", v33, v34, v35, v36, v225, v226, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_23_10(&_mh_execute_header, v31, v32, "mfi4Auth_protocol_initSigmaContext: try prod identity", v33, v34, v35, v36, v225, v226);
     }
 
     *(a1 + 88) = *(a1 + 88) & 0xFC | 1;
@@ -3563,7 +5388,7 @@ uint64_t mfi4Auth_protocol_initSigmaContext(uint64_t a1, uint64_t a2, uint64_t a
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_4_6();
-        OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v128, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v129, v130, v131, v132, v225, v226, buf[0]);
+        OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v128, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v129, v130, v131, v132, v225, v226);
       }
 
       v22 = &_os_log_default;
@@ -3573,7 +5398,8 @@ uint64_t mfi4Auth_protocol_initSigmaContext(uint64_t a1, uint64_t a2, uint64_t a
     v134 = OUTLINED_FUNCTION_25_5();
     if (os_log_type_enabled(v134, v135))
     {
-      OUTLINED_FUNCTION_23_10(&_mh_execute_header, v136, v137, "mfi4Auth_protocol_initSigmaContext: try dev identity", v138, v139, v140, v141, v225, v226, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_23_10(&_mh_execute_header, v136, v137, "mfi4Auth_protocol_initSigmaContext: try dev identity", v138, v139, v140, v141, v225, v226);
     }
 
     *(a1 + 88) = *(a1 + 88) & 0xF3 | 4;
@@ -3591,7 +5417,7 @@ uint64_t mfi4Auth_protocol_initSigmaContext(uint64_t a1, uint64_t a2, uint64_t a
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_4_6();
-        OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v38, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v39, v40, v41, v42, v225, v226, buf[0]);
+        OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v38, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v39, v40, v41, v42, v225, v226);
       }
 
       v37 = &_os_log_default;
@@ -3634,7 +5460,7 @@ uint64_t mfi4Auth_protocol_initSigmaContext(uint64_t a1, uint64_t a2, uint64_t a
 
         if (*(a1 + 376))
         {
-          v55 = HIDWORD(gLogObjects);
+          v55 = gLogObjects;
           v6 = gNumLogObjects;
           if (gLogObjects && gNumLogObjects >= 56)
           {
@@ -3645,10 +5471,11 @@ uint64_t mfi4Auth_protocol_initSigmaContext(uint64_t a1, uint64_t a2, uint64_t a
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              HIDWORD(v228) = v55;
+              *buf = 134218240;
+              v228 = v55;
               OUTLINED_FUNCTION_2_1();
               v229 = v6;
-              OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v152, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v153, v154, v155, v156, v225, v226, 0);
+              OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v152, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v153, v154, v155, v156, v225, v226);
             }
 
             v56 = &_os_log_default;
@@ -3709,7 +5536,7 @@ LABEL_163:
                 OUTLINED_FUNCTION_29_9();
                 OUTLINED_FUNCTION_2_1();
                 v229 = v57;
-                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v168, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v169, v170, v171, v172, v225, v226, buf[0]);
+                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v168, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v169, v170, v171, v172, v225, v226);
               }
 
               v60 = &_os_log_default;
@@ -3752,7 +5579,7 @@ LABEL_163:
                 OUTLINED_FUNCTION_29_9();
                 OUTLINED_FUNCTION_2_1();
                 v229 = v57;
-                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v193, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v194, v195, v196, v197, v225, v226, buf[0]);
+                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v193, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v194, v195, v196, v197, v225, v226);
               }
 
               v70 = &_os_log_default;
@@ -3809,7 +5636,7 @@ LABEL_163:
         memcpy(v82 + 1, *(a1 + 344), *(a1 + 352));
         CC_SHA256(v82, *(a1 + 352) + 16, (a1 + 308));
         v6 = _dumpSimpleHex([NSData dataWithBytes:a1 + 308 length:32]);
-        v83 = HIDWORD(gLogObjects);
+        v83 = gLogObjects;
         v84 = gNumLogObjects;
         if (gLogObjects && gNumLogObjects >= 56)
         {
@@ -3820,10 +5647,11 @@ LABEL_163:
         {
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            HIDWORD(v228) = v83;
+            *buf = 134218240;
+            v228 = v83;
             OUTLINED_FUNCTION_2_1();
             v229 = v84;
-            OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v147, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v148, v149, v150, v151, v225, v226, 0);
+            OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v147, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v148, v149, v150, v151, v225, v226);
           }
 
           v85 = &_os_log_default;
@@ -3855,7 +5683,7 @@ LABEL_163:
               v228 = v92;
               OUTLINED_FUNCTION_2_1();
               v229 = v93;
-              OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v157, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v158, v159, v160, v161, v225, v226, buf[0]);
+              OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v157, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v158, v159, v160, v161, v225, v226);
             }
 
             v94 = &_os_log_default;
@@ -3889,7 +5717,7 @@ LABEL_163:
                 OUTLINED_FUNCTION_34_5();
                 OUTLINED_FUNCTION_2_1();
                 v229 = v96;
-                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v173, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v174, v175, v176, v177, v225, v226, buf[0]);
+                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v173, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v174, v175, v176, v177, v225, v226);
               }
 
               v97 = &_os_log_default;
@@ -3920,7 +5748,7 @@ LABEL_163:
                 v228 = v108;
                 OUTLINED_FUNCTION_2_1();
                 v229 = v109;
-                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v183, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v184, v185, v186, v187, v225, v226, buf[0]);
+                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v183, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v184, v185, v186, v187, v225, v226);
               }
 
               v110 = &_os_log_default;
@@ -3949,7 +5777,7 @@ LABEL_163:
                 v228 = v121;
                 OUTLINED_FUNCTION_2_1();
                 v229 = v122;
-                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v188, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v189, v190, v191, v192, v225, v226, buf[0]);
+                OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v188, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v189, v190, v191, v192, v225, v226);
               }
 
               v123 = &_os_log_default;
@@ -3982,7 +5810,7 @@ LABEL_163:
               v228 = v99;
               OUTLINED_FUNCTION_2_1();
               v229 = v100;
-              OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v178, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v179, v180, v181, v182, v225, v226, buf[0]);
+              OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v178, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v179, v180, v181, v182, v225, v226);
             }
 
             v94 = &_os_log_default;
@@ -4044,12 +5872,12 @@ LABEL_121:
   return v68;
 }
 
-void mfi4Auth_protocol_handle_AuthState(uint64_t a1)
+void mfi4Auth_protocol_handle_AuthState(CFStringRef *a1)
 {
   if (!a1)
   {
-    v43 = logObjectForModule_41();
-    if (!OUTLINED_FUNCTION_16(v43))
+    v38 = logObjectForModule_41();
+    if (!OUTLINED_FUNCTION_16(v38))
     {
 LABEL_49:
 
@@ -4058,15 +5886,15 @@ LABEL_49:
 
 LABEL_52:
     OUTLINED_FUNCTION_1_39();
-    _os_log_error_impl(v45, v46, v47, v48, v49, v50);
+    _os_log_error_impl(v40, v41, v42, v43, v44, v45);
     goto LABEL_49;
   }
 
-  OUTLINED_FUNCTION_16_7(a1);
+  OUTLINED_FUNCTION_16_7();
   if (v4)
   {
-    v44 = logObjectForModule_41();
-    if (!OUTLINED_FUNCTION_16(v44))
+    v39 = logObjectForModule_41();
+    if (!OUTLINED_FUNCTION_16(v39))
     {
       goto LABEL_49;
     }
@@ -4084,28 +5912,28 @@ LABEL_52:
       EndpointWithUUID = acc_manager_getEndpointWithUUID(Copy);
       if (EndpointWithUUID)
       {
-        v14 = EndpointWithUUID;
-        v15 = EndpointWithUUID[7];
-        if (v15)
+        v9 = EndpointWithUUID;
+        v10 = EndpointWithUUID[7];
+        if (v10)
         {
           switch(v5)
           {
             case 1:
-              acc_platform_packetLogging_logEvent(EndpointWithUUID, "AUTH FAILED", "MFi4Auth accessory authentication Failed!", v9, v10, v11, v12, v13, v51);
-              v16 = 1;
+              acc_platform_packetLogging_logEvent(EndpointWithUUID, "AUTH FAILED", "MFi4Auth accessory authentication Failed!");
+              v11 = 1;
               break;
             case 3:
-              acc_platform_packetLogging_logEvent(EndpointWithUUID, "AUTH TIMEOUT", "MFi4Auth accessory authentication Timed Out!", v9, v10, v11, v12, v13, v51);
-              v16 = 3;
+              acc_platform_packetLogging_logEvent(EndpointWithUUID, "AUTH TIMEOUT", "MFi4Auth accessory authentication Timed Out!");
+              v11 = 3;
               break;
             case 2:
-              acc_platform_packetLogging_logEvent(EndpointWithUUID, "AUTH PASSED", "MFi4Auth accessory authentication Passed!", v9, v10, v11, v12, v13, v51);
-              v16 = 2;
+              acc_platform_packetLogging_logEvent(EndpointWithUUID, "AUTH PASSED", "MFi4Auth accessory authentication Passed!");
+              v11 = 2;
               break;
             default:
               if (gLogObjects && gNumLogObjects >= 56)
               {
-                v17 = *(gLogObjects + 440);
+                v12 = *(gLogObjects + 440);
               }
 
               else
@@ -4114,77 +5942,77 @@ LABEL_52:
                 {
                   OUTLINED_FUNCTION_3();
                   OUTLINED_FUNCTION_1_1();
-                  _os_log_error_impl(v38, v39, v40, v41, v42, 0x12u);
+                  _os_log_error_impl(v33, v34, v35, v36, v37, 0x12u);
                 }
 
-                v17 = &_os_log_default;
-                v18 = &_os_log_default;
+                v12 = &_os_log_default;
+                v13 = &_os_log_default;
               }
 
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
               {
                 OUTLINED_FUNCTION_16_17();
-                _os_log_error_impl(v32, v33, v34, v35, v36, v37);
+                _os_log_error_impl(v27, v28, v29, v30, v31, v32);
               }
 
 LABEL_23:
-              v19 = *(a1 + 440);
-              if (v19)
+              v14 = a1[55];
+              if (v14)
               {
-                v20 = *(a1 + 448);
+                v15 = a1[56];
               }
 
               else
               {
-                v19 = *(a1 + 696);
-                v20 = *(a1 + 704);
+                v14 = a1[87];
+                v15 = a1[88];
               }
 
-              v21 = CFDataCreate(kCFAllocatorDefault, v19, v20);
-              acc_connection_setAuthCertData(*v14, v21);
-              acc_connection_setAuthStatus(*v14, 1, v5);
+              v16 = CFDataCreate(kCFAllocatorDefault, v14, v15);
+              acc_connection_setAuthCertData(*v9, v16);
+              acc_connection_setAuthStatus(*v9, 1, v5);
               if (v5 == 2)
               {
-                if (*(v14 + 6) == 4)
+                if (*(v9 + 6) == 4)
                 {
-                  v22 = acc_properties_copyProperty(v14[10], kCFACCProperties_Endpoint_MFi4Auth_AccessoryCertInfoToMatch);
-                  if (!v22)
+                  v17 = acc_properties_copyProperty(*(v9 + 10), kCFACCProperties_Endpoint_MFi4Auth_AccessoryCertInfoToMatch);
+                  if (!v17)
                   {
-                    v26 = v7;
+                    v21 = v7;
                     goto LABEL_36;
                   }
 
-                  v23 = v22;
-                  if (*(a1 + 400) == 3)
+                  v18 = v17;
+                  if (*(a1 + 100) == 3)
                   {
-                    BytePtr = CFDataGetBytePtr(v22);
-                    v25 = memcmp(BytePtr, (a1 + 404), 0x20uLL);
+                    BytePtr = CFDataGetBytePtr(v17);
+                    v20 = memcmp(BytePtr, a1 + 404, 0x20uLL);
                   }
 
                   else
                   {
-                    v27 = MFAACreateCertificateSerialNumber();
-                    if (!v27)
+                    v22 = MFAACreateCertificateSerialNumber();
+                    if (!v22)
                     {
                       goto LABEL_50;
                     }
 
-                    v28 = v27;
-                    v29 = CFDataGetBytePtr(v23);
-                    v30 = CFDataGetBytePtr(v28);
-                    Length = CFDataGetLength(v28);
-                    v25 = memcmp(v29, v30, Length);
-                    CFRelease(v28);
+                    v23 = v22;
+                    v24 = CFDataGetBytePtr(v18);
+                    v25 = CFDataGetBytePtr(v23);
+                    Length = CFDataGetLength(v23);
+                    v20 = memcmp(v24, v25, Length);
+                    CFRelease(v23);
                   }
 
-                  if (!v25)
+                  if (!v20)
                   {
-                    acc_connection_setProperty(*v14, kCFACCProperties_Connection_MFi4Auth_AccessoryCertInfoToMatch);
-                    if (!v21)
+                    acc_connection_setProperty();
+                    if (!v16)
                     {
 LABEL_34:
                       CFRelease(v7);
-                      if (!v23)
+                      if (!v18)
                       {
                         return;
                       }
@@ -4193,24 +6021,24 @@ LABEL_34:
                     }
 
 LABEL_33:
-                    CFRelease(v21);
+                    CFRelease(v16);
                     goto LABEL_34;
                   }
 
 LABEL_50:
                   CFRelease(v7);
 LABEL_35:
-                  v26 = v23;
+                  v21 = v18;
 LABEL_36:
-                  CFRelease(v26);
+                  CFRelease(v21);
                   return;
                 }
 
                 mfi4Auth_protocol_supportsRelay(a1);
               }
 
-              v23 = 0;
-              if (!v21)
+              v18 = 0;
+              if (!v16)
               {
                 goto LABEL_34;
               }
@@ -4218,7 +6046,7 @@ LABEL_36:
               goto LABEL_33;
           }
 
-          *(v15 + 48) = v16;
+          *(v10 + 48) = v11;
           goto LABEL_23;
         }
       }
@@ -4228,14 +6056,14 @@ LABEL_36:
   }
 }
 
-uint64_t mfi4Auth_protocol_initMessage_AuthCert(uint64_t a1)
+uint64_t mfi4Auth_protocol_initMessage_AuthCert()
 {
   size = 0xAAAAAAAAAAAAAAAALL;
-  v3 = OUTLINED_FUNCTION_16_7(a1);
-  if (v6)
+  OUTLINED_FUNCTION_16_7();
+  if (v5)
   {
-    v47 = logObjectForModule_41();
-    if (!OUTLINED_FUNCTION_16(v47))
+    v41 = logObjectForModule_41();
+    if (!OUTLINED_FUNCTION_16(v41))
     {
 LABEL_33:
 
@@ -4245,15 +6073,15 @@ LABEL_33:
     *buf = 0;
 LABEL_45:
     OUTLINED_FUNCTION_2_40();
-    _os_log_error_impl(v52, v53, v54, v55, v56, v57);
+    _os_log_error_impl(v46, v47, v48, v49, v50, v51);
     goto LABEL_33;
   }
 
-  v7 = v4;
-  if (!v4)
+  v6 = v3;
+  if (!v3)
   {
-    v48 = logObjectForModule_41();
-    if (!OUTLINED_FUNCTION_16(v48))
+    v42 = logObjectForModule_41();
+    if (!OUTLINED_FUNCTION_16(v42))
     {
       goto LABEL_33;
     }
@@ -4262,82 +6090,81 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  v8 = v5;
-  v9 = v3;
-  v10 = *(v3 + 200);
-  v11 = OUTLINED_FUNCTION_6_7();
-  *v7 = v11;
-  if (!v11)
+  v7 = v4;
+  v8 = v2;
+  v9 = OUTLINED_FUNCTION_6_7();
+  *v6 = v9;
+  if (!v9)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if (v8 == 6)
+  if (v7 == 6)
   {
-    v12 = "MFi40Attestation-Certificate";
+    v10 = "MFi40Attestation-Certificate";
   }
 
   else
   {
-    v12 = "MFi40Attestation-Intermediate";
+    v10 = "MFi40Attestation-Intermediate";
   }
 
-  v13 = 368;
-  if (v8 == 6)
+  v11 = 368;
+  if (v7 == 6)
   {
-    v13 = 352;
+    v11 = 352;
   }
 
-  v14 = 360;
-  if (v8 == 6)
+  v12 = 360;
+  if (v7 == 6)
   {
-    v14 = 344;
+    v12 = 344;
   }
 
-  v15 = *(v9 + v14);
-  v16 = *(v9 + v13);
-  mfi4Auth_util_packetLogging_logData(*v9, v12, "MFi4Auth", v15, v16, 0);
-  if (!v15 || !v16)
+  v13 = *(v8 + v12);
+  v14 = *(v8 + v11);
+  mfi4Auth_util_packetLogging_logData(*v8, v10, "MFi4Auth", v13, v14, 0);
+  if (!v13 || !v14)
   {
-    v49 = logObjectForModule_41();
-    if (OUTLINED_FUNCTION_21_0(v49))
+    v43 = logObjectForModule_41();
+    if (OUTLINED_FUNCTION_21_0(v43))
     {
       OUTLINED_FUNCTION_29_9();
       OUTLINED_FUNCTION_2_1();
-      *&v70[10] = v8;
-      OUTLINED_FUNCTION_10(&_mh_execute_header, v2, v58, "AuthCert:: Invalid cert_resp, null or 0 len(%zu), certType %d", buf);
+      *&v64[10] = v7;
+      OUTLINED_FUNCTION_10(&_mh_execute_header, v1, v52, "AuthCert:: Invalid cert_resp, null or 0 len(%zu), certType %d", buf);
     }
 
     return 1;
   }
 
-  v17 = CTCompressComputeBufferSize(v15, v16, &size);
-  if (!v17)
+  v15 = CTCompressComputeBufferSize(v13, v14, &size);
+  if (!v15)
   {
-    v18 = malloc_type_malloc(size, 0x760E6B63uLL);
-    if (v18)
+    v16 = malloc_type_malloc(size, 0x760E6B63uLL);
+    if (v16)
     {
+      v17 = v16;
+      CTCompress(v13, v14, v16, size);
       v19 = v18;
-      CTCompress(v15, v16, v18, size);
-      v21 = v20;
-      if (v20)
+      if (v18)
       {
-        v51 = logObjectForModule_41();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v45 = logObjectForModule_41();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_14_17();
           OUTLINED_FUNCTION_27_1();
-          _os_log_error_impl(v63, v64, OS_LOG_TYPE_ERROR, v65, v66, 0x28u);
+          _os_log_error_impl(v57, v58, OS_LOG_TYPE_ERROR, v59, v60, 0x28u);
         }
       }
 
       else
       {
-        v22 = gLogObjects;
-        v23 = gNumLogObjects;
+        v20 = gLogObjects;
+        v21 = gNumLogObjects;
         if (gLogObjects && gNumLogObjects >= 56)
         {
-          v24 = *(gLogObjects + 440);
+          v22 = *(gLogObjects + 440);
         }
 
         else
@@ -4345,70 +6172,66 @@ LABEL_45:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *v70 = v22;
+            *v64 = v20;
             OUTLINED_FUNCTION_2_1();
-            *&v70[10] = v23;
-            OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v42, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v43, v44, v45, v46, v67, size, buf[0]);
+            *&v64[10] = v21;
+            OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v36, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v37, v38, v39, v40, v61, size);
           }
 
-          v24 = &_os_log_default;
-          v25 = &_os_log_default;
+          v22 = &_os_log_default;
+          v23 = &_os_log_default;
         }
 
         if (OUTLINED_FUNCTION_39_7())
         {
           *buf = 67109632;
-          *v70 = v8;
-          *&v70[4] = 2048;
-          *&v70[6] = v16;
-          v71 = 2048;
-          v72 = size;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "AuthCert:: certType %d, cert_resp_len %zu, compressedLength %zu", buf, 0x1Cu);
+          *v64 = v7;
+          *&v64[4] = 2048;
+          *&v64[6] = v14;
+          v65 = 2048;
+          v66 = size;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "AuthCert:: certType %d, cert_resp_len %zu, compressedLength %zu", buf, 0x1Cu);
         }
 
-        v26 = *v7;
-        v27 = *(v9 + 16);
-        v28 = *(v9 + 24);
         OUTLINED_FUNCTION_18_18();
-        iAP2MsgInitWithSom(v29, v30, v31, v32, v33, v34, v35);
-        v36 = *v7;
+        iAP2MsgInitWithSom(v24, v25, v26, v27, v28, v29, v30);
         OUTLINED_FUNCTION_20_3();
-        iAP2MsgAddU8Param(v37, v38, v39, v40);
-        iAP2MsgAddDataParam(*v7, 0, 1, v19, size);
-        if (v8 == 6)
+        iAP2MsgAddU8Param(v31, v32, v33, v34);
+        iAP2MsgAddDataParam(*v6, 0, 1, v17, size);
+        if (v7 == 6)
         {
-          iAP2MsgAddArrayU8Param(*v7, 0, 2, (v9 + 272), 0x10u);
+          iAP2MsgAddArrayU8Param(*v6, 0, 2, (v8 + 272), 0x10u);
         }
 
-        *(v9 + 28) = 20755;
+        *(v8 + 28) = 20755;
       }
 
-      free(v19);
-      return v21;
+      free(v17);
+      return v19;
     }
 
     return 0xFFFFFFFFLL;
   }
 
-  v21 = v17;
-  v50 = logObjectForModule_41();
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+  v19 = v15;
+  v44 = logObjectForModule_41();
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_14_17();
     OUTLINED_FUNCTION_27_1();
-    _os_log_error_impl(v59, v60, OS_LOG_TYPE_ERROR, v61, v62, 0x28u);
+    _os_log_error_impl(v53, v54, OS_LOG_TYPE_ERROR, v55, v56, 0x28u);
   }
 
-  return v21;
+  return v19;
 }
 
-uint64_t mfi4Auth_protocol_initMessage_AuthenticationSucceeded(uint64_t a1)
+uint64_t mfi4Auth_protocol_initMessage_AuthenticationSucceeded()
 {
-  v2 = OUTLINED_FUNCTION_16_7(a1);
-  if (v4)
+  OUTLINED_FUNCTION_16_7();
+  if (v3)
   {
-    v17 = logObjectForModule_41();
-    if (!OUTLINED_FUNCTION_16(v17))
+    v15 = logObjectForModule_41();
+    if (!OUTLINED_FUNCTION_16(v15))
     {
 LABEL_8:
 
@@ -4417,15 +6240,15 @@ LABEL_8:
 
 LABEL_10:
     OUTLINED_FUNCTION_2_40();
-    _os_log_error_impl(v19, v20, v21, v22, v23, v24);
+    _os_log_error_impl(v17, v18, v19, v20, v21, v22);
     goto LABEL_8;
   }
 
-  v5 = v3;
-  if (!v3)
+  v4 = v2;
+  if (!v2)
   {
-    v18 = logObjectForModule_41();
-    if (!OUTLINED_FUNCTION_16(v18))
+    v16 = logObjectForModule_41();
+    if (!OUTLINED_FUNCTION_16(v16))
     {
       goto LABEL_8;
     }
@@ -4433,20 +6256,19 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v6 = v2;
-  v7 = *(v2 + 200);
-  v8 = OUTLINED_FUNCTION_6_7();
-  *v5 = v8;
-  if (!v8)
+  v5 = v1;
+  v6 = OUTLINED_FUNCTION_6_7();
+  *v4 = v6;
+  if (!v6)
   {
     return 0xFFFFFFFFLL;
   }
 
   OUTLINED_FUNCTION_21_4();
   OUTLINED_FUNCTION_18_18();
-  iAP2MsgInitWithSom(v9, v10, v11, v12, v13, v14, v15);
+  iAP2MsgInitWithSom(v7, v8, v9, v10, v11, v12, v13);
   result = 0;
-  *(v6 + 28) = 20991;
+  *(v5 + 28) = 20991;
   return result;
 }
 
@@ -4470,7 +6292,7 @@ LABEL_26:
     goto LABEL_24;
   }
 
-  OUTLINED_FUNCTION_16_7(a1);
+  OUTLINED_FUNCTION_16_7();
   if (v4)
   {
     v24 = logObjectForModule_41();
@@ -4670,7 +6492,7 @@ LABEL_13:
       v37 = v15;
       OUTLINED_FUNCTION_2_1();
       v38 = v16;
-      OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v21, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v22, v23, v24, v25, v34, theArray, buf[0]);
+      OUTLINED_FUNCTION_11_17(&_mh_execute_header, &_os_log_default, v21, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v22, v23, v24, v25, v34, theArray);
     }
 
     v17 = &_os_log_default;
@@ -4817,25 +6639,11 @@ void mfi4Auth_protocol_handle_AuthSetup_cold_8()
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-void mfi4Auth_protocol_handle_AuthSetup_cold_9(int *a1)
-{
-  v6 = *a1;
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void mfi4Auth_protocol_handle_AuthSetup_cold_10()
 {
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_6_35();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-}
-
-void mfi4Auth_protocol_handle_AuthSetup_cold_12(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void mfi4Auth_protocol_handle_AuthSetup_cold_14()
@@ -5091,16 +6899,15 @@ void mfi4Auth_protocol_handle_AuthCert_cold_5()
   }
 }
 
-void mfi4Auth_protocol_handle_AuthCert_cold_6(_DWORD *a1, uint64_t *a2)
+void mfi4Auth_protocol_handle_AuthCert_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_40_2(a1);
-  v4 = logObjectForModule_41();
-  if (OUTLINED_FUNCTION_16(v4))
+  v2 = logObjectForModule_41();
+  if (OUTLINED_FUNCTION_16(v2))
   {
-    v5 = *a2;
     OUTLINED_FUNCTION_38();
     OUTLINED_FUNCTION_40_1();
-    _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
@@ -5148,15 +6955,14 @@ void mfi4Auth_protocol_handle_AuthCert_cold_14(_DWORD *a1)
   }
 }
 
-void mfi4Auth_protocol_handle_AuthCert_cold_19(uint64_t *a1)
+void mfi4Auth_protocol_handle_AuthCert_cold_19()
 {
-  v3 = logObjectForModule_41();
-  if (OUTLINED_FUNCTION_16(v3))
+  v1 = logObjectForModule_41();
+  if (OUTLINED_FUNCTION_16(v1))
   {
-    v4 = *a1;
     OUTLINED_FUNCTION_38();
     OUTLINED_FUNCTION_40_1();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
 }
 
@@ -5660,27 +7466,26 @@ void t56_protocol_init_cold_3()
   OUTLINED_FUNCTION_8_27(&_mh_execute_header, v1, v2, "%s:%d result %d, role %dX", v3, v4, v5, v6);
 }
 
-void t56_protocol_start_cold_3(uint64_t a1)
+void t56_protocol_start_cold_3()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
-  LODWORD(v5) = 136315906;
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  LODWORD(v4) = 136315906;
   OUTLINED_FUNCTION_5_29();
-  LOWORD(v7) = 0;
+  LOWORD(v6) = 0;
+  HIWORD(v6) = v0;
+  LOWORD(v7) = v0;
   HIWORD(v7) = v1;
-  LOWORD(v8) = v1;
-  HIWORD(v8) = v2;
-  OUTLINED_FUNCTION_8_27(&_mh_execute_header, v3, v4, "%s:%d result %d, role %d", v5, v6, v7, v8);
+  OUTLINED_FUNCTION_8_27(&_mh_execute_header, v2, v3, "%s:%d result %d, role %d", v4, v5, v6, v7);
 }
 
 void t56_protocol_timeoutForRequest_cold_2()
 {
   OUTLINED_FUNCTION_10_20();
-  v1 = *(v0 + 12);
-  t56_protocol_msgTypeString(v2);
+  t56_protocol_msgTypeString(v0);
   OUTLINED_FUNCTION_17_8();
   OUTLINED_FUNCTION_1_40();
   OUTLINED_FUNCTION_88();
-  _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x28u);
+  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x28u);
 }
 
 void _T56Protocol_timeoutCallback_cold_4()
@@ -5692,32 +7497,30 @@ void _T56Protocol_timeoutCallback_cold_4()
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s:%d Device: Unhandled timeoutType %d !!!", v2, 0x18u);
 }
 
-void _T56Protocol_timeoutCallback_cold_6(unsigned int *a1)
+void _T56Protocol_timeoutCallback_cold_6()
 {
-  v1 = *a1;
-  LODWORD(v5) = 136315906;
+  LODWORD(v3) = 136315906;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  LOWORD(v8) = v2;
-  HIWORD(v8) = v3;
-  OUTLINED_FUNCTION_8_27(&_mh_execute_header, v3, v4, "%s:%d Unknown role(%d)! can't handle timer %d!", v5, v6, v7, v8);
+  LOWORD(v6) = v0;
+  HIWORD(v6) = v1;
+  OUTLINED_FUNCTION_8_27(&_mh_execute_header, v1, v2, "%s:%d Unknown role(%d)! can't handle timer %d!", v3, v4, v5, v6);
 }
 
-void t56_protocol_processIncomingData_cold_2(unsigned int *a1)
+void t56_protocol_processIncomingData_cold_2()
 {
-  v1 = *a1;
-  v5[0] = 136316674;
+  v3[0] = 136316674;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  v6 = v2;
+  v4 = v0;
+  v5 = 0;
+  v6 = v0;
   v7 = 0;
-  v8 = v2;
-  v9 = 0;
-  v10 = 2080;
-  v11 = "UNKNOWN";
-  v12 = v2;
-  v13 = v3;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%s:%d Unknown Role! %d, ver %d, msgType %d(%s), dataInLen %d", v5, 0x34u);
+  v8 = 2080;
+  v9 = "UNKNOWN";
+  v10 = v0;
+  v11 = v1;
+  _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%s:%d Unknown Role! %d, ver %d, msgType %d(%s), dataInLen %d", v3, 0x34u);
 }
 
 void t56_protocol_processIncomingData_cold_4()
@@ -5773,12 +7576,13 @@ void t56_protocol_checkValidMessageHeaderAndSize_cold_7()
   OUTLINED_FUNCTION_16_18(v1, v2, v3, v4, v5);
 }
 
-void _t56_protocol_handleResponse_SESSION_RSP_cold_2(uint64_t a1)
+void _t56_protocol_handleResponse_SESSION_RSP_cold_2()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v1, v2, "%s:%d role %d", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d role %d", v2, v3, v4, v5, v6);
 }
 
 void _t56_protocol_handleResponse_SESSION_RSP_cold_4()
@@ -5791,12 +7595,13 @@ void _t56_protocol_handleResponse_SESSION_RSP_cold_4()
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x28u);
 }
 
-void _t56_protocol_handleResponse_DISCOVER_RSP_cold_2(uint64_t a1)
+void _t56_protocol_handleResponse_DISCOVER_RSP_cold_2()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v1, v2, "%s:%d role %d", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d role %d", v2, v3, v4, v5, v6);
 }
 
 void _t56_protocol_handleResponse_DISCOVER_RSP_cold_4()
@@ -5809,12 +7614,13 @@ void _t56_protocol_handleResponse_DISCOVER_RSP_cold_4()
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x28u);
 }
 
-void _t56_protocol_handleResponse_DATA_cold_3(uint64_t a1)
+void _t56_protocol_handleResponse_DATA_cold_3()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v1, v2, "%s:%d role %d", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d role %d", v2, v3, v4, v5, v6);
 }
 
 void _t56_protocol_handleResponse_DATA_cold_5()
@@ -5827,12 +7633,13 @@ void _t56_protocol_handleResponse_DATA_cold_5()
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x28u);
 }
 
-void _t56_protocol_handleResponse_STATUS_cold_2(uint64_t a1)
+void _t56_protocol_handleResponse_STATUS_cold_2()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v1, v2, "%s:%d role %d", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d role %d", v2, v3, v4, v5, v6);
 }
 
 void _t56_protocol_handleResponse_STATUS_cold_4()
@@ -5845,12 +7652,13 @@ void _t56_protocol_handleResponse_STATUS_cold_4()
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x28u);
 }
 
-void _t56_protocol_handleRequest_SESSION_cold_2(uint64_t a1)
+void _t56_protocol_handleRequest_SESSION_cold_2()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v1, v2, "%s:%d role %d", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d role %d", v2, v3, v4, v5, v6);
 }
 
 void _t56_protocol_handleRequest_SESSION_cold_4()
@@ -5863,12 +7671,13 @@ void _t56_protocol_handleRequest_SESSION_cold_4()
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x28u);
 }
 
-void _t56_protocol_handleRequest_DISCOVER_cold_2(uint64_t a1)
+void _t56_protocol_handleRequest_DISCOVER_cold_2()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v1, v2, "%s:%d role %d", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d role %d", v2, v3, v4, v5, v6);
 }
 
 void _t56_protocol_handleRequest_DISCOVER_cold_4()
@@ -5881,12 +7690,13 @@ void _t56_protocol_handleRequest_DISCOVER_cold_4()
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x28u);
 }
 
-void _t56_protocol_handleRequest_POLL_cold_2(uint64_t a1)
+void _t56_protocol_handleRequest_POLL_cold_2()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v1, v2, "%s:%d role %d", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d role %d", v2, v3, v4, v5, v6);
 }
 
 void _t56_protocol_handleRequest_POLL_cold_4()
@@ -5899,12 +7709,13 @@ void _t56_protocol_handleRequest_POLL_cold_4()
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x28u);
 }
 
-void _t56_protocol_handleRequest_DATA_cold_2(uint64_t a1)
+void _t56_protocol_handleRequest_DATA_cold_2()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v1, v2, "%s:%d role %d", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d role %d", v2, v3, v4, v5, v6);
 }
 
 void _t56_protocol_handleRequest_DATA_cold_4()
@@ -5917,12 +7728,13 @@ void _t56_protocol_handleRequest_DATA_cold_4()
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x28u);
 }
 
-void _t56_protocol_handleRequest_TERMINATE_cold_2(uint64_t a1)
+void _t56_protocol_handleRequest_TERMINATE_cold_2()
 {
-  OUTLINED_FUNCTION_12_17(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12_17(__stack_chk_guard);
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v1, v2, "%s:%d role %d", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d role %d", v2, v3, v4, v5, v6);
 }
 
 void _t56_protocol_handleRequest_TERMINATE_cold_4()
@@ -5937,9 +7749,10 @@ void _t56_protocol_handleRequest_TERMINATE_cold_4()
 
 void t56_protocol_initMsg_DISCOVER_cold_2()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_5_29();
   OUTLINED_FUNCTION_4_31();
-  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d sessionID %d", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_7_28(&_mh_execute_header, v0, v1, "%s:%d sessionID %d", v2, v3, v4, v5, v6);
 }
 
 void t56_protocol_initMsg_POLL_cold_2()
@@ -5964,45 +7777,6 @@ void *_createFeature_23(uint64_t a1)
     *v1 = 0;
     v1[1] = 0;
     platform_hid_incrementUserCount();
-  }
-
-  return v2;
-}
-
-uint64_t _destroyFeature_23(void **a1, void *a2)
-{
-  v2 = 0;
-  if (a1 && a2)
-  {
-    v5 = *a1;
-    if (*a1)
-    {
-      v2 = platform_hid_unregister_all_descriptors(a2[1]);
-      v6 = *(v5 + 1);
-      if (v6)
-      {
-        CFDictionaryApplyFunction(v6, _CFDictionaryApplierFunction_releaseHIDComponents, 0);
-        v7 = *(v5 + 1);
-        if (v7)
-        {
-          CFRelease(v7);
-          *(v5 + 1) = 0;
-        }
-      }
-
-      acc_endpoint_removeProperty(*a2, kCFACCProperties_Endpoint_Bluetooth_HIDFunction);
-      platform_hid_decrementUserCount();
-      if (*a1)
-      {
-        free(*a1);
-        *a1 = 0;
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
   }
 
   return v2;
@@ -6079,14 +7853,14 @@ uint64_t _checkIdentificationInfo_23(uint64_t a1)
     _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "checking HID ident info", buf, 2u);
   }
 
-  v5 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo__kMsgHIDList, 7u, &v43 + 7);
+  v5 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo__kMsgHIDList, 7, &v43 + 7);
   if (v5)
   {
     return v5;
   }
 
   v6 = HIBYTE(v43);
-  v7 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo__kMsgNativeHIDList, 1u, &v43 + 7);
+  v7 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo__kMsgNativeHIDList, 1, &v43 + 7);
   v8 = v7;
   v9 = 0;
   v10 = HIBYTE(v43);
@@ -6134,7 +7908,8 @@ uint64_t _checkIdentificationInfo_23(uint64_t a1)
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    OUTLINED_FUNCTION_18_19(&_mh_execute_header, v16, v17, "Identified for HID", v18, v19, v20, v21, v42, v43, 0);
+    *buf = 0;
+    OUTLINED_FUNCTION_18_19(&_mh_execute_header, v16, v17, "Identified for HID", v18, v19, v20, v21, v42, v43);
     if (!v9)
     {
       return v8;
@@ -6173,7 +7948,8 @@ LABEL_21:
 
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    OUTLINED_FUNCTION_18_19(&_mh_execute_header, v25, v26, "Identified for Native HID", v27, v28, v29, v30, v42, v43, 0);
+    *buf = 0;
+    OUTLINED_FUNCTION_18_19(&_mh_execute_header, v25, v26, "Identified for Native HID", v27, v28, v29, v30, v42, v43);
   }
 
   return v8;
@@ -6187,7 +7963,7 @@ uint64_t iap2_hid_StartHIDMsgHandler(uint64_t *a1, uint64_t a2)
   valuePtr = 0;
   if (a1 && a2)
   {
-    OUTLINED_FUNCTION_5_34();
+    OUTLINED_FUNCTION_5_34(731124096);
     if (iAP2MsgGetMsgID(a2) == 26624 && (FirstParam = iAP2MsgGetFirstParam(a2, 0)) != 0)
     {
       NextParam = FirstParam;
@@ -6477,7 +8253,7 @@ LABEL_74:
     }
   }
 
-  OUTLINED_FUNCTION_5_34();
+  OUTLINED_FUNCTION_5_34(731124100);
   return v2;
 }
 
@@ -6490,7 +8266,7 @@ uint64_t iap2_hid_AccessoryHIDReportHandler(uint64_t a1, uint64_t a2)
     goto LABEL_30;
   }
 
-  OUTLINED_FUNCTION_5_34();
+  OUTLINED_FUNCTION_5_34(731124136);
   if (iAP2MsgGetMsgID(a2) != 26626 || (v5 = OUTLINED_FUNCTION_22(), (FirstParam = iAP2MsgGetFirstParam(v5, v6)) == 0))
   {
     v2 = 0;
@@ -6612,7 +8388,7 @@ LABEL_29:
   CFRelease(v10);
   v2 = v23;
 LABEL_30:
-  OUTLINED_FUNCTION_5_34();
+  OUTLINED_FUNCTION_5_34(731124140);
   return v2;
 }
 
@@ -7028,7 +8804,8 @@ void _hidComponentFunctionType_cold_2(_DWORD *a1)
   v2 = logObjectForModule_42();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pFeature->hidComponents is NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pFeature->hidComponents is NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 11;
@@ -7039,7 +8816,8 @@ void _hidComponentFunctionType_cold_3(_DWORD *a1)
   v2 = logObjectForModule_42();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pFeature is NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pFeature is NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 11;
@@ -7050,7 +8828,8 @@ void _validateHIDComponent_cold_2(_BYTE *a1)
   v2 = logObjectForModule_42();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pFeature is NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pFeature is NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -7061,7 +8840,8 @@ void _parseiAPHIDComponentIdentificationParams_cold_3(_BYTE *a1)
   v2 = logObjectForModule_42();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pFeature == NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pFeature == NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -7072,7 +8852,8 @@ void _parseiAPHIDComponentIdentificationParams_cold_4(_BYTE *a1)
   v2 = logObjectForModule_42();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint == NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint == NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -7083,7 +8864,8 @@ void _parseNativeBTHIDComponentIdentificationParams_cold_4(_BYTE *a1)
   v2 = logObjectForModule_42();
   if (OUTLINED_FUNCTION_21_0(v2))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint->pEndpoint == NULL", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v3, v4, "pProtocolEndpoint->pEndpoint == NULL", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -7358,7 +9140,7 @@ void *ea_endpoint_create(uint64_t a1)
     if (v2)
     {
       *v2 = a1;
-      acc_endpoint_setProperty(a1, kCFACCProperties_Endpoint_EA_SessionOpen, kCFBooleanFalse);
+      acc_endpoint_setProperty();
     }
   }
 
@@ -7429,26 +9211,26 @@ uint64_t iap2_deviceAuthentication_RequestDeviceCertificate(uint64_t a1, uint64_
 uint64_t iap2_deviceAuthentication_RequestDeviceChallengeResponse(uint64_t a1, uint64_t a2)
 {
   v2 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v44 = 0;
+  v45 = &v44;
+  v50 = 0x2000000000;
+  v51 = 0;
+  v46 = 0x2000000000;
   v47 = 0;
-  v48 = &v47;
-  v43 = 0;
-  v44 = &v43;
-  v49 = 0x2000000000;
-  v50 = 0;
-  v45 = 0x2000000000;
-  v46 = 0;
   if (a1 && a2)
   {
     if (iap2_feature_getFeature(a1, 7u))
     {
-      v41 = a1;
+      v42 = a1;
       FirstParam = iAP2MsgGetFirstParam(a2, 0);
       if (FirstParam)
       {
         NextParam = FirstParam;
         while (1)
         {
-          if (v48[3])
+          if (v49[3])
           {
             goto LABEL_27;
           }
@@ -7464,42 +9246,42 @@ uint64_t iap2_deviceAuthentication_RequestDeviceChallengeResponse(uint64_t a1, u
           v13 = ParamValueLen;
           if (!ParamValueData || !ParamValueLen)
           {
-            v27 = gNumLogObjects;
+            v28 = gNumLogObjects;
             if (gLogObjects && gNumLogObjects >= 49)
             {
-              v28 = *(gLogObjects + 384);
+              v29 = *(gLogObjects + 384);
             }
 
             else
             {
-              v28 = &_os_log_default;
-              v29 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-              if (v29)
+              v29 = &_os_log_default;
+              v30 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+              if (v30)
               {
-                OUTLINED_FUNCTION_2_42(v29, v30, v31, v32, v33, v34, v35, v36, v37);
-                v55 = v27;
+                OUTLINED_FUNCTION_2_42(v30, v31, v32, v33, v34, v35, v36, v37, v38, v39);
+                v56 = v28;
                 _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
             }
 
-            if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_26;
             }
 
             *buf = 67109376;
-            v52 = ParamValueData;
-            v53 = 1024;
-            v54 = v13;
-            v25 = v28;
-            v26 = "Auth challenge param malformed pChallengeBytes:%04X, challengeLength:%02X\n";
+            v53 = ParamValueData;
+            v54 = 1024;
+            v55 = v13;
+            v26 = v29;
+            v27 = "Auth challenge param malformed pChallengeBytes:%04X, challengeLength:%02X\n";
 LABEL_25:
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 0xEu);
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, v27, buf, 0xEu);
             goto LABEL_26;
           }
 
           v14 = CFDataCreate(0, ParamValueData, ParamValueLen);
-          v48[3] = v14;
+          v49[3] = v14;
 LABEL_26:
           NextParam = iAP2MsgGetNextParam(a2, 0, NextParam);
           if (!NextParam)
@@ -7521,8 +9303,8 @@ LABEL_26:
           v15 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
           if (v15)
           {
-            OUTLINED_FUNCTION_2_42(v15, v16, v17, v18, v19, v20, v21, v22, v23);
-            v55 = v9;
+            OUTLINED_FUNCTION_2_42(v15, v16, v17, v18, v19, v20, v21, v22, v23, v24);
+            v56 = v9;
             _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
         }
@@ -7534,26 +9316,25 @@ LABEL_26:
 
         MsgID = iAP2MsgGetMsgID(a2);
         *buf = 67109376;
-        v52 = v8;
-        v53 = 1024;
-        v54 = MsgID;
-        v25 = v10;
-        v26 = "Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param";
+        v53 = v8;
+        v54 = 1024;
+        v55 = MsgID;
+        v26 = v10;
+        v27 = "Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param";
         goto LABEL_25;
       }
 
 LABEL_27:
-      v38 = v48[3];
-      v44[3] = platform_auth_createDeviceNonceSignature();
-      v39 = *(v41 + 24);
+      v45[3] = platform_auth_createDeviceNonceSignature();
+      v40 = *(v42 + 24);
       block[0] = _NSConcreteStackBlock;
       block[1] = 0x40000000;
       block[2] = __iap2_deviceAuthentication_RequestDeviceChallengeResponse_block_invoke;
       block[3] = &unk_10022B0D8;
-      block[4] = &v43;
-      block[5] = &v47;
-      block[6] = v41;
-      dispatch_async(v39, block);
+      block[4] = &v44;
+      block[5] = &v48;
+      block[6] = v42;
+      dispatch_async(v40, block);
       v2 = 1;
     }
 
@@ -7563,8 +9344,8 @@ LABEL_27:
     }
   }
 
-  _Block_object_dispose(&v43, 8);
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v48, 8);
   return v2;
 }
 
@@ -7595,29 +9376,27 @@ void _setDeviceAuthState(uint64_t a1, int a2)
     Feature = iap2_feature_getFeature(a1, 7u);
     if (Feature)
     {
-      v4 = Feature;
       *Feature = a2;
       if (gLogObjects && gNumLogObjects >= 49)
       {
-        v5 = *(gLogObjects + 384);
+        v4 = *(gLogObjects + 384);
       }
 
       else
       {
-        v5 = &_os_log_default;
+        v4 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_2_3();
           OUTLINED_FUNCTION_15_1();
-          OUTLINED_FUNCTION_10(v10, v11, v12, v13, v14);
+          OUTLINED_FUNCTION_10(v9, v10, v11, v12, v13);
         }
       }
 
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v15 = *v4;
         OUTLINED_FUNCTION_15_1();
-        _os_log_impl(v6, v7, OS_LOG_TYPE_INFO, v8, v9, 8u);
+        _os_log_impl(v5, v6, OS_LOG_TYPE_INFO, v7, v8, 8u);
       }
     }
   }
@@ -7715,26 +9494,17 @@ uint64_t iap2_voiceOver_selectCursorHandler()
       v3 = 1;
     }
 
-    if (v3)
+    if (v3 && OUTLINED_FUNCTION_21())
     {
-      if (OUTLINED_FUNCTION_21())
-      {
-        OUTLINED_FUNCTION_2_3();
-        OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9, v17);
-      }
-    }
-
-    else
-    {
-      v10 = *(gLogObjects + 160);
+      OUTLINED_FUNCTION_2_3();
+      OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9);
     }
 
     if (OUTLINED_FUNCTION_76())
     {
-      v11 = *(v0 + 8);
       OUTLINED_FUNCTION_38();
       OUTLINED_FUNCTION_24_1();
-      _os_log_impl(v12, v13, v14, v15, v16, 0xCu);
+      _os_log_impl(v10, v11, v12, v13, v14, 0xCu);
     }
 
     result = OUTLINED_FUNCTION_31_11();
@@ -7767,67 +9537,59 @@ uint64_t iap2_voiceOver_speakTextHandler()
         v9 = v2 < 21;
       }
 
-      if (v9)
+      if (v9 && OUTLINED_FUNCTION_17())
       {
-        if (OUTLINED_FUNCTION_17())
-        {
-          v53 = 134218240;
-          v54 = v1;
-          v55 = 1024;
-          LODWORD(v56) = v2;
-          OUTLINED_FUNCTION_35(&_mh_execute_header, v10, v11, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v53);
-        }
-      }
-
-      else
-      {
-        v12 = *(v1 + 160);
+        v51 = 134218240;
+        v52 = v1;
+        v53 = 1024;
+        LODWORD(v54) = v2;
+        OUTLINED_FUNCTION_35(&_mh_execute_header, v10, v11, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v51);
       }
 
       if (OUTLINED_FUNCTION_82())
       {
-        v13 = *(v0 + 8);
-        v53 = 138412290;
-        v54 = v13;
+        v12 = *(v0 + 8);
+        v51 = 138412290;
+        v52 = v12;
         OUTLINED_FUNCTION_33_5();
-        _os_log_impl(v14, v15, v16, v17, v18, 0xCu);
+        _os_log_impl(v13, v14, v15, v16, v17, 0xCu);
       }
 
-      v19 = OUTLINED_FUNCTION_22();
-      FirstParam = iAP2MsgGetFirstParam(v19, v20);
-      v51 = 0;
+      v18 = OUTLINED_FUNCTION_22();
+      FirstParam = iAP2MsgGetFirstParam(v18, v19);
+      v49 = 0;
       if (FirstParam)
       {
         NextParam = FirstParam;
+        v22 = 0;
         v23 = 0;
-        v24 = 0;
         while (1)
         {
           if (iAP2MsgGetParamID(NextParam))
           {
             MsgID = iAP2MsgGetMsgID(v7);
-            OUTLINED_FUNCTION_43_8(MsgID, v26, v27, v28, v29, v30, v31, v32, v49, v50);
+            OUTLINED_FUNCTION_43_8(MsgID, v25, v26, v27, v28, v29, v30, v31, v47, v48);
           }
 
           else
           {
-            DataAsString = iAP2MsgGetDataAsString(NextParam, &v51);
-            if (v51)
+            DataAsString = iAP2MsgGetDataAsString(NextParam, &v49);
+            if (v49)
             {
-              v48 = iAP2MsgGetMsgID(v7);
-              printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 0, v48);
+              v46 = iAP2MsgGetMsgID(v7);
+              printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 0, v46);
               return 0;
             }
 
-            v24 |= DataAsString != 0;
+            v23 |= DataAsString != 0;
             if (DataAsString)
             {
-              v23 = DataAsString;
+              v22 = DataAsString;
             }
           }
 
-          v34 = OUTLINED_FUNCTION_22();
-          NextParam = iAP2MsgGetNextParam(v34, v35, NextParam);
+          v33 = OUTLINED_FUNCTION_22();
+          NextParam = iAP2MsgGetNextParam(v33, v34, NextParam);
           if (!NextParam)
           {
             goto LABEL_22;
@@ -7835,53 +9597,48 @@ uint64_t iap2_voiceOver_speakTextHandler()
         }
       }
 
-      v24 = 0;
       v23 = 0;
+      v22 = 0;
 LABEL_22:
-      v36 = *(v3 + 3928);
-      v37 = *(v4 + 3936);
-      if (v36 && v37 >= 21)
+      v35 = *(v3 + 3928);
+      v36 = *(v4 + 3936);
+      if ((!v35 || v36 < 21) && OUTLINED_FUNCTION_21())
       {
-        v38 = *(v36 + 160);
-      }
-
-      else if (OUTLINED_FUNCTION_21())
-      {
-        v53 = 134218240;
-        v54 = v36;
-        v55 = 1024;
-        LODWORD(v56) = v37;
-        OUTLINED_FUNCTION_26_2(&_mh_execute_header, v39, v40, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v53);
+        v51 = 134218240;
+        v52 = v35;
+        v53 = 1024;
+        LODWORD(v54) = v36;
+        OUTLINED_FUNCTION_26_2(&_mh_execute_header, v37, v38, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v51);
       }
 
       if (OUTLINED_FUNCTION_76())
       {
-        v41 = *(v0 + 8);
-        v42 = "";
-        if (v24)
+        v39 = *(v0 + 8);
+        v40 = "";
+        if (v23)
         {
-          v42 = v23;
+          v40 = v22;
         }
 
-        v53 = 138412802;
-        v54 = v41;
-        v55 = 2080;
-        v56 = v42;
-        v57 = 1024;
-        v58 = v24 & 1;
+        v51 = 138412802;
+        v52 = v39;
+        v53 = 2080;
+        v54 = v40;
+        v55 = 1024;
+        v56 = v23 & 1;
         OUTLINED_FUNCTION_26_7();
-        _os_log_impl(v43, v44, v45, v46, v47, 0x1Cu);
+        _os_log_impl(v41, v42, v43, v44, v45, 0x1Cu);
       }
 
-      if (v24)
+      if (v23)
       {
         result = OUTLINED_FUNCTION_31_11();
         if (result)
         {
-          v52[1] = v23;
-          v52[2] = 0xAAAAAAAAAAAAAAAALL;
-          v52[0] = 0xAAAAAAAA00000017;
-          platform_voiceOver_performAction(*(v0 + 8), 23, v52);
+          v50[1] = v22;
+          v50[2] = 0xAAAAAAAAAAAAAAAALL;
+          v50[0] = 0xAAAAAAAA00000017;
+          platform_voiceOver_performAction(*(v0 + 8), 23, v50);
           return 1;
         }
       }
@@ -7911,26 +9668,17 @@ uint64_t iap2_voiceOver_pauseSpeakingHandler()
       v3 = 1;
     }
 
-    if (v3)
+    if (v3 && OUTLINED_FUNCTION_21())
     {
-      if (OUTLINED_FUNCTION_21())
-      {
-        OUTLINED_FUNCTION_2_3();
-        OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9, v17);
-      }
-    }
-
-    else
-    {
-      v10 = *(gLogObjects + 160);
+      OUTLINED_FUNCTION_2_3();
+      OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9);
     }
 
     if (OUTLINED_FUNCTION_76())
     {
-      v11 = *(v0 + 8);
       OUTLINED_FUNCTION_38();
       OUTLINED_FUNCTION_24_1();
-      _os_log_impl(v12, v13, v14, v15, v16, 0xCu);
+      _os_log_impl(v10, v11, v12, v13, v14, 0xCu);
     }
 
     result = OUTLINED_FUNCTION_31_11();
@@ -7959,26 +9707,17 @@ uint64_t iap2_voiceOver_resumeSpeakingHandler()
       v3 = 1;
     }
 
-    if (v3)
+    if (v3 && OUTLINED_FUNCTION_21())
     {
-      if (OUTLINED_FUNCTION_21())
-      {
-        OUTLINED_FUNCTION_2_3();
-        OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9, v17);
-      }
-    }
-
-    else
-    {
-      v10 = *(gLogObjects + 160);
+      OUTLINED_FUNCTION_2_3();
+      OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9);
     }
 
     if (OUTLINED_FUNCTION_76())
     {
-      v11 = *(v0 + 8);
       OUTLINED_FUNCTION_38();
       OUTLINED_FUNCTION_24_1();
-      _os_log_impl(v12, v13, v14, v15, v16, 0xCu);
+      _os_log_impl(v10, v11, v12, v13, v14, 0xCu);
     }
 
     result = OUTLINED_FUNCTION_31_11();
@@ -8007,26 +9746,17 @@ uint64_t iap2_voiceOver_stopInformationHandler()
       v3 = 1;
     }
 
-    if (v3)
+    if (v3 && OUTLINED_FUNCTION_21())
     {
-      if (OUTLINED_FUNCTION_21())
-      {
-        OUTLINED_FUNCTION_2_3();
-        OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9, v17);
-      }
-    }
-
-    else
-    {
-      v10 = *(gLogObjects + 160);
+      OUTLINED_FUNCTION_2_3();
+      OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9);
     }
 
     if (OUTLINED_FUNCTION_76())
     {
-      v11 = *(v0 + 8);
       OUTLINED_FUNCTION_38();
       OUTLINED_FUNCTION_24_1();
-      _os_log_impl(v12, v13, v14, v15, v16, 0xCu);
+      _os_log_impl(v10, v11, v12, v13, v14, 0xCu);
     }
 
     result = OUTLINED_FUNCTION_31_11();
@@ -8057,43 +9787,35 @@ uint64_t iap2_voiceOver_updateInformationHandler(uint64_t a1, uint64_t a2)
       v10 = v3 < 21;
     }
 
-    if (v10)
+    if (v10 && OUTLINED_FUNCTION_17())
     {
-      if (OUTLINED_FUNCTION_17())
-      {
-        v61 = 134218240;
-        v62 = v2;
-        v63 = 1024;
-        LODWORD(v64) = v3;
-        OUTLINED_FUNCTION_35(&_mh_execute_header, v11, v12, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v61);
-      }
-    }
-
-    else
-    {
-      v13 = *(v2 + 160);
+      v59 = 134218240;
+      v60 = v2;
+      v61 = 1024;
+      LODWORD(v62) = v3;
+      OUTLINED_FUNCTION_35(&_mh_execute_header, v11, v12, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v59);
     }
 
     if (OUTLINED_FUNCTION_82())
     {
-      v14 = *(a1 + 8);
-      v61 = 138412290;
-      v62 = v14;
+      v13 = *(a1 + 8);
+      v59 = 138412290;
+      v60 = v13;
       OUTLINED_FUNCTION_33_5();
-      _os_log_impl(v15, v16, v17, v18, v19, 0xCu);
+      _os_log_impl(v14, v15, v16, v17, v18, 0xCu);
     }
 
-    v60 = 0;
-    v20 = OUTLINED_FUNCTION_22();
-    FirstParam = iAP2MsgGetFirstParam(v20, v21);
-    v59 = 0;
+    v58 = 0;
+    v19 = OUTLINED_FUNCTION_22();
+    FirstParam = iAP2MsgGetFirstParam(v19, v20);
+    v57 = 0;
     if (FirstParam)
     {
       NextParam = FirstParam;
+      v23 = 0;
       v24 = 0;
-      v25 = 0;
+      v25 = 0.0;
       v26 = 0.0;
-      v27 = 0.0;
       while (1)
       {
         ParamID = iAP2MsgGetParamID(NextParam);
@@ -8101,101 +9823,96 @@ uint64_t iap2_voiceOver_updateInformationHandler(uint64_t a1, uint64_t a2)
         {
           if (ParamID == 1)
           {
-            DataAsU8 = iAP2MsgGetDataAsU8(NextParam, &v59);
-            if (v59)
+            DataAsU8 = iAP2MsgGetDataAsU8(NextParam, &v57);
+            if (v57)
             {
               MsgID = iAP2MsgGetMsgID(a2);
               printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 1, MsgID);
               return 0;
             }
 
-            v26 = DataAsU8 / 255.0;
-            *&v60 = v26;
-            v25 = 1;
+            v25 = DataAsU8 / 255.0;
+            *&v58 = v25;
+            v24 = 1;
           }
 
           else
           {
-            v31 = iAP2MsgGetMsgID(a2);
-            OUTLINED_FUNCTION_43_8(v31, v32, v33, v34, v35, v36, v37, v38, v55, v56);
+            v30 = iAP2MsgGetMsgID(a2);
+            OUTLINED_FUNCTION_43_8(v30, v31, v32, v33, v34, v35, v36, v37, v53, v54);
           }
         }
 
         else
         {
-          v30 = iAP2MsgGetDataAsU8(NextParam, &v59);
-          if (v59)
+          v29 = iAP2MsgGetDataAsU8(NextParam, &v57);
+          if (v57)
           {
-            v58 = iAP2MsgGetMsgID(a2);
-            printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 0, v58);
+            v56 = iAP2MsgGetMsgID(a2);
+            printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 0, v56);
             return 0;
           }
 
-          v27 = v30 / 255.0;
-          *(&v60 + 1) = v27;
-          v24 = 1;
+          v26 = v29 / 255.0;
+          *(&v58 + 1) = v26;
+          v23 = 1;
         }
 
-        v39 = OUTLINED_FUNCTION_22();
-        NextParam = iAP2MsgGetNextParam(v39, v40, NextParam);
+        v38 = OUTLINED_FUNCTION_22();
+        NextParam = iAP2MsgGetNextParam(v38, v39, NextParam);
         if (!NextParam)
         {
-          v41 = v27;
-          v42 = v26;
+          v40 = v26;
+          v41 = v25;
           goto LABEL_24;
         }
       }
     }
 
-    v25 = 0;
     v24 = 0;
-    v42 = 0.0;
+    v23 = 0;
     v41 = 0.0;
+    v40 = 0.0;
 LABEL_24:
-    v43 = *(v4 + 3928);
-    v44 = *(v5 + 3936);
-    if (v43 && v44 >= 21)
+    v42 = *(v4 + 3928);
+    v43 = *(v5 + 3936);
+    if ((!v42 || v43 < 21) && OUTLINED_FUNCTION_21())
     {
-      v45 = *(v43 + 160);
-    }
-
-    else if (OUTLINED_FUNCTION_21())
-    {
-      v61 = 134218240;
-      v62 = v43;
-      v63 = 1024;
-      LODWORD(v64) = v44;
-      OUTLINED_FUNCTION_26_2(&_mh_execute_header, v46, v47, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v61);
+      v59 = 134218240;
+      v60 = v42;
+      v61 = 1024;
+      LODWORD(v62) = v43;
+      OUTLINED_FUNCTION_26_2(&_mh_execute_header, v44, v45, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v59);
     }
 
     if (OUTLINED_FUNCTION_76())
     {
-      v48 = *(a1 + 8);
-      v61 = 138413314;
-      v62 = v48;
-      v63 = 2048;
-      v64 = v41;
-      v65 = 1024;
-      v66 = v24 & 1;
-      v67 = 2048;
-      v68 = v42;
-      v69 = 1024;
-      v70 = v25 & 1;
+      v46 = *(a1 + 8);
+      v59 = 138413314;
+      v60 = v46;
+      v61 = 2048;
+      v62 = v40;
+      v63 = 1024;
+      v64 = v23 & 1;
+      v65 = 2048;
+      v66 = v41;
+      v67 = 1024;
+      v68 = v24 & 1;
       OUTLINED_FUNCTION_26_7();
-      _os_log_impl(v49, v50, v51, v52, v53, 0x2Cu);
+      _os_log_impl(v47, v48, v49, v50, v51, 0x2Cu);
     }
 
-    if (((v25 | v24) & 1) != 0 && OUTLINED_FUNCTION_31_11())
+    if (((v24 | v23) & 1) != 0 && OUTLINED_FUNCTION_31_11())
     {
-      if (v24)
+      if (v23)
       {
-        platform_voiceOver_setConfiguration(*(a1 + 8), 0, &v60 + 1);
+        platform_voiceOver_setConfiguration(*(a1 + 8), 0, &v58 + 1);
       }
 
       v6 = 1;
-      if (v25)
+      if (v24)
       {
-        platform_voiceOver_setConfiguration(*(a1 + 8), 1, &v60);
+        platform_voiceOver_setConfiguration(*(a1 + 8), 1, &v58);
       }
     }
 
@@ -8223,26 +9940,17 @@ uint64_t iap2_voiceOver_stopCursorInformationHandler()
       v3 = 1;
     }
 
-    if (v3)
+    if (v3 && OUTLINED_FUNCTION_21())
     {
-      if (OUTLINED_FUNCTION_21())
-      {
-        OUTLINED_FUNCTION_2_3();
-        OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9, v17);
-      }
-    }
-
-    else
-    {
-      v10 = *(gLogObjects + 160);
+      OUTLINED_FUNCTION_2_3();
+      OUTLINED_FUNCTION_26_0(&_mh_execute_header, v4, v5, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v6, v7, v8, v9);
     }
 
     if (OUTLINED_FUNCTION_76())
     {
-      v11 = *(v0 + 8);
       OUTLINED_FUNCTION_38();
       OUTLINED_FUNCTION_24_1();
-      _os_log_impl(v12, v13, v14, v15, v16, 0xCu);
+      _os_log_impl(v10, v11, v12, v13, v14, 0xCu);
     }
 
     result = OUTLINED_FUNCTION_31_11();
@@ -8259,78 +9967,8 @@ uint64_t iap2_voiceOver_stopCursorInformationHandler()
 
 uint64_t iap2_VoiceOver_startVoiceOverHandler(uint64_t a1, uint64_t a2)
 {
-  v6 = 0;
+  v5 = 0;
   if (a1 && a2)
-  {
-    OUTLINED_FUNCTION_2_4();
-    if (v8)
-    {
-      v9 = 1;
-    }
-
-    else
-    {
-      v9 = v5 < 21;
-    }
-
-    if (v9)
-    {
-      if (OUTLINED_FUNCTION_21())
-      {
-        OUTLINED_FUNCTION_8_1();
-        OUTLINED_FUNCTION_26_0(&_mh_execute_header, v10, v11, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v12, v13, v14, v15, v39);
-      }
-    }
-
-    else
-    {
-      v16 = *(v4 + 160);
-    }
-
-    if (OUTLINED_FUNCTION_76())
-    {
-      v17 = *(a1 + 8);
-      OUTLINED_FUNCTION_38();
-      OUTLINED_FUNCTION_24_1();
-      _os_log_impl(v18, v19, v20, v21, v22, 0xCu);
-    }
-
-    v6 = OUTLINED_FUNCTION_31_11();
-    v23 = *(v2 + 3928);
-    v24 = *(v3 + 3936);
-    if (v23 && v24 >= 21)
-    {
-      v25 = *(v23 + 160);
-    }
-
-    else if (OUTLINED_FUNCTION_17())
-    {
-      OUTLINED_FUNCTION_8_1();
-      OUTLINED_FUNCTION_21_2(&_mh_execute_header, v33, v34, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v35, v36, v37, v38, v39);
-    }
-
-    if (OUTLINED_FUNCTION_82())
-    {
-      v26 = *(a1 + 8);
-      OUTLINED_FUNCTION_24_11();
-      OUTLINED_FUNCTION_27_0();
-      _os_log_impl(v27, v28, v29, v30, v31, 0x16u);
-    }
-
-    if (v6)
-    {
-      v6 = 1;
-      platform_VoiceOver_setEnabled(*(a1 + 8), 1);
-    }
-  }
-
-  return v6;
-}
-
-uint64_t iap2_VoiceOver_stopVoiceOverHandler()
-{
-  result = OUTLINED_FUNCTION_20_11();
-  if (v0 && v6)
   {
     OUTLINED_FUNCTION_2_4();
     if (v7)
@@ -8343,51 +9981,89 @@ uint64_t iap2_VoiceOver_stopVoiceOverHandler()
       v8 = v4 < 21;
     }
 
-    if (v8)
+    if (v8 && OUTLINED_FUNCTION_21())
     {
-      if (OUTLINED_FUNCTION_21())
-      {
-        OUTLINED_FUNCTION_8_1();
-        OUTLINED_FUNCTION_26_0(&_mh_execute_header, v9, v10, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v11, v12, v13, v14, v38);
-      }
-    }
-
-    else
-    {
-      v15 = *(v3 + 160);
+      OUTLINED_FUNCTION_8_1();
+      OUTLINED_FUNCTION_26_0(&_mh_execute_header, v9, v10, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v11, v12, v13, v14);
     }
 
     if (OUTLINED_FUNCTION_76())
     {
-      v16 = *(v0 + 8);
       OUTLINED_FUNCTION_38();
       OUTLINED_FUNCTION_24_1();
-      _os_log_impl(v17, v18, v19, v20, v21, 0xCu);
+      _os_log_impl(v15, v16, v17, v18, v19, 0xCu);
     }
 
-    v22 = OUTLINED_FUNCTION_31_11();
-    v23 = *(v1 + 3928);
-    v24 = *(v2 + 3936);
-    if (v23 && v24 >= 21)
-    {
-      v25 = *(v23 + 160);
-    }
-
-    else if (OUTLINED_FUNCTION_17())
+    v5 = OUTLINED_FUNCTION_31_11();
+    v20 = *(v3 + 3936);
+    if ((!*(v2 + 3928) || v20 < 21) && OUTLINED_FUNCTION_17())
     {
       OUTLINED_FUNCTION_8_1();
-      OUTLINED_FUNCTION_21_2(&_mh_execute_header, v32, v33, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v34, v35, v36, v37, v38);
+      OUTLINED_FUNCTION_21_2(&_mh_execute_header, v27, v28, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v29, v30, v31, v32);
     }
 
     if (OUTLINED_FUNCTION_82())
     {
-      v26 = *(v0 + 8);
       OUTLINED_FUNCTION_24_11();
       OUTLINED_FUNCTION_27_0();
-      _os_log_impl(v27, v28, v29, v30, v31, 0x16u);
+      _os_log_impl(v21, v22, v23, v24, v25, 0x16u);
     }
 
-    if (v22)
+    if (v5)
+    {
+      v5 = 1;
+      platform_VoiceOver_setEnabled(*(a1 + 8), 1);
+    }
+  }
+
+  return v5;
+}
+
+uint64_t iap2_VoiceOver_stopVoiceOverHandler()
+{
+  result = OUTLINED_FUNCTION_20_11();
+  if (v0 && v5)
+  {
+    OUTLINED_FUNCTION_2_4();
+    if (v6)
+    {
+      v7 = 1;
+    }
+
+    else
+    {
+      v7 = v3 < 21;
+    }
+
+    if (v7 && OUTLINED_FUNCTION_21())
+    {
+      OUTLINED_FUNCTION_8_1();
+      OUTLINED_FUNCTION_26_0(&_mh_execute_header, v8, v9, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v10, v11, v12, v13);
+    }
+
+    if (OUTLINED_FUNCTION_76())
+    {
+      OUTLINED_FUNCTION_38();
+      OUTLINED_FUNCTION_24_1();
+      _os_log_impl(v14, v15, v16, v17, v18, 0xCu);
+    }
+
+    v19 = OUTLINED_FUNCTION_31_11();
+    v20 = *(v2 + 3936);
+    if ((!*(v1 + 3928) || v20 < 21) && OUTLINED_FUNCTION_17())
+    {
+      OUTLINED_FUNCTION_8_1();
+      OUTLINED_FUNCTION_21_2(&_mh_execute_header, v26, v27, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v28, v29, v30, v31);
+    }
+
+    if (OUTLINED_FUNCTION_82())
+    {
+      OUTLINED_FUNCTION_24_11();
+      OUTLINED_FUNCTION_27_0();
+      _os_log_impl(v21, v22, v23, v24, v25, 0x16u);
+    }
+
+    if (v19)
     {
       platform_VoiceOver_setEnabled(*(v0 + 8), 0);
       return 1;
@@ -8402,94 +10078,201 @@ uint64_t iap2_VoiceOver_stopVoiceOverHandler()
   return result;
 }
 
-uint64_t iap2_voiceOver_cursorInformationHandler(uint64_t *a1, unsigned int *a2)
+void iap2_voiceOver_informationHandler()
 {
-  OUTLINED_FUNCTION_38_10();
-  if (v2 && v3 >= 36)
+  OUTLINED_FUNCTION_95_0();
+  v1 = v0;
+  v3 = v2;
+  if ((!gLogObjects || gNumLogObjects < 36) && OUTLINED_FUNCTION_17())
   {
-    v8 = *(v2 + 280);
-  }
-
-  else if (OUTLINED_FUNCTION_17())
-  {
-    *&v168[8] = HIDWORD(v2);
-    OUTLINED_FUNCTION_1_2();
-    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v129, v130, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v131, v132, v133, v134, 0);
+    OUTLINED_FUNCTION_10_0();
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v43, v44, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v45, v46, v47, v48);
   }
 
   if (OUTLINED_FUNCTION_82())
   {
-    if (a1)
-    {
-      a1[1];
-    }
-
     OUTLINED_FUNCTION_38();
     OUTLINED_FUNCTION_27_0();
-    _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+    _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
+  }
+
+  Feature = iap2_feature_getFeature(v3, 0x15u);
+  if ((!gLogObjects || gNumLogObjects < 21) && OUTLINED_FUNCTION_27())
+  {
+    OUTLINED_FUNCTION_3();
+    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v49, v50, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v51, v52, v53, v54);
+  }
+
+  if (OUTLINED_FUNCTION_76_1())
+  {
+    OUTLINED_FUNCTION_38();
+    OUTLINED_FUNCTION_14_3();
+    _os_log_impl(v10, v11, OS_LOG_TYPE_INFO, v12, v13, 0x16u);
+  }
+
+  if (v1 && Feature)
+  {
+    if ((!gLogObjects || gNumLogObjects < 36) && OUTLINED_FUNCTION_27())
+    {
+      OUTLINED_FUNCTION_1_2();
+      OUTLINED_FUNCTION_17_2(&_mh_execute_header, v55, v56, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v57, v58, v59, v60);
+    }
+
+    if (OUTLINED_FUNCTION_79())
+    {
+      OUTLINED_FUNCTION_38();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_14_3();
+      _os_log_debug_impl(v35, v36, OS_LOG_TYPE_DEBUG, v37, v38, 0x12u);
+    }
+
+    if (!*v1)
+    {
+      if ((!gLogObjects || gNumLogObjects < 36) && OUTLINED_FUNCTION_27())
+      {
+        OUTLINED_FUNCTION_1_2();
+        OUTLINED_FUNCTION_17_2(&_mh_execute_header, v61, v62, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v63, v64, v65, v66);
+      }
+
+      if (OUTLINED_FUNCTION_79())
+      {
+        OUTLINED_FUNCTION_3();
+        OUTLINED_FUNCTION_14_3();
+        _os_log_debug_impl(v39, v40, OS_LOG_TYPE_DEBUG, v41, v42, 0x32u);
+      }
+
+      if (*Feature)
+      {
+        if ((!gLogObjects || gNumLogObjects < 36) && OUTLINED_FUNCTION_17())
+        {
+          OUTLINED_FUNCTION_1_2();
+          OUTLINED_FUNCTION_21_2(&_mh_execute_header, v67, v68, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v69, v70, v71, v72);
+        }
+
+        if (OUTLINED_FUNCTION_82())
+        {
+          OUTLINED_FUNCTION_38();
+          OUTLINED_FUNCTION_27_0();
+          _os_log_impl(v14, v15, v16, v17, v18, 0xCu);
+        }
+
+        v19 = iAP2MsgInit((v3 + 15), 22028, v3[24], 0xFFFF, 0, 0);
+        v20 = *(v1 + 8);
+        if (v20)
+        {
+          v22 = OUTLINED_FUNCTION_21_1();
+          v21 = iAP2MsgAddU8Param(v22, v23, 0, v24) != 0;
+          v20 = *(v1 + 8);
+          if ((v20 & 2) == 0)
+          {
+            goto LABEL_42;
+          }
+        }
+
+        else
+        {
+          v21 = 0;
+          if ((v20 & 2) == 0)
+          {
+LABEL_42:
+            if ((v20 & 4) != 0 && (v28 = OUTLINED_FUNCTION_21_1(), iAP2MsgAddU8Param(v28, v29, 2, v30)) || v21)
+            {
+              if ((!gLogObjects || gNumLogObjects < 36) && OUTLINED_FUNCTION_27())
+              {
+                OUTLINED_FUNCTION_8_1();
+                OUTLINED_FUNCTION_17_2(&_mh_execute_header, v73, v74, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v75, v76, v77, v78);
+              }
+
+              if (OUTLINED_FUNCTION_76_1())
+              {
+                iAP2MsgGetMsgID(v19);
+                OUTLINED_FUNCTION_3();
+                OUTLINED_FUNCTION_14_3();
+                _os_log_impl(v31, v32, OS_LOG_TYPE_INFO, v33, v34, 0x12u);
+              }
+
+              iap2_sessionControl_sendOutgoingMessage(v3, v19);
+              platform_voiceOver_deleteParams(v1);
+            }
+
+            goto LABEL_53;
+          }
+        }
+
+        v25 = OUTLINED_FUNCTION_21_1();
+        if (iAP2MsgAddU8Param(v25, v26, 1, v27))
+        {
+          ++v21;
+        }
+
+        v20 = *(v1 + 8);
+        goto LABEL_42;
+      }
+    }
+  }
+
+LABEL_53:
+  OUTLINED_FUNCTION_96();
+}
+
+uint64_t iap2_voiceOver_cursorInformationHandler(uint64_t *a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_38_10();
+  if ((!v2 || v3 < 36) && OUTLINED_FUNCTION_17())
+  {
+    *v146 = 134218240;
+    *&v146[4] = v2;
+    OUTLINED_FUNCTION_1_2();
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v107, v108, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v109, v110, v111, v112, *v146);
+  }
+
+  if (OUTLINED_FUNCTION_82())
+  {
+    OUTLINED_FUNCTION_38();
+    OUTLINED_FUNCTION_27_0();
+    _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
   }
 
   Feature = iap2_feature_getFeature(a1, 0x15u);
-  v15 = *(v4 + 3928);
-  v16 = *(v5 + 3936);
-  if (v15 && v16 >= 21)
+  v14 = *(v4 + 3928);
+  v15 = *(v5 + 3936);
+  if ((!v14 || v15 < 21) && OUTLINED_FUNCTION_27())
   {
-    v17 = *(v15 + 160);
-  }
-
-  else if (OUTLINED_FUNCTION_27())
-  {
-    *&v168[8] = HIDWORD(v15);
+    *v146 = 134218240;
+    *&v146[4] = v14;
     OUTLINED_FUNCTION_3();
-    *&v168[14] = v16;
-    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v135, v136, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v137, v138, v139, v140, 0);
+    *&v146[14] = v15;
+    OUTLINED_FUNCTION_17_2(&_mh_execute_header, v113, v114, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v115, v116, v117, v118, *v146, *&v146[8]);
   }
 
-  v18 = &off_1001C3000;
+  v16 = &off_1001C3000;
   if (OUTLINED_FUNCTION_76_1())
   {
-    if (a1)
-    {
-      a1[1];
-    }
-
     OUTLINED_FUNCTION_38();
-    *&v168[12] = 2080;
-    *&v168[14] = v19;
+    *&v146[12] = 2080;
+    *&v146[14] = v17;
     OUTLINED_FUNCTION_14_3();
-    _os_log_impl(v20, v21, OS_LOG_TYPE_INFO, v22, v23, 0x16u);
+    _os_log_impl(v18, v19, OS_LOG_TYPE_INFO, v20, v21, 0x16u);
   }
 
   result = 0;
   if (a2 && Feature)
   {
-    v25 = *(v4 + 3928);
-    v26 = *(v5 + 3936);
-    if (v25 && v26 >= 36)
-    {
-      v27 = *(v25 + 280);
-    }
-
-    else if (OUTLINED_FUNCTION_27())
+    v23 = *(v5 + 3936);
+    if ((!*(v4 + 3928) || v23 < 36) && OUTLINED_FUNCTION_27())
     {
       OUTLINED_FUNCTION_7_30();
-      *&v168[14] = v26;
-      OUTLINED_FUNCTION_17_2(&_mh_execute_header, v141, v142, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v143, v144, v145, v146, v168[0]);
+      *&v146[14] = v23;
+      OUTLINED_FUNCTION_17_2(&_mh_execute_header, v119, v120, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v121, v122, v123, v124);
     }
 
     if (OUTLINED_FUNCTION_79())
     {
-      if (a1)
-      {
-        a1[1];
-      }
-
-      v82 = *a2;
       OUTLINED_FUNCTION_38();
       OUTLINED_FUNCTION_3();
-      *&v168[14] = v83;
+      *&v146[14] = v73;
       OUTLINED_FUNCTION_14_3();
-      _os_log_debug_impl(v84, v85, OS_LOG_TYPE_DEBUG, v86, v87, 0x12u);
+      _os_log_debug_impl(v74, v75, OS_LOG_TYPE_DEBUG, v76, v77, 0x12u);
     }
 
     if (*a2 != 1)
@@ -8497,48 +10280,31 @@ uint64_t iap2_voiceOver_cursorInformationHandler(uint64_t *a1, unsigned int *a2)
       return 0;
     }
 
-    v28 = *(v4 + 3928);
-    v29 = *(v5 + 3936);
-    if (v28 && v29 >= 36)
-    {
-      v30 = *(v28 + 280);
-    }
-
-    else if (OUTLINED_FUNCTION_27())
+    v24 = *(v5 + 3936);
+    if ((!*(v4 + 3928) || v24 < 36) && OUTLINED_FUNCTION_27())
     {
       OUTLINED_FUNCTION_7_30();
-      *&v168[14] = v29;
-      OUTLINED_FUNCTION_17_2(&_mh_execute_header, v147, v148, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v149, v150, v151, v152, v168[0]);
+      *&v146[14] = v24;
+      OUTLINED_FUNCTION_17_2(&_mh_execute_header, v125, v126, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v127, v128, v129, v130);
     }
 
     if (OUTLINED_FUNCTION_79())
     {
-      if (a1)
-      {
-        a1[1];
-      }
-
-      v88 = *(Feature + 4);
-      v89 = a2[2];
-      v90 = *(a2 + 2);
-      v91 = *(a2 + 3);
-      v92 = *(a2 + 4);
-      v93 = *(a2 + 5);
       OUTLINED_FUNCTION_38();
       OUTLINED_FUNCTION_3();
-      *&v168[14] = v94;
-      *&v168[18] = v95;
-      *&v168[20] = v96;
-      *&v168[24] = 2112;
-      *&v168[26] = v97;
-      v169 = 2112;
-      v170 = v98;
-      v171 = 2112;
-      v172 = v99;
-      v173 = 2048;
-      v174 = v100;
+      *&v146[14] = v78;
+      *&v146[18] = v79;
+      *&v146[20] = v80;
+      *&v146[24] = 2112;
+      *&v146[26] = v81;
+      v147 = 2112;
+      v148 = v82;
+      v149 = 2112;
+      v150 = v83;
+      v151 = 2048;
+      v152 = v84;
       OUTLINED_FUNCTION_14_3();
-      _os_log_debug_impl(v101, v102, OS_LOG_TYPE_DEBUG, v103, v104, 0x40u);
+      _os_log_debug_impl(v85, v86, OS_LOG_TYPE_DEBUG, v87, v88, 0x40u);
     }
 
     if (!*(Feature + 4))
@@ -8546,214 +10312,194 @@ uint64_t iap2_voiceOver_cursorInformationHandler(uint64_t *a1, unsigned int *a2)
       return 0;
     }
 
-    v31 = *(v4 + 3928);
-    v32 = *(v5 + 3936);
-    if (v31 && v32 >= 36)
-    {
-      v33 = *(v31 + 280);
-    }
-
-    else if (OUTLINED_FUNCTION_17())
+    v25 = *(v5 + 3936);
+    if ((!*(v4 + 3928) || v25 < 36) && OUTLINED_FUNCTION_17())
     {
       OUTLINED_FUNCTION_10_0();
-      *&v168[14] = v32;
-      OUTLINED_FUNCTION_21_2(&_mh_execute_header, v153, v154, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v155, v156, v157, v158, v168[0]);
+      *&v146[14] = v25;
+      OUTLINED_FUNCTION_21_2(&_mh_execute_header, v131, v132, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v133, v134, v135, v136);
     }
 
     if (OUTLINED_FUNCTION_82())
     {
-      if (a1)
-      {
-        a1[1];
-      }
-
       OUTLINED_FUNCTION_38();
       OUTLINED_FUNCTION_27_0();
-      _os_log_impl(v34, v35, v36, v37, v38, 0xCu);
+      _os_log_impl(v26, v27, v28, v29, v30, 0xCu);
     }
 
-    v39 = malloc_type_malloc(0x400uLL, 0x2B1DEA11uLL);
-    v40 = iAP2MsgInit((a1 + 15), 22032, a1[24], 0xFFFF, 0, 0);
-    if (a2[2])
+    v31 = malloc_type_malloc(0x400uLL, 0x2B1DEA11uLL);
+    v32 = iAP2MsgInit((a1 + 15), 22032, a1[24], 0xFFFF, 0, 0);
+    if (*(a2 + 8))
     {
-      if (CFStringGetCStringPtr(*(a2 + 2), 0x8000100u) || (v42 = OUTLINED_FUNCTION_25_6(*(a2 + 2)), v39) && v42)
+      if (CFStringGetCStringPtr(*(a2 + 16), 0x8000100u) || (v34 = OUTLINED_FUNCTION_25_6(*(a2 + 16)), v31) && v34)
       {
-        v43 = OUTLINED_FUNCTION_21_1();
-        v41 = iAP2MsgAddStringParam(v43, v44, 0, v45) != 0;
-LABEL_50:
-        if ((a2[2] & 2) != 0)
+        v35 = OUTLINED_FUNCTION_21_1();
+        v33 = iAP2MsgAddStringParam(v35, v36, 0, v37) != 0;
+LABEL_41:
+        if ((*(a2 + 8) & 2) != 0)
         {
-          if (CFStringGetCStringPtr(*(a2 + 3), 0x8000100u) || (v46 = OUTLINED_FUNCTION_25_6(*(a2 + 3)), v39) && v46)
+          if (CFStringGetCStringPtr(*(a2 + 24), 0x8000100u) || (v38 = OUTLINED_FUNCTION_25_6(*(a2 + 24)), v31) && v38)
           {
-            v47 = OUTLINED_FUNCTION_21_1();
-            if (iAP2MsgAddStringParam(v47, v48, 1, v49))
+            v39 = OUTLINED_FUNCTION_21_1();
+            if (iAP2MsgAddStringParam(v39, v40, 1, v41))
             {
-              ++v41;
+              ++v33;
             }
           }
 
           else
           {
-            v76 = *(v4 + 3928);
-            v77 = *(v5 + 3936);
-            if (v76 && v77 >= 36)
+            v67 = *(v4 + 3928);
+            v68 = *(v5 + 3936);
+            if (v67 && v68 >= 36)
             {
-              v78 = *(v76 + 280);
+              v69 = *(v67 + 280);
             }
 
             else
             {
-              v78 = &_os_log_default;
+              v69 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
                 OUTLINED_FUNCTION_8_1();
-                *&v168[14] = v77;
-                OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v166, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v168);
+                *&v146[14] = v68;
+                OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v144, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v146);
               }
             }
 
-            if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
             {
-              v113 = a1[1];
-              v114 = *(a2 + 3);
-              v18 = &off_1001C3000;
+              v16 = &off_1001C3000;
               OUTLINED_FUNCTION_38();
               OUTLINED_FUNCTION_32_7();
-              OUTLINED_FUNCTION_26_10(&_mh_execute_header, v115, v116, "cursorInformationHandler %@, failed to get value from p->value (%@)", v117, v118, v119, v120, v168[0]);
+              OUTLINED_FUNCTION_26_10(&_mh_execute_header, v95, v96, "cursorInformationHandler %@, failed to get value from p->value (%@)", v97, v98, v99, v100);
             }
 
             else
             {
-              v18 = &off_1001C3000;
+              v16 = &off_1001C3000;
             }
           }
         }
 
-        if ((a2[2] & 4) != 0)
+        if ((*(a2 + 8) & 4) != 0)
         {
-          if (CFStringGetCStringPtr(*(a2 + 4), 0x8000100u) || (v50 = OUTLINED_FUNCTION_25_6(*(a2 + 4)), v39) && v50)
+          if (CFStringGetCStringPtr(*(a2 + 32), 0x8000100u) || (v42 = OUTLINED_FUNCTION_25_6(*(a2 + 32)), v31) && v42)
           {
-            v51 = OUTLINED_FUNCTION_21_1();
-            if (iAP2MsgAddStringParam(v51, v52, 2, v53))
+            v43 = OUTLINED_FUNCTION_21_1();
+            if (iAP2MsgAddStringParam(v43, v44, 2, v45))
             {
-              ++v41;
+              ++v33;
             }
           }
 
           else
           {
-            v79 = *(v4 + 3928);
-            v80 = *(v5 + 3936);
-            if (v79 && v80 >= 36)
+            v70 = *(v4 + 3928);
+            v71 = *(v5 + 3936);
+            if (v70 && v71 >= 36)
             {
-              v81 = *(v79 + 280);
+              v72 = *(v70 + 280);
             }
 
             else
             {
-              v81 = &_os_log_default;
+              v72 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
                 OUTLINED_FUNCTION_8_1();
-                *&v168[14] = v80;
-                OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v167, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v168);
+                *&v146[14] = v71;
+                OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v145, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v146);
               }
             }
 
-            if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
             {
-              v121 = a1[1];
-              v122 = *(a2 + 4);
-              v18 = &off_1001C3000;
+              v16 = &off_1001C3000;
               OUTLINED_FUNCTION_38();
               OUTLINED_FUNCTION_32_7();
-              OUTLINED_FUNCTION_26_10(&_mh_execute_header, v123, v124, "cursorInformationHandler %@, failed to get hint from p->hint (%@)", v125, v126, v127, v128, v168[0]);
+              OUTLINED_FUNCTION_26_10(&_mh_execute_header, v101, v102, "cursorInformationHandler %@, failed to get hint from p->hint (%@)", v103, v104, v105, v106);
             }
 
             else
             {
-              v18 = &off_1001C3000;
+              v16 = &off_1001C3000;
             }
           }
         }
 
-        if ((a2[2] & 8) != 0)
+        if ((*(a2 + 8) & 8) != 0)
         {
-          *&v54 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v54 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *v168 = v54;
-          *&v168[16] = v54;
-          v55 = *(a2 + 5);
-          if (v55)
+          *&v46 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v46 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *v146 = v46;
+          *&v146[16] = v46;
+          v47 = *(a2 + 40);
+          if (v47)
           {
-            v56 = 0;
-            v57 = 0;
-            v58 = v168;
+            v48 = 0;
+            v49 = 0;
+            v50 = v146;
             do
             {
-              if (v55)
+              if (v47)
               {
-                *v58 = 0;
-                v58[1] = v56;
-                v58 += 2;
-                v57 += 2;
+                *v50 = 0;
+                v50[1] = v48;
+                v50 += 2;
+                v49 += 2;
               }
 
-              v59 = v55 >= 2;
-              v55 >>= 1;
-              v59 = !v59 || v56++ >= 0xF;
+              v51 = v47 >= 2;
+              v47 >>= 1;
+              v51 = !v51 || v48++ >= 0xF;
             }
 
-            while (!v59);
+            while (!v51);
           }
 
-          v60 = OUTLINED_FUNCTION_21_1();
-          if (iAP2MsgAddDataParam(v60, v61, 3, v62, v63))
+          v52 = OUTLINED_FUNCTION_21_1();
+          if (iAP2MsgAddDataParam(v52, v53, 3, v54, v55))
           {
-            ++v41;
+            ++v33;
           }
         }
 
-        if (v39)
+        if (v31)
         {
-          free(v39);
+          free(v31);
         }
 
-        if (v41)
+        if (v33)
         {
-          v64 = *(v4 + 3928);
-          v65 = *(v5 + 3936);
-          if (v64 && v65 >= 36)
+          v56 = *(v4 + 3928);
+          v57 = *(v5 + 3936);
+          if ((!v56 || v57 < 36) && OUTLINED_FUNCTION_27())
           {
-            v66 = *(v64 + 280);
-          }
-
-          else if (OUTLINED_FUNCTION_27())
-          {
-            *v168 = 134218240;
-            *&v168[4] = v64;
+            *v146 = 134218240;
+            *&v146[4] = v56;
             OUTLINED_FUNCTION_3();
-            *&v168[14] = v65;
-            OUTLINED_FUNCTION_17_2(&_mh_execute_header, v159, v160, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v161, v162, v163, v164, v168[0]);
+            *&v146[14] = v57;
+            OUTLINED_FUNCTION_17_2(&_mh_execute_header, v137, v138, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v139, v140, v141, v142);
           }
 
           if (OUTLINED_FUNCTION_76_1())
           {
-            if (!a1 || (v67 = a1[1]) == 0)
+            if (!a1 || (v58 = a1[1]) == 0)
             {
-              v67 = 0;
+              v58 = 0;
             }
 
-            iAP2MsgGetMsgID(v40);
-            *v168 = *(v18 + 72);
-            *&v168[4] = v67;
+            iAP2MsgGetMsgID(v32);
+            *v146 = *(v16 + 72);
+            *&v146[4] = v58;
             OUTLINED_FUNCTION_3();
-            *&v168[14] = v68;
+            *&v146[14] = v59;
             OUTLINED_FUNCTION_14_3();
-            _os_log_impl(v69, v70, OS_LOG_TYPE_INFO, v71, v72, 0x12u);
+            _os_log_impl(v60, v61, OS_LOG_TYPE_INFO, v62, v63, 0x12u);
           }
 
-          iap2_sessionControl_sendOutgoingMessage(a1, v40);
+          iap2_sessionControl_sendOutgoingMessage(a1, v32);
           platform_voiceOver_deleteParams(a2);
           return 1;
         }
@@ -8761,36 +10507,34 @@ LABEL_50:
         return 0;
       }
 
-      v73 = *(v4 + 3928);
-      v74 = *(v5 + 3936);
-      if (v73 && v74 >= 36)
+      v64 = *(v4 + 3928);
+      v65 = *(v5 + 3936);
+      if (v64 && v65 >= 36)
       {
-        v75 = *(v73 + 280);
+        v66 = *(v64 + 280);
       }
 
       else
       {
-        v75 = &_os_log_default;
+        v66 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_7_30();
-          *&v168[14] = v74;
-          OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v165, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v168);
+          *&v146[14] = v65;
+          OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v143, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v146);
         }
       }
 
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
-        v105 = a1[1];
-        v106 = *(a2 + 2);
         OUTLINED_FUNCTION_38();
         OUTLINED_FUNCTION_32_7();
-        OUTLINED_FUNCTION_26_10(&_mh_execute_header, v107, v108, "cursorInformationHandler %@, failed to get label from p->label (%@)", v109, v110, v111, v112, v168[0]);
+        OUTLINED_FUNCTION_26_10(&_mh_execute_header, v89, v90, "cursorInformationHandler %@, failed to get label from p->label (%@)", v91, v92, v93, v94);
       }
     }
 
-    v41 = 0;
-    goto LABEL_50;
+    v33 = 0;
+    goto LABEL_41;
   }
 
   return result;
@@ -8808,24 +10552,16 @@ void *_createFeature_25(uint64_t a1)
     v2 = 1;
   }
 
-  if (v2)
+  if (v2 && OUTLINED_FUNCTION_21())
   {
-    if (OUTLINED_FUNCTION_21())
-    {
-      OUTLINED_FUNCTION_2_3();
-      OUTLINED_FUNCTION_26_0(&_mh_execute_header, v3, v4, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v5, v6, v7, v8, v16);
-    }
-  }
-
-  else
-  {
-    v9 = *(gLogObjects + 160);
+    OUTLINED_FUNCTION_2_3();
+    OUTLINED_FUNCTION_26_0(&_mh_execute_header, v3, v4, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v5, v6, v7, v8);
   }
 
   if (OUTLINED_FUNCTION_76())
   {
     OUTLINED_FUNCTION_24_1();
-    _os_log_impl(v10, v11, v12, v13, v14, 2u);
+    _os_log_impl(v9, v10, v11, v12, v13, 2u);
   }
 
   if (!a1)
@@ -8844,28 +10580,23 @@ void *_createFeature_25(uint64_t a1)
 
 uint64_t _destroyFeature_25(void **a1, uint64_t a2)
 {
+  v4 = gLogObjects;
   if (gLogObjects)
   {
-    v4 = gNumLogObjects < 21;
+    v5 = gNumLogObjects < 21;
   }
 
   else
   {
-    v4 = 1;
+    v5 = 1;
   }
 
-  if (v4)
+  if (v5 && OUTLINED_FUNCTION_17())
   {
-    if (OUTLINED_FUNCTION_17())
-    {
-      OUTLINED_FUNCTION_1_2();
-      OUTLINED_FUNCTION_21_2(&_mh_execute_header, v5, v6, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v7, v8, v9, v10, 0);
-    }
-  }
-
-  else
-  {
-    v11 = *(gLogObjects + 160);
+    LODWORD(v18) = 134218240;
+    HIDWORD(v18) = v4;
+    OUTLINED_FUNCTION_1_2();
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v6, v7, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v8, v9, v10, v11, v18, HIDWORD(v4));
   }
 
   if (OUTLINED_FUNCTION_82())
@@ -8910,49 +10641,41 @@ BOOL _startFeatureFromDevice_16(uint64_t a1)
     v2 = 1;
   }
 
-  if (v2)
+  if (v2 && OUTLINED_FUNCTION_21())
   {
-    if (OUTLINED_FUNCTION_21())
-    {
-      OUTLINED_FUNCTION_2_3();
-      OUTLINED_FUNCTION_26_0(&_mh_execute_header, v3, v4, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v5, v6, v7, v8, v18);
-    }
-  }
-
-  else
-  {
-    v9 = *(gLogObjects + 160);
+    OUTLINED_FUNCTION_2_3();
+    OUTLINED_FUNCTION_26_0(&_mh_execute_header, v3, v4, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v5, v6, v7, v8);
   }
 
   if (OUTLINED_FUNCTION_76())
   {
     OUTLINED_FUNCTION_24_1();
-    _os_log_impl(v10, v11, v12, v13, v14, 2u);
+    _os_log_impl(v9, v10, v11, v12, v13, 2u);
   }
 
-  v15 = OUTLINED_FUNCTION_31_11();
-  if (v15 && iap2_voiceOver_isSupportedOnConnection(a1))
+  v14 = OUTLINED_FUNCTION_31_11();
+  if (v14 && iap2_voiceOver_isSupportedOnConnection(a1))
   {
-    if (!a1 || (v16 = *(a1 + 8)) == 0)
+    if (!a1 || (v15 = *(a1 + 8)) == 0)
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    platform_voiceOver_accessoryAttached(v16);
+    platform_voiceOver_accessoryAttached(v15);
   }
 
-  return v15 != 0;
+  return v14 != 0;
 }
 
 void *iap2_endpoint_create(void *a1)
 {
   if (!a1)
   {
-    v18 = logObjectForModule_1(18);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v13 = logObjectForModule_1(0x12u);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v19) = 0;
-      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "pProtocolEndpoint = NULL", &v19, 2u);
+      *v14 = 0;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "pProtocolEndpoint = NULL", v14, 2u);
     }
 
     return 0;
@@ -9021,10 +10744,10 @@ void *iap2_endpoint_create(void *a1)
     BuffSize = iAP2LinkRunLoopGetBuffSize(0x7Fu);
     v10 = malloc_type_malloc(BuffSize, 0x17B1052BuLL);
     v3[4] = v10;
-    v3[4] = iAP2LinkRunLoopCreateDevice(v3 + 40, v3, 1u, 0, 0x7Fu, 0xFFFF, v10);
+    v3[4] = iAP2LinkRunLoopCreateDevice(v3 + 40, v3, 1u, 0, 127, 0xFFFFLL, v10);
     v11 = malloc_type_calloc(1uLL, 0x1001FuLL, 0x1090040DAA7631AuLL);
     v3[14] = iAP2MsgParserInit(0xFFFF, v11, v3[4], 16448);
-    acc_platform_packetLogging_logEvent(*v3, "ATTACH", "iAP2 accessory attached!", v12, v13, v14, v15, v16, v19);
+    acc_platform_packetLogging_logEvent(*v3, "ATTACH", "iAP2 accessory attached!");
     iAP2LinkRunLoopAttached(v3[4]);
   }
 
@@ -9036,25 +10759,25 @@ void *iap2_endpoint_create(void *a1)
   return v3;
 }
 
-uint64_t iap2_endpoint_setInitialized(uint64_t a1, int a2)
+void iap2_endpoint_setInitialized(uint64_t *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, int a10, int a11, const __CFDictionary *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
 {
-  if (!a1)
+  if (a1)
   {
-    return 0;
-  }
+    *(a1 + 440) = a2;
+    v26 = *a1;
+    if (v26)
+    {
+      if (a2)
+      {
+        acc_endpoint_setProperty();
+      }
 
-  *(a1 + 440) = a2;
-  if (!*a1)
-  {
-    return 0;
+      else
+      {
+        acc_endpoint_removeProperty(v26, kCFACCProperties_Endpoint_iAP2_Initialized, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26);
+      }
+    }
   }
-
-  if (a2)
-  {
-    return acc_endpoint_setProperty();
-  }
-
-  return acc_endpoint_removeProperty();
 }
 
 uint64_t iap2_endpoint_isInitialized(uint64_t a1)
@@ -9112,8 +10835,6 @@ uint64_t *iap2_endpoint_configUSBHost(uint64_t *result)
 
           if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = *v2;
-            v15 = *(v1 + 24);
             OUTLINED_FUNCTION_15_1();
             _os_log_impl(v6, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 0x18u);
           }
@@ -9232,7 +10953,7 @@ uint64_t iap2_endpoint_getLinkMaxCumAck(uint64_t result)
 
 void iap2_endpoint_destroy_cold_2(_BYTE *a1)
 {
-  v2 = logObjectForModule_1(19);
+  v2 = logObjectForModule_1(0x13u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_15_1();
@@ -9244,7 +10965,7 @@ void iap2_endpoint_destroy_cold_2(_BYTE *a1)
 
 void iap2_endpoint_sendOutgoingData_cold_1(_BYTE *a1)
 {
-  v2 = logObjectForModule_1(18);
+  v2 = logObjectForModule_1(0x12u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_15_1();
@@ -9258,24 +10979,19 @@ uint64_t iap2_blePairing_accessoryStateUpdateHandler(uint64_t a1, uint64_t a2)
 {
   v4 = gLogObjects;
   v5 = gNumLogObjects;
-  if (gLogObjects && gNumLogObjects >= 42)
-  {
-    v6 = *(gLogObjects + 328);
-  }
-
-  else if (OUTLINED_FUNCTION_21())
+  if ((!gLogObjects || gNumLogObjects < 42) && OUTLINED_FUNCTION_21())
   {
     *buf = 134218240;
-    v52 = v4;
+    v55 = v4;
     OUTLINED_FUNCTION_5_0();
-    v53 = v5;
-    OUTLINED_FUNCTION_26_2(&_mh_execute_header, v44, v45, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+    v56 = v5;
+    OUTLINED_FUNCTION_26_2(&_mh_execute_header, v45, v46, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
   }
 
   if (OUTLINED_FUNCTION_76())
   {
     *buf = 0;
-    OUTLINED_FUNCTION_17_20(&_mh_execute_header, v7, v8, "iAP2BLEPairing AccessoryStateUpdate Handler", buf);
+    OUTLINED_FUNCTION_17_20(&_mh_execute_header, v6, v7, "iAP2BLEPairing AccessoryStateUpdate Handler", buf);
   }
 
   result = 0;
@@ -9284,80 +11000,70 @@ uint64_t iap2_blePairing_accessoryStateUpdateHandler(uint64_t a1, uint64_t a2)
     return result;
   }
 
-  v10 = OUTLINED_FUNCTION_26_1();
-  FirstParam = iAP2MsgGetFirstParam(v10, v11);
-  v50 = 0;
+  v9 = OUTLINED_FUNCTION_26_1();
+  FirstParam = iAP2MsgGetFirstParam(v9, v10);
+  v53 = 0;
   if (!FirstParam)
   {
-    v18 = 0;
     v17 = 0;
     v16 = 0;
     v15 = 0;
     v14 = 0;
-LABEL_25:
-    v27 = gLogObjects;
-    v28 = gNumLogObjects;
+    v13 = 0;
+LABEL_24:
+    v26 = gLogObjects;
+    v27 = gNumLogObjects;
     if (gLogObjects && gNumLogObjects >= 42)
     {
-      v29 = *(gLogObjects + 328);
+      v28 = *(gLogObjects + 328);
     }
 
     else
     {
-      v29 = &_os_log_default;
+      v28 = &_os_log_default;
       if (OUTLINED_FUNCTION_27())
       {
         *buf = 134218240;
-        v52 = v27;
+        v55 = v26;
         OUTLINED_FUNCTION_5_0();
-        v53 = v28;
-        OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v46, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+        v56 = v27;
+        OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v47, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
       }
     }
 
     if (OUTLINED_FUNCTION_76_1())
     {
-      v30 = *(a1 + 8);
+      v29 = *(a1 + 8);
       *buf = 138413826;
-      v52 = v30;
+      v55 = v29;
       OUTLINED_FUNCTION_5_0();
-      v53 = v31;
-      v54 = v32;
-      v55 = v33;
-      v56 = v32;
-      v57 = v34;
+      v56 = v30;
+      v57 = v31;
       v58 = v32;
-      v59 = v16;
-      v60 = v32;
-      v61 = v35;
-      v62 = v32;
-      v63 = v36;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "AccessoryStateUpdate: %@, btRadioOn(valid=%d) %d, pairingState(valid=%d) %d, pairingModeOn(valid=%d) %d", buf, 0x30u);
+      v59 = v31;
+      v60 = v33;
+      v61 = v31;
+      v62 = v15;
+      v63 = v31;
+      v64 = v34;
+      v65 = v31;
+      v66 = v35;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "AccessoryStateUpdate: %@, btRadioOn(valid=%d) %d, pairingState(valid=%d) %d, pairingModeOn(valid=%d) %d", buf, 0x30u);
     }
 
     result = OUTLINED_FUNCTION_36_6();
     if (result)
     {
-      v41 = result;
+      v42 = result;
       buf[0] = 0;
-      result = OUTLINED_FUNCTION_26_11(result, &gskMsgBLEPairingMainList, v37, v38, v39, v40);
+      result = OUTLINED_FUNCTION_26_11(result, &gskMsgBLEPairingMainList, v36, v37, v38, v39, v40, v41, v50, v51);
       if (result)
       {
-        if ((v15 | v17 | v18))
+        if ((v14 | v16 | v17))
         {
-          if (v17)
+          if (v16)
           {
-            v42 = 2;
-          }
-
-          else
-          {
-            v42 = 0;
-          }
-
-          if (v18)
-          {
-            v43 = 4;
+            v43 = 2;
           }
 
           else
@@ -9365,7 +11071,17 @@ LABEL_25:
             v43 = 0;
           }
 
-          platform_blePairing_accessoryStateUpdate(*(a1 + 8), *v41, (v42 | v43) & 0xFFFFFFFE | v15 & 1, v14, v16, v18 & 1);
+          if (v17)
+          {
+            v44 = 4;
+          }
+
+          else
+          {
+            v44 = 0;
+          }
+
+          platform_blePairing_accessoryStateUpdate(*(a1 + 8), *v42, (v43 | v44) & 0xFFFFFFFE | v14 & 1, v13, v15, v17 & 1);
         }
 
         return 1;
@@ -9376,31 +11092,31 @@ LABEL_25:
   }
 
   NextParam = FirstParam;
+  v13 = 0;
   v14 = 0;
   v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = 0;
   while (1)
   {
     ParamID = iAP2MsgGetParamID(NextParam);
-    v20 = ParamID;
+    v19 = ParamID;
     if (ParamID == 2)
     {
       IsDataVoid = iAP2MsgIsDataVoid(NextParam);
-      v50 = !IsDataVoid;
+      v53 = !IsDataVoid;
       if (!IsDataVoid)
       {
         MsgID = iAP2MsgGetMsgID(a2);
-        v48 = 2;
-        goto LABEL_47;
+        v49 = 2;
+        goto LABEL_46;
       }
 
-      v18 = 1;
-LABEL_21:
-      v24 = iAP2MsgGetMsgID(a2);
-      printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v20, v24);
-      goto LABEL_22;
+      v17 = 1;
+LABEL_20:
+      v23 = iAP2MsgGetMsgID(a2);
+      printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v19, v23);
+      goto LABEL_21;
     }
 
     if (ParamID == 1)
@@ -9410,40 +11126,40 @@ LABEL_21:
 
     if (ParamID)
     {
-      goto LABEL_21;
+      goto LABEL_20;
     }
 
-    DataAsBool = iAP2MsgGetDataAsBool(NextParam, &v50);
-    if (v50)
+    DataAsBool = iAP2MsgGetDataAsBool(NextParam, &v53);
+    if (v53)
     {
-      v49 = iAP2MsgGetMsgID(a2);
-      printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 0, v49);
+      v52 = iAP2MsgGetMsgID(a2);
+      printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", 0, v52);
       return 0;
     }
 
-    v14 = DataAsBool;
-    v15 = 1;
-LABEL_22:
-    v25 = OUTLINED_FUNCTION_26_1();
-    NextParam = iAP2MsgGetNextParam(v25, v26, NextParam);
+    v13 = DataAsBool;
+    v14 = 1;
+LABEL_21:
+    v24 = OUTLINED_FUNCTION_26_1();
+    NextParam = iAP2MsgGetNextParam(v24, v25, NextParam);
     if (!NextParam)
     {
-      goto LABEL_25;
+      goto LABEL_24;
     }
   }
 
-  DataAsU8 = iAP2MsgGetDataAsU8(NextParam, &v50);
-  if (!v50)
+  DataAsU8 = iAP2MsgGetDataAsU8(NextParam, &v53);
+  if (!v53)
   {
-    v16 = DataAsU8;
-    v17 = 1;
-    goto LABEL_22;
+    v15 = DataAsU8;
+    v16 = 1;
+    goto LABEL_21;
   }
 
   MsgID = iAP2MsgGetMsgID(a2);
-  v48 = 1;
-LABEL_47:
-  printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", v48, MsgID);
+  v49 = 1;
+LABEL_46:
+  printf("Param ID: %d parse error for Msg ID: 0x%04X - ignoring message", v49, MsgID);
   return 0;
 }
 
@@ -9451,40 +11167,35 @@ uint64_t iap2_blePairing_accessoryPairingInfoHandler(uint64_t a1, uint64_t a2)
 {
   v4 = gLogObjects;
   v5 = gNumLogObjects;
-  if (gLogObjects && gNumLogObjects >= 42)
-  {
-    v6 = *(gLogObjects + 328);
-  }
-
-  else if (OUTLINED_FUNCTION_21())
+  if ((!gLogObjects || gNumLogObjects < 42) && OUTLINED_FUNCTION_21())
   {
     *buf = 134218240;
-    v57 = v4;
+    v60 = v4;
     OUTLINED_FUNCTION_5_0();
-    v58 = v5;
-    OUTLINED_FUNCTION_26_2(&_mh_execute_header, v48, v49, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+    v61 = v5;
+    OUTLINED_FUNCTION_26_2(&_mh_execute_header, v49, v50, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
   }
 
   if (OUTLINED_FUNCTION_76())
   {
     *buf = 0;
-    OUTLINED_FUNCTION_17_20(&_mh_execute_header, v7, v8, "iAP2BLEPairing AccessoryPairingInfo Handler", buf);
+    OUTLINED_FUNCTION_17_20(&_mh_execute_header, v6, v7, "iAP2BLEPairing AccessoryPairingInfo Handler", buf);
   }
 
-  v9 = 0;
+  v8 = 0;
   if (a1 && a2)
   {
-    v10 = OUTLINED_FUNCTION_48();
-    FirstParam = iAP2MsgGetFirstParam(v10, v11);
+    v9 = OUTLINED_FUNCTION_48();
+    FirstParam = iAP2MsgGetFirstParam(v9, v10);
     Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
     if (FirstParam)
     {
       DataAsU8 = 0;
-      v15 = 0;
+      v14 = 0;
       while (1)
       {
         ParamID = iAP2MsgGetParamID(FirstParam);
-        v17 = ParamID;
+        v16 = ParamID;
         if (ParamID == 1)
         {
           break;
@@ -9492,140 +11203,140 @@ uint64_t iap2_blePairing_accessoryPairingInfoHandler(uint64_t a1, uint64_t a2)
 
         if (ParamID)
         {
-          goto LABEL_18;
+          goto LABEL_17;
         }
 
-        v18 = OUTLINED_FUNCTION_32_8();
-        DataAsU8 = iAP2MsgGetDataAsU8(v18, v19);
-        v15 = 1;
-LABEL_19:
-        v26 = OUTLINED_FUNCTION_48();
-        FirstParam = iAP2MsgGetNextParam(v26, v27, FirstParam);
+        v17 = OUTLINED_FUNCTION_32_8();
+        DataAsU8 = iAP2MsgGetDataAsU8(v17, v18);
+        v14 = 1;
+LABEL_18:
+        v25 = OUTLINED_FUNCTION_48();
+        FirstParam = iAP2MsgGetNextParam(v25, v26, FirstParam);
         if (!FirstParam)
         {
-          goto LABEL_22;
+          goto LABEL_21;
         }
       }
 
-      v20 = OUTLINED_FUNCTION_32_8();
-      DataAsData = iAP2MsgGetDataAsData(v20, v21);
+      v19 = OUTLINED_FUNCTION_32_8();
+      DataAsData = iAP2MsgGetDataAsData(v19, v20);
       if (iAP2MsgGetParamValueLen(FirstParam))
       {
         ParamValueLen = iAP2MsgGetParamValueLen(FirstParam);
-        v24 = CFDataCreate(kCFAllocatorDefault, DataAsData, ParamValueLen);
-        CFArrayAppendValue(Mutable, v24);
-        if (v24)
+        v23 = CFDataCreate(kCFAllocatorDefault, DataAsData, ParamValueLen);
+        CFArrayAppendValue(Mutable, v23);
+        if (v23)
         {
-          CFRelease(v24);
+          CFRelease(v23);
         }
       }
 
-LABEL_18:
+LABEL_17:
       MsgID = iAP2MsgGetMsgID(a2);
-      printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v17, MsgID);
-      goto LABEL_19;
+      printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v16, MsgID);
+      goto LABEL_18;
     }
 
-    v15 = 0;
+    v14 = 0;
     DataAsU8 = 0;
-LABEL_22:
-    v28 = gLogObjects;
-    v29 = gNumLogObjects;
+LABEL_21:
+    v27 = gLogObjects;
+    v28 = gNumLogObjects;
     if (gLogObjects && gNumLogObjects >= 42)
     {
-      v30 = *(gLogObjects + 328);
+      v29 = *(gLogObjects + 328);
     }
 
     else
     {
-      v30 = &_os_log_default;
+      v29 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        v57 = v28;
+        v60 = v27;
         OUTLINED_FUNCTION_5_0();
-        v58 = v29;
+        v61 = v28;
         OUTLINED_FUNCTION_17_1();
-        OUTLINED_FUNCTION_10(v50, v51, v52, v53, v54);
+        OUTLINED_FUNCTION_10(v51, v52, v53, v54, v55);
       }
     }
 
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      v31 = *(a1 + 8);
+      v30 = *(a1 + 8);
       *buf = 138412290;
-      v57 = v31;
+      v60 = v30;
       OUTLINED_FUNCTION_17_1();
-      _os_log_impl(v32, v33, OS_LOG_TYPE_INFO, v34, v35, 0xCu);
+      _os_log_impl(v31, v32, OS_LOG_TYPE_INFO, v33, v34, 0xCu);
     }
 
-    v36 = OUTLINED_FUNCTION_36_6();
-    if (!v36)
+    v35 = OUTLINED_FUNCTION_36_6();
+    if (!v35)
     {
-      v9 = 0;
+      v8 = 0;
       if (!Mutable)
       {
-        return v9;
+        return v8;
       }
 
-      goto LABEL_42;
+      goto LABEL_41;
     }
 
-    v41 = v36;
+    v42 = v35;
     buf[0] = 0;
-    v9 = OUTLINED_FUNCTION_26_11(v36, &gskMsgBLEPairingMainList, v37, v38, v39, v40);
-    if ((v9 & v15) == 1)
+    v8 = OUTLINED_FUNCTION_26_11(v35, &gskMsgBLEPairingMainList, v36, v37, v38, v39, v40, v41, v57, v58);
+    if ((v8 & v14) == 1)
     {
-      v42 = gLogObjects;
-      v43 = gNumLogObjects;
+      v43 = gLogObjects;
+      v44 = gNumLogObjects;
       if (gLogObjects && gNumLogObjects >= 42)
       {
-        v44 = *(gLogObjects + 328);
+        v45 = *(gLogObjects + 328);
       }
 
       else
       {
-        v44 = &_os_log_default;
+        v45 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v57 = v42;
+          v60 = v43;
           OUTLINED_FUNCTION_5_0();
-          v58 = v43;
-          OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v55, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+          v61 = v44;
+          OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v56, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
         }
       }
 
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
       {
-        v45 = *(a1 + 8);
+        v46 = *(a1 + 8);
         *buf = 138412802;
-        v57 = v45;
+        v60 = v46;
         OUTLINED_FUNCTION_5_0();
-        v58 = DataAsU8;
-        v59 = 2112;
-        v60 = Mutable;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "AccessoryPairingInformation: %@, call platform, pairType=%d pairInfoList=%@", buf, 0x1Cu);
+        v61 = DataAsU8;
+        v62 = 2112;
+        v63 = Mutable;
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "AccessoryPairingInformation: %@, call platform, pairType=%d pairInfoList=%@", buf, 0x1Cu);
       }
 
       Copy = CFArrayCreateCopy(kCFAllocatorDefault, Mutable);
-      platform_blePairing_accessoryPairingInfo(*(a1 + 8), *v41, DataAsU8, Copy);
+      platform_blePairing_accessoryPairingInfo(*(a1 + 8), *v42, DataAsU8, Copy);
       if (Copy)
       {
         CFRelease(Copy);
       }
 
-      v9 = 1;
+      v8 = 1;
     }
 
     if (Mutable)
     {
-LABEL_42:
+LABEL_41:
       CFRelease(Mutable);
     }
   }
 
-  return v9;
+  return v8;
 }
 
 uint64_t iap2_blePairing_accessoryPairingDataHandler(uint64_t a1, uint64_t a2)
@@ -9634,24 +11345,19 @@ uint64_t iap2_blePairing_accessoryPairingDataHandler(uint64_t a1, uint64_t a2)
   v5 = gLogObjects;
   v6 = &audioProductCerts_endpoint_publish_onceToken;
   v7 = gNumLogObjects;
-  if (gLogObjects && gNumLogObjects >= 42)
+  if ((!gLogObjects || gNumLogObjects < 42) && OUTLINED_FUNCTION_21())
   {
-    v8 = *(gLogObjects + 328);
-  }
-
-  else if (OUTLINED_FUNCTION_21())
-  {
-    v49 = 134218240;
-    v50 = v5;
+    v52 = 134218240;
+    v53 = v5;
     OUTLINED_FUNCTION_5_0();
-    v51 = v7;
-    OUTLINED_FUNCTION_26_2(&_mh_execute_header, v42, v43, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v49);
+    v54 = v7;
+    OUTLINED_FUNCTION_26_2(&_mh_execute_header, v43, v44, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v52);
   }
 
   if (OUTLINED_FUNCTION_76())
   {
-    LOWORD(v49) = 0;
-    OUTLINED_FUNCTION_17_20(&_mh_execute_header, v9, v10, "iAP2BLEPairing AccessoryPairingData Handler", &v49);
+    LOWORD(v52) = 0;
+    OUTLINED_FUNCTION_17_20(&_mh_execute_header, v8, v9, "iAP2BLEPairing AccessoryPairingData Handler", &v52);
   }
 
   result = 0;
@@ -9660,92 +11366,92 @@ uint64_t iap2_blePairing_accessoryPairingDataHandler(uint64_t a1, uint64_t a2)
     return result;
   }
 
-  v12 = OUTLINED_FUNCTION_48();
-  FirstParam = iAP2MsgGetFirstParam(v12, v13);
+  v11 = OUTLINED_FUNCTION_48();
+  FirstParam = iAP2MsgGetFirstParam(v11, v12);
   if (!FirstParam)
   {
     ParamValueLen = 0;
     DataAsData = 0;
     DataAsU8 = 0;
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   DataAsU8 = 0;
-  v16 = 0;
+  v15 = 0;
   DataAsData = 0;
-  v18 = 0;
+  v17 = 0;
   ParamValueLen = 0;
   do
   {
     ParamID = iAP2MsgGetParamID(FirstParam);
-    v21 = ParamID;
+    v20 = ParamID;
     if (ParamID == 1)
     {
-      v24 = OUTLINED_FUNCTION_32_8();
-      DataAsData = iAP2MsgGetDataAsData(v24, v25);
+      v23 = OUTLINED_FUNCTION_32_8();
+      DataAsData = iAP2MsgGetDataAsData(v23, v24);
       ParamValueLen = iAP2MsgGetParamValueLen(FirstParam);
-      v18 = 1;
+      v17 = 1;
     }
 
     else if (!ParamID)
     {
-      v22 = OUTLINED_FUNCTION_32_8();
-      DataAsU8 = iAP2MsgGetDataAsU8(v22, v23);
-      v16 = 1;
-      goto LABEL_17;
+      v21 = OUTLINED_FUNCTION_32_8();
+      DataAsU8 = iAP2MsgGetDataAsU8(v21, v22);
+      v15 = 1;
+      goto LABEL_16;
     }
 
     MsgID = iAP2MsgGetMsgID(a2);
-    printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v21, MsgID);
-LABEL_17:
-    v27 = OUTLINED_FUNCTION_48();
-    FirstParam = iAP2MsgGetNextParam(v27, v28, FirstParam);
+    printf("Unknown Param ID: %d for Msg ID: 0x%04X - ignoring param", v20, MsgID);
+LABEL_16:
+    v26 = OUTLINED_FUNCTION_48();
+    FirstParam = iAP2MsgGetNextParam(v26, v27, FirstParam);
   }
 
   while (FirstParam);
-  LODWORD(FirstParam) = v16 & v18;
+  LODWORD(FirstParam) = v15 & v17;
   v4 = &audioProductCerts_endpoint_publish_onceToken;
   v6 = &audioProductCerts_endpoint_publish_onceToken;
-LABEL_20:
-  v29 = v4[491];
-  v30 = *(v6 + 984);
-  if (v29 && v30 >= 42)
+LABEL_19:
+  v28 = v4[491];
+  v29 = *(v6 + 984);
+  if (v28 && v29 >= 42)
   {
-    v31 = *(v29 + 328);
+    v30 = *(v28 + 328);
   }
 
   else
   {
-    v31 = &_os_log_default;
+    v30 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v49 = 134218240;
-      v50 = v29;
+      v52 = 134218240;
+      v53 = v28;
       OUTLINED_FUNCTION_5_0();
-      v51 = v30;
+      v54 = v29;
       OUTLINED_FUNCTION_17_1();
-      OUTLINED_FUNCTION_10(v44, v45, v46, v47, v48);
+      OUTLINED_FUNCTION_10(v45, v46, v47, v48, v49);
     }
   }
 
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
   {
-    v32 = *(a1 + 8);
-    v49 = 138412290;
-    v50 = v32;
+    v31 = *(a1 + 8);
+    v52 = 138412290;
+    v53 = v31;
     OUTLINED_FUNCTION_17_1();
-    _os_log_impl(v33, v34, OS_LOG_TYPE_INFO, v35, v36, 0xCu);
+    _os_log_impl(v32, v33, OS_LOG_TYPE_INFO, v34, v35, 0xCu);
   }
 
   result = OUTLINED_FUNCTION_36_6();
   if (result)
   {
-    v41 = result;
-    LOBYTE(v49) = 0;
-    result = OUTLINED_FUNCTION_26_11(result, &gskMsgBLEPairingMainList, v37, v38, v39, v40);
+    v42 = result;
+    LOBYTE(v52) = 0;
+    result = OUTLINED_FUNCTION_26_11(result, &gskMsgBLEPairingMainList, v36, v37, v38, v39, v40, v41, v50, v51);
     if ((result & FirstParam) == 1)
     {
-      platform_blePairing_accessoryPairingData(*(a1 + 8), *v41, DataAsU8, DataAsData, ParamValueLen);
+      platform_blePairing_accessoryPairingData(*(a1 + 8), *v42, DataAsU8, DataAsData, ParamValueLen);
       return 1;
     }
   }
@@ -9753,23 +11459,619 @@ LABEL_20:
   return result;
 }
 
-_BYTE *_createFeature_26(uint64_t a1)
+void iap2_blePairing_startBLEUpdatesHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
-  if (gLogObjects && gNumLogObjects >= 42)
+  OUTLINED_FUNCTION_28_10();
+  a22 = v28;
+  a23 = v31;
+  if (v29)
   {
-    v2 = *(gLogObjects + 328);
+    v32 = v30;
+    v33 = v29;
+    iap2_feature_getFeature(v29, 4u);
+    OUTLINED_FUNCTION_11_19();
+    if ((!v24 || v25 < 42) && OUTLINED_FUNCTION_27())
+    {
+      OUTLINED_FUNCTION_7();
+      *(&a9 + 14) = v25;
+      OUTLINED_FUNCTION_17_2(&_mh_execute_header, v67, v68, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v69, v70, v71, v72);
+    }
+
+    if (OUTLINED_FUNCTION_76_1())
+    {
+      OUTLINED_FUNCTION_15_13();
+      OUTLINED_FUNCTION_30();
+      _os_log_impl(v34, v35, v36, v37, v38, 0x16u);
+    }
+
+    if (v32 && v23 && !*v32)
+    {
+      v39 = *(v26 + 3928);
+      v40 = *(v27 + 3936);
+      if (v39)
+      {
+        v41 = v40 <= 41;
+      }
+
+      else
+      {
+        v41 = 1;
+      }
+
+      v42 = !v41;
+      if (*(v32 + 16) > 1u)
+      {
+        if (v42)
+        {
+          v43 = *(v39 + 328);
+        }
+
+        else
+        {
+          v43 = &_os_log_default;
+          if (OUTLINED_FUNCTION_17())
+          {
+            LODWORD(a9) = 134218240;
+            *(&a9 + 4) = v39;
+            OUTLINED_FUNCTION_3();
+            *(&a9 + 14) = v40;
+            OUTLINED_FUNCTION_21_2(&_mh_execute_header, v79, v80, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v81, v82, v83, v84);
+          }
+        }
+
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        {
+          OUTLINED_FUNCTION_4_17();
+          OUTLINED_FUNCTION_101_1(&_mh_execute_header, v43, v60, "startBLEUpdatesHandler %@, Invalid pairType:%d, updates not started", &a9);
+        }
+      }
+
+      else
+      {
+        if (!v42 && OUTLINED_FUNCTION_27())
+        {
+          LODWORD(a9) = 134218240;
+          *(&a9 + 4) = v39;
+          OUTLINED_FUNCTION_3();
+          *(&a9 + 14) = v40;
+          OUTLINED_FUNCTION_17_2(&_mh_execute_header, v73, v74, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v75, v76, v77, v78);
+        }
+
+        if (OUTLINED_FUNCTION_76_1())
+        {
+          OUTLINED_FUNCTION_38();
+          OUTLINED_FUNCTION_30();
+          _os_log_impl(v44, v45, v46, v47, v48, 0xCu);
+        }
+
+        v49 = OUTLINED_FUNCTION_49((v33 + 15), 45312, v33[24]);
+        *(v23 + 8) = 1;
+        v50 = iAP2MsgAddU8Param(v49, 0, 0, *(v32 + 16));
+        v51 = OUTLINED_FUNCTION_26_1();
+        v54 = iAP2MsgAddU8Param(v51, v52, 1, v53);
+        v55 = OUTLINED_FUNCTION_26_1();
+        if (iAP2MsgAddU8Param(v55, v56, 2, v57) || v54 || v50)
+        {
+          v58 = *(v26 + 3928);
+          v59 = *(v27 + 3936);
+          if ((!v58 || v59 < 42) && OUTLINED_FUNCTION_17())
+          {
+            OUTLINED_FUNCTION_7();
+            *(&a9 + 14) = v59;
+            OUTLINED_FUNCTION_21_2(&_mh_execute_header, v85, v86, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v87, v88, v89, v90);
+          }
+
+          if (OUTLINED_FUNCTION_82())
+          {
+            iAP2MsgGetMsgID(v49);
+            OUTLINED_FUNCTION_7();
+            *(&a9 + 14) = v61;
+            OUTLINED_FUNCTION_27_0();
+            _os_log_impl(v62, v63, v64, v65, v66, 0x12u);
+          }
+
+          iap2_sessionControl_sendOutgoingMessage(v33, v49);
+          platform_blePairing_deleteParams(v32);
+        }
+      }
+    }
   }
 
-  else if (OUTLINED_FUNCTION_21())
+  OUTLINED_FUNCTION_29_8();
+}
+
+void iap2_blePairing_deviceStateUpdateHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, int a10, int a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+{
+  OUTLINED_FUNCTION_28_10();
+  a25 = v26;
+  a26 = v29;
+  if (v27)
   {
+    v30 = v28;
+    v31 = v27;
+    Feature = iap2_feature_getFeature(v27, 4u);
+    v33 = gNumLogObjects;
+    if ((!gLogObjects || gNumLogObjects < 42) && OUTLINED_FUNCTION_27())
+    {
+      OUTLINED_FUNCTION_7();
+      *(&a12 + 2) = v33;
+      OUTLINED_FUNCTION_17_2(&_mh_execute_header, v61, v62, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v63, v64, v65, v66);
+    }
+
+    if (OUTLINED_FUNCTION_76_1())
+    {
+      OUTLINED_FUNCTION_15_13();
+      OUTLINED_FUNCTION_30();
+      _os_log_impl(v34, v35, v36, v37, v38, 0x16u);
+    }
+
+    if (v30 && Feature && *v30 == 1)
+    {
+      v39 = gNumLogObjects;
+      if (gLogObjects)
+      {
+        v40 = gNumLogObjects <= 41;
+      }
+
+      else
+      {
+        v40 = 1;
+      }
+
+      v41 = !v40;
+      if (*(Feature + 8) == 1)
+      {
+        if (!v41 && OUTLINED_FUNCTION_27())
+        {
+          OUTLINED_FUNCTION_8_1();
+          *(&a12 + 2) = v39;
+          OUTLINED_FUNCTION_17_2(&_mh_execute_header, v67, v68, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v69, v70, v71, v72);
+        }
+
+        if (OUTLINED_FUNCTION_76_1())
+        {
+          OUTLINED_FUNCTION_38();
+          OUTLINED_FUNCTION_30();
+          _os_log_impl(v43, v44, v45, v46, v47, 0xCu);
+        }
+
+        v48 = OUTLINED_FUNCTION_49((v31 + 15), 45313, v31[24]);
+        v49 = iAP2MsgAddU8Param(v48, 0, 0, *(v30 + 16));
+        v50 = OUTLINED_FUNCTION_26_1();
+        v53 = iAP2MsgAddU8Param(v50, v51, 1, v52);
+        v54 = OUTLINED_FUNCTION_26_1();
+        if (iAP2MsgAddU8Param(v54, v55, 2, v56) || v53 || v49)
+        {
+          v57 = gNumLogObjects;
+          if (gLogObjects && gNumLogObjects >= 42)
+          {
+            v58 = *(gLogObjects + 328);
+          }
+
+          else
+          {
+            v58 = &_os_log_default;
+            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            {
+              OUTLINED_FUNCTION_8_1();
+              *(&a12 + 2) = v57;
+              OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v79, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &a9);
+            }
+          }
+
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+          {
+            iAP2MsgGetMsgID(v48);
+            OUTLINED_FUNCTION_8_1();
+            *(&a12 + 2) = v60;
+            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "deviceStateUpdateHandler %@ send message %xh", &a9, 0x12u);
+          }
+
+          iap2_sessionControl_sendOutgoingMessage(v31, v48);
+          if (*(v30 + 20))
+          {
+            platform_blePairing_finishedNegotiation(v31[1], *Feature);
+          }
+
+          platform_blePairing_deleteParams(v30);
+          goto LABEL_46;
+        }
+      }
+
+      else
+      {
+        if (v41)
+        {
+          v42 = *(gLogObjects + 328);
+        }
+
+        else
+        {
+          v42 = &_os_log_default;
+          if (OUTLINED_FUNCTION_27())
+          {
+            OUTLINED_FUNCTION_8_1();
+            *(&a12 + 2) = v39;
+            OUTLINED_FUNCTION_17_2(&_mh_execute_header, v73, v74, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v75, v76, v77, v78);
+          }
+        }
+
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        {
+          OUTLINED_FUNCTION_4_17();
+          OUTLINED_FUNCTION_101_1(&_mh_execute_header, v42, v59, "deviceStateUpdateHandler %@, Updates not started bUpdateStarted:%d", &a9);
+        }
+      }
+
+      if (*(v30 + 20))
+      {
+        platform_blePairing_finishedNegotiation(v31[1], *Feature);
+      }
+    }
+  }
+
+LABEL_46:
+  OUTLINED_FUNCTION_29_8();
+}
+
+void iap2_blePairing_devicePairingDataHandler()
+{
+  OUTLINED_FUNCTION_28_10();
+  if (v7)
+  {
+    OUTLINED_FUNCTION_27_10(v7);
+    OUTLINED_FUNCTION_11_19();
+    if (v3 && v4 >= 42)
+    {
+      v8 = *(v3 + 328);
+    }
+
+    else
+    {
+      v8 = &_os_log_default;
+      if (OUTLINED_FUNCTION_27())
+      {
+        OUTLINED_FUNCTION_7();
+        OUTLINED_FUNCTION_17_2(&_mh_execute_header, v38, v39, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v40, v41, v42, v43);
+      }
+    }
+
+    if (OUTLINED_FUNCTION_76_1())
+    {
+      OUTLINED_FUNCTION_15_13();
+      OUTLINED_FUNCTION_30();
+      _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
+    }
+
+    if (v1 && v2 && *v1 == 2)
+    {
+      OUTLINED_FUNCTION_34_6();
+      if (v15)
+      {
+        v16 = 1;
+      }
+
+      else
+      {
+        v16 = v8 <= 41;
+      }
+
+      v17 = !v16;
+      if (v14 == 1)
+      {
+        if (v17)
+        {
+          v18 = *(v3 + 328);
+        }
+
+        else
+        {
+          v18 = &_os_log_default;
+          if (OUTLINED_FUNCTION_17())
+          {
+            OUTLINED_FUNCTION_7();
+            OUTLINED_FUNCTION_21_2(&_mh_execute_header, v44, v45, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v46, v47, v48, v49);
+          }
+        }
+
+        if (OUTLINED_FUNCTION_82())
+        {
+          OUTLINED_FUNCTION_38();
+          OUTLINED_FUNCTION_27_0();
+          _os_log_impl(v20, v21, v22, v23, v24, 0xCu);
+        }
+
+        v25 = OUTLINED_FUNCTION_49((v0 + 15), 45316, v0[24]);
+        v26 = OUTLINED_FUNCTION_35_6(v25);
+        CFDataGetBytePtr(*(v1 + 24));
+        Length = CFDataGetLength(*(v1 + 24));
+        if (OUTLINED_FUNCTION_25_7(Length) | v26)
+        {
+          if ((!*(v5 + 3928) || *(v6 + 3936) < 42) && OUTLINED_FUNCTION_27())
+          {
+            OUTLINED_FUNCTION_7();
+            OUTLINED_FUNCTION_17_2(&_mh_execute_header, v56, v57, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v58, v59, v60, v61);
+          }
+
+          if (OUTLINED_FUNCTION_76_1())
+          {
+            iAP2MsgGetMsgID(v18);
+            OUTLINED_FUNCTION_7();
+            OUTLINED_FUNCTION_30();
+            _os_log_impl(v33, v34, v35, v36, v37, 0x12u);
+          }
+
+          iap2_sessionControl_sendOutgoingMessage(v0, v18);
+          platform_blePairing_deleteParams(v1);
+        }
+      }
+
+      else
+      {
+        if (v17)
+        {
+          v19 = *(v3 + 328);
+        }
+
+        else
+        {
+          v19 = &_os_log_default;
+          if (OUTLINED_FUNCTION_21())
+          {
+            OUTLINED_FUNCTION_7();
+            OUTLINED_FUNCTION_26_0(&_mh_execute_header, v50, v51, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v52, v53, v54, v55);
+          }
+        }
+
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          OUTLINED_FUNCTION_4_17();
+          OUTLINED_FUNCTION_15_1();
+          OUTLINED_FUNCTION_101_1(v28, v29, v30, v31, v32);
+        }
+      }
+    }
+  }
+
+  OUTLINED_FUNCTION_29_8();
+}
+
+void iap2_blePairing_deviceUpdatePairingInfoHandler()
+{
+  OUTLINED_FUNCTION_28_10();
+  if (v7)
+  {
+    OUTLINED_FUNCTION_27_10(v7);
+    OUTLINED_FUNCTION_11_19();
+    if (v3 && v4 >= 42)
+    {
+      v8 = *(v3 + 328);
+    }
+
+    else
+    {
+      v8 = &_os_log_default;
+      if (OUTLINED_FUNCTION_27())
+      {
+        OUTLINED_FUNCTION_7();
+        OUTLINED_FUNCTION_17_2(&_mh_execute_header, v38, v39, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v40, v41, v42, v43);
+      }
+    }
+
+    if (OUTLINED_FUNCTION_76_1())
+    {
+      OUTLINED_FUNCTION_15_13();
+      OUTLINED_FUNCTION_30();
+      _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
+    }
+
+    if (v1 && v2 && *v1 == 3)
+    {
+      OUTLINED_FUNCTION_34_6();
+      if (v15)
+      {
+        v16 = 1;
+      }
+
+      else
+      {
+        v16 = v8 <= 41;
+      }
+
+      v17 = !v16;
+      if (v14 == 1)
+      {
+        if (v17)
+        {
+          v18 = *(v3 + 328);
+        }
+
+        else
+        {
+          v18 = &_os_log_default;
+          if (OUTLINED_FUNCTION_17())
+          {
+            OUTLINED_FUNCTION_7();
+            OUTLINED_FUNCTION_21_2(&_mh_execute_header, v44, v45, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v46, v47, v48, v49);
+          }
+        }
+
+        if (OUTLINED_FUNCTION_82())
+        {
+          OUTLINED_FUNCTION_38();
+          OUTLINED_FUNCTION_27_0();
+          _os_log_impl(v20, v21, v22, v23, v24, 0xCu);
+        }
+
+        v25 = OUTLINED_FUNCTION_49((v0 + 15), 45318, v0[24]);
+        v26 = OUTLINED_FUNCTION_35_6(v25);
+        CFDataGetBytePtr(*(v1 + 24));
+        Length = CFDataGetLength(*(v1 + 24));
+        if (OUTLINED_FUNCTION_25_7(Length) | v26)
+        {
+          if ((!*(v5 + 3928) || *(v6 + 3936) < 42) && OUTLINED_FUNCTION_27())
+          {
+            OUTLINED_FUNCTION_7();
+            OUTLINED_FUNCTION_17_2(&_mh_execute_header, v56, v57, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v58, v59, v60, v61);
+          }
+
+          if (OUTLINED_FUNCTION_76_1())
+          {
+            iAP2MsgGetMsgID(v18);
+            OUTLINED_FUNCTION_7();
+            OUTLINED_FUNCTION_30();
+            _os_log_impl(v33, v34, v35, v36, v37, 0x12u);
+          }
+
+          iap2_sessionControl_sendOutgoingMessage(v0, v18);
+          platform_blePairing_deleteParams(v1);
+        }
+      }
+
+      else
+      {
+        if (v17)
+        {
+          v19 = *(v3 + 328);
+        }
+
+        else
+        {
+          v19 = &_os_log_default;
+          if (OUTLINED_FUNCTION_21())
+          {
+            OUTLINED_FUNCTION_7();
+            OUTLINED_FUNCTION_26_0(&_mh_execute_header, v50, v51, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v52, v53, v54, v55);
+          }
+        }
+
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          OUTLINED_FUNCTION_4_17();
+          OUTLINED_FUNCTION_15_1();
+          OUTLINED_FUNCTION_101_1(v28, v29, v30, v31, v32);
+        }
+      }
+    }
+  }
+
+  OUTLINED_FUNCTION_29_8();
+}
+
+void iap2_blePairing_stopBLEUpdatesHandler()
+{
+  OUTLINED_FUNCTION_28_10();
+  if (v2)
+  {
+    v3 = OUTLINED_FUNCTION_27_10(v2);
+    if ((!gLogObjects || gNumLogObjects < 42) && OUTLINED_FUNCTION_27())
+    {
+      OUTLINED_FUNCTION_7();
+      OUTLINED_FUNCTION_17_2(&_mh_execute_header, v28, v29, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v30, v31, v32, v33);
+    }
+
+    if (OUTLINED_FUNCTION_76_1())
+    {
+      OUTLINED_FUNCTION_15_13();
+      OUTLINED_FUNCTION_30();
+      _os_log_impl(v4, v5, v6, v7, v8, 0x16u);
+    }
+
+    if (v1 && v3 && *v1 == 4)
+    {
+      if (gLogObjects)
+      {
+        v9 = gNumLogObjects <= 41;
+      }
+
+      else
+      {
+        v9 = 1;
+      }
+
+      v10 = !v9;
+      if (*(v3 + 8) == 1)
+      {
+        if (!v10 && OUTLINED_FUNCTION_27())
+        {
+          OUTLINED_FUNCTION_3();
+          OUTLINED_FUNCTION_17_2(&_mh_execute_header, v40, v41, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v42, v43, v44, v45);
+        }
+
+        if (OUTLINED_FUNCTION_76_1())
+        {
+          OUTLINED_FUNCTION_38();
+          OUTLINED_FUNCTION_30();
+          _os_log_impl(v12, v13, v14, v15, v16, 0xCu);
+        }
+
+        v17 = OUTLINED_FUNCTION_49((v0 + 15), 45319, v0[24]);
+        *(v3 + 8) = 0;
+        if ((!gLogObjects || gNumLogObjects < 42) && OUTLINED_FUNCTION_17())
+        {
+          OUTLINED_FUNCTION_3();
+          OUTLINED_FUNCTION_21_2(&_mh_execute_header, v34, v35, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v36, v37, v38, v39);
+        }
+
+        if (OUTLINED_FUNCTION_82())
+        {
+          iAP2MsgGetMsgID(v17);
+          OUTLINED_FUNCTION_8_1();
+          OUTLINED_FUNCTION_27_0();
+          _os_log_impl(v18, v19, v20, v21, v22, 0x12u);
+        }
+
+        iap2_sessionControl_sendOutgoingMessage(v0, v17);
+        platform_blePairing_deleteParams(v1);
+      }
+
+      else
+      {
+        if (v10)
+        {
+          v11 = *(gLogObjects + 328);
+        }
+
+        else
+        {
+          v11 = &_os_log_default;
+          if (OUTLINED_FUNCTION_21())
+          {
+            OUTLINED_FUNCTION_3();
+            OUTLINED_FUNCTION_26_0(&_mh_execute_header, v46, v47, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v48, v49, v50, v51);
+          }
+        }
+
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          OUTLINED_FUNCTION_4_17();
+          OUTLINED_FUNCTION_15_1();
+          OUTLINED_FUNCTION_101_1(v23, v24, v25, v26, v27);
+        }
+      }
+    }
+  }
+
+  OUTLINED_FUNCTION_29_8();
+}
+
+_BYTE *_createFeature_26(uint64_t a1)
+{
+  v2 = gLogObjects;
+  v3 = HIWORD(gNumLogObjects);
+  if ((!gLogObjects || gNumLogObjects < 42) && OUTLINED_FUNCTION_21())
+  {
+    LODWORD(v15) = 134218240;
+    HIDWORD(v15) = v2;
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_26_0(&_mh_execute_header, v8, v9, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v10, v11, v12, v13, 0);
+    LOWORD(v16) = v3;
+    OUTLINED_FUNCTION_26_0(&_mh_execute_header, v9, v10, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v11, v12, v13, v14, v15, HIDWORD(v2), v16);
   }
 
   if (OUTLINED_FUNCTION_76())
   {
     OUTLINED_FUNCTION_15_1();
-    _os_log_impl(v3, v4, OS_LOG_TYPE_INFO, v5, v6, 2u);
+    _os_log_impl(v4, v5, OS_LOG_TYPE_INFO, v6, v7, 2u);
   }
 
   if (!a1)
@@ -9789,21 +12091,21 @@ _BYTE *_createFeature_26(uint64_t a1)
 
 uint64_t _destroyFeature_26(uint64_t **a1, uint64_t a2)
 {
-  if (gLogObjects && gNumLogObjects >= 42)
+  v4 = gLogObjects;
+  v5 = HIWORD(gNumLogObjects);
+  if ((!gLogObjects || gNumLogObjects < 42) && OUTLINED_FUNCTION_17())
   {
-    v4 = *(gLogObjects + 328);
-  }
-
-  else if (OUTLINED_FUNCTION_17())
-  {
+    LODWORD(v18) = 134218240;
+    HIDWORD(v18) = v4;
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v11, v12, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v13, v14, v15, v16, 0);
+    LOWORD(v19) = v5;
+    OUTLINED_FUNCTION_21_2(&_mh_execute_header, v12, v13, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v14, v15, v16, v17, v18, HIDWORD(v4), v19);
   }
 
   if (OUTLINED_FUNCTION_82())
   {
     OUTLINED_FUNCTION_27_0();
-    _os_log_impl(v5, v6, v7, v8, v9, 2u);
+    _os_log_impl(v6, v7, v8, v9, v10, 2u);
   }
 
   result = 0;
@@ -9833,84 +12135,80 @@ uint64_t _destroyFeature_26(uint64_t **a1, uint64_t a2)
 
 BOOL _startFeatureFromDevice_17(uint64_t a1)
 {
-  v2 = HIDWORD(gLogObjects);
+  v2 = gLogObjects;
   v3 = gNumLogObjects;
-  if (gLogObjects && gNumLogObjects >= 42)
+  if ((!gLogObjects || gNumLogObjects < 42) && OUTLINED_FUNCTION_21())
   {
-    v4 = *(gLogObjects + 328);
-  }
-
-  else if (OUTLINED_FUNCTION_21())
-  {
-    HIDWORD(v36) = v2;
+    *v34 = 134218240;
+    *&v34[4] = v2;
     OUTLINED_FUNCTION_3();
-    v37 = v3;
-    OUTLINED_FUNCTION_26_0(&_mh_execute_header, v28, v29, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v30, v31, v32, v33, 0);
+    *&v34[14] = v3;
+    OUTLINED_FUNCTION_26_0(&_mh_execute_header, v27, v28, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v29, v30, v31, v32, *v34, *&v34[16]);
   }
 
   if (OUTLINED_FUNCTION_76())
   {
-    LOWORD(v35) = 0;
+    *v34 = 0;
     OUTLINED_FUNCTION_15_1();
-    _os_log_impl(v5, v6, OS_LOG_TYPE_INFO, v7, v8, 2u);
+    _os_log_impl(v4, v5, OS_LOG_TYPE_INFO, v6, v7, 2u);
   }
 
-  v9 = OUTLINED_FUNCTION_36_6();
-  if (v9)
+  v8 = OUTLINED_FUNCTION_36_6();
+  if (v8)
   {
-    LOBYTE(v35) = 0;
-    if (iap2_identification_checkRequiredMsgIDs(a1, &gskMsgBLEPairingMainList, 8, &v35))
+    v34[0] = 0;
+    if (iap2_identification_checkRequiredMsgIDs(a1, &gskMsgBLEPairingMainList, 8, v34))
     {
       Feature = iap2_feature_getFeature(a1, 0);
-      *v9 = CFDataCreateCopy(kCFAllocatorDefault, *(Feature + 24));
-      v11 = iap2_feature_getFeature(a1, 1u);
-      v12 = *(v11 + 8);
-      AccInfoMutableDict = platform_blePairing_createAccInfoMutableDict(v12[2], v12[3], v12[1], v12[4], v12[5], v12[6]);
-      v14 = _copySupportedPairTypesData(a1);
+      *v8 = CFDataCreateCopy(kCFAllocatorDefault, *(Feature + 24));
+      v10 = iap2_feature_getFeature(a1, 1u);
+      v11 = *(v10 + 8);
+      AccInfoMutableDict = platform_blePairing_createAccInfoMutableDict(v11[2], v11[3], v11[1], v11[4], v11[5], v11[6]);
+      v13 = _copySupportedPairTypesData(a1);
       platform_blePairing_incrementUserCount();
-      v15 = gLogObjects;
-      v16 = gNumLogObjects;
+      v14 = gLogObjects;
+      v15 = gNumLogObjects;
       if (gLogObjects && gNumLogObjects >= 42)
       {
-        v17 = *(gLogObjects + 328);
+        v16 = *(gLogObjects + 328);
       }
 
       else
       {
-        v17 = &_os_log_default;
+        v16 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v35 = 134218240;
-          v36 = v15;
+          *v34 = 134218240;
+          *&v34[4] = v14;
           OUTLINED_FUNCTION_3();
-          v37 = v16;
-          OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v34, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v35);
+          *&v34[14] = v15;
+          OUTLINED_FUNCTION_10(&_mh_execute_header, &_os_log_default, v33, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v34);
         }
       }
 
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *(*(v11 + 8) + 16);
+        v17 = *(*(v10 + 8) + 16);
         platform_systemInfo_isApplePencilGen1Supported();
-        v35 = 136315906;
-        v36 = "_startFeatureFromDevice";
+        *v34 = 136315906;
+        *&v34[4] = "_startFeatureFromDevice";
         OUTLINED_FUNCTION_3();
-        v37 = 864;
-        v38 = 2112;
-        v39 = v18;
-        v40 = v19;
-        v41 = v20;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s:%d model %@, isApplePencilGen1Supported %d", &v35, 0x22u);
+        *&v34[14] = 864;
+        *&v34[18] = 2112;
+        *&v34[20] = v17;
+        v35 = v18;
+        v36 = v19;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s:%d model %@, isApplePencilGen1Supported %d", v34, 0x22u);
       }
 
-      if (CFStringCompare(*(*(v11 + 8) + 16), @"A1603", 0) || platform_systemInfo_isApplePencilGen1Supported())
+      if (CFStringCompare(*(*(v10 + 8) + 16), @"A1603", 0) || platform_systemInfo_isApplePencilGen1Supported())
       {
-        if (!a1 || (v21 = *(a1 + 8)) == 0)
+        if (!a1 || (v20 = *(a1 + 8)) == 0)
         {
-          v21 = 0;
+          v20 = 0;
         }
 
-        platform_blePairing_accessoryAttached(v21, *v9, AccInfoMutableDict, v14);
+        platform_blePairing_accessoryAttached(v20, *v8, AccInfoMutableDict, v13);
       }
 
       else if (platform_systemInfo_isIPad())
@@ -9927,16 +12225,16 @@ BOOL _startFeatureFromDevice_17(uint64_t a1)
         {
           if (**a1)
           {
-            v25 = *(a1 + 16);
-            if (v25)
+            v24 = *(a1 + 16);
+            if (v24)
             {
-              ACCUNSetGroupIdentifier(AccessoryNotSupportedCF, v25);
+              ACCUNSetGroupIdentifier(AccessoryNotSupportedCF, v24);
             }
           }
         }
 
-        v26 = OUTLINED_FUNCTION_48();
-        ACCUNManagerPresentNotification(v26, v27);
+        v25 = OUTLINED_FUNCTION_48();
+        ACCUNManagerPresentNotification(v25, v26);
         if (AccessoryNotSupportedCF)
         {
           CFRelease(AccessoryNotSupportedCF);
@@ -9948,89 +12246,58 @@ BOOL _startFeatureFromDevice_17(uint64_t a1)
         CFRelease(AccInfoMutableDict);
       }
 
-      if (v14)
+      if (v13)
       {
-        CFRelease(v14);
+        CFRelease(v13);
       }
     }
   }
 
-  return v9 != 0;
+  return v8 != 0;
 }
 
-void iAP2LinkIsNoRetransmit_cold_2(unsigned __int16 *a1, uint64_t a2)
+void iAP2LinkIsValidSynParam_cold_2()
 {
-  v7 = *a1;
-  v8 = *(a2 + 8);
-  v9 = *(a2 + 2);
-  v10 = *(a2 + 3);
-  OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-}
-
-void iAP2LinkIsValidSynParam_cold_2(unsigned __int8 *a1)
-{
-  OUTLINED_FUNCTION_11_20(a1);
+  OUTLINED_FUNCTION_11_20();
   OUTLINED_FUNCTION_84();
-  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v1, v2, "Invalid SYN Params detected: linkVersion=%d", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v0, v1, "Invalid SYN Params detected: linkVersion=%d", v2, v3, v4, v5);
 }
 
-void iAP2LinkIsValidSynParam_cold_4(unsigned __int16 *a1)
+void __iAP2LinkIsValidSynParamMaxOutstandingPackets_cold_2()
 {
-  v1 = *a1;
+  OUTLINED_FUNCTION_11_20();
   OUTLINED_FUNCTION_84();
-  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v2, v3, "Invalid SYN Params detected: maxPacketSize=%d", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v0, v1, "Invalid SYN Params detected: maxOutstandingPackets=%d", v2, v3, v4, v5);
 }
 
-void iAP2LinkIsValidSynParam_cold_6(unsigned __int16 *a1)
+void __iAP2LinkIsValidSynParamMaxRetransmissions_cold_2()
 {
-  v1 = *a1;
+  OUTLINED_FUNCTION_11_20();
   OUTLINED_FUNCTION_84();
-  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v2, v3, "Invalid SYN Params detected: retransmitTimeout=%d", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v0, v1, "Invalid SYN Params detected: maxRetransmissions=%d", v2, v3, v4, v5);
 }
 
-void __iAP2LinkIsValidSynParamMaxOutstandingPackets_cold_2(unsigned __int8 *a1)
+void __iAP2LinkIsValidSynParamMaxCumAck_cold_2()
 {
-  OUTLINED_FUNCTION_11_20(a1);
+  OUTLINED_FUNCTION_11_20();
   OUTLINED_FUNCTION_84();
-  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v1, v2, "Invalid SYN Params detected: maxOutstandingPackets=%d", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v0, v1, "Invalid SYN Params detected: maxCumAck=%d", v2, v3, v4, v5);
 }
 
-void __iAP2LinkIsValidSynParamCumAckTimeout_cold_2(unsigned __int16 *a1)
+void iAP2LinkHandleSuspend_cold_2()
 {
-  v1 = *a1;
-  OUTLINED_FUNCTION_84();
-  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v2, v3, "Invalid SYN Params detected: cumAckTimeout=%d", v4, v5, v6, v7, v8);
-}
-
-void __iAP2LinkIsValidSynParamMaxRetransmissions_cold_2(unsigned __int8 *a1)
-{
-  OUTLINED_FUNCTION_11_20(a1);
-  OUTLINED_FUNCTION_84();
-  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v1, v2, "Invalid SYN Params detected: maxRetransmissions=%d", v3, v4, v5, v6, v7);
-}
-
-void __iAP2LinkIsValidSynParamMaxCumAck_cold_2(unsigned __int8 *a1)
-{
-  OUTLINED_FUNCTION_11_20(a1);
-  OUTLINED_FUNCTION_84();
-  OUTLINED_FUNCTION_3_2(&_mh_execute_header, v1, v2, "Invalid SYN Params detected: maxCumAck=%d", v3, v4, v5, v6, v7);
-}
-
-void iAP2LinkHandleSuspend_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_9_25(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_9_25(__stack_chk_guard);
   OUTLINED_FUNCTION_8_29();
   OUTLINED_FUNCTION_6_37();
-  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "%s:%d suspend link=%hx(type=%d state=%d)", v2, 0x24u);
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s:%d suspend link=%hx(type=%d state=%d)", v1, 0x24u);
 }
 
-void iAP2LinkHandleResume_cold_2(uint64_t a1)
+void iAP2LinkHandleResume_cold_2()
 {
-  OUTLINED_FUNCTION_9_25(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_9_25(__stack_chk_guard);
   OUTLINED_FUNCTION_8_29();
   OUTLINED_FUNCTION_6_37();
-  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "%s:%d resume link=%hx(type=%d state=%d)", v2, 0x24u);
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s:%d resume link=%hx(type=%d state=%d)", v1, 0x24u);
 }
 
 void *acm_mem_alloc_data(size_t size)
@@ -10116,18 +12383,16 @@ _BYTE *LibCall_BuildCommand(char a1, char a2, char a3, const void *a4, size_t a5
 uint64_t cccmac_one_shot_generate_internal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, size_t a6, void *a7)
 {
   OUTLINED_FUNCTION_1_42();
-  v16 = *v14;
-  v15 = v14[1];
   OUTLINED_FUNCTION_0_23();
-  v18 = &v22 - 2 * v17;
-  bzero(v18, v19);
-  if (!cccmac_init_internal(v7, v18, v11, v10) && !cccmac_update_internal(v18, v9, v8))
+  v15 = &v19 - 2 * v14;
+  bzero(v15, v16);
+  if (!cccmac_init_internal(v7, v15, v11, v10) && !cccmac_update_internal(v15, v9, v8))
   {
-    cccmac_final_generate_internal(v18, a6, a7);
+    cccmac_final_generate_internal(v15, a6, a7);
   }
 
-  v20 = OUTLINED_FUNCTION_2_44();
-  cc_clear(v20, v18);
+  v17 = OUTLINED_FUNCTION_2_44();
+  cc_clear(v17, v15);
   return v10;
 }
 
@@ -10141,7 +12406,7 @@ uint64_t ccecdh_compute_shared_secret_ws(uint64_t a1, uint64_t **a2, uint64_t **
   v15 = *a4;
   *a4 = 0;
   v16 = ccn_write_uint_size_internal(*v11, v11 + 3);
-  if (v15 < v16 || *a2 != *a3 || (v17 = v16, ccec_validate_point_and_projectify_ws(a1, v11, v14, (a3 + 2))) || ccec_validate_scalar(v11, &a2[3 * **a2 + 2]) || (v18 = **a2, v19 = OUTLINED_FUNCTION_0_24(), ccec_mult_blinded_ws(v19, v20, v21, v22, v14, a6)))
+  if (v15 < v16 || *a2 != *a3 || (v17 = v16, ccec_validate_point_and_projectify_ws(a1, v11, v14, a3 + 2)) || ccec_validate_scalar(v11, &a2[3 * **a2 + 2]) || (v18 = OUTLINED_FUNCTION_0_24(), ccec_mult_blinded_ws(v18, v19, v20, v21, v14, a6)))
   {
     v29 = 0xFFFFFFFFLL;
     v25 = v32;
@@ -10149,9 +12414,9 @@ uint64_t ccecdh_compute_shared_secret_ws(uint64_t a1, uint64_t **a2, uint64_t **
 
   else
   {
-    v23 = OUTLINED_FUNCTION_0_24();
+    v22 = OUTLINED_FUNCTION_0_24();
     v25 = v32;
-    if (!ccec_is_point_projective_ws(v23, v24) || (v26 = OUTLINED_FUNCTION_0_24(), ccec_affinify_x_only_ws(v26, v27, v28, v13)))
+    if (!ccec_is_point_projective_ws(v22, v23, v24) || (v26 = OUTLINED_FUNCTION_0_24(), ccec_affinify_x_only_ws(v26, v27, v28, v13)))
     {
       v29 = 0xFFFFFFFFLL;
     }
@@ -10170,7 +12435,7 @@ uint64_t ccecdh_compute_shared_secret_ws(uint64_t a1, uint64_t **a2, uint64_t **
   return v29;
 }
 
-uint64_t ccec_generate_scalar_fips_retry_ws(uint64_t a1, void *a2, uint64_t (**a3)(void, unint64_t, void *), void *a4)
+uint64_t ccec_generate_scalar_fips_retry_ws(uint64_t a1, void *a2, uint64_t (**a3)(void, unint64_t, void *), unint64_t *a4)
 {
   v8 = a2 + 4;
   v9 = &a2[5 * *a2 + 4];
@@ -10208,7 +12473,7 @@ uint64_t ccec_generate_scalar_fips_retry_ws(uint64_t a1, void *a2, uint64_t (**a
   return result;
 }
 
-uint64_t ccec_sign_internal_inner_ws(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8, uint64_t a9, uint64_t (**a10)(void, uint64_t, uint64_t *))
+uint64_t ccec_sign_internal_inner_ws(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, unint64_t *a8, uint64_t *a9, uint64_t (**a10)(void, uint64_t, uint64_t *))
 {
   v15 = *a2;
   v16 = *(a1 + 16);
@@ -10220,7 +12485,7 @@ uint64_t ccec_sign_internal_inner_ws(uint64_t a1, unint64_t *a2, uint64_t a3, ui
     result = ccec_affinify_x_only_ws(a1, a2, v17, v17);
     if (!result)
     {
-      v38 = v16;
+      v37 = v16;
       v19 = &a2[5 * v15];
       v20 = cczp_prime((v19 + 4));
       v21 = ccn_sub_ws(a1, v15, a8, v17, v20);
@@ -10228,23 +12493,22 @@ uint64_t ccec_sign_internal_inner_ws(uint64_t a1, unint64_t *a2, uint64_t a3, ui
       ccn_cond_add(v15, v21, a8, a8, v22);
       if (ccn_n(v15, a8))
       {
-        v23 = &v17[*a2];
-        v24 = OUTLINED_FUNCTION_0_25();
-        cczp_mul_ws(v24, v25);
-        v26 = OUTLINED_FUNCTION_0_25();
-        cczp_mul_ws(v26, v27);
-        v28 = OUTLINED_FUNCTION_0_25();
-        cczp_mul_ws(v28, v29);
-        v30 = OUTLINED_FUNCTION_0_25();
-        cczp_mul_ws(v30, v31);
-        v32 = OUTLINED_FUNCTION_0_25();
-        cczp_add_ws(v32, v33);
-        v34 = OUTLINED_FUNCTION_0_25();
-        result = cczp_inv_ws(v34, v35);
+        v23 = OUTLINED_FUNCTION_0_25();
+        cczp_mul_ws(v23, v24);
+        v25 = OUTLINED_FUNCTION_0_25();
+        cczp_mul_ws(v25, v26);
+        v27 = OUTLINED_FUNCTION_0_25();
+        cczp_mul_ws(v27, v28);
+        v29 = OUTLINED_FUNCTION_0_25();
+        cczp_mul_ws(v29, v30);
+        v31 = OUTLINED_FUNCTION_0_25();
+        cczp_add_ws(v31, v32);
+        v33 = OUTLINED_FUNCTION_0_25();
+        result = cczp_inv_ws(v33, v34);
         if (!result)
         {
-          v36 = OUTLINED_FUNCTION_0_25();
-          cczp_mul_ws(v36, v37);
+          v35 = OUTLINED_FUNCTION_0_25();
+          cczp_mul_ws(v35, v36);
           if (ccn_n(v15, a9))
           {
             result = 0;
@@ -10262,7 +12526,7 @@ uint64_t ccec_sign_internal_inner_ws(uint64_t a1, unint64_t *a2, uint64_t a3, ui
         result = 4294967131;
       }
 
-      v16 = v38;
+      v16 = v37;
     }
   }
 
@@ -10270,14 +12534,14 @@ uint64_t ccec_sign_internal_inner_ws(uint64_t a1, unint64_t *a2, uint64_t a3, ui
   return result;
 }
 
-void ccec_sign_internal_ws_cold_1(uint64_t a1)
+void ccec_sign_internal_ws_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = cc_log_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v3 = cc_log_default(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v3 = 134217984;
-    v4 = a1;
-    _os_log_fault_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "Digest should be at least 128 bits long: argument digest_len = %lu", &v3, 0xCu);
+    v4 = 134217984;
+    v5 = a1;
+    _os_log_fault_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "Digest should be at least 128 bits long: argument digest_len = %lu", &v4, 0xCu);
   }
 }
 
@@ -10292,33 +12556,32 @@ uint64_t mfi_session_keys_derive(uint64_t **a1, uint64_t a2, uint64_t a3, size_t
   }
 
   v13 = v11;
-  bzero(v28, 0x100uLL);
-  v27[0] = 0;
-  v27[1] = 0;
+  bzero(v27, 0x100uLL);
+  v26[0] = 0;
+  v26[1] = 0;
   v14 = ccaes_cbc_encrypt_mode();
-  result = cccmac_one_shot_generate_internal(v14, v10[24], v10[23], a2, a3, 0x10uLL, v27);
+  result = cccmac_one_shot_generate_internal(v14, v10[24], v10[23], a2, a3, 0x10uLL, v26);
   if (!result)
   {
-    v16 = v10[27];
-    v17 = v10[28];
+    v16 = v10[28];
     __memcpy_chk();
-    v18 = &v28[v17];
+    v17 = &v27[v16];
     inited = ccsigma_kex_init_ctx(a1);
-    result = ccec_compressed_x962_export_pub(inited, v18);
+    result = ccec_compressed_x962_export_pub(inited, v17);
     if (!result)
     {
-      v20 = &v18[v13];
-      v21 = ccsigma_kex_resp_ctx(a1);
-      result = ccec_compressed_x962_export_pub(v21, v20);
+      v19 = &v17[v13];
+      v20 = ccsigma_kex_resp_ctx(a1);
+      result = ccec_compressed_x962_export_pub(v20, v19);
       if (!result)
       {
-        memcpy(&v20[v13], a5, a4);
-        v22 = ccaes_cbc_encrypt_mode();
-        v24 = v10[25];
-        v23 = v10[26];
-        v25 = v10[10];
-        v26 = (v10[11])(a1);
-        return ccnistkdf_ctr_cmac_internal(v22, 0x20u, 0x10uLL, v27, v23, v24, v12, v28, v25, 4uLL, v26);
+        memcpy(&v19[v13], a5, a4);
+        v21 = ccaes_cbc_encrypt_mode();
+        v23 = v10[25];
+        v22 = v10[26];
+        v24 = v10[10];
+        v25 = (v10[11])(a1);
+        return ccnistkdf_ctr_cmac_internal(v21, 0x20u, 0x10uLL, v26, v22, v23, v12, v27, v24, 4uLL, v25);
       }
     }
   }
@@ -10329,43 +12592,38 @@ uint64_t mfi_session_keys_derive(uint64_t **a1, uint64_t a2, uint64_t a3, size_t
 uint64_t mfi_sigma_compute_mac_and_digest(uint64_t *a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   v8 = *a1;
-  v9 = *(*a1 + 32);
-  v10 = (v9[1] + v9[2] + 19) & 0xFFFFFFFFFFFFFFF8;
-  bzero(v38 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
-  v11 = OUTLINED_FUNCTION_72_1();
-  ccdigest_init_internal(v11, v12);
-  v14 = v8[29];
-  v13 = v8[30];
-  v15 = OUTLINED_FUNCTION_72_1();
-  ccdigest_update_internal(v15, v16, v17, v18);
-  v19 = ccec_compressed_x962_export_pub_size(*v8);
-  if (v19 > 0x21)
+  v9 = (*(*(*a1 + 32) + 8) + *(*(*a1 + 32) + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
+  bzero(v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), v9);
+  v10 = OUTLINED_FUNCTION_72_1();
+  ccdigest_init_internal(v10, v11);
+  v12 = OUTLINED_FUNCTION_72_1();
+  ccdigest_update_internal(v12, v13, v14, v15);
+  v16 = ccec_compressed_x962_export_pub_size(*v8);
+  if (v16 > 0x21)
   {
     return 4294967291;
   }
 
-  v20 = v19;
-  v40 = 0;
-  memset(v39, 0, sizeof(v39));
+  v17 = v16;
+  v35 = 0;
+  memset(v34, 0, sizeof(v34));
   inited = ccsigma_kex_init_ctx(a1);
-  ccec_compressed_x962_export_pub(inited, v39);
-  v22 = OUTLINED_FUNCTION_72_1();
-  ccdigest_update_internal(v22, v23, v20, v24);
-  v25 = ccsigma_kex_resp_ctx(a1);
-  ccec_compressed_x962_export_pub(v25, v39);
-  v26 = OUTLINED_FUNCTION_72_1();
-  ccdigest_update_internal(v26, v27, v20, v28);
-  v38[0] = 0;
-  v38[1] = 0;
-  result = ccsigma_compute_mac_internal(a1, v8[a2 + 15], a3, a4, v38);
+  ccec_compressed_x962_export_pub(inited, v34);
+  v19 = OUTLINED_FUNCTION_72_1();
+  ccdigest_update_internal(v19, v20, v17, v21);
+  v22 = ccsigma_kex_resp_ctx(a1);
+  ccec_compressed_x962_export_pub(v22, v34);
+  v23 = OUTLINED_FUNCTION_72_1();
+  ccdigest_update_internal(v23, v24, v17, v25);
+  v33[0] = 0;
+  v33[1] = 0;
+  result = ccsigma_compute_mac_internal(a1, v8[a2 + 15], a3, a4, v33);
   if (!result)
   {
-    v30 = v8[13];
+    v27 = OUTLINED_FUNCTION_72_1();
+    ccdigest_update_internal(v27, v28, v29, v30);
     v31 = OUTLINED_FUNCTION_72_1();
-    ccdigest_update_internal(v31, v32, v33, v34);
-    v35 = v9[7];
-    v36 = OUTLINED_FUNCTION_72_1();
-    v37(v36);
+    v32(v31);
     return 0;
   }
 
@@ -10400,14 +12658,14 @@ uint64_t mfi_aead_open(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t generate_2(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t generate_2(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
   memset(__s, 0, sizeof(__s));
   v24[0] = 0;
   v24[1] = 0;
-  v8 = (ccctr_context_size(*(a1 + 56)) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v9 = v23 - v8;
-  bzero(v23 - v8, v8);
+  v9 = (ccctr_context_size(*(a1 + 56)) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = v23 - v9;
+  bzero(v23 - v9, v9);
   if (a2 > 0x10000)
   {
     goto LABEL_22;
@@ -10415,7 +12673,7 @@ uint64_t generate_2(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4)
 
   if (*(a1 + 72) && *(a1 + 48) > 0x1000000000000uLL)
   {
-    v16 = 4294967234;
+    v17 = 4294967234;
     goto LABEL_21;
   }
 
@@ -10428,10 +12686,10 @@ uint64_t generate_2(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4)
   {
     if (a4 <= 0x10000)
     {
-      v15 = derive(a1, __s, 1u, v10, v11, v12, v13, v14, a4);
-      if (v15)
+      v16 = derive(a1, __s, 1u, v11, v12, v13, v14, v15, a4);
+      if (v16)
       {
-        v16 = v15;
+        v17 = v16;
         goto LABEL_21;
       }
 
@@ -10439,7 +12697,7 @@ uint64_t generate_2(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4)
     }
 
 LABEL_22:
-    v16 = 4294967233;
+    v17 = 4294967233;
     goto LABEL_21;
   }
 
@@ -10455,7 +12713,6 @@ LABEL_11:
 LABEL_12:
   v23[1] = v23;
   inc_uint(a1 + 40, 8uLL);
-  v17 = *(a1 + 64);
   ccctr_init_internal(*(a1 + 56));
   for (i = -a2; a2; a2 -= v19)
   {
@@ -10469,11 +12726,11 @@ LABEL_12:
       v19 = a2;
     }
 
-    ccctr_update_internal(*(a1 + 56), v9, v19, &zeros, a3);
+    ccctr_update_internal(*(a1 + 56), v10, v19, &zeros, a3);
     a3 += v19;
   }
 
-  ccctr_update_internal(*(a1 + 56), v9, i & 0xF, &zeros, v24);
+  ccctr_update_internal(*(a1 + 56), v10, i & 0xF, &zeros, v24);
   cc_clear(i & 0xF, v24);
   if (a4)
   {
@@ -10485,14 +12742,14 @@ LABEL_12:
     v20 = &zeros;
   }
 
-  update_with_ctr(a1, v9, v20);
+  update_with_ctr(a1, v10, v20);
   v21 = ccctr_context_size(*(a1 + 56));
-  cc_clear(v21, v9);
-  v16 = 0;
+  cc_clear(v21, v10);
+  v17 = 0;
   ++*(a1 + 48);
 LABEL_21:
   cc_clear(0x30uLL, __s);
-  return v16;
+  return v17;
 }
 
 uint64_t reseed(void *a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -10635,7 +12892,7 @@ uint64_t drbg_reseed(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
   return result;
 }
 
-uint64_t ccec_make_pub_from_priv_ws(uint64_t a1, uint64_t *a2, uint64_t (**a3)(void, uint64_t, uint64_t *), uint64_t a4, uint64_t a5, uint64_t **a6)
+uint64_t ccec_make_pub_from_priv_ws(uint64_t a1, uint64_t *a2, uint64_t (**a3)(void, uint64_t, uint64_t *), unint64_t *a4, unint64_t *a5, uint64_t **a6)
 {
   *a6 = a2;
   v12 = *a2;
@@ -10658,7 +12915,6 @@ uint64_t ccec_make_pub_from_priv_ws(uint64_t a1, uint64_t *a2, uint64_t (**a3)(v
 
   else
   {
-    v16 = &a2[2 * *a2];
     result = ccec_projectify_ws(a1, a2);
     if (result)
     {
@@ -10666,16 +12922,16 @@ uint64_t ccec_make_pub_from_priv_ws(uint64_t a1, uint64_t *a2, uint64_t (**a3)(v
     }
   }
 
-  v17 = OUTLINED_FUNCTION_0_27();
-  if (ccec_mult_blinded_ws(v17, v18, v19, a4, v14, a3))
+  v16 = OUTLINED_FUNCTION_0_27();
+  if (ccec_mult_blinded_ws(v16, v17, v18, a4, v14, a3))
   {
     result = 4294967280;
   }
 
   else
   {
-    v20 = OUTLINED_FUNCTION_0_27();
-    if (ccec_is_point_projective_ws(v20, v21))
+    v19 = OUTLINED_FUNCTION_0_27();
+    if (ccec_is_point_projective_ws(v19, v20, v21))
     {
       v22 = OUTLINED_FUNCTION_0_27();
       if (ccec_affinify_ws(v22, v23))
@@ -10814,7 +13070,7 @@ uint64_t ccsigma_seal(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, uint
   }
 
   v24 = *(*(v17 + 72) + 8 * a2);
-  v25 = OUTLINED_FUNCTION_0_28(v17);
+  v25 = OUTLINED_FUNCTION_0_28();
   v26(v25);
   OUTLINED_FUNCTION_1_43();
   if (v29 <= a3)
@@ -10845,7 +13101,7 @@ LABEL_12:
     }
 
     v36 = *(*(v28 + 72) + 8 * a3);
-    v37 = OUTLINED_FUNCTION_0_28(v28);
+    v37 = OUTLINED_FUNCTION_0_28();
     v39 = v38(v37);
     v40 = (*(*a1 + 152))(a1, v24, v31 + v20, v36, v39 + v32, v43, v42, v19, v30, a8, a9);
     if (!v40)
@@ -10858,85 +13114,85 @@ LABEL_12:
   return v40;
 }
 
-uint64_t ccsigma_open(uint64_t *a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ccsigma_open(uint64_t *a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v42 = timingsafe_enable_if_supported();
-  v16 = *a1;
-  v17 = *(*a1 + 144);
-  v43[0] = 0;
-  v43[1] = 0;
-  if (v17 > 0x10)
+  v43 = timingsafe_enable_if_supported();
+  v17 = *a1;
+  v18 = *(*a1 + 144);
+  v44[0] = 0;
+  v44[1] = 0;
+  if (v18 > 0x10)
   {
-    v37 = 4294967291;
+    v38 = 4294967291;
   }
 
   else
   {
-    if (*(v16 + 64) <= a2)
+    if (*(v17 + 64) <= a2)
     {
       goto LABEL_13;
     }
 
-    v18 = 0;
+    v19 = 0;
     if (a2)
     {
-      v19 = *(v16 + 72);
-      v20 = a2;
+      v20 = *(v17 + 72);
+      v21 = a2;
       do
       {
-        v21 = *v19++;
-        v18 += v21;
-        --v20;
+        v22 = *v20++;
+        v19 += v22;
+        --v21;
       }
 
-      while (v20);
+      while (v21);
     }
 
-    v22 = *(*(v16 + 72) + 8 * a2);
-    v23 = OUTLINED_FUNCTION_0_28(v16);
-    v24(v23);
+    v23 = *(*(v17 + 72) + 8 * a2);
+    v24 = OUTLINED_FUNCTION_0_28();
+    v25(v24);
     OUTLINED_FUNCTION_1_43();
-    if (v27 <= a3)
+    if (v28 <= a3)
     {
 LABEL_13:
-      v37 = 4294967289;
+      v38 = 4294967289;
     }
 
     else
     {
-      v40 = a8;
-      v41 = a4;
-      v39 = a5;
-      v28 = v25;
-      v29 = 0;
+      v41 = a8;
+      v42 = a4;
+      v40 = a5;
+      v29 = v26;
+      v30 = 0;
       if (a3)
       {
-        v30 = *(v26 + 72);
-        v31 = a3;
+        v31 = *(v27 + 72);
+        v32 = a3;
         do
         {
-          v32 = *v30++;
-          v29 += v32;
-          --v31;
+          v33 = *v31++;
+          v30 += v33;
+          --v32;
         }
 
-        while (v31);
+        while (v32);
       }
 
-      v33 = *(*(v26 + 72) + 8 * a3);
-      v34 = OUTLINED_FUNCTION_0_28(v26);
-      v36 = v35(v34);
+      v34 = *(*(v27 + 72) + 8 * a3);
+      v35 = OUTLINED_FUNCTION_0_28();
+      v37 = v36(v35);
       __memcpy_chk();
-      v37 = (*(*a1 + 160))(a1, v22, v28 + v18, v33, v36 + v29, v41, v39, a6, a7, v40, v43);
-      if (!v37)
+      v38 = (*(*a1 + 160))(a1, v23, v29 + v19, v34, v37 + v30, v42, v40, a6, a7, v41, v44);
+      if (!v38)
       {
-        (*(*a1 + 168))(v33, v36 + v29);
+        (*(*a1 + 168))(v34, v37 + v30);
       }
     }
   }
 
-  cc_disable_dit_with_sb(&v42);
-  return v37;
+  cc_disable_dit_with_sb(&v43);
+  return v38;
 }
 
 void ccn_random_bits(uint64_t a1, uint64_t a2, unsigned int (**a3)(void, unint64_t, uint64_t))
@@ -11004,7 +13260,7 @@ uint64_t ccrng_process_init(uint64_t a1, uint64_t (*a2)(void), uint64_t (**a3)(v
           result = ccdrbg_init_internal(a1 + 768);
           if (!result)
           {
-            result = ccrng_crypto_init((a1 + 8), a1 + 192, a1 + 96, a1 + 208, a1 + 768, a1 + 824, 4096, 0x20uLL, 256, a1 + 2104);
+            result = ccrng_crypto_init((a1 + 8), (a1 + 192), (a1 + 96), (a1 + 208), (a1 + 768), (a1 + 824), 0x1000, 0x20, 0x100, (a1 + 2104));
             if (!result)
             {
               *a1 = generate_1;
@@ -11018,7 +13274,7 @@ uint64_t ccrng_process_init(uint64_t a1, uint64_t (*a2)(void), uint64_t (**a3)(v
   return result;
 }
 
-uint64_t ccec_verify_composite_digest_ws(uint64_t a1, uint64_t *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
+uint64_t ccec_verify_composite_digest_ws(uint64_t a1, unint64_t **a2, unint64_t a3, unsigned __int8 *a4, unsigned __int8 *a5, unsigned __int8 *a6, void *a7)
 {
   if (a7)
   {
@@ -11057,7 +13313,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t ccec_verify_composite_msg_ws(uint64_t a1, uint64_t *a2, unint64_t *a3, size_t a4, char *a5, uint64_t a6, uint64_t a7, void *a8)
+uint64_t ccec_verify_composite_msg_ws(uint64_t a1, unint64_t **a2, unint64_t *a3, size_t a4, char *a5, unsigned __int8 *a6, unsigned __int8 *a7, void *a8)
 {
   memset(v15, 0, sizeof(v15));
   ccdigest_internal(a3, a4, a5, v15);
@@ -11118,7 +13374,7 @@ uint64_t cccmac_final_generate_internal(char *__s, size_t a2, void *a3)
   return v10;
 }
 
-uint64_t ccec_validate_scalar(void *a1, uint64_t a2)
+uint64_t ccec_validate_scalar(uint64_t *a1, unint64_t *a2)
 {
   v4 = *a1;
   v5 = cczp_prime(&a1[5 * *a1 + 4]);
@@ -11135,7 +13391,7 @@ uint64_t ccec_validate_scalar(void *a1, uint64_t a2)
   return 0xFFFFFFFFLL;
 }
 
-uint64_t ccec_import_affine_point_ws(uint64_t a1, unint64_t *a2, int a3, uint64_t a4, unsigned __int8 *a5, void *a6)
+uint64_t ccec_import_affine_point_ws(uint64_t a1, unint64_t *a2, int a3, uint64_t a4, unsigned __int8 *a5, unint64_t *a6)
 {
   if (!a4)
   {
@@ -11191,7 +13447,6 @@ LABEL_38:
           {
             if (a3 == 2)
             {
-              v27 = a6[*a2];
               OUTLINED_FUNCTION_0_30();
               if (!v14)
               {
@@ -11218,7 +13473,6 @@ LABEL_38:
 
             else
             {
-              v25 = *v20;
               OUTLINED_FUNCTION_0_30();
               if (v14)
               {
@@ -11349,7 +13603,7 @@ uint64_t ccec_export_affine_point_public_value(uint64_t *a1, int a2, uint64_t *a
   return result;
 }
 
-uint64_t ccec_sign_composite_ws(uint64_t a1, uint64_t **a2, unint64_t a3, uint64_t a4, char *a5, char *a6, uint64_t (**a7)(void, unint64_t, void *))
+uint64_t ccec_sign_composite_ws(uint64_t a1, unint64_t **a2, unint64_t a3, unsigned __int8 *a4, char *a5, char *a6, uint64_t (**a7)(void, unint64_t, void *))
 {
   v14 = **a2;
   v15 = *(a1 + 16);
@@ -11370,7 +13624,7 @@ uint64_t ccec_sign_composite_ws(uint64_t a1, uint64_t **a2, unint64_t a3, uint64
   return v18;
 }
 
-uint64_t ccec_sign_composite_msg_ws(uint64_t a1, uint64_t **a2, unint64_t *a3, size_t a4, char *a5, char *a6, char *a7, uint64_t (**a8)(void, unint64_t, void *))
+uint64_t ccec_sign_composite_msg_ws(uint64_t a1, unint64_t **a2, unint64_t *a3, size_t a4, char *a5, char *a6, char *a7, uint64_t (**a8)(void, unint64_t, void *))
 {
   memset(v15, 0, sizeof(v15));
   ccdigest_internal(a3, a4, a5, v15);
@@ -11381,10 +13635,10 @@ uint64_t ccdrbg_df_bc_derive_keys(uint64_t a1, uint64_t a2, uint64_t a3, size_t 
 {
   v10 = *(a1 + 8);
   v11 = (*v10 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v12 = &v51 - v11;
-  bzero(&v51 - v11, v11);
+  v12 = &v45 - v11;
+  bzero(&v45 - v11, v11);
   v13 = (v10[1] + 15) & 0xFFFFFFFFFFFFFFF0;
-  v14 = &v51 - v13;
+  v14 = &v45 - v13;
   v15 = 0;
   if (a2)
   {
@@ -11402,70 +13656,65 @@ uint64_t ccdrbg_df_bc_derive_keys(uint64_t a1, uint64_t a2, uint64_t a3, size_t 
   }
 
   bzero(v14, v13);
-  v60[0] = 0;
-  v60[1] = 0;
-  v61 = bswap32(v15);
-  v62 = bswap32(a4);
-  v59 = xmmword_1001C5140;
-  memset(v58, 0, sizeof(v58));
+  v54[0] = 0;
+  v54[1] = 0;
+  v55 = bswap32(v15);
+  v56 = bswap32(a4);
+  v53 = xmmword_1001C5140;
+  memset(v52, 0, sizeof(v52));
   v19 = *(a1 + 16);
   __src[0] = 0;
   __src[1] = 0;
-  v55 = v19 + 16;
+  v49 = v19 + 16;
   if (v19 != -16)
   {
     v20 = 0;
     v21 = 0;
-    v51 = 16 - (v15 & 0xF ^ 8);
-    v52 = (a3 + 8);
-    v53 = a2;
-    v54 = v12;
+    v45 = 16 - (v15 & 0xF ^ 8);
+    v46 = a3 + 8;
+    v47 = a2;
+    v48 = v12;
     while (1)
     {
       OUTLINED_FUNCTION_1_45();
-      LODWORD(v60[0]) = bswap32(v21);
-      v56 = 0;
-      v22 = *(a1 + 8);
+      LODWORD(v54[0]) = bswap32(v21);
+      v50 = 0;
       OUTLINED_FUNCTION_0_31();
-      updated = update_0(v23, v24, v14, v25, v26, 0x18uLL, v60);
+      updated = update_0(v22, v23, v14, v24, v25, 0x18uLL, v54);
       if (updated)
       {
         goto LABEL_29;
       }
 
-      v28 = v52;
-      v29 = v53;
-      if (v53)
+      v27 = v46;
+      v28 = v47;
+      if (v47)
       {
         while (1)
         {
-          v30 = *(a1 + 8);
-          v32 = *(v28 - 1);
-          v31 = *v28;
           OUTLINED_FUNCTION_0_31();
-          v39 = update_0(v33, v34, v14, v35, v36, v37, v38);
-          if (v39)
+          v35 = update_0(v29, v30, v14, v31, v32, v33, v34);
+          if (v35)
           {
             break;
           }
 
-          v28 += 2;
-          if (!--v29)
+          v27 += 16;
+          if (!--v28)
           {
             goto LABEL_10;
           }
         }
 
-        v49 = v39;
-        v12 = v54;
+        v43 = v35;
+        v12 = v48;
         goto LABEL_27;
       }
 
 LABEL_10:
-      v40 = *(a1 + 8);
       OUTLINED_FUNCTION_0_31();
-      updated = update_0(v41, v42, v14, v43, v44, v51, &v59);
-      v12 = v54;
+      updated = update_0(v36, v37, v14, v38, v39, v45, &v53);
+      v12 = v48;
       if (updated)
       {
         goto LABEL_29;
@@ -11473,10 +13722,9 @@ LABEL_10:
 
       ++v21;
       v20 += 16;
-      if (v20 >= v55)
+      if (v20 >= v49)
       {
         v10 = *(a1 + 8);
-        v45 = *(a1 + 16);
         break;
       }
     }
@@ -11486,18 +13734,18 @@ LABEL_10:
   if (updated)
   {
 LABEL_29:
-    v49 = updated;
+    v43 = updated;
     goto LABEL_27;
   }
 
   if (a4)
   {
-    v46 = v58 + *(a1 + 16);
+    v40 = v52 + *(a1 + 16);
     do
     {
       OUTLINED_FUNCTION_1_45();
-      v47 = (a4 <= 0xF ? __src : a5);
-      updated = cccbc_update_internal(*(a1 + 8), v12, v14, 1, v46, v47);
+      v41 = (a4 <= 0xF ? __src : a5);
+      updated = cccbc_update_internal(*(a1 + 8), v12, v14, 1, v40, v41);
       if (updated)
       {
         goto LABEL_29;
@@ -11510,27 +13758,27 @@ LABEL_29:
 
       if (a4 >= 0x10)
       {
-        v48 = 16;
+        v42 = 16;
       }
 
       else
       {
-        v48 = a4;
+        v42 = a4;
       }
 
-      a5 = (a5 + v48);
-      v46 = v47;
-      a4 -= v48;
+      a5 = (a5 + v42);
+      v40 = v41;
+      a4 -= v42;
     }
 
     while (a4);
   }
 
-  v49 = 0;
+  v43 = 0;
 LABEL_27:
   cc_clear(**(a1 + 8), v12);
   OUTLINED_FUNCTION_1_45();
-  return v49;
+  return v43;
 }
 
 uint64_t update_0(int a1, int a2, int a3, uint64_t a4, void *a5, size_t __n, char *__src)
@@ -11760,11 +14008,11 @@ uint64_t ccec_generate_key_internal_fips_ws(uint64_t a1, uint64_t *a2, uint64_t 
   result = (*a3)(a3, ((v11 + 62) >> 3) & 0x1FFFFFFFFFFFFFF8, v10);
   if (!result)
   {
-    v13 = OUTLINED_FUNCTION_0_33(*a4);
+    v13 = OUTLINED_FUNCTION_0_33();
     result = ccec_generate_scalar_fips_retry_ws(v13, v14, v15, v16);
     if (!result)
     {
-      v17 = OUTLINED_FUNCTION_0_33(*a4);
+      v17 = OUTLINED_FUNCTION_0_33();
       result = ccec_make_pub_from_priv_ws(v17, v18, v19, v20, 0, a4);
     }
   }
@@ -11773,7 +14021,7 @@ uint64_t ccec_generate_key_internal_fips_ws(uint64_t a1, uint64_t *a2, uint64_t 
   return result;
 }
 
-uint64_t ccec_validate_point_and_projectify_ws(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+uint64_t ccec_validate_point_and_projectify_ws(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t *a4)
 {
   v8 = *a2;
   v9 = cczp_prime(a2);
@@ -11783,7 +14031,7 @@ uint64_t ccec_validate_point_and_projectify_ws(uint64_t a1, uint64_t *a2, uint64
   }
 
   v10 = *a2;
-  v11 = a4 + 8 * *a2;
+  v11 = &a4[*a2];
   v12 = cczp_prime(a2);
   if (ccn_cmp_internal(v10, v12, v11) < 1)
   {

@@ -44,11 +44,11 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFPinCodeItemProvider *)self home];
+  v5 = objc_msgSend_home(self);
   pinCodeManager = [(HFPinCodeItemProvider *)self pinCodeManager];
   listType = [(HFPinCodeItemProvider *)self listType];
   accessory = [(HFPinCodeItemProvider *)self accessory];
-  v9 = [v4 initWithHome:home pinCodeManager:pinCodeManager listType:listType forAccessory:accessory];
+  v9 = [v4 initWithHome:v5 pinCodeManager:pinCodeManager listType:listType forAccessory:accessory];
 
   return v9;
 }
@@ -178,7 +178,7 @@ HFPinCodeItem *__36__HFPinCodeItemProvider_reloadItems__block_invoke_5(uint64_t 
 {
   v3 = a2;
   v4 = [HFPinCodeItem alloc];
-  v5 = [*(a1 + 32) home];
+  v5 = objc_msgSend_home(*(a1 + 32));
   v6 = [*(a1 + 32) accessory];
   v7 = [(HFPinCodeItem *)v4 initWithPinCode:v3 inHome:v5 onAccessory:v6];
 
@@ -204,17 +204,15 @@ id __36__HFPinCodeItemProvider_reloadItems__block_invoke_6(uint64_t a1, void *a2
 
 - (id)invalidationReasons
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFPinCodeItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"accessory";
-  v8[1] = @"service";
-  v8[2] = @"user";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFPinCodeItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"accessory";
+  v7[1] = @"service";
+  v7[2] = @"user";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

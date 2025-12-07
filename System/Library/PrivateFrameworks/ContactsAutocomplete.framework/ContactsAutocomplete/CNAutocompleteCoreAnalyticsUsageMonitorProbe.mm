@@ -3,6 +3,7 @@
 - (id)bundleIdentifierOfCurrentProcess;
 - (id)makeBundleIdentifierOfCurrentProcess;
 - (id)sourceKeysForSourceType:(unint64_t)type;
+- (void)recordDuetReturnedResults:(BOOL)results;
 - (void)recordUserIgnoredPredictionAfterDelay:(double)delay;
 - (void)recordUserIgnoredPrefixedResultAfterDelay:(double)delay batch:(unint64_t)batch;
 - (void)recordUserSawResultsConsideredSuggestion:(unint64_t)suggestion;
@@ -157,6 +158,13 @@ LABEL_17:
   [(CNAutocompleteCoreAnalyticsUsageMonitorProbe *)self setSelectedIndex:v5];
 }
 
+- (void)recordDuetReturnedResults:(BOOL)results
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:results];
+  coreAnalyticsDictionary = [(CNAutocompleteCoreAnalyticsUsageMonitorProbe *)self coreAnalyticsDictionary];
+  [coreAnalyticsDictionary setObject:v5 forKeyedSubscript:@"duetReturnedResults"];
+}
+
 - (void)recordUserTypedInNumberOfCharacters:(unint64_t)characters
 {
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:characters];
@@ -206,7 +214,7 @@ LABEL_17:
 - (void)sendData
 {
   selfCopy = self;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   selectedIndex = [(CNAutocompleteCoreAnalyticsUsageMonitorProbe *)self selectedIndex];
   if (selectedIndex)
   {
@@ -250,26 +258,26 @@ LABEL_17:
           v21 = v23;
         }
 
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
         v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         obj = v21;
-        v24 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v24 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v39;
+          v26 = *v38;
           do
           {
             for (i = 0; i != v25; ++i)
             {
-              if (*v39 != v26)
+              if (*v38 != v26)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v28 = [*(*(&v38 + 1) + 8 * i) isEqual:@"duetPromoted"];
+              v28 = [*(*(&v37 + 1) + 8 * i) isEqual:@"duetPromoted"];
               coreAnalyticsDictionary3 = [(CNAutocompleteCoreAnalyticsUsageMonitorProbe *)v22 coreAnalyticsDictionary];
               v30 = coreAnalyticsDictionary3;
               if (v28)
@@ -285,7 +293,7 @@ LABEL_17:
               [coreAnalyticsDictionary3 setObject:v31 forKeyedSubscript:@"promotedByDuet"];
             }
 
-            v25 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+            v25 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
           }
 
           while (v25);
@@ -329,8 +337,6 @@ LABEL_23:
   {
     AnalyticsSendEventLazy();
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bundleIdentifierOfCurrentProcess

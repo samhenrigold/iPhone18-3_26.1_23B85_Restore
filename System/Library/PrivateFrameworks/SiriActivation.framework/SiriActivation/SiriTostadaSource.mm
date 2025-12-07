@@ -30,11 +30,10 @@
 
 - (void)invalidate
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SiriTostadaSource invalidate]";
-  _os_log_debug_impl(&dword_1C8137000, log, OS_LOG_TYPE_DEBUG, "%s #activation", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SiriTostadaSource invalidate]";
+  _os_log_debug_impl(&dword_1C8137000, log, OS_LOG_TYPE_DEBUG, "%s #activation", &v1, 0xCu);
 }
 
 - (void)configureConnection
@@ -101,22 +100,20 @@ void __40__SiriTostadaSource_configureConnection__block_invoke(uint64_t a1, void
 
 void __40__SiriTostadaSource_configureConnection__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[SiriTostadaSource configureConnection]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Invalidated %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SiriTostadaSource configureConnection]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Invalidated %@", &v6, 0x16u);
   }
 
   v5 = [v3 remoteTarget];
   [v5 unregisterNonButtonSourceWithType:&unk_1F47D1668 withUUID:*(a1 + 32)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SiriTostadaSource_configureConnection__block_invoke_26(uint64_t a1, void *a2)
@@ -131,7 +128,7 @@ void __40__SiriTostadaSource_configureConnection__block_invoke_26(uint64_t a1, v
 
 void __40__SiriTostadaSource_configureConnection__block_invoke_28(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -141,11 +138,11 @@ void __40__SiriTostadaSource_configureConnection__block_invoke_28(uint64_t a1, v
     v6 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "[SiriTostadaSource configureConnection]_block_invoke";
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Activated %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SiriTostadaSource configureConnection]_block_invoke";
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Activated %@", &v8, 0x16u);
     }
 
     v7 = [v3 remoteTarget];
@@ -153,8 +150,6 @@ void __40__SiriTostadaSource_configureConnection__block_invoke_28(uint64_t a1, v
 
     os_unfair_lock_unlock(v5 + 4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)prepareForActivation
@@ -207,22 +202,20 @@ void __41__SiriTostadaSource_prepareForActivation__block_invoke(uint64_t a1, voi
 
 - (void)init
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SiriTostadaSource init]";
-  _os_log_debug_impl(&dword_1C8137000, log, OS_LOG_TYPE_DEBUG, "%s #activation", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SiriTostadaSource init]";
+  _os_log_debug_impl(&dword_1C8137000, log, OS_LOG_TYPE_DEBUG, "%s #activation", &v1, 0xCu);
 }
 
 void __40__SiriTostadaSource_configureConnection__block_invoke_26_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[SiriTostadaSource configureConnection]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_1C8137000, a2, OS_LOG_TYPE_ERROR, "%s #activation BSServiceConnection Interrupted %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[SiriTostadaSource configureConnection]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_1C8137000, a2, OS_LOG_TYPE_ERROR, "%s #activation BSServiceConnection Interrupted %@", &v2, 0x16u);
 }
 
 @end

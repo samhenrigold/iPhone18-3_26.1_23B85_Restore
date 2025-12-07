@@ -19,7 +19,7 @@
 
 - (BOOL)_shouldForceEndpoint:(id)endpoint
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   if ([endpointCopy trailingSilenceDuration] >= 5000)
   {
@@ -27,13 +27,13 @@
     if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
     {
       v5 = v4;
-      v13 = 136315394;
-      v14 = "[CSEnhancedEndpointer _shouldForceEndpoint:]";
-      v15 = 2048;
-      v16 = COERCE_DOUBLE([endpointCopy trailingSilenceDuration]);
+      v12 = 136315394;
+      v13 = "[CSEnhancedEndpointer _shouldForceEndpoint:]";
+      v14 = 2048;
+      v15 = COERCE_DOUBLE([endpointCopy trailingSilenceDuration]);
       v6 = "%s Force endpointing based on trailingSilenceDuration: %ld";
 LABEL_8:
-      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, v6, &v13, 0x16u);
+      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, v6, &v12, 0x16u);
 
       goto LABEL_9;
     }
@@ -49,10 +49,10 @@ LABEL_8:
     {
       v5 = v9;
       [endpointCopy silencePosteriorNF];
-      v13 = 136315394;
-      v14 = "[CSEnhancedEndpointer _shouldForceEndpoint:]";
-      v15 = 2048;
-      v16 = v10;
+      v12 = 136315394;
+      v13 = "[CSEnhancedEndpointer _shouldForceEndpoint:]";
+      v14 = 2048;
+      v15 = v10;
       v6 = "%s Force endpointing based on silencePosteriorNF: %f";
       goto LABEL_8;
     }
@@ -65,7 +65,6 @@ LABEL_9:
   v8 = 0;
 LABEL_10:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -91,7 +90,7 @@ LABEL_10:
 
 void __52__CSEnhancedEndpointer__constructFeatureDictionary___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if ([v6 isEqualToString:@"x_1"])
   {
@@ -103,47 +102,45 @@ void __52__CSEnhancedEndpointer__constructFeatureDictionary___block_invoke(uint6
     v7 = CSLogCategoryEP;
     if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[CSEnhancedEndpointer _constructFeatureDictionary:]_block_invoke";
-      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Unexpected key in model input specifications", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CSEnhancedEndpointer _constructFeatureDictionary:]_block_invoke";
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Unexpected key in model input specifications", &v8, 0xCu);
     }
 
     *a4 = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didEndpointWithFeatures:(id)features audioTimestampMs:(double)ms completion:(id)completion
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   completionCopy = completion;
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_completion___block_invoke;
-  v42[3] = &unk_1E865A760;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_completion___block_invoke;
+  v41[3] = &unk_1E865A760;
   v10 = completionCopy;
-  v43 = v10;
-  v11 = MEMORY[0x1E12BA300](v42);
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy_;
-  v40 = __Block_byref_object_dispose_;
-  v41 = objc_alloc_init(CSEnhancedEndpointerResult);
+  v42 = v10;
+  v11 = MEMORY[0x1E12BA300](v41);
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy_;
+  v39 = __Block_byref_object_dispose_;
+  v40 = objc_alloc_init(CSEnhancedEndpointerResult);
   if (!featuresCopy)
   {
     goto LABEL_4;
   }
 
-  [v37[5] setEndpointerType:{-[CSEnhancedEndpointerInputVector endpointerType](self->_inputVector, "endpointerType")}];
+  [v36[5] setEndpointerType:{-[CSEnhancedEndpointerInputVector endpointerType](self->_inputVector, "endpointerType")}];
   if (![(CSEnhancedEndpointer *)self _shouldForceEndpoint:featuresCopy])
   {
     v12 = [(CSEnhancedEndpointer *)self _constructFeatureDictionary:featuresCopy];
-    v35 = 0;
-    v13 = [objc_alloc(MEMORY[0x1E695FE40]) initWithDictionary:v12 error:&v35];
-    v14 = v35;
+    v34 = 0;
+    v13 = [objc_alloc(MEMORY[0x1E695FE40]) initWithDictionary:v12 error:&v34];
+    v14 = v34;
     if (v14 || !v13)
     {
       v22 = CSLogCategoryEP;
@@ -151,22 +148,22 @@ void __52__CSEnhancedEndpointer__constructFeatureDictionary___block_invoke(uint6
       {
         localizedDescription = [v14 localizedDescription];
         *buf = 136315650;
-        v45 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
-        v46 = 2114;
-        v47 = localizedDescription;
-        v48 = 2114;
-        v49 = v12;
+        v44 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
+        v45 = 2114;
+        v46 = localizedDescription;
+        v47 = 2114;
+        v48 = v12;
         _os_log_error_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_ERROR, "%s Unable to create feature dict with error %{public}@ from %{public}@", buf, 0x20u);
       }
 
-      v11[2](v11, v37[5]);
+      v11[2](v11, v36[5]);
       goto LABEL_35;
     }
 
     endpointerModel = self->_endpointerModel;
-    v34 = 0;
-    v16 = [(MLModel *)endpointerModel predictionFromFeatures:v13 error:&v34];
-    v14 = v34;
+    v33 = 0;
+    v16 = [(MLModel *)endpointerModel predictionFromFeatures:v13 error:&v33];
+    v14 = v33;
     if (v14 || !v16)
     {
       v23 = CSLogCategoryEP;
@@ -174,11 +171,11 @@ void __52__CSEnhancedEndpointer__constructFeatureDictionary___block_invoke(uint6
       {
         localizedDescription2 = [v14 localizedDescription];
         *buf = 136315650;
-        v45 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
-        v46 = 2114;
-        v47 = localizedDescription2;
-        v48 = 2114;
-        v49 = v13;
+        v44 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
+        v45 = 2114;
+        v46 = localizedDescription2;
+        v47 = 2114;
+        v48 = v13;
         _os_log_error_impl(&dword_1DDA4B000, v23, OS_LOG_TYPE_ERROR, "%s Unable to create get prediction from model with error %{public}@ from %{public}@", buf, 0x20u);
       }
 
@@ -187,7 +184,7 @@ void __52__CSEnhancedEndpointer__constructFeatureDictionary___block_invoke(uint6
 
     if (self->_delayedTrigger)
     {
-      [v37[5] setExtraDelayMs:self->_extraDelayMs];
+      [v36[5] setExtraDelayMs:self->_extraDelayMs];
     }
 
     delayedTargetTimeDefault = self->_delayedTargetTimeDefault;
@@ -197,12 +194,12 @@ void __52__CSEnhancedEndpointer__constructFeatureDictionary___block_invoke(uint6
       if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v45 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
+        v44 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
         _os_log_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_DEFAULT, "%s Reached delayed trigger target time for default endpointer", buf, 0xCu);
       }
 
       self->_hasHadDelayedDefaultResult = 1;
-      [v37[5] setDidDefaultEndpointerFire:1];
+      [v36[5] setDidDefaultEndpointerFire:1];
     }
 
     delayedTargetTimeRelaxed = self->_delayedTargetTimeRelaxed;
@@ -212,16 +209,16 @@ void __52__CSEnhancedEndpointer__constructFeatureDictionary___block_invoke(uint6
       if (continuityEndTargetTime <= 0.0 || continuityEndTargetTime > ms)
       {
         outputNodes = self->_outputNodes;
-        v29[0] = MEMORY[0x1E69E9820];
-        v29[1] = 3221225472;
-        v29[2] = __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_completion___block_invoke_149;
-        v29[3] = &unk_1E865A788;
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_completion___block_invoke_149;
+        v28[3] = &unk_1E865A788;
         selfCopy = self;
-        v32 = &v36;
-        v30 = v16;
+        v31 = &v35;
+        v29 = v16;
         msCopy = ms;
-        [(NSArray *)outputNodes enumerateObjectsUsingBlock:v29];
-        v11[2](v11, v37[5]);
+        [(NSArray *)outputNodes enumerateObjectsUsingBlock:v28];
+        v11[2](v11, v36[5]);
 
         goto LABEL_34;
       }
@@ -233,7 +230,7 @@ void __52__CSEnhancedEndpointer__constructFeatureDictionary___block_invoke(uint6
       }
 
       *buf = 136315138;
-      v45 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
+      v44 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
       v21 = "%s Reached continuity window end time - force endpointing";
     }
 
@@ -243,9 +240,9 @@ void __52__CSEnhancedEndpointer__constructFeatureDictionary___block_invoke(uint6
       if (!os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_32:
-        [v37[5] setDidRelaxedEndpointerFire:1];
+        [v36[5] setDidRelaxedEndpointerFire:1];
 LABEL_33:
-        v11[2](v11, v37[5]);
+        v11[2](v11, v36[5]);
 LABEL_34:
 
 LABEL_35:
@@ -253,7 +250,7 @@ LABEL_35:
       }
 
       *buf = 136315138;
-      v45 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
+      v44 = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]";
       v21 = "%s Reached delayed trigger target time for relaxed endpointer - force endpointing";
     }
 
@@ -261,15 +258,13 @@ LABEL_35:
     goto LABEL_32;
   }
 
-  [v37[5] setDidDefaultEndpointerFire:1];
-  [v37[5] setDidRelaxedEndpointerFire:1];
-  [v37[5] setDidForceEndpoint:1];
+  [v36[5] setDidDefaultEndpointerFire:1];
+  [v36[5] setDidRelaxedEndpointerFire:1];
+  [v36[5] setDidForceEndpoint:1];
 LABEL_4:
-  v11[2](v11, v37[5]);
+  v11[2](v11, v36[5]);
 LABEL_36:
-  _Block_object_dispose(&v36, 8);
-
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v35, 8);
 }
 
 uint64_t __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_completion___block_invoke(uint64_t a1)
@@ -285,7 +280,7 @@ uint64_t __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_com
 
 void __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_completion___block_invoke_149(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 32);
   v7 = a2;
   v8 = [v6 featureValueForName:v7];
@@ -300,9 +295,9 @@ void __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_complet
       v28 = CSLogCategoryEP;
       if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_ERROR))
       {
-        *v45 = 136315138;
-        *&v45[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
-        _os_log_error_impl(&dword_1DDA4B000, v28, OS_LOG_TYPE_ERROR, "%s Model output had unexpected size", v45, 0xCu);
+        *v44 = 136315138;
+        *&v44[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
+        _os_log_error_impl(&dword_1DDA4B000, v28, OS_LOG_TYPE_ERROR, "%s Model output had unexpected size", v44, 0xCu);
       }
 
       *a4 = 1;
@@ -336,11 +331,11 @@ void __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_complet
           if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
           {
             v26 = *(*(a1 + 40) + 72);
-            *v45 = 136315394;
-            *&v45[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
-            *&v45[12] = 2048;
-            *&v45[14] = v26;
-            _os_log_impl(&dword_1DDA4B000, v25, OS_LOG_TYPE_DEFAULT, "%s Using delayed trigger logic for relaxed endpointer - target time: %f", v45, 0x16u);
+            *v44 = 136315394;
+            *&v44[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
+            *&v44[12] = 2048;
+            *&v44[14] = v26;
+            _os_log_impl(&dword_1DDA4B000, v25, OS_LOG_TYPE_DEFAULT, "%s Using delayed trigger logic for relaxed endpointer - target time: %f", v44, 0x16u);
           }
         }
       }
@@ -372,10 +367,10 @@ void __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_complet
         }
 
         v35 = *(*(a1 + 40) + 64);
-        *v45 = 136315394;
-        *&v45[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
-        *&v45[12] = 2048;
-        *&v45[14] = v35;
+        *v44 = 136315394;
+        *&v44[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
+        *&v44[12] = 2048;
+        *&v44[14] = v35;
         v34 = "%s Using delayed trigger logic for default endpointer - target time: %f";
       }
 
@@ -407,19 +402,19 @@ void __76__CSEnhancedEndpointer_didEndpointWithFeatures_audioTimestampMs_complet
         }
 
         v33 = *(*(a1 + 40) + 88);
-        *v45 = 136315394;
-        *&v45[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
-        *&v45[12] = 2048;
-        *&v45[14] = v33;
+        *v44 = 136315394;
+        *&v44[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
+        *&v44[12] = 2048;
+        *&v44[14] = v33;
         v34 = "%s Entering continuity window - target time for continuity end: %f";
       }
 
-      _os_log_impl(&dword_1DDA4B000, v32, OS_LOG_TYPE_DEFAULT, v34, v45, 0x16u);
+      _os_log_impl(&dword_1DDA4B000, v32, OS_LOG_TYPE_DEFAULT, v34, v44, 0x16u);
     }
 
 LABEL_27:
     *&v29 = v14;
-    if ([*(a1 + 40) _didDetectSpeechWithPartialScore:{v29, *v45, *&v45[16], v46}])
+    if ([*(a1 + 40) _didDetectSpeechWithPartialScore:{v29, *v44, *&v44[8], v45}])
     {
       [*(*(*(a1 + 48) + 8) + 40) setSpeechArrivalDetected:1];
       *(*(a1 + 40) + 88) = 0xBFF0000000000000;
@@ -475,17 +470,15 @@ LABEL_39:
   v27 = CSLogCategoryEP;
   if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_ERROR))
   {
-    *v45 = 136315394;
-    *&v45[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
-    *&v45[12] = 2112;
-    *&v45[14] = @"var_127";
-    _os_log_error_impl(&dword_1DDA4B000, v27, OS_LOG_TYPE_ERROR, "%s Model had unexpected output vector name - should be %@", v45, 0x16u);
+    *v44 = 136315394;
+    *&v44[4] = "[CSEnhancedEndpointer didEndpointWithFeatures:audioTimestampMs:completion:]_block_invoke";
+    *&v44[12] = 2112;
+    *&v44[14] = @"var_127";
+    _os_log_error_impl(&dword_1DDA4B000, v27, OS_LOG_TYPE_ERROR, "%s Model had unexpected output vector name - should be %@", v44, 0x16u);
   }
 
   *a4 = 1;
 LABEL_40:
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_extractModelSpecs
@@ -506,11 +499,11 @@ LABEL_40:
 
 - (CSEnhancedEndpointer)initWithModelFile:(id)file defaultThresholdPartial:(float)partial defaultThresholdRC:(float)c relaxedThresholdPartial:(float)thresholdPartial relaxedThresholdRC:(float)rC extraDelayMs:(int)ms continuityWindowDuration:(int)duration speechDetectedThreshold:(float)self0
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   fileCopy = file;
-  v48.receiver = self;
-  v48.super_class = CSEnhancedEndpointer;
-  v19 = [(CSEnhancedEndpointer *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = CSEnhancedEndpointer;
+  v19 = [(CSEnhancedEndpointer *)&v47 init];
   v20 = v19;
   if (!v19)
   {
@@ -531,9 +524,9 @@ LABEL_40:
   v26 = [MEMORY[0x1E695DFF8] fileURLWithPath:fileCopy];
   v27 = objc_alloc_init(MEMORY[0x1E695FEB8]);
   [v27 setComputeUnits:0];
-  v47 = 0;
-  v28 = [MEMORY[0x1E695FE98] modelWithContentsOfURL:v26 configuration:v27 error:&v47];
-  v29 = v47;
+  v46 = 0;
+  v28 = [MEMORY[0x1E695FE98] modelWithContentsOfURL:v26 configuration:v27 error:&v46];
+  v29 = v46;
   endpointerModel = v20->_endpointerModel;
   v20->_endpointerModel = v28;
 
@@ -542,13 +535,13 @@ LABEL_40:
     v38 = CSLogCategoryEP;
     if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_ERROR))
     {
-      v42 = v38;
+      v41 = v38;
       localizedDescription = [v29 localizedDescription];
       *buf = 136315394;
-      v50 = "[CSEnhancedEndpointer initWithModelFile:defaultThresholdPartial:defaultThresholdRC:relaxedThresholdPartial:relaxedThresholdRC:extraDelayMs:continuityWindowDuration:speechDetectedThreshold:]";
-      v51 = 2114;
-      v52 = localizedDescription;
-      _os_log_error_impl(&dword_1DDA4B000, v42, OS_LOG_TYPE_ERROR, "%s Unable to create MLModel with err %{public}@", buf, 0x16u);
+      v49 = "[CSEnhancedEndpointer initWithModelFile:defaultThresholdPartial:defaultThresholdRC:relaxedThresholdPartial:relaxedThresholdRC:extraDelayMs:continuityWindowDuration:speechDetectedThreshold:]";
+      v50 = 2114;
+      v51 = localizedDescription;
+      _os_log_error_impl(&dword_1DDA4B000, v41, OS_LOG_TYPE_ERROR, "%s Unable to create MLModel with err %{public}@", buf, 0x16u);
     }
 
     goto LABEL_13;
@@ -559,9 +552,9 @@ LABEL_40:
   multiArrayConstraint = [v31 multiArrayConstraint];
 
   shape = [multiArrayConstraint shape];
-  v46 = v29;
-  v34 = +[CSEnhancedEndpointerInputVectorFactory inputVectorWithShape:dataType:error:](_TtC20CoreSpeechFoundation38CSEnhancedEndpointerInputVectorFactory, "inputVectorWithShape:dataType:error:", shape, [multiArrayConstraint dataType], &v46);
-  v35 = v46;
+  v45 = v29;
+  v34 = +[CSEnhancedEndpointerInputVectorFactory inputVectorWithShape:dataType:error:](_TtC20CoreSpeechFoundation38CSEnhancedEndpointerInputVectorFactory, "inputVectorWithShape:dataType:error:", shape, [multiArrayConstraint dataType], &v45);
+  v35 = v45;
 
   inputVector = v20->_inputVector;
   v20->_inputVector = v34;
@@ -571,13 +564,13 @@ LABEL_40:
     v39 = CSLogCategoryEP;
     if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_ERROR))
     {
-      v44 = v39;
+      v43 = v39;
       localizedDescription2 = [v35 localizedDescription];
       *buf = 136315394;
-      v50 = "[CSEnhancedEndpointer initWithModelFile:defaultThresholdPartial:defaultThresholdRC:relaxedThresholdPartial:relaxedThresholdRC:extraDelayMs:continuityWindowDuration:speechDetectedThreshold:]";
-      v51 = 2112;
-      v52 = localizedDescription2;
-      _os_log_error_impl(&dword_1DDA4B000, v44, OS_LOG_TYPE_ERROR, "%s Unable to create input vector. Error: %@", buf, 0x16u);
+      v49 = "[CSEnhancedEndpointer initWithModelFile:defaultThresholdPartial:defaultThresholdRC:relaxedThresholdPartial:relaxedThresholdRC:extraDelayMs:continuityWindowDuration:speechDetectedThreshold:]";
+      v50 = 2112;
+      v51 = localizedDescription2;
+      _os_log_error_impl(&dword_1DDA4B000, v43, OS_LOG_TYPE_ERROR, "%s Unable to create input vector. Error: %@", buf, 0x16u);
     }
 
 LABEL_13:
@@ -589,7 +582,6 @@ LABEL_6:
   v37 = v20;
 LABEL_14:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v37;
 }
 

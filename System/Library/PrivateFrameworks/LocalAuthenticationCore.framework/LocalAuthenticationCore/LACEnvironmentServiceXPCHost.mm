@@ -24,7 +24,7 @@
 
 - (void)environmentStateForUser:(id)user completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   userCopy = user;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_workQueue);
@@ -36,12 +36,12 @@
 
   v9 = currentConnection;
   unsignedIntValue = [userCopy unsignedIntValue];
-  [v9 auditToken];
+  objc_msgSend_auditToken(v9);
   dependencies = self->_dependencies;
-  v18 = 0;
-  v12 = [LACEnvironmentState environmentStateForUser:unsignedIntValue auditToken:buf dependencies:dependencies error:&v18];
-  v13 = v18;
-  v14 = LACLogEnvironment();
+  v17 = 0;
+  v12 = [LACEnvironmentState environmentStateForUser:unsignedIntValue auditToken:buf dependencies:dependencies error:&v17];
+  v13 = v17;
+  v14 = LACLogEnvironment(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     processIdentifier = [v9 processIdentifier];
@@ -56,14 +56,13 @@
     }
 
     *buf = 67109378;
-    v20 = processIdentifier;
-    v21 = 2112;
-    v22 = v16;
+    v19 = processIdentifier;
+    v20 = 2112;
+    v21 = v16;
     _os_log_impl(&dword_1B0233000, v14, OS_LOG_TYPE_DEFAULT, "Environment state for PID %u: %@", buf, 0x12u);
   }
 
   completionCopy[2](completionCopy, v12, v13);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

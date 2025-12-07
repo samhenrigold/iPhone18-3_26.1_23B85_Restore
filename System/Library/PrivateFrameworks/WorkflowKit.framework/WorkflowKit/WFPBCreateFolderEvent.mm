@@ -88,7 +88,6 @@ LABEL_3:
     }
   }
 
-  v6 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_icon != *(equalCopy + 4))
@@ -100,7 +99,7 @@ LABEL_3:
   else if (*(equalCopy + 36))
   {
 LABEL_16:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
@@ -120,17 +119,17 @@ LABEL_16:
   folderSource = self->_folderSource;
   if (folderSource | *(equalCopy + 1))
   {
-    v8 = [(NSString *)folderSource isEqual:?];
+    v7 = [(NSString *)folderSource isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_17:
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -195,33 +194,31 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    icon = self->_icon;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    shortcutCount = self->_shortcutCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_folderSource)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

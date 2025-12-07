@@ -1,8 +1,13 @@
 @interface AWDMETRICSKCellularPowerLogLteNrRxDiversityHistRxdBin
 - (BOOL)isEqual:(id)equal;
+- (id)bandGroupAsString:(int)string;
+- (id)caIndexAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)mcgStateAsString:(int)string;
+- (id)ratAsString:(int)string;
+- (id)rxDivStateAsString:(int)string;
 - (int)StringAsBandGroup:(id)group;
 - (int)StringAsCaIndex:(id)index;
 - (int)StringAsMcgState:(id)state;
@@ -71,6 +76,29 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)mcgStateAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Connected";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Idle";
+  }
+
+  return v4;
+}
+
 - (int)StringAsMcgState:(id)state
 {
   stateCopy = state;
@@ -113,6 +141,29 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"NR";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"LTE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -172,6 +223,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)caIndexAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825BAA0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCaIndex:(id)index
@@ -248,6 +314,21 @@
   *&self->_has = *&self->_has & 0xBF | v3;
 }
 
+- (id)rxDivStateAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825BAD8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRxDivState:(id)state
 {
   stateCopy = state;
@@ -290,6 +371,21 @@
   {
     return 0;
   }
+}
+
+- (id)bandGroupAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825BAF8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBandGroup:(id)group
@@ -541,7 +637,6 @@ LABEL_10:
   has = self->_has;
   if (has < 0)
   {
-    isEndc = self->_isEndc;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -561,7 +656,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mcgState = self->_mcgState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -576,7 +670,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  rat = self->_rat;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -591,7 +684,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  mcgCcNum = self->_mcgCcNum;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -606,7 +698,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  caIndex = self->_caIndex;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -621,7 +712,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  rxDivState = self->_rxDivState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -636,12 +726,10 @@ LABEL_8:
   }
 
 LABEL_19:
-  bandGroup = self->_bandGroup;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_9:
-    durationMs = self->_durationMs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -892,7 +980,7 @@ LABEL_9:
     }
 
 LABEL_44:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_45;
   }
 
@@ -901,7 +989,6 @@ LABEL_44:
     goto LABEL_44;
   }
 
-  v6 = *(equalCopy + 36);
   if (self->_isEndc)
   {
     if ((*(equalCopy + 36) & 1) == 0)
@@ -994,7 +1081,7 @@ LABEL_4:
     goto LABEL_44;
   }
 
-  v7 = (*(equalCopy + 40) & 4) == 0;
+  v6 = (*(equalCopy + 40) & 4) == 0;
   if ((*&has & 4) != 0)
   {
     if ((*(equalCopy + 40) & 4) == 0 || self->_durationMs != *(equalCopy + 4))
@@ -1002,12 +1089,12 @@ LABEL_4:
       goto LABEL_44;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_45:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

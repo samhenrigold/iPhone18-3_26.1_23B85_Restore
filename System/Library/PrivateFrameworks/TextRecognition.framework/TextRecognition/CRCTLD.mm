@@ -468,7 +468,7 @@ void __41__CRCTLD_getFeaturesMainLayoutDirection___block_invoke(uint64_t a1, voi
 
 - (id)singleCTLDGroupingPass:(CRConstrainedTextLineDetectionImpl *)pass textRegions:(id)regions
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   regionsCopy = regions;
   [(CRCTLD *)self getFeaturesGlobalAngle:regionsCopy];
   v10 = v9;
@@ -482,113 +482,113 @@ void __41__CRCTLD_getFeaturesMainLayoutDirection___block_invoke(uint64_t a1, voi
     v5 = v15;
   }
 
-  v52 = 0;
-  v53 = 0;
-  v54 = 0;
-  std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::reserve(&v52, [regionsCopy count]);
+  v56 = 0;
+  v57 = 0;
+  v58 = 0;
+  std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::reserve(&v56, [regionsCopy count]);
   for (i = 0; [regionsCopy count] > i; ++i)
   {
     v17 = [regionsCopy objectAtIndexedSubscript:i];
     *&v18 = v10;
-    [(CRCTLD *)self CTLDRegionFromCRRegion:v17 index:i imageSize:v11 rotationAngle:v4 mainDirection:v5, v18];
-    v19 = v53;
-    if (v53 >= v54)
+    objc_msgSend_CTLDRegionFromCRRegion_index_imageSize_rotationAngle_mainDirection_(self, v4, v5, v18);
+    v23 = v57;
+    if (v57 >= v58)
     {
-      v25 = std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__emplace_back_slow_path<CRTextRecognition::CRCTLD::CTLDRegion>(&v52, &v55);
+      v29 = std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__emplace_back_slow_path<CRTextRecognition::CRCTLD::CTLDRegion>(&v56, &v59, v19, v20, v21, v22);
     }
 
     else
     {
-      *v53 = v55;
-      v20 = *(&v55 + 1);
-      *(&v55 + 1) = 0;
-      *(v19 + 1) = v20;
-      v21 = v57;
-      *(v19 + 1) = v56;
-      *(v19 + 2) = v21;
-      v22 = v58;
-      v23 = v59;
-      v24 = v60;
-      v19[24] = v61;
-      *(v19 + 4) = v23;
-      *(v19 + 5) = v24;
-      *(v19 + 3) = v22;
-      *(v19 + 13) = 0;
-      *(v19 + 14) = 0;
-      *(v19 + 15) = 0;
-      *(v19 + 26) = v62;
-      *(v19 + 15) = v63;
-      v62 = 0uLL;
-      v63 = 0;
-      v25 = (v19 + 32);
+      *v57 = v59;
+      v24 = *(&v59 + 1);
+      *(&v59 + 1) = 0;
+      *(v23 + 1) = v24;
+      v25 = v61;
+      *(v23 + 1) = v60;
+      *(v23 + 2) = v25;
+      v26 = v62;
+      v27 = v63;
+      v28 = v64;
+      v23[24] = v65;
+      *(v23 + 4) = v27;
+      *(v23 + 5) = v28;
+      *(v23 + 3) = v26;
+      *(v23 + 13) = 0;
+      *(v23 + 14) = 0;
+      *(v23 + 15) = 0;
+      *(v23 + 26) = v66;
+      *(v23 + 15) = v67;
+      v66 = 0uLL;
+      v67 = 0;
+      v29 = (v23 + 32);
     }
 
-    v53 = v25;
-    v50 = &v62;
-    std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__destroy_vector::operator()[abi:ne200100](&v50);
+    v57 = v29;
+    v54 = &v66;
+    std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__destroy_vector::operator()[abi:ne200100](&v54);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  CRTextRecognition::CRCTLD::CRConstrainedTextLineDetectionImpl::groupRegions(pass, &v52, v11, WeakRetained, &v50);
+  CRTextRecognition::CRCTLD::CRConstrainedTextLineDetectionImpl::groupRegions(pass, &v56, v11, WeakRetained, &v54);
 
-  v48 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v27 = v50;
-  if (v51 != v50)
+  v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v31 = v54;
+  if (v55 != v54)
   {
-    v28 = 0;
-    v29 = fabsf(v10);
-    v30 = -v10;
+    v32 = 0;
+    v33 = fabsf(v10);
+    v34 = -v10;
     do
     {
-      v31 = &v27[16 * v28];
-      v55 = *(v31 + 2);
-      v56 = *(v31 + 3);
-      v57 = *(v31 + 4);
-      v58 = *(v31 + 5);
+      v35 = &v31[16 * v32];
+      v59 = *(v35 + 2);
+      v60 = *(v35 + 3);
+      v61 = *(v35 + 4);
+      v62 = *(v35 + 5);
       if (v11 == 2)
       {
-        [(CRCTLD *)self mirrorAxisX:&v55];
+        [(CRCTLD *)self mirrorAxisX:&v59];
       }
 
       [(CRCTLD *)self angleThresholdForRotationCorrection];
-      if (v32 < v29)
+      if (v36 < v33)
       {
-        rotatePolygon(&v55, &v55, v4 * 0.5, v5 * 0.5, v30);
+        rotatePolygon(&v59, &v59, v4 * 0.5, v5 * 0.5, v34);
       }
 
-      v33 = [CRNormalizedQuad alloc];
-      v34 = [CRImageSpaceQuad alloc];
-      v35 = [(CRImageSpaceQuad *)v34 initWithTopLeft:v55 topRight:*&v56 bottomRight:*(&v56 + 1) bottomLeft:*&v58, *(&v58 + 1), *&v57, *(&v57 + 1)];
-      v36 = [(CRNormalizedQuad *)v33 initWithDenormalizedQuad:v35 size:v4, v5];
+      v37 = [CRNormalizedQuad alloc];
+      v38 = [CRImageSpaceQuad alloc];
+      v39 = [(CRImageSpaceQuad *)v38 initWithTopLeft:v59 topRight:*&v60 bottomRight:*(&v60 + 1) bottomLeft:*&v62, *(&v62 + 1), *&v61, *(&v61 + 1)];
+      v40 = [(CRNormalizedQuad *)v37 initWithDenormalizedQuad:v39 size:v4, v5];
 
-      v37 = [MEMORY[0x1E695DF70] arrayWithCapacity:(v50[16 * v28 + 14] - v50[16 * v28 + 13]) >> 7];
-      v38 = v50[16 * v28 + 13];
-      if (v50[16 * v28 + 14] != v38)
+      v41 = [MEMORY[0x1E695DF70] arrayWithCapacity:(v54[16 * v32 + 14] - v54[16 * v32 + 13]) >> 7];
+      v42 = v54[16 * v32 + 13];
+      if (v54[16 * v32 + 14] != v42)
       {
-        v39 = 0;
-        v40 = 0;
+        v43 = 0;
+        v44 = 0;
         do
         {
-          v41 = [regionsCopy objectAtIndexedSubscript:*&v38[v39]];
-          [v37 addObject:v41];
+          v45 = [regionsCopy objectAtIndexedSubscript:*&v42[v43]];
+          [v41 addObject:v45];
 
-          ++v40;
-          v38 = v50[16 * v28 + 13];
-          v39 += 128;
+          ++v44;
+          v42 = v54[16 * v32 + 13];
+          v43 += 128;
         }
 
-        while (v40 < (v50[16 * v28 + 14] - v38) >> 7);
+        while (v44 < (v54[16 * v32 + 14] - v42) >> 7);
       }
 
-      v42 = objc_loadWeakRetained(&self->_delegate);
-      v43 = objc_opt_respondsToSelector();
+      v46 = objc_loadWeakRetained(&self->_delegate);
+      v47 = objc_opt_respondsToSelector();
 
-      if (v43)
+      if (v47)
       {
-        v44 = objc_loadWeakRetained(&self->_delegate);
-        v45 = [v44 groupWithQuad:v36 layoutDirection:0 subregions:v37];
+        v48 = objc_loadWeakRetained(&self->_delegate);
+        v49 = [v48 groupWithQuad:v40 layoutDirection:0 subregions:v41];
 
-        if (!v45)
+        if (!v49)
         {
           goto LABEL_22;
         }
@@ -596,37 +596,37 @@ void __41__CRCTLD_getFeaturesMainLayoutDirection___block_invoke(uint64_t a1, voi
 
       else
       {
-        v45 = [[CRGroupRegion alloc] initWithBoundingQuad:v36 layoutDirection:0 subregions:v37];
-        if (!v45)
+        v49 = [[CRGroupRegion alloc] initWithBoundingQuad:v40 layoutDirection:0 subregions:v41];
+        if (!v49)
         {
 LABEL_22:
-          v46 = CROSLogForCategory(0);
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+          v50 = CROSLogForCategory(0);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B40D2000, v46, OS_LOG_TYPE_FAULT, "GroupRegion is NULL in singleCTLDGroupingPass", buf, 2u);
+            _os_log_impl(&dword_1B40D2000, v50, OS_LOG_TYPE_FAULT, "GroupRegion is NULL in singleCTLDGroupingPass", buf, 2u);
           }
 
           goto LABEL_25;
         }
       }
 
-      [v48 addObject:v45];
+      [v52 addObject:v49];
 LABEL_25:
 
-      ++v28;
-      v27 = v50;
+      ++v32;
+      v31 = v54;
     }
 
-    while (v28 < (v51 - v50) >> 7);
+    while (v32 < (v55 - v54) >> 7);
   }
 
-  *&v55 = &v50;
-  std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__destroy_vector::operator()[abi:ne200100](&v55);
-  *&v55 = &v52;
-  std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__destroy_vector::operator()[abi:ne200100](&v55);
+  *&v59 = &v54;
+  std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__destroy_vector::operator()[abi:ne200100](&v59);
+  *&v59 = &v56;
+  std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__destroy_vector::operator()[abi:ne200100](&v59);
 
-  return v48;
+  return v52;
 }
 
 - (id)groupAndOrderRegions:(id)regions config:(id)config delegate:(id)delegate

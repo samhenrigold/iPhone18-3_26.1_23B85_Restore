@@ -30,7 +30,7 @@
     if (object3)
     {
       v9 = object3;
-      v10 = [object3 objectForKey:@"vtSatScore"];
+      v10 = objc_msgSend_objectForKey_(object3);
       if (v10 && (v11 = [[AFMultiUserStateSnapshot alloc] initWithVtSatScore:v10]) != 0)
       {
         v12 = v11;

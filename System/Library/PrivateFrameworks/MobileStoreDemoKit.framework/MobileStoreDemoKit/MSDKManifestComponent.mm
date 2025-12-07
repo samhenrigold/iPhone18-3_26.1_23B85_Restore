@@ -12,9 +12,9 @@
 {
   identifierCopy = identifier;
   dictionaryCopy = dictionary;
-  v37.receiver = self;
-  v37.super_class = MSDKManifestComponent;
-  v11 = [(MSDKManifestComponent *)&v37 init];
+  v39.receiver = self;
+  v39.super_class = MSDKManifestComponent;
+  v11 = [(MSDKManifestComponent *)&v39 init];
   v12 = v11;
   if (!v11)
   {
@@ -33,8 +33,8 @@
     v15 = [dictionaryCopy objectForKey:@"Settings" ofType:objc_opt_class()];
     if (!v15)
     {
-      v36 = defaultLogHandle();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v38 = defaultLogHandle(0);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         [MSDKManifestComponent initWithIdentifier:componentType:andDictionary:];
       }
@@ -48,8 +48,8 @@
   v16 = [v15 objectForKey:@"Info" ofType:objc_opt_class()];
   if (!v16)
   {
-    v36 = defaultLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v38 = defaultLogHandle(0);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [MSDKManifestComponent initWithIdentifier:componentType:andDictionary:];
     }
@@ -59,59 +59,64 @@
   }
 
   v17 = v16;
-  if (![(MSDKManifestComponent *)v12 isOfType:0]&& ![(MSDKManifestComponent *)v12 isOfType:1])
+  v18 = [(MSDKManifestComponent *)v12 isOfType:0];
+  if ((v18 & 1) == 0)
   {
-    v22 = [(MSDKManifestComponent *)v12 isOfType:4];
-    if (!v14 && !v22)
+    v18 = [(MSDKManifestComponent *)v12 isOfType:1];
+    if (!v18)
     {
-      v36 = defaultLogHandle();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v24 = [(MSDKManifestComponent *)v12 isOfType:4];
+      if (!v14 && (v24 & 1) == 0)
       {
-        [MSDKManifestComponent initWithIdentifier:componentType:andDictionary:];
+        v38 = defaultLogHandle(v24);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        {
+          [MSDKManifestComponent initWithIdentifier:componentType:andDictionary:];
+        }
+
+        goto LABEL_35;
       }
 
-      goto LABEL_35;
-    }
-
-    [(MSDKManifestComponent *)v12 setRawDependencyDict:0];
-    v23 = [v15 objectForKey:@"Data" ofType:objc_opt_class()];
-    if (!v23)
-    {
-      v36 = defaultLogHandle();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      [(MSDKManifestComponent *)v12 setRawDependencyDict:0];
+      v25 = [v15 objectForKey:@"Data" ofType:objc_opt_class()];
+      if (!v25)
       {
-        [MSDKManifestComponent initWithIdentifier:componentType:andDictionary:];
+        v38 = defaultLogHandle(0);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        {
+          [MSDKManifestComponent initWithIdentifier:componentType:andDictionary:];
+        }
+
+        goto LABEL_35;
       }
 
-      goto LABEL_35;
-    }
+      v19 = v25;
+      if (v14)
+      {
+        [(MSDKManifestComponent *)v12 _parseFileItems:v25];
+      }
 
-    v18 = v23;
-    if (v14)
-    {
-      [(MSDKManifestComponent *)v12 _parseFileItems:v23];
-    }
+      else
+      {
+        [(MSDKManifestComponent *)v12 _parseDataItem:v25];
+      }
+      v26 = ;
+      data = v12->_data;
+      v12->_data = v26;
 
-    else
-    {
-      [(MSDKManifestComponent *)v12 _parseDataItem:v23];
-    }
-    v24 = ;
-    data = v12->_data;
-    v12->_data = v24;
+      if (v26)
+      {
+        goto LABEL_18;
+      }
 
-    if (v24)
-    {
-      goto LABEL_18;
+      goto LABEL_36;
     }
-
-    goto LABEL_36;
   }
 
   if (!v14)
   {
-    v36 = defaultLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v38 = defaultLogHandle(v18);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [MSDKManifestComponent initWithIdentifier:componentType:andDictionary:];
     }
@@ -119,60 +124,60 @@
     goto LABEL_35;
   }
 
-  v18 = [(MSDKManifestComponent *)v12 _parseDataItemsForAppComponent:v17];
-  v19 = v12->_data;
-  v12->_data = v18;
+  v19 = [(MSDKManifestComponent *)v12 _parseDataItemsForAppComponent:v17];
+  v20 = v12->_data;
+  v12->_data = v19;
 
-  if (!v18)
+  if (!v19)
   {
 LABEL_36:
 
-    v34 = 0;
+    v36 = 0;
     goto LABEL_20;
   }
 
-  v20 = [v15 objectForKey:@"Dependencies" ofType:objc_opt_class()];
-  [(MSDKManifestComponent *)v12 setRawDependencyDict:v20];
+  v21 = [v15 objectForKey:@"Dependencies" ofType:objc_opt_class()];
+  [(MSDKManifestComponent *)v12 setRawDependencyDict:v21];
 
   rawDependencyDict = [(MSDKManifestComponent *)v12 rawDependencyDict];
 
   if (!rawDependencyDict)
   {
-    v36 = defaultLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v38 = defaultLogHandle(v23);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [MSDKManifestComponent initWithIdentifier:componentType:andDictionary:];
     }
 
 LABEL_35:
 
-    v18 = 0;
+    v19 = 0;
     goto LABEL_36;
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_18:
-  v26 = [v17 objectForKey:@"OSVersion" ofType:objc_opt_class()];
+  v28 = [v17 objectForKey:@"OSVersion" ofType:objc_opt_class()];
   osVersion = v12->_osVersion;
-  v12->_osVersion = v26;
+  v12->_osVersion = v28;
 
-  v28 = [v17 objectForKey:@"PlatformType" ofType:objc_opt_class()];
+  v30 = [v17 objectForKey:@"PlatformType" ofType:objc_opt_class()];
   platformType = v12->_platformType;
-  v12->_platformType = v28;
+  v12->_platformType = v30;
 
-  v30 = [dictionaryCopy objectForKey:@"Certificate" ofType:objc_opt_class()];
+  v32 = [dictionaryCopy objectForKey:@"Certificate" ofType:objc_opt_class()];
   certificate = v12->_certificate;
-  v12->_certificate = v30;
+  v12->_certificate = v32;
 
-  v32 = [dictionaryCopy objectForKey:@"Signature" ofType:objc_opt_class()];
+  v34 = [dictionaryCopy objectForKey:@"Signature" ofType:objc_opt_class()];
   signature = v12->_signature;
-  v12->_signature = v32;
+  v12->_signature = v34;
 
 LABEL_19:
-  v34 = v12;
+  v36 = v12;
 LABEL_20:
 
-  return v34;
+  return v36;
 }
 
 - (void)addDependency:(id)dependency
@@ -230,30 +235,30 @@ LABEL_20:
 
 - (id)_parseFileItems:(id)items
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v5 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = itemsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v20 != v9)
+      if (*v19 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v19 + 1) + 8 * v10);
-      v12 = [v6 objectForKey:v11 ofType:{objc_opt_class(), v19}];
+      v11 = *(*(&v18 + 1) + 8 * v10);
+      v12 = [v6 objectForKey:v11 ofType:{objc_opt_class(), v18}];
       if (!v12)
       {
         break;
@@ -262,7 +267,7 @@ LABEL_3:
       v13 = [[MSDKManifestFileItem alloc] initWithIdentifier:v11 andDictionary:v12 forComponent:self];
       if (!v13)
       {
-        v16 = defaultLogHandle();
+        v16 = defaultLogHandle(0);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           [(MSDKManifestComponent *)v11 _parseFileItems:?];
@@ -279,7 +284,7 @@ LABEL_15:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -289,7 +294,7 @@ LABEL_15:
       }
     }
 
-    v16 = defaultLogHandle();
+    v16 = defaultLogHandle(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [MSDKManifestComponent _parseFileItems:?];
@@ -303,102 +308,85 @@ LABEL_10:
   v15 = v5;
 LABEL_16:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (void)initWithIdentifier:componentType:andDictionary:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315906;
+  v9 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315906;
   OUTLINED_FUNCTION_0_0();
-  v5 = v0;
-  v6 = v1;
-  v7 = @"Manifest";
-  v8 = v1;
-  v9 = @"Settings";
-  _os_log_error_impl(&dword_259B7D000, v2, OS_LOG_TYPE_ERROR, "%s: Component %{public}@ does not have %{public}@ or %{public}@ key", v4, 0x2Au);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  v6 = @"Manifest";
+  v7 = v1;
+  v8 = @"Settings";
+  _os_log_error_impl(&dword_259B7D000, v2, OS_LOG_TYPE_ERROR, "%s: Component %{public}@ does not have %{public}@ or %{public}@ key", v3, 0x2Au);
 }
 
 - (void)initWithIdentifier:componentType:andDictionary:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Cannot parse %{public}@ dictionary for component %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Cannot parse %{public}@ dictionary for component %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)initWithIdentifier:componentType:andDictionary:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Failed to parse %{public}@ dict for component: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Failed to parse %{public}@ dict for component: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)initWithIdentifier:componentType:andDictionary:.cold.4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Cannot parse %{public}@ dictionary for component %{public}@ of Apps/SystemApps section", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Cannot parse %{public}@ dictionary for component %{public}@ of Apps/SystemApps section", v2, v3, v4, v5, v6);
 }
 
 - (void)initWithIdentifier:componentType:andDictionary:.cold.5()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Failed to parse %{public}@ dict for component: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Failed to parse %{public}@ dict for component: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)initWithIdentifier:componentType:andDictionary:.cold.6()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Failed to parse %{public}@ dict for component: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_259B7D000, v0, v1, "%s: Failed to parse %{public}@ dict for component: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_parseDataItemsForAppComponent:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v9 = [a1 identifier];
+    v8 = [a1 identifier];
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseFileItems:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a2 identifier];
+  v7 = [a2 identifier];
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseFileItems:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 identifier];
+  v6 = [a1 identifier];
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -107,7 +107,7 @@
 
 - (void)tableView:(id)view didEndEditingRowAtIndexPath:(id)path
 {
-  v6 = sub_10000F974(&unk_1004ABA88);
+  v6 = sub_10000F974(&unk_1004ABA88, &qword_1003DF3E8);
   __chkstk_darwin(v6 - 8);
   v8 = &v12 - v7;
   if (path)
@@ -124,7 +124,7 @@
   }
 
   selfCopy = self;
-  sub_100018F04(v8, &unk_1004ABA88);
+  sub_100018F04(v8, &unk_1004ABA88, &qword_1003DF3E8);
   *(selfCopy + qword_1004AB598) = 0;
 }
 
@@ -132,7 +132,7 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_10015A818();
+  sub_10015A818(selfCopy, v5);
 }
 
 - (id)copyWithZone:(void *)zone

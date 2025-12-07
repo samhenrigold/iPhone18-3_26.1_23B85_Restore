@@ -27,7 +27,7 @@
 
 - (void)sendReport:(id)report
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   v5 = reportCopy;
   reportData = self->_reportData;
@@ -36,12 +36,12 @@
     p_additionalDetails = &self->_additionalDetails;
     additionalDetails = self->_additionalDetails;
     v8 = p_additionalDetails[1];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __31__TUIReportManager_sendReport___block_invoke_3;
-    v13[3] = &unk_279DDAEF0;
-    v14 = reportCopy;
-    [(NSString *)v8 makeReport:reportData additionalData:additionalDetails completionBlock:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __31__TUIReportManager_sendReport___block_invoke_3;
+    v12[3] = &unk_279DDAEF0;
+    v13 = reportCopy;
+    [(NSString *)v8 makeReport:reportData additionalData:additionalDetails completionBlock:v12];
   }
 
   else
@@ -56,7 +56,7 @@
     {
       reportDataError = self->_reportDataError;
       *buf = 138412290;
-      v16 = reportDataError;
+      v15 = reportDataError;
       _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_ERROR, "No report data, error = %@", buf, 0xCu);
     }
 
@@ -65,8 +65,6 @@
       (v5)[2](v5, self->_reportDataError);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __31__TUIReportManager_sendReport___block_invoke()
@@ -78,7 +76,7 @@ uint64_t __31__TUIReportManager_sendReport___block_invoke()
 
 void __31__TUIReportManager_sendReport___block_invoke_3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -90,9 +88,9 @@ void __31__TUIReportManager_sendReport___block_invoke_3(uint64_t a1, void *a2)
     v4 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_9;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_9, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "Failed to send report, error = %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "Failed to send report, error = %@", &v6, 0xCu);
     }
   }
 
@@ -101,8 +99,6 @@ void __31__TUIReportManager_sendReport___block_invoke_3(uint64_t a1, void *a2)
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __31__TUIReportManager_sendReport___block_invoke_2()
@@ -158,7 +154,7 @@ uint64_t __38__TUIReportManager_fetchDataWithUUID___block_invoke()
 
 void __38__TUIReportManager_fetchDataWithUUID___block_invoke_11(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v6)
@@ -183,11 +179,11 @@ void __38__TUIReportManager_fetchDataWithUUID___block_invoke_11(uint64_t a1, voi
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_9, OS_LOG_TYPE_ERROR))
     {
       v13 = *(a1 + 32);
-      v15 = 138412546;
-      v16 = v13;
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_26F50B000, v12, OS_LOG_TYPE_ERROR, "Failed to fetch report data for UUID (%@), error = %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v13;
+      v16 = 2112;
+      v17 = v7;
+      _os_log_impl(&dword_26F50B000, v12, OS_LOG_TYPE_ERROR, "Failed to fetch report data for UUID (%@), error = %@", &v14, 0x16u);
     }
 
     v8 = (a1 + 40);
@@ -195,8 +191,6 @@ void __38__TUIReportManager_fetchDataWithUUID___block_invoke_11(uint64_t a1, voi
   }
 
   objc_storeStrong((*v8 + v11), a3);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38__TUIReportManager_fetchDataWithUUID___block_invoke_2()

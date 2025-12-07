@@ -13,30 +13,31 @@
 
 - (RAPSubmissionStatusDownloader)initWithQuerySource:(int)source
 {
-  v12.receiver = self;
-  v12.super_class = RAPSubmissionStatusDownloader;
-  v4 = [(RAPSubmissionStatusDownloader *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = RAPSubmissionStatusDownloader;
+  v4 = [(RAPSubmissionStatusDownloader *)&v13 init];
+  v5 = v4;
   if (v4)
   {
-    v5 = sub_10000B8FC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = sub_10000B8FC(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Initializing submission status downloader from mapspushd", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Initializing submission status downloader from mapspushd", v12, 2u);
     }
 
-    v6 = objc_alloc_init(RAPBatchSubmissionStatusTicket);
-    submissionStatusTicket = v4->_submissionStatusTicket;
-    v4->_submissionStatusTicket = v6;
+    v7 = objc_alloc_init(RAPBatchSubmissionStatusTicket);
+    submissionStatusTicket = v5->_submissionStatusTicket;
+    v5->_submissionStatusTicket = v7;
 
-    v8 = objc_alloc_init(RAPSubmissionStatusSyncHandler);
-    syncHandler = v4->_syncHandler;
-    v4->_syncHandler = v8;
+    v9 = objc_alloc_init(RAPSubmissionStatusSyncHandler);
+    syncHandler = v5->_syncHandler;
+    v5->_syncHandler = v9;
 
-    v4->_querySource = source;
+    v5->_querySource = source;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)setNotificationCenter:(id)center
@@ -57,7 +58,7 @@
   completionCopy = completion;
   self->_isExpired = 0;
   UInteger = GEOConfigGetUInteger();
-  v6 = sub_10000B8FC();
+  v6 = sub_10000B8FC(UInteger);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
@@ -78,7 +79,7 @@
 {
   completionCopy = completion;
   UInteger = GEOConfigGetUInteger();
-  v10 = sub_10000B8FC();
+  v10 = sub_10000B8FC(UInteger);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
@@ -199,29 +200,29 @@
 
     if (WeakRetained)
     {
-      v8 = objc_loadWeakRetained(&self->_notificationCenter);
-      v9 = [v8 addRAPNotificationForProblemStatusChangeWithRapInfo:neededCopy];
+      v9 = objc_loadWeakRetained(&self->_notificationCenter);
+      v10 = [v9 addRAPNotificationForProblemStatusChangeWithRapInfo:neededCopy];
 
-      v10 = +[MapsPushManager defaultManager];
+      v11 = +[MapsPushManager defaultManager];
       data = [neededCopy data];
-      [v10 propagateIDSMessageOfType:1 message:data];
+      [v11 propagateIDSMessageOfType:1 message:data];
 
       rapResponse2 = [neededCopy rapResponse];
-      v13 = +[GEORPRapResponse RapStateIconAsString:](GEORPRapResponse, "RapStateIconAsString:", [rapResponse2 rapStateIcon]);
+      v14 = +[GEORPRapResponse RapStateIconAsString:](GEORPRapResponse, "RapStateIconAsString:", [rapResponse2 rapStateIcon]);
 
       rapId = [neededCopy rapId];
       rapResponse3 = [neededCopy rapResponse];
       responseId = [rapResponse3 responseId];
-      [RAPNotificationLogEvent reportNotificationWasShownWithRapId:rapId responseId:responseId notificationType:v13 completion:&stru_10003CE48];
+      [RAPNotificationLogEvent reportNotificationWasShownWithRapId:rapId responseId:responseId notificationType:v14 completion:&stru_10003CE48];
     }
 
     else
     {
-      v13 = sub_10000B8FC();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = sub_10000B8FC(v8);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        *v17 = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Empty notificationCenter, cannot send a notification", v17, 2u);
+        *v18 = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Empty notificationCenter, cannot send a notification", v18, 2u);
       }
     }
   }

@@ -137,22 +137,22 @@
   featureFlags = [currentEnvironment featureFlags];
   if ([featureFlags isFeatureEnabled:6])
   {
-    contacts = [(CNAvatarView *)self contacts];
+    v5 = objc_msgSend_contacts(self);
 
-    if (contacts)
+    if (v5)
     {
-      contacts2 = [(CNAvatarView *)self contacts];
+      currentLikenessScope = objc_msgSend_contacts(self);
       if (self->_style)
       {
-        contacts3 = [(CNAvatarView *)self contacts];
+        v7 = objc_msgSend_contacts(self);
         v55[0] = MEMORY[0x1E69E9820];
         v55[1] = 3221225472;
         v55[2] = __36__CNAvatarView__renderContactsImage__block_invoke;
         v55[3] = &unk_1E74E1D08;
         v55[4] = self;
-        v8 = [contacts3 _cn_map:v55];
+        v8 = [v7 _cn_map:v55];
 
-        contacts2 = v8;
+        currentLikenessScope = v8;
       }
 
       avatarView = [(CNAvatarView *)self avatarView];
@@ -160,7 +160,7 @@
 
       if (v10)
       {
-        avatarView2 = [[_TtC10ContactsUI25CNAvatarView_SwiftWrapper alloc] initWithContacts:contacts2 listener:self];
+        avatarView2 = [[_TtC10ContactsUI25CNAvatarView_SwiftWrapper alloc] initWithContacts:currentLikenessScope listener:self];
         [(CNAvatarView_SwiftWrapper *)avatarView2 setBackgroundStyle:[(CNAvatarView *)self backgroundStyle]];
         borderColor = [(CNAvatarView *)self borderColor];
         [(CNAvatarView_SwiftWrapper *)avatarView2 setBorderColor:borderColor];
@@ -174,7 +174,7 @@
       else
       {
         avatarView2 = [(CNAvatarView *)self avatarView];
-        [(CNAvatarView_SwiftWrapper *)avatarView2 setContacts:contacts2];
+        [(CNAvatarView_SwiftWrapper *)avatarView2 setContacts:currentLikenessScope];
       }
 
       [(CNAvatarView *)self bounds];
@@ -199,8 +199,8 @@ LABEL_24:
   [rendererToken cancel];
 
   [(CNAvatarView *)self setRendererToken:0];
-  contacts2 = [(CNAvatarView *)self currentLikenessScope];
-  if (contacts2)
+  currentLikenessScope = [(CNAvatarView *)self currentLikenessScope];
+  if (currentLikenessScope)
   {
     if ([(CNAvatarView *)self displayedImageState])
     {
@@ -211,8 +211,8 @@ LABEL_24:
     else
     {
       imageRenderer = [(CNAvatarView *)self imageRenderer];
-      contacts4 = [(CNAvatarView *)self contacts];
-      v17 = [imageRenderer loadingPlaceholderForContactCount:objc_msgSend(contacts4 scope:{"count"), contacts2}];
+      v16 = objc_msgSend_contacts(self);
+      v17 = [imageRenderer loadingPlaceholderForContactCount:objc_msgSend(v16 scope:{"count"), currentLikenessScope}];
 
       [(CNAvatarView *)self setImage:v17 state:1];
       imageView = [(CNAvatarView *)self imageView];
@@ -222,11 +222,11 @@ LABEL_24:
       if (v20)
       {
         v21 = MEMORY[0x1E6996B80];
-        contacts5 = [(CNAvatarView *)self contacts];
-        avatarView3 = [v21 publicFingerprintForContacts:contacts5 scope:contacts2];
+        v22 = objc_msgSend_contacts(self);
+        avatarView3 = [v21 publicFingerprintForContacts:v22 scope:currentLikenessScope];
 
-        contacts6 = [(CNAvatarView *)self contacts];
-        v24 = [contacts6 count];
+        v23 = objc_msgSend_contacts(self);
+        v24 = [v23 count];
         v13 = v24 > 1;
 
         v25 = CNUILogAvatarView();
@@ -260,16 +260,16 @@ LABEL_24:
       }
     }
 
-    contacts7 = [(CNAvatarView *)self contacts];
-    v35 = [contacts7 count] == 0;
+    v34 = objc_msgSend_contacts(self);
+    v35 = [v34 count] == 0;
 
     if (!v35)
     {
       imageRenderer2 = [(CNAvatarView *)self imageRenderer];
-      contacts8 = [(CNAvatarView *)self contacts];
+      v37 = objc_msgSend_contacts(self);
       schedulerProvider = [(CNAvatarView *)self schedulerProvider];
       backgroundScheduler = [schedulerProvider backgroundScheduler];
-      v40 = [imageRenderer2 renderedLikenessesForContacts:contacts8 scope:contacts2 workScheduler:backgroundScheduler];
+      v40 = [imageRenderer2 renderedLikenessesForContacts:v37 scope:currentLikenessScope workScheduler:backgroundScheduler];
 
       *buf = 0;
       *&buf[8] = buf;
@@ -571,11 +571,11 @@ LABEL_17:
   }
 
   imageRenderer = [(CNAvatarView *)self imageRenderer];
-  contacts = [(CNAvatarView *)self contacts];
+  v11 = objc_msgSend_contacts(self);
   currentLikenessScope = [(CNAvatarView *)self currentLikenessScope];
   schedulerProvider = [(CNAvatarView *)self schedulerProvider];
   backgroundScheduler = [schedulerProvider backgroundScheduler];
-  v15 = [imageRenderer renderedLikenessesForContacts:contacts scope:currentLikenessScope workScheduler:backgroundScheduler];
+  v15 = [imageRenderer renderedLikenessesForContacts:v11 scope:currentLikenessScope workScheduler:backgroundScheduler];
 
   objc_initWeak(buf, self);
   v16 = MEMORY[0x1E69967A0];
@@ -603,8 +603,8 @@ LABEL_17:
 
 - (CNContact)contact
 {
-  contacts = [(CNAvatarView *)self contacts];
-  firstObject = [contacts firstObject];
+  v2 = objc_msgSend_contacts(self, a2);
+  firstObject = [v2 firstObject];
 
   return firstObject;
 }
@@ -953,13 +953,13 @@ uint64_t __70__CNAvatarView_performTransitionAnimationWithStartHandler_completio
 
   if ((v7 & 1) == 0)
   {
-    contacts = [(CNAvatarView *)self contacts];
+    v8 = objc_msgSend_contacts(self);
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
     v14[2] = __51__CNAvatarView_avatarCacheDidUpdateForIdentifiers___block_invoke;
     v14[3] = &unk_1E74E7880;
     v15 = identifiersCopy;
-    v9 = [contacts _cn_any:v14];
+    v9 = [v8 _cn_any:v14];
 
     if (v9)
     {
@@ -1112,10 +1112,10 @@ uint64_t __33__CNAvatarView_contactDidChange___block_invoke(uint64_t a1, void *a
     [delegate2 didDismissActionsForAvatarView:self];
   }
 
-  contacts = [(CNAvatarView *)self contacts];
-  contacts2 = [dismissCopy contacts];
+  v7 = objc_msgSend_contacts(self);
+  v8 = objc_msgSend_contacts(dismissCopy);
 
-  if (contacts != contacts2)
+  if (v7 != v8)
   {
     [dismissCopy cleanupAfterDisplay];
   }
@@ -1199,21 +1199,21 @@ uint64_t __33__CNAvatarView_contactDidChange___block_invoke(uint64_t a1, void *a
     v9 = +[CNAvatarCardController descriptorForRequiredKeys];
     v26[0] = v9;
     v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-    contacts = [delegate2 contactsForPreviewInteractionForAvatarView:self suggestedKeysToFetch:v10];
+    v11 = [delegate2 contactsForPreviewInteractionForAvatarView:self suggestedKeysToFetch:v10];
   }
 
   else
   {
-    contacts = [(CNAvatarView *)self contacts];
+    v11 = objc_msgSend_contacts(self);
   }
 
-  if (![contacts count])
+  if (![v11 count])
   {
     goto LABEL_12;
   }
 
   contactStore = [(CNAvatarView *)self contactStore];
-  [controllerCopy prepareWithContacts:contacts store:contactStore];
+  [controllerCopy prepareWithContacts:v11 store:contactStore];
 
   hasActions = [controllerCopy hasActions];
   delegate3 = [(CNAvatarView *)self delegate];
@@ -1475,11 +1475,11 @@ LABEL_15:
         goto LABEL_19;
       }
 
-      contacts = [objc_opt_class() descriptionForDisplayedImageState:state];
+      v13 = [objc_opt_class() descriptionForDisplayedImageState:state];
       v18 = 134218242;
       selfCopy = self;
       v20 = 2114;
-      v21 = contacts;
+      v21 = v13;
       _os_log_impl(&dword_199A75000, v12, OS_LOG_TYPE_INFO, "[CNAvatarView] %p ignoring setting image for state (%{public}@), showing stale image instead", &v18, 0x16u);
 LABEL_12:
 
@@ -1498,9 +1498,9 @@ LABEL_12:
       goto LABEL_15;
     }
 
-    contacts = [(CNAvatarView *)self contacts];
+    v13 = objc_msgSend_contacts(self);
     v18 = 138412290;
-    selfCopy = contacts;
+    selfCopy = v13;
     _os_log_debug_impl(&dword_199A75000, v12, OS_LOG_TYPE_DEBUG, "[CNAvatarView] Setting placeholder image for %@", &v18, 0xCu);
     goto LABEL_12;
   }
@@ -1541,7 +1541,7 @@ void __36__CNAvatarView__renderContactsImage__block_invoke_71(uint64_t a1, void 
     goto LABEL_8;
   }
 
-  v6 = [WeakRetained contacts];
+  v6 = objc_msgSend_contacts(WeakRetained);
   if ([v6 count]!= 1)
   {
 LABEL_8:
@@ -1646,8 +1646,8 @@ void __36__CNAvatarView__renderContactsImage__block_invoke_72(uint64_t a1)
 {
   viewCopy = view;
   v7 = MEMORY[0x1E6996AB0];
-  contacts = [(CNAvatarView *)self contacts];
-  v9 = [v7 layoutConfigurationsForType:2 withItemCount:{objc_msgSend(contacts, "count")}];
+  v8 = objc_msgSend_contacts(self);
+  v9 = [v7 layoutConfigurationsForType:2 withItemCount:{objc_msgSend(v8, "count")}];
 
   if ([v9 count] <= index)
   {
@@ -1744,13 +1744,13 @@ LABEL_7:
 
   else
   {
-    contacts = [identityCopy contacts];
+    v10 = objc_msgSend_contacts(identityCopy);
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
     v15[2] = __60__CNAvatarView_updateViewWithGroupIdentity_maskingContacts___block_invoke;
     v15[3] = &unk_1E74E38A8;
     v16 = contactsCopy;
-    v11 = [contacts indexesOfObjectsPassingTest:v15];
+    v11 = [v10 indexesOfObjectsPassingTest:v15];
 
     maskedAvatarIndices = [(CNAvatarView *)self maskedAvatarIndices];
     -[CNAvatarView setShouldUpdateMaskedAvatars:](self, "setShouldUpdateMaskedAvatars:", [maskedAvatarIndices isEqualToIndexSet:v11] ^ 1);
@@ -1786,10 +1786,10 @@ LABEL_7:
       }
     }
 
-    contacts2 = [MEMORY[0x1E695CF18] contactWithDisplayName:0 emailOrPhoneNumber:0];
-    [contacts2 setImageData:groupPhoto];
-    [contacts2 setThumbnailImageData:groupPhoto];
-    v18[0] = contacts2;
+    v12 = [MEMORY[0x1E695CF18] contactWithDisplayName:0 emailOrPhoneNumber:0];
+    [v12 setImageData:groupPhoto];
+    [v12 setThumbnailImageData:groupPhoto];
+    v18[0] = v12;
     v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     [(CNAvatarView *)self setContacts:v13 forToken:uUID];
 
@@ -1799,13 +1799,13 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  contacts = [identityCopy contacts];
-  v15 = [(CNAvatarView *)self shouldUpdateWithContacts:contacts];
+  v14 = objc_msgSend_contacts(identityCopy);
+  v15 = [(CNAvatarView *)self shouldUpdateWithContacts:v14];
 
   if (v15)
   {
-    contacts2 = [identityCopy contacts];
-    [(CNAvatarView *)self setContacts:contacts2 forToken:uUID];
+    v12 = objc_msgSend_contacts(identityCopy);
+    [(CNAvatarView *)self setContacts:v12 forToken:uUID];
     goto LABEL_7;
   }
 
@@ -1980,9 +1980,9 @@ LABEL_13:
   if (self->_style != style)
   {
     self->_style = style;
-    contacts = [(CNAvatarView *)self contacts];
+    v4 = objc_msgSend_contacts(self, a2);
 
-    if (contacts)
+    if (v4)
     {
 
       [(CNAvatarView *)self _renderContactsImage];
@@ -1992,16 +1992,22 @@ LABEL_13:
 
 - (void)setContextToken:(id)token
 {
-  if (self->_contextToken != token)
+  tokenCopy = token;
+  v6 = tokenCopy;
+  if (self->_contextToken != tokenCopy)
   {
+    v7 = tokenCopy;
     objc_storeStrong(&self->_contextToken, token);
-    if ([(CNAvatarView *)self allowStaleRendering])
+    tokenCopy = [(CNAvatarView *)self allowStaleRendering];
+    v6 = v7;
+    if (tokenCopy)
     {
-      [(CNAvatarView *)self setAllowStaleRenderingWithMatchingContextToken:0];
+      tokenCopy = [(CNAvatarView *)self setAllowStaleRenderingWithMatchingContextToken:0];
+      v6 = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](tokenCopy, v6);
 }
 
 - (void)setShouldFetchSharedMeContactPhoto:(BOOL)photo
@@ -2119,7 +2125,7 @@ _DWORD *__120__CNAvatarView_initWithImageRenderer_threeDTouchEnabled_contactStor
     v6 = v5;
     if (v5 && ([v5 window], v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
     {
-      v8 = [v6 contacts];
+      v8 = objc_msgSend_contacts(v6);
       v9 = [v8 description];
 
       v10 = [v6 window];

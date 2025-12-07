@@ -9,8 +9,10 @@
 - (id)_treatmentIdWithNamespaceName:(id)name treatmentLayer:(unint64_t)layer;
 - (id)counterfactualFactorsStatesForNamespace:(id)namespace;
 - (id)experimentDeploymentWithNamespaceName:(id)name;
+- (id)factorLevelsWithNamespace:(unsigned int)namespace;
 - (id)factorLevelsWithNamespaceName:(id)name;
 - (id)factorPackIdForRolloutWithNamespaceName:(id)name;
+- (id)levelForFactor:(id)factor withNamespace:(unsigned int)namespace;
 - (id)levelForFactor:(id)factor withNamespaceName:(id)name;
 - (id)promotableFactorPackIdForNamespaceName:(id)name;
 - (id)rolloutDeploymentWithNamespaceName:(id)name;
@@ -25,7 +27,7 @@
 
 - (void)invalidateAllFactorProviders
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [[TRINamespaceResolver alloc] initWithPaths:self->_paths factorsState:self->_factorsState];
   v4 = TRILogCategory_ClientFramework();
   p_super = v4;
@@ -38,24 +40,22 @@
     }
 
     lock = self->_lock;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __56__TRIDefaultFactorProvider_invalidateAllFactorProviders__block_invoke;
-    v9[3] = &unk_27885E200;
-    v10 = v3;
-    [(_PASLock *)lock runWithLockAcquired:v9];
-    p_super = &v10->super;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __56__TRIDefaultFactorProvider_invalidateAllFactorProviders__block_invoke;
+    v8[3] = &unk_27885E200;
+    v9 = v3;
+    [(_PASLock *)lock runWithLockAcquired:v8];
+    p_super = &v9->super;
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     factorsState = self->_factorsState;
     *buf = 138412290;
-    v12 = factorsState;
+    v11 = factorsState;
     _os_log_impl(&dword_22EA6B000, p_super, OS_LOG_TYPE_DEFAULT, "Not invalidating namespace because factorsState is stale: %@", buf, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TRIDefaultFactorProvider_invalidateAllFactorProviders__block_invoke(uint64_t a1, id *a2)
@@ -112,32 +112,30 @@ LABEL_4:
 
 - (void)setContainer:(id)container forNamespaceName:(id)name
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   nameCopy = name;
   v8 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v18 = containerCopy;
-    v19 = 2112;
-    v20 = nameCopy;
+    v17 = containerCopy;
+    v18 = 2112;
+    v19 = nameCopy;
     _os_log_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_DEFAULT, "Setting container %@ for namespace %@", buf, 0x16u);
   }
 
   lock = self->_lock;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __58__TRIDefaultFactorProvider_setContainer_forNamespaceName___block_invoke;
-  v13[3] = &unk_27885E228;
-  v14 = containerCopy;
-  v15 = nameCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __58__TRIDefaultFactorProvider_setContainer_forNamespaceName___block_invoke;
+  v12[3] = &unk_27885E228;
+  v13 = containerCopy;
+  v14 = nameCopy;
   selfCopy = self;
   v10 = nameCopy;
   v11 = containerCopy;
-  [(_PASLock *)lock runWithLockAcquired:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(_PASLock *)lock runWithLockAcquired:v12];
 }
 
 uint64_t __58__TRIDefaultFactorProvider_setContainer_forNamespaceName___block_invoke(void *a1, uint64_t a2)
@@ -585,6 +583,25 @@ uint64_t __68__TRIDefaultFactorProvider_counterfactualFactorsStatesForNamespace_
   }
 
   return promotableFactorPackId;
+}
+
+- (id)levelForFactor:(id)factor withNamespace:(unsigned int)namespace
+{
+  v4 = *&namespace;
+  v6 = MEMORY[0x277D73B50];
+  factorCopy = factor;
+  v8 = [v6 namespaceNameFromId:v4];
+  v9 = [(TRIDefaultFactorProvider *)self levelForFactor:factorCopy withNamespaceName:v8];
+
+  return v9;
+}
+
+- (id)factorLevelsWithNamespace:(unsigned int)namespace
+{
+  v4 = [MEMORY[0x277D73B50] namespaceNameFromId:*&namespace];
+  v5 = [(TRIDefaultFactorProvider *)self factorLevelsWithNamespaceName:v4];
+
+  return v5;
 }
 
 @end

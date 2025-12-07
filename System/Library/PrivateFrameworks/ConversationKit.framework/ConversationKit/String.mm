@@ -9,7 +9,7 @@
   v3 = *__swift_project_boxed_opaque_existential_1((self + 32), *(self + 56));
   if (a2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo11IDSEndpointCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo11IDSEndpointCGMd, &_sSaySo11IDSEndpointCGMR);
     v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

@@ -87,10 +87,10 @@ LABEL_11:
 
     else if (elements)
     {
-      v11 = scn_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = scn_default_log(elements, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [SCNMTLTessellator _pipelineStateHashForMeshElement:element patchType:v11];
+        [SCNMTLTessellator _pipelineStateHashForMeshElement:element patchType:v12];
       }
     }
 
@@ -172,82 +172,82 @@ uint64_t __81__SCNMTLTessellator_newPipelineStateConfiguratorForMeshElement_patc
 
 - (void)update:(id *)update
 {
-  v15 = 0uLL;
-  v16 = 0;
-  C3DGeometryGetTessellator(self->_geometry, &v15);
-  v5 = v15.n128_u8[0];
+  v17 = 0uLL;
+  v18 = 0;
+  C3DGeometryGetTessellator(self->_geometry, a2, &v17);
+  v7 = v17.n128_u8[0];
   p_cachedTessellator = &self->_cachedTessellator;
-  if (v15.n128_u8[0] != self->_cachedTessellator.type)
+  if (v17.n128_u8[0] != self->_cachedTessellator.type)
   {
 
     self->_tessellationFactorBuffer = 0;
-    v5 = v15.n128_u8[0];
+    v7 = v17.n128_u8[0];
   }
 
-  if (v5 <= 1)
+  if (v7 <= 1)
   {
-    if (v5)
+    if (v7)
     {
-      v11 = v15;
-      *&v12 = v16;
-      [(SCNMTLTessellator *)self updateUniformTessellator:&v11];
+      v13 = v17;
+      *&v14 = v18;
+      [(SCNMTLTessellator *)self updateUniformTessellator:&v13];
     }
 
     else
     {
-      v10 = scn_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = scn_default_log(v5, v6);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [SCNMTLTessellator update:v10];
+        [SCNMTLTessellator update:v12];
       }
     }
   }
 
   else
   {
-    switch(v5)
+    switch(v7)
     {
       case 2:
-        v14 = v16;
-        v8 = *&update->var2;
-        v11 = *&update->var0;
-        v12 = v8;
-        v13 = v15;
-        [(SCNMTLTessellator *)self updateScreenSpaceAdaptiveTessellator:&v13 parameters:&v11];
+        v16 = v18;
+        v10 = *&update->var2;
+        v13 = *&update->var0;
+        v14 = v10;
+        v15 = v17;
+        [(SCNMTLTessellator *)self updateScreenSpaceAdaptiveTessellator:&v15 parameters:&v13];
         break;
       case 3:
-        v14 = v16;
-        v9 = *&update->var2;
-        v11 = *&update->var0;
-        v12 = v9;
-        v13 = v15;
-        [(SCNMTLTessellator *)self updateConstrainedEdgeLengthTessellator:&v13 parameters:&v11];
+        v16 = v18;
+        v11 = *&update->var2;
+        v13 = *&update->var0;
+        v14 = v11;
+        v15 = v17;
+        [(SCNMTLTessellator *)self updateConstrainedEdgeLengthTessellator:&v15 parameters:&v13];
         break;
       case 4:
-        v14 = v16;
-        v7 = *&update->var2;
-        v11 = *&update->var0;
-        v12 = v7;
-        v13 = v15;
-        [(SCNMTLTessellator *)self updateSubdivisionSurfaceTessellator:&v13 parameters:&v11];
+        v16 = v18;
+        v9 = *&update->var2;
+        v13 = *&update->var0;
+        v14 = v9;
+        v15 = v17;
+        [(SCNMTLTessellator *)self updateSubdivisionSurfaceTessellator:&v15 parameters:&v13];
         break;
     }
   }
 
-  *p_cachedTessellator = v15;
-  p_cachedTessellator[1].n128_u64[0] = v16;
+  *p_cachedTessellator = v17;
+  p_cachedTessellator[1].n128_u64[0] = v18;
 }
 
 - (void)draw:(id *)draw
 {
-  v10 = 0uLL;
-  v11 = 0;
-  *&v5 = C3DGeometryGetTessellator(self->_geometry, &v10).n128_u64[0];
-  if (v10.n128_u8[0] <= 1u)
+  v12 = 0uLL;
+  v13 = 0;
+  *&v7 = C3DGeometryGetTessellator(self->_geometry, a2, &v12).n128_u64[0];
+  if (v12.n128_u8[0] <= 1u)
   {
-    if (v10.n128_u8[0])
+    if (v12.n128_u8[0])
     {
-      if (v10.n128_u8[0] != 1)
+      if (v12.n128_u8[0] != 1)
       {
         return;
       }
@@ -255,10 +255,10 @@ uint64_t __81__SCNMTLTessellator_newPipelineStateConfiguratorForMeshElement_patc
 
     else
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = scn_default_log(v5, v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [SCNMTLTessellator update:v7];
+        [SCNMTLTessellator update:v9];
       }
     }
 
@@ -266,21 +266,21 @@ uint64_t __81__SCNMTLTessellator_newPipelineStateConfiguratorForMeshElement_patc
     return;
   }
 
-  switch(v10.n128_u8[0])
+  switch(v12.n128_u8[0])
   {
     case 2u:
-      [(SCNMTLTessellator *)self screenSpaceAdaptiveTessellationDrawMeshElement:draw->var3 forMesh:draw->var1 instanceCount:draw->var4 renderContext:draw->var5, v5];
+      [(SCNMTLTessellator *)self screenSpaceAdaptiveTessellationDrawMeshElement:draw->var3 forMesh:draw->var1 instanceCount:draw->var4 renderContext:draw->var5, v7];
       break;
     case 3u:
-      [(SCNMTLTessellator *)self constrainedEdgeLengthTessellationDrawMeshElement:draw->var3 forMesh:draw->var1 instanceCount:draw->var4 renderContext:draw->var5, v5];
+      [(SCNMTLTessellator *)self constrainedEdgeLengthTessellationDrawMeshElement:draw->var3 forMesh:draw->var1 instanceCount:draw->var4 renderContext:draw->var5, v7];
       break;
     case 4u:
-      v6 = *&draw->var2;
-      v8[0] = *&draw->var0;
-      v8[1] = v6;
-      v8[2] = *&draw->var4;
-      v9 = *&draw->var6;
-      [(SCNMTLTessellator *)self subdivisionSurfaceTessellationDraw:v8];
+      v8 = *&draw->var2;
+      v10[0] = *&draw->var0;
+      v10[1] = v8;
+      v10[2] = *&draw->var4;
+      v11 = *&draw->var6;
+      [(SCNMTLTessellator *)self subdivisionSurfaceTessellationDraw:v10];
       break;
   }
 }
@@ -394,7 +394,7 @@ uint64_t __81__SCNMTLTessellator_newPipelineStateConfiguratorForMeshElement_patc
 
 - (void)updateScreenSpaceAdaptiveTessellator:(id *)tessellator parameters:(id *)parameters
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   var0 = parameters->var0;
   resourceComputeEncoder = [(SCNMTLRenderContext *)parameters->var1 resourceComputeEncoder];
   bzero(resourceComputeEncoder, 0x678uLL);
@@ -402,29 +402,29 @@ uint64_t __81__SCNMTLTessellator_newPipelineStateConfiguratorForMeshElement_patc
   selfCopy = self;
   if (!self->_tessellationFactorBuffer)
   {
-    v77 = 0u;
     v78 = 0u;
-    v75 = 0u;
+    v79 = 0u;
     v76 = 0u;
+    v77 = 0u;
     elements = [(SCNMTLMesh *)var0 elements];
-    v9 = [elements countByEnumeratingWithState:&v75 objects:v81 count:16];
+    v9 = [elements countByEnumeratingWithState:&v76 objects:v82 count:16];
     if (v9)
     {
       v10 = 0;
-      v11 = *v76;
+      v11 = *v77;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v76 != v11)
+          if (*v77 != v11)
           {
             objc_enumerationMutation(elements);
           }
 
-          v10 += [(SCNMTLMeshElement *)*(*(&v75 + 1) + 8 * i) primitiveCount];
+          v10 += [(SCNMTLMeshElement *)*(*(&v76 + 1) + 8 * i) primitiveCount];
         }
 
-        v9 = [elements countByEnumeratingWithState:&v75 objects:v81 count:16];
+        v9 = [elements countByEnumeratingWithState:&v76 objects:v82 count:16];
       }
 
       while (v9);
@@ -435,127 +435,127 @@ uint64_t __81__SCNMTLTessellator_newPipelineStateConfiguratorForMeshElement_patc
   }
 
   commandQueue = [(SCNMTLResourceManager *)var0 commandQueue];
-  v43 = [objc_msgSend(commandQueue "attributes")];
-  v42 = [objc_msgSend(commandQueue "layouts")];
+  v44 = [objc_msgSend(commandQueue "attributes")];
+  v43 = [objc_msgSend(commandQueue "layouts")];
   [v7 pushDebugGroup:@"Compute SCNGeometryScreenSpaceAdaptiveTessellator tessellation factors"];
-  v73 = 0u;
   v74 = 0u;
-  v71 = 0u;
+  v75 = 0u;
   v72 = 0u;
-  v44 = var0;
+  v73 = 0u;
+  v45 = var0;
   obj = [(SCNMTLMesh *)var0 elements];
-  v47 = [obj countByEnumeratingWithState:&v71 objects:v80 count:16];
-  if (v47)
+  v48 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
+  if (v48)
   {
     v14 = 0;
-    v40 = *v72;
-    v41 = v7;
-    v39 = vdupq_n_s64(1uLL);
+    v41 = *v73;
+    v42 = v7;
+    v40 = vdupq_n_s64(1uLL);
     do
     {
-      for (j = 0; j != v47; ++j)
+      for (j = 0; j != v48; ++j)
       {
-        if (*v72 != v40)
+        if (*v73 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v71 + 1) + 8 * j);
+        v16 = *(*(&v72 + 1) + 8 * j);
         elements2 = [(SCNMTLMesh *)v16 elements];
         if (elements2)
         {
           if (elements2 == 1)
           {
-            v18 = @"compute_tessellation_factors_screeenspace_adaptive_uint32";
+            v19 = @"compute_tessellation_factors_screeenspace_adaptive_uint32";
           }
 
           else
           {
-            v19 = scn_default_log();
-            v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
-            v18 = &stru_282DCC058;
-            if (v20)
+            v20 = scn_default_log(elements2, v18);
+            v21 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+            v19 = &stru_282DCC058;
+            if (v21)
             {
-              [SCNMTLTessellator updateScreenSpaceAdaptiveTessellator:v79 parameters:v16];
-              v18 = &stru_282DCC058;
+              [SCNMTLTessellator updateScreenSpaceAdaptiveTessellator:v80 parameters:v16];
+              v19 = &stru_282DCC058;
             }
           }
         }
 
         else
         {
-          v18 = @"compute_tessellation_factors_screeenspace_adaptive_uint16";
+          v19 = @"compute_tessellation_factors_screeenspace_adaptive_uint16";
         }
 
-        computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)[(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v18] computeEvaluator];
+        computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)[(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v19] computeEvaluator];
         primitiveCount = [(SCNMTLMeshElement *)v16 primitiveCount];
         buffer = [-[SCNMTLMeshElement indexBuffer](v16) buffer];
         offset = [-[SCNMTLMeshElement indexBuffer](v16) offset];
         libraryManager = [(SCNMTLResourceManager *)v16 libraryManager];
-        v48 = [-[SCNMTLMesh buffers](v44) objectAtIndexedSubscript:{objc_msgSend(v43, "bufferIndex") - 18}];
-        stride = [v42 stride];
+        v49 = [-[SCNMTLMesh buffers](v45) objectAtIndexedSubscript:{objc_msgSend(v44, "bufferIndex") - 18}];
+        stride = [v43 stride];
         threadExecutionWidth = [computeEvaluator threadExecutionWidth];
         engineContext = [(SCNMTLRenderContext *)parameters->var1 engineContext];
         Viewport = C3DEngineContextGetViewport(engineContext);
-        v27 = tessellator->var4.var0.var0;
-        v69 = 0u;
+        v28 = tessellator->var4.var0.var0;
         v70 = 0u;
-        v67 = 0u;
+        v71 = 0u;
         v68 = 0u;
-        Viewport.n128_f32[0] = Viewport.n128_f32[3] / v27;
-        v65 = 0u;
+        v69 = 0u;
+        Viewport.n128_f32[0] = Viewport.n128_f32[3] / v28;
         v66 = 0u;
-        v63 = 0u;
+        v67 = 0u;
         v64 = 0u;
-        v61 = 0u;
+        v65 = 0u;
         v62 = 0u;
-        v59 = 0u;
+        v63 = 0u;
         v60 = 0u;
-        v57 = 0u;
+        v61 = 0u;
         v58 = 0u;
-        LODWORD(v57) = primitiveCount;
-        BYTE4(v57) = stride;
+        v59 = 0u;
+        LODWORD(v58) = primitiveCount;
+        BYTE4(v58) = stride;
         var2 = parameters->var2;
-        v29 = *var2;
-        v30 = *(var2 + 1);
-        v31 = *(var2 + 3);
-        v60 = *(var2 + 2);
-        v61 = v31;
-        v58 = v29;
-        v59 = v30;
-        v32 = *(var2 + 4);
-        v33 = *(var2 + 5);
-        v34 = *(var2 + 7);
-        v64 = *(var2 + 6);
-        v65 = v34;
+        v30 = *var2;
+        v31 = *(var2 + 1);
+        v32 = *(var2 + 3);
+        v61 = *(var2 + 2);
         v62 = v32;
-        v63 = v33;
-        v35 = *(var2 + 8);
-        v36 = *(var2 + 9);
-        v37 = *(var2 + 11);
-        v68 = *(var2 + 10);
-        v69 = v37;
+        v59 = v30;
+        v60 = v31;
+        v33 = *(var2 + 4);
+        v34 = *(var2 + 5);
+        v35 = *(var2 + 7);
+        v65 = *(var2 + 6);
         v66 = v35;
+        v63 = v33;
+        v64 = v34;
+        v36 = *(var2 + 8);
+        v37 = *(var2 + 9);
+        v38 = *(var2 + 11);
+        v69 = *(var2 + 10);
+        v70 = v38;
         v67 = v36;
-        LODWORD(v70) = Viewport.n128_u32[0];
-        v7 = v41;
-        [v41 setComputePipelineState:computeEvaluator];
-        [v41 setBuffer:selfCopy->_tessellationFactorBuffer offset:24 * v14 atIndex:0];
-        [v41 setBuffer:buffer offset:libraryManager + offset atIndex:1];
-        [v41 setBuffer:v48 offset:0 atIndex:2];
-        [v41 setBytes:&v57 length:224 atIndex:3];
-        v55 = (primitiveCount + threadExecutionWidth - 1) / threadExecutionWidth;
-        v56 = v39;
-        v53 = threadExecutionWidth;
-        v54 = v39;
-        [v41 dispatchThreadgroups:&v55 threadsPerThreadgroup:&v53];
+        v68 = v37;
+        LODWORD(v71) = Viewport.n128_u32[0];
+        v7 = v42;
+        [v42 setComputePipelineState:computeEvaluator];
+        [v42 setBuffer:selfCopy->_tessellationFactorBuffer offset:24 * v14 atIndex:0];
+        [v42 setBuffer:buffer offset:libraryManager + offset atIndex:1];
+        [v42 setBuffer:v49 offset:0 atIndex:2];
+        [v42 setBytes:&v58 length:224 atIndex:3];
+        v56 = (primitiveCount + threadExecutionWidth - 1) / threadExecutionWidth;
+        v57 = v40;
+        v54 = threadExecutionWidth;
+        v55 = v40;
+        [v42 dispatchThreadgroups:&v56 threadsPerThreadgroup:&v54];
         v14 += primitiveCount;
       }
 
-      v47 = [obj countByEnumeratingWithState:&v71 objects:v80 count:16];
+      v48 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
     }
 
-    while (v47);
+    while (v48);
   }
 
   [v7 popDebugGroup];
@@ -618,7 +618,7 @@ LABEL_3:
 
 - (void)updateConstrainedEdgeLengthTessellator:(id *)tessellator parameters:(id *)parameters
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   var0 = parameters->var0;
   if (self->_tessellationFactorBuffer)
   {
@@ -630,29 +630,29 @@ LABEL_3:
 
   else
   {
-    v51 = 0u;
     v52 = 0u;
-    v49 = 0u;
+    v53 = 0u;
     v50 = 0u;
+    v51 = 0u;
     elements = [(SCNMTLMesh *)var0 elements];
-    v9 = [elements countByEnumeratingWithState:&v49 objects:v55 count:16];
+    v9 = [elements countByEnumeratingWithState:&v50 objects:v56 count:16];
     if (v9)
     {
       v10 = 0;
-      v11 = *v50;
+      v11 = *v51;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v50 != v11)
+          if (*v51 != v11)
           {
             objc_enumerationMutation(elements);
           }
 
-          v10 += [(SCNMTLMeshElement *)*(*(&v49 + 1) + 8 * i) primitiveCount];
+          v10 += [(SCNMTLMeshElement *)*(*(&v50 + 1) + 8 * i) primitiveCount];
         }
 
-        v9 = [elements countByEnumeratingWithState:&v49 objects:v55 count:16];
+        v9 = [elements countByEnumeratingWithState:&v50 objects:v56 count:16];
       }
 
       while (v9);
@@ -668,85 +668,85 @@ LABEL_3:
   bzero(resourceComputeEncoder, 0x678uLL);
   v14 = resourceComputeEncoder[207];
   commandQueue = [(SCNMTLResourceManager *)var0 commandQueue];
-  v32 = [objc_msgSend(commandQueue "attributes")];
-  v31 = [objc_msgSend(commandQueue "layouts")];
+  v33 = [objc_msgSend(commandQueue "attributes")];
+  v32 = [objc_msgSend(commandQueue "layouts")];
   [v14 pushDebugGroup:@"Compute kC3DGeometryTessellatorTypeConstrainedEdgeLength tessellation factors"];
-  v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v33 = var0;
+  v47 = 0u;
+  v34 = var0;
   obj = [(SCNMTLMesh *)var0 elements];
-  v36 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
-  if (v36)
+  v37 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+  if (v37)
   {
     v16 = 0;
-    v30 = *v46;
-    v29 = vdupq_n_s64(1uLL);
+    v31 = *v47;
+    v30 = vdupq_n_s64(1uLL);
     do
     {
-      for (j = 0; j != v36; ++j)
+      for (j = 0; j != v37; ++j)
       {
-        if (*v46 != v30)
+        if (*v47 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v45 + 1) + 8 * j);
+        v18 = *(*(&v46 + 1) + 8 * j);
         elements2 = [(SCNMTLMesh *)v18 elements];
         if (elements2)
         {
           if (elements2 == 1)
           {
-            v20 = @"compute_tessellation_factors_constrained_edge_uint32";
+            v21 = @"compute_tessellation_factors_constrained_edge_uint32";
           }
 
           else
           {
-            v21 = scn_default_log();
-            v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-            v20 = &stru_282DCC058;
-            if (v22)
+            v22 = scn_default_log(elements2, v20);
+            v23 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+            v21 = &stru_282DCC058;
+            if (v23)
             {
-              [SCNMTLTessellator updateScreenSpaceAdaptiveTessellator:v53 parameters:v18];
-              v20 = &stru_282DCC058;
+              [SCNMTLTessellator updateScreenSpaceAdaptiveTessellator:v54 parameters:v18];
+              v21 = &stru_282DCC058;
             }
           }
         }
 
         else
         {
-          v20 = @"compute_tessellation_factors_constrained_edge_uint16";
+          v21 = @"compute_tessellation_factors_constrained_edge_uint16";
         }
 
-        computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)[(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v20] computeEvaluator];
+        computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)[(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v21] computeEvaluator];
         primitiveCount = [(SCNMTLMeshElement *)v18 primitiveCount];
         buffer = [-[SCNMTLMeshElement indexBuffer](v18) buffer];
         offset = [-[SCNMTLMeshElement indexBuffer](v18) offset];
         libraryManager = [(SCNMTLResourceManager *)v18 libraryManager];
-        v25 = [-[SCNMTLMesh buffers](v33) objectAtIndexedSubscript:{objc_msgSend(v32, "bufferIndex") - 18}];
-        stride = [v31 stride];
+        v26 = [-[SCNMTLMesh buffers](v34) objectAtIndexedSubscript:{objc_msgSend(v33, "bufferIndex") - 18}];
+        stride = [v32 stride];
         threadExecutionWidth = [computeEvaluator threadExecutionWidth];
-        v44[0] = primitiveCount;
-        v44[1] = stride;
-        v44[2] = LODWORD(tessellatorCopy->var4.var0.var0);
+        v45[0] = primitiveCount;
+        v45[1] = stride;
+        v45[2] = LODWORD(tessellatorCopy->var4.var0.var0);
         [v14 setComputePipelineState:computeEvaluator];
         [v14 setBuffer:selfCopy->_tessellationFactorBuffer offset:24 * v16 atIndex:0];
         [v14 setBuffer:buffer offset:libraryManager + offset atIndex:1];
-        [v14 setBuffer:v25 offset:0 atIndex:2];
-        [v14 setBytes:v44 length:12 atIndex:3];
-        v42 = (primitiveCount + threadExecutionWidth - 1) / threadExecutionWidth;
-        v43 = v29;
-        v40 = threadExecutionWidth;
-        v41 = v29;
-        [v14 dispatchThreadgroups:&v42 threadsPerThreadgroup:&v40];
+        [v14 setBuffer:v26 offset:0 atIndex:2];
+        [v14 setBytes:v45 length:12 atIndex:3];
+        v43 = (primitiveCount + threadExecutionWidth - 1) / threadExecutionWidth;
+        v44 = v30;
+        v41 = threadExecutionWidth;
+        v42 = v30;
+        [v14 dispatchThreadgroups:&v43 threadsPerThreadgroup:&v41];
         v16 += primitiveCount;
       }
 
-      v36 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v37 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
     }
 
-    while (v36);
+    while (v37);
   }
 
   [v14 popDebugGroup];

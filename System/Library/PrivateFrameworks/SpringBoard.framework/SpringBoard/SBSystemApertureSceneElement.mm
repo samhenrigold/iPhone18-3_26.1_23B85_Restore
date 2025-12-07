@@ -378,12 +378,12 @@ void __58__SBSystemApertureSceneElement_defaultAnimationParameters__block_invoke
   return v19;
 }
 
-void __147__SBSystemApertureSceneElement_initWithSceneSpecification_sceneClientIdentity_statusBarBackgroundActivitiesSuppresser_readyForPresentationHandler___block_invoke(uint64_t a1, void *a2)
+void __147__SBSystemApertureSceneElement_initWithSceneSpecification_sceneClientIdentity_statusBarBackgroundActivitiesSuppresser_readyForPresentationHandler___block_invoke(void *a1, void *a2)
 {
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   v4 = a2;
   [v4 setSpecification:v3];
-  [v4 setClientIdentity:*(a1 + 40)];
+  [v4 setClientIdentity:a1[5]];
   v5 = [objc_opt_class() sceneWorkspace];
   v9 = [v5 identifier];
 
@@ -970,7 +970,7 @@ void __104__SBSystemApertureSceneElement__activateSceneWithInitialOtherSettings_
   v10 = v4;
   [v3 updateSettingsWithBlock:v9];
   v5 = *(a1 + 48);
-  if (v5 || *(a1 + 56))
+  if (*(a1 + 48) != 0)
   {
     v6[0] = MEMORY[0x277D85DD0];
     v6[1] = 3221225472;
@@ -3059,7 +3059,7 @@ LABEL_11:
     v6 = associatedApplication;
     nowLocatingApps = [SBApp nowLocatingApps];
     associatedApplication2 = [(SBSystemApertureSceneElement *)self associatedApplication];
-    v9 = [nowLocatingApps containsObject:associatedApplication2];
+    v9 = objc_msgSend_containsObject_(nowLocatingApps);
 
     if (v9)
     {
@@ -4622,7 +4622,7 @@ void __63__SBSystemApertureSceneElement__setupSceneViewInContainerView___block_i
     v20 = v19;
     self = [(SBSystemApertureSceneElement *)self scene];
     settings = [(SBSystemApertureSceneElement *)self settings];
-    [settings frame];
+    objc_msgSend_frame(settings);
     v23 = v20 != v22 || v18 != v21;
   }
 
@@ -4911,7 +4911,7 @@ LABEL_38:
 
 LABEL_51:
   sceneView = [(SBSystemApertureSceneElement *)self sceneView];
-  [sceneView frame];
+  objc_msgSend_frame(sceneView);
   v54 = v53;
   v56 = v55;
 
@@ -5755,7 +5755,7 @@ void __52__SBSystemApertureSceneElement__updateRecordingMode__block_invoke(uint6
   v9 = [sBUISA_secureFlipBookSymmetricalConfigurations objectForKey:configurationCopy];
 
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:orientation];
-  LOBYTE(configurationCopy) = [v9 containsObject:v10];
+  LOBYTE(configurationCopy) = objc_msgSend_containsObject_(v9);
 
   return configurationCopy;
 }

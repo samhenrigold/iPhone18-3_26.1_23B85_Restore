@@ -1,5 +1,4 @@
 @interface OUFrame
-- (__n128)referenceOriginTransform;
 - (__n128)setReferenceOriginTransform:(__n128)transform;
 - (void)setColorBuffer:(__CVBuffer *)buffer;
 - (void)setSceneColorBuffer:(__CVBuffer *)buffer;
@@ -10,15 +9,6 @@
 @end
 
 @implementation OUFrame
-
-- (__n128)referenceOriginTransform
-{
-  result = *(self + 48);
-  v2 = *(self + 64);
-  v3 = *(self + 80);
-  v4 = *(self + 96);
-  return result;
-}
 
 - (__n128)setReferenceOriginTransform:(__n128)transform
 {

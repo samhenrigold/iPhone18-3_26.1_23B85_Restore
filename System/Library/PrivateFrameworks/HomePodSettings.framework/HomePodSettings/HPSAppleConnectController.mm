@@ -37,10 +37,11 @@
 
 uint64_t __43__HPSAppleConnectController_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  sharedInstance_sharedInstance = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (HPSAppleConnectController)init
@@ -168,7 +169,7 @@ LABEL_7:
 
 void __59__HPSAppleConnectController_validateWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accountID];
   if (![v2 length])
   {
@@ -193,9 +194,9 @@ LABEL_5:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v10 = v5;
-    v11 = 2112;
-    v12 = 0;
+    v9 = v5;
+    v10 = 2112;
+    v11 = 0;
     _os_log_impl(&dword_2542B7000, v7, OS_LOG_TYPE_DEFAULT, "AppleConnect credentials invalid: status:%d error:%@", buf, 0x12u);
   }
 
@@ -203,8 +204,6 @@ LABEL_5:
 
 LABEL_9:
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tokenWithError:(id)error
@@ -222,8 +221,8 @@ LABEL_9:
 
 void __44__HPSAppleConnectController_tokenWithError___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0;
   v2 = [*(a1 + 32) accountID];
   v3 = [*(a1 + 32) password];
   v4 = ACMobileShimCopyTicket();
@@ -231,22 +230,22 @@ void __44__HPSAppleConnectController_tokenWithError___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v10;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v9;
     _os_log_impl(&dword_2542B7000, v5, OS_LOG_TYPE_DEFAULT, "copyTicket returned %d %@", buf, 0x12u);
   }
 
   v6 = HPSLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __44__HPSAppleConnectController_tokenWithError___block_invoke_cold_1(&v10, v4, v6);
+    __44__HPSAppleConnectController_tokenWithError___block_invoke_cold_1(&v9, v4, v6);
   }
 
-  v7 = v10;
-  if (v10)
+  v7 = v9;
+  if (v9)
   {
-    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HPSAppleConnectControllerErrorDomain" code:-1101 userInfo:v10];
+    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HPSAppleConnectControllerErrorDomain" code:-1101 userInfo:v9];
   }
 
   else
@@ -255,26 +254,20 @@ void __44__HPSAppleConnectController_tokenWithError___block_invoke(uint64_t a1)
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readCachedCredentials
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_saveCredentials
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccountID:(id)d
@@ -321,14 +314,13 @@ void __44__HPSAppleConnectController_tokenWithError___block_invoke(uint64_t a1)
 
 void __44__HPSAppleConnectController_tokenWithError___block_invoke_cold_1(uint64_t *a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5[0] = 67109378;
-  v5[1] = a2;
-  v6 = 2112;
-  v7 = v3;
-  _os_log_error_impl(&dword_2542B7000, log, OS_LOG_TYPE_ERROR, "AppleConnect credentials invalid: status:%d error:%@", v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109378;
+  v4[1] = a2;
+  v5 = 2112;
+  v6 = v3;
+  _os_log_error_impl(&dword_2542B7000, log, OS_LOG_TYPE_ERROR, "AppleConnect credentials invalid: status:%d error:%@", v4, 0x12u);
 }
 
 @end

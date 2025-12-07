@@ -110,7 +110,7 @@
     IsAppleInternalBuild();
   }
 
-  return OUTLINED_FUNCTION_0();
+  return OUTLINED_FUNCTION_0(&gLogCategory_APUIAirPlaySetupFlowLauncher, "+[APUIAirPlaySetupFlowLauncher launchAirPlayManualSetupFlowForDiscoveryBroker:]");
 }
 
 + (uint64_t)launchAirPlaySetupFlowWithUserInfo:(uint64_t)a1 .cold.1(uint64_t a1)
@@ -120,7 +120,7 @@
     IsAppleInternalBuild();
   }
 
-  return OUTLINED_FUNCTION_0();
+  return OUTLINED_FUNCTION_0(&gLogCategory_APUIAirPlaySetupFlowLauncher, "+[APUIAirPlaySetupFlowLauncher launchAirPlaySetupFlowWithUserInfo:]");
 }
 
 @end

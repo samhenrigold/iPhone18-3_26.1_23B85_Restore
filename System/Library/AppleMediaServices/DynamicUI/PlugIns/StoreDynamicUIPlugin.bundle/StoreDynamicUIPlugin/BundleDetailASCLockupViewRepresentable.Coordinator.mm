@@ -9,7 +9,7 @@
   viewCopy = view;
   changeCopy = change;
   selfCopy = self;
-  sub_3B6B8(viewCopy);
+  sub_3B6B8(viewCopy, changeCopy);
 }
 
 @end

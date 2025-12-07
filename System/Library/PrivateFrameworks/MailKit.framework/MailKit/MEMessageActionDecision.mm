@@ -13,14 +13,12 @@
 
 + (MEMessageActionDecision)decisionApplyingAction:(MEMessageAction *)action
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = action;
   v4 = [MEMessageActionDecision alloc];
-  v9[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [(MEMessageActionDecision *)v4 initWithActions:v5 invokeAgainWithBody:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

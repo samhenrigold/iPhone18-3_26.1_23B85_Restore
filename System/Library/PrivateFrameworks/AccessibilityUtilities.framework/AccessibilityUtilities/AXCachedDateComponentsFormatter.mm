@@ -5,9 +5,11 @@
 
 uint64_t ___AXCachedDateComponentsFormatter_block_invoke()
 {
-  _AXCachedDateComponentsFormatter_AXDateComponentsFormatterQueue = dispatch_queue_create("AXDateComponentsFormatter", 0);
+  v0 = dispatch_queue_create("AXDateComponentsFormatter", 0);
+  v1 = _AXCachedDateComponentsFormatter_AXDateComponentsFormatterQueue;
+  _AXCachedDateComponentsFormatter_AXDateComponentsFormatterQueue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void ___AXCachedDateComponentsFormatter_block_invoke_2(uint64_t a1)
@@ -53,9 +55,11 @@ void ___AXCachedDateComponentsFormatter_block_invoke_2(uint64_t a1)
 
 uint64_t ___AXCachedDateComponentsFormatter_block_invoke_3()
 {
-  _block_invoke_2_DateFormatters = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = _block_invoke_2_DateFormatters;
+  _block_invoke_2_DateFormatters = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

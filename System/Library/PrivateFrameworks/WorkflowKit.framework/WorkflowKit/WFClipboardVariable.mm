@@ -11,8 +11,8 @@
 
 - (id)requiredAccessResources
 {
-  generalPasteboard = [(objc_class *)getUIPasteboardClass_64408() generalPasteboard];
-  v3 = [MEMORY[0x1E6996D40] requiredResourcesForContentInPasteboard:generalPasteboard];
+  v2 = [getUIPasteboardClass_64408(self a2)];
+  v3 = [MEMORY[0x1E6996D40] requiredResourcesForContentInPasteboard:v2];
 
   return v3;
 }

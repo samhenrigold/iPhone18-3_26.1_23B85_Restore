@@ -4,6 +4,7 @@
 - (id)_assetLocalIdentifier;
 - (id)_explorerImage;
 - (id)_imageURL;
+- (id)_photoAssetDataWithNetWorkAccess:(BOOL)access;
 - (id)_photoLibraryURL;
 - (id)_screenGrabImage;
 - (id)_visionFeatureDescriptionOptions;
@@ -13,6 +14,8 @@
 - (void)_setupRemoteProxy;
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -52,6 +55,51 @@
   }
 
   return visionEngine;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = VOTImageExplorerViewServiceAdaptorViewController;
+  [(VOTImageExplorerViewServiceAdaptorViewController *)&v16 viewDidAppear:appear];
+  [(VOTImageExplorerViewServiceAdaptorViewController *)self _setupRemoteProxy];
+  v4 = [UINavigationController alloc];
+  imageExplorerViewController = [(VOTImageExplorerViewServiceAdaptorViewController *)self imageExplorerViewController];
+  v6 = [v4 initWithRootViewController:imageExplorerViewController];
+
+  [v6 setModalPresentationStyle:1];
+  navigationBar = [v6 navigationBar];
+  [navigationBar setTranslucent:0];
+
+  [v6 setModalTransitionStyle:2];
+  imageExplorerViewController2 = [(VOTImageExplorerViewServiceAdaptorViewController *)self imageExplorerViewController];
+  presentationController = [v6 presentationController];
+  [presentationController setDelegate:imageExplorerViewController2];
+
+  navigationBar2 = [v6 navigationBar];
+  [navigationBar2 _setAccessibilityServesAsFirstElement:1];
+
+  v11 = +[UIColor systemBackgroundColor];
+  view = [v6 view];
+  [view setBackgroundColor:v11];
+
+  [(VOTImageExplorerViewServiceAdaptorViewController *)self _explorerImage];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100006224;
+  v14[3] = &unk_1000287E0;
+  v15 = v14[4] = self;
+  v13 = v15;
+  [(VOTImageExplorerViewServiceAdaptorViewController *)self presentViewController:v6 animated:1 completion:v14];
+  AXPerformBlockOnMainThreadAfterDelay();
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VOTImageExplorerViewServiceAdaptorViewController;
+  [(VOTImageExplorerViewServiceAdaptorViewController *)&v4 viewDidDisappear:disappear];
+  [(VOTImageExplorerViewServiceAdaptorViewController *)self _dismiss];
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion
@@ -152,7 +200,7 @@
         v26 = VOTLogImageExplorer();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
         {
-          sub_1000136B8();
+          sub_1000136B8(self);
         }
       }
 
@@ -163,7 +211,7 @@ LABEL_20:
     v18 = VOTLogImageExplorer();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      sub_100013748();
+      sub_100013748(self);
     }
   }
 
@@ -240,6 +288,17 @@ LABEL_21:
   return photoLibraryURL;
 }
 
+- (id)_photoAssetDataWithNetWorkAccess:(BOOL)access
+{
+  accessCopy = access;
+  v5 = [AXMPhotoAssetData alloc];
+  _assetLocalIdentifier = [(VOTImageExplorerViewServiceAdaptorViewController *)self _assetLocalIdentifier];
+  _photoLibraryURL = [(VOTImageExplorerViewServiceAdaptorViewController *)self _photoLibraryURL];
+  v8 = [v5 initWithImageAssetLocalIdentifier:_assetLocalIdentifier photoLibraryURL:_photoLibraryURL allowsNetworkAccess:accessCopy needsImageData:1];
+
+  return v8;
+}
+
 - (id)_explorerImage
 {
   _isAssetLocallyAvailable = [(VOTImageExplorerViewServiceAdaptorViewController *)self _isAssetLocallyAvailable];
@@ -308,7 +367,7 @@ LABEL_17:
   v16 = VOTLogImageExplorer();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
-    sub_100013894();
+    sub_100013894(self);
   }
 
   v7 = 0;

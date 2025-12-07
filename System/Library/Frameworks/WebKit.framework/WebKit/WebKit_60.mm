@@ -1,8 +1,8 @@
-void sub_19D8998B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
+void sub_19D8998B4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
 {
   if (*(v11 + 48) == 1)
   {
-    (*(*(v11 + 40) + 8))(v11 + 40);
+    (*(*(v11 + 40) + 8))(v11 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -13,7 +13,7 @@ void sub_19D8998B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPITest::assertSafe(WebKit::JSWebExtensionAPITest *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPITest::assertSafe(WebKit::JSWebExtensionAPITest *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v41 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPITest(this, a3, a3);
@@ -167,11 +167,11 @@ LABEL_40:
   return JSValueMakeUndefined(this);
 }
 
-void sub_19D899DE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D899DE0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (*(v9 + 48) == 1)
   {
-    (*(*(v9 + 40) + 8))(v9 + 40);
+    (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -182,7 +182,7 @@ void sub_19D899DE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPITest::assertSafeResolve(WebKit::JSWebExtensionAPITest *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPITest::assertSafeResolve(WebKit::JSWebExtensionAPITest *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v41 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPITest(this, a3, a3);
@@ -336,11 +336,11 @@ LABEL_40:
   return JSValueMakeUndefined(this);
 }
 
-void sub_19D89A2FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D89A2FC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (*(v9 + 48) == 1)
   {
-    (*(*(v9 + 40) + 8))(v9 + 40);
+    (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -351,7 +351,7 @@ void sub_19D89A2FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPITest::addTest(WebKit::JSWebExtensionAPITest *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, id *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPITest::addTest(WebKit::JSWebExtensionAPITest *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, id *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v36 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPITest(this, a3, a3);
@@ -478,7 +478,7 @@ void sub_19D89A6F0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-JSValueRef WebKit::JSWebExtensionAPITest::runTests(WebKit::JSWebExtensionAPITest *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPITest::runTests(WebKit::JSWebExtensionAPITest *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v37 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPITest(this, a3, a3);
@@ -934,7 +934,7 @@ JSClassRef WebKit::JSWebExtensionAPIWebNavigation::webNavigationClass(WebKit::JS
   return result;
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebNavigation::getFrame(WebKit::JSWebExtensionAPIWebNavigation *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebNavigation::getFrame(WebKit::JSWebExtensionAPIWebNavigation *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, id *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v50 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWebNavigation(this, a3, a3);
@@ -1049,12 +1049,12 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  if (JSValueIsObject(this, *(a5 + 8)) && (v24 = JSValueToObject(this, *(a5 + 8), 0), JSObjectIsFunction(this, v24)) || JSValueIsNull(this, *(a5 + 8)) || JSValueIsUndefined(this, *(a5 + 8)))
+  if (JSValueIsObject(this, a5[1]) && (v24 = JSValueToObject(this, a5[1], 0), JSObjectIsFunction(this, v24)) || JSValueIsNull(this, a5[1]) || JSValueIsUndefined(this, a5[1]))
   {
     v21 = WebKit::toNSDictionary(this, *a5, 0, 0);
-    v25 = *(a5 + 8);
+    v25 = a5[1];
     v26 = (*(*v12 + 16))(v12);
-    WebKit::toJSCallbackHandler(this, v25, v26, buf);
+    WebKit::toJSCallbackHandler(buf, this, v25, v26);
     v16 = *buf;
     if (!v21)
     {
@@ -1082,7 +1082,7 @@ LABEL_21:
     v44 = resolve;
     *buf = this;
     v43 = reject;
-    WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v40, buf, &v44, &v43);
+    WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v40, buf, &v44, &v43, resolve);
     v16 = v40;
 LABEL_22:
     *buf = v16;
@@ -1133,11 +1133,11 @@ LABEL_28:
   return Undefined;
 }
 
-void sub_19D89B990(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
+void sub_19D89B990(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
 {
   if (*(v15 + 48) == 1)
   {
-    (*(*(v15 + 40) + 8))(v15 + 40);
+    (*(*(v15 + 40) + 8))(v15 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -1148,7 +1148,7 @@ void sub_19D89B990(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebNavigation::getAllFrames(WebKit::JSWebExtensionAPIWebNavigation *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebNavigation::getAllFrames(WebKit::JSWebExtensionAPIWebNavigation *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, id *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v50 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWebNavigation(this, a3, a3);
@@ -1263,12 +1263,12 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  if (JSValueIsObject(this, *(a5 + 8)) && (v24 = JSValueToObject(this, *(a5 + 8), 0), JSObjectIsFunction(this, v24)) || JSValueIsNull(this, *(a5 + 8)) || JSValueIsUndefined(this, *(a5 + 8)))
+  if (JSValueIsObject(this, a5[1]) && (v24 = JSValueToObject(this, a5[1], 0), JSObjectIsFunction(this, v24)) || JSValueIsNull(this, a5[1]) || JSValueIsUndefined(this, a5[1]))
   {
     v21 = WebKit::toNSDictionary(this, *a5, 0, 0);
-    v25 = *(a5 + 8);
+    v25 = a5[1];
     v26 = (*(*v12 + 16))(v12);
-    WebKit::toJSCallbackHandler(this, v25, v26, buf);
+    WebKit::toJSCallbackHandler(buf, this, v25, v26);
     v16 = *buf;
     if (!v21)
     {
@@ -1296,7 +1296,7 @@ LABEL_21:
     v44 = resolve;
     *buf = this;
     v43 = reject;
-    WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v40, buf, &v44, &v43);
+    WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v40, buf, &v44, &v43, resolve);
     v16 = v40;
 LABEL_22:
     *buf = v16;
@@ -1347,11 +1347,11 @@ LABEL_28:
   return Undefined;
 }
 
-void sub_19D89BF78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
+void sub_19D89BF78(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
 {
   if (*(v15 + 48) == 1)
   {
-    (*(*(v15 + 40) + 8))(v15 + 40);
+    (*(*(v15 + 40) + 8))(v15 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -1432,13 +1432,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebNavigation::onBeforeNavigate(WebKit::JSWe
   return Undefined;
 }
 
-void sub_19D89C280(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D89C280(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -1520,13 +1520,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebNavigation::onCommitted(WebKit::JSWebExte
   return Undefined;
 }
 
-void sub_19D89C514(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D89C514(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -1608,13 +1608,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebNavigation::onDOMContentLoaded(WebKit::JS
   return Undefined;
 }
 
-void sub_19D89C7A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D89C7A8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -1696,13 +1696,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebNavigation::onCompleted(WebKit::JSWebExte
   return Undefined;
 }
 
-void sub_19D89CA3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D89CA3C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -1784,13 +1784,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebNavigation::onErrorOccurred(WebKit::JSWeb
   return Undefined;
 }
 
-void sub_19D89CCD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D89CCD0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -1866,7 +1866,7 @@ JSClassRef WebKit::JSWebExtensionAPIWebNavigationEvent::webNavigationEventClass(
   return result;
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebNavigationEvent::addListener(WebKit::JSWebExtensionAPIWebNavigationEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebNavigationEvent::addListener(WebKit::JSWebExtensionAPIWebNavigationEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v54 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWebNavigationEvent(this, a3, a3);
@@ -1946,7 +1946,7 @@ JSValueRef WebKit::JSWebExtensionAPIWebNavigationEvent::addListener(WebKit::JSWe
       {
         v20 = *a5;
         v21 = (*(*v12 + 16))(v12);
-        WebKit::toJSCallbackHandler(this, v20, v21, buf);
+        WebKit::toJSCallbackHandler(buf, this, v20, v21);
         v15 = 0;
         v22 = *buf;
         goto LABEL_19;
@@ -1970,14 +1970,14 @@ JSValueRef WebKit::JSWebExtensionAPIWebNavigationEvent::addListener(WebKit::JSWe
         {
           v27 = *a5;
           v28 = (*(*v12 + 16))(v12);
-          WebKit::toJSCallbackHandler(this, v27, v28, buf);
+          WebKit::toJSCallbackHandler(buf, this, v27, v28);
           v22 = *buf;
           v15 = WebKit::toNSDictionary(this, *(a5 + 8), 0, 0);
 LABEL_19:
           if (v22)
           {
             GlobalContext = JSContextGetGlobalContext(this);
-            WebKit::WebFrame::frameForContext(GlobalContext, v30, buf);
+            WebKit::WebFrame::frameForContext(buf, GlobalContext, v30);
             v31 = *buf;
             if (*buf)
             {
@@ -2083,7 +2083,7 @@ void sub_19D89D3E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebNavigationEvent::removeListener(WebKit::JSWebExtensionAPIWebNavigationEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebNavigationEvent::removeListener(WebKit::JSWebExtensionAPIWebNavigationEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v44 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWebNavigationEvent(this, a3, a3);
@@ -2171,12 +2171,12 @@ LABEL_34:
 
   v17 = *a5;
   v18 = (*(*v12 + 16))(v12);
-  WebKit::toJSCallbackHandler(this, v17, v18, buf);
+  WebKit::toJSCallbackHandler(buf, this, v17, v18);
   v20 = *buf;
   if (*buf)
   {
     GlobalContext = JSContextGetGlobalContext(this);
-    WebKit::WebFrame::frameForContext(GlobalContext, v22, &v38);
+    WebKit::WebFrame::frameForContext(&v38, GlobalContext, v22);
     v23 = v38;
     if (v38)
     {
@@ -2230,11 +2230,11 @@ LABEL_14:
   return Undefined;
 }
 
-void sub_19D89D8C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
+void sub_19D89D8C0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
 {
   if (*(v11 + 48) == 1)
   {
-    (*(*(v11 + 40) + 8))(v11 + 40);
+    (*(*(v11 + 40) + 8))(v11 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -2245,7 +2245,7 @@ void sub_19D89D8C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebNavigationEvent::hasListener(WebKit::JSWebExtensionAPIWebNavigationEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebNavigationEvent::hasListener(WebKit::JSWebExtensionAPIWebNavigationEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v39 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWebNavigationEvent(this, a3, a3);
@@ -2333,7 +2333,7 @@ LABEL_29:
 
   v17 = *a5;
   v18 = (*(*v12 + 16))(v12);
-  WebKit::toJSCallbackHandler(this, v17, v18, buf);
+  WebKit::toJSCallbackHandler(buf, this, v17, v18);
   v20 = *buf;
   if (*buf)
   {
@@ -2364,11 +2364,11 @@ LABEL_9:
   return Undefined;
 }
 
-void sub_19D89DD00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
+void sub_19D89DD00(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
 {
   if (*(v11 + 48) == 1)
   {
-    (*(*(v11 + 40) + 8))(v11 + 40);
+    (*(*(v11 + 40) + 8))(v11 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -2455,8 +2455,8 @@ void WebKit::JSWebExtensionAPIWebPageNamespace::getPropertyNames(WebKit::JSWebEx
   if (v6)
   {
     v7 = v6;
-    ++*(v6 + 48);
-    WebKit::toWebPage(this, &v12);
+    ++*(v6 + 12);
+    WebKit::toWebPage(&v12, this);
     v11[0] = "test";
     v11[1] = 5;
     v8 = v12;
@@ -2475,16 +2475,16 @@ void WebKit::JSWebExtensionAPIWebPageNamespace::getPropertyNames(WebKit::JSWebEx
       CFRelease(*(v8 + 1));
     }
 
-    if (*(v7 + 48) == 1)
+    if (*(v7 + 12) == 1)
     {
-      v10 = *(*(v7 + 40) + 8);
+      v10 = *(*(v7 + 5) + 8);
 
       v10(v7 + 40);
     }
 
     else
     {
-      --*(v7 + 48);
+      --*(v7 + 12);
     }
   }
 }
@@ -2523,8 +2523,8 @@ uint64_t WebKit::JSWebExtensionAPIWebPageNamespace::hasProperty(WebKit::JSWebExt
   }
 
   v7 = v6;
-  ++*(v6 + 48);
-  WebKit::toWebPage(this, &v12);
+  ++*(v6 + 12);
+  WebKit::toWebPage(&v12, this);
   if (JSStringIsEqualToUTF8CString(a3, "test"))
   {
     v11[0] = "test";
@@ -2544,20 +2544,20 @@ uint64_t WebKit::JSWebExtensionAPIWebPageNamespace::hasProperty(WebKit::JSWebExt
     CFRelease(*(v8 + 1));
   }
 
-  if (*(v7 + 48) == 1)
+  if (*(v7 + 12) == 1)
   {
-    (*(*(v7 + 40) + 8))(v7 + 40);
+    (*(*(v7 + 5) + 8))(v7 + 40);
   }
 
   else
   {
-    --*(v7 + 48);
+    --*(v7 + 12);
   }
 
   return isPropertyAllowed;
 }
 
-void sub_19D89E15C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_19D89E15C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
@@ -2566,7 +2566,7 @@ void sub_19D89E15C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (*(v12 + 48) == 1)
   {
-    (*(*(v12 + 40) + 8))(v12 + 40);
+    (*(*(v12 + 40) + 8))(v12 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -2584,15 +2584,15 @@ JSValueRef WebKit::JSWebExtensionAPIWebPageNamespace::getProperty(WebKit::JSWebE
   if (v8)
   {
     v9 = v8;
-    ++*(v8 + 48);
-    WebKit::toWebPage(this, &v22);
+    ++*(v8 + 12);
+    WebKit::toWebPage(&v22, this);
     if (JSStringIsEqualToUTF8CString(a3, "test") && (*&buf = "test", *(&buf + 1) = 5, v10 = v22, WebKit::WebExtensionAPIWebPageNamespace::isPropertyAllowed(v9, &buf, v22)))
     {
       v12 = WebKit::toWebExtensionAPIWebPageNamespace(this, a2, v11);
       v13 = v12;
       if (v12)
       {
-        ++*(v12 + 48);
+        ++*(v12 + 12);
         v14 = qword_1ED640AB8;
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
@@ -2636,14 +2636,14 @@ JSValueRef WebKit::JSWebExtensionAPIWebPageNamespace::getProperty(WebKit::JSWebE
 
         v15 = WebKit::WebExtensionAPIWebPageNamespace::test(v13);
         Undefined = WebKit::JSWebExtensionWrapper::wrap(this, (v15 + 40));
-        if (*(v13 + 48) == 1)
+        if (*(v13 + 12) == 1)
         {
-          (*(*(v13 + 40) + 8))(v13 + 40);
+          (*(*(v13 + 5) + 8))(v13 + 40);
         }
 
         else
         {
-          --*(v13 + 48);
+          --*(v13 + 12);
         }
       }
 
@@ -2664,14 +2664,14 @@ JSValueRef WebKit::JSWebExtensionAPIWebPageNamespace::getProperty(WebKit::JSWebE
       CFRelease(*(v10 + 1));
     }
 
-    if (*(v9 + 48) == 1)
+    if (*(v9 + 12) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 5) + 8))(v9 + 40);
     }
 
     else
     {
-      --*(v9 + 48);
+      --*(v9 + 12);
     }
 
     return Undefined;
@@ -2870,7 +2870,7 @@ JSClassRef WebKit::JSWebExtensionAPIWebPageRuntime::webPageRuntimeClass(WebKit::
   return result;
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebPageRuntime::sendMessage(WebKit::JSWebExtensionAPIWebPageRuntime *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebPageRuntime::sendMessage(WebKit::JSWebExtensionAPIWebPageRuntime *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSValueRef *a6, const OpaqueJSValue **a7)
 {
   v77 = *MEMORY[0x1E69E9840];
   v10 = WebKit::toWebExtensionAPIWebPageRuntime(this, a3, a3);
@@ -2973,7 +2973,7 @@ JSValueRef WebKit::JSWebExtensionAPIWebPageRuntime::sendMessage(WebKit::JSWebExt
                 v20 = WebKit::toNSString(this, *a5, 2);
                 v22 = WebKit::serializeJSObject(this, *(a5 + 8), a6, v21);
                 v23 = WebKit::toNSDictionary(this, *(a5 + 16), 0, 0);
-                WebKit::toJSCallbackHandler(this, *(a5 + 24), (v65 + 40), buf);
+                WebKit::toJSCallbackHandler(buf, this, *(a5 + 24), (v65 + 40));
                 v24 = 4;
                 v25 = *buf;
                 v26 = v20;
@@ -3024,7 +3024,7 @@ LABEL_69:
       {
         if (JSValueIsObject(this, *(a5 + 8 * v14)) && (v31 = JSValueToObject(this, v30, 0), JSObjectIsFunction(this, v31)) || JSValueIsNull(this, v30) || JSValueIsUndefined(this, v30))
         {
-          WebKit::toJSCallbackHandler(this, v30, (v65 + 40), buf);
+          WebKit::toJSCallbackHandler(buf, this, v30, (v65 + 40));
           v25 = *buf;
           v29 = a4 == 3;
 LABEL_27:
@@ -3135,16 +3135,16 @@ LABEL_93:
                   *buf = this;
                   *v71 = resolve;
                   *v70 = reject;
-                  WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v67, buf, v71, v70);
+                  WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v67, buf, v71, v70, resolve);
                   v25 = v67;
                 }
 
-                WebKit::toWebPage(this, buf);
+                WebKit::toWebPage(buf, this);
                 v44 = *buf;
                 if (*buf)
                 {
                   GlobalContext = JSContextGetGlobalContext(this);
-                  WebKit::WebFrame::frameForContext(GlobalContext, v46, v71);
+                  WebKit::WebFrame::frameForContext(v71, GlobalContext, v46);
                   if (*v71)
                   {
                     *v70 = v25;
@@ -3306,7 +3306,7 @@ void sub_19D89F504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebPageRuntime::connect(WebKit::JSWebExtensionAPIWebPageRuntime *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebPageRuntime::connect(WebKit::JSWebExtensionAPIWebPageRuntime *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v48 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWebPageRuntime(this, a3, a3);
@@ -3421,7 +3421,7 @@ LABEL_51:
         if (v17)
         {
 LABEL_16:
-          WebKit::toWebPage(this, buf);
+          WebKit::toWebPage(buf, this);
           v22 = *buf;
           if (!*buf)
           {
@@ -3437,7 +3437,7 @@ LABEL_16:
           }
 
           GlobalContext = JSContextGetGlobalContext(this);
-          WebKit::WebFrame::frameForContext(GlobalContext, v24, v42);
+          WebKit::WebFrame::frameForContext(v42, GlobalContext, v24);
           v25 = *v42;
           if (!*v42)
           {
@@ -3470,9 +3470,9 @@ LABEL_16:
           *v41 = 0;
           if (v29)
           {
-            if (*(v29 + 12) == 1)
+            if (*(v29 + 48) == 1)
             {
-              (*(*(v29 + 5) + 8))();
+              (*(*(v29 + 40) + 8))();
               if (!v26)
               {
                 goto LABEL_25;
@@ -3481,7 +3481,7 @@ LABEL_16:
               goto LABEL_45;
             }
 
-            --*(v29 + 12);
+            --*(v29 + 48);
           }
 
           if (!v26)
@@ -3686,13 +3686,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequest::onBeforeRequest(WebKit::JSWebExt
   return Undefined;
 }
 
-void sub_19D8A00A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A00A8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -3774,13 +3774,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequest::onBeforeSendHeaders(WebKit::JSWe
   return Undefined;
 }
 
-void sub_19D8A033C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A033C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -3862,13 +3862,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequest::onSendHeaders(WebKit::JSWebExten
   return Undefined;
 }
 
-void sub_19D8A05D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A05D0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -3950,13 +3950,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequest::onHeadersReceived(WebKit::JSWebE
   return Undefined;
 }
 
-void sub_19D8A0864(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A0864(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -4038,13 +4038,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequest::onAuthRequired(WebKit::JSWebExte
   return Undefined;
 }
 
-void sub_19D8A0AF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A0AF8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -4126,13 +4126,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequest::onBeforeRedirect(WebKit::JSWebEx
   return Undefined;
 }
 
-void sub_19D8A0D8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A0D8C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -4214,13 +4214,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequest::onResponseStarted(WebKit::JSWebE
   return Undefined;
 }
 
-void sub_19D8A1020(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A1020(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -4302,13 +4302,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequest::onCompleted(WebKit::JSWebExtensi
   return Undefined;
 }
 
-void sub_19D8A12B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A12B4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -4390,13 +4390,13 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequest::onErrorOccurred(WebKit::JSWebExt
   return Undefined;
 }
 
-void sub_19D8A1548(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A1548(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -4472,7 +4472,7 @@ JSClassRef WebKit::JSWebExtensionAPIWebRequestEvent::webRequestEventClass(WebKit
   return result;
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebRequestEvent::addListener(WebKit::JSWebExtensionAPIWebRequestEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebRequestEvent::addListener(WebKit::JSWebExtensionAPIWebRequestEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v68 = *MEMORY[0x1E69E9840];
   v12 = WebKit::toWebExtensionAPIWebRequestEvent(this, a3, a3);
@@ -4556,7 +4556,7 @@ JSValueRef WebKit::JSWebExtensionAPIWebRequestEvent::addListener(WebKit::JSWebEx
         {
           v30 = *a5;
           v31 = (*(*v13 + 16))(v13);
-          WebKit::toJSCallbackHandler(this, v30, v31, buf);
+          WebKit::toJSCallbackHandler(buf, this, v30, v31);
           v32 = *buf;
           v7 = WebKit::toNSDictionary(this, *(a5 + 8), 0, 0);
           v33 = *(a5 + 16);
@@ -4620,7 +4620,7 @@ LABEL_36:
             if (JSObjectIsFunction(this, v41))
             {
               v42 = (*(*v13 + 16))(v13);
-              WebKit::toJSCallbackHandler(this, v40, v42, buf);
+              WebKit::toJSCallbackHandler(buf, this, v40, v42);
               v32 = *buf;
               if (*buf)
               {
@@ -4633,7 +4633,7 @@ LABEL_36:
 
 LABEL_41:
                 GlobalContext = JSContextGetGlobalContext(this);
-                WebKit::WebFrame::frameForContext(GlobalContext, v44, buf);
+                WebKit::WebFrame::frameForContext(buf, GlobalContext, v44);
                 if (*buf)
                 {
                   v45 = *(*buf + 88);
@@ -4786,7 +4786,7 @@ void sub_19D8A1EEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebRequestEvent::removeListener(WebKit::JSWebExtensionAPIWebRequestEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebRequestEvent::removeListener(WebKit::JSWebExtensionAPIWebRequestEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v44 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWebRequestEvent(this, a3, a3);
@@ -4874,12 +4874,12 @@ LABEL_34:
 
   v17 = *a5;
   v18 = (*(*v12 + 16))(v12);
-  WebKit::toJSCallbackHandler(this, v17, v18, buf);
+  WebKit::toJSCallbackHandler(buf, this, v17, v18);
   v20 = *buf;
   if (*buf)
   {
     GlobalContext = JSContextGetGlobalContext(this);
-    WebKit::WebFrame::frameForContext(GlobalContext, v22, &v38);
+    WebKit::WebFrame::frameForContext(&v38, GlobalContext, v22);
     v23 = v38;
     if (v38)
     {
@@ -4933,11 +4933,11 @@ LABEL_14:
   return Undefined;
 }
 
-void sub_19D8A2410(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
+void sub_19D8A2410(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
 {
   if (*(v11 + 48) == 1)
   {
-    (*(*(v11 + 40) + 8))(v11 + 40);
+    (*(*(v11 + 40) + 8))(v11 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -4948,7 +4948,7 @@ void sub_19D8A2410(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWebRequestEvent::hasListener(WebKit::JSWebExtensionAPIWebRequestEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWebRequestEvent::hasListener(WebKit::JSWebExtensionAPIWebRequestEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v39 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWebRequestEvent(this, a3, a3);
@@ -5036,7 +5036,7 @@ LABEL_29:
 
   v17 = *a5;
   v18 = (*(*v12 + 16))(v12);
-  WebKit::toJSCallbackHandler(this, v17, v18, buf);
+  WebKit::toJSCallbackHandler(buf, this, v17, v18);
   v20 = *buf;
   if (*buf)
   {
@@ -5067,11 +5067,11 @@ LABEL_9:
   return Undefined;
 }
 
-void sub_19D8A2850(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
+void sub_19D8A2850(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
 {
   if (*(v11 + 48) == 1)
   {
-    (*(*(v11 + 40) + 8))(v11 + 40);
+    (*(*(v11 + 40) + 8))(v11 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -5158,8 +5158,8 @@ void WebKit::JSWebExtensionAPIWindows::getPropertyNames(WebKit::JSWebExtensionAP
   if (v6)
   {
     v7 = v6;
-    ++*(v6 + 48);
-    WebKit::toWebPage(this, &v14);
+    ++*(v6 + 12);
+    WebKit::toWebPage(&v14, this);
     v12 = "create";
     v13 = 7;
     v8 = v14;
@@ -5202,14 +5202,14 @@ void WebKit::JSWebExtensionAPIWindows::getPropertyNames(WebKit::JSWebExtensionAP
       CFRelease(v8[1]);
     }
 
-    if (*(v7 + 48) == 1)
+    if (*(v7 + 12) == 1)
     {
-      (*(*(v7 + 40) + 8))(v7 + 40);
+      (*(*(v7 + 5) + 8))(v7 + 40);
     }
 
     else
     {
-      --*(v7 + 48);
+      --*(v7 + 12);
     }
   }
 }
@@ -5248,8 +5248,8 @@ uint64_t WebKit::JSWebExtensionAPIWindows::hasProperty(WebKit::JSWebExtensionAPI
   }
 
   v7 = v6;
-  ++*(v6 + 48);
-  WebKit::toWebPage(this, &v14);
+  ++*(v6 + 12);
+  WebKit::toWebPage(&v14, this);
   if (JSStringIsEqualToUTF8CString(a3, "create"))
   {
     v12 = "create";
@@ -5293,20 +5293,20 @@ LABEL_9:
   }
 
 LABEL_10:
-  if (*(v7 + 48) == 1)
+  if (*(v7 + 12) == 1)
   {
-    (*(*(v7 + 40) + 8))(v7 + 40);
+    (*(*(v7 + 5) + 8))(v7 + 40);
   }
 
   else
   {
-    --*(v7 + 48);
+    --*(v7 + 12);
   }
 
   return v10;
 }
 
-void sub_19D8A2DBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_19D8A2DBC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (v13)
   {
@@ -5315,7 +5315,7 @@ void sub_19D8A2DBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (*(v12 + 48) == 1)
   {
-    (*(*(v12 + 40) + 8))(v12 + 40);
+    (*(*(v12 + 40) + 8))(v12 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -5332,22 +5332,22 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::getProperty(WebKit::JSWebExtensionA
   if (v7)
   {
     v8 = v7;
-    ++*(v7 + 48);
-    WebKit::toWebPage(this, &v18);
+    ++*(v7 + 12);
+    WebKit::toWebPage(&v18, this);
     if (JSStringIsEqualToUTF8CString(a3, "create") && (v16 = "create", v17 = 7, v9 = v18, isPropertyAllowed = WebKit::WebExtensionAPIWindows::isPropertyAllowed(v8, &v16, v18), v11 = WebKit::JSWebExtensionAPIWindows::create, (isPropertyAllowed & 1) != 0) || JSStringIsEqualToUTF8CString(a3, "update") && (v16 = "update", v17 = 7, v9 = v18, v12 = WebKit::WebExtensionAPIWindows::isPropertyAllowed(v8, &v16, v18), v11 = WebKit::JSWebExtensionAPIWindows::update, (v12 & 1) != 0) || JSStringIsEqualToUTF8CString(a3, "remove") && (v16 = "remove", v17 = 7, v9 = v18, v13 = WebKit::WebExtensionAPIWindows::isPropertyAllowed(v8, &v16, v18), v11 = WebKit::JSWebExtensionAPIWindows::remove, v13))
     {
       FunctionWithCallback = JSObjectMakeFunctionWithCallback(this, a3, v11);
       if (!v9)
       {
 LABEL_10:
-        if (*(v8 + 48) == 1)
+        if (*(v8 + 12) == 1)
         {
-          (*(*(v8 + 40) + 8))(v8 + 40);
+          (*(*(v8 + 5) + 8))(v8 + 40);
         }
 
         else
         {
-          --*(v8 + 48);
+          --*(v8 + 12);
         }
 
         return FunctionWithCallback;
@@ -5371,7 +5371,7 @@ LABEL_10:
   return JSValueMakeUndefined(this);
 }
 
-void sub_19D8A2FE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_19D8A2FE8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (v13)
   {
@@ -5380,7 +5380,7 @@ void sub_19D8A2FE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (*(v12 + 48) == 1)
   {
-    (*(*(v12 + 40) + 8))(v12 + 40);
+    (*(*(v12 + 40) + 8))(v12 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -5391,7 +5391,7 @@ void sub_19D8A2FE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindows::get(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindows::get(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v65 = *MEMORY[0x1E69E9840];
   v10 = WebKit::toWebExtensionAPIWindows(this, a3, a3);
@@ -5493,7 +5493,7 @@ LABEL_58:
       v27 = WebKit::toNSDictionary(this, *(a5 + 8), 0, 0);
       v28 = *(a5 + 16);
       v29 = (*(*v11 + 16))(v11);
-      WebKit::toJSCallbackHandler(this, v28, v29, buf);
+      WebKit::toJSCallbackHandler(buf, this, v28, v29);
       v19 = *buf;
       v30 = v27;
       if ((*&v26 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
@@ -5507,7 +5507,7 @@ LABEL_45:
           *buf = this;
           v58 = reject;
           *v59 = resolve;
-          WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v55, buf, v59, &v58);
+          WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v55, buf, v59, &v58, resolve);
           v19 = v55;
           goto LABEL_46;
         }
@@ -5515,7 +5515,7 @@ LABEL_45:
 LABEL_24:
         Undefined = 0;
 LABEL_46:
-        WebKit::toWebPage(this, buf);
+        WebKit::toWebPage(buf, this);
         if (*buf)
         {
           v37 = *(*buf + 1832);
@@ -5616,7 +5616,7 @@ LABEL_90:
     if (v16 && (JSValueIsObject(this, *(a5 + 8 * v15)) && (v17 = JSValueToObject(this, v16, 0), JSObjectIsFunction(this, v17)) || JSValueIsNull(this, v16) || JSValueIsUndefined(this, v16)))
     {
       v18 = (*(*v11 + 16))(v11);
-      WebKit::toJSCallbackHandler(this, v16, v18, buf);
+      WebKit::toJSCallbackHandler(buf, this, v16, v18);
       v19 = *buf;
       v20 = a4 - 2;
       v21 = 1;
@@ -5752,7 +5752,7 @@ void sub_19D8A38F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindows::getCurrent(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindows::getCurrent(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v56 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWindows(this, a3, a3);
@@ -5831,7 +5831,7 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::getCurrent(WebKit::JSWebExtensionAP
       {
         v25 = *a5;
         v26 = (*(*v12 + 16))(v12);
-        WebKit::toJSCallbackHandler(this, v25, v26, buf);
+        WebKit::toJSCallbackHandler(buf, this, v25, v26);
         v19 = 0;
 LABEL_23:
         v27 = *buf;
@@ -5848,10 +5848,10 @@ LABEL_26:
         *buf = this;
         v49 = reject;
         *v50 = resolve;
-        WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v46, buf, v50, &v49);
+        WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v46, buf, v50, &v49, resolve);
         v27 = v46;
 LABEL_27:
-        WebKit::toWebPage(this, buf);
+        WebKit::toWebPage(buf, this);
         if (*buf)
         {
           v29 = *(*buf + 1832);
@@ -5955,7 +5955,7 @@ LABEL_67:
     v19 = WebKit::toNSDictionary(this, *a5, 0, 0);
     v20 = a5[1];
     v21 = (*(*v12 + 16))(v12);
-    WebKit::toJSCallbackHandler(this, v20, v21, buf);
+    WebKit::toJSCallbackHandler(buf, this, v20, v21);
     goto LABEL_23;
   }
 
@@ -6007,7 +6007,7 @@ void sub_19D8A4064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindows::getLastFocused(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindows::getLastFocused(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v53 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWindows(this, a3, a3);
@@ -6086,7 +6086,7 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::getLastFocused(WebKit::JSWebExtensi
       {
         v25 = *a5;
         v26 = (*(*v12 + 16))(v12);
-        WebKit::toJSCallbackHandler(this, v25, v26, buf);
+        WebKit::toJSCallbackHandler(buf, this, v25, v26);
         v19 = 0;
 LABEL_23:
         v27 = *buf;
@@ -6103,7 +6103,7 @@ LABEL_26:
         v47 = resolve;
         *buf = this;
         v46 = reject;
-        WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v43, buf, &v47, &v46);
+        WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v43, buf, &v47, &v46, resolve);
         v27 = v43;
 LABEL_27:
         *buf = v27;
@@ -6170,7 +6170,7 @@ LABEL_58:
     v19 = WebKit::toNSDictionary(this, *a5, 0, 0);
     v20 = a5[1];
     v21 = (*(*v12 + 16))(v12);
-    WebKit::toJSCallbackHandler(this, v20, v21, buf);
+    WebKit::toJSCallbackHandler(buf, this, v20, v21);
     goto LABEL_23;
   }
 
@@ -6194,13 +6194,13 @@ LABEL_33:
   return Undefined;
 }
 
-void sub_19D8A4700(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
+void sub_19D8A4700(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
 {
   if (v15)
   {
     if (*(v15 + 48) == 1)
     {
-      (*(*(v15 + 40) + 8))(v15 + 40);
+      (*(*(v15 + 40) + 8))(v15 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6212,7 +6212,7 @@ void sub_19D8A4700(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindows::getAll(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindows::getAll(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v53 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWindows(this, a3, a3);
@@ -6291,7 +6291,7 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::getAll(WebKit::JSWebExtensionAPIWin
       {
         v25 = *a5;
         v26 = (*(*v12 + 16))(v12);
-        WebKit::toJSCallbackHandler(this, v25, v26, buf);
+        WebKit::toJSCallbackHandler(buf, this, v25, v26);
         v19 = 0;
 LABEL_23:
         v27 = *buf;
@@ -6308,7 +6308,7 @@ LABEL_26:
         v47 = resolve;
         *buf = this;
         v46 = reject;
-        WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v43, buf, &v47, &v46);
+        WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v43, buf, &v47, &v46, resolve);
         v27 = v43;
 LABEL_27:
         *buf = v27;
@@ -6375,7 +6375,7 @@ LABEL_58:
     v19 = WebKit::toNSDictionary(this, *a5, 0, 0);
     v20 = a5[1];
     v21 = (*(*v12 + 16))(v12);
-    WebKit::toJSCallbackHandler(this, v20, v21, buf);
+    WebKit::toJSCallbackHandler(buf, this, v20, v21);
     goto LABEL_23;
   }
 
@@ -6399,13 +6399,13 @@ LABEL_33:
   return Undefined;
 }
 
-void sub_19D8A4D84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
+void sub_19D8A4D84(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
 {
   if (v15)
   {
     if (*(v15 + 48) == 1)
     {
-      (*(*(v15 + 40) + 8))(v15 + 40);
+      (*(*(v15 + 40) + 8))(v15 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6486,13 +6486,13 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::windowIdentifierNone(WebKit::JSWebE
   return Undefined;
 }
 
-void sub_19D8A5070(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A5070(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6573,13 +6573,13 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::windowIdentifierCurrent(WebKit::JSW
   return Undefined;
 }
 
-void sub_19D8A52FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A52FC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6661,13 +6661,13 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::onCreated(WebKit::JSWebExtensionAPI
   return Undefined;
 }
 
-void sub_19D8A5590(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A5590(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6749,13 +6749,13 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::onRemoved(WebKit::JSWebExtensionAPI
   return Undefined;
 }
 
-void sub_19D8A5824(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A5824(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6837,13 +6837,13 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::onFocusChanged(WebKit::JSWebExtensi
   return Undefined;
 }
 
-void sub_19D8A5AB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_19D8A5AB8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (v9)
   {
     if (*(v9 + 48) == 1)
     {
-      (*(*(v9 + 40) + 8))(v9 + 40);
+      (*(*(v9 + 40) + 8))(v9 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6855,12 +6855,12 @@ void sub_19D8A5AB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindows::create(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindows::create(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v53 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWindows(this, a3, a3);
   v12 = v11;
-  if (!v11 || (++*(v11 + 48), *(v11 + 8)))
+  if (!v11 || (++*(v11 + 12), *(v11 + 8)))
   {
     Undefined = JSValueMakeUndefined(this);
     if (!v12)
@@ -6934,7 +6934,7 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::create(WebKit::JSWebExtensionAPIWin
       {
         v25 = *a5;
         v26 = (*(*v12 + 16))(v12);
-        WebKit::toJSCallbackHandler(this, v25, v26, buf);
+        WebKit::toJSCallbackHandler(buf, this, v25, v26);
         v19 = 0;
 LABEL_23:
         v27 = *buf;
@@ -6951,7 +6951,7 @@ LABEL_26:
         v47 = resolve;
         *buf = this;
         v46 = reject;
-        WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v43, buf, &v47, &v46);
+        WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v43, buf, &v47, &v46, resolve);
         v27 = v43;
 LABEL_27:
         *buf = v27;
@@ -7018,7 +7018,7 @@ LABEL_58:
     v19 = WebKit::toNSDictionary(this, *a5, 0, 0);
     v20 = a5[1];
     v21 = (*(*v12 + 16))(v12);
-    WebKit::toJSCallbackHandler(this, v20, v21, buf);
+    WebKit::toJSCallbackHandler(buf, this, v20, v21);
     goto LABEL_23;
   }
 
@@ -7042,13 +7042,13 @@ LABEL_33:
   return Undefined;
 }
 
-void sub_19D8A60DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
+void sub_19D8A60DC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
 {
   if (v15)
   {
     if (*(v15 + 48) == 1)
     {
-      (*(*(v15 + 40) + 8))(v15 + 40);
+      (*(*(v15 + 40) + 8))(v15 + 40, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -7060,12 +7060,12 @@ void sub_19D8A60DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindows::update(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindows::update(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v52 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWindows(this, a3, a3);
   v12 = v11;
-  if (!v11 || (++*(v11 + 48), *(v11 + 8)))
+  if (!v11 || (++*(v11 + 12), *(v11 + 8)))
   {
     Undefined = JSValueMakeUndefined(this);
     if (!v12)
@@ -7163,7 +7163,7 @@ LABEL_17:
                 v46 = resolve;
                 *buf = this;
                 v45 = reject;
-                WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v42, buf, &v46, &v45);
+                WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v42, buf, &v46, &v45, resolve);
                 v24 = v42;
               }
 
@@ -7240,7 +7240,7 @@ LABEL_22:
             v21 = WebKit::toNSDictionary(this, *(a5 + 8), 0, 0);
             v22 = *(a5 + 16);
             v23 = (*(*v12 + 16))(v12);
-            WebKit::toJSCallbackHandler(this, v22, v23, buf);
+            WebKit::toJSCallbackHandler(buf, this, v22, v23);
             v24 = *buf;
             goto LABEL_17;
           }
@@ -7282,11 +7282,11 @@ LABEL_33:
   return Undefined;
 }
 
-void sub_19D8A6770(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
+void sub_19D8A6770(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
 {
   if (*(v15 + 48) == 1)
   {
-    (*(*(v15 + 40) + 8))(v15 + 40);
+    (*(*(v15 + 40) + 8))(v15 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -7297,12 +7297,12 @@ void sub_19D8A6770(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindows::remove(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindows::remove(WebKit::JSWebExtensionAPIWindows *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v45 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWindows(this, a3, a3);
   v12 = v11;
-  if (!v11 || (++*(v11 + 48), *(v11 + 8)))
+  if (!v11 || (++*(v11 + 12), *(v11 + 8)))
   {
     Undefined = JSValueMakeUndefined(this);
     if (!v12)
@@ -7389,7 +7389,7 @@ JSValueRef WebKit::JSWebExtensionAPIWindows::remove(WebKit::JSWebExtensionAPIWin
         v16 = JSValueToNumber(this, *a5, 0);
         v19 = a5[1];
         v20 = (*(*v12 + 16))(v12);
-        WebKit::toJSCallbackHandler(this, v19, v20, buf);
+        WebKit::toJSCallbackHandler(buf, this, v19, v20);
         v15 = *buf;
 LABEL_16:
         if ((*&v16 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
@@ -7417,7 +7417,7 @@ LABEL_16:
           v39 = resolve;
           *buf = this;
           v38 = reject;
-          WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v35, buf, &v39, &v38);
+          WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(&v35, buf, &v39, &v38, resolve);
           v15 = v35;
         }
 
@@ -7487,7 +7487,7 @@ LABEL_26:
   return Undefined;
 }
 
-void sub_19D8A6D38(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
+void sub_19D8A6D38(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, uint64_t a15)
 {
   if (v16)
   {
@@ -7496,7 +7496,7 @@ void sub_19D8A6D38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (*(v15 + 48) == 1)
   {
-    (*(*(v15 + 40) + 8))(v15 + 40);
+    (*(*(v15 + 40) + 8))(v15 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -7571,7 +7571,7 @@ JSClassRef WebKit::JSWebExtensionAPIWindowsEvent::windowsEventClass(WebKit::JSWe
   return result;
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindowsEvent::addListener(WebKit::JSWebExtensionAPIWindowsEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindowsEvent::addListener(WebKit::JSWebExtensionAPIWindowsEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, uint64_t a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v54 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWindowsEvent(this, a3, a3);
@@ -7651,7 +7651,7 @@ JSValueRef WebKit::JSWebExtensionAPIWindowsEvent::addListener(WebKit::JSWebExten
       {
         v20 = *a5;
         v21 = (*(*v12 + 16))(v12);
-        WebKit::toJSCallbackHandler(this, v20, v21, buf);
+        WebKit::toJSCallbackHandler(buf, this, v20, v21);
         v15 = 0;
         v22 = *buf;
         goto LABEL_19;
@@ -7675,14 +7675,14 @@ JSValueRef WebKit::JSWebExtensionAPIWindowsEvent::addListener(WebKit::JSWebExten
         {
           v27 = *a5;
           v28 = (*(*v12 + 16))(v12);
-          WebKit::toJSCallbackHandler(this, v27, v28, buf);
+          WebKit::toJSCallbackHandler(buf, this, v27, v28);
           v22 = *buf;
           v15 = WebKit::toNSDictionary(this, *(a5 + 8), 0, 0);
 LABEL_19:
           if (v22)
           {
             GlobalContext = JSContextGetGlobalContext(this);
-            WebKit::WebFrame::frameForContext(GlobalContext, v30, buf);
+            WebKit::WebFrame::frameForContext(buf, GlobalContext, v30);
             v31 = *buf;
             if (*buf)
             {
@@ -7788,7 +7788,7 @@ void sub_19D8A7490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindowsEvent::removeListener(WebKit::JSWebExtensionAPIWindowsEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindowsEvent::removeListener(WebKit::JSWebExtensionAPIWindowsEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v44 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWindowsEvent(this, a3, a3);
@@ -7876,12 +7876,12 @@ LABEL_34:
 
   v17 = *a5;
   v18 = (*(*v12 + 16))(v12);
-  WebKit::toJSCallbackHandler(this, v17, v18, buf);
+  WebKit::toJSCallbackHandler(buf, this, v17, v18);
   v20 = *buf;
   if (*buf)
   {
     GlobalContext = JSContextGetGlobalContext(this);
-    WebKit::WebFrame::frameForContext(GlobalContext, v22, &v38);
+    WebKit::WebFrame::frameForContext(&v38, GlobalContext, v22);
     v23 = v38;
     if (v38)
     {
@@ -7935,11 +7935,11 @@ LABEL_14:
   return Undefined;
 }
 
-void sub_19D8A796C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
+void sub_19D8A796C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
 {
   if (*(v11 + 48) == 1)
   {
-    (*(*(v11 + 40) + 8))(v11 + 40);
+    (*(*(v11 + 40) + 8))(v11 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -7950,7 +7950,7 @@ void sub_19D8A796C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-JSValueRef WebKit::JSWebExtensionAPIWindowsEvent::hasListener(WebKit::JSWebExtensionAPIWindowsEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, JSObjectRef *a6, const OpaqueJSValue **a7)
+JSValueRef WebKit::JSWebExtensionAPIWindowsEvent::hasListener(WebKit::JSWebExtensionAPIWindowsEvent *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, JSValueRef *a5, const OpaqueJSValue **a6, const OpaqueJSValue **a7)
 {
   v39 = *MEMORY[0x1E69E9840];
   v11 = WebKit::toWebExtensionAPIWindowsEvent(this, a3, a3);
@@ -8038,7 +8038,7 @@ LABEL_29:
 
   v17 = *a5;
   v18 = (*(*v12 + 16))(v12);
-  WebKit::toJSCallbackHandler(this, v17, v18, buf);
+  WebKit::toJSCallbackHandler(buf, this, v17, v18);
   v20 = *buf;
   if (*buf)
   {
@@ -8069,11 +8069,11 @@ LABEL_9:
   return Undefined;
 }
 
-void sub_19D8A7DAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
+void sub_19D8A7DAC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
 {
   if (*(v11 + 48) == 1)
   {
-    (*(*(v11 + 40) + 8))(v11 + 40);
+    (*(*(v11 + 40) + 8))(v11 + 40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -8084,11 +8084,11 @@ void sub_19D8A7DAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-WebKit::WebExtensionCallbackHandler *WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>(WebKit::WebExtensionCallbackHandler **a1, JSContextRef *a2, OpaqueJSValue **a3, OpaqueJSValue **a4)
+WebKit::WebExtensionCallbackHandler *WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,OpaqueJSValue *&>@<X0>(WebKit::WebExtensionCallbackHandler **a1@<X0>, JSContextRef *a2@<X1>, OpaqueJSValue **a3@<X2>, OpaqueJSValue **a4@<X3>, uint64_t *a5@<X8>)
 {
-  v8 = WTF::fastMalloc(0x28);
-  result = WebKit::WebExtensionCallbackHandler::WebExtensionCallbackHandler(v8, *a2, *a3, *a4);
-  *a1 = v8;
+  v9 = WTF::fastMalloc(a5, 0x28);
+  result = WebKit::WebExtensionCallbackHandler::WebExtensionCallbackHandler(v9, *a2, *a3, *a4);
+  *a1 = v9;
   return result;
 }
 
@@ -8547,7 +8547,7 @@ id WebKit::callWithArguments<3ul>(JSObjectRef object, JSContextRef *a2, JSValueR
   return v5;
 }
 
-id WebKit::toNSObject(const OpaqueJSContext *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id WebKit::toNSObject(const OpaqueJSContext *a1, const OpaqueJSValue *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -8555,6 +8555,7 @@ id WebKit::toNSObject(const OpaqueJSContext *a1, uint64_t a2, uint64_t a3, uint6
     goto LABEL_27;
   }
 
+  v5 = a5;
   v10 = MEMORY[0x1E696EB58];
   v11 = [MEMORY[0x1E696EB40] contextWithJSGlobalContextRef:JSContextGetGlobalContext(a1)];
   v12 = [v10 valueWithJSValueRef:a2 inContext:v11];
@@ -8573,7 +8574,7 @@ id WebKit::toNSObject(const OpaqueJSContext *a1, uint64_t a2, uint64_t a3, uint6
       {
         v18 = [v12 valueAtIndex:v17];
         v19 = v18;
-        if (a5 && (([v18 isArray] & 1) != 0 || objc_msgSend(v19, "_isDictionary")))
+        if (v5 && (([v18 isArray] & 1) != 0 || objc_msgSend(v19, "_isDictionary")))
         {
           if (v19)
           {
@@ -8614,7 +8615,7 @@ id WebKit::toNSObject(const OpaqueJSContext *a1, uint64_t a2, uint64_t a3, uint6
 
   if ([v12 _isDictionary])
   {
-    v23 = WebKit::toNSDictionary(a1, a2, a4, a5);
+    v23 = WebKit::toNSDictionary(a1, a2, a4, v5);
 LABEL_25:
     v21 = v23;
 LABEL_26:
@@ -8856,31 +8857,31 @@ void sub_19D8A947C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const OpaqueJSContext *WebKit::toJSCallbackHandler@<X0>(const OpaqueJSContext *this@<X0>, const OpaqueJSContext *a2@<X1>, const OpaqueJSValue *a3@<X2>, uint64_t *a4@<X8>)
+const OpaqueJSContext *WebKit::toJSCallbackHandler@<X0>(uint64_t *__return_ptr a1@<X8>, const OpaqueJSContext *this@<X0>, const OpaqueJSContext *a3@<X1>, const OpaqueJSValue *a4@<X2>)
 {
-  v9 = this;
-  if (a2)
+  v8 = this;
+  if (a3)
   {
+    v6 = this;
+    this = JSValueToObject(this, a3, 0);
     v7 = this;
-    this = JSValueToObject(this, a2, 0);
-    v8 = this;
     if (this)
     {
-      this = JSObjectIsFunction(v7, this);
+      this = JSObjectIsFunction(v6, this);
       if (this)
       {
-        return WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,WebKit::WebExtensionAPIRuntimeBase &>(&v9, &v8, a3, a4);
+        return WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,WebKit::WebExtensionAPIRuntimeBase &>(&v8, &v7, a4, a1);
       }
     }
   }
 
-  *a4 = 0;
+  *a1 = 0;
   return this;
 }
 
 uint64_t WebKit::WebExtensionCallbackHandler::create<OpaqueJSContext const*&,OpaqueJSValue *&,WebKit::WebExtensionAPIRuntimeBase &>@<X0>(JSContextRef *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v8 = WTF::fastMalloc(0x28);
+  v8 = WTF::fastMalloc(a4, 0x28);
   result = WebKit::WebExtensionCallbackHandler::WebExtensionCallbackHandler(v8, *a1, *a2, a3);
   *a4 = v8;
   return result;
@@ -9023,7 +9024,7 @@ uint64_t WebKit::LaunchServicesDatabaseManager::handleEvent(uint64_t a1, xpc_obj
     v9 = *v8;
     if (*v8)
     {
-      if (((*(*v9 + 24))(*v8) & 1) == 0)
+      if (((*(*&v9->_os_unfair_lock_opaque + 24))(*v8) & 1) == 0)
       {
         result = 105;
         __break(0xC471u);
@@ -9093,10 +9094,10 @@ uint64_t WTF::downcast<WebKit::LogClient,WebCore::LogClient>(uint64_t a1)
   return result;
 }
 
-void WebKit::LogClient::RECEIVED_LAUNCH_SERVICES_DATABASE(WebKit::LogClient *this)
+void WebKit::LogClient::RECEIVED_LAUNCH_SERVICES_DATABASE(os_unfair_lock_s *this)
 {
   os_unfair_lock_lock(this + 4);
-  IPC::StreamClientConnection::send<Messages::LogStream::RECEIVED_LAUNCH_SERVICES_DATABASE,WebKit::LogStreamIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(*(this + 1), *(this + 3));
+  IPC::StreamClientConnection::send<Messages::LogStream::RECEIVED_LAUNCH_SERVICES_DATABASE,WebKit::LogStreamIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(*&this[2]._os_unfair_lock_opaque, *&this[6]._os_unfair_lock_opaque);
 
   os_unfair_lock_unlock(this + 4);
 }
@@ -9105,7 +9106,7 @@ void WebKit::LaunchServicesDatabaseManager::didConnect(atomic_uchar *this)
 {
   message = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(message, "message-name", "request-launch-services-database-update-message");
-  WebKit::XPCEndpointClient::connection(this, &connection);
+  WebKit::XPCEndpointClient::connection(&connection, this);
   v2 = connection;
   if (connection)
   {
@@ -9564,9 +9565,9 @@ void WebKit::LaunchServicesDatabaseManager::~LaunchServicesDatabaseManager(WebKi
   JUMPOUT(0x19EB14CF0);
 }
 
-unint64_t *IPC::StreamClientConnection::send<Messages::LogStream::RECEIVED_LAUNCH_SERVICES_DATABASE,WebKit::LogStreamIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(double *a1, uint64_t a2)
+void *IPC::StreamClientConnection::send<Messages::LogStream::RECEIVED_LAUNCH_SERVICES_DATABASE,WebKit::LogStreamIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(WTF::ApproximateTime *a1, uint64_t a2)
 {
-  v4 = a1[16];
+  v4 = *(a1 + 16);
   v5 = INFINITY;
   if (fabs(v4) != INFINITY)
   {
@@ -9577,7 +9578,7 @@ unint64_t *IPC::StreamClientConnection::send<Messages::LogStream::RECEIVED_LAUNC
   result = IPC::StreamClientConnection::trySendDestinationIDIfNeeded(a1, a2, v5);
   if (!result)
   {
-    result = IPC::StreamClientConnectionBuffer::tryAcquire((a1 + 9), v8, v5);
+    result = IPC::StreamClientConnectionBuffer::tryAcquire(a1 + 72, v8, v5);
     if (v9 == 1)
     {
       return IPC::StreamClientConnection::trySendStream<Messages::LogStream::RECEIVED_LAUNCH_SERVICES_DATABASE>(a1, v8[0], v8[1]);

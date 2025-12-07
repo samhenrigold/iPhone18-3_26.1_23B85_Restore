@@ -77,7 +77,7 @@ LABEL_11:
 
 - (id)modelObjectWithChangeType:(unint64_t)type version:(int64_t)version
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v6 = [(HMDOutgoingHomeInvitation *)self emptyModelObjectWithChangeType:type];
   user = [(HMDOutgoingHomeInvitation *)self user];
   dictionaryEncoding = [user dictionaryEncoding];
@@ -104,26 +104,26 @@ LABEL_11:
 
   if (version <= 3)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     operations = [(HMDOutgoingHomeInvitation *)self operations];
-    v18 = [operations countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v18 = [operations countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v30;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(operations);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * i);
+          v22 = *(*(&v29 + 1) + 8 * i);
           accessory = [v22 accessory];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -136,7 +136,7 @@ LABEL_11:
           }
         }
 
-        v19 = [operations countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v19 = [operations countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v19);
@@ -145,11 +145,9 @@ LABEL_11:
 
   if ([v16 count])
   {
-    v27 = [v16 copy];
+    v27 = objc_msgSend_copy(v16);
     [v6 setOperationIdentifiers:v27];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -167,7 +165,7 @@ LABEL_11:
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -178,22 +176,21 @@ LABEL_11:
     v11 = HMFGetLogIdentifier();
     uuid = [removedCopy uuid];
     parentUUID = [removedCopy parentUUID];
-    v15 = 138543874;
-    v16 = v11;
-    v17 = 2112;
-    v18 = uuid;
-    v19 = 2112;
-    v20 = parentUUID;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Outgoing invitations have no objects to remove. Transaction UUID: %@, Parent UUID: %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2112;
+    v17 = uuid;
+    v18 = 2112;
+    v19 = parentUUID;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Outgoing invitations have no objects to remove. Transaction UUID: %@, Parent UUID: %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transactionOutgoingInvitationUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -217,13 +214,13 @@ LABEL_11:
       v17 = HMFGetLogIdentifier();
       endDate = [(HMDHomeInvitation *)selfCopy endDate];
       expiryDate2 = [valuesCopy expiryDate];
-      v44 = 138543874;
-      v45 = v17;
-      v46 = 2112;
-      v47 = endDate;
-      v48 = 2112;
-      v49 = expiryDate2;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Expiry date is updated from: %@ to %@", &v44, 0x20u);
+      v43 = 138543874;
+      v44 = v17;
+      v45 = 2112;
+      v46 = endDate;
+      v47 = 2112;
+      v48 = expiryDate2;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Expiry date is updated from: %@ to %@", &v43, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -268,11 +265,11 @@ LABEL_11:
         {
           v34 = HMFGetLogIdentifier();
           invitationState4 = [(HMDHomeInvitation *)selfCopy2 invitationState];
-          v44 = 138543618;
-          v45 = v34;
-          v46 = 2048;
-          v47 = invitationState4;
-          _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Invitation state cannot be set back to pending, maintaining current state as %lu", &v44, 0x16u);
+          v43 = 138543618;
+          v44 = v34;
+          v45 = 2048;
+          v46 = invitationState4;
+          _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Invitation state cannot be set back to pending, maintaining current state as %lu", &v43, 0x16u);
         }
 
         objc_autoreleasePoolPop(v31);
@@ -320,8 +317,6 @@ LABEL_24:
     responseHandler2 = [messageCopy responseHandler];
     responseHandler2[2](responseHandler2, 0, 0);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
@@ -373,7 +368,7 @@ LABEL_24:
 
 - (void)updateUserManagementOperations:(id)operations
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -382,7 +377,7 @@ LABEL_24:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v42 = v8;
+    v41 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Migrating operations to models", buf, 0xCu);
   }
 
@@ -393,40 +388,40 @@ LABEL_24:
   v12 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
   v13 = [backingStore transaction:@"kUserManagementOperationAddedKey" options:v12];
 
-  v36 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(operationsCopy, "count")}];
+  v35 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(operationsCopy, "count")}];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v14 = operationsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v38;
+    v17 = *v37;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v38 != v17)
+        if (*v37 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [HMDUserManagementOperation operationWithDictionary:*(*(&v37 + 1) + 8 * i) home:home];
+        v19 = [HMDUserManagementOperation operationWithDictionary:*(*(&v36 + 1) + 8 * i) home:home];
         v20 = v19;
         if (v19 && ([v19 isFinished] & 1) == 0)
         {
           identifier = [v20 identifier];
           uUIDString = [identifier UUIDString];
-          [v36 addObject:uUIDString];
+          [v35 addObject:uUIDString];
 
           v23 = [v20 modelObjectWithChangeType:1];
           [v13 add:v23];
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v16);
@@ -439,9 +434,9 @@ LABEL_24:
   {
     v27 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v42 = v27;
-    v43 = 2112;
-    v44 = v36;
+    v41 = v27;
+    v42 = 2112;
+    v43 = v35;
     _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Migrating operations with identifiers: %@", buf, 0x16u);
   }
 
@@ -453,15 +448,13 @@ LABEL_24:
   v31 = [(HMDBackingStoreModelObject *)v28 initWithObjectChangeType:2 uuid:identifier2 parentUUID:uuid];
 
   [(HMDOutgoingHomeInvitationModel *)v31 setOperations:0];
-  [(HMDOutgoingHomeInvitationModel *)v31 setOperationIdentifiers:v36];
+  [(HMDOutgoingHomeInvitationModel *)v31 setOperationIdentifiers:v35];
   backingStore2 = [home backingStore];
   v33 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
   v34 = [backingStore2 transaction:@"kUserManagementOperationAddedKey" options:v33];
 
   [v34 add:v31];
   [v34 run];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOperationIdentifiers:(id)identifiers
@@ -477,7 +470,7 @@ LABEL_24:
 - (NSArray)operationIdentifiers
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSArray *)self->_operationIdentifiers copy];
+  v3 = objc_msgSend_copy(self->_operationIdentifiers);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -510,33 +503,33 @@ LABEL_24:
 
 - (void)notifyStateChangedForMessage:(id)message
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   invitationData = [(HMDHomeInvitation *)self invitationData];
-  v27[0] = invitationData;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = invitationData;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   v7 = encodeRootObject();
 
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
   accessoryInvitationsInformation = [(HMDOutgoingHomeInvitation *)self accessoryInvitationsInformation];
   if (accessoryInvitationsInformation)
   {
-    v25[0] = @"kInvitationIdentifierKey";
+    v24[0] = @"kInvitationIdentifierKey";
     identifier = [(HMDHomeInvitation *)self identifier];
     uUIDString = [identifier UUIDString];
-    v25[1] = @"kAccessoryInvitationsKey";
-    v26[0] = uUIDString;
-    v26[1] = accessoryInvitationsInformation;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v24[1] = @"kAccessoryInvitationsKey";
+    v25[0] = uUIDString;
+    v25[1] = accessoryInvitationsInformation;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
     [v8 addObject:v12];
   }
 
   v13 = encodeRootObject();
-  v23[0] = @"kInvitationsDataKey";
-  v23[1] = @"kAccessoryInvitationsDataKey";
-  v24[0] = v7;
-  v24[1] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v22[0] = @"kInvitationsDataKey";
+  v22[1] = @"kAccessoryInvitationsDataKey";
+  v23[0] = v7;
+  v23[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
   identifier2 = [messageCopy identifier];
 
   if (identifier2)
@@ -556,8 +549,6 @@ LABEL_24:
   msgDispatcher = [home msgDispatcher];
   uuid = [home uuid];
   [msgDispatcher sendMessage:v18 target:uuid];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)refreshDisplayName
@@ -606,46 +597,46 @@ LABEL_24:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v44.receiver = self;
-  v44.super_class = HMDOutgoingHomeInvitation;
-  [(HMDHomeInvitation *)&v44 encodeWithCoder:coderCopy];
+  v43.receiver = self;
+  v43.super_class = HMDOutgoingHomeInvitation;
+  [(HMDHomeInvitation *)&v43 encodeWithCoder:coderCopy];
   if ([coderCopy hmd_isForXPCTransport])
   {
     v5 = MEMORY[0x277CBEB18];
     operations = [(HMDOutgoingHomeInvitation *)self operations];
     v7 = [v5 arrayWithCapacity:{objc_msgSend(operations, "count")}];
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     operations2 = [(HMDOutgoingHomeInvitation *)self operations];
-    v9 = [operations2 copy];
+    v9 = objc_msgSend_copy(operations2);
 
-    v10 = [v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v41;
+      v12 = *v40;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v41 != v12)
+          if (*v40 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          accessoryInvitation = [*(*(&v40 + 1) + 8 * i) accessoryInvitation];
+          accessoryInvitation = [*(*(&v39 + 1) + 8 * i) accessoryInvitation];
           if (accessoryInvitation)
           {
             [v7 addObject:accessoryInvitation];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v39 objects:v45 count:16];
       }
 
       while (v11);
@@ -680,26 +671,26 @@ LABEL_24:
     {
       selfCopy = self;
       v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(operations3, "count")}];
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
       v23 = operations3;
-      v24 = [v23 countByEnumeratingWithState:&v36 objects:v45 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v35 objects:v44 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v37;
+        v26 = *v36;
         do
         {
           for (j = 0; j != v25; ++j)
           {
-            if (*v37 != v26)
+            if (*v36 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v36 + 1) + 8 * j);
+            v28 = *(*(&v35 + 1) + 8 * j);
             accessory = [v28 accessory];
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
@@ -710,13 +701,13 @@ LABEL_24:
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v36 objects:v45 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v35 objects:v44 count:16];
         }
 
         while (v25);
       }
 
-      operations3 = [v22 copy];
+      operations3 = objc_msgSend_copy(v22);
       self = selfCopy;
     }
   }
@@ -732,32 +723,30 @@ LABEL_24:
     inviteeDestinationAddress2 = [(HMDOutgoingHomeInvitation *)self inviteeDestinationAddress];
     [coderCopy encodeObject:inviteeDestinationAddress2 forKey:@"HM.inviteeDestinationAddress"];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDOutgoingHomeInvitation)initWithCoder:(id)coder
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HM.invitationData"];
   v6 = MEMORY[0x277CBEB98];
-  v45[0] = objc_opt_class();
-  v45[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+  v44[0] = objc_opt_class();
+  v44[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"kUserManagementOperationsKey"];
 
   v10 = MEMORY[0x277CBEB98];
-  v44[0] = objc_opt_class();
-  v44[1] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+  v43[0] = objc_opt_class();
+  v43[1] = objc_opt_class();
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"kUserManagementOperationIdentifiersKey"];
 
-  v42.receiver = self;
-  v42.super_class = HMDOutgoingHomeInvitation;
-  v14 = [(HMDHomeInvitation *)&v42 initWithCoder:coderCopy invitationData:v5];
+  v41.receiver = self;
+  v41.super_class = HMDOutgoingHomeInvitation;
+  v14 = [(HMDHomeInvitation *)&v41 initWithCoder:coderCopy invitationData:v5];
   if (v14)
   {
     if ([coderCopy containsValueForKey:@"HM.residentDevice"])
@@ -799,30 +788,30 @@ LABEL_17:
 
     if (v9)
     {
-      v37 = v5;
+      v36 = v5;
       operationIdentifiers = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v9, "count")}];
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
-      v36 = v9;
+      v35 = v9;
       v25 = v9;
-      v26 = [v25 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v37 objects:v42 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v39;
+        v28 = *v38;
         do
         {
           v29 = 0;
           do
           {
-            if (*v39 != v28)
+            if (*v38 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            identifier = [*(*(&v38 + 1) + 8 * v29) identifier];
+            identifier = [*(*(&v37 + 1) + 8 * v29) identifier];
             uUIDString = [identifier UUIDString];
             [operationIdentifiers addObject:uUIDString];
 
@@ -830,7 +819,7 @@ LABEL_17:
           }
 
           while (v27 != v29);
-          v27 = [v25 countByEnumeratingWithState:&v38 objects:v43 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v37 objects:v42 count:16];
         }
 
         while (v27);
@@ -840,97 +829,92 @@ LABEL_17:
       v33 = v14->_operationIdentifiers;
       v14->_operationIdentifiers = allObjects;
 
-      v9 = v36;
-      v5 = v37;
+      v9 = v35;
+      v5 = v36;
       goto LABEL_17;
     }
   }
 
 LABEL_18:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (NSArray)accessoryInvitationsInformation
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   operations = [(HMDOutgoingHomeInvitation *)self operations];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(operations, "count")}];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   operations2 = [(HMDOutgoingHomeInvitation *)self operations];
-  v7 = [operations2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [operations2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(operations2);
         }
 
-        accessoryInvitationInformation = [*(*(&v14 + 1) + 8 * i) accessoryInvitationInformation];
+        accessoryInvitationInformation = [*(*(&v13 + 1) + 8 * i) accessoryInvitationInformation];
         if (accessoryInvitationInformation)
         {
           [v5 addObject:accessoryInvitationInformation];
         }
       }
 
-      v8 = [operations2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [operations2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)cancel
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(HMDOutgoingHomeInvitation *)self updateInvitationState:1];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   operations = [(HMDOutgoingHomeInvitation *)self operations];
-  v4 = [operations countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [operations countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(operations);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) cancel];
+        [*(*(&v8 + 1) + 8 * v7++) cancel];
       }
 
       while (v5 != v7);
-      v5 = [operations countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [operations countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isComplete

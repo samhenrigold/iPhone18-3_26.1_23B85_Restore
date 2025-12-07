@@ -112,7 +112,7 @@
   return v4 & 1;
 }
 
-uint64_t __27__NUJobPriorityQueue_start__block_invoke(void *a1)
+void *__27__NUJobPriorityQueue_start__block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 24) = *(a1[4] + 56);
   result = [*(a1[4] + 8) count];
@@ -178,7 +178,7 @@ uint64_t __27__NUJobPriorityQueue__sort__block_invoke(uint64_t a1, void *a2, voi
   return v3;
 }
 
-uint64_t __27__NUJobPriorityQueue_count__block_invoke(uint64_t a1)
+void *__27__NUJobPriorityQueue_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -218,9 +218,12 @@ uint64_t __27__NUJobPriorityQueue_count__block_invoke(uint64_t a1)
 
 uint64_t __28__NUJobPriorityQueue_popJob__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _popJob];
+  v2 = [*(a1 + 32) _popJob];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BOOL)_removeJob:(id)job
@@ -258,7 +261,7 @@ uint64_t __28__NUJobPriorityQueue_popJob__block_invoke(uint64_t a1)
   return stateQueue;
 }
 
-uint64_t __32__NUJobPriorityQueue_removeJob___block_invoke(uint64_t a1)
+void *__32__NUJobPriorityQueue_removeJob___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _removeJob:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -316,9 +319,12 @@ uint64_t __33__NUJobPriorityQueue_description__block_invoke(uint64_t a1)
     v5 = @"NO";
   }
 
-  *(*(*(a1 + 40) + 8) + 40) = [v2 stringWithFormat:@"<%@:%p> running = %@, jobCount = %ld", v3, v4, v5, objc_msgSend(*(v4 + 8), "count")];
+  v6 = [v2 stringWithFormat:@"<%@:%p> running = %@, jobCount = %ld", v3, v4, v5, objc_msgSend(*(v4 + 8), "count")];
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v8);
 }
 
 - (NUJobPriorityQueue)init

@@ -214,7 +214,7 @@ id __37__AMSUIFamilyCircleStateTask_present__block_invoke(uint64_t a1)
 
 void __37__AMSUIFamilyCircleStateTask_present__block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(*(a1 + 48) + 8);
   v5 = *(v4 + 40);
@@ -234,22 +234,21 @@ void __37__AMSUIFamilyCircleStateTask_present__block_invoke_2(uint64_t a1, void 
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = AMSLogKey();
-      v13 = [v3 error];
-      v21 = 138543874;
-      v22 = v11;
-      v23 = 2114;
-      v24 = v12;
-      v25 = 2114;
-      v26 = v13;
-      _os_log_impl(&dword_1BB036000, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to open family circle. %{public}@", &v21, 0x20u);
+      v10 = objc_opt_class();
+      v11 = AMSLogKey();
+      v12 = [v3 error];
+      v18 = 138543874;
+      v19 = v10;
+      v20 = 2114;
+      v21 = v11;
+      v22 = 2114;
+      v23 = v12;
+      _os_log_impl(&dword_1BB036000, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to open family circle. %{public}@", &v18, 0x20u);
     }
 
-    v14 = *(a1 + 40);
-    v15 = [v3 error];
-    [v14 finishWithError:v15];
+    v13 = *(a1 + 40);
+    v14 = [v3 error];
+    [v13 finishWithError:v14];
   }
 
   else
@@ -259,23 +258,20 @@ void __37__AMSUIFamilyCircleStateTask_present__block_invoke_2(uint64_t a1, void 
       v8 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v16 = [v8 OSLogObject];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = [v8 OSLogObject];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 32);
-      v18 = objc_opt_class();
-      v19 = AMSLogKey();
-      v21 = 138543618;
-      v22 = v18;
-      v23 = 2114;
-      v24 = v19;
-      _os_log_impl(&dword_1BB036000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully opened family circle", &v21, 0x16u);
+      v16 = objc_opt_class();
+      v17 = AMSLogKey();
+      v18 = 138543618;
+      v19 = v16;
+      v20 = 2114;
+      v21 = v17;
+      _os_log_impl(&dword_1BB036000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully opened family circle", &v18, 0x16u);
     }
 
     [*(a1 + 40) finishWithSuccess];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

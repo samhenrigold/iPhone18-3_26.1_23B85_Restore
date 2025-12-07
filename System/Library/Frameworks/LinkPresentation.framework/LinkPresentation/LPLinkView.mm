@@ -2199,7 +2199,7 @@ LABEL_10:
 {
   height = fits.height;
   width = fits.width;
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   ++self->_suppressNeedsResizeCount;
   [(LPLinkView *)self _computePresentationPropertiesFromMetadataIfNeeded];
   maximumWidth = [(LPTheme *)self->_theme maximumWidth];
@@ -2207,38 +2207,38 @@ LABEL_10:
   v8 = fmin(width, v7);
 
   v9 = floor(v8);
-  [(LPLinkView *)self _layoutLinkViewForSize:0 applyingLayout:v9 - (self->_contentInset.left + self->_contentInset.right), floor(height) - (self->_contentInset.top + self->_contentInset.bottom)];
-  if (v10 > v9)
+  v10 = [(LPLinkView *)self _layoutLinkViewForSize:0 applyingLayout:v9 - (self->_contentInset.left + self->_contentInset.right), floor(height) - (self->_contentInset.top + self->_contentInset.bottom)];
+  if (v12 > v9)
   {
-    v19 = v11.f64[0];
-    v20 = v10;
-    v12 = LPLogChannelUI();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    v11.f64[0] = v19;
-    v10 = v20;
-    if (v13)
+    v21 = v13.f64[0];
+    v22 = v12;
+    v14 = LPLogChannelUI(v10, v11);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v13.f64[0] = v21;
+    v12 = v22;
+    if (v15)
     {
       loggingID = self->_loggingID;
       *buf = 67109632;
-      v22 = loggingID;
-      v23 = 2048;
-      v24 = v20;
+      v24 = loggingID;
       v25 = 2048;
-      v26 = v9;
-      _os_log_impl(&dword_1AE886000, v12, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: laid out to larger than maximum requested size (%g > %g)", buf, 0x1Cu);
-      v11.f64[0] = v19;
-      v10 = v20;
+      v26 = v22;
+      v27 = 2048;
+      v28 = v9;
+      _os_log_impl(&dword_1AE886000, v14, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: laid out to larger than maximum requested size (%g > %g)", buf, 0x1Cu);
+      v13.f64[0] = v21;
+      v12 = v22;
     }
   }
 
-  v15 = *&self->_contentInset.top;
-  v16 = *&self->_contentInset.bottom;
+  v17 = *&self->_contentInset.top;
+  v18 = *&self->_contentInset.bottom;
   --self->_suppressNeedsResizeCount;
-  v11.f64[1] = v10;
-  v17 = vsubq_f64(v11, vsubq_f64(vnegq_f64(v16), v15));
-  v18 = v17.f64[1];
-  result.height = v17.f64[0];
-  result.width = v18;
+  v13.f64[1] = v12;
+  v19 = vsubq_f64(v13, vsubq_f64(vnegq_f64(v18), v17));
+  v20 = v19.f64[1];
+  result.height = v19.f64[0];
+  result.width = v20;
   return result;
 }
 
@@ -5576,7 +5576,7 @@ LABEL_6:
 - (void)_openURLAllowingSensitiveSchemes:(BOOL)schemes allowingAssociatedApplications:(BOOL)applications
 {
   applicationsCopy = applications;
-  v54 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   _URLToOpen = [(LPLinkView *)self _URLToOpen];
   if (![(LPLinkView *)self _disableLinkFollowing])
   {
@@ -5594,12 +5594,12 @@ LABEL_6:
       mEMORY[0x1E69D5400] = [MEMORY[0x1E69D5400] sharedManager];
       metadata2 = [(LPLinkView *)self metadata];
       originatingSynapseContentItem2 = [metadata2 originatingSynapseContentItem];
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplications___block_invoke;
-      v44[3] = &unk_1E7A37088;
-      v44[4] = self;
-      [mEMORY[0x1E69D5400] navigateToContentItem:originatingSynapseContentItem2 completion:v44];
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplications___block_invoke;
+      v51[3] = &unk_1E7A37088;
+      v51[4] = self;
+      [mEMORY[0x1E69D5400] navigateToContentItem:originatingSynapseContentItem2 completion:v51];
 
       goto LABEL_32;
     }
@@ -5614,35 +5614,36 @@ LABEL_6:
 
         if ((_disallowsURLOverrideByDelegate & 1) == 0)
         {
-          v17 = [WeakRetained _linkView:self overrideURLForOpeningURL:_URLToOpen];
-          v18 = v17;
-          if (!v17)
+          v19 = [WeakRetained _linkView:self overrideURLForOpeningURL:_URLToOpen];
+          v21 = v19;
+          if (!v19)
           {
-            v35 = LPLogChannelUI();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+            v42 = LPLogChannelUI(0, v20);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
             {
               loggingID = self->_loggingID;
               *buf = 67109120;
               *&buf[4] = loggingID;
-              _os_log_impl(&dword_1AE886000, v35, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: delegate handled openURL", buf, 8u);
+              _os_log_impl(&dword_1AE886000, v42, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: delegate handled openURL", buf, 8u);
             }
 
             goto LABEL_28;
           }
 
-          if (([v17 isEqual:_URLToOpen] & 1) == 0)
+          v22 = [v19 isEqual:_URLToOpen];
+          if ((v22 & 1) == 0)
           {
-            v19 = LPLogChannelUI();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v24 = LPLogChannelUI(v22, v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
-              v20 = self->_loggingID;
+              v25 = self->_loggingID;
               *buf = 67109120;
-              *&buf[4] = v20;
-              _os_log_impl(&dword_1AE886000, v19, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: delegate overrode link to open", buf, 8u);
+              *&buf[4] = v25;
+              _os_log_impl(&dword_1AE886000, v24, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: delegate overrode link to open", buf, 8u);
             }
           }
 
-          _URLToOpen = v18;
+          _URLToOpen = v21;
         }
       }
 
@@ -5657,78 +5658,78 @@ LABEL_6:
       aBlock[3] = &unk_1E7A370B0;
       schemesCopy = schemes;
       _URLToOpen = _URLToOpen;
-      v42 = _URLToOpen;
-      v21 = _Block_copy(aBlock);
-      if (applicationsCopy && [(LPLinkView *)self _isUsingAppClipPresentation])
+      v49 = _URLToOpen;
+      v26 = _Block_copy(aBlock);
+      if (applicationsCopy && (v27 = [(LPLinkView *)self _isUsingAppClipPresentation], v27))
       {
-        v22 = LPLogChannelUI();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v29 = LPLogChannelUI(v27, v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = self->_loggingID;
+          v30 = self->_loggingID;
           *buf = 67109120;
-          *&buf[4] = v23;
-          _os_log_impl(&dword_1AE886000, v22, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: attempting to follow an App Clip link", buf, 8u);
+          *&buf[4] = v30;
+          _os_log_impl(&dword_1AE886000, v29, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: attempting to follow an App Clip link", buf, 8u);
         }
 
-        v45 = 0;
-        v46 = &v45;
-        v47 = 0x2050000000;
-        v24 = getCPSClipRequestClass_softClass;
-        v48 = getCPSClipRequestClass_softClass;
+        v52 = 0;
+        v53 = &v52;
+        v54 = 0x2050000000;
+        v31 = getCPSClipRequestClass_softClass;
+        v55 = getCPSClipRequestClass_softClass;
         if (!getCPSClipRequestClass_softClass)
         {
           *buf = MEMORY[0x1E69E9820];
-          v50 = 3221225472;
-          v51 = __getCPSClipRequestClass_block_invoke;
-          v52 = &unk_1E7A35518;
-          v53 = &v45;
+          v57 = 3221225472;
+          v58 = __getCPSClipRequestClass_block_invoke;
+          v59 = &unk_1E7A35518;
+          v60 = &v52;
           __getCPSClipRequestClass_block_invoke(buf);
-          v24 = v46[3];
+          v31 = v53[3];
         }
 
-        v25 = v24;
-        _Block_object_dispose(&v45, 8);
-        v26 = [v24 alloc];
-        v27 = [(LPLinkMetadata *)self->_metadata URL];
-        v28 = v27;
-        if (v27)
+        v32 = v31;
+        _Block_object_dispose(&v52, 8);
+        v33 = [v31 alloc];
+        v34 = [(LPLinkMetadata *)self->_metadata URL];
+        v35 = v34;
+        if (v34)
         {
-          v29 = v27;
+          v36 = v34;
         }
 
         else
         {
-          v29 = _URLToOpen;
+          v36 = _URLToOpen;
         }
 
         associatedApplication = [(LPLinkMetadata *)self->_metadata associatedApplication];
         bundleIdentifier = [associatedApplication bundleIdentifier];
-        v32 = [v26 initWithURL:v29 fallbackClipBundleID:bundleIdentifier];
+        v39 = [v33 initWithURL:v36 fallbackClipBundleID:bundleIdentifier];
 
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplications___block_invoke_286;
-        v37[3] = &unk_1E7A370D8;
-        v38 = v32;
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplications___block_invoke_286;
+        v44[3] = &unk_1E7A370D8;
+        v45 = v39;
         selfCopy = self;
-        v40 = v21;
-        v33 = v32;
-        [v33 requestClipWithCompletion:v37];
+        v47 = v26;
+        v40 = v39;
+        [v40 requestClipWithCompletion:v44];
       }
 
       else
       {
-        v21[2](v21);
+        v26[2](v26);
       }
 
 LABEL_28:
       goto LABEL_32;
     }
 
-    v34 = LPLogChannelUI();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v41 = LPLogChannelUI(v11, v12);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      [LPLinkView _openURLAllowingSensitiveSchemes:v34 allowingAssociatedApplications:?];
+      [LPLinkView _openURLAllowingSensitiveSchemes:v41 allowingAssociatedApplications:?];
     }
 
     _URLToOpen = 0;
@@ -5740,12 +5741,13 @@ LABEL_32:
 void __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplications___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = LPLogChannelUI();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = LPLogChannelUI(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplications___block_invoke_cold_1(a1, v5, v6);
+      __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplications___block_invoke_cold_1(a1, v7, v8);
     }
   }
 }
@@ -5767,18 +5769,19 @@ void __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplica
 
 void __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplications___block_invoke_286(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
+  v8 = v6;
   if (v5 || !a2)
   {
-    v9 = LPLogChannelUI();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = LPLogChannelUI(v6, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(*(a1 + 40) + 408);
-      v11 = 67109120;
-      v12 = v10;
-      _os_log_impl(&dword_1AE886000, v9, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: falling back from App Clip link to openURL", &v11, 8u);
+      v12 = *(*(a1 + 40) + 408);
+      v13 = 67109120;
+      v14 = v12;
+      _os_log_impl(&dword_1AE886000, v11, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: falling back from App Clip link to openURL", &v13, 8u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -5786,13 +5789,13 @@ void __78__LPLinkView__openURLAllowingSensitiveSchemes_allowingAssociatedApplica
 
   else
   {
-    v7 = LPLogChannelUI();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = LPLogChannelUI(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(*(a1 + 40) + 408);
-      v11 = 67109120;
-      v12 = v8;
-      _os_log_impl(&dword_1AE886000, v7, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: successfully followed an App Clip link", &v11, 8u);
+      v10 = *(*(a1 + 40) + 408);
+      v13 = 67109120;
+      v14 = v10;
+      _os_log_impl(&dword_1AE886000, v9, OS_LOG_TYPE_DEFAULT, "LPLinkView<%d>: successfully followed an App Clip link", &v13, 8u);
     }
   }
 }
@@ -6021,10 +6024,11 @@ LABEL_19:
     if (v6)
     {
       v7 = v6;
-      sub_1AE969B54(0, &qword_1EB5E6800);
-      v8 = sub_1AE9843C0(v7);
+      v8 = sub_1AE969B54(0, &qword_1EB5E6800, off_1E7A34738);
+      sub_1AE9843C0(v7, v8);
+      v10 = v9;
 
-      v9 = v8;
+      v11 = v10;
       goto LABEL_9;
     }
   }
@@ -6033,10 +6037,10 @@ LABEL_19:
   {
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_9:
 
-  return v9;
+  return v11;
 }
 
 - (CGRect)frameForHighlightedTextRange
@@ -6092,7 +6096,7 @@ LABEL_9:
   type metadata accessor for LPTextRange();
   v8 = swift_dynamicCastClassUnconditional();
   v9 = swift_dynamicCastClassUnconditional();
-  v10 = sub_1AE969B54(0, &qword_1EB5E6800);
+  v10 = sub_1AE969B54(0, &qword_1EB5E6800, off_1E7A34738);
   rangeCopy = range;
   toRangeCopy = toRange;
   selfCopy = self;

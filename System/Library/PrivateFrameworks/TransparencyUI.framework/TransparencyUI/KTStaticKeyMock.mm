@@ -41,12 +41,12 @@
 
 - (void)postNotification:(id)notification state:(id)state
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   stateCopy = state;
-  v12 = *MEMORY[0x277D73610];
-  v13[0] = notificationCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277D73610];
+  v12[0] = notificationCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v8 mutableCopy];
 
   if (stateCopy)
@@ -56,8 +56,6 @@
 
   notificationCenter = [(KTStaticKeyMock *)self notificationCenter];
   [notificationCenter postNotificationName:*MEMORY[0x277D73608] object:0 userInfo:v9 deliverImmediately:0];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)codeAvailable:(id)available code:(id)code
@@ -261,29 +259,29 @@ void __34__KTStaticKeyMock_listKTSessions___block_invoke_2(uint64_t a1)
 
 void __49__KTStaticKeyMock_getKTSessionByHandle_complete___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v3 = [*(a1 + 32) mockHandles];
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * v7);
+        v8 = *(*(&v19 + 1) + 8 * v7);
         v9 = [*(a1 + 32) mockHandles];
         v10 = [v9 objectForKeyedSubscript:v8];
 
@@ -299,24 +297,22 @@ void __49__KTStaticKeyMock_getKTSessionByHandle_complete___block_invoke(uint64_t
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
   }
 
   v13 = [*(a1 + 32) mockWork];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __49__KTStaticKeyMock_getKTSessionByHandle_complete___block_invoke_2;
-  v17[3] = &unk_279DDAA38;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __49__KTStaticKeyMock_getKTSessionByHandle_complete___block_invoke_2;
+  v16[3] = &unk_279DDAA38;
   v14 = *(a1 + 48);
-  v18 = v2;
-  v19 = v14;
+  v17 = v2;
+  v18 = v14;
   v15 = v2;
-  dispatch_async(v13, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(v13, v16);
 }
 
 - (void)getKTSessionByID:(id)d complete:(id)complete

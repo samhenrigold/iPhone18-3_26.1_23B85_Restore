@@ -166,7 +166,7 @@ LABEL_20:
 
 - (id)encrypt:(id)encrypt additionalAuthenticatedData:(id)data
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   encryptCopy = encrypt;
   dataCopy = data;
   v8 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:{objc_msgSend(encryptCopy, "length")}];
@@ -181,7 +181,7 @@ LABEL_20:
   [v8 mutableBytes];
   chacha20_poly1305_encrypt_all_64x64();
 
-  [v8 appendBytes:v20 length:16];
+  [v8 appendBytes:v19 length:16];
   outputNonce2 = [(HAPSecuritySessionEncryption *)self outputNonce];
   mutableBytes = [outputNonce2 mutableBytes];
   outputNonce3 = [(HAPSecuritySessionEncryption *)self outputNonce];
@@ -207,19 +207,17 @@ LABEL_20:
     while (!v17);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (HAPSecuritySessionEncryption)initWithInputKey:(id)key outputKey:(id)outputKey
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   outputKeyCopy = outputKey;
-  v17.receiver = self;
-  v17.super_class = HAPSecuritySessionEncryption;
-  v9 = [(HAPSecuritySessionEncryption *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = HAPSecuritySessionEncryption;
+  v9 = [(HAPSecuritySessionEncryption *)&v16 init];
   v10 = v9;
   if (v9)
   {
@@ -235,7 +233,6 @@ LABEL_20:
     v10->_outputNonce = v13;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

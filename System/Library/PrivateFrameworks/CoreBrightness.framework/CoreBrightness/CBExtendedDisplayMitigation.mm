@@ -59,7 +59,6 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -109,7 +108,7 @@
       _os_log_error_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_ERROR, "State of extended display mitigation already set to to %d", v11, 8u);
     }
 
-    v9 = 0;
+    return 0;
   }
 
   else
@@ -141,11 +140,8 @@
       _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "Setting state of extended display mitigation to %d", v10, 8u);
     }
 
-    v9 = 1;
+    return 1;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v9 & 1;
 }
 
 @end

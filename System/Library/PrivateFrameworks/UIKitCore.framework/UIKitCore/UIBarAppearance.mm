@@ -1,4 +1,5 @@
 @interface UIBarAppearance
+- (BOOL)_checkEqualTo:(id)to;
 - (BOOL)isEqual:(id)equal;
 - (UIBarAppearance)copy;
 - (UIBarAppearance)init;
@@ -253,6 +254,19 @@
   [(_UIBarBackgroundAppearanceData *)self->_backgroundData describeInto:intoCopy];
 }
 
+- (BOOL)_checkEqualTo:(id)to
+{
+  if (self->_overrideUserInterfaceStyle == *(to + 6))
+  {
+    return objc_msgSend_isEqual_(self->_backgroundData, a2, *(to + 3));
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
 - (void)_signalCategoryChanges:(uint64_t)changes
 {
   if (changes)
@@ -288,9 +302,9 @@
     goto LABEL_8;
   }
 
-  v7 = [v10 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v10);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     writableInstance = [(_UIBarAppearanceData *)self->_backgroundData writableInstance];
@@ -322,9 +336,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(UIBlurEffect *)backgroundEffect isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(backgroundEffect, v6, v6);
 
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     writableInstance = [(_UIBarAppearanceData *)self->_backgroundData writableInstance];
@@ -362,9 +376,9 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v8 = [backgroundEffects isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(backgroundEffects, v7, v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_9:
     writableInstance = [(_UIBarAppearanceData *)self->_backgroundData writableInstance];
@@ -381,7 +395,7 @@ LABEL_10:
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
   v4 = backgroundColor;
-  if (v4 && (+[UIColor clearColor], v5 = objc_claimAutoreleasedReturnValue(), v6 = [(UIColor *)v4 isEqual:v5], v5, !v6))
+  if (v4 && (+[UIColor clearColor], v5 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v4), v5, (isEqual & 1) == 0))
   {
     v7 = v4;
   }
@@ -406,9 +420,9 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  v10 = [(UIColor *)backgroundColor isEqual:v9];
+  v10 = objc_msgSend_isEqual_(backgroundColor, v9, v9);
 
-  if (!v10)
+  if ((v10 & 1) == 0)
   {
 LABEL_12:
     writableInstance = [(_UIBarAppearanceData *)self->_backgroundData writableInstance];
@@ -456,9 +470,9 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v11 = [(UIImage *)backgroundImage isEqual:v10];
+  isEqual = objc_msgSend_isEqual_(backgroundImage, v10, v10);
 
-  if (!v11)
+  if ((isEqual & 1) == 0)
   {
 LABEL_13:
     writableInstance = [(_UIBarAppearanceData *)self->_backgroundData writableInstance];
@@ -552,9 +566,9 @@ LABEL_14:
     goto LABEL_13;
   }
 
-  v11 = [(UIImage *)shadowImage isEqual:v10];
+  isEqual = objc_msgSend_isEqual_(shadowImage, v10, v10);
 
-  if (!v11)
+  if ((isEqual & 1) == 0)
   {
 LABEL_13:
     writableInstance = [(_UIBarAppearanceData *)self->_backgroundData writableInstance];
@@ -574,9 +588,9 @@ LABEL_14:
   if (v4)
   {
     v5 = +[UIColor clearColor];
-    v6 = [(UIColor *)v4 isEqual:v5];
+    isEqual = objc_msgSend_isEqual_(v4);
 
-    if (v6)
+    if (isEqual)
     {
 
       v4 = 0;
@@ -594,9 +608,9 @@ LABEL_14:
 
   if (v8 && shadowColor)
   {
-    v9 = [(UIColor *)shadowColor isEqual:v8];
+    v9 = objc_msgSend_isEqual_(shadowColor, v8, v8);
 
-    if (!v9)
+    if ((v9 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -653,9 +667,9 @@ LABEL_17:
     goto LABEL_8;
   }
 
-  v7 = [shadowEffect isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(shadowEffect, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     writableInstance = [(_UIBarAppearanceData *)self->_backgroundData writableInstance];

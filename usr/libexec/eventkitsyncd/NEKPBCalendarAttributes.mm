@@ -818,25 +818,24 @@ LABEL_57:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v31 = toCopy;
+  v9 = toCopy;
   if (self->_uUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   has = self->_has;
   if ((*&has & 0x40000) != 0)
   {
-    isReadonly = self->_isReadonly;
     PBDataWriterWriteBOOLField();
-    toCopy = v31;
+    toCopy = v9;
     has = self->_has;
     if ((*&has & 0x400) == 0)
     {
@@ -855,9 +854,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  isHidden = self->_isHidden;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x4000) == 0)
   {
@@ -871,9 +869,8 @@ LABEL_8:
   }
 
 LABEL_88:
-  isImmutable = self->_isImmutable;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x8000) == 0)
   {
@@ -887,9 +884,8 @@ LABEL_9:
   }
 
 LABEL_89:
-  isInbox = self->_isInbox;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x10000) == 0)
   {
@@ -903,9 +899,8 @@ LABEL_10:
   }
 
 LABEL_90:
-  isNotificationsCollection = self->_isNotificationsCollection;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x100000) == 0)
   {
@@ -919,9 +914,8 @@ LABEL_11:
   }
 
 LABEL_91:
-  isSharingInvitation = self->_isSharingInvitation;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x200000) == 0)
   {
@@ -935,9 +929,8 @@ LABEL_12:
   }
 
 LABEL_92:
-  isSubscribed = self->_isSubscribed;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x800) == 0)
   {
@@ -951,9 +944,8 @@ LABEL_13:
   }
 
 LABEL_93:
-  isHolidayCalendar = self->_isHolidayCalendar;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x200) == 0)
   {
@@ -967,9 +959,8 @@ LABEL_14:
   }
 
 LABEL_94:
-  isFamilyCalendar = self->_isFamilyCalendar;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x1000) == 0)
   {
@@ -983,9 +974,8 @@ LABEL_15:
   }
 
 LABEL_95:
-  isIgnoringEventAlerts = self->_isIgnoringEventAlerts;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x2000) == 0)
   {
@@ -999,9 +989,8 @@ LABEL_16:
   }
 
 LABEL_96:
-  isIgnoringSharedCalendarNotifications = self->_isIgnoringSharedCalendarNotifications;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x80000) == 0)
   {
@@ -1015,94 +1004,88 @@ LABEL_17:
   }
 
 LABEL_97:
-  isSchedulingProhibited = self->_isSchedulingProhibited;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_18:
-    isDefaultCalendarForStore = self->_isDefaultCalendarForStore;
     PBDataWriterWriteBOOLField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
 LABEL_19:
   if (self->_type)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_digest)
   {
     PBDataWriterWriteDataField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_symbolicColorName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_colorString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x10) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10) != 0)
   {
-    displayOrder = self->_displayOrder;
     PBDataWriterWriteInt32Field();
-    toCopy = v31;
-    v7 = self->_has;
+    toCopy = v9;
+    v6 = self->_has;
   }
 
-  if ((*&v7 & 4) != 0)
+  if ((*&v6 & 4) != 0)
   {
-    sharingStatus = self->_sharingStatus;
     PBDataWriterWriteUint64Field();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_sharedOwnerName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_sharedOwnerAddress)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    sharingInvitationResponse = self->_sharingInvitationResponse;
     PBDataWriterWriteUint64Field();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_publishedURLString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
-  v11 = self->_has;
-  if ((*&v11 & 0x20) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x20) != 0)
   {
-    canBePublished = self->_canBePublished;
     PBDataWriterWriteBOOLField();
-    toCopy = v31;
-    v11 = self->_has;
-    if ((*&v11 & 0x40) == 0)
+    toCopy = v9;
+    v7 = self->_has;
+    if ((*&v7 & 0x40) == 0)
     {
 LABEL_41:
-      if ((*&v11 & 0x20000) == 0)
+      if ((*&v7 & 0x20000) == 0)
       {
         goto LABEL_43;
       }
@@ -1111,64 +1094,61 @@ LABEL_41:
     }
   }
 
-  else if ((*&v11 & 0x40) == 0)
+  else if ((*&v7 & 0x40) == 0)
   {
     goto LABEL_41;
   }
 
-  canBeShared = self->_canBeShared;
   PBDataWriterWriteBOOLField();
-  toCopy = v31;
+  toCopy = v9;
   if ((*&self->_has & 0x20000) != 0)
   {
 LABEL_42:
-    isPublished = self->_isPublished;
     PBDataWriterWriteBOOLField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
 LABEL_43:
   if (self->_externalID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_externalIdentificationTag)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_syncToken)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_externalModificationTag)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_externalRepresentation)
   {
     PBDataWriterWriteDataField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
-  v13 = self->_has;
-  if ((*&v13 & 8) != 0)
+  v8 = self->_has;
+  if ((*&v8 & 8) != 0)
   {
-    supportedEntityTypes = self->_supportedEntityTypes;
     PBDataWriterWriteUint64Field();
-    toCopy = v31;
-    v13 = self->_has;
-    if ((*&v13 & 1) == 0)
+    toCopy = v9;
+    v8 = self->_has;
+    if ((*&v8 & 1) == 0)
     {
 LABEL_55:
-      if ((*&v13 & 0x80) == 0)
+      if ((*&v8 & 0x80) == 0)
       {
         goto LABEL_57;
       }
@@ -1177,99 +1157,97 @@ LABEL_55:
     }
   }
 
-  else if ((*&v13 & 1) == 0)
+  else if ((*&v8 & 1) == 0)
   {
     goto LABEL_55;
   }
 
-  invitationStatus = self->_invitationStatus;
   PBDataWriterWriteUint64Field();
-  toCopy = v31;
+  toCopy = v9;
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_56:
-    hasBeenAlerted = self->_hasBeenAlerted;
     PBDataWriterWriteBOOLField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
 LABEL_57:
   if (self->_notes)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_subCalAccountID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_pushKey)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_selfIdentityDisplayName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_selfIdentityEmail)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_selfIdentityAddressString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_selfIdentityFirstName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_selfIdentityLastName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_ownerIdentityDisplayName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_ownerIdentityEmail)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_ownerIdentityAddressString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_ownerIdentityFirstName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 
   if (self->_ownerIdentityLastName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v31;
+    toCopy = v9;
   }
 }
 
@@ -2130,7 +2108,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v15 = *(equalCopy + 277);
     if (self->_isReadonly)
     {
       if ((*(equalCopy + 277) & 1) == 0)
@@ -2157,7 +2134,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v16 = *(equalCopy + 269);
     if (self->_isHidden)
     {
       if ((*(equalCopy + 269) & 1) == 0)
@@ -2184,7 +2160,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v17 = *(equalCopy + 273);
     if (self->_isImmutable)
     {
       if ((*(equalCopy + 273) & 1) == 0)
@@ -2211,7 +2186,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v18 = *(equalCopy + 274);
     if (self->_isInbox)
     {
       if ((*(equalCopy + 274) & 1) == 0)
@@ -2238,7 +2212,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v19 = *(equalCopy + 275);
     if (self->_isNotificationsCollection)
     {
       if ((*(equalCopy + 275) & 1) == 0)
@@ -2265,7 +2238,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v20 = *(equalCopy + 279);
     if (self->_isSharingInvitation)
     {
       if ((*(equalCopy + 279) & 1) == 0)
@@ -2292,7 +2264,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v21 = *(equalCopy + 280);
     if (self->_isSubscribed)
     {
       if ((*(equalCopy + 280) & 1) == 0)
@@ -2319,7 +2290,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v22 = *(equalCopy + 270);
     if (self->_isHolidayCalendar)
     {
       if ((*(equalCopy + 270) & 1) == 0)
@@ -2346,7 +2316,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v23 = *(equalCopy + 268);
     if (self->_isFamilyCalendar)
     {
       if ((*(equalCopy + 268) & 1) == 0)
@@ -2373,7 +2342,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v24 = *(equalCopy + 271);
     if (self->_isIgnoringEventAlerts)
     {
       if ((*(equalCopy + 271) & 1) == 0)
@@ -2400,7 +2368,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v25 = *(equalCopy + 272);
     if (self->_isIgnoringSharedCalendarNotifications)
     {
       if ((*(equalCopy + 272) & 1) == 0)
@@ -2427,7 +2394,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v26 = *(equalCopy + 278);
     if (self->_isSchedulingProhibited)
     {
       if ((*(equalCopy + 278) & 1) == 0)
@@ -2454,7 +2420,6 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v27 = *(equalCopy + 267);
     if (self->_isDefaultCalendarForStore)
     {
       if ((*(equalCopy + 267) & 1) == 0)
@@ -2550,17 +2515,17 @@ LABEL_29:
     }
   }
 
-  v30 = self->_has;
-  v31 = *(equalCopy + 71);
-  if ((*&v30 & 2) != 0)
+  v17 = self->_has;
+  v18 = *(equalCopy + 71);
+  if ((*&v17 & 2) != 0)
   {
-    if ((v31 & 2) == 0 || self->_sharingInvitationResponse != *(equalCopy + 2))
+    if ((v18 & 2) == 0 || self->_sharingInvitationResponse != *(equalCopy + 2))
     {
       goto LABEL_213;
     }
   }
 
-  else if ((v31 & 2) != 0)
+  else if ((v18 & 2) != 0)
   {
     goto LABEL_213;
   }
@@ -2573,18 +2538,17 @@ LABEL_29:
       goto LABEL_213;
     }
 
-    v30 = self->_has;
+    v17 = self->_has;
   }
 
-  v33 = *(equalCopy + 71);
-  if ((*&v30 & 0x20) != 0)
+  v20 = *(equalCopy + 71);
+  if ((*&v17 & 0x20) != 0)
   {
-    if ((v33 & 0x20) == 0)
+    if ((v20 & 0x20) == 0)
     {
       goto LABEL_213;
     }
 
-    v34 = *(equalCopy + 264);
     if (self->_canBePublished)
     {
       if ((*(equalCopy + 264) & 1) == 0)
@@ -2599,19 +2563,18 @@ LABEL_29:
     }
   }
 
-  else if ((v33 & 0x20) != 0)
+  else if ((v20 & 0x20) != 0)
   {
     goto LABEL_213;
   }
 
-  if ((*&v30 & 0x40) != 0)
+  if ((*&v17 & 0x40) != 0)
   {
-    if ((v33 & 0x40) == 0)
+    if ((v20 & 0x40) == 0)
     {
       goto LABEL_213;
     }
 
-    v35 = *(equalCopy + 265);
     if (self->_canBeShared)
     {
       if ((*(equalCopy + 265) & 1) == 0)
@@ -2626,19 +2589,18 @@ LABEL_29:
     }
   }
 
-  else if ((v33 & 0x40) != 0)
+  else if ((v20 & 0x40) != 0)
   {
     goto LABEL_213;
   }
 
-  if ((*&v30 & 0x20000) != 0)
+  if ((*&v17 & 0x20000) != 0)
   {
-    if ((v33 & 0x20000) == 0)
+    if ((v20 & 0x20000) == 0)
     {
       goto LABEL_213;
     }
 
-    v36 = *(equalCopy + 276);
     if (self->_isPublished)
     {
       if ((*(equalCopy + 276) & 1) == 0)
@@ -2653,7 +2615,7 @@ LABEL_29:
     }
   }
 
-  else if ((v33 & 0x20000) != 0)
+  else if ((v20 & 0x20000) != 0)
   {
     goto LABEL_213;
   }
@@ -2700,52 +2662,51 @@ LABEL_29:
     }
   }
 
-  v42 = self->_has;
-  v43 = *(equalCopy + 71);
-  if ((*&v42 & 8) != 0)
+  v26 = self->_has;
+  v27 = *(equalCopy + 71);
+  if ((*&v26 & 8) != 0)
   {
-    if ((v43 & 8) == 0 || self->_supportedEntityTypes != *(equalCopy + 4))
+    if ((v27 & 8) == 0 || self->_supportedEntityTypes != *(equalCopy + 4))
     {
       goto LABEL_213;
     }
   }
 
-  else if ((v43 & 8) != 0)
+  else if ((v27 & 8) != 0)
   {
     goto LABEL_213;
   }
 
-  if (*&v42)
+  if (*&v26)
   {
-    if ((v43 & 1) == 0 || self->_invitationStatus != *(equalCopy + 1))
+    if ((v27 & 1) == 0 || self->_invitationStatus != *(equalCopy + 1))
     {
       goto LABEL_213;
     }
   }
 
-  else if (v43)
+  else if (v27)
   {
     goto LABEL_213;
   }
 
-  if ((*&v42 & 0x80) == 0)
+  if ((*&v26 & 0x80) == 0)
   {
-    if ((v43 & 0x80) == 0)
+    if ((v27 & 0x80) == 0)
     {
       goto LABEL_186;
     }
 
 LABEL_213:
-    v57 = 0;
+    v41 = 0;
     goto LABEL_214;
   }
 
-  if ((v43 & 0x80) == 0)
+  if ((v27 & 0x80) == 0)
   {
     goto LABEL_213;
   }
 
-  v59 = *(equalCopy + 266);
   if (self->_hasBeenAlerted)
   {
     if ((*(equalCopy + 266) & 1) == 0)
@@ -2868,17 +2829,17 @@ LABEL_186:
   ownerIdentityLastName = self->_ownerIdentityLastName;
   if (ownerIdentityLastName | *(equalCopy + 17))
   {
-    v57 = [(NSString *)ownerIdentityLastName isEqual:?];
+    v41 = [(NSString *)ownerIdentityLastName isEqual:?];
   }
 
   else
   {
-    v57 = 1;
+    v41 = 1;
   }
 
 LABEL_214:
 
-  return v57;
+  return v41;
 }
 
 - (unint64_t)hash

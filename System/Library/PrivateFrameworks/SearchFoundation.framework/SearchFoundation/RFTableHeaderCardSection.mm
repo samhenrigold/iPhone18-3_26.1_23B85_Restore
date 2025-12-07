@@ -13,11 +13,11 @@
 
 - (RFTableHeaderCardSection)initWithProtobuf:(id)protobuf
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v46.receiver = self;
-  v46.super_class = RFTableHeaderCardSection;
-  v5 = [(SFCardSection *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = RFTableHeaderCardSection;
+  v5 = [(SFCardSection *)&v45 init];
   if (v5)
   {
     columns = [protobufCopy columns];
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     columns2 = [protobufCopy columns];
-    v9 = [columns2 countByEnumeratingWithState:&v42 objects:v49 count:16];
+    v9 = [columns2 countByEnumeratingWithState:&v41 objects:v48 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v43;
+      v11 = *v42;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v43 != v11)
+          if (*v42 != v11)
           {
             objc_enumerationMutation(columns2);
           }
 
-          v13 = [[RFTableColumnDefinition alloc] initWithProtobuf:*(*(&v42 + 1) + 8 * i)];
+          v13 = [[RFTableColumnDefinition alloc] initWithProtobuf:*(*(&v41 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [columns2 countByEnumeratingWithState:&v42 objects:v49 count:16];
+        v10 = [columns2 countByEnumeratingWithState:&v41 objects:v48 count:16];
       }
 
       while (v10);
@@ -75,33 +75,33 @@
       v15 = 0;
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     cells2 = [protobufCopy cells];
-    v17 = [cells2 countByEnumeratingWithState:&v38 objects:v48 count:16];
+    v17 = [cells2 countByEnumeratingWithState:&v37 objects:v47 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v39;
+      v19 = *v38;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v39 != v19)
+          if (*v38 != v19)
           {
             objc_enumerationMutation(cells2);
           }
 
-          v21 = [[RFTableCell alloc] initWithProtobuf:*(*(&v38 + 1) + 8 * j)];
+          v21 = [[RFTableCell alloc] initWithProtobuf:*(*(&v37 + 1) + 8 * j)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [cells2 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        v18 = [cells2 countByEnumeratingWithState:&v37 objects:v47 count:16];
       }
 
       while (v18);
@@ -109,7 +109,7 @@
 
     [(RFTableHeaderCardSection *)v5 setCells:v15];
     compact_cells = [protobufCopy compact_cells];
-    v33 = v5;
+    v32 = v5;
     if (compact_cells)
     {
       v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -120,54 +120,53 @@
       v23 = 0;
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     compact_cells2 = [protobufCopy compact_cells];
-    v25 = [compact_cells2 countByEnumeratingWithState:&v34 objects:v47 count:16];
+    v25 = [compact_cells2 countByEnumeratingWithState:&v33 objects:v46 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v35;
+      v27 = *v34;
       do
       {
         for (k = 0; k != v26; ++k)
         {
-          if (*v35 != v27)
+          if (*v34 != v27)
           {
             objc_enumerationMutation(compact_cells2);
           }
 
-          v29 = [[RFTableCell alloc] initWithProtobuf:*(*(&v34 + 1) + 8 * k)];
+          v29 = [[RFTableCell alloc] initWithProtobuf:*(*(&v33 + 1) + 8 * k)];
           if (v29)
           {
             [v23 addObject:v29];
           }
         }
 
-        v26 = [compact_cells2 countByEnumeratingWithState:&v34 objects:v47 count:16];
+        v26 = [compact_cells2 countByEnumeratingWithState:&v33 objects:v46 count:16];
       }
 
       while (v26);
     }
 
-    v5 = v33;
-    [(RFTableHeaderCardSection *)v33 setCompact_cells:v23];
+    v5 = v32;
+    [(RFTableHeaderCardSection *)v32 setCompact_cells:v23];
     if ([protobufCopy should_repeat_header_in_flow_layout])
     {
-      -[RFTableHeaderCardSection setShould_repeat_header_in_flow_layout:](v33, "setShould_repeat_header_in_flow_layout:", [protobufCopy should_repeat_header_in_flow_layout]);
+      -[RFTableHeaderCardSection setShould_repeat_header_in_flow_layout:](v32, "setShould_repeat_header_in_flow_layout:", [protobufCopy should_repeat_header_in_flow_layout]);
     }
 
     if ([protobufCopy vertical_alignment])
     {
-      -[RFTableHeaderCardSection setVertical_alignment:](v33, "setVertical_alignment:", [protobufCopy vertical_alignment]);
+      -[RFTableHeaderCardSection setVertical_alignment:](v32, "setVertical_alignment:", [protobufCopy vertical_alignment]);
     }
 
-    v30 = v33;
+    v30 = v32;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

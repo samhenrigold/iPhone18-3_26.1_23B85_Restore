@@ -69,7 +69,7 @@ LABEL_5:
       v15 = [(NSArray *)[(BWNode *)v8 outputs] objectAtIndexedSubscript:v11];
       [v15 setName:v14];
       v16 = v15;
-      if (([v14 isEqualToString:@"PrimaryFormat"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v14) & 1) == 0)
       {
         v17 = objc_alloc_init(BWNodeInputMediaConfiguration);
         [(BWNodeInput *)v8->super.super._input formatRequirements];
@@ -254,7 +254,7 @@ LABEL_35:
     while (1)
     {
       v10 = [(NSArray *)self->_attachedMediaKeys objectAtIndexedSubscript:v9, v20];
-      if ([v10 isEqualToString:@"PrimaryFormat"])
+      if (objc_msgSend_isEqualToString_(v10))
       {
         if (self->_attachedMediaToPropagateToPrimaryOutput)
         {

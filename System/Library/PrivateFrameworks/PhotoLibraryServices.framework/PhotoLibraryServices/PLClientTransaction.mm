@@ -67,13 +67,13 @@ uint64_t __49___PLClientTransaction_persistTransactionScopes___block_invoke(uint
   return result;
 }
 
-void __44___PLClientTransaction__fdResourceSemaphore__block_invoke()
+void __44___PLClientTransaction__fdResourceSemaphore__block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((PLIsAssetsd() & 1) == 0)
   {
-    v0 = dispatch_semaphore_create(16);
-    v1 = _fdResourceSemaphore_fdResourceSem;
-    _fdResourceSemaphore_fdResourceSem = v0;
+    v2 = dispatch_semaphore_create(16);
+    v3 = _fdResourceSemaphore_fdResourceSem;
+    _fdResourceSemaphore_fdResourceSem = v2;
   }
 }
 

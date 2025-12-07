@@ -199,7 +199,7 @@ LABEL_6:
 
 - (BOOL)_validateDocumentContentWithError:(id *)error
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   document = [(HKCDADocumentSample *)self document];
   documentData = [document documentData];
 
@@ -209,19 +209,19 @@ LABEL_6:
   }
 
   v6 = [_HKXMLValidator validatorWithPathToXSD:_HKPathToValidationSchema__pathToValidationSchema];
+  v16 = 0;
   v17 = 0;
-  v18 = 0;
-  v7 = [v6 validateXML:documentData simpleError:&v18 detailedErrors:&v17];
-  v8 = v18;
-  v9 = v17;
+  v7 = [v6 validateXML:documentData simpleError:&v17 detailedErrors:&v16];
+  v8 = v17;
+  v9 = v16;
   v10 = v9;
   if ((v7 & 1) == 0 && v8 && v9)
   {
-    v19[0] = *MEMORY[0x1E696A578];
-    v19[1] = @"HKDetailedCDAValidationErrorKey";
-    v20[0] = v8;
-    v20[1] = v9;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[0] = *MEMORY[0x1E696A578];
+    v18[1] = @"HKDetailedCDAValidationErrorKey";
+    v19[0] = v8;
+    v19[1] = v9;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
     v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.healthkit" code:3 userInfo:v11];
     v13 = v12;
     if (v12)
@@ -239,7 +239,6 @@ LABEL_6:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -395,7 +394,7 @@ void __48__HKCDADocumentSample__globStringToRegexString___block_invoke(uint64_t 
 
       else
       {
-        [v4 appendString:@"\\""];
+        [v4 appendString:@"\"];
         v4 = *(a1 + 32);
         v5 = v7;
       }
@@ -405,7 +404,7 @@ void __48__HKCDADocumentSample__globStringToRegexString___block_invoke(uint64_t 
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
 
-  else if ([(__CFString *)v3 isEqualToString:@"\\""])
+  else if ([(__CFString *)v3 isEqualToString:@"\"])
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }

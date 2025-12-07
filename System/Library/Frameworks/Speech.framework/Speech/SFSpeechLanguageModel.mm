@@ -3,6 +3,7 @@
 + (void)initialize;
 + (void)prepareCustomLanguageModelForUrl:(NSURL *)asset clientIdentifier:(NSString *)clientIdentifier configuration:(SFSpeechLanguageModelConfiguration *)configuration ignoresCache:(BOOL)ignoresCache completion:(void *)completion;
 + (void)prepareCustomLanguageModelForUrl:(id)url configuration:(id)configuration completion:(id)completion;
++ (void)prepareCustomLanguageModelForUrl:(id)url configuration:(id)configuration ignoresCache:(BOOL)cache completion:(id)completion;
 + (void)trainAppLmFromNgramCountsArtifact:(id)artifact language:(id)language clientIdentifier:(id)identifier writeToDirectory:(id)directory modelOverride:(id)override completion:(id)completion;
 + (void)trainAppLmFromNgramsSerializedDataFile:(id)file customPronsFile:(id)pronsFile language:(id)language writeToDirectory:(id)directory modelOverride:(id)override completion:(id)completion;
 - (BOOL)addProns:(id)prons forWord:(id)word;
@@ -266,30 +267,30 @@ LABEL_18:
 
 - (void)addPronsFromFile:(id)file
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   fileCopy = file;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v17 = [objc_alloc(MEMORY[0x1E699BA08]) initWithFilePath:fileCopy];
-  obj = [v17 lexemes];
-  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v16 = [objc_alloc(MEMORY[0x1E699BA08]) initWithFilePath:fileCopy];
+  obj = [v16 lexemes];
+  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
-    v19 = *MEMORY[0x1E695D940];
+    v6 = *v21;
+    v18 = *MEMORY[0x1E695D940];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * i);
+        v8 = *(*(&v20 + 1) + 8 * i);
         v9 = [v8 objectForKeyedSubscript:@"grapheme"];
         v10 = MEMORY[0x1E695DFD8];
         v11 = [v8 objectForKeyedSubscript:@"phoneme"];
@@ -300,17 +301,15 @@ LABEL_18:
         {
           v14 = MEMORY[0x1E695DF30];
           allObjects = [v13 allObjects];
-          [v14 raise:v19 format:{@"Invalid prons: %@ for word: %@", allObjects, v9}];
+          [v14 raise:v18 format:{@"Invalid prons: %@ for word: %@", allObjects, v9}];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v5);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)deserializeModelData:(id)data
@@ -482,38 +481,36 @@ uint64_t __74__SFSpeechLanguageModel_trainFromPlainTextAndWriteToDirectory_compl
 
 - (void)addSentences:(id)sentences
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   sentencesCopy = sentences;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [sentencesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [sentencesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(sentencesCopy);
         }
 
-        [(SFSpeechLanguageModel *)self addSentence:*(*(&v10 + 1) + 8 * v8++)];
+        [(SFSpeechLanguageModel *)self addSentence:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [sentencesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [sentencesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -646,7 +643,7 @@ LABEL_14:
 
 + (void)prepareCustomLanguageModelForUrl:(NSURL *)asset clientIdentifier:(NSString *)clientIdentifier configuration:(SFSpeechLanguageModelConfiguration *)configuration ignoresCache:(BOOL)ignoresCache completion:(void *)completion
 {
-  v66[1] = *MEMORY[0x1E69E9840];
+  v65[1] = *MEMORY[0x1E69E9840];
   v11 = asset;
   v12 = clientIdentifier;
   v13 = configuration;
@@ -656,7 +653,7 @@ LABEL_14:
   aBlock[2] = __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentifier_configuration_ignoresCache_completion___block_invoke;
   aBlock[3] = &unk_1E797C1C8;
   v15 = v14;
-  v60 = v15;
+  v59 = v15;
   v16 = _Block_copy(aBlock);
   weight = [(SFSpeechLanguageModelConfiguration *)v13 weight];
   if (weight)
@@ -675,9 +672,9 @@ LABEL_5:
       v28 = [v24 localizedStringWithFormat:v26, weight3];
 
       v29 = MEMORY[0x1E696ABC0];
-      v65 = *MEMORY[0x1E696A578];
-      v66[0] = v28;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:&v65 count:1];
+      v64 = *MEMORY[0x1E696A578];
+      v65[0] = v28;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:&v64 count:1];
       v31 = [v29 errorWithDomain:@"SFSpeechErrorDomain" code:8 userInfo:v30];
       v16[2](v16, v31);
       goto LABEL_11;
@@ -704,20 +701,20 @@ LABEL_5:
     {
       v35 = getLocale;
       languageModel = [(SFSpeechLanguageModelConfiguration *)v13 languageModel];
-      v52[0] = MEMORY[0x1E69E9820];
-      v52[1] = 3221225472;
-      v52[2] = __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentifier_configuration_ignoresCache_completion___block_invoke_2;
-      v52[3] = &unk_1E797BF50;
-      v57 = v16;
-      v58 = ignoresCache;
-      v53 = v13;
-      v54 = v11;
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentifier_configuration_ignoresCache_completion___block_invoke_2;
+      v51[3] = &unk_1E797BF50;
+      v56 = v16;
+      v57 = ignoresCache;
+      v52 = v13;
+      v53 = v11;
       v30 = v35;
-      v55 = v30;
-      v56 = v12;
-      [SFSpeechLanguageModel appLmNeedsRebuild:languageModel language:v30 clientIdentifier:v56 modelOverride:0 completion:v52];
+      v54 = v30;
+      v55 = v12;
+      [SFSpeechLanguageModel appLmNeedsRebuild:languageModel language:v30 clientIdentifier:v55 modelOverride:0 completion:v51];
 
-      v31 = v57;
+      v31 = v56;
     }
 
     else
@@ -726,17 +723,17 @@ LABEL_5:
       v44 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
       v45 = [v44 localizedStringForKey:@"Error reading asset language for %@" value:&stru_1F2139F58 table:@"Localizable"];
       [(NSURL *)v11 path];
-      v46 = v51 = v12;
+      v46 = v50 = v12;
       v31 = [v43 localizedStringWithFormat:v45, v46];
 
       v47 = MEMORY[0x1E696ABC0];
-      v61 = *MEMORY[0x1E696A578];
-      v62 = v31;
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+      v60 = *MEMORY[0x1E696A578];
+      v61 = v31;
+      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
       v49 = [v47 errorWithDomain:@"SFSpeechErrorDomain" code:8 userInfo:v48];
       v16[2](v16, v49);
 
-      v12 = v51;
+      v12 = v50;
       v30 = 0;
     }
   }
@@ -750,9 +747,9 @@ LABEL_5:
     v30 = [v37 localizedStringWithFormat:v39, path2];
 
     v41 = MEMORY[0x1E696ABC0];
-    v63 = *MEMORY[0x1E696A578];
-    v64 = v30;
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+    v62 = *MEMORY[0x1E696A578];
+    v63 = v30;
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
     v42 = [v41 errorWithDomain:@"SFSpeechErrorDomain" code:8 userInfo:v31];
     v16[2](v16, v42);
 
@@ -760,8 +757,6 @@ LABEL_5:
   }
 
 LABEL_11:
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentifier_configuration_ignoresCache_completion___block_invoke(uint64_t a1)
@@ -852,7 +847,7 @@ id __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentifie
 
 void __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentifier_configuration_ignoresCache_completion___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -864,9 +859,9 @@ void __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentif
 
     v10 = [MEMORY[0x1E696AC08] defaultManager];
     v11 = [*(a1 + 40) languageModel];
-    v30 = 0;
-    v12 = [v10 moveItemAtURL:v5 toURL:v11 error:&v30];
-    v13 = v30;
+    v29 = 0;
+    v12 = [v10 moveItemAtURL:v5 toURL:v11 error:&v29];
+    v13 = v29;
 
     if (v12)
     {
@@ -880,9 +875,9 @@ void __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentif
 
         v17 = [MEMORY[0x1E696AC08] defaultManager];
         v18 = [*(a1 + 40) vocabulary];
-        v29 = v13;
-        [v17 moveItemAtURL:v7 toURL:v18 error:&v29];
-        v19 = v29;
+        v28 = v13;
+        [v17 moveItemAtURL:v7 toURL:v18 error:&v28];
+        v19 = v28;
       }
 
       else
@@ -909,14 +904,22 @@ void __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentif
 
     v24 = *(a1 + 48);
     v25 = MEMORY[0x1E696ABC0];
-    v31 = *MEMORY[0x1E696A578];
-    v32[0] = v19;
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x1E696A578];
+    v31[0] = v19;
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v27 = [v25 errorWithDomain:@"SFSpeechErrorDomain" code:1 userInfo:v26];
     (*(v24 + 16))(v24, v27);
   }
+}
 
-  v28 = *MEMORY[0x1E69E9840];
++ (void)prepareCustomLanguageModelForUrl:(id)url configuration:(id)configuration ignoresCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  completionCopy = completion;
+  configurationCopy = configuration;
+  urlCopy = url;
+  v13 = +[SFUtilities defaultClientID];
+  [self prepareCustomLanguageModelForUrl:urlCopy clientIdentifier:v13 configuration:configurationCopy ignoresCache:cacheCopy completion:completionCopy];
 }
 
 + (void)prepareCustomLanguageModelForUrl:(id)url configuration:(id)configuration completion:(id)completion
@@ -930,7 +933,7 @@ void __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentif
 
 + (void)appLmNeedsRebuild:(id)rebuild language:(id)language clientIdentifier:(id)identifier modelOverride:(id)override completion:(id)completion
 {
-  v58[1] = *MEMORY[0x1E69E9840];
+  v57[1] = *MEMORY[0x1E69E9840];
   rebuildCopy = rebuild;
   languageCopy = language;
   identifierCopy = identifier;
@@ -941,7 +944,7 @@ void __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentif
   aBlock[2] = __94__SFSpeechLanguageModel_appLmNeedsRebuild_language_clientIdentifier_modelOverride_completion___block_invoke;
   aBlock[3] = &unk_1E797BEB0;
   v16 = completionCopy;
-  v56 = v16;
+  v55 = v16;
   v17 = _Block_copy(aBlock);
   array = [MEMORY[0x1E695DF70] array];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -952,11 +955,11 @@ void __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentif
   {
     if (rebuildCopy)
     {
-      v47 = languageCopy;
+      v46 = languageCopy;
       path2 = [rebuildCopy path];
-      v54 = 0;
-      v23 = [SFUtilities issueReadSandboxExtensionForFilePath:path2 error:&v54];
-      v24 = v54;
+      v53 = 0;
+      v23 = [SFUtilities issueReadSandboxExtensionForFilePath:path2 error:&v53];
+      v24 = v53;
 
       if (v23)
       {
@@ -974,30 +977,30 @@ void __113__SFSpeechLanguageModel_prepareCustomLanguageModelForUrl_clientIdentif
         }
 
         v34 = NSTemporaryDirectory();
-        v53 = 0;
-        v35 = [SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:v34 error:&v53];
-        v36 = v53;
+        v52 = 0;
+        v35 = [SFUtilities issueReadWriteSandboxExtensionForDirectoryPath:v34 error:&v52];
+        v36 = v52;
 
         if (v35)
         {
-          v44 = v36;
-          v45 = v35;
-          v46 = v25;
+          v43 = v36;
+          v44 = v35;
+          v45 = v25;
           [array addObject:v35];
           v37 = objc_alloc_init(SFLocalSpeechRecognitionClient);
           [(SFLocalSpeechRecognitionClient *)v37 initializeWithSandboxExtensions:array];
-          v48[0] = MEMORY[0x1E69E9820];
-          v48[1] = 3221225472;
-          v48[2] = __94__SFSpeechLanguageModel_appLmNeedsRebuild_language_clientIdentifier_modelOverride_completion___block_invoke_2;
-          v48[3] = &unk_1E797BF00;
-          v52 = v17;
+          v47[0] = MEMORY[0x1E69E9820];
+          v47[1] = 3221225472;
+          v47[2] = __94__SFSpeechLanguageModel_appLmNeedsRebuild_language_clientIdentifier_modelOverride_completion___block_invoke_2;
+          v47[3] = &unk_1E797BF00;
+          v51 = v17;
           v38 = v37;
-          v49 = v38;
-          v50 = rebuildCopy;
-          languageCopy = v47;
-          v39 = v47;
-          v51 = v39;
-          v40 = _Block_copy(v48);
+          v48 = v38;
+          v49 = rebuildCopy;
+          languageCopy = v46;
+          v39 = v46;
+          v50 = v39;
+          v40 = _Block_copy(v47);
           if (!overrideCopy)
           {
             goto LABEL_16;
@@ -1020,9 +1023,9 @@ LABEL_16:
             [(SFLocalSpeechRecognitionClient *)v38 initializeLmWithLocale:v41 clientID:identifierCopy completion:v40];
           }
 
-          v35 = v45;
-          v25 = v46;
-          v42 = v44;
+          v35 = v44;
+          v25 = v45;
+          v42 = v43;
         }
 
         else
@@ -1030,7 +1033,7 @@ LABEL_16:
           NSLog(&cfstr_CouldNotIssueS_0.isa, v36);
           (*(v17 + 2))(v17, 1, v36);
           v42 = v36;
-          languageCopy = v47;
+          languageCopy = v46;
         }
       }
 
@@ -1049,9 +1052,9 @@ LABEL_16:
       v30 = [v26 localizedStringWithFormat:v28, 0, strerror(*v29)];
 
       v31 = MEMORY[0x1E696ABC0];
-      v57 = *MEMORY[0x1E696A578];
-      v58[0] = v30;
-      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
+      v56 = *MEMORY[0x1E696A578];
+      v57[0] = v30;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
       v33 = [v31 errorWithDomain:@"SFSpeechErrorDomain" code:1 userInfo:v32];
       (*(v17 + 2))(v17, 1, v33);
     }
@@ -1061,8 +1064,6 @@ LABEL_16:
   {
     (*(v17 + 2))(v17, 1, 0);
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __94__SFSpeechLanguageModel_appLmNeedsRebuild_language_clientIdentifier_modelOverride_completion___block_invoke(uint64_t a1)
@@ -1080,24 +1081,23 @@ void __94__SFSpeechLanguageModel_appLmNeedsRebuild_language_clientIdentifier_mod
 {
   if (a2)
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __94__SFSpeechLanguageModel_appLmNeedsRebuild_language_clientIdentifier_modelOverride_completion___block_invoke_3;
-    v8[3] = &unk_1E797BED8;
-    v7 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v9 = *(a1 + 32);
-    [v5 appLmNeedsRebuild:v6 language:v7 sandboxExtensions:MEMORY[0x1E695E0F0] completion:v8];
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __94__SFSpeechLanguageModel_appLmNeedsRebuild_language_clientIdentifier_modelOverride_completion___block_invoke_3;
+    v7[3] = &unk_1E797BED8;
+    v6 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    v8 = *(a1 + 32);
+    [v4 appLmNeedsRebuild:v5 language:v6 sandboxExtensions:MEMORY[0x1E695E0F0] completion:v7];
   }
 }
 

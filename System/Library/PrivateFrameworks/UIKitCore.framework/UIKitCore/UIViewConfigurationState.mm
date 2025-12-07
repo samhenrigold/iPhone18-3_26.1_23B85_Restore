@@ -189,7 +189,7 @@
   v5 = equalCopy;
   if (equalCopy == self)
   {
-    LOBYTE(v8) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -203,7 +203,7 @@
         v7 = v6;
         if (((*&v6->_stateFlags ^ *&self->_stateFlags) & 0x1F) != 0)
         {
-          LOBYTE(v8) = 0;
+          LOBYTE(isEqual) = 0;
 LABEL_20:
 
           goto LABEL_21;
@@ -219,7 +219,7 @@ LABEL_20:
 
         else
         {
-          LOBYTE(v8) = 0;
+          LOBYTE(isEqual) = 0;
           if (!v10 || !v11)
           {
 LABEL_19:
@@ -227,9 +227,9 @@ LABEL_19:
             goto LABEL_20;
           }
 
-          v8 = [(UITraitCollection *)v10 isEqual:v11];
+          isEqual = objc_msgSend_isEqual_(v10);
 
-          if (!v8)
+          if (!isEqual)
           {
             goto LABEL_20;
           }
@@ -242,15 +242,15 @@ LABEL_19:
         v12 = v15;
         if (v10 == v15)
         {
-          LOBYTE(v8) = 1;
+          LOBYTE(isEqual) = 1;
         }
 
         else
         {
-          LOBYTE(v8) = 0;
+          LOBYTE(isEqual) = 0;
           if (v10 && v15)
           {
-            LOBYTE(v8) = [(UITraitCollection *)v10 isEqual:v15];
+            LOBYTE(isEqual) = objc_msgSend_isEqual_(v10);
           }
         }
 
@@ -258,12 +258,12 @@ LABEL_19:
       }
     }
 
-    LOBYTE(v8) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_21:
 
-  return v8;
+  return isEqual;
 }
 
 - (unint64_t)hash

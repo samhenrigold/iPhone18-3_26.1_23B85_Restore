@@ -295,45 +295,44 @@ LABEL_6:
     v10 = v5;
     v11 = rtc - self->_rtc;
     [(TMTimeSynthesizerStates *)v5 utc];
-    rtc = self->_rtc;
-    v14 = v13 - self->_utc;
-    if (v11 <= v14)
+    v13 = v12 - self->_utc;
+    if (v11 <= v13)
     {
-      v15 = v14 - v11;
+      v14 = v13 - v11;
     }
 
     else
     {
-      v15 = v11 - v14;
+      v14 = v11 - v13;
     }
 
-    v16 = sub_100018D7C(self, self->_rtc);
-    v17 = v11 >= 0.0 && v15 <= 1.0;
-    if (!v17 || ([(TMTimeSynthesizerStates *)v10 utc_var], v15 > sqrt(v18) * 50.0))
+    v15 = sub_100018D7C(self, self->_rtc);
+    v16 = v11 >= 0.0 && v14 <= 1.0;
+    if (!v16 || ([(TMTimeSynthesizerStates *)v10 utc_var], v14 > sqrt(v17) * 50.0))
     {
-      v19 = qword_100033218;
+      v18 = qword_100033218;
       if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
       {
         name = self->_name;
         lastTimeRtc = self->_lastTimeRtc;
-        v22 = self->_rtc;
-        v25 = 138414082;
-        v26 = name;
-        v27 = 2112;
-        v28 = v16;
-        v29 = 2112;
-        v30 = v10;
-        v31 = 2048;
-        v32 = v11;
-        v33 = 2048;
-        v34 = v14;
-        v35 = 2048;
-        v36 = v15;
-        v37 = 2048;
-        v38 = lastTimeRtc;
-        v39 = 2048;
-        v40 = v22;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%@,WrongPredictState,Current,%@,PredictState,%@,dRtc,%.3lf,dUtc,%.3lf,ddtc,%.3lf,lastRtc,%.3lf,rtc,%.3lf", &v25, 0x52u);
+        rtc = self->_rtc;
+        v24 = 138414082;
+        v25 = name;
+        v26 = 2112;
+        v27 = v15;
+        v28 = 2112;
+        v29 = v10;
+        v30 = 2048;
+        v31 = v11;
+        v32 = 2048;
+        v33 = v13;
+        v34 = 2048;
+        v35 = v14;
+        v36 = 2048;
+        v37 = lastTimeRtc;
+        v38 = 2048;
+        rtcCopy = rtc;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@,WrongPredictState,Current,%@,PredictState,%@,dRtc,%.3lf,dUtc,%.3lf,ddtc,%.3lf,lastRtc,%.3lf,rtc,%.3lf", &v24, 0x52u);
       }
     }
 
@@ -343,11 +342,11 @@ LABEL_6:
     [(TMTimeSynthesizerStates *)v10 utc];
     [v8 setUtc_s:?];
     [(TMTimeSynthesizerStates *)v10 utc_var];
-    [v8 setUtcUnc_s:sqrt(v23)];
+    [v8 setUtcUnc_s:sqrt(v22)];
     [(TMTimeSynthesizerStates *)v10 rateSf];
     [v8 setSf:?];
     [(TMTimeSynthesizerStates *)v10 sf_var];
-    [v8 setSfUnc:sqrt(v24)];
+    [v8 setSfUnc:sqrt(v23)];
     [v8 setSynthesized:1];
     [v8 setSource:@"TMTimeSynthesizer"];
     [v8 setReliability:{sub_100018B00(self, v8)}];
@@ -359,9 +358,9 @@ LABEL_6:
     if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
     {
       v7 = self->_name;
-      v25 = 138412290;
-      v26 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@, Filter Not Available for timeAtRtc", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@, Filter Not Available for timeAtRtc", &v24, 0xCu);
     }
 
     return 0;

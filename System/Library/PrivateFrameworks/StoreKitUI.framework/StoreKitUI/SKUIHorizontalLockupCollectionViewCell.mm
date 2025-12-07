@@ -334,9 +334,9 @@
 
 - (void)layoutSubviews
 {
-  v33.receiver = self;
-  v33.super_class = SKUIHorizontalLockupCollectionViewCell;
-  [(SKUICollectionViewCell *)&v33 layoutSubviews];
+  v36.receiver = self;
+  v36.super_class = SKUIHorizontalLockupCollectionViewCell;
+  [(SKUICollectionViewCell *)&v36 layoutSubviews];
   contentView = [(SKUIHorizontalLockupCollectionViewCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -345,7 +345,7 @@
   v11 = v10;
 
   editModeControl = self->_editModeControl;
-  v32 = v5;
+  v35 = v5;
   if (editModeControl)
   {
     [(UIImageView *)editModeControl frame];
@@ -355,11 +355,11 @@
     v18 = v7 + (v11 - v15) * 0.5;
     v19 = floorf(v18);
     [(UIImageView *)self->_editModeControl setFrame:v17, v19];
-    v34.origin.x = v17;
-    v34.origin.y = v19;
-    v34.size.width = v14;
-    v34.size.height = v16;
-    MaxX = CGRectGetMaxX(v34);
+    v37.origin.x = v17;
+    v37.origin.y = v19;
+    v37.size.width = v14;
+    v37.size.height = v16;
+    MaxX = CGRectGetMaxX(v37);
     left = self->_contentInset.left;
     v5 = MaxX + 15.0 - left;
   }
@@ -376,27 +376,27 @@
     [(SKUICellScrollView *)actionsScrollView setFrame:v5, v7, v9, v11];
     [(SKUIHorizontalLockupView *)self->_lockupView setFrame:0.0, v7, v9, v11];
     [(UIButton *)self->_actionButton frame];
-    v24 = v23;
-    v35.origin.x = 0.0;
-    v35.origin.y = v7;
-    v35.size.width = v9;
-    v35.size.height = v11;
-    v25 = CGRectGetMaxX(v35);
-    [(UIButton *)self->_actionButton sizeThatFits:1.79769313e308, v11];
-    v27 = v26;
+    v25 = v24;
+    v38.origin.x = 0.0;
+    v38.origin.y = v7;
+    v38.size.width = v9;
+    v38.size.height = v11;
+    v26 = CGRectGetMaxX(v38);
+    v27 = [(UIButton *)self->_actionButton sizeThatFits:1.79769313e308, v11];
+    v29 = v28;
     actionButton = self->_actionButton;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v25, v24, v26, v11, v32, v7, v9, v11);
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v26, v25, v28, v11, v35, v7, v9, v11, v27, v31);
     [(UIButton *)actionButton setFrame:?];
-    v29 = self->_actionButton;
+    v32 = self->_actionButton;
     [(SKUICellScrollView *)self->_actionsScrollView contentOffset];
-    [(UIButton *)v29 setHidden:v30 < 0.00000011920929];
-    [(SKUICellScrollView *)self->_actionsScrollView setContentSize:v9 + v27, v11];
+    [(UIButton *)v32 setHidden:v33 < 0.00000011920929];
+    [(SKUICellScrollView *)self->_actionsScrollView setContentSize:v9 + v29, v11];
   }
 
   else
   {
     lockupView = self->_lockupView;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v5, v7, v9, v11, v32, v7, v9, v11);
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v5, v7, v9, v11, v35, v7, v9, v11, 0, v22);
     [(SKUIHorizontalLockupView *)lockupView setFrame:?];
   }
 }
@@ -567,10 +567,10 @@ void __66__SKUIHorizontalLockupCollectionViewCell__addEditControlAnimated___bloc
 
   v10 = style;
 
-  v11 = SKUIViewElementFontWithStyle(v10);
-  if (!v11)
+  v12 = SKUIViewElementFontWithStyle(v10);
+  if (!v12)
   {
-    v11 = SKUIFontPreferredFontForTextStyle(1);
+    v12 = SKUIFontPreferredFontForTextStyle(1, v11);
   }
 
   tintColor = [contextCopy tintColor];
@@ -582,9 +582,9 @@ void __66__SKUIHorizontalLockupCollectionViewCell__addEditControlAnimated___bloc
   }
 
   buttonText = [buttonCopy buttonText];
-  v15 = [buttonText attributedStringWithDefaultFont:v11 foregroundColor:whiteColor style:v10];
+  v16 = [buttonText attributedStringWithDefaultFont:v12 foregroundColor:whiteColor style:v10];
 
-  return v15;
+  return v16;
 }
 
 - (id)_editControlImage
@@ -909,11 +909,35 @@ uint64_t __69__SKUIHorizontalLockupCollectionViewCell__removeEditControlAnimated
   return result;
 }
 
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIHorizontalLockupCollectionViewCell initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalLockupCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
 + (void)preferredSizeForViewElement:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIHorizontalLockupCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalLockupCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalLockupCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

@@ -305,7 +305,7 @@ LABEL_7:
 
 - (void)loadFullPreviewIfNeededWithCompletion:(id)completion
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if ([(SYContentItem *)self previewLoadLevel]> 1)
   {
@@ -317,17 +317,15 @@ LABEL_7:
 
   else
   {
-    v9[0] = self;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __55__SYContentItem_loadFullPreviewIfNeededWithCompletion___block_invoke;
-    v7[3] = &unk_27856C318;
-    v8 = completionCopy;
-    [SYContentItemPreviewManager loadPreviewDataForItems:v5 fullDetail:1 didFinishLoadingPreviewHandler:v7];
+    v8[0] = self;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __55__SYContentItem_loadFullPreviewIfNeededWithCompletion___block_invoke;
+    v6[3] = &unk_27856C318;
+    v7 = completionCopy;
+    [SYContentItemPreviewManager loadPreviewDataForItems:v5 fullDetail:1 didFinishLoadingPreviewHandler:v6];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__SYContentItem_loadFullPreviewIfNeededWithCompletion___block_invoke(uint64_t a1)
@@ -421,25 +419,25 @@ LABEL_8:
 
 - (SYContentItem)initWithData:(id)data error:(id *)error
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (!dataCopy)
   {
     [SYContentItem initWithData:error:];
   }
 
-  v56 = 0;
-  v54 = 0;
   v55 = 0;
-  v7 = [SYSerializationSupport itemDataFromArchiveData:dataCopy majorVersion:&v56 minorVersion:&v55 error:&v54];
-  v8 = v54;
+  v53 = 0;
+  v54 = 0;
+  v7 = [SYSerializationSupport itemDataFromArchiveData:dataCopy majorVersion:&v55 minorVersion:&v54 error:&v53];
+  v8 = v53;
   if (v7)
   {
     v9 = [[SYPBContentItem alloc] initWithData:v7];
     if (v9)
     {
       v10 = v9;
-      v46 = v7;
+      v45 = v7;
       displayTitle = [(SYPBContentItem *)v9 displayTitle];
       sourceIdentifier = [(SYPBContentItem *)v10 sourceIdentifier];
       sourceLastKnownName = [(SYPBContentItem *)v10 sourceLastKnownName];
@@ -451,15 +449,15 @@ LABEL_8:
         v14 = MEMORY[0x277CCAAC8];
         v15 = objc_opt_class();
         itemIdentifierData2 = [(SYPBContentItem *)v10 itemIdentifierData];
-        v53 = 0;
-        v52 = [v14 unarchivedObjectOfClass:v15 fromData:itemIdentifierData2 error:&v53];
-        v50 = v53;
+        v52 = 0;
+        v51 = [v14 unarchivedObjectOfClass:v15 fromData:itemIdentifierData2 error:&v52];
+        v49 = v52;
       }
 
       else
       {
-        v52 = 0;
-        v50 = 0;
+        v51 = 0;
+        v49 = 0;
       }
 
       itemURL = [(SYPBContentItem *)v10 itemURL];
@@ -496,11 +494,11 @@ LABEL_8:
         canonicalURL = 0;
       }
 
-      v44 = userActivityData;
-      v45 = displayTitle;
-      if (v52 && sourceIdentifier && v24 | v27)
+      v43 = userActivityData;
+      v44 = displayTitle;
+      if (v51 && sourceIdentifier && v24 | v27)
       {
-        self = [(SYContentItem *)self initWithItemIdentifier:v52 displayTitle:displayTitle sourceIdentifier:sourceIdentifier sourceName:sourceLastKnownName itemURL:v24 activityType:activityType activityCanonicalURL:canonicalURL activityTargetContentIdentifier:targetContentIdentifier activityPersistentIdentifier:userActivityData userActivity:v27];
+        self = [(SYContentItem *)self initWithItemIdentifier:v51 displayTitle:displayTitle sourceIdentifier:sourceIdentifier sourceName:sourceLastKnownName itemURL:v24 activityType:activityType activityCanonicalURL:canonicalURL activityTargetContentIdentifier:targetContentIdentifier activityPersistentIdentifier:userActivityData userActivity:v27];
         linkPreviewMetadata = [(SYPBContentItem *)v10 linkPreviewMetadata];
         linkPreviewMetadata = self->_linkPreviewMetadata;
         self->_linkPreviewMetadata = linkPreviewMetadata;
@@ -511,16 +509,16 @@ LABEL_8:
 
       else
       {
-        v43 = dataCopy;
+        v42 = dataCopy;
         v32 = v26;
         v33 = activityType;
         v34 = v24;
         errorCopy = error;
         v36 = [MEMORY[0x277CBEB38] dictionaryWithObject:@"Data for serialized item is incomplete or corrupted." forKey:*MEMORY[0x277CCA450]];
         v37 = v36;
-        if (v50)
+        if (v49)
         {
-          [v36 setObject:v50 forKeyedSubscript:*MEMORY[0x277CCA7E8]];
+          [v36 setObject:v49 forKeyedSubscript:*MEMORY[0x277CCA7E8]];
         }
 
         v38 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.synapse" code:-121 userInfo:v37];
@@ -531,13 +529,13 @@ LABEL_8:
         v24 = v34;
         activityType = v33;
         v26 = v32;
-        dataCopy = v43;
+        dataCopy = v42;
       }
 
       if (v31)
       {
         v39 = 0;
-        v7 = v46;
+        v7 = v45;
         if (!error)
         {
           goto LABEL_30;
@@ -546,15 +544,15 @@ LABEL_8:
         goto LABEL_29;
       }
 
-      v7 = v46;
+      v7 = v45;
     }
 
     else
     {
       v17 = MEMORY[0x277CCA9B8];
-      v57 = *MEMORY[0x277CCA450];
-      v58[0] = @"Failed to deserialize data for content item.";
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
+      v56 = *MEMORY[0x277CCA450];
+      v57[0] = @"Failed to deserialize data for content item.";
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
       v19 = [v17 errorWithDomain:@"com.apple.synapse" code:-120 userInfo:v18];
 
       v8 = v19;
@@ -577,7 +575,6 @@ LABEL_29:
 
 LABEL_30:
 
-  v41 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -651,10 +648,9 @@ LABEL_8:
 
 + (NSArray)readableTypeIdentifiersForItemProvider
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"com.apple.synapse.item";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"com.apple.synapse.item";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -677,10 +673,9 @@ LABEL_8:
 
 + (NSArray)writableTypeIdentifiersForItemProvider
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"com.apple.synapse.item";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"com.apple.synapse.item";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -772,24 +767,21 @@ LABEL_8:
 
 - (void)initWithData:(uint64_t)a1 error:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Error initializing content item: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Error initializing content item: %@", &v2, 0xCu);
 }
 
 - (void)dataRepresentationWithError:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 userActivity];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Failed to serialize data for user activity %@. Error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Failed to serialize data for user activity %@. Error: %@", &v6, 0x16u);
 }
 
 @end

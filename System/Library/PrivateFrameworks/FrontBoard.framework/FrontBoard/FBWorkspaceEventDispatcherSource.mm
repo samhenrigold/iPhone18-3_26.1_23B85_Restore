@@ -21,7 +21,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -31,7 +31,7 @@
 
 - (void)invalidate
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_invalidationLock);
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -42,7 +42,7 @@
     (*(v3 + 16))(v3, selfCopy);
   }
 
-  v29 = v3;
+  v28 = v3;
   os_unfair_lock_lock(&selfCopy->_lock);
   v4 = selfCopy->_lock_remnants;
   v5 = selfCopy->_lock_requestsByTargetIdentifier;
@@ -55,83 +55,83 @@
   lock_invalidationBlock = selfCopy->_lock_invalidationBlock;
   selfCopy->_lock_invalidationBlock = 0;
 
-  v30 = selfCopy;
+  v29 = selfCopy;
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v9 = v4;
-  v10 = [(NSSet *)v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v10 = [(NSSet *)v9 countByEnumeratingWithState:&v39 objects:v45 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v41;
+    v12 = *v40;
     do
     {
       v13 = 0;
       do
       {
-        if (*v41 != v12)
+        if (*v40 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v40 + 1) + 8 * v13++) invalidate];
+        [*(*(&v39 + 1) + 8 * v13++) invalidate];
       }
 
       while (v11 != v13);
-      v11 = [(NSSet *)v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v11 = [(NSSet *)v9 countByEnumeratingWithState:&v39 objects:v45 count:16];
     }
 
     while (v11);
   }
 
-  v27 = v9;
+  v26 = v9;
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v28 = v5;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v27 = v5;
   obj = [(NSMutableDictionary *)v5 objectEnumerator];
-  v14 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
+  v14 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v37;
+    v16 = *v36;
     do
     {
       v17 = 0;
       do
       {
-        if (*v37 != v16)
+        if (*v36 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * v17);
+        v18 = *(*(&v35 + 1) + 8 * v17);
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
         v19 = v18;
-        v20 = [v19 countByEnumeratingWithState:&v32 objects:v44 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v31 objects:v43 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v33;
+          v22 = *v32;
           do
           {
             v23 = 0;
             do
             {
-              if (*v33 != v22)
+              if (*v32 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = *(*(&v32 + 1) + 8 * v23);
+              v24 = *(*(&v31 + 1) + 8 * v23);
               v25 = FBSWorkspaceErrorCreate();
               [v24 invalidateWithError:v25];
 
@@ -139,7 +139,7 @@
             }
 
             while (v21 != v23);
-            v21 = [v19 countByEnumeratingWithState:&v32 objects:v44 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v31 objects:v43 count:16];
           }
 
           while (v21);
@@ -149,14 +149,13 @@
       }
 
       while (v17 != v15);
-      v15 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
+      v15 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
     }
 
     while (v15);
   }
 
-  os_unfair_lock_unlock(v30 + 11);
-  v26 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_unlock(v29 + 11);
 }
 
 - (id)_initWithProcessHandle:(id)handle invalidationBlock:(id)block
@@ -205,7 +204,7 @@
 
 - (BOOL)noteHandshakeWithRemnants:(id)remnants
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   remnantsCopy = remnants;
   if (!remnantsCopy)
   {
@@ -219,26 +218,26 @@
     [(FBWorkspaceEventDispatcherSource *)v6 noteHandshakeWithRemnants:a2];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         if (!v12)
         {
           [FBWorkspaceEventDispatcherSource noteHandshakeWithRemnants:a2];
@@ -252,7 +251,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -296,13 +295,12 @@ LABEL_22:
 LABEL_23:
   os_unfair_lock_unlock(&self->_lock);
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (id)consumeRemnantsPassingTest:(id)test
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   testCopy = test;
   if (!testCopy)
   {
@@ -319,12 +317,12 @@ LABEL_23:
   }
 
   selfCopy = self;
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v8 = lock_remnants;
-  v9 = [(NSSet *)v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v9 = [(NSSet *)v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (!v9)
   {
     v11 = 0;
@@ -335,17 +333,17 @@ LABEL_23:
   v10 = v9;
   v11 = 0;
   v12 = 0;
-  v13 = *v28;
+  v13 = *v27;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v28 != v13)
+      if (*v27 != v13)
       {
         objc_enumerationMutation(v8);
       }
 
-      v15 = *(*(&v27 + 1) + 8 * i);
+      v15 = *(*(&v26 + 1) + 8 * i);
       if (v6[2](v6, v15))
       {
         if (v11)
@@ -371,7 +369,7 @@ LABEL_13:
       }
     }
 
-    v10 = [(NSSet *)v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v10 = [(NSSet *)v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
   }
 
   while (v10);
@@ -411,8 +409,6 @@ LABEL_21:
 
 LABEL_30:
   os_unfair_lock_unlock(&self->_lock);
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -489,7 +485,7 @@ LABEL_30:
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      [FBWorkspaceEventDispatcherSource dequeueSceneRequestsForTargetIdentifier:a2];
+      [(FBWorkspaceEventDispatcherSource *)a2 dequeueSceneRequestsForTargetIdentifier:v13];
     }
 
     [v13 UTF8String];
@@ -565,28 +561,27 @@ LABEL_30:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"processHandle", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"processHandle", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_initWithProcessHandle:(char *)a1 invalidationBlock:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"invalidationBlock"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -594,7 +589,7 @@ LABEL_30:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"invalidationBlock", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -604,7 +599,7 @@ LABEL_30:
 
 - (void)_initWithProcessHandle:(uint64_t)a1 invalidationBlock:(char *)a2 .cold.3(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid pid on handle=%@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid pid on handle=%@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -612,7 +607,7 @@ LABEL_30:
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -624,20 +619,20 @@ LABEL_30:
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"processHandle", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"processHandle", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -653,21 +648,20 @@ LABEL_30:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"remnants", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"remnants", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -683,21 +677,20 @@ LABEL_30:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"remnant", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"remnant", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -706,20 +699,20 @@ LABEL_30:
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"remnant", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"remnant", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -734,7 +727,7 @@ LABEL_30:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -752,7 +745,7 @@ LABEL_30:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -770,7 +763,7 @@ LABEL_30:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -782,27 +775,27 @@ LABEL_30:
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"remnants", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"remnants", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)consumeRemnantsPassingTest:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"test"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -810,7 +803,7 @@ LABEL_30:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"test", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -829,21 +822,20 @@ LABEL_30:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"request", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"request", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -858,7 +850,7 @@ LABEL_30:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -876,7 +868,7 @@ LABEL_30:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -886,7 +878,7 @@ LABEL_30:
 
 - (void)enqueueSceneRequest:(uint64_t)a1 .cold.4(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"missing targetIdentifier in request : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"missing targetIdentifier in request : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -894,7 +886,7 @@ LABEL_30:
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -906,20 +898,20 @@ LABEL_30:
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"request", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"request", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -935,34 +927,41 @@ LABEL_30:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"targetIdentifier", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"targetIdentifier", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)dequeueSceneRequestsForTargetIdentifier:(const char *)a1 .cold.2(const char *a1)
+- (void)dequeueSceneRequestsForTargetIdentifier:(uint64_t)a3 .cold.2(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v9 = NSStringFromClass(v2);
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v3, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = NSStringFromSelector(a1);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  *v13 = 138544642;
+  *&v13[4] = v5;
+  *&v13[12] = 2114;
+  *&v13[14] = v7;
+  *&v13[22] = 2048;
+  LOWORD(v14) = 2114;
+  *(&v14 + 2) = @"FBWorkspaceEventDispatcherSource.m";
+  WORD5(v14) = 1024;
+  HIDWORD(v14) = 132;
+  LOWORD(v15) = 2114;
+  *(&v15 + 2) = a3;
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], a2, v14, v15, HIWORD(a3));
 }
 
 @end

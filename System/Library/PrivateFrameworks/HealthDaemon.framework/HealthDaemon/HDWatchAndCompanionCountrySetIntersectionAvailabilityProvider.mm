@@ -140,7 +140,7 @@
 
 - (void)allowedCountriesDataSourceDidUpdateActiveRemoteCountrySet:(id)set
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (self->_reloadsLocalCountrySetOnRemoteCountrySetUpdate)
   {
     activeRemoteCountrySet = [(HDAllowedCountriesDataSource *)self->_allowedCountriesDataSource activeRemoteCountrySet];
@@ -148,12 +148,12 @@
     if (activeRemoteCountrySet)
     {
       contentVersion = [activeRemoteCountrySet contentVersion];
-      v22 = 0;
+      v21 = 0;
       _lastContentVersionDuringReloadAttemptDomain = [(HDWatchAndCompanionCountrySetIntersectionAvailabilityProvider *)self _lastContentVersionDuringReloadAttemptDomain];
       featureIdentifier = [(HDAllowedCountriesDataSource *)self->_allowedCountriesDataSource featureIdentifier];
-      v9 = [_lastContentVersionDuringReloadAttemptDomain numberForKey:featureIdentifier error:&v22];
+      v9 = [_lastContentVersionDuringReloadAttemptDomain numberForKey:featureIdentifier error:&v21];
 
-      v10 = v22;
+      v10 = v21;
       v11 = v10;
       if (v9 || !v10)
       {
@@ -192,9 +192,9 @@
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __87__HDWatchAndCompanionCountrySetIntersectionAvailabilityProvider__reloadLocalCountrySet__block_invoke;
-        v24 = &unk_27861DCA0;
+        v23 = &unk_27861DCA0;
         selfCopy = self;
-        v26 = contentVersion;
+        v25 = contentVersion;
         [(HDAllowedCountriesDataSource *)allowedCountriesDataSource reloadLocalCountrySetWithCompletion:buf];
         goto LABEL_18;
       }
@@ -229,12 +229,11 @@ LABEL_18:
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained regionAvailabilityProvidingDidUpdate:self];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HDWatchAndCompanionCountrySetIntersectionAvailabilityProvider__reloadLocalCountrySet__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -242,13 +241,13 @@ void __87__HDWatchAndCompanionCountrySetIntersectionAvailabilityProvider__reload
     if (v6)
     {
       v7 = *(a1 + 40);
-      v17 = 0;
+      v16 = 0;
       v8 = [(HDWatchAndCompanionCountrySetIntersectionAvailabilityProvider *)v6 _lastContentVersionDuringReloadAttemptDomain];
       v9 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
       v10 = [*(v6 + 8) featureIdentifier];
-      v11 = [v8 setNumber:v9 forKey:v10 error:&v17];
+      v11 = [v8 setNumber:v9 forKey:v10 error:&v16];
 
-      v12 = v17;
+      v12 = v16;
       if ((v11 & 1) == 0)
       {
         _HKInitializeLogging();
@@ -256,9 +255,9 @@ void __87__HDWatchAndCompanionCountrySetIntersectionAvailabilityProvider__reload
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v19 = v6;
-          v20 = 2114;
-          v21 = v12;
+          v18 = v6;
+          v19 = 2114;
+          v20 = v12;
           _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting last content version: %{public}@", buf, 0x16u);
         }
       }
@@ -273,14 +272,12 @@ void __87__HDWatchAndCompanionCountrySetIntersectionAvailabilityProvider__reload
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v19 = v14;
-      v20 = 2114;
-      v21 = v5;
+      v18 = v14;
+      v19 = 2114;
+      v20 = v5;
       _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to initiate local country set reload: %{public}@", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)lastContentVersionDuringReloadAttemptDomainForProfile:(id)profile

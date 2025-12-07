@@ -36,6 +36,7 @@
 - (void)didUnidle;
 - (void)forgetEverythingAboutPersonID:(id)d completionBlock:(id)block;
 - (void)forgetEverythingCompletionBlock:(id)block;
+- (void)mapQueueShutDownStateMachineInMap:(id)map personIDs:(id)ds index:(unint64_t)index forDestruction:(BOOL)destruction completionBlock:(id)block;
 - (void)markAlbumGUIDAsViewed:(id)viewed personID:(id)d moveLastViewedAssetCollectionMarker:(BOOL)marker info:(id)info;
 - (void)markAsSpamAlbumWithGUID:(id)d personID:(id)iD;
 - (void)markAsSpamInvitationWithGUID:(id)d personID:(id)iD;
@@ -59,9 +60,11 @@
 - (void)setFocusAlbumGUID:(id)d forPersonID:(id)iD;
 - (void)setFocusAssetCollectionGUID:(id)d forPersonID:(id)iD;
 - (void)setMigrationMarker:(id)marker personID:(id)d;
+- (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block;
 - (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD info:(id)info completionBlock:(id)block;
 - (void)setNextActivityDate:(id)date forPersonID:(id)d;
 - (void)setPersistentObject:(id)object forKey:(id)key personID:(id)d;
+- (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block;
 - (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD info:(id)info completionBlock:(id)block;
 - (void)shutDown;
 - (void)shutDownCompletionBlock:(id)block;
@@ -86,7 +89,7 @@
 
 - (void)updateOwnerReputationScoreForAlbum:(id)album
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   ownerEmail = [albumCopy ownerEmail];
 
@@ -97,9 +100,9 @@
     v8 = [v6 handleWithEmailAddress:ownerEmail2];
 
     v9 = objc_opt_new();
-    v13 = 0;
-    v10 = [v9 reputationForHandle:v8 timeout:&v13 error:10.0];
-    v11 = v13;
+    v12 = 0;
+    v10 = [v9 reputationForHandle:v8 timeout:&v12 error:10.0];
+    v11 = v12;
 
     if (v10)
     {
@@ -110,8 +113,8 @@
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v16 = 2114;
-      v17 = v11;
+      v15 = 2114;
+      v16 = v11;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unable to query contacts reputation score: %{public}@", buf, 0x16u);
     }
   }
@@ -122,8 +125,6 @@
     selfCopy2 = self;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected nil album owner email", buf, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveCommentTooLongError:(id)error forAssetCollection:(id)collection inAlbum:(id)album personID:(id)d
@@ -309,116 +310,109 @@ void __62__MSAlbumSharingDaemon_didReceiveTooManyAlbumsError_personID___block_in
 
 void __53__MSAlbumSharingDaemon_boundStateMachineForPersonID___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 32))
+  v31 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 32))
   {
-    goto LABEL_18;
-  }
+    v2 = [*(*(a1 + 40) + 56) objectForKey:?];
+    v3 = *(*(a1 + 48) + 8);
+    v4 = *(v3 + 40);
+    *(v3 + 40) = v2;
 
-  v2 = [*(*(a1 + 40) + 56) objectForKey:?];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
-
-  if (*(*(*(a1 + 48) + 8) + 40))
-  {
-    goto LABEL_18;
-  }
-
-  v5 = MSASPlatform();
-  v6 = objc_opt_respondsToSelector();
-
-  v7 = MSASPlatform();
-  v8 = v7;
-  if (v6)
-  {
-    v9 = [v7 personIDEnabledForAlbumSharing:*(a1 + 32)];
-
-    if ((v9 & 1) == 0)
+    if (!*(*(*(a1 + 48) + 8) + 40))
     {
-      goto LABEL_5;
-    }
-  }
+      v5 = MSASPlatform();
+      v6 = objc_opt_respondsToSelector();
 
-  else
-  {
-    v12 = [v7 personIDsEnabledForAlbumSharing];
-    v13 = [v12 containsObject:*(a1 + 32)];
-
-    if (!v13)
-    {
-LABEL_5:
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      v7 = MSASPlatform();
+      v8 = v7;
+      if (v6)
       {
-        v11 = *(a1 + 32);
-        v10 = *(a1 + 40);
-        *buf = 138543618;
-        v29 = v10;
-        v30 = 2112;
-        v31 = v11;
-        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Shared Photo Stream is disabled for person ID %@. Not instantiating state machine.", buf, 0x16u);
-      }
+        v9 = [v7 personIDEnabledForAlbumSharing:*(a1 + 32)];
 
-      goto LABEL_18;
-    }
-  }
-
-  v14 = [*(a1 + 40) _delegateForPersonID:*(a1 + 32)];
-  if (v14)
-  {
-    v15 = [[MSASStateMachine alloc] initWithPersonID:*(a1 + 32)];
-    v16 = *(*(a1 + 48) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
-
-    v18 = *(*(*(a1 + 48) + 8) + 40);
-    if (v18)
-    {
-      [v18 setDelegate:v14];
-      [*(*(*(a1 + 48) + 8) + 40) setDaemon:*(a1 + 40)];
-      [v14 setMSASCounterpartInstance:*(*(*(a1 + 48) + 8) + 40)];
-      [v14 setDaemon:*(a1 + 40)];
-      [*(*(a1 + 40) + 56) setObject:*(*(*(a1 + 48) + 8) + 40) forKey:*(a1 + 32)];
-      [*(*(a1 + 40) + 64) setObject:v14 forKey:*(a1 + 32)];
-      if ([v14 dbWasRecreated])
-      {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        if ((v9 & 1) == 0)
         {
-          v23 = *(a1 + 40);
-          *buf = 138543362;
-          v29 = v23;
-          _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Forcing model reset sync.", buf, 0xCu);
+          goto LABEL_5;
         }
-
-        [v14 reconstruct];
       }
 
-      [*(*(*(a1 + 48) + 8) + 40) start];
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = __53__MSAlbumSharingDaemon_boundStateMachineForPersonID___block_invoke_351;
-      block[3] = &unk_278E92638;
-      v24 = *(a1 + 32);
-      v19 = v24.i64[0];
-      v26 = vextq_s8(v24, v24, 8uLL);
-      v27 = v14;
-      dispatch_async(MEMORY[0x277D85CD0], block);
+      else
+      {
+        v12 = [v7 personIDsEnabledForAlbumSharing];
+        v13 = [v12 containsObject:*(a1 + 32)];
+
+        if (!v13)
+        {
+LABEL_5:
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            v11 = *(a1 + 32);
+            v10 = *(a1 + 40);
+            *buf = 138543618;
+            v28 = v10;
+            v29 = 2112;
+            v30 = v11;
+            _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Shared Photo Stream is disabled for person ID %@. Not instantiating state machine.", buf, 0x16u);
+          }
+
+          return;
+        }
+      }
+
+      v14 = [*(a1 + 40) _delegateForPersonID:*(a1 + 32)];
+      if (v14)
+      {
+        v15 = [[MSASStateMachine alloc] initWithPersonID:*(a1 + 32)];
+        v16 = *(*(a1 + 48) + 8);
+        v17 = *(v16 + 40);
+        *(v16 + 40) = v15;
+
+        v18 = *(*(*(a1 + 48) + 8) + 40);
+        if (v18)
+        {
+          [v18 setDelegate:v14];
+          [*(*(*(a1 + 48) + 8) + 40) setDaemon:*(a1 + 40)];
+          [v14 setMSASCounterpartInstance:*(*(*(a1 + 48) + 8) + 40)];
+          [v14 setDaemon:*(a1 + 40)];
+          [*(*(a1 + 40) + 56) setObject:*(*(*(a1 + 48) + 8) + 40) forKey:*(a1 + 32)];
+          [*(*(a1 + 40) + 64) setObject:v14 forKey:*(a1 + 32)];
+          if ([v14 dbWasRecreated])
+          {
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+            {
+              v22 = *(a1 + 40);
+              *buf = 138543362;
+              v28 = v22;
+              _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Forcing model reset sync.", buf, 0xCu);
+            }
+
+            [v14 reconstruct];
+          }
+
+          [*(*(*(a1 + 48) + 8) + 40) start];
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 3221225472;
+          block[2] = __53__MSAlbumSharingDaemon_boundStateMachineForPersonID___block_invoke_351;
+          block[3] = &unk_278E92638;
+          v23 = *(a1 + 32);
+          v19 = v23.i64[0];
+          v25 = vextq_s8(v23, v23, 8uLL);
+          v26 = v14;
+          dispatch_async(MEMORY[0x277D85CD0], block);
+        }
+      }
+
+      else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v21 = *(a1 + 32);
+        v20 = *(a1 + 40);
+        *buf = 138543618;
+        v28 = v20;
+        v29 = 2112;
+        v30 = v21;
+        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not create delegate for person ID %@.", buf, 0x16u);
+      }
     }
   }
-
-  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    v22 = *(a1 + 32);
-    v21 = *(a1 + 40);
-    *buf = 138543618;
-    v29 = v21;
-    v30 = 2112;
-    v31 = v22;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not create delegate for person ID %@.", buf, 0x16u);
-  }
-
-LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __53__MSAlbumSharingDaemon_boundStateMachineForPersonID___block_invoke_351(uint64_t a1)
@@ -461,10 +455,7 @@ void __53__MSAlbumSharingDaemon_boundStateMachineForPersonID___block_invoke_351(
 
 uint64_t __56__MSAlbumSharingDaemon_existingStateMachineForPersonID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 56) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 56) objectForKey:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -566,7 +557,7 @@ uint64_t __56__MSAlbumSharingDaemon_existingStateMachineForPersonID___block_invo
 
 void __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) workQueue];
   dispatch_suspend(v2);
 
@@ -580,10 +571,10 @@ void __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke(u
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__3879;
-  v14 = __Block_byref_object_dispose__3880;
-  v15 = 0;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__3879;
+  v13 = __Block_byref_object_dispose__3880;
+  v14 = 0;
   v4 = [*(a1 + 32) mapQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -595,59 +586,55 @@ void __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke(u
 
   v5 = *(a1 + 32);
   v6 = *(*(&buf + 1) + 40);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_2;
-  v8[3] = &unk_278E927A0;
-  v8[4] = v5;
-  v9 = *(a1 + 40);
-  [v5 workQueueForgetEverythingAboutPersonIDs:v6 index:0 completionBlock:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_2;
+  v7[3] = &unk_278E927A0;
+  v7[4] = v5;
+  v8 = *(a1 + 40);
+  [v5 workQueueForgetEverythingAboutPersonIDs:v6 index:0 completionBlock:v7];
 
   _Block_object_dispose(&buf, 8);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_255(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 56) allKeys];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 56) allKeys];
 
   return MEMORY[0x2821F96F8]();
 }
 
 void __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_2(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = MSPathAlbumSharingDir();
-  v28 = 0;
-  v4 = [v2 contentsOfDirectoryAtPath:v3 error:&v28];
-  v5 = v28;
+  v27 = 0;
+  v4 = [v2 contentsOfDirectoryAtPath:v3 error:&v27];
+  v5 = v27;
 
   if (v4)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * i);
+          v11 = *(*(&v23 + 1) + 8 * i);
           buf[0] = 0;
           v12 = MSPathAlbumSharingDir();
           v13 = [v12 stringByAppendingPathComponent:v11];
@@ -658,7 +645,7 @@ void __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_2
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v23 objects:v32 count:16];
       }
 
       while (v8);
@@ -667,12 +654,12 @@ void __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_2
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v20 = *(a1 + 32);
-    v21 = [v5 MSVerboseDescription];
+    v19 = *(a1 + 32);
+    v20 = [v5 MSVerboseDescription];
     *buf = 138543618;
-    v30 = v20;
-    v31 = 2114;
-    v32 = v21;
+    v29 = v19;
+    v30 = 2114;
+    v31 = v20;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not enumerate contents of Shared Photo Stream directory. Error: %{public}@", buf, 0x16u);
   }
 
@@ -683,22 +670,22 @@ void __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_2
   {
     v15 = *(a1 + 32);
     *buf = 138543362;
-    v30 = v15;
+    v29 = v15;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Forgotten everything.", buf, 0xCu);
   }
 
   v16 = *(a1 + 40);
   if (v16)
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_256;
-    v22[3] = &unk_278E927A0;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_256;
+    v21[3] = &unk_278E927A0;
     v17 = v16;
-    v22[4] = *(a1 + 32);
-    v23 = v17;
-    dispatch_async(MEMORY[0x277D85CD0], v22);
-    v18 = v23;
+    v21[4] = *(a1 + 32);
+    v22 = v17;
+    dispatch_async(MEMORY[0x277D85CD0], v21);
+    v18 = v22;
   }
 
   else
@@ -706,8 +693,6 @@ void __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_2
     v18 = [*(a1 + 32) workQueue];
     dispatch_resume(v18);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __56__MSAlbumSharingDaemon_forgetEverythingCompletionBlock___block_invoke_256(uint64_t a1)
@@ -809,7 +794,7 @@ void __70__MSAlbumSharingDaemon_forgetEverythingAboutPersonID_completionBlock___
 
 - (void)workQueueForgetEverythingAboutPersonID:(id)d completionBlock:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   blockCopy = block;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -824,35 +809,35 @@ void __70__MSAlbumSharingDaemon_forgetEverythingAboutPersonID_completionBlock___
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v23 = __Block_byref_object_copy__3879;
-  v24 = __Block_byref_object_dispose__3880;
-  v25 = 0;
+  v22 = __Block_byref_object_copy__3879;
+  v23 = __Block_byref_object_dispose__3880;
+  v24 = 0;
   mapQueue = [(MSAlbumSharingDaemon *)self mapQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completionBlock___block_invoke;
   block[3] = &unk_278E91C78;
-  v21 = buf;
+  v20 = buf;
   block[4] = self;
   v9 = dCopy;
-  v20 = v9;
+  v19 = v9;
   dispatch_sync(mapQueue, block);
 
   v10 = *(*&buf[8] + 40);
   if (v10)
   {
     delegate = [v10 delegate];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completionBlock___block_invoke_2;
-    v14[3] = &unk_278E90AF8;
-    v14[4] = self;
-    v18 = buf;
-    v15 = v9;
-    v16 = delegate;
-    v17 = blockCopy;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completionBlock___block_invoke_2;
+    v13[3] = &unk_278E90AF8;
+    v13[4] = self;
+    v17 = buf;
+    v14 = v9;
+    v15 = delegate;
+    v16 = blockCopy;
     v12 = delegate;
-    dispatch_async(MEMORY[0x277D85CD0], v14);
+    dispatch_async(MEMORY[0x277D85CD0], v13);
   }
 
   else
@@ -861,7 +846,6 @@ void __70__MSAlbumSharingDaemon_forgetEverythingAboutPersonID_completionBlock___
   }
 
   _Block_object_dispose(buf, 8);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completionBlock___block_invoke(uint64_t a1)
@@ -899,7 +883,7 @@ void __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completio
 
 void __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completionBlock___block_invoke_3(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -909,13 +893,13 @@ void __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completio
     block[3] = &unk_278E916F0;
     *&v3 = v2;
     *(&v3 + 1) = *(a1 + 40);
-    v10 = v3;
+    v9 = v3;
     v4 = *(a1 + 48);
     v5 = *(a1 + 56);
     *&v6 = v4;
     *(&v6 + 1) = v5;
-    v12 = v10;
-    v13 = v6;
+    v11 = v9;
+    v12 = v6;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -926,16 +910,14 @@ void __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completio
       v7 = *(a1 + 40);
       v8 = *(a1 + 48);
       *buf = 138543618;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Model not found for person ID %@.", buf, 0x16u);
     }
 
     [*(a1 + 40) _postModelShutdownForPersonID:*(a1 + 48) completionBlock:*(a1 + 56)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completionBlock___block_invoke_4(uint64_t a1)
@@ -974,33 +956,31 @@ void __79__MSAlbumSharingDaemon_workQueueForgetEverythingAboutPersonID_completio
 
 void __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBlock___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) personID];
   [*(a1 + 40) willDestroyStateMachineForPersonID:v2];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     *buf = 138543618;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v2;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v2;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Shutting down state machine for personID %@.", buf, 0x16u);
   }
 
   v4 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBlock___block_invoke_253;
-  v8[3] = &unk_278E90AD0;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBlock___block_invoke_253;
+  v7[3] = &unk_278E90AD0;
   v5 = *(a1 + 48);
   v6 = *(a1 + 40);
-  v9 = v5;
-  v10 = v6;
-  v12 = *(a1 + 64);
-  v11 = *(a1 + 56);
-  [v4 shutDownCompletionBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = v5;
+  v9 = v6;
+  v11 = *(a1 + 64);
+  v10 = *(a1 + 56);
+  [v4 shutDownCompletionBlock:v7];
 }
 
 void __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBlock___block_invoke_253(uint64_t a1)
@@ -1021,7 +1001,7 @@ void __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBl
 
 void __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1029,56 +1009,51 @@ void __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBl
     {
       v3 = *(a1 + 40);
       *buf = 138543362;
-      v13 = v3;
+      v11 = v3;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Shutting down model.", buf, 0xCu);
       v2 = *(a1 + 32);
     }
 
     v4 = *(a1 + 56);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBlock___block_invoke_254;
-    v10[3] = &unk_278E927A0;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBlock___block_invoke_254;
+    v8[3] = &unk_278E927A0;
     v5 = *(a1 + 48);
-    v10[4] = *(a1 + 40);
-    v11 = v5;
-    [v2 shutDownForDestruction:v4 completionBlock:v10];
-
-    goto LABEL_5;
+    v8[4] = *(a1 + 40);
+    v9 = v5;
+    [v2 shutDownForDestruction:v4 completionBlock:v8];
   }
 
-  v7 = *(a1 + 48);
-  if (!v7)
+  else
   {
-LABEL_5:
-    v6 = *MEMORY[0x277D85DE8];
-    return;
+    v6 = *(a1 + 48);
+    if (v6)
+    {
+      v7 = *(v6 + 16);
+
+      v7();
+    }
   }
-
-  v8 = *(v7 + 16);
-  v9 = *MEMORY[0x277D85DE8];
-
-  v8();
 }
 
 uint64_t __76__MSAlbumSharingDaemon_shutDownStateMachine_forDestruction_completionBlock___block_invoke_254(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Model has shut down.", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Model has shut down.", &v4, 0xCu);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1121,7 +1096,7 @@ void __70__MSAlbumSharingDaemon__postModelShutdownForPersonID_completionBlock___
 
 uint64_t __70__MSAlbumSharingDaemon__postModelShutdownForPersonID_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) didDestroyStateMachineForPersonID:*(a1 + 40)];
   v2 = [*(a1 + 32) delegate];
   v3 = objc_opt_respondsToSelector();
@@ -1136,20 +1111,19 @@ uint64_t __70__MSAlbumSharingDaemon__postModelShutdownForPersonID_completionBloc
   {
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Completed forgetting personID %@.", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Completed forgetting personID %@.", &v8, 0x16u);
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1395,6 +1369,19 @@ void __102__MSAlbumSharingDaemon_setMultipleContributorsEnabled_forAlbumWithGUID
   [v2 setMultipleContributorsEnabled:*(a1 + 72) forAlbumWithGUID:*(a1 + 48) info:*(a1 + 56) completionBlock:*(a1 + 64)];
 }
 
+- (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block
+{
+  enabledCopy = enabled;
+  blockCopy = block;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __97__MSAlbumSharingDaemon_setMultipleContributorsEnabled_forAlbumWithGUID_personID_completionBlock___block_invoke;
+  v12[3] = &unk_278E91D98;
+  v13 = blockCopy;
+  v11 = blockCopy;
+  [(MSAlbumSharingDaemon *)self setMultipleContributorsEnabled:enabledCopy forAlbumWithGUID:d personID:iD info:0 completionBlock:v12];
+}
+
 - (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD info:(id)info completionBlock:(id)block
 {
   dCopy = d;
@@ -1420,6 +1407,19 @@ void __94__MSAlbumSharingDaemon_setPublicAccessEnabled_forAlbumWithGUID_personID
 {
   v2 = [*(a1 + 32) modelForPersonID:*(a1 + 40)];
   [v2 setPublicAccessEnabled:*(a1 + 64) forAlbumWithGUID:*(a1 + 48) info:0 completionBlock:*(a1 + 56)];
+}
+
+- (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block
+{
+  enabledCopy = enabled;
+  blockCopy = block;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __89__MSAlbumSharingDaemon_setPublicAccessEnabled_forAlbumWithGUID_personID_completionBlock___block_invoke;
+  v12[3] = &unk_278E91D98;
+  v13 = blockCopy;
+  v11 = blockCopy;
+  [(MSAlbumSharingDaemon *)self setPublicAccessEnabled:enabledCopy forAlbumWithGUID:d personID:iD info:0 completionBlock:v12];
 }
 
 - (void)removeAccessControlEntryWithGUID:(id)d personID:(id)iD info:(id)info
@@ -2013,7 +2013,7 @@ void __84__MSAlbumSharingDaemon_sendServerSideConfigurationDidChangeNotification
 
 - (void)setNextActivityDate:(id)date forPersonID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dCopy = d;
   if (dCopy)
@@ -2024,8 +2024,8 @@ void __84__MSAlbumSharingDaemon_sendServerSideConfigurationDidChangeNotification
     block[2] = __56__MSAlbumSharingDaemon_setNextActivityDate_forPersonID___block_invoke;
     block[3] = &unk_278E92638;
     block[4] = self;
-    v11 = dCopy;
-    v12 = dateCopy;
+    v10 = dCopy;
+    v11 = dateCopy;
     dispatch_barrier_async(mapQueue, block);
   }
 
@@ -2035,8 +2035,6 @@ void __84__MSAlbumSharingDaemon_sendServerSideConfigurationDidChangeNotification
     selfCopy = self;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Not setting next activity date for a nil person ID.", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__MSAlbumSharingDaemon_setNextActivityDate_forPersonID___block_invoke(uint64_t a1)
@@ -2111,19 +2109,19 @@ LABEL_12:
 
 void __89__MSAlbumSharingDaemon_pollForSubscriptionUpdatesTriggeredByPushNotificationForPersonID___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) personIDListeningToPushNotification];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v8 = 138543874;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v2;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Push notification received for Shared Photo Stream with targetPersonID %@. Listener personID %@.", &v8, 0x20u);
+    v7 = 138543874;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v2;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Push notification received for Shared Photo Stream with targetPersonID %@. Listener personID %@.", &v7, 0x20u);
   }
 
   if ([v2 length] && ((objc_msgSend(v2, "isEqualToString:", *(a1 + 40)) & 1) != 0 || !*(a1 + 40)))
@@ -2131,9 +2129,9 @@ void __89__MSAlbumSharingDaemon_pollForSubscriptionUpdatesTriggeredByPushNotific
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v5 = *(a1 + 32);
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Serving push notification", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Serving push notification", &v7, 0xCu);
     }
 
     v6 = [*(a1 + 32) boundStateMachineForPersonID:v2];
@@ -2141,8 +2139,6 @@ void __89__MSAlbumSharingDaemon_pollForSubscriptionUpdatesTriggeredByPushNotific
 
     [*(a1 + 32) didReceivePushNotificationForPersonID:v2];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)personIDListeningToPushNotification
@@ -2202,18 +2198,18 @@ void __33__MSAlbumSharingDaemon_addAlbum___block_invoke(uint64_t a1)
 
 void __33__MSAlbumSharingDaemon_addAlbum___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v6 = [*(a1 + 32) GUID];
-      v10 = 138543618;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v5;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to validate invitationToken for album %{public}@: %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v6;
+      v11 = 2114;
+      v12 = v5;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to validate invitationToken for album %{public}@: %{public}@", &v9, 0x16u);
 LABEL_10:
     }
   }
@@ -2226,9 +2222,9 @@ LABEL_10:
       if (v7)
       {
         v8 = [*(a1 + 32) GUID];
-        v10 = 138543362;
-        v11 = v8;
-        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Validated invitationToken for album %{public}@", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = v8;
+        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Validated invitationToken for album %{public}@", &v9, 0xCu);
       }
 
       [*(a1 + 40) didFindNewAlbum:*(a1 + 32)];
@@ -2237,14 +2233,12 @@ LABEL_10:
     else if (v7)
     {
       v6 = [*(a1 + 32) GUID];
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "invitationToken for album %{public}@ is invalid", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "invitationToken for album %{public}@ is invalid", &v9, 0xCu);
       goto LABEL_10;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelActivitiesForPersonID:(id)d
@@ -2263,7 +2257,7 @@ LABEL_10:
 
 void __52__MSAlbumSharingDaemon_cancelActivitiesForPersonID___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) workQueue];
   dispatch_suspend(v2);
 
@@ -2275,18 +2269,18 @@ void __52__MSAlbumSharingDaemon_cancelActivitiesForPersonID___block_invoke(uint6
       v4 = *(a1 + 32);
       v5 = *(a1 + 40);
       *buf = 138543618;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
+      v9 = v4;
+      v10 = 2112;
+      v11 = v5;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Canceling all activities for personID %@", buf, 0x16u);
     }
 
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __52__MSAlbumSharingDaemon_cancelActivitiesForPersonID___block_invoke_11;
-    v8[3] = &unk_278E926D8;
-    v8[4] = *(a1 + 32);
-    [v3 cancelCompletionBlock:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __52__MSAlbumSharingDaemon_cancelActivitiesForPersonID___block_invoke_11;
+    v7[3] = &unk_278E926D8;
+    v7[4] = *(a1 + 32);
+    [v3 cancelCompletionBlock:v7];
   }
 
   else
@@ -2294,8 +2288,6 @@ void __52__MSAlbumSharingDaemon_cancelActivitiesForPersonID___block_invoke(uint6
     v6 = [*(a1 + 32) workQueue];
     dispatch_resume(v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MSAlbumSharingDaemon_cancelActivitiesForPersonID___block_invoke_11(uint64_t a1)
@@ -2320,17 +2312,17 @@ void __52__MSAlbumSharingDaemon_cancelActivitiesForPersonID___block_invoke_11(ui
 
 void __54__MSAlbumSharingDaemon_stopAssetDownloadsForPersonID___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) workQueue];
   dispatch_suspend(v3);
 
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__3879;
-  v20 = __Block_byref_object_dispose__3880;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__3879;
+  v19 = __Block_byref_object_dispose__3880;
+  v20 = 0;
   v4 = [*v2 mapQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -2338,12 +2330,12 @@ void __54__MSAlbumSharingDaemon_stopAssetDownloadsForPersonID___block_invoke(uin
   block[3] = &unk_278E91C78;
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v15 = &v16;
+  v14 = &v15;
   block[4] = v5;
-  v14 = v6;
+  v13 = v6;
   dispatch_sync(v4, block);
 
-  v7 = v17[5];
+  v7 = v16[5];
   if (v7)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -2351,19 +2343,19 @@ void __54__MSAlbumSharingDaemon_stopAssetDownloadsForPersonID___block_invoke(uin
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
       *buf = 138543618;
-      v23 = v8;
-      v24 = 2112;
-      v25 = v9;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v9;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping downloads for personID %@.", buf, 0x16u);
-      v7 = v17[5];
+      v7 = v16[5];
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __54__MSAlbumSharingDaemon_stopAssetDownloadsForPersonID___block_invoke_10;
-    v12[3] = &unk_278E926D8;
-    v12[4] = *(a1 + 32);
-    [v7 stopAssetDownloadsCompletionBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __54__MSAlbumSharingDaemon_stopAssetDownloadsForPersonID___block_invoke_10;
+    v11[3] = &unk_278E926D8;
+    v11[4] = *(a1 + 32);
+    [v7 stopAssetDownloadsCompletionBlock:v11];
   }
 
   else
@@ -2372,16 +2364,12 @@ void __54__MSAlbumSharingDaemon_stopAssetDownloadsForPersonID___block_invoke(uin
     dispatch_resume(v10);
   }
 
-  _Block_object_dispose(&v16, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 }
 
 uint64_t __54__MSAlbumSharingDaemon_stopAssetDownloadsForPersonID___block_invoke_9(void *a1)
 {
-  v2 = [*(a1[4] + 56) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 56) objectForKey:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2406,7 +2394,7 @@ void __54__MSAlbumSharingDaemon_stopAssetDownloadsForPersonID___block_invoke_10(
   dispatch_async(workQueue, v7);
 }
 
-uint64_t __62__MSAlbumSharingDaemon_retryOutstandingActivitiesForPersonID___block_invoke(uint64_t a1)
+void *__62__MSAlbumSharingDaemon_retryOutstandingActivitiesForPersonID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRetryingOutstandingActivities];
   if ((result & 1) == 0)
@@ -2436,38 +2424,38 @@ uint64_t __62__MSAlbumSharingDaemon_retryOutstandingActivitiesForPersonID___bloc
 
 void __50__MSAlbumSharingDaemon_retryOutstandingActivities__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isRetryingOutstandingActivities] & 1) == 0)
   {
     [*(a1 + 32) setIsRetryingOutstandingActivities:1];
     v2 = [*(*(a1 + 32) + 72) nextActivityDateByPersonID];
+    v8 = 0u;
     v9 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
-    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v10;
+      v5 = *v9;
       do
       {
         v6 = 0;
         do
         {
-          if (*v10 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = [*(a1 + 32) boundStateMachineForPersonID:*(*(&v9 + 1) + 8 * v6)];
+          v7 = [*(a1 + 32) boundStateMachineForPersonID:*(*(&v8 + 1) + 8 * v6)];
           [v7 retryOutstandingActivities];
 
           ++v6;
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v4);
@@ -2475,8 +2463,6 @@ void __50__MSAlbumSharingDaemon_retryOutstandingActivities__block_invoke(uint64_
 
     [*(a1 + 32) setIsRetryingOutstandingActivities:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasCommandsInGroupedCommandQueue
@@ -2502,27 +2488,27 @@ void __50__MSAlbumSharingDaemon_retryOutstandingActivities__block_invoke(uint64_
 
 void __56__MSAlbumSharingDaemon_hasCommandsInGroupedCommandQueue__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(*(a1 + 32) + 64);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(a1 + 32) + 64) objectForKey:{*(*(&v9 + 1) + 8 * i), v9}];
+        v7 = [*(*(a1 + 32) + 64) objectForKey:{*(*(&v8 + 1) + 8 * i), v8}];
         if ([v7 hasCommandsInGroupedCommandQueue])
         {
           *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -2531,7 +2517,7 @@ void __56__MSAlbumSharingDaemon_hasCommandsInGroupedCommandQueue__block_invoke(u
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -2542,8 +2528,6 @@ void __56__MSAlbumSharingDaemon_hasCommandsInGroupedCommandQueue__block_invoke(u
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isInRetryState
@@ -2569,27 +2553,27 @@ LABEL_11:
 
 void __38__MSAlbumSharingDaemon_isInRetryState__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(*(a1 + 32) + 56);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(a1 + 32) + 56) objectForKey:{*(*(&v9 + 1) + 8 * i), v9}];
+        v7 = [*(*(a1 + 32) + 56) objectForKey:{*(*(&v8 + 1) + 8 * i), v8}];
         if ([v7 isInRetryState])
         {
           *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -2598,7 +2582,7 @@ void __38__MSAlbumSharingDaemon_isInRetryState__block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -2609,8 +2593,6 @@ void __38__MSAlbumSharingDaemon_isInRetryState__block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFocusAssetCollectionGUID:(id)d forPersonID:(id)iD
@@ -2689,7 +2671,7 @@ void __54__MSAlbumSharingDaemon_setFocusAlbumGUID_forPersonID___block_invoke_2(v
 
 - (void)didUnidle
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
@@ -2697,18 +2679,16 @@ void __54__MSAlbumSharingDaemon_setFocusAlbumGUID_forPersonID___block_invoke_2(v
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Unidled.", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = MSAlbumSharingDaemon;
-  [(MSDaemon *)&v5 didUnidle];
+  v4.receiver = self;
+  v4.super_class = MSAlbumSharingDaemon;
+  [(MSDaemon *)&v4 didUnidle];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained MSAlbumSharingDaemonDidUnidle:self];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didIdle
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
@@ -2719,10 +2699,9 @@ void __54__MSAlbumSharingDaemon_setFocusAlbumGUID_forPersonID___block_invoke_2(v
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained MSAlbumSharingDaemonDidIdle:self];
 
-  v5.receiver = self;
-  v5.super_class = MSAlbumSharingDaemon;
-  [(MSDaemon *)&v5 didIdle];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = MSAlbumSharingDaemon;
+  [(MSDaemon *)&v4 didIdle];
 }
 
 - (void)shutDownCompletionBlock:(id)block
@@ -2829,6 +2808,38 @@ void __48__MSAlbumSharingDaemon_shutDownCompletionBlock___block_invoke_4(uint64_
   (*(*(a1 + 40) + 16))();
   v2 = [*(a1 + 32) workQueue];
   dispatch_resume(v2);
+}
+
+- (void)mapQueueShutDownStateMachineInMap:(id)map personIDs:(id)ds index:(unint64_t)index forDestruction:(BOOL)destruction completionBlock:(id)block
+{
+  destructionCopy = destruction;
+  mapCopy = map;
+  dsCopy = ds;
+  blockCopy = block;
+  if ([dsCopy count] <= index)
+  {
+    if (blockCopy)
+    {
+      blockCopy[2](blockCopy);
+    }
+  }
+
+  else
+  {
+    v15 = [dsCopy objectAtIndex:index];
+    v16 = [mapCopy objectForKey:v15];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __105__MSAlbumSharingDaemon_mapQueueShutDownStateMachineInMap_personIDs_index_forDestruction_completionBlock___block_invoke;
+    v17[3] = &unk_278E90A30;
+    v17[4] = self;
+    v18 = mapCopy;
+    v19 = dsCopy;
+    indexCopy = index;
+    v22 = destructionCopy;
+    v20 = blockCopy;
+    [(MSAlbumSharingDaemon *)self shutDownStateMachine:v16 forDestruction:destructionCopy completionBlock:v17];
+  }
 }
 
 void __105__MSAlbumSharingDaemon_mapQueueShutDownStateMachineInMap_personIDs_index_forDestruction_completionBlock___block_invoke(uint64_t a1)

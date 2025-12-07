@@ -1,6 +1,7 @@
 @interface PPSProcessMetricCollection
 + (id)_metricSamplePropertyKeys;
 - (PPSProcessMetricCollection)initWithCoder:(id)coder;
+- (const)_stringForApplicationState:(unsigned int)state;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)clearMetrics;
@@ -31,34 +32,34 @@ uint64_t __55__PPSProcessMetricCollection__metricSamplePropertyKeys__block_invok
 
 - (PPSProcessMetricCollection)initWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = PPSProcessMetricCollection;
-  v5 = [(PPSProcessMetricCollection *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = PPSProcessMetricCollection;
+  v5 = [(PPSProcessMetricCollection *)&v27 init];
   if (v5)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v6 = +[PPSProcessMetricCollection _metricSamplePropertyKeys];
-    v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         v10 = 0;
         do
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * v10);
+          v11 = *(*(&v23 + 1) + 8 * v10);
           v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:v11];
           [(PPSProcessMetricCollection *)v5 setValue:v12 forKey:v11];
 
@@ -66,7 +67,7 @@ uint64_t __55__PPSProcessMetricCollection__metricSamplePropertyKeys__block_invok
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v8);
@@ -92,39 +93,38 @@ uint64_t __55__PPSProcessMetricCollection__metricSamplePropertyKeys__block_invok
     v5->_sampleTime = v20;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = +[PPSProcessMetricCollection _metricSamplePropertyKeys];
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [(PPSProcessMetricCollection *)self valueForKey:v10];
         [coderCopy encodeObject:v11 forKey:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -144,40 +144,38 @@ uint64_t __55__PPSProcessMetricCollection__metricSamplePropertyKeys__block_invok
 
   sampleTime = [(PPSProcessMetricCollection *)self sampleTime];
   [coderCopy encodeObject:sampleTime forKey:@"__sampleTime__"];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(PPSProcessMetricCollection);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = +[PPSProcessMetricCollection _metricSamplePropertyKeys];
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [(PPSProcessMetricCollection *)self valueForKey:v11];
         v13 = [v12 copyWithZone:zone];
         [(PPSProcessMetricCollection *)v5 setValue:v13 forKey:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -187,7 +185,6 @@ uint64_t __55__PPSProcessMetricCollection__metricSamplePropertyKeys__block_invok
   objc_storeStrong(&v5->_processName, self->_processName);
   objc_storeStrong(&v5->_bundleID, self->_bundleID);
   objc_storeStrong(&v5->_sampleTime, self->_sampleTime);
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1119,6 +1116,19 @@ uint64_t __55__PPSProcessMetricCollection__metricSamplePropertyKeys__block_invok
   }
 
   free(v6);
+}
+
+- (const)_stringForApplicationState:(unsigned int)state
+{
+  if (state < 9 && ((0x117u >> state) & 1) != 0)
+  {
+    return off_278847EF0[state];
+  }
+
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", *&state];
+  uTF8String = [v4 UTF8String];
+
+  return uTF8String;
 }
 
 @end

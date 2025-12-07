@@ -282,9 +282,9 @@ LABEL_16:
   repairInputSampleBuffer = self->_repairInputSampleBuffer;
   if (!repairInputSampleBuffer)
   {
-    sub_1B050();
-    v9 = 0;
-    v7 = 0;
+    sub_1B050(0, a2);
+    v8 = 0;
+    v6 = 0;
     v5 = 0;
 LABEL_18:
     process = 2;
@@ -296,17 +296,16 @@ LABEL_18:
   if (!v4)
   {
     sub_1AFD8();
-    v9 = 0;
-    v7 = 0;
+    v8 = 0;
+    v6 = 0;
     goto LABEL_18;
   }
 
-  filteredStrength = self->_filteredStrength;
-  v7 = [v4 objectForKeyedSubscript:kFigCaptureStreamMetadata_PortType];
-  [(CMIVideoDeghostingV1 *)self _updateFilteredStrength:0 portType:v7];
-  v8 = [(NSDictionary *)self->_repairInputDetectionResult objectForKeyedSubscript:@"GhostsArray"];
-  v9 = v8;
-  if (self->_repairEnabled && [v8 count])
+  v6 = [v4 objectForKeyedSubscript:kFigCaptureStreamMetadata_PortType];
+  [(CMIVideoDeghostingV1 *)self _updateFilteredStrength:0 portType:v6];
+  v7 = [(NSDictionary *)self->_repairInputDetectionResult objectForKeyedSubscript:@"GhostsArray"];
+  v8 = v7;
+  if (self->_repairEnabled && [v7 count])
   {
     if (gGMFigKTraceEnabled == 1)
     {
@@ -314,21 +313,21 @@ LABEL_18:
     }
 
     [(CMIVideoDeghostingV1 *)self _updateAWBAttenuationFactor:v5];
-    firstObject = [v9 firstObject];
-    v11 = [firstObject objectForKeyedSubscript:@"GhostRect"];
+    firstObject = [v8 firstObject];
+    v10 = [firstObject objectForKeyedSubscript:@"GhostRect"];
 
     [(CMIVideoDeghostingRepair *)self->_repair setInputSampleBuffer:self->_repairInputSampleBuffer];
-    v12 = [[NSArray alloc] initWithObjects:{v11, 0}];
-    [(CMIVideoDeghostingRepair *)self->_repair setDetectedGhostBoundingBoxes:v12];
+    v11 = [[NSArray alloc] initWithObjects:{v10, 0}];
+    [(CMIVideoDeghostingRepair *)self->_repair setDetectedGhostBoundingBoxes:v11];
 
-    v14 = 52;
+    v13 = 52;
     if (self->_dynamicRepairEnabled)
     {
-      v14 = 56;
+      v13 = 56;
     }
 
-    *&v13 = self->_awbAttenuationFactor * *(&self->super.isa + v14);
-    [(CMIVideoDeghostingRepair *)self->_repair setBlendingStrength:v13];
+    *&v12 = self->_awbAttenuationFactor * *(&self->super.isa + v13);
+    [(CMIVideoDeghostingRepair *)self->_repair setBlendingStrength:v12];
     process = [(CMIVideoDeghostingRepair *)self->_repair process];
     if (gGMFigKTraceEnabled)
     {
@@ -336,19 +335,19 @@ LABEL_18:
       commandBuffer = [commandQueue commandBuffer];
 
       [commandBuffer setLabel:@"KTRACE_END_MTL"];
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_82EC;
-      v21[3] = &unk_34850;
-      memset(&v21[4], 0, 24);
-      [commandBuffer addCompletedHandler:v21];
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_82EC;
+      v20[3] = &unk_34850;
+      memset(&v20[4], 0, 24);
+      [commandBuffer addCompletedHandler:v20];
       [commandBuffer commit];
     }
 
     if (process)
     {
-      sub_1AF7C(&v22);
-      process = v22;
+      sub_1AF7C(&v21);
+      process = v21;
     }
   }
 
@@ -358,9 +357,9 @@ LABEL_18:
   }
 
 LABEL_15:
-  v18 = [v5 objectForKeyedSubscript:kFigCaptureStreamMetadata_PortType];
+  v17 = [v5 objectForKeyedSubscript:kFigCaptureStreamMetadata_PortType];
   prevPortType = self->_prevPortType;
-  self->_prevPortType = v18;
+  self->_prevPortType = v17;
 
   return process;
 }
@@ -391,20 +390,21 @@ LABEL_15:
   resetState = [(CMIVideoDeghostingDetectionAndTracking *)self->_detectionAndTracking resetState];
   if (resetState)
   {
-    resetState2 = resetState;
+    v6 = resetState;
     sub_1B178();
   }
 
   else
   {
     resetState2 = [(CMIVideoDeghostingRepair *)self->_repair resetState];
+    v6 = resetState2;
     if (resetState2)
     {
-      sub_1B1F8();
+      sub_1B1F8(resetState2);
     }
   }
 
-  return resetState2;
+  return v6;
 }
 
 - (int)initGhostInformationLookAheadForSize:(int)size
@@ -654,16 +654,16 @@ LABEL_9:
         memset(&time, 0, sizeof(time));
         CGRectMakeWithDictionaryRepresentation(v10, &time);
         LODWORD(v16) = v14;
-        [(CMIVideoDeghostingV1 *)self _computeStrengthForConfidence:v16 ghostRectangle:time.origin.x, time.origin.y, time.size.width, time.size.height];
-        v18 = v17;
+        v17 = [(CMIVideoDeghostingV1 *)self _computeStrengthForConfidence:v16 ghostRectangle:time.origin.x, time.origin.y, time.size.width, time.size.height];
+        v19 = v18;
         if (strengthCopy)
         {
-          self->_filteredStrength = v17;
+          self->_filteredStrength = v18;
         }
 
         if (self->_ghostInformationLookAhead.count < 1)
         {
-          v23 = 3.4028e38;
+          v24 = 3.4028e38;
           if (strengthCopy)
           {
             goto LABEL_34;
@@ -672,96 +672,96 @@ LABEL_9:
 
         else
         {
-          v47 = v10;
-          v46 = strengthCopy;
-          v19 = 0;
+          v48 = v10;
+          v47 = strengthCopy;
           v20 = 0;
           v21 = 0;
-          v22 = 0.0;
-          v23 = 3.4028e38;
+          v22 = 0;
+          v23 = 0.0;
+          v24 = 3.4028e38;
           while (1)
           {
-            v24 = self->_ghostInformationLookAhead.info;
-            if (*(v24 + v19 + 16) != 1)
+            v25 = self->_ghostInformationLookAhead.info;
+            if (*(v25 + v20 + 16) != 1)
             {
-              v26 = v8;
+              v27 = v8;
               goto LABEL_27;
             }
 
-            v25 = *(v24 + v19);
-            if (!v25)
+            v26 = *(v25 + v20);
+            if (!v26)
             {
-              sub_1B8DC();
-              v18 = 0.0;
-              v10 = v47;
+              sub_1B8DC(v17);
+              v19 = 0.0;
+              v10 = v48;
               goto LABEL_34;
             }
 
-            v26 = [*(v24 + v19 + 8) objectForKeyedSubscript:@"GhostsArray"];
+            v27 = [*(v25 + v20 + 8) objectForKeyedSubscript:@"GhostsArray"];
 
-            firstObject3 = [v26 firstObject];
-            v28 = [firstObject3 objectForKeyedSubscript:@"GhostRect"];
+            firstObject3 = [v27 firstObject];
+            v29 = [firstObject3 objectForKeyedSubscript:@"GhostRect"];
 
-            firstObject4 = [v26 firstObject];
-            v30 = [firstObject4 objectForKeyedSubscript:@"GhostConfidence"];
-            [v30 floatValue];
-            v32 = v31;
+            firstObject4 = [v27 firstObject];
+            v31 = [firstObject4 objectForKeyedSubscript:@"GhostConfidence"];
+            [v31 floatValue];
+            v33 = v32;
 
-            CMSampleBufferGetPresentationTimeStamp(&v48, v25);
-            v33 = CMTimeGetSeconds(&v48);
-            memset(&v48, 0, sizeof(v48));
-            CGRectMakeWithDictionaryRepresentation(v28, &v48);
-            LODWORD(v34) = v32;
-            [(CMIVideoDeghostingV1 *)self _computeStrengthForConfidence:v34 ghostRectangle:v48.origin.x, v48.origin.y, v48.size.width, v48.size.height];
-            if (v33 - Seconds > self->_strengthMaxChangeDuration)
+            CMSampleBufferGetPresentationTimeStamp(&v49, v26);
+            v34 = CMTimeGetSeconds(&v49);
+            memset(&v49, 0, sizeof(v49));
+            CGRectMakeWithDictionaryRepresentation(v29, &v49);
+            LODWORD(v35) = v33;
+            [(CMIVideoDeghostingV1 *)self _computeStrengthForConfidence:v35 ghostRectangle:v49.origin.x, v49.origin.y, v49.size.width, v49.size.height];
+            if (v34 - Seconds > self->_strengthMaxChangeDuration)
             {
               break;
             }
 
-            v36 = v20 + 1;
-            if (((v35 - self->_filteredStrength) / (v20 + 1)) < v23)
+            v37 = v21 + 1;
+            if (((v36 - self->_filteredStrength) / (v21 + 1)) < v24)
             {
-              v22 = v35;
-              v23 = (v35 - self->_filteredStrength) / (v20 + 1);
-              v21 = v20;
+              v23 = v36;
+              v24 = (v36 - self->_filteredStrength) / (v21 + 1);
+              v22 = v21;
             }
 
-            v19 += 24;
-            ++v20;
-            v8 = v26;
-            if (v36 >= self->_ghostInformationLookAhead.count)
+            v20 += 24;
+            ++v21;
+            v8 = v27;
+            if (v37 >= self->_ghostInformationLookAhead.count)
             {
               goto LABEL_27;
             }
           }
 
 LABEL_27:
-          if (v23 < 0.0)
+          if (v24 < 0.0)
           {
-            v10 = v47;
-            if (v46)
+            v10 = v48;
+            if (v47)
             {
-              v18 = v22 + (v21 * fminf(-v23, self->_strengthMaxChangePerFrame));
+              v19 = v23 + (v22 * fminf(-v24, self->_strengthMaxChangePerFrame));
             }
 
             else
             {
-              v18 = v23 + self->_filteredStrength;
+              v19 = v24 + self->_filteredStrength;
             }
 
-            v8 = v26;
+            v8 = v27;
             goto LABEL_34;
           }
 
-          v8 = v26;
-          v10 = v47;
-          if (v46)
+          v8 = v27;
+          v10 = v48;
+          if (v47)
           {
             goto LABEL_34;
           }
         }
 
-        v18 = self->_filteredStrength + fminf(v23, self->_strengthMaxChangePerFrame);
+        v19 = self->_filteredStrength + fminf(v24, self->_strengthMaxChangePerFrame);
 LABEL_34:
 
         goto LABEL_35;
@@ -770,40 +770,40 @@ LABEL_34:
       sub_1B954();
     }
 
-    v18 = 0.0;
+    v19 = 0.0;
     goto LABEL_35;
   }
 
   size = CGRectNull.size;
   time.origin = CGRectNull.origin;
   time.size = size;
-  v38 = [(NSDictionary *)self->_detectionResult objectForKeyedSubscript:@"GhostsArray"];
-  if ([v38 count])
+  v39 = [(NSDictionary *)self->_detectionResult objectForKeyedSubscript:@"GhostsArray"];
+  if ([v39 count])
   {
-    firstObject5 = [v38 firstObject];
-    v41 = [firstObject5 objectForKeyedSubscript:@"GhostRect"];
-    CGRectMakeWithDictionaryRepresentation(v41, &time);
+    firstObject5 = [v39 firstObject];
+    v42 = [firstObject5 objectForKeyedSubscript:@"GhostRect"];
+    CGRectMakeWithDictionaryRepresentation(v42, &time);
 
-    v42 = [firstObject5 objectForKeyedSubscript:@"GhostConfidence"];
-    [v42 floatValue];
-    v44 = v43;
+    v43 = [firstObject5 objectForKeyedSubscript:@"GhostConfidence"];
+    [v43 floatValue];
+    v45 = v44;
   }
 
   else
   {
-    v44 = 0;
+    v45 = 0;
   }
 
-  LODWORD(v39) = v44;
-  [(CMIVideoDeghostingV1 *)self _computeStrengthForConfidence:v39 ghostRectangle:time.origin.x, time.origin.y, time.size.width, time.size.height];
-  v18 = v45;
+  LODWORD(v40) = v45;
+  [(CMIVideoDeghostingV1 *)self _computeStrengthForConfidence:v40 ghostRectangle:time.origin.x, time.origin.y, time.size.width, time.size.height];
+  v19 = v46;
   if ((strengthCopy & 1) == 0)
   {
-    v18 = (v45 * 0.05) + (self->_filteredStrength * 0.95);
+    v19 = (v46 * 0.05) + (self->_filteredStrength * 0.95);
   }
 
 LABEL_35:
-  self->_filteredStrength = fmaxf(fminf(v18, self->_maxStrength), 0.0);
+  self->_filteredStrength = fmaxf(fminf(v19, self->_maxStrength), 0.0);
 }
 
 - (void)_updateAWBAttenuationFactor:(id)factor

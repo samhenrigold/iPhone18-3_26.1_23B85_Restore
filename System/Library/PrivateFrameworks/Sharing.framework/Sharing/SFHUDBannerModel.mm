@@ -1,6 +1,7 @@
 @interface SFHUDBannerModel
 + (id)descriptionForType:(int64_t)type;
 + (id)onenessUnlockedModel;
++ (id)pairedUnlockModelWithWatchName:(id)name needsLockButton:(BOOL)button needsUpdate:(BOOL)update;
 + (id)pencilModel;
 - (SFHUDBannerModel)initWithCoder:(id)coder;
 - (SFHUDBannerModel)initWithType:(int64_t)type priority:(int)priority watchName:(id)name needsLockButton:(BOOL)button needsUpdate:(BOOL)update;
@@ -8,6 +9,16 @@
 @end
 
 @implementation SFHUDBannerModel
+
++ (id)pairedUnlockModelWithWatchName:(id)name needsLockButton:(BOOL)button needsUpdate:(BOOL)update
+{
+  updateCopy = update;
+  buttonCopy = button;
+  nameCopy = name;
+  v8 = [[SFHUDBannerModel alloc] initWithType:0 priority:2 watchName:nameCopy needsLockButton:buttonCopy needsUpdate:updateCopy];
+
+  return v8;
+}
 
 + (id)onenessUnlockedModel
 {

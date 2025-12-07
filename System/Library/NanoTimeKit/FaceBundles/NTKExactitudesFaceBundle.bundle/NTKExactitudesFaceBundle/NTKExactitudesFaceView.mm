@@ -1,6 +1,7 @@
 @interface NTKExactitudesFaceView
 + (id)_swatchForEditModeDependsOnOptions:(int64_t)options forDevice:(id)device;
 - (BOOL)_dialsAreClosed;
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected;
 - (NTKExactitudesFaceView)initWithFaceStyle:(int64_t)style forDevice:(id)device clientIdentifier:(id)identifier;
 - (double)_backdropInlayAlphaForBackgroundStyle:(unint64_t)style;
 - (double)_complicationAlphaForEditMode:(int64_t)mode;
@@ -44,6 +45,7 @@
 - (void)_removeTritiumComplicationColorsIfNeeded;
 - (void)_revealCornerComplicationsIfNeeded;
 - (void)_revealCornerComplicationsIfNeededWithAlpha:(double)alpha;
+- (void)_setBackgroundColorForBackgroundOn:(BOOL)on palette:(id)palette;
 - (void)_setBackgroundStyle:(unint64_t)style;
 - (void)_setDialStyle:(unint64_t)style;
 - (void)_setupBackgroundView;
@@ -186,21 +188,20 @@
 
 - (void)_loadLayoutRules
 {
-  v9.receiver = self;
-  v9.super_class = NTKExactitudesFaceView;
-  [(NTKExactitudesFaceView *)&v9 _loadLayoutRules];
+  v8.receiver = self;
+  v8.super_class = NTKExactitudesFaceView;
+  [(NTKExactitudesFaceView *)&v8 _loadLayoutRules];
   [(NTKCompositeComplicationFactory *)self->_compositeComplicationFactory loadLayoutRules];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_5620;
-  v8[3] = &unk_30AA8;
-  v8[4] = self;
-  v3 = objc_retainBlock(v8);
-  device = self->_device;
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_5620;
+  v7[3] = &unk_30AA8;
+  v7[4] = self;
+  v3 = objc_retainBlock(v7);
   NTKDefaultCornerComplicationScaleForFullscreenOpaqueFaceForDevice();
-  memset(&v7, 0, sizeof(v7));
-  CGAffineTransformMakeScale(&v7, v5, v5);
-  v6 = v3;
+  memset(&v6, 0, sizeof(v6));
+  CGAffineTransformMakeScale(&v6, v4, v4);
+  v5 = v3;
   NTKEnumerateComplicationStates();
 }
 
@@ -437,19 +438,18 @@ LABEL_8:
   if (self->_isPaused != isFrozen)
   {
     self->_isPaused = isFrozen;
-    dials = self->_dials;
     if (isFrozen)
     {
-      v5 = self->_dials;
+      dials = self->_dials;
 
-      [(NTKExactitudesFaceDialsView *)v5 stopDialMovementAnimation];
+      [(NTKExactitudesFaceDialsView *)dials stopDialMovementAnimation];
     }
 
     else
     {
-      v6 = self->_dials;
+      v5 = self->_dials;
 
-      [(NTKExactitudesFaceDialsView *)v6 startDialMovementAnimation];
+      [(NTKExactitudesFaceDialsView *)v5 startDialMovementAnimation];
     }
   }
 }
@@ -933,6 +933,12 @@ LABEL_8:
   return result;
 }
 
+- (void)_setBackgroundColorForBackgroundOn:(BOOL)on palette:(id)palette
+{
+  backgroundColor = [palette backgroundColor];
+  [(UIView *)self->_backgroundView setBackgroundColor:backgroundColor];
+}
+
 - (void)_applyColorsToComplicationsWithPalette:(id)palette
 {
   paletteCopy = palette;
@@ -1062,20 +1068,18 @@ LABEL_8:
 
 - (void)_applyBreathingAndRubberBanding
 {
-  breathingFraction = self->_breathingFraction;
   NTKLargeElementScaleForBreathingFraction();
-  v5 = v4;
-  rubberbandingFraction = self->_rubberbandingFraction;
+  v4 = v3;
   NTKScaleForRubberBandingFraction();
-  memset(&v11, 0, sizeof(v11));
-  CGAffineTransformMakeScale(&v11, v5 * v7, v5 * v7);
+  memset(&v9, 0, sizeof(v9));
+  CGAffineTransformMakeScale(&v9, v4 * v5, v4 * v5);
   contentView = [(NTKExactitudesFaceView *)self contentView];
-  v10 = v11;
-  [contentView setTransform:&v10];
+  v8 = v9;
+  [contentView setTransform:&v8];
 
   complicationContainerView = [(NTKExactitudesFaceView *)self complicationContainerView];
-  v10 = v11;
-  [complicationContainerView setTransform:&v10];
+  v8 = v9;
+  [complicationContainerView setTransform:&v8];
 }
 
 - (void)_configureComplicationView:(id)view forSlot:(id)slot
@@ -1106,6 +1110,38 @@ LABEL_8:
       [fontCopy setFontStyle:5];
     }
   }
+}
+
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  slotCopy = slot;
+  if (([slotCopy isEqualToString:NTKComplicationSlotTopLeft] & 1) != 0 || (objc_msgSend(slotCopy, "isEqualToString:", NTKComplicationSlotTopRight) & 1) != 0 || (objc_msgSend(slotCopy, "isEqualToString:", NTKComplicationSlotBottomRight) & 1) != 0 || objc_msgSend(slotCopy, "isEqualToString:", NTKComplicationSlotBottomLeft))
+  {
+    [(NTKWhistlerAnalogFaceViewComplicationFactory *)self->_cornerComplicationFactory keylineFrameForCornerComplicationSlot:slotCopy selected:selectedCopy];
+  }
+
+  else
+  {
+    v19.receiver = self;
+    v19.super_class = NTKExactitudesFaceView;
+    [(NTKExactitudesFaceView *)&v19 _keylineFrameForComplicationSlot:slotCopy selected:selectedCopy];
+  }
+
+  v11 = v7;
+  v12 = v8;
+  v13 = v9;
+  v14 = v10;
+
+  v15 = v11;
+  v16 = v12;
+  v17 = v13;
+  v18 = v14;
+  result.size.height = v18;
+  result.size.width = v17;
+  result.origin.y = v16;
+  result.origin.x = v15;
+  return result;
 }
 
 - (id)_swatchImageForEditOption:(id)option mode:(int64_t)mode withSelectedOptions:(id)options

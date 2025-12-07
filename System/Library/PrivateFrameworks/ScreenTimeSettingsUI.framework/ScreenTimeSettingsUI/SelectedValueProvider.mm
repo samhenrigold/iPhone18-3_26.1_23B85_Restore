@@ -7,7 +7,7 @@
 
 - (void)loadValuesByRestrictionWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FFAA380);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FFAA380, &qword_264CD24E8);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

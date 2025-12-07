@@ -109,21 +109,21 @@
 
 id __34__AMSUIWebSendSMSAction_runAction__block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __34__AMSUIWebSendSMSAction_runAction__block_invoke_2;
-  v23[3] = &unk_1E7F26B10;
-  v24 = *(a1 + 32);
-  if ([a2 ams_anyWithTest:v23])
+  v29 = *MEMORY[0x1E69E9840];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __34__AMSUIWebSendSMSAction_runAction__block_invoke_2;
+  v21[3] = &unk_1E7F26B10;
+  v22 = *(a1 + 32);
+  if ([a2 ams_anyWithTest:v21])
   {
     v4 = [MEMORY[0x1E69D4A20] sharedController];
     v5 = [*(a1 + 40) body];
     v6 = [*(a1 + 40) digits];
     v7 = [*(a1 + 40) countryCode];
-    v22 = 0;
-    v8 = [v4 sendSMSWithText:v5 toPhoneNumber:v6 countryCode:v7 error:&v22];
-    v9 = v22;
+    v20 = 0;
+    v8 = [v4 sendSMSWithText:v5 toPhoneNumber:v6 countryCode:v7 error:&v20];
+    v9 = v20;
 
     v10 = MEMORY[0x1E698CAD0];
     if (v8)
@@ -144,31 +144,28 @@ id __34__AMSUIWebSendSMSAction_runAction__block_invoke(uint64_t a1, void *a2)
     v13 = [v12 OSLogObject];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 40);
-      v15 = objc_opt_class();
-      v16 = AMSLogKey();
-      v17 = *(a1 + 32);
+      v14 = objc_opt_class();
+      v15 = AMSLogKey();
+      v16 = *(a1 + 32);
       *buf = 138543874;
+      v24 = v14;
+      v25 = 2114;
       v26 = v15;
       v27 = 2114;
       v28 = v16;
-      v29 = 2114;
-      v30 = v17;
       _os_log_impl(&dword_1BB036000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Rejecting webPage: %{public}@", buf, 0x20u);
     }
 
-    v18 = MEMORY[0x1E698CAD0];
+    v17 = MEMORY[0x1E698CAD0];
     v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69D4C28] code:107 userInfo:0];
-    v10 = v18;
+    v10 = v17;
   }
 
   v11 = [v10 promiseWithError:v9];
 LABEL_10:
-  v19 = v11;
+  v18 = v11;
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
 BOOL __34__AMSUIWebSendSMSAction_runAction__block_invoke_2(uint64_t a1, void *a2)

@@ -3,7 +3,7 @@
 
 @implementation AXSHapticMusicEnabled
 
-uint64_t ___AXSHapticMusicEnabled_block_invoke()
+void *___AXSHapticMusicEnabled_block_invoke()
 {
   if (_kAXSCacheHapticMusicDidChangeNotification && !_processIsResponsibleForPreferenceObserving())
   {

@@ -25,7 +25,7 @@
   v4 = dataSource;
   if (dataSource)
   {
-    [dataSource watchAtrialFibrillationDetectionVersion];
+    objc_msgSend_watchAtrialFibrillationDetectionVersion(dataSource);
   }
 
   else
@@ -46,7 +46,7 @@ LABEL_15:
   v7 = dataSource2;
   if (dataSource2)
   {
-    [dataSource2 watchAtrialFibrillationDetectionVersion];
+    objc_msgSend_watchAtrialFibrillationDetectionVersion(dataSource2);
   }
 
   else
@@ -61,12 +61,12 @@ LABEL_15:
 
   if (!v8)
   {
-    [(HKRemoteFeatureAvailabilityActiveWatchAtrialFibrillationDetectionVersionLessThanRule *)self targetVersion];
+    objc_msgSend_targetVersion(self);
     dataSource3 = [(HKRemoteFeatureAvailabilityBaseRule *)self dataSource];
     v4 = dataSource3;
     if (dataSource3)
     {
-      [dataSource3 watchAtrialFibrillationDetectionVersion];
+      objc_msgSend_watchAtrialFibrillationDetectionVersion(dataSource3);
     }
 
     else

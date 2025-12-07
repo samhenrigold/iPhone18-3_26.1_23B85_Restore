@@ -32,9 +32,9 @@
         self->_programTokenIdxs.__end_ = v9;
         operator delete(v9);
         cap = 0;
-        p_programTokenIdxs->__begin_ = 0;
-        p_programTokenIdxs->__end_ = 0;
-        p_programTokenIdxs->__cap_ = 0;
+        *p_programTokenIdxs = 0;
+        p_programTokenIdxs[1] = 0;
+        p_programTokenIdxs[2] = 0;
       }
 
       if (!(v10 >> 62))

@@ -28,7 +28,7 @@ void __40__SKGProcessorTaskManager_sharedManager__block_invoke()
 
 + (id)keyphraseTask
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [[SKGProcessorTask alloc] initWithName:@"Keyphrase"];
   v3 = MEMORY[0x277CCABB0];
   mEMORY[0x277D657A0] = [MEMORY[0x277D657A0] sharedContext];
@@ -50,38 +50,38 @@ void __40__SKGProcessorTaskManager_sharedManager__block_invoke()
 
   [(SKGProcessorTask *)v2 setProcessorFlags:v7];
   [(SKGProcessorTask *)v2 setSupportedEvent:1];
-  v27 = v2;
+  v26 = v2;
   [(SKGProcessorTask *)v2 setEnabled:0];
   v8 = MEMORY[0x277CBEB58];
   mEMORY[0x277D657A0]3 = [MEMORY[0x277D657A0] sharedContext];
   fetchAttributes = [mEMORY[0x277D657A0]3 fetchAttributes];
   v11 = [v8 setWithArray:fetchAttributes];
 
-  v26 = v11;
+  v25 = v11;
   [v11 addObjectsFromArray:&unk_2846E84F0];
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   mEMORY[0x277D657A0]4 = [MEMORY[0x277D657A0] sharedContext];
   keyphraseExcludeBundles = [mEMORY[0x277D657A0]4 keyphraseExcludeBundles];
 
-  v15 = [keyphraseExcludeBundles countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [keyphraseExcludeBundles countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v29;
+    v17 = *v28;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(keyphraseExcludeBundles);
         }
 
-        v19 = *(*(&v28 + 1) + 8 * i);
+        v19 = *(*(&v27 + 1) + 8 * i);
         mEMORY[0x277D657A0]5 = [MEMORY[0x277D657A0] sharedContext];
         excludeBundles = [mEMORY[0x277D657A0]5 excludeBundles];
         v22 = [excludeBundles containsObject:v19];
@@ -92,25 +92,24 @@ void __40__SKGProcessorTaskManager_sharedManager__block_invoke()
         }
       }
 
-      v16 = [keyphraseExcludeBundles countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v16 = [keyphraseExcludeBundles countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v16);
   }
 
-  [(SKGProcessorTask *)v27 setRequiredAttributes:&unk_2846E84D8];
-  allObjects = [v26 allObjects];
-  [(SKGProcessorTask *)v27 setOptionalAttributes:allObjects];
+  [(SKGProcessorTask *)v26 setRequiredAttributes:&unk_2846E84D8];
+  allObjects = [v25 allObjects];
+  [(SKGProcessorTask *)v26 setOptionalAttributes:allObjects];
 
-  [(SKGProcessorTask *)v27 setExcludeBundles:v12];
-  v24 = *MEMORY[0x277D85DE8];
+  [(SKGProcessorTask *)v26 setExcludeBundles:v12];
 
-  return v27;
+  return v26;
 }
 
 + (id)breadcrumbsTask
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = [[SKGProcessorTask alloc] initWithName:@"Breadcrumbs"];
   v3 = MEMORY[0x277CCABB0];
   mEMORY[0x277D657A0] = [MEMORY[0x277D657A0] sharedContext];
@@ -121,7 +120,7 @@ void __40__SKGProcessorTaskManager_sharedManager__block_invoke()
   [(SKGProcessorTask *)v2 setSupportedEvent:3];
   [(SKGProcessorTask *)v2 setProcessorFlags:516];
   mEMORY[0x277D657A0]2 = [MEMORY[0x277D657A0] sharedContext];
-  v40 = v2;
+  v39 = v2;
   if ([mEMORY[0x277D657A0]2 enableKeyphrases])
   {
     mEMORY[0x277D657A0]3 = [MEMORY[0x277D657A0] sharedContext];
@@ -134,66 +133,66 @@ void __40__SKGProcessorTaskManager_sharedManager__block_invoke()
   }
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   mEMORY[0x277D657A0]4 = [MEMORY[0x277D657A0] sharedContext];
   fetchAttributes = [mEMORY[0x277D657A0]4 fetchAttributes];
 
-  v11 = [fetchAttributes countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v11 = [fetchAttributes countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v47;
+    v13 = *v46;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v47 != v13)
+        if (*v46 != v13)
         {
           objc_enumerationMutation(fetchAttributes);
         }
 
-        v15 = *(*(&v46 + 1) + 8 * i);
+        v15 = *(*(&v45 + 1) + 8 * i);
         if (([&unk_2846E8508 containsObject:v15] & 1) == 0 && (objc_msgSend(&unk_2846E8520, "containsObject:", v15) & 1) == 0)
         {
           [v8 addObject:v15];
         }
       }
 
-      v12 = [fetchAttributes countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v12 = [fetchAttributes countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
     while (v12);
   }
 
   [v8 addObjectsFromArray:&unk_2846E8508];
-  v41 = v8;
+  v40 = v8;
   [v8 addObjectsFromArray:&unk_2846E8520];
   v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   mEMORY[0x277D657A0]5 = [MEMORY[0x277D657A0] sharedContext];
   keyphraseExcludeBundles = [mEMORY[0x277D657A0]5 keyphraseExcludeBundles];
 
-  v19 = [keyphraseExcludeBundles countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v19 = [keyphraseExcludeBundles countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v43;
+    v21 = *v42;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v43 != v21)
+        if (*v42 != v21)
         {
           objc_enumerationMutation(keyphraseExcludeBundles);
         }
 
-        v23 = *(*(&v42 + 1) + 8 * j);
+        v23 = *(*(&v41 + 1) + 8 * j);
         mEMORY[0x277D657A0]6 = [MEMORY[0x277D657A0] sharedContext];
         excludeBundles = [mEMORY[0x277D657A0]6 excludeBundles];
         v26 = [excludeBundles containsObject:v23];
@@ -204,17 +203,17 @@ void __40__SKGProcessorTaskManager_sharedManager__block_invoke()
         }
       }
 
-      v20 = [keyphraseExcludeBundles countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v20 = [keyphraseExcludeBundles countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
     while (v20);
   }
 
-  [(SKGProcessorTask *)v40 setRequiredAttributes:&unk_2846E8508];
-  [(SKGProcessorTask *)v40 setOptionalAttributes:v41];
-  [(SKGProcessorTask *)v40 setExcludeBundles:v16];
-  v39 = objc_alloc_init(SKGQueryStringBuilder);
-  beginGroup = [(SKGQueryStringBuilder *)v39 beginGroup];
+  [(SKGProcessorTask *)v39 setRequiredAttributes:&unk_2846E8508];
+  [(SKGProcessorTask *)v39 setOptionalAttributes:v40];
+  [(SKGProcessorTask *)v39 setExcludeBundles:v16];
+  v38 = objc_alloc_init(SKGQueryStringBuilder);
+  beginGroup = [(SKGQueryStringBuilder *)v38 beginGroup];
   withFieldMatch = [beginGroup withFieldMatch];
   v29 = (withFieldMatch)[2](withFieldMatch, @"_kMDItemBundleID", &unk_2846E8538);
   v30 = [v29 and];
@@ -224,13 +223,11 @@ void __40__SKGProcessorTaskManager_sharedManager__block_invoke()
   endGroup = [v33 endGroup];
 
   build = [endGroup build];
-  v50 = build;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
-  [(SKGProcessorTask *)v40 setAdditionalQueries:v36];
+  v49 = build;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+  [(SKGProcessorTask *)v39 setAdditionalQueries:v36];
 
-  v37 = *MEMORY[0x277D85DE8];
-
-  return v40;
+  return v39;
 }
 
 - (SKGProcessorTaskManager)init

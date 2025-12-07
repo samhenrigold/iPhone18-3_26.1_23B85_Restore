@@ -13,6 +13,7 @@
 - (id)notificationRecordsForBundleIdentifier:(id)identifier;
 - (void)_badge_queue_setBadgeValue:(id)value forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler;
 - (void)_logNotification:(id)notification forBundleIdentifier:(id)identifier;
+- (void)_queue_notifyObserversNotificationsDidAddNotifications:(id)notifications replaceNotifications:(id)replaceNotifications replacementNotifications:(id)replacementNotifications removedNotifications:(id)removedNotifications shouldRepost:(BOOL)repost shouldSync:(BOOL)sync forBundleIdentifier:(id)identifier;
 - (void)_queue_notifyObserversWithReceipt:(id)receipt bundleIdentifier:(id)identifier;
 - (void)_queue_performMigration;
 - (void)_queue_performMigrationForBundleIdentifier:(id)identifier;
@@ -49,6 +50,8 @@
 - (void)removeSimilarNotificationRecords:(id)records bundleIdentifier:(id)identifier;
 - (void)removeStoreForBundleIdentifier:(id)identifier;
 - (void)saveNotificationRecord:(id)record targetRevisionNumber:(id)number shouldRepost:(BOOL)repost forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler;
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost apsMessageTimestamp:(id)timestamp forBundleIdentifier:(id)identifier;
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost withMessage:(id)message forBundleIdentifier:(id)identifier;
 @end
 
 @implementation UNCLocalNotificationRepository
@@ -182,10 +185,7 @@
 
 uint64_t __73__UNCLocalNotificationRepository_notificationRecordsForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_notificationRecordsForBundleIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_notificationRecordsForBundleIdentifier:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -221,17 +221,14 @@ uint64_t __73__UNCLocalNotificationRepository_notificationRecordsForBundleIdenti
 
 uint64_t __83__UNCLocalNotificationRepository_notificationRecordForIdentifier_bundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_notificationRecordForIdentifier:*(a1 + 40) forBundleIdentifier:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _queue_notificationRecordForIdentifier:*(a1 + 40) forBundleIdentifier:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (void)saveNotificationRecord:(id)record targetRevisionNumber:(id)number shouldRepost:(BOOL)repost forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   numberCopy = number;
   identifierCopy = identifier;
@@ -276,24 +273,24 @@ LABEL_18:
         aBlock[3] = &unk_1E85D7790;
         aBlock[4] = self;
         v17 = recordCopy;
-        v38 = v17;
-        v39 = numberCopy;
+        v37 = v17;
+        v38 = numberCopy;
         repostCopy = repost;
         v18 = identifierCopy;
-        v40 = v18;
-        v41 = handlerCopy;
+        v39 = v18;
+        v40 = handlerCopy;
         v19 = _Block_copy(aBlock);
         queue = self->_queue;
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __133__UNCLocalNotificationRepository_saveNotificationRecord_targetRevisionNumber_shouldRepost_forBundleIdentifier_withCompletionHandler___block_invoke_2;
-        v33[3] = &unk_1E85D7808;
-        v33[4] = self;
-        v34 = v18;
-        v35 = v17;
-        v36 = v19;
+        v32[0] = MEMORY[0x1E69E9820];
+        v32[1] = 3221225472;
+        v32[2] = __133__UNCLocalNotificationRepository_saveNotificationRecord_targetRevisionNumber_shouldRepost_forBundleIdentifier_withCompletionHandler___block_invoke_2;
+        v32[3] = &unk_1E85D7808;
+        v32[4] = self;
+        v33 = v18;
+        v34 = v17;
+        v35 = v19;
         v21 = v19;
-        dispatch_async(queue, v33);
+        dispatch_async(queue, v32);
 
         goto LABEL_19;
       }
@@ -305,9 +302,9 @@ LABEL_18:
         identifier = [recordCopy identifier];
         un_logDigest = [identifier un_logDigest];
         *buf = 138543618;
-        v44 = identifierCopy;
-        v45 = 2114;
-        v46 = un_logDigest;
+        v43 = identifierCopy;
+        v44 = 2114;
+        v45 = un_logDigest;
         _os_log_impl(&dword_1DA7A9000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] Not delivering user visible notification %{public}@ because it has no alert, sound or badge", buf, 0x16u);
       }
 
@@ -339,8 +336,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __133__UNCLocalNotificationRepository_saveNotificationRecord_targetRevisionNumber_shouldRepost_forBundleIdentifier_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -369,62 +364,62 @@ void __133__UNCLocalNotificationRepository_saveNotificationRecord_targetRevision
 
 void __133__UNCLocalNotificationRepository_saveNotificationRecord_targetRevisionNumber_shouldRepost_forBundleIdentifier_withCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 72));
   v3 = [WeakRetained isApplicationForeground:*(a1 + 40)];
 
   v4 = *(a1 + 48);
-  if (!v3)
+  if (v3)
+  {
+    if ([v4 pipelineState])
+    {
+      v5 = *(a1 + 56);
+      v6 = [*(a1 + 48) presentationOptions];
+      v7 = *(v5 + 16);
+
+      v7(v5, v6, 0);
+    }
+
+    else
+    {
+      v8 = objc_loadWeakRetained((*(a1 + 32) + 72));
+      v10 = *(a1 + 40);
+      v9 = *(a1 + 48);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __133__UNCLocalNotificationRepository_saveNotificationRecord_targetRevisionNumber_shouldRepost_forBundleIdentifier_withCompletionHandler___block_invoke_3;
+      v17[3] = &unk_1E85D77E0;
+      v17[4] = *(a1 + 32);
+      v18 = *(a1 + 56);
+      [v8 willPresentNotification:v9 forBundleIdentifier:v10 withCompletionHandler:v17];
+    }
+  }
+
+  else
   {
     if ([v4 hasSound])
     {
       if (([*(a1 + 48) hasAlertContent] & 1) == 0)
       {
-        v12 = *MEMORY[0x1E6983368];
+        v11 = *MEMORY[0x1E6983368];
         if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
         {
-          v14 = *(a1 + 40);
-          v13 = *(a1 + 48);
-          v15 = v12;
-          v16 = [v13 identifier];
-          v17 = [v16 un_logDigest];
+          v13 = *(a1 + 40);
+          v12 = *(a1 + 48);
+          v14 = v11;
+          v15 = [v12 identifier];
+          v16 = [v15 un_logDigest];
           *buf = 138543618;
-          v22 = v14;
-          v23 = 2114;
-          v24 = v17;
-          _os_log_impl(&dword_1DA7A9000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Suppressing sound on user visible notification %{public}@ because it has no alert and the app is in the background", buf, 0x16u);
+          v20 = v13;
+          v21 = 2114;
+          v22 = v16;
+          _os_log_impl(&dword_1DA7A9000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Suppressing sound on user visible notification %{public}@ because it has no alert and the app is in the background", buf, 0x16u);
         }
       }
     }
 
     (*(*(a1 + 56) + 16))();
-    goto LABEL_13;
   }
-
-  if (![v4 pipelineState])
-  {
-    v9 = objc_loadWeakRetained((*(a1 + 32) + 72));
-    v11 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __133__UNCLocalNotificationRepository_saveNotificationRecord_targetRevisionNumber_shouldRepost_forBundleIdentifier_withCompletionHandler___block_invoke_3;
-    v19[3] = &unk_1E85D77E0;
-    v19[4] = *(a1 + 32);
-    v20 = *(a1 + 56);
-    [v9 willPresentNotification:v10 forBundleIdentifier:v11 withCompletionHandler:v19];
-
-LABEL_13:
-    v18 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v5 = *(a1 + 56);
-  v6 = [*(a1 + 48) presentationOptions];
-  v7 = *(v5 + 16);
-  v8 = *MEMORY[0x1E69E9840];
-
-  v7(v5, v6, 0);
 }
 
 void __133__UNCLocalNotificationRepository_saveNotificationRecord_targetRevisionNumber_shouldRepost_forBundleIdentifier_withCompletionHandler___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
@@ -442,9 +437,45 @@ void __133__UNCLocalNotificationRepository_saveNotificationRecord_targetRevision
   dispatch_async(v6, block);
 }
 
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost withMessage:(id)message forBundleIdentifier:(id)identifier
+{
+  repostCopy = repost;
+  identifierCopy = identifier;
+  requestCopy = request;
+  timestamp = [message timestamp];
+  [(UNCLocalNotificationRepository *)self saveNotificationRequest:requestCopy shouldRepost:repostCopy apsMessageTimestamp:timestamp forBundleIdentifier:identifierCopy];
+}
+
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost apsMessageTimestamp:(id)timestamp forBundleIdentifier:(id)identifier
+{
+  repostCopy = repost;
+  requestCopy = request;
+  identifierCopy = identifier;
+  categoryRepository = self->_categoryRepository;
+  timestampCopy = timestamp;
+  content = [requestCopy content];
+  categoryIdentifier = [content categoryIdentifier];
+  v16 = [(UNSNotificationCategoryRepository *)categoryRepository categoryWithIdentifier:categoryIdentifier bundleIdentifier:identifierCopy];
+
+  v17 = MEMORY[0x1E6983240];
+  intentIdentifiers = [v16 intentIdentifiers];
+  v19 = [v17 notificationWithRequest:requestCopy date:timestampCopy sourceIdentifier:identifierCopy intentIdentifiers:intentIdentifiers];
+
+  v20 = (*(UNNotificationToNotificationRecord + 2))(UNNotificationToNotificationRecord, v19);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __111__UNCLocalNotificationRepository_saveNotificationRequest_shouldRepost_apsMessageTimestamp_forBundleIdentifier___block_invoke;
+  v23[3] = &unk_1E85D7248;
+  v24 = identifierCopy;
+  v25 = requestCopy;
+  v21 = requestCopy;
+  v22 = identifierCopy;
+  [(UNCLocalNotificationRepository *)self saveNotificationRecord:v20 shouldRepost:repostCopy forBundleIdentifier:v22 withCompletionHandler:v23];
+}
+
 void __111__UNCLocalNotificationRepository_saveNotificationRequest_shouldRepost_apsMessageTimestamp_forBundleIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = *MEMORY[0x1E6983390];
   v6 = os_log_type_enabled(*MEMORY[0x1E6983390], OS_LOG_TYPE_DEFAULT);
@@ -457,17 +488,17 @@ void __111__UNCLocalNotificationRepository_saveNotificationRequest_shouldRepost_
       v9 = v5;
       v10 = [v7 identifier];
       v11 = [v10 un_logDigest];
-      v18 = 138543874;
-      v19 = v8;
-      v20 = 2114;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v4;
+      v17 = 138543874;
+      v18 = v8;
+      v19 = 2114;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v4;
       v12 = "[%{public}@] NOT delivering user visible push notification %{public}@ [ error=%{public}@ ]";
       v13 = v9;
       v14 = 32;
 LABEL_6:
-      _os_log_impl(&dword_1DA7A9000, v13, OS_LOG_TYPE_DEFAULT, v12, &v18, v14);
+      _os_log_impl(&dword_1DA7A9000, v13, OS_LOG_TYPE_DEFAULT, v12, &v17, v14);
     }
   }
 
@@ -478,17 +509,15 @@ LABEL_6:
     v9 = v5;
     v10 = [v15 identifier];
     v11 = [v10 un_logDigest];
-    v18 = 138543618;
-    v19 = v16;
-    v20 = 2114;
-    v21 = v11;
+    v17 = 138543618;
+    v18 = v16;
+    v19 = 2114;
+    v20 = v11;
     v12 = "[%{public}@] Delivered user visible push notification %{public}@";
     v13 = v9;
     v14 = 22;
     goto LABEL_6;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllNotificationRecordsForBundleIdentifier:(id)identifier
@@ -665,10 +694,7 @@ LABEL_6:
 
 uint64_t __54__UNCLocalNotificationRepository_allBundleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) allKeys];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) allKeys];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -707,7 +733,7 @@ uint64_t __54__UNCLocalNotificationRepository_allBundleIdentifiers__block_invoke
   dispatch_sync(queue, v4);
 }
 
-uint64_t __78__UNCLocalNotificationRepository_contentProtectionStateChangedForFirstUnlock___block_invoke(uint64_t a1)
+void *__78__UNCLocalNotificationRepository_contentProtectionStateChangedForFirstUnlock___block_invoke(uint64_t a1)
 {
   if (*(a1 + 40) == 1)
   {
@@ -741,27 +767,27 @@ uint64_t __78__UNCLocalNotificationRepository_contentProtectionStateChangedForFi
 
 void __64__UNCLocalNotificationRepository_notificationSourcesDidInstall___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 allowUnlimitedContentBody];
         v9 = *(*(a1 + 40) + 24);
         v10 = [v7 bundleIdentifier];
@@ -776,13 +802,11 @@ void __64__UNCLocalNotificationRepository_notificationSourcesDidInstall___block_
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notificationSourcesDidUninstall:(id)uninstall
@@ -801,42 +825,40 @@ void __64__UNCLocalNotificationRepository_notificationSourcesDidInstall___block_
 
 void __66__UNCLocalNotificationRepository_notificationSourcesDidUninstall___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(*(a1 + 40) + 24);
-        v8 = [*(*(&v10 + 1) + 8 * v6) bundleIdentifier];
+        v8 = [*(*(&v9 + 1) + 8 * v6) bundleIdentifier];
         [v7 removeObject:v8];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_queue_notificationRecordsForBundleIdentifier:(id)identifier
@@ -899,10 +921,110 @@ uint64_t __93__UNCLocalNotificationRepository__queue_notificationRecordForIdenti
   return v4;
 }
 
+- (void)_queue_notifyObserversNotificationsDidAddNotifications:(id)notifications replaceNotifications:(id)replaceNotifications replacementNotifications:(id)replacementNotifications removedNotifications:(id)removedNotifications shouldRepost:(BOOL)repost shouldSync:(BOOL)sync forBundleIdentifier:(id)identifier
+{
+  syncCopy = sync;
+  repostCopy = repost;
+  v54 = *MEMORY[0x1E69E9840];
+  notificationsCopy = notifications;
+  replaceNotificationsCopy = replaceNotifications;
+  replacementNotificationsCopy = replacementNotifications;
+  removedNotificationsCopy = removedNotifications;
+  identifierCopy = identifier;
+  selfCopy = self;
+  dispatch_assert_queue_V2(self->_queue);
+  array = [MEMORY[0x1E695DF70] array];
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v18 = notificationsCopy;
+  v19 = [v18 countByEnumeratingWithState:&v48 objects:v53 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = *v49;
+    do
+    {
+      for (i = 0; i != v20; ++i)
+      {
+        if (*v49 != v21)
+        {
+          objc_enumerationMutation(v18);
+        }
+
+        v23 = [UNSNotificationRecordAddUpdate updateWithNotificationRecord:*(*(&v48 + 1) + 8 * i) shouldSync:syncCopy];
+        [array addObject:v23];
+      }
+
+      v20 = [v18 countByEnumeratingWithState:&v48 objects:v53 count:16];
+    }
+
+    while (v20);
+  }
+
+  if ([replaceNotificationsCopy count])
+  {
+    v24 = 0;
+    do
+    {
+      v25 = [replaceNotificationsCopy objectAtIndex:v24];
+      v26 = [replacementNotificationsCopy objectAtIndex:v24];
+      v27 = [UNSNotificationRecordReplaceUpdate updateWithNotificationRecord:v26 replacedNotificationRecord:v25 shouldRepost:repostCopy];
+      [array addObject:v27];
+
+      ++v24;
+    }
+
+    while (v24 < [replaceNotificationsCopy count]);
+  }
+
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v28 = removedNotificationsCopy;
+  v29 = [v28 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  if (v29)
+  {
+    v30 = v29;
+    v31 = *v45;
+    do
+    {
+      for (j = 0; j != v30; ++j)
+      {
+        if (*v45 != v31)
+        {
+          objc_enumerationMutation(v28);
+        }
+
+        v33 = [UNSNotificationRecordRemoveUpdate updateWithNotificationRecord:*(*(&v44 + 1) + 8 * j) shouldSync:syncCopy];
+        [array addObject:v33];
+      }
+
+      v30 = [v28 countByEnumeratingWithState:&v44 objects:v52 count:16];
+    }
+
+    while (v30);
+  }
+
+  observable = selfCopy->_observable;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __200__UNCLocalNotificationRepository__queue_notifyObserversNotificationsDidAddNotifications_replaceNotifications_replacementNotifications_removedNotifications_shouldRepost_shouldSync_forBundleIdentifier___block_invoke;
+  v41[3] = &unk_1E85D6FC0;
+  v41[4] = selfCopy;
+  v42 = array;
+  v43 = identifierCopy;
+  v35 = identifierCopy;
+  v36 = array;
+  [(UNCKeyedObservable *)observable notifyObserversKey:v35 usingBlock:v41];
+}
+
 - (BOOL)_queue_saveNotificationRecord:(id)record targetRevisionNumber:(id)number shouldRepost:(BOOL)repost withOptions:(unint64_t)options forBundleIdentifier:(id)identifier
 {
   repostCopy = repost;
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   numberCopy = number;
   identifierCopy = identifier;
@@ -920,7 +1042,7 @@ uint64_t __93__UNCLocalNotificationRepository__queue_notificationRecordForIdenti
   badge = [recordCopy badge];
   shouldBadgeApplicationIcon = [recordCopy shouldBadgeApplicationIcon];
   v16 = shouldBadgeApplicationIcon;
-  v84 = badge;
+  v83 = badge;
   if (badge)
   {
     v17 = shouldBadgeApplicationIcon;
@@ -938,15 +1060,15 @@ uint64_t __93__UNCLocalNotificationRepository__queue_notificationRecordForIdenti
     identifier = [recordCopy identifier];
     un_logDigest = [identifier un_logDigest];
     *buf = 138544386;
-    v86 = identifierCopy;
-    v87 = 2114;
-    v88 = un_logDigest;
-    v89 = 1024;
-    *v90 = v17;
-    *&v90[4] = 1024;
-    *&v90[6] = v16;
-    *v91 = 2114;
-    *&v91[2] = v84;
+    v85 = identifierCopy;
+    v86 = 2114;
+    v87 = un_logDigest;
+    v88 = 1024;
+    *v89 = v17;
+    *&v89[4] = 1024;
+    *&v89[6] = v16;
+    *v90 = 2114;
+    *&v90[2] = v83;
     _os_log_impl(&dword_1DA7A9000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Badge can be set for notification %{public}@: %d [ canBadge: %d badgeNumber: %{public}@ ]", buf, 0x2Cu);
   }
 
@@ -978,11 +1100,11 @@ uint64_t __93__UNCLocalNotificationRepository__queue_notificationRecordForIdenti
   v31 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
   {
-    v80 = numberCopy;
+    v79 = numberCopy;
     log = v31;
     [recordCopy identifier];
-    v74 = v82 = identifierCopy;
-    un_logDigest2 = [v74 un_logDigest];
+    v73 = v81 = identifierCopy;
+    un_logDigest2 = [v73 un_logDigest];
     v33 = v27;
     hasAlertContent = [recordCopy hasAlertContent];
     v35 = v25;
@@ -991,26 +1113,26 @@ uint64_t __93__UNCLocalNotificationRepository__queue_notificationRecordForIdenti
     v38 = v29;
     v39 = UNSStringFromPipelineState(pipelineState);
     *buf = 138544898;
-    v86 = v82;
-    v87 = 2114;
-    v88 = un_logDigest2;
-    v89 = 1024;
-    *v90 = v30;
-    *&v90[4] = 1024;
-    *&v90[6] = hasAlertContent;
+    v85 = v81;
+    v86 = 2114;
+    v87 = un_logDigest2;
+    v88 = 1024;
+    *v89 = v30;
+    *&v89[4] = 1024;
+    *&v89[6] = hasAlertContent;
     v27 = v33;
-    *v91 = 1024;
-    *&v91[2] = shouldPresentAlert2;
+    *v90 = 1024;
+    *&v90[2] = shouldPresentAlert2;
     v25 = v35;
-    *&v91[6] = 1024;
-    *&v91[8] = v38;
+    *&v90[6] = 1024;
+    *&v90[8] = v38;
     self = selfCopy;
-    v92 = 2114;
-    v93 = v39;
+    v91 = 2114;
+    v92 = v39;
     _os_log_impl(&dword_1DA7A9000, log, OS_LOG_TYPE_DEFAULT, "[%{public}@] Saving notification %{public}@: %{BOOL}d [ hasAlertContent: %{BOOL}d, shouldPresentAlert: %{BOOL}d settingsShouldSave: %{BOOL}d pipelineState: %{public}@]", buf, 0x38u);
 
-    identifierCopy = v82;
-    numberCopy = v80;
+    identifierCopy = v81;
+    numberCopy = v79;
   }
 
   if (v30)
@@ -1025,11 +1147,11 @@ uint64_t __93__UNCLocalNotificationRepository__queue_notificationRecordForIdenti
       {
         v44 = [v42 revisionNumber] + 1;
 LABEL_33:
-        v81 = numberCopy;
+        v80 = numberCopy;
         [recordCopy setRevisionNumber:v44];
         v59 = [recordCopy dictionaryRepresentationWithTruncation:{-[NSMutableSet containsObject:](selfCopy2->_unlimitedBodyBundleIdentifiers, "containsObject:", identifierCopy) ^ 1}];
         repository = selfCopy2->_repository;
-        v83 = identifierCopy;
+        v82 = identifierCopy;
         if (repostCopy)
         {
           [(UNCKeyedDataStoreRepository *)repository addObject:v59 forKey:identifierCopy];
@@ -1046,27 +1168,27 @@ LABEL_33:
           v63 = [(UNCLocalNotificationRepository *)selfCopy2 _notificationsForObjects:addedObjects];
 
           [v61 replacedObjects];
-          v64 = v75 = v59;
+          v64 = v74 = v59;
           v65 = [(UNCLocalNotificationRepository *)selfCopy2 _notificationsForObjects:v64];
 
           replacementObjects = [v61 replacementObjects];
           [(UNCLocalNotificationRepository *)selfCopy2 _notificationsForObjects:replacementObjects];
-          v67 = v79 = v27;
+          v67 = v78 = v27;
 
           removedObjects = [v61 removedObjects];
           [(UNCLocalNotificationRepository *)selfCopy2 _notificationsForObjects:removedObjects];
           v70 = v69 = v25;
 
-          v59 = v75;
-          [(UNCLocalNotificationRepository *)selfCopy2 _queue_notifyObserversNotificationsDidAddNotifications:v63 replaceNotifications:v65 replacementNotifications:v67 removedNotifications:v70 shouldRepost:repostCopy shouldSync:1 forBundleIdentifier:v83];
+          v59 = v74;
+          [(UNCLocalNotificationRepository *)selfCopy2 _queue_notifyObserversNotificationsDidAddNotifications:v63 replaceNotifications:v65 replacementNotifications:v67 removedNotifications:v70 shouldRepost:repostCopy shouldSync:1 forBundleIdentifier:v82];
 
           v25 = v69;
-          v27 = v79;
+          v27 = v78;
         }
 
         v47 = 1;
-        numberCopy = v81;
-        identifierCopy = v83;
+        numberCopy = v80;
+        identifierCopy = v82;
         goto LABEL_39;
       }
 
@@ -1079,22 +1201,22 @@ LABEL_33:
       v49 = v53;
       identifier3 = [recordCopy identifier];
       [identifier3 un_logDigest];
-      v55 = v78 = v27;
+      v55 = v77 = v27;
       v56 = v25;
       revisionNumber = [v42 revisionNumber];
       integerValue = [numberCopy integerValue];
       *buf = 138544130;
-      v86 = identifierCopy;
-      v87 = 2114;
-      v88 = v55;
-      v89 = 2050;
-      *v90 = revisionNumber;
+      v85 = identifierCopy;
+      v86 = 2114;
+      v87 = v55;
+      v88 = 2050;
+      *v89 = revisionNumber;
       v25 = v56;
-      *&v90[8] = 2050;
-      *v91 = integerValue;
+      *&v89[8] = 2050;
+      *v90 = integerValue;
       _os_log_impl(&dword_1DA7A9000, v49, OS_LOG_TYPE_DEFAULT, "[%{public}@] Could not save notification %{public}@: Revision number (%{public}ld) is different from the expected value (%{public}ld)", buf, 0x2Au);
 
-      v27 = v78;
+      v27 = v77;
     }
 
     else
@@ -1116,9 +1238,9 @@ LABEL_33:
       [identifier4 un_logDigest];
       v52 = v51 = v27;
       *buf = 138543618;
-      v86 = identifierCopy;
-      v87 = 2114;
-      v88 = v52;
+      v85 = identifierCopy;
+      v86 = 2114;
+      v87 = v52;
       _os_log_impl(&dword_1DA7A9000, v49, OS_LOG_TYPE_DEFAULT, "[%{public}@] Could not save notification %{public}@: Already removed!", buf, 0x16u);
 
       v27 = v51;
@@ -1144,38 +1266,35 @@ LABEL_39:
   v47 = 1;
 LABEL_40:
 
-  v71 = *MEMORY[0x1E69E9840];
   return v47;
 }
 
 - (void)_queue_removeAllNotificationRecordsForBundleIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
   v5 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = identifierCopy;
-    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove all delivered notifications", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = identifierCopy;
+    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove all delivered notifications", &v6, 0xCu);
   }
 
   [(UNCLocalNotificationRepository *)self _queue_removeNotificationRecordsPassingTest:&__block_literal_global_13 forBundleIdentifier:identifierCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_removeInvalidNotificationRecordsForBundleIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
   v5 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v19 = identifierCopy;
+    v18 = identifierCopy;
     _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove all delivered notifications that are no longer valid", buf, 0xCu);
   }
 
@@ -1185,25 +1304,23 @@ LABEL_40:
   v8 = objc_loadWeakRetained(&self->_settingsProvider);
   v9 = [v8 notificationSettingsForTopicsWithBundleIdentifier:identifierCopy];
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __93__UNCLocalNotificationRepository__queue_removeInvalidNotificationRecordsForBundleIdentifier___block_invoke;
-  v14[3] = &unk_1E85D78C8;
-  v14[4] = self;
-  v15 = v7;
-  v16 = v9;
-  v17 = identifierCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __93__UNCLocalNotificationRepository__queue_removeInvalidNotificationRecordsForBundleIdentifier___block_invoke;
+  v13[3] = &unk_1E85D78C8;
+  v13[4] = self;
+  v14 = v7;
+  v15 = v9;
+  v16 = identifierCopy;
   v10 = identifierCopy;
   v11 = v9;
   v12 = v7;
-  [(UNCLocalNotificationRepository *)self _queue_removeNotificationRecordsPassingTest:v14 forBundleIdentifier:v10];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(UNCLocalNotificationRepository *)self _queue_removeNotificationRecordsPassingTest:v13 forBundleIdentifier:v10];
 }
 
 uint64_t __93__UNCLocalNotificationRepository__queue_removeInvalidNotificationRecordsForBundleIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _shouldPersistNotificationRecord:v3 forBundleSettings:*(a1 + 40) perTopicSettings:*(a1 + 48)];
   if ((v4 & 1) == 0)
@@ -1215,15 +1332,14 @@ uint64_t __93__UNCLocalNotificationRepository__queue_removeInvalidNotificationRe
       v7 = v5;
       v8 = [v3 identifier];
       v9 = [v8 un_logDigest];
-      v12 = 138543618;
-      v13 = v6;
-      v14 = 2114;
-      v15 = v9;
-      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing notification %{public}@ because applicable settings no longer require its persistence", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v6;
+      v13 = 2114;
+      v14 = v9;
+      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing notification %{public}@ because applicable settings no longer require its persistence", &v11, 0x16u);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v4 ^ 1u;
 }
 
@@ -1298,34 +1414,34 @@ uint64_t __98__UNCLocalNotificationRepository__queue_removeNotificationRecordsFo
 
 uint64_t __91__UNCLocalNotificationRepository__queue_removeSimilarNotificationRecords_bundleIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = (*(UNSDictionaryToNotificationRecord + 2))(UNSDictionaryToNotificationRecord, a2);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v10 + 1) + 8 * i) isSimilar:{v3, v10}])
+        if ([*(*(&v9 + 1) + 8 * i) isSimilar:{v3, v9}])
         {
           v5 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -1337,7 +1453,6 @@ uint64_t __91__UNCLocalNotificationRepository__queue_removeSimilarNotificationRe
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1551,86 +1666,82 @@ uint64_t __103__UNCLocalNotificationRepository__badge_queue_setBadgeValue_forBun
 
 - (void)_queue_performMigrationForUserNotificationsStore
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_autoreleasePoolPush();
   allKeys = [(UNCKeyedDataStoreRepository *)self->_repository allKeys];
   objc_autoreleasePoolPop(v3);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = allKeys;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
-        [(UNCLocalNotificationRepository *)self _queue_performMigrationForBundleIdentifier:v10, v13];
+        [(UNCLocalNotificationRepository *)self _queue_performMigrationForBundleIdentifier:v10, v12];
         objc_autoreleasePoolPop(v11);
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_triggerInvalidationForFirstUnlock
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_autoreleasePoolPush();
   allKeys = [(UNCKeyedDataStoreRepository *)self->_repository allKeys];
   objc_autoreleasePoolPop(v3);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = allKeys;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(UNCKeyedObservable *)self->_observable notifyObserversKey:MEMORY[0x1E69E9820] usingBlock:3221225472, __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlock__block_invoke, &unk_1E85D6FE8, self, *(*(&v11 + 1) + 8 * v9++), v11];
+        [(UNCKeyedObservable *)self->_observable notifyObserversKey:MEMORY[0x1E69E9820] usingBlock:3221225472, __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlock__block_invoke, &unk_1E85D6FE8, self, *(*(&v10 + 1) + 8 * v9++), v10];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlock__block_invoke(uint64_t a1, void *a2)
@@ -1644,40 +1755,40 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
 
 - (void)_queue_performMigrationForPushStore
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, 1uLL, 1);
   v4 = [v3 objectAtIndex:0];
 
-  v20 = v4;
-  v26[0] = v4;
-  v26[1] = @"SpringBoard";
-  v26[2] = @"PushStore";
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+  v19 = v4;
+  v25[0] = v4;
+  v25[1] = @"SpringBoard";
+  v25[2] = @"PushStore";
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
   v5 = [MEMORY[0x1E696AEC0] pathWithComponents:?];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v7 = [defaultManager contentsOfDirectoryAtPath:v5 error:0];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         pathExtension = [v13 pathExtension];
         v15 = [pathExtension isEqualToString:@"pushstore"];
 
@@ -1691,18 +1802,16 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_performMigrationForPushStoreAtPath:(id)path
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dispatch_assert_queue_V2(self->_queue);
   lastPathComponent = [pathCopy lastPathComponent];
@@ -1713,22 +1822,20 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
     v7 = *MEMORY[0x1E6983380];
     if (os_log_type_enabled(*MEMORY[0x1E6983380], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = stringByDeletingPathExtension;
-      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Migrating notification repository", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = stringByDeletingPathExtension;
+      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Migrating notification repository", &v8, 0xCu);
     }
 
     [(UNCKeyedDataStoreRepository *)self->_repository migrateStoreAtPath:pathCopy forKey:stringByDeletingPathExtension];
   }
 
   [(UNCLocalNotificationRepository *)self _queue_performMigrationForBundleIdentifier:stringByDeletingPathExtension];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_performMigrationForBundleIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
   v5 = [(UNCKeyedDataStoreRepository *)self->_repository objectsForKey:identifierCopy];
@@ -1742,50 +1849,48 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
       if (os_log_type_enabled(*MEMORY[0x1E6983380], OS_LOG_TYPE_DEFAULT))
       {
         v9 = v8;
-        v11 = 138543618;
-        v12 = identifierCopy;
-        v13 = 2048;
-        v14 = [v6 count];
-        _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Migrating notification repository (%ld)", &v11, 0x16u);
+        v10 = 138543618;
+        v11 = identifierCopy;
+        v12 = 2048;
+        v13 = [v6 count];
+        _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Migrating notification repository (%ld)", &v10, 0x16u);
       }
 
       [(UNCKeyedDataStoreRepository *)self->_repository setObjects:v7 forKey:identifierCopy];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_performValidation
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_autoreleasePoolPush();
   allKeys = [(UNCKeyedDataStoreRepository *)self->_repository allKeys];
   objc_autoreleasePoolPop(v3);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = allKeys;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v22;
+    v9 = *v21;
     *&v7 = 138543362;
-    v20 = v7;
+    v19 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
-        v12 = [(UNCKeyedDataStoreRepository *)self->_repository objectsForKey:v11, v20];
+        v11 = *(*(&v20 + 1) + 8 * i);
+        v12 = [(UNCKeyedDataStoreRepository *)self->_repository objectsForKey:v11, v19];
         v13 = v12;
         if (v12)
         {
@@ -1798,9 +1903,9 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
               v16 = v15;
               v17 = [v14 count];
               *buf = 138543618;
-              v26 = v11;
-              v27 = 2048;
-              v28 = v17;
+              v25 = v11;
+              v26 = 2048;
+              v27 = v17;
               _os_log_impl(&dword_1DA7A9000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Filtering notification repository (%ld)", buf, 0x16u);
             }
 
@@ -1813,8 +1918,8 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
           v18 = *MEMORY[0x1E6983380];
           if (os_log_type_enabled(*MEMORY[0x1E6983380], OS_LOG_TYPE_ERROR))
           {
-            *buf = v20;
-            v26 = v11;
+            *buf = v19;
+            v25 = v11;
             _os_log_error_impl(&dword_1DA7A9000, v18, OS_LOG_TYPE_ERROR, "[%{public}@] Error reading notification repository. Deleting file.", buf, 0xCu);
           }
 
@@ -1822,18 +1927,16 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldPersistNotificationRecord:(id)record forBundleSettings:(id)settings perTopicSettings:(id)topicSettings
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   recordCopy = record;
   settingsCopy = settings;
   topicSettingsCopy = topicSettings;
@@ -1844,7 +1947,7 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
       topicIdentifiers = [recordCopy topicIdentifiers];
       allObjects = [topicIdentifiers allObjects];
 
-      v41 = allObjects;
+      v40 = allObjects;
       if ([allObjects count])
       {
         topicIdentifiers2 = [recordCopy topicIdentifiers];
@@ -1855,8 +1958,8 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
 
       else if (settingsCopy)
       {
-        v54[0] = settingsCopy;
-        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1];
+        v53[0] = settingsCopy;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
       }
 
       else
@@ -1864,35 +1967,35 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
         v15 = 0;
       }
 
-      v42 = topicSettingsCopy;
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
+      v41 = topicSettingsCopy;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       v24 = v15;
-      v25 = [v24 countByEnumeratingWithState:&v43 objects:v53 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v42 objects:v52 count:16];
       if (v25)
       {
         v26 = v25;
         LOBYTE(identifier2) = 0;
-        v27 = *v44;
+        v27 = *v43;
         do
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v44 != v27)
+            if (*v43 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            v29 = *(*(&v43 + 1) + 8 * i);
+            v29 = *(*(&v42 + 1) + 8 * i);
             v30 = [v29 authorizationStatus] == 2 || objc_msgSend(settingsCopy, "authorizationStatus") == 3;
             notificationCenterSetting = [v29 notificationCenterSetting];
             lockScreenSetting = [v29 lockScreenSetting];
             LODWORD(identifier2) = (identifier2 & 1) != 0 || (notificationCenterSetting == 2 || lockScreenSetting == 2) && v30;
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v43 objects:v53 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v42 objects:v52 count:16];
         }
 
         while (v26);
@@ -1904,7 +2007,7 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
       }
 
       v34 = *MEMORY[0x1E6983368];
-      topicSettingsCopy = v42;
+      topicSettingsCopy = v41;
       if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
       {
         v35 = v34;
@@ -1912,11 +2015,11 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
         un_logDigest = [identifier un_logDigest];
         v38 = [v24 count];
         *buf = 138543874;
-        v48 = un_logDigest;
-        v49 = 1024;
-        v50 = identifier2;
-        v51 = 2048;
-        v52 = v38;
+        v47 = un_logDigest;
+        v48 = 1024;
+        v49 = identifier2;
+        v50 = 2048;
+        v51 = v38;
         _os_log_impl(&dword_1DA7A9000, v35, OS_LOG_TYPE_DEFAULT, "[Persisting notification %{public}@: %d [applicableSettings: %lu]", buf, 0x1Cu);
       }
     }
@@ -1931,7 +2034,7 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
         identifier2 = [recordCopy identifier];
         un_logDigest2 = [identifier2 un_logDigest];
         *buf = 138543362;
-        v48 = un_logDigest2;
+        v47 = un_logDigest2;
         _os_log_impl(&dword_1DA7A9000, v22, OS_LOG_TYPE_DEFAULT, "[Not persisting notification %{public}@ because bundle is not authorized", buf, 0xCu);
 
         LOBYTE(identifier2) = 0;
@@ -1948,14 +2051,13 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
       identifier3 = [recordCopy identifier];
       un_logDigest3 = [identifier3 un_logDigest];
       *buf = 138543362;
-      v48 = un_logDigest3;
+      v47 = un_logDigest3;
       _os_log_impl(&dword_1DA7A9000, v17, OS_LOG_TYPE_DEFAULT, "[Provisionally allowing persisting notification %{public}@ because bundle settings are not available", buf, 0xCu);
     }
 
     LOBYTE(identifier2) = 1;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return identifier2;
 }
 
@@ -1975,30 +2077,26 @@ void __74__UNCLocalNotificationRepository__queue_triggerInvalidationForFirstUnlo
 
 - (void)saveNotificationRecord:(void *)a3 targetRevisionNumber:shouldRepost:forBundleIdentifier:withCompletionHandler:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a3 identifier];
   v7 = [v6 un_logDigest];
-  v9 = 138543618;
-  v10 = a1;
-  v11 = 2114;
-  v12 = v7;
-  _os_log_error_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Not delivering user visible notification %{public}@ because date is nil", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138543618;
+  v9 = a1;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_error_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Not delivering user visible notification %{public}@ because date is nil", &v8, 0x16u);
 }
 
 - (void)saveNotificationRecord:(void *)a1 targetRevisionNumber:(void *)a2 shouldRepost:forBundleIdentifier:withCompletionHandler:.cold.2(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 identifier];
   v5 = [v4 un_logDigest];
-  v7 = 138543362;
-  v8 = v5;
-  _os_log_error_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_ERROR, "Not delivering user visible notification %{public}@ because bundleID is nil", &v7, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543362;
+  v7 = v5;
+  _os_log_error_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_ERROR, "Not delivering user visible notification %{public}@ because bundleID is nil", &v6, 0xCu);
 }
 
 @end

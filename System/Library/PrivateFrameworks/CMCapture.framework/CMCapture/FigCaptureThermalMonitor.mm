@@ -129,72 +129,92 @@ void __32__FigCaptureThermalMonitor_init__block_invoke(uint64_t a1, int a2)
       v5 = OUTLINED_FUNCTION_1_42();
       if (OUTLINED_FUNCTION_58(v5))
       {
-        v6 = v2;
+        v12 = v2;
       }
 
       else
       {
-        v6 = v2 & 0xFFFFFFFE;
+        v12 = v2 & 0xFFFFFFFE;
       }
 
-      if (v6)
+      if (v12)
       {
+        LODWORD(v44) = 136315650;
         OUTLINED_FUNCTION_3_31();
-        OUTLINED_FUNCTION_2_40();
-        v2 = v14;
+        WORD1(v46) = v13;
+        DWORD1(v46) = 30;
+        LODWORD(v43) = 24;
+        v12 = OUTLINED_FUNCTION_2_40(v14, v15, v16, v17, &dword_1AC90E000, v18, v19, "<<<< FigCaptureThermalMonitor >>>> %s: Thermal level now %d (vs. threshold %d)", &v44, v43, v44, v45, v46, *(&v46 + 1), v47, v48, v49, v50);
+        v20 = v12;
+        v2 = v51;
       }
 
-      OUTLINED_FUNCTION_0_35();
+      else
+      {
+        v20 = 0;
+      }
+
+      OUTLINED_FUNCTION_0_35(v12, v6, v7, v20, v8, v9, v10, v11, v42, v43, v44, v45, v46, *(&v46 + 1), v47, v48, v49, v50);
     }
 
     FigSimpleMutexLock();
     if (a2 <= 0x1D)
     {
-      v7 = a2 == 20;
+      v21 = a2 == 20;
     }
 
     else
     {
-      v7 = 2;
+      v21 = 2;
     }
 
     if (a2 <= 0x1D)
     {
-      v8 = 1.0;
+      v22 = 1.0;
     }
 
     else
     {
-      v8 = 0.0;
+      v22 = 0.0;
     }
 
-    v9 = *(v4 + 40);
-    *(v4 + 40) = v8;
-    v10 = *(v4 + 44);
-    *(v4 + 44) = v7;
+    v23 = *(v4 + 40);
+    *(v4 + 40) = v22;
+    v24 = *(v4 + 44);
+    *(v4 + 44) = v21;
     result = FigSimpleMutexUnlock();
-    if (v8 != v9 || v7 != v10)
+    if (v22 != v23 || v21 != v24)
     {
       if (dword_1ED844450)
       {
-        v12 = OUTLINED_FUNCTION_1_42();
-        if (OUTLINED_FUNCTION_58(v12))
+        v26 = OUTLINED_FUNCTION_1_42();
+        if (OUTLINED_FUNCTION_58(v26))
         {
-          v13 = v2;
+          v33 = v2;
         }
 
         else
         {
-          v13 = v2 & 0xFFFFFFFE;
+          v33 = v2 & 0xFFFFFFFE;
         }
 
-        if (v13)
+        if (v33)
         {
+          LODWORD(v44) = 136315650;
           OUTLINED_FUNCTION_3_31();
-          OUTLINED_FUNCTION_2_40();
+          WORD1(v46) = 2048;
+          *(&v46 + 4) = v34;
+          LODWORD(v43) = 28;
+          v33 = OUTLINED_FUNCTION_2_40(v35, v36, v37, v38, &dword_1AC90E000, v39, v40, "<<<< FigCaptureThermalMonitor >>>> %s: Thermal level %d, setting maxTorchLevel %g.", &v44, v43, v44, v45, v46, *(&v46 + 1), v47, v48, v49, v50);
+          v41 = v33;
         }
 
-        OUTLINED_FUNCTION_0_35();
+        else
+        {
+          v41 = 0;
+        }
+
+        OUTLINED_FUNCTION_0_35(v33, v27, v28, v41, v29, v30, v31, v32, v42, v43, v44, v45, v46, *(&v46 + 1), v47, v48, v49, v50);
       }
 
       result = *(v4 + 24);

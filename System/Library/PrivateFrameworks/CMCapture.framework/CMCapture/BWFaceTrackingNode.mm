@@ -1,8 +1,8 @@
 @interface BWFaceTrackingNode
 - (BWFaceTrackingNode)initWithFigThreadPriority:(unsigned int)priority pearlModuleType:(int)type useUnfilteredDepth:(BOOL)depth queueDepth:(unsigned int)queueDepth passthroughInputs:(BOOL)inputs allowPixelTransfer:(BOOL)transfer;
-- (uint64_t)_depthIntrinsicsExtrinsicsFromRGBIntrisics:(unint64_t)intrisics colorWidth:(unint64_t)width colorHeight:(unint64_t)height depthWidth:(double)depthWidth depthHeight:(double)depthHeight;
 - (uint64_t)_prepareDecompressionResources;
 - (uint64_t)_setupCVA;
+- (void)_depthIntrinsicsExtrinsicsFromRGBIntrisics:(unint64_t)intrisics colorWidth:(unint64_t)width colorHeight:(unint64_t)height depthWidth:(double)depthWidth depthHeight:(double)depthHeight;
 - (void)_processSampleBuffer:(uint64_t)buffer;
 - (void)_releaseDecompressionResources;
 - (void)_startProcessingSampleSampleBuffer:(uint64_t)buffer;
@@ -58,7 +58,7 @@
       }
     }
 
-    if (v10 && (v13->_processingLock._os_unfair_lock_opaque = 0, v13->_processingQueue = FigDispatchQueueCreateWithPriority(), v14 = CMSimpleQueueCreate(*MEMORY[0x1E695E480], v10, &v13->_nextSbufQueue), v14))
+    if (v10 && (v13->_processingLock._os_unfair_lock_opaque = 0, v13->_processingQueue = FigDispatchQueueCreateWithPriority(), (v14 = CMSimpleQueueCreate(*MEMORY[0x1E695E480], v10, &v13->_nextSbufQueue)) != 0))
     {
       [BWFaceTrackingNode initWithFigThreadPriority:v14 pearlModuleType:v13 useUnfilteredDepth:? queueDepth:? passthroughInputs:? allowPixelTransfer:?];
       return 0;
@@ -314,35 +314,35 @@ LABEL_26:
 
   if (*(bufferCopy + 178) == 1)
   {
-    v4 = CMGetAttachment(target, @"DepthDisabled", 0);
-    if ((*(bufferCopy + 228) & 1) != 0 || [v4 BOOLValue])
+    v5 = CMGetAttachment(target, @"DepthDisabled", 0);
+    if ((*(bufferCopy + 228) & 1) != 0 || [v5 BOOLValue])
     {
-      v5 = *(bufferCopy + 16);
+      v6 = *(bufferCopy + 16);
 
-      [v5 emitSampleBuffer:target];
+      [v6 emitSampleBuffer:target];
       return;
     }
   }
 
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3052000000;
-  v70 = __Block_byref_object_copy__15;
-  v71 = __Block_byref_object_dispose__15;
-  v72 = 0;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x3052000000;
+  v77 = __Block_byref_object_copy__15;
+  v78 = __Block_byref_object_dispose__15;
+  v79 = 0;
   if ([(BWFaceTrackingNode *)bufferCopy _setupCVA])
   {
-    v6 = 0;
+    v7 = 0;
     goto LABEL_42;
   }
 
-  v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
   ImageBuffer = CMSampleBufferGetImageBuffer(target);
   cf = ImageBuffer;
   if (!ImageBuffer)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, sampleSizeArray, v41, v42, v2, v43, v45);
     goto LABEL_42;
   }
 
@@ -350,170 +350,181 @@ LABEL_26:
   if (!*(bufferCopy + 232))
   {
 LABEL_18:
-    [v6 setObject:cf forKeyedSubscript:getkCVAFaceTracking_Color()];
-    v9 = CMGetAttachment(target, *off_1E798A3C8, 0);
-    v41 = v9;
-    if (v9)
+    [v7 setObject:cf forKeyedSubscript:getkCVAFaceTracking_Color()];
+    v11 = CMGetAttachment(target, *off_1E798A3C8, 0);
+    v48 = v11;
+    if (v11)
     {
-      v10 = [v9 objectForKeyedSubscript:*off_1E798B218];
+      v12 = [v11 objectForKeyedSubscript:*off_1E798B218];
       array = [MEMORY[0x1E695DF70] array];
-      if ([v10 count])
+      if ([v12 count])
       {
-        v11 = FigCaptureRotationDegreesWithMirroring(*(bufferCopy + 192), *(bufferCopy + 196));
-        v47 = 0u;
+        v13 = FigCaptureRotationDegreesWithMirroring(*(bufferCopy + 192), *(bufferCopy + 196));
+        v54 = 0u;
         memset(time, 0, sizeof(time));
-        FigCaptureMakeMirrorAndRotateVideoTransform(1, 1, *(bufferCopy + 196), v11, time);
-        v12 = *(bufferCopy + 196);
-        v66[0] = *time;
-        v66[1] = *&time[16];
-        v66[2] = v47;
-        v13 = BWCreateTransformedFacesArray(v10, v66, v11, v12);
-        v38 = v6;
-        v39 = bufferCopy;
-        v40 = target;
-        v62 = 0u;
-        v63 = 0u;
-        v64 = 0u;
-        v65 = 0u;
-        obj = v13;
-        v14 = [v13 countByEnumeratingWithState:&v62 objects:v61 count:16];
-        if (v14)
+        FigCaptureMakeMirrorAndRotateVideoTransform(1, 1, *(bufferCopy + 196), v13, time);
+        v14 = *(bufferCopy + 196);
+        v73[0] = *time;
+        v73[1] = *&time[16];
+        v73[2] = v54;
+        v15 = BWCreateTransformedFacesArray(v12, v73, v13, v14);
+        v44 = v7;
+        v46 = bufferCopy;
+        v47 = target;
+        v69 = 0u;
+        v70 = 0u;
+        v71 = 0u;
+        v72 = 0u;
+        obj = v15;
+        v16 = [v15 countByEnumeratingWithState:&v69 objects:v68 count:16];
+        if (v16)
         {
-          v15 = *v63;
-          v16 = *off_1E798B2B8;
-          v17 = *off_1E798B780;
-          v18 = *off_1E798B5C0;
-          v19 = *off_1E798B160;
+          v17 = *v70;
+          v18 = *off_1E798B2B8;
+          v19 = *off_1E798B780;
+          v20 = *off_1E798B5C0;
+          v21 = *off_1E798B160;
           do
           {
-            for (i = 0; i != v14; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v63 != v15)
+              if (*v70 != v17)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v21 = *(*(&v62 + 1) + 8 * i);
+              v23 = *(*(&v69 + 1) + 8 * i);
               dictionary = [MEMORY[0x1E695DF90] dictionary];
-              v23 = [v21 objectForKeyedSubscript:v16];
-              if (v23)
-              {
-                [dictionary setObject:v23 forKeyedSubscript:getkCVAFaceTracking_DetectedFaceFaceID()];
-              }
-
-              v24 = [v21 objectForKeyedSubscript:v17];
-              if (v24)
-              {
-                [dictionary setObject:v24 forKeyedSubscript:getkCVAFaceTracking_Timestamp()];
-              }
-
-              v25 = [v21 objectForKeyedSubscript:v18];
+              v25 = [v23 objectForKeyedSubscript:v18];
               if (v25)
               {
-                [dictionary setObject:v25 forKeyedSubscript:getkCVAFaceTracking_DetectedFaceRect()];
+                [dictionary setObject:v25 forKeyedSubscript:getkCVAFaceTracking_DetectedFaceFaceID()];
               }
 
-              v26 = [v21 objectForKeyedSubscript:v19];
+              v26 = [v23 objectForKeyedSubscript:v19];
               if (v26)
               {
-                [dictionary setObject:v26 forKeyedSubscript:getkCVAFaceTracking_DetectedFaceAngleInfoRoll()];
+                [dictionary setObject:v26 forKeyedSubscript:getkCVAFaceTracking_Timestamp()];
+              }
+
+              v27 = [v23 objectForKeyedSubscript:v20];
+              if (v27)
+              {
+                [dictionary setObject:v27 forKeyedSubscript:getkCVAFaceTracking_DetectedFaceRect()];
+              }
+
+              v28 = [v23 objectForKeyedSubscript:v21];
+              if (v28)
+              {
+                [dictionary setObject:v28 forKeyedSubscript:getkCVAFaceTracking_DetectedFaceAngleInfoRoll()];
               }
 
               [array addObject:dictionary];
             }
 
-            v14 = [obj countByEnumeratingWithState:&v62 objects:v61 count:16];
+            v16 = [obj countByEnumeratingWithState:&v69 objects:v68 count:16];
           }
 
-          while (v14);
+          while (v16);
         }
 
-        bufferCopy = v39;
-        target = v40;
-        v6 = v38;
+        bufferCopy = v46;
+        target = v47;
+        v7 = v44;
       }
 
-      [v6 setObject:array forKeyedSubscript:getkCVAFaceTracking_DetectedFacesArray()];
-      v60[0] = MEMORY[0x1E69E9820];
-      v60[1] = 3221225472;
-      v60[2] = __43__BWFaceTrackingNode__processSampleBuffer___block_invoke;
-      v60[3] = &unk_1E7991508;
-      v60[4] = bufferCopy;
-      v60[5] = &v67;
-      [v6 setObject:objc_msgSend(v60 forKeyedSubscript:{"copy"), getkCVAFaceTracking_Callback()}];
-      v58 = 0u;
-      v59 = 0u;
-      v57 = 0u;
-      v27 = CMGetAttachment(target, *MEMORY[0x1E6960470], 0);
-      v28 = v27;
-      if (v27 && [v27 length] == 48)
+      [v7 setObject:array forKeyedSubscript:getkCVAFaceTracking_DetectedFacesArray()];
+      v67[0] = MEMORY[0x1E69E9820];
+      v67[1] = 3221225472;
+      v67[2] = __43__BWFaceTrackingNode__processSampleBuffer___block_invoke;
+      v67[3] = &unk_1E7991508;
+      v67[4] = bufferCopy;
+      v67[5] = &v74;
+      [v7 setObject:objc_msgSend(v67 forKeyedSubscript:{"copy"), getkCVAFaceTracking_Callback()}];
+      v65 = 0u;
+      v66 = 0u;
+      v64 = 0u;
+      v29 = CMGetAttachment(target, *MEMORY[0x1E6960470], 0);
+      v30 = v29;
+      if (v29 && [v29 length] == 48)
       {
-        [v28 getBytes:&v57 length:{objc_msgSend(v28, "length")}];
-        LODWORD(v29) = v57;
-        v30 = DWORD1(v58);
-        v45 = *&v59;
-        v55[0] = [MEMORY[0x1E696AD98] numberWithFloat:v29];
-        v55[1] = &unk_1F2243660;
-        v55[2] = [MEMORY[0x1E696AD98] numberWithFloat:v45];
-        v56[0] = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:3];
-        v54[0] = &unk_1F2243660;
-        LODWORD(v31) = v30;
-        v32 = [MEMORY[0x1E696AD98] numberWithFloat:v31];
-        HIDWORD(v33) = HIDWORD(v45);
-        LODWORD(v33) = HIDWORD(v45);
-        v54[1] = v32;
-        v54[2] = [MEMORY[0x1E696AD98] numberWithFloat:v33];
-        v56[1] = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:3];
-        v56[2] = &unk_1F22484C0;
-        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:3];
-        v52[0] = getkCVAFaceTracking_Rotation();
-        v53[0] = &unk_1F2248538;
-        v52[1] = getkCVAFaceTracking_Translation();
-        v53[1] = &unk_1F22484D8;
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
-        v50[0] = getkCVAFaceTracking_Intrinsics();
-        v51[0] = v34;
-        v50[1] = getkCVAFaceTracking_Extrinsics();
-        v51[1] = v35;
-        [v6 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", v51, v50, 2), getkCVAFaceTracking_CameraColor()}];
-        memset(&v49, 0, sizeof(v49));
-        CMSampleBufferGetPresentationTimeStamp(&v49, target);
-        v36 = [v41 objectForKeyedSubscript:*off_1E798A420];
-        if (!v36)
+        [v30 getBytes:&v64 length:{objc_msgSend(v30, "length")}];
+        LODWORD(v31) = v64;
+        v32 = DWORD1(v65);
+        v52 = *&v66;
+        v62[0] = [MEMORY[0x1E696AD98] numberWithFloat:v31];
+        v62[1] = &unk_1F2243660;
+        v62[2] = [MEMORY[0x1E696AD98] numberWithFloat:v52];
+        v63[0] = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:3];
+        v61[0] = &unk_1F2243660;
+        LODWORD(v33) = v32;
+        v34 = [MEMORY[0x1E696AD98] numberWithFloat:v33];
+        HIDWORD(v35) = HIDWORD(v52);
+        LODWORD(v35) = HIDWORD(v52);
+        v61[1] = v34;
+        v61[2] = [MEMORY[0x1E696AD98] numberWithFloat:v35];
+        v63[1] = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:3];
+        v63[2] = &unk_1F22484C0;
+        v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:3];
+        v59[0] = getkCVAFaceTracking_Rotation();
+        v60[0] = &unk_1F2248538;
+        v59[1] = getkCVAFaceTracking_Translation();
+        v60[1] = &unk_1F22484D8;
+        v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:2];
+        v57[0] = getkCVAFaceTracking_Intrinsics();
+        v58[0] = v36;
+        v57[1] = getkCVAFaceTracking_Extrinsics();
+        v58[1] = v37;
+        [v7 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", v58, v57, 2), getkCVAFaceTracking_CameraColor()}];
+        memset(&v56, 0, sizeof(v56));
+        CMSampleBufferGetPresentationTimeStamp(&v56, target);
+        v38 = [v48 objectForKeyedSubscript:*off_1E798A420];
+        if (!v38)
         {
-          v37 = *MEMORY[0x1E695E480];
-          *time = v49;
-          v36 = CMTimeCopyAsDictionary(time, v37);
+          v39 = *MEMORY[0x1E695E480];
+          *time = v56;
+          v38 = CMTimeCopyAsDictionary(time, v39);
         }
 
-        [v6 setObject:v36 forKeyedSubscript:getkCVAFaceTracking_Timestamp()];
-        [objc_msgSend(v41 objectForKeyedSubscript:{*off_1E798B4B8), "intValue"}];
-        [objc_msgSend(v41 objectForKeyedSubscript:{*off_1E798B2A8), "doubleValue"}];
-        v48 = 0;
+        [v7 setObject:v38 forKeyedSubscript:getkCVAFaceTracking_Timestamp()];
+        [objc_msgSend(v48 objectForKeyedSubscript:{*off_1E798B4B8), "intValue"}];
+        [objc_msgSend(v48 objectForKeyedSubscript:{*off_1E798B2A8), "doubleValue"}];
+        v55 = 0;
         FigCaptureComputeImageGainFromMetadata();
       }
 
       goto LABEL_41;
     }
 
-    goto LABEL_48;
+    goto LABEL_50;
   }
 
   os_unfair_lock_lock((bufferCopy + 256));
-  if (-[BWFaceTrackingNode _prepareDecompressionResources](bufferCopy) || (v8 = [*(bufferCopy + 240) newPixelBuffer]) == 0)
+  _prepareDecompressionResources = [(BWFaceTrackingNode *)bufferCopy _prepareDecompressionResources];
+  if (_prepareDecompressionResources)
   {
-LABEL_48:
     fig_log_get_emitter();
-    FigDebugAssert3();
-    goto LABEL_41;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", _prepareDecompressionResources, v2, sampleSizeArray, v41, v42, v2, v43, v45);
   }
 
-  if (!VTPixelTransferSessionTransferImage(*(bufferCopy + 248), cf, v8))
+  else
   {
-    CFRelease(cf);
-    os_unfair_lock_unlock((bufferCopy + 256));
-    cf = v8;
-    goto LABEL_18;
+    newPixelBuffer = [*(bufferCopy + 240) newPixelBuffer];
+    if (!newPixelBuffer)
+    {
+LABEL_50:
+      fig_log_get_emitter();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, sampleSizeArray, v41, v42, v2, v43, v45);
+      goto LABEL_41;
+    }
+
+    if (!VTPixelTransferSessionTransferImage(*(bufferCopy + 248), cf, newPixelBuffer))
+    {
+      CFRelease(cf);
+      os_unfair_lock_unlock((bufferCopy + 256));
+      cf = newPixelBuffer;
+      goto LABEL_18;
+    }
   }
 
 LABEL_41:
@@ -525,7 +536,7 @@ LABEL_42:
     [*(bufferCopy + 16) emitSampleBuffer:target];
   }
 
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v74, 8);
 }
 
 void __57__BWFaceTrackingNode__startProcessingSampleSampleBuffer___block_invoke(uint64_t a1)
@@ -590,7 +601,8 @@ intptr_t __43__BWFaceTrackingNode__processSampleBuffer___block_invoke(uint64_t a
         {
           fig_log_get_emitter();
           OUTLINED_FUNCTION_1_6();
-          FigDebugAssert3();
+          v5 = selfCopy;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, v11, v12);
         }
       }
 
@@ -598,7 +610,8 @@ intptr_t __43__BWFaceTrackingNode__processSampleBuffer___block_invoke(uint64_t a
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_6();
-        FigDebugAssert3();
+        v4 = 0;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v6, v7, v8, v9, v10, v11, v12);
         return 4294954510;
       }
     }
@@ -637,9 +650,7 @@ intptr_t __43__BWFaceTrackingNode__processSampleBuffer___block_invoke(uint64_t a
   if (*(self + 168) && !_FigIsCurrentDispatchQueue())
   {
     fig_log_get_emitter();
-    v19 = v1;
-    LODWORD(v18) = 0;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v1, v18, v19, v20, v21, v22, v23);
   }
 
   if (*(self + 176))
@@ -669,7 +680,7 @@ intptr_t __43__BWFaceTrackingNode__processSampleBuffer___block_invoke(uint64_t a
     OUTLINED_FUNCTION_1_46(v8);
   }
 
-  [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", *(self + 220), v18, v19), getkCVA_tmrLADzZUFnL94QtJ4Eb9fgi()}];
+  [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", *(self + 220)), getkCVA_tmrLADzZUFnL94QtJ4Eb9fgi()}];
   [MEMORY[0x1E696AD98] numberWithBool:v3 == 0];
   v9 = getkCVAFaceTracking_ColorOnly();
   OUTLINED_FUNCTION_1_46(v9);
@@ -723,7 +734,7 @@ LABEL_19:
   return v15;
 }
 
-- (uint64_t)_depthIntrinsicsExtrinsicsFromRGBIntrisics:(unint64_t)intrisics colorWidth:(unint64_t)width colorHeight:(unint64_t)height depthWidth:(double)depthWidth depthHeight:(double)depthHeight
+- (void)_depthIntrinsicsExtrinsicsFromRGBIntrisics:(unint64_t)intrisics colorWidth:(unint64_t)width colorHeight:(unint64_t)height depthWidth:(double)depthWidth depthHeight:(double)depthHeight
 {
   if (result)
   {
@@ -816,18 +827,12 @@ LABEL_11:
   return result;
 }
 
-- (void)initWithFigThreadPriority:(uint64_t)a1 pearlModuleType:(void *)a2 useUnfilteredDepth:queueDepth:passthroughInputs:allowPixelTransfer:.cold.1(uint64_t a1, void *a2)
+- (void)initWithFigThreadPriority:(int)a1 pearlModuleType:(void *)a2 useUnfilteredDepth:queueDepth:passthroughInputs:allowPixelTransfer:.cold.1(int a1, void *a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_6();
-  FigDebugAssert3();
-}
-
-- (uint64_t)_processSampleBuffer:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
+  v4 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
 }
 
 @end

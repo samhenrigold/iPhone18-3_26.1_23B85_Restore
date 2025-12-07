@@ -1,4 +1,47 @@
-void calc_wpsnr(uint64_t a1, int a2, uint64_t a3, int a4, int a5, uint64_t a6, unint64_t a7, uint64_t a8, unsigned int a9, unsigned int a10, int a11, uint64_t a12, int a13, uint64_t a14, uint64_t a15)
+int *vectorstore_1x16_packed10(int *result, int a2, unsigned __int16 *a3, unsigned __int16 *a4)
+{
+  switch(a2)
+  {
+    case 2:
+      v11 = a3[1] + (a3[2] << 10) + (a3[3] << 20);
+      *result = *result & 0xFFFFF | (*a3 << 20);
+      result[1] = v11;
+      v12 = a3[7] + (*a4 << 10) + (a4[1] << 20);
+      result[2] = a3[4] + (a3[5] << 10) + (a3[6] << 20);
+      result[3] = v12;
+      v9 = a4[2] + (a4[3] << 10) + (a4[4] << 20);
+      v10 = a4[5] + (a4[6] << 10) + (a4[7] << 20);
+      goto LABEL_7;
+    case 1:
+      v7 = a3[2] + (a3[3] << 10) + (a3[4] << 20);
+      *result = (*result & 0x3FF | (*a3 << 10)) + (a3[1] << 20);
+      result[1] = v7;
+      v8 = *a4 + (a4[1] << 10) + (a4[2] << 20);
+      result[2] = a3[5] + (a3[6] << 10) + (a3[7] << 20);
+      result[3] = v8;
+      v9 = a4[3] + (a4[4] << 10) + (a4[5] << 20);
+      v10 = a4[6] + (a4[7] << 10);
+LABEL_7:
+      result[4] = v9;
+      result[5] = v10;
+      return result;
+    case 0:
+      v4 = a3[3] + (a3[4] << 10) + (a3[5] << 20);
+      *result = *a3 + (a3[1] << 10) + (a3[2] << 20);
+      result[1] = v4;
+      v5 = a4[1] + (a4[2] << 10) + (a4[3] << 20);
+      result[2] = a3[6] + (a3[7] << 10) + (*a4 << 20);
+      result[3] = v5;
+      v6 = a4[7];
+      result[4] = a4[4] + (a4[5] << 10) + (a4[6] << 20);
+      result[5] = v6;
+      break;
+  }
+
+  return result;
+}
+
+void calc_wpsnr(uint64_t a1, int a2, uint64_t a3, int a4, int a5, uint64_t a6, unint64_t a7, uint64_t a8, int a9, int a10, int a11, uint64_t a12, int a13, uint64_t a14, uint64_t a15)
 {
   v18 = a5;
   v198 = *MEMORY[0x1E69E9840];
@@ -23,9 +66,9 @@ LABEL_96:
   v28 = a10 * a2;
   v29 = a10;
   v197 = v18;
-  v196 = (a10 * a4);
+  v196 = a10 * a4;
   v195 = v28;
-  v170 = (a10 * a9);
+  v170 = a10 * a9;
   v143 = a13;
   v30 = -2 * a10;
   v194 = 2 * v196;
@@ -2087,8 +2130,9 @@ uint64_t CMPhotoIsRawFormatByURLExtension(const __CFURL *a1)
   return v8;
 }
 
-uint64_t CMPhotoGetBufferFromMovie(uint64_t a1, unsigned int a2, int a3, int a4, int a5, CVImageBufferRef *a6)
+uint64_t CMPhotoGetBufferFromMovie(uint64_t a1, unsigned int a2, int a3, uint64_t a4, int a5, CVImageBufferRef *a6)
 {
+  v8 = a4;
   v48 = 0;
   v49 = 0;
   v47 = 0;
@@ -2157,7 +2201,7 @@ LABEL_66:
     goto LABEL_70;
   }
 
-  if (!a4)
+  if (!v8)
   {
     Mutable = 0;
     goto LABEL_13;
@@ -2198,7 +2242,7 @@ LABEL_70:
   }
 
   CFDictionarySetValue(v23, *MEMORY[0x1E6971368], *v24);
-  v44 = 0;
+  HIDWORD(v44) = 0;
   v25 = v48;
   v26 = v47;
   v27 = *(*(CMBaseObjectGetVTable() + 16) + 48);
@@ -2212,7 +2256,7 @@ LABEL_40:
 
   v52 = *MEMORY[0x1E6960C70];
   v53 = *(MEMORY[0x1E6960C70] + 16);
-  v28 = v27(v25, v26, Mutable, 0, &v52, v22, &v44);
+  v28 = v27(v25, v26, Mutable, 0, &v52, v22, &v44 + 4);
   if (v28)
   {
     CGImageWithPixelBuffer = v28;
@@ -2251,14 +2295,14 @@ LABEL_42:
 
     LOBYTE(v52) = 0;
     v33 = v48;
-    v34 = v44;
+    v34 = HIDWORD(v44);
     v35 = *(*(CMBaseObjectGetVTable() + 16) + 104);
     if (!v35)
     {
       CGImageWithPixelBuffer = 4294954514;
 LABEL_32:
       fig_log_get_emitter();
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v44, v45, cf);
       goto LABEL_43;
     }
 
@@ -2304,7 +2348,7 @@ LABEL_32:
   else
   {
     fig_log_get_emitter();
-    CGImageWithPixelBuffer = FigSignalErrorAtGM();
+    CGImageWithPixelBuffer = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v44, v45, cf);
   }
 
 LABEL_43:
@@ -2832,9 +2876,9 @@ void CMPhotoRemoveAndPropagateColorPropertiesFromSourceBuffer(__CVBuffer *a1, __
   }
 }
 
-void CMPhotoRemoveAndPropagateAlphaFromSourceBuffer(uint64_t a1, uint64_t a2)
+void CMPhotoRemoveAndPropagateAlphaFromSourceBuffer(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
@@ -3119,7 +3163,7 @@ void _auxDataPixelBufferReleaseCallback(CFTypeRef cf)
   }
 }
 
-uint64_t CMPhotoPixelBufferFillOutsideCropRect(__CVBuffer *a1, int a2, _OWORD *a3)
+uint64_t CMPhotoPixelBufferFillOutsideCropRect(__CVBuffer *a1, uint64_t a2, _OWORD *a3)
 {
   v3 = a3[1];
   v5[0] = *a3;
@@ -3287,10 +3331,12 @@ LABEL_8:
   return result;
 }
 
-uint64_t CMPhotoGetDefaultImageSubsamplingForEncodeFromPixelFormat(uint64_t a1, int a2, int a3)
+uint64_t CMPhotoGetDefaultImageSubsamplingForEncodeFromPixelFormat(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   UncompressedPixelFormatFromCompressedPixelFormat = CMPhotoGetUncompressedPixelFormatFromCompressedPixelFormat(a1);
-  if (a2 == 1785750887)
+  if (v4 == 1785750887)
   {
     return 5;
   }
@@ -3312,7 +3358,7 @@ uint64_t CMPhotoGetDefaultImageSubsamplingForEncodeFromPixelFormat(uint64_t a1, 
           }
 
 LABEL_70:
-          IsRGBEncodeAvailable = CMPhotoIs444EncodeAvailable(a2, a3);
+          IsRGBEncodeAvailable = CMPhotoIs444EncodeAvailable(v4, v3);
 LABEL_71:
           if (IsRGBEncodeAvailable)
           {
@@ -3418,7 +3464,7 @@ LABEL_71:
     }
 
 LABEL_67:
-    if (CMPhotoIs422EncodeAvailable(a2, a3))
+    if (CMPhotoIs422EncodeAvailable(v4, v3))
     {
       return 3;
     }
@@ -3463,7 +3509,7 @@ LABEL_67:
         }
 
 LABEL_51:
-        IsRGBEncodeAvailable = CMPhotoIsRGBEncodeAvailable(a2);
+        IsRGBEncodeAvailable = CMPhotoIsRGBEncodeAvailable(v4);
         goto LABEL_71;
       }
 
@@ -3498,7 +3544,7 @@ LABEL_66:
         }
 
 LABEL_61:
-        if (CMPhotoIs400EncodeAvailable(a2))
+        if (CMPhotoIs400EncodeAvailable(v4))
         {
           return 6;
         }
@@ -3541,7 +3587,7 @@ LABEL_60:
   return result;
 }
 
-BOOL CMPhotoSubsamplingIsSupportedForCodec(int a1, int a2, int a3)
+BOOL CMPhotoSubsamplingIsSupportedForCodec(int a1, uint64_t a2, uint64_t a3)
 {
   if (a1 > 3)
   {
@@ -3552,8 +3598,7 @@ BOOL CMPhotoSubsamplingIsSupportedForCodec(int a1, int a2, int a3)
         return a1 == 5;
       }
 
-      v3 = CMPhotoIs400EncodeAvailable(a2);
-      return v3 != 0;
+      return CMPhotoIs400EncodeAvailable(a2);
     }
 
     return a2 == 1785750887;
@@ -3562,13 +3607,11 @@ BOOL CMPhotoSubsamplingIsSupportedForCodec(int a1, int a2, int a3)
   switch(a1)
   {
     case 1:
-      v3 = CMPhotoIs444EncodeAvailable(a2, a3);
-      return v3 != 0;
+      return CMPhotoIs444EncodeAvailable(a2, a3);
     case 2:
       return a2 == 1785750887;
     case 3:
-      v3 = CMPhotoIs422EncodeAvailable(a2, a3);
-      return v3 != 0;
+      return CMPhotoIs422EncodeAvailable(a2, a3);
   }
 
   return 0;
@@ -4165,7 +4208,7 @@ vImage_Error CMPhotoCreateAlphaFromMainBuffer(__CVBuffer *a1, int a2, CVPixelBuf
   pixelBuffer = 0;
   if (!a1)
   {
-    CMPhotoCreateAlphaFromMainBuffer_cold_4(&v41);
+    CMPhotoCreateAlphaFromMainBuffer_cold_4(&v44);
     goto LABEL_73;
   }
 
@@ -4180,7 +4223,7 @@ vImage_Error CMPhotoCreateAlphaFromMainBuffer(__CVBuffer *a1, int a2, CVPixelBuf
       {
         if (a2)
         {
-          CMPhotoCreateAlphaFromMainBuffer_cold_1(&v41);
+          CMPhotoCreateAlphaFromMainBuffer_cold_1(&v44);
           goto LABEL_73;
         }
 
@@ -4211,7 +4254,7 @@ vImage_Error CMPhotoCreateAlphaFromMainBuffer(__CVBuffer *a1, int a2, CVPixelBuf
 LABEL_20:
       if (a2)
       {
-        CMPhotoCreateAlphaFromMainBuffer_cold_2(&v41);
+        CMPhotoCreateAlphaFromMainBuffer_cold_2(&v44);
         goto LABEL_73;
       }
 
@@ -4248,9 +4291,9 @@ LABEL_22:
       }
 
 LABEL_72:
-      CMPhotoCreateAlphaFromMainBuffer_cold_5(&v41);
+      CMPhotoCreateAlphaFromMainBuffer_cold_5(&v44);
 LABEL_73:
-      v13 = v41;
+      v13 = v44;
       goto LABEL_54;
     }
 
@@ -4270,7 +4313,7 @@ LABEL_73:
 LABEL_13:
   if (a2)
   {
-    CMPhotoCreateAlphaFromMainBuffer_cold_3(&v41);
+    CMPhotoCreateAlphaFromMainBuffer_cold_3(&v44);
     goto LABEL_73;
   }
 
@@ -4347,7 +4390,7 @@ LABEL_49:
           if (PixelFormatType != v18)
           {
             fig_log_get_emitter();
-            v13 = FigSignalErrorAtGM();
+            v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38, v39, v40);
             goto LABEL_51;
           }
 
@@ -4823,7 +4866,7 @@ void _callbackDataProviderReleaseInfo(void *a1)
   free(a1);
 }
 
-void OUTLINED_FUNCTION_46(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7, int a8, uint64_t a9, CFStringRef a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void OUTLINED_FUNCTION_46(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7, int a8, uint64_t a9, CFStringRef a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
 
   CMPhotoCreateColorSpaceFromPixelBufferAttachments(a1, 0, &a10, 1, 1, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
@@ -4841,7 +4884,7 @@ void OUTLINED_FUNCTION_74(CFTypeRef value, int a2, int a3, int a4, int a5, int a
   CVBufferSetAttachment(buffer, v13, value, kCVAttachmentMode_ShouldPropagate);
 }
 
-uint64_t OUTLINED_FUNCTION_75(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+uint64_t OUTLINED_FUNCTION_75(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
 
   return _fillPixelBufferRectVerticallyWithLimit(a1, a2, v22, v23, a5, v21, a21, a10);
@@ -4903,15 +4946,15 @@ void VTCompressionPluginClass_dispose(uint64_t a1)
   }
 }
 
-uint64_t VTCompressionPluginClass_encode(uint64_t a1, CVBufferRef buffer, uint64_t a3, _OWORD *a4, uint64_t a5, uint64_t a6, void *a7)
+uint64_t VTCompressionPluginClass_encode(uint64_t a1, CVBufferRef buffer, uint64_t a3, _OWORD *a4, void *a5, uint64_t a6, void *a7)
 {
   v9 = buffer;
   v11 = *(a1 + 152);
-  v35 = 0;
+  v35[0] = 0;
   v12 = *(v11 + 8);
   v13 = *(v11 + 16);
   v34 = 0;
-  if (*(a5 + 16) != v12 || *(a5 + 24) != v13)
+  if (a5[2] != v12 || a5[3] != v13)
   {
     v26 = CVBufferCopyAttachments(buffer, kCVAttachmentMode_ShouldPropagate);
     v24 = VTCompressionPluginClass_prepare();
@@ -4943,7 +4986,7 @@ LABEL_43:
     goto LABEL_32;
   }
 
-  v17 = *(a5 + 16);
+  v17 = *(a5 + 1);
   *presentationTimeStamp = *a5;
   *&presentationTimeStamp[16] = v17;
   v18 = a4[1];
@@ -4957,7 +5000,7 @@ LABEL_41:
     goto LABEL_32;
   }
 
-  if (*(a5 + 16) != vcvtad_u64_f64(CMPhotoGetPixelBufferSize(v9)) || *(a5 + 24) != vcvtad_u64_f64(v20))
+  if (a5[2] != vcvtad_u64_f64(CMPhotoGetPixelBufferSize(v9)) || a5[3] != vcvtad_u64_f64(v20))
   {
     if (*MEMORY[0x1E695FF58] == 1)
     {
@@ -4967,10 +5010,10 @@ LABEL_41:
     v27 = a4[1];
     *presentationTimeStamp = *a4;
     *&presentationTimeStamp[16] = v27;
-    v28 = *(a5 + 16);
+    v28 = *(a5 + 1);
     *duration = *a5;
     *&duration[16] = v28;
-    v24 = _performTileCopy(a1, v9, v12, v13, presentationTimeStamp, duration, HIBYTE(v34), v34, &v35);
+    v24 = _performTileCopy(a1, v9, v12, v13, presentationTimeStamp, duration, HIBYTE(v34), v34, v35);
     v22 = a7;
     if (*MEMORY[0x1E695FF58] == 1)
     {
@@ -4982,8 +5025,8 @@ LABEL_41:
       goto LABEL_32;
     }
 
-    v9 = v35;
-    if (v35)
+    v9 = v35[0];
+    if (v35[0])
     {
       v19 = CMPhotoCFDictionarySetInt(Mutable, @"StillOffsetW", 0);
       if (v19)
@@ -5003,7 +5046,7 @@ LABEL_41:
     goto LABEL_43;
   }
 
-  v21 = *(a5 + 8);
+  v21 = a5[1];
   v19 = CMPhotoCFDictionarySetInt(Mutable, @"StillOffsetW", *a5);
   if (v19)
   {
@@ -5065,9 +5108,9 @@ LABEL_13:
 LABEL_32:
   *v11 = 1;
 LABEL_21:
-  if (v35)
+  if (v35[0])
   {
-    CFRelease(v35);
+    CFRelease(v35[0]);
   }
 
   if (Mutable)
@@ -5134,33 +5177,33 @@ void VTTileCompressionPluginClass_dispose(uint64_t a1)
   }
 }
 
-uint64_t VTTileCompressionPluginClass_encode(uint64_t a1, CVBufferRef buffer, uint64_t a3, __int128 *a4, __int128 *a5, uint64_t a6)
+uint64_t VTTileCompressionPluginClass_encode(uint64_t a1, CVBufferRef buffer, uint64_t a3, __int128 *a4, void *a5, uint64_t a6, uint64_t a7)
 {
-  v9 = buffer;
-  v11 = *(a1 + 152);
-  v12 = *(v11 + 8);
-  v13 = *(v11 + 16);
-  v32[1] = 0;
-  v33 = 0;
-  v32[0] = 0;
+  v10 = buffer;
+  v12 = *(a1 + 152);
+  v13 = *(v12 + 8);
+  v14 = *(v12 + 16);
+  v33[1] = 0;
+  v34 = 0;
+  v33[0] = 0;
+  v32 = 0;
   v31 = 0;
-  v30 = 0;
   *(a1 + 160) = a3;
-  if (*(a5 + 2) != v12 || *(a5 + 3) != v13)
+  if (a5[2] != v13 || a5[3] != v14)
   {
-    v22 = CVBufferCopyAttachments(buffer, kCVAttachmentMode_ShouldPropagate);
-    v20 = VTTileCompressionPluginClass_prepare();
-    if (v22)
+    v23 = CVBufferCopyAttachments(buffer, kCVAttachmentMode_ShouldPropagate);
+    v21 = VTTileCompressionPluginClass_prepare();
+    if (v23)
     {
-      CFRelease(v22);
+      CFRelease(v23);
     }
 
-    if (v20)
+    if (v21)
     {
-      v16 = 0;
+      v17 = 0;
       Mutable = 0;
 LABEL_26:
-      *v11 = 1;
+      *v12 = 1;
       goto LABEL_27;
     }
   }
@@ -5178,33 +5221,33 @@ LABEL_26:
   Mutable = CFDictionaryCreateMutable(*a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
-    v16 = 0;
+    v17 = 0;
     goto LABEL_48;
   }
 
-  v16 = CFDictionaryCreateMutable(*a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  if (!v16)
+  v17 = CFDictionaryCreateMutable(*a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (!v17)
   {
 LABEL_48:
-    v20 = 4294950305;
+    v21 = 4294950305;
     goto LABEL_26;
   }
 
-  v17 = a5[1];
-  v28 = *a5;
-  v29 = v17;
-  v18 = a4[1];
-  v26 = *a4;
-  v27 = v18;
-  v19 = _needsPixelBufferCopy(v9, v11, &v28, &v26, 1, v32, &v30 + 1, &v30, &v31 + 1, &v31);
-  if (v19)
+  v18 = *(a5 + 1);
+  v29 = *a5;
+  v30 = v18;
+  v19 = a4[1];
+  v27 = *a4;
+  v28 = v19;
+  v20 = _needsPixelBufferCopy(v10, v12, &v29, &v27, 1, v33, &v31 + 1, &v31, &v32 + 1, &v32);
+  if (v20)
   {
     goto LABEL_46;
   }
 
-  if (!HIBYTE(v31))
+  if (!HIBYTE(v32))
   {
-    if (!v31)
+    if (!v32)
     {
       goto LABEL_14;
     }
@@ -5215,40 +5258,40 @@ LABEL_39:
       kdebug_trace();
     }
 
-    v23 = a4[1];
-    v28 = *a4;
-    v29 = v23;
-    v24 = a5[1];
-    v26 = *a5;
-    v27 = v24;
-    v20 = _performTileCopy(a1, v9, v12, v13, &v28, &v26, HIBYTE(v30), v30, &v33);
+    v24 = a4[1];
+    v29 = *a4;
+    v30 = v24;
+    v25 = *(a5 + 1);
+    v27 = *a5;
+    v28 = v25;
+    v21 = _performTileCopy(a1, v10, v13, v14, &v29, &v27, HIBYTE(v31), v31, &v34);
     if (*MEMORY[0x1E695FF58] == 1)
     {
       kdebug_trace();
     }
 
-    if (v20)
+    if (v21)
     {
       goto LABEL_26;
     }
 
-    v9 = v33;
-    if (v33)
+    v10 = v34;
+    if (v34)
     {
 LABEL_14:
-      CMPhotoVideoQualityControllerAnalyzeTile(*(v11 + 176));
-      v19 = CMPhotoVideoQualityControllerSetTileProperties(*(v11 + 176));
-      if (!v19)
+      CMPhotoVideoQualityControllerAnalyzeTile(*(v12 + 176));
+      v20 = CMPhotoVideoQualityControllerSetTileProperties(*(v12 + 176));
+      if (!v20)
       {
-        if (CFDictionaryGetCount(v16) < 1 || (v19 = VTSessionSetProperties(*(v11 + 24), v16), !v19))
+        if (CFDictionaryGetCount(v17) < 1 || (v20 = VTSessionSetProperties(*(v12 + 24), v17), !v20))
         {
           if (*MEMORY[0x1E695FF58] == 1)
           {
             kdebug_trace();
           }
 
-          CMPhotoGetPixelBufferSize(v9);
-          CVPixelBufferGetPixelFormatType(v9);
+          CMPhotoGetPixelBufferSize(v10);
+          CVPixelBufferGetPixelFormatType(v10);
           if (Value)
           {
             FigCFDictionarySetValue();
@@ -5259,13 +5302,13 @@ LABEL_14:
             kdebug_trace();
           }
 
-          v20 = VTTileCompressionSessionEncodeTile();
+          v21 = VTTileCompressionSessionEncodeTile();
           if (*MEMORY[0x1E695FF58] == 1)
           {
             kdebug_trace();
           }
 
-          if (v20)
+          if (v21)
           {
             goto LABEL_26;
           }
@@ -5275,29 +5318,29 @@ LABEL_14:
       }
 
 LABEL_46:
-      v20 = v19;
+      v21 = v20;
       goto LABEL_26;
     }
 
     goto LABEL_48;
   }
 
-  if (*(v11 + 32))
+  if (*(v12 + 32))
   {
     goto LABEL_39;
   }
 
-  VTTileCompressionPluginClass_encode_cold_1(&v28);
-  v20 = v28;
-  if (v28)
+  VTTileCompressionPluginClass_encode_cold_1(&v29);
+  v21 = v29;
+  if (v29)
   {
     goto LABEL_26;
   }
 
 LABEL_27:
-  if (v33)
+  if (v34)
   {
-    CFRelease(v33);
+    CFRelease(v34);
   }
 
   if (Mutable)
@@ -5305,127 +5348,127 @@ LABEL_27:
     CFRelease(Mutable);
   }
 
-  if (v16)
+  if (v17)
   {
-    CFRelease(v16);
+    CFRelease(v17);
   }
 
-  return v20;
+  return v21;
 }
 
-uint64_t VTTileCompressionPluginClass_pixelTransfer(uint64_t a1, __CVBuffer *a2, _OWORD *a3, unint64_t *a4, CVPixelBufferRef *a5)
+uint64_t VTTileCompressionPluginClass_pixelTransfer(uint64_t a1, __CVBuffer *a2, _OWORD *a3, unint64_t *a4, CVPixelBufferRef *a5, uint64_t a6)
 {
-  v10 = *(a1 + 152);
-  *v41 = 0;
-  v11 = a3[1];
-  v40[0] = *a3;
-  v40[1] = v11;
-  v12 = *(a4 + 1);
-  v39[0] = *a4;
-  v39[1] = v12;
-  v13 = _needsPixelBufferCopy(a2, v10, v40, v39, 1, 0, 0, 0, &v41[1], v41);
-  if (v13)
+  v11 = *(a1 + 152);
+  *v42 = 0;
+  v12 = a3[1];
+  v41[0] = *a3;
+  v41[1] = v12;
+  v13 = *(a4 + 1);
+  v40[0] = *a4;
+  v40[1] = v13;
+  v14 = _needsPixelBufferCopy(a2, v11, v41, v40, 1, 0, 0, 0, &v42[1], v42);
+  if (v14)
   {
-    v15 = v13;
-    if (!v10)
+    v16 = v14;
+    if (!v11)
     {
-      return v15;
+      return v16;
     }
 
     goto LABEL_29;
   }
 
-  if (!(v41[1] | v41[0]))
+  if (!(v42[1] | v42[0]))
   {
     return 0;
   }
 
-  v14 = MEMORY[0x1E695FF58];
+  v15 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
     kdebug_trace();
   }
 
-  v15 = 4294950306;
+  v16 = 4294950306;
   if (a2 && a5)
   {
-    v37 = v10;
-    v16 = *a4;
-    v17 = a4[1];
-    v18 = a4[2];
-    v19 = a4[3];
-    v38 = v18;
-    v22 = a3 + 1;
-    v21 = *(a3 + 2);
-    v20 = *(v22 + 1);
-    v23 = *(a1 + 152);
+    v38 = v11;
+    v17 = *a4;
+    v18 = a4[1];
+    v19 = a4[2];
+    v20 = a4[3];
+    v39 = v19;
+    v23 = a3 + 1;
+    v22 = *(a3 + 2);
+    v21 = *(v23 + 1);
+    v24 = *(a1 + 152);
     PixelFormatType = CVPixelBufferGetPixelFormatType(a2);
-    v25 = *(v23 + 96) + v21;
-    v26 = *(v23 + 104) + v20;
-    PixelBuffer = CMPhotoSurfacePoolCreatePixelBuffer(*(a1 + 8), PixelFormatType, v25, v26, 1, 0, 0, 1, *(v23 + 80), 0, a5);
+    v26 = *(v24 + 96) + v22;
+    v27 = *(v24 + 104) + v21;
+    PixelBuffer = CMPhotoSurfacePoolCreatePixelBuffer(*(a1 + 8), PixelFormatType, v26, v27, 1, 0, 0, 1, *(v24 + 80), 0, a5);
     if (PixelBuffer)
     {
-      v15 = PixelBuffer;
+      v16 = PixelBuffer;
     }
 
     else
     {
-      v36 = v26;
+      v37 = v27;
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       if (Mutable)
       {
-        v29 = Mutable;
-        v42.origin.x = v16;
-        v42.origin.y = v17;
-        v30 = v19;
-        v31 = v19;
-        v42.size.width = v38;
-        v42.size.height = v19;
-        DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v42);
+        v30 = Mutable;
+        v43.origin.x = v17;
+        v43.origin.y = v18;
+        v31 = v20;
+        v32 = v20;
+        v43.size.width = v39;
+        v43.size.height = v20;
+        DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v43);
         if (DictionaryRepresentation)
         {
-          CFDictionarySetValue(v29, @"SourceCropRectDictionary", DictionaryRepresentation);
+          CFDictionarySetValue(v30, @"SourceCropRectDictionary", DictionaryRepresentation);
         }
 
-        v43.origin.x = 0.0;
-        v43.origin.y = 0.0;
-        v43.size.width = v38;
-        v43.size.height = v31;
-        v33 = CGRectCreateDictionaryRepresentation(v43);
-        if (v33)
-        {
-          CFDictionarySetValue(v29, @"DestinationCropRectDictionary", v33);
-        }
-
-        v34 = CMPhotoScaleAndRotateSessionTransformImage(*(a1 + 16), a2, v29, a5);
+        v44.origin.x = 0.0;
+        v44.origin.y = 0.0;
+        v44.size.width = v39;
+        v44.size.height = v32;
+        v34 = CGRectCreateDictionaryRepresentation(v44);
         if (v34)
         {
-          v15 = v34;
+          CFDictionarySetValue(v30, @"DestinationCropRectDictionary", v34);
+        }
+
+        v35 = CMPhotoScaleAndRotateSessionTransformImage(*(a1 + 16), a2, v30, a5);
+        if (v35)
+        {
+          v16 = v35;
         }
 
         else
         {
-          if (v25 != v38 || v36 != v30)
+          if (v26 != v39 || v37 != v31)
           {
-            v15 = VTFillPixelBufferBorderWithBlack();
-            v14 = MEMORY[0x1E695FF58];
-            if (!v15)
+            v16 = VTFillPixelBufferBorderWithBlack();
+            v15 = MEMORY[0x1E695FF58];
+            if (!v16)
             {
-              *(v23 + 40) = 1;
+              *(v24 + 40) = 1;
             }
 
             goto LABEL_21;
           }
 
-          v15 = 0;
+          v16 = 0;
         }
 
-        v14 = MEMORY[0x1E695FF58];
+        v15 = MEMORY[0x1E695FF58];
 LABEL_21:
-        CFRelease(v29);
-        if (v33)
+        CFRelease(v30);
+        if (v34)
         {
-          CFRelease(v33);
+          CFRelease(v34);
         }
 
         if (DictionaryRepresentation)
@@ -5433,40 +5476,40 @@ LABEL_21:
           CFRelease(DictionaryRepresentation);
         }
 
-        v10 = v37;
+        v11 = v38;
         goto LABEL_26;
       }
 
-      v15 = 4294950305;
+      v16 = 4294950305;
     }
 
-    v10 = v37;
-    v14 = MEMORY[0x1E695FF58];
+    v11 = v38;
+    v15 = MEMORY[0x1E695FF58];
   }
 
 LABEL_26:
-  if (*v14 == 1)
+  if (*v15 == 1)
   {
     kdebug_trace();
   }
 
-  if (v10)
+  if (v11)
   {
 LABEL_29:
-    if (v15)
+    if (v16)
     {
-      *v10 = 1;
+      *v11 = 1;
     }
   }
 
-  return v15;
+  return v16;
 }
 
-uint64_t _getAccelerationMode(int a1)
+void _getAccelerationMode()
 {
   CMPhotoCFDictionaryGetBooleanIfPresent();
   CMPhotoCFDictionaryGetBooleanIfPresent();
-  return CMPhotoGetEncodeAccelerationModeOverride(a1 == 1635135537);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 uint64_t VTCompressionPluginClass_VideoToolbox_callback(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
@@ -6050,26 +6093,6 @@ LABEL_20:
   return MetadataFromData;
 }
 
-void sub_1A5967B2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
-{
-  if (a2)
-  {
-
-    if (a24)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](a24);
-    }
-
-    __cxa_begin_catch(exception_object);
-    fig_log_get_emitter();
-    FigSignalErrorAtGM();
-    __cxa_end_catch();
-    JUMPOUT(0x1A5967AD4);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 uint64_t DicomCopyCustomMetadata(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v27 = *MEMORY[0x1E69E9840];
@@ -6135,20 +6158,6 @@ uint64_t DicomCopyCustomMetadata(uint64_t a1, uint64_t a2, uint64_t a3, void *a4
   return v4;
 }
 
-void sub_1A5967E44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
-{
-  if (a2)
-  {
-    __cxa_begin_catch(exception_object);
-    fig_log_get_emitter();
-    FigSignalErrorAtGM();
-    __cxa_end_catch();
-    JUMPOUT(0x1A5967E04);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 uint64_t DicomGetImageBitDepthForIndex(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   ChannelCountAndBitDepthForImage = 4294947636;
@@ -6212,7 +6221,7 @@ void sub_1A5968044(void *a1)
   JUMPOUT(0x1A5968014);
 }
 
-uint64_t _getChannelCountAndBitDepthForImage(uint64_t *a1, uint64_t *a2, void *a3)
+uint64_t _getChannelCountAndBitDepthForImage(uint64_t a1, uint64_t *a2, void *a3)
 {
   v3 = *a1;
   if (!*a1)
@@ -6220,10 +6229,10 @@ uint64_t _getChannelCountAndBitDepthForImage(uint64_t *a1, uint64_t *a2, void *a
     return 4294947636;
   }
 
-  v7 = **(*(v3 + 128) + 8);
-  v8 = **(*(v3 + 176) + 8);
-  v9 = *(v3 + 280);
-  v12[0] = *(v3 + 272);
+  v7 = **(v3[16] + 8);
+  v8 = **(v3[22] + 8);
+  v9 = v3[35];
+  v12[0] = v3[34];
   v12[1] = v9;
   if (v9)
   {
@@ -6446,7 +6455,7 @@ uint64_t _getCodecFromTransferSyntaxString(NSString *a1, unsigned int *a2)
     else
     {
       fig_log_get_emitter();
-      v4 = FigSignalErrorAtGM();
+      v4 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v8, v9, v10);
     }
   }
 
@@ -6496,11 +6505,11 @@ uint64_t DicomDecoderCopyUnpackedImage(uint64_t a1, unint64_t a2, CFDataRef *a3)
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v8 = (*(v7 + 64) + 24 * a2);
+  v8 = *(v7 + 64) + 24 * a2;
   v13 = 0;
   v14 = 0;
   __p = 0;
-  std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(&__p, *v8, v8[1], v8[1] - *v8);
+  std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(&__p, *v8, *(v8 + 8), *(v8 + 8) - *v8);
   v9 = CFDataCreate(*(a1 + 8), __p, v13 - __p);
   if (v9)
   {
@@ -6536,13 +6545,13 @@ void sub_1A5968664(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 uint64_t DicomDecodeImageForIndex(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, CVBufferRef *a6)
 {
-  v96 = *MEMORY[0x1E69E9840];
-  v82 = 0;
+  v100 = *MEMORY[0x1E69E9840];
+  v86 = 0;
   buffer = 0;
   value = 0;
   cf = 0;
-  v78 = 0;
-  v77 = 0;
+  v82 = 0;
+  v81 = 0;
   OutputBuffer = 4294947636;
   if (!a1)
   {
@@ -6554,7 +6563,7 @@ uint64_t DicomDecodeImageForIndex(uint64_t a1, const void *a2, uint64_t a3, uint
     goto LABEL_118;
   }
 
-  OutputBuffer = DicomCopyCodecForIndex(a1, a2, a3, &v82, 0);
+  OutputBuffer = DicomCopyCodecForIndex(a1, a2, a3, &v86, 0);
   if (OutputBuffer)
   {
     goto LABEL_118;
@@ -6571,14 +6580,14 @@ uint64_t DicomDecodeImageForIndex(uint64_t a1, const void *a2, uint64_t a3, uint
   v12 = cf;
   v13 = *(a1 + 8);
   v14 = *(a1 + 144);
-  v76[0] = *(a1 + 136);
-  v76[1] = v14;
+  v80[0] = *(a1 + 136);
+  v80[1] = v14;
   if (v14)
   {
     atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  OutputBuffer = _createOutputBuffer(v12, v13, v76, v78, 0, &buffer);
+  OutputBuffer = _createOutputBuffer(v12, v13, v80, v82, 0, &buffer);
   if (v14)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v14);
@@ -6596,38 +6605,38 @@ uint64_t DicomDecodeImageForIndex(uint64_t a1, const void *a2, uint64_t a3, uint
   }
 
   v17 = *(a1 + 64) != 0;
-  switch(v82)
+  switch(v86)
   {
     case 0x64726C65u:
       v31 = *(a1 + 144);
-      v72 = *(a1 + 136);
+      v76 = *(a1 + 136);
       if (v31)
       {
         atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       OutputBuffer = 4294947636;
-      if (!v72)
+      if (!v76)
       {
         goto LABEL_112;
       }
 
-      pixelBuffer = buffer;
+      pixelBuffera = buffer;
       if (!buffer)
       {
         goto LABEL_112;
       }
 
-      LODWORD(v92) = 0;
-      v91[0] = v72;
-      v91[1] = v31;
+      LODWORD(v96) = 0;
+      v95[0] = v76;
+      v95[1] = v31;
       if (v31)
       {
         atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v73 = v31;
-      OutputBuffer = _getPhotometricInterpretationFromImageDetails(v91, &v92);
+      v77 = v31;
+      OutputBuffer = _getPhotometricInterpretationFromImageDetails(v95, &v96);
       if (v31)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v31);
@@ -6638,47 +6647,47 @@ uint64_t DicomDecodeImageForIndex(uint64_t a1, const void *a2, uint64_t a3, uint
         goto LABEL_112;
       }
 
-      if ((v92 - 1) >= 4)
+      if ((v96 - 1) >= 4)
       {
         fig_log_get_emitter();
-        OutputBuffer = FigSignalErrorAtGM();
+        OutputBuffer = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v68, v70, pixelBuffera);
         goto LABEL_112;
       }
 
-      v71 = a6;
-      v94 = 0u;
-      v95 = 0u;
-      v92 = 0u;
-      v93 = 0u;
-      if ((*(v72 + 88) & 1) == 0)
+      v75 = a6;
+      v98 = 0u;
+      v99 = 0u;
+      v96 = 0u;
+      v97 = 0u;
+      if ((*(v76 + 88) & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      v32 = **(*(v72 + 128) + 8);
-      v33 = **(*(v72 + 96) + 8);
-      v34 = **(*(v72 + 112) + 8);
-      v35 = **(*(v72 + 160) + 8);
-      v36 = (*(v72 + 64) + 24 * a4);
-      v89 = 0;
-      v90 = 0;
-      v88 = 0;
-      std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(&v88, *v36, v36[1], v36[1] - *v36);
-      v37 = v89 - v88;
-      if ((v89 - v88) >> 58)
+      v32 = **(*(v76 + 128) + 8);
+      v33 = **(*(v76 + 96) + 8);
+      v34 = **(*(v76 + 112) + 8);
+      v35 = **(*(v76 + 160) + 8);
+      v36 = *(v76 + 64) + 24 * a4;
+      v93 = 0;
+      v94 = 0;
+      v92 = 0;
+      std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(&v92, *v36, *(v36 + 8), *(v36 + 8) - *v36);
+      v37 = v93 - v92;
+      if ((v93 - v92) >> 58)
       {
         goto LABEL_128;
       }
 
       v38 = (v35 >> 3) * v32;
-      v74 = v34 * v33;
-      v39 = v38 * v74;
+      v78 = v34 * v33;
+      v39 = v38 * v78;
       if (v39 > v37 << 6)
       {
         goto LABEL_128;
       }
 
-      v40 = v72;
+      v40 = v76;
       if (v37 <= 0x40)
       {
         goto LABEL_128;
@@ -6686,38 +6695,38 @@ uint64_t DicomDecodeImageForIndex(uint64_t a1, const void *a2, uint64_t a3, uint
 
       v41 = 0;
       v42 = v38 * v33;
-      v43 = (v88 + 4);
-      v44 = *v88;
+      v43 = (v92 + 4);
+      v44 = *v92;
       do
       {
         v45 = *v43++;
-        *(&v92 + v41) = v45;
+        *(&v96 + v41) = v45;
         v41 += 4;
       }
 
       while (v41 != 60);
-      if (v44 > 0xF || v38 != v44 || v92 != 64)
+      if (v44 > 0xF || v38 != v44 || v96 != 64)
       {
 LABEL_128:
         fig_log_get_emitter();
-        a6 = v71;
-        OutputBuffer = FigSignalErrorAtGM();
+        a6 = v75;
+        OutputBuffer = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v68, v70, pixelBuffera);
         goto LABEL_110;
       }
 
-      std::vector<unsigned char>::vector[abi:ne200100](&v86, v39);
+      std::vector<unsigned char>::vector[abi:ne200100](&v90, v39);
       if (!v44)
       {
 LABEL_81:
         __p = v40;
-        v85 = v31;
+        v89 = v31;
         if (v31)
         {
           atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        a6 = v71;
-        OutputBuffer = _renderToPixelBuffer(&__p, v86, v42, 0, 1, 0, pixelBuffer);
+        a6 = v75;
+        OutputBuffer = _renderToPixelBuffer(&__p, v90, v42, 0, 1, 0, pixelBuffera);
         if (v31)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v31);
@@ -6726,24 +6735,25 @@ LABEL_81:
         goto LABEL_106;
       }
 
-      v68 = v42;
+      v69 = v38 * v78;
+      v71 = v42;
       v46 = 0;
       while (1)
       {
-        v47 = *(&v92 + v46);
+        v47 = *(&v96 + v46);
         v48 = v46 + 1;
-        v49 = *(&v92 + v46 + 1);
-        v50 = v89 - v88;
+        v49 = *(&v96 + v46 + 1);
+        v50 = v93 - v92;
         if (!v49)
         {
-          v49 = v89 - v88;
+          v49 = v93 - v92;
         }
 
         if (v50 <= v47 || v49 > v50)
         {
           fig_log_get_emitter();
-          a6 = v71;
-          OutputBuffer = FigSignalErrorAtGM();
+          a6 = v75;
+          OutputBuffer = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v69, v71, pixelBuffera);
           goto LABEL_108;
         }
 
@@ -6752,13 +6762,13 @@ LABEL_81:
           break;
         }
 
-        if (v74 >= 1)
+        if (v78 >= 1)
         {
-          v51 = v86 + v46 * v74;
-          v52 = v88 + v49;
-          v53 = &v51[v74];
-          v54 = v88 + v47;
-          v55 = v74;
+          v51 = v90 + v46 * v78;
+          v52 = v92 + v49;
+          v53 = &v51[v78];
+          v54 = v92 + v47;
+          v55 = v78;
           while (v54 < v52)
           {
             v57 = v54 + 1;
@@ -6817,32 +6827,32 @@ LABEL_81:
           }
 
           OutputBuffer = 4294947634;
-          v31 = v73;
+          v31 = v77;
           goto LABEL_94;
         }
 
 LABEL_79:
         v46 = v48;
-        v31 = v73;
+        v31 = v77;
         if (v48 == v38)
         {
-          v40 = v72;
-          v42 = v68;
+          v40 = v76;
+          v42 = v71;
           if (v44 == 1)
           {
             goto LABEL_81;
           }
 
-          std::vector<unsigned char>::vector[abi:ne200100](&__p, v38 * v74);
+          std::vector<unsigned char>::vector[abi:ne200100](&__p, v69);
           v62 = 0;
-          a6 = v71;
+          a6 = v75;
           do
           {
-            if (v74)
+            if (v78)
             {
               v63 = __p;
-              v64 = v74;
-              v65 = v86 + v62 * v74;
+              v64 = v78;
+              v65 = v90 + v62 * v78;
               do
               {
                 v66 = *v65++;
@@ -6858,22 +6868,22 @@ LABEL_79:
           }
 
           while (v62 != v38);
-          v83[0] = v72;
-          v83[1] = v73;
-          if (v73)
+          v87[0] = v76;
+          v87[1] = v77;
+          if (v77)
           {
-            atomic_fetch_add_explicit(&v73->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v77->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          OutputBuffer = _renderToPixelBuffer(v83, __p, v68, 0, 1, 1, pixelBuffer);
-          if (v73)
+          OutputBuffer = _renderToPixelBuffer(v87, __p, v71, 0, 1, 1, pixelBuffera);
+          if (v77)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v73);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v77);
           }
 
           if (__p)
           {
-            v85 = __p;
+            v89 = __p;
             operator delete(__p);
           }
 
@@ -6884,17 +6894,17 @@ LABEL_106:
           }
 
 LABEL_108:
-          if (v86)
+          if (v90)
           {
-            v87 = v86;
-            operator delete(v86);
+            v91 = v90;
+            operator delete(v90);
           }
 
 LABEL_110:
-          if (v88)
+          if (v92)
           {
-            v89 = v88;
-            operator delete(v88);
+            v93 = v92;
+            operator delete(v92);
           }
 
 LABEL_112:
@@ -6921,9 +6931,9 @@ LABEL_115:
       }
 
       fig_log_get_emitter();
-      OutputBuffer = FigSignalErrorAtGM();
+      OutputBuffer = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v69, v71, pixelBuffera);
 LABEL_94:
-      a6 = v71;
+      a6 = v75;
       goto LABEL_108;
     case 0x756E636Du:
       v20 = *(a1 + 136);
@@ -6939,7 +6949,7 @@ LABEL_94:
         v22 = buffer;
         if (buffer)
         {
-          v70 = a6;
+          v74 = a6;
           if ((*(v20 + 88) & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
@@ -6950,18 +6960,18 @@ LABEL_94:
           v25 = **(*(v20 + 112) + 8);
           v26 = **(*(v20 + 160) + 8);
           v27 = *(v20 + 64);
-          *&v93 = 0;
-          v92 = 0uLL;
-          std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(&v92, *v27, v27[1], v27[1] - *v27);
+          *&v97 = 0;
+          v96 = 0uLL;
+          std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(&v96, *v27, *(v27 + 8), *(v27 + 8) - *v27);
           LODWORD(__p) = 0;
-          v88 = v20;
-          v89 = v21;
+          v92 = v20;
+          v93 = v21;
           if (v21)
           {
             atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          OutputBuffer = _getPhotometricInterpretationFromImageDetails(&v88, &__p);
+          OutputBuffer = _getPhotometricInterpretationFromImageDetails(&v92, &__p);
           if (v21)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v21);
@@ -6969,23 +6979,23 @@ LABEL_94:
 
           if (!OutputBuffer)
           {
-            if ((__p - 1) >= 4 || (v28 = (v24 * v23) * (v26 >> 3), v29 = v28 * v25, *(&v92 + 1) - v92 < v29 + v29 * a4))
+            if ((__p - 1) >= 4 || (v28 = (v24 * v23) * (v26 >> 3), v29 = v28 * v25, *(&v96 + 1) - v96 < v29 + v29 * a4))
             {
               fig_log_get_emitter();
-              OutputBuffer = FigSignalErrorAtGM();
+              OutputBuffer = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v68, v70, pixelBuffer);
             }
 
             else
             {
-              v30 = v92 + v29 * a4;
-              v86 = v20;
-              v87 = v21;
+              v30 = v96 + v29 * a4;
+              v90 = v20;
+              v91 = v21;
               if (v21)
               {
                 atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              OutputBuffer = _renderToPixelBuffer(&v86, v30, v28, 0, 1, v17, v22);
+              OutputBuffer = _renderToPixelBuffer(&v90, v30, v28, 0, 1, v17, v22);
               if (v21)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](v21);
@@ -6993,13 +7003,13 @@ LABEL_94:
             }
           }
 
-          if (v92)
+          if (v96)
           {
-            *(&v92 + 1) = v92;
-            operator delete(v92);
+            *(&v96 + 1) = v96;
+            operator delete(v96);
           }
 
-          a6 = v70;
+          a6 = v74;
         }
       }
 
@@ -7012,14 +7022,14 @@ LABEL_94:
       goto LABEL_115;
     case 0x6A706567u:
       v18 = *(a1 + 144);
-      v75[0] = *(a1 + 136);
-      v75[1] = v18;
+      v79[0] = *(a1 + 136);
+      v79[1] = v18;
       if (v18)
       {
         atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      OutputBuffer = _decodeJPEG(a2, v75, a4, v77, v78, a5, buffer);
+      OutputBuffer = _decodeJPEG(a2, v79, a4, v81, v82, a5, buffer);
       if (v18)
       {
         v19 = v18;
@@ -7066,73 +7076,75 @@ void sub_1A59690A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t _createOutputBuffer(const void *a1, uint64_t a2, uint64_t *a3, int a4, unsigned int a5, CFTypeRef *a6)
 {
-  v9 = a1;
+  v10 = a1;
   cf[0] = 0;
-  v10 = *a3;
-  v11 = **(*(*a3 + 96) + 8);
-  v29 = **(*(*a3 + 112) + 8);
-  v12 = **(*(*a3 + 160) + 8);
+  v11 = *a3;
+  v12 = **(*(*a3 + 96) + 8);
+  v33 = **(*(*a3 + 112) + 8);
+  v13 = **(*(*a3 + 160) + 8);
   if (**(*(*a3 + 128) + 8) == 3)
   {
-    if (v12 == 8)
+    if (v13 == 8)
     {
-      v13 = 1111970369;
-      goto LABEL_26;
+      v14 = 1111970369;
+      goto LABEL_27;
     }
 
-    if (v12 == 16)
+    if (v13 == 16)
     {
-      v13 = 1815491698;
-      goto LABEL_26;
+      v14 = 1815491698;
+      goto LABEL_27;
     }
 
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v27 = v6;
+    v28 = 380;
   }
 
   else
   {
-    HIDWORD(v27) = **(v10[22] + 8);
-    v16 = v10[35];
-    v33 = v10[34];
-    v34 = v16;
-    if (v16)
+    HIDWORD(v31) = **(v11[22] + 8);
+    v17 = v11[35];
+    v37 = v11[34];
+    v38 = v17;
+    if (v17)
     {
-      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    PaletteSize = _getPaletteSize(&v33);
-    if (v16)
+    PaletteSize = _getPaletteSize(&v37);
+    if (v17)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
     }
 
     if (PaletteSize >= 1)
     {
-      v18 = *a3;
-      v19 = a3[1];
-      v30 = v18;
-      v31 = v19;
-      v32 = 0;
-      v9 = a1;
-      if (v19)
+      v19 = *a3;
+      v20 = a3[1];
+      v34 = v19;
+      v35 = v20;
+      v36 = 0;
+      v10 = a1;
+      if (v20)
       {
-        atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      ChannelCountAndBitDepthForImage = _getChannelCountAndBitDepthForImage(&v30, 0, &v32);
-      if (v19)
+      ChannelCountAndBitDepthForImage = _getChannelCountAndBitDepthForImage(&v34, 0, &v36);
+      if (v20)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
       }
 
-      if (v32 == 8)
+      if (v36 == 8)
       {
-        v13 = 1111970369;
+        v14 = 1111970369;
       }
 
       else
       {
-        v13 = 1815491698;
+        v14 = 1815491698;
       }
 
       if (ChannelCountAndBitDepthForImage)
@@ -7140,72 +7152,78 @@ uint64_t _createOutputBuffer(const void *a1, uint64_t a2, uint64_t *a3, int a4, 
         return ChannelCountAndBitDepthForImage;
       }
 
-      goto LABEL_26;
+      goto LABEL_27;
     }
 
-    v13 = 1278226488;
-    v9 = a1;
-    if (v12 == 8)
+    v14 = 1278226488;
+    v10 = a1;
+    switch(v13)
     {
-LABEL_26:
-      if (a5)
-      {
-        v22 = a5;
-      }
-
-      else
-      {
-        v22 = v13;
-      }
-
-      if (a4)
-      {
-        CMPhotoCreateCVPixelBufferNotBackedByIOSurface(a2, v22, v11, v29, 0, 0, 64, 0, cf, v25, v26, v27, a2, v29, v30, v31, v32, v33, v34, cf[0], cf[1], cf[2], cf[3], cf[4], cf[5]);
-      }
-
-      else
-      {
-        PixelBuffer = CMPhotoSurfacePoolCreatePixelBuffer(v9, v22, v11, v29, 1, 0, 0, 0, 64, 0, cf);
-      }
-
-      ChannelCountAndBitDepthForImage = PixelBuffer;
-      if (PixelBuffer)
-      {
-        if (cf[0])
+      case 8:
+LABEL_27:
+        if (a5)
         {
-          CFRelease(cf[0]);
+          v23 = a5;
         }
-      }
 
-      else
-      {
-        *a6 = cf[0];
-      }
+        else
+        {
+          v23 = v14;
+        }
 
-      return ChannelCountAndBitDepthForImage;
+        if (a4)
+        {
+          CMPhotoCreateCVPixelBufferNotBackedByIOSurface(a2, v23, v12, v33, 0, 0, 64, 0, cf, v29, v30, v31, a2, v33, v34, v35, v36, v37, v38, cf[0], cf[1], cf[2], cf[3], cf[4], cf[5]);
+        }
+
+        else
+        {
+          PixelBuffer = CMPhotoSurfacePoolCreatePixelBuffer(v10, v23, v12, v33, 1, 0, 0, 0, 64, 0, cf);
+        }
+
+        ChannelCountAndBitDepthForImage = PixelBuffer;
+        if (PixelBuffer)
+        {
+          if (cf[0])
+          {
+            CFRelease(cf[0]);
+          }
+        }
+
+        else
+        {
+          *a6 = cf[0];
+        }
+
+        return ChannelCountAndBitDepthForImage;
+      case 32:
+        emitter = fig_log_get_emitter();
+        v27 = v6;
+        v28 = 411;
+        break;
+      case 16:
+        v22 = 1278226738;
+        if (HIDWORD(v31) != 12)
+        {
+          v22 = 1278226742;
+        }
+
+        v14 = 1278226736;
+        if (HIDWORD(v31) != 10)
+        {
+          v14 = v22;
+        }
+
+        goto LABEL_27;
+      default:
+        emitter = fig_log_get_emitter();
+        v27 = v6;
+        v28 = 414;
+        break;
     }
-
-    if (v12 == 16)
-    {
-      v21 = 1278226738;
-      if (HIDWORD(v27) != 12)
-      {
-        v21 = 1278226742;
-      }
-
-      v13 = 1278226736;
-      if (HIDWORD(v27) != 10)
-      {
-        v13 = v21;
-      }
-
-      goto LABEL_26;
-    }
-
-    fig_log_get_emitter();
   }
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294947633, "<<<< AppleDicom >>>>", v28, v27);
 }
 
 void sub_1A59694BC(_Unwind_Exception *exception_object)
@@ -7220,11 +7238,11 @@ void sub_1A59694BC(_Unwind_Exception *exception_object)
 
 uint64_t _decodeJPEG(const void *a1, void *a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, __CVBuffer *a7)
 {
-  v54 = 0;
   v55 = 0;
-  v52 = 0;
+  v56 = 0;
   v53 = 0;
-  v51 = 0;
+  v54 = 0;
+  v52 = 0;
   v7 = *a2;
   if ((*(*a2 + 88) & 1) == 0)
   {
@@ -7234,29 +7252,29 @@ uint64_t _decodeJPEG(const void *a1, void *a2, uint64_t a3, unsigned int a4, uns
   v11 = **(v7[12] + 8);
   v12 = **(v7[14] + 8);
   v13 = **(v7[20] + 8);
-  v39 = **(v7[22] + 8);
-  v43 = **(v7[16] + 8);
-  v14 = (v7[8] + 24 * a3);
-  v49 = 0;
+  v40 = **(v7[22] + 8);
+  v44 = **(v7[16] + 8);
+  v14 = v7[8] + 24 * a3;
   v50 = 0;
-  v48 = 0;
-  std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(&v48, *v14, v14[1], v14[1] - *v14);
-  v16 = v48;
-  v15 = v49;
+  v51 = 0;
+  v49 = 0;
+  std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(&v49, *v14, *(v14 + 8), *(v14 + 8) - *v14);
+  v16 = v49;
+  v15 = v50;
   v17 = CFGetAllocator(a1);
   v18 = v15 - v16;
-  cf = CFDataCreateWithBytesNoCopy(v17, v48, v18, *MEMORY[0x1E695E498]);
+  cf = CFDataCreateWithBytesNoCopy(v17, v49, v18, *MEMORY[0x1E695E498]);
   v19 = *a2;
   v20 = a2[1];
-  v47[0] = *a2;
-  v47[1] = v20;
+  v48[0] = *a2;
+  v48[1] = v20;
   if (v20)
   {
     atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
     v19 = *a2;
   }
 
-  v21 = _needsRenderPass(v47, *(v19 + 208), *(v19 + 216), 0, 0, 0, 0, 0, 0, 0);
+  v21 = _needsRenderPass(v48, *(v19 + 208), *(v19 + 216), 0, 0, 0, 0, 0, 0, 0);
   if (v20)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v20);
@@ -7274,32 +7292,32 @@ uint64_t _decodeJPEG(const void *a1, void *a2, uint64_t a3, unsigned int a4, uns
   }
 
   PixelFormatType = CVPixelBufferGetPixelFormatType(a7);
-  v22 = CMPhotoByteStreamCreateFromSource(cf, v18, 0, 0, &v54, 0);
+  v22 = CMPhotoByteStreamCreateFromSource(cf, v18, 0, 0, &v55, 0);
   if (v22)
   {
     goto LABEL_44;
   }
 
   v24 = CFGetAllocator(a1);
-  v22 = CMPhotoUnifiedJPEGDecoderCreate(a1, v24, v11, v12, v54, 0, v18, cf, 1, &v55);
+  v22 = CMPhotoUnifiedJPEGDecoderCreate(a1, v24, v11, v12, v55, 0, v18, cf, 1, &v56);
   if (v22)
   {
     goto LABEL_44;
   }
 
-  v22 = CMPhotoDecompressionSessionCopyScaler(a1, &v52);
+  v22 = CMPhotoDecompressionSessionCopyScaler(a1, &v53);
   if (v22)
   {
     goto LABEL_44;
   }
 
-  v22 = CMPhotoDecompressionSessionCopySurfacePool(a1, &v53);
+  v22 = CMPhotoDecompressionSessionCopySurfacePool(a1, &v54);
   if (v22)
   {
     goto LABEL_44;
   }
 
-  if (v43 == 3)
+  if (v44 == 3)
   {
     v25 = 1111970369;
   }
@@ -7310,7 +7328,7 @@ uint64_t _decodeJPEG(const void *a1, void *a2, uint64_t a3, unsigned int a4, uns
   }
 
   v26 = 1278226742;
-  if (v43 == 3)
+  if (v44 == 3)
   {
     v26 = 1815491698;
   }
@@ -7319,15 +7337,16 @@ uint64_t _decodeJPEG(const void *a1, void *a2, uint64_t a3, unsigned int a4, uns
   UsedBitDepthForPixelFormat = CMPhotoGetUsedBitDepthForPixelFormat(PixelFormatType);
   v29 = v13 == 8 ? a4 : 1;
   v30 = !v21 && v27 == PixelFormatType;
-  v31 = v30 && UsedBitDepthForPixelFormat == v39;
+  v31 = v30 && UsedBitDepthForPixelFormat == v40;
   v32 = v31 ? a7 : 0;
-  memset(v46, 0, sizeof(v46));
-  v22 = CMPhotoUnifiedJPEGDecoderDecode(v55, v53, v52, v29, v27, a5, v46, 0, 1, a6, 0, 0, 1, v32, &v51);
+  memset(v47, 0, sizeof(v47));
+  LOBYTE(v39) = 1;
+  v22 = CMPhotoUnifiedJPEGDecoderDecode(v56, v54, v53, v29, v27, a5, v47, 0, v39, a6, 0, 0, 1, v32, &v52);
   if (v22)
   {
 LABEL_44:
-    v33 = v51;
-    if (!v51)
+    v33 = v52;
+    if (!v52)
     {
       goto LABEL_46;
     }
@@ -7335,54 +7354,49 @@ LABEL_44:
     goto LABEL_45;
   }
 
-  v33 = v51;
-  if (v32 != v51)
+  v33 = v52;
+  if (v32 != v52)
   {
-    CVPixelBufferLockBaseAddress(v51, 1uLL);
-    if (CVPixelBufferIsPlanar(v51))
+    CVPixelBufferLockBaseAddress(v52, 1uLL);
+    if (CVPixelBufferIsPlanar(v52))
     {
-      BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v51, 0);
-      BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(v51, 0);
+      BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v52, 0);
+      BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(v52, 0);
     }
 
     else
     {
-      BaseAddressOfPlane = CVPixelBufferGetBaseAddress(v51);
-      BytesPerRowOfPlane = CVPixelBufferGetBytesPerRow(v51);
+      BaseAddressOfPlane = CVPixelBufferGetBaseAddress(v52);
+      BytesPerRowOfPlane = CVPixelBufferGetBytesPerRow(v52);
     }
 
     v36 = *a2;
     v37 = a2[1];
-    v45[0] = v36;
-    v45[1] = v37;
+    v46[0] = v36;
+    v46[1] = v37;
     if (v37)
     {
       atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v22 = _renderToPixelBuffer(v45, BaseAddressOfPlane, BytesPerRowOfPlane, v43 == 3, v27 != 1111970369, 0, a7);
+    v22 = _renderToPixelBuffer(v46, BaseAddressOfPlane, BytesPerRowOfPlane, v44 == 3, v27 != 1111970369, 0, a7);
     if (v37)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v37);
     }
 
-    CVPixelBufferUnlockBaseAddress(v51, 1uLL);
+    CVPixelBufferUnlockBaseAddress(v52, 1uLL);
     goto LABEL_44;
   }
 
   v22 = 0;
-  if (v51)
+  if (v52)
   {
 LABEL_45:
     CFRelease(v33);
   }
 
 LABEL_46:
-  if (v52)
-  {
-    CFRelease(v52);
-  }
-
   if (v53)
   {
     CFRelease(v53);
@@ -7393,16 +7407,21 @@ LABEL_46:
     CFRelease(v54);
   }
 
+  if (v55)
+  {
+    CFRelease(v55);
+  }
+
   if (cf)
   {
     CFRelease(cf);
   }
 
-  CMPhotoUnifiedJPEGDecoderDestroy(v55);
-  if (v48)
+  CMPhotoUnifiedJPEGDecoderDestroy(v56);
+  if (v49)
   {
-    v49 = v48;
-    operator delete(v48);
+    v50 = v49;
+    operator delete(v49);
   }
 
   return v22;
@@ -7425,35 +7444,35 @@ void sub_1A59698AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t DicomCopyAuxiliaryImageInfoForIndex(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5, _DWORD *a6, CGImageMetadata **a7, const __CFString *a8, void *a9, const __CFDictionary **a10, _BYTE *a11, _DWORD *a12, CFTypeRef *a13)
+uint64_t DicomCopyAuxiliaryImageInfoForIndex(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5, _DWORD *a6, CGImageMetadata **a7, __CFString *a8, void *a9, const __CFDictionary **a10, _BYTE *a11, _DWORD *a12, CFTypeRef *a13)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   cf = 0;
-  v57 = 0;
+  v59 = 0;
   if (a1)
   {
     v13 = *(a1 + 264);
     if (a3 >= (*(a1 + 272) - v13) >> 4)
     {
       fig_log_get_emitter();
-      v46 = 0;
-      PhotometricInterpretationFromImageDetails = FigSignalErrorAtGM();
-      v47 = 0;
+      v48 = 0;
+      PhotometricInterpretationFromImageDetails = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41, v43, v45);
+      v49 = 0;
     }
 
     else
     {
-      v43 = a8;
-      v44 = a7;
+      v44 = a8;
+      v46 = a7;
       v17 = *(v13 + 16 * a3);
-      v48 = v17;
+      v50 = v17;
       v18 = *(v13 + 16 * a3 + 8);
       if (*(&v17 + 1))
       {
         atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
-      v45 = **(*(v17 + 96) + 8);
+      v47 = **(*(v17 + 96) + 8);
       v19 = **(*(v17 + 112) + 8);
       HIDWORD(v42) = **(*(v17 + 176) + 8);
       v20 = MEMORY[0x1E696AEC0];
@@ -7469,87 +7488,87 @@ uint64_t DicomCopyAuxiliaryImageInfoForIndex(uint64_t a1, uint64_t a2, uint64_t 
       }
 
       v22 = [v20 stringWithCString:p_p encoding:4];
-      v46 = [v22 unpaddedString];
+      v48 = [v22 unpaddedString];
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v47 = AppleDicomGetMetadataPayloadsFromDataSet(v48);
-      v23 = **(*(v48 + 312) + 8);
-      if (*(v48 + 39) < 0)
+      v49 = AppleDicomGetMetadataPayloadsFromDataSet(v50);
+      v23 = **(*(v50 + 312) + 8);
+      if (*(v50 + 39) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, *(v48 + 16), *(v48 + 24));
+        std::string::__init_copy_ctor_external(&__p, *(v50 + 16), *(v50 + 24));
       }
 
       else
       {
-        __p = *(v48 + 16);
+        __p = *(v50 + 16);
       }
 
-      if (*(v48 + 63) < 0)
+      if (*(v50 + 63) < 0)
       {
-        std::string::__init_copy_ctor_external(&v56, *(v48 + 40), *(v48 + 48));
+        std::string::__init_copy_ctor_external(&v58, *(v50 + 40), *(v50 + 48));
       }
 
       else
       {
-        v56 = *(v48 + 40);
+        v58 = *(v50 + 40);
       }
 
       v24 = MEMORY[0x1E696AEC0];
-      v25 = vega::dicom::SOPClass::uid(&__p);
-      EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(v25);
-      if (*(EncodeAccelerationModeOverride + 23) >= 0)
+      vega::dicom::SOPClass::uid(&__p);
+      CMPhotoGetEncodeAccelerationModeOverride();
+      if (*(v25 + 23) >= 0)
       {
-        v27 = EncodeAccelerationModeOverride;
+        v26 = v25;
       }
 
       else
       {
-        v27 = *EncodeAccelerationModeOverride;
+        v26 = *v25;
       }
 
-      v28 = [v24 stringWithCString:v27 encoding:4];
-      v29 = [v28 unpaddedString];
+      v27 = [v24 stringWithCString:v26 encoding:4];
+      v28 = [v27 unpaddedString];
 
-      if (v29)
+      if (v28)
       {
-        LODWORD(v42) = [&unk_1F194A300 containsObject:v29];
-        v54 = v48;
+        LODWORD(v42) = [&unk_1F194A300 containsObject:v28];
+        v56 = v50;
         if (v18)
         {
           atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        _createColorSpaceFromImageDetails(&v54, 1, 0, &cf);
+        _createColorSpaceFromImageDetails(&v56, 1, 0, &cf);
         if (v18)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v18);
           atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v53 = v48;
-        PhotometricInterpretationFromImageDetails = _getPhotometricInterpretationFromImageDetails(&v53, &v57);
+        v55 = v50;
+        PhotometricInterpretationFromImageDetails = _getPhotometricInterpretationFromImageDetails(&v55, &v59);
         if (v18)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v18);
         }
 
-        v31 = PhotometricInterpretationFromImageDetails == 0;
+        v30 = PhotometricInterpretationFromImageDetails == 0;
       }
 
       else
       {
         LODWORD(v42) = 0;
-        v31 = 0;
+        v30 = 0;
         PhotometricInterpretationFromImageDetails = 4294947634;
       }
 
-      if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v56.__r_.__value_.__l.__data_);
+        operator delete(v58.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7562,20 +7581,20 @@ uint64_t DicomCopyAuxiliaryImageInfoForIndex(uint64_t a1, uint64_t a2, uint64_t 
         std::__shared_weak_count::__release_shared[abi:ne200100](v18);
       }
 
-      if (!v31)
+      if (!v30)
       {
         goto LABEL_64;
       }
 
       if (a4)
       {
-        *a4 = v45;
+        *a4 = v47;
         a4[1] = v19;
       }
 
       if (a5)
       {
-        PhotometricInterpretationFromImageDetails = _getSubsamplingFromPhotometricInterpretation(v57, a5);
+        PhotometricInterpretationFromImageDetails = _getSubsamplingFromPhotometricInterpretation(v59, a5);
         if (PhotometricInterpretationFromImageDetails)
         {
           goto LABEL_64;
@@ -7587,40 +7606,40 @@ uint64_t DicomCopyAuxiliaryImageInfoForIndex(uint64_t a1, uint64_t a2, uint64_t 
         *a6 = v23;
       }
 
-      if (v47)
+      if (v49)
       {
+        v53 = 0u;
+        v54 = 0u;
         v51 = 0u;
         v52 = 0u;
-        v49 = 0u;
-        v50 = 0u;
-        v32 = v47;
-        v33 = [v32 countByEnumeratingWithState:&v49 objects:v59 count:16];
-        if (v33)
+        v31 = v49;
+        v32 = [v31 countByEnumeratingWithState:&v51 objects:v61 count:16];
+        if (v32)
         {
-          v34 = *v50;
+          v33 = *v52;
           while (2)
           {
-            for (i = 0; i != v33; ++i)
+            for (i = 0; i != v32; ++i)
             {
-              if (*v50 != v34)
+              if (*v52 != v33)
               {
-                objc_enumerationMutation(v32);
+                objc_enumerationMutation(v31);
               }
 
-              v36 = *(*(&v49 + 1) + 8 * i);
-              v37 = [v36 objectForKeyedSubscript:{@"URI", v42, v43, v44}];
-              v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"http://ns.adobe.com/xap/1.0/"];
-              v39 = [v37 isEqual:v38];
+              v35 = *(*(&v51 + 1) + 8 * i);
+              v36 = [v35 objectForKeyedSubscript:{@"URI", v42, v44, v46}];
+              v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"http://ns.adobe.com/xap/1.0/"];
+              v38 = [v36 isEqual:v37];
 
-              if (v39)
+              if (v38)
               {
-                v40 = [v36 objectForKeyedSubscript:@"Data"];
+                v39 = [v35 objectForKeyedSubscript:@"Data"];
                 goto LABEL_51;
               }
             }
 
-            v33 = [v32 countByEnumeratingWithState:&v49 objects:v59 count:16];
-            if (v33)
+            v32 = [v31 countByEnumeratingWithState:&v51 objects:v61 count:16];
+            if (v32)
             {
               continue;
             }
@@ -7629,13 +7648,13 @@ uint64_t DicomCopyAuxiliaryImageInfoForIndex(uint64_t a1, uint64_t a2, uint64_t 
           }
         }
 
-        v40 = 0;
+        v39 = 0;
 LABEL_51:
 
-        PhotometricInterpretationFromImageDetails = CMPhotoAuxiliaryImageMetadataCreateFromXMPData(0, v40, v43, v44, 0, a10);
+        PhotometricInterpretationFromImageDetails = CMPhotoAuxiliaryImageMetadataCreateFromXMPData(0, v39, v44, v46, 0, a10);
         if (PhotometricInterpretationFromImageDetails)
         {
-          v47 = v32;
+          v49 = v31;
           goto LABEL_64;
         }
 
@@ -7644,7 +7663,7 @@ LABEL_51:
 
       if (a9)
       {
-        *a9 = v46;
+        *a9 = v48;
       }
 
       if (a11)
@@ -7675,7 +7694,7 @@ LABEL_64:
     goto LABEL_66;
   }
 
-  v46 = 0;
+  v48 = 0;
   PhotometricInterpretationFromImageDetails = 4294947636;
 
 LABEL_67:
@@ -7684,12 +7703,12 @@ LABEL_67:
 
 uint64_t DicomDecodeAuxiliaryImageForIndex(void *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, __CVBuffer **a6)
 {
-  v40 = 0;
-  v38 = 0;
   v39 = 0;
   v37 = 0;
-  data_low = 4294947636;
+  v38 = 0;
   v36 = 0;
+  data_low = 4294947636;
+  v35 = 0;
   if (!a1 || !a2)
   {
     goto LABEL_69;
@@ -7697,19 +7716,19 @@ uint64_t DicomDecodeAuxiliaryImageForIndex(void *a1, const void *a2, uint64_t a3
 
   if (a4 < 0)
   {
-    DicomDecodeAuxiliaryImageForIndex_cold_2(&v34);
+    DicomDecodeAuxiliaryImageForIndex_cold_2(&v33);
 LABEL_62:
-    data_low = LODWORD(v34.__r_.__value_.__l.__data_);
+    data_low = LODWORD(v33.__r_.__value_.__l.__data_);
     goto LABEL_69;
   }
 
   if (a4 >= (a1[34] - a1[33]) >> 4)
   {
-    DicomDecodeAuxiliaryImageForIndex_cold_1(&v34);
+    DicomDecodeAuxiliaryImageForIndex_cold_1(&v33);
     goto LABEL_62;
   }
 
-  v12 = CMPhotoDecompressionSessionCopySurfacePool(a2, &v37);
+  v12 = CMPhotoDecompressionSessionCopySurfacePool(a2, &v36);
   if (v12)
   {
     data_low = v12;
@@ -7718,7 +7737,7 @@ LABEL_62:
 
   FigCFDictionaryGetBooleanIfPresent();
   v13 = *(a1[33] + 16 * a4);
-  v30 = v13;
+  v29 = v13;
   v14 = *(a1[33] + 16 * a4 + 8);
   if (*(&v13 + 1))
   {
@@ -7730,130 +7749,130 @@ LABEL_62:
   {
     if (*(v13 + 39) < 0)
     {
-      std::string::__init_copy_ctor_external(&v34, *(v13 + 16), *(v13 + 24));
+      std::string::__init_copy_ctor_external(&v33, *(v13 + 16), *(v13 + 24));
     }
 
     else
     {
-      v34 = *(v13 + 16);
+      v33 = *(v13 + 16);
     }
 
-    if (*(v30 + 63) < 0)
+    if (*(v29 + 63) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, *(v30 + 40), *(v30 + 48));
+      std::string::__init_copy_ctor_external(&__p, *(v29 + 40), *(v29 + 48));
     }
 
     else
     {
-      __p = *(v30 + 40);
+      __p = *(v29 + 40);
     }
 
     v16 = MEMORY[0x1E696AEC0];
-    v17 = vega::dicom::SOPClass::uid(&v34);
-    EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(v17);
-    if (*(EncodeAccelerationModeOverride + 23) >= 0)
+    vega::dicom::SOPClass::uid(&v33);
+    CMPhotoGetEncodeAccelerationModeOverride();
+    if (*(v17 + 23) >= 0)
     {
-      v19 = EncodeAccelerationModeOverride;
+      v18 = v17;
     }
 
     else
     {
-      v19 = *EncodeAccelerationModeOverride;
+      v18 = *v17;
     }
 
-    v20 = [v16 stringWithCString:v19 encoding:{4, v30}];
-    v21 = v20;
-    if (!v20)
+    v19 = [v16 stringWithCString:v18 encoding:{4, v29}];
+    v20 = v19;
+    if (!v19)
     {
-      v28 = 4;
+      v27 = 4;
       data_low = 4294947634;
       goto LABEL_49;
     }
 
-    data_low = _getCodecFromTransferSyntaxString(v20, &v40);
+    data_low = _getCodecFromTransferSyntaxString(v19, &v39);
     if (data_low)
     {
       goto LABEL_66;
     }
 
-    if (v40 != 1785750887)
+    if (v39 != 1785750887)
     {
       fig_log_get_emitter();
-      data_low = FigSignalErrorAtGM();
+      data_low = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v29, DWORD2(v29), v30);
       goto LABEL_66;
     }
 
     if (**(v15[22] + 8) != 16 || **(v15[16] + 8) != 1)
     {
-      v22 = 0;
+      v21 = 0;
       goto LABEL_33;
     }
 
-    v22 = 0;
-    v23 = **(v15[39] + 8);
-    if (v23 <= 1278226735)
+    v21 = 0;
+    v22 = **(v15[39] + 8);
+    if (v22 <= 1278226735)
     {
-      if (v23 != 825306677)
+      if (v22 != 825306677)
       {
-        v24 = 825437747;
+        v23 = 825437747;
 LABEL_31:
-        if (v23 != v24)
+        if (v22 != v23)
         {
           goto LABEL_33;
         }
       }
     }
 
-    else if ((v23 - 1278226736) > 6 || ((1 << (v23 - 48)) & 0x45) == 0)
+    else if ((v22 - 1278226736) > 6 || ((1 << (v22 - 48)) & 0x45) == 0)
     {
-      v24 = 1932996149;
+      v23 = 1932996149;
       goto LABEL_31;
     }
 
-    v22 = **(v15[39] + 8);
+    v21 = **(v15[39] + 8);
 LABEL_33:
-    v25 = v37;
-    v26 = a1[1];
-    v33 = v30;
+    v24 = v36;
+    v25 = a1[1];
+    v32 = v29;
     if (v14)
     {
       atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    OutputBuffer = _createOutputBuffer(v25, v26, &v33, v36, v22, &v38);
+    OutputBuffer = _createOutputBuffer(v24, v25, &v32, v35, v21, &v37);
     data_low = OutputBuffer;
     if (v14)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v14);
       if (!data_low)
       {
-        v32 = v30;
+        v31 = v29;
         atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
 LABEL_40:
-        _createColorSpaceFromImageDetails(&v32, 1, &v39, 0);
+        _createColorSpaceFromImageDetails(&v31, 1, &v38, 0);
         if (v14)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v14);
         }
 
-        if (v39)
+        if (v38)
         {
-          CVBufferSetAttachment(v38, *MEMORY[0x1E6965CE8], v39, kCVAttachmentMode_ShouldPropagate);
+          CVBufferSetAttachment(v37, *MEMORY[0x1E6965CE8], v38, kCVAttachmentMode_ShouldPropagate);
         }
 
-        v31 = v30;
+        v30 = v29;
         if (v14)
         {
           atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        data_low = _decodeJPEG(a2, &v31, 0, 1u, v36, a5, v38);
+        data_low = _decodeJPEG(a2, &v30, 0, 1u, v35, a5, v37);
         if (v14)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v14);
         }
 
-        v28 = 4 * (data_low != 0);
+        v27 = 4 * (data_low != 0);
 LABEL_49:
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7861,9 +7880,9 @@ LABEL_49:
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v34.__r_.__value_.__l.__data_);
+          operator delete(v33.__r_.__value_.__l.__data_);
         }
 
         if (v14)
@@ -7877,16 +7896,16 @@ LABEL_49:
 
     else if (!OutputBuffer)
     {
-      v32 = v15;
+      v31 = v15;
       goto LABEL_40;
     }
 
 LABEL_66:
-    v28 = 4;
+    v27 = 4;
     goto LABEL_49;
   }
 
-  v28 = 4;
+  v27 = 4;
   data_low = 4294947634;
   if (v14)
   {
@@ -7895,9 +7914,9 @@ LABEL_54:
   }
 
 LABEL_55:
-  if (v28)
+  if (v27)
   {
-    if (v28 != 4)
+    if (v27 != 4)
     {
       return data_low;
     }
@@ -7905,16 +7924,11 @@ LABEL_55:
 
   else if (a6)
   {
-    *a6 = v38;
-    v38 = 0;
+    *a6 = v37;
+    v37 = 0;
   }
 
 LABEL_69:
-  if (v39)
-  {
-    CFRelease(v39);
-  }
-
   if (v38)
   {
     CFRelease(v38);
@@ -7923,6 +7937,11 @@ LABEL_69:
   if (v37)
   {
     CFRelease(v37);
+  }
+
+  if (v36)
+  {
+    CFRelease(v36);
   }
 
   return data_low;
@@ -8980,7 +8999,7 @@ void virtual thunk toimemstream::~imemstream(imemstream *this)
   JUMPOUT(0x1AC552B90);
 }
 
-void *std::__shared_ptr_emplace<vega::dicom::File>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<imemstream> &,BOOL,std::allocator<vega::dicom::File>,0>(void *a1, uint64_t *a2, unsigned __int8 *a3)
+void *std::__shared_ptr_emplace<vega::dicom::File>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<imemstream> &,BOOL,std::allocator<vega::dicom::File>,0>(void *a1, uint64_t *a2, char *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -9019,7 +9038,7 @@ void std::__shared_ptr_emplace<vega::dicom::File>::__on_zero_shared(void *a1)
   }
 }
 
-uint64_t std::construct_at[abi:ne200100]<vega::dicom::File,std::shared_ptr<imemstream> &,BOOL,vega::dicom::File*>(uint64_t a1, uint64_t *a2, unsigned __int8 *a3)
+uint64_t std::construct_at[abi:ne200100]<vega::dicom::File,std::shared_ptr<imemstream> &,BOOL,vega::dicom::File*>(uint64_t a1, uint64_t *a2, char *a3)
 {
   v4 = a2[1];
   v6 = *a2;
@@ -9072,7 +9091,7 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -9086,19 +9105,19 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
 void vega::dicom::DataSet::element<vega::dictionary::NumberOfFrames>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::NumberOfFrames::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::NumberOfFrames::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::NumberOfFrames>,std::allocator<vega::dicom::Element<vega::dictionary::NumberOfFrames>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -9222,33 +9241,32 @@ void vega::Exception::~Exception(std::runtime_error *this)
   JUMPOUT(0x1AC552B90);
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::IntegerStringManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::IntegerStringManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::IntegerStringManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::IntegerStringManipulator,std::allocator<vega::manipulators::IntegerStringManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A596C584(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -9312,7 +9330,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::Intege
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -9435,7 +9453,7 @@ void vega::manipulators::IntegerStringManipulator::~IntegerStringManipulator(veg
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -9446,7 +9464,7 @@ void vega::manipulators::IntegerStringManipulator::~IntegerStringManipulator(veg
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -9454,25 +9472,13 @@ void vega::manipulators::IntegerStringManipulator::~IntegerStringManipulator(veg
 BOOL vega::manipulators::IntegerStringManipulator::is_valid_for (vega::manipulators::IntegerStringManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA5C0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA5C0, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::IntegerStringManipulator::is_valid_for ();
     v3 = a2;
   }
 
   return vega::Word::operator==(v3, &_MergedGlobals_4);
-}
-
-uint64_t vega::manipulators::PaddedStringManipulator<int>::~PaddedStringManipulator(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    *(a1 + 16) = v2;
-    operator delete(v2);
-  }
-
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
 }
 
 void vega::manipulators::PaddedStringManipulator<int>::~PaddedStringManipulator(uint64_t a1)
@@ -9484,17 +9490,28 @@ void vega::manipulators::PaddedStringManipulator<int>::~PaddedStringManipulator(
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(a1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+}
+
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-void std::__shared_ptr_emplace<vega::dicom::RawValue>::__shared_ptr_emplace[abi:ne200100]<std::string,std::allocator<vega::dicom::RawValue>,0>(void *a1)
+void std::__shared_ptr_emplace<vega::dicom::RawValue>::__shared_ptr_emplace[abi:ne200100]<std::string,std::allocator<vega::dicom::RawValue>,0>(void *a1, uint64_t *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917E00;
-  vega::dicom::RawValue::RawValue();
+  vega::dicom::RawValue::RawValue((a1 + 3), a2);
 }
 
 void std::__shared_ptr_emplace<vega::dicom::RawValue>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -9554,7 +9571,7 @@ void sub_1A596CEAC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 24);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -9568,13 +9585,13 @@ const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<c
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -9700,16 +9717,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -9732,9 +9749,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_1A596D3D4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1A596D3D4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x1AC5528C0](&a10);
+  MEMORY[0x1AC5528C0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();

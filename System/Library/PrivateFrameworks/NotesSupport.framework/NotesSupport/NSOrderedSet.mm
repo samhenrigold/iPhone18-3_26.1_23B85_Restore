@@ -3,7 +3,7 @@
 
 @implementation NSOrderedSet
 
-uint64_t __55__NSOrderedSet_IC__ic_containsObjectMatchingPredicate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__55__NSOrderedSet_IC__ic_containsObjectMatchingPredicate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) evaluateWithObject:a2];
   if (result)

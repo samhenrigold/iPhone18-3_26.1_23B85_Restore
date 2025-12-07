@@ -46,7 +46,7 @@
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBLEAdvertiser peripheralManagerDidStartAdvertising:error:]", 0x1Eu, "Advertiser started\n", v7, v8, v9, v10, v13);
+    LogPrintF(ucat, "[CUBLEAdvertiser peripheralManagerDidStartAdvertising:error:]", 30, "Advertiser started\n", v7, v8, v9, v10, v13);
     goto LABEL_12;
   }
 
@@ -62,7 +62,7 @@
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBLEAdvertiser peripheralManagerDidStartAdvertising:error:]", 0x5Au, "### Advertiser start failed: %{error}\n", v7, v8, v9, v10, errorCopy);
+    LogPrintF(ucat, "[CUBLEAdvertiser peripheralManagerDidStartAdvertising:error:]", 90, "### Advertiser start failed: %{error}\n", v7, v8, v9, v10, errorCopy);
   }
 
 LABEL_9:
@@ -105,7 +105,7 @@ LABEL_12:
       v12 = off_1E73A3018[state];
     }
 
-    LogPrintF(ucat, "[CUBLEAdvertiser peripheralManagerDidUpdateState:]", 0x1Eu, "Bluetooth advertiser state changed: %s\n", v7, v8, v9, v10, v12);
+    LogPrintF(ucat, "[CUBLEAdvertiser peripheralManagerDidUpdateState:]", 30, "Bluetooth advertiser state changed: %s\n", v7, v8, v9, v10, v12);
   }
 
 LABEL_9:
@@ -282,7 +282,7 @@ LABEL_18:
 
 - (id)_advertiseParameters
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -301,7 +301,7 @@ LABEL_18:
   if (v6 - 1 <= 0x19)
   {
     MEMORY[0x1EEE9AC00]();
-    v7 = v15 - ((v6 + 19) & 0xFFFFFFFFFFFFFFF0);
+    v7 = v16 - ((v6 + 19) & 0xFFFFFFFFFFFFFFF0);
     *v7 = v6 + 3;
     *(v7 + 1) = 19711;
     v7[3] = 0;
@@ -327,11 +327,11 @@ LABEL_18:
 
   if ((selfCopy->_advertiseFlags & 4) != 0)
   {
-    [v3 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"kCBAdvDataIsExtended"];
+    v13 = [v3 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"kCBAdvDataIsExtended"];
   }
 
-  v13 = getCBManagerIsPrivilegedDaemonKey();
-  [v3 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v13];
+  v14 = getCBManagerIsPrivilegedDaemonKey(v13);
+  [v3 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v14];
 
   objc_sync_exit(selfCopy);
 
@@ -364,7 +364,7 @@ LABEL_18:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBLEAdvertiser _ensureStopped]", 0x1Eu, "Advertising stop\n", v2, v3, v4, v5, v12);
+      LogPrintF(ucat, "[CUBLEAdvertiser _ensureStopped]", 30, "Advertising stop\n", v2, v3, v4, v5, v12);
     }
 
 LABEL_8:
@@ -416,7 +416,7 @@ LABEL_8:
         v11 = off_1E73A2FA8[v9];
       }
 
-      LogPrintF(ucat, "[CUBLEAdvertiser _ensureStarted]", 0x1Eu, "Deferring until Bluetooth powered: %s\n", v5, v6, v7, v8, v11);
+      LogPrintF(ucat, "[CUBLEAdvertiser _ensureStarted]", 30, "Deferring until Bluetooth powered: %s\n", v5, v6, v7, v8, v11);
       return;
     }
 
@@ -484,7 +484,7 @@ LABEL_39:
             }
 
             v42 = [(CUBLEAdvertiser *)self _advertiseParametersSummary:v23];
-            LogPrintF(v41, "[CUBLEAdvertiser _ensureStarted]", 0x1Eu, "Advertiser update: %@\n", v43, v44, v45, v46, v42);
+            LogPrintF(v41, "[CUBLEAdvertiser _ensureStarted]", 30, "Advertiser update: %@\n", v43, v44, v45, v46, v42);
           }
 
 LABEL_47:
@@ -507,7 +507,7 @@ LABEL_47:
           v39 = self->_ucat;
         }
 
-        LogPrintF(v39, "[CUBLEAdvertiser _ensureStarted]", 0xAu, "Advertiser no changes\n", v27, v28, v29, v30, v47);
+        LogPrintF(v39, "[CUBLEAdvertiser _ensureStarted]", 10, "Advertiser no changes\n", v27, v28, v29, v30, v47);
       }
 
 LABEL_36:
@@ -530,7 +530,7 @@ LABEL_36:
       }
 
       v33 = [(CUBLEAdvertiser *)self _advertiseParametersSummary:_advertiseParameters2];
-      LogPrintF(v32, "[CUBLEAdvertiser _ensureStarted]", 0x1Eu, "Advertiser start: %@\n", v34, v35, v36, v37, v33);
+      LogPrintF(v32, "[CUBLEAdvertiser _ensureStarted]", 30, "Advertiser start: %@\n", v34, v35, v36, v37, v33);
     }
 
 LABEL_34:
@@ -545,7 +545,7 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v12 = [objc_alloc(getCBPeripheralManagerClass[0]()) initWithDelegate:self queue:self->_dispatchQueue];
+  v12 = [objc_alloc(getCBPeripheralManagerClass(0 a2))];
   v13 = self->_peripheralManager;
   self->_peripheralManager = v12;
 
@@ -576,7 +576,7 @@ LABEL_35:
     v38 = self->_ucat;
   }
 
-  LogPrintF(v38, "[CUBLEAdvertiser _ensureStarted]", 0x5Au, "### Create CBPeripheralManager failed\n", v14, v15, v16, v17, v50);
+  LogPrintF(v38, "[CUBLEAdvertiser _ensureStarted]", 90, "### Create CBPeripheralManager failed\n", v14, v15, v16, v17, v50);
 }
 
 - (void)_invalidated
@@ -611,7 +611,7 @@ LABEL_35:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBLEAdvertiser _invalidated]", 0x1Eu, "Invalidated\n", v5, v6, v7, v8, v11);
+      LogPrintF(ucat, "[CUBLEAdvertiser _invalidated]", 30, "Invalidated\n", v5, v6, v7, v8, v11);
     }
   }
 }
@@ -634,9 +634,9 @@ LABEL_35:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __29__CUBLEAdvertiser_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__29__CUBLEAdvertiser_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(result + 32);
+  v10 = result[4];
   if (*(v10 + 25))
   {
     return result;
@@ -644,14 +644,14 @@ uint64_t __29__CUBLEAdvertiser_invalidate__block_invoke(uint64_t result, uint64_
 
   v11 = result;
   *(v10 + 25) = 1;
-  v12 = *(result + 32);
+  v12 = result[4];
   v13 = v12[7];
   if (*v13 <= 30)
   {
     if (*v13 == -1)
     {
       v14 = _LogCategory_Initialize(v13, 0x1Eu);
-      v12 = *(v11 + 32);
+      v12 = v11[4];
       if (!v14)
       {
         goto LABEL_6;
@@ -660,8 +660,8 @@ uint64_t __29__CUBLEAdvertiser_invalidate__block_invoke(uint64_t result, uint64_
       v13 = v12[7];
     }
 
-    LogPrintF(v13, "[CUBLEAdvertiser invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v8);
-    v12 = *(v11 + 32);
+    LogPrintF(v13, "[CUBLEAdvertiser invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v8);
+    v12 = v11[4];
   }
 
 LABEL_6:
@@ -693,7 +693,7 @@ uint64_t __27__CUBLEAdvertiser_activate__block_invoke(uint64_t a1, uint64_t a2, 
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUBLEAdvertiser activate]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v13);
+      LogPrintF(v10, "[CUBLEAdvertiser activate]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v13);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }

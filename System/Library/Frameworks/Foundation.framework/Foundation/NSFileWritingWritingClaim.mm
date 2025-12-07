@@ -485,23 +485,23 @@ void __36__NSFileWritingWritingClaim_granted__block_invoke_5(uint64_t a1, int a2
   free(v6);
 }
 
-uint64_t __36__NSFileWritingWritingClaim_granted__block_invoke_6(uint64_t a1)
+id *__36__NSFileWritingWritingClaim_granted__block_invoke_6(uint64_t a1)
 {
   result = *(a1 + 32);
-  if (*(result + 256))
+  if (result[32])
   {
-    v3 = [result shouldInformProvidersAboutEndOfWriteWithOptions:*(result + 224)];
+    v3 = [result shouldInformProvidersAboutEndOfWriteWithOptions:result[28]];
     result = *(a1 + 32);
     if (v3)
     {
-      [objc_msgSend(*(result + 256) "itemProvider")];
+      [objc_msgSend(result[32] "itemProvider")];
       result = *(a1 + 32);
     }
   }
 
-  if (*(result + 264))
+  if (result[33])
   {
-    result = [result shouldInformProvidersAboutEndOfWriteWithOptions:*(result + 248)];
+    result = [result shouldInformProvidersAboutEndOfWriteWithOptions:result[31]];
     if (result)
     {
       v4 = [*(*(a1 + 32) + 264) itemProvider];

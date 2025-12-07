@@ -35,7 +35,7 @@
 
 - (__CFString)_performDescriptionRetrieval:(void *)retrieval forConnection:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   retrievalCopy = retrieval;
   v7 = retrievalCopy;
@@ -48,38 +48,38 @@
       if ([v9 hasEntitlement:@"com.apple.backboardd.eventResolution"])
       {
         os_unfair_lock_lock(self + 4);
-        v14 = [(BKHIDEventDeliveryManagerServer *)self _deliveryManagerForEstablishedConnection:v7];
-        if (!v14)
+        v13 = [(BKHIDEventDeliveryManagerServer *)self _deliveryManagerForEstablishedConnection:v7];
+        if (!v13)
         {
-          v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"deliveryManager"];
+          v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"deliveryManager"];
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v17 = NSStringFromSelector(sel__performDescriptionRetrieval_forConnection_);
-            v18 = objc_opt_class();
-            v19 = NSStringFromClass(v18);
+            v16 = NSStringFromSelector(sel__performDescriptionRetrieval_forConnection_);
+            v17 = objc_opt_class();
+            v18 = NSStringFromClass(v17);
             *buf = 138544642;
-            v21 = v17;
-            v22 = 2114;
-            v23 = v19;
-            v24 = 2048;
+            v20 = v16;
+            v21 = 2114;
+            v22 = v18;
+            v23 = 2048;
             selfCopy = self;
-            v26 = 2114;
-            v27 = @"BKHIDEventDeliveryManagerServer.m";
-            v28 = 1024;
-            v29 = 280;
-            v30 = 2114;
-            v31 = v16;
+            v25 = 2114;
+            v26 = @"BKHIDEventDeliveryManagerServer.m";
+            v27 = 1024;
+            v28 = 280;
+            v29 = 2114;
+            v30 = v15;
             _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
           }
 
-          [v16 UTF8String];
+          [v15 UTF8String];
           _bs_set_crash_log_message();
           __break(0);
           JUMPOUT(0x223CDDB58);
         }
 
-        v15 = v14;
-        v11 = v5[2](v5, v14);
+        v14 = v13;
+        v11 = v5[2](v5, v13);
         os_unfair_lock_unlock(self + 4);
 
         goto LABEL_8;
@@ -92,7 +92,7 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v21 = v9;
+        v20 = v9;
         _os_log_error_impl(&dword_223CBE000, v10, OS_LOG_TYPE_ERROR, "invalid remote audit token: %{public}@", buf, 0xCu);
       }
     }
@@ -106,42 +106,40 @@ LABEL_8:
   v11 = 0;
 LABEL_9:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)_deliveryManagerForEstablishedConnection:(uint64_t)connection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (connection)
   {
     v4 = [*(connection + 8) userInfoForConnection:v3];
     if (!v4)
     {
-      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"failed to find delivery manager for established connection: %@", v3];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"failed to find delivery manager for established connection: %@", v3];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v8 = NSStringFromSelector(sel__deliveryManagerForEstablishedConnection_);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
+        v7 = NSStringFromSelector(sel__deliveryManagerForEstablishedConnection_);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
         *buf = 138544642;
-        v12 = v8;
-        v13 = 2114;
-        v14 = v10;
-        v15 = 2048;
+        v11 = v7;
+        v12 = 2114;
+        v13 = v9;
+        v14 = 2048;
         connectionCopy = connection;
-        v17 = 2114;
-        v18 = @"BKHIDEventDeliveryManagerServer.m";
-        v19 = 1024;
-        v20 = 288;
-        v21 = 2114;
-        v22 = v7;
+        v16 = 2114;
+        v17 = @"BKHIDEventDeliveryManagerServer.m";
+        v18 = 1024;
+        v19 = 288;
+        v20 = 2114;
+        v21 = v6;
         _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v7 UTF8String];
+      [v6 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x223CDDCECLL);
@@ -152,8 +150,6 @@ LABEL_9:
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -208,15 +204,15 @@ LABEL_9:
 
 - (void)submitRuleChanges:(id)changes
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   currentConnection = [(BKHIDDomainServiceServer *)self->_server currentConnection];
   remoteToken = [currentConnection remoteToken];
 
   if (remoteToken && ![remoteToken isInvalid])
   {
-    v9 = [remoteToken pid];
-    if (v9 <= 0)
+    v8 = [remoteToken pid];
+    if (v8 <= 0)
     {
       v7 = BKLogEventDelivery();
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -225,127 +221,127 @@ LABEL_9:
       }
 
       *buf = 67109120;
-      LODWORD(v55) = v9;
-      v22 = "invalid remote pid: %d";
-      v23 = v7;
-      v24 = 8;
+      LODWORD(v54) = v8;
+      v21 = "invalid remote pid: %d";
+      v22 = v7;
+      v23 = 8;
 LABEL_27:
-      _os_log_error_impl(&dword_223CBE000, v23, OS_LOG_TYPE_ERROR, v22, buf, v24);
+      _os_log_error_impl(&dword_223CBE000, v22, OS_LOG_TYPE_ERROR, v21, buf, v23);
       goto LABEL_4;
     }
 
-    v10 = [(BKHIDEventDeliveryManagerServerRuleChangeAuthority *)self->_ruleChangeAuthority permittedRuleChangeMaskForAuditToken:remoteToken];
+    v9 = [(BKHIDEventDeliveryManagerServerRuleChangeAuthority *)self->_ruleChangeAuthority permittedRuleChangeMaskForAuditToken:remoteToken];
     contentsMask = [changesCopy contentsMask];
-    v12 = contentsMask;
-    v13 = contentsMask & v10;
-    if ((contentsMask & v10) != contentsMask)
+    v11 = contentsMask;
+    v12 = contentsMask & v9;
+    if ((contentsMask & v9) != contentsMask)
     {
-      v14 = BKLogEventDelivery();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = BKLogEventDelivery();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v45 = BSProcessDescriptionForPID();
+        v44 = BSProcessDescriptionForPID();
         *buf = 138543874;
-        v55 = v45;
-        v56 = 1024;
-        *v57 = v12;
-        *&v57[4] = 1024;
-        *&v57[6] = v10;
-        _os_log_error_impl(&dword_223CBE000, v14, OS_LOG_TYPE_ERROR, "process %{public}@ tried to make unauthorized changes (%X allowed:%X) -- ignoring", buf, 0x18u);
+        v54 = v44;
+        v55 = 1024;
+        *v56 = v11;
+        *&v56[4] = 1024;
+        *&v56[6] = v9;
+        _os_log_error_impl(&dword_223CBE000, v13, OS_LOG_TYPE_ERROR, "process %{public}@ tried to make unauthorized changes (%X allowed:%X) -- ignoring", buf, 0x18u);
       }
 
-      LOBYTE(v12) = v13;
+      LOBYTE(v11) = v12;
     }
 
     os_unfair_lock_lock(&self->_lock);
     currentConnection2 = [(BKHIDDomainServiceServer *)self->_server currentConnection];
-    v16 = changesCopy;
-    v17 = currentConnection2;
-    v18 = [(BKHIDEventDeliveryManagerServer *)self _deliveryManagerForEstablishedConnection:v17];
-    if (!v18)
+    v15 = changesCopy;
+    v16 = currentConnection2;
+    v17 = [(BKHIDEventDeliveryManagerServer *)self _deliveryManagerForEstablishedConnection:v16];
+    if (!v17)
     {
-      v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"deliveryManager"];
+      v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"deliveryManager"];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v47 = NSStringFromSelector(sel__lock_submitRuleChanges_validatedContentsMask_connection_);
-        v48 = objc_opt_class();
-        v49 = NSStringFromClass(v48);
+        v46 = NSStringFromSelector(sel__lock_submitRuleChanges_validatedContentsMask_connection_);
+        v47 = objc_opt_class();
+        v48 = NSStringFromClass(v47);
         *buf = 138544642;
-        v55 = v47;
-        v56 = 2114;
-        *v57 = v49;
-        *&v57[8] = 2048;
+        v54 = v46;
+        v55 = 2114;
+        *v56 = v48;
+        *&v56[8] = 2048;
         selfCopy2 = self;
-        v59 = 2114;
-        v60 = @"BKHIDEventDeliveryManagerServer.m";
-        v61 = 1024;
-        v62 = 190;
-        v63 = 2114;
-        v64 = v46;
+        v58 = 2114;
+        v59 = @"BKHIDEventDeliveryManagerServer.m";
+        v60 = 1024;
+        v61 = 190;
+        v62 = 2114;
+        v63 = v45;
         _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v46 UTF8String];
+      [v45 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x223CDE7C8);
     }
 
-    v19 = v18;
-    remoteToken2 = [v17 remoteToken];
-    v21 = [remoteToken2 pid];
+    v18 = v17;
+    remoteToken2 = [v16 remoteToken];
+    v20 = [remoteToken2 pid];
 
-    if (!v21)
+    if (!v20)
     {
-      v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"remotePID"];
+      v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"remotePID"];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v51 = NSStringFromSelector(sel__lock_submitRuleChanges_validatedContentsMask_connection_);
-        v52 = objc_opt_class();
-        v53 = NSStringFromClass(v52);
+        v50 = NSStringFromSelector(sel__lock_submitRuleChanges_validatedContentsMask_connection_);
+        v51 = objc_opt_class();
+        v52 = NSStringFromClass(v51);
         *buf = 138544642;
-        v55 = v51;
-        v56 = 2114;
-        *v57 = v53;
-        *&v57[8] = 2048;
+        v54 = v50;
+        v55 = 2114;
+        *v56 = v52;
+        *&v56[8] = 2048;
         selfCopy2 = self;
-        v59 = 2114;
-        v60 = @"BKHIDEventDeliveryManagerServer.m";
-        v61 = 1024;
-        v62 = 192;
-        v63 = 2114;
-        v64 = v50;
+        v58 = 2114;
+        v59 = @"BKHIDEventDeliveryManagerServer.m";
+        v60 = 1024;
+        v61 = 192;
+        v62 = 2114;
+        v63 = v49;
         _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v50 UTF8String];
+      [v49 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x223CDE8C0);
     }
 
-    if (v12)
+    if (v11)
     {
-      discreteDispatchingRules = [v16 discreteDispatchingRules];
+      discreteDispatchingRules = [v15 discreteDispatchingRules];
       if (discreteDispatchingRules)
       {
-        [v19 setDispatchingRoots:discreteDispatchingRules forClientWithPID:v21];
+        [v18 setDispatchingRoots:discreteDispatchingRules forClientWithPID:v20];
       }
 
       else
       {
-        v26 = BKLogEventDelivery();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v25 = BKLogEventDelivery();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v55) = v21;
-          _os_log_error_impl(&dword_223CBE000, v26, OS_LOG_TYPE_ERROR, "missing dispatch roots from pid:%d", buf, 8u);
+          LODWORD(v54) = v20;
+          _os_log_error_impl(&dword_223CBE000, v25, OS_LOG_TYPE_ERROR, "missing dispatch roots from pid:%d", buf, 8u);
         }
       }
 
-      if ((v12 & 4) == 0)
+      if ((v11 & 4) == 0)
       {
 LABEL_15:
-        if ((v12 & 2) == 0)
+        if ((v11 & 2) == 0)
         {
           goto LABEL_16;
         }
@@ -354,32 +350,32 @@ LABEL_15:
       }
     }
 
-    else if ((v12 & 4) == 0)
+    else if ((v11 & 4) == 0)
     {
       goto LABEL_15;
     }
 
-    keyCommandDispatchingRules = [v16 keyCommandDispatchingRules];
+    keyCommandDispatchingRules = [v15 keyCommandDispatchingRules];
     if (keyCommandDispatchingRules)
     {
-      [v19 setKeyCommandRoots:keyCommandDispatchingRules forClientWithPID:v21];
+      [v18 setKeyCommandRoots:keyCommandDispatchingRules forClientWithPID:v20];
     }
 
     else
     {
-      v28 = BKLogEventDelivery();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = BKLogEventDelivery();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v55) = v21;
-        _os_log_error_impl(&dword_223CBE000, v28, OS_LOG_TYPE_ERROR, "missing key command roots from pid:%d", buf, 8u);
+        LODWORD(v54) = v20;
+        _os_log_error_impl(&dword_223CBE000, v27, OS_LOG_TYPE_ERROR, "missing key command roots from pid:%d", buf, 8u);
       }
     }
 
-    if ((v12 & 2) == 0)
+    if ((v11 & 2) == 0)
     {
 LABEL_16:
-      if ((v12 & 8) == 0)
+      if ((v11 & 8) == 0)
       {
         goto LABEL_17;
       }
@@ -388,27 +384,27 @@ LABEL_16:
     }
 
 LABEL_38:
-    deferringRules = [v16 deferringRules];
+    deferringRules = [v15 deferringRules];
     if (deferringRules)
     {
-      [v19 setDeferringRules:deferringRules forClientWithPID:v21];
+      [v18 setDeferringRules:deferringRules forClientWithPID:v20];
     }
 
     else
     {
-      v30 = BKLogEventDelivery();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = BKLogEventDelivery();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v55) = v21;
-        _os_log_error_impl(&dword_223CBE000, v30, OS_LOG_TYPE_ERROR, "missing deferring rules from pid:%d", buf, 8u);
+        LODWORD(v54) = v20;
+        _os_log_error_impl(&dword_223CBE000, v29, OS_LOG_TYPE_ERROR, "missing deferring rules from pid:%d", buf, 8u);
       }
     }
 
-    if ((v12 & 8) == 0)
+    if ((v11 & 8) == 0)
     {
 LABEL_17:
-      if ((v12 & 0x10) == 0)
+      if ((v11 & 0x10) == 0)
       {
         goto LABEL_18;
       }
@@ -417,30 +413,30 @@ LABEL_17:
     }
 
 LABEL_44:
-    v31 = MEMORY[0x277CBEB98];
-    keyCommandsRegistrations = [v16 keyCommandsRegistrations];
-    v33 = [v31 setWithArray:keyCommandsRegistrations];
+    v30 = MEMORY[0x277CBEB98];
+    keyCommandsRegistrations = [v15 keyCommandsRegistrations];
+    v32 = [v30 setWithArray:keyCommandsRegistrations];
 
-    if (v33)
+    if (v32)
     {
-      [v19 setKeyCommandsRegistrations:v33 forClientWithPID:v21];
+      [v18 setKeyCommandsRegistrations:v32 forClientWithPID:v20];
     }
 
     else
     {
-      v34 = BKLogEventDelivery();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v33 = BKLogEventDelivery();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v55) = v21;
-        _os_log_error_impl(&dword_223CBE000, v34, OS_LOG_TYPE_ERROR, "missing key commands registration from pid:%d", buf, 8u);
+        LODWORD(v54) = v20;
+        _os_log_error_impl(&dword_223CBE000, v33, OS_LOG_TYPE_ERROR, "missing key commands registration from pid:%d", buf, 8u);
       }
     }
 
-    if ((v12 & 0x10) == 0)
+    if ((v11 & 0x10) == 0)
     {
 LABEL_18:
-      if ((v12 & 0x20) == 0)
+      if ((v11 & 0x20) == 0)
       {
         goto LABEL_19;
       }
@@ -449,30 +445,30 @@ LABEL_18:
     }
 
 LABEL_50:
-    v35 = MEMORY[0x277CBEB98];
-    bufferingPredicates = [v16 bufferingPredicates];
-    v37 = [v35 setWithArray:bufferingPredicates];
+    v34 = MEMORY[0x277CBEB98];
+    bufferingPredicates = [v15 bufferingPredicates];
+    v36 = [v34 setWithArray:bufferingPredicates];
 
-    if (v37)
+    if (v36)
     {
-      [v19 setEventBufferingPredicates:v37 forClientWithPID:v21];
+      [v18 setEventBufferingPredicates:v36 forClientWithPID:v20];
     }
 
     else
     {
-      v38 = BKLogEventDelivery();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v37 = BKLogEventDelivery();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v55) = v21;
-        _os_log_error_impl(&dword_223CBE000, v38, OS_LOG_TYPE_ERROR, "missing buffering predicates from pid:%d", buf, 8u);
+        LODWORD(v54) = v20;
+        _os_log_error_impl(&dword_223CBE000, v37, OS_LOG_TYPE_ERROR, "missing buffering predicates from pid:%d", buf, 8u);
       }
     }
 
-    if ((v12 & 0x20) == 0)
+    if ((v11 & 0x20) == 0)
     {
 LABEL_19:
-      if ((v12 & 0x40) == 0)
+      if ((v11 & 0x40) == 0)
       {
         goto LABEL_20;
       }
@@ -481,27 +477,27 @@ LABEL_19:
     }
 
 LABEL_56:
-    constraintAssertions = [v16 constraintAssertions];
+    constraintAssertions = [v15 constraintAssertions];
     if (constraintAssertions)
     {
-      [v19 setConstraintAssertions:constraintAssertions forClientWithPID:v21];
+      [v18 setConstraintAssertions:constraintAssertions forClientWithPID:v20];
     }
 
     else
     {
-      v40 = BKLogEventDelivery();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v39 = BKLogEventDelivery();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v55) = v21;
-        _os_log_error_impl(&dword_223CBE000, v40, OS_LOG_TYPE_ERROR, "missing constraint assertions from pid:%d", buf, 8u);
+        LODWORD(v54) = v20;
+        _os_log_error_impl(&dword_223CBE000, v39, OS_LOG_TYPE_ERROR, "missing constraint assertions from pid:%d", buf, 8u);
       }
     }
 
-    if ((v12 & 0x40) == 0)
+    if ((v11 & 0x40) == 0)
     {
 LABEL_20:
-      if ((v12 & 0x80) == 0)
+      if ((v11 & 0x80) == 0)
       {
 LABEL_74:
 
@@ -510,20 +506,20 @@ LABEL_74:
       }
 
 LABEL_68:
-      selectionRequests = [v16 selectionRequests];
+      selectionRequests = [v15 selectionRequests];
       if (selectionRequests)
       {
-        [v19 requestSelectionChanges:selectionRequests forClientWithPID:v21];
+        [v18 requestSelectionChanges:selectionRequests forClientWithPID:v20];
       }
 
       else
       {
-        v44 = BKLogEventDelivery();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v43 = BKLogEventDelivery();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v55) = v21;
-          _os_log_error_impl(&dword_223CBE000, v44, OS_LOG_TYPE_ERROR, "missing selection requests from pid:%d", buf, 8u);
+          LODWORD(v54) = v20;
+          _os_log_error_impl(&dword_223CBE000, v43, OS_LOG_TYPE_ERROR, "missing selection requests from pid:%d", buf, 8u);
         }
       }
 
@@ -531,24 +527,24 @@ LABEL_68:
     }
 
 LABEL_62:
-    modalityAssertions = [v16 modalityAssertions];
+    modalityAssertions = [v15 modalityAssertions];
     if (modalityAssertions)
     {
-      [v19 setModalityAssertions:modalityAssertions forClientWithPID:v21];
+      [v18 setModalityAssertions:modalityAssertions forClientWithPID:v20];
     }
 
     else
     {
-      v42 = BKLogEventDelivery();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v41 = BKLogEventDelivery();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v55) = v21;
-        _os_log_error_impl(&dword_223CBE000, v42, OS_LOG_TYPE_ERROR, "missing modality assertions from pid:%d", buf, 8u);
+        LODWORD(v54) = v20;
+        _os_log_error_impl(&dword_223CBE000, v41, OS_LOG_TYPE_ERROR, "missing modality assertions from pid:%d", buf, 8u);
       }
     }
 
-    if ((v12 & 0x80) == 0)
+    if ((v11 & 0x80) == 0)
     {
       goto LABEL_74;
     }
@@ -560,22 +556,21 @@ LABEL_62:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v55 = remoteToken;
-    v22 = "invalid remote audit token: %{public}@";
-    v23 = v7;
-    v24 = 12;
+    v54 = remoteToken;
+    v21 = "invalid remote audit token: %{public}@";
+    v22 = v7;
+    v23 = 12;
     goto LABEL_27;
   }
 
 LABEL_4:
 
 LABEL_5:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionDidTerminate:(id)terminate
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   terminateCopy = terminate;
   remoteToken = [terminateCopy remoteToken];
   v6 = [remoteToken pid];
@@ -583,28 +578,28 @@ LABEL_5:
   v7 = [(BKHIDEventDeliveryManagerServer *)self _deliveryManagerForEstablishedConnection:terminateCopy];
   if (!v7)
   {
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"deliveryManager"];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"deliveryManager"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromSelector(a2);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v10 = NSStringFromSelector(a2);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138544642;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2048;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2048;
       selfCopy = self;
-      v21 = 2114;
-      v22 = @"BKHIDEventDeliveryManagerServer.m";
-      v23 = 1024;
-      v24 = 122;
-      v25 = 2114;
-      v26 = v10;
+      v20 = 2114;
+      v21 = @"BKHIDEventDeliveryManagerServer.m";
+      v22 = 1024;
+      v23 = 122;
+      v24 = 2114;
+      v25 = v9;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v10 UTF8String];
+    [v9 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CDEA70);
@@ -612,8 +607,6 @@ LABEL_5:
 
   v8 = v7;
   [v7 processDidTerminate:v6];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rejectIncomingServiceConnection:(id)connection
@@ -624,7 +617,7 @@ LABEL_5:
 
 - (void)acceptIncomingServiceConnection:(id)connection mappedObject:(id)object
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   objectCopy = object;
   v8 = objc_opt_class();
@@ -654,21 +647,21 @@ LABEL_5:
     connectionCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"failed to provide delivery manager for incoming connection: %@", connectionCopy];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v17 = NSStringFromSelector(a2);
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v16 = NSStringFromSelector(a2);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138544642;
-      v22 = v17;
-      v23 = 2114;
-      v24 = v19;
-      v25 = 2048;
+      v21 = v16;
+      v22 = 2114;
+      v23 = v18;
+      v24 = 2048;
       selfCopy = self;
-      v27 = 2114;
-      v28 = @"BKHIDEventDeliveryManagerServer.m";
-      v29 = 1024;
-      v30 = 105;
-      v31 = 2114;
-      v32 = connectionCopy;
+      v26 = 2114;
+      v27 = @"BKHIDEventDeliveryManagerServer.m";
+      v28 = 1024;
+      v29 = 105;
+      v30 = 2114;
+      v31 = connectionCopy;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
@@ -684,37 +677,36 @@ LABEL_5:
   [(BKHIDDomainServiceServer *)server setUserInfo:v11 forConnection:connection];
 
   [domainIncomingServiceConnection acceptConnection];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingServiceConnection:(id)connection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   if (!self->_incomingServiceConnectionHandler)
   {
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_incomingServiceConnectionHandler"];
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_incomingServiceConnectionHandler"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v8 = NSStringFromSelector(a2);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v7 = NSStringFromSelector(a2);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       *buf = 138544642;
-      v13 = v8;
-      v14 = 2114;
-      v15 = v10;
-      v16 = 2048;
+      v12 = v7;
+      v13 = 2114;
+      v14 = v9;
+      v15 = 2048;
       selfCopy = self;
-      v18 = 2114;
-      v19 = @"BKHIDEventDeliveryManagerServer.m";
-      v20 = 1024;
-      v21 = 94;
-      v22 = 2114;
-      v23 = v7;
+      v17 = 2114;
+      v18 = @"BKHIDEventDeliveryManagerServer.m";
+      v19 = 1024;
+      v20 = 94;
+      v21 = 2114;
+      v22 = v6;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v7 UTF8String];
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CDEE7CLL);
@@ -723,8 +715,6 @@ LABEL_5:
   v5 = [[BKHIDIncomingServiceConnection alloc] initWithIncomingServiceConnection:connectionCopy debugMappedObjectName:@"delivery manager"];
   [(BKHIDIncomingServiceConnection *)v5 setHandler:self];
   [(BKHIDEventDeliveryManagerIncomingServiceConnectionHandler *)self->_incomingServiceConnectionHandler handleIncomingDeliveryManagerConnection:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BKHIDEventDeliveryManagerServer)initWithIncomingServiceConnectionHandler:(id)handler ruleChangeAuthority:(id)authority

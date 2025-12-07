@@ -47,26 +47,24 @@
 
 void __50__VSWLKAppInstallationOperation_executionDidBegin__block_invoke(uint64_t a1, double a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = VSDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v13 = a2;
+    v12 = a2;
     _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "VSWLKAppInstallationOperation - Install Progress %f", buf, 0xCu);
   }
 
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
   v6 = [WeakRetained appAdamID];
-  v10[1] = @"VSWLKAppInstallationOperationNotificationUserInfoInstallProgressKey";
-  v11[0] = v6;
+  v9[1] = @"VSWLKAppInstallationOperationNotificationUserInfoInstallProgressKey";
+  v10[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:a2];
-  v11[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [v5 postNotificationName:@"VSWLKAppInstallationOperationProgressDidChange" object:0 userInfo:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __50__VSWLKAppInstallationOperation_executionDidBegin__block_invoke_15(uint64_t a1, void *a2)

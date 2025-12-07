@@ -7,7 +7,7 @@
 
 - (BOOL)run:(id)run mvps:(id)mvps imageSets:(id)sets outputMesh:(id)mesh
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   runCopy = run;
   mvpsCopy = mvps;
   setsCopy = sets;
@@ -18,15 +18,14 @@
     v22 = objc_msgSend_count(mvpsCopy, v19, v20, v21);
     if (v22 == objc_msgSend_count(setsCopy, v23, v24, v25))
     {
-      strcpy(v29, ">wl[PZ[L");
-      v30 = sub_24BD09B90(v29);
+      strcpy(v28, ">wl[PZ[L");
+      v29 = sub_24BD09B90(v28);
       sub_24BE73EB8();
     }
   }
 
   self->success_ = 0;
 
-  v26 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

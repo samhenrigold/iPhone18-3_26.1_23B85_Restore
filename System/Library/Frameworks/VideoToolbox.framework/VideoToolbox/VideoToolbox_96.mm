@@ -150,7 +150,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -1049,7 +1049,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -1664,7 +1664,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -2429,7 +2429,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -2965,7 +2965,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -3404,7 +3404,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 8 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -3778,7 +3778,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -4797,7 +4797,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -5442,7 +5442,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -6346,7 +6346,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -6915,7 +6915,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -7336,7 +7336,7 @@ LABEL_56:
 
   v43 = v42 + v36 - 1;
   v44 = v41 + v27;
-  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
+  if ((v43 * *a4 + 2 * (v41 + v27)) <= *a5 && (!*(v13 + 8) || a4[1] * ((v42 + v36 + 1) / 2 - 1) + 4 * ((v44 + 1 + ((v44 + 1) >> 63)) >> 1) <= a5[1]) && (!*(v13 + 16) || (2 * v44 + a4[2] * v43) <= a5[2]) && (*a8 * (v37 + v42 - 1) + 16 * (v41 + v24)) <= *a9 || (v51 = v39, v52 = v38, v53 = v36, v54 = v37, v56.i64[0] = v30, v57.i64[0] = v29, v58.i64[0] = a9, v59.i64[0] = v27, v60.i64[0] = v24, v61.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v50, v51, v52), v13 = v61.i64[0], v24 = v60.i64[0], v27 = v59.i64[0], v28 = v58.i64[0], v29 = v57.i64[0], v30 = v56.i64[0], v36 = v53, v37 = v54, v39 = v51, v38 = v52, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -7538,6 +7538,8 @@ uint64_t VTTemporalFilterSessionCreate(const __CFAllocator *a1, const __CFString
   {
     if (a9)
     {
+      v15 = a4;
+      v16 = a3;
       *a11 = 0;
       MEMORY[0x193AE3010](&VTTemporalFilterSessionGetTypeID_sRegisterVTTemporalFilterSessionOnce, RegisterVTTemporalFilterSession);
       Instance = _CFRuntimeCreateInstance();
@@ -7555,22 +7557,27 @@ uint64_t VTTemporalFilterSessionCreate(const __CFAllocator *a1, const __CFString
           vtTemporalFilterSessionShouldUseSeparateProcess_featureEnabled = v21 == kCFCompareEqualTo;
           if (v21 == kCFCompareEqualTo)
           {
-            if (VTVideoCodecService_ShouldUseSeparateCodecProcessForEncode())
+            if (VTVideoCodecService_ShouldUseSeparateCodecProcessForEncode(0, v22))
             {
-              if (FigServer_IsVideocodecd())
+              IsVideocodecd = FigServer_IsVideocodecd();
+              if (IsVideocodecd)
               {
                 goto LABEL_8;
               }
             }
 
-            else if (FigServer_IsServerProcess())
+            else
             {
-              goto LABEL_8;
+              IsVideocodecd = FigServer_IsServerProcess();
+              if (IsVideocodecd)
+              {
+                goto LABEL_8;
+              }
             }
 
-            if (!VTShouldRunVideoEncodersInProcess())
+            if (!VTShouldRunVideoEncodersInProcess(IsVideocodecd, v37))
             {
-              TemporalFilterInstance = VTTemporalFilterSessionRemote_Create(v20, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, (v20 + 256));
+              TemporalFilterInstance = VTTemporalFilterSessionRemote_Create(v20, a1, a2, v16, v15, a5, a6, a7, a8, a9, a10, (v20 + 256));
               if (!TemporalFilterInstance)
               {
                 goto LABEL_29;
@@ -7584,18 +7591,7 @@ uint64_t VTTemporalFilterSessionCreate(const __CFAllocator *a1, const __CFString
 LABEL_8:
         if (a2)
         {
-          v22 = CFRetain(a2);
-        }
-
-        else
-        {
-          v22 = 0;
-        }
-
-        *(v20 + 48) = v22;
-        if (a5)
-        {
-          v23 = CFRetain(a5);
+          v23 = CFRetain(a2);
         }
 
         else
@@ -7603,13 +7599,10 @@ LABEL_8:
           v23 = 0;
         }
 
-        *(v20 + 56) = v23;
-        *(v20 + 64) = a3;
-        *(v20 + 68) = a4;
-        *(v20 + 112) = FigSimpleMutexCreate();
-        if (a6)
+        *(v20 + 48) = v23;
+        if (a5)
         {
-          v24 = CFRetain(a6);
+          v24 = CFRetain(a5);
         }
 
         else
@@ -7617,10 +7610,13 @@ LABEL_8:
           v24 = 0;
         }
 
-        *(v20 + 120) = v24;
-        if (a7)
+        *(v20 + 56) = v24;
+        *(v20 + 64) = v16;
+        *(v20 + 68) = v15;
+        *(v20 + 112) = FigSimpleMutexCreate();
+        if (a6)
         {
-          v25 = CFRetain(a7);
+          v25 = CFRetain(a6);
         }
 
         else
@@ -7628,10 +7624,10 @@ LABEL_8:
           v25 = 0;
         }
 
-        *(v20 + 128) = v25;
-        if (a8)
+        *(v20 + 120) = v25;
+        if (a7)
         {
-          v26 = CFRetain(a8);
+          v26 = CFRetain(a7);
         }
 
         else
@@ -7639,15 +7635,26 @@ LABEL_8:
           v26 = 0;
         }
 
-        *(v20 + 136) = v26;
+        *(v20 + 128) = v26;
+        if (a8)
+        {
+          v27 = CFRetain(a8);
+        }
+
+        else
+        {
+          v27 = 0;
+        }
+
+        *(v20 + 136) = v27;
         FigCFDictionaryGetInt32IfPresent();
         if (!*(v20 + 128) || (TemporalFilterInstance = vtTemporalFilterSessionCreatePixelBufferPoolAttributesWithNameSuffix(v20, @"output", &poolAttributes), !TemporalFilterInstance) && (TemporalFilterInstance = CVPixelBufferPoolCreate(a1, poolAttributes, *(v20 + 128), (v20 + 192)), !TemporalFilterInstance))
         {
           *(v20 + 96) = a9;
           *(v20 + 104) = a10;
           *(v20 + 224) = FigSimpleMutexCreate();
-          v28 = CFGetAllocator(v20);
-          Mutable = CFArrayCreateMutable(v28, 0, 0);
+          v29 = CFGetAllocator(v20);
+          Mutable = CFArrayCreateMutable(v29, 0, 0);
           *(v20 + 232) = 1;
           *(v20 + 240) = Mutable;
           *(v20 + 248) = dispatch_group_create();
@@ -7655,22 +7662,22 @@ LABEL_8:
           if (!TemporalFilterInstance)
           {
             *(v20 + 32) = v20;
-            v30 = *(v20 + 24);
-            v31 = *(v20 + 64);
-            v32 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-            if (!v32)
+            v31 = *(v20 + 24);
+            v32 = *(v20 + 64);
+            v33 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+            if (!v33)
             {
-              v33 = 4294954514;
+              v34 = 4294954514;
 LABEL_31:
               CFRelease(v20);
               goto LABEL_32;
             }
 
-            TemporalFilterInstance = v32(v30, v20 + 32, v31);
+            TemporalFilterInstance = v33(v31, v20 + 32, v32);
             if (!TemporalFilterInstance)
             {
 LABEL_29:
-              v33 = 0;
+              v34 = 0;
               *a11 = v20;
               goto LABEL_32;
             }
@@ -7678,32 +7685,32 @@ LABEL_29:
         }
 
 LABEL_41:
-        v33 = TemporalFilterInstance;
+        v34 = TemporalFilterInstance;
         goto LABEL_31;
       }
 
-      VTTemporalFilterSessionCreate_cold_2(&v36);
+      VTTemporalFilterSessionCreate_cold_2(&v39);
     }
 
     else
     {
-      VTTemporalFilterSessionCreate_cold_3(&v36);
+      VTTemporalFilterSessionCreate_cold_3(&v39);
     }
   }
 
   else
   {
-    VTTemporalFilterSessionCreate_cold_4(&v36);
+    VTTemporalFilterSessionCreate_cold_4(&v39);
   }
 
-  v33 = v36;
+  v34 = v39;
 LABEL_32:
   if (poolAttributes)
   {
     CFRelease(poolAttributes);
   }
 
-  return v33;
+  return v34;
 }
 
 uint64_t vtTemporalFilterSessionCreatePixelBufferPoolAttributesWithNameSuffix(uint64_t a1, uint64_t a2, __CFDictionary **a3)
@@ -7751,153 +7758,153 @@ LABEL_9:
   return v13;
 }
 
-void VTTemporalFilterSessionInvalidate(uint64_t a1)
+void VTTemporalFilterSessionInvalidate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1 && !*(a1 + 16))
   {
-    v2 = *(a1 + 256);
-    if (v2)
+    v5 = *(a1 + 256);
+    if (v5)
     {
-      VTCompressionSessionRemote_Invalidate(v2);
+      VTCompressionSessionRemote_Invalidate(v5, a2, a3, a4);
       *(a1 + 16) = 1;
-      v3 = *(a1 + 256);
-      if (!v3)
+      v6 = *(a1 + 256);
+      if (!v6)
       {
         return;
       }
 
-      v4 = (a1 + 256);
-      CFRelease(v3);
+      v7 = (a1 + 256);
+      CFRelease(v6);
       goto LABEL_6;
     }
 
     VTTemporalFilterSessionCompleteFrames(a1);
     *(a1 + 16) = 1;
-    v5 = *(a1 + 24);
-    if (v5)
+    v8 = *(a1 + 24);
+    if (v8)
     {
-      CFRelease(v5);
+      CFRelease(v8);
       *(a1 + 24) = 0;
     }
 
-    v6 = *(a1 + 48);
-    if (v6)
+    v9 = *(a1 + 48);
+    if (v9)
     {
-      CFRelease(v6);
+      CFRelease(v9);
       *(a1 + 48) = 0;
     }
 
-    v7 = *(a1 + 56);
-    if (v7)
+    v10 = *(a1 + 56);
+    if (v10)
     {
-      CFRelease(v7);
+      CFRelease(v10);
       *(a1 + 56) = 0;
     }
 
     FigSimpleMutexDestroy();
     *(a1 + 112) = 0;
-    v8 = *(a1 + 120);
-    if (v8)
-    {
-      CFRelease(v8);
-      *(a1 + 120) = 0;
-    }
-
-    v9 = *(a1 + 128);
-    if (v9)
-    {
-      CFRelease(v9);
-      *(a1 + 128) = 0;
-    }
-
-    v10 = *(a1 + 136);
-    if (v10)
-    {
-      CFRelease(v10);
-      *(a1 + 136) = 0;
-    }
-
-    v11 = *(a1 + 152);
+    v11 = *(a1 + 120);
     if (v11)
     {
       CFRelease(v11);
-      *(a1 + 152) = 0;
+      *(a1 + 120) = 0;
     }
 
-    v12 = *(a1 + 160);
+    v12 = *(a1 + 128);
     if (v12)
     {
       CFRelease(v12);
-      *(a1 + 160) = 0;
+      *(a1 + 128) = 0;
     }
 
-    v13 = *(a1 + 168);
+    v13 = *(a1 + 136);
     if (v13)
     {
       CFRelease(v13);
-      *(a1 + 168) = 0;
+      *(a1 + 136) = 0;
     }
 
-    v14 = *(a1 + 176);
+    v14 = *(a1 + 152);
     if (v14)
     {
       CFRelease(v14);
-      *(a1 + 176) = 0;
+      *(a1 + 152) = 0;
     }
 
-    v15 = *(a1 + 184);
+    v15 = *(a1 + 160);
     if (v15)
     {
       CFRelease(v15);
-      *(a1 + 184) = 0;
+      *(a1 + 160) = 0;
     }
 
-    v16 = *(a1 + 192);
+    v16 = *(a1 + 168);
     if (v16)
     {
       CFRelease(v16);
-      *(a1 + 192) = 0;
+      *(a1 + 168) = 0;
     }
 
-    v17 = *(a1 + 200);
+    v17 = *(a1 + 176);
     if (v17)
     {
       CFRelease(v17);
-      *(a1 + 200) = 0;
+      *(a1 + 176) = 0;
     }
 
-    v18 = *(a1 + 208);
+    v18 = *(a1 + 184);
     if (v18)
     {
       CFRelease(v18);
+      *(a1 + 184) = 0;
+    }
+
+    v19 = *(a1 + 192);
+    if (v19)
+    {
+      CFRelease(v19);
+      *(a1 + 192) = 0;
+    }
+
+    v20 = *(a1 + 200);
+    if (v20)
+    {
+      CFRelease(v20);
+      *(a1 + 200) = 0;
+    }
+
+    v21 = *(a1 + 208);
+    if (v21)
+    {
+      CFRelease(v21);
       *(a1 + 208) = 0;
     }
 
     FigSimpleMutexDestroy();
     *(a1 + 224) = 0;
-    v19 = *(a1 + 240);
-    if (v19)
+    v22 = *(a1 + 240);
+    if (v22)
     {
-      CFRelease(v19);
+      CFRelease(v22);
       *(a1 + 240) = 0;
     }
 
-    v21 = *(a1 + 248);
-    v4 = (a1 + 248);
-    v20 = v21;
-    if (v21)
+    v24 = *(a1 + 248);
+    v7 = (a1 + 248);
+    v23 = v24;
+    if (v24)
     {
-      dispatch_release(v20);
+      dispatch_release(v23);
 LABEL_6:
-      *v4 = 0;
+      *v7 = 0;
     }
   }
 }
 
-uint64_t VTTemporalFilterSessionProcessFrame(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t VTTemporalFilterSessionProcessFrame(uint64_t a1, void *a2, __int128 *a3, uint64_t a4)
 {
   v5 = *a3;
-  v6 = *(a3 + 16);
+  v6 = *(a3 + 2);
   return vtTemporalFilterSessionProcessFrameCommon(a1, a2, 0, &v5, a4);
 }
 
@@ -8064,7 +8071,7 @@ LABEL_42:
           goto LABEL_34;
         }
 
-        if (vtTemporalFilterSessionProcessFrameCommon_cold_2(a1 + 224, cf))
+        if (vtTemporalFilterSessionProcessFrameCommon_cold_2((a1 + 224), cf))
         {
           v12 = 0;
           goto LABEL_12;
@@ -8670,16 +8677,16 @@ uint64_t VTTemporalFilterPluginGetTypeID()
 
 uint64_t VTTemporalFilterSessionCopySupportedPropertyDictionary(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v12 = 0;
   cf = 0;
-  v15 = 0;
-  v16[0] = 0;
+  v16 = 0;
+  v17[0] = 0;
   *a2 = 0;
   if (*(a1 + 16))
   {
-    VTTemporalFilterSessionCopySupportedPropertyDictionary_cold_1(&v14);
-    v10 = v14;
+    VTTemporalFilterSessionCopySupportedPropertyDictionary_cold_1(&v15);
+    v10 = v15;
   }
 
   else
@@ -8688,7 +8695,7 @@ uint64_t VTTemporalFilterSessionCopySupportedPropertyDictionary(uint64_t a1, voi
     if (v3)
     {
 
-      return VTCompressionSessionRemote_CopySupportedPropertyDictionary(v3);
+      return VTCompressionSessionRemote_CopySupportedPropertyDictionary(v3, a2);
     }
 
     v5 = *(a1 + 24);
@@ -8700,13 +8707,13 @@ uint64_t VTTemporalFilterSessionCopySupportedPropertyDictionary(uint64_t a1, voi
       {
         if (cf)
         {
-          v9 = v16;
-          v15 = cf;
+          v9 = v17;
+          v16 = cf;
         }
 
         else
         {
-          v9 = &v15;
+          v9 = &v16;
         }
 
         if (v12)
@@ -8722,7 +8729,7 @@ uint64_t VTTemporalFilterSessionCopySupportedPropertyDictionary(uint64_t a1, voi
     else
     {
       fig_log_get_emitter();
-      v11 = FigSignalErrorAtGM();
+      v11 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v12, cf, v14);
     }
 
     v10 = v11;
@@ -8746,35 +8753,38 @@ uint64_t VTTemporalFilterSessionCopyProperty(uint64_t a1, CFTypeRef cf2, uint64_
   *a4 = 0;
   if (*(a1 + 16))
   {
-    VTTemporalFilterSessionCopyProperty_cold_1(&v20);
-    return v20;
+    VTTemporalFilterSessionCopyProperty_cold_1(&v24);
+    return v24;
   }
 
   if (!*(a1 + 256))
   {
     if (*(a1 + 40) && CFEqual(@"OutputPixelBufferPool", cf2))
     {
-LABEL_7:
-      fig_log_get_emitter();
-
-      return FigSignalErrorAtGM();
+      emitter = fig_log_get_emitter();
+      v10 = v4;
+      v11 = 476;
+      goto LABEL_8;
     }
 
     if (!vtTemporalFilterSessionIsPropertyHandledByVideoToolbox(cf2))
     {
       if (!vtTemporalFilterSessionIsPropertyHandledByTemporalFilter(a1, cf2))
       {
-        goto LABEL_7;
+        emitter = fig_log_get_emitter();
+        v10 = v4;
+        v11 = 531;
+        goto LABEL_8;
       }
 
-      v10 = *(a1 + 24);
-      v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (!v11)
+      v14 = *(a1 + 24);
+      v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (!v15)
       {
         return 4294954514;
       }
 
-      return v11(v10, cf2, a3, a4);
+      return v15(v14, cf2, a3, a4);
     }
 
     if (!CFEqual(@"FilterSourcePixelBufferAttributes", cf2) && !CFEqual(@"FilterDestinationPixelBufferAttributes", cf2) && !CFEqual(@"AllowPixelTransfer", cf2) && !CFEqual(@"OutputPixelBufferPool", cf2) && !CFEqual(@"MaxLookBehind", cf2) && !CFEqual(@"MaxLookAhead", cf2))
@@ -8789,58 +8799,58 @@ LABEL_7:
     if (CFEqual(@"AllowPixelTransfer", cf2))
     {
       result = 0;
-      v12 = *(a1 + 89);
-      v13 = MEMORY[0x1E695E4C0];
-      v14 = MEMORY[0x1E695E4D0];
-LABEL_29:
-      if (v12)
+      v16 = *(a1 + 89);
+      v17 = MEMORY[0x1E695E4C0];
+      v18 = MEMORY[0x1E695E4D0];
+LABEL_30:
+      if (v16)
       {
-        v15 = v13;
+        v19 = v17;
       }
 
       else
       {
-        v15 = v14;
+        v19 = v18;
       }
 
-      v16 = *v15;
-      goto LABEL_53;
+      v20 = *v19;
+      goto LABEL_54;
     }
 
     if (CFEqual(@"OutputPixelBufferPool", cf2))
     {
-      v17 = *(a1 + 208);
-      if (v17)
+      v21 = *(a1 + 208);
+      if (v21)
       {
-LABEL_35:
-        v16 = CFRetain(v17);
-LABEL_52:
-        result = 0;
+LABEL_36:
+        v20 = CFRetain(v21);
 LABEL_53:
-        *a4 = v16;
+        result = 0;
+LABEL_54:
+        *a4 = v20;
         return result;
       }
 
-LABEL_51:
-      v16 = 0;
-      goto LABEL_52;
+LABEL_52:
+      v20 = 0;
+      goto LABEL_53;
     }
 
     if (vtTemporalFilterSessionIsPropertyHandledByTemporalFilter(a1, cf2))
     {
-      v18 = *(a1 + 24);
+      v22 = *(a1 + 24);
 
-      return VTVideoEncoderCopyProperty(v18, cf2, a3, a4);
+      return VTVideoEncoderCopyProperty(v22, cf2, a3, a4);
     }
 
     if (CFEqual(@"FilterSourcePixelBufferAttributes", cf2))
     {
       FigSimpleMutexLock();
-      v19 = *(a1 + 152);
-      if (v19)
+      v23 = *(a1 + 152);
+      if (v23)
       {
-LABEL_44:
-        v19 = CFRetain(v19);
+LABEL_45:
+        v23 = CFRetain(v23);
       }
     }
 
@@ -8850,10 +8860,10 @@ LABEL_44:
       {
         if (CFEqual(@"MaxLookBehind", cf2))
         {
-          v17 = *(a1 + 72);
-          if (v17)
+          v21 = *(a1 + 72);
+          if (v21)
           {
-            goto LABEL_35;
+            goto LABEL_36;
           }
         }
 
@@ -8868,43 +8878,48 @@ LABEL_44:
             }
 
             result = 0;
-            v12 = *(a1 + 88);
-            v13 = MEMORY[0x1E695E4D0];
-            v14 = MEMORY[0x1E695E4C0];
-            goto LABEL_29;
+            v16 = *(a1 + 88);
+            v17 = MEMORY[0x1E695E4D0];
+            v18 = MEMORY[0x1E695E4C0];
+            goto LABEL_30;
           }
 
-          v17 = *(a1 + 80);
-          if (v17)
+          v21 = *(a1 + 80);
+          if (v21)
           {
-            goto LABEL_35;
+            goto LABEL_36;
           }
         }
 
-        goto LABEL_51;
+        goto LABEL_52;
       }
 
       FigSimpleMutexLock();
-      v19 = *(a1 + 160);
-      if (v19)
+      v23 = *(a1 + 160);
+      if (v23)
       {
-        goto LABEL_44;
+        goto LABEL_45;
       }
     }
 
-    *a4 = v19;
+    *a4 = v23;
     FigSimpleMutexUnlock();
     return 0;
   }
 
   if (CFEqual(@"OutputPixelBufferPool", cf2))
   {
-    goto LABEL_7;
+    emitter = fig_log_get_emitter();
+    v10 = v4;
+    v11 = 465;
+LABEL_8:
+
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954396, "<<<< VTTemporalFilterSession >>>>", v11, v10);
   }
 
-  v9 = *(a1 + 256);
+  v13 = *(a1 + 256);
 
-  return VTCompressionSessionRemote_CopyProperty(v9);
+  return VTCompressionSessionRemote_CopyProperty(v13, cf2, a3, a4);
 }
 
 uint64_t VTTemporalFilterSessionSetProperties(uint64_t a1, CFDictionaryRef theDict)
@@ -8986,7 +9001,7 @@ LABEL_15:
 
         v15 = v9;
         fig_log_get_emitter();
-        FigSignalErrorAtGM();
+        FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, v17, context);
       }
 
       v11 = 0;
@@ -9013,7 +9028,7 @@ uint64_t VTTemporalFilterSessionCopySerializableProperties(uint64_t a1, uint64_t
   {
     v5 = *(a1 + 256);
 
-    return VTCompressionSessionRemote_CopySerializableProperties(v5);
+    return VTCompressionSessionRemote_CopySerializableProperties(v5, a2, a3);
   }
 
   else
@@ -9077,9 +9092,9 @@ uint64_t vtTemporalFilterSessionCopyPropertiesHandledByVideoToolbox(CFTypeRef *a
 
   else
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954392, "<<<< VTTemporalFilterSession >>>>", 181, v1);
   }
 }
 
@@ -9233,7 +9248,7 @@ uint64_t __vtTemporalFilterSessionShouldUseSeparateProcess_block_invoke()
   return result;
 }
 
-uint64_t VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode()
+uint64_t VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(uint64_t a1, uint64_t a2)
 {
   if (VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode_onceToken != -1)
   {
@@ -9243,7 +9258,7 @@ uint64_t VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode()
   return VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode_featureEnabled;
 }
 
-BOOL VTVideoCodecService_ShouldUseXPCRemoteDecompressionSession()
+BOOL VTVideoCodecService_ShouldUseXPCRemoteDecompressionSession(uint64_t ShouldUseSeparateCodecProcessForDecode_cold_1, uint64_t a2)
 {
   if (VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode_onceToken != -1)
   {
@@ -9263,7 +9278,7 @@ BOOL VTVideoCodecService_ShouldUseXPCRemoteDecompressionSession()
   return shouldUseMIGInterfaceForRemoteDecompressionSession_featureEnabled != 1;
 }
 
-BOOL VTVideoCodecService_ShouldUseXPCRemoteTileDecompressionSession()
+BOOL VTVideoCodecService_ShouldUseXPCRemoteTileDecompressionSession(uint64_t ShouldUseXPCRemoteTileDecompressionSession_cold_1, uint64_t a2)
 {
   if (VTVideoCodecService_ShouldUseXPCRemoteTileDecompressionSession_onceToken != -1)
   {
@@ -9275,10 +9290,10 @@ BOOL VTVideoCodecService_ShouldUseXPCRemoteTileDecompressionSession()
     return 0;
   }
 
-  return VTVideoCodecService_ShouldUseXPCRemoteDecompressionSession();
+  return VTVideoCodecService_ShouldUseXPCRemoteDecompressionSession(ShouldUseXPCRemoteTileDecompressionSession_cold_1, a2);
 }
 
-uint64_t VTVideoCodecService_ShouldUseOOPDecodeForVideoPlayer()
+uint64_t VTVideoCodecService_ShouldUseOOPDecodeForVideoPlayer(uint64_t a1, uint64_t a2)
 {
   if (VTVideoCodecService_ShouldUseOOPDecodeForVideoPlayer_onceToken != -1)
   {
@@ -9288,7 +9303,7 @@ uint64_t VTVideoCodecService_ShouldUseOOPDecodeForVideoPlayer()
   return VTVideoCodecService_ShouldUseOOPDecodeForVideoPlayer_featureEnabled;
 }
 
-uint64_t VTVideoCodecService_ShouldUseSeparateCodecProcessForEncode()
+uint64_t VTVideoCodecService_ShouldUseSeparateCodecProcessForEncode(uint64_t a1, uint64_t a2)
 {
   if (VTVideoCodecService_ShouldUseSeparateCodecProcessForEncode_onceToken != -1)
   {
@@ -9332,7 +9347,10 @@ uint64_t VTPixelTransferNodeCelesteRotationSetProperty(uint64_t a1, const void *
       }
     }
 
-    goto LABEL_43;
+    emitter = fig_log_get_emitter();
+    v10 = v3;
+    v11 = 516;
+    goto LABEL_44;
   }
 
   if (CFEqual(a2, @"RotationZeroFillData"))
@@ -9344,18 +9362,20 @@ uint64_t VTPixelTransferNodeCelesteRotationSetProperty(uint64_t a1, const void *
 
     if (a3)
     {
-      v9 = CFBooleanGetTypeID();
-      if (v9 == CFGetTypeID(a3))
+      v13 = CFBooleanGetTypeID();
+      if (v13 == CFGetTypeID(a3))
       {
         *(DerivedStorage + 33) = CFBooleanGetValue(a3);
         goto LABEL_40;
       }
     }
 
-LABEL_43:
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v10 = v3;
+    v11 = 527;
+LABEL_44:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<< VTRotationCeleste >>>", v11, v10);
   }
 
   if (CFEqual(a2, @"RotationEnableHistogram"))
@@ -9365,15 +9385,12 @@ LABEL_43:
       a3 = *MEMORY[0x1E695E4C0];
     }
 
-    if (!a3)
+    if (!a3 || (v15 = CFBooleanGetTypeID(), v15 != CFGetTypeID(a3)))
     {
-      goto LABEL_43;
-    }
-
-    v11 = CFBooleanGetTypeID();
-    if (v11 != CFGetTypeID(a3))
-    {
-      goto LABEL_43;
+      emitter = fig_log_get_emitter();
+      v10 = v3;
+      v11 = 538;
+      goto LABEL_44;
     }
 
     *(DerivedStorage + 34) = CFBooleanGetValue(a3);
@@ -9396,15 +9413,12 @@ LABEL_40:
       a3 = *MEMORY[0x1E695E4C0];
     }
 
-    if (!a3)
+    if (!a3 || (v17 = CFBooleanGetTypeID(), v17 != CFGetTypeID(a3)))
     {
-      goto LABEL_43;
-    }
-
-    v13 = CFBooleanGetTypeID();
-    if (v13 != CFGetTypeID(a3))
-    {
-      goto LABEL_43;
+      emitter = fig_log_get_emitter();
+      v10 = v3;
+      v11 = 549;
+      goto LABEL_44;
     }
 
     *(DerivedStorage + 118) = CFBooleanGetValue(a3);
@@ -9418,36 +9432,39 @@ LABEL_40:
 
   if (a3)
   {
-    v15 = CFDictionaryGetTypeID();
-    if (v15 != CFGetTypeID(a3))
+    v19 = CFDictionaryGetTypeID();
+    if (v19 != CFGetTypeID(a3))
     {
-      goto LABEL_43;
+      emitter = fig_log_get_emitter();
+      v10 = v3;
+      v11 = 565;
+      goto LABEL_44;
     }
 
-    v16 = *(MEMORY[0x1E695F050] + 16);
-    v20.origin = *MEMORY[0x1E695F050];
-    v20.size = v16;
-    if (CGRectMakeWithDictionaryRepresentation(a3, &v20))
+    v20 = *(MEMORY[0x1E695F050] + 16);
+    v24.origin = *MEMORY[0x1E695F050];
+    v24.size = v20;
+    if (CGRectMakeWithDictionaryRepresentation(a3, &v24))
     {
-      v20 = CGRectStandardize(v20);
-      v20 = CGRectIntegral(v20);
+      v24 = CGRectStandardize(v24);
+      v24 = CGRectIntegral(v24);
     }
   }
 
   else
   {
-    v17 = *(MEMORY[0x1E695F050] + 16);
-    v20.origin = *MEMORY[0x1E695F050];
-    v20.size = v17;
+    v21 = *(MEMORY[0x1E695F050] + 16);
+    v24.origin = *MEMORY[0x1E695F050];
+    v24.size = v21;
   }
 
-  size = v20.size;
-  *(DerivedStorage + 48) = v20.origin;
+  size = v24.size;
+  *(DerivedStorage + 48) = v24.origin;
   *(DerivedStorage + 64) = size;
-  v19 = *(DerivedStorage + 88);
-  if (v19)
+  v23 = *(DerivedStorage + 88);
+  if (v23)
   {
-    CFRelease(v19);
+    CFRelease(v23);
     *(DerivedStorage + 88) = 0;
   }
 
@@ -9636,23 +9653,23 @@ LABEL_4:
   return v11;
 }
 
-uint64_t vt_Rotate_Celeste(int a1, __CVBuffer *a2, const __CFDictionary *a3, CVPixelBufferRef pixelBuffer, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, const __CFDictionary *a13, int a14, int a15, int a16)
+uint64_t vt_Rotate_Celeste(uint64_t a1, __CVBuffer *a2, const __CFDictionary *a3, CVPixelBufferRef pixelBuffer, const __CFDictionary *a5, int a6, int a7, int a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16)
 {
-  v198 = *MEMORY[0x1E69E9840];
+  v207 = *MEMORY[0x1E69E9840];
   PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
   IOSurface = CVPixelBufferGetIOSurface(a2);
-  v30 = CVPixelBufferGetIOSurface(pixelBuffer);
+  v31 = CVPixelBufferGetIOSurface(pixelBuffer);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v32 = DerivedStorage;
+  v33 = DerivedStorage;
   if (*(DerivedStorage + 34))
   {
-    v33 = *(DerivedStorage + 40);
-    if (v33)
+    v34 = *(DerivedStorage + 40);
+    if (v34)
     {
-      CFRelease(v33);
+      CFRelease(v34);
     }
 
-    *(v32 + 40) = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+    *(v33 + 40) = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
   }
 
   if (!IOSurface)
@@ -9665,75 +9682,73 @@ uint64_t vt_Rotate_Celeste(int a1, __CVBuffer *a2, const __CFDictionary *a3, CVP
       vt_Rotate_Celeste_sAlreadyLogged = 1;
     }
 
-    goto LABEL_50;
+    emitter = fig_log_get_emitter();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954382, "<<< VTRotationCeleste >>>", 1944, v16);
   }
 
-  if (!v30)
+  if (!v31)
   {
     if ((vt_Rotate_Celeste_sAlreadyLogged_11 & 1) == 0)
     {
-      v36 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+      v38 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       vt_Rotate_Celeste_sAlreadyLogged_11 = 1;
     }
 
-LABEL_50:
-    fig_log_get_emitter();
-    return FigSignalErrorAtGM();
+    v75 = fig_log_get_emitter();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v75, 4294954382, "<<< VTRotationCeleste >>>", 1953, v16);
   }
 
-  if (!CFEqual(IOSurface, v30))
+  if (!CFEqual(IOSurface, v31))
   {
     if (!hardwareSupportsNonIntegralSrcOffset())
     {
-      v37 = a5 + a7;
-      a5 = floor(a5);
-      v38 = a6 + a8;
-      a6 = floor(a6);
-      a7 = ceil(v37) - a5;
-      a8 = ceil(v38) - a6;
+      v39 = a9 + a11;
+      a9 = floor(a9);
+      v40 = a10 + a12;
+      a10 = floor(a10);
+      a11 = ceil(v39) - a9;
+      a12 = ceil(v40) - a10;
     }
 
-    v187 = CVPixelBufferGetPixelFormatType(a2);
-    v186 = CVPixelBufferGetPixelFormatType(pixelBuffer);
+    v196 = CVPixelBufferGetPixelFormatType(a2);
+    v195 = CVPixelBufferGetPixelFormatType(pixelBuffer);
     Width = CVPixelBufferGetWidth(a2);
     Height = CVPixelBufferGetHeight(a2);
-    v183 = CVPixelBufferGetWidth(pixelBuffer);
-    v181 = CVPixelBufferGetHeight(pixelBuffer);
-    v163 = PixelFormatType;
-    if (a3 && a13)
+    v192 = CVPixelBufferGetWidth(pixelBuffer);
+    v190 = CVPixelBufferGetHeight(pixelBuffer);
+    v172 = PixelFormatType;
+    if (a3 && a5)
     {
-      v39 = *MEMORY[0x1E695E480];
+      v41 = *MEMORY[0x1E695E480];
       Count = CFDictionaryGetCount(a3);
-      MutableCopy = CFDictionaryCreateMutableCopy(v39, Count, a3);
-      v42 = CFDictionaryGetCount(a13);
-      v43 = CFDictionaryCreateMutableCopy(v39, v42, a13);
-      v44 = *MEMORY[0x1E6965F98];
+      MutableCopy = CFDictionaryCreateMutableCopy(v41, Count, a3);
+      v44 = CFDictionaryGetCount(a5);
+      v45 = CFDictionaryCreateMutableCopy(v41, v44, a5);
+      v46 = *MEMORY[0x1E6965F98];
       CFDictionaryRemoveValue(MutableCopy, *MEMORY[0x1E6965F98]);
-      CFDictionaryRemoveValue(v43, v44);
-      v185 = VTDoColorDictionariesMatch(MutableCopy, v43);
+      CFDictionaryRemoveValue(v45, v46);
+      v194 = VTDoColorDictionariesMatch(MutableCopy, v45);
       if (MutableCopy)
       {
         CFRelease(MutableCopy);
       }
 
-      v45 = v187;
-      if (v43)
+      v47 = v196;
+      if (v45)
       {
-        CFRelease(v43);
+        CFRelease(v45);
       }
     }
 
     else
     {
-      v185 = VTDoColorDictionariesMatch(0, 0);
-      v45 = v187;
+      v194 = VTDoColorDictionariesMatch(0, 0);
+      v47 = v196;
     }
 
-    v46 = 0x1ED6D3000;
-    v47 = &qword_1ED6D4000;
-    v48 = &qword_1ED6D4000;
+    v48 = 0x1ED6D3000;
     v49 = &qword_1ED6D4000;
     v50 = &qword_1ED6D4000;
     v51 = &qword_1ED6D4000;
@@ -9747,19 +9762,21 @@ LABEL_50:
     v59 = &qword_1ED6D4000;
     v60 = &qword_1ED6D4000;
     v61 = &qword_1ED6D4000;
+    v62 = &qword_1ED6D4000;
+    v63 = &qword_1ED6D4000;
     if ((scalerCapabilities_checked_0 & 1) == 0)
     {
-      v62 = *MEMORY[0x1E696CD60];
-      v63 = IOServiceMatching("AppleM2ScalerCSCDriver");
-      MatchingService = IOServiceGetMatchingService(v62, v63);
+      v64 = *MEMORY[0x1E696CD60];
+      v65 = IOServiceMatching("AppleM2ScalerCSCDriver");
+      MatchingService = IOServiceGetMatchingService(v64, v65);
       if (MatchingService)
       {
         *&valuePtr[0] = 0;
-        v65 = MatchingService;
-        v66 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"IOSurfaceAcceleratorCapabilitiesDict", 0, 0);
-        if (v66)
+        v67 = MatchingService;
+        v68 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"IOSurfaceAcceleratorCapabilitiesDict", 0, 0);
+        if (v68)
         {
-          v67 = v66;
+          v69 = v68;
           FigCFDictionaryGetFloatIfPresent();
           FigCFDictionaryGetFloatIfPresent();
           if (FigCFDictionaryGetFloatIfPresent())
@@ -9799,17 +9816,15 @@ LABEL_50:
           FigCFDictionaryGetInt64IfPresent();
           *&valuePtr[0] = 0;
           FigCFDictionaryGetInt64IfPresent();
-          CFRelease(v67);
+          CFRelease(v69);
         }
 
-        IOObjectRelease(v65);
-        v61 = &qword_1ED6D4000;
+        IOObjectRelease(v67);
+        v63 = &qword_1ED6D4000;
       }
 
       scalerCapabilities_checked_0 = 1;
-      v46 = 0x1ED6D3000uLL;
-      v47 = &qword_1ED6D4000;
-      v48 = &qword_1ED6D4000;
+      v48 = 0x1ED6D3000uLL;
       v49 = &qword_1ED6D4000;
       v50 = &qword_1ED6D4000;
       v51 = &qword_1ED6D4000;
@@ -9822,38 +9837,40 @@ LABEL_50:
       v58 = &qword_1ED6D4000;
       v59 = &qword_1ED6D4000;
       v60 = &qword_1ED6D4000;
+      v61 = &qword_1ED6D4000;
+      v62 = &qword_1ED6D4000;
     }
 
-    v172 = *(v51 + 1251);
-    v173 = *(v55 + 1259);
-    v68 = *(v58 + 1264);
-    v69 = *(v59 + 1265);
-    v164 = *&scalerCapabilities_maxVDownscale;
-    v165 = *&scalerCapabilities_maxVUpscale;
-    v166 = *(v46 + 3412);
-    v171 = *&scalerCapabilities_maxHUpscale;
-    v182 = *(v61 + 1267);
-    v184 = *(v60 + 1266);
-    v176 = *(v52 + 1253);
-    v177 = *(v56 + 1261);
-    v174 = *(v54 + 1257);
-    v175 = *(v53 + 1255);
-    v169 = *(v50 + 1249);
-    v170 = *(v47 + 1243);
-    v178 = *(v57 + 1263);
-    v167 = *(v49 + 1247);
-    v168 = *(v48 + 1245);
-    if (v45 > 1530422831)
+    v181 = *(v53 + 1251);
+    v182 = *(v57 + 1259);
+    v70 = *(v60 + 1264);
+    v71 = *(v61 + 1265);
+    v173 = *&scalerCapabilities_maxVDownscale;
+    v174 = *&scalerCapabilities_maxVUpscale;
+    v175 = *(v48 + 3412);
+    v180 = *&scalerCapabilities_maxHUpscale;
+    v191 = *(v63 + 1267);
+    v193 = *(v62 + 1266);
+    v185 = *(v54 + 1253);
+    v186 = *(v58 + 1261);
+    v183 = *(v56 + 1257);
+    v184 = *(v55 + 1255);
+    v178 = *(v52 + 1249);
+    v179 = *(v49 + 1243);
+    v187 = *(v59 + 1263);
+    v176 = *(v51 + 1247);
+    v177 = *(v50 + 1245);
+    if (v47 > 1530422831)
     {
-      if (v45 > 1953903667)
+      if (v47 > 1953903667)
       {
-        if (v45 <= 2021078067)
+        if (v47 <= 2021078067)
         {
-          if (v45 <= 2019963439)
+          if (v47 <= 2019963439)
           {
-            if (v45 <= 2016686639)
+            if (v47 <= 2016686639)
             {
-              if (v45 != 1953903668 && (v187 != 1999843442 || (scalerCapabilities_hasSupportIn_w30r & 1) == 0))
+              if (v47 != 1953903668 && (v196 != 1999843442 || (scalerCapabilities_hasSupportIn_w30r & 1) == 0))
               {
                 goto LABEL_462;
               }
@@ -9861,11 +9878,11 @@ LABEL_50:
               goto LABEL_184;
             }
 
-            if (v45 != 2016686640)
+            if (v47 != 2016686640)
             {
-              if (v45 != 2016686642)
+              if (v47 != 2016686642)
               {
-                if (v187 != 2016687156)
+                if (v196 != 2016687156)
                 {
                   goto LABEL_462;
                 }
@@ -9885,11 +9902,11 @@ LABEL_152:
             goto LABEL_154;
           }
 
-          if (v45 <= 2019963955)
+          if (v47 <= 2019963955)
           {
-            if (v45 != 2019963440)
+            if (v47 != 2019963440)
             {
-              if (v45 != 2019963442)
+              if (v47 != 2019963442)
               {
                 goto LABEL_462;
               }
@@ -9900,11 +9917,11 @@ LABEL_152:
             goto LABEL_154;
           }
 
-          if (v45 != 2019963956)
+          if (v47 != 2019963956)
           {
-            if (v187 != 2021077552)
+            if (v196 != 2021077552)
             {
-              if (v187 != 2021077554)
+              if (v196 != 2021077554)
               {
                 goto LABEL_462;
               }
@@ -9930,60 +9947,60 @@ LABEL_148:
           goto LABEL_184;
         }
 
-        if (v45 <= 2084718400)
+        if (v47 <= 2084718400)
         {
-          if (v45 > 2037741170)
+          if (v47 > 2037741170)
           {
-            if (v45 == 2037741171)
+            if (v47 == 2037741171)
             {
               goto LABEL_184;
             }
 
-            if (v187 == 2084070960)
+            if (v196 == 2084070960)
             {
               goto LABEL_167;
             }
 
-            v72 = 2084075056;
+            v77 = 2084075056;
             goto LABEL_166;
           }
 
-          if (v45 == 2021078068)
+          if (v47 == 2021078068)
           {
             goto LABEL_148;
           }
 
-          v71 = 2037741158;
+          v76 = 2037741158;
           goto LABEL_183;
         }
 
-        if (v45 <= 2088265265)
+        if (v47 <= 2088265265)
         {
-          if (v45 != 2084718401)
+          if (v47 != 2084718401)
           {
-            v74 = 26160;
+            v79 = 26160;
             goto LABEL_158;
           }
         }
 
-        else if (v45 != 2088265266 && v187 != 2088269360)
+        else if (v47 != 2088265266 && v196 != 2088269360)
         {
-          v74 = 30258;
+          v79 = 30258;
 LABEL_158:
-          v72 = v74 | 0x7C780000;
+          v77 = v79 | 0x7C780000;
           goto LABEL_166;
         }
 
 LABEL_167:
-        v77 = CVPixelBufferGetIOSurface(a2);
-        if (v77)
+        v82 = CVPixelBufferGetIOSurface(a2);
+        if (v82)
         {
-          PlaneCount = IOSurfaceGetPlaneCount(v77);
+          PlaneCount = IOSurfaceGetPlaneCount(v82);
           if (PlaneCount)
           {
-            v79 = PlaneCount;
-            v80 = 0;
-            v81 = 1;
+            v84 = PlaneCount;
+            v85 = 0;
+            v86 = 1;
             do
             {
               while (1)
@@ -9994,29 +10011,29 @@ LABEL_167:
                   break;
                 }
 
-                v81 = 0;
-                if (++v80 == v79)
+                v86 = 0;
+                if (++v85 == v84)
                 {
                   goto LABEL_462;
                 }
               }
 
-              v83 = (CompressionTypeOfPlane != 4) | v69;
+              v88 = (CompressionTypeOfPlane != 4) | v71;
               if (CompressionTypeOfPlane == 3)
               {
-                v83 = v68;
+                v88 = v70;
               }
 
-              if ((v83 & 1) == 0)
+              if ((v88 & 1) == 0)
               {
-                v81 = 0;
+                v86 = 0;
               }
 
-              ++v80;
+              ++v85;
             }
 
-            while (v80 != v79);
-            if (!v81)
+            while (v85 != v84);
+            if (!v86)
             {
               goto LABEL_462;
             }
@@ -10026,15 +10043,15 @@ LABEL_167:
         goto LABEL_184;
       }
 
-      if (v45 > 1885745713)
+      if (v47 > 1885745713)
       {
-        if (v45 <= 1937125935)
+        if (v47 <= 1937125935)
         {
-          if (v45 <= 1886859823)
+          if (v47 <= 1886859823)
           {
-            if (v45 != 1885745714)
+            if (v47 != 1885745714)
             {
-              if (v45 != 1885746228)
+              if (v47 != 1885746228)
               {
                 goto LABEL_462;
               }
@@ -10045,11 +10062,11 @@ LABEL_167:
             goto LABEL_135;
           }
 
-          if (v45 != 1886859824)
+          if (v47 != 1886859824)
           {
-            if (v187 != 1886859826)
+            if (v196 != 1886859826)
             {
-              if (v187 != 1886860340)
+              if (v196 != 1886860340)
               {
                 goto LABEL_462;
               }
@@ -10075,47 +10092,47 @@ LABEL_127:
           goto LABEL_184;
         }
 
-        if (v45 <= 1937126451)
+        if (v47 <= 1937126451)
         {
-          if (v45 == 1937125936)
+          if (v47 == 1937125936)
           {
             goto LABEL_184;
           }
 
-          v71 = 1937125938;
+          v76 = 1937125938;
         }
 
         else
         {
-          if (v45 == 1937126452 || v187 == 1953903152)
+          if (v47 == 1937126452 || v196 == 1953903152)
           {
             goto LABEL_184;
           }
 
-          v71 = 1953903154;
+          v76 = 1953903154;
         }
 
 LABEL_183:
-        if (v187 != v71)
+        if (v196 != v76)
         {
           goto LABEL_462;
         }
 
 LABEL_184:
-        v84 = v186;
-        if (v186 <= 1530422831)
+        v89 = v195;
+        if (v195 <= 1530422831)
         {
-          if (v186 > 762869295)
+          if (v195 > 762869295)
           {
-            if (v186 > 875704421)
+            if (v195 > 875704421)
             {
-              if (v186 > 875836533)
+              if (v195 > 875836533)
               {
-                if (v186 > 1278226487)
+                if (v195 > 1278226487)
                 {
-                  if (v186 == 1278226488)
+                  if (v195 == 1278226488)
                   {
-                    if (v167)
+                    if (v176)
                     {
                       goto LABEL_332;
                     }
@@ -10123,9 +10140,9 @@ LABEL_184:
                     goto LABEL_462;
                   }
 
-                  if (v186 == 1278226742)
+                  if (v195 == 1278226742)
                   {
-                    if ((v169 & 1) == 0)
+                    if ((v178 & 1) == 0)
                     {
                       goto LABEL_462;
                     }
@@ -10133,93 +10150,93 @@ LABEL_184:
                     goto LABEL_332;
                   }
 
-                  v88 = 1380411457;
+                  v93 = 1380411457;
                   goto LABEL_314;
                 }
 
-                if (v186 == 875836534)
+                if (v195 == 875836534)
                 {
                   goto LABEL_332;
                 }
 
-                v87 = 1111970369;
+                v92 = 1111970369;
               }
 
-              else if (v186 <= 875704933)
+              else if (v195 <= 875704933)
               {
-                if (v186 == 875704422)
+                if (v195 == 875704422)
                 {
                   goto LABEL_332;
                 }
 
-                v87 = 875704438;
+                v92 = 875704438;
               }
 
               else
               {
-                if (v186 == 875704934 || v186 == 875704950)
+                if (v195 == 875704934 || v195 == 875704950)
                 {
                   goto LABEL_332;
                 }
 
-                v87 = 875836518;
+                v92 = 875836518;
               }
 
               goto LABEL_331;
             }
 
-            if (v186 > 792872768)
+            if (v195 > 792872768)
             {
-              if (v186 <= 796419633)
+              if (v195 <= 796419633)
               {
-                if (v186 == 792872769)
+                if (v195 == 792872769)
                 {
                   goto LABEL_315;
                 }
 
-                v90 = 26160;
+                v95 = 26160;
               }
 
               else
               {
-                if (v186 == 796419634 || v186 == 796423728)
+                if (v195 == 796419634 || v195 == 796423728)
                 {
                   goto LABEL_315;
                 }
 
-                v90 = 30258;
+                v95 = 30258;
               }
 
-              v88 = v90 | 0x2F780000;
+              v93 = v95 | 0x2F780000;
               goto LABEL_313;
             }
 
-            if (v186 > 792225327)
+            if (v195 > 792225327)
             {
-              if (v186 == 792225328)
+              if (v195 == 792225328)
               {
                 goto LABEL_315;
               }
 
-              v88 = 792229424;
+              v93 = 792229424;
               goto LABEL_313;
             }
 
-            if (v186 == 762869296)
+            if (v195 == 762869296)
             {
               goto LABEL_315;
             }
 
-            v93 = 30258;
+            v98 = 30258;
           }
 
           else
           {
-            if (v186 <= 645424687)
+            if (v195 <= 645424687)
             {
-              if (v186 > 645101103)
+              if (v195 > 645101103)
               {
-                if (((v186 - 645101104) > 4 || ((1 << (v186 - 48)) & 0x15) == 0) && ((v186 - 645166640) > 4 || ((1 << (v186 - 48)) & 0x15) == 0))
+                if (((v195 - 645101104) > 4 || ((1 << (v195 - 48)) & 0x15) == 0) && ((v195 - 645166640) > 4 || ((1 << (v195 - 48)) & 0x15) == 0))
                 {
                   goto LABEL_462;
                 }
@@ -10227,51 +10244,51 @@ LABEL_184:
                 goto LABEL_315;
               }
 
-              if (v186 == 641230384 || v186 == 641234480)
+              if (v195 == 641230384 || v195 == 641234480)
               {
 LABEL_315:
-                v95 = CVPixelBufferGetIOSurface(pixelBuffer);
-                if (v95)
+                v100 = CVPixelBufferGetIOSurface(pixelBuffer);
+                if (v100)
                 {
-                  v96 = IOSurfaceGetPlaneCount(v95);
-                  if (v96)
+                  v101 = IOSurfaceGetPlaneCount(v100);
+                  if (v101)
                   {
-                    v97 = v96;
-                    v98 = 0;
-                    v99 = 1;
+                    v102 = v101;
+                    v103 = 0;
+                    v104 = 1;
                     do
                     {
                       while (1)
                       {
-                        v100 = IOSurfaceGetCompressionTypeOfPlane();
-                        if (v100 != 2)
+                        v105 = IOSurfaceGetCompressionTypeOfPlane();
+                        if (v105 != 2)
                         {
                           break;
                         }
 
-                        v99 = 0;
-                        if (++v98 == v97)
+                        v104 = 0;
+                        if (++v103 == v102)
                         {
                           goto LABEL_462;
                         }
                       }
 
-                      v101 = (v100 != 4) | v69;
-                      if (v100 == 3)
+                      v106 = (v105 != 4) | v71;
+                      if (v105 == 3)
                       {
-                        v101 = v68;
+                        v106 = v70;
                       }
 
-                      if ((v101 & 1) == 0)
+                      if ((v106 & 1) == 0)
                       {
-                        v99 = 0;
+                        v104 = 0;
                       }
 
-                      ++v98;
+                      ++v103;
                     }
 
-                    while (v98 != v97);
-                    if (!v99)
+                    while (v103 != v102);
+                    if (!v104)
                     {
                       goto LABEL_462;
                     }
@@ -10281,60 +10298,60 @@ LABEL_315:
                 goto LABEL_332;
               }
 
-              v88 = 641877825;
+              v93 = 641877825;
               goto LABEL_313;
             }
 
-            if (v186 <= 758670895)
+            if (v195 <= 758670895)
             {
-              if (v186 <= 645428783)
+              if (v195 <= 645428783)
               {
-                if (v186 == 645424688)
+                if (v195 == 645424688)
                 {
                   goto LABEL_315;
                 }
 
-                v85 = 26162;
+                v90 = 26162;
               }
 
               else
               {
-                if (v186 == 645428784 || v186 == 645428786)
+                if (v195 == 645428784 || v195 == 645428786)
                 {
                   goto LABEL_315;
                 }
 
-                v85 = 30512;
+                v90 = 30512;
               }
 
-              v88 = v85 | 0x26780000;
+              v93 = v90 | 0x26780000;
               goto LABEL_313;
             }
 
-            if (v186 <= 759318336)
+            if (v195 <= 759318336)
             {
-              if (v186 == 758670896)
+              if (v195 == 758670896)
               {
                 goto LABEL_315;
               }
 
-              v88 = 758674992;
+              v93 = 758674992;
               goto LABEL_313;
             }
 
-            if (v186 == 759318337 || v186 == 762865200)
+            if (v195 == 759318337 || v195 == 762865200)
             {
               goto LABEL_315;
             }
 
-            v93 = 26162;
+            v98 = 26162;
           }
 
-          v88 = v93 | 0x2D780000;
+          v93 = v98 | 0x2D780000;
 LABEL_313:
-          v84 = v186;
+          v89 = v195;
 LABEL_314:
-          if (v84 != v88)
+          if (v89 != v93)
           {
             goto LABEL_462;
           }
@@ -10342,15 +10359,15 @@ LABEL_314:
           goto LABEL_315;
         }
 
-        if (v186 > 1953903667)
+        if (v195 > 1953903667)
         {
-          if (v186 <= 2021078067)
+          if (v195 <= 2021078067)
           {
-            if (v186 <= 2019963439)
+            if (v195 <= 2019963439)
             {
-              if (v186 <= 2016686639)
+              if (v195 <= 2016686639)
               {
-                if (v186 != 1953903668 && (v186 != 1999843442 || (v170 & 1) == 0))
+                if (v195 != 1953903668 && (v195 != 1999843442 || (v179 & 1) == 0))
                 {
                   goto LABEL_462;
                 }
@@ -10358,11 +10375,11 @@ LABEL_314:
                 goto LABEL_332;
               }
 
-              if (v186 != 2016686640)
+              if (v195 != 2016686640)
               {
-                if (v186 != 2016686642)
+                if (v195 != 2016686642)
                 {
-                  if (v186 != 2016687156)
+                  if (v195 != 2016687156)
                   {
                     goto LABEL_462;
                   }
@@ -10371,7 +10388,7 @@ LABEL_314:
                 }
 
 LABEL_299:
-                if ((v176 & 1) == 0)
+                if ((v185 & 1) == 0)
                 {
                   goto LABEL_462;
                 }
@@ -10380,7 +10397,7 @@ LABEL_299:
               }
 
 LABEL_301:
-              if ((v172 & 1) == 0)
+              if ((v181 & 1) == 0)
               {
                 goto LABEL_462;
               }
@@ -10388,39 +10405,39 @@ LABEL_301:
               goto LABEL_332;
             }
 
-            if (v186 <= 2019963955)
+            if (v195 <= 2019963955)
             {
-              if (v186 == 2019963440)
+              if (v195 == 2019963440)
               {
                 goto LABEL_301;
               }
 
-              v91 = 2019963442;
+              v96 = 2019963442;
               goto LABEL_298;
             }
 
-            if (v186 != 2019963956)
+            if (v195 != 2019963956)
             {
-              v84 = v186;
-              if (v186 == 2021077552)
+              v89 = v195;
+              if (v195 == 2021077552)
               {
                 goto LABEL_301;
               }
 
-              v91 = 2021077554;
+              v96 = 2021077554;
 LABEL_298:
-              if (v84 == v91)
+              if (v89 == v96)
               {
                 goto LABEL_299;
               }
 
 LABEL_462:
-              fig_log_get_emitter();
-              return FigSignalErrorAtGM();
+              v143 = fig_log_get_emitter();
+              return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v143, 4294954382, "<<< VTRotationCeleste >>>", 1971, v16);
             }
 
 LABEL_294:
-            if ((v175 & 1) == 0)
+            if ((v184 & 1) == 0)
             {
               goto LABEL_462;
             }
@@ -10428,56 +10445,56 @@ LABEL_294:
             goto LABEL_332;
           }
 
-          if (v186 > 2084718400)
+          if (v195 > 2084718400)
           {
-            if (v186 <= 2088265265)
+            if (v195 <= 2088265265)
             {
-              if (v186 == 2084718401)
+              if (v195 == 2084718401)
               {
                 goto LABEL_315;
               }
 
-              v92 = 26160;
+              v97 = 26160;
             }
 
             else
             {
-              if (v186 == 2088265266 || v186 == 2088269360)
+              if (v195 == 2088265266 || v195 == 2088269360)
               {
                 goto LABEL_315;
               }
 
-              v92 = 30258;
+              v97 = 30258;
             }
 
-            v88 = v92 | 0x7C780000;
+            v93 = v97 | 0x7C780000;
             goto LABEL_313;
           }
 
-          if (v186 > 2037741170)
+          if (v195 > 2037741170)
           {
-            if (v186 == 2037741171)
+            if (v195 == 2037741171)
             {
               goto LABEL_332;
             }
 
-            if (v186 == 2084070960)
+            if (v195 == 2084070960)
             {
               goto LABEL_315;
             }
 
-            v88 = 2084075056;
+            v93 = 2084075056;
             goto LABEL_313;
           }
 
-          if (v186 == 2021078068)
+          if (v195 == 2021078068)
           {
             goto LABEL_294;
           }
 
-          v87 = 2037741158;
+          v92 = 2037741158;
 LABEL_331:
-          if (v186 == v87)
+          if (v195 == v92)
           {
             goto LABEL_332;
           }
@@ -10485,40 +10502,40 @@ LABEL_331:
           goto LABEL_462;
         }
 
-        if (v186 > 1885745713)
+        if (v195 > 1885745713)
         {
-          if (v186 > 1937125935)
+          if (v195 > 1937125935)
           {
-            if (v186 <= 1937126451)
+            if (v195 <= 1937126451)
             {
-              if (v186 == 1937125936)
+              if (v195 == 1937125936)
               {
                 goto LABEL_332;
               }
 
-              v87 = 1937125938;
+              v92 = 1937125938;
             }
 
             else
             {
-              if (v186 == 1937126452 || v186 == 1953903152)
+              if (v195 == 1937126452 || v195 == 1953903152)
               {
                 goto LABEL_332;
               }
 
-              v87 = 1953903154;
+              v92 = 1953903154;
             }
 
             goto LABEL_331;
           }
 
-          if (v186 <= 1886859823)
+          if (v195 <= 1886859823)
           {
-            if (v186 != 1885745714)
+            if (v195 != 1885745714)
             {
-              v86 = 1885746228;
+              v91 = 1885746228;
 LABEL_278:
-              if (v84 != v86)
+              if (v89 != v91)
               {
                 goto LABEL_462;
               }
@@ -10527,7 +10544,7 @@ LABEL_278:
             }
 
 LABEL_281:
-            if ((v173 & 1) == 0)
+            if ((v182 & 1) == 0)
             {
               goto LABEL_462;
             }
@@ -10535,12 +10552,12 @@ LABEL_281:
             goto LABEL_332;
           }
 
-          if (v186 != 1886859824)
+          if (v195 != 1886859824)
           {
-            v84 = v186;
-            if (v186 != 1886859826)
+            v89 = v195;
+            if (v195 != 1886859826)
             {
-              v86 = 1886860340;
+              v91 = 1886860340;
               goto LABEL_278;
             }
 
@@ -10550,33 +10567,12 @@ LABEL_281:
           goto LABEL_272;
         }
 
-        if (v186 > 1647534391)
+        if (v195 > 1647534391)
         {
-          if (v186 <= 1882468913)
+          if (v195 <= 1882468913)
           {
-            if (v186 == 1647534392)
+            if (v195 == 1647534392)
             {
-              if ((v168 & 1) == 0)
-              {
-                goto LABEL_462;
-              }
-
-              goto LABEL_332;
-            }
-
-            v89 = 1882468912;
-          }
-
-          else
-          {
-            if (v186 == 1882468914)
-            {
-              goto LABEL_281;
-            }
-
-            if (v186 == 1882469428)
-            {
-LABEL_279:
               if ((v177 & 1) == 0)
               {
                 goto LABEL_462;
@@ -10585,17 +10581,38 @@ LABEL_279:
               goto LABEL_332;
             }
 
-            v89 = 1885745712;
-            v84 = v186;
+            v94 = 1882468912;
           }
 
-          if (v84 != v89)
+          else
+          {
+            if (v195 == 1882468914)
+            {
+              goto LABEL_281;
+            }
+
+            if (v195 == 1882469428)
+            {
+LABEL_279:
+              if ((v186 & 1) == 0)
+              {
+                goto LABEL_462;
+              }
+
+              goto LABEL_332;
+            }
+
+            v94 = 1885745712;
+            v89 = v195;
+          }
+
+          if (v89 != v94)
           {
             goto LABEL_462;
           }
 
 LABEL_272:
-          if ((v174 & 1) == 0)
+          if ((v183 & 1) == 0)
           {
             goto LABEL_462;
           }
@@ -10603,59 +10620,59 @@ LABEL_272:
           goto LABEL_332;
         }
 
-        if (v186 > 1534617135)
+        if (v195 > 1534617135)
         {
-          if (v186 != 1534617136)
+          if (v195 != 1534617136)
           {
-            v94 = 1534621232;
+            v99 = 1534621232;
 LABEL_266:
-            if (v186 != v94)
+            if (v195 != v99)
             {
               goto LABEL_462;
             }
           }
         }
 
-        else if (v186 != 1530422832)
+        else if (v195 != 1530422832)
         {
-          v94 = 1530426928;
+          v99 = 1530426928;
           goto LABEL_266;
         }
 
-        if ((v178 & 1) == 0)
+        if ((v187 & 1) == 0)
         {
           goto LABEL_462;
         }
 
 LABEL_332:
-        if (!((v185 != 0) | v184 & 1))
+        if (!((v194 != 0) | v193 & 1))
         {
           goto LABEL_462;
         }
 
-        if (v187 == 2037741171 || v187 == 2037741158 || v186 == 2037741171 || v186 == 2037741158)
+        if (v196 == 2037741171 || v196 == 2037741158 || v195 == 2037741171 || v195 == 2037741158)
         {
           if ((hardwareSupportsYUVS_checked & 1) == 0)
           {
-            v102 = *MEMORY[0x1E696CD60];
-            v103 = IOServiceMatching("AppleM2ScalerCSCDriver");
-            v104 = IOServiceGetMatchingService(v102, v103);
-            if (v104)
+            v107 = *MEMORY[0x1E696CD60];
+            v108 = IOServiceMatching("AppleM2ScalerCSCDriver");
+            v109 = IOServiceGetMatchingService(v107, v108);
+            if (v109)
             {
-              v105 = v104;
+              v110 = v109;
               *&valuePtr[0] = 0;
-              v106 = IORegistryEntrySearchCFProperty(v104, "IOService", @"IOSurfaceAcceleratorCapabilitiesDict", 0, 0);
-              if (v106)
+              v111 = IORegistryEntrySearchCFProperty(v109, "IOService", @"IOSurfaceAcceleratorCapabilitiesDict", 0, 0);
+              if (v111)
               {
-                v107 = v106;
-                Value = CFDictionaryGetValue(v106, @"IOSurfaceAcceleratorFormatInInterleaved422");
+                v112 = v111;
+                Value = CFDictionaryGetValue(v111, @"IOSurfaceAcceleratorFormatInInterleaved422");
                 if (Value)
                 {
-                  v109 = Value;
-                  v110 = CFGetTypeID(Value);
-                  if (v110 == CFNumberGetTypeID())
+                  v114 = Value;
+                  v115 = CFGetTypeID(Value);
+                  if (v115 == CFNumberGetTypeID())
                   {
-                    CFNumberGetValue(v109, kCFNumberLongLongType, valuePtr);
+                    CFNumberGetValue(v114, kCFNumberLongLongType, valuePtr);
                     if (*&valuePtr[0])
                     {
                       hardwareSupportsYUVS_hasSupport = 1;
@@ -10663,10 +10680,10 @@ LABEL_332:
                   }
                 }
 
-                CFRelease(v107);
+                CFRelease(v112);
               }
 
-              IOObjectRelease(v105);
+              IOObjectRelease(v110);
             }
 
             hardwareSupportsYUVS_checked = 1;
@@ -10678,532 +10695,536 @@ LABEL_332:
           }
         }
 
-        if (a14 > 179)
+        if (a6 > 179)
         {
-          if (a14 != 270 && a14 != 180)
+          if (a6 != 270 && a6 != 180)
           {
             goto LABEL_462;
           }
         }
 
-        else if (a14 && a14 != 90)
+        else if (a6 && a6 != 90)
         {
           goto LABEL_462;
         }
 
-        v111 = 0;
-        v112 = a10 + a12;
-        v113 = floor(a9);
-        v114 = floor(a10);
-        v115 = ceil(a9 + a11);
-        v116 = ceil(v112);
-        if (v186 > 1886859825)
+        v116 = 0;
+        v117 = a14 + a16;
+        v118 = floor(a13);
+        v119 = floor(a14);
+        v120 = ceil(a13 + a15);
+        v121 = ceil(v117);
+        if (v195 > 1886859825)
         {
-          v117 = v182;
-          if (v186 <= 2019963441)
+          v122 = v191;
+          if (v195 <= 2019963441)
           {
-            if (v186 > 2016686641)
+            if (v195 > 2016686641)
             {
-              v118 = v187;
-              if (v186 == 2016686642)
+              v123 = v196;
+              if (v195 == 2016686642)
               {
                 goto LABEL_381;
               }
 
-              v119 = 2019963440;
+              v124 = 2019963440;
             }
 
             else
             {
-              v118 = v187;
-              if (v186 == 1886859826)
+              v123 = v196;
+              if (v195 == 1886859826)
               {
                 goto LABEL_381;
               }
 
-              v119 = 2016686640;
+              v124 = 2016686640;
             }
           }
 
-          else if (v186 <= 2021077553)
+          else if (v195 <= 2021077553)
           {
-            v118 = v187;
-            if (v186 == 2019963442)
+            v123 = v196;
+            if (v195 == 2019963442)
             {
               goto LABEL_381;
             }
 
-            v119 = 2021077552;
+            v124 = 2021077552;
           }
 
           else
           {
-            v118 = v187;
-            if (v186 == 2021077554 || v186 == 2037741171)
+            v123 = v196;
+            if (v195 == 2021077554 || v195 == 2037741171)
             {
               goto LABEL_381;
             }
 
-            v119 = 2037741158;
+            v124 = 2037741158;
           }
         }
 
         else
         {
-          v117 = v182;
-          if (v186 <= 1882468911)
+          v122 = v191;
+          if (v195 <= 1882468911)
           {
-            if (v186 > 875704933)
+            if (v195 > 875704933)
             {
-              v118 = v187;
-              if (v186 == 875704934)
+              v123 = v196;
+              if (v195 == 875704934)
               {
                 goto LABEL_381;
               }
 
-              v120 = 12918;
+              v125 = 12918;
             }
 
             else
             {
-              v118 = v187;
-              if (v186 == 875704422)
+              v123 = v196;
+              if (v195 == 875704422)
               {
                 goto LABEL_381;
               }
 
-              v120 = 12406;
+              v125 = 12406;
             }
 
-            v119 = v120 | 0x34320000;
+            v124 = v125 | 0x34320000;
           }
 
-          else if (v186 <= 1885745711)
+          else if (v195 <= 1885745711)
           {
-            v118 = v187;
-            if (v186 == 1882468912)
+            v123 = v196;
+            if (v195 == 1882468912)
             {
               goto LABEL_381;
             }
 
-            v119 = 1882468914;
+            v124 = 1882468914;
           }
 
           else
           {
-            v118 = v187;
-            if (v186 == 1885745712 || v186 == 1885745714)
+            v123 = v196;
+            if (v195 == 1885745712 || v195 == 1885745714)
             {
               goto LABEL_381;
             }
 
-            v119 = 1886859824;
+            v124 = 1886859824;
           }
         }
 
-        if (v186 != v119)
+        if (v195 != v124)
         {
           goto LABEL_398;
         }
 
 LABEL_381:
-        v111 = v183 & 1;
-        if (v186 <= 2016686639)
+        v116 = v192 & 1;
+        if (v195 <= 2016686639)
         {
-          if (v186 <= 1882468911)
+          if (v195 <= 1882468911)
           {
-            if (v186 == 875704422)
+            if (v195 == 875704422)
             {
               goto LABEL_396;
             }
 
-            v121 = 875704438;
+            v126 = 875704438;
           }
 
           else
           {
-            if (v186 == 1882468912 || v186 == 1885745712)
+            if (v195 == 1882468912 || v195 == 1885745712)
             {
               goto LABEL_396;
             }
 
-            v121 = 1886859824;
+            v126 = 1886859824;
           }
         }
 
         else
         {
-          if (v186 <= 2019963441)
+          if (v195 <= 2019963441)
           {
-            if (v186 != 2016686640 && v186 != 2016686642)
+            if (v195 != 2016686640 && v195 != 2016686642)
             {
-              v121 = 2019963440;
+              v126 = 2019963440;
               goto LABEL_395;
             }
 
 LABEL_396:
-            if (v181)
+            if (v190)
             {
-              v111 = 1;
+              v116 = 1;
             }
 
 LABEL_398:
-            v122 = v115 - v113;
-            v123 = v116 - v114;
-            if (v117)
+            v127 = v120 - v118;
+            v128 = v121 - v119;
+            if (v122)
             {
               goto LABEL_399;
             }
 
-            if (v118 > 875704949)
+            if (v123 > 875704949)
             {
-              if (v118 != 875704950 && v187 != 2037741171)
+              if (v123 != 875704950 && v196 != 2037741171)
               {
-                v136 = 2037741158;
+                v141 = 2037741158;
 LABEL_437:
-                if (v187 != v136)
+                if (v196 != v141)
                 {
                   goto LABEL_440;
                 }
               }
             }
 
-            else if (v118 != 875704422 && v187 != 875704438)
+            else if (v123 != 875704422 && v196 != 875704438)
             {
-              v136 = 875704934;
+              v141 = 875704934;
               goto LABEL_437;
             }
 
-            if (a7 & 1) != 0 || (a8)
+            if (a11 & 1) != 0 || (a12)
             {
               goto LABEL_462;
             }
 
 LABEL_440:
-            if (v186 > 875704949)
+            if (v195 > 875704949)
             {
-              if (v186 != 875704950 && v186 != 2037741171)
+              if (v195 != 875704950 && v195 != 2037741171)
               {
-                v137 = 2037741158;
+                v142 = 2037741158;
 LABEL_447:
-                if (v186 != v137)
+                if (v195 != v142)
                 {
                   goto LABEL_399;
                 }
               }
             }
 
-            else if (v186 != 875704422 && v186 != 875704438)
+            else if (v195 != 875704422 && v195 != 875704438)
             {
-              v137 = 875704934;
+              v142 = 875704934;
               goto LABEL_447;
             }
 
-            if (v122 & 1) != 0 || (v123)
+            if (v127 & 1) != 0 || (v128)
             {
               goto LABEL_462;
             }
 
 LABEL_399:
-            if (a5 < 0.0 || a5 + a7 > Width || a6 < 0.0 || a6 + a8 > Height || v113 < 0.0 || v113 + v122 > v183 || v114 < 0.0 || v114 + v123 > v181)
+            if (a9 < 0.0 || a9 + a11 > Width || a10 < 0.0 || a10 + a12 > Height || v118 < 0.0 || v118 + v127 > v192 || v119 < 0.0 || v119 + v128 > v190)
             {
               goto LABEL_462;
             }
 
-            v124 = a8;
-            v125 = a7;
-            if (a14 != 90)
+            v129 = a12;
+            v130 = a11;
+            if (a6 != 90)
             {
-              v124 = a8;
-              v125 = a7;
-              if (a14 != 270)
+              v129 = a12;
+              v130 = a11;
+              if (a6 != 270)
               {
-                v124 = a7;
-                v125 = a8;
+                v129 = a11;
+                v130 = a12;
               }
             }
 
-            v126 = v122;
-            v127 = v124;
-            v128 = v126 / v127;
-            if (v128 > v171 || v128 < v166)
+            v131 = v127;
+            v132 = v129;
+            v133 = v131 / v132;
+            if (v133 > v180 || v133 < v175)
             {
               goto LABEL_462;
             }
 
-            v129 = v123;
-            v130 = v125;
-            v131 = v129 / v130;
-            v132 = v131 >= v164 && v131 <= v165;
-            v133 = v132;
-            if (!v133 || !*(v32 + 24) && IOSurfaceAcceleratorCreate())
+            v134 = v128;
+            v135 = v130;
+            v136 = v134 / v135;
+            if (v136 < v173 || v136 > v174)
             {
               goto LABEL_462;
+            }
+
+            if (!*(v33 + 24) && IOSurfaceAcceleratorCreate())
+            {
+              v145 = fig_log_get_emitter();
+              return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v145, 4294954382, "<<< VTRotationCeleste >>>", 1977, v16);
             }
 
             IOSurfaceBindAccel();
-            if (a16)
+            if (a8)
             {
-              v134 = 3;
+              v139 = 3;
             }
 
             else
             {
-              v134 = 2;
+              v139 = 2;
             }
 
-            if (a15)
+            if (a7)
             {
-              v135 = v134;
+              v140 = v139;
             }
 
             else
             {
-              v135 = a16 != 0;
+              v140 = a8 != 0;
             }
 
-            switch(a14)
+            switch(a6)
             {
               case 270:
-                v135 ^= 7u;
+                v140 ^= 7u;
                 break;
               case 180:
-                v135 ^= 3u;
+                v140 ^= 3u;
                 break;
               case 90:
-                v135 |= 4u;
+                v140 |= 4u;
                 break;
             }
 
-            v139 = *(v32 + 88);
-            if (*(v32 + 80) == v135)
+            v146 = *(v33 + 88);
+            if (*(v33 + 80) == v140)
             {
-              if (v139)
+              if (v146)
               {
                 goto LABEL_485;
               }
             }
 
-            else if (v139)
+            else if (v146)
             {
-              CFRelease(v139);
-              *(v32 + 88) = 0;
+              CFRelease(v146);
+              *(v33 + 88) = 0;
             }
 
             Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-            *(v32 + 88) = Mutable;
-            *(v32 + 80) = v135;
-            v141 = *MEMORY[0x1E69A85C0];
-            LODWORD(valuePtr[0]) = v135;
-            v142 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
-            CFDictionarySetValue(Mutable, v141, v142);
-            CFRelease(v142);
-            v143 = MEMORY[0x1E695E4D0];
-            if (*(v32 + 32))
+            *(v33 + 88) = Mutable;
+            *(v33 + 80) = v140;
+            v148 = *MEMORY[0x1E69A85C0];
+            LODWORD(valuePtr[0]) = v140;
+            v149 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
+            CFDictionarySetValue(Mutable, v148, v149);
+            CFRelease(v149);
+            v150 = MEMORY[0x1E695E4D0];
+            if (*(v33 + 32))
             {
-              CFDictionarySetValue(*(v32 + 88), *MEMORY[0x1E69A84D0], *MEMORY[0x1E695E4D0]);
+              CFDictionarySetValue(*(v33 + 88), *MEMORY[0x1E69A84D0], *MEMORY[0x1E695E4D0]);
             }
 
-            if (*(v32 + 33))
+            if (*(v33 + 33))
             {
-              CFDictionarySetValue(*(v32 + 88), *MEMORY[0x1E69A85F8], *v143);
+              CFDictionarySetValue(*(v33 + 88), *MEMORY[0x1E69A85F8], *v150);
             }
 
-            if (*(v32 + 118))
+            if (*(v33 + 118))
             {
-              CFDictionarySetValue(*(v32 + 88), @"ReducedPrecisionFractionalOffsets", *v143);
+              CFDictionarySetValue(*(v33 + 88), @"ReducedPrecisionFractionalOffsets", *v150);
             }
 
-            if (*(v32 + 34))
+            if (*(v33 + 34))
             {
               LODWORD(valuePtr[0]) = 1;
-              if (CGRectIsNull(*(v32 + 48)))
+              if (CGRectIsNull(*(v33 + 48)))
               {
-                v144 = 0;
-                v145 = 0;
-                v146 = v122;
-                v147 = v123;
+                v151 = 0;
+                v152 = 0;
+                v153 = v127;
+                v154 = v128;
               }
 
               else
               {
-                v146 = *(v32 + 64);
-                v147 = *(v32 + 72);
-                v144 = *(v32 + 48);
-                v145 = *(v32 + 56);
+                v153 = *(v33 + 64);
+                v154 = *(v33 + 72);
+                v151 = *(v33 + 48);
+                v152 = *(v33 + 56);
               }
 
-              v148 = *MEMORY[0x1E695E480];
-              v149 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, valuePtr);
-              CFDictionarySetValue(*(v32 + 88), *MEMORY[0x1E69A84E0], v149);
-              CFRelease(v149);
-              LODWORD(v196[0]) = v144;
-              v150 = CFNumberCreate(v148, kCFNumberSInt32Type, v196);
-              CFDictionarySetValue(*(v32 + 88), *MEMORY[0x1E69A84F0], v150);
-              CFRelease(v150);
-              LODWORD(v196[0]) = v145;
-              v151 = CFNumberCreate(v148, kCFNumberSInt32Type, v196);
-              CFDictionarySetValue(*(v32 + 88), *MEMORY[0x1E69A84F8], v151);
-              CFRelease(v151);
-              LODWORD(v196[0]) = v146;
-              v152 = CFNumberCreate(v148, kCFNumberSInt32Type, v196);
-              CFDictionarySetValue(*(v32 + 88), *MEMORY[0x1E69A8500], v152);
-              CFRelease(v152);
-              LODWORD(v196[0]) = v147;
-              v153 = CFNumberCreate(v148, kCFNumberSInt32Type, v196);
-              CFDictionarySetValue(*(v32 + 88), *MEMORY[0x1E69A84E8], v153);
-              CFRelease(v153);
+              v155 = *MEMORY[0x1E695E480];
+              v156 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, valuePtr);
+              CFDictionarySetValue(*(v33 + 88), *MEMORY[0x1E69A84E0], v156);
+              CFRelease(v156);
+              LODWORD(v205[0]) = v151;
+              v157 = CFNumberCreate(v155, kCFNumberSInt32Type, v205);
+              CFDictionarySetValue(*(v33 + 88), *MEMORY[0x1E69A84F0], v157);
+              CFRelease(v157);
+              LODWORD(v205[0]) = v152;
+              v158 = CFNumberCreate(v155, kCFNumberSInt32Type, v205);
+              CFDictionarySetValue(*(v33 + 88), *MEMORY[0x1E69A84F8], v158);
+              CFRelease(v158);
+              LODWORD(v205[0]) = v153;
+              v159 = CFNumberCreate(v155, kCFNumberSInt32Type, v205);
+              CFDictionarySetValue(*(v33 + 88), *MEMORY[0x1E69A8500], v159);
+              CFRelease(v159);
+              LODWORD(v205[0]) = v154;
+              v160 = CFNumberCreate(v155, kCFNumberSInt32Type, v205);
+              CFDictionarySetValue(*(v33 + 88), *MEMORY[0x1E69A84E8], v160);
+              CFRelease(v160);
             }
 
 LABEL_485:
-            v154 = 0;
-            v155 = MEMORY[0x1E6965F30];
-            if (v163 <= 793522279)
+            v161 = 0;
+            v162 = MEMORY[0x1E6965F30];
+            if (v172 <= 793522279)
             {
-              if (v163 <= 759967799)
+              if (v172 <= 759967799)
               {
-                if ((v163 - 642527536) <= 6 && ((1 << (v163 - 48)) & 0x45) != 0 || v163 == 642527288)
+                if ((v172 - 642527536) <= 6 && ((1 << (v172 - 48)) & 0x45) != 0 || v172 == 642527288)
                 {
                   goto LABEL_504;
                 }
 
-                v156 = 642527336;
+                v163 = 642527336;
                 goto LABEL_503;
               }
 
-              if (v163 == 759967800 || v163 == 759967848)
+              if (v172 == 759967800 || v172 == 759967848)
               {
                 goto LABEL_504;
               }
 
-              v157 = 12344;
+              v164 = 12344;
             }
 
             else
             {
-              if (v163 > 1278226735)
+              if (v172 > 1278226735)
               {
-                if ((v163 - 1278226736) <= 6 && ((1 << (v163 - 48)) & 0x45) != 0 || v163 == 2085367912)
+                if ((v172 - 1278226736) <= 6 && ((1 << (v172 - 48)) & 0x45) != 0 || v172 == 2085367912)
                 {
                   goto LABEL_504;
                 }
 
-                v156 = 2085367864;
+                v163 = 2085367864;
                 goto LABEL_503;
               }
 
-              if ((v163 - 1278226488) <= 0x30 && ((1 << (v163 - 56)) & 0x1400000000001) != 0)
+              if ((v172 - 1278226488) <= 0x30 && ((1 << (v172 - 56)) & 0x1400000000001) != 0)
               {
                 goto LABEL_504;
               }
 
-              v157 = 12392;
+              v164 = 12392;
             }
 
-            v156 = v157 | 0x2F4C0000;
+            v163 = v164 | 0x2F4C0000;
 LABEL_503:
-            v158 = 0;
-            if (v163 != v156)
+            v165 = 0;
+            if (v172 != v163)
             {
 LABEL_514:
-              v138 = IOSurfaceAcceleratorTransformSurface();
-              if (v138)
+              v144 = IOSurfaceAcceleratorTransformSurface();
+              if (v144)
               {
-                v192 = 0;
+                v201 = 0;
                 memset(valuePtr, 0, sizeof(valuePtr));
-                v197 = 0;
-                memset(v196, 0, sizeof(v196));
+                v206 = 0;
+                memset(v205, 0, sizeof(v205));
                 IOSurfaceGetBulkAttachments();
                 IOSurfaceGetBulkAttachments();
                 fig_log_get_emitter();
-                FigSignalErrorAtGM();
+                FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v170, v171, v172);
               }
 
               else
               {
-                if (v158)
+                if (v165)
                 {
-                  CVBufferSetAttachment(pixelBuffer, *MEMORY[0x1E6965D88], v158, kCVAttachmentMode_ShouldPropagate);
+                  CVBufferSetAttachment(pixelBuffer, *MEMORY[0x1E6965D88], v165, kCVAttachmentMode_ShouldPropagate);
                 }
 
-                if (v154)
+                if (v161)
                 {
-                  CVBufferSetAttachment(pixelBuffer, *v155, v154, kCVAttachmentMode_ShouldPropagate);
+                  CVBufferSetAttachment(pixelBuffer, *v162, v161, kCVAttachmentMode_ShouldPropagate);
                 }
 
-                if (v111)
+                if (v116)
                 {
-                  vtDuplicateOddPixels(pixelBuffer);
+                  vtDuplicateOddPixels(pixelBuffer, v118, v119, v127, v128);
                 }
 
-                if (*(v32 + 34))
+                if (*(v33 + 34))
                 {
                   bzero(valuePtr, 0x620uLL);
                   if (!IOSurfaceAcceleratorGetHistogram())
                   {
-                    CFDataAppendBytes(*(v32 + 40), bytes, 4 * LODWORD(valuePtr[0]));
-                    CFDataAppendBytes(*(v32 + 40), v194, 4 * LODWORD(valuePtr[0]));
-                    CFDataAppendBytes(*(v32 + 40), v195, 4 * LODWORD(valuePtr[0]));
+                    CFDataAppendBytes(*(v33 + 40), bytes, 4 * LODWORD(valuePtr[0]));
+                    CFDataAppendBytes(*(v33 + 40), v203, 4 * LODWORD(valuePtr[0]));
+                    CFDataAppendBytes(*(v33 + 40), v204, 4 * LODWORD(valuePtr[0]));
                   }
                 }
               }
 
-              if (v158)
+              if (v165)
               {
-                CFRelease(v158);
+                CFRelease(v165);
               }
 
-              if (v154)
+              if (v161)
               {
-                CFRelease(v154);
+                CFRelease(v161);
               }
 
-              return v138;
+              return v144;
             }
 
 LABEL_504:
             LODWORD(valuePtr[0]) = 0;
-            v159 = *MEMORY[0x1E6965D88];
-            v160 = CVBufferCopyAttachment(pixelBuffer, *MEMORY[0x1E6965D88], valuePtr);
-            v158 = v160;
-            if (v160 && LODWORD(valuePtr[0]) == 1)
+            v166 = *MEMORY[0x1E6965D88];
+            v167 = CVBufferCopyAttachment(pixelBuffer, *MEMORY[0x1E6965D88], valuePtr);
+            v165 = v167;
+            if (v167 && LODWORD(valuePtr[0]) == 1)
             {
-              CVBufferRemoveAttachment(pixelBuffer, v159);
+              CVBufferRemoveAttachment(pixelBuffer, v166);
             }
 
-            else if (v160)
+            else if (v167)
             {
-              CFRelease(v160);
-              v158 = 0;
+              CFRelease(v167);
+              v165 = 0;
             }
 
-            v161 = *v155;
-            v162 = CVBufferCopyAttachment(pixelBuffer, *v155, valuePtr);
-            v154 = v162;
-            if (v162 && LODWORD(valuePtr[0]) == 1)
+            v168 = *v162;
+            v169 = CVBufferCopyAttachment(pixelBuffer, *v162, valuePtr);
+            v161 = v169;
+            if (v169 && LODWORD(valuePtr[0]) == 1)
             {
-              CVBufferRemoveAttachment(pixelBuffer, v161);
+              CVBufferRemoveAttachment(pixelBuffer, v168);
             }
 
-            else if (v162)
+            else if (v169)
             {
-              CFRelease(v162);
-              v154 = 0;
+              CFRelease(v169);
+              v161 = 0;
             }
 
             goto LABEL_514;
           }
 
-          if (v186 == 2019963442 || v186 == 2021077554)
+          if (v195 == 2019963442 || v195 == 2021077554)
           {
             goto LABEL_396;
           }
 
-          v121 = 2021077552;
+          v126 = 2021077552;
         }
 
 LABEL_395:
-        if (v186 != v121)
+        if (v195 != v126)
         {
           goto LABEL_398;
         }
@@ -11211,11 +11232,11 @@ LABEL_395:
         goto LABEL_396;
       }
 
-      if (v45 > 1647534391)
+      if (v47 > 1647534391)
       {
-        if (v45 <= 1882468913)
+        if (v47 <= 1882468913)
         {
-          if (v45 == 1647534392)
+          if (v47 == 1647534392)
           {
             if ((scalerCapabilities_hasSupportIn_b3a8 & 1) == 0)
             {
@@ -11225,7 +11246,7 @@ LABEL_395:
             goto LABEL_184;
           }
 
-          if (v45 != 1882468912)
+          if (v47 != 1882468912)
           {
             goto LABEL_462;
           }
@@ -11233,12 +11254,12 @@ LABEL_395:
 
         else
         {
-          if (v45 == 1882468914)
+          if (v47 == 1882468914)
           {
             goto LABEL_135;
           }
 
-          if (v45 == 1882469428)
+          if (v47 == 1882469428)
           {
 LABEL_133:
             if ((scalerCapabilities_hasSupportIn_2planePacked10bit444 & 1) == 0)
@@ -11249,7 +11270,7 @@ LABEL_133:
             goto LABEL_184;
           }
 
-          if (v187 != 1885745712)
+          if (v196 != 1885745712)
           {
             goto LABEL_462;
           }
@@ -11258,22 +11279,22 @@ LABEL_133:
         goto LABEL_127;
       }
 
-      if (v45 > 1534617135)
+      if (v47 > 1534617135)
       {
-        if (v45 != 1534617136)
+        if (v47 != 1534617136)
         {
-          v76 = 1534621232;
+          v81 = 1534621232;
 LABEL_122:
-          if (v187 != v76)
+          if (v196 != v81)
           {
             goto LABEL_462;
           }
         }
       }
 
-      else if (v45 != 1530422832)
+      else if (v47 != 1530422832)
       {
-        v76 = 1530426928;
+        v81 = 1530426928;
         goto LABEL_122;
       }
 
@@ -11285,15 +11306,15 @@ LABEL_122:
       goto LABEL_184;
     }
 
-    if (v45 > 762869295)
+    if (v47 > 762869295)
     {
-      if (v45 > 875704421)
+      if (v47 > 875704421)
       {
-        if (v45 > 875836533)
+        if (v47 > 875836533)
         {
-          if (v45 > 1278226487)
+          if (v47 > 1278226487)
           {
-            if (v45 == 1278226488)
+            if (v47 == 1278226488)
             {
               if ((scalerCapabilities_hasSupportIn_L008 & 1) == 0)
               {
@@ -11303,7 +11324,7 @@ LABEL_122:
               goto LABEL_184;
             }
 
-            if (v45 == 1278226742)
+            if (v47 == 1278226742)
             {
               if ((scalerCapabilities_hasSupportIn_L016 & 1) == 0)
               {
@@ -11313,7 +11334,7 @@ LABEL_122:
               goto LABEL_184;
             }
 
-            if (v45 != 1380411457)
+            if (v47 != 1380411457)
             {
               goto LABEL_462;
             }
@@ -11321,96 +11342,96 @@ LABEL_122:
             goto LABEL_167;
           }
 
-          if (v45 == 875836534)
+          if (v47 == 875836534)
           {
             goto LABEL_184;
           }
 
-          v71 = 1111970369;
+          v76 = 1111970369;
         }
 
-        else if (v45 <= 875704933)
+        else if (v47 <= 875704933)
         {
-          if (v45 == 875704422)
+          if (v47 == 875704422)
           {
             goto LABEL_184;
           }
 
-          v71 = 875704438;
+          v76 = 875704438;
         }
 
         else
         {
-          if (v45 == 875704934 || v187 == 875704950)
+          if (v47 == 875704934 || v196 == 875704950)
           {
             goto LABEL_184;
           }
 
-          v71 = 875836518;
+          v76 = 875836518;
         }
 
         goto LABEL_183;
       }
 
-      if (v45 > 792872768)
+      if (v47 > 792872768)
       {
-        if (v45 <= 796419633)
+        if (v47 <= 796419633)
         {
-          if (v45 == 792872769)
+          if (v47 == 792872769)
           {
             goto LABEL_167;
           }
 
-          v73 = 26160;
+          v78 = 26160;
         }
 
         else
         {
-          if (v45 == 796419634 || v187 == 796423728)
+          if (v47 == 796419634 || v196 == 796423728)
           {
             goto LABEL_167;
           }
 
-          v73 = 30258;
+          v78 = 30258;
         }
 
-        v72 = v73 | 0x2F780000;
+        v77 = v78 | 0x2F780000;
         goto LABEL_166;
       }
 
-      if (v45 > 792225327)
+      if (v47 > 792225327)
       {
-        if (v45 != 792225328)
+        if (v47 != 792225328)
         {
-          v72 = 792229424;
+          v77 = 792229424;
           goto LABEL_166;
         }
 
         goto LABEL_167;
       }
 
-      if (v45 == 762869296)
+      if (v47 == 762869296)
       {
         goto LABEL_167;
       }
 
-      v75 = 30258;
+      v80 = 30258;
     }
 
     else
     {
-      if (v45 <= 645424687)
+      if (v47 <= 645424687)
       {
-        if (v45 <= 645101103)
+        if (v47 <= 645101103)
         {
-          if (v45 != 641230384 && v187 != 641234480)
+          if (v47 != 641230384 && v196 != 641234480)
           {
-            v72 = 641877825;
+            v77 = 641877825;
             goto LABEL_166;
           }
         }
 
-        else if (((v45 - 645101104) > 4 || ((1 << (v45 - 48)) & 0x15) == 0) && (v187 - 645166640 > 4 || ((1 << (v187 - 48)) & 0x15) == 0))
+        else if (((v47 - 645101104) > 4 || ((1 << (v47 - 48)) & 0x15) == 0) && (v196 - 645166640 > 4 || ((1 << (v196 - 48)) & 0x15) == 0))
         {
           goto LABEL_462;
         }
@@ -11418,42 +11439,42 @@ LABEL_122:
         goto LABEL_167;
       }
 
-      if (v45 <= 758670895)
+      if (v47 <= 758670895)
       {
-        if (v45 <= 645428783)
+        if (v47 <= 645428783)
         {
-          if (v45 == 645424688)
+          if (v47 == 645424688)
           {
             goto LABEL_167;
           }
 
-          v70 = 26162;
+          v72 = 26162;
         }
 
         else
         {
-          if (v45 == 645428784 || v187 == 645428786)
+          if (v47 == 645428784 || v196 == 645428786)
           {
             goto LABEL_167;
           }
 
-          v70 = 30512;
+          v72 = 30512;
         }
 
-        v72 = v70 | 0x26780000;
+        v77 = v72 | 0x26780000;
         goto LABEL_166;
       }
 
-      if (v45 <= 759318336)
+      if (v47 <= 759318336)
       {
-        if (v45 == 758670896)
+        if (v47 == 758670896)
         {
           goto LABEL_167;
         }
 
-        v72 = 758674992;
+        v77 = 758674992;
 LABEL_166:
-        if (v187 != v72)
+        if (v196 != v77)
         {
           goto LABEL_462;
         }
@@ -11461,19 +11482,19 @@ LABEL_166:
         goto LABEL_167;
       }
 
-      if (v45 == 759318337 || v187 == 762865200)
+      if (v47 == 759318337 || v196 == 762865200)
       {
         goto LABEL_167;
       }
 
-      v75 = 26162;
+      v80 = 26162;
     }
 
-    v72 = v75 | 0x2D780000;
+    v77 = v80 | 0x2D780000;
     goto LABEL_166;
   }
 
-  fig_log_get_emitter();
+  v35 = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35, 4294954382, "<<< VTRotationCeleste >>>", 1959, v16);
 }

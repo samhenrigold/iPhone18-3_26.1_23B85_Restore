@@ -119,10 +119,10 @@
   *v13 = 0;
   if (is360)
   {
-    PAEGenerateNoise(1.0, num, (3 * height / 2), *&height, type, mono, animate, seed);
+    PAEGenerateNoise(3 * height / 2, height, type, mono, animate, seed, 1.0, num);
   }
 
-  PAEGenerateNoise(1.0, num, *&width, *&height, type, mono, animate, seed);
+  PAEGenerateNoise(width, height, type, mono, animate, seed, 1.0, num);
 }
 
 - (BOOL)canThrowRenderOutput:(id)output withInput:(id)input withInfo:(id *)info
@@ -133,30 +133,30 @@
     v10 = v9;
     if ([input imageType] == 3)
     {
-      v58 = 0.33;
-      [v10 getFloatValue:&v58 fromParm:1 atFxTime:info->var0.var1];
-      if (v58 == 0.0)
+      v40 = 0.33;
+      [v10 getFloatValue:&v40 fromParm:1 atFxTime:info->var0.var1];
+      if (v40 == 0.0)
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input, v40);
         }
 
         else
         {
-          *&v52[0] = 0;
+          *&v34[0] = 0;
         }
 
-        [output setHeliumRef:v52];
-        if (*&v52[0])
+        [output setHeliumRef:v34];
+        if (*&v34[0])
         {
-          (*(**&v52[0] + 24))(*&v52[0]);
+          (*(**&v34[0] + 24))(*&v34[0]);
         }
       }
 
       else
       {
-        v11 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735F2C8, v58];
+        v11 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735F2C8, v40];
         if (v11)
         {
           v12 = [v11 versionAtCreation] == 0;
@@ -167,176 +167,175 @@
           v12 = 0;
         }
 
-        v57 = 1;
-        [v10 getIntValue:&v57 fromParm:2 atFxTime:info->var0.var1];
-        v56 = 0;
-        [v10 getBoolValue:&v56 fromParm:3 atFxTime:info->var0.var1];
-        v55 = 1;
-        [v10 getBoolValue:&v55 fromParm:5 atFxTime:info->var0.var1];
-        v54 = 25;
-        [v10 getIntValue:&v54 fromParm:6 atFxTime:info->var0.var1];
-        v53 = 0;
-        [v10 getIntValue:&v53 fromParm:4 atFxTime:info->var0.var1];
-        [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input];
-        [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-        [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
+        v39 = 1;
+        [v10 getIntValue:&v39 fromParm:2 atFxTime:info->var0.var1];
+        v38 = 0;
+        [v10 getBoolValue:&v38 fromParm:3 atFxTime:info->var0.var1];
+        v37 = 1;
+        [v10 getBoolValue:&v37 fromParm:5 atFxTime:info->var0.var1];
+        v36 = 25;
+        [v10 getIntValue:&v36 fromParm:6 atFxTime:info->var0.var1];
+        v35 = 0;
+        [v10 getIntValue:&v35 fromParm:4 atFxTime:info->var0.var1];
+        objc_msgSend_getInversePixelTransformForImage_(self);
+        objc_msgSend_getInversePixelTransformForImage_(self);
+        objc_msgSend_getPixelTransformForImage_(self);
         [(PAESharedDefaultBase *)self frameFromFxTime:info->var0.var1 forPlugIn:self];
         v14 = v13;
-        width = [input width];
-        height = [input height];
-        v34[5] = v52[5];
-        v34[6] = v52[6];
-        v34[7] = v52[7];
-        v34[1] = v52[1];
-        v34[2] = v52[2];
-        v34[3] = v52[3];
-        v34[4] = v52[4];
-        v33[5] = v41;
-        v33[6] = v42;
-        v33[7] = v43;
-        v34[0] = v52[0];
-        v33[1] = v37;
-        v33[2] = v38;
-        v33[3] = v39;
-        v33[4] = v40;
-        v32[2] = v46;
-        v32[3] = v47;
-        v32[0] = v44;
-        v32[1] = v45;
-        v32[7] = v51;
-        v33[0] = v36;
-        v32[5] = v49;
-        v32[6] = v50;
-        v32[4] = v48;
-        LOBYTE(v28) = 0;
-        [(PAEAddNoise *)self noiseNodeWithWidth:width height:height noiseType:v57 isMono:v56 frameNum:v55 autoAnimate:v54 randomSeed:v14 inputPixelTransform:v34 outputPixelTransform:v33 outputInvPixelTransform:v32 is360:v28];
+        [input width];
+        [input height];
+        v31[5] = v34[5];
+        v31[6] = v34[6];
+        v31[7] = v34[7];
+        v31[1] = v34[1];
+        v31[2] = v34[2];
+        v31[3] = v34[3];
+        v31[4] = v34[4];
+        v30[5] = v33[5];
+        v30[6] = v33[6];
+        v30[7] = v33[7];
+        v31[0] = v34[0];
+        v30[1] = v33[1];
+        v30[2] = v33[2];
+        v30[3] = v33[3];
+        v30[4] = v33[4];
+        v29[2] = v33[10];
+        v29[3] = v33[11];
+        v29[0] = v33[8];
+        v29[1] = v33[9];
+        v29[7] = v33[15];
+        v30[0] = v33[0];
+        v29[5] = v33[13];
+        v29[6] = v33[14];
+        v29[4] = v33[12];
+        objc_msgSend_noiseNodeWithWidth_height_noiseType_isMono_frameNum_autoAnimate_randomSeed_inputPixelTransform_outputPixelTransform_outputInvPixelTransform_is360_(self, v14, v31, v30, v29, 0);
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         else
         {
-          v31 = 0;
+          v28 = 0;
         }
 
         [input width];
         [input height];
-        v17 = HGObject::operator new(0x220uLL);
-        HGHWBlendFlipped::HGHWBlendFlipped(v17);
-        v30 = v17;
+        v15 = HGObject::operator new(0x220uLL);
+        HGHWBlendFlipped::HGHWBlendFlipped(v15);
+        v27 = v15;
         [(PAESharedDefaultBase *)self getBlendingGamma];
-        (*(*v17 + 96))(v17, 5);
+        (*(*v15 + 96))(v15, 5);
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         else
         {
-          v29 = 0;
+          v26 = 0;
         }
 
-        if (v53)
+        if (v35)
         {
-          v18 = HGObject::operator new(0x1A0uLL);
-          HgcAddNoise::HgcAddNoise(v18);
-          if (v18)
+          v16 = HGObject::operator new(0x1A0uLL);
+          HgcAddNoise::HgcAddNoise(v16);
+          if (v16)
           {
-            (*(*v18 + 16))(v18);
+            (*(*v16 + 16))(v16);
           }
 
-          (*(*v18 + 120))(v18, 0, v35);
-          (*(*v18 + 120))(v18, 1, v31);
+          (*(*v16 + 120))(v16, 0, v32);
+          (*(*v16 + 120))(v16, 1, v28);
           if (v12)
           {
-            v21 = v58;
-            (*(*v18 + 96))(v18, 0, v21, v21, v21, 1.0);
-            v22 = (*v18 + 96);
-            v23.n128_u64[0] = 0;
-            if (v53)
+            v19 = v40;
+            (*(*v16 + 96))(v16, 0, v19, v19, v19, 1.0);
+            v20 = (*v16 + 96);
+            v21.n128_u64[0] = 0;
+            if (v35)
             {
-              v23.n128_f32[0] = 1.0;
+              v21.n128_f32[0] = 1.0;
             }
           }
 
           else
           {
-            (*(*v18 + 96))(v18, 0, 1.0, 1.0, 1.0, 1.0);
-            v22 = (*v18 + 96);
-            v23.n128_u64[0] = 0;
-            if ((v53 - 2) < 5)
+            (*(*v16 + 96))(v16, 0, 1.0, 1.0, 1.0, 1.0);
+            v20 = (*v16 + 96);
+            v21.n128_u64[0] = 0;
+            if ((v35 - 2) < 5)
             {
-              v23.n128_f32[0] = 1.0;
+              v21.n128_f32[0] = 1.0;
             }
           }
 
-          (*v22)(v18, 1, v23, v23.n128_f32[0], v23.n128_f32[0], v23.n128_f32[0]);
-          (*(*v30 + 96))(v30, 0, kBlendConversions[v53], 0.0, 0.0, 0.0);
-          v24.n128_u32[1] = HIDWORD(v58);
-          v24.n128_f32[0] = v58;
+          (*v20)(v16, 1, v21, v21.n128_f32[0], v21.n128_f32[0], v21.n128_f32[0]);
+          (*(*v27 + 96))(v27, 0, kBlendConversions[v35], 0.0, 0.0, 0.0);
+          v22.n128_u32[1] = HIDWORD(v40);
+          v22.n128_f32[0] = v40;
           if (v12)
           {
-            v24.n128_f32[0] = 1.0;
+            v22.n128_f32[0] = 1.0;
           }
 
-          (*(*v30 + 96))(v24, 0.0, 0.0, 0.0);
-          v25 = v58;
-          (*(*v30 + 96))(v30, 1, v25, 0.0, 0.0, 0.0);
-          (*(*v30 + 96))(v30, 2, 0.0, 0.0, 0.0, 0.0);
+          (*(*v27 + 96))(v22, 0.0, 0.0, 0.0);
+          v23 = v40;
+          (*(*v27 + 96))(v27, 1, v23, 0.0, 0.0, 0.0);
+          (*(*v27 + 96))(v27, 2, 0.0, 0.0, 0.0, 0.0);
           if (!info->var5)
           {
-            v26 = HGObject::operator new(0x1C0uLL);
-            HGColorClamp::HGColorClamp(v26);
+            v24 = HGObject::operator new(0x1C0uLL);
+            HGColorClamp::HGColorClamp(v24);
           }
 
-          (*(*v30 + 120))(v30, 0, v29);
-          (*(*v30 + 120))(v30, 1, v18);
-          (*(*v18 + 24))(v18);
-          (*(*v18 + 24))(v18);
+          (*(*v27 + 120))(v27, 0, v26);
+          (*(*v27 + 120))(v27, 1, v16);
+          (*(*v16 + 24))(v16);
+          (*(*v16 + 24))(v16);
         }
 
         else
         {
-          v19 = HGObject::operator new(0x1A0uLL);
-          HgcAddNoiseNormal::HgcAddNoiseNormal(v19);
-          if (v19)
+          v17 = HGObject::operator new(0x1A0uLL);
+          HgcAddNoiseNormal::HgcAddNoiseNormal(v17);
+          if (v17)
           {
-            (*(*v19 + 16))(v19);
+            (*(*v17 + 16))(v17);
           }
 
-          (*(*v19 + 120))(v19, 0, v35);
-          (*(*v19 + 120))(v19, 1, v31);
-          v20 = v58;
-          (*(*v19 + 96))(v19, 0, v20, v20, v20, 1.0);
-          (*(*v30 + 96))(v30, 0, kBlendConversions[v53], 0.0, 0.0, 0.0);
-          (*(*v30 + 96))(v30, 0, 41.0, 0.0, 0.0, 0.0);
-          (*(*v30 + 96))(v30, 1, 1.0, 0.0, 0.0, 0.0);
-          (*(*v30 + 120))(v30, 0, v19);
-          (*(*v19 + 24))(v19);
-          (*(*v19 + 24))(v19);
+          (*(*v17 + 120))(v17, 0, v32);
+          (*(*v17 + 120))(v17, 1, v28);
+          v18 = v40;
+          (*(*v17 + 96))(v17, 0, v18, v18, v18, 1.0);
+          (*(*v27 + 96))(v27, 0, kBlendConversions[v35], 0.0, 0.0, 0.0);
+          (*(*v27 + 96))(v27, 0, 41.0, 0.0, 0.0, 0.0);
+          (*(*v27 + 96))(v27, 1, 1.0, 0.0, 0.0, 0.0);
+          (*(*v27 + 120))(v27, 0, v17);
+          (*(*v17 + 24))(v17);
+          (*(*v17 + 24))(v17);
         }
 
-        [(PAESharedDefaultBase *)self crop:&v30 fromImage:input toImage:output];
-        [output setHeliumRef:&v30];
-        if (v29)
+        [(PAESharedDefaultBase *)self crop:&v27 fromImage:input toImage:output];
+        [output setHeliumRef:&v27];
+        if (v26)
         {
-          (*(*v29 + 24))(v29);
+          (*(*v26 + 24))(v26);
         }
 
-        if (v30)
+        if (v27)
         {
-          (*(*v30 + 24))(v30);
+          (*(*v27 + 24))(v27);
         }
 
-        if (v31)
+        if (v28)
         {
-          (*(*v31 + 24))(v31);
+          (*(*v28 + 24))(v28);
         }
 
-        if (v35)
+        if (v32)
         {
-          (*(*v35 + 24))(v35);
+          (*(*v32 + 24))(v32);
         }
       }
 

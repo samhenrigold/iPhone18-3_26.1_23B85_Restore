@@ -239,12 +239,11 @@ CGImage *ImageRefFromResizedImageAndBackgroundColor(CGImageRef image, CGColor *a
     PKFloatCeilToPixelWithScale();
     PKFloatCeilToPixelWithScale();
 LABEL_10:
-    v18 = *MEMORY[0x277D385C0];
     PKSizeAlignedInRectWithScale();
-    v13 = v19;
-    v12 = v20;
-    v17 = v21;
-    v16 = v22;
+    v13 = v18;
+    v12 = v19;
+    v17 = v20;
+    v16 = v21;
     goto LABEL_11;
   }
 
@@ -257,29 +256,29 @@ LABEL_10:
   v16 = a5;
   v17 = a4;
 LABEL_11:
-  v26.width = a4;
-  v26.height = a5;
-  v23 = PKCreateBitmapContext(v26, 0, a6, 0);
-  v24 = v23;
+  v25.width = a4;
+  v25.height = a5;
+  v22 = PKCreateBitmapContext(v25, a6);
+  v23 = v22;
   if (a2)
   {
-    CGContextSetFillColorWithColor(v23, a2);
+    CGContextSetFillColorWithColor(v22, a2);
   }
 
-  v27.origin.x = 0.0;
-  v27.origin.y = 0.0;
-  v27.size.width = a4;
-  v27.size.height = a5;
-  CGContextFillRect(v24, v27);
-  v28.origin.x = v13;
-  v28.origin.y = v12;
-  v28.size.width = v17;
-  v28.size.height = v16;
-  CGContextDrawImage(v24, v28, v6);
-  v6 = CGBitmapContextCreateImage(v24);
-  if (v24)
+  v26.origin.x = 0.0;
+  v26.origin.y = 0.0;
+  v26.size.width = a4;
+  v26.size.height = a5;
+  CGContextFillRect(v23, v26);
+  v27.origin.x = v13;
+  v27.origin.y = v12;
+  v27.size.width = v17;
+  v27.size.height = v16;
+  CGContextDrawImage(v23, v27, v6);
+  v6 = CGBitmapContextCreateImage(v23);
+  if (v23)
   {
-    CGContextRelease(v24);
+    CGContextRelease(v23);
   }
 
   return v6;
@@ -302,7 +301,7 @@ id PKMapsStylingInfoForMerchant(void *a1)
     v2 = [v5 stylingInfo];
   }
 
-  v6 = PKMapsStylingInfoForMerchantCategory();
+  v6 = PKMapsStylingInfoForMerchantCategory(0);
   if (v3 && (PKEqualObjects() & 1) == 0)
   {
     v7 = v3;
@@ -315,8 +314,7 @@ id PKMapsStylingInfoForMerchant(void *a1)
 
   else
   {
-    [v1 category];
-    v7 = PKMapsStylingInfoForMerchantCategory();
+    v7 = PKMapsStylingInfoForMerchantCategory([v1 category]);
   }
 
   v8 = v7;
@@ -324,56 +322,58 @@ id PKMapsStylingInfoForMerchant(void *a1)
   return v8;
 }
 
-id PKMapsStylingInfoForMerchantCategory()
+id PKMapsStylingInfoForMerchantCategory(uint64_t a1)
 {
-  v0 = [MEMORY[0x277CD4EA0] sharedService];
-  v1 = PKMerchantCategoryToString();
-  v2 = [v0 stylingForWalletCategory:v1];
-
-  return v2;
-}
-
-id PKMapsColorForMerchantCategory(double a1)
-{
-  v2 = PKMapsStylingInfoForMerchantCategory();
-  v3 = [v2 tintColorForScale:a1];
-
-  if (!v3)
-  {
-    v3 = [MEMORY[0x277D75348] colorWithRed:0.674509804 green:0.776470588 blue:0.901960784 alpha:1.0];
-  }
+  v1 = [MEMORY[0x277CD4EA0] sharedService];
+  v2 = PKMerchantCategoryToString();
+  v3 = [v1 stylingForWalletCategory:v2];
 
   return v3;
 }
 
-id PKMapsColorForMerchant(void *a1, double a2)
+id PKMapsColorForMerchantCategory(uint64_t a1, double a2)
 {
-  [a1 category];
+  v3 = PKMapsStylingInfoForMerchantCategory(a1);
+  v4 = [v3 tintColorForScale:a2];
 
-  return PKMapsColorForMerchantCategory(a2);
+  if (!v4)
+  {
+    v4 = [MEMORY[0x277D75348] colorWithRed:0.674509804 green:0.776470588 blue:0.901960784 alpha:1.0];
+  }
+
+  return v4;
 }
 
-id PKMapsIconForMerchantCategory(CGFloat a1, CGFloat a2, double a3, uint64_t a4, int a5, int a6)
+id PKMapsColorForMerchant(void *a1, double a2)
 {
-  v11 = PKMapsStylingInfoForMerchantCategory();
-  v12 = PKMapsIconFromStylingInfo(v11, 0, a5, a6, a1, a2, a3);
+  v3 = [a1 category];
 
-  if (!v12)
+  return PKMapsColorForMerchantCategory(v3, a2);
+}
+
+id PKMapsIconForMerchantCategory(uint64_t a1, uint64_t a2, uint64_t a3, CGFloat a4, CGFloat a5, double a6)
+{
+  v6 = a3;
+  v7 = a2;
+  v12 = PKMapsStylingInfoForMerchantCategory(a1);
+  v13 = PKMapsIconFromStylingInfo(v12, 0, v7, v6, a4, a5, a6);
+
+  if (!v13)
   {
-    if (a5)
+    if (v7)
     {
       [MEMORY[0x277D75348] clearColor];
     }
 
     else
     {
-      PKMapsColorForMerchantCategory(a3);
+      PKMapsColorForMerchantCategory(a1, a6);
     }
-    v13 = ;
-    v12 = PKIconForGenericBusiness(v13, a1, a2, a3);
+    v14 = ;
+    v13 = PKIconForGenericBusiness(v14, a4, a5, a6);
   }
 
-  return v12;
+  return v13;
 }
 
 id PKMapsIconFromStylingInfo(void *a1, void *a2, char a3, int a4, CGFloat a5, CGFloat a6, double a7)
@@ -425,65 +425,67 @@ id PKIconForGenericBusiness(void *a1, CGFloat a2, CGFloat a3, double a4)
   return v11;
 }
 
-id PKMapsIconForTransaction(void *a1, int a2, int a3, int a4, double a5, double a6, double a7)
+id PKMapsIconForTransaction(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
+  v7 = a4;
+  v8 = a3;
+  v9 = a2;
   v13 = a1;
   v14 = [v13 merchant];
   v15 = [v13 effectiveTransactionCategory];
 
-  v16 = PKMapsIconForTransactionCategory(a5, a6, a7, v15, v14, a2, a3, a4);
+  v16 = PKMapsIconForTransactionCategory(v15, v14, v9, v8, v7, a5, a6, a7);
 
   return v16;
 }
 
-id PKMapsIconForTransactionCategory(double a1, double a2, double a3, uint64_t a4, void *a5, int a6, int a7, int a8)
+id PKMapsIconForTransactionCategory(uint64_t a1, void *a2, int a3, int a4, int a5, double a6, double a7, double a8)
 {
-  v14 = a5;
-  v15 = [v14 adamIdentifier];
-  v16 = 0;
-  if (a8 && v15 >= 1)
+  v15 = a2;
+  v16 = [v15 adamIdentifier];
+  v17 = 0;
+  if (a5 && v16 >= 1)
   {
-    v16 = PKIconForAdamIdentifier(v15, a1, a2, a3);
+    v17 = PKIconForAdamIdentifier(v16, a6, a7, a8);
   }
 
-  v17 = PKMapsColorForMerchantCategory(a3);
-  if (!v16)
+  v18 = PKMapsColorForMerchantCategory(a1, a8);
+  if (!v17)
   {
-    [v14 category];
-    v18 = PKMapsStylingInfoForMerchantCategory();
-    v19 = PKMapsStylingInfoForMerchant(v14);
-    v16 = PKMapsIconFromStylingInfo(v19, v17, a6, a7, a1, a2, a3);
+    v19 = PKMapsStylingInfoForMerchantCategory([v15 category]);
+    v20 = PKMapsStylingInfoForMerchant(v15);
+    v17 = PKMapsIconFromStylingInfo(v20, v18, a3, a4, a6, a7, a8);
 
-    if (v16)
+    if (v17)
     {
       goto LABEL_6;
     }
 
-    v16 = PKMapsIconFromStylingInfo(v18, v17, a6, a7, a1, a2, a3);
+    v17 = PKMapsIconFromStylingInfo(v19, v18, a3, a4, a6, a7, a8);
 
-    if (!v16)
+    if (!v17)
     {
-      v18 = v17;
-      if (a6)
+      v19 = v18;
+      if (a3)
       {
-        v18 = [MEMORY[0x277D75348] clearColor];
+        v19 = [MEMORY[0x277D75348] clearColor];
       }
 
-      v16 = PKIconForGenericBusiness(v18, a1, a2, a3);
-      if (a6)
+      v17 = PKIconForGenericBusiness(v19, a6, a7, a8);
+      if (a3)
       {
 LABEL_6:
       }
     }
   }
 
-  return v16;
+  return v17;
 }
 
 id PKMapsIconForMerchant(void *a1, int a2, int a3, int a4, double a5, double a6, double a7)
 {
   v13 = a1;
-  v14 = PKMapsIconForTransactionCategory(a5, a6, a7, [v13 category], v13, a2, a3, a4);
+  v14 = PKMapsIconForTransactionCategory([v13 category], v13, a2, a3, a4, a5, a6, a7);
 
   return v14;
 }
@@ -660,13 +662,13 @@ id PKIconForSystemImageName(uint64_t a1, void *a2, CGFloat a3, CGFloat a4, CGFlo
   [v11 size];
   [v11 alignmentRectInsets];
   PKSizeScaleAspectFit();
-  v34 = v14;
-  v35 = v13;
+  v33 = v14;
+  v34 = v13;
   PKSizeRoundToPixelWithScale();
   v16 = v15;
   v18 = v17;
   PKFloatRoundToPixelWithScale();
-  v33 = v19;
+  v32 = v19;
   PKFloatRoundToPixelWithScale();
   v21 = v20;
   v22 = [MEMORY[0x277D75348] whiteColor];
@@ -675,18 +677,17 @@ id PKIconForSystemImageName(uint64_t a1, void *a2, CGFloat a3, CGFloat a4, CGFlo
 
   v25 = *MEMORY[0x277CBF348];
   v26 = *(MEMORY[0x277CBF348] + 8);
-  v37.width = a3;
-  v37.height = a4;
-  v27 = PKCreateBitmapContext(v37, 0, a5, 0);
+  v36.width = a3;
+  v36.height = a4;
+  v27 = PKCreateBitmapContext(v36, a5);
   CGContextSetFillColorWithColor(v27, v12);
-  v38.origin.x = v25;
-  v38.origin.y = v26;
-  v38.size.width = a3;
-  v38.size.height = a4;
-  CGContextFillRect(v27, v38);
-  v28 = *MEMORY[0x277D385C0];
+  v37.origin.x = v25;
+  v37.origin.y = v26;
+  v37.size.width = a3;
+  v37.size.height = a4;
+  CGContextFillRect(v27, v37);
   PKSizeAlignedInRectWithScale();
-  CGContextDrawImage(v27, v39, v24);
+  CGContextDrawImage(v27, v38, v24);
   Image = CGBitmapContextCreateImage(v27);
   if (v27)
   {
@@ -695,47 +696,47 @@ id PKIconForSystemImageName(uint64_t a1, void *a2, CGFloat a3, CGFloat a4, CGFlo
 
   if (Image)
   {
-    v30 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:Image scale:0 orientation:a5];
+    v29 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:Image scale:0 orientation:a5];
     CGImageRelease(Image);
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  v31 = [v30 imageWithAlignmentRectInsets:{v21, v33, v18 - v34 - v21, v16 - v35 - v33}];
+  v30 = [v29 imageWithAlignmentRectInsets:{v21, v32, v18 - v33 - v21, v16 - v34 - v32}];
 
-  return v31;
+  return v30;
 }
 
 id PKCurrencyCodeForTransitTransactionIcon(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 currencyCode];
   if (!v2)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v3 = [v1 amounts];
-    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
 LABEL_4:
       v7 = 0;
       while (1)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * v7) amount];
+        v8 = [*(*(&v10 + 1) + 8 * v7) amount];
         v2 = [v8 currency];
 
         if (v2)
@@ -745,7 +746,7 @@ LABEL_4:
 
         if (v5 == ++v7)
         {
-          v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+          v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
           if (v5)
           {
             goto LABEL_4;
@@ -762,8 +763,6 @@ LABEL_10:
       v2 = 0;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -889,10 +888,11 @@ LABEL_28:
   return v2;
 }
 
-id PKIconForTransitTransaction(char a1, CGFloat a2, CGFloat a3, double a4)
+id PKIconForTransitTransaction(uint64_t a1, CGFloat a2, CGFloat a3, double a4)
 {
+  v4 = a1;
   v8 = [MEMORY[0x277D0EB18] trainStationStyleAttributes];
-  v9 = PKIconForStyleAttributes(v8, a1, a2, a3, a4);
+  v9 = PKIconForStyleAttributes(v8, v4, a2, a3, a4);
 
   return v9;
 }
@@ -1031,7 +1031,7 @@ LABEL_13:
     default:
       v7 = 0;
 LABEL_15:
-      v10 = PKMapsIconForMerchantCategory(a2, a3, a4, v7, 0, 0);
+      v10 = PKMapsIconForMerchantCategory(v7, 0, 0, a2, a3, a4);
       break;
   }
 
@@ -1040,16 +1040,32 @@ LABEL_15:
 
 id PKColorForFKCategory(uint64_t a1, double a2)
 {
-  if (a1 == 8)
+  if (a1 <= 3)
   {
-    [MEMORY[0x277D75348] colorWithRed:0.352941176 green:0.784313725 blue:0.980392157 alpha:1.0];
+    if (a1 >= 0)
+    {
+      goto LABEL_9;
+    }
   }
 
   else
   {
-    PKMapsColorForMerchantCategory(a2);
+    if (a1 < 8)
+    {
+      goto LABEL_9;
+    }
+
+    if (a1 == 8)
+    {
+      v2 = [MEMORY[0x277D75348] colorWithRed:0.352941176 green:0.784313725 blue:0.980392157 alpha:1.0];
+      goto LABEL_10;
+    }
   }
-  v2 = ;
+
+  a1 = 0;
+LABEL_9:
+  v2 = PKMapsColorForMerchantCategory(a1, a2);
+LABEL_10:
 
   return v2;
 }
@@ -1083,48 +1099,48 @@ void sub_25E0B6128(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _LAPolicyContainerForPKPolicy(uint64_t a1)
+uint64_t _LAPolicyContainerForPKPolicy(uint64_t a1, uint64_t a2)
 {
   if (a1 <= 4)
   {
-    v3 = 1005;
-    v4 = 1006;
-    v5 = 1005;
+    v4 = 1005;
+    v5 = 1006;
+    v6 = 1005;
     if (a1 != 4)
     {
-      v5 = 0;
+      v6 = 0;
     }
 
     if (a1 != 3)
     {
-      v4 = v5;
+      v5 = v6;
     }
 
     if (a1 != 2)
     {
-      v3 = v4;
+      v4 = v5;
     }
 
-    v6 = 1004;
-    v7 = 2;
+    v7 = 1004;
+    v8 = 2;
     if (a1 != 1)
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     if (a1)
     {
-      v6 = v7;
+      v7 = v8;
     }
 
     if (a1 <= 1)
     {
-      return v6;
+      return v7;
     }
 
     else
     {
-      return v3;
+      return v4;
     }
   }
 
@@ -1138,41 +1154,42 @@ uint64_t _LAPolicyContainerForPKPolicy(uint64_t a1)
         return 1015;
       }
 
-      v1 = 1004;
+      v2 = 1004;
       if (a1 != 10)
       {
-        v1 = 0;
+        v2 = 0;
       }
 
-      v2 = a1 == 9;
+      v3 = a1 == 9;
     }
 
     else
     {
-      v1 = 0;
-      v2 = a1 == 5;
+      v2 = 0;
+      v3 = a1 == 5;
     }
 
-    if (v2)
+    if (v3)
     {
       return 0;
     }
 
     else
     {
-      return v1;
+      return v2;
     }
   }
 }
 
-void sub_25E0B7C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_25E0B7C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  objc_destroyWeak((v36 + 56));
+  va_start(va, a33);
   objc_destroyWeak((v35 + 56));
+  objc_destroyWeak((v34 + 56));
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a34, 8);
-  objc_destroyWeak((v34 + 32));
-  objc_destroyWeak((v37 - 104));
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v33 + 32));
+  objc_destroyWeak((v36 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -1192,7 +1209,7 @@ void sub_25E0B8BFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void _AccessPreflightContext(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = a2;
@@ -1211,7 +1228,7 @@ void _AccessPreflightContext(uint64_t a1, void *a2)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134349056;
-        v24 = _AccessPreflightContext_context;
+        v23 = _AccessPreflightContext_context;
         _os_log_impl(&dword_25E0A9000, v12, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%{public}p): creating preflight context.", buf, 0xCu);
       }
 
@@ -1223,19 +1240,17 @@ void _AccessPreflightContext(uint64_t a1, void *a2)
     os_unfair_lock_unlock(&_AccessPreflightContext_lock);
     v14 = [objc_alloc(MEMORY[0x277D37E60]) initWithBlock:&__block_literal_global_612];
     v15 = [v13 context];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = ___AccessPreflightContext_block_invoke_2;
-    v20[3] = &unk_2799FFCD8;
-    v21 = v14;
-    v22 = v13;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = ___AccessPreflightContext_block_invoke_2;
+    v19[3] = &unk_2799FFCD8;
+    v20 = v14;
+    v21 = v13;
     v16 = v3[2];
     v17 = v13;
     v18 = v14;
-    v16(v3, v15, v20);
+    v16(v3, v15, v19);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void _AccessAuthenticatorStateCache(void *a1)
@@ -1258,16 +1273,16 @@ void _AccessAuthenticatorStateCache(void *a1)
   }
 }
 
-void sub_25E0BC72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E0BC72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25E0BCBA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25E0BCBA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1301,7 +1316,7 @@ void MatchLayerGeometry(void *a1, void *a2)
     {
       v3 = a2;
       v4 = a1;
-      [v3 transform];
+      objc_msgSend_transform(v3);
       [v4 setTransform:&v6];
       [v3 anchorPoint];
       [v4 setAnchorPoint:?];
@@ -1331,7 +1346,7 @@ id CloneShapeLayer(void *a1)
     [v3 setAnchorPoint:?];
     [v2 opacity];
     [v3 setOpacity:?];
-    [v2 transform];
+    objc_msgSend_transform(v2);
     [v3 setTransform:&v9];
     [v3 setGeometryFlipped:{objc_msgSend(v2, "isGeometryFlipped")}];
     [v3 setPath:{objc_msgSend(v2, "path")}];
@@ -1381,6 +1396,13 @@ void sub_25E0C17B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
+void sub_25E0C2114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_25E0C2DDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
 {
   objc_destroyWeak((v17 + 40));
@@ -1388,9 +1410,9 @@ void sub_25E0C2DDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25E0C3620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_25E0C3620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1598,8 +1620,10 @@ void sub_25E0CB980(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void LayerApplyColor(void *a1, void *a2, char a3, int a4)
+void LayerApplyColor(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   v7 = a2;
   v8 = a1;
   v9 = [v8 presentationLayer];
@@ -1614,11 +1638,13 @@ void LayerApplyColor(void *a1, void *a2, char a3, int a4)
     v10 = v8;
   }
 
-  LayerApplyColor(v8, v10, v7, a3, a4);
+  LayerApplyColor(v8, v10, v7, v5, v4);
 }
 
-void ShapeLayerApplyColor(void *a1, void *a2, char a3, int a4)
+void ShapeLayerApplyColor(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   v7 = a1;
   v8 = a2;
   v9 = [v7 presentationLayer];
@@ -1638,14 +1664,14 @@ void ShapeLayerApplyColor(void *a1, void *a2, char a3, int a4)
   v13 = v8;
   if (v13)
   {
-    if ((a3 & 4) != 0)
+    if ((v5 & 4) != 0)
     {
       v14 = CGColorRetain([v23 strokeColor]);
       v15 = CGColorRetain([v12 strokeColor]);
       v16 = [v13 colorWithAlphaComponent:CGColorGetAlpha(v14)];
       v17 = CGColorRetain([v16 CGColor]);
 
-      if (a4)
+      if (v4)
       {
         LayerAnimateColor(v23, @"strokeColor", v15, v17);
       }
@@ -1657,14 +1683,14 @@ void ShapeLayerApplyColor(void *a1, void *a2, char a3, int a4)
     }
 
     v18 = v23;
-    if ((a3 & 8) != 0)
+    if ((v5 & 8) != 0)
     {
       v19 = CGColorRetain([v23 fillColor]);
       v20 = CGColorRetain([v12 fillColor]);
       v21 = [v13 colorWithAlphaComponent:CGColorGetAlpha(v19)];
       v22 = CGColorRetain([v21 CGColor]);
 
-      if (a4)
+      if (v4)
       {
         LayerAnimateColor(v23, @"fillColor", v20, v22);
       }
@@ -1676,7 +1702,7 @@ void ShapeLayerApplyColor(void *a1, void *a2, char a3, int a4)
       v18 = v23;
     }
 
-    LayerApplyColor(v18, v12, v13, a3, a4);
+    LayerApplyColor(v18, v12, v13, v5, v4);
   }
 }
 
@@ -1758,6 +1784,16 @@ CGRect CGPathGetPathBoundingBox(CGPathRef path)
   result.size.width = v3;
   result.origin.y = v2;
   result.origin.x = v1;
+  return result;
+}
+
+CGRect CTFontGetBoundingRectsForGlyphs(CTFontRef font, CTFontOrientation orientation, const CGGlyph *glyphs, CGRect *boundingRects, CFIndex count)
+{
+  MEMORY[0x282114780](font, *&orientation, glyphs, boundingRects, count);
+  result.size.height = v8;
+  result.size.width = v7;
+  result.origin.y = v6;
+  result.origin.x = v5;
   return result;
 }
 

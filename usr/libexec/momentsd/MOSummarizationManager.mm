@@ -350,21 +350,21 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
 void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInterval_handler___block_invoke_414(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v123 = a3;
+  v122 = a3;
   [*(*(*(a1 + 88) + 8) + 40) addObjectsFromArray:v5];
   v6 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
-  v126 = a1;
+  v125 = a1;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [*(a1 + 32) count];
     v8 = [*(a1 + 40) count];
     *buf = 134218496;
-    v163 = v7;
-    v164 = 2048;
-    v165 = v8;
-    a1 = v126;
-    v166 = 2048;
-    v167 = [v5 count];
+    v162 = v7;
+    v163 = 2048;
+    v164 = v8;
+    a1 = v125;
+    v165 = 2048;
+    v166 = [v5 count];
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Summarization: Coarse granularity aggregation process, input, %lu, (container bundles, %lu) output, %lu", buf, 0x20u);
   }
 
@@ -373,46 +373,46 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
   {
     v10 = [*(*(*(a1 + 88) + 8) + 40) count];
     *buf = 134217984;
-    v163 = v10;
+    v162 = v10;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Summarization:coarse granularity result count, %lu", buf, 0xCu);
   }
 
-  v125 = v5;
+  v124 = v5;
   v11 = [v5 mutableCopy];
   v12 = *(*(*(a1 + 88) + 8) + 40);
   v13 = [*(a1 + 48) parameters];
   v14 = [MOSummarizationUtilities summarizeMotionActivityBundlesWithSamePlaceName:v12 withParameters:v13];
 
-  v15 = v126;
+  v15 = v125;
   if ([v14 count])
   {
-    [*(*(*(v126 + 88) + 8) + 40) addObjectsFromArray:v14];
+    [*(*(*(v125 + 88) + 8) + 40) addObjectsFromArray:v14];
     [v11 addObjectsFromArray:v14];
   }
 
-  v122 = v14;
-  v124 = v11;
-  v160 = 0u;
-  v161 = 0u;
-  v158 = 0u;
+  v121 = v14;
+  v123 = v11;
   v159 = 0u;
-  v16 = *(*(*(v126 + 88) + 8) + 40);
-  v139 = [v16 countByEnumeratingWithState:&v158 objects:v184 count:16];
-  if (v139)
+  v160 = 0u;
+  v157 = 0u;
+  v158 = 0u;
+  v16 = *(*(*(v125 + 88) + 8) + 40);
+  v138 = [v16 countByEnumeratingWithState:&v157 objects:v183 count:16];
+  if (v138)
   {
-    v17 = *v159;
-    v132 = v16;
-    v134 = *v159;
+    v17 = *v158;
+    v131 = v16;
+    v133 = *v158;
     do
     {
-      for (i = 0; i != v139; i = i + 1)
+      for (i = 0; i != v138; i = i + 1)
       {
-        if (*v159 != v17)
+        if (*v158 != v17)
         {
           objc_enumerationMutation(v16);
         }
 
-        v19 = *(*(&v158 + 1) + 8 * i);
+        v19 = *(*(&v157 + 1) + 8 * i);
         v20 = objc_autoreleasePoolPush();
         if ([v19 bundleSubType] == 204)
         {
@@ -448,41 +448,41 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
 
             if (v35)
             {
-              v136 = v28;
-              v156 = 0u;
-              v157 = 0u;
-              v154 = 0u;
+              v135 = v28;
               v155 = 0u;
+              v156 = 0u;
+              v153 = 0u;
+              v154 = 0u;
               v36 = [v19 places];
-              v37 = [v36 countByEnumeratingWithState:&v154 objects:v183 count:16];
+              v37 = [v36 countByEnumeratingWithState:&v153 objects:v182 count:16];
               if (v37)
               {
                 v38 = v37;
-                v39 = *v155;
+                v39 = *v154;
                 do
                 {
                   for (j = 0; j != v38; j = j + 1)
                   {
-                    if (*v155 != v39)
+                    if (*v154 != v39)
                     {
                       objc_enumerationMutation(v36);
                     }
 
-                    v41 = [*(*(&v154 + 1) + 8 * j) placeName];
+                    v41 = [*(*(&v153 + 1) + 8 * j) placeName];
                     v42 = v41 != 0;
 
                     v34 |= v42;
                   }
 
-                  v38 = [v36 countByEnumeratingWithState:&v154 objects:v183 count:16];
+                  v38 = [v36 countByEnumeratingWithState:&v153 objects:v182 count:16];
                 }
 
                 while (v38);
               }
 
-              v15 = v126;
-              v16 = v132;
-              v28 = v136;
+              v15 = v125;
+              v16 = v131;
+              v28 = v135;
             }
 
             if (![v30 count] && (v34 & 1) == 0)
@@ -490,106 +490,106 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
               [v19 setIsAggregatedAndSuppressed:1];
             }
 
-            v17 = v134;
+            v17 = v133;
           }
         }
 
         objc_autoreleasePoolPop(v20);
       }
 
-      v139 = [v16 countByEnumeratingWithState:&v158 objects:v184 count:16];
+      v138 = [v16 countByEnumeratingWithState:&v157 objects:v183 count:16];
     }
 
-    while (v139);
+    while (v138);
   }
 
   v43 = [NSPredicate predicateWithBlock:&__block_literal_global_34];
   v44 = [NSPredicate predicateWithBlock:&__block_literal_global_422];
-  v45 = [v124 copy];
+  v45 = [v123 copy];
   v46 = [v45 filteredArrayUsingPredicate:v43];
 
-  v121 = v43;
+  v120 = v43;
   v47 = [*(v15 + 56) filteredArrayUsingPredicate:v43];
-  v48 = [v125 filteredArrayUsingPredicate:v44];
-  v120 = v44;
+  v48 = [v124 filteredArrayUsingPredicate:v44];
+  v119 = v44;
   v49 = [*(v15 + 56) filteredArrayUsingPredicate:v44];
   v50 = +[NSMutableDictionary dictionary];
-  v119 = v47;
-  v116 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v47 primaryBundles:*(v15 + 40) bundleMapping:v50];
-  v115 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v46 primaryBundles:*(v15 + 40) bundleMapping:v50];
-  v114 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v48 primaryBundles:*(v15 + 40) bundleMapping:v50];
-  v113 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v49 primaryBundles:*(v15 + 40) bundleMapping:v50];
-  v118 = v48;
-  v112 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v48 primaryBundles:*(v15 + 64) bundleMapping:v50];
-  v117 = v49;
-  v111 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v49 primaryBundles:*(v15 + 64) bundleMapping:v50];
+  v118 = v47;
+  v115 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v47 primaryBundles:*(v15 + 40) bundleMapping:v50];
+  v114 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v46 primaryBundles:*(v15 + 40) bundleMapping:v50];
+  v113 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v48 primaryBundles:*(v15 + 40) bundleMapping:v50];
+  v112 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v49 primaryBundles:*(v15 + 40) bundleMapping:v50];
+  v117 = v48;
+  v111 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v48 primaryBundles:*(v15 + 64) bundleMapping:v50];
+  v116 = v49;
+  v110 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:v49 primaryBundles:*(v15 + 64) bundleMapping:v50];
   v51 = +[NSMutableDictionary dictionary];
 
-  v110 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:*(v15 + 72) primaryBundles:*(v15 + 64) bundleMapping:v51];
+  v109 = [*(v15 + 48) supressCoarseGranularityPropertyOfEventBundles:*(v15 + 72) primaryBundles:*(v15 + 64) bundleMapping:v51];
+  v149 = 0u;
   v150 = 0u;
   v151 = 0u;
   v152 = 0u;
-  v153 = 0u;
   v52 = [v51 allKeys];
-  v130 = [v52 countByEnumeratingWithState:&v150 objects:v182 count:16];
-  if (v130)
+  v129 = [v52 countByEnumeratingWithState:&v149 objects:v181 count:16];
+  if (v129)
   {
-    v129 = *v151;
-    v127 = v52;
-    v128 = v51;
+    v128 = *v150;
+    v126 = v52;
+    v127 = v51;
     do
     {
       v53 = 0;
       do
       {
-        if (*v151 != v129)
+        if (*v150 != v128)
         {
           objc_enumerationMutation(v52);
         }
 
-        v131 = v53;
-        v54 = *(*(&v150 + 1) + 8 * v53);
+        v130 = v53;
+        v54 = *(*(&v149 + 1) + 8 * v53);
         v55 = [v51 objectForKey:v54];
         v56 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
         if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v163 = v54;
+          v162 = v54;
           _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "summary trip Bundle : %@ maps to :", buf, 0xCu);
         }
 
-        v148 = 0u;
-        v149 = 0u;
-        v146 = 0u;
         v147 = 0u;
+        v148 = 0u;
+        v145 = 0u;
+        v146 = 0u;
         v57 = v55;
-        v58 = [v57 countByEnumeratingWithState:&v146 objects:v181 count:16];
+        v58 = [v57 countByEnumeratingWithState:&v145 objects:v180 count:16];
         obj = v57;
         if (v58)
         {
           v59 = v58;
-          v60 = *v147;
+          v60 = *v146;
           do
           {
             for (k = 0; k != v59; k = k + 1)
             {
-              if (*v147 != v60)
+              if (*v146 != v60)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v62 = *(*(&v146 + 1) + 8 * k);
+              v62 = *(*(&v145 + 1) + 8 * k);
               v63 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
               if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v163 = v62;
+                v162 = v62;
                 _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_INFO, "daily trip bundles : %@", buf, 0xCu);
               }
             }
 
             v57 = obj;
-            v59 = [obj countByEnumeratingWithState:&v146 objects:v181 count:16];
+            v59 = [obj countByEnumeratingWithState:&v145 objects:v180 count:16];
           }
 
           while (v59);
@@ -607,25 +607,25 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
             _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "Maps to one daily trip bundle.", buf, 2u);
           }
 
-          v144 = 0u;
-          v145 = 0u;
-          v142 = 0u;
           v143 = 0u;
-          v133 = v57;
-          v137 = [v133 countByEnumeratingWithState:&v142 objects:v180 count:16];
-          if (v137)
+          v144 = 0u;
+          v141 = 0u;
+          v142 = 0u;
+          v132 = v57;
+          v136 = [v132 countByEnumeratingWithState:&v141 objects:v179 count:16];
+          if (v136)
           {
-            v135 = *v143;
+            v134 = *v142;
             do
             {
-              for (m = 0; m != v137; m = m + 1)
+              for (m = 0; m != v136; m = m + 1)
               {
-                if (*v143 != v135)
+                if (*v142 != v134)
                 {
-                  objc_enumerationMutation(v133);
+                  objc_enumerationMutation(v132);
                 }
 
-                v68 = *(*(&v142 + 1) + 8 * m);
+                v68 = *(*(&v141 + 1) + 8 * m);
                 [v68 setIsAggregatedAndSuppressed:0];
                 [v54 setIsAggregatedAndSuppressed:1];
                 v69 = objc_opt_new();
@@ -647,12 +647,12 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
                 if (v77)
                 {
                   v78 = [v54 subBundleIDs];
-                  v141[0] = _NSConcreteStackBlock;
-                  v141[1] = 3221225472;
-                  v141[2] = __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInterval_handler___block_invoke_425;
-                  v141[3] = &unk_10033C788;
-                  v141[4] = v68;
-                  v79 = [NSPredicate predicateWithBlock:v141];
+                  v140[0] = _NSConcreteStackBlock;
+                  v140[1] = 3221225472;
+                  v140[2] = __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInterval_handler___block_invoke_425;
+                  v140[3] = &unk_10033C788;
+                  v140[4] = v68;
+                  v79 = [NSPredicate predicateWithBlock:v140];
                   v80 = [v78 filteredArrayUsingPredicate:v79];
                   [v54 setSubBundleIDs:v80];
                 }
@@ -676,12 +676,12 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
                 if (v89)
                 {
                   v90 = [v54 subSuggestionIDs];
-                  v140[0] = _NSConcreteStackBlock;
-                  v140[1] = 3221225472;
-                  v140[2] = __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInterval_handler___block_invoke_2_427;
-                  v140[3] = &unk_10033C788;
-                  v140[4] = v68;
-                  v91 = [NSPredicate predicateWithBlock:v140];
+                  v139[0] = _NSConcreteStackBlock;
+                  v139[1] = 3221225472;
+                  v139[2] = __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInterval_handler___block_invoke_2_427;
+                  v139[3] = &unk_10033C788;
+                  v139[4] = v68;
+                  v91 = [NSPredicate predicateWithBlock:v139];
                   v92 = [v90 filteredArrayUsingPredicate:v91];
                   [v54 setSubSuggestionIDs:v92];
                 }
@@ -690,7 +690,7 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
                 if (os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v163 = v54;
+                  v162 = v54;
                   _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_INFO, "suppressed summary trip bundle : %@ ", buf, 0xCu);
                 }
 
@@ -698,58 +698,58 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
                 if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v163 = v68;
+                  v162 = v68;
                   _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, "for daily trip bundle : %@", buf, 0xCu);
                 }
               }
 
-              v137 = [v133 countByEnumeratingWithState:&v142 objects:v180 count:16];
+              v136 = [v132 countByEnumeratingWithState:&v141 objects:v179 count:16];
             }
 
-            while (v137);
+            while (v136);
           }
 
-          v52 = v127;
-          v51 = v128;
+          v52 = v126;
+          v51 = v127;
           v57 = obj;
         }
 
-        v53 = v131 + 1;
+        v53 = v130 + 1;
       }
 
-      while ((v131 + 1) != v130);
-      v130 = [v52 countByEnumeratingWithState:&v150 objects:v182 count:16];
+      while ((v130 + 1) != v129);
+      v129 = [v52 countByEnumeratingWithState:&v149 objects:v181 count:16];
     }
 
-    while (v130);
+    while (v129);
   }
 
-  v95 = v126;
-  v96 = [*(*(*(v126 + 88) + 8) + 40) count];
+  v95 = v125;
+  v96 = [*(*(*(v125 + 88) + 8) + 40) count];
   v97 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
   if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
   {
-    v108 = [*(v126 + 56) count];
-    v109 = v108 - [*(v126 + 32) count];
-    v95 = v126;
+    v107 = [*(v125 + 56) count];
+    v108 = v107 - [*(v125 + 32) count];
+    v95 = v125;
     *buf = 134220032;
-    v163 = v109;
-    v164 = 2048;
-    v165 = v114;
-    v166 = 2048;
-    v167 = v113;
-    v168 = 2048;
-    v169 = v116;
-    v170 = 2048;
-    v171 = v115;
-    v172 = 2048;
-    v173 = v110;
-    v174 = 2048;
-    v175 = v112;
-    v176 = 2048;
-    v177 = v111;
-    v178 = 2048;
-    v179 = v96;
+    v162 = v108;
+    v163 = 2048;
+    v164 = v113;
+    v165 = 2048;
+    v166 = v112;
+    v167 = 2048;
+    v168 = v115;
+    v169 = 2048;
+    v170 = v114;
+    v171 = 2048;
+    v172 = v109;
+    v173 = 2048;
+    v174 = v111;
+    v175 = 2048;
+    v176 = v110;
+    v177 = 2048;
+    v178 = v96;
     _os_log_debug_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEBUG, "Summarization: suppresed by dedupe, %lu, supressed by trip bundles, %lu, supressedOnCoarse by trip bundles, %lu, suppressedActivity by trip bundles, %lu, suppressedActivityOnCoarse by trip bundle, %lu, suppressedTrips, %lu, suppressedOutingsBySummaryTrip, %lu, suppressedSeedBySummaryTrip, %lu, result, %lu", buf, 0x5Cu);
   }
 
@@ -772,7 +772,6 @@ void __85__MOSummarizationManager__aggregateEventBundles_withAggregtaionDateInte
   [*(v95 + 48) compressAssetsForThirdPartyBundles:*(*(*(v95 + 88) + 8) + 40)];
   objc_autoreleasePoolPop(v105);
   v106 = objc_autoreleasePoolPush();
-  v107 = *(*(*(v95 + 88) + 8) + 40);
   (*(*(v95 + 80) + 16))();
   objc_autoreleasePoolPop(v106);
 }
@@ -1110,29 +1109,8 @@ LABEL_56:
 uint64_t __125__MOSummarizationManager__removeDuplicateAssetsForBundleType_bundleSuperType_musicAlbumSet_podcastEpisodeSet_isRecommendTab___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 bundleSuperType] != *(a1 + 32))
+  if ([v3 bundleSuperType] != *(a1 + 32) || objc_msgSend(v3, "bundleSuperType") == 4 || (objc_msgSend(v3, "rankingDictionary"), (v4 = objc_claimAutoreleasedReturnValue()) == 0) || (v5 = v4, objc_msgSend(v3, "rankingDictionary"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectForKeyedSubscript:", @"visibilityCategoryForUI"), v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, !v7))
   {
-    goto LABEL_23;
-  }
-
-  if ([v3 bundleSuperType] == 4)
-  {
-    goto LABEL_23;
-  }
-
-  v4 = [v3 rankingDictionary];
-  if (!v4)
-  {
-    goto LABEL_23;
-  }
-
-  v5 = v4;
-  v6 = [v3 rankingDictionary];
-  v7 = [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"];
-
-  if (!v7)
-  {
-LABEL_23:
     if ((*(a1 + 40) != 1 || [v3 bundleSuperType] != 4 || objc_msgSend(v3, "bundleSubType") != 404 || objc_msgSend(v3, "isAggregatedAndSuppressed")) && ((*(a1 + 40) & 1) != 0 || objc_msgSend(v3, "bundleSuperType") != 4 || objc_msgSend(v3, "bundleSubType") != 401 || objc_msgSend(v3, "isAggregatedAndSuppressed")))
     {
       goto LABEL_18;
@@ -1204,24 +1182,8 @@ LABEL_19:
   v4 = bundleCopy;
   if (bundleCopy && ([bundleCopy bundleSuperType] == 4 || objc_msgSend(v4, "bundleSuperType") == 2 || objc_msgSend(v4, "bundleSuperType") == 1 || objc_msgSend(v4, "bundleSuperType") == 5) && (objc_msgSend(v4, "isAggregatedAndSuppressed") & 1) == 0)
   {
-    if ([v4 bundleSuperType] == 4)
+    if ([v4 bundleSuperType] == 4 || (objc_msgSend(v4, "rankingDictionary"), (v5 = objc_claimAutoreleasedReturnValue()) == 0) || (v6 = v5, objc_msgSend(v4, "rankingDictionary"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", @"visibilityCategoryForUI"), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, !v8) || (objc_msgSend(v4, "rankingDictionary"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "objectForKeyedSubscript:", @"visibilityCategoryForUI"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "unsignedIntValue"), v10, v9, v11 != 4))
     {
-      goto LABEL_11;
-    }
-
-    rankingDictionary = [v4 rankingDictionary];
-    if (!rankingDictionary)
-    {
-      goto LABEL_11;
-    }
-
-    v6 = rankingDictionary;
-    rankingDictionary2 = [v4 rankingDictionary];
-    v8 = [rankingDictionary2 objectForKeyedSubscript:@"visibilityCategoryForUI"];
-
-    if (!v8 || ([v4 rankingDictionary], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "objectForKeyedSubscript:", @"visibilityCategoryForUI"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "unsignedIntValue"), v10, v9, v11 != 4))
-    {
-LABEL_11:
       v65 = objc_opt_new();
       v60 = objc_opt_new();
       v74 = 0u;
@@ -1684,29 +1646,8 @@ LABEL_55:
 uint64_t __130__MOSummarizationManager_removeDuplicateAssetsPerBundleTypeForThirdParty_bundleSuperType_titleSet_isRecommendTab_isMediaOnRepeat___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 bundleSuperType] != *(a1 + 32))
+  if ([v3 bundleSuperType] != *(a1 + 32) || objc_msgSend(v3, "bundleSuperType") == 4 || (objc_msgSend(v3, "rankingDictionary"), (v4 = objc_claimAutoreleasedReturnValue()) == 0) || (v5 = v4, objc_msgSend(v3, "rankingDictionary"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectForKeyedSubscript:", @"visibilityCategoryForUI"), v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, !v7))
   {
-    goto LABEL_15;
-  }
-
-  if ([v3 bundleSuperType] == 4)
-  {
-    goto LABEL_15;
-  }
-
-  v4 = [v3 rankingDictionary];
-  if (!v4)
-  {
-    goto LABEL_15;
-  }
-
-  v5 = v4;
-  v6 = [v3 rankingDictionary];
-  v7 = [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"];
-
-  if (!v7)
-  {
-LABEL_15:
     if (*(a1 + 40) == 1 && [v3 bundleSuperType] == 4 && (objc_msgSend(v3, "isAggregatedAndSuppressed") & 1) == 0)
     {
       if (*(a1 + 41) != 1)
@@ -1796,22 +1737,7 @@ LABEL_26:
 BOOL __63__MOSummarizationManager_removeDuplicateAssetsFromMediaBundle___block_invoke(id a1, MOEventBundle *a2, NSDictionary *a3)
 {
   v3 = a2;
-  if ([(MOEventBundle *)v3 bundleSuperType]== 4)
-  {
-    goto LABEL_8;
-  }
-
-  v4 = [(MOEventBundle *)v3 rankingDictionary];
-  if (!v4)
-  {
-    goto LABEL_8;
-  }
-
-  v5 = v4;
-  v6 = [(MOEventBundle *)v3 rankingDictionary];
-  v7 = [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"];
-
-  if (v7)
+  if (-[MOEventBundle bundleSuperType](v3, "bundleSuperType") != 4 && (-[MOEventBundle rankingDictionary](v3, "rankingDictionary"), (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, -[MOEventBundle rankingDictionary](v3, "rankingDictionary"), v6 = objc_claimAutoreleasedReturnValue(), [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, v7))
   {
     v8 = [(MOEventBundle *)v3 rankingDictionary];
     v9 = [v8 objectForKeyedSubscript:@"visibilityCategoryForUI"];
@@ -1825,13 +1751,9 @@ LABEL_11:
     }
   }
 
-  else
+  else if ([(MOEventBundle *)v3 bundleSuperType]== 4 && [(MOEventBundle *)v3 bundleSubType]== 404 && ![(MOEventBundle *)v3 isAggregatedAndSuppressed])
   {
-LABEL_8:
-    if ([(MOEventBundle *)v3 bundleSuperType]== 4 && [(MOEventBundle *)v3 bundleSubType]== 404 && ![(MOEventBundle *)v3 isAggregatedAndSuppressed])
-    {
-      goto LABEL_11;
-    }
+    goto LABEL_11;
   }
 
   v11 = 0;
@@ -1843,22 +1765,7 @@ LABEL_10:
 BOOL __63__MOSummarizationManager_removeDuplicateAssetsFromMediaBundle___block_invoke_2(id a1, MOEventBundle *a2, NSDictionary *a3)
 {
   v3 = a2;
-  if ([(MOEventBundle *)v3 bundleSuperType]== 4)
-  {
-    goto LABEL_8;
-  }
-
-  v4 = [(MOEventBundle *)v3 rankingDictionary];
-  if (!v4)
-  {
-    goto LABEL_8;
-  }
-
-  v5 = v4;
-  v6 = [(MOEventBundle *)v3 rankingDictionary];
-  v7 = [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"];
-
-  if (v7)
+  if (-[MOEventBundle bundleSuperType](v3, "bundleSuperType") != 4 && (-[MOEventBundle rankingDictionary](v3, "rankingDictionary"), (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, -[MOEventBundle rankingDictionary](v3, "rankingDictionary"), v6 = objc_claimAutoreleasedReturnValue(), [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, v7))
   {
     v8 = [(MOEventBundle *)v3 rankingDictionary];
     v9 = [v8 objectForKeyedSubscript:@"visibilityCategoryForUI"];
@@ -1872,13 +1779,9 @@ LABEL_11:
     }
   }
 
-  else
+  else if ([(MOEventBundle *)v3 bundleSuperType]== 4 && [(MOEventBundle *)v3 bundleSubType]== 401 && ![(MOEventBundle *)v3 isAggregatedAndSuppressed])
   {
-LABEL_8:
-    if ([(MOEventBundle *)v3 bundleSuperType]== 4 && [(MOEventBundle *)v3 bundleSubType]== 401 && ![(MOEventBundle *)v3 isAggregatedAndSuppressed])
-    {
-      goto LABEL_11;
-    }
+    goto LABEL_11;
   }
 
   v11 = 0;
@@ -1890,22 +1793,7 @@ LABEL_10:
 BOOL __63__MOSummarizationManager_removeDuplicateAssetsFromMediaBundle___block_invoke_3(id a1, MOEventBundle *a2, NSDictionary *a3)
 {
   v3 = a2;
-  if ([(MOEventBundle *)v3 bundleSuperType]== 4)
-  {
-    goto LABEL_8;
-  }
-
-  v4 = [(MOEventBundle *)v3 rankingDictionary];
-  if (!v4)
-  {
-    goto LABEL_8;
-  }
-
-  v5 = v4;
-  v6 = [(MOEventBundle *)v3 rankingDictionary];
-  v7 = [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"];
-
-  if (v7)
+  if (-[MOEventBundle bundleSuperType](v3, "bundleSuperType") != 4 && (-[MOEventBundle rankingDictionary](v3, "rankingDictionary"), (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, -[MOEventBundle rankingDictionary](v3, "rankingDictionary"), v6 = objc_claimAutoreleasedReturnValue(), [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, v7))
   {
     v8 = [(MOEventBundle *)v3 rankingDictionary];
     v9 = [v8 objectForKeyedSubscript:@"visibilityCategoryForUI"];
@@ -1919,13 +1807,9 @@ LABEL_11:
     }
   }
 
-  else
+  else if ([(MOEventBundle *)v3 bundleSuperType]== 4 && [(MOEventBundle *)v3 bundleSubType]== 409 && ![(MOEventBundle *)v3 isAggregatedAndSuppressed])
   {
-LABEL_8:
-    if ([(MOEventBundle *)v3 bundleSuperType]== 4 && [(MOEventBundle *)v3 bundleSubType]== 409 && ![(MOEventBundle *)v3 isAggregatedAndSuppressed])
-    {
-      goto LABEL_11;
-    }
+    goto LABEL_11;
   }
 
   v11 = 0;
@@ -1937,22 +1821,7 @@ LABEL_10:
 BOOL __63__MOSummarizationManager_removeDuplicateAssetsFromMediaBundle___block_invoke_4(id a1, MOEventBundle *a2, NSDictionary *a3)
 {
   v3 = a2;
-  if ([(MOEventBundle *)v3 bundleSuperType]== 4)
-  {
-    goto LABEL_8;
-  }
-
-  v4 = [(MOEventBundle *)v3 rankingDictionary];
-  if (!v4)
-  {
-    goto LABEL_8;
-  }
-
-  v5 = v4;
-  v6 = [(MOEventBundle *)v3 rankingDictionary];
-  v7 = [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"];
-
-  if (v7)
+  if (-[MOEventBundle bundleSuperType](v3, "bundleSuperType") != 4 && (-[MOEventBundle rankingDictionary](v3, "rankingDictionary"), (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, -[MOEventBundle rankingDictionary](v3, "rankingDictionary"), v6 = objc_claimAutoreleasedReturnValue(), [v6 objectForKeyedSubscript:@"visibilityCategoryForUI"], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, v7))
   {
     v8 = [(MOEventBundle *)v3 rankingDictionary];
     v9 = [v8 objectForKeyedSubscript:@"visibilityCategoryForUI"];
@@ -1966,13 +1835,9 @@ LABEL_11:
     }
   }
 
-  else
+  else if ([(MOEventBundle *)v3 bundleSuperType]== 4 && [(MOEventBundle *)v3 bundleSubType]== 407 && ![(MOEventBundle *)v3 isAggregatedAndSuppressed])
   {
-LABEL_8:
-    if ([(MOEventBundle *)v3 bundleSuperType]== 4 && [(MOEventBundle *)v3 bundleSubType]== 407 && ![(MOEventBundle *)v3 isAggregatedAndSuppressed])
-    {
-      goto LABEL_11;
-    }
+    goto LABEL_11;
   }
 
   v11 = 0;

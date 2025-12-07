@@ -31,9 +31,9 @@
   v14 = frame.origin.x;
   compositionCopy = composition;
   viewCopy = view;
-  v65.receiver = self;
-  v65.super_class = CKEffectPickerViewController;
-  v18 = [(CKEffectPickerViewController *)&v65 init];
+  v69.receiver = self;
+  v69.super_class = CKEffectPickerViewController;
+  v18 = [(CKEffectPickerViewController *)&v69 init];
   v19 = v18;
   if (v18)
   {
@@ -65,7 +65,7 @@
     v40 = v39;
     v42 = v41;
     [(CKEffectPickerViewController *)v19 balloonViewOrigin];
-    v64 = compositionCopy;
+    v68 = compositionCopy;
     v45 = [v25 initWithFrame:compositionCopy sendButtonFrame:colorCopy balloonViewOrigin:viewCopy composition:v28 color:v30 gradientReferenceView:{v32, v34, v36, v38, v40, v42, v43, v44}];
 
     [v45 setAutoresizingMask:18];
@@ -77,36 +77,37 @@
     [v45 setDelegate:v19];
     [(CKEffectPickerViewController *)v19 setPickerView:v45];
     [view addSubview:v45];
-    if ([*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection] == 1)
+    userInterfaceLayoutDirection = [*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection];
+    if (userInterfaceLayoutDirection == 1)
     {
-      [(CKEffectPickerViewController *)v19 setSemanticContentAttribute:view forceLTR:1];
+      userInterfaceLayoutDirection = [(CKEffectPickerViewController *)v19 setSemanticContentAttribute:view forceLTR:1];
     }
 
-    v47 = CKFrameworkBundle();
-    v48 = [v47 localizedStringForKey:@"IMPACT_PICKER_INVISIBLE_INK_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
-    v49 = CKFrameworkBundle();
-    v50 = [v49 localizedStringForKey:@"IMPACT_PICKER_INVISIBLE_INK_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v45 addEffect:v48 withDescriptiveText:v50 withIdentifier:@"com.apple.MobileSMS.expressivesend.invisibleink"];
+    v48 = CKFrameworkBundle(userInterfaceLayoutDirection);
+    v49 = [v48 localizedStringForKey:@"IMPACT_PICKER_INVISIBLE_INK_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v50 = CKFrameworkBundle(v49);
+    v51 = [v50 localizedStringForKey:@"IMPACT_PICKER_INVISIBLE_INK_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v45 addEffect:v49 withDescriptiveText:v51 withIdentifier:@"com.apple.MobileSMS.expressivesend.invisibleink"];
 
-    v51 = CKFrameworkBundle();
-    v52 = [v51 localizedStringForKey:@"IMPACT_PICKER_GENTLE_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
-    v53 = CKFrameworkBundle();
-    v54 = [v53 localizedStringForKey:@"IMPACT_PICKER_GENTLE_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v45 addEffect:v52 withDescriptiveText:v54 withIdentifier:@"com.apple.MobileSMS.expressivesend.gentle"];
+    v53 = CKFrameworkBundle(v52);
+    v54 = [v53 localizedStringForKey:@"IMPACT_PICKER_GENTLE_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v55 = CKFrameworkBundle(v54);
+    v56 = [v55 localizedStringForKey:@"IMPACT_PICKER_GENTLE_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v45 addEffect:v54 withDescriptiveText:v56 withIdentifier:@"com.apple.MobileSMS.expressivesend.gentle"];
 
-    v55 = CKFrameworkBundle();
-    v56 = [v55 localizedStringForKey:@"IMPACT_PICKER_LOUD_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
-    v57 = CKFrameworkBundle();
-    v58 = [v57 localizedStringForKey:@"IMPACT_PICKER_LOUD_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v45 addEffect:v56 withDescriptiveText:v58 withIdentifier:@"com.apple.MobileSMS.expressivesend.loud"];
+    v58 = CKFrameworkBundle(v57);
+    v59 = [v58 localizedStringForKey:@"IMPACT_PICKER_LOUD_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v60 = CKFrameworkBundle(v59);
+    v61 = [v60 localizedStringForKey:@"IMPACT_PICKER_LOUD_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v45 addEffect:v59 withDescriptiveText:v61 withIdentifier:@"com.apple.MobileSMS.expressivesend.loud"];
 
-    v59 = CKFrameworkBundle();
-    v60 = [v59 localizedStringForKey:@"IMPACT_PICKER_IMPACT_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
-    v61 = CKFrameworkBundle();
-    v62 = [v61 localizedStringForKey:@"IMPACT_PICKER_IMPACT_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v45 addEffect:v60 withDescriptiveText:v62 withIdentifier:@"com.apple.MobileSMS.expressivesend.impact"];
+    v63 = CKFrameworkBundle(v62);
+    v64 = [v63 localizedStringForKey:@"IMPACT_PICKER_IMPACT_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v65 = CKFrameworkBundle(v64);
+    v66 = [v65 localizedStringForKey:@"IMPACT_PICKER_IMPACT_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v45 addEffect:v64 withDescriptiveText:v66 withIdentifier:@"com.apple.MobileSMS.expressivesend.impact"];
 
-    compositionCopy = v64;
+    compositionCopy = v68;
   }
 
   return v19;

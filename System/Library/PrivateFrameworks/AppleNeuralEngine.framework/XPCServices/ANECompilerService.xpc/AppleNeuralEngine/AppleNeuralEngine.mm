@@ -10,10 +10,11 @@ void sub_100001174(id a1)
   _objc_release_x1();
 }
 
-void sub_1000018E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1000018E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -113,47 +114,52 @@ void sub_1000040D0(id a1)
   _objc_release_x1();
 }
 
+void sub_100004A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100004AC4(void *a1)
 {
   v2 = mach_continuous_time();
   v3 = os_signpost_id_generate(qword_100021B10);
-  v15 = 0;
-  v16 = 0;
-  LODWORD(v16) = a1[17];
-  v4 = *(*(a1[4] + 8) + 24);
+  v13 = 0;
+  v14 = 0;
+  LODWORD(v14) = a1[17];
   kdebug_trace();
-  if (fcntl(*(*(a1[4] + 8) + 24), 44, &v15) == -1)
+  if (fcntl(*(*(a1[4] + 8) + 24), 44, &v13) == -1)
   {
-    v5 = qword_100021B10;
+    v4 = qword_100021B10;
     if (os_log_type_enabled(qword_100021B10, OS_LOG_TYPE_INFO))
     {
-      v6 = a1[23];
-      v7 = v5;
-      v8 = NSStringFromSelector(v6);
-      v9 = *__error();
-      v10 = __error();
-      v11 = strerror(*v10);
+      v5 = a1[23];
+      v6 = v4;
+      v7 = NSStringFromSelector(v5);
+      v8 = *__error();
+      v9 = __error();
+      v10 = strerror(*v9);
       *buf = 138412802;
-      *v18 = v8;
-      *&v18[8] = 1024;
-      *&v18[10] = v9;
-      v19 = 2080;
-      v20 = v11;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@: fcntl(F_RDADVISE). errno=%d : %s", buf, 0x1Cu);
+      *v16 = v7;
+      *&v16[8] = 1024;
+      *&v16[10] = v8;
+      v17 = 2080;
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%@: fcntl(F_RDADVISE). errno=%d : %s", buf, 0x1Cu);
     }
   }
 
-  v12 = *(*(a1[4] + 8) + 24);
   kdebug_trace();
-  v13 = qword_100021B10;
-  v14 = v13;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v11 = qword_100021B10;
+  v12 = v11;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 67109376;
-    *v18 = v16;
-    *&v18[4] = 2050;
-    *&v18[6] = v2;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, v3, "_ANED_MODEL_READ_ADVISE", "size=%d\n %{public, signpost.description:begin_time}llu ", buf, 0x12u);
+    *v16 = v14;
+    *&v16[4] = 2050;
+    *&v16[6] = v2;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, v3, "_ANED_MODEL_READ_ADVISE", "size=%d\n %{public, signpost.description:begin_time}llu ", buf, 0x12u);
   }
 }
 
@@ -188,47 +194,52 @@ void sub_100004CD4(uint64_t a1, void *a2, size_t a3)
   }
 }
 
+void sub_10000539C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1000053D4(void *a1)
 {
   v2 = mach_continuous_time();
   v3 = os_signpost_id_generate(qword_100021B10);
-  v15 = 0;
-  v16 = 0;
-  LODWORD(v16) = a1[17];
-  v4 = *(*(a1[4] + 8) + 24);
+  v13 = 0;
+  v14 = 0;
+  LODWORD(v14) = a1[17];
   kdebug_trace();
-  if (fcntl(*(*(a1[4] + 8) + 24), 44, &v15) == -1)
+  if (fcntl(*(*(a1[4] + 8) + 24), 44, &v13) == -1)
   {
-    v5 = qword_100021B10;
+    v4 = qword_100021B10;
     if (os_log_type_enabled(qword_100021B10, OS_LOG_TYPE_INFO))
     {
-      v6 = a1[23];
-      v7 = v5;
-      v8 = NSStringFromSelector(v6);
-      v9 = *__error();
-      v10 = __error();
-      v11 = strerror(*v10);
+      v5 = a1[23];
+      v6 = v4;
+      v7 = NSStringFromSelector(v5);
+      v8 = *__error();
+      v9 = __error();
+      v10 = strerror(*v9);
       *buf = 138412802;
-      *v18 = v8;
-      *&v18[8] = 1024;
-      *&v18[10] = v9;
-      v19 = 2080;
-      v20 = v11;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@: fcntl(F_RDADVISE). errno=%d : %s", buf, 0x1Cu);
+      *v16 = v7;
+      *&v16[8] = 1024;
+      *&v16[10] = v8;
+      v17 = 2080;
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%@: fcntl(F_RDADVISE). errno=%d : %s", buf, 0x1Cu);
     }
   }
 
-  v12 = *(*(a1[4] + 8) + 24);
   kdebug_trace();
-  v13 = qword_100021B10;
-  v14 = v13;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v11 = qword_100021B10;
+  v12 = v11;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 67109376;
-    *v18 = v16;
-    *&v18[4] = 2050;
-    *&v18[6] = v2;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, v3, "_ANED_WEIGHT_READ_ADVISE", "size=%d\n %{public, signpost.description:begin_time}llu ", buf, 0x12u);
+    *v16 = v14;
+    *&v16[4] = 2050;
+    *&v16[6] = v2;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, v3, "_ANED_WEIGHT_READ_ADVISE", "size=%d\n %{public, signpost.description:begin_time}llu ", buf, 0x12u);
   }
 }
 
@@ -379,9 +390,9 @@ void sub_10000A614(uint64_t a1, void *a2)
   }
 }
 
-void sub_10000A8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000A8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -429,10 +440,12 @@ void sub_10000B33C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10000C634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, void *a19, void *a20, uint64_t a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, void *a29, void *a30, uint64_t a31, void *a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_10000C634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, void *a19, void *a20, uint64_t a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, void *a29, void *a30, uint64_t a31, void *a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
-  _Block_object_dispose(&a49, 8);
-  _Block_object_dispose((v54 - 192), 8);
+  va_start(va, a48);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v53 - 192), 8);
 
   _Unwind_Resume(a1);
 }
@@ -452,26 +465,27 @@ void sub_10000C920(uint64_t a1, int a2, CFTypeRef cf)
   *(v6 + 40) = cf;
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v8 = *(a1 + 56);
   kdebug_trace();
-  v9 = qword_100021B20;
-  v10 = v9;
-  v11 = *(a1 + 48);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v8 = qword_100021B20;
+  v9 = v8;
+  v10 = *(a1 + 48);
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    v12 = *(a1 + 56);
-    v13[0] = 67109376;
-    v13[1] = 0;
-    v14 = 1024;
-    v15 = v12;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, v11, "_ANEF_JIT_ANEC_COMPILE", "%u ret:%d", v13, 0xEu);
+    v11 = *(a1 + 56);
+    v12[0] = 67109376;
+    v12[1] = 0;
+    v13 = 1024;
+    v14 = v11;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_EVENT, v10, "_ANEF_JIT_ANEC_COMPILE", "%u ret:%d", v12, 0xEu);
   }
 }
 
-void sub_10000DAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, void *a18, void *a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_10000DAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, void *a18, void *a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
-  _Block_object_dispose(&a51, 8);
-  _Block_object_dispose((v56 - 192), 8);
+  va_start(va, a50);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v55 - 192), 8);
 
   _Unwind_Resume(a1);
 }
@@ -532,16 +546,18 @@ void sub_10000E2D8(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, a5, 0xCu);
 }
 
-void sub_10000E2F4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000E2F4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_10000F08C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F08C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 int main(int argc, const char **argv, const char **envp)
@@ -592,10 +608,10 @@ void sub_10000F810(uint64_t a1)
 
   if ((v4 & v6) != 1)
   {
-    v150 = [*(a1 + 32) objectForKeyedSubscript:kANEFNetPlistFilenameKey];
+    v148 = [*(a1 + 32) objectForKeyedSubscript:kANEFNetPlistFilenameKey];
     v12 = [*(a1 + 32) objectForKeyedSubscript:kANEFCompilerOptionsFilenameKey];
-    v148 = [*(a1 + 32) objectForKeyedSubscript:kANEFModelIsEncryptedKey];
-    v13 = [v148 BOOLValue];
+    v146 = [*(a1 + 32) objectForKeyedSubscript:kANEFModelIsEncryptedKey];
+    v13 = [v146 BOOLValue];
     v14 = v2;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
@@ -604,15 +620,15 @@ void sub_10000F810(uint64_t a1)
 
     oslog = v14;
 
-    v156 = 0;
+    v154 = 0;
     v15 = *(a1 + 40);
     v16 = (a1 + 40);
     v17 = *(a1 + 48);
-    v155 = 0;
-    v18 = [_ANESandboxingHelper consumeSandboxExtension:v15 forModel:v17 error:&v155];
-    v19 = v155;
-    v146 = v18;
-    v147 = v19;
+    v153 = 0;
+    v18 = [_ANESandboxingHelper consumeSandboxExtension:v15 forModel:v17 error:&v153];
+    v19 = v153;
+    v144 = v18;
+    v145 = v19;
     if (v18 < 0 && v19)
     {
       v20 = *(a1 + 96);
@@ -628,30 +644,30 @@ void sub_10000F810(uint64_t a1)
       v26 = *(a1 + 120);
       if (v26 - 1 > 0xFFFFFFFFFFFFFFFDLL)
       {
-        v27 = v150;
+        v27 = v148;
         v28 = v12;
       }
 
       else
       {
-        v27 = v150;
+        v27 = v148;
         v28 = v12;
         if (os_signpost_enabled(v24))
         {
           v29 = [*(a1 + 48) string_id];
           *buf = 134217984;
-          *v158 = v29;
+          *v156 = v29;
           _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_EVENT, v26, "_ANEC_MODEL_COMPILE", "model.string_id:%llu", buf, 0xCu);
         }
       }
 
-LABEL_82:
+LABEL_81:
 
-      goto LABEL_83;
+      goto LABEL_82;
     }
 
-    v145 = [_ANECloneHelper cloneIfWritable:*(a1 + 48) isEncryptedModel:v13 cloneDirectory:*(a1 + 56)];
-    if (!v145)
+    v143 = [_ANECloneHelper cloneIfWritable:*(a1 + 48) isEncryptedModel:v13 cloneDirectory:*(a1 + 56)];
+    if (!v143)
     {
       (*(*(a1 + 96) + 16))();
     }
@@ -668,43 +684,43 @@ LABEL_82:
       {
         v33 = [*(a1 + 48) string_id];
         *buf = 67109376;
-        *v158 = 1;
-        *&v158[4] = 2048;
-        *&v158[6] = v33;
+        *v156 = 1;
+        *&v156[4] = 2048;
+        *&v156[6] = v33;
         _os_signpost_emit_with_name_impl(&_mh_execute_header, v31, OS_SIGNPOST_EVENT, v32, "_ANEC_MODEL_COMPILE", "%u model.string_id:%llu", buf, 0x12u);
       }
 
       v34 = oslog;
-      v27 = v150;
-      v35 = v145;
+      v27 = v148;
+      v35 = v143;
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        v139 = NSStringFromSelector(*(a1 + 112));
-        v98 = *(a1 + 64);
-        v136 = [*(a1 + 48) modelURL];
-        v99 = [*(a1 + 48) sourceURL];
-        v100 = [*(a1 + 48) key];
-        v101 = *(a1 + 72);
+        v137 = NSStringFromSelector(*(a1 + 112));
+        v96 = *(a1 + 64);
+        v134 = [*(a1 + 48) modelURL];
+        v97 = [*(a1 + 48) sourceURL];
+        v98 = [*(a1 + 48) key];
+        v99 = *(a1 + 72);
         *buf = 138413826;
-        *v158 = v139;
-        *&v158[8] = 2112;
-        *&v158[10] = v98;
+        *v156 = v137;
+        *&v156[8] = 2112;
+        *&v156[10] = v96;
         v28 = v12;
-        v35 = v145;
+        v35 = v143;
+        v157 = 2112;
+        v158 = v134;
         v159 = 2112;
-        v160 = v136;
+        v160 = v97;
         v161 = 2112;
-        v162 = v99;
+        v162 = v143;
         v163 = 2112;
-        v164 = v145;
+        v164 = v98;
+        v100 = v98;
         v165 = 2112;
-        v166 = v100;
-        v102 = v100;
-        v167 = 2112;
-        v168 = v101;
+        v166 = v99;
         _os_log_debug_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "%@: ANECIRModel : bundleId=%@ model.modelURL=%@ model.sourceURL=%@ modelURL=%@ key=%@ output=%@", buf, 0x48u);
 
-        v27 = v150;
+        v27 = v148;
       }
 
       v36 = [*(a1 + 48) sourceURL];
@@ -726,8 +742,8 @@ LABEL_82:
       v56 = *(a1 + 32);
       v57 = *(*(a1 + 104) + 8);
       obj = *(v57 + 40);
-      LOBYTE(v132) = v13;
-      v23 = [_ANECVAIRCompiler compileModelAt:v35 csIdentity:v53 plistFilename:v27 optionsFilename:v28 outputURL:v54 saveSourceURL:v52 aotModelBinaryPath:v55 isEncryptedModel:v132 options:v56 ok:&v156 error:&obj];
+      LOBYTE(v130) = v13;
+      v23 = [_ANECVAIRCompiler compileModelAt:v35 csIdentity:v53 plistFilename:v27 optionsFilename:v28 outputURL:v54 saveSourceURL:v52 aotModelBinaryPath:v55 isEncryptedModel:v130 options:v56 ok:&v154 error:&obj];
       objc_storeStrong((v57 + 40), obj);
       [*(a1 + 48) string_id];
       kdebug_trace();
@@ -741,14 +757,14 @@ LABEL_82:
 
       v61 = [*(a1 + 48) string_id];
       *buf = 67109376;
-      *v158 = 2;
-      *&v158[4] = 2048;
-      *&v158[6] = v61;
+      *v156 = 2;
+      *&v156[4] = 2048;
+      *&v156[6] = v61;
 LABEL_47:
       _os_signpost_emit_with_name_impl(&_mh_execute_header, v59, OS_SIGNPOST_EVENT, v60, "_ANEC_MODEL_COMPILE", "%u model.string_id:%llu", buf, 0x12u);
 LABEL_70:
 
-      v25 = v145;
+      v25 = v143;
       goto LABEL_71;
     }
 
@@ -763,42 +779,42 @@ LABEL_70:
       {
         v48 = [*(a1 + 48) string_id];
         *buf = 67109376;
-        *v158 = 3;
-        *&v158[4] = 2048;
-        *&v158[6] = v48;
+        *v156 = 3;
+        *&v156[4] = 2048;
+        *&v156[6] = v48;
         _os_signpost_emit_with_name_impl(&_mh_execute_header, v46, OS_SIGNPOST_EVENT, v47, "_ANEC_MODEL_COMPILE", "%u model.string_id:%llu", buf, 0x12u);
       }
 
       v49 = oslog;
       if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
       {
-        v140 = NSStringFromSelector(*(a1 + 112));
-        v106 = *(a1 + 64);
-        v107 = [*(a1 + 48) modelURL];
-        v108 = [*(a1 + 48) sourceURL];
-        v109 = [*(a1 + 48) key];
-        v110 = *(a1 + 72);
+        v138 = NSStringFromSelector(*(a1 + 112));
+        v104 = *(a1 + 64);
+        v105 = [*(a1 + 48) modelURL];
+        v106 = [*(a1 + 48) sourceURL];
+        v107 = [*(a1 + 48) key];
+        v108 = *(a1 + 72);
         *buf = 138413826;
-        *v158 = v140;
-        *&v158[8] = 2112;
-        *&v158[10] = v106;
+        *v156 = v138;
+        *&v156[8] = 2112;
+        *&v156[10] = v104;
+        v157 = 2112;
+        v158 = v105;
         v159 = 2112;
-        v160 = v107;
+        v160 = v106;
         v161 = 2112;
-        v162 = v108;
+        v162 = v143;
         v163 = 2112;
-        v164 = v145;
+        v164 = v107;
+        v109 = v107;
         v165 = 2112;
-        v166 = v109;
-        v111 = v109;
-        v167 = 2112;
-        v168 = v110;
+        v166 = v108;
         _os_log_debug_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "%@: CoreMLModel: bundleId=%@ model.modelURL=%@ model.sourceURL=%@ modelURL=%@ key=%@ output=%@", buf, 0x48u);
       }
 
       v50 = [*(a1 + 48) sourceURL];
       v51 = *(a1 + 48);
-      v144 = (a1 + 40);
+      v142 = (a1 + 40);
       if (v50)
       {
         [v51 sourceURL];
@@ -819,10 +835,10 @@ LABEL_70:
       v75 = *(a1 + 72);
       v76 = *(a1 + 32);
       v77 = *(*(a1 + 104) + 8);
-      v153 = *(v77 + 40);
-      LOBYTE(v133) = v13;
-      v23 = [_ANECoreMLModelCompiler compileModelAt:v145 csIdentity:v71 key:v72 optionsFilename:v12 tempDirectory:v73 outputURL:v75 saveSourceModelPath:v70 aotModelBinaryPath:v74 isEncryptedModel:v133 options:v76 ok:&v156 error:&v153];
-      objc_storeStrong((v77 + 40), v153);
+      v151 = *(v77 + 40);
+      LOBYTE(v131) = v13;
+      v23 = [_ANECoreMLModelCompiler compileModelAt:v143 csIdentity:v71 key:v72 optionsFilename:v12 tempDirectory:v73 outputURL:v75 saveSourceModelPath:v70 aotModelBinaryPath:v74 isEncryptedModel:v131 options:v76 ok:&v154 error:&v151];
+      objc_storeStrong((v77 + 40), v151);
 
       [*(a1 + 48) string_id];
       kdebug_trace();
@@ -833,9 +849,9 @@ LABEL_70:
       {
         v81 = [*(a1 + 48) string_id];
         *buf = 67109376;
-        *v158 = 4;
-        *&v158[4] = 2048;
-        *&v158[6] = v81;
+        *v156 = 4;
+        *&v156[4] = 2048;
+        *&v156[6] = v81;
         _os_signpost_emit_with_name_impl(&_mh_execute_header, v79, OS_SIGNPOST_EVENT, v80, "_ANEC_MODEL_COMPILE", "%u model.string_id:%llu", buf, 0x12u);
       }
 
@@ -854,39 +870,39 @@ LABEL_70:
       {
         v41 = [*(a1 + 48) string_id];
         *buf = 67109376;
-        *v158 = 5;
-        *&v158[4] = 2048;
-        *&v158[6] = v41;
+        *v156 = 5;
+        *&v156[4] = 2048;
+        *&v156[6] = v41;
         _os_signpost_emit_with_name_impl(&_mh_execute_header, v39, OS_SIGNPOST_EVENT, v40, "_ANEC_MODEL_COMPILE", "%u model.string_id:%llu", buf, 0x12u);
       }
 
       v42 = oslog;
-      v27 = v150;
+      v27 = v148;
       if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
-        v112 = NSStringFromSelector(*(a1 + 112));
-        v141 = *(a1 + 64);
-        v113 = [*(a1 + 48) modelURL];
-        v114 = [*(a1 + 48) sourceURL];
-        v115 = [*(a1 + 48) key];
-        v116 = *(a1 + 72);
+        v110 = NSStringFromSelector(*(a1 + 112));
+        v139 = *(a1 + 64);
+        v111 = [*(a1 + 48) modelURL];
+        v112 = [*(a1 + 48) sourceURL];
+        v113 = [*(a1 + 48) key];
+        v114 = *(a1 + 72);
         *buf = 138413826;
-        *v158 = v112;
-        *&v158[8] = 2112;
-        *&v158[10] = v141;
+        *v156 = v110;
+        *&v156[8] = 2112;
+        *&v156[10] = v139;
+        v157 = 2112;
+        v158 = v111;
         v159 = 2112;
-        v160 = v113;
+        v160 = v112;
         v161 = 2112;
-        v162 = v114;
+        v162 = v143;
         v163 = 2112;
-        v164 = v145;
+        v164 = v113;
         v165 = 2112;
-        v166 = v115;
-        v167 = 2112;
-        v168 = v116;
+        v166 = v114;
         _os_log_debug_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "%@: MILModel : bundleId=%@ model.modelURL=%@ model.sourceURL=%@ modelURL=%@ key=%@ output=%@", buf, 0x48u);
 
-        v27 = v150;
+        v27 = v148;
         v28 = v12;
       }
 
@@ -913,10 +929,10 @@ LABEL_70:
       v84 = *(a1 + 80);
       v85 = *(a1 + 32);
       v86 = *(*(a1 + 104) + 8);
-      v152 = *(v86 + 40);
-      LOBYTE(v132) = v13;
-      v23 = [_ANEMILCompiler compileModelAt:v145 modelName:v27 csIdentity:v82 optionsFilename:v28 outputURL:v83 saveSourceURL:v52 aotModelBinaryPath:v84 isEncryptedModel:v132 options:v85 ok:&v156 error:&v152];
-      objc_storeStrong((v86 + 40), v152);
+      v150 = *(v86 + 40);
+      LOBYTE(v130) = v13;
+      v23 = [_ANEMILCompiler compileModelAt:v143 modelName:v27 csIdentity:v82 optionsFilename:v28 outputURL:v83 saveSourceURL:v52 aotModelBinaryPath:v84 isEncryptedModel:v130 options:v85 ok:&v154 error:&v150];
+      objc_storeStrong((v86 + 40), v150);
       [*(a1 + 48) string_id];
       kdebug_trace();
       v87 = +[_ANELog compiler];
@@ -929,16 +945,16 @@ LABEL_70:
 
       v88 = [*(a1 + 48) string_id];
       *buf = 67109376;
-      *v158 = 6;
-      *&v158[4] = 2048;
-      *&v158[6] = v88;
+      *v156 = 6;
+      *&v156[4] = 2048;
+      *&v156[6] = v88;
       goto LABEL_47;
     }
 
     if (((v8 | v10) & 1) == 0)
     {
-      v27 = v150;
-      v25 = v145;
+      v27 = v148;
+      v25 = v143;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
         sub_100011E8C(oslog);
@@ -957,40 +973,40 @@ LABEL_70:
     {
       v65 = [*(a1 + 48) string_id];
       *buf = 67109376;
-      *v158 = 5;
-      *&v158[4] = 2048;
-      *&v158[6] = v65;
+      *v156 = 5;
+      *&v156[4] = 2048;
+      *&v156[6] = v65;
       _os_signpost_emit_with_name_impl(&_mh_execute_header, v63, OS_SIGNPOST_EVENT, v64, "_ANEC_MODEL_COMPILE", "%u model.string_id:%llu", buf, 0x12u);
     }
 
     v66 = oslog;
     if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
     {
-      v143 = NSStringFromSelector(*(a1 + 112));
-      v135 = *(a1 + 64);
-      v134 = [*(a1 + 48) modelURL];
-      v138 = [*(a1 + 48) sourceURL];
-      v128 = [*(a1 + 48) key];
-      v129 = *(a1 + 72);
+      v141 = NSStringFromSelector(*(a1 + 112));
+      v133 = *(a1 + 64);
+      v132 = [*(a1 + 48) modelURL];
+      v136 = [*(a1 + 48) sourceURL];
+      v126 = [*(a1 + 48) key];
+      v127 = *(a1 + 72);
       *buf = 138413826;
-      *v158 = v143;
-      *&v158[8] = 2112;
-      *&v158[10] = v135;
+      *v156 = v141;
+      *&v156[8] = 2112;
+      *&v156[10] = v133;
+      v157 = 2112;
+      v158 = v132;
       v159 = 2112;
-      v160 = v134;
+      v160 = v136;
       v161 = 2112;
-      v162 = v138;
+      v162 = v143;
       v163 = 2112;
-      v164 = v145;
+      v164 = v126;
+      v128 = v126;
       v165 = 2112;
-      v166 = v128;
-      v130 = v128;
-      v167 = 2112;
-      v168 = v129;
+      v166 = v127;
       _os_log_debug_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEBUG, "%@: MLIRModel : bundleId=%@ model.modelURL=%@ model.sourceURL=%@ modelURL=%@ key=%@ output=%@", buf, 0x48u);
     }
 
-    if (!v150)
+    if (!v148)
     {
       if (v8)
       {
@@ -1001,125 +1017,120 @@ LABEL_70:
       {
         if (!v10)
         {
-          v150 = 0;
-          goto LABEL_88;
+          v148 = 0;
+          goto LABEL_87;
         }
 
         v67 = +[_ANEStrings defaultLLIRBundleName];
       }
 
-      v150 = v67;
+      v148 = v67;
     }
 
-LABEL_88:
-    v144 = (a1 + 40);
-    v117 = [*(a1 + 48) sourceURL];
-    v118 = *(a1 + 48);
-    if (v117)
+LABEL_87:
+    v142 = (a1 + 40);
+    v115 = [*(a1 + 48) sourceURL];
+    v116 = *(a1 + 48);
+    if (v115)
     {
-      [v118 sourceURL];
+      [v116 sourceURL];
     }
 
     else
     {
-      [v118 modelURL];
+      [v116 modelURL];
     }
-    v119 = ;
+    v117 = ;
 
-    v137 = *(a1 + 64);
-    v142 = *(a1 + 72);
-    v120 = *(a1 + 80);
-    v121 = *(a1 + 32);
-    v122 = [*(a1 + 48) mpsConstants];
-    v123 = *(*(a1 + 104) + 8);
-    v151 = *(v123 + 40);
-    LOBYTE(v132) = v13;
-    v131 = v120;
+    v135 = *(a1 + 64);
+    v140 = *(a1 + 72);
+    v118 = *(a1 + 80);
+    v119 = *(a1 + 32);
+    v120 = [*(a1 + 48) mpsConstants];
+    v121 = *(*(a1 + 104) + 8);
+    v149 = *(v121 + 40);
+    LOBYTE(v130) = v13;
+    v129 = v118;
     v28 = v12;
-    v23 = [_ANEMLIRCompiler compileModelAt:v145 modelName:v150 csIdentity:v137 optionsFilename:v12 outputURL:v142 saveSourceURL:v119 aotModelBinaryPath:v131 isEncryptedModel:v132 options:v121 mpsConstants:v122 ok:&v156 error:&v151];
-    objc_storeStrong((v123 + 40), v151);
+    v23 = [_ANEMLIRCompiler compileModelAt:v143 modelName:v148 csIdentity:v135 optionsFilename:v12 outputURL:v140 saveSourceURL:v117 aotModelBinaryPath:v129 isEncryptedModel:v130 options:v119 mpsConstants:v120 ok:&v154 error:&v149];
+    objc_storeStrong((v121 + 40), v149);
 
     [*(a1 + 48) string_id];
     kdebug_trace();
-    v124 = +[_ANELog compiler];
-    v125 = v124;
-    v126 = *(a1 + 120);
-    if (v126 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v124))
+    v122 = +[_ANELog compiler];
+    v123 = v122;
+    v124 = *(a1 + 120);
+    if (v124 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v122))
     {
-      v127 = [*(a1 + 48) string_id];
+      v125 = [*(a1 + 48) string_id];
       *buf = 67109376;
-      *v158 = 6;
-      *&v158[4] = 2048;
-      *&v158[6] = v127;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v125, OS_SIGNPOST_EVENT, v126, "_ANEC_MODEL_COMPILE", "%u model.string_id:%llu", buf, 0x12u);
+      *v156 = 6;
+      *&v156[4] = 2048;
+      *&v156[6] = v125;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v123, OS_SIGNPOST_EVENT, v124, "_ANEC_MODEL_COMPILE", "%u model.string_id:%llu", buf, 0x12u);
     }
 
 LABEL_62:
-    v27 = v150;
-    v25 = v145;
-    v16 = v144;
+    v27 = v148;
+    v25 = v143;
+    v16 = v142;
 LABEL_71:
-    v89 = v156;
+    v89 = v154;
     v90 = oslog;
     v91 = v90;
     if (v89 == 1)
     {
-      v92 = v146;
+      v92 = v144;
       if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
       {
         v93 = NSStringFromSelector(*(a1 + 112));
         v94 = *(a1 + 72);
         *buf = 138413058;
-        *v158 = v93;
-        *&v158[8] = 2112;
-        *&v158[10] = v25;
+        *v156 = v93;
+        *&v156[8] = 2112;
+        *&v156[10] = v25;
+        v157 = 2112;
+        v158 = v94;
         v159 = 2112;
-        v160 = v94;
-        v161 = 2112;
-        v162 = v23;
+        v160 = v23;
         _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_INFO, "%@: SUCCESS: model=%@ : output=%@ : lAttr=%@ : lErr=(nil)", buf, 0x2Au);
       }
-
-      v95 = *(*(a1 + 96) + 16);
     }
 
     else
     {
-      v92 = v146;
+      v92 = v144;
       if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
       {
-        v103 = NSStringFromSelector(*(a1 + 112));
-        v104 = *(a1 + 72);
-        v105 = *(*(*(a1 + 104) + 8) + 40);
+        v101 = NSStringFromSelector(*(a1 + 112));
+        v102 = *(a1 + 72);
+        v103 = *(*(*(a1 + 104) + 8) + 40);
         *buf = 138413314;
-        *v158 = v103;
-        *&v158[8] = 2112;
-        *&v158[10] = v25;
+        *v156 = v101;
+        *&v156[8] = 2112;
+        *&v156[10] = v25;
+        v157 = 2112;
+        v158 = v102;
         v159 = 2112;
-        v160 = v104;
+        v160 = v23;
         v161 = 2112;
-        v162 = v23;
-        v163 = 2112;
-        v164 = v105;
+        v162 = v103;
         _os_log_error_impl(&_mh_execute_header, v91, OS_LOG_TYPE_ERROR, "%@: ERROR: model=%@ : output=%@ : lAttr=%@ : lErr=%@", buf, 0x34u);
       }
-
-      v96 = *(*(*(a1 + 104) + 8) + 40);
-      v95 = *(*(a1 + 96) + 16);
     }
 
-    v95();
-    v156 = [_ANESandboxingHelper releaseSandboxExtension:*v16 handle:v92];
-    if ((v156 & 1) == 0)
+    (*(*(a1 + 96) + 16))();
+    v154 = [_ANESandboxingHelper releaseSandboxExtension:*v16 handle:v92];
+    if ((v154 & 1) == 0)
     {
-      v97 = v91;
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+      v95 = v91;
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
-        sub_100011ED0(v16, v92, v97);
+        sub_100011ED0(v16, v92, v95);
       }
     }
 
-    goto LABEL_82;
+    goto LABEL_81;
   }
 
   v11 = v2;
@@ -1129,7 +1140,7 @@ LABEL_71:
   }
 
   (*(*(a1 + 96) + 16))();
-LABEL_83:
+LABEL_82:
 }
 
 void sub_100010AAC(void *a1, const char *a2)
@@ -1162,16 +1173,15 @@ void sub_100010C10(void *a1, const char *a2)
 
 void sub_100010CC8(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = *(a1 + 40);
-  v6 = a2;
-  v7 = NSStringFromSelector(v5);
-  v8 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v5 = a2;
+  v6 = NSStringFromSelector(v4);
   sub_1000039B0();
+  v9 = 2112;
+  v10 = v7;
   v11 = 2112;
-  v12 = v9;
-  v13 = 2112;
-  v14 = a3;
-  _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%@: Could not create connection to %@ : error=%@", v10, 0x20u);
+  v12 = a3;
+  _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%@: Could not create connection to %@ : error=%@", v8, 0x20u);
 }
 
 void sub_100010D94(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -1349,9 +1359,8 @@ void sub_1000117E0()
 void sub_100011830()
 {
   sub_10000E278();
-  v2 = *(*v1 + 40);
-  sub_10000E2C0(v3, 5.778e-34, v1, v4);
-  sub_10000E2A4(&_mh_execute_header, "%@: lAttr=%@", v5, v6);
+  sub_10000E2C0(v1, 5.778e-34, v2, v3);
+  sub_10000E2A4(&_mh_execute_header, "%@: lAttr=%@", v4, v5);
 }
 
 void sub_10001187C()
@@ -1369,6 +1378,27 @@ void sub_1000118C4(void *a1, uint64_t a2, NSObject *a3)
   sub_10000E2D8(&_mh_execute_header, a2, a3, "%@: compileModel is JITModel", a2);
 }
 
+void sub_100011910(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000E2F4(&_mh_execute_header, a2, a3, "Failed to get convert alignment to number for key: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001197C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000E2F4(&_mh_execute_header, a2, a3, "Failed to get alignment for key: %@ from mps constants dict", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000119E8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000E2F4(&_mh_execute_header, a2, a3, "Failed to get surface for key: %@ from mps constants dict", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100011A9C(void *a1, const char *a2, uint64_t a3)
 {
   v5 = a1;
@@ -1383,7 +1413,7 @@ void sub_100011B50(void *a1, const char *a2)
   v3 = a1;
   v4 = NSStringFromSelector(a2);
   sub_100007E98();
-  sub_10000F08C(&_mh_execute_header, v5, v6, "%@: optionsFilePath=%@", v7, v8, v9, v10, v11);
+  sub_10000F08C(&_mh_execute_header, v5, v6, "%@: optionsFilePath=%@", v7, v8, v9, v10);
 }
 
 void sub_100011BF8(void *a1, const char *a2)
@@ -1391,7 +1421,7 @@ void sub_100011BF8(void *a1, const char *a2)
   v3 = a1;
   v4 = NSStringFromSelector(a2);
   sub_100007E98();
-  sub_10000F08C(&_mh_execute_header, v5, v6, "%@: lAttr=%@", v7, v8, v9, v10, v11);
+  sub_10000F08C(&_mh_execute_header, v5, v6, "%@: lAttr=%@", v7, v8, v9, v10);
 }
 
 void sub_100011CA0(NSObject *a1)

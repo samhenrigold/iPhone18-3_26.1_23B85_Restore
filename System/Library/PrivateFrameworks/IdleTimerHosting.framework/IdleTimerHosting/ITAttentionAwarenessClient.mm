@@ -8,6 +8,7 @@
 - (void)_access_resume;
 - (void)_access_suspend;
 - (void)_handleAttentionAwarenessEvent:(id)event;
+- (void)setConfiguration:(id)configuration shouldReset:(BOOL)reset;
 - (void)setEnabled:(BOOL)enabled;
 @end
 
@@ -18,7 +19,7 @@
   v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_accessLock);
   configuration = [(AWAttentionAwarenessClient *)self->_access_attentionAwarenessClient configuration];
-  v4 = ITLogIdleTimer();
+  v4 = ITLogIdleTimer(configuration);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     access_attentionAwarenessClient = self->_access_attentionAwarenessClient;
@@ -33,10 +34,11 @@
   v13 = 0;
   v7 = [(AWAttentionAwarenessClient *)v6 resumeWithError:&v13];
   v8 = v13;
+  v9 = v8;
   if ((v7 & 1) == 0)
   {
-    v9 = ITLogIdleTimer();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = ITLogIdleTimer(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = objc_opt_class();
       v12 = NSStringFromClass(v11);
@@ -45,12 +47,10 @@
       v16 = 2114;
       v17 = configuration;
       v18 = 2114;
-      v19 = v8;
-      _os_log_error_impl(&dword_254AB6000, v9, OS_LOG_TYPE_ERROR, "%{public}@ - attention client %{public}@ cannot resume; error:%{public}@", buf, 0x20u);
+      v19 = v9;
+      _os_log_error_impl(&dword_254AB6000, v10, OS_LOG_TYPE_ERROR, "%{public}@ - attention client %{public}@ cannot resume; error:%{public}@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEnabled
@@ -152,26 +152,40 @@ void __77__ITAttentionAwarenessClient__initWithCalloutQueue_attentionAwarenessCl
   return v4;
 }
 
+- (void)setConfiguration:(id)configuration shouldReset:(BOOL)reset
+{
+  resetCopy = reset;
+  configurationCopy = configuration;
+  os_unfair_lock_assert_not_owner(&self->_accessLock);
+  os_unfair_lock_lock(&self->_accessLock);
+  access_attentionAwarenessClient = self->_access_attentionAwarenessClient;
+  v8 = [configurationCopy copy];
+
+  [(AWAttentionAwarenessClient *)access_attentionAwarenessClient setConfiguration:v8 shouldReset:resetCopy];
+
+  os_unfair_lock_unlock(&self->_accessLock);
+}
+
 - (void)_access_suspend
 {
   v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_accessLock);
-  v3 = ITLogIdleTimer();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = ITLogIdleTimer(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_254AB6000, v3, OS_LOG_TYPE_DEFAULT, "attention client SUSPEND", buf, 2u);
+    _os_log_impl(&dword_254AB6000, v4, OS_LOG_TYPE_DEFAULT, "attention client SUSPEND", buf, 2u);
   }
 
   access_attentionAwarenessClient = self->_access_attentionAwarenessClient;
   v13 = 0;
-  v5 = [(AWAttentionAwarenessClient *)access_attentionAwarenessClient suspendWithError:&v13];
-  v6 = v13;
-  if ((v5 & 1) == 0)
+  v6 = [(AWAttentionAwarenessClient *)access_attentionAwarenessClient suspendWithError:&v13];
+  v7 = v13;
+  if ((v6 & 1) == 0)
   {
     configuration = [(AWAttentionAwarenessClient *)self->_access_attentionAwarenessClient configuration];
-    v8 = ITLogIdleTimer();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = ITLogIdleTimer(configuration);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
@@ -181,12 +195,10 @@ void __77__ITAttentionAwarenessClient__initWithCalloutQueue_attentionAwarenessCl
       v16 = 2114;
       v17 = identifier;
       v18 = 2114;
-      v19 = v6;
-      _os_log_error_impl(&dword_254AB6000, v8, OS_LOG_TYPE_ERROR, "%{public}@ - attention client %{public}@ cannot suspend; error:%{public}@", buf, 0x20u);
+      v19 = v7;
+      _os_log_error_impl(&dword_254AB6000, v9, OS_LOG_TYPE_ERROR, "%{public}@ - attention client %{public}@ cannot suspend; error:%{public}@", buf, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAttentionAwarenessEvent:(id)event
@@ -218,89 +230,90 @@ void __77__ITAttentionAwarenessClient__initWithCalloutQueue_attentionAwarenessCl
 
   if (v10)
   {
-    if ([eventCopy eventMask])
+    eventMask = [eventCopy eventMask];
+    if (eventMask)
     {
-      v12 = objc_opt_class();
-      v13 = eventCopy;
-      if (v12)
+      v13 = objc_opt_class();
+      v14 = eventCopy;
+      if (v13)
       {
         if (objc_opt_isKindOfClass())
         {
-          v14 = v13;
+          v15 = v14;
         }
 
         else
         {
-          v14 = 0;
+          v15 = 0;
         }
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
 
-      v15 = v14;
+      v16 = v15;
 
-      if (v15)
+      if (v16)
       {
-        [v15 attentionLostTimeout];
-        v17 = v16;
-        associatedObject = [v15 associatedObject];
-        v19 = objc_opt_class();
-        v20 = associatedObject;
-        if (v19)
+        [v16 attentionLostTimeout];
+        v19 = v18;
+        associatedObject = [v16 associatedObject];
+        v21 = objc_opt_class();
+        v22 = associatedObject;
+        if (v21)
         {
           if (objc_opt_isKindOfClass())
           {
-            v21 = v20;
+            v23 = v22;
           }
 
           else
           {
-            v21 = 0;
+            v23 = 0;
           }
         }
 
         else
         {
-          v21 = 0;
+          v23 = 0;
         }
 
-        v22 = v21;
+        v24 = v23;
 
-        if (v22)
+        if (v24)
         {
-          v23 = [[ITIdleTimeout alloc] initWithDuration:[v22 unsignedIntegerValue] identifier:v17];
-          [WeakRetained client:self attentionLostTimeoutDidExpire:v23 forContext:v10];
+          v26 = [[ITIdleTimeout alloc] initWithDuration:[v24 unsignedIntegerValue] identifier:v19];
+          [WeakRetained client:self attentionLostTimeoutDidExpire:v26 forContext:v10];
         }
 
         else
         {
-          v23 = ITLogIdleTimer();
-          if (os_log_type_enabled(&v23->super, OS_LOG_TYPE_FAULT))
+          v26 = ITLogIdleTimer(v25);
+          if (os_log_type_enabled(&v26->super, OS_LOG_TYPE_FAULT))
           {
-            [(ITAttentionAwarenessClient *)self _handleAttentionAwarenessEvent:v15, &v23->super];
+            [(ITAttentionAwarenessClient *)self _handleAttentionAwarenessEvent:v16, &v26->super];
           }
         }
       }
 
       else
       {
-        v22 = ITLogIdleTimer();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = ITLogIdleTimer(v17);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          [(ITAttentionAwarenessClient *)self _handleAttentionAwarenessEvent:v13, v22];
+          [(ITAttentionAwarenessClient *)self _handleAttentionAwarenessEvent:v14, v24];
         }
       }
     }
 
     else
     {
-      v11 = ITLogIdleTimer();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = ITLogIdleTimer(eventMask);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        [(ITAttentionAwarenessClient *)eventCopy _handleAttentionAwarenessEvent:v11];
+        [(ITAttentionAwarenessClient *)eventCopy _handleAttentionAwarenessEvent:v12];
       }
 
       [WeakRetained clientDidReset:self forUserAttentionEvent:eventCopy withContext:v10];
@@ -317,40 +330,35 @@ void __77__ITAttentionAwarenessClient__initWithCalloutQueue_attentionAwarenessCl
 
 - (void)_handleAttentionAwarenessEvent:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a2 associatedObject];
-  v9 = 138543618;
-  v10 = v6;
-  v11 = 2114;
-  v12 = v7;
-  _os_log_fault_impl(&dword_254AB6000, a3, OS_LOG_TYPE_FAULT, "%{public}@ - attention client lost event timeoutTag is not a NSObject: %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543618;
+  v9 = v6;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_fault_impl(&dword_254AB6000, a3, OS_LOG_TYPE_FAULT, "%{public}@ - attention client lost event timeoutTag is not a NSObject: %{public}@", &v8, 0x16u);
 }
 
 - (void)_handleAttentionAwarenessEvent:(NSObject *)a3 .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138543618;
-  v9 = v6;
-  v10 = 2114;
-  v11 = a2;
-  _os_log_error_impl(&dword_254AB6000, a3, OS_LOG_TYPE_ERROR, "%{public}@ - attention event: expected AWAttentionLostEvent instead of %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = v6;
+  v9 = 2114;
+  v10 = a2;
+  _os_log_error_impl(&dword_254AB6000, a3, OS_LOG_TYPE_ERROR, "%{public}@ - attention event: expected AWAttentionLostEvent instead of %{public}@", &v7, 0x16u);
 }
 
 - (void)_handleAttentionAwarenessEvent:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_254AB6000, a2, OS_LOG_TYPE_DEBUG, "attention event: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_254AB6000, a2, OS_LOG_TYPE_DEBUG, "attention event: %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -37,35 +37,34 @@
 
 + (id)supportedClassesByTypeIdentifier
 {
-  v6[13] = *MEMORY[0x1E69E9840];
-  v5[0] = &unk_1F02FED48;
-  v6[0] = objc_opt_class();
-  v5[1] = &unk_1F02FED60;
-  v6[1] = objc_opt_class();
-  v5[2] = &unk_1F02FED78;
-  v6[2] = objc_opt_class();
-  v5[3] = &unk_1F02FED90;
-  v6[3] = objc_opt_class();
-  v5[4] = &unk_1F02FEDA8;
-  v6[4] = objc_opt_class();
-  v5[5] = &unk_1F02FEDC0;
-  v6[5] = objc_opt_class();
-  v5[6] = &unk_1F02FEDD8;
-  v6[6] = objc_opt_class();
-  v5[7] = &unk_1F02FEDF0;
-  v6[7] = objc_opt_class();
-  v5[8] = &unk_1F02FEE08;
-  v6[8] = objc_opt_class();
-  v5[9] = &unk_1F02FEE20;
-  v6[9] = objc_opt_class();
-  v5[10] = &unk_1F02FEE38;
-  v6[10] = objc_opt_class();
-  v5[11] = &unk_1F02FEE50;
-  v6[11] = objc_opt_class();
-  v5[12] = &unk_1F02FEE68;
-  v6[12] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:13];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[13] = *MEMORY[0x1E69E9840];
+  v4[0] = &unk_1F02FED48;
+  v5[0] = objc_opt_class();
+  v4[1] = &unk_1F02FED60;
+  v5[1] = objc_opt_class();
+  v4[2] = &unk_1F02FED78;
+  v5[2] = objc_opt_class();
+  v4[3] = &unk_1F02FED90;
+  v5[3] = objc_opt_class();
+  v4[4] = &unk_1F02FEDA8;
+  v5[4] = objc_opt_class();
+  v4[5] = &unk_1F02FEDC0;
+  v5[5] = objc_opt_class();
+  v4[6] = &unk_1F02FEDD8;
+  v5[6] = objc_opt_class();
+  v4[7] = &unk_1F02FEDF0;
+  v5[7] = objc_opt_class();
+  v4[8] = &unk_1F02FEE08;
+  v5[8] = objc_opt_class();
+  v4[9] = &unk_1F02FEE20;
+  v5[9] = objc_opt_class();
+  v4[10] = &unk_1F02FEE38;
+  v5[10] = objc_opt_class();
+  v4[11] = &unk_1F02FEE50;
+  v5[11] = objc_opt_class();
+  v4[12] = &unk_1F02FEE68;
+  v5[12] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:13];
 
   return v2;
 }

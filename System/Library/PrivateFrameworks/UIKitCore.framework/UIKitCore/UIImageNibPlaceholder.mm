@@ -120,7 +120,7 @@ LABEL_5:
 
   if ([v6 length] || (+[UIImage systemImageNamed:](UIImage, "systemImageNamed:", v5), (v8 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    if ([v7 isEqualToString:@"private"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = [UIImage _systemImageNamed:v5];
       goto LABEL_6;

@@ -859,21 +859,21 @@ void __23__MODaemonUniverse_run__block_invoke(id a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_3_5(&_mh_execute_header, v0, v1, "service named [%@] failed to be initiated (in %s:%d)", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3_5(&_mh_execute_header, v0, v1, "service named [%@] failed to be initiated (in %s:%d)", v2, v3, v4, v5);
 }
 
 - (void)createService:.cold.1()
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_3_5(&_mh_execute_header, v0, v1, "service named [%@] does not conform the protocol. (in %s:%d)", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3_5(&_mh_execute_header, v0, v1, "service named [%@] does not conform the protocol. (in %s:%d)", v2, v3, v4, v5);
 }
 
 - (void)createService:.cold.2()
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_3_5(&_mh_execute_header, v0, v1, "No class named [%@] (in %s:%d)", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3_5(&_mh_execute_header, v0, v1, "No class named [%@] (in %s:%d)", v2, v3, v4, v5);
 }
 
 @end

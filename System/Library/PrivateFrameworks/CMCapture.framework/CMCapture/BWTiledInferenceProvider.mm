@@ -8,7 +8,6 @@
 - (int)submitForSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withSubmissionTime:(id *)time workQueue:(id)queue completionHandler:(id)handler;
 - (int)submitForSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withSubmissionTime:(id *)time workQueue:(id)queue completionHandler:(id)handler currentTileCount:;
 - (uint64_t)_metalTextureFormatFromPixelBufferFormat:(int)format forPlane:;
-- (uint64_t)newStorage;
 - (void)dealloc;
 - (void)propagateInferenceResultsToInferenceDictionary:(id)dictionary usingStorage:(id)storage inputSampleBuffer:(opaqueCMSampleBuffer *)buffer propagationSampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer;
 - (void)setCustomInferenceIdentifier:(id)identifier;
@@ -229,108 +228,108 @@
 
 - (int)submitForSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withSubmissionTime:(id *)time workQueue:(id)queue completionHandler:(id)handler currentTileCount:
 {
-  v8 = v7;
-  v12 = [(NSArray *)self->_inputVideoRequirements count:buffer];
-  v96 = [(NSArray *)self->_tileInputVideoRequirements count];
-  v13 = [(NSArray *)self->_outputVideoRequirements count];
-  v14 = [(NSArray *)self->_tileOutputVideoRequirements count];
+  v9 = v7;
+  v13 = [(NSArray *)self->_inputVideoRequirements count:buffer];
+  v100 = [(NSArray *)self->_tileInputVideoRequirements count];
+  v14 = [(NSArray *)self->_outputVideoRequirements count];
+  v15 = [(NSArray *)self->_tileOutputVideoRequirements count];
   if ([objc_msgSend(storage "espressoStorages")] != 2)
   {
     [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
 LABEL_125:
-    v99 = 0;
-    v55 = 0;
-    v15 = 0;
-    v101 = 0;
-    v16 = 0;
     v103 = 0;
+    v56 = 0;
+    v16 = 0;
+    v105 = 0;
     v17 = 0;
-    v53 = v108;
-    v54 = 1;
+    v107 = 0;
+    v18 = 0;
+    v54 = v112;
+    v55 = 1;
     goto LABEL_64;
   }
 
-  if (v8 > *self->_maxTileCount)
+  if (v9 > *self->_maxTileCount)
   {
     [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
     goto LABEL_125;
   }
 
-  v91 = HIWORD(v8);
-  if (HIWORD(v8) > *&self->_maxTileCount[2])
+  v95 = HIWORD(v9);
+  if (HIWORD(v9) > *&self->_maxTileCount[2])
   {
     [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
     goto LABEL_125;
   }
 
-  count = v13;
+  count = v14;
   handlerCopy = handler;
-  v100 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v12];
-  v102 = malloc_type_calloc(2 * (v96 & 0x7FFFFFFF), 8uLL, 0x2004093837F09uLL);
-  if (!v102)
+  v104 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v13];
+  v106 = malloc_type_calloc(2 * (v100 & 0x7FFFFFFF), 8uLL, 0x2004093837F09uLL);
+  if (!v106)
   {
     [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
-    v99 = 0;
-    v55 = 0;
-    v15 = 0;
-    v101 = 0;
-    v16 = 0;
     v103 = 0;
-    v53 = v108;
-    v54 = 1;
-    v17 = v100;
+    v56 = 0;
+    v16 = 0;
+    v105 = 0;
+    v17 = 0;
+    v107 = 0;
+    v54 = v112;
+    v55 = 1;
+    v18 = v104;
     goto LABEL_64;
   }
 
-  v83 = v8;
-  v15 = malloc_type_calloc(2 * (v96 & 0x7FFFFFFF), 8uLL, 0x80040B8603338uLL);
-  if (!v15)
+  v87 = v9;
+  v16 = malloc_type_calloc(2 * (v100 & 0x7FFFFFFF), 8uLL, 0x80040B8603338uLL);
+  if (!v16)
   {
     [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
-    v99 = 0;
-    v55 = 0;
-    v101 = 0;
-    v16 = 0;
     v103 = 0;
+    v56 = 0;
+    v105 = 0;
+    v17 = 0;
+    v107 = 0;
 LABEL_129:
-    v53 = v108;
-    v54 = 1;
-    v17 = v100;
+    v54 = v112;
+    v55 = 1;
+    v18 = v104;
     goto LABEL_53;
   }
 
-  v82 = v8;
-  v103 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
-  v16 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSArray count](self->_additionalVideoRequirements, "count")}];
-  v88 = v14;
-  v101 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
-  v86 = malloc_type_calloc(v13, 8uLL, 0x2004093837F09uLL);
-  if (!v86)
+  v86 = v9;
+  v107 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
+  v17 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSArray count](self->_additionalVideoRequirements, "count")}];
+  v92 = v15;
+  v105 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
+  v90 = malloc_type_calloc(v14, 8uLL, 0x2004093837F09uLL);
+  if (!v90)
   {
     [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
-    v99 = 0;
-    v55 = 0;
+    v103 = 0;
+    v56 = 0;
     goto LABEL_129;
   }
 
-  v17 = v100;
-  v99 = malloc_type_calloc(v13, 8uLL, 0x80040B8603338uLL);
-  if (!v99)
+  v18 = v104;
+  v103 = malloc_type_calloc(v14, 8uLL, 0x80040B8603338uLL);
+  if (!v103)
   {
     [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
-    v99 = 0;
+    v103 = 0;
     goto LABEL_131;
   }
 
-  v97 = v16;
-  if (v12)
+  v101 = v17;
+  if (v13)
   {
-    v18 = 0;
+    v19 = 0;
     while (1)
     {
-      v19 = [(NSArray *)self->_inputVideoRequirements objectAtIndexedSubscript:v18];
-      v20 = [-[NSArray objectAtIndexedSubscript:](self->_inputVideoRequirements objectAtIndexedSubscript:{v18), "attachedMediaKey"}];
-      videoStorageType = [v19 videoStorageType];
+      v20 = [(NSArray *)self->_inputVideoRequirements objectAtIndexedSubscript:v19];
+      v21 = [-[NSArray objectAtIndexedSubscript:](self->_inputVideoRequirements objectAtIndexedSubscript:{v19), "attachedMediaKey"}];
+      videoStorageType = [v20 videoStorageType];
       if (videoStorageType == 1)
       {
         break;
@@ -338,86 +337,86 @@ LABEL_129:
 
       if (!videoStorageType)
       {
-        v22 = -[BWTiledInferenceProvider _cachedTexturesFromPixelBuffer:usage:](self, [storage pixelBufferForRequirement:v19], 17);
+        v23 = -[BWTiledInferenceProvider _cachedTexturesFromPixelBuffer:usage:](self, [storage pixelBufferForRequirement:v20], 17);
 LABEL_14:
-        [v100 setObject:v22 forKeyedSubscript:v20];
+        [v104 setObject:v23 forKeyedSubscript:v21];
       }
 
-      if (![v100 objectForKeyedSubscript:v20])
+      if (![v104 objectForKeyedSubscript:v21])
       {
         [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
-        v53 = v108;
-        v54 = 1;
+        v54 = v112;
+        v55 = 1;
         goto LABEL_51;
       }
 
-      if (v12 == ++v18)
+      if (v13 == ++v19)
       {
         goto LABEL_17;
       }
     }
 
-    v120 = *[objc_msgSend(storage "textureStorage")];
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v120 count:2];
+    v124 = *[objc_msgSend(storage "textureStorage")];
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v124 count:2];
     goto LABEL_14;
   }
 
 LABEL_17:
-  if (v96)
+  if (v100)
   {
-    for (i = 0; i != v96; ++i)
+    for (i = 0; i != v100; ++i)
     {
-      v24 = [(NSArray *)self->_tileInputVideoRequirements objectAtIndexedSubscript:i];
-      v25 = 0;
-      v26 = 2 * i;
-      v27 = 1;
+      v25 = [(NSArray *)self->_tileInputVideoRequirements objectAtIndexedSubscript:i];
+      v26 = 0;
+      v27 = 2 * i;
+      v28 = 1;
       do
       {
-        v28 = v27;
-        v29 = [objc_msgSend(storage pixelBufferPoolForRequirement:{v24), "newPixelBuffer"}];
-        if (!v29)
+        v29 = v28;
+        v30 = [objc_msgSend(storage pixelBufferPoolForRequirement:{v25), "newPixelBuffer"}];
+        if (!v30)
         {
           [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
-          v53 = v108;
-          v54 = 1;
+          v54 = v112;
+          v55 = 1;
           handler = handlerCopy;
-          v17 = v100;
+          v18 = v104;
           goto LABEL_51;
         }
 
-        v30 = v29;
-        v102[v25 | v26] = v29;
-        v15[v25 | v26] = [(BWTiledInferenceProvider *)self _cachedTexturesFromPixelBuffer:v29 usage:23];
+        v31 = v30;
+        v106[v26 | v27] = v30;
+        v16[v26 | v27] = [(BWTiledInferenceProvider *)self _cachedTexturesFromPixelBuffer:v30 usage:23];
         [objc_msgSend(objc_msgSend(storage "espressoStorages")];
-        v27 = 0;
-        v25 = 1;
+        v28 = 0;
+        v26 = 1;
       }
 
-      while ((v28 & 1) != 0);
+      while ((v29 & 1) != 0);
     }
   }
 
-  v92 = v15;
-  v31 = 0;
-  v32 = 1;
+  v96 = v16;
+  v32 = 0;
+  v33 = 1;
   do
   {
-    v33 = v32;
-    v118 = 0u;
-    v119 = 0u;
-    v116 = 0u;
-    v117 = 0u;
+    v34 = v33;
+    v122 = 0u;
+    v123 = 0u;
+    v120 = 0u;
+    v121 = 0u;
     tileOutputVideoRequirements = self->_tileOutputVideoRequirements;
-    v35 = [(NSArray *)tileOutputVideoRequirements countByEnumeratingWithState:&v116 objects:v115 count:16];
-    if (v35)
+    v36 = [(NSArray *)tileOutputVideoRequirements countByEnumeratingWithState:&v120 objects:v119 count:16];
+    if (v36)
     {
-      v36 = v35;
-      v37 = *v117;
+      v37 = v36;
+      v38 = *v121;
       do
       {
-        for (j = 0; j != v36; ++j)
+        for (j = 0; j != v37; ++j)
         {
-          if (*v117 != v37)
+          if (*v121 != v38)
           {
             objc_enumerationMutation(tileOutputVideoRequirements);
           }
@@ -425,131 +424,131 @@ LABEL_17:
           [objc_msgSend(objc_msgSend(storage "espressoStorages")];
         }
 
-        v36 = [(NSArray *)tileOutputVideoRequirements countByEnumeratingWithState:&v116 objects:v115 count:16];
+        v37 = [(NSArray *)tileOutputVideoRequirements countByEnumeratingWithState:&v120 objects:v119 count:16];
       }
 
-      while (v36);
+      while (v37);
     }
 
-    v113 = 0u;
-    v114 = 0u;
-    v111 = 0u;
-    v112 = 0u;
+    v117 = 0u;
+    v118 = 0u;
+    v115 = 0u;
+    v116 = 0u;
     additionalVideoRequirements = self->_additionalVideoRequirements;
-    v40 = [(NSArray *)additionalVideoRequirements countByEnumeratingWithState:&v111 objects:v110 count:16];
-    if (v40)
+    v41 = [(NSArray *)additionalVideoRequirements countByEnumeratingWithState:&v115 objects:v114 count:16];
+    if (v41)
     {
-      v42 = v40;
-      v43 = *v112;
+      v43 = v41;
+      v44 = *v116;
       do
       {
-        for (k = 0; k != v42; ++k)
+        for (k = 0; k != v43; ++k)
         {
-          if (*v112 != v43)
+          if (*v116 != v44)
           {
             objc_enumerationMutation(additionalVideoRequirements);
           }
 
-          v45 = *(*(&v111 + 1) + 8 * k);
-          v46 = [objc_msgSend(storage pixelBufferPoolForRequirement:{v45), "newPixelBuffer"}];
-          if (!v46)
+          v46 = *(*(&v115 + 1) + 8 * k);
+          v47 = [objc_msgSend(storage pixelBufferPoolForRequirement:{v46), "newPixelBuffer"}];
+          if (!v47)
           {
             [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
-            v53 = v108;
+            v54 = v112;
 LABEL_49:
-            v54 = 1;
+            v55 = 1;
             handler = handlerCopy;
-            v17 = v100;
+            v18 = v104;
             goto LABEL_50;
           }
 
-          v47 = v46;
+          v48 = v47;
           [objc_msgSend(objc_msgSend(storage "espressoStorages")];
-          CFRelease(v47);
+          CFRelease(v48);
         }
 
-        v42 = [(NSArray *)additionalVideoRequirements countByEnumeratingWithState:&v111 objects:v110 count:16];
+        v43 = [(NSArray *)additionalVideoRequirements countByEnumeratingWithState:&v115 objects:v114 count:16];
       }
 
-      while (v42);
+      while (v43);
     }
 
-    v32 = 0;
-    v31 = 1;
+    v33 = 0;
+    v32 = 1;
   }
 
-  while ((v33 & 1) != 0);
-  v17 = v100;
-  v15 = v92;
-  v16 = v97;
+  while ((v34 & 1) != 0);
+  v18 = v104;
+  v16 = v96;
+  v17 = v101;
   if (count)
   {
     for (m = 0; count != m; ++m)
     {
-      v49 = [(NSArray *)self->_outputVideoRequirements objectAtIndexedSubscript:m];
-      videoStorageType2 = [v49 videoStorageType];
+      v50 = [(NSArray *)self->_outputVideoRequirements objectAtIndexedSubscript:m];
+      videoStorageType2 = [v50 videoStorageType];
       if (videoStorageType2)
       {
         if (videoStorageType2 == 1)
         {
-          fig_log_get_emitter();
-          v53 = FigSignalErrorAtGM();
+          emitter = fig_log_get_emitter();
+          v54 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFF841ALL, "<<<< BWTiledInferenceProvider >>>>", 0x209, v8, v81, v82, v85);
           goto LABEL_103;
         }
       }
 
       else
       {
-        v52 = [objc_msgSend(storage pixelBufferPoolForRequirement:{v49), "newPixelBuffer"}];
-        if (!v52)
+        v53 = [objc_msgSend(storage pixelBufferPoolForRequirement:{v50), "newPixelBuffer"}];
+        if (!v53)
         {
           [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
 LABEL_131:
-          v53 = v108;
+          v54 = v112;
 LABEL_103:
-          v54 = 1;
+          v55 = 1;
 LABEL_114:
           handler = handlerCopy;
           goto LABEL_52;
         }
 
-        *&v86[8 * m] = v52;
-        v99[m] = [(BWTiledInferenceProvider *)self _cachedTexturesFromPixelBuffer:v52 usage:22];
+        *&v90[8 * m] = v53;
+        v103[m] = [(BWTiledInferenceProvider *)self _cachedTexturesFromPixelBuffer:v53 usage:22];
       }
 
-      v51 = [-[FigMetalContext commandQueue](self->_metalContext "commandQueue")];
-      -[BWTiledInferenceProvider preProcessOutputTexture:forMediaKey:encodeToCmdBuffer:](self, "preProcessOutputTexture:forMediaKey:encodeToCmdBuffer:", v99[m], [-[NSArray objectAtIndexedSubscript:](self->_outputVideoRequirements objectAtIndexedSubscript:{m), "attachedMediaKey"}], v51);
-      [v51 commit];
+      v52 = [-[FigMetalContext commandQueue](self->_metalContext "commandQueue")];
+      -[BWTiledInferenceProvider preProcessOutputTexture:forMediaKey:encodeToCmdBuffer:](self, "preProcessOutputTexture:forMediaKey:encodeToCmdBuffer:", v103[m], [-[NSArray objectAtIndexedSubscript:](self->_outputVideoRequirements objectAtIndexedSubscript:{m), "attachedMediaKey"}], v52);
+      [v52 commit];
     }
   }
 
-  if (!v83)
+  if (!v87)
   {
-    v61 = 0;
+    v62 = 0;
 LABEL_106:
     [objc_msgSend(objc_msgSend(storage "espressoStorages")];
     [objc_msgSend(objc_msgSend(storage "espressoStorages")];
-    v15 = v92;
+    v16 = v96;
     if (count)
     {
       for (n = 0; n != count; ++n)
       {
-        [storage setPixelBuffer:*&v86[8 * n] forRequirement:{-[NSArray objectAtIndexedSubscript:](self->_outputVideoRequirements, "objectAtIndexedSubscript:", n)}];
+        [storage setPixelBuffer:*&v90[8 * n] forRequirement:{-[NSArray objectAtIndexedSubscript:](self->_outputVideoRequirements, "objectAtIndexedSubscript:", n)}];
       }
     }
 
-    v54 = v61 == 0;
-    if (v61)
+    v55 = v62 == 0;
+    if (v62)
     {
-      v106[0] = MEMORY[0x1E69E9820];
-      v106[1] = 3221225472;
-      v106[2] = __127__BWTiledInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler_currentTileCount___block_invoke_2;
-      v106[3] = &unk_1E798FB70;
-      v107 = 0;
-      v106[4] = self;
-      v106[5] = handlerCopy;
-      [v61 addScheduledHandler:v106];
-      [v61 commit];
+      v110[0] = MEMORY[0x1E69E9820];
+      v110[1] = 3221225472;
+      v110[2] = __127__BWTiledInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler_currentTileCount___block_invoke_2;
+      v110[3] = &unk_1E798FB70;
+      v111 = 0;
+      v110[4] = self;
+      v110[5] = handlerCopy;
+      [v62 addScheduledHandler:v110];
+      [v62 commit];
     }
 
     textureCache = self->_textureCache;
@@ -559,60 +558,60 @@ LABEL_106:
     }
 
     [(BWTiledInferenceProvider *)self purgeIntermediateResources];
-    v53 = 0;
+    v54 = 0;
     goto LABEL_114;
   }
 
-  v61 = 0;
-  v87 = 0;
-  v98 = 0;
-  while (v82 < 0x10000)
+  v62 = 0;
+  v91 = 0;
+  v102 = 0;
+  while (v86 < 0x10000)
   {
 LABEL_100:
-    if (++v87 == v83)
+    if (++v91 == v87)
     {
       goto LABEL_106;
     }
   }
 
-  v62 = 0;
-  v41.i32[0] = v87;
-  v84 = vmovl_u16(v41).u32[0];
+  v63 = 0;
+  v42.i32[0] = v91;
+  v88 = vmovl_u16(v42).u32[0];
   while (1)
   {
-    v93 = v62;
-    v94 = __PAIR64__(v62, v84);
-    if (v96)
+    v97 = v63;
+    v98 = __PAIR64__(v63, v88);
+    if (v100)
     {
-      v63 = 0;
-      HIWORD(v105) = v62;
-      LOWORD(v105) = v84;
-      v64 = &v92[v98];
+      v64 = 0;
+      HIWORD(v109) = v63;
+      LOWORD(v109) = v88;
+      v65 = &v96[v102];
       while (1)
       {
-        v65 = [-[FigMetalContext commandQueue](self->_metalContext "commandQueue")];
-        v66 = [(BWTiledInferenceProvider *)self createInputTileFor:[(NSArray *)self->_tileInputBindingNames objectAtIndexedSubscript:v63] to:*v64 withInputs:v100 atPosition:v105 encodeToCmdBuffer:v65];
-        if (v66)
+        v66 = [-[FigMetalContext commandQueue](self->_metalContext "commandQueue")];
+        v67 = [(BWTiledInferenceProvider *)self createInputTileFor:[(NSArray *)self->_tileInputBindingNames objectAtIndexedSubscript:v64] to:*v65 withInputs:v104 atPosition:v109 encodeToCmdBuffer:v66];
+        if (v67)
         {
           break;
         }
 
-        [v103 setObject:*v64 forKeyedSubscript:{-[NSArray objectAtIndexedSubscript:](self->_tileInputBindingNames, "objectAtIndexedSubscript:", v63)}];
-        [v65 commit];
-        if (v96 - 1 == v63)
+        [v107 setObject:*v65 forKeyedSubscript:{-[NSArray objectAtIndexedSubscript:](self->_tileInputBindingNames, "objectAtIndexedSubscript:", v64)}];
+        [v66 commit];
+        if (v100 - 1 == v64)
         {
-          [v65 waitUntilScheduled];
+          [v66 waitUntilScheduled];
         }
 
-        ++v63;
-        v64 += 2;
-        if (v96 == v63)
+        ++v64;
+        v65 += 2;
+        if (v100 == v64)
         {
           goto LABEL_78;
         }
       }
 
-      v53 = v66;
+      v54 = v67;
       [BWTiledInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:currentTileCount:];
       goto LABEL_49;
     }
@@ -620,55 +619,55 @@ LABEL_100:
 LABEL_78:
     forceSynchronousInference = [(BWTiledEspressoInferenceConfiguration *)self->_configuration forceSynchronousInference];
     espressoProvider = self->_espressoProvider;
-    v69 = [objc_msgSend(storage "espressoStorages")];
+    v70 = [objc_msgSend(storage "espressoStorages")];
     if (forceSynchronousInference)
     {
-      v108 = *&time->var0;
+      v112 = *&time->var0;
       var3 = time->var3;
-      v70 = [(BWEspressoInferenceProvider *)espressoProvider executeOnSampleBuffer:buffer usingStorage:v69 withExecutionTime:&v108 completionHandler:0];
+      v71 = [(BWEspressoInferenceProvider *)espressoProvider executeOnSampleBuffer:buffer usingStorage:v70 withExecutionTime:&v112 completionHandler:0];
     }
 
     else
     {
       espressoWorkQueue = self->_espressoWorkQueue;
-      v108 = *&time->var0;
+      v112 = *&time->var0;
       var3 = time->var3;
-      v70 = [(BWEspressoInferenceProvider *)espressoProvider submitForSampleBuffer:buffer usingStorage:v69 withSubmissionTime:&v108 workQueue:espressoWorkQueue completionHandler:0];
+      v71 = [(BWEspressoInferenceProvider *)espressoProvider submitForSampleBuffer:buffer usingStorage:v70 withSubmissionTime:&v112 workQueue:espressoWorkQueue completionHandler:0];
     }
 
-    v53 = v70;
-    v17 = v100;
-    v16 = v97;
-    if (v70)
+    v54 = v71;
+    v18 = v104;
+    v17 = v101;
+    if (v71)
     {
       [BWTiledInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:currentTileCount:];
 LABEL_117:
-      v54 = 1;
+      v55 = 1;
       handler = handlerCopy;
-      v15 = v92;
+      v16 = v96;
       goto LABEL_52;
     }
 
-    if (v88)
+    if (v92)
     {
-      v72 = 0;
+      v73 = 0;
       while (1)
       {
-        v73 = [objc_msgSend(objc_msgSend(storage "espressoStorages")];
-        if (!v73)
+        v74 = [objc_msgSend(objc_msgSend(storage "espressoStorages")];
+        if (!v74)
         {
           break;
         }
 
-        [v101 setObject:-[BWTiledInferenceProvider _cachedTexturesFromPixelBuffer:usage:](self forKeyedSubscript:{v73, 17), -[NSArray objectAtIndexedSubscript:](self->_tileOutputBindingNames, "objectAtIndexedSubscript:", v72++)}];
-        if (v88 == v72)
+        [v105 setObject:-[BWTiledInferenceProvider _cachedTexturesFromPixelBuffer:usage:](self forKeyedSubscript:{v74, 17), -[NSArray objectAtIndexedSubscript:](self->_tileOutputBindingNames, "objectAtIndexedSubscript:", v73++)}];
+        if (v92 == v73)
         {
           goto LABEL_86;
         }
       }
 
       [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
-      v53 = v108;
+      v54 = v112;
       goto LABEL_117;
     }
 
@@ -681,129 +680,129 @@ LABEL_86:
 LABEL_90:
     if (count)
     {
-      v77 = 0;
-      HIWORD(v104) = WORD2(v94);
-      LOWORD(v104) = v94;
+      v78 = 0;
+      HIWORD(v108) = WORD2(v98);
+      LOWORD(v108) = v98;
       while (1)
       {
-        v61 = [-[FigMetalContext commandQueue](self->_metalContext "commandQueue")];
-        LODWORD(v81) = v104;
-        v78 = -[BWTiledInferenceProvider writeOutputFor:to:fromNetworkOutputTiles:withAdditionalTextures:withInputTileTextures:withInputFullTextures:atPosition:encodeToCmdBuffer:](self, "writeOutputFor:to:fromNetworkOutputTiles:withAdditionalTextures:withInputTileTextures:withInputFullTextures:atPosition:encodeToCmdBuffer:", [-[NSArray objectAtIndexedSubscript:](self->_outputVideoRequirements objectAtIndexedSubscript:{v77), "attachedMediaKey"}], v99[v77], v101, v16, v103, v100, v81, v61);
-        if (v78)
+        v62 = [-[FigMetalContext commandQueue](self->_metalContext "commandQueue")];
+        LODWORD(v85) = v108;
+        v79 = -[BWTiledInferenceProvider writeOutputFor:to:fromNetworkOutputTiles:withAdditionalTextures:withInputTileTextures:withInputFullTextures:atPosition:encodeToCmdBuffer:](self, "writeOutputFor:to:fromNetworkOutputTiles:withAdditionalTextures:withInputTileTextures:withInputFullTextures:atPosition:encodeToCmdBuffer:", [-[NSArray objectAtIndexedSubscript:](self->_outputVideoRequirements objectAtIndexedSubscript:{v78), "attachedMediaKey"}], v103[v78], v105, v17, v107, v104, v85, v62);
+        if (v79)
         {
           break;
         }
 
-        if (count - 1 != v77)
+        if (count - 1 != v78)
         {
-          [v61 commit];
+          [v62 commit];
         }
 
-        if (count == ++v77)
+        if (count == ++v78)
         {
           goto LABEL_96;
         }
       }
 
-      v53 = v78;
+      v54 = v79;
       [BWTiledInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:currentTileCount:];
       goto LABEL_117;
     }
 
 LABEL_96:
-    [v61 addCompletedHandler:&__block_literal_global_37];
-    if (v83 - 1 != v87 || v91 - 1 != v93)
+    [v62 addCompletedHandler:&__block_literal_global_37];
+    if (v87 - 1 != v91 || v95 - 1 != v97)
     {
-      [v61 commit];
+      [v62 commit];
     }
 
-    v98 = !v98;
-    [v103 removeAllObjects];
-    [v16 removeAllObjects];
-    [v101 removeAllObjects];
-    v62 = v93 + 1;
-    if (v93 + 1 == v91)
+    v102 = !v102;
+    [v107 removeAllObjects];
+    [v17 removeAllObjects];
+    [v105 removeAllObjects];
+    v63 = v97 + 1;
+    if (v97 + 1 == v95)
     {
       goto LABEL_100;
     }
   }
 
-  v74 = 0;
+  v75 = 0;
   while (1)
   {
-    v75 = [-[NSArray objectAtIndexedSubscript:](self->_additionalVideoRequirements objectAtIndexedSubscript:{v74), "attachedMediaKey"}];
-    v76 = [objc_msgSend(objc_msgSend(storage "espressoStorages")];
-    if (!v76)
+    v76 = [-[NSArray objectAtIndexedSubscript:](self->_additionalVideoRequirements objectAtIndexedSubscript:{v75), "attachedMediaKey"}];
+    v77 = [objc_msgSend(objc_msgSend(storage "espressoStorages")];
+    if (!v77)
     {
       break;
     }
 
-    v16 = v97;
-    [v97 setObject:-[BWTiledInferenceProvider _cachedTexturesFromPixelBuffer:usage:](self forKeyedSubscript:{v76, 23), v75}];
-    if ([(NSArray *)self->_additionalVideoRequirements count]<= ++v74)
+    v17 = v101;
+    [v101 setObject:-[BWTiledInferenceProvider _cachedTexturesFromPixelBuffer:usage:](self forKeyedSubscript:{v77, 23), v76}];
+    if ([(NSArray *)self->_additionalVideoRequirements count]<= ++v75)
     {
       goto LABEL_90;
     }
   }
 
   [BWTiledInferenceProvider submitForSampleBuffer:? usingStorage:? withSubmissionTime:? workQueue:? completionHandler:? currentTileCount:?];
-  v53 = v108;
-  v54 = 1;
+  v54 = v112;
+  v55 = 1;
   handler = handlerCopy;
 LABEL_50:
-  v15 = v92;
+  v16 = v96;
 LABEL_51:
-  v16 = v97;
+  v17 = v101;
 LABEL_52:
-  v55 = v86;
+  v56 = v90;
 LABEL_53:
-  v56 = (2 * v96);
-  if (v56)
+  v57 = (2 * v100);
+  if (v57)
   {
-    v57 = v102;
+    v58 = v106;
     do
     {
-      if (*v57)
+      if (*v58)
       {
-        CFRelease(*v57);
+        CFRelease(*v58);
       }
 
-      ++v57;
-      --v56;
+      ++v58;
+      --v57;
     }
 
-    while (v56);
+    while (v57);
   }
 
-  free(v102);
-  if (v55 && count)
+  free(v106);
+  if (v56 && count)
   {
-    v58 = 0;
+    v59 = 0;
     do
     {
-      v59 = *&v55[v58];
-      if (v59)
+      v60 = *&v56[v59];
+      if (v60)
       {
-        CFRelease(v59);
+        CFRelease(v60);
       }
 
-      v58 += 8;
+      v59 += 8;
     }
 
-    while (8 * count != v58);
+    while (8 * count != v59);
   }
 
 LABEL_64:
-  free(v55);
-  free(v99);
-  free(v15);
+  free(v56);
+  free(v103);
+  free(v16);
 
-  if (handler && v54)
+  if (handler && v55)
   {
-    (*(handler + 2))(handler, v53, self);
+    (*(handler + 2))(handler, v54, self);
   }
 
-  return v53;
+  return v54;
 }
 
 uint64_t __127__BWTiledInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler_currentTileCount___block_invoke_2(uint64_t a1)
@@ -987,7 +986,7 @@ uint64_t __127__BWTiledInferenceProvider_submitForSampleBuffer_usingStorage_with
         v14 = v13;
         v19 = v17;
         v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:buffer];
-        if (CVMetalTextureCacheCreateTextureFromImage(allocator, *(v4 + 120), a2, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1], v14, WidthOfPlane >> (PixelFormatType == 1647719528), HeightOfPlane >> (PixelFormatType == 1647719528), v8, &image))
+        if (CVMetalTextureCacheCreateTextureFromImage(allocator, *(v4 + 15), a2, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1], v14, WidthOfPlane >> (PixelFormatType == 1647719528), HeightOfPlane >> (PixelFormatType == 1647719528), v8, &image))
         {
           break;
         }
@@ -1028,7 +1027,7 @@ uint64_t __127__BWTiledInferenceProvider_submitForSampleBuffer_usingStorage_with
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v10, v11, v12, v13, v14, v15, v16);
     return 0;
   }
 
@@ -1040,9 +1039,9 @@ uint64_t __127__BWTiledInferenceProvider_submitForSampleBuffer_usingStorage_with
     return -12786;
   }
 
-  v10 = *MEMORY[0x1E6966000];
-  v11 = &unk_1F2243150;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v11 = *MEMORY[0x1E6966000];
+  v12 = &unk_1F2243150;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   if (CVMetalTextureCacheCreate(*MEMORY[0x1E695E480], v7, [(FigMetalContext *)self->_metalContext device], 0, &self->_textureCache))
   {
     return 0;
@@ -1053,7 +1052,7 @@ uint64_t __127__BWTiledInferenceProvider_submitForSampleBuffer_usingStorage_with
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v10, v11, v12, v13, v14, v15, v16);
   }
 
   else
@@ -1177,7 +1176,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF842BLL, "<<<< BWTiledInferenceProvider >>>>", 0x15B, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1186,7 +1185,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x16C, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1195,7 +1194,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x179, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1204,7 +1203,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x162, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1213,7 +1212,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x158, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1222,7 +1221,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x157, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1231,7 +1230,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x156, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1240,7 +1239,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x155, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1249,7 +1248,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x1A1, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1258,7 +1257,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8420, "<<<< BWTiledInferenceProvider >>>>", 0x1D6, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1267,7 +1266,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledInferenceProvider >>>>", 0x1E0, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1276,7 +1275,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledInferenceProvider >>>>", 0x1F2, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1285,7 +1284,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledInferenceProvider >>>>", 0x201, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1294,21 +1293,21 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x227, v1, v2, v3, v5);
 }
 
 - (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:currentTileCount:.cold.7()
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x245, v1, v2, v3, v5);
 }
 
 - (uint64_t)submitForSampleBuffer:(_DWORD *)a1 usingStorage:withSubmissionTime:workQueue:completionHandler:currentTileCount:.cold.8(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841BLL, "<<<< BWTiledInferenceProvider >>>>", 0x24B, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1317,7 +1316,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841BLL, "<<<< BWTiledInferenceProvider >>>>", 0x256, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1326,14 +1325,14 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x262, v1, v2, v3, v5);
 }
 
 - (uint64_t)submitForSampleBuffer:(_DWORD *)a1 usingStorage:withSubmissionTime:workQueue:completionHandler:currentTileCount:.cold.11(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledInferenceProvider >>>>", 0x1BE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1342,7 +1341,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledInferenceProvider >>>>", 0x1BC, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1351,7 +1350,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledInferenceProvider >>>>", 0x1AF, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1360,7 +1359,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledInferenceProvider >>>>", 0x1AD, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1369,7 +1368,7 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x1A3, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1378,16 +1377,9 @@ LABEL_28:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledInferenceProvider >>>>", 0x1A2, v3, v4, v5, v7);
   *a1 = result;
   return result;
-}
-
-- (uint64_t)newStorage
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

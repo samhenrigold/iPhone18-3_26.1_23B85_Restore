@@ -8,7 +8,7 @@ void ___SBCallDescriptionBlockForEachLayoutRoleInEachVisibleAppLayoutWithBounds_
   v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v30 = v5;
-  if ([*(a1 + 32) containsObject:v5])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v23 = a3;
     [*(a1 + 40) frameForIndex:a3];

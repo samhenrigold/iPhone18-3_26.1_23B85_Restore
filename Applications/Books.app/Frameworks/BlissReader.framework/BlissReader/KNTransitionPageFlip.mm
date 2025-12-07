@@ -297,18 +297,18 @@ LABEL_7:
   self->_pageFlipMetalShader = v31;
 
   [(KNTransitionPageFlip *)self createArrays:v20 context:contextCopy device:device];
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
-  v66 = 0u;
+  v70 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   mAnimationContext = self->super.mAnimationContext;
   if (mAnimationContext)
   {
-    [(KNAnimationContext *)mAnimationContext slideProjectionMatrix];
+    objc_msgSend_slideProjectionMatrix(mAnimationContext);
   }
 
   if ([contextCopy isMotionBlurred])
@@ -316,43 +316,35 @@ LABEL_7:
     v34 = self->_motionBlurMetalEffect;
     if (v34)
     {
-      v57[4] = v70;
-      v57[5] = v71;
-      v57[6] = v72;
-      v57[7] = v73;
-      v57[0] = v66;
-      v57[1] = v67;
-      v57[2] = v68;
-      v57[3] = v69;
-      [(TSDMetalMotionBlurEffect *)v34 adjustTransformForMotionBlurBuffer:v57];
+      objc_msgSend_adjustTransformForMotionBlurBuffer_(v34);
     }
 
     else
     {
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
       v63 = 0u;
-      v60 = 0u;
+      v64 = 0u;
       v61 = 0u;
-      v58 = 0u;
+      v62 = 0u;
       v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
     }
 
+    v69 = v61;
     v70 = v62;
     v71 = v63;
     v72 = v64;
-    v73 = v65;
+    v65 = v57;
     v66 = v58;
     v67 = v59;
     v68 = v60;
-    v69 = v61;
   }
 
-  v35 = vcvt_hight_f32_f64(vcvt_f32_f64(v66), v67);
-  v36 = vcvt_hight_f32_f64(vcvt_f32_f64(v68), v69);
-  v37 = vcvt_hight_f32_f64(vcvt_f32_f64(v70), v71);
-  v38 = vcvt_hight_f32_f64(vcvt_f32_f64(v72), v73);
+  v35 = vcvt_hight_f32_f64(vcvt_f32_f64(v65), v66);
+  v36 = vcvt_hight_f32_f64(vcvt_f32_f64(v67), v68);
+  v37 = vcvt_hight_f32_f64(vcvt_f32_f64(v69), v70);
+  v38 = vcvt_hight_f32_f64(vcvt_f32_f64(v71), v72);
   v39 = *&CGAffineTransformIdentity.a;
   v46 = *&CGAffineTransformIdentity.c;
   *&v39 = vcvt_f32_f64(*&CGAffineTransformIdentity.a);
@@ -386,11 +378,11 @@ LABEL_7:
   v50 = self->super.mAnimationContext;
   if (v50)
   {
-    [(KNAnimationContext *)v50 slideProjectionMatrix];
-    v51 = vcvt_hight_f32_f64(vcvt_f32_f64(v64), v65);
-    v52 = vcvt_hight_f32_f64(vcvt_f32_f64(v62), v63);
-    v53 = vcvt_hight_f32_f64(vcvt_f32_f64(v60), v61);
-    v54 = vcvt_hight_f32_f64(vcvt_f32_f64(v58), v59);
+    objc_msgSend_slideProjectionMatrix(v50);
+    v51 = vcvt_hight_f32_f64(vcvt_f32_f64(v63), v64);
+    v52 = vcvt_hight_f32_f64(vcvt_f32_f64(v61), v62);
+    v53 = vcvt_hight_f32_f64(vcvt_f32_f64(v59), v60);
+    v54 = vcvt_hight_f32_f64(vcvt_f32_f64(v57), v58);
   }
 
   else

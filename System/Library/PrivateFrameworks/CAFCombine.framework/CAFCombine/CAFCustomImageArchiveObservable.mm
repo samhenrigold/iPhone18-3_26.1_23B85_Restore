@@ -21,10 +21,11 @@
 
 - (void)customImageArchiveService:(id)service didUpdateIdentifier:(id)identifier
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFCustomImageArchiveObservable.customImageArchiveService(_:didUpdateIdentifier:)();
+  CAFCustomImageArchiveObservable.customImageArchiveService(_:didUpdateIdentifier:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

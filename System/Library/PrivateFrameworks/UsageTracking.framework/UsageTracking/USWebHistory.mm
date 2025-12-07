@@ -83,13 +83,13 @@ BOOL __20__USWebHistory_init__block_invoke()
 
 - (void)deleteHistoryForURL:(id)l webApplication:(id)application profileIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v61[3] = *MEMORY[0x277D85DE8];
+  v60[3] = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   identifierCopy = identifier;
   handlerCopy = handler;
   lCopy = l;
-  v49 = objc_opt_new();
-  v13 = [v49 normalizeURL:lCopy];
+  v48 = objc_opt_new();
+  v13 = [v48 normalizeURL:lCopy];
 
   absoluteString = [v13 absoluteString];
   v15 = absoluteString;
@@ -107,36 +107,36 @@ BOOL __20__USWebHistory_init__block_invoke()
 
   mediaUsageStream = [(USWebHistory *)self mediaUsageStream];
   pruner = [mediaUsageStream pruner];
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __87__USWebHistory_deleteHistoryForURL_webApplication_profileIdentifier_completionHandler___block_invoke;
-  v55[3] = &unk_279E0A568;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __87__USWebHistory_deleteHistoryForURL_webApplication_profileIdentifier_completionHandler___block_invoke;
+  v54[3] = &unk_279E0A568;
   v20 = applicationCopy;
-  v56 = v20;
+  v55 = v20;
   v21 = identifierCopy;
-  v57 = v21;
+  v56 = v21;
   v22 = v17;
-  v58 = v22;
+  v57 = v22;
   selfCopy = self;
-  [pruner deleteWithPolicy:@"delete-web-history" eventsPassingTest:v55];
+  [pruner deleteWithPolicy:@"delete-web-history" eventsPassingTest:v54];
 
   webUsageStream = [(USWebHistory *)self webUsageStream];
   pruner2 = [webUsageStream pruner];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __87__USWebHistory_deleteHistoryForURL_webApplication_profileIdentifier_completionHandler___block_invoke_2;
-  v50[3] = &unk_279E0A568;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __87__USWebHistory_deleteHistoryForURL_webApplication_profileIdentifier_completionHandler___block_invoke_2;
+  v49[3] = &unk_279E0A568;
   v25 = v20;
-  v51 = v25;
+  v50 = v25;
   v26 = v21;
-  v52 = v26;
-  v45 = v22;
-  v53 = v45;
+  v51 = v26;
+  v44 = v22;
+  v52 = v44;
   selfCopy2 = self;
   selfCopy3 = self;
-  [pruner2 deleteWithPolicy:@"delete-web-history" eventsPassingTest:v50];
+  [pruner2 deleteWithPolicy:@"delete-web-history" eventsPassingTest:v49];
 
-  v46 = v25;
+  v45 = v25;
   v27 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:v25];
   v28 = v26;
   safariProfileID = [MEMORY[0x277CFE1D0] safariProfileID];
@@ -154,25 +154,24 @@ BOOL __20__USWebHistory_init__block_invoke()
 
   webpageURL = [MEMORY[0x277CFE1D0] webpageURL];
   v34 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:webpageURL andValue:v13];
-  v44 = v13;
+  v43 = v13;
   v35 = MEMORY[0x277CCA920];
-  v61[0] = v27;
-  v61[1] = v30;
-  v61[2] = v34;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:3];
+  v60[0] = v27;
+  v60[1] = v30;
+  v60[2] = v34;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:3];
   v37 = [v35 andPredicateWithSubpredicates:v36];
 
   v38 = [MEMORY[0x277CFE168] URL];
   v39 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:v38 andValue:v13];
   v40 = MEMORY[0x277CCA920];
-  v60[0] = v27;
-  v60[1] = v30;
-  v60[2] = v39;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:3];
+  v59[0] = v27;
+  v59[1] = v30;
+  v59[2] = v39;
+  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:3];
   v42 = [v40 andPredicateWithSubpredicates:v41];
 
   [(USWebHistory *)selfCopy3 _deleteEventsWithWebUsagePredicate:v37 videoUsagePredicate:v42 completionHandler:handlerCopy];
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__USWebHistory_deleteHistoryForURL_webApplication_profileIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -251,38 +250,38 @@ uint64_t __87__USWebHistory_deleteHistoryForURL_webApplication_profileIdentifier
 
 - (void)deleteHistoryForURLs:(id)ls webApplication:(id)application profileIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   applicationCopy = application;
   identifierCopy = identifier;
   handlerCopy = handler;
   v10 = [lsCopy count];
-  v64 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v10];
   v63 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v10];
+  v62 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v10];
   v11 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:v10];
-  v62 = objc_opt_new();
+  v61 = objc_opt_new();
   webpageURL = [MEMORY[0x277CFE1D0] webpageURL];
   v12 = [MEMORY[0x277CFE168] URL];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   obj = lsCopy;
-  v13 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
+  v13 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v76;
+    v15 = *v75;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v76 != v15)
+        if (*v75 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = [v62 normalizeURL:*(*(&v75 + 1) + 8 * i)];
+        v17 = [v61 normalizeURL:*(*(&v74 + 1) + 8 * i)];
         absoluteString = [v17 absoluteString];
         v19 = absoluteString;
         if (absoluteString)
@@ -299,12 +298,12 @@ uint64_t __87__USWebHistory_deleteHistoryForURL_webApplication_profileIdentifier
 
         [v11 addObject:v21];
         v22 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:webpageURL andValue:v17];
-        [v64 addObject:v22];
+        [v63 addObject:v22];
         v23 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:v12 andValue:v17];
-        [v63 addObject:v23];
+        [v62 addObject:v23];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
+      v14 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
     }
 
     while (v14);
@@ -312,37 +311,37 @@ uint64_t __87__USWebHistory_deleteHistoryForURL_webApplication_profileIdentifier
 
   mediaUsageStream = [(USWebHistory *)self mediaUsageStream];
   pruner = [mediaUsageStream pruner];
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __88__USWebHistory_deleteHistoryForURLs_webApplication_profileIdentifier_completionHandler___block_invoke;
-  v70[3] = &unk_279E0A568;
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __88__USWebHistory_deleteHistoryForURLs_webApplication_profileIdentifier_completionHandler___block_invoke;
+  v69[3] = &unk_279E0A568;
   v26 = applicationCopy;
-  v71 = v26;
+  v70 = v26;
   v27 = identifierCopy;
-  v72 = v27;
+  v71 = v27;
   v28 = v11;
-  v73 = v28;
+  v72 = v28;
   selfCopy = self;
-  [pruner deleteWithPolicy:@"delete-web-history" eventsPassingTest:v70];
+  [pruner deleteWithPolicy:@"delete-web-history" eventsPassingTest:v69];
 
   webUsageStream = [(USWebHistory *)self webUsageStream];
   pruner2 = [webUsageStream pruner];
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __88__USWebHistory_deleteHistoryForURLs_webApplication_profileIdentifier_completionHandler___block_invoke_2;
-  v65[3] = &unk_279E0A568;
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __88__USWebHistory_deleteHistoryForURLs_webApplication_profileIdentifier_completionHandler___block_invoke_2;
+  v64[3] = &unk_279E0A568;
   v31 = v26;
-  v66 = v31;
+  v65 = v31;
   v32 = v27;
-  v67 = v32;
-  v55 = v28;
-  v68 = v55;
+  v66 = v32;
+  v54 = v28;
+  v67 = v54;
   selfCopy2 = self;
-  [pruner2 deleteWithPolicy:@"delete-web-history" eventsPassingTest:v65];
+  [pruner2 deleteWithPolicy:@"delete-web-history" eventsPassingTest:v64];
 
-  v33 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:v64];
-  v34 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:v63];
-  v57 = v31;
+  v33 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:v63];
+  v34 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:v62];
+  v56 = v31;
   v35 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:v31];
   v36 = v32;
   safariProfileID = [MEMORY[0x277CFE1D0] safariProfileID];
@@ -365,24 +364,23 @@ uint64_t __87__USWebHistory_deleteHistoryForURL_webApplication_profileIdentifier
   }
 
   v44 = MEMORY[0x277CCA920];
-  v80[0] = v35;
-  v80[1] = v38;
-  v80[2] = v33;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:3];
-  v53 = v36;
+  v79[0] = v35;
+  v79[1] = v38;
+  v79[2] = v33;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:3];
+  v52 = v36;
   v46 = v45 = v33;
   v47 = [v44 andPredicateWithSubpredicates:v46];
 
   v48 = MEMORY[0x277CCA920];
-  v79[0] = v35;
-  v79[1] = v38;
-  v79[2] = v34;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:3];
+  v78[0] = v35;
+  v78[1] = v38;
+  v78[2] = v34;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:3];
   v50 = v49 = v34;
   v51 = [v48 andPredicateWithSubpredicates:v50];
 
   [(USWebHistory *)self _deleteEventsWithWebUsagePredicate:v47 videoUsagePredicate:v51 completionHandler:handlerCopy];
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __88__USWebHistory_deleteHistoryForURLs_webApplication_profileIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -463,28 +461,28 @@ uint64_t __88__USWebHistory_deleteHistoryForURLs_webApplication_profileIdentifie
 
 - (void)deleteHistoryForDomain:(id)domain webApplication:(id)application profileIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v38[3] = *MEMORY[0x277D85DE8];
+  v37[3] = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   identifierCopy = identifier;
   handlerCopy = handler;
   domainCopy = domain;
-  v32 = objc_opt_new();
-  v13 = [v32 normalizeDomainName:domainCopy];
+  v31 = objc_opt_new();
+  v13 = [v31 normalizeDomainName:domainCopy];
 
   webUsageStream = [(USWebHistory *)self webUsageStream];
   pruner = [webUsageStream pruner];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __90__USWebHistory_deleteHistoryForDomain_webApplication_profileIdentifier_completionHandler___block_invoke;
-  v33[3] = &unk_279E0A568;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __90__USWebHistory_deleteHistoryForDomain_webApplication_profileIdentifier_completionHandler___block_invoke;
+  v32[3] = &unk_279E0A568;
   v16 = applicationCopy;
-  v34 = v16;
+  v33 = v16;
   v17 = identifierCopy;
-  v35 = v17;
+  v34 = v17;
   v18 = v13;
-  v36 = v18;
+  v35 = v18;
   selfCopy = self;
-  [pruner deleteWithPolicy:@"delete-web-history" eventsPassingTest:v33];
+  [pruner deleteWithPolicy:@"delete-web-history" eventsPassingTest:v32];
 
   webDomain = [MEMORY[0x277CFE1D0] webDomain];
   v20 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:webDomain andStringValue:v18];
@@ -504,14 +502,13 @@ uint64_t __88__USWebHistory_deleteHistoryForURLs_webApplication_profileIdentifie
   }
 
   v27 = MEMORY[0x277CCA920];
-  v38[0] = v20;
-  v38[1] = v21;
-  v38[2] = v24;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
+  v37[0] = v20;
+  v37[1] = v21;
+  v37[2] = v24;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
   v29 = [v27 andPredicateWithSubpredicates:v28];
 
   [(USWebHistory *)self _deleteEventsWithPredicate:v29 completionHandler:handlerCopy];
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __90__USWebHistory_deleteHistoryForDomain_webApplication_profileIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -728,58 +725,56 @@ LABEL_10:
 
 - (void)_deleteBiomeEventsDuringInterval:(id)interval webApplication:(id)application profileIdentifier:(id)identifier pruner:(id)pruner eventsPassingTest:(id)test
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   prunerCopy = pruner;
   testCopy = test;
   v10 = objc_opt_new();
   v11 = objc_opt_new();
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __107__USWebHistory__deleteBiomeEventsDuringInterval_webApplication_profileIdentifier_pruner_eventsPassingTest___block_invoke;
-  v25[3] = &unk_279E0A5B8;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __107__USWebHistory__deleteBiomeEventsDuringInterval_webApplication_profileIdentifier_pruner_eventsPassingTest___block_invoke;
+  v24[3] = &unk_279E0A5B8;
   v12 = testCopy;
-  v28 = v12;
+  v27 = v12;
   v13 = v10;
-  v26 = v13;
+  v25 = v13;
   v14 = v11;
-  v27 = v14;
-  [prunerCopy deleteWithPolicy:@"delete-web-history" eventsPassingTest:v25];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v26 = v14;
+  [prunerCopy deleteWithPolicy:@"delete-web-history" eventsPassingTest:v24];
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       v19 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [prunerCopy deleteStoreEvent:{*(*(&v21 + 1) + 8 * v19++), v21}];
+        [prunerCopy deleteStoreEvent:{*(*(&v20 + 1) + 8 * v19++), v20}];
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v17);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteCoreDuetHistoryDuringInterval:(id)interval webApplication:(id)application profileIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v11 = MEMORY[0x277CFE260];
   handlerCopy = handler;
@@ -807,14 +802,13 @@ LABEL_10:
   }
 
   v24 = MEMORY[0x277CCA920];
-  v28[0] = v17;
-  v28[1] = v18;
-  v28[2] = v21;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
+  v27[0] = v17;
+  v27[1] = v18;
+  v27[2] = v21;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
   v26 = [v24 andPredicateWithSubpredicates:v25];
 
   [(USWebHistory *)self _deleteEventsWithWebUsagePredicate:v26 videoUsagePredicate:v26 completionHandler:handlerCopy];
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_shouldDeleteEvent:(id)event timestamp:(id)timestamp uniqueID:(id)d isStartEvent:(BOOL)startEvent deletionInterval:(id)interval startEventByUniqueID:(id)iD missedEventsToDelete:(id)delete
@@ -893,35 +887,35 @@ LABEL_16:
 
 - (void)deleteAllHistoryForApplication:(id)application profileIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   identifierCopy = identifier;
   handlerCopy = handler;
   mediaUsageStream = [(USWebHistory *)self mediaUsageStream];
   pruner = [mediaUsageStream pruner];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __83__USWebHistory_deleteAllHistoryForApplication_profileIdentifier_completionHandler___block_invoke;
-  v33[3] = &unk_279E0A5E0;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __83__USWebHistory_deleteAllHistoryForApplication_profileIdentifier_completionHandler___block_invoke;
+  v32[3] = &unk_279E0A5E0;
   v13 = applicationCopy;
-  v34 = v13;
+  v33 = v13;
   v14 = identifierCopy;
-  v35 = v14;
+  v34 = v14;
   selfCopy = self;
-  [pruner deleteWithPolicy:@"delete-web-history" eventsPassingTest:v33];
+  [pruner deleteWithPolicy:@"delete-web-history" eventsPassingTest:v32];
 
   webUsageStream = [(USWebHistory *)self webUsageStream];
   pruner2 = [webUsageStream pruner];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __83__USWebHistory_deleteAllHistoryForApplication_profileIdentifier_completionHandler___block_invoke_2;
-  v29[3] = &unk_279E0A5E0;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __83__USWebHistory_deleteAllHistoryForApplication_profileIdentifier_completionHandler___block_invoke_2;
+  v28[3] = &unk_279E0A5E0;
   v17 = v13;
-  v30 = v17;
+  v29 = v17;
   v18 = v14;
-  v31 = v18;
+  v30 = v18;
   selfCopy2 = self;
-  [pruner2 deleteWithPolicy:@"delete-web-history" eventsPassingTest:v29];
+  [pruner2 deleteWithPolicy:@"delete-web-history" eventsPassingTest:v28];
 
   v19 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:v17];
   v20 = v18;
@@ -939,13 +933,12 @@ LABEL_16:
   }
 
   v25 = MEMORY[0x277CCA920];
-  v37[0] = v19;
-  v37[1] = v22;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v36[0] = v19;
+  v36[1] = v22;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v27 = [v25 andPredicateWithSubpredicates:v26];
 
   [(USWebHistory *)self _deleteEventsWithWebUsagePredicate:v27 videoUsagePredicate:v27 completionHandler:handlerCopy];
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__USWebHistory_deleteAllHistoryForApplication_profileIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1006,7 +999,7 @@ uint64_t __83__USWebHistory_deleteAllHistoryForApplication_profileIdentifier_com
 
 - (void)_deleteEventsWithPredicate:(id)predicate completionHandler:(id)handler
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   handlerCopy = handler;
   eventStorage = [(USWebHistory *)self eventStorage];
@@ -1023,64 +1016,60 @@ uint64_t __83__USWebHistory_deleteAllHistoryForApplication_profileIdentifier_com
   {
     v17 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:isUsageTrusted];
     [MEMORY[0x277CCA920] notPredicateWithSubpredicate:v17];
-    v30 = handlerCopy;
-    v31 = appWebUsageStream;
+    v29 = handlerCopy;
+    v30 = appWebUsageStream;
     v18 = v12;
     v19 = eventStorage;
     v21 = v20 = predicateCopy;
     v22 = MEMORY[0x277CCA920];
-    v35[0] = v15;
-    v35[1] = v21;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v34[0] = v15;
+    v34[1] = v21;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
     v24 = [v22 orPredicateWithSubpredicates:v23];
 
     predicateCopy = v20;
     eventStorage = v19;
     v12 = v18;
-    handlerCopy = v30;
+    handlerCopy = v29;
 
     v16 = 0x277CBE000uLL;
     v15 = v24;
-    appWebUsageStream = v31;
+    appWebUsageStream = v30;
   }
 
   v25 = MEMORY[0x277CCA920];
-  v34[0] = v12;
-  v34[1] = v15;
-  v34[2] = predicateCopy;
-  v26 = [*(v16 + 2656) arrayWithObjects:v34 count:3];
+  v33[0] = v12;
+  v33[1] = v15;
+  v33[2] = predicateCopy;
+  v26 = [*(v16 + 2656) arrayWithObjects:v33 count:3];
   v27 = [v25 andPredicateWithSubpredicates:v26];
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __61__USWebHistory__deleteEventsWithPredicate_completionHandler___block_invoke;
-  v32[3] = &unk_279E0A608;
-  v33 = handlerCopy;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __61__USWebHistory__deleteEventsWithPredicate_completionHandler___block_invoke;
+  v31[3] = &unk_279E0A608;
+  v32 = handlerCopy;
   v28 = handlerCopy;
-  [eventStorage deleteAllEventsMatchingPredicate:v27 responseQueue:0 withCompletion:v32];
-
-  v29 = *MEMORY[0x277D85DE8];
+  [eventStorage deleteAllEventsMatchingPredicate:v27 responseQueue:0 withCompletion:v31];
 }
 
 void __61__USWebHistory__deleteEventsWithPredicate_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = a2;
-    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Deleted %lu web usage events", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = a2;
+    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Deleted %lu web usage events", &v6, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteEventsWithWebUsagePredicate:(id)predicate videoUsagePredicate:(id)usagePredicate completionHandler:(id)handler
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   usagePredicateCopy = usagePredicate;
   handlerCopy = handler;
@@ -1088,16 +1077,16 @@ void __61__USWebHistory__deleteEventsWithPredicate_completionHandler___block_inv
   LODWORD(handler) = [(USWebHistory *)self usageTrusted];
   isUsageTrusted = [MEMORY[0x277CFE1D0] isUsageTrusted];
   v10 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:isUsageTrusted andIntegerValue:handler];
-  v36 = isUsageTrusted;
+  v35 = isUsageTrusted;
   if (handler)
   {
     v11 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:isUsageTrusted];
     v12 = [MEMORY[0x277CCA920] notPredicateWithSubpredicate:v11];
     v13 = handlerCopy;
     v14 = MEMORY[0x277CCA920];
-    v45[0] = v10;
-    v45[1] = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v44[0] = v10;
+    v44[1] = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
     v16 = [v14 orPredicateWithSubpredicates:v15];
 
     v10 = v16;
@@ -1107,13 +1096,13 @@ void __61__USWebHistory__deleteEventsWithPredicate_completionHandler___block_inv
   appWebUsageStream = [MEMORY[0x277CFE298] appWebUsageStream];
   v17 = MEMORY[0x277CFE260];
   name = [appWebUsageStream name];
-  v34 = [v17 predicateForEventsWithStreamName:name];
+  v33 = [v17 predicateForEventsWithStreamName:name];
 
   v19 = MEMORY[0x277CCA920];
-  v44[0] = v34;
-  v44[1] = predicateCopy;
-  v44[2] = v10;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+  v43[0] = v33;
+  v43[1] = predicateCopy;
+  v43[2] = v10;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
   v21 = [v19 andPredicateWithSubpredicates:v20];
 
   appMediaUsageStream = [MEMORY[0x277CFE298] appMediaUsageStream];
@@ -1122,52 +1111,47 @@ void __61__USWebHistory__deleteEventsWithPredicate_completionHandler___block_inv
   v25 = [v23 predicateForEventsWithStreamName:name2];
 
   v26 = MEMORY[0x277CCA920];
-  v43[0] = v25;
-  v43[1] = usagePredicateCopy;
-  v43[2] = v10;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+  v42[0] = v25;
+  v42[1] = usagePredicateCopy;
+  v42[2] = v10;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
   v28 = [v26 andPredicateWithSubpredicates:v27];
 
   v29 = MEMORY[0x277CCA920];
-  v42[0] = v21;
-  v42[1] = v28;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+  v41[0] = v21;
+  v41[1] = v28;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
   v31 = [v29 orPredicateWithSubpredicates:v30];
 
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __89__USWebHistory__deleteEventsWithWebUsagePredicate_videoUsagePredicate_completionHandler___block_invoke;
-  v40[3] = &unk_279E0A608;
-  v41 = handlerCopy;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __89__USWebHistory__deleteEventsWithWebUsagePredicate_videoUsagePredicate_completionHandler___block_invoke;
+  v39[3] = &unk_279E0A608;
+  v40 = handlerCopy;
   v32 = handlerCopy;
-  [eventStorage deleteAllEventsMatchingPredicate:v31 responseQueue:0 withCompletion:v40];
-
-  v33 = *MEMORY[0x277D85DE8];
+  [eventStorage deleteAllEventsMatchingPredicate:v31 responseQueue:0 withCompletion:v39];
 }
 
 void __89__USWebHistory__deleteEventsWithWebUsagePredicate_videoUsagePredicate_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = a2;
-    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Deleted %lu web and video usage events", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = a2;
+    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Deleted %lu web and video usage events", &v6, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __86__USWebHistory__deleteBiomeMediaUsageDuringInterval_webApplication_profileIdentifier___block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_fault_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Processing an event without a uniqueID: %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_fault_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Processing an event without a uniqueID: %{public}@", &v1, 0xCu);
 }
 
 @end

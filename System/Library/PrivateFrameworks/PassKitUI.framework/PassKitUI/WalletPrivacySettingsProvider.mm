@@ -20,11 +20,13 @@
 {
   selfCopy = self;
   sub_1BDA7B434();
+  v4 = v3;
 
-  sub_1BD0E5E8C(0, &qword_1EBD46B20);
-  v3 = sub_1BE052724();
+  sub_1BD0E5E8C(0, &qword_1EBD46B20, 0x1E69C5748);
+  v5 = sub_1BE052724();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (void)setBackgroundAddAuthorization:(id)authorization :(id)a4

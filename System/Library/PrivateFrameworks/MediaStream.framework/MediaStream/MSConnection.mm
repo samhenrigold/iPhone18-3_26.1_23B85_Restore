@@ -55,20 +55,18 @@
 
 void __43__MSConnection_abortActivitiesForPersonID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = [*(a1 + 40) _machErrorWithUnderlyingError:a2];
-    v7 = [v6 MSVerboseDescription];
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v7;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Can't abort activities for personID %@: %{public}@", &v8, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) _machErrorWithUnderlyingError:a2];
+    v6 = [v5 MSVerboseDescription];
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Can't abort activities for personID %@: %{public}@", &v7, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetServerStateForPersonID:(id)d
@@ -88,18 +86,16 @@ void __43__MSConnection_abortActivitiesForPersonID___block_invoke(uint64_t a1, u
 
 void __44__MSConnection_resetServerStateForPersonID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412546;
-    v7 = v5;
-    v8 = 2114;
-    v9 = a2;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not reset server state for personID %@: %{public}@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = 138412546;
+    v6 = v4;
+    v7 = 2114;
+    v8 = a2;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not reset server state for personID %@: %{public}@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshServerSideConfigurationForPersonID:(id)d
@@ -119,18 +115,16 @@ void __44__MSConnection_resetServerStateForPersonID___block_invoke(uint64_t a1, 
 
 void __58__MSConnection_refreshServerSideConfigurationForPersonID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412546;
-    v7 = v5;
-    v8 = 2114;
-    v9 = a2;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not refresh server side configuration for personID %@: %{public}@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = 138412546;
+    v6 = v4;
+    v7 = 2114;
+    v8 = a2;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not refresh server side configuration for personID %@: %{public}@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)serverSideConfigurationForPersonID:(id)d
@@ -180,22 +174,20 @@ void __58__MSConnection_refreshServerSideConfigurationForPersonID___block_invoke
 
 intptr_t __51__MSConnection_serverSideConfigurationForPersonID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = [*(a1 + 40) _machErrorWithUnderlyingError:a2];
-    v8 = [v7 MSVerboseDescription];
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v8;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Can't retrieve server-side configuration for personID %@. Error: %{public}@", &v9, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = [*(a1 + 40) _machErrorWithUnderlyingError:a2];
+    v7 = [v6 MSVerboseDescription];
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Can't retrieve server-side configuration for personID %@. Error: %{public}@", &v8, 0x16u);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 48));
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 48));
 }
 
 intptr_t __51__MSConnection_serverSideConfigurationForPersonID___block_invoke_78(void *a1, void *a2)
@@ -228,18 +220,16 @@ intptr_t __51__MSConnection_serverSideConfigurationForPersonID___block_invoke_78
 
 void __31__MSConnection_forgetPersonID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412546;
-    v7 = v5;
-    v8 = 2114;
-    v9 = a2;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not send message to forget personID %@: %{public}@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = 138412546;
+    v6 = v4;
+    v7 = 2114;
+    v8 = a2;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not send message to forget personID %@: %{public}@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSubscriptionPushForPersonID:(id)d
@@ -259,18 +249,16 @@ void __31__MSConnection_forgetPersonID___block_invoke(uint64_t a1, uint64_t a2)
 
 void __50__MSConnection_handleSubscriptionPushForPersonID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412546;
-    v7 = v5;
-    v8 = 2114;
-    v9 = a2;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not handle subscription push for personID %@: %{public}@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = 138412546;
+    v6 = v4;
+    v7 = 2114;
+    v8 = a2;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not handle subscription push for personID %@: %{public}@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkForOutstandingActivities
@@ -282,15 +270,13 @@ void __50__MSConnection_handleSubscriptionPushForPersonID___block_invoke(uint64_
 
 void __45__MSConnection_checkForOutstandingActivities__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = 138543362;
-    v5 = a2;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not checkForOutstandingActivities: %{public}@", &v4, 0xCu);
+    v3 = 138543362;
+    v4 = a2;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not checkForOutstandingActivities: %{public}@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pollForSubscriptionUpdatesForPersonID:(id)d
@@ -310,18 +296,16 @@ void __45__MSConnection_checkForOutstandingActivities__block_invoke(uint64_t a1,
 
 void __54__MSConnection_pollForSubscriptionUpdatesForPersonID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412546;
-    v7 = v5;
-    v8 = 2114;
-    v9 = a2;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not poll for subscription updates for personID %@: %{public}@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = 138412546;
+    v6 = v4;
+    v7 = 2114;
+    v8 = a2;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not poll for subscription updates for personID %@: %{public}@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAssetCollections:(id)collections personID:(id)d
@@ -344,21 +328,19 @@ void __54__MSConnection_pollForSubscriptionUpdatesForPersonID___block_invoke(uin
 
 void __48__MSConnection_deleteAssetCollections_personID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = 138543874;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v6;
-    v11 = 2114;
-    v12 = a2;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not delete asset collections %{public}@ for personID %@: %{public}@", &v7, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = 138543874;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2114;
+    v11 = a2;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not delete asset collections %{public}@ for personID %@: %{public}@", &v6, 0x20u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)dequeueAssetCollectionWithGUIDs:(id)ds personID:(id)d outError:(id *)error
@@ -415,7 +397,7 @@ void __48__MSConnection_deleteAssetCollections_personID___block_invoke(uint64_t 
 
 intptr_t __66__MSConnection_dequeueAssetCollectionWithGUIDs_personID_outError___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [*(a1 + 32) _machErrorWithUnderlyingError:a2];
@@ -425,22 +407,20 @@ intptr_t __66__MSConnection_dequeueAssetCollectionWithGUIDs_personID_outError___
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 40);
-      v9 = *(a1 + 48);
-      v10 = *(*(*(a1 + 64) + 8) + 40);
-      v11 = 138543874;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v10;
-      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not dequeue asset collections %{public}@ for personID %@: %{public}@", &v11, 0x20u);
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
+      v9 = *(*(*(a1 + 64) + 8) + 40);
+      v10 = 138543874;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v9;
+      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not dequeue asset collections %{public}@ for personID %@: %{public}@", &v10, 0x20u);
     }
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 56));
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 56));
 }
 
 intptr_t __66__MSConnection_dequeueAssetCollectionWithGUIDs_personID_outError___block_invoke_77(void *a1, void *a2)
@@ -513,7 +493,7 @@ intptr_t __66__MSConnection_dequeueAssetCollectionWithGUIDs_personID_outError___
 
 intptr_t __58__MSConnection_enqueueAssetCollections_personID_outError___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [*(a1 + 32) _machErrorWithUnderlyingError:a2];
@@ -523,22 +503,20 @@ intptr_t __58__MSConnection_enqueueAssetCollections_personID_outError___block_in
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 40);
-      v9 = *(a1 + 48);
-      v10 = *(*(*(a1 + 64) + 8) + 40);
-      v11 = 138543874;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v10;
-      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not enqueue asset collections %{public}@ for personID %@: %{public}@", &v11, 0x20u);
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
+      v9 = *(*(*(a1 + 64) + 8) + 40);
+      v10 = 138543874;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v9;
+      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not enqueue asset collections %{public}@ for personID %@: %{public}@", &v10, 0x20u);
     }
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 56));
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 56));
 }
 
 intptr_t __58__MSConnection_enqueueAssetCollections_personID_outError___block_invoke_75(void *a1, void *a2)

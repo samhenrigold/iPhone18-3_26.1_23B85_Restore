@@ -27,7 +27,7 @@
 
 void __35__IRPlatformInfo_isInternalInstall__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [@"com.apple.IntelligentRouting" UTF8String];
   isInternalInstall_sIsInternalInstall = os_variant_has_internal_content();
   v0 = *MEMORY[0x277D21260];
@@ -43,12 +43,10 @@ void __35__IRPlatformInfo_isInternalInstall__block_invoke()
       v1 = @"NO";
     }
 
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "sIsInternalInstall %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "sIsInternalInstall %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

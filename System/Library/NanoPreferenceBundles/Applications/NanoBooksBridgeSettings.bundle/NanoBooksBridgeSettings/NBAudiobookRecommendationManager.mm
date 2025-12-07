@@ -11,6 +11,7 @@
 - (void)persistRecommendationsSelections:(id)selections;
 - (void)reloadRecommendationsIfNeeded:(id)needed;
 - (void)updateBitRateForAdamID:(id)d;
+- (void)updatePinningManagerForWantToRead:(BOOL)read forReadingNow:(BOOL)now;
 @end
 
 @implementation NBAudiobookRecommendationManager
@@ -67,6 +68,29 @@
   v5.receiver = self;
   v5.super_class = NBAudiobookRecommendationManager;
   [(NBAudiobookRecommendationManager *)&v5 dealloc];
+}
+
+- (void)updatePinningManagerForWantToRead:(BOOL)read forReadingNow:(BOOL)now
+{
+  nowCopy = now;
+  readCopy = read;
+  v7 = NBRecommendationsLog(self);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    sub_12204(v7);
+  }
+
+  objc_initWeak(&location, self);
+  pinningManager = [(NBAudiobookRecommendationManager *)self pinningManager];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_F8B0;
+  v9[3] = &unk_20C78;
+  objc_copyWeak(&v10, &location);
+  [(NBAudiobookRecommendationManager *)self _pinningManager:pinningManager updateWantToRead:readCopy updateReadingNow:nowCopy completion:v9];
+
+  objc_destroyWeak(&v10);
+  objc_destroyWeak(&location);
 }
 
 - (void)_pinningManager:(id)manager updateWantToRead:(BOOL)read updateReadingNow:(BOOL)now completion:(id)completion
@@ -130,7 +154,7 @@
   queueCopy = queue;
   completionCopy = completion;
   v8 = +[NSUUID UUID];
-  v9 = NBRecommendationsLog();
+  v9 = NBRecommendationsLog(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = objc_retainBlock(completionCopy);
@@ -161,7 +185,7 @@
 - (void)persistRecommendationsSelections:(id)selections
 {
   selectionsCopy = selections;
-  v4 = NBRecommendationsLog();
+  v4 = NBRecommendationsLog(selectionsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -200,7 +224,7 @@
 
         else if (type)
         {
-          v14 = NBRecommendationsLog();
+          v14 = NBRecommendationsLog(type);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             type2 = [v12 type];
@@ -246,50 +270,50 @@
   -[NBAudiobookRecommendation setSelected:](v13, "setSelected:", [v7 isWantToReadEnabled]);
   [v6 addObject:v13];
   v14 = [(NSArray *)self->_recommendations isEqualToArray:v6];
+  v15 = v14;
   if (v14)
   {
-    v15 = NBRecommendationsLog();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = NBRecommendationsLog(v14);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       goto LABEL_7;
     }
 
-    LOWORD(v21) = 0;
-    v16 = "Recommendations have not changed";
-    v17 = v15;
-    v18 = 2;
+    LOWORD(v22) = 0;
+    v17 = "Recommendations have not changed";
+    v18 = v16;
+    v19 = 2;
   }
 
   else
   {
-    [(NBAudiobookRecommendationManager *)self setRecommendations:v6];
-    v15 = NBRecommendationsLog();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = NBRecommendationsLog([(NBAudiobookRecommendationManager *)self setRecommendations:v6]);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       goto LABEL_7;
     }
 
     recommendations = self->_recommendations;
-    v21 = 138412290;
-    v22 = recommendations;
-    v16 = "Recommendations contents updated: %@";
-    v17 = v15;
-    v18 = 12;
+    v22 = 138412290;
+    v23 = recommendations;
+    v17 = "Recommendations contents updated: %@";
+    v18 = v16;
+    v19 = 12;
   }
 
-  _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, v16, &v21, v18);
+  _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, v17, &v22, v19);
 LABEL_7:
 
-  v20 = objc_retainBlock(completionCopy);
-  if (v20)
+  v21 = objc_retainBlock(completionCopy);
+  if (v21)
   {
-    v20[2](v20, v14 ^ 1);
+    v21[2](v21, v15 ^ 1u);
   }
 }
 
 - (void)_notifyAudiobookRecommendationsDidUpdateNotification
 {
-  v3 = NBRecommendationsLog();
+  v3 = NBRecommendationsLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -302,7 +326,7 @@ LABEL_7:
 
 - (void)_BCCloudReadingNowDetailManagerChanged:(id)changed
 {
-  v4 = NBRecommendationsLog();
+  v4 = NBRecommendationsLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -318,7 +342,7 @@ LABEL_7:
 
 - (void)_BCCloudCollectionMemberManagerChanged:(id)changed
 {
-  v4 = NBRecommendationsLog();
+  v4 = NBRecommendationsLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

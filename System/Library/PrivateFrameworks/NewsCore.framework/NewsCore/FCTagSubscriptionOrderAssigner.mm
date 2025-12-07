@@ -52,40 +52,38 @@
 
 - (id)assignOrderToTagSubscriptions:(id)subscriptions
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (subscriptions)
   {
     if (!v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
+      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
       *buf = 136315906;
-      v16 = "[FCTagSubscriptionOrderAssigner assignOrderToTagSubscriptions:]";
-      v17 = 2080;
-      v18 = "FCTagSubscriptionOrderAssigner.m";
-      v19 = 1024;
-      v20 = 42;
-      v21 = 2114;
-      v22 = v10;
+      v15 = "[FCTagSubscriptionOrderAssigner assignOrderToTagSubscriptions:]";
+      v16 = 2080;
+      v17 = "FCTagSubscriptionOrderAssigner.m";
+      v18 = 1024;
+      v19 = 42;
+      v20 = 2114;
+      v21 = v9;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
     v5 = objc_opt_new();
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __64__FCTagSubscriptionOrderAssigner_assignOrderToTagSubscriptions___block_invoke_2;
-    v11[3] = &unk_1E7C43930;
-    v12 = v4;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __64__FCTagSubscriptionOrderAssigner_assignOrderToTagSubscriptions___block_invoke_2;
+    v10[3] = &unk_1E7C43930;
+    v11 = v4;
     subscriptionsCopy = subscriptions;
     v6 = v5;
-    v14 = v6;
-    [v12 fc_enumerateIslandsOfCommonValuesForKeyBlock:&__block_literal_global_124 withBlock:v11];
-    v7 = v14;
+    v13 = v6;
+    [v11 fc_enumerateIslandsOfCommonValuesForKeyBlock:&__block_literal_global_124 withBlock:v10];
+    v7 = v13;
     subscriptions = v6;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return subscriptions;
 }
@@ -101,8 +99,8 @@ id __64__FCTagSubscriptionOrderAssigner_assignOrderToTagSubscriptions___block_in
 
 void __64__FCTagSubscriptionOrderAssigner_assignOrderToTagSubscriptions___block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v32 = a2;
+  v40 = *MEMORY[0x1E69E9840];
+  v31 = a2;
   if ([a3 BOOLValue])
   {
     if (a4)
@@ -121,7 +119,7 @@ void __64__FCTagSubscriptionOrderAssigner_assignOrderToTagSubscriptions___block_
     if (v12 == [*(a1 + 32) count])
     {
       v13 = *(a1 + 40);
-      v14 = v32;
+      v14 = v31;
       v15 = v14;
       if (a4)
       {
@@ -129,15 +127,15 @@ void __64__FCTagSubscriptionOrderAssigner_assignOrderToTagSubscriptions___block_
         {
           if (!v14 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
+            v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
             *buf = 136315906;
-            v34 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptions:inOpenEndRangeWithPreviousValue:]";
-            v35 = 2080;
-            v36 = "FCTagSubscriptionOrderAssigner.m";
-            v37 = 1024;
-            v38 = 141;
-            v39 = 2114;
-            v40 = v28;
+            v33 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptions:inOpenEndRangeWithPreviousValue:]";
+            v34 = 2080;
+            v35 = "FCTagSubscriptionOrderAssigner.m";
+            v36 = 1024;
+            v37 = 141;
+            v38 = 2114;
+            v39 = v27;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
@@ -158,15 +156,15 @@ LABEL_30:
       {
         if (!v14 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
+          v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
           *buf = 136315906;
-          v34 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptionsInOpenRange:]";
-          v35 = 2080;
-          v36 = "FCTagSubscriptionOrderAssigner.m";
-          v37 = 1024;
-          v38 = 158;
-          v39 = 2114;
-          v40 = v30;
+          v33 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptionsInOpenRange:]";
+          v34 = 2080;
+          v35 = "FCTagSubscriptionOrderAssigner.m";
+          v36 = 1024;
+          v37 = 158;
+          v38 = 2114;
+          v39 = v29;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -183,7 +181,7 @@ LABEL_30:
       v20 = [v19 longLongValue];
 
       v21 = *(a1 + 40);
-      v22 = v32;
+      v22 = v31;
       v23 = v22;
       if (a4)
       {
@@ -191,15 +189,15 @@ LABEL_30:
         {
           if (!v22 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
+            v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
             *buf = 136315906;
-            v34 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptions:inClosedRangeWithPreviousValue:nextValue:]";
-            v35 = 2080;
-            v36 = "FCTagSubscriptionOrderAssigner.m";
-            v37 = 1024;
-            v38 = 106;
-            v39 = 2114;
-            v40 = v29;
+            v33 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptions:inClosedRangeWithPreviousValue:nextValue:]";
+            v34 = 2080;
+            v35 = "FCTagSubscriptionOrderAssigner.m";
+            v36 = 1024;
+            v37 = 106;
+            v38 = 2114;
+            v39 = v28;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
@@ -214,15 +212,15 @@ LABEL_30:
       {
         if (!v22 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
+          v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
           *buf = 136315906;
-          v34 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptions:inOpenStartRangeWithNextValue:]";
-          v35 = 2080;
-          v36 = "FCTagSubscriptionOrderAssigner.m";
-          v37 = 1024;
-          v38 = 123;
-          v39 = 2114;
-          v40 = v31;
+          v33 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptions:inOpenStartRangeWithNextValue:]";
+          v34 = 2080;
+          v35 = "FCTagSubscriptionOrderAssigner.m";
+          v36 = 1024;
+          v37 = 123;
+          v38 = 2114;
+          v39 = v30;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -239,36 +237,33 @@ LABEL_30:
   }
 
 LABEL_31:
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_assignOrderToSubscriptions:(void *)subscriptions withInitialOrder:(uint64_t)order orderSpacing:(uint64_t)spacing
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   if (!subscriptionsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptions != nil"];
     *buf = 136315906;
-    v12 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptions:withInitialOrder:orderSpacing:]";
-    v13 = 2080;
-    v14 = "FCTagSubscriptionOrderAssigner.m";
-    v15 = 1024;
-    v16 = 176;
-    v17 = 2114;
-    v18 = v9;
+    v11 = "[FCTagSubscriptionOrderAssigner _assignOrderToSubscriptions:withInitialOrder:orderSpacing:]";
+    v12 = 2080;
+    v13 = "FCTagSubscriptionOrderAssigner.m";
+    v14 = 1024;
+    v15 = 176;
+    v16 = 2114;
+    v17 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __92__FCTagSubscriptionOrderAssigner__assignOrderToSubscriptions_withInitialOrder_orderSpacing___block_invoke;
-  v10[3] = &__block_descriptor_48_e75____FCReorderableTagSubscription__24__0Q8___FCReorderableTagSubscription__16l;
-  v10[4] = order;
-  v10[5] = spacing;
-  v6 = [subscriptionsCopy fc_arrayByTransformingWithBlockWithIndex:v10];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __92__FCTagSubscriptionOrderAssigner__assignOrderToSubscriptions_withInitialOrder_orderSpacing___block_invoke;
+  v9[3] = &__block_descriptor_48_e75____FCReorderableTagSubscription__24__0Q8___FCReorderableTagSubscription__16l;
+  v9[4] = order;
+  v9[5] = spacing;
+  v6 = [subscriptionsCopy fc_arrayByTransformingWithBlockWithIndex:v9];
 
   return v6;
 }

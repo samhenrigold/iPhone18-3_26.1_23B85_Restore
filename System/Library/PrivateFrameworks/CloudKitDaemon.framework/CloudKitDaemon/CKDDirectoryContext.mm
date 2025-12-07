@@ -2,6 +2,7 @@
 + (id)daemonDatabaseDirectoryName;
 - (CKDDirectoryContext)initWithContainer:(id)container;
 - (CKDDirectoryContext)initWithTestRootDirectory:(id)directory;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)applicationCachesDirectoryForDataContainerDirectory:(id)directory usingHomeCachesDirectory:(BOOL)cachesDirectory;
 @end
 
@@ -35,11 +36,11 @@ LABEL_8:
 
 - (CKDDirectoryContext)initWithContainer:(id)container
 {
-  v211 = *MEMORY[0x277D85DE8];
+  v210 = *MEMORY[0x277D85DE8];
   containerCopy = container;
-  v206.receiver = self;
-  v206.super_class = CKDDirectoryContext;
-  v7 = [(CKDDirectoryContext *)&v206 init];
+  v205.receiver = self;
+  v205.super_class = CKDDirectoryContext;
+  v7 = [(CKDDirectoryContext *)&v205 init];
   if (v7)
   {
     v8 = objc_msgSend_containerID(containerCopy, v5, v6);
@@ -52,9 +53,9 @@ LABEL_8:
 
     v16 = objc_msgSend_applicationBundleID(containerCopy, v14, v15);
     v17 = objc_alloc(MEMORY[0x277CC1E50]);
-    v205 = 0;
-    v19 = objc_msgSend_initWithBundleIdentifier_error_(v17, v18, v16, &v205);
-    v22 = v205;
+    v204 = 0;
+    v19 = objc_msgSend_initWithBundleIdentifier_error_(v17, v18, v16, &v204);
+    v22 = v204;
     if (v22)
     {
       if (*MEMORY[0x277CBC880] != -1)
@@ -66,9 +67,9 @@ LABEL_8:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v208 = v16;
-        v209 = 2112;
-        v210 = v22;
+        v207 = v16;
+        v208 = 2112;
+        v209 = v22;
         _os_log_impl(&dword_22506F000, v23, OS_LOG_TYPE_INFO, "Bundle ID %@ doesn't belong to an extension: %@", buf, 0x16u);
       }
     }
@@ -82,9 +83,9 @@ LABEL_8:
     }
 
     v28 = objc_alloc(MEMORY[0x277CC1E70]);
-    v204 = v22;
-    v30 = objc_msgSend_initWithBundleIdentifier_allowPlaceholder_error_(v28, v29, v16, 0, &v204);
-    v201 = v204;
+    v203 = v22;
+    v30 = objc_msgSend_initWithBundleIdentifier_allowPlaceholder_error_(v28, v29, v16, 0, &v203);
+    v200 = v203;
 
     if (v19)
     {
@@ -97,7 +98,7 @@ LABEL_8:
     }
 
     v32 = v31;
-    v200 = v30;
+    v199 = v30;
     v35 = objc_msgSend_applicationState(v30, v33, v34);
     isInstalled = objc_msgSend_isInstalled(v35, v36, v37);
 
@@ -111,8 +112,8 @@ LABEL_8:
       v41 = 0;
     }
 
-    v199 = v32;
-    v202 = objc_msgSend_applicationCachesDirectoryForDataContainerDirectory_usingHomeCachesDirectory_(v7, v39, v41, 0);
+    v198 = v32;
+    v201 = objc_msgSend_applicationCachesDirectoryForDataContainerDirectory_usingHomeCachesDirectory_(v7, v39, v41, 0);
     v44 = objc_msgSend_applicationBundleID(containerCopy, v42, v43);
     v47 = objc_msgSend_personaID(containerCopy, v45, v46);
 
@@ -147,7 +148,7 @@ LABEL_8:
       if (!v73)
       {
 LABEL_22:
-        v203 = v41;
+        v202 = v41;
         if (*MEMORY[0x277CBC810] == 1)
         {
           v80 = objc_msgSend_options(containerCopy, v74, v75);
@@ -183,7 +184,7 @@ LABEL_22:
             }
 
             v58 = v102;
-            v41 = v203;
+            v41 = v202;
           }
         }
 
@@ -194,7 +195,7 @@ LABEL_22:
 
         if (v109)
         {
-          v198 = v16;
+          v197 = v16;
           v112 = objc_msgSend_deviceContext(containerCopy, v110, v111);
           v115 = objc_msgSend_testDevice(v112, v113, v114);
           v118 = objc_msgSend_daemonServer(v115, v116, v117);
@@ -207,8 +208,8 @@ LABEL_22:
 
           v135 = objc_msgSend_currentPersona(MEMORY[0x277CBC558], v133, v134);
           objc_msgSend_isDataSeparated(v135, v136, v137);
-          v196 = v132;
-          v197 = v19;
+          v195 = v132;
+          v196 = v19;
           if (CKBoolFromCKTernary())
           {
             v140 = MEMORY[0x277CCACA8];
@@ -232,7 +233,7 @@ LABEL_22:
           v170 = objc_msgSend_CKSafeStringForPathComponent(v167, v168, v169);
           v172 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v147, v171, v170, 1);
 
-          if (v203)
+          if (v202)
           {
             objc_storeStrong(v7 + 4, v172);
           }
@@ -246,9 +247,9 @@ LABEL_22:
           v180 = *(v7 + 6);
           *(v7 + 6) = v179;
 
-          v19 = v197;
-          v16 = v198;
-          v41 = v203;
+          v19 = v196;
+          v16 = v197;
+          v41 = v202;
         }
 
         else
@@ -267,8 +268,8 @@ LABEL_22:
             v158 = *(v7 + 5);
             *(v7 + 5) = v157;
 
-            v159 = v202;
-            v161 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v202, v160, v103, 1);
+            v159 = v201;
+            v161 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v201, v160, v103, 1);
             v162 = *(v7 + 6);
             *(v7 + 6) = v161;
 
@@ -276,26 +277,26 @@ LABEL_41:
             goto LABEL_42;
           }
 
-          v183 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v202, v110, @"cloudd_db", 1);
-          v184 = *(v7 + 7);
-          *(v7 + 7) = v183;
+          v182 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v201, v110, @"cloudd_db", 1);
+          v183 = *(v7 + 7);
+          *(v7 + 7) = v182;
 
-          v187 = objc_msgSend_applicationBundleID(containerCopy, v185, v186);
-          v190 = objc_msgSend_CKSafeStringForPathComponent(v187, v188, v189);
-          v192 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v202, v191, v190, 1);
+          v186 = objc_msgSend_applicationBundleID(containerCopy, v184, v185);
+          v189 = objc_msgSend_CKSafeStringForPathComponent(v186, v187, v188);
+          v191 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v201, v190, v189, 1);
 
-          v194 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v192, v193, v103, 1);
+          v193 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v191, v192, v103, 1);
 
           v41 = 0;
-          v195 = *(v7 + 4);
+          v194 = *(v7 + 4);
           *(v7 + 4) = 0;
 
-          objc_storeStrong(v7 + 5, v194);
+          objc_storeStrong(v7 + 5, v193);
           v121 = *(v7 + 6);
-          *(v7 + 6) = v194;
+          *(v7 + 6) = v193;
         }
 
-        v159 = v202;
+        v159 = v201;
         goto LABEL_41;
       }
 
@@ -312,7 +313,6 @@ LABEL_41:
 
 LABEL_42:
 
-  v181 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -354,7 +354,7 @@ LABEL_42:
 - (id)applicationCachesDirectoryForDataContainerDirectory:(id)directory usingHomeCachesDirectory:(BOOL)cachesDirectory
 {
   cachesDirectoryCopy = cachesDirectory;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   v8 = directoryCopy;
   if (directoryCopy)
@@ -389,20 +389,47 @@ LABEL_42:
   v17 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v24 = v17;
-    v27 = objc_msgSend_CKSanitizedPath(v16, v25, v26);
-    v28 = 138412290;
-    v29 = v27;
-    _os_log_debug_impl(&dword_22506F000, v24, OS_LOG_TYPE_DEBUG, "Got caches path: %@", &v28, 0xCu);
+    v23 = v17;
+    v26 = objc_msgSend_CKSanitizedPath(v16, v24, v25);
+    v27 = 138412290;
+    v28 = v26;
+    _os_log_debug_impl(&dword_22506F000, v23, OS_LOG_TYPE_DEBUG, "Got caches path: %@", &v27, 0xCu);
   }
 
   v19 = objc_msgSend_stringByAppendingPathComponent_(v16, v18, @"CloudKit");
 
   v21 = objc_msgSend_fileURLWithPath_isDirectory_(MEMORY[0x277CBEBC0], v20, v19, 1);
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  v33[2] = *MEMORY[0x277D85DE8];
+  v32[0] = @"containerCloudKitDirectory";
+  v6 = objc_msgSend_containerCloudKitDirectory(self, a2, public, private, expand);
+  v9 = objc_msgSend_CKSanitizedPath(v6, v7, v8);
+  v32[1] = @"daemonCachesDirectory";
+  v33[0] = v9;
+  v12 = objc_msgSend_daemonCachesDirectory(self, v10, v11);
+  v15 = objc_msgSend_CKSanitizedPath(v12, v13, v14);
+  v33[1] = v15;
+  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v33, v32, 2);
+
+  v20 = objc_msgSend_containerDirectory(self, v18, v19);
+
+  if (v20)
+  {
+    v23 = objc_msgSend_mutableCopy(v17, v21, v22);
+
+    v26 = objc_msgSend_containerDirectory(self, v24, v25);
+    v29 = objc_msgSend_CKSanitizedPath(v26, v27, v28);
+    objc_msgSend_setObject_forKeyedSubscript_(v23, v30, v29, @"containerDirectory");
+
+    v17 = v23;
+  }
+
+  return v17;
 }
 
 @end

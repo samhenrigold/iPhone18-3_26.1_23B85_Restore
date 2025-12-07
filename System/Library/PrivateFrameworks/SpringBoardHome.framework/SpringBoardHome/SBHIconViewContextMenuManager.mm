@@ -325,7 +325,7 @@ LABEL_25:
   return v11;
 }
 
-id __80__SBHIconViewContextMenuManager_contextMenuConfigurationForIconView_atLocation___block_invoke_2(uint64_t a1)
+SBHIconViewContextMenuWrapperViewController *__80__SBHIconViewContextMenuManager_contextMenuConfigurationForIconView_atLocation___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -817,7 +817,7 @@ LABEL_11:
 {
   y = location.y;
   x = location.x;
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   if ([objc_opt_class() supportsPreviewInteraction] && objc_msgSend(viewCopy, "allowsContextMenus"))
   {
@@ -830,53 +830,54 @@ LABEL_11:
     contextMenuDelegate = [viewCopy contextMenuDelegate];
     if ((objc_opt_respondsToSelector() & 1) != 0 && ![contextMenuDelegate iconViewShouldBeginContextMenuPresentation:viewCopy])
     {
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
-      if ([viewCopy isShowingContextMenu])
+      isShowingContextMenu = [viewCopy isShowingContextMenu];
+      if (isShowingContextMenu)
       {
-        v9 = SBLogIconContextMenu();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = SBLogIconContextMenu(isShowingContextMenu);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 136315394;
-          v13 = "[SBHIconViewContextMenuManager shouldAllowContextMenuInteractionForIconView:atLocation:]";
-          v14 = 1024;
-          v15 = 389;
-          _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "%s:%d Warning; there is already a context menu interaction in flight!!!", &v12, 0x12u);
+          v13 = 136315394;
+          v14 = "[SBHIconViewContextMenuManager shouldAllowContextMenuInteractionForIconView:atLocation:]";
+          v15 = 1024;
+          v16 = 389;
+          _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "%s:%d Warning; there is already a context menu interaction in flight!!!", &v13, 0x12u);
         }
       }
 
-      v10 = 1;
+      v11 = 1;
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)_contextMenuInteraction:(id)interaction previewForIconWithConfigurationOptions:(unint64_t)options highlighted:(BOOL)highlighted forIconView:(id)view
 {
   highlightedCopy = highlighted;
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   view = [interaction view];
 
   if (view != viewCopy)
   {
-    v10 = SBLogIcon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SBLogIcon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(SBHIconViewContextMenuManager *)v10 _contextMenuInteraction:v11 previewForIconWithConfigurationOptions:v12 highlighted:v13 forIconView:v14, v15, v16, v17];
+      [(SBHIconViewContextMenuManager *)v11 _contextMenuInteraction:v12 previewForIconWithConfigurationOptions:v13 highlighted:v14 forIconView:v15, v16, v17, v18];
     }
 
 LABEL_4:
-    v18 = 0;
+    v19 = 0;
     goto LABEL_19;
   }
 
@@ -884,73 +885,73 @@ LABEL_4:
 
   if (!window)
   {
-    v10 = SBLogIcon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SBLogIcon(v21);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(SBHIconViewContextMenuManager *)v10 _contextMenuInteraction:v33 previewForIconWithConfigurationOptions:v34 highlighted:v35 forIconView:v36, v37, v38, v39];
+      [(SBHIconViewContextMenuManager *)v11 _contextMenuInteraction:v35 previewForIconWithConfigurationOptions:v36 highlighted:v37 forIconView:v38, v39, v40, v41];
     }
 
     goto LABEL_4;
   }
 
   [viewCopy setHighlighted:highlightedCopy];
-  v10 = objc_alloc_init(MEMORY[0x1E69DCE28]);
+  v11 = objc_alloc_init(MEMORY[0x1E69DCE28]);
   clearColor = [MEMORY[0x1E69DC888] clearColor];
-  [v10 setBackgroundColor:clearColor];
+  [v11 setBackgroundColor:clearColor];
 
   [viewCopy iconImageCenter];
-  v22 = v21;
   v24 = v23;
-  v25 = viewCopy;
-  imageContainerView = [v25 imageContainerView];
-  v27 = SBLogIcon();
-  v28 = v27;
-  if (imageContainerView == v25)
+  v26 = v25;
+  v27 = viewCopy;
+  imageContainerView = [v27 imageContainerView];
+  v29 = SBLogIcon(imageContainerView);
+  v30 = v29;
+  if (imageContainerView == v27)
   {
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      [(SBHIconViewContextMenuManager *)v28 _contextMenuInteraction:v40 previewForIconWithConfigurationOptions:v41 highlighted:v42 forIconView:v43, v44, v45, v46];
+      [(SBHIconViewContextMenuManager *)v30 _contextMenuInteraction:v42 previewForIconWithConfigurationOptions:v43 highlighted:v44 forIconView:v45, v46, v47, v48];
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      icon = [v25 icon];
-      LODWORD(v48[0]) = 138412802;
-      *(v48 + 4) = icon;
-      WORD6(v48[0]) = 2112;
-      *(v48 + 14) = imageContainerView;
-      WORD3(v48[1]) = 2112;
-      *(&v48[1] + 1) = v25;
-      _os_log_impl(&dword_1BEB18000, v28, OS_LOG_TYPE_DEFAULT, "Configuring preview for icon '%@' w/ currentImageView '%@' contentContainerView '%@'", v48, 0x20u);
+      icon = [v27 icon];
+      LODWORD(v50[0]) = 138412802;
+      *(v50 + 4) = icon;
+      WORD6(v50[0]) = 2112;
+      *(v50 + 14) = imageContainerView;
+      WORD3(v50[1]) = 2112;
+      *(&v50[1] + 1) = v27;
+      _os_log_impl(&dword_1BEB18000, v30, OS_LOG_TYPE_DEFAULT, "Configuring preview for icon '%@' w/ currentImageView '%@' contentContainerView '%@'", v50, 0x20u);
     }
 
-    v30 = objc_alloc(MEMORY[0x1E69DCE38]);
-    contentContainerView = [v25 contentContainerView];
-    v32 = contentContainerView;
+    v32 = objc_alloc(MEMORY[0x1E69DCE38]);
+    contentContainerView = [v27 contentContainerView];
+    v34 = contentContainerView;
     if (contentContainerView)
     {
-      [contentContainerView transform];
+      objc_msgSend_transform(contentContainerView);
     }
 
     else
     {
-      memset(v48, 0, sizeof(v48));
+      memset(v50, 0, sizeof(v50));
     }
 
-    v28 = [v30 initWithContainer:v25 center:v48 transform:{v22, v24}];
+    v30 = [v32 initWithContainer:v27 center:v50 transform:{v24, v26}];
 
-    v18 = [objc_alloc(MEMORY[0x1E69DD070]) initWithView:imageContainerView parameters:v10 target:v28];
-    [v18 set_springboardPlatterStyle:1];
+    v19 = [objc_alloc(MEMORY[0x1E69DD070]) initWithView:imageContainerView parameters:v11 target:v30];
+    [v19 set_springboardPlatterStyle:1];
   }
 
 LABEL_19:
 
-  return v18;
+  return v19;
 }
 
 - (id)allOpenApplicationWindowsContextMenuProviders

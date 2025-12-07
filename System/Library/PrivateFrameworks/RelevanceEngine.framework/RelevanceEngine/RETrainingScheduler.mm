@@ -8,16 +8,15 @@
 {
   if (behavior > 2)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v4 = *off_2785FD960[behavior];
-    v5 = objc_opt_new();
+    v4 = objc_opt_new();
   }
 
-  return v5;
+  return v4;
 }
 
 @end

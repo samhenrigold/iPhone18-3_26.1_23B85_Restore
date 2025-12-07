@@ -50,7 +50,7 @@
 
 - (id)groupedEventsFromEvents:(id)events
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   if (![eventsCopy count])
   {
@@ -59,39 +59,39 @@
   }
 
   selfCopy = self;
-  v40 = objc_opt_new();
+  v39 = objc_opt_new();
   [eventsCopy valueForKeyPath:@"@distinctUnionOfObjects.workoutEvent.workoutType"];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  obj = v44 = 0u;
-  v35 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (!v35)
+  obj = v43 = 0u;
+  v34 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (!v34)
   {
     goto LABEL_20;
   }
 
-  v5 = *v42;
+  v5 = *v41;
   v6 = 0x1E696A000uLL;
-  v32 = *v42;
-  v33 = eventsCopy;
+  v31 = *v41;
+  v32 = eventsCopy;
   do
   {
     v7 = 0;
     do
     {
-      if (*v42 != v5)
+      if (*v41 != v5)
       {
         objc_enumerationMutation(obj);
       }
 
-      v39 = v7;
-      v38 = [*(v6 + 3608) predicateWithFormat:@"%K.%K = %@", @"workoutEvent", @"workoutType", *(*(&v41 + 1) + 8 * v7)];
+      v38 = v7;
+      v37 = [*(v6 + 3608) predicateWithFormat:@"%K.%K = %@", @"workoutEvent", @"workoutType", *(*(&v40 + 1) + 8 * v7)];
       v8 = [eventsCopy filteredArrayUsingPredicate:?];
-      v36 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"startDate" ascending:1];
-      v45 = v36;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
-      v37 = v8;
+      v35 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"startDate" ascending:1];
+      v44 = v35;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
+      v36 = v8;
       v10 = [v8 sortedArrayUsingDescriptors:v9];
 
       v11 = objc_opt_new();
@@ -125,7 +125,7 @@
           if ((v21 & 1) == 0)
           {
             v22 = [v11 copy];
-            [v40 addObject:v22];
+            [v39 addObject:v22];
 
             startDate = v11;
             v11 = objc_opt_new();
@@ -144,26 +144,26 @@ LABEL_14:
       }
 
 LABEL_16:
-      v5 = v32;
-      eventsCopy = v33;
+      v5 = v31;
+      eventsCopy = v32;
       v6 = 0x1E696A000;
       if ([v11 count])
       {
 LABEL_17:
         v23 = [v11 copy];
-        [v40 addObject:v23];
+        [v39 addObject:v23];
       }
 
-      v7 = v39 + 1;
+      v7 = v38 + 1;
     }
 
-    while (v39 + 1 != v35);
-    v35 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+    while (v38 + 1 != v34);
+    v34 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
   }
 
-  while (v35);
+  while (v34);
 LABEL_20:
-  v24 = v40;
+  v24 = v39;
   v25 = v24;
   if (![(PCWorkoutAnnotationManager *)selfCopy allowDuplicatedWorkouts])
   {
@@ -175,7 +175,6 @@ LABEL_20:
   v28 = [v27 copy];
 
 LABEL_24:
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -195,34 +194,34 @@ uint64_t __54__PCWorkoutAnnotationManager_groupedEventsFromEvents___block_invoke
 
 - (id)removePhoneActivitiesOverlappingWorkouts:(id)workouts
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   workoutsCopy = workouts;
   if ([workoutsCopy count])
   {
-    v34 = objc_opt_new();
+    v33 = objc_opt_new();
     v4 = objc_opt_new();
-    v31 = objc_opt_new();
-    v32 = workoutsCopy;
+    v30 = objc_opt_new();
+    v31 = workoutsCopy;
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v5 = workoutsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v49 objects:v55 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v48 objects:v54 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v50;
+      v8 = *v49;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v50 != v8)
+          if (*v49 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v49 + 1) + 8 * i);
+          v10 = *(*(&v48 + 1) + 8 * i);
           firstObject = [v10 firstObject];
           category = [firstObject category];
 
@@ -232,74 +231,74 @@ uint64_t __54__PCWorkoutAnnotationManager_groupedEventsFromEvents___block_invoke
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v49 objects:v55 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v48 objects:v54 count:16];
       }
 
       while (v7);
     }
 
-    [v34 addObjectsFromArray:v4];
-    v13 = v31;
-    if ([v31 count])
+    [v33 addObjectsFromArray:v4];
+    v13 = v30;
+    if ([v30 count])
     {
-      workoutsCopy = v32;
+      workoutsCopy = v31;
       if (![v4 count])
       {
         goto LABEL_36;
       }
 
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
-      obj = v31;
-      v37 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
-      if (!v37)
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      obj = v30;
+      v36 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+      if (!v36)
       {
         goto LABEL_33;
       }
 
-      v35 = v4;
-      v36 = *v46;
+      v34 = v4;
+      v35 = *v45;
       while (1)
       {
-        for (j = 0; j != v37; ++j)
+        for (j = 0; j != v36; ++j)
         {
-          if (*v46 != v36)
+          if (*v45 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v45 + 1) + 8 * j);
+          v15 = *(*(&v44 + 1) + 8 * j);
+          v40 = 0u;
           v41 = 0u;
           v42 = 0u;
           v43 = 0u;
-          v44 = 0u;
           v16 = v4;
-          v17 = [v16 countByEnumeratingWithState:&v41 objects:v53 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v40 objects:v52 count:16];
           if (!v17)
           {
 
 LABEL_30:
-            [v34 addObject:{v15, v31}];
+            [v33 addObject:{v15, v30}];
             continue;
           }
 
           v18 = v17;
-          v38 = j;
-          v39 = v16;
+          v37 = j;
+          v38 = v16;
           v19 = 0;
-          v40 = *v42;
+          v39 = *v41;
           do
           {
             for (k = 0; k != v18; ++k)
             {
-              if (*v42 != v40)
+              if (*v41 != v39)
               {
-                objc_enumerationMutation(v39);
+                objc_enumerationMutation(v38);
               }
 
-              v21 = *(*(&v41 + 1) + 8 * k);
+              v21 = *(*(&v40 + 1) + 8 * k);
               firstObject2 = [v15 firstObject];
               startDate = [firstObject2 startDate];
               lastObject = [v15 lastObject];
@@ -313,33 +312,33 @@ LABEL_30:
               }
             }
 
-            v18 = [v39 countByEnumeratingWithState:&v41 objects:v53 count:16];
+            v18 = [v38 countByEnumeratingWithState:&v40 objects:v52 count:16];
           }
 
           while (v18);
 
-          v4 = v35;
-          j = v38;
+          v4 = v34;
+          j = v37;
           if (!v19)
           {
             goto LABEL_30;
           }
         }
 
-        v37 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
-        if (!v37)
+        v36 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+        if (!v36)
         {
 LABEL_33:
 
-          v5 = v34;
-          v13 = v31;
-          workoutsCopy = v32;
+          v5 = v33;
+          v13 = v30;
+          workoutsCopy = v31;
           goto LABEL_36;
         }
       }
     }
 
-    workoutsCopy = v32;
+    workoutsCopy = v31;
 LABEL_36:
     v28 = v5;
   }
@@ -349,50 +348,48 @@ LABEL_36:
     v28 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 - (id)removeDuplicateWorkouts:(id)workouts
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   workoutsCopy = workouts;
   if ([workoutsCopy count])
   {
     v4 = objc_opt_new();
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     obj = workoutsCopy;
-    v5 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v5 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v47;
-      v40 = v4;
-      v41 = workoutsCopy;
-      v39 = *v47;
+      v7 = *v46;
+      v39 = v4;
+      v40 = workoutsCopy;
+      v38 = *v46;
       do
       {
         v8 = 0;
-        v42 = v6;
+        v41 = v6;
         do
         {
-          if (*v47 != v7)
+          if (*v46 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v46 + 1) + 8 * v8);
+          v9 = *(*(&v45 + 1) + 8 * v8);
           if ([v9 count] > 1)
           {
-            v45 = v8;
+            v44 = v8;
             v10 = objc_opt_new();
-            v44 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"startDate" ascending:1];
-            v50 = v44;
-            v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
+            v43 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"startDate" ascending:1];
+            v49 = v43;
+            v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
             v12 = [v9 sortedArrayUsingDescriptors:v11];
 
             firstObject = [v12 firstObject];
@@ -463,13 +460,13 @@ LABEL_36:
               while ([v12 count] > v14);
             }
 
-            v4 = v40;
-            [v40 addObject:v10];
+            v4 = v39;
+            [v39 addObject:v10];
 
-            workoutsCopy = v41;
-            v6 = v42;
-            v7 = v39;
-            v8 = v45;
+            workoutsCopy = v40;
+            v6 = v41;
+            v7 = v38;
+            v8 = v44;
           }
 
           else
@@ -481,7 +478,7 @@ LABEL_36:
         }
 
         while (v8 != v6);
-        v6 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v6 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
       while (v6);
@@ -493,14 +490,12 @@ LABEL_36:
     v4 = 0;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)getContextEventsForBaseEvents:(id)events events:(id)a4
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AE18];
   v6 = a4;
   eventsCopy = events;
@@ -515,21 +510,19 @@ LABEL_36:
   v14 = [PCContextAnnotationUtilities predicateWithStartDate:v11 endDate:endDate];
 
   v15 = MEMORY[0x1E696AB28];
-  v21[0] = v8;
-  v21[1] = v14;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[0] = v8;
+  v20[1] = v14;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   v17 = [v15 andPredicateWithSubpredicates:v16];
 
   v18 = [v6 filteredArrayUsingPredicate:v17];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (id)annotateBaseEvents:(id)events contextEvents:(id)contextEvents
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   contextEventsCopy = contextEvents;
   if ([eventsCopy count])
@@ -600,11 +593,11 @@ LABEL_36:
         {
           workoutLocationStart3 = [(PCEventBundle *)v12 workoutLocationStart];
           hkObjectIdentifier2 = [(PCEventBundle *)v12 hkObjectIdentifier];
-          v48 = 138740227;
-          v49 = workoutLocationStart3;
-          v50 = 2114;
-          v51 = hkObjectIdentifier2;
-          _os_log_impl(&dword_1CEE74000, v37, OS_LOG_TYPE_DEFAULT, "EventBundle has no associated visit, using HealthKit workout location=%{sensitive}@, workout=%{public}@", &v48, 0x16u);
+          v47 = 138740227;
+          v48 = workoutLocationStart3;
+          v49 = 2114;
+          v50 = hkObjectIdentifier2;
+          _os_log_impl(&dword_1CEE74000, v37, OS_LOG_TYPE_DEFAULT, "EventBundle has no associated visit, using HealthKit workout location=%{sensitive}@, workout=%{public}@", &v47, 0x16u);
         }
 
         workoutLocationStart4 = [(PCEventBundle *)v12 workoutLocationStart];
@@ -631,14 +624,12 @@ LABEL_36:
     v12 = 0;
   }
 
-  v46 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)annotateEventBundle:(id)bundle withContextEvents:(id)events andBaseEventReference:(id)reference
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   eventsCopy = events;
   v9 = objc_opt_new();
@@ -653,11 +644,11 @@ LABEL_36:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 134349568;
-    v22 = [eventsCopy count];
-    v23 = 2050;
-    v24 = [v11 count];
-    v25 = 2050;
-    v26 = [v15 count];
+    v21 = [eventsCopy count];
+    v22 = 2050;
+    v23 = [v11 count];
+    v24 = 2050;
+    v25 = [v15 count];
     _os_log_impl(&dword_1CEE74000, v16, OS_LOG_TYPE_INFO, "WorkoutAnnotation: annotateEventBundle, contextEventsCount, %{public}lu, visitsCount, %{public}lu, majorVisitsCount, %{public}lu", buf, 0x20u);
   }
 
@@ -669,81 +660,79 @@ LABEL_36:
 
   v18 = [v9 copy];
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 - (id)majorVisitsFromVisits:(id)visits referenceDate:(id)date
 {
-  v62[2] = *MEMORY[0x1E69E9840];
+  v61[2] = *MEMORY[0x1E69E9840];
   visitsCopy = visits;
   dateCopy = date;
   if (visitsCopy && [visitsCopy count])
   {
-    v62[0] = @"routineEvent";
-    v62[1] = @"placeName";
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:2];
-    v34 = visitsCopy;
+    v61[0] = @"routineEvent";
+    v61[1] = @"placeName";
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:2];
+    v33 = visitsCopy;
     v8 = [PCContextAnnotationUtilities groupedEventsFromEvents:visitsCopy nestedPropertyPath:v7];
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __66__PCWorkoutAnnotationManager_majorVisitsFromVisits_referenceDate___block_invoke;
     aBlock[3] = &unk_1E83B82B8;
-    v33 = dateCopy;
-    v35 = dateCopy;
-    v49 = v35;
+    v32 = dateCopy;
+    v34 = dateCopy;
+    v48 = v34;
     v9 = _Block_copy(aBlock);
     allValues = [v8 allValues];
     firstObject = [allValues firstObject];
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
-    v39 = v8;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v38 = v8;
     obj = [v8 allKeys];
-    v11 = [obj countByEnumeratingWithState:&v44 objects:v61 count:16];
+    v11 = [obj countByEnumeratingWithState:&v43 objects:v60 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v45;
+      v13 = *v44;
       v14 = 1.79769313e308;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v45 != v13)
+          if (*v44 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v44 + 1) + 8 * i);
-          v17 = [v39 objectForKey:{v16, v33}];
+          v16 = *(*(&v43 + 1) + 8 * i);
+          v17 = [v38 objectForKey:{v16, v32}];
+          v39 = 0u;
           v40 = 0u;
           v41 = 0u;
           v42 = 0u;
-          v43 = 0u;
-          v18 = [v17 countByEnumeratingWithState:&v40 objects:v60 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v39 objects:v59 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v41;
+            v20 = *v40;
             v21 = 1.79769313e308;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v41 != v20)
+                if (*v40 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v21 = fmin(v9[2](v9, *(*(&v40 + 1) + 8 * j)), v21);
+                v21 = fmin(v9[2](v9, *(*(&v39 + 1) + 8 * j)), v21);
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v40 objects:v60 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v39 objects:v59 count:16];
             }
 
             while (v19);
@@ -759,13 +748,13 @@ LABEL_36:
           {
             v24 = NSStringFromSelector(a2);
             *buf = 138413059;
-            v51 = v24;
-            v52 = 2112;
-            v53 = v35;
-            v54 = 2117;
-            v55 = v16;
-            v56 = 2048;
-            v57 = v21;
+            v50 = v24;
+            v51 = 2112;
+            v52 = v34;
+            v53 = 2117;
+            v54 = v16;
+            v55 = 2048;
+            v56 = v21;
             _os_log_impl(&dword_1CEE74000, v23, OS_LOG_TYPE_DEBUG, "WorkoutAnnotation: %@, referenceDate=%@, group=%{sensitive}@, distance=%f", buf, 0x2Au);
           }
 
@@ -778,7 +767,7 @@ LABEL_36:
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v44 objects:v61 count:16];
+        v12 = [obj countByEnumeratingWithState:&v43 objects:v60 count:16];
       }
 
       while (v12);
@@ -794,36 +783,34 @@ LABEL_36:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       v28 = NSStringFromSelector(a2);
-      v29 = [v39 count];
+      v29 = [v38 count];
       *buf = 138413314;
-      v51 = v28;
+      v50 = v28;
       v30 = -1.0;
-      v52 = 2112;
+      v51 = 2112;
       if (v14 != 1.79769313e308)
       {
         v30 = v14;
       }
 
-      v53 = v35;
-      v54 = 2048;
-      v55 = v29;
-      v56 = 2048;
-      v57 = v30;
-      v58 = 2112;
-      v59 = firstObject;
+      v52 = v34;
+      v53 = 2048;
+      v54 = v29;
+      v55 = 2048;
+      v56 = v30;
+      v57 = 2112;
+      v58 = firstObject;
       _os_log_impl(&dword_1CEE74000, v27, OS_LOG_TYPE_INFO, "WorkoutAnnotation: %@, referenceDate=%@, groupedEventCount, %lu, minDistance=%f, topEvents=%@", buf, 0x34u);
     }
 
-    dateCopy = v33;
-    visitsCopy = v34;
+    dateCopy = v32;
+    visitsCopy = v33;
   }
 
   else
   {
     v26 = 0;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -844,15 +831,15 @@ double __66__PCWorkoutAnnotationManager_majorVisitsFromVisits_referenceDate___bl
 
 - (BOOL)isDominantPlaceForVisits:(id)visits startDate:(id)date endDate:(id)endDate
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   visitsCopy = visits;
   dateCopy = date;
   endDateCopy = endDate;
   if ([visitsCopy count])
   {
-    v32 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"endDate" ascending:1];
-    v41[0] = v32;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
+    v31 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"endDate" ascending:1];
+    v40[0] = v31;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
     v12 = [visitsCopy sortedArrayUsingDescriptors:v11];
 
     v13 = objc_alloc(MEMORY[0x1E696AB80]);
@@ -875,13 +862,13 @@ double __66__PCWorkoutAnnotationManager_majorVisitsFromVisits_referenceDate___bl
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218752;
-        v34 = [visitsCopy count];
-        v35 = 2048;
-        v36 = v24;
-        v37 = 2048;
-        v38 = v21;
-        v39 = 2048;
-        v40 = v24 / v21;
+        v33 = [visitsCopy count];
+        v34 = 2048;
+        v35 = v24;
+        v36 = 2048;
+        v37 = v21;
+        v38 = 2048;
+        v39 = v24 / v21;
         _os_log_impl(&dword_1CEE74000, v26, OS_LOG_TYPE_DEBUG, "WorkoutAnnotation: isDominantPlaceForVisits, visits.count, %lu, interaction, %f, workoutDuration, %f, overlap, %f", buf, 0x2Au);
       }
 
@@ -911,7 +898,6 @@ LABEL_11:
   v25 = 0;
 LABEL_12:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -936,12 +922,12 @@ LABEL_12:
 
 - (id)performAnnotationWithEventsInternal:(id)internal
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v60[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AEB0];
   internalCopy = internal;
-  v43 = [[v4 alloc] initWithKey:@"startDate" ascending:1];
-  v61[0] = v43;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:1];
+  v42 = [[v4 alloc] initWithKey:@"startDate" ascending:1];
+  v60[0] = v42;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:1];
   v7 = [internalCopy sortedArrayUsingDescriptors:v6];
 
   v8 = [(PCWorkoutAnnotationManager *)self getBaseEvents:v7];
@@ -955,11 +941,11 @@ LABEL_12:
     lastObject = [v8 lastObject];
     endDate = [lastObject endDate];
     *buf = 134218498;
-    v50 = v10;
-    v51 = 2112;
-    v52 = startDate;
-    v53 = 2112;
-    v54 = endDate;
+    v49 = v10;
+    v50 = 2112;
+    v51 = startDate;
+    v52 = 2112;
+    v53 = endDate;
     _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_INFO, "WorkoutAnnotation: Base Events, %lu, startDate, %@, endDate, %@", buf, 0x20u);
 
     self = selfCopy;
@@ -974,37 +960,37 @@ LABEL_12:
       v17 = [v8 count];
       v18 = [v15 count];
       *buf = 134218240;
-      v50 = v17;
-      v51 = 2048;
-      v52 = v18;
+      v49 = v17;
+      v50 = 2048;
+      v51 = v18;
       _os_log_impl(&dword_1CEE74000, v16, OS_LOG_TYPE_INFO, "WorkoutAnnotation: Grouping the base events, events, %lu, groups, %lu", buf, 0x16u);
     }
 
-    v38 = v8;
+    v37 = v8;
 
-    v41 = objc_opt_new();
+    v40 = objc_opt_new();
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v19 = v15;
-    v44 = [v19 countByEnumeratingWithState:&v45 objects:v60 count:16];
-    if (v44)
+    v43 = [v19 countByEnumeratingWithState:&v44 objects:v59 count:16];
+    if (v43)
     {
-      v20 = *v46;
-      v39 = v19;
+      v20 = *v45;
+      v38 = v19;
       do
       {
-        for (i = 0; i != v44; ++i)
+        for (i = 0; i != v43; ++i)
         {
-          if (*v46 != v20)
+          if (*v45 != v20)
           {
             objc_enumerationMutation(v19);
           }
 
-          v22 = *(*(&v45 + 1) + 8 * i);
-          v59 = v43;
-          v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
+          v22 = *(*(&v44 + 1) + 8 * i);
+          v58 = v42;
+          v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
           v24 = [v22 sortedArrayUsingDescriptors:v23];
 
           v25 = [(PCWorkoutAnnotationManager *)self getContextEventsForBaseEvents:v24 events:v7];
@@ -1012,53 +998,53 @@ LABEL_12:
           v27 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
           if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
           {
-            v42 = [v24 count];
+            v41 = [v24 count];
             v28 = v20;
             v29 = v7;
             v30 = [v25 count];
             placeName = [v26 placeName];
             location = [v26 location];
             *buf = 138413315;
-            v50 = v26;
-            v51 = 2048;
-            v52 = v42;
-            v53 = 2048;
-            v54 = v30;
+            v49 = v26;
+            v50 = 2048;
+            v51 = v41;
+            v52 = 2048;
+            v53 = v30;
             v7 = v29;
             v20 = v28;
-            v55 = 2117;
-            v56 = placeName;
-            v57 = 2117;
-            v58 = location;
+            v54 = 2117;
+            v55 = placeName;
+            v56 = 2117;
+            v57 = location;
             _os_log_impl(&dword_1CEE74000, v27, OS_LOG_TYPE_INFO, "WorkoutAnnotation: EventBundle, %@, baseEventCount, %lu, contextEventCount, %lu, placeName, %{sensitive}@, location, %{sensitive}@", buf, 0x34u);
 
             self = selfCopy;
-            v19 = v39;
+            v19 = v38;
           }
 
           if (v26)
           {
-            [v41 addObject:v26];
+            [v40 addObject:v26];
           }
         }
 
-        v44 = [v19 countByEnumeratingWithState:&v45 objects:v60 count:16];
+        v43 = [v19 countByEnumeratingWithState:&v44 objects:v59 count:16];
       }
 
-      while (v44);
+      while (v43);
     }
 
     v33 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      v34 = [v41 count];
+      v34 = [v40 count];
       *buf = 134217984;
-      v50 = v34;
+      v49 = v34;
       _os_log_impl(&dword_1CEE74000, v33, OS_LOG_TYPE_INFO, "WorkoutAnnotation: Event Bundles Count, %lu", buf, 0xCu);
     }
 
-    v35 = [v41 copy];
-    v8 = v38;
+    v35 = [v40 copy];
+    v8 = v37;
   }
 
   else
@@ -1073,14 +1059,12 @@ LABEL_12:
     v35 = MEMORY[0x1E695E0F0];
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
 - (double)overlapsIndexOfBaseEvents:(id)events contextEvents:(id)contextEvents
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   contextEventsCopy = contextEvents;
   if ([eventsCopy count])
@@ -1095,13 +1079,13 @@ LABEL_12:
       v13 = [v8 initWithStartDate:startDate endDate:endDate];
 
       v14 = [(PCWorkoutAnnotationManager *)self timespanFromEvents:eventsCopy boundaryInterval:0];
-      v52 = v13;
+      v51 = v13;
       v15 = [(PCWorkoutAnnotationManager *)self timespanFromEvents:contextEventsCopy boundaryInterval:v13];
-      v51 = [eventsCopy arrayByAddingObjectsFromArray:contextEventsCopy];
-      v49 = [PCWorkoutAnnotationManager timespanFromEvents:"timespanFromEvents:boundaryInterval:" boundaryInterval:?];
-      v54 = v14;
+      v50 = [eventsCopy arrayByAddingObjectsFromArray:contextEventsCopy];
+      v48 = [PCWorkoutAnnotationManager timespanFromEvents:"timespanFromEvents:boundaryInterval:" boundaryInterval:?];
+      v53 = v14;
       objectEnumerator = [v14 objectEnumerator];
-      v53 = v15;
+      v52 = v15;
       objectEnumerator2 = [v15 objectEnumerator];
       nextObject = [objectEnumerator nextObject];
       nextObject2 = [objectEnumerator2 nextObject];
@@ -1147,35 +1131,35 @@ LABEL_12:
         v22 = 0.0;
       }
 
-      v55 = contextEventsCopy;
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
+      v54 = contextEventsCopy;
       v57 = 0u;
-      v33 = v49;
-      v34 = [v33 countByEnumeratingWithState:&v56 objects:v78 count:16];
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
+      v33 = v48;
+      v34 = [v33 countByEnumeratingWithState:&v55 objects:v77 count:16];
       if (v34)
       {
         v35 = v34;
-        v36 = *v57;
+        v36 = *v56;
         v21 = 0.0;
         do
         {
           v37 = 0;
           do
           {
-            if (*v57 != v36)
+            if (*v56 != v36)
             {
               objc_enumerationMutation(v33);
             }
 
-            [*(*(&v56 + 1) + 8 * v37) duration];
+            [*(*(&v55 + 1) + 8 * v37) duration];
             v21 = v21 + v38;
             ++v37;
           }
 
           while (v35 != v37);
-          v35 = [v33 countByEnumeratingWithState:&v56 objects:v78 count:16];
+          v35 = [v33 countByEnumeratingWithState:&v55 objects:v77 count:16];
         }
 
         while (v35);
@@ -1194,36 +1178,36 @@ LABEL_12:
       v39 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
       {
-        v47 = [eventsCopy count];
+        v46 = [eventsCopy count];
         firstObject2 = [eventsCopy firstObject];
         startDate2 = [firstObject2 startDate];
         lastObject2 = [eventsCopy lastObject];
         endDate4 = [lastObject2 endDate];
-        v46 = [v55 count];
-        v42 = [v54 count];
-        v43 = [v53 count];
+        v45 = [v54 count];
+        v42 = [v53 count];
+        v43 = [v52 count];
         *buf = 134220034;
-        v61 = v47;
-        v62 = 2112;
-        v63 = startDate2;
-        v64 = 2112;
-        v65 = endDate4;
-        v66 = 2048;
-        v67 = v46;
-        v68 = 2048;
-        v69 = v42;
-        v70 = 2048;
-        v71 = v43;
-        v72 = 2048;
-        v73 = v22;
-        v74 = 2048;
-        v75 = v21;
-        v76 = 2048;
-        v77 = v32;
+        v60 = v46;
+        v61 = 2112;
+        v62 = startDate2;
+        v63 = 2112;
+        v64 = endDate4;
+        v65 = 2048;
+        v66 = v45;
+        v67 = 2048;
+        v68 = v42;
+        v69 = 2048;
+        v70 = v43;
+        v71 = 2048;
+        v72 = v22;
+        v73 = 2048;
+        v74 = v21;
+        v75 = 2048;
+        v76 = v32;
         _os_log_impl(&dword_1CEE74000, v39, OS_LOG_TYPE_DEBUG, "WorkoutAnnotation: base events, %lu, startDate, %@, endDate, %@, context events, %lu, base events intervals, %lu, context events intervals, %lu, intersection, %f, total duration, %f, overlaps score, %f", buf, 0x5Cu);
       }
 
-      contextEventsCopy = v55;
+      contextEventsCopy = v54;
     }
 
     else
@@ -1237,27 +1221,26 @@ LABEL_12:
     v32 = -1.0;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
 - (id)timespanFromEvents:(id)events boundaryInterval:(id)interval
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   intervalCopy = interval;
   if (eventsCopy && [eventsCopy count])
   {
-    v37 = intervalCopy;
-    v38 = eventsCopy;
+    v36 = intervalCopy;
+    v37 = eventsCopy;
     v8 = [(PCWorkoutAnnotationManager *)self intervalsFromEvents:eventsCopy boundaryInterval:intervalCopy];
-    v35 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:1];
-    v45[0] = v35;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
-    v36 = v8;
+    v34 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:1];
+    v44[0] = v34;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
+    v35 = v8;
     v10 = [v8 sortedArrayUsingDescriptors:v9];
 
-    v39 = objc_opt_new();
+    v38 = objc_opt_new();
     firstObject = [v10 firstObject];
     startDate = [firstObject startDate];
 
@@ -1265,26 +1248,26 @@ LABEL_12:
     endDate = [firstObject2 endDate];
 
     v15 = [startDate dateByAddingTimeInterval:300.0];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v16 = v10;
-    v17 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v41;
+      v19 = *v40;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v41 != v19)
+          if (*v40 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v40 + 1) + 8 * i);
+          v21 = *(*(&v39 + 1) + 8 * i);
           startDate2 = [v21 startDate];
           v23 = [startDate2 isAfterDate:v15];
 
@@ -1293,7 +1276,7 @@ LABEL_12:
             if ([startDate isBeforeDate:endDate])
             {
               v24 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:startDate endDate:endDate];
-              [v39 addObject:v24];
+              [v38 addObject:v24];
             }
 
             startDate3 = [v21 startDate];
@@ -1321,7 +1304,7 @@ LABEL_12:
           v15 = v30;
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v18);
@@ -1330,13 +1313,13 @@ LABEL_12:
     if (startDate && endDate && [startDate isBeforeDate:endDate])
     {
       v31 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:startDate endDate:endDate];
-      [v39 addObject:v31];
+      [v38 addObject:v31];
     }
 
-    v32 = [v39 copy];
+    v32 = [v38 copy];
 
-    intervalCopy = v37;
-    eventsCopy = v38;
+    intervalCopy = v36;
+    eventsCopy = v37;
   }
 
   else
@@ -1344,38 +1327,36 @@ LABEL_12:
     v32 = MEMORY[0x1E695E0F0];
   }
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return v32;
 }
 
 - (id)intervalsFromEvents:(id)events boundaryInterval:(id)interval
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   v5 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v6 = eventsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v30;
+    v10 = *v29;
     *&v8 = 138412546;
-    v27 = v8;
+    v26 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         startDate = [v12 startDate];
         if (startDate)
         {
@@ -1404,10 +1385,10 @@ LABEL_12:
               if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 v23 = NSStringFromSelector(a2);
-                *buf = v27;
-                v34 = v23;
-                v35 = 2112;
-                v36 = v12;
+                *buf = v26;
+                v33 = v23;
+                v34 = 2112;
+                v35 = v12;
                 _os_log_impl(&dword_1CEE74000, v22, OS_LOG_TYPE_ERROR, "%@, discard event with wrong start/end date, event, %@ ", buf, 0x16u);
               }
             }
@@ -1415,14 +1396,13 @@ LABEL_12:
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v9);
   }
 
   v24 = [v5 copy];
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }

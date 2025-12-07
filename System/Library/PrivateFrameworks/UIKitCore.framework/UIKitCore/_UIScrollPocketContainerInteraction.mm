@@ -17,7 +17,7 @@
 
 - (_UIScrollPocketContainerInteraction)initWithScrollView:(id)view edge:(unint64_t)edge
 {
-  objc_allocWithZone(type metadata accessor for ContainerImplementation());
+  objc_allocWithZone(type metadata accessor for ContainerImplementation(0));
   viewCopy = view;
   *(&self->super.isa + OBJC_IVAR____UIScrollPocketContainerInteraction_implementation) = sub_188AF7050(view, edge);
   v10.receiver = self;
@@ -54,7 +54,7 @@
 
 - (_UIScrollPocketContainerInteraction)initWithEdge:(unint64_t)edge
 {
-  v5 = objc_allocWithZone(type metadata accessor for ContainerImplementation());
+  v5 = objc_allocWithZone(type metadata accessor for ContainerImplementation(0));
   v6 = sub_188AF7050(0, edge);
   *(&self->super.isa + OBJC_IVAR____UIScrollPocketContainerInteraction_implementation) = v6;
   v7 = v6;
@@ -108,7 +108,7 @@
   if (v2)
   {
     v4 = v2;
-    v5 = sub_188C574E8(0.6);
+    v5 = sub_188C574E8(0xD000000000000014, 0x800000018A6B09A0, 0.6);
 
     return v5;
   }

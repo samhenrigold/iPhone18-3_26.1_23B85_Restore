@@ -7,7 +7,7 @@
 
 - (VTOpticalFlowParameters)initWithSourceFrame:(id)frame nextFrame:(id)nextFrame submissionMode:(int64_t)mode destinationOpticalFlow:(id)flow
 {
-  if (loadVEFrameworkOnce())
+  if (loadVEFrameworkOnce(self, a2))
   {
     v15.receiver = self;
     v15.super_class = VTOpticalFlowParameters;

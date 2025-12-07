@@ -1,665 +1,3 @@
-uint64_t *sub_2712575FC()
-{
-  if ((atomic_load_explicit(&qword_280878230, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280878230))
-  {
-    sub_271257698();
-  }
-
-  if (byte_28087822F >= 0)
-  {
-    return &qword_280878218;
-  }
-
-  else
-  {
-    return qword_280878218;
-  }
-}
-
-void sub_271257764(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_271257794(const void **a1@<X0>, std::string *a2@<X8>)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Two32f]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
-  sub_271851AD8(a1, __p, a2);
-  v4 = __p[0];
-  if (__p[0])
-  {
-    v5 = __p[1];
-    v6 = __p[0];
-    if (__p[1] != __p[0])
-    {
-      do
-      {
-        v7 = *(v5 - 1);
-        v5 -= 3;
-        if (v7 < 0)
-        {
-          operator delete(*v5);
-        }
-      }
-
-      while (v5 != v4);
-      v6 = __p[0];
-    }
-
-    __p[1] = v4;
-    operator delete(v6);
-  }
-
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v10.__r_.__value_.__l.__data_);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void sub_271257878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
-{
-  sub_27137F4D0(&a10);
-  if (a18 < 0)
-  {
-    operator delete(__p);
-    _Unwind_Resume(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_2712578C4(uint64_t a1)
-{
-  v2 = *(a1 + 112);
-  if (v2 != -1)
-  {
-    (off_28812EFA0[v2])(&v4, a1);
-  }
-
-  *(a1 + 112) = -1;
-  return a1;
-}
-
-void sub_271257924(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 72);
-  if (v3)
-  {
-    free(v3);
-  }
-
-  *(a2 + 72) = 0;
-}
-
-__n128 sub_271257954(__n128 **a1, __n128 *a2)
-{
-  v2 = *a1;
-  result = *a2;
-  v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  *v2 = result;
-  return result;
-}
-
-uint64_t sub_27125796C(uint64_t *a1, uint64_t a2)
-{
-  v2 = *a1;
-  *v2 = &unk_288111F98;
-  v3 = *(a2 + 8);
-  v4 = *(a2 + 24);
-  v5 = *(a2 + 40);
-  *(v2 + 56) = *(a2 + 56);
-  *(v2 + 40) = v5;
-  *(v2 + 24) = v4;
-  *(v2 + 8) = v3;
-  return sub_2712579B8(v2 + 64, a2 + 64);
-}
-
-uint64_t sub_2712579B8(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v5 = *(a2 + 16);
-  *a1 = v4;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = v5;
-  if (v4)
-  {
-    v18 = 0;
-    v6 = malloc_type_posix_memalign(&v18, v5, v4, 0x63222AC6uLL);
-    if (v6)
-    {
-      sub_2718084E8(v6, *(a1 + 16), v4);
-    }
-
-    *(a1 + 8) = v18;
-  }
-
-  v7 = *(a2 + 24);
-  *(a1 + 40) = *(a2 + 40);
-  *(a1 + 24) = v7;
-  v8 = *(a2 + 44) >> 2;
-  v9 = (*(a2 + 36) >> 2) & 0x3FFFFFFF3FFFFFFFLL;
-  if (*(a2 + 24))
-  {
-    v10 = *(a2 + 28) == 0;
-  }
-
-  else
-  {
-    v10 = 1;
-  }
-
-  v11 = v10;
-  if (*(a2 + 32))
-  {
-    v12 = v11;
-  }
-
-  else
-  {
-    v12 = 1;
-  }
-
-  if (v12)
-  {
-    v13 = 0;
-  }
-
-  else
-  {
-    v13 = *(a2 + 24);
-  }
-
-  if (v11)
-  {
-    v14 = 0;
-  }
-
-  else
-  {
-    v14 = *(a2 + 32);
-  }
-
-  v18 = *(a2 + 8);
-  v19 = v13;
-  LODWORD(v20) = v14;
-  *(&v20 + 4) = v9;
-  HIDWORD(v20) = v8;
-  if (v14 * v8 == -1)
-  {
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
-    if (byte_28087C430 == 1)
-    {
-      if (byte_28087C438 != 1 || (v15 = qword_28087C408, v16 = qword_28087C410, qword_28087C408 == qword_28087C410))
-      {
-LABEL_27:
-        qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v18, v19, v20);
-        goto LABEL_28;
-      }
-    }
-
-    else
-    {
-      v15 = qword_28087C408;
-      v16 = qword_28087C410;
-      if (qword_28087C408 == qword_28087C410)
-      {
-        goto LABEL_30;
-      }
-    }
-
-    do
-    {
-      (*v15)(*(v15 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v15 += 16;
-    }
-
-    while (v15 != v16);
-    if (byte_28087C430)
-    {
-      goto LABEL_27;
-    }
-
-LABEL_30:
-    abort();
-  }
-
-LABEL_28:
-  sub_271257BC8(a1, &v18);
-  return a1;
-}
-
-void sub_271257BA8(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    free(v3);
-  }
-
-  *(v1 + 8) = 0;
-  _Unwind_Resume(exception_object);
-}
-
-void sub_271257BC8(uint64_t a1, _DWORD *a2)
-{
-  if (a2[2])
-  {
-    v2 = a2[3] == 0;
-  }
-
-  else
-  {
-    v2 = 1;
-  }
-
-  if (!v2 && a2[4] != 0)
-  {
-    v4 = *(a1 + 44) >> 2;
-    v5 = (*(a1 + 36) >> 2) & 0x3FFFFFFF3FFFFFFFLL;
-    if (*(a1 + 24))
-    {
-      v6 = *(a1 + 28) == 0;
-    }
-
-    else
-    {
-      v6 = 1;
-    }
-
-    v7 = v6;
-    if (*(a1 + 32))
-    {
-      v8 = v7;
-    }
-
-    else
-    {
-      v8 = 1;
-    }
-
-    if (v8)
-    {
-      v9 = 0;
-    }
-
-    else
-    {
-      v9 = *(a1 + 24);
-    }
-
-    if (v7)
-    {
-      v10 = 0;
-    }
-
-    else
-    {
-      v10 = *(a1 + 32);
-    }
-
-    v16 = *(a1 + 8);
-    v17 = v9;
-    LODWORD(v18) = v10;
-    *(&v18 + 4) = v5;
-    HIDWORD(v18) = v4;
-    if (v10 * v4 != -1)
-    {
-      goto LABEL_32;
-    }
-
-    v11 = a2;
-    sub_27185228C("/Library/Caches/com.apple.xbs/Sources/AppleCV3D_VisualLogger/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_271852CA8);
-    if (byte_28087C430 == 1)
-    {
-      if (byte_28087C438 != 1 || (v12 = qword_28087C408, v13 = qword_28087C410, qword_28087C408 == qword_28087C410))
-      {
-LABEL_31:
-        qword_28087C420(*algn_28087C428, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v16, v17, v18);
-        a2 = v11;
-LABEL_32:
-        v19[0] = a2;
-        v19[1] = &v16;
-        sub_271257D78(v19);
-        return;
-      }
-    }
-
-    else
-    {
-      v12 = qword_28087C408;
-      v13 = qword_28087C410;
-      if (qword_28087C408 == qword_28087C410)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    do
-    {
-      v15 = *v12;
-      v14 = *(v12 + 8);
-      v12 += 16;
-      v15(v14, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-    }
-
-    while (v12 != v13);
-    if (byte_28087C430)
-    {
-      goto LABEL_31;
-    }
-
-LABEL_34:
-    abort();
-  }
-}
-
-void sub_271257D78(void *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = *(*a1 + 20);
-  v4 = *(v2 + 20);
-  if (v3 != 1 || v4 != 1)
-  {
-    v35 = 0;
-    v7 = *(v1 + 8);
-    v6 = *(v1 + 12);
-    v8 = *(v1 + 16);
-    if (v7)
-    {
-      v9 = v6 == 0;
-    }
-
-    else
-    {
-      v9 = 1;
-    }
-
-    if (!v9 && v8 != 0)
-    {
-      v36 = 0;
-      v37 = v7 - 1;
-      v38 = v3 | (v4 << 32);
-      v39 = v6 - 1;
-      v40 = *(v1 + 24) | (*(v2 + 24) << 32);
-      v41 = v8 - 1;
-      v42 = *(v1 + 28) | (*(v2 + 28) << 32);
-      v11 = *v1;
-      v12 = *v2;
-      v43 = 0;
-      sub_27125819C(&v36, &v43, &v35, v11, v12);
-    }
-
-    return;
-  }
-
-  v13 = *(v1 + 24);
-  v14 = *(v1 + 8);
-  if (v13 != *(v2 + 24) || v13 != v14)
-  {
-    v36 = *(v1 + 8);
-    if (v14)
-    {
-      v16 = *(v1 + 12) == 0;
-    }
-
-    else
-    {
-      v16 = 1;
-    }
-
-    if (!v16 && *(v1 + 16) != 0)
-    {
-      sub_271257F54(&v36, v1, v2);
-    }
-
-    return;
-  }
-
-  v18 = *(v1 + 28);
-  v19 = *(v2 + 28);
-  v20 = *(v1 + 12);
-  v21 = (v20 * v13);
-  if (v18 == v19 && v18 == v21)
-  {
-    v34 = *(v1 + 16) * v18;
-    if (!v34)
-    {
-      return;
-    }
-
-    v32 = *v2;
-    v33 = *v1;
-    v31 = 4 * v34;
-    goto LABEL_44;
-  }
-
-  v23 = *(v1 + 16);
-  if (v13)
-  {
-    v24 = v20 == 0;
-  }
-
-  else
-  {
-    v24 = 1;
-  }
-
-  if (!v24 && v23 != 0)
-  {
-    v26 = *v1;
-    v27 = *v2;
-    v28 = v23 - 1;
-    if (v23 != 1)
-    {
-      if (!v21)
-      {
-        return;
-      }
-
-      v29 = 4 * v18;
-      v30 = 4 * v19;
-      do
-      {
-        memmove(v27, v26, 4 * v21);
-        v26 += v29;
-        v27 += v30;
-        --v28;
-      }
-
-      while (v28);
-    }
-
-    if (v21)
-    {
-      v31 = 4 * v21;
-      v32 = v27;
-      v33 = v26;
-LABEL_44:
-
-      memmove(v32, v33, v31);
-    }
-  }
-}
-
-uint64_t *sub_271257F54(uint64_t *result, char **a2, char **a3)
-{
-  v3 = *(a2 + 3);
-  v4 = *(a2 + 4);
-  if (*(a2 + 2))
-  {
-    v5 = v3 == 0;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (!v5 && v4 != 0)
-  {
-    v7 = result;
-    v8 = v3 - 1;
-    v9 = *(a2 + 6);
-    v10 = *(a3 + 6);
-    v11 = *a2;
-    v12 = *a3;
-    v35 = v4 - 1;
-    if (v4 != 1)
-    {
-      v13 = *(a3 + 7);
-      v14 = *(a2 + 7);
-      v15 = *result;
-      if (v3 == 1)
-      {
-        if (!v15)
-        {
-          return result;
-        }
-
-        v30 = 0;
-        v31 = *(a2 + 3);
-        v25 = v4 - 2;
-LABEL_27:
-        result = memmove(v12, v11, 4 * v15);
-        while (v25)
-        {
-          v15 = *v7;
-          --v25;
-          v11 += 4 * v14;
-          v12 += 4 * v13;
-          if (*v7)
-          {
-            goto LABEL_27;
-          }
-        }
-
-        v11 += 4 * v14;
-        v12 += 4 * v13;
-      }
-
-      else
-      {
-        if (!v15)
-        {
-          return result;
-        }
-
-        v30 = v3 - 1;
-        v31 = *(a2 + 3);
-        v16 = 0;
-        v32 = v3 - 2;
-        v28 = *(a3 + 6);
-        v29 = *(a2 + 6);
-        v17 = 4 * v9;
-        v18 = &v11[4 * v9];
-        v19 = 4 * v14;
-        v20 = 4 * v10;
-        v21 = &v12[4 * v10];
-        v33 = 4 * v13;
-        v34 = v19;
-LABEL_14:
-        v36 = v18;
-        v22 = 0;
-        v23 = 0;
-        v24 = v32;
-        if (v15)
-        {
-LABEL_15:
-          result = memmove(&v12[v22], &v11[v23], 4 * v15);
-        }
-
-        while (v24)
-        {
-          v15 = *v7;
-          --v24;
-          v23 += v17;
-          v22 += v20;
-          if (*v7)
-          {
-            goto LABEL_15;
-          }
-        }
-
-        v18 = v36;
-        if (*v7)
-        {
-          result = memmove(&v21[v22], &v36[v23], 4 * *v7);
-        }
-
-        while (1)
-        {
-          v11 += v34;
-          v12 += v33;
-          if (++v16 == v35)
-          {
-            break;
-          }
-
-          v15 = *v7;
-          v18 += v34;
-          v21 += v33;
-          if (*v7)
-          {
-            goto LABEL_14;
-          }
-        }
-
-        v10 = v28;
-        v9 = v29;
-      }
-
-      v8 = v30;
-      v3 = v31;
-    }
-
-    v26 = *v7;
-    if (v8)
-    {
-      if (!v26)
-      {
-        return result;
-      }
-
-      v27 = v3 - 2;
-LABEL_36:
-      result = memmove(v12, v11, 4 * v26);
-      while (v27)
-      {
-        v26 = *v7;
-        --v27;
-        v11 += 4 * v9;
-        v12 += 4 * v10;
-        if (*v7)
-        {
-          goto LABEL_36;
-        }
-      }
-
-      v26 = *v7;
-      v11 += 4 * v9;
-      v12 += 4 * v10;
-    }
-
-    if (v26)
-    {
-
-      return memmove(v12, v11, 4 * v26);
-    }
-  }
-
-  return result;
-}
-
 float sub_27125819C(_DWORD *a1, uint64_t a2, uint64_t a3, _DWORD *a4, _DWORD *a5)
 {
   v5 = a1[8];
@@ -907,9 +245,9 @@ void sub_2712585AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_2712585DC(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Three8u]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Three8u]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -936,15 +274,13 @@ void sub_2712585DC(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2712586C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_2712586C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -1032,9 +368,9 @@ void sub_271258970(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_2712589A0(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Three16u]", 32, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Three16u]", 32, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -1061,15 +397,13 @@ void sub_2712589A0(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_271258A84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_271258A84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -1157,9 +491,9 @@ void sub_271258D34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_271258D64(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Three16f]", 32, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Three16f]", 32, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -1186,15 +520,13 @@ void sub_271258D64(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_271258E48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_271258E48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -1271,9 +603,9 @@ void sub_2712590D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_271259100(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Three32f]", 32, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Three32f]", 32, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -1300,15 +632,13 @@ void sub_271259100(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2712591E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_2712591E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -1396,9 +726,9 @@ void sub_271259494(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_2712594C4(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Four8u]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Four8u]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -1425,15 +755,13 @@ void sub_2712594C4(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2712595A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_2712595A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -1521,9 +849,9 @@ void sub_271259858(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_271259888(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Four16u]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Four16u]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -1550,15 +878,13 @@ void sub_271259888(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125996C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125996C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -1646,9 +972,9 @@ void sub_271259C1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_271259C4C(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Four16f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Four16f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -1675,15 +1001,13 @@ void sub_271259C4C(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_271259D30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_271259D30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -1760,9 +1084,9 @@ void sub_271259FB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_271259FE8(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Four32f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Four32f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -1789,15 +1113,13 @@ void sub_271259FE8(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125A0CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125A0CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -1885,9 +1207,9 @@ void sub_27125A37C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125A3AC(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Bgr8u]", 29, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Bgr8u]", 29, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -1914,15 +1236,13 @@ void sub_27125A3AC(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125A490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125A490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -2010,9 +1330,9 @@ void sub_27125A740(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125A770(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Bgr16u]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Bgr16u]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -2039,15 +1359,13 @@ void sub_27125A770(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125A854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125A854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -2135,9 +1453,9 @@ void sub_27125AB04(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125AB34(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Bgr16f]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Bgr16f]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -2164,15 +1482,13 @@ void sub_27125AB34(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125AC18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125AC18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -2249,9 +1565,9 @@ void sub_27125AEA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125AED0(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Bgr32f]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Bgr32f]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -2278,15 +1594,13 @@ void sub_27125AED0(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125AFB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125AFB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -2374,9 +1688,9 @@ void sub_27125B264(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125B294(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Rgb8u]", 29, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Rgb8u]", 29, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -2403,15 +1717,13 @@ void sub_27125B294(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125B378(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125B378(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -2499,9 +1811,9 @@ void sub_27125B628(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125B658(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Rgb16u]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Rgb16u]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -2528,15 +1840,13 @@ void sub_27125B658(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125B73C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125B73C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -2624,9 +1934,9 @@ void sub_27125B9EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125BA1C(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Rgb16f]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Rgb16f]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -2653,15 +1963,13 @@ void sub_27125BA1C(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125BB00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125BB00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -2738,9 +2046,9 @@ void sub_27125BD88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125BDB8(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Rgb32f]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Rgb32f]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -2767,15 +2075,13 @@ void sub_27125BDB8(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125BE9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125BE9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -2863,9 +2169,9 @@ void sub_27125C14C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125C17C(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Bgra8u]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Bgra8u]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -2892,15 +2198,13 @@ void sub_27125C17C(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125C260(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125C260(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -2988,9 +2292,9 @@ void sub_27125C510(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125C540(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Bgra16u]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Bgra16u]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -3017,15 +2321,13 @@ void sub_27125C540(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125C624(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125C624(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -3113,9 +2415,9 @@ void sub_27125C8D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125C904(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Bgra16f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Bgra16f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -3142,15 +2444,13 @@ void sub_27125C904(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125C9E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125C9E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -3227,9 +2527,9 @@ void sub_27125CC70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125CCA0(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Bgra32f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Bgra32f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -3256,15 +2556,13 @@ void sub_27125CCA0(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125CD84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125CD84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -3352,9 +2650,9 @@ void sub_27125D034(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125D064(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Rgba8u]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Rgba8u]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -3381,15 +2679,13 @@ void sub_27125D064(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125D148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125D148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -3477,9 +2773,9 @@ void sub_27125D3F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125D428(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Rgba16u]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Rgba16u]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -3506,15 +2802,13 @@ void sub_27125D428(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125D50C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125D50C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -3602,9 +2896,9 @@ void sub_27125D7BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125D7EC(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Rgba16f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Rgba16f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -3631,15 +2925,13 @@ void sub_27125D7EC(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125D8D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125D8D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -3716,9 +3008,9 @@ void sub_27125DB58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125DB88(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Rgba32f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Rgba32f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -3745,15 +3037,13 @@ void sub_27125DB88(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125DC6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125DC6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -3841,9 +3131,9 @@ void sub_27125DF1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125DF4C(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Abgr8u]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Abgr8u]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -3870,15 +3160,13 @@ void sub_27125DF4C(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125E030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125E030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -3966,9 +3254,9 @@ void sub_27125E2E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125E310(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Abgr16u]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Abgr16u]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -3995,15 +3283,13 @@ void sub_27125E310(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125E3F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125E3F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -4091,9 +3377,9 @@ void sub_27125E6A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125E6D4(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Abgr16f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Abgr16f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -4120,15 +3406,13 @@ void sub_27125E6D4(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125E7B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125E7B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -4205,9 +3489,9 @@ void sub_27125EA40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125EA70(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Abgr32f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Abgr32f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -4234,15 +3518,13 @@ void sub_27125EA70(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125EB54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125EB54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -4330,9 +3612,9 @@ void sub_27125EE04(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125EE34(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Argb8u]", 30, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Argb8u]", 30, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -4359,15 +3641,13 @@ void sub_27125EE34(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125EF18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125EF18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -4455,9 +3735,9 @@ void sub_27125F1C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125F1F8(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Argb16u]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Argb16u]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -4484,15 +3764,13 @@ void sub_27125F1F8(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125F2DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125F2DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -4580,9 +3858,9 @@ void sub_27125F58C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125F5BC(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Argb16f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Argb16f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -4609,15 +3887,13 @@ void sub_27125F5BC(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125F6A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125F6A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -4694,9 +3970,9 @@ void sub_27125F928(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_27125F958(const void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  sub_271851C68("cv3d::kit::img::Format::Argb32f]", 31, &v10);
-  sub_2711309E8(__p, &v10, 1uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  sub_271851C68("cv3d::kit::img::Format::Argb32f]", 31, &v9);
+  sub_2711309E8(__p, &v9, 1uLL);
   sub_271851AD8(a1, __p, a2);
   v4 = __p[0];
   if (__p[0])
@@ -4723,15 +3999,13 @@ void sub_27125F958(const void **a1@<X0>, std::string *a2@<X8>)
     operator delete(v6);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27125FA3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_27125FA3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   sub_27137F4D0(&a10);
   if (a18 < 0)
@@ -4789,7 +4063,7 @@ uint64_t sub_27125FB30(uint64_t *a1, uint64_t a2)
   return sub_2712579B8(v2 + 64, a2 + 64);
 }
 
-void sub_27125FBEC(uint64_t a1, int a2, _DWORD *a3)
+void sub_27125FBEC(uint64_t *a1, int a2, _DWORD *a3)
 {
   v177 = *MEMORY[0x277D85DE8];
   switch(a2)
@@ -6856,8 +6130,8 @@ double sub_2712656F4@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
   *(v3 + 44) = *&v12[12];
   *(v3 + 64) = v13;
   *(v3 + 80) = v14;
-  result = *&v15;
-  *(v3 + 88) = v15;
+  result = v15[0];
+  *(v3 + 88) = *v15;
   *(v3 + 104) = 1;
   return result;
 }
@@ -6904,7 +6178,7 @@ double sub_271265934@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *v2 = &unk_2881186E0;
   *(v2 + 8) = v5;
   v6 = &unk_28810FD98;
-  sub_2717BAF84(&v5, v7);
+  sub_2717BAF84(&v5, &v7);
   *(v2 + 24) = &unk_288112D98;
   *(v2 + 32) = v8[0];
   *(v2 + 44) = *(v8 + 12);
@@ -7024,7 +6298,7 @@ double sub_271265B5C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *a2 = &unk_2881186E0;
   *(a2 + 8) = v6;
   v7 = &unk_28810FD98;
-  sub_2717BAF84(&v6, v8);
+  sub_2717BAF84(&v6, &v8);
   *(a2 + 24) = &unk_288112D98;
   *(a2 + 32) = v9[0];
   *(a2 + 44) = *(v9 + 12);
@@ -7096,8 +6370,8 @@ double sub_271265C48@<D0>(uint64_t *a1@<X1>, char *a2@<X2>, uint64_t a3@<X8>)
   *(a3 + 44) = *&v11[12];
   *(a3 + 64) = v12;
   *(a3 + 80) = v13;
-  result = *&v14;
-  *(a3 + 88) = v14;
+  result = v14[0];
+  *(a3 + 88) = *v14;
   *(a3 + 104) = 1;
   return result;
 }
@@ -7106,7 +6380,7 @@ double sub_271265D6C@<D0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = &unk_2881186E0;
   *(a2 + 8) = *a1;
-  sub_2717BAF84(a1, v4);
+  sub_2717BAF84(a1, &v4);
   *(a2 + 24) = &unk_288112D98;
   *(a2 + 32) = v5[0];
   *(a2 + 44) = *(v5 + 12);
@@ -7118,7 +6392,7 @@ double sub_271265D6C@<D0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
   return result;
 }
 
-double sub_271265E34@<D0>(uint64_t *a1@<X1>, unsigned int *a2@<X2>, char *a3@<X3>, uint64_t a4@<X8>)
+double sub_271265E34@<D0>(unint64_t *a1@<X1>, unsigned int *a2@<X2>, char *a3@<X3>, uint64_t a4@<X8>)
 {
   v5 = *a1;
   v6 = HIDWORD(*a1) == 0;
@@ -7195,7 +6469,6 @@ double sub_271265F78@<D0>(void *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X8>
   if (*a1)
   {
     v4 = HIDWORD(*a1) == 0;
-    *a1;
   }
 
   else
@@ -7219,7 +6492,7 @@ double sub_271265F78@<D0>(void *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X8>
   *a3 = &unk_2881186E0;
   *(a3 + 8) = v7;
   v8 = &unk_28810FD98;
-  sub_2717BAF84(&v7, v9);
+  sub_2717BAF84(&v7, &v9);
   *(a3 + 24) = &unk_288112D98;
   *(a3 + 32) = v10[0];
   *(a3 + 44) = *(v10 + 12);
@@ -7352,7 +6625,7 @@ double sub_2712661D4@<D0>(unsigned int *a1@<X1>, _DWORD *a2@<X2>, uint64_t a3@<X
   *a3 = &unk_2881186E0;
   *(a3 + 8) = v9;
   v10 = &unk_28810FD98;
-  sub_2717BAF84(&v9, v11);
+  sub_2717BAF84(&v9, &v11);
   *(a3 + 24) = &unk_288112D98;
   *(a3 + 32) = v12[0];
   *(a3 + 44) = *(v12 + 12);
@@ -7608,7 +6881,7 @@ double sub_2712666DC@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *v2 = &unk_288118160;
   *(v2 + 8) = v5;
   v6 = &unk_28810FC38;
-  sub_2717BB1BC(&v5, v7);
+  sub_2717BB1BC(&v5, &v7);
   *(v2 + 24) = &unk_288112818;
   *(v2 + 32) = v8[0];
   *(v2 + 44) = *(v8 + 12);
@@ -7712,7 +6985,7 @@ double sub_271266918@<D0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
   *a2 = &unk_288118160;
   *(a2 + 8) = v6;
   v7 = &unk_28810FC38;
-  sub_2717BB1BC(&v6, v8);
+  sub_2717BB1BC(&v6, &v8);
   *(a2 + 24) = &unk_288112818;
   *(a2 + 32) = v9[0];
   *(a2 + 44) = *(v9 + 12);
@@ -7794,7 +7067,7 @@ double sub_271266B3C@<D0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = &unk_288118160;
   *(a2 + 8) = *a1;
-  sub_2717BB1BC(a1, v4);
+  sub_2717BB1BC(a1, &v4);
   *(a2 + 24) = &unk_288112818;
   *(a2 + 32) = v5[0];
   *(a2 + 44) = *(v5 + 12);
@@ -7806,7 +7079,7 @@ double sub_271266B3C@<D0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
   return result;
 }
 
-double sub_271266C04@<D0>(uint64_t *a1@<X1>, unsigned int *a2@<X2>, __int16 *a3@<X3>, uint64_t a4@<X8>)
+double sub_271266C04@<D0>(unint64_t *a1@<X1>, unsigned int *a2@<X2>, __int16 *a3@<X3>, uint64_t a4@<X8>)
 {
   v5 = *a1;
   v6 = HIDWORD(*a1) == 0;
@@ -7883,7 +7156,6 @@ double sub_271266D4C@<D0>(void *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X8>
   if (*a1)
   {
     v4 = HIDWORD(*a1) == 0;
-    *a1;
   }
 
   else
@@ -7907,7 +7179,7 @@ double sub_271266D4C@<D0>(void *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X8>
   *a3 = &unk_288118160;
   *(a3 + 8) = v7;
   v8 = &unk_28810FC38;
-  sub_2717BB1BC(&v7, v9);
+  sub_2717BB1BC(&v7, &v9);
   *(a3 + 24) = &unk_288112818;
   *(a3 + 32) = v10[0];
   *(a3 + 44) = *(v10 + 12);
@@ -8040,7 +7312,7 @@ double sub_271266FB0@<D0>(unsigned int *a1@<X1>, _DWORD *a2@<X2>, uint64_t a3@<X
   *a3 = &unk_288118160;
   *(a3 + 8) = v9;
   v10 = &unk_28810FC38;
-  sub_2717BB1BC(&v9, v11);
+  sub_2717BB1BC(&v9, &v11);
   *(a3 + 24) = &unk_288112818;
   *(a3 + 32) = v12[0];
   *(a3 + 44) = *(v12 + 12);
@@ -8298,7 +7570,7 @@ uint64_t sub_2712674D0@<X0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *v2 = &unk_288117BE0;
   *(v2 + 8) = v5;
   v6 = &unk_28810FAD8;
-  sub_2717BB40C(&v5, v7);
+  sub_2717BB40C(&v5, &v7);
   *(v2 + 24) = &unk_288112298;
   *(v2 + 32) = v8[0];
   *(v2 + 44) = *(v8 + 12);
@@ -8307,7 +7579,7 @@ uint64_t sub_2712674D0@<X0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   v9 = 0uLL;
   *(v2 + 88) = v11;
   *(v2 + 104) = 1;
-  return sub_27179E364(v7);
+  return sub_27179E364(&v7);
 }
 
 uint64_t sub_2712675C8@<X0>(unint64_t *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
@@ -8403,7 +7675,7 @@ uint64_t sub_271267724@<X0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
   *a2 = &unk_288117BE0;
   *(a2 + 8) = v6;
   v7 = &unk_28810FAD8;
-  sub_2717BB40C(&v6, v8);
+  sub_2717BB40C(&v6, &v8);
   *(a2 + 24) = &unk_288112298;
   *(a2 + 32) = v9[0];
   *(a2 + 44) = *(v9 + 12);
@@ -8412,7 +7684,7 @@ uint64_t sub_271267724@<X0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
   v10 = 0uLL;
   *(a2 + 88) = v12;
   *(a2 + 104) = 1;
-  return sub_27179E364(v8);
+  return sub_27179E364(&v8);
 }
 
 uint64_t sub_271267828@<X0>(uint64_t *a1@<X1>, __int16 *a2@<X2>, uint64_t a3@<X8>)
@@ -8486,7 +7758,7 @@ uint64_t sub_271267960@<X0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = &unk_288117BE0;
   *(a2 + 8) = *a1;
-  sub_2717BB40C(a1, v4);
+  sub_2717BB40C(a1, &v4);
   *(a2 + 24) = &unk_288112298;
   *(a2 + 32) = v5[0];
   *(a2 + 44) = *(v5 + 12);
@@ -8495,10 +7767,10 @@ uint64_t sub_271267960@<X0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
   v6 = 0uLL;
   *(a2 + 88) = v8;
   *(a2 + 104) = 1;
-  return sub_27179E364(v4);
+  return sub_27179E364(&v4);
 }
 
-uint64_t sub_271267A34@<X0>(uint64_t *a1@<X1>, unsigned int *a2@<X2>, __int16 *a3@<X3>, uint64_t a4@<X8>)
+uint64_t sub_271267A34@<X0>(unint64_t *a1@<X1>, unsigned int *a2@<X2>, __int16 *a3@<X3>, uint64_t a4@<X8>)
 {
   v5 = *a1;
   v6 = HIDWORD(*a1) == 0;
@@ -8576,7 +7848,6 @@ uint64_t sub_271267B88@<X0>(void *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X
   if (*a1)
   {
     v4 = HIDWORD(*a1) == 0;
-    *a1;
   }
 
   else
@@ -8600,7 +7871,7 @@ uint64_t sub_271267B88@<X0>(void *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X
   *a3 = &unk_288117BE0;
   *(a3 + 8) = v7;
   v8 = &unk_28810FAD8;
-  sub_2717BB40C(&v7, v9);
+  sub_2717BB40C(&v7, &v9);
   *(a3 + 24) = &unk_288112298;
   *(a3 + 32) = v10[0];
   *(a3 + 44) = *(v10 + 12);
@@ -8609,7 +7880,7 @@ uint64_t sub_271267B88@<X0>(void *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X
   v11 = 0uLL;
   *(a3 + 88) = v13;
   *(a3 + 104) = 1;
-  return sub_27179E364(v9);
+  return sub_27179E364(&v9);
 }
 
 uint64_t sub_271267C88@<X0>(unsigned int *a1@<X1>, _DWORD *a2@<X2>, __int16 *a3@<X3>, uint64_t a4@<X8>)
@@ -8734,7 +8005,7 @@ uint64_t sub_271267E04@<X0>(unsigned int *a1@<X1>, _DWORD *a2@<X2>, uint64_t a3@
   *a3 = &unk_288117BE0;
   *(a3 + 8) = v9;
   v10 = &unk_28810FAD8;
-  sub_2717BB40C(&v9, v11);
+  sub_2717BB40C(&v9, &v11);
   *(a3 + 24) = &unk_288112298;
   *(a3 + 32) = v12[0];
   *(a3 + 44) = *(v12 + 12);
@@ -8743,7 +8014,7 @@ uint64_t sub_271267E04@<X0>(unsigned int *a1@<X1>, _DWORD *a2@<X2>, uint64_t a3@
   v13 = 0uLL;
   *(a3 + 88) = v15;
   *(a3 + 104) = 1;
-  return sub_27179E364(v11);
+  return sub_27179E364(&v11);
 }
 
 uint64_t sub_271267F28@<X0>(__int128 *a1@<X1>, uint64_t a2@<X8>)
@@ -8990,7 +8261,7 @@ double sub_271268318@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *v2 = &unk_288117AE0;
   *(v2 + 8) = v5;
   v6 = &unk_28810FA98;
-  sub_2717BB6BC(&v5, v7);
+  sub_2717BB6BC(&v5, &v7);
   *(v2 + 24) = &unk_288112198;
   *(v2 + 32) = v8[0];
   *(v2 + 44) = *(v8 + 12);
@@ -9094,7 +8365,7 @@ double sub_271268554@<D0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
   *a2 = &unk_288117AE0;
   *(a2 + 8) = v6;
   v7 = &unk_28810FA98;
-  sub_2717BB6BC(&v6, v8);
+  sub_2717BB6BC(&v6, &v8);
   *(a2 + 24) = &unk_288112198;
   *(a2 + 32) = v9[0];
   *(a2 + 44) = *(v9 + 12);
@@ -9176,7 +8447,7 @@ double sub_271268778@<D0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = &unk_288117AE0;
   *(a2 + 8) = *a1;
-  sub_2717BB6BC(a1, v4);
+  sub_2717BB6BC(a1, &v4);
   *(a2 + 24) = &unk_288112198;
   *(a2 + 32) = v5[0];
   *(a2 + 44) = *(v5 + 12);
@@ -9188,7 +8459,7 @@ double sub_271268778@<D0>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
   return result;
 }
 
-double sub_271268840@<D0>(uint64_t *a1@<X1>, unsigned int *a2@<X2>, int *a3@<X3>, uint64_t a4@<X8>)
+double sub_271268840@<D0>(unint64_t *a1@<X1>, unsigned int *a2@<X2>, int *a3@<X3>, uint64_t a4@<X8>)
 {
   v5 = *a1;
   v6 = HIDWORD(*a1) == 0;
@@ -9265,7 +8536,6 @@ double sub_271268988@<D0>(void *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X8>
   if (*a1)
   {
     v4 = HIDWORD(*a1) == 0;
-    *a1;
   }
 
   else
@@ -9289,7 +8559,7 @@ double sub_271268988@<D0>(void *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X8>
   *a3 = &unk_288117AE0;
   *(a3 + 8) = v7;
   v8 = &unk_28810FA98;
-  sub_2717BB6BC(&v7, v9);
+  sub_2717BB6BC(&v7, &v9);
   *(a3 + 24) = &unk_288112198;
   *(a3 + 32) = v10[0];
   *(a3 + 44) = *(v10 + 12);
@@ -9422,7 +8692,7 @@ double sub_271268BEC@<D0>(unsigned int *a1@<X1>, _DWORD *a2@<X2>, uint64_t a3@<X
   *a3 = &unk_288117AE0;
   *(a3 + 8) = v9;
   v10 = &unk_28810FA98;
-  sub_2717BB6BC(&v9, v11);
+  sub_2717BB6BC(&v9, &v11);
   *(a3 + 24) = &unk_288112198;
   *(a3 + 32) = v12[0];
   *(a3 + 44) = *(v12 + 12);
@@ -9554,7 +8824,7 @@ __n128 sub_271268E5C(uint64_t *a1, uint64_t a2)
 double sub_271268EAC@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, unint64_t a3@<X8>)
 {
   v3 = a3;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = 2 * (*a1 != 0);
   LODWORD(a3) = v4 * *a1;
   if (a1[1])
@@ -9568,76 +8838,74 @@ double sub_271268EAC@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, unint64_t a3@<X8>)
   }
 
   v5 = v4 & 0x1FFFFFFFFLL | ((a3 >> 1) << 33);
-  *v14 = 2;
+  *v13 = 2;
   v6 = *a1;
-  *&v14[4] = *a1;
-  *v11 = *v14;
-  *&v11[8] = HIDWORD(v6);
-  *v14 = 1;
-  *&v14[4] = v5;
-  *&v11[12] = *v14;
-  *&v11[20] = a3;
-  *&v11[24] = v6;
-  v12 = v5;
-  v13 = *a2;
-  v7 = *&v11[16];
-  *(v3 + 8) = *v11;
+  *&v13[4] = *a1;
+  *v10 = *v13;
+  *&v10[8] = HIDWORD(v6);
+  *v13 = 1;
+  *&v13[4] = v5;
+  *&v10[12] = *v13;
+  *&v10[20] = a3;
+  *&v10[24] = v6;
+  v11 = v5;
+  v12 = *a2;
+  v7 = *&v10[16];
+  *(v3 + 8) = *v10;
   *v3 = &unk_288117A60;
   *(v3 + 24) = v7;
   *(v3 + 40) = v5;
-  sub_27179FB48(v14, v11, &v13);
+  sub_27179FB48(v13, v10, &v12);
   *(v3 + 48) = &unk_288112118;
-  v8 = v15;
-  *(v3 + 56) = *&v14[8];
+  v8 = v14;
+  *(v3 + 56) = *&v13[8];
   *(v3 + 72) = v8;
-  *(v3 + 88) = v16;
-  *(v3 + 104) = v17;
-  *(v3 + 112) = v18;
-  *(v3 + 128) = v19;
-  *(v3 + 152) = v21;
-  result = *&v20;
-  *(v3 + 136) = v20;
+  *(v3 + 88) = v15;
+  *(v3 + 104) = v16;
+  *(v3 + 112) = v17;
+  *(v3 + 128) = v18;
+  *(v3 + 152) = v20;
+  result = *&v19;
+  *(v3 + 136) = v19;
   *(v3 + 160) = 1;
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double sub_271269024@<D0>(uint64_t a1@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v9 = 1;
-  *v5 = 2;
-  *&v5[8] = 0;
-  *v10 = 0;
-  *&v5[12] = 1;
-  memset(v7, 0, 12);
-  v6 = 0;
-  v8 = 0;
-  *(a1 + 8) = *v5;
+  v17 = *MEMORY[0x277D85DE8];
+  v8 = 1;
+  *v4 = 2;
+  *&v4[8] = 0;
+  *v9 = 0;
+  *&v4[12] = 1;
+  memset(v6, 0, 12);
+  v5 = 0;
+  v7 = 0;
+  *(a1 + 8) = *v4;
   *a1 = &unk_288117A60;
   *(a1 + 24) = 0u;
-  *(a1 + 40) = *(v7 + 4);
-  sub_27179FB48(&v9, v5, &v8);
+  *(a1 + 40) = *(v6 + 4);
+  sub_27179FB48(&v8, v4, &v7);
   *(a1 + 48) = &unk_288112118;
-  v2 = v11;
-  *(a1 + 56) = *&v10[4];
+  v2 = v10;
+  *(a1 + 56) = *&v9[4];
   *(a1 + 72) = v2;
-  *(a1 + 88) = v12;
-  *(a1 + 104) = v13;
-  *(a1 + 112) = v14;
-  *(a1 + 128) = v15;
-  *(a1 + 152) = v17;
-  result = *&v16;
-  *(a1 + 136) = v16;
+  *(a1 + 88) = v11;
+  *(a1 + 104) = v12;
+  *(a1 + 112) = v13;
+  *(a1 + 128) = v14;
+  *(a1 + 152) = v16;
+  result = *&v15;
+  *(a1 + 136) = v15;
   *(a1 + 160) = 1;
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double sub_27126915C@<D0>(_DWORD *a1@<X1>, unint64_t a2@<X8>)
 {
   v2 = a2;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = 2 * (*a1 != 0);
   LODWORD(a2) = v3 * *a1;
   if (a1[1])
@@ -9651,149 +8919,146 @@ double sub_27126915C@<D0>(_DWORD *a1@<X1>, unint64_t a2@<X8>)
   }
 
   v4 = v3 & 0x1FFFFFFFFLL | ((a2 >> 1) << 33);
-  *v13 = 2;
+  *v12 = 2;
   v5 = *a1;
-  *&v13[4] = *a1;
-  *v10 = *v13;
-  *&v10[8] = HIDWORD(v5);
-  *v13 = 1;
-  *&v13[4] = v4;
-  *&v10[12] = *v13;
-  *&v10[20] = a2;
-  *&v10[24] = v5;
-  v11 = v4;
-  v6 = *&v10[16];
-  *(v2 + 8) = *v10;
+  *&v12[4] = *a1;
+  *v9 = *v12;
+  *&v9[8] = HIDWORD(v5);
+  *v12 = 1;
+  *&v12[4] = v4;
+  *&v9[12] = *v12;
+  *&v9[20] = a2;
+  *&v9[24] = v5;
+  v10 = v4;
+  v6 = *&v9[16];
+  *(v2 + 8) = *v9;
   *v2 = &unk_288117A60;
   *(v2 + 40) = v4;
   *(v2 + 24) = v6;
-  v12 = &unk_28810FA78;
-  sub_2717BB914(v10, v13);
+  v11 = &unk_28810FA78;
+  sub_2717BB914(v9, v12);
   *(v2 + 48) = &unk_288112118;
-  v7 = v14;
-  *(v2 + 56) = *&v13[8];
+  v7 = v13;
+  *(v2 + 56) = *&v12[8];
   *(v2 + 72) = v7;
-  *(v2 + 88) = v15;
-  *(v2 + 104) = v16;
-  *(v2 + 112) = v17;
-  *(v2 + 128) = v18;
-  *(v2 + 152) = v20;
-  result = *&v19;
-  *(v2 + 136) = v19;
+  *(v2 + 88) = v14;
+  *(v2 + 104) = v15;
+  *(v2 + 112) = v16;
+  *(v2 + 128) = v17;
+  *(v2 + 152) = v19;
+  result = *&v18;
+  *(v2 + 136) = v18;
   *(v2 + 160) = 1;
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double sub_2712692D4@<D0>(_DWORD *a1@<X1>, char *a2@<X2>, unint64_t a3@<X8>)
 {
   v3 = a3;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   LODWORD(a3) = *a1;
   if (*a1)
   {
     v4 = a1[2];
-    *v14 = 2;
-    v5 = *a1;
-    *&v14[4] = *a1;
-    v6 = *v14;
-    a3 = HIDWORD(v5);
-    *v14 = 1;
-    *&v14[4] = (v4 << 32) | 2;
-    v7 = *v14;
-    *&v12[20] = v4;
-    *&v12[24] = v5;
-    *&v12[32] = *&v14[4];
-  }
-
-  else
-  {
-    *v14 = 1;
-    v6 = 2;
-    *&v14[4] = 0;
-    v7 = 1;
-    memset(&v12[20], 0, 20);
-  }
-
-  *v12 = v6;
-  *&v12[8] = a3;
-  *&v12[12] = v7;
-  v13 = *a2;
-  *v3 = &unk_288117A60;
-  v8 = *&v12[16];
-  *(v3 + 8) = *v12;
-  *(v3 + 24) = v8;
-  *(v3 + 40) = *&v12[32];
-  sub_27179FB48(v14, v12, &v13);
-  *(v3 + 48) = &unk_288112118;
-  v9 = v15;
-  *(v3 + 56) = *&v14[8];
-  *(v3 + 72) = v9;
-  *(v3 + 88) = v16;
-  *(v3 + 104) = v17;
-  *(v3 + 112) = v18;
-  *(v3 + 128) = v19;
-  *(v3 + 152) = v21;
-  result = *&v20;
-  *(v3 + 136) = v20;
-  *(v3 + 160) = 1;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-double sub_271269458@<D0>(_DWORD *a1@<X1>, unint64_t a2@<X8>)
-{
-  v2 = a2;
-  v21 = *MEMORY[0x277D85DE8];
-  LODWORD(a2) = *a1;
-  if (*a1)
-  {
-    v3 = a1[2];
     *v13 = 2;
-    v4 = *a1;
+    v5 = *a1;
     *&v13[4] = *a1;
-    v5 = *v13;
-    a2 = HIDWORD(v4);
-    *v13 = 1;
-    *&v13[4] = (v3 << 32) | 2;
     v6 = *v13;
-    *&v11[20] = v3;
-    *&v11[24] = v4;
+    a3 = HIDWORD(v5);
+    *v13 = 1;
+    *&v13[4] = (v4 << 32) | 2;
+    v7 = *v13;
+    *&v11[20] = v4;
+    *&v11[24] = v5;
     *&v11[32] = *&v13[4];
   }
 
   else
   {
     *v13 = 1;
-    v5 = 2;
+    v6 = 2;
     *&v13[4] = 0;
-    v6 = 1;
+    v7 = 1;
     memset(&v11[20], 0, 20);
   }
 
-  *v11 = v5;
-  *&v11[8] = a2;
-  *&v11[12] = v6;
-  v7 = *&v11[16];
-  *(v2 + 8) = *v11;
-  *v2 = &unk_288117A60;
-  *(v2 + 40) = *&v11[32];
-  *(v2 + 24) = v7;
-  v12 = &unk_28810FA78;
-  sub_2717BB914(v11, v13);
-  *(v2 + 48) = &unk_288112118;
-  v8 = v14;
-  *(v2 + 56) = *&v13[8];
-  *(v2 + 72) = v8;
-  *(v2 + 88) = v15;
-  *(v2 + 104) = v16;
-  *(v2 + 112) = v17;
-  *(v2 + 128) = v18;
-  *(v2 + 152) = v20;
+  *v11 = v6;
+  *&v11[8] = a3;
+  *&v11[12] = v7;
+  v12 = *a2;
+  *v3 = &unk_288117A60;
+  v8 = *&v11[16];
+  *(v3 + 8) = *v11;
+  *(v3 + 24) = v8;
+  *(v3 + 40) = *&v11[32];
+  sub_27179FB48(v13, v11, &v12);
+  *(v3 + 48) = &unk_288112118;
+  v9 = v14;
+  *(v3 + 56) = *&v13[8];
+  *(v3 + 72) = v9;
+  *(v3 + 88) = v15;
+  *(v3 + 104) = v16;
+  *(v3 + 112) = v17;
+  *(v3 + 128) = v18;
+  *(v3 + 152) = v20;
   result = *&v19;
-  *(v2 + 136) = v19;
+  *(v3 + 136) = v19;
+  *(v3 + 160) = 1;
+  return result;
+}
+
+double sub_271269458@<D0>(_DWORD *a1@<X1>, unint64_t a2@<X8>)
+{
+  v2 = a2;
+  v20 = *MEMORY[0x277D85DE8];
+  LODWORD(a2) = *a1;
+  if (*a1)
+  {
+    v3 = a1[2];
+    *v12 = 2;
+    v4 = *a1;
+    *&v12[4] = *a1;
+    v5 = *v12;
+    a2 = HIDWORD(v4);
+    *v12 = 1;
+    *&v12[4] = (v3 << 32) | 2;
+    v6 = *v12;
+    *&v10[20] = v3;
+    *&v10[24] = v4;
+    *&v10[32] = *&v12[4];
+  }
+
+  else
+  {
+    *v12 = 1;
+    v5 = 2;
+    *&v12[4] = 0;
+    v6 = 1;
+    memset(&v10[20], 0, 20);
+  }
+
+  *v10 = v5;
+  *&v10[8] = a2;
+  *&v10[12] = v6;
+  v7 = *&v10[16];
+  *(v2 + 8) = *v10;
+  *v2 = &unk_288117A60;
+  *(v2 + 40) = *&v10[32];
+  *(v2 + 24) = v7;
+  v11 = &unk_28810FA78;
+  sub_2717BB914(v10, v12);
+  *(v2 + 48) = &unk_288112118;
+  v8 = v13;
+  *(v2 + 56) = *&v12[8];
+  *(v2 + 72) = v8;
+  *(v2 + 88) = v14;
+  *(v2 + 104) = v15;
+  *(v2 + 112) = v16;
+  *(v2 + 128) = v17;
+  *(v2 + 152) = v19;
+  result = *&v18;
+  *(v2 + 136) = v18;
   *(v2 + 160) = 1;
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9828,7 +9093,7 @@ double sub_2712696C4@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *a2 = &unk_288117A60;
   *(a2 + 24) = v3;
   *(a2 + 40) = *(a1 + 32);
-  sub_2717BB914(a1, v5);
+  sub_2717BB914(a1, &v5);
   *(a2 + 48) = &unk_288112118;
   *(a2 + 56) = v6;
   *(a2 + 72) = v7;
@@ -9843,9 +9108,9 @@ double sub_2712696C4@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
   return result;
 }
 
-double sub_2712697B0@<D0>(uint64_t *a1@<X1>, unsigned int *a2@<X2>, char *a3@<X3>, uint64_t a4@<X8>)
+double sub_2712697B0@<D0>(unint64_t *a1@<X1>, unsigned int *a2@<X2>, char *a3@<X3>, uint64_t a4@<X8>)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = *a1;
   v6 = HIDWORD(*a1);
   if (*a1)
@@ -9865,42 +9130,41 @@ double sub_2712697B0@<D0>(uint64_t *a1@<X1>, unsigned int *a2@<X2>, char *a3@<X3
   }
 
   v9 = v8 | (2 * (*a1 != 0));
-  *v17 = 2;
-  *&v17[4] = v5;
-  *v14 = *v17;
-  *&v14[8] = v6;
-  *v17 = 1;
-  *&v17[4] = v9;
-  *&v14[12] = *v17;
-  *&v14[20] = HIDWORD(v8);
-  *&v14[24] = v5;
-  v15 = v9;
-  v16 = *a3;
-  v10 = *&v14[16];
-  *(a4 + 8) = *v14;
+  *v16 = 2;
+  *&v16[4] = v5;
+  *v13 = *v16;
+  *&v13[8] = v6;
+  *v16 = 1;
+  *&v16[4] = v9;
+  *&v13[12] = *v16;
+  *&v13[20] = HIDWORD(v8);
+  *&v13[24] = v5;
+  v14 = v9;
+  v15 = *a3;
+  v10 = *&v13[16];
+  *(a4 + 8) = *v13;
   *a4 = &unk_288117A60;
   *(a4 + 24) = v10;
   *(a4 + 40) = v9;
-  sub_27179FB48(v17, v14, &v16);
+  sub_27179FB48(v16, v13, &v15);
   *(a4 + 48) = &unk_288112118;
-  v11 = v18;
-  *(a4 + 56) = *&v17[8];
+  v11 = v17;
+  *(a4 + 56) = *&v16[8];
   *(a4 + 72) = v11;
-  *(a4 + 88) = v19;
-  *(a4 + 104) = v20;
-  *(a4 + 112) = v21;
-  *(a4 + 128) = v22;
-  *(a4 + 152) = v24;
-  result = *&v23;
-  *(a4 + 136) = v23;
+  *(a4 + 88) = v18;
+  *(a4 + 104) = v19;
+  *(a4 + 112) = v20;
+  *(a4 + 128) = v21;
+  *(a4 + 152) = v23;
+  result = *&v22;
+  *(a4 + 136) = v22;
   *(a4 + 160) = 1;
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-double sub_27126990C@<D0>(uint64_t *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X8>)
+double sub_27126990C@<D0>(unint64_t *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X8>)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = HIDWORD(*a1);
   if (*a1)
@@ -9920,35 +9184,708 @@ double sub_27126990C@<D0>(uint64_t *a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@
   }
 
   v8 = v7 | (2 * (*a1 != 0));
-  *v16 = 2;
-  *&v16[4] = v4;
-  *v13 = *v16;
-  *&v13[8] = v5;
-  *v16 = 1;
-  *&v16[4] = v8;
-  *&v13[12] = *v16;
-  *&v13[20] = HIDWORD(v7);
-  *&v13[24] = v4;
-  v14 = v8;
-  v9 = *&v13[16];
-  *(a3 + 8) = *v13;
+  *v15 = 2;
+  *&v15[4] = v4;
+  *v12 = *v15;
+  *&v12[8] = v5;
+  *v15 = 1;
+  *&v15[4] = v8;
+  *&v12[12] = *v15;
+  *&v12[20] = HIDWORD(v7);
+  *&v12[24] = v4;
+  v13 = v8;
+  v9 = *&v12[16];
+  *(a3 + 8) = *v12;
   *a3 = &unk_288117A60;
   *(a3 + 40) = v8;
   *(a3 + 24) = v9;
+  v14 = &unk_28810FA78;
+  sub_2717BB914(v12, v15);
+  *(a3 + 48) = &unk_288112118;
+  v10 = v16;
+  *(a3 + 56) = *&v15[8];
+  *(a3 + 72) = v10;
+  *(a3 + 88) = v17;
+  *(a3 + 104) = v18;
+  *(a3 + 112) = v19;
+  *(a3 + 128) = v20;
+  *(a3 + 152) = v22;
+  result = *&v21;
+  *(a3 + 136) = v21;
+  *(a3 + 160) = 1;
+  return result;
+}
+
+double sub_271269A80@<D0>(_DWORD *a1@<X1>, _DWORD *a2@<X2>, char *a3@<X3>, uint64_t a4@<X8>)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  if (*a1)
+  {
+    if (a1[1])
+    {
+      v5 = 2 * *a1;
+      v6 = v5 % *a2;
+      v7 = *a2 - v6;
+      if (!v6)
+      {
+        v7 = 0;
+      }
+
+      v8 = ((v7 + v5) << 32) | 2;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  *v16 = 2;
+  v9 = *a1;
+  *&v16[4] = *a1;
+  *v13 = *v16;
+  *&v13[8] = HIDWORD(v9);
+  *v16 = 1;
+  *&v16[4] = v8;
+  *&v13[12] = *v16;
+  *&v13[20] = HIDWORD(v8);
+  *&v13[24] = v9;
+  v14 = v8;
+  v15 = *a3;
+  v10 = *&v13[16];
+  *(a4 + 8) = *v13;
+  *a4 = &unk_288117A60;
+  *(a4 + 24) = v10;
+  *(a4 + 40) = v8;
+  sub_27179FB48(v16, v13, &v15);
+  *(a4 + 48) = &unk_288112118;
+  v11 = v17;
+  *(a4 + 56) = *&v16[8];
+  *(a4 + 72) = v11;
+  *(a4 + 88) = v18;
+  *(a4 + 104) = v19;
+  *(a4 + 112) = v20;
+  *(a4 + 128) = v21;
+  *(a4 + 152) = v23;
+  result = *&v22;
+  *(a4 + 136) = v22;
+  *(a4 + 160) = 1;
+  return result;
+}
+
+double sub_271269C08@<D0>(_DWORD *a1@<X1>, _DWORD *a2@<X2>, uint64_t a3@<X8>)
+{
+  v23 = *MEMORY[0x277D85DE8];
+  if (*a1)
+  {
+    if (a1[1])
+    {
+      v4 = 2 * *a1;
+      v5 = v4 % *a2;
+      v6 = *a2 - v5;
+      if (!v5)
+      {
+        v6 = 0;
+      }
+
+      v7 = ((v6 + v4) << 32) | 2;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  *v15 = 2;
+  v8 = *a1;
+  *&v15[4] = *a1;
+  *v12 = *v15;
+  *&v12[8] = HIDWORD(v8);
+  *v15 = 1;
+  *&v15[4] = v7;
+  *&v12[12] = *v15;
+  *&v12[20] = HIDWORD(v7);
+  *&v12[24] = v8;
+  v13 = v7;
+  v9 = *&v12[16];
+  *(a3 + 8) = *v12;
+  *a3 = &unk_288117A60;
+  *(a3 + 40) = v7;
+  *(a3 + 24) = v9;
+  v14 = &unk_28810FA78;
+  sub_2717BB914(v12, v15);
+  *(a3 + 48) = &unk_288112118;
+  v10 = v16;
+  *(a3 + 56) = *&v15[8];
+  *(a3 + 72) = v10;
+  *(a3 + 88) = v17;
+  *(a3 + 104) = v18;
+  *(a3 + 112) = v19;
+  *(a3 + 128) = v20;
+  *(a3 + 152) = v22;
+  result = *&v21;
+  *(a3 + 136) = v21;
+  *(a3 + 160) = 1;
+  return result;
+}
+
+size_t *sub_271269DA8@<X0>(uint64_t a1@<X1>, unint64_t a2@<X8>)
+{
+  v2 = a2;
+  v23 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
+  v4 = 2 * (v3 != 0);
+  LODWORD(a2) = v4 * v3;
+  if (*(a1 + 36))
+  {
+    a2 = a2;
+  }
+
+  else
+  {
+    a2 = 0;
+  }
+
+  v5 = v4 & 0x1FFFFFFFFLL | ((a2 >> 1) << 33);
+  *v15 = 2;
+  v6 = *(a1 + 32);
+  *&v15[4] = v6;
+  *v12 = *v15;
+  *&v12[8] = HIDWORD(v6);
+  *v15 = 1;
+  *&v15[4] = v5;
+  *&v12[12] = *v15;
+  *&v12[20] = a2;
+  *&v12[24] = v6;
+  v13 = v5;
+  v7 = *(a1 + 16);
+  v11[0] = *a1;
+  v11[1] = v7;
+  v11[2] = *(a1 + 32);
+  v8 = *&v12[16];
+  *(v2 + 8) = *v12;
+  *v2 = &unk_288117A60;
+  *(v2 + 24) = v8;
+  *(v2 + 40) = v5;
+  v14 = &unk_28810FA78;
+  sub_2717BB914(v12, v15);
+  *(v2 + 48) = &unk_288112118;
+  *(v2 + 56) = *&v15[8];
+  *(v2 + 72) = v16;
+  *(v2 + 88) = v17;
+  v9 = v20;
+  *(v2 + 104) = v18;
+  *(v2 + 112) = v19;
+  *(v2 + 128) = v9;
+  *(v2 + 152) = v22;
+  *(v2 + 136) = v21;
+  *(v2 + 160) = 1;
+  sub_27123F658(v15, v2);
+  return sub_27129F754(v11, v15);
+}
+
+size_t *sub_271269F6C@<X0>(uint64_t a1@<X1>, unsigned int *a2@<X2>, uint64_t a3@<X8>)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 32);
+  if (v4)
+  {
+    v5 = HIDWORD(v4) == 0;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  v6 = *a2 << 32;
+  if (v5)
+  {
+    v6 = 0;
+  }
+
+  v7 = v6 | (2 * (*(a1 + 32) != 0));
+  *v16 = 2;
+  *&v16[4] = v4;
+  *v13 = *v16;
+  *&v13[8] = HIDWORD(v4);
+  *v16 = 1;
+  *&v16[4] = v7;
+  *&v13[12] = *v16;
+  *&v13[20] = HIDWORD(v6);
+  *&v13[24] = v4;
+  v14 = v7;
+  v8 = *(a1 + 16);
+  v12[0] = *a1;
+  v12[1] = v8;
+  v12[2] = *(a1 + 32);
+  v9 = *&v13[16];
+  *(a3 + 8) = *v13;
+  *a3 = &unk_288117A60;
+  *(a3 + 24) = v9;
+  *(a3 + 40) = v7;
   v15 = &unk_28810FA78;
   sub_2717BB914(v13, v16);
   *(a3 + 48) = &unk_288112118;
-  v10 = v17;
   *(a3 + 56) = *&v16[8];
-  *(a3 + 72) = v10;
+  *(a3 + 72) = v17;
   *(a3 + 88) = v18;
+  v10 = v21;
   *(a3 + 104) = v19;
   *(a3 + 112) = v20;
-  *(a3 + 128) = v21;
+  *(a3 + 128) = v10;
   *(a3 + 152) = v23;
-  result = *&v22;
   *(a3 + 136) = v22;
   *(a3 + 160) = 1;
-  v12 = *MEMORY[0x277D85DE8];
+  sub_27123F658(v16, a3);
+  return sub_27129F754(v12, v16);
+}
+
+size_t *sub_27126A12C@<X0>(uint64_t a1@<X1>, _DWORD *a2@<X2>, uint64_t a3@<X8>)
+{
+  v26 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 32);
+  if (v4)
+  {
+    if (*(a1 + 36))
+    {
+      v5 = 2 * v4;
+      v6 = v5 % *a2;
+      v7 = *a2 - v6;
+      if (!v6)
+      {
+        v7 = 0;
+      }
+
+      v8 = ((v7 + v5) << 32) | 2;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  *v18 = 2;
+  v9 = *(a1 + 32);
+  *&v18[4] = v9;
+  *v15 = *v18;
+  *&v15[8] = HIDWORD(v9);
+  *v18 = 1;
+  *&v18[4] = v8;
+  *&v15[12] = *v18;
+  *&v15[20] = HIDWORD(v8);
+  *&v15[24] = v9;
+  v16 = v8;
+  v10 = *(a1 + 16);
+  v14[0] = *a1;
+  v14[1] = v10;
+  v14[2] = *(a1 + 32);
+  v11 = *&v15[16];
+  *(a3 + 8) = *v15;
+  *a3 = &unk_288117A60;
+  *(a3 + 24) = v11;
+  *(a3 + 40) = v8;
+  v17 = &unk_28810FA78;
+  sub_2717BB914(v15, v18);
+  *(a3 + 48) = &unk_288112118;
+  *(a3 + 56) = *&v18[8];
+  *(a3 + 72) = v19;
+  *(a3 + 88) = v20;
+  v12 = v23;
+  *(a3 + 104) = v21;
+  *(a3 + 112) = v22;
+  *(a3 + 128) = v12;
+  *(a3 + 152) = v25;
+  *(a3 + 136) = v24;
+  *(a3 + 160) = 1;
+  sub_27123F658(v18, a3);
+  return sub_27129F754(v14, v18);
+}
+
+__n128 sub_27126A318(__n128 **a1, __n128 *a2)
+{
+  v2 = *a1;
+  result = *a2;
+  v2[1].n128_u64[0] = a2[1].n128_u64[0];
+  *v2 = result;
+  return result;
+}
+
+__n128 sub_27126A330(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  *v2 = &unk_288112118;
+  v3 = *(a2 + 8);
+  v4 = *(a2 + 24);
+  v5 = *(a2 + 40);
+  *(v2 + 56) = *(a2 + 56);
+  *(v2 + 40) = v5;
+  *(v2 + 24) = v4;
+  *(v2 + 8) = v3;
+  *(v2 + 64) = *(a2 + 64);
+  *(v2 + 80) = *(a2 + 80);
+  *(a2 + 64) = 0;
+  *(a2 + 72) = 0;
+  result = *(a2 + 88);
+  *(v2 + 104) = *(a2 + 104);
+  *(v2 + 88) = result;
+  return result;
+}
+
+double sub_27126A398@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, unint64_t a3@<X8>)
+{
+  v3 = a3;
+  v21 = *MEMORY[0x277D85DE8];
+  v4 = 2 * (*a1 != 0);
+  LODWORD(a3) = v4 * *a1;
+  if (a1[1])
+  {
+    a3 = a3;
+  }
+
+  else
+  {
+    a3 = 0;
+  }
+
+  v5 = v4 & 0x1FFFFFFFFLL | ((a3 >> 1) << 33);
+  *v13 = 2;
+  v6 = *a1;
+  *&v13[4] = *a1;
+  *v10 = *v13;
+  *&v10[8] = HIDWORD(v6);
+  *v13 = 1;
+  *&v13[4] = v5;
+  *&v10[12] = *v13;
+  *&v10[20] = a3;
+  *&v10[24] = v6;
+  v11 = v5;
+  v12 = *a2;
+  v7 = *&v10[16];
+  *(v3 + 8) = *v10;
+  *v3 = &unk_2881179E0;
+  *(v3 + 24) = v7;
+  *(v3 + 40) = v5;
+  sub_2717A06CC(v13, v10, &v12);
+  *(v3 + 48) = &unk_288112098;
+  v8 = v14;
+  *(v3 + 56) = *&v13[8];
+  *(v3 + 72) = v8;
+  *(v3 + 88) = v15;
+  *(v3 + 104) = v16;
+  *(v3 + 112) = v17;
+  *(v3 + 128) = v18;
+  *(v3 + 152) = v20;
+  result = *&v19;
+  *(v3 + 136) = v19;
+  *(v3 + 160) = 1;
+  return result;
+}
+
+double sub_27126A510@<D0>(uint64_t a1@<X8>)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v8 = 1;
+  *v4 = 2;
+  *&v4[8] = 0;
+  *v9 = 0;
+  *&v4[12] = 1;
+  memset(v6, 0, 12);
+  v5 = 0;
+  v7 = 0;
+  *(a1 + 8) = *v4;
+  *a1 = &unk_2881179E0;
+  *(a1 + 24) = 0u;
+  *(a1 + 40) = *(v6 + 4);
+  sub_2717A06CC(&v8, v4, &v7);
+  *(a1 + 48) = &unk_288112098;
+  v2 = v10;
+  *(a1 + 56) = *&v9[4];
+  *(a1 + 72) = v2;
+  *(a1 + 88) = v11;
+  *(a1 + 104) = v12;
+  *(a1 + 112) = v13;
+  *(a1 + 128) = v14;
+  *(a1 + 152) = v16;
+  result = *&v15;
+  *(a1 + 136) = v15;
+  *(a1 + 160) = 1;
+  return result;
+}
+
+double sub_27126A648@<D0>(_DWORD *a1@<X1>, unint64_t a2@<X8>)
+{
+  v2 = a2;
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = 2 * (*a1 != 0);
+  LODWORD(a2) = v3 * *a1;
+  if (a1[1])
+  {
+    a2 = a2;
+  }
+
+  else
+  {
+    a2 = 0;
+  }
+
+  v4 = v3 & 0x1FFFFFFFFLL | ((a2 >> 1) << 33);
+  *v12 = 2;
+  v5 = *a1;
+  *&v12[4] = *a1;
+  *v9 = *v12;
+  *&v9[8] = HIDWORD(v5);
+  *v12 = 1;
+  *&v12[4] = v4;
+  *&v9[12] = *v12;
+  *&v9[20] = a2;
+  *&v9[24] = v5;
+  v10 = v4;
+  v6 = *&v9[16];
+  *(v2 + 8) = *v9;
+  *v2 = &unk_2881179E0;
+  *(v2 + 40) = v4;
+  *(v2 + 24) = v6;
+  v11 = &unk_28810FA58;
+  sub_2717BBE44(v9, v12);
+  *(v2 + 48) = &unk_288112098;
+  v7 = v13;
+  *(v2 + 56) = *&v12[8];
+  *(v2 + 72) = v7;
+  *(v2 + 88) = v14;
+  *(v2 + 104) = v15;
+  *(v2 + 112) = v16;
+  *(v2 + 128) = v17;
+  *(v2 + 152) = v19;
+  result = *&v18;
+  *(v2 + 136) = v18;
+  *(v2 + 160) = 1;
+  return result;
+}
+
+double sub_27126A7C0@<D0>(_DWORD *a1@<X1>, unsigned __int16 *a2@<X2>, unint64_t a3@<X8>)
+{
+  v3 = a3;
+  v21 = *MEMORY[0x277D85DE8];
+  LODWORD(a3) = *a1;
+  if (*a1)
+  {
+    v4 = a1[2] >> 1;
+    *v13 = 2;
+    v5 = *a1;
+    *&v13[4] = *a1;
+    v6 = *v13;
+    a3 = HIDWORD(v5);
+    *v13 = 1;
+    *&v13[4] = (v4 << 32) | 2;
+    v7 = *v13;
+    *&v11[20] = v4;
+    *&v11[24] = v5;
+    *&v11[32] = *&v13[4];
+  }
+
+  else
+  {
+    *v13 = 1;
+    v6 = 2;
+    *&v13[4] = 0;
+    v7 = 1;
+    memset(&v11[20], 0, 20);
+  }
+
+  *v11 = v6;
+  *&v11[8] = a3;
+  *&v11[12] = v7;
+  v12 = *a2;
+  *v3 = &unk_2881179E0;
+  v8 = *&v11[16];
+  *(v3 + 8) = *v11;
+  *(v3 + 24) = v8;
+  *(v3 + 40) = *&v11[32];
+  sub_2717A06CC(v13, v11, &v12);
+  *(v3 + 48) = &unk_288112098;
+  v9 = v14;
+  *(v3 + 56) = *&v13[8];
+  *(v3 + 72) = v9;
+  *(v3 + 88) = v15;
+  *(v3 + 104) = v16;
+  *(v3 + 112) = v17;
+  *(v3 + 128) = v18;
+  *(v3 + 152) = v20;
+  result = *&v19;
+  *(v3 + 136) = v19;
+  *(v3 + 160) = 1;
+  return result;
+}
+
+double sub_27126A948@<D0>(_DWORD *a1@<X1>, unint64_t a2@<X8>)
+{
+  v2 = a2;
+  v20 = *MEMORY[0x277D85DE8];
+  LODWORD(a2) = *a1;
+  if (*a1)
+  {
+    v3 = a1[2] >> 1;
+    *v12 = 2;
+    v4 = *a1;
+    *&v12[4] = *a1;
+    v5 = *v12;
+    a2 = HIDWORD(v4);
+    *v12 = 1;
+    *&v12[4] = (v3 << 32) | 2;
+    v6 = *v12;
+    *&v10[20] = v3;
+    *&v10[24] = v4;
+    *&v10[32] = *&v12[4];
+  }
+
+  else
+  {
+    *v12 = 1;
+    v5 = 2;
+    *&v12[4] = 0;
+    v6 = 1;
+    memset(&v10[20], 0, 20);
+  }
+
+  *v10 = v5;
+  *&v10[8] = a2;
+  *&v10[12] = v6;
+  v7 = *&v10[16];
+  *(v2 + 8) = *v10;
+  *v2 = &unk_2881179E0;
+  *(v2 + 40) = *&v10[32];
+  *(v2 + 24) = v7;
+  v11 = &unk_28810FA58;
+  sub_2717BBE44(v10, v12);
+  *(v2 + 48) = &unk_288112098;
+  v8 = v13;
+  *(v2 + 56) = *&v12[8];
+  *(v2 + 72) = v8;
+  *(v2 + 88) = v14;
+  *(v2 + 104) = v15;
+  *(v2 + 112) = v16;
+  *(v2 + 128) = v17;
+  *(v2 + 152) = v19;
+  result = *&v18;
+  *(v2 + 136) = v18;
+  *(v2 + 160) = 1;
+  return result;
+}
+
+double sub_27126AAE8@<D0>(uint64_t a1@<X1>, unsigned __int16 *a2@<X2>, uint64_t a3@<X8>)
+{
+  v16 = *a2;
+  *a3 = &unk_2881179E0;
+  v4 = *(a1 + 16);
+  *(a3 + 8) = *a1;
+  *(a3 + 24) = v4;
+  *(a3 + 40) = *(a1 + 32);
+  sub_2717A06CC(v7, a1, &v16);
+  *(a3 + 48) = &unk_288112098;
+  v5 = v9;
+  *(a3 + 56) = v8;
+  *(a3 + 72) = v5;
+  *(a3 + 88) = v10;
+  *(a3 + 104) = v11;
+  *(a3 + 112) = v12;
+  *(a3 + 128) = v13;
+  *(a3 + 152) = v15;
+  result = *&v14;
+  *(a3 + 136) = v14;
+  *(a3 + 160) = 1;
+  return result;
+}
+
+double sub_27126ABB8@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+{
+  v3 = *(a1 + 16);
+  *(a2 + 8) = *a1;
+  *a2 = &unk_2881179E0;
+  *(a2 + 24) = v3;
+  *(a2 + 40) = *(a1 + 32);
+  sub_2717BBE44(a1, &v5);
+  *(a2 + 48) = &unk_288112098;
+  *(a2 + 56) = v6;
+  *(a2 + 72) = v7;
+  *(a2 + 88) = v8;
+  *(a2 + 104) = v9;
+  *(a2 + 112) = v10;
+  *(a2 + 128) = v11;
+  *(a2 + 152) = v13;
+  result = *&v12;
+  *(a2 + 136) = v12;
+  *(a2 + 160) = 1;
+  return result;
+}
+
+double sub_27126ACA4@<D0>(unint64_t *a1@<X1>, unsigned int *a2@<X2>, unsigned __int16 *a3@<X3>, uint64_t a4@<X8>)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  v5 = *a1;
+  v6 = HIDWORD(*a1);
+  if (*a1)
+  {
+    v7 = v6 == 0;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  v8 = *a2 << 32;
+  if (v7)
+  {
+    v8 = 0;
+  }
+
+  v9 = v8 | (2 * (*a1 != 0));
+  *v16 = 2;
+  *&v16[4] = v5;
+  *v13 = *v16;
+  *&v13[8] = v6;
+  *v16 = 1;
+  *&v16[4] = v9;
+  *&v13[12] = *v16;
+  *&v13[20] = HIDWORD(v8);
+  *&v13[24] = v5;
+  v14 = v9;
+  v15 = *a3;
+  v10 = *&v13[16];
+  *(a4 + 8) = *v13;
+  *a4 = &unk_2881179E0;
+  *(a4 + 24) = v10;
+  *(a4 + 40) = v9;
+  sub_2717A06CC(v16, v13, &v15);
+  *(a4 + 48) = &unk_288112098;
+  v11 = v17;
+  *(a4 + 56) = *&v16[8];
+  *(a4 + 72) = v11;
+  *(a4 + 88) = v18;
+  *(a4 + 104) = v19;
+  *(a4 + 112) = v20;
+  *(a4 + 128) = v21;
+  *(a4 + 152) = v23;
+  result = *&v22;
+  *(a4 + 136) = v22;
+  *(a4 + 160) = 1;
   return result;
 }

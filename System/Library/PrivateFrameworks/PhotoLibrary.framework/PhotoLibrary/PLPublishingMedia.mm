@@ -69,7 +69,7 @@ LABEL_15:
       }
     }
 
-    [asset duration];
+    objc_msgSend_duration(asset);
 LABEL_16:
     CMTimeConvertScale(&v17, &time, 1, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
     value = v17.value;

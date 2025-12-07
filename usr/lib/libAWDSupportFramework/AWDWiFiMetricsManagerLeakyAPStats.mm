@@ -123,14 +123,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint64Field();
   }
 
@@ -144,17 +142,15 @@
     PBDataWriterWriteDataField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 8) != 0)
+  v5 = self->_has;
+  if ((v5 & 8) != 0)
   {
-    leakyApDecision = self->_leakyApDecision;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if (v7)
+  if (v5)
   {
-    hashCode = self->_hashCode;
 
     PBDataWriterWriteUint64Field();
   }
@@ -243,7 +239,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 56);
     if ((*&self->_has & 2) != 0)
     {
       if ((*(equal + 56) & 2) == 0 || self->_timestamp != *(equal + 2))

@@ -5,9 +5,9 @@
 - (int)setMasterStream:(id)stream allStreams:(id)streams;
 - (uint64_t)_computeBaseZoomFactorsWithOverrides:(void *)overrides clientBaseZoomFactorsByPortType:;
 - (uint64_t)_getViewAndPoseMatrices;
-- (uint64_t)_slaveConfigurationForStream:(uint64_t)result;
 - (uint64_t)_worldPortType;
 - (unsigned)minimumMasterToSlaveFrameRateRatio;
+- (void)_slaveConfigurationForStream:(void *)result;
 - (void)dealloc;
 - (void)setBaseZoomFactorsByPortType:(id)type;
 - (void)setMaximumNumberOfEnabledSlaveTimeMachines:(int)machines;
@@ -86,7 +86,7 @@
         }
 
         v21 = *(*(&v33 + 1) + 8 * i);
-        [array addObject:{objc_msgSend(v21, "portType", errorCopy)}];
+        [array addObject:{objc_msgSend(v21, "portType", errorCopy, typeCopy)}];
         v15 &= [objc_msgSend(v21 "supportedProperties")] != 0;
       }
 
@@ -120,7 +120,7 @@
             v24 = [(BWFigCaptureSynchronizedStreamsGroup *)self->_synchronizedStreamsGroup getProperty:*off_1E798CCA8 error:v38];
             if (v38[0])
             {
-              [BWFigVideoCaptureSynchronizedStreamsGroup initWithSynchronizedStreamsGroup:activeStreams:readOnly:baseZoomFactorOverrides:clientBaseZoomFactorsByPortType:error:];
+              [BWFigVideoCaptureSynchronizedStreamsGroup initWithSynchronizedStreamsGroup:? activeStreams:? readOnly:? baseZoomFactorOverrides:? clientBaseZoomFactorsByPortType:? error:?];
               goto LABEL_32;
             }
 
@@ -244,72 +244,69 @@ LABEL_33:
     return result;
   }
 
-  v1 = result;
-  v28[0] = 0;
+  v2 = result;
+  v30[0] = 0;
   _worldPortType = [(BWFigVideoCaptureSynchronizedStreamsGroup *)result _worldPortType];
-  memset(v27, 0, sizeof(v27));
-  v26 = 0u;
-  v25 = 1065353216;
-  v27[0] = 1065353216;
-  v27[5] = 1065353216;
-  v2 = [MEMORY[0x1E695DEF0] dataWithBytes:&v25 length:48];
-  v16 = [*(v1 + 8) getProperty:*off_1E798CC98 error:v28];
-  if (v28[0])
+  memset(v29, 0, sizeof(v29));
+  v28 = 0u;
+  v27 = 1065353216;
+  v29[0] = 1065353216;
+  v29[5] = 1065353216;
+  v3 = [MEMORY[0x1E695DEF0] dataWithBytes:&v27 length:48];
+  v17 = [*(v2 + 8) getProperty:*off_1E798CC98 error:v30];
+  if (v30[0])
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v30[0], v1, v14, v15, v17, _worldPortType, v19, obj);
     goto LABEL_26;
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-  v21 = 0u;
-  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v15 = v1;
-  obj = *(v1 + 24);
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v20 count:16];
-  if (!v5)
+  v25 = 0u;
+  v26 = 0u;
+  v16 = v2;
+  obja = *(v2 + 24);
+  v6 = [obja countByEnumeratingWithState:&v23 objects:v22 count:16];
+  if (!v6)
   {
     goto LABEL_21;
   }
 
-  v6 = v5;
-  v7 = *v22;
-  v8 = *off_1E798A0C0;
-  v9 = *off_1E798A0E0;
-  v18 = *off_1E798A0F8;
+  v7 = v6;
+  v8 = *v24;
   do
   {
-    for (i = 0; i != v6; ++i)
+    for (i = 0; i != v7; ++i)
     {
-      if (*v22 != v7)
+      if (*v24 != v8)
       {
-        objc_enumerationMutation(obj);
+        objc_enumerationMutation(obja);
       }
 
-      v11 = *(*(&v21 + 1) + 8 * i);
-      v12 = v2;
-      if (([v11 isEqualToString:v8] & 1) == 0)
+      v10 = *(*(&v23 + 1) + 8 * i);
+      v11 = v3;
+      if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
       {
-        v12 = v2;
-        if ([v11 isEqualToString:v9])
+        v11 = v3;
+        if (objc_msgSend_isEqualToString_(v10))
         {
           goto LABEL_15;
         }
 
-        v12 = v2;
-        if ([v11 isEqualToString:v18])
+        v11 = v3;
+        if (objc_msgSend_isEqualToString_(v10))
         {
           goto LABEL_15;
         }
 
-        if (![objc_msgSend(v16 "allKeys")])
+        if (![objc_msgSend(v17 "allKeys")])
         {
-          v12 = [objc_msgSend(v16 objectForKeyedSubscript:{_worldPortType), "objectForKeyedSubscript:", v11}];
+          v11 = [objc_msgSend(v17 objectForKeyedSubscript:{_worldPortType), "objectForKeyedSubscript:", v10}];
 LABEL_15:
-          [dictionary setObject:0 forKeyedSubscript:v11];
-          if (v12)
+          [dictionary setObject:0 forKeyedSubscript:v10];
+          if (v11)
           {
             goto LABEL_19;
           }
@@ -317,53 +314,53 @@ LABEL_15:
           goto LABEL_16;
         }
 
-        v12 = [objc_msgSend(v16 objectForKeyedSubscript:{v11), "objectForKeyedSubscript:", _worldPortType}];
+        v11 = [objc_msgSend(v17 objectForKeyedSubscript:{v10), "objectForKeyedSubscript:", _worldPortType}];
       }
 
-      [dictionary setObject:v12 forKeyedSubscript:v11];
+      [dictionary setObject:v11 forKeyedSubscript:v10];
 LABEL_16:
-      if ([v12 length] == 48)
+      if ([v11 length] == 48)
       {
-        v12 = BWInvertRowMajorViewMatrixData(v12);
+        v11 = BWInvertRowMajorViewMatrixData(v11);
       }
 
       else
       {
-        v12 = 0;
+        v11 = 0;
       }
 
 LABEL_19:
-      [dictionary2 setObject:v12 forKeyedSubscript:v11];
+      [dictionary2 setObject:v11 forKeyedSubscript:v10];
     }
 
-    v6 = [obj countByEnumeratingWithState:&v21 objects:v20 count:16];
+    v7 = [obja countByEnumeratingWithState:&v23 objects:v22 count:16];
   }
 
-  while (v6);
+  while (v7);
 LABEL_21:
-  v13 = [dictionary count];
+  v12 = [dictionary count];
+  if (v12)
+  {
+    v12 = [dictionary copy];
+  }
+
+  *(v16 + 32) = v12;
+  v13 = [dictionary2 count];
   if (v13)
   {
-    v13 = [dictionary copy];
+    v13 = [dictionary2 copy];
   }
 
-  *(v15 + 32) = v13;
-  v14 = [dictionary2 count];
-  if (v14)
-  {
-    v14 = [dictionary2 copy];
-  }
-
-  *(v15 + 40) = v14;
+  *(v16 + 40) = v13;
 LABEL_26:
-  if (v28[0] == -12782)
+  if (v30[0] == -12782)
   {
     return 0;
   }
 
   else
   {
-    return v28[0];
+    return v30[0];
   }
 }
 
@@ -371,97 +368,97 @@ LABEL_26:
 {
   if (result)
   {
-    v5 = result;
-    v51[0] = 0;
-    v6 = [objc_msgSend(*(result + 8) getProperty:*off_1E798CC90 error:{v51), "mutableCopy"}];
-    v7 = v6;
-    if (v51[0])
+    v6 = result;
+    v56[0] = 0;
+    v7 = [objc_msgSend(*(result + 8) getProperty:*off_1E798CC90 error:{v56), "mutableCopy"}];
+    v8 = v7;
+    if (v56[0])
     {
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56[0], v3, v37[0], v37[1], v38, v39, v40, v41);
     }
 
     else
     {
-      v8 = [v6 copy];
-      v5[8] = v8;
-      v47 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v9 = v5[3];
-      v11 = OUTLINED_FUNCTION_1_0(v8, v10, &v47, v46);
-      if (v11)
+      v9 = [v7 copy];
+      v6[8] = v9;
+      v52 = 0u;
+      v53 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v10 = v6[3];
+      v12 = OUTLINED_FUNCTION_1_0(v9, v11, &v52, v51);
+      if (v12)
       {
-        v13 = v11;
-        v14 = *v48;
-        v15 = 3.4028e38;
+        v14 = v12;
+        v15 = *v53;
+        v16 = 3.4028e38;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v48 != v14)
+            if (*v53 != v15)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v10);
             }
 
-            v17 = *(*(&v47 + 1) + 8 * i);
-            v18 = [objc_msgSend(v7 "allKeys")];
-            if (v18)
+            v18 = *(*(&v52 + 1) + 8 * i);
+            v19 = [objc_msgSend(v8 "allKeys")];
+            if (v19)
             {
-              v18 = [objc_msgSend(v7 objectForKeyedSubscript:{v17), "floatValue"}];
-              if (v15 >= v20)
+              v19 = [objc_msgSend(v8 objectForKeyedSubscript:{v18), "floatValue"}];
+              if (v16 >= v21)
               {
-                v18 = [objc_msgSend(v7 objectForKeyedSubscript:{v17), "floatValue"}];
-                v15 = v21;
+                v19 = [objc_msgSend(v8 objectForKeyedSubscript:{v18), "floatValue"}];
+                v16 = v22;
               }
             }
           }
 
-          v13 = OUTLINED_FUNCTION_1_0(v18, v19, &v47, v46);
+          v14 = OUTLINED_FUNCTION_1_0(v19, v20, &v52, v51);
         }
 
-        while (v13);
+        while (v14);
       }
 
       else
       {
-        v15 = 3.4028e38;
+        v16 = 3.4028e38;
       }
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v22 = v5[2];
-      v23 = OUTLINED_FUNCTION_1_0(0, v12, &v42, v41);
-      if (v23)
+      v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v23 = v6[2];
+      v24 = OUTLINED_FUNCTION_1_0(0, v13, &v47, v46);
+      if (v24)
       {
-        v24 = v23;
-        v25 = *v43;
+        v25 = v24;
+        v26 = *v48;
         do
         {
-          for (j = 0; j != v24; ++j)
+          for (j = 0; j != v25; ++j)
           {
-            if (*v43 != v25)
+            if (*v48 != v26)
             {
-              objc_enumerationMutation(v22);
+              objc_enumerationMutation(v23);
             }
 
-            [objc_msgSend(v7 objectForKeyedSubscript:{objc_msgSend(*(*(&v42 + 1) + 8 * j), "portType")), "floatValue"}];
-            if (*&v27 == 0.0)
+            [objc_msgSend(v8 objectForKeyedSubscript:{objc_msgSend(*(*(&v47 + 1) + 8 * j), "portType")), "floatValue"}];
+            if (*&v28 == 0.0)
             {
-              *&v27 = 1.0;
+              *&v28 = 1.0;
             }
 
-            *&v27 = *&v27 / v15;
-            [MEMORY[0x1E696AD98] numberWithFloat:v27];
-            v28 = [OUTLINED_FUNCTION_17() setObject:? forKeyedSubscript:?];
+            *&v28 = *&v28 / v16;
+            [MEMORY[0x1E696AD98] numberWithFloat:v28];
+            v29 = [OUTLINED_FUNCTION_17() setObject:? forKeyedSubscript:?];
           }
 
-          v24 = OUTLINED_FUNCTION_1_0(v28, v29, &v42, v41);
+          v25 = OUTLINED_FUNCTION_1_0(v29, v30, &v47, v46);
         }
 
-        while (v24);
+        while (v25);
       }
 
       if (overrides)
@@ -471,46 +468,46 @@ LABEL_26:
 
       else
       {
-        overridesCopy = v7;
+        overridesCopy = v8;
       }
 
-      v5[7] = [overridesCopy copy];
+      v6[7] = [overridesCopy copy];
       if (a2)
       {
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
+        v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
         allKeys = [a2 allKeys];
-        v32 = [allKeys countByEnumeratingWithState:&v37 objects:v36 count:16];
-        if (v32)
+        v33 = [allKeys countByEnumeratingWithState:&v42 objects:v37 count:16];
+        if (v33)
         {
-          v33 = v32;
-          v34 = *v38;
+          v34 = v33;
+          v35 = *v43;
           do
           {
-            for (k = 0; k != v33; ++k)
+            for (k = 0; k != v34; ++k)
             {
-              if (*v38 != v34)
+              if (*v43 != v35)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              [a2 objectForKeyedSubscript:*(*(&v37 + 1) + 8 * k)];
+              [a2 objectForKeyedSubscript:*(*(&v42 + 1) + 8 * k)];
               [OUTLINED_FUNCTION_17() setObject:? forKeyedSubscript:?];
             }
 
-            v33 = [allKeys countByEnumeratingWithState:&v37 objects:v36 count:16];
+            v34 = [allKeys countByEnumeratingWithState:&v42 objects:v37 count:16];
           }
 
-          while (v33);
+          while (v34);
         }
       }
 
-      v5[6] = [v7 copy];
+      v6[6] = [v8 copy];
     }
 
-    return v51[0];
+    return v56[0];
   }
 
   return result;
@@ -521,36 +518,36 @@ LABEL_26:
   if (!self->_readOnly)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v106 = 0u;
-    v107 = 0u;
-    v108 = 0u;
     v109 = 0u;
-    v16 = OUTLINED_FUNCTION_3_25(dictionary, v9, v10, v11, v12, v13, v14, v15, v42, v44, v46, v48, v50, v52, v54, v56, v58, v4, v61, v63, v65, v67, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, *(&v85 + 1), v86, *(&v86 + 1), v87, *(&v87 + 1), v88, *(&v88 + 1), v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105);
+    v110 = 0u;
+    v111 = 0u;
+    v112 = 0u;
+    v16 = OUTLINED_FUNCTION_3_25(dictionary, v9, v10, v11, v12, v13, v14, v15, v45, v47, v49, v51, v53, v55, v57, v59, v61, v4, v64, v66, v68, v70, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, *(&v88 + 1), v89, *(&v89 + 1), v90, *(&v90 + 1), v91, *(&v91 + 1), v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108);
     if (v16)
     {
       v24 = v16;
-      v25 = *v107;
+      v25 = *v110;
       do
       {
         v26 = 0;
         do
         {
-          if (*v107 != v25)
+          if (*v110 != v25)
           {
             objc_enumerationMutation(streams);
           }
 
-          v27 = *(*(&v106 + 1) + 8 * v26);
+          v27 = *(*(&v109 + 1) + 8 * v26);
           if (v27 != stream)
           {
-            v16 = [dictionary setObject:-[BWFigVideoCaptureSynchronizedStreamsGroup _slaveConfigurationForStream:](self forKeyedSubscript:{*(*(&v106 + 1) + 8 * v26)), objc_msgSend(v27, "portType")}];
+            v16 = [dictionary setObject:-[BWFigVideoCaptureSynchronizedStreamsGroup _slaveConfigurationForStream:](self forKeyedSubscript:{*(*(&v109 + 1) + 8 * v26)), objc_msgSend(v27, "portType")}];
           }
 
           ++v26;
         }
 
         while (v24 != v26);
-        v16 = OUTLINED_FUNCTION_3_25(v16, v17, v18, v19, v20, v21, v22, v23, v43, v45, v47, v49, v51, v53, v55, v57, v59, v60, v62, v64, v66, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, *(&v85 + 1), v86, *(&v86 + 1), v87, *(&v87 + 1), v88, *(&v88 + 1), v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105);
+        v16 = OUTLINED_FUNCTION_3_25(v16, v17, v18, v19, v20, v21, v22, v23, v46, v48, v50, v52, v54, v56, v58, v60, v62, v63, v65, v67, v69, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, *(&v88 + 1), v89, *(&v89 + 1), v90, *(&v90 + 1), v91, *(&v91 + 1), v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108);
         v24 = v16;
       }
 
@@ -564,8 +561,8 @@ LABEL_26:
 
     if (dword_1EB58E180)
     {
-      HIDWORD(v90) = 0;
-      BYTE3(v90) = 0;
+      HIDWORD(v93) = 0;
+      BYTE3(v93) = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -579,8 +576,7 @@ LABEL_26:
       {
         v30 = v29;
         OUTLINED_FUNCTION_1_5();
-LABEL_32:
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46);
         return v30;
       }
 
@@ -594,27 +590,27 @@ LABEL_29:
 
     streamsCopy = streams;
     v32 = dictionary;
-    v87 = 0u;
+    v90 = 0u;
+    v91 = 0u;
     v88 = 0u;
-    v85 = 0u;
-    v86 = 0u;
+    v89 = 0u;
     v33 = streamsCopy;
-    v34 = [streamsCopy countByEnumeratingWithState:&v85 objects:&v69 count:16];
+    v34 = [streamsCopy countByEnumeratingWithState:&v88 objects:&v72 count:16];
     if (v34)
     {
       v36 = v34;
-      v37 = *v86;
+      v37 = *v89;
       v38 = *off_1E798C1D0;
 LABEL_20:
       v39 = 0;
       while (1)
       {
-        if (*v86 != v37)
+        if (*v89 != v37)
         {
           objc_enumerationMutation(v33);
         }
 
-        v40 = *(*(&v85 + 1) + 8 * v39);
+        v40 = *(*(&v88 + 1) + 8 * v39);
         if (v40 != stream)
         {
           v34 = [objc_msgSend(v40 "stream")];
@@ -626,7 +622,7 @@ LABEL_20:
 
         if (v36 == ++v39)
         {
-          v34 = OUTLINED_FUNCTION_1_0(v34, v35, &v85, &v69);
+          v34 = OUTLINED_FUNCTION_1_0(v34, v35, &v88, &v72);
           v36 = v34;
           if (v34)
           {
@@ -657,15 +653,17 @@ LABEL_27:
 
     v30 = v34;
     OUTLINED_FUNCTION_1_5();
-    goto LABEL_32;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46);
+    return v30;
   }
 
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v49, v51, v53, v55, v57, v59);
+  v44 = qword_1EB58E178;
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v44, 0xFFFFCE12, "<<<< BWFigVideoCaptureSynchronizedStreamsGroup >>>>", 0xC3, v4, v42, v43, v114);
 }
 
-- (uint64_t)_slaveConfigurationForStream:(uint64_t)result
+- (void)_slaveConfigurationForStream:(void *)result
 {
   if (result)
   {
@@ -701,23 +699,33 @@ LABEL_27:
     return 0;
   }
 
-  if (self->_readOnly || !self->_masterConfigurationSupported)
+  if (self->_readOnly)
   {
-
-    return FigSignalErrorAtGM();
+    v9 = qword_1EB58E178;
+    v10 = v5;
+    v11 = 246;
   }
 
   else
   {
-    result = -[BWFigCaptureSynchronizedStreamsGroup setCameraControlsMasterStream:](self->_synchronizedStreamsGroup, "setCameraControlsMasterStream:", [stream stream]);
-    if (!result)
+    if (self->_masterConfigurationSupported)
     {
-      self->_cameraControlsStatisticsMasterStream = stream;
-      self->_statsMasterHasBeenSet = 1;
+      result = -[BWFigCaptureSynchronizedStreamsGroup setCameraControlsMasterStream:](self->_synchronizedStreamsGroup, "setCameraControlsMasterStream:", [stream stream]);
+      if (!result)
+      {
+        self->_cameraControlsStatisticsMasterStream = stream;
+        self->_statsMasterHasBeenSet = 1;
+      }
+
+      return result;
     }
+
+    v9 = qword_1EB58E178;
+    v10 = v5;
+    v11 = 247;
   }
 
-  return result;
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFFCE12, "<<<< BWFigVideoCaptureSynchronizedStreamsGroup >>>>", v11, v10, v3, v4, v13);
 }
 
 - (uint64_t)_worldPortType
@@ -782,13 +790,6 @@ LABEL_27:
   FigCapturePleaseFileRadar(FrameworkRadarComponent, v10, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Utilities/BWFigVideoCaptureSynchronizedStreamsGroup.m", 402, @"LastShownDate:BWFigVideoCaptureSynchronizedStreamsGroup.m:402", @"LastShownBuild:BWFigVideoCaptureSynchronizedStreamsGroup.m:402", 0);
   free(v10);
   return *off_1E798A0E0;
-}
-
-- (uint64_t)initWithSynchronizedStreamsGroup:(_DWORD *)a1 activeStreams:readOnly:baseZoomFactorOverrides:clientBaseZoomFactorsByPortType:error:.cold.5(_DWORD *a1)
-{
-  result = FigDebugAssert3();
-  *a1 = -12782;
-  return result;
 }
 
 @end

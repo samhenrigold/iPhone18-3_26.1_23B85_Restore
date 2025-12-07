@@ -37,6 +37,7 @@
 - (id)crl_nameByConvertingFirstNameToInitials;
 - (id)crl_parseBaseTitleWithLocalizedCopyString:(id)string firstCopyFormatString:(id)formatString generalCopyFormatString:(id)copyFormatString outNumber:(unint64_t *)number;
 - (id)crl_pathExceptPrivate;
+- (id)crl_regexForTitleParsingWithLocalizedCopyString:(id)string isFirstCopyFormatString:(BOOL)formatString;
 - (id)crl_setOfContainedWordsIncludingPunctuationAndSymbols:(BOOL)symbols;
 - (id)crl_stringByAppendingSeparator:(id)separator format:(id)format;
 - (id)crl_stringByApplyingSubstitutions:(id)substitutions;
@@ -177,7 +178,7 @@
 void __59__NSString_CRLApplicationAdditions__crl_initialsWithLimit___block_invoke(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   v9 = a1[4];
-  v10 = [a2 substringToIndex:1];
+  v10 = [a2 substringToIndex:{1, a4, a5, a6}];
   [v9 appendString:v10];
 
   ++*(*(a1[5] + 8) + 24);
@@ -1753,10 +1754,10 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([(NSString *)self isEqualToString:@"\\\\""])
+  if ([(NSString *)self isEqualToString:@"\\\"])
   {
-    v8 = [@"\\"" stringByAppendingPathExtension:extensionCopy];
-    v9 = [@"\\"" stringByAppendingString:v8];
+    v8 = [@"\" stringByAppendingPathExtension:extensionCopy];
+    v9 = [@"\" stringByAppendingString:v8];
   }
 
   else
@@ -2246,6 +2247,74 @@ void __64__NSString_CRLAdditions__crl_stringWithNormalizedQuotationMarks__block_
   return i;
 }
 
+- (id)crl_regexForTitleParsingWithLocalizedCopyString:(id)string isFirstCopyFormatString:(BOOL)formatString
+{
+  formatStringCopy = formatString;
+  stringCopy = string;
+  if ([(NSString *)self crl_countInstancesOfString:@"%1$@" options:0]== &dword_0 + 1 && [(NSString *)self crl_countInstancesOfString:@"%2$@" options:0]== &dword_0 + 1 && (formatStringCopy || [(NSString *)self crl_countInstancesOfString:@"%3$@" options:0]== &dword_0 + 1))
+  {
+    v7 = [NSRegularExpression escapedPatternForString:self];
+    v8 = [NSRegularExpression escapedPatternForString:@"%1$@"];
+    v18[0] = v8;
+    v19[0] = @"(.*)";
+    v9 = [NSRegularExpression escapedPatternForString:@"%2$@"];
+    v18[1] = v9;
+    v19[1] = stringCopy;
+    v10 = [NSRegularExpression escapedPatternForString:@"%3$@"];
+    v18[2] = v10;
+    v19[2] = @"(\\d+)";
+    v11 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:3];
+
+    v12 = [v7 crl_stringByApplyingSubstitutions:v11];
+    v13 = [NSRegularExpression regularExpressionWithPattern:v12 options:0 error:0];
+  }
+
+  else
+  {
+    v14 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+    if (CRLAssertCat_init_token != -1)
+    {
+      [NSString(CRLAdditions) crl_regexForTitleParsingWithLocalizedCopyString:isFirstCopyFormatString:];
+    }
+
+    v15 = CRLAssertCat_log_t;
+    if (os_log_type_enabled(CRLAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67110402;
+      v21 = v14;
+      v22 = 2082;
+      v23 = "[NSString(CRLAdditions) crl_regexForTitleParsingWithLocalizedCopyString:isFirstCopyFormatString:]";
+      v24 = 2082;
+      v25 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/NSString_CRLAdditions.m";
+      v26 = 1024;
+      v27 = 1148;
+      v28 = 2114;
+      selfCopy = self;
+      v30 = 1024;
+      v31 = formatStringCopy;
+      _os_log_error_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid format string: %{public}@, isFirstCopyFormatString: %d", buf, 0x32u);
+    }
+
+    if (CRLAssertCat_init_token != -1)
+    {
+      [NSString(CRLAdditions) crl_regexForTitleParsingWithLocalizedCopyString:isFirstCopyFormatString:];
+    }
+
+    v16 = CRLAssertCat_log_t;
+    if (os_log_type_enabled(CRLAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      [NSString(CRLAdditions) crl_stringByUniquingPathInsideDirectory:v16 withFormat:?];
+    }
+
+    v7 = [NSString stringWithUTF8String:"[NSString(CRLAdditions) crl_regexForTitleParsingWithLocalizedCopyString:isFirstCopyFormatString:]"];
+    v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/NSString_CRLAdditions.m"];
+    [CRLAssertionHandler handleFailureInFunction:v7 file:v11 lineNumber:1148 isFatal:0 description:"Invalid format string: %{public}@, isFirstCopyFormatString: %d", self, formatStringCopy];
+    v13 = 0;
+  }
+
+  return v13;
+}
+
 void __98__NSString_CRLAdditions__crl_regexForTitleParsingWithLocalizedCopyString_isFirstCopyFormatString___block_invoke(id a1)
 {
   CRLAssertCat_log_t = CRLLogCreateCategory("CRLAssertCat");
@@ -2557,7 +2626,7 @@ LABEL_31:
           }
 
           v10 = stringCopy;
-          v11 = @"\\"";
+          v11 = @"\";
         }
       }
 
@@ -2567,7 +2636,7 @@ LABEL_31:
         {
           case 0x5C:
             v10 = stringCopy;
-            v11 = @"\\\\"";
+            v11 = @"\\\";
             break;
           case 0x2028:
             v10 = stringCopy;
@@ -2602,7 +2671,7 @@ void __55__NSString_CRLAdditions__crl_appendJSONStringToString___block_invoke(id
   v2 = crl_appendJSONStringToString__escapeCharacters;
   crl_appendJSONStringToString__escapeCharacters = v1;
 
-  [crl_appendJSONStringToString__escapeCharacters addCharactersInString:@"\"\\""];
+  [crl_appendJSONStringToString__escapeCharacters addCharactersInString:@"\"];
   v4 = 539566120;
   v3 = [[NSString alloc] initWithCharacters:&v4 length:2];
   [crl_appendJSONStringToString__escapeCharacters addCharactersInString:v3];
@@ -2838,7 +2907,7 @@ LABEL_24:
   }
 
   v6 = v5;
-  __chkstk_darwin();
+  __chkstk_darwin(v5);
   v8 = (&v16 - ((v7 + 17) & 0xFFFFFFFFFFFFFFF0));
   [v4 getCharacters:v8 range:{0, v6}];
   v9 = 0;
@@ -3123,7 +3192,7 @@ void __47__NSString_CRLAdditions__crl_escapeForIcuRegex__block_invoke_cold_2()
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_0, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_5(&dword_0, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 @end

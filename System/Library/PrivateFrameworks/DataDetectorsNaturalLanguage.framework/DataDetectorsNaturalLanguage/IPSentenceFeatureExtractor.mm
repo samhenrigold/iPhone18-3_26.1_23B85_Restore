@@ -24,7 +24,7 @@
 
 - (id)featureSentencesFromText:(id)text dataDetectedFeatures:(id)features languageID:(id)d
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   textCopy = text;
   featuresCopy = features;
   dCopy = d;
@@ -37,45 +37,43 @@
 
   array = [MEMORY[0x277CBEB18] array];
   v13 = objc_alloc(MEMORY[0x277CCAAE8]);
-  v35[0] = *MEMORY[0x277CCA3D8];
-  v14 = v35[0];
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+  v34[0] = *MEMORY[0x277CCA3D8];
+  v14 = v34[0];
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
   v16 = [v13 initWithTagSchemes:v15 options:0];
 
   [v16 setString:textCopy];
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x3010000000;
-  v34[4] = 0;
-  v34[5] = 0;
-  v34[3] = &unk_24864EF5A;
   v33[0] = 0;
   v33[1] = v33;
-  v33[2] = 0x2020000000;
-  v33[3] = 0;
+  v33[2] = 0x3010000000;
+  v33[4] = 0;
+  v33[5] = 0;
+  v33[3] = &unk_24864EF5A;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x2020000000;
+  v32[3] = 0;
   v17 = [textCopy length];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __87__IPSentenceFeatureExtractor_featureSentencesFromText_dataDetectedFeatures_languageID___block_invoke;
-  v25[3] = &unk_278F232D0;
-  v31 = v34;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __87__IPSentenceFeatureExtractor_featureSentencesFromText_dataDetectedFeatures_languageID___block_invoke;
+  v24[3] = &unk_278F232D0;
+  v30 = v33;
   v18 = textCopy;
-  v26 = v18;
+  v25 = v18;
   v19 = dCopy;
-  v27 = v19;
+  v26 = v19;
   v20 = array;
-  v28 = v20;
-  v32 = v33;
+  v27 = v20;
+  v31 = v32;
   v21 = featuresCopy;
-  v29 = v21;
+  v28 = v21;
   selfCopy = self;
-  [v16 enumerateTagsInRange:0 scheme:v17 options:v14 usingBlock:{4, v25}];
+  [v16 enumerateTagsInRange:0 scheme:v17 options:v14 usingBlock:{4, v24}];
   v22 = v20;
 
+  _Block_object_dispose(v32, 8);
   _Block_object_dispose(v33, 8);
-  _Block_object_dispose(v34, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -213,15 +211,15 @@ void __114__IPSentenceFeatureExtractor_identifyAndStorePolarityInFeatureSentence
 
 - (id)eventIdentifierForLanguageID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = objc_opt_class();
   objc_sync_enter(v5);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __59__IPSentenceFeatureExtractor_eventIdentifierForLanguageID___block_invoke;
-  v22[3] = &unk_278F23370;
-  v22[4] = self;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __59__IPSentenceFeatureExtractor_eventIdentifierForLanguageID___block_invoke;
+  v23[3] = &unk_278F23370;
+  v23[4] = self;
   if (eventIdentifierForLanguageID__onceToken == -1)
   {
     if (dCopy)
@@ -232,7 +230,7 @@ void __114__IPSentenceFeatureExtractor_identifyAndStorePolarityInFeatureSentence
 
   else
   {
-    dispatch_once(&eventIdentifierForLanguageID__onceToken, v22);
+    dispatch_once(&eventIdentifierForLanguageID__onceToken, v23);
     if (dCopy)
     {
 LABEL_3:
@@ -266,34 +264,34 @@ LABEL_15:
 
         if (v12)
         {
-          v13 = _IPLogHandle;
+          v15 = _IPLogHandle;
           if (!_IPLogHandle)
           {
-            IPInitLogging();
-            v13 = _IPLogHandle;
+            IPInitLogging(v13, v14);
+            v15 = _IPLogHandle;
           }
 
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v24 = dCopy;
-            _os_log_impl(&dword_2485E4000, v13, OS_LOG_TYPE_ERROR, "%{public}@ is supposed to be a supported language but we have failed to load the corresponding ResponseKit model. This usually means that the corresponding LinguisticData assets have not been downloaded #Generic", buf, 0xCu);
+            v25 = dCopy;
+            _os_log_impl(&dword_2485E4000, v15, OS_LOG_TYPE_ERROR, "%{public}@ is supposed to be a supported language but we have failed to load the corresponding ResponseKit model. This usually means that the corresponding LinguisticData assets have not been downloaded #Generic", buf, 0xCu);
           }
         }
 
-        v14 = eventIdentifierForLanguageID__sResponseKitEventIdentifierPerLanguageID;
+        v16 = eventIdentifierForLanguageID__sResponseKitEventIdentifierPerLanguageID;
         null2 = [MEMORY[0x277CBEB68] null];
-        [v14 setObject:null2 forKey:dCopy];
+        [v16 setObject:null2 forKey:dCopy];
 
-        v16 = dispatch_time(0, 43200000000000);
-        v17 = dispatch_get_global_queue(0, 0);
+        v18 = dispatch_time(0, 43200000000000);
+        v19 = dispatch_get_global_queue(0, 0);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __59__IPSentenceFeatureExtractor_eventIdentifierForLanguageID___block_invoke_60;
         block[3] = &unk_278F22D30;
         block[4] = self;
-        v21 = dCopy;
-        dispatch_after(v16, v17, block);
+        v22 = dCopy;
+        dispatch_after(v18, v19, block);
       }
 
       v9 = 0;
@@ -304,8 +302,6 @@ LABEL_15:
   v9 = 0;
 LABEL_18:
   objc_sync_exit(v5);
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -334,41 +330,38 @@ void __59__IPSentenceFeatureExtractor_eventIdentifierForLanguageID___block_invok
   v6 = [v5 addObserverForName:@"IPScannerResetSharedCachesAndModelsNotification" object:0 queue:0 usingBlock:v7];
 }
 
-void __59__IPSentenceFeatureExtractor_eventIdentifierForLanguageID___block_invoke_2(uint64_t a1)
+void __59__IPSentenceFeatureExtractor_eventIdentifierForLanguageID___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v2 = _IPLogHandle;
   if (!_IPLogHandle)
   {
-    IPInitLogging();
+    IPInitLogging(a1, a2);
     v2 = _IPLogHandle;
   }
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_2485E4000, v2, OS_LOG_TYPE_INFO, "Received new asset installation notification #Generic", v5, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_2485E4000, v2, OS_LOG_TYPE_INFO, "Received new asset installation notification #Generic", v4, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  objc_sync_enter(v4);
+  v3 = objc_opt_class();
+  objc_sync_enter(v3);
   [eventIdentifierForLanguageID__sResponseKitEventIdentifierPerLanguageID removeAllObjects];
-  objc_sync_exit(v4);
+  objc_sync_exit(v3);
 }
 
 void __59__IPSentenceFeatureExtractor_eventIdentifierForLanguageID___block_invoke_36(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  objc_sync_enter(v4);
+  v3 = a2;
+  v2 = objc_opt_class();
+  objc_sync_enter(v2);
   [eventIdentifierForLanguageID__sResponseKitEventIdentifierPerLanguageID removeAllObjects];
-  objc_sync_exit(v4);
+  objc_sync_exit(v2);
 }
 
 void __59__IPSentenceFeatureExtractor_eventIdentifierForLanguageID___block_invoke_60(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   obj = objc_opt_class();
   objc_sync_enter(obj);
   [eventIdentifierForLanguageID__sResponseKitEventIdentifierPerLanguageID removeObjectForKey:*(a1 + 40)];

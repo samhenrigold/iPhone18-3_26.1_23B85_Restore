@@ -46,74 +46,75 @@
 - (id)contextForKey:(id)key contextUUID:(id *)d error:(id *)error
 {
   keyCopy = key;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = sub_10000AA94;
-  v36 = sub_100002B14;
-  v37 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_10000AA94;
+  v37 = sub_100002B14;
+  v38 = 0;
   if (keyCopy)
   {
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = sub_10000AA94;
+    v31 = sub_100002B14;
+    v32 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = sub_10000AA94;
+    v25 = sub_100002B14;
     v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = sub_10000AA94;
-    v30 = sub_100002B14;
-    v31 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = sub_10000AA94;
-    v24 = sub_100002B14;
-    v25 = 0;
     protectedContextLock = [(FMDProtectedContextManager *)self protectedContextLock];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100190F78;
-    v15[3] = &unk_1002D0190;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100190F78;
+    v16[3] = &unk_1002D0190;
     v10 = keyCopy;
-    v16 = v10;
-    v17 = &v20;
-    v18 = &v32;
-    v19 = &v26;
-    [protectedContextLock performWithReadLock:v15];
+    v17 = v10;
+    v18 = &v21;
+    v19 = &v33;
+    v20 = &v27;
+    [protectedContextLock performWithReadLock:v16];
 
     if (error)
     {
-      *error = v27[5];
+      v11 = v28[5];
+      *error = v11;
     }
 
-    if (v27[5] || !v33[5])
+    if (v28[5] || !v34[5])
     {
-      v11 = sub_100002880();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100002880(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v39 = v10;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "There was a file read error while getting the protected context %@.", buf, 0xCu);
+        v40 = v10;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "There was a file read error while getting the protected context %@.", buf, 0xCu);
       }
     }
 
     else if (d)
     {
-      *d = v21[5];
+      *d = v22[5];
     }
 
-    _Block_object_dispose(&v20, 8);
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v27, 8);
 
-    v12 = v33[5];
+    v13 = v34[5];
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v13 = v12;
-  _Block_object_dispose(&v32, 8);
+  v14 = v13;
+  _Block_object_dispose(&v33, 8);
 
-  return v13;
+  return v14;
 }
 
 - (id)saveContext:(id)context forContextKey:(id)key dataProtectionClass:(int64_t)class
@@ -240,7 +241,7 @@
 
 - (BOOL)_startCleaningEmptyFolders
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -294,61 +295,61 @@
   typeCopy = type;
   v7 = +[NSMutableArray array];
   v8 = CFPreferencesCopyKeyList(kFMDNotBackedUpPrefDomain, kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
+  v9 = v8;
   if (v8)
   {
-    [v7 addObjectsFromArray:v8];
+    v8 = [v7 addObjectsFromArray:v8];
   }
 
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002880(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v29 = v7;
-    v30 = 2048;
+    v30 = v7;
+    v31 = 2048;
     optionCopy2 = option;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FMDProtectedContextManager obtaining list of context keys %@ with Type:%lu", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDProtectedContextManager obtaining list of context keys %@ with Type:%lu", buf, 0x16u);
   }
 
-  v10 = +[FMDProtectedContext rootDirectoryURL];
-  v11 = [(FMDProtectedContextManager *)self _directoryNamesWithURL:v10 enumerationOption:option];
-  v12 = sub_100002880();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = +[FMDProtectedContext rootDirectoryURL];
+  v12 = [(FMDProtectedContextManager *)self _directoryNamesWithURL:v11 enumerationOption:option];
+  v13 = sub_100002880(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v29 = v11;
-    v30 = 2048;
+    v30 = v12;
+    v31 = 2048;
     optionCopy2 = option;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMDProtectedContextManager obtaining list directories on disk %@ with Type:%lu", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "FMDProtectedContextManager obtaining list directories on disk %@ with Type:%lu", buf, 0x16u);
   }
 
-  allObjects = [v11 allObjects];
+  allObjects = [v12 allObjects];
   [v7 addObjectsFromArray:allObjects];
 
-  v14 = +[NSMutableSet set];
-  v22 = _NSConcreteStackBlock;
-  v23 = 3221225472;
-  v24 = sub_1001920C8;
-  v25 = &unk_1002CF2D8;
-  v15 = typeCopy;
-  v26 = v15;
-  v16 = v14;
+  v15 = +[NSMutableSet set];
+  v23 = _NSConcreteStackBlock;
+  v24 = 3221225472;
+  v25 = sub_1001920C8;
+  v26 = &unk_1002CF2D8;
+  v16 = typeCopy;
   v27 = v16;
-  [v7 enumerateObjectsUsingBlock:&v22];
-  v17 = sub_100002880();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v17 = v15;
+  v28 = v17;
+  v18 = sub_100002880([v7 enumerateObjectsUsingBlock:&v23]);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = [v16 count];
+    v19 = [v17 count];
     *buf = 134218242;
-    v29 = v18;
-    v30 = 2112;
-    optionCopy2 = v15;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDProtectedContextManager %lu context keys for Type %@", buf, 0x16u);
+    v30 = v19;
+    v31 = 2112;
+    optionCopy2 = v16;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "FMDProtectedContextManager %lu context keys for Type %@", buf, 0x16u);
   }
 
-  v19 = v27;
-  v20 = v16;
+  v20 = v28;
+  v21 = v17;
 
-  return v16;
+  return v17;
 }
 
 - (id)_directoryNamesWithURL:(id)l enumerationOption:(unint64_t)option

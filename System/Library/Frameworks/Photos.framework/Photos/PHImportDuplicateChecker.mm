@@ -1579,9 +1579,12 @@ void __53__PHImportDuplicateChecker__updateAssetsFromDupInfos__block_invoke_2(ui
 
 uint64_t __68__PHImportDuplicateChecker__fetchAssetInfoFromLibrary_forFileSizes___block_invoke_152(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) executeFetchRequest:*(a1 + 40) error:0];
+  v2 = [*(a1 + 32) executeFetchRequest:*(a1 + 40) error:0];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 void __68__PHImportDuplicateChecker__fetchAssetInfoFromLibrary_forFileSizes___block_invoke()

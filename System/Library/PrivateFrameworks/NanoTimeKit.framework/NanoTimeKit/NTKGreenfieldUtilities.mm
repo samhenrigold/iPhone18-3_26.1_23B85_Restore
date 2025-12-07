@@ -1644,13 +1644,13 @@ void __50__NTKGreenfieldUtilities__decodeFaceFromDataPath___block_invoke_236(uin
   dispatch_async(encodeQueue, block);
 }
 
-void __74__NTKGreenfieldUtilities_generateFacePreviewImageFromUrl_completionBlock___block_invoke(uint64_t a1)
+void __74__NTKGreenfieldUtilities_generateFacePreviewImageFromUrl_completionBlock___block_invoke(void *a1)
 {
   v7[1] = *MEMORY[0x277D85DE8];
-  v2 = [objc_opt_class() _queue_greenfieldPreviewFromUrl:*(a1 + 32)];
+  v2 = [objc_opt_class() _queue_greenfieldPreviewFromUrl:a1[4]];
   if (v2)
   {
-    (*(*(a1 + 40) + 16))();
+    (*(a1[5] + 16))();
   }
 
   else
@@ -1661,7 +1661,7 @@ void __74__NTKGreenfieldUtilities_generateFacePreviewImageFromUrl_completionBloc
     v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     v5 = [v3 errorWithDomain:@"com.apple.nanotimekit" code:-1 userInfo:v4];
 
-    (*(*(a1 + 40) + 16))();
+    (*(a1[5] + 16))();
   }
 }
 
@@ -2344,14 +2344,14 @@ void __65__NTKGreenfieldUtilities_decodeWatchFaceFromUrl_completionBlock___block
 {
   v1 = [OUTLINED_FUNCTION_4_1(a1) localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_3(&dword_22D9C5000, v2, v3, "proxy had an error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_22D9C5000, v2, v3, "proxy had an error: %@", v4, v5, v6, v7);
 }
 
 void __65__NTKGreenfieldUtilities_decodeWatchFaceFromUrl_completionBlock___block_invoke_154_cold_2(uint64_t a1)
 {
   v1 = [OUTLINED_FUNCTION_4_1(a1) localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_3(&dword_22D9C5000, v2, v3, "unzipWatchfaceFromURL path is nil, error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_22D9C5000, v2, v3, "unzipWatchfaceFromURL path is nil, error: %@", v4, v5, v6, v7);
 }
 
 void __65__NTKGreenfieldUtilities_decodeWatchFaceFromUrl_completionBlock___block_invoke_154_cold_3()
@@ -2386,7 +2386,7 @@ void __65__NTKGreenfieldUtilities_decodeWatchFaceFromUrl_completionBlock___block
 {
   v2 = NSStringFromCGSize(*&a1);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_3(&dword_22D9C5000, v3, v4, "cannot add border to watch face image with invalid size %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_3(&dword_22D9C5000, v3, v4, "cannot add border to watch face image with invalid size %@", v5, v6, v7, v8);
 }
 
 void __85__NTKGreenfieldUtilities__updateSystemDeletableAppItemIdForSlotToItemIdMapping_face___block_invoke_279_cold_1()

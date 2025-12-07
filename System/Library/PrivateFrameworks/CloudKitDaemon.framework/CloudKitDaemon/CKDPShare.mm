@@ -371,7 +371,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
   shareId = self->_shareId;
   if (shareId)
@@ -421,30 +421,30 @@
     v20 = objc_alloc(MEMORY[0x277CBEB18]);
     v23 = objc_msgSend_count(self->_participants, v21, v22);
     v25 = objc_msgSend_initWithCapacity_(v20, v24, v23);
+    v94 = 0u;
     v95 = 0u;
     v96 = 0u;
     v97 = 0u;
-    v98 = 0u;
     v26 = self->_participants;
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v95, v100, 16);
+    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v94, v99, 16);
     if (v28)
     {
       v31 = v28;
-      v32 = *v96;
+      v32 = *v95;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v96 != v32)
+          if (*v95 != v32)
           {
             objc_enumerationMutation(v26);
           }
 
-          v34 = objc_msgSend_dictionaryRepresentation(*(*(&v95 + 1) + 8 * i), v29, v30);
+          v34 = objc_msgSend_dictionaryRepresentation(*(*(&v94 + 1) + 8 * i), v29, v30);
           objc_msgSend_addObject_(v25, v35, v34);
         }
 
-        v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v95, v100, 16);
+        v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v94, v99, 16);
       }
 
       while (v31);
@@ -464,30 +464,30 @@
     v39 = objc_alloc(MEMORY[0x277CBEB18]);
     v42 = objc_msgSend_count(self->_potentialMatchs, v40, v41);
     v44 = objc_msgSend_initWithCapacity_(v39, v43, v42);
+    v90 = 0u;
     v91 = 0u;
     v92 = 0u;
     v93 = 0u;
-    v94 = 0u;
     v45 = self->_potentialMatchs;
-    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v91, v99, 16);
+    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v90, v98, 16);
     if (v47)
     {
       v50 = v47;
-      v51 = *v92;
+      v51 = *v91;
       do
       {
         for (j = 0; j != v50; ++j)
         {
-          if (*v92 != v51)
+          if (*v91 != v51)
           {
             objc_enumerationMutation(v45);
           }
 
-          v53 = objc_msgSend_dictionaryRepresentation(*(*(&v91 + 1) + 8 * j), v48, v49);
+          v53 = objc_msgSend_dictionaryRepresentation(*(*(&v90 + 1) + 8 * j), v48, v49);
           objc_msgSend_addObject_(v44, v54, v53);
         }
 
-        v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v48, &v91, v99, 16);
+        v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v48, &v90, v98, 16);
       }
 
       while (v50);
@@ -526,18 +526,18 @@
   v63 = self->_has;
   if ((v63 & 4) != 0)
   {
-    v87 = self->_publisherModelType - 1;
-    if (v87 >= 4)
+    v86 = self->_publisherModelType - 1;
+    if (v86 >= 4)
     {
-      v88 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v38, @"(unknown: %i)", self->_publisherModelType);
+      v87 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v38, @"(unknown: %i)", self->_publisherModelType);
     }
 
     else
     {
-      v88 = off_27854CC68[v87];
+      v87 = off_27854CC68[v86];
     }
 
-    objc_msgSend_setObject_forKey_(v6, v38, v88, @"publisherModelType");
+    objc_msgSend_setObject_forKey_(v6, v38, v87, @"publisherModelType");
 
     v63 = self->_has;
     if ((v63 & 1) == 0)
@@ -557,18 +557,18 @@ LABEL_44:
     goto LABEL_44;
   }
 
-  v89 = self->_participantSelfRemovalBehavior - 1;
-  if (v89 >= 3)
+  v88 = self->_participantSelfRemovalBehavior - 1;
+  if (v88 >= 3)
   {
-    v90 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v38, @"(unknown: %i)", self->_participantSelfRemovalBehavior);
+    v89 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v38, @"(unknown: %i)", self->_participantSelfRemovalBehavior);
   }
 
   else
   {
-    v90 = off_27854CC88[v89];
+    v89 = off_27854CC88[v88];
   }
 
-  objc_msgSend_setObject_forKey_(v6, v38, v90, @"participantSelfRemovalBehavior");
+  objc_msgSend_setObject_forKey_(v6, v38, v89, @"participantSelfRemovalBehavior");
 
   if ((*&self->_has & 0x20) != 0)
   {
@@ -631,14 +631,12 @@ LABEL_46:
     objc_msgSend_setObject_forKey_(v6, v38, origin, @"origin");
   }
 
-  v85 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)writeTo:(id)to
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_shareId)
   {
@@ -652,7 +650,6 @@ LABEL_46:
 
   if ((*&self->_has & 2) != 0)
   {
-    publicAccess = self->_publicAccess;
     PBDataWriterWriteInt32Field();
   }
 
@@ -666,33 +663,32 @@ LABEL_46:
     PBDataWriterWriteSubmessage();
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v6 = self->_participants;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v47, v53, 16);
-  if (v8)
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v5 = self->_participants;
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v36, v42, 16);
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v48;
+    v8 = v7;
+    v9 = *v37;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v48 != v10)
+        if (*v37 != v9)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v47 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v13, &v47, v53, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v36, v42, 16);
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_shortTokenRoutingKey)
@@ -700,75 +696,71 @@ LABEL_46:
     PBDataWriterWriteStringField();
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v14 = self->_potentialMatchs;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v43, v52, 16);
-  if (v16)
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v12 = self->_potentialMatchs;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v32, v41, 16);
+  if (v14)
   {
-    v17 = v16;
-    v18 = *v44;
+    v15 = v14;
+    v16 = *v33;
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v15; ++j)
       {
-        if (*v44 != v18)
+        if (*v33 != v16)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v12);
         }
 
-        v20 = *(*(&v43 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v21, &v43, v52, 16);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v18, &v32, v41, 16);
     }
 
-    while (v17);
+    while (v15);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v22 = self->_invitedKeyToRemoves;
-  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v39, v51, 16);
-  if (v24)
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v19 = self->_invitedKeyToRemoves;
+  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v28, v40, 16);
+  if (v21)
   {
-    v25 = v24;
-    v26 = *v40;
+    v22 = v21;
+    v23 = *v29;
     do
     {
-      for (k = 0; k != v25; ++k)
+      for (k = 0; k != v22; ++k)
       {
-        if (*v40 != v26)
+        if (*v29 != v23)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v19);
         }
 
-        v28 = *(*(&v39 + 1) + 8 * k);
         PBDataWriterWriteDataField();
       }
 
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v29, &v39, v51, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v25, &v28, v40, 16);
     }
 
-    while (v25);
+    while (v22);
   }
 
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    publisherModel = self->_publisherModel;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    anonymousPublicAccess = self->_anonymousPublicAccess;
     PBDataWriterWriteBOOLField();
   }
 
@@ -777,16 +769,15 @@ LABEL_46:
     PBDataWriterWriteStringField();
   }
 
-  v33 = self->_has;
-  if ((v33 & 4) != 0)
+  v27 = self->_has;
+  if ((v27 & 4) != 0)
   {
-    publisherModelType = self->_publisherModelType;
     PBDataWriterWriteInt32Field();
-    v33 = self->_has;
-    if ((v33 & 1) == 0)
+    v27 = self->_has;
+    if ((v27 & 1) == 0)
     {
 LABEL_42:
-      if ((v33 & 0x20) == 0)
+      if ((v27 & 0x20) == 0)
       {
         goto LABEL_44;
       }
@@ -800,12 +791,10 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  participantSelfRemovalBehavior = self->_participantSelfRemovalBehavior;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_43:
-    denyAccessRequests = self->_denyAccessRequests;
     PBDataWriterWriteBOOLField();
   }
 
@@ -827,7 +816,6 @@ LABEL_44:
 
   if ((*&self->_has & 8) != 0)
   {
-    allowAnyoneToResolveShare = self->_allowAnyoneToResolveShare;
     PBDataWriterWriteBOOLField();
   }
 
@@ -850,8 +838,6 @@ LABEL_44:
   {
     PBDataWriterWriteStringField();
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -1054,7 +1040,7 @@ LABEL_35:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -1080,30 +1066,30 @@ LABEL_35:
   v22 = *(v10 + 112);
   *(v10 + 112) = v21;
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
   v23 = self->_participants;
-  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v89, v95, 16);
+  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v88, v94, 16);
   if (v25)
   {
     v27 = v25;
-    v28 = *v90;
+    v28 = *v89;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v90 != v28)
+        if (*v89 != v28)
         {
           objc_enumerationMutation(v23);
         }
 
-        v30 = objc_msgSend_copyWithZone_(*(*(&v89 + 1) + 8 * i), v26, zone);
+        v30 = objc_msgSend_copyWithZone_(*(*(&v88 + 1) + 8 * i), v26, zone);
         objc_msgSend_addParticipant_(v10, v31, v30);
       }
 
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v89, v95, 16);
+      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v88, v94, 16);
     }
 
     while (v27);
@@ -1113,59 +1099,59 @@ LABEL_35:
   v34 = *(v10 + 144);
   *(v10 + 144) = v33;
 
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
   v86 = 0u;
+  v87 = 0u;
+  v84 = 0u;
+  v85 = 0u;
   v35 = self->_potentialMatchs;
-  v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v85, v94, 16);
+  v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v84, v93, 16);
   if (v37)
   {
     v39 = v37;
-    v40 = *v86;
+    v40 = *v85;
     do
     {
       for (j = 0; j != v39; ++j)
       {
-        if (*v86 != v40)
+        if (*v85 != v40)
         {
           objc_enumerationMutation(v35);
         }
 
-        v42 = objc_msgSend_copyWithZone_(*(*(&v85 + 1) + 8 * j), v38, zone);
+        v42 = objc_msgSend_copyWithZone_(*(*(&v84 + 1) + 8 * j), v38, zone);
         objc_msgSend_addPotentialMatch_(v10, v43, v42);
       }
 
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v38, &v85, v94, 16);
+      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v38, &v84, v93, 16);
     }
 
     while (v39);
   }
 
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
   v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   v44 = self->_invitedKeyToRemoves;
-  v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v44, v45, &v81, v93, 16);
+  v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v44, v45, &v80, v92, 16);
   if (v46)
   {
     v48 = v46;
-    v49 = *v82;
+    v49 = *v81;
     do
     {
       for (k = 0; k != v48; ++k)
       {
-        if (*v82 != v49)
+        if (*v81 != v49)
         {
           objc_enumerationMutation(v44);
         }
 
-        v51 = objc_msgSend_copyWithZone_(*(*(&v81 + 1) + 8 * k), v47, zone, v81);
+        v51 = objc_msgSend_copyWithZone_(*(*(&v80 + 1) + 8 * k), v47, zone, v80);
         objc_msgSend_addInvitedKeyToRemove_(v10, v52, v51);
       }
 
-      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v44, v47, &v81, v93, 16);
+      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v44, v47, &v80, v92, 16);
     }
 
     while (v48);
@@ -1185,7 +1171,7 @@ LABEL_35:
     *(v10 + 156) |= 0x10u;
   }
 
-  v55 = objc_msgSend_copyWithZone_(self->_displayedHostname, v53, zone, v81);
+  v55 = objc_msgSend_copyWithZone_(self->_displayedHostname, v53, zone, v80);
   v56 = *(v10 + 24);
   *(v10 + 24) = v55;
 
@@ -1256,7 +1242,6 @@ LABEL_32:
   v78 = *(v10 + 64);
   *(v10 + 64) = v77;
 
-  v79 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1289,7 +1274,6 @@ LABEL_32:
     }
   }
 
-  v12 = *(equalCopy + 156);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 156) & 2) == 0 || self->_publicAccess != *(equalCopy + 24))
@@ -1304,64 +1288,64 @@ LABEL_32:
   }
 
   invitedPcs = self->_invitedPcs;
-  v14 = equalCopy[6];
-  if (invitedPcs | v14 && !objc_msgSend_isEqual_(invitedPcs, v7, v14))
+  v13 = equalCopy[6];
+  if (invitedPcs | v13 && !objc_msgSend_isEqual_(invitedPcs, v7, v13))
   {
     goto LABEL_71;
   }
 
   selfAddedPcs = self->_selfAddedPcs;
-  v16 = equalCopy[14];
-  if (selfAddedPcs | v16)
+  v15 = equalCopy[14];
+  if (selfAddedPcs | v15)
   {
-    if (!objc_msgSend_isEqual_(selfAddedPcs, v7, v16))
+    if (!objc_msgSend_isEqual_(selfAddedPcs, v7, v15))
     {
       goto LABEL_71;
     }
   }
 
   participants = self->_participants;
-  v18 = equalCopy[10];
-  if (participants | v18)
+  v17 = equalCopy[10];
+  if (participants | v17)
   {
-    if (!objc_msgSend_isEqual_(participants, v7, v18))
+    if (!objc_msgSend_isEqual_(participants, v7, v17))
     {
       goto LABEL_71;
     }
   }
 
   shortTokenRoutingKey = self->_shortTokenRoutingKey;
-  v20 = equalCopy[18];
-  if (shortTokenRoutingKey | v20)
+  v19 = equalCopy[18];
+  if (shortTokenRoutingKey | v19)
   {
-    if (!objc_msgSend_isEqual_(shortTokenRoutingKey, v7, v20))
+    if (!objc_msgSend_isEqual_(shortTokenRoutingKey, v7, v19))
     {
       goto LABEL_71;
     }
   }
 
   potentialMatchs = self->_potentialMatchs;
-  v22 = equalCopy[11];
-  if (potentialMatchs | v22)
+  v21 = equalCopy[11];
+  if (potentialMatchs | v21)
   {
-    if (!objc_msgSend_isEqual_(potentialMatchs, v7, v22))
+    if (!objc_msgSend_isEqual_(potentialMatchs, v7, v21))
     {
       goto LABEL_71;
     }
   }
 
   invitedKeyToRemoves = self->_invitedKeyToRemoves;
-  v24 = equalCopy[5];
-  if (invitedKeyToRemoves | v24)
+  v23 = equalCopy[5];
+  if (invitedKeyToRemoves | v23)
   {
-    if (!objc_msgSend_isEqual_(invitedKeyToRemoves, v7, v24))
+    if (!objc_msgSend_isEqual_(invitedKeyToRemoves, v7, v23))
     {
       goto LABEL_71;
     }
   }
 
   has = self->_has;
-  v26 = *(equalCopy + 156);
+  v25 = *(equalCopy + 156);
   if ((has & 0x40) != 0)
   {
     if ((*(equalCopy + 156) & 0x40) == 0)
@@ -1369,7 +1353,6 @@ LABEL_32:
       goto LABEL_71;
     }
 
-    v29 = *(equalCopy + 155);
     if (self->_publisherModel)
     {
       if ((*(equalCopy + 155) & 1) == 0)
@@ -1396,7 +1379,6 @@ LABEL_32:
       goto LABEL_71;
     }
 
-    v30 = *(equalCopy + 153);
     if (self->_anonymousPublicAccess)
     {
       if ((*(equalCopy + 153) & 1) == 0)
@@ -1417,52 +1399,51 @@ LABEL_32:
   }
 
   displayedHostname = self->_displayedHostname;
-  v28 = equalCopy[3];
-  if (displayedHostname | v28)
+  v27 = equalCopy[3];
+  if (displayedHostname | v27)
   {
-    if (!objc_msgSend_isEqual_(displayedHostname, v7, v28))
+    if (!objc_msgSend_isEqual_(displayedHostname, v7, v27))
     {
       goto LABEL_71;
     }
 
     has = self->_has;
-    v26 = *(equalCopy + 156);
+    v25 = *(equalCopy + 156);
   }
 
   if ((has & 4) != 0)
   {
-    if ((v26 & 4) == 0 || self->_publisherModelType != *(equalCopy + 25))
+    if ((v25 & 4) == 0 || self->_publisherModelType != *(equalCopy + 25))
     {
       goto LABEL_71;
     }
   }
 
-  else if ((v26 & 4) != 0)
+  else if ((v25 & 4) != 0)
   {
     goto LABEL_71;
   }
 
   if (has)
   {
-    if ((v26 & 1) == 0 || self->_participantSelfRemovalBehavior != *(equalCopy + 18))
+    if ((v25 & 1) == 0 || self->_participantSelfRemovalBehavior != *(equalCopy + 18))
     {
       goto LABEL_71;
     }
   }
 
-  else if (v26)
+  else if (v25)
   {
     goto LABEL_71;
   }
 
   if ((has & 0x20) != 0)
   {
-    if ((v26 & 0x20) == 0)
+    if ((v25 & 0x20) == 0)
     {
       goto LABEL_71;
     }
 
-    v48 = *(equalCopy + 154);
     if (self->_denyAccessRequests)
     {
       if ((*(equalCopy + 154) & 1) == 0)
@@ -1477,39 +1458,38 @@ LABEL_32:
     }
   }
 
-  else if ((v26 & 0x20) != 0)
+  else if ((v25 & 0x20) != 0)
   {
     goto LABEL_71;
   }
 
   requestingAccess = self->_requestingAccess;
-  v32 = equalCopy[13];
-  if (requestingAccess | v32 && !objc_msgSend_isEqual_(requestingAccess, v7, v32))
+  v29 = equalCopy[13];
+  if (requestingAccess | v29 && !objc_msgSend_isEqual_(requestingAccess, v7, v29))
   {
     goto LABEL_71;
   }
 
   blockedAccess = self->_blockedAccess;
-  v34 = equalCopy[1];
-  if (blockedAccess | v34)
+  v31 = equalCopy[1];
+  if (blockedAccess | v31)
   {
-    if (!objc_msgSend_isEqual_(blockedAccess, v7, v34))
+    if (!objc_msgSend_isEqual_(blockedAccess, v7, v31))
     {
       goto LABEL_71;
     }
   }
 
   cryptoRequirementsSigningKey = self->_cryptoRequirementsSigningKey;
-  v36 = equalCopy[2];
-  if (cryptoRequirementsSigningKey | v36)
+  v33 = equalCopy[2];
+  if (cryptoRequirementsSigningKey | v33)
   {
-    if (!objc_msgSend_isEqual_(cryptoRequirementsSigningKey, v7, v36))
+    if (!objc_msgSend_isEqual_(cryptoRequirementsSigningKey, v7, v33))
     {
       goto LABEL_71;
     }
   }
 
-  v37 = *(equalCopy + 156);
   if ((*&self->_has & 8) == 0)
   {
     if ((*(equalCopy + 156) & 8) == 0)
@@ -1527,7 +1507,6 @@ LABEL_71:
     goto LABEL_71;
   }
 
-  v49 = *(equalCopy + 152);
   if (self->_allowAnyoneToResolveShare)
   {
     if ((equalCopy[19] & 1) == 0)
@@ -1543,37 +1522,37 @@ LABEL_71:
 
 LABEL_62:
   invitedPcsKeysToRemove = self->_invitedPcsKeysToRemove;
-  v39 = equalCopy[7];
-  if (invitedPcsKeysToRemove | v39 && !objc_msgSend_isEqual_(invitedPcsKeysToRemove, v7, v39))
+  v35 = equalCopy[7];
+  if (invitedPcsKeysToRemove | v35 && !objc_msgSend_isEqual_(invitedPcsKeysToRemove, v7, v35))
   {
     goto LABEL_71;
   }
 
   selfAddedPcsKeysToRemove = self->_selfAddedPcsKeysToRemove;
-  v41 = equalCopy[15];
-  if (selfAddedPcsKeysToRemove | v41)
+  v37 = equalCopy[15];
+  if (selfAddedPcsKeysToRemove | v37)
   {
-    if (!objc_msgSend_isEqual_(selfAddedPcsKeysToRemove, v7, v41))
+    if (!objc_msgSend_isEqual_(selfAddedPcsKeysToRemove, v7, v37))
     {
       goto LABEL_71;
     }
   }
 
   shortTokenHash = self->_shortTokenHash;
-  v43 = equalCopy[17];
-  if (shortTokenHash | v43)
+  v39 = equalCopy[17];
+  if (shortTokenHash | v39)
   {
-    if (!objc_msgSend_isEqual_(shortTokenHash, v7, v43))
+    if (!objc_msgSend_isEqual_(shortTokenHash, v7, v39))
     {
       goto LABEL_71;
     }
   }
 
   origin = self->_origin;
-  v45 = equalCopy[8];
-  if (origin | v45)
+  v41 = equalCopy[8];
+  if (origin | v41)
   {
-    isEqual = objc_msgSend_isEqual_(origin, v7, v45);
+    isEqual = objc_msgSend_isEqual_(origin, v7, v41);
   }
 
   else
@@ -1686,7 +1665,7 @@ LABEL_16:
 
 - (void)mergeFrom:(id)from
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   shareId = self->_shareId;
   v7 = *(fromCopy + 16);
@@ -1745,29 +1724,29 @@ LABEL_16:
     objc_msgSend_setSelfAddedPcs_(self, v4, v12);
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v13 = *(fromCopy + 10);
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v61, v67, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v60, v66, 16);
   if (v15)
   {
     v17 = v15;
-    v18 = *v62;
+    v18 = *v61;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v62 != v18)
+        if (*v61 != v18)
         {
           objc_enumerationMutation(v13);
         }
 
-        objc_msgSend_addParticipant_(self, v16, *(*(&v61 + 1) + 8 * i));
+        objc_msgSend_addParticipant_(self, v16, *(*(&v60 + 1) + 8 * i));
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v61, v67, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v60, v66, 16);
     }
 
     while (v17);
@@ -1779,57 +1758,57 @@ LABEL_16:
     objc_msgSend_setShortTokenRoutingKey_(self, v20, v21);
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v22 = *(fromCopy + 11);
-  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v57, v66, 16);
+  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v56, v65, 16);
   if (v24)
   {
     v26 = v24;
-    v27 = *v58;
+    v27 = *v57;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v58 != v27)
+        if (*v57 != v27)
         {
           objc_enumerationMutation(v22);
         }
 
-        objc_msgSend_addPotentialMatch_(self, v25, *(*(&v57 + 1) + 8 * j));
+        objc_msgSend_addPotentialMatch_(self, v25, *(*(&v56 + 1) + 8 * j));
       }
 
-      v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v25, &v57, v66, 16);
+      v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v25, &v56, v65, 16);
     }
 
     while (v26);
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v29 = *(fromCopy + 5);
-  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v53, v65, 16);
+  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v52, v64, 16);
   if (v31)
   {
     v33 = v31;
-    v34 = *v54;
+    v34 = *v53;
     do
     {
       for (k = 0; k != v33; ++k)
       {
-        if (*v54 != v34)
+        if (*v53 != v34)
         {
           objc_enumerationMutation(v29);
         }
 
-        objc_msgSend_addInvitedKeyToRemove_(self, v32, *(*(&v53 + 1) + 8 * k), v53);
+        objc_msgSend_addInvitedKeyToRemove_(self, v32, *(*(&v52 + 1) + 8 * k), v52);
       }
 
-      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v53, v65, 16);
+      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v52, v64, 16);
     }
 
     while (v33);
@@ -1980,8 +1959,6 @@ LABEL_53:
   {
     objc_msgSend_setOrigin_(self, v36, v51);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -174,7 +174,7 @@ uint64_t __69__ATXDefaultHomeScreenItemComparator_rankOfWidgetSuggestedInGallery
           mediumDefaultStack = [defaultStack2 largeDefaultStack];
           break;
         case 3:
-          v11 = __atxlog_handle_home_screen();
+          v11 = __atxlog_handle_home_screen(3);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
           {
             [ATXDefaultHomeScreenItemComparator isStackDefaultStack:v11];

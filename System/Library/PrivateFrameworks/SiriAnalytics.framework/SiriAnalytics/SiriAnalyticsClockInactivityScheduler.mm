@@ -54,7 +54,7 @@
 
   selfCopy = self;
   sub_1D98A26C0(v7, v6);
-  sub_1D98750DC(v7);
+  sub_1D98750DC(v7, v6);
 }
 
 - (void)clockForcefullyDestroyedWithCompletion:(id)completion
@@ -76,7 +76,7 @@
 
   selfCopy = self;
   sub_1D98A27D0(v7, v6);
-  sub_1D98750DC(v7);
+  sub_1D98750DC(v7, v6);
 }
 
 - (void)clockCreated

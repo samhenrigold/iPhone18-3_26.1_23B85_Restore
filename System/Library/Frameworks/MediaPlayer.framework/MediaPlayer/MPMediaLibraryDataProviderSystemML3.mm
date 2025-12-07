@@ -104,83 +104,83 @@ void __69__MPMediaLibraryDataProviderSystemML3_updateEntitesToCurrentRevision__b
   }
 }
 
-void __69__MPMediaLibraryDataProviderSystemML3_updateEntitesToCurrentRevision__block_invoke()
+void __69__MPMediaLibraryDataProviderSystemML3_updateEntitesToCurrentRevision__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v32[5] = *MEMORY[0x1E69E9840];
-  v31 = objc_opt_class();
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
-  v32[0] = objc_opt_class();
-  v32[1] = objc_opt_class();
-  v32[2] = objc_opt_class();
-  v32[3] = objc_opt_class();
-  v32[4] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:5];
-  v2 = [v0 arrayByAddingObjectsFromArray:v1];
+  v34[5] = *MEMORY[0x1E69E9840];
+  v33 = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+  v34[0] = objc_opt_class();
+  v34[1] = objc_opt_class();
+  v34[2] = objc_opt_class();
+  v34[3] = objc_opt_class();
+  v34[4] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:5];
+  v4 = [v2 arrayByAddingObjectsFromArray:v3];
 
-  v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
-  v25 = 0u;
-  v26 = 0u;
+  v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v4, "count")}];
   v27 = 0u;
   v28 = 0u;
-  v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v5)
+  v29 = 0u;
+  v30 = 0u;
+  v6 = v4;
+  v7 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v7)
   {
-    v6 = v5;
-    v7 = *v26;
+    v8 = v7;
+    v9 = *v28;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v7)
+        if (*v28 != v9)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v6);
         }
 
-        v9 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(*(&v25 + 1) + 8 * i), "revisionTrackingCode")}];
-        [v3 addObject:v9];
+        v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(*(&v27 + 1) + 8 * i), "revisionTrackingCode")}];
+        [v5 addObject:v11];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v6);
+    while (v8);
   }
 
-  v20 = [MEMORY[0x1E695DF20] sharedKeySetForKeys:v3];
-  v10 = [MEMORY[0x1E695DF90] dictionaryWithSharedKeySet:?];
-  v11 = __revisionTrackingCodeToEntityClassMap;
-  __revisionTrackingCodeToEntityClassMap = v10;
+  v22 = [MEMORY[0x1E695DF20] sharedKeySetForKeys:v5];
+  v12 = [MEMORY[0x1E695DF90] dictionaryWithSharedKeySet:?];
+  v13 = __revisionTrackingCodeToEntityClassMap;
+  __revisionTrackingCodeToEntityClassMap = v12;
 
+  v25 = 0u;
+  v26 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v12 = v4;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v13)
+  v14 = v6;
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v15)
   {
-    v14 = v13;
-    v15 = *v22;
+    v16 = v15;
+    v17 = *v24;
     do
     {
-      for (j = 0; j != v14; ++j)
+      for (j = 0; j != v16; ++j)
       {
-        if (*v22 != v15)
+        if (*v24 != v17)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v14);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * j);
-        v18 = __revisionTrackingCodeToEntityClassMap;
-        v19 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v17, "revisionTrackingCode")}];
-        [v18 setObject:v17 forKey:v19];
+        v19 = *(*(&v23 + 1) + 8 * j);
+        v20 = __revisionTrackingCodeToEntityClassMap;
+        v21 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v19, "revisionTrackingCode")}];
+        [v20 setObject:v19 forKey:v21];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
-    while (v14);
+    while (v16);
   }
 }
 

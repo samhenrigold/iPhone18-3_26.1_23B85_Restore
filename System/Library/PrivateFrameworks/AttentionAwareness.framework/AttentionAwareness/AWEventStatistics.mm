@@ -8,31 +8,31 @@
 
 void __25__AWEventStatistics_init__block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v36 = [MEMORY[0x1E696AD60] string];
+  v47 = *MEMORY[0x1E69E9840];
+  v35 = [MEMORY[0x1E696AD60] string];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v2 = [*(*(a1 + 32) + 48) allKeys];
   v3 = [v2 sortedArrayUsingSelector:sel_compare_];
 
-  v4 = [v3 countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v36 objects:v46 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v38;
+    v7 = *v37;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v38 != v7)
+        if (*v37 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v37 + 1) + 8 * i);
+        v9 = *(*(&v36 + 1) + 8 * i);
         v10 = [v9 integerValue];
         v11 = [*(*(a1 + 32) + 48) objectForKeyedSubscript:v9];
         v12 = [v11 integerValue];
@@ -40,13 +40,13 @@ void __25__AWEventStatistics_init__block_invoke(uint64_t a1)
         if (v12)
         {
           v13 = getEventMaskDescription(v10);
-          [v36 appendFormat:@"%llu %@ ", v12, v13];
+          [v35 appendFormat:@"%llu %@ ", v12, v13];
 
           v6 = 1;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v37 objects:v47 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v36 objects:v46 count:16];
     }
 
     while (v5);
@@ -84,13 +84,13 @@ void __25__AWEventStatistics_init__block_invoke(uint64_t a1)
 
           v24 = *(v21 + 40);
           *buf = 134218754;
-          v42 = v16;
-          v43 = 2112;
-          *v44 = v36;
-          *&v44[8] = 2048;
-          *&v44[10] = v23;
-          *&v44[18] = 2112;
-          *&v44[20] = v24;
+          v41 = v16;
+          v42 = 2112;
+          *v43 = v35;
+          *&v43[8] = 2048;
+          *&v43[10] = v23;
+          *&v43[18] = 2112;
+          *&v43[20] = v24;
           v25 = "%13.5f: %@since %13.5f (%@)";
           v26 = v14;
           v27 = 42;
@@ -143,17 +143,17 @@ LABEL_37:
 
               v31 = *(v28 + 40);
               *buf = 136316418;
-              v42 = *&v17;
-              v43 = 1024;
-              *v44 = 48;
-              *&v44[4] = 2048;
-              *&v44[6] = v20;
-              *&v44[14] = 2112;
-              *&v44[16] = v36;
-              *&v44[24] = 2048;
-              *&v44[26] = v30;
-              v45 = 2112;
-              v46 = v31;
+              v41 = *&v17;
+              v42 = 1024;
+              *v43 = 48;
+              *&v43[4] = 2048;
+              *&v43[6] = v20;
+              *&v43[14] = 2112;
+              *&v43[16] = v35;
+              *&v43[24] = 2048;
+              *&v43[26] = v30;
+              v44 = 2112;
+              v45 = v31;
               v25 = "%30s:%-4d: %13.5f: %@since %13.5f (%@)";
               v26 = v14;
               v27 = 58;
@@ -182,8 +182,6 @@ LABEL_38:
 
   dispatch_suspend(*(*(a1 + 32) + 16));
   *(*(a1 + 32) + 24) = 0;
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedStatistics
@@ -258,9 +256,11 @@ LABEL_38:
 
 uint64_t __37__AWEventStatistics_sharedStatistics__block_invoke()
 {
-  sharedStatistics_statistics = objc_alloc_init(AWEventStatistics);
+  v0 = objc_alloc_init(AWEventStatistics);
+  v1 = sharedStatistics_statistics;
+  sharedStatistics_statistics = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

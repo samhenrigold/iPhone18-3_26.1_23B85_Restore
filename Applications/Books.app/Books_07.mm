@@ -1,3 +1,536 @@
+void sub_10017812C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100178154(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  v5 = a4;
+  v7 = +[BKLibraryCollectionsListViewController deleteActionHandler];
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v7[2](v7, WeakRetained, *(a1 + 32), v5);
+}
+
+void sub_100178350(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100178378(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  v5 = a4;
+  v7 = +[BKLibraryCollectionsListViewController hideActionHandler];
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v7[2](v7, WeakRetained, *(a1 + 32), v5);
+}
+
+void sub_100178AC0(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  if (WeakRetained && *(a1 + 32))
+  {
+    v8 = WeakRetained;
+    v3 = [WeakRetained tableView];
+    v4 = [v3 numberOfSections];
+    if (v4 > [*(a1 + 32) section])
+    {
+      v5 = [v8 tableView];
+      v6 = [v5 numberOfRowsInSection:{objc_msgSend(*(a1 + 32), "section")}];
+      v7 = [*(a1 + 32) row];
+
+      WeakRetained = v8;
+      if (v6 <= v7)
+      {
+        goto LABEL_7;
+      }
+
+      v3 = [v8 tableView];
+      [v3 scrollToRowAtIndexPath:*(a1 + 32) atScrollPosition:2 animated:*(a1 + 48)];
+    }
+
+    WeakRetained = v8;
+  }
+
+LABEL_7:
+}
+
+id sub_100179790(uint64_t a1, void *a2)
+{
+  v3 = [a2 collectionID];
+  v4 = [v3 isEqualToString:*(a1 + 32)];
+
+  return v4;
+}
+
+id sub_1001797D4(uint64_t a1, void *a2)
+{
+  v3 = [a2 collectionID];
+  v4 = [v3 isEqualToString:*(a1 + 32)];
+
+  return v4;
+}
+
+void sub_10017A824(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  v2 = [NSArray arrayWithObjects:&v3 count:1];
+  [v1 reloadRowsAtIndexPaths:v2 withRowAnimation:0];
+}
+
+void sub_10017AB14(uint64_t a1, void *a2)
+{
+  v13 = a2;
+  v3 = [*(a1 + 32) cellForRowAtIndexPath:?];
+  v4 = v3;
+  if (v3)
+  {
+    v5 = [v3 imageView];
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 48);
+    v8 = [v4 textLabel];
+    v9 = [v8 font];
+    [v9 pointSize];
+    v10 = [v6 _iconForIndexPath:v13 metrics:v7 pointSize:?];
+    [v5 setImage:v10];
+
+    v11 = [*(a1 + 40) _iconColorForIndexPath:v13 metrics:*(a1 + 48)];
+    [v5 setTintColor:v11];
+
+    objc_opt_class();
+    v12 = BUDynamicCast();
+    [v12 setMetrics:*(a1 + 48)];
+  }
+}
+
+int64_t sub_10017D0C4(id a1, UIAccessibilityLocationDescriptor *a2, UIAccessibilityLocationDescriptor *a3)
+{
+  v4 = a3;
+  [(UIAccessibilityLocationDescriptor *)a2 point];
+  v6 = v5;
+  [(UIAccessibilityLocationDescriptor *)v4 point];
+  v8 = v7;
+
+  return v6 > v8;
+}
+
+void sub_10017FD9C(uint64_t a1, uint64_t a2, void *a3)
+{
+  v5 = a3;
+  if (a2)
+  {
+    v6 = [UIImage imageWithData:a2];
+    v7 = v6;
+    if (v6)
+    {
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = sub_10017FE9C;
+      v8[3] = &unk_100A03440;
+      v8[4] = *(a1 + 32);
+      v7 = v6;
+      v9 = v7;
+      dispatch_async(&_dispatch_main_q, v8);
+    }
+  }
+
+  else
+  {
+    v7 = BKLibraryLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      sub_100792018(v5, v7);
+    }
+  }
+}
+
+void sub_100180354(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v5 = a2;
+  v6 = [v3 libraryMutableAssetWithAssetID:v4 inManagedObjectContext:v5];
+  [v6 setTitle:*(a1 + 48)];
+  [v6 setSortTitle:*(a1 + 48)];
+  [v6 setAuthor:*(a1 + 56)];
+  [v6 setSortAuthor:*(a1 + 56)];
+  v16 = 0;
+  [v5 save:&v16];
+
+  v7 = v16;
+  if (v7)
+  {
+    v8 = BKLibraryLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v11 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      v13 = *(a1 + 56);
+      *buf = 141559042;
+      v18 = 1752392040;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v13;
+      v25 = 2112;
+      v26 = v7;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "[MetadataEditor updateTitle] assetID:%{mask.hash}@ newTitle:%@ author:%@ error:%@", buf, 0x34u);
+    }
+  }
+
+  v9 = *(a1 + 32);
+  v10 = [*(a1 + 64) updatedCoverImageData];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100180540;
+  v14[3] = &unk_100A09698;
+  v15 = *(a1 + 40);
+  [v9 updateAsset:v6 coverArt:v10 completion:v14];
+}
+
+void sub_100180540(uint64_t a1, void *a2, uint64_t a3, void *a4)
+{
+  v6 = a2;
+  v7 = a4;
+  v8 = +[BCCacheManager defaultCacheManager];
+  [v8 incrementVersionForIdentifier:*(a1 + 32)];
+  v9 = BKLibraryLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = *(a1 + 32);
+    v11 = 141558786;
+    v12 = 1752392040;
+    v13 = 2112;
+    v14 = v10;
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[MetadataEditor updateTitle] FINISH assetID:%{mask.hash}@ asset:%@ error:%@", &v11, 0x2Au);
+  }
+}
+
+void sub_100180D84(uint64_t a1)
+{
+  [*(a1 + 32) size];
+  v4 = v2 / v3;
+  v5 = v4 * 56.0;
+  v6 = 298.0 / v4;
+  if (v5 <= 298.0)
+  {
+    v7 = 56.0;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  if (v5 <= 298.0)
+  {
+    v8 = v5;
+  }
+
+  else
+  {
+    v8 = 298.0;
+  }
+
+  v9 = [*(a1 + 40) coverHeightConstraint];
+  [v9 setConstant:v7];
+
+  v10 = [*(a1 + 40) coverWidthConstraint];
+  [v10 setConstant:v8];
+
+  v12 = [[UIImageView alloc] initWithImage:*(a1 + 32)];
+  [v12 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v12 setContentMode:1];
+  [*(a1 + 40) _updateCoverView:v12];
+  v11 = UIImageJPEGRepresentation(*(a1 + 32), 0.9);
+  [*(a1 + 40) setUpdatedCoverImageData:v11];
+}
+
+void sub_100180E90(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = +[NSUserDefaults standardUserDefaults];
+  [v6 setBool:a3 forKey:@"BKMetadatEditorSkipReplaceCoverConfirmation"];
+
+  if (!a2)
+  {
+    v7 = *(*(a1 + 32) + 16);
+
+    v7();
+  }
+}
+
+void sub_100181E34(uint64_t a1, void *a2)
+{
+  v3 = [a2 bookController];
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 80);
+  *(v4 + 80) = v3;
+
+  if (!*(*(a1 + 32) + 80))
+  {
+    v6 = +[BKTestDriverDispatcher shared];
+    [v6 subscribeForBookController:*(a1 + 32)];
+  }
+}
+
+void sub_100181F64(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  v5 = *(v2 + 80);
+  v4 = (v2 + 80);
+  if (v5 != v3)
+  {
+    objc_storeStrong(v4, v3);
+    if ([*(a1 + 32) running])
+    {
+      v6 = *(a1 + 32);
+      if (v6[10])
+      {
+        v7 = [v6 onReceiveHandler];
+
+        if (v7)
+        {
+          v8 = +[BKTestDriverDispatcher shared];
+          [v8 unsubscribe:*(a1 + 32)];
+
+          v9 = [*(a1 + 32) onReceiveHandler];
+          v9[2]();
+        }
+      }
+    }
+  }
+}
+
+void sub_1001823B0(id a1)
+{
+  v1 = objc_alloc_init(BKBookCacheController);
+  v2 = qword_100AF7788;
+  qword_100AF7788 = v1;
+}
+
+void sub_10018299C(uint64_t a1)
+{
+  v7[0] = 0;
+  v7[1] = v7;
+  v7[2] = 0x2020000000;
+  v8 = 0;
+  v2 = dispatch_get_global_queue(0, 0);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100182A84;
+  block[3] = &unk_100A05A78;
+  v4 = *(a1 + 32);
+  v6 = v7;
+  v5 = *(a1 + 40);
+  dispatch_async(v2, block);
+
+  _Block_object_dispose(v7, 8);
+}
+
+void sub_100182A84(uint64_t a1)
+{
+  v4 = *(a1 + 32);
+  v2 = objc_retainBlock(*(a1 + 40));
+  v3 = v2;
+  if (v2)
+  {
+    (*(v2 + 2))(v2, v4, 0);
+  }
+}
+
+id sub_10018318C(uint64_t a1)
+{
+  [*(a1 + 32) setTransition:*(a1 + 40)];
+  [*(a1 + 32) setCompletion:*(a1 + 56)];
+  v2 = [*(a1 + 32) contentViewController];
+  [*(a1 + 32) setSourceViewController:v2];
+
+  [*(a1 + 32) setWallpaperAssertion:0];
+  [*(a1 + 32) setTransitioning:1];
+  v3 = [*(a1 + 32) view];
+  [v3 bounds];
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v12 = [*(a1 + 48) viewIfLoaded];
+  [v12 setFrame:{v5, v7, v9, v11}];
+
+  [*(a1 + 32) willChangeValueForKey:@"contentViewController"];
+  v13 = [*(a1 + 32) navController];
+  v14 = v13;
+  if (*(a1 + 48))
+  {
+    v17 = *(a1 + 48);
+    v15 = [NSArray arrayWithObjects:&v17 count:1];
+    [v14 setViewControllers:v15 animated:1];
+  }
+
+  else
+  {
+    [v13 setViewControllers:&__NSArray0__struct animated:1];
+  }
+
+  return [*(a1 + 32) didChangeValueForKey:@"contentViewController"];
+}
+
+uint64_t sub_100183808(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    return (*(result + 16))(result, a3);
+  }
+
+  return result;
+}
+
+void sub_100183B50(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  [WeakRetained _notifyObserversOfReload:v3];
+}
+
+void sub_100183CA4(uint64_t a1)
+{
+  v2 = [*(a1 + 32) observers];
+  [v2 addObject:*(a1 + 40)];
+}
+
+void sub_100183DB0(uint64_t a1)
+{
+  v2 = [*(a1 + 32) observers];
+  v3 = [v2 containsObject:*(a1 + 40)];
+
+  if (v3)
+  {
+    v4 = [*(a1 + 32) observers];
+    [v4 removeObject:*(a1 + 40)];
+  }
+}
+
+void sub_100183F00(uint64_t a1)
+{
+  v9 = [*(a1 + 32) _assetCacheForType:*(a1 + 48)];
+  v2 = [v9 cachedAssetIDs];
+  v3 = [NSArray arrayWithArray:v2];
+
+  if (*(a1 + 56) == 1)
+  {
+    v4 = [*(a1 + 32) bookletAssetCache];
+    v5 = [v4 allBookletAssetIDs];
+
+    v6 = objc_retainBlock(*(a1 + 40));
+    if (v6)
+    {
+      v7 = [v3 arrayByAddingObjectsFromArray:v5];
+      v6[2](v6, v7, 0);
+    }
+  }
+
+  else
+  {
+    v8 = objc_retainBlock(*(a1 + 40));
+    v5 = v8;
+    if (v8)
+    {
+      (*(v8 + 2))(v8, v3, 0);
+    }
+  }
+}
+
+void sub_10018413C(uint64_t a1)
+{
+  v5 = [*(a1 + 32) _assetCacheForType:*(a1 + 56)];
+  v2 = [v5 assetsFromAssetIDs:*(a1 + 40)];
+  v3 = objc_retainBlock(*(a1 + 48));
+  v4 = v3;
+  if (v3)
+  {
+    (*(v3 + 2))(v3, v2, 0);
+  }
+}
+
+void sub_1001842A4(uint64_t a1)
+{
+  v2 = [*(a1 + 32) _assetCacheForType:*(a1 + 56)];
+  v3 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+  if ([*(a1 + 40) count])
+  {
+    v5 = 0;
+    *&v4 = 138412290;
+    v13 = v4;
+    do
+    {
+      v6 = [*(a1 + 40) objectAtIndexedSubscript:{v5, v13}];
+      v7 = [v2 assetFromAssetID:v6];
+      if (v7)
+      {
+        [v3 addObject:v7];
+      }
+
+      else
+      {
+        if (*(a1 + 64) == 1)
+        {
+          v8 = [*(a1 + 32) bookletAssetCache];
+          v9 = [v8 bookletAssetForAssetID:v6];
+
+          if (v9)
+          {
+            [v3 addObject:v9];
+          }
+
+          else
+          {
+            v10 = BKLibraryDataSourceMediaLibraryLog();
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            {
+              *buf = v13;
+              v15 = v6;
+              _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Could not find a booklet or mediaLibrary asset with assetID %@", buf, 0xCu);
+            }
+          }
+        }
+
+        else
+        {
+          v9 = BKLibraryDataSourceMediaLibraryLog();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          {
+            *buf = v13;
+            v15 = v6;
+            _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Could not find an asset with assetID %@", buf, 0xCu);
+          }
+        }
+      }
+
+      ++v5;
+    }
+
+    while (v5 < [*(a1 + 40) count]);
+  }
+
+  v11 = objc_retainBlock(*(a1 + 48));
+  if (v11)
+  {
+    v12 = [v3 copy];
+    v11[2](v11, v12, 0);
+  }
+}
+
 void sub_1001845A8(uint64_t a1)
 {
   v9 = [*(a1 + 32) _assetCacheForType:*(a1 + 48)];
@@ -442,6 +975,13 @@ void sub_1001855A4(uint64_t a1, void *a2, void *a3)
   }
 }
 
+void sub_100186508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
+{
+  va_start(va, a58);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100186570(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -594,9 +1134,9 @@ id sub_100187C74(uint64_t a1)
   return [v5 setTransform:&v7];
 }
 
-void sub_100188008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100188008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1531,9 +2071,9 @@ void sub_10018D9E8(uint64_t a1)
   }
 }
 
-void sub_10018DCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10018DCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1807,9 +2347,9 @@ void sub_10018E7D8(uint64_t a1, void *a2)
   }
 }
 
-void sub_10018EA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10018EA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2202,10 +2742,11 @@ void sub_1001902A0(uint64_t a1, void *a2)
   }
 }
 
-void sub_100190728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_100190728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 208), 8);
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2377,9 +2918,9 @@ id sub_1001912E8(uint64_t a1)
   return [v1 setOngoingMigrationAttemptOutstandingMigrateAllAttempts:v2];
 }
 
-void sub_100191558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100191558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2401,17 +2942,17 @@ void sub_10019157C(uint64_t a1)
   }
 }
 
-void sub_100191820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100191820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
+  _Block_object_dispose((v16 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2590,11 +3131,11 @@ void sub_1001947D4(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100194E70(uint64_t a1, void *a2, void *a3)
+void sub_100194E70(id *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  if ([*(a1 + 32) isSupplementalContent])
+  if ([a1[4] isSupplementalContent])
   {
     objc_opt_class();
     v7 = BUDynamicCast();
@@ -2613,7 +3154,7 @@ void sub_100194E70(uint64_t a1, void *a2, void *a3)
       v12 = BKLibraryDataSourceMediaLibraryLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_100792A70((a1 + 32), v6, v12);
+        sub_100792A70(a1 + 4, v6, v12);
       }
 
       v11 = 0;
@@ -2643,7 +3184,7 @@ void sub_100194E70(uint64_t a1, void *a2, void *a3)
     v14 = BKLibraryDataSourceMediaLibraryLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v19 = *(a1 + 32);
+      v19 = a1[4];
       *buf = 138413058;
       v29 = v19;
       v30 = 2112;
@@ -2655,7 +3196,7 @@ void sub_100194E70(uint64_t a1, void *a2, void *a3)
       _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Could not resolve library asset %@. StoreID: %@. DownloadParams: %@. Error: %@", buf, 0x2Au);
     }
 
-    v15 = objc_retainBlock(*(a1 + 56));
+    v15 = objc_retainBlock(a1[7]);
     v17 = v15;
     if (v15)
     {
@@ -2665,17 +3206,17 @@ void sub_100194E70(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v16 = [*(a1 + 40) identifier];
+    v16 = [a1[5] identifier];
     v20[0] = _NSConcreteStackBlock;
     v20[1] = 3221225472;
     v20[2] = sub_1001951A8;
     v20[3] = &unk_100A09CC0;
     v21 = v11;
     v22 = v8;
-    v23 = *(a1 + 32);
-    v24 = *(a1 + 48);
+    v23 = a1[4];
+    v24 = a1[6];
     v25 = v16;
-    v27 = *(a1 + 56);
+    v27 = a1[7];
     v26 = v5;
     v17 = v16;
     v18 = objc_retainBlock(v20);
@@ -3316,16 +3857,16 @@ void sub_100199B98(uint64_t a1, unsigned __int16 a2)
   }
 }
 
-void sub_100199DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_100199DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100199DD4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  if ([a2 isEqual:NSOSStatusErrorDomain] && +[THPFDContext isBagRefetchRequiredForStatus:](THPFDContext, "isBagRefetchRequiredForStatus:", a3))
+  if ([a2 isEqual:{NSOSStatusErrorDomain, a4}] && +[THPFDContext isBagRefetchRequiredForStatus:](THPFDContext, "isBagRefetchRequiredForStatus:", a3))
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
     v8 = objc_retainBlock(*(a1 + 32));
@@ -3388,7 +3929,7 @@ void sub_100199F08(uint64_t a1)
 
 void sub_10019A048(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  if ([a2 isEqual:NSOSStatusErrorDomain] && +[THPFDContext isBagRefetchRequiredForStatus:](THPFDContext, "isBagRefetchRequiredForStatus:", a3))
+  if ([a2 isEqual:{NSOSStatusErrorDomain, a4}] && +[THPFDContext isBagRefetchRequiredForStatus:](THPFDContext, "isBagRefetchRequiredForStatus:", a3))
   {
     v8 = objc_retainBlock(*(a1 + 32));
     if (v8)
@@ -3728,11 +4269,11 @@ uint64_t sub_10019B8B8(uint64_t a1)
   return kdebug_trace();
 }
 
-void sub_10019ED98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10019ED98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 96), 8);
+  _Block_object_dispose((v24 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3799,9 +4340,9 @@ void sub_10019EEF0(uint64_t a1)
   _Block_object_dispose(&v8, 8);
 }
 
-void sub_10019EFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10019EFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3817,9 +4358,9 @@ void sub_10019F008(uint64_t a1)
   }
 }
 
-void sub_10019F144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10019F144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3872,9 +4413,9 @@ void sub_10019F750(uint64_t a1, void *a2, uint64_t a3)
   kdebug_trace();
 }
 
-void sub_10019F974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10019F974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3887,10 +4428,11 @@ void sub_10019F98C(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_10019FEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10019FEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3931,9 +4473,9 @@ void *sub_10019FEF8(void *result)
   return result;
 }
 
-void sub_1001A01D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001A01D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4952,16 +5494,16 @@ void sub_1001A4E98(uint64_t a1)
   }
 }
 
-id sub_1001A6B30()
+id sub_1001A6B30(uint64_t a1)
 {
   if (qword_100AF77F0 != -1)
   {
     sub_1007932EC();
   }
 
-  v1 = qword_100AF77E8;
+  v2 = qword_100AF77E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1001A6B74(id a1)
@@ -5059,20 +5601,20 @@ void sub_1001A7998(uint64_t a1)
 {
   [*(a1 + 32) presenterVisibleViewControllerWillChangeAnimated:*(a1 + 64)];
   objc_opt_class();
-  v25 = &OBJC_PROTOCOL___BKPalettePresentationTransitioning;
+  v26 = &OBJC_PROTOCOL___BKPalettePresentationTransitioning;
   v2 = BUClassAndProtocolCast();
   v3 = v2;
   if (v2 && [v2 assetPresenterIsAudiobook])
   {
     v4 = [*(a1 + 32) rootBarCoordinator];
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_1001A7E54;
-    v36[3] = &unk_100A03920;
-    v37 = *(a1 + 56);
-    [v4 presentFullPlayer:v3 completion:v36];
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_1001A7E54;
+    v37[3] = &unk_100A03920;
+    v38 = *(a1 + 56);
+    [v4 presentFullPlayer:v3 completion:v37];
 
-    v5 = v37;
+    v5 = v38;
   }
 
   else
@@ -5091,33 +5633,33 @@ void sub_1001A7998(uint64_t a1)
     if (v10 & 1) == 0 && _os_feature_enabled_impl() && [v5 isLocal] && (objc_msgSend(*(a1 + 32), "_coverViewForPresenter:assetPresenter:includePresented:", *(a1 + 48), v3, 1), v13 = objc_claimAutoreleasedReturnValue(), v14 = (v13 != 0) | v7, v13, (v14))
     {
       objc_initWeak(&location, *(a1 + 32));
-      objc_initWeak(&from, v3);
-      v15 = sub_1001A6B30();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      inited = objc_initWeak(&from, v3);
+      v16 = sub_1001A6B30(inited);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#swipeToDismiss - Setting up preferred transition.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#swipeToDismiss - Setting up preferred transition.", buf, 2u);
       }
 
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_1001A7E64;
-      v28[3] = &unk_100A0A360;
-      objc_copyWeak(&v30, &location);
-      v29 = *(a1 + 48);
-      objc_copyWeak(&v31, &from);
-      v32 = v7;
-      v16 = [_UIViewControllerTransition zoomWithSourceViewProvider:v28];
-      v17 = [UIBlurEffect effectWithStyle:16];
-      v38 = v17;
-      v18 = [NSArray arrayWithObjects:&v38 count:1];
-      v19 = [v16 _options];
-      [v19 setDimmingVisualEffects:v18];
+      v29[0] = _NSConcreteStackBlock;
+      v29[1] = 3221225472;
+      v29[2] = sub_1001A7E64;
+      v29[3] = &unk_100A0A360;
+      objc_copyWeak(&v31, &location);
+      v30 = *(a1 + 48);
+      objc_copyWeak(&v32, &from);
+      v33 = v7;
+      v17 = [_UIViewControllerTransition zoomWithSourceViewProvider:v29];
+      v18 = [UIBlurEffect effectWithStyle:16];
+      v39 = v18;
+      v19 = [NSArray arrayWithObjects:&v39 count:1];
+      v20 = [v17 _options];
+      [v20 setDimmingVisualEffects:v19];
 
-      [*(a1 + 40) _setPreferredTransition:v16];
+      [*(a1 + 40) _setPreferredTransition:v17];
+      objc_destroyWeak(&v32);
+
       objc_destroyWeak(&v31);
-
-      objc_destroyWeak(&v30);
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
     }
@@ -5125,25 +5667,24 @@ void sub_1001A7998(uint64_t a1)
     else
     {
       objc_opt_class();
-      v20 = BUDynamicCast();
-      [v20 setUseLegacyAnimation:1];
-      v21 = sub_1001A6B30();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v21 = BUDynamicCast();
+      v22 = sub_1001A6B30([v21 setUseLegacyAnimation:1]);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(location) = 0;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#swipeToDismiss - Using LegacyAnimation", &location, 2u);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#swipeToDismiss - Using LegacyAnimation", &location, 2u);
       }
     }
 
-    v23 = *(a1 + 40);
-    v22 = *(a1 + 48);
-    v24 = *(a1 + 64);
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_1001A8058;
-    v26[3] = &unk_100A03920;
-    v27 = *(a1 + 56);
-    [v22 presentViewController:v23 animated:v24 completion:v26];
+    v24 = *(a1 + 40);
+    v23 = *(a1 + 48);
+    v25 = *(a1 + 64);
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_1001A8058;
+    v27[3] = &unk_100A03920;
+    v28 = *(a1 + 56);
+    [v23 presentViewController:v24 animated:v25 completion:v27];
   }
 }
 
@@ -5496,28 +6037,29 @@ void sub_1001AB098(uint64_t a1, void *a2)
 void sub_1001AB2B4(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1001A6B30();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1001A6B30(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1007933DC(v3, v4);
+      sub_1007933DC(v4, v5);
     }
   }
 
-  v5 = objc_retainBlock(*(a1 + 32));
-  v6 = v5;
-  if (v5)
+  v6 = objc_retainBlock(*(a1 + 32));
+  v7 = v6;
+  if (v6)
   {
-    (*(v5 + 2))(v5, v3 == 0);
+    (*(v6 + 2))(v6, v4 == 0);
   }
 }
 
-void sub_1001AB7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1001AB7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   objc_destroyWeak(va);
-  objc_destroyWeak((v15 - 104));
+  objc_destroyWeak((v22 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -6067,9 +6609,9 @@ void sub_1001B40A0(uint64_t a1)
   }
 }
 
-void sub_1001B41AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001B41AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6541,9 +7083,9 @@ void sub_1001B8A04(uint64_t a1, void *a2)
   _Block_object_dispose(&v20, 8);
 }
 
-void sub_1001B8C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1001B8C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6834,16 +7376,16 @@ void sub_1001B99A4(uint64_t a1)
   [v2 setShortcutItems:*(a1 + 32)];
 }
 
-id sub_1001B9CD0()
+id sub_1001B9CD0(uint64_t a1)
 {
   if (qword_100AF7810 != -1)
   {
     sub_1007936F8();
   }
 
-  v1 = qword_100AF7808;
+  v2 = qword_100AF7808;
 
-  return v1;
+  return v2;
 }
 
 void sub_1001B9D14(id a1)
@@ -7562,57 +8104,57 @@ void sub_1001BD41C(uint64_t a1)
   }
 }
 
-void sub_1001BD53C(uint64_t a1)
+void sub_1001BD53C(uint64_t a1, uint64_t a2)
 {
-  v2 = BKATAssetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = BKATAssetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_1007939D4(a1, v2);
+    sub_1007939D4(a1, v3);
   }
 
-  v3 = [*(a1 + 32) atAssetIDs];
-  if ([v3 count])
+  v4 = [*(a1 + 32) atAssetIDs];
+  if ([v4 count])
   {
   }
 
   else
   {
-    v4 = [*(a1 + 32) atAssetsInFlight];
-    v5 = [v4 count];
+    v5 = [*(a1 + 32) atAssetsInFlight];
+    v6 = [v5 count];
 
-    if (!v5)
+    if (!v6)
     {
       goto LABEL_9;
     }
   }
 
-  v6 = [*(a1 + 32) atAssetsInFlight];
-  v7 = [v6 allValues];
+  v7 = [*(a1 + 32) atAssetsInFlight];
+  v8 = [v7 allValues];
 
-  v8 = [*(a1 + 32) dataSourceAirTrafficEndedHandler];
-  v9 = v8;
-  if (v8)
+  v9 = [*(a1 + 32) dataSourceAirTrafficEndedHandler];
+  v10 = v9;
+  if (v9)
   {
-    (*(v8 + 16))(v8, 0);
+    (*(v9 + 16))(v9, 0);
   }
 
-  v10 = [*(a1 + 32) libraryManager];
-  [v10 libraryDataSource:*(a1 + 32) removedAssets:v7];
+  v11 = [*(a1 + 32) libraryManager];
+  [v11 libraryDataSource:*(a1 + 32) removedAssets:v8];
 
 LABEL_9:
-  v11 = [*(a1 + 32) atAssetIDs];
-  [v11 removeAllObjects];
-
-  v12 = [*(a1 + 32) atAssetsInFlight];
+  v12 = [*(a1 + 32) atAssetIDs];
   [v12 removeAllObjects];
 
-  v13 = dispatch_time(0, 1500000000);
+  v13 = [*(a1 + 32) atAssetsInFlight];
+  [v13 removeAllObjects];
+
+  v14 = dispatch_time(0, 1500000000);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1001BD6E8;
   block[3] = &unk_100A033C8;
   block[4] = *(a1 + 32);
-  dispatch_after(v13, &_dispatch_main_q, block);
+  dispatch_after(v14, &_dispatch_main_q, block);
 }
 
 void sub_1001BD6E8(uint64_t a1)
@@ -7739,11 +8281,12 @@ void sub_1001BF7A4(uint64_t a1)
   }
 }
 
-void sub_1001BFB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_1001BFB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 224), 8);
-  _Block_object_dispose((v37 - 144), 8);
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 224), 8);
+  _Block_object_dispose((v36 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7891,10 +8434,11 @@ CGAffineTransform *sub_1001C002C@<X0>(CGAffineTransform *a1@<X8>, CGFloat a2@<D0
   return CGAffineTransformMakeScale(a1, v18, v20);
 }
 
-void sub_1001C0454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_1001C0454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 160), 8);
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8112,543 +8656,4 @@ void sub_1001C30F8(uint64_t a1)
   v4 = *(a1 + 56);
   v5 = NSStringFromSelector(*(a1 + 64));
   [v1 recordPaginationInfo:@"presentation" info:v2 renderTree:v3 pageCount:v4 errorLabel:v5];
-}
-
-void sub_1001C3260(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
-  v5 = NSStringFromSelector(*(a1 + 64));
-  [v1 recordPaginationInfo:@"pagination" info:v2 renderTree:v3 pageCount:v4 errorLabel:v5];
-}
-
-void sub_1001C3398(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = NSStringFromSelector(*(a1 + 48));
-  v5 = [v2 getBookInfo:v3 errorLabel:v4];
-
-  if (v5)
-  {
-    v6 = *(a1 + 32);
-    v7 = NSStringFromSelector(*(a1 + 48));
-    v8 = [v6 getValueForKey:@"pagination-result-path" from:v5 errorLabel:v7];
-
-    if (v8)
-    {
-      v9 = *(a1 + 32);
-      v14 = @"fail";
-      v10 = [NSNumber numberWithBool:0];
-      v15 = v10;
-      v11 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-      v12 = NSStringFromSelector(*(a1 + 48));
-      [v9 createJsonFile:v8 content:v11 errorLabel:v12];
-
-      v13 = [*(a1 + 32) machine];
-      [v13 paginationDidEnd];
-    }
-  }
-}
-
-void sub_1001C373C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) libraryController];
-  v3 = *(a1 + 40);
-
-  if (v2 != v3)
-  {
-    [*(a1 + 32) setLibraryController:*(a1 + 40)];
-    if (!*(*(a1 + 32) + 64))
-    {
-      v4 = +[BKLibraryManager defaultManager];
-      v5 = [v4 predicateForLocalLibraryAssets];
-      v6 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
-      [v6 setPredicate:v5];
-      v7 = [v4 uiChildContext];
-      v10 = 0;
-      v8 = [v7 executeFetchRequest:v6 error:&v10];
-      v9 = v10;
-      [*(a1 + 32) setBookList:v8];
-    }
-  }
-}
-
-void sub_1001C3A74(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained)
-  {
-    v3 = WeakRetained;
-    (*(*(a1 + 32) + 16))();
-    WeakRetained = v3;
-  }
-}
-
-void sub_1001C3AE4(id a1)
-{
-  v4 = +[BKAppDelegate sceneManager];
-  v1 = [v4 currentSceneController];
-  if (!v1)
-  {
-    sub_100793A88();
-  }
-
-  v2 = [v1 newShowURLTransaction];
-  v3 = [v4 libraryCollectionPresenter];
-  [v3 showLibraryWithTransaction:v2];
-}
-
-void sub_1001C3C20(uint64_t a1)
-{
-  v2 = [*(a1 + 32) bookList];
-  v8 = [v2 objectAtIndexedSubscript:{objc_msgSend(*(a1 + 32), "currentBook")}];
-
-  v3 = +[BKAppDelegate sceneManager];
-  v4 = [v3 currentSceneController];
-  if (!v4)
-  {
-    sub_100793AC0();
-  }
-
-  v5 = [v4 newShowAssetTransaction];
-  v6 = [v3 bookPresenter];
-  v7 = [v8 assetID];
-  [v6 showAssetWithTransaction:v5 assetID:v7 location:0 options:0 completion:0];
-}
-
-void sub_1001C3DC4(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  v2 = [*(a1 + 32) machine];
-  v3 = v2;
-  if (v1 == 1)
-  {
-    [v2 newPageIsReady];
-  }
-
-  else
-  {
-    [v2 pageTurnFailed];
-  }
-}
-
-void sub_1001C3E98(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v4 = [v2 bookController];
-  if (v4)
-  {
-    v3 = [*(a1 + 32) bookController];
-    [v2 processPageTurnResult:{objc_msgSend(v3, "turnPages:animated:", 1, 1)}];
-  }
-
-  else
-  {
-    [v2 processPageTurnResult:0];
-  }
-}
-
-void sub_1001C3F9C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) bookController];
-  [v2 turnToPageNumber:*(*(a1 + 32) + 80) animated:1];
-
-  v3 = *(a1 + 32);
-  v4 = [v3 queue];
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_1001C4064;
-  v5[3] = &unk_100A033C8;
-  v5[4] = *(a1 + 32);
-  [v3 dispatchInQueue:v4 async:v5];
-}
-
-void sub_1001C4064(uint64_t a1)
-{
-  v1 = [*(a1 + 32) machine];
-  [v1 firstPageRequested];
-}
-
-void sub_1001C415C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) bookController];
-
-  if (v2)
-  {
-    v3 = [*(a1 + 32) bookController];
-    v4 = [v3 currentPages];
-
-    v5 = [*(a1 + 32) bookController];
-    [v5 currentPages];
-    v7 = v6;
-
-    v8 = [*(a1 + 32) bookController];
-    v40 = [AETestDriver getBookKeyWithBookController:v8];
-
-    v9 = v40;
-    if (v40)
-    {
-      v10 = *(a1 + 32);
-      v11 = NSStringFromSelector(*(a1 + 40));
-      v12 = [v10 getBookInfo:v40 errorLabel:v11];
-
-      if (v12)
-      {
-        v13 = *(a1 + 32);
-        v14 = NSStringFromSelector(*(a1 + 40));
-        v15 = [v13 getValueForKey:@"pages-path" from:v12 errorLabel:v14];
-
-        if (v15)
-        {
-          v16 = [*(a1 + 32) bookController];
-          v17 = [AETestDriver getSnapshotsWithBookController:v16];
-
-          if ([v17 count] == 1)
-          {
-            if (v7 < 1)
-            {
-              v20 = @"page";
-            }
-
-            else
-            {
-              v18 = @"page";
-              v19 = v4;
-              do
-              {
-                v20 = [NSString stringWithFormat:@"%@_%d", v18, v19];
-
-                v19 = (v19 + 1);
-                v18 = v20;
-                --v7;
-              }
-
-              while (v7);
-            }
-
-            v32 = [NSString stringWithFormat:@"%@/%@.png", v15, v20];
-
-            v33 = [v12 objectForKey:@"pages"];
-            [v33 addObject:v32];
-
-            v34 = *(a1 + 32);
-            v35 = [v17 firstObject];
-            v36 = UIImagePNGRepresentation(v35);
-            v37 = NSStringFromSelector(*(a1 + 40));
-            [v34 createFile:v32 content:v36 errorLabel:v37];
-          }
-
-          else if ([v17 count] == v7 && v7 >= 1)
-          {
-            v21 = 0;
-            v38 = v7 & 0x7FFFFFFF;
-            v39 = v12;
-            v22 = v4;
-            do
-            {
-              v23 = [NSString stringWithFormat:@"%@/page_%d.png", v15, v22];
-              [v12 objectForKey:@"pages"];
-              v25 = v24 = v15;
-              [v25 addObject:v23];
-
-              v26 = *(a1 + 32);
-              [v17 objectAtIndex:v21];
-              v28 = v27 = v17;
-              v29 = UIImagePNGRepresentation(v28);
-              v30 = NSStringFromSelector(*(a1 + 40));
-              v31 = v26;
-              v15 = v24;
-              v12 = v39;
-              [v31 createFile:v23 content:v29 errorLabel:v30];
-
-              v17 = v27;
-              ++v21;
-              v22 = (v22 + 1);
-            }
-
-            while (v38 != v21);
-          }
-        }
-      }
-
-      v9 = v40;
-    }
-  }
-}
-
-void sub_1001C4A94(id a1)
-{
-  v1 = objc_alloc_init(BKAuthenticationAlertRequest);
-  v2 = qword_100AF7828;
-  qword_100AF7828 = v1;
-}
-
-void sub_1001C4BFC(uint64_t a1)
-{
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v2 = *(*(a1 + 32) + 8);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v10;
-    do
-    {
-      v6 = 0;
-      do
-      {
-        if (*v10 != v5)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
-        v6 = v6 + 1;
-      }
-
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-    }
-
-    while (v4);
-  }
-
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 8);
-  *(v7 + 8) = 0;
-}
-
-void sub_1001C4EA4(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (*(v2 + 24) == 1 && *(a1 + 48) == 1)
-  {
-    v3 = *(*(a1 + 40) + 16);
-
-    v3();
-  }
-
-  else
-  {
-    *(v2 + 24) = 0;
-    v4 = *(*(a1 + 32) + 8);
-    if (!v4)
-    {
-      v5 = objc_alloc_init(NSMutableSet);
-      v6 = *(a1 + 32);
-      v7 = *(v6 + 8);
-      *(v6 + 8) = v5;
-
-      v4 = *(*(a1 + 32) + 8);
-    }
-
-    v8 = [*(a1 + 40) copy];
-    [v4 addObject:v8];
-
-    v9 = *(a1 + 32);
-    if ((*(v9 + 25) & 1) == 0)
-    {
-      *(v9 + 25) = 1;
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_1001C4FE4;
-      block[3] = &unk_100A033C8;
-      block[4] = *(a1 + 32);
-      dispatch_async(&_dispatch_main_q, block);
-    }
-  }
-}
-
-void sub_1001C4FE4(uint64_t a1)
-{
-  v2 = +[NSBundle mainBundle];
-  v3 = [v2 localizedStringForKey:@"Sign In" value:&stru_100A30A68 table:0];
-
-  v4 = +[NSBundle mainBundle];
-  v5 = [v4 localizedStringForKey:@"Not Now" value:&stru_100A30A68 table:0];
-
-  v6 = +[NSBundle mainBundle];
-  v7 = [v6 localizedStringForKey:@"Sign In Required" value:&stru_100A30A68 table:0];
-
-  v8 = +[NSBundle mainBundle];
-  v9 = [v8 localizedStringForKey:@"To access purchases in the Cloud value:please sign in." table:{&stru_100A30A68, 0}];
-
-  v10 = [UIAlertController alertControllerWithTitle:v7 message:v9 preferredStyle:1];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_1001C5240;
-  v15[3] = &unk_100A05818;
-  v15[4] = *(a1 + 32);
-  v11 = [UIAlertAction actionWithTitle:v5 style:1 handler:v15];
-  [v10 addAction:v11];
-
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_1001C52D4;
-  v14[3] = &unk_100A05818;
-  v14[4] = *(a1 + 32);
-  v12 = [UIAlertAction actionWithTitle:v3 style:0 handler:v14];
-  [v10 addAction:v12];
-
-  v13 = +[BKAppDelegate currentSceneController];
-  [v13 presentViewController:v10 animated:1 completion:0];
-}
-
-void sub_1001C5240(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 32);
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_1001C52B4;
-  block[3] = &unk_100A033C8;
-  block[4] = v1;
-  dispatch_async(v2, block);
-}
-
-id sub_1001C52B4(uint64_t a1)
-{
-  *(*(a1 + 32) + 24) = 1;
-  *(*(a1 + 32) + 25) = 0;
-  return [*(a1 + 32) _notifyHandlers:0];
-}
-
-void sub_1001C52D4(uint64_t a1)
-{
-  v2 = [UIViewController jsa_topMostViewControllerForWindow:0];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 32);
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_1001C5380;
-  v6[3] = &unk_100A03440;
-  v6[4] = v3;
-  v7 = v2;
-  v5 = v2;
-  dispatch_async(v4, v6);
-}
-
-void sub_1001C5380(uint64_t a1)
-{
-  v2 = *(*(a1 + 32) + 16);
-  if (v2)
-  {
-    [v2 cancel];
-  }
-
-  v3 = [AMSAuthenticateRequest alloc];
-  v4 = +[BUAccountsProvider sharedProvider];
-  v5 = [v4 activeStoreAccount];
-  v6 = [v3 initWithAccount:v5 options:0];
-
-  v7 = [[AMSUIAuthenticateTask alloc] initWithRequest:v6 presentingViewController:*(a1 + 40)];
-  v8 = [v7 performAuthentication];
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 16);
-  *(v9 + 16) = v8;
-
-  objc_initWeak(&location, *(a1 + 32));
-  v11 = *(*(a1 + 32) + 16);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1001C54E4;
-  v12[3] = &unk_100A0AB40;
-  objc_copyWeak(&v13, &location);
-  [v11 addFinishBlock:v12];
-  objc_destroyWeak(&v13);
-  objc_destroyWeak(&location);
-}
-
-void sub_1001C54C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001C54E4(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  v6 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained _handleAuthResult:v6 error:v5];
-}
-
-void sub_1001C55F4(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  *(*(a1 + 40) + 24) = v2 == 0;
-  [*(a1 + 40) _notifyHandlers:v2 != 0];
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = 0;
-
-  *(*(a1 + 40) + 25) = 0;
-}
-
-void sub_1001C5C60(uint64_t a1)
-{
-  v2 = *(*(a1 + 32) + 16);
-  v3 = v2;
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 24);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
-  {
-    v6 = *(v4 + 8);
-    v7 = qos_class_self();
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 32) + 1;
-    *(v8 + 32) = v9;
-    v18 = 138412802;
-    v19 = v6;
-    v20 = 1024;
-    v21 = v7;
-    v22 = 2048;
-    v23 = v9;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_INTERVAL_BEGIN, v5, "Launch Queue", "name: %@, qos: 0x%x, seq: %ld", &v18, 0x1Cu);
-  }
-
-  v10 = objc_retainBlock(*(a1 + 40));
-  v11 = v10;
-  if (v10)
-  {
-    (*(v10 + 2))(v10);
-  }
-
-  v12 = *(*(a1 + 32) + 16);
-  v13 = v12;
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 24);
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
-  {
-    v16 = *(v14 + 8);
-    v17 = qos_class_self();
-    v18 = 138412546;
-    v19 = v16;
-    v20 = 1024;
-    v21 = v17;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_END, v15, "Launch Queue", "name: %@, qos: 0x%x", &v18, 0x12u);
-  }
-}
-
-void sub_1001C5EF4(id a1, id a2)
-{
-  v2 = a2;
-  v3 = +[BDSJaliscoDAAPClient sharedClient];
-  v4 = dispatch_get_global_queue(0, 0);
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_1001C5FD0;
-  v7[3] = &unk_100A03788;
-  v8 = v3;
-  v9 = v2;
-  v5 = v2;
-  v6 = v3;
-  dispatch_async(v4, v7);
 }

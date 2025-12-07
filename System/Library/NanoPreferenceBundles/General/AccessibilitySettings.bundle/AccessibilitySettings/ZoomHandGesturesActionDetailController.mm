@@ -3,6 +3,7 @@
 - (id)actionDetailControllerDelegate;
 - (id)specifiers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ZoomHandGesturesActionDetailController
@@ -19,40 +20,40 @@
 - (id)specifiers
 {
   selfCopy = self;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v26 = *MEMORY[0x277D3FC48];
+    v25 = *MEMORY[0x277D3FC48];
     array = [MEMORY[0x277CBEB18] array];
     actionDetailControllerDelegate = [(ZoomHandGesturesActionDetailController *)selfCopy actionDetailControllerDelegate];
-    v31 = [actionDetailControllerDelegate selectedActionForDetailController:selfCopy];
+    v30 = [actionDetailControllerDelegate selectedActionForDetailController:selfCopy];
 
     array2 = [MEMORY[0x277CBEB18] array];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     obj = [MEMORY[0x277D7EA40] defaultActions];
-    v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v6)
     {
       v7 = v6;
-      v29 = *v33;
-      v30 = 0;
-      v28 = *MEMORY[0x277D3FFC0];
+      v28 = *v32;
+      v29 = 0;
+      v27 = *MEMORY[0x277D3FFC0];
       v8 = *MEMORY[0x277D401A8];
       do
       {
         for (i = 0; i != v7; ++i)
         {
           v10 = selfCopy;
-          if (*v33 != v29)
+          if (*v32 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v32 + 1) + 8 * i);
+          v11 = *(*(&v31 + 1) + 8 * i);
           unsignedIntegerValue = [v11 unsignedIntegerValue];
           v13 = [MEMORY[0x277D7EA40] nameForAction:unsignedIntegerValue];
           v14 = MEMORY[0x277D3FAD8];
@@ -61,19 +62,19 @@
 
           selfCopy = v10;
           v17 = [(ZoomHandGesturesActionDetailController *)v10 _mapZoomActionToWCImage:unsignedIntegerValue];
-          [v16 setProperty:v17 forKey:v28];
+          [v16 setProperty:v17 forKey:v27];
           [v16 setProperty:v11 forKey:v8];
-          if ([v11 isEqualToNumber:v31])
+          if ([v11 isEqualToNumber:v30])
           {
             v18 = v16;
 
-            v30 = v18;
+            v29 = v18;
           }
 
           [array2 addObject:v16];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v7 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v7);
@@ -81,7 +82,7 @@
 
     else
     {
-      v30 = 0;
+      v29 = 0;
     }
 
     if ([array2 count])
@@ -89,25 +90,70 @@
       v19 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:selfCopy set:0 get:0 detail:0 cell:0 edit:0];
       [v19 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
       [array addObject:v19];
-      if (v30)
+      if (v29)
       {
-        [v19 setProperty:v30 forKey:*MEMORY[0x277D40090]];
+        [v19 setProperty:v29 forKey:*MEMORY[0x277D40090]];
       }
 
       [array addObjectsFromArray:array2];
     }
 
     v20 = selfCopy;
-    v21 = *(&selfCopy->super.super.super.super.super.super.isa + v26);
-    *(&v20->super.super.super.super.super.super.isa + v26) = array;
+    v21 = *(&selfCopy->super.super.super.super.super.super.isa + v25);
+    *(&v20->super.super.super.super.super.super.isa + v25) = array;
     v22 = array;
 
-    v3 = *(&v20->super.super.super.super.super.super.isa + v26);
+    v3 = *(&v20->super.super.super.super.super.super.isa + v25);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v29[3] = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = ZoomHandGesturesActionDetailController;
+  [(AccessibilityBridgeBaseController *)&v28 viewWillAppear:appear];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  specifier = [(ZoomHandGesturesActionDetailController *)self specifier];
+  userInfo = [specifier userInfo];
+  v7 = [userInfo objectForKeyedSubscript:@"ZoomHandGesturesGreyEventKey"];
+
+  if (v7)
+  {
+    v8 = +[WatchControlStringLookup stringResourceForAXHandGestures:](WatchControlStringLookup, "stringResourceForAXHandGestures:", [v7 integerValue]);
+    specifier2 = [(ZoomHandGesturesActionDetailController *)self specifier];
+    identifier = [specifier2 identifier];
+
+    if (v8 && identifier)
+    {
+      v11 = objc_alloc(MEMORY[0x277CCAEB8]);
+      currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+      bundleURL = [v4 bundleURL];
+      v27 = [v11 initWithKey:@"HAND_GESTURES" table:@"ZoomSettings" locale:currentLocale bundleURL:bundleURL];
+
+      v14 = objc_alloc(MEMORY[0x277CCAEB8]);
+      currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+      bundleURL2 = [v4 bundleURL];
+      v17 = [v14 initWithKey:@"ZOOM_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+      v18 = objc_alloc(MEMORY[0x277CCAEB8]);
+      currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+      bundleURL3 = [v4 bundleURL];
+      v21 = [v18 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+      v22 = MEMORY[0x277CF3470];
+      v29[0] = v21;
+      v29[1] = v17;
+      v29[2] = v27;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+      v24 = MEMORY[0x277CBEBC0];
+      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"bridge:root=ACCESSIBILITY_ID&path=ZOOM_ID/HandGestures/%@", identifier];
+      v26 = [v24 URLWithString:v25];
+      [v22 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v8 localizedNavigationComponents:v23 deepLink:v26];
+    }
+  }
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

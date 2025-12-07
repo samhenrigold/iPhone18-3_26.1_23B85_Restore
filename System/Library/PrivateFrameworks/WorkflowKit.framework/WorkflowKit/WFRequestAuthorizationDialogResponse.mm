@@ -2,6 +2,7 @@
 - (WFRequestAuthorizationDialogResponse)initWithBSXPCCoder:(id)coder;
 - (WFRequestAuthorizationDialogResponse)initWithCoder:(id)coder;
 - (WFRequestAuthorizationDialogResponse)initWithResponseCode:(int64_t)code;
+- (WFRequestAuthorizationDialogResponse)initWithResult:(unint64_t)result cancelled:(BOOL)cancelled;
 - (void)encodeWithBSXPCCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -69,6 +70,21 @@
   }
 
   return v4;
+}
+
+- (WFRequestAuthorizationDialogResponse)initWithResult:(unint64_t)result cancelled:(BOOL)cancelled
+{
+  v9.receiver = self;
+  v9.super_class = WFRequestAuthorizationDialogResponse;
+  v5 = [(WFDialogResponse *)&v9 initWithCancelled:cancelled];
+  v6 = v5;
+  if (v5)
+  {
+    v5->_result = result;
+    v7 = v5;
+  }
+
+  return v6;
 }
 
 @end

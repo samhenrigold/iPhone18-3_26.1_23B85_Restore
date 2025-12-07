@@ -11,7 +11,7 @@ void __46___UISceneLifecycleMultiplexer_sharedInstance__block_invoke()
   _MergedGlobals_1027 = v1;
 }
 
-uint64_t __78___UISceneLifecycleMultiplexer_lifecycleWantsUnnecessaryDelayForSceneDelivery__block_invoke()
+void *__78___UISceneLifecycleMultiplexer_lifecycleWantsUnnecessaryDelayForSceneDelivery__block_invoke()
 {
   v0 = _UIKitUserDefaults();
   v1 = [v0 BOOLForKey:@"UIRequireCrimsonLifecycle"];
@@ -114,22 +114,22 @@ void __74___UISceneLifecycleMultiplexer_mostActiveSceneIncludingInternal_withTes
 
 uint64_t __62___UISceneLifecycleMultiplexer_mostActiveWindowSceneOnScreen___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = objc_opt_self();
+  v2 = a2;
+  v3 = objc_opt_self();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v6 = [v3 screen];
-    v7 = [v6 isEqual:*(a1 + 32)];
+    v5 = [v2 screen];
+    isEqual = objc_msgSend_isEqual_(v5);
   }
 
   else
   {
-    v7 = 0;
+    isEqual = 0;
   }
 
-  return v7;
+  return isEqual;
 }
 
 void __101___UISceneLifecycleMultiplexer__evalTransitionToSettings_fromSettings_forceExit_withTransitionStore___block_invoke(uint64_t a1)
@@ -302,9 +302,9 @@ LABEL_31:
         if (v6 != [*(a1 + 56) interfaceOrientation])
         {
           v8 = _UIMainBundleIdentifier();
-          v9 = [@"com.apple.MobileSMS" isEqualToString:v8];
+          isEqualToString = objc_msgSend_isEqualToString_(@"com.apple.MobileSMS");
 
-          if ((v9 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             v10 = *(a1 + 64);
             v35[0] = MEMORY[0x1E69E9820];
@@ -396,7 +396,7 @@ void __101___UISceneLifecycleMultiplexer__evalTransitionToSettings_fromSettings_
   }
 }
 
-uint64_t __101___UISceneLifecycleMultiplexer__evalTransitionToSettings_fromSettings_forceExit_withTransitionStore___block_invoke_2_31()
+void *__101___UISceneLifecycleMultiplexer__evalTransitionToSettings_fromSettings_forceExit_withTransitionStore___block_invoke_2_31()
 {
   v0 = UIApp;
   v1 = *(UIApp + 176);

@@ -1,6 +1,6 @@
 int *logfunctionv(const char *a1, uint64_t a2, const __CFString *a3, va_list a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = *__error();
   memcpy(__dst, "Error creating CFString", sizeof(__dst));
   if (logfunctionv_onceToken != -1)
@@ -46,7 +46,6 @@ int *logfunctionv(const char *a1, uint64_t a2, const __CFString *a3, va_list a4)
   free(v11);
   result = __error();
   *result = v7;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -90,7 +89,7 @@ CFErrorRef _vcreate_error_internal_with_userinfo_cf(const __CFString *a1, CFInde
     if (v18)
     {
       v24 = v18;
-      logfunction("", 1, @"%@ error %ld - %@\n", v19, v20, v21, v22, v23, a1);
+      logfunction("", 1, @"%@ error %ld - %@\n", v19, v20, v21, v22, v23, a1, a2, v18);
       CFDictionaryAddValue(v17, *MEMORY[0x277CBEE58], v24);
       CFRelease(v24);
     }
@@ -120,7 +119,7 @@ CFErrorRef _vcreate_error_internal_with_userinfo_cf(const __CFString *a1, CFInde
 
 CFDictionaryRef cferror_to_dictionary_embedded(__CFError *a1, int a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   valuePtr = CFErrorGetCode(a1);
   Domain = CFErrorGetDomain(a1);
   v5 = CFErrorCopyUserInfo(a1);
@@ -128,11 +127,11 @@ CFDictionaryRef cferror_to_dictionary_embedded(__CFError *a1, int a2)
   v7 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberCFIndexType, &valuePtr);
   if (!v7)
   {
-    logfunction("", 1, @"could not create cfnumber\n", v8, v9, v10, v11, v12, v32);
+    logfunction("", 1, @"could not create cfnumber\n", v8, v9, v10, v11, v12);
     v24 = 0;
     if (!v5)
     {
-      goto LABEL_25;
+      return v24;
     }
 
     goto LABEL_24;
@@ -140,11 +139,11 @@ CFDictionaryRef cferror_to_dictionary_embedded(__CFError *a1, int a2)
 
   v13 = v7;
   *keys = xmmword_2798EDAA8;
-  v38 = *&off_2798EDAB8;
+  v36 = *&off_2798EDAB8;
   values[0] = v7;
   values[1] = Domain;
-  v35 = v5;
-  v36 = 0;
+  v33 = v5;
+  v34 = 0;
   if (v5)
   {
     v14 = *MEMORY[0x277CBEE78];
@@ -172,7 +171,7 @@ LABEL_17:
       if (MutableCopy)
       {
         CFDictionarySetValue(MutableCopy, v14, v19);
-        v35 = v16;
+        v33 = v16;
       }
 
       CFRelease(v19);
@@ -181,8 +180,8 @@ LABEL_17:
     if (a2)
     {
 LABEL_10:
-      v21 = (&v38 + 8);
-      v22 = &v36;
+      v21 = (&v36 + 8);
+      v22 = &v34;
       v23 = 4;
 LABEL_15:
       *v21 = @"_MSU_Embedded_Error";
@@ -196,8 +195,8 @@ LABEL_15:
   v16 = 0;
   if (a2)
   {
-    v21 = &v38;
-    v22 = &v35;
+    v21 = &v36;
+    v22 = &v33;
     v23 = 3;
     goto LABEL_15;
   }
@@ -207,7 +206,7 @@ LABEL_19:
   v24 = CFDictionaryCreate(v6, keys, values, v23, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!v24)
   {
-    logfunction("", 1, @"could not create cfdictionary\n", v25, v26, v27, v28, v29, v32);
+    logfunction("", 1, @"could not create cfdictionary\n", v25, v26, v27, v28, v29);
   }
 
   if (v16)
@@ -222,8 +221,6 @@ LABEL_24:
     CFRelease(v5);
   }
 
-LABEL_25:
-  v30 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -240,7 +237,7 @@ const __CFString *copy_dictionary_to_cferror(const void *a1)
   {
     v23 = @"marshalled cferror is not a dictionary.\n";
 LABEL_17:
-    logfunction("", 1, v23, v3, v4, v5, v6, v7, v25);
+    logfunction("", 1, v23, v3, v4, v5, v6, v7);
     return 0;
   }
 
@@ -260,7 +257,7 @@ LABEL_17:
   v14 = CFDictionaryGetValue(a1, @"Domain");
   if (!v14)
   {
-    logfunction("", 1, @"marshalled cferror is incomplete. missing domain.\n", v9, v10, v11, v12, v13, v25);
+    logfunction("", 1, @"marshalled cferror is incomplete. missing domain.\n", v9, v10, v11, v12, v13);
     return v14;
   }
 
@@ -443,7 +440,7 @@ uint64_t qos_class_for_msu_qos(int a1)
 
 uint64_t MSUPreflightUpdate(uint64_t a1, const void *a2, const __CFString **a3, uint64_t a4, uint64_t a5)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v10 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
@@ -460,9 +457,9 @@ uint64_t MSUPreflightUpdate(uint64_t a1, const void *a2, const __CFString **a3, 
     v12 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a2];
     v13 = @"SPECIFIED";
     *buf = 138413314;
-    v27 = @"MSUPreflightUpdate";
-    v28 = 2114;
-    v29 = v11;
+    v26 = @"MSUPreflightUpdate";
+    v27 = 2114;
+    v28 = v11;
     if (a4)
     {
       v14 = @"SPECIFIED";
@@ -473,17 +470,17 @@ uint64_t MSUPreflightUpdate(uint64_t a1, const void *a2, const __CFString **a3, 
       v14 = @"NONE";
     }
 
-    v30 = 2114;
+    v29 = 2114;
     if (!a5)
     {
       v13 = @"NONE";
     }
 
-    v31 = v12;
-    v32 = 2112;
-    v33 = v14;
-    v34 = 2112;
-    v35 = v13;
+    v30 = v12;
+    v31 = 2112;
+    v32 = v14;
+    v33 = 2112;
+    v34 = v13;
     _os_log_impl(&dword_259B51000, v10, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | phase:%{public}@, options:%{public}@, fncallback:%@, context:%@", buf, 0x34u);
   }
 
@@ -513,13 +510,13 @@ uint64_t MSUPreflightUpdate(uint64_t a1, const void *a2, const __CFString **a3, 
   v19 = objc_autoreleasePoolPush();
   -[__CFDictionary setValue:forKey:](v16, "setValue:forKey:", [MEMORY[0x277CCABB0] numberWithInt:a1], @"Phase");
   objc_autoreleasePoolPop(v19);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __MSUPreflightUpdate_block_invoke;
-  v25[3] = &__block_descriptor_48_e25_i16__0____CFDictionary__8l;
-  v25[4] = a4;
-  v25[5] = a5;
-  v20 = perform_command_with_progress("PreflightUpdate", v16, Value, 0, a3, v25);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __MSUPreflightUpdate_block_invoke;
+  v24[3] = &__block_descriptor_48_e25_i16__0____CFDictionary__8l;
+  v24[4] = a4;
+  v24[5] = a5;
+  v20 = perform_command_with_progress("PreflightUpdate", v16, Value, 0, a3, v24);
   CFRelease(v16);
   v21 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   v22 = v21;
@@ -528,17 +525,16 @@ uint64_t MSUPreflightUpdate(uint64_t a1, const void *a2, const __CFString **a3, 
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = @"MSUPreflightUpdate";
+      v26 = @"MSUPreflightUpdate";
       _os_log_impl(&dword_259B51000, v22, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS", buf, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    MSUPreflightUpdate_cold_1(a3);
+    MSUPreflightUpdate_cold_1();
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -556,9 +552,9 @@ uint64_t __MSUPreflightUpdate_block_invoke(uint64_t a1, uint64_t a2)
   }
 }
 
-BOOL MSUPrepareUpdateWithAsset(void *a1, const void *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6)
+BOOL MSUPrepareUpdateWithAsset(void *a1, const void *a2, uint64_t *a3, CFErrorRef *a4, uint64_t a5, uint64_t a6)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v12 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -574,7 +570,7 @@ BOOL MSUPrepareUpdateWithAsset(void *a1, const void *a2, uint64_t *a3, uint64_t 
 
     v14 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a2];
     *buf = 138413314;
-    v30 = @"MSUPrepareUpdateWithAsset";
+    v29 = @"MSUPrepareUpdateWithAsset";
     if (a5)
     {
       v15 = @"SPECIFIED";
@@ -595,14 +591,14 @@ BOOL MSUPrepareUpdateWithAsset(void *a1, const void *a2, uint64_t *a3, uint64_t 
       v16 = @"NONE";
     }
 
-    v31 = 2114;
-    v32 = v13;
-    v33 = 2114;
-    v34 = v14;
-    v35 = 2112;
-    v36 = v15;
-    v37 = 2112;
-    v38 = v16;
+    v30 = 2114;
+    v31 = v13;
+    v32 = 2114;
+    v33 = v14;
+    v34 = 2112;
+    v35 = v15;
+    v36 = 2112;
+    v37 = v16;
     _os_log_impl(&dword_259B51000, v12, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | update_asset:%{public}@, options:%{public}@, fncallback:%@, context:%@", buf, 0x34u);
   }
 
@@ -624,13 +620,11 @@ BOOL MSUPrepareUpdateWithAsset(void *a1, const void *a2, uint64_t *a3, uint64_t 
     result = os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_28;
+      return result;
     }
 
-    MSUPrepareUpdateWithAsset_cold_2(a4 == 0, a4);
-LABEL_24:
-    result = 0;
-    goto LABEL_28;
+    MSUPrepareUpdateWithAsset_cold_2();
+    return 0;
   }
 
   v18 = perform_prepare_command(v17, a2, [a1 attributes], a3, a4, a5, a6);
@@ -641,11 +635,11 @@ LABEL_24:
     result = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_28;
+      return result;
     }
 
-    MSUPrepareUpdateWithAsset_cold_1(a4);
-    goto LABEL_24;
+    MSUPrepareUpdateWithAsset_cold_1();
+    return 0;
   }
 
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
@@ -661,21 +655,18 @@ LABEL_24:
     }
 
     *buf = 138412546;
-    v30 = @"MSUPrepareUpdateWithAsset";
-    v31 = 2048;
-    v32 = v21;
+    v29 = @"MSUPrepareUpdateWithAsset";
+    v30 = 2048;
+    v31 = v21;
     _os_log_impl(&dword_259B51000, v20, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | session:%ld", buf, 0x16u);
   }
 
-  result = 1;
-LABEL_28:
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t perform_prepare_command(__CFString *a1, const void *a2, void *a3, void *a4, const __CFString **a5, uint64_t a6, uint64_t a7)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   number = 0;
   v13 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -694,7 +685,7 @@ uint64_t perform_prepare_command(__CFString *a1, const void *a2, void *a3, void 
     v16 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a3];
     v17 = @"SPECIFIED";
     *buf = 138413570;
-    v32 = @"perform_prepare_command";
+    v31 = @"perform_prepare_command";
     if (a6)
     {
       v18 = @"SPECIFIED";
@@ -710,16 +701,16 @@ uint64_t perform_prepare_command(__CFString *a1, const void *a2, void *a3, void 
       v17 = @"NONE";
     }
 
-    v33 = 2114;
-    v34 = v27;
-    v35 = 2114;
-    v36 = v15;
-    v37 = 2114;
-    v38 = v16;
-    v39 = 2112;
-    v40 = v18;
-    v41 = 2112;
-    v42 = v17;
+    v32 = 2114;
+    v33 = v26;
+    v34 = 2114;
+    v35 = v15;
+    v36 = 2114;
+    v37 = v16;
+    v38 = 2112;
+    v39 = v18;
+    v40 = 2112;
+    v41 = v17;
     _os_log_impl(&dword_259B51000, v13, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | source_path:%{public}@, prepare_options:%{public}@, update_attributes:%{public}@, fncallback:%@, context:%@", buf, 0x3Eu);
   }
 
@@ -745,18 +736,18 @@ uint64_t perform_prepare_command(__CFString *a1, const void *a2, void *a3, void 
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = @"perform_prepare_command";
+    v31 = @"perform_prepare_command";
     _os_log_impl(&dword_259B51000, v21, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | PERFORM_WITH_PROGRESS | PrepareUpdate...", buf, 0xCu);
   }
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __perform_prepare_command_block_invoke;
-  v29[3] = &unk_2798EE010;
-  v29[5] = a6;
-  v29[6] = a7;
-  v29[4] = @"perform_prepare_command";
-  v22 = perform_command_with_progress("PrepareUpdate", v20, a3, &number, a5, v29);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __perform_prepare_command_block_invoke;
+  v28[3] = &unk_2798EE010;
+  v28[5] = a6;
+  v28[6] = a7;
+  v28[4] = @"perform_prepare_command";
+  v22 = perform_command_with_progress("PrepareUpdate", v20, a3, &number, a5, v28);
   if (v22)
   {
     CFNumberGetValue(number, kCFNumberLongType, a4);
@@ -774,16 +765,16 @@ uint64_t perform_prepare_command(__CFString *a1, const void *a2, void *a3, void 
       }
 
       *buf = 138412546;
-      v32 = @"perform_prepare_command";
-      v33 = 2048;
-      v34 = v24;
+      v31 = @"perform_prepare_command";
+      v32 = 2048;
+      v33 = v24;
       _os_log_impl(&dword_259B51000, v23, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | ...PrepareUpdate | SUCCESS | session:%ld", buf, 0x16u);
     }
   }
 
   else if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
   {
-    perform_prepare_command_cold_1(a5);
+    perform_prepare_command_cold_1();
   }
 
   CFRelease(v20);
@@ -792,13 +783,12 @@ uint64_t perform_prepare_command(__CFString *a1, const void *a2, void *a3, void 
     CFRelease(number);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
-BOOL MSUPrepareUpdateWithMAAsset(void *a1, const void *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6)
+BOOL MSUPrepareUpdateWithMAAsset(void *a1, const void *a2, uint64_t *a3, CFErrorRef *a4, uint64_t a5, uint64_t a6)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v12 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -823,7 +813,7 @@ BOOL MSUPrepareUpdateWithMAAsset(void *a1, const void *a2, uint64_t *a3, uint64_
 
     v15 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a2];
     *buf = 138413314;
-    v31 = @"MSUPrepareUpdateWithMAAsset";
+    v30 = @"MSUPrepareUpdateWithMAAsset";
     if (a5)
     {
       v16 = @"SPECIFIED";
@@ -844,14 +834,14 @@ BOOL MSUPrepareUpdateWithMAAsset(void *a1, const void *a2, uint64_t *a3, uint64_
       v17 = @"NONE";
     }
 
-    v32 = 2114;
-    v33 = v14;
-    v34 = 2114;
-    v35 = v15;
-    v36 = 2112;
-    v37 = v16;
-    v38 = 2112;
-    v39 = v17;
+    v31 = 2114;
+    v32 = v14;
+    v33 = 2114;
+    v34 = v15;
+    v35 = 2112;
+    v36 = v16;
+    v37 = 2112;
+    v38 = v17;
     _os_log_impl(&dword_259B51000, v12, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | update_asset:%{public}@, options:%{public}@, fncallback:%@, context:%@", buf, 0x34u);
   }
 
@@ -873,13 +863,11 @@ BOOL MSUPrepareUpdateWithMAAsset(void *a1, const void *a2, uint64_t *a3, uint64_
     result = os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_30;
+      return result;
     }
 
-    MSUPrepareUpdateWithMAAsset_cold_2(a4 == 0, a4);
-LABEL_26:
-    result = 0;
-    goto LABEL_30;
+    MSUPrepareUpdateWithMAAsset_cold_2();
+    return 0;
   }
 
   v19 = perform_prepare_command(v18, a2, [a1 attributes], a3, a4, a5, a6);
@@ -890,11 +878,11 @@ LABEL_26:
     result = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_30;
+      return result;
     }
 
-    MSUPrepareUpdateWithMAAsset_cold_1(a4);
-    goto LABEL_26;
+    MSUPrepareUpdateWithMAAsset_cold_1();
+    return 0;
   }
 
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -910,21 +898,18 @@ LABEL_26:
     }
 
     *buf = 138412546;
-    v31 = @"MSUPrepareUpdateWithMAAsset";
-    v32 = 2048;
-    v33 = v22;
+    v30 = @"MSUPrepareUpdateWithMAAsset";
+    v31 = 2048;
+    v32 = v22;
     _os_log_impl(&dword_259B51000, v21, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | session:%ld", buf, 0x16u);
   }
 
-  result = 1;
-LABEL_30:
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t MSUPrepareUpdate(__CFString *a1, const __CFDictionary *a2, uint64_t *a3, const __CFString **a4, uint64_t a5, uint64_t a6)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v12 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -939,10 +924,10 @@ uint64_t MSUPrepareUpdate(__CFString *a1, const __CFDictionary *a2, uint64_t *a3
     }
 
     v14 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a2];
-    v24 = 138413314;
-    v25 = @"MSUPrepareUpdate";
+    v23 = 138413314;
+    v24 = @"MSUPrepareUpdate";
     v15 = @"SPECIFIED";
-    v27 = v13;
+    v26 = v13;
     if (a5)
     {
       v16 = @"SPECIFIED";
@@ -953,19 +938,19 @@ uint64_t MSUPrepareUpdate(__CFString *a1, const __CFDictionary *a2, uint64_t *a3
       v16 = @"NONE";
     }
 
-    v26 = 2114;
+    v25 = 2114;
     if (!a6)
     {
       v15 = @"NONE";
     }
 
-    v28 = 2114;
-    v29 = v14;
-    v30 = 2112;
-    v31 = v16;
-    v32 = 2112;
-    v33 = v15;
-    _os_log_impl(&dword_259B51000, v12, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | source_path:%{public}@, options:%{public}@, fncallback:%@, context:%@", &v24, 0x34u);
+    v27 = 2114;
+    v28 = v14;
+    v29 = 2112;
+    v30 = v16;
+    v31 = 2112;
+    v32 = v15;
+    _os_log_impl(&dword_259B51000, v12, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | source_path:%{public}@, options:%{public}@, fncallback:%@, context:%@", &v23, 0x34u);
   }
 
   if (a2)
@@ -995,20 +980,19 @@ uint64_t MSUPrepareUpdate(__CFString *a1, const __CFDictionary *a2, uint64_t *a3
         v21 = -1;
       }
 
-      v24 = 138412546;
-      v25 = @"MSUPrepareUpdate";
-      v26 = 2048;
-      v27 = v21;
-      _os_log_impl(&dword_259B51000, v20, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | session:%ld", &v24, 0x16u);
+      v23 = 138412546;
+      v24 = @"MSUPrepareUpdate";
+      v25 = 2048;
+      v26 = v21;
+      _os_log_impl(&dword_259B51000, v20, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | session:%ld", &v23, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    MSUPrepareUpdate_cold_1(a4);
+    MSUPrepareUpdate_cold_1();
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -1031,9 +1015,9 @@ __CFDictionary *copyDictionaryAddingLocale(CFDictionaryRef theDict, const void *
   return v6;
 }
 
-uint64_t MSUApplyUpdate(uint64_t a1, const __CFDictionary *a2, const __CFString **a3, uint64_t a4, uint64_t a5)
+uint64_t MSUApplyUpdate(unint64_t a1, const __CFDictionary *a2, const __CFString **a3, uint64_t a4, uint64_t a5)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   valuePtr = a1;
   v9 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -1041,8 +1025,8 @@ uint64_t MSUApplyUpdate(uint64_t a1, const __CFDictionary *a2, const __CFString 
     v10 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a2];
     v11 = @"SPECIFIED";
     *buf = 138413314;
-    v33 = @"MSUApplyUpdate";
-    v34 = 2048;
+    v32 = @"MSUApplyUpdate";
+    v33 = 2048;
     if (a4)
     {
       v12 = @"SPECIFIED";
@@ -1053,18 +1037,18 @@ uint64_t MSUApplyUpdate(uint64_t a1, const __CFDictionary *a2, const __CFString 
       v12 = @"NONE";
     }
 
-    v35 = a1;
-    v36 = 2114;
+    v34 = a1;
+    v35 = 2114;
     if (!a5)
     {
       v11 = @"NONE";
     }
 
-    v37 = v10;
-    v38 = 2112;
-    v39 = v12;
-    v40 = 2112;
-    v41 = v11;
+    v36 = v10;
+    v37 = 2112;
+    v38 = v12;
+    v39 = 2112;
+    v40 = v11;
     _os_log_impl(&dword_259B51000, v9, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | session:%ld, options:%{public}@, fncallback:%@, context:%@", buf, 0x34u);
   }
 
@@ -1080,11 +1064,11 @@ uint64_t MSUApplyUpdate(uint64_t a1, const __CFDictionary *a2, const __CFString 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v33 = @"MSUApplyUpdate";
-      v34 = 2114;
-      v35 = v17;
-      v36 = 2114;
-      v37 = v18;
+      v32 = @"MSUApplyUpdate";
+      v33 = 2114;
+      v34 = v17;
+      v35 = 2114;
+      v36 = v18;
       _os_log_impl(&dword_259B51000, v19, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | Current LanguageCode: %{public}@ ExpandedLanguageCode: %{public}@", buf, 0x20u);
     }
   }
@@ -1130,18 +1114,18 @@ uint64_t MSUApplyUpdate(uint64_t a1, const __CFDictionary *a2, const __CFString 
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = @"MSUApplyUpdate";
+    v32 = @"MSUApplyUpdate";
     _os_log_impl(&dword_259B51000, v23, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | PERFORM_WITH_PROGRESS | ApplyUpdate...", buf, 0xCu);
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __MSUApplyUpdate_block_invoke;
-  v30[3] = &unk_2798EE010;
-  v30[5] = a4;
-  v30[6] = a5;
-  v30[4] = @"MSUApplyUpdate";
-  v24 = perform_command_with_progress("ApplyUpdate", Mutable, Value, 0, a3, v30);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __MSUApplyUpdate_block_invoke;
+  v29[3] = &unk_2798EE010;
+  v29[5] = a4;
+  v29[6] = a5;
+  v29[4] = @"MSUApplyUpdate";
+  v24 = perform_command_with_progress("ApplyUpdate", Mutable, Value, 0, a3, v29);
   CFRelease(v14);
   CFRelease(Mutable);
   v25 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
@@ -1151,23 +1135,22 @@ uint64_t MSUApplyUpdate(uint64_t a1, const __CFDictionary *a2, const __CFString 
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = @"MSUApplyUpdate";
+      v32 = @"MSUApplyUpdate";
       _os_log_impl(&dword_259B51000, v26, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS", buf, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    MSUApplyUpdate_cold_1(a3);
+    MSUApplyUpdate_cold_1();
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 uint64_t __MSUApplyUpdate_block_invoke(void *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a1[5];
   if (v4)
   {
@@ -1197,11 +1180,11 @@ uint64_t __MSUApplyUpdate_block_invoke(void *a1, uint64_t a2)
       }
 
       *buf = 138412802;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2114;
-      v18 = a2;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2114;
+      v17 = a2;
       _os_log_impl(&dword_259B51000, v6, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | ApplyUpdate | PROGRESS (%@) | state:%{public}@", buf, 0x20u);
     }
   }
@@ -1214,31 +1197,30 @@ uint64_t __MSUApplyUpdate_block_invoke(void *a1, uint64_t a2)
     {
       v10 = a1[4];
       *buf = 138412802;
-      v14 = v10;
-      v15 = 2112;
-      v16 = @"Continue";
-      v17 = 2114;
-      v18 = a2;
+      v13 = v10;
+      v14 = 2112;
+      v15 = @"Continue";
+      v16 = 2114;
+      v17 = a2;
       _os_log_impl(&dword_259B51000, v9, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | ApplyUpdate | PROGRESS (no progress handler - %@) | state:%{public}@", buf, 0x20u);
-      v5 = 0;
+      return 0;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t MSUSuspendUpdate(uint64_t a1, CFTypeRef *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   valuePtr = a1;
   v4 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = @"MSUSuspendUpdate";
-    v18 = 2048;
-    v19 = a1;
+    v16 = @"MSUSuspendUpdate";
+    v17 = 2048;
+    v18 = a1;
     _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | session:%ld", buf, 0x16u);
   }
 
@@ -1257,31 +1239,30 @@ uint64_t MSUSuspendUpdate(uint64_t a1, CFTypeRef *a2)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = @"MSUSuspendUpdate";
+      v16 = @"MSUSuspendUpdate";
       _os_log_impl(&dword_259B51000, v10, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS", buf, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    MSUSuspendUpdate_cold_1(a2);
+    MSUSuspendUpdate_cold_1();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t MSUResumeUpdateWithOptions(const __CFDictionary *a1, void *a2, CFTypeRef *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   number = 0;
   v6 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v15 = @"MSUResumeUpdateWithOptions";
-    v16 = 2114;
-    v17 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
+    v14 = @"MSUResumeUpdateWithOptions";
+    v15 = 2114;
+    v16 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
     _os_log_impl(&dword_259B51000, v6, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | options:%{public}@", buf, 0x16u);
   }
 
@@ -1313,16 +1294,16 @@ uint64_t MSUResumeUpdateWithOptions(const __CFDictionary *a1, void *a2, CFTypeRe
       }
 
       *buf = 138412546;
-      v15 = @"MSUResumeUpdateWithOptions";
-      v16 = 2048;
-      v17 = v10;
+      v14 = @"MSUResumeUpdateWithOptions";
+      v15 = 2048;
+      v16 = v10;
       _os_log_impl(&dword_259B51000, v9, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | session:%ld", buf, 0x16u);
     }
   }
 
   else if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
   {
-    MSUResumeUpdateWithOptions_cold_1(a3);
+    MSUResumeUpdateWithOptions_cold_1();
   }
 
   if (number)
@@ -1330,21 +1311,20 @@ uint64_t MSUResumeUpdateWithOptions(const __CFDictionary *a1, void *a2, CFTypeRe
     CFRelease(number);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-BOOL MSUBrainIsLoadable(void *a1, uint64_t *a2)
+BOOL MSUBrainIsLoadable(void *a1, CFTypeRef *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = @"MSUBrainIsLoadable";
-    v16 = 2114;
-    v17 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
-    _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | assetAttributes:%{public}@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = @"MSUBrainIsLoadable";
+    v15 = 2114;
+    v16 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
+    _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | assetAttributes:%{public}@", &v13, 0x16u);
   }
 
   if (!a1)
@@ -1352,13 +1332,11 @@ BOOL MSUBrainIsLoadable(void *a1, uint64_t *a2)
     result = os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_20;
+      return result;
     }
 
     MSUBrainIsLoadable_cold_2();
-LABEL_19:
-    result = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   if (!perform_command("BrainIsLoadable", 0, a1, 0, a2))
@@ -1373,21 +1351,21 @@ LABEL_19:
         result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
         if (!result)
         {
-          goto LABEL_20;
+          return result;
         }
 
-        MSUBrainIsLoadable_cold_1(a2);
-        goto LABEL_19;
+        MSUBrainIsLoadable_cold_1();
+        return 0;
       }
 
       result = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
       if (!result)
       {
-        goto LABEL_20;
+        return result;
       }
 
-      v14 = 138412290;
-      v15 = @"MSUBrainIsLoadable";
+      v13 = 138412290;
+      v14 = @"MSUBrainIsLoadable";
       v11 = "[SPI] %@ | SUCCESS | Brain not loadable";
       v12 = v9;
     }
@@ -1398,42 +1376,39 @@ LABEL_19:
       result = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
       if (!result)
       {
-        goto LABEL_20;
+        return result;
       }
 
-      v14 = 138412290;
-      v15 = @"MSUBrainIsLoadable";
+      v13 = 138412290;
+      v14 = @"MSUBrainIsLoadable";
       v11 = "[SPI] %@ | DONE | Brain not loadable";
       v12 = v10;
     }
 
-    _os_log_impl(&dword_259B51000, v12, OS_LOG_TYPE_DEFAULT, v11, &v14, 0xCu);
-    goto LABEL_19;
+    _os_log_impl(&dword_259B51000, v12, OS_LOG_TYPE_DEFAULT, v11, &v13, 0xCu);
+    return 0;
   }
 
   v5 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = @"MSUBrainIsLoadable";
-    _os_log_impl(&dword_259B51000, v5, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | Brain loadable", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = @"MSUBrainIsLoadable";
+    _os_log_impl(&dword_259B51000, v5, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | Brain loadable", &v13, 0xCu);
   }
 
-  result = 1;
-LABEL_20:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t MSUPurgeSuspendedUpdate(CFTypeRef *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = @"MSUPurgeSuspendedUpdate";
-    _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = @"MSUPurgeSuspendedUpdate";
+    _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v7, 0xCu);
   }
 
   v3 = perform_command("PurgeSuspendedUpdate", 0, 0, 0, a1);
@@ -1443,18 +1418,17 @@ uint64_t MSUPurgeSuspendedUpdate(CFTypeRef *a1)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = @"MSUPurgeSuspendedUpdate";
-      _os_log_impl(&dword_259B51000, v5, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = @"MSUPurgeSuspendedUpdate";
+      _os_log_impl(&dword_259B51000, v5, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS", &v7, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    MSUPurgeSuspendedUpdate_cold_1(a1);
+    MSUPurgeSuspendedUpdate_cold_1();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1466,103 +1440,98 @@ void MSUCloseUpdateHandle()
   }
 }
 
-BOOL MSUAssetCalculateInstallationSize(void *a1, uint64_t *a2, CFTypeRef *a3)
+BOOL MSUAssetCalculateInstallationSize(void *a1, uint64_t *a2, CFErrorRef *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
   v6 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v15 = @"MSUAssetCalculateInstallationSize";
-    v16 = 2114;
-    v17 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
+    v14 = @"MSUAssetCalculateInstallationSize";
+    v15 = 2114;
+    v16 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
     _os_log_impl(&dword_259B51000, v6, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | assetprops:%{public}@", buf, 0x16u);
   }
 
-  if (a1)
+  if (!a1)
   {
-    if (MSUAssetCalculatePrepareSizes(a1, &v13, 0, a3) && MSUAssetCalculateApplySizes(a1, &v12, 0, a3))
+    result = os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR);
+    if (!result)
     {
-      v7 = v12 + v13;
-      if (a2)
-      {
-        *a2 = v7;
-        v8 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412546;
-          v15 = @"MSUAssetCalculateInstallationSize";
-          v16 = 2048;
-          v17 = v7;
-          v9 = "[SPI] %@ | SUCCESS | installation size:%llu bytes";
-LABEL_16:
-          _os_log_impl(&dword_259B51000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 0x16u);
-        }
-      }
-
-      else
-      {
-        v8 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412546;
-          v15 = @"MSUAssetCalculateInstallationSize";
-          v16 = 2048;
-          v17 = v7;
-          v9 = "[SPI] %@ | SUCCESS | installation size:%llu bytes (not returned - no output location)";
-          goto LABEL_16;
-        }
-      }
-
-      result = 1;
-      goto LABEL_18;
+      return result;
     }
 
+    MSUAssetCalculateInstallationSize_cold_2();
+    return 0;
+  }
+
+  if (!MSUAssetCalculatePrepareSizes(a1, &v12, 0, a3) || !MSUAssetCalculateApplySizes(a1, &v11, 0, a3))
+  {
     result = os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR);
-    if (result)
+    if (!result)
     {
-      MSUAssetCalculateInstallationSize_cold_1(a3);
-LABEL_13:
-      result = 0;
+      return result;
+    }
+
+    MSUAssetCalculateInstallationSize_cold_1();
+    return 0;
+  }
+
+  v7 = v11 + v12;
+  if (a2)
+  {
+    *a2 = v7;
+    v8 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v14 = @"MSUAssetCalculateInstallationSize";
+      v15 = 2048;
+      v16 = v7;
+      v9 = "[SPI] %@ | SUCCESS | installation size:%llu bytes";
+LABEL_16:
+      _os_log_impl(&dword_259B51000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 0x16u);
     }
   }
 
   else
   {
-    result = os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR);
-    if (result)
+    v8 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      MSUAssetCalculateInstallationSize_cold_2();
-      goto LABEL_13;
+      *buf = 138412546;
+      v14 = @"MSUAssetCalculateInstallationSize";
+      v15 = 2048;
+      v16 = v7;
+      v9 = "[SPI] %@ | SUCCESS | installation size:%llu bytes (not returned - no output location)";
+      goto LABEL_16;
     }
   }
 
-LABEL_18:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-uint64_t MSUAssetCalculatePrepareSizes(void *a1, uint64_t *a2, uint64_t *a3, CFTypeRef *a4)
+uint64_t MSUAssetCalculatePrepareSizes(void *a1, uint64_t *a2, uint64_t *a3, CFErrorRef *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v34 = 0;
+  v40 = *MEMORY[0x277D85DE8];
+  v32 = 0;
   valuePtr = 0;
   cf = 0;
   v8 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v39 = @"MSUAssetCalculatePrepareSize";
-    v40 = 2114;
-    v41 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
+    v37 = @"MSUAssetCalculatePrepareSize";
+    v38 = 2114;
+    v39 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
     _os_log_impl(&dword_259B51000, v8, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | assetprops:%{public}@", buf, 0x16u);
   }
 
   if (!a1)
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties provided", v9, v10, v11, v32);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties provided", v9, v10, v11);
     if (a4)
     {
       v12 = 0;
@@ -1591,7 +1560,7 @@ LABEL_22:
   {
     v23 = @"No prepare sizes dictionary in response";
 LABEL_19:
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v23, v13, v14, v15, v32);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v23, v13, v14, v15);
     if (a4)
     {
       goto LABEL_20;
@@ -1615,10 +1584,10 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  CFNumberGetValue(v19, kCFNumberSInt64Type, &v34);
+  CFNumberGetValue(v19, kCFNumberSInt64Type, &v32);
   if (a3)
   {
-    *a3 = v34;
+    *a3 = v32;
   }
 
   v21 = 1;
@@ -1638,10 +1607,10 @@ LABEL_23:
   {
     if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
     {
-      MSUAssetCalculatePrepareSizes_cold_1(a4);
+      MSUAssetCalculatePrepareSizes_cold_1();
     }
 
-    goto LABEL_42;
+    return v21;
   }
 
   v24 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
@@ -1654,9 +1623,9 @@ LABEL_23:
     }
 
     *buf = 138412546;
-    v39 = @"MSUAssetCalculatePrepareSize";
-    v40 = 2048;
-    v41 = valuePtr;
+    v37 = @"MSUAssetCalculatePrepareSize";
+    v38 = 2048;
+    v39 = valuePtr;
     v26 = "[SPI] %@ | SUCCESS | prepare size:%llu bytes";
   }
 
@@ -1668,9 +1637,9 @@ LABEL_23:
     }
 
     *buf = 138412546;
-    v39 = @"MSUAssetCalculatePrepareSize";
-    v40 = 2048;
-    v41 = valuePtr;
+    v37 = @"MSUAssetCalculatePrepareSize";
+    v38 = 2048;
+    v39 = valuePtr;
     v26 = "[SPI] %@ | SUCCESS | prepare size:%llu bytes (not returned - no output location)";
   }
 
@@ -1683,9 +1652,9 @@ LABEL_36:
     if (v28)
     {
       *buf = 138412546;
-      v39 = @"MSUAssetCalculatePrepareSize";
-      v40 = 2048;
-      v41 = v34;
+      v37 = @"MSUAssetCalculatePrepareSize";
+      v38 = 2048;
+      v39 = v32;
       v29 = "[SPI] %@ | SUCCESS | snapshot prepare size:%llu bytes";
 LABEL_41:
       _os_log_impl(&dword_259B51000, v27, OS_LOG_TYPE_DEFAULT, v29, buf, 0x16u);
@@ -1695,37 +1664,35 @@ LABEL_41:
   else if (v28)
   {
     *buf = 138412546;
-    v39 = @"MSUAssetCalculatePrepareSize";
-    v40 = 2048;
-    v41 = v34;
+    v37 = @"MSUAssetCalculatePrepareSize";
+    v38 = 2048;
+    v39 = v32;
     v29 = "[SPI] %@ | SUCCESS | snapshot prepare size:%llu bytes (not returned - no output location)";
     goto LABEL_41;
   }
 
-LABEL_42:
-  v30 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
-uint64_t MSUAssetCalculateApplySizes(void *a1, uint64_t *a2, void *a3, CFTypeRef *a4)
+uint64_t MSUAssetCalculateApplySizes(void *a1, uint64_t *a2, void *a3, CFErrorRef *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v31 = 0;
+  v37 = *MEMORY[0x277D85DE8];
+  v29 = 0;
   valuePtr = 0;
   cf = 0;
   v8 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v36 = @"MSUAssetCalculateApplySize";
-    v37 = 2114;
-    v38 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
+    v34 = @"MSUAssetCalculateApplySize";
+    v35 = 2114;
+    v36 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
     _os_log_impl(&dword_259B51000, v8, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | assetprops:%{public}@", buf, 0x16u);
   }
 
   if (!a1)
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties provided", v9, v10, v11, v29);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties provided", v9, v10, v11);
     if (a4)
     {
       v12 = 0;
@@ -1754,7 +1721,7 @@ LABEL_22:
   {
     v23 = @"No apply sizes dictionary in response";
 LABEL_19:
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v23, v13, v14, v15, v29);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v23, v13, v14, v15);
     if (a4)
     {
       goto LABEL_20;
@@ -1778,10 +1745,10 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  CFNumberGetValue(v19, kCFNumberSInt64Type, &v31);
+  CFNumberGetValue(v19, kCFNumberSInt64Type, &v29);
   if (a3)
   {
-    *a3 = v31;
+    *a3 = v29;
   }
 
   v21 = 1;
@@ -1806,9 +1773,9 @@ LABEL_23:
       if (v25)
       {
         *buf = 138412546;
-        v36 = @"MSUAssetCalculateApplySize";
-        v37 = 2048;
-        v38 = valuePtr;
+        v34 = @"MSUAssetCalculateApplySize";
+        v35 = 2048;
+        v36 = valuePtr;
         v26 = "[SPI] %@ | SUCCESS | apply size:%llu bytes";
 LABEL_35:
         _os_log_impl(&dword_259B51000, v24, OS_LOG_TYPE_DEFAULT, v26, buf, 0x16u);
@@ -1818,9 +1785,9 @@ LABEL_35:
     else if (v25)
     {
       *buf = 138412546;
-      v36 = @"MSUAssetCalculateApplySize";
-      v37 = 2048;
-      v38 = valuePtr;
+      v34 = @"MSUAssetCalculateApplySize";
+      v35 = 2048;
+      v36 = valuePtr;
       v26 = "[SPI] %@ | SUCCESS | apply size:%llu bytes (not returned - no output location)";
       goto LABEL_35;
     }
@@ -1828,27 +1795,26 @@ LABEL_35:
 
   else if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
   {
-    MSUAssetCalculateApplySizes_cold_1(a4);
+    MSUAssetCalculateApplySizes_cold_1();
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 uint64_t MSUCheckPreparationSize(void *a1, uint64_t *a2, CFTypeRef *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   cf = 0;
   valuePtr = 0;
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
   v6 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v39 = @"MSUAssetCalculateApplySize";
-    v40 = 2114;
-    v41 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
+    v38 = @"MSUAssetCalculateApplySize";
+    v39 = 2114;
+    v40 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
     _os_log_impl(&dword_259B51000, v6, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | assetprops:%{public}@", buf, 0x16u);
   }
 
@@ -1861,13 +1827,13 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if ((MSUAssetCalculatePrepareSizes(a1, &valuePtr, 0, &v34) & 1) == 0)
+  if ((MSUAssetCalculatePrepareSizes(a1, &valuePtr, 0, &v33) & 1) == 0)
   {
-    v27 = v34;
+    v27 = v33;
     v25 = @"MSUAssetCalculatePrepareSize failed";
     v26 = 7;
 LABEL_20:
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v26, v27, 0, v25, v7, v8, v9, v34);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v26, v27, 0, v25, v7, v8, v9);
     if (a3)
     {
       v16 = 0;
@@ -1893,7 +1859,7 @@ LABEL_20:
   v12 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
   if (!v12)
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 14, 0, 0, @"Failed to allocate requiredPrepSize_cf", v13, v14, v15, v34);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 14, 0, 0, @"Failed to allocate requiredPrepSize_cf", v13, v14, v15);
     if (a3)
     {
       v16 = 0;
@@ -1916,9 +1882,9 @@ LABEL_24:
 
   if (!cf || (v20 = CFGetTypeID(cf), v20 != CFDictionaryGetTypeID()))
   {
-    v33 = @"No results dict in response";
+    v32 = @"No results dict in response";
 LABEL_46:
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v33, v17, v18, v19, v34);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v32, v17, v18, v19);
     if (a3)
     {
       goto LABEL_22;
@@ -1931,14 +1897,14 @@ LABEL_46:
   Value = CFDictionaryGetValue(cf, @"RequiredSize");
   if (!Value)
   {
-    v33 = @"No prep size in response";
+    v32 = @"No prep size in response";
     goto LABEL_46;
   }
 
-  CFNumberGetValue(Value, kCFNumberSInt64Type, &v35);
+  CFNumberGetValue(Value, kCFNumberSInt64Type, &v34);
   if (a2)
   {
-    *a2 = v35;
+    *a2 = v34;
   }
 
   v22 = CFDictionaryGetValue(cf, @"ErrorInfo");
@@ -1952,10 +1918,10 @@ LABEL_22:
   }
 
 LABEL_25:
-  if (v34)
+  if (v33)
   {
-    CFRelease(v34);
-    v34 = 0;
+    CFRelease(v33);
+    v33 = 0;
   }
 
   if (v11)
@@ -1983,9 +1949,9 @@ LABEL_25:
       if (v29)
       {
         *buf = 138412546;
-        v39 = @"MSUAssetCalculateApplySize";
-        v40 = 2048;
-        v41 = v35;
+        v38 = @"MSUAssetCalculateApplySize";
+        v39 = 2048;
+        v40 = v34;
         v30 = "[SPI] %@ | SUCCESS | required size:%llu bytes";
 LABEL_41:
         _os_log_impl(&dword_259B51000, v28, OS_LOG_TYPE_DEFAULT, v30, buf, 0x16u);
@@ -1995,9 +1961,9 @@ LABEL_41:
     else if (v29)
     {
       *buf = 138412546;
-      v39 = @"MSUAssetCalculateApplySize";
-      v40 = 2048;
-      v41 = v35;
+      v38 = @"MSUAssetCalculateApplySize";
+      v39 = 2048;
+      v40 = v34;
       v30 = "[SPI] %@ | SUCCESS | required size:%llu bytes (not returned - no output location)";
       goto LABEL_41;
     }
@@ -2005,25 +1971,24 @@ LABEL_41:
 
   else if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
   {
-    MSUAssetCalculateApplySizes_cold_1(a3);
+    MSUAssetCalculateApplySizes_cold_1();
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
-uint64_t MSUCheckInstallationSize(void *a1, uint64_t *a2, CFTypeRef *a3)
+uint64_t MSUCheckInstallationSize(void *a1, uint64_t *a2, CFErrorRef *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v26 = 0;
+  v33 = *MEMORY[0x277D85DE8];
+  v25 = 0;
   cf = 0;
   v6 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = @"MSUCheckInstallationSize";
-    v32 = 2114;
-    v33 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
+    v30 = @"MSUCheckInstallationSize";
+    v31 = 2114;
+    v32 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a1];
     _os_log_impl(&dword_259B51000, v6, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | assetprops:%{public}@", buf, 0x16u);
   }
 
@@ -2039,10 +2004,10 @@ uint64_t MSUCheckInstallationSize(void *a1, uint64_t *a2, CFTypeRef *a3)
         Value = CFDictionaryGetValue(cf, @"RequiredSize");
         if (Value)
         {
-          CFNumberGetValue(Value, kCFNumberSInt64Type, &v26);
+          CFNumberGetValue(Value, kCFNumberSInt64Type, &v25);
           if (a2)
           {
-            *a2 = v26;
+            *a2 = v25;
           }
 
           v16 = CFDictionaryGetValue(cf, @"ErrorInfo");
@@ -2075,7 +2040,7 @@ LABEL_17:
         v20 = @"No results dict in response";
       }
 
-      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v20, v11, v12, v13, v26);
+      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v20, v11, v12, v13);
       if (a3)
       {
         goto LABEL_17;
@@ -2093,7 +2058,7 @@ LABEL_17:
     goto LABEL_23;
   }
 
-  v19 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties provided", v7, v8, v9, v26);
+  v19 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties provided", v7, v8, v9);
   if (a3)
   {
     v17 = 0;
@@ -2122,9 +2087,9 @@ LABEL_24:
       if (v22)
       {
         *buf = 138412546;
-        v31 = @"MSUCheckInstallationSize";
-        v32 = 2048;
-        v33 = v26;
+        v30 = @"MSUCheckInstallationSize";
+        v31 = 2048;
+        v32 = v25;
         v23 = "[SPI] %@ | SUCCESS | required size:%llu bytes";
 LABEL_34:
         _os_log_impl(&dword_259B51000, v21, OS_LOG_TYPE_DEFAULT, v23, buf, 0x16u);
@@ -2134,9 +2099,9 @@ LABEL_34:
     else if (v22)
     {
       *buf = 138412546;
-      v31 = @"MSUCheckInstallationSize";
-      v32 = 2048;
-      v33 = v26;
+      v30 = @"MSUCheckInstallationSize";
+      v31 = 2048;
+      v32 = v25;
       v23 = "[SPI] %@ | SUCCESS | required size:%llu bytes (not returned - no output location)";
       goto LABEL_34;
     }
@@ -2144,28 +2109,27 @@ LABEL_34:
 
   else if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
   {
-    MSUCheckInstallationSize_cold_1(a3);
+    MSUCheckInstallationSize_cold_1();
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-uint64_t MSURetrievePreviousUpdateResults(uint64_t *a1)
+uint64_t MSURetrievePreviousUpdateResults(const __CFString **a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v12 = 0;
+  v11 = 0;
   v2 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = @"MSURetrievePreviousUpdateResults";
+    v13 = @"MSURetrievePreviousUpdateResults";
     _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v4 = perform_command("RetrieveLastUpdateResult", Mutable, 0, &cf, &v12);
+  v4 = perform_command("RetrieveLastUpdateResult", Mutable, 0, &cf, &v11);
   if (v4 && cf)
   {
     v5 = CFGetTypeID(cf);
@@ -2190,40 +2154,39 @@ uint64_t MSURetrievePreviousUpdateResults(uint64_t *a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = @"MSURetrievePreviousUpdateResults";
+      v13 = @"MSURetrievePreviousUpdateResults";
       _os_log_impl(&dword_259B51000, v8, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS", buf, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    MSURetrievePreviousUpdateResults_cold_1(a1);
+    MSURetrievePreviousUpdateResults_cold_1();
   }
 
-  if (v12)
+  if (v11)
   {
-    CFRelease(v12);
+    CFRelease(v11);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t MSURetrievePreviousUpdateState(_DWORD *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v14 = 0;
+  v13 = 0;
   v2 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = @"MSURetrievePreviousUpdateState";
+    v15 = @"MSURetrievePreviousUpdateState";
     _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v4 = perform_command("RetrievePreviousUpdateState", Mutable, 0, &cf, &v14);
+  v4 = perform_command("RetrievePreviousUpdateState", Mutable, 0, &cf, &v13);
   if (!v4 || !cf)
   {
     v7 = 0;
@@ -2276,36 +2239,35 @@ LABEL_10:
       }
 
       *buf = 138412546;
-      v16 = @"MSURetrievePreviousUpdateState";
-      v17 = 2114;
-      v18 = v10;
+      v15 = @"MSURetrievePreviousUpdateState";
+      v16 = 2114;
+      v17 = v10;
       _os_log_impl(&dword_259B51000, v9, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | previous update state:%{public}@", buf, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    MSURetrievePreviousUpdateState_cold_1(&v14);
+    MSURetrievePreviousUpdateState_cold_1();
   }
 
-  if (v14)
+  if (v13)
   {
-    CFRelease(v14);
+    CFRelease(v13);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 id MSUCopyPreviousUpdateAllToleratedFailures()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = @"MSUCopyPreviousUpdateAllToleratedFailures";
-    _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = @"MSUCopyPreviousUpdateAllToleratedFailures";
+    _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v5, 0xCu);
   }
 
   v1 = copyPreviousToleratedFailures(1);
@@ -2313,43 +2275,42 @@ id MSUCopyPreviousUpdateAllToleratedFailures()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:v1];
-    v6 = 138412546;
-    v7 = @"MSUCopyPreviousUpdateAllToleratedFailures";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | DONE | toleratedFailures:%{public}@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = @"MSUCopyPreviousUpdateAllToleratedFailures";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | DONE | toleratedFailures:%{public}@", &v5, 0x16u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
 id copyPreviousToleratedFailures(int a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     v6 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:@"/private/var/MobileSoftwareUpdate/lastOTA/ota_tolerated_failures.plist"];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3052000000;
-    v20 = __Block_byref_object_copy_;
-    v21 = __Block_byref_object_dispose_;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3052000000;
+    v19 = __Block_byref_object_copy_;
+    v20 = __Block_byref_object_dispose_;
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3052000000;
-    v26 = __Block_byref_object_copy_;
-    v27 = __Block_byref_object_dispose_;
-    v28 = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __retrieve_previous_update_first_tolerated_failure_block_invoke;
-    v16[3] = &unk_2798EE038;
-    v16[4] = &v17;
-    v16[5] = &v23;
-    [v6 enumerateKeysAndObjectsUsingBlock:v16];
-    v7 = *(v18 + 40);
+    v23 = &v22;
+    v24 = 0x3052000000;
+    v25 = __Block_byref_object_copy_;
+    v26 = __Block_byref_object_dispose_;
+    v27 = 0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __retrieve_previous_update_first_tolerated_failure_block_invoke;
+    v15[3] = &unk_2798EE038;
+    v15[4] = &v16;
+    v15[5] = &v22;
+    [v6 enumerateKeysAndObjectsUsingBlock:v15];
+    v7 = *(v17 + 40);
     if (v7)
     {
       v8 = 0;
@@ -2357,14 +2318,14 @@ id copyPreviousToleratedFailures(int a1)
 
     else
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __retrieve_previous_update_first_tolerated_failure_block_invoke_2;
-      v15[3] = &unk_2798EE038;
-      v15[4] = &v17;
-      v15[5] = &v23;
-      [v6 enumerateKeysAndObjectsUsingBlock:v15];
-      v7 = *(v18 + 40);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __retrieve_previous_update_first_tolerated_failure_block_invoke_2;
+      v14[3] = &unk_2798EE038;
+      v14[4] = &v16;
+      v14[5] = &v22;
+      [v6 enumerateKeysAndObjectsUsingBlock:v14];
+      v7 = *(v17 + 40);
       v8 = v7 != 0;
       if (!v7)
       {
@@ -2384,83 +2345,78 @@ id copyPreviousToleratedFailures(int a1)
     {
       v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
       [v3 setObject:v11 forKeyedSubscript:@"StepIdentifier"];
-      [v3 setObject:objc_msgSend(*(v18 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"StepName", @"StepName"}];
-      [v3 setObject:objc_msgSend(*(v18 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", v24[5]), @"EventUnique"}];
+      [v3 setObject:objc_msgSend(*(v17 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"StepName", @"StepName"}];
+      [v3 setObject:objc_msgSend(*(v17 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", v23[5]), @"EventUnique"}];
       if (v8)
       {
         [v3 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"RebootRetry"];
-        [v3 setObject:objc_msgSend(*(v18 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"RetryFailureNumber", @"FailureNumber"}];
-        [v3 setObject:objc_msgSend(*(v18 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"RetryResult", @"Result"}];
-        [v3 setObject:objc_msgSend(*(v18 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"RetryError", @"Error"}];
+        [v3 setObject:objc_msgSend(*(v17 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"RetryFailureNumber", @"FailureNumber"}];
+        [v3 setObject:objc_msgSend(*(v17 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"RetryResult", @"Result"}];
+        [v3 setObject:objc_msgSend(*(v17 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"RetryError", @"Error"}];
         v12 = @"RetrySkipped";
       }
 
       else
       {
         [v3 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"RebootRetry"];
-        [v3 setObject:objc_msgSend(*(v18 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"InitialFailureNumber", @"FailureNumber"}];
-        [v3 setObject:objc_msgSend(*(v18 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"InitialResult", @"Result"}];
-        [v3 setObject:objc_msgSend(*(v18 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"InitialError", @"Error"}];
+        [v3 setObject:objc_msgSend(*(v17 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"InitialFailureNumber", @"FailureNumber"}];
+        [v3 setObject:objc_msgSend(*(v17 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"InitialResult", @"Result"}];
+        [v3 setObject:objc_msgSend(*(v17 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", @"InitialError", @"Error"}];
         v12 = @"InitialSkipped";
       }
 
-      [v3 setObject:objc_msgSend(*(v18 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", v12), @"Skipped"}];
+      [v3 setObject:objc_msgSend(*(v17 + 40) forKeyedSubscript:{"objectForKeyedSubscript:", v12), @"Skipped"}];
       goto LABEL_16;
     }
 
 LABEL_13:
     v3 = 0;
 LABEL_16:
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(&v17, 8);
-    goto LABEL_17;
+    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v16, 8);
+    return v3;
   }
 
   v1 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:@"/private/var/MobileSoftwareUpdate/lastOTA/ota_tolerated_failures.plist"];
-  if (v1)
+  if (!v1)
   {
-    v2 = v1;
-    v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __retrieve_previous_update_all_tolerated_failures_block_invoke;
-    v20 = &unk_2798EE060;
-    v21 = @"retrieve_previous_update_all_tolerated_failures";
-    v22 = v4;
-    [v2 enumerateKeysAndObjectsUsingBlock:&v17];
-    v5 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"Index" ascending:1];
-    v23 = v5;
-    [v3 setObject:objc_msgSend(v4 forKeyedSubscript:{"sortedArrayUsingDescriptors:", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v23, 1)), @"toleratedStepsArray"}];
+    return 0;
   }
 
-  else
-  {
-    v3 = 0;
-  }
+  v2 = v1;
+  v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __retrieve_previous_update_all_tolerated_failures_block_invoke;
+  v19 = &unk_2798EE060;
+  v20 = @"retrieve_previous_update_all_tolerated_failures";
+  v21 = v4;
+  [v2 enumerateKeysAndObjectsUsingBlock:&v16];
+  v5 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"Index" ascending:1];
+  v22 = v5;
+  [v3 setObject:objc_msgSend(v4 forKeyedSubscript:{"sortedArrayUsingDescriptors:", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v22, 1)), @"toleratedStepsArray"}];
 
-LABEL_17:
-  v13 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-void sub_259B57A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_259B57A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  _Block_object_dispose((v14 - 104), 8);
+  va_start(va, a21);
+  _Block_object_dispose((v21 - 104), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id MSURetrievePreviousUpdateFirstToleratedFailure()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = @"MSURetrievePreviousUpdateFirstToleratedFailure";
-    _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = @"MSURetrievePreviousUpdateFirstToleratedFailure";
+    _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v5, 0xCu);
   }
 
   v1 = copyPreviousToleratedFailures(0);
@@ -2468,20 +2424,19 @@ id MSURetrievePreviousUpdateFirstToleratedFailure()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:v1];
-    v6 = 138412546;
-    v7 = @"MSURetrievePreviousUpdateFirstToleratedFailure";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | DONE | toleratedFailures:%{public}@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = @"MSURetrievePreviousUpdateFirstToleratedFailure";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | DONE | toleratedFailures:%{public}@", &v5, 0x16u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
 id MSUCopyToleratedStatusForStep(__CFString *a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -2492,9 +2447,9 @@ id MSUCopyToleratedStatusForStep(__CFString *a1)
     }
 
     *buf = 138412546;
-    v28 = @"MSUCopyToleratedStatusForStep";
-    v29 = 2114;
-    v30 = v3;
+    v27 = @"MSUCopyToleratedStatusForStep";
+    v28 = 2114;
+    v29 = v3;
     _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | step:%{public}@", buf, 0x16u);
   }
 
@@ -2509,27 +2464,27 @@ id MSUCopyToleratedStatusForStep(__CFString *a1)
       {
         v7 = v6;
         v8 = [MEMORY[0x277CCAB58] indexSet];
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v9)
         {
           v10 = v9;
           v11 = 0;
-          v12 = *v23;
+          v12 = *v22;
           do
           {
             v13 = 0;
             do
             {
-              if (*v23 != v12)
+              if (*v22 != v12)
               {
                 objc_enumerationMutation(v7);
               }
 
-              if (([objc_msgSend(*(*(&v22 + 1) + 8 * v13) objectForKeyedSubscript:{@"CheckPoint", "isEqualToString:", a1}] & 1) == 0)
+              if (([objc_msgSend(*(*(&v21 + 1) + 8 * v13) objectForKeyedSubscript:{@"CheckPoint", "isEqualToString:", a1}] & 1) == 0)
               {
                 [v8 addIndex:v11];
               }
@@ -2539,7 +2494,7 @@ id MSUCopyToleratedStatusForStep(__CFString *a1)
             }
 
             while (v10 != v13);
-            v10 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+            v10 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
           while (v10);
@@ -2557,7 +2512,7 @@ id MSUCopyToleratedStatusForStep(__CFString *a1)
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v28 = @"MSUCopyToleratedStatusForStep";
+              v27 = @"MSUCopyToleratedStatusForStep";
               _os_log_impl(&dword_259B51000, v16, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | providing tolerated failure array", buf, 0xCu);
             }
 
@@ -2576,7 +2531,7 @@ id MSUCopyToleratedStatusForStep(__CFString *a1)
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v28 = @"MSUCopyToleratedStatusForStep";
+            v27 = @"MSUCopyToleratedStatusForStep";
             _os_log_impl(&dword_259B51000, v19, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | empty failure array", buf, 0xCu);
           }
         }
@@ -2585,14 +2540,14 @@ id MSUCopyToleratedStatusForStep(__CFString *a1)
 LABEL_34:
         CFRelease(v5);
         CFRelease(v7);
-        goto LABEL_35;
+        return v15;
       }
 
       v18 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = @"MSUCopyToleratedStatusForStep";
+        v27 = @"MSUCopyToleratedStatusForStep";
         _os_log_impl(&dword_259B51000, v18, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | No tolerated failure array", buf, 0xCu);
       }
 
@@ -2605,7 +2560,7 @@ LABEL_34:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = @"MSUCopyToleratedStatusForStep";
+        v27 = @"MSUCopyToleratedStatusForStep";
         _os_log_impl(&dword_259B51000, v17, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | No tolerated failures found", buf, 0xCu);
       }
     }
@@ -2616,15 +2571,12 @@ LABEL_34:
     MSUCopyToleratedStatusForStep_cold_2();
   }
 
-  v15 = 0;
-LABEL_35:
-  v20 = *MEMORY[0x277D85DE8];
-  return v15;
+  return 0;
 }
 
 uint64_t MSUParsedToleratedFailureForStep(__CFString *a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -2635,9 +2587,9 @@ uint64_t MSUParsedToleratedFailureForStep(__CFString *a1)
     }
 
     *buf = 138412546;
-    v25 = @"MSUParsedToleratedFailureForStep";
-    v26 = 2114;
-    v27 = v3;
+    v24 = @"MSUParsedToleratedFailureForStep";
+    v25 = 2114;
+    v26 = v3;
     _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | step:%{public}@", buf, 0x16u);
   }
 
@@ -2648,25 +2600,25 @@ uint64_t MSUParsedToleratedFailureForStep(__CFString *a1)
     {
       cf = v4;
       v5 = [v4 objectForKey:@"toleratedStepsArray"];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
-      v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v20;
+        v8 = *v19;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v20 != v8)
+            if (*v19 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v19 + 1) + 8 * i);
+            v10 = *(*(&v18 + 1) + 8 * i);
             v11 = [v10 objectForKeyedSubscript:@"Attempt"];
             v12 = [objc_msgSend(v10 objectForKeyedSubscript:{@"rcode", "intValue"}];
             if ([v11 isEqualToString:@"initial"])
@@ -2691,7 +2643,7 @@ uint64_t MSUParsedToleratedFailureForStep(__CFString *a1)
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v7)
           {
             continue;
@@ -2719,9 +2671,9 @@ uint64_t MSUParsedToleratedFailureForStep(__CFString *a1)
     {
       v15 = off_2798EE0D0[v13];
       *buf = 138412546;
-      v25 = @"MSUParsedToleratedFailureForStep";
-      v26 = 2114;
-      v27 = v15;
+      v24 = @"MSUParsedToleratedFailureForStep";
+      v25 = 2114;
+      v26 = v15;
       _os_log_impl(&dword_259B51000, v14, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | Tolerated failure status:%{public}@", buf, 0x16u);
     }
   }
@@ -2734,28 +2686,27 @@ LABEL_23:
       MSUParsedToleratedFailureForStep_cold_2();
     }
 
-    v13 = 3;
+    return 3;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t MSUIsFirstBootAfterUpdate(_BYTE *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v15 = 0;
+  v14 = 0;
   v2 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = @"MSUIsFirstBootAfterUpdate";
+    v16 = @"MSUIsFirstBootAfterUpdate";
     _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v4 = perform_command("IsFirstBootAfterUpdate", Mutable, 0, &cf, &v15);
+  v4 = perform_command("IsFirstBootAfterUpdate", Mutable, 0, &cf, &v14);
   if (!v4 || !cf)
   {
     goto LABEL_13;
@@ -2807,42 +2758,41 @@ LABEL_15:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = @"MSUIsFirstBootAfterUpdate";
-      v18 = 2112;
-      v19 = v9;
+      v16 = @"MSUIsFirstBootAfterUpdate";
+      v17 = 2112;
+      v18 = v9;
       _os_log_impl(&dword_259B51000, v11, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | first boot after update:%@", buf, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    MSUIsFirstBootAfterUpdate_cold_1(&v15);
+    MSUIsFirstBootAfterUpdate_cold_1();
   }
 
-  if (v15)
+  if (v14)
   {
-    CFRelease(v15);
+    CFRelease(v14);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t MSURetrievePreviousUpdateDate(CFTypeRef *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v11 = 0;
+  v10 = 0;
   v2 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = @"MSURetrievePreviousUpdateDate";
+    v12 = @"MSURetrievePreviousUpdateDate";
     _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v4 = perform_command("RetrievePreviousUpdateDate", Mutable, 0, &cf, &v11);
+  v4 = perform_command("RetrievePreviousUpdateDate", Mutable, 0, &cf, &v10);
   if (!v4 || !cf || (v5 = CFGetTypeID(cf), v5 != CFDateGetTypeID()))
   {
 LABEL_8:
@@ -2875,42 +2825,41 @@ LABEL_10:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = @"MSURetrievePreviousUpdateDate";
-      v14 = 2114;
-      v15 = cf;
+      v12 = @"MSURetrievePreviousUpdateDate";
+      v13 = 2114;
+      v14 = cf;
       _os_log_impl(&dword_259B51000, v7, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | previous update date:%{public}@", buf, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    MSURetrievePreviousUpdateDate_cold_1(&v11);
+    MSURetrievePreviousUpdateDate_cold_1();
   }
 
-  if (v11)
+  if (v10)
   {
-    CFRelease(v11);
+    CFRelease(v10);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t MSURetrievePreviousRestoreDate(CFTypeRef *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v11 = 0;
+  v10 = 0;
   v2 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = @"MSURetrievePreviousRestoreDate";
+    v12 = @"MSURetrievePreviousRestoreDate";
     _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v4 = perform_command("RetrievePreviousRestoreDate", Mutable, 0, &cf, &v11);
+  v4 = perform_command("RetrievePreviousRestoreDate", Mutable, 0, &cf, &v10);
   if (!v4 || !cf || (v5 = CFGetTypeID(cf), v5 != CFDateGetTypeID()))
   {
 LABEL_8:
@@ -2943,35 +2892,34 @@ LABEL_10:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = @"MSURetrievePreviousRestoreDate";
-      v14 = 2114;
-      v15 = cf;
+      v12 = @"MSURetrievePreviousRestoreDate";
+      v13 = 2114;
+      v14 = cf;
       _os_log_impl(&dword_259B51000, v7, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | previous restore date:%{public}@", buf, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    MSURetrievePreviousRestoreDate_cold_1(&v11);
+    MSURetrievePreviousRestoreDate_cold_1();
   }
 
-  if (v11)
+  if (v10)
   {
-    CFRelease(v11);
+    CFRelease(v10);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t MSUCopyEnvInfoForNeRD()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = @"MSUCopyEnvInfoForNeRD";
+    v9 = @"MSUCopyEnvInfoForNeRD";
     _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
@@ -2980,9 +2928,9 @@ uint64_t MSUCopyEnvInfoForNeRD()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v10 = @"MSUCopyEnvInfoForNeRD";
-    v11 = 2112;
-    v12 = v1;
+    v9 = @"MSUCopyEnvInfoForNeRD";
+    v10 = 2112;
+    v11 = v1;
     _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | Attempting to load bootedOS state from %@", buf, 0x16u);
   }
 
@@ -2996,9 +2944,9 @@ uint64_t MSUCopyEnvInfoForNeRD()
     {
       v6 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:v3];
       *buf = 138412546;
-      v10 = @"MSUCopyEnvInfoForNeRD";
-      v11 = 2114;
-      v12 = v6;
+      v9 = @"MSUCopyEnvInfoForNeRD";
+      v10 = 2114;
+      v11 = v6;
       _os_log_impl(&dword_259B51000, v5, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | envDict:%{public}@", buf, 0x16u);
     }
   }
@@ -3008,18 +2956,17 @@ uint64_t MSUCopyEnvInfoForNeRD()
     MSUCopyEnvInfoForNeRD_cold_1();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t MSUCopyStashedAccessibilityPrefs()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = @"MSUCopyStashedAccessibilityPrefs";
+    v9 = @"MSUCopyStashedAccessibilityPrefs";
     _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
@@ -3028,9 +2975,9 @@ uint64_t MSUCopyStashedAccessibilityPrefs()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v10 = @"MSUCopyStashedAccessibilityPrefs";
-    v11 = 2112;
-    v12 = v1;
+    v9 = @"MSUCopyStashedAccessibilityPrefs";
+    v10 = 2112;
+    v11 = v1;
     _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | Attempting to load accessibility domains from %@", buf, 0x16u);
   }
 
@@ -3044,9 +2991,9 @@ uint64_t MSUCopyStashedAccessibilityPrefs()
     {
       v6 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:v3];
       *buf = 138412546;
-      v10 = @"MSUCopyStashedAccessibilityPrefs";
-      v11 = 2114;
-      v12 = v6;
+      v9 = @"MSUCopyStashedAccessibilityPrefs";
+      v10 = 2114;
+      v11 = v6;
       _os_log_impl(&dword_259B51000, v5, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | accessibilityDict:%{public}@", buf, 0x16u);
     }
   }
@@ -3056,28 +3003,27 @@ uint64_t MSUCopyStashedAccessibilityPrefs()
     MSUCopyStashedAccessibilityPrefs_cold_1();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 CFTypeRef MSUCopyConnectivityData()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v8 = 0;
+  v7 = 0;
   v0 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = @"MSUCopyConnectivityData";
+    v9 = @"MSUCopyConnectivityData";
     _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
-  if ((perform_command("GetStashedConnectivityData", 0, 0, &cf, &v8) & 1) == 0)
+  if ((perform_command("GetStashedConnectivityData", 0, 0, &cf, &v7) & 1) == 0)
   {
     if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
     {
-      MSUCopyConnectivityData_cold_1(&v8);
+      MSUCopyConnectivityData_cold_1();
     }
 
     goto LABEL_14;
@@ -3112,36 +3058,35 @@ LABEL_14:
   {
     v4 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:v2];
     *buf = 138412546;
-    v10 = @"MSUCopyConnectivityData";
-    v11 = 2112;
-    v12 = v4;
+    v9 = @"MSUCopyConnectivityData";
+    v10 = 2112;
+    v11 = v4;
     _os_log_impl(&dword_259B51000, v3, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | connectivityData:%@", buf, 0x16u);
   }
 
 LABEL_15:
-  if (v8)
+  if (v7)
   {
-    CFRelease(v8);
+    CFRelease(v7);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 BOOL MSUReportAndCleanupPreviousUpdateState()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v9 = 0;
+  v8 = 0;
   v0 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = @"MSUReportAndCleanupPreviousUpdateState";
+    v10 = @"MSUReportAndCleanupPreviousUpdateState";
     _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
-  if ((perform_command("PerformReportAndCleanup", 0, 0, &cf, &v9) & 1) == 0)
+  if ((perform_command("PerformReportAndCleanup", 0, 0, &cf, &v8) & 1) == 0)
   {
     if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
     {
@@ -3186,17 +3131,17 @@ LABEL_16:
     }
 
     *buf = 138412546;
-    v11 = @"MSUReportAndCleanupPreviousUpdateState";
-    v12 = 2112;
-    v13 = v5;
+    v10 = @"MSUReportAndCleanupPreviousUpdateState";
+    v11 = 2112;
+    v12 = v5;
     _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | perform cleanup command response value:%@", buf, 0x16u);
   }
 
 LABEL_17:
-  if (v9)
+  if (v8)
   {
-    CFRelease(v9);
-    v9 = 0;
+    CFRelease(v8);
+    v8 = 0;
   }
 
   if (cf)
@@ -3204,18 +3149,17 @@ LABEL_17:
     CFRelease(cf);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t MSUCopyInstalledRecoveryOSVersion()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = @"MSUCopyInstalledRecoveryOSVersion";
+    v8 = @"MSUCopyInstalledRecoveryOSVersion";
     _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
@@ -3227,7 +3171,7 @@ uint64_t MSUCopyInstalledRecoveryOSVersion()
       MSUCopyInstalledRecoveryOSVersion_cold_2();
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
   v2 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfFile:v1];
@@ -3238,9 +3182,7 @@ uint64_t MSUCopyInstalledRecoveryOSVersion()
       MSUCopyInstalledRecoveryOSVersion_cold_1();
     }
 
-LABEL_12:
-    v4 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   v3 = v2;
@@ -3249,26 +3191,24 @@ LABEL_12:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v9 = @"MSUCopyInstalledRecoveryOSVersion";
-    v10 = 2114;
-    v11 = v4;
+    v8 = @"MSUCopyInstalledRecoveryOSVersion";
+    v9 = 2114;
+    v10 = v4;
     _os_log_impl(&dword_259B51000, v5, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | Installed recovery OS version:%{public}@", buf, 0x16u);
   }
 
   CFRelease(v3);
-LABEL_13:
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t RVGetNeRDInfo()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = @"RVGetNeRDInfo";
+    v7 = @"RVGetNeRDInfo";
     _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
@@ -3281,7 +3221,7 @@ uint64_t RVGetNeRDInfo()
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v8 = @"RVGetNeRDInfo";
+      v7 = @"RVGetNeRDInfo";
       _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS", buf, 0xCu);
     }
   }
@@ -3291,19 +3231,18 @@ uint64_t RVGetNeRDInfo()
     RVGetNeRDInfo_cold_1();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t RVTriggerNeRDUpdate(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = @"RVTriggerNeRDUpdate";
-    _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = @"RVTriggerNeRDUpdate";
+    _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v8, 0xCu);
   }
 
   v3 = perform_command("RVTriggerNeRDUpdate", a1, 0, 0, 0);
@@ -3313,31 +3252,30 @@ uint64_t RVTriggerNeRDUpdate(void *a1)
   {
     if (v5)
     {
-      v9 = 138412290;
-      v10 = @"RVTriggerNeRDUpdate";
+      v8 = 138412290;
+      v9 = @"RVTriggerNeRDUpdate";
       v6 = "[SPI] %@ | SUCCESS";
 LABEL_8:
-      _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, v6, &v9, 0xCu);
+      _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, v6, &v8, 0xCu);
     }
   }
 
   else if (v5)
   {
-    v9 = 138412290;
-    v10 = @"RVTriggerNeRDUpdate";
+    v8 = 138412290;
+    v9 = @"RVTriggerNeRDUpdate";
     v6 = "[SPI] %@ | FAILURE";
     goto LABEL_8;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 CFTypeRef MSUGetUpdateInfo(__CFString *a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v18 = 0;
+  v17 = 0;
   v4 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -3352,11 +3290,11 @@ CFTypeRef MSUGetUpdateInfo(__CFString *a1, void *a2)
     }
 
     *buf = 138412802;
-    v20 = @"MSUGetUpdateInfo";
-    v21 = 2114;
-    v22 = v5;
-    v23 = 2114;
-    v24 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a2];
+    v19 = @"MSUGetUpdateInfo";
+    v20 = 2114;
+    v21 = v5;
+    v22 = 2114;
+    v23 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:a2];
     _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN | targetUUID:%{public}@, options:%{public}@", buf, 0x20u);
   }
 
@@ -3376,7 +3314,7 @@ CFTypeRef MSUGetUpdateInfo(__CFString *a1, void *a2)
     }
 
     *buf = 138412290;
-    v20 = @"MSUGetUpdateInfo";
+    v19 = @"MSUGetUpdateInfo";
     v10 = "[SPI] %@ | No options in the updateInfo request";
     goto LABEL_15;
   }
@@ -3392,18 +3330,18 @@ CFTypeRef MSUGetUpdateInfo(__CFString *a1, void *a2)
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = @"MSUGetUpdateInfo";
+    v19 = @"MSUGetUpdateInfo";
     v10 = "[SPI] %@ | No kAssetProperties in the updateInfo request";
 LABEL_15:
     _os_log_impl(&dword_259B51000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
   }
 
 LABEL_16:
-  if ((perform_command("GetUpdateInformation", v7, 0, &cf, &v18) & 1) == 0)
+  if ((perform_command("GetUpdateInformation", v7, 0, &cf, &v17) & 1) == 0)
   {
     if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
     {
-      MSUGetUpdateInfo_cold_1(&v18);
+      MSUGetUpdateInfo_cold_1();
     }
 
     goto LABEL_27;
@@ -3438,9 +3376,9 @@ LABEL_27:
   {
     v14 = [MEMORY[0x277CBEAC0] safeSummaryForDictionary:v12];
     *buf = 138412546;
-    v20 = @"MSUGetUpdateInfo";
-    v21 = 2114;
-    v22 = v14;
+    v19 = @"MSUGetUpdateInfo";
+    v20 = 2114;
+    v21 = v14;
     _os_log_impl(&dword_259B51000, v13, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | update info:%{public}@", buf, 0x16u);
   }
 
@@ -3450,25 +3388,24 @@ LABEL_28:
     CFRelease(v7);
   }
 
-  if (v18)
+  if (v17)
   {
-    CFRelease(v18);
+    CFRelease(v17);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t MSUCommitStash(void *Value, const void **a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v20 = 0;
+  v19 = 0;
   v4 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = @"MSUCommitStash";
+    v21 = @"MSUCommitStash";
     _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
@@ -3484,7 +3421,7 @@ uint64_t MSUCommitStash(void *Value, const void **a2)
     }
   }
 
-  if ((perform_command("CommitStash", v6, Value, &cf, &v20) & 1) == 0)
+  if ((perform_command("CommitStash", v6, Value, &cf, &v19) & 1) == 0)
   {
     v10 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
     if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -3493,9 +3430,9 @@ uint64_t MSUCommitStash(void *Value, const void **a2)
     }
 
     *buf = 138412546;
-    v22 = @"MSUCommitStash";
-    v23 = 2112;
-    v24 = v20;
+    v21 = @"MSUCommitStash";
+    v22 = 2112;
+    v23 = v19;
     v11 = "[SPI] %@ | FAILURE | Failed to perform kCommandCommitStash command with error: %@";
     v12 = v10;
     v13 = 22;
@@ -3511,7 +3448,7 @@ uint64_t MSUCommitStash(void *Value, const void **a2)
     }
 
     *buf = 138412290;
-    v22 = @"MSUCommitStash";
+    v21 = @"MSUCommitStash";
     v11 = "[SPI] %@ | FAILURE | NULL response from kCommandCommitStash command";
     goto LABEL_20;
   }
@@ -3528,7 +3465,7 @@ uint64_t MSUCommitStash(void *Value, const void **a2)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = @"MSUCommitStash";
+      v21 = @"MSUCommitStash";
       _os_log_impl(&dword_259B51000, v8, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS", buf, 0xCu);
     }
 
@@ -3540,7 +3477,7 @@ uint64_t MSUCommitStash(void *Value, const void **a2)
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = @"MSUCommitStash";
+    v21 = @"MSUCommitStash";
     v11 = "[SPI] %@ | FAILURE | Unexpected response type to kCommandCommitStash command";
 LABEL_20:
     v12 = v14;
@@ -3550,9 +3487,9 @@ LABEL_21:
   }
 
 LABEL_22:
-  if (a2 && !*a2 && v20)
+  if (a2 && !*a2 && v19)
   {
-    *a2 = CFRetain(v20);
+    *a2 = CFRetain(v19);
   }
 
   v15 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
@@ -3570,9 +3507,9 @@ LABEL_22:
     }
 
     *buf = 138412546;
-    v22 = @"MSUCommitStash";
-    v23 = 2112;
-    v24 = v16;
+    v21 = @"MSUCommitStash";
+    v22 = 2112;
+    v23 = v16;
     _os_log_impl(&dword_259B51000, v15, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | FAILURE | Failed with error: %@", buf, 0x16u);
     v9 = 0;
   }
@@ -3583,25 +3520,24 @@ LABEL_31:
     CFRelease(v6);
   }
 
-  if (v20)
+  if (v19)
   {
-    CFRelease(v20);
+    CFRelease(v19);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 BOOL MSUPerformSemiSplat(const void *a1, CFTypeRef *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v16 = 0;
+  v15 = 0;
   v4 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = @"MSUPerformSemiSplat";
+    v17 = @"MSUPerformSemiSplat";
     _os_log_impl(&dword_259B51000, v4, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
@@ -3612,7 +3548,7 @@ BOOL MSUPerformSemiSplat(const void *a1, CFTypeRef *a2)
     CFDictionarySetValue(Mutable, @"TargetVolume", a1);
   }
 
-  if ((perform_command("PerformCryptegraftSemiSplat", v6, 0, &cf, &v16) & 1) == 0)
+  if ((perform_command("PerformCryptegraftSemiSplat", v6, 0, &cf, &v15) & 1) == 0)
   {
     if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
     {
@@ -3657,24 +3593,24 @@ LABEL_18:
     }
 
     *buf = 138412546;
-    v18 = @"MSUPerformSemiSplat";
-    v19 = 2112;
-    v20 = v11;
+    v17 = @"MSUPerformSemiSplat";
+    v18 = 2112;
+    v19 = v11;
     _os_log_impl(&dword_259B51000, v10, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | cryptegraft SemiSplat command response value:%@", buf, 0x16u);
   }
 
 LABEL_19:
-  v12 = v16;
-  if (a2 && v16)
+  v12 = v15;
+  if (a2 && v15)
   {
-    *a2 = CFRetain(v16);
-    v12 = v16;
+    *a2 = CFRetain(v15);
+    v12 = v15;
   }
 
   if (v12)
   {
     CFRelease(v12);
-    v16 = 0;
+    v15 = 0;
   }
 
   if (cf)
@@ -3682,20 +3618,19 @@ LABEL_19:
     CFRelease(cf);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 BOOL MSUPerformDownlevel(const void *a1, const void *a2, CFTypeRef *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v18 = 0;
+  v17 = 0;
   v6 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = @"MSUPerformDownlevel";
+    v19 = @"MSUPerformDownlevel";
     _os_log_impl(&dword_259B51000, v6, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", buf, 0xCu);
   }
 
@@ -3711,11 +3646,11 @@ BOOL MSUPerformDownlevel(const void *a1, const void *a2, CFTypeRef *a3)
     CFDictionarySetValue(v8, @"SourcePath", a2);
   }
 
-  if ((perform_command("PerformCryptegraftDownlevel", v8, 0, &cf, &v18) & 1) == 0)
+  if ((perform_command("PerformCryptegraftDownlevel", v8, 0, &cf, &v17) & 1) == 0)
   {
     if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
     {
-      MSUPerformDownlevel_cold_1(&v18);
+      MSUPerformDownlevel_cold_1();
     }
 
     goto LABEL_20;
@@ -3756,24 +3691,24 @@ LABEL_20:
     }
 
     *buf = 138412546;
-    v20 = @"MSUPerformDownlevel";
-    v21 = 2112;
-    v22 = v13;
+    v19 = @"MSUPerformDownlevel";
+    v20 = 2112;
+    v21 = v13;
     _os_log_impl(&dword_259B51000, v12, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | SUCCESS | cryptegraft downlevel command response value:%@", buf, 0x16u);
   }
 
 LABEL_21:
-  v14 = v18;
-  if (a3 && v18)
+  v14 = v17;
+  if (a3 && v17)
   {
-    *a3 = CFRetain(v18);
-    v14 = v18;
+    *a3 = CFRetain(v17);
+    v14 = v17;
   }
 
   if (v14)
   {
     CFRelease(v14);
-    v18 = 0;
+    v17 = 0;
   }
 
   if (cf)
@@ -3781,19 +3716,18 @@ LABEL_21:
     CFRelease(cf);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t MSURebootToNerd()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = @"MSURebootToNerd";
-    _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = @"MSURebootToNerd";
+    _os_log_impl(&dword_259B51000, v0, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | BEGIN", &v6, 0xCu);
   }
 
   v1 = perform_command("RebootToNerd", 0, 0, 0, 0);
@@ -3803,29 +3737,28 @@ uint64_t MSURebootToNerd()
   {
     if (v3)
     {
-      v7 = 138412290;
-      v8 = @"MSURebootToNerd";
+      v6 = 138412290;
+      v7 = @"MSURebootToNerd";
       v4 = "[SPI] %@ | SUCCESS";
 LABEL_8:
-      _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, v4, &v7, 0xCu);
+      _os_log_impl(&dword_259B51000, v2, OS_LOG_TYPE_DEFAULT, v4, &v6, 0xCu);
     }
   }
 
   else if (v3)
   {
-    v7 = 138412290;
-    v8 = @"MSURebootToNerd";
+    v6 = 138412290;
+    v7 = @"MSURebootToNerd";
     v4 = "[SPI] %@ | FAILURE";
     goto LABEL_8;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
 uint64_t __perform_prepare_command_block_invoke(void *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a1[5];
   if (v4)
   {
@@ -3855,11 +3788,11 @@ uint64_t __perform_prepare_command_block_invoke(void *a1, uint64_t a2)
       }
 
       *buf = 138412802;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2114;
-      v18 = a2;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2114;
+      v17 = a2;
       _os_log_impl(&dword_259B51000, v6, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | PrepareUpdate | PROGRESS (%@) | state:%{public}@", buf, 0x20u);
     }
   }
@@ -3872,21 +3805,20 @@ uint64_t __perform_prepare_command_block_invoke(void *a1, uint64_t a2)
     {
       v10 = a1[4];
       *buf = 138412802;
-      v14 = v10;
-      v15 = 2112;
-      v16 = @"Continue";
-      v17 = 2114;
-      v18 = a2;
+      v13 = v10;
+      v14 = 2112;
+      v15 = @"Continue";
+      v16 = 2114;
+      v17 = a2;
       _os_log_impl(&dword_259B51000, v9, OS_LOG_TYPE_DEFAULT, "[SPI] %@ | PrepareUpdate | PROGRESS (no progress handler - %@) | state:%{public}@", buf, 0x20u);
-      v5 = 0;
+      return 0;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t __retrieve_previous_update_first_tolerated_failure_block_invoke(uint64_t a1, void *a2, void *a3)
+void *__retrieve_previous_update_first_tolerated_failure_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = [a2 isEqualToString:@"uuid"];
   if ((result & 1) == 0)
@@ -3970,7 +3902,7 @@ void __retrieve_previous_update_all_tolerated_failures_block_invoke(uint64_t a1,
 
       else if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
       {
-        __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_1(a1);
+        __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_1();
       }
     }
 
@@ -3990,27 +3922,10 @@ void __retrieve_previous_update_all_tolerated_failures_block_invoke(uint64_t a1,
 
       else if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
       {
-        __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_2(a1);
+        __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_2();
       }
     }
   }
-}
-
-uint64_t *OUTLINED_FUNCTION_2_0(uint64_t *result)
-{
-  if (*result)
-  {
-    v1 = *result;
-  }
-
-  return result;
-}
-
-uint64_t *OUTLINED_FUNCTION_3_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
 }
 
 void addSeObjectToMessage(uint64_t a1, void *a2, void *a3)
@@ -4026,7 +3941,7 @@ void addSeObjectToMessage(uint64_t a1, void *a2, void *a3)
     xpc_dictionary_set_double(a2, [v6 UTF8String], v8);
   }
 
-  else if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] sharedLogger], OS_LOG_TYPE_ERROR))
   {
     addSeObjectToMessage_cold_1();
   }
@@ -4034,12 +3949,12 @@ void addSeObjectToMessage(uint64_t a1, void *a2, void *a3)
 
 uint64_t perform_se_command(const char *a1, void *a2, void *a3, uint64_t a4, const __CFString **a5, CFTypeRef *a6)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v12 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v40 = a1;
+    v38 = a1;
     _os_log_impl(&dword_259B51000, v12, OS_LOG_TYPE_DEFAULT, "[CLIENT_IPC] Performing se command: %{public}s", buf, 0xCu);
   }
 
@@ -4101,7 +4016,7 @@ uint64_t perform_se_command(const char *a1, void *a2, void *a3, uint64_t a4, con
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v40 = a1;
+        v38 = a1;
         _os_log_impl(&dword_259B51000, v33, OS_LOG_TYPE_DEFAULT, "[CLIENT_IPC] Performed se command: %{public}s | SUCCESS", buf, 0xCu);
       }
 
@@ -4112,7 +4027,7 @@ uint64_t perform_se_command(const char *a1, void *a2, void *a3, uint64_t a4, con
 
   else
   {
-    cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 27, 0, 0, @"Could not create connection to update brain service", v13, v14, v15, v37);
+    cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 27, 0, 0, @"Could not create connection to update brain service", v13, v14, v15);
   }
 
   if (os_log_type_enabled([objc_msgSend(MEMORY[0x277D64460] "sharedLogger")], OS_LOG_TYPE_ERROR))
@@ -4132,7 +4047,6 @@ LABEL_26:
     CFRelease(cf);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
@@ -4191,7 +4105,7 @@ xpc_connection_t copy_connection_for_command(const char *a1, void *a2, void *a3,
 
 uint64_t perform_se_command_with_progress(const char *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, const __CFString **a6, uint64_t a7)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v14 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
@@ -4202,21 +4116,21 @@ uint64_t perform_se_command_with_progress(const char *a1, void *a2, void *a3, ui
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v46 = 0x2020000000;
-  v47 = 0;
-  v41[0] = 0;
-  v41[1] = v41;
-  v41[2] = 0x2020000000;
-  v42 = 0;
+  v44 = 0x2020000000;
+  v45 = 0;
   v39[0] = 0;
   v39[1] = v39;
   v39[2] = 0x2020000000;
   v40 = 0;
-  v15 = dispatch_semaphore_create(0);
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x2020000000;
   v38 = 0;
+  v15 = dispatch_semaphore_create(0);
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   v16 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v16, "Command", a1);
   if (a2)
@@ -4229,12 +4143,12 @@ uint64_t perform_se_command_with_progress(const char *a1, void *a2, void *a3, ui
     addSeObjectToMessage(a4, v16, @"SecureEncodedObjects");
   }
 
-  v22 = copy_connection_for_command(a1, a2, a3, 0, v36 + 3);
+  v22 = copy_connection_for_command(a1, a2, a3, 0, v34 + 3);
   v26 = v22;
   if (!v22)
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 27, 0, 0, @"Could not create connection to update brain service", v23, v24, v25, v33);
-    v36[3] = error_internal_cf;
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 27, 0, 0, @"Could not create connection to update brain service", v23, v24, v25);
+    v34[3] = error_internal_cf;
     if (!v16)
     {
       goto LABEL_12;
@@ -4249,9 +4163,9 @@ uint64_t perform_se_command_with_progress(const char *a1, void *a2, void *a3, ui
   handler[3] = &unk_2798EE0F0;
   handler[4] = v22;
   handler[5] = v16;
-  handler[8] = v39;
-  handler[9] = v41;
-  handler[10] = &v35;
+  handler[8] = v37;
+  handler[9] = v39;
+  handler[10] = &v33;
   handler[11] = &buf;
   handler[12] = a5;
   handler[6] = v15;
@@ -4279,9 +4193,9 @@ LABEL_12:
     v28 = [objc_msgSend(MEMORY[0x277D64460] "sharedLogger")];
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      *v43 = 136446210;
-      v44 = a1;
-      _os_log_impl(&dword_259B51000, v28, OS_LOG_TYPE_DEFAULT, "[CLIENT_IPC] Performed se command with progress: %{public}s | SUCCESS", v43, 0xCu);
+      *v41 = 136446210;
+      v42 = a1;
+      _os_log_impl(&dword_259B51000, v28, OS_LOG_TYPE_DEFAULT, "[CLIENT_IPC] Performed se command with progress: %{public}s | SUCCESS", v41, 0xCu);
     }
   }
 
@@ -4290,7 +4204,7 @@ LABEL_12:
     perform_se_command_with_progress_cold_1();
   }
 
-  v29 = v36[3];
+  v29 = v34[3];
   if (a6)
   {
     *a6 = v29;
@@ -4302,11 +4216,10 @@ LABEL_12:
   }
 
   v30 = *(*(&buf + 1) + 24);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(v37, 8);
   _Block_object_dispose(v39, 8);
-  _Block_object_dispose(v41, 8);
   _Block_object_dispose(&buf, 8);
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -4383,7 +4296,7 @@ void __perform_se_command_with_progress_block_invoke(uint64_t a1, void *a2)
 
             else
             {
-              *(*(*(a1 + 80) + 8) + 24) = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"Could not retrieve XPC remote connection for reply", v30, v31, v32, v33);
+              *(*(*(a1 + 80) + 8) + 24) = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"Could not retrieve XPC remote connection for reply", v30, v31, v32);
             }
 
             xpc_release(v26);
@@ -4597,13 +4510,13 @@ void __copy_shared_softwareupdated_connection_block_invoke_2(uint64_t a1, void *
       free(v4);
     }
 
-    goto LABEL_23;
+    return;
   }
 
   if (a2 != MEMORY[0x277D863F0])
   {
-    xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-    logfunction("", 1, @"XPC error on connection to %s: %s\n", v6, v7, v8, v9, v10, "com.apple.mobile.softwareupdated");
+    v6 = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
+    logfunction("", 1, @"XPC error on connection to %s: %s\n", v7, v8, v9, v10, v11, "com.apple.mobile.softwareupdated", v6);
     goto LABEL_21;
   }
 
@@ -4616,45 +4529,42 @@ LABEL_21:
       copy_shared_softwareupdated_connection_softwareupdated_connection = 0;
     }
 
-    goto LABEL_23;
+    return;
   }
 
   context = xpc_connection_get_context(copy_shared_softwareupdated_connection_softwareupdated_connection);
   if (context)
   {
-    v13 = context;
+    v14 = context;
     objc_sync_enter(context);
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v14 = [v13 countByEnumeratingWithState:&v18 objects:v24 count:16];
-    if (v14)
+    v15 = [v14 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    if (v15)
     {
-      v15 = *v19;
+      v16 = *v19;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v19 != v15)
+          if (*v19 != v16)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
           xpc_connection_send_message(copy_shared_softwareupdated_connection_softwareupdated_connection, *(*(&v18 + 1) + 8 * i));
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
-    objc_sync_exit(v13);
+    objc_sync_exit(v14);
   }
-
-LABEL_23:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 dispatch_queue_t __get_shared_softwareupdated_connection_queue_block_invoke()
@@ -4730,7 +4640,7 @@ dispatch_queue_t __get_shared_update_brain_connection_queue_block_invoke()
   return result;
 }
 
-void msu_process_dictionary_values_for_xpc_serialization(const void *a1, uint64_t a2, __CFDictionary **a3)
+void msu_process_dictionary_values_for_xpc_serialization(const void *a1, void *a2, __CFDictionary **a3)
 {
   v5 = msu_process_cf_object_for_xpc_serialization(a2);
   if (v5)
@@ -4821,35 +4731,35 @@ void msu_serialize_cf_object_into_xpc_dict(void *a1, const char *a2, void *a3, u
     return;
   }
 
-  v10 = msu_process_cf_object_for_xpc_serialization(a3);
-  if (!v10)
+  v11 = msu_process_cf_object_for_xpc_serialization(a3);
+  if (!v11)
   {
-    v12 = _CFXPCCreateXPCObjectFromCFObject();
-    if (v12)
+    v13 = _CFXPCCreateXPCObjectFromCFObject();
+    if (v13)
     {
       goto LABEL_4;
     }
 
 LABEL_9:
-    logfunction("", 1, @"could not create object for key %s:%@\n", v13, v14, v15, v16, v17, a2);
+    logfunction("", 1, @"could not create object for key %s:%@\n", v14, v15, v16, v17, v18, a2, a3);
     return;
   }
 
-  v11 = v10;
-  v12 = _CFXPCCreateXPCObjectFromCFObject();
-  CFRelease(v11);
-  if (!v12)
+  v12 = v11;
+  v13 = _CFXPCCreateXPCObjectFromCFObject();
+  CFRelease(v12);
+  if (!v13)
   {
     goto LABEL_9;
   }
 
 LABEL_4:
-  xpc_dictionary_set_value(a1, a2, v12);
+  xpc_dictionary_set_value(a1, a2, v13);
 
-  xpc_release(v12);
+  xpc_release(v13);
 }
 
-void msu_process_dictionary_values_from_xpc_deserialization(const void *a1, uint64_t a2, __CFDictionary **a3)
+void msu_process_dictionary_values_from_xpc_deserialization(const void *a1, const void *a2, __CFDictionary **a3)
 {
   v5 = msu_process_cf_object_from_xpc_deserialization(a2);
   if (v5)
@@ -4955,7 +4865,7 @@ uint64_t msu_demux_reply(void *a1, const __CFString **a2, __CFDictionary **a3, c
   {
     v18 = @"No reply from daemon";
 LABEL_9:
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v18, a6, a7, a8, v28);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v18, a6, a7, a8);
 LABEL_10:
     v19 = error_internal_cf;
     if (a4)
@@ -5046,511 +4956,179 @@ LABEL_12:
   return result;
 }
 
-void MSUPreflightUpdate_cold_1(uint64_t *a1)
+void MSUPreflightUpdate_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUPrepareUpdateWithAsset_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUPrepareUpdateWithAsset_cold_2(char a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  if ((a1 & 1) == 0)
-  {
-    v2 = *a2;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_259B51000, v3, v4, "[SPI] %@ | FAILURE | error:%{public}@", 138412546);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void perform_prepare_command_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUPrepareUpdateWithMAAsset_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUPrepareUpdateWithMAAsset_cold_2(char a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  if ((a1 & 1) == 0)
-  {
-    v2 = *a2;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_259B51000, v3, v4, "[SPI] %@ | FAILURE | error:%{public}@", 138412546);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUPrepareUpdate_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUApplyUpdate_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUSuspendUpdate_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUResumeUpdateWithOptions_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUBrainIsLoadable_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_3_0(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void MSUBrainIsLoadable_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUPurgeSuspendedUpdate_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUCloseUpdateHandle_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUAssetCalculateInstallationSize_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUAssetCalculateInstallationSize_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUAssetCalculatePrepareSizes_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUAssetCalculateApplySizes_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSUCheckInstallationSize_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSURetrievePreviousUpdateResults_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void MSURetrievePreviousUpdateState_cold_1(uint64_t *a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0(a1);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void MSUCopyToleratedStatusForStep_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUCopyToleratedStatusForStep_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUParsedToleratedFailureForStep_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUParsedToleratedFailureForStep_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void MSUIsFirstBootAfterUpdate_cold_1(uint64_t *a1)
+void MSUPrepareUpdateWithAsset_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0(a1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSURetrievePreviousUpdateDate_cold_1(uint64_t *a1)
+void MSUPrepareUpdateWithAsset_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0(a1);
+  v2 = 138412546;
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1(&dword_259B51000, v0, v1, "[SPI] %@ | FAILURE | error:%{public}@", v2);
+}
+
+void perform_prepare_command_cold_1()
+{
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSURetrievePreviousRestoreDate_cold_1(uint64_t *a1)
+void MSUPrepareUpdateWithMAAsset_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0(a1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUCopyEnvInfoForNeRD_cold_1()
+void MSUPrepareUpdateWithMAAsset_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1(&dword_259B51000, v0, v1, "[SPI] %@ | FAILURE | error:%{public}@", v2);
 }
 
-void MSUCopyStashedAccessibilityPrefs_cold_1()
+void MSUPrepareUpdate_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUCopyConnectivityData_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_3_0(a1, *MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUCopyConnectivityData_cold_2()
+void MSUApplyUpdate_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUCopyConnectivityData_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUReportAndCleanupPreviousUpdateState_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUReportAndCleanupPreviousUpdateState_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUReportAndCleanupPreviousUpdateState_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUCopyInstalledRecoveryOSVersion_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUCopyInstalledRecoveryOSVersion_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void RVGetNeRDInfo_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSUGetUpdateInfo_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_3_0(a1, *MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUGetUpdateInfo_cold_2()
+void MSUSuspendUpdate_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUGetUpdateInfo_cold_3()
+void MSUResumeUpdateWithOptions_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUPerformSemiSplat_cold_1()
+void MSUBrainIsLoadable_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUPerformSemiSplat_cold_2()
+void MSUPurgeSuspendedUpdate_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUPerformSemiSplat_cold_3()
+void MSUAssetCalculateInstallationSize_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUPerformDownlevel_cold_1(uint64_t *a1)
+void MSUAssetCalculatePrepareSizes_cold_1()
 {
-  OUTLINED_FUNCTION_3_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUPerformDownlevel_cold_2()
+void MSUAssetCalculateApplySizes_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MSUPerformDownlevel_cold_3()
+void MSUCheckInstallationSize_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_1(uint64_t a1)
+void MSURetrievePreviousUpdateResults_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_2(uint64_t a1)
+void MSURetrievePreviousUpdateState_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void MSUIsFirstBootAfterUpdate_cold_1()
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void MSURetrievePreviousUpdateDate_cold_1()
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void MSURetrievePreviousRestoreDate_cold_1()
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void MSUCopyConnectivityData_cold_1()
+{
+  OUTLINED_FUNCTION_3_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void MSUGetUpdateInfo_cold_1()
+{
+  OUTLINED_FUNCTION_3_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void MSUPerformDownlevel_cold_1()
+{
+  OUTLINED_FUNCTION_3_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void addSeObjectToMessage_cold_1()
@@ -5562,29 +5140,23 @@ void addSeObjectToMessage_cold_1()
 
 void perform_se_command_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void perform_se_command_with_progress_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void create_brain_connection_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void create_brain_connection_cold_2()
@@ -5596,20 +5168,16 @@ void create_brain_connection_cold_2()
 
 void create_brain_connection_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void create_brain_connection_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void create_brain_connection_cold_5()
@@ -5628,18 +5196,15 @@ void __copy_shared_update_brain_connection_block_invoke_cold_1()
 
 void __copy_shared_update_brain_connection_block_invoke_64_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __copy_shared_update_brain_connection_block_invoke_64_cold_2(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   xpc_dictionary_get_string(a1, *MEMORY[0x277D86400]);
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_259B51000, a2, OS_LOG_TYPE_ERROR, "[CLIENT_IPC] XPC error on service connection: %{public}s", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_259B51000, a2, OS_LOG_TYPE_ERROR, "[CLIENT_IPC] XPC error on service connection: %{public}s", v3, 0xCu);
 }

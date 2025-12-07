@@ -13,7 +13,6 @@
 - (id)textMarkersForRange:()AXElementTextEditing;
 - (uint64_t)_numberOfCharacters;
 - (uint64_t)cacSetTextSelectionToCACTextMarkerRange:()AXElementTextEditing;
-- (uint64_t)cacSetTextSelectionToRange:()AXElementTextEditing;
 - (uint64_t)cacStringForCACTextMarkerRange:()AXElementTextEditing;
 - (uint64_t)cacSupportsTextOperation:()AXElementTextEditing;
 - (uint64_t)deleteTextAtRange:()AXElementTextEditing;
@@ -27,6 +26,7 @@
 - (void)cacPerformTextPaste;
 - (void)cacPerformTextSelectAll;
 - (void)cacPerformTextUndo;
+- (void)cacSetTextSelectionToRange:()AXElementTextEditing;
 - (void)rectForRange:()AXElementTextEditing;
 @end
 
@@ -184,7 +184,7 @@
   return [CACTextMarkerRange markerRangeWithNSRange:selectedTextRange, v1];
 }
 
-- (uint64_t)cacSetTextSelectionToRange:()AXElementTextEditing
+- (void)cacSetTextSelectionToRange:()AXElementTextEditing
 {
   v7 = +[CACDisplayManager sharedManager];
   [v7 willProgrammaticallySelectRange:a3 forElement:{a4, self}];

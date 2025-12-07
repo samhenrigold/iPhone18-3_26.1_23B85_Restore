@@ -18,17 +18,17 @@
 - (id)notificationIdentifierString
 {
   eventIdentifier = [self eventIdentifier];
-  v3 = [eventIdentifier componentsSeparatedByString:{@", "}];
+  v4 = [eventIdentifier componentsSeparatedByString:{@", "}];
 
-  if ([v3 count] <= 2)
+  if ([v4 count] <= 2)
   {
     [(HDAlarmEvent(BloodPressureJournal) *)self notificationIdentifierString];
   }
 
-  v4 = [v3 objectAtIndexedSubscript:0];
-  v5 = [self valueFromKeyValuePair:v4];
+  v5 = [v4 objectAtIndexedSubscript:0];
+  v6 = [self valueFromKeyValuePair:v5];
 
-  return v5;
+  return v6;
 }
 
 - (id)journalIdentifierString
@@ -49,33 +49,33 @@
 - (uint64_t)journalType
 {
   eventIdentifier = [self eventIdentifier];
-  v3 = [eventIdentifier componentsSeparatedByString:{@", "}];
+  v4 = [eventIdentifier componentsSeparatedByString:{@", "}];
 
-  if ([v3 count] <= 2)
+  if ([v4 count] <= 2)
   {
     [(HDAlarmEvent(BloodPressureJournal) *)self journalType];
   }
 
-  v4 = [v3 objectAtIndexedSubscript:1];
-  v5 = [self integerValueFromKeyValuePair:v4];
+  v5 = [v4 objectAtIndexedSubscript:1];
+  v6 = [self integerValueFromKeyValuePair:v5];
 
-  return v5;
+  return v6;
 }
 
 - (uint64_t)isFollowUp
 {
   eventIdentifier = [self eventIdentifier];
-  v3 = [eventIdentifier componentsSeparatedByString:{@", "}];
+  v4 = [eventIdentifier componentsSeparatedByString:{@", "}];
 
-  if ([v3 count] <= 2)
+  if ([v4 count] <= 2)
   {
     [(HDAlarmEvent(BloodPressureJournal) *)self isFollowUp];
   }
 
-  v4 = [v3 objectAtIndexedSubscript:2];
-  v5 = [self BOOLValueFromKeyValuePair:v4];
+  v5 = [v4 objectAtIndexedSubscript:2];
+  v6 = [self BOOLValueFromKeyValuePair:v5];
 
-  return v5;
+  return v6;
 }
 
 - (HDHRBloodPressureJournalNotificationMeasurementInfo)measurementInfo

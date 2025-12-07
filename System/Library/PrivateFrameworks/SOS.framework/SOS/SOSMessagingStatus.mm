@@ -205,19 +205,18 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_uuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    trigger = self->_trigger;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -236,9 +235,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  timeOfDetection = self->_timeOfDetection;
   PBDataWriterWriteDoubleField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -252,9 +250,8 @@ LABEL_6:
   }
 
 LABEL_15:
-  timeOfResolution = self->_timeOfResolution;
   PBDataWriterWriteDoubleField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -268,9 +265,8 @@ LABEL_7:
   }
 
 LABEL_16:
-  resolution = self->_resolution;
   PBDataWriterWriteInt32Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -284,15 +280,13 @@ LABEL_8:
   }
 
 LABEL_17:
-  flowState = self->_flowState;
   PBDataWriterWriteInt32Field();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_9:
-    isPairedDeviceStatus = self->_isPairedDeviceStatus;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_10:
@@ -833,7 +827,7 @@ LABEL_10:
 
   else
   {
-    v11 = sos_default_log();
+    v11 = sos_default_log(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SOSMessagingStatus(Additions) initWithSOSStatus:];
@@ -848,29 +842,32 @@ LABEL_10:
 - (SOSStatus)sosStatus
 {
   v3 = objc_alloc_init(SOSStatus);
-  if ([(SOSMessagingStatus *)self hasUuid])
+  hasUuid = [(SOSMessagingStatus *)self hasUuid];
+  if (hasUuid)
   {
-    if ([(SOSMessagingStatus *)self hasTrigger])
+    hasTrigger = [(SOSMessagingStatus *)self hasTrigger];
+    if (hasTrigger)
     {
-      if ([(SOSMessagingStatus *)self hasTimeOfDetection])
+      hasTimeOfDetection = [(SOSMessagingStatus *)self hasTimeOfDetection];
+      if (hasTimeOfDetection)
       {
-        v4 = objc_alloc(MEMORY[0x277CCAD78]);
+        v7 = objc_alloc(MEMORY[0x277CCAD78]);
         uuid = [(SOSMessagingStatus *)self uuid];
-        v6 = [v4 initWithUUIDString:uuid];
-        [(SOSStatus *)v3 setUuid:v6];
+        v9 = [v7 initWithUUIDString:uuid];
+        [(SOSStatus *)v3 setUuid:v9];
 
         [(SOSStatus *)v3 setTrigger:[(SOSMessagingStatus *)self trigger]];
-        v7 = objc_alloc(MEMORY[0x277CBEAA8]);
+        v10 = objc_alloc(MEMORY[0x277CBEAA8]);
         [(SOSMessagingStatus *)self timeOfDetection];
-        v8 = [v7 initWithTimeIntervalSince1970:?];
-        [(SOSStatus *)v3 setTimeOfDetection:v8];
+        v11 = [v10 initWithTimeIntervalSince1970:?];
+        [(SOSStatus *)v3 setTimeOfDetection:v11];
 
         if ([(SOSMessagingStatus *)self hasTimeOfResolution])
         {
-          v9 = objc_alloc(MEMORY[0x277CBEAA8]);
+          v12 = objc_alloc(MEMORY[0x277CBEAA8]);
           [(SOSMessagingStatus *)self timeOfResolution];
-          v10 = [v9 initWithTimeIntervalSince1970:?];
-          [(SOSStatus *)v3 setTimeOfResolution:v10];
+          v13 = [v12 initWithTimeIntervalSince1970:?];
+          [(SOSStatus *)v3 setTimeOfResolution:v13];
         }
 
         else
@@ -901,12 +898,12 @@ LABEL_10:
 
         [(SOSStatus *)v3 setFlowState:flowState];
         [(SOSStatus *)v3 setIsPairedDeviceStatus:[(SOSMessagingStatus *)self isPairedDeviceStatus]];
-        v12 = [(SOSStatus *)v3 copy];
+        v15 = [(SOSStatus *)v3 copy];
         goto LABEL_13;
       }
 
-      v11 = sos_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = sos_default_log(hasTimeOfDetection);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [SOSMessagingStatus(Additions) sosStatus];
       }
@@ -914,8 +911,8 @@ LABEL_10:
 
     else
     {
-      v11 = sos_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = sos_default_log(hasTrigger);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [SOSMessagingStatus(Additions) sosStatus];
       }
@@ -924,17 +921,17 @@ LABEL_10:
 
   else
   {
-    v11 = sos_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = sos_default_log(hasUuid);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SOSMessagingStatus(Additions) sosStatus];
     }
   }
 
-  v12 = 0;
+  v15 = 0;
 LABEL_13:
 
-  return v12;
+  return v15;
 }
 
 @end

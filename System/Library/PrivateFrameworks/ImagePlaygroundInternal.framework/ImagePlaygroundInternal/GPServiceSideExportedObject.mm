@@ -16,7 +16,7 @@
 
 - (void)didFinishServiceConfiguration
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60, &qword_1D28811F0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v10 - v4;
   v6 = sub_1D28785F8();
@@ -45,7 +45,7 @@
 
 - (void)setPromptElements:(id)elements
 {
-  sub_1D22BCFD0(0, &qword_1EC6D9418);
+  sub_1D22BCFD0(0, &qword_1EC6D9418, 0x1E696E500);
   v3 = sub_1D28783E8();
   v4 = swift_allocObject();
   *(v4 + 16) = v3;
@@ -55,7 +55,7 @@
 
 - (void)setAllowedGenerationStyles:(id)styles
 {
-  sub_1D22BCFD0(0, &qword_1EC6D9420);
+  sub_1D22BCFD0(0, &qword_1EC6D9420, 0x1E696AEC0);
   v3 = sub_1D28783E8();
   v4 = v3;
   if (v3 >> 62)
@@ -152,7 +152,7 @@ LABEL_3:
 
 - (void)didDismissPickerWithStagedAssets:(id)assets
 {
-  sub_1D22BCFD0(0, &qword_1EC6D9420);
+  sub_1D22BCFD0(0, &qword_1EC6D9420, 0x1E696AEC0);
   v3 = sub_1D28783E8();
   v4 = swift_allocObject();
   *(v4 + 16) = v3;

@@ -33,18 +33,18 @@
 
 + (void)launchObservingProcessesForTypes:(id)types
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   objc_opt_self();
   v5 = MEMORY[0x277CBEB98];
   v6 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC9B0]];
   v7 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:{*MEMORY[0x277CCC9C0], v6}];
-  *&v15[4] = v7;
+  *&v14[4] = v7;
   v8 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC9C8]];
-  v16 = v8;
+  v15 = v8;
   v9 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
-  v17 = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:4];
+  v16 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:4];
   v11 = [v5 setWithArray:v10];
 
   LODWORD(v6) = [typesCopy intersectsSet:v11];
@@ -55,21 +55,18 @@
     v12 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      *v15 = self;
-      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Posting notification for Bluetooth to start collection", &v14, 0xCu);
+      v13 = 138543362;
+      *v14 = self;
+      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Posting notification for Bluetooth to start collection", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -157,7 +154,7 @@ void __73__HDActiveDataCollectionObserverServer_remote_subscribeForQuantityTypes
 
 - (void)_queue_computeActivelyCollectedTypesForWorkout:(char)workout alwaysNotify:
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (!self)
   {
@@ -165,7 +162,7 @@ void __73__HDActiveDataCollectionObserverServer_remote_subscribeForQuantityTypes
   }
 
   dispatch_assert_queue_V2(*(self + 40));
-  v5 = [*(self + 48) copy];
+  v5 = objc_msgSend_copy(*(self + 48));
   profile = [self profile];
   dataCollectionManager = [profile dataCollectionManager];
 
@@ -176,33 +173,33 @@ void __73__HDActiveDataCollectionObserverServer_remote_subscribeForQuantityTypes
   isInHeartRateRecovery = [workoutManager isInHeartRateRecovery];
 
   isActive = [v4 isActive];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = v5;
-  v11 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-  v38 = v8;
+  v11 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v37 = v8;
   if (!v11)
   {
     goto LABEL_28;
   }
 
   v12 = v11;
-  v13 = *v44;
-  v36 = *MEMORY[0x277CCCB10];
-  v34 = *MEMORY[0x277CCE288];
-  v37 = dataCollectionManager;
+  v13 = *v43;
+  v35 = *MEMORY[0x277CCCB10];
+  v33 = *MEMORY[0x277CCE288];
+  v36 = dataCollectionManager;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v44 != v13)
+      if (*v43 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v43 + 1) + 8 * i);
+      v15 = *(*(&v42 + 1) + 8 * i);
       v16 = [dataCollectionManager aggregatorForType:v15];
       configuration = [v16 configuration];
 
@@ -231,13 +228,13 @@ void __73__HDActiveDataCollectionObserverServer_remote_subscribeForQuantityTypes
           v19 = v15;
           v20 = v4;
           identifier = [v19 identifier];
-          v22 = [identifier isEqualToString:v36];
+          v22 = [identifier isEqualToString:v35];
 
           if (!v22 || ([v20 currentActivityConfiguration], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "locationType"), v23, v24 != 3))
           {
 
-            dataCollectionManager = v37;
-            v8 = v38;
+            dataCollectionManager = v36;
+            v8 = v37;
 LABEL_25:
             [v8 addObject:v15];
             goto LABEL_26;
@@ -246,9 +243,9 @@ LABEL_25:
           client = [selfCopy client];
           sourceBundleIdentifier = [client sourceBundleIdentifier];
 
-          LOBYTE(client) = [sourceBundleIdentifier isEqualToString:v34];
-          dataCollectionManager = v37;
-          v8 = v38;
+          LOBYTE(client) = [sourceBundleIdentifier isEqualToString:v33];
+          dataCollectionManager = v36;
+          v8 = v37;
           if ((client & 1) == 0)
           {
             goto LABEL_25;
@@ -264,7 +261,7 @@ LABEL_25:
 LABEL_26:
     }
 
-    v12 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v12 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   }
 
   while (v12);
@@ -280,29 +277,29 @@ LABEL_28:
     v27 = 1;
   }
 
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __100__HDActiveDataCollectionObserverServer__queue_computeActivelyCollectedTypesForWorkout_alwaysNotify___block_invoke;
-  v42[3] = &unk_2786138D0;
-  v42[4] = selfCopy;
-  v28 = [selfCopy remoteObjectProxyWithErrorHandler:v42];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __100__HDActiveDataCollectionObserverServer__queue_computeActivelyCollectedTypesForWorkout_alwaysNotify___block_invoke;
+  v41[3] = &unk_2786138D0;
+  v41[4] = selfCopy;
+  v28 = [selfCopy remoteObjectProxyWithErrorHandler:v41];
   if (v28)
   {
     if (workout)
     {
-      allObjects = [v38 allObjects];
+      allObjects = [v37 allObjects];
       [v28 client_updatedCollectedTypes:allObjects];
 
-      objc_storeStrong((selfCopy + 56), v38);
+      objc_storeStrong((selfCopy + 56), v37);
       goto LABEL_34;
     }
 
-    if (([*(selfCopy + 56) isEqualToSet:v38] & 1) == 0)
+    if (([*(selfCopy + 56) isEqualToSet:v37] & 1) == 0)
     {
-      allObjects2 = [v38 allObjects];
+      allObjects2 = [v37 allObjects];
       [v28 client_updatedCollectedTypes:allObjects2];
 
-      objc_storeStrong((selfCopy + 56), v38);
+      objc_storeStrong((selfCopy + 56), v37);
       if (workout)
       {
 LABEL_34:
@@ -321,7 +318,6 @@ LABEL_38:
   }
 
 LABEL_40:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_unsubscribeForQuantityTypes:(id)types
@@ -414,21 +410,19 @@ void __75__HDActiveDataCollectionObserverServer_remote_unsubscribeForQuantityTyp
 
 void __100__HDActiveDataCollectionObserverServer__queue_computeActivelyCollectedTypesForWorkout_alwaysNotify___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of actively collected types: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of actively collected types: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

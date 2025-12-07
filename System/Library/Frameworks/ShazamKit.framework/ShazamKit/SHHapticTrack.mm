@@ -85,7 +85,7 @@
 
 - (id)hapticFileURL
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   destinationURLForHapticFile = [(SHHapticTrack *)self destinationURLForHapticFile];
   if (destinationURLForHapticFile)
   {
@@ -98,12 +98,12 @@
 
       if ((v7 & 1) == 0)
       {
-        v8 = sh_log_object();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v9 = sh_log_object(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v19 = 138412290;
-          v20 = destinationURLForHapticFile;
-          _os_log_impl(&dword_230F52000, v8, OS_LOG_TYPE_INFO, "Returning existing ahap url %@", &v19, 0xCu);
+          v20 = 138412290;
+          v21 = destinationURLForHapticFile;
+          _os_log_impl(&dword_230F52000, v9, OS_LOG_TYPE_INFO, "Returning existing ahap url %@", &v20, 0xCu);
         }
 
         goto LABEL_12;
@@ -117,41 +117,39 @@
     fileManager3 = [(SHHapticTrack *)self fileManager];
     path2 = [destinationURLForHapticFile path];
     hapticData = [(SHHapticTrack *)self hapticData];
-    v14 = [fileManager3 createFileAtPath:path2 contents:hapticData attributes:0];
+    v15 = [fileManager3 createFileAtPath:path2 contents:hapticData attributes:0];
 
-    if (v14)
+    if (v15)
     {
 LABEL_12:
-      v15 = destinationURLForHapticFile;
+      v17 = destinationURLForHapticFile;
       goto LABEL_17;
     }
 
-    v16 = sh_log_object();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = sh_log_object(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_230F52000, v16, OS_LOG_TYPE_ERROR, "Failed to copy haptic file from source bundle to destination.", &v19, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_230F52000, v18, OS_LOG_TYPE_ERROR, "Failed to copy haptic file from source bundle to destination.", &v20, 2u);
     }
   }
 
   else
   {
-    v9 = sh_log_object();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sh_log_object(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       fileIdentifier = [(SHHapticTrack *)self fileIdentifier];
-      v19 = 138412290;
-      v20 = fileIdentifier;
-      _os_log_impl(&dword_230F52000, v9, OS_LOG_TYPE_DEBUG, "Could not create file path to save haptic file with identifier %@", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = fileIdentifier;
+      _os_log_impl(&dword_230F52000, v10, OS_LOG_TYPE_DEBUG, "Could not create file path to save haptic file with identifier %@", &v20, 0xCu);
     }
   }
 
-  v15 = 0;
+  v17 = 0;
 LABEL_17:
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v17;
 }
 
 - (id)destinationURLForHapticFile
@@ -174,12 +172,12 @@ LABEL_17:
 
     if ((v10 & 1) == 0)
     {
-      v12 = sh_log_object();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sh_log_object(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         v24 = v11;
-        _os_log_impl(&dword_230F52000, v12, OS_LOG_TYPE_ERROR, "Could not create folder for haptic files, using temporary directory %@", buf, 0xCu);
+        _os_log_impl(&dword_230F52000, v13, OS_LOG_TYPE_ERROR, "Could not create folder for haptic files, using temporary directory %@", buf, 0xCu);
       }
 
       fileManager4 = [(SHHapticTrack *)self fileManager];
@@ -189,16 +187,14 @@ LABEL_17:
     }
   }
 
-  v15 = MEMORY[0x277CCACA8];
+  v16 = MEMORY[0x277CCACA8];
   fileIdentifier = [(SHHapticTrack *)self fileIdentifier];
   algorithm = [(SHHapticTrack *)self algorithm];
-  v18 = [v15 stringWithFormat:@"%@_%@", fileIdentifier, algorithm];
+  v19 = [v16 stringWithFormat:@"%@_%@", fileIdentifier, algorithm];
 
-  v19 = [v5 URLByAppendingPathComponent:v18 conformingToType:*MEMORY[0x277CE1CD8]];
+  v20 = [v5 URLByAppendingPathComponent:v19 conformingToType:*MEMORY[0x277CE1CD8]];
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v20;
 }
 
 @end

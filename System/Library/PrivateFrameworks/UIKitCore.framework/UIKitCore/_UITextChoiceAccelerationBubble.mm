@@ -718,7 +718,7 @@ LABEL_17:
   parentViewCopy = parentView;
   colorCopy = color;
   rectCopy = rect;
-  if (-[_UITextChoiceAccelerationBubble needsRTLCheck](self, "needsRTLCheck") || (-[_UITextChoiceAccelerationBubble parentView](self, "parentView"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 isEqual:parentViewCopy], v17, (v18 & 1) == 0))
+  if ([(_UITextChoiceAccelerationBubble *)self needsRTLCheck]|| ([(_UITextChoiceAccelerationBubble *)self parentView], v17 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v17), v17, (isEqual & 1) == 0))
   {
     usingRTLInputMode = [(_UITextChoiceAccelerationBubble *)self usingRTLInputMode];
     traitOverrides = [(UIView *)self traitOverrides];
@@ -2059,7 +2059,7 @@ LABEL_10:
   v12.super_class = _UITextChoiceAccelerationBubble;
   v5 = [(UIControl *)&v12 hitTest:event withEvent:point.x, point.y];
   textHighlightView = [(_UITextChoiceAccelerationBubble *)self textHighlightView];
-  if (([v5 isEqual:textHighlightView] & 1) != 0 && (-[_UITextChoiceAccelerationBubble dictationGlowEffect](self, "dictationGlowEffect"), (v7 = objc_claimAutoreleasedReturnValue()) != 0))
+  if ((objc_msgSend_isEqual_(v5) & 1) != 0 && ([(_UITextChoiceAccelerationBubble *)self dictationGlowEffect], (v7 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v8 = v7;
     promptStyle = [(_UITextChoiceAccelerationBubble *)self promptStyle];
@@ -2253,7 +2253,7 @@ LABEL_8:
             }
 
             v17 = *(*(&v34 + 1) + 8 * i);
-            if (([v17 isEqual:v8] & 1) == 0)
+            if ((objc_msgSend_isEqual_(v17) & 1) == 0)
             {
               [v17 setState:0];
             }
@@ -2266,9 +2266,9 @@ LABEL_8:
       }
 
       sideButton = [(_UITextChoiceAccelerationBubble *)self sideButton];
-      v19 = [v8 isEqual:sideButton];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if ((v19 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         sideButton2 = [(_UITextChoiceAccelerationBubble *)self sideButton];
         [sideButton2 setState:0];
@@ -2399,7 +2399,7 @@ LABEL_16:
           sideButton3 = [(_UITextChoiceAccelerationBubble *)self sideButton];
           [sideButton3 setState:4];
 
-          if (sourceCandidate2 && [sourceCandidate2 isEqualToString:input])
+          if (sourceCandidate2 && objc_msgSend_isEqualToString_(sourceCandidate2))
           {
             [(_UITextChoiceAccelerationBubble *)self dismissWithRevert:sourceCandidate2];
           }

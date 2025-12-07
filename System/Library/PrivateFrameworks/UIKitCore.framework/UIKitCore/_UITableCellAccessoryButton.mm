@@ -55,7 +55,7 @@
 - (void)setAccessoryTintColor:(id)color
 {
   colorCopy = color;
-  if (![(UIColor *)self->_accessoryTintColor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_accessoryTintColor) & 1) == 0)
   {
     objc_storeStrong(&self->_accessoryTintColor, color);
     [(_UITableCellAccessoryButton *)self _reloadBackgroundImage];

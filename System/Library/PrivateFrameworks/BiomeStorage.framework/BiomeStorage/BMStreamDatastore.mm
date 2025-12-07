@@ -12,6 +12,7 @@
 - (BOOL)verifyStreamHealthFromV1:(double)v1 to:(double)to frameStore:(id)store error:(id *)error;
 - (BOOL)verifyStreamHealthFromV2:(double)v2 to:(double)to frameStore:(id)store error:(id *)error;
 - (BOOL)writeEventBytes:(const void *)bytes length:(unint64_t)length dataVersion:(unsigned int)version timestamp:(double)timestamp outBookmark:(id *)bookmark;
+- (BOOL)writeEventData:(id)data dataVersion:(unsigned int)version timestamp:(double)timestamp outBookmark:(id *)bookmark;
 - (BOOL)writeEventWithEventBody:(id)body;
 - (BOOL)writeEventWithEventBody:(id)body timestamp:(double)timestamp outEventSize:(unint64_t *)size outBookmark:(id *)bookmark;
 - (Class)eventBodyClass;
@@ -33,10 +34,10 @@
 - (void)_removeEventsFrom:(double)from to:(double)to reason:(unint64_t)reason policyID:(id)d pruneFutureEvents:(BOOL)events shouldDeleteUsingBlock:(id)block;
 - (void)didMarkFrameAsRemovedWithSegmentName:(id)name frame:(id)frame reason:(unint64_t)reason policyID:(id)d outTombstoneBookmark:(id *)bookmark;
 - (void)enumerateEventsFrom:(double)from to:(double)to options:(unint64_t)options usingBlock:(id)block;
-- (void)eventBodyClass;
 - (void)fetchEventFromFrameStore:(id)store atOffset:(unint64_t)offset withOptions:(unint64_t)options callback:(id)callback;
 - (void)loadMetadata;
 - (void)pruneStreamToMaxCount:(unint64_t)count;
+- (void)removeEventsFrom:(double)from to:(double)to reason:(unint64_t)reason pruneFutureEvents:(BOOL)events usingBlock:(id)block;
 - (void)segmentManager:(id)manager willDeleteSegmentName:(id)name frameStore:(id)store reason:(unint64_t)reason direction:(unint64_t)direction;
 - (void)syncMappedFiles;
 - (void)writeTombstoneEventWithSegmentName:(id)name offset:(unint64_t)offset length:(unint64_t)length eventTimestamp:(double)timestamp reason:(unint64_t)reason policyID:(id)d outTombstoneBookmark:(id *)bookmark;
@@ -59,7 +60,7 @@
       v5 = __biome_log_for_category();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        [(BMStreamDatastore *)self eventBodyClass];
+        [BMStreamDatastore eventBodyClass];
       }
 
       metadata = [(BMStreamDatastore *)self metadata];
@@ -113,7 +114,7 @@ LABEL_24:
         v22 = __biome_log_for_category();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
         {
-          [(BMStreamDatastore *)&self->_streamId loadMetadata];
+          [BMStreamDatastore loadMetadata];
         }
       }
 
@@ -122,7 +123,7 @@ LABEL_24:
         v23 = __biome_log_for_category();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
-          [(BMStreamDatastore *)&self->_streamId loadMetadata];
+          [BMStreamDatastore loadMetadata];
         }
       }
     }
@@ -230,15 +231,6 @@ LABEL_37:
 LABEL_38:
 
   return v19;
-}
-
-- (void)eventBodyClass
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(self + 112);
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)metadataPath
@@ -428,14 +420,14 @@ LABEL_24:
 
 - (BOOL)writeEventWithEventBody:(id)body timestamp:(double)timestamp outEventSize:(unint64_t *)size outBookmark:(id *)bookmark
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   bodyCopy = body;
   if (!bodyCopy)
   {
     v12 = __biome_log_for_category();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v22) = 0;
+      LOWORD(v21) = 0;
       v13 = "Attempt to write nil event";
       goto LABEL_12;
     }
@@ -453,10 +445,10 @@ LABEL_13:
       v12 = __biome_log_for_category();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v22) = 0;
+        LOWORD(v21) = 0;
         v13 = "Attempt to write non-tombstone to tombstone store";
 LABEL_12:
-        _os_log_impl(&dword_1C928A000, v12, OS_LOG_TYPE_INFO, v13, &v22, 2u);
+        _os_log_impl(&dword_1C928A000, v12, OS_LOG_TYPE_INFO, v13, &v21, 2u);
         goto LABEL_13;
       }
 
@@ -475,7 +467,7 @@ LABEL_12:
         v12 = __biome_log_for_category();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v22) = 0;
+          LOWORD(v21) = 0;
           v13 = "Attempt to write non-subscription to subscription store";
           goto LABEL_12;
         }
@@ -506,9 +498,9 @@ LABEL_12:
         v18 = __biome_log_for_category();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v22 = 138543362;
-          v23 = v12;
-          _os_log_impl(&dword_1C928A000, v18, OS_LOG_TYPE_INFO, "Data type will be set to %{public}@", &v22, 0xCu);
+          v21 = 138543362;
+          v22 = v12;
+          _os_log_impl(&dword_1C928A000, v18, OS_LOG_TYPE_INFO, "Data type will be set to %{public}@", &v21, 0xCu);
         }
       }
 
@@ -526,7 +518,6 @@ LABEL_12:
   v16 = -[BMStreamDatastore writeEventData:dataVersion:timestamp:outBookmark:](self, "writeEventData:dataVersion:timestamp:outBookmark:", v12, [bodyCopy dataVersion], bookmark, timestamp);
 LABEL_26:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -560,6 +551,19 @@ uint64_t __48__BMStreamDatastore_fetchEventsFrom_to_options___block_invoke(uint6
   return 1;
 }
 
+- (void)removeEventsFrom:(double)from to:(double)to reason:(unint64_t)reason pruneFutureEvents:(BOOL)events usingBlock:(id)block
+{
+  eventsCopy = events;
+  blockCopy = block;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __77__BMStreamDatastore_removeEventsFrom_to_reason_pruneFutureEvents_usingBlock___block_invoke;
+  v14[3] = &unk_1E8338CF0;
+  v15 = blockCopy;
+  v13 = blockCopy;
+  [(BMStreamDatastore *)self removeEventsFrom:reason to:eventsCopy reason:v14 pruneFutureEvents:from shouldDeleteUsingBlock:to];
+}
+
 uint64_t __77__BMStreamDatastore_removeEventsFrom_to_reason_pruneFutureEvents_usingBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
@@ -571,7 +575,7 @@ uint64_t __77__BMStreamDatastore_removeEventsFrom_to_reason_pruneFutureEvents_us
 - (void)_removeEventsFrom:(double)from to:(double)to reason:(unint64_t)reason policyID:(id)d pruneFutureEvents:(BOOL)events shouldDeleteUsingBlock:(id)block
 {
   eventsCopy = events;
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   dCopy = d;
   blockCopy = block;
   if ([(BMStreamDatastore *)self isDataAccessible])
@@ -592,14 +596,14 @@ uint64_t __77__BMStreamDatastore_removeEventsFrom_to_reason_pruneFutureEvents_us
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v55 = 0x3032000000;
-    v56 = __Block_byref_object_copy__0;
-    v57 = __Block_byref_object_dispose__0;
-    v58 = objc_opt_new();
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x2020000000;
-    v52 = 0;
+    v54 = 0x3032000000;
+    v55 = __Block_byref_object_copy__0;
+    v56 = __Block_byref_object_dispose__0;
+    v57 = objc_opt_new();
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x2020000000;
+    v51 = 0;
     Current = CFAbsoluteTimeGetCurrent();
     if (eventsCopy)
     {
@@ -623,26 +627,26 @@ uint64_t __77__BMStreamDatastore_removeEventsFrom_to_reason_pruneFutureEvents_us
     }
 
     segmentManager = self->_segmentManager;
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEvents_shouldDeleteUsingBlock___block_invoke;
-    v37[3] = &unk_1E8338D40;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEvents_shouldDeleteUsingBlock___block_invoke;
+    v36[3] = &unk_1E8338D40;
     fromCopy = from;
-    v37[4] = self;
+    v36[4] = self;
     p_buf = &buf;
     v26 = metadata;
-    v38 = v26;
-    v48 = eventsCopy;
-    v45 = Current;
-    v41 = blockCopy;
+    v37 = v26;
+    v47 = eventsCopy;
+    v44 = Current;
+    v40 = blockCopy;
     v23 = delegate;
-    v39 = v23;
+    v38 = v23;
     reasonCopy = reason;
-    v40 = dCopy;
-    v43 = &v49;
+    v39 = dCopy;
+    v42 = &v48;
     toCopy2 = to;
-    [(BMSegmentManager *)segmentManager enumerateSegmentsFrom:v37 to:from withBlock:toCopy];
-    if (*(v50 + 24) == 1)
+    [(BMSegmentManager *)segmentManager enumerateSegmentsFrom:v36 to:from withBlock:toCopy];
+    if (*(v49 + 24) == 1)
     {
       v27 = __biome_log_for_category();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -651,30 +655,30 @@ uint64_t __77__BMStreamDatastore_removeEventsFrom_to_reason_pruneFutureEvents_us
       }
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v28 = *(*(&buf + 1) + 40);
-    v29 = [v28 countByEnumeratingWithState:&v33 objects:v53 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v32 objects:v52 count:16];
     if (v29)
     {
-      v30 = *v34;
+      v30 = *v33;
       do
       {
         v31 = 0;
         do
         {
-          if (*v34 != v30)
+          if (*v33 != v30)
           {
             objc_enumerationMutation(v28);
           }
 
-          [(BMSegmentManager *)self->_segmentManager removeSegmentNamed:*(*(&v33 + 1) + 8 * v31++), v33];
+          [(BMSegmentManager *)self->_segmentManager removeSegmentNamed:*(*(&v32 + 1) + 8 * v31++), v32];
         }
 
         while (v29 != v31);
-        v29 = [v28 countByEnumeratingWithState:&v33 objects:v53 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v32 objects:v52 count:16];
       }
 
       while (v29);
@@ -686,7 +690,7 @@ uint64_t __77__BMStreamDatastore_removeEventsFrom_to_reason_pruneFutureEvents_us
       [v23 didPruneEvents];
     }
 
-    _Block_object_dispose(&v49, 8);
+    _Block_object_dispose(&v48, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -701,8 +705,6 @@ uint64_t __77__BMStreamDatastore_removeEventsFrom_to_reason_pruneFutureEvents_us
       _os_log_impl(&dword_1C928A000, v23, OS_LOG_TYPE_INFO, "Pruner does not have access to stream due to lock state for stream %{public}@", &buf, 0xCu);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEvents_shouldDeleteUsingBlock___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -788,7 +790,7 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
 
 void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEvents_shouldDeleteUsingBlock___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if ([*(a1 + 32) isDataAccessible])
   {
@@ -801,7 +803,6 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
     ++*(*(*(a1 + 88) + 8) + 24);
     if (*(a1 + 160) == 1 && v10 > *(a1 + 128) && (*(*(a1 + 80) + 16))())
     {
-      v12 = *(a1 + 56);
       if (objc_opt_respondsToSelector())
       {
         [*(a1 + 56) willPruneEvent:v9];
@@ -820,7 +821,6 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
 
     else if (v11 >= *(a1 + 144) && v11 <= *(a1 + 152) && (*(*(a1 + 80) + 16))())
     {
-      v15 = *(a1 + 56);
       if (objc_opt_respondsToSelector())
       {
         [*(a1 + 56) willPruneEvent:v9];
@@ -848,20 +848,18 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
 
   else
   {
-    v13 = __biome_log_for_category();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = __biome_log_for_category();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v14 = [*(a1 + 32) streamId];
-      v17 = 138543362;
-      v18 = v14;
-      _os_log_impl(&dword_1C928A000, v13, OS_LOG_TYPE_INFO, "Pruner does not have access to stream due to lock state for stream %{public}@", &v17, 0xCu);
+      v13 = [*(a1 + 32) streamId];
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_1C928A000, v12, OS_LOG_TYPE_INFO, "Pruner does not have access to stream due to lock state for stream %{public}@", &v14, 0xCu);
     }
 
     *a3 = 1;
     **(a1 + 120) = 1;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncMappedFiles
@@ -890,7 +888,7 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
 
 - (id)newEnumeratorFromStartTime:(double)time endTime:(double)endTime maxEvents:(unint64_t)events lastN:(unint64_t)n options:(unint64_t)options
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v13 = [BMStoreEnumerator alloc];
   if (!self->_permission)
   {
@@ -933,29 +931,28 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       streamId = self->_streamId;
-      v25 = 138413058;
-      v26 = streamId;
-      v27 = 2048;
+      v24 = 138413058;
+      v25 = streamId;
+      v26 = 2048;
       timeCopy = time;
-      v29 = 2048;
+      v28 = 2048;
       endTimeCopy = endTime;
-      v31 = 2048;
+      v30 = 2048;
       optionsCopy = options;
-      _os_log_error_impl(&dword_1C928A000, v21, OS_LOG_TYPE_ERROR, "Failed to create enumerator for stream: %@ startTime: %f endTime: %f, options: %lu", &v25, 0x2Au);
+      _os_log_error_impl(&dword_1C928A000, v21, OS_LOG_TYPE_ERROR, "Failed to create enumerator for stream: %@ startTime: %f endTime: %f, options: %lu", &v24, 0x2Au);
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (id)newEnumeratorFromBookmark:(id)bookmark options:(unint64_t)options error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
-  v17 = 0;
-  v9 = [[BMStoreEnumerator alloc] initWithStreamDatastore:self bookmark:bookmarkCopy options:options error:&v17];
-  v10 = v17;
+  v16 = 0;
+  v9 = [[BMStoreEnumerator alloc] initWithStreamDatastore:self bookmark:bookmarkCopy options:options error:&v16];
+  v10 = v16;
   v11 = v10;
   if (error && v10)
   {
@@ -970,26 +967,25 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
     {
       streamId = self->_streamId;
       *buf = 138412802;
-      v19 = streamId;
-      v20 = 2112;
-      v21 = bookmarkCopy;
-      v22 = 2112;
-      v23 = v11;
+      v18 = streamId;
+      v19 = 2112;
+      v20 = bookmarkCopy;
+      v21 = 2112;
+      v22 = v11;
       _os_log_error_impl(&dword_1C928A000, v13, OS_LOG_TYPE_ERROR, "Failed to create enumerator with bookmark for stream: %@ %@ error: %@", buf, 0x20u);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)newEnumeratorFromBookmarkEnumerator:(id)enumerator error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   enumeratorCopy = enumerator;
-  v14 = 0;
-  v7 = [[BMStoreEnumerator alloc] initWithStreamDatastore:self bookmarkEnumerator:enumeratorCopy error:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [[BMStoreEnumerator alloc] initWithStreamDatastore:self bookmarkEnumerator:enumeratorCopy error:&v13];
+  v8 = v13;
   if (!v7)
   {
     v9 = __biome_log_for_category();
@@ -997,11 +993,11 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
     {
       streamId = self->_streamId;
       *buf = 138412802;
-      v16 = enumeratorCopy;
-      v17 = 2112;
-      v18 = streamId;
-      v19 = 2112;
-      v20 = v8;
+      v15 = enumeratorCopy;
+      v16 = 2112;
+      v17 = streamId;
+      v18 = 2112;
+      v19 = v8;
       _os_log_error_impl(&dword_1C928A000, v9, OS_LOG_TYPE_ERROR, "Failed to create enumerator with bookmarkEnumerator: %@ for stream: %@ error: %@", buf, 0x20u);
     }
   }
@@ -1012,19 +1008,18 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
     *error = v8;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)deleteEventAtBookmark:(id)bookmark outTombstoneBookmark:(id *)tombstoneBookmark
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   if ([(BMStreamDatastore *)self isDataAccessible])
   {
-    v27 = 0;
-    v7 = [[BMStoreEnumerator alloc] initWithStreamDatastore:self bookmark:bookmarkCopy options:3 error:&v27];
-    v8 = v27;
+    v26 = 0;
+    v7 = [[BMStoreEnumerator alloc] initWithStreamDatastore:self bookmark:bookmarkCopy options:3 error:&v26];
+    v8 = v26;
     if (v8)
     {
       v9 = BMStorageErrorGetErrno() == 2;
@@ -1054,13 +1049,13 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
       {
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v17 = self->_streamId;
+          v16 = self->_streamId;
           *buf = 138412802;
-          *&buf[4] = v17;
+          *&buf[4] = v16;
           *&buf[12] = 2112;
           *&buf[14] = bookmarkCopy;
           *&buf[22] = 2112;
-          v29 = v8;
+          v28 = v8;
           _os_log_error_impl(&dword_1C928A000, v11, OS_LOG_TYPE_ERROR, "Failed to create enumerator for deleting event: %@ %@ error: %@", buf, 0x20u);
         }
 
@@ -1077,30 +1072,30 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v29 = __Block_byref_object_copy__0;
-      v30 = __Block_byref_object_dispose__0;
-      v31 = 0;
-      v23 = 0;
-      v24 = &v23;
-      v25 = 0x2020000000;
-      v26 = 0;
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __64__BMStreamDatastore_deleteEventAtBookmark_outTombstoneBookmark___block_invoke;
-      v18[3] = &unk_1E8338D68;
-      v19 = bookmarkCopy;
+      v28 = __Block_byref_object_copy__0;
+      v29 = __Block_byref_object_dispose__0;
+      v30 = 0;
+      v22 = 0;
+      v23 = &v22;
+      v24 = 0x2020000000;
+      v25 = 0;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __64__BMStreamDatastore_deleteEventAtBookmark_outTombstoneBookmark___block_invoke;
+      v17[3] = &unk_1E8338D68;
+      v18 = bookmarkCopy;
       selfCopy = self;
-      v21 = &v23;
-      v22 = buf;
-      [(BMStoreEnumerator *)v7 nextEventWithContext:v18];
+      v20 = &v22;
+      v21 = buf;
+      [(BMStoreEnumerator *)v7 nextEventWithContext:v17];
       if (tombstoneBookmark)
       {
         *tombstoneBookmark = *(*&buf[8] + 40);
       }
 
-      v13 = *(v24 + 24);
+      v13 = *(v23 + 24);
 
-      _Block_object_dispose(&v23, 8);
+      _Block_object_dispose(&v22, 8);
       _Block_object_dispose(buf, 8);
     }
   }
@@ -1119,13 +1114,12 @@ void __99__BMStreamDatastore__removeEventsFrom_to_reason_policyID_pruneFutureEve
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
 void __64__BMStreamDatastore_deleteEventAtBookmark_outTombstoneBookmark___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1150,9 +1144,9 @@ void __64__BMStreamDatastore_deleteEventAtBookmark_outTombstoneBookmark___block_
       {
         v14 = *(a1 + 32);
         *buf = 138412546;
-        v27 = v14;
-        v28 = 1024;
-        v29 = v10;
+        v26 = v14;
+        v27 = 1024;
+        v28 = v10;
         _os_log_impl(&dword_1C928A000, v13, OS_LOG_TYPE_DEFAULT, "deleteEventAtBookmark: event at bookmark %@ already in deleted state %u", buf, 0x12u);
       }
 
@@ -1180,9 +1174,9 @@ void __64__BMStreamDatastore_deleteEventAtBookmark_outTombstoneBookmark___block_
         v18 = *(a1 + 40);
         v19 = [v6 segmentName];
         v20 = [v5 frame];
-        v25 = 0;
-        [v18 didMarkFrameAsRemovedWithSegmentName:v19 frame:v20 reason:2 policyID:0 outTombstoneBookmark:&v25];
-        v17 = v25;
+        v24 = 0;
+        [v18 didMarkFrameAsRemovedWithSegmentName:v19 frame:v20 reason:2 policyID:0 outTombstoneBookmark:&v24];
+        v17 = v24;
       }
 
       v21 = *(*(a1 + 56) + 8);
@@ -1201,14 +1195,12 @@ void __64__BMStreamDatastore_deleteEventAtBookmark_outTombstoneBookmark___block_
     {
       v12 = *(a1 + 32);
       *buf = 138412290;
-      v27 = v12;
+      v26 = v12;
       _os_log_impl(&dword_1C928A000, v11, OS_LOG_TYPE_DEFAULT, "deleteEventAtBookmark: couldn't find event with bookmark %@", buf, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateEventsFrom:(double)from to:(double)to options:(unint64_t)options usingBlock:(id)block
@@ -1277,6 +1269,30 @@ void __64__BMStreamDatastore_deleteEventAtBookmark_outTombstoneBookmark___block_
   }
 }
 
+- (BOOL)writeEventData:(id)data dataVersion:(unsigned int)version timestamp:(double)timestamp outBookmark:(id *)bookmark
+{
+  v8 = *&version;
+  dataCopy = data;
+  v11 = dataCopy;
+  if (dataCopy)
+  {
+    v12 = -[BMStreamDatastore writeEventBytes:length:dataVersion:timestamp:outBookmark:](self, "writeEventBytes:length:dataVersion:timestamp:outBookmark:", [dataCopy bytes], objc_msgSend(dataCopy, "length"), v8, bookmark, timestamp);
+  }
+
+  else
+  {
+    v13 = __biome_log_for_category();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    {
+      [BMStreamDatastore writeEventData:dataVersion:timestamp:outBookmark:];
+    }
+
+    v12 = 0;
+  }
+
+  return v12;
+}
+
 - (id)_bookmarkWithSegmentName:(id)name offset:(unint64_t)offset datastoreVersion:(unsigned int)version
 {
   if (version == 9)
@@ -1297,7 +1313,7 @@ void __64__BMStreamDatastore_deleteEventAtBookmark_outTombstoneBookmark___block_
 
 - (BOOL)writeEventBytes:(const void *)bytes length:(unint64_t)length dataVersion:(unsigned int)version timestamp:(double)timestamp outBookmark:(id *)bookmark
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   currentFrameStore = [(BMStreamDatastore *)self currentFrameStore];
   if ([currentFrameStore start])
   {
@@ -1312,16 +1328,16 @@ void __64__BMStreamDatastore_deleteEventAtBookmark_outTombstoneBookmark___block_
 
   if (v13)
   {
-    v47 = 0;
+    v46 = 0;
     segmentName = [v13 segmentName];
     if ([(BMStreamDatastore *)self isDataAccessible])
     {
       bookmarkCopy = bookmark;
-      v15 = [v13 writeFrameForBytes:bytes length:length dataVersion:version timestamp:&v47 outOffset:timestamp];
+      v15 = [v13 writeFrameForBytes:bytes length:length dataVersion:version timestamp:&v46 outOffset:timestamp];
       if (v15 != 2)
       {
         v21 = v15;
-        segmentName6 = segmentName;
+        segmentName5 = segmentName;
 LABEL_23:
         if (v21)
         {
@@ -1329,15 +1345,15 @@ LABEL_23:
           if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             streamPath = [(BMStreamDatastore *)self streamPath];
-            v43 = NSStringFromBMFrameWriteStatus(v21);
+            v42 = NSStringFromBMFrameWriteStatus(v21);
             *buf = 138413058;
             *&buf[4] = streamPath;
             *&buf[12] = 2048;
             *&buf[14] = length;
             *&buf[22] = 1024;
-            *v49 = version;
-            *&v49[4] = 2114;
-            *&v49[6] = v43;
+            *v48 = version;
+            *&v48[4] = 2114;
+            *&v48[6] = v42;
             _os_log_error_impl(&dword_1C928A000, v25, OS_LOG_TYPE_ERROR, "Failed to write frame for: %@, length: %zu dataVersion: %u writeStatus: %{public}@", buf, 0x26u);
           }
 
@@ -1347,25 +1363,13 @@ LABEL_23:
         else
         {
           streamId = self->_streamId;
-          if (!streamId)
+          if (!streamId || !-[NSString length](streamId, "length") || (-[NSObject segmentName](v13, "segmentName"), (v27 = objc_claimAutoreleasedReturnValue()) == 0) || (v28 = v27, -[NSObject segmentName](v13, "segmentName"), v29 = objc_claimAutoreleasedReturnValue(), v30 = [v29 length], v29, v28, !v30))
           {
-            goto LABEL_31;
-          }
-
-          if (![(NSString *)streamId length])
-          {
-            goto LABEL_31;
-          }
-
-          segmentName2 = [v13 segmentName];
-          if (!segmentName2 || (v28 = segmentName2, -[NSObject segmentName](v13, "segmentName"), v29 = objc_claimAutoreleasedReturnValue(), v30 = [v29 length], v29, v28, !v30))
-          {
-LABEL_31:
             v31 = __biome_log_for_category();
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x2020000000;
-            v49[0] = 16;
+            v48[0] = 16;
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __78__BMStreamDatastore_writeEventBytes_length_dataVersion_timestamp_outBookmark___block_invoke;
@@ -1382,35 +1386,35 @@ LABEL_31:
             {
               v33 = self->_streamId;
               v34 = [(NSString *)v33 length];
+              segmentName2 = [v13 segmentName];
               segmentName3 = [v13 segmentName];
-              segmentName4 = [v13 segmentName];
-              v37 = [segmentName4 length];
+              v37 = [segmentName3 length];
               *buf = 138413570;
               *&buf[4] = v33;
               *&buf[12] = 2048;
               *&buf[14] = v34;
               *&buf[22] = 2112;
-              *v49 = segmentName3;
-              *&v49[8] = 2048;
-              *&v49[10] = v37;
-              v50 = 2112;
-              v51 = v13;
-              v52 = 2112;
-              v53 = segmentName6;
+              *v48 = segmentName2;
+              *&v48[8] = 2048;
+              *&v48[10] = v37;
+              v49 = 2112;
+              v50 = v13;
+              v51 = 2112;
+              v52 = segmentName5;
               _os_log_impl(&dword_1C928A000, v31, v32, "Calling _bookmarkWithSegmentName(streamId=%@ (len=%lu), segmentName=%@ (len=%lu)) frameStore=%@, segment before write=%@", buf, 0x3Eu);
             }
           }
 
           if (bookmarkCopy)
           {
-            segmentName5 = [v13 segmentName];
-            *bookmarkCopy = [(BMStreamDatastore *)self _bookmarkWithSegmentName:segmentName5 offset:v47 datastoreVersion:[v13 datastoreVersion]];
+            segmentName4 = [v13 segmentName];
+            *bookmarkCopy = [(BMStreamDatastore *)self _bookmarkWithSegmentName:segmentName4 offset:v46 datastoreVersion:[v13 datastoreVersion]];
           }
 
           v23 = 1;
         }
 
-        segmentName = segmentName6;
+        segmentName = segmentName5;
         goto LABEL_46;
       }
 
@@ -1445,14 +1449,14 @@ LABEL_31:
           goto LABEL_44;
         }
 
-        segmentName6 = [v13 segmentName];
+        segmentName5 = [v13 segmentName];
 
-        v21 = [v13 writeFrameForBytes:bytes length:length dataVersion:version timestamp:&v47 outOffset:timestamp];
+        v21 = [v13 writeFrameForBytes:bytes length:length dataVersion:version timestamp:&v46 outOffset:timestamp];
         objc_autoreleasePoolPop(v18);
         if (v21 == 2)
         {
           v17 = v13;
-          segmentName = segmentName6;
+          segmentName = segmentName5;
           if (v16++ < 9)
           {
             continue;
@@ -1497,13 +1501,12 @@ LABEL_46:
   v23 = 0;
 LABEL_47:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (void)fetchEventFromFrameStore:(id)store atOffset:(unint64_t)offset withOptions:(unint64_t)options callback:(id)callback
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   callbackCopy = callback;
   if (!callbackCopy)
@@ -1516,15 +1519,15 @@ LABEL_47:
     storeCopy = [(BMSegmentManager *)self->_segmentManager segmentAfterFrameStore:0 direction:(options >> 3) & 1];
   }
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__0;
-  v23 = __Block_byref_object_dispose__0;
-  v24 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
   if (storeCopy)
   {
-    if (!v20[5])
+    if (!v19[5])
     {
       while (1)
       {
@@ -1542,13 +1545,13 @@ LABEL_47:
           break;
         }
 
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __76__BMStreamDatastore_fetchEventFromFrameStore_atOffset_withOptions_callback___block_invoke;
-        v18[3] = &unk_1E8338C10;
-        v18[4] = &v19;
-        [storeCopy enumerateWithOptions:options fromOffset:offset usingBlock:v18];
-        if (v20[5])
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __76__BMStreamDatastore_fetchEventFromFrameStore_atOffset_withOptions_callback___block_invoke;
+        v17[3] = &unk_1E8338C10;
+        v17[4] = &v18;
+        [storeCopy enumerateWithOptions:options fromOffset:offset usingBlock:v17];
+        if (v19[5])
         {
           v14 = storeCopy;
         }
@@ -1571,7 +1574,7 @@ LABEL_47:
           storeCopy = v14;
         }
 
-        if (v20[5])
+        if (v19[5])
         {
           goto LABEL_23;
         }
@@ -1582,7 +1585,7 @@ LABEL_47:
       {
         streamPath = self->_streamPath;
         *buf = 138543362;
-        v26 = streamPath;
+        v25 = streamPath;
         _os_log_impl(&dword_1C928A000, v15, OS_LOG_TYPE_INFO, "Segment is no longer accessible: %{public}@", buf, 0xCu);
       }
 
@@ -1598,10 +1601,8 @@ LABEL_21:
   }
 
 LABEL_23:
-  callbackCopy[2](callbackCopy, v20[5], v14);
-  _Block_object_dispose(&v19, 8);
-
-  v17 = *MEMORY[0x1E69E9840];
+  callbackCopy[2](callbackCopy, v19[5], v14);
+  _Block_object_dispose(&v18, 8);
 }
 
 - (BOOL)updateMetadata:(Class)metadata
@@ -1616,7 +1617,7 @@ LABEL_23:
 
 - (BOOL)updateMetadata:(Class)metadata pruningPolicy:(id)policy
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   policyCopy = policy;
   os_unfair_lock_lock(&self->_lock);
   if (!self->_biomeLibrary && ![(BMStreamDatastore *)self isTombstoneStore]&& ![(BMStreamDatastore *)self isSubscriptionStore])
@@ -1626,7 +1627,7 @@ LABEL_23:
     if (!metadata)
     {
       loadMetadata = [(BMStreamDatastore *)self loadMetadata];
-      v13 = *p_metadata;
+      v12 = *p_metadata;
       *p_metadata = loadMetadata;
 
       metadata = *p_metadata;
@@ -1634,16 +1635,16 @@ LABEL_23:
 
     if (-[BMStreamMetadata eventDataClass](metadata, "eventDataClass") && (-[objc_class isEqual:](metadata, "isEqual:", [*p_metadata eventDataClass]) & 1) == 0)
     {
-      v19 = __biome_log_for_category();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v18 = __biome_log_for_category();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
-        -[BMStreamDatastore updateMetadata:pruningPolicy:].cold.1(metadata, [*p_metadata eventDataClass], v22, v19);
+        -[BMStreamDatastore updateMetadata:pruningPolicy:].cold.1(metadata, [*p_metadata eventDataClass], v21, v18);
       }
     }
 
     else
     {
-      v14 = [BMStreamMetadata alloc];
+      v13 = [BMStreamMetadata alloc];
       streamId = self->_streamId;
       account = [(BMStoreConfig *)self->_config account];
       remoteName = [(BMStoreConfig *)self->_config remoteName];
@@ -1653,9 +1654,9 @@ LABEL_23:
         pruningPolicy = self->_pruningPolicy;
       }
 
-      v19 = [(BMStreamMetadata *)v14 initWithStreamId:streamId eventType:metadata account:account remoteStreamName:remoteName pruningPolicy:pruningPolicy];
+      v18 = [(BMStreamMetadata *)v13 initWithStreamId:streamId eventType:metadata account:account remoteStreamName:remoteName pruningPolicy:pruningPolicy];
 
-      if (([*p_metadata isEqual:v19] & 1) != 0 || (objc_storeStrong(&self->_metadata, v19), -[BMStreamDatastore saveMetadata:](self, "saveMetadata:", self->_metadata)))
+      if (([*p_metadata isEqual:v18] & 1) != 0 || (objc_storeStrong(&self->_metadata, v18), -[BMStreamDatastore saveMetadata:](self, "saveMetadata:", self->_metadata)))
       {
         v7 = 1;
 LABEL_21:
@@ -1663,11 +1664,11 @@ LABEL_21:
         goto LABEL_5;
       }
 
-      v20 = __biome_log_for_category();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v19 = __biome_log_for_category();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         streamId = [(BMStreamDatastore *)self streamId];
-        [(BMStreamDatastore *)streamId updateMetadata:v22 pruningPolicy:v20];
+        [(BMStreamDatastore *)streamId updateMetadata:v21 pruningPolicy:v19];
       }
     }
 
@@ -1679,13 +1680,12 @@ LABEL_21:
 LABEL_5:
   os_unfair_lock_unlock(&self->_lock);
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)saveMetadata:(id)metadata
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   os_unfair_lock_assert_owner(&self->_lock);
   if (!self->_biomeLibrary)
@@ -1695,7 +1695,7 @@ LABEL_5:
     {
       streamId = self->_streamId;
       *buf = 138543362;
-      v21 = streamId;
+      v20 = streamId;
       _os_log_impl(&dword_1C928A000, v6, OS_LOG_TYPE_DEFAULT, "[BMStreamDatastore saveMetadata:] called for stream %{public}@", buf, 0xCu);
     }
 
@@ -1721,9 +1721,9 @@ LABEL_5:
       goto LABEL_11;
     }
 
-    v19 = 0;
-    v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:metadataCopy requiringSecureCoding:1 error:&v19];
-    v9 = v19;
+    v18 = 0;
+    v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:metadataCopy requiringSecureCoding:1 error:&v18];
+    v9 = v18;
     if (v9)
     {
       v10 = v9;
@@ -1738,11 +1738,11 @@ LABEL_5:
     {
       fileManager = self->_fileManager;
       metadataPath = [(BMStreamDatastore *)self metadataPath];
-      v18 = 0;
-      v16 = [(BMFileManager *)fileManager replaceFileAtPath:metadataPath withData:v8 protection:4 flags:0 error:&v18];
-      v10 = v18;
+      v17 = 0;
+      v15 = [(BMFileManager *)fileManager replaceFileAtPath:metadataPath withData:v8 protection:4 flags:0 error:&v17];
+      v10 = v17;
 
-      if (v16 && !v10)
+      if (v15 && !v10)
       {
 LABEL_11:
         v5 = 1;
@@ -1751,10 +1751,10 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v17 = __biome_log_for_category();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v16 = __biome_log_for_category();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        [(BMStreamDatastore *)self saveMetadata:v10, v17];
+        [(BMStreamDatastore *)self saveMetadata:v10, v16];
       }
     }
 
@@ -1774,7 +1774,6 @@ LABEL_17:
   v5 = 1;
 LABEL_18:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1856,7 +1855,7 @@ LABEL_8:
 
 - (void)pruneStreamToMaxCount:(unint64_t)count
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (self->_permission != 2)
   {
     [(BMStreamDatastore *)a2 pruneStreamToMaxCount:?];
@@ -1868,55 +1867,55 @@ LABEL_8:
   v8 = objc_opt_respondsToSelector() & 1;
   isSubscriptionStore = [(BMStreamDatastore *)self isTombstoneStore]|| [(BMStreamDatastore *)self isSubscriptionStore];
   v10 = objc_opt_new();
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x2020000000;
-  v36[3] = 0;
   v35[0] = 0;
   v35[1] = v35;
   v35[2] = 0x2020000000;
   v35[3] = 0;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
+  v34[3] = 0;
   segmentManager = self->_segmentManager;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __43__BMStreamDatastore_pruneStreamToMaxCount___block_invoke;
-  v24[3] = &unk_1E8338DB8;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __43__BMStreamDatastore_pruneStreamToMaxCount___block_invoke;
+  v23[3] = &unk_1E8338DB8;
+  v28 = v34;
   v29 = v35;
-  v30 = v36;
   countCopy = count;
   v12 = v10;
-  v25 = v12;
+  v24 = v12;
   v13 = metadata;
-  v26 = v13;
-  v32 = eventBodyClass;
-  v33 = v8;
+  v25 = v13;
+  v31 = eventBodyClass;
+  v32 = v8;
   v14 = delegate;
-  v34 = isSubscriptionStore;
-  v27 = v14;
+  v33 = isSubscriptionStore;
+  v26 = v14;
   selfCopy = self;
-  [(BMSegmentManager *)segmentManager reverseEnumerateSegmentsFrom:v24 to:0.0 withBlock:-1.0];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  [(BMSegmentManager *)segmentManager reverseEnumerateSegmentsFrom:v23 to:0.0 withBlock:-1.0];
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v15 = v12;
-  v16 = [v15 countByEnumeratingWithState:&v20 objects:v37 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v19 objects:v36 count:16];
   if (v16)
   {
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(BMSegmentManager *)self->_segmentManager removeSegmentNamed:*(*(&v20 + 1) + 8 * i) reason:4 direction:1, v20];
+        [(BMSegmentManager *)self->_segmentManager removeSegmentNamed:*(*(&v19 + 1) + 8 * i) reason:4 direction:1, v19];
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v20 objects:v37 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v19 objects:v36 count:16];
     }
 
     while (v16);
@@ -1927,10 +1926,8 @@ LABEL_8:
     [v14 didPruneEvents];
   }
 
+  _Block_object_dispose(v34, 8);
   _Block_object_dispose(v35, 8);
-  _Block_object_dispose(v36, 8);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __43__BMStreamDatastore_pruneStreamToMaxCount___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2226,7 +2223,7 @@ void __86__BMStreamDatastore_segmentManager_willDeleteSegmentName_frameStore_rea
   return segmentManager;
 }
 
-uint64_t __78__BMStreamDatastore_frameCountInStreamDataStoreFromSegmentsContainingTime_to___block_invoke(uint64_t a1, void *a2)
+void *__78__BMStreamDatastore_frameCountInStreamDataStoreFromSegmentsContainingTime_to___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 frameCount];
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -2254,7 +2251,7 @@ uint64_t __78__BMStreamDatastore_frameCountInStreamDataStoreFromSegmentsContaini
   return segmentManager;
 }
 
-uint64_t __60__BMStreamDatastore_frameCountInStreamDataStoreFromTime_to___block_invoke(uint64_t a1, void *a2)
+void *__60__BMStreamDatastore_frameCountInStreamDataStoreFromTime_to___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 frameCountFromStartTime:*(a1 + 40) endTime:*(a1 + 48)];
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -2311,7 +2308,7 @@ uint64_t __60__BMStreamDatastore_frameCountInStreamDataStoreFromTime_to___block_
 
 void __66__BMStreamDatastore_HealthCheck__verifyStreamHealthFrom_to_error___block_invoke(double *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   if (!v7)
@@ -2327,9 +2324,9 @@ void __66__BMStreamDatastore_HealthCheck__verifyStreamHealthFrom_to_error___bloc
     v12 = *(*(a1 + 6) + 8);
     v14 = *(v12 + 40);
     v13 = (v12 + 40);
-    v32 = v14;
-    v15 = [v9 verifyStreamHealthFromV1:v7 to:&v32 frameStore:v10 error:v11];
-    v16 = v32;
+    v31 = v14;
+    v15 = [v9 verifyStreamHealthFromV1:v7 to:&v31 frameStore:v10 error:v11];
+    v16 = v31;
 LABEL_6:
     objc_storeStrong(v13, v16);
     *(*(*(a1 + 5) + 8) + 24) = v15;
@@ -2351,12 +2348,12 @@ LABEL_6:
   }
 
   v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v33 = *MEMORY[0x1E696A578];
+  v32 = *MEMORY[0x1E696A578];
   v23 = objc_alloc(MEMORY[0x1E696AEC0]);
   v24 = [MEMORY[0x1E698E9C8] privacyPathname:*(*(*(a1 + 7) + 8) + 40)];
   v25 = [v23 initWithFormat:@"streamHealth failed: %@ for segment: %@, Framestore version not recognized: %d", @"BMStreamHealthErrorUnrecognizedDatastoreVersion", v24, objc_msgSend(v7, "datastoreVersion")];
-  v34[0] = v25;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+  v33[0] = v25;
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
   v27 = [v22 initWithDomain:@"BiomeStreamHealth" code:10 userInfo:v26];
   v28 = *(*(a1 + 6) + 8);
   v29 = *(v28 + 40);
@@ -2370,25 +2367,23 @@ LABEL_8:
   }
 
 LABEL_10:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)verifyStreamHealthFromV1:(double)v1 to:(double)to frameStore:(id)store error:(id *)error
 {
-  v90[1] = *MEMORY[0x1E69E9840];
+  v89[1] = *MEMORY[0x1E69E9840];
   storeCopy = store;
   segmentPath = [storeCopy segmentPath];
   bytesUsed = [storeCopy bytesUsed];
   if ([storeCopy frameStoreSize] < bytesUsed)
   {
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v89 = *MEMORY[0x1E696A578];
+    v88 = *MEMORY[0x1E696A578];
     v11 = objc_alloc(MEMORY[0x1E696AEC0]);
     v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
     v13 = [v11 initWithFormat:@"streamHealth failed: %@ for segment: %@, bytesUsed: %d, frameStoreSize:%zu", @"BMStreamHealthErrorBytesUsedBeyondFrameStoreSize", v12, objc_msgSend(storeCopy, "bytesUsed"), objc_msgSend(storeCopy, "frameStoreSize")];
-    v90[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:1];
+    v89[0] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:&v88 count:1];
     v15 = v10;
     v16 = 5;
 LABEL_31:
@@ -2400,12 +2395,12 @@ LABEL_31:
   if (*(start - 4) != *"SEGB")
   {
     v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v87 = *MEMORY[0x1E696A578];
+    v86 = *MEMORY[0x1E696A578];
     v19 = objc_alloc(MEMORY[0x1E696AEC0]);
     v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
     v13 = [v19 initWithFormat:@"streamHealth failed: %@ for segment: %@", @"BMStreamHealthErrorSegmentMagicMismatch", v12];
-    v88 = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+    v87 = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
     v15 = v18;
     v16 = 7;
     goto LABEL_31;
@@ -2415,12 +2410,12 @@ LABEL_31:
   if (v20 != [storeCopy datastoreVersion])
   {
     v42 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v85 = *MEMORY[0x1E696A578];
+    v84 = *MEMORY[0x1E696A578];
     v43 = objc_alloc(MEMORY[0x1E696AEC0]);
     v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
     v13 = [v43 initWithFormat:@"streamHealth failed: %@ for segment: %@", @"BMStreamHealthErrorDatastoreVersionMismatch", v12];
-    v86 = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+    v85 = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
     v15 = v42;
     v16 = 8;
     goto LABEL_31;
@@ -2431,25 +2426,25 @@ LABEL_31:
   v23 = 0;
   v24 = (bytesUsed2 - 56);
   v25 = bytesUsed2 - 64;
-  v69 = *MEMORY[0x1E696A578];
+  v68 = *MEMORY[0x1E696A578];
   errorCopy = error;
   while (1)
   {
     if ((v23 & 7) != 0)
     {
-      v47 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v83 = v69;
-      v48 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v46 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v82 = v68;
+      v47 = objc_alloc(MEMORY[0x1E696AEC0]);
       v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
-      v13 = [v48 initWithFormat:@"streamHealth failed: %@ for segment: %@, offset: %d", @"BMStreamHealthErrorNotAligned", v12, v23];
-      v84 = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
-      v49 = v47;
-      v50 = 1;
+      v13 = [v47 initWithFormat:@"streamHealth failed: %@ for segment: %@, offset: %d", @"BMStreamHealthErrorNotAligned", v12, v23];
+      v83 = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+      v48 = v46;
+      v49 = 1;
 LABEL_41:
-      v58 = [v49 initWithDomain:@"BiomeStreamHealth" code:v50 userInfo:v14];
+      v57 = [v48 initWithDomain:@"BiomeStreamHealth" code:v49 userInfo:v14];
 
-      v22 = v58;
+      v22 = v57;
       goto LABEL_32;
     }
 
@@ -2459,31 +2454,31 @@ LABEL_41:
     v29 = v23 + v28 + 31;
     if ([storeCopy frameStoreSize] <= v29)
     {
-      v51 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v81 = v69;
-      v52 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v50 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v80 = v68;
+      v51 = objc_alloc(MEMORY[0x1E696AEC0]);
       segmentPath = v26;
       v12 = [MEMORY[0x1E698E9C8] privacyPathname:v26];
-      v13 = [v52 initWithFormat:@"streamHealth failed: %@ for segment: %@, offset: %d frameStoreSize: %zu", @"BMStreamHealthErrorLengthBeyondFrameSize", v12, v23, objc_msgSend(storeCopy, "frameStoreSize")];
-      v82 = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-      v49 = v51;
-      v50 = 2;
+      v13 = [v51 initWithFormat:@"streamHealth failed: %@ for segment: %@, offset: %d frameStoreSize: %zu", @"BMStreamHealthErrorLengthBeyondFrameSize", v12, v23, objc_msgSend(storeCopy, "frameStoreSize")];
+      v81 = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+      v48 = v50;
+      v49 = 2;
       goto LABEL_41;
     }
 
     if (v29 >= v24)
     {
-      v53 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v79 = v69;
-      v54 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v52 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v78 = v68;
+      v53 = objc_alloc(MEMORY[0x1E696AEC0]);
       segmentPath = v26;
       v12 = [MEMORY[0x1E698E9C8] privacyPathname:v26];
-      v13 = [v54 initWithFormat:@"streamHealth failed: %@ for segment: %@, offset: %d frameSize: %u, bytesUsedByFrames: %d", @"BMStreamHealthErrorLengthBeyondBytesUsed", v12, v23, v28, v24];
-      v80 = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
-      v49 = v53;
-      v50 = 3;
+      v13 = [v53 initWithFormat:@"streamHealth failed: %@ for segment: %@, offset: %d frameSize: %u, bytesUsedByFrames: %d", @"BMStreamHealthErrorLengthBeyondBytesUsed", v12, v23, v28, v24];
+      v79 = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+      v48 = v52;
+      v49 = 3;
       goto LABEL_41;
     }
 
@@ -2501,16 +2496,16 @@ LABEL_19:
       v32 = *(bm_frame_header_infoV1(v27) + 16);
       if (Checksum != v32)
       {
-        v59 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v77 = v69;
-        v60 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v58 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v76 = v68;
+        v59 = objc_alloc(MEMORY[0x1E696AEC0]);
         segmentPath = v26;
         v12 = [MEMORY[0x1E698E9C8] privacyPathname:v26];
-        v13 = [v60 initWithFormat:@"streamHealth failed: %@ for segment: %@, calculated crc: %d frame crc: %d offset: %d", @"BMStreamHealthErrorCheckSumMismatch", v12, Checksum, v32, v23];
-        v78 = v13;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-        v61 = v59;
-        v62 = 4;
+        v13 = [v59 initWithFormat:@"streamHealth failed: %@ for segment: %@, calculated crc: %d frame crc: %d offset: %d", @"BMStreamHealthErrorCheckSumMismatch", v12, Checksum, v32, v23];
+        v77 = v13;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+        v60 = v58;
+        v61 = 4;
         goto LABEL_43;
       }
 
@@ -2542,32 +2537,32 @@ LABEL_20:
       }
     }
 
-    v66 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v73 = v69;
+    v65 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v72 = v68;
     v39 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v68 = [MEMORY[0x1E698E9C8] privacyPathname:v26];
-    v40 = [v39 initWithFormat:@"streamHealth failed: %@ for segment: %@, deleted frame data is not zero, offset: %d", @"BMStreamHealthErrorDeletedFrameDataNotZero", v68, v23];
-    v74 = v40;
-    v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-    v67 = [v66 initWithDomain:@"BiomeStreamHealth" code:12 userInfo:v41];
+    v67 = [MEMORY[0x1E698E9C8] privacyPathname:v26];
+    v40 = [v39 initWithFormat:@"streamHealth failed: %@ for segment: %@, deleted frame data is not zero, offset: %d", @"BMStreamHealthErrorDeletedFrameDataNotZero", v67, v23];
+    v73 = v40;
+    v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+    v66 = [v65 initWithDomain:@"BiomeStreamHealth" code:12 userInfo:v41];
 
     error = errorCopy;
     v37 = 0;
-    v22 = v67;
+    v22 = v66;
 LABEL_21:
     if (HIDWORD(v28) >= 5)
     {
-      v55 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v71 = v69;
-      v56 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v57 = v26;
+      v54 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v70 = v68;
+      v55 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v56 = v26;
       v12 = [MEMORY[0x1E698E9C8] privacyPathname:v26];
-      segmentPath = v57;
-      v13 = [v56 initWithFormat:@"streamHealth failed: %@ for segment: %@, frame state:%d", @"BMStreamHealthErrorUnrecognizedState", v12, HIDWORD(v28)];
-      v72 = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-      v49 = v55;
-      v50 = 6;
+      segmentPath = v56;
+      v13 = [v55 initWithFormat:@"streamHealth failed: %@ for segment: %@, frame state:%d", @"BMStreamHealthErrorUnrecognizedState", v12, HIDWORD(v28)];
+      v71 = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      v48 = v54;
+      v49 = 6;
       goto LABEL_41;
     }
 
@@ -2586,20 +2581,20 @@ LABEL_21:
     }
   }
 
-  v63 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v75 = v69;
-  v64 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v62 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v74 = v68;
+  v63 = objc_alloc(MEMORY[0x1E696AEC0]);
   segmentPath = v26;
   v12 = [MEMORY[0x1E698E9C8] privacyPathname:v26];
-  v13 = [v64 initWithFormat:@"streamHealth failed: %@ for segment: %@, crc for deleted frame not zero: %#010X offset: %d", @"BMStreamHealthErrorDeletedFrameCheckSumNotZero", v12, v33, v23];
-  v76 = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-  v61 = v63;
-  v62 = 11;
+  v13 = [v63 initWithFormat:@"streamHealth failed: %@ for segment: %@, crc for deleted frame not zero: %#010X offset: %d", @"BMStreamHealthErrorDeletedFrameCheckSumNotZero", v12, v33, v23];
+  v75 = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+  v60 = v62;
+  v61 = 11;
 LABEL_43:
-  v65 = [v61 initWithDomain:@"BiomeStreamHealth" code:v62 userInfo:v14];
+  v64 = [v60 initWithDomain:@"BiomeStreamHealth" code:v61 userInfo:v14];
 
-  v22 = v65;
+  v22 = v64;
   error = errorCopy;
 LABEL_32:
 
@@ -2611,25 +2606,24 @@ LABEL_33:
     *error = v22;
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return v37;
 }
 
 - (BOOL)verifyStreamHealthFromV2:(double)v2 to:(double)to frameStore:(id)store error:(id *)error
 {
-  v82[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   storeCopy = store;
   segmentPath = [storeCopy segmentPath];
   bytesUsed = [storeCopy bytesUsed];
   if ([storeCopy frameStoreSize] < bytesUsed)
   {
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v81 = *MEMORY[0x1E696A578];
+    v80 = *MEMORY[0x1E696A578];
     v11 = objc_alloc(MEMORY[0x1E696AEC0]);
     v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
     v13 = [v11 initWithFormat:@"streamHealth failed: %@ for segment: %@, bytesUsed: %d, frameStoreSize:%zu", @"BMStreamHealthErrorBytesUsedBeyondFrameStoreSize", v12, objc_msgSend(storeCopy, "bytesUsed"), objc_msgSend(storeCopy, "frameStoreSize")];
-    v82[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+    v81[0] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:&v80 count:1];
     v15 = v10;
     v16 = 5;
 LABEL_25:
@@ -2641,12 +2635,12 @@ LABEL_25:
   if (*(start - 32) != *"SEGB")
   {
     v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v79 = *MEMORY[0x1E696A578];
+    v78 = *MEMORY[0x1E696A578];
     v19 = objc_alloc(MEMORY[0x1E696AEC0]);
     v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
     v13 = [v19 initWithFormat:@"streamHealth failed: %@ for segment: %@", @"BMStreamHealthErrorSegmentMagicMismatch", v12];
-    v80 = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+    v79 = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
     v15 = v18;
     v16 = 7;
     goto LABEL_25;
@@ -2656,12 +2650,12 @@ LABEL_25:
   if (v20 != [storeCopy datastoreVersion])
   {
     v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v77 = *MEMORY[0x1E696A578];
+    v76 = *MEMORY[0x1E696A578];
     v45 = objc_alloc(MEMORY[0x1E696AEC0]);
     v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
     v13 = [v45 initWithFormat:@"streamHealth failed: %@ for segment: %@", @"BMStreamHealthErrorDatastoreVersionMismatch", v12];
-    v78 = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+    v77 = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
     v15 = v44;
     v16 = 8;
     goto LABEL_25;
@@ -2680,22 +2674,22 @@ LABEL_25:
   v24 = 0;
   v25 = 0;
   v26 = (bytesUsed2 - 16 * atomicReadTotalFramesV2 - 32);
-  v64 = *MEMORY[0x1E696A578];
+  v63 = *MEMORY[0x1E696A578];
   v27 = 1;
   while (1)
   {
     v28 = [storeCopy offsetTablePtrFromFrameNumberV2:v25];
     if (!v28)
     {
-      v49 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v75 = v64;
-      v50 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v74 = v63;
+      v49 = objc_alloc(MEMORY[0x1E696AEC0]);
       v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
-      v13 = [v50 initWithFormat:@"streamHealth failed: %@ for segment: %@ frame: %d", @"BMStreamHealthErrorBadFrameNumber", v12, v25];
-      v76 = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-      v60 = v49;
-      v61 = 13;
+      v13 = [v49 initWithFormat:@"streamHealth failed: %@ for segment: %@ frame: %d", @"BMStreamHealthErrorBadFrameNumber", v12, v25];
+      v75 = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v59 = v48;
+      v60 = 13;
       goto LABEL_36;
     }
 
@@ -2704,29 +2698,29 @@ LABEL_25:
     {
       if (v26 < ((*v28 + 3) & 0xFFFFFFFC))
       {
-        v51 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v73 = v64;
-        v52 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v50 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v72 = v63;
+        v51 = objc_alloc(MEMORY[0x1E696AEC0]);
         v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
-        v13 = [v52 initWithFormat:@"streamHealth failed: %@ for segment: %@ frame: %d", @"BMStreamHealthErrorBadOffsetToByteAfterFrame", v12, v25];
-        v74 = v13;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-        v60 = v51;
-        v61 = 9;
+        v13 = [v51 initWithFormat:@"streamHealth failed: %@ for segment: %@ frame: %d", @"BMStreamHealthErrorBadOffsetToByteAfterFrame", v12, v25];
+        v73 = v13;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+        v59 = v50;
+        v60 = 9;
         goto LABEL_36;
       }
 
       if (v28[1] >= 5u)
       {
-        v53 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v71 = v64;
-        v54 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v52 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v70 = v63;
+        v53 = objc_alloc(MEMORY[0x1E696AEC0]);
         v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
-        v13 = [v54 initWithFormat:@"streamHealth failed: %@ for segment: %@, frame state:%d frame: %d", @"BMStreamHealthErrorUnrecognizedState", v12, v29[1], v25];
-        v72 = v13;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-        v60 = v53;
-        v61 = 6;
+        v13 = [v53 initWithFormat:@"streamHealth failed: %@ for segment: %@, frame state:%d frame: %d", @"BMStreamHealthErrorUnrecognizedState", v12, v29[1], v25];
+        v71 = v13;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+        v59 = v52;
+        v60 = 6;
         goto LABEL_36;
       }
     }
@@ -2745,16 +2739,16 @@ LABEL_25:
       Checksum = bm_generateChecksum(v33, [storeCopy sizeOfFrameV2:v25] - 8);
       if (Checksum != *v31)
       {
-        v57 = Checksum;
-        v58 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v69 = v64;
-        v59 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v56 = Checksum;
+        v57 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v68 = v63;
+        v58 = objc_alloc(MEMORY[0x1E696AEC0]);
         v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
-        v13 = [v59 initWithFormat:@"streamHealth failed: %@ for segment: %@, calculated crc: %d frame crc: %d frame: %d", @"BMStreamHealthErrorCheckSumMismatch", v12, v57, *v31, v25];
-        v70 = v13;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-        v60 = v58;
-        v61 = 4;
+        v13 = [v58 initWithFormat:@"streamHealth failed: %@ for segment: %@, calculated crc: %d frame crc: %d frame: %d", @"BMStreamHealthErrorCheckSumMismatch", v12, v56, *v31, v25];
+        v69 = v13;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+        v59 = v57;
+        v60 = 4;
         goto LABEL_36;
       }
     }
@@ -2782,12 +2776,12 @@ LABEL_22:
       }
 
       v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v65 = v64;
+      v64 = v63;
       v39 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v63 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
-      v40 = [v39 initWithFormat:@"streamHealth failed: %@ for segment: %@, deleted frame data is not zero, frame: %d", @"BMStreamHealthErrorDeletedFrameDataNotZero", v63, v25];
-      v66 = v40;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+      v62 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
+      v40 = [v39 initWithFormat:@"streamHealth failed: %@ for segment: %@, deleted frame data is not zero, frame: %d", @"BMStreamHealthErrorDeletedFrameDataNotZero", v62, v25];
+      v65 = v40;
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
       v42 = v41 = v26;
       v43 = [v38 initWithDomain:@"BiomeStreamHealth" code:12 userInfo:v42];
 
@@ -2799,19 +2793,19 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v55 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v67 = v64;
-  v56 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v54 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v66 = v63;
+  v55 = objc_alloc(MEMORY[0x1E696AEC0]);
   v12 = [MEMORY[0x1E698E9C8] privacyPathname:segmentPath];
-  v13 = [v56 initWithFormat:@"streamHealth failed: %@ for segment: %@, crc for deleted frame not zero: %#010X frame: %d", @"BMStreamHealthErrorDeletedFrameCheckSumNotZero", v12, *v31, v25];
-  v68 = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-  v60 = v55;
-  v61 = 11;
+  v13 = [v55 initWithFormat:@"streamHealth failed: %@ for segment: %@, crc for deleted frame not zero: %#010X frame: %d", @"BMStreamHealthErrorDeletedFrameCheckSumNotZero", v12, *v31, v25];
+  v67 = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+  v59 = v54;
+  v60 = 11;
 LABEL_36:
-  v62 = [v60 initWithDomain:@"BiomeStreamHealth" code:v61 userInfo:v14];
+  v61 = [v59 initWithDomain:@"BiomeStreamHealth" code:v60 userInfo:v14];
 
-  v24 = v62;
+  v24 = v61;
 LABEL_26:
 
   v27 = 0;
@@ -2824,23 +2818,20 @@ LABEL_27:
 
 LABEL_30:
 
-  v47 = *MEMORY[0x1E69E9840];
   return v27 & 1;
 }
 
 - (void)writeEventWithEventBody:(NSObject *)a3 timestamp:outEventSize:outBookmark:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = [a2 streamId];
-  v8 = 138412802;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  v12 = 2112;
-  v13 = [a2 eventBodyClass];
-  _os_log_fault_impl(&dword_1C928A000, a3, OS_LOG_TYPE_FAULT, "Incoming event is of type: %@, while stream - %@ only accepts events of type: %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412802;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  v11 = 2112;
+  v12 = [a2 eventBodyClass];
+  _os_log_fault_impl(&dword_1C928A000, a3, OS_LOG_TYPE_FAULT, "Incoming event is of type: %@, while stream - %@ only accepts events of type: %@", &v7, 0x20u);
 }
 
 - (void)_removeEventsFrom:to:reason:policyID:pruneFutureEvents:shouldDeleteUsingBlock:.cold.1()
@@ -2872,35 +2863,26 @@ LABEL_30:
 
 - (void)writeEventBytes:(void *)a1 length:dataVersion:timestamp:outBookmark:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 streamPath];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeEventBytes:(void *)a1 length:dataVersion:timestamp:outBookmark:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 streamPath];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeEventBytes:(void *)a1 length:dataVersion:timestamp:outBookmark:.cold.4(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 streamPath];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchEventFromFrameStore:(uint64_t)a1 atOffset:(uint64_t)a2 withOptions:callback:.cold.1(uint64_t a1, uint64_t a2)
@@ -2927,34 +2909,31 @@ LABEL_30:
 
 - (void)loadMetadata
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_2_2();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  [a2 streamPath];
+  objc_claimAutoreleasedReturnValue();
+  v3 = [OUTLINED_FUNCTION_4_1() privacyPathname:?];
+  OUTLINED_FUNCTION_6_0();
+  OUTLINED_FUNCTION_0_2();
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 - (void)saveMetadata:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_2();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveMetadata:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   [a1 metadataPath];
   objc_claimAutoreleasedReturnValue();
   v6 = [OUTLINED_FUNCTION_4_1() privacyPathname:?];
   OUTLINED_FUNCTION_4();
-  v9 = 2112;
-  v10 = a2;
-  _os_log_fault_impl(&dword_1C928A000, a3, OS_LOG_TYPE_FAULT, "unable to write metadata to file: %{public}@ Err: %@", v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = 2112;
+  v9 = a2;
+  _os_log_fault_impl(&dword_1C928A000, a3, OS_LOG_TYPE_FAULT, "unable to write metadata to file: %{public}@ Err: %@", v7, 0x16u);
 }
 
 - (void)saveMetadata:.cold.3()

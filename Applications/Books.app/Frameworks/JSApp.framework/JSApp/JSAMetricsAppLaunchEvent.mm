@@ -49,7 +49,7 @@
 
 + (void)markJSBootstrapStartTime
 {
-  v2 = sub_803C();
+  v2 = sub_803C(self);
   v3 = qword_CC080;
 
   [v3 setJsBootstrapStartTime:v2];
@@ -57,7 +57,7 @@
 
 + (void)markJSBootstrapEndTime
 {
-  v2 = sub_803C();
+  v2 = sub_803C(self);
   v3 = qword_CC080;
 
   [v3 setJsBootstrapEndTime:v2];
@@ -65,7 +65,7 @@
 
 + (void)markLaunchEndTime
 {
-  v2 = sub_803C();
+  v2 = sub_803C(self);
   v3 = qword_CC080;
 
   [v3 setLaunchEndTime:v2];
@@ -78,38 +78,38 @@
     sub_7F2F0();
   }
 
-  v13[0] = @"launchCorrelationKey";
+  v14[0] = @"launchCorrelationKey";
   launchCorrelationKey = [(JSAMetricsAppLaunchEvent *)self launchCorrelationKey];
-  v14[0] = launchCorrelationKey;
-  v14[1] = &__kCFBooleanTrue;
-  v13[1] = @"isAppLaunch";
-  v13[2] = @"jsBootstrapStartTime";
+  v15[0] = launchCorrelationKey;
+  v15[1] = &__kCFBooleanTrue;
+  v14[1] = @"isAppLaunch";
+  v14[2] = @"jsBootstrapStartTime";
   [(JSAMetricsAppLaunchEvent *)self jsBootstrapStartTime];
   v4 = [NSNumber numberWithDouble:?];
-  v14[2] = v4;
-  v13[3] = @"jsBootstrapEndTime";
+  v15[2] = v4;
+  v14[3] = @"jsBootstrapEndTime";
   [(JSAMetricsAppLaunchEvent *)self jsBootstrapEndTime];
   v5 = [NSNumber numberWithDouble:?];
-  v14[3] = v5;
-  v13[4] = @"launchEndTime";
+  v15[3] = v5;
+  v14[4] = @"launchEndTime";
   [(JSAMetricsAppLaunchEvent *)self launchEndTime];
   v6 = [NSNumber numberWithDouble:?];
-  v14[4] = v6;
-  v13[5] = @"processStartTime";
+  v15[4] = v6;
+  v14[5] = @"processStartTime";
   v7 = [NSNumber numberWithDouble:*&qword_CC090];
-  v14[5] = v7;
-  v13[6] = @"requiredBlockingBagLoad";
+  v15[5] = v7;
+  v14[6] = @"requiredBlockingBagLoad";
   v8 = [NSNumber numberWithBool:[(JSAMetricsAppLaunchEvent *)self requiredBlockingBagLoad]];
-  v14[6] = v8;
-  v13[7] = @"usedBootstrapFallback";
+  v15[6] = v8;
+  v14[7] = @"usedBootstrapFallback";
   v9 = [NSNumber numberWithBool:[(JSAMetricsAppLaunchEvent *)self usedBootstrapFallback]];
-  v14[7] = v9;
-  v10 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:8];
+  v15[7] = v9;
+  v10 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:8];
 
-  v11 = JSALog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = JSALog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    sub_7F304(v10, v11);
+    sub_7F304(v10, v12);
   }
 
   return v10;

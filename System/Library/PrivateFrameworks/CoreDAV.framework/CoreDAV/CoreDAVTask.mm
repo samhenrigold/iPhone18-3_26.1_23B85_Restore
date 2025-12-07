@@ -61,11 +61,11 @@
 
 - (CoreDAVTask)initWithURL:(id)l
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v21.receiver = self;
-  v21.super_class = CoreDAVTask;
-  v6 = [(CoreDAVTask *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = CoreDAVTask;
+  v6 = [(CoreDAVTask *)&v20 init];
   v7 = v6;
   if (v6)
   {
@@ -93,23 +93,22 @@
         _requestForLogging = [(CoreDAVTask *)v7 _requestForLogging];
         v18 = v7->_uniqueID;
         *buf = 138413570;
-        v23 = v15;
-        v24 = 2048;
-        v25 = v7;
-        v26 = 2048;
-        v27 = _sessionForLogging;
-        v28 = 2048;
-        v29 = _requestForLogging;
-        v30 = 2112;
-        v31 = v7;
-        v32 = 2114;
-        v33 = v18;
+        v22 = v15;
+        v23 = 2048;
+        v24 = v7;
+        v25 = 2048;
+        v26 = _sessionForLogging;
+        v27 = 2048;
+        v28 = _requestForLogging;
+        v29 = 2112;
+        v30 = v7;
+        v31 = 2114;
+        v32 = v18;
         _os_log_impl(&dword_2452FB000, v13, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Task initting %@ with ID %{public}@", buf, 0x3Eu);
       }
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -293,7 +292,7 @@
 
 - (NSRunLoop)workRunLoop
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   taskManager = [(CoreDAVTask *)self taskManager];
 
   if (taskManager)
@@ -317,22 +316,20 @@
         v11 = NSStringFromClass(v10);
         _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-        v16 = 138413058;
-        v17 = v11;
-        v18 = 2048;
+        v15 = 138413058;
+        v16 = v11;
+        v17 = 2048;
         selfCopy = self;
-        v20 = 2048;
-        v21 = _sessionForLogging;
-        v22 = 2048;
-        v23 = _requestForLogging;
-        _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Could not get the Task Manager's work run loop because the task manager is nil. Defaulting to current run loop.", &v16, 0x2Au);
+        v19 = 2048;
+        v20 = _sessionForLogging;
+        v21 = 2048;
+        v22 = _requestForLogging;
+        _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Could not get the Task Manager's work run loop because the task manager is nil. Defaulting to current run loop.", &v15, 0x2Au);
       }
     }
 
     workRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return workRunLoop;
 }
@@ -347,7 +344,7 @@
 
 - (id)requestBody
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->_accountInfoProvider);
   v5 = [v3 logHandleForAccountInfoProvider:WeakRetained];
@@ -361,25 +358,24 @@
       v8 = NSStringFromClass(v7);
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-      v13 = 138413058;
-      v14 = v8;
-      v15 = 2048;
+      v12 = 138413058;
+      v13 = v8;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2048;
-      v18 = _sessionForLogging;
-      v19 = 2048;
-      v20 = _requestForLogging;
-      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] requestBody to be implemented by subclass", &v13, 0x2Au);
+      v16 = 2048;
+      v17 = _sessionForLogging;
+      v18 = 2048;
+      v19 = _requestForLogging;
+      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] requestBody to be implemented by subclass", &v12, 0x2Au);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)loadRequest:(id)request
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   [(CoreDAVTask *)self tearDownResources];
   if (!requestCopy)
@@ -406,45 +402,45 @@
   if ([currentThread isMainThread])
   {
     mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-    v74 = 0;
+    v73 = 0;
   }
 
   else
   {
-    v74 = currentThread;
+    v73 = currentThread;
     mainQueue = 0;
   }
 
   if (!self->_callbackThreadSet)
   {
     self->_callbackThreadSet = 1;
-    v7 = v74;
+    v7 = v73;
     callbackThread = self->_callbackThread;
     self->_callbackThread = v7;
     goto LABEL_16;
   }
 
-  if (v74 != self->_callbackThread)
+  if (v73 != self->_callbackThread)
   {
     callbackThread = [MEMORY[0x277CCA890] currentHandler];
-    [callbackThread handleFailureInMethod:a2 object:self file:@"CoreDAVTask.m" lineNumber:306 description:{@"_callbackThread (%@) doesn't match current thread (%@)", self->_callbackThread, v74}];
+    [callbackThread handleFailureInMethod:a2 object:self file:@"CoreDAVTask.m" lineNumber:306 description:{@"_callbackThread (%@) doesn't match current thread (%@)", self->_callbackThread, v73}];
 LABEL_16:
   }
 
   accountInfoProvider = [(CoreDAVTask *)self accountInfoProvider];
   v9 = objc_opt_respondsToSelector();
 
-  if ((v9 & 1) != 0 && (-[CoreDAVTask accountInfoProvider](self, "accountInfoProvider"), v10 = objc_claimAutoreleasedReturnValue(), [v10 getAppleIDSession], v72 = objc_claimAutoreleasedReturnValue(), v10, v72))
+  if ((v9 & 1) != 0 && (-[CoreDAVTask accountInfoProvider](self, "accountInfoProvider"), v10 = objc_claimAutoreleasedReturnValue(), [v10 getAppleIDSession], v71 = objc_claimAutoreleasedReturnValue(), v10, v71))
   {
     v11 = [requestCopy mutableCopy];
-    v12 = [v72 appleIDHeadersForRequest:v11];
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __27__CoreDAVTask_loadRequest___block_invoke;
-    v77[3] = &unk_278E311A8;
-    v78 = v11;
+    v12 = [v71 appleIDHeadersForRequest:v11];
+    v76[0] = MEMORY[0x277D85DD0];
+    v76[1] = 3221225472;
+    v76[2] = __27__CoreDAVTask_loadRequest___block_invoke;
+    v76[3] = &unk_278E311A8;
+    v77 = v11;
     v13 = v11;
-    [v12 enumerateKeysAndObjectsUsingBlock:v77];
+    [v12 enumerateKeysAndObjectsUsingBlock:v76];
     [v13 ak_addDeviceUDIDHeader];
     [v13 ak_addClientInfoHeader];
     v14 = [v13 copy];
@@ -458,7 +454,7 @@ LABEL_16:
     v17 = self->_request;
     self->_request = v16;
 
-    v72 = 0;
+    v71 = 0;
   }
 
   v18 = [CoreDAVRequestLogger alloc];
@@ -493,11 +489,11 @@ LABEL_16:
       *&buf[12] = 2048;
       *&buf[14] = self;
       *&buf[22] = 2048;
-      v84 = _sessionForLogging;
-      *v85 = 2048;
-      *&v85[2] = _requestForLogging;
-      v86 = 2048;
-      v87 = (v26 + v24);
+      v83 = _sessionForLogging;
+      *v84 = 2048;
+      *&v84[2] = _requestForLogging;
+      v85 = 2048;
+      v86 = (v26 + v24);
       _os_log_impl(&dword_2452FB000, v30, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Size of outgoing, unencrypted request: %ld", buf, 0x34u);
     }
   }
@@ -508,29 +504,29 @@ LABEL_16:
   host = [v35 host];
   if ([host hasSuffix:@"simulated.calendar.apple.com"])
   {
-    v37 = CalDAVServerSimulatorLibraryCore() == 0;
+    v37 = CalDAVServerSimulatorLibraryCore(0) == 0;
 
     if (!v37)
     {
       self->_simulated = 1;
-      v79 = 0;
-      v80 = &v79;
-      v81 = 0x2050000000;
+      v78 = 0;
+      v79 = &v78;
+      v80 = 0x2050000000;
       v38 = getCalDAVServerSimulatorClass_softClass;
-      v82 = getCalDAVServerSimulatorClass_softClass;
+      v81 = getCalDAVServerSimulatorClass_softClass;
       if (!getCalDAVServerSimulatorClass_softClass)
       {
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __getCalDAVServerSimulatorClass_block_invoke;
-        v84 = &unk_278E31338;
-        *v85 = &v79;
+        v83 = &unk_278E31338;
+        *v84 = &v78;
         __getCalDAVServerSimulatorClass_block_invoke(buf);
-        v38 = v80[3];
+        v38 = v79[3];
       }
 
       v39 = v38;
-      _Block_object_dispose(&v79, 8);
+      _Block_object_dispose(&v78, 8);
       defaultSessionConfiguration = [v38 simulatorForTask:self];
       v41 = [requestCopy URL];
       user = [v41 user];
@@ -549,14 +545,14 @@ LABEL_16:
       workRunLoop = [(CoreDAVTask *)self workRunLoop];
       workRunLoop2 = [(CoreDAVTask *)self workRunLoop];
       v69 = CDVRunLoopModesToPerformDelayedSelectorsInFromRunLoop(workRunLoop2);
-      v75[0] = MEMORY[0x277D85DD0];
-      v75[1] = 3221225472;
-      v75[2] = __27__CoreDAVTask_loadRequest___block_invoke_107;
-      v75[3] = &unk_278E30F90;
-      v75[4] = self;
-      v76 = v43;
+      v74[0] = MEMORY[0x277D85DD0];
+      v74[1] = 3221225472;
+      v74[2] = __27__CoreDAVTask_loadRequest___block_invoke_107;
+      v74[3] = &unk_278E30F90;
+      v74[4] = self;
+      v75 = v43;
       v66 = v43;
-      [workRunLoop performInModes:v69 block:v75];
+      [workRunLoop performInModes:v69 block:v74];
 
 LABEL_47:
       goto LABEL_48;
@@ -629,11 +625,11 @@ LABEL_47:
         *&buf[12] = 2048;
         *&buf[14] = self;
         *&buf[22] = 2048;
-        v84 = _sessionForLogging2;
-        *v85 = 2048;
-        *&v85[2] = _requestForLogging2;
-        v86 = 2112;
-        v87 = v65;
+        v83 = _sessionForLogging2;
+        *v84 = 2048;
+        *&v84[2] = _requestForLogging2;
+        v85 = 2112;
+        v86 = v65;
         _os_log_impl(&dword_2452FB000, v60, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Error creating task with request %@", buf, 0x34u);
       }
     }
@@ -644,42 +640,40 @@ LABEL_47:
   }
 
 LABEL_48:
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_assignConnectionProperties:(id)properties toSessionConfiguration:(id)configuration
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   configurationCopy = configuration;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   allKeys = [propertiesCopy allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v27;
+    v12 = *v26;
     v13 = *MEMORY[0x277CBADA0];
-    v25 = *MEMORY[0x277CBAE78];
+    v24 = *MEMORY[0x277CBAE78];
     *&v10 = 138543362;
-    v22 = v10;
-    v23 = *MEMORY[0x277CBADA0];
-    v24 = allKeys;
+    v21 = v10;
+    v22 = *MEMORY[0x277CBADA0];
+    v23 = allKeys;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * i);
-        v16 = [propertiesCopy objectForKeyedSubscript:{v15, v22}];
+        v15 = *(*(&v25 + 1) + 8 * i);
+        v16 = [propertiesCopy objectForKeyedSubscript:{v15, v21}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -691,7 +685,7 @@ LABEL_48:
           [configurationCopy set_sourceApplicationSecondaryIdentifier:v16];
         }
 
-        else if ([v15 isEqualToString:v25])
+        else if ([v15 isEqualToString:v24])
         {
           [configurationCopy set_sourceApplicationBundleIdentifier:v16];
         }
@@ -704,29 +698,27 @@ LABEL_48:
           v20 = v19;
           if (v19 && os_log_type_enabled(v19, 6u))
           {
-            *buf = v22;
-            v31 = v15;
+            *buf = v21;
+            v30 = v15;
             _os_log_impl(&dword_2452FB000, v20, 6u, "Connection property: %{public}@ is not set", buf, 0xCu);
           }
 
           self = selfCopy;
-          v13 = v23;
-          allKeys = v24;
+          v13 = v22;
+          allKeys = v23;
         }
       }
 
-      v11 = [allKeys countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v11);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logSantizedRequest:(id)request withTaskID:(id)d
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v6 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->_accountInfoProvider);
@@ -738,36 +730,34 @@ LABEL_48:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = objc_opt_class();
-      v21 = NSStringFromClass(v10);
+      v20 = NSStringFromClass(v10);
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
       uniqueID = self->_uniqueID;
       hTTPMethod = [requestCopy HTTPMethod];
       v12 = MEMORY[0x277CCACA8];
-      v22 = [requestCopy URL];
-      scheme = [v22 scheme];
-      v20 = [requestCopy URL];
-      host = [v20 host];
+      v21 = [requestCopy URL];
+      scheme = [v21 scheme];
+      v19 = [requestCopy URL];
+      host = [v19 host];
       [v12 stringWithFormat:@"%@://%@", scheme, host];
       *buf = 138413826;
-      v24 = v21;
-      v25 = 2048;
+      v23 = v20;
+      v24 = 2048;
       selfCopy = self;
-      v27 = 2048;
-      v28 = _sessionForLogging;
-      v29 = 2048;
-      v30 = _requestForLogging;
-      v31 = 2114;
-      v32 = uniqueID;
-      v33 = 2114;
-      v34 = hTTPMethod;
-      v36 = v35 = 2114;
-      v15 = v36;
+      v26 = 2048;
+      v27 = _sessionForLogging;
+      v28 = 2048;
+      v29 = _requestForLogging;
+      v30 = 2114;
+      v31 = uniqueID;
+      v32 = 2114;
+      v33 = hTTPMethod;
+      v35 = v34 = 2114;
+      v15 = v35;
       _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Performing Task with ID %{public}@. Method:: %{public}@ RequestURL:: %{public}@", buf, 0x48u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tearDownResources
@@ -796,30 +786,30 @@ LABEL_48:
 
 - (id)_compressBodyData:(id)data
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  memset(&v9, 0, sizeof(v9));
+  memset(&v8, 0, sizeof(v8));
   data = 0;
-  if (!deflateInit2_(&v9, -1, 8, 31, 8, 0, "1.2.12", 112))
+  if (!deflateInit2_(&v8, -1, 8, 31, 8, 0, "1.2.12", 112))
   {
     data = [MEMORY[0x277CBEB28] data];
-    v9.avail_in = [dataCopy length];
+    v8.avail_in = [dataCopy length];
     do
     {
-      v9.avail_out = 0x2000;
-      v9.next_out = v10;
-      v5 = deflate(&v9, 4);
+      v8.avail_out = 0x2000;
+      v8.next_out = v9;
+      v5 = deflate(&v8, 4);
       if (v5 == -2)
       {
         [CoreDAVTask _compressBodyData:];
       }
 
       v6 = v5;
-      [data appendBytes:v10 length:0x2000 - v9.avail_out];
+      [data appendBytes:v9 length:0x2000 - v8.avail_out];
     }
 
-    while (!v9.avail_out);
-    if (v9.avail_in)
+    while (!v8.avail_out);
+    if (v8.avail_in)
     {
       [CoreDAVTask _compressBodyData:];
     }
@@ -829,10 +819,8 @@ LABEL_48:
       [CoreDAVTask _compressBodyData:];
     }
 
-    deflateEnd(&v9);
+    deflateEnd(&v8);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -881,7 +869,7 @@ LABEL_8:
 
 - (void)_failImmediately
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->_accountInfoProvider);
   v5 = [v3 logHandleForAccountInfoProvider:WeakRetained];
@@ -895,27 +883,25 @@ LABEL_8:
       v8 = NSStringFromClass(v7);
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-      v13 = 138413058;
-      v14 = v8;
-      v15 = 2048;
+      v12 = 138413058;
+      v13 = v8;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2048;
-      v18 = _sessionForLogging;
-      v19 = 2048;
-      v20 = _requestForLogging;
-      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Account says we should fail now, finishing with error", &v13, 0x2Au);
+      v16 = 2048;
+      v17 = _sessionForLogging;
+      v18 = 2048;
+      v19 = _requestForLogging;
+      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Account says we should fail now, finishing with error", &v12, 0x2Au);
     }
   }
 
   v11 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"CoreDAVErrorDomain" code:0 userInfo:0];
   [(CoreDAVTask *)self finishCoreDAVTaskWithError:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overrideRequestHeader:(id)header withValue:(id)value
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   headerCopy = header;
   valueCopy = value;
   if (valueCopy)
@@ -948,22 +934,20 @@ LABEL_8:
         v16 = NSStringFromClass(v15);
         _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-        v20 = 138413314;
-        v21 = v16;
-        v22 = 2048;
+        v19 = 138413314;
+        v20 = v16;
+        v21 = 2048;
         selfCopy = self;
-        v24 = 2048;
-        v25 = _sessionForLogging;
-        v26 = 2048;
-        v27 = _requestForLogging;
-        v28 = 2112;
-        v29 = headerCopy;
-        _os_log_impl(&dword_2452FB000, v14, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring nil value for header: %@", &v20, 0x34u);
+        v23 = 2048;
+        v24 = _sessionForLogging;
+        v25 = 2048;
+        v26 = _requestForLogging;
+        v27 = 2112;
+        v28 = headerCopy;
+        _os_log_impl(&dword_2452FB000, v14, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring nil value for header: %@", &v19, 0x34u);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)stringFromDepth:(int)depth
@@ -1390,110 +1374,110 @@ LABEL_76:
 
               if (v107)
               {
-                v108 = CDVAppleClientInfoString();
-                [v65 setValue:v108 forHTTPHeaderField:@"X-Apple-Client-Info"];
+                v109 = CDVAppleClientInfoString(v108);
+                [v65 setValue:v109 forHTTPHeaderField:@"X-Apple-Client-Info"];
               }
             }
           }
         }
 
-        v109 = objc_loadWeakRetained(&self->_accountInfoProvider);
-        userAgentHeader = [v109 userAgentHeader];
+        v110 = objc_loadWeakRetained(&self->_accountInfoProvider);
+        userAgentHeader = [v110 userAgentHeader];
 
         if (userAgentHeader)
         {
-          v111 = objc_loadWeakRetained(&self->_accountInfoProvider);
-          userAgentHeader2 = [v111 userAgentHeader];
+          v112 = objc_loadWeakRetained(&self->_accountInfoProvider);
+          userAgentHeader2 = [v112 userAgentHeader];
           [v65 setValue:userAgentHeader2 forHTTPHeaderField:@"User-Agent"];
         }
 
         else
         {
-          v111 = CDVDefaultUserAgent();
-          [v65 setValue:v111 forHTTPHeaderField:@"User-Agent"];
+          v112 = CDVDefaultUserAgent();
+          [v65 setValue:v112 forHTTPHeaderField:@"User-Agent"];
         }
 
         v235[0] = MEMORY[0x277D85DD0];
         v235[1] = 3221225472;
         v235[2] = __33__CoreDAVTask_performCoreDAVTask__block_invoke_149;
         v235[3] = &unk_278E311D0;
-        v113 = v65;
-        v236 = v113;
-        v114 = MEMORY[0x245D68C20](v235);
+        v114 = v65;
+        v236 = v114;
+        v115 = MEMORY[0x245D68C20](v235);
         additionalHeaderValues = [(CoreDAVTask *)self additionalHeaderValues];
-        [additionalHeaderValues enumerateKeysAndObjectsUsingBlock:v114];
+        [additionalHeaderValues enumerateKeysAndObjectsUsingBlock:v115];
 
-        v116 = objc_loadWeakRetained(&self->_accountInfoProvider);
-        v117 = objc_opt_respondsToSelector();
+        v117 = objc_loadWeakRetained(&self->_accountInfoProvider);
+        v118 = objc_opt_respondsToSelector();
 
-        if (v117)
+        if (v118)
         {
-          v118 = objc_loadWeakRetained(&self->_accountInfoProvider);
-          additionalHeaderValues2 = [v118 additionalHeaderValues];
-          [additionalHeaderValues2 enumerateKeysAndObjectsUsingBlock:v114];
+          v119 = objc_loadWeakRetained(&self->_accountInfoProvider);
+          additionalHeaderValues2 = [v119 additionalHeaderValues];
+          [additionalHeaderValues2 enumerateKeysAndObjectsUsingBlock:v115];
         }
 
-        v120 = objc_loadWeakRetained(&self->_accountInfoProvider);
-        v121 = objc_opt_respondsToSelector();
+        v121 = objc_loadWeakRetained(&self->_accountInfoProvider);
+        v122 = objc_opt_respondsToSelector();
 
-        if (v121)
+        if (v122)
         {
-          v122 = objc_loadWeakRetained(&self->_accountInfoProvider);
-          clientToken = [v122 clientToken];
+          v123 = objc_loadWeakRetained(&self->_accountInfoProvider);
+          clientToken = [v123 clientToken];
 
           if ([clientToken length])
           {
-            [v113 setValue:clientToken forHTTPHeaderField:@"X-ClientToken"];
+            [v114 setValue:clientToken forHTTPHeaderField:@"X-ClientToken"];
           }
         }
 
         if (self->_ignoresGuardianRestrictions)
         {
-          [v113 setValue:@"true" forHTTPHeaderField:@"X-mme-guardian-restricted-relaxed"];
+          [v114 setValue:@"true" forHTTPHeaderField:@"X-mme-guardian-restricted-relaxed"];
         }
 
-        v124 = objc_loadWeakRetained(&self->_accountInfoProvider);
-        v125 = objc_opt_respondsToSelector();
+        v125 = objc_loadWeakRetained(&self->_accountInfoProvider);
+        v126 = objc_opt_respondsToSelector();
 
-        if ((v125 & 1) == 0)
+        if ((v126 & 1) == 0)
         {
           v230 = 0;
 LABEL_108:
-          v141 = 0x278E30000;
+          v142 = 0x278E30000;
           goto LABEL_116;
         }
 
-        v126 = objc_loadWeakRetained(&self->_accountInfoProvider);
-        oauthInfoProvider = [v126 oauthInfoProvider];
+        v127 = objc_loadWeakRetained(&self->_accountInfoProvider);
+        oauthInfoProvider = [v127 oauthInfoProvider];
 
         v230 = oauthInfoProvider;
         if ((objc_opt_respondsToSelector() & 1) != 0 && [oauthInfoProvider oauthVariant] == 1)
         {
-          v128 = v114;
-          v129 = +[CoreDAVLogging sharedLogging];
-          v130 = objc_loadWeakRetained(&self->_accountInfoProvider);
-          v131 = [v129 logHandleForAccountInfoProvider:v130];
+          v129 = v115;
+          v130 = +[CoreDAVLogging sharedLogging];
+          v131 = objc_loadWeakRetained(&self->_accountInfoProvider);
+          v132 = [v130 logHandleForAccountInfoProvider:v131];
 
-          if (v131)
+          if (v132)
           {
-            v132 = v131;
-            if (os_log_type_enabled(v132, OS_LOG_TYPE_INFO))
+            v133 = v132;
+            if (os_log_type_enabled(v133, OS_LOG_TYPE_INFO))
             {
-              v133 = objc_opt_class();
-              NSStringFromClass(v133);
-              v134 = v218 = requestBodyStream;
+              v134 = objc_opt_class();
+              NSStringFromClass(v134);
+              v135 = v218 = requestBodyStream;
               [(CoreDAVTask *)self _sessionForLogging];
-              v135 = v222 = _createBodyData;
+              v136 = v222 = _createBodyData;
               _requestForLogging8 = [(CoreDAVTask *)self _requestForLogging];
               *buf = 138413058;
-              v245 = v134;
+              v245 = v135;
               v246 = 2048;
               selfCopy16 = self;
               v248 = 2048;
-              v249 = v135;
+              v249 = v136;
               v250 = 2048;
               v251 = _requestForLogging8;
-              _os_log_impl(&dword_2452FB000, v132, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Pre-authing with Bearer + OAuth2 token", buf, 0x2Au);
+              _os_log_impl(&dword_2452FB000, v133, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Pre-authing with Bearer + OAuth2 token", buf, 0x2Au);
 
               _createBodyData = v222;
               requestBodyStream = v218;
@@ -1501,127 +1485,127 @@ LABEL_108:
           }
 
           oauth2Token = [v230 oauth2Token];
-          v138 = [oauth2Token length];
-          v139 = v138 != 0;
-          if (v138)
+          v139 = [oauth2Token length];
+          v140 = v139 != 0;
+          if (v139)
           {
-            v137 = [MEMORY[0x277CCACA8] stringWithFormat:@"Bearer %@", oauth2Token];
-            [v113 setValue:v137 forHTTPHeaderField:@"Authorization"];
+            v138 = [MEMORY[0x277CCACA8] stringWithFormat:@"Bearer %@", oauth2Token];
+            [v114 setValue:v138 forHTTPHeaderField:@"Authorization"];
           }
 
-          v114 = v128;
+          v115 = v129;
         }
 
         else
         {
-          v139 = 0;
+          v140 = 0;
         }
 
-        if ((v90 | v139))
+        if ((v90 | v140))
         {
           goto LABEL_108;
         }
 
         v223 = _createBodyData;
-        v142 = requestBodyStream;
+        v143 = requestBodyStream;
         cDVStringByRemovingPercentEscapesForHREF = objc_loadWeakRetained(&self->_accountInfoProvider);
         user5 = [cDVStringByRemovingPercentEscapesForHREF user];
-        v141 = 0x278E30000uLL;
+        v142 = 0x278E30000uLL;
         if ([user5 length])
         {
-          v226 = v114;
-          v144 = objc_loadWeakRetained(&self->_accountInfoProvider);
-          password2 = [v144 password];
+          v226 = v115;
+          v145 = objc_loadWeakRetained(&self->_accountInfoProvider);
+          password2 = [v145 password];
           if ([password2 length])
           {
             scheme3 = [v234 scheme];
-            v148 = [scheme3 isEqualToString:@"https"];
+            v149 = [scheme3 isEqualToString:@"https"];
 
-            if (!v148)
+            if (!v149)
             {
-              requestBodyStream = v142;
+              requestBodyStream = v143;
               _createBodyData = v223;
-              v114 = v226;
+              v115 = v226;
 LABEL_116:
               if (self->_requestIsCompressed)
               {
-                [v113 setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
-                [v113 setValue:@"no-transform" forHTTPHeaderField:@"Cache-Control"];
+                [v114 setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
+                [v114 setValue:@"no-transform" forHTTPHeaderField:@"Cache-Control"];
               }
 
-              [(NSMutableDictionary *)self->_overriddenHeaders enumerateKeysAndObjectsUsingBlock:v114];
-              v156 = objc_loadWeakRetained(&self->_accountInfoProvider);
-              identityPersist = [v156 identityPersist];
+              [(NSMutableDictionary *)self->_overriddenHeaders enumerateKeysAndObjectsUsingBlock:v115];
+              v157 = objc_loadWeakRetained(&self->_accountInfoProvider);
+              identityPersist = [v157 identityPersist];
 
               if (identityPersist)
               {
-                v158 = _createBodyData;
-                v227 = v114;
-                sharedLogging5 = [*(v141 + 2968) sharedLogging];
-                v160 = objc_loadWeakRetained(&self->_accountInfoProvider);
-                v161 = [sharedLogging5 logHandleForAccountInfoProvider:v160];
+                v159 = _createBodyData;
+                v227 = v115;
+                sharedLogging5 = [*(v142 + 2968) sharedLogging];
+                v161 = objc_loadWeakRetained(&self->_accountInfoProvider);
+                v162 = [sharedLogging5 logHandleForAccountInfoProvider:v161];
 
-                if (v161)
+                if (v162)
                 {
-                  v162 = v113;
-                  v163 = identityPersist;
-                  v164 = v161;
-                  if (os_log_type_enabled(v164, OS_LOG_TYPE_INFO))
+                  v163 = v114;
+                  v164 = identityPersist;
+                  v165 = v162;
+                  if (os_log_type_enabled(v165, OS_LOG_TYPE_INFO))
                   {
-                    v165 = objc_opt_class();
-                    NSStringFromClass(v165);
+                    v166 = objc_opt_class();
+                    NSStringFromClass(v166);
                     v219 = requestBodyStream;
-                    v166 = v224 = v158;
+                    v167 = v224 = v159;
                     _sessionForLogging7 = [(CoreDAVTask *)self _sessionForLogging];
                     _requestForLogging9 = [(CoreDAVTask *)self _requestForLogging];
                     *buf = 138413058;
-                    v245 = v166;
+                    v245 = v167;
                     v246 = 2048;
                     selfCopy16 = self;
                     v248 = 2048;
                     v249 = _sessionForLogging7;
                     v250 = 2048;
                     v251 = _requestForLogging9;
-                    _os_log_impl(&dword_2452FB000, v164, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Found identity, attaching client certificate", buf, 0x2Au);
+                    _os_log_impl(&dword_2452FB000, v165, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Found identity, attaching client certificate", buf, 0x2Au);
 
                     requestBodyStream = v219;
-                    v158 = v224;
+                    v159 = v224;
                   }
 
-                  identityPersist = v163;
-                  v113 = v162;
+                  identityPersist = v164;
+                  v114 = v163;
                 }
 
-                v169 = _CoreDAVSecCopyIdentityFromPersist(identityPersist);
-                if (v169)
+                v170 = _CoreDAVSecCopyIdentityFromPersist(identityPersist);
+                if (v170)
                 {
-                  v170 = v169;
+                  v171 = v170;
                   v216 = identityPersist;
-                  v171 = _CoreDAVSecIdentityCopySSLClientAuthenticationChain(v169);
-                  v114 = v227;
-                  if (v171)
+                  v172 = _CoreDAVSecIdentityCopySSLClientAuthenticationChain(v170);
+                  v115 = v227;
+                  if (v172)
                   {
-                    v172 = v171;
-                    v173 = [(CoreDAVTask *)self _applyAuthenticationChain:v171 toRequest:v113];
+                    v173 = v172;
+                    v174 = [(CoreDAVTask *)self _applyAuthenticationChain:v172 toRequest:v114];
 
-                    CFRelease(v172);
-                    v113 = v173;
+                    CFRelease(v173);
+                    v114 = v174;
                   }
 
                   else
                   {
                     v220 = requestBodyStream;
-                    sharedLogging6 = [*(v141 + 2968) sharedLogging];
-                    v175 = objc_loadWeakRetained(&self->_accountInfoProvider);
-                    v176 = [sharedLogging6 logHandleForAccountInfoProvider:v175];
+                    sharedLogging6 = [*(v142 + 2968) sharedLogging];
+                    v176 = objc_loadWeakRetained(&self->_accountInfoProvider);
+                    v177 = [sharedLogging6 logHandleForAccountInfoProvider:v176];
 
-                    if (v176)
+                    if (v177)
                     {
-                      v177 = v176;
-                      if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
+                      v178 = v177;
+                      if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
                       {
-                        v178 = objc_opt_class();
-                        v215 = NSStringFromClass(v178);
+                        v179 = objc_opt_class();
+                        v215 = NSStringFromClass(v179);
                         _sessionForLogging8 = [(CoreDAVTask *)self _sessionForLogging];
                         _requestForLogging10 = [(CoreDAVTask *)self _requestForLogging];
                         *buf = 138413314;
@@ -1630,91 +1614,91 @@ LABEL_116:
                         selfCopy16 = self;
                         v248 = 2048;
                         v249 = _sessionForLogging8;
-                        v181 = _sessionForLogging8;
+                        v182 = _sessionForLogging8;
                         v250 = 2048;
-                        v182 = _requestForLogging10;
+                        v183 = _requestForLogging10;
                         v251 = _requestForLogging10;
                         v252 = 2112;
-                        v253 = v170;
-                        _os_log_impl(&dword_2452FB000, v177, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] No auth chain for sec identity %@", buf, 0x34u);
+                        v253 = v171;
+                        _os_log_impl(&dword_2452FB000, v178, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] No auth chain for sec identity %@", buf, 0x34u);
                       }
                     }
 
                     requestBodyStream = v220;
-                    v114 = v227;
+                    v115 = v227;
                   }
 
-                  CFRelease(v170);
-                  _createBodyData = v158;
+                  CFRelease(v171);
+                  _createBodyData = v159;
                   identityPersist = v216;
                 }
 
                 else
                 {
-                  v114 = v227;
-                  _createBodyData = v158;
+                  v115 = v227;
+                  _createBodyData = v159;
                 }
               }
 
-              v183 = objc_loadWeakRetained(&self->_accountInfoProvider);
-              v184 = objc_opt_respondsToSelector();
+              v184 = objc_loadWeakRetained(&self->_accountInfoProvider);
+              v185 = objc_opt_respondsToSelector();
 
-              if (v184)
+              if (v185)
               {
-                v185 = objc_loadWeakRetained(&self->_accountInfoProvider);
-                v186 = [v185 shouldHandleHTTPCookiesForURL:v234];
+                v186 = objc_loadWeakRetained(&self->_accountInfoProvider);
+                v187 = [v186 shouldHandleHTTPCookiesForURL:v234];
 
-                [v113 setHTTPShouldHandleCookies:v186];
-                if (v186)
+                [v114 setHTTPShouldHandleCookies:v187];
+                if (v187)
                 {
-                  v187 = objc_loadWeakRetained(&self->_accountInfoProvider);
-                  v188 = objc_opt_respondsToSelector();
+                  v188 = objc_loadWeakRetained(&self->_accountInfoProvider);
+                  v189 = objc_opt_respondsToSelector();
 
-                  if (v188)
+                  if (v189)
                   {
-                    v189 = objc_loadWeakRetained(&self->_accountInfoProvider);
-                    copyStorageSession = [v189 copyStorageSession];
+                    v190 = objc_loadWeakRetained(&self->_accountInfoProvider);
+                    copyStorageSession = [v190 copyStorageSession];
 
                     if (copyStorageSession)
                     {
                       v221 = requestBodyStream;
                       v225 = _createBodyData;
-                      v191 = v114;
-                      sharedLogging7 = [*(v141 + 2968) sharedLogging];
-                      v193 = objc_loadWeakRetained(&self->_accountInfoProvider);
-                      v194 = [sharedLogging7 logHandleForAccountInfoProvider:v193];
+                      v192 = v115;
+                      sharedLogging7 = [*(v142 + 2968) sharedLogging];
+                      v194 = objc_loadWeakRetained(&self->_accountInfoProvider);
+                      v195 = [sharedLogging7 logHandleForAccountInfoProvider:v194];
 
-                      if (v194)
+                      if (v195)
                       {
-                        v228 = v113;
+                        v228 = v114;
                         v217 = identityPersist;
-                        v195 = v194;
-                        if (os_log_type_enabled(v195, OS_LOG_TYPE_INFO))
+                        v196 = v195;
+                        if (os_log_type_enabled(v196, OS_LOG_TYPE_INFO))
                         {
-                          v196 = objc_opt_class();
-                          v197 = NSStringFromClass(v196);
+                          v197 = objc_opt_class();
+                          v198 = NSStringFromClass(v197);
                           _sessionForLogging9 = [(CoreDAVTask *)self _sessionForLogging];
                           _requestForLogging11 = [(CoreDAVTask *)self _requestForLogging];
                           *buf = 138413058;
-                          v245 = v197;
+                          v245 = v198;
                           v246 = 2048;
                           selfCopy16 = self;
                           v248 = 2048;
                           v249 = _sessionForLogging9;
                           v250 = 2048;
                           v251 = _requestForLogging11;
-                          _os_log_impl(&dword_2452FB000, v195, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Account requested custom storage session.  Doing that", buf, 0x2Au);
+                          _os_log_impl(&dword_2452FB000, v196, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Account requested custom storage session.  Doing that", buf, 0x2Au);
                         }
 
                         identityPersist = v217;
-                        v113 = v228;
+                        v114 = v228;
                       }
 
-                      v200 = [(CoreDAVTask *)self _applyStorageSession:copyStorageSession toRequest:v113];
+                      v201 = [(CoreDAVTask *)self _applyStorageSession:copyStorageSession toRequest:v114];
 
                       CFRelease(copyStorageSession);
-                      v113 = v200;
-                      v114 = v191;
+                      v114 = v201;
+                      v115 = v192;
                       requestBodyStream = v221;
                       _createBodyData = v225;
                     }
@@ -1724,48 +1708,48 @@ LABEL_116:
 
               else
               {
-                [v113 setHTTPShouldHandleCookies:0];
+                [v114 setHTTPShouldHandleCookies:0];
               }
 
               if (requestBodyStream)
               {
-                v201 = requestBodyStream;
-                sharedLogging8 = [*(v141 + 2968) sharedLogging];
-                v203 = objc_loadWeakRetained(&self->_accountInfoProvider);
-                v204 = [sharedLogging8 logHandleForAccountInfoProvider:v203];
+                v202 = requestBodyStream;
+                sharedLogging8 = [*(v142 + 2968) sharedLogging];
+                v204 = objc_loadWeakRetained(&self->_accountInfoProvider);
+                v205 = [sharedLogging8 logHandleForAccountInfoProvider:v204];
 
-                if (v204)
+                if (v205)
                 {
-                  v204 = v204;
-                  if (!os_log_type_enabled(v204, OS_LOG_TYPE_DEBUG))
+                  v205 = v205;
+                  if (!os_log_type_enabled(v205, OS_LOG_TYPE_DEBUG))
                   {
 LABEL_148:
 
                     goto LABEL_149;
                   }
 
-                  v205 = objc_opt_class();
-                  NSStringFromClass(v205);
-                  v229 = v113;
-                  v207 = v206 = identityPersist;
+                  v206 = objc_opt_class();
+                  NSStringFromClass(v206);
+                  v229 = v114;
+                  v208 = v207 = identityPersist;
                   [(CoreDAVTask *)self _sessionForLogging];
-                  v209 = v208 = v114;
+                  v210 = v209 = v115;
                   _requestForLogging12 = [(CoreDAVTask *)self _requestForLogging];
                   *buf = 138413058;
-                  v245 = v207;
+                  v245 = v208;
                   v246 = 2048;
                   selfCopy16 = self;
                   v248 = 2048;
-                  v249 = v209;
+                  v249 = v210;
                   v250 = 2048;
                   v251 = _requestForLogging12;
-                  v211 = "[%@ %p, sess %p, request %p] Outgoing request body is streamed";
+                  v212 = "[%@ %p, sess %p, request %p] Outgoing request body is streamed";
 LABEL_147:
-                  _os_log_impl(&dword_2452FB000, v204, OS_LOG_TYPE_DEBUG, v211, buf, 0x2Au);
+                  _os_log_impl(&dword_2452FB000, v205, OS_LOG_TYPE_DEBUG, v212, buf, 0x2Au);
 
-                  v114 = v208;
-                  identityPersist = v206;
-                  v113 = v229;
+                  v115 = v209;
+                  identityPersist = v207;
+                  v114 = v229;
                   goto LABEL_148;
                 }
               }
@@ -1777,74 +1761,74 @@ LABEL_147:
                   goto LABEL_151;
                 }
 
-                v201 = 0;
-                sharedLogging8 = [*(v141 + 2968) sharedLogging];
+                v202 = 0;
+                sharedLogging8 = [*(v142 + 2968) sharedLogging];
                 v213 = objc_loadWeakRetained(&self->_accountInfoProvider);
-                v204 = [sharedLogging8 logHandleForAccountInfoProvider:v213];
+                v205 = [sharedLogging8 logHandleForAccountInfoProvider:v213];
 
-                if (v204)
+                if (v205)
                 {
-                  v204 = v204;
-                  if (!os_log_type_enabled(v204, OS_LOG_TYPE_DEBUG))
+                  v205 = v205;
+                  if (!os_log_type_enabled(v205, OS_LOG_TYPE_DEBUG))
                   {
                     goto LABEL_148;
                   }
 
                   v214 = objc_opt_class();
                   NSStringFromClass(v214);
-                  v229 = v113;
-                  v207 = v206 = identityPersist;
+                  v229 = v114;
+                  v208 = v207 = identityPersist;
                   [(CoreDAVTask *)self _sessionForLogging];
-                  v209 = v208 = v114;
+                  v210 = v209 = v115;
                   _requestForLogging12 = [(CoreDAVTask *)self _requestForLogging];
                   *buf = 138413058;
-                  v245 = v207;
+                  v245 = v208;
                   v246 = 2048;
                   selfCopy16 = self;
                   v248 = 2048;
-                  v249 = v209;
+                  v249 = v210;
                   v250 = 2048;
                   v251 = _requestForLogging12;
-                  v211 = "[%@ %p, sess %p, request %p] Outgoing request body is empty";
+                  v212 = "[%@ %p, sess %p, request %p] Outgoing request body is empty";
                   goto LABEL_147;
                 }
               }
 
 LABEL_149:
 
-              requestBodyStream = v201;
+              requestBodyStream = v202;
 LABEL_151:
-              [v113 _setNonAppInitiated:1];
-              [(CoreDAVTask *)self loadRequest:v113];
+              [v114 _setNonAppInitiated:1];
+              [(CoreDAVTask *)self loadRequest:v114];
 
               v4 = v232;
               goto LABEL_152;
             }
 
-            v149 = objc_loadWeakRetained(&self->_accountInfoProvider);
-            user6 = [v149 user];
+            v150 = objc_loadWeakRetained(&self->_accountInfoProvider);
+            user6 = [v150 user];
             cDVStringByRemovingPercentEscapesForHREF = [user6 CDVStringByRemovingPercentEscapesForHREF];
 
-            v151 = MEMORY[0x277CCACA8];
-            v152 = objc_loadWeakRetained(&self->_accountInfoProvider);
-            password3 = [v152 password];
-            v153 = [v151 stringWithFormat:@"%@:%@", cDVStringByRemovingPercentEscapesForHREF, password3];
-            v155 = [v153 dataUsingEncoding:4];
-            user5 = [v155 base64EncodedStringWithOptions:0];
+            v152 = MEMORY[0x277CCACA8];
+            v153 = objc_loadWeakRetained(&self->_accountInfoProvider);
+            password3 = [v153 password];
+            v154 = [v152 stringWithFormat:@"%@:%@", cDVStringByRemovingPercentEscapesForHREF, password3];
+            v156 = [v154 dataUsingEncoding:4];
+            user5 = [v156 base64EncodedStringWithOptions:0];
 
-            v144 = [MEMORY[0x277CCACA8] stringWithFormat:@"Basic %@", user5];
-            [v113 setValue:v144 forHTTPHeaderField:@"Authorization"];
-            v141 = 0x278E30000;
+            v145 = [MEMORY[0x277CCACA8] stringWithFormat:@"Basic %@", user5];
+            [v114 setValue:v145 forHTTPHeaderField:@"Authorization"];
+            v142 = 0x278E30000;
           }
 
           else
           {
           }
 
-          v114 = v226;
+          v115 = v226;
         }
 
-        requestBodyStream = v142;
+        requestBodyStream = v143;
         _createBodyData = v223;
         goto LABEL_116;
       }
@@ -1885,13 +1869,11 @@ LABEL_151:
 
   [(CoreDAVTask *)self finishCoreDAVTaskWithError:v4];
 LABEL_153:
-
-  v212 = *MEMORY[0x277D85DE8];
 }
 
 void __33__CoreDAVTask_performCoreDAVTask__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [v2 doubleForKey:@"CoreDAVForcedTaskTimeoutInterval"];
   performCoreDAVTask_forcedTimeoutInterval = v3;
@@ -1905,27 +1887,24 @@ void __33__CoreDAVTask_performCoreDAVTask__block_invoke(uint64_t a1)
     v7 = v6;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 32);
-      v12 = [v11 _sessionForLogging];
-      v13 = [*(a1 + 32) _requestForLogging];
-      v15 = 138413314;
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = *(a1 + 32);
+      v11 = [v10 _sessionForLogging];
+      v12 = [*(a1 + 32) _requestForLogging];
+      v13 = 138413314;
+      v14 = v9;
+      v15 = 2048;
       v16 = v10;
       v17 = 2048;
       v18 = v11;
       v19 = 2048;
       v20 = v12;
       v21 = 2048;
-      v22 = v13;
-      v23 = 2048;
-      v24 = performCoreDAVTask_forcedTimeoutInterval;
-      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] Attempting to force a permanent CoreDAVTask timeout of [%lf]", &v15, 0x34u);
+      v22 = performCoreDAVTask_forcedTimeoutInterval;
+      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] Attempting to force a permanent CoreDAVTask timeout of [%lf]", &v13, 0x34u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendTimeSpentInNetworkingToProvider
@@ -1967,7 +1946,7 @@ LABEL_8:
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (![(CoreDAVTask *)self markAsFinished])
   {
@@ -2034,19 +2013,19 @@ LABEL_11:
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
       uniqueID = self->_uniqueID;
-      v24 = 138413570;
-      v25 = v18;
-      v26 = 2048;
+      v23 = 138413570;
+      v24 = v18;
+      v25 = 2048;
       selfCopy = self;
-      v28 = 2048;
-      v29 = _sessionForLogging;
-      v30 = 2048;
-      v31 = _requestForLogging;
-      v32 = 2114;
-      v33 = uniqueID;
-      v34 = 2112;
-      v35 = errorCopy;
-      _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] FinishCoreDAVTaskWithError [ID=%{public}@, error=%@]", &v24, 0x3Eu);
+      v27 = 2048;
+      v28 = _sessionForLogging;
+      v29 = 2048;
+      v30 = _requestForLogging;
+      v31 = 2114;
+      v32 = uniqueID;
+      v33 = 2112;
+      v34 = errorCopy;
+      _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] FinishCoreDAVTaskWithError [ID=%{public}@, error=%@]", &v23, 0x3Eu);
     }
   }
 
@@ -2055,7 +2034,6 @@ LABEL_11:
   [v22 coreDAVTaskDidFinish:self];
 
 LABEL_16:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isFinished
@@ -2164,7 +2142,7 @@ LABEL_8:
 
 - (id)_applyAuthenticationChain:(__CFArray *)chain toRequest:(id)request
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->_accountInfoProvider);
@@ -2179,19 +2157,19 @@ LABEL_8:
       v12 = NSStringFromClass(v11);
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-      v23 = 138413570;
-      v24 = v12;
-      v25 = 2048;
+      v22 = 138413570;
+      v23 = v12;
+      v24 = 2048;
       selfCopy = self;
-      v27 = 2048;
-      v28 = _sessionForLogging;
-      v29 = 2048;
-      v30 = _requestForLogging;
-      v31 = 2112;
+      v26 = 2048;
+      v27 = _sessionForLogging;
+      v28 = 2048;
+      v29 = _requestForLogging;
+      v30 = 2112;
       chainCopy = chain;
-      v33 = 2112;
-      v34 = requestCopy;
-      _os_log_impl(&dword_2452FB000, v10, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Applying authentication chain %@ to request %@", &v23, 0x3Eu);
+      v32 = 2112;
+      v33 = requestCopy;
+      _os_log_impl(&dword_2452FB000, v10, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Applying authentication chain %@ to request %@", &v22, 0x3Eu);
     }
   }
 
@@ -2216,14 +2194,13 @@ LABEL_8:
   v20 = [objc_alloc(MEMORY[0x277CBAB50]) _initWithCFURLRequest:MutableCopy];
 
   CFRelease(MutableCopy);
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (id)_applyStorageSession:(__CFURLStorageSession *)session toRequest:(id)request
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->_accountInfoProvider);
@@ -2238,19 +2215,19 @@ LABEL_8:
       v12 = NSStringFromClass(v11);
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-      v19 = 138413570;
-      v20 = v12;
-      v21 = 2048;
+      v18 = 138413570;
+      v19 = v12;
+      v20 = 2048;
       selfCopy = self;
-      v23 = 2048;
-      v24 = _sessionForLogging;
-      v25 = 2048;
-      v26 = _requestForLogging;
-      v27 = 2112;
+      v22 = 2048;
+      v23 = _sessionForLogging;
+      v24 = 2048;
+      v25 = _requestForLogging;
+      v26 = 2112;
       sessionCopy = session;
-      v29 = 2112;
-      v30 = requestCopy;
-      _os_log_impl(&dword_2452FB000, v10, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] Applying storage session %@ to request %@", &v19, 0x3Eu);
+      v28 = 2112;
+      v29 = requestCopy;
+      _os_log_impl(&dword_2452FB000, v10, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] Applying storage session %@ to request %@", &v18, 0x3Eu);
     }
   }
 
@@ -2260,20 +2237,19 @@ LABEL_8:
   v16 = [objc_alloc(MEMORY[0x277CBAB50]) _initWithCFURLRequest:MutableCopy];
 
   CFRelease(MutableCopy);
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (void)_handleBadPasswordResponse
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __41__CoreDAVTask__handleBadPasswordResponse__block_invoke;
-  v33[3] = &unk_278E311F8;
-  v33[4] = self;
-  v3 = MEMORY[0x245D68C20](v33, a2);
+  v43 = *MEMORY[0x277D85DE8];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __41__CoreDAVTask__handleBadPasswordResponse__block_invoke;
+  v32[3] = &unk_278E311F8;
+  v32[4] = self;
+  v3 = MEMORY[0x245D68C20](v32, a2);
   responseHeaders = [(CoreDAVTask *)self responseHeaders];
   v5 = [responseHeaders CDVObjectForKeyCaseInsensitive:@"X-Web-Login-Required"];
   if (v5)
@@ -2301,15 +2277,15 @@ LABEL_8:
           v18 = objc_opt_class();
           v19 = NSStringFromClass(v18);
           *buf = 138413314;
-          v35 = v14;
-          v36 = 2048;
+          v34 = v14;
+          v35 = 2048;
           selfCopy2 = self;
-          v38 = 2048;
-          v39 = _sessionForLogging;
-          v40 = 2048;
-          v41 = _requestForLogging;
-          v42 = 2114;
-          v43 = v19;
+          v37 = 2048;
+          v38 = _sessionForLogging;
+          v39 = 2048;
+          v40 = _requestForLogging;
+          v41 = 2114;
+          v42 = v19;
           _os_log_impl(&dword_2452FB000, v12, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] XWebLoginRequired header defined. Invoking _accountInfoProvider - %{public}@ HandleWebLogin delegate", buf, 0x34u);
         }
       }
@@ -2340,15 +2316,15 @@ LABEL_8:
       v29 = objc_opt_class();
       v30 = NSStringFromClass(v29);
       *buf = 138413314;
-      v35 = v25;
-      v36 = 2048;
+      v34 = v25;
+      v35 = 2048;
       selfCopy2 = self;
-      v38 = 2048;
-      v39 = _sessionForLogging2;
-      v40 = 2048;
-      v41 = _requestForLogging2;
-      v42 = 2114;
-      v43 = v30;
+      v37 = 2048;
+      v38 = _sessionForLogging2;
+      v39 = 2048;
+      v40 = _requestForLogging2;
+      v41 = 2114;
+      v42 = v30;
       _os_log_impl(&dword_2452FB000, v23, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] _accountInfoProvider - %{public}@ Prompting User for Password. This may result in renewCredentials call.", buf, 0x34u);
     }
   }
@@ -2357,19 +2333,17 @@ LABEL_8:
   [v31 promptUserForNewCoreDAVPasswordWithCompletionBlock:v3];
 
 LABEL_14:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __41__CoreDAVTask__handleBadPasswordResponse__block_invoke(uint64_t a1, int a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) isFinished];
   v5 = *(a1 + 32);
   if (v4)
   {
     v6 = *(v5 + 120);
     *(v5 + 120) = 0;
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -2381,91 +2355,87 @@ void __41__CoreDAVTask__handleBadPasswordResponse__block_invoke(uint64_t a1, int
     {
       if (!a2)
       {
-        v24 = *(a1 + 32);
-        v25 = *(v24 + 120);
-        *(v24 + 120) = 0;
+        v22 = *(a1 + 32);
+        v23 = *(v22 + 120);
+        *(v22 + 120) = 0;
 
-        v26 = +[CoreDAVLogging sharedLogging];
-        v27 = objc_loadWeakRetained((*(a1 + 32) + 16));
-        v28 = [v26 logHandleForAccountInfoProvider:v27];
+        v24 = +[CoreDAVLogging sharedLogging];
+        v25 = objc_loadWeakRetained((*(a1 + 32) + 16));
+        v26 = [v24 logHandleForAccountInfoProvider:v25];
 
-        if (v28)
+        if (v26)
         {
-          v29 = v28;
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          v27 = v26;
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
           {
+            v28 = objc_opt_class();
+            v29 = NSStringFromClass(v28);
             v30 = *(a1 + 32);
-            v31 = objc_opt_class();
-            v32 = NSStringFromClass(v31);
-            v33 = *(a1 + 32);
-            v34 = [v33 _sessionForLogging];
-            v35 = [*(a1 + 32) _requestForLogging];
-            v36 = objc_loadWeakRetained((*(a1 + 32) + 16));
-            v37 = objc_opt_class();
-            v38 = NSStringFromClass(v37);
+            v31 = [v30 _sessionForLogging];
+            v32 = [*(a1 + 32) _requestForLogging];
+            v33 = objc_loadWeakRetained((*(a1 + 32) + 16));
+            v34 = objc_opt_class();
+            v35 = NSStringFromClass(v34);
             *buf = 138413314;
-            v44 = v32;
+            v40 = v29;
+            v41 = 2048;
+            v42 = v30;
+            v43 = 2048;
+            v44 = v31;
             v45 = 2048;
-            v46 = v33;
-            v47 = 2048;
-            v48 = v34;
-            v49 = 2048;
-            v50 = v35;
-            v51 = 2114;
-            v52 = v38;
-            _os_log_impl(&dword_2452FB000, v29, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] _accountInfoProvider %{public}@ User Entered New Password. Retrying Task.", buf, 0x34u);
+            v46 = v32;
+            v47 = 2114;
+            v48 = v35;
+            _os_log_impl(&dword_2452FB000, v27, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] _accountInfoProvider %{public}@ User Entered New Password. Retrying Task.", buf, 0x34u);
           }
         }
 
-        v39 = *(a1 + 32);
-        v40 = CDVRunLoopModesToPerformDelayedSelectorsIn();
-        [v39 performSelector:sel_performCoreDAVTask withObject:0 afterDelay:v40 inModes:0.0];
+        v36 = *(a1 + 32);
+        v37 = CDVRunLoopModesToPerformDelayedSelectorsIn();
+        [v36 performSelector:sel_performCoreDAVTask withObject:0 afterDelay:v37 inModes:0.0];
       }
     }
 
     else
     {
-      v9 = *(*(a1 + 32) + 120);
-      v10 = *(a1 + 32);
-      v11 = *(v10 + 120);
-      *(v10 + 120) = 0;
+      v8 = *(*(a1 + 32) + 120);
+      v9 = *(a1 + 32);
+      v10 = *(v9 + 120);
+      *(v9 + 120) = 0;
 
-      v12 = +[CoreDAVLogging sharedLogging];
-      v13 = objc_loadWeakRetained((*(a1 + 32) + 16));
-      v14 = [v12 logHandleForAccountInfoProvider:v13];
+      v11 = +[CoreDAVLogging sharedLogging];
+      v12 = objc_loadWeakRetained((*(a1 + 32) + 16));
+      v13 = [v11 logHandleForAccountInfoProvider:v12];
 
-      if (v14)
+      if (v13)
       {
-        v15 = v14;
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v14 = v13;
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v16 = *(a1 + 32);
-          v17 = objc_opt_class();
-          v18 = NSStringFromClass(v17);
-          v19 = *(a1 + 32);
-          v42 = [v19 _sessionForLogging];
-          v20 = [*(a1 + 32) _requestForLogging];
-          v21 = objc_loadWeakRetained((*(a1 + 32) + 16));
-          v22 = objc_opt_class();
-          v23 = NSStringFromClass(v22);
+          v15 = objc_opt_class();
+          v16 = NSStringFromClass(v15);
+          v17 = *(a1 + 32);
+          v38 = [v17 _sessionForLogging];
+          v18 = [*(a1 + 32) _requestForLogging];
+          v19 = objc_loadWeakRetained((*(a1 + 32) + 16));
+          v20 = objc_opt_class();
+          v21 = NSStringFromClass(v20);
           *buf = 138413314;
-          v44 = v18;
+          v40 = v16;
+          v41 = 2048;
+          v42 = v17;
+          v43 = 2048;
+          v44 = v38;
           v45 = 2048;
-          v46 = v19;
-          v47 = 2048;
-          v48 = v42;
-          v49 = 2048;
-          v50 = v20;
-          v51 = 2114;
-          v52 = v23;
-          _os_log_impl(&dword_2452FB000, v15, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] _accountInfoProvider %{public}@ User either Cancelled/Rejected prompt or System can not prompt for password. Finishing Task.", buf, 0x34u);
+          v46 = v18;
+          v47 = 2114;
+          v48 = v21;
+          _os_log_impl(&dword_2452FB000, v14, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] _accountInfoProvider %{public}@ User either Cancelled/Rejected prompt or System can not prompt for password. Finishing Task.", buf, 0x34u);
         }
       }
 
-      [*(a1 + 32) finishCoreDAVTaskWithError:v9];
+      [*(a1 + 32) finishCoreDAVTaskWithError:v8];
     }
-
-    v41 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -2488,7 +2458,7 @@ void __41__CoreDAVTask__handleBadPasswordResponse__block_invoke(uint64_t a1, int
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy)
   {
@@ -2505,22 +2475,20 @@ void __41__CoreDAVTask__handleBadPasswordResponse__block_invoke(uint64_t a1, int
         v11 = NSStringFromClass(v10);
         _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-        v15 = 138413314;
-        v16 = v11;
-        v17 = 2048;
+        v14 = 138413314;
+        v15 = v11;
+        v16 = 2048;
         selfCopy = self;
-        v19 = 2048;
-        v20 = _sessionForLogging;
-        v21 = 2048;
-        v22 = _requestForLogging;
-        v23 = 2112;
-        v24 = errorCopy;
-        _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] session invalidated with error %@", &v15, 0x34u);
+        v18 = 2048;
+        v19 = _sessionForLogging;
+        v20 = 2048;
+        v21 = _requestForLogging;
+        v22 = 2112;
+        v23 = errorCopy;
+        _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] session invalidated with error %@", &v14, 0x34u);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
@@ -2556,10 +2524,28 @@ void __41__CoreDAVTask__handleBadPasswordResponse__block_invoke(uint64_t a1, int
 
 void __87__CoreDAVTask_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  if (v3 != v2[7])
+  if (v3 == v2[7])
+  {
+    v15 = [v2 requestProgressBlock];
+    if (v15 && (*(a1 + 48) & 0x8000000000000000) == 0)
+    {
+      v16 = *(a1 + 56);
+
+      if (v16 < 0)
+      {
+        return;
+      }
+
+      v17 = [*(a1 + 40) requestProgressBlock];
+      (*(v17 + 16))(v17, *(a1 + 48), *(a1 + 56), 1);
+      v15 = v17;
+    }
+  }
+
+  else
   {
     v4 = +[CoreDAVLogging sharedLogging];
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 16));
@@ -2570,54 +2556,28 @@ void __87__CoreDAVTask_URLSession_task_didSendBodyData_totalBytesSent_totalBytes
       v7 = v6;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 40);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = *(a1 + 40);
-        v12 = [v11 _sessionForLogging];
-        v13 = [*(a1 + 40) _requestForLogging];
-        v14 = *(a1 + 32);
-        v15 = *(*(a1 + 40) + 56);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = *(a1 + 40);
+        v11 = [v10 _sessionForLogging];
+        v12 = [*(a1 + 40) _requestForLogging];
+        v13 = *(a1 + 32);
+        v14 = *(*(a1 + 40) + 56);
         *buf = 138413570;
-        v23 = v10;
+        v19 = v9;
+        v20 = 2048;
+        v21 = v10;
+        v22 = 2048;
+        v23 = v11;
         v24 = 2048;
-        v25 = v11;
+        v25 = v12;
         v26 = 2048;
-        v27 = v12;
+        v27 = v13;
         v28 = 2048;
-        v29 = v13;
-        v30 = 2048;
-        v31 = v14;
-        v32 = 2048;
-        v33 = v15;
+        v29 = v14;
         _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend: callback for task %p because it doesn't match our current task, %p", buf, 0x3Eu);
       }
     }
-
-    goto LABEL_7;
-  }
-
-  v17 = [v2 requestProgressBlock];
-  if (!v17 || (*(a1 + 48) & 0x8000000000000000) != 0)
-  {
-    v20 = *MEMORY[0x277D85DE8];
-  }
-
-  else
-  {
-    v18 = *(a1 + 56);
-
-    if (v18 < 0)
-    {
-LABEL_7:
-      v16 = *MEMORY[0x277D85DE8];
-      return;
-    }
-
-    v21 = [*(a1 + 40) requestProgressBlock];
-    (*(v21 + 16))(v21, *(a1 + 48), *(a1 + 56), 1);
-    v19 = *MEMORY[0x277D85DE8];
-    v17 = v21;
   }
 }
 
@@ -2642,16 +2602,14 @@ LABEL_7:
 
 uint64_t __69__CoreDAVTask_URLSession_task_didReceiveChallenge_completionHandler___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v3 == v2[7])
   {
-    v18 = *(a1 + 48);
-    v19 = *(a1 + 56);
-    v20 = *MEMORY[0x277D85DE8];
+    v16 = *(a1 + 48);
 
-    return [v2 _handleAuthenticationChallenge:v18 task:? completionHandler:?];
+    return [v2 _handleAuthenticationChallenge:v16 task:? completionHandler:?];
   }
 
   else
@@ -2665,35 +2623,31 @@ uint64_t __69__CoreDAVTask_URLSession_task_didReceiveChallenge_completionHandler
       v7 = v6;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 40);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = *(a1 + 40);
-        v12 = [v11 _sessionForLogging];
-        v13 = [*(a1 + 40) _requestForLogging];
-        v14 = *(a1 + 32);
-        v15 = *(*(a1 + 40) + 56);
-        v21 = 138413570;
-        v22 = v10;
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = *(a1 + 40);
+        v11 = [v10 _sessionForLogging];
+        v12 = [*(a1 + 40) _requestForLogging];
+        v13 = *(a1 + 32);
+        v14 = *(*(a1 + 40) + 56);
+        v17 = 138413570;
+        v18 = v9;
+        v19 = 2048;
+        v20 = v10;
+        v21 = 2048;
+        v22 = v11;
         v23 = 2048;
-        v24 = v11;
+        v24 = v12;
         v25 = 2048;
-        v26 = v12;
+        v26 = v13;
         v27 = 2048;
-        v28 = v13;
-        v29 = 2048;
-        v30 = v14;
-        v31 = 2048;
-        v32 = v15;
-        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:task:didReceiveChallenge:completionHandler: callback for task %p because it doesn't match our current task, %p", &v21, 0x3Eu);
+        v28 = v14;
+        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:task:didReceiveChallenge:completionHandler: callback for task %p because it doesn't match our current task, %p", &v17, 0x3Eu);
       }
     }
 
-    result = (*(*(a1 + 56) + 16))();
-    v17 = *MEMORY[0x277D85DE8];
+    return (*(*(a1 + 56) + 16))();
   }
-
-  return result;
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
@@ -2717,16 +2671,14 @@ uint64_t __69__CoreDAVTask_URLSession_task_didReceiveChallenge_completionHandler
 
 void __50__CoreDAVTask_URLSession_dataTask_didReceiveData___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v3 == v2[7])
   {
-    v17 = *(a1 + 48);
-    v18 = *(a1 + 56);
-    v19 = *MEMORY[0x277D85DE8];
+    v15 = *(a1 + 48);
 
-    [v2 _session:v17 dataTask:? didReceiveData:?];
+    [v2 _session:v15 dataTask:? didReceiveData:?];
   }
 
   else
@@ -2740,37 +2692,34 @@ void __50__CoreDAVTask_URLSession_dataTask_didReceiveData___block_invoke(uint64_
       v7 = v6;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 40);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = *(a1 + 40);
-        v12 = [v11 _sessionForLogging];
-        v13 = [*(a1 + 40) _requestForLogging];
-        v14 = *(a1 + 32);
-        v15 = *(*(a1 + 40) + 56);
-        v20 = 138413570;
-        v21 = v10;
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = *(a1 + 40);
+        v11 = [v10 _sessionForLogging];
+        v12 = [*(a1 + 40) _requestForLogging];
+        v13 = *(a1 + 32);
+        v14 = *(*(a1 + 40) + 56);
+        v16 = 138413570;
+        v17 = v9;
+        v18 = 2048;
+        v19 = v10;
+        v20 = 2048;
+        v21 = v11;
         v22 = 2048;
-        v23 = v11;
+        v23 = v12;
         v24 = 2048;
-        v25 = v12;
+        v25 = v13;
         v26 = 2048;
-        v27 = v13;
-        v28 = 2048;
-        v29 = v14;
-        v30 = 2048;
-        v31 = v15;
-        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:dataTask:didReceiveData: callback for task %p because it doesn't match our current task, %p", &v20, 0x3Eu);
+        v27 = v14;
+        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:dataTask:didReceiveData: callback for task %p because it doesn't match our current task, %p", &v16, 0x3Eu);
       }
     }
-
-    v16 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_session:(id)_session dataTask:(id)task didReceiveData:(id)data
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   _sessionCopy = _session;
   taskCopy = task;
   dataCopy = data;
@@ -2782,7 +2731,7 @@ LABEL_4:
     v12 = +[CoreDAVLogging sharedLogging];
     v13 = [v12 shouldLogAtLevel:7 forAccountInfoProvider:0];
 
-    v98 = taskCopy;
+    v97 = taskCopy;
     if (v13)
     {
       v14 = +[CoreDAVLogging sharedLogging];
@@ -2799,16 +2748,16 @@ LABEL_4:
           _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
           *buf = 138413058;
-          v101 = v19;
-          v102 = 2048;
+          v100 = v19;
+          v101 = 2048;
           selfCopy6 = self;
-          v104 = 2048;
-          v105 = _sessionForLogging;
-          v106 = 2048;
-          v107 = _requestForLogging;
+          v103 = 2048;
+          v104 = _sessionForLogging;
+          v105 = 2048;
+          v106 = _requestForLogging;
           _os_log_impl(&dword_2452FB000, v17, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] didReceiveData", buf, 0x2Au);
 
-          taskCopy = v98;
+          taskCopy = v97;
         }
       }
 
@@ -2827,18 +2776,18 @@ LABEL_4:
           _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging2 = [(CoreDAVTask *)self _requestForLogging];
           *buf = 138413314;
-          v101 = v28;
-          v102 = 2048;
+          v100 = v28;
+          v101 = 2048;
           selfCopy6 = self;
-          v104 = 2048;
-          v105 = _sessionForLogging2;
-          v106 = 2048;
-          v107 = _requestForLogging2;
-          v108 = 2112;
-          v109 = v22;
+          v103 = 2048;
+          v104 = _sessionForLogging2;
+          v105 = 2048;
+          v106 = _requestForLogging2;
+          v107 = 2112;
+          v108 = v22;
           _os_log_impl(&dword_2452FB000, v26, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] That data is %@", buf, 0x34u);
 
-          taskCopy = v98;
+          taskCopy = v97;
         }
       }
     }
@@ -2886,18 +2835,18 @@ LABEL_4:
           v47 = [(NSData *)dataCopy length];
           totalBytesReceived = [(CoreDAVTask *)self totalBytesReceived];
           *buf = 138413570;
-          v101 = v39;
-          v102 = 2048;
+          v100 = v39;
+          v101 = 2048;
           selfCopy6 = self;
-          v104 = 2048;
-          v105 = _sessionForLogging3;
-          v106 = 2048;
-          v107 = _requestForLogging3;
-          v108 = 2048;
-          v109 = v47;
-          taskCopy = v98;
-          v110 = 2048;
-          v111 = totalBytesReceived;
+          v103 = 2048;
+          v104 = _sessionForLogging3;
+          v105 = 2048;
+          v106 = _requestForLogging3;
+          v107 = 2048;
+          v108 = v47;
+          taskCopy = v97;
+          v109 = 2048;
+          v110 = totalBytesReceived;
           _os_log_impl(&dword_2452FB000, v37, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] didReceiveData: %lu new bytes, have received a total of %lld, no information on expected total", buf, 0x3Eu);
 
           goto LABEL_28;
@@ -2967,9 +2916,9 @@ LABEL_31:
       v61 = v60;
       if (v60 > 0x1000 && responseBodyParser3)
       {
-        v93 = v50;
-        v95 = v59;
-        v96 = _sessionCopy;
+        v92 = v50;
+        v94 = v59;
+        v95 = _sessionCopy;
         v62 = 0;
         v63 = -4096;
         do
@@ -2996,10 +2945,10 @@ LABEL_31:
         }
 
         while ((v58 & 1) != 0);
-        v59 = v95;
-        _sessionCopy = v96;
-        taskCopy = v98;
-        v50 = v93;
+        v59 = v94;
+        _sessionCopy = v95;
+        taskCopy = v97;
+        v50 = v92;
         if (((v61 != v62) & v58) != 0)
         {
           if (v62)
@@ -3008,7 +2957,7 @@ LABEL_31:
             responseBodyParser5 = [(CoreDAVTask *)self responseBodyParser];
             v58 = [responseBodyParser5 processData:responseBodyParser6 forTask:self];
 
-            v59 = v95;
+            v59 = v94;
 LABEL_60:
 
             goto LABEL_61;
@@ -3046,22 +2995,22 @@ LABEL_61:
               _sessionForLogging4 = [(CoreDAVTask *)self _sessionForLogging];
               _requestForLogging4 = [(CoreDAVTask *)self _requestForLogging];
               [(CoreDAVTask *)self responseBodyParser];
-              v79 = v94 = v50;
+              v79 = v93 = v50;
               parserError = [v79 parserError];
               *buf = 138413314;
-              v101 = v76;
-              v102 = 2048;
+              v100 = v76;
+              v101 = 2048;
               selfCopy6 = self;
-              v104 = 2048;
-              v105 = _sessionForLogging4;
-              v106 = 2048;
-              v107 = _requestForLogging4;
-              v108 = 2112;
-              v109 = parserError;
+              v103 = 2048;
+              v104 = _sessionForLogging4;
+              v105 = 2048;
+              v106 = _requestForLogging4;
+              v107 = 2112;
+              v108 = parserError;
               _os_log_impl(&dword_2452FB000, v74, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Parser failed to parse XML body of response %@", buf, 0x34u);
 
-              v50 = v94;
-              taskCopy = v98;
+              v50 = v93;
+              taskCopy = v97;
             }
           }
 
@@ -3085,25 +3034,25 @@ LABEL_75:
             _sessionForLogging5 = [(CoreDAVTask *)self _sessionForLogging];
             _requestForLogging5 = [(CoreDAVTask *)self _requestForLogging];
             [(CoreDAVTask *)self responseBodyParser];
-            v97 = _sessionCopy;
+            v96 = _sessionCopy;
             v90 = v89 = v50;
             parserError2 = [v90 parserError];
             *buf = 138413314;
-            v101 = v86;
-            v102 = 2048;
+            v100 = v86;
+            v101 = 2048;
             selfCopy6 = self;
-            v104 = 2048;
-            v105 = _sessionForLogging5;
-            v106 = 2048;
-            v107 = _requestForLogging5;
-            v108 = 2112;
-            v109 = parserError2;
+            v103 = 2048;
+            v104 = _sessionForLogging5;
+            v105 = 2048;
+            v106 = _requestForLogging5;
+            v107 = 2112;
+            v108 = parserError2;
             _os_log_impl(&dword_2452FB000, v84, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Parser failed to parse with error %@", buf, 0x34u);
 
             v50 = v89;
-            _sessionCopy = v97;
+            _sessionCopy = v96;
 
-            taskCopy = v98;
+            taskCopy = v97;
           }
         }
 
@@ -3137,22 +3086,22 @@ LABEL_21:
         v42 = [(NSData *)dataCopy length];
         totalBytesReceived2 = [(CoreDAVTask *)self totalBytesReceived];
         *buf = 138413826;
-        v101 = v39;
-        v102 = 2048;
+        v100 = v39;
+        v101 = 2048;
         selfCopy6 = self;
-        v104 = 2048;
-        v105 = _sessionForLogging3;
-        v106 = 2048;
-        v107 = _requestForLogging6;
-        v108 = 2048;
-        v109 = v42;
-        v110 = 2048;
-        v111 = totalBytesReceived2;
-        v112 = 2048;
-        v113 = expectedContentLength;
+        v103 = 2048;
+        v104 = _sessionForLogging3;
+        v105 = 2048;
+        v106 = _requestForLogging6;
+        v107 = 2048;
+        v108 = v42;
+        v109 = 2048;
+        v110 = totalBytesReceived2;
+        v111 = 2048;
+        v112 = expectedContentLength;
         _os_log_impl(&dword_2452FB000, v37, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] didReceiveData: %lu new bytes, now received %lu/%lld total", buf, 0x48u);
 
-        taskCopy = v98;
+        taskCopy = v97;
 LABEL_28:
 
         goto LABEL_29;
@@ -3174,8 +3123,6 @@ LABEL_28:
   }
 
 LABEL_77:
-
-  v92 = *MEMORY[0x277D85DE8];
 }
 
 id __48__CoreDAVTask__session_dataTask_didReceiveData___block_invoke(uint64_t a1)
@@ -3210,7 +3157,7 @@ id __48__CoreDAVTask__session_dataTask_didReceiveData___block_invoke(uint64_t a1
 
 void __49__CoreDAVTask_URLSession_task_needNewBodyStream___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(*(a1 + 40) + 56);
   v4 = +[CoreDAVLogging sharedLogging];
@@ -3221,31 +3168,30 @@ void __49__CoreDAVTask_URLSession_task_needNewBodyStream___block_invoke(uint64_t
   {
     if (v6)
     {
-      v16 = v6;
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v15 = v6;
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v17 = *(a1 + 40);
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
-        v20 = *(a1 + 40);
-        v21 = [v20 _sessionForLogging];
-        v22 = [*(a1 + 40) _requestForLogging];
-        v23 = *(a1 + 40);
-        v26 = 138413314;
-        v27 = v19;
-        v28 = 2048;
-        v29 = v20;
-        v30 = 2048;
-        v31 = v21;
-        v32 = 2048;
-        v33 = v22;
-        v34 = 2112;
-        v35 = v23;
-        _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Connection needs a new body stream, self %@", &v26, 0x34u);
+        v16 = objc_opt_class();
+        v17 = NSStringFromClass(v16);
+        v18 = *(a1 + 40);
+        v19 = [v18 _sessionForLogging];
+        v20 = [*(a1 + 40) _requestForLogging];
+        v21 = *(a1 + 40);
+        v23 = 138413314;
+        v24 = v17;
+        v25 = 2048;
+        v26 = v18;
+        v27 = 2048;
+        v28 = v19;
+        v29 = 2048;
+        v30 = v20;
+        v31 = 2112;
+        v32 = v21;
+        _os_log_impl(&dword_2452FB000, v15, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Connection needs a new body stream, self %@", &v23, 0x34u);
       }
     }
 
-    v24 = [*(a1 + 40) requestBodyStream];
+    v22 = [*(a1 + 40) requestBodyStream];
     (*(*(a1 + 48) + 16))();
   }
 
@@ -3256,34 +3202,31 @@ void __49__CoreDAVTask_URLSession_task_needNewBodyStream___block_invoke(uint64_t
       v7 = v6;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 40);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = *(a1 + 40);
-        v12 = [v11 _sessionForLogging];
-        v13 = [*(a1 + 40) _requestForLogging];
-        v14 = *(a1 + 32);
-        v15 = *(*(a1 + 40) + 56);
-        v26 = 138413570;
-        v27 = v10;
-        v28 = 2048;
-        v29 = v11;
-        v30 = 2048;
-        v31 = v12;
-        v32 = 2048;
-        v33 = v13;
-        v34 = 2048;
-        v35 = v14;
-        v36 = 2048;
-        v37 = v15;
-        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:task:needNewBodyStream: callback for task %p because it doesn't match our current task, %p", &v26, 0x3Eu);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = *(a1 + 40);
+        v11 = [v10 _sessionForLogging];
+        v12 = [*(a1 + 40) _requestForLogging];
+        v13 = *(a1 + 32);
+        v14 = *(*(a1 + 40) + 56);
+        v23 = 138413570;
+        v24 = v9;
+        v25 = 2048;
+        v26 = v10;
+        v27 = 2048;
+        v28 = v11;
+        v29 = 2048;
+        v30 = v12;
+        v31 = 2048;
+        v32 = v13;
+        v33 = 2048;
+        v34 = v14;
+        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:task:needNewBodyStream: callback for task %p because it doesn't match our current task, %p", &v23, 0x3Eu);
       }
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
@@ -3313,18 +3256,14 @@ void __49__CoreDAVTask_URLSession_task_needNewBodyStream___block_invoke(uint64_t
 
 uint64_t __87__CoreDAVTask_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v3 == v2[7])
   {
-    v18 = *(a1 + 48);
-    v19 = *(a1 + 56);
-    v20 = *(a1 + 64);
-    v21 = *(a1 + 72);
-    v22 = *MEMORY[0x277D85DE8];
+    v16 = *(a1 + 48);
 
-    return [v2 _session:v18 task:? willPerformHTTPRedirection:? newRequest:? completionHandler:?];
+    return [v2 _session:v16 task:? willPerformHTTPRedirection:? newRequest:? completionHandler:?];
   }
 
   else
@@ -3338,40 +3277,36 @@ uint64_t __87__CoreDAVTask_URLSession_task_willPerformHTTPRedirection_newRequest
       v7 = v6;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 40);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = *(a1 + 40);
-        v12 = [v11 _sessionForLogging];
-        v13 = [*(a1 + 40) _requestForLogging];
-        v14 = *(a1 + 32);
-        v15 = *(*(a1 + 40) + 56);
-        v23 = 138413570;
-        v24 = v10;
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = *(a1 + 40);
+        v11 = [v10 _sessionForLogging];
+        v12 = [*(a1 + 40) _requestForLogging];
+        v13 = *(a1 + 32);
+        v14 = *(*(a1 + 40) + 56);
+        v17 = 138413570;
+        v18 = v9;
+        v19 = 2048;
+        v20 = v10;
+        v21 = 2048;
+        v22 = v11;
+        v23 = 2048;
+        v24 = v12;
         v25 = 2048;
-        v26 = v11;
+        v26 = v13;
         v27 = 2048;
-        v28 = v12;
-        v29 = 2048;
-        v30 = v13;
-        v31 = 2048;
-        v32 = v14;
-        v33 = 2048;
-        v34 = v15;
-        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler: callback for task %p because it doesn't match our current task, %p", &v23, 0x3Eu);
+        v28 = v14;
+        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler: callback for task %p because it doesn't match our current task, %p", &v17, 0x3Eu);
       }
     }
 
-    result = (*(*(a1 + 72) + 16))();
-    v17 = *MEMORY[0x277D85DE8];
+    return (*(*(a1 + 72) + 16))();
   }
-
-  return result;
 }
 
 - (void)_session:(id)_session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   _sessionCopy = _session;
   taskCopy = task;
   redirectionCopy = redirection;
@@ -3380,7 +3315,7 @@ uint64_t __87__CoreDAVTask_URLSession_task_willPerformHTTPRedirection_newRequest
   self->_didSendRequest = 1;
   if (!redirectionCopy || [(CoreDAVTask *)self allowAutomaticRedirects])
   {
-    v92 = taskCopy;
+    v91 = taskCopy;
     p_request = &self->_request;
     v17 = [(NSURLRequest *)self->_request URL];
     scheme = [v17 scheme];
@@ -3395,7 +3330,7 @@ uint64_t __87__CoreDAVTask_URLSession_task_willPerformHTTPRedirection_newRequest
         v22 = handlerCopy;
         (*(handlerCopy + 2))(handlerCopy, 0);
 LABEL_41:
-        taskCopy = v92;
+        taskCopy = v91;
         goto LABEL_42;
       }
     }
@@ -3433,31 +3368,31 @@ LABEL_41:
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           v45 = objc_opt_class();
-          v85 = NSStringFromClass(v45);
+          v84 = NSStringFromClass(v45);
           _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
           [(CoreDAVTask *)self _requestForLogging];
-          v46 = v89 = _sessionCopy;
+          v46 = v88 = _sessionCopy;
           [(CoreDAVTask *)self url];
-          v47 = v87 = v24;
+          v47 = v86 = v24;
           redirectHistory = self->_redirectHistory;
           *buf = 138413826;
-          v96 = v85;
-          v97 = 2048;
+          v95 = v84;
+          v96 = 2048;
           selfCopy3 = self;
-          v99 = 2048;
-          v100 = _sessionForLogging;
-          v101 = 2048;
-          v102 = v46;
-          v103 = 2112;
-          v104 = v47;
-          v105 = 2112;
+          v98 = 2048;
+          v99 = _sessionForLogging;
+          v100 = 2048;
+          v101 = v46;
+          v102 = 2112;
+          v103 = v47;
+          v104 = 2112;
           requestCopy2 = redirectHistory;
-          v107 = 2112;
-          v108 = v87;
+          v106 = 2112;
+          v107 = v86;
           _os_log_impl(&dword_2452FB000, v44, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Received redirect where request.url.host is empty, not setting user on the redirected URL. \nOriginal URL: %@\nRedirect history: %@\nRedirected to:%@  ", buf, 0x48u);
 
-          v24 = v87;
-          _sessionCopy = v89;
+          v24 = v86;
+          _sessionCopy = v88;
         }
       }
 
@@ -3500,42 +3435,42 @@ LABEL_41:
 
     if (redirectionCopy)
     {
-      v86 = v31;
-      v88 = v24;
+      v85 = v31;
+      v87 = v24;
       v57 = +[CoreDAVLogging sharedLogging];
       v58 = objc_loadWeakRetained(&self->_accountInfoProvider);
       v59 = [v57 logHandleForAccountInfoProvider:v58];
 
-      v90 = _sessionCopy;
+      v89 = _sessionCopy;
       if (v59)
       {
         v60 = v59;
         if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
         {
           v61 = objc_opt_class();
-          v84 = NSStringFromClass(v61);
+          v83 = NSStringFromClass(v61);
           _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
           request = self->_request;
           *buf = 138414338;
-          v96 = v84;
-          v97 = 2048;
+          v95 = v83;
+          v96 = 2048;
           selfCopy3 = self;
-          v99 = 2048;
-          v100 = _sessionForLogging2;
-          v101 = 2048;
-          v102 = _requestForLogging;
+          v98 = 2048;
+          v99 = _sessionForLogging2;
+          v100 = 2048;
+          v101 = _requestForLogging;
           v65 = _requestForLogging;
-          v103 = 2112;
-          v104 = v90;
-          v105 = 2112;
+          v102 = 2112;
+          v103 = v89;
+          v104 = 2112;
           requestCopy2 = request;
-          v107 = 2112;
-          v108 = requestCopy;
-          v109 = 2112;
-          v110 = v23;
-          v111 = 2112;
-          v112 = redirectionCopy;
+          v106 = 2112;
+          v107 = requestCopy;
+          v108 = 2112;
+          v109 = v23;
+          v110 = 2112;
+          v111 = redirectionCopy;
           _os_log_impl(&dword_2452FB000, v60, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Connection is getting redirected: [%@]\nInitial request: [%@]\nProposed request: [%@]\nReconstructed request: [%@]\nRedirect response: [%@]", buf, 0x5Cu);
         }
       }
@@ -3559,7 +3494,7 @@ LABEL_41:
           v71 = self->_redirectHistory;
         }
 
-        [(NSMutableArray *)v71 addObject:v86];
+        [(NSMutableArray *)v71 addObject:v85];
       }
 
       v74 = [requestCopy URL];
@@ -3568,9 +3503,9 @@ LABEL_41:
       host3 = [v76 host];
       v78 = [host2 isEqualToString:host3];
 
-      v24 = v88;
-      _sessionCopy = v90;
-      v31 = v86;
+      v24 = v87;
+      _sessionCopy = v89;
+      v31 = v85;
       if ((v78 & 1) == 0)
       {
         *&self->_justTriedTokenAuth = 0;
@@ -3608,42 +3543,40 @@ LABEL_41:
     {
       v36 = objc_opt_class();
       NSStringFromClass(v36);
-      v37 = v93 = taskCopy;
+      v37 = v92 = taskCopy;
       _sessionForLogging3 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging2 = [(CoreDAVTask *)self _requestForLogging];
       v40 = self->_request;
       *buf = 138414082;
-      v96 = v37;
-      v97 = 2048;
+      v95 = v37;
+      v96 = 2048;
       selfCopy3 = self;
-      v99 = 2048;
-      v100 = _sessionForLogging3;
-      v101 = 2048;
-      v102 = _requestForLogging2;
-      v103 = 2112;
-      v104 = _sessionCopy;
-      v105 = 2112;
+      v98 = 2048;
+      v99 = _sessionForLogging3;
+      v100 = 2048;
+      v101 = _requestForLogging2;
+      v102 = 2112;
+      v103 = _sessionCopy;
+      v104 = 2112;
       requestCopy2 = v40;
-      v107 = 2112;
-      v108 = requestCopy;
-      v109 = 2112;
-      v110 = redirectionCopy;
+      v106 = 2112;
+      v107 = requestCopy;
+      v108 = 2112;
+      v109 = redirectionCopy;
       _os_log_impl(&dword_2452FB000, v35, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Connection is getting redirected but automatic redirections are disabled.  Connection: [%@]\nInitial request: [%@]\nProposed request: [%@]\nRedirect response: [%@]", buf, 0x52u);
 
-      taskCopy = v93;
+      taskCopy = v92;
     }
   }
 
   v22 = handlerCopy;
   (*(handlerCopy + 2))(handlerCopy, 0);
 LABEL_42:
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canAuthenticateAgainstProtectionSpace:(id)space
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   v5 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->_accountInfoProvider);
@@ -3659,13 +3592,13 @@ LABEL_42:
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
       *buf = 138413058;
-      v36 = v10;
-      v37 = 2048;
+      v35 = v10;
+      v36 = 2048;
       selfCopy2 = self;
-      v39 = 2048;
-      v40 = _sessionForLogging;
-      v41 = 2048;
-      v42 = _requestForLogging;
+      v38 = 2048;
+      v39 = _sessionForLogging;
+      v40 = 2048;
+      v41 = _requestForLogging;
       _os_log_impl(&dword_2452FB000, v8, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] _canAuthenticateAgainstProtectionSpace:", buf, 0x2Au);
     }
   }
@@ -3715,40 +3648,39 @@ LABEL_10:
       v24 = NSStringFromClass(v23);
       _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
       [(CoreDAVTask *)self _requestForLogging];
-      v25 = v34 = v18;
+      v25 = v33 = v18;
       v26 = objc_loadWeakRetained(&self->_accountInfoProvider);
       v27 = objc_opt_class();
       v28 = NSStringFromClass(v27);
-      [MEMORY[0x277CCABB0] numberWithBool:v34 & 1];
-      v29 = v33 = spaceCopy;
+      [MEMORY[0x277CCABB0] numberWithBool:v33 & 1];
+      v29 = v32 = spaceCopy;
       *buf = 138413826;
-      v36 = v24;
-      v37 = 2048;
+      v35 = v24;
+      v36 = 2048;
       selfCopy2 = self;
-      v39 = 2048;
-      v40 = _sessionForLogging2;
-      v41 = 2048;
-      v42 = v25;
-      v43 = 2114;
-      v44 = v28;
-      v45 = 2114;
-      v46 = authenticationMethod;
-      v47 = 2114;
-      v48 = v29;
+      v38 = 2048;
+      v39 = _sessionForLogging2;
+      v40 = 2048;
+      v41 = v25;
+      v42 = 2114;
+      v43 = v28;
+      v44 = 2114;
+      v45 = authenticationMethod;
+      v46 = 2114;
+      v47 = v29;
       _os_log_impl(&dword_2452FB000, v22, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] _accountInfoProvider: (%{public}@) Can authenticate against protection space %{public}@? %{public}@", buf, 0x48u);
 
-      spaceCopy = v33;
-      v18 = v34;
+      spaceCopy = v32;
+      v18 = v33;
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v18 & 1;
 }
 
 - (void)_didReceiveAuthenticationChallenge:(id)challenge forTask:(id)task completionHandler:(id)handler
 {
-  v147 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   taskCopy = task;
   handlerCopy = handler;
@@ -3769,16 +3701,16 @@ LABEL_10:
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
       *buf = 138413570;
-      v136 = v17;
-      v137 = 2048;
+      v135 = v17;
+      v136 = 2048;
       selfCopy10 = self;
-      v139 = 2048;
-      v140 = _sessionForLogging;
-      v141 = 2048;
-      v142 = _requestForLogging;
-      v143 = 2114;
-      v144 = v16;
-      v145 = 2048;
+      v138 = 2048;
+      v139 = _sessionForLogging;
+      v140 = 2048;
+      v141 = _requestForLogging;
+      v142 = 2114;
+      v143 = v16;
+      v144 = 2048;
       previousFailureCount = [challengeCopy previousFailureCount];
       _os_log_impl(&dword_2452FB000, v14, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Received authentication challenge for method %{public}@, previous failure count %ld", buf, 0x3Eu);
 
@@ -3816,15 +3748,15 @@ LABEL_13:
 
   v27 = objc_loadWeakRetained(&self->_accountInfoProvider);
   [v27 clientToken];
-  v130 = challengeCopy;
+  v129 = challengeCopy;
   v29 = v28 = taskCopy;
-  v126 = [v29 length];
+  v125 = [v29 length];
 
   taskCopy = v28;
-  challengeCopy = v130;
+  challengeCopy = v129;
 
   authenticationMethod = v24;
-  if (!v126)
+  if (!v125)
   {
     v30 = objc_loadWeakRetained(&self->_accountInfoProvider);
     [v30 clientTokenRequestedByServer];
@@ -3871,13 +3803,13 @@ LABEL_22:
           _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging2 = [(CoreDAVTask *)self _requestForLogging];
           *buf = 138413058;
-          v136 = v48;
-          v137 = 2048;
+          v135 = v48;
+          v136 = 2048;
           selfCopy10 = self;
-          v139 = 2048;
-          v140 = _sessionForLogging2;
-          v141 = 2048;
-          v142 = _requestForLogging2;
+          v138 = 2048;
+          v139 = _sessionForLogging2;
+          v140 = 2048;
+          v141 = _requestForLogging2;
           _os_log_impl(&dword_2452FB000, v46, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] continuing without credential for challenge", buf, 0x2Au);
         }
       }
@@ -3895,15 +3827,15 @@ LABEL_22:
       _sessionForLogging3 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging3 = [(CoreDAVTask *)self _requestForLogging];
       *buf = 138413315;
-      v136 = v40;
-      v137 = 2048;
+      v135 = v40;
+      v136 = 2048;
       selfCopy10 = self;
-      v139 = 2048;
-      v140 = _sessionForLogging3;
-      v141 = 2048;
-      v142 = _requestForLogging3;
-      v143 = 2113;
-      v144 = challengeCopy;
+      v138 = 2048;
+      v139 = _sessionForLogging3;
+      v140 = 2048;
+      v141 = _requestForLogging3;
+      v142 = 2113;
+      v143 = challengeCopy;
       _os_log_impl(&dword_2452FB000, v38, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] ignoring challenge %{private}@ because it's already failed", buf, 0x34u);
     }
 
@@ -3914,76 +3846,76 @@ LABEL_19:
   }
 
   currentRequest = [taskCopy currentRequest];
-  v54 = [currentRequest URL];
+  v53 = [currentRequest URL];
 
-  scheme = [v54 scheme];
-  v56 = [scheme isEqualToString:@"http"];
-  v57 = MEMORY[0x277CBAAE0];
+  scheme = [v53 scheme];
+  v55 = [scheme isEqualToString:@"http"];
+  v56 = MEMORY[0x277CBAAE0];
   v34 = 0x278E30000uLL;
-  if (v56)
+  if (v55)
   {
-    v58 = *MEMORY[0x277CBAAE0];
-    v59 = [authenticationMethod isEqualToString:*MEMORY[0x277CBAAE0]];
+    v57 = *MEMORY[0x277CBAAE0];
+    v58 = [authenticationMethod isEqualToString:*MEMORY[0x277CBAAE0]];
 
-    if (v59)
+    if (v58)
     {
-      v60 = +[CoreDAVLogging sharedLogging];
-      v61 = objc_loadWeakRetained(&self->_accountInfoProvider);
-      v62 = [v60 logHandleForAccountInfoProvider:v61];
+      v59 = +[CoreDAVLogging sharedLogging];
+      v60 = objc_loadWeakRetained(&self->_accountInfoProvider);
+      v61 = [v59 logHandleForAccountInfoProvider:v60];
 
-      if (!v62)
+      if (!v61)
       {
 LABEL_34:
 
-        v67 = +[CoreDAVLogging sharedLogging];
-        v68 = objc_loadWeakRetained(&self->_accountInfoProvider);
-        v69 = [v67 logHandleForAccountInfoProvider:v68];
+        v66 = +[CoreDAVLogging sharedLogging];
+        v67 = objc_loadWeakRetained(&self->_accountInfoProvider);
+        v68 = [v66 logHandleForAccountInfoProvider:v67];
 
-        if (v69)
+        if (v68)
         {
-          v70 = v69;
-          if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+          v69 = v68;
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
           {
-            v71 = objc_opt_class();
-            v72 = NSStringFromClass(v71);
+            v70 = objc_opt_class();
+            v71 = NSStringFromClass(v70);
             _sessionForLogging4 = [(CoreDAVTask *)self _sessionForLogging];
             _requestForLogging4 = [(CoreDAVTask *)self _requestForLogging];
             *buf = 138413058;
-            v136 = v72;
-            v137 = 2048;
+            v135 = v71;
+            v136 = 2048;
             selfCopy10 = self;
-            v139 = 2048;
-            v140 = _sessionForLogging4;
-            v141 = 2048;
-            v142 = _requestForLogging4;
-            _os_log_impl(&dword_2452FB000, v70, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Cancelling auth challenge", buf, 0x2Au);
+            v138 = 2048;
+            v139 = _sessionForLogging4;
+            v140 = 2048;
+            v141 = _requestForLogging4;
+            _os_log_impl(&dword_2452FB000, v69, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Cancelling auth challenge", buf, 0x2Au);
           }
         }
 
         goto LABEL_39;
       }
 
-      v62 = v62;
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v61 = v61;
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        v63 = objc_opt_class();
-        NSStringFromClass(v63);
-        v64 = v127 = authenticationMethod;
+        v62 = objc_opt_class();
+        NSStringFromClass(v62);
+        v63 = v126 = authenticationMethod;
         _sessionForLogging5 = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging5 = [(CoreDAVTask *)self _requestForLogging];
         *buf = 138413314;
-        v136 = v64;
-        v137 = 2048;
+        v135 = v63;
+        v136 = 2048;
         selfCopy10 = self;
-        v139 = 2048;
-        v140 = _sessionForLogging5;
-        v141 = 2048;
-        v142 = _requestForLogging5;
-        v143 = 2112;
-        v144 = v54;
-        _os_log_impl(&dword_2452FB000, v62, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Cancelling authentication challenge for insecure connection using basic authentication for URL %@", buf, 0x34u);
+        v138 = 2048;
+        v139 = _sessionForLogging5;
+        v140 = 2048;
+        v141 = _requestForLogging5;
+        v142 = 2112;
+        v143 = v53;
+        _os_log_impl(&dword_2452FB000, v61, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Cancelling authentication challenge for insecure connection using basic authentication for URL %@", buf, 0x34u);
 
-        authenticationMethod = v127;
+        authenticationMethod = v126;
       }
 
 LABEL_33:
@@ -3995,131 +3927,131 @@ LABEL_33:
   else
   {
 
-    v58 = *v57;
+    v57 = *v56;
   }
 
-  if (([authenticationMethod isEqualToString:v58] & 1) != 0 || objc_msgSend(authenticationMethod, "isEqualToString:", *MEMORY[0x277CBAAE8]))
+  if (([authenticationMethod isEqualToString:v57] & 1) != 0 || objc_msgSend(authenticationMethod, "isEqualToString:", *MEMORY[0x277CBAAE8]))
   {
-    v131 = v54;
+    v130 = v53;
     if (![(CoreDAVTask *)self _shouldCreateCredentialForBasicOrDigestAuthChallenge:challengeCopy])
     {
       proposedCredential = [challengeCopy proposedCredential];
       password = [proposedCredential password];
-      v88 = [password length];
+      v87 = [password length];
 
-      if (v88)
+      if (v87)
       {
-        v35 = v131;
+        v35 = v130;
         goto LABEL_21;
       }
 
       v37 = +[CoreDAVLogging sharedLogging];
-      v100 = objc_loadWeakRetained(&self->_accountInfoProvider);
-      v38 = [v37 logHandleForAccountInfoProvider:v100];
+      v99 = objc_loadWeakRetained(&self->_accountInfoProvider);
+      v38 = [v37 logHandleForAccountInfoProvider:v99];
 
       if (v38)
       {
-        v129 = authenticationMethod;
-        v101 = v38;
-        if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+        v128 = authenticationMethod;
+        v100 = v38;
+        if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
         {
-          v102 = objc_opt_class();
-          v125 = NSStringFromClass(v102);
+          v101 = objc_opt_class();
+          v124 = NSStringFromClass(v101);
           _sessionForLogging6 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging6 = [(CoreDAVTask *)self _requestForLogging];
-          v124 = objc_loadWeakRetained(&self->_accountInfoProvider);
-          accountID = [v124 accountID];
+          v123 = objc_loadWeakRetained(&self->_accountInfoProvider);
+          accountID = [v123 accountID];
           *buf = 138413314;
-          v136 = v125;
-          v137 = 2048;
+          v135 = v124;
+          v136 = 2048;
           selfCopy10 = self;
-          v139 = 2048;
-          v140 = _sessionForLogging6;
-          v141 = 2048;
-          v142 = _requestForLogging6;
-          v143 = 2114;
-          v144 = accountID;
-          _os_log_impl(&dword_2452FB000, v101, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Got a credential challenge, but we don't have any credentials. This request will likely fail. accountID = %{public}@", buf, 0x34u);
-        }
-
-        authenticationMethod = v129;
-      }
-
-      v35 = v131;
-      goto LABEL_19;
-    }
-
-    v75 = MEMORY[0x277CBAB80];
-    v76 = objc_loadWeakRetained(&self->_accountInfoProvider);
-    user = [v76 user];
-    [user CDVStringByRemovingPercentEscapesForHREF];
-    v79 = v78 = taskCopy;
-    v80 = objc_loadWeakRetained(&self->_accountInfoProvider);
-    [v80 password];
-    selfCopy7 = self;
-    v83 = v82 = authenticationMethod;
-    v84 = [v75 credentialWithUser:v79 password:v83 persistence:1];
-
-    authenticationMethod = v82;
-    self = selfCopy7;
-    v34 = 0x278E30000;
-
-    taskCopy = v78;
-    v85 = v84;
-
-    v54 = v131;
-    goto LABEL_53;
-  }
-
-  if ([authenticationMethod isEqualToString:*MEMORY[0x277CBAAF8]])
-  {
-    v89 = objc_loadWeakRetained(&self->_accountInfoProvider);
-    v90 = objc_opt_respondsToSelector();
-
-    if (v90)
-    {
-      v91 = [(CoreDAVTask *)self credentialForOAuthChallenge:challengeCopy];
-LABEL_52:
-      v85 = v91;
-LABEL_53:
-
-      if (!v85)
-      {
-        goto LABEL_22;
-      }
-
-      sharedLogging2 = [*(v34 + 2968) sharedLogging];
-      v93 = objc_loadWeakRetained(&self->_accountInfoProvider);
-      v94 = [sharedLogging2 logHandleForAccountInfoProvider:v93];
-
-      if (v94)
-      {
-        v128 = authenticationMethod;
-        v95 = v94;
-        if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
-        {
-          v96 = objc_opt_class();
-          v97 = NSStringFromClass(v96);
-          _sessionForLogging7 = [(CoreDAVTask *)self _sessionForLogging];
-          _requestForLogging7 = [(CoreDAVTask *)self _requestForLogging];
-          *buf = 138413315;
-          v136 = v97;
-          v137 = 2048;
-          selfCopy10 = self;
-          v139 = 2048;
-          v140 = _sessionForLogging7;
-          v141 = 2048;
-          v142 = _requestForLogging7;
-          v143 = 2113;
-          v144 = v85;
-          _os_log_impl(&dword_2452FB000, v95, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Using credential %{private}@ for challenge", buf, 0x34u);
+          v138 = 2048;
+          v139 = _sessionForLogging6;
+          v140 = 2048;
+          v141 = _requestForLogging6;
+          v142 = 2114;
+          v143 = accountID;
+          _os_log_impl(&dword_2452FB000, v100, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Got a credential challenge, but we don't have any credentials. This request will likely fail. accountID = %{public}@", buf, 0x34u);
         }
 
         authenticationMethod = v128;
       }
 
+      v35 = v130;
+      goto LABEL_19;
+    }
+
+    v74 = MEMORY[0x277CBAB80];
+    v75 = objc_loadWeakRetained(&self->_accountInfoProvider);
+    user = [v75 user];
+    [user CDVStringByRemovingPercentEscapesForHREF];
+    v78 = v77 = taskCopy;
+    v79 = objc_loadWeakRetained(&self->_accountInfoProvider);
+    [v79 password];
+    selfCopy7 = self;
+    v82 = v81 = authenticationMethod;
+    v83 = [v74 credentialWithUser:v78 password:v82 persistence:1];
+
+    authenticationMethod = v81;
+    self = selfCopy7;
+    v34 = 0x278E30000;
+
+    taskCopy = v77;
+    v84 = v83;
+
+    v53 = v130;
+    goto LABEL_53;
+  }
+
+  if ([authenticationMethod isEqualToString:*MEMORY[0x277CBAAF8]])
+  {
+    v88 = objc_loadWeakRetained(&self->_accountInfoProvider);
+    v89 = objc_opt_respondsToSelector();
+
+    if (v89)
+    {
+      v90 = [(CoreDAVTask *)self credentialForOAuthChallenge:challengeCopy];
+LABEL_52:
+      v84 = v90;
+LABEL_53:
+
+      if (!v84)
+      {
+        goto LABEL_22;
+      }
+
+      sharedLogging2 = [*(v34 + 2968) sharedLogging];
+      v92 = objc_loadWeakRetained(&self->_accountInfoProvider);
+      v93 = [sharedLogging2 logHandleForAccountInfoProvider:v92];
+
+      if (v93)
+      {
+        v127 = authenticationMethod;
+        v94 = v93;
+        if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
+        {
+          v95 = objc_opt_class();
+          v96 = NSStringFromClass(v95);
+          _sessionForLogging7 = [(CoreDAVTask *)self _sessionForLogging];
+          _requestForLogging7 = [(CoreDAVTask *)self _requestForLogging];
+          *buf = 138413315;
+          v135 = v96;
+          v136 = 2048;
+          selfCopy10 = self;
+          v138 = 2048;
+          v139 = _sessionForLogging7;
+          v140 = 2048;
+          v141 = _requestForLogging7;
+          v142 = 2113;
+          v143 = v84;
+          _os_log_impl(&dword_2452FB000, v94, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Using credential %{private}@ for challenge", buf, 0x34u);
+        }
+
+        authenticationMethod = v127;
+      }
+
       v51 = handlerCopy;
-      (*(handlerCopy + 2))(handlerCopy, 0, v85);
+      (*(handlerCopy + 2))(handlerCopy, 0, v84);
 
       goto LABEL_27;
     }
@@ -4127,86 +4059,84 @@ LABEL_53:
 
   if ([authenticationMethod isEqualToString:*MEMORY[0x277CBAAC8]])
   {
-    v91 = [(CoreDAVTask *)self credentialForClientCertificateChallenge:challengeCopy];
+    v90 = [(CoreDAVTask *)self credentialForClientCertificateChallenge:challengeCopy];
     goto LABEL_52;
   }
 
-  v105 = objc_loadWeakRetained(&self->_accountInfoProvider);
-  v106 = objc_opt_respondsToSelector();
+  v104 = objc_loadWeakRetained(&self->_accountInfoProvider);
+  v105 = objc_opt_respondsToSelector();
 
-  if ((v106 & 1) == 0)
+  if ((v105 & 1) == 0)
   {
-    v60 = +[CoreDAVLogging sharedLogging];
-    v118 = objc_loadWeakRetained(&self->_accountInfoProvider);
-    v62 = [v60 logHandleForAccountInfoProvider:v118];
+    v59 = +[CoreDAVLogging sharedLogging];
+    v117 = objc_loadWeakRetained(&self->_accountInfoProvider);
+    v61 = [v59 logHandleForAccountInfoProvider:v117];
 
-    if (!v62)
+    if (!v61)
     {
       goto LABEL_34;
     }
 
-    v62 = v62;
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+    v61 = v61;
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
     {
-      v119 = objc_opt_class();
-      v120 = NSStringFromClass(v119);
+      v118 = objc_opt_class();
+      v119 = NSStringFromClass(v118);
       _sessionForLogging8 = [(CoreDAVTask *)self _sessionForLogging];
       [(CoreDAVTask *)self _requestForLogging];
-      v122 = v132 = v54;
+      v121 = v131 = v53;
       *buf = 138413058;
-      v136 = v120;
-      v137 = 2048;
+      v135 = v119;
+      v136 = 2048;
       selfCopy10 = self;
-      v139 = 2048;
-      v140 = _sessionForLogging8;
-      v141 = 2048;
-      v142 = v122;
-      _os_log_impl(&dword_2452FB000, v62, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] AccountInfoProvider doesn't know how to handle a trust challenge, so we're just going to have to cancel.", buf, 0x2Au);
+      v138 = 2048;
+      v139 = _sessionForLogging8;
+      v140 = 2048;
+      v141 = v121;
+      _os_log_impl(&dword_2452FB000, v61, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] AccountInfoProvider doesn't know how to handle a trust challenge, so we're just going to have to cancel.", buf, 0x2Au);
 
-      v54 = v132;
+      v53 = v131;
     }
 
     goto LABEL_33;
   }
 
-  v107 = objc_loadWeakRetained(&self->_accountInfoProvider);
-  v108 = [v107 handleTrustChallenge:challengeCopy completionHandler:handlerCopy];
+  v106 = objc_loadWeakRetained(&self->_accountInfoProvider);
+  v107 = [v106 handleTrustChallenge:challengeCopy completionHandler:handlerCopy];
 
-  if (v108)
+  if (v107)
   {
-    v109 = CDVRunLoopModesToPerformDelayedSelectorsIn();
-    [(CoreDAVTask *)self performSelector:sel_performCoreDAVTask withObject:0 afterDelay:v109 inModes:0.0];
+    v108 = CDVRunLoopModesToPerformDelayedSelectorsIn();
+    [(CoreDAVTask *)self performSelector:sel_performCoreDAVTask withObject:0 afterDelay:v108 inModes:0.0];
   }
 
-  v110 = +[CoreDAVLogging sharedLogging];
-  v111 = objc_loadWeakRetained(&self->_accountInfoProvider);
-  v112 = [v110 logHandleForAccountInfoProvider:v111];
+  v109 = +[CoreDAVLogging sharedLogging];
+  v110 = objc_loadWeakRetained(&self->_accountInfoProvider);
+  v111 = [v109 logHandleForAccountInfoProvider:v110];
 
-  if (v112)
+  if (v111)
   {
-    v113 = v112;
-    if (os_log_type_enabled(v113, OS_LOG_TYPE_INFO))
+    v112 = v111;
+    if (os_log_type_enabled(v112, OS_LOG_TYPE_INFO))
     {
-      v114 = objc_opt_class();
-      v115 = NSStringFromClass(v114);
+      v113 = objc_opt_class();
+      v114 = NSStringFromClass(v113);
       _sessionForLogging9 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging8 = [(CoreDAVTask *)self _requestForLogging];
       *buf = 138413058;
-      v136 = v115;
-      v137 = 2048;
+      v135 = v114;
+      v136 = 2048;
       selfCopy10 = self;
-      v139 = 2048;
-      v140 = _sessionForLogging9;
-      v141 = 2048;
-      v142 = _requestForLogging8;
-      _os_log_impl(&dword_2452FB000, v113, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Waiting for runloop callback to decide what to do", buf, 0x2Au);
+      v138 = 2048;
+      v139 = _sessionForLogging9;
+      v140 = 2048;
+      v141 = _requestForLogging8;
+      _os_log_impl(&dword_2452FB000, v112, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Waiting for runloop callback to decide what to do", buf, 0x2Au);
     }
   }
 
   v51 = handlerCopy;
 LABEL_27:
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldCreateCredentialForBasicOrDigestAuthChallenge:(id)challenge
@@ -4247,7 +4177,7 @@ LABEL_7:
 
 - (void)_handleAuthenticationChallenge:(id)challenge task:(id)task completionHandler:(id)handler
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   taskCopy = task;
   handlerCopy = handler;
@@ -4264,30 +4194,30 @@ LABEL_7:
     {
       v17 = objc_opt_class();
       NSStringFromClass(v17);
-      v94 = protectionSpace;
-      v91 = handlerCopy;
+      v92 = protectionSpace;
+      v89 = handlerCopy;
       v18 = taskCopy;
       v20 = v19 = challengeCopy;
       [(CoreDAVTask *)self _sessionForLogging];
       v22 = v21 = authenticationMethod;
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
       *buf = 138413314;
-      v101 = v20;
-      v102 = 2048;
+      v99 = v20;
+      v100 = 2048;
       selfCopy6 = self;
+      v102 = 2048;
+      v103 = v22;
       v104 = 2048;
-      v105 = v22;
-      v106 = 2048;
-      v107 = _requestForLogging;
-      v108 = 2114;
-      v109 = v21;
+      v105 = _requestForLogging;
+      v106 = 2114;
+      v107 = v21;
       _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] _handleAuthenticationChallenge:task:completionHandler: for auth mechanism %{public}@", buf, 0x34u);
 
       authenticationMethod = v21;
       challengeCopy = v19;
       taskCopy = v18;
-      handlerCopy = v91;
-      protectionSpace = v94;
+      handlerCopy = v89;
+      protectionSpace = v92;
     }
   }
 
@@ -4313,7 +4243,7 @@ LABEL_7:
   v25 = objc_loadWeakRetained(&self->_accountInfoProvider);
   v26 = [v24 logHandleForAccountInfoProvider:v25];
 
-  v93 = authenticationMethod;
+  v91 = authenticationMethod;
   if (v26)
   {
     v27 = v26;
@@ -4323,26 +4253,26 @@ LABEL_7:
       v29 = NSStringFromClass(v28);
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       [(CoreDAVTask *)self _requestForLogging];
-      v95 = protectionSpace;
+      v93 = protectionSpace;
       v31 = handlerCopy;
       v32 = taskCopy;
       v34 = v33 = challengeCopy;
       *buf = 138413058;
-      v101 = v29;
-      v102 = 2048;
+      v99 = v29;
+      v100 = 2048;
       selfCopy6 = self;
+      v102 = 2048;
+      v103 = _sessionForLogging;
       v104 = 2048;
-      v105 = _sessionForLogging;
-      v106 = 2048;
-      v107 = v34;
+      v105 = v34;
       _os_log_impl(&dword_2452FB000, v27, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] MobileMeAuth requested", buf, 0x2Au);
 
       challengeCopy = v33;
       taskCopy = v32;
       handlerCopy = v31;
-      protectionSpace = v95;
+      protectionSpace = v93;
 
-      authenticationMethod = v93;
+      authenticationMethod = v91;
     }
   }
 
@@ -4361,26 +4291,26 @@ LABEL_7:
         v40 = NSStringFromClass(v39);
         _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
         [(CoreDAVTask *)self _requestForLogging];
-        v96 = protectionSpace;
+        v94 = protectionSpace;
         v42 = handlerCopy;
         v43 = taskCopy;
         v45 = v44 = challengeCopy;
         *buf = 138413058;
-        v101 = v40;
-        v102 = 2048;
+        v99 = v40;
+        v100 = 2048;
         selfCopy6 = self;
+        v102 = 2048;
+        v103 = _sessionForLogging2;
         v104 = 2048;
-        v105 = _sessionForLogging2;
-        v106 = 2048;
-        v107 = v45;
+        v105 = v45;
         _os_log_impl(&dword_2452FB000, v38, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Rejecting token auth because we've already tried it.", buf, 0x2Au);
 
         challengeCopy = v44;
         taskCopy = v43;
         handlerCopy = v42;
-        protectionSpace = v96;
+        protectionSpace = v94;
 
-        authenticationMethod = v93;
+        authenticationMethod = v91;
       }
     }
 
@@ -4407,8 +4337,8 @@ LABEL_16:
     v53 = objc_loadWeakRetained(&self->_accountInfoProvider);
     v54 = [v52 logHandleForAccountInfoProvider:v53];
 
-    authenticationMethod = v93;
-    v89 = user2;
+    authenticationMethod = v91;
+    v87 = user2;
     if (v54)
     {
       v55 = v54;
@@ -4418,115 +4348,114 @@ LABEL_16:
         v57 = NSStringFromClass(v56);
         _sessionForLogging3 = [(CoreDAVTask *)self _sessionForLogging];
         [(CoreDAVTask *)self _requestForLogging];
-        v97 = protectionSpace;
+        v95 = protectionSpace;
         v59 = handlerCopy;
         v60 = taskCopy;
         v62 = v61 = challengeCopy;
         *buf = 138413058;
-        v101 = v57;
-        v102 = 2048;
+        v99 = v57;
+        v100 = 2048;
         selfCopy6 = self;
+        v102 = 2048;
+        v103 = _sessionForLogging3;
         v104 = 2048;
-        v105 = _sessionForLogging3;
-        v106 = 2048;
-        v107 = v62;
+        v105 = v62;
         _os_log_impl(&dword_2452FB000, v55, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Creating mme token", buf, 0x2Au);
 
         challengeCopy = v61;
         taskCopy = v60;
         handlerCopy = v59;
-        protectionSpace = v97;
+        protectionSpace = v95;
 
-        authenticationMethod = v93;
+        authenticationMethod = v91;
       }
 
-      user2 = v89;
+      user2 = v87;
     }
 
-    v88 = challengeCopy;
+    v86 = challengeCopy;
 
-    v63 = *MEMORY[0x277CBECE8];
     XMobileMeAuthToken = _CFURLCredentialCreateXMobileMeAuthToken();
-    v65 = [objc_alloc(MEMORY[0x277CBAB80]) _initWithCFURLCredential:XMobileMeAuthToken];
+    v64 = [objc_alloc(MEMORY[0x277CBAB80]) _initWithCFURLCredential:XMobileMeAuthToken];
     CFRelease(XMobileMeAuthToken);
-    (handlerCopy)[2](handlerCopy, 0, v65);
-    v66 = +[CoreDAVLogging sharedLogging];
-    v67 = objc_loadWeakRetained(&self->_accountInfoProvider);
-    v68 = [v66 logHandleForAccountInfoProvider:v67];
+    (handlerCopy)[2](handlerCopy, 0, v64);
+    v65 = +[CoreDAVLogging sharedLogging];
+    v66 = objc_loadWeakRetained(&self->_accountInfoProvider);
+    v67 = [v65 logHandleForAccountInfoProvider:v66];
 
-    if (v68)
+    if (v67)
     {
-      v69 = v68;
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+      v68 = v67;
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
       {
-        v70 = objc_opt_class();
-        v71 = NSStringFromClass(v70);
+        v69 = objc_opt_class();
+        v70 = NSStringFromClass(v69);
         _sessionForLogging4 = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging2 = [(CoreDAVTask *)self _requestForLogging];
-        v73 = _requestForLogging2;
+        v72 = _requestForLogging2;
         *buf = 138413314;
-        v74 = @"Valid";
-        v101 = v71;
-        if (!v65)
+        v73 = @"Valid";
+        v99 = v70;
+        if (!v64)
         {
-          v74 = @"InValid";
+          v73 = @"InValid";
         }
 
-        v102 = 2048;
+        v100 = 2048;
         selfCopy6 = self;
+        v102 = 2048;
+        v103 = _sessionForLogging4;
         v104 = 2048;
-        v105 = _sessionForLogging4;
-        v106 = 2048;
-        v107 = _requestForLogging2;
-        v108 = 2114;
-        v109 = v74;
-        _os_log_impl(&dword_2452FB000, v69, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Responded to authChallenge with a %{public}@ mme token", buf, 0x34u);
+        v105 = _requestForLogging2;
+        v106 = 2114;
+        v107 = v73;
+        _os_log_impl(&dword_2452FB000, v68, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Responded to authChallenge with a %{public}@ mme token", buf, 0x34u);
 
-        authenticationMethod = v93;
+        authenticationMethod = v91;
       }
 
-      user2 = v89;
+      user2 = v87;
     }
 
-    challengeCopy = v88;
+    challengeCopy = v86;
   }
 
   else
   {
-    v76 = +[CoreDAVLogging sharedLogging];
-    v77 = objc_loadWeakRetained(&self->_accountInfoProvider);
-    v78 = [v76 logHandleForAccountInfoProvider:v77];
+    v74 = +[CoreDAVLogging sharedLogging];
+    v75 = objc_loadWeakRetained(&self->_accountInfoProvider);
+    v76 = [v74 logHandleForAccountInfoProvider:v75];
 
-    authenticationMethod = v93;
-    if (v78)
+    authenticationMethod = v91;
+    if (v76)
     {
-      v79 = v78;
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+      v77 = v76;
+      if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
       {
-        v80 = objc_opt_class();
-        v81 = NSStringFromClass(v80);
+        v78 = objc_opt_class();
+        v79 = NSStringFromClass(v78);
         _sessionForLogging5 = [(CoreDAVTask *)self _sessionForLogging];
         [(CoreDAVTask *)self _requestForLogging];
-        v99 = protectionSpace;
-        v83 = handlerCopy;
-        v84 = taskCopy;
-        v86 = v85 = challengeCopy;
+        v97 = protectionSpace;
+        v81 = handlerCopy;
+        v82 = taskCopy;
+        v84 = v83 = challengeCopy;
         *buf = 138413058;
-        v101 = v81;
-        v102 = 2048;
+        v99 = v79;
+        v100 = 2048;
         selfCopy6 = self;
+        v102 = 2048;
+        v103 = _sessionForLogging5;
         v104 = 2048;
-        v105 = _sessionForLogging5;
-        v106 = 2048;
-        v107 = v86;
-        _os_log_impl(&dword_2452FB000, v79, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Using existing token because no user was provided.", buf, 0x2Au);
+        v105 = v84;
+        _os_log_impl(&dword_2452FB000, v77, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Using existing token because no user was provided.", buf, 0x2Au);
 
-        challengeCopy = v85;
-        taskCopy = v84;
-        handlerCopy = v83;
-        protectionSpace = v99;
+        challengeCopy = v83;
+        taskCopy = v82;
+        handlerCopy = v81;
+        protectionSpace = v97;
 
-        authenticationMethod = v93;
+        authenticationMethod = v91;
       }
     }
 
@@ -4535,13 +4464,11 @@ LABEL_16:
   }
 
 LABEL_34:
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWebLoginRequestWithCompletionBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   responseHeaders = [(CoreDAVTask *)self responseHeaders];
   v6 = [responseHeaders CDVObjectForKeyCaseInsensitive:@"X-Web-Login-Required"];
@@ -4576,18 +4503,18 @@ LABEL_16:
         {
           scheme = [v9 scheme];
           host = [v9 host];
-          v23 = [(NSURLRequest *)self->_request URL];
-          scheme2 = [v23 scheme];
+          v22 = [(NSURLRequest *)self->_request URL];
+          scheme2 = [v22 scheme];
           v19 = [(NSURLRequest *)self->_request URL];
           [v19 host];
           *buf = 138413058;
-          v27 = scheme;
-          v28 = 2112;
-          v29 = host;
-          v30 = 2112;
-          v31 = scheme2;
-          v33 = v32 = 2112;
-          v20 = v33;
+          v26 = scheme;
+          v27 = 2112;
+          v28 = host;
+          v29 = 2112;
+          v30 = scheme2;
+          v32 = v31 = 2112;
+          v20 = v32;
           _os_log_impl(&dword_2452FB000, v18, OS_LOG_TYPE_ERROR, "Web login URL (%@://%@) does not match our current host URL (%@://%@). Ignoring request.", buf, 0x2Au);
         }
       }
@@ -4602,7 +4529,7 @@ LABEL_16:
       if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v6;
+        v26 = v6;
         _os_log_impl(&dword_2452FB000, v15, OS_LOG_TYPE_ERROR, "Couldn't parse a valid URL from %@. Failing this task.", buf, 0xCu);
       }
     }
@@ -4613,8 +4540,6 @@ LABEL_16:
 
   blockCopy[2](blockCopy, 3);
 LABEL_17:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
@@ -4635,21 +4560,19 @@ LABEL_17:
 
 void __52__CoreDAVTask_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v3 == v2[7])
   {
     if (*(a1 + 48))
     {
-      v17 = *MEMORY[0x277D85DE8];
 
       [v2 _task:? didFailWithError:?];
     }
 
     else
     {
-      v18 = *MEMORY[0x277D85DE8];
 
       [v2 _taskFinishedLoading:?];
     }
@@ -4666,37 +4589,34 @@ void __52__CoreDAVTask_URLSession_task_didCompleteWithError___block_invoke(uint6
       v7 = v6;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 40);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = *(a1 + 40);
-        v12 = [v11 _sessionForLogging];
-        v13 = [*(a1 + 40) _requestForLogging];
-        v14 = *(a1 + 32);
-        v15 = *(*(a1 + 40) + 56);
-        v19 = 138413570;
-        v20 = v10;
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = *(a1 + 40);
+        v11 = [v10 _sessionForLogging];
+        v12 = [*(a1 + 40) _requestForLogging];
+        v13 = *(a1 + 32);
+        v14 = *(*(a1 + 40) + 56);
+        v15 = 138413570;
+        v16 = v9;
+        v17 = 2048;
+        v18 = v10;
+        v19 = 2048;
+        v20 = v11;
         v21 = 2048;
-        v22 = v11;
+        v22 = v12;
         v23 = 2048;
-        v24 = v12;
+        v24 = v13;
         v25 = 2048;
-        v26 = v13;
-        v27 = 2048;
-        v28 = v14;
-        v29 = 2048;
-        v30 = v15;
-        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:task:didCompleteWithError: callback for task %p because it doesn't match our current task, %p", &v19, 0x3Eu);
+        v26 = v14;
+        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:task:didCompleteWithError: callback for task %p because it doesn't match our current task, %p", &v15, 0x3Eu);
       }
     }
-
-    v16 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_taskFinishedLoading:(id)loading
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   loadingCopy = loading;
   v5 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->_accountInfoProvider);
@@ -4711,17 +4631,17 @@ void __52__CoreDAVTask_URLSession_task_didCompleteWithError___block_invoke(uint6
       v10 = NSStringFromClass(v9);
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-      v92 = 138413314;
-      v93 = v10;
-      v94 = 2048;
+      v91 = 138413314;
+      v92 = v10;
+      v93 = 2048;
       selfCopy9 = self;
-      v96 = 2048;
-      v97 = _sessionForLogging;
-      v98 = 2048;
-      v99 = _requestForLogging;
-      v100 = 2112;
+      v95 = 2048;
+      v96 = _sessionForLogging;
+      v97 = 2048;
+      v98 = _requestForLogging;
+      v99 = 2112;
       selfCopy4 = loadingCopy;
-      _os_log_impl(&dword_2452FB000, v8, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] Connection did finish loading %@", &v92, 0x34u);
+      _os_log_impl(&dword_2452FB000, v8, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] Connection did finish loading %@", &v91, 0x34u);
     }
   }
 
@@ -4764,15 +4684,15 @@ LABEL_9:
       v23 = NSStringFromClass(v22);
       _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging2 = [(CoreDAVTask *)self _requestForLogging];
-      v92 = 138413058;
-      v93 = v23;
-      v94 = 2048;
+      v91 = 138413058;
+      v92 = v23;
+      v93 = 2048;
       selfCopy9 = self;
-      v96 = 2048;
-      v97 = _sessionForLogging2;
-      v98 = 2048;
-      v99 = _requestForLogging2;
-      _os_log_impl(&dword_2452FB000, v21, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] connection finished loading", &v92, 0x2Au);
+      v95 = 2048;
+      v96 = _sessionForLogging2;
+      v97 = 2048;
+      v98 = _requestForLogging2;
+      _os_log_impl(&dword_2452FB000, v21, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] connection finished loading", &v91, 0x2Au);
     }
   }
 
@@ -4795,19 +4715,19 @@ LABEL_9:
         v53 = NSStringFromClass(v52);
         _sessionForLogging3 = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging3 = [(CoreDAVTask *)self _requestForLogging];
-        v92 = 138413570;
-        v93 = v53;
-        v94 = 2048;
+        v91 = 138413570;
+        v92 = v53;
+        v93 = 2048;
         selfCopy9 = self;
-        v96 = 2048;
-        v97 = _sessionForLogging3;
-        v98 = 2048;
-        v99 = _requestForLogging3;
-        v100 = 2112;
+        v95 = 2048;
+        v96 = _sessionForLogging3;
+        v97 = 2048;
+        v98 = _requestForLogging3;
+        v99 = 2112;
         selfCopy4 = self;
-        v102 = 2112;
-        v103 = loadingCopy;
-        _os_log_impl(&dword_2452FB000, v51, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Received a didFinishLoading without receiving a response from the server.  Treating the following task as an unknown error: %@ %@", &v92, 0x3Eu);
+        v101 = 2112;
+        v102 = loadingCopy;
+        _os_log_impl(&dword_2452FB000, v51, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Received a didFinishLoading without receiving a response from the server.  Treating the following task as an unknown error: %@ %@", &v91, 0x3Eu);
       }
     }
 
@@ -4846,17 +4766,17 @@ LABEL_41:
         _requestForLogging4 = [(CoreDAVTask *)self _requestForLogging];
         responseBodyParser3 = [(CoreDAVTask *)self responseBodyParser];
         parserError2 = [responseBodyParser3 parserError];
-        v92 = 138413314;
-        v93 = v65;
-        v94 = 2048;
+        v91 = 138413314;
+        v92 = v65;
+        v93 = 2048;
         selfCopy9 = self;
-        v96 = 2048;
-        v97 = _sessionForLogging4;
-        v98 = 2048;
-        v99 = _requestForLogging4;
-        v100 = 2112;
+        v95 = 2048;
+        v96 = _sessionForLogging4;
+        v97 = 2048;
+        v98 = _requestForLogging4;
+        v99 = 2112;
         selfCopy4 = parserError2;
-        _os_log_impl(&dword_2452FB000, v63, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Parser failed to parse with error %@", &v92, 0x34u);
+        _os_log_impl(&dword_2452FB000, v63, OS_LOG_TYPE_ERROR, "[%@ %p, sess %p, request %p] Parser failed to parse with error %@", &v91, 0x34u);
       }
     }
 
@@ -4879,17 +4799,17 @@ LABEL_41:
       _sessionForLogging5 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging5 = [(CoreDAVTask *)self _requestForLogging];
       responseStatusCode = [(CoreDAVTask *)self responseStatusCode];
-      v92 = 138413314;
-      v93 = v33;
-      v94 = 2048;
+      v91 = 138413314;
+      v92 = v33;
+      v93 = 2048;
       selfCopy9 = self;
-      v96 = 2048;
-      v97 = _sessionForLogging5;
-      v98 = 2048;
-      v99 = _requestForLogging5;
-      v100 = 2048;
+      v95 = 2048;
+      v96 = _sessionForLogging5;
+      v97 = 2048;
+      v98 = _requestForLogging5;
+      v99 = 2048;
       selfCopy4 = responseStatusCode;
-      _os_log_impl(&dword_2452FB000, v31, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Received a successful finish, but had http status of %ld", &v92, 0x34u);
+      _os_log_impl(&dword_2452FB000, v31, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Received a successful finish, but had http status of %ld", &v91, 0x34u);
     }
   }
 
@@ -4918,15 +4838,15 @@ LABEL_43:
           v76 = NSStringFromClass(v75);
           _sessionForLogging6 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging6 = [(CoreDAVTask *)self _requestForLogging];
-          v92 = 138413058;
-          v93 = v76;
-          v94 = 2048;
+          v91 = 138413058;
+          v92 = v76;
+          v93 = 2048;
           selfCopy9 = self;
-          v96 = 2048;
-          v97 = _sessionForLogging6;
-          v98 = 2048;
-          v99 = _requestForLogging6;
-          _os_log_impl(&dword_2452FB000, v74, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] The server rejected our compressed request. Attempting an uncompressed request before giving up.", &v92, 0x2Au);
+          v95 = 2048;
+          v96 = _sessionForLogging6;
+          v97 = 2048;
+          v98 = _requestForLogging6;
+          _os_log_impl(&dword_2452FB000, v74, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] The server rejected our compressed request. Attempting an uncompressed request before giving up.", &v91, 0x2Au);
         }
       }
 
@@ -4959,15 +4879,15 @@ LABEL_43:
           v88 = NSStringFromClass(v87);
           _sessionForLogging7 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging7 = [(CoreDAVTask *)self _requestForLogging];
-          v92 = 138413058;
-          v93 = v88;
-          v94 = 2048;
+          v91 = 138413058;
+          v92 = v88;
+          v93 = 2048;
           selfCopy9 = self;
-          v96 = 2048;
-          v97 = _sessionForLogging7;
-          v98 = 2048;
-          v99 = _requestForLogging7;
-          _os_log_impl(&dword_2452FB000, v86, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Received a HTTP 401 - unauthorized error And we handled it. Finishing task.", &v92, 0x2Au);
+          v95 = 2048;
+          v96 = _sessionForLogging7;
+          v97 = 2048;
+          v98 = _requestForLogging7;
+          _os_log_impl(&dword_2452FB000, v86, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Received a HTTP 401 - unauthorized error And we handled it. Finishing task.", &v91, 0x2Au);
         }
       }
     }
@@ -5002,17 +4922,17 @@ LABEL_62:
       v45 = NSStringFromClass(v44);
       _sessionForLogging8 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging8 = [(CoreDAVTask *)self _requestForLogging];
-      v92 = 138413314;
-      v93 = v45;
-      v94 = 2048;
+      v91 = 138413314;
+      v92 = v45;
+      v93 = 2048;
       selfCopy9 = self;
-      v96 = 2048;
-      v97 = _sessionForLogging8;
-      v98 = 2048;
-      v99 = _requestForLogging8;
-      v100 = 1024;
+      v95 = 2048;
+      v96 = _sessionForLogging8;
+      v97 = 2048;
+      v98 = _requestForLogging8;
+      v99 = 1024;
       LODWORD(selfCopy4) = 401;
-      _os_log_impl(&dword_2452FB000, v43, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Received %d; retrying task because [_accountInfoProvider shouldRetryUnauthorizedConnection] returned YES.", &v92, 0x30u);
+      _os_log_impl(&dword_2452FB000, v43, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Received %d; retrying task because [_accountInfoProvider shouldRetryUnauthorizedConnection] returned YES.", &v91, 0x30u);
     }
   }
 
@@ -5021,12 +4941,11 @@ LABEL_50:
   [(CoreDAVTask *)self performSelector:sel_performCoreDAVTask withObject:0 afterDelay:v79 inModes:0.0];
 
 LABEL_63:
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handleUnauthorizedAccessError:(id)error
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->_accountInfoProvider);
@@ -5042,16 +4961,16 @@ LABEL_63:
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
       *buf = 138413570;
-      v91 = v11;
-      v92 = 2048;
+      v90 = v11;
+      v91 = 2048;
       selfCopy12 = self;
-      v94 = 2048;
-      v95 = _sessionForLogging;
-      v96 = 2048;
-      v97 = _requestForLogging;
-      v98 = 2112;
-      v99 = errorCopy;
-      v100 = 2112;
+      v93 = 2048;
+      v94 = _sessionForLogging;
+      v95 = 2048;
+      v96 = _requestForLogging;
+      v97 = 2112;
+      v98 = errorCopy;
+      v99 = 2112;
       selfCopy7 = self;
       _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Figuring out if we should handle unauthorized access error %@ Self = %@", buf, 0x3Eu);
     }
@@ -5079,13 +4998,13 @@ LABEL_63:
           _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging2 = [(CoreDAVTask *)self _requestForLogging];
           *buf = 138413058;
-          v91 = v21;
-          v92 = 2048;
+          v90 = v21;
+          v91 = 2048;
           selfCopy12 = self;
-          v94 = 2048;
-          v95 = _sessionForLogging2;
-          v96 = 2048;
-          v97 = _requestForLogging2;
+          v93 = 2048;
+          v94 = _sessionForLogging2;
+          v95 = 2048;
+          v96 = _requestForLogging2;
           v24 = "[%@ %p, sess %p, request %p] Already tried renewing credential";
 LABEL_45:
           _os_log_impl(&dword_2452FB000, v19, OS_LOG_TYPE_INFO, v24, buf, 0x2Au);
@@ -5109,13 +5028,13 @@ LABEL_45:
         _sessionForLogging3 = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging3 = [(CoreDAVTask *)self _requestForLogging];
         *buf = 138413058;
-        v91 = v59;
-        v92 = 2048;
+        v90 = v59;
+        v91 = 2048;
         selfCopy12 = self;
-        v94 = 2048;
-        v95 = _sessionForLogging3;
-        v96 = 2048;
-        v97 = _requestForLogging3;
+        v93 = 2048;
+        v94 = _sessionForLogging3;
+        v95 = 2048;
+        v96 = _requestForLogging3;
         _os_log_impl(&dword_2452FB000, v57, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Attempting to renew credential", buf, 0x2Au);
       }
     }
@@ -5140,13 +5059,13 @@ LABEL_45:
           _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging2 = [(CoreDAVTask *)self _requestForLogging];
           *buf = 138413058;
-          v91 = v21;
-          v92 = 2048;
+          v90 = v21;
+          v91 = 2048;
           selfCopy12 = self;
-          v94 = 2048;
-          v95 = _sessionForLogging2;
-          v96 = 2048;
-          v97 = _requestForLogging2;
+          v93 = 2048;
+          v94 = _sessionForLogging2;
+          v95 = 2048;
+          v96 = _requestForLogging2;
           v24 = "[%@ %p, sess %p, request %p] Unable to renew credential";
           goto LABEL_45;
         }
@@ -5171,16 +5090,16 @@ LABEL_48:
           _sessionForLogging4 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging4 = [(CoreDAVTask *)self _requestForLogging];
           *buf = 138413570;
-          v91 = v84;
-          v92 = 2048;
+          v90 = v84;
+          v91 = 2048;
           selfCopy12 = self;
-          v94 = 2048;
-          v95 = _sessionForLogging4;
-          v96 = 2048;
-          v97 = _requestForLogging4;
-          v98 = 2112;
-          v99 = errorCopy;
-          v100 = 2112;
+          v93 = 2048;
+          v94 = _sessionForLogging4;
+          v95 = 2048;
+          v96 = _requestForLogging4;
+          v97 = 2112;
+          v98 = errorCopy;
+          v99 = 2112;
           selfCopy7 = self;
           _os_log_impl(&dword_2452FB000, v82, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Unable to handle unauthorized access error %@ Self = %@", buf, 0x3Eu);
         }
@@ -5200,13 +5119,13 @@ LABEL_48:
         _sessionForLogging5 = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging5 = [(CoreDAVTask *)self _requestForLogging];
         *buf = 138413058;
-        v91 = v67;
-        v92 = 2048;
+        v90 = v67;
+        v91 = 2048;
         selfCopy12 = self;
-        v94 = 2048;
-        v95 = _sessionForLogging5;
-        v96 = 2048;
-        v97 = _requestForLogging5;
+        v93 = 2048;
+        v94 = _sessionForLogging5;
+        v95 = 2048;
+        v96 = _requestForLogging5;
         _os_log_impl(&dword_2452FB000, v65, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Renewed credential.  Retrying task", buf, 0x2Au);
       }
     }
@@ -5231,23 +5150,23 @@ LABEL_36:
       v30 = NSStringFromClass(v29);
       _sessionForLogging6 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging6 = [(CoreDAVTask *)self _requestForLogging];
-      v89 = errorCopy;
+      v88 = errorCopy;
       v33 = objc_loadWeakRetained(&self->_accountInfoProvider);
       v34 = objc_opt_class();
       v35 = NSStringFromClass(v34);
       *buf = 138413314;
-      v91 = v30;
-      v92 = 2048;
+      v90 = v30;
+      v91 = 2048;
       selfCopy12 = self;
-      v94 = 2048;
-      v95 = _sessionForLogging6;
-      v96 = 2048;
-      v97 = _requestForLogging6;
-      v98 = 2114;
-      v99 = v35;
+      v93 = 2048;
+      v94 = _sessionForLogging6;
+      v95 = 2048;
+      v96 = _requestForLogging6;
+      v97 = 2114;
+      v98 = v35;
       _os_log_impl(&dword_2452FB000, v28, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Received bad password (and %{public}@ doesn't respond to shouldTryRenewingCredential)", buf, 0x34u);
 
-      errorCopy = v89;
+      errorCopy = v88;
     }
   }
 
@@ -5279,13 +5198,13 @@ LABEL_36:
       _sessionForLogging7 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging7 = [(CoreDAVTask *)self _requestForLogging];
       *buf = 138413058;
-      v91 = v45;
-      v92 = 2048;
+      v90 = v45;
+      v91 = 2048;
       selfCopy12 = self;
-      v94 = 2048;
-      v95 = _sessionForLogging7;
-      v96 = 2048;
-      v97 = _requestForLogging7;
+      v93 = 2048;
+      v94 = _sessionForLogging7;
+      v95 = 2048;
+      v96 = _requestForLogging7;
       _os_log_impl(&dword_2452FB000, v43, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Bad password error received.", buf, 0x2Au);
     }
   }
@@ -5310,13 +5229,13 @@ LABEL_36:
         _sessionForLogging8 = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging8 = [(CoreDAVTask *)self _requestForLogging];
         *buf = 138413058;
-        v91 = v54;
-        v92 = 2048;
+        v90 = v54;
+        v91 = 2048;
         selfCopy12 = self;
-        v94 = 2048;
-        v95 = _sessionForLogging8;
-        v96 = 2048;
-        v97 = _requestForLogging8;
+        v93 = 2048;
+        v94 = _sessionForLogging8;
+        v95 = 2048;
+        v96 = _requestForLogging8;
         _os_log_impl(&dword_2452FB000, v52, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Starting Modal to handle Unauthorized Error.", buf, 0x2Au);
       }
     }
@@ -5338,13 +5257,13 @@ LABEL_36:
       _sessionForLogging9 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging9 = [(CoreDAVTask *)self _requestForLogging];
       *buf = 138413058;
-      v91 = v76;
-      v92 = 2048;
+      v90 = v76;
+      v91 = 2048;
       selfCopy12 = self;
-      v94 = 2048;
-      v95 = _sessionForLogging9;
-      v96 = 2048;
-      v97 = _requestForLogging9;
+      v93 = 2048;
+      v94 = _sessionForLogging9;
+      v95 = 2048;
+      v96 = _requestForLogging9;
       _os_log_impl(&dword_2452FB000, v74, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Received bad password response.  Optimistically trying one more time", buf, 0x2Au);
     }
   }
@@ -5355,7 +5274,6 @@ LABEL_36:
   [(CoreDAVTask *)self performSelector:sel_performCoreDAVTask withObject:0 afterDelay:v49 inModes:0.0];
 LABEL_53:
 
-  v87 = *MEMORY[0x277D85DE8];
   return v70;
 }
 
@@ -5383,17 +5301,14 @@ LABEL_53:
 
 uint64_t __72__CoreDAVTask_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v3 == v2[7])
   {
-    v18 = *(a1 + 48);
-    v19 = *(a1 + 56);
-    v20 = *(a1 + 64);
-    v21 = *MEMORY[0x277D85DE8];
+    v16 = *(a1 + 48);
 
-    return [v2 _session:v18 dataTask:? didReceiveResponse:? completionHandler:?];
+    return [v2 _session:v16 dataTask:? didReceiveResponse:? completionHandler:?];
   }
 
   else
@@ -5407,53 +5322,49 @@ uint64_t __72__CoreDAVTask_URLSession_dataTask_didReceiveResponse_completionHand
       v7 = v6;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 40);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = *(a1 + 40);
-        v12 = [v11 _sessionForLogging];
-        v13 = [*(a1 + 40) _requestForLogging];
-        v14 = *(a1 + 32);
-        v15 = *(*(a1 + 40) + 56);
-        v22 = 138413570;
-        v23 = v10;
-        v24 = 2048;
-        v25 = v11;
-        v26 = 2048;
-        v27 = v12;
-        v28 = 2048;
-        v29 = v13;
-        v30 = 2048;
-        v31 = v14;
-        v32 = 2048;
-        v33 = v15;
-        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:dataTask:didReceiveResponse:completionHandler: callback for task %p because it doesn't match our current task, %p", &v22, 0x3Eu);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = *(a1 + 40);
+        v11 = [v10 _sessionForLogging];
+        v12 = [*(a1 + 40) _requestForLogging];
+        v13 = *(a1 + 32);
+        v14 = *(*(a1 + 40) + 56);
+        v17 = 138413570;
+        v18 = v9;
+        v19 = 2048;
+        v20 = v10;
+        v21 = 2048;
+        v22 = v11;
+        v23 = 2048;
+        v24 = v12;
+        v25 = 2048;
+        v26 = v13;
+        v27 = 2048;
+        v28 = v14;
+        _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Ignoring -URLSession:dataTask:didReceiveResponse:completionHandler: callback for task %p because it doesn't match our current task, %p", &v17, 0x3Eu);
       }
     }
 
-    result = (*(*(a1 + 64) + 16))();
-    v17 = *MEMORY[0x277D85DE8];
+    return (*(*(a1 + 64) + 16))();
   }
-
-  return result;
 }
 
 - (void)_session:(id)_session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   responseCopy = response;
   handlerCopy = handler;
-  v65 = 0;
+  v64 = 0;
   accountInfoProvider = [(CoreDAVTask *)self accountInfoProvider];
   v12 = objc_opt_respondsToSelector();
 
   if ((v12 & 1) != 0 && (-[CoreDAVTask accountInfoProvider](self, "accountInfoProvider"), v13 = objc_claimAutoreleasedReturnValue(), [v13 getAppleIDSession], v14 = objc_claimAutoreleasedReturnValue(), v13, v14))
   {
     currentRequest = [taskCopy currentRequest];
-    [v14 handleResponse:responseCopy forRequest:currentRequest shouldRetry:&v65];
+    [v14 handleResponse:responseCopy forRequest:currentRequest shouldRetry:&v64];
 
-    if (v65)
+    if (v64)
     {
       v16 = CDVRunLoopModesToPerformDelayedSelectorsIn();
       [(CoreDAVTask *)self performSelector:sel_performCoreDAVTask withObject:0 afterDelay:v16 inModes:0.0];
@@ -5461,14 +5372,14 @@ uint64_t __72__CoreDAVTask_URLSession_dataTask_didReceiveResponse_completionHand
       goto LABEL_23;
     }
 
-    v62 = v14;
-    v63 = handlerCopy;
+    v61 = v14;
+    v62 = handlerCopy;
   }
 
   else
   {
-    v62 = 0;
-    v63 = handlerCopy;
+    v61 = 0;
+    v62 = handlerCopy;
   }
 
   self->_didReceiveResponse = 1;
@@ -5487,15 +5398,15 @@ uint64_t __72__CoreDAVTask_URLSession_dataTask_didReceiveResponse_completionHand
       _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
       statusCode = [responseCopy statusCode];
       *buf = 138413314;
-      v67 = v23;
-      v68 = 2048;
+      v66 = v23;
+      v67 = 2048;
       selfCopy4 = self;
-      v70 = 2048;
-      v71 = _sessionForLogging;
-      v72 = 2048;
-      v73 = _requestForLogging;
-      v74 = 2048;
-      v75 = statusCode;
+      v69 = 2048;
+      v70 = _sessionForLogging;
+      v71 = 2048;
+      v72 = _requestForLogging;
+      v73 = 2048;
+      v74 = statusCode;
       _os_log_impl(&dword_2452FB000, v21, OS_LOG_TYPE_DEBUG, "[%@ %p, sess %p, request %p] received response with status %ld", buf, 0x34u);
     }
   }
@@ -5524,18 +5435,18 @@ uint64_t __72__CoreDAVTask_URLSession_dataTask_didReceiveResponse_completionHand
       uniqueID = self->_uniqueID;
       statusCode2 = [v37 statusCode];
       *buf = 138413570;
-      v67 = v34;
-      v68 = 2048;
+      v66 = v34;
+      v67 = 2048;
       selfCopy4 = self;
-      v70 = 2048;
-      v71 = _sessionForLogging2;
-      v72 = 2048;
-      v73 = _requestForLogging2;
-      v74 = 2114;
-      v75 = uniqueID;
+      v69 = 2048;
+      v70 = _sessionForLogging2;
+      v71 = 2048;
+      v72 = _requestForLogging2;
+      v73 = 2114;
+      v74 = uniqueID;
       responseCopy = v37;
-      v76 = 2048;
-      v77 = statusCode2;
+      v75 = 2048;
+      v76 = statusCode2;
       _os_log_impl(&dword_2452FB000, v32, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Task ID %{public}@ Connection Received Status [%ld]", buf, 0x3Eu);
     }
   }
@@ -5555,22 +5466,22 @@ uint64_t __72__CoreDAVTask_URLSession_dataTask_didReceiveResponse_completionHand
       _requestForLogging3 = [(CoreDAVTask *)self _requestForLogging];
       allHeaderFields2 = [responseCopy allHeaderFields];
       [allHeaderFields2 objectForKeyedSubscript:@"X-Apple-Jingle-Correlation-Key"];
-      v49 = v60 = responseCopy;
+      v49 = v59 = responseCopy;
       *buf = 138413570;
-      v67 = v45;
-      v68 = 2048;
+      v66 = v45;
+      v67 = 2048;
       selfCopy4 = self;
-      v70 = 2048;
-      v71 = _sessionForLogging3;
-      v72 = 2048;
-      v73 = _requestForLogging3;
-      v74 = 2114;
-      v75 = @"X-Apple-Jingle-Correlation-Key";
-      v76 = 2114;
-      v77 = v49;
+      v69 = 2048;
+      v70 = _sessionForLogging3;
+      v71 = 2048;
+      v72 = _requestForLogging3;
+      v73 = 2114;
+      v74 = @"X-Apple-Jingle-Correlation-Key";
+      v75 = 2114;
+      v76 = v49;
       _os_log_impl(&dword_2452FB000, v43, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Response Header %{public}@ = %{public}@", buf, 0x3Eu);
 
-      responseCopy = v60;
+      responseCopy = v59;
     }
   }
 
@@ -5588,38 +5499,37 @@ uint64_t __72__CoreDAVTask_URLSession_dataTask_didReceiveResponse_completionHand
       _sessionForLogging4 = [(CoreDAVTask *)self _sessionForLogging];
       _requestForLogging4 = [(CoreDAVTask *)self _requestForLogging];
       [responseCopy allHeaderFields];
-      v57 = v61 = responseCopy;
+      v57 = v60 = responseCopy;
       v58 = [v57 objectForKeyedSubscript:@"X-Apple-Request-UUID"];
       *buf = 138413570;
-      v67 = v54;
-      v68 = 2048;
+      v66 = v54;
+      v67 = 2048;
       selfCopy4 = self;
-      v70 = 2048;
-      v71 = _sessionForLogging4;
-      v72 = 2048;
-      v73 = _requestForLogging4;
-      v74 = 2114;
-      v75 = @"X-Apple-Request-UUID";
-      v76 = 2114;
-      v77 = v58;
+      v69 = 2048;
+      v70 = _sessionForLogging4;
+      v71 = 2048;
+      v72 = _requestForLogging4;
+      v73 = 2114;
+      v74 = @"X-Apple-Request-UUID";
+      v75 = 2114;
+      v76 = v58;
       _os_log_impl(&dword_2452FB000, v52, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Response Header %{public}@ = %{public}@", buf, 0x3Eu);
 
-      responseCopy = v61;
+      responseCopy = v60;
     }
   }
 
   v17 = 1;
-  v14 = v62;
-  handlerCopy = v63;
+  v14 = v61;
+  handlerCopy = v62;
 LABEL_23:
 
   handlerCopy[2](handlerCopy, v17);
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_task:(id)_task didFailWithError:(id)error
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   _taskCopy = _task;
   errorCopy = error;
   self->_didFailWithError = 1;
@@ -5637,17 +5547,17 @@ LABEL_23:
       _sessionForLogging = [(CoreDAVTask *)self _sessionForLogging];
       [(CoreDAVTask *)self _requestForLogging];
       v16 = v15 = _taskCopy;
-      v67 = 138413314;
-      v68 = v13;
-      v69 = 2048;
+      v66 = 138413314;
+      v67 = v13;
+      v68 = 2048;
       selfCopy6 = self;
-      v71 = 2048;
-      v72 = _sessionForLogging;
-      v73 = 2048;
-      v74 = v16;
-      v75 = 2112;
-      v76 = errorCopy;
-      _os_log_impl(&dword_2452FB000, v11, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] connection died with error %@", &v67, 0x34u);
+      v70 = 2048;
+      v71 = _sessionForLogging;
+      v72 = 2048;
+      v73 = v16;
+      v74 = 2112;
+      v75 = errorCopy;
+      _os_log_impl(&dword_2452FB000, v11, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] connection died with error %@", &v66, 0x34u);
 
       _taskCopy = v15;
     }
@@ -5710,21 +5620,21 @@ LABEL_36:
             v30 = NSStringFromClass(v29);
             _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
             _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-            v67 = 138413314;
-            v68 = v30;
-            v69 = 2048;
+            v66 = 138413314;
+            v67 = v30;
+            v68 = 2048;
             selfCopy6 = self;
-            v71 = 2048;
-            v72 = _sessionForLogging2;
-            v73 = 2048;
-            v74 = _requestForLogging;
-            v75 = 1024;
-            LODWORD(v76) = 401;
+            v70 = 2048;
+            v71 = _sessionForLogging2;
+            v72 = 2048;
+            v73 = _requestForLogging;
+            v74 = 1024;
+            LODWORD(v75) = 401;
             v33 = "[%@ %p, sess %p, request %p] Received %d; retrying task because [_accountInfoProvider shouldRetryUnauthorizedConnection] returned YES.";
             v34 = v28;
             v35 = 48;
 LABEL_33:
-            _os_log_impl(&dword_2452FB000, v34, OS_LOG_TYPE_DEFAULT, v33, &v67, v35);
+            _os_log_impl(&dword_2452FB000, v34, OS_LOG_TYPE_DEFAULT, v33, &v66, v35);
 
             goto LABEL_34;
           }
@@ -5756,15 +5666,15 @@ LABEL_33:
         v41 = NSStringFromClass(v40);
         _sessionForLogging3 = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging2 = [(CoreDAVTask *)self _requestForLogging];
-        v67 = 138413058;
-        v68 = v41;
-        v69 = 2048;
+        v66 = 138413058;
+        v67 = v41;
+        v68 = 2048;
         selfCopy6 = self;
-        v71 = 2048;
-        v72 = _sessionForLogging3;
-        v73 = 2048;
-        v74 = _requestForLogging2;
-        _os_log_impl(&dword_2452FB000, v39, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] The server rejected our compressed request. Attempting an uncompressed request before giving up.", &v67, 0x2Au);
+        v70 = 2048;
+        v71 = _sessionForLogging3;
+        v72 = 2048;
+        v73 = _requestForLogging2;
+        _os_log_impl(&dword_2452FB000, v39, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] The server rejected our compressed request. Attempting an uncompressed request before giving up.", &v66, 0x2Au);
       }
     }
 
@@ -5787,14 +5697,14 @@ LABEL_33:
         v30 = NSStringFromClass(v45);
         _sessionForLogging2 = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging = [(CoreDAVTask *)self _requestForLogging];
-        v67 = 138413058;
-        v68 = v30;
-        v69 = 2048;
+        v66 = 138413058;
+        v67 = v30;
+        v68 = 2048;
         selfCopy6 = self;
-        v71 = 2048;
-        v72 = _sessionForLogging2;
-        v73 = 2048;
-        v74 = _requestForLogging;
+        v70 = 2048;
+        v71 = _sessionForLogging2;
+        v72 = 2048;
+        v73 = _requestForLogging;
         v33 = "[%@ %p, sess %p, request %p] Tried token auth but got unauthorized response. Trying without token-auth.";
         v34 = v28;
         v35 = 42;
@@ -5824,15 +5734,15 @@ LABEL_35:
         v52 = NSStringFromClass(v51);
         _sessionForLogging4 = [(CoreDAVTask *)self _sessionForLogging];
         _requestForLogging3 = [(CoreDAVTask *)self _requestForLogging];
-        v67 = 138413058;
-        v68 = v52;
-        v69 = 2048;
+        v66 = 138413058;
+        v67 = v52;
+        v68 = 2048;
         selfCopy6 = self;
-        v71 = 2048;
-        v72 = _sessionForLogging4;
-        v73 = 2048;
-        v74 = _requestForLogging3;
-        _os_log_impl(&dword_2452FB000, v50, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Bad password error received.", &v67, 0x2Au);
+        v70 = 2048;
+        v71 = _sessionForLogging4;
+        v72 = 2048;
+        v73 = _requestForLogging3;
+        _os_log_impl(&dword_2452FB000, v50, OS_LOG_TYPE_DEFAULT, "[%@ %p, sess %p, request %p] Bad password error received.", &v66, 0x2Au);
       }
     }
 
@@ -5862,15 +5772,15 @@ LABEL_35:
           v63 = NSStringFromClass(v62);
           _sessionForLogging5 = [(CoreDAVTask *)self _sessionForLogging];
           _requestForLogging4 = [(CoreDAVTask *)self _requestForLogging];
-          v67 = 138413058;
-          v68 = v63;
-          v69 = 2048;
+          v66 = 138413058;
+          v67 = v63;
+          v68 = 2048;
           selfCopy6 = self;
-          v71 = 2048;
-          v72 = _sessionForLogging5;
-          v73 = 2048;
-          v74 = _requestForLogging4;
-          _os_log_impl(&dword_2452FB000, v61, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Handled client certificate request and re-issued NSURLRequest.", &v67, 0x2Au);
+          v70 = 2048;
+          v71 = _sessionForLogging5;
+          v72 = 2048;
+          v73 = _requestForLogging4;
+          _os_log_impl(&dword_2452FB000, v61, OS_LOG_TYPE_INFO, "[%@ %p, sess %p, request %p] Handled client certificate request and re-issued NSURLRequest.", &v66, 0x2Au);
         }
       }
     }
@@ -5882,8 +5792,6 @@ LABEL_35:
   }
 
 LABEL_50:
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)responseHeaders
@@ -5910,31 +5818,28 @@ LABEL_50:
 
 - (void)submitWithTaskManager:(id)manager
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (manager)
   {
     [(CoreDAVTask *)self setTaskManager:?];
     taskManager = [(CoreDAVTask *)self taskManager];
     [taskManager submitQueuedCoreDAVTask:self];
-    v4 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v5 = +[CoreDAVLogging sharedLogging];
-    v6 = [v5 logHandleForAccountInfoProvider:0];
-    v7 = v6;
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = +[CoreDAVLogging sharedLogging];
+    v5 = [v4 logHandleForAccountInfoProvider:0];
+    v6 = v5;
+    if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_ERROR, "Task %@ submitted with no taskManager, returning immediately", buf, 0xCu);
+      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "Task %@ submitted with no taskManager, returning immediately", buf, 0xCu);
     }
 
-    v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"CoreDAVErrorDomain" code:6 userInfo:0];
-    [(CoreDAVTask *)self finishEarlyWithError:v8];
-
-    v9 = *MEMORY[0x277D85DE8];
+    v7 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"CoreDAVErrorDomain" code:6 userInfo:0];
+    [(CoreDAVTask *)self finishEarlyWithError:v7];
   }
 }
 

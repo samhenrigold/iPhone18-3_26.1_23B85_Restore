@@ -134,12 +134,11 @@ unint64_t sub_24D854CB8(uint64_t *a1, unint64_t a2, char a3, unsigned int a4)
       if (*(v10 + 12) == 1)
       {
         v7 = *v10;
-        v11 = *(v10 + 1);
         return v5 | (v7 << 32);
       }
 
-      v12 = sub_24D809C04();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = sub_24D809C04();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_24D85DA78();
       }
@@ -327,7 +326,7 @@ uint64_t sub_24D855000(uint64_t a1, unsigned int a2)
   }
 }
 
-uint64_t sub_24D855020(uint64_t result, uint64_t a2, uint64_t *a3, _BYTE *a4)
+uint64_t sub_24D855020(uint64_t result, uint64_t a2, unint64_t *a3, _BYTE *a4)
 {
   *(result + 64) = 0u;
   *(result + 80) = 0u;
@@ -7115,28 +7114,27 @@ LABEL_1483:
 
 void sub_24D85D4A8(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/AGXPSGPU.cpp";
-  v4 = 1024;
-  v5 = 253;
-  _os_log_error_impl(&dword_24D764000, log, OS_LOG_TYPE_ERROR, "%s:%u: WARNING: Could not find matching GPU revision. Falling back to an earlier revision because agxps_gpu_flags_allow_aps_revision_fallback was specified", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/AGXPSGPU.cpp";
+  v3 = 1024;
+  v4 = 253;
+  _os_log_error_impl(&dword_24D764000, log, OS_LOG_TYPE_ERROR, "%s:%u: WARNING: Could not find matching GPU revision. Falling back to an earlier revision because agxps_gpu_flags_allow_aps_revision_fallback was specified", &v1, 0x12u);
 }
 
 void sub_24D85D53C()
 {
-  if (__cxa_guard_acquire(&qword_27F09BC28))
+  if (__cxa_guard_acquire(byte_27F09BC28))
   {
     __cxa_atexit(sub_24D765DD4, &unk_27F09BC58, &dword_24D764000);
 
-    __cxa_guard_release(&qword_27F09BC28);
+    __cxa_guard_release(byte_27F09BC28);
   }
 }
 
 void sub_24D85D5AC()
 {
-  v0 = __cxa_guard_acquire(qword_27F09BC38);
+  v0 = __cxa_guard_acquire(byte_27F09BC38);
   if (v0)
   {
     qword_27F09BC78 = 0;
@@ -7144,7 +7142,7 @@ void sub_24D85D5AC()
     qword_27F09BC70 = 0;
     sub_24D76D1B0(v0, v1, &dword_24D764000);
     qword_27F09BC30 = &qword_27F09BC70;
-    __cxa_guard_release(qword_27F09BC38);
+    __cxa_guard_release(byte_27F09BC38);
   }
 }
 
@@ -7159,105 +7157,96 @@ void sub_24D85D604()
   _tlv_atexit(v4, v5);
 }
 
-void *sub_24D85D65C(void *result)
+void sub_24D85D65C(void *result)
 {
-  v1 = result;
   if (result[11])
   {
     v2 = result[5];
-    result = sub_24D79FDF0(result + 6, &v2);
+    sub_24D79FDF0(result + 6, &v2);
   }
 
-  ++*(v1 + 24);
-  return result;
+  ++*(result + 24);
 }
 
 void sub_24D85D6AC(int *a1, int *a2, os_log_t log)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 136316162;
-  v7 = "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/APS/AGXPSAPSParserGen1.cpp";
-  v8 = 1024;
-  v9 = 271;
-  v10 = 1024;
-  v11 = v3;
-  v12 = 1024;
-  v13 = v4;
-  v14 = 1024;
-  v15 = 4;
-  _os_log_error_impl(&dword_24D764000, log, OS_LOG_TYPE_ERROR, "%s:%u: WARNING: Unreliable APS configuration detected: the number of pulses per count period is low (countPeriod=%u, pulsePeriod=%u, should have at least %u pulses / count period). This may cause incorrect counter values.", &v6, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136316162;
+  v6 = "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/APS/AGXPSAPSParserGen1.cpp";
+  v7 = 1024;
+  v8 = 271;
+  v9 = 1024;
+  v10 = v3;
+  v11 = 1024;
+  v12 = v4;
+  v13 = 1024;
+  v14 = 4;
+  _os_log_error_impl(&dword_24D764000, log, OS_LOG_TYPE_ERROR, "%s:%u: WARNING: Unreliable APS configuration detected: the number of pulses per count period is low (countPeriod=%u, pulsePeriod=%u, should have at least %u pulses / count period). This may cause incorrect counter values.", &v5, 0x24u);
 }
 
 void sub_24D85D764(int *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 136315906;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/APS/AGXPSAPSParserGen1.cpp";
-  v6 = 1024;
-  v7 = 260;
-  v8 = 1024;
-  v9 = v2;
-  v10 = 1024;
-  v11 = 2048;
-  _os_log_error_impl(&dword_24D764000, a2, OS_LOG_TYPE_ERROR, "%s:%u: WARNING: Unreliable APS configuration detected: the count period is low (countPeriod=%u, should be at least %u). This may cause incorrect counter values.", &v4, 0x1Eu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315906;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/APS/AGXPSAPSParserGen1.cpp";
+  v5 = 1024;
+  v6 = 260;
+  v7 = 1024;
+  v8 = v2;
+  v9 = 1024;
+  v10 = 2048;
+  _os_log_error_impl(&dword_24D764000, a2, OS_LOG_TYPE_ERROR, "%s:%u: WARNING: Unreliable APS configuration detected: the count period is low (countPeriod=%u, should be at least %u). This may cause incorrect counter values.", &v3, 0x1Eu);
 }
 
 void sub_24D85D80C(uint64_t *a1, NSObject *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = agxps_aps_parse_error_type_to_string(4);
   v5 = *a1;
-  v7 = 136315906;
-  v8 = "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/APS/AGXPSAPSParserGen1.cpp";
-  v9 = 1024;
-  v10 = 571;
-  v11 = 2080;
-  v12 = v4;
-  v13 = 2048;
-  v14 = v5;
-  _os_log_error_impl(&dword_24D764000, a2, OS_LOG_TYPE_ERROR, "%s:%u: WARNING: %s (bitOffset=%zu)", &v7, 0x26u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 136315906;
+  v7 = "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/APS/AGXPSAPSParserGen1.cpp";
+  v8 = 1024;
+  v9 = 571;
+  v10 = 2080;
+  v11 = v4;
+  v12 = 2048;
+  v13 = v5;
+  _os_log_error_impl(&dword_24D764000, a2, OS_LOG_TYPE_ERROR, "%s:%u: WARNING: %s (bitOffset=%zu)", &v6, 0x26u);
 }
 
 void sub_24D85D8D4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   sub_24D7A781C();
   sub_24D7A780C();
-  sub_24D7A782C(&dword_24D764000, v0, v1, "%s:%u: failed assertion: %s", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  sub_24D7A782C(&dword_24D764000, v0, v1, "%s:%u: failed assertion: %s", v2, v3, v4, v5, v6);
 }
 
 void sub_24D85D960()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   sub_24D7A781C();
   sub_24D7A780C();
-  sub_24D7A782C(&dword_24D764000, v0, v1, "%s:%u: failed assertion: %s", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  sub_24D7A782C(&dword_24D764000, v0, v1, "%s:%u: failed assertion: %s", v2, v3, v4, v5, v6);
 }
 
 void sub_24D85D9EC()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   sub_24D7A781C();
   sub_24D7A780C();
-  sub_24D7A782C(&dword_24D764000, v0, v1, "%s:%u: failed assertion: %s", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  sub_24D7A782C(&dword_24D764000, v0, v1, "%s:%u: failed assertion: %s", v2, v3, v4, v5, v6);
 }
 
 void sub_24D85DA78()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   sub_24D7A781C();
   sub_24D7A780C();
-  sub_24D7A782C(&dword_24D764000, v0, v1, "%s:%u: failed assertion: %s", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  sub_24D7A782C(&dword_24D764000, v0, v1, "%s:%u: failed assertion: %s", v2, v3, v4, v5, v6);
 }
 
 void sub_24D85DB04()
@@ -7270,7 +7259,7 @@ void sub_24D85DB04()
   qword_27F09BB38 = 0;
   dword_27F09BB40 = 1065353216;
   *qword_27F09BB48 = 0u;
-  *&qword_27F09BB48[2] = 0u;
+  unk_27F09BB58 = 0u;
   dword_27F09BB68 = 1065353216;
   xmmword_27F09BB70 = 0u;
   unk_27F09BB80 = 0u;
@@ -7294,155 +7283,153 @@ void sub_24D85DB04()
 uint64_t sub_24D85DBC0()
 {
   v0 = 0;
-  v138 = *MEMORY[0x277D85DE8];
-  v3 = 0x40000000FLL;
-  v4 = 1;
-  v5 = sub_24D790A34;
-  v6 = 0x40000000FLL;
-  v7 = 3;
-  v8 = sub_24D7A7848;
-  v9 = 0x40000000FLL;
-  v10 = 5;
-  v11 = sub_24D831C50;
-  v12 = 0x50000000FLL;
-  v13 = 1;
-  v14 = sub_24D7A7848;
-  v15 = 0x50000000FLL;
-  v16 = 3;
-  v17 = sub_24D831C50;
-  v18 = 0x50000000FLL;
-  v19 = 4;
-  v20 = sub_24D831C50;
-  v21 = 0x60000000FLL;
-  v22 = 1;
-  v23 = sub_24D7A7848;
-  v24 = 0x60000000FLL;
-  v25 = 3;
-  v26 = sub_24D831C50;
-  v27 = 0x60000000FLL;
-  v28 = 4;
-  v29 = sub_24D831C50;
-  v30 = 0x70000000FLL;
-  v31 = 1;
-  v32 = sub_24D831C50;
-  v33 = 0x70000000FLL;
-  v34 = 3;
-  v35 = sub_24D831C50;
-  v36 = 0x300000010;
-  v37 = 1;
-  v38 = sub_24D7A7848;
-  v39 = 0x300000010;
-  v40 = 3;
-  v41 = sub_24D831C50;
-  v42 = 0x300000010;
-  v43 = 4;
-  v44 = sub_24D831C50;
-  v45 = 0x400000010;
-  v46 = 1;
-  v47 = sub_24D820674;
-  v48 = 0x400000010;
-  v49 = 3;
-  v50 = sub_24D820674;
-  v51 = 0x400000010;
-  v52 = 4;
-  v53 = sub_24D820674;
-  v54 = 0x500000010;
-  v55 = 1;
-  v56 = sub_24D820674;
-  v57 = 0x500000010;
-  v58 = 3;
-  v59 = sub_24D820674;
-  v60 = 0x500000010;
-  v61 = 4;
-  v62 = sub_24D820674;
-  v63 = 0x600000010;
-  v64 = 1;
-  v65 = sub_24D820674;
-  v66 = 0x600000010;
-  v67 = 3;
-  v68 = sub_24D820674;
-  v69 = 0x600000010;
-  v70 = 4;
-  v71 = sub_24D820674;
-  v72 = 0x200000011;
-  v73 = 1;
-  v74 = sub_24D820674;
-  v75 = 0x200000011;
-  v76 = 3;
-  v77 = sub_24D820674;
-  v78 = 0x300000011;
-  v79 = 1;
-  v80 = sub_24D820674;
-  v81 = 0x300000011;
-  v82 = 3;
-  v83 = sub_24D820674;
-  v84 = 0x300000011;
-  v85 = 4;
-  v86 = sub_24D820674;
-  v87 = 0x400000011;
-  v88 = 1;
-  v89 = sub_24D80B454;
-  v90 = 0x400000011;
-  v91 = 3;
-  v92 = sub_24D7B8D1C;
-  v93 = 0x400000011;
-  v94 = 5;
-  v95 = sub_24D7B8D1C;
-  v96 = 0x500000011;
-  v97 = 1;
-  v98 = sub_24D7B8D1C;
-  v99 = 0x500000011;
-  v100 = 3;
-  v101 = sub_24D7B8D1C;
-  v102 = 0x600000011;
-  v103 = 1;
-  v104 = sub_24D7B8D1C;
-  v105 = 0x600000011;
-  v106 = 3;
-  v107 = sub_24D7B8D1C;
-  v108 = 0x700000011;
-  v109 = 1;
-  v110 = sub_24D7B8D1C;
-  v111 = 0x700000011;
-  v112 = 3;
-  v113 = sub_24D7B8D1C;
-  v114 = 0x200000012;
-  v115 = 1;
-  v116 = sub_24D7B8D1C;
-  v117 = 0x200000012;
-  v118 = 2;
-  v119 = sub_24D7B8D1C;
-  v120 = 0x200000012;
-  v121 = 3;
-  v122 = sub_24D7B8D1C;
-  v123 = 0x300000012;
-  v124 = 1;
-  v125 = sub_24D7B8D1C;
-  v126 = 0x300000012;
-  v127 = 3;
-  v128 = sub_24D7B8D1C;
-  v129 = 0x400000012;
-  v130 = 1;
-  v131 = sub_24D842890;
-  v132 = 0x200000013;
-  v133 = 1;
-  v134 = sub_24D842890;
-  v135 = 0x300000013;
-  v136 = 1;
-  v137 = sub_24D842890;
+  v137 = *MEMORY[0x277D85DE8];
+  v2 = 0x40000000FLL;
+  v3 = 1;
+  v4 = sub_24D790A34;
+  v5 = 0x40000000FLL;
+  v6 = 3;
+  v7 = sub_24D7A7848;
+  v8 = 0x40000000FLL;
+  v9 = 5;
+  v10 = sub_24D831C50;
+  v11 = 0x50000000FLL;
+  v12 = 1;
+  v13 = sub_24D7A7848;
+  v14 = 0x50000000FLL;
+  v15 = 3;
+  v16 = sub_24D831C50;
+  v17 = 0x50000000FLL;
+  v18 = 4;
+  v19 = sub_24D831C50;
+  v20 = 0x60000000FLL;
+  v21 = 1;
+  v22 = sub_24D7A7848;
+  v23 = 0x60000000FLL;
+  v24 = 3;
+  v25 = sub_24D831C50;
+  v26 = 0x60000000FLL;
+  v27 = 4;
+  v28 = sub_24D831C50;
+  v29 = 0x70000000FLL;
+  v30 = 1;
+  v31 = sub_24D831C50;
+  v32 = 0x70000000FLL;
+  v33 = 3;
+  v34 = sub_24D831C50;
+  v35 = 0x300000010;
+  v36 = 1;
+  v37 = sub_24D7A7848;
+  v38 = 0x300000010;
+  v39 = 3;
+  v40 = sub_24D831C50;
+  v41 = 0x300000010;
+  v42 = 4;
+  v43 = sub_24D831C50;
+  v44 = 0x400000010;
+  v45 = 1;
+  v46 = sub_24D820674;
+  v47 = 0x400000010;
+  v48 = 3;
+  v49 = sub_24D820674;
+  v50 = 0x400000010;
+  v51 = 4;
+  v52 = sub_24D820674;
+  v53 = 0x500000010;
+  v54 = 1;
+  v55 = sub_24D820674;
+  v56 = 0x500000010;
+  v57 = 3;
+  v58 = sub_24D820674;
+  v59 = 0x500000010;
+  v60 = 4;
+  v61 = sub_24D820674;
+  v62 = 0x600000010;
+  v63 = 1;
+  v64 = sub_24D820674;
+  v65 = 0x600000010;
+  v66 = 3;
+  v67 = sub_24D820674;
+  v68 = 0x600000010;
+  v69 = 4;
+  v70 = sub_24D820674;
+  v71 = 0x200000011;
+  v72 = 1;
+  v73 = sub_24D820674;
+  v74 = 0x200000011;
+  v75 = 3;
+  v76 = sub_24D820674;
+  v77 = 0x300000011;
+  v78 = 1;
+  v79 = sub_24D820674;
+  v80 = 0x300000011;
+  v81 = 3;
+  v82 = sub_24D820674;
+  v83 = 0x300000011;
+  v84 = 4;
+  v85 = sub_24D820674;
+  v86 = 0x400000011;
+  v87 = 1;
+  v88 = sub_24D80B454;
+  v89 = 0x400000011;
+  v90 = 3;
+  v91 = sub_24D7B8D1C;
+  v92 = 0x400000011;
+  v93 = 5;
+  v94 = sub_24D7B8D1C;
+  v95 = 0x500000011;
+  v96 = 1;
+  v97 = sub_24D7B8D1C;
+  v98 = 0x500000011;
+  v99 = 3;
+  v100 = sub_24D7B8D1C;
+  v101 = 0x600000011;
+  v102 = 1;
+  v103 = sub_24D7B8D1C;
+  v104 = 0x600000011;
+  v105 = 3;
+  v106 = sub_24D7B8D1C;
+  v107 = 0x700000011;
+  v108 = 1;
+  v109 = sub_24D7B8D1C;
+  v110 = 0x700000011;
+  v111 = 3;
+  v112 = sub_24D7B8D1C;
+  v113 = 0x200000012;
+  v114 = 1;
+  v115 = sub_24D7B8D1C;
+  v116 = 0x200000012;
+  v117 = 2;
+  v118 = sub_24D7B8D1C;
+  v119 = 0x200000012;
+  v120 = 3;
+  v121 = sub_24D7B8D1C;
+  v122 = 0x300000012;
+  v123 = 1;
+  v124 = sub_24D7B8D1C;
+  v125 = 0x300000012;
+  v126 = 3;
+  v127 = sub_24D7B8D1C;
+  v128 = 0x400000012;
+  v129 = 1;
+  v130 = sub_24D842890;
+  v131 = 0x200000013;
+  v132 = 1;
+  v133 = sub_24D842890;
+  v134 = 0x300000013;
+  v135 = 1;
+  v136 = sub_24D842890;
   qword_27F09BC98 = 0;
   qword_27F09BC90 = 0;
   qword_27F09BC88 = &qword_27F09BC90;
   do
   {
-    sub_24D790658(&qword_27F09BC88, &qword_27F09BC90, (&v3 + v0));
+    sub_24D790658(&qword_27F09BC88, &qword_27F09BC90, (&v2 + v0), &v2 + v0);
     v0 += 24;
   }
 
   while (v0 != 1080);
-  result = __cxa_atexit(sub_24D78FDF0, &qword_27F09BC88, &dword_24D764000);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return __cxa_atexit(sub_24D78FDF0, &qword_27F09BC88, &dword_24D764000);
 }
 
 uint64_t sub_24D85DF14()
@@ -7477,7 +7464,7 @@ uint64_t CreateScalersWithBlock(void *a1)
   return v2;
 }
 
-const char *AppendString(const char *result, int *a2)
+const char *AppendString(const char *result, unsigned int *a2)
 {
   if (result)
   {
@@ -7902,8 +7889,8 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::enum
         v10 = *(*(a1 + 208) + 8);
         if (v10)
         {
-          v18 = *(v10 + 8);
-          if (v18)
+          v19 = *(v10 + 8);
+          if (v19)
           {
             v11 = v6[5];
             if (v11 != v6[6])
@@ -7911,22 +7898,23 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::enum
               v12 = 0;
               do
               {
-                v13 = [v18 functionForKey:*(v11 + 48)];
+                v13 = [v19 functionForKey:*(v11 + 48)];
                 v14 = *(v11 + 73);
-                v22 = v12;
-                v21 = v14;
+                v23 = v12;
+                v22 = v14;
                 v15 = v13;
-                v19 = v11;
-                v20 = v15;
+                v20 = v11;
+                v21 = v15;
                 v16 = *(a3 + 24);
                 if (!v16)
                 {
-                  v17 = std::__throw_bad_function_call[abi:nn200100]();
+                  std::__throw_bad_function_call[abi:nn200100]();
+                  v18 = v17;
 
-                  _Unwind_Resume(v17);
+                  _Unwind_Resume(v18);
                 }
 
-                (*(*v16 + 48))(v16, &v22, &v21, &v20, &v19);
+                (*(*v16 + 48))(v16, &v23, &v22, &v21, &v20);
 
                 ++v12;
                 v11 += 152;
@@ -7941,10 +7929,10 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::enum
   }
 }
 
-void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::applyUsedResources(uint64_t *a1, void *a2)
+void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::applyUsedResources(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  v3 = (a1 + 41);
+  v4 = a2;
+  v3 = (a1 + 328);
   while (1)
   {
     v3 = *v3;
@@ -7953,13 +7941,10 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::appl
       break;
     }
 
-    v4 = *(v3 + 16);
-    v5 = v3[4] - v3[3];
-    [v7 useResources:? count:? usage:?];
+    [v4 useResources:? count:? usage:?];
   }
 
-  v6 = a1[45] - a1[44];
-  [v7 useHeaps:? count:?];
+  [v4 useHeaps:? count:?];
 }
 
 id AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::buildVisibleFunctionTableInPipeline(uint64_t a1, uint64_t a2, void *a3)
@@ -8331,7 +8316,7 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::gene
   {
     v4 = 0;
     v5 = this + 5;
-    v6 = (this + 34);
+    v6 = this + 34;
     do
     {
       v7 = *v5;
@@ -8394,10 +8379,10 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::gene
               v21 = *(*v15 + 9);
               do
               {
-                v22 = *(v19 + 5);
-                if (v21 < 0x86BCA1AF286BCA1BLL * ((*(v19 + 6) - v22) >> 3))
+                v22 = v19[5];
+                if (v21 < 0x86BCA1AF286BCA1BLL * ((v19[6] - v22) >> 3))
                 {
-                  v23 = (v22 + 152 * v21);
+                  v23 = &v22[152 * v21];
                   v24 = v23[27];
                   v23[26] = fminf(v23[26], v20[20]);
                   v23[27] = fminf(v24, v20[21]);
@@ -8409,7 +8394,7 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::gene
                   v23[31] = fmaxf(v26, v20[25]);
                 }
 
-                v27 = *(v19 + 1);
+                v27 = v19[1];
                 if (v27)
                 {
                   do
@@ -8425,7 +8410,7 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::gene
                 {
                   do
                   {
-                    v28 = *(v19 + 2);
+                    v28 = v19[2];
                     v29 = *v28 == v19;
                     v19 = v28;
                   }
@@ -8558,7 +8543,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<ASVDataSour
   std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
 }
 
-void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::getAccelerationStructureChildren(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::getAccelerationStructureChildren(void *a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v11 = a6;
   v18 = &unk_2860BC948;
@@ -8599,15 +8584,15 @@ void std::vector<AccelerationStructureViewer::FilterToken>::__destroy_vector::op
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 24;
-      v7 = v4 - 24;
-      v8 = v4 - 24;
+      v6 = v4 - 3;
+      v7 = v4 - 3;
+      v8 = v4 - 3;
       do
       {
         v9 = *v8;
-        v8 -= 24;
+        v8 -= 3;
         (*v9)(v7);
-        v6 -= 24;
+        v6 -= 3;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -8622,7 +8607,7 @@ void std::vector<AccelerationStructureViewer::FilterToken>::__destroy_vector::op
   }
 }
 
-void std::vector<AccelerationStructureViewer::FilterToken>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<AccelerationStructureViewer::FilterToken>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8863,13 +8848,13 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::getI
 
     if (a3)
     {
-      std::vector<AccelerationStructureViewer::IntersectionFunction>::erase(&v32, v29, &v29[19 * a3]);
+      std::vector<AccelerationStructureViewer::IntersectionFunction>::erase(&v32, v29, &v29[152 * a3]);
       v29 = v32;
     }
 
     if (0x86BCA1AF286BCA1BLL * ((v33 - v29) >> 3) > a4)
     {
-      std::vector<AccelerationStructureViewer::IntersectionFunction>::erase(&v32, &v29[19 * a4], v33);
+      std::vector<AccelerationStructureViewer::IntersectionFunction>::erase(&v32, &v29[152 * a4], v33);
     }
 
     v10[2](v10, &v32, 0);
@@ -8911,15 +8896,15 @@ void std::vector<AccelerationStructureViewer::IntersectionFunction>::__destroy_v
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 152;
-      v7 = v4 - 152;
-      v8 = v4 - 152;
+      v6 = v4 - 19;
+      v7 = v4 - 19;
+      v8 = v4 - 19;
       do
       {
         v9 = *v8;
-        v8 -= 152;
+        v8 -= 19;
         (*v9)(v7);
-        v6 -= 152;
+        v6 -= 19;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -8944,7 +8929,7 @@ AccelerationStructureViewer::IntersectionFunction *AccelerationStructureViewer::
   v5 = *(a2 + 2);
   if (v5 != v4)
   {
-    std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vallocate[abi:nn200100](this + 8, (v5 - v4) >> 4);
+    std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vallocate[abi:nn200100](this + 1, (v5 - v4) >> 4);
   }
 
   *this = &unk_2860BBC40;
@@ -8962,7 +8947,7 @@ AccelerationStructureViewer::IntersectionFunction *AccelerationStructureViewer::
   v9 = *(a2 + 11);
   if (v9 != v10)
   {
-    std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::__vallocate[abi:nn200100](this + 80, (v9 - v10) >> 2);
+    std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::__vallocate[abi:nn200100](this + 10, (v9 - v10) >> 2);
   }
 
   v11 = *(a2 + 104);
@@ -8976,21 +8961,21 @@ AccelerationStructureViewer::IntersectionFunction *AccelerationStructureViewer::
   v13 = *(a2 + 17);
   if (v13 != v14)
   {
-    std::vector<AccelerationStructureViewer::Property>::__vallocate[abi:nn200100](this + 128, 0xEEEEEEEEEEEEEEEFLL * ((v13 - v14) >> 3));
+    std::vector<AccelerationStructureViewer::Property>::__vallocate[abi:nn200100](this + 16, 0xEEEEEEEEEEEEEEEFLL * ((v13 - v14) >> 3));
   }
 
   return this;
 }
 
-void sub_24D867580(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D867580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  *(v2 + 136) = v4;
-  v6 = *v3;
-  if (*v3)
+  va_start(va, a3);
+  *(v3 + 136) = v5;
+  v7 = *v4;
+  if (*v4)
   {
-    *(v2 + 88) = v6;
-    operator delete(v6);
+    *(v3 + 88) = v7;
+    operator delete(v7);
   }
 
   std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](va);
@@ -9007,15 +8992,15 @@ void std::vector<AccelerationStructureViewer::Property>::__destroy_vector::opera
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 120;
-      v7 = v4 - 120;
-      v8 = v4 - 120;
+      v6 = v4 - 15;
+      v7 = v4 - 15;
+      v8 = v4 - 15;
       do
       {
         v9 = *v8;
-        v8 -= 120;
+        v8 -= 15;
         (*v9)(v7);
-        v6 -= 120;
+        v6 -= 15;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -9090,7 +9075,7 @@ void std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>:
   }
 }
 
-void (***std::vector<AccelerationStructureViewer::IntersectionFunction>::erase(void *a1, void (***a2)(void), void (***a3)(void)))(void)
+char *std::vector<AccelerationStructureViewer::IntersectionFunction>::erase(void *a1, char *a2, char *a3)
 {
   if (a3 != a2)
   {
@@ -9103,73 +9088,73 @@ void (***std::vector<AccelerationStructureViewer::IntersectionFunction>::erase(v
     else
     {
       v6 = -*a1;
-      v7 = a3 + *a1;
-      v8 = a2 + *a1;
+      v7 = &a3[*a1];
+      v8 = &a2[*a1];
       do
       {
-        v9 = v8 + v6;
-        v10 = v7 + v6;
-        std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vdeallocate((v8 + v6 + 8));
-        *(v9 + 8) = *(v7 + v6 + 8);
-        v11 = *(v7 + v6 + 32);
-        *(v9 + 24) = *(v7 + v6 + 24);
-        *(v10 + 8) = 0;
-        *(v10 + 16) = 0;
-        *(v10 + 24) = 0;
-        *(v10 + 32) = 0;
-        v12 = *(v8 + v6 + 32);
-        *(v9 + 32) = v11;
+        v9 = &v8[v6];
+        v10 = &v7[v6];
+        std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vdeallocate(&v8[v6 + 8]);
+        *(v9 + 8) = *&v7[v6 + 8];
+        v11 = *&v7[v6 + 32];
+        *(v9 + 3) = *&v7[v6 + 24];
+        *(v10 + 1) = 0;
+        *(v10 + 2) = 0;
+        *(v10 + 3) = 0;
+        *(v10 + 4) = 0;
+        v12 = *&v8[v6 + 32];
+        *(v9 + 4) = v11;
 
-        v13 = *(v7 + v6 + 40);
-        v14 = *(v7 + v6 + 56);
-        v16 = (v8 + v6 + 80);
+        v13 = *&v7[v6 + 40];
+        v14 = *&v7[v6 + 56];
+        v16 = &v8[v6 + 80];
         v15 = *v16;
-        *(v9 + 72) = *(v7 + v6 + 72);
+        *(v9 + 9) = *&v7[v6 + 72];
         *(v9 + 56) = v14;
         *(v9 + 40) = v13;
         if (v15)
         {
-          *(v9 + 88) = v15;
+          *(v9 + 11) = v15;
           operator delete(v15);
           *v16 = 0;
-          *(v9 + 88) = 0;
-          *(v9 + 96) = 0;
+          *(v9 + 11) = 0;
+          *(v9 + 12) = 0;
         }
 
-        *v16 = *(v10 + 80);
-        *(v9 + 96) = *(v10 + 96);
-        *(v10 + 80) = 0;
-        *(v10 + 88) = 0;
-        *(v10 + 96) = 0;
+        *v16 = *(v10 + 5);
+        *(v9 + 12) = *(v10 + 12);
+        *(v10 + 10) = 0;
+        *(v10 + 11) = 0;
+        *(v10 + 12) = 0;
         v17 = *(v10 + 104);
-        *(v9 + 120) = *(v10 + 120);
+        *(v9 + 15) = *(v10 + 15);
         *(v9 + 104) = v17;
-        std::vector<AccelerationStructureViewer::Property>::__vdeallocate((v9 + 128));
-        *(v9 + 128) = *(v10 + 128);
-        *(v9 + 144) = *(v10 + 144);
-        *(v10 + 128) = 0;
-        *(v10 + 136) = 0;
-        *(v10 + 144) = 0;
+        std::vector<AccelerationStructureViewer::Property>::__vdeallocate(v9 + 16);
+        *(v9 + 8) = *(v10 + 8);
+        *(v9 + 18) = *(v10 + 18);
+        *(v10 + 16) = 0;
+        *(v10 + 17) = 0;
+        *(v10 + 18) = 0;
         v7 += 152;
         v8 += 152;
       }
 
-      while ((v7 + v6) != v5);
-      v18 = (v8 + v6);
+      while (&v7[v6] != v5);
+      v18 = &v8[v6];
       v5 = a1[1];
     }
 
     if (v5 != v18)
     {
-      v19 = v5 - 19;
+      v19 = v5 - 152;
       v20 = v19;
       v21 = v19;
       do
       {
         v22 = *v21;
-        v21 -= 19;
+        v21 -= 152;
         (*v22)(v20);
-        v19 -= 19;
+        v19 -= 152;
         v23 = v20 == v18;
         v20 = v21;
       }
@@ -9183,7 +9168,7 @@ void (***std::vector<AccelerationStructureViewer::IntersectionFunction>::erase(v
   return a2;
 }
 
-void std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vdeallocate(void **a1)
+void std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vdeallocate(id **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -9211,7 +9196,7 @@ void std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>:
   }
 }
 
-void std::vector<AccelerationStructureViewer::Property>::__vdeallocate(void **a1)
+void std::vector<AccelerationStructureViewer::Property>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -9222,11 +9207,11 @@ void std::vector<AccelerationStructureViewer::Property>::__vdeallocate(void **a1
     {
       v5 = v3 - 120;
       v6 = v3 - 120;
-      v7 = v3 - 120;
+      v7 = (v3 - 120);
       do
       {
         v8 = *v7;
-        v7 -= 120;
+        v7 -= 15;
         (*v8)(v6);
         v5 -= 120;
         v9 = v6 == v1;
@@ -9340,7 +9325,7 @@ uint64_t std::__split_buffer<AccelerationStructureViewer::IntersectionFunction>:
   return a1;
 }
 
-void std::vector<AccelerationStructureViewer::Property>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<AccelerationStructureViewer::Property>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x222222222222223)
   {
@@ -9377,7 +9362,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:nn200100]<std::allocator<A
       *(v3 + 40) = v8;
       *(v3 + 104) = 0;
       *(v3 + 112) = 0;
-      std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>(v3 + 96, *(v5 + 96), *(v5 + 104), (*(v5 + 104) - *(v5 + 96)) >> 3);
+      std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>((v3 + 96), *(v5 + 96), *(v5 + 104), (*(v5 + 104) - *(v5 + 96)) >> 3);
       v5 += 120;
       v3 += 120;
       v6 += 120;
@@ -9389,7 +9374,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:nn200100]<std::allocator<A
   return v3;
 }
 
-uint64_t std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>(uint64_t *result, void **a2, void **a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9399,7 +9384,7 @@ uint64_t std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSSt
   return result;
 }
 
-void std::vector<NSString * {__strong}>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<NSString * {__strong}>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -9429,7 +9414,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructure
   std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -9449,7 +9434,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructure
   std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -9491,15 +9476,15 @@ void std::vector<AccelerationStructureViewer::IntersectionFunctionTable>::__dest
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 32;
-      v7 = v4 - 32;
-      v8 = v4 - 32;
+      v6 = v4 - 4;
+      v7 = v4 - 4;
+      v8 = v4 - 4;
       do
       {
         v9 = *v8;
-        v8 -= 32;
+        v8 -= 4;
         (*v9)(v7);
-        v6 -= 32;
+        v6 -= 4;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -9524,7 +9509,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructure
   std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
 }
 
-void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::~MTLAccelerationStructureDataSource(AccelerationStructureViewerServer::MTLAccelerationStructureDataSource *this)
+void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::~MTLAccelerationStructureDataSource(id *this)
 {
   AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::~MTLAccelerationStructureDataSource(this);
 
@@ -9534,12 +9519,12 @@ void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::~MTL
 {
   *this = &unk_2860BB590;
 
-  v2 = (this + 352);
+  v2 = this + 44;
   std::vector<objc_object  {objcproto7MTLHeap}* {__strong}>::__destroy_vector::operator()[abi:nn200100](&v2);
-  std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::~__hash_table(this + 312);
+  std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::~__hash_table((this + 39));
 
-  std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::IntersectionFunction>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::IntersectionFunction>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::IntersectionFunction>>>>::destroy(*(this + 34));
-  v2 = (this + 240);
+  std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::IntersectionFunction>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::IntersectionFunction>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::IntersectionFunction>>>>::destroy(this[34]);
+  v2 = this + 30;
   std::vector<AccelerationStructureViewer::IntersectionFunctionTable>::__destroy_vector::operator()[abi:nn200100](&v2);
 
   AccelerationStructureViewerServer::DataSource::~DataSource(this);
@@ -9613,25 +9598,25 @@ void std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationSt
 
 id AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::getAllAccelerationStructureChildren(AccelerationStructureViewerServer::MTLAccelerationStructureDataSource *this, uint64_t a2, apr_pool_t *a3)
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v53[2] = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   v7 = *(*(this + 26) + 8);
   v8 = *v7;
   v9 = v7[1];
   v10 = *(*v7 + 11);
   v11 = *(this + 36);
-  v53 = 0;
-  v52 = 0u;
-  memset(v51, 0, sizeof(v51));
-  GTMTLIndirectResources_allResourcesByKey(v51, v8[5], v11 + v10, 1, a3);
-  v12 = v52;
-  v50 = *(v52 + 48);
+  v52 = 0;
+  v51 = 0u;
+  memset(v50, 0, sizeof(v50));
+  GTMTLIndirectResources_allResourcesByKey(v50, v8[5], v11 + v10, 1, a3);
+  v12 = v51;
+  v49 = *(v51 + 48);
   v13 = [v9 defaultDevice];
-  v14 = [v13 newBufferWithLength:8 * v50 options:0];
+  v14 = [v13 newBufferWithLength:8 * v49 options:0];
 
-  v42 = v14;
+  v41 = v14;
   v15 = [v9 defaultDevice];
-  v43 = [v15 newBufferWithLength:4 * v50 options:0];
+  v42 = [v15 newBufferWithLength:4 * v49 options:0];
 
   v16 = [v14 contents];
   *(v12 + 24) = 0;
@@ -9653,46 +9638,46 @@ id AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::getAll
   }
 
   std::__sort<std::__less<unsigned long long,unsigned long long> &,unsigned long long *>();
-  v44 = [v9 accelerationStructureForKey:a2];
+  v43 = [v9 accelerationStructureForKey:a2];
   v19 = [v9 defaultCommandQueue];
   context = v6;
-  v45 = [v19 commandBuffer];
+  v44 = [v19 commandBuffer];
 
-  [v45 setLabel:@"com.apple.gputools.ASV.MarkAccelerationStructureChildren"];
-  v20 = [v45 computeCommandEncoder];
+  [v44 setLabel:@"com.apple.gputools.ASV.MarkAccelerationStructureChildren"];
+  v20 = [v44 computeCommandEncoder];
   v21 = [v9 defaultDevice];
   v22 = [v21 supportsFamily:1004];
 
   if (v22)
   {
-    *v49 = 0;
-    *&v49[12] = 0;
-    *&v49[16] = 0;
-    *&v49[4] = 0x100000001;
-    *&v49[12] = [*(this + 28) threadExecutionWidth];
-    *&v49[16] = 0x100000001;
+    *v48 = 0;
+    *&v48[12] = 0;
+    *&v48[16] = 0;
+    *&v48[4] = 0x100000001;
+    *&v48[12] = [*(this + 28) threadExecutionWidth];
+    *&v48[16] = 0x100000001;
     v23 = [v9 defaultDevice];
-    v24 = [v23 newBufferWithBytes:v49 length:24 options:0];
+    v24 = [v23 newBufferWithBytes:v48 length:24 options:0];
 
     [v20 setComputePipelineState:*(this + 27)];
-    [v20 setAccelerationStructure:v44 atBufferIndex:1];
+    [v20 setAccelerationStructure:v43 atBufferIndex:1];
     [v20 setBuffer:v24 offset:0 atIndex:0];
-    *v48 = vdupq_n_s64(1uLL);
-    *&v48[16] = 1;
-    v46 = *v48;
-    v47 = 1;
-    [v20 dispatchThreads:v48 threadsPerThreadgroup:&v46];
+    *v47 = vdupq_n_s64(1uLL);
+    *&v47[16] = 1;
+    v45 = *v47;
+    v46 = 1;
+    [v20 dispatchThreads:v47 threadsPerThreadgroup:&v45];
     [v20 setComputePipelineState:*(this + 28)];
-    [v20 setAccelerationStructure:v44 atBufferIndex:1];
-    [v20 setBytes:&v50 length:4 atIndex:4];
+    [v20 setAccelerationStructure:v43 atBufferIndex:1];
+    [v20 setBytes:&v49 length:4 atIndex:4];
     [v20 setBuffer:v14 offset:0 atIndex:2];
-    [v20 setBuffer:v43 offset:0 atIndex:3];
+    [v20 setBuffer:v42 offset:0 atIndex:3];
     [v20 dispatchThreadsWithIndirectBuffer:v24 indirectBufferOffset:0];
   }
 
   else
   {
-    LODWORD(v46) = [*(this + 28) threadExecutionWidth];
+    LODWORD(v45) = [*(this + 28) threadExecutionWidth];
     v25 = [v9 defaultDevice];
     v26 = [v25 newBufferWithLength:4 options:0];
 
@@ -9700,43 +9685,43 @@ id AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::getAll
     v28 = [v27 newBufferWithLength:12 options:0];
 
     [v20 setComputePipelineState:*(this + 27)];
-    [v20 setAccelerationStructure:v44 atBufferIndex:1];
+    [v20 setAccelerationStructure:v43 atBufferIndex:1];
     [v20 setBuffer:v26 offset:0 atIndex:0];
-    *v49 = vdupq_n_s64(1uLL);
-    *&v49[16] = 1;
-    *v48 = [*(this + 27) threadExecutionWidth];
-    *&v48[8] = *v49;
-    [v20 dispatchThreadgroups:v49 threadsPerThreadgroup:v48];
+    *v48 = vdupq_n_s64(1uLL);
+    *&v48[16] = 1;
+    *v47 = [*(this + 27) threadExecutionWidth];
+    *&v47[8] = *v48;
+    [v20 dispatchThreadgroups:v48 threadsPerThreadgroup:v47];
     [v20 setComputePipelineState:*(this + 29)];
-    [v20 setBytes:&v46 length:4 atIndex:6];
+    [v20 setBytes:&v45 length:4 atIndex:6];
     [v20 setBuffer:v26 offset:0 atIndex:0];
     [v20 setBuffer:v28 offset:0 atIndex:5];
-    *v49 = vdupq_n_s64(1uLL);
-    *&v49[16] = 1;
-    *v48 = [*(this + 27) threadExecutionWidth];
-    *&v48[8] = vdupq_n_s64(1uLL);
-    [v20 dispatchThreadgroups:v49 threadsPerThreadgroup:v48];
+    *v48 = vdupq_n_s64(1uLL);
+    *&v48[16] = 1;
+    *v47 = [*(this + 27) threadExecutionWidth];
+    *&v47[8] = vdupq_n_s64(1uLL);
+    [v20 dispatchThreadgroups:v48 threadsPerThreadgroup:v47];
     [v20 setComputePipelineState:*(this + 28)];
-    [v20 setAccelerationStructure:v44 atBufferIndex:1];
-    [v20 setBytes:&v50 length:4 atIndex:4];
+    [v20 setAccelerationStructure:v43 atBufferIndex:1];
+    [v20 setBytes:&v49 length:4 atIndex:4];
     [v20 setBuffer:v14 offset:0 atIndex:2];
-    [v20 setBuffer:v43 offset:0 atIndex:3];
-    *v49 = v46;
-    *&v49[8] = vdupq_n_s64(1uLL);
-    [v20 dispatchThreadgroupsWithIndirectBuffer:v28 indirectBufferOffset:0 threadsPerThreadgroup:v49];
+    [v20 setBuffer:v42 offset:0 atIndex:3];
+    *v48 = v45;
+    *&v48[8] = vdupq_n_s64(1uLL);
+    [v20 dispatchThreadgroupsWithIndirectBuffer:v28 indirectBufferOffset:0 threadsPerThreadgroup:v48];
   }
 
   [v20 endEncoding];
-  [v45 commit];
-  [v45 waitUntilCompleted];
-  if ([v45 status] == 4)
+  [v44 commit];
+  [v44 waitUntilCompleted];
+  if ([v44 status] == 4)
   {
-    v29 = v43;
-    v30 = [v43 contents];
+    v29 = v42;
+    v30 = [v42 contents];
     v31 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:10];
-    if (v50)
+    if (v49)
     {
-      for (i = 0; i < v50; ++i)
+      for (i = 0; i < v49; ++i)
       {
         if (*(v30 + 4 * i))
         {
@@ -9750,9 +9735,9 @@ id AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::getAll
               if (v35)
               {
                 v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v34 + 8)];
-                v54[0] = v36;
-                v54[1] = v35;
-                v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+                v53[0] = v36;
+                v53[1] = v35;
+                v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
                 [v31 addObject:v37];
               }
             }
@@ -9772,102 +9757,111 @@ id AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::getAll
   }
 
   objc_autoreleasePoolPop(context);
-  v39 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
 
-void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(uint64_t a1, id *a2, int *a3, uint64_t a4, apr_pool_t *a5, uint64_t a6)
+void AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(uint64_t a1, id *a2, int *a3, uint64_t a4, apr_pool_t *a5, uint64_t **a6)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
+  v42 = a2;
   if (a3)
   {
     v11 = *(a3 + 1);
-    v12 = *a2;
-    v36 = a2[1];
-    v13 = *a3;
+    v41 = a2[1];
+    v12 = *a3;
     if (*a3 == 60)
     {
-      v32 = v12[1];
-      v35 = a3;
-      v25 = [a2[1] resourceForKey:v11];
-      v26 = [v25 label];
-      if (v26 && ([v25 label], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "isEqualToString:", &stru_2860BD438), v27, v26, (v28 & 1) == 0))
+      v40 = a3;
+      v36[3] = &unk_2860BC6D8;
+      v37 = 0;
+      v38 = v11;
+      v24 = [a2[1] resourceForKey:v11];
+      v25 = [v24 label];
+      if (v25 && ([v24 label], v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "isEqualToString:", &stru_2860BD438), v26, v25, (v27 & 1) == 0))
       {
-        v29 = [v25 label];
+        v28 = [v24 label];
       }
 
       else
       {
-        v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"MTLIntersectionFunctionTable 0x%llx", v25];
+        v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"MTLIntersectionFunctionTable 0x%llx", v24];
       }
 
-      v34 = v29;
+      v29 = v37;
+      v37 = v28;
 
       if ((a4 & 0x8000000000000000) == 0)
       {
-        [v34 stringByAppendingFormat:@" (%zu)", a4];
-        objc_claimAutoreleasedReturnValue();
+        v30 = [v37 stringByAppendingFormat:@" (%zu)", a4];
+        v31 = v37;
+        v37 = v30;
       }
 
-      v30 = *(*(v35 + 14) + 8);
-      if (v30)
+      memset(v36, 0, 24);
+      v32 = *(*(v40 + 14) + 8);
+      if (v32)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewer::IntersectionFunction>>(v30);
+        v35 = v36;
+        std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewer::IntersectionFunction>>(v32);
       }
 
+      v39 = *(*(v40 + 14) + 8);
+      v43 = 0;
       operator new();
     }
 
-    if (v13 == 50)
+    if (v12 == 50)
     {
-      v16 = a5;
-      v17 = *(a1 + 288);
-      v18 = *(*a2 + 11);
-      v19 = apr_array_make(v16, 4, 8);
-      GTMTLSMContext_getHeapResourcesWithType(*(*a2 + 5), v11, v18 + v17, 0x10, v19, v16);
-      if (v19->nelts >= 1)
+      v15 = a5;
+      v16 = *(a1 + 288);
+      v17 = *(*a2 + 11);
+      v18 = apr_array_make(v15, 4, 8);
+      GTMTLSMContext_getHeapResourcesWithType(*(*a2 + 5), v11, v17 + v16, 0x10, v18, v15);
+      if (v18->nelts >= 1)
       {
-        v20 = 0;
+        v19 = 0;
         do
         {
-          v21 = *&v19->elts[8 * v20];
-          if (v21)
+          v20 = *&v18->elts[8 * v19];
+          if (v20)
           {
-            v22 = *(v21 + 8);
+            v21 = *(v20 + 8);
           }
 
           else
           {
-            v22 = 0;
+            v21 = 0;
           }
 
-          v23 = [a2[1] accelerationStructureForKey:v22];
-          v24 = v23;
-          if (v23)
+          v22 = [v42[1] accelerationStructureForKey:v21];
+          v23 = v22;
+          if (v22)
           {
-            std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long long>>(a6, [v23 uniqueIdentifier]);
+            *&v34 = [v22 uniqueIdentifier];
+            *(&v34 + 1) = v21;
+            std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long long>>(a6, v34, &v34);
           }
 
-          ++v20;
+          ++v19;
         }
 
-        while (v20 < v19->nelts);
+        while (v19 < v18->nelts);
       }
     }
 
-    else if (v13 == 16)
+    else if (v12 == 16)
     {
-      v14 = [a2[1] accelerationStructureForKey:v11];
-      v15 = v14;
-      if (v14)
+      v13 = [a2[1] accelerationStructureForKey:v11];
+      v14 = v13;
+      if (v13)
       {
-        std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long long>>(a6, [v14 uniqueIdentifier]);
+        *&v34 = [v13 uniqueIdentifier];
+        *(&v34 + 1) = v11;
+        std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long long>>(a6, v34, &v34);
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24D8696D0()

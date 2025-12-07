@@ -95,27 +95,27 @@ void __32__STMutableSizeDict_plusEquals___block_invoke(uint64_t a1, void *a2, vo
 
 - (void)removeSmallerThan:(int64_t)than
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allKeys = [(NSMutableDictionary *)self->_mutableDictionary allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_mutableDictionary objectForKeyedSubscript:v10];
         if ([v11 userTotal] < than)
         {
@@ -123,13 +123,11 @@ void __32__STMutableSizeDict_plusEquals___block_invoke(uint64_t a1, void *a2, vo
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasKey:(id)key

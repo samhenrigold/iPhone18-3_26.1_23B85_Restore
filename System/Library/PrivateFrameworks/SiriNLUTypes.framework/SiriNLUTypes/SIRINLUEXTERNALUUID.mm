@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)namespaceAAsString:(int)string;
 - (int)StringAsNamespaceA:(id)a;
 - (int)namespaceA;
 - (unint64_t)hash;
@@ -226,12 +227,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    highInt = self->_highInt;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -250,15 +250,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  lowInt = self->_lowInt;
   PBDataWriterWriteUint64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    namespaceA = self->_namespaceA;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
@@ -369,6 +367,21 @@ LABEL_11:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)namespaceAAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83281D8[string];
   }
 
   return v4;

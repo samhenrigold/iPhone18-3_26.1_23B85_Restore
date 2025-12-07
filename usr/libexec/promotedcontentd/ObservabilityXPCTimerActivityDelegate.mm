@@ -108,7 +108,7 @@
   v5 = sub_100397748();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ObservabilityXPCTimerActivityDelegate();
+  v7.super_class = type metadata accessor for ObservabilityXPCTimerActivityDelegate(0);
   return [(ObservabilityXPCTimerActivityDelegate *)&v7 init];
 }
 

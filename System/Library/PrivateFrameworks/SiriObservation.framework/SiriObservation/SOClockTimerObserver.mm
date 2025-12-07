@@ -34,14 +34,14 @@
 
 - (void)_consolidateNotifiedFiringTimers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   itemsByID = [(AFClockItemStorage *)self->_timerStorage itemsByID];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __56__SOClockTimerObserver__consolidateNotifiedFiringTimers__block_invoke;
-  v23[3] = &unk_279C3D410;
-  v23[4] = self;
-  [itemsByID enumerateKeysAndObjectsUsingBlock:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __56__SOClockTimerObserver__consolidateNotifiedFiringTimers__block_invoke;
+  v22[3] = &unk_279C3D410;
+  v22[4] = self;
+  [itemsByID enumerateKeysAndObjectsUsingBlock:v22];
   if ([(NSMutableOrderedSet *)self->_notifiedFiringTimerIDs count])
   {
     v4 = MEMORY[0x277CBEB98];
@@ -52,46 +52,44 @@
     v8 = [(NSMutableOrderedSet *)self->_notifiedFiringTimerIDs set];
     v9 = [v7 setWithSet:v8];
 
-    v17 = v6;
+    v16 = v6;
     [v9 minusSet:v6];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
+          v15 = *(*(&v18 + 1) + 8 * i);
           [(NSMutableOrderedSet *)self->_notifiedFiringTimerIDs removeObject:v15];
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __56__SOClockTimerObserver__consolidateNotifiedFiringTimers__block_invoke_4;
-          v18[3] = &unk_279C3D2D0;
-          v18[4] = self;
-          v18[5] = v15;
-          [(SOClockTimerObserver *)self _enumerateListenersUsingBlock:v18];
+          v17[0] = MEMORY[0x277D85DD0];
+          v17[1] = 3221225472;
+          v17[2] = __56__SOClockTimerObserver__consolidateNotifiedFiringTimers__block_invoke_4;
+          v17[3] = &unk_279C3D2D0;
+          v17[4] = self;
+          v17[5] = v15;
+          [(SOClockTimerObserver *)self _enumerateListenersUsingBlock:v17];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v12);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SOClockTimerObserver__consolidateNotifiedFiringTimers__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -132,60 +130,58 @@ LABEL_7:
 
 - (void)_enumerateListenersUsingBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = self->_listeners;
-    v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9++));
+          blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9++));
         }
 
         while (v7 != v9);
-        v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFetchTimersForReason:(id)reason error:(id)error completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   errorCopy = error;
   completionCopy = completion;
   v10 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v12 = 136315650;
-    v13 = "[SOClockTimerObserver _handleFetchTimersForReason:error:completion:]";
-    v14 = 2112;
-    v15 = reasonCopy;
-    v16 = 2112;
-    v17 = errorCopy;
-    _os_log_error_impl(&dword_26858F000, v10, OS_LOG_TYPE_ERROR, "%s reason = %@, error = %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[SOClockTimerObserver _handleFetchTimersForReason:error:completion:]";
+    v13 = 2112;
+    v14 = reasonCopy;
+    v15 = 2112;
+    v16 = errorCopy;
+    _os_log_error_impl(&dword_26858F000, v10, OS_LOG_TYPE_ERROR, "%s reason = %@, error = %@", &v11, 0x20u);
     if (!completionCopy)
     {
       goto LABEL_4;
@@ -201,26 +197,24 @@ LABEL_3:
   }
 
 LABEL_4:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFetchTimersForReason:(id)reason result:(id)result completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   completionCopy = completion;
   v10 = SOClockTimerCreateFromMTTimers(result);
   v11 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v13 = 136315650;
-    v14 = "[SOClockTimerObserver _handleFetchTimersForReason:result:completion:]";
-    v15 = 2112;
-    v16 = reasonCopy;
-    v17 = 2112;
-    v18 = v10;
-    _os_log_impl(&dword_26858F000, v11, OS_LOG_TYPE_INFO, "%s reason = %@, timers = %@", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "[SOClockTimerObserver _handleFetchTimersForReason:result:completion:]";
+    v14 = 2112;
+    v15 = reasonCopy;
+    v16 = 2112;
+    v17 = v10;
+    _os_log_impl(&dword_26858F000, v11, OS_LOG_TYPE_INFO, "%s reason = %@, timers = %@", &v12, 0x20u);
   }
 
   [(AFClockItemStorage *)self->_timerStorage beginGrouping];
@@ -231,22 +225,20 @@ LABEL_4:
   {
     completionCopy[2](completionCopy, v10, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchTimersForReason:(id)reason completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v29 = "[SOClockTimerObserver _fetchTimersForReason:completion:]";
-    v30 = 2112;
-    v31 = reasonCopy;
+    v28 = "[SOClockTimerObserver _fetchTimersForReason:completion:]";
+    v29 = 2112;
+    v30 = reasonCopy;
     _os_log_impl(&dword_26858F000, v8, OS_LOG_TYPE_INFO, "%s reason = %@", buf, 0x16u);
   }
 
@@ -255,31 +247,31 @@ LABEL_4:
   if (timers)
   {
     v10 = self->_queue;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke;
-    v23[3] = &unk_279C3D3C0;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke;
+    v22[3] = &unk_279C3D3C0;
     v11 = reasonCopy;
-    v24 = v11;
+    v23 = v11;
     v12 = v10;
-    v25 = v12;
-    objc_copyWeak(&v27, buf);
+    v24 = v12;
+    objc_copyWeak(&v26, buf);
     v13 = completionCopy;
-    v26 = v13;
-    v14 = [timers addSuccessBlock:v23];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_2;
-    v18[3] = &unk_279C3D3E8;
-    v19 = v11;
+    v25 = v13;
+    v14 = [timers addSuccessBlock:v22];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_2;
+    v17[3] = &unk_279C3D3E8;
+    v18 = v11;
     v15 = v12;
-    v20 = v15;
-    objc_copyWeak(&v22, buf);
-    v21 = v13;
-    v16 = [timers addFailureBlock:v18];
+    v19 = v15;
+    objc_copyWeak(&v21, buf);
+    v20 = v13;
+    v16 = [timers addFailureBlock:v17];
 
-    objc_destroyWeak(&v22);
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v26);
   }
 
   else
@@ -289,73 +281,70 @@ LABEL_4:
   }
 
   objc_destroyWeak(buf);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
     *buf = 136315650;
-    v15 = "[SOClockTimerObserver _fetchTimersForReason:completion:]_block_invoke";
-    v16 = 2112;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v3;
+    v14 = "[SOClockTimerObserver _fetchTimersForReason:completion:]_block_invoke";
+    v15 = 2112;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v3;
     _os_log_impl(&dword_26858F000, v4, OS_LOG_TYPE_INFO, "%s reason = %@, result = %@", buf, 0x20u);
   }
 
   v6 = *(a1 + 40);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_26;
-  v9[3] = &unk_279C3D398;
-  objc_copyWeak(&v13, (a1 + 56));
-  v10 = *(a1 + 32);
-  v11 = v3;
-  v12 = *(a1 + 48);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_26;
+  v8[3] = &unk_279C3D398;
+  objc_copyWeak(&v12, (a1 + 56));
+  v9 = *(a1 + 32);
+  v10 = v3;
+  v11 = *(a1 + 48);
   v7 = v3;
-  dispatch_async(v6, v9);
+  dispatch_async(v6, v8);
 
-  objc_destroyWeak(&v13);
-  v8 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v12);
 }
 
 void __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 136315650;
-    v15 = "[SOClockTimerObserver _fetchTimersForReason:completion:]_block_invoke_2";
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v3;
+    v14 = "[SOClockTimerObserver _fetchTimersForReason:completion:]_block_invoke_2";
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2112;
+    v18 = v3;
     _os_log_error_impl(&dword_26858F000, v4, OS_LOG_TYPE_ERROR, "%s reason = %@, error = %@", buf, 0x20u);
   }
 
   v5 = *(a1 + 40);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_27;
-  v9[3] = &unk_279C3D398;
-  objc_copyWeak(&v13, (a1 + 56));
-  v10 = *(a1 + 32);
-  v11 = v3;
-  v12 = *(a1 + 48);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_27;
+  v8[3] = &unk_279C3D398;
+  objc_copyWeak(&v12, (a1 + 56));
+  v9 = *(a1 + 32);
+  v10 = v3;
+  v11 = *(a1 + 48);
   v6 = v3;
-  dispatch_async(v5, v9);
+  dispatch_async(v5, v8);
 
-  objc_destroyWeak(&v13);
-  v7 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v12);
 }
 
 void __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_27(uint64_t a1)
@@ -372,12 +361,12 @@ void __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_
 
 - (void)_reset
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[SOClockTimerObserver _reset]";
+    v10 = "[SOClockTimerObserver _reset]";
     _os_log_impl(&dword_26858F000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -398,48 +387,45 @@ void __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_
 
   if (self->_timerSnapshot)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __30__SOClockTimerObserver__reset__block_invoke;
-    v9[3] = &unk_279C3D370;
-    v9[4] = self;
-    [(SOClockTimerObserver *)self _enumerateListenersUsingBlock:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __30__SOClockTimerObserver__reset__block_invoke;
+    v8[3] = &unk_279C3D370;
+    v8[4] = self;
+    [(SOClockTimerObserver *)self _enumerateListenersUsingBlock:v8];
     timerSnapshot = self->_timerSnapshot;
     self->_timerSnapshot = 0;
   }
 
   timersChangedToken = self->_timersChangedToken;
   self->_timersChangedToken = 0;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tearDown
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[SOClockTimerObserver _tearDown]";
-    _os_log_impl(&dword_26858F000, v3, OS_LOG_TYPE_INFO, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SOClockTimerObserver _tearDown]";
+    _os_log_impl(&dword_26858F000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
   }
 
   timerManager = self->_timerManager;
   self->_timerManager = 0;
 
   [(SOClockTimerObserver *)self _reset];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setUp
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v38 = "[SOClockTimerObserver _setUp]";
+    v37 = "[SOClockTimerObserver _setUp]";
     _os_log_impl(&dword_26858F000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -464,73 +450,71 @@ void __57__SOClockTimerObserver__fetchTimersForReason_completion___block_invoke_
     [(SOClockTimerManager *)v11 checkIn];
     objc_initWeak(buf, self);
     v12 = self->_timerManager;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __30__SOClockTimerObserver__setUp__block_invoke;
-    v35[3] = &unk_279C3D348;
-    objc_copyWeak(&v36, buf);
-    [(SOClockTimerManager *)v12 addHandler:v35 forEvent:1];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __30__SOClockTimerObserver__setUp__block_invoke;
+    v34[3] = &unk_279C3D348;
+    objc_copyWeak(&v35, buf);
+    [(SOClockTimerManager *)v12 addHandler:v34 forEvent:1];
     v13 = self->_timerManager;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __30__SOClockTimerObserver__setUp__block_invoke_2;
-    v33[3] = &unk_279C3D348;
-    objc_copyWeak(&v34, buf);
-    [(SOClockTimerManager *)v13 addHandler:v33 forEvent:2];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __30__SOClockTimerObserver__setUp__block_invoke_2;
+    v32[3] = &unk_279C3D348;
+    objc_copyWeak(&v33, buf);
+    [(SOClockTimerManager *)v13 addHandler:v32 forEvent:2];
     v14 = self->_timerManager;
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __30__SOClockTimerObserver__setUp__block_invoke_3;
-    v31[3] = &unk_279C3D348;
-    objc_copyWeak(&v32, buf);
-    [(SOClockTimerManager *)v14 addHandler:v31 forEvent:3];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __30__SOClockTimerObserver__setUp__block_invoke_3;
+    v30[3] = &unk_279C3D348;
+    objc_copyWeak(&v31, buf);
+    [(SOClockTimerManager *)v14 addHandler:v30 forEvent:3];
     v15 = self->_timerManager;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __30__SOClockTimerObserver__setUp__block_invoke_4;
-    v29[3] = &unk_279C3D348;
-    objc_copyWeak(&v30, buf);
-    [(SOClockTimerManager *)v15 addHandler:v29 forEvent:4];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __30__SOClockTimerObserver__setUp__block_invoke_4;
+    v28[3] = &unk_279C3D348;
+    objc_copyWeak(&v29, buf);
+    [(SOClockTimerManager *)v15 addHandler:v28 forEvent:4];
     v16 = self->_timerManager;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __30__SOClockTimerObserver__setUp__block_invoke_5;
-    v27[3] = &unk_279C3D348;
-    objc_copyWeak(&v28, buf);
-    [(SOClockTimerManager *)v16 addHandler:v27 forEvent:5];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __30__SOClockTimerObserver__setUp__block_invoke_5;
+    v26[3] = &unk_279C3D348;
+    objc_copyWeak(&v27, buf);
+    [(SOClockTimerManager *)v16 addHandler:v26 forEvent:5];
     v17 = self->_timerManager;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __30__SOClockTimerObserver__setUp__block_invoke_6;
-    v25[3] = &unk_279C3D348;
-    objc_copyWeak(&v26, buf);
-    [(SOClockTimerManager *)v17 addHandler:v25 forEvent:6];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __30__SOClockTimerObserver__setUp__block_invoke_6;
+    v24[3] = &unk_279C3D348;
+    objc_copyWeak(&v25, buf);
+    [(SOClockTimerManager *)v17 addHandler:v24 forEvent:6];
     v18 = self->_timerManager;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __30__SOClockTimerObserver__setUp__block_invoke_7;
-    v23[3] = &unk_279C3D348;
-    objc_copyWeak(&v24, buf);
-    [(SOClockTimerManager *)v18 addHandler:v23 forEvent:8];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __30__SOClockTimerObserver__setUp__block_invoke_7;
+    v22[3] = &unk_279C3D348;
+    objc_copyWeak(&v23, buf);
+    [(SOClockTimerManager *)v18 addHandler:v22 forEvent:8];
     v19 = self->_timerManager;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __30__SOClockTimerObserver__setUp__block_invoke_8;
-    v21[3] = &unk_279C3D348;
-    objc_copyWeak(&v22, buf);
-    [(SOClockTimerManager *)v19 addHandler:v21 forEvent:7];
-    objc_destroyWeak(&v22);
-    objc_destroyWeak(&v24);
-    objc_destroyWeak(&v26);
-    objc_destroyWeak(&v28);
-    objc_destroyWeak(&v30);
-    objc_destroyWeak(&v32);
-    objc_destroyWeak(&v34);
-    objc_destroyWeak(&v36);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __30__SOClockTimerObserver__setUp__block_invoke_8;
+    v20[3] = &unk_279C3D348;
+    objc_copyWeak(&v21, buf);
+    [(SOClockTimerManager *)v19 addHandler:v20 forEvent:7];
+    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v35);
     objc_destroyWeak(buf);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __30__SOClockTimerObserver__setUp__block_invoke(uint64_t a1, void *a2)
@@ -668,7 +652,7 @@ void __38__SOClockTimerObserver__timerSnapshot__block_invoke(uint64_t a1, void *
 
 void __38__SOClockTimerObserver_timersChanged___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -677,9 +661,9 @@ void __38__SOClockTimerObserver_timersChanged___block_invoke(uint64_t a1)
     {
       v4 = *(a1 + 40);
       *buf = 136315394;
-      v14 = "[SOClockTimerObserver timersChanged:]_block_invoke";
-      v15 = 2112;
-      v16 = v4;
+      v13 = "[SOClockTimerObserver timersChanged:]_block_invoke";
+      v14 = 2112;
+      v15 = v4;
       _os_log_impl(&dword_26858F000, v3, OS_LOG_TYPE_INFO, "%s timers = %@", buf, 0x16u);
     }
 
@@ -688,20 +672,18 @@ void __38__SOClockTimerObserver_timersChanged___block_invoke(uint64_t a1)
     objc_initWeak(buf, v2);
     v6 = dispatch_time(0, 250000000);
     v7 = *(*(a1 + 32) + 8);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __38__SOClockTimerObserver_timersChanged___block_invoke_14;
-    v10[3] = &unk_279C3D2F8;
-    objc_copyWeak(&v12, buf);
-    v11 = v5;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __38__SOClockTimerObserver_timersChanged___block_invoke_14;
+    v9[3] = &unk_279C3D2F8;
+    objc_copyWeak(&v11, buf);
+    v10 = v5;
     v8 = v5;
-    dispatch_after(v6, v7, v10);
+    dispatch_after(v6, v7, v9);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __38__SOClockTimerObserver_timersChanged___block_invoke_14(uint64_t a1)
@@ -729,31 +711,29 @@ void __38__SOClockTimerObserver_timersChanged___block_invoke_14(uint64_t a1)
 
 uint64_t __38__SOClockTimerObserver_timersChanged___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SOClockTimerObserver timersChanged:]_block_invoke_2";
-    _os_log_impl(&dword_26858F000, v2, OS_LOG_TYPE_INFO, "%s Timer fetch complete for batched changes", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SOClockTimerObserver timersChanged:]_block_invoke_2";
+    _os_log_impl(&dword_26858F000, v2, OS_LOG_TYPE_INFO, "%s Timer fetch complete for batched changes", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _endGroup];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _endGroup];
 }
 
 - (void)stateReset:(id)reset
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   resetCopy = reset;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v10 = "[SOClockTimerObserver stateReset:]";
-    v11 = 2112;
-    v12 = resetCopy;
+    v9 = "[SOClockTimerObserver stateReset:]";
+    v10 = 2112;
+    v11 = resetCopy;
     _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s timers = %@", buf, 0x16u);
   }
 
@@ -764,8 +744,6 @@ uint64_t __38__SOClockTimerObserver_timersChanged___block_invoke_2(uint64_t a1)
   block[3] = &unk_279C3D280;
   block[4] = self;
   dispatch_async(queue, block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __35__SOClockTimerObserver_stateReset___block_invoke(uint64_t a1)
@@ -783,90 +761,86 @@ uint64_t __35__SOClockTimerObserver_stateReset___block_invoke(uint64_t a1)
 
 uint64_t __35__SOClockTimerObserver_stateReset___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SOClockTimerObserver stateReset:]_block_invoke_2";
-    _os_log_impl(&dword_26858F000, v2, OS_LOG_TYPE_INFO, "%s Timer fetch complete for state reset", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SOClockTimerObserver stateReset:]_block_invoke_2";
+    _os_log_impl(&dword_26858F000, v2, OS_LOG_TYPE_INFO, "%s Timer fetch complete for state reset", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _endGroup];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _endGroup];
 }
 
 - (void)firingTimerDismissed:(id)dismissed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dismissedCopy = dismissed;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SOClockTimerObserver firingTimerDismissed:]";
-    v13 = 2112;
-    v14 = dismissedCopy;
+    v11 = "[SOClockTimerObserver firingTimerDismissed:]";
+    v12 = 2112;
+    v13 = dismissedCopy;
     _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s timers = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __45__SOClockTimerObserver_firingTimerDismissed___block_invoke;
-  v9[3] = &unk_279C3D598;
-  v9[4] = self;
-  v10 = dismissedCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __45__SOClockTimerObserver_firingTimerDismissed___block_invoke;
+  v8[3] = &unk_279C3D598;
+  v8[4] = self;
+  v9 = dismissedCopy;
   v7 = dismissedCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 void __45__SOClockTimerObserver_firingTimerDismissed___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 40);
   v3 = *(a1 + 32);
   v4 = *(v3 + 40);
   *(v3 + 40) = 0;
 
   v5 = _SOClockTimerObserverGetTimerIDsFromTimers(*(a1 + 40));
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         if ([*(*(a1 + 32) + 72) containsObject:v10])
         {
           [*(*(a1 + 32) + 72) removeObject:v10];
           v11 = *(a1 + 32);
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __45__SOClockTimerObserver_firingTimerDismissed___block_invoke_2;
-          v18[3] = &unk_279C3D2D0;
-          v18[4] = v11;
-          v18[5] = v10;
-          [v11 _enumerateListenersUsingBlock:v18];
+          v17[0] = MEMORY[0x277D85DD0];
+          v17[1] = 3221225472;
+          v17[2] = __45__SOClockTimerObserver_firingTimerDismissed___block_invoke_2;
+          v17[3] = &unk_279C3D2D0;
+          v17[4] = v11;
+          v17[5] = v10;
+          [v11 _enumerateListenersUsingBlock:v17];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -880,116 +854,110 @@ void __45__SOClockTimerObserver_firingTimerDismissed___block_invoke(uint64_t a1)
   if (v2 != v12 && ([v2 isEqual:v12] & 1) == 0)
   {
     v13 = *(a1 + 32);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __45__SOClockTimerObserver_firingTimerDismissed___block_invoke_3;
-    v15[3] = &unk_279C3D2A8;
-    v15[4] = v13;
-    v16 = v2;
-    v17 = v12;
-    [v13 _enumerateListenersUsingBlock:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __45__SOClockTimerObserver_firingTimerDismissed___block_invoke_3;
+    v14[3] = &unk_279C3D2A8;
+    v14[4] = v13;
+    v15 = v2;
+    v16 = v12;
+    [v13 _enumerateListenersUsingBlock:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)firingTimerChanged:(id)changed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SOClockTimerObserver firingTimerChanged:]";
-    v13 = 2112;
-    v14 = changedCopy;
+    v11 = "[SOClockTimerObserver firingTimerChanged:]";
+    v12 = 2112;
+    v13 = changedCopy;
     _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s timers = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __43__SOClockTimerObserver_firingTimerChanged___block_invoke;
-  v9[3] = &unk_279C3D598;
-  v9[4] = self;
-  v10 = changedCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __43__SOClockTimerObserver_firingTimerChanged___block_invoke;
+  v8[3] = &unk_279C3D598;
+  v8[4] = self;
+  v9 = changedCopy;
   v7 = changedCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 - (void)timerFired:(id)fired
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   firedCopy = fired;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SOClockTimerObserver timerFired:]";
-    v13 = 2112;
-    v14 = firedCopy;
+    v11 = "[SOClockTimerObserver timerFired:]";
+    v12 = 2112;
+    v13 = firedCopy;
     _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s timers = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __35__SOClockTimerObserver_timerFired___block_invoke;
-  v9[3] = &unk_279C3D598;
-  v9[4] = self;
-  v10 = firedCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __35__SOClockTimerObserver_timerFired___block_invoke;
+  v8[3] = &unk_279C3D598;
+  v8[4] = self;
+  v9 = firedCopy;
   v7 = firedCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 void __35__SOClockTimerObserver_timerFired___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 40);
   v3 = *(a1 + 32);
   v4 = *(v3 + 40);
   *(v3 + 40) = 0;
 
   v5 = _SOClockTimerObserverGetTimerIDsFromTimers(*(a1 + 40));
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         if (([*(*(a1 + 32) + 72) containsObject:v10] & 1) == 0)
         {
           [*(*(a1 + 32) + 72) addObject:v10];
           v11 = *(a1 + 32);
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __35__SOClockTimerObserver_timerFired___block_invoke_2;
-          v18[3] = &unk_279C3D2D0;
-          v18[4] = v11;
-          v18[5] = v10;
-          [v11 _enumerateListenersUsingBlock:v18];
+          v17[0] = MEMORY[0x277D85DD0];
+          v17[1] = 3221225472;
+          v17[2] = __35__SOClockTimerObserver_timerFired___block_invoke_2;
+          v17[3] = &unk_279C3D2D0;
+          v17[4] = v11;
+          v17[5] = v10;
+          [v11 _enumerateListenersUsingBlock:v17];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -1003,89 +971,85 @@ void __35__SOClockTimerObserver_timerFired___block_invoke(uint64_t a1)
   if (v2 != v12 && ([v2 isEqual:v12] & 1) == 0)
   {
     v13 = *(a1 + 32);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __35__SOClockTimerObserver_timerFired___block_invoke_3;
-    v15[3] = &unk_279C3D2A8;
-    v15[4] = v13;
-    v16 = v2;
-    v17 = v12;
-    [v13 _enumerateListenersUsingBlock:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __35__SOClockTimerObserver_timerFired___block_invoke_3;
+    v14[3] = &unk_279C3D2A8;
+    v14[4] = v13;
+    v15 = v2;
+    v16 = v12;
+    [v13 _enumerateListenersUsingBlock:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timersRemoved:(id)removed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SOClockTimerObserver timersRemoved:]";
-    v13 = 2112;
-    v14 = removedCopy;
+    v11 = "[SOClockTimerObserver timersRemoved:]";
+    v12 = 2112;
+    v13 = removedCopy;
     _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s timers = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __38__SOClockTimerObserver_timersRemoved___block_invoke;
-  v9[3] = &unk_279C3D598;
-  v9[4] = self;
-  v10 = removedCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __38__SOClockTimerObserver_timersRemoved___block_invoke;
+  v8[3] = &unk_279C3D598;
+  v8[4] = self;
+  v9 = removedCopy;
   v7 = removedCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 void __38__SOClockTimerObserver_timersRemoved___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 40);
   v3 = *(a1 + 32);
   v4 = *(v3 + 40);
   *(v3 + 40) = 0;
 
   v5 = _SOClockTimerObserverGetTimerIDsFromTimers(*(a1 + 40));
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         if ([*(*(a1 + 32) + 72) containsObject:v10])
         {
           [*(*(a1 + 32) + 72) removeObject:v10];
           v11 = *(a1 + 32);
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __38__SOClockTimerObserver_timersRemoved___block_invoke_2;
-          v18[3] = &unk_279C3D2D0;
-          v18[4] = v11;
-          v18[5] = v10;
-          [v11 _enumerateListenersUsingBlock:v18];
+          v17[0] = MEMORY[0x277D85DD0];
+          v17[1] = 3221225472;
+          v17[2] = __38__SOClockTimerObserver_timersRemoved___block_invoke_2;
+          v17[3] = &unk_279C3D2D0;
+          v17[4] = v11;
+          v17[5] = v10;
+          [v11 _enumerateListenersUsingBlock:v17];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -1099,76 +1063,70 @@ void __38__SOClockTimerObserver_timersRemoved___block_invoke(uint64_t a1)
   if (v2 != v12 && ([v2 isEqual:v12] & 1) == 0)
   {
     v13 = *(a1 + 32);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __38__SOClockTimerObserver_timersRemoved___block_invoke_3;
-    v15[3] = &unk_279C3D2A8;
-    v15[4] = v13;
-    v16 = v2;
-    v17 = v12;
-    [v13 _enumerateListenersUsingBlock:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __38__SOClockTimerObserver_timersRemoved___block_invoke_3;
+    v14[3] = &unk_279C3D2A8;
+    v14[4] = v13;
+    v15 = v2;
+    v16 = v12;
+    [v13 _enumerateListenersUsingBlock:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timersUpdated:(id)updated
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SOClockTimerObserver timersUpdated:]";
-    v13 = 2112;
-    v14 = updatedCopy;
+    v11 = "[SOClockTimerObserver timersUpdated:]";
+    v12 = 2112;
+    v13 = updatedCopy;
     _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s timers = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __38__SOClockTimerObserver_timersUpdated___block_invoke;
-  v9[3] = &unk_279C3D598;
-  v9[4] = self;
-  v10 = updatedCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __38__SOClockTimerObserver_timersUpdated___block_invoke;
+  v8[3] = &unk_279C3D598;
+  v8[4] = self;
+  v9 = updatedCopy;
   v7 = updatedCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 - (void)timersAdded:(id)added
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SOClockTimerObserver timersAdded:]";
-    v13 = 2112;
-    v14 = addedCopy;
+    v11 = "[SOClockTimerObserver timersAdded:]";
+    v12 = 2112;
+    v13 = addedCopy;
     _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s timers = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __36__SOClockTimerObserver_timersAdded___block_invoke;
-  v9[3] = &unk_279C3D598;
-  v9[4] = self;
-  v10 = addedCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __36__SOClockTimerObserver_timersAdded___block_invoke;
+  v8[3] = &unk_279C3D598;
+  v8[4] = self;
+  v9 = addedCopy;
   v7 = addedCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 - (void)clockItemStorageDidUpdate:(id)update insertedItemIDs:(id)ds updatedItemIDs:(id)iDs deletedItemIDs:(id)itemIDs
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   iDsCopy = iDs;
   itemIDsCopy = itemIDs;
@@ -1180,9 +1138,9 @@ void __38__SOClockTimerObserver_timersRemoved___block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v23 = "[SOClockTimerObserver clockItemStorageDidUpdate:insertedItemIDs:updatedItemIDs:deletedItemIDs:]";
-      v24 = 2112;
-      v25 = dsCopy;
+      v22 = "[SOClockTimerObserver clockItemStorageDidUpdate:insertedItemIDs:updatedItemIDs:deletedItemIDs:]";
+      v23 = 2112;
+      v24 = dsCopy;
       _os_log_impl(&dword_26858F000, v14, OS_LOG_TYPE_INFO, "%s insertedItemIDs = %@", buf, 0x16u);
       v14 = *v13;
     }
@@ -1190,9 +1148,9 @@ void __38__SOClockTimerObserver_timersRemoved___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v23 = "[SOClockTimerObserver clockItemStorageDidUpdate:insertedItemIDs:updatedItemIDs:deletedItemIDs:]";
-      v24 = 2112;
-      v25 = iDsCopy;
+      v22 = "[SOClockTimerObserver clockItemStorageDidUpdate:insertedItemIDs:updatedItemIDs:deletedItemIDs:]";
+      v23 = 2112;
+      v24 = iDsCopy;
       _os_log_impl(&dword_26858F000, v14, OS_LOG_TYPE_INFO, "%s  updatedItemIDs = %@", buf, 0x16u);
       v14 = *v13;
     }
@@ -1200,9 +1158,9 @@ void __38__SOClockTimerObserver_timersRemoved___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v23 = "[SOClockTimerObserver clockItemStorageDidUpdate:insertedItemIDs:updatedItemIDs:deletedItemIDs:]";
-      v24 = 2112;
-      v25 = itemIDsCopy;
+      v22 = "[SOClockTimerObserver clockItemStorageDidUpdate:insertedItemIDs:updatedItemIDs:deletedItemIDs:]";
+      v23 = 2112;
+      v24 = itemIDsCopy;
       _os_log_impl(&dword_26858F000, v14, OS_LOG_TYPE_INFO, "%s  deletedItemIDs = %@", buf, 0x16u);
     }
 
@@ -1214,18 +1172,16 @@ void __38__SOClockTimerObserver_timersRemoved___block_invoke(uint64_t a1)
     _timerSnapshot = [(SOClockTimerObserver *)self _timerSnapshot];
     if (v15 != _timerSnapshot && ([(AFClockTimerSnapshot *)v15 isEqual:_timerSnapshot]& 1) == 0)
     {
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __96__SOClockTimerObserver_clockItemStorageDidUpdate_insertedItemIDs_updatedItemIDs_deletedItemIDs___block_invoke;
-      v19[3] = &unk_279C3D2A8;
-      v19[4] = self;
-      v20 = v15;
-      v21 = _timerSnapshot;
-      [(SOClockTimerObserver *)self _enumerateListenersUsingBlock:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __96__SOClockTimerObserver_clockItemStorageDidUpdate_insertedItemIDs_updatedItemIDs_deletedItemIDs___block_invoke;
+      v18[3] = &unk_279C3D2A8;
+      v18[4] = self;
+      v19 = v15;
+      v20 = _timerSnapshot;
+      [(SOClockTimerObserver *)self _enumerateListenersUsingBlock:v18];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -1273,7 +1229,7 @@ void __56__SOClockTimerObserver_getFiringTimerIDsWithCompletion___block_invoke(u
 
 - (void)getTimerSnapshotWithCompletion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (completionCopy)
   {
@@ -1281,38 +1237,36 @@ void __56__SOClockTimerObserver_getFiringTimerIDsWithCompletion___block_invoke(u
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v11 = "[SOClockTimerObserver getTimerSnapshotWithCompletion:]";
+      v10 = "[SOClockTimerObserver getTimerSnapshotWithCompletion:]";
       _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
     }
 
     queue = self->_queue;
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __55__SOClockTimerObserver_getTimerSnapshotWithCompletion___block_invoke;
-    v8[3] = &unk_279C3D548;
-    v8[4] = self;
-    v9 = completionCopy;
-    dispatch_async(queue, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __55__SOClockTimerObserver_getTimerSnapshotWithCompletion___block_invoke;
+    v7[3] = &unk_279C3D548;
+    v7[4] = self;
+    v8 = completionCopy;
+    dispatch_async(queue, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SOClockTimerObserver_getTimerSnapshotWithCompletion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[6];
   if (v3)
   {
     v4 = v2[1];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __55__SOClockTimerObserver_getTimerSnapshotWithCompletion___block_invoke_2;
-    v8[3] = &unk_279C3D548;
-    v8[4] = v2;
-    v9 = *(a1 + 40);
-    dispatch_group_notify(v3, v4, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __55__SOClockTimerObserver_getTimerSnapshotWithCompletion___block_invoke_2;
+    v7[3] = &unk_279C3D548;
+    v7[4] = v2;
+    v8 = *(a1 + 40);
+    dispatch_group_notify(v3, v4, v7);
   }
 
   else
@@ -1322,35 +1276,31 @@ void __55__SOClockTimerObserver_getTimerSnapshotWithCompletion___block_invoke(ui
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v11 = "[SOClockTimerObserver getTimerSnapshotWithCompletion:]_block_invoke";
-      v12 = 2112;
-      v13 = v5;
+      v10 = "[SOClockTimerObserver getTimerSnapshotWithCompletion:]_block_invoke";
+      v11 = 2112;
+      v12 = v5;
       _os_log_impl(&dword_26858F000, v6, OS_LOG_TYPE_INFO, "%s timerSnapshot = %@", buf, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SOClockTimerObserver_getTimerSnapshotWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _timerSnapshot];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315394;
-    v6 = "[SOClockTimerObserver getTimerSnapshotWithCompletion:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_26858F000, v3, OS_LOG_TYPE_INFO, "%s Notified, timerSnapshot = %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SOClockTimerObserver getTimerSnapshotWithCompletion:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_26858F000, v3, OS_LOG_TYPE_INFO, "%s Notified, timerSnapshot = %@", &v4, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeListener:(id)listener
@@ -1397,18 +1347,18 @@ void __55__SOClockTimerObserver_getTimerSnapshotWithCompletion___block_invoke_2(
 
 - (SOClockTimerObserver)initWithInstanceContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v20.receiver = self;
-  v20.super_class = SOClockTimerObserver;
-  v5 = [(SOClockTimerObserver *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = SOClockTimerObserver;
+  v5 = [(SOClockTimerObserver *)&v19 init];
   if (v5)
   {
     v6 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SOClockTimerObserver initWithInstanceContext:]";
+      v21 = "[SOClockTimerObserver initWithInstanceContext:]";
       _os_log_impl(&dword_26858F000, v6, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
     }
 
@@ -1442,11 +1392,10 @@ void __55__SOClockTimerObserver_getTimerSnapshotWithCompletion___block_invoke_2(
     block[1] = 3221225472;
     block[2] = __48__SOClockTimerObserver_initWithInstanceContext___block_invoke;
     block[3] = &unk_279C3D280;
-    v19 = v5;
+    v18 = v5;
     dispatch_async(v15, block);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1464,18 +1413,16 @@ void __48__SOClockTimerObserver_initWithInstanceContext___block_invoke(uint64_t 
 
 uint64_t __48__SOClockTimerObserver_initWithInstanceContext___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SOClockTimerObserver initWithInstanceContext:]_block_invoke_2";
-    _os_log_impl(&dword_26858F000, v2, OS_LOG_TYPE_INFO, "%s Initial timer fetch completed", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SOClockTimerObserver initWithInstanceContext:]_block_invoke_2";
+    _os_log_impl(&dword_26858F000, v2, OS_LOG_TYPE_INFO, "%s Initial timer fetch completed", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _endGroup];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _endGroup];
 }
 
 - (SOClockTimerObserver)init

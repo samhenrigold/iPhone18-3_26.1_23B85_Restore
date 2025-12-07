@@ -67,29 +67,29 @@ uint64_t __65__NSArray_FCAdditions__fc_arrayByTransformingWithBlockWithIndex___b
 
 void __70__NSArray_FCAdditions__fc_objectsOfMaxValueWithValueBlock_comparator___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = (*(*(a1 + 40) + 16))(*(a1 + 40));
         if (v11)
         {
@@ -113,13 +113,13 @@ void __70__NSArray_FCAdditions__fc_objectsOfMaxValueWithValueBlock_comparator___
 
           else
           {
-            [v3 addObject:{v10, v15}];
+            [v3 addObject:{v10, v14}];
             v7 = v11;
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -129,35 +129,33 @@ void __70__NSArray_FCAdditions__fc_objectsOfMaxValueWithValueBlock_comparator___
   {
     v7 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __70__NSArray_FCAdditions__fc_objectsOfMinValueWithValueBlock_comparator___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = (*(*(a1 + 40) + 16))(*(a1 + 40));
         if (v11)
         {
@@ -184,13 +182,13 @@ void __70__NSArray_FCAdditions__fc_objectsOfMinValueWithValueBlock_comparator___
 
           else
           {
-            [v3 addObject:{v10, v15}];
+            [v3 addObject:{v10, v14}];
             v7 = v11;
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -200,8 +198,6 @@ void __70__NSArray_FCAdditions__fc_objectsOfMinValueWithValueBlock_comparator___
   {
     v7 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __54__NSArray_FCAdditions__fc_setByTransformingWithBlock___block_invoke(uint64_t a1)
@@ -334,25 +330,22 @@ uint64_t __62__NSArray_FCAdditions__fc_indexOfFirstObjectWithValue_forKey___bloc
 
 void __83__NSArray_FCAdditions__fc_arrayByMergingAdjacentObjectsWithMergePolicy_mergeBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(*(*(a1 + 56) + 8) + 40);
-  v11 = v3;
+  v8 = a2;
   if ((*(*(a1 + 40) + 16))())
   {
-    v5 = *(*(*(a1 + 56) + 8) + 40);
-    v6 = (*(*(a1 + 48) + 16))();
-    v7 = *(*(a1 + 56) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v3 = (*(*(a1 + 48) + 16))();
+    v4 = *(*(a1 + 56) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
   }
 
   else
   {
     [*(a1 + 32) addObject:*(*(*(a1 + 56) + 8) + 40)];
-    v9 = *(*(a1 + 56) + 8);
-    v10 = v11;
-    v8 = *(v9 + 40);
-    *(v9 + 40) = v10;
+    v6 = *(*(a1 + 56) + 8);
+    v7 = v8;
+    v5 = *(v6 + 40);
+    *(v6 + 40) = v7;
   }
 }
 

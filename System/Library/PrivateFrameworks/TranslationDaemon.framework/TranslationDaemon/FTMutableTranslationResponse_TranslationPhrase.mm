@@ -4,6 +4,7 @@
 - (float)confidence;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)setConfidence:(float)confidence;
+- (void)setLow_confidence:(BOOL)low_confidence;
 - (void)setMeta_info:(id)meta_info;
 - (void)setMeta_info_data:(id)meta_info_data;
 - (void)setSpans:(id)spans;
@@ -78,6 +79,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setLow_confidence:(BOOL)low_confidence
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:low_confidence];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setMeta_info_data:(id)meta_info_data

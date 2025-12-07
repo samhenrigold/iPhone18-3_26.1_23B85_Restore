@@ -3,6 +3,8 @@
 - (void)_willAppearInRemoteViewController;
 - (void)adaptForPresentationInPopover:(BOOL)popover;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ActionViewController
@@ -16,7 +18,36 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100006550();
+  sub_100006550(selfCopy);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for ActionViewController();
+  v4 = v6.receiver;
+  [(ActionViewController *)&v6 viewWillAppear:appearCopy];
+  v5 = sub_100007350();
+  if (v5)
+  {
+    [v5 remoteIsReady];
+    swift_unknownObjectRelease();
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for ActionViewController();
+  v4 = v5.receiver;
+  [(ActionViewController *)&v5 viewWillDisappear:disappearCopy];
+  if (!*&v4[OBJC_IVAR____TtC20TranslationUIService20ActionViewController_defaultApp])
+  {
+    sub_100004FF4();
+    sub_10002E884();
+  }
 }
 
 - (void)adaptForPresentationInPopover:(BOOL)popover

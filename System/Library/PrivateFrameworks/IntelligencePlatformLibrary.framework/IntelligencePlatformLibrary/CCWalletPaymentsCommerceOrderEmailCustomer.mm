@@ -250,9 +250,9 @@ LABEL_21:
         {
           v26 = [CCWalletPaymentsCommerceOrderEmailAddress alloc];
           v27 = CCPBReaderReadDataNoCopy();
-          v38 = 0;
-          v28 = [(CCItemMessage *)v26 initWithData:v27 error:&v38];
-          v10 = v38;
+          v36 = 0;
+          v28 = [(CCItemMessage *)v26 initWithData:v27 error:&v36];
+          v10 = v36;
           billingAddress = self->_billingAddress;
           self->_billingAddress = v28;
 
@@ -290,7 +290,6 @@ LABEL_32:
 
       v30 = objc_opt_class();
       v27 = NSStringFromClass(v30);
-      v31 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
 LABEL_33:
 
@@ -314,23 +313,22 @@ LABEL_39:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v36 = 1;
+    v34 = 1;
     goto LABEL_43;
   }
 
 LABEL_40:
-  v32 = objc_opt_class();
-  v33 = NSStringFromClass(v32);
-  v34 = *&v6[*v9];
-  v35 = CCInvalidBufferErrorForMessage();
+  v31 = objc_opt_class();
+  v32 = NSStringFromClass(v31);
+  v33 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_41:
-  v36 = 0;
+  v34 = 0;
 LABEL_43:
 
-  return v36;
+  return v34;
 }
 
 - (CCWalletPaymentsCommerceOrderEmailCustomer)initWithFullName:(id)name phoneNumber:(id)number emailAddress:(id)address billingAddress:(id)billingAddress error:(id *)error

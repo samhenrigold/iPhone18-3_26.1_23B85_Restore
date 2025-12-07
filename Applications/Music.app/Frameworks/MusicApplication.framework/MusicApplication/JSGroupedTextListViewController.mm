@@ -46,7 +46,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_21F090();
+  sub_21F090(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

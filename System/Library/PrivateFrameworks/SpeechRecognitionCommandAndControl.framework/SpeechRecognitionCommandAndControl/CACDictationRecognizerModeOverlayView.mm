@@ -292,7 +292,7 @@ LABEL_12:
   return imageBundle_sImageBundle_0;
 }
 
-uint64_t __52__CACDictationRecognizerModeOverlayView_imageBundle__block_invoke()
+uint64_t __52__CACDictationRecognizerModeOverlayView_imageBundle__block_invoke(uint64_t a1)
 {
   imageBundle_sImageBundle_0 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 

@@ -8,6 +8,7 @@
 - (id)formattedDescription:(unint64_t)description;
 - (void)addPerfSampleHandler:(id)handler;
 - (void)commandBufferDidComplete:(id)complete startTime:(unint64_t)time completionTime:(unint64_t)completionTime error:(id)error;
+- (void)commitCommandBuffer:(id)buffer wake:(BOOL)wake;
 - (void)completeCommandBuffers:(id *)buffers count:(unint64_t)count;
 - (void)dealloc;
 - (void)enqueueCommandBuffer:(id)buffer;
@@ -19,7 +20,7 @@
 
 - (BOOL)_submitAvailableCommandBuffers
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_pendingQueueLock);
   v3 = [(NSMutableArray *)self->_pendingQueue count];
   if (v3)
@@ -42,9 +43,9 @@
     }
 
 LABEL_8:
-    v20 = v3;
+    v19 = v3;
     selfCopy = self;
-    v19 = v4;
+    v18 = v4;
     do
     {
       pthread_mutex_lock(&self->_pendingQueueLock);
@@ -69,7 +70,7 @@ LABEL_8:
       v8 = v5 + 1;
 LABEL_14:
       pthread_mutex_lock(&self->_submittedQueueLock);
-      v21 = [(NSMutableArray *)self->_submittedQueue count];
+      v20 = [(NSMutableArray *)self->_submittedQueue count];
       if (v8 >= 0x81)
       {
         v9 = malloc_type_malloc(8 * v8, 0x80040B8603338uLL);
@@ -77,7 +78,7 @@ LABEL_14:
 
       else
       {
-        v9 = v22;
+        v9 = v21;
       }
 
       [(NSMutableArray *)self->_pendingQueue getObjects:v9 range:0, v8];
@@ -88,7 +89,7 @@ LABEL_14:
       }
 
       while (v8 != v10);
-      [(NSMutableArray *)self->_submittedQueue replaceObjectsInRange:v21 withObjectsFromArray:0 range:self->_pendingQueue, 0, v8];
+      [(NSMutableArray *)self->_submittedQueue replaceObjectsInRange:v20 withObjectsFromArray:0 range:self->_pendingQueue, 0, v8];
       [(NSMutableArray *)self->_pendingQueue removeObjectsInRange:0, v8];
       pthread_mutex_unlock(&self->_submittedQueueLock);
       pthread_mutex_unlock(&self->_pendingQueueLock);
@@ -108,7 +109,7 @@ LABEL_14:
       }
 
       while (v8 != v12);
-      if (v9 != v22)
+      if (v9 != v21)
       {
         free(v9);
       }
@@ -122,8 +123,8 @@ LABEL_14:
     }
 
     while (v4);
-    v13 = v19;
-    v3 = v20;
+    v13 = v18;
+    v3 = v19;
     v14 = selfCopy;
   }
 
@@ -137,7 +138,6 @@ LABEL_30:
 
   v15 = v13 == v3;
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -403,24 +403,24 @@ LABEL_33:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v16[6] = *MEMORY[0x1E69E9840];
+  v15[6] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   retainedLabel = [(_MTLObjectWithLabel *)self retainedLabel];
   v7 = MEMORY[0x1E696AEC0];
-  v15.receiver = self;
-  v15.super_class = _MTLCommandQueue;
-  v8 = [(_MTLCommandQueue *)&v15 description];
-  v16[0] = v5;
-  v16[1] = @"label =";
+  v14.receiver = self;
+  v14.super_class = _MTLCommandQueue;
+  v8 = [(_MTLCommandQueue *)&v14 description];
+  v15[0] = v5;
+  v15[1] = @"label =";
   v9 = @"<none>";
   if (retainedLabel)
   {
     v9 = retainedLabel;
   }
 
-  v16[2] = v9;
-  v16[3] = v5;
-  v16[4] = @"device =";
+  v15[2] = v9;
+  v15[3] = v5;
+  v15[4] = @"device =";
   v10 = [-[_MTLCommandQueue device](self "device")];
   v11 = @"<null>";
   if (v10)
@@ -428,10 +428,9 @@ LABEL_33:
     v11 = v10;
   }
 
-  v16[5] = v11;
-  v12 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v16, 6), "componentsJoinedByString:", @" "];
+  v15[5] = v11;
+  v12 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 6), "componentsJoinedByString:", @" "];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -542,6 +541,59 @@ LABEL_33:
   }
 }
 
+- (void)commitCommandBuffer:(id)buffer wake:(BOOL)wake
+{
+  wakeCopy = wake;
+  if (buffer)
+  {
+    if (MTLFailureTypeGetEnabled(1uLL))
+    {
+      [(_MTLCommandQueue *)buffer commitCommandBuffer:v11 wake:v12, v13, v14, v15, v16, v17, v32];
+    }
+
+    device = [(_MTLCommandQueue *)self device];
+    device2 = [buffer device];
+    if (device != device2)
+    {
+      [(_MTLCommandQueue *)device2 commitCommandBuffer:v20 wake:v21, v22, v23, v24, v25, v26, v32];
+    }
+  }
+
+  else
+  {
+    [(_MTLCommandQueue *)self commitCommandBuffer:a2 wake:0, wake, v4, v5, v6, v7, v32];
+  }
+
+  dispatch_group_enter(self->_submittedGroup);
+  [buffer setCommitted:1];
+  __dmb(0xBu);
+  if (wakeCopy)
+  {
+    if (self->_forceImmediateSubmissionOnCommitThread)
+    {
+      selfCopy = self;
+      commandQueueDispatch = self->_commandQueueDispatch;
+
+      dispatch_sync_f(commandQueueDispatch, self, _submitAvailableCommandBuffers);
+    }
+
+    else if (self->_commitsWithQoS)
+    {
+      selfCopy2 = self;
+      v30 = self->_commandQueueDispatch;
+
+      dispatch_async_f(v30, self, _submitAvailableCommandBuffers);
+    }
+
+    else
+    {
+      commandQueueEventSource = self->_commandQueueEventSource;
+
+      dispatch_source_merge_data(commandQueueEventSource, 1uLL);
+    }
+  }
+}
+
 - (BOOL)submitCommandBuffer:(id)buffer
 {
   v7 = 0;
@@ -608,10 +660,10 @@ LABEL_33:
 
 - (void)enqueueCommandBuffer:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF505618] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF505618, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[_MTLCommandQueue enqueueCommandBuffer:]", 472, @"commandBuffer is not a MTLCommandBuffer.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[_MTLCommandQueue enqueueCommandBuffer:]", 472, @"commandBuffer is not a MTLCommandBuffer.", v9, v10, v11, v12, a9);
   }
 }
 
@@ -619,25 +671,25 @@ LABEL_33:
 {
   if (([a1 conformsToProtocol:&unk_1EF505618] & 1) == 0)
   {
-    MTLReportFailure(1, "[_MTLCommandQueue completeCommandBuffers:count:]", 603, @"commandBuffer is not a MTLCommandBuffer.", v1, v2, v3, v4, vars0);
+    MTLReportFailure(1uLL, "[_MTLCommandQueue completeCommandBuffers:count:]", 603, @"commandBuffer is not a MTLCommandBuffer.", v1, v2, v3, v4, vars0);
   }
 }
 
 - (void)commitCommandBuffer:(uint64_t)a3 wake:(uint64_t)a4 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF505618] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF505618, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[_MTLCommandQueue commitCommandBuffer:wake:]", 635, @"commandBuffer is not a MTLCommandBuffer.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[_MTLCommandQueue commitCommandBuffer:wake:]", 635, @"commandBuffer is not a MTLCommandBuffer.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)commandBufferDidComplete:(uint64_t)a3 startTime:(uint64_t)a4 completionTime:(uint64_t)a5 error:(uint64_t)a6 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF505618] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF505618, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[_MTLCommandQueue commandBufferDidComplete:startTime:completionTime:error:]", 688, @"commandBuffer is not a MTLCommandBuffer.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[_MTLCommandQueue commandBufferDidComplete:startTime:completionTime:error:]", 688, @"commandBuffer is not a MTLCommandBuffer.", v9, v10, v11, v12, a9);
   }
 }
 

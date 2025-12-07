@@ -31,24 +31,8 @@
     v6 = v18;
     v7 = v17;
 
-    if (!v6)
+    if (!v6 || !v7 || ([MEMORY[0x1E696AAE8] mainBundle], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "_preferredEnglishLocalizationBundle"), v9 = objc_claimAutoreleasedReturnValue(), v8, objc_msgSend(v9, "localizedStringForKey:value:table:", v6, v3, v7), v10 = objc_claimAutoreleasedReturnValue(), v9, !v10))
     {
-      goto LABEL_5;
-    }
-
-    if (!v7)
-    {
-      goto LABEL_5;
-    }
-
-    mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
-    _preferredEnglishLocalizationBundle = [mainBundle2 _preferredEnglishLocalizationBundle];
-
-    v10 = [_preferredEnglishLocalizationBundle localizedStringForKey:v6 value:v3 table:v7];
-
-    if (!v10)
-    {
-LABEL_5:
       v10 = v3;
     }
 

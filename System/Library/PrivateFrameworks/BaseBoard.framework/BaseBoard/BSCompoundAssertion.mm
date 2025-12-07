@@ -395,7 +395,7 @@ id __34__BSCompoundAssertion_description__block_invoke(uint64_t a1, void *a2)
   v3 = v2;
   if (v2)
   {
-    v4 = *(v2 + 4);
+    v4 = v2[4];
     if (v4)
     {
       v5 = v4;

@@ -1,4 +1,5 @@
 @interface HDSQLiteOrderingTerm
++ (id)orderingTermWithProperty:(id)property entityClass:(Class)class ascending:(BOOL)ascending;
 - (BOOL)isEqual:(id)equal;
 - (HDSQLiteOrderingTerm)init;
 - (HDSQLiteOrderingTerm)initWithExpression:(id)expression ascending:(BOOL)ascending;
@@ -45,6 +46,15 @@
   }
 
   return v7;
+}
+
++ (id)orderingTermWithProperty:(id)property entityClass:(Class)class ascending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  v7 = [(objc_class *)class disambiguatedSQLForProperty:property];
+  v8 = [[self alloc] initWithExpression:v7 ascending:ascendingCopy];
+
+  return v8;
 }
 
 - (id)description

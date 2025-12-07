@@ -46,7 +46,7 @@
 - (void)didEndDynamicOperation
 {
   selfCopy = self;
-  sub_10091CCE4();
+  sub_10091CCE4(selfCopy);
 }
 
 - (void)willBeginScrollingOperation

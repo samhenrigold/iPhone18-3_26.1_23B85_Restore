@@ -11,7 +11,7 @@
 
 - (void)removePairingWithUUID:(id)d completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   if (!dCopy)
@@ -37,33 +37,31 @@ LABEL_7:
     identifier = [v9 identifier];
     shortDescription = [identifier shortDescription];
     *buf = 138543874;
-    v24 = v13;
-    v25 = 2114;
-    v26 = shortDescription;
-    v27 = 2112;
-    v28 = dCopy;
+    v23 = v13;
+    v24 = 2114;
+    v25 = shortDescription;
+    v26 = 2112;
+    v27 = dCopy;
     _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Removing system commissioner pairing with UUID: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
   serverProxy = [(MTSSystemCommissionerPairingManager *)selfCopy serverProxy];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __79__MTSSystemCommissionerPairingManager_removePairingWithUUID_completionHandler___block_invoke;
-  v20[3] = &unk_278AA1928;
-  v20[4] = selfCopy;
-  v21 = v9;
-  v22 = v8;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __79__MTSSystemCommissionerPairingManager_removePairingWithUUID_completionHandler___block_invoke;
+  v19[3] = &unk_278AA1928;
+  v19[4] = selfCopy;
+  v20 = v9;
+  v21 = v8;
   v17 = v8;
   v18 = v9;
-  [serverProxy removeSystemCommissionerPairingWithUUID:dCopy completionHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [serverProxy removeSystemCommissionerPairingWithUUID:dCopy completionHandler:v19];
 }
 
 void __79__MTSSystemCommissionerPairingManager_removePairingWithUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -76,18 +74,18 @@ void __79__MTSSystemCommissionerPairingManager_removePairingWithUUID_completionH
       v8 = HMFGetLogIdentifier();
       v9 = [*(a1 + 40) identifier];
       v10 = [v9 shortDescription];
-      v18 = 138543874;
-      v19 = v8;
-      v20 = 2114;
-      v21 = v10;
-      v22 = 2112;
-      v23 = v3;
+      v17 = 138543874;
+      v18 = v8;
+      v19 = 2114;
+      v20 = v10;
+      v21 = 2112;
+      v22 = v3;
       v11 = "%{public}@[%{public}@] Failed to remove system commissioner pairing: %@";
       v12 = v7;
       v13 = OS_LOG_TYPE_ERROR;
       v14 = 32;
 LABEL_6:
-      _os_log_impl(&dword_239824000, v12, v13, v11, &v18, v14);
+      _os_log_impl(&dword_239824000, v12, v13, v11, &v17, v14);
     }
   }
 
@@ -96,10 +94,10 @@ LABEL_6:
     v8 = HMFGetLogIdentifier();
     v9 = [*(a1 + 40) identifier];
     v10 = [v9 shortDescription];
-    v18 = 138543618;
-    v19 = v8;
-    v20 = 2114;
-    v21 = v10;
+    v17 = 138543618;
+    v18 = v8;
+    v19 = 2114;
+    v20 = v10;
     v11 = "%{public}@[%{public}@] Successfully removed system commissioner pairing";
     v12 = v7;
     v13 = OS_LOG_TYPE_INFO;
@@ -109,13 +107,11 @@ LABEL_6:
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 48) + 16))(*(a1 + 48), v3, v15, v16);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchPairingsWithCompletionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -133,31 +129,29 @@ LABEL_6:
     identifier = [v6 identifier];
     shortDescription = [identifier shortDescription];
     *buf = 138543618;
-    v21 = v10;
-    v22 = 2114;
-    v23 = shortDescription;
+    v20 = v10;
+    v21 = 2114;
+    v22 = shortDescription;
     _os_log_impl(&dword_239824000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetching system commissioner pairings", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   serverProxy = [(MTSSystemCommissionerPairingManager *)selfCopy serverProxy];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __74__MTSSystemCommissionerPairingManager_fetchPairingsWithCompletionHandler___block_invoke;
-  v17[3] = &unk_278AA1900;
-  v17[4] = selfCopy;
-  v18 = v6;
-  v19 = v5;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __74__MTSSystemCommissionerPairingManager_fetchPairingsWithCompletionHandler___block_invoke;
+  v16[3] = &unk_278AA1900;
+  v16[4] = selfCopy;
+  v17 = v6;
+  v18 = v5;
   v14 = v5;
   v15 = v6;
-  [serverProxy fetchSystemCommissionerPairingsWithCompletionHandler:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [serverProxy fetchSystemCommissionerPairingsWithCompletionHandler:v16];
 }
 
 void __74__MTSSystemCommissionerPairingManager_fetchPairingsWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -171,17 +165,17 @@ void __74__MTSSystemCommissionerPairingManager_fetchPairingsWithCompletionHandle
       v11 = HMFGetLogIdentifier();
       v12 = [*(a1 + 40) identifier];
       v13 = [v12 shortDescription];
-      v19 = 138543874;
-      v20 = v11;
-      v21 = 2114;
-      v22 = v13;
-      v23 = 2048;
-      v24 = [v5 count];
+      v18 = 138543874;
+      v19 = v11;
+      v20 = 2114;
+      v21 = v13;
+      v22 = 2048;
+      v23 = [v5 count];
       v14 = "%{public}@[%{public}@] Fetched %ld system commissioner pairings";
       v15 = v10;
       v16 = OS_LOG_TYPE_INFO;
 LABEL_6:
-      _os_log_impl(&dword_239824000, v15, v16, v14, &v19, 0x20u);
+      _os_log_impl(&dword_239824000, v15, v16, v14, &v18, 0x20u);
     }
   }
 
@@ -190,12 +184,12 @@ LABEL_6:
     v11 = HMFGetLogIdentifier();
     v12 = [*(a1 + 40) identifier];
     v13 = [v12 shortDescription];
-    v19 = 138543874;
-    v20 = v11;
-    v21 = 2114;
-    v22 = v13;
-    v23 = 2112;
-    v24 = v6;
+    v18 = 138543874;
+    v19 = v11;
+    v20 = 2114;
+    v21 = v13;
+    v22 = 2112;
+    v23 = v6;
     v14 = "%{public}@[%{public}@] Failed to fetch system commissioner pairings: %@";
     v15 = v10;
     v16 = OS_LOG_TYPE_ERROR;
@@ -204,8 +198,6 @@ LABEL_6:
 
   objc_autoreleasePoolPop(v7);
   (*(*(a1 + 48) + 16))(*(a1 + 48), v5, v6, v17);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -263,7 +255,6 @@ LABEL_6:
 
 uint64_t __50__MTSSystemCommissionerPairingManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v7 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

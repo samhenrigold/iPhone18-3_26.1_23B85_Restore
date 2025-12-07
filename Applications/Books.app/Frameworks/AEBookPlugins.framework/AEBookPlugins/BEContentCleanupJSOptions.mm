@@ -28,13 +28,13 @@
   fontFamily = [style2 fontFamily];
   bookLanguage = [snapshotCopy bookLanguage];
   respectImageSizeClass = [snapshotCopy respectImageSizeClass];
-  respectImageSizeClassIsPrefix = [snapshotCopy respectImageSizeClassIsPrefix];
+  v16 = objc_msgSend_respectImageSizeClassIsPrefix(snapshotCopy);
   hasBuiltInFonts = [snapshotCopy hasBuiltInFonts];
 
   BYTE2(v21) = 0;
   LOWORD(v21) = 0;
   LOBYTE(v20) = hasBuiltInFonts;
-  v18 = [v11 initWithMode:v7 useNewTextStyling:0 fontFamily:fontFamily language:bookLanguage respectImageSizeClass:respectImageSizeClass respectImageSizeClassIsPrefix:respectImageSizeClassIsPrefix hasBuiltInFonts:v20 justification:v10 fontWeight:0 overrideLineHeight:v21 overrideLetterSpacing:0 overrideWordSpacing:? readingMode:?];
+  v18 = [v11 initWithMode:v7 useNewTextStyling:0 fontFamily:fontFamily language:bookLanguage respectImageSizeClass:respectImageSizeClass respectImageSizeClassIsPrefix:v16 hasBuiltInFonts:v20 justification:v10 fontWeight:0 overrideLineHeight:v21 overrideLetterSpacing:0 overrideWordSpacing:? readingMode:?];
 
   return v18;
 }

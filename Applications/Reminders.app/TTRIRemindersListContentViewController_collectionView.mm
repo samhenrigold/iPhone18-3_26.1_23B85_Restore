@@ -88,10 +88,10 @@
 - (void)collectionView:(id)view prefetchItemsAtIndexPaths:(id)paths
 {
   type metadata accessor for IndexPath();
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10051B348();
+  sub_10051B348(viewCopy, v6);
 }
 
 - (void)scrollViewDidScroll:(id)scroll
@@ -99,14 +99,14 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC9Reminders53TTRIRemindersListContentViewController_collectionView_scrollingController);
   if (v3)
   {
-    sub_100003540(0, &qword_100775690);
+    sub_100003540(0, &qword_100775690, NSObject_ptr);
     scrollCopy = scroll;
     selfCopy = self;
     v8 = v3;
     if (static NSObject.== infix(_:_:)())
     {
-      sub_100058000(&unk_1007701B0);
-      sub_10000E188(&unk_1007701E0, &unk_1007701B0);
+      sub_100058000(&unk_1007701B0, &qword_100644F50);
+      sub_10000E188(&unk_1007701E0, &unk_1007701B0, &qword_100644F50, &protocol conformance descriptor for PassthroughSubject<A, B>);
       Subject<>.send()();
     }
   }
@@ -165,7 +165,7 @@
 {
   animationCopy = animation;
   selfCopy = self;
-  sub_10051B7DC();
+  sub_10051B7DC(animationCopy);
 }
 
 - (void)collectionView:(id)view willDisplayCell:(id)cell forItemAtIndexPath:(id)path
@@ -178,7 +178,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_100524868();
+  sub_100524868(v11);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -189,7 +189,7 @@
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_100058000(&qword_100772140);
+  v10 = sub_100058000(&qword_100772140, &qword_10062D9F0);
   __chkstk_darwin(v10 - 8);
   v12 = (&v20 - v11);
   v13 = type metadata accessor for IndexPath();
@@ -199,8 +199,8 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10051BA3C(v12, v9);
-  sub_1000079B4(v12, &qword_100772140);
+  sub_10051BA3C(v12, v9, v16);
+  sub_1000079B4(v12, &qword_100772140, &qword_10062D9F0);
   LOBYTE(self) = TTRICollectionViewCellSelectionOption.shouldRevertItemHighlight.getter();
   (*(v7 + 8))(v9, v6);
   if (self)
@@ -278,7 +278,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_10051CF40(viewCopy);
+  LOBYTE(self) = sub_10051CF40(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;

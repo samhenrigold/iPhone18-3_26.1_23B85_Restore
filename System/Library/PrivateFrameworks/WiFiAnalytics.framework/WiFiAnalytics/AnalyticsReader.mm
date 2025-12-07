@@ -47,11 +47,11 @@
 
 - (AnalyticsReader)initWithPersistentContainer:(id)container
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   containerCopy = container;
-  v11.receiver = self;
-  v11.super_class = AnalyticsReader;
-  v6 = [(AnalyticsReader *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = AnalyticsReader;
+  v6 = [(AnalyticsReader *)&v10 init];
   v7 = v6;
   if (v6)
   {
@@ -62,27 +62,26 @@
 
     else
     {
-      v10 = WALogCategoryDeviceStoreHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = WALogCategoryDeviceStoreHandle();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v13 = "[AnalyticsReader initWithPersistentContainer:]";
-        v14 = 1024;
-        v15 = 47;
-        _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:nil PersistentContainer", buf, 0x12u);
+        v12 = "[AnalyticsReader initWithPersistentContainer:]";
+        v13 = 1024;
+        v14 = 47;
+        _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:nil PersistentContainer", buf, 0x12u);
       }
 
       v7 = 0;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)bssForBSSID:(id)d withError:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -94,29 +93,27 @@
 
   else
   {
-    v12 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v18 = "[AnalyticsReader bssForBSSID:withError:]";
-      v19 = 1024;
-      v20 = 65;
-      _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssid nil", buf, 0x12u);
+      v17 = "[AnalyticsReader bssForBSSID:withError:]";
+      v18 = 1024;
+      v19 = 65;
+      _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssid nil", buf, 0x12u);
     }
 
     if (error)
     {
-      v13 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696A588];
-      v16 = @"WAErrorCodeInvalidInput";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-      *error = [v13 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v14];
+      v12 = MEMORY[0x1E696ABC0];
+      v14 = *MEMORY[0x1E696A588];
+      v15 = @"WAErrorCodeInvalidInput";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      *error = [v12 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v13];
 
       error = 0;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return error;
 }
@@ -149,13 +146,13 @@
 
 void __47__AnalyticsReader_adaptiveRoamingParamsForBSS___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) persistentContainer];
   v4 = *(a1 + 40);
-  v18 = 0;
-  v5 = [v3 bssForBssid:v4 prefetchProperties:&unk_1F483E7B8 withError:&v18];
-  v6 = v18;
+  v17 = 0;
+  v5 = [v3 bssForBssid:v4 prefetchProperties:&unk_1F483E7B8 withError:&v17];
+  v6 = v17;
 
   if (v6)
   {
@@ -166,11 +163,11 @@ void __47__AnalyticsReader_adaptiveRoamingParamsForBSS___block_invoke(uint64_t a
     }
 
     *buf = 136446722;
-    v20 = "[AnalyticsReader adaptiveRoamingParamsForBSS:]_block_invoke";
-    v21 = 1024;
-    v22 = 82;
-    v23 = 2112;
-    v24 = v6;
+    v19 = "[AnalyticsReader adaptiveRoamingParamsForBSS:]_block_invoke";
+    v20 = 1024;
+    v21 = 82;
+    v22 = 2112;
+    v23 = v6;
     v12 = "%{public}s::%d:BSS fetch failed: %@";
     goto LABEL_11;
   }
@@ -183,13 +180,13 @@ void __47__AnalyticsReader_adaptiveRoamingParamsForBSS___block_invoke(uint64_t a
       goto LABEL_6;
     }
 
-    v17 = *(a1 + 40);
+    v16 = *(a1 + 40);
     *buf = 136446722;
-    v20 = "[AnalyticsReader adaptiveRoamingParamsForBSS:]_block_invoke";
-    v21 = 1024;
-    v22 = 83;
-    v23 = 2112;
-    v24 = v17;
+    v19 = "[AnalyticsReader adaptiveRoamingParamsForBSS:]_block_invoke";
+    v20 = 1024;
+    v21 = 83;
+    v22 = 2112;
+    v23 = v16;
     v12 = "%{public}s::%d:BSS not found for %@";
 LABEL_11:
     v13 = v10;
@@ -207,11 +204,11 @@ LABEL_11:
   {
     v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 136446722;
-    v20 = "[AnalyticsReader adaptiveRoamingParamsForBSS:]_block_invoke";
-    v21 = 1024;
-    v22 = 87;
-    v23 = 2112;
-    v24 = v11;
+    v19 = "[AnalyticsReader adaptiveRoamingParamsForBSS:]_block_invoke";
+    v20 = 1024;
+    v21 = 87;
+    v22 = 2112;
+    v23 = v11;
     v12 = "%{public}s::%d:returning %@";
     v13 = v10;
     v14 = OS_LOG_TYPE_DEFAULT;
@@ -225,65 +222,62 @@ LABEL_6:
   [v15 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)edgeParametersForBSS:(id)s
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   sCopy = s;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__10;
-  v21 = __Block_byref_object_dispose__10;
-  v22 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__10;
+  v20 = __Block_byref_object_dispose__10;
+  v21 = 0;
   v5 = [(AnalyticsReader *)self moc];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __40__AnalyticsReader_edgeParametersForBSS___block_invoke;
-  v14[3] = &unk_1E830DAF8;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __40__AnalyticsReader_edgeParametersForBSS___block_invoke;
+  v13[3] = &unk_1E830DAF8;
+  v13[4] = self;
   v6 = sCopy;
-  v15 = v6;
-  v16 = &v17;
-  [v5 performBlockAndWait:v14];
+  v14 = v6;
+  v15 = &v16;
+  [v5 performBlockAndWait:v13];
 
   v7 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    isEdge = [v18[5] isEdge];
-    autoLeaveRssi = [v18[5] autoLeaveRssi];
-    v24 = "[AnalyticsReader edgeParametersForBSS:]";
-    v26 = 108;
+    isEdge = [v17[5] isEdge];
+    autoLeaveRssi = [v17[5] autoLeaveRssi];
+    v23 = "[AnalyticsReader edgeParametersForBSS:]";
+    v25 = 108;
     v10 = "is NOT";
-    v27 = 2112;
+    v26 = 2112;
     *buf = 136447234;
-    v25 = 1024;
+    v24 = 1024;
     if (isEdge)
     {
       v10 = "is";
     }
 
-    v28 = v6;
-    v29 = 2080;
-    v30 = v10;
-    v31 = 1024;
-    v32 = autoLeaveRssi;
+    v27 = v6;
+    v28 = 2080;
+    v29 = v10;
+    v30 = 1024;
+    v31 = autoLeaveRssi;
     _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_DEBUG, "%{public}s::%d:bssid[%@] : %s an edgeBSS autoLeaveRssi:%hd", buf, 0x2Cu);
   }
 
-  v11 = v18[5];
-  _Block_object_dispose(&v17, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
   return v11;
 }
 
 void __40__AnalyticsReader_edgeParametersForBSS___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(*(a1 + 32) + 8) bssForBssid:*(a1 + 40) prefetchProperties:&unk_1F483E7D0 withError:0];
   if (v3)
@@ -296,17 +290,17 @@ void __40__AnalyticsReader_edgeParametersForBSS___block_invoke(uint64_t a1)
 
   else
   {
-    v9 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 136446722;
-      v12 = "[AnalyticsReader edgeParametersForBSS:]_block_invoke";
-      v13 = 1024;
-      v14 = 101;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:BSS not found for %@", &v11, 0x1Cu);
+      v9 = *(a1 + 40);
+      v10 = 136446722;
+      v11 = "[AnalyticsReader edgeParametersForBSS:]_block_invoke";
+      v12 = 1024;
+      v13 = 101;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_ERROR, "%{public}s::%d:BSS not found for %@", &v10, 0x1Cu);
     }
   }
 
@@ -314,35 +308,34 @@ void __40__AnalyticsReader_edgeParametersForBSS___block_invoke(uint64_t a1)
   [v7 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)parsedBeaconInfoIsStored:(id)stored ssid:(id)ssid
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   storedCopy = stored;
   ssidCopy = ssid;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 1;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 1;
   v8 = [(AnalyticsReader *)self moc];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __49__AnalyticsReader_parsedBeaconInfoIsStored_ssid___block_invoke;
-  v16[3] = &unk_1E830F050;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __49__AnalyticsReader_parsedBeaconInfoIsStored_ssid___block_invoke;
+  v15[3] = &unk_1E830F050;
   v9 = storedCopy;
-  v17 = v9;
+  v16 = v9;
   v10 = ssidCopy;
-  v18 = v10;
+  v17 = v10;
   selfCopy = self;
-  v20 = &v21;
-  [v8 performBlockAndWait:v16];
+  v19 = &v20;
+  [v8 performBlockAndWait:v15];
 
   v11 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    if (*(v22 + 24))
+    if (*(v21 + 24))
     {
       v12 = @"YES";
     }
@@ -353,59 +346,58 @@ void __40__AnalyticsReader_edgeParametersForBSS___block_invoke(uint64_t a1)
     }
 
     *buf = 136446722;
-    v26 = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]";
-    v27 = 1024;
-    v28 = 139;
-    v29 = 2112;
-    v30 = v12;
+    v25 = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]";
+    v26 = 1024;
+    v27 = 139;
+    v28 = 2112;
+    v29 = v12;
     _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %@", buf, 0x1Cu);
   }
 
-  v13 = *(v22 + 24);
-  _Block_object_dispose(&v21, 8);
+  v13 = *(v21 + 24);
+  _Block_object_dispose(&v20, 8);
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
 void __49__AnalyticsReader_parsedBeaconInfoIsStored_ssid___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   if (!*(a1 + 32))
   {
-    v11 = WALogCategoryDeviceStoreHandle();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = WALogCategoryDeviceStoreHandle();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_16;
     }
 
-    *v21 = 136446466;
-    *&v21[4] = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]_block_invoke";
-    *&v21[12] = 1024;
-    *&v21[14] = 121;
-    v12 = "%{public}s::%d:bssid nil";
+    *v20 = 136446466;
+    *&v20[4] = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]_block_invoke";
+    *&v20[12] = 1024;
+    *&v20[14] = 121;
+    v11 = "%{public}s::%d:bssid nil";
 LABEL_12:
-    v13 = v11;
-    v14 = 18;
+    v12 = v10;
+    v13 = 18;
 LABEL_15:
-    _os_log_impl(&dword_1C8460000, v13, OS_LOG_TYPE_ERROR, v12, v21, v14);
+    _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, v11, v20, v13);
     goto LABEL_16;
   }
 
   if (!*(a1 + 40))
   {
-    v11 = WALogCategoryDeviceStoreHandle();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = WALogCategoryDeviceStoreHandle();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_16;
     }
 
-    *v21 = 136446466;
-    *&v21[4] = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]_block_invoke";
-    *&v21[12] = 1024;
-    *&v21[14] = 122;
-    v12 = "%{public}s::%d:ssid nil";
+    *v20 = 136446466;
+    *&v20[4] = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]_block_invoke";
+    *&v20[12] = 1024;
+    *&v20[14] = 122;
+    v11 = "%{public}s::%d:ssid nil";
     goto LABEL_12;
   }
 
@@ -414,19 +406,19 @@ LABEL_15:
 
   if (!v4)
   {
-    v11 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
-      *v21 = 136446722;
-      *&v21[4] = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]_block_invoke";
-      *&v21[12] = 1024;
-      *&v21[14] = 125;
-      *&v21[18] = 2112;
-      *&v21[20] = v15;
-      v12 = "%{public}s::%d:BSS not found for %@";
-      v13 = v11;
-      v14 = 28;
+      v14 = *(a1 + 32);
+      *v20 = 136446722;
+      *&v20[4] = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]_block_invoke";
+      *&v20[12] = 1024;
+      *&v20[14] = 125;
+      *&v20[18] = 2112;
+      *&v20[20] = v14;
+      v11 = "%{public}s::%d:BSS not found for %@";
+      v12 = v10;
+      v13 = 28;
       goto LABEL_15;
     }
 
@@ -453,24 +445,24 @@ LABEL_16:
 
   else
   {
-    v16 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(a1 + 32);
-      v17 = *(a1 + 40);
-      v19 = [v4 network];
-      v20 = [v19 ssid];
-      *v21 = 136447234;
-      *&v21[4] = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]_block_invoke";
-      *&v21[12] = 1024;
-      *&v21[14] = 126;
-      *&v21[18] = 2112;
-      *&v21[20] = v17;
-      *&v21[28] = 2112;
-      *&v21[30] = v18;
-      v22 = 2112;
-      v23 = v20;
-      _os_log_impl(&dword_1C8460000, v16, OS_LOG_TYPE_ERROR, "%{public}s::%d:Mismatched Network (%@): bss %@ is known to belong to %@, ", v21, 0x30u);
+      v17 = *(a1 + 32);
+      v16 = *(a1 + 40);
+      v18 = [v4 network];
+      v19 = [v18 ssid];
+      *v20 = 136447234;
+      *&v20[4] = "[AnalyticsReader parsedBeaconInfoIsStored:ssid:]_block_invoke";
+      *&v20[12] = 1024;
+      *&v20[14] = 126;
+      *&v20[18] = 2112;
+      *&v20[20] = v16;
+      *&v20[28] = 2112;
+      *&v20[30] = v17;
+      v21 = 2112;
+      v22 = v19;
+      _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_ERROR, "%{public}s::%d:Mismatched Network (%@): bss %@ is known to belong to %@, ", v20, 0x30u);
     }
 
     v8 = 0;
@@ -481,54 +473,51 @@ LABEL_7:
   [v9 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)apProfileForBssid:(id)bssid
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   bssidCopy = bssid;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__10;
-  v20 = __Block_byref_object_dispose__10;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__10;
+  v19 = __Block_byref_object_dispose__10;
+  v20 = 0;
   v5 = [(AnalyticsReader *)self moc];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __37__AnalyticsReader_apProfileForBssid___block_invoke;
-  v12[3] = &unk_1E830DAF8;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __37__AnalyticsReader_apProfileForBssid___block_invoke;
+  v11[3] = &unk_1E830DAF8;
   v6 = bssidCopy;
-  v13 = v6;
+  v12 = v6;
   selfCopy = self;
-  v15 = &v16;
-  [v5 performBlockAndWait:v12];
+  v14 = &v15;
+  [v5 performBlockAndWait:v11];
 
   v7 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v8 = v17[5];
+    v8 = v16[5];
     *buf = 136446722;
-    v23 = "[AnalyticsReader apProfileForBssid:]";
-    v24 = 1024;
-    v25 = 161;
-    v26 = 2112;
-    v27 = v8;
+    v22 = "[AnalyticsReader apProfileForBssid:]";
+    v23 = 1024;
+    v24 = 161;
+    v25 = 2112;
+    v26 = v8;
     _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_ERROR, "%{public}s::%d:returning %@", buf, 0x1Cu);
   }
 
-  v9 = v17[5];
-  _Block_object_dispose(&v16, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   return v9;
 }
 
 void __37__AnalyticsReader_apProfileForBssid___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   if (!*(a1 + 32))
   {
@@ -538,15 +527,15 @@ void __37__AnalyticsReader_apProfileForBssid___block_invoke(uint64_t a1)
       goto LABEL_5;
     }
 
-    v17 = 136446466;
-    v18 = "[AnalyticsReader apProfileForBssid:]_block_invoke";
-    v19 = 1024;
-    v20 = 150;
-    v11 = "%{public}s::%d:bssid is nil. bailing";
-    v12 = v4;
-    v13 = 18;
+    v16 = 136446466;
+    v17 = "[AnalyticsReader apProfileForBssid:]_block_invoke";
+    v18 = 1024;
+    v19 = 150;
+    v10 = "%{public}s::%d:bssid is nil. bailing";
+    v11 = v4;
+    v12 = 18;
 LABEL_10:
-    _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, v11, &v17, v13);
+    _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, v10, &v16, v12);
     goto LABEL_5;
   }
 
@@ -561,16 +550,16 @@ LABEL_10:
       goto LABEL_5;
     }
 
-    v14 = *(a1 + 32);
-    v17 = 136446722;
-    v18 = "[AnalyticsReader apProfileForBssid:]_block_invoke";
-    v19 = 1024;
-    v20 = 153;
-    v21 = 2112;
-    v22 = v14;
-    v11 = "%{public}s::%d:BSS not found for %@";
-    v12 = v4;
-    v13 = 28;
+    v13 = *(a1 + 32);
+    v16 = 136446722;
+    v17 = "[AnalyticsReader apProfileForBssid:]_block_invoke";
+    v18 = 1024;
+    v19 = 153;
+    v20 = 2112;
+    v21 = v13;
+    v10 = "%{public}s::%d:BSS not found for %@";
+    v11 = v4;
+    v12 = 28;
     goto LABEL_10;
   }
 
@@ -586,17 +575,17 @@ LABEL_10:
 
   else
   {
-    v15 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 32);
-      v17 = 136446722;
-      v18 = "[AnalyticsReader apProfileForBssid:]_block_invoke";
-      v19 = 1024;
-      v20 = 154;
-      v21 = 2112;
-      v22 = v16;
-      _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:apProfileID nil for bssid:%@", &v17, 0x1Cu);
+      v15 = *(a1 + 32);
+      v16 = 136446722;
+      v17 = "[AnalyticsReader apProfileForBssid:]_block_invoke";
+      v18 = 1024;
+      v19 = 154;
+      v20 = 2112;
+      v21 = v15;
+      _os_log_impl(&dword_1C8460000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:apProfileID nil for bssid:%@", &v16, 0x1Cu);
     }
   }
 
@@ -606,12 +595,11 @@ LABEL_5:
   [v9 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)networkForSSID:(id)d withError:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -623,108 +611,105 @@ LABEL_5:
 
   else
   {
-    v12 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v18 = "[AnalyticsReader networkForSSID:withError:]";
-      v19 = 1024;
-      v20 = 172;
-      _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
+      v17 = "[AnalyticsReader networkForSSID:withError:]";
+      v18 = 1024;
+      v19 = 172;
+      _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
     }
 
     if (error)
     {
-      v13 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696A588];
-      v16 = @"WAErrorCodeInvalidInput";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-      *error = [v13 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v14];
+      v12 = MEMORY[0x1E696ABC0];
+      v14 = *MEMORY[0x1E696A588];
+      v15 = @"WAErrorCodeInvalidInput";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      *error = [v12 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v13];
 
       error = 0;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return error;
 }
 
 - (id)usageForNetwork:(id)network withError:(id *)error
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   networkCopy = network;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__10;
-  v30 = __Block_byref_object_dispose__10;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__10;
-  v24 = __Block_byref_object_dispose__10;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__10;
+  v29 = __Block_byref_object_dispose__10;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__10;
+  v23 = __Block_byref_object_dispose__10;
+  v24 = 0;
   if (networkCopy)
   {
     v7 = [(AnalyticsReader *)self moc];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __45__AnalyticsReader_usageForNetwork_withError___block_invoke;
-    v16[3] = &unk_1E830DB20;
-    v18 = &v26;
-    v16[4] = self;
-    v17 = networkCopy;
-    v19 = &v20;
-    [v7 performBlockAndWait:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __45__AnalyticsReader_usageForNetwork_withError___block_invoke;
+    v15[3] = &unk_1E830DB20;
+    v17 = &v25;
+    v15[4] = self;
+    v16 = networkCopy;
+    v18 = &v19;
+    [v7 performBlockAndWait:v15];
 
     if (error)
     {
-      *error = v21[5];
+      *error = v20[5];
     }
   }
 
   else
   {
-    v13 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v33 = "[AnalyticsReader usageForNetwork:withError:]";
-      v34 = 1024;
-      v35 = 185;
-      _os_log_impl(&dword_1C8460000, v13, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
+      v32 = "[AnalyticsReader usageForNetwork:withError:]";
+      v33 = 1024;
+      v34 = 185;
+      _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
     }
 
     if (error)
     {
-      v14 = MEMORY[0x1E696ABC0];
-      v38 = *MEMORY[0x1E696A588];
-      v39[0] = @"WAErrorCodeInvalidInput";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
-      *error = [v14 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v15];
+      v13 = MEMORY[0x1E696ABC0];
+      v37 = *MEMORY[0x1E696A588];
+      v38[0] = @"WAErrorCodeInvalidInput";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+      *error = [v13 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v14];
     }
   }
 
   v8 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v27[5];
+    v9 = v26[5];
     *buf = 136446722;
-    v33 = "[AnalyticsReader usageForNetwork:withError:]";
-    v34 = 1024;
-    v35 = 197;
-    v36 = 2112;
-    v37 = v9;
+    v32 = "[AnalyticsReader usageForNetwork:withError:]";
+    v33 = 1024;
+    v34 = 197;
+    v35 = 2112;
+    v36 = v9;
     _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %@", buf, 0x1Cu);
   }
 
-  v10 = v27[5];
-  _Block_object_dispose(&v20, 8);
+  v10 = v26[5];
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v26, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
   return v10;
 }
@@ -752,79 +737,78 @@ void __45__AnalyticsReader_usageForNetwork_withError___block_invoke(uint64_t a1)
 
 - (id)bandsInNetwork:(id)network withError:(id *)error
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   networkCopy = network;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__10;
-  v30 = __Block_byref_object_dispose__10;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__10;
-  v24 = __Block_byref_object_dispose__10;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__10;
+  v29 = __Block_byref_object_dispose__10;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__10;
+  v23 = __Block_byref_object_dispose__10;
+  v24 = 0;
   if (networkCopy)
   {
     v7 = [(AnalyticsReader *)self moc];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __44__AnalyticsReader_bandsInNetwork_withError___block_invoke;
-    v16[3] = &unk_1E830DB20;
-    v18 = &v26;
-    v16[4] = self;
-    v17 = networkCopy;
-    v19 = &v20;
-    [v7 performBlockAndWait:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __44__AnalyticsReader_bandsInNetwork_withError___block_invoke;
+    v15[3] = &unk_1E830DB20;
+    v17 = &v25;
+    v15[4] = self;
+    v16 = networkCopy;
+    v18 = &v19;
+    [v7 performBlockAndWait:v15];
 
     if (error)
     {
-      *error = v21[5];
+      *error = v20[5];
     }
   }
 
   else
   {
-    v13 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v33 = "[AnalyticsReader bandsInNetwork:withError:]";
-      v34 = 1024;
-      v35 = 204;
-      _os_log_impl(&dword_1C8460000, v13, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
+      v32 = "[AnalyticsReader bandsInNetwork:withError:]";
+      v33 = 1024;
+      v34 = 204;
+      _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
     }
 
     if (error)
     {
-      v14 = MEMORY[0x1E696ABC0];
-      v38 = *MEMORY[0x1E696A588];
-      v39[0] = @"WAErrorCodeInvalidInput";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
-      *error = [v14 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v15];
+      v13 = MEMORY[0x1E696ABC0];
+      v37 = *MEMORY[0x1E696A588];
+      v38[0] = @"WAErrorCodeInvalidInput";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+      *error = [v13 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v14];
     }
   }
 
   v8 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v27[5];
+    v9 = v26[5];
     *buf = 136446722;
-    v33 = "[AnalyticsReader bandsInNetwork:withError:]";
-    v34 = 1024;
-    v35 = 216;
-    v36 = 2112;
-    v37 = v9;
+    v32 = "[AnalyticsReader bandsInNetwork:withError:]";
+    v33 = 1024;
+    v34 = 216;
+    v35 = 2112;
+    v36 = v9;
     _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %@", buf, 0x1Cu);
   }
 
-  v10 = v27[5];
-  _Block_object_dispose(&v20, 8);
+  v10 = v26[5];
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v26, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
   return v10;
 }
@@ -852,45 +836,44 @@ void __44__AnalyticsReader_bandsInNetwork_withError___block_invoke(uint64_t a1)
 
 - (id)copyAllStoredNetworkSsids
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__10;
-  v14 = __Block_byref_object_dispose__10;
-  v15 = 0;
+  v21 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__10;
+  v13 = __Block_byref_object_dispose__10;
+  v14 = 0;
   v3 = [(AnalyticsReader *)self moc];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __44__AnalyticsReader_copyAllStoredNetworkSsids__block_invoke;
-  v9[3] = &unk_1E830EE78;
-  v9[4] = self;
-  v9[5] = &v10;
-  [v3 performBlockAndWait:v9];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __44__AnalyticsReader_copyAllStoredNetworkSsids__block_invoke;
+  v8[3] = &unk_1E830EE78;
+  v8[4] = self;
+  v8[5] = &v9;
+  [v3 performBlockAndWait:v8];
 
   v4 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v5 = [v11[5] count];
+    v5 = [v10[5] count];
     *buf = 136446722;
-    v17 = "[AnalyticsReader copyAllStoredNetworkSsids]";
-    v18 = 1024;
-    v19 = 234;
-    v20 = 2048;
-    v21 = v5;
+    v16 = "[AnalyticsReader copyAllStoredNetworkSsids]";
+    v17 = 1024;
+    v18 = 234;
+    v19 = 2048;
+    v20 = v5;
     _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_ERROR, "%{public}s::%d:returning %lu SSIDs", buf, 0x1Cu);
   }
 
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 void __44__AnalyticsReader_copyAllStoredNetworkSsids__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) moc];
   v4 = [NetworkMO allStoredSsids:v3];
@@ -904,11 +887,11 @@ void __44__AnalyticsReader_copyAllStoredNetworkSsids__block_invoke(uint64_t a1)
     v8 = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136446466;
-      v12 = "[AnalyticsReader copyAllStoredNetworkSsids]_block_invoke";
-      v13 = 1024;
-      v14 = 229;
-      _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_ERROR, "%{public}s::%d:No known network SSIDs", &v11, 0x12u);
+      v10 = 136446466;
+      v11 = "[AnalyticsReader copyAllStoredNetworkSsids]_block_invoke";
+      v12 = 1024;
+      v13 = 229;
+      _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_ERROR, "%{public}s::%d:No known network SSIDs", &v10, 0x12u);
     }
   }
 
@@ -916,148 +899,146 @@ void __44__AnalyticsReader_copyAllStoredNetworkSsids__block_invoke(uint64_t a1)
   [v9 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)networkSsidsByTraits:(id)traits withError:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   traitsCopy = traits;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__10;
-  v32 = __Block_byref_object_dispose__10;
-  v33 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__10;
-  v26 = __Block_byref_object_dispose__10;
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__10;
+  v31 = __Block_byref_object_dispose__10;
+  v32 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__10;
+  v25 = __Block_byref_object_dispose__10;
+  v26 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __50__AnalyticsReader_networkSsidsByTraits_withError___block_invoke;
-  v17 = &unk_1E830F078;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __50__AnalyticsReader_networkSsidsByTraits_withError___block_invoke;
+  v16 = &unk_1E830F078;
   v8 = traitsCopy;
-  v18 = v8;
+  v17 = v8;
   selfCopy = self;
-  v20 = &v28;
-  v21 = &v22;
-  [v7 performBlockAndWait:&v14];
+  v19 = &v27;
+  v20 = &v21;
+  [v7 performBlockAndWait:&v13];
 
   if (error)
   {
-    *error = v29[5];
+    *error = v28[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v23[5] count];
+    v10 = [v22[5] count];
     *buf = 136446722;
-    v35 = "[AnalyticsReader networkSsidsByTraits:withError:]";
-    v36 = 1024;
-    v37 = 266;
-    v38 = 2048;
-    v39 = v10;
+    v34 = "[AnalyticsReader networkSsidsByTraits:withError:]";
+    v35 = 1024;
+    v36 = 266;
+    v37 = 2048;
+    v38 = v10;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %lu traits", buf, 0x1Cu);
   }
 
-  v11 = v23[5];
-  _Block_object_dispose(&v22, 8);
+  v11 = v22[5];
+  _Block_object_dispose(&v21, 8);
 
-  _Block_object_dispose(&v28, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v27, 8);
 
   return v11;
 }
 
 void __50__AnalyticsReader_networkSsidsByTraits_withError___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   v2 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     *buf = 136446722;
-    v31 = "[AnalyticsReader networkSsidsByTraits:withError:]_block_invoke";
-    v32 = 1024;
-    v33 = 243;
-    v34 = 2112;
-    v35 = v3;
+    v30 = "[AnalyticsReader networkSsidsByTraits:withError:]_block_invoke";
+    v31 = 1024;
+    v32 = 243;
+    v33 = 2112;
+    v34 = v3;
     _os_log_impl(&dword_1C8460000, v2, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Fetching networks with traits:%@", buf, 0x1Cu);
   }
 
-  v24 = objc_opt_new();
+  v23 = objc_opt_new();
   v4 = [NetworkMO propertiesForTraits:*(a1 + 32)];
   [v4 addObject:@"ssid"];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v5)
   {
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         v9 = WALogCategoryDeviceStoreHandle();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136446722;
-          v31 = "[AnalyticsReader networkSsidsByTraits:withError:]_block_invoke";
-          v32 = 1024;
-          v33 = 249;
-          v34 = 2112;
-          v35 = v8;
+          v30 = "[AnalyticsReader networkSsidsByTraits:withError:]_block_invoke";
+          v31 = 1024;
+          v32 = 249;
+          v33 = 2112;
+          v34 = v8;
           _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Fetching networks with trait:%@", buf, 0x1Cu);
         }
 
         v10 = [v8 unsignedIntegerValue];
         v11 = [*(a1 + 40) persistentContainer];
         v12 = *(*(a1 + 48) + 8);
-        v25 = *(v12 + 40);
-        v13 = [v11 networksWithTrait:v10 prefetchedProperties:v4 withError:&v25];
-        objc_storeStrong((v12 + 40), v25);
+        v24 = *(v12 + 40);
+        v13 = [v11 networksWithTrait:v10 prefetchedProperties:v4 withError:&v24];
+        objc_storeStrong((v12 + 40), v24);
 
         v14 = [v13 valueForKey:@"ssid"];
-        [v24 setObject:v14 forKeyedSubscript:v8];
+        [v23 setObject:v14 forKeyedSubscript:v8];
 
         v15 = WALogCategoryDeviceStoreHandle();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           v16 = [v13 count];
           *buf = 136446978;
-          v31 = "[AnalyticsReader networkSsidsByTraits:withError:]_block_invoke";
-          v32 = 1024;
-          v33 = 260;
-          v34 = 2048;
-          v35 = v16;
-          v36 = 2112;
-          v37 = v8;
+          v30 = "[AnalyticsReader networkSsidsByTraits:withError:]_block_invoke";
+          v31 = 1024;
+          v32 = 260;
+          v33 = 2048;
+          v34 = v16;
+          v35 = 2112;
+          v36 = v8;
           _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Found %ld networks with trait %@", buf, 0x26u);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v5);
   }
 
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v24];
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v23];
   v18 = *(*(a1 + 56) + 8);
   v19 = *(v18 + 40);
   *(v18 + 40) = v17;
@@ -1066,116 +1047,112 @@ void __50__AnalyticsReader_networkSsidsByTraits_withError___block_invoke(uint64_
   [v20 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(context);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (id)networksFromResults:(id)results
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   v4 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = resultsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [WADeviceAnalyticsNetwork networkWith:*(*(&v13 + 1) + 8 * i), v13];
+        v10 = [WADeviceAnalyticsNetwork networkWith:*(*(&v12 + 1) + 8 * i), v12];
         if (v10)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)networksWithPredicate:(id)predicate withError:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__10;
-  v32 = __Block_byref_object_dispose__10;
-  v33 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__10;
-  v26 = __Block_byref_object_dispose__10;
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__10;
+  v31 = __Block_byref_object_dispose__10;
+  v32 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__10;
+  v25 = __Block_byref_object_dispose__10;
+  v26 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __51__AnalyticsReader_networksWithPredicate_withError___block_invoke;
-  v17 = &unk_1E830F078;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __51__AnalyticsReader_networksWithPredicate_withError___block_invoke;
+  v16 = &unk_1E830F078;
   selfCopy = self;
   v8 = predicateCopy;
-  v19 = v8;
-  v20 = &v22;
-  v21 = &v28;
-  [v7 performBlockAndWait:&v14];
+  v18 = v8;
+  v19 = &v21;
+  v20 = &v27;
+  [v7 performBlockAndWait:&v13];
 
   if (error)
   {
-    *error = v23[5];
+    *error = v22[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v29[5] count];
+    v10 = [v28[5] count];
     *buf = 136446722;
-    v35 = "[AnalyticsReader networksWithPredicate:withError:]";
-    v36 = 1024;
-    v37 = 300;
-    v38 = 2048;
-    v39 = v10;
+    v34 = "[AnalyticsReader networksWithPredicate:withError:]";
+    v35 = 1024;
+    v36 = 300;
+    v37 = 2048;
+    v38 = v10;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %lu networks", buf, 0x1Cu);
   }
 
-  v11 = v29[5];
-  _Block_object_dispose(&v22, 8);
+  v11 = v28[5];
+  _Block_object_dispose(&v21, 8);
 
-  _Block_object_dispose(&v28, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v27, 8);
 
   return v11;
 }
 
 void __51__AnalyticsReader_networksWithPredicate_withError___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) persistentContainer];
   v4 = +[NetworkMO entity];
   v5 = *(a1 + 40);
   v6 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"ssid" ascending:1];
-  v16[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   v8 = *(*(a1 + 48) + 8);
   obj = *(v8 + 40);
   v9 = [v3 fetchObjects:v4 withPredicate:v5 withSorting:v7 withPrefetchedProperties:&unk_1F483E818 withLimit:0 withError:&obj];
@@ -1190,50 +1167,49 @@ void __51__AnalyticsReader_networksWithPredicate_withError___block_invoke(uint64
   [v13 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)networksInSameLansAsSsid:(id)ssid withError:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   ssidCopy = ssid;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__10;
-  v30 = __Block_byref_object_dispose__10;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__10;
-  v24 = __Block_byref_object_dispose__10;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__10;
+  v29 = __Block_byref_object_dispose__10;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__10;
+  v23 = __Block_byref_object_dispose__10;
+  v24 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __54__AnalyticsReader_networksInSameLansAsSsid_withError___block_invoke;
-  v16[3] = &unk_1E830F078;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __54__AnalyticsReader_networksInSameLansAsSsid_withError___block_invoke;
+  v15[3] = &unk_1E830F078;
+  v15[4] = self;
   v8 = ssidCopy;
-  v17 = v8;
-  v18 = &v20;
-  v19 = &v26;
-  [v7 performBlockAndWait:v16];
+  v16 = v8;
+  v17 = &v19;
+  v18 = &v25;
+  [v7 performBlockAndWait:v15];
 
   if (error)
   {
-    *error = v21[5];
+    *error = v20[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v27[5] count];
-    v11 = v21[5];
+    v10 = [v26[5] count];
+    v11 = v20[5];
     if (v11)
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(with error: %@)", v21[5]];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(with error: %@)", v20[5]];
     }
 
     else
@@ -1242,26 +1218,25 @@ void __51__AnalyticsReader_networksWithPredicate_withError___block_invoke(uint64
     }
 
     *buf = 136447234;
-    v33 = "[AnalyticsReader networksInSameLansAsSsid:withError:]";
-    v34 = 1024;
-    v35 = 318;
-    v36 = 2048;
-    v37 = v10;
-    v38 = 2112;
-    v39 = v8;
-    v40 = 2112;
-    v41 = v12;
+    v32 = "[AnalyticsReader networksInSameLansAsSsid:withError:]";
+    v33 = 1024;
+    v34 = 318;
+    v35 = 2048;
+    v36 = v10;
+    v37 = 2112;
+    v38 = v8;
+    v39 = 2112;
+    v40 = v12;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %lu networks in same lan as:%@ %@", buf, 0x30u);
     if (v11)
     {
     }
   }
 
-  v13 = v27[5];
-  _Block_object_dispose(&v20, 8);
+  v13 = v26[5];
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v26, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
   return v13;
 }
@@ -1289,45 +1264,45 @@ void __54__AnalyticsReader_networksInSameLansAsSsid_withError___block_invoke(uin
 
 - (id)networksInSameLanAsBssid:(id)bssid withError:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   bssidCopy = bssid;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__10;
-  v30 = __Block_byref_object_dispose__10;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__10;
-  v24 = __Block_byref_object_dispose__10;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__10;
+  v29 = __Block_byref_object_dispose__10;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__10;
+  v23 = __Block_byref_object_dispose__10;
+  v24 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __54__AnalyticsReader_networksInSameLanAsBssid_withError___block_invoke;
-  v16[3] = &unk_1E830F078;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __54__AnalyticsReader_networksInSameLanAsBssid_withError___block_invoke;
+  v15[3] = &unk_1E830F078;
+  v15[4] = self;
   v8 = bssidCopy;
-  v17 = v8;
-  v18 = &v20;
-  v19 = &v26;
-  [v7 performBlockAndWait:v16];
+  v16 = v8;
+  v17 = &v19;
+  v18 = &v25;
+  [v7 performBlockAndWait:v15];
 
   if (error)
   {
-    *error = v21[5];
+    *error = v20[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v27[5] count];
-    v11 = v21[5];
+    v10 = [v26[5] count];
+    v11 = v20[5];
     if (v11)
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(with error: %@)", v21[5]];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(with error: %@)", v20[5]];
     }
 
     else
@@ -1336,33 +1311,32 @@ void __54__AnalyticsReader_networksInSameLansAsSsid_withError___block_invoke(uin
     }
 
     *buf = 136447234;
-    v33 = "[AnalyticsReader networksInSameLanAsBssid:withError:]";
-    v34 = 1024;
-    v35 = 337;
-    v36 = 2048;
-    v37 = v10;
-    v38 = 2112;
-    v39 = v8;
-    v40 = 2112;
-    v41 = v12;
+    v32 = "[AnalyticsReader networksInSameLanAsBssid:withError:]";
+    v33 = 1024;
+    v34 = 337;
+    v35 = 2048;
+    v36 = v10;
+    v37 = 2112;
+    v38 = v8;
+    v39 = 2112;
+    v40 = v12;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %lu networks in same lan as:%@ %@", buf, 0x30u);
     if (v11)
     {
     }
   }
 
-  v13 = v27[5];
-  _Block_object_dispose(&v20, 8);
+  v13 = v26[5];
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v26, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
   return v13;
 }
 
 void __54__AnalyticsReader_networksInSameLanAsBssid_withError___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 40);
   v4 = *(*(a1 + 32) + 8);
@@ -1375,16 +1349,16 @@ void __54__AnalyticsReader_networksInSameLanAsBssid_withError___block_invoke(uin
     v7 = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 40);
-      v14 = *(*(*(a1 + 48) + 8) + 40);
+      v12 = *(a1 + 40);
+      v13 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 136446978;
-      v17 = "[AnalyticsReader networksInSameLanAsBssid:withError:]_block_invoke";
-      v18 = 1024;
-      v19 = 329;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v14;
+      v16 = "[AnalyticsReader networksInSameLanAsBssid:withError:]_block_invoke";
+      v17 = 1024;
+      v18 = 329;
+      v19 = 2112;
+      v20 = v12;
+      v21 = 2112;
+      v22 = v13;
       _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_ERROR, "%{public}s::%d:Fetching networksInSameLANsAsBSS:%@ failed with %@", buf, 0x26u);
     }
   }
@@ -1402,69 +1376,67 @@ void __54__AnalyticsReader_networksInSameLanAsBssid_withError___block_invoke(uin
   [v11 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)lansForSsid:(id)ssid withError:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   ssidCopy = ssid;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__10;
-  v29 = __Block_byref_object_dispose__10;
-  v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__10;
-  v23 = __Block_byref_object_dispose__10;
   v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__10;
+  v28 = __Block_byref_object_dispose__10;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__10;
+  v22 = __Block_byref_object_dispose__10;
+  v23 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __41__AnalyticsReader_lansForSsid_withError___block_invoke;
-  v14[3] = &unk_1E830F5A8;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __41__AnalyticsReader_lansForSsid_withError___block_invoke;
+  v13[3] = &unk_1E830F5A8;
   v8 = ssidCopy;
-  v17 = &v19;
-  v18 = &v25;
-  v15 = v8;
+  v16 = &v18;
+  v17 = &v24;
+  v14 = v8;
   selfCopy = self;
-  [v7 performBlockAndWait:v14];
+  [v7 performBlockAndWait:v13];
 
   if (error)
   {
-    *error = v20[5];
+    *error = v19[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v26[5];
+    v10 = v25[5];
     *buf = 136446978;
-    v32 = "[AnalyticsReader lansForSsid:withError:]";
-    v33 = 1024;
-    v34 = 357;
-    v35 = 2112;
-    v36 = v10;
-    v37 = 2112;
-    v38 = v8;
+    v31 = "[AnalyticsReader lansForSsid:withError:]";
+    v32 = 1024;
+    v33 = 357;
+    v34 = 2112;
+    v35 = v10;
+    v36 = 2112;
+    v37 = v8;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning LANs for %@: %@", buf, 0x26u);
   }
 
-  v11 = v26[5];
-  _Block_object_dispose(&v19, 8);
+  v11 = v25[5];
+  _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v25, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v24, 8);
 
   return v11;
 }
 
 void __41__AnalyticsReader_lansForSsid_withError___block_invoke(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = a1[4];
   v4 = *(a1[6] + 8);
@@ -1476,16 +1448,16 @@ void __41__AnalyticsReader_lansForSsid_withError___block_invoke(void *a1)
     v7 = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = a1[4];
-      v14 = *(*(a1[6] + 8) + 40);
+      v12 = a1[4];
+      v13 = *(*(a1[6] + 8) + 40);
       *buf = 136446978;
-      v18 = "[AnalyticsReader lansForSsid:withError:]_block_invoke";
-      v19 = 1024;
-      v20 = 348;
-      v21 = 2112;
-      v22 = v13;
-      v23 = 2112;
-      v24 = v14;
+      v17 = "[AnalyticsReader lansForSsid:withError:]_block_invoke";
+      v18 = 1024;
+      v19 = 348;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v13;
       _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_ERROR, "%{public}s::%d:predicateForLanInNetwork:%@ failed %@", buf, 0x26u);
     }
   }
@@ -1495,72 +1467,70 @@ void __41__AnalyticsReader_lansForSsid_withError___block_invoke(void *a1)
     v6 = *(a1[5] + 8);
     v7 = +[LANMO entity];
     v8 = *(a1[6] + 8);
-    v15 = *(v8 + 40);
-    v9 = [v6 fetchDistinctPropertiesIn:v7 withPredicate:v5 withSorting:0 withPrefetchedProperties:0 withLimit:0 withError:&v15];
-    objc_storeStrong((v8 + 40), v15);
+    v14 = *(v8 + 40);
+    v9 = [v6 fetchDistinctPropertiesIn:v7 withPredicate:v5 withSorting:0 withPrefetchedProperties:0 withLimit:0 withError:&v14];
+    objc_storeStrong((v8 + 40), v14);
     v10 = *(a1[7] + 8);
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
   }
 
   objc_autoreleasePoolPop(v2);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (signed)deploymentCoverageForSSID:(id)d withError:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__10;
-  v23 = __Block_byref_object_dispose__10;
   v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__10;
+  v22 = __Block_byref_object_dispose__10;
+  v23 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __55__AnalyticsReader_deploymentCoverageForSSID_withError___block_invoke;
-  v15[3] = &unk_1E830F078;
-  v15[4] = self;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __55__AnalyticsReader_deploymentCoverageForSSID_withError___block_invoke;
+  v14[3] = &unk_1E830F078;
+  v14[4] = self;
   v8 = dCopy;
-  v16 = v8;
-  v17 = &v19;
-  v18 = &v25;
-  [v7 performBlockAndWait:v15];
+  v15 = v8;
+  v16 = &v18;
+  v17 = &v24;
+  [v7 performBlockAndWait:v14];
 
   if (error)
   {
-    *error = v20[5];
+    *error = v19[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = WADeploymentCoverageToString(*(v26 + 12));
-    v11 = *(v26 + 12);
+    v10 = WADeploymentCoverageToString(*(v25 + 12));
+    v11 = *(v25 + 12);
     *buf = 136447234;
-    v30 = "[AnalyticsReader deploymentCoverageForSSID:withError:]";
-    v31 = 1024;
-    v32 = 375;
-    v33 = 2112;
-    v34 = v8;
-    v35 = 2112;
-    v36 = v10;
-    v37 = 2048;
-    v38 = v11;
+    v29 = "[AnalyticsReader deploymentCoverageForSSID:withError:]";
+    v30 = 1024;
+    v31 = 375;
+    v32 = 2112;
+    v33 = v8;
+    v34 = 2112;
+    v35 = v10;
+    v36 = 2048;
+    v37 = v11;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Deployment coverage for %@ is %@ (%lu)", buf, 0x30u);
   }
 
-  v12 = *(v26 + 12);
-  _Block_object_dispose(&v19, 8);
+  v12 = *(v25 + 12);
+  _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v25, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v24, 8);
   return v12;
 }
 
@@ -1587,58 +1557,57 @@ void __55__AnalyticsReader_deploymentCoverageForSSID_withError___block_invoke(ui
 
 - (signed)deploymentCongestionForSSID:(id)d withError:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__10;
-  v23 = __Block_byref_object_dispose__10;
   v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__10;
+  v22 = __Block_byref_object_dispose__10;
+  v23 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __57__AnalyticsReader_deploymentCongestionForSSID_withError___block_invoke;
-  v15[3] = &unk_1E830F078;
-  v15[4] = self;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __57__AnalyticsReader_deploymentCongestionForSSID_withError___block_invoke;
+  v14[3] = &unk_1E830F078;
+  v14[4] = self;
   v8 = dCopy;
-  v16 = v8;
-  v17 = &v19;
-  v18 = &v25;
-  [v7 performBlockAndWait:v15];
+  v15 = v8;
+  v16 = &v18;
+  v17 = &v24;
+  [v7 performBlockAndWait:v14];
 
   if (error)
   {
-    *error = v20[5];
+    *error = v19[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = WADeploymentCongestionToString(*(v26 + 12));
-    v11 = *(v26 + 12);
+    v10 = WADeploymentCongestionToString(*(v25 + 12));
+    v11 = *(v25 + 12);
     *buf = 136447234;
-    v30 = "[AnalyticsReader deploymentCongestionForSSID:withError:]";
-    v31 = 1024;
-    v32 = 393;
-    v33 = 2112;
-    v34 = v8;
-    v35 = 2112;
-    v36 = v10;
-    v37 = 2048;
-    v38 = v11;
+    v29 = "[AnalyticsReader deploymentCongestionForSSID:withError:]";
+    v30 = 1024;
+    v31 = 393;
+    v32 = 2112;
+    v33 = v8;
+    v34 = 2112;
+    v35 = v10;
+    v36 = 2048;
+    v37 = v11;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Deployment coverage for %@ is %@ (%lu)", buf, 0x30u);
   }
 
-  v12 = *(v26 + 12);
-  _Block_object_dispose(&v19, 8);
+  v12 = *(v25 + 12);
+  _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v25, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v24, 8);
   return v12;
 }
 
@@ -1665,43 +1634,43 @@ void __57__AnalyticsReader_deploymentCongestionForSSID_withError___block_invoke(
 
 - (unint64_t)countNetworksInSameLanAsBssid:(id)bssid withError:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   bssidCopy = bssid;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0x7FFFFFFFFFFFFFFFLL;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__10;
-  v24 = __Block_byref_object_dispose__10;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0x7FFFFFFFFFFFFFFFLL;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__10;
+  v23 = __Block_byref_object_dispose__10;
+  v24 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __59__AnalyticsReader_countNetworksInSameLanAsBssid_withError___block_invoke;
-  v16[3] = &unk_1E830F078;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __59__AnalyticsReader_countNetworksInSameLanAsBssid_withError___block_invoke;
+  v15[3] = &unk_1E830F078;
+  v15[4] = self;
   v8 = bssidCopy;
-  v17 = v8;
-  v18 = &v20;
-  v19 = &v26;
-  [v7 performBlockAndWait:v16];
+  v16 = v8;
+  v17 = &v19;
+  v18 = &v25;
+  [v7 performBlockAndWait:v15];
 
   if (error)
   {
-    *error = v21[5];
+    *error = v20[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v27[3];
-    v11 = v21[5];
+    v10 = v26[3];
+    v11 = v20[5];
     if (v11)
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(with error: %@)", v21[5]];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(with error: %@)", v20[5]];
     }
 
     else
@@ -1710,26 +1679,25 @@ void __57__AnalyticsReader_deploymentCongestionForSSID_withError___block_invoke(
     }
 
     *buf = 136447234;
-    v31 = "[AnalyticsReader countNetworksInSameLanAsBssid:withError:]";
-    v32 = 1024;
-    v33 = 410;
-    v34 = 2048;
-    v35 = v10;
-    v36 = 2112;
-    v37 = v8;
-    v38 = 2112;
-    v39 = v12;
+    v30 = "[AnalyticsReader countNetworksInSameLanAsBssid:withError:]";
+    v31 = 1024;
+    v32 = 410;
+    v33 = 2048;
+    v34 = v10;
+    v35 = 2112;
+    v36 = v8;
+    v37 = 2112;
+    v38 = v12;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %lu networks in same LAN as %@ %@", buf, 0x30u);
     if (v11)
     {
     }
   }
 
-  v13 = v27[3];
-  _Block_object_dispose(&v20, 8);
+  v13 = v26[3];
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v26, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
   return v13;
 }
 
@@ -1751,43 +1719,43 @@ void __59__AnalyticsReader_countNetworksInSameLanAsBssid_withError___block_invok
 
 - (unint64_t)networkCountForLAN:(id)n withError:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   nCopy = n;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__10;
-  v28 = __Block_byref_object_dispose__10;
-  v29 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0x7FFFFFFFFFFFFFFFLL;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__10;
+  v27 = __Block_byref_object_dispose__10;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0x7FFFFFFFFFFFFFFFLL;
   v7 = [(AnalyticsReader *)self moc];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __48__AnalyticsReader_networkCountForLAN_withError___block_invoke;
-  v16[3] = &unk_1E830F078;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __48__AnalyticsReader_networkCountForLAN_withError___block_invoke;
+  v15[3] = &unk_1E830F078;
+  v15[4] = self;
   v8 = nCopy;
-  v17 = v8;
-  v18 = &v24;
-  v19 = &v20;
-  [v7 performBlockAndWait:v16];
+  v16 = v8;
+  v17 = &v23;
+  v18 = &v19;
+  [v7 performBlockAndWait:v15];
 
   if (error)
   {
-    *error = v25[5];
+    *error = v24[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v21[3];
-    v11 = v25[5];
+    v10 = v20[3];
+    v11 = v24[5];
     if (v11)
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"with error: %@", v25[5]];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"with error: %@", v24[5]];
     }
 
     else
@@ -1796,24 +1764,23 @@ void __59__AnalyticsReader_countNetworksInSameLanAsBssid_withError___block_invok
     }
 
     *buf = 136446978;
-    v31 = "[AnalyticsReader networkCountForLAN:withError:]";
-    v32 = 1024;
-    v33 = 517;
-    v34 = 2048;
-    v35 = v10;
-    v36 = 2112;
-    v37 = v12;
+    v30 = "[AnalyticsReader networkCountForLAN:withError:]";
+    v31 = 1024;
+    v32 = 517;
+    v33 = 2048;
+    v34 = v10;
+    v35 = 2112;
+    v36 = v12;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %lu networks %@", buf, 0x26u);
     if (v11)
     {
     }
   }
 
-  v13 = v21[3];
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v24, 8);
+  v13 = v20[3];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1840,45 +1807,45 @@ void __48__AnalyticsReader_networkCountForLAN_withError___block_invoke(uint64_t 
 
 - (id)networksInLan:(id)lan withError:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   lanCopy = lan;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__10;
-  v31 = __Block_byref_object_dispose__10;
-  v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__10;
-  v25 = __Block_byref_object_dispose__10;
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__10;
+  v30 = __Block_byref_object_dispose__10;
+  v31 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__10;
+  v24 = __Block_byref_object_dispose__10;
+  v25 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __43__AnalyticsReader_networksInLan_withError___block_invoke;
-  v17[3] = &unk_1E830F078;
-  v17[4] = self;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __43__AnalyticsReader_networksInLan_withError___block_invoke;
+  v16[3] = &unk_1E830F078;
+  v16[4] = self;
   v8 = lanCopy;
-  v18 = v8;
-  v19 = &v21;
-  v20 = &v27;
-  [v7 performBlockAndWait:v17];
+  v17 = v8;
+  v18 = &v20;
+  v19 = &v26;
+  [v7 performBlockAndWait:v16];
 
   if (error)
   {
-    *error = v22[5];
+    *error = v21[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v28[5] count];
-    v11 = v22[5];
+    v10 = [v27[5] count];
+    v11 = v21[5];
     if (v11)
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"with error: %@", v22[5]];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"with error: %@", v21[5]];
     }
 
     else
@@ -1886,28 +1853,27 @@ void __48__AnalyticsReader_networkCountForLAN_withError___block_invoke(uint64_t 
       v12 = &stru_1F481C4A0;
     }
 
-    v13 = v28[5];
+    v13 = v27[5];
     *buf = 136447234;
-    v34 = "[AnalyticsReader networksInLan:withError:]";
-    v35 = 1024;
-    v36 = 538;
-    v37 = 2048;
-    v38 = v10;
-    v39 = 2112;
-    v40 = v12;
-    v41 = 2112;
-    v42 = v13;
+    v33 = "[AnalyticsReader networksInLan:withError:]";
+    v34 = 1024;
+    v35 = 538;
+    v36 = 2048;
+    v37 = v10;
+    v38 = 2112;
+    v39 = v12;
+    v40 = 2112;
+    v41 = v13;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %lu networks %@ : %@", buf, 0x30u);
     if (v11)
     {
     }
   }
 
-  v14 = v28[5];
-  _Block_object_dispose(&v21, 8);
+  v14 = v27[5];
+  _Block_object_dispose(&v20, 8);
 
-  _Block_object_dispose(&v27, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v26, 8);
 
   return v14;
 }
@@ -1938,45 +1904,45 @@ void __43__AnalyticsReader_networksInLan_withError___block_invoke(uint64_t a1)
 
 - (id)lanForBssid:(id)bssid withError:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   bssidCopy = bssid;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__10;
-  v30 = __Block_byref_object_dispose__10;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__10;
-  v24 = __Block_byref_object_dispose__10;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__10;
+  v29 = __Block_byref_object_dispose__10;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__10;
+  v23 = __Block_byref_object_dispose__10;
+  v24 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __41__AnalyticsReader_lanForBssid_withError___block_invoke;
-  v16[3] = &unk_1E830F078;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __41__AnalyticsReader_lanForBssid_withError___block_invoke;
+  v15[3] = &unk_1E830F078;
+  v15[4] = self;
   v8 = bssidCopy;
-  v17 = v8;
-  v18 = &v20;
-  v19 = &v26;
-  [v7 performBlockAndWait:v16];
+  v16 = v8;
+  v17 = &v19;
+  v18 = &v25;
+  [v7 performBlockAndWait:v15];
 
   if (error)
   {
-    *error = v21[5];
+    *error = v20[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v27[5];
-    v11 = v21[5];
+    v10 = v26[5];
+    v11 = v20[5];
     if (v11)
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"with error: %@", v21[5]];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"with error: %@", v20[5]];
     }
 
     else
@@ -1985,26 +1951,25 @@ void __43__AnalyticsReader_networksInLan_withError___block_invoke(uint64_t a1)
     }
 
     *buf = 136447234;
-    v33 = "[AnalyticsReader lanForBssid:withError:]";
-    v34 = 1024;
-    v35 = 558;
-    v36 = 2112;
-    v37 = v10;
-    v38 = 2112;
-    v39 = v8;
-    v40 = 2112;
-    v41 = v12;
+    v32 = "[AnalyticsReader lanForBssid:withError:]";
+    v33 = 1024;
+    v34 = 558;
+    v35 = 2112;
+    v36 = v10;
+    v37 = 2112;
+    v38 = v8;
+    v39 = 2112;
+    v40 = v12;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning LAN for %@: %@ %@", buf, 0x30u);
     if (v11)
     {
     }
   }
 
-  v13 = v27[5];
-  _Block_object_dispose(&v20, 8);
+  v13 = v26[5];
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v26, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
   return v13;
 }
@@ -2034,57 +1999,56 @@ void __41__AnalyticsReader_lanForBssid_withError___block_invoke(uint64_t a1)
 
 - (id)bssidCountByBandInUniqueMO:(id)o withError:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   oCopy = o;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__10;
-  v28 = __Block_byref_object_dispose__10;
-  v29 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__10;
-  v22 = __Block_byref_object_dispose__10;
   v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__10;
+  v27 = __Block_byref_object_dispose__10;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__10;
+  v21 = __Block_byref_object_dispose__10;
+  v22 = 0;
   v7 = [(AnalyticsReader *)self moc];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __56__AnalyticsReader_bssidCountByBandInUniqueMO_withError___block_invoke;
-  v14[3] = &unk_1E830DB20;
-  v16 = &v24;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __56__AnalyticsReader_bssidCountByBandInUniqueMO_withError___block_invoke;
+  v13[3] = &unk_1E830DB20;
+  v15 = &v23;
+  v13[4] = self;
   v8 = oCopy;
-  v15 = v8;
-  v17 = &v18;
-  [v7 performBlockAndWait:v14];
+  v14 = v8;
+  v16 = &v17;
+  [v7 performBlockAndWait:v13];
 
   if (error)
   {
-    *error = v19[5];
+    *error = v18[5];
   }
 
   v9 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v25[5];
+    v10 = v24[5];
     *buf = 136446978;
-    v31 = "[AnalyticsReader bssidCountByBandInUniqueMO:withError:]";
-    v32 = 1024;
-    v33 = 574;
-    v34 = 2112;
-    v35 = v8;
-    v36 = 2112;
-    v37 = v10;
+    v30 = "[AnalyticsReader bssidCountByBandInUniqueMO:withError:]";
+    v31 = 1024;
+    v32 = 574;
+    v33 = 2112;
+    v34 = v8;
+    v35 = 2112;
+    v36 = v10;
     _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:bssid Count by Band for %@ returning %@", buf, 0x26u);
   }
 
-  v11 = v25[5];
-  _Block_object_dispose(&v18, 8);
+  v11 = v24[5];
+  _Block_object_dispose(&v17, 8);
 
-  _Block_object_dispose(&v24, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
 
   return v11;
 }
@@ -2110,7 +2074,7 @@ void __56__AnalyticsReader_bssidCountByBandInUniqueMO_withError___block_invoke(u
 
 - (id)bssidCountByBandInLAN:(id)n withError:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (n)
   {
     v5 = [(AnalyticsReader *)self bssidCountByBandInUniqueMO:n withError:error];
@@ -2118,83 +2082,80 @@ void __56__AnalyticsReader_bssidCountByBandInUniqueMO_withError___block_invoke(u
 
   else
   {
-    v8 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v14 = "[AnalyticsReader bssidCountByBandInLAN:withError:]";
-      v15 = 1024;
-      v16 = 580;
-      _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_ERROR, "%{public}s::%d:dhcpServerInfo nil", buf, 0x12u);
+      v13 = "[AnalyticsReader bssidCountByBandInLAN:withError:]";
+      v14 = 1024;
+      v15 = 580;
+      _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_ERROR, "%{public}s::%d:dhcpServerInfo nil", buf, 0x12u);
     }
 
     if (error)
     {
-      v9 = MEMORY[0x1E696ABC0];
-      v11 = *MEMORY[0x1E696A588];
-      v12 = @"WAErrorCodeInvalidInput";
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-      *error = [v9 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v10];
+      v8 = MEMORY[0x1E696ABC0];
+      v10 = *MEMORY[0x1E696A588];
+      v11 = @"WAErrorCodeInvalidInput";
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+      *error = [v8 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v9];
     }
 
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (unint64_t)countNetworksHavingBand:(signed __int16)band inLan:(id)lan withError:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   lanCopy = lan;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__10;
-  v25 = __Block_byref_object_dispose__10;
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__10;
+  v24 = __Block_byref_object_dispose__10;
+  v25 = 0;
   v9 = [(AnalyticsReader *)self moc];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __59__AnalyticsReader_countNetworksHavingBand_inLan_withError___block_invoke;
-  v16[3] = &unk_1E830F0C8;
-  v18 = &v27;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __59__AnalyticsReader_countNetworksHavingBand_inLan_withError___block_invoke;
+  v15[3] = &unk_1E830F0C8;
+  v17 = &v26;
+  v15[4] = self;
   bandCopy = band;
   v10 = lanCopy;
-  v17 = v10;
-  v19 = &v21;
-  [v9 performBlockAndWait:v16];
+  v16 = v10;
+  v18 = &v20;
+  [v9 performBlockAndWait:v15];
 
   if (error)
   {
-    *error = v22[5];
+    *error = v21[5];
   }
 
   v11 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v28[3];
+    v12 = v27[3];
     *buf = 136446722;
-    v32 = "[AnalyticsReader countNetworksHavingBand:inLan:withError:]";
-    v33 = 1024;
-    v34 = 599;
-    v35 = 2048;
-    v36 = v12;
+    v31 = "[AnalyticsReader countNetworksHavingBand:inLan:withError:]";
+    v32 = 1024;
+    v33 = 599;
+    v34 = 2048;
+    v35 = v12;
     _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %lu networks", buf, 0x1Cu);
   }
 
-  v13 = v28[3];
-  _Block_object_dispose(&v21, 8);
+  v13 = v27[3];
+  _Block_object_dispose(&v20, 8);
 
-  _Block_object_dispose(&v27, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v26, 8);
   return v13;
 }
 
@@ -2217,7 +2178,7 @@ void __59__AnalyticsReader_countNetworksHavingBand_inLan_withError___block_invok
 
 - (id)lanFor:(id)for withError:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   forCopy = for;
   if (forCopy)
   {
@@ -2229,110 +2190,107 @@ void __59__AnalyticsReader_countNetworksHavingBand_inLan_withError___block_invok
 
   else
   {
-    v12 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v18 = "[AnalyticsReader lanFor:withError:]";
-      v19 = 1024;
-      v20 = 606;
-      _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:dhcpServerInfo nil", buf, 0x12u);
+      v17 = "[AnalyticsReader lanFor:withError:]";
+      v18 = 1024;
+      v19 = 606;
+      _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:dhcpServerInfo nil", buf, 0x12u);
     }
 
     if (error)
     {
-      v13 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696A588];
-      v16 = @"WAErrorCodeInvalidInput";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-      *error = [v13 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v14];
+      v12 = MEMORY[0x1E696ABC0];
+      v14 = *MEMORY[0x1E696A588];
+      v15 = @"WAErrorCodeInvalidInput";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      *error = [v12 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v13];
 
       error = 0;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return error;
 }
 
 - (id)usageForLAN:(id)n withError:(id *)error
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   nCopy = n;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__10;
-  v30 = __Block_byref_object_dispose__10;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__10;
-  v24 = __Block_byref_object_dispose__10;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__10;
+  v29 = __Block_byref_object_dispose__10;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__10;
+  v23 = __Block_byref_object_dispose__10;
+  v24 = 0;
   if (nCopy)
   {
     v7 = [(AnalyticsReader *)self moc];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __41__AnalyticsReader_usageForLAN_withError___block_invoke;
-    v16[3] = &unk_1E830DB20;
-    v18 = &v26;
-    v16[4] = self;
-    v17 = nCopy;
-    v19 = &v20;
-    [v7 performBlockAndWait:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __41__AnalyticsReader_usageForLAN_withError___block_invoke;
+    v15[3] = &unk_1E830DB20;
+    v17 = &v25;
+    v15[4] = self;
+    v16 = nCopy;
+    v18 = &v19;
+    [v7 performBlockAndWait:v15];
 
     if (error)
     {
-      *error = v21[5];
+      *error = v20[5];
     }
   }
 
   else
   {
-    v13 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v33 = "[AnalyticsReader usageForLAN:withError:]";
-      v34 = 1024;
-      v35 = 618;
-      _os_log_impl(&dword_1C8460000, v13, OS_LOG_TYPE_ERROR, "%{public}s::%d:dhcpServerInfo nil", buf, 0x12u);
+      v32 = "[AnalyticsReader usageForLAN:withError:]";
+      v33 = 1024;
+      v34 = 618;
+      _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:dhcpServerInfo nil", buf, 0x12u);
     }
 
     if (error)
     {
-      v14 = MEMORY[0x1E696ABC0];
-      v40 = *MEMORY[0x1E696A588];
-      v41[0] = @"WAErrorCodeInvalidInput";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
-      *error = [v14 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v15];
+      v13 = MEMORY[0x1E696ABC0];
+      v39 = *MEMORY[0x1E696A588];
+      v40[0] = @"WAErrorCodeInvalidInput";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+      *error = [v13 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v14];
     }
   }
 
   v8 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v27[5];
+    v9 = v26[5];
     *buf = 136446978;
-    v33 = "[AnalyticsReader usageForLAN:withError:]";
-    v34 = 1024;
-    v35 = 630;
-    v36 = 2112;
-    v37 = nCopy;
-    v38 = 2112;
-    v39 = v9;
+    v32 = "[AnalyticsReader usageForLAN:withError:]";
+    v33 = 1024;
+    v34 = 630;
+    v35 = 2112;
+    v36 = nCopy;
+    v37 = 2112;
+    v38 = v9;
     _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:usageForLAN:%@ : %@", buf, 0x26u);
   }
 
-  v10 = v27[5];
-  _Block_object_dispose(&v20, 8);
+  v10 = v26[5];
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v26, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
   return v10;
 }
@@ -2360,43 +2318,43 @@ void __41__AnalyticsReader_usageForLAN_withError___block_invoke(uint64_t a1)
 
 - (BOOL)isNetworkWithinRangeOfLocation:(id)location range:(double)range location:(id)a5 count:(unint64_t *)count
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v11 = a5;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
   v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   v12 = [(AnalyticsReader *)self moc];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __71__AnalyticsReader_isNetworkWithinRangeOfLocation_range_location_count___block_invoke;
-  v21[3] = &unk_1E830F5D0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __71__AnalyticsReader_isNetworkWithinRangeOfLocation_range_location_count___block_invoke;
+  v20[3] = &unk_1E830F5D0;
   v13 = locationCopy;
-  v22 = v13;
+  v21 = v13;
   v14 = v11;
   rangeCopy = range;
-  v23 = v14;
+  v22 = v14;
   selfCopy = self;
-  v25 = &v32;
-  v26 = &v28;
-  [v12 performBlockAndWait:v21];
+  v24 = &v31;
+  v25 = &v27;
+  [v12 performBlockAndWait:v20];
 
   if (count)
   {
-    *count = v29[3];
+    *count = v28[3];
   }
 
   v15 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v16 = *(v33 + 24) == 0;
+    v16 = *(v32 + 24) == 0;
     *buf = 136446722;
-    v37 = "[AnalyticsReader isNetworkWithinRangeOfLocation:range:location:count:]";
+    v36 = "[AnalyticsReader isNetworkWithinRangeOfLocation:range:location:count:]";
     if (v16)
     {
       v17 = @"NO";
@@ -2407,261 +2365,255 @@ void __41__AnalyticsReader_usageForLAN_withError___block_invoke(uint64_t a1)
       v17 = @"YES";
     }
 
-    v38 = 1024;
-    v39 = 654;
-    v40 = 2112;
-    v41 = v17;
+    v37 = 1024;
+    v38 = 654;
+    v39 = 2112;
+    v40 = v17;
     _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_ERROR, "%{public}s::%d:returning %@", buf, 0x1Cu);
   }
 
-  v18 = *(v33 + 24);
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v32, 8);
+  v18 = *(v32 + 24);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v31, 8);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18 & 1;
 }
 
 void __71__AnalyticsReader_isNetworkWithinRangeOfLocation_range_location_count___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   if (*(a1 + 32))
   {
     if (*(a1 + 40))
     {
-      v3 = *(*(a1 + 48) + 8);
-      v4 = *(*(a1 + 64) + 8);
       *(*(*(a1 + 56) + 8) + 24) = [GeoTagMO isNetworkWithinRangeOfLocation:"isNetworkWithinRangeOfLocation:range:location:container:count:" range:*(a1 + 72) location:? container:? count:?];
       goto LABEL_4;
     }
 
-    v11 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v8 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136446466;
-      v14 = "[AnalyticsReader isNetworkWithinRangeOfLocation:range:location:count:]_block_invoke";
-      v15 = 1024;
-      v16 = 642;
-      v12 = "%{public}s::%d:location nil";
+      v10 = 136446466;
+      v11 = "[AnalyticsReader isNetworkWithinRangeOfLocation:range:location:count:]_block_invoke";
+      v12 = 1024;
+      v13 = 642;
+      v9 = "%{public}s::%d:location nil";
       goto LABEL_14;
     }
   }
 
   else
   {
-    v11 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v8 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136446466;
-      v14 = "[AnalyticsReader isNetworkWithinRangeOfLocation:range:location:count:]_block_invoke";
-      v15 = 1024;
-      v16 = 641;
-      v12 = "%{public}s::%d:ssid nil";
+      v10 = 136446466;
+      v11 = "[AnalyticsReader isNetworkWithinRangeOfLocation:range:location:count:]_block_invoke";
+      v12 = 1024;
+      v13 = 641;
+      v9 = "%{public}s::%d:ssid nil";
 LABEL_14:
-      _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, v12, &v13, 0x12u);
+      _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_ERROR, v9, &v10, 0x12u);
     }
   }
 
 LABEL_4:
-  v5 = WALogCategoryDeviceStoreHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v3 = WALogCategoryDeviceStoreHandle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
+    v4 = *(a1 + 32);
     if (*(*(*(a1 + 56) + 8) + 24))
     {
-      v7 = "IS";
+      v5 = "IS";
     }
 
     else
     {
-      v7 = "NOT";
+      v5 = "NOT";
     }
 
-    v8 = *(a1 + 72);
-    v13 = 136447234;
-    v14 = "[AnalyticsReader isNetworkWithinRangeOfLocation:range:location:count:]_block_invoke";
-    v15 = 1024;
-    v16 = 647;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = v8;
-    _os_log_impl(&dword_1C8460000, v5, OS_LOG_TYPE_DEBUG, "%{public}s::%d:%@ %s within %f of given location", &v13, 0x30u);
+    v6 = *(a1 + 72);
+    v10 = 136447234;
+    v11 = "[AnalyticsReader isNetworkWithinRangeOfLocation:range:location:count:]_block_invoke";
+    v12 = 1024;
+    v13 = 647;
+    v14 = 2112;
+    v15 = v4;
+    v16 = 2080;
+    v17 = v5;
+    v18 = 2048;
+    v19 = v6;
+    _os_log_impl(&dword_1C8460000, v3, OS_LOG_TYPE_DEBUG, "%{public}s::%d:%@ %s within %f of given location", &v10, 0x30u);
   }
 
-  v9 = [*(a1 + 48) persistentContainer];
-  [v9 managedObjectContextSave:0 reset:1 release:1 withError:0];
+  v7 = [*(a1 + 48) persistentContainer];
+  [v7 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyGeoTagsForNetwork:(id)network location:(id)location
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   networkCopy = network;
   locationCopy = location;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__10;
-  v28 = __Block_byref_object_dispose__10;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__10;
+  v27 = __Block_byref_object_dispose__10;
   array = [MEMORY[0x1E695DF70] array];
   v8 = [(AnalyticsReader *)self moc];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __50__AnalyticsReader_copyGeoTagsForNetwork_location___block_invoke;
-  v19 = &unk_1E830F050;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __50__AnalyticsReader_copyGeoTagsForNetwork_location___block_invoke;
+  v18 = &unk_1E830F050;
   v9 = networkCopy;
-  v20 = v9;
+  v19 = v9;
   v10 = locationCopy;
-  v21 = v10;
+  v20 = v10;
   selfCopy = self;
-  v23 = &v24;
-  [v8 performBlockAndWait:&v16];
+  v22 = &v23;
+  [v8 performBlockAndWait:&v15];
 
   v11 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v12 = [v25[5] count];
+    v12 = [v24[5] count];
     *buf = 136446722;
-    v31 = "[AnalyticsReader copyGeoTagsForNetwork:location:]";
-    v32 = 1024;
-    v33 = 705;
-    v34 = 2048;
-    v35 = v12;
+    v30 = "[AnalyticsReader copyGeoTagsForNetwork:location:]";
+    v31 = 1024;
+    v32 = 705;
+    v33 = 2048;
+    v34 = v12;
     _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:returning %lu tags", buf, 0x1Cu);
   }
 
-  v13 = v25[5];
-  _Block_object_dispose(&v24, 8);
+  v13 = v24[5];
+  _Block_object_dispose(&v23, 8);
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 void __50__AnalyticsReader_copyGeoTagsForNetwork_location___block_invoke(uint64_t a1)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   if (!*(a1 + 32))
   {
-    v4 = WALogCategoryDeviceStoreHandle();
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = WALogCategoryDeviceStoreHandle();
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_28;
     }
 
     *buf = 136446466;
-    v59 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
-    v60 = 1024;
-    v61 = 664;
-    v43 = "%{public}s::%d:ssid nil";
+    v57 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
+    v58 = 1024;
+    v59 = 664;
+    v41 = "%{public}s::%d:ssid nil";
     goto LABEL_35;
   }
 
   if (*(a1 + 40))
   {
-    v3 = *(*(a1 + 48) + 8);
-    v4 = [GeoTagMO geoTagsForNetwork:"geoTagsForNetwork:container:" container:?];
+    v3 = [GeoTagMO geoTagsForNetwork:"geoTagsForNetwork:container:" container:?];
+    v50 = 0u;
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v52 objects:v68 count:16];
-    if (!v5)
+    v4 = [v3 countByEnumeratingWithState:&v50 objects:v66 count:16];
+    if (!v4)
     {
       goto LABEL_28;
     }
 
-    v6 = v5;
-    v46 = a1;
-    v44 = v2;
-    v7 = *v53;
-    v47 = v4;
+    v5 = v4;
+    v44 = a1;
+    v42 = v2;
+    v6 = *v51;
+    v45 = v3;
     while (1)
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v53 != v7)
+        if (*v51 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v52 + 1) + 8 * v8);
-        if (v9)
+        v8 = *(*(&v50 + 1) + 8 * v7);
+        if (v8)
         {
-          [*(*(&v52 + 1) + 8 * v8) latitude];
-          if (v10 == 0.0 || ([v9 longitude], v11 == 0.0) || (objc_msgSend(v9, "date"), v14 = objc_claimAutoreleasedReturnValue(), v14, !v14))
+          [*(*(&v50 + 1) + 8 * v7) latitude];
+          if (v9 == 0.0 || ([v8 longitude], v10 == 0.0) || (objc_msgSend(v8, "date"), v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
           {
-            v12 = WALogCategoryDeviceStoreHandle();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v11 = WALogCategoryDeviceStoreHandle();
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
-              v13 = [v9 date];
+              v12 = [v8 date];
               *buf = 136446722;
-              v59 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
-              v60 = 1024;
-              v61 = 676;
-              v62 = 2112;
-              v63 = v13;
-              _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:Nil - invalid geoTag coordinates or geoTag.date %@", buf, 0x1Cu);
+              v57 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
+              v58 = 1024;
+              v59 = 676;
+              v60 = 2112;
+              v61 = v12;
+              _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:Nil - invalid geoTag coordinates or geoTag.date %@", buf, 0x1Cu);
             }
           }
 
           else
           {
-            v15 = [v9 bss];
-            if (v15)
+            v14 = [v8 bss];
+            if (v14)
             {
-              v16 = v15;
-              v17 = [v9 bss];
-              if ([v17 mostRecentChannel])
+              v15 = v14;
+              v16 = [v8 bss];
+              if ([v16 mostRecentChannel])
               {
-                v18 = [v9 bss];
-                v19 = [v18 bssid];
+                v17 = [v8 bss];
+                v18 = [v17 bssid];
 
-                if (v19)
+                if (v18)
                 {
-                  v20 = objc_alloc(MEMORY[0x1E6985C38]);
-                  [v9 latitude];
-                  v22 = v21;
-                  [v9 longitude];
-                  v12 = [v20 initWithLatitude:v22 longitude:v23];
-                  [v12 distanceFromLocation:*(v46 + 40)];
-                  v25 = v24;
-                  v56[0] = @"bssid";
-                  v50 = [v9 bss];
-                  v48 = [v50 bssid];
-                  v57[0] = v48;
-                  v56[1] = @"is5Ghz";
-                  v26 = MEMORY[0x1E696AD98];
-                  v45 = [v9 bss];
-                  v27 = [v26 numberWithInt:{objc_msgSend(v45, "mostRecentBand") == 1}];
-                  v57[1] = v27;
-                  v56[2] = @"date";
-                  v28 = [v9 date];
-                  v57[2] = v28;
-                  v56[3] = @"latitude";
-                  v29 = MEMORY[0x1E696AD98];
-                  [v9 latitude];
-                  v30 = [v29 numberWithDouble:?];
-                  v57[3] = v30;
-                  v56[4] = @"longitude";
-                  v31 = MEMORY[0x1E696AD98];
-                  [v9 longitude];
-                  v32 = [v31 numberWithDouble:?];
-                  v57[4] = v32;
-                  v56[5] = @"distance";
-                  v33 = [MEMORY[0x1E696AD98] numberWithInt:v25];
-                  v57[5] = v33;
-                  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:6];
+                  v19 = objc_alloc(MEMORY[0x1E6985C38]);
+                  [v8 latitude];
+                  v21 = v20;
+                  [v8 longitude];
+                  v11 = [v19 initWithLatitude:v21 longitude:v22];
+                  [v11 distanceFromLocation:*(v44 + 40)];
+                  v24 = v23;
+                  v54[0] = @"bssid";
+                  v48 = [v8 bss];
+                  v46 = [v48 bssid];
+                  v55[0] = v46;
+                  v54[1] = @"is5Ghz";
+                  v25 = MEMORY[0x1E696AD98];
+                  v43 = [v8 bss];
+                  v26 = [v25 numberWithInt:{objc_msgSend(v43, "mostRecentBand") == 1}];
+                  v55[1] = v26;
+                  v54[2] = @"date";
+                  v27 = [v8 date];
+                  v55[2] = v27;
+                  v54[3] = @"latitude";
+                  v28 = MEMORY[0x1E696AD98];
+                  [v8 latitude];
+                  v29 = [v28 numberWithDouble:?];
+                  v55[3] = v29;
+                  v54[4] = @"longitude";
+                  v30 = MEMORY[0x1E696AD98];
+                  [v8 longitude];
+                  v31 = [v30 numberWithDouble:?];
+                  v55[4] = v31;
+                  v54[5] = @"distance";
+                  v32 = [MEMORY[0x1E696AD98] numberWithInt:v24];
+                  v55[5] = v32;
+                  v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:6];
 
-                  v4 = v47;
-                  [*(*(*(v46 + 56) + 8) + 40) addObject:v34];
+                  v3 = v45;
+                  [*(*(*(v44 + 56) + 8) + 40) addObject:v33];
 
                   goto LABEL_15;
                 }
@@ -2672,87 +2624,86 @@ void __50__AnalyticsReader_copyGeoTagsForNetwork_location___block_invoke(uint64_
               }
             }
 
-            v12 = WALogCategoryDeviceStoreHandle();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v11 = WALogCategoryDeviceStoreHandle();
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
-              v49 = [v9 bss];
-              v51 = [v9 bss];
-              v35 = [v51 mostRecentChannel];
-              v36 = [v9 bss];
-              v37 = [v36 bssid];
+              v47 = [v8 bss];
+              v49 = [v8 bss];
+              v34 = [v49 mostRecentChannel];
+              v35 = [v8 bss];
+              v36 = [v35 bssid];
               *buf = 136447234;
-              v59 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
-              v60 = 1024;
-              v61 = 681;
-              v62 = 2112;
-              v63 = v49;
-              v64 = 1024;
-              v65 = v35;
-              v66 = 2112;
-              v67 = v37;
-              _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:Nil - geoTag.bss  %@ geoTag.bss.mostRecentChannel %d geoTag.bss.bssid %@", buf, 0x2Cu);
+              v57 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
+              v58 = 1024;
+              v59 = 681;
+              v60 = 2112;
+              v61 = v47;
+              v62 = 1024;
+              v63 = v34;
+              v64 = 2112;
+              v65 = v36;
+              _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:Nil - geoTag.bss  %@ geoTag.bss.mostRecentChannel %d geoTag.bss.bssid %@", buf, 0x2Cu);
 
-              v4 = v47;
+              v3 = v45;
             }
           }
         }
 
         else
         {
-          v12 = WALogCategoryDeviceStoreHandle();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v11 = WALogCategoryDeviceStoreHandle();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 136446466;
-            v59 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
-            v60 = 1024;
-            v61 = 671;
-            _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:geoTag nil", buf, 0x12u);
+            v57 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
+            v58 = 1024;
+            v59 = 671;
+            _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:geoTag nil", buf, 0x12u);
           }
         }
 
 LABEL_15:
 
-        ++v8;
+        ++v7;
       }
 
-      while (v6 != v8);
-      v38 = [v4 countByEnumeratingWithState:&v52 objects:v68 count:16];
-      v6 = v38;
-      if (!v38)
+      while (v5 != v7);
+      v37 = [v3 countByEnumeratingWithState:&v50 objects:v66 count:16];
+      v5 = v37;
+      if (!v37)
       {
-        v2 = v44;
-        a1 = v46;
+        v2 = v42;
+        a1 = v44;
         goto LABEL_28;
       }
     }
   }
 
-  v4 = WALogCategoryDeviceStoreHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = WALogCategoryDeviceStoreHandle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v59 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
-    v60 = 1024;
-    v61 = 665;
-    v43 = "%{public}s::%d:location nil";
+    v57 = "[AnalyticsReader copyGeoTagsForNetwork:location:]_block_invoke";
+    v58 = 1024;
+    v59 = 665;
+    v41 = "%{public}s::%d:location nil";
 LABEL_35:
-    _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_ERROR, v43, buf, 0x12u);
+    _os_log_impl(&dword_1C8460000, v3, OS_LOG_TYPE_ERROR, v41, buf, 0x12u);
   }
 
 LABEL_28:
 
   if (![*(*(*(a1 + 56) + 8) + 40) count])
   {
-    v39 = *(*(a1 + 56) + 8);
-    v40 = *(v39 + 40);
-    *(v39 + 40) = 0;
+    v38 = *(*(a1 + 56) + 8);
+    v39 = *(v38 + 40);
+    *(v38 + 40) = 0;
   }
 
-  v41 = [*(a1 + 48) persistentContainer];
-  [v41 managedObjectContextSave:0 reset:1 release:1 withError:0];
+  v40 = [*(a1 + 48) persistentContainer];
+  [v40 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (id)networksAvailableAtLocation:(id)location withinDistance:(double)distance inBand:(unsigned int)band
@@ -2785,7 +2736,7 @@ LABEL_28:
 
 void __69__AnalyticsReader_networksAvailableAtLocation_withinDistance_inBand___block_invoke(uint64_t a1)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   if (!v3)
@@ -2794,9 +2745,9 @@ void __69__AnalyticsReader_networksAvailableAtLocation_withinDistance_inBand___b
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v50 = "[AnalyticsReader networksAvailableAtLocation:withinDistance:inBand:]_block_invoke";
-      v51 = 1024;
-      v52 = 716;
+      v49 = "[AnalyticsReader networksAvailableAtLocation:withinDistance:inBand:]_block_invoke";
+      v50 = 1024;
+      v51 = 716;
       _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_ERROR, "%{public}s::%d:location nil", buf, 0x12u);
     }
 
@@ -2809,40 +2760,40 @@ void __69__AnalyticsReader_networksAvailableAtLocation_withinDistance_inBand___b
     goto LABEL_21;
   }
 
-  v40 = v2;
+  v39 = v2;
   v5 = [MEMORY[0x1E695DF70] array];
-  v41 = a1;
+  v40 = a1;
   v6 = *(*(a1 + 48) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
-  v39 = v4;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v38 = v4;
   obj = v4;
-  v8 = [obj countByEnumeratingWithState:&v43 objects:v59 count:16];
+  v8 = [obj countByEnumeratingWithState:&v42 objects:v58 count:16];
   if (!v8)
   {
     goto LABEL_20;
   }
 
   v9 = v8;
-  v10 = *v44;
+  v10 = *v43;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v44 != v10)
+      if (*v43 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v43 + 1) + 8 * i);
+      v12 = *(*(&v42 + 1) + 8 * i);
       if (v12)
       {
-        v13 = [*(*(&v43 + 1) + 8 * i) bss];
+        v13 = [*(*(&v42 + 1) + 8 * i) bss];
         if (v13)
         {
           v14 = v13;
@@ -2857,20 +2808,20 @@ void __69__AnalyticsReader_networksAvailableAtLocation_withinDistance_inBand___b
 
             if (v20)
             {
-              v47[0] = @"ssid";
+              v46[0] = @"ssid";
               v21 = [v12 bss];
               v22 = [v21 network];
               v23 = [v22 ssid];
-              v47[1] = @"authFlags";
-              v48[0] = v23;
+              v46[1] = @"authFlags";
+              v47[0] = v23;
               v24 = MEMORY[0x1E696AD98];
               v25 = [v12 bss];
               v26 = [v25 network];
               v27 = [v24 numberWithInt:{objc_msgSend(v26, "authFlags")}];
-              v48[1] = v27;
-              v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
+              v47[1] = v27;
+              v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
 
-              [*(*(*(v41 + 48) + 8) + 40) addObject:v28];
+              [*(*(*(v40 + 48) + 8) + 40) addObject:v28];
               goto LABEL_18;
             }
           }
@@ -2890,15 +2841,15 @@ void __69__AnalyticsReader_networksAvailableAtLocation_withinDistance_inBand___b
           v33 = [v32 network];
           v34 = [v33 ssid];
           *buf = 136447234;
-          v50 = "[AnalyticsReader networksAvailableAtLocation:withinDistance:inBand:]_block_invoke";
-          v51 = 1024;
-          v52 = 729;
-          v53 = 2112;
-          v54 = v29;
-          v55 = 2112;
-          v56 = v31;
-          v57 = 2112;
-          v58 = v34;
+          v49 = "[AnalyticsReader networksAvailableAtLocation:withinDistance:inBand:]_block_invoke";
+          v50 = 1024;
+          v51 = 729;
+          v52 = 2112;
+          v53 = v29;
+          v54 = 2112;
+          v55 = v31;
+          v56 = 2112;
+          v57 = v34;
           _os_log_impl(&dword_1C8460000, v28, OS_LOG_TYPE_ERROR, "%{public}s::%d:Nil - geoTag.bss  %@ geoTag.bss.network %@ geoTag.bss.network.ssid %@", buf, 0x30u);
         }
       }
@@ -2909,9 +2860,9 @@ void __69__AnalyticsReader_networksAvailableAtLocation_withinDistance_inBand___b
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446466;
-          v50 = "[AnalyticsReader networksAvailableAtLocation:withinDistance:inBand:]_block_invoke";
-          v51 = 1024;
-          v52 = 724;
+          v49 = "[AnalyticsReader networksAvailableAtLocation:withinDistance:inBand:]_block_invoke";
+          v50 = 1024;
+          v51 = 724;
           _os_log_impl(&dword_1C8460000, v28, OS_LOG_TYPE_ERROR, "%{public}s::%d:geoTag nil", buf, 0x12u);
         }
       }
@@ -2919,26 +2870,26 @@ void __69__AnalyticsReader_networksAvailableAtLocation_withinDistance_inBand___b
 LABEL_18:
     }
 
-    v9 = [obj countByEnumeratingWithState:&v43 objects:v59 count:16];
+    v9 = [obj countByEnumeratingWithState:&v42 objects:v58 count:16];
   }
 
   while (v9);
 LABEL_20:
 
-  v4 = v39;
-  v2 = v40;
-  a1 = v41;
+  v4 = v38;
+  v2 = v39;
+  a1 = v40;
 LABEL_21:
   v35 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
     v36 = [*(*(*(a1 + 48) + 8) + 40) count];
     *buf = 136446722;
-    v50 = "[AnalyticsReader networksAvailableAtLocation:withinDistance:inBand:]_block_invoke";
-    v51 = 1024;
-    v52 = 739;
-    v53 = 2048;
-    v54 = v36;
+    v49 = "[AnalyticsReader networksAvailableAtLocation:withinDistance:inBand:]_block_invoke";
+    v50 = 1024;
+    v51 = 739;
+    v52 = 2048;
+    v53 = v36;
     _os_log_impl(&dword_1C8460000, v35, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %ld networks", buf, 0x1Cu);
   }
 
@@ -2947,82 +2898,80 @@ LABEL_24:
   [v37 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyLocationsForNetwork:(id)network
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   networkCopy = network;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__10;
-  v20 = __Block_byref_object_dispose__10;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__10;
+  v19 = __Block_byref_object_dispose__10;
   array = [MEMORY[0x1E695DF70] array];
   v5 = [(AnalyticsReader *)self moc];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __43__AnalyticsReader_copyLocationsForNetwork___block_invoke;
-  v12[3] = &unk_1E830DAF8;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __43__AnalyticsReader_copyLocationsForNetwork___block_invoke;
+  v11[3] = &unk_1E830DAF8;
   v6 = networkCopy;
-  v13 = v6;
+  v12 = v6;
   selfCopy = self;
-  v15 = &v16;
-  [v5 performBlockAndWait:v12];
+  v14 = &v15;
+  [v5 performBlockAndWait:v11];
 
   v7 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v8 = [v17[5] count];
+    v8 = [v16[5] count];
     *buf = 136446722;
-    v23 = "[AnalyticsReader copyLocationsForNetwork:]";
-    v24 = 1024;
-    v25 = 776;
-    v26 = 2048;
-    v27 = v8;
+    v22 = "[AnalyticsReader copyLocationsForNetwork:]";
+    v23 = 1024;
+    v24 = 776;
+    v25 = 2048;
+    v26 = v8;
     _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_ERROR, "%{public}s::%d:returning %lu loc", buf, 0x1Cu);
   }
 
-  v9 = v17[5];
-  _Block_object_dispose(&v16, 8);
+  v9 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 void __43__AnalyticsReader_copyLocationsForNetwork___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4)
   {
-    v24 = v2;
+    v23 = v2;
     v5 = [*(a1 + 40) persistentContainer];
     v6 = [GeoTagMO geoTagsForNetwork:v4 container:v5];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v26;
+      v10 = *v25;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v25 + 1) + 8 * i);
+          v12 = *(*(&v24 + 1) + 8 * i);
           if (v12)
           {
             v13 = objc_alloc(MEMORY[0x1E6985C38]);
@@ -3042,9 +2991,9 @@ void __43__AnalyticsReader_copyLocationsForNetwork___block_invoke(uint64_t a1)
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136446466;
-                v31 = "[AnalyticsReader copyLocationsForNetwork:]_block_invoke";
-                v32 = 1024;
-                v33 = 764;
+                v30 = "[AnalyticsReader copyLocationsForNetwork:]_block_invoke";
+                v31 = 1024;
+                v32 = 764;
                 _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:location nil", buf, 0x12u);
               }
 
@@ -3058,21 +3007,21 @@ void __43__AnalyticsReader_copyLocationsForNetwork___block_invoke(uint64_t a1)
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 136446466;
-              v31 = "[AnalyticsReader copyLocationsForNetwork:]_block_invoke";
-              v32 = 1024;
-              v33 = 758;
+              v30 = "[AnalyticsReader copyLocationsForNetwork:]_block_invoke";
+              v31 = 1024;
+              v32 = 758;
               _os_log_impl(&dword_1C8460000, v18, OS_LOG_TYPE_ERROR, "%{public}s::%d:geoTag nil", buf, 0x12u);
             }
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v9);
     }
 
-    v3 = v24;
+    v3 = v23;
   }
 
   else
@@ -3081,9 +3030,9 @@ void __43__AnalyticsReader_copyLocationsForNetwork___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v31 = "[AnalyticsReader copyLocationsForNetwork:]_block_invoke";
-      v32 = 1024;
-      v33 = 752;
+      v30 = "[AnalyticsReader copyLocationsForNetwork:]_block_invoke";
+      v31 = 1024;
+      v32 = 752;
       _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
     }
   }
@@ -3099,71 +3048,69 @@ void __43__AnalyticsReader_copyLocationsForNetwork___block_invoke(uint64_t a1)
   [v22 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v3);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)usageOf:(id)of timeSpan:(unint64_t)span around:(id)around withError:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   ofCopy = of;
   aroundCopy = around;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__10;
-  v37 = __Block_byref_object_dispose__10;
-  v38 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__10;
-  v31 = __Block_byref_object_dispose__10;
   v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__10;
+  v36 = __Block_byref_object_dispose__10;
+  v37 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__10;
+  v30 = __Block_byref_object_dispose__10;
+  v31 = 0;
   v12 = [(AnalyticsReader *)self moc];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __53__AnalyticsReader_usageOf_timeSpan_around_withError___block_invoke;
-  v20[3] = &unk_1E830F118;
-  v24 = &v33;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __53__AnalyticsReader_usageOf_timeSpan_around_withError___block_invoke;
+  v19[3] = &unk_1E830F118;
+  v23 = &v32;
   v13 = ofCopy;
-  v21 = v13;
+  v20 = v13;
   spanCopy = span;
   v14 = aroundCopy;
-  v22 = v14;
+  v21 = v14;
   selfCopy = self;
-  v25 = &v27;
-  [v12 performBlockAndWait:v20];
+  v24 = &v26;
+  [v12 performBlockAndWait:v19];
 
   if (error)
   {
-    *error = v28[5];
+    *error = v27[5];
   }
 
   v15 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = v34[5];
+    v16 = v33[5];
     *buf = 136446722;
-    v40 = "[AnalyticsReader usageOf:timeSpan:around:withError:]";
-    v41 = 1024;
-    v42 = 792;
-    v43 = 2112;
-    v44 = v16;
+    v39 = "[AnalyticsReader usageOf:timeSpan:around:withError:]";
+    v40 = 1024;
+    v41 = 792;
+    v42 = 2112;
+    v43 = v16;
     _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Returning %@", buf, 0x1Cu);
   }
 
-  v17 = v34[5];
-  _Block_object_dispose(&v27, 8);
+  v17 = v33[5];
+  _Block_object_dispose(&v26, 8);
 
-  _Block_object_dispose(&v33, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v32, 8);
 
   return v17;
 }
 
 void __53__AnalyticsReader_usageOf_timeSpan_around_withError___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 72);
   v4 = *(a1 + 32);
@@ -3182,11 +3129,11 @@ void __53__AnalyticsReader_usageOf_timeSpan_around_withError___block_invoke(uint
   {
     v12 = *(*(*(a1 + 56) + 8) + 40);
     *buf = 136446722;
-    v17 = "[AnalyticsReader usageOf:timeSpan:around:withError:]_block_invoke";
-    v18 = 1024;
-    v19 = 788;
-    v20 = 2112;
-    v21 = v12;
+    v16 = "[AnalyticsReader usageOf:timeSpan:around:withError:]_block_invoke";
+    v17 = 1024;
+    v18 = 788;
+    v19 = 2112;
+    v20 = v12;
     _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Returning: %@", buf, 0x1Cu);
   }
 
@@ -3194,7 +3141,6 @@ void __53__AnalyticsReader_usageOf_timeSpan_around_withError___block_invoke(uint
   [v13 managedObjectContextSave:0 reset:1 release:1 withError:0];
 
   objc_autoreleasePoolPop(v2);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)usageOf:(id)of during:(unint64_t)during timeSpan:(unint64_t)span withError:(id *)error

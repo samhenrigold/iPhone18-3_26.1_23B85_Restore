@@ -168,7 +168,7 @@ LABEL_11:
   return self;
 }
 
-uint64_t __74__SBAppExposeToHomeSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(void *a1)
+void *__74__SBAppExposeToHomeSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 184) asyncRenderingAttributesForAppLayout:a1[5]];
   *(*(a1[6] + 8) + 32) = result;

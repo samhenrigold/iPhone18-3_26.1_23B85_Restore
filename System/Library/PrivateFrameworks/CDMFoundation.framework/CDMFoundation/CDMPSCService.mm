@@ -14,31 +14,28 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMPSCRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7 = @"model_bundle_psc";
-  v8 = @"com.apple.siri.nl.psc";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = @"model_bundle_psc";
+  v7 = @"com.apple.siri.nl.psc";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
 
   [(CDMServiceAssetConfig *)v2 setIsAssetRequiredForSetup:0];
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -52,16 +49,16 @@
 
 - (id)getSNLPPommesServerClassifierPath:(id)path error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315394;
-    v15 = "[CDMPSCService getSNLPPommesServerClassifierPath:error:]";
-    v16 = 2112;
-    v17 = pathCopy;
-    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s creating SNLPPommesServerClassifier: %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[CDMPSCService getSNLPPommesServerClassifierPath:error:]";
+    v15 = 2112;
+    v16 = pathCopy;
+    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s creating SNLPPommesServerClassifier: %@", &v13, 0x16u);
   }
 
   v8 = [MEMORY[0x1E69D1478] classifierWithPathURL:pathCopy error:error];
@@ -71,46 +68,43 @@
   v10 = self->_pscOrchestrator;
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)doInference:(id)inference error:(id *)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   inferenceCopy = inference;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "[CDMPSCService doInference:error:]";
-    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Start PSC", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[CDMPSCService doInference:error:]";
+    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Start PSC", &v11, 0xCu);
   }
 
   v8 = [(SNLPPommesServerClassifier *)self->_pscOrchestrator responseForRequest:inferenceCopy error:error];
   v9 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "[CDMPSCService doInference:error:]";
-    _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s PSC finished", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[CDMPSCService doInference:error:]";
+    _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s PSC finished", &v11, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)assetsPathURLForModelBundle:(id)bundle
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   resourcePath = [bundleCopy resourcePath];
-  v11 = 0;
+  v10 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v11];
+  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v10];
 
-  if (v6 && (v11 & 1) != 0)
+  if (v6 && (v10 & 1) != 0)
   {
     v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:resourcePath isDirectory:1];
   }
@@ -121,29 +115,27 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v13 = "[CDMPSCService assetsPathURLForModelBundle:]";
-      v14 = 2112;
-      v15 = resourcePath;
+      v12 = "[CDMPSCService assetsPathURLForModelBundle:]";
+      v13 = 2112;
+      v14 = resourcePath;
       _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s [WARN]: PSC assets path does not exist or is not a directory: %@", buf, 0x16u);
     }
 
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)warmup:(id)warmup
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   warmupCopy = warmup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v26 = "[CDMPSCService warmup:]";
+    v25 = "[CDMPSCService warmup:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Prewarm PSC model", buf, 0xCu);
   }
 
@@ -158,9 +150,9 @@
     selfCopy = self;
     objc_sync_enter(selfCopy);
     pscOrchestrator = selfCopy->_pscOrchestrator;
-    v24 = 0;
-    v13 = [(SNLPPommesServerClassifier *)pscOrchestrator responseForRequest:v10 error:&v24];
-    v14 = v24;
+    v23 = 0;
+    v13 = [(SNLPPommesServerClassifier *)pscOrchestrator responseForRequest:v10 error:&v23];
+    v14 = v23;
     if (!v13)
     {
       v15 = CDMOSLoggerForCategory(0);
@@ -168,10 +160,10 @@
       {
         localizedDescription = [v14 localizedDescription];
         *buf = 136315394;
-        v26 = "[CDMPSCService warmup:]";
-        v27 = 2112;
-        v28 = localizedDescription;
-        v23 = localizedDescription;
+        v25 = "[CDMPSCService warmup:]";
+        v26 = 2112;
+        v27 = localizedDescription;
+        v22 = localizedDescription;
         _os_log_error_impl(&dword_1DC287000, v15, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to run warm-up inference call: %@", buf, 0x16u);
       }
     }
@@ -185,7 +177,7 @@
     if (os_log_type_enabled(embeddingConfigs, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v26 = "[CDMPSCService warmup:]";
+      v25 = "[CDMPSCService warmup:]";
       _os_log_debug_impl(&dword_1DC287000, embeddingConfigs, OS_LOG_TYPE_DEBUG, "%s Model prewarming is turned off. PSC will not prewarm.", buf, 0xCu);
     }
   }
@@ -195,20 +187,18 @@
   serviceName = [(CDMBaseService *)self serviceName];
   v19 = [(CDMWarmupResponseCommand *)v16 initWithServiceState:serviceState serviceName:serviceName];
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (id)setup:(id)setup
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v26 = "[CDMPSCService setup:]";
+    v25 = "[CDMPSCService setup:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s PSC model setup", buf, 0xCu);
   }
 
@@ -229,17 +219,17 @@
       if (os_log_type_enabled(createSetupResponseCommand, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v26 = "[CDMPSCService setup:]";
-        v27 = 2112;
-        v28 = v11;
+        v25 = "[CDMPSCService setup:]";
+        v26 = 2112;
+        v27 = v11;
         _os_log_debug_impl(&dword_1DC287000, createSetupResponseCommand, OS_LOG_TYPE_DEBUG, "%s PSC proto service passing assets path to SNLPPommesServerClassifier: %@", buf, 0x16u);
       }
 
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      v24 = 0;
-      v14 = [(CDMPSCService *)selfCopy getSNLPPommesServerClassifierPath:v11 error:&v24];
-      v15 = v24;
+      v23 = 0;
+      v14 = [(CDMPSCService *)selfCopy getSNLPPommesServerClassifierPath:v11 error:&v23];
+      v15 = v23;
 
       if (!v14)
       {
@@ -248,9 +238,9 @@
         {
           localizedDescription = [v15 localizedDescription];
           *buf = 136315394;
-          v26 = "[CDMPSCService setup:]";
-          v27 = 2112;
-          v28 = localizedDescription;
+          v25 = "[CDMPSCService setup:]";
+          v26 = 2112;
+          v27 = localizedDescription;
           _os_log_error_impl(&dword_1DC287000, v16, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to create PSC Orchestrator: %@", buf, 0x16u);
         }
 
@@ -266,7 +256,7 @@
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v26 = "[CDMPSCService setup:]";
+          v25 = "[CDMPSCService setup:]";
           _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s PSC model loaded", buf, 0xCu);
         }
 
@@ -284,9 +274,9 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v26 = "[CDMPSCService setup:]";
-        v27 = 2112;
-        v28 = v18;
+        v25 = "[CDMPSCService setup:]";
+        v26 = 2112;
+        v27 = v18;
         _os_log_impl(&dword_1DC287000, v19, OS_LOG_TYPE_INFO, "%s [WARN]: %@", buf, 0x16u);
       }
 
@@ -305,20 +295,18 @@
     [createSetupResponseCommand setCmdError:v11];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return createSetupResponseCommand;
 }
 
 - (id)handle:(id)handle
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v47 = "[CDMPSCService handle:]";
+    v46 = "[CDMPSCService handle:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Running PSC inference...", buf, 0xCu);
   }
 
@@ -332,7 +320,7 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v47 = "[CDMPSCService handle:]";
+        v46 = "[CDMPSCService handle:]";
         _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: _pscOrchestrator not initialized", buf, 0xCu);
       }
     }
@@ -346,9 +334,9 @@
       v12 = originalUtterance;
       uTF8String = [originalUtterance UTF8String];
       *buf = 136315394;
-      v47 = "[CDMPSCService handle:]";
-      v48 = 2080;
-      v49 = uTF8String;
+      v46 = "[CDMPSCService handle:]";
+      v47 = 2080;
+      v48 = uTF8String;
       _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s PSC Request for utterance: %s", buf, 0x16u);
     }
 
@@ -356,47 +344,47 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v47 = "[CDMPSCService handle:]";
+      v46 = "[CDMPSCService handle:]";
       _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s Handling PSC Request", buf, 0xCu);
     }
 
     if (+[CDMFeatureFlags isLogNluEnabled])
     {
       parserRequest2 = [handleCopy parserRequest];
-      v45 = 0;
-      v16 = [CDMNluLogUtil writePSCRequestToDisk:parserRequest2 error:&v45];
+      v44 = 0;
+      v16 = [CDMNluLogUtil writePSCRequestToDisk:parserRequest2 error:&v44];
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     parserRequest3 = [handleCopy parserRequest];
     tokenisedUtterance2 = [parserRequest3 tokenisedUtterance];
     tokenChain = [tokenisedUtterance2 tokenChain];
     tokens = [tokenChain tokens];
 
-    v21 = [tokens countByEnumeratingWithState:&v41 objects:v52 count:16];
+    v21 = [tokens countByEnumeratingWithState:&v40 objects:v51 count:16];
     if (v21)
     {
-      v22 = *v42;
+      v22 = *v41;
 LABEL_16:
       v23 = 0;
       while (1)
       {
-        if (*v42 != v22)
+        if (*v41 != v22)
         {
           objc_enumerationMutation(tokens);
         }
 
-        if (([*(*(&v41 + 1) + 8 * v23) isWhitespace] & 1) == 0)
+        if (([*(*(&v40 + 1) + 8 * v23) isWhitespace] & 1) == 0)
         {
           break;
         }
 
         if (v21 == ++v23)
         {
-          v21 = [tokens countByEnumeratingWithState:&v41 objects:v52 count:16];
+          v21 = [tokens countByEnumeratingWithState:&v40 objects:v51 count:16];
           if (v21)
           {
             goto LABEL_16;
@@ -409,9 +397,9 @@ LABEL_16:
       v29 = selfCopy;
       objc_sync_enter(v29);
       parserRequest4 = [handleCopy parserRequest];
-      v40 = 0;
-      _emptyResponse = [(CDMPSCService *)v29 doInference:parserRequest4 error:&v40];
-      v31 = v40;
+      v39 = 0;
+      _emptyResponse = [(CDMPSCService *)v29 doInference:parserRequest4 error:&v39];
+      v31 = v39;
 
       if (_emptyResponse)
       {
@@ -419,11 +407,11 @@ LABEL_16:
         if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v47 = "[CDMPSCService handle:]";
-          v48 = 2112;
-          v49 = @"psc";
-          v50 = 2112;
-          v51 = _emptyResponse;
+          v46 = "[CDMPSCService handle:]";
+          v47 = 2112;
+          v48 = @"psc";
+          v49 = 2112;
+          v50 = _emptyResponse;
           _os_log_debug_impl(&dword_1DC287000, v32, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nPSC Response: %@", buf, 0x20u);
         }
       }
@@ -435,9 +423,9 @@ LABEL_16:
         {
           localizedDescription = [v31 localizedDescription];
           *buf = 136315394;
-          v47 = "[CDMPSCService handle:]";
-          v48 = 2112;
-          v49 = localizedDescription;
+          v46 = "[CDMPSCService handle:]";
+          v47 = 2112;
+          v48 = localizedDescription;
           _os_log_error_impl(&dword_1DC287000, v33, OS_LOG_TYPE_ERROR, "%s [ERR]: PSC inference failed with error: %@", buf, 0x16u);
         }
       }
@@ -457,7 +445,7 @@ LABEL_22:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v47 = "[CDMPSCService handle:]";
+        v46 = "[CDMPSCService handle:]";
         _os_log_impl(&dword_1DC287000, v24, OS_LOG_TYPE_INFO, "%s No non whitespace tokens found. Skipping call to PSC model inference.", buf, 0xCu);
       }
     }
@@ -466,7 +454,7 @@ LABEL_22:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v47 = "[CDMPSCService handle:]";
+      v46 = "[CDMPSCService handle:]";
       _os_log_impl(&dword_1DC287000, v34, OS_LOG_TYPE_INFO, "%s Given that PSC model call has been incomplete, returning an empty response.", buf, 0xCu);
     }
 
@@ -475,8 +463,8 @@ LABEL_38:
     v27 = [CDMNLServiceUtils buildPSCResponse:_emptyResponse pscRequest:handleCopy];
     if (+[CDMFeatureFlags isLogNluEnabled])
     {
-      v39 = 0;
-      v35 = [CDMNluLogUtil writePSCResponseToDisk:_emptyResponse error:&v39];
+      v38 = 0;
+      v35 = [CDMNluLogUtil writePSCResponseToDisk:_emptyResponse error:&v38];
     }
 
     objc_sync_exit(selfCopy);
@@ -489,9 +477,9 @@ LABEL_38:
     {
       serviceState = self->super.super._serviceState;
       *buf = 136315394;
-      v47 = "[CDMPSCService handle:]";
-      v48 = 2048;
-      v49 = serviceState;
+      v46 = "[CDMPSCService handle:]";
+      v47 = 2048;
+      v48 = serviceState;
       _os_log_impl(&dword_1DC287000, v25, OS_LOG_TYPE_INFO, "%s Not Ready! State: %tu", buf, 0x16u);
     }
 
@@ -499,8 +487,6 @@ LABEL_38:
     _emptyResponse = [(CDMBaseService *)self createErrorWithCode:1 description:&stru_1F5800F50];
     [(CDMBaseCommand *)v27 setCmdError:_emptyResponse];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

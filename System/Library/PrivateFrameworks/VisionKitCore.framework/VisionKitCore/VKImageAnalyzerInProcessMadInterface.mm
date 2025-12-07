@@ -201,7 +201,7 @@ uint64_t __53__VKImageAnalyzerInProcessMadInterface_nextRequestID__block_invoke(
   return v6;
 }
 
-uint64_t __59__VKImageAnalyzerInProcessMadInterface_statusForRequestID___block_invoke(uint64_t a1)
+void *__59__VKImageAnalyzerInProcessMadInterface_statusForRequestID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _statusForRequestID:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

@@ -105,7 +105,7 @@
 
   sub_7F6D8(v6);
 
-  sub_C060(v6, &qword_104818);
+  sub_C060(v6, &qword_104818, &qword_CEAF0);
 }
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier

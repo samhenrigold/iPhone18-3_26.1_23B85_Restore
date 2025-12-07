@@ -47,7 +47,7 @@
 
 - (NSDate)lastSeenDate
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
   accessory = [(HFSymptomResultContextProvider *)self accessory];
 
@@ -61,11 +61,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       accessory3 = [(HFSymptomResultContextProvider *)self accessory];
-      v16 = 138412546;
+      v15 = 138412546;
       selfCopy2 = lastSeenDate;
-      v18 = 2112;
-      v19 = accessory3;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_INFO, "HFSymptomResultContextProvider lastSeenDate: %@, for accessory: %@", &v16, 0x16u);
+      v17 = 2112;
+      v18 = accessory3;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_INFO, "HFSymptomResultContextProvider lastSeenDate: %@, for accessory: %@", &v15, 0x16u);
     }
 
     distantPast = lastSeenDate;
@@ -82,28 +82,27 @@
       if (v11)
       {
         mediaSystem2 = [(HFSymptomResultContextProvider *)self mediaSystem];
-        v16 = 138412802;
+        v15 = 138412802;
         selfCopy2 = self;
-        v18 = 2112;
-        v19 = mediaSystem2;
-        v20 = 2112;
-        v21 = distantPast;
-        _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "No accessory found for HFSymptomResultContextProvider: %@. MediaSystem is present: %@. Using distant past: %@", &v16, 0x20u);
+        v17 = 2112;
+        v18 = mediaSystem2;
+        v19 = 2112;
+        v20 = distantPast;
+        _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "No accessory found for HFSymptomResultContextProvider: %@. MediaSystem is present: %@. Using distant past: %@", &v15, 0x20u);
       }
     }
 
     else if (v11)
     {
-      v16 = 138412546;
+      v15 = 138412546;
       selfCopy2 = self;
-      v18 = 2112;
-      v19 = distantPast;
-      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "No accessory found for HFSymptomResultContextProvider: %@. Using distant past: %@", &v16, 0x16u);
+      v17 = 2112;
+      v18 = distantPast;
+      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "No accessory found for HFSymptomResultContextProvider: %@. Using distant past: %@", &v15, 0x16u);
     }
   }
 
   v13 = distantPast;
-  v14 = *MEMORY[0x277D85DE8];
   return distantPast;
 }
 
@@ -142,8 +141,8 @@
 - (NSString)primaryResidentName
 {
   accessory = [(HFSymptomResultContextProvider *)self accessory];
-  home = [accessory home];
-  hf_primaryResidentDevice = [home hf_primaryResidentDevice];
+  v3 = objc_msgSend_home(accessory);
+  hf_primaryResidentDevice = [v3 hf_primaryResidentDevice];
   name = [hf_primaryResidentDevice name];
 
   return name;
@@ -197,8 +196,8 @@
 - (NSString)currentUserID
 {
   accessory = [(HFSymptomResultContextProvider *)self accessory];
-  home = [accessory home];
-  currentUser = [home currentUser];
+  v3 = objc_msgSend_home(accessory);
+  currentUser = [v3 currentUser];
   userID = [currentUser userID];
 
   return userID;

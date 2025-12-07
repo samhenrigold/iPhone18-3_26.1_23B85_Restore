@@ -89,35 +89,36 @@
     productVersion = [(BYChronicleEntry *)self productVersion];
     v8 = [productVersion componentsSeparatedByString:@"."];
 
-    if ([v8 count] >= 2)
+    v9 = [v8 count];
+    if (v9 >= 2)
     {
-      v9 = _BYLoggingFacility();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = _BYLoggingFacility(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [BYChronicleEntry hasCrossedEBoundarySinceCreationForCurrentProductVersion:];
       }
 
-      v10 = [v5 objectAtIndex:0];
-      intValue = [v10 intValue];
+      v11 = [v5 objectAtIndex:0];
+      intValue = [v11 intValue];
 
-      v12 = [v5 objectAtIndex:1];
-      intValue2 = [v12 intValue];
+      v13 = [v5 objectAtIndex:1];
+      intValue2 = [v13 intValue];
 
-      v14 = [v8 objectAtIndex:0];
-      intValue3 = [v14 intValue];
+      v15 = [v8 objectAtIndex:0];
+      intValue3 = [v15 intValue];
 
-      v16 = [v8 objectAtIndex:1];
-      intValue4 = [v16 intValue];
+      v17 = [v8 objectAtIndex:1];
+      intValue4 = [v17 intValue];
 
       if (intValue4 > 3)
       {
         ++intValue3;
       }
 
-      v18 = _BYLoggingFacility();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v20 = _BYLoggingFacility(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        [(BYChronicleEntry *)intValue3 hasCrossedEBoundarySinceCreationForCurrentProductVersion:v18];
+        [(BYChronicleEntry *)intValue3 hasCrossedEBoundarySinceCreationForCurrentProductVersion:v20];
       }
 
       if (intValue2 >= 4)
@@ -147,13 +148,11 @@
 
 - (id)dictionaryRepresentation
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"productVersion";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"productVersion";
   productVersion = [(BYChronicleEntry *)self productVersion];
-  v7[0] = productVersion;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = productVersion;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -189,33 +188,30 @@
 
 - (void)hasCrossedEBoundarySinceCreationForCurrentProductVersion:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_0_1();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEBUG, "%s: %{public}@ -> %{public}@", v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEBUG, "%s: %{public}@ -> %{public}@", v3, 0x20u);
 }
 
 - (void)hasCrossedEBoundarySinceCreationForCurrentProductVersion:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_1B862F000, v0, OS_LOG_TYPE_ERROR, "%s: exception = %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B862F000, v0, OS_LOG_TYPE_ERROR, "%s: exception = %{public}@", v1, 0x16u);
 }
 
 - (void)hasCrossedEBoundarySinceCreationForCurrentProductVersion:(int)a1 .cold.3(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[BYChronicleEntry hasCrossedEBoundarySinceCreationForCurrentProductVersion:]";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_debug_impl(&dword_1B862F000, a2, OS_LOG_TYPE_DEBUG, "%s: following E major = %d", &v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[BYChronicleEntry hasCrossedEBoundarySinceCreationForCurrentProductVersion:]";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_debug_impl(&dword_1B862F000, a2, OS_LOG_TYPE_DEBUG, "%s: following E major = %d", &v2, 0x12u);
 }
 
 @end

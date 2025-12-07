@@ -59,34 +59,35 @@
 
 - (void)_overwrite
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_autoreleasePoolPush();
-  v25[0] = &unk_283A55EF8;
-  v24[0] = @"version";
-  v24[1] = @"expires";
+  v26[0] = &unk_283A55EF8;
+  v25[0] = @"version";
+  v25[1] = @"expires";
   v4 = MEMORY[0x277CCABB0];
   [(NSDate *)self->_expires timeIntervalSinceReferenceDate];
   v5 = [v4 numberWithDouble:?];
-  v24[2] = @"doses";
+  v25[2] = @"doses";
   cache = self->_cache;
-  v25[1] = v5;
-  v25[2] = cache;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+  v26[1] = v5;
+  v26[2] = cache;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
 
-  v21 = 0;
-  v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v7 options:0 error:&v21];
-  v9 = v21;
+  v22 = 0;
+  v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v7 options:0 error:&v22];
+  v9 = v22;
+  v10 = v9;
   if (!v8)
   {
-    v13 = __atxlog_handle_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = __atxlog_handle_default(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23[0] = v9;
-      v17 = "Could not serialize daily dose: %@";
-      v18 = v13;
-      v19 = 12;
+      v24[0] = v10;
+      v19 = "Could not serialize daily dose: %@";
+      v20 = v15;
+      v21 = 12;
       goto LABEL_7;
     }
 
@@ -96,27 +97,28 @@ LABEL_8:
   }
 
   p_fd = &self->_fd;
-  v11 = atomic_load(p_fd);
-  ftruncate(v11, 0);
+  v12 = atomic_load(p_fd);
+  ftruncate(v12, 0);
   LODWORD(p_fd) = atomic_load(p_fd);
-  v12 = pwrite(p_fd, [v8 bytes], objc_msgSend(v8, "length"), 0);
-  if (v12 != [v8 length])
+  v13 = pwrite(p_fd, [v8 bytes], objc_msgSend(v8, "length"), 0);
+  v14 = [v8 length];
+  if (v13 != v14)
   {
-    v13 = __atxlog_handle_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = __atxlog_handle_default(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *__error();
-      v15 = __error();
-      v16 = strerror(*v15);
+      v16 = *__error();
+      v17 = __error();
+      v18 = strerror(*v17);
       *buf = 67109378;
-      LODWORD(v23[0]) = v14;
-      WORD2(v23[0]) = 2080;
-      *(v23 + 6) = v16;
-      v17 = "Could not write daily dose (errno=%i): %s";
-      v18 = v13;
-      v19 = 18;
+      LODWORD(v24[0]) = v16;
+      WORD2(v24[0]) = 2080;
+      *(v24 + 6) = v18;
+      v19 = "Could not write daily dose (errno=%i): %s";
+      v20 = v15;
+      v21 = 18;
 LABEL_7:
-      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, v17, buf, v19);
+      _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
       goto LABEL_8;
     }
 
@@ -126,7 +128,6 @@ LABEL_7:
 LABEL_9:
 
   objc_autoreleasePoolPop(v3);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readCacheAndExpiration
@@ -140,48 +141,33 @@ LABEL_9:
   expires = self->_expires;
   self->_expires = 0;
 
-  v6 = atomic_load(&self->_fd);
-  if ((v6 & 0x80000000) != 0)
-  {
-    goto LABEL_10;
-  }
-
   v7 = atomic_load(&self->_fd);
-  v8 = readWholeFile(v7, 0);
-  if (!v8)
+  if ((v7 & 0x80000000) != 0 || (v8 = atomic_load(&self->_fd), readWholeFile(v8, 0), (v6 = objc_claimAutoreleasedReturnValue()) == 0) && (v9 = atomic_load(&self->_fd), close(v9), [(_ATXAppDailyDoseCurrentStore *)self _openFd], v10 = atomic_load(&self->_fd), readWholeFile(v10, 1), (v6 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v9 = atomic_load(&self->_fd);
-    close(v9);
-    [(_ATXAppDailyDoseCurrentStore *)self _openFd];
-    v10 = atomic_load(&self->_fd);
-    v8 = readWholeFile(v10, 1);
-    if (!v8)
+    v14 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-LABEL_10:
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-      {
-        v22 = *__error();
-        *buf = 67109120;
-        LODWORD(v32) = v22;
-        _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Could not read daily dose (errno=%i)", buf, 8u);
-      }
-
-      v11 = 0;
-      goto LABEL_17;
+      v23 = *__error();
+      *buf = 67109120;
+      LODWORD(v32) = v23;
+      _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Could not read daily dose (errno=%i)", buf, 8u);
     }
+
+    v11 = 0;
+    goto LABEL_17;
   }
 
-  v11 = v8;
-  if ([v8 length])
+  v11 = v6;
+  if ([v6 length])
   {
     v30 = 0;
     v12 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v11 options:1 error:&v30];
     v13 = v30;
+    v14 = v13;
     if (v12)
     {
-      v14 = [v12 objectForKeyedSubscript:@"version"];
-      integerValue = [v14 integerValue];
+      v15 = [v12 objectForKeyedSubscript:@"version"];
+      integerValue = [v15 integerValue];
 
       if (integerValue != 1)
       {
@@ -191,30 +177,30 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v16 = [v12 objectForKeyedSubscript:@"doses"];
-      v17 = self->_cache;
-      self->_cache = v16;
+      v17 = [v12 objectForKeyedSubscript:@"doses"];
+      v18 = self->_cache;
+      self->_cache = v17;
 
-      v18 = [v12 objectForKeyedSubscript:@"expires"];
-      p_super = &v18->super;
-      if (v18)
+      v19 = [v12 objectForKeyedSubscript:@"expires"];
+      p_super = &v19->super;
+      if (v19)
       {
-        v20 = MEMORY[0x277CBEAA8];
-        [(NSDate *)v18 doubleValue];
-        v18 = [v20 dateWithTimeIntervalSinceReferenceDate:?];
+        v21 = MEMORY[0x277CBEAA8];
+        [(NSDate *)v19 doubleValue];
+        v19 = [v21 dateWithTimeIntervalSinceReferenceDate:?];
       }
 
-      v21 = self->_expires;
-      self->_expires = v18;
+      v22 = self->_expires;
+      self->_expires = v19;
     }
 
     else
     {
-      p_super = __atxlog_handle_default();
+      p_super = __atxlog_handle_default(v13);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = v13;
+        v32 = v14;
         _os_log_impl(&dword_2263AA000, p_super, OS_LOG_TYPE_DEFAULT, "Could not parse daily dose: %@", buf, 0xCu);
       }
     }
@@ -223,19 +209,18 @@ LABEL_17:
   }
 
 LABEL_18:
-  if (!self->_cache || (v23 = self->_expires) == 0 || ([(NSDate *)v23 timeIntervalSinceNow], v24 < 0.0))
+  if (!self->_cache || (v24 = self->_expires) == 0 || ([(NSDate *)v24 timeIntervalSinceNow], v25 < 0.0))
   {
-    v25 = objc_opt_new();
-    v26 = self->_cache;
-    self->_cache = v25;
+    v26 = objc_opt_new();
+    v27 = self->_cache;
+    self->_cache = v26;
 
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
-    v28 = self->_expires;
+    v29 = self->_expires;
     self->_expires = distantPast;
   }
 
   objc_autoreleasePoolPop(v3);
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getCacheFromFile

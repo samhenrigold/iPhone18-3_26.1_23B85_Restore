@@ -36,6 +36,7 @@
 - (id)momentNodesByAddressNode;
 - (id)momentNodesByAddressNodeIntersectingAddressNodes:(id)nodes;
 - (id)numberNodesByLocationNode;
+- (id)relevantAddressNodesForMomentNodes:(id)nodes applyDensestCloseLocationNode:(BOOL)node;
 - (id)relevantLocationNodesForMomentNodes:(id)nodes applyDensestCloseLocationNode:(BOOL)node;
 - (id)stateNodesByLocationNode;
 - (id)stateNodesFromAddressNodes:(id)nodes;
@@ -344,32 +345,32 @@ void __68__PGGraphLocationHelper__commonNodeForLocationNode_andLocationNode___bl
 
 - (id)_mostVisitedLocationNodeForLocationNodes:(id)nodes
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   anyObject = [nodesCopy anyObject];
   if ([nodesCopy count] >= 2)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v21 = nodesCopy;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v20 = nodesCopy;
     obj = nodesCopy;
-    v24 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-    if (v24)
+    v23 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v23)
     {
       v6 = 0;
-      v23 = *v26;
+      v22 = *v25;
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v26 != v23)
+          if (*v25 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v25 + 1) + 8 * i);
+          v8 = *(*(&v24 + 1) + 8 * i);
           locationNodeCollection = [v8 locationNodeCollection];
           v10 = [(PGGraphLocationHelper *)self addressNodesFromLocationNodes:locationNodeCollection];
 
@@ -386,48 +387,47 @@ void __68__PGGraphLocationHelper__commonNodeForLocationNode_andLocationNode___bl
           }
         }
 
-        v24 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v23 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
-      while (v24);
+      while (v23);
     }
 
-    nodesCopy = v21;
+    nodesCopy = v20;
   }
 
   v18 = anyObject;
 
-  v19 = *MEMORY[0x277D85DE8];
   return anyObject;
 }
 
 - (BOOL)_locationNodesRepresentSameCity:(id)city
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   cityCopy = city;
   anyObject = [cityCopy anyObject];
   name = [anyObject name];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v7 = cityCopy;
-  v8 = [v7 countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v42;
+    v10 = *v41;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v42 != v10)
+        if (*v41 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v41 + 1) + 8 * i);
+        v12 = *(*(&v40 + 1) + 8 * i);
         name2 = [v12 name];
         if (![name2 isEqualToString:name])
         {
@@ -446,7 +446,7 @@ void __68__PGGraphLocationHelper__commonNodeForLocationNode_andLocationNode___bl
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v40 objects:v46 count:16];
       if (v9)
       {
         continue;
@@ -457,61 +457,61 @@ void __68__PGGraphLocationHelper__commonNodeForLocationNode_andLocationNode___bl
   }
 
   v16 = [v7 mutableCopy];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   name2 = v7;
-  v17 = [name2 countByEnumeratingWithState:&v37 objects:v46 count:16];
+  v17 = [name2 countByEnumeratingWithState:&v36 objects:v45 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v38;
+    v19 = *v37;
     while (2)
     {
       v20 = 0;
-      v31 = v18;
+      v30 = v18;
       do
       {
-        if (*v38 != v19)
+        if (*v37 != v19)
         {
           objc_enumerationMutation(name2);
         }
 
-        v21 = *(*(&v37 + 1) + 8 * v20);
-        v36.latitude = 0.0;
-        v36.longitude = 0.0;
+        v21 = *(*(&v36 + 1) + 8 * v20);
+        v35.latitude = 0.0;
+        v35.longitude = 0.0;
         [(PGGraphLocationHelper *)self _approximateCoordinateForLocationNode:v21];
-        v36 = v49;
-        if (!CLLocationCoordinate2DIsValid(v49))
+        v35 = v48;
+        if (!CLLocationCoordinate2DIsValid(v48))
         {
           LOBYTE(v15) = 0;
           goto LABEL_32;
         }
 
         [v16 removeObject:v21];
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
         v22 = v16;
-        v23 = [v22 countByEnumeratingWithState:&v32 objects:v45 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v31 objects:v44 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v33;
-          v30 = v19;
+          v25 = *v32;
+          v29 = v19;
           while (2)
           {
             for (j = 0; j != v24; ++j)
             {
-              if (*v33 != v25)
+              if (*v32 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              [(PGGraphLocationHelper *)self _approximateCoordinateForLocationNode:*(*(&v32 + 1) + 8 * j), v30];
-              if (CLLocationCoordinate2DIsValid(v50))
+              [(PGGraphLocationHelper *)self _approximateCoordinateForLocationNode:*(*(&v31 + 1) + 8 * j), v29];
+              if (CLLocationCoordinate2DIsValid(v49))
               {
                 CLLocationCoordinate2DGetDistanceFrom();
                 if (v27 <= 50000.0)
@@ -524,8 +524,8 @@ void __68__PGGraphLocationHelper__commonNodeForLocationNode_andLocationNode___bl
               goto LABEL_33;
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v32 objects:v45 count:16];
-            v19 = v30;
+            v24 = [v22 countByEnumeratingWithState:&v31 objects:v44 count:16];
+            v19 = v29;
             if (v24)
             {
               continue;
@@ -538,8 +538,8 @@ void __68__PGGraphLocationHelper__commonNodeForLocationNode_andLocationNode___bl
         ++v20;
       }
 
-      while (v20 != v31);
-      v18 = [name2 countByEnumeratingWithState:&v37 objects:v46 count:16];
+      while (v20 != v30);
+      v18 = [name2 countByEnumeratingWithState:&v36 objects:v45 count:16];
       LOBYTE(v15) = 1;
       if (v18)
       {
@@ -560,13 +560,12 @@ LABEL_32:
 LABEL_33:
 
 LABEL_34:
-  v28 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (id)commonLocationNodeForRelevantLocationNodes:(id)nodes locationMask:(unint64_t)mask
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   if ([nodesCopy count] <= 1)
   {
@@ -581,30 +580,30 @@ LABEL_34:
 
     if ([nodesCopy count] >= 3)
     {
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       v10 = nodesCopy;
-      v11 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v11)
       {
         v12 = v11;
         allObjects = 0;
-        v14 = *v33;
+        v14 = *v32;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v33 != v14)
+            if (*v32 != v14)
             {
               objc_enumerationMutation(v10);
             }
 
-            v16 = *(*(&v32 + 1) + 8 * i);
+            v16 = *(*(&v31 + 1) + 8 * i);
             if (allObjects)
             {
-              v17 = [(PGGraphLocationHelper *)self _commonNodeForLocationNode:allObjects andLocationNode:v16, v32];
+              v17 = [(PGGraphLocationHelper *)self _commonNodeForLocationNode:allObjects andLocationNode:v16, v31];
 
               allObjects = v17;
               if (!v17)
@@ -619,7 +618,7 @@ LABEL_34:
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v31 objects:v35 count:16];
         }
 
         while (v12);
@@ -631,7 +630,7 @@ LABEL_34:
           {
 
 LABEL_38:
-            anyObject = [(PGGraphLocationHelper *)self _validLocationNodeForLocationNode:allObjects withLocationMask:mask, v32];
+            anyObject = [(PGGraphLocationHelper *)self _validLocationNodeForLocationNode:allObjects withLocationMask:mask, v31];
             goto LABEL_36;
           }
 
@@ -713,7 +712,6 @@ LABEL_36:
 LABEL_31:
 
 LABEL_32:
-  v30 = *MEMORY[0x277D85DE8];
 
   return anyObject;
 }
@@ -1050,11 +1048,11 @@ void __96__PGGraphLocationHelper_densestCloseLocationNodeFromLocationNode_withDa
 
 void __96__PGGraphLocationHelper_densestCloseLocationNodeFromLocationNode_withDateInterval_locationMask___block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) _approximateCoordinateForLocationNode:v3];
-  v26 = v29;
-  if (CLLocationCoordinate2DIsValid(v29))
+  v25 = v28;
+  if (CLLocationCoordinate2DIsValid(v28))
   {
     CLLocationCoordinate2DGetDistanceFrom();
     if (v4 <= 20000.0)
@@ -1070,31 +1068,31 @@ void __96__PGGraphLocationHelper_densestCloseLocationNodeFromLocationNode_withDa
 
       if (*(a1 + 40))
       {
-        v21 = v6;
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
+        v20 = v6;
         v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         v12 = [v11 universalDateIntervals];
-        v13 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
         if (v13)
         {
           v14 = v13;
           v15 = 0;
-          v16 = *v23;
+          v16 = *v22;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v23 != v16)
+              if (*v22 != v16)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v15 += [*(a1 + 40) intersectsDateInterval:*(*(&v22 + 1) + 8 * i)];
+              v15 += [*(a1 + 40) intersectsDateInterval:*(*(&v21 + 1) + 8 * i)];
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
           }
 
           while (v14);
@@ -1105,7 +1103,7 @@ void __96__PGGraphLocationHelper_densestCloseLocationNodeFromLocationNode_withDa
           v15 = 0;
         }
 
-        v6 = v21;
+        v6 = v20;
       }
 
       else
@@ -1124,13 +1122,11 @@ void __96__PGGraphLocationHelper_densestCloseLocationNodeFromLocationNode_withDa
       *(*(*(a1 + 80) + 8) + 24) += v15;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)locationIsInSupersetCategoryForLocationNode:(id)node
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   label = [nodeCopy label];
   v6 = [PGCommonTitleUtility dimensionForLabel:label];
@@ -1197,21 +1193,20 @@ LABEL_16:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v22 = 0;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __69__PGGraphLocationHelper_locationIsInSupersetCategoryForLocationNode___block_invoke;
-  v17[3] = &unk_278882CC0;
-  v19 = buf;
-  v20 = v6;
-  v17[4] = self;
+  v21 = 0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __69__PGGraphLocationHelper_locationIsInSupersetCategoryForLocationNode___block_invoke;
+  v16[3] = &unk_278882CC0;
+  v18 = buf;
+  v19 = v6;
+  v16[4] = self;
   v13 = nodeCopy;
-  v18 = v13;
-  [v9 enumerateNodesUsingBlock:v17];
+  v17 = v13;
+  [v9 enumerateNodesUsingBlock:v16];
   v14 = *(*&buf[8] + 24);
 
   _Block_object_dispose(buf, 8);
-  v15 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
@@ -1220,6 +1215,184 @@ void __69__PGGraphLocationHelper_locationIsInSupersetCategoryForLocationNode___b
   v5 = [*(a1 + 32) closestLocationNodeFromLocationNode:a2 withDimension:*(a1 + 56) reverse:0];
   *(*(*(a1 + 48) + 8) + 24) = [v5 isSameNodeAsNode:*(a1 + 40)];
   *a3 = *(*(*(a1 + 48) + 8) + 24);
+}
+
+- (id)relevantAddressNodesForMomentNodes:(id)nodes applyDensestCloseLocationNode:(BOOL)node
+{
+  nodeCopy = node;
+  v71 = *MEMORY[0x277D85DE8];
+  nodesCopy = nodes;
+  if ([nodesCopy count])
+  {
+    v39 = [MEMORY[0x277CBEB58] set];
+    v43 = [MEMORY[0x277CBEB58] set];
+    v42 = objc_alloc_init(MEMORY[0x277D22BD0]);
+    v62 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v5 = nodesCopy;
+    v6 = [v5 countByEnumeratingWithState:&v62 objects:v70 count:16];
+    if (v6)
+    {
+      v7 = *v63;
+      do
+      {
+        for (i = 0; i != v6; ++i)
+        {
+          if (*v63 != v7)
+          {
+            objc_enumerationMutation(v5);
+          }
+
+          bestAddressNode = [*(*(&v62 + 1) + 8 * i) bestAddressNode];
+          v10 = bestAddressNode;
+          if (bestAddressNode)
+          {
+            [v42 addIdentifier:{objc_msgSend(bestAddressNode, "identifier")}];
+            [v43 addObject:v10];
+          }
+        }
+
+        v6 = [v5 countByEnumeratingWithState:&v62 objects:v70 count:16];
+      }
+
+      while (v6);
+    }
+
+    v11 = [PGGraphMomentNodeCollection alloc];
+    firstObject = [v5 firstObject];
+    graph = [firstObject graph];
+    v34 = [(MAElementCollection *)v11 initWithArray:v5 graph:graph];
+
+    addressNodesByMomentNode = [(PGGraphLocationHelper *)self addressNodesByMomentNode];
+    v37 = [addressNodesByMomentNode targetsForSources:v34];
+
+    [(PGGraphLocationHelper *)self relevantLocationNodesForMomentNodes:v5 applyDensestCloseLocationNode:nodeCopy];
+    v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    obj = v59 = 0u;
+    v41 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
+    if (v41)
+    {
+      v40 = *v59;
+      *&v15 = 138412290;
+      v33 = v15;
+      do
+      {
+        for (j = 0; j != v41; ++j)
+        {
+          if (*v59 != v40)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v16 = *(*(&v58 + 1) + 8 * j);
+          v54 = 0;
+          v55 = &v54;
+          v56 = 0x2020000000;
+          v57 = 0;
+          v50 = 0u;
+          v51 = 0u;
+          v52 = 0u;
+          v53 = 0u;
+          v17 = v43;
+          v18 = [v17 countByEnumeratingWithState:&v50 objects:v68 count:16];
+          if (v18)
+          {
+            v19 = *v51;
+            while (2)
+            {
+              for (k = 0; k != v18; ++k)
+              {
+                if (*v51 != v19)
+                {
+                  objc_enumerationMutation(v17);
+                }
+
+                v21 = *(*(&v50 + 1) + 8 * k);
+                collection = [v21 collection];
+                label = [v16 label];
+                v24 = [collection nearestDeepParentLocationNodesWithLabel:label];
+                anyNode = [v24 anyNode];
+
+                if (anyNode == v16)
+                {
+                  [v39 addObject:v21];
+                  *(v55 + 24) = 1;
+
+                  goto LABEL_26;
+                }
+              }
+
+              v18 = [v17 countByEnumeratingWithState:&v50 objects:v68 count:16];
+              if (v18)
+              {
+                continue;
+              }
+
+              break;
+            }
+          }
+
+LABEL_26:
+
+          if ((v55[3] & 1) == 0)
+          {
+            v45[0] = MEMORY[0x277D85DD0];
+            v45[1] = 3221225472;
+            v45[2] = __90__PGGraphLocationHelper_relevantAddressNodesForMomentNodes_applyDensestCloseLocationNode___block_invoke;
+            v45[3] = &unk_278882C98;
+            v46 = v42;
+            v47 = v16;
+            v26 = v39;
+            v48 = v26;
+            v49 = &v54;
+            [v37 enumerateIdentifiersAsCollectionsWithBlock:v45];
+
+            if (!*(v55 + 24))
+            {
+              locationNodeCollection = [v16 locationNodeCollection];
+              v28 = [(PGGraphLocationHelper *)self addressNodesFromLocationNodes:locationNodeCollection];
+              anyNode2 = [v28 anyNode];
+
+              if (anyNode2)
+              {
+                [v26 addObject:anyNode2];
+              }
+
+              else
+              {
+                v30 = +[PGLogging sharedLogging];
+                loggingConnection = [v30 loggingConnection];
+
+                if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = v33;
+                  v67 = v16;
+                  _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "No address node from location node: %@", buf, 0xCu);
+                }
+              }
+            }
+          }
+
+          _Block_object_dispose(&v54, 8);
+        }
+
+        v41 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
+      }
+
+      while (v41);
+    }
+  }
+
+  else
+  {
+    v39 = [MEMORY[0x277CBEB98] set];
+  }
+
+  return v39;
 }
 
 void __90__PGGraphLocationHelper_relevantAddressNodesForMomentNodes_applyDensestCloseLocationNode___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -1245,7 +1418,7 @@ void __90__PGGraphLocationHelper_relevantAddressNodesForMomentNodes_applyDensest
 
 - (id)relevantLocationNodesForMomentNodes:(id)nodes applyDensestCloseLocationNode:(BOOL)node
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   firstObject = [nodesCopy firstObject];
   graph = [firstObject graph];
@@ -1263,41 +1436,41 @@ void __90__PGGraphLocationHelper_relevantAddressNodesForMomentNodes_applyDensest
       v14 = [[PGLocationsResolver alloc] initWithSortedMomentNodes:nodesCopy incompleteLocationResolver:v13 locationHelper:self];
       resolvedMomentNodes = [(PGLocationsResolver *)v14 resolvedMomentNodes];
       resolvedLocationNodes = [(PGLocationsResolver *)v14 resolvedLocationNodes];
-      v39 = [[PGLocationsFilterer alloc] initWithSortedMomentNodes:resolvedMomentNodes locationNodes:resolvedLocationNodes incompleteLocationResolver:v13];
-      filteredLocationNodes = [(PGLocationsFilterer *)v39 filteredLocationNodes];
+      v38 = [[PGLocationsFilterer alloc] initWithSortedMomentNodes:resolvedMomentNodes locationNodes:resolvedLocationNodes incompleteLocationResolver:v13];
+      filteredLocationNodes = [(PGLocationsFilterer *)v38 filteredLocationNodes];
       if (node)
       {
-        v32 = resolvedMomentNodes;
-        v33 = v14;
-        v34 = v13;
-        v35 = temporarySet;
-        v36 = v9;
-        v37 = graph;
-        v38 = nodesCopy;
+        v31 = resolvedMomentNodes;
+        v32 = v14;
+        v33 = v13;
+        v34 = temporarySet;
+        v35 = v9;
+        v36 = graph;
+        v37 = nodesCopy;
         v17 = filteredLocationNodes;
         v18 = [MEMORY[0x277CBEB58] set];
+        v40 = 0u;
         v41 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
-        v31 = v17;
+        v30 = v17;
         v19 = v17;
-        v20 = [v19 countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v40 objects:v46 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v42;
+          v22 = *v41;
           do
           {
             for (i = 0; i != v21; ++i)
             {
-              if (*v42 != v22)
+              if (*v41 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = *(*(&v41 + 1) + 8 * i);
-              v25 = [(PGGraphLocationHelper *)self densestCloseLocationNodeFromLocationNode:v24 withDateInterval:0 locationMask:-1, v31];
+              v24 = *(*(&v40 + 1) + 8 * i);
+              v25 = [(PGGraphLocationHelper *)self densestCloseLocationNodeFromLocationNode:v24 withDateInterval:0 locationMask:-1, v30];
               if (v25)
               {
                 [v18 addObject:v25];
@@ -1311,26 +1484,26 @@ void __90__PGGraphLocationHelper_relevantAddressNodesForMomentNodes_applyDensest
                 if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v46 = v24;
+                  v45 = v24;
                   _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "No densestLocationNode for locationNode %@", buf, 0xCu);
                 }
               }
             }
 
-            v21 = [v19 countByEnumeratingWithState:&v41 objects:v47 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v40 objects:v46 count:16];
           }
 
           while (v21);
         }
 
-        graph = v37;
-        nodesCopy = v38;
-        temporarySet = v35;
-        v9 = v36;
-        v14 = v33;
-        v13 = v34;
-        v28 = v31;
-        resolvedMomentNodes = v32;
+        graph = v36;
+        nodesCopy = v37;
+        temporarySet = v34;
+        v9 = v35;
+        v14 = v32;
+        v13 = v33;
+        v28 = v30;
+        resolvedMomentNodes = v31;
       }
 
       else
@@ -1350,8 +1523,6 @@ void __90__PGGraphLocationHelper_relevantAddressNodesForMomentNodes_applyDensest
   {
     v18 = [MEMORY[0x277CBEB98] set];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1597,45 +1768,45 @@ LABEL_5:
 
 - (id)_parentLocationNodeForLocationNode:(id)node
 {
-  v28[7] = *MEMORY[0x277D85DE8];
+  v27[7] = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   numberNodesByLocationNode = [(PGGraphLocationHelper *)self numberNodesByLocationNode];
-  v28[0] = numberNodesByLocationNode;
+  v27[0] = numberNodesByLocationNode;
   streetNodesByLocationNode = [(PGGraphLocationHelper *)self streetNodesByLocationNode];
-  v28[1] = streetNodesByLocationNode;
+  v27[1] = streetNodesByLocationNode;
   districtNodesByLocationNode = [(PGGraphLocationHelper *)self districtNodesByLocationNode];
-  v28[2] = districtNodesByLocationNode;
+  v27[2] = districtNodesByLocationNode;
   cityNodesByLocationNode = [(PGGraphLocationHelper *)self cityNodesByLocationNode];
-  v28[3] = cityNodesByLocationNode;
+  v27[3] = cityNodesByLocationNode;
   countyNodesByLocationNode = [(PGGraphLocationHelper *)self countyNodesByLocationNode];
-  v28[4] = countyNodesByLocationNode;
+  v27[4] = countyNodesByLocationNode;
   stateNodesByLocationNode = [(PGGraphLocationHelper *)self stateNodesByLocationNode];
-  v28[5] = stateNodesByLocationNode;
+  v27[5] = stateNodesByLocationNode;
   countryNodesByLocationNode = [(PGGraphLocationHelper *)self countryNodesByLocationNode];
-  v28[6] = countryNodesByLocationNode;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:7];
+  v27[6] = countryNodesByLocationNode;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:7];
 
   locationNodeCollection = [nodeCopy locationNodeCollection];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
 LABEL_3:
     v18 = 0;
     while (1)
     {
-      if (*v24 != v17)
+      if (*v23 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      v19 = [*(*(&v23 + 1) + 8 * v18) targetsForSources:{locationNodeCollection, v23}];
+      v19 = [*(*(&v22 + 1) + 8 * v18) targetsForSources:{locationNodeCollection, v22}];
       if ([v19 count])
       {
         break;
@@ -1643,7 +1814,7 @@ LABEL_3:
 
       if (v16 == ++v18)
       {
-        v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v16)
         {
           goto LABEL_3;
@@ -1661,8 +1832,6 @@ LABEL_9:
   }
 
   anyNode = [v19 anyNode];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return anyNode;
 }

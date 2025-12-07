@@ -42,8 +42,8 @@
 
 - (BOOL)updateRelationshipValueUsingImportContext:(id)context andManagedObjectContext:(id)objectContext error:(id *)error
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v7 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v7, v8, v9, v10, v11, v12);
   return 0;
 }
 

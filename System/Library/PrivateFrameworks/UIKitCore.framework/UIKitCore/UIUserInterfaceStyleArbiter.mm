@@ -706,13 +706,13 @@ LABEL_30:
   styleMode = self->_styleMode;
   if (styleMode)
   {
-    [(UISUserInterfaceStyleMode *)styleMode customSchedule];
+    objc_msgSend_customSchedule(styleMode, a2);
   }
 
   v16 = self->_customScheduleController;
   if (v16)
   {
-    [(_UICustomScheduleController *)v16 schedule];
+    objc_msgSend_schedule(v16, a2);
   }
 
   else

@@ -133,7 +133,7 @@ void __82__CSAttSiriMitigationAssetProvider_getAllowPhrasesListOverrideFileWithC
 
 void __91__CSAttSiriMitigationAssetProvider_getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -185,11 +185,11 @@ LABEL_13:
       v23 = *v11;
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
       {
-        v29 = 136315394;
-        v30 = "[CSAttSiriMitigationAssetProvider getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion:]_block_invoke";
-        v31 = 2112;
-        v32 = v10;
-        _os_log_error_impl(&dword_222E4D000, v23, OS_LOG_TYPE_ERROR, "%s GetNeuralCombinerConfigFileAndBnnsIrPathWithCompletion cannot read the bnnsIrFile: %@", &v29, 0x16u);
+        v28 = 136315394;
+        v29 = "[CSAttSiriMitigationAssetProvider getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion:]_block_invoke";
+        v30 = 2112;
+        v31 = v10;
+        _os_log_error_impl(&dword_222E4D000, v23, OS_LOG_TYPE_ERROR, "%s GetNeuralCombinerConfigFileAndBnnsIrPathWithCompletion cannot read the bnnsIrFile: %@", &v28, 0x16u);
       }
 
       v20 = MEMORY[0x277CCA9B8];
@@ -202,11 +202,11 @@ LABEL_13:
       v19 = *v11;
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
       {
-        v29 = 136315394;
-        v30 = "[CSAttSiriMitigationAssetProvider getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion:]_block_invoke";
-        v31 = 2112;
-        v32 = v10;
-        _os_log_error_impl(&dword_222E4D000, v19, OS_LOG_TYPE_ERROR, "%s GetNeuralCombinerConfigFileAndBnnsIrPathWithCompletion cannot find the bnnsIrFile: %@", &v29, 0x16u);
+        v28 = 136315394;
+        v29 = "[CSAttSiriMitigationAssetProvider getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion:]_block_invoke";
+        v30 = 2112;
+        v31 = v10;
+        _os_log_error_impl(&dword_222E4D000, v19, OS_LOG_TYPE_ERROR, "%s GetNeuralCombinerConfigFileAndBnnsIrPathWithCompletion cannot find the bnnsIrFile: %@", &v28, 0x16u);
       }
 
       v20 = MEMORY[0x277CCA9B8];
@@ -222,13 +222,13 @@ LABEL_13:
     v14 = *MEMORY[0x277D015A8];
     if (os_log_type_enabled(*MEMORY[0x277D015A8], OS_LOG_TYPE_ERROR))
     {
-      v27 = v14;
-      v28 = [v5 resourcePath];
-      v29 = 136315394;
-      v30 = "[CSAttSiriMitigationAssetProvider getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion:]_block_invoke";
-      v31 = 2112;
-      v32 = v28;
-      _os_log_error_impl(&dword_222E4D000, v27, OS_LOG_TYPE_ERROR, "%s Get not fetch config file from asset: %@", &v29, 0x16u);
+      v26 = v14;
+      v27 = [v5 resourcePath];
+      v28 = 136315394;
+      v29 = "[CSAttSiriMitigationAssetProvider getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion:]_block_invoke";
+      v30 = 2112;
+      v31 = v27;
+      _os_log_error_impl(&dword_222E4D000, v26, OS_LOG_TYPE_ERROR, "%s Get not fetch config file from asset: %@", &v28, 0x16u);
     }
 
     v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D01590] code:2501 userInfo:0];
@@ -239,11 +239,11 @@ LABEL_22:
   v24 = *v11;
   if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = 136315394;
-    v30 = "[CSAttSiriMitigationAssetProvider getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion:]_block_invoke";
-    v31 = 2112;
-    v32 = v10;
-    _os_log_impl(&dword_222E4D000, v24, OS_LOG_TYPE_DEFAULT, "%s getting irCachePath for getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion: %@", &v29, 0x16u);
+    v28 = 136315394;
+    v29 = "[CSAttSiriMitigationAssetProvider getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion:]_block_invoke";
+    v30 = 2112;
+    v31 = v10;
+    _os_log_impl(&dword_222E4D000, v24, OS_LOG_TYPE_DEFAULT, "%s getting irCachePath for getNeuralCombinerConfigFileAndBnnsIrPathWithCompletion: %@", &v28, 0x16u);
   }
 
 LABEL_24:
@@ -252,8 +252,6 @@ LABEL_24:
   {
     (*(v25 + 16))(v25, v9, v10, v8);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNeuralCombinerConfigFileWithCompletion:(id)completion

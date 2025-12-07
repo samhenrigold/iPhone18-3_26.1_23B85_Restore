@@ -15,7 +15,6 @@
 - (void)_accountWillChange;
 - (void)_updateContainersCache;
 - (void)dealloc;
-- (void)documentContainers;
 - (void)invalidateAndClearCache:(BOOL)cache;
 - (void)subscribeToContainerStatusUpdate;
 - (void)unsubscribeToContainerStatusUpdate;
@@ -221,7 +220,7 @@ void __45__BRContainerCache_initWithHelper_personaID___block_invoke(uint64_t a1)
   v3 = brc_default_log(1, 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __45__BRContainerCache_initWithHelper_personaID___block_invoke_cold_1(v5);
+    __45__BRContainerCache_initWithHelper_personaID___block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -238,7 +237,7 @@ void __45__BRContainerCache_initWithHelper_personaID___block_invoke_527(uint64_t
   v3 = brc_default_log(1, 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __45__BRContainerCache_initWithHelper_personaID___block_invoke_527_cold_1(v5);
+    __45__BRContainerCache_initWithHelper_personaID___block_invoke_527_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -360,38 +359,38 @@ uint64_t __47__BRContainerCache_containerCacheForPersonaID___block_invoke()
 
 - (id)documentContainers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   array = [MEMORY[0x1E695DF70] array];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = [(BRContainerCache *)selfCopy _allContainersByIDNoCopyBlocking:1, 0];
   allValues = [v4 allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([v9 isDocumentScopePublic] && (objc_msgSend(v9, "isCloudSyncTCCDisabled") & 1) == 0)
         {
           [array addObject:v9];
         }
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -405,17 +404,116 @@ uint64_t __47__BRContainerCache_containerCacheForPersonaID___block_invoke()
     [BRContainerCache documentContainers];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (void)_accountWillChange
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] Account state will change, invalidating cache%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  if ([(NSString *)self->_personaID isEqualToString:@"__defaultPersonaID__"]|| (v3 = self->_personaID) == 0)
+  {
+    if (_accountWillChange___personaOnceToken != -1)
+    {
+      [BRContainerCache _accountWillChange];
+    }
+
+    v4 = _accountWillChange___personalPersona;
+    v5 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+    v5 = 0;
+  }
+
+  mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
+  currentPersona = [mEMORY[0x1E69DF068] currentPersona];
+
+  v24 = 0;
+  userPersonaUniqueString = [currentPersona userPersonaUniqueString];
+  v9 = userPersonaUniqueString;
+  if (userPersonaUniqueString == v4 || [(NSString *)userPersonaUniqueString isEqualToString:v4])
+  {
+    v10 = 0;
+    goto LABEL_10;
+  }
+
+  if (voucher_process_can_use_arbitrary_personas())
+  {
+    v23 = 0;
+    v13 = [currentPersona copyCurrentPersonaContextWithError:&v23];
+    v14 = v23;
+    v15 = v24;
+    v24 = v13;
+
+    if (v14)
+    {
+      v16 = brc_bread_crumbs("[BRContainerCache _accountWillChange]", 2771);
+      v17 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v17, 0x90u))
+      {
+        [BRAccount containerWithPendingChanges];
+      }
+    }
+
+    v10 = [currentPersona br_generateAndRestorePersonaContextWithPersonaUniqueString:v4];
+
+    if (v10)
+    {
+      v18 = brc_bread_crumbs("[BRContainerCache _accountWillChange]", 2771);
+      v19 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v19, 0x90u))
+      {
+        personaID = self->_personaID;
+        *buf = 138412802;
+        v26 = personaID;
+        v27 = 2112;
+        v28 = v10;
+        v29 = 2112;
+        v30 = v18;
+        _os_log_error_impl(&dword_1AE2A9000, v19, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+      }
+
+LABEL_29:
+    }
+  }
+
+  else
+  {
+    if (v5 && ([currentPersona isDataSeparatedPersona] & 1) == 0)
+    {
+      v18 = brc_bread_crumbs("[BRContainerCache _accountWillChange]", 2771);
+      v19 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      {
+        [BRAccount containerWithPendingChanges];
+      }
+
+      v10 = 0;
+      goto LABEL_29;
+    }
+
+    v21 = brc_bread_crumbs("[BRContainerCache _accountWillChange]", 2771);
+    v22 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    {
+      [BRAccount containerWithPendingChanges];
+    }
+
+    v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+  }
+
+LABEL_10:
+  v11 = brc_bread_crumbs("[BRContainerCache _accountWillChange]", 2772);
+  v12 = brc_default_log(1, 0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    [BRContainerCache _accountWillChange];
+  }
+
+  [(BRContainerCache *)self invalidateAndClearCache:1];
+  _BRRestorePersona(&v24);
 }
 
 void __38__BRContainerCache__accountWillChange__block_invoke()
@@ -440,7 +538,7 @@ void __38__BRContainerCache__accountWillChange__block_invoke()
 
 - (id)containerByID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -466,11 +564,11 @@ LABEL_9:
     v14 = brc_default_log(1, 0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = dCopy;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] could not find container for id: %@%@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = dCopy;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] could not find container for id: %@%@", &v16, 0x16u);
     }
 
     v8 = 0;
@@ -491,8 +589,6 @@ LABEL_9:
   [(NSMutableSet *)selfCopy->_fetchedContainerIDs addObject:dCopy];
 LABEL_12:
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -607,7 +703,7 @@ void __36__BRContainerCache_hasDaemonicParts__block_invoke()
 - (void)invalidateAndClearCache:(BOOL)cache
 {
   cacheCopy = cache;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [(BRContainerCache *)selfCopy unsubscribeToContainerStatusUpdate];
@@ -617,15 +713,15 @@ void __36__BRContainerCache_hasDaemonicParts__block_invoke()
     v6 = brc_default_log(1, 0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v12 = [(NSMutableDictionary *)selfCopy->_containersByID count];
+      v11 = [(NSMutableDictionary *)selfCopy->_containersByID count];
       personaID = selfCopy->_personaID;
-      v14 = 134218498;
-      v15 = v12;
-      v16 = 2112;
-      v17 = personaID;
-      v18 = 2112;
-      v19 = v5;
-      _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] removing %lu containers from cache of persona: %@%@", &v14, 0x20u);
+      v13 = 134218498;
+      v14 = v11;
+      v15 = 2112;
+      v16 = personaID;
+      v17 = 2112;
+      v18 = v5;
+      _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] removing %lu containers from cache of persona: %@%@", &v13, 0x20u);
     }
 
     [(NSMutableDictionary *)selfCopy->_containersByID removeAllObjects];
@@ -637,7 +733,7 @@ void __36__BRContainerCache_hasDaemonicParts__block_invoke()
     v8 = brc_default_log(1, 0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [BRContainerCache invalidateAndClearCache:selfCopy];
+      [BRContainerCache invalidateAndClearCache:];
     }
   }
 
@@ -650,66 +746,60 @@ void __36__BRContainerCache_hasDaemonicParts__block_invoke()
 
   defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter2 postNotificationName:BRContainerListDidChangeNotification object:0];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_updateContainersCache
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_containerCacheUptodate)
   {
-    v2 = 0;
+    return 0;
+  }
+
+  helper = self->_helper;
+  v12 = 0;
+  v5 = [(BRContainerHelper *)helper fetchAllContainersByIDWithError:&v12];
+  v6 = v12;
+  v2 = v5 != 0;
+  if (v5)
+  {
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    [(NSMutableDictionary *)selfCopy->_containersByID removeAllObjects];
+    [(NSMutableSet *)selfCopy->_fetchedContainerIDs removeAllObjects];
+    [(NSMutableDictionary *)selfCopy->_containersByID addEntriesFromDictionary:v5];
+    self->_containerCacheUptodate = 1;
+    v8 = brc_bread_crumbs("[BRContainerCache _updateContainersCache]", 2934);
+    v9 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      [(BRContainerCache *)v8 _updateContainersCache:buf];
+    }
+
+    objc_sync_exit(selfCopy);
   }
 
   else
   {
-    helper = self->_helper;
-    v13 = 0;
-    v5 = [(BRContainerHelper *)helper fetchAllContainersByIDWithError:&v13];
-    v6 = v13;
-    v2 = v5 != 0;
-    if (v5)
+    selfCopy = brc_bread_crumbs("[BRContainerCache _updateContainersCache]", 2938);
+    v10 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      selfCopy = self;
-      objc_sync_enter(selfCopy);
-      [(NSMutableDictionary *)selfCopy->_containersByID removeAllObjects];
-      [(NSMutableSet *)selfCopy->_fetchedContainerIDs removeAllObjects];
-      [(NSMutableDictionary *)selfCopy->_containersByID addEntriesFromDictionary:v5];
-      self->_containerCacheUptodate = 1;
-      v8 = brc_bread_crumbs("[BRContainerCache _updateContainersCache]", 2934);
-      v9 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-      {
-        [(BRContainerCache *)v8 _updateContainersCache:buf];
-      }
-
-      objc_sync_exit(selfCopy);
-    }
-
-    else
-    {
-      selfCopy = brc_bread_crumbs("[BRContainerCache _updateContainersCache]", 2938);
-      v10 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412546;
-        v15 = v6;
-        v16 = 2112;
-        v17 = selfCopy;
-        _os_log_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to fetch all containers: %@%@", buf, 0x16u);
-      }
+      *buf = 138412546;
+      v14 = v6;
+      v15 = 2112;
+      v16 = selfCopy;
+      _os_log_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to fetch all containers: %@%@", buf, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (id)_allContainersByIDNoCopyBlocking:(BOOL)blocking
 {
   blockingCopy = blocking;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([(BRContainerHelper *)self->_helper canFetchAllContainersByID])
   {
     if (!self->_containerCacheUptodate)
@@ -746,15 +836,14 @@ void __36__BRContainerCache_hasDaemonicParts__block_invoke()
       }
 
       *buf = 138412546;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v5;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v5;
       _os_log_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] client can't fetch all containers by ID (isContainerProxy: %@)%@", buf, 0x16u);
     }
   }
 
   containersByID = self->_containersByID;
-  v10 = *MEMORY[0x1E69E9840];
 
   return containersByID;
 }
@@ -770,7 +859,6 @@ void __53__BRContainerCache__allContainersByIDNoCopyBlocking___block_invoke(uint
 
 - (void)initWithHelper:personaID:.cold.1()
 {
-  v13 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("[BRContainerCache initWithHelper:personaID:]", 2641);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6_0();
@@ -778,68 +866,15 @@ void __53__BRContainerCache__allContainersByIDNoCopyBlocking___block_invoke(uint
   if (OUTLINED_FUNCTION_5_0(v4))
   {
     OUTLINED_FUNCTION_3_1();
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: helper%@", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v5, v6, "[CRIT] Assertion failed: helper%@", v7, v8, v9, v10);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)initWithHelper:personaID:.cold.2()
+- (void)invalidateAndClearCache:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __45__BRContainerCache_initWithHelper_personaID___block_invoke_cold_1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
+  OUTLINED_FUNCTION_14(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v2, v3, "[DEBUG] ┏%llx invalidating container cache%@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __45__BRContainerCache_initWithHelper_personaID___block_invoke_527_cold_1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v2, v3, "[DEBUG] ┏%llx Invalidate cache after receiving memory pressure%@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __45__BRContainerCache_initWithHelper_personaID___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] TCC access changed, invalidating cache%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)documentContainers
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] Document containers returning %@%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)containerByID:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] added 1 container with mangledID %@ to cache%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)invalidateAndClearCache:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v1, v2, "[DEBUG] Marking container cache stale for persona: %@%@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] Marking container cache stale for persona: %@%@");
 }
 
 - (void)_updateContainersCache

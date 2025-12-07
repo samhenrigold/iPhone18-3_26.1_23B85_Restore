@@ -88,22 +88,22 @@
 - (NSData)data
 {
   selfCopy = self;
-  v3 = sub_1B62B0C58();
-  v5 = v4;
+  v4 = sub_1B62B0C58(selfCopy, v3);
+  v6 = v5;
 
-  if (v5 >> 60 == 15)
+  if (v6 >> 60 == 15)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = sub_1B63BE904();
-    sub_1B6284F64(v3, v5);
-    v6 = v7;
+    v8 = sub_1B63BE904();
+    sub_1B6284F64(v4, v6);
+    v7 = v8;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setData:(id)data

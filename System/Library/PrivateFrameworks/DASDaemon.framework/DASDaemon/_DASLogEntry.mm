@@ -21,7 +21,7 @@
 
 - (id)description
 {
-  v3 = defaultFormatter();
+  v3 = defaultFormatter(self);
   v4 = MEMORY[0x277CCACA8];
   v5 = [v3 stringFromDate:self->_date];
   v6 = [v4 stringWithFormat:@"%@ %@: %@", v5, self->_category, self->_message];

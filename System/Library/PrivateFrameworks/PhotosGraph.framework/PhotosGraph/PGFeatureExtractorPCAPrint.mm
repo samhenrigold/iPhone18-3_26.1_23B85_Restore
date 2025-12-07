@@ -27,7 +27,7 @@
 
 - (id)featureValuesForAssets:(id)assets error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (error)
@@ -35,55 +35,51 @@
     *error = [(PGFeatureExtractorPCAPrint *)self _generateErrorWithErrorCode:0 message:@"PGFingerprintVersionAssetPrintTypeScene2048 print is deprecated. Use PGFingerprintVersionAssetPrintTypeSceneCLIP768 instead." underlyingError:0];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = assetsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        v14 = [MEMORY[0x277D22C68] vectorRepeatingFloat:-[PGFeatureExtractorPCAPrint featureLength](self count:{"featureLength", v18), 0.0}];
+        v13 = *(*(&v17 + 1) + 8 * i);
+        v14 = [MEMORY[0x277D22C68] vectorRepeatingFloat:-[PGFeatureExtractorPCAPrint featureLength](self count:{"featureLength", v17), 0.0}];
         localIdentifier = [v13 localIdentifier];
         [dictionary setObject:v14 forKeyedSubscript:localIdentifier];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)floatVectorWithEntity:(id)entity error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   v6 = MEMORY[0x277CBEA60];
   entityCopy2 = entity;
   v8 = [v6 arrayWithObjects:&entityCopy count:1];
-  v9 = [(PGFeatureExtractorPCAPrint *)self featureValuesForAssets:v8 error:error, entityCopy, v15];
+  v9 = [(PGFeatureExtractorPCAPrint *)self featureValuesForAssets:v8 error:error, entityCopy, v14];
   localIdentifier = [entityCopy2 localIdentifier];
 
   v11 = [v9 objectForKeyedSubscript:localIdentifier];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -13,15 +13,13 @@
 
 - (id)description
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
-  v9.receiver = self;
-  v9.super_class = _BlastDoorASCodableInviteRequest;
-  v4 = [(_BlastDoorASCodableInviteRequest *)&v9 description];
+  v8.receiver = self;
+  v8.super_class = _BlastDoorASCodableInviteRequest;
+  v4 = [(_BlastDoorASCodableInviteRequest *)&v8 description];
   dictionaryRepresentation = [(_BlastDoorASCodableInviteRequest *)self dictionaryRepresentation];
   v6 = [v3 stringWithFormat:@"%@ %@", v4, dictionaryRepresentation];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -73,42 +71,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_handshakeToken)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_inviterCloudKitAddress)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_inviterCallerID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_inviterBuildNumber)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    inviterVersion = self->_inviterVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_activityDataPreview)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -229,7 +226,6 @@
     }
   }
 
-  v9 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_inviterVersion != *(equalCopy + 12))
@@ -241,24 +237,24 @@
   else if (*(equalCopy + 52))
   {
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
   activityDataPreview = self->_activityDataPreview;
   if (activityDataPreview | *(equalCopy + 1))
   {
-    v11 = [(_BlastDoorASCodableActivityDataPreview *)activityDataPreview isEqual:?];
+    v10 = [(_BlastDoorASCodableActivityDataPreview *)activityDataPreview isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_18:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

@@ -48,9 +48,10 @@
 - (BOOL)handlesUpdateForSet:(id)set
 {
   setCopy = set;
-  if ([(NSString *)self->_useCase isEqualToString:*MEMORY[0x1E698E948]])
+  v5 = [(NSString *)self->_useCase isEqualToString:*MEMORY[0x1E698E948]];
+  if (v5)
   {
-    v5 = 1;
+    v6 = 1;
   }
 
   else
@@ -61,27 +62,27 @@
       listeningProcess = self->_listeningProcess;
       self->_listeningProcess = current;
 
-      v8 = [MEMORY[0x1E698E970] policyForProcess:self->_listeningProcess connectionFlags:0 useCase:self->_useCase];
-      v9 = [v8 explicitlyAuthorizedResourcesOfType:4 withAccessMode:1];
+      v9 = [MEMORY[0x1E698E970] policyForProcess:self->_listeningProcess connectionFlags:0 useCase:self->_useCase];
+      v10 = [v9 explicitlyAuthorizedResourcesOfType:4 withAccessMode:1];
       readableSetIdentifiers = self->_readableSetIdentifiers;
-      self->_readableSetIdentifiers = v9;
+      self->_readableSetIdentifiers = v10;
     }
 
-    v11 = CCTypeIdentifierRegistryBridge();
-    v12 = [v11 setIdentifierForItemType:{objc_msgSend(setCopy, "itemType")}];
+    v12 = CCTypeIdentifierRegistryBridge(v5);
+    v13 = [v12 setIdentifierForItemType:{objc_msgSend(setCopy, "itemType")}];
 
-    if (v12)
+    if (v13)
     {
-      v5 = [(NSSet *)self->_readableSetIdentifiers containsObject:v12];
+      v6 = [(NSSet *)self->_readableSetIdentifiers containsObject:v13];
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)dealloc

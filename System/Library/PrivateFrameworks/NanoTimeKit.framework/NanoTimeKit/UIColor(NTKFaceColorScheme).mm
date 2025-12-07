@@ -8,16 +8,16 @@
 
 - (id)ntk_colorByBoostingSaturation:()NTKFaceColorScheme lightness:
 {
+  v11 = 0.0;
+  v12 = 0.0;
   v9 = 0.0;
   v10 = 0.0;
-  v7 = 0.0;
-  v8 = 0.0;
-  [self getHue:&v10 saturation:&v9 brightness:&v8 alpha:&v7];
-  v3 = [MEMORY[0x277D75348] colorWithHue:v10 saturation:(a2 + 1.0) * v9 brightness:v8 alpha:v7];
+  [self getHue:&v12 saturation:&v11 brightness:&v10 alpha:&v9];
+  v5 = [MEMORY[0x277D75348] colorWithHue:v12 saturation:(a2 + 1.0) * v11 brightness:v10 alpha:v9];
   whiteColor = [MEMORY[0x277D75348] whiteColor];
-  v5 = NTKInterpolateBetweenColors();
+  v7 = NTKInterpolateBetweenColors(a3);
 
-  return v5;
+  return v7;
 }
 
 - (id)ntk_colorWithSaturationDelta:()NTKFaceColorScheme brightnessDelta:

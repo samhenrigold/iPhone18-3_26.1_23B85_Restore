@@ -1,4 +1,26 @@
-void std::vector<ClipperLib::DoublePoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+uint64_t *std::vector<ClipperLib::DoublePoint>::__init_with_size[abi:ne200100]<ClipperLib::DoublePoint*,ClipperLib::DoublePoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<ClipperLib::DoublePoint>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_1B43C4BBC(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<ClipperLib::DoublePoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -8,7 +30,7 @@ void std::vector<ClipperLib::DoublePoint>::__vallocate[abi:ne200100](uint64_t a1
   std::vector<ClipperLib::IntPoint>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<ClipperLib::PolyNode *>::__init_with_size[abi:ne200100]<ClipperLib::PolyNode **,ClipperLib::PolyNode **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ClipperLib::PolyNode *>::__init_with_size[abi:ne200100]<ClipperLib::PolyNode **,ClipperLib::PolyNode **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -30,17 +52,17 @@ void sub_1B43C4C74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::vector<ClipperLib::IntPoint>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<ClipperLib::IntPoint>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<ClipperLib::IntPoint>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<ClipperLib::IntPoint>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 id VKStringFromCGColor(CGColor *a1)
@@ -172,34 +194,34 @@ LABEL_23:
 
 CGColorRef VKCGColorCopyInverse(CGColor *a1)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   Components = CGColorGetComponents(a1);
-  CGColorGetNumberOfComponents(a1);
-  MEMORY[0x1EEE9AC00]();
-  v5 = (v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  if (v3)
+  NumberOfComponents = CGColorGetNumberOfComponents(a1);
+  MEMORY[0x1EEE9AC00](NumberOfComponents);
+  v6 = (v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  if (v4)
   {
-    v6 = v3;
-    v7 = Components;
-    v8 = v5;
+    v7 = v4;
+    v8 = Components;
+    v9 = v6;
     do
     {
-      v9 = *v7++;
-      *v8++ = 1.0 - v9;
-      --v6;
+      v10 = *v8++;
+      *v9++ = 1.0 - v10;
+      --v7;
     }
 
-    while (v6);
+    while (v7);
   }
 
-  v5[v3] = Components[v3];
+  v6[v4] = Components[v4];
   ColorSpace = CGColorGetColorSpace(a1);
-  return CGColorCreate(ColorSpace, v5);
+  return CGColorCreate(ColorSpace, v6);
 }
 
-void sub_1B43C5D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B43C5D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -211,10 +233,11 @@ uint64_t __Block_byref_object_copy__16(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B43C75AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1B43C75AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1017,20 +1040,20 @@ uint64_t __Block_byref_object_copy__18(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B43D1A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B43D1A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 160), 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 160), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1850,37 +1873,37 @@ __CFString *VKMUIStringForBCSParsedDataType(unint64_t a1)
   }
 }
 
-void sub_1B43D5D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B43D5D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B43D62F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B43DA35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B43D62F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B43DA5AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B43DA35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43DB69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1B43DA5AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1B43DB69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1892,10 +1915,11 @@ uint64_t __Block_byref_object_copy__19(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B43DD2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1B43DD2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1906,7 +1930,7 @@ uint64_t __Block_byref_object_copy__20(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t VKMDeviceRGBColorSpace()
+uint64_t VKMDeviceRGBColorSpace(uint64_t a1, uint64_t a2)
 {
   if (VKMDeviceRGBColorSpace_sDeviceRGBDispatchOnce != -1)
   {
@@ -1923,7 +1947,7 @@ CGColorSpaceRef __VKMDeviceRGBColorSpace_block_invoke()
   return result;
 }
 
-uint64_t VKMDeviceCMYKColorSpace()
+uint64_t VKMDeviceCMYKColorSpace(uint64_t a1, uint64_t a2)
 {
   if (VKMDeviceCMYKColorSpace_sDeviceCMYKDispatchOnce != -1)
   {
@@ -1940,7 +1964,7 @@ CGColorSpaceRef __VKMDeviceCMYKColorSpace_block_invoke()
   return result;
 }
 
-uint64_t VKMDeviceGrayColorSpace()
+uint64_t VKMDeviceGrayColorSpace(uint64_t a1, uint64_t a2)
 {
   if (VKMDeviceGrayColorSpace_sDeviceGrayDispatchOnce != -1)
   {
@@ -1957,13 +1981,13 @@ CGColorSpaceRef __VKMDeviceGrayColorSpace_block_invoke()
   return result;
 }
 
-CGColorRef VKMCGColorCreateDeviceRGB(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
+CGColorRef VKMCGColorCreateDeviceRGB(uint64_t a1, uint64_t a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
   components[4] = *MEMORY[0x1E69E9840];
-  components[0] = a1;
-  components[1] = a2;
-  components[2] = a3;
-  components[3] = a4;
+  components[0] = a3;
+  components[1] = a4;
+  components[2] = a5;
+  components[3] = a6;
   if (VKMDeviceRGBColorSpace_sDeviceRGBDispatchOnce != -1)
   {
     VKMDeviceRGBColorSpace_cold_1();
@@ -1972,11 +1996,11 @@ CGColorRef VKMCGColorCreateDeviceRGB(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat
   return CGColorCreate(VKMDeviceRGBColorSpace_sDeviceRGBColorSpace, components);
 }
 
-CGColorRef VKMCGColorCreateDeviceGray(CGFloat a1, CGFloat a2)
+CGColorRef VKMCGColorCreateDeviceGray(uint64_t a1, uint64_t a2, CGFloat a3, CGFloat a4)
 {
   components[2] = *MEMORY[0x1E69E9840];
-  components[0] = a1;
-  components[1] = a2;
+  components[0] = a3;
+  components[1] = a4;
   if (VKMDeviceGrayColorSpace_sDeviceGrayDispatchOnce != -1)
   {
     VKMDeviceGrayColorSpace_cold_1();
@@ -2331,31 +2355,32 @@ CGFloat VKMColorLightness(CGColor *a1)
   return 0.0;
 }
 
-CGContext *VKMCreateRGBABitmapContext(int a1, double a2, CGFloat a3, CGFloat a4)
+CGContext *VKMCreateRGBABitmapContext(uint64_t a1, uint64_t a2, double a3, CGFloat a4, CGFloat a5)
 {
+  v5 = a1;
   if (VKMDeviceRGBColorSpace_sDeviceRGBDispatchOnce != -1)
   {
     VKMDeviceRGBColorSpace_cold_1();
   }
 
-  v8 = CGBitmapContextCreate(0, (a2 * a4), (a3 * a4), 8uLL, (4 * (a2 * a4) + 31) & 0xFFFFFFFFFFFFFFE0, VKMDeviceRGBColorSpace_sDeviceRGBColorSpace, 0x2002u);
-  CGAffineTransformMakeScale(&v10, a4, a4);
-  CGContextConcatCTM(v8, &v10);
-  if (a1)
+  v9 = CGBitmapContextCreate(0, (a3 * a5), (a4 * a5), 8uLL, (4 * (a3 * a5) + 31) & 0xFFFFFFFFFFFFFFE0, VKMDeviceRGBColorSpace_sDeviceRGBColorSpace, 0x2002u);
+  CGAffineTransformMakeScale(&v11, a5, a5);
+  CGContextConcatCTM(v9, &v11);
+  if (v5)
   {
-    CGContextTranslateCTM(v8, 0.0, a3);
-    CGAffineTransformMakeScale(&v10, 1.0, -1.0);
-    CGContextConcatCTM(v8, &v10);
+    CGContextTranslateCTM(v9, 0.0, a4);
+    CGAffineTransformMakeScale(&v11, 1.0, -1.0);
+    CGContextConcatCTM(v9, &v11);
   }
 
-  return v8;
+  return v9;
 }
 
 CGColorRef VKMCreateCheckerBoardColor(CGColor *a1, CGColor *a2, CGFloat a3, CGFloat a4)
 {
   v8 = a3 + a3;
   v9 = a4 + a4;
-  v10 = VKMCreateRGBABitmapContext(0, a3 + a3, a4 + a4, 1.0);
+  v10 = VKMCreateRGBABitmapContext(0, a2, a3 + a3, a4 + a4, 1.0);
   if (!v10)
   {
     return 0;
@@ -2393,25 +2418,26 @@ CGColorRef VKMCreateCheckerBoardColor(CGColor *a1, CGColor *a2, CGFloat a3, CGFl
 
 id getkDDRVInteractionDidFinishNotification_0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getkDDRVInteractionDidFinishNotificationSymbolLoc_ptr_0;
-  v8 = getkDDRVInteractionDidFinishNotificationSymbolLoc_ptr_0;
+  v9 = getkDDRVInteractionDidFinishNotificationSymbolLoc_ptr_0;
   if (!getkDDRVInteractionDidFinishNotificationSymbolLoc_ptr_0)
   {
     v1 = DataDetectorsUILibrary_4();
-    v6[3] = dlsym(v1, "kDDRVInteractionDidFinishNotification");
-    getkDDRVInteractionDidFinishNotificationSymbolLoc_ptr_0 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "kDDRVInteractionDidFinishNotification");
+    getkDDRVInteractionDidFinishNotificationSymbolLoc_ptr_0 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -2450,9 +2476,9 @@ id getDDRevealBridgeClass()
   return v1;
 }
 
-void sub_1B43DEF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43DEF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2493,7 +2519,7 @@ uint64_t DataDetectorsUILibrary_4()
   v1 = v3[0];
   if (!DataDetectorsUILibraryCore_frameworkLibrary_5)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2506,7 +2532,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __DataDetectorsUILibraryCore_block_invoke_5()
+uint64_t __DataDetectorsUILibraryCore_block_invoke_5(uint64_t a1)
 {
   result = _sl_dlopen();
   DataDetectorsUILibraryCore_frameworkLibrary_5 = result;
@@ -2532,1158 +2558,1199 @@ VKCFormRegion *__getDDRevealBridgeClass_block_invoke_0(uint64_t a1)
   return result;
 }
 
-id getAFTextContentTypeNone()
+id getAFTextContentTypeNone(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeNoneSymbolLoc_ptr;
-  v8 = getAFTextContentTypeNoneSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeNoneSymbolLoc_ptr;
+  v11 = getAFTextContentTypeNoneSymbolLoc_ptr;
   if (!getAFTextContentTypeNoneSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeNone");
-    getAFTextContentTypeNoneSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeNone");
+    getAFTextContentTypeNoneSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeName()
+id getAFTextContentTypeName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeNameSymbolLoc_ptr;
   if (!getAFTextContentTypeNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeName");
-    getAFTextContentTypeNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeName");
+    getAFTextContentTypeNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeNamePrefix()
+id getAFTextContentTypeNamePrefix(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeNamePrefixSymbolLoc_ptr;
-  v8 = getAFTextContentTypeNamePrefixSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeNamePrefixSymbolLoc_ptr;
+  v11 = getAFTextContentTypeNamePrefixSymbolLoc_ptr;
   if (!getAFTextContentTypeNamePrefixSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeNamePrefix");
-    getAFTextContentTypeNamePrefixSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeNamePrefix");
+    getAFTextContentTypeNamePrefixSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeGivenName()
+id getAFTextContentTypeGivenName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeGivenNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeGivenNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeGivenNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeGivenNameSymbolLoc_ptr;
   if (!getAFTextContentTypeGivenNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeGivenName");
-    getAFTextContentTypeGivenNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeGivenName");
+    getAFTextContentTypeGivenNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeMiddleName()
+id getAFTextContentTypeMiddleName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeMiddleNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeMiddleNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeMiddleNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeMiddleNameSymbolLoc_ptr;
   if (!getAFTextContentTypeMiddleNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeMiddleName");
-    getAFTextContentTypeMiddleNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeMiddleName");
+    getAFTextContentTypeMiddleNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeFamilyName()
+id getAFTextContentTypeFamilyName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeFamilyNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeFamilyNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeFamilyNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeFamilyNameSymbolLoc_ptr;
   if (!getAFTextContentTypeFamilyNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeFamilyName");
-    getAFTextContentTypeFamilyNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeFamilyName");
+    getAFTextContentTypeFamilyNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeNameSuffix()
+id getAFTextContentTypeNameSuffix(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeNameSuffixSymbolLoc_ptr;
-  v8 = getAFTextContentTypeNameSuffixSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeNameSuffixSymbolLoc_ptr;
+  v11 = getAFTextContentTypeNameSuffixSymbolLoc_ptr;
   if (!getAFTextContentTypeNameSuffixSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeNameSuffix");
-    getAFTextContentTypeNameSuffixSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeNameSuffix");
+    getAFTextContentTypeNameSuffixSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeNickname()
+id getAFTextContentTypeNickname(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeNicknameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeNicknameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeNicknameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeNicknameSymbolLoc_ptr;
   if (!getAFTextContentTypeNicknameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeNickname");
-    getAFTextContentTypeNicknameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeNickname");
+    getAFTextContentTypeNicknameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeJobTitle()
+id getAFTextContentTypeJobTitle(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeJobTitleSymbolLoc_ptr;
-  v8 = getAFTextContentTypeJobTitleSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeJobTitleSymbolLoc_ptr;
+  v11 = getAFTextContentTypeJobTitleSymbolLoc_ptr;
   if (!getAFTextContentTypeJobTitleSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeJobTitle");
-    getAFTextContentTypeJobTitleSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeJobTitle");
+    getAFTextContentTypeJobTitleSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeOrganizationName()
+id getAFTextContentTypeOrganizationName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeOrganizationNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeOrganizationNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeOrganizationNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeOrganizationNameSymbolLoc_ptr;
   if (!getAFTextContentTypeOrganizationNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeOrganizationName");
-    getAFTextContentTypeOrganizationNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeOrganizationName");
+    getAFTextContentTypeOrganizationNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeLocation()
+id getAFTextContentTypeLocation(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeLocationSymbolLoc_ptr;
-  v8 = getAFTextContentTypeLocationSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeLocationSymbolLoc_ptr;
+  v11 = getAFTextContentTypeLocationSymbolLoc_ptr;
   if (!getAFTextContentTypeLocationSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeLocation");
-    getAFTextContentTypeLocationSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeLocation");
+    getAFTextContentTypeLocationSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeFullStreetAddress()
+id getAFTextContentTypeFullStreetAddress(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeFullStreetAddressSymbolLoc_ptr;
-  v8 = getAFTextContentTypeFullStreetAddressSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeFullStreetAddressSymbolLoc_ptr;
+  v11 = getAFTextContentTypeFullStreetAddressSymbolLoc_ptr;
   if (!getAFTextContentTypeFullStreetAddressSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeFullStreetAddress");
-    getAFTextContentTypeFullStreetAddressSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeFullStreetAddress");
+    getAFTextContentTypeFullStreetAddressSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeStreetAddressLine1()
+id getAFTextContentTypeStreetAddressLine1(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeStreetAddressLine1SymbolLoc_ptr;
-  v8 = getAFTextContentTypeStreetAddressLine1SymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeStreetAddressLine1SymbolLoc_ptr;
+  v11 = getAFTextContentTypeStreetAddressLine1SymbolLoc_ptr;
   if (!getAFTextContentTypeStreetAddressLine1SymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeStreetAddressLine1");
-    getAFTextContentTypeStreetAddressLine1SymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeStreetAddressLine1");
+    getAFTextContentTypeStreetAddressLine1SymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeStreetAddressLine2()
+id getAFTextContentTypeStreetAddressLine2(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeStreetAddressLine2SymbolLoc_ptr;
-  v8 = getAFTextContentTypeStreetAddressLine2SymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeStreetAddressLine2SymbolLoc_ptr;
+  v11 = getAFTextContentTypeStreetAddressLine2SymbolLoc_ptr;
   if (!getAFTextContentTypeStreetAddressLine2SymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeStreetAddressLine2");
-    getAFTextContentTypeStreetAddressLine2SymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeStreetAddressLine2");
+    getAFTextContentTypeStreetAddressLine2SymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeAddressCity()
+id getAFTextContentTypeAddressCity(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeAddressCitySymbolLoc_ptr;
-  v8 = getAFTextContentTypeAddressCitySymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeAddressCitySymbolLoc_ptr;
+  v11 = getAFTextContentTypeAddressCitySymbolLoc_ptr;
   if (!getAFTextContentTypeAddressCitySymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeAddressCity");
-    getAFTextContentTypeAddressCitySymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeAddressCity");
+    getAFTextContentTypeAddressCitySymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeAddressState()
+id getAFTextContentTypeAddressState(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeAddressStateSymbolLoc_ptr;
-  v8 = getAFTextContentTypeAddressStateSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeAddressStateSymbolLoc_ptr;
+  v11 = getAFTextContentTypeAddressStateSymbolLoc_ptr;
   if (!getAFTextContentTypeAddressStateSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeAddressState");
-    getAFTextContentTypeAddressStateSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeAddressState");
+    getAFTextContentTypeAddressStateSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeAddressCityAndState()
+id getAFTextContentTypeAddressCityAndState(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeAddressCityAndStateSymbolLoc_ptr;
-  v8 = getAFTextContentTypeAddressCityAndStateSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeAddressCityAndStateSymbolLoc_ptr;
+  v11 = getAFTextContentTypeAddressCityAndStateSymbolLoc_ptr;
   if (!getAFTextContentTypeAddressCityAndStateSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeAddressCityAndState");
-    getAFTextContentTypeAddressCityAndStateSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeAddressCityAndState");
+    getAFTextContentTypeAddressCityAndStateSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCountryName()
+id getAFTextContentTypeCountryName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCountryNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCountryNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCountryNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCountryNameSymbolLoc_ptr;
   if (!getAFTextContentTypeCountryNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCountryName");
-    getAFTextContentTypeCountryNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCountryName");
+    getAFTextContentTypeCountryNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypePostalCode()
+id getAFTextContentTypePostalCode(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypePostalCodeSymbolLoc_ptr;
-  v8 = getAFTextContentTypePostalCodeSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypePostalCodeSymbolLoc_ptr;
+  v11 = getAFTextContentTypePostalCodeSymbolLoc_ptr;
   if (!getAFTextContentTypePostalCodeSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypePostalCode");
-    getAFTextContentTypePostalCodeSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypePostalCode");
+    getAFTextContentTypePostalCodeSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeEmailAddress()
+id getAFTextContentTypeEmailAddress(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeEmailAddressSymbolLoc_ptr;
-  v8 = getAFTextContentTypeEmailAddressSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeEmailAddressSymbolLoc_ptr;
+  v11 = getAFTextContentTypeEmailAddressSymbolLoc_ptr;
   if (!getAFTextContentTypeEmailAddressSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeEmailAddress");
-    getAFTextContentTypeEmailAddressSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeEmailAddress");
+    getAFTextContentTypeEmailAddressSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeURL()
+id getAFTextContentTypeURL(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeURLSymbolLoc_ptr;
-  v8 = getAFTextContentTypeURLSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeURLSymbolLoc_ptr;
+  v11 = getAFTextContentTypeURLSymbolLoc_ptr;
   if (!getAFTextContentTypeURLSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeURL");
-    getAFTextContentTypeURLSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeURL");
+    getAFTextContentTypeURLSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypePassword()
+id getAFTextContentTypePassword(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypePasswordSymbolLoc_ptr;
-  v8 = getAFTextContentTypePasswordSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypePasswordSymbolLoc_ptr;
+  v11 = getAFTextContentTypePasswordSymbolLoc_ptr;
   if (!getAFTextContentTypePasswordSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypePassword");
-    getAFTextContentTypePasswordSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypePassword");
+    getAFTextContentTypePasswordSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardName()
+id getAFTextContentTypeCreditCardName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardNameSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardName");
-    getAFTextContentTypeCreditCardNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardName");
+    getAFTextContentTypeCreditCardNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardGivenName()
+id getAFTextContentTypeCreditCardGivenName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardGivenNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardGivenNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardGivenNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardGivenNameSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardGivenNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardGivenName");
-    getAFTextContentTypeCreditCardGivenNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardGivenName");
+    getAFTextContentTypeCreditCardGivenNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardMiddleName()
+id getAFTextContentTypeCreditCardMiddleName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardMiddleNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardMiddleNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardMiddleNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardMiddleNameSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardMiddleNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardMiddleName");
-    getAFTextContentTypeCreditCardMiddleNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardMiddleName");
+    getAFTextContentTypeCreditCardMiddleNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardFamilyName()
+id getAFTextContentTypeCreditCardFamilyName(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardFamilyNameSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardFamilyNameSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardFamilyNameSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardFamilyNameSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardFamilyNameSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardFamilyName");
-    getAFTextContentTypeCreditCardFamilyNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardFamilyName");
+    getAFTextContentTypeCreditCardFamilyNameSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardNumber()
+id getAFTextContentTypeCreditCardNumber(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardNumberSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardNumberSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardNumberSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardNumberSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardNumberSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardNumber");
-    getAFTextContentTypeCreditCardNumberSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardNumber");
+    getAFTextContentTypeCreditCardNumberSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardExpiration()
+id getAFTextContentTypeCreditCardExpiration(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardExpirationSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardExpirationSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardExpirationSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardExpirationSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardExpirationSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardExpiration");
-    getAFTextContentTypeCreditCardExpirationSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardExpiration");
+    getAFTextContentTypeCreditCardExpirationSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardExpirationMonth()
+id getAFTextContentTypeCreditCardExpirationMonth(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardExpirationMonthSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardExpirationMonthSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardExpirationMonthSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardExpirationMonthSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardExpirationMonthSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardExpirationMonth");
-    getAFTextContentTypeCreditCardExpirationMonthSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardExpirationMonth");
+    getAFTextContentTypeCreditCardExpirationMonthSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardExpirationYear()
+id getAFTextContentTypeCreditCardExpirationYear(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardExpirationYearSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardExpirationYearSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardExpirationYearSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardExpirationYearSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardExpirationYearSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardExpirationYear");
-    getAFTextContentTypeCreditCardExpirationYearSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardExpirationYear");
+    getAFTextContentTypeCreditCardExpirationYearSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardSecurityCode()
+id getAFTextContentTypeCreditCardSecurityCode(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardSecurityCodeSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardSecurityCodeSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardSecurityCodeSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardSecurityCodeSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardSecurityCodeSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardSecurityCode");
-    getAFTextContentTypeCreditCardSecurityCodeSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardSecurityCode");
+    getAFTextContentTypeCreditCardSecurityCodeSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeCreditCardType()
+id getAFTextContentTypeCreditCardType(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeCreditCardTypeSymbolLoc_ptr;
-  v8 = getAFTextContentTypeCreditCardTypeSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeCreditCardTypeSymbolLoc_ptr;
+  v11 = getAFTextContentTypeCreditCardTypeSymbolLoc_ptr;
   if (!getAFTextContentTypeCreditCardTypeSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeCreditCardType");
-    getAFTextContentTypeCreditCardTypeSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeCreditCardType");
+    getAFTextContentTypeCreditCardTypeSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeBirthdate()
+id getAFTextContentTypeBirthdate(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeBirthdateSymbolLoc_ptr;
-  v8 = getAFTextContentTypeBirthdateSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeBirthdateSymbolLoc_ptr;
+  v11 = getAFTextContentTypeBirthdateSymbolLoc_ptr;
   if (!getAFTextContentTypeBirthdateSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeBirthdate");
-    getAFTextContentTypeBirthdateSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeBirthdate");
+    getAFTextContentTypeBirthdateSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeBirthdateDay()
+id getAFTextContentTypeBirthdateDay(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeBirthdateDaySymbolLoc_ptr;
-  v8 = getAFTextContentTypeBirthdateDaySymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeBirthdateDaySymbolLoc_ptr;
+  v11 = getAFTextContentTypeBirthdateDaySymbolLoc_ptr;
   if (!getAFTextContentTypeBirthdateDaySymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeBirthdateDay");
-    getAFTextContentTypeBirthdateDaySymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeBirthdateDay");
+    getAFTextContentTypeBirthdateDaySymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeBirthdateMonth()
+id getAFTextContentTypeBirthdateMonth(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeBirthdateMonthSymbolLoc_ptr;
-  v8 = getAFTextContentTypeBirthdateMonthSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeBirthdateMonthSymbolLoc_ptr;
+  v11 = getAFTextContentTypeBirthdateMonthSymbolLoc_ptr;
   if (!getAFTextContentTypeBirthdateMonthSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeBirthdateMonth");
-    getAFTextContentTypeBirthdateMonthSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeBirthdateMonth");
+    getAFTextContentTypeBirthdateMonthSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeBirthdateYear()
+id getAFTextContentTypeBirthdateYear(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeBirthdateYearSymbolLoc_ptr;
-  v8 = getAFTextContentTypeBirthdateYearSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeBirthdateYearSymbolLoc_ptr;
+  v11 = getAFTextContentTypeBirthdateYearSymbolLoc_ptr;
   if (!getAFTextContentTypeBirthdateYearSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeBirthdateYear");
-    getAFTextContentTypeBirthdateYearSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeBirthdateYear");
+    getAFTextContentTypeBirthdateYearSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeTelephoneNumber()
+id getAFTextContentTypeTelephoneNumber(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeTelephoneNumberSymbolLoc_ptr;
-  v8 = getAFTextContentTypeTelephoneNumberSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeTelephoneNumberSymbolLoc_ptr;
+  v11 = getAFTextContentTypeTelephoneNumberSymbolLoc_ptr;
   if (!getAFTextContentTypeTelephoneNumberSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeTelephoneNumber");
-    getAFTextContentTypeTelephoneNumberSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeTelephoneNumber");
+    getAFTextContentTypeTelephoneNumberSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeTelephoneCountryCode()
+id getAFTextContentTypeTelephoneCountryCode(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeTelephoneCountryCodeSymbolLoc_ptr;
-  v8 = getAFTextContentTypeTelephoneCountryCodeSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeTelephoneCountryCodeSymbolLoc_ptr;
+  v11 = getAFTextContentTypeTelephoneCountryCodeSymbolLoc_ptr;
   if (!getAFTextContentTypeTelephoneCountryCodeSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeTelephoneCountryCode");
-    getAFTextContentTypeTelephoneCountryCodeSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeTelephoneCountryCode");
+    getAFTextContentTypeTelephoneCountryCodeSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeTelephoneNationalNumber()
+id getAFTextContentTypeTelephoneNationalNumber(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeTelephoneNationalNumberSymbolLoc_ptr;
-  v8 = getAFTextContentTypeTelephoneNationalNumberSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeTelephoneNationalNumberSymbolLoc_ptr;
+  v11 = getAFTextContentTypeTelephoneNationalNumberSymbolLoc_ptr;
   if (!getAFTextContentTypeTelephoneNationalNumberSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeTelephoneNationalNumber");
-    getAFTextContentTypeTelephoneNationalNumberSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeTelephoneNationalNumber");
+    getAFTextContentTypeTelephoneNationalNumberSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeTelephoneAreaCode()
+id getAFTextContentTypeTelephoneAreaCode(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeTelephoneAreaCodeSymbolLoc_ptr;
-  v8 = getAFTextContentTypeTelephoneAreaCodeSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeTelephoneAreaCodeSymbolLoc_ptr;
+  v11 = getAFTextContentTypeTelephoneAreaCodeSymbolLoc_ptr;
   if (!getAFTextContentTypeTelephoneAreaCodeSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeTelephoneAreaCode");
-    getAFTextContentTypeTelephoneAreaCodeSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeTelephoneAreaCode");
+    getAFTextContentTypeTelephoneAreaCodeSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-id getAFTextContentTypeTelephoneExtension()
+id getAFTextContentTypeTelephoneExtension(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getAFTextContentTypeTelephoneExtensionSymbolLoc_ptr;
-  v8 = getAFTextContentTypeTelephoneExtensionSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getAFTextContentTypeTelephoneExtensionSymbolLoc_ptr;
+  v11 = getAFTextContentTypeTelephoneExtensionSymbolLoc_ptr;
   if (!getAFTextContentTypeTelephoneExtensionSymbolLoc_ptr)
   {
-    v1 = AutoFillCoreLibrary();
-    v6[3] = dlsym(v1, "AFTextContentTypeTelephoneExtension");
-    getAFTextContentTypeTelephoneExtensionSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v3 = AutoFillCoreLibrary();
+    v9[3] = dlsym(v3, "AFTextContentTypeTelephoneExtension");
+    getAFTextContentTypeTelephoneExtensionSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v8, 8);
+  if (!v2)
   {
-    v4 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v2 = *v0;
+  v4 = *v2;
 
-  return v2;
+  return v4;
 }
 
-void *__getAFTextContentTypeNoneSymbolLoc_block_invoke(uint64_t a1)
+void *__getAFTextContentTypeNoneSymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = AutoFillCoreLibrary();
-  result = dlsym(v2, "AFTextContentTypeNone");
+  v3 = AutoFillCoreLibrary();
+  result = dlsym(v3, "AFTextContentTypeNone");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAFTextContentTypeNoneSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -3709,7 +3776,7 @@ uint64_t AutoFillCoreLibrary()
   v1 = v3[0];
   if (!AutoFillCoreLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -3722,7 +3789,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __AutoFillCoreLibraryCore_block_invoke()
+uint64_t __AutoFillCoreLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AutoFillCoreLibraryCore_frameworkLibrary = result;
@@ -4107,9 +4174,9 @@ void *__getAFTextContentTypeDateTimeSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1B43E7114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43E7114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4139,7 +4206,7 @@ Class __getSearchUIResultsViewControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -4157,16 +4224,16 @@ LABEL_4:
   return result;
 }
 
-uint64_t __SearchUILibraryCore_block_invoke()
+uint64_t __SearchUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SearchUILibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1B43EA0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1B43EA0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4195,9 +4262,9 @@ id getDDContextMenuActionClass_1()
   return v1;
 }
 
-void sub_1B43EA188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43EA188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4241,7 +4308,7 @@ uint64_t DataDetectorsUILibrary_5()
   v1 = v3[0];
   if (!DataDetectorsUILibraryCore_frameworkLibrary_6)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -4254,7 +4321,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __DataDetectorsUILibraryCore_block_invoke_6()
+uint64_t __DataDetectorsUILibraryCore_block_invoke_6(uint64_t a1)
 {
   result = _sl_dlopen();
   DataDetectorsUILibraryCore_frameworkLibrary_6 = result;
@@ -4273,7 +4340,7 @@ Class __getDDUIActionClass_block_invoke_1(uint64_t a1)
 
   else
   {
-    v3 = __getDDUIActionClass_block_invoke_cold_1();
+    __getDDUIActionClass_block_invoke_cold_1();
     return __getkDataDetectorsAllResultsKeySymbolLoc_block_invoke_1(v3);
   }
 
@@ -4298,16 +4365,16 @@ void *__getkDataDetectorsMiddleTextSymbolLoc_block_invoke_0(uint64_t a1)
   return result;
 }
 
-void sub_1B43ED5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B43ED5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B43ED878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43ED878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4319,16 +4386,16 @@ uint64_t __Block_byref_object_copy__21(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B43EDA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43EDA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B43EDC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B43EDC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4340,23 +4407,23 @@ void sub_1B43EE044(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B43EE6C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1B43EE6C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B43EEE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43EEE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B43F0050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
   va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1B43F0050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
   std::vector<CGPathRandomAccessSubpath>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4369,9 +4436,9 @@ void CGPathRandomAccess::CGPathRandomAccess(CGPathRandomAccess *this, const CGPa
   CGPathRandomAccess::addPath(this, a2);
 }
 
-void sub_1B43F023C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B43F023C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<CGPathRandomAccessSubpath>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4437,14 +4504,12 @@ void sub_1B43F0448(_Unwind_Exception *a1)
 
 __n128 __Block_byref_object_copy__22(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -5039,7 +5104,7 @@ LABEL_107:
   v70 = *(v69 - 16);
   v71 = *(a2 + 8);
 
-  std::vector<CGPoint>::__insert_with_size[abi:ne200100]<CGPoint*,CGPoint*>(v69 - 24, v70, v71, v71 + 48, 3);
+  std::vector<CGPoint>::__insert_with_size[abi:ne200100]<CGPoint*,CGPoint*>((v69 - 24), v70, v71, v71 + 48, 3);
 }
 
 void CGPathRandomAccessSubpath::closeIfNeeded(CGPathRandomAccessSubpath *this)
@@ -5107,22 +5172,20 @@ void CGPathRandomAccessSubpath::closeIfNeeded(CGPathRandomAccessSubpath *this)
   }
 }
 
-void *std::vector<CGPathRandomAccessElement>::reserve(void *result, unint64_t a2)
+void std::vector<CGPathRandomAccessElement>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CGPathRandomAccessElement>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<CGPathRandomAccessElement>>(a1, a2);
     }
 
     std::vector<ClipperLib::IntPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t std::vector<CGPathRandomAccessSubpath>::__emplace_back_slow_path<>(uint64_t *a1)
+uint64_t std::vector<CGPathRandomAccessSubpath>::__emplace_back_slow_path<>(void *a1)
 {
   v1 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v2 = v1 + 1;
@@ -5176,9 +5239,9 @@ uint64_t std::vector<CGPathRandomAccessSubpath>::__emplace_back_slow_path<>(uint
   return v11;
 }
 
-void sub_1B43F100C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B43F100C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CGPathRandomAccessSubpath>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5323,7 +5386,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<CGPathRandomAccessEle
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<CGPoint*,CGPoint*>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -5332,8 +5395,8 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<CGPoint*,CGPoint*>(
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 4)
   {
     v11 = *a1;
@@ -5371,23 +5434,24 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<CGPoint*,CGPoint*>(
     v35 = (16 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 16;
       *v35++ = v36;
       v34 -= 16;
     }
 
     while (v34);
-    memcpy((v33 + 16 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 16 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 16 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 16 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -5402,14 +5466,14 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<CGPoint*,CGPoint*>(
   {
     v29 = &__dst[16 * a5];
     v30 = (v10 - 16 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[16 * a5], __dst, v10 - v29);
@@ -5424,11 +5488,11 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<CGPoint*,CGPoint*>(
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[16 * a5];
@@ -5448,7 +5512,7 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<CGPoint*,CGPoint*>(
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[16 * a5], v5, v21 - v22);
@@ -5493,7 +5557,7 @@ void std::vector<CGPathRandomAccessSubpath>::__destroy_vector::operator()[abi:ne
   }
 }
 
-void CGPathRandomAccessSubpath::clipperPath(uint64_t *a1, uint64_t *a2, double a3)
+void CGPathRandomAccessSubpath::clipperPath(uint64_t *a1, const void **a2, double a3)
 {
   v4 = *a1;
   if (a1[1] != *a1)
@@ -5812,9 +5876,9 @@ void ___ZNK25CGPathRandomAccessSubpath11clipperPathEdRNSt3__16vectorIN10ClipperL
   *(v6 + 8) = v10;
 }
 
-void sub_1B43F1F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1B43F1F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6003,9 +6067,9 @@ LABEL_11:
   return v10;
 }
 
-void sub_1B43F4678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43F4678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6404,16 +6468,16 @@ double vk_sizeForCGImage(CGImage *a1)
   return Width;
 }
 
-void sub_1B43F7BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43F7BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B43F892C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B43F892C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6453,7 +6517,7 @@ void TranslationUILibrary()
   v0 = v1[0];
   if (!TranslationUILibraryCore_frameworkLibrary_1)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -6464,7 +6528,7 @@ LABEL_7:
   }
 }
 
-uint64_t __TranslationUILibraryCore_block_invoke_1()
+uint64_t __TranslationUILibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   TranslationUILibraryCore_frameworkLibrary_1 = result;
@@ -6500,9 +6564,9 @@ id VKBundle()
   return v0;
 }
 
-void sub_1B43F9620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B43F9620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6604,7 +6668,7 @@ LABEL_8:
   {
     type metadata accessor for MTLCommandBufferError(0);
     sub_1B440A09C(MEMORY[0x1E69E7CC0]);
-    sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError);
+    sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError, &unk_1B4428CA4);
     sub_1B4415F10();
     goto LABEL_8;
   }
@@ -6630,7 +6694,7 @@ LABEL_8:
   type metadata accessor for MTLCommandBufferError(0);
   v28 = 1;
   sub_1B440A09C(MEMORY[0x1E69E7CC0]);
-  sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError);
+  sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError, &unk_1B4428CA4);
   sub_1B4415F10();
   swift_willThrow();
   swift_unknownObjectRelease();
@@ -6766,7 +6830,7 @@ void sub_1B43F9E58(void *a1)
   }
 }
 
-uint64_t sub_1B43FA3C0()
+void *sub_1B43FA3C0()
 {
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
@@ -6814,7 +6878,7 @@ BOOL sub_1B43FA520(void *a1, uint64_t *a2)
   return v4 != v3;
 }
 
-uint64_t sub_1B43FA61C()
+uint64_t sub_1B43FA61C(uint64_t a1, uint64_t a2)
 {
   sub_1B44162B0();
   swift_getWitnessTable();
@@ -6824,26 +6888,26 @@ uint64_t sub_1B43FA61C()
 
 uint64_t sub_1B43FA698(uint64_t a1)
 {
-  v2 = sub_1B43FACA0(&qword_1EB898B70, type metadata accessor for MTLCommandBufferError);
+  v2 = sub_1B43FACA0(&qword_1EB898B70, type metadata accessor for MTLCommandBufferError, &unk_1B4428C60);
 
   return MEMORY[0x1EEDC6AD0](a1, v2);
 }
 
 uint64_t sub_1B43FA704(uint64_t a1)
 {
-  v2 = sub_1B43FACA0(&qword_1EB898B70, type metadata accessor for MTLCommandBufferError);
+  v2 = sub_1B43FACA0(&qword_1EB898B70, type metadata accessor for MTLCommandBufferError, &unk_1B4428C60);
 
   return MEMORY[0x1EEDC6AC0](a1, v2);
 }
 
 uint64_t sub_1B43FA774(uint64_t a1)
 {
-  v2 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError);
+  v2 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError, &unk_1B4428CA4);
 
   return MEMORY[0x1EEDC3B70](a1, v2);
 }
 
-uint64_t sub_1B43FA7F0()
+uint64_t sub_1B43FA7F0(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getWitnessTable();
 
@@ -6859,21 +6923,21 @@ _DWORD *sub_1B43FA85C@<X0>(_DWORD *result@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1B43FA888(uint64_t a1)
 {
-  v2 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError);
+  v2 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError, &unk_1B4428CA4);
 
   return MEMORY[0x1EEDC3BE0](a1, v2);
 }
 
 uint64_t sub_1B43FA8F4(uint64_t a1)
 {
-  v2 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError);
+  v2 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError, &unk_1B4428CA4);
 
   return MEMORY[0x1EEDC3B98](a1, v2);
 }
 
 uint64_t sub_1B43FA960(void *a1, uint64_t a2)
 {
-  v4 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError);
+  v4 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError, &unk_1B4428CA4);
   v5 = a1;
 
   return MEMORY[0x1EEDC3B88](v5, a2, v4);
@@ -6881,12 +6945,12 @@ uint64_t sub_1B43FA960(void *a1, uint64_t a2)
 
 uint64_t sub_1B43FAA14(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError);
+  v4 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError, &unk_1B4428CA4);
 
   return MEMORY[0x1EEDC3BC8](a1, a2, v4);
 }
 
-uint64_t sub_1B43FAA90()
+uint64_t sub_1B43FAA90(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_1B44162B0();
   sub_1B4416060();
@@ -6895,7 +6959,7 @@ uint64_t sub_1B43FAA90()
 
 uint64_t sub_1B43FAB04(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError);
+  v6 = sub_1B43FACA0(&qword_1EB899260, type metadata accessor for MTLCommandBufferError, &unk_1B4428CA4);
 
   return MEMORY[0x1EEDC3BA8](a1, a2, a3, v6);
 }
@@ -6952,7 +7016,7 @@ uint64_t sub_1B43FABDC(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t sub_1B43FACA0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1B43FACA0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6965,12 +7029,12 @@ uint64_t sub_1B43FACA0(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-void sub_1B43FAE1C(uint64_t a1, unint64_t *a2)
+void sub_1B43FAE1C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -7045,7 +7109,7 @@ id sub_1B43FB288()
   return v6;
 }
 
-uint64_t sub_1B43FB37C(uint64_t a1, uint64_t a2)
+uint64_t sub_1B43FB37C(void *a1, uint64_t a2)
 {
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
@@ -7460,7 +7524,7 @@ uint64_t sub_1B43FBB04(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 {
   v6 = sub_1B4415EA0();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v6);
   v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B4415E80();
   *(a1 + 24) = a4;
@@ -7818,11 +7882,11 @@ id sub_1B43FC3F8()
   v1 = v0;
   v2 = sub_1B4416010();
   v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v2);
   v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = sub_1B4416040();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v6);
   v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = *(v1 + 16);
   if (result)
@@ -7851,7 +7915,7 @@ id sub_1B43FC3F8()
       sub_1B4416020();
       v20 = MEMORY[0x1E69E7CC0];
       sub_1B43FC738();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB899000);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB899000, &qword_1B4428FC8);
       sub_1B43FC7D8();
       sub_1B44161B0();
       v16 = v18;
@@ -7892,7 +7956,7 @@ unint64_t sub_1B43FC738()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -7909,7 +7973,7 @@ unint64_t sub_1B43FC7D8()
   result = qword_1EB898CF8;
   if (!qword_1EB898CF8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB899000);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB899000, &qword_1B4428FC8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB898CF8);
   }
@@ -7917,7 +7981,7 @@ unint64_t sub_1B43FC7D8()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -8054,7 +8118,7 @@ void *sub_1B43FCD1C(void *a1)
     v10 = v8;
     swift_unknownObjectRetain();
     swift_unknownObjectRetain();
-    v11 = sub_1B44012EC(a1, v7);
+    v11 = sub_1B44012EC(a1, v7, 0xD000000000000019, 0x80000001B44344E0);
     if (!v2)
     {
       v3[2] = v11;
@@ -8064,25 +8128,25 @@ void *sub_1B43FCD1C(void *a1)
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
       v29 = v13;
-      v3[3] = sub_1B44012EC(a1, v7);
+      v3[3] = sub_1B44012EC(a1, v7, 0xD000000000000024, 0x80000001B4434500);
       v15 = type metadata accessor for StickerComicGaussBlurExpressPassTwoShader();
       v16 = objc_allocWithZone(v15);
       *&v16[OBJC_IVAR____TtC13VisionKitCore41StickerComicGaussBlurExpressPassTwoShader_sigma] = 0x3FE0000000000000;
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[4] = sub_1B44012EC(a1, v7);
+      v3[4] = sub_1B44012EC(a1, v7, 0xD00000000000002BLL, 0x80000001B4434530);
       v17 = objc_allocWithZone(type metadata accessor for StickerComicBFBlurPassOneShader());
       *&v17[OBJC_IVAR____TtC13VisionKitCore31StickerComicBFBlurPassOneShader_sigmaColor] = 0;
       *&v17[OBJC_IVAR____TtC13VisionKitCore31StickerComicBFBlurPassOneShader_sigma] = 0;
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[5] = sub_1B4401828(a1, v7);
+      v3[5] = sub_1B4401828(a1, v7, 0xD000000000000021, 0x80000001B4434560);
       v18 = objc_allocWithZone(type metadata accessor for StickerComicBFBlurPassTwoShader());
       *&v18[OBJC_IVAR____TtC13VisionKitCore31StickerComicBFBlurPassTwoShader_sigmaColor] = 0;
       *&v18[OBJC_IVAR____TtC13VisionKitCore31StickerComicBFBlurPassTwoShader_sigma] = 0;
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[6] = sub_1B4401828(a1, v7);
+      v3[6] = sub_1B4401828(a1, v7, 0xD000000000000021, 0x80000001B4434590);
       v19 = objc_allocWithZone(type metadata accessor for StickerComicVignetteAndQuantizeShader());
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
@@ -8094,37 +8158,37 @@ void *sub_1B43FCD1C(void *a1)
       *&v20[OBJC_IVAR____TtC13VisionKitCore23StickerComicEdgesShader_mode] = 0;
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[9] = sub_1B4401828(a1, v7);
+      v3[9] = sub_1B4401828(a1, v7, 0xD000000000000019, 0x80000001B44345C0);
       v21 = objc_allocWithZone(type metadata accessor for StickerComicStrokeShader());
       *&v21[OBJC_IVAR____TtC13VisionKitCore24StickerComicStrokeShader_sigma] = 0;
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[10] = sub_1B44012EC(a1, v7);
+      v3[10] = sub_1B44012EC(a1, v7, 0xD00000000000001ALL, 0x80000001B44345E0);
       v22 = objc_allocWithZone(type metadata accessor for StickerComicStrokeAndBlendShader());
       *&v22[OBJC_IVAR____TtC13VisionKitCore32StickerComicStrokeAndBlendShader_sigma] = 0;
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[11] = sub_1B4401828(a1, v7);
+      v3[11] = sub_1B4401828(a1, v7, 0xD000000000000022, 0x80000001B4434600);
       v23 = objc_allocWithZone(type metadata accessor for StickerComicColorStrokeShader());
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[8] = sub_1B4401828(a1, v7);
+      v3[8] = sub_1B4401828(a1, v7, 0xD00000000000001FLL, 0x80000001B4434630);
       v24 = objc_allocWithZone(type metadata accessor for StickerComicLookupFilterShader());
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[12] = sub_1B4401828(a1, v7);
+      v3[12] = sub_1B4401828(a1, v7, 0xD000000000000020, 0x80000001B4434650);
       v26 = objc_allocWithZone(v9);
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[13] = sub_1B44012EC(a1, v7);
+      v3[13] = sub_1B44012EC(a1, v7, 0xD000000000000019, 0x80000001B44344E0);
       v27 = objc_allocWithZone(v29);
       *&v27[OBJC_IVAR____TtC13VisionKitCore34StickerComicGaussBlurExpressShader_sigma] = 0x3FE0000000000000;
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v3[14] = sub_1B44012EC(a1, v7);
+      v3[14] = sub_1B44012EC(a1, v7, 0xD000000000000024, 0x80000001B4434500);
       v28 = objc_allocWithZone(v15);
       *&v28[OBJC_IVAR____TtC13VisionKitCore41StickerComicGaussBlurExpressPassTwoShader_sigma] = 0x3FE0000000000000;
-      v3[15] = sub_1B44012EC(a1, v7);
+      v3[15] = sub_1B44012EC(a1, v7, 0xD00000000000002BLL, 0x80000001B4434530);
       return v3;
     }
 
@@ -8187,13 +8251,13 @@ uint64_t StickerComicRenderer.init(device:)(uint64_t a1)
   return v1;
 }
 
-uint64_t sub_1B43FD920(void *a1, void *a2, uint64_t a3, void *a4)
+uint64_t sub_1B43FD920(void *a1, void *a2, char *a3, void *a4)
 {
   v9 = *a3;
   v15 = *a3;
   v16 = *(a3 + 1);
   *v17 = *(a3 + 17);
-  *&v17[15] = *(a3 + 32);
+  *&v17[15] = *(a3 + 4);
   if ((sub_1B43FF654(&v15) & 1) == 0)
   {
     v11 = 0;
@@ -8217,18 +8281,18 @@ LABEL_8:
 
   else
   {
-    v10 = sub_1B43FEEE0();
+    v10 = sub_1B43FEEE0(0xD000000000000016, 0x80000001B44342D0);
   }
 
   v15 = v9;
   v16 = *(a3 + 1);
   *v17 = *(a3 + 17);
-  *&v17[15] = *(a3 + 32);
+  *&v17[15] = *(a3 + 4);
   sub_1B43FF710(a1, &v15);
   v15 = v9;
   v16 = *(a3 + 1);
   *v17 = *(a3 + 17);
-  *&v17[15] = *(a3 + 32);
+  *&v17[15] = *(a3 + 4);
   sub_1B43FDFC0(&v15, a1, a2, v10, a4);
   swift_unknownObjectRelease();
   swift_beginAccess();
@@ -8765,177 +8829,177 @@ uint64_t sub_1B43FDFC0(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5
   return swift_unknownObjectRelease();
 }
 
-id sub_1B43FEEE0()
+id sub_1B43FEEE0(uint64_t a1, uint64_t a2)
 {
   cacheOut[1] = *MEMORY[0x1E69E9840];
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
-  v2 = sub_1B4416070();
-  v3 = [objc_opt_self() imageNamed_];
+  v4 = sub_1B4416070();
+  v5 = [objc_opt_self() imageNamed_];
 
-  if (v3)
+  if (v5)
   {
-    [v3 size];
-    v5 = v4;
-    [v3 scale];
-    v7 = v5 * v6;
-    if (COERCE__INT64(fabs(v5 * v6)) > 0x7FEFFFFFFFFFFFFFLL)
+    [v5 size];
+    v7 = v6;
+    [v5 scale];
+    v9 = v7 * v8;
+    if (COERCE__INT64(fabs(v7 * v8)) > 0x7FEFFFFFFFFFFFFFLL)
     {
       __break(1u);
     }
 
-    else if (v7 > -9.22337204e18)
+    else if (v9 > -9.22337204e18)
     {
-      if (v7 < 9.22337204e18)
+      if (v9 < 9.22337204e18)
       {
-        [v3 size];
-        v9 = v8;
-        [v3 scale];
-        v11 = v9 * v10;
-        if ((*&v11 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+        [v5 size];
+        v11 = v10;
+        [v5 scale];
+        v13 = v11 * v12;
+        if ((*&v13 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
         {
-          if (v11 > -9.22337204e18)
+          if (v13 > -9.22337204e18)
           {
-            if (v11 < 9.22337204e18)
+            if (v13 < 9.22337204e18)
             {
               cacheOut[0] = 0;
-              v12 = *MEMORY[0x1E695E480];
-              if (CVMetalTextureCacheCreate(*MEMORY[0x1E695E480], 0, *(v0 + 16), 0, cacheOut) || (v13 = cacheOut[0]) == 0)
+              v14 = *MEMORY[0x1E695E480];
+              if (CVMetalTextureCacheCreate(*MEMORY[0x1E695E480], 0, *(v2 + 16), 0, cacheOut) || (v15 = cacheOut[0]) == 0)
               {
 
 LABEL_33:
                 return 0;
               }
 
-              v55 = v3;
-              v56 = DeviceRGB;
-              __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB898D20);
+              v57 = v5;
+              v58 = DeviceRGB;
+              __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB898D20, &qword_1B44298D0);
               inited = swift_initStackObject();
               *(inited + 16) = xmmword_1B4428FE0;
-              v15 = *MEMORY[0x1E6966208];
+              v17 = *MEMORY[0x1E6966208];
               *(inited + 32) = *MEMORY[0x1E6966208];
-              v16 = MEMORY[0x1E69E6530];
-              v54 = v7;
-              *(inited + 40) = v7;
-              v17 = *MEMORY[0x1E69660B8];
-              *(inited + 64) = v16;
-              *(inited + 72) = v17;
-              v53 = v11;
-              *(inited + 80) = v11;
-              v18 = *MEMORY[0x1E6966130];
-              *(inited + 104) = v16;
-              *(inited + 112) = v18;
-              v19 = MEMORY[0x1E69E7668];
+              v18 = MEMORY[0x1E69E6530];
+              v56 = v9;
+              *(inited + 40) = v9;
+              v19 = *MEMORY[0x1E69660B8];
+              *(inited + 64) = v18;
+              *(inited + 72) = v19;
+              v55 = v13;
+              *(inited + 80) = v13;
+              v20 = *MEMORY[0x1E6966130];
+              *(inited + 104) = v18;
+              *(inited + 112) = v20;
+              v21 = MEMORY[0x1E69E7668];
               *(inited + 120) = 1111970369;
-              v20 = *MEMORY[0x1E6966030];
-              *(inited + 144) = v19;
-              *(inited + 152) = v20;
-              v21 = MEMORY[0x1E69E6370];
+              v22 = *MEMORY[0x1E6966030];
+              *(inited + 144) = v21;
+              *(inited + 152) = v22;
+              v23 = MEMORY[0x1E69E6370];
               *(inited + 160) = 1;
-              v22 = v12;
-              v23 = *MEMORY[0x1E6966028];
-              *(inited + 184) = v21;
-              *(inited + 192) = v23;
+              v24 = v14;
+              v25 = *MEMORY[0x1E6966028];
+              *(inited + 184) = v23;
+              *(inited + 192) = v25;
               *(inited + 200) = 1;
-              v24 = *MEMORY[0x1E6966100];
-              *(inited + 224) = v21;
-              *(inited + 232) = v24;
+              v26 = *MEMORY[0x1E6966100];
+              *(inited + 224) = v23;
+              *(inited + 232) = v26;
               *(inited + 240) = 1;
-              v25 = *MEMORY[0x1E69660D8];
-              *(inited + 264) = v21;
-              *(inited + 272) = v25;
-              textureCache = v13;
-              v26 = v15;
-              v27 = v17;
-              v28 = v18;
-              v29 = v20;
-              v30 = v23;
-              v31 = v24;
+              v27 = *MEMORY[0x1E69660D8];
+              *(inited + 264) = v23;
+              *(inited + 272) = v27;
+              textureCache = v15;
+              v28 = v17;
+              v29 = v19;
+              v30 = v20;
+              v31 = v22;
               v32 = v25;
+              v33 = v26;
+              v34 = v27;
               sub_1B440A1CC(MEMORY[0x1E69E7CC0]);
               type metadata accessor for CFString(0);
               sub_1B43FFE24();
-              v33 = sub_1B4416050();
-
-              type metadata accessor for CFDictionary(0);
-              *(inited + 304) = v34;
-              *(inited + 280) = v33;
-              sub_1B440A1CC(inited);
-              swift_setDeallocating();
-              __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB898D30);
-              swift_arrayDestroy();
               v35 = sub_1B4416050();
 
-              __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8992E0);
-              v36 = swift_initStackObject();
-              v37 = MEMORY[0x1E6966158];
-              *(v36 + 16) = xmmword_1B4428FF0;
-              v38 = *v37;
-              *(v36 + 32) = v38;
-              *(v36 + 40) = 1;
-              v39 = v38;
-              sub_1B440A2F4(v36);
+              type metadata accessor for CFDictionary(0);
+              *(inited + 304) = v36;
+              *(inited + 280) = v35;
+              sub_1B440A1CC(inited);
               swift_setDeallocating();
-              sub_1B43FFE7C(v36 + 32);
-              v40 = sub_1B4416050();
+              __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB898D30, &unk_1B44292E0);
+              swift_arrayDestroy();
+              v37 = sub_1B4416050();
+
+              __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8992E0, &unk_1B4429680);
+              v38 = swift_initStackObject();
+              v39 = MEMORY[0x1E6966158];
+              *(v38 + 16) = xmmword_1B4428FF0;
+              v40 = *v39;
+              *(v38 + 32) = v40;
+              *(v38 + 40) = 1;
+              v41 = v40;
+              sub_1B440A2F4(v38);
+              swift_setDeallocating();
+              sub_1B43FFE7C(v38 + 32);
+              v42 = sub_1B4416050();
 
               poolOut = 0;
-              if (CVPixelBufferPoolCreate(v22, v40, v35, &poolOut) || !poolOut)
+              if (CVPixelBufferPoolCreate(v24, v42, v37, &poolOut) || !poolOut)
               {
 
-                v52 = textureCache;
+                v54 = textureCache;
 LABEL_32:
 
                 goto LABEL_33;
               }
 
               pixelBufferOut = 0;
-              v41 = poolOut;
-              if (CVPixelBufferPoolCreatePixelBuffer(v22, v41, &pixelBufferOut) || !pixelBufferOut)
+              v43 = poolOut;
+              if (CVPixelBufferPoolCreatePixelBuffer(v24, v43, &pixelBufferOut) || !pixelBufferOut)
               {
               }
 
               else
               {
-                v42 = pixelBufferOut;
-                CVPixelBufferLockBaseAddress(v42, 0);
-                BaseAddress = CVPixelBufferGetBaseAddress(v42);
+                v44 = pixelBufferOut;
+                CVPixelBufferLockBaseAddress(v44, 0);
+                BaseAddress = CVPixelBufferGetBaseAddress(v44);
                 if (BaseAddress)
                 {
-                  v44 = BaseAddress;
-                  BytesPerRow = CVPixelBufferGetBytesPerRow(v42);
-                  v46 = __CGBitmapContextCreate(v44, v54, v53, BytesPerRow, v56);
-                  if (v46)
+                  v46 = BaseAddress;
+                  BytesPerRow = CVPixelBufferGetBytesPerRow(v44);
+                  v48 = __CGBitmapContextCreate(v46, v56, v55, BytesPerRow, v58);
+                  if (v48)
                   {
-                    v47 = v53;
-                    v48 = v46;
-                    CGContextTranslateCTM(v46, 0.0, v53);
-                    CGContextScaleCTM(v48, 1.0, -1.0);
-                    UIGraphicsPushContext(v48);
-                    [v55 drawInRect_];
+                    v49 = v55;
+                    v50 = v48;
+                    CGContextTranslateCTM(v48, 0.0, v55);
+                    CGContextScaleCTM(v50, 1.0, -1.0);
+                    UIGraphicsPushContext(v50);
+                    [v57 drawInRect_];
                     UIGraphicsPopContext();
-                    CVPixelBufferUnlockBaseAddress(v42, 0);
+                    CVPixelBufferUnlockBaseAddress(v44, 0);
                     textureOut = 0;
-                    if (v54 > -9.22337204e18)
+                    if (v56 > -9.22337204e18)
                     {
-                      if (v54 < 9.22337204e18)
+                      if (v56 < 9.22337204e18)
                       {
-                        if (v47 > -9.22337204e18)
+                        if (v49 > -9.22337204e18)
                         {
-                          if (v47 < 9.22337204e18)
+                          if (v49 < 9.22337204e18)
                           {
-                            if (CVMetalTextureCacheCreateTextureFromImage(v22, textureCache, v42, 0, MTLPixelFormatBGRA8Unorm, v54, v53, 0, &textureOut) || !textureOut)
+                            if (CVMetalTextureCacheCreateTextureFromImage(v24, textureCache, v44, 0, MTLPixelFormatBGRA8Unorm, v56, v55, 0, &textureOut) || !textureOut)
                             {
                             }
 
                             else
                             {
-                              v49 = textureOut;
-                              v50 = CVMetalTextureGetTexture(v49);
+                              v51 = textureOut;
+                              v52 = CVMetalTextureGetTexture(v51);
 
-                              if (v50)
+                              if (v52)
                               {
 
-                                return v50;
+                                return v52;
                               }
                             }
 
@@ -8964,7 +9028,7 @@ LABEL_41:
               }
 
 LABEL_31:
-              v52 = pixelBufferOut;
+              v54 = pixelBufferOut;
               goto LABEL_32;
             }
 
@@ -8995,7 +9059,7 @@ LABEL_37:
   return 0;
 }
 
-uint64_t StickerComicRenderer.deinit()
+void *StickerComicRenderer.deinit()
 {
   swift_unknownObjectRelease();
 
@@ -9453,16 +9517,16 @@ unint64_t sub_1B43FFE24()
 
 uint64_t sub_1B43FFE7C(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB898D40);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB898D40, qword_1B44292F0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-id sub_1B43FFF18()
+id sub_1B43FFF18(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for StickerComicLookupFilterShader();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for StickerComicLookupFilterShader();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 id sub_1B43FFF70(void *a1)
@@ -9472,11 +9536,11 @@ id sub_1B43FFF70(void *a1)
   return [a1 setFragmentBytes:v3 length:8 atIndex:0];
 }
 
-id sub_1B43FFFE8()
+id sub_1B43FFFE8(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for StickerComicColorStrokeShader();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for StickerComicColorStrokeShader();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 uint64_t VKCStickerEffectType.description.getter(uint64_t a1)
@@ -9701,20 +9765,20 @@ _BYTE *sub_1B4400B78()
   return result;
 }
 
-id sub_1B4400C28(uint64_t a1, uint64_t a2, void *a3, void **a4)
+id sub_1B4400C28(uint64_t a1, uint64_t a2, void *a3, void **a4, uint64_t a5)
 {
   if (*a3 == -1)
   {
-    v5 = *a4;
+    v6 = *a4;
   }
 
   else
   {
     swift_once();
-    v5 = *a4;
+    v6 = *a4;
   }
 
-  return v5;
+  return v6;
 }
 
 id StickerEffect.init()()
@@ -9754,71 +9818,4 @@ id StickerEffect.init()()
   v6.receiver = v0;
   v6.super_class = type metadata accessor for StickerEffect();
   return objc_msgSendSuper2(&v6, sel_init);
-}
-
-id StickerEffect.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for StickerEffect();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
-}
-
-uint64_t sub_1B4400EA4(uint64_t a1)
-{
-  if (a1 <= 1)
-  {
-    if (a1 != 1)
-    {
-LABEL_12:
-      if (qword_1EB898A48 != -1)
-      {
-        swift_once();
-      }
-
-      v1 = &qword_1EB89A4D8;
-      return *v1;
-    }
-
-    if (qword_1EB898A50 != -1)
-    {
-      swift_once();
-    }
-
-    v1 = &qword_1EB89A4E0;
-  }
-
-  else
-  {
-    switch(a1)
-    {
-      case 2:
-        if (qword_1EB898A58 != -1)
-        {
-          swift_once();
-        }
-
-        v1 = &qword_1EB89A4E8;
-        break;
-      case 3:
-        if (qword_1EB898A60 != -1)
-        {
-          swift_once();
-        }
-
-        v1 = &qword_1EB89A4F0;
-        break;
-      case 4:
-        if (qword_1EB898A68 != -1)
-        {
-          swift_once();
-        }
-
-        v1 = &qword_1EB89A4F8;
-        return *v1;
-      default:
-        goto LABEL_12;
-    }
-  }
-
-  return *v1;
 }

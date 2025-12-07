@@ -17,7 +17,7 @@
 - (NSString)actionNameForUndoing
 {
   selfCopy = self;
-  DOCTrashOperation.actionNameForUndoing.getter();
+  DOCTrashOperation.actionNameForUndoing.getter(selfCopy);
   v4 = v3;
   v6 = v5;
 

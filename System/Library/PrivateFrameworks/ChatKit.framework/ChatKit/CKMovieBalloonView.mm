@@ -68,7 +68,7 @@
     v23 = 0u;
     v20 = 0u;
     v21 = 0u;
-    [(CKBalloonView *)self balloonDescriptor];
+    objc_msgSend_balloonDescriptor(self);
     videoPlayerMaskLayer = self->_videoPlayerMaskLayer;
     if (!videoPlayerMaskLayer)
     {

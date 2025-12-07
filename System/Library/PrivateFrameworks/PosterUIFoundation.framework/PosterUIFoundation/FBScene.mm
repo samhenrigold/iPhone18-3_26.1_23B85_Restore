@@ -47,7 +47,7 @@ void __172__FBScene_PosterUIFoundation___pui_checkForSuitableSnapshotBundlesWith
   v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = PUILogSnapshotting();
+  v7 = PUILogSnapshotting(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -245,65 +245,65 @@ void __172__FBScene_PosterUIFoundation___pui_checkForSuitableSnapshotBundlesWith
 
 void __126__FBScene_PosterUIFoundation___pui_executeOutOfProcessSnapshotWithPromise_descriptor_outputDestination_snapshottingAssertion___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
   if (v4)
   {
-    v5 = PUILogSnapshotting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PUILogSnapshotting(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v3 error];
+      v7 = [v3 error];
       *buf = 138412290;
-      v27 = v6;
-      _os_log_impl(&dword_1A8C85000, v5, OS_LOG_TYPE_DEFAULT, "Received response error for out of process snapshot: %@", buf, 0xCu);
+      v28 = v7;
+      _os_log_impl(&dword_1A8C85000, v6, OS_LOG_TYPE_DEFAULT, "Received response error for out of process snapshot: %@", buf, 0xCu);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v10 = a1 + 48;
-    v9 = *(a1 + 48);
-    v11 = *(*(*(v10 + 8) + 8) + 40);
-    v12 = [v3 error];
-    [v7 _pui_finishAndCleanupSnapshottingPromise:v8 bundle:0 outputDestination:v11 snapshottingAssertion:v9 error:v12];
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v11 = a1 + 48;
+    v10 = *(a1 + 48);
+    v12 = *(*(*(v11 + 8) + 8) + 40);
+    v13 = [v3 error];
+    [v8 _pui_finishAndCleanupSnapshottingPromise:v9 bundle:0 outputDestination:v12 snapshottingAssertion:v10 error:v13];
   }
 
   else
   {
-    v13 = [v3 info];
-    v12 = [v13 objectForSetting:0];
+    v14 = [v3 info];
+    v13 = [v14 objectForSetting:0];
 
-    if (v12)
+    if (v13)
     {
-      v23 = 0;
-      v14 = [PUIPosterSnapshotBundle snapshotBundleAtURL:v12 error:&v23];
-      if (v23)
+      v24 = 0;
+      v15 = [PUIPosterSnapshotBundle snapshotBundleAtURL:v13 error:&v24];
+      if (v24)
       {
-        v15 = 0;
+        v16 = 0;
       }
 
       else
       {
-        v15 = v14;
+        v16 = v15;
       }
 
-      [*(a1 + 32) _pui_finishAndCleanupSnapshottingPromise:*(a1 + 40) bundle:v15 outputDestination:*(*(*(a1 + 56) + 8) + 40) snapshottingAssertion:*(a1 + 48) error:?];
+      [*(a1 + 32) _pui_finishAndCleanupSnapshottingPromise:*(a1 + 40) bundle:v16 outputDestination:*(*(*(a1 + 56) + 8) + 40) snapshottingAssertion:*(a1 + 48) error:?];
     }
 
     else
     {
-      v16 = *(a1 + 32);
-      v17 = *(a1 + 40);
-      v19 = a1 + 48;
-      v18 = *(a1 + 48);
-      v20 = *(*(*(v19 + 8) + 8) + 40);
-      v21 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A588];
-      v25 = @"snapshotBundleURL was nil before sending back.";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-      v22 = [v21 pui_errorWithCode:7 userInfo:v14];
-      [v16 _pui_finishAndCleanupSnapshottingPromise:v17 bundle:0 outputDestination:v20 snapshottingAssertion:v18 error:v22];
+      v17 = *(a1 + 32);
+      v18 = *(a1 + 40);
+      v20 = a1 + 48;
+      v19 = *(a1 + 48);
+      v21 = *(*(*(v20 + 8) + 8) + 40);
+      v22 = MEMORY[0x1E696ABC0];
+      v25 = *MEMORY[0x1E696A588];
+      v26 = @"snapshotBundleURL was nil before sending back.";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v23 = [v22 pui_errorWithCode:7 userInfo:v15];
+      [v17 _pui_finishAndCleanupSnapshottingPromise:v18 bundle:0 outputDestination:v21 snapshottingAssertion:v19 error:v23];
     }
   }
 }
@@ -694,31 +694,31 @@ uint64_t __60__FBScene_PosterUIFoundation__pui_invalidateWithCompletion___block_
 
 void __60__FBScene_PosterUIFoundation__pui_invalidateWithCompletion___block_invoke_117(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) signal])
   {
     v4 = [v3 error];
 
-    v5 = PUILogCommon();
-    v6 = v5;
+    v6 = PUILogCommon(v5);
+    v7 = v6;
     if (v4)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __60__FBScene_PosterUIFoundation__pui_invalidateWithCompletion___block_invoke_117_cold_1(a1, v3, v6);
+        __60__FBScene_PosterUIFoundation__pui_invalidateWithCompletion___block_invoke_117_cold_1(a1, v3, v7);
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v8 = *(a1 + 48);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v8;
-      _os_log_impl(&dword_1A8C85000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] ack from pui_isInvalidated to %{public}@", &v9, 0x16u);
+      v8 = *(a1 + 40);
+      v9 = *(a1 + 48);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v9;
+      _os_log_impl(&dword_1A8C85000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] ack from pui_isInvalidated to %{public}@", &v10, 0x16u);
     }
 
     [*(a1 + 56) pui_setPosterPath:0];

@@ -13,10 +13,10 @@
 
 - (CCPeopleSuggesterContactPriorContent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v61 = 0;
+  v60 = 0;
   IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
   v8 = 0;
   if (IsInstanceOfExpectedClass)
@@ -28,7 +28,7 @@
     {
       v12 = v11;
       objc_opt_class();
-      v60 = v8;
+      v59 = v8;
       v13 = CCValidateIsInstanceOfExpectedClass();
       v14 = v8;
 
@@ -43,35 +43,35 @@ LABEL_33:
         goto LABEL_34;
       }
 
-      v41 = v10;
-      v42 = v9;
+      v40 = v10;
+      v41 = v9;
       selfCopy = self;
       v15 = objc_opt_new();
+      v55 = 0u;
       v56 = 0u;
       v57 = 0u;
       v58 = 0u;
-      v59 = 0u;
       v16 = v12;
-      v17 = [v16 countByEnumeratingWithState:&v56 objects:v63 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v55 objects:v62 count:16];
       errorCopy = error;
       if (v17)
       {
         v18 = v17;
-        v19 = *v57;
+        v19 = *v56;
         while (2)
         {
           v20 = 0;
           v21 = v14;
           do
           {
-            if (*v57 != v19)
+            if (*v56 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v22 = *(*(&v56 + 1) + 8 * v20);
+            v22 = *(*(&v55 + 1) + 8 * v20);
             objc_opt_class();
-            v55 = v21;
+            v54 = v21;
             v23 = CCValidateIsInstanceOfExpectedClass();
             v14 = v21;
 
@@ -82,8 +82,8 @@ LABEL_33:
               v24 = 0;
               v15 = v16;
               self = selfCopy;
-              v10 = v41;
-              v9 = v42;
+              v10 = v40;
+              v9 = v41;
               goto LABEL_33;
             }
 
@@ -93,7 +93,7 @@ LABEL_33:
           }
 
           while (v18 != v20);
-          v18 = [v16 countByEnumeratingWithState:&v56 objects:v63 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v55 objects:v62 count:16];
           if (v18)
           {
             continue;
@@ -105,8 +105,8 @@ LABEL_33:
 
       v8 = v14;
       self = selfCopy;
-      v10 = v41;
-      v9 = v42;
+      v10 = v40;
+      v9 = v41;
       error = errorCopy;
     }
 
@@ -120,7 +120,7 @@ LABEL_33:
     {
       v26 = v25;
       objc_opt_class();
-      v54 = v8;
+      v53 = v8;
       v27 = CCValidateIsInstanceOfExpectedClass();
       v14 = v8;
 
@@ -131,34 +131,34 @@ LABEL_33:
         goto LABEL_32;
       }
 
-      v40 = v15;
+      v39 = v15;
       selfCopy2 = self;
       errorCopy3 = error;
-      v43 = v9;
-      v44 = dictionaryCopy;
+      v42 = v9;
+      v43 = dictionaryCopy;
       v28 = objc_opt_new();
+      v49 = 0u;
       v50 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v53 = 0u;
       v26 = v26;
-      v29 = [v26 countByEnumeratingWithState:&v50 objects:v62 count:16];
+      v29 = [v26 countByEnumeratingWithState:&v49 objects:v61 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v51;
+        v31 = *v50;
         while (2)
         {
           v32 = 0;
           v33 = v14;
           do
           {
-            if (*v51 != v31)
+            if (*v50 != v31)
             {
               objc_enumerationMutation(v26);
             }
 
-            v34 = *(*(&v50 + 1) + 8 * v32);
+            v34 = *(*(&v49 + 1) + 8 * v32);
             objc_opt_class();
             v35 = CCValidateIsInstanceOfExpectedClass();
             v14 = v33;
@@ -168,10 +168,10 @@ LABEL_33:
               CCSetError();
 
               v24 = 0;
-              dictionaryCopy = v44;
+              dictionaryCopy = v43;
               self = selfCopy2;
-              v9 = v43;
-              v15 = v40;
+              v9 = v42;
+              v15 = v39;
               goto LABEL_32;
             }
 
@@ -182,7 +182,7 @@ LABEL_33:
           }
 
           while (v30 != v32);
-          v30 = [v26 countByEnumeratingWithState:&v50 objects:v62 count:16];
+          v30 = [v26 countByEnumeratingWithState:&v49 objects:v61 count:16];
           if (v30)
           {
             continue;
@@ -192,26 +192,26 @@ LABEL_33:
         }
       }
 
-      dictionaryCopy = v44;
+      dictionaryCopy = v43;
       self = selfCopy2;
-      v9 = v43;
+      v9 = v42;
     }
 
     else
     {
-      v40 = v15;
+      v39 = v15;
       errorCopy3 = error;
       v28 = 0;
       v14 = v8;
     }
 
-    v47 = [dictionaryCopy objectForKeyedSubscript:@"modelName"];
+    v46 = [dictionaryCopy objectForKeyedSubscript:@"modelName"];
     v36 = [dictionaryCopy objectForKeyedSubscript:@"modelVersion"];
     v37 = [dictionaryCopy objectForKeyedSubscript:@"referenceDate"];
-    v24 = [[CCPeopleSuggesterContactPriorContent alloc] initWithVersion:v9 minVersion:v10 sourceSharedIdentifier:v40 priorScore:v28 modelName:v47 modelVersion:v36 referenceDate:v37 error:errorCopy3];
+    v24 = [[CCPeopleSuggesterContactPriorContent alloc] initWithVersion:v9 minVersion:v10 sourceSharedIdentifier:v39 priorScore:v28 modelName:v46 modelVersion:v36 referenceDate:v37 error:errorCopy3];
 
     v26 = v28;
-    v15 = v40;
+    v15 = v39;
 LABEL_32:
 
     goto LABEL_33;
@@ -221,7 +221,6 @@ LABEL_32:
   v24 = 0;
 LABEL_34:
 
-  v38 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -377,7 +376,7 @@ void __54__CCPeopleSuggesterContactPriorContent_jsonDictionary__block_invoke_2(u
   v9 = MEMORY[0x1E6993AB0];
   if (*&v7[*MEMORY[0x1E6993AB8]] < *&v7[*MEMORY[0x1E6993AB0]])
   {
-    v68 = 0;
+    v65 = 0;
     v10 = 0;
     v11 = 0;
     v12 = MEMORY[0x1E6993AA8];
@@ -501,35 +500,35 @@ LABEL_60:
 LABEL_62:
             v11 = 0;
             self->_version = v34;
-            v53 = 16;
+            v52 = 16;
             break;
           case 2:
+            v45 = 0;
             v46 = 0;
             v47 = 0;
-            v48 = 0;
             while (1)
             {
-              v49 = *v8;
-              v50 = *&v7[v49];
-              v51 = v50 + 1;
-              if (v50 == -1 || v51 > *&v7[*v9])
+              v48 = *v8;
+              v49 = *&v7[v48];
+              v50 = v49 + 1;
+              if (v49 == -1 || v50 > *&v7[*v9])
               {
                 break;
               }
 
-              v52 = *(*&v7[*v13] + v50);
-              *&v7[v49] = v51;
-              v48 |= (v52 & 0x7F) << v46;
-              if ((v52 & 0x80) == 0)
+              v51 = *(*&v7[*v13] + v49);
+              *&v7[v48] = v50;
+              v47 |= (v51 & 0x7F) << v45;
+              if ((v51 & 0x80) == 0)
               {
                 goto LABEL_64;
               }
 
-              v46 += 7;
-              v22 = v47++ >= 9;
+              v45 += 7;
+              v22 = v46++ >= 9;
               if (v22)
               {
-                LODWORD(v48) = 0;
+                LODWORD(v47) = 0;
                 goto LABEL_66;
               }
             }
@@ -538,13 +537,13 @@ LABEL_62:
 LABEL_64:
             if (*&v7[*v12])
             {
-              LODWORD(v48) = 0;
+              LODWORD(v47) = 0;
             }
 
 LABEL_66:
             v11 = 0;
-            self->_minVersion = v48;
-            v53 = 17;
+            self->_minVersion = v47;
+            v52 = 17;
             break;
           case 3:
             if (!v10)
@@ -563,16 +562,15 @@ LABEL_44:
             {
               v39 = objc_opt_class();
               NSStringFromClass(v39);
-              v67 = v10;
+              v64 = v10;
               errorCopy = error;
               v42 = v41 = dataCopy;
-              v43 = *&v7[*MEMORY[0x1E6993AA8]];
               v11 = CCSkipFieldErrorForMessage();
 
               v12 = MEMORY[0x1E6993AA8];
               dataCopy = v41;
               error = errorCopy;
-              v10 = v67;
+              v10 = v64;
               goto LABEL_70;
             }
 
@@ -591,7 +589,7 @@ LABEL_44:
               v27 = CCPBReaderReadStringNoCopy();
               v28 = 48;
 LABEL_51:
-              v45 = *(&self->super.super.isa + v28);
+              v44 = *(&self->super.super.isa + v28);
               *(&self->super.super.isa + v28) = v27;
 
               v12 = MEMORY[0x1E6993AA8];
@@ -602,13 +600,13 @@ LABEL_51:
             goto LABEL_44;
           }
 
-          v44 = v68;
-          if (!v68)
+          v43 = v65;
+          if (!v65)
           {
-            v44 = objc_opt_new();
+            v43 = objc_opt_new();
           }
 
-          v68 = v44;
+          v65 = v43;
           CCPBReaderAppendRepeatedFloatFieldValues();
           goto LABEL_49;
         }
@@ -641,10 +639,10 @@ LABEL_51:
 
         v11 = 0;
         self->_referenceDate = v31;
-        v53 = 18;
+        v52 = 18;
       }
 
-      *(&self->super.super.isa + v53) = 1;
+      *(&self->super.super.isa + v52) = 1;
 LABEL_70:
       if (*&v7[*v8] < *&v7[*v9])
       {
@@ -656,19 +654,19 @@ LABEL_70:
   }
 
   v10 = 0;
-  v68 = 0;
+  v65 = 0;
 LABEL_73:
   v11 = 0;
 LABEL_74:
-  v54 = [v10 copy];
+  v53 = [v10 copy];
   sourceSharedIdentifier = self->_sourceSharedIdentifier;
-  self->_sourceSharedIdentifier = v54;
+  self->_sourceSharedIdentifier = v53;
 
-  v56 = [v68 copy];
+  v55 = [v65 copy];
   priorScore = self->_priorScore;
-  self->_priorScore = v56;
+  self->_priorScore = v55;
 
-  v58 = v10;
+  v57 = v10;
   if (v11)
   {
     CCSetError();
@@ -676,27 +674,25 @@ LABEL_74:
 
   else
   {
-    v59 = MEMORY[0x1E6993AA8];
     if (!*&v7[*MEMORY[0x1E6993AA8]])
     {
-      v65 = 1;
+      v62 = 1;
       goto LABEL_79;
     }
 
-    v60 = objc_opt_class();
-    v61 = NSStringFromClass(v60);
-    v62 = *&v7[*v59];
+    v58 = objc_opt_class();
+    v59 = NSStringFromClass(v58);
     CCInvalidBufferErrorForMessage();
-    v64 = v63 = dataCopy;
+    v61 = v60 = dataCopy;
     CCSetError();
 
-    dataCopy = v63;
+    dataCopy = v60;
   }
 
-  v65 = 0;
+  v62 = 0;
 LABEL_79:
 
-  return v65;
+  return v62;
 }
 
 - (CCPeopleSuggesterContactPriorContent)initWithVersion:(id)version minVersion:(id)minVersion sourceSharedIdentifier:(id)identifier priorScore:(id)score modelName:(id)name modelVersion:(id)modelVersion referenceDate:(id)date error:(id *)self0
@@ -796,7 +792,6 @@ LABEL_12:
 
   CCPBDataWriterWriteRepeatedFloatField();
 LABEL_14:
-  v27 = 0x1E696A000uLL;
   if (!nameCopy)
   {
     v22 = v23;
@@ -804,19 +799,18 @@ LABEL_14:
   }
 
   objc_opt_class();
-  v28 = CCValidateIsInstanceOfExpectedClass();
+  v27 = CCValidateIsInstanceOfExpectedClass();
   v22 = v23;
 
-  if (!v28)
+  if (!v27)
   {
 LABEL_26:
     CCSetError();
-    v31 = 0;
+    v29 = 0;
     goto LABEL_27;
   }
 
   CCPBDataWriterWriteStringField();
-  v27 = 0x1E696A000;
 LABEL_18:
   if (!modelVersionCopy)
   {
@@ -824,12 +818,11 @@ LABEL_18:
     goto LABEL_23;
   }
 
-  v29 = *(v27 + 3776);
   objc_opt_class();
-  v30 = CCValidateIsInstanceOfExpectedClass();
+  v28 = CCValidateIsInstanceOfExpectedClass();
   v23 = v22;
 
-  if (v30)
+  if (v28)
   {
     CCPBDataWriterWriteStringField();
 LABEL_23:
@@ -840,18 +833,18 @@ LABEL_23:
     }
 
     objc_opt_class();
-    v32 = CCValidateIsInstanceOfExpectedClass();
+    v30 = CCValidateIsInstanceOfExpectedClass();
     v22 = v23;
 
-    if (v32)
+    if (v30)
     {
       [dateCopy doubleValue];
       CCPBDataWriterWriteDoubleField();
 LABEL_30:
       immutableData = [v20 immutableData];
-      selfCopy = [v37 initWithData:immutableData error:error];
+      selfCopy = [v35 initWithData:immutableData error:error];
 
-      v31 = selfCopy;
+      v29 = selfCopy;
       goto LABEL_28;
     }
 
@@ -860,13 +853,13 @@ LABEL_30:
 
 LABEL_21:
   CCSetError();
-  v31 = 0;
+  v29 = 0;
   v22 = v23;
 LABEL_27:
   selfCopy = self;
 LABEL_28:
 
-  return v31;
+  return v29;
 }
 
 + (id)descriptionForTypeIdentifier:(unsigned __int16)identifier

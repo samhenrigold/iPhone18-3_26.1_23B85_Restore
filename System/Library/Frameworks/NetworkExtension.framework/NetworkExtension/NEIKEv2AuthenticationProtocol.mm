@@ -510,42 +510,42 @@ LABEL_12:
 
 + (uint64_t)getAlgorithmForRSAPSSParameters:(uint64_t)parameters
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v3 = DERParseSequenceToObject(a2, 4u, &NEIKEv2ASN1RSAPSSAlgoParamItemSpecs, &v32, 0x40uLL, 0x40uLL);
-  v36 = v3;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v3 = DERParseSequenceToObject(a2, 4u, &NEIKEv2ASN1RSAPSSAlgoParamItemSpecs, &v31, 0x40uLL, 0x40uLL);
+  v35 = v3;
   if (v3)
   {
-    v27 = v3;
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v26 = v3;
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    LODWORD(v45) = 67109120;
-    DWORD1(v45) = v27;
-    v23 = "Could not parse RSA-PSS parameters, error %d";
+    LODWORD(v44) = 67109120;
+    DWORD1(v44) = v26;
+    v22 = "Could not parse RSA-PSS parameters, error %d";
     goto LABEL_62;
   }
 
-  v4 = NEIKEv2ASN1CheckForNULLItem(&v35, &v36);
-  v5 = v36;
-  if (v36)
+  v4 = NEIKEv2ASN1CheckForNULLItem(&v34, &v35);
+  v5 = v35;
+  if (v35)
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    LODWORD(v45) = 67109120;
-    DWORD1(v45) = v5;
-    v23 = "Could not parse RSA-PSS trailer field parameter, error %d";
+    LODWORD(v44) = 67109120;
+    DWORD1(v44) = v5;
+    v22 = "Could not parse RSA-PSS trailer field parameter, error %d";
     goto LABEL_62;
   }
 
@@ -554,268 +554,265 @@ LABEL_12:
     goto LABEL_6;
   }
 
-  v6 = NEIKEv2ASN1DecodeIntegerItem(&v35, &v36);
-  v7 = v36;
-  if (v36)
+  v6 = NEIKEv2ASN1DecodeIntegerItem(&v34, &v35);
+  v7 = v35;
+  if (v35)
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    LODWORD(v45) = 67109120;
-    DWORD1(v45) = v7;
-    v23 = "Could not parse RSA-PSS trailer field parameter, error %d";
+    LODWORD(v44) = 67109120;
+    DWORD1(v44) = v7;
+    v22 = "Could not parse RSA-PSS trailer field parameter, error %d";
     goto LABEL_62;
   }
 
   if (v6 != 1)
   {
-    v31 = v6;
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v30 = v6;
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    LODWORD(v45) = 67109120;
-    DWORD1(v45) = v31;
-    v23 = "Incorrect RSA-PSS trailer field parameter value %u";
+    LODWORD(v44) = 67109120;
+    DWORD1(v44) = v30;
+    v22 = "Incorrect RSA-PSS trailer field parameter value %u";
 LABEL_62:
-    v24 = &v45;
+    v23 = &v44;
     goto LABEL_63;
   }
 
 LABEL_6:
+  v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v8 = DERParseSequenceToObject(&v32, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v45, 0x20uLL, 0x20uLL);
-  v36 = v8;
+  v8 = DERParseSequenceToObject(&v31, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v44, 0x20uLL, 0x20uLL);
+  v35 = v8;
   if (v8)
   {
-    v28 = v8;
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v27 = v8;
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    LODWORD(v43) = 67109120;
-    DWORD1(v43) = v28;
-    v23 = "Could not parse RSA-PSS HashAlgorithm, error %d";
+    LODWORD(v42) = 67109120;
+    DWORD1(v42) = v27;
+    v22 = "Could not parse RSA-PSS HashAlgorithm, error %d";
     goto LABEL_38;
   }
 
-  v9 = NEIKEv2ASN1CheckForNULLItem(&v46, &v36);
-  v10 = v36;
-  if (v36)
+  v9 = NEIKEv2ASN1CheckForNULLItem(&v45, &v35);
+  v10 = v35;
+  if (v35)
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    LODWORD(v43) = 67109120;
-    DWORD1(v43) = v10;
-    v23 = "Could not parse RSA-PSS HashAlgorithm parameters, error %d";
+    LODWORD(v42) = 67109120;
+    DWORD1(v42) = v10;
+    v22 = "Could not parse RSA-PSS HashAlgorithm parameters, error %d";
 LABEL_38:
-    v24 = &v43;
+    v23 = &v42;
 LABEL_63:
-    v25 = v22;
-    v26 = 8;
+    v24 = v21;
+    v25 = 8;
     goto LABEL_29;
   }
 
   if ((v9 & 1) == 0)
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    LOWORD(v43) = 0;
-    v23 = "Unexpected non-NULL HashAlgorithm parameters";
-    v24 = &v43;
+    LOWORD(v42) = 0;
+    v22 = "Unexpected non-NULL HashAlgorithm parameters";
+    v23 = &v42;
     goto LABEL_28;
   }
 
+  v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v11 = DERParseSequenceToObject(&v33, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v43, 0x20uLL, 0x20uLL);
+  v11 = DERParseSequenceToObject(&v32, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v42, 0x20uLL, 0x20uLL);
   if (v11)
   {
-    v29 = v11;
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v28 = v11;
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    LODWORD(v41) = 67109120;
-    DWORD1(v41) = v29;
-    v23 = "Could not parse RSA-PSS MaskGenAlgorithm, error %d";
-    v24 = &v41;
+    LODWORD(v40) = 67109120;
+    DWORD1(v40) = v28;
+    v22 = "Could not parse RSA-PSS MaskGenAlgorithm, error %d";
+    v23 = &v40;
     goto LABEL_63;
   }
 
-  if (!DEROidCompare(&v43, &oidMfg1))
+  if (!DEROidCompare(&v42, &oidMfg1))
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    LOWORD(v41) = 0;
-    v23 = "Incorrect RSA-PSS MaskGenAlgorithm.OID";
-    v24 = &v41;
+    LOWORD(v40) = 0;
+    v22 = "Incorrect RSA-PSS MaskGenAlgorithm.OID";
+    v23 = &v40;
     goto LABEL_28;
   }
 
+  v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v12 = DERParseSequenceToObject(&v44, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v41, 0x20uLL, 0x20uLL);
-  v36 = v12;
+  v12 = DERParseSequenceToObject(&v43, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v40, 0x20uLL, 0x20uLL);
+  v35 = v12;
   if (v12)
   {
-    v30 = v12;
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v29 = v12;
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 67109120;
-    v38 = v30;
-    v23 = "Could not parse RSA-PSS MaskGenAlgorithm parameters, error %d";
+    v37 = v29;
+    v22 = "Could not parse RSA-PSS MaskGenAlgorithm parameters, error %d";
     goto LABEL_55;
   }
 
-  v13 = NEIKEv2ASN1CheckForNULLItem(&v42, &v36);
-  v14 = v36;
-  if (v36)
+  v13 = NEIKEv2ASN1CheckForNULLItem(&v41, &v35);
+  v14 = v35;
+  if (v35)
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 67109120;
-    v38 = v14;
-    v23 = "Could not parse RSA-PSS MaskGenAlgorithm.HashAlgorithm parameters, error %d";
+    v37 = v14;
+    v22 = "Could not parse RSA-PSS MaskGenAlgorithm.HashAlgorithm parameters, error %d";
     goto LABEL_55;
   }
 
   if ((v13 & 1) == 0)
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 0;
-    v23 = "Unexpected non-NULL RSA-PSS MaskGenAlgorithm.HashAlgorithm parameters";
+    v22 = "Unexpected non-NULL RSA-PSS MaskGenAlgorithm.HashAlgorithm parameters";
     goto LABEL_27;
   }
 
-  if (!DEROidCompare(&v45, &v41))
+  if (!DEROidCompare(&v44, &v40))
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 0;
-    v23 = "PSA-PSS hash algorithm OIDs do not match";
+    v22 = "PSA-PSS hash algorithm OIDs do not match";
 LABEL_27:
-    v24 = buf;
+    v23 = buf;
 LABEL_28:
-    v25 = v22;
-    v26 = 2;
+    v24 = v21;
+    v25 = 2;
 LABEL_29:
-    _os_log_error_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_ERROR, v23, v24, v26);
+    _os_log_error_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_ERROR, v22, v23, v25);
     goto LABEL_25;
   }
 
-  if (DEROidCompare(&v45, &oidSha256))
+  if (DEROidCompare(&v44, &oidSha256))
   {
     v15 = 32;
     v16 = 9;
     goto LABEL_21;
   }
 
-  if (DEROidCompare(&v45, &oidSha384))
+  if (DEROidCompare(&v44, &oidSha384))
   {
     v15 = 48;
     v16 = 10;
     goto LABEL_21;
   }
 
-  if (!DEROidCompare(&v45, &oidSha512))
+  if (!DEROidCompare(&v44, &oidSha512))
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
 LABEL_25:
 
-      v16 = 0;
-      goto LABEL_23;
+      return 0;
     }
 
     *buf = 0;
-    v23 = "Unrecognized PSA-PSS hash algorithm OID";
+    v22 = "Unrecognized PSA-PSS hash algorithm OID";
     goto LABEL_27;
   }
 
   v15 = 64;
   v16 = 11;
 LABEL_21:
-  v17 = NEIKEv2ASN1DecodeIntegerItem(&v34, &v36);
-  v18 = v36;
-  if (v36)
+  v17 = NEIKEv2ASN1DecodeIntegerItem(&v33, &v35);
+  v18 = v35;
+  if (v35)
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 67109120;
-    v38 = v18;
-    v23 = "Could not parse RSA-PSS salt length parameter, error %d";
+    v37 = v18;
+    v22 = "Could not parse RSA-PSS salt length parameter, error %d";
 LABEL_55:
-    v24 = buf;
+    v23 = buf;
     goto LABEL_63;
   }
 
   v19 = v17;
   if (v17 != v15)
   {
-    v22 = ne_log_obj();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = ne_log_obj();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 67109376;
-    v38 = v19;
-    v39 = 1024;
-    v40 = v15;
-    v23 = "RSA-PSS salt length %u != expected %u";
-    v24 = buf;
-    v25 = v22;
-    v26 = 14;
+    v37 = v19;
+    v38 = 1024;
+    v39 = v15;
+    v22 = "RSA-PSS salt length %u != expected %u";
+    v23 = buf;
+    v24 = v21;
+    v25 = 14;
     goto LABEL_29;
   }
 
-LABEL_23:
-  v20 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

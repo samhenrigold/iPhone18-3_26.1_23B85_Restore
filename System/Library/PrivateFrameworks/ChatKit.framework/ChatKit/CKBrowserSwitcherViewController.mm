@@ -2118,20 +2118,20 @@ LABEL_14:
 
 - (id)traitCollection
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = CKBrowserSwitcherViewController;
-  traitCollection = [(CKBrowserSwitcherViewController *)&v8 traitCollection];
-  if (CKIsRunningInCameraAppsClient())
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = CKBrowserSwitcherViewController;
+  traitCollection = [(CKBrowserSwitcherViewController *)&v9 traitCollection];
+  if (CKIsRunningInCameraAppsClient(traitCollection, v3))
   {
-    v3 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:2];
-    v4 = MEMORY[0x1E69DD1B8];
-    v9[0] = traitCollection;
-    v9[1] = v3;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
-    v6 = [v4 traitCollectionWithTraitsFromCollections:v5];
+    v4 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:2];
+    v5 = MEMORY[0x1E69DD1B8];
+    v10[0] = traitCollection;
+    v10[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v7 = [v5 traitCollectionWithTraitsFromCollections:v6];
 
-    traitCollection = v6;
+    traitCollection = v7;
   }
 
   return traitCollection;
@@ -2412,31 +2412,31 @@ LABEL_5:
   }
 }
 
-uint64_t __71__CKBrowserSwitcherViewController__transitionSnapshotViewToBrowserView__block_invoke(uint64_t a1)
+uint64_t __71__CKBrowserSwitcherViewController__transitionSnapshotViewToBrowserView__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "====> set the browser view's alpha to 1.0", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "====> set the browser view's alpha to 1.0", v10, 2u);
     }
   }
 
-  v3 = [*(a1 + 32) currentViewController];
-  v4 = objc_opt_respondsToSelector();
+  v4 = [*(a1 + 32) currentViewController];
+  v5 = objc_opt_respondsToSelector();
 
-  if (v4)
+  if (v5)
   {
-    v5 = [*(a1 + 32) currentViewController];
-    [v5 saveSnapshotForBrowserViewController];
+    v6 = [*(a1 + 32) currentViewController];
+    [v6 saveSnapshotForBrowserViewController];
   }
 
-  v6 = *(a1 + 40);
-  v7 = [*(a1 + 32) currentVisiblePlugin];
+  v7 = *(a1 + 40);
+  v8 = [*(a1 + 32) currentVisiblePlugin];
 
-  if (v6 == v7)
+  if (v7 == v8)
   {
     [*(a1 + 32) setBrowserViewReadyForUserInteraction:1];
   }
@@ -3187,15 +3187,15 @@ void __72__CKBrowserSwitcherViewController__switchToVisiblePluginWithIdentifier_
   dispatch_after(v4, MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __61__CKBrowserSwitcherViewController_dragManagerDidEndDragging___block_invoke(uint64_t a1)
+uint64_t __61__CKBrowserSwitcherViewController_dragManagerDidEndDragging___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Switcher heard dragManagerDidEndDragging", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Switcher heard dragManagerDidEndDragging", v5, 2u);
     }
   }
 

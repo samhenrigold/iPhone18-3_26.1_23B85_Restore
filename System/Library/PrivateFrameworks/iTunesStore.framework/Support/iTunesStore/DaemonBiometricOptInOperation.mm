@@ -78,45 +78,48 @@
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      v27 = 138543362;
-      v28 = objc_opt_class();
-      v13 = v28;
-      LODWORD(v25) = 12;
-      v24 = &v27;
-      v14 = _os_log_send_and_compose_impl();
+      v26 = 138543362;
+      v27 = objc_opt_class();
+      v13 = v27;
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed for no biometrics", &v26, 12);
 
       if (!v14)
       {
-LABEL_16:
+LABEL_17:
 
         v7 = SSError();
         v8 = 0;
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, &v27, v25];
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       v24 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   v4 = +[SSAccountStore defaultStore];
@@ -130,7 +133,7 @@ LABEL_16:
       goto LABEL_4;
     }
 
-LABEL_18:
+LABEL_19:
     v15 = +[SSLogConfig sharedDaemonConfig];
     if (!v15)
     {
@@ -140,16 +143,21 @@ LABEL_18:
     shouldLog2 = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog2 | 2;
+      LODWORD(v17) = shouldLog2 | 2;
     }
 
     else
     {
-      v17 = shouldLog2;
+      LODWORD(v17) = shouldLog2;
     }
 
     oSLogObject2 = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -157,45 +165,43 @@ LABEL_18:
     if (v17)
     {
       v19 = objc_opt_class();
-      v27 = 138543362;
-      v28 = v19;
+      v26 = 138543362;
+      v27 = v19;
       v20 = v19;
-      LODWORD(v25) = 12;
-      v24 = &v27;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Failed for no account", &v26, 12);
 
       if (!v21)
       {
-LABEL_29:
+LABEL_31:
 
         v8 = 0;
-        goto LABEL_30;
+        goto LABEL_32;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v21 encoding:4, &v27, v25];
+      oSLogObject2 = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       v24 = oSLogObject2;
       SSFileLog();
     }
 
-    goto LABEL_29;
+    goto LABEL_31;
   }
 
-  v26 = 0;
-  v6 = [(DaemonBiometricOptInOperation *)self _authenticateWithAccount:activeAccount error:&v26];
-  v7 = v26;
+  v25 = 0;
+  v6 = [(DaemonBiometricOptInOperation *)self _authenticateWithAccount:activeAccount error:&v25];
+  v7 = v25;
 
   activeAccount = v6;
   if (!v6)
   {
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
 LABEL_4:
   v8 = [(DaemonBiometricOptInOperation *)self _updateTouchIDSettingsForAccount:activeAccount];
-LABEL_30:
+LABEL_32:
 
-LABEL_31:
+LABEL_33:
   [(DaemonBiometricOptInOperation *)self setError:v7, v24];
   [(DaemonBiometricOptInOperation *)self setSuccess:v8];
   resultBlock = [(DaemonBiometricOptInOperation *)self resultBlock];
@@ -219,7 +225,7 @@ LABEL_31:
   v8 = uniqueIdentifier;
   v9 = objc_opt_new();
   biometricState = [v9 biometricState];
-  v78 = v9;
+  v79 = v9;
   v11 = [v9 tokenAvailabilityForAccountIdentifier:v8];
   v12 = +[ISDevice sharedInstance];
   deviceBiometricStyle = [v12 deviceBiometricStyle];
@@ -246,11 +252,11 @@ LABEL_15:
         v23 = [NSString stringWithFormat:v22, accountName];
 
 LABEL_28:
-LABEL_42:
-        [v5 setReasonDescription:{v23, v73}];
 LABEL_43:
+        [v5 setReasonDescription:{v23, v74}];
+LABEL_44:
 
-        goto LABEL_44;
+        goto LABEL_45;
       }
 
       v24 = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -283,32 +289,14 @@ LABEL_43:
 
       if (!v28)
       {
-        goto LABEL_40;
+        goto LABEL_41;
       }
 
-LABEL_38:
-      v79 = 138543362;
-      v80 = objc_opt_class();
-      v32 = v80;
-      LODWORD(v75) = 12;
-      v73 = &v79;
-      v33 = _os_log_send_and_compose_impl();
-
-      if (!v33)
-      {
-LABEL_41:
-
-        v23 = 0;
-        goto LABEL_42;
-      }
-
-      oSLogObject = [NSString stringWithCString:v33 encoding:4, &v79, v75];
-      free(v33);
-      v73 = oSLogObject;
-      SSFileLog();
-LABEL_40:
-
-      goto LABEL_41;
+      v80 = 138543362;
+      v81 = objc_opt_class();
+      v29 = v81;
+      v30 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Failed to determine device biometric style for new identity map", &v80, 12);
+      goto LABEL_39;
     }
 
     if (deviceBiometricStyle == 3)
@@ -331,31 +319,52 @@ LABEL_40:
         shouldLog2 = [v24 shouldLog];
         if ([v24 shouldLogToDisk])
         {
-          v30 = shouldLog2 | 2;
+          v32 = shouldLog2 | 2;
         }
 
         else
         {
-          v30 = shouldLog2;
+          v32 = shouldLog2;
         }
 
         oSLogObject = [v24 OSLogObject];
         if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = v30;
+          v33 = v32;
         }
 
         else
         {
-          v31 = v30 & 2;
+          v33 = v32 & 2;
         }
 
-        if (!v31)
+        if (!v33)
         {
-          goto LABEL_40;
+          goto LABEL_41;
         }
 
-        goto LABEL_38;
+        v80 = 138543362;
+        v81 = objc_opt_class();
+        v29 = v81;
+        v30 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Failed to determine device biometric style for new anonymous idenitty map", &v80, 12);
+LABEL_39:
+        v34 = v30;
+
+        if (!v34)
+        {
+LABEL_42:
+
+          v23 = 0;
+          goto LABEL_43;
+        }
+
+        oSLogObject = [NSString stringWithCString:v34 encoding:4];
+        free(v34);
+        v74 = oSLogObject;
+        SSFileLog();
+LABEL_41:
+
+        goto LABEL_42;
       }
 
       v20 = [NSBundle bundleForClass:objc_opt_class()];
@@ -389,46 +398,44 @@ LABEL_40:
         shouldLog3 = [v23 shouldLog];
         if ([v23 shouldLogToDisk])
         {
-          v67 = shouldLog3 | 2;
+          v68 = shouldLog3 | 2;
         }
 
         else
         {
-          v67 = shouldLog3;
+          v68 = shouldLog3;
         }
 
         oSLogObject2 = [v23 OSLogObject];
         if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
         {
-          v69 = v67;
+          v70 = v68;
         }
 
         else
         {
-          v69 = v67 & 2;
+          v70 = v68 & 2;
         }
 
-        if (v69)
+        if (v70)
         {
-          v79 = 138543362;
-          v80 = objc_opt_class();
-          v70 = v80;
-          LODWORD(v75) = 12;
-          v73 = &v79;
-          v71 = _os_log_send_and_compose_impl();
+          v80 = 138543362;
+          v81 = objc_opt_class();
+          v71 = v81;
+          v72 = _os_log_send_and_compose_impl(v70, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Failed to determine device biometric style for enabling biometrics", &v80, 12);
 
-          if (!v71)
+          if (!v72)
           {
-            goto LABEL_43;
+            goto LABEL_44;
           }
 
-          oSLogObject2 = [NSString stringWithCString:v71 encoding:4, &v79, v75];
-          free(v71);
-          v73 = oSLogObject2;
+          oSLogObject2 = [NSString stringWithCString:v72 encoding:4];
+          free(v72);
+          v74 = oSLogObject2;
           SSFileLog();
         }
 
-        goto LABEL_43;
+        goto LABEL_44;
       }
 
       v17 = [NSBundle bundleForClass:objc_opt_class()];
@@ -436,196 +443,195 @@ LABEL_40:
       v19 = @"PROMPT_REASON_FACE_GENERIC";
     }
 
-    v64 = [v17 localizedStringForKey:v19 value:&stru_10033CC30 table:@"Mesa"];
-    v65 = [NSString stringWithFormat:v64, accountName];
-    [v5 setReasonDescription:v65];
+    v65 = [v17 localizedStringForKey:v19 value:&stru_10033CC30 table:@"Mesa"];
+    v66 = [NSString stringWithFormat:v65, accountName];
+    [v5 setReasonDescription:v66];
   }
 
-LABEL_44:
-  v34 = +[SSLogConfig sharedAccountsAuthenticationConfig];
-  if (!v34)
+LABEL_45:
+  v35 = +[SSLogConfig sharedAccountsAuthenticationConfig];
+  if (!v35)
   {
-    v34 = +[SSLogConfig sharedConfig];
+    v35 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [v34 shouldLog];
-  if ([v34 shouldLogToDisk])
+  shouldLog4 = [v35 shouldLog];
+  if ([v35 shouldLogToDisk])
   {
-    v36 = shouldLog4 | 2;
+    v37 = shouldLog4 | 2;
   }
 
   else
   {
-    v36 = shouldLog4;
+    v37 = shouldLog4;
   }
 
-  oSLogObject3 = [v34 OSLogObject];
+  oSLogObject3 = [v35 OSLogObject];
   if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
   {
-    v38 = v36;
+    v39 = v37;
   }
 
   else
   {
-    v38 = v36 & 2;
+    v39 = v37 & 2;
   }
 
-  if (!v38)
+  if (!v39)
   {
-    goto LABEL_55;
+    goto LABEL_56;
   }
 
-  v39 = objc_opt_class();
-  v79 = 138543362;
-  v80 = v39;
-  v40 = v39;
-  LODWORD(v75) = 12;
-  v74 = &v79;
-  v41 = _os_log_send_and_compose_impl();
+  v40 = objc_opt_class();
+  v80 = 138543362;
+  v81 = v40;
+  v41 = v40;
+  LODWORD(v76) = 12;
+  v42 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Authenticating to opt-in to biometrics.", &v80, v76);
 
-  if (v41)
+  if (v42)
   {
-    oSLogObject3 = [NSString stringWithCString:v41 encoding:4, &v79, v75];
-    free(v41);
-    v74 = oSLogObject3;
+    oSLogObject3 = [NSString stringWithCString:v42 encoding:4];
+    free(v42);
+    v75 = oSLogObject3;
     SSFileLog();
-LABEL_55:
+LABEL_56:
   }
 
-  v42 = [[SSAuthenticateRequest alloc] initWithAuthenticationContext:v5];
-  v43 = [v42 run];
-  error = [v43 error];
+  v43 = [[SSAuthenticateRequest alloc] initWithAuthenticationContext:v5];
+  v44 = [v43 run];
+  error = [v44 error];
 
-  if (error || (v46 = [v43 authenticateResponseType], v46 > 8))
+  if (error || (v47 = [v44 authenticateResponseType], v47 > 8))
   {
     authenticatedAccount = 0;
-    goto LABEL_101;
+    goto LABEL_102;
   }
 
-  v77 = v8;
-  v47 = accountName;
-  if (((1 << v46) & 0x1CF) != 0)
+  v78 = v8;
+  v48 = accountName;
+  if (((1 << v47) & 0x1CF) != 0)
   {
-    v48 = +[SSLogConfig sharedAccountsAuthenticationConfig];
-    if (!v48)
+    v49 = +[SSLogConfig sharedAccountsAuthenticationConfig];
+    if (!v49)
     {
-      v48 = +[SSLogConfig sharedConfig];
+      v49 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog5 = [v48 shouldLog];
-    if ([v48 shouldLogToDisk])
+    shouldLog5 = [v49 shouldLog];
+    if ([v49 shouldLogToDisk])
     {
-      v50 = shouldLog5 | 2;
+      v51 = shouldLog5 | 2;
     }
 
     else
     {
-      v50 = shouldLog5;
+      v51 = shouldLog5;
     }
 
-    oSLogObject4 = [v48 OSLogObject];
+    oSLogObject4 = [v49 OSLogObject];
     if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
     {
-      v52 = v50;
+      v53 = v51;
     }
 
     else
     {
-      v52 = v50 & 2;
+      v53 = v51 & 2;
     }
 
-    if (v52)
+    if (v53)
     {
-      v53 = objc_opt_class();
-      v54 = v53;
-      v55 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v43 authenticateResponseType]);
-      v79 = 138543618;
-      v80 = v53;
-      v81 = 2114;
-      v82 = v55;
-      LODWORD(v75) = 22;
-      v56 = _os_log_send_and_compose_impl();
+      v54 = objc_opt_class();
+      v55 = v54;
+      v56 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v44 authenticateResponseType]);
+      v80 = 138543618;
+      v81 = v54;
+      v82 = 2114;
+      v83 = v56;
+      LODWORD(v76) = 22;
+      v57 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: Auth response was no-op: %{public}@", &v80, v76);
 
-      accountName = v47;
-      v8 = v77;
-      v9 = v78;
-      if (!v56)
+      accountName = v48;
+      v8 = v78;
+      v9 = v79;
+      if (!v57)
       {
-LABEL_73:
+LABEL_74:
 
         authenticatedAccount = 0;
-        goto LABEL_101;
+        goto LABEL_102;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v56 encoding:4, &v79, v75];
-      free(v56);
+      oSLogObject4 = [NSString stringWithCString:v57 encoding:4];
+      free(v57);
       SSFileLog();
     }
 
     else
     {
-      accountName = v47;
-      v8 = v77;
-      v9 = v78;
+      accountName = v48;
+      v8 = v78;
+      v9 = v79;
     }
 
-    goto LABEL_73;
+    goto LABEL_74;
   }
 
-  v57 = +[SSLogConfig sharedAccountsAuthenticationConfig];
-  if (!v57)
+  v58 = +[SSLogConfig sharedAccountsAuthenticationConfig];
+  if (!v58)
   {
-    v57 = +[SSLogConfig sharedConfig];
+    v58 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog6 = [v57 shouldLog];
-  if ([v57 shouldLogToDisk])
+  shouldLog6 = [v58 shouldLog];
+  if ([v58 shouldLogToDisk])
   {
     shouldLog6 |= 2u;
   }
 
-  oSLogObject5 = [v57 OSLogObject];
+  oSLogObject5 = [v58 OSLogObject];
   if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
   {
-    v60 = shouldLog6;
+    v61 = shouldLog6;
   }
 
   else
   {
-    v60 = shouldLog6 & 2;
+    v61 = shouldLog6 & 2;
   }
 
-  if (!v60)
+  if (!v61)
   {
-    accountName = v47;
-    v8 = v77;
-    v9 = v78;
-    goto LABEL_99;
+    accountName = v48;
+    v8 = v78;
+    v9 = v79;
+    goto LABEL_100;
   }
 
-  v61 = objc_opt_class();
-  v76 = v61;
-  v62 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v43 authenticateResponseType]);
-  v79 = 138543618;
-  v80 = v61;
-  v81 = 2114;
-  v82 = v62;
-  LODWORD(v75) = 22;
-  v63 = _os_log_send_and_compose_impl();
+  v62 = objc_opt_class();
+  v77 = v62;
+  v63 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v44 authenticateResponseType]);
+  v80 = 138543618;
+  v81 = v62;
+  v82 = 2114;
+  v83 = v63;
+  LODWORD(v76) = 22;
+  v64 = _os_log_send_and_compose_impl(v61, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%{public}@: Auth response returned new account: %{public}@", &v80, v76);
 
-  accountName = v47;
-  v8 = v77;
-  v9 = v78;
-  if (v63)
+  accountName = v48;
+  v8 = v78;
+  v9 = v79;
+  if (v64)
   {
-    oSLogObject5 = [NSString stringWithCString:v63 encoding:4, &v79, v75];
-    free(v63);
+    oSLogObject5 = [NSString stringWithCString:v64 encoding:4];
+    free(v64);
     SSFileLog();
-LABEL_99:
+LABEL_100:
   }
 
-  authenticatedAccount = [v43 authenticatedAccount];
-LABEL_101:
+  authenticatedAccount = [v44 authenticatedAccount];
+LABEL_102:
 
   return authenticatedAccount;
 }
@@ -637,13 +643,13 @@ LABEL_101:
   uniqueIdentifier = [accountCopy uniqueIdentifier];
 
   v6 = [[ISBiometricUpdateTouchIDSettingsOperation alloc] initWithAccountIdentifier:uniqueIdentifier];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_1000E91DC;
-  v20[3] = &unk_100328A40;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1000E91DC;
+  v19[3] = &unk_100328A40;
   v7 = v4;
-  v21 = v7;
-  [v6 setResultBlock:v20];
+  v20 = v7;
+  [v6 setResultBlock:v19];
   v8 = +[ISOperationQueue mainQueue];
   [v8 addOperation:v6];
 
@@ -662,40 +668,44 @@ LABEL_101:
   shouldLog = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = shouldLog | 2;
+    LODWORD(v13) = shouldLog | 2;
   }
 
   else
   {
-    v13 = shouldLog;
+    LODWORD(v13) = shouldLog;
   }
 
   oSLogObject = [v11 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (!v13)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v15 = objc_opt_class();
-  v22 = 138412546;
-  v23 = v15;
-  v24 = 2112;
-  v25 = uniqueIdentifier;
+  v21 = 138412546;
+  v22 = v15;
+  v23 = 2112;
+  v24 = uniqueIdentifier;
   v16 = v15;
-  LODWORD(v19) = 22;
-  v17 = _os_log_send_and_compose_impl();
+  v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Biometrics enabled and cached for DSID: %@", &v21, 22);
 
   if (v17)
   {
-    oSLogObject = [NSString stringWithCString:v17 encoding:4, &v22, v19];
+    oSLogObject = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   return 1;

@@ -44,26 +44,26 @@
 
 - (FCInterestToken)initWithCallbackQueue:(id)queue removeInterestBlock:(id)block
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   blockCopy = block;
   if (!blockCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "removeInterestBlock != nil"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "removeInterestBlock != nil"];
     *buf = 136315906;
-    v21 = "[FCInterestToken initWithCallbackQueue:removeInterestBlock:]";
-    v22 = 2080;
-    v23 = "FCInterestToken.m";
-    v24 = 1024;
-    v25 = 44;
-    v26 = 2114;
-    v27 = v15;
+    v20 = "[FCInterestToken initWithCallbackQueue:removeInterestBlock:]";
+    v21 = 2080;
+    v22 = "FCInterestToken.m";
+    v23 = 1024;
+    v24 = 44;
+    v25 = 2114;
+    v26 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v19.receiver = self;
-  v19.super_class = FCInterestToken;
-  v8 = [(FCInterestToken *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = FCInterestToken;
+  v8 = [(FCInterestToken *)&v18 init];
   if (v8)
   {
     if (queueCopy)
@@ -72,13 +72,13 @@
       aBlock[1] = 3221225472;
       aBlock[2] = __61__FCInterestToken_initWithCallbackQueue_removeInterestBlock___block_invoke;
       aBlock[3] = &unk_1E7C37BC0;
-      v17 = queueCopy;
-      v18 = blockCopy;
+      v16 = queueCopy;
+      v17 = blockCopy;
       v9 = _Block_copy(aBlock);
       removeInterestBlock = v8->_removeInterestBlock;
       v8->_removeInterestBlock = v9;
 
-      v11 = v17;
+      v11 = v16;
     }
 
     else
@@ -89,7 +89,6 @@
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

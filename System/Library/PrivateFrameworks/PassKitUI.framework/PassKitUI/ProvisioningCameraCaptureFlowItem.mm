@@ -30,11 +30,13 @@
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v7 = Strong;
+    v14 = Strong;
     selfCopy = self;
-    sub_1BD4B9A4C(selfCopy, v5, v7);
+    sub_1BD4B9A4C(selfCopy, v5, v14);
     swift_unknownObjectRelease();
   }
+
+  v5, v7, v8, v9, v10, v11, v12, v13;
 }
 
 - (void)cameraCaptureViewControllerDidSelectManualEntry:(id)entry
@@ -63,7 +65,7 @@
   {
     v5 = Strong;
     selfCopy = self;
-    sub_1BD82685C(selfCopy, 2u, v5);
+    sub_1BD82685C(selfCopy, 2, v5);
     swift_unknownObjectRelease();
   }
 }

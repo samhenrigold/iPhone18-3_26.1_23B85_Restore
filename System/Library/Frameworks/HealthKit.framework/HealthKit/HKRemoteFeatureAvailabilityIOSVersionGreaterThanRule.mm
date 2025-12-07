@@ -33,7 +33,7 @@
   v4 = dataSource;
   if (dataSource)
   {
-    [dataSource iOSVersion];
+    objc_msgSend_iOSVersion(dataSource);
   }
 
   else
@@ -49,17 +49,17 @@ LABEL_12:
     return v5;
   }
 
-  [(HKRemoteFeatureAvailabilityIOSVersionGreaterThanRule *)self targetVersion];
+  objc_msgSend_targetVersion(self);
   IsUnknown = HKNSOperatingSystemVersionIsUnknown(v10);
 
   if (!IsUnknown)
   {
-    [(HKRemoteFeatureAvailabilityIOSVersionGreaterThanRule *)self targetVersion];
+    objc_msgSend_targetVersion(self);
     dataSource2 = [(HKRemoteFeatureAvailabilityBaseRule *)self dataSource];
     v4 = dataSource2;
     if (dataSource2)
     {
-      [dataSource2 iOSVersion];
+      objc_msgSend_iOSVersion(dataSource2);
     }
 
     else

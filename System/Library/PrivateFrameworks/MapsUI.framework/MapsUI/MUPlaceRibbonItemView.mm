@@ -92,7 +92,7 @@ void __54__MUPlaceRibbonItemView_ribbonItemViewModelDidUpdate___block_invoke(uin
 
 - (void)_updateValueText
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   valueStringProvider = [(MUPlaceRibbonItemViewModel *)self->_viewModel valueStringProvider];
   v4 = valueStringProvider[2]();
 
@@ -101,9 +101,9 @@ void __54__MUPlaceRibbonItemView_ribbonItemViewModelDidUpdate___block_invoke(uin
     if ([(MUPlaceRibbonItemViewModel *)self->_viewModel isTappable]&& UIAccessibilityButtonShapesEnabled())
     {
       v5 = [v4 mutableCopy];
-      v10 = *MEMORY[0x1E69DB758];
-      v11[0] = &unk_1F450DC10;
-      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = *MEMORY[0x1E69DB758];
+      v10[0] = &unk_1F450DC10;
+      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
       [v5 addAttributes:v6 range:{0, objc_msgSend(v5, "length")}];
 
       v7 = [v5 copy];
@@ -114,8 +114,6 @@ void __54__MUPlaceRibbonItemView_ribbonItemViewModelDidUpdate___block_invoke(uin
     string = [v4 string];
     [(MULabelViewProtocol *)self->_valueLabel setAccessibilityLabel:string];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateGestureRecognizers
@@ -218,7 +216,7 @@ void __54__MUPlaceRibbonItemView_ribbonItemViewModelDidUpdate___block_invoke(uin
 
 - (void)_setupConstraints
 {
-  v34[8] = *MEMORY[0x1E69E9840];
+  v33[8] = *MEMORY[0x1E69E9840];
   valueLabel = self->_valueLabel;
   selfCopy = self;
   topAnchor = [(MULabelViewProtocol *)valueLabel topAnchor];
@@ -226,43 +224,41 @@ void __54__MUPlaceRibbonItemView_ribbonItemViewModelDidUpdate___block_invoke(uin
   v7 = [topAnchor constraintEqualToAnchor:bottomAnchor constant:2.0];
 
   LODWORD(v8) = 1148829696;
-  v28 = v7;
+  v27 = v7;
   [v7 setPriority:v8];
-  v24 = MEMORY[0x1E696ACD8];
+  v23 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(MULabelViewProtocol *)selfCopy->_titleLabel leadingAnchor];
   leadingAnchor2 = [(MUPlaceRibbonItemView *)selfCopy leadingAnchor];
-  v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:0.0];
-  v34[0] = v31;
+  v30 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:0.0];
+  v33[0] = v30;
   trailingAnchor = [(MULabelViewProtocol *)selfCopy->_titleLabel trailingAnchor];
   trailingAnchor2 = [(MUPlaceRibbonItemView *)selfCopy trailingAnchor];
-  v27 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2 constant:0.0];
-  v34[1] = v27;
+  v26 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2 constant:0.0];
+  v33[1] = v26;
   topAnchor2 = [(MULabelViewProtocol *)selfCopy->_titleLabel topAnchor];
   topAnchor3 = [(MUPlaceRibbonItemView *)selfCopy topAnchor];
-  v23 = [topAnchor2 constraintEqualToAnchor:topAnchor3];
-  v34[2] = v23;
-  v34[3] = v7;
+  v22 = [topAnchor2 constraintEqualToAnchor:topAnchor3];
+  v33[2] = v22;
+  v33[3] = v7;
   topAnchor4 = [(MULabelViewProtocol *)self->_valueLabel topAnchor];
   bottomAnchor2 = [(MULabelViewProtocol *)selfCopy->_titleLabel bottomAnchor];
-  v20 = [topAnchor4 constraintGreaterThanOrEqualToAnchor:bottomAnchor2 constant:2.0];
-  v34[4] = v20;
+  v19 = [topAnchor4 constraintGreaterThanOrEqualToAnchor:bottomAnchor2 constant:2.0];
+  v33[4] = v19;
   leadingAnchor3 = [(MULabelViewProtocol *)self->_valueLabel leadingAnchor];
   leadingAnchor4 = [(MUPlaceRibbonItemView *)selfCopy leadingAnchor];
   v11 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:0.0];
-  v34[5] = v11;
+  v33[5] = v11;
   trailingAnchor3 = [(MULabelViewProtocol *)self->_valueLabel trailingAnchor];
   trailingAnchor4 = [(MUPlaceRibbonItemView *)selfCopy trailingAnchor];
   v14 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:0.0];
-  v34[6] = v14;
+  v33[6] = v14;
   bottomAnchor3 = [(MULabelViewProtocol *)self->_valueLabel bottomAnchor];
   bottomAnchor4 = [(MUPlaceRibbonItemView *)selfCopy bottomAnchor];
 
   v17 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4];
-  v34[7] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:8];
-  [v24 activateConstraints:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v33[7] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:8];
+  [v23 activateConstraints:v18];
 }
 
 - (void)_setupSubviews

@@ -121,7 +121,6 @@
         [v16 height];
       }
 
-      v23 = *p_var2;
       [Tiling encodeTilingToCommandBuffer:"encodeTilingToCommandBuffer:from:to:verticalOffset:sourceHeight:" from:bufferCopy to:v16 verticalOffset:v21 sourceHeight:?];
 
       p_var2 += 3;
@@ -194,7 +193,7 @@
 
 - (void)assembleTiles:(__CVBuffer *)tiles to:(__CVBuffer *)to tileInfo:(id *)info numTiles:(int64_t)numTiles
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v10 = isPackedRGBA(to);
   device = self->_device;
   if (v10)
@@ -210,14 +209,14 @@
   contents = [(MTLBuffer *)self->_tileParameters contents];
   *contents = self->_tileOverlap;
   contents[2] = numTiles;
-  v25[0] = v25;
+  v24[0] = v24;
   contents[1] = [v12 height] / numTiles;
   numTilesCopy = numTiles;
-  bzero(v25 - ((8 * numTiles + 15) & 0xFFFFFFFFFFFFFFF0), 8 * numTiles);
+  bzero(v24 - ((8 * numTiles + 15) & 0xFFFFFFFFFFFFFFF0), 8 * numTiles);
   if (numTiles >= 1)
   {
     numTilesCopy2 = numTiles;
-    v16 = (v25 - ((8 * numTiles + 15) & 0xFFFFFFFFFFFFFFF0));
+    v16 = (v24 - ((8 * numTiles + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       v17 = isPackedRGBA(*tiles);
@@ -244,7 +243,7 @@
   }
 
   commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
-  v23 = v25 - ((8 * numTiles + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = v24 - ((8 * numTiles + 15) & 0xFFFFFFFFFFFFFFF0);
   if (numTiles == 3)
   {
     [(Tiling *)self assemble3TilesToCommandBuffer:commandBuffer from:v23 to:v12 tileInfo:contents];
@@ -264,8 +263,6 @@
   }
 
   while (numTilesCopy * 8);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assemble3TilesToCommandBuffer:(id)buffer from:(id *)from to:(id)to tileInfo:(id *)info

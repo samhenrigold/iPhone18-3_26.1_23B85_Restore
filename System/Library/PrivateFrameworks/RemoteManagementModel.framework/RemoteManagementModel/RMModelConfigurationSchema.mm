@@ -98,34 +98,34 @@ LABEL_10:
 
 + (void)loadDynamicSchemaFromFiles:(id)files
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = filesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [self _loadDynamicSchemaFromFile:*(*(&v16 + 1) + 8 * v10++) into:{v5, v16}];
+        [self _loadDynamicSchemaFromFile:*(*(&v15 + 1) + 8 * v10++) into:{v5, v15}];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -138,13 +138,11 @@ LABEL_10:
   _processManagedSettingsSchemas = [self _processManagedSettingsSchemas];
   v14 = _managedSettingsSchemas;
   _managedSettingsSchemas = _processManagedSettingsSchemas;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_loadDynamicSchemaFromDirectory:(id)directory into:(id)into
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   intoCopy = into;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -152,26 +150,26 @@ LABEL_10:
   path = [directoryCopy path];
   v10 = [defaultManager contentsOfDirectoryAtPath:path error:0];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         pathExtension = [v16 pathExtension];
         v18 = [pathExtension isEqualToString:@"json"];
 
@@ -182,13 +180,11 @@ LABEL_10:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_loadDynamicSchemaFromFile:(id)file into:(id)into
@@ -228,7 +224,7 @@ LABEL_10:
 
 + (void)_loadDynamicSchemaFromDictionary:(id)dictionary into:(id)into fileURL:(id)l
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   intoCopy = into;
   lCopy = l;
   dictionaryCopy = dictionary;
@@ -252,9 +248,9 @@ LABEL_10:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         configurationType2 = [v10 configurationType];
-        v16 = 138543362;
-        v17 = configurationType2;
-        _os_log_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Loaded configuration schema: %{public}@", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = configurationType2;
+        _os_log_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Loaded configuration schema: %{public}@", &v15, 0xCu);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
@@ -271,8 +267,6 @@ LABEL_10:
   {
     +[RMModelConfigurationSchema _loadDynamicSchemaFromDictionary:into:fileURL:];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_processManagedSettingsSchemas
@@ -304,32 +298,32 @@ void __60__RMModelConfigurationSchema__processManagedSettingsSchemas__block_invo
 
 - (id)_parseAssetReferences:(id)references
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   referencesCopy = references;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v4 = objc_opt_new();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = referencesCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [RMModelConfigurationSchemaAssetReference parseJSON:*(*(&v15 + 1) + 8 * i), v15];
+          v10 = [RMModelConfigurationSchemaAssetReference parseJSON:*(*(&v14 + 1) + 8 * i), v14];
           if (!v10)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -345,7 +339,7 @@ void __60__RMModelConfigurationSchema__processManagedSettingsSchemas__block_invo
           [v4 addObject:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -369,14 +363,12 @@ LABEL_17:
     v12 = MEMORY[0x277CBEBF8];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_parseManagedSettings:(id)settings
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   if (!settingsCopy)
   {
@@ -397,26 +389,26 @@ LABEL_14:
   }
 
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = settingsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [RMModelConfigurationSchemaManagedSetting parseJSON:*(*(&v16 + 1) + 8 * i) parentSchema:self, v16];
+        v11 = [RMModelConfigurationSchemaManagedSetting parseJSON:*(*(&v15 + 1) + 8 * i) parentSchema:self, v15];
         if (!v11)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -432,7 +424,7 @@ LABEL_14:
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -446,57 +438,39 @@ LABEL_14:
 LABEL_18:
 
 LABEL_19:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (void)_loadDynamicSchemaFromFile:into:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_loadDynamicSchemaFromFile:into:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_loadDynamicSchemaFromDictionary:(void *)a1 into:fileURL:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 configurationType];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_loadDynamicSchemaFromDictionary:(void *)a1 into:(uint64_t)a2 fileURL:.cold.2(void *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 configurationType];
   OUTLINED_FUNCTION_0_0();
-  v6 = a2;
-  _os_log_debug_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read schema for '%{public}@' from JSON data file: %{public}@", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_loadDynamicSchemaFromDictionary:into:fileURL:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  _os_log_debug_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read schema for '%{public}@' from JSON data file: %{public}@", v4, 0x16u);
 }
 
 @end

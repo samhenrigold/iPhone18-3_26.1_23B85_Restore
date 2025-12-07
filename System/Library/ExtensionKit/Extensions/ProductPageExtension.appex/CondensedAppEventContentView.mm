@@ -8,7 +8,7 @@
 - (_TtC20ProductPageExtension28CondensedAppEventContentView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC20ProductPageExtension28CondensedAppEventContentView_lockupView;
-  *(&self->super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   v5 = OBJC_IVAR____TtC20ProductPageExtension28CondensedAppEventContentView_eventCardView;
   *(&self->super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for CondensedAppEventCardView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension28CondensedAppEventContentView_interRowSpacing) = 0;

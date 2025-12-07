@@ -7,34 +7,34 @@
 
 - (id)flatten
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_new();
-  v15 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_new();
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v3 = [self copy];
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v4)
+  v19 = 0u;
+  v4 = [self copy];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v16;
+    v6 = v5;
+    v7 = *v17;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v17 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
-        v9 = objc_opt_class();
-        if ([v9 isSubclassOfClass:{objc_opt_class(), v15}])
+        v9 = *(*(&v16 + 1) + 8 * v8);
+        v10 = objc_opt_class();
+        if ([v10 isSubclassOfClass:{objc_opt_class(), v16}])
         {
-          flatten = [v8 flatten];
-          [v2 addObjectsFromArray:flatten];
+          flatten = [v9 flatten];
+          [v3 addObjectsFromArray:flatten];
 LABEL_13:
 
           goto LABEL_14;
@@ -42,35 +42,35 @@ LABEL_13:
 
         if (objc_opt_respondsToSelector())
         {
-          allObjects = [v8 allObjects];
+          allObjects = [v9 allObjects];
 LABEL_12:
           flatten = allObjects;
           flatten2 = [allObjects flatten];
-          [v2 addObjectsFromArray:flatten2];
+          [v3 addObjectsFromArray:flatten2];
 
           goto LABEL_13;
         }
 
         if (objc_opt_respondsToSelector())
         {
-          allObjects = [v8 allValues];
+          allObjects = [v9 allValues];
           goto LABEL_12;
         }
 
-        [v2 addObject:v8];
+        [v3 addObject:v9];
 LABEL_14:
-        ++v7;
+        ++v8;
       }
 
-      while (v5 != v7);
-      v13 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      v5 = v13;
+      while (v6 != v8);
+      v14 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = v14;
     }
 
-    while (v13);
+    while (v14);
   }
 
-  return v2;
+  return v3;
 }
 
 - (id)shuffle

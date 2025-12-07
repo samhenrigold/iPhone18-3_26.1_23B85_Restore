@@ -120,7 +120,6 @@ LABEL_6:
     }
 
 LABEL_8:
-    durationBeforeDowngrade = self->_durationBeforeDowngrade;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -130,7 +129,6 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -145,7 +143,6 @@ LABEL_5:
   }
 
 LABEL_9:
-  isManualDowngrade = self->_isManualDowngrade;
 
   PBDataWriterWriteUint32Field();
 }

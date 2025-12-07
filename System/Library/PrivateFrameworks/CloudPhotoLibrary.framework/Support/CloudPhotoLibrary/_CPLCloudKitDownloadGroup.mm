@@ -273,43 +273,43 @@ LABEL_24:
   assetCopy = asset;
   printCopy = print;
   iCopy = i;
-  v74 = printCopy;
+  v76 = printCopy;
   if (printCopy)
   {
     fileURL = [assetCopy fileURL];
     if (fileURL)
     {
       v16 = [(NSMutableDictionary *)self->_tasks objectForKeyedSubscript:identifierCopy];
-      v77 = +[NSFileManager defaultManager];
+      v78 = +[NSFileManager defaultManager];
       lastObject = [v16 lastObject];
-      v87 = 0u;
       v88 = 0u;
       v89 = 0u;
       v90 = 0u;
+      v91 = 0u;
       v17 = v16;
       obj = v17;
-      v82 = [v17 countByEnumeratingWithState:&v87 objects:v99 count:16];
-      if (v82)
+      v83 = [v17 countByEnumeratingWithState:&v88 objects:v100 count:16];
+      if (v83)
       {
         selfCopy = self;
-        v71 = assetCopy;
-        v70 = identifierCopy;
-        v72 = 0;
-        v81 = *v88;
+        v73 = assetCopy;
+        v72 = identifierCopy;
+        v74 = 0;
+        v82 = *v89;
         p_superclass = CPLRemappedBy.superclass;
         v19 = fileURL;
-        v73 = iCopy;
+        v75 = iCopy;
         while (1)
         {
           v20 = 0;
           do
           {
-            if (*v88 != v81)
+            if (*v89 != v82)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v87 + 1) + 8 * v20);
+            v21 = *(*(&v88 + 1) + 8 * v20);
             cloudResource = [v21 cloudResource];
             identity = [cloudResource identity];
             completionHandler = [v21 completionHandler];
@@ -323,9 +323,9 @@ LABEL_24:
 
             if ([p_superclass + 44 isFakeDerivative:cloudResource])
             {
-              v86 = 0;
-              v26 = [p_superclass + 44 transformFromURL:v19 fileType:iCopy toTargetURL:fileURL2 matchingResource:cloudResource error:&v86];
-              v27 = v86;
+              v87 = 0;
+              v26 = [p_superclass + 44 transformFromURL:v19 fileType:iCopy toTargetURL:fileURL2 matchingResource:cloudResource error:&v87];
+              v27 = v87;
               fingerPrint = v27;
               if (v26)
               {
@@ -340,17 +340,17 @@ LABEL_24:
               (completionHandler)[2](completionHandler, v21, v29);
               if (v21 == lastObject)
               {
-                [v77 removeItemAtURL:v19 error:0];
-                v72 = 1;
+                [v78 removeItemAtURL:v19 error:0];
+                v74 = 1;
               }
 
               goto LABEL_24;
             }
 
-            if ((CPLCloudKitUseGateKeeperForOperationType(type) & 1) == 0)
+            if ((CPLCloudKitUseGateKeeperForOperationType() & 1) == 0)
             {
               fingerPrint = [identity fingerPrint];
-              v30 = v74;
+              v30 = v76;
               if (fingerPrint && ([fingerPrint isEqual:v30] & 1) != 0)
               {
                 v31 = 0;
@@ -370,7 +370,7 @@ LABEL_23:
                 v35 = [CPLErrors cplErrorWithCode:27 description:@"Resource %@ in the cloud is stale (fingerprint is %@ vs. expected %@)", resourceTypeDescription, v33, fingerPrint];
                 (completionHandler)[2](completionHandler, v21, v35);
 
-                iCopy = v73;
+                iCopy = v75;
                 v19 = fileURL;
 LABEL_24:
                 p_superclass = (CPLRemappedBy + 8);
@@ -378,13 +378,13 @@ LABEL_24:
               }
 
               fingerprintContext = selfCopy->_fingerprintContext;
-              signature = [v71 signature];
+              signature = [v73 signature];
               v38 = [(CPLFingerprintContext *)fingerprintContext fingerprintSchemeForSignature:signature];
               canMatchSignatureToFingerprint = [v38 canMatchSignatureToFingerprint];
 
               if (canMatchSignatureToFingerprint)
               {
-                cplFingerPrint = [v71 cplFingerPrint];
+                cplFingerPrint = [v73 cplFingerPrint];
                 v41 = fingerPrint;
                 v42 = cplFingerPrint;
                 v43 = v42;
@@ -405,40 +405,40 @@ LABEL_24:
                 }
               }
 
-              iCopy = v73;
+              iCopy = v75;
               v19 = fileURL;
               p_superclass = (CPLRemappedBy + 8);
             }
 
             if (v21 == lastObject)
             {
-              v85 = 0;
-              v48 = [v77 cplMoveItemAtURL:v19 toURL:fileURL2 error:&v85];
-              v49 = v85;
+              v86 = 0;
+              v48 = [v78 cplMoveItemAtURL:v19 toURL:fileURL2 error:&v86];
+              v49 = v86;
               fingerPrint = v49;
               if (v48)
               {
                 CPLMarkDownloadedResourceWithDynamicVersion();
                 v47 = 0;
-                v72 = 1;
+                v74 = 1;
               }
 
               else
               {
                 if ((_CPLSilentLogging & 1) == 0)
                 {
-                  v52 = sub_100003964();
+                  v52 = sub_100003964(v49);
                   if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
                   {
                     resourceTypeDescription2 = [(_CPLCloudKitDownloadGroup *)selfCopy resourceTypeDescription];
                     *buf = 138413058;
-                    v92 = resourceTypeDescription2;
-                    v93 = 2112;
-                    v94 = fileURL;
-                    v95 = 2112;
-                    v96 = fileURL2;
-                    v97 = 2112;
-                    v98 = fingerPrint;
+                    v93 = resourceTypeDescription2;
+                    v94 = 2112;
+                    v95 = fileURL;
+                    v96 = 2112;
+                    v97 = fileURL2;
+                    v98 = 2112;
+                    v99 = fingerPrint;
                     _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "Failed to move downloaded asset %@ from %@ to %@: %@", buf, 0x2Au);
                   }
 
@@ -453,9 +453,9 @@ LABEL_24:
               goto LABEL_38;
             }
 
-            v84 = 0;
-            v45 = [v77 cplCopyItemAtURL:v19 toURL:fileURL2 error:&v84];
-            v46 = v84;
+            v85 = 0;
+            v45 = [v78 cplCopyItemAtURL:v19 toURL:fileURL2 error:&v85];
+            v46 = v85;
             fingerPrint = v46;
             if (v45)
             {
@@ -470,18 +470,18 @@ LABEL_38:
             v19 = fileURL;
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v50 = sub_100003964();
+              v50 = sub_100003964(v46);
               if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
               {
                 resourceTypeDescription3 = [(_CPLCloudKitDownloadGroup *)selfCopy resourceTypeDescription];
                 *buf = 138413058;
-                v92 = resourceTypeDescription3;
-                v93 = 2112;
-                v94 = fileURL;
-                v95 = 2112;
-                v96 = fileURL2;
-                v97 = 2112;
-                v98 = fingerPrint;
+                v93 = resourceTypeDescription3;
+                v94 = 2112;
+                v95 = fileURL;
+                v96 = 2112;
+                v97 = fileURL2;
+                v98 = 2112;
+                v99 = fingerPrint;
                 _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Failed to copy downloaded asset %@ from %@ to %@: %@", buf, 0x2Au);
 
                 v19 = fileURL;
@@ -499,17 +499,17 @@ LABEL_49:
             v20 = v20 + 1;
           }
 
-          while (v82 != v20);
+          while (v83 != v20);
           v54 = obj;
-          v55 = [obj countByEnumeratingWithState:&v87 objects:v99 count:16];
-          v82 = v55;
+          v55 = [obj countByEnumeratingWithState:&v88 objects:v100 count:16];
+          v83 = v55;
           if (!v55)
           {
 
-            identifierCopy = v70;
-            assetCopy = v71;
+            identifierCopy = v72;
+            assetCopy = v73;
             self = selfCopy;
-            if (v72)
+            if (v74)
             {
               goto LABEL_68;
             }
@@ -522,49 +522,50 @@ LABEL_49:
 LABEL_58:
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v64 = sub_100003964();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+        v65 = sub_100003964(v56);
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
         {
           resourceTypeDescription4 = [(_CPLCloudKitDownloadGroup *)self resourceTypeDescription];
           *buf = 138412802;
-          v92 = fileURL;
-          v93 = 2112;
-          v94 = resourceTypeDescription4;
-          v95 = 2112;
-          v96 = identifierCopy;
-          _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "No download task moved %@ (resource %@ for %@) away from CloudKit. Removing now", buf, 0x20u);
+          v93 = fileURL;
+          v94 = 2112;
+          v95 = resourceTypeDescription4;
+          v96 = 2112;
+          v97 = identifierCopy;
+          _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "No download task moved %@ (resource %@ for %@) away from CloudKit. Removing now", buf, 0x20u);
         }
       }
 
-      v83 = 0;
-      v66 = [v77 removeItemAtURL:fileURL error:&v83];
-      v67 = v83;
-      if ((v66 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+      v84 = 0;
+      v67 = [v78 removeItemAtURL:fileURL error:&v84];
+      v68 = v84;
+      v69 = v68;
+      if ((v67 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
       {
-        v68 = sub_100003964();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+        v70 = sub_100003964(v68);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v92 = fileURL;
-          v93 = 2112;
-          v94 = v67;
-          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "Failed to remove %@: %@", buf, 0x16u);
+          v93 = fileURL;
+          v94 = 2112;
+          v95 = v69;
+          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "Failed to remove %@: %@", buf, 0x16u);
         }
       }
 
       v54 = obj;
 LABEL_68:
       [(NSMutableDictionary *)self->_tasks removeObjectForKey:identifierCopy];
-      v69 = [(NSMutableDictionary *)self->_resourceSizes objectForKeyedSubscript:identifierCopy];
-      [(NSMutableDictionary *)self->_downloadedSizes setObject:v69 forKeyedSubscript:identifierCopy];
+      v71 = [(NSMutableDictionary *)self->_resourceSizes objectForKeyedSubscript:identifierCopy];
+      [(NSMutableDictionary *)self->_downloadedSizes setObject:v71 forKeyedSubscript:identifierCopy];
     }
 
     else
     {
       propertyKeys = [(_CPLCloudKitDownloadGroup *)self propertyKeys];
-      v61 = sub_1001A8CE0(propertyKeys);
+      v62 = sub_1001A8CE0(propertyKeys);
       resourceTypeDescription5 = [(_CPLCloudKitDownloadGroup *)self resourceTypeDescription];
-      identifierCopy = [CPLErrors cplErrorWithCode:27 description:@"Fetching %@ (%@) for %@ succeeded but did not return the resource", v61, resourceTypeDescription5, identifierCopy];
+      identifierCopy = [CPLErrors cplErrorWithCode:27 description:@"Fetching %@ (%@) for %@ succeeded but did not return the resource", v62, resourceTypeDescription5, identifierCopy];
 
       [(_CPLCloudKitDownloadGroup *)self resourceWithRecordScopedIdentifier:identifierCopy didFailToDownloadWithError:identifierCopy];
     }
@@ -573,9 +574,9 @@ LABEL_68:
   else
   {
     propertyKeys2 = [(_CPLCloudKitDownloadGroup *)self propertyKeys];
-    v57 = sub_1001A8CA4(propertyKeys2);
+    v58 = sub_1001A8CA4(propertyKeys2);
     resourceTypeDescription6 = [(_CPLCloudKitDownloadGroup *)self resourceTypeDescription];
-    identifierCopy2 = [CPLErrors cplErrorWithCode:26 description:@"Fetching %@ (%@) for %@ succeeded but did not return the fingerprint", v57, resourceTypeDescription6, identifierCopy];
+    identifierCopy2 = [CPLErrors cplErrorWithCode:26 description:@"Fetching %@ (%@) for %@ succeeded but did not return the fingerprint", v58, resourceTypeDescription6, identifierCopy];
 
     [(_CPLCloudKitDownloadGroup *)self resourceWithRecordScopedIdentifier:identifierCopy didFailToDownloadWithError:identifierCopy2];
   }

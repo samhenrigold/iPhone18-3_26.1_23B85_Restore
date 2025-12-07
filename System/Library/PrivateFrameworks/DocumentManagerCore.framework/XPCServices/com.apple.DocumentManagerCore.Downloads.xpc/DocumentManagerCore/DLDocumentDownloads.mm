@@ -5,6 +5,7 @@
 - (id)createMoveOperation:(id)operation destinationItem:(id)item completionHandler:(id)handler;
 - (id)createMoveOperation:(id)operation parentItem:(id)item newFileName:(id)name completionHandler:(id)handler;
 - (id)createTemporaryFolderURLAppropriateForURL:(id)l error:(id *)error;
+- (id)sandboxingURLWrapperForURL:(id)l readonly:(BOOL)readonly error:(id *)error;
 - (void)_notifyDownloadCompleted:(id)completed;
 - (void)deleteItemIgnoringResult:(id)result;
 - (void)importItemAtURL:(id)l toLocation:(int64_t)location completionHandler:(id)handler;
@@ -187,25 +188,25 @@ LABEL_10:
   completionCopy = completion;
   v10 = +[NSFileManager defaultManager];
   v36 = 0;
-  v37[0] = &v36;
-  v37[1] = 0x3032000000;
-  v37[2] = sub_1000020AC;
-  v37[3] = sub_1000020BC;
-  v38 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = sub_1000020AC;
+  v40 = sub_1000020BC;
+  v41 = 0;
   obj = 0;
   v11 = [v10 URLForDirectory:99 inDomain:1 appropriateForURL:fileCopy create:1 error:&obj];
-  objc_storeStrong(&v38, obj);
-  if (!*(v37[0] + 40))
+  objc_storeStrong(&v41, obj);
+  if (!v37[5])
   {
     lastPathComponent = [withFileCopy lastPathComponent];
     v14 = [v11 URLByAppendingPathComponent:lastPathComponent];
 
     startAccessingSecurityScopedResource = [withFileCopy startAccessingSecurityScopedResource];
-    v16 = (v37[0] + 40);
-    v34 = *(v37[0] + 40);
+    v16 = (v37 + 5);
+    v34 = v37[5];
     v17 = [v10 copyItemAtURL:withFileCopy toURL:v14 error:&v34];
     objc_storeStrong(v16, v34);
-    if (!v17 || *(v37[0] + 40))
+    if (!v17 || v37[5])
     {
       v18 = docDownloadServiceLogHandle;
       if (!docDownloadServiceLogHandle)
@@ -216,10 +217,10 @@ LABEL_10:
 
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        sub_1000049A0(v37);
+        sub_1000049A0();
       }
 
-      completionCopy[2](completionCopy, v17, *(v37[0] + 40));
+      completionCopy[2](completionCopy, v17, v37[5]);
       if (startAccessingSecurityScopedResource)
       {
         [withFileCopy stopAccessingSecurityScopedResource];
@@ -242,8 +243,8 @@ LABEL_28:
     v31 = &v30;
     v32 = 0x2020000000;
     v33 = 0;
-    v20 = (v37[0] + 40);
-    v29 = *(v37[0] + 40);
+    v20 = (v37 + 5);
+    v29 = v37[5];
     v25[0] = _NSConcreteStackBlock;
     v25[1] = 3221225472;
     v25[2] = sub_1000020C4;
@@ -254,7 +255,7 @@ LABEL_28:
     v28 = &v36;
     [v19 coordinateWritingItemAtURL:fileCopy options:0 error:&v29 byAccessor:v25];
     objc_storeStrong(v20, v29);
-    if (!*(v37[0] + 40))
+    if (!v37[5])
     {
       goto LABEL_21;
     }
@@ -268,7 +269,7 @@ LABEL_28:
 
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_100004A08(v37);
+      sub_100004A08();
       if (!completionCopy)
       {
         goto LABEL_23;
@@ -296,7 +297,7 @@ LABEL_23:
       }
     }
 
-    completionCopy[2](completionCopy, *(v31 + 24), *(v37[0] + 40));
+    completionCopy[2](completionCopy, *(v31 + 24), v37[5]);
     goto LABEL_23;
   }
 
@@ -309,7 +310,7 @@ LABEL_23:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    sub_1000049A0(v37);
+    sub_1000049A0();
     if (!completionCopy)
     {
       goto LABEL_29;
@@ -321,7 +322,7 @@ LABEL_23:
   if (completionCopy)
   {
 LABEL_6:
-    completionCopy[2](completionCopy, 0, *(v37[0] + 40));
+    completionCopy[2](completionCopy, 0, v37[5]);
   }
 
 LABEL_29:
@@ -556,6 +557,36 @@ LABEL_29:
   return v8;
 }
 
+- (id)sandboxingURLWrapperForURL:(id)l readonly:(BOOL)readonly error:(id *)error
+{
+  readonlyCopy = readonly;
+  lCopy = l;
+  if ([lCopy checkPromisedItemIsReachableAndReturnError:error])
+  {
+    v8 = [FPSandboxingURLWrapper wrapperWithURL:lCopy readonly:readonlyCopy error:error];
+  }
+
+  else
+  {
+    v9 = docDownloadServiceLogHandle;
+    if (!docDownloadServiceLogHandle)
+    {
+      DOCInitLogging();
+      v9 = docDownloadServiceLogHandle;
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Error while trying to reveal a document at a URL: The resource is not reachable.", v11, 2u);
+    }
+
+    v8 = 0;
+  }
+
+  return v8;
+}
+
 - (id)createTemporaryFolderURLAppropriateForURL:(id)l error:(id *)error
 {
   lCopy = l;
@@ -573,7 +604,7 @@ LABEL_29:
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100004D38(error);
+      sub_100004D38();
     }
   }
 

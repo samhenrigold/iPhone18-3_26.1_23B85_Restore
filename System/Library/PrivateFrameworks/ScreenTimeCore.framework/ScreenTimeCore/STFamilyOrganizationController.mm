@@ -1172,7 +1172,7 @@ LABEL_8:
     v10 = +[STLog familyScreenTimeManager];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100115114(error);
+      sub_100115114();
     }
 
     goto LABEL_25;
@@ -1298,7 +1298,7 @@ LABEL_25:
     v27 = +[STLog familyScreenTimeManager];
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      sub_1001150AC(error);
+      sub_1001150AC();
     }
 
     v29 = 0;

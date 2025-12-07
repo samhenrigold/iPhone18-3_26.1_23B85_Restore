@@ -36,7 +36,7 @@ uint64_t __45__SOSInCallUILauncher_sharedInCallUILauncher__block_invoke(uint64_t
   v38 = *MEMORY[0x277D85DE8];
   lCopy = l;
   completionCopy = completion;
-  v10 = sos_default_log();
+  v10 = sos_default_log(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -45,14 +45,15 @@ uint64_t __45__SOSInCallUILauncher_sharedInCallUILauncher__block_invoke(uint64_t
   }
 
   v11 = [objc_opt_class() SOSRemoteAlertActivationReasonForSOSInCallUILaunchReason:reason];
+  v12 = v11;
   if (reason > 3)
   {
     if (reason == 5)
     {
-      v14 = sos_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sos_default_log(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [SOSInCallUILauncher launchInCallUIForReason:v14 withRequestURL:? completion:?];
+        [SOSInCallUILauncher launchInCallUIForReason:v15 withRequestURL:? completion:?];
       }
 
       goto LABEL_18;
@@ -64,28 +65,28 @@ uint64_t __45__SOSInCallUILauncher_sharedInCallUILauncher__block_invoke(uint64_t
     }
 
 LABEL_13:
-    v14 = objc_alloc_init(MEMORY[0x277CCACE0]);
-    [v14 setScheme:@"telSOS"];
-    v20 = [MEMORY[0x277CCAD18] queryItemWithName:@"reason" value:v11];
-    v35 = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
-    [v14 setQueryItems:v21];
+    v15 = objc_alloc_init(MEMORY[0x277CCACE0]);
+    [v15 setScheme:@"telSOS"];
+    v21 = [MEMORY[0x277CCAD18] queryItemWithName:@"reason" value:v12];
+    v35 = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+    [v15 setQueryItems:v22];
 
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-    v23 = [v14 URL];
+    v24 = [v15 URL];
     v28 = MEMORY[0x277D85DD0];
     v29 = 3221225472;
     v30 = __73__SOSInCallUILauncher_launchInCallUIForReason_withRequestURL_completion___block_invoke;
     v31 = &unk_279B53B28;
     v32 = completionCopy;
-    [defaultWorkspace openURL:v23 configuration:0 completionHandler:&v28];
+    [defaultWorkspace openURL:v24 configuration:0 completionHandler:&v28];
 
-    v24 = [(SOSInCallUILauncher *)self processObserver:v28];
+    v25 = [(SOSInCallUILauncher *)self processObserver:v28];
 
-    if (!v24)
+    if (!v25)
     {
-      v25 = [[SOSProcessObserver alloc] initWithBundleIdentifier:@"com.apple.InCallService"];
-      [(SOSInCallUILauncher *)self setProcessObserver:v25];
+      v26 = [[SOSProcessObserver alloc] initWithBundleIdentifier:@"com.apple.InCallService"];
+      [(SOSInCallUILauncher *)self setProcessObserver:v26];
     }
 
     processObserver = [(SOSInCallUILauncher *)self processObserver];
@@ -101,16 +102,16 @@ LABEL_13:
 
   if (reason == 3)
   {
-    v12 = objc_alloc(MEMORY[0x277D66BD8]);
-    v13 = TUInCallRemoteAlertViewControllerClassName();
-    v14 = [v12 initWithServiceName:@"com.apple.InCallService" viewControllerClassName:v13];
+    v13 = objc_alloc(MEMORY[0x277D66BD8]);
+    v14 = TUInCallRemoteAlertViewControllerClassName();
+    v15 = [v13 initWithServiceName:@"com.apple.InCallService" viewControllerClassName:v14];
 
-    v15 = [MEMORY[0x277D66BF0] lookupHandlesForDefinition:v14 creatingIfNone:1];
-    firstObject = [v15 firstObject];
+    v16 = [MEMORY[0x277D66BF0] lookupHandlesForDefinition:v15 creatingIfNone:1];
+    firstObject = [v16 firstObject];
 
     [firstObject addObserver:self];
-    v17 = objc_alloc_init(MEMORY[0x277D66BC0]);
-    [v17 setReason:v11];
+    v18 = objc_alloc_init(MEMORY[0x277D66BC0]);
+    [v18 setReason:v12];
     if (lCopy)
     {
       absoluteString = [lCopy absoluteString];
@@ -118,19 +119,17 @@ LABEL_13:
       {
         v33 = @"SOSRemoteAlertActivationContextUserInfoRequestURLString";
         v34 = absoluteString;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-        [v17 setUserInfo:v19];
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+        [v18 setUserInfo:v20];
       }
     }
 
-    [firstObject activateWithContext:v17];
+    [firstObject activateWithContext:v18];
 
 LABEL_18:
   }
 
 LABEL_19:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SOSInCallUILauncher_launchInCallUIForReason_withRequestURL_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -148,19 +147,17 @@ void __73__SOSInCallUILauncher_launchInCallUIForReason_withRequestURL_completion
 
 uint64_t __73__SOSInCallUILauncher_launchInCallUIForReason_withRequestURL_completion___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "Launched SOS URL with error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "Launched SOS URL with error: %@", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))(*(a1 + 40), *(a1 + 32) == 0);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))(*(a1 + 40), *(a1 + 32) == 0);
 }
 
 + (id)SOSRemoteAlertActivationReasonForSOSInCallUILaunchReason:(int64_t)reason
@@ -189,17 +186,17 @@ uint64_t __73__SOSInCallUILauncher_launchInCallUIForReason_withRequestURL_comple
   }
 }
 
-void __84__SOSInCallUILauncher_processObserver_bundleIdentifier_didUpdateApplicationRunning___block_invoke()
+void __84__SOSInCallUILauncher_processObserver_bundleIdentifier_didUpdateApplicationRunning___block_invoke(uint64_t a1)
 {
-  v0 = sos_default_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = sos_default_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_264323000, v0, OS_LOG_TYPE_DEFAULT, "InCallService process has stopped running, setting current sos initiation state to idle", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_264323000, v1, OS_LOG_TYPE_DEFAULT, "InCallService process has stopped running, setting current sos initiation state to idle", v3, 2u);
   }
 
-  v1 = +[SOSManager sharedInstance];
-  [v1 setCurrentSOSInitiationState:0];
+  v2 = +[SOSManager sharedInstance];
+  [v2 setCurrentSOSInitiationState:0];
 }
 
 @end

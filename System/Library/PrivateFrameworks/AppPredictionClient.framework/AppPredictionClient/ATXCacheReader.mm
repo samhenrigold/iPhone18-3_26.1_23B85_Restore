@@ -181,7 +181,7 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *__error();
@@ -195,7 +195,7 @@ LABEL_12:
 
 - (void)_handleDirChange
 {
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

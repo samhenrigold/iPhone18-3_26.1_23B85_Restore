@@ -1,12 +1,15 @@
 @interface CSMartyTap2Radar
 - (BOOL)createNotification:(id)notification confirmation:(__CFUserNotification *)confirmation error:(id *)error;
+- (BOOL)enqueueTTRWithTriggerUUID:(id)d ttrManagedFiles:(BOOL)files error:(id *)error;
 - (BOOL)showPrivacyNotificationWithError:(id *)error;
 - (BOOL)startMonitoringWithError:(id *)error;
 - (CSMartyTap2Radar)initWithSpoolerFolder:(id)folder andConfiguration:(id)configuration;
+- (CSMartyTap2Radar)radarWithResult:(int)result triggerUUID:(id)d ttrManagedMsl:(BOOL)msl eventType:(int64_t)type error:(id *)error formattedDate:(id)date;
 - (CSMartyTap2RadarConfirmation_struct)showConfirmationWithError:(id *)error withEventType:(int64_t)type;
 - (unint64_t)getNotificationResponse:(__CFUserNotification *)response error:(id *)error;
 - (void)deletePendingFiles:(id)files ttrManagedMsl:(BOOL)msl;
 - (void)deletePendingMSLFile:(id)file;
+- (void)deletePendingMetadatafile:(id)metadatafile ttrManagedMsl:(BOOL)msl;
 - (void)showTTRWithTriggerUUID:(id)d ttrManagedFiles:(BOOL)files withEventType:(int64_t)type;
 @end
 
@@ -52,6 +55,52 @@
       v16 = 2112;
       v17 = v12;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to delete file: %@, error: %@", buf, 0x16u);
+    }
+  }
+}
+
+- (void)deletePendingMetadatafile:(id)metadatafile ttrManagedMsl:(BOOL)msl
+{
+  mslCopy = msl;
+  metadatafileCopy = metadatafile;
+  v6 = [CSAnomalyEventService generateMslUrl:metadatafileCopy andSessionType:2 ttrManagedMsl:mslCopy];
+  v7 = +[NSFileManager defaultManager];
+  v8 = [v6 URLByAppendingPathExtension:@"metadata"];
+  if (qword_100456918 != -1)
+  {
+    sub_1003585EC();
+  }
+
+  v9 = qword_100456920;
+  if (os_log_type_enabled(qword_100456920, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138477827;
+    v18 = v8;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Deleting metadata file %{private}@", buf, 0xCu);
+  }
+
+  path = [v8 path];
+  v16 = 0;
+  v11 = [v7 removeItemAtPath:path error:&v16];
+  v12 = v16;
+
+  if ((v11 & 1) == 0)
+  {
+    if (qword_100456918 != -1)
+    {
+      sub_100358600();
+    }
+
+    v13 = qword_100456920;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v14 = [v8 description];
+      v15 = [v12 description];
+      *buf = 138412546;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to delete file: %@, error: %@", buf, 0x16u);
     }
   }
 }
@@ -187,6 +236,42 @@ LABEL_8:
   v11[4] = self;
   v10 = dCopy;
   dispatch_async(dispatchQueue, v11);
+}
+
+- (BOOL)enqueueTTRWithTriggerUUID:(id)d ttrManagedFiles:(BOOL)files error:(id *)error
+{
+  filesCopy = files;
+  dCopy = d;
+  Current = CFAbsoluteTimeGetCurrent();
+  v10 = [[NSKeyedArchiver alloc] initRequiringSecureCoding:1];
+  [v10 encodeInt64:Current forKey:@"timestamp"];
+  [v10 encodeObject:dCopy forKey:@"triggerUUID"];
+  [v10 encodeBool:filesCopy forKey:@"ttrManagedFiles"];
+  [v10 finishEncoding];
+  folderURL = [(CSMartyTap2Radar *)self folderURL];
+  v12 = +[NSUUID UUID];
+  uUIDString = [v12 UUIDString];
+  v14 = [folderURL URLByAppendingPathComponent:uUIDString];
+  v15 = [v14 URLByAppendingPathExtension:@"ttr"];
+
+  if (qword_100456918 != -1)
+  {
+    sub_1003585EC();
+  }
+
+  v16 = qword_100456920;
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    absoluteString = [v15 absoluteString];
+    v21 = 138412290;
+    v22 = absoluteString;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "writing enqueue file to: %@", &v21, 0xCu);
+  }
+
+  encodedData = [v10 encodedData];
+  v19 = [encodedData writeToURL:v15 options:805306369 error:error];
+
+  return v19;
 }
 
 - (BOOL)createNotification:(id)notification confirmation:(__CFUserNotification *)confirmation error:(id *)error
@@ -407,6 +492,169 @@ LABEL_12:
   }
 
   return v7;
+}
+
+- (CSMartyTap2Radar)radarWithResult:(int)result triggerUUID:(id)d ttrManagedMsl:(BOOL)msl eventType:(int64_t)type error:(id *)error formattedDate:(id)date
+{
+  mslCopy = msl;
+  dCopy = d;
+  v43 = dCopy;
+  dateCopy = date;
+  v14 = +[CSPermissions sharedInstance];
+  isAuthorizedToCollectData = [v14 isAuthorizedToCollectData];
+
+  v16 = 0;
+  if (type > 2)
+  {
+    if (type == 3)
+    {
+      v16 = @"EC";
+    }
+
+    else if (type == 4)
+    {
+      v16 = @"SC";
+    }
+
+    goto LABEL_11;
+  }
+
+  if (type == 1)
+  {
+    v16 = @"T";
+    goto LABEL_11;
+  }
+
+  if (type == 2)
+  {
+    v16 = @"AC";
+    goto LABEL_11;
+  }
+
+  if (type)
+  {
+LABEL_11:
+    file = 0;
+    if (result > 2)
+    {
+      v45 = 0;
+      if ((result - 3) < 3)
+      {
+        if (qword_100456918 != -1)
+        {
+          sub_1003585EC();
+        }
+
+        v23 = qword_100456920;
+        if (os_log_type_enabled(qword_100456920, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Can't generate URL for that result", buf, 2u);
+        }
+
+        v24 = 0;
+        goto LABEL_35;
+      }
+    }
+
+    else
+    {
+      if (!result)
+      {
+        v25 = [NSString stringWithFormat:@"[Marty] Improve Crash Detection %@ IS=%d Event=%@", dCopy, isAuthorizedToCollectData, v16];
+        v26 = +[NSCharacterSet URLQueryAllowedCharacterSet];
+        v45 = [v25 stringByAddingPercentEncodingWithAllowedCharacters:v26];
+
+        dateCopy = [NSString stringWithFormat:@"Please tell us more about what you were doing around %@. \n\nFor example, were you recently in a car or some other moving platform? Were you actively moving or doing some other activity? \n\nWe'll use what you file to refine our iOS/watchOS Safety algorithms. \n\nNote: Two files containing sensor data have been automatically attached to the radar. You can go to the Attachments and delete each file, as well as the original sysdiagnose, if you do not wish for the information to be sent to the team.", dateCopy];
+        v21 = +[NSCharacterSet URLQueryAllowedCharacterSet];
+        v22 = [dateCopy stringByAddingPercentEncodingWithAllowedCharacters:v21];
+        goto LABEL_23;
+      }
+
+      if (result == 1)
+      {
+        v27 = [NSString stringWithFormat:@"[Marty] Improve Crash Detection True Positive Detection %@ IS=%d Event=%@", dCopy, isAuthorizedToCollectData, v16];
+        v28 = +[NSCharacterSet URLQueryAllowedCharacterSet];
+        v45 = [v27 stringByAddingPercentEncodingWithAllowedCharacters:v28];
+
+        dateCopy = +[NSCharacterSet URLQueryAllowedCharacterSet];
+        file = [@"If you are comfortable sharing please tell us more about your incident. We'll use what you file to refine our iOS/watchOS Safety algorithms. \n\nNote:{as well as the original sysdiagnose, if you do not wish for the information to be sent to the team.", "stringByAddingPercentEncodingWithAllowedCharacters:", dateCopy} Two files containing sensor data have been automatically attached to the radar. You can go to the Attachments and delete each file];
+        goto LABEL_25;
+      }
+
+      v45 = 0;
+      if (result == 2)
+      {
+        v18 = [NSString stringWithFormat:@"[Marty] Improve Crash Detection False Positive Detection %@ IS=%d Event=%@", dCopy, isAuthorizedToCollectData, v16];
+        v19 = +[NSCharacterSet URLQueryAllowedCharacterSet];
+        v45 = [v18 stringByAddingPercentEncodingWithAllowedCharacters:v19];
+
+        dateCopy = [NSString stringWithFormat:@"Please tell us more about what you were doing around %@. \n\nFor example, were you recently in a car or some other moving platform? Were you actively moving or doing some other activity? \n\nWe'll use what you file to refine our iOS/watchOS Safety algorithms. \n\nNote: Two files containing sensor data have been automatically attached to the radar. You can go to the Attachments and delete each file, as well as the original sysdiagnose, if you do not wish for the information to be sent to the team.", dateCopy];
+        v21 = +[NSCharacterSet URLQueryAllowedCharacterSet];
+        v22 = [dateCopy stringByAddingPercentEncodingWithAllowedCharacters:v21];
+LABEL_23:
+        file = v22;
+
+LABEL_25:
+      }
+    }
+
+    v29 = [CSAnomalyEventService generateMslUrl:dCopy andSessionType:2 ttrManagedMsl:mslCopy];
+    v30 = [CSAnomalyEventService generateMslUrl:dCopy andSessionType:2 ttrManagedMsl:1];
+    v31 = [v30 URLByAppendingPathExtension:@"metadata"];
+
+    v32 = &stru_100436548;
+    if (mslCopy)
+    {
+      v32 = @"DeleteOnAttach=1";
+    }
+
+    v33 = v32;
+    absoluteString = [v29 absoluteString];
+    absoluteString2 = [v31 absoluteString];
+    v36 = [NSString stringWithFormat:@"tap-to-radar://new?Title=%@&Description=%@&Classification=Serious%%20Bug&Reproducibility=Not%%20Applicable&ComponentName=CoreMotion%%20Kappa&ComponentVersion=Tap-To-Radar&Attachments=%@, %@&Keywords=marty&ComponentID=1362668&%@", v45, file, absoluteString, absoluteString2, v33];
+    v37 = [NSURL URLWithString:v36];
+
+    if (qword_100456918 != -1)
+    {
+      sub_1003585EC();
+    }
+
+    v38 = qword_100456920;
+    if (os_log_type_enabled(qword_100456920, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138477827;
+      *&buf[4] = v37;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "Launching tap to radar with URL %{private}@", buf, 0xCu);
+    }
+
+    v39 = +[LSApplicationWorkspace defaultWorkspace];
+    [v39 openURL:v37 configuration:0 completionHandler:0];
+
+    if (!mslCopy)
+    {
+      v40 = dispatch_time(0, 5000000000);
+      dispatchQueue = self->_dispatchQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100029120;
+      block[3] = &unk_100414318;
+      block[4] = self;
+      v47 = v43;
+      dispatch_after(v40, dispatchQueue, block);
+    }
+
+    v24 = 1;
+LABEL_35:
+
+    return v24;
+  }
+
+  sub_100358628(buf);
+
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/DataCollection/CSMartyTap2Radar.mm", 535, "[CSMartyTap2Radar radarWithResult:triggerUUID:ttrManagedMsl:eventType:error:formattedDate:]");
+  __break(1u);
+  return result;
 }
 
 @end

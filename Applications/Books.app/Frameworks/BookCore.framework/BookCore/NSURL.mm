@@ -593,28 +593,29 @@ LABEL_8:
 
 - (BOOL)bc_isUbiquitous
 {
+  v9 = 0;
   v8 = 0;
-  v7 = 0;
-  [(NSURL *)self getResourceValue:&v8 forKey:NSURLIsUbiquitousItemKey error:&v7];
-  v2 = v8;
-  v3 = v7;
+  [(NSURL *)self getResourceValue:&v9 forKey:NSURLIsUbiquitousItemKey error:&v8];
+  v2 = v9;
+  v3 = v8;
+  v4 = v3;
   if (v3)
   {
-    v4 = BCIMLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BCIMLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1E9F8C();
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = [objc_opt_class() bc_BOOLFromResourceValue:v2];
+    v6 = [objc_opt_class() bc_BOOLFromResourceValue:v2];
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)hasUnresolvedConflicts
@@ -626,54 +627,56 @@ LABEL_8:
 
 - (BOOL)bc_isDownloaded
 {
+  v9 = 0;
   v8 = 0;
-  v7 = 0;
-  [(NSURL *)self getResourceValue:&v8 forKey:NSURLUbiquitousItemDownloadingStatusKey error:&v7];
-  v2 = v8;
-  v3 = v7;
+  [(NSURL *)self getResourceValue:&v9 forKey:NSURLUbiquitousItemDownloadingStatusKey error:&v8];
+  v2 = v9;
+  v3 = v8;
+  v4 = v3;
   if (v3)
   {
-    v4 = BCIMLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BCIMLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1E9FF4();
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = [objc_opt_class() bc_isDownloadedWithResourceValue:v2];
+    v6 = [objc_opt_class() bc_isDownloadedWithResourceValue:v2];
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)bc_isDownloading
 {
+  v9 = 0;
   v8 = 0;
-  v7 = 0;
-  [(NSURL *)self getResourceValue:&v8 forKey:NSURLUbiquitousItemIsDownloadingKey error:&v7];
-  v2 = v8;
-  v3 = v7;
+  [(NSURL *)self getResourceValue:&v9 forKey:NSURLUbiquitousItemIsDownloadingKey error:&v8];
+  v2 = v9;
+  v3 = v8;
+  v4 = v3;
   if (v3)
   {
-    v4 = BCIMLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BCIMLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1EA05C();
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = [objc_opt_class() bc_BOOLFromResourceValue:v2];
+    v6 = [objc_opt_class() bc_BOOLFromResourceValue:v2];
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)isUploaded
@@ -692,31 +695,31 @@ LABEL_8:
 
 - (BOOL)bc_isUbiquitousPromise
 {
-  v10[0] = NSURLIsUbiquitousItemKey;
-  v10[1] = NSURLUbiquitousItemDownloadingStatusKey;
-  v10[2] = NSURLUbiquitousItemIsDownloadingKey;
-  v3 = [NSArray arrayWithObjects:v10 count:3];
-  v9 = 0;
-  v4 = [(NSURL *)self resourceValuesForKeys:v3 error:&v9];
-  v5 = v9;
+  v11[0] = NSURLIsUbiquitousItemKey;
+  v11[1] = NSURLUbiquitousItemDownloadingStatusKey;
+  v11[2] = NSURLUbiquitousItemIsDownloadingKey;
+  v3 = [NSArray arrayWithObjects:v11 count:3];
+  v10 = 0;
+  v4 = [(NSURL *)self resourceValuesForKeys:v3 error:&v10];
+  v5 = v10;
 
   if (v5)
   {
-    v6 = BCIMLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BCIMLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1EA0C4();
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = [objc_opt_class() bc_isUbiquitousPromiseFromResourceDictionary:v4];
+    v8 = [objc_opt_class() bc_isUbiquitousPromiseFromResourceDictionary:v4];
   }
 
-  return v7;
+  return v8;
 }
 
 + (BOOL)bc_isUbiquitousPromiseFromResourceDictionary:(id)dictionary
@@ -769,8 +772,8 @@ LABEL_8:
   v8 = getiopolicy_np(type, 1);
   if (v8 == -1)
   {
-    v14 = BKLibraryDataSourceUbiquityLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = BKLibraryDataSourceUbiquityLog(v8);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1EA1FC();
     }
@@ -781,28 +784,33 @@ LABEL_8:
     v9 = v8;
     if (v8 != scope)
     {
-      if (setiopolicy_np(type, 1, scope))
+      v10 = setiopolicy_np(type, 1, scope);
+      if (v10)
       {
-        v10 = BKLibraryDataSourceUbiquityLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = BKLibraryDataSourceUbiquityLog(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_1EA12C();
         }
       }
 
-      v11 = objc_retainBlock(blockCopy);
-      v12 = v11;
-      if (v11)
+      v12 = objc_retainBlock(blockCopy);
+      v13 = v12;
+      if (v12)
       {
-        (*(v11 + 2))(v11);
+        (*(v12 + 2))(v12);
       }
 
-      if ((v9 & 0x80000000) == 0 && setiopolicy_np(type, 1, v9))
+      if ((v9 & 0x80000000) == 0)
       {
-        v13 = BKLibraryDataSourceUbiquityLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = setiopolicy_np(type, 1, v9);
+        if (v14)
         {
-          sub_1EA194();
+          v15 = BKLibraryDataSourceUbiquityLog(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          {
+            sub_1EA194();
+          }
         }
       }
 
@@ -810,11 +818,11 @@ LABEL_8:
     }
   }
 
-  v15 = objc_retainBlock(blockCopy);
-  v16 = v15;
-  if (v15)
+  v17 = objc_retainBlock(blockCopy);
+  v18 = v17;
+  if (v17)
   {
-    (*(v15 + 2))(v15);
+    (*(v17 + 2))(v17);
   }
 
 LABEL_20:
@@ -824,31 +832,32 @@ LABEL_20:
 {
   lCopy = l;
   accessorCopy = accessor;
-  if (+[NSThread isMainThread])
+  v11 = +[NSThread isMainThread];
+  if (v11)
   {
-    v11 = BCIMLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-    {
-      v14 = 136315650;
-      v15 = "+[NSURL(IMCoordinated) coordinateReadingItemAtURL:options:error:byAccessor:]";
-      v16 = 2080;
-      v17 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Utilities/NSURL+BCCoordinated.m";
-      v18 = 1024;
-      v19 = 24;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%s %s:%d", &v14, 0x1Cu);
-    }
-
-    v12 = BCIMLog();
+    v12 = BCIMLog(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412290;
-      v15 = lCopy;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "@This should not be called from the foreground thread. [URL: %@]", &v14, 0xCu);
+      v16 = 136315650;
+      v17 = "+[NSURL(IMCoordinated) coordinateReadingItemAtURL:options:error:byAccessor:]";
+      v18 = 2080;
+      v19 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Utilities/NSURL+BCCoordinated.m";
+      v20 = 1024;
+      v21 = 24;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "%s %s:%d", &v16, 0x1Cu);
+    }
+
+    v14 = BCIMLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v16 = 138412290;
+      v17 = lCopy;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "@This should not be called from the foreground thread. [URL: %@]", &v16, 0xCu);
     }
   }
 
-  v13 = objc_opt_new();
-  [v13 coordinateReadingItemAtURL:lCopy options:options error:error byAccessor:accessorCopy];
+  v15 = objc_opt_new();
+  [v15 coordinateReadingItemAtURL:lCopy options:options error:error byAccessor:accessorCopy];
 }
 
 + (void)coordinateWritingItemAtURL:(id)l options:(unint64_t)options error:(id *)error byAccessor:(id)accessor

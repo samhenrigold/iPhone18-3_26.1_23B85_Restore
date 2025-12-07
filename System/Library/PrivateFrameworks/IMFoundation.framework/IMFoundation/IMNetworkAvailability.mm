@@ -13,22 +13,22 @@
 
 - (IMNetworkAvailability)initWithFlags:(unint64_t)flags options:(unint64_t)options timeout:(double)timeout wifiTimeout:(double)wifiTimeout completionBlock:(id)block
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v35.receiver = self;
-  v35.super_class = IMNetworkAvailability;
-  v13 = [(IMNetworkAvailability *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = IMNetworkAvailability;
+  v13 = [(IMNetworkAvailability *)&v34 init];
   if (v13)
   {
     v14 = OSLogHandleForIDSCategory("NetworkAvailability");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109634;
-      *v37 = flags;
-      *&v37[4] = 2048;
-      *&v37[6] = timeout;
-      v38 = 2112;
-      v39 = v13;
+      *v36 = flags;
+      *&v36[4] = 2048;
+      *&v36[6] = timeout;
+      v37 = 2112;
+      v38 = v13;
       _os_log_impl(&dword_195988000, v14, OS_LOG_TYPE_DEFAULT, "Creating availabilty with: 0x%X    Timeout: %f  (%@)", buf, 0x1Cu);
     }
 
@@ -58,7 +58,7 @@
       }
 
       *buf = 138412290;
-      *v37 = v24;
+      *v36 = v24;
       _os_log_impl(&dword_195988000, v23, OS_LOG_TYPE_DEFAULT, "            Wants Cellular: %@", buf, 0xCu);
     }
 
@@ -76,7 +76,7 @@
       }
 
       *buf = 138412290;
-      *v37 = v26;
+      *v36 = v26;
       _os_log_impl(&dword_195988000, v25, OS_LOG_TYPE_DEFAULT, "                Wants WiFi: %@", buf, 0xCu);
     }
 
@@ -94,7 +94,7 @@
       }
 
       *buf = 138412290;
-      *v37 = v28;
+      *v36 = v28;
       _os_log_impl(&dword_195988000, v27, OS_LOG_TYPE_DEFAULT, "       Allow Early Timeout: %@", buf, 0xCu);
     }
 
@@ -112,7 +112,7 @@
       }
 
       *buf = 138412290;
-      *v37 = v30;
+      *v36 = v30;
       _os_log_impl(&dword_195988000, v29, OS_LOG_TYPE_DEFAULT, "      Show Network Options: %@", buf, 0xCu);
     }
 
@@ -130,35 +130,33 @@
       }
 
       *buf = 138412290;
-      *v37 = v32;
+      *v36 = v32;
       _os_log_impl(&dword_195988000, v31, OS_LOG_TYPE_DEFAULT, "       Don't wait for wifi: %@", buf, 0xCu);
     }
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = OSLogHandleForIDSCategory("NetworkAvailability");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     flags = self->_flags;
     *buf = 67109378;
-    v10 = flags;
-    v11 = 2112;
+    v9 = flags;
+    v10 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "Dealloc availabilty with: 0x%X  (%@)", buf, 0x12u);
   }
 
   self->_context = 0;
   objc_msgSend_invalidate(self->_timer, v5, v6);
-  v8.receiver = self;
-  v8.super_class = IMNetworkAvailability;
-  [(IMNetworkAvailability *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = IMNetworkAvailability;
+  [(IMNetworkAvailability *)&v7 dealloc];
 }
 
 - (void)_cancel
@@ -204,7 +202,7 @@
 - (BOOL)_isNetworkAvailablibityCheckingDone:(BOOL)done wantsWiFi:(BOOL)fi wantsCellular:(BOOL)cellular cellular:(BOOL)a6 hasCellularDataConnection:(BOOL)connection done:(BOOL)a8 withinTimeWindow:(BOOL)window
 {
   v9 = a8;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (cellular)
   {
     if (connection && a8 && !a6)
@@ -213,14 +211,14 @@
       {
         if (done)
         {
-          goto LABEL_23;
+          return v9;
         }
 
         v12 = OSLogHandleForIDSCategory("NetworkAvailability");
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v18) = 0;
-          _os_log_impl(&dword_195988000, v12, OS_LOG_TYPE_DEFAULT, "Cellular is not yet reachable and we don't have a usable wifi, we're not done", &v18, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_195988000, v12, OS_LOG_TYPE_DEFAULT, "Cellular is not yet reachable and we don't have a usable wifi, we're not done", &v17, 2u);
         }
       }
 
@@ -229,8 +227,8 @@
         v12 = OSLogHandleForIDSCategory("NetworkAvailability");
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v18) = 0;
-          _os_log_impl(&dword_195988000, v12, OS_LOG_TYPE_DEFAULT, "Cellular is not yet reachable and we don't want wifi, we're not done", &v18, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_195988000, v12, OS_LOG_TYPE_DEFAULT, "Cellular is not yet reachable and we don't want wifi, we're not done", &v17, 2u);
         }
       }
 
@@ -258,25 +256,23 @@
           v14 = @"YES";
         }
 
-        v18 = 138412546;
-        v19 = v15;
-        v20 = 2112;
-        v21 = v14;
-        _os_log_impl(&dword_195988000, v13, OS_LOG_TYPE_DEFAULT, "No available interfaces, withinTimeWindow: %@, done: %@", &v18, 0x16u);
+        v17 = 138412546;
+        v18 = v15;
+        v19 = 2112;
+        v20 = v14;
+        _os_log_impl(&dword_195988000, v13, OS_LOG_TYPE_DEFAULT, "No available interfaces, withinTimeWindow: %@, done: %@", &v17, 0x16u);
       }
 
       LOBYTE(v9) = v9 && !window;
     }
   }
 
-LABEL_23:
-  v16 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)_timerHit:(id)hit
 {
-  v197 = *MEMORY[0x1E69E9840];
+  v196 = *MEMORY[0x1E69E9840];
   hitCopy = hit;
   v4 = OSLogHandleForIDSCategory("NetworkAvailability");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -300,10 +296,10 @@ LABEL_23:
   isWiFiCaptive = objc_msgSend_isWiFiCaptive(v25, v26, v27);
 
   v30 = objc_msgSend_mobileNetworkManager(self, v28, v29);
-  v190 = objc_msgSend_willTryToAutoAssociateWiFiNetwork(v30, v31, v32);
+  v189 = objc_msgSend_willTryToAutoAssociateWiFiNetwork(v30, v31, v32);
 
   v35 = objc_msgSend_mobileNetworkManager(self, v33, v34);
-  v185 = objc_msgSend_willTryToSearchForWiFiNetwork(v35, v36, v37);
+  v184 = objc_msgSend_willTryToSearchForWiFiNetwork(v35, v36, v37);
 
   v38 = self->_options;
   v41 = objc_msgSend_mobileNetworkManager(self, v39, v40);
@@ -313,7 +309,7 @@ LABEL_23:
   valid = objc_msgSend_inValidSIMState(v47, v48, v49);
 
   v53 = objc_msgSend_mobileNetworkManager(self, v51, v52);
-  v189 = objc_msgSend_dataConnectionExists(v53, v54, v55);
+  v188 = objc_msgSend_dataConnectionExists(v53, v54, v55);
 
   v58 = objc_msgSend_mobileNetworkManager(self, v56, v57);
   isDataSwitchEnabled = objc_msgSend_isDataSwitchEnabled(v58, v59, v60);
@@ -324,8 +320,8 @@ LABEL_23:
   v68 = objc_msgSend_mobileNetworkManager(self, v66, v67);
   hasLTEDataConnection = objc_msgSend_hasLTEDataConnection(v68, v69, v70);
 
-  v191 = objc_msgSend_reachabilityForInternetConnection(IMNetworkReachability, v71, v72);
-  v75 = objc_msgSend_currentReachabilityStatus(v191, v73, v74);
+  v190 = objc_msgSend_reachabilityForInternetConnection(IMNetworkReachability, v71, v72);
+  v75 = objc_msgSend_currentReachabilityStatus(v190, v73, v74);
   flags = self->_flags;
   objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v77, v78);
   v80 = v79;
@@ -338,12 +334,12 @@ LABEL_23:
       v82 = 0;
     }
 
-    v194 = v82 & (isWiFiCaptive ^ 1) | ((options & 0x10) != 0) & isHostingWiFiHotSpot;
+    v193 = v82 & (isWiFiCaptive ^ 1) | ((options & 0x10) != 0) & isHostingWiFiHotSpot;
   }
 
   else
   {
-    v194 = 0;
+    v193 = 0;
   }
 
   wifiTimeout = self->_wifiTimeout;
@@ -539,7 +535,7 @@ LABEL_23:
   if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
   {
     v114 = @"NO";
-    if (v190)
+    if (v189)
     {
       v114 = @"YES";
     }
@@ -549,7 +545,7 @@ LABEL_23:
     _os_log_impl(&dword_195988000, v113, OS_LOG_TYPE_DEFAULT, "  Will Auto-Associate WiFi: %@", buf, 0xCu);
   }
 
-  v115 = v185 | v190;
+  v115 = v184 | v189;
   v116 = OSLogHandleForIDSCategory("NetworkAvailability");
   if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
   {
@@ -599,7 +595,7 @@ LABEL_23:
     _os_log_impl(&dword_195988000, v122, OS_LOG_TYPE_DEFAULT, "                              ", buf, 2u);
   }
 
-  v123 = v189 & (isAirplaneModeEnabled ^ 1) & isDataSwitchEnabled & valid;
+  v123 = v188 & (isAirplaneModeEnabled ^ 1) & isDataSwitchEnabled & valid;
   v124 = OSLogHandleForIDSCategory("NetworkAvailability");
   if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
   {
@@ -618,7 +614,7 @@ LABEL_23:
   if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
   {
     v127 = @"NO";
-    if (v189)
+    if (v188)
     {
       v127 = @"YES";
     }
@@ -791,7 +787,7 @@ LABEL_23:
   if (os_log_type_enabled(v151, OS_LOG_TYPE_DEFAULT))
   {
     v152 = @"NO";
-    if (v194)
+    if (v193)
     {
       v152 = @"YES";
     }
@@ -873,11 +869,11 @@ LABEL_23:
     }
   }
 
-  LODWORD(v167) = (flags >> 1) & ~v123 & flags & (v86 > wifiTimeout) | v194 | v164 | (v81 | v123) ^ 1 | v156 & ((v38 & 8) != 0);
+  LODWORD(v167) = (flags >> 1) & ~v123 & flags & (v86 > wifiTimeout) | v193 | v164 | (v81 | v123) ^ 1 | v156 & ((v38 & 8) != 0);
   if (v81)
   {
 LABEL_155:
-    if (v194 & 1 | ((v167 & flags & isWiFiAssociated & 1) == 0))
+    if (v193 & 1 | ((v167 & flags & isWiFiAssociated & 1) == 0))
     {
       goto LABEL_168;
     }
@@ -902,7 +898,7 @@ LABEL_166:
 
   if ((flags & 2) == 0)
   {
-    if (((flags & 1) == 0) | v194 & 1)
+    if (((flags & 1) == 0) | v193 & 1)
     {
       goto LABEL_168;
     }
@@ -918,7 +914,7 @@ LABEL_166:
     goto LABEL_155;
   }
 
-  if (v194 & 1 | ((v167 & flags & isWiFiAssociated & 1) == 0))
+  if (v193 & 1 | ((v167 & flags & isWiFiAssociated & 1) == 0))
   {
     goto LABEL_168;
   }
@@ -938,7 +934,7 @@ LABEL_162:
 
 LABEL_168:
   objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v160, v161);
-  hasCellularDataConnection_done_withinTimeWindow = objc_msgSend__isNetworkAvailablibityCheckingDone_wantsWiFi_wantsCellular_cellular_hasCellularDataConnection_done_withinTimeWindow_(self, v169, v194, flags & 1, (flags >> 1) & 1, v153, v130, v167 & 1, v168 <= self->_startTime + 4.0);
+  hasCellularDataConnection_done_withinTimeWindow = objc_msgSend__isNetworkAvailablibityCheckingDone_wantsWiFi_wantsCellular_cellular_hasCellularDataConnection_done_withinTimeWindow_(self, v169, v193, flags & 1, (flags >> 1) & 1, v153, v130, v167 & 1, v168 <= self->_startTime + 4.0);
   objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v171, v172);
   if (((v173 <= self->_timeout + self->_startTime) & ~hasCellularDataConnection_done_withinTimeWindow) != 0)
   {
@@ -964,7 +960,7 @@ LABEL_168:
     objc_msgSend__cancel(self, v175, v176);
     if (self->_completionBlock)
     {
-      if (v194)
+      if (v193)
       {
         v177 = OSLogHandleForIDSCategory("NetworkAvailability");
         if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
@@ -1017,13 +1013,11 @@ LABEL_187:
   }
 
 LABEL_188:
-
-  v183 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setTimer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!self->_timer)
   {
     v3 = OSLogHandleForIDSCategory("NetworkAvailability");
@@ -1031,36 +1025,34 @@ LABEL_188:
     {
       timeout = self->_timeout;
       *buf = 134218240;
-      v13 = 0x3FF0000000000000;
-      v14 = 2048;
-      v15 = timeout;
+      v12 = 0x3FF0000000000000;
+      v13 = 2048;
+      v14 = timeout;
       _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "Starting timer with time interval: %f   (Timeout: %f)", buf, 0x16u);
     }
 
     v5 = [IMDispatchTimer alloc];
     v6 = im_primary_queue();
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1959CCBC4;
-    v11[3] = &unk_1E7439BF0;
-    v11[4] = self;
-    v8 = objc_msgSend_initWithQueue_interval_repeats_handlerBlock_(v5, v7, v6, 1, 1, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = sub_1959CCBC4;
+    v10[3] = &unk_1E7439BF0;
+    v10[4] = self;
+    v8 = objc_msgSend_initWithQueue_interval_repeats_handlerBlock_(v5, v7, v6, 1, 1, v10);
     timer = self->_timer;
     self->_timer = v8;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = OSLogHandleForIDSCategory("NetworkAvailability");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v42 = 138412290;
+    v41 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "Client requested start availability check: %@", &v42, 0xCu);
+    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "Client requested start availability check: %@", &v41, 0xCu);
   }
 
   if (self->_startTime == 0.0)
@@ -1070,8 +1062,8 @@ LABEL_188:
       v6 = OSLogHandleForIDSCategory("NetworkAvailability");
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v42) = 0;
-        _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "  => Asserting WiFi desired", &v42, 2u);
+        LOWORD(v41) = 0;
+        _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "  => Asserting WiFi desired", &v41, 2u);
       }
 
       v9 = objc_msgSend_mobileNetworkManager(self, v7, v8);
@@ -1101,8 +1093,8 @@ LABEL_188:
         v29 = OSLogHandleForIDSCategory("NetworkAvailability");
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v42) = 0;
-          _os_log_impl(&dword_195988000, v29, OS_LOG_TYPE_DEFAULT, "  => Show Network Options", &v42, 2u);
+          LOWORD(v41) = 0;
+          _os_log_impl(&dword_195988000, v29, OS_LOG_TYPE_DEFAULT, "  => Show Network Options", &v41, 2u);
         }
 
         v32 = objc_msgSend_mobileNetworkManager(self, v30, v31);
@@ -1115,8 +1107,8 @@ LABEL_188:
       v35 = OSLogHandleForIDSCategory("NetworkAvailability");
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v42) = 0;
-        _os_log_impl(&dword_195988000, v35, OS_LOG_TYPE_DEFAULT, "  => Asserting Cellular desired", &v42, 2u);
+        LOWORD(v41) = 0;
+        _os_log_impl(&dword_195988000, v35, OS_LOG_TYPE_DEFAULT, "  => Asserting Cellular desired", &v41, 2u);
       }
 
       v38 = objc_msgSend_mobileNetworkManager(self, v36, v37);
@@ -1128,22 +1120,20 @@ LABEL_188:
   }
 
   objc_msgSend__timerHit_(self, v4, self->_timer);
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = OSLogHandleForIDSCategory("NetworkAvailability");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "Client requested cancel availability check: %@", &v7, 0xCu);
+    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "Client requested cancel availability check: %@", &v6, 0xCu);
   }
 
   objc_msgSend__cancel(self, v4, v5);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

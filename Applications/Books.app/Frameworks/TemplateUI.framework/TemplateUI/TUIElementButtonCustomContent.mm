@@ -26,12 +26,12 @@
 {
   objectCopy = object;
   builderCopy = builder;
-  model = [objectCopy model];
+  v7 = objc_msgSend_model(objectCopy);
 
-  if (model)
+  if (v7)
   {
-    model2 = [objectCopy model];
-    [builderCopy addContentModel:model2];
+    v8 = objc_msgSend_model(objectCopy);
+    [builderCopy addContentModel:v8];
   }
 }
 

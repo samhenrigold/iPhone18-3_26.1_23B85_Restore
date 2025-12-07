@@ -7,10 +7,10 @@
 - (id)allowableClassesForClientWithContext:(id)context
 {
   v3 = MEMORY[0x277CBEB98];
-  v4 = objc_msgSend_allowedTopLevelClasses(APOdmlFeatureValueTransformer, a2, context);
-  v6 = objc_msgSend_setWithArray_(v3, v5, v4);
+  v4 = +[APOdmlFeatureValueTransformer allowedTopLevelClasses];
+  v5 = [v3 setWithArray:v4];
 
-  return v6;
+  return v5;
 }
 
 @end

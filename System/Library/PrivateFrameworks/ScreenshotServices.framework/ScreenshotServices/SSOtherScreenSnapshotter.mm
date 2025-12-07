@@ -70,26 +70,26 @@
   return v26;
 }
 
-uint64_t __42__SSOtherScreenSnapshotter_takeScreenshot__block_invoke(uint64_t a1, void *a2)
+uint64_t __42__SSOtherScreenSnapshotter_takeScreenshot__block_invoke(double a1, double a2, uint64_t a3, void *a4)
 {
-  v2 = *MEMORY[0x1E69DEB70];
-  v3 = a2;
-  v4 = [v3 objectForKeyedSubscript:v2];
-  v5 = [v4 BOOLValue];
+  v4 = *MEMORY[0x1E69DEB70];
+  v5 = a4;
+  v6 = [v5 objectForKeyedSubscript:v4];
+  v7 = [v6 BOOLValue];
 
-  if (v5)
+  if (v7)
   {
-    v6 = _UIRenderingMultiBufferCreate();
+    v8 = _UIRenderingMultiBufferCreate();
   }
 
   else
   {
-    v6 = _UIRenderingBufferCreate();
+    v8 = _UIRenderingBufferCreate();
   }
 
-  v7 = v6;
+  v9 = v8;
 
-  return v7;
+  return v9;
 }
 
 @end

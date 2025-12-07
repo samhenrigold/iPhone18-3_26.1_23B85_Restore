@@ -23,6 +23,7 @@
 - (void)setMaxGraphicsDrivePowerTarget:(int)target;
 - (void)setMaxPackagePower:(int)power;
 - (void)setPackageLowPowerTarget;
+- (void)setPackagePowerBudgetDirect:(int)direct withDetails:(unint64_t)details;
 - (void)setPackagePowerZoneTarget;
 - (void)updateCPU;
 - (void)updateGPU;
@@ -549,6 +550,26 @@ LABEL_6:
   }
 }
 
+- (void)setPackagePowerBudgetDirect:(int)direct withDetails:(unint64_t)details
+{
+  if (self->_cpmsMitigationsEnabled)
+  {
+    v5 = *&direct;
+    v6 = +[CPMSHelper sharedInstance];
+
+    [(CPMSHelper *)v6 addToCPMSMitigationArray:v5 withDetails:details forComponent:13];
+  }
+
+  else
+  {
+    v7 = qword_1000AB718;
+    if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
+    {
+      sub_100054CD4(v7);
+    }
+  }
+}
+
 - (void)updatePackage
 {
   packageControlQueue = self->packageControlQueue;
@@ -649,7 +670,7 @@ LABEL_6:
       CFDictionaryAddValue(Mutable, propertyCopy, v11);
       if (IORegistryEntrySetCFProperties(self->clpcService, Mutable))
       {
-        sub_100054DF0(p_currentCPUPowerTarget);
+        sub_100054DF0();
       }
 
       else if (byte_1000AB2F8 == 1)
@@ -690,7 +711,7 @@ LABEL_6:
       {
         if (IORegistryEntrySetCFProperties(self->clpcService, Mutable))
         {
-          sub_100054EC8(p_currentCPULowPowerTarget);
+          sub_100054EC8();
         }
 
         else if (byte_1000AB2F8 == 1)

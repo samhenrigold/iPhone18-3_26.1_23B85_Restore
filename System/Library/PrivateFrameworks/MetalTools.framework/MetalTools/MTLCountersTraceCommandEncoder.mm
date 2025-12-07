@@ -24,14 +24,13 @@
 
 - (void)popDebugGroup
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   stream = self->_stream;
-  v7[1] = v7;
+  v6[1] = v6;
   __src = 29185;
-  v5 = 16;
-  v7[0] = v6;
+  v4 = 16;
+  v6[0] = v5;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 3uLL);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (_NSRange)segment

@@ -3,11 +3,30 @@
 - (BOOL)handlesPersistentPropertiesForSenderDescriptor:(id)descriptor;
 - (int64_t)setPersistentProperties:(id)properties forServicesMatchingDescriptor:(id)descriptor;
 - (void)matcher:(id)matcher servicesDidMatch:(id)match;
+- (void)processDidTerminate:(int)terminate;
 - (void)serviceDidDisappear:(id)disappear;
 - (void)setScanningActive:(BOOL)active buttonIdentifier:(int64_t)identifier forPID:(int)d;
 @end
 
 @implementation BKHIDTouchSensitiveButtonScanningController
+
+- (void)processDidTerminate:(int)terminate
+{
+  v3 = *&terminate;
+  os_unfair_lock_lock(&self->_lock);
+  lock_pidToProcessDeathWatcher = self->_lock_pidToProcessDeathWatcher;
+  v6 = [NSNumber numberWithInt:v3];
+  [(NSMutableDictionary *)lock_pidToProcessDeathWatcher removeObjectForKey:v6];
+
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10001B5FC;
+  v7[3] = &unk_1000FCD68;
+  v7[4] = self;
+  v8 = v3;
+  sub_10001B610(self, v7);
+  os_unfair_lock_unlock(&self->_lock);
+}
 
 - (int64_t)setPersistentProperties:(id)properties forServicesMatchingDescriptor:(id)descriptor
 {

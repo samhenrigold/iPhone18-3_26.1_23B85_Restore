@@ -7,7 +7,7 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(id)handler
 {
-  v9 = sub_3CB0(&qword_104E88);
+  v9 = sub_3CB0(&qword_104E88, &qword_CE620);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -36,7 +36,7 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(id)handler
 {
-  v9 = sub_3CB0(&qword_104E88);
+  v9 = sub_3CB0(&qword_104E88, &qword_CE620);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

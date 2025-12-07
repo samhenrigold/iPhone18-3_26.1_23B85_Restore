@@ -50,14 +50,14 @@
 {
   animationCopy = animation;
   selfCopy = self;
-  sub_1005CAEB4();
+  sub_1005CAEB4(animationCopy);
 }
 
 - (void)scrollViewDidScroll:(id)scroll
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_1005CAFE8();
+  sub_1005CAFE8(scrollCopy);
 }
 
 @end

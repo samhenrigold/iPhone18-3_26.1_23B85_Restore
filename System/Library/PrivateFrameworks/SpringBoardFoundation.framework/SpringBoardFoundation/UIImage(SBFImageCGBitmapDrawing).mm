@@ -2,14 +2,14 @@
 + (id)sbf_imageFromBGRAContextWithSize:()SBFImageCGBitmapDrawing scale:colorSpace:withAlpha:pool:drawing:encapsulation:;
 + (id)sbf_imageFromContextWithSize:()SBFImageCGBitmapDrawing scale:type:pool:drawing:;
 + (id)sbf_imageFromContextWithSize:()SBFImageCGBitmapDrawing scale:type:pool:drawing:encapsulation:;
-+ (uint64_t)sbf_bytesNeededForSize:()SBFImageCGBitmapDrawing scale:withContextType:;
++ (unint64_t)sbf_bytesNeededForSize:()SBFImageCGBitmapDrawing scale:withContextType:;
 - (id)sbf_downscaledImageByDrawingIntoContextOfType:()SBFImageCGBitmapDrawing downscaleFactor:;
 - (id)sbf_memoryMappedImageWithPool:()SBFImageCGBitmapDrawing;
 @end
 
 @implementation UIImage(SBFImageCGBitmapDrawing)
 
-+ (uint64_t)sbf_bytesNeededForSize:()SBFImageCGBitmapDrawing scale:withContextType:
++ (unint64_t)sbf_bytesNeededForSize:()SBFImageCGBitmapDrawing scale:withContextType:
 {
   v6 = vcvtpd_u64_f64(a2 * a3);
   _SBFGraphicsContextComponentsCountForType(a6);

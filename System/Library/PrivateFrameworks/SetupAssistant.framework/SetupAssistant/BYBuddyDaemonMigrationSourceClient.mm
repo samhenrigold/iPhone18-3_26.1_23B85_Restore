@@ -83,21 +83,21 @@
   [connection6 resume];
 }
 
-void __54__BYBuddyDaemonMigrationSourceClient__connectToDaemon__block_invoke()
+void __54__BYBuddyDaemonMigrationSourceClient__connectToDaemon__block_invoke(uint64_t a1)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __54__BYBuddyDaemonMigrationSourceClient__connectToDaemon__block_invoke_cold_1(v0);
+    __54__BYBuddyDaemonMigrationSourceClient__connectToDaemon__block_invoke_cold_1(v1);
   }
 }
 
-void __54__BYBuddyDaemonMigrationSourceClient__connectToDaemon__block_invoke_72()
+void __54__BYBuddyDaemonMigrationSourceClient__connectToDaemon__block_invoke_72(uint64_t a1)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __54__BYBuddyDaemonMigrationSourceClient__connectToDaemon__block_invoke_72_cold_1(v0);
+    __54__BYBuddyDaemonMigrationSourceClient__connectToDaemon__block_invoke_72_cold_1(v1);
   }
 }
 

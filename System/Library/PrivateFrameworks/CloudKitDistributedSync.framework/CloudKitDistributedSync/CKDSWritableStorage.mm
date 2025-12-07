@@ -27,18 +27,18 @@
 
 - (CKDSWritableStorage)initWithTemporaryFile:(id *)file
 {
-  v73[2] = *MEMORY[0x277D85DE8];
+  v72[2] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEBC0];
   v6 = NSTemporaryDirectory();
-  v73[0] = v6;
-  v73[1] = @"CloudKitDistributedSync";
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v73, 2, v8, v9, v10);
+  v72[0] = v6;
+  v72[1] = @"CloudKitDistributedSync";
+  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v72, 2, v8, v9, v10);
   v17 = objc_msgSend_fileURLWithPathComponents_(v5, v12, v11, v13, v14, v15, v16);
 
   v24 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v18, v19, v20, v21, v22, v23);
-  v70 = 0;
-  DirectoryAtURL_withIntermediateDirectories_attributes_error = objc_msgSend_createDirectoryAtURL_withIntermediateDirectories_attributes_error_(v24, v25, v17, 1, 0, &v70, v26);
-  v28 = v70;
+  v69 = 0;
+  DirectoryAtURL_withIntermediateDirectories_attributes_error = objc_msgSend_createDirectoryAtURL_withIntermediateDirectories_attributes_error_(v24, v25, v17, 1, 0, &v69, v26);
+  v28 = v69;
 
   if (DirectoryAtURL_withIntermediateDirectories_attributes_error)
   {
@@ -57,7 +57,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v72 = v55;
+      v71 = v55;
       _os_log_debug_impl(&dword_2438A8000, v56, OS_LOG_TYPE_DEBUG, "Using temporary file %@", buf, 0xCu);
     }
 
@@ -80,7 +80,6 @@
     selfCopy = 0;
   }
 
-  v68 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

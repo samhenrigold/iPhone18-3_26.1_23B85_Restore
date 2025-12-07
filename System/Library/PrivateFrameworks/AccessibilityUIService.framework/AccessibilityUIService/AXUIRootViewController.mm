@@ -21,31 +21,31 @@
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   childViewControllers = [(AXUIRootViewController *)self childViewControllers];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v4 = [childViewControllers countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v4 = [childViewControllers countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     v7 = 30;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(childViewControllers);
         }
 
-        v7 &= [*(*(&v20 + 1) + 8 * i) supportedInterfaceOrientations];
+        v7 &= [*(*(&v19 + 1) + 8 * i) supportedInterfaceOrientations];
       }
 
-      v5 = [childViewControllers countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v5 = [childViewControllers countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v5);
@@ -79,7 +79,7 @@
           if (os_log_type_enabled(v14, v15))
           {
             *buf = 138543362;
-            v25 = v17;
+            v24 = v17;
             _os_log_impl(&dword_23DBD1000, v14, v15, "%{public}@", buf, 0xCu);
           }
         }
@@ -94,7 +94,6 @@
     v7 = 30;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

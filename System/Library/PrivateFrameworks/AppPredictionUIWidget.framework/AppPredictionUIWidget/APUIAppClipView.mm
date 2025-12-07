@@ -7,7 +7,7 @@
 
 - (void)layoutSuggestion:(id)suggestion
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   if (suggestionCopy)
   {
@@ -31,36 +31,37 @@
     v13 = NSClassFromString(executableClassString);
     executableSpecification2 = [suggestionCopy executableSpecification];
     executable = [executableSpecification2 executable];
-    v50 = 0;
-    v16 = [v10 unarchivedObjectOfClass:v13 fromData:executable error:&v50];
-    v17 = v50;
+    v51 = 0;
+    v16 = [v10 unarchivedObjectOfClass:v13 fromData:executable error:&v51];
+    v17 = v51;
 
     if (v16 || !v17)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         objc_storeStrong(&self->_prediction, v16);
         clipMetadata = [(ATXHeroData *)self->_prediction clipMetadata];
         fullAppCachedIconFilePath = [clipMetadata fullAppCachedIconFilePath];
-        v21 = [fullAppCachedIconFilePath copy];
+        v23 = [fullAppCachedIconFilePath copy];
 
-        if (v21)
+        if (v23)
         {
-          v22 = dispatch_get_global_queue(25, 0);
-          v44 = MEMORY[0x277D85DD0];
-          v45 = 3221225472;
-          v46 = __36__APUIAppClipView_layoutSuggestion___block_invoke;
-          v47 = &unk_278C909F0;
-          v48 = v21;
+          v24 = dispatch_get_global_queue(25, 0);
+          v45 = MEMORY[0x277D85DD0];
+          v46 = 3221225472;
+          v47 = __36__APUIAppClipView_layoutSuggestion___block_invoke;
+          v48 = &unk_278C909F0;
+          v49 = v23;
           selfCopy = self;
-          dispatch_async(v22, &v44);
+          dispatch_async(v24, &v45);
         }
 
-        v23 = [(APUISuggestionView *)self titleLabel:v44];
+        v25 = [(APUISuggestionView *)self titleLabel:v45];
         clipMetadata2 = [(ATXHeroData *)self->_prediction clipMetadata];
         localizedTitleForClipSuggestion = [clipMetadata2 localizedTitleForClipSuggestion];
-        [v23 setText:localizedTitleForClipSuggestion];
+        [v25 setText:localizedTitleForClipSuggestion];
 
         subtitleLabel = [(APUISuggestionView *)self subtitleLabel];
         clipMetadata3 = [(ATXHeroData *)self->_prediction clipMetadata];
@@ -70,46 +71,46 @@
 
       else
       {
-        v21 = __atxlog_handle_ui();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v23 = __atxlog_handle_ui(isKindOfClass);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          [(APUIAppClipView *)v16 layoutSuggestion:v21];
+          [(APUIAppClipView *)v16 layoutSuggestion:v23];
         }
       }
 
-      v29 = MEMORY[0x277D74270];
-      v30 = MEMORY[0x277D755B8];
-      v31 = [MEMORY[0x277D755D0] configurationWithScale:1];
-      v32 = [v30 systemImageNamed:@"location.fill" withConfiguration:v31];
-      v18 = [v29 textAttachmentWithImage:v32];
+      v31 = MEMORY[0x277D74270];
+      v32 = MEMORY[0x277D755B8];
+      v33 = [MEMORY[0x277D755D0] configurationWithScale:1];
+      v34 = [v32 systemImageNamed:@"location.fill" withConfiguration:v33];
+      v19 = [v31 textAttachmentWithImage:v34];
 
-      v33 = objc_opt_new();
-      v34 = objc_alloc(MEMORY[0x277CCA898]);
+      v35 = objc_opt_new();
+      v36 = objc_alloc(MEMORY[0x277CCA898]);
       uiSpecification2 = [suggestionCopy uiSpecification];
       reason = [uiSpecification2 reason];
-      v37 = [v34 initWithString:reason];
-      [v33 appendAttributedString:v37];
+      v39 = [v36 initWithString:reason];
+      [v35 appendAttributedString:v39];
 
-      v38 = objc_alloc(MEMORY[0x277CCA898]);
-      v51 = *MEMORY[0x277D740D0];
-      v52[0] = &unk_2852057B0;
-      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
-      v40 = [v38 initWithString:@"​" attributes:v39];
-      [v33 appendAttributedString:v40];
+      v40 = objc_alloc(MEMORY[0x277CCA898]);
+      v52 = *MEMORY[0x277D740D0];
+      v53[0] = &unk_2852057B0;
+      v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+      v42 = [v40 initWithString:@"​" attributes:v41];
+      [v35 appendAttributedString:v42];
 
-      v41 = [MEMORY[0x277CCA898] attributedStringWithAttachment:v18];
-      [v33 appendAttributedString:v41];
+      v43 = [MEMORY[0x277CCA898] attributedStringWithAttachment:v19];
+      [v35 appendAttributedString:v43];
 
       reasonLabel = [(APUISuggestionView *)self reasonLabel];
-      [reasonLabel setAttributedText:v33];
+      [reasonLabel setAttributedText:v35];
 
       [(APUISuggestionView *)self installReasonLabelIfNecessary];
     }
 
     else
     {
-      v18 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = __atxlog_handle_ui(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [APUIAppClipView layoutSuggestion:];
       }
@@ -118,14 +119,12 @@
 
   else
   {
-    v17 = __atxlog_handle_ui();
+    v17 = __atxlog_handle_ui(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [APUIAppClipView layoutSuggestion:v17];
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __36__APUIAppClipView_layoutSuggestion___block_invoke(uint64_t a1)
@@ -154,11 +153,10 @@ void __36__APUIAppClipView_layoutSuggestion___block_invoke_2(uint64_t a1)
 
 - (void)openPredictionAction
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = 5517;
-  _os_log_error_impl(&dword_240036000, log, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: tried to tap a suggestion before the last execution ended", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = 5517;
+  _os_log_error_impl(&dword_240036000, log, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: tried to tap a suggestion before the last execution ended", &v1, 0xCu);
 }
 
 void __39__APUIAppClipView_openPredictionAction__block_invoke(uint64_t a1)
@@ -169,9 +167,9 @@ void __39__APUIAppClipView_openPredictionAction__block_invoke(uint64_t a1)
 
 void __39__APUIAppClipView_openPredictionAction__block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_ui();
+  v4 = __atxlog_handle_ui(v3);
   v5 = v4;
   if (v3)
   {
@@ -180,9 +178,9 @@ void __39__APUIAppClipView_openPredictionAction__block_invoke_2(uint64_t a1, voi
       __39__APUIAppClipView_openPredictionAction__block_invoke_2_cold_1();
     }
 
-    v6 = v13;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
+    v6 = v12;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
     v7 = __39__APUIAppClipView_openPredictionAction__block_invoke_33;
   }
 
@@ -193,13 +191,13 @@ void __39__APUIAppClipView_openPredictionAction__block_invoke_2(uint64_t a1, voi
       v8 = [*(a1 + 48) clipMetadata];
       v9 = [v8 clipURL];
       *buf = 138412290;
-      v15 = v9;
+      v14 = v9;
       _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: Opened app clip request for url: %@", buf, 0xCu);
     }
 
-    v6 = v12;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
+    v6 = v11;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
     v7 = __39__APUIAppClipView_openPredictionAction__block_invoke_34;
   }
 
@@ -209,8 +207,6 @@ void __39__APUIAppClipView_openPredictionAction__block_invoke_2(uint64_t a1, voi
   v6[4] = *(a1 + 32);
   v6[5] = v10;
   dispatch_async(MEMORY[0x277D85CD0], v6);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __39__APUIAppClipView_openPredictionAction__block_invoke_33(uint64_t a1)
@@ -227,29 +223,25 @@ void __39__APUIAppClipView_openPredictionAction__block_invoke_34(uint64_t a1)
 
 - (void)layoutSuggestion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_0_0();
   v4 = v3;
-  _os_log_error_impl(&dword_240036000, a2, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: error class ATXHeroData expected. Class read: %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_240036000, a2, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: error class ATXHeroData expected. Class read: %@", v5, 0x16u);
 }
 
 - (void)layoutSuggestion:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_240036000, v0, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: error unarchiving data for clip suggestion: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_240036000, v0, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: error unarchiving data for clip suggestion: %@", v1, 0x16u);
 }
 
 void __39__APUIAppClipView_openPredictionAction__block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_240036000, v0, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: Error while opening app clip: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_240036000, v0, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: Error while opening app clip: %@", v1, 0x16u);
 }
 
 @end

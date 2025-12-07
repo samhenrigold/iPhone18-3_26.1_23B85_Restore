@@ -1,3 +1,783 @@
+uint64_t xmlSchemaIsParticleEmptiable(uint64_t a1)
+{
+  if (!a1)
+  {
+    return 1;
+  }
+
+  if (!*(a1 + 32))
+  {
+    return 1;
+  }
+
+  v1 = *(a1 + 24);
+  if (!v1)
+  {
+    return 1;
+  }
+
+  if ((*v1 - 6) > 2)
+  {
+    return 0;
+  }
+
+  return xmlSchemaGetParticleEmptiable(a1);
+}
+
+uint64_t xmlSchemaGetParticleEmptiable(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (!v1)
+  {
+    return 1;
+  }
+
+  if (!*(a1 + 32))
+  {
+    return 1;
+  }
+
+  v2 = *(v1 + 24);
+  if (!v2)
+  {
+    return 1;
+  }
+
+  do
+  {
+    v3 = **(v2 + 24);
+    if (v3 == 14 || v3 == 2)
+    {
+      result = *(v2 + 32) == 0;
+    }
+
+    else
+    {
+      result = xmlSchemaGetParticleEmptiable(v2);
+    }
+
+    if (*v1 == 7)
+    {
+      if (result)
+      {
+        return 1;
+      }
+    }
+
+    else if (!result)
+    {
+      return result;
+    }
+
+    v2 = *(v2 + 16);
+  }
+
+  while (v2);
+  return *v1 != 7;
+}
+
+uint64_t xmlSchemaCheckSubstGroupCircular(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  v3 = *(a2 + 152);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  if (v3 != a1)
+  {
+    v4 = *(v3 + 88);
+    if ((v4 & 0x200) == 0)
+    {
+      *(v3 + 88) = v4 | 0x200;
+      result = xmlSchemaCheckSubstGroupCircular(a1, v3);
+      *(*(v2 + 152) + 88) ^= 0x200u;
+      return result;
+    }
+
+    return 0;
+  }
+
+  return v2;
+}
+
+uint64_t xmlSchemaCheckCOSDerivedOK(xmlSchemaParserCtxt *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (*a2 == 4 || *a2 == 1 && *(a2 + 160) != 45)
+  {
+    return xmlSchemaCheckCOSSTDerivedOK(a1, a2, a3, a4);
+  }
+
+  if (a2 == a3)
+  {
+    return 0;
+  }
+
+  while (((a4 & 2) == 0 || (*(a2 + 88) & 2) == 0) && ((a4 & 1) == 0 || (*(a2 + 88) & 4) == 0))
+  {
+    a2 = *(a2 + 112);
+    if (a2 == a3)
+    {
+      return 0;
+    }
+
+    if (*a2 != 5)
+    {
+      if (*a2 == 1)
+      {
+        if (*(a2 + 160) != 45)
+        {
+          return xmlSchemaCheckCOSSTDerivedOK(a1, a2, a3, a4);
+        }
+
+        return 1;
+      }
+
+      if (*(a2 + 160) != 45)
+      {
+        return xmlSchemaCheckCOSSTDerivedOK(a1, a2, a3, a4);
+      }
+    }
+  }
+
+  return 1;
+}
+
+uint64_t xmlSchemaBuildAContentModel(uint64_t a1, uint64_t a2)
+{
+  if (!a2)
+  {
+    xmlSchemaInternalErr2(a1, "xmlSchemaBuildAContentModel", "particle is NULL", 0);
+    return 1;
+  }
+
+  v4 = *(a2 + 24);
+  if (!v4)
+  {
+    return 1;
+  }
+
+  v5 = *v4;
+  if (*v4 <= 6)
+  {
+    if (v5 == 1)
+    {
+      if (v4[40] == 45)
+      {
+        v17 = "complex type definition";
+      }
+
+      else
+      {
+        v17 = "simple type definition";
+      }
+
+LABEL_41:
+      v18 = "found unexpected term of type '%s' in content model";
+      v19 = a1;
+LABEL_42:
+      xmlSchemaInternalErr2(v19, "xmlSchemaBuildAContentModel", v18, v17);
+      return 0;
+    }
+
+    if (v5 == 2)
+    {
+      v20 = *(a1 + 144);
+      v21 = xmlAutomataNewState(*(a1 + 120));
+      v32 = *(a2 + 36);
+      if (v32 == 0x40000000 || (--v32, v32))
+      {
+        v41 = *(a2 + 32);
+        if (v41 <= 0)
+        {
+          v42 = 0;
+        }
+
+        else
+        {
+          v42 = v41 - 1;
+        }
+
+        v43 = xmlAutomataNewCounter(*(a1 + 120), v42, v32);
+        v44 = xmlAutomataNewState(*(a1 + 120));
+        if (v4[11] == 1)
+        {
+          v45 = xmlAutomataNewTransition2(*(a1 + 120), v20, 0, "*", "*", v4);
+          *(a1 + 144) = v45;
+          xmlAutomataNewEpsilon(*(a1 + 120), v45, v44);
+          v46 = xmlAutomataNewTransition2(*(a1 + 120), v20, 0, "*", 0, v4);
+          *(a1 + 144) = v46;
+          xmlAutomataNewEpsilon(*(a1 + 120), v46, v44);
+        }
+
+        else
+        {
+          v52 = *(v4 + 6);
+          if (v52)
+          {
+            do
+            {
+              v53 = xmlAutomataNewTransition2(*(a1 + 120), v20, 0, "*", v52[1], v4);
+              *(a1 + 144) = v53;
+              xmlAutomataNewEpsilon(*(a1 + 120), v53, v44);
+              v52 = *v52;
+            }
+
+            while (v52);
+          }
+
+          else
+          {
+            v69 = *(v4 + 7);
+            if (v69)
+            {
+              *(a1 + 144) = xmlAutomataNewNegTrans(*(a1 + 120), v20, v44, "*", *(v69 + 8), v4);
+            }
+          }
+        }
+
+        xmlAutomataNewCountedTrans(*(a1 + 120), v44, v20, v43);
+        xmlAutomataNewCounterTrans(*(a1 + 120), v44, v21, v43);
+      }
+
+      else if (v4[11] == 1)
+      {
+        v33 = xmlAutomataNewTransition2(*(a1 + 120), v20, 0, "*", "*", v4);
+        *(a1 + 144) = v33;
+        xmlAutomataNewEpsilon(*(a1 + 120), v33, v21);
+        v34 = xmlAutomataNewTransition2(*(a1 + 120), v20, 0, "*", 0, v4);
+        *(a1 + 144) = v34;
+        xmlAutomataNewEpsilon(*(a1 + 120), v34, v21);
+      }
+
+      else
+      {
+        v61 = *(v4 + 6);
+        if (v61)
+        {
+          do
+          {
+            *(a1 + 144) = v20;
+            v62 = xmlAutomataNewTransition2(*(a1 + 120), v20, 0, "*", v61[1], v4);
+            *(a1 + 144) = v62;
+            xmlAutomataNewEpsilon(*(a1 + 120), v62, v21);
+            v61 = *v61;
+          }
+
+          while (v61);
+        }
+
+        else
+        {
+          v79 = *(v4 + 7);
+          if (v79)
+          {
+            *(a1 + 144) = xmlAutomataNewNegTrans(*(a1 + 120), v20, v21, "*", *(v79 + 8), v4);
+          }
+        }
+      }
+
+      if (!*(a2 + 32))
+      {
+LABEL_136:
+        xmlAutomataNewEpsilon(*(a1 + 120), v20, v21);
+        v12 = 1;
+        goto LABEL_137;
+      }
+
+      v12 = 0;
+LABEL_137:
+      *(a1 + 144) = v21;
+      return v12;
+    }
+
+    if (v5 != 6)
+    {
+LABEL_37:
+      v17 = xmlSchemaItemTypeToStr(v5);
+      goto LABEL_41;
+    }
+
+    v14 = *(a2 + 32);
+    if (v14 == 1)
+    {
+      v15 = *(a2 + 36);
+      if (v15 == 1)
+      {
+        v16 = *(v4 + 3);
+        if (v16)
+        {
+          LODWORD(v12) = 1;
+          do
+          {
+            if (xmlSchemaBuildAContentModel(a1, v16))
+            {
+              v12 = v12;
+            }
+
+            else
+            {
+              v12 = 0;
+            }
+
+            v16 = *(v16 + 16);
+          }
+
+          while (v16);
+          return v12;
+        }
+
+        return 1;
+      }
+
+      v47 = (a1 + 144);
+      v26 = *(a1 + 144);
+      if (v15 > 0x3FFFFFFF)
+      {
+        goto LABEL_98;
+      }
+
+      if (v15 >= 2)
+      {
+        goto LABEL_125;
+      }
+    }
+
+    else
+    {
+      v47 = (a1 + 144);
+      v26 = *(a1 + 144);
+      v48 = *(a2 + 36);
+      if (v48 > 0x3FFFFFFF)
+      {
+        if (v14 >= 2)
+        {
+          v49 = xmlAutomataNewEpsilon(*(a1 + 120), *(a1 + 144), 0);
+          *(a1 + 144) = v49;
+          v50 = xmlAutomataNewCounter(*(a1 + 120), *(a2 + 32) - 1, 0x40000000);
+          v51 = *(*(a2 + 24) + 24);
+          if (v51)
+          {
+            LODWORD(v12) = 1;
+            do
+            {
+              if (xmlSchemaBuildAContentModel(a1, v51))
+              {
+                v12 = v12;
+              }
+
+              else
+              {
+                v12 = 0;
+              }
+
+              v51 = *(v51 + 16);
+            }
+
+            while (v51);
+          }
+
+          else
+          {
+            v12 = 1;
+          }
+
+          v80 = *(a1 + 144);
+          xmlAutomataNewCountedTrans(*(a1 + 120), v80, v49, v50);
+          v81 = xmlAutomataNewCounterTrans(*(a1 + 120), v80, 0, v50);
+          *(a1 + 144) = v81;
+          if (v12 == 1)
+          {
+            xmlAutomataNewEpsilon(*(a1 + 120), v49, v81);
+          }
+
+          return v12;
+        }
+
+LABEL_98:
+        v56 = xmlAutomataNewEpsilon(*(a1 + 120), v26, 0);
+        v26 = v56;
+        *(a1 + 144) = v56;
+        v57 = *(*(a2 + 24) + 24);
+        if (v57)
+        {
+          LODWORD(v12) = 1;
+          do
+          {
+            if (xmlSchemaBuildAContentModel(a1, v57))
+            {
+              v12 = v12;
+            }
+
+            else
+            {
+              v12 = 0;
+            }
+
+            v57 = *(v57 + 16);
+          }
+
+          while (v57);
+          v58 = *v47;
+        }
+
+        else
+        {
+          v12 = 1;
+          v58 = v56;
+        }
+
+        xmlAutomataNewEpsilon(*(a1 + 120), v58, v26);
+        v70 = *(a1 + 120);
+        v60 = *(a1 + 144);
+LABEL_146:
+        v74 = xmlAutomataNewEpsilon(v70, v60, 0);
+        *(a1 + 144) = v74;
+        if (*(a2 + 32))
+        {
+          return v12;
+        }
+
+        v55 = v74;
+        goto LABEL_156;
+      }
+
+      if (v14 > 1 || v48 > 1)
+      {
+LABEL_125:
+        v7 = xmlAutomataNewEpsilon(*(a1 + 120), v26, 0);
+        *(a1 + 144) = v7;
+        v65 = xmlAutomataNewCounter(*(a1 + 120), *(a2 + 32) - 1, *(a2 + 36) - 1);
+        v66 = *(*(a2 + 24) + 24);
+        if (v66)
+        {
+          v67 = 1;
+          do
+          {
+            if (!xmlSchemaBuildAContentModel(a1, v66))
+            {
+              v67 = 0;
+            }
+
+            v66 = *(v66 + 16);
+          }
+
+          while (v66);
+          v68 = v67 == 1;
+        }
+
+        else
+        {
+          v68 = 1;
+        }
+
+        v71 = *(a1 + 144);
+        xmlAutomataNewCountedTrans(*(a1 + 120), v71, v7, v65);
+        v55 = xmlAutomataNewCounterTrans(*(a1 + 120), v71, 0, v65);
+        *(a1 + 144) = v55;
+        if (!*(a2 + 32) || v68)
+        {
+          goto LABEL_143;
+        }
+
+        return 0;
+      }
+    }
+
+    v59 = *(v4 + 3);
+    if (v59)
+    {
+      LODWORD(v12) = 1;
+      do
+      {
+        if (xmlSchemaBuildAContentModel(a1, v59))
+        {
+          v12 = v12;
+        }
+
+        else
+        {
+          v12 = 0;
+        }
+
+        v59 = *(v59 + 16);
+      }
+
+      while (v59);
+      v60 = *v47;
+    }
+
+    else
+    {
+      v12 = 1;
+      v60 = v26;
+    }
+
+    v70 = *(a1 + 120);
+    goto LABEL_146;
+  }
+
+  if (v5 <= 13)
+  {
+    if (v5 != 7)
+    {
+      if (v5 == 8)
+      {
+        v6 = *(v4 + 3);
+        if (v6)
+        {
+          v7 = *(a1 + 144);
+          v8 = xmlAutomataNewState(*(a1 + 120));
+          xmlAutomataNewEpsilon(*(a1 + 120), *(a1 + 144), v8);
+          do
+          {
+            *(a1 + 144) = v8;
+            v9 = *(v6 + 24);
+            if (!v9)
+            {
+              v18 = "<element> particle has no term";
+              v19 = a1;
+              v17 = 0;
+              goto LABEL_42;
+            }
+
+            if ((*(v9 + 90) & 2) != 0)
+            {
+              v11 = xmlAutomataNewCounter(*(a1 + 120), *(v6 + 32), *(v6 + 36));
+              xmlSchemaBuildContentModelForSubstGroup(a1, v6, v11, *(a1 + 144));
+            }
+
+            else
+            {
+              v10 = *(v6 + 32);
+              if (v10)
+              {
+                if (v10 == 1 && *(v6 + 36) == 1)
+                {
+                  xmlAutomataNewOnceTrans2(*(a1 + 120), v8, v8, *(v9 + 16), *(v9 + 96), 1, 1, v9);
+                }
+              }
+
+              else if (*(v6 + 36) == 1)
+              {
+                xmlAutomataNewCountTrans2(*(a1 + 120), v8, v8, *(v9 + 16), *(v9 + 96), 0, 1, v9);
+              }
+            }
+
+            v6 = *(v6 + 16);
+          }
+
+          while (v6);
+          v54 = xmlAutomataNewAllTrans(*(a1 + 120), *(a1 + 144), 0, 0);
+          *(a1 + 144) = v54;
+          if (!*(a2 + 32))
+          {
+            v55 = v54;
+LABEL_143:
+            v72 = *(a1 + 120);
+            v73 = v7;
+LABEL_157:
+            xmlAutomataNewEpsilon(v72, v73, v55);
+            return 1;
+          }
+
+          return 0;
+        }
+
+        return 1;
+      }
+
+      goto LABEL_37;
+    }
+
+    v20 = *(a1 + 144);
+    v21 = xmlAutomataNewState(*(a1 + 120));
+    v22 = *(a2 + 36);
+    if (v22 == 0x40000000 || (--v22, v22))
+    {
+      v35 = *(a2 + 32);
+      if (v35 <= 0)
+      {
+        v36 = 0;
+      }
+
+      else
+      {
+        v36 = v35 - 1;
+      }
+
+      v37 = xmlAutomataNewCounter(*(a1 + 120), v36, v22);
+      v38 = xmlAutomataNewState(*(a1 + 120));
+      v39 = xmlAutomataNewState(*(a1 + 120));
+      v40 = *(*(a2 + 24) + 24);
+      if (v40)
+      {
+        LODWORD(v12) = 0;
+        do
+        {
+          *(a1 + 144) = v39;
+          if (xmlSchemaBuildAContentModel(a1, v40))
+          {
+            v12 = 1;
+          }
+
+          else
+          {
+            v12 = v12;
+          }
+
+          xmlAutomataNewEpsilon(*(a1 + 120), *(a1 + 144), v38);
+          v40 = *(v40 + 16);
+        }
+
+        while (v40);
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      xmlAutomataNewEpsilon(*(a1 + 120), v20, v39);
+      xmlAutomataNewCountedTrans(*(a1 + 120), v38, v39, v37);
+      xmlAutomataNewCounterTrans(*(a1 + 120), v38, v21, v37);
+      if (v12 == 1)
+      {
+        xmlAutomataNewEpsilon(*(a1 + 120), v39, v21);
+      }
+    }
+
+    else
+    {
+      v23 = *(*(a2 + 24) + 24);
+      if (v23)
+      {
+        LODWORD(v12) = 0;
+        do
+        {
+          *(a1 + 144) = v20;
+          if (xmlSchemaBuildAContentModel(a1, v23))
+          {
+            v12 = 1;
+          }
+
+          else
+          {
+            v12 = v12;
+          }
+
+          xmlAutomataNewEpsilon(*(a1 + 120), *(a1 + 144), v21);
+          v23 = *(v23 + 16);
+        }
+
+        while (v23);
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+    }
+
+    if (!*(a2 + 32))
+    {
+      goto LABEL_136;
+    }
+
+    goto LABEL_137;
+  }
+
+  if (v5 != 14)
+  {
+    if (v5 == 17)
+    {
+      return 1;
+    }
+
+    goto LABEL_37;
+  }
+
+  v24 = v4[22];
+  if ((v24 & 0x20000) == 0)
+  {
+    if ((v24 & 0x10) != 0)
+    {
+      return 0;
+    }
+
+    v25 = *(a2 + 36);
+    if (v25 == 1)
+    {
+      v26 = *(a1 + 144);
+      v27 = *(a1 + 120);
+      v28 = *(v4 + 2);
+      v29 = *(v4 + 12);
+      v30 = v26;
+      v31 = 0;
+    }
+
+    else
+    {
+      v63 = *(a2 + 32);
+      if (v25 < 0x40000000 || v63 > 1)
+      {
+        if (v25 == 0x40000000)
+        {
+          v75 = 0x40000000;
+        }
+
+        else
+        {
+          v75 = v25 - 1;
+        }
+
+        if (v63 <= 0)
+        {
+          v76 = 0;
+        }
+
+        else
+        {
+          v76 = v63 - 1;
+        }
+
+        v26 = xmlAutomataNewEpsilon(*(a1 + 120), *(a1 + 144), 0);
+        v77 = xmlAutomataNewCounter(*(a1 + 120), v76, v75);
+        v78 = xmlAutomataNewTransition2(*(a1 + 120), v26, 0, *(v4 + 2), *(v4 + 12), v4);
+        *(a1 + 144) = v78;
+        xmlAutomataNewCountedTrans(*(a1 + 120), v78, v26, v77);
+        v64 = xmlAutomataNewCounterTrans(*(a1 + 120), *(a1 + 144), 0, v77);
+LABEL_155:
+        v55 = v64;
+        *(a1 + 144) = v64;
+        if (*(a2 + 32))
+        {
+          return 0;
+        }
+
+LABEL_156:
+        v72 = *(a1 + 120);
+        v73 = v26;
+        goto LABEL_157;
+      }
+
+      v26 = *(a1 + 144);
+      v30 = xmlAutomataNewTransition2(*(a1 + 120), v26, 0, *(v4 + 2), *(v4 + 12), v4);
+      *(a1 + 144) = v30;
+      v27 = *(a1 + 120);
+      v28 = *(v4 + 2);
+      v29 = *(v4 + 12);
+      v31 = v30;
+    }
+
+    v64 = xmlAutomataNewTransition2(v27, v30, v31, v28, v29, v4);
+    goto LABEL_155;
+  }
+
+  return xmlSchemaBuildContentModelForSubstGroup(a1, a2, -1, 0);
+}
+
 uint64_t xmlSchemaBuildContentModelForSubstGroup(uint64_t a1, uint64_t a2, int a3, xmlAutomataState *a4)
 {
   v4 = a4;
@@ -139,9 +919,9 @@ xmlChar *xmlSchemaNormalizeValue(_DWORD *a1, const xmlChar *a2)
   }
 }
 
-uint64_t xmlSchemaValidateNotation(uint64_t a1, uint64_t a2, xmlNode *a3, xmlChar *value, xmlSchemaValPtr *a5, int a6)
+uint64_t xmlSchemaValidateNotation(xmlError *a1, uint64_t a2, xmlNode *a3, xmlChar *value, xmlSchemaValPtr *a5, int a6)
 {
-  if (a1 && !*(a1 + 40))
+  if (a1 && !a1->str1)
   {
     xmlSchemaInternalErr2(a1, "xmlSchemaValidateNotation", "a schema is needed on the validation context", 0);
     return 0xFFFFFFFFLL;
@@ -245,7 +1025,7 @@ LABEL_27:
   return v12;
 }
 
-uint64_t xmlSchemaValidateFacets(_DWORD *a1, uint64_t a2, uint64_t a3, xmlSchemaValType valType, xmlChar *value, xmlSchemaValPtr val, unint64_t actualLen, int a8)
+uint64_t xmlSchemaValidateFacets(xmlError *a1, uint64_t a2, uint64_t a3, xmlSchemaValType valType, xmlChar *value, xmlSchemaValPtr val, unint64_t actualLen, int a8)
 {
   length = 0;
   if (*a3 == 1)
@@ -417,7 +1197,7 @@ LABEL_55:
       return v8;
     }
 
-    xmlSchemaFacetErr(a1, 1840, a2, value, 0, a3, 0);
+    xmlSchemaFacetErr(a1, 0x730u, a2, value, 0, a3, 0);
     if (i)
     {
       i = i;
@@ -480,7 +1260,7 @@ LABEL_70:
     v8 = 1839;
     if (a8)
     {
-      xmlSchemaFacetErr(a1, 1839, a2, value, 0, a3, v30);
+      xmlSchemaFacetErr(a1, 0x72Fu, a2, value, 0, a3, v30);
       if (i)
       {
         return i;
@@ -543,7 +1323,7 @@ LABEL_77:
   return 0xFFFFFFFFLL;
 }
 
-void xmlSchemaSimpleTypeErr(_DWORD *a1, int a2, uint64_t a3, const xmlChar *a4, uint64_t a5)
+void xmlSchemaSimpleTypeErr(xmlError *a1, unsigned __int32 a2, uint64_t a3, const xmlChar *a4, uint64_t a5)
 {
   cur = 0;
   xmlSchemaFormatNodeForError(&cur, a1, a3);
@@ -714,7 +1494,7 @@ uint64_t xmlSchemaGetWhiteSpaceFacetValue(_DWORD *a1)
   }
 }
 
-const xmlChar *xmlSchemaLookupNamespace(uint64_t a1, xmlChar *nameSpace)
+xmlChar *xmlSchemaLookupNamespace(uint64_t a1, xmlChar *nameSpace)
 {
   if (!*(a1 + 72))
   {
@@ -849,9 +1629,9 @@ void *xmlSchemaGetNotation(uint64_t a1, const xmlChar *a2, xmlChar *str1)
   return result;
 }
 
-void xmlSchemaFacetErr(uint64_t a1, int a2, uint64_t a3, const xmlChar *a4, uint64_t a5, _DWORD *a6, xmlSchemaFacet *a7)
+void xmlSchemaFacetErr(uint64_t a1, unsigned __int32 a2, uint64_t a3, const xmlChar *a4, uint64_t a5, _DWORD *a6, xmlSchemaFacet *a7)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   cur = 0;
   if (a3)
   {
@@ -875,7 +1655,7 @@ LABEL_7:
   xmlSchemaFormatNodeForError(&cur, a1, a3);
   if (a2 == 1840)
   {
-    type = 1007;
+    type = XML_SCHEMA_FACET_ENUMERATION;
   }
 
   else
@@ -890,13 +1670,13 @@ LABEL_7:
   cur = xmlStrcat(v17, v18);
   v19 = xmlStrcat(cur, "'] ");
   cur = v19;
-  if ((type - 1009) > 2)
+  if (type - 1009 > 2)
   {
-    if (type > 1003)
+    if (type > XML_SCHEMA_FACET_MAXEXCLUSIVE)
     {
-      if (type <= 1005)
+      if (type <= XML_SCHEMA_FACET_FRACTIONDIGITS)
       {
-        if (type == 1004)
+        if (type == XML_SCHEMA_FACET_TOTALDIGITS)
         {
           v23 = "The value '%s' has more digits than are allowed ('%s').\n";
         }
@@ -909,18 +1689,18 @@ LABEL_7:
         goto LABEL_56;
       }
 
-      if (type == 1006)
+      if (type == XML_SCHEMA_FACET_PATTERN)
       {
         v23 = "The value '%s' is not accepted by the pattern '%s'.\n";
         goto LABEL_56;
       }
 
-      if (type == 1007)
+      if (type == XML_SCHEMA_FACET_ENUMERATION)
       {
         v26 = 0;
-        v41 = xmlStrcat(v19, "The value '%s' is not an element of the set {%s}.\n");
-        v42 = a4;
-        cur = v41;
+        v40 = xmlStrcat(v19, "The value '%s' is not an element of the set {%s}.\n");
+        v41 = a4;
+        cur = v40;
         *__str = 0;
         while (1)
         {
@@ -934,7 +1714,7 @@ LABEL_7:
 
           a6 = v27;
 LABEL_49:
-          v34 = v42;
+          v34 = v41;
           if (!a6 || *a6 == 1)
           {
             goto LABEL_68;
@@ -955,12 +1735,12 @@ LABEL_49:
                 free(v26);
               }
 
-              v40 = 0;
+              v39 = 0;
               v35 = a1;
               v36 = a2;
               v37 = a3;
-              v24 = v41;
-              v38 = v42;
+              v24 = v40;
+              v38 = v41;
               goto LABEL_66;
             }
 
@@ -995,9 +1775,9 @@ LABEL_49:
           goto LABEL_49;
         }
 
-        v34 = v42;
+        v34 = v41;
 LABEL_68:
-        xmlSchemaErr4Line(a1, 2, a2, a3, 0, v41, v34, v26, 0, 0);
+        xmlSchemaErr4Line(a1, 2, a2, a3, 0, v40, v34, v26, 0, 0);
         if (v26)
         {
           free(v26);
@@ -1009,9 +1789,9 @@ LABEL_68:
 
     else
     {
-      if (type > 1001)
+      if (type > XML_SCHEMA_FACET_MINEXCLUSIVE)
       {
-        if (type == 1002)
+        if (type == XML_SCHEMA_FACET_MAXINCLUSIVE)
         {
           v23 = "The value '%s' is greater than the maximum value allowed ('%s').\n";
         }
@@ -1024,20 +1804,20 @@ LABEL_68:
         goto LABEL_56;
       }
 
-      if (type == 1000)
+      if (type == XML_SCHEMA_FACET_MININCLUSIVE)
       {
         v23 = "The value '%s' is less than the minimum value allowed ('%s').\n";
         goto LABEL_56;
       }
 
-      if (type == 1001)
+      if (type == XML_SCHEMA_FACET_MINEXCLUSIVE)
       {
         v23 = "The value '%s' must be greater than '%s'.\n";
 LABEL_56:
         v24 = xmlStrcat(v19, v23);
         cur = v24;
         value = a7->value;
-        v40 = 0;
+        v39 = 0;
         goto LABEL_57;
       }
     }
@@ -1046,7 +1826,7 @@ LABEL_56:
     {
       v24 = xmlStrcat(v19, "The value '%s' is not facet-valid.\n");
       cur = v24;
-      v40 = 0;
+      v39 = 0;
       v35 = a1;
       v36 = a2;
       v37 = a3;
@@ -1057,7 +1837,7 @@ LABEL_56:
     {
       v24 = xmlStrcat(v19, "The value is not facet-valid.\n");
       cur = v24;
-      v40 = 0;
+      v39 = 0;
       v35 = a1;
       v36 = a2;
       v37 = a3;
@@ -1070,12 +1850,12 @@ LABEL_66:
   }
 
   *__str = 0;
-  v49 = 0;
-  v51 = 0;
+  v48 = 0;
   v50 = 0;
-  *v44 = 0;
-  v45 = 0;
-  v47 = 0;
+  v49 = 0;
+  *v43 = 0;
+  v44 = 0;
+  v46 = 0;
   if (v15)
   {
     v20 = "The value '%s' has a length of '%s'; ";
@@ -1086,17 +1866,17 @@ LABEL_66:
     v20 = "The value has a length of '%s'; ";
   }
 
-  v46 = 0;
+  v45 = 0;
   cur = xmlStrcat(v19, v20);
   FacetValueAsULong = xmlSchemaGetFacetValueAsULong(a7);
   snprintf(__str, 0x18uLL, "%lu", FacetValueAsULong);
-  snprintf(v44, 0x18uLL, "%lu", a5);
-  if (type == 1011)
+  snprintf(v43, 0x18uLL, "%lu", a5);
+  if (type == XML_SCHEMA_FACET_MINLENGTH)
   {
     v22 = "this underruns the allowed minimum length of '%s'.\n";
   }
 
-  else if (type == 1010)
+  else if (type == XML_SCHEMA_FACET_MAXLENGTH)
   {
     v22 = "this exceeds the allowed maximum length of '%s'.\n";
   }
@@ -1110,22 +1890,21 @@ LABEL_66:
   cur = v24;
   if (v15)
   {
-    v40 = __str;
-    value = v44;
+    v39 = __str;
+    value = v43;
 LABEL_57:
     v35 = a1;
     v36 = a2;
     v37 = a3;
     v38 = a4;
 LABEL_58:
-    xmlSchemaErr4Line(v35, 2, v36, v37, 0, v24, v38, value, v40, 0);
+    xmlSchemaErr4Line(v35, 2, v36, v37, 0, v24, v38, value, v39, 0);
     goto LABEL_59;
   }
 
-  xmlSchemaErr4Line(a1, 2, a2, a3, 0, v24, v44, __str, 0, 0);
+  xmlSchemaErr4Line(a1, 2, a2, a3, 0, v24, v43, __str, 0, 0);
 LABEL_59:
   free(cur);
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t xmlSchemaGetCanonValueWhtspExt_1(xmlSchemaValPtr cur, int a2, xmlChar **a3, int a4)
@@ -1419,7 +2198,7 @@ LABEL_20:
   return v10;
 }
 
-uint64_t xmlSchemaValidatorPushAttribute(_DWORD *a1, const xmlChar *a2, int a3, const xmlChar *a4, const xmlChar *a5, const xmlChar *a6)
+uint64_t xmlSchemaValidatorPushAttribute(xmlError *a1, const xmlChar *a2, int a3, const xmlChar *a4, const xmlChar *a5, const xmlChar *a6)
 {
   FreshAttrInfo = xmlSchemaGetFreshAttrInfo(a1);
   if (!FreshAttrInfo)
@@ -1509,7 +2288,7 @@ LABEL_19:
 uint64_t xmlSchemaValidateElem(unsigned int *data)
 {
   v1 = data;
-  v97 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   v2 = data[76];
   if (v2 != -1 && data[43] >= v2)
   {
@@ -1561,7 +2340,7 @@ uint64_t xmlSchemaValidateElem(unsigned int *data)
   }
 
 LABEL_11:
-  v88 = 0;
+  v87 = 0;
   v8 = 0;
   v9 = *(v7 + 40);
   while (1)
@@ -1591,7 +2370,7 @@ LABEL_11:
       }
 
       v13 = &v9[v12];
-      v88 = xmlDictLookup(*(*(v1 + 5) + 120), v9, v12);
+      v87 = xmlDictLookup(*(*(v1 + 5) + 120), v9, v12);
       v9 = v13;
     }
 
@@ -1648,7 +2427,7 @@ LABEL_105:
 
     v21 = v1;
     v22 = xmlSchemaBuildAbsoluteURI(*(v20 + 152), v17, v19);
-    v23 = xmlSchemaAddSchemaDoc(v20, 1, v22, 0, 0, 0, v19, 0, v88, values);
+    v23 = xmlSchemaAddSchemaDoc(v20, 1u, v22, 0, 0, 0, v19, 0, v87, values);
     if (v23)
     {
       goto LABEL_39;
@@ -1722,7 +2501,7 @@ LABEL_39:
     {
       v28 = v22;
       v1 = v21;
-      xmlSchemaCustomWarning(v21, 1879, v19, "The document at location '%s' could not be acquired", v28, 0, 0);
+      xmlSchemaCustomWarning(v21, 0x757u, v19, "The document at location '%s' could not be acquired", v28, 0, 0);
     }
 
     v8 = 0;
@@ -1736,19 +2515,19 @@ LABEL_52:
 
   if (*(v7 + 92) == 3)
   {
-    xmlSchemaCustomWarning(v1, 1879, *(v7 + 8), "The value must consist of tuples: the target namespace name and the document's URI", 0, 0, 0);
+    xmlSchemaCustomWarning(v1, 0x757u, *(v7 + 8), "The value must consist of tuples: the target namespace name and the document's URI", 0, 0, 0);
   }
 
 LABEL_64:
   if (v8 == -1)
   {
-    goto LABEL_232;
+    return v8;
   }
 
   if (v8)
   {
     v1[76] = 0;
-    goto LABEL_232;
+    return v8;
   }
 
 LABEL_66:
@@ -1763,7 +2542,7 @@ LABEL_67:
     if (!Elem)
     {
       v8 = 1845;
-      xmlSchemaCustomErr4(v1, 1845, 0, 0, "No matching global declaration available for the validation root", 0, 0, 0, 0);
+      xmlSchemaCustomErr4(v1, 0x735u, 0, 0, "No matching global declaration available for the validation root", 0, 0, 0, 0);
       goto LABEL_218;
     }
 
@@ -1783,7 +2562,7 @@ LABEL_67:
   {
     *(v1 + 24) = v32;
     v8 = 1848;
-    xmlSchemaCustomErr4(v1, 1848, 0, 0, "Neither character nor element content is allowed, because the element was 'nilled'", 0, 0, 0, 0);
+    xmlSchemaCustomErr4(v1, 0x738u, 0, 0, "Neither character nor element content is allowed, because the element was 'nilled'", 0, 0, 0, 0);
     goto LABEL_81;
   }
 
@@ -1801,12 +2580,12 @@ LABEL_67:
       *(v1 + 24) = v32;
       if (*v34 == 5)
       {
-        xmlSchemaCustomErr4(v1, 1842, 0, 0, "Element content is not allowed, because the content type is a simple type definition", 0, 0, 0, 0);
+        xmlSchemaCustomErr4(v1, 0x732u, 0, 0, "Element content is not allowed, because the content type is a simple type definition", 0, 0, 0, 0);
       }
 
       else
       {
-        xmlSchemaCustomErr4(v1, 1828, 0, 0, "Element content is not allowed, because the type definition is simple", 0, 0, 0, 0);
+        xmlSchemaCustomErr4(v1, 0x724u, 0, 0, "Element content is not allowed, because the type definition is simple", 0, 0, 0, 0);
       }
 
       v42 = v1[43];
@@ -1818,10 +2597,10 @@ LABEL_67:
 
     if ((v44 - 2) < 2)
     {
-      v95 = 0u;
-      v96 = 0u;
-      v93 = 0u;
       v94 = 0u;
+      v95 = 0u;
+      v92 = 0u;
+      v93 = 0u;
       *values = 0u;
       nbval = 10;
       terminal = 0;
@@ -1887,7 +2666,7 @@ LABEL_116:
 
     *(v1 + 24) = v32;
     v8 = 1841;
-    xmlSchemaCustomErr4(v1, 1841, 0, 0, "Element content is not allowed, because the content type is empty", 0, 0, 0, 0);
+    xmlSchemaCustomErr4(v1, 0x731u, 0, 0, "Element content is not allowed, because the content type is empty", 0, 0, 0, 0);
 LABEL_81:
     v42 = v1[43];
     v43 = *(*(v1 + 22) + 8 * v42);
@@ -1936,9 +2715,7 @@ LABEL_77:
 LABEL_119:
     if (v1[43] == v1[76])
     {
-LABEL_120:
-      v8 = 0;
-      goto LABEL_232;
+      return 0;
     }
 
     v40 = *(v1 + 24);
@@ -1978,7 +2755,7 @@ LABEL_127:
 
     if (*(v41 + 40) == 3)
     {
-      xmlSchemaCustomErr4(v1, 1845, 0, 0, "No matching global element declaration available, but demanded by the strict wildcard", 0, 0, 0, 0);
+      xmlSchemaCustomErr4(v1, 0x735u, 0, 0, "No matching global element declaration available, but demanded by the strict wildcard", 0, 0, 0, 0);
       v8 = v1[26];
       if (v8)
       {
@@ -2034,7 +2811,7 @@ LABEL_128:
 LABEL_129:
     if ((*(v41 + 88) & 0x10) != 0)
     {
-      xmlSchemaCustomErr4(v1, 1846, 0, 0, "The element declaration is abstract", 0, 0, 0, 0);
+      xmlSchemaCustomErr4(v1, 0x736u, 0, 0, "The element declaration is abstract", 0, 0, 0, 0);
       v8 = v1[26];
       if (v8)
       {
@@ -2095,7 +2872,7 @@ LABEL_129:
             {
               if ((*(v41 + 88) & 8) != 0 && *(v41 + 144))
               {
-                xmlSchemaCustomErr4(v1, 1849, 0, 0, "The element cannot be 'nilled' because there is a fixed value constraint defined for it", 0, 0, 0, 0);
+                xmlSchemaCustomErr4(v1, 0x739u, 0, 0, "The element cannot be 'nilled' because there is a fixed value constraint defined for it", 0, 0, 0, 0);
               }
 
               else
@@ -2107,7 +2884,7 @@ LABEL_129:
 
           else
           {
-            xmlSchemaCustomErr4(v1, 1847, 0, 0, "The element is not 'nillable'", 0, 0, 0, 0);
+            xmlSchemaCustomErr4(v1, 0x737u, 0, 0, "The element is not 'nillable'", 0, 0, 0, 0);
           }
         }
 
@@ -2171,7 +2948,7 @@ LABEL_180:
           if (*v70 == 24 && (v72 = *(*(v70 + 72) + 8)) != 0)
           {
             *(*(v1 + 24) + 136) = 1;
-            v73 = (v1 + 50);
+            v73 = v1 + 50;
             while (1)
             {
               v73 = *v73;
@@ -2182,11 +2959,11 @@ LABEL_180:
 
               if (*(v73 + 1) == v72)
               {
-                v74 = *(v73 + 4);
+                v74 = v73[4];
                 v75 = v1[43];
                 if (v74 == -1 || v75 < v74)
                 {
-                  *(v73 + 4) = v75;
+                  v73[4] = v75;
                 }
 
                 goto LABEL_191;
@@ -2197,7 +2974,7 @@ LABEL_180:
           else
           {
 LABEL_191:
-            v77 = (v1 + 50);
+            v77 = v1 + 50;
             while (1)
             {
               v77 = *v77;
@@ -2220,9 +2997,9 @@ LABEL_191:
                   v79 = malloc_type_malloc(0x48uLL, 0x10A00406C79651AuLL);
                   if (!v79)
                   {
-                    v87 = v1[27] + 1;
+                    v86 = v1[27] + 1;
                     v1[26] = 1818;
-                    v1[27] = v87;
+                    v1[27] = v86;
                     __xmlSimpleError(0x11u, 2, 0, 0, "allocating an IDC matcher");
                     goto LABEL_230;
                   }
@@ -2287,7 +3064,7 @@ LABEL_205:
       {
         *(v40 + 64) |= 0x400u;
         v8 = 1876;
-        xmlSchemaCustomErr4(v1, 1876, 0, 0, "The type definition is abstract", 0, 0, 0, 0);
+        xmlSchemaCustomErr4(v1, 0x754u, 0, 0, "The type definition is abstract", 0, 0, 0, 0);
         goto LABEL_218;
       }
 
@@ -2319,15 +3096,14 @@ LABEL_224:
 
           if (!v84)
           {
-            goto LABEL_120;
+            return 0;
           }
 
           v29 = "xmlSchemaValidateElem";
           v30 = "calling attributes validation";
 LABEL_231:
           xmlSchemaInternalErr2(v1, v29, v30, 0);
-          v8 = 0xFFFFFFFFLL;
-          goto LABEL_232;
+          return 0xFFFFFFFFLL;
         }
       }
 
@@ -2343,7 +3119,7 @@ LABEL_231:
     *(v40 + 64) |= 0x400u;
 LABEL_216:
     v8 = 1875;
-    xmlSchemaCustomErr4(v1, 1875, 0, 0, "The type definition is absent", 0, 0, 0, 0);
+    xmlSchemaCustomErr4(v1, 0x753u, 0, 0, "The type definition is absent", 0, 0, 0, 0);
     goto LABEL_218;
   }
 
@@ -2365,8 +3141,6 @@ LABEL_117:
 
 LABEL_218:
   v1[76] = v1[43];
-LABEL_232:
-  v85 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -2376,7 +3150,7 @@ uint64_t xmlSchemaVPushText(uint64_t a1, int a2, xmlChar *str2, int len, int a5)
   v7 = *(v6 + 64);
   if ((v7 & 4) != 0)
   {
-    xmlSchemaCustomErr4(a1, 1848, 0, 0, "Neither character nor element content is allowed because the element is 'nilled'", 0, 0, 0, 0);
+    xmlSchemaCustomErr4(a1, 0x738u, 0, 0, "Neither character nor element content is allowed because the element is 'nilled'", 0, 0, 0, 0);
     return *(a1 + 104);
   }
 
@@ -2445,13 +3219,13 @@ uint64_t xmlSchemaVPushText(uint64_t a1, int a2, xmlChar *str2, int len, int a5)
       }
     }
 
-    xmlSchemaCustomErr4(a1, 1843, 0, 0, "Character content other than whitespace is not allowed because the content type is 'element-only'", 0, 0, 0, 0);
+    xmlSchemaCustomErr4(a1, 0x733u, 0, 0, "Character content other than whitespace is not allowed because the content type is 'element-only'", 0, 0, 0, 0);
     return *(a1 + 104);
   }
 
   if (v9 == 1)
   {
-    xmlSchemaCustomErr4(a1, 1841, 0, 0, "Character content is not allowed, because the content type is empty", 0, 0, 0, 0);
+    xmlSchemaCustomErr4(a1, 0x731u, 0, 0, "Character content is not allowed, because the content type is empty", 0, 0, 0, 0);
     return *(a1 + 104);
   }
 
@@ -2535,7 +3309,7 @@ LABEL_32:
 
 uint64_t xmlSchemaValidatorPopElem(unsigned int *data)
 {
-  v179 = *MEMORY[0x1E69E9840];
+  v178 = *MEMORY[0x1E69E9840];
   v2 = *(data + 24);
   if (data[74])
   {
@@ -2572,23 +3346,23 @@ uint64_t xmlSchemaValidatorPopElem(unsigned int *data)
   if ((v3 & 0x100) != 0)
   {
     v4 = 0;
-    goto LABEL_330;
+    goto LABEL_329;
   }
 
-  v177 = 0u;
-  v178 = 0u;
-  v175 = 0u;
   v176 = 0u;
+  v177 = 0u;
+  v174 = 0u;
+  v175 = 0u;
   *name = 0u;
-  LODWORD(v173) = 0;
+  LODWORD(v172) = 0;
   nbneg = 0;
-  LODWORD(v172) = 10;
-  v135 = *(v2 + 112);
-  if (!v135)
+  LODWORD(v171) = 10;
+  v134 = *(v2 + 112);
+  if (!v134)
   {
-    v135 = xmlRegNewExecCtxt(*(v5 + 200), xmlSchemaVContentModelCallback, data);
-    *(v2 + 112) = v135;
-    if (!v135)
+    v134 = xmlRegNewExecCtxt(*(v5 + 200), xmlSchemaVContentModelCallback, data);
+    *(v2 + 112) = v134;
+    if (!v134)
     {
       v133 = "failed to create a regex context";
       goto LABEL_298;
@@ -2599,35 +3373,35 @@ uint64_t xmlSchemaValidatorPopElem(unsigned int *data)
 
   if ((v3 & 4) != 0)
   {
-    goto LABEL_309;
+    goto LABEL_308;
   }
 
-  xmlRegExecNextValues(v135, &v172, &nbneg, name, &v173);
-  v136 = xmlRegExecPushString(*(v2 + 112), 0, 0);
-  if (v136 < 0)
+  xmlRegExecNextValues(v134, &v171, &nbneg, name, &v172);
+  v135 = xmlRegExecPushString(*(v2 + 112), 0, 0);
+  if (v135 < 0)
   {
-    v137 = *(v2 + 64);
-LABEL_328:
-    *(v2 + 64) = v137 | 0x100;
-    xmlSchemaComplexTypeErr(data, "Missing child element(s)", v172, nbneg, name);
+    v136 = *(v2 + 64);
+LABEL_327:
+    *(v2 + 64) = v136 | 0x100;
+    xmlSchemaComplexTypeErr(data, "Missing child element(s)", v171, nbneg, name);
     v4 = 1;
-    goto LABEL_329;
+    goto LABEL_328;
   }
 
-  if (!v136)
+  if (!v135)
   {
-    v137 = *(v2 + 64);
-    if ((v137 & 4) == 0)
+    v136 = *(v2 + 64);
+    if ((v136 & 4) == 0)
     {
-      goto LABEL_328;
+      goto LABEL_327;
     }
   }
 
-LABEL_309:
+LABEL_308:
   v4 = 0;
-LABEL_329:
+LABEL_328:
   v6 = *(*(v2 + 56) + 92);
-LABEL_330:
+LABEL_329:
   if (v6 == 2)
   {
     goto LABEL_24;
@@ -2683,52 +3457,52 @@ LABEL_9:
 LABEL_295:
     if (!v4)
     {
-      v142 = *(v2 + 80);
-      v143 = *(v142 + 144);
-      if (!v143 || (*(v142 + 88) & 8) == 0)
+      v141 = *(v2 + 80);
+      v142 = *(v141 + 144);
+      if (!v142 || (*(v141 + 88) & 8) == 0)
       {
-        goto LABEL_336;
+        goto LABEL_335;
       }
 
       if ((*(v2 + 64) & 0x80) != 0)
       {
         v4 = 1856;
-        xmlSchemaCustomErr4(data, 1856, 0, 0, "The content must not contain element nodes since there is a fixed value constraint", 0, 0, 0, 0);
+        xmlSchemaCustomErr4(data, 0x740u, 0, 0, "The content must not contain element nodes since there is a fixed value constraint", 0, 0, 0, 0);
         goto LABEL_24;
       }
 
-      v144 = *(*(v2 + 56) + 92);
-      if (v144 == 6 || v144 == 4)
+      v143 = *(*(v2 + 56) + 92);
+      if (v143 == 6 || v143 == 4)
       {
-        if (xmlStrEqual(*(v2 + 40), v143))
+        if (xmlStrEqual(*(v2 + 40), v142))
         {
-          goto LABEL_336;
+          goto LABEL_335;
         }
 
-        v145 = *(v2 + 40);
-        v146 = *(*(v2 + 80) + 144);
-        v147 = "The actual value '%s' does not match the fixed value constraint '%s'";
+        v144 = *(v2 + 40);
+        v145 = *(*(v2 + 80) + 144);
+        v146 = "The actual value '%s' does not match the fixed value constraint '%s'";
         v4 = 1858;
-        v148 = data;
-        v149 = 1858;
+        v147 = data;
+        v148 = 1858;
       }
 
       else
       {
-        if (v144 != 3 || xmlStrEqual(*(v2 + 40), v143))
+        if (v143 != 3 || xmlStrEqual(*(v2 + 40), v142))
         {
-          goto LABEL_336;
+          goto LABEL_335;
         }
 
-        v145 = *(v2 + 40);
-        v146 = *(*(v2 + 80) + 144);
-        v147 = "The initial value '%s' does not match the fixed value constraint '%s'";
+        v144 = *(v2 + 40);
+        v145 = *(*(v2 + 80) + 144);
+        v146 = "The initial value '%s' does not match the fixed value constraint '%s'";
         v4 = 1857;
-        v148 = data;
-        v149 = 1857;
+        v147 = data;
+        v148 = 1857;
       }
 
-      xmlSchemaCustomErr4(v148, v149, 0, 0, v147, v145, v146, 0, 0);
+      xmlSchemaCustomErr4(v147, v148, 0, 0, v146, v144, v145, 0, 0);
       goto LABEL_24;
     }
 
@@ -2759,29 +3533,29 @@ LABEL_296:
 LABEL_21:
     if (!v4)
     {
-LABEL_315:
+LABEL_314:
       if ((data[37] & 1) == 0 || !*(v2 + 8))
       {
-        goto LABEL_336;
+        goto LABEL_335;
       }
 
-      v139 = xmlSchemaNormalizeValue(*(v2 + 56), *(*(v2 + 80) + 144));
-      if (v139)
+      v138 = xmlSchemaNormalizeValue(*(v2 + 56), *(*(v2 + 80) + 144));
+      if (v138)
       {
-        v140 = v139;
-        v141 = xmlNewText(v139);
-        free(v140);
+        v139 = v138;
+        v140 = xmlNewText(v138);
+        free(v139);
       }
 
       else
       {
-        v141 = xmlNewText(*(*(v2 + 80) + 144));
+        v140 = xmlNewText(*(*(v2 + 80) + 144));
       }
 
-      if (v141)
+      if (v140)
       {
-        xmlAddChild(*(v2 + 8), v141);
-LABEL_336:
+        xmlAddChild(*(v2 + 8), v140);
+LABEL_335:
         v4 = 0;
         goto LABEL_24;
       }
@@ -2795,14 +3569,14 @@ LABEL_298:
     goto LABEL_296;
   }
 
-  v138 = xmlSchemaCheckCOSValidDefault(data, v9, (v2 + 48));
-  if (!v138)
+  v137 = xmlSchemaCheckCOSValidDefault(data, v9, (v2 + 48));
+  if (!v137)
   {
-    goto LABEL_315;
+    goto LABEL_314;
   }
 
-  v4 = v138;
-  if (v138 < 0)
+  v4 = v137;
+  if (v137 < 0)
   {
     v133 = "calling xmlSchemaCheckCOSValidDefault()";
     goto LABEL_298;
@@ -2812,17 +3586,16 @@ LABEL_24:
   v12 = data[43];
   if (v12 < 0)
   {
-    result = 0;
-    goto LABEL_300;
+    return 0;
   }
 
-  v160 = v4;
+  v159 = v4;
   if (v12 == data[76])
   {
     data[76] = -1;
   }
 
-  v170 = v2;
+  v169 = v2;
   if (*(v2 + 140) && xmlSchemaXPathProcessHistory(data, v12) == -1)
   {
     goto LABEL_299;
@@ -2911,7 +3684,7 @@ LABEL_48:
       v25 = v19[2];
       if (v25)
       {
-        v161 = v23 == 0;
+        v160 = v23 == 0;
         if (!(*(v19 + 6) | v23))
         {
           free(v25);
@@ -2939,7 +3712,7 @@ LABEL_105:
           goto LABEL_105;
         }
 
-        v161 = 0;
+        v160 = 0;
       }
 
       v26 = 0;
@@ -2957,7 +3730,7 @@ LABEL_105:
         v23 = v23;
       }
 
-      v164 = v23;
+      v163 = v23;
       if (v28 <= 1)
       {
         v31 = 1;
@@ -2968,14 +3741,14 @@ LABEL_105:
         v31 = v28;
       }
 
-      v156 = v31;
-      v158 = *v27;
+      v155 = v31;
+      v157 = *v27;
       do
       {
         v32 = *(*(v29 + 8 * v26) + 8);
-        if (!v161)
+        if (!v160)
         {
-          for (i = 0; i != v164; ++i)
+          for (i = 0; i != v163; ++i)
           {
             if (v30 == 1)
             {
@@ -3024,8 +3797,8 @@ LABEL_105:
         if (!v33)
         {
 LABEL_90:
-          v29 = v158;
-          v48 = *(v158 + 8 * v26);
+          v29 = v157;
+          v48 = *(v157 + 8 * v26);
           v49 = *(v19 + 7);
           if (v49 > v33)
           {
@@ -3040,7 +3813,7 @@ LABEL_100:
           {
             if (v49 > 0x3B9AC9FF)
             {
-              v150 = "allocating an array of IDC node-table items";
+              v149 = "allocating an array of IDC node-table items";
             }
 
             else
@@ -3065,11 +3838,11 @@ LABEL_98:
                 goto LABEL_100;
               }
 
-              v150 = "re-allocating an array of IDC node-table items";
+              v149 = "re-allocating an array of IDC node-table items";
             }
 
-LABEL_347:
-            __xmlSimpleError(0x11u, 2, 0, 0, v150);
+LABEL_346:
+            __xmlSimpleError(0x11u, 2, 0, 0, v149);
             goto LABEL_299;
           }
 
@@ -3151,12 +3924,12 @@ LABEL_72:
         *(v19[2] + 8 * v34) = *(v19[2] + 8 * v41 - 8);
         *(v19 + 6) = v41 - 1;
 LABEL_76:
-        v29 = v158;
+        v29 = v157;
 LABEL_101:
         ++v26;
       }
 
-      while (v26 != v156);
+      while (v26 != v155);
 LABEL_107:
       v13 = *(v13 + 8);
       if (!v13)
@@ -3192,7 +3965,7 @@ LABEL_108:
               v59 = *v59;
               if (!v59)
               {
-                v162 = 0;
+                v161 = 0;
                 v61 = 0;
                 goto LABEL_131;
               }
@@ -3202,12 +3975,12 @@ LABEL_108:
             v60 = *(v59 + 32);
             if (v60)
             {
-              v162 = *(v60 + 8) != 0;
+              v161 = *(v60 + 8) != 0;
             }
 
             else
             {
-              v162 = 0;
+              v161 = 0;
             }
 
             v61 = xmlHashCreate(2 * *(v59 + 24));
@@ -3280,8 +4053,8 @@ LABEL_131:
                 }
 
                 name[0] = 0;
-                v165 = *(v71 + 8);
-                xmlSchemaFormatIDCKeySequence_1(data, name, v165, v58, 1);
+                v164 = *(v71 + 8);
+                xmlSchemaFormatIDCKeySequence_1(data, name, v164, v58, 1);
                 v72 = name[0];
                 v73 = xmlHashLookup(tablea, name[0]);
                 if (v72)
@@ -3295,7 +4068,7 @@ LABEL_131:
                   if (v58 >= 1)
                   {
                     v74 = *(*(*(v59 + 16) + 8 * *(v73 + 2)) + 8);
-                    v75 = v165;
+                    v75 = v164;
                     v76 = v58;
                     while (1)
                     {
@@ -3320,7 +4093,7 @@ LABEL_131:
                   }
                 }
 
-                if (v162 && (v78 = *(v59 + 32), *(v78 + 8) >= 1))
+                if (v161 && (v78 = *(v59 + 32), *(v78 + 8) >= 1))
                 {
                   v79 = 0;
                   while (v58 < 1)
@@ -3333,7 +4106,7 @@ LABEL_154:
                   }
 
                   v80 = *(*(*v78 + 8 * v79) + 8);
-                  v81 = v165;
+                  v81 = v164;
                   v82 = v58;
                   do
                   {
@@ -3355,18 +4128,18 @@ LABEL_154:
                   }
 
                   while (v82);
+                  v171 = 0;
                   v172 = 0;
-                  v173 = 0;
-                  v87 = xmlSchemaFormatIDCKeySequence_1(data, &v173, *(v71 + 8), v58, 0);
-                  ComponentQName = xmlSchemaGetComponentQName(&v172, *(*(j + 24) + 8));
+                  v87 = xmlSchemaFormatIDCKeySequence_1(data, &v172, *(v71 + 8), v58, 0);
+                  ComponentQName = xmlSchemaGetComponentQName(&v171, *(*(j + 24) + 8));
                   xmlSchemaKeyrefErr(data, v71, "More than one match found for key-sequence %s of keyref '%s'", v87, ComponentQName);
-                  if (v173)
+                  if (v172)
                   {
-                    free(v173);
+                    free(v172);
                   }
 
-                  v86 = v172;
-                  if (!v172)
+                  v86 = v171;
+                  if (!v171)
                   {
                     goto LABEL_163;
                   }
@@ -3375,18 +4148,18 @@ LABEL_154:
                 else
                 {
 LABEL_155:
-                  v173 = 0;
+                  v172 = 0;
                   name[0] = 0;
                   v84 = xmlSchemaFormatIDCKeySequence_1(data, name, *(v71 + 8), v58, 0);
-                  v85 = xmlSchemaGetComponentQName(&v173, *(*(j + 24) + 8));
+                  v85 = xmlSchemaGetComponentQName(&v172, *(*(j + 24) + 8));
                   xmlSchemaKeyrefErr(data, v71, "No match found for key-sequence %s of keyref '%s'", v84, v85);
                   if (name[0])
                   {
                     free(name[0]);
                   }
 
-                  v86 = v173;
-                  if (!v173)
+                  v86 = v172;
+                  if (!v172)
                   {
                     goto LABEL_163;
                   }
@@ -3412,15 +4185,15 @@ LABEL_163:
     }
   }
 
-  if (!*(v170 + 96) || (v89 = data[43], v89 < 1) || !data[80] && !data[81] || (v90 = *(*(data + 24) + 96)) == 0)
+  if (!*(v169 + 96) || (v89 = data[43], v89 < 1) || !data[80] && !data[81] || (v90 = *(*(data + 24) + 96)) == 0)
   {
 LABEL_275:
-    xmlSchemaClearElemInfo(data, v170);
+    xmlSchemaClearElemInfo(data, v169);
     v127 = data[43];
     if (v127)
     {
       v128 = *(data + 25);
-      for (result = v160; v128; v128 = *v128)
+      for (result = v159; v128; v128 = *v128)
       {
         if (*(v128 + 4) == v127)
         {
@@ -3440,13 +4213,13 @@ LABEL_275:
       *(data + 24) = 0;
     }
 
-    goto LABEL_300;
+    return result;
   }
 
   v91 = 0;
   v92 = 0;
   v93 = *(*(data + 22) + 8 * v89 - 8) + 96;
-  v157 = v93;
+  v156 = v93;
   while (1)
   {
     v94 = *(v90 + 6);
@@ -3493,7 +4266,7 @@ LABEL_184:
 
         v103 = v102;
         v104 = *(v90 + 6);
-        v93 = v157;
+        v93 = v156;
         if (v104)
         {
           if (data[82])
@@ -3538,12 +4311,12 @@ LABEL_184:
           v90[4] = 0;
         }
 
-        if (*v157)
+        if (*v156)
         {
-          *v103 = *v157;
+          *v103 = *v156;
         }
 
-        *v157 = v103;
+        *v156 = v103;
         goto LABEL_274;
       }
 
@@ -3578,13 +4351,13 @@ LABEL_274:
   }
 
   v107 = 0;
-  v159 = *(v98 + 24);
+  v158 = *(v98 + 24);
   v108 = *(v98 + 16);
-  v151 = v101;
-  v152 = (v101 - 1);
-  v163 = *(v99 + 64);
-  v109 = 8 * v163;
-  v154 = v101;
+  v150 = v101;
+  v151 = (v101 - 1);
+  v162 = *(v99 + 64);
+  v109 = 8 * v162;
+  v153 = v101;
   while (2)
   {
     v110 = *(v90[2] + 8 * v107);
@@ -3593,7 +4366,7 @@ LABEL_274:
       goto LABEL_263;
     }
 
-    v166 = v108;
+    v165 = v108;
     if (v101)
     {
       if (v101 < 1)
@@ -3603,7 +4376,7 @@ LABEL_274:
 
       else
       {
-        if (v163 == 1)
+        if (v162 == 1)
         {
           k = 0;
           while (1)
@@ -3614,11 +4387,11 @@ LABEL_274:
               break;
             }
 
-            if (++k >= v151)
+            if (++k >= v150)
             {
               v91 = 0;
-              v101 = v154;
-              LODWORD(k) = v154;
+              v101 = v153;
+              LODWORD(k) = v153;
               goto LABEL_226;
             }
           }
@@ -3630,18 +4403,18 @@ LABEL_274:
 
           v91 = 1;
 LABEL_225:
-          v93 = v157;
-          v101 = v154;
+          v93 = v156;
+          v101 = v153;
 LABEL_226:
-          v113 = v159;
-          v108 = v166;
+          v113 = v158;
+          v108 = v165;
           goto LABEL_227;
         }
 
         for (k = 0; ; ++k)
         {
           v92 = *(tableb + k);
-          if (v163 < 1)
+          if (v162 < 1)
           {
             if (v91 == 1)
             {
@@ -3674,12 +4447,12 @@ LABEL_226:
               }
             }
 
-            v93 = v157;
-            v101 = v154;
-            v108 = v166;
+            v93 = v156;
+            v101 = v153;
+            v108 = v165;
           }
 
-          if (k == v152)
+          if (k == v151)
           {
             break;
           }
@@ -3689,7 +4462,7 @@ LABEL_226:
       }
 
 LABEL_210:
-      v113 = v159;
+      v113 = v158;
 LABEL_227:
       if (k != v101 || !v113)
       {
@@ -3699,21 +4472,21 @@ LABEL_227:
 
     else
     {
-      v113 = v159;
-      if (!v159)
+      v113 = v158;
+      if (!v158)
       {
-        v159 = 0;
+        v158 = 0;
         goto LABEL_263;
       }
     }
 
-    v153 = v113 - 1;
+    v152 = v113 - 1;
     if (v113 < 1)
     {
       LODWORD(v116) = 0;
 LABEL_246:
       v120 = *(v98 + 24);
-      if (v116 == v159)
+      if (v116 == v158)
       {
 LABEL_247:
         v121 = *(v98 + 28);
@@ -3728,8 +4501,8 @@ LABEL_247:
           {
             if (v121 > 0x3B9AC9FF)
             {
-              v150 = "allocating IDC list of node-table items";
-              goto LABEL_347;
+              v149 = "allocating IDC list of node-table items";
+              goto LABEL_346;
             }
 
             if (1000000000 - ((v121 + 1) >> 1) >= v121)
@@ -3746,8 +4519,8 @@ LABEL_247:
           v108 = malloc_type_realloc(*(v98 + 16), 8 * v123, 0x2004093837F09uLL);
           if (!v108)
           {
-            v150 = "re-allocating IDC list of node-table items";
-            goto LABEL_347;
+            v149 = "re-allocating IDC list of node-table items";
+            goto LABEL_346;
           }
 
           *(v98 + 16) = v108;
@@ -3760,7 +4533,7 @@ LABEL_247:
           v108 = *(v98 + 16);
         }
 
-        v101 = v154;
+        v101 = v153;
         *(v98 + 24) = v120 + 1;
         v108[v120] = v110;
       }
@@ -3768,10 +4541,10 @@ LABEL_247:
       else
       {
         *(v98 + 24) = v120 - 1;
-        v108[v116] = v108[v153];
-        if (v120 != v159)
+        v108[v116] = v108[v152];
+        if (v120 != v158)
         {
-          v108[v153] = v108[v120 - 1];
+          v108[v152] = v108[v120 - 1];
         }
 
         v122 = *(v98 + 32);
@@ -3787,10 +4560,10 @@ LABEL_247:
 
         xmlSchemaItemListAddSize(v122, 20, v92);
         tableb = **(v98 + 32);
-        v101 = v154;
-        v159 = v153;
-        v93 = v157;
-        v108 = v166;
+        v101 = v153;
+        v158 = v152;
+        v93 = v156;
+        v108 = v165;
       }
 
 LABEL_263:
@@ -3806,11 +4579,11 @@ LABEL_263:
   }
 
   v116 = 0;
-  v155 = v113;
+  v154 = v113;
   while (1)
   {
     v92 = v108[v116];
-    if (v163 != 1)
+    if (v162 != 1)
     {
       break;
     }
@@ -3826,23 +4599,23 @@ LABEL_263:
 
 LABEL_245:
       v91 = 1;
-      v93 = v157;
-      v108 = v166;
+      v93 = v156;
+      v108 = v165;
       goto LABEL_246;
     }
 
 LABEL_241:
     ++v116;
-    v108 = v166;
-    if (v116 == v155)
+    v108 = v165;
+    if (v116 == v154)
     {
       v120 = *(v98 + 24);
-      v93 = v157;
+      v93 = v156;
       goto LABEL_247;
     }
   }
 
-  if (v163 < 1)
+  if (v162 < 1)
   {
     if (v91 == 1)
     {
@@ -3877,8 +4650,6 @@ LABEL_241:
 LABEL_299:
   result = 0xFFFFFFFFLL;
   data[26] = -1;
-LABEL_300:
-  v134 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4140,12 +4911,12 @@ LABEL_39:
 
 uint64_t xmlSchemaVAttributesComplex(uint64_t a1)
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 192) + 56);
   v3 = *(v2 + 216);
   v4 = *(a1 + 296);
   v5 = *(a1 + 296);
-  v85 = v2;
+  v84 = v2;
   if (v3)
   {
     v6 = *(v3 + 2);
@@ -4169,7 +4940,7 @@ LABEL_11:
               {
 LABEL_156:
                 xmlSchemaInternalErr2(a1, "xmlSchemaVAttributesComplex", "calling xmlSchemaGetFreshAttrInfo()", 0);
-                goto LABEL_160;
+                return 0xFFFFFFFFLL;
               }
 
               *(FreshAttrInfo + 22) = 8;
@@ -4227,7 +4998,7 @@ LABEL_156:
         if (++v7 == v6)
         {
           v5 = *(a1 + 296);
-          v2 = v85;
+          v2 = v84;
           break;
         }
       }
@@ -4236,7 +5007,7 @@ LABEL_156:
 
   if (!v5)
   {
-    goto LABEL_60;
+    return 0;
   }
 
   if (*(v2 + 152))
@@ -4299,7 +5070,7 @@ LABEL_156:
 LABEL_37:
         v19 = 1;
 LABEL_38:
-        v2 = v85;
+        v2 = v84;
         goto LABEL_43;
       }
 
@@ -4309,7 +5080,7 @@ LABEL_38:
       }
 
       v27 = *(v3 + 2);
-      v2 = v85;
+      v2 = v84;
       if (v27 >= 1)
       {
         v28 = *v3;
@@ -4318,7 +5089,7 @@ LABEL_38:
           v28 += 8;
           v19 = 1;
           --v27;
-          v2 = v85;
+          v2 = v84;
           if (!v27)
           {
             goto LABEL_43;
@@ -4337,8 +5108,8 @@ LABEL_38:
 
     else
     {
-      v2 = v85;
-      if (*(*(v85 + 152) + 40) == 2)
+      v2 = v84;
+      if (*(*(v84 + 152) + 40) == 2)
       {
         v26 = 14;
       }
@@ -4359,9 +5130,7 @@ LABEL_43:
   v5 = *(a1 + 296);
   if (!v5)
   {
-LABEL_60:
-    result = 0;
-    goto LABEL_161;
+    return 0;
   }
 
 LABEL_54:
@@ -4581,8 +5350,8 @@ LABEL_158:
         goto LABEL_112;
       }
 
-      v84 = "calling xmlNewProp()";
-      goto LABEL_163;
+      v83 = "calling xmlNewProp()";
+      goto LABEL_162;
     }
 
     v55 = xmlSearchNsByHref(v33->doc, v33, v54);
@@ -4592,7 +5361,7 @@ LABEL_158:
     }
 
     v56 = 0;
-    v87 = 0;
+    v86 = 0;
     *__str = 0;
     while (2)
     {
@@ -4600,9 +5369,9 @@ LABEL_158:
       v57 = xmlSearchNs(v33->doc, v33, __str);
       if (v56 == 1000)
       {
-        v84 = "could not compute a ns prefix for a default/fixed attribute";
-LABEL_163:
-        xmlSchemaInternalErr2(a1, "xmlSchemaVAttributesComplex", v84, 0);
+        v83 = "could not compute a ns prefix for a default/fixed attribute";
+LABEL_162:
+        xmlSchemaInternalErr2(a1, "xmlSchemaVAttributesComplex", v83, 0);
         if (v53)
         {
           free(v53);
@@ -4610,9 +5379,7 @@ LABEL_163:
 
 LABEL_159:
         *(a1 + 192) = *(*(a1 + 176) + 8 * *(a1 + 172));
-LABEL_160:
-        result = 0xFFFFFFFFLL;
-        goto LABEL_161;
+        return 0xFFFFFFFFLL;
       }
 
       ++v56;
@@ -4666,7 +5433,7 @@ LABEL_127:
     break;
   }
 
-  v70 = v85;
+  v70 = v84;
   if (v69 >= 1)
   {
     for (j = 0; j < *(a1 + 296); ++j)
@@ -4707,7 +5474,7 @@ LABEL_127:
           *__str = 0;
           *(a1 + 192) = *(*(a1 + 176) + 8 * *(a1 + 172));
           v78 = xmlSchemaFormatQName(__str, *(*(v72 + 72) + 112), *(*(v72 + 72) + 16));
-          xmlSchemaCustomErr4(a1, 1868, 0, 0, "The attribute '%s' is required but missing", v78, 0, 0, 0);
+          xmlSchemaCustomErr4(a1, 0x74Cu, 0, 0, "The attribute '%s' is required but missing", v78, 0, 0, 0);
           if (*__str)
           {
             free(*__str);
@@ -4730,7 +5497,7 @@ LABEL_146:
 LABEL_148:
           xmlSchemaCustomErr4(v75, v76, 0, 0, v77, v79, v80, 0, 0);
 LABEL_149:
-          v70 = v85;
+          v70 = v84;
           continue;
         }
 
@@ -4744,7 +5511,7 @@ LABEL_149:
           goto LABEL_148;
         }
 
-        v70 = v85;
+        v70 = v84;
         if (v73 == 10)
         {
           v75 = a1;
@@ -4759,42 +5526,40 @@ LABEL_149:
 LABEL_155:
   result = 0;
   *(a1 + 192) = *(*(a1 + 176) + 8 * *(a1 + 172));
-LABEL_161:
-  v83 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void xmlSchemaVAttributesSimple(uint64_t a1)
+void xmlSchemaVAttributesSimple(uint64_t result)
 {
-  v1 = *(a1 + 296);
+  v1 = *(result + 296);
   if (v1)
   {
     if (v1 >= 1)
     {
       for (i = 0; i < v1; ++i)
       {
-        v4 = *(*(a1 + 288) + 8 * i);
+        v4 = *(*(result + 288) + 8 * i);
         if (!*(v4 + 92))
         {
-          *(a1 + 192) = v4;
-          xmlSchemaIllegalAttrErr(a1, 1827, v4);
-          v1 = *(a1 + 296);
+          *(result + 192) = v4;
+          xmlSchemaIllegalAttrErr(result, 0x723u, v4);
+          v1 = *(result + 296);
         }
       }
     }
 
-    *(a1 + 192) = *(*(a1 + 176) + 8 * *(a1 + 172));
+    *(result + 192) = *(*(result + 176) + 8 * *(result + 172));
   }
 }
 
-_DWORD *xmlSchemaAugmentIDC(_DWORD *a1, uint64_t a2)
+xmlError *xmlSchemaAugmentIDC(char *a1, uint64_t a2)
 {
   result = malloc_type_malloc(0x18uLL, 0x1020040EDCEB4C7uLL);
   if (result)
   {
-    result[4] = -1;
-    *result = *(a2 + 200);
-    *(result + 1) = a1;
+    result->level = -1;
+    *&result->domain = *(a2 + 200);
+    result->message = a1;
     *(a2 + 200) = result;
     if (!*(a2 + 320) && *a1 == 24)
     {
@@ -4854,7 +5619,7 @@ uint64_t xmlSchemaProcessXSIType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     if (prefix && (free(prefix), !v14))
     {
       BuiltInType = xmlSchemaGetBuiltInType(XML_SCHEMAS_QNAME);
-      xmlSchemaCustomErr4(a1, 1824, 0, BuiltInType, "The QName value '%s' has no corresponding namespace declaration in scope", v7, 0, 0, 0);
+      xmlSchemaCustomErr4(a1, 0x720u, 0, BuiltInType, "The QName value '%s' has no corresponding namespace declaration in scope", v7, 0, 0, 0);
       result = 2;
     }
 
@@ -4880,7 +5645,7 @@ uint64_t xmlSchemaProcessXSIType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
           v21 = *(a4 + 56);
           if ((v16 & 0x1000) != 0 || (*(v21 + 90) & 8) != 0)
           {
-            v17 |= 1u;
+            v17 = v17 | 1;
           }
 
           result = xmlSchemaCheckCOSDerivedOK(a1, Type, v21, v17);
@@ -4888,7 +5653,7 @@ uint64_t xmlSchemaProcessXSIType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
           {
             prefix = 0;
             v22 = xmlSchemaFormatQName(&prefix, *(*a3 + 208), *(*a3 + 16));
-            xmlSchemaCustomErr4(a1, 1852, 0, 0, "The type definition '%s', specified by xsi:type, is blocked or not validly derived from the type definition of the element declaration", v22, 0, 0, 0);
+            xmlSchemaCustomErr4(a1, 0x73Cu, 0, 0, "The type definition '%s', specified by xsi:type, is blocked or not validly derived from the type definition of the element declaration", v22, 0, 0, 0);
             if (prefix)
             {
               free(prefix);
@@ -4910,7 +5675,7 @@ uint64_t xmlSchemaProcessXSIType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
         prefix = 0;
         v18 = xmlSchemaGetBuiltInType(XML_SCHEMAS_QNAME);
         v19 = xmlSchemaFormatQName(&prefix, v14, v13);
-        xmlSchemaCustomErr4(a1, 1851, 0, v18, "The QName value '%s' of the xsi:type attribute does not resolve to a type definition", v19, 0, 0, 0);
+        xmlSchemaCustomErr4(a1, 0x73Bu, 0, v18, "The QName value '%s' of the xsi:type attribute does not resolve to a type definition", v19, 0, 0, 0);
         if (prefix)
         {
           free(prefix);
@@ -4924,7 +5689,7 @@ uint64_t xmlSchemaProcessXSIType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   else
   {
     v9 = xmlSchemaGetBuiltInType(XML_SCHEMAS_QNAME);
-    xmlSchemaSimpleTypeErr(a1, 1824, 0, v7, v9);
+    xmlSchemaSimpleTypeErr(a1, 0x720u, 0, v7, v9);
     result = 1;
   }
 
@@ -4932,7 +5697,7 @@ uint64_t xmlSchemaProcessXSIType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   return result;
 }
 
-void xmlSchemaComplexTypeErr(uint64_t a1, const xmlChar *a2, int a3, int a4, uint64_t a5)
+void xmlSchemaComplexTypeErr(xmlError *a1, const xmlChar *a2, int a3, int a4, uint64_t a5)
 {
   v9 = a1;
   cur = 0;
@@ -5097,7 +5862,7 @@ LABEL_41:
 
   v9 = *v37;
 LABEL_46:
-  xmlSchemaErr4Line(v9, 2, 1871, 0, 0, v36, 0, 0, 0, 0);
+  xmlSchemaErr4Line(v9, 2, 0x74Fu, 0, 0, v36, 0, 0, 0, 0);
   free(cur);
 }
 
@@ -5238,7 +6003,7 @@ LABEL_119:
         v40 = v7;
         v41 = *(*(v2 + 48) + 24);
         ComponentDesignation = xmlSchemaGetComponentDesignation(&name, v39);
-        xmlSchemaCustomErr4(a1, 1877, 0, v39, v40, v41, ComponentDesignation, 0, 0);
+        xmlSchemaCustomErr4(a1, 0x755u, 0, v39, v40, v41, ComponentDesignation, 0, 0);
         if (name)
         {
           free(name);
@@ -5327,7 +6092,7 @@ LABEL_15:
             v46 = *(*(v11 + 24) + 8);
             v47 = *(*(v2 + 48) + 24);
             v48 = xmlSchemaGetComponentDesignation(&name, v46);
-            xmlSchemaCustomErr4(a1, 1877, 0, v46, "The XPath '%s' of a field of %s evaluates to a node-set with more than one member", v47, v48, 0, 0);
+            xmlSchemaCustomErr4(a1, 0x755u, 0, v46, "The XPath '%s' of a field of %s evaluates to a node-set with more than one member", v47, v48, 0, 0);
             if (name)
             {
               free(name);
@@ -5436,7 +6201,7 @@ LABEL_126:
         return 0xFFFFFFFFLL;
       }
 
-      xmlSchemaCustomErr4(a1, 1877, 0, *(*(*(v2 + 40) + 24) + 8), "Warning: No precomputed value available, the value was either invalid or something strange happened", 0, 0, 0, 0);
+      xmlSchemaCustomErr4(a1, 0x755u, 0, *(*(*(v2 + 40) + 24) + 8), "Warning: No precomputed value available, the value was either invalid or something strange happened", 0, 0, 0, 0);
       v5 = 0;
     }
 
@@ -5509,7 +6274,7 @@ LABEL_54:
 LABEL_51:
     name = 0;
     v37 = xmlSchemaGetComponentDesignation(&name, v19);
-    xmlSchemaCustomErr4(a1, 1877, 0, v19, "Not all fields of %s evaluate to a node", v37, 0, 0, 0);
+    xmlSchemaCustomErr4(a1, 0x755u, 0, v19, "Not all fields of %s evaluate to a node", v37, 0, 0, 0);
     if (name)
     {
       free(name);
@@ -5539,7 +6304,7 @@ LABEL_29:
     }
   }
 
-  if (*v19 == 24 || !*(v74 + 8) || !*(v18 + 64))
+  if (*v19 == 24 || !*(v74 + 2) || !*(v18 + 64))
   {
     goto LABEL_45;
   }
@@ -5617,7 +6382,7 @@ LABEL_87:
           if (v60)
           {
             v61 = v60;
-            *(v60 + 2) = *(v74 + 8) - 1;
+            *(v60 + 2) = *(v74 + 2) - 1;
             v62 = name;
             v63 = xmlHashLookup(*(v18 + 64), name);
             if (v63)
@@ -5713,7 +6478,7 @@ LABEL_44:
       name = 0;
       v67 = xmlSchemaFormatIDCKeySequence_1(a1, &name, *v22, v73, 0);
       v68 = xmlSchemaGetComponentDesignation(&v77, v19);
-      xmlSchemaCustomErr4(a1, 1877, 0, v19, "Duplicate key-sequence %s in %s", v67, v68, 0, 0);
+      xmlSchemaCustomErr4(a1, 0x755u, 0, v19, "Duplicate key-sequence %s in %s", v67, v68, 0, 0);
       if (name)
       {
         free(name);
@@ -5731,7 +6496,7 @@ LABEL_44:
   }
 }
 
-void xmlSchemaIllegalAttrErr(_DWORD *a1, int a2, uint64_t a3)
+void xmlSchemaIllegalAttrErr(xmlError *a1, unsigned __int32 a2, uint64_t a3)
 {
   v9 = 0;
   cur = 0;
@@ -5868,7 +6633,7 @@ LABEL_9:
   return v5;
 }
 
-xmlChar *xmlSchemaFormatIDCKeySequence_1(_DWORD *a1, xmlChar **a2, uint64_t a3, int a4, int a5)
+xmlChar *xmlSchemaFormatIDCKeySequence_1(xmlError *a1, xmlChar **a2, uint64_t a3, int a4, int a5)
 {
   add = 0;
   v10 = xmlStrdup("[");
@@ -5939,7 +6704,7 @@ xmlChar *xmlSchemaFormatIDCKeySequence_1(_DWORD *a1, xmlChar **a2, uint64_t a3, 
   return result;
 }
 
-uint64_t xmlSchemaVCheckINodeDataType(uint64_t a1, uint64_t a2, uint64_t a3, xmlChar *a4)
+uint64_t xmlSchemaVCheckINodeDataType(uint64_t a1, uint64_t a2, int *a3, xmlChar *a4)
 {
   if ((*(a2 + 64) & 0x10) != 0)
   {
@@ -5989,7 +6754,7 @@ uint64_t xmlSchemaCheckCOSValidDefault(uint64_t a1, xmlChar *a2, xmlSchemaValPtr
   else
   {
     v12 = 3059;
-    xmlSchemaCustomErr4(a1, 3059, 0, 0, "For a string to be a valid default, the type definition must be a simple type or a complex type with simple content or mixed content and a particle emptiable", 0, 0, 0, 0);
+    xmlSchemaCustomErr4(a1, 0xBF3u, 0, 0, "For a string to be a valid default, the type definition must be a simple type or a complex type with simple content or mixed content and a particle emptiable", 0, 0, 0, 0);
   }
 
   return v12;
@@ -6015,7 +6780,7 @@ void *xmlSchemaIDCNewBinding(uint64_t a1)
   return v3;
 }
 
-void xmlSchemaKeyrefErr(uint64_t a1, uint64_t a2, const xmlChar *a3, xmlChar *a4, xmlChar *a5)
+void xmlSchemaKeyrefErr(uint64_t a1, uint64_t a2, const xmlChar *a3, xmlChar *a4, xmlChar *a5, ...)
 {
   v16 = 0;
   v10 = xmlStrdup("Element '%s': ");
@@ -6024,7 +6789,7 @@ void xmlSchemaKeyrefErr(uint64_t a1, uint64_t a2, const xmlChar *a3, xmlChar *a4
   v13 = *(a2 + 16);
   v14 = **(a1 + 312) + 8 * *(a2 + 20);
   v15 = xmlSchemaFormatQName(&v16, *(v14 + 8), *v14);
-  xmlSchemaErr4Line(a1, 2, 1877, 0, v13, v12, v15, a4, a5, 0);
+  xmlSchemaErr4Line(a1, 2, 0x755u, 0, v13, v12, v15, a4, a5, 0);
   if (v16)
   {
     free(v16);
@@ -6537,18 +7302,7 @@ const xmlChar *__cdecl xmlSchemaValueGetAsString(const xmlChar *val)
 {
   if (val)
   {
-    if (*val <= 0x2Eu)
-    {
-      v1 = ((1 << *val) & 0x400025D70006) == 0;
-      *val;
-    }
-
-    else
-    {
-      v1 = 1;
-    }
-
-    if (v1)
+    if (*val > 0x2Eu || ((1 << *val) & 0x400025D70006) == 0)
     {
       return 0;
     }
@@ -6946,7 +7700,7 @@ LABEL_33:
 
 uint64_t xmlSchemaValAtomicType(uint64_t a1, char *a2, xmlChar **a3, uint64_t a4, int a5, int a6, int a7)
 {
-  v259 = *MEMORY[0x1E69E9840];
+  v257 = *MEMORY[0x1E69E9840];
   if ((xmlSchemaTypesInitialized & 1) == 0)
   {
     xmlSchemaInitTypes();
@@ -6954,7 +7708,7 @@ uint64_t xmlSchemaValAtomicType(uint64_t a1, char *a2, xmlChar **a3, uint64_t a4
 
   if (!a1)
   {
-    goto LABEL_607;
+    return 0xFFFFFFFFLL;
   }
 
   if (!a2)
@@ -7064,8 +7818,8 @@ uint64_t xmlSchemaValAtomicType(uint64_t a1, char *a2, xmlChar **a3, uint64_t a4
       goto LABEL_282;
     case 3:
       memset(prefix, 0, sizeof(prefix));
-      v258 = 0;
-      v256 = prefix;
+      v256 = 0;
+      v254 = prefix;
       v131 = *a2;
       if (!*a2)
       {
@@ -7139,7 +7893,7 @@ LABEL_438:
         }
 
         *(prefix + v196) = v201;
-        v256 = (prefix + ++v196);
+        v254 = (prefix + ++v196);
         if (v196 == 24)
         {
           v198 = (prefix + v196);
@@ -7166,7 +7920,7 @@ LABEL_553:
 
           ++v132;
           *(prefix + v217) = v218;
-          v256 = (prefix + ++v217);
+          v254 = (prefix + ++v217);
           if (v217 == 24)
           {
             v198 = (prefix + v217);
@@ -7247,27 +8001,26 @@ LABEL_612:
           {
 LABEL_628:
             *v198 = 0;
-            v256 = prefix;
-            xmlSchemaParseUInt(&v256, v229 + 2, v229 + 3, v229 + 4);
-            v233 = *(v230 + 22) & 0xFE | (v196 << 8) | v158;
+            v254 = prefix;
+            xmlSchemaParseUInt(&v254, v229 + 2, v229 + 3, v229 + 4);
             if (v197 == -1)
             {
-              v234 = (v196 << 8) | v158 & 0xFF01;
+              v233 = (v196 << 8) | v158 & 0xFF01;
             }
 
             else
             {
-              v234 = (v196 << 8) | v158 & 0xFF01 | (2 * ((v196 - v197) & 0x7F));
+              v233 = (v196 << 8) | v158 & 0xFF01 | (2 * ((v196 - v197) & 0x7F));
             }
           }
 
           else
           {
 LABEL_634:
-            v234 = v158 | 0x100;
+            v233 = v158 | 0x100;
           }
 
-          *(v230 + 22) = v234;
+          *(v230 + 22) = v233;
           *a3 = v230;
         }
 
@@ -7358,7 +8111,7 @@ LABEL_634:
             }
 
             ++prefix[0];
-            if (_xmlSchemaParseGDay((v23 + 1), prefix) || (v152 = *prefix[0], v152 == 58) || ((v153 = 0x8F5C28F5C28F5C29 * *(v23 + 2), v154 = __ROR8__(v153 + 0x51EB851EB851EB8, 2), (v23[1] & 3) == 0) ? (v155 = v154 > 0x28F5C28F5C28F5CLL) : (v155 = 0), !v155 ? (v156 = 0) : (v156 = 1), __ROR8__(v153 + 0x51EB851EB851EB0, 4) < 0xA3D70A3D70A3D7uLL || v156 ? (v157 = &daysInMonthLeap) : (v157 = &daysInMonth), ((*(v23 + 6) >> 4) & 0x1Fu) > v157[(*(v23 + 6) & 0xF) - 1]))
+            if (_xmlSchemaParseGDay((v23 + 1), prefix) || (v152 = *prefix[0], v152 == 58) || ((v153 = 0x8F5C28F5C28F5C29 * *(v23 + 2), v154 = __ROR8__(v153 + 0x51EB851EB851EB8, 2), (v23[1] & 3) == 0) ? (v155 = v154 > 0x28F5C28F5C28F5CLL) : (v155 = 0), !v155 ? (v156 = 0) : (v156 = 1), __ROR8__(v153 + 0x51EB851EB851EB0, 4) < 0xA3D70A3D70A3D7uLL || v156 ? (v157 = daysInMonthLeap) : (v157 = daysInMonth), ((*(v23 + 6) >> 4) & 0x1Fu) > v157[(*(v23 + 6) & 0xF) - 1]))
             {
               prefix[0] = v150;
               v151 = *v150;
@@ -7419,7 +8172,7 @@ LABEL_653:
       v42 = *a2;
       if ((v42 - 58) > 0xFFFFFFF5 || v42 == 45 || v42 == 43)
       {
-        v43 = (v42 == 45 ? a2 + 1 : a2);
+        v43 = v42 == 45 ? a2 + 1 : a2;
         LODWORD(v44) = *v43;
         if ((v44 - 48) <= 9)
         {
@@ -7512,69 +8265,69 @@ LABEL_653:
                     v55 = __ROR8__(0x8F5C28F5C28F5C29 * v52 + 0x51EB851EB851EB8, 2);
                     v56 = (v23[1] & 3) == 0 && v55 > 0x28F5C28F5C28F5CLL;
                     v57 = v56;
-                    v58 = __ROR8__(v54 + 0x51EB851EB851EB0, 4) < 0xA3D70A3D70A3D7uLL || v57 ? &daysInMonthLeap : &daysInMonth;
+                    v58 = __ROR8__(v54 + 0x51EB851EB851EB0, 4) < 0xA3D70A3D70A3D7uLL || v57 ? daysInMonthLeap : daysInMonth;
                     if (((*(v23 + 6) >> 4) & 0x1Fu) > v58[v53])
                     {
                       goto LABEL_655;
                     }
 
-                    v238 = prefix[0];
-                    v239 = *prefix[0];
-                    if (((v239 - 43) > 0x2F || ((1 << (v239 - 43)) & 0x800000000005) == 0) && *prefix[0] || (v240 = _xmlSchemaParseTimeZone((v23 + 1), prefix), v238 = prefix[0], v239 = *prefix[0], v240))
+                    v236 = prefix[0];
+                    v237 = *prefix[0];
+                    if (((v237 - 43) > 0x2F || ((1 << (v237 - 43)) & 0x800000000005) == 0) && *prefix[0] || (v238 = _xmlSchemaParseTimeZone((v23 + 1), prefix), v236 = prefix[0], v237 = *prefix[0], v238))
                     {
-                      if (v239 != 84)
+                      if (v237 != 84)
                       {
                         goto LABEL_655;
                       }
 
-                      prefix[0] = v238 + 1;
+                      prefix[0] = v236 + 1;
                       if (_xmlSchemaParseTime((v23 + 1), prefix))
                       {
                         goto LABEL_655;
                       }
 
-                      v241 = _xmlSchemaParseTimeZone((v23 + 1), prefix);
+                      v239 = _xmlSchemaParseTimeZone((v23 + 1), prefix);
                       for (j = prefix[0] + 1; ; prefix[0] = j++)
                       {
-                        v243 = *(j - 1);
-                        if (v243 > 0x20 || ((1 << v243) & 0x100002600) == 0)
+                        v241 = *(j - 1);
+                        if (v241 > 0x20 || ((1 << v241) & 0x100002600) == 0)
                         {
                           break;
                         }
                       }
 
-                      if (v241 | v243)
+                      if (v239 | v241)
                       {
                         goto LABEL_655;
                       }
 
-                      v245 = *(v23 + 2);
-                      if (!v245)
+                      v243 = *(v23 + 2);
+                      if (!v243)
                       {
                         goto LABEL_655;
                       }
 
-                      v246 = *(v23 + 6);
-                      v247 = (v246 & 0xF) - 1;
-                      if (v247 > 0xB)
+                      v244 = *(v23 + 6);
+                      v245 = (v244 & 0xF) - 1;
+                      if (v245 > 0xB)
                       {
                         goto LABEL_655;
                       }
 
-                      v248 = 0x8F5C28F5C28F5C29 * v245;
-                      v249 = __ROR8__(0x8F5C28F5C28F5C29 * v245 + 0x51EB851EB851EB8, 2);
-                      v250 = (v23[1] & 3) == 0 && v249 > 0x28F5C28F5C28F5CLL;
-                      v251 = v250;
-                      v252 = __ROR8__(v248 + 0x51EB851EB851EB0, 4) >= 0xA3D70A3D70A3D7uLL && !v251;
-                      v253 = v252 ? &daysInMonth : &daysInMonthLeap;
-                      if (((v246 >> 4) & 0x1F) > v253[v247])
+                      v246 = 0x8F5C28F5C28F5C29 * v243;
+                      v247 = __ROR8__(0x8F5C28F5C28F5C29 * v243 + 0x51EB851EB851EB8, 2);
+                      v248 = (v23[1] & 3) == 0 && v247 > 0x28F5C28F5C28F5CLL;
+                      v249 = v248;
+                      v250 = __ROR8__(v246 + 0x51EB851EB851EB0, 4) >= 0xA3D70A3D70A3D7uLL && !v249;
+                      v251 = v250 ? daysInMonth : daysInMonthLeap;
+                      if (((v244 >> 4) & 0x1F) > v251[v245])
                       {
                         goto LABEL_655;
                       }
 
-                      if ((~v246 & 0x3000) == 0 || (v246 & 0xF0000) == 0xF0000 || (v254 = *(v23 + 4), v254 < 0.0) || v254 >= 60.0)
+                      if ((~v244 & 0x3000) == 0 || (v244 & 0xF0000) == 0xF0000 || (v252 = *(v23 + 4), v252 < 0.0) || v252 >= 60.0)
                       {
-                        if ((v246 & 0xFFE00) != 0x3000 || *(v23 + 4) != 0.0)
+                        if ((v244 & 0xFFE00) != 0x3000 || *(v23 + 4) != 0.0)
                         {
                           goto LABEL_655;
                         }
@@ -7633,7 +8386,7 @@ LABEL_655:
 
       if (v60 == 78)
       {
-        v62 = (k + 1);
+        v62 = k + 1;
         if (k[1] == 97 && k[2] == 78)
         {
           v63 = k[3];
@@ -7679,8 +8432,8 @@ LABEL_641:
             *v66 = 13;
             v221 = &xmlXPathNAN;
 LABEL_643:
-            v235 = *v221;
-            *(v66 + 4) = v235;
+            v234 = *v221;
+            *(v66 + 4) = v234;
             goto LABEL_518;
           }
 
@@ -7693,7 +8446,7 @@ LABEL_643:
 
       else
       {
-        v62 = (k + 1);
+        v62 = k + 1;
         if (v60 != 45)
         {
           v75 = 0;
@@ -7813,14 +8566,14 @@ LABEL_331:
 
           if ((v160 | 0x20) == 0x65)
           {
-            v166 = (k + 1);
+            v166 = k + 1;
             v167 = k[1];
             if (v167 == 45 || v167 == 43)
             {
-              v166 = (k + 2);
+              v166 = k + 2;
             }
 
-            k = (v166 - 1);
+            k = v166 - 1;
             do
             {
               v168 = *++k;
@@ -7861,8 +8614,7 @@ LABEL_631:
               free(v16);
             }
 
-            v38 = 1;
-            goto LABEL_664;
+            return 1;
           }
 
           v202 = xmlSchemaTypeFloatDef;
@@ -7910,8 +8662,7 @@ LABEL_637:
             free(v16);
           }
 
-          v38 = 0;
-          goto LABEL_664;
+          return 0;
         }
 
         v75 = 1;
@@ -8267,7 +9018,7 @@ LABEL_437:
       }
 
       v108 = v107;
-      v107[2] = 0u;
+      *(v107 + 2) = 0u;
       *(v107 + 20) = 0u;
       *(v107 + 4) = 0u;
       *v107 = 23;
@@ -8322,7 +9073,7 @@ LABEL_212:
       }
 
       v91 = v90;
-      v90[2] = 0u;
+      *(v90 + 2) = 0u;
       *(v90 + 20) = 0u;
       *(v90 + 4) = 0u;
       *v90 = 24;
@@ -8427,8 +9178,7 @@ LABEL_175:
           free(v16);
         }
 
-        v38 = 3;
-        goto LABEL_664;
+        return 3;
       }
 
       if (xmlSchemaValAtomicListNode(xmlSchemaTypeEntityDef, a2, a3, a4) < 1)
@@ -8557,9 +9307,7 @@ LABEL_605:
               free(v16);
             }
 
-LABEL_607:
-            v38 = 0xFFFFFFFFLL;
-            goto LABEL_664;
+            return 0xFFFFFFFFLL;
           }
         }
       }
@@ -8570,8 +9318,6 @@ LABEL_662:
         free(v16);
       }
 
-LABEL_664:
-      v236 = *MEMORY[0x1E69E9840];
       return v38;
     case 29:
       if (!*a2)
@@ -8645,8 +9391,8 @@ LABEL_283:
     case 32:
     case 33:
     case 34:
-      v256 = 0;
-      v255 = 0uLL;
+      v254 = 0;
+      v253 = 0uLL;
       while (1)
       {
         v28 = *a2;
@@ -8674,7 +9420,7 @@ LABEL_283:
         }
       }
 
-      v71 = xmlSchemaParseUInt(prefix, &v256, &v255 + 1, &v255);
+      v71 = xmlSchemaParseUInt(prefix, &v254, &v253 + 1, &v253);
       if ((v71 & 0x80000000) != 0)
       {
         goto LABEL_631;
@@ -8747,10 +9493,10 @@ LABEL_406:
                 v179 = v72;
               }
 
-              v180 = *(&v255 + 1);
-              *(v66 + 2) = v256;
+              v180 = *(&v253 + 1);
+              *(v66 + 2) = v254;
               *(v66 + 3) = v180;
-              *(v66 + 4) = v255;
+              *(v66 + 4) = v253;
               v181 = v30 | (v179 << 8);
 LABEL_517:
               *(v66 + 22) = v181;
@@ -8765,8 +9511,8 @@ LABEL_518:
             goto LABEL_405;
           }
 
-          v178 = (v255 | *(&v255 + 1) | v256) == 0;
-          if (v255 | *(&v255 + 1) | v256)
+          v178 = (v253 | *(&v253 + 1) | v254) == 0;
+          if (v253 | *(&v253 + 1) | v254)
           {
             v64 = 7;
           }
@@ -8796,7 +9542,7 @@ LABEL_403:
         }
       }
 
-      v177 = v255 | *(&v255 + 1) | v256;
+      v177 = v253 | *(&v253 + 1) | v254;
       v178 = v177 != 0;
       if (v177)
       {
@@ -8818,9 +9564,9 @@ LABEL_403:
     case 37:
     case 39:
     case 41:
-      v256 = 0;
+      v254 = 0;
       prefix[0] = a2;
-      v255 = 0uLL;
+      v253 = 0uLL;
       v36 = *a2;
       if (v36 == 45)
       {
@@ -8837,7 +9583,7 @@ LABEL_403:
         }
       }
 
-      v77 = xmlSchemaParseUInt(prefix, &v256, &v255 + 1, &v255);
+      v77 = xmlSchemaParseUInt(prefix, &v254, &v253 + 1, &v253);
       if (v77 < 0 || *prefix[0])
       {
         goto LABEL_631;
@@ -8848,19 +9594,19 @@ LABEL_403:
       {
         if (v17 == 35)
         {
-          if (v255)
+          if (v253)
           {
             goto LABEL_631;
           }
 
-          if (*(&v255 + 1) >= 0x15uLL)
+          if (*(&v253 + 1) >= 0x15uLL)
           {
-            if (*(&v255 + 1) != 21)
+            if (*(&v253 + 1) != 21)
             {
               goto LABEL_631;
             }
 
-            v79 = v256;
+            v79 = v254;
             v80 = v36 == 45;
             v81 = 47483647;
 LABEL_494:
@@ -8900,30 +9646,30 @@ LABEL_515:
             *(v66 + 4) = 0u;
             v66[2] = 0u;
             *v66 = v17;
-            v210 = *(&v255 + 1);
-            *(v66 + 2) = v256;
+            v210 = *(&v253 + 1);
+            *(v66 + 2) = v254;
             *(v66 + 3) = v210;
-            *(v66 + 4) = v255;
+            *(v66 + 4) = v253;
             v181 = v37 | (v78 << 8);
             goto LABEL_517;
           }
         }
 
-        else if (v17 == 37 && v255 >= 0x39A)
+        else if (v17 == 37 && v253 >= 0x39A)
         {
-          if (v255 != 922)
+          if (v253 != 922)
           {
             goto LABEL_631;
           }
 
-          if (*(&v255 + 1) > 0x202882FuLL)
+          if (*(&v253 + 1) > 0x202882FuLL)
           {
-            if (*(&v255 + 1) != 33720368)
+            if (*(&v253 + 1) != 33720368)
             {
               goto LABEL_631;
             }
 
-            v79 = v256;
+            v79 = v254;
             v80 = v36 == 45;
             v81 = 54775807;
             goto LABEL_494;
@@ -8941,12 +9687,12 @@ LABEL_503:
 
       if (v17 == 39)
       {
-        if (v255 != 0)
+        if (v253 != 0)
         {
           goto LABEL_631;
         }
 
-        v174 = v256;
+        v174 = v254;
         v175 = v36 == 45;
         v176 = 0x8000;
       }
@@ -8958,12 +9704,12 @@ LABEL_503:
           goto LABEL_503;
         }
 
-        if (v255 != 0)
+        if (v253 != 0)
         {
           goto LABEL_631;
         }
 
-        v174 = v256;
+        v174 = v254;
         v175 = v36 == 45;
         v176 = 128;
       }
@@ -8998,10 +9744,10 @@ LABEL_503:
     case 38:
     case 40:
     case 42:
-      v256 = 0;
+      v254 = 0;
       prefix[0] = a2;
-      v255 = 0uLL;
-      v31 = xmlSchemaParseUInt(prefix, &v256, &v255 + 1, &v255);
+      v253 = 0uLL;
+      v31 = xmlSchemaParseUInt(prefix, &v254, &v253 + 1, &v253);
       if (v31 < 0 || *prefix[0])
       {
         goto LABEL_631;
@@ -9012,15 +9758,15 @@ LABEL_503:
       {
         if (v17 == 40)
         {
-          v33 = v255 == 0;
-          v173 = v256 >= 0x10000;
+          v33 = v253 == 0;
+          v173 = v254 >= 0x10000;
           goto LABEL_480;
         }
 
         if (v17 == 42)
         {
-          v33 = v255 == 0;
-          v173 = v256 >= 0x100;
+          v33 = v253 == 0;
+          v173 = v254 >= 0x100;
 LABEL_480:
           v205 = !v173;
           v206 = v33 & v205;
@@ -9050,10 +9796,10 @@ LABEL_488:
           *(v66 + 4) = 0u;
           v66[2] = 0u;
           *v66 = v17;
-          v207 = *(&v255 + 1);
-          *(v66 + 2) = v256;
+          v207 = *(&v253 + 1);
+          *(v66 + 2) = v254;
           *(v66 + 3) = v207;
-          *(v66 + 4) = v255;
+          *(v66 + 4) = v253;
           v181 = v32 << 8;
           goto LABEL_517;
         }
@@ -9061,31 +9807,31 @@ LABEL_488:
 
       else if (v17 == 36)
       {
-        if (v255)
+        if (v253)
         {
           goto LABEL_631;
         }
 
-        if (*(&v255 + 1) >= 0x2AuLL)
+        if (*(&v253 + 1) >= 0x2AuLL)
         {
-          v33 = *(&v255 + 1) == 42;
-          v34 = v256;
+          v33 = *(&v253 + 1) == 42;
+          v34 = v254;
           v35 = 94967296;
           goto LABEL_476;
         }
       }
 
-      else if (v17 == 38 && v255 >= 0x734)
+      else if (v17 == 38 && v253 >= 0x734)
       {
-        if (v255 != 1844)
+        if (v253 != 1844)
         {
           goto LABEL_631;
         }
 
-        if (*(&v255 + 1) > 0x4051060uLL)
+        if (*(&v253 + 1) > 0x4051060uLL)
         {
-          v33 = *(&v255 + 1) == 67440737;
-          v34 = v256;
+          v33 = *(&v253 + 1) == 67440737;
+          v34 = v254;
           v35 = 9551616;
 LABEL_476:
           v173 = v34 >= v35;
@@ -9310,7 +10056,7 @@ LABEL_547:
           v186 = *a2;
           if (*a2)
           {
-            v187 = (a2 + 1);
+            v187 = a2 + 1;
             do
             {
               if ((_xmlSchemaBase64Decode(v186) & 0x80000000) == 0)
@@ -9365,876 +10111,5 @@ LABEL_413:
       goto LABEL_282;
     default:
       goto LABEL_661;
-  }
-}
-
-xmlSchemaValPtr xmlSchemaCopyValue(xmlSchemaValPtr val)
-{
-  if (val)
-  {
-    v1 = val;
-    v2 = 0;
-    v3 = 0;
-    while (1)
-    {
-      v4 = *v1;
-      switch(*v1)
-      {
-        case 1:
-        case 2:
-        case 0x10:
-        case 0x11:
-        case 0x12:
-        case 0x14:
-        case 0x16:
-        case 0x17:
-        case 0x18:
-        case 0x1A:
-        case 0x1D:
-        case 0x2E:
-          v5 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
-          if (!v5)
-          {
-            goto LABEL_23;
-          }
-
-          v6 = v5;
-          v5[2] = 0u;
-          *(v5 + 20) = 0u;
-          *(v5 + 4) = 0u;
-          *v5 = v4;
-          goto LABEL_6;
-        case 0x13:
-        case 0x19:
-        case 0x1B:
-        case 0x2D:
-          goto LABEL_23;
-        case 0x15:
-        case 0x1C:
-          v10 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
-          if (!v10)
-          {
-            goto LABEL_23;
-          }
-
-          v6 = v10;
-          v10[2] = 0u;
-          *(v10 + 20) = 0u;
-          *(v10 + 4) = 0u;
-          *v10 = v4;
-          v11 = *(v1 + 2);
-          v12 = *v1;
-          v10[1] = *(v1 + 1);
-          v10[2] = v11;
-          *v10 = v12;
-          *(v10 + 1) = 0;
-          v13 = *(v1 + 2);
-          if (v13)
-          {
-            *(v6 + 2) = xmlStrdup(v13);
-          }
-
-          v14 = *(v1 + 3);
-          if (v14)
-          {
-            *(v6 + 3) = xmlStrdup(v14);
-          }
-
-          goto LABEL_8;
-        case 0x2B:
-          v15 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
-          if (!v15)
-          {
-            goto LABEL_23;
-          }
-
-          v6 = v15;
-          v15[2] = 0u;
-          *(v15 + 20) = 0u;
-          *(v15 + 4) = 0u;
-          *v15 = 43;
-          goto LABEL_6;
-        case 0x2C:
-          v16 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
-          if (!v16)
-          {
-            goto LABEL_23;
-          }
-
-          v6 = v16;
-          v16[2] = 0u;
-          *(v16 + 20) = 0u;
-          *(v16 + 4) = 0u;
-          *v16 = 44;
-LABEL_6:
-          v7 = *(v1 + 2);
-          v8 = *v1;
-          v6[1] = *(v1 + 1);
-          v6[2] = v7;
-          *v6 = v8;
-          *(v6 + 1) = 0;
-          v9 = *(v1 + 2);
-          if (v9)
-          {
-            *(v6 + 2) = xmlStrdup(v9);
-          }
-
-          goto LABEL_8;
-        default:
-          v17 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
-          if (!v17)
-          {
-LABEL_23:
-            xmlSchemaFreeValue(v3);
-            return 0;
-          }
-
-          v6 = v17;
-          v17[2] = 0u;
-          *(v17 + 20) = 0u;
-          *(v17 + 4) = 0u;
-          *v17 = v4;
-          v18 = *(v1 + 2);
-          v19 = *v1;
-          v17[1] = *(v1 + 1);
-          v17[2] = v18;
-          *v17 = v19;
-          *(v17 + 1) = 0;
-LABEL_8:
-          val = v6;
-          if (v3)
-          {
-            *(v2 + 1) = v6;
-            val = v3;
-          }
-
-          v1 = *(v1 + 1);
-          v2 = v6;
-          v3 = val;
-          if (!v1)
-          {
-            return val;
-          }
-
-          break;
-      }
-    }
-  }
-
-  return val;
-}
-
-int xmlSchemaCompareValues(xmlSchemaValPtr x, xmlSchemaValPtr y)
-{
-  if (!x || !y)
-  {
-    return -2;
-  }
-
-  v4 = *x;
-  if (v4 == 2)
-  {
-    v5 = 2;
-  }
-
-  else
-  {
-    v5 = 3;
-  }
-
-  if (v4 == 1)
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = v5;
-  }
-
-  v7 = *y;
-  if (*y == 2)
-  {
-    v8 = 2;
-  }
-
-  else
-  {
-    v8 = 3;
-  }
-
-  if (v7 == 1)
-  {
-    v9 = 1;
-  }
-
-  else
-  {
-    v9 = v8;
-  }
-
-  return xmlSchemaCompareValuesInternal(v4, x, 0, v6, v7, y, 0, v9);
-}
-
-uint64_t xmlSchemaCompareValuesInternal(int a1, uint64_t a2, xmlChar *str1, int a4, unsigned int a5, uint64_t a6, xmlChar *str2, int a8)
-{
-  v8 = 4294967294;
-  switch(a1)
-  {
-    case 1:
-    case 2:
-    case 16:
-    case 17:
-    case 18:
-    case 20:
-    case 22:
-    case 23:
-    case 24:
-    case 26:
-    case 29:
-    case 46:
-      if (a2)
-      {
-        str1 = *(a2 + 16);
-      }
-
-      if (a6)
-      {
-        str2 = *(a6 + 16);
-      }
-
-      if (a5 > 0x2E)
-      {
-        return v8;
-      }
-
-      if (((1 << a5) & 0x400025D70006) == 0)
-      {
-        if (a5 == 21)
-        {
-          v37 = *__xmlGenericError();
-          v38 = *__xmlGenericErrorContext();
-          v37(v38, "Unimplemented block at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxml2/libxml2/xmlschemastypes.c", 4935);
-        }
-
-        return v8;
-      }
-
-      if (a4 == 3)
-      {
-        if (a8 == 3)
-        {
-
-          return xmlSchemaCompareNormStrings(str1, str2);
-        }
-
-        if (a8 != 2)
-        {
-          if (a8 != 1)
-          {
-            return v8;
-          }
-
-          v33 = str2;
-          v34 = str1;
-          v35 = 1;
-LABEL_109:
-
-          return xmlSchemaComparePreserveCollapseStrings(v33, v34, v35);
-        }
-
-        v48 = str2;
-        v49 = str1;
-        v50 = 1;
-LABEL_98:
-
-        return xmlSchemaCompareReplaceCollapseStrings(v48, v49, v50);
-      }
-
-      if (a4 != 2)
-      {
-        if (a4 != 1)
-        {
-          return v8;
-        }
-
-        if (a8 != 3)
-        {
-          if (a8 != 2)
-          {
-            if (a8 != 1)
-            {
-              return v8;
-            }
-
-            v12 = xmlStrEqual(str1, str2) == 0;
-            return (2 * v12);
-          }
-
-          v30 = str1;
-          v31 = str2;
-          v32 = 0;
-          goto LABEL_102;
-        }
-
-        v33 = str1;
-        v34 = str2;
-        v35 = 0;
-        goto LABEL_109;
-      }
-
-      if (a8 == 3)
-      {
-        v48 = str1;
-        v49 = str2;
-        v50 = 0;
-        goto LABEL_98;
-      }
-
-      if (a8 != 2)
-      {
-        if (a8 != 1)
-        {
-          return v8;
-        }
-
-        v30 = str2;
-        v31 = str1;
-        v32 = 1;
-LABEL_102:
-
-        return xmlSchemaComparePreserveReplaceStrings(v30, v31, v32);
-      }
-
-      return xmlSchemaCompareReplacedStrings(str1, str2);
-    case 3:
-    case 30:
-    case 31:
-    case 32:
-    case 33:
-    case 34:
-    case 35:
-    case 36:
-    case 37:
-    case 38:
-    case 39:
-    case 40:
-    case 41:
-    case 42:
-      if (!a2 || !a6 || a5 != a1 && a5 - 30 >= 0xD && a5 != 3)
-      {
-        return v8;
-      }
-
-      return xmlSchemaCompareDecimals(a2, a6);
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-    case 11:
-      if (a5 - 4 > 7 || !a2 || !a6 || (*(a2 + 16) - 0x5987B1A9448BE5) < 0xFF4CF09CAD76E837 || (*(a6 + 16) - 0x5987B1A9448BE5) < 0xFF4CF09CAD76E837)
-      {
-        return v8;
-      }
-
-      v13 = *(a6 + 40);
-      if (*(a2 + 40))
-      {
-        if (v13)
-        {
-          goto LABEL_137;
-        }
-
-        v16 = xmlSchemaDateNormalize(a2, 0.0);
-        v51 = _xmlSchemaDateCastYMToDays(v16) + ((v16[6] >> 4) & 0x1F);
-        v14 = xmlSchemaDateNormalize(a6, 50400.0);
-        v52 = _xmlSchemaDateCastYMToDays(v14);
-        v53 = v14[6];
-        v54 = v52 + ((v53 >> 4) & 0x1F);
-        if (v51 < v54)
-        {
-          goto LABEL_114;
-        }
-
-        if (v51 == v54)
-        {
-          if (*(v16 + 4) + (3600 * ((v16[6] >> 9) & 0x1F) + 60 * (((v16[6] >> 14) & 0x3F) + ((8 * *(v16 + 20)) >> 4))) >= *(v14 + 4) + (3600 * ((v53 >> 9) & 0x1F) + 60 * (((v53 >> 14) & 0x3F) + ((8 * *(v14 + 20)) >> 4))))
-          {
-            v20 = xmlSchemaDateNormalize(a6, -50400.0);
-            v58 = _xmlSchemaDateCastYMToDays(v20);
-            v59 = v20[6];
-            v60 = v58 + ((v59 >> 4) & 0x1F);
-            if (v51 <= v60)
-            {
-              if (v51 == v60)
-              {
-                v24 = 0;
-                v25 = (3600 * ((v59 >> 9) & 0x1F) + 60 * (((v59 >> 14) & 0x3F) + ((8 * *(v20 + 20)) >> 4)));
-                v26 = *(v16 + 4) + (3600 * ((v16[6] >> 9) & 0x1F) + 60 * (((v16[6] >> 14) & 0x3F) + ((8 * *(v16 + 20)) >> 4)));
-                v27 = *(v20 + 4);
-LABEL_181:
-                if (v26 > v27 + v25)
-                {
-                  v8 = 1;
-                }
-
-                else
-                {
-                  v8 = 2;
-                }
-
-LABEL_185:
-                xmlSchemaFreeValue(v16);
-                xmlSchemaFreeValue(v14);
-                xmlSchemaFreeValue(v20);
-                if ((v24 & 1) == 0)
-                {
-                  return v8;
-                }
-
-LABEL_137:
-                if (*a2 == *a6)
-                {
-                  v61 = xmlSchemaDateNormalize(a6, 0.0);
-                  v62 = _xmlSchemaDateCastYMToDays(v61) + ((v61[6] >> 4) & 0x1F);
-                  v63 = xmlSchemaDateNormalize(a2, 0.0);
-                  v64 = _xmlSchemaDateCastYMToDays(v63);
-                  v65 = v63[6];
-                  v66 = v64 + ((v65 >> 4) & 0x1F);
-                  if (v66 < v62)
-                  {
-LABEL_139:
-                    v8 = 0xFFFFFFFFLL;
-LABEL_144:
-                    xmlSchemaFreeValue(v63);
-                    xmlSchemaFreeValue(v61);
-                    return v8;
-                  }
-
-                  if (v66 <= v62)
-                  {
-                    v80 = *(v63 + 4) + (3600 * ((v65 >> 9) & 0x1F) + 60 * (((v65 >> 14) & 0x3F) + ((8 * *(v63 + 20)) >> 4))) - (*(v61 + 4) + (3600 * ((v61[6] >> 9) & 0x1F) + 60 * (((v61[6] >> 14) & 0x3F) + ((8 * *(v61 + 20)) >> 4))));
-                    if (v80 < 0.0)
-                    {
-                      goto LABEL_139;
-                    }
-
-                    if (v80 <= 0.0)
-                    {
-                      v8 = 0;
-                      goto LABEL_144;
-                    }
-                  }
-
-                  v8 = 1;
-                  goto LABEL_144;
-                }
-
-                v67 = *a2 - 4;
-                if (v67 > 7)
-                {
-                  v68 = 0;
-                }
-
-                else
-                {
-                  v68 = dword_1C79BB01C[v67];
-                }
-
-                v69 = *a6 - 4;
-                if (v69 > 7)
-                {
-                  v70 = 0;
-                }
-
-                else
-                {
-                  v70 = dword_1C79BB01C[v69];
-                }
-
-                if (((v70 ^ v68) & 1) == 0)
-                {
-                  v71 = v70 & v68;
-                  if (v70 & v68)
-                  {
-                    v81 = *(a2 + 16);
-                    v82 = *(a6 + 16);
-                    if (v81 < v82)
-                    {
-                      return 0xFFFFFFFFLL;
-                    }
-
-                    if (v81 > v82)
-                    {
-                      return 1;
-                    }
-                  }
-
-                  if (((v70 ^ v68) & 2) == 0)
-                  {
-                    if ((v71 & 2) != 0)
-                    {
-                      if ((*(a2 + 24) & 0xFu) < (*(a6 + 24) & 0xFu))
-                      {
-                        return 0xFFFFFFFFLL;
-                      }
-
-                      if ((*(a2 + 24) & 0xFu) > (*(a6 + 24) & 0xFu))
-                      {
-                        return 1;
-                      }
-                    }
-
-                    if (((v70 ^ v68) & 4) == 0)
-                    {
-                      if ((v71 & 4) != 0)
-                      {
-                        v83 = (*(a2 + 24) >> 4) & 0x1F;
-                        v84 = (*(a6 + 24) >> 4) & 0x1F;
-                        if (v83 < v84)
-                        {
-                          return 0xFFFFFFFFLL;
-                        }
-
-                        if (v83 > v84)
-                        {
-                          return 1;
-                        }
-                      }
-
-                      if (v68 == v70)
-                      {
-                        if (v71 < 8)
-                        {
-                          return 0;
-                        }
-
-                        v72 = *(a2 + 24);
-                        v73 = (v72 >> 9) & 0x1F;
-                        v74 = *(a6 + 24);
-                        v75 = (v74 >> 9) & 0x1F;
-                        if (v73 < v75)
-                        {
-                          return 0xFFFFFFFFLL;
-                        }
-
-                        if (v73 <= v75)
-                        {
-                          v76 = (v72 >> 14) & 0x3F;
-                          v77 = (v74 >> 14) & 0x3F;
-                          if (v76 < v77)
-                          {
-                            return 0xFFFFFFFFLL;
-                          }
-
-                          if (v76 <= v77)
-                          {
-                            v78 = *(a2 + 32);
-                            v79 = *(a6 + 32);
-                            if (v78 >= v79)
-                            {
-                              return v78 > v79;
-                            }
-
-                            return 0xFFFFFFFFLL;
-                          }
-                        }
-
-                        return 1;
-                      }
-                    }
-                  }
-                }
-
-                return 2;
-              }
-
-LABEL_184:
-              v8 = 0;
-              v24 = 1;
-              goto LABEL_185;
-            }
-
-LABEL_135:
-            v24 = 0;
-            v8 = 1;
-            goto LABEL_185;
-          }
-
-LABEL_114:
-          xmlSchemaFreeValue(v16);
-          xmlSchemaFreeValue(v14);
-          return 0xFFFFFFFFLL;
-        }
-      }
-
-      else
-      {
-        if ((v13 & 1) == 0)
-        {
-          goto LABEL_137;
-        }
-
-        v14 = xmlSchemaDateNormalize(a6, 0.0);
-        v15 = _xmlSchemaDateCastYMToDays(v14) + ((v14[6] >> 4) & 0x1F);
-        v16 = xmlSchemaDateNormalize(a2, -50400.0);
-        v17 = _xmlSchemaDateCastYMToDays(v16);
-        v18 = v16[6];
-        v19 = v17 + ((v18 >> 4) & 0x1F);
-        if (v19 < v15)
-        {
-          goto LABEL_114;
-        }
-
-        if (v19 == v15)
-        {
-          if (*(v16 + 4) + (3600 * ((v18 >> 9) & 0x1F) + 60 * (((v18 >> 14) & 0x3F) + ((8 * *(v16 + 20)) >> 4))) >= *(v14 + 4) + (3600 * ((v14[6] >> 9) & 0x1F) + 60 * (((v14[6] >> 14) & 0x3F) + ((8 * *(v14 + 20)) >> 4))))
-          {
-            v20 = xmlSchemaDateNormalize(a2, 50400.0);
-            v21 = _xmlSchemaDateCastYMToDays(v20);
-            v22 = v20[6];
-            v23 = v21 + ((v22 >> 4) & 0x1F);
-            if (v23 <= v15)
-            {
-              if (v23 == v15)
-              {
-                v24 = 0;
-                v25 = (3600 * ((v14[6] >> 9) & 0x1F) + 60 * (((v14[6] >> 14) & 0x3F) + ((8 * *(v14 + 20)) >> 4)));
-                v26 = *(v20 + 4) + (3600 * ((v22 >> 9) & 0x1F) + 60 * (((v22 >> 14) & 0x3F) + ((8 * *(v20 + 20)) >> 4)));
-                v27 = *(v14 + 4);
-                goto LABEL_181;
-              }
-
-              goto LABEL_184;
-            }
-
-            goto LABEL_135;
-          }
-
-          goto LABEL_114;
-        }
-      }
-
-      xmlSchemaFreeValue(v16);
-      xmlSchemaFreeValue(v14);
-      goto LABEL_137;
-    case 12:
-      if (a5 != 12 || !a2 || !a6)
-      {
-        return v8;
-      }
-
-      return xmlSchemaCompareDurations(a2, a6);
-    case 13:
-    case 14:
-      if (a5 - 13 > 1 || !a2 || !a6)
-      {
-        return v8;
-      }
-
-      if (*a2 == 13)
-      {
-        v36 = *(a2 + 16);
-      }
-
-      else
-      {
-        if (*a2 != 14)
-        {
-          return v8;
-        }
-
-        v36 = *(a2 + 16);
-      }
-
-      if (*a6 == 13)
-      {
-        v55 = *(a6 + 16);
-      }
-
-      else
-      {
-        if (*a6 != 14)
-        {
-          return v8;
-        }
-
-        v55 = *(a6 + 16);
-      }
-
-      IsNaN = xmlXPathIsNaN(v36);
-      v57 = xmlXPathIsNaN(v55);
-      if (IsNaN)
-      {
-        return v57 == 0;
-      }
-
-      if (v57)
-      {
-        return 0xFFFFFFFFLL;
-      }
-
-      if (v36 == xmlXPathPINF)
-      {
-        return v55 != xmlXPathPINF;
-      }
-
-      if (v55 == xmlXPathPINF)
-      {
-        return 0xFFFFFFFFLL;
-      }
-
-      if (v36 == xmlXPathNINF)
-      {
-        if (v55 == xmlXPathNINF)
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 0xFFFFFFFFLL;
-        }
-      }
-
-      if (v55 == xmlXPathNINF)
-      {
-        return 1;
-      }
-
-      if (v36 < v55)
-      {
-        return 0xFFFFFFFFLL;
-      }
-
-      if (v36 > v55)
-      {
-        return 1;
-      }
-
-      v12 = v36 != v55;
-      return (2 * v12);
-    case 15:
-      if (a5 == 15 && a2 && a6)
-      {
-        v46 = *(a2 + 16);
-        if (v46)
-        {
-          v47 = 1;
-        }
-
-        else
-        {
-          v47 = -1;
-        }
-
-        if (v46 == *(a6 + 16))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return v47;
-        }
-      }
-
-      return v8;
-    case 19:
-    case 25:
-    case 27:
-      v28 = *__xmlGenericError();
-      v29 = *__xmlGenericErrorContext();
-      v28(v29, "Unimplemented block at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxml2/libxml2/xmlschemastypes.c", 5060);
-      return v8;
-    case 21:
-    case 28:
-      if (!a2 || !a6 || a5 != 28 && a5 != 21)
-      {
-        return v8;
-      }
-
-      if (xmlStrEqual(*(a2 + 16), *(a6 + 16)) && xmlStrEqual(*(a2 + 24), *(a6 + 24)))
-      {
-        return 0;
-      }
-
-      return 2;
-    case 43:
-      if (a5 != 43 || !a2 || !a6)
-      {
-        return v8;
-      }
-
-      v39 = *(a2 + 24);
-      v40 = *(a6 + 24);
-      if (v39 != v40)
-      {
-        if (v39 <= v40)
-        {
-          return 0xFFFFFFFFLL;
-        }
-
-        return 1;
-      }
-
-      v41 = xmlStrcmp(*(a2 + 16), *(a6 + 16));
-      if (v41 > 0)
-      {
-        return 1;
-      }
-
-      if (v41)
-      {
-        return 0xFFFFFFFFLL;
-      }
-
-      return 0;
-    case 44:
-      if (a5 == 44 && a2 && a6)
-      {
-        v42 = *(a2 + 24);
-        v43 = *(a6 + 24);
-        if (v42 == v43)
-        {
-          v44 = xmlStrcmp(*(a2 + 16), *(a6 + 16));
-          if (v44)
-          {
-            v45 = -1;
-          }
-
-          else
-          {
-            v45 = 0;
-          }
-
-          if (v44 >= 1)
-          {
-            return 1;
-          }
-
-          else
-          {
-            return v45;
-          }
-        }
-
-        else if (v42 > v43)
-        {
-          return 1;
-        }
-
-        else
-        {
-          return 0xFFFFFFFFLL;
-        }
-      }
-
-      return v8;
-    default:
-      return v8;
   }
 }

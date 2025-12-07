@@ -57,7 +57,7 @@
 
 - (void)searchWith:(NSString *)with searchTokens:(NSArray *)tokens completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(completion);
@@ -120,7 +120,7 @@
 
 - (void)registerCellWith:(id)with
 {
-  type metadata accessor for VoicemailSearchViewCell();
+  type metadata accessor for VoicemailSearchViewCell(0);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   withCopy = with;
   v5 = String._bridgeToObjectiveC()();
@@ -166,7 +166,7 @@
 
 - (void)tableViewController:(id)controller didChangeVoicemails:(id)voicemails
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;

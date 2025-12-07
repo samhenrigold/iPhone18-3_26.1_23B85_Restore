@@ -24,17 +24,18 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v9.receiver = self;
-  v9.super_class = _s10HeaderCellCMa();
-  v7 = v9.receiver;
-  [(ContainerDetail.HeaderCell *)&v9 setBounds:x, y, width, height];
+  v10.receiver = self;
+  v10.super_class = _s10HeaderCellCMa();
+  v7 = v10.receiver;
+  [(ContainerDetail.HeaderCell *)&v10 setBounds:x, y, width, height];
   v8 = *&v7[OBJC_IVAR____TtCV5Music15ContainerDetail10HeaderCell_didSetBoundsBlock];
   if (v8)
   {
+    v9 = *&v7[OBJC_IVAR____TtCV5Music15ContainerDetail10HeaderCell_didSetBoundsBlock + 8];
 
     v8(v7);
 
-    sub_100020438(v8);
+    sub_100020438(v8, v9);
   }
 
   else

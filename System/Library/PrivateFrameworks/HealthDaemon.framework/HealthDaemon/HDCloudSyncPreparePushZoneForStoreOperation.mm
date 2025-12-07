@@ -10,10 +10,9 @@
 
 + (id)operationTagDependencies
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"compute-push-targets";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"compute-push-targets";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -45,7 +44,7 @@
 
 - (void)main
 {
-  v83[1] = *MEMORY[0x277D85DE8];
+  v82[1] = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   primaryCKContainer = [repository primaryCKContainer];
@@ -63,43 +62,43 @@
     v11 = MEMORY[0x277CBC5F8];
     configuration3 = [(HDCloudSyncOperation *)self configuration];
     syncContainerPrefix = [configuration3 syncContainerPrefix];
-    v62 = shouldPushToUnifiedZone;
-    v65 = containerIdentifier;
+    v61 = shouldPushToUnifiedZone;
+    v64 = containerIdentifier;
     if (shouldPushToUnifiedZone)
     {
-      v64 = [v11 hd_unifiedSyncZoneIDForSyncCircleIdentifier:syncContainerPrefix];
+      v63 = [v11 hd_unifiedSyncZoneIDForSyncCircleIdentifier:syncContainerPrefix];
     }
 
     else
     {
       storeIdentifier = [(HDCloudSyncStore *)self->_store storeIdentifier];
-      v64 = [v11 hd_individualSyncZoneIDWithSyncCircleIdentifier:syncContainerPrefix storeIdentifier:storeIdentifier];
+      v63 = [v11 hd_individualSyncZoneIDWithSyncCircleIdentifier:syncContainerPrefix storeIdentifier:storeIdentifier];
     }
 
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
     v71 = 0u;
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     configuration4 = [(HDCloudSyncOperation *)self configuration];
     computedState = [configuration4 computedState];
     targets = [computedState targets];
 
-    v19 = [targets countByEnumeratingWithState:&v70 objects:v75 count:16];
+    v19 = [targets countByEnumeratingWithState:&v69 objects:v74 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v71;
+      v21 = *v70;
       obj = targets;
       while (2)
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v71 != v21)
+          if (*v70 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v70 + 1) + 8 * i);
+          v23 = *(*(&v69 + 1) + 8 * i);
           store = [v23 store];
           storeIdentifier2 = [store storeIdentifier];
           storeIdentifier3 = [(HDCloudSyncStore *)self->_store storeIdentifier];
@@ -109,14 +108,14 @@
           {
             objc_storeStrong(&self->_pushTarget, v23);
             [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
-            v33 = v64;
-            containerIdentifier = v65;
+            v33 = v63;
+            containerIdentifier = v64;
             goto LABEL_33;
           }
         }
 
         targets = obj;
-        v20 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
+        v20 = [obj countByEnumeratingWithState:&v69 objects:v74 count:16];
         if (v20)
         {
           continue;
@@ -128,15 +127,15 @@
 
     configuration5 = [(HDCloudSyncOperation *)self configuration];
     cachedCloudState = [configuration5 cachedCloudState];
-    v69 = 0;
-    v30 = [cachedCloudState zonesByIdentifierWithError:&v69];
-    v31 = v69;
+    v68 = 0;
+    v30 = [cachedCloudState zonesByIdentifierWithError:&v68];
+    v31 = v68;
 
     obj = v31;
     if (v30 || !v31)
     {
-      v33 = v64;
-      containerIdentifier = v65;
+      v33 = v63;
+      containerIdentifier = v64;
       if (!v30)
       {
         _HKInitializeLogging();
@@ -150,14 +149,14 @@
       }
 
       allValues = [v30 allValues];
-      v67[0] = MEMORY[0x277D85DD0];
-      v67[1] = 3221225472;
-      v67[2] = __51__HDCloudSyncPreparePushZoneForStoreOperation_main__block_invoke;
-      v67[3] = &unk_278615DB8;
-      v68 = v62;
-      v67[4] = v65;
-      v67[5] = v64;
-      v36 = [allValues hk_firstObjectPassingTest:v67];
+      v66[0] = MEMORY[0x277D85DD0];
+      v66[1] = 3221225472;
+      v66[2] = __51__HDCloudSyncPreparePushZoneForStoreOperation_main__block_invoke;
+      v66[3] = &unk_278615DB8;
+      v67 = v61;
+      v66[4] = v64;
+      v66[5] = v63;
+      v36 = [allValues hk_firstObjectPassingTest:v66];
 
       if (v36)
       {
@@ -167,8 +166,8 @@
       else
       {
         storeIdentifier4 = [(HDCloudSyncStore *)self->_store storeIdentifier];
-        v63 = v64;
-        v61 = storeIdentifier4;
+        v62 = v63;
+        v60 = storeIdentifier4;
         configuration6 = [(HDCloudSyncOperation *)self configuration];
         repository3 = [configuration6 repository];
         primaryCKContainer2 = [repository3 primaryCKContainer];
@@ -176,12 +175,12 @@
         configuration7 = [(HDCloudSyncOperation *)self configuration];
         repository4 = [configuration7 repository];
         profileIdentifier = [repository4 profileIdentifier];
-        v60 = primaryCKContainer2;
+        v59 = primaryCKContainer2;
         v44 = HDDatabaseForContainer(primaryCKContainer2, profileIdentifier);
 
         if ([v44 databaseScope] == 2)
         {
-          v59 = v44;
+          v58 = v44;
           _HKInitializeLogging();
           v45 = *MEMORY[0x277CCC328];
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -194,37 +193,37 @@
             *&buf[12] = 2114;
             *&buf[14] = storeIdentifier5;
             *&buf[22] = 2114;
-            v77 = v63;
+            v76 = v62;
             _os_log_impl(&dword_228986000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@: No zone found for store %{public}@; creating zone %{public}@", buf, 0x20u);
           }
 
-          v49 = v63;
-          v50 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneID:v63];
+          v49 = v62;
+          v50 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneID:v62];
           v51 = [HDCloudSyncModifyRecordZonesOperation alloc];
           configuration8 = [(HDCloudSyncOperation *)self configuration];
-          v83[0] = v50;
-          v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:1];
+          v82[0] = v50;
+          v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:1];
           v54 = v51;
-          v55 = v60;
-          v56 = [(HDCloudSyncModifyRecordZonesOperation *)v54 initWithConfiguration:configuration8 container:v60 recordZonesToSave:v53 recordZoneIDsToDelete:0];
+          v55 = v59;
+          v56 = [(HDCloudSyncModifyRecordZonesOperation *)v54 initWithConfiguration:configuration8 container:v59 recordZonesToSave:v53 recordZoneIDsToDelete:0];
 
-          v74[0] = MEMORY[0x277D85DD0];
-          v74[1] = 3221225472;
-          v74[2] = __84__HDCloudSyncPreparePushZoneForStoreOperation__createZoneWithIdentifier_forStoreId___block_invoke;
-          v74[3] = &unk_278613088;
-          v74[4] = self;
-          [(HDCloudSyncOperation *)v56 setOnError:v74];
+          v73[0] = MEMORY[0x277D85DD0];
+          v73[1] = 3221225472;
+          v73[2] = __84__HDCloudSyncPreparePushZoneForStoreOperation__createZoneWithIdentifier_forStoreId___block_invoke;
+          v73[3] = &unk_278613088;
+          v73[4] = self;
+          [(HDCloudSyncOperation *)v56 setOnError:v73];
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __84__HDCloudSyncPreparePushZoneForStoreOperation__createZoneWithIdentifier_forStoreId___block_invoke_308;
-          v77 = &unk_278615DE0;
+          v76 = &unk_278615DE0;
           selfCopy = self;
-          v57 = v61;
-          v79 = v61;
-          v80 = v63;
-          v81 = v60;
-          v44 = v59;
-          v82 = v59;
+          v57 = v60;
+          v78 = v60;
+          v79 = v62;
+          v80 = v59;
+          v44 = v58;
+          v81 = v58;
           [(HDCloudSyncOperation *)v56 setOnSuccess:buf];
           [(HDCloudSyncOperation *)v56 start];
 
@@ -235,9 +234,9 @@
         {
           v50 = [MEMORY[0x277CCA9B8] hk_error:712 format:@"Unable to create zones in a non-private database."];
           [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v50];
-          v57 = v61;
-          v49 = v63;
-          v55 = v60;
+          v57 = v60;
+          v49 = v62;
+          v55 = v59;
         }
       }
     }
@@ -246,8 +245,8 @@
     {
       _HKInitializeLogging();
       v32 = *MEMORY[0x277CCC328];
-      v33 = v64;
-      containerIdentifier = v65;
+      v33 = v63;
+      containerIdentifier = v64;
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
@@ -268,8 +267,6 @@ LABEL_33:
     v14 = [MEMORY[0x277CCA9B8] hk_error:712 format:@"Unable to create push zones in a non-primary container."];
     [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v14];
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__HDCloudSyncPreparePushZoneForStoreOperation_main__block_invoke(uint64_t a1, void *a2)
@@ -303,29 +300,29 @@ uint64_t __51__HDCloudSyncPreparePushZoneForStoreOperation_main__block_invoke(ui
 
 - (void)_finishWithZone:(uint64_t)zone
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (zone)
   {
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x3032000000;
-    v54 = __Block_byref_object_copy__20;
-    v55 = __Block_byref_object_dispose__20;
-    v56 = 0;
-    v4 = objc_opt_class();
-    v49[5] = &v51;
     v50 = 0;
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __63__HDCloudSyncPreparePushZoneForStoreOperation__finishWithZone___block_invoke;
-    v49[3] = &unk_278615E08;
-    v49[4] = zone;
-    v5 = [v3 recordsForClass:v4 epoch:0 error:&v50 enumerationHandler:v49];
-    v47 = v50;
+    v51 = &v50;
+    v52 = 0x3032000000;
+    v53 = __Block_byref_object_copy__20;
+    v54 = __Block_byref_object_dispose__20;
+    v55 = 0;
+    v4 = objc_opt_class();
+    v48[5] = &v50;
+    v49 = 0;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __63__HDCloudSyncPreparePushZoneForStoreOperation__finishWithZone___block_invoke;
+    v48[3] = &unk_278615E08;
+    v48[4] = zone;
+    v5 = [v3 recordsForClass:v4 epoch:0 error:&v49 enumerationHandler:v48];
+    v46 = v49;
     if (v5)
     {
-      if (!v52[5])
+      if (!v51[5])
       {
         configuration = [zone configuration];
         repository = [configuration repository];
@@ -341,7 +338,7 @@ uint64_t __51__HDCloudSyncPreparePushZoneForStoreOperation_main__block_invoke(ui
         cloudSyncManager = [profile cloudSyncManager];
         isChild = [cloudSyncManager isChild];
 
-        v41 = [HDCloudSyncStoreRecord alloc];
+        v40 = [HDCloudSyncStoreRecord alloc];
         configuration4 = [zone configuration];
         syncContainerPrefix = [configuration4 syncContainerPrefix];
         storeIdentifier = [*(zone + 104) storeIdentifier];
@@ -352,14 +349,14 @@ uint64_t __51__HDCloudSyncPreparePushZoneForStoreOperation_main__block_invoke(ui
         identity = [currentSyncIdentity identity];
         zoneIdentifier = [v3 zoneIdentifier];
         v21ZoneIdentifier = [zoneIdentifier zoneIdentifier];
-        v23 = [(HDCloudSyncStoreRecord *)v41 initInSyncCircle:syncContainerPrefix ownerIdentifier:string storeIdentifier:storeIdentifier syncIdentity:identity isChild:isChild zoneID:v21ZoneIdentifier];
-        v24 = v52[5];
-        v52[5] = v23;
+        v23 = [(HDCloudSyncStoreRecord *)v40 initInSyncCircle:syncContainerPrefix ownerIdentifier:string storeIdentifier:storeIdentifier syncIdentity:identity isChild:isChild zoneID:v21ZoneIdentifier];
+        v24 = v51[5];
+        v51[5] = v23;
 
-        v25 = v52[5];
-        v48 = 0;
-        LOBYTE(v21ZoneIdentifier) = [v25 validateWithError:&v48];
-        v26 = v48;
+        v25 = v51[5];
+        v47 = 0;
+        LOBYTE(v21ZoneIdentifier) = [v25 validateWithError:&v47];
+        v26 = v47;
         if ((v21ZoneIdentifier & 1) == 0)
         {
           _HKInitializeLogging();
@@ -380,14 +377,14 @@ uint64_t __51__HDCloudSyncPreparePushZoneForStoreOperation_main__block_invoke(ui
       repository5 = [configuration6 repository];
       primaryCKContainer2 = [repository5 primaryCKContainer];
       zoneIdentifier2 = [v3 zoneIdentifier];
-      v33 = [(HDCloudSyncTarget *)v28 initWithPurpose:0 container:primaryCKContainer2 zoneIdentifier:zoneIdentifier2 storeRecord:v52[5] store:*(zone + 104) options:0];
+      v33 = [(HDCloudSyncTarget *)v28 initWithPurpose:0 container:primaryCKContainer2 zoneIdentifier:zoneIdentifier2 storeRecord:v51[5] store:*(zone + 104) options:0];
       v34 = *(zone + 112);
       *(zone + 112) = v33;
 
       configuration7 = [zone configuration];
       computedState = [configuration7 computedState];
-      v57 = *(zone + 112);
-      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+      v56 = *(zone + 112);
+      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
       [computedState replaceTargets:v37];
 
       v38 = 0;
@@ -402,63 +399,59 @@ uint64_t __51__HDCloudSyncPreparePushZoneForStoreOperation_main__block_invoke(ui
         zoneIdentifier3 = [v3 zoneIdentifier];
         *buf = 138543874;
         zoneCopy = zone;
-        v60 = 2114;
-        v61 = zoneIdentifier3;
-        v62 = 2114;
-        v63 = v47;
+        v59 = 2114;
+        v60 = zoneIdentifier3;
+        v61 = 2114;
+        v62 = v46;
         _os_log_error_impl(&dword_228986000, configuration7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", buf, 0x20u);
       }
 
-      v38 = v47;
+      v38 = v46;
     }
 
     [zone finishWithSuccess:v5 error:v38];
-    _Block_object_dispose(&v51, 8);
+    _Block_object_dispose(&v50, 8);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HDCloudSyncPreparePushZoneForStoreOperation__createZoneWithIdentifier_forStoreId___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 104);
-    v9 = v5;
-    v10 = [v8 storeIdentifier];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v4;
-    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create zone for store: %{public}@: %{public}@", &v11, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 104);
+    v8 = v5;
+    v9 = [v7 storeIdentifier];
+    v10 = 138543874;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v4;
+    _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create zone for store: %{public}@: %{public}@", &v10, 0x20u);
   }
 
   [*(a1 + 32) finishWithSuccess:0 error:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HDCloudSyncPreparePushZoneForStoreOperation__createZoneWithIdentifier_forStoreId___block_invoke_308(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v16 = 138543618;
-    v17 = v3;
-    v18 = 2114;
-    v19 = v4;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully created zone for store: %{public}@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v3;
+    v17 = 2114;
+    v18 = v4;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully created zone for store: %{public}@", &v15, 0x16u);
   }
 
   v5 = [HDCloudSyncZoneIdentifier alloc];
@@ -474,7 +467,6 @@ void __84__HDCloudSyncPreparePushZoneForStoreOperation__createZoneWithIdentifier
   v14 = [(HDCloudSyncCachedZone *)v9 initForZoneIdentifier:v8 repository:v11 accessibilityAssertion:v13];
 
   [(HDCloudSyncPreparePushZoneForStoreOperation *)*(a1 + 32) _finishWithZone:v14];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__HDCloudSyncPreparePushZoneForStoreOperation__finishWithZone___block_invoke(uint64_t a1, void *a2)

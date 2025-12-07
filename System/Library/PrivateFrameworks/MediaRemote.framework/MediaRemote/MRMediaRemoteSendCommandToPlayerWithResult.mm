@@ -50,7 +50,7 @@ void ___MRMediaRemoteSendCommandToPlayerWithResult_block_invoke_25(uint64_t a1, 
 
 void ___MRMediaRemoteSendCommandToPlayerWithResult_block_invoke_2(uint64_t a1, void *a2)
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = qos_class_self();
   [v3 setStartQOS:*(a1 + 88)];
@@ -88,9 +88,9 @@ void ___MRMediaRemoteSendCommandToPlayerWithResult_block_invoke_2(uint64_t a1, v
         *&buf[12] = 2114;
         *&buf[14] = 0;
         *&buf[22] = 2112;
-        v82 = v12;
-        *v83 = 2048;
-        *&v83[2] = v68;
+        v81 = v12;
+        *v82 = 2048;
+        *&v82[2] = v67;
         v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_19:
         _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, v16, buf, 0x2Au);
@@ -121,11 +121,11 @@ LABEL_25:
       *&buf[12] = 2114;
       *&buf[14] = 0;
       *&buf[22] = 2112;
-      v82 = v12;
-      *v83 = 2114;
-      *&v83[2] = v17;
-      *&v83[10] = 2048;
-      *&v83[12] = v19;
+      v81 = v12;
+      *v82 = 2114;
+      *&v82[2] = v17;
+      *&v82[10] = 2048;
+      *&v82[12] = v19;
       _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 
       goto LABEL_25;
@@ -157,7 +157,7 @@ LABEL_25:
       *&buf[12] = 2114;
       *&buf[14] = 0;
       *&buf[22] = 2048;
-      v82 = v67;
+      v81 = v66;
       _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", buf, 0x20u);
 LABEL_26:
 
@@ -185,9 +185,9 @@ LABEL_26:
     *&buf[12] = 2114;
     *&buf[14] = 0;
     *&buf[22] = 2114;
-    v82 = v13;
-    *v83 = 2048;
-    *&v83[2] = v15;
+    v81 = v13;
+    *v82 = 2048;
+    *&v82[2] = v15;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_19;
   }
@@ -277,8 +277,8 @@ LABEL_37:
     block[1] = 3221225472;
     block[2] = ___MRMediaRemoteSendCommandToPlayerWithResult_block_invoke_27;
     block[3] = &unk_1E769AB28;
-    v80 = v31;
-    v79 = v3;
+    v79 = v31;
+    v78 = v3;
     dispatch_async(v32, block);
   }
 
@@ -287,7 +287,7 @@ LABEL_37:
 
   if ((v34 & 1) == 0)
   {
-    v75 = *(a1 + 92);
+    v74 = *(a1 + 92);
     v35 = *(a1 + 72);
     v36 = *(a1 + 56);
     v38 = *(a1 + 32);
@@ -295,23 +295,23 @@ LABEL_37:
     v39 = [v3 playerPath];
     v40 = [v3 error];
     v41 = *(a1 + 48);
-    v76 = v35;
+    v75 = v35;
     v42 = v37;
     v43 = v36;
-    v73 = v39;
-    v74 = v40;
+    v72 = v39;
+    v73 = v40;
     v44 = v41;
     v45 = v38;
     v46 = [v45 origin];
-    v72 = [v45 isLocal];
+    v71 = [v45 isLocal];
 
-    v77 = v46;
-    v71 = [v46 isLocallyHosted];
+    v76 = v46;
+    v70 = [v46 isLocallyHosted];
     v47 = [MEMORY[0x1E696AAE8] mainBundle];
     v48 = [v47 bundleIdentifier];
 
     v49 = [v42 objectForKeyedSubscript:@"kMRMediaRemoteOptionDirectUserInteraction"];
-    v69 = [v49 BOOLValue];
+    v68 = [v49 BOOLValue];
 
     v50 = [v43 client];
     v51 = [v50 bundleIdentifier];
@@ -334,39 +334,37 @@ LABEL_37:
 
     v58 = [v42 objectForKeyedSubscript:@"kMRMediaRemoteOptionRemoteControlInterfaceIdentifier"];
     dispatch_get_global_queue(-2, 0);
-    v59 = v70 = v43;
+    v59 = v69 = v43;
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __trackAnalyticsSendCommand_block_invoke;
-    v82 = &unk_1E769F2C0;
-    *v83 = v44;
-    *&v83[8] = v48;
-    *&v83[16] = v73;
-    v84 = v76;
-    v87 = v75;
-    v88 = v71;
-    v89 = v72;
-    v90 = v69;
-    v91 = v52;
-    v92 = v55;
-    v93 = v57;
-    v85 = v58;
+    v81 = &unk_1E769F2C0;
+    *v82 = v44;
+    *&v82[8] = v48;
+    *&v82[16] = v72;
+    v83 = v75;
     v86 = v74;
+    v87 = v70;
+    v88 = v71;
+    v89 = v68;
+    v90 = v52;
+    v91 = v55;
+    v92 = v57;
+    v84 = v58;
+    v85 = v73;
     v60 = v44;
     v61 = v48;
-    v62 = v73;
-    v63 = v76;
+    v62 = v72;
+    v63 = v75;
     v64 = v58;
-    v65 = v74;
-    [MRDeviceInfoRequest deviceInfoForOrigin:v77 queue:v59 completion:buf];
+    v65 = v73;
+    [MRDeviceInfoRequest deviceInfoForOrigin:v76 queue:v59 completion:buf];
   }
-
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 void ___MRMediaRemoteSendCommandToPlayerWithResult_block_invoke_2_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = MRMediaRemoteCommandCreateDescription(*(a1 + 92), *(a1 + 40), 0);
   v7 = [a2 error];
   v8 = [a2 playerPath];
@@ -379,28 +377,24 @@ void ___MRMediaRemoteSendCommandToPlayerWithResult_block_invoke_2_cold_1(uint64_
   v10 = [MEMORY[0x1E695DF00] date];
   [v10 timeIntervalSinceDate:*(a1 + 48)];
   OUTLINED_FUNCTION_0_17();
-  v15 = v11;
-  v16 = v9;
-  v17 = 2048;
-  v18 = v12;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", v14, 0x34u);
-
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = v11;
+  v15 = v9;
+  v16 = 2048;
+  v17 = v12;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", v13, 0x34u);
 }
 
 void ___MRMediaRemoteSendCommandToPlayerWithResult_block_invoke_2_cold_2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = MRMediaRemoteCommandCreateDescription(*(a1 + 92), *(a1 + 40), 0);
   v7 = [a2 error];
   v8 = [MEMORY[0x1E695DF00] date];
   [v8 timeIntervalSinceDate:*(a1 + 48)];
   OUTLINED_FUNCTION_0_17();
-  v12 = 2048;
-  v13 = v9;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v11, 0x2Au);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = 2048;
+  v12 = v9;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v10, 0x2Au);
 }
 
 @end

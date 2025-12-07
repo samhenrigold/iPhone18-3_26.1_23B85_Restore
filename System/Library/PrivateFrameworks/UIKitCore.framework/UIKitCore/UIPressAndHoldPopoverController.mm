@@ -76,9 +76,9 @@
 
   stringCopy = string;
   currentKeyString = [(TUIPressAndHoldView *)pressAndHoldView currentKeyString];
-  v6 = [stringCopy isEqualToString:currentKeyString];
+  isEqualToString = objc_msgSend_isEqualToString_(stringCopy);
 
-  return v6;
+  return isEqualToString;
 }
 
 - (BOOL)handleKeyInputForPressAndHoldSelector:(id)selector

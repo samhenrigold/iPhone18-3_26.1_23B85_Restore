@@ -24,7 +24,7 @@
   {
     objc_storeStrong(&v6->_arFrame, frame);
     v7->_pixelBuffer = CVPixelBufferRetain([frameCopy capturedImage]);
-    [frameCopy timestamp];
+    objc_msgSend_timestamp(frameCopy);
     CMTimeMakeWithSeconds(&v11, v8, 1000000000);
     v7->_timestamp = v11;
     v9 = MEMORY[0x277CC08F0];
@@ -69,7 +69,7 @@
 
     if (setCopy)
     {
-      [setCopy presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(setCopy);
     }
 
     else
@@ -99,7 +99,7 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [(CFXFrame *)self timestamp];
+  objc_msgSend_timestamp(self);
   [coderCopy encodeCMTime:v5 forKey:@"timestamp"];
 }
 
@@ -126,10 +126,10 @@
   pixelBuffer = [(CFXFrame *)self pixelBuffer];
   if (pixelBuffer == [frameCopy pixelBuffer])
   {
-    [(CFXFrame *)self timestamp];
+    objc_msgSend_timestamp(self);
     if (frameCopy)
     {
-      [frameCopy timestamp];
+      objc_msgSend_timestamp(frameCopy);
     }
 
     else

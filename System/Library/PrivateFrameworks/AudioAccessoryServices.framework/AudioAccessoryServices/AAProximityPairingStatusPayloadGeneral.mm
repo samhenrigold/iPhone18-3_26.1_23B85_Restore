@@ -1,4 +1,5 @@
 @interface AAProximityPairingStatusPayloadGeneral
++ (id)proximityPairingStatusPayloadWithData:(id)data pid:(unsigned __int16)pid;
 - (AAProximityPairingStatusPayloadGeneral)initWithData:(id)data;
 - (BOOL)chargingDEOC;
 - (id)describeProperties;
@@ -9,12 +10,47 @@
 
 @implementation AAProximityPairingStatusPayloadGeneral
 
++ (id)proximityPairingStatusPayloadWithData:(id)data pid:(unsigned __int16)pid
+{
+  pidCopy = pid;
+  dataCopy = data;
+  v6 = off_278CDD460;
+  if (![AAProximityPairingStatusPayloadB188B288 supportedPID:pidCopy])
+  {
+    v6 = off_278CDD468;
+    if (![AAProximityPairingStatusPayloadB444 supportedPID:pidCopy])
+    {
+      v6 = off_278CDD470;
+      if (![AAProximityPairingStatusPayloadB463 supportedPID:pidCopy])
+      {
+        v6 = off_278CDD478;
+        if (![AAProximityPairingStatusPayloadB515 supportedPID:pidCopy])
+        {
+          v6 = off_278CDD480;
+          if (![AAProximityPairingStatusPayloadB515c supportedPID:pidCopy])
+          {
+            v6 = off_278CDD490;
+            if (![AAProximityPairingStatusPayloadOtherTetheredNonCase supportedPID:pidCopy])
+            {
+              v6 = off_278CDD488;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  v7 = [objc_alloc(*v6) initWithData:dataCopy];
+
+  return v7;
+}
+
 - (id)describeProperties
 {
-  v67.receiver = self;
-  v67.super_class = AAProximityPairingStatusPayloadGeneral;
-  describeProperties = [(AAProximityPairingPayload *)&v67 describeProperties];
-  v66 = describeProperties;
+  v61.receiver = self;
+  v61.super_class = AAProximityPairingStatusPayloadGeneral;
+  describeProperties = [(AAProximityPairingPayload *)&v61 describeProperties];
+  v60 = describeProperties;
   if ([(AAProximityPairingStatusPayloadGeneral *)self supportWirelessSplitter])
   {
     v4 = "yes";
@@ -25,11 +61,10 @@
     v4 = "no";
   }
 
-  v41 = v4;
-  NSAppendPrintF_safe();
-  v5 = v66;
+  NSAppendPrintF_safe(&v60, ", Sup Wir Split: %s", v4);
+  v5 = v60;
 
-  v65 = v5;
+  v59 = v5;
   audioState = [(AAProximityPairingStatusPayloadGeneral *)self audioState];
   if (audioState > 3)
   {
@@ -41,16 +76,14 @@
     v7 = off_278CDE0F0[audioState];
   }
 
-  v42 = v7;
-  NSAppendPrintF_safe();
-  v8 = v65;
+  NSAppendPrintF_safe(&v59, ", Audio St: %s", v7);
+  v8 = v59;
 
-  v64 = v8;
-  connectedSourceCount = [(AAProximityPairingStatusPayloadGeneral *)self connectedSourceCount];
-  NSAppendPrintF_safe();
-  v9 = v8;
+  v58 = v8;
+  NSAppendPrintF_safe(&v58, ", Src count: %d", [(AAProximityPairingStatusPayloadGeneral *)self connectedSourceCount]);
+  v9 = v58;
 
-  v63 = v9;
+  v57 = v9;
   if ([(AAProximityPairingStatusPayloadGeneral *)self chargingDEOC])
   {
     v10 = "yes";
@@ -61,11 +94,10 @@
     v10 = "no";
   }
 
-  v44 = v10;
-  NSAppendPrintF_safe();
-  v11 = v63;
+  NSAppendPrintF_safe(&v57, ", DEOC on: %s", v10);
+  v11 = v57;
 
-  v62 = v11;
+  v56 = v11;
   if ([(AAProximityPairingStatusPayloadGeneral *)self chargingOBC])
   {
     v12 = "yes";
@@ -76,11 +108,10 @@
     v12 = "no";
   }
 
-  v45 = v12;
-  NSAppendPrintF_safe();
-  v13 = v62;
+  NSAppendPrintF_safe(&v56, ", OBC on: %s", v12);
+  v13 = v56;
 
-  v61 = v13;
+  v55 = v13;
   if ([(AAProximityPairingStatusPayloadGeneral *)self smartRoutingConnected])
   {
     v14 = "yes";
@@ -91,155 +122,149 @@
     v14 = "no";
   }
 
-  v46 = v14;
-  NSAppendPrintF_safe();
-  v15 = v61;
+  NSAppendPrintF_safe(&v55, ", SR Conn: %s", v14);
+  v15 = v55;
 
   if ([(AAProximityPairingStatusPayloadGeneral *)self myBatteryValid])
   {
-    if ([(AAProximityPairingStatusPayloadGeneral *)self myBatteryCharging])
-    {
-      v16 = "+";
-    }
-
-    else
-    {
-      v16 = "-";
-    }
-
-    v60 = v15;
-    v47 = v16;
-    myBatteryLevel = [(AAProximityPairingStatusPayloadGeneral *)self myBatteryLevel];
-    v17 = &v60;
+    [(AAProximityPairingStatusPayloadGeneral *)self myBatteryCharging];
+    v54 = v15;
+    [(AAProximityPairingStatusPayloadGeneral *)self myBatteryLevel];
+    v16 = &v54;
+    NSAppendPrintF_safe(&v54, ", My Batt: %s%d");
   }
 
   else
   {
-    v59 = v15;
-    v17 = &v59;
+    v53 = v15;
+    v16 = &v53;
+    NSAppendPrintF_safe(&v53, ", My Batt: invalid");
   }
 
-  NSAppendPrintF_safe();
-  v18 = *v17;
+  v17 = *v16;
 
   if ([(AAProximityPairingStatusPayloadGeneral *)self otherBatteryValid])
   {
-    if ([(AAProximityPairingStatusPayloadGeneral *)self otherBatteryCharging])
-    {
-      v19 = "+";
-    }
-
-    else
-    {
-      v19 = "-";
-    }
-
-    v58 = v18;
-    v20 = [(AAProximityPairingStatusPayloadGeneral *)self otherBatteryLevel:v47];
-    v47 = v19;
-    myBatteryLevel = v20;
-    v21 = &v58;
+    [(AAProximityPairingStatusPayloadGeneral *)self otherBatteryCharging];
+    v52 = v17;
+    [(AAProximityPairingStatusPayloadGeneral *)self otherBatteryLevel];
+    v18 = &v52;
+    NSAppendPrintF_safe(&v52, ", Oth Batt: %s%d");
   }
 
   else
   {
-    v57 = v18;
-    v21 = &v57;
+    v51 = v17;
+    v18 = &v51;
+    NSAppendPrintF_safe(&v51, ", Oth Batt: invalid");
   }
 
-  NSAppendPrintF_safe();
-  v22 = *v21;
+  v19 = *v18;
 
   if ([(AAProximityPairingStatusPayloadGeneral *)self caseBatteryValid])
   {
     [(AAProximityPairingStatusPayloadGeneral *)self caseBatteryCharging];
-    v56 = v22;
-    [(AAProximityPairingStatusPayloadGeneral *)self caseBatteryLevel:v47];
-    v23 = &v56;
+    v50 = v19;
+    [(AAProximityPairingStatusPayloadGeneral *)self caseBatteryLevel];
+    v20 = &v50;
+    NSAppendPrintF_safe(&v50, ", C Batt: %s%d");
   }
 
   else
   {
-    v55 = v22;
-    v23 = &v55;
+    v49 = v19;
+    v20 = &v49;
+    NSAppendPrintF_safe(&v49, ", C Batt: invalid");
   }
 
-  NSAppendPrintF_safe();
-  v24 = *v23;
+  v21 = *v20;
 
+  v48 = v21;
   lastConnectedHost = [(AAProximityPairingStatusPayloadGeneral *)self lastConnectedHost];
-  NSAppendPrintF_safe();
-  v25 = v24;
+  NSAppendPrintF_safe(&v48, ", lst conn hst: %@", lastConnectedHost);
+  v23 = v48;
 
+  v47 = v23;
   lastBudInCaseWithCurrentBud = [(AAProximityPairingStatusPayloadGeneral *)self lastBudInCaseWithCurrentBud];
-  NSAppendPrintF_safe();
-  v26 = v25;
+  NSAppendPrintF_safe(&v47, ", lst bud in C w/curr bud: %@", lastBudInCaseWithCurrentBud);
+  v25 = v47;
 
+  v46 = v25;
   smartRoutingScoreSource1 = [(AAProximityPairingStatusPayloadGeneral *)self smartRoutingScoreSource1];
   if (smartRoutingScoreSource1 > 0xF)
   {
-    v28 = "?";
+    v27 = "?";
   }
 
   else
   {
-    v28 = off_278CDE110[smartRoutingScoreSource1];
+    v27 = off_278CDE110[smartRoutingScoreSource1];
   }
 
-  v50 = v28;
-  NSAppendPrintF_safe();
-  v29 = v26;
+  NSAppendPrintF_safe(&v46, ", SR score 1: %s", v27);
+  v28 = v46;
 
+  v45 = v28;
   smartRoutingScoreSource2 = [(AAProximityPairingStatusPayloadGeneral *)self smartRoutingScoreSource2];
   if (smartRoutingScoreSource2 > 0xF)
   {
-    v31 = "?";
+    v30 = "?";
   }
 
   else
   {
-    v31 = off_278CDE110[smartRoutingScoreSource2];
+    v30 = off_278CDE110[smartRoutingScoreSource2];
   }
 
-  v51 = v31;
-  NSAppendPrintF_safe();
-  v32 = v29;
+  NSAppendPrintF_safe(&v45, ", SR score 2: %s", v30);
+  v31 = v45;
 
+  v44 = v31;
   idleTime = [(AAProximityPairingStatusPayloadGeneral *)self idleTime];
   if (idleTime > 3)
   {
-    v34 = "?";
+    v33 = "?";
   }
 
   else
   {
-    v34 = off_278CDE190[idleTime];
+    v33 = off_278CDE190[idleTime];
   }
 
-  v52 = v34;
-  NSAppendPrintF_safe();
-  v35 = v32;
+  NSAppendPrintF_safe(&v44, ", Idle time: %s", v33);
+  v34 = v44;
 
+  v43 = v34;
   outOfCaseTime = [(AAProximityPairingStatusPayloadGeneral *)self outOfCaseTime];
   if (outOfCaseTime > 3)
   {
-    v37 = "?";
+    v36 = "?";
   }
 
   else
   {
-    v37 = off_278CDE190[outOfCaseTime];
+    v36 = off_278CDE190[outOfCaseTime];
   }
 
-  v53 = v37;
-  NSAppendPrintF_safe();
-  v38 = v35;
+  NSAppendPrintF_safe(&v43, ", time out of case: %s", v36);
+  v37 = v43;
 
-  [(AAProximityPairingStatusPayloadGeneral *)self lastConnectedHostSignedInToICloud];
-  NSAppendPrintF_safe();
-  v39 = v38;
+  v42 = v37;
+  if ([(AAProximityPairingStatusPayloadGeneral *)self lastConnectedHostSignedInToICloud])
+  {
+    v38 = "yes";
+  }
 
-  return v38;
+  else
+  {
+    v38 = "no";
+  }
+
+  NSAppendPrintF_safe(&v42, ", lst conn host iCloud signed in: %s", v38);
+  v39 = v42;
+  v40 = v42;
+
+  return v39;
 }
 
 - (AAProximityPairingStatusPayloadGeneral)initWithData:(id)data

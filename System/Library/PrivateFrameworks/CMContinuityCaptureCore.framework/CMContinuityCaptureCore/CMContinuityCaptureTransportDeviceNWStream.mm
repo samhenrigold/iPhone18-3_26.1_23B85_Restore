@@ -27,7 +27,7 @@
 {
   v3 = MEMORY[0x277CBEB28];
   dCopy = d;
-  v5 = [[v3 alloc] initWithLength:32];
+  v5 = [[v3 alloc] initWithLength:?];
   *[v5 mutableBytes] = 1938474645;
   v6 = CMContinuityCaptureCreateCipherKey(v5, dCopy);
 
@@ -40,7 +40,7 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   streamIdentifier = [(CMContinuityCaptureTransportDeviceNWStream *)self streamIdentifier];
-  v7 = [v3 stringWithFormat:@"%@: %@ entity:%u [%p]", v5, streamIdentifier, self->_entity, self];
+  v7 = [v3 stringWithFormat:v5, streamIdentifier, self->_entity, self];
 
   return v7;
 }

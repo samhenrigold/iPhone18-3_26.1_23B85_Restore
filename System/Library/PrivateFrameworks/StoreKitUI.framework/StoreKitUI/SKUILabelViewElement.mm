@@ -57,11 +57,11 @@
     v20->_numberOfLines = integerValue;
     v20->_badgePlacement = 0;
     v26 = [elementCopy getAttribute:@"badgePlacement"];
-    v27 = [v26 isEqualToString:@"firstBaseline"];
+    isEqualToString = objc_msgSend_isEqualToString_(v26);
     v28 = 0;
-    if ((v27 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
-      if (![v26 isEqualToString:@"trailing"])
+      if (!objc_msgSend_isEqualToString_(v26))
       {
 LABEL_13:
         v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -212,7 +212,7 @@ __CFString *__36__SKUILabelViewElement__createText___block_invoke(uint64_t a1, v
   v10 = [*(*(a1 + 32) + 344) objectForKey:v9];
   v11 = SKUILabelStringAttributesWithSpanElement(v10);
   v12 = [v8 nodeName];
-  if ([v12 isEqualToString:@"badge"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = v7;
     *a4 = 1;
@@ -230,7 +230,7 @@ __CFString *__36__SKUILabelViewElement__createText___block_invoke(uint64_t a1, v
     goto LABEL_19;
   }
 
-  if ([v12 isEqualToString:@"button"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v51 = v7;
     *a4 = 0;
@@ -289,7 +289,7 @@ __CFString *__36__SKUILabelViewElement__createText___block_invoke(uint64_t a1, v
   }
 
   [*(a1 + 48) removeAllObjects];
-  if ([v12 isEqualToString:@"number"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     *a4 = 1;
     v34 = [*(a1 + 32) _stringFromNumberElement:v8];
@@ -299,21 +299,21 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  if ([v12 isEqualToString:@"date"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     *a4 = 1;
     v34 = [*(a1 + 32) _stringFromDateElement:v8];
     goto LABEL_18;
   }
 
-  if ([v12 isEqualToString:@"duration"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     *a4 = 1;
     v34 = [*(a1 + 32) _stringFromDurationElement:v8];
     goto LABEL_18;
   }
 
-  if ([v12 isEqualToString:@"br"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v16 = 0;
     *a4 = 1;
@@ -323,7 +323,7 @@ LABEL_18:
   else
   {
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a3);
-    if ([0 length] || !objc_msgSend(v12, "isEqualToString:", @"span"))
+    if ([0 length] || !objc_msgSend_isEqualToString_(v12))
     {
       v39 = 0;
     }
@@ -356,9 +356,9 @@ LABEL_18:
 
             v42 = *(*(&v54 + 1) + 8 * i);
             v43 = [v42 nodeName];
-            v44 = [v43 isEqualToString:@"#text"];
+            isEqualToString = objc_msgSend_isEqualToString_(v43);
 
-            if (v44)
+            if (isEqualToString)
             {
               if (!v39)
               {
@@ -582,7 +582,7 @@ LABEL_12:
   parentCopy = parent;
   factoryCopy = factory;
   nodeName = [mCopy nodeName];
-  if ([nodeName isEqualToString:@"span"] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_msgSend(nodeName, "isEqualToString:", @"badge") & 1) != 0 || objc_msgSend(nodeName, "isEqualToString:", @"button"))
+  if (objc_msgSend_isEqualToString_(nodeName) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_msgSend_isEqualToString_(nodeName) & 1) != 0 || objc_msgSend_isEqualToString_(nodeName))
   {
     v12 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:mCopy];
     v13 = [factoryCopy elementForDOMElement:mCopy parent:parentCopy];
@@ -625,6 +625,12 @@ LABEL_12:
   WeakRetained = objc_loadWeakRetained(&self->_linkDelegate);
 
   return WeakRetained;
+}
+
+- (void)initWithDOMElement:(uint64_t)a3 parent:(uint64_t)a4 elementFactory:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUILabelViewElement initWithDOMElement:parent:elementFactory:]";
 }
 
 @end

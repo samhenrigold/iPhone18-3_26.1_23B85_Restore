@@ -27,6 +27,7 @@
 - (BOOL)processStateChange:(id)change error:(id *)error;
 - (BOOL)readStreamablePayload:(id)payload reader:(id)reader error:(id *)error;
 - (BOOL)resolveMissingEntityWithObjectID:(id)d;
+- (BOOL)setCompletionStatus:(int)status forAttachment:(id)attachment locked:(BOOL)locked dateCompleted:(id)completed dateModified:(id)modified;
 - (BOOL)updateCollectionItemsReferenceObjectID:(id)d toType:(int64_t)type andObjectID:(id)iD;
 - (BOOL)validateStateChangePayload:(id)payload error:(id *)error;
 - (id)_applyStateChangesToParentHandoutEntity:(id)entity;
@@ -1208,22 +1209,22 @@ LABEL_17:
     logSubsystem = [(PDOperation *)self logSubsystem];
     if (os_log_type_enabled(logSubsystem, OS_LOG_TYPE_DEFAULT))
     {
-      v60 = objc_opt_class();
-      v61 = v60;
+      v59 = objc_opt_class();
+      v60 = v59;
       [(PDURLRequestOperation *)self operationID];
-      v63 = v62 = payloadCopy;
+      v62 = v61 = payloadCopy;
       *buf = 138543618;
-      v106 = v60;
-      v107 = 2114;
-      v108 = v63;
+      v105 = v59;
+      v106 = 2114;
+      v107 = v62;
       _os_log_impl(&_mh_execute_header, logSubsystem, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Invalid state change (missing targetObjectID).", buf, 0x16u);
 
-      payloadCopy = v62;
+      payloadCopy = v61;
     }
 
-    v64 = objc_opt_class();
+    v63 = objc_opt_class();
     operationID = [(PDURLRequestOperation *)self operationID];
-    [NSError cls_assignError:error code:308 format:@"%@: %@ Invalid state change (missing targetObjectID).", v64, operationID];
+    [NSError cls_assignError:error code:308 format:@"%@: %@ Invalid state change (missing targetObjectID).", v63, operationID];
     goto LABEL_50;
   }
 
@@ -1233,26 +1234,26 @@ LABEL_17:
     logSubsystem2 = [(PDOperation *)self logSubsystem];
     if (os_log_type_enabled(logSubsystem2, OS_LOG_TYPE_DEFAULT))
     {
-      v66 = objc_opt_class();
-      v67 = v66;
+      v65 = objc_opt_class();
+      v66 = v65;
       [(PDURLRequestOperation *)self operationID];
-      v69 = v68 = payloadCopy;
-      targetObjectId = [v68 targetObjectId];
+      v68 = v67 = payloadCopy;
+      targetObjectId = [v67 targetObjectId];
       *buf = 138543874;
-      v106 = v66;
-      v107 = 2114;
-      v108 = v69;
-      v109 = 2112;
-      v110 = targetObjectId;
+      v105 = v65;
+      v106 = 2114;
+      v107 = v68;
+      v108 = 2112;
+      v109 = targetObjectId;
       _os_log_impl(&_mh_execute_header, logSubsystem2, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Invalid state change (missing targetEntityName for targetObjectID %@).", buf, 0x20u);
 
-      payloadCopy = v68;
+      payloadCopy = v67;
     }
 
-    v71 = objc_opt_class();
+    v70 = objc_opt_class();
     operationID = [(PDURLRequestOperation *)self operationID];
     targetObjectId2 = [payloadCopy targetObjectId];
-    [NSError cls_assignError:error code:308 format:@"%@: %@ Invalid state change (missing targetEntityName for targetObjectID %@).", v71, operationID, targetObjectId2];
+    [NSError cls_assignError:error code:308 format:@"%@: %@ Invalid state change (missing targetEntityName for targetObjectID %@).", v70, operationID, targetObjectId2];
     goto LABEL_49;
   }
 
@@ -1262,26 +1263,26 @@ LABEL_17:
     logSubsystem3 = [(PDOperation *)self logSubsystem];
     if (os_log_type_enabled(logSubsystem3, OS_LOG_TYPE_DEFAULT))
     {
-      v74 = objc_opt_class();
-      v75 = v74;
+      v73 = objc_opt_class();
+      v74 = v73;
       [(PDURLRequestOperation *)self operationID];
-      v77 = v76 = payloadCopy;
-      targetObjectId3 = [v76 targetObjectId];
+      v76 = v75 = payloadCopy;
+      targetObjectId3 = [v75 targetObjectId];
       *buf = 138543874;
-      v106 = v74;
-      v107 = 2114;
-      v108 = v77;
-      v109 = 2112;
-      v110 = targetObjectId3;
+      v105 = v73;
+      v106 = 2114;
+      v107 = v76;
+      v108 = 2112;
+      v109 = targetObjectId3;
       _os_log_impl(&_mh_execute_header, logSubsystem3, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Invalid state change (missing targetOwnerPersonID for targetObjectID %@).", buf, 0x20u);
 
-      payloadCopy = v76;
+      payloadCopy = v75;
     }
 
-    v79 = objc_opt_class();
+    v78 = objc_opt_class();
     operationID = [(PDURLRequestOperation *)self operationID];
     targetObjectId2 = [payloadCopy targetObjectId];
-    [NSError cls_assignError:error code:308 format:@"%@: %@ Invalid state change (missing targetOwnerPersonID for targetObjectID %@).", v79, operationID, targetObjectId2];
+    [NSError cls_assignError:error code:308 format:@"%@: %@ Invalid state change (missing targetOwnerPersonID for targetObjectID %@).", v78, operationID, targetObjectId2];
     goto LABEL_49;
   }
 
@@ -1294,45 +1295,45 @@ LABEL_17:
     logSubsystem4 = [(PDOperation *)self logSubsystem];
     if (os_log_type_enabled(logSubsystem4, OS_LOG_TYPE_DEFAULT))
     {
-      v87 = objc_opt_class();
-      v88 = v87;
+      v86 = objc_opt_class();
+      v87 = v86;
       [(PDURLRequestOperation *)self operationID];
-      v90 = v89 = payloadCopy;
-      targetObjectId4 = [v89 targetObjectId];
+      v89 = v88 = payloadCopy;
+      targetObjectId4 = [v88 targetObjectId];
       *buf = 138543874;
-      v106 = v87;
-      v107 = 2114;
-      v108 = v90;
-      v109 = 2112;
-      v110 = targetObjectId4;
+      v105 = v86;
+      v106 = 2114;
+      v107 = v89;
+      v108 = 2112;
+      v109 = targetObjectId4;
       _os_log_impl(&_mh_execute_header, logSubsystem4, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Invalid state change (empty stateChangePayloads for targetObjectID %@).", buf, 0x20u);
 
-      payloadCopy = v89;
+      payloadCopy = v88;
     }
 
-    v92 = objc_opt_class();
+    v91 = objc_opt_class();
     operationID = [(PDURLRequestOperation *)self operationID];
     targetObjectId2 = [payloadCopy targetObjectId];
-    [NSError cls_assignError:error code:308 format:@"%@: %@ Invalid state change (empty stateChangePayloads for targetObjectID %@).", v92, operationID, targetObjectId2];
+    [NSError cls_assignError:error code:308 format:@"%@: %@ Invalid state change (empty stateChangePayloads for targetObjectID %@).", v91, operationID, targetObjectId2];
 LABEL_49:
 
 LABEL_50:
-    v58 = 0;
+    v57 = 0;
     goto LABEL_51;
   }
 
   targetObjectId5 = [payloadCopy targetObjectId];
   targetOwnerPersonId = [payloadCopy targetOwnerPersonId];
   [payloadCopy stateChangePayloads];
-  v11 = v96 = payloadCopy;
+  v11 = v95 = payloadCopy;
   v12 = [v11 objectAtIndexedSubscript:0];
   v13 = &CLSLogAsset_ptr;
   operationID = +[CLSCollaborationState identifierForTargetObjectID:ownerPersonID:domain:](CLSCollaborationState, "identifierForTargetObjectID:ownerPersonID:domain:", targetObjectId5, targetOwnerPersonId, [v12 domain]);
 
-  payloadCopy = v96;
-  if ([v96 hasTargetClassId])
+  payloadCopy = v95;
+  if ([v95 hasTargetClassId])
   {
-    targetClassId = [v96 targetClassId];
+    targetClassId = [v95 targetClassId];
     v16 = objc_opt_class();
     LODWORD(v16) = [(PDEndpointRequestOperation *)self checkForMissingEntityWithObjectID:targetClassId forClass:v16 fromEntityWithID:operationID withClass:objc_opt_class()];
 
@@ -1345,16 +1346,16 @@ LABEL_50:
         v18 = objc_opt_class();
         v19 = v18;
         operationID2 = [(PDURLRequestOperation *)self operationID];
-        targetClassId2 = [v96 targetClassId];
+        targetClassId2 = [v95 targetClassId];
         *buf = 138543874;
-        v106 = v18;
-        v107 = 2114;
-        v108 = operationID2;
-        v109 = 2112;
-        v110 = targetClassId2;
+        v105 = v18;
+        v106 = 2114;
+        v107 = operationID2;
+        v108 = 2112;
+        v109 = targetClassId2;
         _os_log_impl(&_mh_execute_header, logSubsystem5, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ State change missing reference (targetClassId '%@' is not in roster).", buf, 0x20u);
 
-        payloadCopy = v96;
+        payloadCopy = v95;
       }
     }
   }
@@ -1372,40 +1373,40 @@ LABEL_50:
       v25 = objc_opt_class();
       v26 = v25;
       operationID3 = [(PDURLRequestOperation *)self operationID];
-      targetOwnerPersonId3 = [v96 targetOwnerPersonId];
+      targetOwnerPersonId3 = [v95 targetOwnerPersonId];
       *buf = 138543874;
-      v106 = v25;
-      v107 = 2114;
-      v108 = operationID3;
-      v109 = 2112;
-      v110 = targetOwnerPersonId3;
+      v105 = v25;
+      v106 = 2114;
+      v107 = operationID3;
+      v108 = 2112;
+      v109 = targetOwnerPersonId3;
       _os_log_impl(&_mh_execute_header, logSubsystem6, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ State change missing reference. (ownerPersonID '%@' is not in roster).", buf, 0x20u);
 
-      payloadCopy = v96;
+      payloadCopy = v95;
     }
   }
 
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
   v101 = 0u;
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
   obj = [payloadCopy stateChangePayloads];
-  v99 = [obj countByEnumeratingWithState:&v100 objects:v104 count:16];
-  if (v99)
+  v98 = [obj countByEnumeratingWithState:&v99 objects:v103 count:16];
+  if (v98)
   {
     errorCopy = error;
-    v95 = operationID;
-    v98 = *v101;
+    v94 = operationID;
+    v97 = *v100;
     while (2)
     {
-      for (i = 0; i != v99; i = i + 1)
+      for (i = 0; i != v98; i = i + 1)
       {
-        if (*v101 != v98)
+        if (*v100 != v97)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v100 + 1) + 8 * i);
+        v30 = *(*(&v99 + 1) + 8 * i);
         v31 = v13[75];
         targetObjectId6 = [payloadCopy targetObjectId];
         targetOwnerPersonId4 = [payloadCopy targetOwnerPersonId];
@@ -1417,24 +1418,24 @@ LABEL_50:
           logSubsystem7 = [(PDOperation *)self logSubsystem];
           if (os_log_type_enabled(logSubsystem7, OS_LOG_TYPE_DEFAULT))
           {
-            v81 = objc_opt_class();
-            v82 = v81;
+            v80 = objc_opt_class();
+            v81 = v80;
             operationID4 = [(PDURLRequestOperation *)self operationID];
             *buf = 138543874;
-            v106 = v81;
-            v107 = 2114;
-            v108 = operationID4;
-            v109 = 2112;
-            v110 = v30;
+            v105 = v80;
+            v106 = 2114;
+            v107 = operationID4;
+            v108 = 2112;
+            v109 = v30;
             _os_log_impl(&_mh_execute_header, logSubsystem7, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Invalid stateChangePayload (missing participants) %@", buf, 0x20u);
           }
 
-          v84 = objc_opt_class();
+          v83 = objc_opt_class();
           operationID5 = [(PDURLRequestOperation *)self operationID];
-          [NSError cls_assignError:errorCopy code:308 format:@"%@: %@ Invalid stateChangePayload (missing participants) %@", v84, operationID5, v30];
+          [NSError cls_assignError:errorCopy code:308 format:@"%@: %@ Invalid stateChangePayload (missing participants) %@", v83, operationID5, v30];
 
-          v58 = 0;
-          payloadCopy = v96;
+          v57 = 0;
+          payloadCopy = v95;
           goto LABEL_45;
         }
 
@@ -1446,7 +1447,6 @@ LABEL_50:
           participants2 = [v30 participants];
           senderPersonId2 = [participants2 senderPersonId];
           v39 = objc_opt_class();
-          v40 = v13[75];
           LODWORD(v39) = [(PDEndpointRequestOperation *)self checkForMissingEntityWithObjectID:senderPersonId2 forClass:v39 fromEntityWithID:v34 withClass:objc_opt_class()];
 
           if (v39)
@@ -1455,20 +1455,20 @@ LABEL_50:
             logSubsystem8 = [(PDOperation *)self logSubsystem];
             if (os_log_type_enabled(logSubsystem8, OS_LOG_TYPE_DEFAULT))
             {
-              v42 = objc_opt_class();
-              v43 = v42;
+              v41 = objc_opt_class();
+              v42 = v41;
               operationID6 = [(PDURLRequestOperation *)self operationID];
               participants3 = [v30 participants];
               senderPersonId3 = [participants3 senderPersonId];
               *buf = 138543874;
-              v106 = v42;
-              v107 = 2114;
-              v108 = operationID6;
-              v109 = 2112;
-              v110 = senderPersonId3;
+              v105 = v41;
+              v106 = 2114;
+              v107 = operationID6;
+              v108 = 2112;
+              v109 = senderPersonId3;
               _os_log_impl(&_mh_execute_header, logSubsystem8, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ State change missing reference. (senderPersonId '%@' is not in roster).", buf, 0x20u);
 
-              payloadCopy = v96;
+              payloadCopy = v95;
             }
           }
         }
@@ -1480,29 +1480,29 @@ LABEL_50:
         {
           participants5 = [v30 participants];
           recipientPersonId2 = [participants5 recipientPersonId];
-          v51 = objc_opt_class();
-          LODWORD(v51) = [(PDEndpointRequestOperation *)self checkForMissingEntityWithObjectID:recipientPersonId2 forClass:v51 fromEntityWithID:v34 withClass:objc_opt_class()];
+          v50 = objc_opt_class();
+          LODWORD(v50) = [(PDEndpointRequestOperation *)self checkForMissingEntityWithObjectID:recipientPersonId2 forClass:v50 fromEntityWithID:v34 withClass:objc_opt_class()];
 
-          if (v51)
+          if (v50)
           {
             CLSInitLog();
             logSubsystem9 = [(PDOperation *)self logSubsystem];
             if (os_log_type_enabled(logSubsystem9, OS_LOG_TYPE_DEFAULT))
             {
-              v53 = objc_opt_class();
-              v54 = v53;
+              v52 = objc_opt_class();
+              v53 = v52;
               operationID7 = [(PDURLRequestOperation *)self operationID];
               participants6 = [v30 participants];
               recipientPersonId3 = [participants6 recipientPersonId];
               *buf = 138543874;
-              v106 = v53;
-              v107 = 2114;
-              v108 = operationID7;
-              v109 = 2112;
-              v110 = recipientPersonId3;
+              v105 = v52;
+              v106 = 2114;
+              v107 = operationID7;
+              v108 = 2112;
+              v109 = recipientPersonId3;
               _os_log_impl(&_mh_execute_header, logSubsystem9, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ State change missing reference. (recipientPersonId '%@' is not in roster).", buf, 0x20u);
 
-              payloadCopy = v96;
+              payloadCopy = v95;
             }
           }
         }
@@ -1510,8 +1510,8 @@ LABEL_50:
         v13 = &CLSLogAsset_ptr;
       }
 
-      v99 = [obj countByEnumeratingWithState:&v100 objects:v104 count:16];
-      if (v99)
+      v98 = [obj countByEnumeratingWithState:&v99 objects:v103 count:16];
+      if (v98)
       {
         continue;
       }
@@ -1519,18 +1519,18 @@ LABEL_50:
       break;
     }
 
-    v58 = 1;
+    v57 = 1;
 LABEL_45:
-    operationID = v95;
+    operationID = v94;
   }
 
   else
   {
-    v58 = 1;
+    v57 = 1;
   }
 
 LABEL_51:
-  return v58;
+  return v57;
 }
 
 - (BOOL)resolveMissingEntityWithObjectID:(id)d
@@ -1707,6 +1707,28 @@ LABEL_36:
 LABEL_39:
 
   return v12;
+}
+
+- (BOOL)setCompletionStatus:(int)status forAttachment:(id)attachment locked:(BOOL)locked dateCompleted:(id)completed dateModified:(id)modified
+{
+  lockedCopy = locked;
+  v10 = *&status;
+  attachmentCopy = attachment;
+  modifiedCopy = modified;
+  completedCopy = completed;
+  [attachmentCopy setLocked:lockedCopy];
+  [attachmentCopy setCompletionStatus:v10];
+  [attachmentCopy setDateLastCompleted:completedCopy];
+
+  if (modifiedCopy)
+  {
+    [attachmentCopy setDateLastModified:modifiedCopy];
+  }
+
+  database = [(PDOperation *)self database];
+  v16 = [database updateObject:attachmentCopy];
+
+  return v16;
 }
 
 - (void)setCompletionAndLockedStatusForStateChange:(id)change andStateChangePayload:(id)payload forAttachment:(id)attachment
@@ -2395,7 +2417,7 @@ LABEL_6:
   if (personsCopy && [v9 count])
   {
     v18 = [PDDatabase whereSQLForArray:v9 prefix:@"objectID in "];
-    v14 = [v8 deleteAll:objc_opt_class() where:v18 bindings:v9];
+    v14 = [(NSMutableArray *)v8 deleteAll:objc_opt_class() where:v18 bindings:v9];
     if ((v14 & 1) == 0)
     {
       CLSInitLog();

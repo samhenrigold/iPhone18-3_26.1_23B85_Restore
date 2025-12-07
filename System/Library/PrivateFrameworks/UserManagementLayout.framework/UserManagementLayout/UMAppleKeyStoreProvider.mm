@@ -10,6 +10,7 @@
 - (BOOL)loginIdentity:(id)identity intoSession:(unsigned int)session passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error;
 - (BOOL)mapVolume:(id)volume toSession:(unsigned int)session withPersona:(id)persona error:(id *)error;
 - (BOOL)unloadIdentityFromSession:(unsigned int)session error:(id *)error;
+- (BOOL)unlockIdentity:(unsigned int)identity passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error;
 - (BOOL)unlockIdentityInSession:(unsigned int)session passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error;
 - (BOOL)unmapVolume:(id)volume error:(id *)error;
 - (BOOL)verifyIdentityPasswordInSession:(unsigned int)session passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error;
@@ -21,7 +22,6 @@
 
 - (BOOL)bootstrapVolumeWithMountPoint:(id)point user:(unsigned int)user error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
   pointCopy = point;
   if (error)
   {
@@ -121,13 +121,12 @@
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)dataWrappingDataWithDeviceClassF:(id)f error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fCopy = f;
   v6 = fCopy;
   if (error)
@@ -137,13 +136,13 @@
 
   if ([fCopy length] < 0x21)
   {
-    memset(v27, 0, sizeof(v27));
+    memset(v26, 0, sizeof(v26));
     [v6 bytes];
     [v6 length];
     v11 = aks_wrap_key();
     if (!v11)
     {
-      v18 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:40];
+      v18 = [MEMORY[0x277CBEA90] dataWithBytes:v26 length:40];
       goto LABEL_33;
     }
 
@@ -169,10 +168,10 @@
 
       if (v15)
       {
-        v26[0] = 67109120;
-        v26[1] = v12;
-        LODWORD(v25) = 8;
-        v24 = v26;
+        v25[0] = 67109120;
+        v25[1] = v12;
+        LODWORD(v24) = 8;
+        v23 = v25;
         v16 = _os_log_send_and_compose_impl();
         v17 = v16;
         if (v16)
@@ -217,10 +216,10 @@
       if (v8)
       {
         v9 = v7;
-        LODWORD(v27[0]) = 134217984;
-        *(v27 + 4) = [v6 length];
-        LODWORD(v25) = 12;
-        v24 = v27;
+        LODWORD(v26[0]) = 134217984;
+        *(v26 + 4) = [v6 length];
+        LODWORD(v24) = 12;
+        v23 = v26;
         v10 = _os_log_send_and_compose_impl();
 
         if (v10)
@@ -243,7 +242,7 @@
       v20 = *MEMORY[0x277CCA5B8];
       v21 = 22;
 LABEL_31:
-      [v19 errorWithDomain:v20 code:v21 userInfo:{0, v24, v25}];
+      [v19 errorWithDomain:v20 code:v21 userInfo:{0, v23, v24}];
       *error = v18 = 0;
       goto LABEL_33;
     }
@@ -252,14 +251,12 @@ LABEL_31:
   v18 = 0;
 LABEL_33:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)dataUnwrappingDataWithDeviceClassF:(id)f error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   fCopy = f;
   v6 = fCopy;
   if (error)
@@ -286,10 +283,10 @@ LABEL_33:
       if (v8)
       {
         v9 = v7;
-        LODWORD(v29[0]) = 134217984;
-        *(v29 + 4) = [v6 length];
-        LODWORD(v27) = 12;
-        v26 = v29;
+        LODWORD(v28[0]) = 134217984;
+        *(v28 + 4) = [v6 length];
+        LODWORD(v26) = 12;
+        v25 = v28;
         v10 = _os_log_send_and_compose_impl();
 
         if (v10)
@@ -312,7 +309,7 @@ LABEL_33:
       v22 = *MEMORY[0x277CCA5B8];
       v23 = 22;
 LABEL_41:
-      [v21 errorWithDomain:v22 code:v23 userInfo:{0, v26, v27}];
+      [v21 errorWithDomain:v22 code:v23 userInfo:{0, v25, v26}];
       *error = v16 = 0;
       goto LABEL_43;
     }
@@ -320,13 +317,13 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  memset(v29, 0, sizeof(v29));
+  memset(v28, 0, sizeof(v28));
   [v6 bytes];
   [v6 length];
   v11 = aks_unwrap_key();
   if (!v11)
   {
-    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v29 length:32];
+    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:32];
     goto LABEL_43;
   }
 
@@ -354,9 +351,9 @@ LABEL_41:
 
       if (v15)
       {
-        LOWORD(v28[0]) = 0;
-        LODWORD(v27) = 2;
-        v26 = v28;
+        LOWORD(v27[0]) = 0;
+        LODWORD(v26) = 2;
+        v25 = v27;
         goto LABEL_31;
       }
 
@@ -387,10 +384,10 @@ LABEL_41:
 
       if (v18)
       {
-        v28[0] = 67109120;
-        v28[1] = v12;
-        LODWORD(v27) = 8;
-        v26 = v28;
+        v27[0] = 67109120;
+        v27[1] = v12;
+        LODWORD(v26) = 8;
+        v25 = v27;
 LABEL_31:
         v19 = _os_log_send_and_compose_impl();
         v20 = v19;
@@ -421,14 +418,11 @@ LABEL_42:
   v16 = 0;
 LABEL_43:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (BOOL)deleteIdentity:(id)identity error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   v6 = identityCopy;
   if (error)
@@ -530,13 +524,11 @@ LABEL_43:
 
   CFRelease(v7);
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)isIdentityLoadedIntoSession:(unsigned int)session
 {
-  v16 = *MEMORY[0x277D85DE8];
   system = aks_get_system();
   v4 = system;
   if (system)
@@ -643,13 +635,11 @@ LABEL_29:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4 == 0;
 }
 
 - (BOOL)loadIdentity:(id)identity intoSession:(unsigned int)session error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   v7 = identityCopy;
   if (error)
@@ -751,13 +741,11 @@ LABEL_29:
 
   CFRelease(v8);
 
-  v20 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)unloadIdentityFromSession:(unsigned int)session error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
   if (error)
   {
     *error = 0;
@@ -854,14 +842,12 @@ LABEL_29:
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)loginIdentity:(id)identity intoSession:(unsigned int)session passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error
 {
   credentialCopy = credential;
-  v29 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   passcodeCopy = passcode;
   if (error)
@@ -1008,13 +994,11 @@ LABEL_5:
 LABEL_39:
   CFRelease(v13);
 
-  v27 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (BOOL)deletePersonaWithUUID:(id)d fromSession:(unsigned int)session error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = dCopy;
   if (error)
@@ -1116,13 +1100,11 @@ LABEL_39:
 
   CFRelease(v8);
 
-  v20 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)mapVolume:(id)volume toSession:(unsigned int)session withPersona:(id)persona error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   personaCopy = persona;
   if (error)
@@ -1281,13 +1263,11 @@ LABEL_43:
 
 LABEL_44:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)unmapVolume:(id)volume error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   if (error)
   {
@@ -1430,14 +1410,12 @@ LABEL_44:
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)createIdentityWithUUID:(id)d passcode:(id)passcode existingSession:(unsigned int)session existingSessionPasscode:(id)sessionPasscode isACMCredential:(BOOL)credential error:(id *)error
 {
   credentialCopy = credential;
-  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   passcodeCopy = passcode;
   sessionPasscodeCopy = sessionPasscode;
@@ -1497,12 +1475,12 @@ LABEL_5:
       if (error)
       {
         v27 = 0;
-        *error = v30;
+        *error = v29;
       }
 
       else
       {
-        CFRelease(v30);
+        CFRelease(v29);
         v27 = 0;
       }
 
@@ -1551,14 +1529,12 @@ LABEL_5:
 LABEL_29:
   CFRelease(v8);
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (BOOL)changeSecretrForIdentityWithUUID:(id)d oldPasscode:(id)passcode newPasscode:(id)newPasscode existingSession:(unsigned int)session isACMCredential:(BOOL)credential error:(id *)error
 {
   credentialCopy = credential;
-  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   passcodeCopy = passcode;
   newPasscodeCopy = newPasscode;
@@ -1618,12 +1594,12 @@ LABEL_5:
       if (error)
       {
         v27 = 0;
-        *error = v30;
+        *error = v29;
       }
 
       else
       {
-        CFRelease(v30);
+        CFRelease(v29);
         v27 = 0;
       }
 
@@ -1672,14 +1648,133 @@ LABEL_5:
 LABEL_29:
   CFRelease(v8);
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
+}
+
+- (BOOL)unlockIdentity:(unsigned int)identity passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error
+{
+  credentialCopy = credential;
+  passcodeCopy = passcode;
+  if (error)
+  {
+    *error = 0;
+  }
+
+  v10 = sub_22EE75E98(self, passcodeCopy);
+  if (credentialCopy)
+  {
+    if ((AKSIdentityUnlockSessionWithACMCred() & 1) == 0)
+    {
+      if (qword_2810B8888 != -1)
+      {
+        dispatch_once(&qword_2810B8888, &unk_2843A7118);
+      }
+
+      if (!sub_22EE6613C(qword_2810B8880))
+      {
+        goto LABEL_28;
+      }
+
+      sub_22EE69AE8();
+      v11 = sub_22EE660C0();
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+      if (sub_22EE66090(v12))
+      {
+        goto LABEL_21;
+      }
+
+      goto LABEL_26;
+    }
+  }
+
+  else if ((AKSIdentityUnlockSession() & 1) == 0)
+  {
+    if (qword_2810B8888 != -1)
+    {
+      dispatch_once(&qword_2810B8888, &unk_2843A7118);
+    }
+
+    if (!sub_22EE6613C(qword_2810B8880))
+    {
+      goto LABEL_28;
+    }
+
+    sub_22EE69AE8();
+    v17 = sub_22EE660C0();
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+    if (sub_22EE66090(v18))
+    {
+LABEL_21:
+      sub_22EE66070();
+      sub_22EE660B0();
+      v19 = _os_log_send_and_compose_impl();
+      v20 = v19;
+      if (v19)
+      {
+        sub_22EE69B10(v19);
+      }
+
+      goto LABEL_27;
+    }
+
+LABEL_26:
+    v20 = 0;
+LABEL_27:
+    free(v20);
+LABEL_28:
+
+    if (error)
+    {
+      v21 = 0;
+      *error = 0;
+    }
+
+    else
+    {
+      CFRelease(0);
+      v21 = 0;
+    }
+
+    goto LABEL_31;
+  }
+
+  if (qword_2810B8888 != -1)
+  {
+    dispatch_once(&qword_2810B8888, &unk_2843A7118);
+  }
+
+  v13 = qword_2810B8880;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    sub_22EE69AE8();
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (sub_22EE660A0(v14))
+    {
+      v15 = _os_log_send_and_compose_impl();
+      v16 = v15;
+      if (v15)
+      {
+        sub_22EE69B10(v15);
+      }
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    free(v16);
+  }
+
+  v21 = 1;
+LABEL_31:
+
+  return v21;
 }
 
 - (BOOL)unlockIdentityInSession:(unsigned int)session passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error
 {
   credentialCopy = credential;
-  v23 = *MEMORY[0x277D85DE8];
   if (error)
   {
     *error = 0;
@@ -1771,14 +1866,12 @@ LABEL_29:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v12 == 0;
 }
 
 - (BOOL)verifyIdentityPasswordInSession:(unsigned int)session passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error
 {
   credentialCopy = credential;
-  v30 = *MEMORY[0x277D85DE8];
   if (error)
   {
     *error = 0;
@@ -1933,13 +2026,11 @@ LABEL_29:
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v19 == 0;
 }
 
 - (BOOL)addPersonaWithUUID:(id)d toSession:(unsigned int)session passcode:(id)passcode error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (error)
   {
@@ -2039,7 +2130,6 @@ LABEL_29:
 
   CFRelease(v11);
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

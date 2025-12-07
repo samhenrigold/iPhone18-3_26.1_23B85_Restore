@@ -1,2165 +1,51 @@
-uint64_t HDCodableQuantityReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v21 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v21 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v21 & 0x7F) << v5;
-        if ((v21 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        v15 = PBReaderReadString();
-        v16 = *(a1 + 16);
-        *(a1 + 16) = v15;
-      }
-
-      else if ((v12 >> 3) == 1)
-      {
-        *(a1 + 24) |= 1u;
-        v20 = 0;
-        v13 = [a2 position] + 8;
-        if (v13 >= [a2 position] && (v14 = objc_msgSend(a2, "position") + 8, v14 <= objc_msgSend(a2, "length")))
-        {
-          v18 = [a2 data];
-          [v18 getBytes:&v20 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        *(a1 + 8) = v20;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v19 = [a2 position];
-    }
-
-    while (v19 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t __Block_byref_object_copy__133(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_228DDABD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
-{
-  va_start(va, a17);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HDCloudSyncCodableChangeReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v44[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v44 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v44[0] & 0x7F) << v5;
-        if ((v44[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 9)
-      {
-        break;
-      }
-
-      if (v13 != 1)
-      {
-        if (v13 == 2)
-        {
-          v21 = 0;
-          v22 = 0;
-          v23 = 0;
-          *(a1 + 44) |= 4u;
-          while (1)
-          {
-            LOBYTE(v44[0]) = 0;
-            v24 = [a2 position] + 1;
-            if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 1, v25 <= objc_msgSend(a2, "length")))
-            {
-              v26 = [a2 data];
-              [v26 getBytes:v44 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v23 |= (v44[0] & 0x7F) << v21;
-            if ((v44[0] & 0x80) == 0)
-            {
-              break;
-            }
-
-            v21 += 7;
-            v11 = v22++ >= 9;
-            if (v11)
-            {
-              v27 = 0;
-              goto LABEL_77;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v27 = 0;
-          }
-
-          else
-          {
-            v27 = v23;
-          }
-
-LABEL_77:
-          v41 = 24;
-          goto LABEL_78;
-        }
-
-LABEL_62:
-        if ((PBReaderSkipValueWithTag() & 1) == 0)
-        {
-          return 0;
-        }
-
-        goto LABEL_79;
-      }
-
-      v40 = objc_alloc_init(HDCodableSyncAnchorRangeMap);
-      objc_storeStrong((a1 + 32), v40);
-      v44[0] = 0;
-      v44[1] = 0;
-      if (!PBReaderPlaceMark() || ![(HDCodableSyncAnchorRangeMap *)v40 readFrom:a2])
-      {
-
-        return 0;
-      }
-
-      PBReaderRecallMark();
-
-LABEL_79:
-      v42 = [a2 position];
-      if (v42 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    switch(v13)
-    {
-      case 0xA:
-        v28 = 0;
-        v29 = 0;
-        v30 = 0;
-        *(a1 + 44) |= 2u;
-        while (1)
-        {
-          LOBYTE(v44[0]) = 0;
-          v31 = [a2 position] + 1;
-          if (v31 >= [a2 position] && (v32 = objc_msgSend(a2, "position") + 1, v32 <= objc_msgSend(a2, "length")))
-          {
-            v33 = [a2 data];
-            [v33 getBytes:v44 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v30 |= (v44[0] & 0x7F) << v28;
-          if ((v44[0] & 0x80) == 0)
-          {
-            break;
-          }
-
-          v28 += 7;
-          v11 = v29++ >= 9;
-          if (v11)
-          {
-            v27 = 0;
-            goto LABEL_67;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v27 = 0;
-        }
-
-        else
-        {
-          v27 = v30;
-        }
-
-LABEL_67:
-        v41 = 16;
-        goto LABEL_78;
-      case 0xB:
-        v34 = 0;
-        v35 = 0;
-        v36 = 0;
-        *(a1 + 44) |= 1u;
-        while (1)
-        {
-          LOBYTE(v44[0]) = 0;
-          v37 = [a2 position] + 1;
-          if (v37 >= [a2 position] && (v38 = objc_msgSend(a2, "position") + 1, v38 <= objc_msgSend(a2, "length")))
-          {
-            v39 = [a2 data];
-            [v39 getBytes:v44 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v36 |= (v44[0] & 0x7F) << v34;
-          if ((v44[0] & 0x80) == 0)
-          {
-            break;
-          }
-
-          v34 += 7;
-          v11 = v35++ >= 9;
-          if (v11)
-          {
-            v27 = 0;
-            goto LABEL_71;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v27 = 0;
-        }
-
-        else
-        {
-          v27 = v36;
-        }
-
-LABEL_71:
-        v41 = 8;
-LABEL_78:
-        *(a1 + v41) = v27;
-        goto LABEL_79;
-      case 0x14:
-        v14 = 0;
-        v15 = 0;
-        v16 = 0;
-        *(a1 + 44) |= 8u;
-        while (1)
-        {
-          LOBYTE(v44[0]) = 0;
-          v17 = [a2 position] + 1;
-          if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
-          {
-            v19 = [a2 data];
-            [v19 getBytes:v44 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v16 |= (v44[0] & 0x7F) << v14;
-          if ((v44[0] & 0x80) == 0)
-          {
-            break;
-          }
-
-          v14 += 7;
-          v11 = v15++ >= 9;
-          if (v11)
-          {
-            LOBYTE(v20) = 0;
-            goto LABEL_73;
-          }
-        }
-
-        v20 = (v16 != 0) & ~[a2 hasError];
-LABEL_73:
-        *(a1 + 40) = v20;
-        goto LABEL_79;
-    }
-
-    goto LABEL_62;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t HDCodableSharingRelationshipReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v29) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v29 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v29 & 0x7F) << v5;
-        if ((v29 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 3)
-      {
-        switch(v13)
-        {
-          case 4:
-            v16 = PBReaderReadString();
-            if (v16)
-            {
-              [a1 addAuthorizationIdentifiers:v16];
-            }
-
-            goto LABEL_47;
-          case 5:
-            v16 = objc_alloc_init(HDCodableSharingAuthorization);
-            [a1 addSharingAuthorizations:v16];
-            v29 = 0;
-            v30 = 0;
-            if (!PBReaderPlaceMark() || !HDCodableSharingAuthorizationReadFrom(v16, a2))
-            {
-LABEL_56:
-
-              return 0;
-            }
-
-LABEL_46:
-            PBReaderRecallMark();
-LABEL_47:
-
-            goto LABEL_54;
-          case 6:
-            v16 = objc_alloc_init(HDCodableSyncIdentity);
-            objc_storeStrong((a1 + 48), v16);
-            v29 = 0;
-            v30 = 0;
-            if (!PBReaderPlaceMark() || !HDCodableSyncIdentityReadFrom(v16, a2))
-            {
-              goto LABEL_56;
-            }
-
-            goto LABEL_46;
-        }
-      }
-
-      else
-      {
-        switch(v13)
-        {
-          case 1:
-            v17 = PBReaderReadString();
-            v18 = *(a1 + 24);
-            *(a1 + 24) = v17;
-
-            goto LABEL_54;
-          case 2:
-            v19 = 0;
-            v20 = 0;
-            v21 = 0;
-            *(a1 + 56) |= 2u;
-            while (1)
-            {
-              LOBYTE(v29) = 0;
-              v22 = [a2 position] + 1;
-              if (v22 >= [a2 position] && (v23 = objc_msgSend(a2, "position") + 1, v23 <= objc_msgSend(a2, "length")))
-              {
-                v24 = [a2 data];
-                [v24 getBytes:&v29 range:{objc_msgSend(a2, "position"), 1}];
-
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v21 |= (v29 & 0x7F) << v19;
-              if ((v29 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v19 += 7;
-              v11 = v20++ >= 9;
-              if (v11)
-              {
-                v25 = 0;
-                goto LABEL_51;
-              }
-            }
-
-            if ([a2 hasError])
-            {
-              v25 = 0;
-            }
-
-            else
-            {
-              v25 = v21;
-            }
-
-LABEL_51:
-            *(a1 + 32) = v25;
-            goto LABEL_54;
-          case 3:
-            *(a1 + 56) |= 1u;
-            v29 = 0;
-            v14 = [a2 position] + 8;
-            if (v14 >= [a2 position] && (v15 = objc_msgSend(a2, "position") + 8, v15 <= objc_msgSend(a2, "length")))
-            {
-              v26 = [a2 data];
-              [v26 getBytes:&v29 range:{objc_msgSend(a2, "position"), 8}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            *(a1 + 8) = v29;
-            goto LABEL_54;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_54:
-      v27 = [a2 position];
-    }
-
-    while (v27 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t HDCodableObjectAuthorizationReadFrom(void *a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v17[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v17 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v17[0] & 0x7F) << v5;
-        if ((v17[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = PBReaderReadData();
-        v14 = a1[2];
-        a1[2] = v13;
-LABEL_23:
-
-        goto LABEL_25;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_25:
-      v15 = [a2 position];
-      if (v15 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v14 = objc_alloc_init(HDCodableObjectSourceAuthorization);
-    [a1 addAuthorizations:v14];
-    v17[0] = 0;
-    v17[1] = 0;
-    if (!PBReaderPlaceMark() || !HDCodableObjectSourceAuthorizationReadFrom(v14, a2))
-    {
-
-      return 0;
-    }
-
-    PBReaderRecallMark();
-    goto LABEL_23;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_228DE51A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__134(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_228DE573C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
-{
-  va_start(va, a17);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HDMedicalUserDomainConceptEntityPredicateForCategoryType(uint64_t a1, int a2)
-{
-  if (a2)
-  {
-    v2 = 1;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  return [MEMORY[0x277D10B18] predicateWithProperty:@"medical_user_domain_concept_category_types.category_type" value:a1 comparisonType:v2];
-}
-
-id HDMedicalUserDomainConceptEntityPredicateForMedicalRecordWithUUID(uint64_t a1, int a2)
-{
-  if (a2)
-  {
-    v2 = 1;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  v3 = MEMORY[0x277D10B18];
-  v4 = _HDSQLiteValueForUUID();
-  v5 = [v3 predicateWithProperty:@"objects.uuid" value:v4 comparisonType:v2];
-
-  return v5;
-}
-
-void sub_228DE6E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__135(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-uint64_t __Block_byref_object_copy__136(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_228DEA0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228DEA3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HDCodableWorkoutReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 >= [a2 length])
-  {
-    return [a2 hasError] ^ 1;
-  }
-
-  while (2)
-  {
-    if ([a2 hasError])
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
-    while (1)
-    {
-      LOBYTE(v53) = 0;
-      v8 = [a2 position] + 1;
-      if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-      {
-        v10 = [a2 data];
-        [v10 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      v7 |= (v53 & 0x7F) << v5;
-      if ((v53 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v5 += 7;
-      v11 = v6++ >= 9;
-      if (v11)
-      {
-        v12 = 0;
-        goto LABEL_15;
-      }
-    }
-
-    v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-    if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    switch((v12 >> 3))
-    {
-      case 1u:
-        v13 = objc_alloc_init(HDCodableSample);
-        objc_storeStrong((a1 + 96), v13);
-        v53 = 0;
-        v54 = 0;
-        if (PBReaderPlaceMark() && HDCodableSampleReadFrom(v13, a2))
-        {
-          goto LABEL_55;
-        }
-
-        goto LABEL_99;
-      case 2u:
-        v22 = 0;
-        v23 = 0;
-        v24 = 0;
-        *(a1 + 120) |= 0x100u;
-        while (1)
-        {
-          LOBYTE(v53) = 0;
-          v25 = [a2 position] + 1;
-          if (v25 >= [a2 position] && (v26 = objc_msgSend(a2, "position") + 1, v26 <= objc_msgSend(a2, "length")))
-          {
-            v27 = [a2 data];
-            [v27 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v24 |= (v53 & 0x7F) << v22;
-          if ((v53 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v22 += 7;
-          v11 = v23++ >= 9;
-          if (v11)
-          {
-            v28 = 0;
-            goto LABEL_76;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v28 = 0;
-        }
-
-        else
-        {
-          v28 = v24;
-        }
-
-LABEL_76:
-        v41 = 72;
-        goto LABEL_81;
-      case 3u:
-        v13 = objc_alloc_init(HDCodableWorkoutEvent);
-        [a1 addEvents:v13];
-        v53 = 0;
-        v54 = 0;
-        if (!PBReaderPlaceMark() || !HDCodableWorkoutEventReadFrom(v13, a2))
-        {
-          goto LABEL_99;
-        }
-
-        goto LABEL_55;
-      case 4u:
-        *(a1 + 120) |= 1u;
-        v53 = 0;
-        v18 = [a2 position] + 8;
-        if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 8, v19 <= objc_msgSend(a2, "length")))
-        {
-          v46 = [a2 data];
-          [v46 getBytes:&v53 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v43 = v53;
-        v44 = 8;
-        goto LABEL_96;
-      case 5u:
-        *(a1 + 120) |= 0x20u;
-        v53 = 0;
-        v14 = [a2 position] + 8;
-        if (v14 >= [a2 position] && (v15 = objc_msgSend(a2, "position") + 8, v15 <= objc_msgSend(a2, "length")))
-        {
-          v42 = [a2 data];
-          [v42 getBytes:&v53 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v43 = v53;
-        v44 = 48;
-        goto LABEL_96;
-      case 6u:
-        *(a1 + 120) |= 0x10u;
-        v53 = 0;
-        v29 = [a2 position] + 8;
-        if (v29 >= [a2 position] && (v30 = objc_msgSend(a2, "position") + 8, v30 <= objc_msgSend(a2, "length")))
-        {
-          v48 = [a2 data];
-          [v48 getBytes:&v53 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v43 = v53;
-        v44 = 40;
-        goto LABEL_96;
-      case 7u:
-        v31 = 0;
-        v32 = 0;
-        v33 = 0;
-        *(a1 + 120) |= 4u;
-        while (1)
-        {
-          LOBYTE(v53) = 0;
-          v34 = [a2 position] + 1;
-          if (v34 >= [a2 position] && (v35 = objc_msgSend(a2, "position") + 1, v35 <= objc_msgSend(a2, "length")))
-          {
-            v36 = [a2 data];
-            [v36 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v33 |= (v53 & 0x7F) << v31;
-          if ((v53 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v31 += 7;
-          v11 = v32++ >= 9;
-          if (v11)
-          {
-            v28 = 0;
-            goto LABEL_80;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v28 = 0;
-        }
-
-        else
-        {
-          v28 = v33;
-        }
-
-LABEL_80:
-        v41 = 24;
-LABEL_81:
-        *(a1 + v41) = v28;
-        goto LABEL_97;
-      case 8u:
-        *(a1 + 120) |= 2u;
-        v53 = 0;
-        v20 = [a2 position] + 8;
-        if (v20 >= [a2 position] && (v21 = objc_msgSend(a2, "position") + 8, v21 <= objc_msgSend(a2, "length")))
-        {
-          v47 = [a2 data];
-          [v47 getBytes:&v53 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v43 = v53;
-        v44 = 16;
-        goto LABEL_96;
-      case 9u:
-        *(a1 + 120) |= 8u;
-        v53 = 0;
-        v39 = [a2 position] + 8;
-        if (v39 >= [a2 position] && (v40 = objc_msgSend(a2, "position") + 8, v40 <= objc_msgSend(a2, "length")))
-        {
-          v50 = [a2 data];
-          [v50 getBytes:&v53 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v43 = v53;
-        v44 = 32;
-        goto LABEL_96;
-      case 0xAu:
-        *(a1 + 120) |= 0x80u;
-        v53 = 0;
-        v16 = [a2 position] + 8;
-        if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 8, v17 <= objc_msgSend(a2, "length")))
-        {
-          v45 = [a2 data];
-          [v45 getBytes:&v53 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v43 = v53;
-        v44 = 64;
-        goto LABEL_96;
-      case 0xBu:
-        *(a1 + 120) |= 0x40u;
-        v53 = 0;
-        v37 = [a2 position] + 8;
-        if (v37 >= [a2 position] && (v38 = objc_msgSend(a2, "position") + 8, v38 <= objc_msgSend(a2, "length")))
-        {
-          v49 = [a2 data];
-          [v49 getBytes:&v53 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v43 = v53;
-        v44 = 56;
-LABEL_96:
-        *(a1 + v44) = v43;
-        goto LABEL_97;
-      case 0xCu:
-        v13 = objc_alloc_init(HDCodableWorkoutActivity);
-        objc_storeStrong((a1 + 88), v13);
-        goto LABEL_26;
-      case 0xDu:
-        v13 = objc_alloc_init(HDCodableWorkoutActivity);
-        [a1 addSubActivities:v13];
-LABEL_26:
-        v53 = 0;
-        v54 = 0;
-        if (!PBReaderPlaceMark() || !HDCodableWorkoutActivityReadFrom(v13, a2))
-        {
-          goto LABEL_99;
-        }
-
-        goto LABEL_55;
-      case 0xEu:
-        v13 = objc_alloc_init(HDCodableWorkoutZone);
-        [a1 addZones:v13];
-        v53 = 0;
-        v54 = 0;
-        if (PBReaderPlaceMark() && HDCodableWorkoutZoneReadFrom(v13, a2))
-        {
-LABEL_55:
-          PBReaderRecallMark();
-
-LABEL_97:
-          v51 = [a2 position];
-          if (v51 >= [a2 length])
-          {
-            return [a2 hasError] ^ 1;
-          }
-
-          continue;
-        }
-
-LABEL_99:
-
-        return 0;
-      default:
-        if ((PBReaderSkipValueWithTag() & 1) == 0)
-        {
-          return 0;
-        }
-
-        goto LABEL_97;
-    }
-  }
-}
-
-void sub_228DF083C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__137(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-HDKeyValueDomain *HDTinkerKeyValueDomainWithProfile(void *a1)
-{
-  v1 = a1;
-  v2 = [[HDKeyValueDomain alloc] initWithCategory:0 domainName:@"Tinker" profile:v1];
-
-  return v2;
-}
-
-HDKeyValueDomain *HDTinkerProtectedKeyValueDomainWithProfile(void *a1)
-{
-  v1 = a1;
-  v2 = [[HDKeyValueDomain alloc] initWithCategory:100 domainName:@"Tinker" profile:v1];
-
-  return v2;
-}
-
-HDKeyValueDomain *HDTinkerSyncedProtectedKeyValueDomainWithProfile(void *a1)
-{
-  v1 = a1;
-  v2 = [[HDKeyValueDomain alloc] initWithCategory:102 domainName:@"Tinker" profile:v1];
-
-  return v2;
-}
-
-uint64_t HDCodableClinicalAccountReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 >= [a2 length])
-  {
-    return [a2 hasError] ^ 1;
-  }
-
-  while (2)
-  {
-    if ([a2 hasError])
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
-    while (1)
-    {
-      LOBYTE(v69) = 0;
-      v8 = [a2 position] + 1;
-      if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-      {
-        v10 = [a2 data];
-        [v10 getBytes:&v69 range:{objc_msgSend(a2, "position"), 1}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      v7 |= (v69 & 0x7F) << v5;
-      if ((v69 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v5 += 7;
-      v11 = v6++ >= 9;
-      if (v11)
-      {
-        v12 = 0;
-        goto LABEL_15;
-      }
-    }
-
-    v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-    if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    switch((v12 >> 3))
-    {
-      case 1u:
-        v13 = PBReaderReadString();
-        v14 = 112;
-        goto LABEL_78;
-      case 3u:
-        v29 = 0;
-        v30 = 0;
-        v31 = 0;
-        *(a1 + 164) |= 0x400u;
-        while (1)
-        {
-          LOBYTE(v69) = 0;
-          v32 = [a2 position] + 1;
-          if (v32 >= [a2 position] && (v33 = objc_msgSend(a2, "position") + 1, v33 <= objc_msgSend(a2, "length")))
-          {
-            v34 = [a2 data];
-            [v34 getBytes:&v69 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v31 |= (v69 & 0x7F) << v29;
-          if ((v69 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v29 += 7;
-          v11 = v30++ >= 9;
-          if (v11)
-          {
-            LOBYTE(v35) = 0;
-            goto LABEL_96;
-          }
-        }
-
-        v35 = (v31 != 0) & ~[a2 hasError];
-LABEL_96:
-        *(a1 + 160) = v35;
-        goto LABEL_121;
-      case 5u:
-        *(a1 + 164) |= 0x10u;
-        v69 = 0;
-        v25 = [a2 position] + 8;
-        if (v25 >= [a2 position] && (v26 = objc_msgSend(a2, "position") + 8, v26 <= objc_msgSend(a2, "length")))
-        {
-          v61 = [a2 data];
-          [v61 getBytes:&v69 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v59 = v69;
-        v60 = 40;
-        goto LABEL_120;
-      case 6u:
-        *(a1 + 164) |= 0x200u;
-        v69 = 0;
-        v44 = [a2 position] + 8;
-        if (v44 >= [a2 position] && (v45 = objc_msgSend(a2, "position") + 8, v45 <= objc_msgSend(a2, "length")))
-        {
-          v64 = [a2 data];
-          [v64 getBytes:&v69 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v59 = v69;
-        v60 = 80;
-        goto LABEL_120;
-      case 7u:
-        *(a1 + 164) |= 0x80u;
-        v69 = 0;
-        v46 = [a2 position] + 8;
-        if (v46 >= [a2 position] && (v47 = objc_msgSend(a2, "position") + 8, v47 <= objc_msgSend(a2, "length")))
-        {
-          v65 = [a2 data];
-          [v65 getBytes:&v69 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v59 = v69;
-        v60 = 64;
-        goto LABEL_120;
-      case 8u:
-        v13 = PBReaderReadData();
-        v14 = 144;
-        goto LABEL_78;
-      case 9u:
-        *(a1 + 164) |= 0x100u;
-        v69 = 0;
-        v36 = [a2 position] + 8;
-        if (v36 >= [a2 position] && (v37 = objc_msgSend(a2, "position") + 8, v37 <= objc_msgSend(a2, "length")))
-        {
-          v63 = [a2 data];
-          [v63 getBytes:&v69 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v59 = v69;
-        v60 = 72;
-        goto LABEL_120;
-      case 0xAu:
-        v13 = PBReaderReadString();
-        v14 = 88;
-        goto LABEL_78;
-      case 0xBu:
-        v13 = PBReaderReadString();
-        v14 = 128;
-        goto LABEL_78;
-      case 0xCu:
-        v24 = objc_alloc_init(HDCodableMessageVersion);
-        objc_storeStrong((a1 + 120), v24);
-        v69 = 0;
-        v70 = 0;
-        if (PBReaderPlaceMark() && HDCodableMessageVersionReadFrom(v24, a2))
-        {
-          goto LABEL_76;
-        }
-
-        goto LABEL_123;
-      case 0xDu:
-        v13 = PBReaderReadString();
-        v14 = 136;
-        goto LABEL_78;
-      case 0xEu:
-        *(a1 + 164) |= 1u;
-        v69 = 0;
-        v27 = [a2 position] + 8;
-        if (v27 >= [a2 position] && (v28 = objc_msgSend(a2, "position") + 8, v28 <= objc_msgSend(a2, "length")))
-        {
-          v62 = [a2 data];
-          [v62 getBytes:&v69 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v59 = v69;
-        v60 = 8;
-        goto LABEL_120;
-      case 0xFu:
-        *(a1 + 164) |= 2u;
-        v69 = 0;
-        v22 = [a2 position] + 8;
-        if (v22 >= [a2 position] && (v23 = objc_msgSend(a2, "position") + 8, v23 <= objc_msgSend(a2, "length")))
-        {
-          v58 = [a2 data];
-          [v58 getBytes:&v69 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v59 = v69;
-        v60 = 16;
-        goto LABEL_120;
-      case 0x11u:
-        v15 = 0;
-        v16 = 0;
-        v17 = 0;
-        *(a1 + 164) |= 8u;
-        while (1)
-        {
-          LOBYTE(v69) = 0;
-          v18 = [a2 position] + 1;
-          if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 1, v19 <= objc_msgSend(a2, "length")))
-          {
-            v20 = [a2 data];
-            [v20 getBytes:&v69 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v17 |= (v69 & 0x7F) << v15;
-          if ((v69 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v15 += 7;
-          v11 = v16++ >= 9;
-          if (v11)
-          {
-            v21 = 0;
-            goto LABEL_94;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v21 = 0;
-        }
-
-        else
-        {
-          v21 = v17;
-        }
-
-LABEL_94:
-        v57 = 32;
-        goto LABEL_105;
-      case 0x12u:
-        v38 = 0;
-        v39 = 0;
-        v40 = 0;
-        *(a1 + 164) |= 4u;
-        while (1)
-        {
-          LOBYTE(v69) = 0;
-          v41 = [a2 position] + 1;
-          if (v41 >= [a2 position] && (v42 = objc_msgSend(a2, "position") + 1, v42 <= objc_msgSend(a2, "length")))
-          {
-            v43 = [a2 data];
-            [v43 getBytes:&v69 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v40 |= (v69 & 0x7F) << v38;
-          if ((v69 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v38 += 7;
-          v11 = v39++ >= 9;
-          if (v11)
-          {
-            v21 = 0;
-            goto LABEL_100;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v21 = 0;
-        }
-
-        else
-        {
-          v21 = v40;
-        }
-
-LABEL_100:
-        v57 = 24;
-        goto LABEL_105;
-      case 0x13u:
-        v13 = PBReaderReadString();
-        v14 = 96;
-        goto LABEL_78;
-      case 0x14u:
-        *(a1 + 164) |= 0x40u;
-        v69 = 0;
-        v55 = [a2 position] + 8;
-        if (v55 >= [a2 position] && (v56 = objc_msgSend(a2, "position") + 8, v56 <= objc_msgSend(a2, "length")))
-        {
-          v66 = [a2 data];
-          [v66 getBytes:&v69 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v59 = v69;
-        v60 = 56;
-LABEL_120:
-        *(a1 + v60) = v59;
-        goto LABEL_121;
-      case 0x15u:
-        v49 = 0;
-        v50 = 0;
-        v51 = 0;
-        *(a1 + 164) |= 0x20u;
-        while (1)
-        {
-          LOBYTE(v69) = 0;
-          v52 = [a2 position] + 1;
-          if (v52 >= [a2 position] && (v53 = objc_msgSend(a2, "position") + 1, v53 <= objc_msgSend(a2, "length")))
-          {
-            v54 = [a2 data];
-            [v54 getBytes:&v69 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v51 |= (v69 & 0x7F) << v49;
-          if ((v69 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v49 += 7;
-          v11 = v50++ >= 9;
-          if (v11)
-          {
-            v21 = 0;
-            goto LABEL_104;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v21 = 0;
-        }
-
-        else
-        {
-          v21 = v51;
-        }
-
-LABEL_104:
-        v57 = 48;
-LABEL_105:
-        *(a1 + v57) = v21;
-        goto LABEL_121;
-      case 0x16u:
-        v13 = PBReaderReadData();
-        v14 = 104;
-LABEL_78:
-        v48 = *(a1 + v14);
-        *(a1 + v14) = v13;
-
-        goto LABEL_121;
-      case 0x17u:
-        v24 = objc_alloc_init(HDCodableSyncIdentity);
-        objc_storeStrong((a1 + 152), v24);
-        v69 = 0;
-        v70 = 0;
-        if (PBReaderPlaceMark() && HDCodableSyncIdentityReadFrom(v24, a2))
-        {
-LABEL_76:
-          PBReaderRecallMark();
-
-LABEL_121:
-          v67 = [a2 position];
-          if (v67 >= [a2 length])
-          {
-            return [a2 hasError] ^ 1;
-          }
-
-          continue;
-        }
-
-LABEL_123:
-
-        return 0;
-      default:
-        if ((PBReaderSkipValueWithTag() & 1) == 0)
-        {
-          return 0;
-        }
-
-        goto LABEL_121;
-    }
-  }
-}
-
-void sub_228DF4A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__138(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_228DF4E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
-{
-  _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 152), 8);
-  _Block_object_dispose((v34 - 120), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HDCodableOntologyLocalizedEducationContentSectionReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v23[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v23 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v23[0] & 0x7F) << v5;
-        if ((v23[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        v20 = objc_alloc_init(HDCodableSectionData);
-        [a1 addSectionData:v20];
-        v23[0] = 0;
-        v23[1] = 0;
-        if (!PBReaderPlaceMark() || !HDCodableSectionDataReadFrom(v20, a2))
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if ((v12 >> 3) == 1)
-      {
-        v13 = 0;
-        v14 = 0;
-        v15 = 0;
-        *(a1 + 24) |= 1u;
-        while (1)
-        {
-          LOBYTE(v23[0]) = 0;
-          v16 = [a2 position] + 1;
-          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
-          {
-            v18 = [a2 data];
-            [v18 getBytes:v23 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v15 |= (v23[0] & 0x7F) << v13;
-          if ((v23[0] & 0x80) == 0)
-          {
-            break;
-          }
-
-          v13 += 7;
-          v11 = v14++ >= 9;
-          if (v11)
-          {
-            v19 = 0;
-            goto LABEL_36;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v19 = 0;
-        }
-
-        else
-        {
-          v19 = v15;
-        }
-
-LABEL_36:
-        *(a1 + 8) = v19;
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v21 = [a2 position];
-    }
-
-    while (v21 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_228DF82E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id location)
-{
-  objc_destroyWeak((v10 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HDCodableMessageVersionReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v29 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v29 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v29 & 0x7F) << v5;
-        if ((v29 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = 0;
-        v14 = 0;
-        v15 = 0;
-        *(a1 + 16) |= 2u;
-        while (1)
-        {
-          v31 = 0;
-          v16 = [a2 position] + 1;
-          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
-          {
-            v18 = [a2 data];
-            [v18 getBytes:&v31 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v15 |= (v31 & 0x7F) << v13;
-          if ((v31 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v13 += 7;
-          v19 = v14++ > 8;
-          if (v19)
-          {
-            v20 = 0;
-            v21 = &OBJC_IVAR___HDCodableMessageVersion__entityVersion;
-            goto LABEL_44;
-          }
-        }
-
-        v21 = &OBJC_IVAR___HDCodableMessageVersion__entityVersion;
-LABEL_41:
-        if ([a2 hasError])
-        {
-          v20 = 0;
-        }
-
-        else
-        {
-          v20 = v15;
-        }
-
-LABEL_44:
-        *(a1 + *v21) = v20;
-        goto LABEL_45;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_45:
-      v27 = [a2 position];
-      if (v27 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v22 = 0;
-    v23 = 0;
-    v15 = 0;
-    *(a1 + 16) |= 1u;
-    while (1)
-    {
-      v30 = 0;
-      v24 = [a2 position] + 1;
-      if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 1, v25 <= objc_msgSend(a2, "length")))
-      {
-        v26 = [a2 data];
-        [v26 getBytes:&v30 range:{objc_msgSend(a2, "position"), 1}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      v15 |= (v30 & 0x7F) << v22;
-      if ((v30 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v22 += 7;
-      v19 = v23++ > 8;
-      if (v19)
-      {
-        v20 = 0;
-        v21 = &OBJC_IVAR___HDCodableMessageVersion__compatibilityVersion;
-        goto LABEL_44;
-      }
-    }
-
-    v21 = &OBJC_IVAR___HDCodableMessageVersion__compatibilityVersion;
-    goto LABEL_41;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
 id HDBuiltinSyncEntityClassForType(uint64_t a1)
 {
   v3 = 0;
-  v4 = a1 - 1;
-  v5 = off_27860D850;
-  switch(v4)
+  switch(a1)
   {
-    case 0:
-      goto LABEL_44;
     case 1:
-      v5 = off_27860DA70;
-      goto LABEL_44;
     case 2:
-      v5 = off_27860E700;
-      goto LABEL_44;
     case 3:
-      v5 = off_27860F1E8;
-      goto LABEL_44;
     case 4:
-      v5 = off_27860F948;
-      goto LABEL_44;
-    case 7:
-      v5 = off_27860F690;
-      goto LABEL_44;
+    case 5:
     case 8:
-      v5 = off_27860D910;
-      goto LABEL_44;
     case 9:
-      v5 = off_27860F648;
-      goto LABEL_44;
     case 10:
-      v5 = off_27860F4D0;
-      goto LABEL_44;
     case 11:
-      v5 = off_27860D9A8;
-      goto LABEL_44;
     case 12:
-      v5 = off_27860EAD0;
-      goto LABEL_44;
     case 13:
-      v5 = off_27860EE38;
-      goto LABEL_44;
     case 14:
-      v5 = off_27860EEB0;
-      goto LABEL_44;
     case 15:
-      v5 = off_27860F678;
-      goto LABEL_44;
     case 16:
-      v5 = off_27860F188;
-      goto LABEL_44;
     case 17:
-      v5 = off_27860EE20;
-      goto LABEL_44;
     case 18:
-      v5 = off_27860E968;
-      goto LABEL_44;
-    case 21:
-      v5 = off_27860DA18;
-      goto LABEL_44;
+    case 19:
     case 22:
-      v5 = off_27860F068;
-      goto LABEL_44;
-    case 25:
-      v5 = off_27860D9F0;
-      goto LABEL_44;
-    case 43:
-      v5 = off_27860F6A0;
-      goto LABEL_44;
-    case 47:
-      v5 = off_27860D968;
-      goto LABEL_44;
+    case 23:
+    case 26:
+    case 44:
     case 48:
-      v5 = off_27860EBC8;
-      goto LABEL_44;
     case 49:
-      v5 = off_27860EBB8;
-      goto LABEL_44;
     case 50:
-      v5 = off_27860EBD8;
-      goto LABEL_44;
     case 51:
-      v5 = off_27860F488;
-      goto LABEL_44;
     case 52:
-      v5 = off_27860EB20;
-      goto LABEL_44;
     case 53:
-      v5 = off_27860F0A8;
-      goto LABEL_44;
     case 54:
-      v5 = off_27860EFA0;
-      goto LABEL_44;
     case 55:
-      v5 = off_27860E6E0;
-      goto LABEL_44;
-    case 58:
-      v5 = off_27860F738;
-      goto LABEL_44;
+    case 56:
     case 59:
-      v5 = off_27860F660;
-      goto LABEL_44;
     case 60:
-      v5 = off_27860F438;
-      goto LABEL_44;
     case 61:
-      v5 = off_27860F798;
-      goto LABEL_44;
     case 62:
-      v5 = off_27860EEF0;
-      goto LABEL_44;
     case 63:
-      v5 = off_27860F4F8;
-      goto LABEL_44;
     case 64:
-      v5 = off_27860F368;
-      goto LABEL_44;
     case 65:
-      v5 = off_27860F998;
-      goto LABEL_44;
     case 66:
-      v5 = off_27860F980;
-      goto LABEL_44;
     case 67:
-      v5 = off_27860F670;
-      goto LABEL_44;
     case 68:
-      v5 = off_27860D860;
-      goto LABEL_44;
     case 69:
-      v5 = off_27860F0F0;
-      goto LABEL_44;
     case 70:
-      v5 = off_27860F630;
-LABEL_44:
-      v6 = *v5;
+    case 71:
       v3 = objc_opt_class();
       break;
     default:
@@ -2183,54 +69,52 @@ id HDBuiltinOrderedSyncEntities()
 
 void __HDBuiltinOrderedSyncEntities_block_invoke()
 {
-  v3[42] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v3[11] = objc_opt_class();
-  v3[12] = objc_opt_class();
-  v3[13] = objc_opt_class();
-  v3[14] = objc_opt_class();
-  v3[15] = objc_opt_class();
-  v3[16] = objc_opt_class();
-  v3[17] = objc_opt_class();
-  v3[18] = objc_opt_class();
-  v3[19] = objc_opt_class();
-  v3[20] = objc_opt_class();
-  v3[21] = objc_opt_class();
-  v3[22] = objc_opt_class();
-  v3[23] = objc_opt_class();
-  v3[24] = objc_opt_class();
-  v3[25] = objc_opt_class();
-  v3[26] = objc_opt_class();
-  v3[27] = objc_opt_class();
-  v3[28] = objc_opt_class();
-  v3[29] = objc_opt_class();
-  v3[30] = objc_opt_class();
-  v3[31] = objc_opt_class();
-  v3[32] = objc_opt_class();
-  v3[33] = objc_opt_class();
-  v3[34] = objc_opt_class();
-  v3[35] = objc_opt_class();
-  v3[36] = objc_opt_class();
-  v3[37] = objc_opt_class();
-  v3[38] = objc_opt_class();
-  v3[39] = objc_opt_class();
-  v3[40] = objc_opt_class();
-  v3[41] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:42];
+  v2[42] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v2[3] = objc_opt_class();
+  v2[4] = objc_opt_class();
+  v2[5] = objc_opt_class();
+  v2[6] = objc_opt_class();
+  v2[7] = objc_opt_class();
+  v2[8] = objc_opt_class();
+  v2[9] = objc_opt_class();
+  v2[10] = objc_opt_class();
+  v2[11] = objc_opt_class();
+  v2[12] = objc_opt_class();
+  v2[13] = objc_opt_class();
+  v2[14] = objc_opt_class();
+  v2[15] = objc_opt_class();
+  v2[16] = objc_opt_class();
+  v2[17] = objc_opt_class();
+  v2[18] = objc_opt_class();
+  v2[19] = objc_opt_class();
+  v2[20] = objc_opt_class();
+  v2[21] = objc_opt_class();
+  v2[22] = objc_opt_class();
+  v2[23] = objc_opt_class();
+  v2[24] = objc_opt_class();
+  v2[25] = objc_opt_class();
+  v2[26] = objc_opt_class();
+  v2[27] = objc_opt_class();
+  v2[28] = objc_opt_class();
+  v2[29] = objc_opt_class();
+  v2[30] = objc_opt_class();
+  v2[31] = objc_opt_class();
+  v2[32] = objc_opt_class();
+  v2[33] = objc_opt_class();
+  v2[34] = objc_opt_class();
+  v2[35] = objc_opt_class();
+  v2[36] = objc_opt_class();
+  v2[37] = objc_opt_class();
+  v2[38] = objc_opt_class();
+  v2[39] = objc_opt_class();
+  v2[40] = objc_opt_class();
+  v2[41] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:42];
   v1 = _MergedGlobals_215;
   _MergedGlobals_215 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 id HDBuiltinStateSyncEntities()
@@ -2441,13 +325,14 @@ LABEL_41:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228DFCEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_228DFCEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
+  va_start(va, a39);
   _Block_object_dispose(&a34, 8);
-  _Block_object_dispose(&a40, 8);
-  _Block_object_dispose((v40 - 216), 8);
-  _Block_object_dispose((v40 - 168), 8);
-  _Block_object_dispose((v40 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v39 - 216), 8);
+  _Block_object_dispose((v39 - 168), 8);
+  _Block_object_dispose((v39 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2458,19 +343,20 @@ uint64_t __Block_byref_object_copy__139(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228DFD8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_228DFD8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a22, 8);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 168), 8);
-  _Block_object_dispose((v34 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 168), 8);
+  _Block_object_dispose((v33 - 120), 8);
   _Unwind_Resume(a1);
 }
 
 id HDPredicateForZoneIDAndRecordName(uint64_t a1, void *a2)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B18];
   v4 = MEMORY[0x277CCABB0];
   v5 = a2;
@@ -2483,12 +369,10 @@ id HDPredicateForZoneIDAndRecordName(uint64_t a1, void *a2)
   v10 = [v8 predicateWithProperty:@"record_name" equalToValue:v9];
 
   v11 = MEMORY[0x277D10B20];
-  v16[0] = v7;
-  v16[1] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v7;
+  v15[1] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v13 = [v11 predicateMatchingAllPredicates:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2504,7 +388,7 @@ id HDPredicateForRecordsSinceEpoch(uint64_t a1)
 
 id HDPredicateForZoneIDAndRecordType(uint64_t a1, void *a2)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B18];
   v4 = MEMORY[0x277CCABB0];
   v5 = a2;
@@ -2517,19 +401,17 @@ id HDPredicateForZoneIDAndRecordType(uint64_t a1, void *a2)
   v10 = [v8 predicateWithProperty:@"record_type" equalToValue:v9];
 
   v11 = MEMORY[0x277D10B20];
-  v16[0] = v7;
-  v16[1] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v7;
+  v15[1] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v13 = [v11 predicateMatchingAllPredicates:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
-void sub_228E02B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228E02B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2550,24 +432,24 @@ id HDPredicateForZoneID(uint64_t a1)
   return v3;
 }
 
-void sub_228E02EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228E02EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E03238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228E03238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-unint64_t HDEntityActivityModeModeForRowAndColumnName(uint64_t a1)
+unint64_t HDEntityActivityModeModeForRowAndColumnName(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithName();
-  if (MEMORY[0x22AAC6CD0](a1, v2))
+  v3 = HDSQLiteColumnWithName();
+  if (MEMORY[0x22AAC6CD0](a1, v3))
   {
     return 1;
   }
@@ -2581,10 +463,10 @@ unint64_t HDEntityActivityModeModeForRowAndColumnName(uint64_t a1)
   return result;
 }
 
-void sub_228E06664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228E06664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  _Block_object_dispose((v13 - 160), 8);
+  va_start(va, a20);
+  _Block_object_dispose((v20 - 160), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2617,9 +499,9 @@ void setUnderlyingDeviceKeyValue(void *a1, void *a2)
   [v9 setProtectionCategory:v8];
 }
 
-void sub_228E0AE88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228E0AE88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2640,22 +522,29 @@ id HDMedicalRecordEntityPredicateForFHIRIdentifier(void *a1)
   return v3;
 }
 
-id HDMedicalRecordEntityPredicateForModifiedDate(uint64_t a1)
+void sub_228E0C1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  v2 = MEMORY[0x277D10B18];
-  v3 = _HDSQLiteValueForDate();
-  v4 = [v2 predicateWithProperty:@"modified_date" value:v3 comparisonType:a1];
-
-  return v4;
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-id HDMedicalRecordEntityPredicateForSortDate(uint64_t a1)
+id HDMedicalRecordEntityPredicateForModifiedDate(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D10B18];
-  v3 = _HDSQLiteValueForDate();
-  v4 = [v2 predicateWithProperty:@"sort_date" value:v3 comparisonType:a1];
+  v3 = MEMORY[0x277D10B18];
+  v4 = _HDSQLiteValueForDate();
+  v5 = [v3 predicateWithProperty:@"modified_date" value:v4 comparisonType:a1];
 
-  return v4;
+  return v5;
+}
+
+id HDMedicalRecordEntityPredicateForSortDate(uint64_t a1, uint64_t a2)
+{
+  v3 = MEMORY[0x277D10B18];
+  v4 = _HDSQLiteValueForDate();
+  v5 = [v3 predicateWithProperty:@"sort_date" value:v4 comparisonType:a1];
+
+  return v5;
 }
 
 id HDMedicalRecordEntityPredicateForState(uint64_t a1, uint64_t a2)
@@ -2724,7 +613,7 @@ LABEL_9:
 
 id HDMedicalRecordEntityPredicateForSignedClinicalDataOriginIdentifier(void *a1)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277D10B50];
   v2 = a1;
   v3 = +[(HDSQLiteSchemaEntity *)HDMedicalRecordEntity];
@@ -2737,24 +626,22 @@ id HDMedicalRecordEntityPredicateForSignedClinicalDataOriginIdentifier(void *a1)
   v8 = [MEMORY[0x277D10B18] predicateWithProperty:@"sync_identifier" equalToValue:v2];
   v9 = [v8 SQLForEntityClass:objc_opt_class()];
   v10 = MEMORY[0x277D10B90];
-  v19[0] = v2;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v2;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v12 = [v10 predicateWithSQL:v9 overProperties:MEMORY[0x277CBEBF8] values:v11];
 
   v13 = MEMORY[0x277D10B20];
-  v18[0] = v7;
-  v18[1] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = v7;
+  v17[1] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v15 = [v13 predicateMatchingAllPredicates:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
-void sub_228E0D46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228E0D46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2766,6 +653,13 @@ void sub_228E105CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_228E11E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__143(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -2773,16 +667,16 @@ uint64_t __Block_byref_object_copy__143(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228E19C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228E19C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E19EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228E19EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3085,9 +979,9 @@ LABEL_63:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228E1CBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E1CBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3368,9 +1262,9 @@ LABEL_36:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228E1FC08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_228E1FC08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3382,14 +1276,14 @@ uint64_t __Block_byref_object_copy__145(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228E20044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_228E20044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3491,20 +1385,20 @@ void sub_228E22EC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_228E23920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_228E23920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
   v11 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va2, 8);
@@ -3518,16 +1412,16 @@ uint64_t __Block_byref_object_copy__146(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228E249D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228E249D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E25B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228E25B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3539,30 +1433,30 @@ uint64_t __Block_byref_object_copy__147(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228E25E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228E25E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E260F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E260F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E26448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E26448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E269F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E269F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3574,17 +1468,18 @@ void sub_228E27618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_228E28364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E28364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E2B180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_228E2B180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3770,6 +1665,13 @@ LABEL_47:
   return [a2 hasError] ^ 1;
 }
 
+void sub_228E2EA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
+{
+  va_start(va, a45);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__149(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -3777,7 +1679,7 @@ uint64_t __Block_byref_object_copy__149(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228E30CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, id a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, id a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id a52)
+void sub_228E30CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, id a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, id a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id a52)
 {
   objc_destroyWeak(&a33);
   _Block_object_dispose(&a34, 8);
@@ -3803,15 +1705,16 @@ void sub_228E313DC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_228E32FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, id a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, id a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_228E32FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, id a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, id a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
+  va_start(va, a60);
   _Block_object_dispose(&a31, 8);
   objc_destroyWeak(&a45);
   objc_destroyWeak(&a55);
   _Block_object_dispose(&a57, 8);
-  _Block_object_dispose(&a61, 8);
-  objc_destroyWeak((v61 - 240));
-  _Block_object_dispose((v61 - 176), 8);
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v60 - 240));
+  _Block_object_dispose((v60 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3830,19 +1733,21 @@ void sub_228E35ED0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_228E38198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_228E38198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   _Block_object_dispose(&a45, 8);
-  _Block_object_dispose(&a49, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E3880C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
+void sub_228E3880C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
 {
+  va_start(va, a58);
   _Block_object_dispose(&a47, 8);
   _Block_object_dispose(&a51, 8);
   _Block_object_dispose(&a55, 8);
-  _Block_object_dispose(&a59, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4004,9 +1909,9 @@ LABEL_38:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228E39FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228E39FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4333,7 +2238,7 @@ __CFString *sizeStringForNumber(NSNumber *a1)
   return v5;
 }
 
-void sub_228E404A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
+void sub_228E404A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
 {
   _Block_object_dispose(&a17, 8);
   if (a24)
@@ -4348,8 +2253,7 @@ __n128 __Block_byref_object_copy__153(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -4374,12 +2278,12 @@ void _HDHFDataStoreWillCloseStore(HDHFDataStore *a1)
   _WithActiveHFDataStores(0, v3);
 }
 
-void sub_228E407D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E407D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 64), 8);
+  _Block_object_dispose((v17 - 64), 8);
 
   _Unwind_Resume(a1);
 }
@@ -4408,7 +2312,7 @@ void sub_228E41068(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_228E41C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_228E41C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a12, 8);
 
@@ -4451,7 +2355,7 @@ void __destroy_helper_block_ea8_40c45_ZTSNSt3__110shared_ptrIN6health9DataStoreE
   }
 }
 
-void sub_228E42540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_228E42540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -4459,7 +2363,7 @@ void sub_228E42540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_228E43A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, void *a16, void *a17, void *a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, health::TransactionalFile *a25, uint64_t a26, health::TransactionalFile *a27, uint64_t a28, health::TransactionalFile *a29)
+void sub_228E43A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, void *a16, void *a17, void *a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, health::TransactionalFile *a25, uint64_t a26, health::TransactionalFile *a27, uint64_t a28, char a29)
 {
   std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](&a25);
   std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](&a27);
@@ -4468,9 +2372,9 @@ void sub_228E43A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_228E44360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_228E44360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__function::__value_func<BOOL ()(health::DataStore::WriteTransaction &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4484,9 +2388,9 @@ __n128 __copy_helper_block_ea8_32c58_ZTSKZ45__HDHFDataStore__lock_restoreHFDFrom
   return result;
 }
 
-void sub_228E44464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_228E44464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<BOOL ()(health::DataStore::WriteTransaction &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4513,7 +2417,7 @@ health::TransactionalFile **std::unique_ptr<health::DataStore>::~unique_ptr[abi:
   return a1;
 }
 
-void sub_228E44600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_228E44600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -4563,21 +2467,19 @@ LABEL_10:
 
 void ___ZL28_HDHFDataStoreWillCloseStoreP13HDHFDataStore_block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Will close store (#hfd)", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Will close store (#hfd)", &v6, 0xCu);
   }
 
   [v3 removeObject:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___ZL23_WithActiveHFDataStoresU13block_pointerFbP11NSHashTableIP13HDHFDataStoreEEU13block_pointerFvS3_E_block_invoke()
@@ -4595,39 +2497,39 @@ uint64_t ___ZL23_WithActiveHFDataStoresU13block_pointerFbP11NSHashTableIP13HDHFD
 
 uint64_t ___ZL27_HDHFDataStoreWillOpenStoreP13HDHFDataStore_block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = [a2 allObjects];
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v4)
   {
-    v6 = *v20;
+    v6 = *v19;
     v7 = MEMORY[0x277CCC2A0];
     *&v5 = 138543618;
-    v18 = v5;
+    v17 = v5;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * v8);
+        v9 = *(*(&v18 + 1) + 8 * v8);
         _HKInitializeLogging();
         v10 = *v7;
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
         {
           v11 = *(a1 + 32);
-          *buf = v18;
-          v24 = v11;
-          v25 = 2114;
-          v26 = v9;
+          *buf = v17;
+          v23 = v11;
+          v24 = 2114;
+          v25 = v9;
           _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Existing open store: %{public}@ (#hfd)", buf, 0x16u);
         }
 
@@ -4645,7 +2547,7 @@ uint64_t ___ZL27_HDHFDataStoreWillOpenStoreP13HDHFDataStore_block_invoke(uint64_
       }
 
       while (v4 != v8);
-      v4 = [v3 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v4)
       {
         continue;
@@ -4658,27 +2560,24 @@ uint64_t ___ZL27_HDHFDataStoreWillOpenStoreP13HDHFDataStore_block_invoke(uint64_
   v15 = 1;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 void ___ZL27_HDHFDataStoreWillOpenStoreP13HDHFDataStore_block_invoke_488(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Will open store (#hfd)", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Will open store (#hfd)", &v6, 0xCu);
   }
 
   [v3 addObject:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 __n128 _ZNKSt3__110__function6__funcIZZ45__HDHFDataStore__lock_restoreHFDFromArchive__ENK3__0clEPU15__autoreleasingP7NSErrorEUlRT_E_NS_9allocatorIS9_EEFbRN6health9DataStore16WriteTransactionEEE7__cloneEPNS0_6__baseISG_EE(uint64_t a1, uint64_t a2)
@@ -4760,9 +2659,9 @@ void sub_228E46D7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_228E47738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E47738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4774,16 +2673,30 @@ uint64_t __Block_byref_object_copy__154(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228E47B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E479C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a9);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E47FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E47B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228E47E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228E47FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5093,10 +3006,36 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228E4CD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E4CD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228E4EF58(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int buf, __int128 a20, uint64_t a21, __int128 a22)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    _HKInitializeLogging();
+    v24 = *MEMORY[0x277CCC308];
+    if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
+    {
+      buf = 138544130;
+      WORD2(a20) = 2048;
+      *(&a20 + 6) = a13;
+      HIWORD(a20) = 2048;
+      a21 = v23;
+      LOWORD(a22) = 2048;
+      *(&a22 + 2) = v22;
+      _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "%{public}@: Caught exception adding data point with value %lf (%lf -> %lf); ignoring.", &buf, 0x2Au);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x228E4EF10);
+  }
+
   _Unwind_Resume(a1);
 }
 
@@ -5346,44 +3285,44 @@ uint64_t _HDAddLegacySyncIdentityToSyncIdentityTable(void *a1, void *a2, uint64_
   return v12;
 }
 
-void sub_228E51740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228E51740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _HDSyncIdentityUpdateForDeviceEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 unprotectedDatabase];
   if ([v8 executeUncachedSQL:@"CREATE TABLE source_devices_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{name TEXT NOT NULL, manufacturer TEXT NOT NULL, model TEXT NOT NULL, hardware TEXT NOT NULL, firmware TEXT NOT NULL, software TEXT NOT NULL, localIdentifier TEXT NOT NULL, FDAUDI TEXT NOT NULL, creation_date REAL NOT NULL, sync_provenance INTEGER NOT NULL, uuid BLOB UNIQUE NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(name, manufacturer, model, hardware, firmware, software, localIdentifier, FDAUDI, sync_provenance, uuid, sync_identity));", a4}])
   {
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT ROWID FROM sync_identities WHERE hardware_identifier = %@('00000000-0000-0000-0000-000000000000') AND database_identifier = %@('00000000-0000-0000-0000-000000000000') AND instance_discriminator = '' LIMIT 1", *MEMORY[0x277D10A68], *MEMORY[0x277D10A68]];;
-    v18[0] = 0;
-    v18[1] = v18;
-    v18[2] = 0x2020000000;
-    v18[3] = 0;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = ___HDSyncIdentityUpdateForDeviceEntity_block_invoke;
-    v17[3] = &unk_278614620;
-    v17[4] = v18;
-    if ([v8 executeSQL:v9 error:a4 bindingHandler:0 enumerationHandler:v17])
+    v17[0] = 0;
+    v17[1] = v17;
+    v17[2] = 0x2020000000;
+    v17[3] = 0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = ___HDSyncIdentityUpdateForDeviceEntity_block_invoke;
+    v16[3] = &unk_278614620;
+    v16[4] = v17;
+    if ([v8 executeSQL:v9 error:a4 bindingHandler:0 enumerationHandler:v16])
     {
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO source_devices_new (ROWID, name, manufacturer, model, hardware, firmware, software, localIdentifier, FDAUDI, creation_date, sync_provenance, uuid, sync_identity) SELECT ROWID, name, manufacturer, model, hardware, firmware, software, localIdentifier, FDAUDI, creation_date, sync_provenance, uuid, ? AS sync_identity FROM source_devices"];;
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = ___HDSyncIdentityUpdateForDeviceEntity_block_invoke_2;
-      v16[3] = &unk_2786140E8;
-      v16[4] = v18;
-      if ([v8 executeSQL:v10 error:a4 bindingHandler:v16 enumerationHandler:0])
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = ___HDSyncIdentityUpdateForDeviceEntity_block_invoke_2;
+      v15[3] = &unk_2786140E8;
+      v15[4] = v17;
+      if ([v8 executeSQL:v10 error:a4 bindingHandler:v15 enumerationHandler:0])
       {
-        v19[0] = @"DROP TABLE source_devices;";
-        v19[1] = @"ALTER TABLE source_devices_new RENAME TO source_devices;";
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+        v18[0] = @"DROP TABLE source_devices;";
+        v18[1] = @"ALTER TABLE source_devices_new RENAME TO source_devices;";
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
         v12 = [v8 executeSQLStatements:v11 error:a4];
 
         v13 = v12 ^ 1u;
@@ -5400,7 +3339,7 @@ uint64_t _HDSyncIdentityUpdateForDeviceEntity(void *a1, void *a2, uint64_t a3, u
       v13 = 1;
     }
 
-    _Block_object_dispose(v18, 8);
+    _Block_object_dispose(v17, 8);
   }
 
   else
@@ -5408,13 +3347,12 @@ uint64_t _HDSyncIdentityUpdateForDeviceEntity(void *a1, void *a2, uint64_t a3, u
     v13 = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-void sub_228E519AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_228E519AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5471,9 +3409,9 @@ uint64_t _HDSyncIdentityUpdateForSourceEntity(void *a1, void *a2, uint64_t a3, u
   return v11;
 }
 
-void sub_228E51BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228E51BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5517,9 +3455,9 @@ uint64_t _IncrementSourceOrderSyncAnchors(void *a1, void *a2, uint64_t a3, uint6
   return v12;
 }
 
-void sub_228E51D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228E51D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5576,9 +3514,9 @@ uint64_t _HDSyncIdentityUpdateForLogicalSourceOrderEntity(void *a1, void *a2, ui
   return v11;
 }
 
-void sub_228E51F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228E51F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5635,36 +3573,36 @@ uint64_t _HDSyncIdentityUpdateForAuthorizationEntity(void *a1, void *a2, uint64_
   return v11;
 }
 
-void sub_228E52160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228E52160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _HDSyncIdentityUpdateForOnboardingCompletionEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 unprotectedDatabase];
   if ([v8 executeUncachedSQL:@"CREATE TABLE onboarding_completions_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{uuid BLOB NOT NULL UNIQUE, feature_identifier TEXT NOT NULL, version INTEGER NOT NULL, completion_date REAL NOT NULL, country_code TEXT, mod_date REAL NOT NULL, deleted INTEGER NOT NULL DEFAULT 0, sync_provenance INTEGER NOT NULL, country_code_provenance INTEGER NOT NULL DEFAULT 0, sync_identity INTEGER NOT NULL);", a4}])
   {
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT ROWID FROM sync_identities WHERE hardware_identifier = %@('00000000-0000-0000-0000-000000000000') AND database_identifier = %@('00000000-0000-0000-0000-000000000000') AND instance_discriminator = '' LIMIT 1", *MEMORY[0x277D10A68], *MEMORY[0x277D10A68]];;
-    v17[0] = 0;
-    v17[1] = v17;
-    v17[2] = 0x2020000000;
-    v17[3] = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = ___HDSyncIdentityUpdateForOnboardingCompletionEntity_block_invoke;
-    v16[3] = &unk_278614620;
-    v16[4] = v17;
-    if ([v8 executeSQL:v9 error:a4 bindingHandler:0 enumerationHandler:v16] & 1) != 0 && (v15[0] = MEMORY[0x277D85DD0], v15[1] = 3221225472, v15[2] = ___HDSyncIdentityUpdateForOnboardingCompletionEntity_block_invoke_2, v15[3] = &unk_2786140E8, v15[4] = v17, (objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO onboarding_completions_new (ROWID, uuid, feature_identifier, version, completion_date, country_code, mod_date, deleted, sync_provenance, country_code_provenance, sync_identity) SELECT ROWID, uuid, feature_identifier, version, completion_date, country_code, mod_date, deleted, sync_provenance, country_code_provenance, ? FROM onboarding_completions;", a4, v15, 0)))
+    v16[0] = 0;
+    v16[1] = v16;
+    v16[2] = 0x2020000000;
+    v16[3] = 0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = ___HDSyncIdentityUpdateForOnboardingCompletionEntity_block_invoke;
+    v15[3] = &unk_278614620;
+    v15[4] = v16;
+    if ([v8 executeSQL:v9 error:a4 bindingHandler:0 enumerationHandler:v15] & 1) != 0 && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForOnboardingCompletionEntity_block_invoke_2, v14[3] = &unk_2786140E8, v14[4] = v16, (objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO onboarding_completions_new (ROWID, uuid, feature_identifier, version, completion_date, country_code, mod_date, deleted, sync_provenance, country_code_provenance, sync_identity) SELECT ROWID, uuid, feature_identifier, version, completion_date, country_code, mod_date, deleted, sync_provenance, country_code_provenance, ? FROM onboarding_completions;", a4, v14, 0)))
     {
-      v18[0] = @"DROP TABLE onboarding_completions;";
-      v18[1] = @"ALTER TABLE onboarding_completions_new RENAME TO onboarding_completions;";
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+      v17[0] = @"DROP TABLE onboarding_completions;";
+      v17[1] = @"ALTER TABLE onboarding_completions_new RENAME TO onboarding_completions;";
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
       v11 = [v8 executeSQLStatements:v10 error:a4];
 
       v12 = v11 ^ 1u;
@@ -5675,7 +3613,7 @@ uint64_t _HDSyncIdentityUpdateForOnboardingCompletionEntity(void *a1, void *a2, 
       v12 = 1;
     }
 
-    _Block_object_dispose(v17, 8);
+    _Block_object_dispose(v16, 8);
   }
 
   else
@@ -5683,43 +3621,42 @@ uint64_t _HDSyncIdentityUpdateForOnboardingCompletionEntity(void *a1, void *a2, 
     v12 = 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-void sub_228E523A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_228E523A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _HDSyncIdentityUpdateForUnProtectedKeyValueEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 unprotectedDatabase];
   if ([v8 executeUncachedSQL:@"CREATE TABLE key_value_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{category INTEGER NOT NULL, domain TEXT NOT NULL, key TEXT NOT NULL, value, provenance INTEGER NOT NULL, mod_date REAL NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(category, domain, key));", a4}])
   {
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT ROWID FROM sync_identities WHERE hardware_identifier = %@('00000000-0000-0000-0000-000000000000') AND database_identifier = %@('00000000-0000-0000-0000-000000000000') AND instance_discriminator = '' LIMIT 1", *MEMORY[0x277D10A68], *MEMORY[0x277D10A68]];;
-    v19[0] = 0;
-    v19[1] = v19;
-    v19[2] = 0x2020000000;
-    v19[3] = 0;
+    v18[0] = 0;
+    v18[1] = v18;
+    v18[2] = 0x2020000000;
+    v18[3] = 0;
     v10 = [v7 unprotectedDatabase];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = ___HDSyncIdentityUpdateForUnProtectedKeyValueEntity_block_invoke;
-    v18[3] = &unk_278614620;
-    v18[4] = v19;
-    v11 = [v10 executeSQL:v9 error:a4 bindingHandler:0 enumerationHandler:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = ___HDSyncIdentityUpdateForUnProtectedKeyValueEntity_block_invoke;
+    v17[3] = &unk_278614620;
+    v17[4] = v18;
+    v11 = [v10 executeSQL:v9 error:a4 bindingHandler:0 enumerationHandler:v17];
 
-    if (v11 & 1) != 0 && (v17[0] = MEMORY[0x277D85DD0], v17[1] = 3221225472, v17[2] = ___HDSyncIdentityUpdateForUnProtectedKeyValueEntity_block_invoke_2, v17[3] = &unk_2786140E8, v17[4] = v19, ([v8 executeSQL:@"INSERT INTO key_value_new (ROWID error:category bindingHandler:domain enumerationHandler:{key, value, provenance, mod_date, sync_identity) SELECT ROWID, category, domain, key, value, provenance, mod_date, ? FROM key_value;", a4, v17, 0}]))
+    if (v11 & 1) != 0 && (v16[0] = MEMORY[0x277D85DD0], v16[1] = 3221225472, v16[2] = ___HDSyncIdentityUpdateForUnProtectedKeyValueEntity_block_invoke_2, v16[3] = &unk_2786140E8, v16[4] = v18, ([v8 executeSQL:@"INSERT INTO key_value_new (ROWID error:category bindingHandler:domain enumerationHandler:{key, value, provenance, mod_date, sync_identity) SELECT ROWID, category, domain, key, value, provenance, mod_date, ? FROM key_value;", a4, v16, 0}]))
     {
-      v20[0] = @"DROP TABLE key_value;";
-      v20[1] = @"ALTER TABLE key_value_new RENAME TO key_value;";
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+      v19[0] = @"DROP TABLE key_value;";
+      v19[1] = @"ALTER TABLE key_value_new RENAME TO key_value;";
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
       v13 = [v8 executeSQLStatements:v12 error:a4];
 
       v14 = v13 ^ 1u;
@@ -5730,7 +3667,7 @@ uint64_t _HDSyncIdentityUpdateForUnProtectedKeyValueEntity(void *a1, void *a2, u
       v14 = 1;
     }
 
-    _Block_object_dispose(v19, 8);
+    _Block_object_dispose(v18, 8);
   }
 
   else
@@ -5738,13 +3675,12 @@ uint64_t _HDSyncIdentityUpdateForUnProtectedKeyValueEntity(void *a1, void *a2, u
     v14 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
-void sub_228E52614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_228E52614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5803,13 +3739,9 @@ uint64_t _HDAddWorkoutStatisticsTable(uint64_t a1, void *a2, uint64_t a3, uint64
 
 uint64_t _HDCopyWorkoutTotalsToPrimaryActivity(void *a1, void *a2, uint64_t a3, void *a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v26 = a1;
+  v48 = *MEMORY[0x277D85DE8];
+  v25 = a1;
   v6 = a2;
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x2020000000;
-  v42[3] = 0;
   v41[0] = 0;
   v41[1] = v41;
   v41[2] = 0x2020000000;
@@ -5818,40 +3750,44 @@ uint64_t _HDCopyWorkoutTotalsToPrimaryActivity(void *a1, void *a2, uint64_t a3, 
   v40[1] = v40;
   v40[2] = 0x2020000000;
   v40[3] = 0;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x2020000000;
+  v39[3] = 0;
   v7 = [v6 protectedDatabase];
-  v38[6] = v40;
-  v39 = 0;
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = ___HDCopyWorkoutTotalsToPrimaryActivity_block_invoke;
-  v38[3] = &unk_278627FD0;
-  v38[4] = v42;
-  v38[5] = v41;
-  v8 = [v7 executeUncachedSQL:@"SELECT ROWID error:key FROM metadata_keys WHERE key IN ('HKIndoorWorkout' bindingHandler:'HKSwimmingLocationType' enumerationHandler:{'HKLapLength')", &v39, 0, v38}];
-  v9 = v39;
+  v37[6] = v39;
+  v38 = 0;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = ___HDCopyWorkoutTotalsToPrimaryActivity_block_invoke;
+  v37[3] = &unk_278627FD0;
+  v37[4] = v41;
+  v37[5] = v40;
+  v8 = [v7 executeUncachedSQL:@"SELECT ROWID error:key FROM metadata_keys WHERE key IN ('HKIndoorWorkout' bindingHandler:'HKSwimmingLocationType' enumerationHandler:{'HKLapLength')", &v38, 0, v37}];
+  v9 = v38;
   if (v8)
   {
-    v37 = 0;
-    v10 = [v7 executeSQLStatements:&unk_283CAFDD8 error:&v37];
-    v11 = v37;
+    v36 = 0;
+    v10 = [v7 executeSQLStatements:&unk_283CAFDD8 error:&v36];
+    v11 = v36;
     if (v10)
     {
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v48 = 0;
-      v36 = 0;
-      v27 = MEMORY[0x277D85DD0];
-      v28 = 3221225472;
-      v29 = ___HDCopyWorkoutTotalsToPrimaryActivity_block_invoke_602;
-      v30 = &unk_278627FF8;
-      v32 = v42;
-      v33 = v41;
-      v34 = v40;
-      v31 = v7;
-      v35 = buf;
-      v12 = [v31 executeUncachedSQL:@"SELECT data_id error:o.uuid bindingHandler:w.activity_type enumerationHandler:{s.start_date, s.end_date, w.duration, total_energy_burned, total_basal_energy_burned, total_w_steps, total_flights_climbed, total_distance FROM workouts w INNER JOIN samples s USING(data_id) INNER JOIN objects o USING(data_id)", &v36, 0, &v27}];
-      v13 = v36;
+      v47 = 0;
+      v35 = 0;
+      v26 = MEMORY[0x277D85DD0];
+      v27 = 3221225472;
+      v28 = ___HDCopyWorkoutTotalsToPrimaryActivity_block_invoke_602;
+      v29 = &unk_278627FF8;
+      v31 = v41;
+      v32 = v40;
+      v33 = v39;
+      v30 = v7;
+      v34 = buf;
+      v12 = [v30 executeUncachedSQL:@"SELECT data_id error:o.uuid bindingHandler:w.activity_type enumerationHandler:{s.start_date, s.end_date, w.duration, total_energy_burned, total_basal_energy_burned, total_w_steps, total_flights_climbed, total_distance FROM workouts w INNER JOIN samples s USING(data_id) INNER JOIN objects o USING(data_id)", &v35, 0, &v26}];
+      v13 = v35;
       v14 = v13;
       if (v12)
       {
@@ -5864,18 +3800,18 @@ uint64_t _HDCopyWorkoutTotalsToPrimaryActivity(void *a1, void *a2, uint64_t a3, 
         v19 = *(*&buf[8] + 24);
         v20 = [v13 userInfo];
         v21 = [v20 objectForKeyedSubscript:*MEMORY[0x277CCBDA8]];
-        v22 = [v18 stringWithFormat:@"CopyWorkoutTotalsToPrimaryActivity: Success count: %lu, context: %@", v19, v21, v26, v27, v28, v29, v30];
+        v22 = [v18 stringWithFormat:@"CopyWorkoutTotalsToPrimaryActivity: Success count: %lu, context: %@", v19, v21, v25, v26, v27, v28, v29];
 
         _HDAssignWorkoutDatabaseMigrationError(a4, v22, v14, 0);
         _HKInitializeLogging();
         v23 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
         {
-          *v43 = 138543618;
-          v44 = v22;
-          v45 = 2114;
-          v46 = v14;
-          _os_log_fault_impl(&dword_228986000, v23, OS_LOG_TYPE_FAULT, "%{public}@, underlying error: %{public}@", v43, 0x16u);
+          *v42 = 138543618;
+          v43 = v22;
+          v44 = 2114;
+          v45 = v14;
+          _os_log_fault_impl(&dword_228986000, v23, OS_LOG_TYPE_FAULT, "%{public}@, underlying error: %{public}@", v42, 0x16u);
         }
 
         v15 = 1;
@@ -5919,20 +3855,20 @@ uint64_t _HDCopyWorkoutTotalsToPrimaryActivity(void *a1, void *a2, uint64_t a3, 
     v15 = 1;
   }
 
+  _Block_object_dispose(v39, 8);
   _Block_object_dispose(v40, 8);
   _Block_object_dispose(v41, 8);
-  _Block_object_dispose(v42, 8);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
-void sub_228E533C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_228E533C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose((v35 - 160), 8);
+  va_start(va, a34);
+  _Block_object_dispose((v34 - 160), 8);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 224), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 224), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6057,24 +3993,23 @@ uint64_t _HDAddUserDomainConceptEducationContentTable(uint64_t a1, void *a2, uin
 
 uint64_t _HDAddVersionColumnToActivityCacheTable(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v13[7] = *MEMORY[0x277D85DE8];
-  v13[0] = @"DROP INDEX IF EXISTS activity_caches_cache_index";
-  v13[1] = @"DROP TABLE IF EXISTS activity_caches_new";
-  v13[2] = @"CREATE TABLE activity_caches_new (data_id INTEGER PRIMARY KEY REFERENCES samples (data_id) ON DELETE CASCADE, cache_index INTEGER, sequence INTEGER NOT NULL, activity_mode INTEGER, wheelchair_use INTEGER, energy_burned REAL, energy_burned_goal REAL, energy_burned_goal_date REAL, move_minutes REAL, move_minutes_goal REAL, move_minutes_goal_date REAL, brisk_minutes REAL, brisk_minutes_goal REAL, brisk_minutes_goal_date REAL, active_hours REAL, active_hours_goal REAL, active_hours_goal_date REAL, steps REAL, pushes REAL, walk_distance REAL, deep_breathing_duration REAL, flights INTEGER, energy_burned_stats BLOB, move_minutes_stats BLOB, brisk_minutes_stats BLOB, version INTEGER NOT NULL)";
+  v12[7] = *MEMORY[0x277D85DE8];
+  v12[0] = @"DROP INDEX IF EXISTS activity_caches_cache_index";
+  v12[1] = @"DROP TABLE IF EXISTS activity_caches_new";
+  v12[2] = @"CREATE TABLE activity_caches_new (data_id INTEGER PRIMARY KEY REFERENCES samples (data_id) ON DELETE CASCADE, cache_index INTEGER, sequence INTEGER NOT NULL, activity_mode INTEGER, wheelchair_use INTEGER, energy_burned REAL, energy_burned_goal REAL, energy_burned_goal_date REAL, move_minutes REAL, move_minutes_goal REAL, move_minutes_goal_date REAL, brisk_minutes REAL, brisk_minutes_goal REAL, brisk_minutes_goal_date REAL, active_hours REAL, active_hours_goal REAL, active_hours_goal_date REAL, steps REAL, pushes REAL, walk_distance REAL, deep_breathing_duration REAL, flights INTEGER, energy_burned_stats BLOB, move_minutes_stats BLOB, brisk_minutes_stats BLOB, version INTEGER NOT NULL)";
   v5 = MEMORY[0x277CCACA8];
   v6 = *MEMORY[0x277D10A50];
   v7 = a2;
   v8 = [v5 stringWithFormat:@"INSERT INTO activity_caches_new (data_id, cache_index, sequence, wheelchair_use, energy_burned, energy_burned_goal, energy_burned_goal_date, brisk_minutes, brisk_minutes_goal, active_hours, active_hours_goal, steps, pushes, walk_distance, deep_breathing_duration, flights, energy_burned_stats, brisk_minutes_stats, version) SELECT data_id, cache_index, sequence, wheelchair_use, energy_burned, energy_burned_goal, energy_burned_goal_date, brisk_minutes, brisk_minutes_goal, active_hours, active_hours_goal, steps, pushes, walk_distance, deep_breathing_duration, flights, energy_burned_stats, brisk_minutes_stats, CASE WHEN %@(origin_build, '20A6') > 0 OR %@(origin_build, '20R57') > 0 THEN 2 ELSE 1 END FROM activity_caches INNER JOIN objects USING (data_id) INNER JOIN data_provenances ON (objects.provenance = data_provenances.rowid) WHERE sequence IS NOT NULL", v6, v6, @"DROP INDEX IF EXISTS activity_caches_cache_index", @"DROP TABLE IF EXISTS activity_caches_new", @"CREATE TABLE activity_caches_new (data_id INTEGER PRIMARY KEY REFERENCES samples (data_id) ON DELETE CASCADE, cache_index INTEGER, sequence INTEGER NOT NULL, activity_mode INTEGER, wheelchair_use INTEGER, energy_burned REAL, energy_burned_goal REAL, energy_burned_goal_date REAL, move_minutes REAL, move_minutes_goal REAL, move_minutes_goal_date REAL, brisk_minutes REAL, brisk_minutes_goal REAL, brisk_minutes_goal_date REAL, active_hours REAL, active_hours_goal REAL, active_hours_goal_date REAL, steps REAL, pushes REAL, walk_distance REAL, deep_breathing_duration REAL, flights INTEGER, energy_burned_stats BLOB, move_minutes_stats BLOB, brisk_minutes_stats BLOB, version INTEGER NOT NULL)"];;
-  v13[3] = v8;
-  v13[4] = @"DROP TABLE IF EXISTS activity_caches";
-  v13[5] = @"ALTER TABLE activity_caches_new RENAME TO activity_caches";
-  v13[6] = @"CREATE INDEX IF NOT EXISTS activity_caches_cache_index ON activity_caches (cache_index)";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:7];
+  v12[3] = v8;
+  v12[4] = @"DROP TABLE IF EXISTS activity_caches";
+  v12[5] = @"ALTER TABLE activity_caches_new RENAME TO activity_caches";
+  v12[6] = @"CREATE INDEX IF NOT EXISTS activity_caches_cache_index ON activity_caches (cache_index)";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:7];
 
   v10 = [v7 protectedDatabase];
 
   LODWORD(a4) = [v10 executeSQLStatements:v9 error:a4];
-  v11 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
@@ -6208,7 +4143,7 @@ uint64_t _HDSanitizeHFDRebuildState(uint64_t a1, void *a2)
   return 0;
 }
 
-uint64_t _HDMigrateHFDToSQLite(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+int64_t _HDMigrateHFDToSQLite(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v5 = a2;
   v6 = [[HDSydneyHFDMigrator alloc] initWithMigrationTransaction:v5];
@@ -6251,18 +4186,18 @@ uint64_t _HDMoveAdHocConceptIntoCorrectIDNamespace(uint64_t a1, void *a2, uint64
 
 uint64_t _HDForceMedicalRecordReextractionToRelinkUDCs(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 protectedDatabase];
   v7 = [v6 executeUncachedSQL:@"UPDATE clinical_accounts SET last_extracted_rowid = NULL" error:a4];
 
   if (v7)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v8 = [&unk_283CB0078 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v8 = [&unk_283CB0078 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (!v8)
     {
       v14 = 0;
@@ -6270,17 +4205,17 @@ uint64_t _HDForceMedicalRecordReextractionToRelinkUDCs(uint64_t a1, void *a2, ui
     }
 
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
 LABEL_4:
     v11 = 0;
     while (1)
     {
-      if (*v18 != v10)
+      if (*v17 != v10)
       {
         objc_enumerationMutation(&unk_283CB0078);
       }
 
-      v12 = *(*(&v17 + 1) + 8 * v11);
+      v12 = *(*(&v16 + 1) + 8 * v11);
       v13 = [v5 protectedDatabase];
       LODWORD(v12) = [v13 deleteRowsFromDataEntitySubclassTable:v12 intermediateTables:&unk_283CB0060 error:a4];
 
@@ -6291,7 +4226,7 @@ LABEL_4:
 
       if (v9 == ++v11)
       {
-        v9 = [&unk_283CB0078 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [&unk_283CB0078 countByEnumeratingWithState:&v16 objects:v20 count:16];
         v14 = 0;
         if (v9)
         {
@@ -6306,7 +4241,6 @@ LABEL_4:
   v14 = 1;
 LABEL_12:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -6379,16 +4313,15 @@ uint64_t _HDAddSchemaVersionToAttachmentReferences(uint64_t a1, void *a2, uint64
 
 uint64_t _HDMigrateUDCPreferredNameProperties(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v11[0] = @"INSERT OR REPLACE INTO user_domain_concept_localized_strings (udc_id, property_type, string_value, locale, version, timestamp, deleted) SELECT udc_id, 160012, IFNULL(string_value,''), CASE property_type WHEN 150000 THEN '(null)' WHEN 150001 THEN 'en_US' WHEN 150002 THEN 'en_GB' WHEN 150003 THEN 'en_CA' END, version, timestamp, (string_value IS NULL) FROM user_domain_concept_properties WHERE property_type IN (150000, 150001, 150002, 150003)";
-  v11[1] = @"DELETE FROM user_domain_concept_properties WHERE property_type IN (150000, 150001, 150002, 150003)";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v10[0] = @"INSERT OR REPLACE INTO user_domain_concept_localized_strings (udc_id, property_type, string_value, locale, version, timestamp, deleted) SELECT udc_id, 160012, IFNULL(string_value,''), CASE property_type WHEN 150000 THEN '(null)' WHEN 150001 THEN 'en_US' WHEN 150002 THEN 'en_GB' WHEN 150003 THEN 'en_CA' END, version, timestamp, (string_value IS NULL) FROM user_domain_concept_properties WHERE property_type IN (150000, 150001, 150002, 150003)";
+  v10[1] = @"DELETE FROM user_domain_concept_properties WHERE property_type IN (150000, 150001, 150002, 150003)";
   v5 = MEMORY[0x277CBEA60];
   v6 = a2;
-  v7 = [v5 arrayWithObjects:v11 count:2];
+  v7 = [v5 arrayWithObjects:v10 count:2];
   v8 = [v6 protectedDatabase];
 
   LODWORD(a4) = [v8 executeSQLStatements:v7 error:a4];
-  v9 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
@@ -6402,15 +4335,15 @@ uint64_t _HDAddCHRAccountsDeletionReason(uint64_t a1, void *a2, uint64_t a3, uin
 
 uint64_t _HDSyncIdentityUpdateForSignedClinicalDataIssuersEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE signed_clinical_data_issuer_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{identifier TEXT NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL, title TEXT NOT NULL, subtitle TEXT, well_known_url TEXT, sync_identity INTEGER NOT NULL);", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForSignedClinicalDataIssuersEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO signed_clinical_data_issuer_new (ROWID, identifier, sync_provenance, title, subtitle, well_known_url, sync_identity) SELECT ROWID, identifier, sync_provenance, title, subtitle, well_known_url, ? FROM signed_clinical_data_issuer;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE signed_clinical_data_issuer_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{identifier TEXT NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL, title TEXT NOT NULL, subtitle TEXT, well_known_url TEXT, sync_identity INTEGER NOT NULL);", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForSignedClinicalDataIssuersEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO signed_clinical_data_issuer_new (ROWID, identifier, sync_provenance, title, subtitle, well_known_url, sync_identity) SELECT ROWID, identifier, sync_provenance, title, subtitle, well_known_url, ? FROM signed_clinical_data_issuer;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE signed_clinical_data_issuer;";
-    v15[1] = @"ALTER TABLE signed_clinical_data_issuer_new RENAME TO signed_clinical_data_issuer;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE signed_clinical_data_issuer;";
+    v14[1] = @"ALTER TABLE signed_clinical_data_issuer_new RENAME TO signed_clinical_data_issuer;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6419,21 +4352,20 @@ uint64_t _HDSyncIdentityUpdateForSignedClinicalDataIssuersEntity(void *a1, void 
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForOriginalSignedClinicalDataRecordEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE original_signed_clinical_data_records_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{sync_identifier BLOB NOT NULL UNIQUE, issuer_identifier TEXT NOT NULL, source_url TEXT NOT NULL, source_type INTEGER NOT NULL, raw_content BLOB, uniqueness_checksum BLOB NOT NULL, type TEXT NOT NULL, metadata BLOB, received_date REAL NOT NULL, received_date_timezone TEXT NOT NULL, first_seen_date REAL NOT NULL, first_seen_date_timezone TEXT NOT NULL, signature_status INTEGER NOT NULL, sync_provenance INTEGER NOT NULL, account_id INTEGER NOT NULL REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, last_modified_date REAL NOT NULL, deleted INTEGER NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(account_id, uniqueness_checksum), CHECK((raw_content IS NULL AND deleted == 1) OR (raw_content IS NOT NULL AND deleted == 0)));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForOriginalSignedClinicalDataRecordEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO original_signed_clinical_data_records_new (ROWID, sync_identifier, issuer_identifier, source_url, source_type, raw_content, uniqueness_checksum, type, metadata, received_date, received_date_timezone, first_seen_date, first_seen_date_timezone, signature_status, sync_provenance, account_id, last_modified_date, deleted, sync_identity) SELECT ROWID, sync_identifier, issuer_identifier, source_url, source_type, raw_content, uniqueness_checksum, type, metadata, received_date, received_date_timezone, first_seen_date, first_seen_date_timezone, signature_status, sync_provenance, account_id, last_modified_date, deleted, ? FROM original_signed_clinical_data_records;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE original_signed_clinical_data_records_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{sync_identifier BLOB NOT NULL UNIQUE, issuer_identifier TEXT NOT NULL, source_url TEXT NOT NULL, source_type INTEGER NOT NULL, raw_content BLOB, uniqueness_checksum BLOB NOT NULL, type TEXT NOT NULL, metadata BLOB, received_date REAL NOT NULL, received_date_timezone TEXT NOT NULL, first_seen_date REAL NOT NULL, first_seen_date_timezone TEXT NOT NULL, signature_status INTEGER NOT NULL, sync_provenance INTEGER NOT NULL, account_id INTEGER NOT NULL REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, last_modified_date REAL NOT NULL, deleted INTEGER NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(account_id, uniqueness_checksum), CHECK((raw_content IS NULL AND deleted == 1) OR (raw_content IS NOT NULL AND deleted == 0)));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForOriginalSignedClinicalDataRecordEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO original_signed_clinical_data_records_new (ROWID, sync_identifier, issuer_identifier, source_url, source_type, raw_content, uniqueness_checksum, type, metadata, received_date, received_date_timezone, first_seen_date, first_seen_date_timezone, signature_status, sync_provenance, account_id, last_modified_date, deleted, sync_identity) SELECT ROWID, sync_identifier, issuer_identifier, source_url, source_type, raw_content, uniqueness_checksum, type, metadata, received_date, received_date_timezone, first_seen_date, first_seen_date_timezone, signature_status, sync_provenance, account_id, last_modified_date, deleted, ? FROM original_signed_clinical_data_records;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE original_signed_clinical_data_records;";
-    v15[1] = @"ALTER TABLE original_signed_clinical_data_records_new RENAME TO original_signed_clinical_data_records;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE original_signed_clinical_data_records;";
+    v14[1] = @"ALTER TABLE original_signed_clinical_data_records_new RENAME TO original_signed_clinical_data_records;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6442,13 +4374,12 @@ uint64_t _HDSyncIdentityUpdateForOriginalSignedClinicalDataRecordEntity(void *a1
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForUserDomainConceptEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
@@ -6461,16 +4392,16 @@ uint64_t _HDSyncIdentityUpdateForUserDomainConceptEntity(void *a1, void *a2, uin
   {
     v10 = v9;
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO user_domain_concepts_new (udc_id, uuid, schema, type, deleted, creation_date, modification_date, major_version, minor_version, patch_version, build, sync_provenance, sync_anchor, sync_identity) SELECT udc_id, uuid, schema, type, deleted, creation_date, modification_date, major_version, minor_version, patch_version, build, sync_provenance, sync_anchor, ? FROM user_domain_concepts"];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = ___HDSyncIdentityUpdateForUserDomainConceptEntity_block_invoke;
-    v16[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-    v16[4] = v10;
-    if ([v8 executeSQL:v11 error:a4 bindingHandler:v16 enumerationHandler:0])
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = ___HDSyncIdentityUpdateForUserDomainConceptEntity_block_invoke;
+    v15[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+    v15[4] = v10;
+    if ([v8 executeSQL:v11 error:a4 bindingHandler:v15 enumerationHandler:0])
     {
-      v17[0] = @"DROP TABLE user_domain_concepts";
-      v17[1] = @"ALTER TABLE user_domain_concepts_new RENAME TO user_domain_concepts";
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+      v16[0] = @"DROP TABLE user_domain_concepts";
+      v16[1] = @"ALTER TABLE user_domain_concepts_new RENAME TO user_domain_concepts";
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
       v13 = [v8 executeSQLStatements:v12 error:a4] ^ 1;
     }
 
@@ -6480,22 +4411,21 @@ uint64_t _HDSyncIdentityUpdateForUserDomainConceptEntity(void *a1, void *a2, uin
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t _HDSyncIdentityUpdateForOriginalFHIRResourceEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE original_fhir_resources_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{type TEXT NOT NULL, account_id INTEGER NOT NULL REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, id TEXT NOT NULL, sync_provenance INTEGER NOT NULL, raw_content BLOB NOT NULL, received_date REAL NOT NULL, received_date_timezone TEXT NOT NULL, fhir_version TEXT NOT NULL, source_url TEXT, extraction_hints INTEGER, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, origin_build TEXT NOT NULL, first_seen_date REAL NOT NULL, first_seen_date_timezone TEXT NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(type, account_id, id));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForOriginalFHIRResourceEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO original_fhir_resources_new (ROWID, type, account_id, id, sync_provenance, raw_content, received_date, received_date_timezone, fhir_version, source_url, extraction_hints, origin_major_version, origin_minor_version, origin_patch_version, origin_build, first_seen_date, first_seen_date_timezone, sync_identity) SELECT ROWID, type, account_id, id, sync_provenance, raw_content, received_date, received_date_timezone, fhir_version, source_url, extraction_hints, origin_major_version, origin_minor_version, origin_patch_version, origin_build, first_seen_date, first_seen_date_timezone, ? FROM original_fhir_resources;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE original_fhir_resources_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{type TEXT NOT NULL, account_id INTEGER NOT NULL REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, id TEXT NOT NULL, sync_provenance INTEGER NOT NULL, raw_content BLOB NOT NULL, received_date REAL NOT NULL, received_date_timezone TEXT NOT NULL, fhir_version TEXT NOT NULL, source_url TEXT, extraction_hints INTEGER, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, origin_build TEXT NOT NULL, first_seen_date REAL NOT NULL, first_seen_date_timezone TEXT NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(type, account_id, id));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForOriginalFHIRResourceEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO original_fhir_resources_new (ROWID, type, account_id, id, sync_provenance, raw_content, received_date, received_date_timezone, fhir_version, source_url, extraction_hints, origin_major_version, origin_minor_version, origin_patch_version, origin_build, first_seen_date, first_seen_date_timezone, sync_identity) SELECT ROWID, type, account_id, id, sync_provenance, raw_content, received_date, received_date_timezone, fhir_version, source_url, extraction_hints, origin_major_version, origin_minor_version, origin_patch_version, origin_build, first_seen_date, first_seen_date_timezone, ? FROM original_fhir_resources;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE original_fhir_resources;";
-    v15[1] = @"ALTER TABLE original_fhir_resources_new RENAME TO original_fhir_resources;";
-    v15[2] = @"CREATE INDEX original_fhir_resources_source_url ON original_fhir_resources (source_url);";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[0] = @"DROP TABLE original_fhir_resources;";
+    v14[1] = @"ALTER TABLE original_fhir_resources_new RENAME TO original_fhir_resources;";
+    v14[2] = @"CREATE INDEX original_fhir_resources_source_url ON original_fhir_resources (source_url);";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6504,21 +4434,20 @@ uint64_t _HDSyncIdentityUpdateForOriginalFHIRResourceEntity(void *a1, void *a2, 
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForFHIRCredentialEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE clinical_credentials_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{identifier BLOB NOT NULL, sync_provenance INTEGER NOT NULL, expiration_date REAL, scope TEXT, patient_id TEXT, creation_date REAL NOT NULL, requested_scope TEXT NOT NULL, deleted INTEGER NOT NULL DEFAULT 0, sync_identity INTEGER NOT NULL);", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForFHIRCredentialEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO clinical_credentials_new (ROWID, identifier, sync_provenance, expiration_date, scope, patient_id, creation_date, requested_scope, deleted, sync_identity) SELECT ROWID, identifier, sync_provenance, expiration_date, scope, patient_id, creation_date, requested_scope, deleted, ? FROM clinical_credentials;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE clinical_credentials_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{identifier BLOB NOT NULL, sync_provenance INTEGER NOT NULL, expiration_date REAL, scope TEXT, patient_id TEXT, creation_date REAL NOT NULL, requested_scope TEXT NOT NULL, deleted INTEGER NOT NULL DEFAULT 0, sync_identity INTEGER NOT NULL);", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForFHIRCredentialEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO clinical_credentials_new (ROWID, identifier, sync_provenance, expiration_date, scope, patient_id, creation_date, requested_scope, deleted, sync_identity) SELECT ROWID, identifier, sync_provenance, expiration_date, scope, patient_id, creation_date, requested_scope, deleted, ? FROM clinical_credentials;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE clinical_credentials;";
-    v15[1] = @"ALTER TABLE clinical_credentials_new RENAME TO clinical_credentials;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE clinical_credentials;";
+    v14[1] = @"ALTER TABLE clinical_credentials_new RENAME TO clinical_credentials;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6527,21 +4456,20 @@ uint64_t _HDSyncIdentityUpdateForFHIRCredentialEntity(void *a1, void *a2, uint64
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForClinicalGatewayEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE clinical_gateways_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{external_id TEXT NOT NULL, last_reported_status INTEGER NOT NULL, revision INTEGER NOT NULL, raw_content BLOB NOT NULL, sync_anchor INTEGER NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(external_id));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForClinicalGatewayEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO clinical_gateways_new (ROWID, external_id, last_reported_status, revision, raw_content, sync_anchor, sync_provenance, sync_identity) SELECT ROWID, external_id, last_reported_status, revision, raw_content, sync_anchor, sync_provenance, ? FROM clinical_gateways;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE clinical_gateways_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{external_id TEXT NOT NULL, last_reported_status INTEGER NOT NULL, revision INTEGER NOT NULL, raw_content BLOB NOT NULL, sync_anchor INTEGER NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(external_id));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForClinicalGatewayEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO clinical_gateways_new (ROWID, external_id, last_reported_status, revision, raw_content, sync_anchor, sync_provenance, sync_identity) SELECT ROWID, external_id, last_reported_status, revision, raw_content, sync_anchor, sync_provenance, ? FROM clinical_gateways;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE clinical_gateways;";
-    v15[1] = @"ALTER TABLE clinical_gateways_new RENAME TO clinical_gateways;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE clinical_gateways;";
+    v14[1] = @"ALTER TABLE clinical_gateways_new RENAME TO clinical_gateways;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6550,21 +4478,20 @@ uint64_t _HDSyncIdentityUpdateForClinicalGatewayEntity(void *a1, void *a2, uint6
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForClinicalDeletedAccountEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE clinical_deleted_accounts_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{sync_identifier BLOB NOT NULL, deletion_date REAL NOT NULL, deletion_reason INTEGER NOT NULL, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(sync_identifier));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForClinicalDeletedAccountEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO clinical_deleted_accounts_new (ROWID, sync_identifier, deletion_date, deletion_reason, sync_provenance, sync_identity) SELECT ROWID, sync_identifier, deletion_date, deletion_reason, sync_provenance, ? FROM clinical_deleted_accounts;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE clinical_deleted_accounts_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{sync_identifier BLOB NOT NULL, deletion_date REAL NOT NULL, deletion_reason INTEGER NOT NULL, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(sync_identifier));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForClinicalDeletedAccountEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO clinical_deleted_accounts_new (ROWID, sync_identifier, deletion_date, deletion_reason, sync_provenance, sync_identity) SELECT ROWID, sync_identifier, deletion_date, deletion_reason, sync_provenance, ? FROM clinical_deleted_accounts;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE clinical_deleted_accounts;";
-    v15[1] = @"ALTER TABLE clinical_deleted_accounts_new RENAME TO clinical_deleted_accounts;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE clinical_deleted_accounts;";
+    v14[1] = @"ALTER TABLE clinical_deleted_accounts_new RENAME TO clinical_deleted_accounts;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6573,21 +4500,20 @@ uint64_t _HDSyncIdentityUpdateForClinicalDeletedAccountEntity(void *a1, void *a2
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForClinicalAccountEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE clinical_accounts_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{identifier BLOB NOT NULL UNIQUE, user_enabled_flag INTEGER NOT NULL, credential_state INTEGER NOT NULL, creation_date REAL NOT NULL, last_fetch_date REAL, last_full_fetch_date REAL, last_extracted_rowid INTEGER, last_submitted_rowid INTEGER, last_extracted_rules_version INTEGER, patient_hash TEXT, credential_id INTEGER REFERENCES clinical_credentials (ROWID) ON DELETE SET NULL, gateway_id INTEGER UNIQUE REFERENCES clinical_gateways (ROWID) ON DELETE SET NULL, signed_clinical_data_issuer_rowid INTEGER UNIQUE REFERENCES signed_clinical_data_issuer (ROWID) ON DELETE CASCADE, clinical_sharing_last_shared_date REAL, clinical_sharing_first_shared_date REAL, clinical_sharing_user_status INTEGER NOT NULL DEFAULT 0, clinical_sharing_multi_device_status INTEGER NOT NULL DEFAULT 0, clinical_sharing_primary_device_name TEXT, sync_identifier BLOB NOT NULL UNIQUE, modification_date REAL NOT NULL, last_failed_fetch_date REAL, failed_fetch_attempts_count INTEGER, sync_anchor INTEGER NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL, CHECK ((gateway_id IS NOT NULL AND signed_clinical_data_issuer_rowid IS NULL) OR (gateway_id IS NULL AND signed_clinical_data_issuer_rowid IS NOT NULL)));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForClinicalAccountEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO clinical_accounts_new (ROWID, identifier, user_enabled_flag, credential_state, creation_date, last_fetch_date, last_full_fetch_date, last_extracted_rowid, last_submitted_rowid, last_extracted_rules_version, patient_hash, credential_id, gateway_id, signed_clinical_data_issuer_rowid, clinical_sharing_last_shared_date, clinical_sharing_first_shared_date, clinical_sharing_user_status, clinical_sharing_multi_device_status, clinical_sharing_primary_device_name, sync_identifier, modification_date, last_failed_fetch_date, failed_fetch_attempts_count, sync_anchor, sync_provenance, sync_identity) SELECT ROWID, identifier, user_enabled_flag, credential_state, creation_date, last_fetch_date, last_full_fetch_date, last_extracted_rowid, last_submitted_rowid, last_extracted_rules_version, patient_hash, credential_id, gateway_id, signed_clinical_data_issuer_rowid, clinical_sharing_last_shared_date, clinical_sharing_first_shared_date, clinical_sharing_user_status, clinical_sharing_multi_device_status, clinical_sharing_primary_device_name, sync_identifier, modification_date, last_failed_fetch_date, failed_fetch_attempts_count, sync_anchor, sync_provenance, ? FROM clinical_accounts;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE clinical_accounts_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{identifier BLOB NOT NULL UNIQUE, user_enabled_flag INTEGER NOT NULL, credential_state INTEGER NOT NULL, creation_date REAL NOT NULL, last_fetch_date REAL, last_full_fetch_date REAL, last_extracted_rowid INTEGER, last_submitted_rowid INTEGER, last_extracted_rules_version INTEGER, patient_hash TEXT, credential_id INTEGER REFERENCES clinical_credentials (ROWID) ON DELETE SET NULL, gateway_id INTEGER UNIQUE REFERENCES clinical_gateways (ROWID) ON DELETE SET NULL, signed_clinical_data_issuer_rowid INTEGER UNIQUE REFERENCES signed_clinical_data_issuer (ROWID) ON DELETE CASCADE, clinical_sharing_last_shared_date REAL, clinical_sharing_first_shared_date REAL, clinical_sharing_user_status INTEGER NOT NULL DEFAULT 0, clinical_sharing_multi_device_status INTEGER NOT NULL DEFAULT 0, clinical_sharing_primary_device_name TEXT, sync_identifier BLOB NOT NULL UNIQUE, modification_date REAL NOT NULL, last_failed_fetch_date REAL, failed_fetch_attempts_count INTEGER, sync_anchor INTEGER NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL, CHECK ((gateway_id IS NOT NULL AND signed_clinical_data_issuer_rowid IS NULL) OR (gateway_id IS NULL AND signed_clinical_data_issuer_rowid IS NOT NULL)));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForClinicalAccountEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO clinical_accounts_new (ROWID, identifier, user_enabled_flag, credential_state, creation_date, last_fetch_date, last_full_fetch_date, last_extracted_rowid, last_submitted_rowid, last_extracted_rules_version, patient_hash, credential_id, gateway_id, signed_clinical_data_issuer_rowid, clinical_sharing_last_shared_date, clinical_sharing_first_shared_date, clinical_sharing_user_status, clinical_sharing_multi_device_status, clinical_sharing_primary_device_name, sync_identifier, modification_date, last_failed_fetch_date, failed_fetch_attempts_count, sync_anchor, sync_provenance, sync_identity) SELECT ROWID, identifier, user_enabled_flag, credential_state, creation_date, last_fetch_date, last_full_fetch_date, last_extracted_rowid, last_submitted_rowid, last_extracted_rules_version, patient_hash, credential_id, gateway_id, signed_clinical_data_issuer_rowid, clinical_sharing_last_shared_date, clinical_sharing_first_shared_date, clinical_sharing_user_status, clinical_sharing_multi_device_status, clinical_sharing_primary_device_name, sync_identifier, modification_date, last_failed_fetch_date, failed_fetch_attempts_count, sync_anchor, sync_provenance, ? FROM clinical_accounts;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE clinical_accounts;";
-    v15[1] = @"ALTER TABLE clinical_accounts_new RENAME TO clinical_accounts;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE clinical_accounts;";
+    v14[1] = @"ALTER TABLE clinical_accounts_new RENAME TO clinical_accounts;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6596,21 +4522,20 @@ uint64_t _HDSyncIdentityUpdateForClinicalAccountEntity(void *a1, void *a2, uint6
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForSharingRelationshipEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE sharing_relationship_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{recipient TEXT UNIQUE NOT NULL, date_modified REAL NOT NULL, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL);", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForSharingRelationshipEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO sharing_relationship_new (ROWID, recipient, date_modified, sync_provenance, sync_identity) SELECT ROWID, recipient, date_modified, sync_provenance, ? FROM sharing_relationship;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE sharing_relationship_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{recipient TEXT UNIQUE NOT NULL, date_modified REAL NOT NULL, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL);", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForSharingRelationshipEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO sharing_relationship_new (ROWID, recipient, date_modified, sync_provenance, sync_identity) SELECT ROWID, recipient, date_modified, sync_provenance, ? FROM sharing_relationship;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE sharing_relationship;";
-    v15[1] = @"ALTER TABLE sharing_relationship_new RENAME TO sharing_relationship;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE sharing_relationship;";
+    v14[1] = @"ALTER TABLE sharing_relationship_new RENAME TO sharing_relationship;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6619,19 +4544,18 @@ uint64_t _HDSyncIdentityUpdateForSharingRelationshipEntity(void *a1, void *a2, u
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForAssociationsAndPendingAssociationsEntities(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  v20[0] = @"CREATE TABLE associations (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER REFERENCES objects (data_id) ON DELETE CASCADE, child_id INTEGER REFERENCES objects (data_id) ON DELETE CASCADE, sync_provenance INTEGER, sync_identity INTEGER NOT NULL, UNIQUE(parent_id, child_id))";
-  v20[1] = @"CREATE TABLE pending_associations_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, parent_uuid BLOB NOT NULL, child_uuid BLOB NOT NULL, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(parent_uuid, child_uuid))";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = @"CREATE TABLE associations (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER REFERENCES objects (data_id) ON DELETE CASCADE, child_id INTEGER REFERENCES objects (data_id) ON DELETE CASCADE, sync_provenance INTEGER, sync_identity INTEGER NOT NULL, UNIQUE(parent_id, child_id))";
+  v19[1] = @"CREATE TABLE pending_associations_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, parent_uuid BLOB NOT NULL, child_uuid BLOB NOT NULL, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(parent_uuid, child_uuid))";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v10 = [v8 executeSQLStatements:v9 error:a4];
 
   if (!v10 || (v11 = [v6 fetchLegacySyncIdentity:v7 error:a4], v11 == -1))
@@ -6643,20 +4567,20 @@ uint64_t _HDSyncIdentityUpdateForAssociationsAndPendingAssociationsEntities(void
   {
     v12 = v11;
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO associations (ROWID, parent_id, child_id, sync_provenance, sync_identity) SELECT ROWID, correlation, object, provenance, ? FROM correlations"];;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = ___HDSyncIdentityUpdateForAssociationsAndPendingAssociationsEntities_block_invoke;
-    v19[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-    v19[4] = v12;
-    if ([v8 executeSQL:v13 error:a4 bindingHandler:v19 enumerationHandler:0])
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = ___HDSyncIdentityUpdateForAssociationsAndPendingAssociationsEntities_block_invoke;
+    v18[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+    v18[4] = v12;
+    if ([v8 executeSQL:v13 error:a4 bindingHandler:v18 enumerationHandler:0])
     {
       v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO pending_associations_new (ROWID, parent_uuid, child_uuid, sync_provenance, sync_identity) SELECT ROWID, parent_uuid, child_uuid, provenance, ? FROM pending_associations"];;
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = ___HDSyncIdentityUpdateForAssociationsAndPendingAssociationsEntities_block_invoke_2;
-      v18[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-      v18[4] = v12;
-      if ([v8 executeSQL:v14 error:a4 bindingHandler:v18 enumerationHandler:0])
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = ___HDSyncIdentityUpdateForAssociationsAndPendingAssociationsEntities_block_invoke_2;
+      v17[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+      v17[4] = v12;
+      if ([v8 executeSQL:v14 error:a4 bindingHandler:v17 enumerationHandler:0])
       {
         v15 = [v8 executeSQLStatements:&unk_283CB00F0 error:a4] ^ 1;
       }
@@ -6673,21 +4597,20 @@ uint64_t _HDSyncIdentityUpdateForAssociationsAndPendingAssociationsEntities(void
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 uint64_t _HDSyncIdentityUpdateForDataProvenanceEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE data_provenances_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{sync_provenance INTEGER NOT NULL, origin_product_type TEXT NOT NULL, origin_build TEXT NOT NULL, local_product_type TEXT NOT NULL, local_build TEXT NOT NULL, source_id INTEGER NOT NULL, device_id INTEGER NOT NULL, contributor_id INTEGER NOT NULL, source_version TEXT NOT NULL, tz_name TEXT NOT NULL, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, sync_identity INTEGER NOT NULL, derived_flags INTEGER NOT NULL, UNIQUE(sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, sync_identity));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForDataProvenanceEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO data_provenances_new (ROWID, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, sync_identity, derived_flags) SELECT ROWID, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, ?, derived_flags FROM data_provenances;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE data_provenances_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{sync_provenance INTEGER NOT NULL, origin_product_type TEXT NOT NULL, origin_build TEXT NOT NULL, local_product_type TEXT NOT NULL, local_build TEXT NOT NULL, source_id INTEGER NOT NULL, device_id INTEGER NOT NULL, contributor_id INTEGER NOT NULL, source_version TEXT NOT NULL, tz_name TEXT NOT NULL, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, sync_identity INTEGER NOT NULL, derived_flags INTEGER NOT NULL, UNIQUE(sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, sync_identity));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForDataProvenanceEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO data_provenances_new (ROWID, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, sync_identity, derived_flags) SELECT ROWID, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, ?, derived_flags FROM data_provenances;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE data_provenances;";
-    v15[1] = @"ALTER TABLE data_provenances_new RENAME TO data_provenances;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE data_provenances;";
+    v14[1] = @"ALTER TABLE data_provenances_new RENAME TO data_provenances;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6696,21 +4619,20 @@ uint64_t _HDSyncIdentityUpdateForDataProvenanceEntity(void *a1, void *a2, uint64
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForContributorEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE contributors_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{uuid BLOB UNIQUE NOT NULL, apple_id TEXT, caller_id TEXT, deleted INTEGER NOT NULL, mod_date REAL NOT NULL, sync_anchor INTEGER UNIQUE NOT NULL, sync_provenance INTEGER NOT NULL, primary_user INTEGER NOT NULL, sync_identity INTEGER NOT NULL);", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForContributorEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO contributors_new (ROWID, uuid, apple_id, caller_id, deleted, mod_date, sync_anchor, sync_provenance, primary_user, sync_identity) SELECT ROWID, uuid, apple_id, caller_id, deleted, mod_date, sync_anchor, sync_provenance, primary_user, ? FROM contributors;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE contributors_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{uuid BLOB UNIQUE NOT NULL, apple_id TEXT, caller_id TEXT, deleted INTEGER NOT NULL, mod_date REAL NOT NULL, sync_anchor INTEGER UNIQUE NOT NULL, sync_provenance INTEGER NOT NULL, primary_user INTEGER NOT NULL, sync_identity INTEGER NOT NULL);", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForContributorEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO contributors_new (ROWID, uuid, apple_id, caller_id, deleted, mod_date, sync_anchor, sync_provenance, primary_user, sync_identity) SELECT ROWID, uuid, apple_id, caller_id, deleted, mod_date, sync_anchor, sync_provenance, primary_user, ? FROM contributors;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE contributors;";
-    v15[1] = @"ALTER TABLE contributors_new RENAME TO contributors;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE contributors;";
+    v14[1] = @"ALTER TABLE contributors_new RENAME TO contributors;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6719,21 +4641,20 @@ uint64_t _HDSyncIdentityUpdateForContributorEntity(void *a1, void *a2, uint64_t 
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForProtectedKeyValueEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE key_value_secure_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{category INTEGER NOT NULL, domain TEXT NOT NULL, key TEXT NOT NULL, value, provenance INTEGER NOT NULL, mod_date REAL NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(category, domain, key));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForProtectedKeyValueEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO key_value_secure_new (ROWID, category, domain, key, value, provenance, mod_date, sync_identity) SELECT ROWID, category, domain, key, value, provenance, mod_date, ? FROM key_value_secure;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE key_value_secure_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{category INTEGER NOT NULL, domain TEXT NOT NULL, key TEXT NOT NULL, value, provenance INTEGER NOT NULL, mod_date REAL NOT NULL, sync_identity INTEGER NOT NULL, UNIQUE(category, domain, key));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForProtectedKeyValueEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO key_value_secure_new (ROWID, category, domain, key, value, provenance, mod_date, sync_identity) SELECT ROWID, category, domain, key, value, provenance, mod_date, ? FROM key_value_secure;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE key_value_secure;";
-    v15[1] = @"ALTER TABLE key_value_secure_new RENAME TO key_value_secure;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE key_value_secure;";
+    v14[1] = @"ALTER TABLE key_value_secure_new RENAME TO key_value_secure;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6742,21 +4663,20 @@ uint64_t _HDSyncIdentityUpdateForProtectedKeyValueEntity(void *a1, void *a2, uin
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t _HDSyncIdentityUpdateForObjectAuthorizationEntity(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
   v8 = [v7 protectedDatabase];
-  if ([v8 executeUncachedSQL:@"CREATE TABLE object_authorizations_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{object BLOB NOT NULL REFERENCES objects (uuid) ON DELETE CASCADE, source BLOB NOT NULL, status INTEGER NOT NULL, sync_provenance INTEGER NOT NULL, modification_date REAL NOT NULL, session BLOB, sync_identity INTEGER NOT NULL, UNIQUE(object, source, sync_provenance, sync_identity));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = ___HDSyncIdentityUpdateForObjectAuthorizationEntity_block_invoke, v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v14[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO object_authorizations_new (ROWID, object, source, status, sync_provenance, modification_date, session, sync_identity) SELECT ROWID, object, source, status, sync_provenance, modification_date, session, ? FROM object_authorizations;", a4, v14, 0)))
+  if ([v8 executeUncachedSQL:@"CREATE TABLE object_authorizations_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{object BLOB NOT NULL REFERENCES objects (uuid) ON DELETE CASCADE, source BLOB NOT NULL, status INTEGER NOT NULL, sync_provenance INTEGER NOT NULL, modification_date REAL NOT NULL, session BLOB, sync_identity INTEGER NOT NULL, UNIQUE(object, source, sync_provenance, sync_identity));", a4}] && (v9 = objc_msgSend(v6, "fetchLegacySyncIdentity:error:", v7, a4), v9 != -1) && (v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = ___HDSyncIdentityUpdateForObjectAuthorizationEntity_block_invoke, v13[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v13[4] = v9, objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO object_authorizations_new (ROWID, object, source, status, sync_provenance, modification_date, session, sync_identity) SELECT ROWID, object, source, status, sync_provenance, modification_date, session, ? FROM object_authorizations;", a4, v13, 0)))
   {
-    v15[0] = @"DROP TABLE object_authorizations;";
-    v15[1] = @"ALTER TABLE object_authorizations_new RENAME TO object_authorizations;";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"DROP TABLE object_authorizations;";
+    v14[1] = @"ALTER TABLE object_authorizations_new RENAME TO object_authorizations;";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v8 executeSQLStatements:v10 error:a4] ^ 1;
   }
 
@@ -6765,7 +4685,6 @@ uint64_t _HDSyncIdentityUpdateForObjectAuthorizationEntity(void *a1, void *a2, u
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -6891,17 +4810,17 @@ uint64_t _HDAdvanceUDCSyncAnchors(void *a1, void *a2, uint64_t a3, uint64_t a4)
   return v12;
 }
 
-void sub_228E55F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_228E55F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v14 - 112), 8);
+  _Block_object_dispose((v21 - 112), 8);
   _Unwind_Resume(a1);
 }
 
 BOOL _HDAssignWorkoutDatabaseMigrationError(void *a1, void *a2, void *a3, void *a4)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -6918,9 +4837,9 @@ BOOL _HDAssignWorkoutDatabaseMigrationError(void *a1, void *a2, void *a3, void *
     v13 = v7;
   }
 
-  v20 = *MEMORY[0x277CCBDA8];
-  v21[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = *MEMORY[0x277CCBDA8];
+  v20[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v15 = [v8 hk_errorByAddingEntriesToUserInfo:v14];
 
   v16 = v15;
@@ -6938,7 +4857,6 @@ BOOL _HDAssignWorkoutDatabaseMigrationError(void *a1, void *a2, void *a3, void *
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16 == 0;
 }
 
@@ -7060,7 +4978,7 @@ uint64_t _HDReplaceStatisticsForColumnAndDataType(uint64_t a1, uint64_t a2, uint
   return v14;
 }
 
-void sub_228E59454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_228E59454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -7074,7 +4992,7 @@ uint64_t __Block_byref_object_copy__156(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228E59AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_228E59AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -7088,21 +5006,21 @@ void sub_228E5A550(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_228E5A9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_228E5A9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_228E5AE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_228E5AE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_228E5B234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_228E5B234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -7116,7 +5034,7 @@ void sub_228E5B9D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_228E5DCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, void *a19, void *a20, void *a21, void *a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46)
+void sub_228E5DCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, void *a19, void *a20, void *a21, void *a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46)
 {
   _Block_object_dispose(&a35, 8);
 
@@ -7124,15 +5042,15 @@ void sub_228E5DCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_228E5E670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, void *a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_228E5E670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, void *a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   if (__p)
   {
-    v68[16] = __p;
+    v67[16] = __p;
     operator delete(__p);
   }
 
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v66 + 80);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v65 + 80);
 
   if (a46)
   {
@@ -7155,13 +5073,13 @@ void sub_228E5E928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t __copy_helper_block_ea8_112c97_ZTSNSt3__113unordered_setI15_HKDataTypeCodeNS_4hashIS1_EENS_8equal_toIS1_EENS_9allocatorIS1_EEEE152c23_ZTS14HKIntervalMaskIdE(void *a1, uint64_t a2)
+uint64_t *__copy_helper_block_ea8_112c97_ZTSNSt3__113unordered_setI15_HKDataTypeCodeNS_4hashIS1_EENS_8equal_toIS1_EENS_9allocatorIS1_EEEE152c23_ZTS14HKIntervalMaskIdE(void *a1, uint64_t a2)
 {
   std::unordered_set<_HKDataTypeCode>::unordered_set((a1 + 14), a2 + 112);
   a1[19] = 0;
   a1[20] = 0;
   a1[21] = 0;
-  return std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 19), *(a2 + 152), *(a2 + 160), (*(a2 + 160) - *(a2 + 152)) >> 4);
+  return std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 19, *(a2 + 152), *(a2 + 160), (*(a2 + 160) - *(a2 + 152)) >> 4);
 }
 
 uint64_t __destroy_helper_block_ea8_112c97_ZTSNSt3__113unordered_setI15_HKDataTypeCodeNS_4hashIS1_EENS_8equal_toIS1_EENS_9allocatorIS1_EEEE152c23_ZTS14HKIntervalMaskIdE(uint64_t a1)
@@ -7176,13 +5094,13 @@ uint64_t __destroy_helper_block_ea8_112c97_ZTSNSt3__113unordered_setI15_HKDataTy
   return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(a1 + 112);
 }
 
-uint64_t __copy_helper_block_ea8_80c97_ZTSNSt3__113unordered_setI15_HKDataTypeCodeNS_4hashIS1_EENS_8equal_toIS1_EENS_9allocatorIS1_EEEE120c23_ZTS14HKIntervalMaskIdE(void *a1, uint64_t a2)
+uint64_t *__copy_helper_block_ea8_80c97_ZTSNSt3__113unordered_setI15_HKDataTypeCodeNS_4hashIS1_EENS_8equal_toIS1_EENS_9allocatorIS1_EEEE120c23_ZTS14HKIntervalMaskIdE(void *a1, uint64_t a2)
 {
   std::unordered_set<_HKDataTypeCode>::unordered_set((a1 + 10), a2 + 80);
   a1[15] = 0;
   a1[16] = 0;
   a1[17] = 0;
-  return std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 15), *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 4);
+  return std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 15, *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 4);
 }
 
 uint64_t __destroy_helper_block_ea8_80c97_ZTSNSt3__113unordered_setI15_HKDataTypeCodeNS_4hashIS1_EENS_8equal_toIS1_EENS_9allocatorIS1_EEEE120c23_ZTS14HKIntervalMaskIdE(uint64_t a1)
@@ -7214,7 +5132,7 @@ void sub_228E60B90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7236,7 +5154,7 @@ void sub_228E60D7C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<HKRawInterval<double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<HKRawInterval<double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7526,16 +5444,12 @@ uint64_t _ZNKSt3__110__function6__funcIZZL15HDMigrateDatumsI25LocationHistoryBeh
   }
 }
 
-void ___ZZZL15HDMigrateDatumsI25LocationHistoryBehaviorV1S0_EbRKN6health9DataStoreERS2_NS2_16ObjectIdentifierENSt3__18functionIFNT0_9ValueTypeENT_7KeyTypeENSB_9ValueTypeEEEENS8_IFbvEEEPU15__autoreleasingP7NSErrorENKUlvE_clEvENKUlRKSB_E_clINS2_13SampleHistoryIS0_EEEEDaSO__block_invoke(void *a1)
+void ___ZZZL15HDMigrateDatumsI25LocationHistoryBehaviorV1S0_EbRKN6health9DataStoreERS2_NS2_16ObjectIdentifierENSt3__18functionIFNT0_9ValueTypeENT_7KeyTypeENSB_9ValueTypeEEEENS8_IFbvEEEPU15__autoreleasingP7NSErrorENKUlvE_clEvENKUlRKSB_E_clINS2_13SampleHistoryIS0_EEEEDaSO__block_invoke(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v5 = 0;
-  v1 = a1[4];
-  v2 = a1[5];
-  v4 = a1[6];
-  v3 = a1[7];
-  v7 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v2 = 0;
+  v4 = 0;
   operator new();
 }
 
@@ -7558,49 +5472,40 @@ __n128 _ZNKSt3__110__function6__funcIZZZZL15HDMigrateDatumsI25LocationHistoryBeh
   return result;
 }
 
-void _ZNSt3__110__function6__funcIZZZZL15HDMigrateDatumsI25LocationHistoryBehaviorV1S3_EbRKN6health9DataStoreERS5_NS5_16ObjectIdentifierENS_8functionIFNT0_9ValueTypeENT_7KeyTypeENSD_9ValueTypeEEEENSA_IFbvEEEPU15__autoreleasingP7NSErrorENKUlvE_clEvENKUlRKSD_E_clINS5_13SampleHistoryIS3_EEEEDaSQ_ENKUlSN_E_clESN_EUlRSD_E_NS_9allocatorISY_EEFbRNS5_20MutableSampleHistoryIS3_EEEEclES13_(uint64_t a1)
+void sub_228E63544(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  operator new();
-}
-
-void sub_228E63544(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va1, a4);
-  va_start(bufa, a4);
+  va_start(va1, a6);
+  va_start(bufa, a6);
   buf = va_arg(va1, _OWORD);
-  v15 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
   if (a2)
   {
     std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>::~__value_func[abi:ne200100](va1);
-    v6 = __cxa_begin_catch(a1);
+    v8 = __cxa_begin_catch(a1);
     if (a2 == 2)
     {
-      v7 = v6;
+      v9 = v8;
       _HKInitializeLogging();
-      v8 = *MEMORY[0x277CCC2A0];
+      v10 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(*v7 + 16);
-        v10 = v8;
-        v11 = v9(v7);
+        v11 = *(*v9 + 16);
+        v12 = v10;
+        v13 = v11(v9);
         LODWORD(buf) = 136315138;
-        *(bufa + 4) = v11;
-        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "Caught std::exception during ignore block; ignoring: %s", bufa, 0xCu);
+        *(bufa + 4) = v13;
+        _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Caught std::exception during ignore block; ignoring: %s", bufa, 0xCu);
       }
     }
 
     else
     {
       _HKInitializeLogging();
-      v12 = *MEMORY[0x277CCC2A0];
+      v14 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Caught unknown during ignore block; ignoring.", bufa, 2u);
+        _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "Caught unknown during ignore block; ignoring.", bufa, 2u);
       }
     }
 
@@ -7770,7 +5675,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
       if (*(a4 + 410) == 1)
       {
         v9 = health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, v8);
-        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_removeLeaf<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(a1, v9 + 8);
+        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_removeLeaf<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(a1, (v9 + 8));
       }
 
       else
@@ -7778,7 +5683,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
         health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_interiorChildAtIndex(a1, a2, a4, v8, __src);
         v10 = health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, v8);
         memcpy(v12, __src, sizeof(v12));
-        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_removeSubtree<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(a1, (a2 + 1), v10 + 8, v12);
+        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_removeSubtree<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(a1, a2 + 1, (v10 + 8), v12);
       }
 
       ++v8;
@@ -7790,13 +5695,13 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
   return health::BlockAccessFile::WriteTransaction::freeBlock(*(*(a1 + 16) + 24), *a3, a3[1]);
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_removeLeaf<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(uint64_t a1, uint64_t a2)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_removeLeaf<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV1>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 16);
   bzero(v11, 0x332uLL);
   v13 = 0u;
   v14 = 0u;
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>>(*(v4 + 24), *a2, *(a2 + 8), v11);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>>(*(v4 + 24), *a2, a2[1], v11);
   if (v12)
   {
     for (i = 0; i < v12; health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>::operator[](v11, i++))
@@ -7832,7 +5737,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
     v6 = *(a1 + 16);
   }
 
-  return health::BlockAccessFile::WriteTransaction::freeBlock(*(v6 + 24), *a2, *(a2 + 8));
+  return health::BlockAccessFile::WriteTransaction::freeBlock(*(v6 + 24), *a2, a2[1]);
 }
 
 uint64_t std::__function::__value_func<_HDRawLocationDatumV1 ()(double,_HDRawLocationDatumV1)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -7900,16 +5805,12 @@ uint64_t _ZNKSt3__110__function6__funcIZZL15HDMigrateDatumsI25LocationHistoryBeh
   }
 }
 
-void ___ZZZL15HDMigrateDatumsI25LocationHistoryBehaviorV2S0_EbRKN6health9DataStoreERS2_NS2_16ObjectIdentifierENSt3__18functionIFNT0_9ValueTypeENT_7KeyTypeENSB_9ValueTypeEEEENS8_IFbvEEEPU15__autoreleasingP7NSErrorENKUlvE_clEvENKUlRKSB_E_clINS2_13SampleHistoryIS0_EEEEDaSO__block_invoke(void *a1)
+void ___ZZZL15HDMigrateDatumsI25LocationHistoryBehaviorV2S0_EbRKN6health9DataStoreERS2_NS2_16ObjectIdentifierENSt3__18functionIFNT0_9ValueTypeENT_7KeyTypeENSB_9ValueTypeEEEENS8_IFbvEEEPU15__autoreleasingP7NSErrorENKUlvE_clEvENKUlRKSB_E_clINS2_13SampleHistoryIS0_EEEEDaSO__block_invoke(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v5 = 0;
-  v1 = a1[4];
-  v2 = a1[5];
-  v4 = a1[6];
-  v3 = a1[7];
-  v7 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v2 = 0;
+  v4 = 0;
   operator new();
 }
 
@@ -7966,8 +5867,8 @@ double health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV2>::loadH
 {
   *(a1 + 72) = *a2;
   v5 = *(a1 + 96);
-  health::DataStore::ReadTransaction::_pointerForObject(v5, a2, v10);
-  if (v10[16] == 1)
+  health::DataStore::ReadTransaction::_pointerForObject(v10, v5, a2);
+  if (v11 == 1)
   {
     v6 = *(v5 + 3);
     v7 = health::Optional<health::BlockPointer>::get(v10);
@@ -8010,14 +5911,14 @@ __n128 health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV2>::_upda
       {
         health::BlockAccessFile::WriteTransaction::updateObject<health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::SampleHistoryRoot>(v2 + 80, v7, v8, a1);
 LABEL_10:
-        health::DataStore::ReadTransaction::_pointerForObject(*(a1 + 96), (a1 + 72), v14);
+        health::DataStore::ReadTransaction::_pointerForObject(v14, *(a1 + 96), (a1 + 72));
         v12 = health::Optional<health::BlockPointer>::get(v14);
         result = *v12;
         *(a1 + 56) = *v12;
         return result;
       }
 
-      health::BlockAccessFile::WriteTransaction::freeBlock(v2 + 80, v7, v8);
+      health::BlockAccessFile::WriteTransaction::freeBlock((v2 + 80), v7, v8);
     }
 
     v9 = health::BlockAccessFile::WriteTransaction::_requestBlockOfLength((v2 + 80), 56);
@@ -8037,46 +5938,45 @@ LABEL_10:
 
 uint64_t health::BlockAccessFile::WriteTransaction::updateObject<health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::SampleHistoryRoot>(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = 56;
-  v12[0] = v13;
-  v12[1] = v13;
-  v12[2] = 56;
-  v11[0] = *a4;
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[1];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[2];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[3];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[4];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[5];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  v11[0] = a4[6];
-  health::SerializationBuffer::appendRaw<unsigned long long>(v12, v11);
-  if (v15 <= 0x3FF)
+  v15 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = 56;
+  v11[0] = v12;
+  v11[1] = v12;
+  v11[2] = 56;
+  v10[0] = *a4;
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[1];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[2];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[3];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[4];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[5];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  v10[0] = a4[6];
+  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
+  if (v14 <= 0x3FF)
   {
-    v8 = v13;
+    v8 = v12;
   }
 
   else
   {
-    v8 = v14;
+    v8 = v13;
   }
 
-  health::RawBuffer::RawBuffer(v11, v8, v15);
-  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v11);
-  result = v14;
-  v14 = 0;
+  health::RawBuffer::RawBuffer(v10, v8, v14);
+  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v10);
+  result = v13;
+  v13 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8101,49 +6001,40 @@ __n128 _ZNKSt3__110__function6__funcIZZZZL15HDMigrateDatumsI25LocationHistoryBeh
   return result;
 }
 
-void _ZNSt3__110__function6__funcIZZZZL15HDMigrateDatumsI25LocationHistoryBehaviorV2S3_EbRKN6health9DataStoreERS5_NS5_16ObjectIdentifierENS_8functionIFNT0_9ValueTypeENT_7KeyTypeENSD_9ValueTypeEEEENSA_IFbvEEEPU15__autoreleasingP7NSErrorENKUlvE_clEvENKUlRKSD_E_clINS5_13SampleHistoryIS3_EEEEDaSQ_ENKUlSN_E_clESN_EUlRSD_E_NS_9allocatorISY_EEFbRNS5_20MutableSampleHistoryIS3_EEEEclES13_(uint64_t a1)
+void sub_228E64C94(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  operator new();
-}
-
-void sub_228E64C94(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va1, a4);
-  va_start(bufa, a4);
+  va_start(va1, a6);
+  va_start(bufa, a6);
   buf = va_arg(va1, _OWORD);
-  v15 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
   if (a2)
   {
     std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>::~__value_func[abi:ne200100](va1);
-    v6 = __cxa_begin_catch(a1);
+    v8 = __cxa_begin_catch(a1);
     if (a2 == 2)
     {
-      v7 = v6;
+      v9 = v8;
       _HKInitializeLogging();
-      v8 = *MEMORY[0x277CCC2A0];
+      v10 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(*v7 + 16);
-        v10 = v8;
-        v11 = v9(v7);
+        v11 = *(*v9 + 16);
+        v12 = v10;
+        v13 = v11(v9);
         LODWORD(buf) = 136315138;
-        *(bufa + 4) = v11;
-        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "Caught std::exception during ignore block; ignoring: %s", bufa, 0xCu);
+        *(bufa + 4) = v13;
+        _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Caught std::exception during ignore block; ignoring: %s", bufa, 0xCu);
       }
     }
 
     else
     {
       _HKInitializeLogging();
-      v12 = *MEMORY[0x277CCC2A0];
+      v14 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Caught unknown during ignore block; ignoring.", bufa, 2u);
+        _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "Caught unknown during ignore block; ignoring.", bufa, 2u);
       }
     }
 
@@ -8326,19 +6217,19 @@ uint64_t ___ZZZZZZZL15HDMigrateDatumsI25LocationHistoryBehaviorV2S0_EbRKN6health
   return 1;
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::setValueForKey(uint64_t a1, double *a2, __int128 *a3)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::setValueForKey(uint64_t *a1, double *a2, __int128 *a3)
 {
-  v6 = *(a1 + 16);
+  v6 = a1[2];
   memset(v15, 0, 411);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v6 + 24), *a1, *(a1 + 8), v15);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v6 + 24), *a1, a1[1], v15);
   result = health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_setValueForKey(a1, 0, a1, v15, a2, a3);
   if (result >= 2)
   {
-    v8 = *(a1 + 16);
+    v8 = a1[2];
     memset(__src, 0, 411);
-    health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v8 + 24), *a1, *(a1 + 8), __src);
+    health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v8 + 24), *a1, a1[1], __src);
     memcpy(v13, __src, sizeof(v13));
-    v9 = *(*(a1 + 16) + 24);
+    v9 = *(a1[2] + 24);
     v10 = health::BlockAccessFile::WriteTransaction::_requestBlockOfLength(v9, 411);
     v12 = v11;
     health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(v9, v10, v11, v13);
@@ -8346,14 +6237,14 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
     *(&__src[0] + 1) = v10;
     *&__src[1] = v12;
     BYTE10(__src[25]) = 0;
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a1, *(a1 + 8), __src);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(a1[2] + 24), *a1, a1[1], __src);
     return health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::setValueForKey(a1, a2, a3);
   }
 
   return result;
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_setValueForKey(uint64_t a1, int a2, uint64_t a3, uint64_t a4, double *a5, __int128 *a6)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_setValueForKey(uint64_t a1, int a2, uint64_t *a3, uint64_t a4, double *a5, __int128 *a6)
 {
   if (!*(a4 + 408))
   {
@@ -8377,7 +6268,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
     *(a4 + 408) = 1;
     *(a4 + 410) = 1;
 LABEL_8:
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, *(a3 + 8), a4);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, a3[1], a4);
     return 0;
   }
 
@@ -8400,7 +6291,7 @@ LABEL_8:
       {
         v17 = *a5;
         *health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, v11) = v17;
-        health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, *(a3 + 8), a4);
+        health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, a3[1], a4);
       }
 
       return v15;
@@ -8524,7 +6415,7 @@ LABEL_8:
     health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::insertElementAtIndex(a4, &__p, v11 + 1);
     ++*(a4 + 408);
     health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>>(*(*(a1 + 16) + 24), v59, *(&v59 + 1), &v70);
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, *(a3 + 8), a4);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, a3[1], a4);
     if (*a5 <= *__dst)
     {
       v55 = &v59;
@@ -8544,7 +6435,7 @@ LABEL_8:
   v27 = v26;
   v83 = *(health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, v26) + 8);
   health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_interiorChildAtIndex(&v70, a1, a2 + 1, a4, v26);
-  v28 = health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_setValueForKey(a1, (a2 + 2), &v83, &v70, a5, a6);
+  v28 = health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_setValueForKey(a1, a2 + 2, &v83, &v70, a5, a6);
   if (v28 > 1)
   {
     if (*(a4 + 408) == 17)
@@ -8571,7 +6462,7 @@ LABEL_8:
     health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::insertElementAtIndex(a4, &__p, v27 + 1);
     ++*(a4 + 408);
     health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), v82, *(&v82 + 1), &v70);
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, *(a3 + 8), a4);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, a3[1], a4);
     if (*a5 <= *__dst)
     {
       v46 = &v82;
@@ -8584,7 +6475,7 @@ LABEL_8:
       v47 = __dst;
     }
 
-    return health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_setValueForKey(a1, (a2 + 2), v46, v47, a5, a6);
+    return health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_setValueForKey(a1, a2 + 2, v46, v47, a5, a6);
   }
 
   v18 = v28;
@@ -8593,7 +6484,7 @@ LABEL_8:
   {
     v30 = *a5;
     *health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, v27) = v30;
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, *(a3 + 8), a4);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a3, a3[1], a4);
   }
 
   return v18;
@@ -8627,71 +6518,70 @@ void sub_228E65BB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>>(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v8 = 0;
-  v18 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = 935;
-  v14[0] = v15;
-  v14[1] = v15;
-  v14[2] = 935;
+  v17 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = 935;
+  v13[0] = v14;
+  v13[1] = v14;
+  v13[2] = 935;
   do
   {
     v9 = health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>::ValueEntry,17ul>::operator[](a4, v8);
-    v13[0] = *v9;
-    health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
-    v13[0] = *(v9 + 8);
-    health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
-    v13[0] = *(v9 + 16);
-    health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
-    LODWORD(v13[0]) = *(v9 + 24);
-    health::SerializationBuffer::appendRaw<unsigned int>(v14, v13);
-    LODWORD(v13[0]) = *(v9 + 28);
-    health::SerializationBuffer::appendRaw<unsigned int>(v14, v13);
-    LODWORD(v13[0]) = *(v9 + 32);
-    health::SerializationBuffer::appendRaw<unsigned int>(v14, v13);
-    LODWORD(v13[0]) = *(v9 + 36);
-    health::SerializationBuffer::appendRaw<unsigned int>(v14, v13);
-    LODWORD(v13[0]) = *(v9 + 40);
-    health::SerializationBuffer::appendRaw<unsigned int>(v14, v13);
-    LODWORD(v13[0]) = *(v9 + 44);
-    health::SerializationBuffer::appendRaw<unsigned int>(v14, v13);
-    LODWORD(v13[0]) = *(v9 + 48);
-    health::SerializationBuffer::appendRaw<unsigned int>(v14, v13);
-    LOBYTE(v13[0]) = *(v9 + 52);
-    health::SerializationBuffer::appendRaw<unsigned char>(v14, v13);
+    v12[0] = *v9;
+    health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
+    v12[0] = *(v9 + 8);
+    health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
+    v12[0] = *(v9 + 16);
+    health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
+    LODWORD(v12[0]) = *(v9 + 24);
+    health::SerializationBuffer::appendRaw<unsigned int>(v13, v12);
+    LODWORD(v12[0]) = *(v9 + 28);
+    health::SerializationBuffer::appendRaw<unsigned int>(v13, v12);
+    LODWORD(v12[0]) = *(v9 + 32);
+    health::SerializationBuffer::appendRaw<unsigned int>(v13, v12);
+    LODWORD(v12[0]) = *(v9 + 36);
+    health::SerializationBuffer::appendRaw<unsigned int>(v13, v12);
+    LODWORD(v12[0]) = *(v9 + 40);
+    health::SerializationBuffer::appendRaw<unsigned int>(v13, v12);
+    LODWORD(v12[0]) = *(v9 + 44);
+    health::SerializationBuffer::appendRaw<unsigned int>(v13, v12);
+    LODWORD(v12[0]) = *(v9 + 48);
+    health::SerializationBuffer::appendRaw<unsigned int>(v13, v12);
+    LOBYTE(v12[0]) = *(v9 + 52);
+    health::SerializationBuffer::appendRaw<unsigned char>(v13, v12);
     ++v8;
   }
 
   while (v8 != 17);
-  LOWORD(v13[0]) = *(a4 + 952);
-  health::SerializationBuffer::appendRaw<unsigned short>(v14, v13);
-  v13[0] = *(a4 + 960);
-  health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
-  v13[0] = *(a4 + 968);
-  health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
-  v13[0] = *(a4 + 976);
-  health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
-  v13[0] = *(a4 + 984);
-  health::SerializationBuffer::appendRaw<unsigned long long>(v14, v13);
-  if (v17 <= 0x3FF)
+  LOWORD(v12[0]) = *(a4 + 952);
+  health::SerializationBuffer::appendRaw<unsigned short>(v13, v12);
+  v12[0] = *(a4 + 960);
+  health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
+  v12[0] = *(a4 + 968);
+  health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
+  v12[0] = *(a4 + 976);
+  health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
+  v12[0] = *(a4 + 984);
+  health::SerializationBuffer::appendRaw<unsigned long long>(v13, v12);
+  if (v16 <= 0x3FF)
   {
-    v10 = v15;
+    v10 = v14;
   }
 
   else
   {
-    v10 = v16;
+    v10 = v15;
   }
 
-  health::RawBuffer::RawBuffer(v13, v10, v17);
-  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v13);
-  result = v16;
-  v16 = 0;
+  health::RawBuffer::RawBuffer(v12, v10, v16);
+  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v12);
+  result = v15;
+  v15 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8707,7 +6597,7 @@ void sub_228E65E58(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_setValueForKey(uint64_t a1, uint64_t a2, uint64_t a3, double *a4, _OWORD *a5)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_setValueForKey(uint64_t a1, uint64_t *a2, uint64_t a3, double *a4, _OWORD *a5)
 {
   if (!*(a3 + 952))
   {
@@ -8739,7 +6629,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
       *(v19 + 8) = *a5;
       *(v19 + 24) = v21;
       *(v19 + 40) = v20;
-      health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a2, *(a2 + 8), a3);
+      health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a2, a2[1], a3);
       return 1;
     }
 
@@ -8811,7 +6701,7 @@ LABEL_9:
     *(v26 + 3) = v27;
     *(v26 + 5) = v30;
     ++*(a3 + 952);
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a2, *(a2 + 8), a3);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a2, a2[1], a3);
     return 0;
   }
 }
@@ -8841,7 +6731,7 @@ void sub_228E661B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double *health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_interiorChildAtIndex(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsigned int a5)
+double *health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_interiorChildAtIndex(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
 {
   if (*(a4 + 408) <= a5)
   {
@@ -8911,7 +6801,7 @@ double *health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlus
     if (*(a4 + 408) - 1 > a5)
     {
       v18 = *health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a1, *(a1 + 408) - 1);
-      result = health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, a5 + 1);
+      result = health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, (a5 + 1));
       if (v18 >= *result)
       {
         v19 = *MEMORY[0x277CCC2A0];
@@ -9027,7 +6917,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
       if (*(a4 + 410) == 1)
       {
         v9 = health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, v8);
-        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_removeLeaf<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV2>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(a1, v9 + 8);
+        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_removeLeaf<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV2>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(a1, (v9 + 8));
       }
 
       else
@@ -9035,7 +6925,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
         health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_interiorChildAtIndex(__src, a1, a2, a4, v8);
         v10 = health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, v8);
         memcpy(v12, __src, sizeof(v12));
-        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_removeSubtree<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV2>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(a1, (a2 + 1), v10 + 8, v12);
+        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_removeSubtree<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV2>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(a1, a2 + 1, (v10 + 8), v12);
       }
 
       ++v8;
@@ -9047,13 +6937,13 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
   return health::BlockAccessFile::WriteTransaction::freeBlock(*(*(a1 + 16) + 24), *a3, a3[1]);
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_removeLeaf<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV2>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(uint64_t a1, uint64_t a2)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_removeLeaf<health::DataStore::MutableSampleHistory<LocationHistoryBehaviorV2>::deleteAllSamples(void)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 16);
   bzero(v11, 0x3BAuLL);
   v13 = 0u;
   v14 = 0u;
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>>(*(v4 + 24), *a2, *(a2 + 8), v11);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>>(*(v4 + 24), *a2, a2[1], v11);
   if (v12)
   {
     for (i = 0; i < v12; health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>::ValueEntry,17ul>::operator[](v11, i++))
@@ -9089,7 +6979,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
     v6 = *(a1 + 16);
   }
 
-  return health::BlockAccessFile::WriteTransaction::freeBlock(*(v6 + 24), *a2, *(a2 + 8));
+  return health::BlockAccessFile::WriteTransaction::freeBlock(*(v6 + 24), *a2, a2[1]);
 }
 
 uint64_t std::__function::__value_func<_HDRawLocationDatumV2 ()(double,_HDRawLocationDatumV2)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -9117,24 +7007,6 @@ __n128 _ZNKSt3__110__function6__funcIZZ90__HDLocationSeriesHFDMigrationEntity__m
   *(a2 + 24) = v3;
   *(a2 + 8) = result;
   return result;
-}
-
-void _ZNSt3__110__function6__funcIZZ90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error__EUb_E3__1NS_9allocatorIS2_EEFvRKN6health9DataStore13SampleHistoryI25LocationHistoryBehaviorV1EEEEclESB_(uint64_t a1, __int128 *a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = a2[3];
-  v10 = a2[2];
-  v11 = v2;
-  v3 = a2[5];
-  v12 = a2[4];
-  v13 = v3;
-  v4 = a2[1];
-  v8 = *a2;
-  v9 = v4;
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 24);
-  operator new();
 }
 
 uint64_t _ZNKSt3__110__function6__funcIZZ90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error__EUb_E3__1NS_9allocatorIS2_EEFvRKN6health9DataStore13SampleHistoryI25LocationHistoryBehaviorV1EEEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
@@ -9212,23 +7084,6 @@ __n128 _ZNKSt3__110__function6__funcIZZ90__HDLocationSeriesHFDMigrationEntity__m
   *(a2 + 24) = *(a1 + 24);
   *(a2 + 8) = result;
   return result;
-}
-
-void _ZNSt3__110__function6__funcIZZ90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error__EUb_E3__2NS_9allocatorIS2_EEFvRKN6health9DataStore13SampleHistoryI25LocationHistoryBehaviorV2EEEEclESB_(uint64_t a1, __int128 *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = a2[3];
-  v9 = a2[2];
-  v10 = v2;
-  v3 = a2[5];
-  v11 = a2[4];
-  v12 = v3;
-  v4 = a2[1];
-  v7 = *a2;
-  v8 = v4;
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  operator new();
 }
 
 uint64_t _ZNKSt3__110__function6__funcIZZ90__HDLocationSeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error__EUb_E3__2NS_9allocatorIS2_EEFvRKN6health9DataStore13SampleHistoryI25LocationHistoryBehaviorV2EEEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
@@ -9331,7 +7186,7 @@ uint64_t _ZNKSt3__110__function6__funcIZZZ90__HDLocationSeriesHFDMigrationEntity
   }
 }
 
-float std::deque<std::tuple<double,double,float>>::emplace_back<double &,double &,float &>(void *a1, void *a2, void *a3, float *a4)
+float std::deque<std::tuple<double,double,float>>::emplace_back<double &,double &,float &>(unint64_t *a1, void *a2, void *a3, float *a4)
 {
   v8 = a1[1];
   v9 = a1[2];
@@ -9354,7 +7209,7 @@ float std::deque<std::tuple<double,double,float>>::emplace_back<double &,double 
     if (v13 < 0xAA)
     {
       v15 = a1[3];
-      v16 = &v15[-*a1];
+      v16 = v15 - *a1;
       if (v10 < v16)
       {
         if (v15 != v9)
@@ -9381,14 +7236,14 @@ float std::deque<std::tuple<double,double,float>>::emplace_back<double &,double 
 
     a1[4] = v13 - 170;
     *&v20 = *v8;
-    a1[1] = v8 + 8;
+    a1[1] = (v8 + 1);
     std::__split_buffer<std::__thread_id *>::emplace_back<std::__thread_id *&>(a1, &v20);
     v12 = a1[5];
     v8 = a1[1];
     v14 = a1[4] + v12;
   }
 
-  v18 = *&v8[8 * (v14 / 0xAA)] + 24 * (v14 % 0xAA);
+  v18 = v8[v14 / 0xAA] + 24 * (v14 % 0xAA);
   *v18 = *a2;
   *(v18 + 8) = *a3;
   result = *a4;
@@ -9417,16 +7272,16 @@ id HDPredicateForRecordID(uint64_t a1)
   return v3;
 }
 
-void sub_228E6AD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228E6AD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228E6AF48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_228E6AF48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9438,9 +7293,9 @@ uint64_t __Block_byref_object_copy__157(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228E6B8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228E6B8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9859,6 +7714,2183 @@ LABEL_88:
     }
 
     goto LABEL_101;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t HDCodableWorkoutStatisticsReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v37) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v37 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v37 & 0x7F) << v5;
+        if ((v37 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 2)
+      {
+        if (v13 == 1)
+        {
+          v22 = 0;
+          v23 = 0;
+          v24 = 0;
+          *(a1 + 48) |= 8u;
+          while (1)
+          {
+            LOBYTE(v37) = 0;
+            v25 = [a2 position] + 1;
+            if (v25 >= [a2 position] && (v26 = objc_msgSend(a2, "position") + 1, v26 <= objc_msgSend(a2, "length")))
+            {
+              v27 = [a2 data];
+              [v27 getBytes:&v37 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v24 |= (v37 & 0x7F) << v22;
+            if ((v37 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v22 += 7;
+            v11 = v23++ >= 9;
+            if (v11)
+            {
+              v28 = 0;
+              goto LABEL_49;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v28 = 0;
+          }
+
+          else
+          {
+            v28 = v24;
+          }
+
+LABEL_49:
+          *(a1 + 32) = v28;
+          goto LABEL_59;
+        }
+
+        if (v13 != 2)
+        {
+LABEL_44:
+          result = PBReaderSkipValueWithTag();
+          if (!result)
+          {
+            return result;
+          }
+
+          goto LABEL_59;
+        }
+
+        *(a1 + 48) |= 0x10u;
+        v37 = 0;
+        v16 = [a2 position] + 8;
+        if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 8, v17 <= objc_msgSend(a2, "length")))
+        {
+          v35 = [a2 data];
+          [v35 getBytes:&v37 range:{objc_msgSend(a2, "position"), 8}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v31 = v37;
+        v32 = 40;
+      }
+
+      else
+      {
+        switch(v13)
+        {
+          case 3:
+            *(a1 + 48) |= 4u;
+            v37 = 0;
+            v18 = [a2 position] + 8;
+            if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 8, v19 <= objc_msgSend(a2, "length")))
+            {
+              v30 = [a2 data];
+              [v30 getBytes:&v37 range:{objc_msgSend(a2, "position"), 8}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v31 = v37;
+            v32 = 24;
+            break;
+          case 4:
+            *(a1 + 48) |= 2u;
+            v37 = 0;
+            v20 = [a2 position] + 8;
+            if (v20 >= [a2 position] && (v21 = objc_msgSend(a2, "position") + 8, v21 <= objc_msgSend(a2, "length")))
+            {
+              v33 = [a2 data];
+              [v33 getBytes:&v37 range:{objc_msgSend(a2, "position"), 8}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v31 = v37;
+            v32 = 16;
+            break;
+          case 5:
+            *(a1 + 48) |= 1u;
+            v37 = 0;
+            v14 = [a2 position] + 8;
+            if (v14 >= [a2 position] && (v15 = objc_msgSend(a2, "position") + 8, v15 <= objc_msgSend(a2, "length")))
+            {
+              v34 = [a2 data];
+              [v34 getBytes:&v37 range:{objc_msgSend(a2, "position"), 8}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v31 = v37;
+            v32 = 8;
+            break;
+          default:
+            goto LABEL_44;
+        }
+      }
+
+      *(a1 + v32) = v31;
+LABEL_59:
+      v36 = [a2 position];
+    }
+
+    while (v36 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+double _HDWorkoutCollectionIntervalForType(void *a1)
+{
+  v1 = [a1 code];
+  v2 = v1 == 179 || v1 == 75;
+  result = 60.0;
+  if (!v2)
+  {
+    return 0.5;
+  }
+
+  return result;
+}
+
+void sub_228E6F6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+{
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v23 - 136), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__158(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+uint64_t statistics::QuantityOverlapProcessorState::QuantityOverlapProcessorState(uint64_t this)
+{
+  *this = &unk_283BEC550;
+  *(this + 40) = 0;
+  *(this + 48) = 0;
+  *(this + 32) = 0;
+  *(this + 60) = 0;
+  return this;
+}
+
+{
+  *this = &unk_283BEC550;
+  *(this + 40) = 0;
+  *(this + 48) = 0;
+  *(this + 32) = 0;
+  *(this + 60) = 0;
+  return this;
+}
+
+void statistics::QuantityOverlapProcessorState::~QuantityOverlapProcessorState(statistics::QuantityOverlapProcessorState *this)
+{
+  *this = &unk_283BEC550;
+  v2 = (this + 32);
+  std::vector<std::unique_ptr<statistics::Interval>>::__destroy_vector::operator()[abi:ne200100](&v2);
+  PB::Base::~Base(this);
+}
+
+{
+  *this = &unk_283BEC550;
+  v2 = (this + 32);
+  std::vector<std::unique_ptr<statistics::Interval>>::__destroy_vector::operator()[abi:ne200100](&v2);
+  PB::Base::~Base(this);
+}
+
+{
+  *this = &unk_283BEC550;
+  v2 = (this + 32);
+  std::vector<std::unique_ptr<statistics::Interval>>::__destroy_vector::operator()[abi:ne200100](&v2);
+  PB::Base::~Base(this);
+  MEMORY[0x22AAC8590]();
+}
+
+statistics::QuantityOverlapProcessorState *statistics::QuantityOverlapProcessorState::QuantityOverlapProcessorState(statistics::QuantityOverlapProcessorState *this, const statistics::QuantityOverlapProcessorState *a2)
+{
+  *this = &unk_283BEC550;
+  *(this + 4) = 0;
+  *(this + 5) = 0;
+  *(this + 6) = 0;
+  *(this + 15) = 0;
+  v2 = *(a2 + 60);
+  if ((v2 & 2) != 0)
+  {
+    v4 = *(a2 + 2);
+    v3 = 2;
+    *(this + 60) = 2;
+    *(this + 2) = v4;
+    v2 = *(a2 + 60);
+    if ((v2 & 1) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  v3 = 0;
+  if (*(a2 + 60))
+  {
+LABEL_5:
+    v5 = *(a2 + 1);
+    v3 |= 1u;
+    *(this + 60) = v3;
+    *(this + 1) = v5;
+    v2 = *(a2 + 60);
+  }
+
+LABEL_6:
+  if ((v2 & 4) != 0)
+  {
+    v6 = *(a2 + 3);
+    *(this + 60) = v3 | 4;
+    *(this + 3) = v6;
+  }
+
+  if (*(a2 + 4) != *(a2 + 5))
+  {
+    operator new();
+  }
+
+  if ((*(a2 + 60) & 8) != 0)
+  {
+    v7 = *(a2 + 56);
+    *(this + 60) |= 8u;
+    *(this + 56) = v7;
+  }
+
+  return this;
+}
+
+uint64_t statistics::QuantityOverlapProcessorState::operator=(uint64_t a1, const statistics::QuantityOverlapProcessorState *a2)
+{
+  if (a1 != a2)
+  {
+    statistics::QuantityOverlapProcessorState::QuantityOverlapProcessorState(&v10, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v11;
+    v11 = v3;
+    v4 = v13;
+    v5 = *(a1 + 16);
+    v6 = *(a1 + 32);
+    *(a1 + 16) = v12;
+    *(a1 + 32) = v4;
+    v7 = *(a1 + 60);
+    *(a1 + 60) = v16;
+    v16 = v7;
+    v12 = v5;
+    v13 = v6;
+    v8 = *(a1 + 48);
+    *(a1 + 48) = v14;
+    v14 = v8;
+    LOBYTE(v8) = *(a1 + 56);
+    *(a1 + 56) = v15;
+    v15 = v8;
+    v10 = &unk_283BEC550;
+    v17 = &v13;
+    std::vector<std::unique_ptr<statistics::Interval>>::__destroy_vector::operator()[abi:ne200100](&v17);
+    PB::Base::~Base(&v10);
+  }
+
+  return a1;
+}
+
+double statistics::swap(statistics *this, statistics::QuantityOverlapProcessorState *a2, statistics::QuantityOverlapProcessorState *a3)
+{
+  v3 = *(this + 15);
+  *(this + 15) = *(a2 + 15);
+  *(a2 + 15) = v3;
+  v4 = *(this + 2);
+  *(this + 2) = *(a2 + 2);
+  *(a2 + 2) = v4;
+  v5 = *(this + 3);
+  v6 = *(this + 4);
+  v7 = *(a2 + 4);
+  *(this + 3) = *(a2 + 3);
+  *(this + 4) = v7;
+  result = *(this + 1);
+  *(this + 1) = *(a2 + 1);
+  *(a2 + 1) = result;
+  *(a2 + 3) = v5;
+  *(a2 + 4) = v6;
+  v9 = *(this + 5);
+  *(this + 5) = *(a2 + 5);
+  *(a2 + 5) = v9;
+  v10 = *(this + 6);
+  *(this + 6) = *(a2 + 6);
+  *(a2 + 6) = v10;
+  LOBYTE(v10) = *(this + 56);
+  *(this + 56) = *(a2 + 56);
+  *(a2 + 56) = v10;
+  return result;
+}
+
+uint64_t statistics::QuantityOverlapProcessorState::QuantityOverlapProcessorState(uint64_t a1, uint64_t a2)
+{
+  *a1 = &unk_283BEC550;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 32) = 0;
+  v4 = (a1 + 32);
+  *(a1 + 60) = *(a2 + 60);
+  *(a2 + 60) = 0;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 24) = *(a2 + 24);
+  std::vector<std::unique_ptr<statistics::Interval>>::__vdeallocate((a1 + 32));
+  *v4 = *(a2 + 32);
+  *(a1 + 48) = *(a2 + 48);
+  *(a2 + 32) = 0;
+  *(a2 + 40) = 0;
+  *(a2 + 48) = 0;
+  *(a1 + 56) = *(a2 + 56);
+  return a1;
+}
+
+uint64_t statistics::QuantityOverlapProcessorState::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    statistics::QuantityOverlapProcessorState::QuantityOverlapProcessorState(&v10, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v11;
+    v11 = v3;
+    v4 = v13;
+    v5 = *(a1 + 16);
+    v6 = *(a1 + 32);
+    *(a1 + 16) = v12;
+    *(a1 + 32) = v4;
+    v7 = *(a1 + 60);
+    *(a1 + 60) = v16;
+    v16 = v7;
+    v12 = v5;
+    v13 = v6;
+    v8 = *(a1 + 48);
+    *(a1 + 48) = v14;
+    v14 = v8;
+    LOBYTE(v8) = *(a1 + 56);
+    *(a1 + 56) = v15;
+    v15 = v8;
+    v10 = &unk_283BEC550;
+    v17 = &v13;
+    std::vector<std::unique_ptr<statistics::Interval>>::__destroy_vector::operator()[abi:ne200100](&v17);
+    PB::Base::~Base(&v10);
+  }
+
+  return a1;
+}
+
+uint64_t statistics::QuantityOverlapProcessorState::formatText(statistics::QuantityOverlapProcessorState *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 60);
+  if (v5)
+  {
+    PB::TextFormatter::format(a2, "anchorTime", *(this + 1));
+    v5 = *(this + 60);
+    if ((v5 & 8) == 0)
+    {
+LABEL_3:
+      if ((v5 & 2) == 0)
+      {
+        goto LABEL_5;
+      }
+
+      goto LABEL_4;
+    }
+  }
+
+  else if ((*(this + 60) & 8) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  PB::TextFormatter::format(a2, "loggedDuplicatedSample");
+  if ((*(this + 60) & 2) != 0)
+  {
+LABEL_4:
+    PB::TextFormatter::format(a2, "overlapFunction");
+  }
+
+LABEL_5:
+  v6 = *(this + 4);
+  v7 = *(this + 5);
+  while (v6 != v7)
+  {
+    v8 = *v6++;
+    (*(*v8 + 32))(v8, a2, "workingSet");
+  }
+
+  if ((*(this + 60) & 4) != 0)
+  {
+    PB::TextFormatter::format(a2, "workingSetCount");
+  }
+
+  return MEMORY[0x2821A4560](a2);
+}
+
+uint64_t statistics::QuantityOverlapProcessorState::readFrom(statistics::QuantityOverlapProcessorState *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  while (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    v7 = *a2;
+    if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+    {
+      v15 = 0;
+      v16 = 0;
+      v10 = 0;
+      v17 = (v7 + v2);
+      v18 = v3 >= v2;
+      v19 = v3 - v2;
+      if (!v18)
+      {
+        v19 = 0;
+      }
+
+      v20 = v2 + 1;
+      while (v19)
+      {
+        v21 = *v17;
+        *(a2 + 1) = v20;
+        v10 |= (v21 & 0x7F) << v15;
+        if ((v21 & 0x80) == 0)
+        {
+          goto LABEL_21;
+        }
+
+        v15 += 7;
+        ++v17;
+        --v19;
+        ++v20;
+        v14 = v16++ > 8;
+        if (v14)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      v4 = 1;
+      *(a2 + 24) = 1;
+      break;
+    }
+
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    v11 = (v7 + v2);
+    v12 = v2 + 1;
+    while (1)
+    {
+      *(a2 + 1) = v12;
+      v13 = *v11++;
+      v10 |= (v13 & 0x7F) << v8;
+      if ((v13 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v8 += 7;
+      ++v12;
+      v14 = v9++ > 8;
+      if (v14)
+      {
+        goto LABEL_17;
+      }
+    }
+
+LABEL_21:
+    if ((v10 & 7) == 4)
+    {
+      v4 = 0;
+      break;
+    }
+
+    v22 = v10 >> 3;
+    if ((v10 >> 3) <= 2)
+    {
+      if (v22 == 1)
+      {
+        *(this + 60) |= 2u;
+        v38 = *(a2 + 1);
+        v37 = *(a2 + 2);
+        v39 = *a2;
+        if (v38 > 0xFFFFFFFFFFFFFFF5 || v38 + 10 > v37)
+        {
+          v52 = 0;
+          v53 = 0;
+          v42 = 0;
+          v54 = (v39 + v38);
+          v18 = v37 >= v38;
+          v55 = v37 - v38;
+          if (!v18)
+          {
+            v55 = 0;
+          }
+
+          v56 = v38 + 1;
+          while (1)
+          {
+            if (!v55)
+            {
+              v42 = 0;
+              *(a2 + 24) = 1;
+              goto LABEL_74;
+            }
+
+            v57 = *v54;
+            *(a2 + 1) = v56;
+            v42 |= (v57 & 0x7F) << v52;
+            if ((v57 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v52 += 7;
+            ++v54;
+            --v55;
+            ++v56;
+            v14 = v53++ > 8;
+            if (v14)
+            {
+LABEL_63:
+              v42 = 0;
+              goto LABEL_74;
+            }
+          }
+
+          if (*(a2 + 24))
+          {
+            v42 = 0;
+          }
+        }
+
+        else
+        {
+          v40 = 0;
+          v41 = 0;
+          v42 = 0;
+          v43 = (v39 + v38);
+          v44 = v38 + 1;
+          while (1)
+          {
+            *(a2 + 1) = v44;
+            v45 = *v43++;
+            v42 |= (v45 & 0x7F) << v40;
+            if ((v45 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v40 += 7;
+            ++v44;
+            v14 = v41++ > 8;
+            if (v14)
+            {
+              goto LABEL_63;
+            }
+          }
+        }
+
+LABEL_74:
+        *(this + 2) = v42;
+        goto LABEL_18;
+      }
+
+      if (v22 == 2)
+      {
+        *(this + 60) |= 1u;
+        v27 = *(a2 + 1);
+        if (v27 <= 0xFFFFFFFFFFFFFFF7 && v27 + 8 <= *(a2 + 2))
+        {
+          *(this + 1) = *(*a2 + v27);
+          *(a2 + 1) += 8;
+        }
+
+        else
+        {
+          *(a2 + 24) = 1;
+        }
+
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      switch(v22)
+      {
+        case 3:
+          *(this + 60) |= 4u;
+          v29 = *(a2 + 1);
+          v28 = *(a2 + 2);
+          v30 = *a2;
+          if (v29 > 0xFFFFFFFFFFFFFFF5 || v29 + 10 > v28)
+          {
+            v46 = 0;
+            v47 = 0;
+            v33 = 0;
+            v48 = (v30 + v29);
+            v18 = v28 >= v29;
+            v49 = v28 - v29;
+            if (!v18)
+            {
+              v49 = 0;
+            }
+
+            v50 = v29 + 1;
+            while (1)
+            {
+              if (!v49)
+              {
+                v33 = 0;
+                *(a2 + 24) = 1;
+                goto LABEL_71;
+              }
+
+              v51 = *v48;
+              *(a2 + 1) = v50;
+              v33 |= (v51 & 0x7F) << v46;
+              if ((v51 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v46 += 7;
+              ++v48;
+              --v49;
+              ++v50;
+              v14 = v47++ > 8;
+              if (v14)
+              {
+LABEL_55:
+                v33 = 0;
+                goto LABEL_71;
+              }
+            }
+
+            if (*(a2 + 24))
+            {
+              v33 = 0;
+            }
+          }
+
+          else
+          {
+            v31 = 0;
+            v32 = 0;
+            v33 = 0;
+            v34 = (v30 + v29);
+            v35 = v29 + 1;
+            while (1)
+            {
+              *(a2 + 1) = v35;
+              v36 = *v34++;
+              v33 |= (v36 & 0x7F) << v31;
+              if ((v36 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v31 += 7;
+              ++v35;
+              v14 = v32++ > 8;
+              if (v14)
+              {
+                goto LABEL_55;
+              }
+            }
+          }
+
+LABEL_71:
+          *(this + 3) = v33;
+          goto LABEL_18;
+        case 4:
+          operator new();
+        case 5:
+          *(this + 60) |= 8u;
+          v23 = *(a2 + 1);
+          if (v23 >= *(a2 + 2))
+          {
+            v26 = 0;
+            *(a2 + 24) = 1;
+          }
+
+          else
+          {
+            v24 = v23 + 1;
+            v25 = *(*a2 + v23);
+            *(a2 + 1) = v24;
+            v26 = v25 != 0;
+          }
+
+          *(this + 56) = v26;
+          goto LABEL_18;
+      }
+    }
+
+LABEL_17:
+    if ((PB::Reader::skip(a2) & 1) == 0)
+    {
+      v58 = 0;
+      return v58 & 1;
+    }
+
+LABEL_18:
+    v2 = *(a2 + 1);
+    v3 = *(a2 + 2);
+    v4 = *(a2 + 24);
+  }
+
+  v58 = v4 ^ 1;
+  return v58 & 1;
+}
+
+uint64_t statistics::QuantityOverlapProcessorState::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 60);
+  if ((v4 & 2) == 0)
+  {
+    if ((*(this + 60) & 1) == 0)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_11:
+    this = PB::Writer::write(a2, *(v3 + 8));
+    if ((*(v3 + 60) & 4) == 0)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_4;
+  }
+
+  this = PB::Writer::writeVarInt(a2);
+  v4 = *(v3 + 60);
+  if (v4)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_3:
+  if ((v4 & 4) != 0)
+  {
+LABEL_4:
+    this = PB::Writer::writeVarInt(a2);
+  }
+
+LABEL_5:
+  v5 = *(v3 + 32);
+  v6 = *(v3 + 40);
+  while (v5 != v6)
+  {
+    v7 = *v5++;
+    this = PB::Writer::writeSubmessage(a2, v7);
+  }
+
+  if ((*(v3 + 60) & 8) != 0)
+  {
+
+    return PB::Writer::write(a2);
+  }
+
+  return this;
+}
+
+BOOL statistics::QuantityOverlapProcessorState::operator==(uint64_t a1, uint64_t a2)
+{
+  if ((*(a1 + 60) & 2) != 0)
+  {
+    if ((*(a2 + 60) & 2) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 60) & 2) != 0)
+  {
+    return 0;
+  }
+
+  if (*(a1 + 60))
+  {
+    if ((*(a2 + 60) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 60))
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 60) & 4) != 0)
+  {
+    if ((*(a2 + 60) & 4) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 60) & 4) != 0)
+  {
+    return 0;
+  }
+
+  result = PB::PtrVector<statistics::QuantitySampleAttenuationEngineSample>::operator==((a1 + 32), a2 + 32);
+  if (result)
+  {
+    result = (*(a2 + 60) & 8) == 0;
+    if ((*(a1 + 60) & 8) != 0)
+    {
+      return (*(a2 + 60) & 8) != 0 && *(a1 + 56) == *(a2 + 56);
+    }
+  }
+
+  return result;
+}
+
+BOOL PB::PtrVector<statistics::QuantitySampleAttenuationEngineSample>::operator==(uint64_t **a1, uint64_t a2)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = *a2;
+  if (v2 - *a1 != *(a2 + 8) - *a2)
+  {
+    return 0;
+  }
+
+  if (v3 == v2)
+  {
+    return 1;
+  }
+
+  do
+  {
+    v6 = *v3++;
+    v5 = v6;
+    v7 = *v4++;
+    result = statistics::QuantitySampleAttenuationEngineSample::operator==(v5, v7);
+  }
+
+  while (result && v3 != v2);
+  return result;
+}
+
+uint64_t statistics::QuantityOverlapProcessorState::hash_value(statistics::QuantityOverlapProcessorState *this)
+{
+  v2 = *(this + 60);
+  if ((v2 & 2) != 0)
+  {
+    v3 = *(this + 2);
+    if (*(this + 60))
+    {
+LABEL_3:
+      if (*(this + 1) == 0.0)
+      {
+        v4 = 0;
+      }
+
+      else
+      {
+        v4 = *(this + 1);
+      }
+
+      if ((*(this + 60) & 4) != 0)
+      {
+        goto LABEL_7;
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v3 = 0;
+    if (*(this + 60))
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v4 = 0;
+  if ((*(this + 60) & 4) != 0)
+  {
+LABEL_7:
+    v5 = *(this + 3);
+    goto LABEL_11;
+  }
+
+LABEL_10:
+  v5 = 0;
+LABEL_11:
+  v6 = *(this + 4);
+  v7 = *(this + 5);
+  if (v6 != v7)
+  {
+    v8 = 0;
+    do
+    {
+      v9 = *v6++;
+      v8 ^= statistics::QuantitySampleAttenuationEngineSample::hash_value(v9);
+    }
+
+    while (v6 != v7);
+    if ((v2 & 8) == 0)
+    {
+      goto LABEL_15;
+    }
+
+LABEL_17:
+    v10 = *(this + 56);
+    return v4 ^ v3 ^ v5 ^ v10 ^ v8;
+  }
+
+  v8 = 0;
+  if ((*(this + 60) & 8) != 0)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_15:
+  v10 = 0;
+  return v4 ^ v3 ^ v5 ^ v10 ^ v8;
+}
+
+uint64_t HDCloudSyncCodableAttachmentReferenceTombstoneReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v23 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v23 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v23 & 0x7F) << v5;
+        if ((v23 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 100)
+      {
+        *(a1 + 32) |= 1u;
+        v22 = 0;
+        v17 = [a2 position] + 8;
+        if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 8, v18 <= objc_msgSend(a2, "length")))
+        {
+          v20 = [a2 data];
+          [v20 getBytes:&v22 range:{objc_msgSend(a2, "position"), 8}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        *(a1 + 8) = v22;
+      }
+
+      else
+      {
+        if (v13 == 2)
+        {
+          v14 = PBReaderReadString();
+          v15 = 24;
+        }
+
+        else
+        {
+          if (v13 != 1)
+          {
+            result = PBReaderSkipValueWithTag();
+            if (!result)
+            {
+              return result;
+            }
+
+            goto LABEL_30;
+          }
+
+          v14 = PBReaderReadString();
+          v15 = 16;
+        }
+
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v14;
+      }
+
+LABEL_30:
+      v21 = [a2 position];
+    }
+
+    while (v21 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_228E71AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228E71DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__159(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_228E72350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228E7264C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t HDCodablePauseRingsScheduleReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v31[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v31 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v31[0] & 0x7F) << v5;
+        if ((v31[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
+        break;
+      }
+
+      if (v13 == 2)
+      {
+        v15 = 0;
+        v16 = 0;
+        v17 = 0;
+        *(a1 + 32) |= 2u;
+        while (1)
+        {
+          LOBYTE(v31[0]) = 0;
+          v18 = [a2 position] + 1;
+          if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 1, v19 <= objc_msgSend(a2, "length")))
+          {
+            v20 = [a2 data];
+            [v20 getBytes:v31 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v17 |= (v31[0] & 0x7F) << v15;
+          if ((v31[0] & 0x80) == 0)
+          {
+            break;
+          }
+
+          v15 += 7;
+          v11 = v16++ >= 9;
+          if (v11)
+          {
+            v21 = 0;
+            goto LABEL_46;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v21 = 0;
+        }
+
+        else
+        {
+          v21 = v17;
+        }
+
+LABEL_46:
+        v28 = 16;
+LABEL_51:
+        *(a1 + v28) = v21;
+        goto LABEL_52;
+      }
+
+      if (v13 == 1)
+      {
+        v14 = objc_alloc_init(HDCodableSample);
+        objc_storeStrong((a1 + 24), v14);
+        v31[0] = 0;
+        v31[1] = 0;
+        if (!PBReaderPlaceMark() || !HDCodableSampleReadFrom(v14, a2))
+        {
+
+          return 0;
+        }
+
+        PBReaderRecallMark();
+      }
+
+      else if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_52:
+      v29 = [a2 position];
+      if (v29 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v22 = 0;
+    v23 = 0;
+    v24 = 0;
+    *(a1 + 32) |= 1u;
+    while (1)
+    {
+      LOBYTE(v31[0]) = 0;
+      v25 = [a2 position] + 1;
+      if (v25 >= [a2 position] && (v26 = objc_msgSend(a2, "position") + 1, v26 <= objc_msgSend(a2, "length")))
+      {
+        v27 = [a2 data];
+        [v27 getBytes:v31 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v24 |= (v31[0] & 0x7F) << v22;
+      if ((v31[0] & 0x80) == 0)
+      {
+        break;
+      }
+
+      v22 += 7;
+      v11 = v23++ >= 9;
+      if (v11)
+      {
+        v21 = 0;
+        goto LABEL_50;
+      }
+    }
+
+    if ([a2 hasError])
+    {
+      v21 = 0;
+    }
+
+    else
+    {
+      v21 = v24;
+    }
+
+LABEL_50:
+    v28 = 8;
+    goto LABEL_51;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t HDCodableDateComponentsReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v104 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v104 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v104 & 0x7F) << v5;
+        if ((v104 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      switch((v12 >> 3))
+      {
+        case 1u:
+          v13 = 0;
+          v14 = 0;
+          v15 = 0;
+          *(a1 + 136) |= 2u;
+          while (1)
+          {
+            v118 = 0;
+            v16 = [a2 position] + 1;
+            if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
+            {
+              v18 = [a2 data];
+              [v18 getBytes:&v118 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v15 |= (v118 & 0x7F) << v13;
+            if ((v118 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v13 += 7;
+            v11 = v14++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+LABEL_180:
+              v102 = 16;
+              goto LABEL_205;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v15;
+          }
+
+          goto LABEL_180;
+        case 2u:
+          v65 = 0;
+          v66 = 0;
+          v67 = 0;
+          *(a1 + 136) |= 0x1000u;
+          while (1)
+          {
+            v117 = 0;
+            v68 = [a2 position] + 1;
+            if (v68 >= [a2 position] && (v69 = objc_msgSend(a2, "position") + 1, v69 <= objc_msgSend(a2, "length")))
+            {
+              v70 = [a2 data];
+              [v70 getBytes:&v117 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v67 |= (v117 & 0x7F) << v65;
+            if ((v117 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v65 += 7;
+            v11 = v66++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_184;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v67;
+          }
+
+LABEL_184:
+          v102 = 104;
+          goto LABEL_205;
+        case 3u:
+          v46 = 0;
+          v47 = 0;
+          v48 = 0;
+          *(a1 + 136) |= 0x10u;
+          while (1)
+          {
+            v116 = 0;
+            v49 = [a2 position] + 1;
+            if (v49 >= [a2 position] && (v50 = objc_msgSend(a2, "position") + 1, v50 <= objc_msgSend(a2, "length")))
+            {
+              v51 = [a2 data];
+              [v51 getBytes:&v116 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v48 |= (v116 & 0x7F) << v46;
+            if ((v116 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v46 += 7;
+            v11 = v47++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_168;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v48;
+          }
+
+LABEL_168:
+          v102 = 40;
+          goto LABEL_205;
+        case 4u:
+          v53 = 0;
+          v54 = 0;
+          v55 = 0;
+          *(a1 + 136) |= 1u;
+          while (1)
+          {
+            v115 = 0;
+            v56 = [a2 position] + 1;
+            if (v56 >= [a2 position] && (v57 = objc_msgSend(a2, "position") + 1, v57 <= objc_msgSend(a2, "length")))
+            {
+              v58 = [a2 data];
+              [v58 getBytes:&v115 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v55 |= (v115 & 0x7F) << v53;
+            if ((v115 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v53 += 7;
+            v11 = v54++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_172;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v55;
+          }
+
+LABEL_172:
+          v102 = 8;
+          goto LABEL_205;
+        case 5u:
+          v28 = 0;
+          v29 = 0;
+          v30 = 0;
+          *(a1 + 136) |= 4u;
+          while (1)
+          {
+            v114 = 0;
+            v31 = [a2 position] + 1;
+            if (v31 >= [a2 position] && (v32 = objc_msgSend(a2, "position") + 1, v32 <= objc_msgSend(a2, "length")))
+            {
+              v33 = [a2 data];
+              [v33 getBytes:&v114 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v30 |= (v114 & 0x7F) << v28;
+            if ((v114 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v28 += 7;
+            v11 = v29++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_156;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v30;
+          }
+
+LABEL_156:
+          v102 = 24;
+          goto LABEL_205;
+        case 6u:
+          v71 = 0;
+          v72 = 0;
+          v73 = 0;
+          *(a1 + 136) |= 8u;
+          while (1)
+          {
+            v113 = 0;
+            v74 = [a2 position] + 1;
+            if (v74 >= [a2 position] && (v75 = objc_msgSend(a2, "position") + 1, v75 <= objc_msgSend(a2, "length")))
+            {
+              v76 = [a2 data];
+              [v76 getBytes:&v113 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v73 |= (v113 & 0x7F) << v71;
+            if ((v113 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v71 += 7;
+            v11 = v72++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_188;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v73;
+          }
+
+LABEL_188:
+          v102 = 32;
+          goto LABEL_205;
+        case 7u:
+          v83 = 0;
+          v84 = 0;
+          v85 = 0;
+          *(a1 + 136) |= 0x80u;
+          while (1)
+          {
+            v112 = 0;
+            v86 = [a2 position] + 1;
+            if (v86 >= [a2 position] && (v87 = objc_msgSend(a2, "position") + 1, v87 <= objc_msgSend(a2, "length")))
+            {
+              v88 = [a2 data];
+              [v88 getBytes:&v112 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v85 |= (v112 & 0x7F) << v83;
+            if ((v112 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v83 += 7;
+            v11 = v84++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_196;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v85;
+          }
+
+LABEL_196:
+          v102 = 64;
+          goto LABEL_205;
+        case 8u:
+          v59 = 0;
+          v60 = 0;
+          v61 = 0;
+          *(a1 + 136) |= 0x400u;
+          while (1)
+          {
+            v111 = 0;
+            v62 = [a2 position] + 1;
+            if (v62 >= [a2 position] && (v63 = objc_msgSend(a2, "position") + 1, v63 <= objc_msgSend(a2, "length")))
+            {
+              v64 = [a2 data];
+              [v64 getBytes:&v111 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v61 |= (v111 & 0x7F) << v59;
+            if ((v111 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v59 += 7;
+            v11 = v60++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_176;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v61;
+          }
+
+LABEL_176:
+          v102 = 88;
+          goto LABEL_205;
+        case 9u:
+          v95 = 0;
+          v96 = 0;
+          v97 = 0;
+          *(a1 + 136) |= 0x800u;
+          while (1)
+          {
+            v110 = 0;
+            v98 = [a2 position] + 1;
+            if (v98 >= [a2 position] && (v99 = objc_msgSend(a2, "position") + 1, v99 <= objc_msgSend(a2, "length")))
+            {
+              v100 = [a2 data];
+              [v100 getBytes:&v110 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v97 |= (v110 & 0x7F) << v95;
+            if ((v110 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v95 += 7;
+            v11 = v96++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_204;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v97;
+          }
+
+LABEL_204:
+          v102 = 96;
+          goto LABEL_205;
+        case 0xAu:
+          v40 = 0;
+          v41 = 0;
+          v42 = 0;
+          *(a1 + 136) |= 0x40u;
+          while (1)
+          {
+            v109 = 0;
+            v43 = [a2 position] + 1;
+            if (v43 >= [a2 position] && (v44 = objc_msgSend(a2, "position") + 1, v44 <= objc_msgSend(a2, "length")))
+            {
+              v45 = [a2 data];
+              [v45 getBytes:&v109 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v42 |= (v109 & 0x7F) << v40;
+            if ((v109 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v40 += 7;
+            v11 = v41++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_164;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v42;
+          }
+
+LABEL_164:
+          v102 = 56;
+          goto LABEL_205;
+        case 0xBu:
+          v89 = 0;
+          v90 = 0;
+          v91 = 0;
+          *(a1 + 136) |= 0x100u;
+          while (1)
+          {
+            v108 = 0;
+            v92 = [a2 position] + 1;
+            if (v92 >= [a2 position] && (v93 = objc_msgSend(a2, "position") + 1, v93 <= objc_msgSend(a2, "length")))
+            {
+              v94 = [a2 data];
+              [v94 getBytes:&v108 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v91 |= (v108 & 0x7F) << v89;
+            if ((v108 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v89 += 7;
+            v11 = v90++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_200;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v91;
+          }
+
+LABEL_200:
+          v102 = 72;
+          goto LABEL_205;
+        case 0xCu:
+          v22 = 0;
+          v23 = 0;
+          v24 = 0;
+          *(a1 + 136) |= 0x200u;
+          while (1)
+          {
+            v107 = 0;
+            v25 = [a2 position] + 1;
+            if (v25 >= [a2 position] && (v26 = objc_msgSend(a2, "position") + 1, v26 <= objc_msgSend(a2, "length")))
+            {
+              v27 = [a2 data];
+              [v27 getBytes:&v107 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v24 |= (v107 & 0x7F) << v22;
+            if ((v107 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v22 += 7;
+            v11 = v23++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_152;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v24;
+          }
+
+LABEL_152:
+          v102 = 80;
+          goto LABEL_205;
+        case 0xDu:
+          v34 = 0;
+          v35 = 0;
+          v36 = 0;
+          *(a1 + 136) |= 0x2000u;
+          while (1)
+          {
+            v106 = 0;
+            v37 = [a2 position] + 1;
+            if (v37 >= [a2 position] && (v38 = objc_msgSend(a2, "position") + 1, v38 <= objc_msgSend(a2, "length")))
+            {
+              v39 = [a2 data];
+              [v39 getBytes:&v106 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v36 |= (v106 & 0x7F) << v34;
+            if ((v106 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v34 += 7;
+            v11 = v35++ >= 9;
+            if (v11)
+            {
+              v19 = 0;
+              goto LABEL_160;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v19 = 0;
+          }
+
+          else
+          {
+            v19 = v36;
+          }
+
+LABEL_160:
+          v102 = 112;
+          goto LABEL_205;
+        case 0xEu:
+          v77 = 0;
+          v78 = 0;
+          v79 = 0;
+          *(a1 + 136) |= 0x20u;
+          break;
+        case 0xFu:
+          v20 = PBReaderReadString();
+          v21 = 120;
+          goto LABEL_74;
+        case 0x10u:
+          v20 = PBReaderReadString();
+          v21 = 128;
+LABEL_74:
+          v52 = *(a1 + v21);
+          *(a1 + v21) = v20;
+
+          goto LABEL_206;
+        default:
+          result = PBReaderSkipValueWithTag();
+          if (!result)
+          {
+            return result;
+          }
+
+          goto LABEL_206;
+      }
+
+      while (1)
+      {
+        v105 = 0;
+        v80 = [a2 position] + 1;
+        if (v80 >= [a2 position] && (v81 = objc_msgSend(a2, "position") + 1, v81 <= objc_msgSend(a2, "length")))
+        {
+          v82 = [a2 data];
+          [v82 getBytes:&v105 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v79 |= (v105 & 0x7F) << v77;
+        if ((v105 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v77 += 7;
+        v11 = v78++ >= 9;
+        if (v11)
+        {
+          v19 = 0;
+          goto LABEL_192;
+        }
+      }
+
+      v19 = [a2 hasError] ? 0 : v79;
+LABEL_192:
+      v102 = 48;
+LABEL_205:
+      *(a1 + v102) = v19;
+LABEL_206:
+      v103 = [a2 position];
+    }
+
+    while (v103 < [a2 length]);
   }
 
   return [a2 hasError] ^ 1;

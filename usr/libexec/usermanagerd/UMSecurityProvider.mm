@@ -15,6 +15,7 @@
   v6 = qword_1000EB4E0;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
+    v20 = 0;
     v7 = sub_1000011A8(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
@@ -28,7 +29,8 @@
 
     if (v8)
     {
-      v9 = _os_log_send_and_compose_impl();
+      v19 = 0;
+      v9 = _os_log_send_and_compose_impl(v8, &v20, 0, 0, &_mh_execute_header, v6, 2, "Calling _SecKeychainDeleteMultiUser, not waiting for completion..", &v19, 2);
       v10 = v9;
       if (v9)
       {
@@ -54,6 +56,7 @@
   v12 = qword_1000EB4E0;
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
+    v20 = 0;
     v13 = sub_1000011A8(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
@@ -67,7 +70,9 @@
 
     if (v14)
     {
-      v15 = _os_log_send_and_compose_impl();
+      v19 = 0;
+      LODWORD(v18) = 2;
+      v15 = _os_log_send_and_compose_impl(v14, &v20, 0, 0, &_mh_execute_header, v12, 2, "Waiting for _SecKeychainDeleteMultiUser complete", &v19, v18);
       v16 = v15;
       if (v15)
       {

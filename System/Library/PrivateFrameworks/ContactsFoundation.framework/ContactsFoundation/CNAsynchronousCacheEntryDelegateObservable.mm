@@ -65,7 +65,7 @@
 
 - (void)cacheEntryDidUpdateValue:(id)value
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v5 = self->_observers;
   objc_sync_enter(v5);
@@ -78,36 +78,34 @@
   currentValue2 = [valueCopy currentValue];
   v10 = off_1EF4401A8(&__block_literal_global_2_2, currentValue2);
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v11 = v6;
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v12)
   {
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) observerDidReceiveResult:{v10, v16}];
+        [*(*(&v15 + 1) + 8 * v14++) observerDidReceiveResult:{v10, v15}];
       }
 
       while (v12 != v14);
-      v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

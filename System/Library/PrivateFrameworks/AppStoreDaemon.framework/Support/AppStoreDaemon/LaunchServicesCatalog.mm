@@ -133,7 +133,7 @@
   appCopy = app;
   handlerCopy = handler;
   deviceCopy = device;
-  v11 = sub_1002B0154();
+  v11 = sub_1002B0154(XDCDeviceManager);
   v12 = sub_1002B08FC(v11, deviceCopy);
 
   if (v12 && (v12[18] & 1) != 0)
@@ -143,7 +143,7 @@
     sub_100266F34(v13, bundleID);
 
     v15 = sub_1003420C0([XDCMessage alloc], v13, 3);
-    v16 = sub_1002EB36C();
+    v16 = sub_1002EB36C(XDCService);
     v17[0] = _NSConcreteStackBlock;
     v17[1] = 3221225472;
     v17[2] = sub_1002F2438;

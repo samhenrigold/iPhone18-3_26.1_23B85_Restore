@@ -11,6 +11,7 @@
 - (id)stringForKey:(id)key;
 - (int64_t)integerForKey:(id)key;
 - (void)_setDefaultValue:(id)value forKey:(id)key;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setDouble:(double)double forKey:(id)key;
 - (void)setInteger:(int64_t)integer forKey:(id)key;
 @end
@@ -208,6 +209,15 @@ uint64_t __22__ADCoreDefaults_init__block_invoke(uint64_t a1)
 
   bOOLValue = [v5 BOOLValue];
   return bOOLValue;
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(ADCoreDefaults *)self _setDefaultValue:v8 forKey:keyCopy];
 }
 
 - (int64_t)integerForKey:(id)key

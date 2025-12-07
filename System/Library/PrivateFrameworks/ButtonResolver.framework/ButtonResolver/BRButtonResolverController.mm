@@ -1,6 +1,7 @@
 @interface BRButtonResolverController
 + (id)sharedInstance;
 + (void)sharedInstance;
+- (BOOL)disableStates:(id)states clearAsset:(BOOL)asset error:(id *)error;
 - (BOOL)enableStates:(id)states error:(id *)error;
 - (BOOL)isReady;
 - (BOOL)playState:(unint64_t)state forSpeed:(unint64_t)speed error:(id *)error;
@@ -95,33 +96,33 @@ id __44__BRButtonResolverController_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)propertyList
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   interfaces = self->_interfaces;
-  v5 = [(NSSet *)interfaces countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSSet *)interfaces countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(interfaces);
         }
 
-        [dictionary setObject:objc_msgSend(*(*(&v12 + 1) + 8 * v8++) forKeyedSubscript:{"propertyList"), objc_msgSend(objc_opt_class(), "description")}];
+        [dictionary setObject:objc_msgSend(*(*(&v11 + 1) + 8 * v8++) forKeyedSubscript:{"propertyList"), objc_msgSend(objc_opt_class(), "description")}];
       }
 
       while (v6 != v8);
-      v6 = [(NSSet *)interfaces countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSSet *)interfaces countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -139,33 +140,32 @@ id __44__BRButtonResolverController_sharedInstance__block_invoke(uint64_t a1)
     [(BRButtonResolverController *)dictionary propertyList];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 
 - (BOOL)isReady
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   interfaces = self->_interfaces;
-  v3 = [(NSSet *)interfaces countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSSet *)interfaces countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v11 != v5)
+      if (*v10 != v5)
       {
         objc_enumerationMutation(interfaces);
       }
 
-      isReady = [*(*(&v10 + 1) + 8 * v6) isReady];
+      isReady = [*(*(&v9 + 1) + 8 * v6) isReady];
       if (!isReady)
       {
         break;
@@ -173,7 +173,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [(NSSet *)interfaces countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [(NSSet *)interfaces countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -190,104 +190,93 @@ LABEL_9:
     LOBYTE(isReady) = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return isReady;
 }
 
 - (unint64_t)maxAssetSlots
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   interfaces = self->_interfaces;
-  v3 = [(NSSet *)interfaces countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v3)
+  v3 = [(NSSet *)interfaces countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (!v3)
   {
-    v4 = v3;
-    v5 = *v12;
-    maxAssetSlots = -1;
-    do
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v12 != v5)
-        {
-          objc_enumerationMutation(interfaces);
-        }
+    return -1;
+  }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        if ([v8 maxAssetSlots] < maxAssetSlots)
-        {
-          maxAssetSlots = [v8 maxAssetSlots];
-        }
+  v4 = v3;
+  v5 = *v11;
+  maxAssetSlots = -1;
+  do
+  {
+    for (i = 0; i != v4; ++i)
+    {
+      if (*v11 != v5)
+      {
+        objc_enumerationMutation(interfaces);
       }
 
-      v4 = [(NSSet *)interfaces countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v8 = *(*(&v10 + 1) + 8 * i);
+      if ([v8 maxAssetSlots] < maxAssetSlots)
+      {
+        maxAssetSlots = [v8 maxAssetSlots];
+      }
     }
 
-    while (v4);
+    v4 = [(NSSet *)interfaces countByEnumeratingWithState:&v10 objects:v14 count:16];
   }
 
-  else
-  {
-    maxAssetSlots = -1;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
+  while (v4);
   return maxAssetSlots;
 }
 
 - (unint64_t)unusedAssetSlots
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   interfaces = self->_interfaces;
-  v3 = [(NSSet *)interfaces countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v3)
+  v3 = [(NSSet *)interfaces countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (!v3)
   {
-    v4 = v3;
-    v5 = *v12;
-    unusedAssetSlots = -1;
-    do
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v12 != v5)
-        {
-          objc_enumerationMutation(interfaces);
-        }
+    return -1;
+  }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        if ([v8 maxAssetSlots] < unusedAssetSlots)
-        {
-          unusedAssetSlots = [v8 unusedAssetSlots];
-        }
+  v4 = v3;
+  v5 = *v11;
+  unusedAssetSlots = -1;
+  do
+  {
+    for (i = 0; i != v4; ++i)
+    {
+      if (*v11 != v5)
+      {
+        objc_enumerationMutation(interfaces);
       }
 
-      v4 = [(NSSet *)interfaces countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v8 = *(*(&v10 + 1) + 8 * i);
+      if ([v8 maxAssetSlots] < unusedAssetSlots)
+      {
+        unusedAssetSlots = [v8 unusedAssetSlots];
+      }
     }
 
-    while (v4);
+    v4 = [(NSSet *)interfaces countByEnumeratingWithState:&v10 objects:v14 count:16];
   }
 
-  else
-  {
-    unusedAssetSlots = -1;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
+  while (v4);
   return unusedAssetSlots;
 }
 
 - (BOOL)setGlobalConfigs:(id)configs error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v31 = 0;
+  v36 = *MEMORY[0x277D85DE8];
+  v30 = 0;
   v7 = _BRLog_log;
   if (!_BRLog_log)
   {
@@ -304,62 +293,62 @@ LABEL_9:
   {
     if (configs)
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       interfaces = self->_interfaces;
-      v16 = [(NSSet *)interfaces countByEnumeratingWithState:&v27 objects:v36 count:16];
+      v16 = [(NSSet *)interfaces countByEnumeratingWithState:&v26 objects:v35 count:16];
       if (!v16)
       {
         v20 = 0;
-        goto LABEL_21;
+        return v20 == 0;
       }
 
       v17 = v16;
-      v18 = *v28;
+      v18 = *v27;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v28 != v18)
+          if (*v27 != v18)
           {
             objc_enumerationMutation(interfaces);
           }
 
-          [*(*(&v27 + 1) + 8 * i) setGlobalConfigs:configs error:&v31];
+          [*(*(&v26 + 1) + 8 * i) setGlobalConfigs:configs error:&v30];
         }
 
-        v17 = [(NSSet *)interfaces countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v17 = [(NSSet *)interfaces countByEnumeratingWithState:&v26 objects:v35 count:16];
       }
 
       while (v17);
-      v20 = v31;
-      if (!v31)
+      v20 = v30;
+      if (!v30)
       {
-        goto LABEL_21;
+        return v20 == 0;
       }
 
       goto LABEL_15;
     }
 
-    v24 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA590];
-    v26 = -536870206;
+    v23 = MEMORY[0x277CCA9B8];
+    v24 = *MEMORY[0x277CCA590];
+    v25 = -536870206;
   }
 
   else
   {
-    v24 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA590];
-    v26 = -536870184;
+    v23 = MEMORY[0x277CCA9B8];
+    v24 = *MEMORY[0x277CCA590];
+    v25 = -536870184;
   }
 
-  v20 = [v24 errorWithDomain:v25 code:v26 userInfo:0];
-  v31 = v20;
+  v20 = [v23 errorWithDomain:v24 code:v25 userInfo:0];
+  v30 = v20;
   if (!v20)
   {
-    goto LABEL_21;
+    return v20 == 0;
   }
 
 LABEL_15:
@@ -368,20 +357,20 @@ LABEL_15:
   {
     v21 = os_log_create("com.apple.ButtonResolver", "default");
     _BRLog_log = v21;
-    v20 = v31;
+    v20 = v30;
   }
 
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v33 = "[BRButtonResolverController setGlobalConfigs:error:]";
-    v34 = 2112;
-    v35 = v20;
+    v32 = "[BRButtonResolverController setGlobalConfigs:error:]";
+    v33 = 2112;
+    v34 = v20;
     _os_log_error_impl(&dword_242149000, v21, OS_LOG_TYPE_ERROR, "%s error: %@", buf, 0x16u);
-    v20 = v31;
+    v20 = v30;
     if (!error)
     {
-      goto LABEL_21;
+      return v20 == 0;
     }
 
     goto LABEL_19;
@@ -393,16 +382,13 @@ LABEL_19:
     *error = v20;
   }
 
-LABEL_21:
-  result = v20 == 0;
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return v20 == 0;
 }
 
 - (BOOL)setConfigs:(id)configs withAssets:(id)assets forStates:(id)states error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v37 = 0;
+  v42 = *MEMORY[0x277D85DE8];
+  v36 = 0;
   v11 = _BRLog_log;
   if (!_BRLog_log)
   {
@@ -425,40 +411,40 @@ LABEL_21:
         {
           if (!assets || (v20 = [assets count], v20 == objc_msgSend(states, "count")))
           {
-            v35 = 0u;
-            v36 = 0u;
-            v33 = 0u;
             v34 = 0u;
+            v35 = 0u;
+            v32 = 0u;
+            v33 = 0u;
             interfaces = self->_interfaces;
-            v22 = [(NSSet *)interfaces countByEnumeratingWithState:&v33 objects:v42 count:16];
+            v22 = [(NSSet *)interfaces countByEnumeratingWithState:&v32 objects:v41 count:16];
             if (!v22)
             {
               v26 = 0;
-              goto LABEL_26;
+              return v26 == 0;
             }
 
             v23 = v22;
-            v24 = *v34;
+            v24 = *v33;
             do
             {
               for (i = 0; i != v23; ++i)
               {
-                if (*v34 != v24)
+                if (*v33 != v24)
                 {
                   objc_enumerationMutation(interfaces);
                 }
 
-                [*(*(&v33 + 1) + 8 * i) setConfigs:configs withAssets:assets forStates:states error:&v37];
+                [*(*(&v32 + 1) + 8 * i) setConfigs:configs withAssets:assets forStates:states error:&v36];
               }
 
-              v23 = [(NSSet *)interfaces countByEnumeratingWithState:&v33 objects:v42 count:16];
+              v23 = [(NSSet *)interfaces countByEnumeratingWithState:&v32 objects:v41 count:16];
             }
 
             while (v23);
-            v26 = v37;
-            if (!v37)
+            v26 = v36;
+            if (!v36)
             {
-              goto LABEL_26;
+              return v26 == 0;
             }
 
             goto LABEL_20;
@@ -467,23 +453,23 @@ LABEL_21:
       }
     }
 
-    v30 = MEMORY[0x277CCA9B8];
-    v31 = *MEMORY[0x277CCA590];
-    v32 = -536870206;
+    v29 = MEMORY[0x277CCA9B8];
+    v30 = *MEMORY[0x277CCA590];
+    v31 = -536870206;
   }
 
   else
   {
-    v30 = MEMORY[0x277CCA9B8];
-    v31 = *MEMORY[0x277CCA590];
-    v32 = -536870184;
+    v29 = MEMORY[0x277CCA9B8];
+    v30 = *MEMORY[0x277CCA590];
+    v31 = -536870184;
   }
 
-  v26 = [v30 errorWithDomain:v31 code:v32 userInfo:0];
-  v37 = v26;
+  v26 = [v29 errorWithDomain:v30 code:v31 userInfo:0];
+  v36 = v26;
   if (!v26)
   {
-    goto LABEL_26;
+    return v26 == 0;
   }
 
 LABEL_20:
@@ -492,20 +478,20 @@ LABEL_20:
   {
     v27 = os_log_create("com.apple.ButtonResolver", "default");
     _BRLog_log = v27;
-    v26 = v37;
+    v26 = v36;
   }
 
   if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v39 = "[BRButtonResolverController setConfigs:withAssets:forStates:error:]";
-    v40 = 2112;
-    v41 = v26;
+    v38 = "[BRButtonResolverController setConfigs:withAssets:forStates:error:]";
+    v39 = 2112;
+    v40 = v26;
     _os_log_error_impl(&dword_242149000, v27, OS_LOG_TYPE_ERROR, "%s error: %@", buf, 0x16u);
-    v26 = v37;
+    v26 = v36;
     if (!error)
     {
-      goto LABEL_26;
+      return v26 == 0;
     }
 
     goto LABEL_24;
@@ -517,16 +503,13 @@ LABEL_24:
     *error = v26;
   }
 
-LABEL_26:
-  result = v26 == 0;
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  return v26 == 0;
 }
 
 - (BOOL)enableStates:(id)states error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v28 = 0;
+  v33 = *MEMORY[0x277D85DE8];
+  v27 = 0;
   v7 = _BRLog_log;
   if (!_BRLog_log)
   {
@@ -541,50 +524,50 @@ LABEL_26:
 
   if ([(BRButtonResolverController *)self isReady])
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     interfaces = self->_interfaces;
-    v16 = [(NSSet *)interfaces countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v16 = [(NSSet *)interfaces countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (!v16)
     {
       v20 = 0;
-      goto LABEL_20;
+      return v20 == 0;
     }
 
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(interfaces);
         }
 
-        [*(*(&v24 + 1) + 8 * i) enableStates:states error:&v28];
+        [*(*(&v23 + 1) + 8 * i) enableStates:states error:&v27];
       }
 
-      v17 = [(NSSet *)interfaces countByEnumeratingWithState:&v24 objects:v33 count:16];
+      v17 = [(NSSet *)interfaces countByEnumeratingWithState:&v23 objects:v32 count:16];
     }
 
     while (v17);
-    v20 = v28;
-    if (!v28)
+    v20 = v27;
+    if (!v27)
     {
-      goto LABEL_20;
+      return v20 == 0;
     }
   }
 
   else
   {
     v20 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870184 userInfo:0];
-    v28 = v20;
+    v27 = v20;
     if (!v20)
     {
-      goto LABEL_20;
+      return v20 == 0;
     }
   }
 
@@ -593,20 +576,20 @@ LABEL_26:
   {
     v21 = os_log_create("com.apple.ButtonResolver", "default");
     _BRLog_log = v21;
-    v20 = v28;
+    v20 = v27;
   }
 
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v30 = "[BRButtonResolverController enableStates:error:]";
-    v31 = 2112;
-    v32 = v20;
+    v29 = "[BRButtonResolverController enableStates:error:]";
+    v30 = 2112;
+    v31 = v20;
     _os_log_error_impl(&dword_242149000, v21, OS_LOG_TYPE_ERROR, "%s error: %@", buf, 0x16u);
-    v20 = v28;
+    v20 = v27;
     if (!error)
     {
-      goto LABEL_20;
+      return v20 == 0;
     }
 
     goto LABEL_18;
@@ -618,16 +601,112 @@ LABEL_18:
     *error = v20;
   }
 
-LABEL_20:
-  result = v20 == 0;
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return v20 == 0;
+}
+
+- (BOOL)disableStates:(id)states clearAsset:(BOOL)asset error:(id *)error
+{
+  assetCopy = asset;
+  v35 = *MEMORY[0x277D85DE8];
+  v29 = 0;
+  v9 = _BRLog_log;
+  if (!_BRLog_log)
+  {
+    v9 = os_log_create("com.apple.ButtonResolver", "default");
+    _BRLog_log = v9;
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    [(BRButtonResolverController *)v9 disableStates:v10 clearAsset:v11 error:v12, v13, v14, v15, v16];
+  }
+
+  if ([(BRButtonResolverController *)self isReady])
+  {
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    interfaces = self->_interfaces;
+    v18 = [(NSSet *)interfaces countByEnumeratingWithState:&v25 objects:v34 count:16];
+    if (!v18)
+    {
+      v22 = 0;
+      return v22 == 0;
+    }
+
+    v19 = v18;
+    v20 = *v26;
+    do
+    {
+      for (i = 0; i != v19; ++i)
+      {
+        if (*v26 != v20)
+        {
+          objc_enumerationMutation(interfaces);
+        }
+
+        [*(*(&v25 + 1) + 8 * i) disableStates:states clearAsset:assetCopy error:&v29];
+      }
+
+      v19 = [(NSSet *)interfaces countByEnumeratingWithState:&v25 objects:v34 count:16];
+    }
+
+    while (v19);
+    v22 = v29;
+    if (!v29)
+    {
+      return v22 == 0;
+    }
+  }
+
+  else
+  {
+    v22 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870184 userInfo:0];
+    v29 = v22;
+    if (!v22)
+    {
+      return v22 == 0;
+    }
+  }
+
+  v23 = _BRLog_log;
+  if (!_BRLog_log)
+  {
+    v23 = os_log_create("com.apple.ButtonResolver", "default");
+    _BRLog_log = v23;
+    v22 = v29;
+  }
+
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    v31 = "[BRButtonResolverController disableStates:clearAsset:error:]";
+    v32 = 2112;
+    v33 = v22;
+    _os_log_error_impl(&dword_242149000, v23, OS_LOG_TYPE_ERROR, "%s error: %@", buf, 0x16u);
+    v22 = v29;
+    if (!error)
+    {
+      return v22 == 0;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (error)
+  {
+LABEL_18:
+    *error = v22;
+  }
+
+  return v22 == 0;
 }
 
 - (BOOL)playState:(unint64_t)state forSpeed:(unint64_t)speed error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v30 = 0;
+  v35 = *MEMORY[0x277D85DE8];
+  v29 = 0;
   v9 = _BRLog_log;
   if (!_BRLog_log)
   {
@@ -642,50 +721,50 @@ LABEL_20:
 
   if ([(BRButtonResolverController *)self isReady])
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     interfaces = self->_interfaces;
-    v18 = [(NSSet *)interfaces countByEnumeratingWithState:&v26 objects:v35 count:16];
+    v18 = [(NSSet *)interfaces countByEnumeratingWithState:&v25 objects:v34 count:16];
     if (!v18)
     {
       v22 = 0;
-      goto LABEL_20;
+      return v22 == 0;
     }
 
     v19 = v18;
-    v20 = *v27;
+    v20 = *v26;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v27 != v20)
+        if (*v26 != v20)
         {
           objc_enumerationMutation(interfaces);
         }
 
-        [*(*(&v26 + 1) + 8 * i) playState:state forSpeed:speed error:&v30];
+        [*(*(&v25 + 1) + 8 * i) playState:state forSpeed:speed error:&v29];
       }
 
-      v19 = [(NSSet *)interfaces countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v19 = [(NSSet *)interfaces countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v19);
-    v22 = v30;
-    if (!v30)
+    v22 = v29;
+    if (!v29)
     {
-      goto LABEL_20;
+      return v22 == 0;
     }
   }
 
   else
   {
     v22 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870184 userInfo:0];
-    v30 = v22;
+    v29 = v22;
     if (!v22)
     {
-      goto LABEL_20;
+      return v22 == 0;
     }
   }
 
@@ -694,20 +773,20 @@ LABEL_20:
   {
     v23 = os_log_create("com.apple.ButtonResolver", "default");
     _BRLog_log = v23;
-    v22 = v30;
+    v22 = v29;
   }
 
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v32 = "[BRButtonResolverController playState:forSpeed:error:]";
-    v33 = 2112;
-    v34 = v22;
+    v31 = "[BRButtonResolverController playState:forSpeed:error:]";
+    v32 = 2112;
+    v33 = v22;
     _os_log_error_impl(&dword_242149000, v23, OS_LOG_TYPE_ERROR, "%s error: %@", buf, 0x16u);
-    v22 = v30;
+    v22 = v29;
     if (!error)
     {
-      goto LABEL_20;
+      return v22 == 0;
     }
 
     goto LABEL_18;
@@ -719,19 +798,16 @@ LABEL_18:
     *error = v22;
   }
 
-LABEL_20:
-  result = v22 == 0;
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return v22 == 0;
 }
 
 - (void)scheduleReadyNotificationOnDispatchQueue:(id)queue withBlock:(id)block
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v19[3] = [(NSSet *)self->_interfaces count];
+  v21 = *MEMORY[0x277D85DE8];
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x2020000000;
+  v18[3] = [(NSSet *)self->_interfaces count];
   v7 = _BRLog_log;
   if (!_BRLog_log)
   {
@@ -744,47 +820,46 @@ LABEL_20:
     [(BRButtonResolverController *)buf scheduleReadyNotificationOnDispatchQueue:v7 withBlock:?];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   interfaces = self->_interfaces;
-  v9 = [(NSSet *)interfaces countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v9 = [(NSSet *)interfaces countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(interfaces);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __81__BRButtonResolverController_scheduleReadyNotificationOnDispatchQueue_withBlock___block_invoke;
-        v14[3] = &unk_278D3F338;
-        v14[6] = block;
-        v14[7] = v19;
-        v14[4] = queue;
-        v14[5] = v12;
-        [v12 scheduleReadyNotificationWithBlock:v14];
+        v12 = *(*(&v14 + 1) + 8 * v11);
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __81__BRButtonResolverController_scheduleReadyNotificationOnDispatchQueue_withBlock___block_invoke;
+        v13[3] = &unk_278D3F338;
+        v13[6] = block;
+        v13[7] = v18;
+        v13[4] = queue;
+        v13[5] = v12;
+        [v12 scheduleReadyNotificationWithBlock:v13];
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSSet *)interfaces countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v9 = [(NSSet *)interfaces countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v9);
   }
 
-  _Block_object_dispose(v19, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v18, 8);
 }
 
 void __81__BRButtonResolverController_scheduleReadyNotificationOnDispatchQueue_withBlock___block_invoke(uint64_t a1)
@@ -813,14 +888,14 @@ void __81__BRButtonResolverController_scheduleReadyNotificationOnDispatchQueue_w
 
 + (void)sharedInstance
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_242149000, self, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[BRButtonResolverController sharedInstance]";
+  OUTLINED_FUNCTION_0(&dword_242149000, self, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = _BRLog_log;
   if (!_BRLog_log)
   {
@@ -830,58 +905,55 @@ void __81__BRButtonResolverController_scheduleReadyNotificationOnDispatchQueue_w
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[BRButtonResolverController init]";
-    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s failed!", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[BRButtonResolverController init]";
+    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s failed!", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)propertyList
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[BRButtonResolverController propertyList]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[BRButtonResolverController propertyList]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_debug_impl(&dword_242149000, a2, OS_LOG_TYPE_DEBUG, "%s %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_242149000, a2, OS_LOG_TYPE_DEBUG, "%s %@", &v2, 0x16u);
 }
 
 - (void)setGlobalConfigs:(uint64_t)a3 error:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BRButtonResolverController setGlobalConfigs:error:]";
+  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setConfigs:(uint64_t)a3 withAssets:(uint64_t)a4 forStates:(uint64_t)a5 error:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BRButtonResolverController setConfigs:withAssets:forStates:error:]";
+  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)enableStates:(uint64_t)a3 error:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BRButtonResolverController enableStates:error:]";
+  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)disableStates:(uint64_t)a3 clearAsset:(uint64_t)a4 error:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BRButtonResolverController disableStates:clearAsset:error:]";
+  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)playState:(uint64_t)a3 forSpeed:(uint64_t)a4 error:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BRButtonResolverController playState:forSpeed:error:]";
+  OUTLINED_FUNCTION_0(&dword_242149000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)scheduleReadyNotificationOnDispatchQueue:(os_log_t)log withBlock:.cold.1(uint8_t *buf, uint64_t a2, os_log_t log)
@@ -895,18 +967,16 @@ void __81__BRButtonResolverController_scheduleReadyNotificationOnDispatchQueue_w
 
 void __81__BRButtonResolverController_scheduleReadyNotificationOnDispatchQueue_withBlock___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 40);
-  v6 = objc_opt_class();
-  v7 = *(*(*a2 + 8) + 24);
-  v9 = 136315650;
-  v10 = "[BRButtonResolverController scheduleReadyNotificationOnDispatchQueue:withBlock:]_block_invoke";
-  v11 = 2112;
+  v13 = *MEMORY[0x277D85DE8];
+  v5 = objc_opt_class();
+  v6 = *(*(*a2 + 8) + 24);
+  v7 = 136315650;
+  v8 = "[BRButtonResolverController scheduleReadyNotificationOnDispatchQueue:withBlock:]_block_invoke";
+  v9 = 2112;
+  v10 = v5;
+  v11 = 2048;
   v12 = v6;
-  v13 = 2048;
-  v14 = v7;
-  _os_log_debug_impl(&dword_242149000, a3, OS_LOG_TYPE_DEBUG, "%s interface is ready: %@, unready interfaces: %lu", &v9, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_242149000, a3, OS_LOG_TYPE_DEBUG, "%s interface is ready: %@, unready interfaces: %lu", &v7, 0x20u);
 }
 
 @end

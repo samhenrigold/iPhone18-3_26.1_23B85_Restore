@@ -8,7 +8,7 @@
 
 - (BOOL)appendData:(id)data
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = [dataCopy length];
   capacity = self->_capacity;
@@ -20,20 +20,20 @@
     if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       type = [(SidecarItem *)self type];
-      v20 = v7;
-      v21 = [dataCopy length];
-      v22 = [(NSMutableData *)self->_mutableData length];
-      v23 = self->_capacity;
-      v24 = 138544130;
-      v25 = type;
-      v26 = 2048;
-      v27 = v21;
-      v7 = v20;
-      v28 = 2048;
-      v29 = v22;
-      v30 = 2048;
-      v31 = v23;
-      _os_log_impl(&dword_26604C000, v13, OS_LOG_TYPE_ERROR, "item exceeded capacity: %{public}@ (%lu + %lu > %lu)", &v24, 0x2Au);
+      v19 = v7;
+      v20 = [dataCopy length];
+      v21 = [(NSMutableData *)self->_mutableData length];
+      v22 = self->_capacity;
+      v23 = 138544130;
+      v24 = type;
+      v25 = 2048;
+      v26 = v20;
+      v7 = v19;
+      v27 = 2048;
+      v28 = v21;
+      v29 = 2048;
+      v30 = v22;
+      _os_log_impl(&dword_26604C000, v13, OS_LOG_TYPE_ERROR, "item exceeded capacity: %{public}@ (%lu + %lu > %lu)", &v23, 0x2Au);
     }
 
     goto LABEL_11;
@@ -62,17 +62,16 @@
     {
       type2 = [(SidecarItem *)self type];
       v15 = self->_capacity;
-      v24 = 138543618;
-      v25 = type2;
-      v26 = 2048;
-      v27 = v15;
-      _os_log_impl(&dword_26604C000, v13, OS_LOG_TYPE_INFO, "item complete: %{public}@ (%lu bytes)", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = type2;
+      v25 = 2048;
+      v26 = v15;
+      _os_log_impl(&dword_26604C000, v13, OS_LOG_TYPE_INFO, "item complete: %{public}@ (%lu bytes)", &v23, 0x16u);
     }
 
 LABEL_11:
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5 <= v7;
 }
 

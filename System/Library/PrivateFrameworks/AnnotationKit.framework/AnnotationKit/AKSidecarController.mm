@@ -62,21 +62,23 @@
     unsignedIntegerValue2 = [v10 unsignedIntegerValue];
 
     v12 = [v7 objectForKeyedSubscript:&unk_2851BB700];
+    v13 = v12;
     if (unsignedIntegerValue)
     {
       if (unsignedIntegerValue2)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v13 = dataCopy[2](dataCopy, v12);
+          v15 = dataCopy[2](dataCopy, v13);
 LABEL_14:
 
           goto LABEL_15;
         }
 
-        v14 = sub_23F4A66C0();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = sub_23F4A66C0(isKindOfClass);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_23F4BD5FC();
         }
@@ -84,8 +86,8 @@ LABEL_14:
 
       else
       {
-        v14 = sub_23F4A66C0();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = sub_23F4A66C0(v12);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_23F4BD638();
         }
@@ -94,21 +96,21 @@ LABEL_14:
 
     else
     {
-      v14 = sub_23F4A66C0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = sub_23F4A66C0(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_23F4BD6B0();
       }
     }
 
-    v13 = 0;
+    v15 = 0;
     goto LABEL_14;
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_15:
 
-  return v13;
+  return v15;
 }
 
 - (AKSidecarController)initWithController:(id)controller
@@ -286,7 +288,7 @@ LABEL_15:
 
 - (void)done
 {
-  v3 = sub_23F4A66C0();
+  v3 = sub_23F4A66C0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -299,7 +301,7 @@ LABEL_15:
 
 - (void)_handleInternalFailure
 {
-  v3 = sub_23F4A66C0();
+  v3 = sub_23F4A66C0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_23F4BD700();
@@ -503,18 +505,19 @@ LABEL_11:
 {
   objectCopy = object;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     WeakRetained = objc_loadWeakRetained(&self->_controller);
-    v6 = objectCopy;
-    v7 = [v6 objectForKeyedSubscript:&unk_2851BB718];
-    unsignedIntegerValue = [v7 unsignedIntegerValue];
+    v7 = objectCopy;
+    v8 = [v7 objectForKeyedSubscript:&unk_2851BB718];
+    unsignedIntegerValue = [v8 unsignedIntegerValue];
 
-    v9 = sub_23F4A66C0();
-    v10 = v9;
+    v11 = sub_23F4A66C0(v10);
+    v12 = v11;
     if (!unsignedIntegerValue)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_23F4BD850();
       }
@@ -522,7 +525,7 @@ LABEL_11:
       goto LABEL_14;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_23F4BD778();
     }
@@ -536,23 +539,23 @@ LABEL_11:
         {
           if (unsignedIntegerValue == 2002)
           {
-            [(AKSidecarController *)self _handleAnnotationModify:v6];
+            [(AKSidecarController *)self _handleAnnotationModify:v7];
           }
 
           else if (unsignedIntegerValue == 2003)
           {
-            [(AKSidecarController *)self _handleSelectionChanged:v6];
+            [(AKSidecarController *)self _handleSelectionChanged:v7];
           }
         }
 
         else if (unsignedIntegerValue == 2000)
         {
-          [(AKSidecarController *)self _handleAnnotationAdd:v6];
+          [(AKSidecarController *)self _handleAnnotationAdd:v7];
         }
 
         else
         {
-          [(AKSidecarController *)self _handleAnnotationRemove:v6];
+          [(AKSidecarController *)self _handleAnnotationRemove:v7];
         }
       }
 
@@ -594,8 +597,8 @@ LABEL_11:
       if (unsignedIntegerValue == 1)
       {
 LABEL_8:
-        v10 = sub_23F4A66C0();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v12 = sub_23F4A66C0(v13);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           sub_23F4BD7E0();
         }
@@ -625,7 +628,7 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  WeakRetained = sub_23F4A66C0();
+  WeakRetained = sub_23F4A66C0(isKindOfClass);
   if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
   {
     sub_23F4BD73C();
@@ -647,114 +650,125 @@ LABEL_34:
   v11 = [addCopy objectForKeyedSubscript:&unk_2851BB778];
   objc_opt_class();
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v12 = [AKAnnotation annotationWithData:v8];
-    unsignedIntegerValue = [v9 unsignedIntegerValue];
-    unsignedIntegerValue2 = [v10 unsignedIntegerValue];
-    v35 = v12;
-    if (v12)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v32 = unsignedIntegerValue2;
-      if (unsignedIntegerValue < [pageModelControllers count])
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        modelController2 = [WeakRetained modelController];
-        v34 = [modelController2 pageModelControllerForPage:unsignedIntegerValue];
-
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v13 = [AKAnnotation annotationWithData:v8];
+        unsignedIntegerValue = [v9 unsignedIntegerValue];
+        unsignedIntegerValue2 = [v10 unsignedIntegerValue];
+        v39 = v13;
+        if (v13)
         {
-          v16 = sub_23F4A66C0();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+          v36 = unsignedIntegerValue2;
+          v16 = [pageModelControllers count];
+          if (unsignedIntegerValue < v16)
           {
-            sub_23F4BDA54();
+            modelController2 = [WeakRetained modelController];
+            v38 = [modelController2 pageModelControllerForPage:unsignedIntegerValue];
+
+            objc_opt_class();
+            v18 = objc_opt_isKindOfClass();
+            if (v18)
+            {
+              v19 = sub_23F4A66C0(v18);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+              {
+                sub_23F4BDA54();
+              }
+
+              inkCanvasAnnotation = [v38 inkCanvasAnnotation];
+
+              if (inkCanvasAnnotation)
+              {
+                undoController = [WeakRetained undoController];
+                undoManager = [undoController undoManager];
+                v46[0] = MEMORY[0x277D85DD0];
+                v46[1] = 3221225472;
+                v46[2] = sub_23F4A7C64;
+                v46[3] = &unk_278C7B810;
+                v47 = v38;
+                v48 = v39;
+                sub_23F4A7BAC(undoManager, v46);
+
+                [(AKSidecarController *)self _startChangeUndoGroup];
+                v23 = v47;
+              }
+
+              else
+              {
+                pageControllers = [WeakRetained pageControllers];
+                v23 = [pageControllers objectAtIndex:unsignedIntegerValue];
+
+                drawing = [v39 drawing];
+                inkPageOverlayController = [v23 inkPageOverlayController];
+                inkOverlayView = [inkPageOverlayController inkOverlayView];
+                canvasView = [inkOverlayView canvasView];
+                [canvasView setDrawing:drawing];
+              }
+            }
+
+            else
+            {
+              annotations = [v38 annotations];
+              v27 = [annotations count];
+
+              v29 = sub_23F4A66C0(v28);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+              {
+                sub_23F4BD9B0(v39, v29);
+              }
+
+              undoController2 = [WeakRetained undoController];
+              undoManager2 = [undoController2 undoManager];
+              v40[0] = MEMORY[0x277D85DD0];
+              v40[1] = 3221225472;
+              v40[2] = sub_23F4A7D24;
+              v40[3] = &unk_278C7C3F0;
+              v41 = v38;
+              v42 = v39;
+              v44 = v36;
+              v45 = v27;
+              v43 = v11;
+              sub_23F4A7BAC(undoManager2, v40);
+
+              v23 = v41;
+            }
+
+            goto LABEL_25;
           }
 
-          inkCanvasAnnotation = [v34 inkCanvasAnnotation];
-
-          if (inkCanvasAnnotation)
+          v25 = sub_23F4A66C0(v16);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            undoController = [WeakRetained undoController];
-            undoManager = [undoController undoManager];
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = sub_23F4A7C64;
-            v42[3] = &unk_278C7B810;
-            v43 = v34;
-            v44 = v35;
-            sub_23F4A7BAC(undoManager, v42);
-
-            [(AKSidecarController *)self _startChangeUndoGroup];
-            v20 = v43;
-          }
-
-          else
-          {
-            pageControllers = [WeakRetained pageControllers];
-            v20 = [pageControllers objectAtIndex:unsignedIntegerValue];
-
-            drawing = [v35 drawing];
-            inkPageOverlayController = [v20 inkPageOverlayController];
-            inkOverlayView = [inkPageOverlayController inkOverlayView];
-            canvasView = [inkOverlayView canvasView];
-            [canvasView setDrawing:drawing];
+            sub_23F4BD940();
           }
         }
 
         else
         {
-          annotations = [v34 annotations];
-          v24 = [annotations count];
-
-          v25 = sub_23F4A66C0();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          v25 = sub_23F4A66C0(unsignedIntegerValue2);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            sub_23F4BD9B0(v35, v25);
+            sub_23F4BDA94();
           }
-
-          undoController2 = [WeakRetained undoController];
-          undoManager2 = [undoController2 undoManager];
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = sub_23F4A7D24;
-          v36[3] = &unk_278C7C3F0;
-          v37 = v34;
-          v38 = v35;
-          v40 = v32;
-          v41 = v24;
-          v39 = v11;
-          sub_23F4A7BAC(undoManager2, v36);
-
-          v20 = v37;
         }
 
-        goto LABEL_25;
-      }
-
-      v22 = sub_23F4A66C0();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-      {
-        sub_23F4BD940();
-      }
-    }
-
-    else
-    {
-      v22 = sub_23F4A66C0();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-      {
-        sub_23F4BDA94();
-      }
-    }
-
-    [(AKSidecarController *)self _handleInternalFailure];
+        [(AKSidecarController *)self _handleInternalFailure];
 LABEL_25:
 
-    goto LABEL_14;
+        goto LABEL_14;
+      }
+    }
   }
 
-  v21 = sub_23F4A66C0();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v24 = sub_23F4A66C0(isKindOfClass);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     sub_23F4BD8C8();
   }
@@ -771,43 +785,45 @@ LABEL_14:
   v7 = [removeCopy objectForKeyedSubscript:&unk_2851BB748];
   v8 = [removeCopy objectForKeyedSubscript:&unk_2851BB7A8];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
   {
     unsignedIntegerValue = [v7 unsignedIntegerValue];
     modelController = [WeakRetained modelController];
-    v11 = [modelController pageModelControllerForPage:unsignedIntegerValue];
+    v12 = [modelController pageModelControllerForPage:unsignedIntegerValue];
 
-    if ([v8 BOOLValue])
+    bOOLValue = [v8 BOOLValue];
+    if (bOOLValue)
     {
-      v12 = [(AKSidecarController *)self _inkAnnotationFromPageModelController:v11];
+      v14 = [(AKSidecarController *)self _inkAnnotationFromPageModelController:v12];
 
-      v6 = v12;
+      v6 = v14;
     }
 
-    v13 = sub_23F4A66C0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = sub_23F4A66C0(bOOLValue);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_23F4BDB48();
     }
 
     undoController = [WeakRetained undoController];
     undoManager = [undoController undoManager];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = sub_23F4A7FF8;
-    v18[3] = &unk_278C7BBF8;
-    v18[4] = self;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = sub_23F4A7FF8;
+    v20[3] = &unk_278C7BBF8;
+    v20[4] = self;
     v6 = v6;
-    v19 = v6;
-    v20 = v11;
-    v16 = v11;
-    sub_23F4A7BAC(undoManager, v18);
+    v21 = v6;
+    v22 = v12;
+    v18 = v12;
+    sub_23F4A7BAC(undoManager, v20);
   }
 
   else
   {
-    v17 = sub_23F4A66C0();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = sub_23F4A66C0(isKindOfClass);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_23F4BDAD0();
     }
@@ -818,157 +834,163 @@ LABEL_14:
 
 - (void)_handleAnnotationModify:(id)modify
 {
-  v75[10] = *MEMORY[0x277D85DE8];
+  v82[10] = *MEMORY[0x277D85DE8];
   modifyCopy = modify;
   selfCopy = self;
   WeakRetained = objc_loadWeakRetained(&self->_controller);
   modelController = [WeakRetained modelController];
   pageModelControllers = [modelController pageModelControllers];
 
-  v75[0] = objc_opt_class();
-  v75[1] = objc_opt_class();
-  v75[2] = objc_opt_class();
-  v75[3] = objc_opt_class();
-  v75[4] = objc_opt_class();
-  v75[5] = objc_opt_class();
-  v75[6] = objc_opt_class();
-  v75[7] = objc_opt_class();
-  v75[8] = objc_opt_class();
-  v75[9] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:10];
+  v82[0] = objc_opt_class();
+  v82[1] = objc_opt_class();
+  v82[2] = objc_opt_class();
+  v82[3] = objc_opt_class();
+  v82[4] = objc_opt_class();
+  v82[5] = objc_opt_class();
+  v82[6] = objc_opt_class();
+  v82[7] = objc_opt_class();
+  v82[8] = objc_opt_class();
+  v82[9] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:10];
   v9 = [modifyCopy objectForKeyedSubscript:&unk_2851BB790];
   v10 = [modifyCopy objectForKeyedSubscript:&unk_2851BB748];
-  v62 = modifyCopy;
+  v69 = modifyCopy;
   v11 = [modifyCopy objectForKeyedSubscript:&unk_2851BB7C0];
-  v61 = WeakRetained;
+  v68 = WeakRetained;
   undoController = [WeakRetained undoController];
   undoManager = [undoController undoManager];
 
   v14 = v10;
   unsignedIntegerValue = [v10 unsignedIntegerValue];
-  v60 = pageModelControllers;
-  if (unsignedIntegerValue >= [pageModelControllers count])
+  v67 = pageModelControllers;
+  v16 = [pageModelControllers count];
+  if (unsignedIntegerValue >= v16)
   {
-    v27 = sub_23F4A66C0();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v31 = sub_23F4A66C0(v16);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_23F4BD940();
     }
 
     [(AKSidecarController *)selfCopy _handleInternalFailure];
-    v18 = v11;
-    v16 = v61;
-    v20 = v62;
+    v20 = v11;
+    v18 = v68;
+    v23 = v69;
   }
 
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v16 = v61;
-        modelController2 = [v61 modelController];
-        v59 = [modelController2 pageModelControllerForPage:unsignedIntegerValue];
+        v18 = v68;
+        modelController2 = [v68 modelController];
+        v66 = [modelController2 pageModelControllerForPage:unsignedIntegerValue];
 
-        v18 = v11;
+        v20 = v11;
         if (v11)
         {
           objc_opt_class();
-          v19 = undoManager;
-          v20 = v62;
-          if (objc_opt_isKindOfClass())
+          v21 = objc_opt_isKindOfClass();
+          v22 = undoManager;
+          v23 = v69;
+          if (v21)
           {
-            v21 = [v62 objectForKeyedSubscript:&unk_2851BB7A8];
-            v22 = [AKSecureSerializationHelper secureCodingCompliantObjectForData:v18 ofClasses:v8 withOptionalKey:0];
-            v23 = [(AKSidecarController *)selfCopy _translateColorEncoding:v22];
+            v24 = [v69 objectForKeyedSubscript:&unk_2851BB7A8];
+            v25 = [AKSecureSerializationHelper secureCodingCompliantObjectForData:v20 ofClasses:v8 withOptionalKey:0];
+            v26 = [(AKSidecarController *)selfCopy _translateColorEncoding:v25];
 
-            v24 = v23;
+            v27 = v26;
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            v28 = objc_opt_isKindOfClass();
+            if (v28)
             {
-              if ([v21 BOOLValue])
+              if ([v24 BOOLValue])
               {
-                v25 = [(AKSidecarController *)selfCopy _inkAnnotationFromPageModelController:v59];
+                v29 = [(AKSidecarController *)selfCopy _inkAnnotationFromPageModelController:v66];
 
-                v26 = selfCopy;
-                v9 = v25;
-                v24 = v23;
+                v30 = selfCopy;
+                v9 = v29;
+                v27 = v26;
               }
 
               else
               {
-                v26 = selfCopy;
+                v30 = selfCopy;
               }
 
-              v41 = [(AKSidecarController *)v26 _annotationWithUUID:v9 inPageModelController:v59];
+              v46 = [(AKSidecarController *)v30 _annotationWithUUID:v9 inPageModelController:v66];
               objc_opt_class();
-              if (objc_opt_isKindOfClass())
+              v47 = objc_opt_isKindOfClass();
+              if (v47)
               {
-                v42 = v41;
-                v43 = sub_23F4A66C0();
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+                v48 = v46;
+                v49 = sub_23F4A66C0(v48);
+                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
                 {
                   sub_23F4BDD48();
                 }
 
-                v68[0] = MEMORY[0x277D85DD0];
-                v68[1] = 3221225472;
-                v68[2] = sub_23F4A896C;
-                v68[3] = &unk_278C7B810;
-                v69 = v42;
-                v70 = v24;
-                v44 = v42;
-                sub_23F4A7BAC(v19, v68);
+                v75[0] = MEMORY[0x277D85DD0];
+                v75[1] = 3221225472;
+                v75[2] = sub_23F4A896C;
+                v75[3] = &unk_278C7B810;
+                v76 = v48;
+                v77 = v27;
+                v50 = v48;
+                sub_23F4A7BAC(v22, v75);
               }
 
               else
               {
-                v45 = sub_23F4A66C0();
-                if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+                v51 = sub_23F4A66C0(v47);
+                if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
                 {
                   sub_23F4BDCDC();
                 }
 
-                v64[0] = MEMORY[0x277D85DD0];
-                v64[1] = 3221225472;
-                v64[2] = sub_23F4A8978;
-                v64[3] = &unk_278C7BBF8;
-                v65 = v61;
-                v66 = v41;
-                v67 = v24;
-                sub_23F4A7BAC(v19, v64);
+                v71[0] = MEMORY[0x277D85DD0];
+                v71[1] = 3221225472;
+                v71[2] = sub_23F4A8978;
+                v71[3] = &unk_278C7BBF8;
+                v72 = v68;
+                v73 = v46;
+                v74 = v27;
+                sub_23F4A7BAC(v22, v71);
                 [(AKSidecarController *)selfCopy _startChangeUndoGroup];
 
-                v44 = v65;
+                v50 = v72;
               }
 
-              v16 = v61;
-              v20 = v62;
+              v18 = v68;
+              v23 = v69;
             }
 
             else
             {
-              v40 = sub_23F4A66C0();
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              v45 = sub_23F4A66C0(v28);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
               {
                 sub_23F4BDCA0();
               }
 
               [(AKSidecarController *)selfCopy _handleInternalFailure];
-              v24 = v23;
+              v27 = v26;
             }
 
-            v34 = v59;
+            v39 = v66;
           }
 
           else
           {
-            v38 = sub_23F4A66C0();
-            v34 = v59;
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v43 = sub_23F4A66C0(v21);
+            v39 = v66;
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
             {
               sub_23F4BDC28();
             }
@@ -979,19 +1001,20 @@ LABEL_14:
           goto LABEL_51;
         }
 
-        v20 = v62;
-        v29 = [v62 objectForKeyedSubscript:&unk_2851BB7D8];
-        v30 = [v62 objectForKeyedSubscript:&unk_2851BB730];
-        v31 = v29;
+        v23 = v69;
+        v33 = [v69 objectForKeyedSubscript:&unk_2851BB7D8];
+        v34 = [v69 objectForKeyedSubscript:&unk_2851BB730];
+        v35 = v33;
         objc_opt_class();
-        v19 = undoManager;
-        v57 = v30;
-        v58 = v31;
-        if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+        v36 = objc_opt_isKindOfClass();
+        v22 = undoManager;
+        v64 = v34;
+        v65 = v35;
+        if ((v36 & 1) == 0 || (objc_opt_class(), v36 = objc_opt_isKindOfClass(), (v36 & 1) == 0))
         {
-          v39 = sub_23F4A66C0();
-          v34 = v59;
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v44 = sub_23F4A66C0(v36);
+          v39 = v66;
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             sub_23F4BDDB4();
           }
@@ -1000,14 +1023,14 @@ LABEL_14:
           goto LABEL_50;
         }
 
-        v32 = v31;
-        v33 = [AKAnnotation annotationWithData:v30];
-        v34 = v59;
-        v56 = v33;
-        if (!v33)
+        v37 = v35;
+        v38 = [AKAnnotation annotationWithData:v34];
+        v39 = v66;
+        v63 = v38;
+        if (!v38)
         {
-          v46 = sub_23F4A66C0();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v52 = sub_23F4A66C0(0);
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
             sub_23F4BDE98();
           }
@@ -1016,42 +1039,42 @@ LABEL_14:
           goto LABEL_49;
         }
 
-        v35 = [v33 dictionaryWithValuesForKeys:v32];
-        v36 = [v35 mutableCopy];
+        v40 = [v38 dictionaryWithValuesForKeys:v37];
+        v41 = [v40 mutableCopy];
 
-        v54 = [(AKSidecarController *)selfCopy _annotationWithUUID:v9 inPageModelController:v59];
-        v37 = [v36 objectForKeyedSubscript:@"annotationText"];
-        v55 = v36;
-        if (v37)
+        v61 = [(AKSidecarController *)selfCopy _annotationWithUUID:v9 inPageModelController:v66];
+        v42 = [v41 objectForKeyedSubscript:@"annotationText"];
+        v62 = v41;
+        if (v42)
         {
         }
 
         else
         {
-          v47 = [v36 objectForKeyedSubscript:@"typingAttributes"];
+          v53 = [v41 objectForKeyedSubscript:@"typingAttributes"];
 
-          if (!v47)
+          if (!v53)
           {
 LABEL_46:
-            v51 = sub_23F4A66C0();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+            v58 = sub_23F4A66C0(v54);
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
             {
               sub_23F4BDE2C();
             }
 
-            v71[0] = MEMORY[0x277D85DD0];
-            v71[1] = 3221225472;
-            v71[2] = sub_23F4A88E8;
-            v71[3] = &unk_278C7BBF8;
-            v72 = v61;
-            v73 = v54;
-            v74 = v55;
-            v52 = v55;
-            v53 = v54;
-            sub_23F4A7BAC(v19, v71);
+            v78[0] = MEMORY[0x277D85DD0];
+            v78[1] = 3221225472;
+            v78[2] = sub_23F4A88E8;
+            v78[3] = &unk_278C7BBF8;
+            v79 = v68;
+            v80 = v61;
+            v81 = v62;
+            v59 = v62;
+            v60 = v61;
+            sub_23F4A7BAC(v22, v78);
             [(AKSidecarController *)selfCopy _startChangeUndoGroup];
 
-            v20 = v62;
+            v23 = v69;
 LABEL_49:
 
 LABEL_50:
@@ -1061,22 +1084,22 @@ LABEL_51:
           }
         }
 
-        v48 = v56;
-        foregroundColor = [v48 foregroundColor];
-        [v55 setObject:foregroundColor forKeyedSubscript:@"foregroundColor"];
+        v55 = v63;
+        foregroundColor = [v55 foregroundColor];
+        [v62 setObject:foregroundColor forKeyedSubscript:@"foregroundColor"];
 
-        foregroundColorHDR = [v48 foregroundColorHDR];
+        foregroundColorHDR = [v55 foregroundColorHDR];
 
-        [v55 setObject:foregroundColorHDR forKeyedSubscript:@"foregroundColorHDR"];
+        [v62 setObject:foregroundColorHDR forKeyedSubscript:@"foregroundColorHDR"];
         goto LABEL_46;
       }
     }
 
-    v28 = sub_23F4A66C0();
-    v18 = v11;
-    v16 = v61;
-    v20 = v62;
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v32 = sub_23F4A66C0(isKindOfClass);
+    v20 = v11;
+    v18 = v68;
+    v23 = v69;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_23F4BDBB0();
     }
@@ -1084,13 +1107,13 @@ LABEL_51:
     [(AKSidecarController *)selfCopy _handleInternalFailure];
   }
 
-  v19 = undoManager;
+  v22 = undoManager;
 LABEL_16:
 }
 
 - (void)_handleSelectionChanged:(id)changed
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   WeakRetained = objc_loadWeakRetained(&self->_controller);
   modelController = [WeakRetained modelController];
@@ -1099,10 +1122,11 @@ LABEL_16:
   v8 = [changedCopy objectForKeyedSubscript:&unk_2851BB748];
   v9 = [changedCopy objectForKeyedSubscript:&unk_2851BB7F0];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v25 = sub_23F4A66C0();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = sub_23F4A66C0(isKindOfClass);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_23F4BDED4();
     }
@@ -1111,10 +1135,11 @@ LABEL_16:
   }
 
   unsignedIntegerValue = [v8 unsignedIntegerValue];
-  if (unsignedIntegerValue >= [pageModelControllers count])
+  v12 = [pageModelControllers count];
+  if (unsignedIntegerValue >= v12)
   {
-    v26 = sub_23F4A66C0();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = sub_23F4A66C0(v12);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_23F4BD940();
     }
@@ -1125,75 +1150,75 @@ LABEL_23:
   }
 
   modelController2 = [WeakRetained modelController];
-  v12 = [modelController2 pageModelControllerForPage:unsignedIntegerValue];
+  v14 = [modelController2 pageModelControllerForPage:unsignedIntegerValue];
 
-  if (v12)
+  if (v14)
   {
-    v13 = [v12 valueForKeyPath:@"selectedAnnotations.UUID"];
-    v14 = [MEMORY[0x277CBEB98] setWithArray:v9];
-    if (([v13 isEqualToSet:v14] & 1) == 0)
+    v15 = [v14 valueForKeyPath:@"selectedAnnotations.UUID"];
+    v16 = [MEMORY[0x277CBEB98] setWithArray:v9];
+    if (([v15 isEqualToSet:v16] & 1) == 0)
     {
-      v27 = v13;
-      v29 = v9;
-      v30 = v8;
-      v31 = pageModelControllers;
-      v32 = WeakRetained;
+      v29 = v15;
+      v31 = v9;
+      v32 = v8;
+      v33 = pageModelControllers;
+      v34 = WeakRetained;
       indexSet = [MEMORY[0x277CCAB58] indexSet];
-      v16 = sub_23F4A66C0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v18 = sub_23F4A66C0(indexSet);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         sub_23F4BDF4C();
       }
 
+      v37 = 0u;
+      v38 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      v28 = v12;
-      annotations = [v12 annotations];
-      v18 = [annotations countByEnumeratingWithState:&v33 objects:v37 count:16];
-      if (v18)
+      v30 = v14;
+      annotations = [v14 annotations];
+      v20 = [annotations countByEnumeratingWithState:&v35 objects:v39 count:16];
+      if (v20)
       {
-        v19 = v18;
-        v20 = 0;
-        v21 = *v34;
+        v21 = v20;
+        v22 = 0;
+        v23 = *v36;
         do
         {
-          v22 = 0;
+          v24 = 0;
           do
           {
-            if (*v34 != v21)
+            if (*v36 != v23)
             {
               objc_enumerationMutation(annotations);
             }
 
-            uUID = [*(*(&v33 + 1) + 8 * v22) UUID];
-            v24 = [v14 containsObject:uUID];
+            uUID = [*(*(&v35 + 1) + 8 * v24) UUID];
+            v26 = [v16 containsObject:uUID];
 
-            if (v24)
+            if (v26)
             {
-              [indexSet addIndex:v20];
+              [indexSet addIndex:v22];
             }
 
-            ++v20;
             ++v22;
+            ++v24;
           }
 
-          while (v19 != v22);
-          v19 = [annotations countByEnumeratingWithState:&v33 objects:v37 count:16];
+          while (v21 != v24);
+          v21 = [annotations countByEnumeratingWithState:&v35 objects:v39 count:16];
         }
 
-        while (v19);
+        while (v21);
       }
 
-      v12 = v28;
-      [v28 selectAnnotationsAtIndexes:indexSet byExtendingSelection:0];
+      v14 = v30;
+      [v30 selectAnnotationsAtIndexes:indexSet byExtendingSelection:0];
 
-      pageModelControllers = v31;
-      WeakRetained = v32;
-      v9 = v29;
-      v8 = v30;
-      v13 = v27;
+      pageModelControllers = v33;
+      WeakRetained = v34;
+      v9 = v31;
+      v8 = v32;
+      v15 = v29;
     }
   }
 
@@ -1470,31 +1495,32 @@ LABEL_24:
       v23 = [v13 objectForKey:*MEMORY[0x277CCA300]];
       v24 = [v13 objectForKey:*MEMORY[0x277CCA2F0]];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v25 = objectCopy;
-        v26 = v23;
-        v27 = v25;
-        v29 = v26;
-        if (((v26 != 0) & bOOLValue) == 1)
+        v26 = objectCopy;
+        v27 = v23;
+        v28 = v26;
+        v30 = v27;
+        if (((v27 != 0) & bOOLValue) == 1)
         {
-          [(AKSidecarController *)self _annotationsWillBeRemoved:v26 onPageController:v25 isUndoingRedoing:isRedoing];
+          [(AKSidecarController *)self _annotationsWillBeRemoved:v27 onPageController:v26 isUndoingRedoing:isRedoing];
         }
 
         if (v24)
         {
-          [(AKSidecarController *)self _annotationsWereAdded:v24 onPageController:v27 isUndoingRedoing:isRedoing];
+          [(AKSidecarController *)self _annotationsWereAdded:v24 onPageController:v28 isUndoingRedoing:isRedoing];
         }
 
-        v23 = v29;
+        v23 = v30;
       }
 
       else
       {
-        v28 = sub_23F4A66C0();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = sub_23F4A66C0(isKindOfClass);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          sub_23F4BDFB4(objectCopy, v28);
+          sub_23F4BDFB4(objectCopy, v29);
         }
       }
     }
@@ -1868,7 +1894,7 @@ LABEL_24:
 
   else
   {
-    v17 = sub_23F4A66C0();
+    v17 = sub_23F4A66C0(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_23F4BE04C();
@@ -2040,7 +2066,7 @@ LABEL_11:
 - (void)_sendDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v5 = sub_23F4A66C0();
+  v5 = sub_23F4A66C0(dictionaryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_23F4BE0BC();

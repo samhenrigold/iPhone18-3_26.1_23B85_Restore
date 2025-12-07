@@ -93,127 +93,127 @@
 
 - (id)initFromArchive:(const void *)archive
 {
-  v47.receiver = self;
-  v47.super_class = TSTFormulaPredArg;
-  v4 = [(TSTFormulaPredArg *)&v47 init];
-  v8 = v4;
+  v41.receiver = self;
+  v41.super_class = TSTFormulaPredArg;
+  v4 = [(TSTFormulaPredArg *)&v41 init];
+  v7 = v4;
   if (!v4)
   {
-    return v8;
+    return v7;
   }
 
-  v9 = *(archive + 104);
-  v4->_type = v9;
+  v8 = *(archive + 104);
+  v4->_type = v8;
   v4->_hostCellCoord = 0x7FFF7FFFFFFFLL;
-  if (v9 <= 8)
+  if (v8 <= 8)
   {
-    if ((v9 - 1) < 3 || (v9 - 5) < 2)
+    if ((v8 - 1) < 3 || (v8 - 5) < 2)
     {
       if (*(archive + 16))
       {
-        v10 = [TSTFormulaPredArgData alloc];
+        v9 = [TSTFormulaPredArgData alloc];
         if (*(archive + 6))
         {
-          v14 = objc_msgSend_initFromArchive_(v10, v11, *(archive + 6), v12, v13);
+          v12 = objc_msgSend_initFromArchive_(v9, v10, *(archive + 6), v11);
         }
 
         else
         {
-          v14 = objc_msgSend_initFromArchive_(v10, v11, &TST::_FormulaPredArgDataArchive_default_instance_, v12, v13);
+          v12 = objc_msgSend_initFromArchive_(v9, v10, &TST::_FormulaPredArgDataArchive_default_instance_, v11);
         }
 
-        data = v8->_data;
-        v8->_data = v14;
+        data = v7->_data;
+        v7->_data = v12;
         goto LABEL_43;
       }
 
-      return v8;
+      return v7;
     }
 
-    if (v9 != 4)
+    if (v8 != 4)
     {
-      return v8;
+      return v7;
     }
 
-    v24 = *(archive + 4);
-    if ((v24 & 0x200) != 0)
+    v21 = *(archive + 4);
+    if ((v21 & 0x200) != 0)
     {
       v4->_preserveFlags._flags = v4->_preserveFlags._flags & 0xFE | *(archive + 109);
-      if ((v24 & 0x100) == 0)
+      if ((v21 & 0x100) == 0)
       {
 LABEL_27:
-        if ((v24 & 4) == 0)
+        if ((v21 & 4) == 0)
         {
           goto LABEL_28;
         }
 
 LABEL_49:
-        sub_221269BB4(*(archive + 8), v5, v46);
-        *&v8->_relativeCellRef.relativeCoord._row = *v46;
-        *(&v8->_relativeCellRef.tableUID + 1) = *(&v46[1] + 1);
-        v8->_hasRelativeCellRef = 1;
+        sub_221269BB4(*(archive + 8), v5, v40);
+        *&v7->_relativeCellRef.relativeCoord._row = *v40;
+        *(&v7->_relativeCellRef.tableUID + 1) = *(&v40[1] + 1);
+        v7->_hasRelativeCellRef = 1;
         if ((*(archive + 4) & 0x10) != 0)
         {
           goto LABEL_50;
         }
 
 LABEL_54:
-        v44 = *(archive + 4);
-        if ((v44 & 2) != 0)
+        v38 = *(archive + 4);
+        if ((v38 & 2) != 0)
         {
-          sub_221269DB8(*(archive + 7), v46);
-          v8->_baseCellRef._ref.coordinate = v46[0];
-          v8->_baseCellRef._ref._tableUID = *&v46[1];
-          v44 = *(archive + 4);
+          sub_221269DB8(*(archive + 7), v40);
+          v7->_baseCellRef._ref.coordinate = v40[0];
+          v7->_baseCellRef._ref._tableUID = *&v40[1];
+          v38 = *(archive + 4);
         }
 
-        if ((v44 & 0x20) != 0)
+        if ((v38 & 0x20) != 0)
         {
-          v8->_hostCellCoord = sub_2212697C0(*(archive + 11));
+          v7->_hostCellCoord = sub_2212697C0(*(archive + 11));
         }
 
-        return v8;
+        return v7;
       }
     }
 
-    else if ((v24 & 0x100) == 0)
+    else if ((v21 & 0x100) == 0)
     {
       goto LABEL_27;
     }
 
     if (*(archive + 108))
     {
-      v37 = 2;
+      v32 = 2;
     }
 
     else
     {
-      v37 = 0;
+      v32 = 0;
     }
 
-    v4->_preserveFlags._flags = v4->_preserveFlags._flags & 0xFD | v37;
-    if ((v24 & 4) == 0)
+    v4->_preserveFlags._flags = v4->_preserveFlags._flags & 0xFD | v32;
+    if ((v21 & 4) == 0)
     {
 LABEL_28:
-      if ((v24 & 0x10) == 0)
+      if ((v21 & 0x10) == 0)
       {
         goto LABEL_54;
       }
 
 LABEL_50:
-      v38 = [TSCEUndoTractList alloc];
+      v33 = [TSCEUndoTractList alloc];
       if (*(archive + 10))
       {
-        v42 = objc_msgSend_initWithArchive_(v38, v39, *(archive + 10), v40, v41);
+        v36 = objc_msgSend_initWithArchive_(v33, v34, *(archive + 10), v35);
       }
 
       else
       {
-        v42 = objc_msgSend_initWithArchive_(v38, v39, &TSCE::_ASTNodeArrayArchive_ASTUidTractList_default_instance_, v40, v41);
+        v36 = objc_msgSend_initWithArchive_(v33, v34, &TSCE::_ASTNodeArrayArchive_ASTUidTractList_default_instance_, v35);
       }
 
-      uidTractList = v8->_uidTractList;
-      v8->_uidTractList = v42;
+      uidTractList = v7->_uidTractList;
+      v7->_uidTractList = v36;
 
       goto LABEL_54;
     }
@@ -221,59 +221,59 @@ LABEL_50:
     goto LABEL_49;
   }
 
-  if (v9 > 10)
+  if (v8 > 10)
   {
-    if (v9 == 11)
+    if (v8 == 11)
     {
-      v26 = *(archive + 8);
-      v27 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v5, v26, v6, v7);
-      if (v26 >= 1)
+      v23 = *(archive + 8);
+      v24 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v5, v23, v6);
+      if (v23 >= 1)
       {
-        v28 = 8;
+        v25 = 8;
         do
         {
-          v29 = [TSTFormulaPredArgData alloc];
-          v36 = objc_msgSend_initFromArchive_(v29, v30, *(*(archive + 5) + v28), v31, v32);
-          if (v36)
+          v26 = [TSTFormulaPredArgData alloc];
+          v31 = objc_msgSend_initFromArchive_(v26, v27, *(*(archive + 5) + v25), v28);
+          if (v31)
           {
-            objc_msgSend_addObject_(v27, v33, v36, v34, v35);
+            objc_msgSend_addObject_(v24, v29, v31, v30);
           }
 
-          v28 += 8;
-          --v26;
+          v25 += 8;
+          --v23;
         }
 
-        while (v26);
+        while (v23);
       }
 
-      data = v8->_dataList;
-      v8->_dataList = v27;
+      data = v7->_dataList;
+      v7->_dataList = v24;
       goto LABEL_43;
     }
 
-    if (v9 != 12)
+    if (v8 != 12)
     {
-      if (v9 == 13 && (*(archive + 16) & 0x40) != 0)
+      if (v8 == 13 && (*(archive + 16) & 0x40) != 0)
       {
-        v16 = sub_22126A4CC(*(archive + 12), v5);
-        viewTractRef = v8->_viewTractRef;
-        v8->_viewTractRef = v16;
+        v14 = sub_22126A4CC(*(archive + 12), v5);
+        viewTractRef = v7->_viewTractRef;
+        v7->_viewTractRef = v14;
 
-        v8->_preserveFlags._flags = objc_msgSend_preserveFlags(v8->_viewTractRef, v18, v19, v20, v21);
+        v7->_preserveFlags._flags = objc_msgSend_preserveFlags(v7->_viewTractRef, v16, v17, v18);
       }
 
-      return v8;
+      return v7;
     }
 
 LABEL_19:
-    v23 = *(archive + 4);
-    if ((v23 & 0x200) != 0)
+    v20 = *(archive + 4);
+    if ((v20 & 0x200) != 0)
     {
       v4->_preserveFlags._flags = v4->_preserveFlags._flags & 0xFE | *(archive + 109);
-      if ((v23 & 0x100) == 0)
+      if ((v20 & 0x100) == 0)
       {
 LABEL_21:
-        if ((v23 & 4) == 0)
+        if ((v20 & 4) == 0)
         {
           goto LABEL_22;
         }
@@ -282,26 +282,26 @@ LABEL_21:
       }
     }
 
-    else if ((v23 & 0x100) == 0)
+    else if ((v20 & 0x100) == 0)
     {
       goto LABEL_21;
     }
 
     if (*(archive + 108))
     {
-      v25 = 2;
+      v22 = 2;
     }
 
     else
     {
-      v25 = 0;
+      v22 = 0;
     }
 
-    v4->_preserveFlags._flags = v4->_preserveFlags._flags & 0xFD | v25;
-    if ((v23 & 4) == 0)
+    v4->_preserveFlags._flags = v4->_preserveFlags._flags & 0xFD | v22;
+    if ((v20 & 4) == 0)
     {
 LABEL_22:
-      if ((v23 & 0x10) != 0)
+      if ((v20 & 0x10) != 0)
       {
         goto LABEL_50;
       }
@@ -310,9 +310,9 @@ LABEL_22:
     }
 
 LABEL_35:
-    sub_221269BB4(*(archive + 8), v5, v46);
-    *&v8->_relativeCellRef.relativeCoord._row = *v46;
-    *(&v8->_relativeCellRef.tableUID + 1) = *(&v46[1] + 1);
+    sub_221269BB4(*(archive + 8), v5, v40);
+    *&v7->_relativeCellRef.relativeCoord._row = *v40;
+    *(&v7->_relativeCellRef.tableUID + 1) = *(&v40[1] + 1);
     if ((*(archive + 4) & 0x10) != 0)
     {
       goto LABEL_50;
@@ -321,49 +321,49 @@ LABEL_35:
     goto LABEL_54;
   }
 
-  if (v9 == 9)
+  if (v8 == 9)
   {
     goto LABEL_19;
   }
 
   if ((*(archive + 16) & 8) != 0)
   {
-    v22 = sub_22126A0F4(*(archive + 9), v5);
-    data = v8->_categoryRef;
-    v8->_categoryRef = v22;
+    v19 = sub_22126A0F4(*(archive + 9), v5);
+    data = v7->_categoryRef;
+    v7->_categoryRef = v19;
 LABEL_43:
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)encodeToArchive:(void *)archive archiver:(id)archiver
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
   type = self->_type;
-  v11 = *(archive + 4);
-  *(archive + 4) = v11 | 0x80;
+  v10 = *(archive + 4);
+  *(archive + 4) = v10 | 0x80;
   *(archive + 26) = type;
   hostCellCoord = self->_hostCellCoord;
   if (hostCellCoord._coord.row != 0x7FFFFFFF && (*&hostCellCoord & 0xFFFF00000000) != 0x7FFF00000000)
   {
-    v65 = self->_hostCellCoord;
-    *(archive + 4) = v11 | 0xA0;
-    v14 = *(archive + 11);
-    if (!v14)
+    v62 = self->_hostCellCoord;
+    *(archive + 4) = v10 | 0xA0;
+    v13 = *(archive + 11);
+    if (!v13)
     {
-      v15 = *(archive + 1);
-      if (v15)
+      v14 = *(archive + 1);
+      if (v14)
       {
-        v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+        v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellCoordinateArchive>(v15);
-      *(archive + 11) = v14;
+      v13 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellCoordinateArchive>(v14);
+      *(archive + 11) = v13;
     }
 
-    sub_221269820(&v65, v14);
+    sub_221269820(&v62, v13);
     type = self->_type;
   }
 
@@ -373,69 +373,69 @@ LABEL_43:
     {
       if (type == 4)
       {
-        v35 = *(archive + 4);
+        v34 = *(archive + 4);
         if (self->_hasRelativeCellRef)
         {
-          *(archive + 4) = v35 | 4;
-          v36 = *(archive + 8);
-          if (!v36)
+          *(archive + 4) = v34 | 4;
+          v35 = *(archive + 8);
+          if (!v35)
           {
-            v37 = *(archive + 1);
-            if (v37)
+            v36 = *(archive + 1);
+            if (v36)
             {
-              v37 = *(v37 & 0xFFFFFFFFFFFFFFFELL);
+              v36 = *(v36 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v36 = google::protobuf::Arena::CreateMaybeMessage<TSCE::RelativeCellRefArchive>(v37);
-            *(archive + 8) = v36;
+            v35 = google::protobuf::Arena::CreateMaybeMessage<TSCE::RelativeCellRefArchive>(v36);
+            *(archive + 8) = v35;
           }
 
-          sub_221269AA8(&self->_relativeCellRef, v36);
-          v35 = *(archive + 4);
+          sub_221269AA8(&self->_relativeCellRef.relativeCoord, v35);
+          v34 = *(archive + 4);
         }
 
         flags = self->_preserveFlags._flags;
         *(archive + 109) = flags & 1;
-        *(archive + 4) = v35 | 0x300;
+        *(archive + 4) = v34 | 0x300;
         *(archive + 108) = (flags & 2) != 0;
         coordinate = self->_baseCellRef._ref.coordinate;
         if (coordinate.row != 0x7FFFFFFF && (*&coordinate & 0xFFFF00000000) != 0x7FFF00000000 && (self->_baseCellRef._ref._tableUID._lower || self->_baseCellRef._ref._tableUID._upper))
         {
-          *(archive + 4) = v35 | 0x302;
-          v40 = *(archive + 7);
-          if (!v40)
+          *(archive + 4) = v34 | 0x302;
+          v39 = *(archive + 7);
+          if (!v39)
           {
-            v41 = *(archive + 1);
-            if (v41)
+            v40 = *(archive + 1);
+            if (v40)
             {
-              v41 = *(v41 & 0xFFFFFFFFFFFFFFFELL);
+              v40 = *(v40 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v40 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellReferenceArchive>(v41);
-            *(archive + 7) = v40;
+            v39 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellReferenceArchive>(v40);
+            *(archive + 7) = v39;
           }
 
-          sub_221269A28(&self->_baseCellRef, v40);
+          sub_221269A28(&self->_baseCellRef, v39);
         }
 
         uidTractList = self->_uidTractList;
         if (uidTractList)
         {
           *(archive + 4) |= 0x10u;
-          v43 = *(archive + 10);
-          if (!v43)
+          v42 = *(archive + 10);
+          if (!v42)
           {
-            v44 = *(archive + 1);
-            if (v44)
+            v43 = *(archive + 1);
+            if (v43)
             {
-              v44 = *(v44 & 0xFFFFFFFFFFFFFFFELL);
+              v43 = *(v43 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v43 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidTractList>(v44);
-            *(archive + 10) = v43;
+            v42 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidTractList>(v43);
+            *(archive + 10) = v42;
           }
 
-          objc_msgSend_saveToArchive_(uidTractList, v6, v43, v7, v8);
+          objc_msgSend_saveToArchive_(uidTractList, v6, v42, v7);
         }
       }
     }
@@ -444,20 +444,20 @@ LABEL_43:
     {
       data = self->_data;
       *(archive + 4) |= 1u;
-      v17 = *(archive + 6);
-      if (!v17)
+      v16 = *(archive + 6);
+      if (!v16)
       {
-        v18 = *(archive + 1);
-        if (v18)
+        v17 = *(archive + 1);
+        if (v17)
         {
-          v18 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
+          v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v17 = google::protobuf::Arena::CreateMaybeMessage<TST::FormulaPredArgDataArchive>(v18);
-        *(archive + 6) = v17;
+        v16 = google::protobuf::Arena::CreateMaybeMessage<TST::FormulaPredArgDataArchive>(v17);
+        *(archive + 6) = v16;
       }
 
-      objc_msgSend_encodeToArchive_archiver_(data, v6, v17, archiverCopy, v8);
+      objc_msgSend_encodeToArchive_archiver_(data, v6, v16, archiverCopy);
     }
 
     goto LABEL_18;
@@ -473,20 +473,20 @@ LABEL_43:
         {
           viewTractRef = self->_viewTractRef;
           *(archive + 4) |= 0x40u;
-          v20 = *(archive + 12);
-          if (!v20)
+          v19 = *(archive + 12);
+          if (!v19)
           {
-            v21 = *(archive + 1);
-            if (v21)
+            v20 = *(archive + 1);
+            if (v20)
             {
-              v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
+              v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v20 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ViewTractRefArchive>(v21);
-            *(archive + 12) = v20;
+            v19 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ViewTractRefArchive>(v20);
+            *(archive + 12) = v19;
           }
 
-          sub_22126A2E4(viewTractRef, v20);
+          sub_22126A2E4(viewTractRef, v19);
         }
 
         goto LABEL_18;
@@ -495,48 +495,48 @@ LABEL_43:
       goto LABEL_34;
     }
 
-    v63 = 0u;
-    v64 = 0u;
+    v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
-    v45 = self->_dataList;
-    v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v61, v66, 16);
-    if (!v49)
+    v58 = 0u;
+    v59 = 0u;
+    v44 = self->_dataList;
+    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v44, v45, &v58, v63, 16);
+    if (!v47)
     {
       goto LABEL_92;
     }
 
-    v50 = *v62;
+    v48 = *v59;
 LABEL_80:
-    v51 = 0;
+    v49 = 0;
     while (1)
     {
-      if (*v62 != v50)
+      if (*v59 != v48)
       {
-        objc_enumerationMutation(v45);
+        objc_enumerationMutation(v44);
       }
 
-      v52 = *(*(&v61 + 1) + 8 * v51);
-      v53 = *(archive + 5);
-      if (!v53)
+      v50 = *(*(&v58 + 1) + 8 * v49);
+      v51 = *(archive + 5);
+      if (!v51)
       {
         goto LABEL_88;
       }
 
-      v54 = *(archive + 8);
-      v55 = *v53;
-      if (v54 >= *v53)
+      v52 = *(archive + 8);
+      v53 = *v51;
+      if (v52 >= *v51)
       {
         break;
       }
 
-      *(archive + 8) = v54 + 1;
-      objc_msgSend_encodeToArchive_archiver_(v52, v47, *&v53[2 * v54 + 2], archiverCopy, v48, v61);
+      *(archive + 8) = v52 + 1;
+      objc_msgSend_encodeToArchive_archiver_(v50, v46, *&v51[2 * v52 + 2], archiverCopy, v58);
 LABEL_90:
-      if (v49 == ++v51)
+      if (v47 == ++v49)
       {
-        v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v47, &v61, v66, 16);
-        if (!v49)
+        v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v44, v46, &v58, v63, 16);
+        if (!v47)
         {
 LABEL_92:
 
@@ -547,21 +547,21 @@ LABEL_92:
       }
     }
 
-    if (v55 == *(archive + 9))
+    if (v53 == *(archive + 9))
     {
 LABEL_88:
       google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 24));
-      v53 = *(archive + 5);
-      v55 = *v53;
+      v51 = *(archive + 5);
+      v53 = *v51;
     }
 
-    *v53 = v55 + 1;
-    v56 = google::protobuf::Arena::CreateMaybeMessage<TST::FormulaPredArgDataArchive>(*(archive + 3));
-    v57 = *(archive + 8);
-    v58 = *(archive + 5) + 8 * v57;
-    *(archive + 8) = v57 + 1;
-    *(v58 + 8) = v56;
-    objc_msgSend_encodeToArchive_archiver_(v52, v59, v56, archiverCopy, v60, v61);
+    *v51 = v53 + 1;
+    v54 = google::protobuf::Arena::CreateMaybeMessage<TST::FormulaPredArgDataArchive>(*(archive + 3));
+    v55 = *(archive + 8);
+    v56 = *(archive + 5) + 8 * v55;
+    *(archive + 8) = v55 + 1;
+    *(v56 + 8) = v54;
+    objc_msgSend_encodeToArchive_archiver_(v50, v57, v54, archiverCopy, v58);
     goto LABEL_90;
   }
 
@@ -571,60 +571,60 @@ LABEL_34:
     if (self->_relativeCellRef.tableUID._lower || self->_relativeCellRef.tableUID._upper)
     {
       *(archive + 4) |= 4u;
-      v27 = *(archive + 8);
-      if (!v27)
+      v26 = *(archive + 8);
+      if (!v26)
       {
-        v28 = *(archive + 1);
-        if (v28)
+        v27 = *(archive + 1);
+        if (v27)
         {
-          v28 = *(v28 & 0xFFFFFFFFFFFFFFFELL);
+          v27 = *(v27 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v27 = google::protobuf::Arena::CreateMaybeMessage<TSCE::RelativeCellRefArchive>(v28);
-        *(archive + 8) = v27;
+        v26 = google::protobuf::Arena::CreateMaybeMessage<TSCE::RelativeCellRefArchive>(v27);
+        *(archive + 8) = v26;
       }
 
-      sub_221269AA8(&self->_relativeCellRef, v27);
+      sub_221269AA8(&self->_relativeCellRef.relativeCoord, v26);
     }
 
-    v29 = self->_uidTractList;
-    if (v29)
+    v28 = self->_uidTractList;
+    if (v28)
     {
       *(archive + 4) |= 0x10u;
-      v30 = *(archive + 10);
-      if (!v30)
+      v29 = *(archive + 10);
+      if (!v29)
       {
-        v31 = *(archive + 1);
-        if (v31)
+        v30 = *(archive + 1);
+        if (v30)
         {
-          v31 = *(v31 & 0xFFFFFFFFFFFFFFFELL);
+          v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v30 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidTractList>(v31);
-        *(archive + 10) = v30;
+        v29 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidTractList>(v30);
+        *(archive + 10) = v29;
       }
 
-      objc_msgSend_saveToArchive_(v29, v6, v30, v7, v8);
+      objc_msgSend_saveToArchive_(v28, v6, v29, v7);
     }
 
-    v32 = self->_baseCellRef._ref.coordinate;
-    if (v32.row != 0x7FFFFFFF && (*&v32 & 0xFFFF00000000) != 0x7FFF00000000 && (self->_baseCellRef._ref._tableUID._lower || self->_baseCellRef._ref._tableUID._upper))
+    v31 = self->_baseCellRef._ref.coordinate;
+    if (v31.row != 0x7FFFFFFF && (*&v31 & 0xFFFF00000000) != 0x7FFF00000000 && (self->_baseCellRef._ref._tableUID._lower || self->_baseCellRef._ref._tableUID._upper))
     {
       *(archive + 4) |= 2u;
-      v33 = *(archive + 7);
-      if (!v33)
+      v32 = *(archive + 7);
+      if (!v32)
       {
-        v34 = *(archive + 1);
-        if (v34)
+        v33 = *(archive + 1);
+        if (v33)
         {
-          v34 = *(v34 & 0xFFFFFFFFFFFFFFFELL);
+          v33 = *(v33 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v33 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellReferenceArchive>(v34);
-        *(archive + 7) = v33;
+        v32 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellReferenceArchive>(v33);
+        *(archive + 7) = v32;
       }
 
-      sub_221269A28(&self->_baseCellRef, v33);
+      sub_221269A28(&self->_baseCellRef, v32);
     }
 
     goto LABEL_18;
@@ -632,42 +632,42 @@ LABEL_34:
 
   categoryRef = self->_categoryRef;
   *(archive + 4) |= 8u;
-  v23 = *(archive + 9);
-  if (!v23)
+  v22 = *(archive + 9);
+  if (!v22)
   {
-    v24 = *(archive + 1);
-    if (v24)
+    v23 = *(archive + 1);
+    if (v23)
     {
-      v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
+      v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v23 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CategoryReferenceArchive>(v24);
-    *(archive + 9) = v23;
+    v22 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CategoryReferenceArchive>(v23);
+    *(archive + 9) = v22;
   }
 
-  sub_221269E08(categoryRef, v23);
-  v25 = self->_preserveFlags._flags;
-  v26 = *(archive + 4);
-  *(archive + 109) = v25 & 1;
-  *(archive + 4) = v26 | 0x300;
-  *(archive + 108) = (v25 & 2) != 0;
+  sub_221269E08(categoryRef, v22);
+  v24 = self->_preserveFlags._flags;
+  v25 = *(archive + 4);
+  *(archive + 109) = v24 & 1;
+  *(archive + 4) = v25 | 0x300;
+  *(archive + 108) = (v24 & 2) != 0;
 LABEL_18:
 }
 
 - (TSTFormulaPredArg)initWithBool:(BOOL)bool
 {
   boolCopy = bool;
-  v13.receiver = self;
-  v13.super_class = TSTFormulaPredArg;
-  v4 = [(TSTFormulaPredArg *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = TSTFormulaPredArg;
+  v4 = [(TSTFormulaPredArg *)&v12 init];
   v5 = v4;
   if (v4)
   {
     v4->_type = 6;
     v6 = [TSTFormulaPredArgData alloc];
-    v10 = objc_msgSend_initWithBool_(v6, v7, boolCopy, v8, v9);
+    v9 = objc_msgSend_initWithBool_(v6, v7, boolCopy, v8);
     data = v5->_data;
-    v5->_data = v10;
+    v5->_data = v9;
 
     v5->_hostCellCoord = 0x7FFF7FFFFFFFLL;
   }
@@ -679,18 +679,18 @@ LABEL_18:
 {
   if (self->_type != 6)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg BOOLValue]", v3, v4);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9, v10);
-    v12 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v7, v11, 608, 0, "Wrong type accessor called on %@", v12);
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg BOOLValue]", v3);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v8);
+    v10 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v9, 608, 0, "Wrong type accessor called on %@", v10);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   data = self->_data;
 
-  return objc_msgSend_BOOLValue(data, a2, v2, v3, v4);
+  return objc_msgSend_BOOLValue(data, a2, v2, v3);
 }
 
 - (void)setBoolValue:(BOOL)value
@@ -698,55 +698,55 @@ LABEL_18:
   valueCopy = value;
   if (self->_type)
   {
-    v7 = self->_type == 6;
+    v6 = self->_type == 6;
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  if (!v7)
+  if (!v6)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setBoolValue:]", v3, v4);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v11, v12);
-    v14 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v15, v9, v13, 613, 0, "Wrong type accessor called on %@", v14);
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setBoolValue:]", v3);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10);
+    v12 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v11, 613, 0, "Wrong type accessor called on %@", v12);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
-  v20 = [TSTFormulaPredArgData alloc];
-  v24 = objc_msgSend_initWithBool_(v20, v21, valueCopy, v22, v23);
+  v17 = [TSTFormulaPredArgData alloc];
+  v20 = objc_msgSend_initWithBool_(v17, v18, valueCopy, v19);
   data = self->_data;
-  self->_data = v24;
+  self->_data = v20;
 
   self->_type = 6;
 }
 
 - (TSTFormulaPredArg)initWithDouble:(double)double
 {
-  v7 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], a2, v3, v4, v5, double);
-  v11 = objc_msgSend_initWithNumber_(self, v8, v7, v9, v10);
+  v6 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], a2, v3, v4, double);
+  v9 = objc_msgSend_initWithNumber_(self, v7, v6, v8);
 
-  return v11;
+  return v9;
 }
 
 - (TSTFormulaPredArg)initWithNumber:(id)number
 {
   numberCopy = number;
-  v14.receiver = self;
-  v14.super_class = TSTFormulaPredArg;
-  v5 = [(TSTFormulaPredArg *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = TSTFormulaPredArg;
+  v5 = [(TSTFormulaPredArg *)&v13 init];
   v6 = v5;
   if (v5)
   {
     v5->_type = 1;
     v7 = [TSTFormulaPredArgData alloc];
-    v11 = objc_msgSend_initWithNumber_(v7, v8, numberCopy, v9, v10);
+    v10 = objc_msgSend_initWithNumber_(v7, v8, numberCopy, v9);
     data = v6->_data;
-    v6->_data = v11;
+    v6->_data = v10;
 
     v6->_hostCellCoord = 0x7FFF7FFFFFFFLL;
   }
@@ -758,18 +758,18 @@ LABEL_18:
 {
   if (self->_type != 1)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg number]", v3, v4);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9, v10);
-    v12 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v7, v11, 633, 0, "Wrong type accessor called on %@", v12);
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg number]", v3);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v8);
+    v10 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v9, 633, 0, "Wrong type accessor called on %@", v10);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   data = self->_data;
 
-  return objc_msgSend_number(data, a2, v2, v3, v4);
+  return objc_msgSend_number(data, a2, v2, v3);
 }
 
 - (void)setNumber:(id)number
@@ -777,52 +777,52 @@ LABEL_18:
   numberCopy = number;
   if (self->_type >= 2u)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTFormulaPredArg setNumber:]", v5, v6);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10, v11);
-    v13 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v14, v8, v12, 638, 0, "Wrong type accessor called on %@", v13);
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTFormulaPredArg setNumber:]", v5);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9);
+    v11 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v10, 638, 0, "Wrong type accessor called on %@", v11);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  v19 = [TSTFormulaPredArgData alloc];
-  v23 = objc_msgSend_initWithNumber_(v19, v20, numberCopy, v21, v22);
+  v16 = [TSTFormulaPredArgData alloc];
+  v19 = objc_msgSend_initWithNumber_(v16, v17, numberCopy, v18);
   data = self->_data;
-  self->_data = v23;
+  self->_data = v19;
 
   self->_type = 1;
 }
 
 - (double)numberValue
 {
-  v5 = objc_msgSend_number(self, a2, v2, v3, v4);
-  objc_msgSend_doubleValue(v5, v6, v7, v8, v9);
-  v11 = v10;
+  v4 = objc_msgSend_number(self, a2, v2, v3);
+  objc_msgSend_doubleValue(v4, v5, v6, v7);
+  v9 = v8;
 
-  return v11;
+  return v9;
 }
 
 - (void)setNumberValue:(double)value
 {
-  v10 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], a2, v3, v4, v5, value);
-  objc_msgSend_setNumber_(self, v7, v10, v8, v9);
+  v8 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], a2, v3, v4, value);
+  objc_msgSend_setNumber_(self, v6, v8, v7);
 }
 
 - (TSTFormulaPredArg)initWithDate:(id)date
 {
   dateCopy = date;
-  v14.receiver = self;
-  v14.super_class = TSTFormulaPredArg;
-  v5 = [(TSTFormulaPredArg *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = TSTFormulaPredArg;
+  v5 = [(TSTFormulaPredArg *)&v13 init];
   v6 = v5;
   if (v5)
   {
     v5->_type = 2;
     v7 = [TSTFormulaPredArgData alloc];
-    v11 = objc_msgSend_initWithDate_(v7, v8, dateCopy, v9, v10);
+    v10 = objc_msgSend_initWithDate_(v7, v8, dateCopy, v9);
     data = v6->_data;
-    v6->_data = v11;
+    v6->_data = v10;
 
     v6->_hostCellCoord = 0x7FFF7FFFFFFFLL;
   }
@@ -833,17 +833,17 @@ LABEL_18:
 - (TSUPreserveFlags)preserveFlags
 {
   type = self->_type;
-  v6 = type > 0xD;
-  v7 = (1 << type) & 0x2610;
-  if (v6 || v7 == 0)
+  v5 = type > 0xD;
+  v6 = (1 << type) & 0x2610;
+  if (v5 || v6 == 0)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg preserveFlags]", v2, v3);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v13, v14);
-    v16 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v17, v11, v15, 662, 0, "Wrong type accessor called on %@", v16);
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg preserveFlags]", v2);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v12);
+    v14 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v13, 662, 0, "Wrong type accessor called on %@", v14);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20, v21);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18);
   }
 
   return self->_preserveFlags;
@@ -853,26 +853,26 @@ LABEL_18:
 {
   if (self->_hasRelativeCellRef)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setPreserveFlags:]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 667, 0, "Must set the entire relative reference, if you are relative");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setPreserveFlags:]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 667, 0, "Must set the entire relative reference, if you are relative");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   type = self->_type;
-  v19 = type > 0xD;
-  v20 = (1 << type) & 0x2610;
-  if (v19 || v20 == 0)
+  v16 = type > 0xD;
+  v17 = (1 << type) & 0x2610;
+  if (v16 || v17 == 0)
   {
-    v22 = MEMORY[0x277D81150];
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setPreserveFlags:]", v3, v4);
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v25, v26);
-    v28 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v29, v23, v27, 668, 0, "Wrong type accessor called on %@", v28);
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setPreserveFlags:]", v3);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v22);
+    v24 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v25, v20, v23, 668, 0, "Wrong type accessor called on %@", v24);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
   }
 
   self->_preserveFlags = flags;
@@ -882,18 +882,18 @@ LABEL_18:
 {
   if (self->_type != 2)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg date]", v3, v4);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9, v10);
-    v12 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v7, v11, 681, 0, "Wrong type accessor called on %@", v12);
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg date]", v3);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v8);
+    v10 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v9, 681, 0, "Wrong type accessor called on %@", v10);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   data = self->_data;
 
-  return objc_msgSend_date(data, a2, v2, v3, v4);
+  return objc_msgSend_date(data, a2, v2, v3);
 }
 
 - (void)setDate:(id)date
@@ -901,19 +901,19 @@ LABEL_18:
   dateCopy = date;
   if ((self->_type | 2) != 2)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTFormulaPredArg setDate:]", v5, v6);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10, v11);
-    v13 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v14, v8, v12, 686, 0, "Wrong type accessor called on %@", v13);
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTFormulaPredArg setDate:]", v5);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9);
+    v11 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v10, 686, 0, "Wrong type accessor called on %@", v11);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  v19 = [TSTFormulaPredArgData alloc];
-  v23 = objc_msgSend_initWithDate_(v19, v20, dateCopy, v21, v22);
+  v16 = [TSTFormulaPredArgData alloc];
+  v19 = objc_msgSend_initWithDate_(v16, v17, dateCopy, v18);
   data = self->_data;
-  self->_data = v23;
+  self->_data = v19;
 
   self->_type = 2;
 }
@@ -921,17 +921,17 @@ LABEL_18:
 - (TSTFormulaPredArg)initWithString:(id)string
 {
   stringCopy = string;
-  v14.receiver = self;
-  v14.super_class = TSTFormulaPredArg;
-  v5 = [(TSTFormulaPredArg *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = TSTFormulaPredArg;
+  v5 = [(TSTFormulaPredArg *)&v13 init];
   v6 = v5;
   if (v5)
   {
     v5->_type = 3;
     v7 = [TSTFormulaPredArgData alloc];
-    v11 = objc_msgSend_initWithString_(v7, v8, stringCopy, v9, v10);
+    v10 = objc_msgSend_initWithString_(v7, v8, stringCopy, v9);
     data = v6->_data;
-    v6->_data = v11;
+    v6->_data = v10;
 
     v6->_hostCellCoord = 0x7FFF7FFFFFFFLL;
   }
@@ -943,18 +943,18 @@ LABEL_18:
 {
   if (self->_type != 3)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg string]", v3, v4);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9, v10);
-    v12 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v7, v11, 702, 0, "Wrong type accessor called on %@", v12);
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg string]", v3);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v8);
+    v10 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v9, 702, 0, "Wrong type accessor called on %@", v10);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   data = self->_data;
 
-  return objc_msgSend_string(data, a2, v2, v3, v4);
+  return objc_msgSend_string(data, a2, v2, v3);
 }
 
 - (void)setString:(id)string
@@ -962,114 +962,114 @@ LABEL_18:
   stringCopy = string;
   if (self->_type)
   {
-    v7 = self->_type == 3;
+    v6 = self->_type == 3;
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  if (!v7)
+  if (!v6)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTFormulaPredArg setString:]", v5, v6);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v11, v12);
-    v14 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v15, v9, v13, 707, 0, "Wrong type accessor called on %@", v14);
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTFormulaPredArg setString:]", v5);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10);
+    v12 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v11, 707, 0, "Wrong type accessor called on %@", v12);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
-  v20 = [TSTFormulaPredArgData alloc];
-  v24 = objc_msgSend_initWithString_(v20, v21, stringCopy, v22, v23);
+  v17 = [TSTFormulaPredArgData alloc];
+  v20 = objc_msgSend_initWithString_(v17, v18, stringCopy, v19);
   data = self->_data;
-  self->_data = v24;
+  self->_data = v20;
 
   self->_type = 3;
 }
 
 - (TSTFormulaPredArg)initWithDataList:(id)list
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   listCopy = list;
-  v49.receiver = self;
-  v49.super_class = TSTFormulaPredArg;
-  v5 = [(TSTFormulaPredArg *)&v49 init];
-  v10 = v5;
+  v43.receiver = self;
+  v43.super_class = TSTFormulaPredArg;
+  v5 = [(TSTFormulaPredArg *)&v43 init];
+  v9 = v5;
   if (v5)
   {
     v5->_type = 11;
-    v11 = objc_msgSend_copy(listCopy, v6, v7, v8, v9);
-    dataList = v10->_dataList;
-    v10->_dataList = v11;
+    v10 = objc_msgSend_copy(listCopy, v6, v7, v8);
+    dataList = v9->_dataList;
+    v9->_dataList = v10;
 
-    v10->_hostCellCoord = 0x7FFF7FFFFFFFLL;
-    v13 = objc_alloc(MEMORY[0x277CBEB58]);
-    v18 = objc_msgSend_count(listCopy, v14, v15, v16, v17);
-    v22 = objc_msgSend_initWithCapacity_(v13, v19, v18, v20, v21);
-    listItemsSet = v10->_listItemsSet;
-    v10->_listItemsSet = v22;
+    v9->_hostCellCoord = 0x7FFF7FFFFFFFLL;
+    v12 = objc_alloc(MEMORY[0x277CBEB58]);
+    v16 = objc_msgSend_count(listCopy, v13, v14, v15);
+    v19 = objc_msgSend_initWithCapacity_(v12, v17, v16, v18);
+    listItemsSet = v9->_listItemsSet;
+    v9->_listItemsSet = v19;
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v24 = listCopy;
-    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v45, v50, 16);
-    if (v30)
+    v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v21 = listCopy;
+    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v39, v44, 16);
+    if (v26)
     {
-      v31 = *v46;
+      v27 = *v40;
       do
       {
-        for (i = 0; i != v30; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (*v46 != v31)
+          if (*v40 != v27)
           {
-            objc_enumerationMutation(v24);
+            objc_enumerationMutation(v21);
           }
 
-          v33 = *(*(&v45 + 1) + 8 * i);
-          if (objc_msgSend_dataType(v33, v26, v27, v28, v29, v45) == 3)
+          v29 = *(*(&v39 + 1) + 8 * i);
+          if (objc_msgSend_dataType(v29, v23, v24, v25, v39) == 3)
           {
-            v34 = objc_msgSend_string(v33, v26, v27, v28, v29);
-            v39 = objc_msgSend_lowercaseString(v34, v35, v36, v37, v38);
+            v30 = objc_msgSend_string(v29, v23, v24, v25);
+            v34 = objc_msgSend_lowercaseString(v30, v31, v32, v33);
 
-            if (v39)
+            if (v34)
             {
-              v43 = v39;
-              objc_msgSend_addObject_(v10->_listItemsSet, v40, v39, v41, v42);
+              v37 = v34;
+              objc_msgSend_addObject_(v9->_listItemsSet, v35, v34, v36);
             }
 
             else
             {
-              v43 = &stru_2834BADA0;
-              objc_msgSend_addObject_(v10->_listItemsSet, v40, &stru_2834BADA0, v41, v42);
+              v37 = &stru_2834BADA0;
+              objc_msgSend_addObject_(v9->_listItemsSet, v35, &stru_2834BADA0, v36);
             }
           }
         }
 
-        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v26, &v45, v50, 16);
+        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v39, v44, 16);
       }
 
-      while (v30);
+      while (v26);
     }
   }
 
-  return v10;
+  return v9;
 }
 
 - (NSArray)dataList
 {
   if (self->_type != 11)
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg dataList]", v2, v3);
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v8, v9);
-    v11 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v12, v6, v10, 737, 0, "Wrong type accessor called on %@", v11);
+    v4 = MEMORY[0x277D81150];
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg dataList]", v2);
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v7);
+    v9 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v8, 737, 0, "Wrong type accessor called on %@", v9);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13);
   }
 
   dataList = self->_dataList;
@@ -1080,55 +1080,107 @@ LABEL_18:
 - (BOOL)isStringValueInList:(id)list
 {
   listCopy = list;
-  v9 = objc_msgSend_lowercaseString(listCopy, v5, v6, v7, v8);
+  v8 = objc_msgSend_lowercaseString(listCopy, v5, v6, v7);
 
-  if (v9)
+  if (v8)
   {
-    v13 = v9;
-    v14 = objc_msgSend_containsObject_(self->_listItemsSet, v10, v9, v11, v12);
+    v11 = v8;
+    v12 = objc_msgSend_containsObject_(self->_listItemsSet, v9, v8, v10);
   }
 
   else
   {
-    v13 = &stru_2834BADA0;
-    v14 = objc_msgSend_containsObject_(self->_listItemsSet, v10, &stru_2834BADA0, v11, v12);
+    v11 = &stru_2834BADA0;
+    v12 = objc_msgSend_containsObject_(self->_listItemsSet, v9, &stru_2834BADA0, v10);
   }
 
-  v15 = v14;
+  v13 = v12;
 
-  return v15;
+  return v13;
 }
 
 - (BOOL)isDateValueInListYear:(int64_t)year month:(int64_t)month day:(int64_t)day
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = self->_dataList;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v20, v24, 16);
-  if (v14)
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v19, v23, 16);
+  if (v13)
   {
-    v15 = *v21;
+    v14 = *v20;
     while (2)
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v8);
         }
 
-        v17 = *(*(&v20 + 1) + 8 * i);
-        if (objc_msgSend_dataType(v17, v10, v11, v12, v13, v20) == 2 && objc_msgSend_day(v17, v10, v11, v12, v13) == day && objc_msgSend_year(v17, v10, v11, v12, v13) == year && objc_msgSend_month(v17, v10, v11, v12, v13) == month)
+        v16 = *(*(&v19 + 1) + 8 * i);
+        if (objc_msgSend_dataType(v16, v10, v11, v12, v19) == 2 && objc_msgSend_day(v16, v10, v11, v12) == day && objc_msgSend_year(v16, v10, v11, v12) == year && objc_msgSend_month(v16, v10, v11, v12) == month)
         {
-          v18 = 1;
+          v17 = 1;
           goto LABEL_14;
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v10, &v20, v24, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v10, &v19, v23, 16);
+      if (v13)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v17 = 0;
+LABEL_14:
+
+  return v17;
+}
+
+- (BOOL)isNumberValueInList:(const TSUDecimal *)list locale:(id)locale
+{
+  v28 = *MEMORY[0x277D85DE8];
+  localeCopy = locale;
+  TSUDecimal::doubleValue(list);
+  v8 = v7;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v9 = self->_dataList;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v23, v27, 16);
+  if (v14)
+  {
+    v15 = *v24;
+    while (2)
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v24 != v15)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v17 = *(*(&v23 + 1) + 8 * i);
+        if (objc_msgSend_dataType(v17, v11, v12, v13, v23) == 1)
+        {
+          objc_msgSend_doubleValue(v17, v11, v12, v13);
+          if (objc_msgSend_isEqualViaFormattingAsDouble::(localeCopy, v18, v19, v20, v8, v21))
+          {
+            LOBYTE(v14) = 1;
+            goto LABEL_12;
+          }
+        }
+      }
+
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v23, v27, 16);
       if (v14)
       {
         continue;
@@ -1138,178 +1190,126 @@ LABEL_18:
     }
   }
 
-  v18 = 0;
-LABEL_14:
-
-  return v18;
-}
-
-- (BOOL)isNumberValueInList:(const TSUDecimal *)list locale:(id)locale
-{
-  v30 = *MEMORY[0x277D85DE8];
-  localeCopy = locale;
-  TSUDecimal::doubleValue(list);
-  v8 = v7;
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v9 = self->_dataList;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v25, v29, 16);
-  if (v15)
-  {
-    v16 = *v26;
-    while (2)
-    {
-      for (i = 0; i != v15; ++i)
-      {
-        if (*v26 != v16)
-        {
-          objc_enumerationMutation(v9);
-        }
-
-        v18 = *(*(&v25 + 1) + 8 * i);
-        if (objc_msgSend_dataType(v18, v11, v12, v13, v14, v25) == 1)
-        {
-          objc_msgSend_doubleValue(v18, v11, v12, v13, v14);
-          if (objc_msgSend_isEqualViaFormattingAsDouble::(localeCopy, v19, v20, v21, v22, v8, v23))
-          {
-            LOBYTE(v15) = 1;
-            goto LABEL_12;
-          }
-        }
-      }
-
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v25, v29, 16);
-      if (v15)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_12:
-
-  return v15;
-}
-
-- (BOOL)isDurationValueInList:(double)list
-{
-  v21 = *MEMORY[0x277D85DE8];
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v4 = self->_dataList;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v16, v20, 16);
-  if (v10)
-  {
-    v11 = *v17;
-    while (2)
-    {
-      for (i = 0; i != v10; ++i)
-      {
-        if (*v17 != v11)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v13 = *(*(&v16 + 1) + 8 * i);
-        if (objc_msgSend_dataType(v13, v6, v7, v8, v9, v16) == 5)
-        {
-          objc_msgSend_durationValue(v13, v6, v7, v8, v9);
-          if (v14 == list)
-          {
-            LOBYTE(v10) = 1;
-            goto LABEL_12;
-          }
-        }
-      }
-
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v6, &v16, v20, 16);
-      if (v10)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_12:
-
-  return v10;
-}
-
-- (BOOL)isBoolValueInList:(BOOL)list
-{
-  listCopy = list;
-  v21 = *MEMORY[0x277D85DE8];
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v4 = self->_dataList;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v16, v20, 16);
-  if (v10)
-  {
-    v11 = *v17;
-    while (2)
-    {
-      for (i = 0; i != v10; ++i)
-      {
-        if (*v17 != v11)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v13 = *(*(&v16 + 1) + 8 * i);
-        if (objc_msgSend_dataType(v13, v6, v7, v8, v9, v16) == 6 && objc_msgSend_BOOLValue(v13, v6, v7, v8, v9) == listCopy)
-        {
-          v14 = 1;
-          goto LABEL_12;
-        }
-      }
-
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v6, &v16, v20, 16);
-      if (v10)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  v14 = 0;
 LABEL_12:
 
   return v14;
 }
 
+- (BOOL)isDurationValueInList:(double)list
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v4 = self->_dataList;
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v15, v19, 16);
+  if (v9)
+  {
+    v10 = *v16;
+    while (2)
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v16 != v10)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v12 = *(*(&v15 + 1) + 8 * i);
+        if (objc_msgSend_dataType(v12, v6, v7, v8, v15) == 5)
+        {
+          objc_msgSend_durationValue(v12, v6, v7, v8);
+          if (v13 == list)
+          {
+            LOBYTE(v9) = 1;
+            goto LABEL_12;
+          }
+        }
+      }
+
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v6, &v15, v19, 16);
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_12:
+
+  return v9;
+}
+
+- (BOOL)isBoolValueInList:(BOOL)list
+{
+  listCopy = list;
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v4 = self->_dataList;
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v15, v19, 16);
+  if (v9)
+  {
+    v10 = *v16;
+    while (2)
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v16 != v10)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v12 = *(*(&v15 + 1) + 8 * i);
+        if (objc_msgSend_dataType(v12, v6, v7, v8, v15) == 6 && objc_msgSend_BOOLValue(v12, v6, v7, v8) == listCopy)
+        {
+          v13 = 1;
+          goto LABEL_12;
+        }
+      }
+
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v6, &v15, v19, 16);
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v13 = 0;
+LABEL_12:
+
+  return v13;
+}
+
 - (BOOL)isCellValueInList:(id)list
 {
   listCopy = list;
-  v9 = objc_msgSend_formattedValue(listCopy, v5, v6, v7, v8);
-  isStringValueInList = objc_msgSend_isStringValueInList_(self, v10, v9, v11, v12);
+  v8 = objc_msgSend_formattedValue(listCopy, v5, v6, v7);
+  isStringValueInList = objc_msgSend_isStringValueInList_(self, v9, v8, v10);
 
   if ((isStringValueInList & 1) == 0)
   {
-    v19 = objc_msgSend_valueType(listCopy, v14, v15, v16, v17);
-    v18 = 0;
-    if (v19 > 5)
+    v16 = objc_msgSend_valueType(listCopy, v12, v13, v14);
+    v15 = 0;
+    if (v16 > 5)
     {
-      switch(v19)
+      switch(v16)
       {
         case 6:
-          v39 = objc_msgSend_BOOLValue(listCopy, v20, v21, v22, v23);
-          isBoolValueInList = objc_msgSend_isBoolValueInList_(self, v40, v39, v41, v42);
+          v32 = objc_msgSend_BOOLValue(listCopy, v17, v18, v19);
+          isBoolValueInList = objc_msgSend_isBoolValueInList_(self, v33, v32, v34);
           break;
         case 7:
-          objc_msgSend_durationTimeIntervalValue(listCopy, v20, v21, v22, v23);
-          isBoolValueInList = objc_msgSend_isDurationValueInList_(self, v44, v45, v46, v47);
+          objc_msgSend_durationTimeIntervalValue(listCopy, v17, v18, v19);
+          isBoolValueInList = objc_msgSend_isDurationValueInList_(self, v36, v37, v38);
           break;
         case 10:
           goto LABEL_11;
@@ -1317,71 +1317,71 @@ LABEL_12:
           goto LABEL_16;
       }
 
-      v18 = isBoolValueInList;
+      v15 = isBoolValueInList;
       goto LABEL_16;
     }
 
-    if (v19 != 2)
+    if (v16 != 2)
     {
-      if (v19 != 5)
+      if (v16 != 5)
       {
         goto LABEL_16;
       }
 
-      v24 = objc_msgSend_dateValue(listCopy, v20, v21, v22, v23);
-      v50 = 0x7FFFFFFFFFFFFFFFLL;
-      v51[0] = 0x7FFFFFFFFFFFFFFFLL;
-      v49 = 0x7FFFFFFFFFFFFFFFLL;
-      v29 = objc_msgSend_gregorianCalendar(TSCECalendar, v25, v26, v27, v28);
-      objc_msgSend_extractComponentsFromDate_year_month_day_(v29, v30, v24, v51, &v50, &v49);
-      isDateValueInListYear_month_day = objc_msgSend_isDateValueInListYear_month_day_(self, v31, v51[0], v50, v49);
+      v20 = objc_msgSend_dateValue(listCopy, v17, v18, v19);
+      v41 = 0x7FFFFFFFFFFFFFFFLL;
+      v42[0] = 0x7FFFFFFFFFFFFFFFLL;
+      v40 = 0x7FFFFFFFFFFFFFFFLL;
+      v24 = objc_msgSend_gregorianCalendar(TSCECalendar, v21, v22, v23);
+      objc_msgSend_extractComponentsFromDate_year_month_day_(v24, v25, v20, v42, &v41, &v40);
+      isDateValueInListYear_month_day = objc_msgSend_isDateValueInListYear_month_day_(self, v26, v42[0], v41, v40);
 LABEL_12:
-      v18 = isDateValueInListYear_month_day;
+      v15 = isDateValueInListYear_month_day;
 
       goto LABEL_16;
     }
 
 LABEL_11:
-    v51[0] = objc_msgSend_underlyingDecimalValue(listCopy, v20, v21, v22, v23);
-    v51[1] = v33;
-    v24 = objc_msgSend_locale(listCopy, v33, v34, v35, v36);
-    isDateValueInListYear_month_day = objc_msgSend_isNumberValueInList_locale_(self, v37, v51, v24, v38);
+    v42[0] = objc_msgSend_underlyingDecimalValue(listCopy, v17, v18, v19);
+    v42[1] = v28;
+    v20 = objc_msgSend_locale(listCopy, v28, v29, v30);
+    isDateValueInListYear_month_day = objc_msgSend_isNumberValueInList_locale_(self, v31, v42, v20);
     goto LABEL_12;
   }
 
-  v18 = 1;
+  v15 = 1;
 LABEL_16:
 
-  return v18;
+  return v15;
 }
 
 - (TSTFormulaPredArg)initWithRelativeCellRef:(const TSCERelativeCellRef *)ref
 {
-  v10.receiver = self;
-  v10.super_class = TSTFormulaPredArg;
-  v4 = [(TSTFormulaPredArg *)&v10 init];
-  v8 = v4;
+  v9.receiver = self;
+  v9.super_class = TSTFormulaPredArg;
+  v4 = [(TSTFormulaPredArg *)&v9 init];
+  v7 = v4;
   if (v4)
   {
     v4->_type = 4;
-    objc_msgSend_setRelativeCellRef_(v4, v5, ref, v6, v7);
-    v8->_hostCellCoord = 0x7FFF7FFFFFFFLL;
+    objc_msgSend_setRelativeCellRef_(v4, v5, ref, v6);
+    v7->_hostCellCoord = 0x7FFF7FFFFFFFLL;
   }
 
-  return v8;
+  return v7;
 }
 
 - (const)relativeCellRef
 {
   if ((self->_type | 4) != 4)
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg relativeCellRef]", v2, v3);
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v8, v9);
-    v11 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v12, v6, v10, 873, 0, "Wrong type accessor called on %@", v11);
+    v4 = MEMORY[0x277D81150];
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg relativeCellRef]", v2);
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v7);
+    v9 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v8, 873, 0, "Wrong type accessor called on %@", v9);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13);
   }
 
   if (self->_hasRelativeCellRef)
@@ -1389,31 +1389,31 @@ LABEL_16:
     return &self->_relativeCellRef;
   }
 
-  if (atomic_load_explicit(&qword_27CFB53D8, memory_order_acquire))
+  if (atomic_load_explicit(byte_27CFB53D8, memory_order_acquire))
   {
     return &qword_27CFB53E0;
   }
 
-  sub_2216F764C(&v18);
-  return v18;
+  sub_2216F764C(&v15);
+  return v15;
 }
 
 - (void)setRelativeCellRef:(const TSCERelativeCellRef *)ref
 {
   if ((self->_type | 4) != 4)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setRelativeCellRef:]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10, v11);
-    v13 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v14, v8, v12, 885, 0, "Wrong type accessor called on %@", v13);
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setRelativeCellRef:]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9);
+    v11 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v10, 885, 0, "Wrong type accessor called on %@", v11);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  v19 = *&ref->relativeCoord._row;
+  v16 = *&ref->relativeCoord._row;
   *(&self->_relativeCellRef.tableUID + 1) = *(&ref->tableUID + 1);
-  *&self->_relativeCellRef.relativeCoord._row = v19;
+  *&self->_relativeCellRef.relativeCoord._row = v16;
   *&self->_hasRelativeCellRef = 1025;
   self->_baseCellRef._ref.coordinate = 0x7FFF7FFFFFFFLL;
   self->_preserveFlags._flags = *(&self->_relativeCellRef + 24) & 3;
@@ -1422,37 +1422,37 @@ LABEL_16:
 - (TSTFormulaPredArg)initWithCrossTableRef:(const TSCECrossTableReference *)ref
 {
   var1 = ref->var1;
-  v6 = *&var1 & 0xFFFF00000000;
-  v7 = var1._row != 0x7FFFFFFFLL;
-  v8 = 4 * ((*&var1 & 0xFFFF00000000) != 0x7FFF00000000);
+  v5 = *&var1 & 0xFFFF00000000;
+  v6 = var1._row != 0x7FFFFFFFLL;
+  v7 = 4 * ((*&var1 & 0xFFFF00000000) != 0x7FFF00000000);
   if (var1._row != 0x7FFFFFFFLL)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v12 = ref->var1;
+  v11 = ref->var1;
   var0 = ref->var0;
-  v9 = (*&var1 >> 47) & 2 | *&var1._preserveColumn;
-  v10 = 8 * v7;
-  if (v6 != 0x7FFF00000000)
+  v8 = (*&var1 >> 47) & 2 | *&var1._preserveColumn;
+  v9 = 8 * v6;
+  if (v5 != 0x7FFF00000000)
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  v14 = v8 | v10 | v9;
-  return objc_msgSend_initWithRelativeCellRef_(self, a2, &v12, v3, v4);
+  v13 = v7 | v9 | v8;
+  return objc_msgSend_initWithRelativeCellRef_(self, a2, &v11, v3);
 }
 
 - (TSCECrossTableReference)crossTableRef
 {
   if (self->_hasRelativeCellRef)
   {
-    v8 = objc_msgSend_relativeCellRef(self, a3, v3, v4, v5);
-    v9 = *v8;
-    retstr->var0 = *(v8 + 8);
-    v27._flags = *(v8 + 24) & 3;
-    retstr->var1 = v9;
-    return TSCERelativeCellCoordinate::setPreserveFlags(&retstr->var1, &v27);
+    v7 = objc_msgSend_relativeCellRef(self, a3, v3, v4);
+    v8 = *v7;
+    retstr->var0 = *(v7 + 8);
+    v24._flags = *(v7 + 24) & 3;
+    retstr->var1 = v8;
+    return TSCERelativeCellCoordinate::setPreserveFlags(&retstr->var1, &v24);
   }
 
   else
@@ -1460,12 +1460,12 @@ LABEL_16:
     hostCellCoord = self->_hostCellCoord;
     if (hostCellCoord._coord.row == 0x7FFFFFFF || (*&hostCellCoord & 0xFFFF00000000) == 0x7FFF00000000)
     {
-      v13 = MEMORY[0x277D81150];
-      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a3, "[TSTFormulaPredArg crossTableRef]", v4, v5);
-      v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v16, v17);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v19, v14, v18, 912, 0, "Need a host-cell if we aren't storing a relativeRef");
+      v12 = MEMORY[0x277D81150];
+      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a3, "[TSTFormulaPredArg crossTableRef]", v4);
+      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v15);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v17, v13, v16, 912, 0, "Need a host-cell if we aren't storing a relativeRef");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20);
       hostCellCoord = self->_hostCellCoord;
     }
 
@@ -1483,103 +1483,103 @@ LABEL_16:
 {
   if (self->_type == 13 && (viewTractRef = self->_viewTractRef) != 0)
   {
-    v7 = objc_msgSend_tract(viewTractRef, a2, v2, v3, v4);
-    v12 = v7;
-    memset(v50, 0, sizeof(v50));
+    v6 = objc_msgSend_tract(viewTractRef, a2, v2, v3);
+    v10 = v6;
+    memset(v44, 0, sizeof(v44));
     *__p = 0u;
-    if (v7)
+    if (v6)
     {
-      v13 = objc_msgSend_columnUids(v7, v8, v9, v10, v11);
-      v18 = objc_msgSend_rowUids(v12, v14, v15, v16, v17);
-      sub_2210BBBE8(v45, v13, v18);
+      v11 = objc_msgSend_columnUids(v6, v7, v8, v9);
+      v15 = objc_msgSend_rowUids(v10, v12, v13, v14);
+      sub_2210BBBE8(v39, v11, v15);
       if (__p[0])
       {
         __p[1] = __p[0];
         operator delete(__p[0]);
       }
 
-      *__p = *v45;
-      v50[0] = v46;
-      v45[1] = 0;
-      v46 = 0;
-      v45[0] = 0;
-      v19 = v50[1];
-      if (v50[1])
+      *__p = *v39;
+      v44[0] = v40;
+      v39[1] = 0;
+      v40 = 0;
+      v39[0] = 0;
+      v16 = v44[1];
+      if (v44[1])
       {
-        v50[2] = v50[1];
-        operator delete(v50[1]);
-        v19 = v45[0];
+        v44[2] = v44[1];
+        operator delete(v44[1]);
+        v16 = v39[0];
       }
 
-      *&v50[1] = v47;
-      v50[3] = v48;
-      v48 = 0;
-      v47 = 0uLL;
-      if (v19)
+      *&v44[1] = v41;
+      v44[3] = v42;
+      v42 = 0;
+      v41 = 0uLL;
+      if (v16)
       {
-        v45[1] = v19;
-        operator delete(v19);
+        v39[1] = v16;
+        operator delete(v16);
       }
     }
 
-    v20 = objc_msgSend_preserveFlags(self->_viewTractRef, v8, v9, v10, v11, v45[0], v45[1], v46, v47, v48);
-    v21 = [TSTUIDRectRef alloc];
-    v45[0] = objc_msgSend_tableUID(self->_viewTractRef, v22, v23, v24, v25);
-    v45[1] = v26;
-    v27 = objc_msgSend_initWithCalcEngine_tableUID_uidRange_preserveFlags_(v21, v26, 0, v45, __p, v20);
+    v17 = objc_msgSend_preserveFlags(self->_viewTractRef, v7, v8, v9, v39[0], v39[1], v40, v41, v42);
+    v18 = [TSTUIDRectRef alloc];
+    v39[0] = objc_msgSend_tableUID(self->_viewTractRef, v19, v20, v21);
+    v39[1] = v22;
+    v23 = objc_msgSend_initWithCalcEngine_tableUID_uidRange_preserveFlags_(v18, v22, 0, v39, __p, v17);
   }
 
   else
   {
-    v28 = objc_msgSend_includedUidsTract(self->_uidTractList, a2, v2, v3, v4);
-    v12 = v28;
-    memset(v50, 0, sizeof(v50));
+    v24 = objc_msgSend_includedUidsTract(self->_uidTractList, a2, v2, v3);
+    v10 = v24;
+    memset(v44, 0, sizeof(v44));
     *__p = 0u;
-    if (v28)
+    if (v24)
     {
-      v33 = objc_msgSend_columnUids(v28, v29, v30, v31, v32);
-      v38 = objc_msgSend_rowUids(v12, v34, v35, v36, v37);
-      sub_2210BBBE8(v45, v33, v38);
+      v28 = objc_msgSend_columnUids(v24, v25, v26, v27);
+      v32 = objc_msgSend_rowUids(v10, v29, v30, v31);
+      sub_2210BBBE8(v39, v28, v32);
       if (__p[0])
       {
         __p[1] = __p[0];
         operator delete(__p[0]);
       }
 
-      *__p = *v45;
-      v50[0] = v46;
-      v45[1] = 0;
-      v46 = 0;
-      v45[0] = 0;
-      v39 = v50[1];
-      if (v50[1])
+      *__p = *v39;
+      v44[0] = v40;
+      v39[1] = 0;
+      v40 = 0;
+      v39[0] = 0;
+      v33 = v44[1];
+      if (v44[1])
       {
-        v50[2] = v50[1];
-        operator delete(v50[1]);
-        v39 = v45[0];
+        v44[2] = v44[1];
+        operator delete(v44[1]);
+        v33 = v39[0];
       }
 
-      *&v50[1] = v47;
-      v50[3] = v48;
-      v48 = 0;
-      v47 = 0uLL;
-      if (v39)
+      *&v44[1] = v41;
+      v44[3] = v42;
+      v42 = 0;
+      v41 = 0uLL;
+      if (v33)
       {
-        v45[1] = v39;
-        operator delete(v39);
+        v39[1] = v33;
+        operator delete(v33);
       }
     }
 
-    v40 = objc_msgSend_preserveFlags(self->_uidTractList, v29, v30, v31, v32, v45[0], v45[1], v46, v47, v48);
-    v41 = [TSTUIDRectRef alloc];
-    v27 = objc_msgSend_initWithCalcEngine_tableUID_uidRange_preserveFlags_(v41, v42, 0, &self->_relativeCellRef.tableUID, __p, v40);
+    v34 = objc_msgSend_preserveFlags(self->_uidTractList, v25, v26, v27, v39[0], v39[1], v40, v41, v42);
+    v35 = [TSTUIDRectRef alloc];
+    v23 = objc_msgSend_initWithCalcEngine_tableUID_uidRange_preserveFlags_(v35, v36, 0, &self->_relativeCellRef.tableUID, __p, v34);
   }
 
-  v43 = v27;
-  if (v50[1])
+  v37 = v23;
+  if (v44[1])
   {
-    v50[2] = v50[1];
-    operator delete(v50[1]);
+    v44[2] = v44[1];
+    operator delete(v44[1]);
   }
 
   if (__p[0])
@@ -1588,35 +1588,35 @@ LABEL_16:
     operator delete(__p[0]);
   }
 
-  return v43;
+  return v37;
 }
 
 - (TSTFormulaPredArg)initWithCategoryRef:(id)ref
 {
   refCopy = ref;
-  v11.receiver = self;
-  v11.super_class = TSTFormulaPredArg;
-  v5 = [(TSTFormulaPredArg *)&v11 init];
-  v9 = v5;
+  v10.receiver = self;
+  v10.super_class = TSTFormulaPredArg;
+  v5 = [(TSTFormulaPredArg *)&v10 init];
+  v8 = v5;
   if (v5)
   {
-    objc_msgSend_setCategoryRef_(v5, v6, refCopy, v7, v8);
+    objc_msgSend_setCategoryRef_(v5, v6, refCopy, v7);
   }
 
-  return v9;
+  return v8;
 }
 
 - (TSCECategoryRef)categoryRef
 {
-  if ((objc_msgSend_hasCategoryRef(self, a2, v2, v3, v4) & 1) == 0)
+  if ((objc_msgSend_hasCategoryRef(self, a2, v2, v3) & 1) == 0)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTFormulaPredArg categoryRef]", v7, v8);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v12, v13);
-    v15 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v10, v14, 960, 0, "Wrong type accessor called on %@", v15);
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTFormulaPredArg categoryRef]", v6);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10);
+    v12 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v11, 960, 0, "Wrong type accessor called on %@", v12);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   categoryRef = self->_categoryRef;
@@ -1627,29 +1627,29 @@ LABEL_16:
 - (TSTFormulaPredArg)initWithViewTractRef:(id)ref
 {
   refCopy = ref;
-  v11.receiver = self;
-  v11.super_class = TSTFormulaPredArg;
-  v5 = [(TSTFormulaPredArg *)&v11 init];
-  v9 = v5;
+  v10.receiver = self;
+  v10.super_class = TSTFormulaPredArg;
+  v5 = [(TSTFormulaPredArg *)&v10 init];
+  v8 = v5;
   if (v5)
   {
-    objc_msgSend_setViewTractRef_(v5, v6, refCopy, v7, v8);
+    objc_msgSend_setViewTractRef_(v5, v6, refCopy, v7);
   }
 
-  return v9;
+  return v8;
 }
 
 - (TSCEViewTractRef)viewTractRef
 {
-  if ((objc_msgSend_hasViewTractRef(self, a2, v2, v3, v4) & 1) == 0)
+  if ((objc_msgSend_hasViewTractRef(self, a2, v2, v3) & 1) == 0)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTFormulaPredArg viewTractRef]", v7, v8);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v12, v13);
-    v15 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v10, v14, 981, 0, "Wrong type accessor called on %@", v15);
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTFormulaPredArg viewTractRef]", v6);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10);
+    v12 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v11, 981, 0, "Wrong type accessor called on %@", v12);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   viewTractRef = self->_viewTractRef;
@@ -1659,7 +1659,7 @@ LABEL_16:
 
 - (id)initAsBadRefWithTableUID:(const TSKUIDStruct *)d uidTractList:(id)list
 {
-  result = objc_msgSend_initWithTableUID_uidTractList_(self, a2, d, list, v4);
+  result = objc_msgSend_initWithTableUID_uidTractList_(self, a2, d, list);
   if (result)
   {
     *(result + 113) = 9;
@@ -1671,23 +1671,23 @@ LABEL_16:
 - (TSTFormulaPredArg)initWithTableUID:(const TSKUIDStruct *)d uidTractList:(id)list
 {
   listCopy = list;
-  v20.receiver = self;
-  v20.super_class = TSTFormulaPredArg;
-  v7 = [(TSTFormulaPredArg *)&v20 init];
-  v12 = v7;
+  v18.receiver = self;
+  v18.super_class = TSTFormulaPredArg;
+  v7 = [(TSTFormulaPredArg *)&v18 init];
+  v11 = v7;
   if (v7)
   {
     v7->_relativeCellRef.tableUID = *d;
     v7->_type = 12;
-    v13 = objc_msgSend_copy(listCopy, v8, v9, v10, v11);
-    uidTractList = v12->_uidTractList;
-    v12->_uidTractList = v13;
+    v12 = objc_msgSend_copy(listCopy, v8, v9, v10);
+    uidTractList = v11->_uidTractList;
+    v11->_uidTractList = v12;
 
-    v12->_preserveFlags._flags = objc_msgSend_preserveFlags(listCopy, v15, v16, v17, v18);
-    v12->_hostCellCoord = 0x7FFF7FFFFFFFLL;
+    v11->_preserveFlags._flags = objc_msgSend_preserveFlags(listCopy, v14, v15, v16);
+    v11->_hostCellCoord = 0x7FFF7FFFFFFFLL;
   }
 
-  return v12;
+  return v11;
 }
 
 - (TSTFormulaPredArg)initWithBaseCellRef:(const void *)ref preserveFlags:(const TSUPreserveFlags *)flags
@@ -1713,13 +1713,13 @@ LABEL_16:
   type = self->_type;
   if (type != 4 && type != 9)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg baseCellRef]", v3, v4);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v11, v12);
-    v14 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v15, v9, v13, 1021, 0, "Wrong type accessor called on %@", v14);
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg baseCellRef]", v3);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10);
+    v12 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v11, 1021, 0, "Wrong type accessor called on %@", v12);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   if (self->_hasRelativeCellRef)
@@ -1727,32 +1727,32 @@ LABEL_16:
     hostCellCoord = self->_hostCellCoord;
     if (hostCellCoord != 0x7FFFFFFF && (hostCellCoord & 0xFFFF00000000) != 0x7FFF00000000)
     {
-      objc_msgSend_cellRefForHostCoord_(self, a2, hostCellCoord, v3, v4);
-      self->_baseCellRef._ref.coordinate = v31;
-      v22 = *v32;
+      objc_msgSend_cellRefForHostCoord_(self, a2, hostCellCoord, v3);
+      self->_baseCellRef._ref.coordinate = v27;
+      v19 = *v28;
 LABEL_17:
-      self->_baseCellRef._ref._tableUID = v22;
+      self->_baseCellRef._ref._tableUID = v19;
     }
   }
 
   else if (self->_type == 9)
   {
-    v23 = objc_msgSend_uidRectRef(self, a2, v2, v3, v4);
-    v28 = v23;
-    if (v23)
+    v20 = objc_msgSend_uidRectRef(self, a2, v2, v3);
+    v24 = v20;
+    if (v20)
     {
-      objc_msgSend_baseRangeRef(v23, v24, v25, v26, v27);
-      v29 = v31;
+      objc_msgSend_baseRangeRef(v20, v21, v22, v23);
+      v25 = v27;
     }
 
     else
     {
-      v29 = 0;
-      *&v32[8] = 0u;
+      v25 = 0;
+      *&v28[8] = 0u;
     }
 
-    self->_baseCellRef._ref.coordinate = v29;
-    v22 = *&v32[8];
+    self->_baseCellRef._ref.coordinate = v25;
+    v19 = *&v28[8];
     goto LABEL_17;
   }
 
@@ -1764,24 +1764,24 @@ LABEL_17:
   type = self->_type;
   if (type != 4 && type != 9)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], coord, "[TSTFormulaPredArg cellRefForHostCoord:]", v4, v5);
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v14, v15);
-    v17 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v18, v12, v16, 1038, 0, "Wrong type accessor called on %@", v17);
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], coord, "[TSTFormulaPredArg cellRefForHostCoord:]", v4);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v13);
+    v15 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v14, 1038, 0, "Wrong type accessor called on %@", v15);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
   }
 
   if (self->_hasRelativeCellRef)
   {
     coord = a4._coord;
-    TSCERelativeCellRef::cellRefForHostCoord(&self->_relativeCellRef, &coord, v4, v5, retstr);
+    TSCERelativeCellRef::cellRefForHostCoord(&self->_relativeCellRef, &coord, retstr, v4);
   }
 
   else
   {
-    result = objc_msgSend_baseCellRef(self, coord, *&a4, v4, v5);
+    result = objc_msgSend_baseCellRef(self, coord, *&a4, v4);
     upper = result->_tableUID._upper;
     *&retstr->coordinate.row = *&result->coordinate.row;
     retstr->_tableUID._upper = upper;
@@ -1797,10 +1797,10 @@ LABEL_17:
   if (selfCopy->_type == 4 && !selfCopy->_hasRelativeCellRef)
   {
     v4 = [TSTFormulaPredArg alloc];
-    objc_msgSend_crossTableRef(v3, v5, v6, v7, v8);
-    v12 = objc_msgSend_initWithCrossTableRef_(v4, v9, v14, v10, v11);
+    objc_msgSend_crossTableRef(v3, v5, v6, v7);
+    v10 = objc_msgSend_initWithCrossTableRef_(v4, v8, v12, v9);
 
-    v3 = v12;
+    v3 = v10;
   }
 
   return v3;
@@ -1810,135 +1810,135 @@ LABEL_17:
 {
   if ((self->_type | 4) != 4)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setBaseCellRef:]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v10, v11);
-    v13 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v14, v8, v12, 1052, 0, "Wrong type accessor called on %@", v13);
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setBaseCellRef:]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9);
+    v11 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v10, 1052, 0, "Wrong type accessor called on %@", v11);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  v19 = *ref;
+  v16 = *ref;
   self->_baseCellRef._ref._tableUID._upper = *(ref + 2);
-  *&self->_baseCellRef._ref.coordinate.row = v19;
+  *&self->_baseCellRef._ref.coordinate.row = v16;
   *&self->_hasRelativeCellRef = 1024;
 }
 
 - (void)setBaseCellRef:(const void *)ref preserveFlags:(const TSUPreserveFlags *)flags
 {
-  objc_msgSend_setBaseCellRef_(self, a2, ref, flags, v4);
+  objc_msgSend_setBaseCellRef_(self, a2, ref, flags);
   flags = flags->_flags;
 
-  objc_msgSend_setPreserveFlags_(self, v7, flags, v8, v9);
+  objc_msgSend_setPreserveFlags_(self, v6, flags, v7);
 }
 
 - (void)setBaseCellRef:(const void *)ref preserveColumn:(BOOL)column preserveRow:(BOOL)row
 {
   rowCopy = row;
   columnCopy = column;
-  objc_msgSend_setBaseCellRef_(self, a2, ref, column, row);
-  v11 = 2;
+  objc_msgSend_setBaseCellRef_(self, a2, ref, column);
+  v10 = 2;
   if (!rowCopy)
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  objc_msgSend_setPreserveFlags_(self, v8, v11 | columnCopy, v9, v10);
+  objc_msgSend_setPreserveFlags_(self, v8, v10 | columnCopy, v9);
 }
 
 - (TSTFormulaPredArg)initWithBaseCellReference:(id)reference preserveColumn:(BOOL)column preserveRow:(BOOL)row
 {
   rowCopy = row;
-  TSCECellRef::TSCECellRef(&v13, reference);
-  v14 = v13;
+  TSCECellRef::TSCECellRef(&v12, reference);
+  v13 = v12;
   if (rowCopy)
   {
-    v10 = 2;
+    v9 = 2;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  v12 = v10 | column;
-  return objc_msgSend_initWithBaseCellRef_preserveFlags_(self, v8, &v14, &v12, v9);
+  v11 = v9 | column;
+  return objc_msgSend_initWithBaseCellRef_preserveFlags_(self, v8, &v13, &v11);
 }
 
 - (id)cellReference
 {
-  v5 = objc_msgSend_baseCellRef(self, a2, v2, v3, v4);
+  v4 = objc_msgSend_baseCellRef(self, a2, v2, v3);
 
-  return TSCECellRef::wrapped(v5);
+  return TSCECellRef::wrapped(v4);
 }
 
 - (void)setBaseCellReference:(id)reference
 {
   referenceCopy = reference;
-  v9 = referenceCopy;
+  v8 = referenceCopy;
   if (referenceCopy)
   {
-    objc_msgSend_cellRef(referenceCopy, v5, v6, v7, v8);
+    objc_msgSend_cellRef(referenceCopy, v5, v6, v7);
   }
 
   else
   {
-    v10 = 0uLL;
-    v11 = 0;
+    v9 = 0uLL;
+    v10 = 0;
   }
 
+  v11 = v9;
   v12 = v10;
-  v13 = v11;
-  objc_msgSend_setBaseCellRef_(self, v5, &v12, v7, v8);
+  objc_msgSend_setBaseCellRef_(self, v5, &v11, v7);
 }
 
 - (void)setBaseCellReference:(id)reference preserveColumn:(BOOL)column preserveRow:(BOOL)row
 {
   rowCopy = row;
   referenceCopy = reference;
-  v13 = referenceCopy;
+  v12 = referenceCopy;
   if (referenceCopy)
   {
-    objc_msgSend_cellRef(referenceCopy, v9, v10, v11, v12);
+    objc_msgSend_cellRef(referenceCopy, v9, v10, v11);
   }
 
   else
   {
-    v16 = 0uLL;
-    v17 = 0;
+    v15 = 0uLL;
+    v16 = 0;
   }
 
+  v17 = v15;
   v18 = v16;
-  v19 = v17;
   if (rowCopy)
   {
-    v14 = 2;
+    v13 = 2;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v15 = v14 | column;
-  objc_msgSend_setBaseCellRef_preserveFlags_(self, v9, &v18, &v15, v12);
+  v14 = v13 | column;
+  objc_msgSend_setBaseCellRef_preserveFlags_(self, v9, &v17, &v14);
 }
 
 - (TSTFormulaPredArg)initWithDuration:(double)duration units:(unsigned __int8)units
 {
   unitsCopy = units;
-  v15.receiver = self;
-  v15.super_class = TSTFormulaPredArg;
-  v6 = [(TSTFormulaPredArg *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = TSTFormulaPredArg;
+  v6 = [(TSTFormulaPredArg *)&v14 init];
   v7 = v6;
   if (v6)
   {
     v6->_type = 5;
     v8 = [TSTFormulaPredArgData alloc];
-    v12 = objc_msgSend_initWithDuration_units_(v8, v9, unitsCopy, v10, v11, duration);
+    v11 = objc_msgSend_initWithDuration_units_(v8, v9, unitsCopy, v10, duration);
     data = v7->_data;
-    v7->_data = v12;
+    v7->_data = v11;
   }
 
   return v7;
@@ -1948,42 +1948,42 @@ LABEL_17:
 {
   if (self->_type != 5)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg durationValue]", v3, v4);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9, v10);
-    v12 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v7, v11, 1095, 0, "Wrong type accessor called on %@", v12);
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg durationValue]", v3);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v8);
+    v10 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v9, 1095, 0, "Wrong type accessor called on %@", v10);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   data = self->_data;
 
-  objc_msgSend_durationValue(data, a2, v2, v3, v4);
+  objc_msgSend_durationValue(data, a2, v2, v3);
   return result;
 }
 
 - (void)setDurationValue:(double)value
 {
   type = self->_type;
-  v8 = type > 5;
-  v9 = (1 << type) & 0x23;
-  if (v8 || v9 == 0)
+  v7 = type > 5;
+  v8 = (1 << type) & 0x23;
+  if (v7 || v8 == 0)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setDurationValue:]", v3, v4);
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v14, v15);
-    v17 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v18, v12, v16, 1102, 0, "Wrong type accessor called on %@", v17);
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setDurationValue:]", v3);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v13);
+    v15 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v14, 1102, 0, "Wrong type accessor called on %@", v15);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
   }
 
-  v23 = [TSTFormulaPredArgData alloc];
-  v28 = objc_msgSend_durationUnits(self->_data, v24, v25, v26, v27);
-  v32 = objc_msgSend_initWithDuration_units_(v23, v29, v28, v30, v31, value);
+  v20 = [TSTFormulaPredArgData alloc];
+  v24 = objc_msgSend_durationUnits(self->_data, v21, v22, v23);
+  v27 = objc_msgSend_initWithDuration_units_(v20, v25, v24, v26, value);
   data = self->_data;
-  self->_data = v32;
+  self->_data = v27;
 
   self->_type = 5;
 }
@@ -1992,67 +1992,67 @@ LABEL_17:
 {
   if (self->_type != 5)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg durationUnits]", v3, v4);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9, v10);
-    v12 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v7, v11, 1109, 0, "Wrong type accessor called on %@", v12);
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg durationUnits]", v3);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v8);
+    v10 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v9, 1109, 0, "Wrong type accessor called on %@", v10);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   data = self->_data;
 
-  return objc_msgSend_durationUnits(data, a2, v2, v3, v4);
+  return objc_msgSend_durationUnits(data, a2, v2, v3);
 }
 
 - (TSCENumberValue)duration
 {
   if (self->_type != 5)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg duration]", v3, v4);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v9, v10);
-    v12 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v13, v7, v11, 1114, 0, "Wrong type accessor called on %@", v12);
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg duration]", v3);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v8);
+    v10 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v9, 1114, 0, "Wrong type accessor called on %@", v10);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
   data = self->_data;
 
-  return objc_msgSend_duration(data, a2, v2, v3, v4);
+  return objc_msgSend_duration(data, a2, v2, v3);
 }
 
 - (void)setDurationUnits:(unsigned __int8)units
 {
   unitsCopy = units;
   type = self->_type;
-  v8 = type > 5;
-  v9 = (1 << type) & 0x23;
-  if (v8 || v9 == 0)
+  v7 = type > 5;
+  v8 = (1 << type) & 0x23;
+  if (v7 || v8 == 0)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setDurationUnits:]", v3, v4);
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v14, v15);
-    v17 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v18, v12, v16, 1121, 0, "Wrong type accessor called on %@", v17);
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg setDurationUnits:]", v3);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v13);
+    v15 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v14, 1121, 0, "Wrong type accessor called on %@", v15);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
   }
 
-  v23 = [TSTFormulaPredArgData alloc];
-  objc_msgSend_durationValue(self->_data, v24, v25, v26, v27);
-  v31 = objc_msgSend_initWithDuration_units_(v23, v28, unitsCopy, v29, v30);
+  v20 = [TSTFormulaPredArgData alloc];
+  objc_msgSend_durationValue(self->_data, v21, v22, v23);
+  v26 = objc_msgSend_initWithDuration_units_(v20, v24, unitsCopy, v25);
   data = self->_data;
-  self->_data = v31;
+  self->_data = v26;
 
   self->_type = 5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v6 = 0;
+  v5 = 0;
   type = self->_type;
   if (type > 5)
   {
@@ -2061,22 +2061,22 @@ LABEL_17:
       switch(type)
       {
         case 0xBu:
-          v61 = [TSTFormulaPredArg alloc];
-          v13 = objc_msgSend_dataList(self, v62, v63, v64, v65);
-          inited = objc_msgSend_initWithDataList_(v61, v66, v13, v67, v68);
+          v49 = [TSTFormulaPredArg alloc];
+          v11 = objc_msgSend_dataList(self, v50, v51, v52);
+          inited = objc_msgSend_initWithDataList_(v49, v53, v11, v54);
           break;
         case 0xCu:
-          v91 = [TSTFormulaPredArg alloc];
-          v13 = objc_msgSend_copy(self->_uidTractList, v92, v93, v94, v95);
-          inited = objc_msgSend_initWithTableUID_uidTractList_(v91, v96, &self->_relativeCellRef.tableUID, v13, v97);
+          v72 = [TSTFormulaPredArg alloc];
+          v11 = objc_msgSend_copy(self->_uidTractList, v73, v74, v75);
+          inited = objc_msgSend_initWithTableUID_uidTractList_(v72, v76, &self->_relativeCellRef.tableUID, v11);
           break;
         case 0xDu:
-          v39 = [TSTFormulaPredArg alloc];
+          v32 = [TSTFormulaPredArg alloc];
           viewTractRef = self->_viewTractRef;
 
-          return objc_msgSend_initWithViewTractRef_(v39, v40, viewTractRef, v41, v42);
+          return objc_msgSend_initWithViewTractRef_(v32, v33, viewTractRef, v34);
         default:
-          return v6;
+          return v5;
       }
     }
 
@@ -2084,34 +2084,34 @@ LABEL_17:
     {
       if (type == 6)
       {
-        v44 = [TSTFormulaPredArg alloc];
-        v50 = objc_msgSend_BOOLValue(self, v45, v46, v47, v48);
+        v36 = [TSTFormulaPredArg alloc];
+        v41 = objc_msgSend_BOOLValue(self, v37, v38, v39);
 
-        return objc_msgSend_initWithBool_(v44, v49, v50, v51, v52);
+        return objc_msgSend_initWithBool_(v36, v40, v41, v42);
       }
 
       if (type != 9)
       {
         if (type == 10)
         {
-          v18 = [TSTFormulaPredArg alloc];
+          v15 = [TSTFormulaPredArg alloc];
           categoryRef = self->_categoryRef;
 
-          return objc_msgSend_initWithCategoryRef_(v18, v19, categoryRef, v20, v21);
+          return objc_msgSend_initWithCategoryRef_(v15, v16, categoryRef, v17);
         }
 
-        return v6;
+        return v5;
       }
 
-      v77 = [TSTFormulaPredArg alloc];
-      v13 = objc_msgSend_copy(self->_uidTractList, v78, v79, v80, v81);
-      inited = objc_msgSend_initAsBadRefWithTableUID_uidTractList_(v77, v82, &self->_relativeCellRef.tableUID, v13, v83);
+      v61 = [TSTFormulaPredArg alloc];
+      v11 = objc_msgSend_copy(self->_uidTractList, v62, v63, v64);
+      inited = objc_msgSend_initAsBadRefWithTableUID_uidTractList_(v61, v65, &self->_relativeCellRef.tableUID, v11);
     }
 
 LABEL_40:
-    v6 = inited;
+    v5 = inited;
 
-    return v6;
+    return v5;
   }
 
   if (self->_type > 2u)
@@ -2120,35 +2120,35 @@ LABEL_40:
     {
       if (type == 4)
       {
-        hasRelativeCellRef = objc_msgSend_hasRelativeCellRef(self, a2, zone, v3, v4);
-        v85 = [TSTFormulaPredArg alloc];
-        v90 = v85;
+        hasRelativeCellRef = objc_msgSend_hasRelativeCellRef(self, a2, zone, v3);
+        v67 = [TSTFormulaPredArg alloc];
+        v71 = v67;
         if (!hasRelativeCellRef)
         {
-          v98 = objc_msgSend_baseCellRef(self, v86, v87, v88, v89);
-          v105 = objc_msgSend_preserveFlags(self, v99, v100, v101, v102);
-          return objc_msgSend_initWithBaseCellRef_preserveFlags_(v90, v103, v98, &v105, v104);
+          v77 = objc_msgSend_baseCellRef(self, v68, v69, v70);
+          v82 = objc_msgSend_preserveFlags(self, v78, v79, v80);
+          return objc_msgSend_initWithBaseCellRef_preserveFlags_(v71, v81, v77, &v82);
         }
 
-        return objc_msgSend_initWithRelativeCellRef_(v85, v86, &self->_relativeCellRef, v88, v89);
+        return objc_msgSend_initWithRelativeCellRef_(v67, v68, &self->_relativeCellRef, v70);
       }
 
       if (type == 5)
       {
-        v24 = [TSTFormulaPredArg alloc];
-        objc_msgSend_durationValue(self, v25, v26, v27, v28);
-        v30 = v29;
-        v36 = objc_msgSend_durationUnits(self, v31, v32, v33, v34);
+        v20 = [TSTFormulaPredArg alloc];
+        objc_msgSend_durationValue(self, v21, v22, v23);
+        v25 = v24;
+        v30 = objc_msgSend_durationUnits(self, v26, v27, v28);
 
-        return objc_msgSend_initWithDuration_units_(v24, v35, v36, v37, v38, v30);
+        return objc_msgSend_initWithDuration_units_(v20, v29, v30, v31, v25);
       }
 
-      return v6;
+      return v5;
     }
 
-    v53 = [TSTFormulaPredArg alloc];
-    v13 = objc_msgSend_string(self, v54, v55, v56, v57);
-    inited = objc_msgSend_initWithString_(v53, v58, v13, v59, v60);
+    v43 = [TSTFormulaPredArg alloc];
+    v11 = objc_msgSend_string(self, v44, v45, v46);
+    inited = objc_msgSend_initWithString_(v43, v47, v11, v48);
     goto LABEL_40;
   }
 
@@ -2156,16 +2156,16 @@ LABEL_40:
   {
     if (type == 1)
     {
-      v69 = [TSTFormulaPredArg alloc];
-      v13 = objc_msgSend_number(self, v70, v71, v72, v73);
-      inited = objc_msgSend_initWithNumber_(v69, v74, v13, v75, v76);
+      v55 = [TSTFormulaPredArg alloc];
+      v11 = objc_msgSend_number(self, v56, v57, v58);
+      inited = objc_msgSend_initWithNumber_(v55, v59, v11, v60);
     }
 
     else
     {
-      v8 = [TSTFormulaPredArg alloc];
-      v13 = objc_msgSend_date(self, v9, v10, v11, v12);
-      inited = objc_msgSend_initWithDate_(v8, v14, v13, v15, v16);
+      v7 = [TSTFormulaPredArg alloc];
+      v11 = objc_msgSend_date(self, v8, v9, v10);
+      inited = objc_msgSend_initWithDate_(v7, v12, v11, v13);
     }
 
     goto LABEL_40;
@@ -2176,187 +2176,187 @@ LABEL_40:
 
 - (unint64_t)hash
 {
-  v6 = objc_msgSend_type(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_type(self, v7, v8, v9, v10);
-  if (v11 <= 5)
+  v5 = objc_msgSend_type(self, a2, v2, v3);
+  v9 = objc_msgSend_type(self, v6, v7, v8);
+  if (v9 <= 5)
   {
-    if (v11 <= 2)
+    if (v9 <= 2)
     {
-      if (v11 == 1)
+      if (v9 == 1)
       {
-        v16 = objc_msgSend_number(self, v12, v13, v14, v15);
-        v21 = objc_msgSend_hash(v16, v28, v29, v30, v31);
+        v13 = objc_msgSend_number(self, v10, v11, v12);
+        v17 = objc_msgSend_hash(v13, v23, v24, v25);
         goto LABEL_26;
       }
 
-      if (v11 == 2)
+      if (v9 == 2)
       {
-        v16 = objc_msgSend_date(self, v12, v13, v14, v15);
-        v21 = objc_msgSend_hash(v16, v24, v25, v26, v27);
+        v13 = objc_msgSend_date(self, v10, v11, v12);
+        v17 = objc_msgSend_hash(v13, v20, v21, v22);
         goto LABEL_26;
       }
     }
 
     else
     {
-      if (v11 == 3)
+      if (v9 == 3)
       {
-        v16 = objc_msgSend_string(self, v12, v13, v14, v15);
-        v21 = objc_msgSend_hash(v16, v40, v41, v42, v43);
+        v13 = objc_msgSend_string(self, v10, v11, v12);
+        v17 = objc_msgSend_hash(v13, v33, v34, v35);
         goto LABEL_26;
       }
 
-      if (v11 == 4)
+      if (v9 == 4)
       {
         if (self->_hasRelativeCellRef)
         {
-          v32 = objc_msgSend_relativeCellRef(self, v12, v13, v14, v15);
-          v33 = *v32 + (*(v32 + 2) << 16);
-          v34 = (*(v32 + 2) ^ *(v32 + 1)) + (v32[6] & 1) + ((*(v32 + 24) >> 1) & 1);
+          v26 = objc_msgSend_relativeCellRef(self, v10, v11, v12);
+          v27 = *v26 + (*(v26 + 2) << 16);
+          v28 = (*(v26 + 2) ^ *(v26 + 1)) + (v26[6] & 1) + ((*(v26 + 24) >> 1) & 1);
         }
 
         else
         {
-          v48 = objc_msgSend_baseCellRef(self, v12, v13, v14, v15);
-          v33 = *(v48 + 4) + (*v48 << 15);
-          v34 = *(v48 + 16) ^ *(v48 + 8);
+          v39 = objc_msgSend_baseCellRef(self, v10, v11, v12);
+          v27 = *(v39 + 4) + (*v39 << 15);
+          v28 = *(v39 + 16) ^ *(v39 + 8);
         }
 
-        v23 = v34 ^ v33;
+        v19 = v28 ^ v27;
       }
 
       else
       {
-        objc_msgSend_durationValue(self, v12, v13, v14, v15);
-        v23 = (v22 * 100.0);
+        objc_msgSend_durationValue(self, v10, v11, v12);
+        v19 = (v18 * 100.0);
       }
 
-      v6 += v23;
+      v5 += v19;
     }
   }
 
-  else if (v11 > 10)
+  else if (v9 > 10)
   {
-    switch(v11)
+    switch(v9)
     {
       case 11:
-        v16 = objc_msgSend_dataList(self, v12, v13, v14, v15);
-        v21 = objc_msgSend_count(v16, v44, v45, v46, v47);
+        v13 = objc_msgSend_dataList(self, v10, v11, v12);
+        v17 = objc_msgSend_count(v13, v36, v37, v38);
         goto LABEL_26;
       case 12:
-        v39 = self->_relativeCellRef.tableUID._upper ^ self->_relativeCellRef.tableUID._lower;
-        v6 += v39 + objc_msgSend_hash(self->_uidTractList, v12, v13, v14, v15);
+        v32 = self->_relativeCellRef.tableUID._upper ^ self->_relativeCellRef.tableUID._lower;
+        v5 += v32 + objc_msgSend_hash(self->_uidTractList, v10, v11, v12);
         break;
       case 13:
-        v6 += objc_msgSend_hash(self->_viewTractRef, v12, v13, v14, v15);
+        v5 += objc_msgSend_hash(self->_viewTractRef, v10, v11, v12);
         break;
     }
   }
 
   else
   {
-    switch(v11)
+    switch(v9)
     {
       case 6:
-        v6 += objc_msgSend_BOOLValue(self, v12, v13, v14, v15);
+        v5 += objc_msgSend_BOOLValue(self, v10, v11, v12);
         break;
       case 9:
-        v16 = objc_msgSend_uidRectRef(self, v12, v13, v14, v15);
-        v21 = objc_msgSend_hash(v16, v35, v36, v37, v38);
+        v13 = objc_msgSend_uidRectRef(self, v10, v11, v12);
+        v17 = objc_msgSend_hash(v13, v29, v30, v31);
         goto LABEL_26;
       case 10:
-        v16 = objc_msgSend_categoryRef(self, v12, v13, v14, v15);
-        v21 = objc_msgSend_hash(v16, v17, v18, v19, v20);
+        v13 = objc_msgSend_categoryRef(self, v10, v11, v12);
+        v17 = objc_msgSend_hash(v13, v14, v15, v16);
 LABEL_26:
-        v6 += v21;
+        v5 += v17;
 
         break;
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v9 = equalCopy;
+  v8 = equalCopy;
   LOBYTE(uidTractList) = self == equalCopy;
   if (!equalCopy || self == equalCopy)
   {
     goto LABEL_52;
   }
 
-  v11 = objc_msgSend_type(self, v5, v6, v7, v8);
-  if (v11 != objc_msgSend_type(v9, v12, v13, v14, v15))
+  v10 = objc_msgSend_type(self, v5, v6, v7);
+  if (v10 != objc_msgSend_type(v8, v11, v12, v13))
   {
     goto LABEL_51;
   }
 
-  v20 = objc_msgSend_type(self, v16, v17, v18, v19);
+  v17 = objc_msgSend_type(self, v14, v15, v16);
   LOBYTE(uidTractList) = 1;
-  if (v20 <= 5)
+  if (v17 <= 5)
   {
-    if (v20 <= 2)
+    if (v17 <= 2)
     {
-      if (v20 == 1)
+      if (v17 == 1)
       {
-        v25 = objc_msgSend_number(self, v21, v22, v23, v24);
-        v30 = objc_msgSend_number(v9, v66, v67, v68, v69);
-        isEqual = objc_msgSend_isEqual_(v25, v70, v30, v71, v72);
+        v21 = objc_msgSend_number(self, v18, v19, v20);
+        v25 = objc_msgSend_number(v8, v53, v54, v55);
+        isEqual = objc_msgSend_isEqual_(v21, v56, v25, v57);
         goto LABEL_34;
       }
 
-      if (v20 == 2)
+      if (v17 == 2)
       {
-        v25 = objc_msgSend_date(self, v21, v22, v23, v24);
-        v30 = objc_msgSend_date(v9, v59, v60, v61, v62);
-        isEqual = objc_msgSend_isEqual_(v25, v63, v30, v64, v65);
+        v21 = objc_msgSend_date(self, v18, v19, v20);
+        v25 = objc_msgSend_date(v8, v48, v49, v50);
+        isEqual = objc_msgSend_isEqual_(v21, v51, v25, v52);
         goto LABEL_34;
       }
 
       goto LABEL_52;
     }
 
-    if (v20 == 3)
+    if (v17 == 3)
     {
-      v25 = objc_msgSend_string(self, v21, v22, v23, v24);
-      v30 = objc_msgSend_string(v9, v88, v89, v90, v91);
-      isEqual = objc_msgSend_isEqual_(v25, v92, v30, v93, v94);
+      v21 = objc_msgSend_string(self, v18, v19, v20);
+      v25 = objc_msgSend_string(v8, v69, v70, v71);
+      isEqual = objc_msgSend_isEqual_(v21, v72, v25, v73);
       goto LABEL_34;
     }
 
-    if (v20 != 4)
+    if (v17 != 4)
     {
-      objc_msgSend_durationValue(self, v21, v22, v23, v24);
-      v36 = v35;
-      objc_msgSend_durationValue(v9, v37, v38, v39, v40);
-      if (v36 != v45)
+      objc_msgSend_durationValue(self, v18, v19, v20);
+      v30 = v29;
+      objc_msgSend_durationValue(v8, v31, v32, v33);
+      if (v30 != v37)
       {
         goto LABEL_51;
       }
 
-      v46 = objc_msgSend_durationUnits(self, v41, v42, v43, v44);
-      v51 = v46 == objc_msgSend_durationUnits(v9, v47, v48, v49, v50);
+      v38 = objc_msgSend_durationUnits(self, v34, v35, v36);
+      v42 = v38 == objc_msgSend_durationUnits(v8, v39, v40, v41);
 LABEL_15:
-      LOBYTE(uidTractList) = v51;
+      LOBYTE(uidTractList) = v42;
       goto LABEL_52;
     }
 
-    if (self->_hasRelativeCellRef && v9->_hasRelativeCellRef)
+    if (self->_hasRelativeCellRef && v8->_hasRelativeCellRef)
     {
-      uidTractList = objc_msgSend_relativeCellRef(self, v21, v22, v23, v24);
-      v77 = objc_msgSend_relativeCellRef(v9, v73, v74, v75, v76);
-      LOBYTE(uidTractList) = sub_2212C2640(uidTractList, v77);
+      uidTractList = objc_msgSend_relativeCellRef(self, v18, v19, v20);
+      v61 = objc_msgSend_relativeCellRef(v8, v58, v59, v60);
+      LOBYTE(uidTractList) = sub_2212C2640(uidTractList, v61);
       goto LABEL_52;
     }
 
-    v127 = objc_msgSend_baseCellRef(self, v21, v22, v23, v24);
-    v132 = objc_msgSend_baseCellRef(v9, v128, v129, v130, v131);
-    if (*v127 == *v132 && ((*v132 ^ *v127) & 0x101FFFF00000000) == 0 && v127[1] == v132[1] && v127[2] == v132[2])
+    v99 = objc_msgSend_baseCellRef(self, v18, v19, v20);
+    v103 = objc_msgSend_baseCellRef(v8, v100, v101, v102);
+    if (*v99 == *v103 && ((*v103 ^ *v99) & 0x101FFFF00000000) == 0 && v99[1] == v103[1] && v99[2] == v103[2])
     {
-      v137 = objc_msgSend_preserveFlags(self, v133, v134, v135, v136);
-      v51 = v137 == objc_msgSend_preserveFlags(v9, v138, v139, v140, v141);
+      v107 = objc_msgSend_preserveFlags(self, v104, v105, v106);
+      v42 = v107 == objc_msgSend_preserveFlags(v8, v108, v109, v110);
       goto LABEL_15;
     }
 
@@ -2365,23 +2365,23 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  if (v20 <= 10)
+  if (v17 <= 10)
   {
-    switch(v20)
+    switch(v17)
     {
       case 6:
-        v95 = objc_msgSend_BOOLValue(self, v21, v22, v23, v24);
-        LODWORD(uidTractList) = v95 ^ objc_msgSend_BOOLValue(v9, v96, v97, v98, v99) ^ 1;
+        v74 = objc_msgSend_BOOLValue(self, v18, v19, v20);
+        LODWORD(uidTractList) = v74 ^ objc_msgSend_BOOLValue(v8, v75, v76, v77) ^ 1;
         goto LABEL_52;
       case 9:
-        v25 = objc_msgSend_uidRectRef(self, v21, v22, v23, v24);
-        v30 = objc_msgSend_uidRectRef(v9, v78, v79, v80, v81);
-        isEqual = objc_msgSend_isEqual_(v25, v82, v30, v83, v84);
+        v21 = objc_msgSend_uidRectRef(self, v18, v19, v20);
+        v25 = objc_msgSend_uidRectRef(v8, v62, v63, v64);
+        isEqual = objc_msgSend_isEqual_(v21, v65, v25, v66);
         goto LABEL_34;
       case 10:
-        v25 = objc_msgSend_categoryRef(self, v21, v22, v23, v24);
-        v30 = objc_msgSend_categoryRef(v9, v26, v27, v28, v29);
-        isEqual = objc_msgSend_isEqual_(v25, v31, v30, v32, v33);
+        v21 = objc_msgSend_categoryRef(self, v18, v19, v20);
+        v25 = objc_msgSend_categoryRef(v8, v22, v23, v24);
+        isEqual = objc_msgSend_isEqual_(v21, v26, v25, v27);
 LABEL_34:
         LOBYTE(uidTractList) = isEqual;
 LABEL_35:
@@ -2392,37 +2392,37 @@ LABEL_35:
     goto LABEL_52;
   }
 
-  switch(v20)
+  switch(v17)
   {
     case 11:
-      v25 = objc_msgSend_dataList(self, v21, v22, v23, v24);
-      v30 = objc_msgSend_dataList(v9, v100, v101, v102, v103);
-      v108 = objc_msgSend_count(v25, v104, v105, v106, v107);
-      if (v108 == objc_msgSend_count(v30, v109, v110, v111, v112))
+      v21 = objc_msgSend_dataList(self, v18, v19, v20);
+      v25 = objc_msgSend_dataList(v8, v78, v79, v80);
+      v84 = objc_msgSend_count(v21, v81, v82, v83);
+      if (v84 == objc_msgSend_count(v25, v85, v86, v87))
       {
-        if (v108)
+        if (v84)
         {
-          v116 = 0;
-          v117 = v108 - 1;
+          v90 = 0;
+          v91 = v84 - 1;
           do
           {
-            v118 = objc_msgSend_objectAtIndexedSubscript_(v25, v113, v116, v114, v115);
-            v122 = objc_msgSend_objectAtIndexedSubscript_(v30, v119, v116, v120, v121);
-            LOBYTE(uidTractList) = objc_msgSend_isEqual_(v118, v123, v122, v124, v125);
+            v92 = objc_msgSend_objectAtIndexedSubscript_(v21, v88, v90, v89);
+            v95 = objc_msgSend_objectAtIndexedSubscript_(v25, v93, v90, v94);
+            LOBYTE(uidTractList) = objc_msgSend_isEqual_(v92, v96, v95, v97);
 
-            v51 = v117 == v116++;
-            if (v51)
+            v42 = v91 == v90++;
+            if (v42)
             {
-              v126 = 0;
+              v98 = 0;
             }
 
             else
             {
-              v126 = uidTractList;
+              v98 = uidTractList;
             }
           }
 
-          while ((v126 & 1) != 0);
+          while ((v98 & 1) != 0);
         }
 
         else
@@ -2438,11 +2438,11 @@ LABEL_35:
 
       goto LABEL_35;
     case 12:
-      if (self->_relativeCellRef.tableUID._lower == v9->_relativeCellRef.tableUID._lower && self->_relativeCellRef.tableUID._upper == v9->_relativeCellRef.tableUID._upper)
+      if (self->_relativeCellRef.tableUID._lower == v8->_relativeCellRef.tableUID._lower && self->_relativeCellRef.tableUID._upper == v8->_relativeCellRef.tableUID._upper)
       {
         uidTractList = self->_uidTractList;
-        v25 = objc_msgSend_uidTractList(v9, v21, v22, v23, v24);
-        LOBYTE(uidTractList) = objc_msgSend_isEqual_(uidTractList, v85, v25, v86, v87);
+        v21 = objc_msgSend_uidTractList(v8, v18, v19, v20);
+        LOBYTE(uidTractList) = objc_msgSend_isEqual_(uidTractList, v67, v21, v68);
 LABEL_36:
 
         break;
@@ -2450,9 +2450,9 @@ LABEL_36:
 
       goto LABEL_51;
     case 13:
-      v25 = objc_msgSend_viewTractRef(self, v21, v22, v23, v24);
-      v30 = objc_msgSend_viewTractRef(v9, v52, v53, v54, v55);
-      isEqual = objc_msgSend_isEqual_(v25, v56, v30, v57, v58);
+      v21 = objc_msgSend_viewTractRef(self, v18, v19, v20);
+      v25 = objc_msgSend_viewTractRef(v8, v43, v44, v45);
+      isEqual = objc_msgSend_isEqual_(v21, v46, v25, v47);
       goto LABEL_34;
   }
 
@@ -2464,49 +2464,49 @@ LABEL_52:
 - (BOOL)isEqual:(id)equal atHostCoord:(TSUModelCellCoord)coord
 {
   equalCopy = equal;
-  v11 = equalCopy;
-  LOBYTE(v12) = self == equalCopy;
+  v10 = equalCopy;
+  LOBYTE(v11) = self == equalCopy;
   if (equalCopy && self != equalCopy)
   {
-    v13 = objc_msgSend_type(self, v7, v8, v9, v10);
-    if (v13 == objc_msgSend_type(v11, v14, v15, v16, v17))
+    v12 = objc_msgSend_type(self, v7, v8, v9);
+    if (v12 == objc_msgSend_type(v10, v13, v14, v15))
     {
-      if (objc_msgSend_type(self, v18, v19, v20, v21) != 4)
+      if (objc_msgSend_type(self, v16, v17, v18) != 4)
       {
-        isEqual = objc_msgSend_isEqual_(self, v22, v11, v24, v25);
+        isEqual = objc_msgSend_isEqual_(self, v19, v10, v21);
         goto LABEL_9;
       }
 
-      if (self->_hasRelativeCellRef && objc_msgSend_hasRelativeCellRef(v11, v22, v23, v24, v25))
+      if (self->_hasRelativeCellRef && objc_msgSend_hasRelativeCellRef(v10, v19, v20, v21))
       {
-        v27 = objc_msgSend_relativeCellRef(self, v22, v26, v24, v25);
-        v32 = objc_msgSend_relativeCellRef(v11, v28, v29, v30, v31);
-        isEqual = sub_2212C2640(v27, v32);
+        v23 = objc_msgSend_relativeCellRef(self, v19, v22, v21);
+        v27 = objc_msgSend_relativeCellRef(v10, v24, v25, v26);
+        isEqual = sub_2212C2640(v23, v27);
 LABEL_9:
-        LOBYTE(v12) = isEqual;
+        LOBYTE(v11) = isEqual;
         goto LABEL_16;
       }
 
-      objc_msgSend_cellRefForHostCoord_(self, v22, *&coord, v24, v25);
-      objc_msgSend_cellRefForHostCoord_(v11, v34, *&coord, v35, v36);
-      if (v59 == v56 && ((v56 ^ v59) & 0x101FFFF00000000) == 0 && v60 == v57 && v61 == v58)
+      objc_msgSend_cellRefForHostCoord_(self, v19, *&coord, v21);
+      objc_msgSend_cellRefForHostCoord_(v10, v29, *&coord, v30);
+      if (v49 == v46 && ((v46 ^ v49) & 0x101FFFF00000000) == 0 && v50 == v47 && v51 == v48)
       {
-        v41 = objc_msgSend_preserveColumn(self, v37, v38, v39, v40);
-        if (v41 == objc_msgSend_preserveColumn(v11, v42, v43, v44, v45))
+        v34 = objc_msgSend_preserveColumn(self, v31, v32, v33);
+        if (v34 == objc_msgSend_preserveColumn(v10, v35, v36, v37))
         {
-          v51 = objc_msgSend_preserveRow(self, v46, v47, v48, v49);
-          v12 = v51 ^ objc_msgSend_preserveRow(v11, v52, v53, v54, v55) ^ 1;
+          v42 = objc_msgSend_preserveRow(self, v38, v39, v40);
+          v11 = v42 ^ objc_msgSend_preserveRow(v10, v43, v44, v45) ^ 1;
           goto LABEL_16;
         }
       }
     }
 
-    LOBYTE(v12) = 0;
+    LOBYTE(v11) = 0;
   }
 
 LABEL_16:
 
-  return v12;
+  return v11;
 }
 
 - (id)rewriteWithContext:(TSCEFormulaRewriteContext *)context forArgAt:(int64_t)at usingLinkedRef:(BOOL)ref useColumnRef:(BOOL)columnRef hostCellRef:(TSCEUidCellRef *)cellRef rewriteBlock:(id)block
@@ -2515,84 +2515,84 @@ LABEL_16:
   refCopy = ref;
   blockCopy = block;
   selfCopy = self;
-  if (objc_msgSend_needsFormulaRewriting(selfCopy, v16, v17, v18, v19))
+  if (objc_msgSend_needsFormulaRewriting(selfCopy, v16, v17, v18))
   {
-    TSCEFormulaCreationMagic::nop(v20, v21, v22, v23, &v99);
+    TSCEFormulaCreationMagic::nop(&v84, v19, v20, v21);
     if (at)
     {
-      objc_msgSend_formulaCreatorForPredArg(selfCopy, v24, v25, v26, v27);
+      objc_msgSend_formulaCreatorForPredArg(selfCopy, v22, v23, v24);
     }
 
     else
     {
-      objc_msgSend_formulaCreatorForPredArg0UsingLinkedRef_useColumnRef_(selfCopy, v24, refCopy, columnRefCopy, v27);
+      objc_msgSend_formulaCreatorForPredArg0UsingLinkedRef_useColumnRef_(selfCopy, v22, refCopy, columnRefCopy);
     }
 
-    TSCEFormulaCreator::operator=(&v99.var0, v93, v28, v29, v30);
+    TSCEFormulaCreator::operator=(&v84.var0, v78, v25, v26);
 
-    v36 = objc_msgSend_type(selfCopy, v32, v33, v34, v35) == 12;
-    v37 = [TSCEFormulaObject alloc];
-    TSCEFormulaCreator::TSCEFormulaCreator(&v97, &v99);
-    TSCEFormulaCreationMagic::SUM(v38, v101, &v98);
-    v41 = objc_msgSend_initWithCreator_translationFlags_(v37, v39, &v98, 32 * v36, v40);
+    v31 = objc_msgSend_type(selfCopy, v28, v29, v30) == 12;
+    v32 = [TSCEFormulaObject alloc];
+    TSCEFormulaCreator::TSCEFormulaCreator(&v82, &v84);
+    TSCEFormulaCreationMagic::SUM(v33, v86, &v83);
+    v35 = objc_msgSend_initWithCreator_translationFlags_(v32, v34, &v83, 32 * v31);
 
-    if ((objc_msgSend_translationFlags(v41, v42, v43, v44, v45) & 0x20) != 0 && *&cellRef->_columnUid != 0)
+    if ((objc_msgSend_translationFlags(v35, v36, v37, v38) & 0x20) != 0 && *&cellRef->_columnUid != 0)
     {
       p_rowUid = &cellRef->_rowUid;
       if (*&cellRef->_rowUid != 0)
       {
-        v48 = objc_msgSend_copyBySettingHostTableUID_hostColumnUID_hostRowUID_(v41, v46, &cellRef->_tableUid, cellRef, p_rowUid);
+        v41 = objc_msgSend_copyBySettingHostTableUID_hostColumnUID_hostRowUID_(v35, v39, &cellRef->_tableUid, cellRef, p_rowUid);
 
-        v41 = v48;
+        v35 = v41;
       }
     }
 
-    v49 = objc_msgSend_copyByRewritingWithContext_rewriteBlock_(v41, v46, context, blockCopy, p_rowUid);
-    if ((objc_msgSend_hasHostCell(v49, v50, v51, v52, v53) & 1) == 0)
+    v42 = objc_msgSend_copyByRewritingWithContext_rewriteBlock_(v35, v39, context, blockCopy, p_rowUid);
+    if ((objc_msgSend_hasHostCell(v42, v43, v44, v45) & 1) == 0)
     {
       cellRef->_rowUid = 0u;
       cellRef->_tableUid = 0u;
       cellRef->_columnUid = 0u;
     }
 
-    v58 = objc_msgSend_const_astNodeArray(v49, v54, v55, v56, v57);
-    sub_2212C3620(v93, v58, context, 0, -1, -1);
-    TSCEASTStreamIterator::rewrite(v93, v59, v60, v61, v62);
-    v31 = v94;
+    v49 = objc_msgSend_const_astNodeArray(v42, v46, v47, v48);
+    sub_2212C3620(v78, v49, context, 0, -1, -1);
+    TSCEASTStreamIterator::rewrite(v78, v50, v51, v52);
+    v27 = v79;
 
-    if (!v31)
+    if (!v27)
     {
-      v67 = MEMORY[0x277D81150];
-      v68 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, "[TSTFormulaPredArg rewriteWithContext:forArgAt:usingLinkedRef:useColumnRef:hostCellRef:rewriteBlock:]", v65, v66);
-      v72 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v69, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v70, v71);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v67, v73, v68, v72, 1478, 0, "Not expecting no result");
+      v56 = MEMORY[0x277D81150];
+      v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "[TSTFormulaPredArg rewriteWithContext:forArgAt:usingLinkedRef:useColumnRef:hostCellRef:rewriteBlock:]", v55);
+      v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v59);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v61, v57, v60, 1478, 0, "Not expecting no result");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v74, v75, v76, v77);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v62, v63, v64);
     }
 
-    v78 = objc_msgSend_hostColumnUID(v49, v63, v64, v65, v66);
-    v83 = objc_msgSend_hostRowUID(v49, v79, v80, v81, v82);
-    v88 = objc_msgSend_hostTableUID(v49, v84, v85, v86, v87);
-    v89 = *v78;
-    v90 = *v88;
-    cellRef->_rowUid = *v83;
-    cellRef->_tableUid = v90;
-    cellRef->_columnUid = v89;
+    v65 = objc_msgSend_hostColumnUID(v42, v53, v54, v55);
+    v69 = objc_msgSend_hostRowUID(v42, v66, v67, v68);
+    v73 = objc_msgSend_hostTableUID(v42, v70, v71, v72);
+    v74 = *v65;
+    v75 = *v73;
+    cellRef->_rowUid = *v69;
+    cellRef->_tableUid = v75;
+    cellRef->_columnUid = v74;
 
-    TSCEASTStreamIterator::~TSCEASTStreamIterator(v93, v91);
+    TSCEASTStreamIterator::~TSCEASTStreamIterator(v78, v76);
   }
 
   else
   {
-    v31 = selfCopy;
+    v27 = selfCopy;
   }
 
-  return v31;
+  return v27;
 }
 
 - (TSCEFormulaCreator)formulaCreatorForPredArg
 {
-  v7 = v5;
+  v6 = v4;
   type = self->_type;
   if (type > 5)
   {
@@ -2602,21 +2602,21 @@ LABEL_16:
       {
         case 0xBu:
 
-          return TSCEFormulaCreationMagic::nop(a2, v2, v3, v4, v7);
+          return TSCEFormulaCreationMagic::nop(v6, a2, v2, v3);
         case 0xCu:
           lower = self->_relativeCellRef.tableUID._lower;
-          v33._lower = self->_relativeCellRef.tableUID._upper;
-          v33._upper = self->_uidTractList;
+          v28._lower = self->_relativeCellRef.tableUID._upper;
+          v28._upper = self->_uidTractList;
 
-          TSCEFormulaCreationMagic::uidRef(lower, v33, v7);
+          TSCEFormulaCreationMagic::uidRef(lower, v28, v6);
           break;
         case 0xDu:
           viewTractRef = self->_viewTractRef;
 
-          TSCEFormulaCreationMagic::viewTractRef(viewTractRef, v7);
+          TSCEFormulaCreationMagic::viewTractRef(viewTractRef, v6);
           break;
         default:
-          return TSCEFormulaCreationMagic::nop(a2, v2, v3, v4, v7);
+          return TSCEFormulaCreationMagic::nop(v6, a2, v2, v3);
       }
     }
 
@@ -2630,222 +2630,222 @@ LABEL_16:
           {
             categoryRef = self->_categoryRef;
 
-            TSCEFormulaCreationMagic::categoryRef(categoryRef, v7);
-            return v10;
+            TSCEFormulaCreationMagic::categoryRef(categoryRef, v6);
+            return v9;
           }
 
-          return TSCEFormulaCreationMagic::nop(a2, v2, v3, v4, v7);
+          return TSCEFormulaCreationMagic::nop(v6, a2, v2, v3);
         }
 
-        v26 = objc_msgSend_uidRectRef(self, a2, v2, v3, v4);
-        v31 = v26;
-        if (v26)
+        v22 = objc_msgSend_uidRectRef(self, a2, v2, v3);
+        v26 = v22;
+        if (v22)
         {
-          objc_msgSend_baseRangeRef(v26, v27, v28, v29, v30);
+          objc_msgSend_baseRangeRef(v22, v23, v24, v25);
         }
 
         else
         {
-          *&v106[0].row = 0u;
-          v107 = 0u;
+          *&v91[0].row = 0u;
+          v92 = 0u;
         }
 
-        isValidOrSpanning = TSCERangeCoordinate::isValidOrSpanning(v106);
+        isValidOrSpanning = TSCERangeCoordinate::isValidOrSpanning(v91);
 
         if (!isValidOrSpanning)
         {
-          v81 = self->_relativeCellRef.tableUID._lower;
+          v69 = self->_relativeCellRef.tableUID._lower;
           upper = self->_relativeCellRef.tableUID._upper;
-          v113._upper = objc_msgSend_preserveFlags(self->_uidTractList, v42, v43, v44, v45);
-          v113._lower = upper;
-          TSCEFormulaCreationMagic::refErrorWithUUID(v81, v113, self->_uidTractList, v7);
-          return v10;
+          v98._upper = objc_msgSend_preserveFlags(self->_uidTractList, v36, v37, v38);
+          v98._lower = upper;
+          TSCEFormulaCreationMagic::refErrorWithUUID(v69, v98, self->_uidTractList, v6);
+          return v9;
         }
 
         hostCellCoord = self->_hostCellCoord;
         if (hostCellCoord == 0x7FFFFFFF || (hostCellCoord & 0xFFFF00000000) == 0x7FFF00000000)
         {
-          v47 = MEMORY[0x277D81150];
-          v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "[TSTFormulaPredArg formulaCreatorForPredArg]", v44, v45);
-          v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v50, v51);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v53, v48, v52, 1530, 0, "Need a host-cell for this");
+          v40 = MEMORY[0x277D81150];
+          v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "[TSTFormulaPredArg formulaCreatorForPredArg]", v38);
+          v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v43);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v45, v41, v44, 1530, 0, "Need a host-cell for this");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55, v56, v57);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v46, v47, v48);
           hostCellCoord = self->_hostCellCoord;
         }
 
-        objc_msgSend_cellRefForHostCoord_(self, v42, hostCellCoord, v44, v45);
-        if (v106[0].row == 0x7FFFFFFF || (*v106 & 0xFFFF00000000) == 0x7FFF00000000)
+        objc_msgSend_cellRefForHostCoord_(self, v36, hostCellCoord, v38);
+        if (v91[0].row == 0x7FFFFFFF || (*v91 & 0xFFFF00000000) == 0x7FFF00000000)
         {
-          return TSCEFormulaCreationMagic::nop(a2, v2, v3, v4, v7);
+          return TSCEFormulaCreationMagic::nop(v6, a2, v2, v3);
         }
 
-        v58 = objc_msgSend_preserveColumn(self, a2, v2, v3, v4);
-        if (objc_msgSend_preserveRow(self, v59, v60, v61, v62))
+        v49 = objc_msgSend_preserveColumn(self, a2, v2, v3);
+        if (objc_msgSend_preserveRow(self, v50, v51, v52))
         {
-          v64 = 2;
-        }
-
-        else
-        {
-          v64 = 0;
-        }
-
-        v105 = v64 | v58;
-        v65 = v106[0];
-        v66 = &v105;
-        RelativeCellCoordinateFromAbsoluteCoordinates = TSCERelativeCellCoordinate::makeRelativeCellCoordinateFromAbsoluteCoordinates(*&self->_hostCellCoord, v65, v66, v63);
-        v68 = v106[1];
-        v69 = v107;
-        v74 = objc_msgSend_preserveColumn(self, v70, v71, v72, v73);
-        v79 = objc_msgSend_preserveRow(self, v75, v76, v77, v78);
-        *&v108 = v68;
-        *(&v108 + 1) = v69;
-        v109 = RelativeCellCoordinateFromAbsoluteCoordinates;
-        if (v79)
-        {
-          v80 = 2;
+          v54 = 2;
         }
 
         else
         {
-          v80 = 0;
+          v54 = 0;
         }
 
-        v103[0]._flags = v80 | v74;
-        TSCERelativeCellCoordinate::setPreserveFlags(&v109, v103);
-        *&v103[0]._flags = v108;
-        v104 = v109;
+        v90 = v54 | v49;
+        v55 = v91[0];
+        v56 = &v90;
+        RelativeCellCoordinateFromAbsoluteCoordinates = TSCERelativeCellCoordinate::makeRelativeCellCoordinateFromAbsoluteCoordinates(*&self->_hostCellCoord, v55, v56, v53);
+        v58 = v91[1];
+        v59 = v92;
+        v63 = objc_msgSend_preserveColumn(self, v60, v61, v62);
+        v67 = objc_msgSend_preserveRow(self, v64, v65, v66);
+        *&v93 = v58;
+        *(&v93 + 1) = v59;
+        v94 = RelativeCellCoordinateFromAbsoluteCoordinates;
+        if (v67)
+        {
+          v68 = 2;
+        }
+
+        else
+        {
+          v68 = 0;
+        }
+
+        v88[0]._flags = v68 | v63;
+        TSCERelativeCellCoordinate::setPreserveFlags(&v94, v88);
+        *&v88[0]._flags = v93;
+        v89 = v94;
         uidTractList = self->_uidTractList;
-        v40 = v103;
+        v34 = v88;
 LABEL_61:
-        TSCEFormulaCreationMagic::cellRef(v40, uidTractList, v7);
-        return v10;
+        TSCEFormulaCreationMagic::cellRef(v34, uidTractList, v6);
+        return v9;
       }
 
-      v34 = objc_msgSend_BOOLValue(self, a2, v2, v3, v4);
+      v29 = objc_msgSend_BOOLValue(self, a2, v2, v3);
 
-      return TSCEFormulaCreationMagic::BOOLean(v34, v35, v36, v37, v38, v7);
+      return TSCEFormulaCreationMagic::BOOLean(v29, v6, v30, v31, v32);
     }
 
-    return v10;
+    return v9;
   }
 
   if (self->_type <= 2u)
   {
     if (type == 1)
     {
-      objc_msgSend_numberValue(self, a2, v2, v3, v4);
+      objc_msgSend_numberValue(self, a2, v2, v3);
       TSUDecimal::operator=();
-      v112._decimal.w[0] = v106[1];
-      return TSCEFormulaCreationMagic::number(*v106, v112, v20, v21, v7);
+      v97._decimal.w[0] = v91[1];
+      return TSCEFormulaCreationMagic::number(*v91, v97, v6, v18);
     }
 
     if (type != 2)
     {
-      return TSCEFormulaCreationMagic::nop(a2, v2, v3, v4, v7);
+      return TSCEFormulaCreationMagic::nop(v6, a2, v2, v3);
     }
 
-    v102 = objc_msgSend_date(self, a2, v2, v3, v4);
-    TSCEFormulaCreationMagic::date(v102, 0, v7);
+    v87 = objc_msgSend_date(self, a2, v2, v3);
+    TSCEFormulaCreationMagic::date(v87, 0, v6);
     goto LABEL_37;
   }
 
   if (type == 3)
   {
-    v102 = objc_msgSend_string(self, a2, v2, v3, v4);
-    TSCEFormulaCreationMagic::string(v102, v7);
+    v87 = objc_msgSend_string(self, a2, v2, v3);
+    TSCEFormulaCreationMagic::string(v87, v6);
 LABEL_37:
 
-    return v10;
+    return v9;
   }
 
   if (type == 4)
   {
-    objc_msgSend_crossTableRef(self, a2, v2, v3, v4);
-    if (v107 == 0x7FFFFFFF && WORD2(v107) == 0x7FFF)
+    objc_msgSend_crossTableRef(self, a2, v2, v3);
+    if (v92 == 0x7FFFFFFF && WORD2(v92) == 0x7FFF)
     {
-      return TSCEFormulaCreationMagic::refError(v22, v23, v24, v25, v7);
+      return TSCEFormulaCreationMagic::refError(v6, v19, v20, v21);
     }
 
-    v108 = *&v106[0].row;
-    v109 = v107;
+    v93 = *&v91[0].row;
+    v94 = v92;
     uidTractList = self->_uidTractList;
-    v40 = &v108;
+    v34 = &v93;
     goto LABEL_61;
   }
 
   if (type != 5)
   {
-    return TSCEFormulaCreationMagic::nop(a2, v2, v3, v4, v7);
+    return TSCEFormulaCreationMagic::nop(v6, a2, v2, v3);
   }
 
-  v11 = objc_msgSend_durationUnits(self, a2, v2, v3, v4);
-  if (v11)
+  v10 = objc_msgSend_durationUnits(self, a2, v2, v3);
+  if (v10)
   {
-    v16 = 32;
+    v14 = 32;
     do
     {
-      v17 = v16 & v11;
-      if (v16 < 2)
+      v15 = v14 & v10;
+      if (v14 < 2)
       {
         break;
       }
 
-      v16 >>= 1;
+      v14 >>= 1;
     }
 
-    while (!v17);
-    v18 = (2 * v17) | 1;
+    while (!v15);
+    v16 = (2 * v15) | 1;
   }
 
   else
   {
-    v18 = 1;
+    v16 = 1;
   }
 
-  v83 = objc_msgSend_durationUnits(self, v12, v13, v14, v15);
-  if (v83)
+  v71 = objc_msgSend_durationUnits(self, v11, v12, v13);
+  if (v71)
   {
     for (i = 1; i != 64; i *= 2)
     {
-      v89 = i & v83;
-      if ((i & v83) != 0)
+      v76 = i & v71;
+      if ((i & v71) != 0)
       {
         break;
       }
     }
 
-    v90 = (v89 & 0x3F) << 8;
+    v77 = (v76 & 0x3F) << 8;
   }
 
   else
   {
-    v90 = 0;
+    v77 = 0;
   }
 
-  objc_msgSend_durationValue(self, v84, v85, v86, v87);
-  v92 = v91;
-  v97 = objc_msgSend_durationUnits(self, v93, v94, v95, v96);
-  v98 = sub_221387C78(v97);
+  objc_msgSend_durationValue(self, v72, v73, v74);
+  v79 = v78;
+  v83 = objc_msgSend_durationUnits(self, v80, v81, v82);
+  v84 = sub_221387C78(v83);
 
-  return TSCEFormulaCreationMagic::duration(v98, (v90 | v18), v99, v100, v101, v7, v92);
+  return TSCEFormulaCreationMagic::duration(v84, (v77 | v16), v6, v79, v85, v86);
 }
 
 - (TSCEFormulaCreator)formulaCreatorForPredArg0UsingLinkedRef:(BOOL)ref useColumnRef:(BOOL)columnRef
 {
   columnRefCopy = columnRef;
   refCopy = ref;
-  v9 = v5;
+  v8 = v4;
   type = self->_type;
   if (type > 0xC || ((1 << type) & 0x1210) == 0)
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg formulaCreatorForPredArg0UsingLinkedRef:useColumnRef:]", columnRef, v4);
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v15, v16);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 1566, 0, "Only references types are supported for predArg0, saw %d", self->_type);
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFormulaPredArg formulaCreatorForPredArg0UsingLinkedRef:useColumnRef:]", columnRef);
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v14);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 1566, 0, "Only references types are supported for predArg0, saw %d", self->_type);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
     type = self->_type;
   }
 
@@ -2853,138 +2853,138 @@ LABEL_37:
   {
     if (type == 9)
     {
-      v27 = objc_msgSend_uidRectRef(self, a2, ref, columnRef, v4);
-      v32 = v27;
-      if (v27)
+      v23 = objc_msgSend_uidRectRef(self, a2, ref, columnRef);
+      v27 = v23;
+      if (v23)
       {
-        objc_msgSend_baseRangeRef(v27, v28, v29, v30, v31);
+        objc_msgSend_baseRangeRef(v23, v24, v25, v26);
       }
 
       else
       {
-        *&v82[0].row = 0u;
-        v83 = 0u;
+        *&v71[0].row = 0u;
+        v72 = 0u;
       }
 
-      isValidOrSpanning = TSCERangeCoordinate::isValidOrSpanning(v82);
+      isValidOrSpanning = TSCERangeCoordinate::isValidOrSpanning(v71);
 
       if (!isValidOrSpanning)
       {
         lower = self->_relativeCellRef.tableUID._lower;
         upper = self->_relativeCellRef.tableUID._upper;
-        v88._upper = objc_msgSend_preserveFlags(self->_uidTractList, v36, v37, v38, v39);
-        v88._lower = upper;
-        TSCEFormulaCreationMagic::refErrorWithUUID(lower, v88, self->_uidTractList, v9);
-        return v26;
+        v77._upper = objc_msgSend_preserveFlags(self->_uidTractList, v31, v32, v33);
+        v77._lower = upper;
+        TSCEFormulaCreationMagic::refErrorWithUUID(lower, v77, self->_uidTractList, v8);
+        return v22;
       }
 
       hostCellCoord = self->_hostCellCoord;
       if (hostCellCoord == 0x7FFFFFFF || (hostCellCoord & 0xFFFF00000000) == 0x7FFF00000000)
       {
-        v41 = MEMORY[0x277D81150];
-        v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "[TSTFormulaPredArg formulaCreatorForPredArg0UsingLinkedRef:useColumnRef:]", v38, v39);
-        v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v44, v45);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v41, v47, v42, v46, 1593, 0, "Need a host-cell for this");
+        v35 = MEMORY[0x277D81150];
+        v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "[TSTFormulaPredArg formulaCreatorForPredArg0UsingLinkedRef:useColumnRef:]", v33);
+        v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFormulaPredArg.mm", v38);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v40, v36, v39, 1593, 0, "Need a host-cell for this");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v48, v49, v50, v51);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v42, v43);
         hostCellCoord = self->_hostCellCoord;
       }
 
-      objc_msgSend_cellRefForHostCoord_(self, v36, hostCellCoord, v38, v39);
-      if (v82[0].row != 0x7FFFFFFF && (*v82 & 0xFFFF00000000) != 0x7FFF00000000)
+      objc_msgSend_cellRefForHostCoord_(self, v31, hostCellCoord, v33);
+      if (v71[0].row != 0x7FFFFFFF && (*v71 & 0xFFFF00000000) != 0x7FFF00000000)
       {
-        v52 = objc_msgSend_preserveColumn(self, a2, ref, columnRef, v4);
-        if (objc_msgSend_preserveRow(self, v53, v54, v55, v56))
+        v44 = objc_msgSend_preserveColumn(self, a2, ref, columnRef);
+        if (objc_msgSend_preserveRow(self, v45, v46, v47))
         {
-          v58 = 2;
+          v49 = 2;
         }
 
         else
         {
-          v58 = 0;
+          v49 = 0;
         }
 
-        v81 = v58 | v52;
-        v59 = v82[0];
-        v60 = &v81;
-        RelativeCellCoordinateFromAbsoluteCoordinates = TSCERelativeCellCoordinate::makeRelativeCellCoordinateFromAbsoluteCoordinates(*&self->_hostCellCoord, v59, v60, v57);
-        v62 = v82[1];
-        v63 = v83;
-        v68 = objc_msgSend_preserveColumn(self, v64, v65, v66, v67);
-        v73 = objc_msgSend_preserveRow(self, v69, v70, v71, v72);
-        *&v84 = v62;
-        *(&v84 + 1) = v63;
-        v85[0] = RelativeCellCoordinateFromAbsoluteCoordinates;
-        if (v73)
+        v70 = v49 | v44;
+        v50 = v71[0];
+        v51 = &v70;
+        RelativeCellCoordinateFromAbsoluteCoordinates = TSCERelativeCellCoordinate::makeRelativeCellCoordinateFromAbsoluteCoordinates(*&self->_hostCellCoord, v50, v51, v48);
+        v53 = v71[1];
+        v54 = v72;
+        v58 = objc_msgSend_preserveColumn(self, v55, v56, v57);
+        v62 = objc_msgSend_preserveRow(self, v59, v60, v61);
+        *&v73 = v53;
+        *(&v73 + 1) = v54;
+        v74[0] = RelativeCellCoordinateFromAbsoluteCoordinates;
+        if (v62)
         {
-          v74 = 2;
+          v63 = 2;
         }
 
         else
         {
-          v74 = 0;
+          v63 = 0;
         }
 
-        v79[0]._flags = v74 | v68;
-        TSCERelativeCellCoordinate::setPreserveFlags(v85, v79);
-        *&v79[0]._flags = v84;
-        v80 = v85[0];
+        v68[0]._flags = v63 | v58;
+        TSCERelativeCellCoordinate::setPreserveFlags(v74, v68);
+        *&v68[0]._flags = v73;
+        v69 = v74[0];
         uidTractList = self->_uidTractList;
-        v76 = v79;
+        v65 = v68;
         goto LABEL_40;
       }
     }
 
     else if (type == 4)
     {
-      objc_msgSend_crossTableRef(self, a2, ref, columnRef, v4);
-      if (v83 == 0x7FFFFFFF && WORD2(v83) == 0x7FFF)
+      objc_msgSend_crossTableRef(self, a2, ref, columnRef);
+      if (v72 == 0x7FFFFFFF && WORD2(v72) == 0x7FFF)
       {
-        return TSCEFormulaCreationMagic::refError(v23._lower, v23._upper, v24, v25, v9);
+        return TSCEFormulaCreationMagic::refError(v8, v20._lower, v20._upper, v21);
       }
 
       if (refCopy)
       {
-        v23._lower = v82[1];
+        v20._lower = v71[1];
         if (columnRefCopy)
         {
-          return TSCEFormulaCreationMagic::linkedColumnRef(*v82, v23, v24, v25, v9);
+          return TSCEFormulaCreationMagic::linkedColumnRef(*v71, v20, v8, v21);
         }
 
         else
         {
-          return TSCEFormulaCreationMagic::linkedCellRef(*v82, v23, v24, v25, v9);
+          return TSCEFormulaCreationMagic::linkedCellRef(*v71, v20, v8, v21);
         }
       }
 
       if (columnRefCopy)
       {
-        v84 = *&v82[0].row;
-        v85[0] = ((DWORD1(v83) << 32) | 0x7FFFFFFF);
-        v79[0]._flags = 0;
-        TSCERelativeCellCoordinate::setPreserveFlags(v85, v79);
-        *&v82[0].row = v84;
-        *&v83 = v85[0];
+        v73 = *&v71[0].row;
+        v74[0] = ((DWORD1(v72) << 32) | 0x7FFFFFFF);
+        v68[0]._flags = 0;
+        TSCERelativeCellCoordinate::setPreserveFlags(v74, v68);
+        *&v71[0].row = v73;
+        *&v72 = v74[0];
       }
 
-      v84 = *&v82[0].row;
-      v85[0] = v83;
+      v73 = *&v71[0].row;
+      v74[0] = v72;
       uidTractList = self->_uidTractList;
-      v76 = &v84;
+      v65 = &v73;
 LABEL_40:
-      TSCEFormulaCreationMagic::cellRef(v76, uidTractList, v9);
-      return v26;
+      TSCEFormulaCreationMagic::cellRef(v65, uidTractList, v8);
+      return v22;
     }
 
-    return TSCEFormulaCreationMagic::nop(a2, ref, columnRef, v4, v9);
+    return TSCEFormulaCreationMagic::nop(v8, a2, ref, columnRef);
   }
 
-  v33 = self->_relativeCellRef.tableUID._lower;
-  v34._lower = self->_relativeCellRef.tableUID._upper;
-  v34._upper = self->_uidTractList;
+  v28 = self->_relativeCellRef.tableUID._lower;
+  v29._lower = self->_relativeCellRef.tableUID._upper;
+  v29._upper = self->_uidTractList;
 
-  TSCEFormulaCreationMagic::uidRef(v33, v34, v9);
-  return v26;
+  TSCEFormulaCreationMagic::uidRef(v28, v29, v8);
+  return v22;
 }
 
 - (id).cxx_construct

@@ -10,26 +10,25 @@
 - (_TtCC25FitnessIntelligencePlugin30PropertyRecordCheckpointEntity13EntityWrapper)initWithData:(id)data
 {
   v5 = sub_38F8(&qword_8EB18, &qword_7A950);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v17 - v7;
+  v7 = &v16 - v6;
   dataCopy = data;
-  v10 = sub_748C8();
-  v12 = v11;
+  v9 = sub_748C8();
+  v11 = v10;
 
-  v13 = sub_751D8();
-  sub_398C(v10, v12);
+  v12 = sub_751D8();
+  sub_398C(v9, v11);
   sub_39E0();
   sub_74F88();
-  (*(*(v13 - 8) + 56))(v8, 0, 1, v13);
-  sub_3A38(v8, self + OBJC_IVAR____TtCC25FitnessIntelligencePlugin30PropertyRecordCheckpointEntity13EntityWrapper_entry);
-  v14 = (self + OBJC_IVAR____TtCC25FitnessIntelligencePlugin30PropertyRecordCheckpointEntity13EntityWrapper_serializedEntity);
-  *v14 = v10;
-  v14[1] = v12;
-  v15 = type metadata accessor for PropertyRecordCheckpointEntity.EntityWrapper();
-  v18.receiver = self;
-  v18.super_class = v15;
-  return [(PropertyRecordCheckpointEntity.EntityWrapper *)&v18 init];
+  (*(*(v12 - 8) + 56))(v7, 0, 1, v12);
+  sub_3A38(v7, self + OBJC_IVAR____TtCC25FitnessIntelligencePlugin30PropertyRecordCheckpointEntity13EntityWrapper_entry);
+  v13 = (self + OBJC_IVAR____TtCC25FitnessIntelligencePlugin30PropertyRecordCheckpointEntity13EntityWrapper_serializedEntity);
+  *v13 = v9;
+  v13[1] = v11;
+  v14 = type metadata accessor for PropertyRecordCheckpointEntity.EntityWrapper(0);
+  v17.receiver = self;
+  v17.super_class = v14;
+  return [(PropertyRecordCheckpointEntity.EntityWrapper *)&v17 init];
 }
 
 - (id)data

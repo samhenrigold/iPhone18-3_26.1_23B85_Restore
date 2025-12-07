@@ -331,16 +331,16 @@
 
 - (NSDateIntervalFormatter)mediumDayOfWeekDateTimeIntervalFormatter
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   p_mediumDayOfWeekDateTimeIntervalFormatter = &self->_mediumDayOfWeekDateTimeIntervalFormatter;
   v4 = self->_mediumDayOfWeekDateTimeIntervalFormatter;
   if (!v4)
   {
     v4 = objc_opt_new();
-    v12[0] = @"E";
-    v12[1] = @"MMMd";
-    v12[2] = @"jma";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+    v11[0] = @"E";
+    v11[1] = @"MMMd";
+    v11[2] = @"jma";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
     v6 = [v5 componentsJoinedByString:&stru_287C50EE8];
 
     v7 = MEMORY[0x277CCA968];
@@ -350,8 +350,6 @@
 
     objc_storeStrong(p_mediumDayOfWeekDateTimeIntervalFormatter, v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -376,15 +374,15 @@
 
 - (NSDateIntervalFormatter)mediumDayOfWeekDateIntervalFormatter
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   p_mediumDayOfWeekDateIntervalFormatter = &self->_mediumDayOfWeekDateIntervalFormatter;
   v4 = self->_mediumDayOfWeekDateIntervalFormatter;
   if (!v4)
   {
     v4 = objc_opt_new();
-    v12[0] = @"E";
-    v12[1] = @"MMMd";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[0] = @"E";
+    v11[1] = @"MMMd";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v6 = [v5 componentsJoinedByString:&stru_287C50EE8];
 
     v7 = MEMORY[0x277CCA968];
@@ -394,8 +392,6 @@
 
     objc_storeStrong(p_mediumDayOfWeekDateIntervalFormatter, v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -439,44 +435,42 @@
 
 - (id)allFormatters
 {
-  v22[16] = *MEMORY[0x277D85DE8];
+  v21[16] = *MEMORY[0x277D85DE8];
   birthdayDateComponentsFormatter = [(SPUISDateFormatManager *)self birthdayDateComponentsFormatter];
-  v22[0] = birthdayDateComponentsFormatter;
+  v21[0] = birthdayDateComponentsFormatter;
   dateComponentsFormatter = [(SPUISDateFormatManager *)self dateComponentsFormatter];
-  v22[1] = dateComponentsFormatter;
+  v21[1] = dateComponentsFormatter;
   shortRelativeDateFormatter = [(SPUISDateFormatManager *)self shortRelativeDateFormatter];
-  v22[2] = shortRelativeDateFormatter;
+  v21[2] = shortRelativeDateFormatter;
   mediumRelativeDateFormatter = [(SPUISDateFormatManager *)self mediumRelativeDateFormatter];
-  v22[3] = mediumRelativeDateFormatter;
+  v21[3] = mediumRelativeDateFormatter;
   longRelativeDateFormatter = [(SPUISDateFormatManager *)self longRelativeDateFormatter];
-  v22[4] = longRelativeDateFormatter;
+  v21[4] = longRelativeDateFormatter;
   dayOfWeekFormatter = [(SPUISDateFormatManager *)self dayOfWeekFormatter];
-  v22[5] = dayOfWeekFormatter;
+  v21[5] = dayOfWeekFormatter;
   shortDayOfWeekFormatter = [(SPUISDateFormatManager *)self shortDayOfWeekFormatter];
-  v22[6] = shortDayOfWeekFormatter;
+  v21[6] = shortDayOfWeekFormatter;
   shortDateTimeFormatter = [(SPUISDateFormatManager *)self shortDateTimeFormatter];
-  v22[7] = shortDateTimeFormatter;
+  v21[7] = shortDateTimeFormatter;
   shortTimeFormatter = [(SPUISDateFormatManager *)self shortTimeFormatter];
-  v22[8] = shortTimeFormatter;
+  v21[8] = shortTimeFormatter;
   dateFormatter = [(SPUISDateFormatManager *)self dateFormatter];
-  v22[9] = dateFormatter;
+  v21[9] = dateFormatter;
   shortDateTimeIntervalFormatter = [(SPUISDateFormatManager *)self shortDateTimeIntervalFormatter];
-  v22[10] = shortDateTimeIntervalFormatter;
+  v21[10] = shortDateTimeIntervalFormatter;
   mediumDayOfWeekDateTimeIntervalFormatter = [(SPUISDateFormatManager *)self mediumDayOfWeekDateTimeIntervalFormatter];
-  v22[11] = mediumDayOfWeekDateTimeIntervalFormatter;
+  v21[11] = mediumDayOfWeekDateTimeIntervalFormatter;
   shortDateIntervalFormatter = [(SPUISDateFormatManager *)self shortDateIntervalFormatter];
-  v22[12] = shortDateIntervalFormatter;
+  v21[12] = shortDateIntervalFormatter;
   mediumDayOfWeekDateIntervalFormatter = [(SPUISDateFormatManager *)self mediumDayOfWeekDateIntervalFormatter];
-  v22[13] = mediumDayOfWeekDateIntervalFormatter;
+  v21[13] = mediumDayOfWeekDateIntervalFormatter;
   allDayDateFormatter = [(SPUISDateFormatManager *)self allDayDateFormatter];
-  v22[14] = allDayDateFormatter;
+  v21[14] = allDayDateFormatter;
   dateIntervalFormatter = [(SPUISDateFormatManager *)self dateIntervalFormatter];
-  v22[15] = dateIntervalFormatter;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:16];
+  v21[15] = dateIntervalFormatter;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:16];
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v14;
 }
 
 - (id)currentLocale
@@ -674,7 +668,7 @@ LABEL_13:
 
 + (id)dynamicDateTimeStringsFromDate:(id)date
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = sharedDateFormatManager;
   shortRelativeDateFormatter = [sharedDateFormatManager shortRelativeDateFormatter];
@@ -693,21 +687,21 @@ LABEL_13:
 
   if (v7 && v11)
   {
-    v19 = v7;
-    v20 = v11;
+    v18 = v7;
+    v19 = v11;
     v12 = MEMORY[0x277CBEA60];
-    v13 = &v19;
+    v13 = &v18;
     v14 = 2;
 LABEL_9:
-    v15 = [v12 arrayWithObjects:v13 count:{v14, v18, v19, v20, v21}];
+    v15 = [v12 arrayWithObjects:v13 count:{v14, v17, v18, v19, v20}];
     goto LABEL_10;
   }
 
   if (v7)
   {
-    v18 = v7;
+    v17 = v7;
     v12 = MEMORY[0x277CBEA60];
-    v13 = &v18;
+    v13 = &v17;
     v14 = 1;
     goto LABEL_9;
   }
@@ -715,14 +709,12 @@ LABEL_9:
   v15 = 0;
 LABEL_10:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (id)fullDateTimeStringsFromDate:(id)date
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v4 = sharedDateFormatManager;
   dateCopy = date;
   longRelativeDateFormatter = [v4 longRelativeDateFormatter];
@@ -748,12 +740,10 @@ LABEL_10:
 
   else
   {
-    v14[0] = v7;
-    v14[1] = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = v7;
+    v13[1] = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -761,7 +751,7 @@ LABEL_10:
 + (id)stringsFromDate:(id)date toDate:(id)toDate isAllDay:(BOOL)day
 {
   dayCopy = day;
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   toDateCopy = toDate;
   if (date)
   {
@@ -805,16 +795,16 @@ LABEL_10:
 
     if (dayCopy)
     {
-      v20[0] = v15;
+      v19[0] = v15;
       v16 = [SPUISUtilities localizedStringForKey:@"ALL_DAY"];
-      v20[1] = v16;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+      v19[1] = v16;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     }
 
     else
     {
-      v19 = v15;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v18 = v15;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
     }
   }
 
@@ -822,8 +812,6 @@ LABEL_10:
   {
     v12 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

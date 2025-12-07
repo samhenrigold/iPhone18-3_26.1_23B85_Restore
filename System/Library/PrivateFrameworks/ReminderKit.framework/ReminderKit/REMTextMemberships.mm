@@ -43,13 +43,13 @@
 
 - (id)mergingWith:(id)with
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   withCopy = with;
   lastResetDate = [(REMTextMemberships *)self lastResetDate];
 
   lastResetDate2 = [withCopy lastResetDate];
   lastResetDate6 = lastResetDate2;
-  v55 = withCopy;
+  v54 = withCopy;
   if (lastResetDate)
   {
 
@@ -83,27 +83,27 @@
   selfCopy = self;
   if (lastResetDate6)
   {
-    v57 = dictionary;
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
+    v56 = dictionary;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     memberships = [(REMTextMemberships *)self memberships];
-    v15 = [memberships countByEnumeratingWithState:&v64 objects:v69 count:16];
+    v15 = [memberships countByEnumeratingWithState:&v63 objects:v68 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v65;
+      v17 = *v64;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v65 != v17)
+          if (*v64 != v17)
           {
             objc_enumerationMutation(memberships);
           }
 
-          v19 = *(*(&v64 + 1) + 8 * i);
+          v19 = *(*(&v63 + 1) + 8 * i);
           memberships2 = [(REMTextMemberships *)selfCopy memberships];
           v21 = [memberships2 objectForKeyedSubscript:v19];
           modifiedOn = [v21 modifiedOn];
@@ -113,11 +113,11 @@
           {
             memberships3 = [(REMTextMemberships *)selfCopy memberships];
             v25 = [memberships3 objectForKeyedSubscript:v19];
-            [v57 setObject:v25 forKeyedSubscript:v19];
+            [v56 setObject:v25 forKeyedSubscript:v19];
           }
         }
 
-        v16 = [memberships countByEnumeratingWithState:&v64 objects:v69 count:16];
+        v16 = [memberships countByEnumeratingWithState:&v63 objects:v68 count:16];
       }
 
       while (v16);
@@ -130,98 +130,63 @@
     memberships4 = [(REMTextMemberships *)self memberships];
     v28 = [v26 initWithDictionary:memberships4];
 
-    v57 = v28;
+    v56 = v28;
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
-  v29 = v55;
-  obj = [v55 memberships];
-  v30 = [obj countByEnumeratingWithState:&v60 objects:v68 count:16];
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v29 = v54;
+  obj = [v54 memberships];
+  v30 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
   v31 = selfCopy;
   if (v30)
   {
     v32 = v30;
-    v58 = *v61;
+    v57 = *v60;
     do
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v61 != v58)
+        if (*v60 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v60 + 1) + 8 * j);
-        if (!lastResetDate6)
+        v34 = *(*(&v59 + 1) + 8 * j);
+        if (lastResetDate6)
         {
-          goto LABEL_27;
+          memberships5 = [v29 memberships];
+          v36 = [memberships5 objectForKeyedSubscript:v34];
+          modifiedOn2 = [v36 modifiedOn];
+          v38 = [modifiedOn2 compare:lastResetDate6];
+
+          if (v38 != 1)
+          {
+            continue;
+          }
         }
 
-        memberships5 = [v29 memberships];
-        v36 = [memberships5 objectForKeyedSubscript:v34];
-        modifiedOn2 = [v36 modifiedOn];
-        v38 = [modifiedOn2 compare:lastResetDate6];
+        memberships6 = [v29 memberships];
+        v40 = [memberships6 objectForKeyedSubscript:v34];
 
-        if (v38 == 1)
+        memberships7 = [(REMTextMemberships *)v31 memberships];
+        v42 = [memberships7 objectForKeyedSubscript:v34];
+
+        if (!v42 || ([v42 modifiedOn], v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v40, "modifiedOn"), v44 = objc_claimAutoreleasedReturnValue(), v45 = objc_msgSend(v43, "compare:", v44), v44, v31 = selfCopy, v43, v45 == -1) || !v45 && ((objc_msgSend(v42, "identifier"), (v46 = objc_claimAutoreleasedReturnValue()) == 0) || (v47 = v46, objc_msgSend(v40, "identifier"), v48 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v42, "identifier"), v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v48, "compare:", v49), v49, v31 = selfCopy, v48, v47, v51 = v50 == 1, v29 = v54, v51)))
         {
-LABEL_27:
-          memberships6 = [v29 memberships];
-          v40 = [memberships6 objectForKeyedSubscript:v34];
-
-          memberships7 = [(REMTextMemberships *)v31 memberships];
-          v42 = [memberships7 objectForKeyedSubscript:v34];
-
-          if (!v42)
-          {
-            goto LABEL_33;
-          }
-
-          modifiedOn3 = [v42 modifiedOn];
-          modifiedOn4 = [v40 modifiedOn];
-          v45 = [modifiedOn3 compare:modifiedOn4];
-
-          v31 = selfCopy;
-          if (v45 == -1)
-          {
-            goto LABEL_33;
-          }
-
-          if (!v45)
-          {
-            identifier = [v42 identifier];
-            if (!identifier)
-            {
-              goto LABEL_33;
-            }
-
-            v47 = identifier;
-            identifier2 = [v40 identifier];
-            identifier3 = [v42 identifier];
-            v50 = [identifier2 compare:identifier3];
-
-            v31 = selfCopy;
-            v51 = v50 == 1;
-            v29 = v55;
-            if (v51)
-            {
-LABEL_33:
-              [v57 setObject:v40 forKeyedSubscript:v34];
-            }
-          }
+          [v56 setObject:v40 forKeyedSubscript:v34];
         }
       }
 
-      v32 = [obj countByEnumeratingWithState:&v60 objects:v68 count:16];
+      v32 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
     }
 
     while (v32);
   }
 
-  v52 = [objc_alloc(objc_opt_class()) initWithMemberships:v57 lastResetDate:lastResetDate6];
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = [objc_alloc(objc_opt_class()) initWithMemberships:v56 lastResetDate:lastResetDate6];
 
   return v52;
 }
@@ -248,9 +213,7 @@ LABEL_33:
   memberships = self->_memberships;
   self->_memberships = dictionary;
 
-  date = [MEMORY[0x1E695DF00] date];
-  lastResetDate = self->_lastResetDate;
-  self->_lastResetDate = date;
+  self->_lastResetDate = [MEMORY[0x1E695DF00] date];
 
   MEMORY[0x1EEE66BB8]();
 }

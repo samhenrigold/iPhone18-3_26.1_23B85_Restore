@@ -903,7 +903,7 @@ LABEL_14:
     v9 = qword_1002ABFA0;
     if (os_log_type_enabled(qword_1002ABFA0, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F5A14(v9);
+      sub_1001F5A14(v9, self);
     }
 
     databasePath = [(SQLiteConnectionOptions *)self->_options databasePath];

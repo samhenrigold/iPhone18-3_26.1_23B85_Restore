@@ -285,18 +285,18 @@
 
   if (verboseLoggingEnabled)
   {
-    v7 = sub_10000DB80();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000DB80(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"NO";
+      v9 = @"NO";
       if (syncCopy)
       {
-        v8 = @"YES";
+        v9 = @"YES";
       }
 
-      v15 = 138412290;
-      v16 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudReadingNowDetailManager #enableCloudSync setEnableCloudSync %@\\"", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "\\BCCloudReadingNowDetailManager #enableCloudSync setEnableCloudSync %@\", &v16, 0xCu);
     }
   }
 
@@ -350,57 +350,57 @@
 {
   detailsCopy = details;
   completionCopy = completion;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_100064768;
-  v26 = sub_100064778;
-  v27 = +[NSMutableDictionary dictionary];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_100064768;
+  v27 = sub_100064778;
+  v28 = +[NSMutableDictionary dictionary];
   readingNowDetailDataSource = [(BCCloudReadingNowDetailManager *)self readingNowDetailDataSource];
   managedObjectContext = [readingNowDetailDataSource managedObjectContext];
 
   if (!managedObjectContext)
   {
-    v10 = sub_100002660();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = sub_100002660(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      sub_1001C2714(v10);
+      sub_1001C2714(v11);
     }
   }
 
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100064780;
-  v19[3] = &unk_100240998;
-  v11 = detailsCopy;
-  v20 = v11;
-  v21 = &v22;
-  [managedObjectContext performBlockAndWait:v19];
-  if ([v23[5] count])
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100064780;
+  v20[3] = &unk_100240998;
+  v12 = detailsCopy;
+  v21 = v12;
+  v22 = &v23;
+  [managedObjectContext performBlockAndWait:v20];
+  if ([v24[5] count])
   {
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1000649C4;
-    v18[3] = &unk_100241A00;
-    v18[4] = &v22;
-    v12 = objc_retainBlock(v18);
-    v28 = @"WidgetInfoRelationshipUpdater";
-    v13 = objc_retainBlock(v12);
-    v29 = v13;
-    v14 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_1000649C4;
+    v19[3] = &unk_100241A00;
+    v19[4] = &v23;
+    v13 = objc_retainBlock(v19);
+    v29 = @"WidgetInfoRelationshipUpdater";
+    v14 = objc_retainBlock(v13);
+    v30 = v14;
+    v15 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
   dataManager = [(BCCloudReadingNowDetailManager *)self dataManager];
-  allKeys = [v11 allKeys];
-  v17 = [NSPredicate predicateWithFormat:@"assetID IN %@", allKeys];
-  [dataManager setCloudData:v11 predicate:v17 propertyIDKey:@"assetID" mergers:v14 completion:completionCopy];
+  allKeys = [v12 allKeys];
+  v18 = [NSPredicate predicateWithFormat:@"assetID IN %@", allKeys];
+  [dataManager setCloudData:v12 predicate:v18 propertyIDKey:@"assetID" mergers:v15 completion:completionCopy];
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
 }
 
 - (void)removeReadingNowDetailForSaltedHashedRecordIDs:(id)ds completion:(id)completion
@@ -416,7 +416,7 @@
 
   else
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001C27D0(v10);
@@ -498,32 +498,33 @@
   dsCopy = ds;
   completionCopy = completion;
   v8 = [NSPredicate predicateWithFormat:@"isTrackedAsRecent == YES"];
-  if ([dsCopy count])
+  v9 = [dsCopy count];
+  if (v9)
   {
     dsCopy = [NSPredicate predicateWithFormat:@"NOT (assetID IN %@)", dsCopy];
-    v21[0] = dsCopy;
-    v21[1] = v8;
-    v10 = [NSArray arrayWithObjects:v21 count:2];
-    v11 = [NSCompoundPredicate andPredicateWithSubpredicates:v10];
+    v22[0] = dsCopy;
+    v22[1] = v8;
+    v11 = [NSArray arrayWithObjects:v22 count:2];
+    v12 = [NSCompoundPredicate andPredicateWithSubpredicates:v11];
 
-    v8 = v11;
+    v8 = v12;
   }
 
-  v12 = sub_100002660();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100002660(v9);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v18 = dsCopy;
-    v19 = 2112;
-    v20 = v8;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[Widget] getRecentBooksExcludingAssetIDs:%@ predicate %@ ", buf, 0x16u);
+    v19 = dsCopy;
+    v20 = 2112;
+    v21 = v8;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[Widget] getRecentBooksExcludingAssetIDs:%@ predicate %@ ", buf, 0x16u);
   }
 
   dataManager = [(BCCloudReadingNowDetailManager *)self dataManager];
-  v14 = [NSSortDescriptor sortDescriptorWithKey:@"lastEngagedDate" ascending:0];
-  v16 = v14;
-  v15 = [NSArray arrayWithObjects:&v16 count:1];
-  [dataManager cloudDatasWithPredicate:v8 sortDescriptors:v15 maximumResultCount:64 filter:&stru_100241A68 completion:completionCopy];
+  v15 = [NSSortDescriptor sortDescriptorWithKey:@"lastEngagedDate" ascending:0];
+  v17 = v15;
+  v16 = [NSArray arrayWithObjects:&v17 count:1];
+  [dataManager cloudDatasWithPredicate:v8 sortDescriptors:v16 maximumResultCount:64 filter:&stru_100241A68 completion:completionCopy];
 }
 
 - (void)needsReadingNowAssetTypePopulation:(id)population

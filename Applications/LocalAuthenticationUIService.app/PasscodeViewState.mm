@@ -81,33 +81,7 @@
   {
     v5 = equalCopy;
     rawValue = [(PasscodeViewState *)self rawValue];
-    if (rawValue != [v5 rawValue])
-    {
-      goto LABEL_8;
-    }
-
-    style = [(PasscodeViewState *)self style];
-    style2 = [v5 style];
-
-    if (style != style2)
-    {
-      goto LABEL_8;
-    }
-
-    title = [(PasscodeViewState *)self title];
-    title2 = [v5 title];
-    v11 = [title isEqualToString:title2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-
-    subtitle = [(PasscodeViewState *)self subtitle];
-    subtitle2 = [v5 subtitle];
-    v14 = [subtitle isEqualToString:subtitle2];
-
-    if (v14)
+    if (rawValue == [v5 rawValue] && (-[PasscodeViewState style](self, "style"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "style"), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v7 == v8) && (-[PasscodeViewState title](self, "title"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "title"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqualToString:", v10), v10, v9, v11) && (-[PasscodeViewState subtitle](self, "subtitle"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "subtitle"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqualToString:", v13), v13, v12, v14))
     {
       accessoryView = [(PasscodeViewState *)self accessoryView];
       accessoryView2 = [v5 accessoryView];
@@ -116,7 +90,6 @@
 
     else
     {
-LABEL_8:
       v17 = 0;
     }
   }

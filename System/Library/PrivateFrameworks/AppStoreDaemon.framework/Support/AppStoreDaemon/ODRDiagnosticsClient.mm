@@ -41,7 +41,7 @@
   v17 = sub_10037B42C;
   v18 = 0;
   v7 = sub_100399B78(ODRApplication, dCopy);
-  v8 = sub_100208FBC();
+  v8 = sub_100208FBC(ODRDatabaseStore);
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = sub_10037B434;
@@ -64,7 +64,7 @@
   v9 = sub_10037B41C;
   v10 = sub_10037B42C;
   v11 = 0;
-  v4 = sub_100208FBC();
+  v4 = sub_100208FBC(ODRDatabaseStore);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
   v5[2] = sub_10037B718;
@@ -94,7 +94,7 @@
   v88 = 0;
   v56 = dCopy;
   v6 = sub_100399B78(ODRApplication, dCopy);
-  v7 = sub_100208FBC();
+  v7 = sub_100208FBC(ODRDatabaseStore);
   v79[0] = _NSConcreteStackBlock;
   v79[1] = 3221225472;
   v79[2] = sub_10037C128;
@@ -344,7 +344,7 @@
 {
   replyCopy = reply;
   dsCopy = ds;
-  v6 = sub_100220330();
+  v6 = sub_100220330(ODRManager);
   v7 = sub_100220BD0(v6, dsCopy);
 
   if (v7)
@@ -377,7 +377,7 @@
 - (void)statusWithReply:(id)reply
 {
   replyCopy = reply;
-  v3 = sub_100220330();
+  v3 = sub_100220330(ODRManager);
   v4 = sub_1002230D4(v3);
 
   [qword_1005AAD18 lock];
@@ -425,7 +425,7 @@
 - (void)performMaintenanceWithReply:(id)reply
 {
   replyCopy = reply;
-  v3 = sub_1001C13C8();
+  v3 = sub_1001C13C8(ODRBackgroundMaintenance);
   sub_1001C15E8(v3);
 
   replyCopy[2](replyCopy, 0);
@@ -434,7 +434,7 @@
 - (void)cancelMaintenanceWithReply:(id)reply
 {
   replyCopy = reply;
-  v3 = sub_1001C13C8();
+  v3 = sub_1001C13C8(ODRBackgroundMaintenance);
   sub_1001C14D8(v3);
 
   replyCopy[2](replyCopy, 0);
@@ -622,7 +622,7 @@
   v11 = sub_10037B41C;
   v12 = sub_10037B42C;
   v13 = 0;
-  v4 = sub_100208FBC();
+  v4 = sub_100208FBC(ODRDatabaseStore);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10037D368;
@@ -655,7 +655,7 @@
   v11 = sub_10037B41C;
   v12 = sub_10037B42C;
   v13 = 0;
-  v4 = sub_100208FBC();
+  v4 = sub_100208FBC(ODRDatabaseStore);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10037D550;
@@ -681,10 +681,11 @@
 
 - (void)purgeBytes:(int64_t)bytes odrOnly:(BOOL)only urgency:(int)urgency withReply:(id)reply
 {
+  v6 = *&urgency;
   onlyCopy = only;
   replyCopy = reply;
-  v9 = sub_100220330();
-  v10 = sub_100220884(v9, bytes, onlyCopy, urgency);
+  v9 = sub_100220330(ODRManager);
+  v10 = sub_100220884(v9, bytes, onlyCopy, v6);
 
   replyCopy[2](replyCopy, v10, 0);
 }
@@ -694,7 +695,7 @@
   v5 = *&urgency;
   v12 = 0;
   replyCopy = reply;
-  v8 = sub_100220330();
+  v8 = sub_100220330(ODRManager);
   v9 = sub_100222470(v8, v5, bytes, &v12);
 
   v10 = objc_alloc_init(NSMutableString);
@@ -707,7 +708,7 @@
 {
   applicationCopy = application;
   completionCopy = completion;
-  v6 = sub_100220330();
+  v6 = sub_100220330(ODRManager);
   sub_100222B74(v6, applicationCopy, 2);
 
   completionCopy[2](completionCopy, 0);
@@ -737,7 +738,7 @@
         }
 
         v11 = *(*(&v13 + 1) + 8 * v10);
-        v12 = sub_100220330();
+        v12 = sub_100220330(ODRManager);
         sub_100222B74(v12, v11, 2);
 
         v10 = v10 + 1;
@@ -757,7 +758,7 @@
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v6 = sub_100220330();
+  v6 = sub_100220330(ODRManager);
   sub_100222DB8(v6, identifierCopy, 2);
 
   completionCopy[2](completionCopy, 0);
@@ -766,7 +767,7 @@
 - (void)getSimulatedBandwidthWithReply:(id)reply
 {
   replyCopy = reply;
-  v4 = sub_1002B3D88();
+  v4 = sub_1002B3D88(ODRSimulatedDownloadsManager);
   (*(reply + 2))(replyCopy, v4, 0);
 }
 
@@ -774,7 +775,7 @@
 {
   replyCopy = reply;
   sub_1002B3D04(ODRSimulatedDownloadsManager, bandwidth);
-  v5 = sub_1002B3D88();
+  v5 = sub_1002B3D88(ODRSimulatedDownloadsManager);
   replyCopy[2](replyCopy, v5, 0);
 }
 

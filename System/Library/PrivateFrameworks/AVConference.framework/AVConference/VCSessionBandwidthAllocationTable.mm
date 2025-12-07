@@ -280,7 +280,7 @@ LABEL_32:
   return v28;
 }
 
-uint64_t __142__VCSessionBandwidthAllocationTable_newAggregatedBandwidthTableWithRedundancy_redundancyEnabledFor720Stream_enableMap_is1080pCameraAvailable___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__142__VCSessionBandwidthAllocationTable_newAggregatedBandwidthTableWithRedundancy_redundancyEnabledFor720Stream_enableMap_is1080pCameraAvailable___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   if (![*(a1 + 32) objectForKeyedSubscript:a2])
   {

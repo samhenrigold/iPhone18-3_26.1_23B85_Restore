@@ -168,7 +168,7 @@
 {
   contextCopy = context;
   v7 = [self searchIndexWorkItemManagedObjectIDsInManagedObjectContext:contextCopy jobType:1 fetchLimit:limit];
-  if (([v7 isFailure] & 1) != 0 || (objc_msgSend(v7, "result"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, v9 >= limit))
+  if (([v7 isFailure] & 1) != 0 || (objc_msgSend(v7, "result"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend_count(v8), v8, v9 >= limit))
   {
     v18 = v7;
   }
@@ -176,10 +176,10 @@
   else
   {
     result = [v7 result];
-    v11 = limit - [result count];
+    v11 = limit - objc_msgSend_count(result);
 
     v12 = [self searchIndexWorkItemManagedObjectIDsInManagedObjectContext:contextCopy jobType:2 fetchLimit:v11];
-    if (([v12 isFailure] & 1) != 0 || (objc_msgSend(v12, "result"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v14 >= limit))
+    if (([v12 isFailure] & 1) != 0 || (objc_msgSend(v12, "result"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend_count(v13), v13, v14 >= limit))
     {
       v18 = v12;
     }
@@ -327,7 +327,7 @@
   v19 = v25;
   if (v18)
   {
-    if ([v18 count])
+    if (objc_msgSend_count(v18))
     {
       firstObject = [v18 firstObject];
       v21 = [firstObject objectForKey:@"jobFlags"];

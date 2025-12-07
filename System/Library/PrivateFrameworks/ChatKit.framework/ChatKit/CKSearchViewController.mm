@@ -507,7 +507,7 @@ id __34__CKSearchViewController_loadView__block_invoke_3(uint64_t a1, void *a2, 
   [coordinatorCopy animateAlongsideTransition:v9 completion:0];
 }
 
-uint64_t __77__CKSearchViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
+void *__77__CKSearchViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
 {
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) cellLayout];
@@ -533,10 +533,10 @@ uint64_t __77__CKSearchViewController_viewWillTransitionToSize_withTransitionCoo
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = CKSearchViewController;
-  [(CKViewController *)&v22 viewWillAppear:appear];
+  v25 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = CKSearchViewController;
+  [(CKViewController *)&v23 viewWillAppear:appear];
   if ([(CKSearchViewController *)self mode]== 2)
   {
     visibleSearchControllers = [(CKSearchViewController *)self visibleSearchControllers];
@@ -548,7 +548,8 @@ uint64_t __77__CKSearchViewController_viewWillTransitionToSize_withTransitionCoo
 
   else
   {
-    if ([(CKSearchViewController *)self mode]== 4)
+    mode = [(CKSearchViewController *)self mode];
+    if (mode == 4)
     {
       visibleSearchControllers2 = [(CKSearchViewController *)self visibleSearchControllers];
       firstObject = [visibleSearchControllers2 firstObject];
@@ -558,47 +559,47 @@ uint64_t __77__CKSearchViewController_viewWillTransitionToSize_withTransitionCoo
 
     else
     {
-      firstObject = CKFrameworkBundle();
+      firstObject = CKFrameworkBundle(mode);
       [firstObject localizedStringForKey:@"SEARCH" value:&stru_1F04268F8 table:@"ChatKit"];
     }
     v7 = ;
   }
 
   [(CKSearchViewController *)self setTitle:v7];
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   collectionView = [(CKSearchViewController *)self collectionView];
   indexPathsForSelectedItems = [collectionView indexPathsForSelectedItems];
 
-  v11 = [indexPathsForSelectedItems countByEnumeratingWithState:&v18 objects:v23 count:16];
-  if (v11)
+  v12 = [indexPathsForSelectedItems countByEnumeratingWithState:&v19 objects:v24 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v19;
+    v13 = v12;
+    v14 = *v20;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(indexPathsForSelectedItems);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * v14);
+        v16 = *(*(&v19 + 1) + 8 * v15);
         collectionView2 = [(CKSearchViewController *)self collectionView];
-        [collectionView2 deselectItemAtIndexPath:v15 animated:1];
+        [collectionView2 deselectItemAtIndexPath:v16 animated:1];
 
-        ++v14;
+        ++v15;
       }
 
-      while (v12 != v14);
-      v12 = [indexPathsForSelectedItems countByEnumeratingWithState:&v18 objects:v23 count:16];
+      while (v13 != v15);
+      v13 = [indexPathsForSelectedItems countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
   navigationItem = [(CKSearchViewController *)self navigationItem];
@@ -1004,7 +1005,7 @@ LABEL_11:
   if ([(CKSearchViewController *)self _needsIndexing])
   {
     mode = [(CKSearchViewController *)self mode];
-    v5 = CKFrameworkBundle();
+    v5 = CKFrameworkBundle(mode);
     v6 = v5;
     if (mode == 1)
     {
@@ -1052,14 +1053,14 @@ LABEL_11:
 
   if ([(CKSearchViewController *)self mode]== 1)
   {
-    v3 = CKFrameworkBundle();
+    v3 = CKFrameworkBundle(1);
     firstObject = v3;
     v5 = @"SEARCH_SUGGESTIONS_INDEXING_SUBTITLE";
   }
 
   else
   {
-    if ([(CKSearchViewController *)self mode]== 2 || [(CKSearchViewController *)self mode]== 4)
+    if ([(CKSearchViewController *)self mode]== 2 || (v8 = [(CKSearchViewController *)self mode], v8 == 4))
     {
       visibleSearchControllers = [(CKSearchViewController *)self visibleSearchControllers];
       firstObject = [visibleSearchControllers firstObject];
@@ -1068,7 +1069,7 @@ LABEL_11:
       goto LABEL_9;
     }
 
-    v3 = CKFrameworkBundle();
+    v3 = CKFrameworkBundle(v8);
     firstObject = v3;
     v5 = @"SEARCH_RESULTS_INDEXING_SUBTITLE";
   }
@@ -1092,286 +1093,288 @@ LABEL_10:
 
       if (isThrottled)
       {
-        v15 = MEMORY[0x1E696AEC0];
-        v16 = CKFrameworkBundle();
-        v17 = [v16 localizedStringForKey:@"SEARCH_RESULTS_THROTTLED" value:&stru_1F04268F8 table:@"ChatKit"];
+        v17 = MEMORY[0x1E696AEC0];
+        v18 = CKFrameworkBundle(v16);
+        v19 = [v18 localizedStringForKey:@"SEARCH_RESULTS_THROTTLED" value:&stru_1F04268F8 table:@"ChatKit"];
         dateOfThrottlingCompletion = [MEMORY[0x1E69A5DE8] dateOfThrottlingCompletion];
-        v19 = [v15 stringWithFormat:v17, dateOfThrottlingCompletion];
+        v21 = [v17 stringWithFormat:v19, dateOfThrottlingCompletion];
 
         mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection == 1)
         {
-          v22 = @"\u200F";
+          v24 = @"\u200F";
         }
 
         else
         {
-          v22 = @"\u200E";
+          v24 = @"\u200E";
         }
 
-        v23 = [(__CFString *)v22 stringByAppendingString:v19];
+        v25 = [(__CFString *)v24 stringByAppendingString:v21];
 
-        [array addObject:v23];
+        [array addObject:v25];
       }
 
       if (_spotlightClientState)
       {
-        v24 = _spotlightClientState;
+        v26 = _spotlightClientState;
         _needsIndexing = [(CKSearchViewController *)self _needsIndexing];
-        v26 = MEMORY[0x1E696AEC0];
-        v27 = CKFrameworkBundle();
-        v28 = v27;
-        if (_needsIndexing)
+        v28 = _needsIndexing;
+        v29 = MEMORY[0x1E696AEC0];
+        v30 = CKFrameworkBundle(_needsIndexing);
+        v31 = v30;
+        if (v28)
         {
-          v29 = [v27 localizedStringForKey:@"SEARCH_RESULTS_REMAINING_CHATS" value:&stru_1F04268F8 table:@"ChatKit"];
+          v32 = [v30 localizedStringForKey:@"SEARCH_RESULTS_REMAINING_CHATS" value:&stru_1F04268F8 table:@"ChatKit"];
           taskMonitor = [(CKSearchViewController *)self taskMonitor];
-          v31 = [v26 localizedStringWithFormat:v29, objc_msgSend(taskMonitor, "remainingChats")];
+          v34 = [v29 localizedStringWithFormat:v32, objc_msgSend(taskMonitor, "remainingChats")];
 
           mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection2 == 1)
           {
-            v34 = @"\u200F";
+            v37 = @"\u200F";
           }
 
           else
           {
-            v34 = @"\u200E";
+            v37 = @"\u200E";
           }
 
-          v35 = [(__CFString *)v34 stringByAppendingString:v31];
+          v38 = [(__CFString *)v37 stringByAppendingString:v34];
 
-          [array addObject:v35];
-          v36 = MEMORY[0x1E696AEC0];
-          v37 = CKFrameworkBundle();
-          v38 = [v37 localizedStringForKey:@"SEARCH_RESULTS_REMAINING_MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
+          [array addObject:v38];
+          v39 = MEMORY[0x1E696AEC0];
+          v41 = CKFrameworkBundle(v40);
+          v42 = [v41 localizedStringForKey:@"SEARCH_RESULTS_REMAINING_MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
           taskMonitor2 = [(CKSearchViewController *)self taskMonitor];
-          v40 = [v36 localizedStringWithFormat:v38, objc_msgSend(taskMonitor2, "remainingMessages")];
+          v44 = [v39 localizedStringWithFormat:v42, objc_msgSend(taskMonitor2, "remainingMessages")];
 
           mEMORY[0x1E69DC668]3 = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection3 = [mEMORY[0x1E69DC668]3 userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection3 == 1)
           {
-            v43 = @"\u200F";
+            v47 = @"\u200F";
           }
 
           else
           {
-            v43 = @"\u200E";
+            v47 = @"\u200E";
           }
 
-          v44 = [(__CFString *)v43 stringByAppendingString:v40];
+          v48 = [(__CFString *)v47 stringByAppendingString:v44];
 
-          [array addObject:v44];
-          _spotlightClientState = v24;
-          v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", objc_msgSend(v24, "indexRevision")];
-          v46 = MEMORY[0x1E696AEC0];
-          v47 = CKFrameworkBundle();
-          v48 = v47;
+          [array addObject:v48];
+          _spotlightClientState = v26;
+          v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", objc_msgSend(v26, "indexRevision")];
+          v50 = MEMORY[0x1E696AEC0];
+          v51 = CKFrameworkBundle(v49);
+          v52 = v51;
         }
 
         else
         {
-          v81 = [v27 localizedStringForKey:@"SEARCH_RESULTS_UP_TO_DATE" value:&stru_1F04268F8 table:@"ChatKit"];
-          v82 = [v26 stringWithFormat:v81];
+          v86 = [v30 localizedStringForKey:@"SEARCH_RESULTS_UP_TO_DATE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v87 = [v29 stringWithFormat:v86];
 
           mEMORY[0x1E69DC668]4 = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection4 = [mEMORY[0x1E69DC668]4 userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection4 == 1)
           {
-            v85 = @"\u200F";
+            v90 = @"\u200F";
           }
 
           else
           {
-            v85 = @"\u200E";
+            v90 = @"\u200E";
           }
 
-          v86 = [(__CFString *)v85 stringByAppendingString:v82];
+          v91 = [(__CFString *)v90 stringByAppendingString:v87];
 
-          [array addObject:v86];
-          v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", objc_msgSend(_spotlightClientState, "indexRevision")];
-          v46 = MEMORY[0x1E696AEC0];
-          v47 = CKFrameworkBundle();
-          v48 = v47;
+          [array addObject:v91];
+          v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", objc_msgSend(_spotlightClientState, "indexRevision")];
+          v50 = MEMORY[0x1E696AEC0];
+          v51 = CKFrameworkBundle(v49);
+          v52 = v51;
         }
 
-        v87 = [v47 localizedStringForKey:@"SEARCH_RESULTS_VERSION" value:&stru_1F04268F8 table:@"ChatKit"];
-        v88 = [v46 stringWithFormat:v87, v45];
+        v92 = [v51 localizedStringForKey:@"SEARCH_RESULTS_VERSION" value:&stru_1F04268F8 table:@"ChatKit"];
+        v93 = [v50 stringWithFormat:v92, v49];
 
         mEMORY[0x1E69DC668]5 = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection5 = [mEMORY[0x1E69DC668]5 userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection5 == 1)
         {
-          v91 = @"\u200F";
+          v96 = @"\u200F";
         }
 
         else
         {
-          v91 = @"\u200E";
+          v96 = @"\u200E";
         }
 
-        v92 = [(__CFString *)v91 stringByAppendingString:v88];
+        v97 = [(__CFString *)v96 stringByAppendingString:v93];
 
-        [array addObject:v92];
+        [array addObject:v97];
       }
 
       else
       {
-        v50 = MEMORY[0x1E696AEC0];
-        v51 = CKFrameworkBundle();
-        v52 = [v51 localizedStringForKey:@"SEARCH_RESULTS_STATE_LOADING" value:&stru_1F04268F8 table:@"ChatKit"];
-        v53 = [v50 stringWithFormat:v52];
+        v54 = MEMORY[0x1E696AEC0];
+        v55 = CKFrameworkBundle(v16);
+        v56 = [v55 localizedStringForKey:@"SEARCH_RESULTS_STATE_LOADING" value:&stru_1F04268F8 table:@"ChatKit"];
+        v57 = [v54 stringWithFormat:v56];
 
         mEMORY[0x1E69DC668]6 = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection6 = [mEMORY[0x1E69DC668]6 userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection6 == 1)
         {
-          v56 = @"\u200F";
+          v60 = @"\u200F";
         }
 
         else
         {
-          v56 = @"\u200E";
+          v60 = @"\u200E";
         }
 
-        v45 = [(__CFString *)v56 stringByAppendingString:v53];
+        v49 = [(__CFString *)v60 stringByAppendingString:v57];
 
-        [array addObject:v45];
+        [array addObject:v49];
       }
 
-      v93 = MEMORY[0x1E696AEC0];
-      v94 = CKFrameworkBundle();
-      v95 = [v94 localizedStringForKey:@"SEARCH_RESULTS_INTERNAL_STRING" value:&stru_1F04268F8 table:@"ChatKit"];
-      v96 = [array componentsJoinedByString:@" "];
-      _spotlightClientState2 = [v93 stringWithFormat:v95, v96];
+      v98 = MEMORY[0x1E696AEC0];
+      v100 = CKFrameworkBundle(v99);
+      v101 = [v100 localizedStringForKey:@"SEARCH_RESULTS_INTERNAL_STRING" value:&stru_1F04268F8 table:@"ChatKit"];
+      v102 = [array componentsJoinedByString:@" "];
+      v102 = [v98 stringWithFormat:v101, v102];
 
       mEMORY[0x1E69DC668]7 = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection7 = [mEMORY[0x1E69DC668]7 userInterfaceLayoutDirection];
 
-      v80 = userInterfaceLayoutDirection7 == 1;
+      v85 = userInterfaceLayoutDirection7 == 1;
     }
 
     else
     {
       array = MEMORY[0x193AF5640](@"com.apple.IMCoreSpotlight", @"IMCSIndexLastIndexDate");
-      v49 = [array description];
-      if (v49)
+      v53 = [array description];
+      if (v53)
       {
         _spotlightClientState = [array description];
       }
 
       else
       {
-        v57 = CKFrameworkBundle();
-        _spotlightClientState = [v57 localizedStringForKey:@"SEARCH_RESULTS_INTERNAL_NO_DATE" value:&stru_1F04268F8 table:@"ChatKit"];
+        v61 = CKFrameworkBundle(0);
+        _spotlightClientState = [v61 localizedStringForKey:@"SEARCH_RESULTS_INTERNAL_NO_DATE" value:&stru_1F04268F8 table:@"ChatKit"];
       }
 
-      if ([(CKSearchViewController *)self _needsIndexing])
+      _needsIndexing2 = [(CKSearchViewController *)self _needsIndexing];
+      if (_needsIndexing2)
       {
-        _spotlightClientState2 = [(CKSearchViewController *)self _spotlightClientState];
-        if (_spotlightClientState2)
+        v102 = [(CKSearchViewController *)self _spotlightClientState];
+        if (v102)
         {
-          v59 = IMGetCachedDomainIntForKeyWithDefaultValue();
-          lastIndexedRowID = [_spotlightClientState2 lastIndexedRowID];
-          initialReindexRowID = [_spotlightClientState2 initialReindexRowID];
-          indexRevision = [_spotlightClientState2 indexRevision];
-          v63 = [MEMORY[0x1E69A7FF8] descriptionForReindexReason:v59];
-          v64 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu / %lu", initialReindexRowID - lastIndexedRowID, initialReindexRowID];
-          v65 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", indexRevision];
-          v66 = MEMORY[0x1E696AEC0];
-          CKFrameworkBundle();
-          v108 = array;
-          v68 = v67 = _spotlightClientState;
-          v69 = [v68 localizedStringForKey:@"SEARCH_RESULTS_INDEXING_INTERNAL" value:&stru_1F04268F8 table:@"ChatKit"];
-          v70 = [v66 stringWithFormat:v69, v63, v64, v65, v67];
+          v64 = IMGetCachedDomainIntForKeyWithDefaultValue();
+          lastIndexedRowID = [v102 lastIndexedRowID];
+          initialReindexRowID = [v102 initialReindexRowID];
+          indexRevision = [v102 indexRevision];
+          v68 = [MEMORY[0x1E69A7FF8] descriptionForReindexReason:v64];
+          v69 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu / %lu", initialReindexRowID - lastIndexedRowID, initialReindexRowID];
+          v70 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", indexRevision];
+          v71 = MEMORY[0x1E696AEC0];
+          CKFrameworkBundle(v70);
+          v114 = array;
+          v73 = v72 = _spotlightClientState;
+          v74 = [v73 localizedStringForKey:@"SEARCH_RESULTS_INDEXING_INTERNAL" value:&stru_1F04268F8 table:@"ChatKit"];
+          v75 = [v71 stringWithFormat:v74, v68, v69, v70, v72];
 
           mEMORY[0x1E69DC668]8 = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection8 = [mEMORY[0x1E69DC668]8 userInterfaceLayoutDirection];
 
-          v80 = userInterfaceLayoutDirection8 == 1;
-          _spotlightClientState = v67;
-          array = v108;
-          if (v80)
+          v85 = userInterfaceLayoutDirection8 == 1;
+          _spotlightClientState = v72;
+          array = v114;
+          if (v85)
           {
-            v73 = @"\u200F";
+            v78 = @"\u200F";
           }
 
           else
           {
-            v73 = @"\u200E";
+            v78 = @"\u200E";
           }
 
-          v74 = [(__CFString *)v73 stringByAppendingString:v70];
+          v79 = [(__CFString *)v78 stringByAppendingString:v75];
         }
 
         else
         {
-          v100 = MEMORY[0x1E696AEC0];
-          v101 = CKFrameworkBundle();
-          v102 = [v101 localizedStringForKey:@"LOADING_SEARCH_RESULTS_INDEXING_STATE_INTERNAL" value:&stru_1F04268F8 table:@"ChatKit"];
-          v63 = [v100 stringWithFormat:v102];
+          v106 = MEMORY[0x1E696AEC0];
+          v107 = CKFrameworkBundle(0);
+          v108 = [v107 localizedStringForKey:@"LOADING_SEARCH_RESULTS_INDEXING_STATE_INTERNAL" value:&stru_1F04268F8 table:@"ChatKit"];
+          v68 = [v106 stringWithFormat:v108];
 
           mEMORY[0x1E69DC668]9 = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection9 = [mEMORY[0x1E69DC668]9 userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection9 == 1)
           {
-            v105 = @"\u200F";
+            v111 = @"\u200F";
           }
 
           else
           {
-            v105 = @"\u200E";
+            v111 = @"\u200E";
           }
 
-          v74 = [(__CFString *)v105 stringByAppendingString:v63];
+          v79 = [(__CFString *)v111 stringByAppendingString:v68];
         }
 
         goto LABEL_59;
       }
 
-      v75 = MEMORY[0x1E696AEC0];
-      v76 = CKFrameworkBundle();
-      v77 = [v76 localizedStringForKey:@"SEARCH_RESULTS_INTERNAL" value:&stru_1F04268F8 table:@"ChatKit"];
-      _spotlightClientState2 = [v75 stringWithFormat:v77, _spotlightClientState];
+      v80 = MEMORY[0x1E696AEC0];
+      v81 = CKFrameworkBundle(_needsIndexing2);
+      v82 = [v81 localizedStringForKey:@"SEARCH_RESULTS_INTERNAL" value:&stru_1F04268F8 table:@"ChatKit"];
+      v102 = [v80 stringWithFormat:v82, _spotlightClientState];
 
       mEMORY[0x1E69DC668]10 = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection10 = [mEMORY[0x1E69DC668]10 userInterfaceLayoutDirection];
 
-      v80 = userInterfaceLayoutDirection10 == 1;
+      v85 = userInterfaceLayoutDirection10 == 1;
     }
 
-    if (v80)
+    if (v85)
     {
-      v99 = @"\u200F";
+      v105 = @"\u200F";
     }
 
     else
     {
-      v99 = @"\u200E";
+      v105 = @"\u200E";
     }
 
-    v74 = [(__CFString *)v99 stringByAppendingString:_spotlightClientState2];
+    v79 = [(__CFString *)v105 stringByAppendingString:v102];
 LABEL_59:
 
     if (v7)
     {
-      v106 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n\n%@", v7, v74];
+      v112 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n\n%@", v7, v79];
 
-      v7 = v106;
+      v7 = v112;
     }
 
     else
     {
-      v7 = v74;
+      v7 = v79;
     }
   }
 
@@ -2221,7 +2224,7 @@ void __44__CKSearchViewController__searchImmediately__block_invoke(uint64_t a1)
     }
   }
 
-  [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:self selector:sel_reloadData object:{0, *v28}];
+  [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:self selector:sel_reloadData object:{0, *v28, *&v28[8]}];
   [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:self selector:sel__logResultsDidChange object:0];
   searchCompleteControllerSet = [(CKSearchViewController *)self searchCompleteControllerSet];
   [searchCompleteControllerSet addObject:objc_opt_class()];

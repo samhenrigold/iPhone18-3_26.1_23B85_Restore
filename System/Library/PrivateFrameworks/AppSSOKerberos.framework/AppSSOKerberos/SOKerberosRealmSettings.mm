@@ -34,7 +34,6 @@
 - (void)dealloc;
 - (void)loadSiteCodes;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
-- (void)platformSSOLoginInProgress;
 - (void)removeAllValues;
 - (void)saveSiteCodes;
 - (void)setCredentialUUID:(id)d;
@@ -51,10 +50,15 @@
 - (void)setDatePasswordLastChanged:(id)changed;
 - (void)setDatePasswordLastChangedAtLogin:(id)login;
 - (void)setDateUserSignedOut:(id)out;
+- (void)setDelayUserSetupCleared:(BOOL)cleared;
+- (void)setNetworkAvailable:(BOOL)available;
 - (void)setNetworkHomeDirectory:(id)directory;
+- (void)setPasswordChangeInProgress:(BOOL)progress;
+- (void)setPasswordNeverExpires:(BOOL)expires;
 - (void)setPkinitPersistentRef:(id)ref;
 - (void)setPlatformSSOLoginInProgress:(BOOL)progress;
 - (void)setSmartCardTokenID:(id)d;
+- (void)setUserCancelledLogin:(BOOL)login;
 - (void)setUserName:(id)name;
 - (void)setUserPrincipalName:(id)name;
 - (void)startListeningForPlatformSSOTGTChanges;
@@ -64,21 +68,21 @@
 
 - (SOKerberosRealmSettings)initWithRealm:(id)realm
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   realmCopy = realm;
-  v6 = SO_LOG_SOKerberosRealmSettings();
+  v6 = SO_LOG_SOKerberosRealmSettings(realmCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v20 = "[SOKerberosRealmSettings initWithRealm:]";
-    v21 = 2112;
+    v19 = "[SOKerberosRealmSettings initWithRealm:]";
+    v20 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_24006C000, v6, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
-  v18.receiver = self;
-  v18.super_class = SOKerberosRealmSettings;
-  v7 = [(SOKerberosRealmSettings *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = SOKerberosRealmSettings;
+  v7 = [(SOKerberosRealmSettings *)&v17 init];
   if (v7)
   {
     v8 = objc_opt_new();
@@ -100,16 +104,32 @@
     v7->_notificationName = realmCopy;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_24006C000, v0, v1, "notify_cancel() failed with %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  defaults = self->_defaults;
+  v4 = [(SOKerberosRealmSettings *)self realmKey:@"siteCodeCache"];
+  [(NSUserDefaults *)defaults removeObserver:self forKeyPath:v4];
+
+  notifyToken = self->_notifyToken;
+  if (notifyToken != -1)
+  {
+    v6 = notify_cancel(notifyToken);
+    if (v6)
+    {
+      v7 = SO_LOG_SOKerberosRealmSettings(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        [SOKerberosRealmSettings dealloc];
+      }
+    }
+  }
+
+  v8.receiver = self;
+  v8.super_class = SOKerberosRealmSettings;
+  [(SOKerberosRealmSettings *)&v8 dealloc];
 }
 
 - (id)realmKey:(id)key
@@ -123,32 +143,32 @@
 
 - (void)removeAllValues
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   defaults = [(SOKerberosRealmSettings *)self defaults];
   dictionaryRepresentation = [defaults dictionaryRepresentation];
   allKeys = [dictionaryRepresentation allKeys];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = allKeys;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       v10 = 0;
       do
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * v10);
+        v11 = *(*(&v16 + 1) + 8 * v10);
         realm = [(SOKerberosRealmSettings *)self realm];
         v13 = [realm stringByAppendingFormat:@":"];
         v14 = [v11 hasPrefix:v13];
@@ -163,13 +183,11 @@
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)userPrincipalName
@@ -443,6 +461,14 @@
   return v5;
 }
 
+- (void)setPasswordNeverExpires:(BOOL)expires
+{
+  expiresCopy = expires;
+  defaults = [(SOKerberosRealmSettings *)self defaults];
+  v5 = [(SOKerberosRealmSettings *)self realmKey:@"passwordNeverExpires"];
+  [defaults setBool:expiresCopy forKey:v5];
+}
+
 - (NSDate)dateExpirationNotificationSent
 {
   defaults = [(SOKerberosRealmSettings *)self defaults];
@@ -514,6 +540,14 @@
   return v5;
 }
 
+- (void)setDelayUserSetupCleared:(BOOL)cleared
+{
+  clearedCopy = cleared;
+  defaults = [(SOKerberosRealmSettings *)self defaults];
+  v5 = [(SOKerberosRealmSettings *)self realmKey:@"delayUserSetupCleared"];
+  [defaults setBool:clearedCopy forKey:v5];
+}
+
 - (BOOL)networkAvailable
 {
   defaults = [(SOKerberosRealmSettings *)self defaults];
@@ -523,6 +557,14 @@
   return v5;
 }
 
+- (void)setNetworkAvailable:(BOOL)available
+{
+  availableCopy = available;
+  defaults = [(SOKerberosRealmSettings *)self defaults];
+  v5 = [(SOKerberosRealmSettings *)self realmKey:@"networkAvailable"];
+  [defaults setBool:availableCopy forKey:v5];
+}
+
 - (BOOL)userCancelledLogin
 {
   defaults = [(SOKerberosRealmSettings *)self defaults];
@@ -530,6 +572,14 @@
   v5 = [defaults BOOLForKey:v4];
 
   return v5;
+}
+
+- (void)setUserCancelledLogin:(BOOL)login
+{
+  loginCopy = login;
+  defaults = [(SOKerberosRealmSettings *)self defaults];
+  v5 = [(SOKerberosRealmSettings *)self realmKey:@"userCancelledLogin"];
+  [defaults setBool:loginCopy forKey:v5];
 }
 
 - (NSDate)dateLoginCancelled
@@ -556,6 +606,14 @@
   v5 = [defaults BOOLForKey:v4];
 
   return v5;
+}
+
+- (void)setPasswordChangeInProgress:(BOOL)progress
+{
+  progressCopy = progress;
+  defaults = [(SOKerberosRealmSettings *)self defaults];
+  v5 = [(SOKerberosRealmSettings *)self realmKey:@"passwordChangeInProgress"];
+  [defaults setBool:progressCopy forKey:v5];
 }
 
 - (NSDate)dateUserSignedOut
@@ -587,27 +645,29 @@
 
 - (BOOL)platformSSOLoginInProgress
 {
+  selfCopy = self;
   p_notifyToken = &self->_notifyToken;
-  notifyToken = self->_notifyToken;
-  if (notifyToken == -1)
+  LODWORD(self) = self->_notifyToken;
+  if (self == -1)
   {
-    if (notify_register_check([(NSString *)self->_notificationName UTF8String], p_notifyToken))
+    v4 = notify_register_check([(NSString *)selfCopy->_notificationName UTF8String], p_notifyToken);
+    if (v4)
     {
-      v5 = SO_LOG_SOKerberosRealmSettings();
+      v5 = SO_LOG_SOKerberosRealmSettings(v4);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosRealmSettings platformSSOLoginInProgress];
       }
     }
 
-    notifyToken = *p_notifyToken;
+    self = *p_notifyToken;
     state64 = 0;
-    if (notifyToken == -1)
+    if (self == -1)
     {
-      v6 = SO_LOG_SOKerberosRealmSettings();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = SO_LOG_SOKerberosRealmSettings(self);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [(SOKerberosRealmSettings *)v6 platformSSOLoginInProgress];
+        [(SOKerberosRealmSettings *)v7 platformSSOLoginInProgress];
       }
 
       goto LABEL_13;
@@ -619,10 +679,11 @@
     state64 = 0;
   }
 
-  if (notify_get_state(notifyToken, &state64))
+  state = notify_get_state(self, &state64);
+  if (state)
   {
-    v6 = SO_LOG_SOKerberosRealmSettings();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SO_LOG_SOKerberosRealmSettings(state);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosRealmSettings platformSSOLoginInProgress];
     }
@@ -630,8 +691,8 @@
 LABEL_13:
   }
 
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:state64];
-  bOOLValue = [v7 BOOLValue];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:state64];
+  bOOLValue = [v8 BOOLValue];
 
   return bOOLValue;
 }
@@ -643,13 +704,14 @@ LABEL_13:
   notifyToken = self->_notifyToken;
   if (notifyToken != -1)
   {
-    goto LABEL_17;
+    goto LABEL_7;
   }
 
-  if (notify_register_check([(NSString *)self->_notificationName UTF8String], p_notifyToken))
+  v7 = notify_register_check([(NSString *)self->_notificationName UTF8String], p_notifyToken);
+  if (v7)
   {
-    v7 = SO_LOG_SOKerberosRealmSettings();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SO_LOG_SOKerberosRealmSettings(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosRealmSettings platformSSOLoginInProgress];
     }
@@ -658,21 +720,23 @@ LABEL_13:
   notifyToken = *p_notifyToken;
   if (*p_notifyToken != -1)
   {
-LABEL_17:
-    if (notify_set_state(notifyToken, progressCopy))
+LABEL_7:
+    v9 = notify_set_state(notifyToken, progressCopy);
+    if (v9)
     {
-      v8 = SO_LOG_SOKerberosRealmSettings();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = SO_LOG_SOKerberosRealmSettings(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosRealmSettings setPlatformSSOLoginInProgress:];
       }
     }
   }
 
-  if (notify_post([(NSString *)self->_notificationName UTF8String]))
+  v11 = notify_post([(NSString *)self->_notificationName UTF8String]);
+  if (v11)
   {
-    v9 = SO_LOG_SOKerberosRealmSettings();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = SO_LOG_SOKerberosRealmSettings(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosRealmSettings setPlatformSSOLoginInProgress:];
     }
@@ -681,10 +745,34 @@ LABEL_17:
 
 - (void)startListeningForPlatformSSOTGTChanges
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_24006C000, v0, v1, "notify_register_dispatch failed: %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  uTF8String = [(NSString *)selfCopy->_notificationName UTF8String];
+  v4 = dispatch_get_global_queue(0, 0);
+  handler[0] = MEMORY[0x277D85DD0];
+  handler[1] = 3221225472;
+  handler[2] = __65__SOKerberosRealmSettings_startListeningForPlatformSSOTGTChanges__block_invoke;
+  handler[3] = &unk_278C92FF0;
+  handler[4] = selfCopy;
+  LODWORD(uTF8String) = notify_register_dispatch(uTF8String, &selfCopy->_notifyToken, v4, handler);
+
+  if (uTF8String)
+  {
+    v6 = SO_LOG_SOKerberosRealmSettings(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [SOKerberosRealmSettings startListeningForPlatformSSOTGTChanges];
+    }
+  }
+
+  if ([(SOKerberosRealmSettings *)selfCopy platformSSOLoginInProgress]&& !selfCopy->_platformSSOLoginSemaphore)
+  {
+    v7 = dispatch_semaphore_create(0);
+    platformSSOLoginSemaphore = selfCopy->_platformSSOLoginSemaphore;
+    selfCopy->_platformSSOLoginSemaphore = v7;
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 void __65__SOKerberosRealmSettings_startListeningForPlatformSSOTGTChanges__block_invoke(uint64_t a1)
@@ -783,18 +871,16 @@ LABEL_7:
     while (v8);
   }
 
-  v16 = SO_LOG_SOKerberosRealmSettings();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = SO_LOG_SOKerberosRealmSettings(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     code = [codeCopy code];
-    [(SOKerberosRealmSettings *)code cacheSiteCode:v23, v16];
+    [(SOKerberosRealmSettings *)code cacheSiteCode:v23, v17];
   }
 
   [(NSMutableArray *)selfCopy->_siteCodeCache addObject:codeCopy];
   [(SOKerberosRealmSettings *)selfCopy saveSiteCodes];
   objc_sync_exit(selfCopy);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)siteCodeForNetworkFingerprint:(id)fingerprint
@@ -827,11 +913,11 @@ LABEL_7:
 
         if (v12)
         {
-          v13 = SO_LOG_SOKerberosRealmSettings();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = SO_LOG_SOKerberosRealmSettings(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             code = [v10 code];
-            [(SOKerberosRealmSettings *)code siteCodeForNetworkFingerprint:v21, v13];
+            [(SOKerberosRealmSettings *)code siteCodeForNetworkFingerprint:v21, v14];
           }
 
           v7 = v10;
@@ -852,7 +938,6 @@ LABEL_7:
 LABEL_13:
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -862,7 +947,7 @@ LABEL_13:
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
-  v12 = SO_LOG_SOKerberosRealmSettings();
+  v12 = SO_LOG_SOKerberosRealmSettings(changeCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosRealmSettings observeValueForKeyPath:ofObject:change:context:];
@@ -887,15 +972,15 @@ LABEL_13:
 
     if (v18)
     {
-      v19 = SO_LOG_SOKerberosRealmSettings();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v20 = SO_LOG_SOKerberosRealmSettings(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         [SOKerberosRealmSettings observeValueForKeyPath:ofObject:change:context:];
       }
 
-      v20 = dispatch_semaphore_create(0);
+      v21 = dispatch_semaphore_create(0);
       platformSSOLoginSemaphore = selfCopy->_platformSSOLoginSemaphore;
-      selfCopy->_platformSSOLoginSemaphore = v20;
+      selfCopy->_platformSSOLoginSemaphore = v21;
     }
 
     else
@@ -904,8 +989,8 @@ LABEL_13:
 
       if (platformSSOLoginSemaphore)
       {
-        v23 = SO_LOG_SOKerberosRealmSettings();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v25 = SO_LOG_SOKerberosRealmSettings(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           [SOKerberosRealmSettings observeValueForKeyPath:ofObject:change:context:];
         }
@@ -920,42 +1005,16 @@ LABEL_13:
 
 - (void)loadSiteCodes
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "Error deserializing plist: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "Error deserializing plist: %{public}@", v1, 0xCu);
 }
 
 - (void)saveSiteCodes
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "Error archiving site code cache: error: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)platformSSOLoginInProgress
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_24006C000, v0, v1, "notify_get_state() failed with error %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setPlatformSSOLoginInProgress:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_24006C000, v0, v1, "notify_set_state() failed with error %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setPlatformSSOLoginInProgress:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_24006C000, v0, v1, "notify_post() failed with error %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "Error archiving site code cache: error: %{public}@", v1, 0xCu);
 }
 
 - (void)cacheSiteCode:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
@@ -974,28 +1033,25 @@ LABEL_13:
 
 - (void)observeValueForKeyPath:ofObject:change:context:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_24006C000, v1, OS_LOG_TYPE_DEBUG, "Defaults updated: %@, %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_24006C000, v1, OS_LOG_TYPE_DEBUG, "Defaults updated: %@, %@", v2, 0x16u);
 }
 
 - (void)observeValueForKeyPath:ofObject:change:context:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3_0(&dword_24006C000, v0, v1, "Creating sem: %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_24006C000, v0, v1, "Creating sem: %@", v2);
 }
 
 - (void)observeValueForKeyPath:ofObject:change:context:.cold.3()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3_0(&dword_24006C000, v0, v1, "signaling sem: %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_24006C000, v0, v1, "signaling sem: %@", v2);
 }
 
 @end

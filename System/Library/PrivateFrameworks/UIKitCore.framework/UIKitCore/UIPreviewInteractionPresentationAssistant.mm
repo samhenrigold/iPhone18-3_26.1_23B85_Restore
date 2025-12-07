@@ -125,7 +125,7 @@ void __64___UIPreviewInteractionPresentationAssistant_animateTransition___block_
     v16 = v15;
     if (v15)
     {
-      [v15 transform];
+      objc_msgSend_transform(v15);
     }
 
     else
@@ -260,7 +260,7 @@ LABEL_12:
 void __64___UIPreviewInteractionPresentationAssistant_animateTransition___block_invoke_16(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v1 = [WeakRetained presentation];
+  v1 = objc_msgSend_presentation(WeakRetained);
   [v1 setPrivatePresentationCompletionBlock:0];
 
   if ([WeakRetained isAppearing] && objc_msgSend(WeakRetained[3], "isRunning"))

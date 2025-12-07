@@ -56,9 +56,9 @@
 {
   profileCopy = profile;
   sub_1D107F4BC(0, &qword_1EC60D6B0, MEMORY[0x1E69695A8], MEMORY[0x1E69E6720]);
-  v5 = MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
   v9 = &v19 - v8;
   v10 = sub_1D138D5EC();
   v11 = *(v10 - 8);
@@ -69,9 +69,9 @@
   (*(v11 + 16))(v9, v13, v10);
   v15 = *(v11 + 56);
   v15(v9, 0, 1, v10);
-  v15(v7, 1, 1, v10);
+  v15(v6, 1, 1, v10);
   v18 = 1;
-  v16 = (*(ObjectType + 968))(profileCopy, 0, v9, 0, 0, v7, 0, 0, 0, v18);
+  v16 = (*(ObjectType + 968))(profileCopy, 0, v9, 0, 0, v6, 0, 0, 0, v18);
   (*(v11 + 8))(v13, v10);
   swift_deallocPartialClassInstance();
   return v16;
@@ -82,7 +82,7 @@
   selfCopy = self;
   sub_1D1077EF4();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for MedicalRecordTimelineViewController();
+  v3.super_class = type metadata accessor for MedicalRecordTimelineViewController(0);
   [(HRMedicalRecordTimelineViewController *)&v3 dealloc];
 }
 
@@ -101,7 +101,7 @@
 - (void)viewWillLayoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for MedicalRecordTimelineViewController();
+  v5.super_class = type metadata accessor for MedicalRecordTimelineViewController(0);
   v2 = v5.receiver;
   [(HRMedicalRecordTimelineViewController *)&v5 viewWillLayoutSubviews];
   if (v2[OBJC_IVAR___HRMedicalRecordTimelineViewController_showGradientBackgroundForAllRecordsRoom] != 1)
@@ -115,7 +115,7 @@
     v4 = collectionView;
     [collectionView contentOffset];
 
-    sub_1D107F580(&qword_1EC609888, type metadata accessor for MedicalRecordTimelineViewController);
+    sub_1D107F580(&qword_1EC609888, type metadata accessor for MedicalRecordTimelineViewController, &protocol conformance descriptor for MedicalRecordTimelineViewController);
     sub_1D138E8CC();
 LABEL_4:
 
@@ -128,7 +128,7 @@ LABEL_4:
 - (void)viewDidLayoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for MedicalRecordTimelineViewController();
+  v4.super_class = type metadata accessor for MedicalRecordTimelineViewController(0);
   v2 = v4.receiver;
   [(HRMedicalRecordTimelineViewController *)&v4 viewDidLayoutSubviews];
   traitCollection = [v2 traitCollection];
@@ -178,7 +178,7 @@ LABEL_4:
   type metadata accessor for TapToRadarManager();
   static TapToRadarManager.presentTapToRadarDialogue(from:)(selfCopy);
 
-  __swift_destroy_boxed_opaque_existential_1Tm(&v5);
+  __swift_destroy_boxed_opaque_existential_1Tm(v5);
 }
 
 - (void)reloadDataWithDelay:(double)delay
@@ -330,7 +330,7 @@ LABEL_4:
   sub_1D138D7EC();
   viewCopy = view;
   selfCopy = self;
-  sub_1D116D46C(viewCopy);
+  sub_1D116D46C(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -340,15 +340,15 @@ LABEL_4:
   v7 = sub_1D138D82C();
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D138D7EC();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1D116DCF8(viewCopy);
+  v14 = sub_1D116DCF8(viewCopy, v13);
 
   (*(v8 + 8))(v10, v7);
 
-  return v13;
+  return v14;
 }
 
 - (BOOL)collectionView:(id)view selectionFollowsFocusForItemAtIndexPath:(id)path
@@ -356,11 +356,11 @@ LABEL_4:
   v6 = sub_1D138D82C();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D138D7EC();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_1D116DA04(viewCopy);
+  LOBYTE(self) = sub_1D116DA04(viewCopy, v9, v12);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;

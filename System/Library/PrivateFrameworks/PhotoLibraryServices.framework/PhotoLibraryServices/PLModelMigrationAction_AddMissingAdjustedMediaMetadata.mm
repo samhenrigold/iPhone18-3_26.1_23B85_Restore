@@ -127,33 +127,41 @@
         *buf = 0u;
         v56 = 0u;
         v35 = PLMigrationGetLog();
-        os_log_type_enabled(v35, OS_LOG_TYPE_INFO);
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
-        v53 = 138543362;
-        v54 = v37;
-        LODWORD(v44) = 12;
-        v38 = _os_log_send_and_compose_impl();
-
-        v39 = [(PLModelMigrationActionBackground *)self logger:&v53];
-        [v39 logWithMessage:v38 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{1343, 1}];
-
-        if (v38 != buf)
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
-          free(v38);
+          v36 = 3;
+        }
+
+        else
+        {
+          v36 = 2;
+        }
+
+        v37 = objc_opt_class();
+        v38 = NSStringFromClass(v37);
+        v53 = 138543362;
+        v54 = v38;
+        v39 = _os_log_send_and_compose_impl(v36, 0, buf, 512, &dword_19BF1F000, v35, 1, "Skipping action %{public}@ based on CPL state", &v53, 12);
+
+        logger2 = [(PLModelMigrationActionBackground *)self logger];
+        [logger2 logWithMessage:v39 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{1343, 1}];
+
+        if (v39 != buf)
+        {
+          free(v39);
         }
       }
 
       else
       {
-        v40 = PLMigrationGetLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v41 = PLMigrationGetLog();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
         {
-          v41 = objc_opt_class();
-          v42 = NSStringFromClass(v41);
+          v42 = objc_opt_class();
+          v43 = NSStringFromClass(v42);
           *buf = 138543362;
-          *&buf[4] = v42;
-          _os_log_impl(&dword_19BF1F000, v40, OS_LOG_TYPE_INFO, "Skipping action %{public}@ based on CPL state", buf, 0xCu);
+          *&buf[4] = v43;
+          _os_log_impl(&dword_19BF1F000, v41, OS_LOG_TYPE_INFO, "Skipping action %{public}@ based on CPL state", buf, 0xCu);
         }
       }
     }

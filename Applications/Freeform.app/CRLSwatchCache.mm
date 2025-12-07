@@ -336,13 +336,13 @@ LABEL_37:
   height = size.height;
   width = size.width;
   infoCopy = info;
-  v85 = height;
+  v87 = height;
   v12 = height + -20.0;
   coordinatorCopy = coordinator;
   geometry = [infoCopy geometry];
   [geometry size];
-  v81 = v16;
-  v82 = v15;
+  v83 = v16;
+  v84 = v15;
 
   geometryWithMask = [infoCopy geometryWithMask];
   [geometryWithMask size];
@@ -366,7 +366,7 @@ LABEL_37:
   {
 
     v42 = v28 / v29;
-    if (v28 / v29 <= width / v85)
+    if (v28 / v29 <= width / v87)
     {
       v44 = v24 * v42;
       v41 = 20.0;
@@ -428,16 +428,16 @@ LABEL_37:
   v54 = sub_10011F340(v52, v53, v51);
   v56 = v55;
   v57 = [CRLScalarPathSource rectangleWithNaturalSize:v23, v24];
-  v79 = [[CRLCanvasInfoGeometry alloc] initWithPosition:v54 size:v56, v23, v24];
-  v80 = v57;
-  v58 = [[CRLMaskInfo alloc] initWithImageItem:infoCopy geometry:v79 pathSource:v57];
-  v59 = sub_10011F340(v82, v81, v51);
+  v81 = [[CRLCanvasInfoGeometry alloc] initWithPosition:v54 size:v56, v23, v24];
+  v82 = v57;
+  v58 = [[CRLMaskInfo alloc] initWithImageItem:infoCopy geometry:v81 pathSource:v57];
+  v59 = sub_10011F340(v84, v83, v51);
   v60 = v40 - v54;
   v61 = v41 - v56;
-  v63 = sub_100122154(v59, v62);
-  v65 = v64;
-  v66 = sub_100122154(v60, v61);
-  v68 = [[CRLCanvasInfoGeometry alloc] initWithPosition:v66 size:v67, v63, v65];
+  v64 = sub_100122154(v62, v59, v63);
+  v66 = v65;
+  v68 = sub_100122154(v67, v60, v61);
+  v70 = [[CRLCanvasInfoGeometry alloc] initWithPosition:v68 size:v69, v64, v66];
   thumbnailAssetPayload = [infoCopy thumbnailAssetPayload];
   if (!thumbnailAssetPayload)
   {
@@ -445,25 +445,25 @@ LABEL_37:
   }
 
   boardItemFactory = [coordinatorCopy boardItemFactory];
-  v71 = [boardItemFactory makeImageItemWithGeometry:v68 imageData:thumbnailAssetPayload thumbnailData:0];
+  v73 = [boardItemFactory makeImageItemWithGeometry:v70 imageData:thumbnailAssetPayload thumbnailData:0];
 
-  [v71 setMaskInfo:v58];
-  v72 = [CRLCanvasImager alloc];
+  [v73 setMaskInfo:v58];
+  v74 = [CRLCanvasImager alloc];
   mainBoard = [coordinatorCopy mainBoard];
 
-  v74 = [(CRLCanvasImager *)v72 initWithBoard:mainBoard renderForWideGamut:gamutCopy];
-  [(CRLCanvasImager *)v74 setScaledImageSize:sub_10011F340(width, v85, scale)];
-  sub_10011F340(width, v85, 2.0);
-  [(CRLCanvasImager *)v74 setUnscaledClipRect:sub_10011ECB4()];
-  v86 = v71;
-  v75 = [NSArray arrayWithObjects:&v86 count:1];
-  [(CRLCanvasImager *)v74 setInfos:v75];
+  v76 = [(CRLCanvasImager *)v74 initWithBoard:mainBoard renderForWideGamut:gamutCopy];
+  [(CRLCanvasImager *)v76 setScaledImageSize:sub_10011F340(width, v87, scale)];
+  sub_10011F340(width, v87, 2.0);
+  [(CRLCanvasImager *)v76 setUnscaledClipRect:sub_10011ECB4()];
+  v88 = v73;
+  v77 = [NSArray arrayWithObjects:&v88 count:1];
+  [(CRLCanvasImager *)v76 setInfos:v77];
 
-  newImage = [(CRLCanvasImager *)v74 newImage];
-  v77 = [CRLImage imageWithCGImage:newImage scale:0 orientation:scale];
+  newImage = [(CRLCanvasImager *)v76 newImage];
+  v79 = [CRLImage imageWithCGImage:newImage scale:0 orientation:scale];
   CGImageRelease(newImage);
 
-  return v77;
+  return v79;
 }
 
 + (CGImage)newImageForDarkBackground:(CGImage *)background atScale:(double)scale ofSize:(CGSize)size inset:(CGSize)inset
@@ -509,85 +509,85 @@ LABEL_37:
   [v15 size];
   v18 = v17;
   v20 = v19;
-  v77 = 0;
-  v78 = &v77;
-  v79 = 0x3010000000;
-  v80 = &unk_1016A8115;
-  v81 = CGPointZero;
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3010000000;
-  v75 = &unk_1016A8115;
-  v76 = v81;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3010000000;
-  v70 = &unk_1016A8115;
-  v71 = v81;
-  v66[0] = _NSConcreteStackBlock;
-  v66[1] = 3221225472;
-  v66[2] = sub_10033EB38;
-  v66[3] = &unk_1018571E8;
-  v66[4] = &v77;
-  v66[5] = &v72;
-  v66[6] = &v67;
-  *&v66[7] = scale;
-  *&v66[8] = v11;
-  *&v66[9] = v13;
-  [shapeCopy withTemporaryLayoutPerform:v66];
+  v80 = 0;
+  v81 = &v80;
+  v82 = 0x3010000000;
+  v83 = &unk_1016A8115;
+  v84 = CGPointZero;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x3010000000;
+  v78 = &unk_1016A8115;
+  v79 = v84;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x3010000000;
+  v73 = &unk_1016A8115;
+  v74 = v84;
+  v69[0] = _NSConcreteStackBlock;
+  v69[1] = 3221225472;
+  v69[2] = sub_10033EB38;
+  v69[3] = &unk_1018571E8;
+  v69[4] = &v80;
+  v69[5] = &v75;
+  v69[6] = &v70;
+  *&v69[7] = scale;
+  *&v69[8] = v11;
+  *&v69[9] = v13;
+  [shapeCopy withTemporaryLayoutPerform:v69];
   v21 = sub_10011ECB4();
-  v64 = v22;
-  v65 = v21;
-  v62 = v24;
-  v63 = v23;
+  v67 = v22;
+  v68 = v21;
+  v65 = v24;
+  v66 = v23;
   v25 = sub_10011F340(v18, v20, scale);
-  v26 = sub_10011EC70(v73[4], v73[5], v25);
+  v26 = sub_10011EC70(v76[4], v76[5], v25);
   v28 = v27;
-  v59 = v30;
-  v60 = v29;
-  v31 = sub_10011EC70(v78[4], v78[5], v25);
+  v62 = v30;
+  v63 = v29;
+  v31 = sub_10011EC70(v81[4], v81[5], v25);
   v33 = v32;
-  v57 = v35;
-  v58 = v34;
-  v36 = sub_10011EC70(v68[4], v68[5], v25);
+  v60 = v35;
+  v61 = v34;
+  v36 = sub_10011EC70(v71[4], v71[5], v25);
   scaleCopy = scale;
   v39 = v38;
   v41 = v40;
   rect = v42;
-  v43 = sub_100122154(v26, v28);
-  v45 = v44;
-  v46 = sub_100122154(v31, v33);
-  v56 = v47;
-  v48 = sub_100122154(v36, v39);
-  v50 = v49;
-  v82.origin.y = v64;
-  v82.origin.x = v65;
-  v82.size.height = v62;
-  v82.size.width = v63;
-  CGContextDrawImage(v14, v82, image);
-  v51 = [v15 CGImageForContentsScale:scaleCopy];
-  v83.origin.x = v48;
-  v83.origin.y = v50;
-  v83.size.width = v41;
-  v83.size.height = rect;
-  CGContextDrawImage(v14, v83, v51);
-  v52 = [v16 CGImageForContentsScale:scaleCopy];
-  v84.origin.x = v43;
-  v84.origin.y = v45;
-  v84.size.height = v59;
-  v84.size.width = v60;
-  CGContextDrawImage(v14, v84, v52);
-  v53 = [v15 CGImageForContentsScale:scaleCopy];
-  v85.origin.x = v46;
-  v85.origin.y = v56;
-  v85.size.height = v57;
-  v85.size.width = v58;
-  CGContextDrawImage(v14, v85, v53);
+  v44 = sub_100122154(v43, v26, v28);
+  v46 = v45;
+  v48 = sub_100122154(v47, v31, v33);
+  v59 = v49;
+  v51 = sub_100122154(v50, v36, v39);
+  v53 = v52;
+  v85.origin.y = v67;
+  v85.origin.x = v68;
+  v85.size.height = v65;
+  v85.size.width = v66;
+  CGContextDrawImage(v14, v85, image);
+  v54 = [v15 CGImageForContentsScale:scaleCopy];
+  v86.origin.x = v51;
+  v86.origin.y = v53;
+  v86.size.width = v41;
+  v86.size.height = rect;
+  CGContextDrawImage(v14, v86, v54);
+  v55 = [v16 CGImageForContentsScale:scaleCopy];
+  v87.origin.x = v44;
+  v87.origin.y = v46;
+  v87.size.height = v62;
+  v87.size.width = v63;
+  CGContextDrawImage(v14, v87, v55);
+  v56 = [v15 CGImageForContentsScale:scaleCopy];
+  v88.origin.x = v48;
+  v88.origin.y = v59;
+  v88.size.height = v60;
+  v88.size.width = v61;
+  CGContextDrawImage(v14, v88, v56);
   Image = CGBitmapContextCreateImage(v14);
   CGContextRelease(v14);
-  _Block_object_dispose(&v67, 8);
-  _Block_object_dispose(&v72, 8);
-  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v70, 8);
+  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v80, 8);
 
   return Image;
 }
@@ -654,34 +654,34 @@ LABEL_37:
     v15 = v17;
   }
 
-  v21 = sub_100122154(v14, v15);
+  v21 = sub_100122154(self, v14, v15);
   v23 = v22;
-  v24 = sub_100122154(v18, v19);
-  v26 = v25;
+  v25 = sub_100122154(v24, v18, v19);
+  v27 = v26;
   blockCopy = block;
   coordinatorCopy = coordinator;
-  v29 = [[CRLCanvasInfoGeometry alloc] initWithPosition:v24 size:v26, v21, v23];
-  v30 = blockCopy[2](blockCopy, v29);
+  v30 = [[CRLCanvasInfoGeometry alloc] initWithPosition:v25 size:v27, v21, v23];
+  v31 = blockCopy[2](blockCopy, v30);
 
-  v31 = [CRLCanvasImager alloc];
+  v32 = [CRLCanvasImager alloc];
   mainBoard = [coordinatorCopy mainBoard];
 
-  v33 = [(CRLCanvasImager *)v31 initWithBoard:mainBoard renderForWideGamut:gamutCopy];
-  [(CRLCanvasImager *)v33 setScaledImageSize:sub_10011F340(width, height, scale)];
+  v34 = [(CRLCanvasImager *)v32 initWithBoard:mainBoard renderForWideGamut:gamutCopy];
+  [(CRLCanvasImager *)v34 setScaledImageSize:sub_10011F340(width, height, scale)];
   sub_10011F340(width, height, 2.0);
-  [(CRLCanvasImager *)v33 setUnscaledClipRect:sub_10011ECB4()];
-  if (v30)
+  [(CRLCanvasImager *)v34 setUnscaledClipRect:sub_10011ECB4()];
+  if (v31)
   {
-    v38 = v30;
-    v34 = [NSArray arrayWithObjects:&v38 count:1];
-    [(CRLCanvasImager *)v33 setInfos:v34];
+    v39 = v31;
+    v35 = [NSArray arrayWithObjects:&v39 count:1];
+    [(CRLCanvasImager *)v34 setInfos:v35];
   }
 
-  newImage = [(CRLCanvasImager *)v33 newImage];
-  v36 = [CRLImage imageWithCGImage:newImage scale:0 orientation:scale];
+  newImage = [(CRLCanvasImager *)v34 newImage];
+  v37 = [CRLImage imageWithCGImage:newImage scale:0 orientation:scale];
   CGImageRelease(newImage);
 
-  return v36;
+  return v37;
 }
 
 @end

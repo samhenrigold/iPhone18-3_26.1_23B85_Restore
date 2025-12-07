@@ -5,7 +5,8 @@
 - (id)_minimumFrozenAnchorMapForPruningDate:(id)date error:(id *)error;
 - (id)_pruneObjectsForEntityClass:(void *)class frozenAnchor:(void *)anchor nowDate:(uint64_t)date limit:(uint64_t)limit error:;
 - (int64_t)pruneDatabaseWithAccessibilityAssertion:(id)assertion nowDate:(id)date prunedObjectLimit:(unint64_t)limit prunedObjectTransactionLimit:(unint64_t)transactionLimit shouldDefer:(id)defer error:(id *)error;
-- (uint64_t)_entityClassSupportsPruning:;
+- (uint64_t)_entityClassSupportsPruning:(uint64_t)pruning;
+- (void)enqueueMaintenanceOperationOnCoordinator:(id)coordinator takeAccessibilityAssertion:(BOOL)assertion nowDate:(id)date completion:(id)completion;
 - (void)enqueueMaintenanceOperationOnCoordinator:(id)coordinator takeAccessibilityAssertion:(BOOL)assertion nowDate:(id)date shouldDefer:(id)defer completion:(id)completion;
 @end
 
@@ -26,10 +27,23 @@
   return v6;
 }
 
+- (void)enqueueMaintenanceOperationOnCoordinator:(id)coordinator takeAccessibilityAssertion:(BOOL)assertion nowDate:(id)date completion:(id)completion
+{
+  assertionCopy = assertion;
+  completionCopy = completion;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __112__HDDatabasePruningTask_enqueueMaintenanceOperationOnCoordinator_takeAccessibilityAssertion_nowDate_completion___block_invoke;
+  v12[3] = &unk_278614250;
+  v13 = completionCopy;
+  v11 = completionCopy;
+  [(HDDatabasePruningTask *)self enqueueMaintenanceOperationOnCoordinator:coordinator takeAccessibilityAssertion:assertionCopy nowDate:date shouldDefer:0 completion:v12];
+}
+
 - (void)enqueueMaintenanceOperationOnCoordinator:(id)coordinator takeAccessibilityAssertion:(BOOL)assertion nowDate:(id)date shouldDefer:(id)defer completion:(id)completion
 {
   assertionCopy = assertion;
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   dateCopy = date;
   deferCopy = defer;
@@ -46,9 +60,9 @@
 
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     database = [WeakRetained database];
-    v47 = 0;
-    v25 = [database takeAccessibilityAssertionWithOwnerIdentifier:v22 timeout:&v47 error:600.0];
-    v26 = v47;
+    v46 = 0;
+    v25 = [database takeAccessibilityAssertionWithOwnerIdentifier:v22 timeout:&v46 error:600.0];
+    v26 = v46;
 
     if (!v25)
     {
@@ -58,8 +72,8 @@
       {
         *buf = 138543618;
         selfCopy = self;
-        v50 = 2114;
-        v51 = v26;
+        v49 = 2114;
+        v50 = v26;
         _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "%{public}@: unable to take accessibility assertion: %{public}@", buf, 0x16u);
       }
     }
@@ -78,29 +92,27 @@
   identifier = [profileIdentifier identifier];
   v32 = [v28 stringWithFormat:@"Database Pruning (%@)", identifier];
 
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __124__HDDatabasePruningTask_enqueueMaintenanceOperationOnCoordinator_takeAccessibilityAssertion_nowDate_shouldDefer_completion___block_invoke;
-  v42[3] = &unk_27862E520;
-  v42[4] = self;
-  v43 = v25;
-  v44 = dateCopy;
-  v45 = deferCopy;
-  v46 = completionCopy;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __124__HDDatabasePruningTask_enqueueMaintenanceOperationOnCoordinator_takeAccessibilityAssertion_nowDate_shouldDefer_completion___block_invoke_2;
-  v39[3] = &unk_278621600;
-  v40 = v43;
-  v41 = v46;
-  v33 = v46;
-  v34 = v43;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __124__HDDatabasePruningTask_enqueueMaintenanceOperationOnCoordinator_takeAccessibilityAssertion_nowDate_shouldDefer_completion___block_invoke;
+  v41[3] = &unk_27862E520;
+  v41[4] = self;
+  v42 = v25;
+  v43 = dateCopy;
+  v44 = deferCopy;
+  v45 = completionCopy;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __124__HDDatabasePruningTask_enqueueMaintenanceOperationOnCoordinator_takeAccessibilityAssertion_nowDate_shouldDefer_completion___block_invoke_2;
+  v38[3] = &unk_278621600;
+  v39 = v42;
+  v40 = v45;
+  v33 = v45;
+  v34 = v42;
   v35 = deferCopy;
   v36 = dateCopy;
-  v37 = [HDMaintenanceOperation maintenanceOperationWithName:v32 asynchronousBlock:v42 canceledBlock:v39];
+  v37 = [HDMaintenanceOperation maintenanceOperationWithName:v32 asynchronousBlock:v41 canceledBlock:v38];
   [coordinatorCopy enqueueMaintenanceOperation:v37];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __124__HDDatabasePruningTask_enqueueMaintenanceOperationOnCoordinator_takeAccessibilityAssertion_nowDate_shouldDefer_completion___block_invoke(void *a1, void *a2)
@@ -140,7 +152,7 @@ void __124__HDDatabasePruningTask_enqueueMaintenanceOperationOnCoordinator_takeA
 
 - (int64_t)pruneDatabaseWithAccessibilityAssertion:(id)assertion nowDate:(id)date prunedObjectLimit:(unint64_t)limit prunedObjectTransactionLimit:(unint64_t)transactionLimit shouldDefer:(id)defer error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   dateCopy = date;
   deferCopy = defer;
@@ -167,21 +179,21 @@ LABEL_9:
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v36 = 0x2020000000;
-    v37 = 0;
+    v35 = 0x2020000000;
+    v36 = 0;
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     database = [WeakRetained database];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __138__HDDatabasePruningTask_pruneDatabaseWithAccessibilityAssertion_nowDate_prunedObjectLimit_prunedObjectTransactionLimit_shouldDefer_error___block_invoke;
-    v29[3] = &unk_27862E548;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __138__HDDatabasePruningTask_pruneDatabaseWithAccessibilityAssertion_nowDate_prunedObjectLimit_prunedObjectTransactionLimit_shouldDefer_error___block_invoke;
+    v28[3] = &unk_27862E548;
     p_buf = &buf;
-    v29[4] = self;
-    v30 = dateCopy;
+    v28[4] = self;
+    v29 = dateCopy;
     transactionLimitCopy = transactionLimit;
-    v31 = deferCopy;
+    v30 = deferCopy;
     limitCopy = limit;
-    [database performWithTransactionContext:v23 error:error block:v29];
+    [database performWithTransactionContext:v23 error:error block:v28];
 
     v24 = *(*(&buf + 1) + 24);
     _Block_object_dispose(&buf, 8);
@@ -210,13 +222,12 @@ LABEL_9:
 LABEL_12:
 
 LABEL_13:
-  v27 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
-uint64_t __138__HDDatabasePruningTask_pruneDatabaseWithAccessibilityAssertion_nowDate_prunedObjectLimit_prunedObjectTransactionLimit_shouldDefer_error___block_invoke(void *a1, void *a2)
+BOOL __138__HDDatabasePruningTask_pruneDatabaseWithAccessibilityAssertion_nowDate_prunedObjectLimit_prunedObjectTransactionLimit_shouldDefer_error___block_invoke(void *a1, void *a2)
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCDD30] sharedBehavior];
   v3 = [v2 features];
   v4 = [v3 databasePruningTaskShouldUseRestrictionPredicates];
@@ -225,29 +236,29 @@ uint64_t __138__HDDatabasePruningTask_pruneDatabaseWithAccessibilityAssertion_no
   v5 = a1[5];
   if (v4)
   {
-    v77 = a1[8];
+    v74 = a1[8];
     v7 = a1[6];
     v8 = v5;
     v9 = v7;
     if (!v6)
     {
-      v74 = 0;
+      v71 = 0;
       goto LABEL_79;
     }
 
     Current = CFAbsoluteTimeGetCurrent();
     v11 = v6;
     WeakRetained = objc_loadWeakRetained((v6 + 8));
-    v88 = 0;
-    obj = [HDSyncStoreEntity activeStoresForRestrictionPredictePruningInProfile:WeakRetained referenceDate:v8 error:&v88];
-    v80 = v88;
+    v85 = 0;
+    obj = [HDSyncStoreEntity activeStoresForRestrictionPredictePruningInProfile:WeakRetained referenceDate:v8 error:&v85];
+    v77 = v85;
 
-    if (v80)
+    if (v77)
     {
       if (a2)
       {
-        v13 = v80;
-        *a2 = v80;
+        v13 = v77;
+        *a2 = v77;
       }
 
       else
@@ -255,45 +266,45 @@ uint64_t __138__HDDatabasePruningTask_pruneDatabaseWithAccessibilityAssertion_no
         _HKLogDroppedError();
       }
 
-      v74 = 1;
+      v71 = 1;
       goto LABEL_78;
     }
 
     v35 = obj;
-    *&v113 = 0;
-    *(&v113 + 1) = &v113;
-    v114 = 0x3032000000;
-    v115 = __Block_byref_object_copy__196;
-    v116 = __Block_byref_object_dispose__196;
-    v117 = 0;
-    v89 = MEMORY[0x277D85DD0];
-    v90 = 3221225472;
-    v91 = __56__HDDatabasePruningTask__instantiateActiveStores_error___block_invoke;
-    v92 = &unk_27861EC68;
-    v93 = v6;
-    v94 = &v113;
-    v36 = [v35 hk_map:&v89];
+    *&v110 = 0;
+    *(&v110 + 1) = &v110;
+    v111 = 0x3032000000;
+    v112 = __Block_byref_object_copy__196;
+    v113 = __Block_byref_object_dispose__196;
+    v114 = 0;
+    v86 = MEMORY[0x277D85DD0];
+    v87 = 3221225472;
+    v88 = __56__HDDatabasePruningTask__instantiateActiveStores_error___block_invoke;
+    v89 = &unk_27861EC68;
+    v90 = v6;
+    v91 = &v110;
+    v36 = [v35 hk_map:&v86];
     v37 = v36;
-    v38 = *(*(&v113 + 1) + 40);
+    v38 = *(*(&v110 + 1) + 40);
     if (v38)
     {
 
-      v70 = 0;
+      v67 = 0;
     }
 
     else
     {
-      v70 = v36;
+      v67 = v36;
     }
 
-    _Block_object_dispose(&v113, 8);
-    v73 = v38;
+    _Block_object_dispose(&v110, 8);
+    v70 = v38;
     if (v38)
     {
       if (a2)
       {
-        v39 = v73;
-        *a2 = v73;
+        v39 = v70;
+        *a2 = v70;
       }
 
       else
@@ -301,86 +312,82 @@ uint64_t __138__HDDatabasePruningTask_pruneDatabaseWithAccessibilityAssertion_no
         _HKLogDroppedError();
       }
 
-      v74 = 1;
+      v71 = 1;
 LABEL_77:
 
 LABEL_78:
 LABEL_79:
 
-      *(*(a1[7] + 8) + 24) = v74;
-      v6 = *(*(a1[7] + 8) + 24) != 1;
-      goto LABEL_80;
+      *(*(a1[7] + 8) + 24) = v71;
+      return *(*(a1[7] + 8) + 24) != 1;
     }
 
+    v81 = 0;
+    v82 = &v81;
+    v83 = 0x2020000000;
     v84 = 0;
-    v85 = &v84;
-    v86 = 0x2020000000;
-    v87 = 0;
-    v83[0] = 0;
-    v83[1] = v83;
-    v83[2] = 0x2020000000;
-    v83[3] = 0;
+    v80[0] = 0;
+    v80[1] = v80;
+    v80[2] = 0x2020000000;
+    v80[3] = 0;
     v40 = [(HDDatabasePruningTask *)v11 _allEntityClasses];
-    v103 = 0u;
-    v104 = 0u;
+    v100 = 0u;
     v101 = 0u;
-    v102 = 0u;
-    v69 = v40;
-    v66 = [v69 countByEnumeratingWithState:&v101 objects:&v113 count:16];
-    if (!v66)
+    v98 = 0u;
+    v99 = 0u;
+    v66 = v40;
+    v63 = [v66 countByEnumeratingWithState:&v98 objects:&v110 count:16];
+    if (!v63)
     {
 LABEL_66:
 
       _HKInitializeLogging();
-      v52 = HKLogInfrastructure();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+      v51 = HKLogInfrastructure();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
-        v53 = v85[3];
-        v54 = CFAbsoluteTimeGetCurrent();
-        *v109 = 138543874;
-        *&v109[4] = v11;
-        *&v109[12] = 2048;
-        *&v109[14] = v53;
-        *&v109[22] = 2048;
-        v110 = v54 - Current;
-        _os_log_impl(&dword_228986000, v52, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished pruning %ld objects in %0.2lfs", v109, 0x20u);
+        v52 = v82[3];
+        v53 = CFAbsoluteTimeGetCurrent();
+        *v106 = 138543874;
+        *&v106[4] = v11;
+        *&v106[12] = 2048;
+        *&v106[14] = v52;
+        *&v106[22] = 2048;
+        v107 = v53 - Current;
+        _os_log_impl(&dword_228986000, v51, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished pruning %ld objects in %0.2lfs", v106, 0x20u);
       }
 
-      v74 = 0;
+      v71 = 0;
 LABEL_76:
 
-      _Block_object_dispose(v83, 8);
-      _Block_object_dispose(&v84, 8);
+      _Block_object_dispose(v80, 8);
+      _Block_object_dispose(&v81, 8);
       goto LABEL_77;
     }
 
-    v67 = *v102;
-    v64 = &v111;
-    v63 = &buf[16];
-    v41 = &selRef_predicateForMaximumQuantity_quantityType_operatorType_;
-    v74 = 1;
+    v64 = *v99;
+    v62 = &v108;
+    v61 = &buf[16];
+    v71 = 1;
 LABEL_46:
-    v68 = 0;
-    v65 = v41[194];
+    v65 = 0;
     while (1)
     {
-      if (*v102 != v67)
+      if (*v99 != v64)
       {
-        objc_enumerationMutation(v69);
+        objc_enumerationMutation(v66);
       }
 
-      v42 = *(*(&v101 + 1) + 8 * v68);
-      if ([HDDatabasePruningTask _entityClassSupportsPruning:]& 1) != 0 || (objc_opt_respondsToSelector())
+      v41 = *(*(&v98 + 1) + 8 * v65);
+      if ([HDDatabasePruningTask _entityClassSupportsPruning:v41]& 1) != 0 || (objc_opt_respondsToSelector())
       {
         break;
       }
 
 LABEL_64:
-      if (++v68 == v66)
+      if (++v65 == v63)
       {
-        v66 = [v69 countByEnumeratingWithState:&v101 objects:&v113 count:16];
-        v41 = &selRef_predicateForMaximumQuantity_quantityType_operatorType_;
-        if (v66)
+        v63 = [v66 countByEnumeratingWithState:&v98 objects:&v110 count:16];
+        if (v63)
         {
           goto LABEL_46;
         }
@@ -389,41 +396,41 @@ LABEL_64:
       }
     }
 
-    v43 = v70;
-    if ([v42 conformsToProtocol:{&unk_283CCCD88, v63, v64}])
+    v42 = v67;
+    if ([v41 conformsToProtocol:{&unk_283CCCD88, v61, v62}])
     {
-      *v109 = 0;
-      *&v109[8] = v109;
-      *&v109[16] = 0x3032000000;
-      v110 = COERCE_DOUBLE(__Block_byref_object_copy__196);
-      v111 = __Block_byref_object_dispose__196;
-      v112 = 0;
+      *v106 = 0;
+      *&v106[8] = v106;
+      *&v106[16] = 0x3032000000;
+      v107 = COERCE_DOUBLE(__Block_byref_object_copy__196);
+      v108 = __Block_byref_object_dispose__196;
+      v109 = 0;
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __81__HDDatabasePruningTask__pruningRestrictionPredicatesFromStores_forEntity_error___block_invoke;
-      v106 = COERCE_DOUBLE(&unk_27862E598);
-      v107 = v109;
-      v108 = v42;
-      v44 = [v43 hk_map:buf];
-      v45 = *(*&v109[8] + 40);
-      if (v45)
+      v103 = COERCE_DOUBLE(&unk_27862E598);
+      v104 = v106;
+      v105 = v41;
+      v43 = [v42 hk_map:buf];
+      v44 = *(*&v106[8] + 40);
+      if (v44)
       {
+        v45 = v44;
         v46 = v45;
-        v47 = v46;
 
-        _Block_object_dispose(v109, 8);
-        v48 = 0;
+        _Block_object_dispose(v106, 8);
+        v47 = 0;
 LABEL_57:
 
-        v49 = v46;
-        if (v49)
+        v48 = v45;
+        if (v48)
         {
-          v60 = v49;
-          v61 = v60;
+          v58 = v48;
+          v59 = v58;
           if (a2)
           {
-            v62 = v60;
-            *a2 = v61;
+            v60 = v58;
+            *a2 = v59;
           }
 
           else
@@ -431,80 +438,80 @@ LABEL_57:
             _HKLogDroppedError();
           }
 
-          v74 = 1;
+          v71 = 1;
         }
 
         else
         {
-          *v109 = 0;
-          *&v109[8] = v109;
-          *&v109[16] = 0x2020000000;
-          LOBYTE(v110) = 0;
+          *v106 = 0;
+          *&v106[8] = v106;
+          *&v106[16] = 0x2020000000;
+          LOBYTE(v107) = 0;
           while (!v9 || !v9[2](v9))
           {
-            v89 = MEMORY[0x277D85DD0];
-            v90 = 3221225472;
-            v91 = __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNowDate_prunedObjectTransactionLimit_shouldDefer_error___block_invoke;
-            v92 = &unk_27862E5C0;
-            v96 = v83;
-            v93 = v11;
-            v99 = v77;
-            v100 = v42;
-            v50 = v48;
-            v94 = v50;
-            v95 = v8;
-            v97 = v109;
-            v98 = &v84;
-            v51 = HKWithAutoreleasePool();
+            v86 = MEMORY[0x277D85DD0];
+            v87 = 3221225472;
+            v88 = __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNowDate_prunedObjectTransactionLimit_shouldDefer_error___block_invoke;
+            v89 = &unk_27862E5C0;
+            v93 = v80;
+            v90 = v11;
+            v96 = v74;
+            v97 = v41;
+            v49 = v47;
+            v91 = v49;
+            v92 = v8;
+            v94 = v106;
+            v95 = &v81;
+            v50 = HKWithAutoreleasePool();
 
-            if ((v51 & 1) == 0)
+            if ((v50 & 1) == 0)
             {
               goto LABEL_74;
             }
 
-            if ((*(*&v109[8] + 24) & 1) == 0)
+            if ((*(*&v106[8] + 24) & 1) == 0)
             {
-              _Block_object_dispose(v109, 8);
+              _Block_object_dispose(v106, 8);
 
               goto LABEL_64;
             }
           }
 
           _HKInitializeLogging();
-          v55 = HKLogInfrastructure();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v54 = HKLogInfrastructure();
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
           {
-            v56 = v85[3];
-            v57 = CFAbsoluteTimeGetCurrent();
+            v55 = v82[3];
+            v56 = CFAbsoluteTimeGetCurrent();
             *buf = 138543874;
             *&buf[4] = v11;
             *&buf[12] = 2048;
-            *&buf[14] = v56;
+            *&buf[14] = v55;
             *&buf[22] = 2048;
-            v106 = v57 - Current;
-            _os_log_impl(&dword_228986000, v55, OS_LOG_TYPE_DEFAULT, "%{public}@: Pruning activity was deferred after pruning %ld objects in %0.2lfs", buf, 0x20u);
+            v103 = v56 - Current;
+            _os_log_impl(&dword_228986000, v54, OS_LOG_TYPE_DEFAULT, "%{public}@: Pruning activity was deferred after pruning %ld objects in %0.2lfs", buf, 0x20u);
           }
 
-          v74 = 2;
+          v71 = 2;
 LABEL_74:
-          _Block_object_dispose(v109, 8);
+          _Block_object_dispose(v106, 8);
         }
 
-        v52 = v69;
+        v51 = v66;
         goto LABEL_76;
       }
 
-      _Block_object_dispose(v109, 8);
+      _Block_object_dispose(v106, 8);
     }
 
     else
     {
-      v44 = 0;
+      v43 = 0;
     }
 
-    v44 = v44;
-    v46 = 0;
-    v48 = v44;
+    v43 = v43;
+    v45 = 0;
+    v47 = v43;
     goto LABEL_57;
   }
 
@@ -512,46 +519,46 @@ LABEL_74:
   v15 = a1[8];
   v16 = a1[9];
   v17 = v5;
-  v81 = v17;
+  v78 = v17;
   if (v6)
   {
     v18 = v17;
     v19 = CFAbsoluteTimeGetCurrent();
-    v78 = [v6 _minimumFrozenAnchorMapForPruningDate:v18 error:a2];
-    if (v78)
+    v75 = [v6 _minimumFrozenAnchorMapForPruningDate:v18 error:a2];
+    if (v75)
     {
-      *v109 = 0;
-      *&v109[8] = v109;
-      *&v109[16] = 0x2020000000;
-      v110 = 0.0;
+      *v106 = 0;
+      *&v106[8] = v106;
+      *&v106[16] = 0x2020000000;
+      v107 = 0.0;
       [(HDDatabasePruningTask *)v14 _allEntityClasses];
-      v103 = 0u;
-      v104 = 0u;
+      v100 = 0u;
       v101 = 0u;
-      obja = v102 = 0u;
-      v20 = [obja countByEnumeratingWithState:&v101 objects:&v113 count:16];
+      v98 = 0u;
+      obja = v99 = 0u;
+      v20 = [obja countByEnumeratingWithState:&v98 objects:&v110 count:16];
       if (v20)
       {
-        v21 = *v102;
-        v71 = *v102;
+        v21 = *v99;
+        v68 = *v99;
         while (2)
         {
           v22 = 0;
-          v72 = v20;
+          v69 = v20;
           do
           {
-            if (*v102 != v21)
+            if (*v99 != v21)
             {
               objc_enumerationMutation(obja);
             }
 
-            v23 = *(*(&v101 + 1) + 8 * v22);
-            if (([HDDatabasePruningTask _entityClassSupportsPruning:]& 1) != 0)
+            v23 = *(*(&v98 + 1) + 8 * v22);
+            if (([HDDatabasePruningTask _entityClassSupportsPruning:v23]& 1) != 0)
             {
               if ([v23 conformsToProtocol:&unk_283CCCD88])
               {
                 v24 = [v23 syncEntityIdentifier];
-                v25 = [v78 anchorIfPresentForSyncEntityIdentifier:v24];
+                v25 = [v75 anchorIfPresentForSyncEntityIdentifier:v24];
               }
 
               else
@@ -562,23 +569,23 @@ LABEL_74:
               *buf = 0;
               *&buf[8] = buf;
               *&buf[16] = 0x2020000000;
-              LOBYTE(v106) = 0;
+              LOBYTE(v103) = 0;
               v26 = MEMORY[0x277D85DD0];
               while (1)
               {
-                v89 = v26;
-                v90 = 3221225472;
-                v91 = __118__HDDatabasePruningTask__pruneDatabaseUsingMinAnchorWithNowDate_prunedObjectLimit_prunedObjectTransactionLimit_error___block_invoke;
-                v92 = &unk_27862E570;
-                v98 = v16;
-                v99 = v15;
-                v96 = v109;
-                v93 = v6;
-                v100 = v23;
+                v86 = v26;
+                v87 = 3221225472;
+                v88 = __118__HDDatabasePruningTask__pruneDatabaseUsingMinAnchorWithNowDate_prunedObjectLimit_prunedObjectTransactionLimit_error___block_invoke;
+                v89 = &unk_27862E570;
+                v95 = v16;
+                v96 = v15;
+                v93 = v106;
+                v90 = v6;
+                v97 = v23;
                 v27 = v25;
-                v94 = v27;
-                v95 = v81;
-                v97 = buf;
+                v91 = v27;
+                v92 = v78;
+                v94 = buf;
                 v28 = HKWithAutoreleasePool();
 
                 if ((v28 & 1) == 0)
@@ -586,12 +593,12 @@ LABEL_74:
                   break;
                 }
 
-                if (*(*&buf[8] + 24) != 1 || *(*&v109[8] + 24) >= v16)
+                if (*(*&buf[8] + 24) != 1 || *(*&v106[8] + 24) >= v16)
                 {
                   _Block_object_dispose(buf, 8);
 
-                  v21 = v71;
-                  v20 = v72;
+                  v21 = v68;
+                  v20 = v69;
                   goto LABEL_22;
                 }
               }
@@ -608,7 +615,7 @@ LABEL_22:
           }
 
           while (v22 != v20);
-          v20 = [obja countByEnumeratingWithState:&v101 objects:&v113 count:16];
+          v20 = [obja countByEnumeratingWithState:&v98 objects:&v110 count:16];
           if (v20)
           {
             continue;
@@ -622,21 +629,21 @@ LABEL_22:
       v29 = HKLogInfrastructure();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = *(*&v109[8] + 24);
+        v30 = *(*&v106[8] + 24);
         v31 = CFAbsoluteTimeGetCurrent();
         *buf = 138543874;
         *&buf[4] = v6;
         *&buf[12] = 2048;
         *&buf[14] = v30;
         *&buf[22] = 2048;
-        v106 = v31 - v19;
+        v103 = v31 - v19;
         _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished pruning %ld objects in %0.2lfs", buf, 0x20u);
       }
 
       v6 = 1;
 LABEL_28:
 
-      _Block_object_dispose(v109, 8);
+      _Block_object_dispose(v106, 8);
     }
 
     else
@@ -650,9 +657,9 @@ LABEL_28:
         v34 = HKLogInfrastructure();
         if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
         {
-          LODWORD(v113) = 138543362;
-          *(&v113 + 4) = v6;
-          _os_log_impl(&dword_228986000, v34, OS_LOG_TYPE_INFO, "%{public}@: Failed to determine minimum frozen anchors before pruning", &v113, 0xCu);
+          LODWORD(v110) = 138543362;
+          *(&v110 + 4) = v6;
+          _os_log_impl(&dword_228986000, v34, OS_LOG_TYPE_INFO, "%{public}@: Failed to determine minimum frozen anchors before pruning", &v110, 0xCu);
         }
       }
 
@@ -661,14 +668,12 @@ LABEL_28:
   }
 
   *(*(a1[7] + 8) + 24) = v6 ^ 1;
-LABEL_80:
-  v58 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)_allEntityClasses
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained((self + 8));
@@ -688,34 +693,34 @@ LABEL_80:
     allValues = [v13 allValues];
 
     v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v16 = allValues;
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v28;
+      v19 = *v27;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v27 + 1) + 8 * i);
-          v22 = [v21 databaseEntitiesForProtectionClass:{1, v27}];
+          v21 = *(*(&v26 + 1) + 8 * i);
+          v22 = [v21 databaseEntitiesForProtectionClass:{1, v26}];
           [v15 addObjectsFromArray:v22];
 
           v23 = [v21 databaseEntitiesForProtectionClass:2];
           [v15 addObjectsFromArray:v23];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v18);
@@ -729,29 +734,27 @@ LABEL_80:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
-- (uint64_t)_entityClassSupportsPruning:
+- (uint64_t)_entityClassSupportsPruning:(uint64_t)pruning
 {
   if (objc_opt_respondsToSelector())
   {
-    v0 = 1;
+    v1 = 1;
   }
 
   else
   {
-    v0 = objc_opt_respondsToSelector();
+    v1 = objc_opt_respondsToSelector();
   }
 
-  return v0 & 1;
+  return v1 & 1;
 }
 
 BOOL __118__HDDatabasePruningTask__pruneDatabaseUsingMinAnchorWithNowDate_prunedObjectLimit_prunedObjectTransactionLimit_error___block_invoke(void *a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   v5 = a1[6];
   v6 = a1[9];
@@ -768,9 +771,9 @@ BOOL __118__HDDatabasePruningTask__pruneDatabaseUsingMinAnchorWithNowDate_pruned
   v8 = a1[11];
   v9 = a1[4];
   v10 = a1[5];
-  v26 = 0;
-  v11 = [(HDDatabasePruningTask *)v9 _pruneObjectsForEntityClass:v8 frozenAnchor:v10 nowDate:v5 limit:v7 error:&v26];
-  v12 = v26;
+  v25 = 0;
+  v11 = [(HDDatabasePruningTask *)v9 _pruneObjectsForEntityClass:v8 frozenAnchor:v10 nowDate:v5 limit:v7 error:&v25];
+  v12 = v25;
   _HKInitializeLogging();
   v13 = HKLogInfrastructure();
   v14 = v13;
@@ -787,13 +790,13 @@ BOOL __118__HDDatabasePruningTask__pruneDatabaseUsingMinAnchorWithNowDate_pruned
         v18 = a1[11];
         v19 = CFAbsoluteTimeGetCurrent();
         *buf = 138544130;
-        v28 = v17;
-        v29 = 2114;
-        v30 = v18;
-        v31 = 2114;
-        v32 = v11;
-        v33 = 2048;
-        v34 = v19 - Current;
+        v27 = v17;
+        v28 = 2114;
+        v29 = v18;
+        v30 = 2114;
+        v31 = v11;
+        v32 = 2048;
+        v33 = v19 - Current;
         _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_INFO, "%{public}@: %{public}@ pruned %{public}@ objects in %0.2lfs", buf, 0x2Au);
       }
     }
@@ -814,14 +817,14 @@ BOOL __118__HDDatabasePruningTask__pruneDatabaseUsingMinAnchorWithNowDate_pruned
   {
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v24 = a1[4];
-      v25 = a1[11];
+      v23 = a1[4];
+      v24 = a1[11];
       *buf = 138543874;
-      v28 = v24;
-      v29 = 2114;
-      v30 = v25;
-      v31 = 2114;
-      v32 = v12;
+      v27 = v23;
+      v28 = 2114;
+      v29 = v24;
+      v30 = 2114;
+      v31 = v12;
       _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Pruning failed for %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -841,7 +844,6 @@ BOOL __118__HDDatabasePruningTask__pruneDatabaseUsingMinAnchorWithNowDate_pruned
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11 != 0;
 }
 
@@ -929,14 +931,14 @@ id __81__HDDatabasePruningTask__pruningRestrictionPredicatesFromStores_forEntity
 
 BOOL __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNowDate_prunedObjectTransactionLimit_shouldDefer_error___block_invoke(void *a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   v5 = a1[6];
   v6 = a1[11];
   v7 = a1[10] - *(*(a1[7] + 8) + 24);
   v9 = a1[4];
   v8 = a1[5];
-  v28 = 0;
+  v27 = 0;
   v10 = v8;
   v11 = v5;
   if (v9)
@@ -944,13 +946,13 @@ BOOL __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNo
     if (objc_opt_respondsToSelector())
     {
       WeakRetained = objc_loadWeakRetained((v9 + 8));
-      [v6 pruneSyncedObjectsWithRestrictionPredicates:v10 limit:v7 nowDate:v11 profile:WeakRetained error:&v28];
+      [v6 pruneSyncedObjectsWithRestrictionPredicates:v10 limit:v7 nowDate:v11 profile:WeakRetained error:&v27];
     }
 
     else
     {
       WeakRetained = [objc_opt_class() _maximumPruningAnchorWithRestrictionPredicates:v10];
-      [(HDDatabasePruningTask *)v9 _pruneObjectsForEntityClass:v6 frozenAnchor:WeakRetained nowDate:v11 limit:v7 error:&v28];
+      [(HDDatabasePruningTask *)v9 _pruneObjectsForEntityClass:v6 frozenAnchor:WeakRetained nowDate:v11 limit:v7 error:&v27];
     }
     v13 = ;
   }
@@ -960,7 +962,7 @@ BOOL __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNo
     v13 = 0;
   }
 
-  v14 = v28;
+  v14 = v27;
   _HKInitializeLogging();
   v15 = HKLogInfrastructure();
   v16 = v15;
@@ -977,13 +979,13 @@ BOOL __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNo
         v20 = a1[11];
         v21 = CFAbsoluteTimeGetCurrent();
         *buf = 138544130;
-        v30 = v19;
-        v31 = 2114;
-        v32 = v20;
-        v33 = 2114;
-        v34 = v13;
-        v35 = 2048;
-        v36 = v21 - Current;
+        v29 = v19;
+        v30 = 2114;
+        v31 = v20;
+        v32 = 2114;
+        v33 = v13;
+        v34 = 2048;
+        v35 = v21 - Current;
         _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_INFO, "%{public}@: %{public}@ pruned %{public}@ objects in %0.2lfs", buf, 0x2Au);
       }
     }
@@ -1006,14 +1008,14 @@ BOOL __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNo
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v26 = a1[4];
-      v27 = a1[11];
+      v25 = a1[4];
+      v26 = a1[11];
       *buf = 138543874;
-      v30 = v26;
-      v31 = 2114;
-      v32 = v27;
-      v33 = 2114;
-      v34 = v14;
+      v29 = v25;
+      v30 = 2114;
+      v31 = v26;
+      v32 = 2114;
+      v33 = v14;
       _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Pruning failed for %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1033,7 +1035,6 @@ BOOL __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNo
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v13 != 0;
 }
 
@@ -1061,32 +1062,32 @@ BOOL __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNo
 
 + (id)_maximumPruningAnchorWithRestrictionPredicates:(id)predicates
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   predicatesCopy = predicates;
   v4 = predicatesCopy;
   if (predicatesCopy && [predicatesCopy count])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       v9 = &unk_283CB4068;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           maximumAnchor = [v11 maximumAnchor];
           longLongValue = [maximumAnchor longLongValue];
           longLongValue2 = [v9 longLongValue];
@@ -1099,7 +1100,7 @@ BOOL __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNo
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -1115,8 +1116,6 @@ BOOL __124__HDDatabasePruningTask__pruneDatabaseUsingRestrictionPredicatesWithNo
   {
     v9 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

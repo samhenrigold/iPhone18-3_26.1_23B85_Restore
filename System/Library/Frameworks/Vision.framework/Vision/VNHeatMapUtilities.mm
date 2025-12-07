@@ -391,7 +391,7 @@ LABEL_14:
 {
   v6 = buffer->height * buffer->width;
   LOBYTE(v44) = 0;
-  std::vector<BOOL>::vector(__p, v6);
+  std::vector<BOOL>::vector(__p, v6, &v44);
   height = buffer->height;
   if (height)
   {

@@ -49,6 +49,7 @@
 - (TUCall)initWithCall:(id)call;
 - (TUCall)initWithCoder:(id)coder;
 - (TUCall)initWithNotificationCenter:(id)center;
+- (TUCall)initWithUniqueProxyIdentifier:(id)identifier endpointOnCurrentDevice:(BOOL)device;
 - (TUCall)initWithUniqueProxyIdentifier:(id)identifier endpointOnCurrentDevice:(BOOL)device notificationCenter:(id)center;
 - (TUCallCenter)callCenter;
 - (TUCallProvider)provider;
@@ -681,12 +682,12 @@ LABEL_10:
 
 - (int)smartHoldingAvailability
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
   localeIdentifier = [currentLocale localeIdentifier];
 
   remoteParticipantHandles = [(TUCall *)self remoteParticipantHandles];
-  v26 = [remoteParticipantHandles count];
+  v25 = [remoteParticipantHandles count];
 
   isConferenced = [(TUCall *)self isConferenced];
   provider = [(TUCall *)self provider];
@@ -702,11 +703,11 @@ LABEL_10:
   isCaptioningAvailable = [(TUCall *)self isCaptioningAvailable];
   isSmartHoldingGASRAvailable = [(TUCall *)self isSmartHoldingGASRAvailable];
   v15 = isSmartHoldingGASRAvailable;
-  v25 = isSystemProvider;
+  v24 = isSystemProvider;
   v16 = isSystemProvider ^ 1;
   v17 = isConferenced;
-  v18 = (v26 != 1) | isConferenced | v16 | (isEmergency || status != 1) | ~isEndpointOnCurrentDevice | isVideo | ~v12;
-  if (isCaptioningAvailable && isSmartHoldingGASRAvailable)
+  v18 = (v25 != 1) | isConferenced | v16 | (isEmergency || status != 1) | ~isEndpointOnCurrentDevice | isVideo | ~v12;
+  if ((isCaptioningAvailable & isSmartHoldingGASRAvailable) != 0)
   {
     v19 = 1;
   }
@@ -726,41 +727,40 @@ LABEL_10:
     v20 = v19;
   }
 
-  v27 = v20;
-  v21 = TUDefaultLog();
+  v26 = v20;
+  v21 = TUDefaultLog(isSmartHoldingGASRAvailable);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67112194;
-    v30 = v27;
-    v31 = 1024;
-    v32 = v26 == 1;
-    v33 = 1024;
-    v34 = !v17;
-    v35 = 1024;
-    v36 = v25 & 1;
-    v37 = 1024;
-    v38 = !isEmergency;
-    v39 = 1024;
-    v40 = status == 1;
-    v41 = 1024;
+    v29 = v26;
+    v30 = 1024;
+    v31 = v25 == 1;
+    v32 = 1024;
+    v33 = !v17;
+    v34 = 1024;
+    v35 = v24 & 1;
+    v36 = 1024;
+    v37 = !isEmergency;
+    v38 = 1024;
+    v39 = status == 1;
+    v40 = 1024;
     callStatus = [(TUCall *)self callStatus];
-    v43 = 1024;
-    v44 = isEndpointOnCurrentDevice & 1;
-    v45 = 1024;
-    v46 = !isVideo;
-    v47 = 1024;
-    v48 = v12 & 1;
-    v49 = 2112;
-    v50 = localeIdentifier;
-    v51 = 1024;
-    v52 = isCaptioningAvailable;
-    v53 = 1024;
-    v54 = v15;
+    v42 = 1024;
+    v43 = isEndpointOnCurrentDevice & 1;
+    v44 = 1024;
+    v45 = !isVideo;
+    v46 = 1024;
+    v47 = v12 & 1;
+    v48 = 2112;
+    v49 = localeIdentifier;
+    v50 = 1024;
+    v51 = isCaptioningAvailable;
+    v52 = 1024;
+    v53 = v15 & 1;
     _os_log_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEFAULT, "smartHoldingAvailability=%i, validRemoteParticipantCount=%i validNotConferenced=%i, validSystemProvider=%i, validNotEmergencyCall=%i, validCallStatus=%i(%i), validEndpointOnCurrentDevice=%i, validIsNotVideo=%i, validLocale=%i(%@), validCaptioningAvailable=%i, isGASRAvailable=%i", buf, 0x54u);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-  return v27;
+  return v26;
 }
 
 - (NSString)hardPauseDigitsDisplayString
@@ -808,13 +808,24 @@ LABEL_10:
   return v6;
 }
 
+- (TUCall)initWithUniqueProxyIdentifier:(id)identifier endpointOnCurrentDevice:(BOOL)device
+{
+  deviceCopy = device;
+  v6 = MEMORY[0x1E696AD88];
+  identifierCopy = identifier;
+  defaultCenter = [v6 defaultCenter];
+  v9 = [(TUCall *)self initWithUniqueProxyIdentifier:identifierCopy endpointOnCurrentDevice:deviceCopy notificationCenter:defaultCenter];
+
+  return v9;
+}
+
 - (TUCall)initWithUniqueProxyIdentifier:(id)identifier endpointOnCurrentDevice:(BOOL)device notificationCenter:(id)center
 {
   identifierCopy = identifier;
   centerCopy = center;
-  v36.receiver = self;
-  v36.super_class = TUCall;
-  v11 = [(TUCall *)&v36 init];
+  v37.receiver = self;
+  v37.super_class = TUCall;
+  v11 = [(TUCall *)&v37 init];
   if (v11)
   {
     [centerCopy addObserver:v11 selector:sel__handleStatusChange name:@"TUCallCenterCallStatusChangedInternalNotification" object:v11];
@@ -848,7 +859,7 @@ LABEL_10:
     aBlock[1] = 3221225472;
     aBlock[2] = __83__TUCall_initWithUniqueProxyIdentifier_endpointOnCurrentDevice_notificationCenter___block_invoke;
     aBlock[3] = &unk_1E74276C8;
-    objc_copyWeak(&v34, &location);
+    objc_copyWeak(&v35, &location);
     v22 = _Block_copy(aBlock);
     contactsDataSourceCreationBlock = v11->_contactsDataSourceCreationBlock;
     v11->_contactsDataSourceCreationBlock = v22;
@@ -858,28 +869,28 @@ LABEL_10:
 
     if (_TUIsInternalInstall() && ([MEMORY[0x1E695E000] tu_defaults], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "BOOLForKey:", @"isInternalBypassAIForCalls"), v25, v26))
     {
-      v27 = TUDefaultLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v28 = TUDefaultLog(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v32[0] = 0;
-        _os_log_impl(&dword_1956FD000, v27, OS_LOG_TYPE_DEFAULT, "_isAppleIntelligenceEnabled defaults to YES", v32, 2u);
+        v33[0] = 0;
+        _os_log_impl(&dword_1956FD000, v28, OS_LOG_TYPE_DEFAULT, "_isAppleIntelligenceEnabled defaults to YES", v33, 2u);
       }
 
-      v28 = &__block_literal_global_271;
+      v29 = &__block_literal_global_271;
     }
 
     else
     {
-      v28 = &__block_literal_global_274;
+      v29 = &__block_literal_global_274;
     }
 
     isAppleIntelligenceEnabled = v11->_isAppleIntelligenceEnabled;
-    v11->_isAppleIntelligenceEnabled = v28;
+    v11->_isAppleIntelligenceEnabled = v29;
 
     lowPowerModeEnabledBlock = v11->_lowPowerModeEnabledBlock;
     v11->_lowPowerModeEnabledBlock = &__block_literal_global_277;
 
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v35);
     objc_destroyWeak(&location);
   }
 
@@ -947,7 +958,7 @@ uint64_t __83__TUCall_initWithUniqueProxyIdentifier_endpointOnCurrentDevice_noti
   [callNotificationManager deferNotificationsUntilAfterPerformingBlock:v7];
 }
 
-uint64_t __28__TUCall_answerWithRequest___block_invoke(uint64_t a1)
+void *__28__TUCall_answerWithRequest___block_invoke(uint64_t a1)
 {
   v2 = 1;
   [*(a1 + 32) setTransitionStatus:1];
@@ -1036,7 +1047,7 @@ LABEL_11:
   [callNotificationManager deferNotificationsUntilAfterPerformingBlock:v6];
 }
 
-uint64_t __31__TUCall_disconnectWithReason___block_invoke(uint64_t a1)
+void *__31__TUCall_disconnectWithReason___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setTransitionStatus:5];
   result = [*(a1 + 32) disconnectedReason];
@@ -1211,8 +1222,8 @@ LABEL_7:
 
     if (validityErrorForEmergencyCall)
     {
-      v15 = TUDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = TUDefaultLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [(TUCall *)v5 dialRequestForRedial];
       }
@@ -2317,7 +2328,7 @@ LABEL_7:
 - (BOOL)_isEligibleForManualScreening:(BOOL)screening languageIdentifier:(id)identifier
 {
   screeningCopy = screening;
-  v38 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (screeningCopy)
   {
@@ -2328,14 +2339,14 @@ LABEL_7:
 
       if (!isHostedOnCurrentDevice)
       {
-        v9 = TUDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = TUDefaultLog(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v32) = 0;
-          _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: YES because it is a relay call that can screen", &v32, 2u);
+          LOWORD(v37) = 0;
+          _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: YES because it is a relay call that can screen", &v37, 2u);
         }
 
-        LOBYTE(v10) = 1;
+        LOBYTE(v11) = 1;
         goto LABEL_49;
       }
     }
@@ -2346,22 +2357,22 @@ LABEL_7:
   }
 
   featureFlags2 = [(TUCall *)self featureFlags];
-  v10 = TUCallScreeningEnabled(featureFlags2, 0, identifierCopy);
+  v11 = TUCallScreeningEnabled(featureFlags2, 0, identifierCopy);
 
-  if (v10)
+  if (v11)
   {
     clarityEnabledBlock = [(TUCall *)self clarityEnabledBlock];
-    v13 = clarityEnabledBlock[2]();
+    v15 = clarityEnabledBlock[2]();
 
-    if (v13)
+    if (v15)
     {
-      v9 = TUDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = TUDefaultLog(v16);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v32) = 0;
-        v14 = "isEligibleForScreening: NO because ClarityUI is enabled";
+        LOWORD(v37) = 0;
+        v17 = "isEligibleForScreening: NO because ClarityUI is enabled";
 LABEL_23:
-        _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, v14, &v32, 2u);
+        _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, v17, &v37, 2u);
         goto LABEL_24;
       }
 
@@ -2371,31 +2382,32 @@ LABEL_23:
     if (!screeningCopy)
     {
       lowPowerModeEnabledBlock = [(TUCall *)self lowPowerModeEnabledBlock];
-      v16 = lowPowerModeEnabledBlock[2]();
+      v19 = lowPowerModeEnabledBlock[2]();
 
-      if (v16)
+      if (v19)
       {
-        v9 = TUDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = TUDefaultLog(v20);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v32) = 0;
-          v14 = "isEligibleForScreening: NO because the device is in low power mode";
+          LOWORD(v37) = 0;
+          v17 = "isEligibleForScreening: NO because the device is in low power mode";
           goto LABEL_23;
         }
 
 LABEL_24:
-        LOBYTE(v10) = 0;
+        LOBYTE(v11) = 0;
         goto LABEL_49;
       }
     }
 
-    if (![(TUCall *)self supportsScreening])
+    supportsScreening = [(TUCall *)self supportsScreening];
+    if ((supportsScreening & 1) == 0)
     {
-      v9 = TUDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = TUDefaultLog(supportsScreening);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v32) = 0;
-        v14 = "isEligibleForScreening: NO because the call provider reports this call does not support screening";
+        LOWORD(v37) = 0;
+        v17 = "isEligibleForScreening: NO because the call provider reports this call does not support screening";
         goto LABEL_23;
       }
 
@@ -2404,12 +2416,11 @@ LABEL_24:
 
     if ([(TUCall *)self priority]== 2)
     {
-      [(TUCall *)self setLiveVoicemailUnavailableReason:7];
-      remoteParticipantHandles = TUDefaultLog();
+      remoteParticipantHandles = TUDefaultLog([(TUCall *)self setLiveVoicemailUnavailableReason:7]);
       if (os_log_type_enabled(remoteParticipantHandles, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v32) = 0;
-        _os_log_impl(&dword_1956FD000, remoteParticipantHandles, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: High Priority call, not screenable", &v32, 2u);
+        LOWORD(v37) = 0;
+        _os_log_impl(&dword_1956FD000, remoteParticipantHandles, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: High Priority call, not screenable", &v37, 2u);
       }
 
       goto LABEL_37;
@@ -2437,19 +2448,19 @@ LABEL_24:
     if (!isFaceTimeProvider)
     {
 LABEL_38:
-      v22 = TUDefaultLog();
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v28 = TUDefaultLog(v27);
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_41:
 
-        v10 = 0;
+        v11 = 0;
         goto LABEL_42;
       }
 
-      LOWORD(v32) = 0;
-      v23 = "isEligibleForScreening: NO, either telephony roaming, Junk Call, or Emergency or not a U+1 audio call from a contact";
+      LOWORD(v37) = 0;
+      v29 = "isEligibleForScreening: NO, either telephony roaming, Junk Call, or Emergency or not a U+1 audio call from a contact";
 LABEL_40:
-      _os_log_impl(&dword_1956FD000, v22, OS_LOG_TYPE_DEFAULT, v23, &v32, 2u);
+      _os_log_impl(&dword_1956FD000, v28, OS_LOG_TYPE_DEFAULT, v29, &v37, 2u);
       goto LABEL_41;
     }
 
@@ -2462,11 +2473,11 @@ LABEL_37:
     }
 
     isConversation = [(TUCall *)self isConversation];
-    v29 = isConversation;
+    v34 = isConversation;
     if (!isConversation || screeningCopy)
     {
 
-      if (!v29)
+      if (!v34)
       {
         goto LABEL_38;
       }
@@ -2475,65 +2486,65 @@ LABEL_37:
     else
     {
       contactIdentifiers = [(TUCall *)self contactIdentifiers];
-      v31 = [contactIdentifiers count];
+      v36 = [contactIdentifiers count];
 
-      if (!v31)
+      if (!v36)
       {
         goto LABEL_38;
       }
     }
 
 LABEL_32:
-    if ([(TUCall *)self isAnsweringMachineAvailable]|| [(TUCall *)self supportsScreening]&& ![(TUCall *)self isHostedOnCurrentDevice])
+    isAnsweringMachineAvailable = [(TUCall *)self isAnsweringMachineAvailable];
+    if ((isAnsweringMachineAvailable & 1) != 0 || (isAnsweringMachineAvailable = [(TUCall *)self supportsScreening], isAnsweringMachineAvailable) && (isAnsweringMachineAvailable = [(TUCall *)self isHostedOnCurrentDevice], !isAnsweringMachineAvailable))
     {
-      v10 = 1;
+      v11 = 1;
       goto LABEL_42;
     }
 
-    v22 = TUDefaultLog();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v28 = TUDefaultLog(isAnsweringMachineAvailable);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
     }
 
-    LOWORD(v32) = 0;
-    v23 = "isEligibleForScreening: NO, Answering Machine is not currently available for host";
+    LOWORD(v37) = 0;
+    v29 = "isEligibleForScreening: NO, Answering Machine is not currently available for host";
     goto LABEL_40;
   }
 
 LABEL_42:
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(isAnsweringMachineAvailable);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = @"NO";
-    if (v10)
+    v30 = @"NO";
+    if (v11)
     {
-      v25 = @"YES";
+      v31 = @"YES";
     }
 
     else
     {
-      v25 = @"NO";
+      v31 = @"NO";
     }
 
-    v32 = 138412802;
-    v33 = v25;
-    v34 = 2112;
+    v37 = 138412802;
+    v38 = v31;
+    v39 = 2112;
     if (screeningCopy)
     {
-      v24 = @"YES";
+      v30 = @"YES";
     }
 
-    v35 = v24;
-    v36 = 2112;
+    v40 = v30;
+    v41 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: %@ manualScreening: %@ for call: %@", &v32, 0x20u);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: %@ manualScreening: %@ for call: %@", &v37, 0x20u);
   }
 
 LABEL_49:
 
-  v26 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v11;
 }
 
 - (BOOL)isPodcastRecordingAllowed
@@ -2550,7 +2561,8 @@ LABEL_49:
   displayContext = [(TUCall *)self displayContext];
   contactName = [displayContext contactName];
 
-  if ([(TUCall *)self smartHoldingAvailability]!= 1)
+  smartHoldingAvailability = [(TUCall *)self smartHoldingAvailability];
+  if (smartHoldingAvailability != 1)
   {
     v20 = 2;
     goto LABEL_19;
@@ -2571,7 +2583,7 @@ LABEL_17:
     lowPowerModeEnabledBlock = [(TUCall *)self lowPowerModeEnabledBlock];
     if (lowPowerModeEnabledBlock[2]())
     {
-      v8 = 2;
+      v9 = 2;
     }
 
     else
@@ -2587,21 +2599,21 @@ LABEL_16:
       isEmergency = [(TUCall *)self isEmergency];
       if (contactName)
       {
-        v8 = 2;
+        v9 = 2;
       }
 
       else
       {
-        v8 = 1;
+        v9 = 1;
       }
 
       if (isEmergency)
       {
-        v8 = 2;
+        v9 = 2;
       }
     }
 
-    v20 = v8;
+    v20 = v9;
     goto LABEL_16;
   }
 
@@ -2609,8 +2621,8 @@ LABEL_16:
 LABEL_18:
 
 LABEL_19:
-  v10 = TUDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = TUDefaultLog(smartHoldingAvailability);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v19 = contactName == 0;
     configurationProvider2 = [(TUCall *)self configurationProvider];
@@ -2618,7 +2630,7 @@ LABEL_19:
     provider2 = [(TUCall *)self provider];
     isTelephonyProvider = [provider2 isTelephonyProvider];
     lowPowerModeEnabledBlock2 = [(TUCall *)self lowPowerModeEnabledBlock];
-    v16 = lowPowerModeEnabledBlock2[2]();
+    v17 = lowPowerModeEnabledBlock2[2]();
     *buf = 67110912;
     v22 = v20;
     v23 = 1024;
@@ -2626,19 +2638,18 @@ LABEL_19:
     v25 = 1024;
     v26 = isTelephonyProvider;
     v27 = 1024;
-    v28 = v16;
+    v28 = v17;
     v29 = 1024;
-    smartHoldingAvailability = [(TUCall *)self smartHoldingAvailability];
+    smartHoldingAvailability2 = [(TUCall *)self smartHoldingAvailability];
     v31 = 1024;
     isOutgoing = [(TUCall *)self isOutgoing];
     v33 = 1024;
     isEmergency2 = [(TUCall *)self isEmergency];
     v35 = 1024;
     v36 = v19;
-    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "smartHoldingHoldDetectionAvailability=%i, isHoldAssistDetectionEnabled=%i, isTelephonyProvider=%i, lowPowerModeEnabledBlock=%i, smartHoldingAvailability=%i, isOutgoing=%i, isEmergency=%i, isUnknownContact=%i", buf, 0x32u);
+    _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "smartHoldingHoldDetectionAvailability=%i, isHoldAssistDetectionEnabled=%i, isTelephonyProvider=%i, lowPowerModeEnabledBlock=%i, smartHoldingAvailability=%i, isOutgoing=%i, isEmergency=%i, isUnknownContact=%i", buf, 0x32u);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -2660,13 +2671,11 @@ LABEL_19:
 
 - (void)dialRequestForRedial
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   handle = [self handle];
-  v5 = 138412290;
-  v6 = handle;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Call was emergency, but handle %@ is not considered to be an emergency handle. Setting redial dialType to normal.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = handle;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Call was emergency, but handle %@ is not considered to be an emergency handle. Setting redial dialType to normal.", &v4, 0xCu);
 }
 
 @end

@@ -15,7 +15,7 @@
 
 - (void)configureDeviceWithName:(id)name room:(id)room completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   roomCopy = room;
   handlerCopy = handler;
@@ -26,32 +26,31 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v26 = v14;
-    v27 = 2112;
-    v28 = nameCopy;
-    v29 = 2112;
-    v30 = roomCopy;
+    v25 = v14;
+    v26 = 2112;
+    v27 = nameCopy;
+    v28 = 2112;
+    v29 = roomCopy;
     _os_log_impl(&dword_239824000, v13, OS_LOG_TYPE_INFO, "%{public}@Sending configure device request with name: %@, room: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
   xpcConnection = [(MTSDeviceSetupExtensionMessenger *)selfCopy xpcConnection];
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __83__MTSDeviceSetupExtensionMessenger_configureDeviceWithName_room_completionHandler___block_invoke;
-  v22 = &unk_278AA1AD0;
-  v23 = selfCopy;
-  v24 = handlerCopy;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __83__MTSDeviceSetupExtensionMessenger_configureDeviceWithName_room_completionHandler___block_invoke;
+  v21 = &unk_278AA1AD0;
+  v22 = selfCopy;
+  v23 = handlerCopy;
   v16 = handlerCopy;
-  v17 = [xpcConnection remoteObjectProxyWithErrorHandler:&v19];
+  v17 = [xpcConnection remoteObjectProxyWithErrorHandler:&v18];
 
-  [v17 configureDeviceWithName:nameCopy room:roomCopy completionHandler:{v16, v19, v20, v21, v22, v23}];
-  v18 = *MEMORY[0x277D85DE8];
+  [v17 configureDeviceWithName:nameCopy room:roomCopy completionHandler:{v16, v18, v19, v20, v21, v22}];
 }
 
 void __83__MTSDeviceSetupExtensionMessenger_configureDeviceWithName_room_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -59,22 +58,20 @@ void __83__MTSDeviceSetupExtensionMessenger_configureDeviceWithName_room_complet
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to configure device: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to configure device: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchRoomsInHome:(id)home completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -84,30 +81,29 @@ void __83__MTSDeviceSetupExtensionMessenger_configureDeviceWithName_room_complet
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v11;
-    v24 = 2112;
-    v25 = homeCopy;
+    v22 = v11;
+    v23 = 2112;
+    v24 = homeCopy;
     _os_log_impl(&dword_239824000, v10, OS_LOG_TYPE_INFO, "%{public}@Sending fetch rooms request with home: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   xpcConnection = [(MTSDeviceSetupExtensionMessenger *)selfCopy xpcConnection];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __71__MTSDeviceSetupExtensionMessenger_fetchRoomsInHome_completionHandler___block_invoke;
-  v19 = &unk_278AA1AD0;
-  v20 = selfCopy;
-  v21 = handlerCopy;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __71__MTSDeviceSetupExtensionMessenger_fetchRoomsInHome_completionHandler___block_invoke;
+  v18 = &unk_278AA1AD0;
+  v19 = selfCopy;
+  v20 = handlerCopy;
   v13 = handlerCopy;
-  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:&v16];
+  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:&v15];
 
-  [v14 fetchRoomsInHome:homeCopy completionHandler:{v13, v16, v17, v18, v19, v20}];
-  v15 = *MEMORY[0x277D85DE8];
+  [v14 fetchRoomsInHome:homeCopy completionHandler:{v13, v15, v16, v17, v18, v19}];
 }
 
 void __71__MTSDeviceSetupExtensionMessenger_fetchRoomsInHome_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -115,22 +111,20 @@ void __71__MTSDeviceSetupExtensionMessenger_fetchRoomsInHome_completionHandler__
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to fetch rooms: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to fetch rooms: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pairDeviceInHome:(id)home onboardingPayload:(id)payload uuid:(id)uuid completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   payloadCopy = payload;
   uuidCopy = uuid;
@@ -142,34 +136,33 @@ void __71__MTSDeviceSetupExtensionMessenger_fetchRoomsInHome_completionHandler__
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v29 = v17;
-    v30 = 2112;
-    v31 = homeCopy;
-    v32 = 2112;
-    v33 = payloadCopy;
-    v34 = 2112;
-    v35 = uuidCopy;
+    v28 = v17;
+    v29 = 2112;
+    v30 = homeCopy;
+    v31 = 2112;
+    v32 = payloadCopy;
+    v33 = 2112;
+    v34 = uuidCopy;
     _os_log_impl(&dword_239824000, v16, OS_LOG_TYPE_INFO, "%{public}@Sending pair device request with home: %@, onboardingPayload: %@, uuid: %@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v14);
   xpcConnection = [(MTSDeviceSetupExtensionMessenger *)selfCopy xpcConnection];
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = __94__MTSDeviceSetupExtensionMessenger_pairDeviceInHome_onboardingPayload_uuid_completionHandler___block_invoke;
-  v25 = &unk_278AA1AD0;
-  v26 = selfCopy;
-  v27 = handlerCopy;
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __94__MTSDeviceSetupExtensionMessenger_pairDeviceInHome_onboardingPayload_uuid_completionHandler___block_invoke;
+  v24 = &unk_278AA1AD0;
+  v25 = selfCopy;
+  v26 = handlerCopy;
   v19 = handlerCopy;
-  v20 = [xpcConnection remoteObjectProxyWithErrorHandler:&v22];
+  v20 = [xpcConnection remoteObjectProxyWithErrorHandler:&v21];
 
-  [v20 pairDeviceInHome:homeCopy onboardingPayload:payloadCopy uuid:uuidCopy completionHandler:{v19, v22, v23, v24, v25, v26}];
-  v21 = *MEMORY[0x277D85DE8];
+  [v20 pairDeviceInHome:homeCopy onboardingPayload:payloadCopy uuid:uuidCopy completionHandler:{v19, v21, v22, v23, v24, v25}];
 }
 
 void __94__MTSDeviceSetupExtensionMessenger_pairDeviceInHome_onboardingPayload_uuid_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -177,22 +170,20 @@ void __94__MTSDeviceSetupExtensionMessenger_pairDeviceInHome_onboardingPayload_u
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to pair device: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to pair device: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateDeviceCredential:(id)credential completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -202,30 +193,29 @@ void __94__MTSDeviceSetupExtensionMessenger_pairDeviceInHome_onboardingPayload_u
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v11;
-    v24 = 2112;
-    v25 = credentialCopy;
+    v22 = v11;
+    v23 = 2112;
+    v24 = credentialCopy;
     _os_log_impl(&dword_239824000, v10, OS_LOG_TYPE_INFO, "%{public}@Sending validate device credential request with deviceCredential: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   xpcConnection = [(MTSDeviceSetupExtensionMessenger *)selfCopy xpcConnection];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __79__MTSDeviceSetupExtensionMessenger_validateDeviceCredential_completionHandler___block_invoke;
-  v19 = &unk_278AA1AD0;
-  v20 = selfCopy;
-  v21 = handlerCopy;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __79__MTSDeviceSetupExtensionMessenger_validateDeviceCredential_completionHandler___block_invoke;
+  v18 = &unk_278AA1AD0;
+  v19 = selfCopy;
+  v20 = handlerCopy;
   v13 = handlerCopy;
-  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:&v16];
+  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:&v15];
 
-  [v14 validateDeviceCredential:credentialCopy completionHandler:{v13, v16, v17, v18, v19, v20}];
-  v15 = *MEMORY[0x277D85DE8];
+  [v14 validateDeviceCredential:credentialCopy completionHandler:{v13, v15, v16, v17, v18, v19}];
 }
 
 void __79__MTSDeviceSetupExtensionMessenger_validateDeviceCredential_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -233,22 +223,20 @@ void __79__MTSDeviceSetupExtensionMessenger_validateDeviceCredential_completionH
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to validate device: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to validate device: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)selectThreadNetworkFromScanResults:(id)results completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -258,30 +246,29 @@ void __79__MTSDeviceSetupExtensionMessenger_validateDeviceCredential_completionH
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v11;
-    v24 = 2112;
-    v25 = resultsCopy;
+    v22 = v11;
+    v23 = 2112;
+    v24 = resultsCopy;
     _os_log_impl(&dword_239824000, v10, OS_LOG_TYPE_INFO, "%{public}@Sending select thread network request with threadScanResults: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   xpcConnection = [(MTSDeviceSetupExtensionMessenger *)selfCopy xpcConnection];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __89__MTSDeviceSetupExtensionMessenger_selectThreadNetworkFromScanResults_completionHandler___block_invoke;
-  v19 = &unk_278AA1AD0;
-  v20 = selfCopy;
-  v21 = handlerCopy;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __89__MTSDeviceSetupExtensionMessenger_selectThreadNetworkFromScanResults_completionHandler___block_invoke;
+  v18 = &unk_278AA1AD0;
+  v19 = selfCopy;
+  v20 = handlerCopy;
   v13 = handlerCopy;
-  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:&v16];
+  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:&v15];
 
-  [v14 selectThreadNetworkFromScanResults:resultsCopy completionHandler:{v13, v16, v17, v18, v19, v20}];
-  v15 = *MEMORY[0x277D85DE8];
+  [v14 selectThreadNetworkFromScanResults:resultsCopy completionHandler:{v13, v15, v16, v17, v18, v19}];
 }
 
 void __89__MTSDeviceSetupExtensionMessenger_selectThreadNetworkFromScanResults_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -289,22 +276,20 @@ void __89__MTSDeviceSetupExtensionMessenger_selectThreadNetworkFromScanResults_c
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to select thread network: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to select thread network: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)selectWiFiNetworkFromScanResults:(id)results completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -314,30 +299,29 @@ void __89__MTSDeviceSetupExtensionMessenger_selectThreadNetworkFromScanResults_c
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v11;
-    v24 = 2112;
-    v25 = resultsCopy;
+    v22 = v11;
+    v23 = 2112;
+    v24 = resultsCopy;
     _os_log_impl(&dword_239824000, v10, OS_LOG_TYPE_INFO, "%{public}@Sending select WiFi network request with wifiScanResults: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   xpcConnection = [(MTSDeviceSetupExtensionMessenger *)selfCopy xpcConnection];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_completionHandler___block_invoke;
-  v19 = &unk_278AA1AD0;
-  v20 = selfCopy;
-  v21 = handlerCopy;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_completionHandler___block_invoke;
+  v18 = &unk_278AA1AD0;
+  v19 = selfCopy;
+  v20 = handlerCopy;
   v13 = handlerCopy;
-  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:&v16];
+  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:&v15];
 
-  [v14 selectWiFiNetworkFromScanResults:resultsCopy completionHandler:{v13, v16, v17, v18, v19, v20}];
-  v15 = *MEMORY[0x277D85DE8];
+  [v14 selectWiFiNetworkFromScanResults:resultsCopy completionHandler:{v13, v15, v16, v17, v18, v19}];
 }
 
 void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -345,22 +329,20 @@ void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_com
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to select wifi network: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain deviceSetupProxy to select wifi network: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)startWithError:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -368,7 +350,7 @@ void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_com
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v50 = v8;
+    v49 = v8;
     _os_log_impl(&dword_239824000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting device setup extension messenger", buf, 0xCu);
   }
 
@@ -377,19 +359,19 @@ void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_com
   executeExtensionQueryHandler = [(MTSDeviceSetupExtensionMessenger *)selfCopy executeExtensionQueryHandler];
   v11 = (executeExtensionQueryHandler)[2](executeExtensionQueryHandler, v9);
 
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke;
-  v48[3] = &unk_278AA19E8;
-  v48[4] = selfCopy;
-  v12 = [v11 na_firstObjectPassingTest:v48];
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke;
+  v47[3] = &unk_278AA19E8;
+  v47[4] = selfCopy;
+  v12 = [v11 na_firstObjectPassingTest:v47];
   if (v12)
   {
     v13 = [objc_alloc(MEMORY[0x277CC5DF0]) initWithExtensionIdentity:v12];
     extensionProcessFactory = [(MTSDeviceSetupExtensionMessenger *)selfCopy extensionProcessFactory];
-    v47 = 0;
-    v15 = (extensionProcessFactory)[2](extensionProcessFactory, v13, &v47);
-    v16 = v47;
+    v46 = 0;
+    v15 = (extensionProcessFactory)[2](extensionProcessFactory, v13, &v46);
+    v16 = v46;
     [(MTSDeviceSetupExtensionMessenger *)selfCopy setExtensionProcess:v15];
 
     extensionProcess = [(MTSDeviceSetupExtensionMessenger *)selfCopy extensionProcess];
@@ -404,11 +386,11 @@ void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_com
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v50 = v33;
-        v51 = 2112;
-        v52 = v13;
-        v53 = 2112;
-        v54 = v16;
+        v49 = v33;
+        v50 = 2112;
+        v51 = v13;
+        v52 = 2112;
+        v53 = v16;
         _os_log_impl(&dword_239824000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to create extension process from configuration %@: %@", buf, 0x20u);
       }
 
@@ -429,9 +411,9 @@ void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_com
     else
     {
       extensionProcess2 = [(MTSDeviceSetupExtensionMessenger *)selfCopy extensionProcess];
-      v46 = 0;
-      v19 = [extensionProcess2 makeMTSXPCConnectionWithError:&v46];
-      v43 = v46;
+      v45 = 0;
+      v19 = [extensionProcess2 makeMTSXPCConnectionWithError:&v45];
+      v42 = v45;
       [(MTSDeviceSetupExtensionMessenger *)selfCopy setXpcConnection:v19];
 
       xpcConnection = [(MTSDeviceSetupExtensionMessenger *)selfCopy xpcConnection];
@@ -444,18 +426,18 @@ void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_com
         [xpcConnection2 setRemoteObjectInterface:mts_deviceSetupExtensionInterface];
 
         objc_initWeak(buf, selfCopy);
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke_68;
-        v44[3] = &unk_278AA1AA8;
-        objc_copyWeak(&v45, buf);
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke_68;
+        v43[3] = &unk_278AA1AA8;
+        objc_copyWeak(&v44, buf);
         xpcConnection3 = [(MTSDeviceSetupExtensionMessenger *)selfCopy xpcConnection];
-        [xpcConnection3 setInterruptionHandler:v44];
+        [xpcConnection3 setInterruptionHandler:v43];
 
         xpcConnection4 = [(MTSDeviceSetupExtensionMessenger *)selfCopy xpcConnection];
         [xpcConnection4 activate];
 
-        objc_destroyWeak(&v45);
+        objc_destroyWeak(&v44);
         objc_destroyWeak(buf);
       }
 
@@ -466,22 +448,22 @@ void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_com
         v36 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
-          v41 = HMFGetLogIdentifier();
+          v40 = HMFGetLogIdentifier();
           extensionProcess3 = [(MTSDeviceSetupExtensionMessenger *)v35 extensionProcess];
           *buf = 138543874;
-          v50 = v41;
-          v51 = 2112;
-          v52 = extensionProcess3;
-          v53 = 2112;
-          v54 = v43;
+          v49 = v40;
+          v50 = 2112;
+          v51 = extensionProcess3;
+          v52 = 2112;
+          v53 = v42;
           _os_log_impl(&dword_239824000, v36, OS_LOG_TYPE_ERROR, "%{public}@Failed to make XPC connection with extension process %@: %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(context);
         if (error)
         {
-          v38 = v43;
-          *error = v43;
+          v38 = v42;
+          *error = v42;
         }
       }
     }
@@ -496,9 +478,9 @@ void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_com
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v29;
-      v51 = 2112;
-      v52 = @"com.apple.matter.support.extension.device-setup";
+      v49 = v29;
+      v50 = 2112;
+      v51 = @"com.apple.matter.support.extension.device-setup";
       _os_log_impl(&dword_239824000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to find identity for extension identifier: %@", buf, 0x16u);
     }
 
@@ -515,7 +497,6 @@ void __87__MTSDeviceSetupExtensionMessenger_selectWiFiNetworkFromScanResults_com
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -530,7 +511,7 @@ uint64_t __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke(ui
 
 void __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke_68(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = objc_autoreleasePoolPush();
   v3 = WeakRetained;
@@ -538,13 +519,12 @@ void __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke_68(uin
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_239824000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Device setup XPC connection was interrupted", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_239824000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Device setup XPC connection was interrupted", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -562,9 +542,9 @@ void __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke_68(uin
   if (lCopy)
   {
     v5 = lCopy;
-    v13.receiver = self;
-    v13.super_class = MTSDeviceSetupExtensionMessenger;
-    v6 = [(MTSDeviceSetupExtensionMessenger *)&v13 init];
+    v15.receiver = self;
+    v15.super_class = MTSDeviceSetupExtensionMessenger;
+    v6 = [(MTSDeviceSetupExtensionMessenger *)&v15 init];
     if (v6)
     {
       v7 = [v5 copy];
@@ -584,7 +564,7 @@ void __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke_68(uin
   else
   {
     v12 = _HMFPreconditionFailure();
-    return __67__MTSDeviceSetupExtensionMessenger_initWithContainingAppBundleURL___block_invoke_2(v12);
+    return __67__MTSDeviceSetupExtensionMessenger_initWithContainingAppBundleURL___block_invoke_2(v12, v13, v14);
   }
 }
 
@@ -602,7 +582,6 @@ void __51__MTSDeviceSetupExtensionMessenger_startWithError___block_invoke_68(uin
 
 uint64_t __47__MTSDeviceSetupExtensionMessenger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v9 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

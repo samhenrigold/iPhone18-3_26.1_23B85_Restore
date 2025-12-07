@@ -26,7 +26,7 @@
 
 - (id)wf_itemAtIndexPath:()Filtering
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
   section = [v4 section];
   sections = [self sections];
@@ -37,11 +37,11 @@
     v9 = getWFEditorLogObject();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315394;
-      v19 = "[INObjectCollection(Filtering) wf_itemAtIndexPath:]";
-      v20 = 2114;
-      v21 = v4;
-      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Illegal indexPath (section): %{public}@", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "[INObjectCollection(Filtering) wf_itemAtIndexPath:]";
+      v19 = 2114;
+      v20 = v4;
+      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Illegal indexPath (section): %{public}@", &v17, 0x16u);
     }
   }
 
@@ -65,18 +65,16 @@
     v15 = getWFEditorLogObject();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315394;
-      v19 = "[INObjectCollection(Filtering) wf_itemAtIndexPath:]";
-      v20 = 2114;
-      v21 = v4;
-      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Illegal indexPath (item): %{public}@", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "[INObjectCollection(Filtering) wf_itemAtIndexPath:]";
+      v19 = 2114;
+      v20 = v4;
+      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Illegal indexPath (item): %{public}@", &v17, 0x16u);
     }
   }
 
   v14 = 0;
 LABEL_10:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

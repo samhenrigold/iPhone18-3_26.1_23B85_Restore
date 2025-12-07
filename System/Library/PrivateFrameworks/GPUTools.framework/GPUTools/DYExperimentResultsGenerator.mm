@@ -57,8 +57,6 @@
   {
     if (*MEMORY[0x277D0B018] != *(MEMORY[0x277D0B018] + 4))
     {
-      v5 = ((self->_frameTimeEnd - self->_frameTimeStart) * *MEMORY[0x277D0B018]) >> 64;
-      v6 = *(MEMORY[0x277D0B018] + 4);
       __udivti3();
     }
 
@@ -66,12 +64,12 @@
     v4 = [(NSMutableDictionary *)[(DYExperiment *)self->_experiment results] objectForKey:@"DurationArray"];
     if (!v4)
     {
-      v7 = objc_opt_new();
-      [(NSMutableDictionary *)[(DYExperiment *)self->_experiment results] setObject:v7 forKey:@"DurationArray"];
-      v4 = v7;
+      v5 = objc_opt_new();
+      [(NSMutableDictionary *)[(DYExperiment *)self->_experiment results] setObject:v5 forKey:@"DurationArray"];
+      v4 = v5;
     }
 
-    v8 = v4;
+    v6 = v4;
     [v4 addObject:v3];
   }
 }
@@ -100,7 +98,6 @@
   v4 = v3 - self->_frameTimeStart;
   if (*MEMORY[0x277D0B018] != *(MEMORY[0x277D0B018] + 4))
   {
-    v15 = (v4 * *MEMORY[0x277D0B018]) >> 64;
     v4 = __udivti3();
   }
 
@@ -125,7 +122,7 @@
         if (!v13)
         {
           [(DYExperimentResultsGenerator *)&self->_experiment endIteration];
-          v13 = v16;
+          v13 = v15;
         }
 
         v14 = [v12 copy];
@@ -213,15 +210,7 @@
   }
 
   v10 = *(p_frameTimeStatistics->__ptr_ + 6);
-  if (*(p_frameTimeStatistics->__ptr_ + 56) < v10)
-  {
-    goto LABEL_2;
-  }
-
-  v9 = p_frameTimeStatistics->__ptr_;
-  v11 = (*(v9[19] + 8 * ((*(v9 + 57) + v10) % v10)) - *(v9[13] + 8 * ((*(v9 + 57) + v10) % v10))) / *(v9[7] + 8 * ((*(v9 + 57) + v10) % v10));
-  [(DYExperiment *)self->_experiment frameTimeVariationLimit1];
-  if (v11 < v12 || (v13 = *(self->_frameTimeStatistics.__ptr_ + 56), v13 >= [(DYExperiment *)self->_experiment frameTimeVariationArraySize]) && (v19 = 0.0, v20 = 0.0, GPUTools::RunningStatistics<unsigned long long>::IQRtoIQMRatioMinMax(self->_frameTimeStatistics.__ptr_, [(DYExperiment *)self->_experiment frameTimeVariationArraySize], &v20, &v19)) && (v14 = v19, [(DYExperiment *)self->_experiment frameTimeVariationLimit2], v14 < v15) && (v16 = v19 - v20, [(DYExperiment *)self->_experiment frameTimeVariationRangeMax], v16 < v17))
+  if (*(p_frameTimeStatistics->__ptr_ + 56) >= v10 && ((v9 = p_frameTimeStatistics->__ptr_, v11 = (*(v9[19] + 8 * ((*(v9 + 57) + v10) % v10)) - *(v9[13] + 8 * ((*(v9 + 57) + v10) % v10))) / *(v9[7] + 8 * ((*(v9 + 57) + v10) % v10)), [(DYExperiment *)self->_experiment frameTimeVariationLimit1], v11 < v12) || (v13 = *(self->_frameTimeStatistics.__ptr_ + 56), v13 >= [(DYExperiment *)self->_experiment frameTimeVariationArraySize]) && (v19 = 0.0, v20 = 0.0, GPUTools::RunningStatistics<unsigned long long>::IQRtoIQMRatioMinMax(self->_frameTimeStatistics.__ptr_, [(DYExperiment *)self->_experiment frameTimeVariationArraySize], &v20, &v19)) && (v14 = v19, [(DYExperiment *)self->_experiment frameTimeVariationLimit2], v14 < v15) && (v16 = v19 - v20, [(DYExperiment *)self->_experiment frameTimeVariationRangeMax], v16 < v17)))
   {
 LABEL_6:
     LOBYTE(allowEarlyTermination) = 1;
@@ -294,8 +283,6 @@ LABEL_2:
   v12 = MEMORY[0x277CCABB0];
   if (*MEMORY[0x277D0B018] != *(MEMORY[0x277D0B018] + 4))
   {
-    v13 = ((self->_frameTimeEnd - self->_startGlobalTime) * *MEMORY[0x277D0B018]) >> 64;
-    v14 = *(MEMORY[0x277D0B018] + 4);
     __udivti3();
   }
 

@@ -1,4 +1,5 @@
 @interface MFMailboxUid
++ (BOOL)typeIsValidTransferDestination:(int)destination;
 + (id)fileURLForMailboxURL:(id)l;
 + (id)specialNameForType:(int)type;
 - (BOOL)hasChildren;
@@ -14,6 +15,7 @@
 - (MFInvocationQueue)attachmentDownloadQueue;
 - (MFMailboxUid)init;
 - (MFMailboxUid)initWithAccount:(id)account;
+- (MFMailboxUid)initWithName:(id)name attributes:(unsigned int)attributes forAccount:(id)account extraAttributes:(id)extraAttributes;
 - (NSString)ef_publicDescription;
 - (double)suggestionsLostMessageSearchTimestamp;
 - (id)URL;
@@ -21,6 +23,7 @@
 - (id)URLStringNonNil;
 - (id)URLStringWithAccount:(id)account;
 - (id)_dictionaryRepresentation;
+- (id)_initWithName:(id)name attributes:(unsigned int)attributes forAccount:(id)account;
 - (id)_loadUserInfo;
 - (id)_mutableChildren;
 - (id)_privacySafeDescription;
@@ -29,6 +32,7 @@
 - (id)accountRelativePath;
 - (id)ancestralAccount;
 - (id)childAtIndex:(unint64_t)index;
+- (id)childEnumeratorIncludingHiddenChildren:(BOOL)children;
 - (id)childWithExtraAttribute:(id)attribute;
 - (id)criterion;
 - (id)depthFirstEnumerator;
@@ -139,9 +143,45 @@
   return v4;
 }
 
+- (id)_initWithName:(id)name attributes:(unsigned int)attributes forAccount:(id)account
+{
+  if (name)
+  {
+    v7 = [(MFMailboxUid *)self init:name];
+    if (v7)
+    {
+      v7->_pathComponent = [name copy];
+LABEL_5:
+      v7->_attributes = attributes;
+    }
+  }
+
+  else
+  {
+    v7 = [(MFMailboxUid *)self initWithAccount:account];
+    if (v7)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  return v7;
+}
+
+- (MFMailboxUid)initWithName:(id)name attributes:(unsigned int)attributes forAccount:(id)account extraAttributes:(id)extraAttributes
+{
+  v7 = [(MFMailboxUid *)self _initWithName:name attributes:*&attributes forAccount:account];
+  if (v7)
+  {
+    v7->_extraAttributes = [extraAttributes copy];
+  }
+
+  return v7;
+}
+
 - (id)_dictionaryRepresentation
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   attributes = [(MFMailboxUid *)self attributes];
   v4 = MEMORY[0x277CBEB38];
   name = [(MFMailboxUid *)self name];
@@ -153,30 +193,30 @@
     if (v8)
     {
       v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v8];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
-      v10 = [children countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [children countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v18;
+        v12 = *v17;
         do
         {
           v13 = 0;
           do
           {
-            if (*v18 != v12)
+            if (*v17 != v12)
             {
               objc_enumerationMutation(children);
             }
 
-            [v9 addObject:{objc_msgSend(*(*(&v17 + 1) + 8 * v13++), "dictionaryRepresentation")}];
+            [v9 addObject:{objc_msgSend(*(*(&v16 + 1) + 8 * v13++), "dictionaryRepresentation")}];
           }
 
           while (v11 != v13);
-          v11 = [children countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v11 = [children countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v11);
@@ -192,7 +232,6 @@
     [v6 setObject:extraAttributes forKeyedSubscript:@"MailboxExtraAttributes"];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -404,6 +443,13 @@
   return v3;
 }
 
+- (id)childEnumeratorIncludingHiddenChildren:(BOOL)children
+{
+  v3 = [[_MFMailboxUidChildrenEnumerator alloc] _initWithMailbox:self includeHiddenChildren:children];
+
+  return v3;
+}
+
 - (id)depthFirstEnumerator
 {
   [(MFMailboxUid *)self mf_lock];
@@ -422,32 +468,32 @@
 
 - (unint64_t)numberOfDescendants
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(MFMailboxUid *)self mf_lock];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   children = self->_children;
-  v4 = [(NSMutableArray *)children countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableArray *)children countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(children);
         }
 
-        v6 += [*(*(&v11 + 1) + 8 * i) numberOfDescendants] + 1;
+        v6 += [*(*(&v10 + 1) + 8 * i) numberOfDescendants] + 1;
       }
 
-      v5 = [(NSMutableArray *)children countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableArray *)children countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -459,7 +505,6 @@
   }
 
   [(MFMailboxUid *)self mf_unlock];
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -532,7 +577,7 @@
 
 - (BOOL)setChildren:(id)children
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   [(MFMailboxUid *)self mf_lock];
   if ([(MFMailboxUid *)self isValid])
   {
@@ -547,28 +592,28 @@
   [(NSMutableArray *)self->_children removeAllObjects];
   if ([children count])
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v6 = [children countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v6 = [children countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v28;
+      v8 = *v27;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(children);
           }
 
-          bindParentAndChild(self, *(*(&v27 + 1) + 8 * i));
+          bindParentAndChild(self, *(*(&v26 + 1) + 8 * i));
         }
 
-        v7 = [children countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v7 = [children countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v7);
@@ -592,11 +637,11 @@ LABEL_18:
   [(MFMailboxUid *)self mf_unlock];
   if ([mutableCopyOfChildren count])
   {
-    v24 = v10;
+    v23 = v10;
     v11 = [mutableCopyOfChildren arrayByApplyingSelector:sel_URLStringNonNil];
-    v25 = [mutableCopyOfChildren arrayByApplyingSelector:sel_fullPathNonNil];
+    v24 = [mutableCopyOfChildren arrayByApplyingSelector:sel_fullPathNonNil];
     v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v13 = [mutableCopyOfChildren count];
     if (v13)
     {
@@ -620,7 +665,7 @@ LABEL_18:
               if (!v21 || ([v21 isValid] & 1) == 0)
               {
                 [v12 addObject:v19];
-                [v26 addObject:{objc_msgSend(v25, "objectAtIndex:", v15)}];
+                [v25 addObject:{objc_msgSend(v24, "objectAtIndex:", v15)}];
               }
             }
           }
@@ -637,10 +682,9 @@ LABEL_18:
       [-[MFMailboxUid account](self "account")];
     }
 
-    v10 = v24;
+    v10 = v23;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -804,6 +848,23 @@ LABEL_18:
   type = [(MFMailboxUid *)self type];
 
   return [v3 isSentMailboxType:type];
+}
+
++ (BOOL)typeIsValidTransferDestination:(int)destination
+{
+  v4 = [objc_opt_class() isOutgoingMailboxType:*&destination];
+  v5 = destination != 8;
+  if (destination == -100)
+  {
+    v5 = 0;
+  }
+
+  if (destination == -500)
+  {
+    v5 = 0;
+  }
+
+  return (v4 & 1) == 0 && v5;
 }
 
 - (BOOL)isOutgoingMailboxUid
@@ -1314,31 +1375,31 @@ LABEL_10:
 
 - (void)addToPostOrderTraversal:(id)traversal
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(MFMailboxUid *)self mf_lock];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   children = self->_children;
-  v6 = [(NSMutableArray *)children countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)children countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(children);
         }
 
-        [*(*(&v11 + 1) + 8 * i) addToPostOrderTraversal:traversal];
+        [*(*(&v10 + 1) + 8 * i) addToPostOrderTraversal:traversal];
       }
 
-      v7 = [(NSMutableArray *)children countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)children countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -1346,7 +1407,6 @@ LABEL_10:
 
   [(MFMailboxUid *)self mf_unlock];
   [traversal addObject:self];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)suggestionsLostMessageSearchResultCount

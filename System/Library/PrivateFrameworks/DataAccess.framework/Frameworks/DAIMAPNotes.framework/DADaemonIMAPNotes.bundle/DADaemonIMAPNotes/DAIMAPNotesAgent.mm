@@ -4,6 +4,7 @@
 - (id)_copyDAActionsFromNoteChanges:(id)changes inStore:(id)store mutableNotesToDeleteAfterSync:(id)sync;
 - (id)waiterID;
 - (void)_appendSyncRequest:(id)request;
+- (void)_appendSyncRequestsForFolders:(id)folders remoteChanges:(BOOL)changes;
 - (void)_callShutdownBlockIfAppropriate;
 - (void)_finishSyncResultOnMainThreadForFolderWithDictionary:(id)dictionary;
 - (void)_fireWaitingFolderItemSyncRequests;
@@ -16,13 +17,16 @@
 - (void)_serverUpdatedNoteFolder:(id)folder;
 - (void)_setLastFolderSetRegisteredForPush:(id)push;
 - (void)_setUpNotesNotifications;
+- (void)_syncAllNotesFoldersWithRemoteChanges:(BOOL)changes;
 - (void)_syncInLockRequest:(id)request;
 - (void)_syncRequest:(id)request;
 - (void)_tearDownNotesNotifications;
+- (void)_validateAndSyncWithRemoteChanges:(BOOL)changes;
 - (void)connectionManager:(id)manager handleEvent:(int)event;
 - (void)dealloc;
 - (void)failedToRetrieveFolderListWithStatus:(int64_t)status andError:(id)error;
 - (void)notesFolderWithId:(id)id failedToSyncWithStatus:(int64_t)status error:(id)error;
+- (void)refreshFolderListRequireChangedFolders:(BOOL)folders isUserRequested:(BOOL)requested;
 - (void)requestAgentStopMonitoringWithCompletionBlock:(id)block;
 - (void)startMonitoring;
 - (void)successfullyRetrievedFolderList;
@@ -670,6 +674,80 @@ LABEL_14:
   [(DAIMAPNotesAgent *)self _notifyFolderSyncFailed];
 }
 
+- (void)refreshFolderListRequireChangedFolders:(BOOL)folders isUserRequested:(BOOL)requested
+{
+  if (self->_isShuttingDown)
+  {
+
+    [(DAIMAPNotesAgent *)self _notifyFolderSyncFailed:folders];
+  }
+
+  else
+  {
+    v5 = DALoggingwithCategory();
+    v6 = _CPLog_to_os_log_type[6];
+    if (os_log_type_enabled(v5, v6))
+    {
+      *v8 = 0;
+      _os_log_impl(&dword_0, v5, v6, "IMAP Notes account refreshing folder list", v8, 2u);
+    }
+
+    account = [(DAIMAPNotesAgent *)self account];
+    [account syncNotesFolderListWithConsumer:self queue:&_dispatch_main_q];
+  }
+}
+
+- (void)_validateAndSyncWithRemoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  account = [(DAIMAPNotesAgent *)self account];
+  shouldFailAllTasks = [account shouldFailAllTasks];
+
+  if (shouldFailAllTasks)
+  {
+    v7 = DALoggingwithCategory();
+    v8 = _CPLog_to_os_log_type[6];
+    if (os_log_type_enabled(v7, v8))
+    {
+      account2 = [(DAIMAPNotesAgent *)self account];
+      accountDescription = [account2 accountDescription];
+      publicDescription = [(DAIMAPNotesAgent *)self publicDescription];
+      v17 = 138412546;
+      v18 = accountDescription;
+      v19 = 2114;
+      v20 = publicDescription;
+      _os_log_impl(&dword_0, v7, v8, "Account %@ (%{public}@) thinks it should fail all tasks.  Doing so", &v17, 0x16u);
+    }
+
+    [(DAIMAPNotesAgent *)self _notifyContentSyncFailed];
+  }
+
+  else
+  {
+    account3 = [(DAIMAPNotesAgent *)self account];
+    notesFolders = [account3 notesFolders];
+
+    if ([notesFolders count])
+    {
+      v14 = [NSSet setWithArray:notesFolders];
+      [(DAIMAPNotesAgent *)self _appendSyncRequestsForFolders:v14 remoteChanges:changesCopy];
+    }
+
+    else
+    {
+      v15 = DALoggingwithCategory();
+      v16 = _CPLog_to_os_log_type[7];
+      if (os_log_type_enabled(v15, v16))
+      {
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_0, v15, v16, "Account doesn't have any notes folders, grabbing them.", &v17, 2u);
+      }
+
+      [(DAIMAPNotesAgent *)self refreshFolderListRequireChangedFolders:0 isUserRequested:1];
+    }
+  }
+}
+
 - (void)syncFolderIDs:(id)ds forDataclasses:(int64_t)dataclasses isUserRequested:(BOOL)requested
 {
   dsCopy = ds;
@@ -1250,6 +1328,74 @@ LABEL_15:
 LABEL_17:
   [(NSLock *)self->_folderItemSyncRequestLock unlock];
   [(DAIMAPNotesAgent *)self _fireWaitingFolderItemSyncRequests];
+}
+
+- (void)_appendSyncRequestsForFolders:(id)folders remoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  foldersCopy = folders;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v7 = [foldersCopy countByEnumeratingWithState:&v17 objects:v23 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v18;
+    v10 = _CPLog_to_os_log_type[7];
+    do
+    {
+      for (i = 0; i != v8; i = i + 1)
+      {
+        if (*v18 != v9)
+        {
+          objc_enumerationMutation(foldersCopy);
+        }
+
+        v12 = *(*(&v17 + 1) + 8 * i);
+        folderID = [v12 folderID];
+
+        if (!folderID)
+        {
+          sub_FCC8(a2, self, v12);
+        }
+
+        v14 = DALoggingwithCategory();
+        if (os_log_type_enabled(v14, v10))
+        {
+          *buf = 138412290;
+          v22 = v12;
+          _os_log_impl(&dword_0, v14, v10, "Appending a sync request for folder %@", buf, 0xCu);
+        }
+
+        v15 = [[DAIMAPNotesFolderSyncRequest alloc] initWithFolder:v12 hasRemoteChanges:changesCopy isInitialUberSync:0];
+        [(DAIMAPNotesAgent *)self _appendSyncRequest:v15];
+      }
+
+      v8 = [foldersCopy countByEnumeratingWithState:&v17 objects:v23 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)_syncAllNotesFoldersWithRemoteChanges:(BOOL)changes
+{
+  if (!self->_isShuttingDown)
+  {
+    changesCopy = changes;
+    account = [(DAIMAPNotesAgent *)self account];
+    v6 = [account enabledForDADataclass:32];
+
+    if (v6)
+    {
+      account2 = [(DAIMAPNotesAgent *)self account];
+      notesFolders = [account2 notesFolders];
+      v8 = [NSSet setWithArray:notesFolders];
+      [(DAIMAPNotesAgent *)self _appendSyncRequestsForFolders:v8 remoteChanges:changesCopy];
+    }
+  }
 }
 
 - (void)_handlePushNotificationWithName:(id)name

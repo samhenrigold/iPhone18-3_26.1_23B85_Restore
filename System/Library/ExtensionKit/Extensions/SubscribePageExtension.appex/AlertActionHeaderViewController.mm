@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1006F5634();
+  sub_1006F5634(selfCopy);
 }
 
 - (_TtC22SubscribePageExtension31AlertActionHeaderViewController)initWithNibName:(id)name bundle:(id)bundle

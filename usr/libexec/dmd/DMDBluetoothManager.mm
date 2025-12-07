@@ -2,6 +2,7 @@
 + (DMDBluetoothManager)sharedManager;
 - (DMDBluetoothManager)init;
 - (void)availabilityChanged:(id)changed;
+- (void)setEnabled:(BOOL)enabled;
 @end
 
 @implementation DMDBluetoothManager
@@ -31,6 +32,31 @@
   }
 
   return v2;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  self->_enabled = enabled;
+  bluetoothManager = [(DMDBluetoothManager *)self bluetoothManager];
+  available = [bluetoothManager available];
+
+  if (available)
+  {
+    bluetoothManager2 = [(DMDBluetoothManager *)self bluetoothManager];
+    [bluetoothManager2 setEnabled:enabledCopy];
+
+    bluetoothManager3 = [(DMDBluetoothManager *)self bluetoothManager];
+    [bluetoothManager3 setPowered:enabledCopy];
+  }
+
+  else
+  {
+    bluetoothManager3 = +[NSNotificationCenter defaultCenter];
+    [bluetoothManager3 addObserver:self selector:"availabilityChanged:" name:BluetoothAvailabilityChangedNotification object:0];
+  }
+
+  [(DMDBluetoothManager *)self setStillNeedsUpdate:available ^ 1];
 }
 
 - (void)availabilityChanged:(id)changed

@@ -4,10 +4,12 @@
 - (int)error_code;
 - (int)total_pkt_number;
 - (void)setDev_data:(id)dev_data;
+- (void)setError_code:(int)error_code;
 - (void)setError_str:(id)error_str;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
 - (void)setStream_id:(id)stream_id;
+- (void)setTotal_pkt_number:(int)total_pkt_number;
 @end
 
 @implementation FTMutableFinalTextToSpeechStreamingResponse
@@ -57,6 +59,12 @@
   return intValue;
 }
 
+- (void)setError_code:(int)error_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&error_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setError_str:(id)error_str
 {
   v4 = [error_str copy];
@@ -75,6 +83,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setTotal_pkt_number:(int)total_pkt_number
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&total_pkt_number];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setDev_data:(id)dev_data

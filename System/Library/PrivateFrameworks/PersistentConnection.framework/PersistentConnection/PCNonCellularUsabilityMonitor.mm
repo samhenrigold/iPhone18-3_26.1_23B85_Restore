@@ -39,7 +39,7 @@
   return v3;
 }
 
-uint64_t __44__PCNonCellularUsabilityMonitor_linkQuality__block_invoke(uint64_t a1)
+void *__44__PCNonCellularUsabilityMonitor_linkQuality__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _linkQualityOnIvarQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -76,11 +76,11 @@ uint64_t __44__PCNonCellularUsabilityMonitor_linkQuality__block_invoke(uint64_t 
 
 - (PCNonCellularUsabilityMonitor)initWithDelegateQueue:(id)queue
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v17.receiver = self;
-  v17.super_class = PCNonCellularUsabilityMonitor;
-  v6 = [(PCNonCellularUsabilityMonitor *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = PCNonCellularUsabilityMonitor;
+  v6 = [(PCNonCellularUsabilityMonitor *)&v16 init];
   if (v6)
   {
     v7 = dispatch_queue_create("PCNonCellularUsabilityMonitor-ivarqueue", 0);
@@ -104,9 +104,9 @@ uint64_t __44__PCNonCellularUsabilityMonitor_linkQuality__block_invoke(uint64_t 
       {
         v14 = v6->_demoOverrideInterface;
         *buf = 138543618;
-        v19 = v6;
-        v20 = 2114;
-        v21 = v14;
+        v18 = v6;
+        v19 = 2114;
+        v20 = v14;
         _os_log_impl(&dword_25E3EF000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ NonCellularUsabilityMonitor is in demo override mode! (interface name %{public}@)", buf, 0x16u);
       }
     }
@@ -114,7 +114,6 @@ uint64_t __44__PCNonCellularUsabilityMonitor_linkQuality__block_invoke(uint64_t 
     [(PCNonCellularUsabilityMonitor *)v6 _addMonitor];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -172,26 +171,26 @@ void __44__PCNonCellularUsabilityMonitor__addMonitor__block_invoke(uint64_t a1)
   dispatch_async(ivarQueue, v4);
 }
 
-uint64_t __51__PCNonCellularUsabilityMonitor_setTrackUsability___block_invoke(uint64_t result)
+void *__51__PCNonCellularUsabilityMonitor_setTrackUsability___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(result + 40);
   if (*(v1 + 52) != v2)
   {
     *(v1 + 52) = v2;
-    v3 = *(result + 32);
+    v3 = result[4];
     if (*(v3 + 52) == 1)
     {
       if (!*(v3 + 56))
       {
         *(v3 + 56) = 2;
-        v3 = *(result + 32);
+        v3 = result[4];
       }
 
       if (*(v3 + 64) == 0.0)
       {
         *(v3 + 64) = 0x4082C00000000000;
-        v3 = *(result + 32);
+        v3 = result[4];
       }
     }
 
@@ -213,14 +212,14 @@ uint64_t __51__PCNonCellularUsabilityMonitor_setTrackUsability___block_invoke(ui
   dispatch_async(ivarQueue, v4);
 }
 
-uint64_t __64__PCNonCellularUsabilityMonitor_setThresholdOffTransitionCount___block_invoke(uint64_t result)
+void *__64__PCNonCellularUsabilityMonitor_setThresholdOffTransitionCount___block_invoke(void *result)
 {
-  v2 = *(result + 32);
-  v1 = *(result + 40);
+  v2 = *(result + 4);
+  v1 = *(result + 5);
   if (v1 != *(v2 + 56))
   {
     *(v2 + 56) = v1;
-    return [*(result + 32) _forwardConfigurationOnIvarQueue];
+    return [*(result + 4) _forwardConfigurationOnIvarQueue];
   }
 
   return result;
@@ -238,14 +237,14 @@ uint64_t __64__PCNonCellularUsabilityMonitor_setThresholdOffTransitionCount___bl
   dispatch_async(ivarQueue, v4);
 }
 
-uint64_t __56__PCNonCellularUsabilityMonitor_setTrackedTimeInterval___block_invoke(uint64_t result)
+void *__56__PCNonCellularUsabilityMonitor_setTrackedTimeInterval___block_invoke(void *result)
 {
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = *(result + 5);
+  v2 = *(result + 4);
   if (v1 != *(v2 + 64))
   {
     *(v2 + 64) = v1;
-    return [*(result + 32) _forwardConfigurationOnIvarQueue];
+    return [*(result + 4) _forwardConfigurationOnIvarQueue];
   }
 
   return result;
@@ -289,10 +288,7 @@ uint64_t __56__PCNonCellularUsabilityMonitor_setTrackedTimeInterval___block_invo
 
 uint64_t __41__PCNonCellularUsabilityMonitor_delegate__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) object];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) object];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -319,10 +315,7 @@ void __45__PCNonCellularUsabilityMonitor_setDelegate___block_invoke(uint64_t a1)
 
   if (*(a1 + 40))
   {
-    v4 = [MEMORY[0x277CFB990] weakRefWithObject:?];
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 32);
-    *(v5 + 32) = v4;
+    *(*(a1 + 32) + 32) = [MEMORY[0x277CFB990] weakRefWithObject:?];
 
     MEMORY[0x2821F96F8]();
   }
@@ -370,9 +363,9 @@ void __67__PCNonCellularUsabilityMonitor__callDelegateOnIvarQueueWithBlock___blo
   dispatch_async(ivarQueue, block);
 }
 
-uint64_t __81__PCNonCellularUsabilityMonitor_interfaceLinkQualityChanged_previousLinkQuality___block_invoke(uint64_t a1)
+void *__81__PCNonCellularUsabilityMonitor_interfaceLinkQualityChanged_previousLinkQuality___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) _linkQualityOnIvarQueue];
   v3 = *(a1 + 32);
   v4 = *(v3 + 48);
@@ -385,25 +378,24 @@ uint64_t __81__PCNonCellularUsabilityMonitor_interfaceLinkQualityChanged_previou
     {
       v7 = *(a1 + 32);
       *buf = 138543874;
-      v13 = v7;
-      v14 = 1024;
-      v15 = v4;
-      v16 = 1024;
-      v17 = v5;
+      v12 = v7;
+      v13 = 1024;
+      v14 = v4;
+      v15 = 1024;
+      v16 = v5;
       _os_log_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ NonCellularUsabilityMonitor - LQ changed from %d to %d", buf, 0x18u);
     }
 
     v8 = *(a1 + 32);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __81__PCNonCellularUsabilityMonitor_interfaceLinkQualityChanged_previousLinkQuality___block_invoke_6;
-    v10[3] = &unk_279A1A108;
-    v10[4] = v8;
-    v11 = v4;
-    result = [v8 _callDelegateOnIvarQueueWithBlock:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __81__PCNonCellularUsabilityMonitor_interfaceLinkQualityChanged_previousLinkQuality___block_invoke_6;
+    v9[3] = &unk_279A1A108;
+    v9[4] = v8;
+    v10 = v4;
+    return [v8 _callDelegateOnIvarQueueWithBlock:v9];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 

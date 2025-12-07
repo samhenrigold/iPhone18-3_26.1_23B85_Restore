@@ -25,7 +25,7 @@
 
 - (id)nextObject
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   stage = self->_stage;
   if (stage <= 3)
   {
@@ -64,7 +64,7 @@
           if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v18 = enumerator;
+            v17 = enumerator;
             _os_log_fault_impl(&dword_223E7A000, v7, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Sync: shouldn't be here%@", buf, 0xCu);
           }
 
@@ -80,7 +80,7 @@ LABEL_27:
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v18 = v8;
+            v17 = v8;
             _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: enumerating documents needing sync up%@", buf, 0xCu);
           }
 
@@ -104,7 +104,7 @@ LABEL_28:
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v18 = v11;
+              v17 = v11;
               _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: enumerating live or new directories%@", buf, 0xCu);
             }
 
@@ -116,7 +116,7 @@ LABEL_28:
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v18 = v13;
+              v17 = v13;
               _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: enumerating tombstones%@", buf, 0xCu);
             }
 
@@ -128,7 +128,7 @@ LABEL_28:
             if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v18 = enumerator;
+              v17 = enumerator;
               _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: done enumerating all stages%@", buf, 0xCu);
             }
 
@@ -142,7 +142,6 @@ LABEL_28:
 
   _nextTombstone = 0;
 LABEL_31:
-  v15 = *MEMORY[0x277D85DE8];
 
   return _nextTombstone;
 }
@@ -165,8 +164,8 @@ LABEL_31:
 
 - (id)_nextLiveItem
 {
-  v73 = *MEMORY[0x277D85DE8];
-  v60 = brc_current_date_nsec();
+  v72 = *MEMORY[0x277D85DE8];
+  v59 = brc_current_date_nsec();
   lastObject = [(NSMutableArray *)self->_stack lastObject];
   if (lastObject)
   {
@@ -196,12 +195,12 @@ LABEL_31:
           [(NSMutableDictionary *)visitedItemIDsToDepthMap setObject:v6 forKeyedSubscript:itemID2];
         }
 
-        if ((-[NSMutableIndexSet containsIndex:](self->_returned, "containsIndex:", [v4 dbRowID]) & 1) == 0 && objc_msgSend(v4, "syncUpState") == 4 && !-[BRCSyncUpEnumerator _denyListDescendantStackAndItemIfThrottledOrNeedsOSUpgrade:now:](self, "_denyListDescendantStackAndItemIfThrottledOrNeedsOSUpgrade:now:", v4, v60))
+        if ((-[NSMutableIndexSet containsIndex:](self->_returned, "containsIndex:", [v4 dbRowID]) & 1) == 0 && objc_msgSend(v4, "syncUpState") == 4 && !-[BRCSyncUpEnumerator _denyListDescendantStackAndItemIfThrottledOrNeedsOSUpgrade:now:](self, "_denyListDescendantStackAndItemIfThrottledOrNeedsOSUpgrade:now:", v4, v59))
         {
           -[NSMutableIndexSet addIndex:](self->_returned, "addIndex:", [v4 dbRowID]);
-          v54 = v4;
+          v53 = v4;
           objc_autoreleasePoolPop(v5);
-          _nextLiveItem = v54;
+          _nextLiveItem = v53;
           goto LABEL_69;
         }
       }
@@ -221,41 +220,41 @@ LABEL_31:
     [BRCSyncUpEnumerator _nextLiveItem];
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v12 = self->_enumerator;
-  v61 = [(PQLEnumeration *)v12 countByEnumeratingWithState:&v62 objects:v72 count:16];
-  if (!v61)
+  v60 = [(PQLEnumeration *)v12 countByEnumeratingWithState:&v61 objects:v71 count:16];
+  if (!v60)
   {
     goto LABEL_59;
   }
 
   v14 = 0;
-  v15 = *v63;
+  v15 = *v62;
   *&v13 = 138412546;
-  v57 = v13;
-  v58 = *v63;
-  v59 = v12;
+  v56 = v13;
+  v57 = *v62;
+  v58 = v12;
 LABEL_16:
   v16 = 0;
   while (1)
   {
-    if (*v63 != v15)
+    if (*v62 != v15)
     {
       objc_enumerationMutation(v12);
     }
 
-    v54 = *(*(&v62 + 1) + 8 * v16);
+    v53 = *(*(&v61 + 1) + 8 * v16);
 
-    if (([(NSMutableIndexSet *)self->_returned containsIndex:[(PQLEnumeration *)v54 dbRowID]]& 1) != 0)
+    if (([(NSMutableIndexSet *)self->_returned containsIndex:[(PQLEnumeration *)v53 dbRowID]]& 1) != 0)
     {
-      v14 = v54;
+      v14 = v53;
       goto LABEL_54;
     }
 
-    itemID3 = [(PQLEnumeration *)v54 itemID];
+    itemID3 = [(PQLEnumeration *)v53 itemID];
     v18 = [(BRCSyncUpEnumerator *)self isDenyListed:itemID3];
 
     if (!v18)
@@ -264,20 +263,20 @@ LABEL_16:
     }
 
 LABEL_53:
-    v14 = v54;
-    v15 = v58;
-    v12 = v59;
+    v14 = v53;
+    v15 = v57;
+    v12 = v58;
 LABEL_54:
-    if (++v16 == v61)
+    if (++v16 == v60)
     {
-      v46 = [(PQLEnumeration *)v12 countByEnumeratingWithState:&v62 objects:v72 count:16];
-      v61 = v46;
+      v46 = [(PQLEnumeration *)v12 countByEnumeratingWithState:&v61 objects:v71 count:16];
+      v60 = v46;
       if (!v46)
       {
 
 LABEL_59:
         _nextLiveItem = 0;
-        v54 = v12;
+        v53 = v12;
         goto LABEL_69;
       }
 
@@ -287,30 +286,30 @@ LABEL_59:
 
   while (2)
   {
-    clientZone = [(PQLEnumeration *)v54 clientZone];
+    clientZone = [(PQLEnumeration *)v53 clientZone];
     if ([clientZone isEqualToClientZone:self->_clientZone])
     {
     }
 
     else
     {
-      parentClientZone = [(PQLEnumeration *)v54 parentClientZone];
+      parentClientZone = [(PQLEnumeration *)v53 parentClientZone];
       v21 = [parentClientZone isEqualToClientZone:self->_clientZone];
 
       if (v21)
       {
-        parentItemOnFS = [(PQLEnumeration *)v54 parentItemOnFS];
+        parentItemOnFS = [(PQLEnumeration *)v53 parentItemOnFS];
         itemID4 = [parentItemOnFS itemID];
         v24 = parentItemOnFS;
         goto LABEL_27;
       }
     }
 
-    itemID4 = [(PQLEnumeration *)v54 parentItemIDInZone];
+    itemID4 = [(PQLEnumeration *)v53 parentItemIDInZone];
     v24 = 0;
 LABEL_27:
     v25 = self->_tooDeepItems;
-    itemID5 = [(PQLEnumeration *)v54 itemID];
+    itemID5 = [(PQLEnumeration *)v53 itemID];
     LODWORD(v25) = [(NSMutableArray *)v25 containsObject:itemID5];
 
     if (v25)
@@ -319,8 +318,8 @@ LABEL_27:
       goto LABEL_52;
     }
 
-    [(NSMutableArray *)self->_stack addObject:v54];
-    isLost = [(PQLEnumeration *)v54 isLost];
+    [(NSMutableArray *)self->_stack addObject:v53];
+    isLost = [(PQLEnumeration *)v53 isLost];
     v28 = isLost;
     if (isLost)
     {
@@ -328,27 +327,27 @@ LABEL_27:
       v30 = brc_default_log();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        itemID6 = [(PQLEnumeration *)v54 itemID];
-        *buf = v57;
-        v67 = itemID6;
-        v68 = 2112;
-        v69 = v29;
+        itemID6 = [(PQLEnumeration *)v53 itemID];
+        *buf = v56;
+        v66 = itemID6;
+        v67 = 2112;
+        v68 = v29;
         _os_log_debug_impl(&dword_223E7A000, v30, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: denylist %@ because it's lost%@", buf, 0x16u);
       }
     }
 
     itemIDsBlockedFromSyncForCZMProcessing = [(BRCClientZone *)self->_clientZone itemIDsBlockedFromSyncForCZMProcessing];
-    itemGlobalID = [(PQLEnumeration *)v54 itemGlobalID];
+    itemGlobalID = [(PQLEnumeration *)v53 itemGlobalID];
     v33 = [itemIDsBlockedFromSyncForCZMProcessing containsObject:itemGlobalID];
 
     if (!v33)
     {
-      if ((v28 & 1) != 0 || [(BRCSyncUpEnumerator *)self _checkForSharesWithinSharesWithItem:v54]|| [(BRCSyncUpEnumerator *)self _checkIfShouldDenylistForParentDirectoryFaultWithItem:v54]|| [(BRCSyncUpEnumerator *)self _checkIfShouldDenylistForPathMatch:v54]|| [(NSMutableSet *)self->_itemIDsLostOrThrottled containsObject:itemID4])
+      if ((v28 & 1) != 0 || [(BRCSyncUpEnumerator *)self _checkForSharesWithinSharesWithItem:v53]|| [(BRCSyncUpEnumerator *)self _checkIfShouldDenylistForParentDirectoryFaultWithItem:v53]|| [(BRCSyncUpEnumerator *)self _checkIfShouldDenylistForPathMatch:v53]|| [(NSMutableSet *)self->_itemIDsLostOrThrottled containsObject:itemID4])
       {
         goto LABEL_51;
       }
 
-      if ([(BRCSyncUpEnumerator *)self handleItemForOSUpgrade:v54 parentItemID:itemID4]|| [(BRCSyncUpEnumerator *)self _handlePendingShareItemWithPendingDeleteChildren:v54])
+      if ([(BRCSyncUpEnumerator *)self handleItemForOSUpgrade:v53 parentItemID:itemID4]|| [(BRCSyncUpEnumerator *)self _handlePendingShareItemWithPendingDeleteChildren:v53])
       {
         goto LABEL_52;
       }
@@ -372,7 +371,7 @@ LABEL_27:
       if (!v24)
       {
         clientZone2 = [0 clientZone];
-        clientZone3 = [(PQLEnumeration *)v54 clientZone];
+        clientZone3 = [(PQLEnumeration *)v53 clientZone];
         v38 = [clientZone2 isEqualToClientZone:clientZone3];
 
         if (v38)
@@ -385,7 +384,7 @@ LABEL_27:
           goto LABEL_61;
         }
 
-        clientZone4 = [(PQLEnumeration *)v54 clientZone];
+        clientZone4 = [(PQLEnumeration *)v53 clientZone];
         v35 = [clientZone4 itemByItemID:itemID4];
 
         if (!v35)
@@ -399,11 +398,11 @@ LABEL_61:
           {
             clientZone = self->_clientZone;
             *buf = 138412802;
-            v67 = clientZone;
-            v68 = 2112;
-            v69 = v54;
-            v70 = 2112;
-            v71 = v47;
+            v66 = clientZone;
+            v67 = 2112;
+            v68 = v53;
+            v69 = 2112;
+            v70 = v47;
             _os_log_fault_impl(&dword_223E7A000, v48, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: reset needed for %@ because of orphan %@%@", buf, 0x20u);
           }
 
@@ -413,10 +412,10 @@ LABEL_61:
         }
       }
 
-      [(BRCSyncUpEnumerator *)self _checkIfParentNeedsRevivalWithParentItem:v35 item:v54];
+      [(BRCSyncUpEnumerator *)self _checkIfParentNeedsRevivalWithParentItem:v35 item:v53];
       v40 = v35;
 
-      v54 = v40;
+      v53 = v40;
       continue;
     }
 
@@ -427,16 +426,16 @@ LABEL_61:
   v43 = brc_default_log();
   if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
   {
-    itemID7 = [(PQLEnumeration *)v54 itemID];
-    *buf = v57;
-    v67 = itemID7;
-    v68 = 2112;
-    v69 = v42;
+    itemID7 = [(PQLEnumeration *)v53 itemID];
+    *buf = v56;
+    v66 = itemID7;
+    v67 = 2112;
+    v68 = v42;
     _os_log_debug_impl(&dword_223E7A000, v43, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: denylist %@ because it's already being processed for CZM%@", buf, 0x16u);
   }
 
 LABEL_51:
-  [(BRCSyncUpEnumerator *)self _denyListDescendantStack:self->_stack parentItem:v54 andAddToSet:self->_itemIDsLostOrThrottled];
+  [(BRCSyncUpEnumerator *)self _denyListDescendantStack:self->_stack parentItem:v53 andAddToSet:self->_itemIDsLostOrThrottled];
 LABEL_52:
 
   if (![(NSMutableArray *)self->_stack count])
@@ -463,7 +462,6 @@ LABEL_52:
 LABEL_68:
 
 LABEL_69:
-  v52 = *MEMORY[0x277D85DE8];
 
   return _nextLiveItem;
 }
@@ -498,8 +496,8 @@ id __62__BRCSyncUpEnumerator__liveDirectoriesNeedingSyncUpEnumerator__block_invo
 
 - (id)_nextTombstone
 {
-  v122 = *MEMORY[0x277D85DE8];
-  v107 = brc_current_date_nsec();
+  v121 = *MEMORY[0x277D85DE8];
+  v106 = brc_current_date_nsec();
   v3 = 0;
   firstObject = 0;
   v5 = &OBJC_IVAR___BRCAccountSession__serverDB;
@@ -557,7 +555,7 @@ id __62__BRCSyncUpEnumerator__liveDirectoriesNeedingSyncUpEnumerator__block_invo
             dbRowID = [(BRCClientZone *)self->_clientZone dbRowID];
             v23 = [v20 numberWithSQL:{@"SELECT COUNT(*) FROM client_items  WHERE item_parent_id = %@     AND item_localsyncupstate = 4    AND NOT indexset_contains(%p, rowid)    AND zone_rowid = %@", itemID, v21, dbRowID}];
 
-            v108 = v23;
+            v107 = v23;
             if (!v23)
             {
               [BRCSyncUpEnumerator _nextTombstone];
@@ -578,7 +576,7 @@ id __62__BRCSyncUpEnumerator__liveDirectoriesNeedingSyncUpEnumerator__block_invo
                 [BRCSyncUpEnumerator _nextTombstone];
               }
 
-              v3 = v108;
+              v3 = v107;
               if ([v29 unsignedLongLongValue])
               {
                 v30 = brc_bread_crumbs();
@@ -587,15 +585,15 @@ id __62__BRCSyncUpEnumerator__liveDirectoriesNeedingSyncUpEnumerator__block_invo
                 {
                   unsignedLongLongValue = [v29 unsignedLongLongValue];
                   *buf = 138412802;
-                  *v121 = itemID;
-                  *&v121[8] = 2048;
-                  *&v121[10] = unsignedLongLongValue;
-                  *&v121[18] = 2112;
-                  *&v121[20] = v30;
+                  *v120 = itemID;
+                  *&v120[8] = 2048;
+                  *&v120[10] = unsignedLongLongValue;
+                  *&v120[18] = 2112;
+                  *&v120[20] = v30;
                   _os_log_impl(&dword_223E7A000, v31, OS_LOG_TYPE_DEFAULT, "[WARNING] Item %@ has %llu items with a new parent%@", buf, 0x20u);
                 }
 
-                v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v29, "unsignedLongLongValue") + objc_msgSend(v108, "unsignedLongLongValue")}];
+                v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v29, "unsignedLongLongValue") + objc_msgSend(v107, "unsignedLongLongValue")}];
 
                 v3 = v33;
               }
@@ -605,7 +603,7 @@ id __62__BRCSyncUpEnumerator__liveDirectoriesNeedingSyncUpEnumerator__block_invo
 
             else
             {
-              v3 = v108;
+              v3 = v107;
               v6 = &OBJC_IVAR___BRCAccountSession__serverDB;
             }
 
@@ -630,11 +628,11 @@ LABEL_39:
                 if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412802;
-                  *v121 = itemID;
-                  *&v121[8] = 2112;
-                  *&v121[10] = v3;
-                  *&v121[18] = 2112;
-                  *&v121[20] = v42;
+                  *v120 = itemID;
+                  *&v120[8] = 2112;
+                  *&v120[10] = v3;
+                  *&v120[18] = 2112;
+                  *&v120[20] = v42;
                   _os_log_debug_impl(&dword_223E7A000, v43, OS_LOG_TYPE_DEBUG, "[DEBUG] Embargoed item %@ has now %@ unreturned dead children left%@", buf, 0x20u);
                 }
 
@@ -649,16 +647,16 @@ LABEL_39:
                 if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412546;
-                  *v121 = itemID;
-                  *&v121[8] = 2112;
-                  *&v121[10] = v44;
+                  *v120 = itemID;
+                  *&v120[8] = 2112;
+                  *&v120[10] = v44;
                   _os_log_debug_impl(&dword_223E7A000, v45, OS_LOG_TYPE_DEBUG, "[DEBUG] item %@ isn't embargoed%@", buf, 0x16u);
                 }
 
                 v3 = 0;
               }
 
-              if ([(BRCSyncUpEnumerator *)self _denyListDescendantStackAndItemIfThrottledOrNeedsOSUpgrade:firstObject now:v107])
+              if ([(BRCSyncUpEnumerator *)self _denyListDescendantStackAndItemIfThrottledOrNeedsOSUpgrade:firstObject now:v106])
               {
                 v15 = 4;
               }
@@ -666,7 +664,7 @@ LABEL_39:
               else
               {
                 [*(&self->super.super.isa + v6[561]) addIndex:{objc_msgSend(firstObject, "dbRowID")}];
-                v106 = firstObject;
+                v105 = firstObject;
                 v15 = 1;
               }
 
@@ -685,11 +683,11 @@ LABEL_39:
             if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412802;
-              *v121 = itemID;
-              *&v121[8] = 2112;
-              *&v121[10] = v3;
-              *&v121[18] = 2112;
-              *&v121[20] = v38;
+              *v120 = itemID;
+              *&v120[8] = 2112;
+              *&v120[10] = v3;
+              *&v120[18] = 2112;
+              *&v120[20] = v38;
               _os_log_debug_impl(&dword_223E7A000, v39, OS_LOG_TYPE_DEBUG, "[DEBUG] Embargoing item %@: it has %@ unsynced children%@", buf, 0x20u);
             }
 
@@ -709,9 +707,9 @@ LABEL_39:
             if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              *v121 = itemID;
-              *&v121[8] = 2112;
-              *&v121[10] = v34;
+              *v120 = itemID;
+              *&v120[8] = 2112;
+              *&v120[10] = v34;
               _os_log_debug_impl(&dword_223E7A000, v35, OS_LOG_TYPE_DEBUG, "[DEBUG] Item %@ is un-embargoed%@", buf, 0x16u);
             }
 
@@ -726,11 +724,11 @@ LABEL_36:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            *v121 = itemID;
-            *&v121[8] = 2112;
-            *&v121[10] = v17;
-            *&v121[18] = 2112;
-            *&v121[20] = v18;
+            *v120 = itemID;
+            *&v120[8] = 2112;
+            *&v120[10] = v17;
+            *&v120[18] = 2112;
+            *&v120[20] = v18;
             _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] Item %@ is embargoed: %@ unsynced children%@", buf, 0x20u);
           }
 
@@ -753,7 +751,7 @@ LABEL_49:
       {
         if (v15 != 4)
         {
-          v105 = v106;
+          v104 = v105;
           goto LABEL_145;
         }
 
@@ -766,34 +764,34 @@ LABEL_49:
       [BRCSyncUpEnumerator _nextTombstone];
     }
 
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
     v116 = 0u;
+    v117 = 0u;
+    v114 = 0u;
+    v115 = 0u;
     obj = *(&self->super.super.isa + v5[565]);
-    v46 = [obj countByEnumeratingWithState:&v115 objects:v119 count:16];
+    v46 = [obj countByEnumeratingWithState:&v114 objects:v118 count:16];
     if (!v46)
     {
-      v105 = 0;
+      v104 = 0;
       v48 = firstObject;
       goto LABEL_144;
     }
 
-    v109 = v3;
-    v47 = *v116;
+    v108 = v3;
+    v47 = *v115;
     v48 = firstObject;
-    v112 = *v116;
+    v111 = *v115;
     while (2)
     {
       v49 = 0;
-      v113 = v46;
+      v112 = v46;
 LABEL_56:
-      if (*v116 != v47)
+      if (*v115 != v47)
       {
         objc_enumerationMutation(obj);
       }
 
-      firstObject = *(*(&v115 + 1) + 8 * v49);
+      firstObject = *(*(&v114 + 1) + 8 * v49);
 
       v50 = v6[561];
       if ([*(&self->super.super.isa + v50) containsIndex:{objc_msgSend(firstObject, "dbRowID")}])
@@ -809,17 +807,17 @@ LABEL_56:
       {
         v48 = firstObject;
 LABEL_126:
-        v47 = v112;
-        v46 = v113;
+        v47 = v111;
+        v46 = v112;
 LABEL_127:
         if (++v49 == v46)
         {
-          v96 = [obj countByEnumeratingWithState:&v115 objects:v119 count:16];
+          v96 = [obj countByEnumeratingWithState:&v114 objects:v118 count:16];
           v46 = v96;
           if (!v96)
           {
-            v105 = 0;
-            v3 = v109;
+            v104 = 0;
+            v3 = v108;
             goto LABEL_144;
           }
 
@@ -843,11 +841,11 @@ LABEL_112:
       {
         maxDepth = self->_maxDepth;
         *buf = 67109634;
-        *v121 = maxDepth;
-        *&v121[4] = 2112;
-        *&v121[6] = firstObject;
-        *&v121[14] = 2112;
-        *&v121[16] = parentID;
+        *v120 = maxDepth;
+        *&v120[4] = 2112;
+        *&v120[6] = firstObject;
+        *&v120[14] = 2112;
+        *&v120[16] = parentID;
         _os_log_impl(&dword_223E7A000, v84, OS_LOG_TYPE_DEFAULT, "[WARNING] max depth %u reached at %@%@", buf, 0x1Cu);
       }
 
@@ -860,9 +858,9 @@ LABEL_120:
         {
           debugItemIDString = [v48 debugItemIDString];
           *buf = 138412546;
-          *v121 = debugItemIDString;
-          *&v121[8] = 2112;
-          *&v121[10] = v88;
+          *v120 = debugItemIDString;
+          *&v120[8] = 2112;
+          *&v120[10] = v88;
           _os_log_debug_impl(&dword_223E7A000, v89, OS_LOG_TYPE_DEBUG, "[DEBUG] Fetching recursive contents of %@ because it is the highest dead parent dir-fault%@", buf, 0x16u);
         }
 
@@ -888,7 +886,7 @@ LABEL_120:
           while (v97 < [(NSMutableArray *)self->_stack count]);
         }
 
-        v3 = v109;
+        v3 = v108;
         v5 = &OBJC_IVAR___BRCAccountSession__serverDB;
         continue;
       }
@@ -902,7 +900,7 @@ LABEL_120:
   }
 
   v48 = 0;
-  v111 = 0;
+  v110 = 0;
   v46 = firstObject;
   while (2)
   {
@@ -928,17 +926,17 @@ LABEL_120:
 
     if ([v46 isDead] && objc_msgSend(v46, "isDirectory"))
     {
-      v110 = v55;
-      if ((v111 & 1) != 0 || ([v46 asDirectory], v58 = objc_claimAutoreleasedReturnValue(), v59 = -[BRCSyncUpEnumerator _checkIfShouldDenylistForChildrenOfItemBeingCopiedToNewZone:](self, "_checkIfShouldDenylistForChildrenOfItemBeingCopiedToNewZone:", v58), v58, v59))
+      v109 = v55;
+      if ((v110 & 1) != 0 || ([v46 asDirectory], v58 = objc_claimAutoreleasedReturnValue(), v59 = -[BRCSyncUpEnumerator _checkIfShouldDenylistForChildrenOfItemBeingCopiedToNewZone:](self, "_checkIfShouldDenylistForChildrenOfItemBeingCopiedToNewZone:", v58), v58, v59))
       {
         v60 = brc_bread_crumbs();
         v61 = brc_default_log();
         if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          *v121 = v46;
-          *&v121[8] = 2112;
-          *&v121[10] = v60;
+          *v120 = v46;
+          *&v120[8] = 2112;
+          *&v120[10] = v60;
           _os_log_debug_impl(&dword_223E7A000, v61, OS_LOG_TYPE_DEBUG, "[DEBUG] denylist all deletes for item which has children being copied to a new zone %@%@", buf, 0x16u);
         }
 
@@ -946,7 +944,7 @@ LABEL_120:
         itemID3 = [v46 itemID];
         [(NSMutableSet *)itemIDsWithChildrenBeingCopiedToNewZone addObject:itemID3];
 
-        v111 = 1;
+        v110 = 1;
         if (v48)
         {
 LABEL_77:
@@ -964,7 +962,7 @@ LABEL_77:
 
       else
       {
-        v111 = 0;
+        v110 = 0;
         if (v48)
         {
           goto LABEL_77;
@@ -984,9 +982,9 @@ LABEL_83:
           if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            *v121 = v46;
-            *&v121[8] = 2112;
-            *&v121[10] = v70;
+            *v120 = v46;
+            *&v120[8] = 2112;
+            *&v120[10] = v70;
             _os_log_debug_impl(&dword_223E7A000, v71, OS_LOG_TYPE_DEBUG, "[DEBUG] Highest parent dead fault is nil because it's a shared-to-me top level item - %@%@", buf, 0x16u);
           }
 
@@ -1002,9 +1000,9 @@ LABEL_83:
             itemID5 = [v46 itemID];
             itemIDString = [itemID5 itemIDString];
             *buf = 138412546;
-            *v121 = itemIDString;
-            *&v121[8] = 2112;
-            *&v121[10] = v73;
+            *v120 = itemIDString;
+            *&v120[8] = 2112;
+            *&v120[10] = v73;
             _os_log_debug_impl(&dword_223E7A000, v74, OS_LOG_TYPE_DEBUG, "[DEBUG] Highest parent dead fault is %@%@", buf, 0x16u);
           }
 
@@ -1013,7 +1011,7 @@ LABEL_83:
 
         v48 = itemID6;
 LABEL_91:
-        v55 = v110;
+        v55 = v109;
         v75 = self->_itemIDsNeedingDirectoryFetch;
         itemID7 = [v46 itemID];
         [(NSMutableSet *)v75 addObject:itemID7];
@@ -1030,7 +1028,7 @@ LABEL_91:
         }
 
         v48 = 0;
-        v55 = v110;
+        v55 = v109;
       }
     }
 
@@ -1061,16 +1059,16 @@ LABEL_105:
             {
               clientZone = self->_clientZone;
               *buf = 138412802;
-              *v121 = clientZone;
-              *&v121[8] = 2112;
-              *&v121[10] = v46;
-              *&v121[18] = 2112;
-              *&v121[20] = v100;
+              *v120 = clientZone;
+              *&v120[8] = 2112;
+              *&v120[10] = v46;
+              *&v120[18] = 2112;
+              *&v120[20] = v100;
               _os_log_fault_impl(&dword_223E7A000, v101, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: reset needed for %@ because of orphan %@%@", buf, 0x20u);
             }
 
             [(BRCClientZone *)self->_clientZone scheduleResetServerAndClientTruthsForReason:@"orphan.tombstone"];
-            v105 = 0;
+            v104 = 0;
             goto LABEL_143;
           }
 
@@ -1102,9 +1100,9 @@ LABEL_105:
         if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          *v121 = v46;
-          *&v121[8] = 2112;
-          *&v121[10] = v86;
+          *v120 = v46;
+          *&v120[8] = 2112;
+          *&v120[10] = v86;
           _os_log_debug_impl(&dword_223E7A000, v87, OS_LOG_TYPE_DEBUG, "[DEBUG] denylisting %@ and its descendants%@", buf, 0x16u);
         }
 
@@ -1124,14 +1122,14 @@ LABEL_119:
   if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    *v121 = v46;
-    *&v121[8] = 2112;
-    *&v121[10] = v92;
+    *v120 = v46;
+    *&v120[8] = 2112;
+    *&v120[10] = v92;
     _os_log_debug_impl(&dword_223E7A000, v93, OS_LOG_TYPE_DEBUG, "[DEBUG] denylist all children deletes when leaving top level folder share %@%@", buf, 0x16u);
   }
 
   [(BRCSyncUpEnumerator *)self _denyListDescendantStack:self->_stack parentItem:v46 andAddToSet:self->_itemIDsLostOrThrottled];
-  if (v111 & 1 | (([v46 isDead] & 1) == 0))
+  if (v110 & 1 | (([v46 isDead] & 1) == 0))
   {
     goto LABEL_119;
   }
@@ -1147,17 +1145,15 @@ LABEL_119:
   }
 
   [*(&self->super.super.isa + v50) addIndex:{objc_msgSend(v46, "dbRowID")}];
-  v105 = v46;
+  v104 = v46;
 LABEL_143:
-  v3 = v109;
+  v3 = v108;
 
 LABEL_144:
   firstObject = v46;
 LABEL_145:
 
-  v102 = *MEMORY[0x277D85DE8];
-
-  return v105;
+  return v104;
 }
 
 - (id)_tombstoneLeavesNeedingSyncUpEnumerator
@@ -1272,7 +1268,7 @@ id __62__BRCSyncUpEnumerator__tombstoneLeavesNeedingSyncUpEnumerator__block_invo
 
 - (void)_denyListDescendantStack:(id)stack parentItem:(id)item andAddToSet:(id)set descendantBlock:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stackCopy = stack;
   itemCopy = item;
   setCopy = set;
@@ -1283,26 +1279,26 @@ id __62__BRCSyncUpEnumerator__tombstoneLeavesNeedingSyncUpEnumerator__block_invo
     [setCopy addObject:itemID];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v14 = stackCopy;
-  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * i);
+        v19 = *(*(&v22 + 1) + 8 * i);
         if ([v19 isDirectory])
         {
           itemID2 = [v19 itemID];
@@ -1316,19 +1312,18 @@ id __62__BRCSyncUpEnumerator__tombstoneLeavesNeedingSyncUpEnumerator__block_invo
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v16);
   }
 
   [v14 removeAllObjects];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_denyListDescendantStackAndItemIfThrottledOrNeedsOSUpgrade:(id)upgrade now:(unint64_t)now
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   upgradeCopy = upgrade;
   if ([upgradeCopy needsOSUpgradeToSyncUp])
   {
@@ -1346,7 +1341,7 @@ id __62__BRCSyncUpEnumerator__tombstoneLeavesNeedingSyncUpEnumerator__block_invo
   syncUpScheduler = [session syncUpScheduler];
   dbRowID = [(BRCClientZone *)self->_clientZone dbRowID];
   v12 = [syncUpScheduler timeToRetryForItem:upgradeCopy zone:dbRowID];
-  v33 = v12;
+  v32 = v12;
 
   if (v12)
   {
@@ -1355,11 +1350,11 @@ id __62__BRCSyncUpEnumerator__tombstoneLeavesNeedingSyncUpEnumerator__block_invo
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v36 = upgradeCopy;
-      v37 = 2048;
-      v38 = v12;
-      v39 = 2112;
-      v40 = v13;
+      v35 = upgradeCopy;
+      v36 = 2048;
+      v37 = v12;
+      v38 = 2112;
+      v39 = v13;
       _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: denylist %@ and all dependents because db throttle has %llu nsecs to retry%@", buf, 0x20u);
     }
 
@@ -1377,65 +1372,65 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   syncThrottles = [(BRCClientZone *)self->_clientZone syncThrottles];
-  v20 = [syncThrottles countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v20)
+  v19 = [syncThrottles countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v19)
   {
-    v21 = v20;
-    v22 = *v30;
+    v20 = v19;
+    v21 = *v29;
     while (2)
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v30 != v22)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(syncThrottles);
         }
 
-        if ([*(*(&v29 + 1) + 8 * i) matchesItem:upgradeCopy nsecsToRetry:&v33 now:now])
+        if ([*(*(&v28 + 1) + 8 * i) matchesItem:upgradeCopy nsecsToRetry:&v32 now:now])
         {
-          v24 = v33 == 0;
+          v23 = v32 == 0;
         }
 
         else
         {
-          v24 = 1;
+          v23 = 1;
         }
 
-        if (!v24)
+        if (!v23)
         {
-          v25 = brc_bread_crumbs();
-          v26 = brc_default_log();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          v24 = brc_bread_crumbs();
+          v25 = brc_default_log();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v36 = upgradeCopy;
-            v37 = 2048;
-            v38 = v33;
-            v39 = 2112;
-            v40 = v25;
-            _os_log_debug_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: denylist %@ and all dependents because %llu nsecs to retry%@", buf, 0x20u);
+            v35 = upgradeCopy;
+            v36 = 2048;
+            v37 = v32;
+            v38 = 2112;
+            v39 = v24;
+            _os_log_debug_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: denylist %@ and all dependents because %llu nsecs to retry%@", buf, 0x20u);
           }
 
-          v28 = self->_retryAfter;
-          if (v28 >= v33)
+          v27 = self->_retryAfter;
+          if (v27 >= v32)
           {
-            v28 = v33;
+            v27 = v32;
           }
 
-          self->_retryAfter = v28;
+          self->_retryAfter = v27;
           [(BRCSyncUpEnumerator *)self _denyListDescendantStack:self->_stack parentItem:upgradeCopy andAddToSet:self->_itemIDsLostOrThrottled];
 
           goto LABEL_12;
         }
       }
 
-      v21 = [syncThrottles countByEnumeratingWithState:&v29 objects:v34 count:16];
-      if (v21)
+      v20 = [syncThrottles countByEnumeratingWithState:&v28 objects:v33 count:16];
+      if (v20)
       {
         continue;
       }
@@ -1447,7 +1442,6 @@ LABEL_12:
   v16 = 0;
 LABEL_13:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1557,7 +1551,7 @@ void __59__BRCSyncUpEnumerator_handleItemForOSUpgrade_parentItemID___block_invok
 
 - (BOOL)_handleSharedItemWhichMovedToNewShare:(id)share rootItem:(id)item
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   shareCopy = share;
   itemCopy = item;
   if (([shareCopy sharingOptions] & 4) == 0)
@@ -1588,20 +1582,20 @@ void __59__BRCSyncUpEnumerator_handleItemForOSUpgrade_parentItemID___block_invok
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = " in the same zone";
-    v25 = 138413058;
+    v24 = 138413058;
     if (!isPrivateZone)
     {
       v14 = 0;
     }
 
-    v26 = shareCopy;
-    v27 = 2112;
-    v28 = itemCopy;
-    v29 = 2080;
-    v30 = v14;
-    v31 = 2112;
-    v32 = v12;
-    _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] item with shareID %@ is moving into a shared parent %@%s%@", &v25, 0x2Au);
+    v25 = shareCopy;
+    v26 = 2112;
+    v27 = itemCopy;
+    v28 = 2080;
+    v29 = v14;
+    v30 = 2112;
+    v31 = v12;
+    _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] item with shareID %@ is moving into a shared parent %@%s%@", &v24, 0x2Au);
   }
 
   if (!isPrivateZone)
@@ -1643,13 +1637,12 @@ LABEL_21:
   v19 = 0;
 LABEL_22:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)_checkForSharesWithinSharesWithItem:(id)item
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if ([itemCopy isDead] & 1) != 0 || (objc_msgSend(itemCopy, "isFSRoot"))
   {
@@ -1664,15 +1657,15 @@ LABEL_22:
     if (([parentItemOnFS sharingOptions] & 0x48) != 0)
     {
       asShareableItem = [itemCopy asShareableItem];
-      v29 = [(BRCSyncUpEnumerator *)self _handleSharedItemWhichMovedToNewShare:asShareableItem rootItem:0];
+      v28 = [(BRCSyncUpEnumerator *)self _handleSharedItemWhichMovedToNewShare:asShareableItem rootItem:0];
 
-      if (v29)
+      if (v28)
       {
-        v12 = brc_bread_crumbs();
+        v11 = brc_bread_crumbs();
         p_super = brc_default_log();
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
         {
-          [(BRCSyncUpEnumerator *)itemCopy _checkForSharesWithinSharesWithItem:v12, p_super];
+          [(BRCSyncUpEnumerator *)itemCopy _checkForSharesWithinSharesWithItem:v11, p_super];
         }
 
         LOBYTE(p_super) = 1;
@@ -1696,39 +1689,39 @@ LABEL_22:
     if (([parentItemOnFS sharingOptions] & 0x48) != 0)
     {
       p_super = [(BRCClientZone *)self->_clientZone session];
-      v41 = 0;
-      v42 = &v41;
-      v43 = 0x2020000000;
-      v44 = 0;
-      v9 = [itemCopy db];
-      v10 = [p_super getClientDBFacadeFromDB:v9];
+      v40 = 0;
+      v41 = &v40;
+      v42 = 0x2020000000;
+      v43 = 0;
+      v8 = [itemCopy db];
+      v9 = [p_super getClientDBFacadeFromDB:v8];
 
       asDirectory = [itemCopy asDirectory];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __59__BRCSyncUpEnumerator__checkForSharesWithinSharesWithItem___block_invoke;
-      v36[3] = &unk_2785085D8;
-      v12 = p_super;
-      v40 = &v41;
-      v37 = v12;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __59__BRCSyncUpEnumerator__checkForSharesWithinSharesWithItem___block_invoke;
+      v35[3] = &unk_2785085D8;
+      v11 = p_super;
+      v39 = &v40;
+      v36 = v11;
       selfCopy = self;
-      v13 = itemCopy;
-      v39 = v13;
-      [v10 enumerateItemsWithShareIDUnderParent:asDirectory block:v36];
+      v12 = itemCopy;
+      v38 = v12;
+      [v9 enumerateItemsWithShareIDUnderParent:asDirectory block:v35];
 
-      LODWORD(p_super) = *(v42 + 24);
+      LODWORD(p_super) = *(v41 + 24);
       if (p_super == 1)
       {
-        v14 = brc_bread_crumbs();
-        v15 = brc_default_log();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v13 = brc_bread_crumbs();
+        v14 = brc_default_log();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          itemID = [v13 itemID];
-          [(BRCSyncUpEnumerator *)itemID _checkForSharesWithinSharesWithItem:v14, v49, v15];
+          itemID = [v12 itemID];
+          [(BRCSyncUpEnumerator *)itemID _checkForSharesWithinSharesWithItem:v13, v48, v14];
         }
       }
 
-      _Block_object_dispose(&v41, 8);
+      _Block_object_dispose(&v40, 8);
 LABEL_34:
 
       goto LABEL_20;
@@ -1741,55 +1734,54 @@ LABEL_20:
   {
     clientZone = [itemCopy clientZone];
     itemID2 = [itemCopy itemID];
-    v19 = [clientZone serverItemByItemID:itemID2];
+    v18 = [clientZone serverItemByItemID:itemID2];
 
-    if (([v19 sharingOptions] & 0x7C) == 4)
+    if (([v18 sharingOptions] & 0x7C) == 4)
     {
       session = [(BRCClientZone *)self->_clientZone session];
-      v41 = 0;
-      v42 = &v41;
-      v43 = 0x2020000000;
-      v44 = 0;
-      v21 = [itemCopy db];
-      v22 = [session getClientDBFacadeFromDB:v21];
+      v40 = 0;
+      v41 = &v40;
+      v42 = 0x2020000000;
+      v43 = 0;
+      v20 = [itemCopy db];
+      v21 = [session getClientDBFacadeFromDB:v20];
 
       asDirectory2 = [itemCopy asDirectory];
-      v30 = MEMORY[0x277D85DD0];
-      v31 = 3221225472;
-      v32 = __59__BRCSyncUpEnumerator__checkForSharesWithinSharesWithItem___block_invoke_15;
-      v33 = &unk_278508600;
-      v24 = itemCopy;
-      v34 = v24;
-      v35 = &v41;
-      [v22 enumerateItemsWithShareIDUnderParent:asDirectory2 block:&v30];
+      v29 = MEMORY[0x277D85DD0];
+      v30 = 3221225472;
+      v31 = __59__BRCSyncUpEnumerator__checkForSharesWithinSharesWithItem___block_invoke_15;
+      v32 = &unk_278508600;
+      v23 = itemCopy;
+      v33 = v23;
+      v34 = &v40;
+      [v21 enumerateItemsWithShareIDUnderParent:asDirectory2 block:&v29];
 
-      if (*(v42 + 24) == 1)
+      if (*(v41 + 24) == 1)
       {
-        v25 = brc_bread_crumbs();
-        v26 = brc_default_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v24 = brc_bread_crumbs();
+        v25 = brc_default_log();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v46 = v24;
-          v47 = 2112;
-          v48 = v25;
-          _os_log_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEFAULT, "[WARNING] Unsharing turd folder share %@ because it now has shared children%@", buf, 0x16u);
+          v45 = v23;
+          v46 = 2112;
+          v47 = v24;
+          _os_log_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEFAULT, "[WARNING] Unsharing turd folder share %@ because it now has shared children%@", buf, 0x16u);
         }
 
         p_super = &self->_itemsNeedingUnshare->super.super;
-        asShareableItem2 = [v24 asShareableItem];
+        asShareableItem2 = [v23 asShareableItem];
         [p_super addObject:asShareableItem2];
 
         LOBYTE(p_super) = 1;
       }
 
-      _Block_object_dispose(&v41, 8);
+      _Block_object_dispose(&v40, 8);
     }
   }
 
 LABEL_4:
 
-  v7 = *MEMORY[0x277D85DE8];
   return p_super;
 }
 
@@ -1833,7 +1825,7 @@ void __59__BRCSyncUpEnumerator__checkForSharesWithinSharesWithItem___block_invok
 
 - (BOOL)_checkIfParentNeedsRevivalWithParentItem:(id)item item:(id)a4
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v7 = a4;
   if (![itemCopy isRejected])
@@ -1846,38 +1838,21 @@ void __59__BRCSyncUpEnumerator__checkForSharesWithinSharesWithItem___block_invok
 
       if (isDeadOrMissingInServerTruth)
       {
-        if ([itemCopy isSharedToMeChildItem])
+        if (([itemCopy isSharedToMeChildItem] & 1) != 0 || (objc_msgSend(itemCopy, "clientZone"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isPrivateZone"), v16, v17) && (objc_msgSend(itemCopy, "clientZone"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "asPrivateClientZone"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(itemCopy, "itemID"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "pcsChainStateForItem:", v20) & 0xFFFFFFFE, v20, v19, v18, v21 == 2))
         {
-          goto LABEL_11;
-        }
-
-        clientZone2 = [itemCopy clientZone];
-        isPrivateZone = [clientZone2 isPrivateZone];
-
-        if (isPrivateZone)
-        {
-          clientZone3 = [itemCopy clientZone];
-          asPrivateClientZone = [clientZone3 asPrivateClientZone];
-          itemID = [itemCopy itemID];
-          v22 = [asPrivateClientZone pcsChainStateForItem:itemID] & 0xFFFFFFFE;
-
-          if (v22 == 2)
+          v8 = brc_bread_crumbs();
+          v9 = brc_default_log();
+          if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-LABEL_11:
-            v8 = brc_bread_crumbs();
-            v9 = brc_default_log();
-            if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-            {
-              goto LABEL_5;
-            }
-
-            v23 = 138412546;
-            v24 = itemCopy;
-            v25 = 2112;
-            v26 = v8;
-            v10 = "[WARNING] Parent item needs to be revived to sync up %@%@";
-            goto LABEL_4;
+            goto LABEL_5;
           }
+
+          v22 = 138412546;
+          v23 = itemCopy;
+          v24 = 2112;
+          v25 = v8;
+          v10 = "[WARNING] Parent item needs to be revived to sync up %@%@";
+          goto LABEL_4;
         }
       }
     }
@@ -1894,13 +1869,13 @@ LABEL_11:
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412546;
-    v24 = v7;
-    v25 = 2112;
-    v26 = v8;
+    v22 = 138412546;
+    v23 = v7;
+    v24 = 2112;
+    v25 = v8;
     v10 = "[WARNING] Parent item is rejected so we will reset if we try to sync up without syncing up the parent. Item: %@%@";
 LABEL_4:
-    _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, v10, &v23, 0x16u);
+    _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, v10, &v22, 0x16u);
   }
 
 LABEL_5:
@@ -1910,13 +1885,12 @@ LABEL_5:
   v11 = 1;
 LABEL_15:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)_handlePendingShareItemWithPendingDeleteChildren:(id)children
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   childrenCopy = children;
   appLibrary = [childrenCopy appLibrary];
   mangledID = [appLibrary mangledID];
@@ -1976,23 +1950,22 @@ LABEL_14:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     itemID2 = [childrenCopy itemID];
-    v20 = 138412546;
-    v21 = itemID2;
-    v22 = 2112;
-    v23 = v13;
-    _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Sync: denylist %@ until the delete of its child%@", &v20, 0x16u);
+    v19 = 138412546;
+    v20 = itemID2;
+    v21 = 2112;
+    v22 = v13;
+    _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Sync: denylist %@ until the delete of its child%@", &v19, 0x16u);
   }
 
   v16 = 1;
 LABEL_15:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)_checkIfShouldDenylistForPathMatch:(id)match
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   matchCopy = match;
   if ([matchCopy isDirectory] && (objc_msgSend(matchCopy, "isKnownByServerOrInFlight") & 1) == 0)
   {
@@ -2012,13 +1985,13 @@ LABEL_15:
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
             itemID = [matchCopy itemID];
-            v15 = 138412802;
-            v16 = itemID;
-            v17 = 2112;
-            v18 = serverPathMatchItemID;
-            v19 = 2112;
-            v20 = v8;
-            _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: denylist %@ because it's an unresolved path-match with %@%@", &v15, 0x20u);
+            v14 = 138412802;
+            v15 = itemID;
+            v16 = 2112;
+            v17 = serverPathMatchItemID;
+            v18 = 2112;
+            v19 = v8;
+            _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: denylist %@ because it's an unresolved path-match with %@%@", &v14, 0x20u);
 
             LOBYTE(itemID) = 1;
           }
@@ -2053,13 +2026,13 @@ LABEL_17:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       itemID2 = [matchCopy itemID];
-      v15 = 138412802;
-      v16 = itemID2;
-      v17 = 2112;
-      v18 = serverPathMatchItemID;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: denylist %@ because we have a lost item at the same path in the server truth - %@%@", &v15, 0x20u);
+      v14 = 138412802;
+      v15 = itemID2;
+      v16 = 2112;
+      v17 = serverPathMatchItemID;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: denylist %@ because we have a lost item at the same path in the server truth - %@%@", &v14, 0x20u);
     }
 
 LABEL_13:
@@ -2069,13 +2042,12 @@ LABEL_13:
   LOBYTE(itemID) = 0;
 LABEL_18:
 
-  v12 = *MEMORY[0x277D85DE8];
   return itemID;
 }
 
 - (BOOL)_checkIfShouldDenylistForParentDirectoryFaultWithItem:(id)item
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   serverZone = [(BRCClientZone *)self->_clientZone serverZone];
   if ([serverZone state] & 4) != 0 || !objc_msgSend(serverZone, "hasFetchedServerZoneState") || -[BRCClientZone isSharedZone](self->_clientZone, "isSharedZone") && (objc_msgSend(itemCopy, "isSharedToMeTopLevelItem"))
@@ -2085,8 +2057,8 @@ LABEL_18:
 
   else
   {
-    v9 = [itemCopy st];
-    parentID = [v9 parentID];
+    v8 = [itemCopy st];
+    parentID = [v8 parentID];
 
     clientZone = self->_clientZone;
     dbFacade = [itemCopy dbFacade];
@@ -2095,23 +2067,22 @@ LABEL_18:
     v6 = clientZone == 9;
     if (v6)
     {
-      v13 = brc_bread_crumbs();
-      v14 = brc_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v12 = brc_bread_crumbs();
+      v13 = brc_default_log();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412546;
-        v17 = itemCopy;
-        v18 = 2112;
-        v19 = v13;
-        _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] denylist %@ because parent is a directory fault in the server truth%@", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = itemCopy;
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] denylist %@ because parent is a directory fault in the server truth%@", &v15, 0x16u);
       }
 
-      v15 = [(BRCClientZone *)self->_clientZone fetchDirectoryContentsIfNecessary:parentID isUserWaiting:0 rescheduleApplyScheduler:1];
-      [v15 beginObservingChangesWithDelegate:0];
+      v14 = [(BRCClientZone *)self->_clientZone fetchDirectoryContentsIfNecessary:parentID isUserWaiting:0 rescheduleApplyScheduler:1];
+      [v14 beginObservingChangesWithDelegate:0];
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

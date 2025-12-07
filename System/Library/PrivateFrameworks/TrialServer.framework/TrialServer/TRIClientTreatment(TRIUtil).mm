@@ -11,35 +11,35 @@
 
 - (id)_triCollectMetadataForAssetsWithTest:()TRIUtil
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_autoreleasePoolPush();
   v6 = objc_opt_new();
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   selfCopy = self;
   factorLevelArray = [self factorLevelArray];
-  v70 = [factorLevelArray countByEnumeratingWithState:&v73 objects:v83 count:16];
-  if (v70)
+  v69 = [factorLevelArray countByEnumeratingWithState:&v72 objects:v82 count:16];
+  if (v69)
   {
-    v8 = *v74;
-    v63 = v6;
-    v64 = v4;
-    v65 = factorLevelArray;
-    v60 = v5;
-    v69 = *v74;
+    v8 = *v73;
+    v62 = v6;
+    v63 = v4;
+    v64 = factorLevelArray;
+    v59 = v5;
+    v68 = *v73;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v74 != v8)
+      if (*v73 != v8)
       {
         objc_enumerationMutation(factorLevelArray);
       }
 
-      v10 = *(*(&v73 + 1) + 8 * v9);
+      v10 = *(*(&v72 + 1) + 8 * v9);
       factor = [v10 factor];
       hasName = [factor hasName];
 
@@ -61,14 +61,14 @@ LABEL_3:
 
         treatmentId = [selfCopy treatmentId];
         *buf = 138412290;
-        v78 = treatmentId;
+        v77 = treatmentId;
         v51 = "Treatment %@ has missing namespace name.";
         goto LABEL_37;
       }
 
-      v72 = 0;
+      v71 = 0;
       level = [v10 level];
-      v16 = [level fileOrDirectoryLevelWithIsDir:&v72];
+      v16 = [level fileOrDirectoryLevelWithIsDir:&v71];
       v17 = v16;
       if (v16)
       {
@@ -81,14 +81,14 @@ LABEL_3:
             factor3 = [v10 factor];
             name = [factor3 name];
             *buf = 138412546;
-            v78 = treatmentId2;
-            v79 = 2114;
-            v80 = name;
+            v77 = treatmentId2;
+            v78 = 2114;
+            v79 = name;
             _os_log_error_impl(&dword_26F567000, v45, OS_LOG_TYPE_ERROR, "Treatment %@ has missing asset id for factor %{public}@.", buf, 0x16u);
           }
 
 LABEL_31:
-          v5 = v60;
+          v5 = v59;
 
 LABEL_32:
           v44 = 0;
@@ -107,31 +107,31 @@ LABEL_32:
             treatmentId3 = [selfCopy treatmentId];
             asset2 = [v17 asset];
             [asset2 assetId];
-            v57 = v56 = level;
+            v56 = v55 = level;
             factor4 = [v10 factor];
             name2 = [factor4 name];
             *buf = 138412802;
-            v78 = treatmentId3;
-            v79 = 2114;
-            v80 = v57;
-            v81 = 2114;
-            v82 = name2;
+            v77 = treatmentId3;
+            v78 = 2114;
+            v79 = v56;
+            v80 = 2114;
+            v81 = name2;
             _os_log_error_impl(&dword_26F567000, v45, OS_LOG_TYPE_ERROR, "Treatment %@ has unsuitable asset id %{public}@ for factor %{public}@.", buf, 0x20u);
 
-            factorLevelArray = v65;
-            level = v56;
+            factorLevelArray = v64;
+            level = v55;
           }
 
           goto LABEL_31;
         }
 
-        v71 = level;
-        v23 = v72;
+        v70 = level;
+        v23 = v71;
         v24 = objc_autoreleasePoolPush();
         if (v4[2](v4, v22, v10, v17))
         {
-          v67 = v23;
-          v68 = v24;
+          v66 = v23;
+          v67 = v24;
           metadata = [level metadata];
           v26 = [TRIAssetMetadataReservedKeys isEncryptedForMetadata:metadata];
 
@@ -140,7 +140,7 @@ LABEL_32:
           asset3 = [v17 asset];
           v30 = -[TRITreatmentQualifiedAssetIndex initWithTreatmentId:index:](v27, "initWithTreatmentId:index:", treatmentId4, [asset3 cloudKitIndex]);
 
-          metadata2 = [v71 metadata];
+          metadata2 = [v70 metadata];
           v32.var0 = [TRIAssetMetadataReservedKeys compressionModeForMetadata:metadata2];
 
           v33 = [TRICKAssetMetadata alloc];
@@ -148,7 +148,7 @@ LABEL_32:
           {
             factor5 = [v10 factor];
             namespaceName = [factor5 namespaceName];
-            v61 = namespaceName;
+            v60 = namespaceName;
           }
 
           else
@@ -160,7 +160,7 @@ LABEL_32:
           v36 = [asset4 size];
           v37 = v33;
           v38 = v30;
-          v39 = [(TRICKAssetMetadata *)v37 initWithType:v67 namespaceNameForEncryptionKey:namespaceName treatmentIndex:v30 downloadSize:v36 compressionMode:v32.var0];
+          v39 = [(TRICKAssetMetadata *)v37 initWithType:v66 namespaceNameForEncryptionKey:namespaceName treatmentIndex:v30 downloadSize:v36 compressionMode:v32.var0];
 
           if (v26)
           {
@@ -171,25 +171,25 @@ LABEL_32:
           name3 = [factor6 name];
           v43 = -[TRIRequiredCloudKitAsset initWithFactorName:isInstalled:isOnDemand:assetId:metadata:](v40, "initWithFactorName:isInstalled:isOnDemand:assetId:metadata:", name3, 0, [v17 isOnDemand], v22, v39);
 
-          v6 = v63;
-          [v63 addObject:v43];
+          v6 = v62;
+          [v62 addObject:v43];
 
-          v4 = v64;
-          factorLevelArray = v65;
-          v24 = v68;
+          v4 = v63;
+          factorLevelArray = v64;
+          v24 = v67;
         }
 
         objc_autoreleasePoolPop(v24);
 
-        level = v71;
-        v8 = v69;
+        level = v70;
+        v8 = v68;
       }
 
-      if (v70 == ++v9)
+      if (v69 == ++v9)
       {
-        v5 = v60;
-        v70 = [factorLevelArray countByEnumeratingWithState:&v73 objects:v83 count:16];
-        if (v70)
+        v5 = v59;
+        v69 = [factorLevelArray countByEnumeratingWithState:&v72 objects:v82 count:16];
+        if (v69)
         {
           goto LABEL_3;
         }
@@ -203,13 +203,13 @@ LABEL_32:
     {
 LABEL_28:
 
-      v5 = v60;
+      v5 = v59;
       goto LABEL_32;
     }
 
     treatmentId = [selfCopy treatmentId];
     *buf = 138412290;
-    v78 = treatmentId;
+    v77 = treatmentId;
     v51 = "Treatment %@ has missing factor name.";
 LABEL_37:
     _os_log_error_impl(&dword_26F567000, v49, OS_LOG_TYPE_ERROR, v51, buf, 0xCu);
@@ -223,7 +223,6 @@ LABEL_22:
 LABEL_33:
 
   objc_autoreleasePoolPop(v5);
-  v52 = *MEMORY[0x277D85DE8];
 
   return v44;
 }
@@ -369,31 +368,31 @@ LABEL_33:
 
 - (uint64_t)_triEnumerateMAFactorLevelsWithBlock:()TRIUtil
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_autoreleasePoolPush();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   factorLevelArray = [self factorLevelArray];
-  v7 = [factorLevelArray countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v7 = [factorLevelArray countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
     selfCopy = self;
-    v25 = v5;
-    v9 = *v27;
+    v24 = v5;
+    v9 = *v26;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(factorLevelArray);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         if (([v11 hasLevel] & 1) == 0)
         {
           level = TRILogCategory_Server();
@@ -401,7 +400,7 @@ LABEL_33:
           {
             treatmentId = [selfCopy treatmentId];
             *buf = 138543362;
-            v31 = treatmentId;
+            v30 = treatmentId;
             _os_log_error_impl(&dword_26F567000, level, OS_LOG_TYPE_ERROR, "Treatment %{public}@ has missing level.", buf, 0xCu);
           }
 
@@ -412,15 +411,15 @@ LABEL_33:
         if (![v11 hasFactor] || (objc_msgSend(v11, "factor"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "hasName"), v12, (v13 & 1) == 0))
         {
           level = TRILogCategory_Server();
-          v5 = v25;
+          v5 = v24;
           if (os_log_type_enabled(level, OS_LOG_TYPE_ERROR))
           {
             treatmentId2 = [selfCopy treatmentId];
             *buf = 138543362;
-            v31 = treatmentId2;
+            v30 = treatmentId2;
             _os_log_error_impl(&dword_26F567000, level, OS_LOG_TYPE_ERROR, "Treatment %{public}@ has missing factor name.", buf, 0xCu);
 
-            v5 = v25;
+            v5 = v24;
           }
 
           v19 = 0;
@@ -443,7 +442,7 @@ LABEL_33:
             {
               v19 = 1;
 LABEL_23:
-              v5 = v25;
+              v5 = v24;
 LABEL_24:
 
               goto LABEL_25;
@@ -452,9 +451,9 @@ LABEL_24:
         }
       }
 
-      v8 = [factorLevelArray countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v8 = [factorLevelArray countByEnumeratingWithState:&v25 objects:v31 count:16];
       v19 = 1;
-      v5 = v25;
+      v5 = v24;
       if (v8)
       {
         continue;
@@ -472,7 +471,6 @@ LABEL_24:
 LABEL_25:
 
   objc_autoreleasePoolPop(v5);
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

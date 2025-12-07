@@ -67,8 +67,6 @@
 {
   blockCopy = block;
   espresso_buffer_get_rank();
-  v5 = vshlq_n_s64(*&self->_buffer.stride_channels, 2uLL);
-  v6 = vshlq_n_s64(*&self->_buffer.stride_width, 2uLL);
   blockCopy[2](blockCopy, self->_buffer.data, 4 * self->_buffer.stride_sequence_length * self->_buffer.sequence_length);
 }
 

@@ -17,24 +17,25 @@
 
 - (BOOL)pcsIdentitySetCompanionInCircle:(_PCSIdentitySetData *)circle error:(id *)error
 {
-  if (+[CDPUtilities hasFullCDPSupport])
+  v7 = +[CDPUtilities hasFullCDPSupport];
+  if (v7)
   {
     return 0;
   }
 
-  v8 = _CDPLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _CDPLogSystem(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "setting companion in circle", buf, 2u);
+    _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "setting companion in circle", buf, 2u);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __75__CDPProtectedCloudStorageProxyImpl_pcsIdentitySetCompanionInCircle_error___block_invoke;
-  v9[3] = &__block_descriptor_40_e20_B16__0_____CFError_8l;
-  v9[4] = circle;
-  return [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v9 error:error];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __75__CDPProtectedCloudStorageProxyImpl_pcsIdentitySetCompanionInCircle_error___block_invoke;
+  v10[3] = &__block_descriptor_40_e20_B16__0_____CFError_8l;
+  v10[4] = circle;
+  return [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v10 error:error];
 }
 
 - (_PCSIdentitySetData)pcsIdentityCreateWithInfo:(id)info error:(id *)error
@@ -56,13 +57,6 @@
 
   _Block_object_dispose(&v13, 8);
   return v8;
-}
-
-uint64_t __69__CDPProtectedCloudStorageProxyImpl_pcsIdentityCreateWithInfo_error___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  *(*(*(a1 + 40) + 8) + 24) = PCSIdentitySetCreate();
-  return 1;
 }
 
 - (BOOL)pcsIdentitySetIsInICDPNetwork:(_PCSIdentitySetData *)network options:(id)options error:(id *)error
@@ -93,128 +87,125 @@ uint64_t __69__CDPProtectedCloudStorageProxyImpl_pcsIdentityCreateWithInfo_error
 - (_PCSIdentitySetData)pcsIdentitySetupWithInfo:(id)info error:(id *)error
 {
   infoCopy = info;
-  if (+[CDPUtilities hasFullCDPSupport])
+  v7 = +[CDPUtilities hasFullCDPSupport];
+  if (v7)
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "pcsIdentitySetupWithInfo:", buf, 2u);
+      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "pcsIdentitySetupWithInfo:", buf, 2u);
     }
 
     *buf = 0;
-    v14 = buf;
-    v15 = 0x2020000000;
-    v16 = 0;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __68__CDPProtectedCloudStorageProxyImpl_pcsIdentitySetupWithInfo_error___block_invoke;
-    v10[3] = &unk_1E869D140;
-    v12 = buf;
-    v11 = infoCopy;
-    [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v10 error:error];
-    v8 = *(v14 + 3);
+    v15 = buf;
+    v16 = 0x2020000000;
+    v17 = 0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __68__CDPProtectedCloudStorageProxyImpl_pcsIdentitySetupWithInfo_error___block_invoke;
+    v11[3] = &unk_1E869D140;
+    v13 = buf;
+    v12 = infoCopy;
+    [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v11 error:error];
+    v9 = *(v15 + 3);
 
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
-}
-
-uint64_t __68__CDPProtectedCloudStorageProxyImpl_pcsIdentitySetupWithInfo_error___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  *(*(*(a1 + 40) + 8) + 24) = PCSIdentitySetup();
-  return 1;
+  return v9;
 }
 
 - (BOOL)pcsIdentityMigrateToiCDPWithInfo:(id)info error:(id *)error
 {
   infoCopy = info;
-  if (+[CDPUtilities hasFullCDPSupport])
+  v7 = +[CDPUtilities hasFullCDPSupport];
+  if (v7)
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "pcsIdentityMigrateToiCDPWithInfo:", buf, 2u);
+      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "pcsIdentityMigrateToiCDPWithInfo:", buf, 2u);
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __76__CDPProtectedCloudStorageProxyImpl_pcsIdentityMigrateToiCDPWithInfo_error___block_invoke;
-    v10[3] = &unk_1E869D190;
-    v11 = infoCopy;
-    v8 = [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v10 error:error];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __76__CDPProtectedCloudStorageProxyImpl_pcsIdentityMigrateToiCDPWithInfo_error___block_invoke;
+    v11[3] = &unk_1E869D190;
+    v12 = infoCopy;
+    v9 = [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v11 error:error];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)pcsSynchronizeKeysWithInfo:(id)info error:(id *)error
 {
   infoCopy = info;
-  if (+[CDPUtilities hasFullCDPSupport])
+  v7 = +[CDPUtilities hasFullCDPSupport];
+  if (v7)
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "pcsSynchronizeKeysWithInfo:", buf, 2u);
+      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "pcsSynchronizeKeysWithInfo:", buf, 2u);
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __70__CDPProtectedCloudStorageProxyImpl_pcsSynchronizeKeysWithInfo_error___block_invoke;
-    v10[3] = &unk_1E869D190;
-    v11 = infoCopy;
-    v8 = [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v10 error:error];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __70__CDPProtectedCloudStorageProxyImpl_pcsSynchronizeKeysWithInfo_error___block_invoke;
+    v11[3] = &unk_1E869D190;
+    v12 = infoCopy;
+    v9 = [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v11 error:error];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)pcsRestoreLocalBackup:(id)backup error:(id *)error
 {
   backupCopy = backup;
-  if (+[CDPUtilities hasFullCDPSupport])
+  v7 = +[CDPUtilities hasFullCDPSupport];
+  if (v7)
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "pcsRestoreLocalBackup:", buf, 2u);
+      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "pcsRestoreLocalBackup:", buf, 2u);
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __65__CDPProtectedCloudStorageProxyImpl_pcsRestoreLocalBackup_error___block_invoke;
-    v10[3] = &unk_1E869D190;
-    v11 = backupCopy;
-    v8 = [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v10 error:error];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __65__CDPProtectedCloudStorageProxyImpl_pcsRestoreLocalBackup_error___block_invoke;
+    v11[3] = &unk_1E869D190;
+    v12 = backupCopy;
+    v9 = [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v11 error:error];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)isWalrusEnabledWithOptions:(id)options error:(id *)error
@@ -223,7 +214,7 @@ uint64_t __68__CDPProtectedCloudStorageProxyImpl_pcsIdentitySetupWithInfo_error_
   v7 = [(CDPProtectedCloudStorageProxyImpl *)self pcsIdentityCreateWithInfo:optionsCopy error:error];
   if (*error)
   {
-    v8 = _CDPLogSystem();
+    v8 = _CDPLogSystem(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [CDPProtectedCloudStorageProxyImpl isWalrusEnabledWithOptions:error error:?];
@@ -247,23 +238,21 @@ uint64_t __68__CDPProtectedCloudStorageProxyImpl_pcsIdentitySetupWithInfo_error_
   return v9;
 }
 
-uint64_t __70__CDPProtectedCloudStorageProxyImpl_isWalrusEnabledWithOptions_error___block_invoke(uint64_t a1)
+uint64_t __70__CDPProtectedCloudStorageProxyImpl_isWalrusEnabledWithOptions_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 32);
-  v4 = PCSIdentityiCDPWalrus();
-  v5 = *(a1 + 40);
-  if (v5)
+  v3 = PCSIdentityiCDPWalrus();
+  v4 = *(a1 + 40);
+  if (v4)
   {
-    CFRelease(v5);
+    CFRelease(v4);
   }
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)repairWalrusWithAccountIdentifier:(id)identifier options:(id)options error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   optionsCopy = options;
   v10 = [(CDPProtectedCloudStorageProxyImpl *)self pcsIdentityCreateWithInfo:optionsCopy error:error];
@@ -275,19 +264,20 @@ uint64_t __70__CDPProtectedCloudStorageProxyImpl_isWalrusEnabledWithOptions_erro
       goto LABEL_14;
     }
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __85__CDPProtectedCloudStorageProxyImpl_repairWalrusWithAccountIdentifier_options_error___block_invoke;
-    v26[3] = &__block_descriptor_40_e20_B16__0_____CFError_8l;
-    v26[4] = v13;
-    v14 = [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v26 error:error];
-    v15 = _CDPLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __85__CDPProtectedCloudStorageProxyImpl_repairWalrusWithAccountIdentifier_options_error___block_invoke;
+    v28[3] = &__block_descriptor_40_e20_B16__0_____CFError_8l;
+    v28[4] = v13;
+    v14 = [(CDPProtectedCloudStorageProxyImpl *)self _performPCSBlock:v28 error:error];
+    v15 = v14;
+    v16 = _CDPLogSystem(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      [CDPProtectedCloudStorageProxyImpl repairWalrusWithAccountIdentifier:v14 options:v15 error:?];
+      [CDPProtectedCloudStorageProxyImpl repairWalrusWithAccountIdentifier:v15 options:v16 error:?];
     }
 
-    if (!v14)
+    if (!v15)
     {
 LABEL_14:
       v12 = 1;
@@ -301,46 +291,46 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v16 = _CDPLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = _CDPLogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      [CDPProtectedCloudStorageProxyImpl repairWalrusWithAccountIdentifier:v16 options:? error:?];
+      [CDPProtectedCloudStorageProxyImpl repairWalrusWithAccountIdentifier:v18 options:? error:?];
     }
 
-    [(CDPProtectedCloudStorageProxyImpl *)self setWalrusEnabled:1 accountIdentifier:identifierCopy options:optionsCopy error:error];
-    v17 = *error;
+    v19 = [(CDPProtectedCloudStorageProxyImpl *)self setWalrusEnabled:1 accountIdentifier:identifierCopy options:optionsCopy error:error];
+    v20 = *error;
     v12 = *error == 0;
-    v18 = _CDPLogSystem();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-    if (v17)
+    v21 = _CDPLogSystem(v19);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    if (v20)
     {
-      if (!v19)
+      if (!v22)
       {
         goto LABEL_20;
       }
 
-      v20 = *error;
+      v23 = *error;
       *buf = 138412290;
-      v28 = v20;
-      v21 = "Walrus repair failed: %@";
-      v22 = v18;
-      v23 = 12;
+      v30 = v23;
+      v24 = "Walrus repair failed: %@";
+      v25 = v21;
+      v26 = 12;
     }
 
     else
     {
-      if (!v19)
+      if (!v22)
       {
         goto LABEL_20;
       }
 
       *buf = 0;
-      v21 = "Walrus repair succeeded";
-      v22 = v18;
-      v23 = 2;
+      v24 = "Walrus repair succeeded";
+      v25 = v21;
+      v26 = 2;
     }
 
-    _os_log_impl(&dword_1DED99000, v22, OS_LOG_TYPE_DEFAULT, v21, buf, v23);
+    _os_log_impl(&dword_1DED99000, v25, OS_LOG_TYPE_DEFAULT, v24, buf, v26);
 LABEL_20:
 
     if (!v13)
@@ -351,7 +341,7 @@ LABEL_20:
     goto LABEL_15;
   }
 
-  v11 = _CDPLogSystem();
+  v11 = _CDPLogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     [CDPProtectedCloudStorageProxyImpl isWalrusEnabledWithOptions:error error:?];
@@ -360,35 +350,35 @@ LABEL_20:
   v12 = 0;
 LABEL_16:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 uint64_t __85__CDPProtectedCloudStorageProxyImpl_repairWalrusWithAccountIdentifier_options_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v4 = getPCSIdentitySetIsWalrusWithForceFetchSymbolLoc_ptr;
-  v11 = getPCSIdentitySetIsWalrusWithForceFetchSymbolLoc_ptr;
+  v12 = getPCSIdentitySetIsWalrusWithForceFetchSymbolLoc_ptr;
   if (!getPCSIdentitySetIsWalrusWithForceFetchSymbolLoc_ptr)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __getPCSIdentitySetIsWalrusWithForceFetchSymbolLoc_block_invoke;
-    v7[3] = &unk_1E869D1B8;
-    v7[4] = &v8;
-    __getPCSIdentitySetIsWalrusWithForceFetchSymbolLoc_block_invoke(v7);
-    v4 = v9[3];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __getPCSIdentitySetIsWalrusWithForceFetchSymbolLoc_block_invoke;
+    v8[3] = &unk_1E869D1B8;
+    v8[4] = &v9;
+    __getPCSIdentitySetIsWalrusWithForceFetchSymbolLoc_block_invoke(v8);
+    v4 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v4)
   {
-    v6 = __85__CDPProtectedCloudStorageProxyImpl_repairWalrusWithAccountIdentifier_options_error___block_invoke_cold_1();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v6);
+    __85__CDPProtectedCloudStorageProxyImpl_repairWalrusWithAccountIdentifier_options_error___block_invoke_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v7);
   }
 
   return v4(v3, 1, a2);
@@ -397,91 +387,90 @@ uint64_t __85__CDPProtectedCloudStorageProxyImpl_repairWalrusWithAccountIdentifi
 - (BOOL)setWalrusEnabled:(BOOL)enabled accountIdentifier:(id)identifier options:(id)options error:(id *)error
 {
   enabledCopy = enabled;
-  v42 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   optionsCopy = options;
-  v11 = _CDPSignpostLogSystem();
+  v11 = _CDPSignpostLogSystem(optionsCopy);
   v12 = _CDPSignpostCreate(v11);
   v14 = v13;
 
-  v15 = _CDPSignpostLogSystem();
-  v16 = v15;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v16 = _CDPSignpostLogSystem(v15);
+  v17 = v16;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v12, "UpdateAccountCleanupStatus", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v12, "UpdateAccountCleanupStatus", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v17 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = _CDPSignpostLogSystem(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    *v36 = v12;
-    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: UpdateAccountCleanupStatus  enableTelemetry=YES ", buf, 0xCu);
+    *v39 = v12;
+    _os_log_impl(&dword_1DED99000, v19, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: UpdateAccountCleanupStatus  enableTelemetry=YES ", buf, 0xCu);
   }
 
   if (enabledCopy)
   {
-    v34 = 0;
-    v18 = &v34;
-    v19 = PCSAccountEnableWalrus();
+    v37 = 0;
+    v20 = &v37;
+    v21 = PCSAccountEnableWalrus();
   }
 
   else
   {
-    v33 = 0;
-    v18 = &v33;
-    v19 = PCSAccountDisableWalrus();
+    v36 = 0;
+    v20 = &v36;
+    v21 = PCSAccountDisableWalrus();
   }
 
-  v20 = v19;
-  v21 = *v18;
   v22 = v21;
+  v23 = *v20;
+  v24 = v23;
   if (error)
   {
-    v23 = v21;
-    *error = v22;
+    v25 = v23;
+    *error = v24;
   }
 
   Nanoseconds = _CDPSignpostGetNanoseconds(v12, v14);
-  v25 = _CDPSignpostLogSystem();
-  v26 = v25;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+  v27 = _CDPSignpostLogSystem(Nanoseconds);
+  v28 = v27;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
   {
-    code = [v22 code];
+    code = [v24 code];
     *buf = 67240448;
-    *v36 = enabledCopy;
-    *&v36[4] = 1026;
-    *&v36[6] = code;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v26, OS_SIGNPOST_INTERVAL_END, v12, "UpdateAccountCleanupStatus", " isEnabled=%{public,signpost.telemetry:number1,name=isEnabled}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0xEu);
+    *v39 = enabledCopy;
+    *&v39[4] = 1026;
+    *&v39[6] = code;
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v28, OS_SIGNPOST_INTERVAL_END, v12, "UpdateAccountCleanupStatus", " isEnabled=%{public,signpost.telemetry:number1,name=isEnabled}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0xEu);
   }
 
-  v28 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v31 = _CDPSignpostLogSystem(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    code2 = [v22 code];
+    code2 = [v24 code];
     *buf = 134218752;
-    *v36 = v12;
-    *&v36[8] = 2048;
-    v37 = Nanoseconds / 1000000000.0;
-    v38 = 1026;
-    v39 = enabledCopy;
-    v40 = 1026;
-    v41 = code2;
-    _os_log_impl(&dword_1DED99000, v28, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: UpdateAccountCleanupStatus  isEnabled=%{public,signpost.telemetry:number1,name=isEnabled}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0x22u);
+    *v39 = v12;
+    *&v39[8] = 2048;
+    v40 = Nanoseconds / 1000000000.0;
+    v41 = 1026;
+    v42 = enabledCopy;
+    v43 = 1026;
+    v44 = code2;
+    _os_log_impl(&dword_1DED99000, v31, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: UpdateAccountCleanupStatus  isEnabled=%{public,signpost.telemetry:number1,name=isEnabled}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0x22u);
   }
 
-  if (!v20)
+  if (!v22)
   {
-    v30 = _CDPLogSystem();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v34 = _CDPLogSystem(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [CDPProtectedCloudStorageProxyImpl setWalrusEnabled:v22 accountIdentifier:v30 options:? error:?];
+      [CDPProtectedCloudStorageProxyImpl setWalrusEnabled:v24 accountIdentifier:v34 options:? error:?];
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-  return v20;
+  return v22;
 }
 
 - (BOOL)_performPCSBlock:(id)block error:(id *)error
@@ -503,36 +492,33 @@ uint64_t __85__CDPProtectedCloudStorageProxyImpl_repairWalrusWithAccountIdentifi
 
 - (void)isWalrusEnabledWithOptions:(id *)a1 error:.cold.1(id *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*a1 description];
-  OUTLINED_FUNCTION_0(&dword_1DED99000, v2, v3, "Failed to create PCS identity with error: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_1DED99000, v2, v3, "Failed to create PCS identity with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)repairWalrusWithAccountIdentifier:(char)a1 options:(NSObject *)a2 error:.cold.2(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "Walrus state after repair attempt - %i", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "Walrus state after repair attempt - %i", v2, 8u);
 }
 
-uint64_t __85__CDPProtectedCloudStorageProxyImpl_repairWalrusWithAccountIdentifier_options_error___block_invoke_cold_1()
+void __85__CDPProtectedCloudStorageProxyImpl_repairWalrusWithAccountIdentifier_options_error___block_invoke_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [CDPProtectedCloudStorageProxyImpl setWalrusEnabled:v0 accountIdentifier:? options:? error:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [CDPProtectedCloudStorageProxyImpl setWalrusEnabled:v1 accountIdentifier:v2 options:? error:?];
 }
 
 - (void)setWalrusEnabled:(uint64_t)a1 accountIdentifier:(NSObject *)a2 options:error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Walrus update failed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Walrus update failed with error: %@", &v2, 0xCu);
 }
 
 @end

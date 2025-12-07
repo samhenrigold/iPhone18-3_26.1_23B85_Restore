@@ -24,39 +24,35 @@
 
 + (id)entryEventPointDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"LifetimeServoStats";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"LifetimeServoStats";
   entryEventPointDefinitionLifetimeServoStats = [self entryEventPointDefinitionLifetimeServoStats];
-  v7[0] = entryEventPointDefinitionLifetimeServoStats;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryEventPointDefinitionLifetimeServoStats;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventPointDefinitionLifetimeServoStats
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277D3F4E8];
-  v13 = *MEMORY[0x277D3F568];
-  v14 = &unk_282C1BF38;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v2;
-  v15[1] = *MEMORY[0x277D3F540];
-  v11[0] = @"VTBucket";
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D3F4E8];
+  v12 = *MEMORY[0x277D3F568];
+  v13 = &unk_282C1BF38;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v2;
+  v14[1] = *MEMORY[0x277D3F540];
+  v10[0] = @"VTBucket";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v11[1] = @"VTCount";
-  v12[0] = commonTypeDict_StringFormat;
+  v10[1] = @"VTCount";
+  v11[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v12[1] = commonTypeDict_IntegerFormat;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = commonTypeDict_IntegerFormat;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v8;
 }
@@ -130,7 +126,7 @@
 
 void __29__PLSoCAgent_triggerLTSStats__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) requestLTSStats];
   v3 = PLLogSoC();
   v4 = v3;
@@ -138,9 +134,9 @@ void __29__PLSoCAgent_triggerLTSStats__block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 138412290;
-      v7 = v2;
-      _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Received callback from PowerDataD: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v2;
+      _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Received callback from PowerDataD: %@", &v5, 0xCu);
     }
 
     [*(a1 + 32) logEventPointLifetimeServoStats:v2];
@@ -150,12 +146,10 @@ void __29__PLSoCAgent_triggerLTSStats__block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v6) = 0;
-      _os_log_error_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_ERROR, "LTSStats are unavailable", &v6, 2u);
+      LOWORD(v5) = 0;
+      _os_log_error_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_ERROR, "LTSStats are unavailable", &v5, 2u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)requestLTSStats
@@ -254,7 +248,7 @@ LABEL_18:
 
 - (void)logEventPointLifetimeServoStats:(id)stats
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEAA8];
   statsCopy = stats;
   v6 = [v4 now];
@@ -264,26 +258,24 @@ LABEL_18:
 
   v9 = [(PLOperator *)PLSoCAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"LifetimeServoStats"];
   array = [MEMORY[0x277CBEB18] array];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __46__PLSoCAgent_logEventPointLifetimeServoStats___block_invoke;
-  v19 = &unk_27825B638;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __46__PLSoCAgent_logEventPointLifetimeServoStats___block_invoke;
+  v18 = &unk_27825B638;
   v11 = v9;
-  v20 = v11;
+  v19 = v11;
   v12 = convertFromSystemToMonotonic;
-  v21 = v12;
+  v20 = v12;
   v13 = array;
-  v22 = v13;
-  [v8 enumerateKeysAndObjectsUsingBlock:&v16];
+  v21 = v13;
+  [v8 enumerateKeysAndObjectsUsingBlock:&v15];
   if ([v13 count])
   {
-    v23 = v11;
-    v24[0] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = v11;
+    v23[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     [(PLOperator *)self logEntries:v14 withGroupID:v11];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __46__PLSoCAgent_logEventPointLifetimeServoStats___block_invoke(id *a1, void *a2, void *a3)

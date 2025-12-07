@@ -37,52 +37,9 @@
 
 - (id)copyEncodedXPCDict
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v3 = xpc_dictionary_create(0, 0, 0);
   if (!v3)
-  {
-    v7 = nrCopyLogObj_461();
-    if (sNRCopyLogToStdErr == 1)
-    {
-    }
-
-    else
-    {
-      v8 = v7;
-      v9 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-
-      if (!v9)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    v10 = nrCopyLogObj_461();
-    _NRLogWithArgs(v10, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v11, v12, v13, v14, v15, "");
-
-LABEL_7:
-    _os_log_pack_size();
-    MEMORY[0x28223BE20]();
-    v16 = *__error();
-    v17 = _os_log_pack_fill();
-    __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v17, "nr_xpc_dictionary_create");
-    v18 = nrCopyLogObj_461();
-    _NRLogAbortWithPack(v18);
-  }
-
-  v4 = v3;
-  xpc_dictionary_set_uint64(v3, "LinkType", [(NRLinkPreferences *)self linkType]);
-  v5 = *MEMORY[0x277D85DE8];
-  return v4;
-}
-
-- (NRLinkPreferences)initWithLinkType:(unsigned __int8)type
-{
-  v19 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = NRLinkPreferences;
-  result = [(NRLinkPreferences *)&v18 init];
-  if (!result)
   {
     v6 = nrCopyLogObj_461();
     if (sNRCopyLogToStdErr == 1)
@@ -101,21 +58,62 @@ LABEL_7:
     }
 
     v9 = nrCopyLogObj_461();
-    _NRLogWithArgs(v9, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v10, v11, v12, v13, v14, "");
+    _NRLogWithArgs(v9, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_7:
-    _os_log_pack_size();
-    MEMORY[0x28223BE20]();
-    v15 = *__error();
-    v16 = _os_log_pack_fill();
-    *v16 = 136446210;
-    *(v16 + 4) = "[NRLinkPreferences initWithLinkType:]";
-    v17 = nrCopyLogObj_461();
-    _NRLogAbortWithPack(v17);
+    v10 = _os_log_pack_size();
+    v12 = v16 - ((MEMORY[0x28223BE20](v10, v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v13 = __error();
+    v14 = _os_log_pack_fill(v12, v10, *v13, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+    __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v14, "nr_xpc_dictionary_create");
+    v15 = nrCopyLogObj_461();
+    _NRLogAbortWithPack(v15, v12);
+  }
+
+  v4 = v3;
+  xpc_dictionary_set_uint64(v3, "LinkType", [(NRLinkPreferences *)self linkType]);
+  return v4;
+}
+
+- (NRLinkPreferences)initWithLinkType:(unsigned __int8)type
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = NRLinkPreferences;
+  result = [(NRLinkPreferences *)&v16 init];
+  if (!result)
+  {
+    v5 = nrCopyLogObj_461();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v6 = v5;
+      v7 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+
+      if (!v7)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v8 = nrCopyLogObj_461();
+    _NRLogWithArgs(v8, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRLinkPreferences initWithLinkType:]"", 50);
+
+LABEL_7:
+    v9 = _os_log_pack_size();
+    v11 = &v15 - ((MEMORY[0x28223BE20](v9, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = __error();
+    v13 = _os_log_pack_fill(v11, v9, *v12, &dword_25B98C000, "%{public}s [super init] failed");
+    *v13 = 136446210;
+    *(v13 + 4) = "[NRLinkPreferences initWithLinkType:]";
+    v14 = nrCopyLogObj_461();
+    _NRLogAbortWithPack(v14, v11);
   }
 
   result->_linkType = type;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -150,7 +148,7 @@ LABEL_7:
     }
 
     v8 = nrCopyLogObj_461();
-    _NRLogWithArgs(v8, 17, "%s called with null encodedDict", v13, v14, v15, v16, v17, "+[NRLinkPreferences createFromEncodedXPCDict:]");
+    _NRLogWithArgs(v8, 17, "%s called with null encodedDict");
 LABEL_14:
     v5 = 0;
     goto LABEL_5;
@@ -165,17 +163,17 @@ LABEL_14:
 
     else
     {
-      v18 = v10;
-      v19 = os_log_type_enabled(v10, OS_LOG_TYPE_FAULT);
+      v13 = v10;
+      v14 = os_log_type_enabled(v10, OS_LOG_TYPE_FAULT);
 
-      if (!v19)
+      if (!v14)
       {
         goto LABEL_15;
       }
     }
 
     v8 = nrCopyLogObj_461();
-    _NRLogWithArgs(v8, 17, "%s called with null xpc_get_type(encodedDict) == (&_xpc_type_dictionary)", v20, v21, v22, v23, v24, "+[NRLinkPreferences createFromEncodedXPCDict:]");
+    _NRLogWithArgs(v8, 17, "%s called with null xpc_get_type(encodedDict) == (&_xpc_type_dictionary)");
     goto LABEL_14;
   }
 

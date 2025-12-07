@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"audioAttachmentID";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"audioAttachmentID";
   audioAttachmentID = [(ICASAudioAttachmentData *)self audioAttachmentID];
   if (audioAttachmentID)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = audioAttachmentID2;
-  v16[0] = audioAttachmentID2;
-  v15[1] = @"transcriptCharacterCount";
+  v15[0] = audioAttachmentID2;
+  v14[1] = @"transcriptCharacterCount";
   transcriptCharacterCount = [(ICASAudioAttachmentData *)self transcriptCharacterCount];
   if (transcriptCharacterCount)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = transcriptCharacterCount2;
-  v16[1] = transcriptCharacterCount2;
-  v15[2] = @"summaryCharacterCount";
+  v15[1] = transcriptCharacterCount2;
+  v14[2] = @"summaryCharacterCount";
   summaryCharacterCount = [(ICASAudioAttachmentData *)self summaryCharacterCount];
   if (summaryCharacterCount)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = summaryCharacterCount2;
-  v16[2] = summaryCharacterCount2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = summaryCharacterCount2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

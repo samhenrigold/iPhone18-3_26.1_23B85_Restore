@@ -201,7 +201,7 @@
 
   CGContextSaveGState(context);
   memset(&v27[1], 0, sizeof(CGAffineTransform));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
   v27[0] = v27[1];
   CGContextConcatCTM(context, v27);
   CGContextSaveGState(context);
@@ -285,7 +285,7 @@
 
   v12 = [AKAnnotationRendererUtilities newStandardStrokedBorderPathWithPath:v10 withStrokeWidth:thicknessCopy];
   memset(&m, 0, sizeof(m));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
 
   v15 = m;
   CGAffineTransformInvert(&v16, &v15);
@@ -305,7 +305,7 @@
   annotationCopy = annotation;
   v8 = [self _newPathForAnnotation:annotationCopy];
   memset(&m, 0, sizeof(m));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
 
   v10 = m;
   CGAffineTransformInvert(&v11, &v10);
@@ -329,7 +329,7 @@
   v12 = v11;
   [AKGeometryHelper radiusOfCenteredCircleFor:?];
   v14 = v13;
-  [AKGeometryHelper ellipseToCenteredCircleTransform:v6, v8, v10, v12];
+  objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper, v6, v8, v10, v12);
   [annotationCopy pointyBitPoint];
   v21 = v16;
   v22 = v15;
@@ -364,7 +364,7 @@
       }
     }
 
-    [AKGeometryHelper ellipseToCenteredCircleTransform:v12, v14, v16, v18];
+    objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper, v12, v14, v16, v18);
     [AKGeometryHelper radiusOfCenteredCircleFor:v12, v14, v16, v18];
     v25 = v24;
     [bitCopy pointyBitPoint];
@@ -384,7 +384,7 @@
     [AKGeometryHelper pointAtAngle:v34 inCircleWithCenter:v29 andRadius:v28, v25];
     v40 = v39;
     v42 = v41;
-    [AKGeometryHelper centeredCircleToEllipseTransform:v43, v32, v44, v31];
+    objc_msgSend_centeredCircleToEllipseTransform_(AKGeometryHelper, v43, v32, v44, v31);
     if (point)
     {
       point->x = v38 * 0.0 + 0.0 * v36 + 0.0;
@@ -412,9 +412,9 @@
   v20 = 0u;
   v18 = 0u;
   [annotationCopy rectangle];
-  [AKGeometryHelper ellipseToCenteredCircleTransform:?];
+  objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper);
   [annotationCopy rectangle];
-  [AKGeometryHelper centeredCircleToEllipseTransform:?];
+  objc_msgSend_centeredCircleToEllipseTransform_(AKGeometryHelper);
   v5 = v21;
   v6 = v22;
   v7 = 0.0 * v22 + 0.0 * v21 + 0.0;

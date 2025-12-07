@@ -43,67 +43,67 @@ uint64_t __39__CNAutocompleteAvatarUtilities_os_log__block_invoke()
   return v2;
 }
 
-void __46__CNAutocompleteAvatarUtilities_roadsideImage__block_invoke()
+void __46__CNAutocompleteAvatarUtilities_roadsideImage__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v23 = *MEMORY[0x1E69E9840];
+  v1 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __46__CNAutocompleteAvatarUtilities_roadsideImage__block_invoke_cold_1(v0);
+    __46__CNAutocompleteAvatarUtilities_roadsideImage__block_invoke_cold_1(v1);
   }
 
-  v23.width = 100.0;
-  v23.height = 100.0;
-  UIGraphicsBeginImageContextWithOptions(v23, 0, 0.0);
+  v24.width = 100.0;
+  v24.height = 100.0;
+  UIGraphicsBeginImageContextWithOptions(v24, 0, 0.0);
   CurrentContext = UIGraphicsGetCurrentContext();
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
   *components = xmmword_1B81557C0;
-  v21 = unk_1B81557D0;
-  v3 = CGColorCreate(DeviceRGB, components);
-  *v18 = xmmword_1B81557E0;
-  v19 = unk_1B81557F0;
-  v4 = CGColorCreate(DeviceRGB, v18);
-  v17[0] = v3;
-  v17[1] = v4;
+  v22 = unk_1B81557D0;
+  v4 = CGColorCreate(DeviceRGB, components);
+  *v19 = xmmword_1B81557E0;
+  v20 = unk_1B81557F0;
+  v5 = CGColorCreate(DeviceRGB, v19);
+  v18[0] = v4;
+  v18[1] = v5;
   *locations = xmmword_1B81557B0;
-  v5 = CGGradientCreateWithColors(DeviceRGB, [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2], locations);
-  v26.origin.x = 0.0;
-  v26.origin.y = 0.0;
-  v26.size.width = 100.0;
-  v26.size.height = 100.0;
-  MinY = CGRectGetMinY(v26);
+  v6 = CGGradientCreateWithColors(DeviceRGB, [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2], locations);
   v27.origin.x = 0.0;
   v27.origin.y = 0.0;
   v27.size.width = 100.0;
   v27.size.height = 100.0;
-  v25.y = CGRectGetMaxY(v27);
-  v24.x = 0.0;
-  v25.x = 0.0;
-  v24.y = MinY;
-  CGContextDrawLinearGradient(CurrentContext, v5, v24, v25, 0);
-  CGGradientRelease(v5);
-  CGColorRelease(v3);
-  CGColorRelease(v4);
-  CGColorSpaceRelease(DeviceRGB);
-  v7 = MEMORY[0x1E69DCAD8];
-  v8 = [MEMORY[0x1E69DC888] whiteColor];
-  v9 = [MEMORY[0x1E69DC888] whiteColor];
-  *&v15[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
-  v11 = [v7 configurationWithPaletteColors:v10];
-
-  v12 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"car.front.waves.down.fill" withConfiguration:v11];
+  MinY = CGRectGetMinY(v27);
   v28.origin.x = 0.0;
   v28.origin.y = 0.0;
   v28.size.width = 100.0;
   v28.size.height = 100.0;
-  v29 = CGRectInset(v28, 20.0, 20.0);
-  [v12 drawInRect:{v29.origin.x, v29.origin.y, v29.size.width, v29.size.height}];
-  v13 = UIGraphicsGetImageFromCurrentImageContext();
+  v26.y = CGRectGetMaxY(v28);
+  v25.x = 0.0;
+  v26.x = 0.0;
+  v25.y = MinY;
+  CGContextDrawLinearGradient(CurrentContext, v6, v25, v26, 0);
+  CGGradientRelease(v6);
+  CGColorRelease(v4);
+  CGColorRelease(v5);
+  CGColorSpaceRelease(DeviceRGB);
+  v8 = MEMORY[0x1E69DCAD8];
+  v9 = [MEMORY[0x1E69DC888] whiteColor];
+  v10 = [MEMORY[0x1E69DC888] whiteColor];
+  *&v16[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v12 = [v8 configurationWithPaletteColors:v11];
+
+  v13 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"car.front.waves.down.fill" withConfiguration:v12];
+  v29.origin.x = 0.0;
+  v29.origin.y = 0.0;
+  v29.size.width = 100.0;
+  v29.size.height = 100.0;
+  v30 = CGRectInset(v29, 20.0, 20.0);
+  [v13 drawInRect:{v30.origin.x, v30.origin.y, v30.size.width, v30.size.height}];
+  v14 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
-  v14 = roadsideImage_cn_once_object_3;
-  roadsideImage_cn_once_object_3 = v13;
+  v15 = roadsideImage_cn_once_object_3;
+  roadsideImage_cn_once_object_3 = v14;
 }
 
 @end

@@ -52,7 +52,7 @@
 {
   messageCopy = message;
   message = [(SUUIDonationResultView *)self message];
-  if (message != messageCopy && ([messageCopy isEqualToString:message] & 1) == 0)
+  if (message != messageCopy && (objc_msgSend_isEqualToString_(messageCopy) & 1) == 0)
   {
     messageLabel = self->_messageLabel;
     if (messageCopy)
@@ -99,7 +99,7 @@
 {
   titleCopy = title;
   title = [(SUUIDonationResultView *)self title];
-  if (title != titleCopy && ([titleCopy isEqualToString:title] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)

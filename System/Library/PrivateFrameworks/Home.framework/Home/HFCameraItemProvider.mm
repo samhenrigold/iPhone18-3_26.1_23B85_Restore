@@ -40,72 +40,71 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFCameraItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
 
 - (id)reloadItems
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __35__HFCameraItemProvider_reloadItems__block_invoke;
   aBlock[3] = &unk_277DF5228;
-  objc_copyWeak(&v25, &location);
+  objc_copyWeak(&v24, &location);
   v3 = _Block_copy(aBlock);
   array = [MEMORY[0x277CBEB18] array];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  home = [(HFCameraItemProvider *)self home];
-  accessories = [home accessories];
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v5 = objc_msgSend_home(self);
+  accessories = [v5 accessories];
 
-  v7 = [accessories countByEnumeratingWithState:&v20 objects:v27 count:16];
+  v7 = [accessories countByEnumeratingWithState:&v19 objects:v26 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(accessories);
         }
 
-        cameraProfiles = [*(*(&v20 + 1) + 8 * i) cameraProfiles];
+        cameraProfiles = [*(*(&v19 + 1) + 8 * i) cameraProfiles];
         [array addObjectsFromArray:cameraProfiles];
       }
 
-      v7 = [accessories countByEnumeratingWithState:&v20 objects:v27 count:16];
+      v7 = [accessories countByEnumeratingWithState:&v19 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __35__HFCameraItemProvider_reloadItems__block_invoke_2;
-  v19[3] = &unk_277DF8038;
-  v19[4] = self;
-  v11 = [array na_filter:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __35__HFCameraItemProvider_reloadItems__block_invoke_2;
+  v18[3] = &unk_277DF8038;
+  v18[4] = self;
+  v11 = [array na_filter:v18];
   filter = [(HFCameraItemProvider *)self filter];
   v13 = [(HFItemProvider *)self reloadItemsWithHomeKitObjects:v11 filter:filter itemMap:v3];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __35__HFCameraItemProvider_reloadItems__block_invoke_3;
-  v17[3] = &unk_277DF30B8;
-  objc_copyWeak(&v18, &location);
-  v14 = [v13 flatMap:v17];
-  objc_destroyWeak(&v18);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __35__HFCameraItemProvider_reloadItems__block_invoke_3;
+  v16[3] = &unk_277DF30B8;
+  objc_copyWeak(&v17, &location);
+  v14 = [v13 flatMap:v16];
+  objc_destroyWeak(&v17);
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -115,7 +114,7 @@ HFCameraItem *__35__HFCameraItemProvider_reloadItems__block_invoke(uint64_t a1, 
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [HFCameraItem alloc];
-  v6 = [WeakRetained home];
+  v6 = objc_msgSend_home(WeakRetained);
   v7 = [v6 hf_characteristicValueManager];
   v8 = [(HFAccessoryProfileItem *)v5 initWithProfile:v3 valueSource:v7];
 
@@ -159,16 +158,14 @@ id __35__HFCameraItemProvider_reloadItems__block_invoke_3(uint64_t a1, void *a2)
 
 - (id)invalidationReasons
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFCameraItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"service";
-  v8[1] = @"accessory";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFCameraItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"service";
+  v7[1] = @"accessory";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

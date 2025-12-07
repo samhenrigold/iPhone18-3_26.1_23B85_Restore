@@ -139,7 +139,7 @@
 
 - (void)updateWithResult:(id)result
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0_2();
 
   NSRequestConcreteImplementation();
@@ -147,7 +147,7 @@
 
 + (double)cellHeightForResult:(id)result forWidth:(double)width
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0_2();
   NSRequestConcreteImplementation();
   return 0.0;
@@ -155,7 +155,7 @@
 
 - (void)setLabelFonts
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0_2();
 
   NSRequestConcreteImplementation();
@@ -163,7 +163,7 @@
 
 - (void)setupConstraints
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0_2();
 
   NSRequestConcreteImplementation();

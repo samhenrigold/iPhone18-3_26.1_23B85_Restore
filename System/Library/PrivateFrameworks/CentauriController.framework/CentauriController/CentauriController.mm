@@ -23,13 +23,13 @@ void sub_2433A2964(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void CentauriController::~CentauriController(CentauriController *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::~CentauriController(CentauriController *this)
 {
-  CentauriController::stop(this, a2, a3, a4, a5, a6, a7, a8);
-  v9 = *(this + 25);
-  if (v9)
+  CentauriController::stop(this);
+  v2 = *(this + 25);
+  if (v2)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
   std::condition_variable::~condition_variable(this + 3);
@@ -38,104 +38,104 @@ void CentauriController::~CentauriController(CentauriController *this, uint64_t 
   std::thread::~thread(this + 4);
 }
 
-void CentauriController::stop(CentauriController *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::stop(CentauriController *this)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "stop");
+  CentauriController::log(3u, "CentauriController::%s: \n", "stop");
   std::recursive_mutex::lock((this + 80));
-  v9 = *(this + 52);
-  if (v9)
+  v2 = *(this + 52);
+  if (v2)
   {
-    IOObjectRelease(v9);
+    IOObjectRelease(v2);
     *(this + 52) = 0;
   }
 
-  v10 = *(this + 53);
-  if (v10)
+  v3 = *(this + 53);
+  if (v3)
   {
-    IOObjectRelease(v10);
+    IOObjectRelease(v3);
     *(this + 53) = 0;
   }
 
-  v11 = *(this + 1);
-  if (v11)
+  v4 = *(this + 1);
+  if (v4)
   {
-    v12 = *(this + 2);
-    if (v12)
+    v5 = *(this + 2);
+    if (v5)
     {
-      CFRunLoopRemoveSource(v11, v12, *MEMORY[0x277CBF058]);
+      CFRunLoopRemoveSource(v4, v5, *MEMORY[0x277CBF058]);
       *(this + 2) = 0;
     }
   }
 
-  v13 = *(this + 3);
-  if (v13)
+  v6 = *(this + 3);
+  if (v6)
   {
-    IONotificationPortDestroy(v13);
+    IONotificationPortDestroy(v6);
     *(this + 3) = 0;
   }
 
-  v14 = *(this + 55);
-  if (v14)
+  v7 = *(this + 55);
+  if (v7)
   {
-    IOServiceClose(v14);
+    IOServiceClose(v7);
     *(this + 55) = 0;
   }
 
-  v15 = *(this + 54);
-  if (v15)
+  v8 = *(this + 54);
+  if (v8)
   {
-    IOObjectRelease(v15);
+    IOObjectRelease(v8);
     *(this + 54) = 0;
   }
 
-  v16 = *(this + 28);
-  if (v16)
+  v9 = *(this + 28);
+  if (v9)
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2000000000;
-    v26 = v16;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2000000000;
+    v19 = v9;
     *(this + 28) = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 0x40000000;
     aBlock[2] = ___ZN18CentauriController4stopEv_block_invoke;
     aBlock[3] = &unk_278DB0A00;
-    aBlock[4] = &v23;
-    CentauriController::ErrorNotifier::cancel(v16, aBlock);
-    _Block_object_dispose(&v23, 8);
+    aBlock[4] = &v16;
+    CentauriController::ErrorNotifier::cancel(v9, aBlock);
+    _Block_object_dispose(&v16, 8);
   }
 
-  v17 = *(this + 29);
-  if (v17)
+  v10 = *(this + 29);
+  if (v10)
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2000000000;
-    v26 = v17;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2000000000;
+    v19 = v10;
     *(this + 29) = 0;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 0x40000000;
-    v21[2] = ___ZN18CentauriController4stopEv_block_invoke_2;
-    v21[3] = &unk_278DB0A28;
-    v21[4] = &v23;
-    CentauriController::CrashlogNotifier::cancel(v17, v21);
-    _Block_object_dispose(&v23, 8);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 0x40000000;
+    v14[2] = ___ZN18CentauriController4stopEv_block_invoke_2;
+    v14[3] = &unk_278DB0A28;
+    v14[4] = &v16;
+    CentauriController::CrashlogNotifier::cancel(v10, v14);
+    _Block_object_dispose(&v16, 8);
   }
 
   std::recursive_mutex::unlock((this + 80));
-  v18 = *(this + 1);
-  if (v18)
+  v11 = *(this + 1);
+  if (v11)
   {
-    CFRunLoopStop(v18);
+    CFRunLoopStop(v11);
     CFRelease(*(this + 1));
     *(this + 1) = 0;
   }
 
-  v20 = *(this + 4);
-  v19 = (this + 32);
-  if (v20)
+  v13 = *(this + 4);
+  v12 = (this + 32);
+  if (v13)
   {
-    std::thread::join(v19);
+    std::thread::join(v12);
   }
 }
 
@@ -166,17 +166,18 @@ void CentauriController::setLogSink(const void *a1)
   std::mutex::unlock(v2);
 }
 
-void CentauriController::log(unsigned int a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void CentauriController::log(unsigned int a1, const char *a2, ...)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  va_start(va, a2);
+  v9 = *MEMORY[0x277D85DE8];
   if (getLogMutex(void)::once != -1)
   {
     CentauriController::setLogSink();
   }
 
-  v11 = getLogMutex(void)::mutex;
+  v4 = getLogMutex(void)::mutex;
   std::mutex::lock(getLogMutex(void)::mutex);
-  vsnprintf(CentauriController::log(CentauriControllerLogLevel,char const*,...)::buffer, 0x1000uLL, a2, &a9);
+  vsnprintf(CentauriController::log(CentauriControllerLogLevel,char const*,...)::buffer, 0x1000uLL, a2, va);
   if (CentauriController::sLogSink)
   {
     (*(CentauriController::sLogSink + 16))();
@@ -191,25 +192,24 @@ void CentauriController::log(unsigned int a1, const char *a2, uint64_t a3, uint6
 
     if (getLogHandle(void)::logHandle)
     {
-      v12 = getLogHandle(void)::logHandle;
+      v5 = getLogHandle(void)::logHandle;
     }
 
     else
     {
-      v12 = MEMORY[0x277D86220];
+      v5 = MEMORY[0x277D86220];
     }
 
-    v13 = 0x210u >> (8 * a1);
-    if (os_log_type_enabled(v12, (v13 & 0xFE)))
+    v6 = 0x210u >> (8 * a1);
+    if (os_log_type_enabled(v5, (v6 & 0xFE)))
     {
       *buf = 136315138;
-      v16 = CentauriController::log(CentauriControllerLogLevel,char const*,...)::buffer;
-      _os_log_impl(&dword_2433A2000, v12, v13, "%s", buf, 0xCu);
+      v8 = CentauriController::log(CentauriControllerLogLevel,char const*,...)::buffer;
+      _os_log_impl(&dword_2433A2000, v5, v6, "%s", buf, 0xCu);
     }
   }
 
-  std::mutex::unlock(v11);
-  v14 = *MEMORY[0x277D85DE8];
+  std::mutex::unlock(v4);
 }
 
 uint64_t CentauriController::setChipPower(CentauriController *this)
@@ -218,26 +218,25 @@ uint64_t CentauriController::setChipPower(CentauriController *this)
   connect = 0;
   v2 = IOServiceNameMatching("AppleCentauriManager");
   MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD2898], v2);
-  v11 = MatchingService;
+  v4 = MatchingService;
   if (MatchingService)
   {
-    v12 = IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, &connect);
-    if (v12)
+    if (IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, &connect))
     {
-      CentauriController::setChipPower(v12, v13, v14, v15, v16, v17, v18, v19);
-      v20 = 3758097101;
+      CentauriController::setChipPower();
+      v5 = 3758097101;
     }
 
     else
     {
-      v20 = IOConnectCallScalarMethod(connect, v1, 0, 0, 0, 0);
+      v5 = IOConnectCallScalarMethod(connect, v1, 0, 0, 0, 0);
     }
   }
 
   else
   {
-    v20 = 3758097088;
-    CentauriController::setChipPower(MatchingService, v4, v5, v6, v7, v8, v9, v10);
+    v5 = 3758097088;
+    CentauriController::setChipPower();
   }
 
   if (connect)
@@ -246,12 +245,12 @@ uint64_t CentauriController::setChipPower(CentauriController *this)
     connect = 0;
   }
 
-  if (v11)
+  if (v4)
   {
-    IOObjectRelease(v11);
+    IOObjectRelease(v4);
   }
 
-  return v20;
+  return v5;
 }
 
 unint64_t CentauriController::getChipPower(CentauriController *this)
@@ -260,15 +259,15 @@ unint64_t CentauriController::getChipPower(CentauriController *this)
   MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD2898], v1);
   v3 = *MEMORY[0x277CBECE8];
   v4 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], "ChipPowerState", 0x8000100u);
-  v12 = v4;
+  v5 = v4;
   if (!MatchingService)
   {
-    CentauriController::getChipPower(v4, v5, v6, v7, v8, v9, v10, v11);
-    v32 = 0;
-    v31 = 3758097088;
-    if (!v12)
+    CentauriController::getChipPower();
+    v10 = 0;
+    v9 = 3758097088;
+    if (!v5)
     {
-      return v32 | v31;
+      return v10 | v9;
     }
 
     goto LABEL_8;
@@ -279,244 +278,122 @@ unint64_t CentauriController::getChipPower(CentauriController *this)
     CFProperty = IORegistryEntryCreateCFProperty(MatchingService, v4, v3, 0);
     if (CFProperty)
     {
-      v21 = CFProperty;
-      v22 = CFGetTypeID(CFProperty);
-      TypeID = CFBooleanGetTypeID();
-      if (v22 == TypeID)
+      v7 = CFProperty;
+      v8 = CFGetTypeID(CFProperty);
+      if (v8 == CFBooleanGetTypeID())
       {
-        v31 = 0;
-        v32 = (CFBooleanGetValue(v21) != 0) << 32;
+        v9 = 0;
+        v10 = (CFBooleanGetValue(v7) != 0) << 32;
       }
 
       else
       {
-        CentauriController::getChipPower(TypeID, v24, v25, v26, v27, v28, v29, v30);
-        v32 = 0;
-        v31 = 3758097102;
+        CentauriController::getChipPower();
+        v10 = 0;
+        v9 = 3758097102;
       }
 
-      CFRelease(v21);
+      CFRelease(v7);
     }
 
     else
     {
-      CentauriController::getChipPower(0, v14, v15, v16, v17, v18, v19, v20);
-      v32 = 0;
-      v31 = 3758097136;
+      CentauriController::getChipPower();
+      v10 = 0;
+      v9 = 3758097136;
     }
   }
 
   else
   {
-    v31 = 3758097085;
-    CentauriController::getChipPower(0, v5, v6, v7, v8, v9, v10, v11);
-    v32 = 0;
+    v9 = 3758097085;
+    CentauriController::getChipPower();
+    v10 = 0;
   }
 
   IOObjectRelease(MatchingService);
-  if (v12)
+  if (v5)
   {
 LABEL_8:
-    CFRelease(v12);
+    CFRelease(v5);
   }
 
-  return v32 | v31;
+  return v10 | v9;
 }
 
-uint64_t CentauriController::sendBootTimestamps(CentauriController *this, const __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::sendBootTimestamps(CentauriController *this, const __CFDictionary *a2)
 {
-  v8 = a2;
+  v2 = a2;
   connect = 0;
-  CentauriController::log(3u, "CentauriController::%s: type: %s\n", a3, a4, a5, a6, a7, a8, "sendBootTimestamps");
-  v10 = *MEMORY[0x277CBECE8];
+  v4 = "host";
+  if (a2)
+  {
+    v4 = "firmware";
+  }
+
+  CentauriController::log(3u, "CentauriController::%s: type: %s\n", "sendBootTimestamps", v4);
+  v5 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
-    if (v8)
+    if (v2)
     {
-      v19 = "FirmwareBootTimestamps";
+      v7 = "FirmwareBootTimestamps";
     }
 
     else
     {
-      v19 = "BootTimestamps";
+      v7 = "BootTimestamps";
     }
 
-    v27 = CFStringCreateWithCString(v10, v19, 0x8000100u);
-    if (v27)
+    v8 = CFStringCreateWithCString(v5, v7, 0x8000100u);
+    if (v8)
     {
-      CFDictionarySetValue(Mutable, v27, this);
-      v28 = *MEMORY[0x277CD2898];
-      v29 = IOServiceMatching("AppleCentauriManager");
-      MatchingService = IOServiceGetMatchingService(v28, v29);
-      v38 = MatchingService;
+      CFDictionarySetValue(Mutable, v8, this);
+      v9 = *MEMORY[0x277CD2898];
+      v10 = IOServiceMatching("AppleCentauriManager");
+      MatchingService = IOServiceGetMatchingService(v9, v10);
+      v12 = MatchingService;
       if (MatchingService)
       {
-        v39 = IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, &connect);
-        if (v39)
+        if (IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, &connect))
         {
-          CentauriController::sendBootTimestamps(v39, v40, v41, v42, v43, v44, v45, v46);
-          v53 = 3758097101;
+          CentauriController::sendBootTimestamps();
+          v14 = 3758097101;
         }
 
         else
         {
-          v53 = IOConnectSetCFProperties(connect, Mutable);
-          if (v53)
+          v13 = IOConnectSetCFProperties(connect, Mutable);
+          v14 = v13;
+          if (v13)
           {
-            CentauriController::log(0, "CentauriController::%s: failed to set properties: 0x%08x\n", v47, v48, v49, v50, v51, v52, "sendBootTimestamps");
+            CentauriController::log(0, "CentauriController::%s: failed to set properties: 0x%08x\n", "sendBootTimestamps", v13);
           }
         }
       }
 
       else
       {
-        CentauriController::sendBootTimestamps(MatchingService, v31, v32, v33, v34, v35, v36, v37);
-        v53 = 3758097088;
+        CentauriController::sendBootTimestamps();
+        v14 = 3758097088;
       }
     }
 
     else
     {
-      CentauriController::sendBootTimestamps(0, v20, v21, v22, v23, v24, v25, v26);
-      v38 = 0;
-      v53 = 3758097085;
+      CentauriController::sendBootTimestamps();
+      v12 = 0;
+      v14 = 3758097085;
     }
   }
 
   else
   {
-    v53 = 3758097084;
-    CentauriController::sendBootTimestamps(0, v11, v12, v13, v14, v15, v16, v17);
-    v38 = 0;
-    v27 = 0;
-  }
-
-  if (connect)
-  {
-    IOServiceClose(connect);
-    connect = 0;
-  }
-
-  if (v38)
-  {
-    IOObjectRelease(v38);
-  }
-
-  if (v27)
-  {
-    CFRelease(v27);
-  }
-
-  if (Mutable)
-  {
-    CFRelease(Mutable);
-  }
-
-  return v53;
-}
-
-uint64_t CentauriController::getBootTimestamps(CentauriController *this, const __CFDictionary **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "getBootTimestamps");
-  v9 = *MEMORY[0x277CBECE8];
-  v10 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], "BootTimestamps", 0x8000100u);
-  if (v10)
-  {
-    v18 = v10;
-    v19 = *MEMORY[0x277CD2898];
-    v20 = IOServiceMatching("AppleCentauriManager");
-    MatchingService = IOServiceGetMatchingService(v19, v20);
-    if (MatchingService)
-    {
-      v29 = MatchingService;
-      CFProperty = IORegistryEntryCreateCFProperty(MatchingService, v18, v9, 0);
-      if (CFProperty)
-      {
-        v38 = CFProperty;
-        v39 = CFGetTypeID(CFProperty);
-        if (v39 == CFDictionaryGetTypeID())
-        {
-          v47 = 0;
-          *this = v38;
-        }
-
-        else
-        {
-          CentauriController::getBootTimestamps(v38, v40, v41, v42, v43, v44, v45, v46);
-          v47 = 3758096385;
-        }
-      }
-
-      else
-      {
-        CentauriController::getBootTimestamps(0, v31, v32, v33, v34, v35, v36, v37);
-        v47 = 3758097136;
-      }
-
-      IOObjectRelease(v29);
-    }
-
-    else
-    {
-      CentauriController::getBootTimestamps(MatchingService, v22, v23, v24, v25, v26, v27, v28);
-      v47 = 3758097088;
-    }
-
-    CFRelease(v18);
-  }
-
-  else
-  {
-    v47 = 3758097085;
-    CentauriController::getBootTimestamps(0, v11, v12, v13, v14, v15, v16, v17);
-  }
-
-  return v47;
-}
-
-uint64_t CentauriController::setHardwareHealth(CentauriController *this)
-{
-  v1 = this;
-  connect = 0;
-  input = 0;
-  v2 = *MEMORY[0x277CD2898];
-  v3 = IOServiceMatching("AppleCentauriManager");
-  MatchingService = IOServiceGetMatchingService(v2, v3);
-  v12 = MatchingService;
-  if (MatchingService)
-  {
-    if (IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, &connect))
-    {
-      v20 = 1;
-    }
-
-    else
-    {
-      v20 = connect == 0;
-    }
-
-    if (v20)
-    {
-      CentauriController::setHardwareHealth(connect, v13, v14, v15, v16, v17, v18, v19);
-      v27 = 3758097101;
-    }
-
-    else
-    {
-      input = v1;
-      v27 = IOConnectCallScalarMethod(connect, 6u, &input, 1u, 0, 0);
-      if (v27)
-      {
-        CentauriController::log(0, "CentauriController::%s: failed: 0x%08x", v21, v22, v23, v24, v25, v26, "setHardwareHealth");
-      }
-    }
-  }
-
-  else
-  {
-    v27 = 3758097088;
-    CentauriController::setHardwareHealth(MatchingService, v5, v6, v7, v8, v9, v10, v11);
+    v14 = 3758097084;
+    CentauriController::sendBootTimestamps();
+    v12 = 0;
+    v8 = 0;
   }
 
   if (connect)
@@ -530,26 +407,154 @@ uint64_t CentauriController::setHardwareHealth(CentauriController *this)
     IOObjectRelease(v12);
   }
 
-  return v27;
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  if (Mutable)
+  {
+    CFRelease(Mutable);
+  }
+
+  return v14;
 }
 
-uint64_t CentauriController::servicePublishNotification(CentauriController *this, io_iterator_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::getBootTimestamps(CentauriController *this, const __CFDictionary **a2)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "servicePublishNotification");
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
-  v121 = 0u;
-  v118 = 0u;
-  v119 = 0u;
+  CentauriController::log(3u, "CentauriController::%s: \n", "getBootTimestamps");
+  v3 = *MEMORY[0x277CBECE8];
+  v4 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], "BootTimestamps", 0x8000100u);
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *MEMORY[0x277CD2898];
+    v7 = IOServiceMatching("AppleCentauriManager");
+    MatchingService = IOServiceGetMatchingService(v6, v7);
+    if (MatchingService)
+    {
+      v9 = MatchingService;
+      CFProperty = IORegistryEntryCreateCFProperty(MatchingService, v5, v3, 0);
+      if (CFProperty)
+      {
+        v11 = CFProperty;
+        v12 = CFGetTypeID(CFProperty);
+        if (v12 == CFDictionaryGetTypeID())
+        {
+          v13 = 0;
+          *this = v11;
+        }
+
+        else
+        {
+          CentauriController::getBootTimestamps(v11);
+          v13 = 3758096385;
+        }
+      }
+
+      else
+      {
+        CentauriController::getBootTimestamps();
+        v13 = 3758097136;
+      }
+
+      IOObjectRelease(v9);
+    }
+
+    else
+    {
+      CentauriController::getBootTimestamps();
+      v13 = 3758097088;
+    }
+
+    CFRelease(v5);
+  }
+
+  else
+  {
+    v13 = 3758097085;
+    CentauriController::getBootTimestamps();
+  }
+
+  return v13;
+}
+
+uint64_t CentauriController::setHardwareHealth(CentauriController *this)
+{
+  v1 = this;
+  connect = 0;
+  input = 0;
+  v2 = *MEMORY[0x277CD2898];
+  v3 = IOServiceMatching("AppleCentauriManager");
+  MatchingService = IOServiceGetMatchingService(v2, v3);
+  v5 = MatchingService;
+  if (MatchingService)
+  {
+    if (IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, &connect))
+    {
+      v6 = 1;
+    }
+
+    else
+    {
+      v6 = connect == 0;
+    }
+
+    if (v6)
+    {
+      CentauriController::setHardwareHealth();
+      v8 = 3758097101;
+    }
+
+    else
+    {
+      input = v1;
+      v7 = IOConnectCallScalarMethod(connect, 6u, &input, 1u, 0, 0);
+      v8 = v7;
+      if (v7)
+      {
+        CentauriController::log(0, "CentauriController::%s: failed: 0x%08x", "setHardwareHealth", v7);
+      }
+    }
+  }
+
+  else
+  {
+    v8 = 3758097088;
+    CentauriController::setHardwareHealth();
+  }
+
+  if (connect)
+  {
+    IOServiceClose(connect);
+    connect = 0;
+  }
+
+  if (v5)
+  {
+    IOObjectRelease(v5);
+  }
+
+  return v8;
+}
+
+uint64_t CentauriController::servicePublishNotification(CentauriController *this, io_iterator_t a2)
+{
+  v42 = *MEMORY[0x277D85DE8];
+  CentauriController::log(3u, "CentauriController::%s: \n", "servicePublishNotification");
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   *__s1 = 0u;
-  v117 = 0u;
-  v115 = 0;
+  v35 = 0u;
+  v33 = 0;
   std::recursive_mutex::lock((this + 80));
   if (*(this + 52))
   {
-    v10 = MEMORY[0x277D85F48];
+    v4 = MEMORY[0x277D85F48];
     allocator = *MEMORY[0x277CBECE8];
     while (1)
     {
@@ -559,16 +564,17 @@ uint64_t CentauriController::servicePublishNotification(CentauriController *this
         {
           while (1)
           {
-            v11 = IOIteratorNext(a2);
-            v12 = v11;
-            if (!v11)
+            v5 = IOIteratorNext(a2);
+            v6 = v5;
+            if (!v5)
             {
               goto LABEL_42;
             }
 
-            if (MEMORY[0x245D32090](v11, __s1))
+            v7 = MEMORY[0x245D32090](v5, __s1);
+            if (v7)
             {
-              CentauriController::log(0, "CentauriController::%s: failed to get service name: 0x%x\n", v13, v14, v15, v16, v17, v18, "servicePublishNotification");
+              CentauriController::log(0, "CentauriController::%s: failed to get service name: 0x%x\n", "servicePublishNotification", v7);
               goto LABEL_6;
             }
 
@@ -579,84 +585,88 @@ uint64_t CentauriController::servicePublishNotification(CentauriController *this
 
             if (*(this + 55))
             {
-              CentauriController::log(0, "CentauriController::%s: service publish before terminate\n", v19, v20, v21, v22, v23, v24, "servicePublishNotification");
+              CentauriController::log(0, "CentauriController::%s: service publish before terminate\n", "servicePublishNotification");
               IOServiceClose(*(this + 55));
               *(this + 55) = 0;
               IOObjectRelease(*(this + 54));
               *(this + 54) = 0;
-              v32 = *(this + 28);
-              if (v32)
+              v8 = *(this + 28);
+              if (v8)
               {
-                v113 = 0;
+                v31 = 0;
                 *parent = xmmword_2433A9B90;
-                CentauriController::ErrorNotifier::unbind(v32, v25, v26, v27, v28, v29, v30, v31);
-                CentauriController::ErrorNotifier::invoke(*(this + 28), 0, parent, 3, v33, v34, v35, v36);
+                CentauriController::ErrorNotifier::unbind(v8);
+                CentauriController::ErrorNotifier::invoke(*(this + 28), 0, parent, 3);
               }
             }
 
-            v44 = IOServiceOpen(v12, *v10, 0, this + 55);
-            if (v44)
+            v9 = IOServiceOpen(v6, *v4, 0, this + 55);
+            v10 = v9;
+            if (v9)
             {
-              CentauriController::log(0, "CentauriController::%s: failed to open service: 0x%x\n", v38, v39, v40, v41, v42, v43, "servicePublishNotification");
-              v49 = *(this + 28);
-              if (v49)
+              CentauriController::log(0, "CentauriController::%s: failed to open service: 0x%x\n", "servicePublishNotification", v9);
+              v11 = *(this + 28);
+              if (v11)
               {
-                v113 = 0;
+                v31 = 0;
                 *parent = xmmword_2433A9B60;
-                CentauriController::ErrorNotifier::invoke(v49, v44, parent, 3, v45, v46, v47, v48);
+                CentauriController::ErrorNotifier::invoke(v11, v10, parent, 3);
               }
 
               goto LABEL_6;
             }
 
-            v56 = CentauriController::registerWithService(this, v37, v38, v39, v40, v41, v42, v43);
-            if (!v56)
+            v12 = CentauriController::registerWithService(this);
+            v13 = v12;
+            if (!v12)
             {
               break;
             }
 
-            CentauriController::log(0, "CentauriController::%s: failed to register with service: 0x%x\n", v50, v51, v52, v53, v54, v55, "servicePublishNotification");
-            v61 = *(this + 28);
-            if (v61)
+            CentauriController::log(0, "CentauriController::%s: failed to register with service: 0x%x\n", "servicePublishNotification", v12);
+            v14 = *(this + 28);
+            if (v14)
             {
-              v113 = 0;
+              v31 = 0;
               *parent = xmmword_2433A9B78;
-              CentauriController::ErrorNotifier::invoke(v61, v56, parent, 3, v57, v58, v59, v60);
+              CentauriController::ErrorNotifier::invoke(v14, v13, parent, 3);
             }
 
 LABEL_6:
-            IOObjectRelease(v12);
+            IOObjectRelease(v6);
           }
 
-          *(this + 54) = v12;
-          v62 = *(this + 28);
-          if (v62)
+          *(this + 54) = v6;
+          v15 = *(this + 28);
+          if (v15)
           {
-            v63 = CentauriController::ErrorNotifier::bindErrorNotifierToController(v62, this, v50, v51, v52, v53, v54, v55);
-            if (v63)
+            v16 = CentauriController::ErrorNotifier::bindErrorNotifierToController(v15, this);
+            v17 = v16;
+            if (v16)
             {
-              CentauriController::log(0, "CentauriController::%s: failed to re-initialize error handler 0x%08x\n", v50, v51, v52, v53, v54, v55, "servicePublishNotification");
-              v113 = 0;
+              CentauriController::log(0, "CentauriController::%s: failed to re-initialize error handler 0x%08x\n", "servicePublishNotification", v16);
+              v31 = 0;
               *parent = xmmword_2433A9B78;
-              CentauriController::ErrorNotifier::invoke(*(this + 28), v63, parent, 3, v64, v65, v66, v67);
+              CentauriController::ErrorNotifier::invoke(*(this + 28), v17, parent, 3);
             }
           }
 
-          v68 = *(this + 29);
-          if (v68)
+          v18 = *(this + 29);
+          if (v18)
           {
-            v75 = CentauriController::CrashlogNotifier::bindCrashlogNotifierToController(v68, this, v50, v51, v52, v53, v54, v55);
-            if (v75)
+            v19 = CentauriController::CrashlogNotifier::bindCrashlogNotifierToController(v18, this);
+            v20 = v19;
+            if (v19)
             {
-              CentauriController::log(0, "CentauriController::%s: failed to re-initialize crashlog handler 0x%08x\n", v69, v70, v71, v72, v73, v74, "servicePublishNotification");
-              v113 = 0;
+              CentauriController::log(0, "CentauriController::%s: failed to re-initialize crashlog handler 0x%08x\n", "servicePublishNotification", v19);
+              v31 = 0;
               *parent = xmmword_2433A9B78;
-              CentauriController::ErrorNotifier::invoke(*(this + 28), v75, parent, 3, v76, v77, v78, v79);
+              CentauriController::ErrorNotifier::invoke(*(this + 28), v20, parent, 3);
             }
           }
 
-          v80 = *(this + 11);
-          if (v80 != 2)
+          v21 = *(this + 11);
+          if (v21 != 2)
           {
             break;
           }
@@ -665,14 +675,14 @@ LABEL_25:
           std::function<void ()(int,BOOL)>::operator()(this + 48, 0, 1);
         }
 
-        if (v80 == 1)
+        if (v21 == 1)
         {
           break;
         }
 
-        v81 = *(this + 24);
-        std::mutex::lock(v81);
-        std::mutex::unlock(v81);
+        v22 = *(this + 24);
+        std::mutex::lock(v22);
+        std::mutex::unlock(v22);
         std::condition_variable::notify_all(this + 3);
       }
 
@@ -682,46 +692,48 @@ LABEL_25:
       }
 
       parent[0] = 0;
-      if (IORegistryEntryGetParentEntry(*(this + 54), "IOService", parent))
+      ParentEntry = IORegistryEntryGetParentEntry(*(this + 54), "IOService", parent);
+      if (ParentEntry)
       {
-        CentauriController::log(0, "CentauriController::%s: failed to get parent service: 0x%x\n", v82, v83, v84, v85, v86, v87, "servicePublishNotification");
+        CentauriController::log(0, "CentauriController::%s: failed to get parent service: 0x%x\n", "servicePublishNotification", ParentEntry);
       }
 
       else
       {
         CFProperty = IORegistryEntryCreateCFProperty(parent[0], @"device-id", allocator, 0);
-        v95 = CFProperty;
-        if (CFProperty && (v96 = CFGetTypeID(CFProperty), v96 == CFDataGetTypeID()))
+        v25 = CFProperty;
+        if (CFProperty && (v26 = CFGetTypeID(CFProperty), v26 == CFDataGetTypeID()))
         {
-          if (CFDataGetLength(v95) == 4)
+          if (CFDataGetLength(v25) == 4)
           {
-            if (*CFDataGetBytePtr(v95) == 6400)
+            v27 = *CFDataGetBytePtr(v25);
+            if (v27 == 6400)
             {
               std::function<void ()(int,BOOL)>::operator()(this + 48, 0, 1);
             }
 
             else
             {
-              CentauriController::log(0, "CentauriController::%s: match with incorrect device ID 0x%08x\n", v103, v104, v105, v106, v107, v108, "servicePublishNotification");
+              CentauriController::log(0, "CentauriController::%s: match with incorrect device ID 0x%08x\n", "servicePublishNotification", v27);
             }
           }
 
           else
           {
-            CentauriController::log(0, "CentauriController::%s: invalid device ID property data width\n", v97, v98, v99, v100, v101, v102, "servicePublishNotification");
+            CentauriController::log(0, "CentauriController::%s: invalid device ID property data width\n", "servicePublishNotification");
           }
         }
 
         else
         {
-          CentauriController::log(0, "CentauriController::%s: invalid pci device ID property\n", v89, v90, v91, v92, v93, v94, "servicePublishNotification");
-          if (!v95)
+          CentauriController::log(0, "CentauriController::%s: invalid pci device ID property\n", "servicePublishNotification");
+          if (!v25)
           {
             goto LABEL_35;
           }
         }
 
-        CFRelease(v95);
+        CFRelease(v25);
       }
 
 LABEL_35:
@@ -734,9 +746,7 @@ LABEL_35:
 
 LABEL_42:
   std::recursive_mutex::unlock((this + 80));
-  result = std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v114);
-  v110 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v32);
 }
 
 void sub_2433A391C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
@@ -749,9 +759,9 @@ void sub_2433A391C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CentauriController::ErrorNotifier::unbind(CentauriController::ErrorNotifier *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::ErrorNotifier::unbind(CentauriController::ErrorNotifier *this)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "unbind");
+  CentauriController::log(3u, "CentauriController::%s: \n", "unbind");
   result = *(this + 23);
   if (result)
   {
@@ -763,57 +773,57 @@ uint64_t CentauriController::ErrorNotifier::unbind(CentauriController::ErrorNoti
   return result;
 }
 
-void CentauriController::ErrorNotifier::invoke(CentauriController::ErrorNotifier *this, int a2, void **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::ErrorNotifier::invoke(CentauriController::ErrorNotifier *this, int a2, void **a3, int a4)
 {
   if (a3)
   {
     if (a4 == 3)
     {
-      v10 = *a3;
-      v9 = a3[1];
-      v11 = a3[2];
-      v12 = *(this + 10);
-      CentauriController::log(3u, "CentauriController::%s: result 0x%08x, source %u, code %u, arg %llu, uid 0x%llx\n", a3, a4, a5, a6, a7, a8, "invoke");
+      v6 = *a3;
+      v5 = a3[1];
+      v7 = a3[2];
+      v8 = *(this + 10);
+      CentauriController::log(3u, "CentauriController::%s: result 0x%08x, source %u, code %u, arg %llu, uid 0x%llx\n", "invoke", a2, *a3, v5, v7, v8);
       std::recursive_mutex::lock((this + 16));
       if (*(this + 88) == 1)
       {
-        CentauriController::log(2u, "CentauriController::%s: cancelled\n", v13, v14, v15, v16, v17, v18, "invoke");
+        CentauriController::log(2u, "CentauriController::%s: cancelled\n", "invoke");
       }
 
       else
       {
-        v19 = *this;
+        v9 = *this;
         if (*this)
         {
-          v20 = *MEMORY[0x277CBF058];
+          v10 = *MEMORY[0x277CBF058];
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 0x40000000;
           block[2] = ___ZN18CentauriController13ErrorNotifier6invokeEiPPvj_block_invoke;
           block[3] = &__block_descriptor_tmp;
-          v26 = v10;
-          v27 = v9;
+          v16 = v6;
+          v17 = v5;
           block[4] = this;
-          block[5] = v11;
-          block[6] = v12;
-          CFRunLoopPerformBlock(v19, v20, block);
+          block[5] = v7;
+          block[6] = v8;
+          CFRunLoopPerformBlock(v9, v10, block);
           CFRunLoopWakeUp(*this);
         }
 
         else
         {
-          v21 = *(this + 1);
-          if (v21)
+          v11 = *(this + 1);
+          if (v11)
           {
-            v22[0] = MEMORY[0x277D85DD0];
-            v22[1] = 0x40000000;
-            v22[2] = ___ZN18CentauriController13ErrorNotifier6invokeEiPPvj_block_invoke_2;
-            v22[3] = &__block_descriptor_tmp_60;
-            v23 = v10;
-            v24 = v9;
-            v22[4] = this;
-            v22[5] = v11;
-            v22[6] = v12;
-            dispatch_async(v21, v22);
+            v12[0] = MEMORY[0x277D85DD0];
+            v12[1] = 0x40000000;
+            v12[2] = ___ZN18CentauriController13ErrorNotifier6invokeEiPPvj_block_invoke_2;
+            v12[3] = &__block_descriptor_tmp_60;
+            v13 = v6;
+            v14 = v5;
+            v12[4] = this;
+            v12[5] = v7;
+            v12[6] = v8;
+            dispatch_async(v11, v12);
           }
         }
       }
@@ -823,145 +833,144 @@ void CentauriController::ErrorNotifier::invoke(CentauriController::ErrorNotifier
 
     else
     {
-      CentauriController::log(0, "CentauriController::%s: invalid number of args: %u\n", a3, a4, a5, a6, a7, a8, "invoke");
+      CentauriController::log(0, "CentauriController::%s: invalid number of args: %u\n");
     }
   }
 
   else
   {
-    CentauriController::log(0, "CentauriController::%s: no args\n", 0, a4, a5, a6, a7, a8, "invoke");
+    CentauriController::log(0, "CentauriController::%s: no args\n");
   }
 }
 
-uint64_t CentauriController::registerWithService(CentauriController *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::registerWithService(CentauriController *this)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "registerWithService");
+  CentauriController::log(3u, "CentauriController::%s: \n", "registerWithService");
   std::recursive_mutex::lock((this + 80));
-  v9 = getprogname();
-  v16 = *(this + 55);
-  if (v16)
+  v2 = getprogname();
+  v3 = *(this + 55);
+  if (v3)
   {
-    v17 = v9;
-    v18 = strlen(v9);
-    v25 = IOConnectCallStructMethod(v16, 5u, v17, v18 + 1, 0, 0);
-    if (v25)
+    v4 = v2;
+    v5 = strlen(v2);
+    v6 = IOConnectCallStructMethod(v3, 5u, v4, v5 + 1, 0, 0);
+    v7 = v6;
+    if (v6)
     {
-      CentauriController::log(0, "CentauriController::%s: failed to open 0x%08x\n", v19, v20, v21, v22, v23, v24, "registerWithService");
+      CentauriController::log(0, "CentauriController::%s: failed to open 0x%08x\n", "registerWithService", v6);
     }
   }
 
   else
   {
-    CentauriController::log(0, "CentauriController::%s: no driver\n", v10, v11, v12, v13, v14, v15, "registerWithService");
-    v25 = 3758097088;
+    CentauriController::log(0, "CentauriController::%s: no driver\n", "registerWithService");
+    v7 = 3758097088;
   }
 
   std::recursive_mutex::unlock((this + 80));
-  return v25;
+  return v7;
 }
 
-uint64_t CentauriController::ErrorNotifier::bindErrorNotifierToController(CentauriController::ErrorNotifier *this, CentauriController *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::ErrorNotifier::bindErrorNotifierToController(CentauriController::ErrorNotifier *this, CentauriController *a2)
 {
-  v59 = *MEMORY[0x277D85DE8];
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "bindErrorNotifierToController");
-  v57 = 0u;
-  v58 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  CentauriController::log(3u, "CentauriController::%s: \n", "bindErrorNotifierToController");
+  v14 = 0u;
+  v15 = 0u;
   *reference = 0u;
-  v56 = 0u;
+  v13 = 0u;
   std::recursive_mutex::lock((this + 16));
   if (*(this + 88))
   {
-    v45 = "CentauriController::%s: cancelled\n";
+    CentauriController::log(0, "CentauriController::%s: cancelled\n");
 LABEL_13:
-    CentauriController::log(0, v45, v10, v11, v12, v13, v14, v15, "bindErrorNotifierToController");
-    v36 = 3758097112;
+    v7 = 3758097112;
     goto LABEL_17;
   }
 
   if (!a2)
   {
-    CentauriController::log(0, "CentauriController::%s: no controller\n", v10, v11, v12, v13, v14, v15, "bindErrorNotifierToController");
-    v36 = 3758097090;
+    CentauriController::log(0, "CentauriController::%s: no controller\n", "bindErrorNotifierToController");
+    v7 = 3758097090;
 LABEL_17:
-    CentauriController::ErrorNotifier::unbind(this, v46, v47, v48, v49, v50, v51, v52);
+    CentauriController::ErrorNotifier::unbind(this);
     goto LABEL_9;
   }
 
   if (!*(a2 + 55))
   {
-    v45 = "CentauriController::%s: no driver\n";
+    CentauriController::log(0, "CentauriController::%s: no driver\n");
     goto LABEL_13;
   }
 
   MachPort = IONotificationPortGetMachPort(*(a2 + 3));
   if (!MachPort)
   {
-    CentauriController::log(0, "CentauriController::%s: no mach port\n", v16, v17, v18, v19, v20, v21, "bindErrorNotifierToController");
-    v36 = 3758096385;
+    CentauriController::log(0, "CentauriController::%s: no mach port\n", "bindErrorNotifierToController");
+    v7 = 3758096385;
     goto LABEL_17;
   }
 
-  std::to_string(&v53, *(a2 + 54));
-  *(this + 10) = std::__string_hash<char>::operator()[abi:ne200100](&v54, &v53);
-  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+  std::to_string(&v10, *(a2 + 54));
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](&v11, &v10);
+  *(this + 10) = v5;
+  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v53.__r_.__value_.__l.__data_);
-    v29 = *(this + 10);
+    operator delete(v10.__r_.__value_.__l.__data_);
+    v5 = *(this + 10);
   }
 
-  CentauriController::log(3u, "CentauriController::%s: uid 0x%llx\n", v23, v24, v25, v26, v27, v28, "bindErrorNotifierToController");
+  CentauriController::log(3u, "CentauriController::%s: uid 0x%llx\n", "bindErrorNotifierToController", v5);
   reference[1] = CentauriController::ErrorNotifier::bindErrorNotifierToController(CentauriController*)::$_0::__invoke;
-  *&v56 = this;
-  v36 = IOConnectCallAsyncMethod(*(a2 + 55), 3u, MachPort, reference, 3u, 0, 0, 0, 0, 0, 0, 0, 0);
-  if (v36)
+  *&v13 = this;
+  v6 = IOConnectCallAsyncMethod(*(a2 + 55), 3u, MachPort, reference, 3u, 0, 0, 0, 0, 0, 0, 0, 0);
+  v7 = v6;
+  if (v6)
   {
-    CentauriController::log(0, "CentauriController::%s: set error handler call failed 0x%08x\n", v30, v31, v32, v33, v34, v35, "bindErrorNotifierToController");
+    CentauriController::log(0, "CentauriController::%s: set error handler call failed 0x%08x\n", "bindErrorNotifierToController", v6);
     goto LABEL_17;
   }
 
-  v36 = IOServiceAddInterestNotification(*(a2 + 3), *(a2 + 54), "IOGeneralInterest", CentauriController::ErrorNotifier::bindErrorNotifierToController(CentauriController*)::$_1::__invoke, this, this + 23);
-  if (v36)
+  v8 = IOServiceAddInterestNotification(*(a2 + 3), *(a2 + 54), "IOGeneralInterest", CentauriController::ErrorNotifier::bindErrorNotifierToController(CentauriController*)::$_1::__invoke, this, this + 23);
+  v7 = v8;
+  if (v8)
   {
-    CentauriController::log(0, "CentauriController::%s: failed to register for interest notifications 0x%08x\n", v37, v38, v39, v40, v41, v42, "bindErrorNotifierToController");
+    CentauriController::log(0, "CentauriController::%s: failed to register for interest notifications 0x%08x\n", "bindErrorNotifierToController", v8);
     goto LABEL_17;
   }
 
 LABEL_9:
   std::recursive_mutex::unlock((this + 16));
-  v43 = *MEMORY[0x277D85DE8];
-  return v36;
+  return v7;
 }
 
-uint64_t CentauriController::CrashlogNotifier::bindCrashlogNotifierToController(CentauriController::CrashlogNotifier *this, CentauriController *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::CrashlogNotifier::bindCrashlogNotifierToController(CentauriController::CrashlogNotifier *this, CentauriController *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "bindCrashlogNotifierToController");
-  v35 = 0u;
-  v36 = 0u;
+  v12 = *MEMORY[0x277D85DE8];
+  CentauriController::log(3u, "CentauriController::%s: \n", "bindCrashlogNotifierToController");
+  v10 = 0u;
+  v11 = 0u;
   *reference = 0u;
-  v34 = 0u;
+  v9 = 0u;
   std::recursive_mutex::lock((this + 8));
   if (*(this + 72))
   {
-    v31 = "CentauriController::%s: cancelled\n";
-    v32 = 2;
+    CentauriController::log(2u, "CentauriController::%s: cancelled\n");
 LABEL_11:
-    CentauriController::log(v32, v31, v10, v11, v12, v13, v14, v15, "bindCrashlogNotifierToController");
-    v28 = 3758097112;
+    v6 = 3758097112;
     goto LABEL_7;
   }
 
   if (!a2)
   {
-    CentauriController::log(0, "CentauriController::%s: no controller\n", v10, v11, v12, v13, v14, v15, "bindCrashlogNotifierToController");
-    v28 = 3758097090;
+    CentauriController::log(0, "CentauriController::%s: no controller\n", "bindCrashlogNotifierToController");
+    v6 = 3758097090;
     goto LABEL_7;
   }
 
   if (!*(a2 + 55))
   {
-    v32 = 0;
-    v31 = "CentauriController::%s: no driver\n";
+    CentauriController::log(0, "CentauriController::%s: no driver\n");
     goto LABEL_11;
   }
 
@@ -969,24 +978,24 @@ LABEL_11:
   if (MachPort)
   {
     reference[1] = CentauriController::CrashlogNotifier::bindCrashlogNotifierToController(CentauriController*)::$_0::__invoke;
-    *&v34 = this;
-    v28 = IOConnectCallAsyncMethod(*(a2 + 55), 0xAu, MachPort, reference, 3u, 0, 0, 0, 0, 0, 0, 0, 0);
-    if (v28)
+    *&v9 = this;
+    v5 = IOConnectCallAsyncMethod(*(a2 + 55), 0xAu, MachPort, reference, 3u, 0, 0, 0, 0, 0, 0, 0, 0);
+    v6 = v5;
+    if (v5)
     {
-      CentauriController::log(0, "CentauriController::%s: set crashlog handler call failed 0x%08x\n", v22, v23, v24, v25, v26, v27, "bindCrashlogNotifierToController");
+      CentauriController::log(0, "CentauriController::%s: set crashlog handler call failed 0x%08x\n", "bindCrashlogNotifierToController", v5);
     }
   }
 
   else
   {
-    CentauriController::log(0, "CentauriController::%s: no mach port\n", MachPort, v17, v18, v19, v20, v21, "bindCrashlogNotifierToController");
-    v28 = 3758096385;
+    CentauriController::log(0, "CentauriController::%s: no mach port\n", "bindCrashlogNotifierToController");
+    v6 = 3758096385;
   }
 
 LABEL_7:
   std::recursive_mutex::unlock((this + 8));
-  v29 = *MEMORY[0x277D85DE8];
-  return v28;
+  return v6;
 }
 
 uint64_t std::function<void ()(int,BOOL)>::operator()(uint64_t a1, int a2, char a3)
@@ -1002,35 +1011,36 @@ uint64_t std::function<void ()(int,BOOL)>::operator()(uint64_t a1, int a2, char 
   return (*(*v3 + 48))(v3, &v6, &v5);
 }
 
-void CentauriController::serviceTerminateNotification(CentauriController *this, io_iterator_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::serviceTerminateNotification(CentauriController *this, io_iterator_t a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "serviceTerminateNotification");
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
+  CentauriController::log(3u, "CentauriController::%s: \n", "serviceTerminateNotification");
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   *__s1 = 0u;
-  v34 = 0u;
+  v11 = 0u;
   std::recursive_mutex::lock((this + 80));
   if (*(this + 53))
   {
     while (1)
     {
-      v10 = IOIteratorNext(a2);
-      v11 = v10;
-      if (!v10)
+      v4 = IOIteratorNext(a2);
+      v5 = v4;
+      if (!v4)
       {
         break;
       }
 
       if (*(this + 55))
       {
-        if (MEMORY[0x245D32090](v10, __s1))
+        v6 = MEMORY[0x245D32090](v4, __s1);
+        if (v6)
         {
-          CentauriController::log(0, "CentauriController::%s: failed to get service name: 0x%x\n", v12, v13, v14, v15, v16, v17, "serviceTerminateNotification");
+          CentauriController::log(0, "CentauriController::%s: failed to get service name: 0x%x\n", "serviceTerminateNotification", v6);
         }
 
         else if (!strcmp(__s1, (&off_278DB0AA8)[*this]))
@@ -1039,133 +1049,139 @@ void CentauriController::serviceTerminateNotification(CentauriController *this, 
           *(this + 55) = 0;
           IOObjectRelease(*(this + 54));
           *(this + 54) = 0;
-          v25 = *(this + 28);
-          if (v25)
+          v7 = *(this + 28);
+          if (v7)
           {
-            v32 = 0;
-            *v31 = xmmword_2433A9B90;
-            CentauriController::ErrorNotifier::unbind(v25, v18, v19, v20, v21, v22, v23, v24);
-            CentauriController::ErrorNotifier::invoke(*(this + 28), 0, v31, 3, v26, v27, v28, v29);
+            v9 = 0;
+            *v8 = xmmword_2433A9B90;
+            CentauriController::ErrorNotifier::unbind(v7);
+            CentauriController::ErrorNotifier::invoke(*(this + 28), 0, v8, 3);
           }
         }
       }
 
-      IOObjectRelease(v11);
+      IOObjectRelease(v5);
     }
   }
 
   std::recursive_mutex::unlock((this + 80));
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t CentauriController::reset(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::reset(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, uint64_t a2)
 {
-  v69[4] = *MEMORY[0x277D85DE8];
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "reset");
-  v67 = 0u;
-  v68 = 0u;
+  v18[4] = *MEMORY[0x277D85DE8];
+  CentauriController::log(3u, "CentauriController::%s: \n", "reset");
+  v16 = 0u;
+  v17 = 0u;
   *reference = 0u;
-  v66 = 0u;
-  v63 = (a1 + 80);
-  v64 = 1;
+  v15 = 0u;
+  v12 = (a1 + 80);
+  v13 = 1;
   std::recursive_mutex::lock((a1 + 80));
-  if (!*(a1 + 220))
+  if (*(a1 + 220))
   {
-    CentauriController::log(0, "CentauriController::%s: no driver\n", v11, v12, v13, v14, v15, v16, "reset");
-    v40 = 3758097088;
-    goto LABEL_21;
-  }
-
-  if (*a1 == 2)
-  {
-    ResetHint = CentauriController::getResetHint(a1, v10, v11, v12, v13, v14, v15, v16);
-    if (ResetHint)
+    if (*a1 == 2)
     {
-      v25 = "CentauriController::%s: failed to get reset hint 0x%08x\n";
-LABEL_5:
-      CentauriController::log(0, v25, v19, v20, v21, v22, v23, v24, "reset");
-      goto LABEL_9;
-    }
-
-    if ((ResetHint & 0x100000000) == 0)
-    {
-      if (!CentauriController::setResetHint(a1, v18, v19, v20, v21, v22, v23, v24))
+      ResetHint = CentauriController::getResetHint(a1);
+      if (ResetHint)
       {
-        CentauriController::log(2u, "CentauriController::%s: detected a new driver, skipping reset\n", v19, v20, v21, v22, v23, v24, "reset");
-        v40 = 0;
-        goto LABEL_22;
+        CentauriController::log(0, "CentauriController::%s: failed to get reset hint 0x%08x\n");
       }
 
-      v25 = "CentauriController::%s: failed to set reset hint 0x%08x\n";
-      goto LABEL_5;
-    }
-  }
+      else if ((ResetHint & 0x100000000) == 0)
+      {
+        if (!CentauriController::setResetHint(a1))
+        {
+          CentauriController::log(2u, "CentauriController::%s: detected a new driver, skipping reset\n", "reset");
+          v8 = 0;
+          goto LABEL_22;
+        }
 
-LABEL_9:
-  MachPort = IONotificationPortGetMachPort(*(a1 + 24));
-  if (MachPort)
-  {
-    v33 = (a1 + 40);
-    v69[0] = &unk_28561BCC8;
-    v69[1] = a1;
-    v69[3] = v69;
-    std::__function::__value_func<void ()(int,BOOL)>::swap[abi:ne200100](v69, (a1 + 48));
-    std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v69);
-    *(a1 + 44) = 1;
-    reference[1] = CentauriController::reset(std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_1::__invoke;
-    *&v66 = a1 + 40;
-    v40 = IOConnectCallAsyncMethod(*(a1 + 220), 2u, MachPort, reference, 3u, 0, 0, 0, 0, 0, 0, 0, 0);
-    if (v40)
+        CentauriController::log(0, "CentauriController::%s: failed to set reset hint 0x%08x\n");
+      }
+    }
+
+    MachPort = IONotificationPortGetMachPort(*(a1 + 24));
+    if (MachPort)
     {
-      CentauriController::log(0, "CentauriController::%s: reset call failed 0x%08x\n", v34, v35, v36, v37, v38, v39, "reset");
+      v6 = (a1 + 40);
+      v18[0] = &unk_28561BCC8;
+      v18[1] = a1;
+      v18[3] = v18;
+      std::__function::__value_func<void ()(int,BOOL)>::swap[abi:ne200100](v18, (a1 + 48));
+      std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v18);
+      *(a1 + 44) = 1;
+      reference[1] = CentauriController::reset(std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_1::__invoke;
+      *&v15 = a1 + 40;
+      v7 = IOConnectCallAsyncMethod(*(a1 + 220), 2u, MachPort, reference, 3u, 0, 0, 0, 0, 0, 0, 0, 0);
+      v8 = v7;
+      if (v7)
+      {
+        CentauriController::log(0, "CentauriController::%s: reset call failed 0x%08x\n", "reset", v7);
+      }
+
+      else
+      {
+        v18[0] = std::chrono::steady_clock::now().__d_.__rep_ + 1000000 * a2;
+        while (1)
+        {
+          v9 = *(a1 + 44);
+          if ((v9 - 3) <= 1)
+          {
+            break;
+          }
+
+          if (std::condition_variable_any::wait_until<std::unique_lock<std::recursive_mutex>,std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>(a1 + 144, &v12, v18))
+          {
+            v9 = *(a1 + 44);
+            if ((v9 - 3) > 1)
+            {
+              CentauriController::log(0, "CentauriController::%s: timeout waiting for reset completion or termination\n", "reset");
+              v8 = 3758097110;
+              goto LABEL_21;
+            }
+
+            break;
+          }
+        }
+
+        CentauriController::log(2u, "CentauriController::%s: reset completion ret 0x%08x state %u\n", "reset", *v6, v9);
+        if (*a1 == 2 && *(a1 + 44) == 4)
+        {
+          v10 = CentauriController::setResetHint(a1);
+          if (v10)
+          {
+            CentauriController::log(0, "CentauriController::%s: failed to set reset hint 0x%08x\n", "reset", v10);
+          }
+        }
+
+        v8 = *v6;
+      }
     }
 
     else
     {
-      v69[0] = std::chrono::steady_clock::now().__d_.__rep_ + 1000000 * a2;
-      while ((*(a1 + 44) - 3) > 1)
-      {
-        if (std::condition_variable_any::wait_until<std::unique_lock<std::recursive_mutex>,std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>(a1 + 144, &v63, v69))
-        {
-          if ((*(a1 + 44) - 3) > 1)
-          {
-            CentauriController::log(0, "CentauriController::%s: timeout waiting for reset completion or termination\n", v41.__d_.__rep_, v42.__d_.__rep_, v43.__d_.__rep_, v44.__d_.__rep_, v45.__d_.__rep_, v46.__d_.__rep_, "reset");
-            v40 = 3758097110;
-            goto LABEL_21;
-          }
-
-          break;
-        }
-      }
-
-      inputStructCnt_8 = *v33;
-      CentauriController::log(2u, "CentauriController::%s: reset completion ret 0x%08x state %u\n", v41.__d_.__rep_, v42.__d_.__rep_, v43.__d_.__rep_, v44.__d_.__rep_, v45.__d_.__rep_, v46.__d_.__rep_, "reset");
-      if (*a1 == 2 && *(a1 + 44) == 4 && CentauriController::setResetHint(a1, v47, v48, v49, v50, v51, v52, v53))
-      {
-        CentauriController::log(0, "CentauriController::%s: failed to set reset hint 0x%08x\n", v54, v55, v56, v57, v58, v59, "reset");
-      }
-
-      v40 = *v33;
+      CentauriController::log(0, "CentauriController::%s: no mach port\n", "reset");
+      v8 = 3758096385;
     }
   }
 
   else
   {
-    CentauriController::log(0, "CentauriController::%s: no mach port\n", v26, v27, v28, v29, v30, v31, "reset");
-    v40 = 3758096385;
+    CentauriController::log(0, "CentauriController::%s: no driver\n", "reset");
+    v8 = 3758097088;
   }
 
 LABEL_21:
   *(a1 + 44) = 0;
   std::__function::__value_func<void ()(int,BOOL)>::operator=[abi:ne200100](a1 + 48);
-  if (v64)
+  if (v13)
   {
 LABEL_22:
-    std::recursive_mutex::unlock(v63);
+    std::recursive_mutex::unlock(v12);
   }
 
-  v60 = *MEMORY[0x277D85DE8];
-  return v40;
+  return v8;
 }
 
 void sub_2433A4528(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::recursive_mutex *a15, char a16)
@@ -1178,104 +1194,105 @@ void sub_2433A4528(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CentauriController::getResetHint(CentauriController *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::getResetHint(CentauriController *this)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "getResetHint");
+  CentauriController::log(3u, "CentauriController::%s: \n", "getResetHint");
   output = 1;
   outputCnt = 1;
   std::recursive_mutex::lock((this + 80));
   if (*this == 2)
   {
-    v15 = *(this + 55);
-    if (v15)
+    v2 = *(this + 55);
+    if (v2)
     {
-      v22 = IOConnectCallScalarMethod(v15, 8u, 0, 0, &output, &outputCnt);
-      if (v22)
+      v3 = IOConnectCallScalarMethod(v2, 8u, 0, 0, &output, &outputCnt);
+      v4 = v3;
+      if (v3)
       {
-        CentauriController::log(0, "CentauriController::%s: failed to get reset hint 0x%08x\n", v16, v17, v18, v19, v20, v21, "getResetHint");
+        CentauriController::log(0, "CentauriController::%s: failed to get reset hint 0x%08x\n", "getResetHint", v3);
       }
     }
 
     else
     {
-      CentauriController::log(0, "CentauriController::%s: no driver\n", v9, v10, v11, v12, v13, v14, "getResetHint");
-      v22 = -536870208;
+      CentauriController::log(0, "CentauriController::%s: no driver\n", "getResetHint");
+      v4 = -536870208;
     }
   }
 
   else
   {
-    CentauriController::log(0, "CentauriController::%s: only beta can get reset hint\n", v9, v10, v11, v12, v13, v14, "getResetHint");
-    v22 = -536870174;
+    CentauriController::log(0, "CentauriController::%s: only beta can get reset hint\n", "getResetHint");
+    v4 = -536870174;
   }
 
-  v23 = output;
+  v5 = output;
   std::recursive_mutex::unlock((this + 80));
-  if (v23)
+  if (v5)
   {
-    v24 = v22 == 0;
+    v6 = v4 == 0;
   }
 
   else
   {
-    v24 = 0;
+    v6 = 0;
   }
 
-  v25 = 0x100000000;
-  if (!v24)
+  v7 = 0x100000000;
+  if (!v6)
   {
-    v25 = 0;
+    v7 = 0;
   }
 
-  return v25 | v22;
+  return v7 | v4;
 }
 
-uint64_t CentauriController::setResetHint(CentauriController *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::setResetHint(CentauriController *this)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "setResetHint");
+  CentauriController::log(3u, "CentauriController::%s: \n", "setResetHint");
   input = 1;
   std::recursive_mutex::lock((this + 80));
   if (*this == 2)
   {
-    v15 = *(this + 55);
-    if (v15)
+    v2 = *(this + 55);
+    if (v2)
     {
-      v22 = IOConnectCallScalarMethod(v15, 7u, &input, 1u, 0, 0);
-      if (v22)
+      v3 = IOConnectCallScalarMethod(v2, 7u, &input, 1u, 0, 0);
+      v4 = v3;
+      if (v3)
       {
-        CentauriController::log(0, "CentauriController::%s: failed to set reset hint 0x%08x\n", v16, v17, v18, v19, v20, v21, "setResetHint");
+        CentauriController::log(0, "CentauriController::%s: failed to set reset hint 0x%08x\n", "setResetHint", v3);
       }
     }
 
     else
     {
-      CentauriController::log(0, "CentauriController::%s: no driver\n", v9, v10, v11, v12, v13, v14, "setResetHint");
-      v22 = 3758097088;
+      CentauriController::log(0, "CentauriController::%s: no driver\n", "setResetHint");
+      v4 = 3758097088;
     }
   }
 
   else
   {
-    CentauriController::log(0, "CentauriController::%s: only beta can set reset hint\n", v9, v10, v11, v12, v13, v14, "setResetHint");
-    v22 = 3758097122;
+    CentauriController::log(0, "CentauriController::%s: only beta can set reset hint\n", "setResetHint");
+    v4 = 3758097122;
   }
 
   std::recursive_mutex::unlock((this + 80));
-  return v22;
+  return v4;
 }
 
-uint64_t CentauriController::collectLogs(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::collectLogs(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, const char *a2, unsigned int a3, uint64_t a4)
 {
-  v9 = a3;
-  v50[4] = *MEMORY[0x277D85DE8];
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "collectLogs");
-  input = v9;
-  v47 = 0u;
-  v48 = 0u;
+  v22[4] = *MEMORY[0x277D85DE8];
+  CentauriController::log(3u, "CentauriController::%s: \n", "collectLogs");
+  input = a3;
+  v19 = 0u;
+  v20 = 0u;
   *reference = 0u;
-  v46 = 0u;
-  v43 = (a1 + 80);
-  v44 = 1;
+  v18 = 0u;
+  v15 = (a1 + 80);
+  v16 = 1;
   std::recursive_mutex::lock((a1 + 80));
   if (a2)
   {
@@ -1284,78 +1301,79 @@ uint64_t CentauriController::collectLogs(std::chrono::duration<long long, std::r
       MachPort = IONotificationPortGetMachPort(*(a1 + 24));
       if (MachPort)
       {
-        v25 = (a1 + 40);
-        v50[0] = &unk_28561BD58;
-        v50[1] = a1;
-        v50[3] = v50;
-        std::__function::__value_func<void ()(int,BOOL)>::swap[abi:ne200100](v50, (a1 + 48));
-        std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v50);
+        v9 = (a1 + 40);
+        v22[0] = &unk_28561BD58;
+        v22[1] = a1;
+        v22[3] = v22;
+        std::__function::__value_func<void ()(int,BOOL)>::swap[abi:ne200100](v22, (a1 + 48));
+        std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v22);
         *(a1 + 44) = 2;
         reference[1] = CentauriController::collectLogs(char const*,unsigned int,std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_1::__invoke;
-        *&v46 = a1 + 40;
-        v26 = strlen(a2);
-        v33 = IOConnectCallAsyncMethod(*(a1 + 220), 1u, MachPort, reference, 3u, &input, 1u, a2, v26 + 1, 0, 0, 0, 0);
-        if (v33)
+        *&v18 = a1 + 40;
+        v10 = strlen(a2);
+        v11 = IOConnectCallAsyncMethod(*(a1 + 220), 1u, MachPort, reference, 3u, &input, 1u, a2, v10 + 1, 0, 0, 0, 0);
+        v12 = v11;
+        if (v11)
         {
-          CentauriController::log(0, "CentauriController::%s: collectLogs call failed 0x%08x\n", v27, v28, v29, v30, v31, v32, "collectLogs");
+          CentauriController::log(0, "CentauriController::%s: collectLogs call failed 0x%08x\n", "collectLogs", v11);
         }
 
         else
         {
-          v50[0] = std::chrono::steady_clock::now().__d_.__rep_ + 1000000 * a4;
+          v22[0] = std::chrono::steady_clock::now().__d_.__rep_ + 1000000 * a4;
           do
           {
-            if ((*(a1 + 44) - 3) <= 1)
+            v13 = *(a1 + 44);
+            if ((v13 - 3) <= 1)
             {
               goto LABEL_9;
             }
           }
 
-          while (!std::condition_variable_any::wait_until<std::unique_lock<std::recursive_mutex>,std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>(a1 + 144, &v43, v50));
-          if ((*(a1 + 44) - 3) <= 1)
+          while (!std::condition_variable_any::wait_until<std::unique_lock<std::recursive_mutex>,std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>(a1 + 144, &v15, v22));
+          v13 = *(a1 + 44);
+          if ((v13 - 3) <= 1)
           {
 LABEL_9:
-            v42 = *v25;
-            CentauriController::log(2u, "CentauriController::%s: collect logs completion ret 0x%08x state %u\n", v34.__d_.__rep_, v35.__d_.__rep_, v36.__d_.__rep_, v37.__d_.__rep_, v38.__d_.__rep_, v39.__d_.__rep_, "collectLogs");
-            v33 = *v25;
+            CentauriController::log(2u, "CentauriController::%s: collect logs completion ret 0x%08x state %u\n", "collectLogs", *v9, v13);
+            v12 = *v9;
             goto LABEL_11;
           }
 
-          CentauriController::log(0, "CentauriController::%s: timeout waiting for collectLogs completion or termination\n", v34.__d_.__rep_, v35.__d_.__rep_, v36.__d_.__rep_, v37.__d_.__rep_, v38.__d_.__rep_, v39.__d_.__rep_, "collectLogs");
-          v33 = 3758097110;
+          CentauriController::log(0, "CentauriController::%s: timeout waiting for collectLogs completion or termination\n", "collectLogs");
+          v12 = 3758097110;
         }
       }
 
       else
       {
-        CentauriController::log(0, "CentauriController::%s: no mach port\n", v18, v19, v20, v21, v22, v23, "collectLogs");
-        v33 = 3758096385;
+        CentauriController::log(0, "CentauriController::%s: no mach port\n", "collectLogs");
+        v12 = 3758096385;
       }
     }
 
     else
     {
-      CentauriController::log(0, "CentauriController::%s: no driver\n", v12, v13, v14, v15, v16, v17, "collectLogs");
-      v33 = 3758097088;
+      CentauriController::log(0, "CentauriController::%s: no driver\n", "collectLogs");
+      v12 = 3758097088;
     }
   }
 
   else
   {
-    CentauriController::log(0, "CentauriController::%s: no reason\n", v12, v13, v14, v15, v16, v17, "collectLogs");
-    v33 = 3758097090;
+    CentauriController::log(0, "CentauriController::%s: no reason\n", "collectLogs");
+    v12 = 3758097090;
   }
 
 LABEL_11:
   *(a1 + 44) = 0;
   std::__function::__value_func<void ()(int,BOOL)>::operator=[abi:ne200100](a1 + 48);
-  if (v44 == 1)
+  if (v16 == 1)
   {
-    std::recursive_mutex::unlock(v43);
+    std::recursive_mutex::unlock(v15);
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v12;
 }
 
 void sub_2433A4A34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::recursive_mutex *a15, char a16)
@@ -1368,18 +1386,18 @@ void sub_2433A4A34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t CentauriController::getChipState(CentauriController *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t CentauriController::getChipState(CentauriController *this)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "getChipState");
+  v16 = *MEMORY[0x277D85DE8];
+  CentauriController::log(3u, "CentauriController::%s: \n", "getChipState");
   {
-    v38 = xmmword_2433A9BE8;
-    v39 = unk_2433A9BF8;
-    v40 = xmmword_2433A9C08;
+    v13 = xmmword_2433A9BE8;
+    v14 = unk_2433A9BF8;
+    v15 = xmmword_2433A9C08;
     *output = xmmword_2433A9BA8;
-    v35 = unk_2433A9BB8;
-    v36 = xmmword_2433A9BC8;
-    v37 = unk_2433A9BD8;
+    v10 = unk_2433A9BB8;
+    v11 = xmmword_2433A9BC8;
+    v12 = unk_2433A9BD8;
     std::unordered_map<unsigned long long,CentauriControllerChipState>::unordered_map(CentauriController::getChipState(void)::chipStateMap, output, 7);
     __cxa_atexit(std::unordered_map<unsigned long long,CentauriControllerChipState>::~unordered_map[abi:ne200100], CentauriController::getChipState(void)::chipStateMap, &dword_2433A2000);
   }
@@ -1389,56 +1407,56 @@ unint64_t CentauriController::getChipState(CentauriController *this, uint64_t a2
   std::recursive_mutex::lock((this + 80));
   if (*this)
   {
-    CentauriController::log(0, "CentauriController::%s: only control can get chip state\n", v9, v10, v11, v12, v13, v14, "getChipState");
-    v30 = 0;
-    v22 = -536870174;
+    CentauriController::log(0, "CentauriController::%s: only control can get chip state\n", "getChipState");
+    v6 = 0;
+    v4 = -536870174;
     goto LABEL_9;
   }
 
-  v15 = *(this + 55);
-  if (!v15)
+  v2 = *(this + 55);
+  if (!v2)
   {
-    CentauriController::log(0, "CentauriController::%s: no driver\n", v9, v10, v11, v12, v13, v14, "getChipState");
-    v30 = 0;
-    v22 = -536870208;
+    CentauriController::log(0, "CentauriController::%s: no driver\n", "getChipState");
+    v6 = 0;
+    v4 = -536870208;
     goto LABEL_9;
   }
 
-  v22 = IOConnectCallScalarMethod(v15, 9u, 0, 0, output, &outputCnt);
-  if (v22)
+  v3 = IOConnectCallScalarMethod(v2, 9u, 0, 0, output, &outputCnt);
+  v4 = v3;
+  if (v3)
   {
-    CentauriController::log(0, "CentauriController::%s: failed to get chip state 0x%08x\n", v16, v17, v18, v19, v20, v21, "getChipState");
-    v30 = 0;
+    CentauriController::log(0, "CentauriController::%s: failed to get chip state 0x%08x\n", "getChipState", v3);
+    v6 = 0;
     goto LABEL_9;
   }
 
   if (outputCnt != 1)
   {
-    CentauriController::log(0, "CentauriController::%s: chip state has invalid length %u\n", v16, v17, v18, v19, v20, v21, "getChipState");
+    CentauriController::log(0, "CentauriController::%s: chip state has invalid length %u\n", "getChipState", outputCnt);
 LABEL_15:
-    v30 = 0;
-    v22 = -536870911;
+    v6 = 0;
+    v4 = -536870911;
     goto LABEL_9;
   }
 
   if (!std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::find<unsigned long long>(CentauriController::getChipState(void)::chipStateMap, output))
   {
-    CentauriController::log(0, "CentauriController::%s: invalid chip state %llu\n", v23, v24, v25, v26, v27, v28, "getChipState");
+    CentauriController::log(0, "CentauriController::%s: invalid chip state %llu\n", "getChipState", output[0]);
     goto LABEL_15;
   }
 
-  v29 = std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::find<unsigned long long>(CentauriController::getChipState(void)::chipStateMap, output);
-  if (!v29)
+  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::find<unsigned long long>(CentauriController::getChipState(void)::chipStateMap, output);
+  if (!v5)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v22 = 0;
-  v30 = *(v29 + 6) << 32;
+  v4 = 0;
+  v6 = *(v5 + 6) << 32;
 LABEL_9:
   std::recursive_mutex::unlock((this + 80));
-  v31 = *MEMORY[0x277D85DE8];
-  return v30 | v22;
+  return v6 | v4;
 }
 
 uint64_t CentauriController::ErrorNotifier::ErrorNotifier(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4)
@@ -1532,9 +1550,9 @@ void CentauriController::ErrorNotifier::~ErrorNotifier(CentauriController::Error
   std::recursive_mutex::~recursive_mutex((this + 16));
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -1582,32 +1600,32 @@ void CentauriController::ErrorNotifier::cancel(uint64_t a1, void *aBlock)
   v4 = v3;
   std::recursive_mutex::lock((a1 + 16));
   *(a1 + 88) = 1;
-  CentauriController::ErrorNotifier::unbind(a1, v5, v6, v7, v8, v9, v10, v11);
+  CentauriController::ErrorNotifier::unbind(a1);
   std::recursive_mutex::unlock((a1 + 16));
-  v12 = *a1;
+  v5 = *a1;
   if (*a1)
   {
-    v13 = *MEMORY[0x277CBF058];
+    v6 = *MEMORY[0x277CBF058];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = ___ZN18CentauriController13ErrorNotifier6cancelEU13block_pointerFvvE_block_invoke;
     block[3] = &unk_278DB0968;
     block[4] = v4;
-    CFRunLoopPerformBlock(v12, v13, block);
+    CFRunLoopPerformBlock(v5, v6, block);
     CFRunLoopWakeUp(*a1);
   }
 
   else
   {
-    v14 = *(a1 + 8);
-    if (v14)
+    v7 = *(a1 + 8);
+    if (v7)
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 0x40000000;
-      v15[2] = ___ZN18CentauriController13ErrorNotifier6cancelEU13block_pointerFvvE_block_invoke_2;
-      v15[3] = &unk_278DB0990;
-      v15[4] = v4;
-      dispatch_async(v14, v15);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 0x40000000;
+      v8[2] = ___ZN18CentauriController13ErrorNotifier6cancelEU13block_pointerFvvE_block_invoke_2;
+      v8[3] = &unk_278DB0990;
+      v8[4] = v4;
+      dispatch_async(v7, v8);
     }
 
     else
@@ -1635,33 +1653,33 @@ void ___ZN18CentauriController13ErrorNotifier6cancelEU13block_pointerFvvE_block_
   _Block_release(v2);
 }
 
-uint64_t CentauriController::registerErrorHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::registerErrorHandler(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "registerErrorHandler");
+  CentauriController::log(3u, "CentauriController::%s: \n", "registerErrorHandler");
   std::recursive_mutex::lock((a1 + 80));
   if (!*(a1 + 224))
   {
     operator new();
   }
 
-  CentauriController::log(0, "CentauriController::%s: already registered error handler\n", v9, v10, v11, v12, v13, v14, "registerErrorHandler");
+  CentauriController::log(0, "CentauriController::%s: already registered error handler\n", "registerErrorHandler");
   std::recursive_mutex::unlock((a1 + 80));
   return 3758097122;
 }
 
-uint64_t CentauriController::getCurrentDriverUID(CentauriController *this, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::getCurrentDriverUID(CentauriController *this, unint64_t *a2)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "getCurrentDriverUID");
-  v18 = *(this + 28);
-  if (v18)
+  CentauriController::log(3u, "CentauriController::%s: \n", "getCurrentDriverUID");
+  v4 = *(this + 28);
+  if (v4)
   {
     result = 0;
-    *a2 = *(v18 + 80);
+    *a2 = *(v4 + 80);
   }
 
   else
   {
-    CentauriController::getCurrentDriverUID(v10, v11, v12, v13, v14, v15, v16, v17);
+    CentauriController::getCurrentDriverUID();
     return 3758097112;
   }
 
@@ -1765,14 +1783,14 @@ void ___ZN18CentauriController16CrashlogNotifier6cancelEU13block_pointerFvvE_blo
   _Block_release(v2);
 }
 
-uint64_t CentauriController::registerCrashlogHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::registerCrashlogHandler(uint64_t a1, uint64_t a2, const void *a3)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "registerCrashlogHandler");
+  CentauriController::log(3u, "CentauriController::%s: \n", "registerCrashlogHandler");
   std::recursive_mutex::lock((a1 + 80));
   if (*a1)
   {
-    CentauriController::log(0, "CentauriController::%s: only control can register a crashlog handler\n", v9, v10, v11, v12, v13, v14, "registerCrashlogHandler");
-    v15 = 3758097122;
+    CentauriController::log(0, "CentauriController::%s: only control can register a crashlog handler\n", "registerCrashlogHandler");
+    v4 = 3758097122;
   }
 
   else
@@ -1782,35 +1800,35 @@ uint64_t CentauriController::registerCrashlogHandler(uint64_t a1, uint64_t a2, u
       operator new();
     }
 
-    CentauriController::log(0, "CentauriController::%s: already registered crashlog handler\n", v9, v10, v11, v12, v13, v14, "registerCrashlogHandler");
-    v15 = 3758097109;
+    CentauriController::log(0, "CentauriController::%s: already registered crashlog handler\n", "registerCrashlogHandler");
+    v4 = 3758097109;
   }
 
   std::recursive_mutex::unlock((a1 + 80));
-  return v15;
+  return v4;
 }
 
-uint64_t CentauriController::allocateSecondaryMemory(CentauriController *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::allocateSecondaryMemory(CentauriController *this, unsigned int a2)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "allocateSecondaryMemory");
+  CentauriController::log(3u, "CentauriController::%s: \n", "allocateSecondaryMemory");
   input = a2;
-  v24 = (this + 80);
-  v25 = 1;
+  v7 = (this + 80);
+  v8 = 1;
   std::recursive_mutex::lock((this + 80));
   if (!*(this + 54))
   {
-    v27 = std::chrono::steady_clock::now().__d_.__rep_ + 1000000000;
+    v10 = std::chrono::steady_clock::now().__d_.__rep_ + 1000000000;
     while (!*(this + 54))
     {
-      if (std::condition_variable_any::wait_until<std::unique_lock<std::recursive_mutex>,std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>(this + 144, &v24, &v27))
+      if (std::condition_variable_any::wait_until<std::unique_lock<std::recursive_mutex>,std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>(this + 144, &v7, &v10))
       {
         if (*(this + 54))
         {
           break;
         }
 
-        CentauriController::log(0, "CentauriController::%s: timed out waiting for driver\n", v10, v11, v12, v13, v14, v15, "allocateSecondaryMemory");
-        v22 = 3758097110;
+        CentauriController::log(0, "CentauriController::%s: timed out waiting for driver\n", "allocateSecondaryMemory");
+        v5 = 3758097110;
         goto LABEL_9;
       }
     }
@@ -1818,26 +1836,27 @@ uint64_t CentauriController::allocateSecondaryMemory(CentauriController *this, u
 
   if (*this)
   {
-    CentauriController::log(0, "CentauriController::%s: only control can allocate secondary memory\n", v10, v11, v12, v13, v14, v15, "allocateSecondaryMemory");
-    v22 = 3758097122;
+    CentauriController::log(0, "CentauriController::%s: only control can allocate secondary memory\n", "allocateSecondaryMemory");
+    v5 = 3758097122;
   }
 
   else
   {
-    v22 = IOConnectCallScalarMethod(*(this + 55), 7u, &input, 1u, 0, 0);
-    if (v22)
+    v4 = IOConnectCallScalarMethod(*(this + 55), 7u, &input, 1u, 0, 0);
+    v5 = v4;
+    if (v4)
     {
-      CentauriController::log(0, "CentauriController::%s: failed to allocate secondary memory 0x%08x\n", v16, v17, v18, v19, v20, v21, "allocateSecondaryMemory");
+      CentauriController::log(0, "CentauriController::%s: failed to allocate secondary memory 0x%08x\n", "allocateSecondaryMemory", v4);
     }
   }
 
 LABEL_9:
-  if (v25 == 1)
+  if (v8 == 1)
   {
-    std::recursive_mutex::unlock(v24);
+    std::recursive_mutex::unlock(v7);
   }
 
-  return v22;
+  return v5;
 }
 
 void sub_2433A5948(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::recursive_mutex *a11, char a12)
@@ -1850,196 +1869,199 @@ void sub_2433A5948(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CentauriController::mapSecondaryMemory(CentauriController *this@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
+void CentauriController::mapSecondaryMemory(CentauriController *this@<X0>, uint64_t a2@<X8>)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a2, a3, a4, a5, a6, a7, "mapSecondaryMemory");
-  v26 = 0;
-  v27 = 0;
+  CentauriController::log(3u, "CentauriController::%s: \n", "mapSecondaryMemory");
+  v9 = 0;
+  v10 = 0;
   std::recursive_mutex::lock((this + 80));
   if (*this)
   {
-    CentauriController::log(0, "CentauriController::%s: only control can map secondary memory\n", v10, v11, v12, v13, v14, v15, "mapSecondaryMemory");
-    v23 = -536870174;
+    CentauriController::log(0, "CentauriController::%s: only control can map secondary memory\n", "mapSecondaryMemory");
+    v6 = -536870174;
   }
 
   else
   {
-    v16 = *(this + 55);
-    if (v16)
+    v4 = *(this + 55);
+    if (v4)
     {
-      v23 = MEMORY[0x245D31FF0](v16, 1, *MEMORY[0x277D85F48], &v27, &v26, 1);
-      if (v23)
+      v5 = MEMORY[0x245D31FF0](v4, 1, *MEMORY[0x277D85F48], &v10, &v9, 1);
+      v6 = v5;
+      if (v5)
       {
-        CentauriController::log(0, "CentauriController::%s: failed to map secondary memory 0x%08x\n", v17, v18, v19, v20, v21, v22, "mapSecondaryMemory");
+        CentauriController::log(0, "CentauriController::%s: failed to map secondary memory 0x%08x\n", "mapSecondaryMemory", v5);
       }
 
-      else if (v27 && v26)
+      else if (v10 && v9)
       {
-        v23 = 0;
+        v6 = 0;
       }
 
       else
       {
-        CentauriController::log(0, "CentauriController::%s: invalid secondary memory mapping: address %p, size %llu\n", v17, v18, v19, v20, v21, v22, "mapSecondaryMemory");
-        v23 = -536870911;
+        CentauriController::log(0, "CentauriController::%s: invalid secondary memory mapping: address %p, size %llu\n", "mapSecondaryMemory", v10, v9);
+        v6 = -536870911;
       }
     }
 
     else
     {
-      CentauriController::log(0, "CentauriController::%s: no driver\n", v10, v11, v12, v13, v14, v15, "mapSecondaryMemory");
-      v23 = -536870208;
+      CentauriController::log(0, "CentauriController::%s: no driver\n", "mapSecondaryMemory");
+      v6 = -536870208;
     }
   }
 
-  v24 = v27;
-  if (v23)
+  v7 = v10;
+  if (v6)
   {
-    v24 = 0;
+    v7 = 0;
   }
 
-  v25 = v26;
-  if (v23)
+  v8 = v9;
+  if (v6)
   {
-    v25 = 0;
+    v8 = 0;
   }
 
-  *a8 = v23;
-  *(a8 + 8) = v24;
-  *(a8 + 16) = v25;
+  *a2 = v6;
+  *(a2 + 8) = v7;
+  *(a2 + 16) = v8;
   std::recursive_mutex::unlock((this + 80));
 }
 
-uint64_t CentauriController::unmapSecondaryMemory(CentauriController *this, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::unmapSecondaryMemory(CentauriController *this, unsigned __int8 *a2)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "unmapSecondaryMemory");
+  CentauriController::log(3u, "CentauriController::%s: \n", "unmapSecondaryMemory");
   std::recursive_mutex::lock((this + 80));
   if (*this)
   {
-    CentauriController::log(0, "CentauriController::%s: only control can unmap secondary memory\n", v10, v11, v12, v13, v14, v15, "unmapSecondaryMemory");
-    v23 = 3758097122;
+    CentauriController::log(0, "CentauriController::%s: only control can unmap secondary memory\n", "unmapSecondaryMemory");
+    v6 = 3758097122;
   }
 
   else
   {
-    v16 = *(this + 55);
-    if (v16)
+    v4 = *(this + 55);
+    if (v4)
     {
-      v23 = MEMORY[0x245D32010](v16, 1, *MEMORY[0x277D85F48], a2);
-      if (v23)
+      v5 = MEMORY[0x245D32010](v4, 1, *MEMORY[0x277D85F48], a2);
+      v6 = v5;
+      if (v5)
       {
-        CentauriController::log(0, "CentauriController::%s: failed to unmap secondary memory 0x%08x\n", v17, v18, v19, v20, v21, v22, "unmapSecondaryMemory");
+        CentauriController::log(0, "CentauriController::%s: failed to unmap secondary memory 0x%08x\n", "unmapSecondaryMemory", v5);
       }
     }
 
     else
     {
-      CentauriController::log(0, "CentauriController::%s: no driver\n", v10, v11, v12, v13, v14, v15, "unmapSecondaryMemory");
-      v23 = 3758097088;
+      CentauriController::log(0, "CentauriController::%s: no driver\n", "unmapSecondaryMemory");
+      v6 = 3758097088;
     }
   }
 
   std::recursive_mutex::unlock((this + 80));
-  return v23;
+  return v6;
 }
 
-uint64_t CentauriController::setMemSwapRegions(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::setMemSwapRegions(uint64_t a1, const void *a2)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "setMemSwapRegions");
+  CentauriController::log(3u, "CentauriController::%s: \n", "setMemSwapRegions");
   std::recursive_mutex::lock((a1 + 80));
   if (*a1)
   {
-    CentauriController::log(0, "CentauriController::%s: only control can set mem swap regions\n", v10, v11, v12, v13, v14, v15, "setMemSwapRegions");
-    v23 = 3758097122;
+    CentauriController::log(0, "CentauriController::%s: only control can set mem swap regions\n", "setMemSwapRegions");
+    v6 = 3758097122;
   }
 
   else
   {
-    v16 = *(a1 + 220);
-    if (v16)
+    v4 = *(a1 + 220);
+    if (v4)
     {
-      v23 = IOConnectCallStructMethod(v16, 8u, a2, 0x30uLL, 0, 0);
-      if (v23)
+      v5 = IOConnectCallStructMethod(v4, 8u, a2, 0x30uLL, 0, 0);
+      v6 = v5;
+      if (v5)
       {
-        CentauriController::log(0, "CentauriController::%s: failed to set mem swap regions 0x%08x\n", v17, v18, v19, v20, v21, v22, "setMemSwapRegions");
+        CentauriController::log(0, "CentauriController::%s: failed to set mem swap regions 0x%08x\n", "setMemSwapRegions", v5);
       }
     }
 
     else
     {
-      CentauriController::log(0, "CentauriController::%s: no driver\n", v10, v11, v12, v13, v14, v15, "setMemSwapRegions");
-      v23 = 3758097088;
+      CentauriController::log(0, "CentauriController::%s: no driver\n", "setMemSwapRegions");
+      v6 = 3758097088;
     }
   }
 
   std::recursive_mutex::unlock((a1 + 80));
-  return v23;
+  return v6;
 }
 
-uint64_t CentauriController::getCrashlogs(CentauriController *this, const __CFArray **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriController::getCrashlogs(CentauriController *this, const __CFArray **a2)
 {
-  CentauriController::log(3u, "CentauriController::%s: \n", a3, a4, a5, a6, a7, a8, "getCrashlogs");
+  CentauriController::log(3u, "CentauriController::%s: \n", "getCrashlogs");
   outputStruct = 0;
   errorString = 0;
   outputStructCnt = -3;
   std::recursive_mutex::lock((this + 80));
-  v16 = *(this + 55);
-  if (!v16)
+  v4 = *(this + 55);
+  if (!v4)
   {
-    CentauriController::log(0, "CentauriController::%s: no driver\n", v10, v11, v12, v13, v14, v15, "getCrashlogs");
-    v23 = 3758097088;
+    CentauriController::log(0, "CentauriController::%s: no driver\n", "getCrashlogs");
+    v5 = 3758097088;
     goto LABEL_13;
   }
 
-  v23 = IOConnectCallStructMethod(v16, 4u, 0, 0, &outputStruct, &outputStructCnt);
-  if (v23)
+  v5 = IOConnectCallStructMethod(v4, 4u, 0, 0, &outputStruct, &outputStructCnt);
+  if (v5)
   {
-    v24 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v24 = outputStruct == 0;
+    v6 = outputStruct == 0;
   }
 
-  if (v24 || outputStructCnt == 0)
+  if (v6 || outputStructCnt == 0)
   {
-    CentauriController::log(0, "CentauriController::%s: failed to get crashlogs 0x%08x\n", v17, v18, v19, v20, v21, v22, "getCrashlogs");
+    CentauriController::log(0, "CentauriController::%s: failed to get crashlogs 0x%08x\n", "getCrashlogs", v5);
     goto LABEL_13;
   }
 
-  v32 = IOCFUnserializeBinary(outputStruct, outputStructCnt, *MEMORY[0x277CBECE8], 0, &errorString);
+  v8 = IOCFUnserializeBinary(outputStruct, outputStructCnt, *MEMORY[0x277CBECE8], 0, &errorString);
   if (!errorString)
   {
-    if (!v32)
+    if (!v8)
     {
-      CentauriController::log(0, "CentauriController::%s: unserialized data not found\n", v26, v27, v28, v29, v30, v31, "getCrashlogs");
-      v23 = 3758097136;
+      CentauriController::log(0, "CentauriController::%s: unserialized data not found\n", "getCrashlogs");
+      v5 = 3758097136;
       goto LABEL_13;
     }
 
-    v33 = CFGetTypeID(v32);
-    if (v33 == CFArrayGetTypeID())
+    v9 = CFGetTypeID(v8);
+    if (v9 == CFArrayGetTypeID())
     {
-      *a2 = v32;
-      CFArrayGetCount(v32);
-      CentauriController::log(2u, "CentauriController::%s: Got %u crashlogs\n", v40, v41, v42, v43, v44, v45, "getCrashlogs");
-      v23 = 0;
+      *a2 = v8;
+      Count = CFArrayGetCount(v8);
+      CentauriController::log(2u, "CentauriController::%s: Got %u crashlogs\n", "getCrashlogs", Count);
+      v5 = 0;
       goto LABEL_13;
     }
 
-    CentauriController::log(0, "CentauriController::%s: unserialize data is not an array\n", v34, v35, v36, v37, v38, v39, "getCrashlogs");
-    v23 = 3758097102;
+    CentauriController::log(0, "CentauriController::%s: unserialize data is not an array\n", "getCrashlogs");
+    v5 = 3758097102;
     goto LABEL_24;
   }
 
-  CFStringGetCStringPtr(errorString, 0x8000100u);
-  CentauriController::log(0, "CentauriController::%s: unserialize failed with error %s\n", v47, v48, v49, v50, v51, v52, "getCrashlogs");
-  v23 = 3758097097;
-  if (v32)
+  CStringPtr = CFStringGetCStringPtr(errorString, 0x8000100u);
+  CentauriController::log(0, "CentauriController::%s: unserialize failed with error %s\n", "getCrashlogs", CStringPtr);
+  v5 = 3758097097;
+  if (v8)
   {
 LABEL_24:
-    CFRelease(v32);
+    CFRelease(v8);
   }
 
 LABEL_13:
@@ -2056,7 +2078,7 @@ LABEL_13:
   }
 
   std::recursive_mutex::unlock((this + 80));
-  return v23;
+  return v5;
 }
 
 void sub_2433A6308(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::recursive_mutex *a17, char a18, atomic_ullong *a19)
@@ -2103,13 +2125,13 @@ void sub_2433A6434(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN18CentauriController5startENSt3__16chrono8durationIxNS0_5ratioILl1ELl1000EEEEE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ___ZN18CentauriController5startENSt3__16chrono8durationIxNS0_5ratioILl1ELl1000EEEEE_block_invoke(uint64_t a1)
 {
-  v8 = *(a1 + 32);
-  CentauriController::servicePublishNotification(v8, v8[52], a3, a4, a5, a6, a7, a8);
-  v15 = v8[53];
+  v1 = *(a1 + 32);
+  CentauriController::servicePublishNotification(v1, v1[52]);
+  v2 = v1[53];
 
-  CentauriController::serviceTerminateNotification(v8, v15, v9, v10, v11, v12, v13, v14);
+  CentauriController::serviceTerminateNotification(v1, v2);
 }
 
 CentauriController::ErrorNotifier *___ZN18CentauriController4stopEv_block_invoke(uint64_t a1)
@@ -2188,25 +2210,24 @@ os_log_t ___ZL12getLogHandlev_block_invoke()
 
 uint64_t CentauriController::reset(std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_1::__invoke(uint64_t result, int a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (result)
   {
-    std::__function::__value_func<void ()(int,BOOL)>::__value_func[abi:ne200100](v4, result + 8);
-    if (v5)
+    std::__function::__value_func<void ()(int,BOOL)>::__value_func[abi:ne200100](v3, result + 8);
+    if (v4)
     {
-      std::function<void ()(int,BOOL)>::operator()(v4, a2, 0);
+      std::function<void ()(int,BOOL)>::operator()(v3, a2, 0);
     }
 
-    result = std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v4);
+    return std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v3);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2433A67A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2433A67A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2238,69 +2259,66 @@ uint64_t std::__function::__value_func<void ()(int,BOOL)>::__value_func[abi:ne20
 
 uint64_t CentauriController::collectLogs(char const*,unsigned int,std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_1::__invoke(uint64_t result, int a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (result)
   {
-    std::__function::__value_func<void ()(int,BOOL)>::__value_func[abi:ne200100](v4, result + 8);
-    if (v5)
+    std::__function::__value_func<void ()(int,BOOL)>::__value_func[abi:ne200100](v3, result + 8);
+    if (v4)
     {
-      std::function<void ()(int,BOOL)>::operator()(v4, a2, 0);
+      std::function<void ()(int,BOOL)>::operator()(v3, a2, 0);
     }
 
-    result = std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v4);
+    return std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](v3);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2433A68E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2433A68E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(int,BOOL)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void CentauriController::ErrorNotifier::bindErrorNotifierToController(CentauriController*)::$_0::__invoke(CentauriController::ErrorNotifier *this, int a2, void **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::ErrorNotifier::bindErrorNotifierToController(CentauriController*)::$_0::__invoke(CentauriController::ErrorNotifier *this, int a2, void **a3, int a4)
 {
   if (this)
   {
-    CentauriController::ErrorNotifier::invoke(this, a2, a3, a4, a5, a6, a7, a8);
+    CentauriController::ErrorNotifier::invoke(this, a2, a3, a4);
   }
 }
 
-void CentauriController::ErrorNotifier::bindErrorNotifierToController(CentauriController*)::$_1::__invoke(CentauriController::ErrorNotifier *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::ErrorNotifier::bindErrorNotifierToController(CentauriController*)::$_1::__invoke(CentauriController::ErrorNotifier *a1, uint64_t a2, int a3)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   if (a1 && (a3 | 0x20) == 0xE0000230)
   {
-    v8 = 3;
+    v3 = 3;
     if (a3 == -536870352)
     {
-      v8 = 4;
+      v3 = 4;
     }
 
-    v10[0] = 1000;
-    v10[1] = v8;
-    v10[2] = 0;
-    CentauriController::ErrorNotifier::invoke(a1, 0, v10, 3, a5, a6, a7, a8);
+    v4[0] = 1000;
+    v4[1] = v3;
+    v4[2] = 0;
+    CentauriController::ErrorNotifier::invoke(a1, 0, v4, 3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void CentauriController::CrashlogNotifier::bindCrashlogNotifierToController(CentauriController*)::$_0::__invoke(NSObject **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::CrashlogNotifier::bindCrashlogNotifierToController(CentauriController*)::$_0::__invoke(NSObject **a1, int a2)
 {
   if (a1)
   {
-    CentauriController::log(3u, "CentauriController::%s: result 0x%08x\n", a3, a4, a5, a6, a7, a8, "operator()");
-    v9 = *a1;
+    CentauriController::log(3u, "CentauriController::%s: result 0x%08x\n", "operator()", a2);
+    v3 = *a1;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = ___ZZN18CentauriController16CrashlogNotifier32bindCrashlogNotifierToControllerEPS_ENK3__0clEPviPS3_j_block_invoke;
     block[3] = &__block_descriptor_tmp_116;
     block[4] = a1;
-    dispatch_async(v9, block);
+    dispatch_async(v3, block);
   }
 }
 
@@ -2315,21 +2333,21 @@ uint64_t ___ZZN18CentauriController16CrashlogNotifier32bindCrashlogNotifierToCon
   return result;
 }
 
-CentauriController *CentauriController::start(std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_0::__invoke(CentauriController *this, io_iterator_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CentauriController *CentauriController::start(std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_0::__invoke(CentauriController *this, io_iterator_t a2)
 {
   if (this)
   {
-    return CentauriController::servicePublishNotification(this, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::servicePublishNotification(this, a2);
   }
 
   return this;
 }
 
-void CentauriController::start(std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_1::__invoke(CentauriController *this, io_iterator_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::start(std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_1::__invoke(CentauriController *this, io_iterator_t a2)
 {
   if (this)
   {
-    CentauriController::serviceTerminateNotification(this, a2, a3, a4, a5, a6, a7, a8);
+    CentauriController::serviceTerminateNotification(this, a2);
   }
 }
 
@@ -2370,32 +2388,32 @@ void std::__function::__func<CentauriController::reset(std::chrono::duration<lon
   v4 = *a3;
   v5 = *(a1 + 8);
   std::recursive_mutex::lock((v5 + 80));
-  CentauriController::log(2u, "CentauriController::%s: reset completion result 0x%08x terminated %u\n", v6, v7, v8, v9, v10, v11, "operator()");
+  CentauriController::log(2u, "CentauriController::%s: reset completion result 0x%08x terminated %u\n", "operator()", v3, v4);
   if (*(v5 + 44) == 1)
   {
     if (!v3 || (v4 & 1) != 0)
     {
       if (v4)
       {
-        v18 = 4;
+        v6 = 4;
       }
 
       else
       {
-        v18 = 3;
+        v6 = 3;
       }
 
       *(v5 + 40) = v3;
-      *(v5 + 44) = v18;
-      v19 = *(v5 + 192);
-      std::mutex::lock(v19);
-      std::mutex::unlock(v19);
+      *(v5 + 44) = v6;
+      v7 = *(v5 + 192);
+      std::mutex::lock(v7);
+      std::mutex::unlock(v7);
       std::condition_variable::notify_all((v5 + 144));
     }
 
     else
     {
-      CentauriController::log(0, "CentauriController::%s: reset failed with 0x%08x, waiting for dext re-publish\n", v12, v13, v14, v15, v16, v17, "operator()");
+      CentauriController::log(0, "CentauriController::%s: reset failed with 0x%08x, waiting for dext re-publish\n", "operator()", v3);
     }
   }
 
@@ -2433,7 +2451,7 @@ BOOL std::type_info::operator==[abi:ne200100](uint64_t a1, uint64_t a2)
 
 void *std::__function::__value_func<void ()(int,BOOL)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -2443,15 +2461,15 @@ void *std::__function::__value_func<void ()(int,BOOL)>::swap[abi:ne200100](void 
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -2479,7 +2497,6 @@ void *std::__function::__value_func<void ()(int,BOOL)>::swap[abi:ne200100](void 
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2595,7 +2612,7 @@ void std::unique_lock<std::mutex>::unlock[abi:ne200100](uint64_t a1)
   else
   {
     std::__throw_system_error(1, "unique_lock::unlock: not locked");
-    std::unique_lock<std::recursive_mutex>::lock[abi:ne200100]();
+    std::unique_lock<std::recursive_mutex>::lock[abi:ne200100](v2);
   }
 }
 
@@ -2652,24 +2669,24 @@ void std::__function::__func<CentauriController::collectLogs(char const*,unsigne
   v4 = *a3;
   v5 = *(a1 + 8);
   std::recursive_mutex::lock((v5 + 80));
-  CentauriController::log(2u, "CentauriController::%s: collectLogs completion result 0x%08x terminated %u\n", v6, v7, v8, v9, v10, v11, "operator()");
+  CentauriController::log(2u, "CentauriController::%s: collectLogs completion result 0x%08x terminated %u\n", "operator()", v3, v4);
   if (*(v5 + 44) == 2)
   {
     if (v4)
     {
-      v12 = 4;
+      v6 = 4;
     }
 
     else
     {
-      v12 = 3;
+      v6 = 3;
     }
 
     *(v5 + 40) = v3;
-    *(v5 + 44) = v12;
-    v13 = *(v5 + 192);
-    std::mutex::lock(v13);
-    std::mutex::unlock(v13);
+    *(v5 + 44) = v6;
+    v7 = *(v5 + 192);
+    std::mutex::lock(v7);
+    std::mutex::unlock(v7);
     std::condition_variable::notify_all((v5 + 144));
   }
 
@@ -2698,7 +2715,7 @@ uint64_t std::unordered_map<unsigned long long,CentauriControllerChipState>::uno
     v5 = 16 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,CentauriControllerChipState> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,CentauriControllerChipState> const&>(a1, a2, a2);
       a2 += 2;
       v5 -= 16;
     }
@@ -2709,33 +2726,33 @@ uint64_t std::unordered_map<unsigned long long,CentauriControllerChipState>::uno
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,CentauriControllerChipState> const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,CentauriControllerChipState> const&>(float *a1, unint64_t *a2, _OWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -2743,47 +2760,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -2799,7 +2816,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControl
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -2807,7 +2824,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControl
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -2831,7 +2848,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControl
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CentauriControllerChipState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CentauriControllerChipState>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -2914,45 +2931,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,CentauriContro
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -3199,7 +3208,7 @@ void std::__assoc_sub_state::__attach_future[abi:ne200100](uint64_t a1)
   std::mutex::unlock((a1 + 24));
 }
 
-uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,CentauriController::start(std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_2>>(uint64_t *a1)
+uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,CentauriController::start(std::chrono::duration<long long,std::ratio<1l,1000l>>)::$_2>>(const void **a1)
 {
   v7 = a1;
   v2 = std::__thread_local_data();
@@ -3277,23 +3286,19 @@ void std::__assoc_state<__CFRunLoop *>::move(std::__assoc_sub_state *a1)
   std::mutex::lock(&a1->__mut_);
   std::__assoc_sub_state::__sub_wait(a1, &__lk);
   ptr = a1->__exception_.__ptr_;
-  v6.__ptr_ = 0;
-  std::exception_ptr::~exception_ptr(&v6);
+  v5.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v5);
   if (ptr)
   {
-    std::exception_ptr::exception_ptr(&v5, &a1->__exception_);
-    v4.__ptr_ = &v5;
-    std::rethrow_exception(v4);
+    std::exception_ptr::exception_ptr(&v4, &a1->__exception_);
+    v3.__ptr_ = &v4;
+    std::rethrow_exception(v3);
     __break(1u);
   }
 
-  else
+  else if (__lk.__owns_)
   {
-    v3 = a1[1].__vftable;
-    if (__lk.__owns_)
-    {
-      std::mutex::unlock(__lk.__m_);
-    }
+    std::mutex::unlock(__lk.__m_);
   }
 }
 
@@ -3324,11 +3329,11 @@ unint64_t CentauriControllerGetChipPower(CentauriController *a1)
   return result;
 }
 
-uint64_t CentauriControllerSendBootTimestamps(CentauriController *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerSendBootTimestamps(CentauriController *a1)
 {
   if (a1)
   {
-    return CentauriController::sendBootTimestamps(a1, 0, a3, a4, a5, a6, a7, a8);
+    return CentauriController::sendBootTimestamps(a1, 0);
   }
 
   else
@@ -3337,11 +3342,11 @@ uint64_t CentauriControllerSendBootTimestamps(CentauriController *a1, uint64_t a
   }
 }
 
-uint64_t CentauriControllerGetBootTimestamps(CentauriController *a1, const __CFDictionary **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerGetBootTimestamps(CentauriController *a1, const __CFDictionary **a2)
 {
   if (a1)
   {
-    return CentauriController::getBootTimestamps(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::getBootTimestamps(a1, a2);
   }
 
   else
@@ -3350,11 +3355,11 @@ uint64_t CentauriControllerGetBootTimestamps(CentauriController *a1, const __CFD
   }
 }
 
-uint64_t CentauriControllerSendFirmwareBootTimestamps(CentauriController *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerSendFirmwareBootTimestamps(CentauriController *a1)
 {
   if (a1)
   {
-    return CentauriController::sendBootTimestamps(a1, 1, a3, a4, a5, a6, a7, a8);
+    return CentauriController::sendBootTimestamps(a1, 1);
   }
 
   else
@@ -3363,7 +3368,7 @@ uint64_t CentauriControllerSendFirmwareBootTimestamps(CentauriController *a1, ui
   }
 }
 
-uint64_t CentauriControllerCreateWithParameters(unsigned int a1, uint64_t a2, void *a3)
+uint64_t CentauriControllerCreateWithParameters(unsigned int a1, unsigned int a2, unsigned int **a3)
 {
   if (a3)
   {
@@ -3389,11 +3394,11 @@ CentauriController *CentauriControllerFree(CentauriController *result)
   return result;
 }
 
-uint64_t CentauriControllerReset(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerReset(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, unsigned int a2)
 {
   if (a1)
   {
-    return CentauriController::reset(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::reset(a1, a2);
   }
 
   else
@@ -3402,7 +3407,7 @@ uint64_t CentauriControllerReset(std::chrono::duration<long long, std::ratio<1, 
   }
 }
 
-uint64_t CentauriControllerCollectLogs(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, const char *a2, int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerCollectLogs(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, const char *a2, int a3, unsigned int a4, unsigned int a5)
 {
   if (!a1 || !a2)
   {
@@ -3411,22 +3416,22 @@ uint64_t CentauriControllerCollectLogs(std::chrono::duration<long long, std::rat
 
   if (a3)
   {
-    v8 = a4;
+    v5 = a4;
   }
 
   else
   {
-    v8 = a4 | 4;
+    v5 = a4 | 4;
   }
 
-  return CentauriController::collectLogs(a1, a2, v8, a5, a5, a6, a7, a8);
+  return CentauriController::collectLogs(a1, a2, v5, a5);
 }
 
-uint64_t CentauriControllerCollectLogsWithOptions(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, const char *a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerCollectLogsWithOptions(std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep a1, const char *a2, unsigned int a3, unsigned int a4)
 {
   if (a1 && a2)
   {
-    return CentauriController::collectLogs(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::collectLogs(a1, a2, a3, a4);
   }
 
   else
@@ -3435,12 +3440,12 @@ uint64_t CentauriControllerCollectLogsWithOptions(std::chrono::duration<long lon
   }
 }
 
-unint64_t CentauriControllerGetChipState(CentauriController *this, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t CentauriControllerGetChipState(CentauriController *this, _DWORD *a2)
 {
   result = 3758097090;
   if (this && a2)
   {
-    result = CentauriController::getChipState(this, a2, a3, a4, a5, a6, a7, a8);
+    result = CentauriController::getChipState(this);
     if (!result)
     {
       *a2 = HIDWORD(result);
@@ -3450,11 +3455,11 @@ unint64_t CentauriControllerGetChipState(CentauriController *this, _DWORD *a2, u
   return result;
 }
 
-uint64_t CentauriControllerRegisterUniqueErrorHandlerWithLoop(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerRegisterUniqueErrorHandlerWithLoop(uint64_t a1, uint64_t a2, const void *a3)
 {
   if (a2 && a1 && a3)
   {
-    return CentauriController::registerErrorHandler(a1, a2, 0, a3, a5, a6, a7, a8);
+    return CentauriController::registerErrorHandler(a1, a2, 0, a3);
   }
 
   else
@@ -3463,11 +3468,11 @@ uint64_t CentauriControllerRegisterUniqueErrorHandlerWithLoop(uint64_t a1, uint6
   }
 }
 
-uint64_t CentauriControllerRegisterUniqueErrorHandlerWithQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerRegisterUniqueErrorHandlerWithQueue(uint64_t a1, uint64_t a2, const void *a3)
 {
   if (a2 && a1 && a3)
   {
-    return CentauriController::registerErrorHandler(a1, 0, a2, a3, a5, a6, a7, a8);
+    return CentauriController::registerErrorHandler(a1, 0, a2, a3);
   }
 
   else
@@ -3476,11 +3481,11 @@ uint64_t CentauriControllerRegisterUniqueErrorHandlerWithQueue(uint64_t a1, uint
   }
 }
 
-uint64_t CentauriControllerRegisterCrashlogHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerRegisterCrashlogHandler(uint64_t a1, uint64_t a2, const void *a3)
 {
   if (a2 && a1 && a3)
   {
-    return CentauriController::registerCrashlogHandler(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::registerCrashlogHandler(a1, a2, a3);
   }
 
   else
@@ -3489,11 +3494,11 @@ uint64_t CentauriControllerRegisterCrashlogHandler(uint64_t a1, uint64_t a2, uin
   }
 }
 
-uint64_t CentauriControllerGetCurrentDriverInstance(CentauriController *a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerGetCurrentDriverInstance(CentauriController *a1, unint64_t *a2)
 {
   if (a1 && a2)
   {
-    return CentauriController::getCurrentDriverUID(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::getCurrentDriverUID(a1, a2);
   }
 
   else
@@ -3502,11 +3507,11 @@ uint64_t CentauriControllerGetCurrentDriverInstance(CentauriController *a1, unin
   }
 }
 
-uint64_t CentauriControllerAllocateSecondaryMemory(CentauriController *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerAllocateSecondaryMemory(CentauriController *a1, unsigned int a2)
 {
   if (a1 && a2)
   {
-    return CentauriController::allocateSecondaryMemory(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::allocateSecondaryMemory(a1, a2);
   }
 
   else
@@ -3515,28 +3520,28 @@ uint64_t CentauriControllerAllocateSecondaryMemory(CentauriController *a1, unsig
   }
 }
 
-uint64_t CentauriControllerMapSecondaryMemory(CentauriController *this, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerMapSecondaryMemory(CentauriController *this, void *a2, _DWORD *a3)
 {
   result = 3758097090;
   if (this && a2 && a3)
   {
-    CentauriController::mapSecondaryMemory(this, a3, a4, a5, a6, a7, a8, &v12);
-    result = v12;
-    if (!v12)
+    CentauriController::mapSecondaryMemory(this, &v7);
+    result = v7;
+    if (!v7)
     {
-      *a2 = v13;
-      *a3 = v14;
+      *a2 = v8;
+      *a3 = v9;
     }
   }
 
   return result;
 }
 
-uint64_t CentauriControllerUnmapSecondaryMemory(CentauriController *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerUnmapSecondaryMemory(CentauriController *a1, unsigned __int8 *a2)
 {
   if (a1 && a2)
   {
-    return CentauriController::unmapSecondaryMemory(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::unmapSecondaryMemory(a1, a2);
   }
 
   else
@@ -3545,11 +3550,11 @@ uint64_t CentauriControllerUnmapSecondaryMemory(CentauriController *a1, unsigned
   }
 }
 
-uint64_t CentauriControllerSetMemSwapRegions(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerSetMemSwapRegions(uint64_t a1, const void *a2)
 {
   if (a1 && a2)
   {
-    return CentauriController::setMemSwapRegions(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::setMemSwapRegions(a1, a2);
   }
 
   else
@@ -3558,11 +3563,11 @@ uint64_t CentauriControllerSetMemSwapRegions(uint64_t a1, const void *a2, uint64
   }
 }
 
-uint64_t CentauriControllerGetCrashlogs(CentauriController *a1, const __CFArray **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CentauriControllerGetCrashlogs(CentauriController *a1, const __CFArray **a2)
 {
   if (a1 && a2)
   {
-    return CentauriController::getCrashlogs(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CentauriController::getCrashlogs(a1, a2);
   }
 
   else
@@ -3571,76 +3576,76 @@ uint64_t CentauriControllerGetCrashlogs(CentauriController *a1, const __CFArray 
   }
 }
 
-void CentauriController::setChipPower(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::setChipPower()
 {
-  CentauriController::log(0, "CentauriController::%s: failed to open device\n", a3, a4, a5, a6, a7, a8, "setChipPower");
+  CentauriController::log(0, "CentauriController::%s: failed to open device\n", "setChipPower");
 }
 
 {
-  CentauriController::log(0, "CentauriController::%s: no driver\n", a3, a4, a5, a6, a7, a8, "setChipPower");
+  CentauriController::log(0, "CentauriController::%s: no driver\n", "setChipPower");
 }
 
-void CentauriController::getChipPower(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::getChipPower()
 {
-  CentauriController::log(0, "CentauriController::%s: wrong type on power property\n", a3, a4, a5, a6, a7, a8, "getChipPower");
-}
-
-{
-  CentauriController::log(0, "CentauriController::%s: no power property\n", a3, a4, a5, a6, a7, a8, "getChipPower");
+  CentauriController::log(0, "CentauriController::%s: wrong type on power property\n", "getChipPower");
 }
 
 {
-  CentauriController::log(0, "CentauriController::%s: failed to allocate CFString\n", a3, a4, a5, a6, a7, a8, "getChipPower");
+  CentauriController::log(0, "CentauriController::%s: no power property\n", "getChipPower");
 }
 
 {
-  CentauriController::log(0, "CentauriController::%s: no driver\n", a3, a4, a5, a6, a7, a8, "getChipPower");
-}
-
-void CentauriController::sendBootTimestamps(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  CentauriController::log(0, "CentauriController::%s: failed to open device\n", a3, a4, a5, a6, a7, a8, "sendBootTimestamps");
+  CentauriController::log(0, "CentauriController::%s: failed to allocate CFString\n", "getChipPower");
 }
 
 {
-  CentauriController::log(0, "CentauriController::%s: no driver\n", a3, a4, a5, a6, a7, a8, "sendBootTimestamps");
+  CentauriController::log(0, "CentauriController::%s: no driver\n", "getChipPower");
+}
+
+void CentauriController::sendBootTimestamps()
+{
+  CentauriController::log(0, "CentauriController::%s: failed to open device\n", "sendBootTimestamps");
 }
 
 {
-  CentauriController::log(0, "CentauriController::%s: failed to allocate CFString\n", a3, a4, a5, a6, a7, a8, "sendBootTimestamps");
+  CentauriController::log(0, "CentauriController::%s: no driver\n", "sendBootTimestamps");
 }
 
 {
-  CentauriController::log(0, "CentauriController::%s: failed to allocate CFDictionary\n", a3, a4, a5, a6, a7, a8, "sendBootTimestamps");
+  CentauriController::log(0, "CentauriController::%s: failed to allocate CFString\n", "sendBootTimestamps");
 }
 
-void CentauriController::getBootTimestamps(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  CentauriController::log(0, "CentauriController::%s: property has wrong type\n", a3, a4, a5, a6, a7, a8, "getBootTimestamps");
+  CentauriController::log(0, "CentauriController::%s: failed to allocate CFDictionary\n", "sendBootTimestamps");
+}
+
+void CentauriController::getBootTimestamps(const void *a1)
+{
+  CentauriController::log(0, "CentauriController::%s: property has wrong type\n", "getBootTimestamps");
 
   CFRelease(a1);
 }
 
-void CentauriController::getBootTimestamps(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::getBootTimestamps()
 {
-  CentauriController::log(0, "CentauriController::%s: property not found\n", a3, a4, a5, a6, a7, a8, "getBootTimestamps");
+  CentauriController::log(0, "CentauriController::%s: property not found\n", "getBootTimestamps");
 }
 
 {
-  CentauriController::log(0, "CentauriController::%s: no driver\n", a3, a4, a5, a6, a7, a8, "getBootTimestamps");
+  CentauriController::log(0, "CentauriController::%s: no driver\n", "getBootTimestamps");
 }
 
 {
-  CentauriController::log(0, "CentauriController::%s: failed to create property name\n", a3, a4, a5, a6, a7, a8, "getBootTimestamps");
+  CentauriController::log(0, "CentauriController::%s: failed to create property name\n", "getBootTimestamps");
 }
 
-void CentauriController::setHardwareHealth(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CentauriController::setHardwareHealth()
 {
-  CentauriController::log(0, "CentauriController::%s: failed to open device\n", a3, a4, a5, a6, a7, a8, "setHardwareHealth");
+  CentauriController::log(0, "CentauriController::%s: failed to open device\n", "setHardwareHealth");
 }
 
 {
-  CentauriController::log(0, "CentauriController::%s: no driver\n", a3, a4, a5, a6, a7, a8, "setHardwareHealth");
+  CentauriController::log(0, "CentauriController::%s: no driver\n", "setHardwareHealth");
 }
 
 atomic_ullong *std::future<__CFRunLoop *>::get(atomic_ullong *result)

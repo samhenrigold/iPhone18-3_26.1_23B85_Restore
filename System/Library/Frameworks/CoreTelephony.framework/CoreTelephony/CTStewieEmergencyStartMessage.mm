@@ -13,7 +13,7 @@
 
 - (CTStewieEmergencyStartMessage)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = dictionaryCopy;
   if (dictionaryCopy)
@@ -35,9 +35,9 @@
           }
 
           v22 = MEMORY[0x1E696ABC0];
-          v30 = *MEMORY[0x1E696A578];
-          v31 = @"notifyOption is missing";
-          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+          v29 = *MEMORY[0x1E696A578];
+          v30 = @"notifyOption is missing";
+          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
           [v22 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v12];
           *error = selfCopy = 0;
           goto LABEL_23;
@@ -46,9 +46,9 @@
         v12 = [v7 valueForKey:@"shareEED"];
         if (v12)
         {
-          v27.receiver = self;
-          v27.super_class = CTStewieEmergencyStartMessage;
-          v13 = [(CTStewieEmergencyStartMessage *)&v27 init];
+          v26.receiver = self;
+          v26.super_class = CTStewieEmergencyStartMessage;
+          v13 = [(CTStewieEmergencyStartMessage *)&v26 init];
           v14 = v13;
           if (v13)
           {
@@ -72,9 +72,9 @@ LABEL_23:
         else if (error)
         {
           v23 = MEMORY[0x1E696ABC0];
-          v28 = *MEMORY[0x1E696A578];
-          v29 = @"shareEED is missing";
-          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          v27 = *MEMORY[0x1E696A578];
+          v28 = @"shareEED is missing";
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
           *error = [v23 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v24];
         }
 
@@ -85,9 +85,9 @@ LABEL_23:
       if (error)
       {
         v21 = MEMORY[0x1E696ABC0];
-        v32 = *MEMORY[0x1E696A578];
-        v33 = @"conversationID is invalid";
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v31 = *MEMORY[0x1E696A578];
+        v32 = @"conversationID is invalid";
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         v20 = [v21 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v11];
         goto LABEL_14;
       }
@@ -96,9 +96,9 @@ LABEL_23:
     else if (error)
     {
       v19 = MEMORY[0x1E696ABC0];
-      v34 = *MEMORY[0x1E696A578];
-      v35 = @"conversationID is missing";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      v33 = *MEMORY[0x1E696A578];
+      v34 = @"conversationID is missing";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
       v20 = [v19 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v11];
 LABEL_14:
       selfCopy = 0;
@@ -117,9 +117,9 @@ LABEL_25:
   if (error)
   {
     v18 = MEMORY[0x1E696ABC0];
-    v36 = *MEMORY[0x1E696A578];
-    v37[0] = @"Empty dictionary";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v35 = *MEMORY[0x1E696A578];
+    v36[0] = @"Empty dictionary";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
     [v18 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v9];
     *error = selfCopy = 0;
     goto LABEL_25;
@@ -128,7 +128,6 @@ LABEL_25:
   selfCopy = 0;
 LABEL_26:
 
-  v25 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

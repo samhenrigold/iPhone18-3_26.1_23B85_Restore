@@ -2,6 +2,8 @@
 - (AKApplicationMetadataRequestProvider)init;
 - (AKApplicationMetadataRequestProvider)initWithContext:(id)context url:(id)url;
 - (AKApplicationMetadataRequestProvider)initWithContext:(id)context urlBagKey:(id)key;
+- (AKApplicationMetadataRequestProvider)initWithContext:(id)context urlBagKey:(id)key shouldCacheResource:(BOOL)resource;
+- (AKApplicationMetadataRequestProvider)initWithContext:(id)context urlBagKey:(id)key shouldCacheResource:(BOOL)resource accountManager:(id)manager;
 - (AKApplicationMetadataRequestProvider)initWithUrlBagKey:(id)key;
 - (BOOL)signRequest:(id)request error:(id *)error;
 - (BOOL)validateResponseData:(id)data error:(id *)error;
@@ -63,28 +65,51 @@
   return [(AKURLRequestProviderImpl *)&v10 initWithContext:context urlBagKey:key];
 }
 
+- (AKApplicationMetadataRequestProvider)initWithContext:(id)context urlBagKey:(id)key shouldCacheResource:(BOOL)resource
+{
+  resourceCopy = resource;
+  v9 = (&self->super.super.super.isa + OBJC_IVAR___AKApplicationMetadataRequestProvider_clientID);
+  v10 = type metadata accessor for ApplicationMetadataRequestProvider();
+  *v9 = 0;
+  v9[1] = 0;
+  v12.receiver = self;
+  v12.super_class = v10;
+  return [(AKURLRequestProviderImpl *)&v12 initWithContext:context urlBagKey:key shouldCacheResource:resourceCopy];
+}
+
+- (AKApplicationMetadataRequestProvider)initWithContext:(id)context urlBagKey:(id)key shouldCacheResource:(BOOL)resource accountManager:(id)manager
+{
+  resourceCopy = resource;
+  v11 = (&self->super.super.super.isa + OBJC_IVAR___AKApplicationMetadataRequestProvider_clientID);
+  v12 = type metadata accessor for ApplicationMetadataRequestProvider();
+  *v11 = 0;
+  v11[1] = 0;
+  v14.receiver = self;
+  v14.super_class = v12;
+  return [(AKURLRequestProviderImpl *)&v14 initWithContext:context urlBagKey:key shouldCacheResource:resourceCopy accountManager:manager];
+}
+
 - (AKApplicationMetadataRequestProvider)initWithContext:(id)context url:(id)url
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = (&self->super.super.super.isa + OBJC_IVAR___AKApplicationMetadataRequestProvider_clientID);
-  *v11 = 0;
-  v11[1] = 0;
+  v10 = (&self->super.super.super.isa + OBJC_IVAR___AKApplicationMetadataRequestProvider_clientID);
+  *v10 = 0;
+  v10[1] = 0;
   swift_unknownObjectRetain();
-  URL._bridgeToObjectiveC()(v12);
-  v14 = v13;
-  v15 = type metadata accessor for ApplicationMetadataRequestProvider();
-  v18.receiver = self;
-  v18.super_class = v15;
-  v16 = [(AKURLRequestProviderImpl *)&v18 initWithContext:context url:v14];
+  URL._bridgeToObjectiveC()(v11);
+  v13 = v12;
+  v14 = type metadata accessor for ApplicationMetadataRequestProvider();
+  v17.receiver = self;
+  v17.super_class = v14;
+  v15 = [(AKURLRequestProviderImpl *)&v17 initWithContext:context url:v13];
   swift_unknownObjectRelease();
 
-  (*(v7 + 8))(v10, v6);
-  return v16;
+  (*(v7 + 8))(v9, v6);
+  return v15;
 }
 
 - (AKApplicationMetadataRequestProvider)init

@@ -79,7 +79,7 @@
 
   commandModifiedInput = [v7 unmodifiedInput];
   input = [(BKSHIDEventKeyCommand *)self input];
-  if ([commandModifiedInput caseInsensitiveCompare:input])
+  if ([commandModifiedInput caseInsensitiveCompare:?])
   {
 
 LABEL_15:
@@ -101,7 +101,7 @@ LABEL_16:
     v17 = commandModifiedInput2;
     commandModifiedInput3 = [v7 commandModifiedInput];
     input2 = [(BKSHIDEventKeyCommand *)self input];
-    if ([commandModifiedInput3 caseInsensitiveCompare:input2])
+    if ([commandModifiedInput3 caseInsensitiveCompare:?])
     {
 
       goto LABEL_20;
@@ -125,25 +125,25 @@ LABEL_20:
   uppercaseString = [input3 uppercaseString];
   input4 = [(BKSHIDEventKeyCommand *)self input];
   lowercaseString = [input4 lowercaseString];
-  if ([uppercaseString isEqualToString:lowercaseString])
+  if ([uppercaseString isEqualToString:?])
   {
     shiftModifiedInput = [v7 shiftModifiedInput];
     input5 = [(BKSHIDEventKeyCommand *)self input];
-    if ([shiftModifiedInput isEqualToString:input5])
+    if ([shiftModifiedInput isEqualToString:?])
     {
       shiftModifiedInput2 = [v7 shiftModifiedInput];
       unmodifiedInput2 = [v7 unmodifiedInput];
       v36 = shiftModifiedInput2;
       v30 = shiftModifiedInput2;
       v31 = unmodifiedInput2;
-      if ([v30 isEqualToString:unmodifiedInput2])
+      if ([v30 isEqualToString:?])
       {
         v9 = 0;
       }
 
       else
       {
-        v35 = [v7 modifierFlags] & 0xFFFFFFFFFFFDFFFFLL;
+        v35 = ([v7 modifierFlags] & 0xFFFFFFFFFFFDFFFFLL);
         if (v35 == [(BKSHIDEventKeyCommand *)self modifierFlags])
         {
           v9 = 3;
@@ -191,10 +191,10 @@ LABEL_34:
     else
     {
       v5 = objc_opt_class();
-      usagePage = [(BKSHIDEventKeyCommand *)self usagePage];
-      keyCode = [(BKSHIDEventKeyCommand *)self keyCode];
+      [(BKSHIDEventKeyCommand *)self usagePage];
+      [(BKSHIDEventKeyCommand *)self keyCode];
 
-      LOBYTE(modifierFlags) = [v5 _isModifierKeyWithPage:usagePage usage:keyCode];
+      LOBYTE(modifierFlags) = [v5 _isModifierKeyWithPage:? usage:?];
     }
   }
 
@@ -212,21 +212,18 @@ LABEL_34:
 - (void)_appendPropertiesCommon:(id)common
 {
   commonCopy = common;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __49__BKSHIDEventKeyCommand__appendPropertiesCommon___block_invoke;
-  v6[3] = &unk_1E6F47000;
-  v6[4] = self;
-  v7 = commonCopy;
+  v6 = MEMORY[0x1E69E9820];
+  selfCopy = self;
+  v8 = commonCopy;
   v5 = commonCopy;
-  [v5 appendCustomFormatWithName:0 block:v6];
+  [v5 appendCustomFormatWithName:v6 block:{3221225472, __49__BKSHIDEventKeyCommand__appendPropertiesCommon___block_invoke, &unk_1E6F47000, selfCopy}];
 }
 
 void __49__BKSHIDEventKeyCommand__appendPropertiesCommon___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
-  if (v4 && ([*(a1 + 40) style], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "clientInformation"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "containsObject:", @"skipModifiers"), v6, v5, (v7 & 1) == 0))
+  if (v4 && ([*(a1 + 40) style], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "clientInformation"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "containsObject:"), v6, v5, (v7 & 1) == 0))
   {
     BSDescriptionStreamAppendBKSKeyModifierFlags(v3, v4);
     v8 = 1;
@@ -239,159 +236,146 @@ void __49__BKSHIDEventKeyCommand__appendPropertiesCommon___block_invoke(uint64_t
 
   v9 = [*(a1 + 32) keyCode];
   v10 = v9;
-  if ((v9 - 1) <= 0xFFFFFFFD)
+  if ((v9 - 1) > 0xFFFFFFFD)
   {
-    if ((v9 - 4) > 0x19)
+    v12 = 0;
+    if (v8)
     {
-      if ((v9 - 30) > 8)
-      {
-        if (v9 > 224)
-        {
-          if (v9 <= 227)
-          {
-            if (v9 == 225)
-            {
-              v15 = @"lshft";
-            }
-
-            else if (v9 == 226)
-            {
-              v15 = @"lopt";
-            }
-
-            else
-            {
-              v15 = @"lcmd";
-            }
-          }
-
-          else if (v9 > 229)
-          {
-            if (v9 == 230)
-            {
-              v15 = @"ropt";
-            }
-
-            else
-            {
-              if (v9 != 231)
-              {
-                goto LABEL_37;
-              }
-
-              v15 = @"rcmd";
-            }
-          }
-
-          else if (v9 == 228)
-          {
-            v15 = @"rctrl";
-          }
-
-          else
-          {
-            v15 = @"rshft";
-          }
-        }
-
-        else
-        {
-          if (v9 <= 79)
-          {
-            switch(v9)
-            {
-              case '\'':
-                v15 = @"0";
-                goto LABEL_13;
-              case ',':
-                v15 = @"space";
-                goto LABEL_13;
-              case 'O':
-                v15 = @"rightArrow";
-                goto LABEL_13;
-            }
-
-LABEL_37:
-            v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(code: %02X)", v10];
-            v14 = @"-";
-LABEL_38:
-            if (v8)
-            {
-              goto LABEL_39;
-            }
-
-            goto LABEL_40;
-          }
-
-          if (v9 <= 81)
-          {
-            if (v9 == 80)
-            {
-              v15 = @"leftArrow";
-            }
-
-            else
-            {
-              v15 = @"downArrow";
-            }
-
-            goto LABEL_13;
-          }
-
-          if (v9 == 82)
-          {
-            v15 = @"upArrow";
-            goto LABEL_13;
-          }
-
-          if (v9 != 224)
-          {
-            goto LABEL_37;
-          }
-
-          v15 = @"lctrl";
-        }
-
-        v14 = @" ";
-        goto LABEL_14;
-      }
-
-      v16 = v9 + 19;
-      v11 = MEMORY[0x1E696AEC0];
-      v12 = &v16;
-    }
-
-    else
-    {
-      v17 = v9 + 93;
-      v11 = MEMORY[0x1E696AEC0];
-      v12 = &v17;
-    }
-
-    v15 = [v11 stringWithCharacters:v12 length:1];
-    if (v15)
-    {
-LABEL_13:
-      v14 = @"-";
-LABEL_14:
-      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%02X:%@)", v10, v15];
-
       goto LABEL_38;
     }
 
-    goto LABEL_37;
+    goto LABEL_39;
   }
 
-  v13 = 0;
+  if ((v9 - 4) <= 0x19)
+  {
+    v11 = MEMORY[0x1E696AEC0];
+    goto LABEL_12;
+  }
+
+  if ((v9 - 30) <= 8)
+  {
+    v11 = MEMORY[0x1E696AEC0];
+LABEL_12:
+    v13 = [v11 stringWithCharacters:? length:?];
+    if (v13)
+    {
+LABEL_13:
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:v10, v13];
+
+      goto LABEL_37;
+    }
+
+    goto LABEL_36;
+  }
+
+  if (v9 > 224)
+  {
+    if (v9 <= 227)
+    {
+      if (v9 == 225)
+      {
+        v13 = @"lshft";
+      }
+
+      else if (v9 == 226)
+      {
+        v13 = @"lopt";
+      }
+
+      else
+      {
+        v13 = @"lcmd";
+      }
+
+      goto LABEL_13;
+    }
+
+    if (v9 <= 229)
+    {
+      if (v9 == 228)
+      {
+        v13 = @"rctrl";
+      }
+
+      else
+      {
+        v13 = @"rshft";
+      }
+
+      goto LABEL_13;
+    }
+
+    if (v9 == 230)
+    {
+      v13 = @"ropt";
+      goto LABEL_13;
+    }
+
+    if (v9 == 231)
+    {
+      v13 = @"rcmd";
+      goto LABEL_13;
+    }
+  }
+
+  else if (v9 <= 79)
+  {
+    switch(v9)
+    {
+      case '\'':
+        v13 = @"0";
+        goto LABEL_13;
+      case ',':
+        v13 = @"space";
+        goto LABEL_13;
+      case 'O':
+        v13 = @"rightArrow";
+        goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    if (v9 <= 81)
+    {
+      if (v9 == 80)
+      {
+        v13 = @"leftArrow";
+      }
+
+      else
+      {
+        v13 = @"downArrow";
+      }
+
+      goto LABEL_13;
+    }
+
+    if (v9 == 82)
+    {
+      v13 = @"upArrow";
+      goto LABEL_13;
+    }
+
+    if (v9 == 224)
+    {
+      v13 = @"lctrl";
+      goto LABEL_13;
+    }
+  }
+
+LABEL_36:
+  v12 = [MEMORY[0x1E696AEC0] stringWithFormat:v10];
+LABEL_37:
   if (v8)
   {
-    v14 = @"-";
-LABEL_39:
-    [v3 appendString:v14];
+LABEL_38:
+    [v3 appendString:?];
   }
 
-LABEL_40:
-  [*(a1 + 32) _appendKeyWithoutModifiersToDescriptionTarget:v3 keyCodeString:v13];
+LABEL_39:
+  [*(a1 + 32) _appendKeyWithoutModifiersToDescriptionTarget:? keyCodeString:?];
 }
 
 - (void)_appendKeyWithoutModifiersToDescriptionTarget:(id)target keyCodeString:(id)string
@@ -401,13 +385,13 @@ LABEL_40:
   _sanitizedInputForDescription = [(BKSHIDEventKeyCommand *)self _sanitizedInputForDescription];
   if (_sanitizedInputForDescription)
   {
-    [targetCopy appendString:_sanitizedInputForDescription];
+    [targetCopy appendString:?];
     if (!stringCopy)
     {
       goto LABEL_6;
     }
 
-    [targetCopy appendString:@" "];
+    [targetCopy appendString:?];
   }
 
   else if (!stringCopy)
@@ -415,7 +399,7 @@ LABEL_40:
     goto LABEL_6;
   }
 
-  [targetCopy appendString:stringCopy];
+  [targetCopy appendString:?];
 LABEL_6:
 }
 
@@ -423,13 +407,9 @@ LABEL_6:
 {
   v3 = objc_alloc_init(MEMORY[0x1E698E688]);
   v7 = MEMORY[0x1E69E9820];
-  v8 = 3221225472;
-  v9 = __36__BKSHIDEventKeyCommand_description__block_invoke;
-  v10 = &unk_1E6F47C78;
-  selfCopy = self;
-  v12 = v3;
+  v8 = v3;
   v4 = v3;
-  [v4 appendProem:self block:&v7];
+  [v4 appendProem:v7 block:{3221225472, __36__BKSHIDEventKeyCommand_description__block_invoke, &unk_1E6F47C78, self}];
   v5 = [v4 description];
 
   return v5;
@@ -453,7 +433,7 @@ LABEL_6:
     {
       input3 = [v5 input];
       input4 = [(BKSHIDEventKeyCommand *)self input];
-      v11 = [input3 isEqualToString:input4];
+      v11 = [input3 isEqualToString:?];
 
       if (!v11)
       {
@@ -499,21 +479,21 @@ LABEL_11:
 - (BKSHIDEventKeyCommand)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"input"];
-  v6 = [coderCopy decodeIntegerForKey:@"keyCode"];
-  v7 = [coderCopy decodeIntegerForKey:@"modifierFlags"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  [coderCopy decodeIntegerForKey:?];
+  [coderCopy decodeIntegerForKey:?];
 
-  v8 = [(BKSHIDEventKeyCommand *)self _initWithInput:v5 keyCode:v6 modifierFlags:v7];
-  return v8;
+  v6 = [BKSHIDEventKeyCommand _initWithInput:"_initWithInput:keyCode:modifierFlags:" keyCode:? modifierFlags:?];
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  input = self->_input;
   coderCopy = coder;
-  [coderCopy encodeObject:input forKey:@"input"];
-  [coderCopy encodeInteger:self->_keyCode forKey:@"keyCode"];
-  [coderCopy encodeInteger:self->_modifierFlags forKey:@"modifierFlags"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
 }
 
 - (id)_initWithInput:(id)input keyCode:(int64_t)code modifierFlags:(int64_t)flags
@@ -539,7 +519,7 @@ LABEL_11:
 
 - (BKSHIDEventKeyCommand)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is not allowed on BKSHIDEventKeyCommand"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -573,8 +553,9 @@ LABEL_11:
     return 0;
   }
 
-  IntegerValue = IOHIDEventGetIntegerValue();
-  return ([self _isModifierKeyWithPage:IntegerValue usage:IOHIDEventGetIntegerValue()] & 1) != 0 || (GSKeyboardGetModifierState() & 0x5910000) != 0;
+  IOHIDEventGetIntegerValue();
+  IOHIDEventGetIntegerValue();
+  return ([self _isModifierKeyWithPage:? usage:?] & 1) != 0 || (GSKeyboardGetModifierState() & 0x5910000) != 0;
 }
 
 + (BOOL)_isModifierKeyWithPage:(int64_t)page usage:(int64_t)usage
@@ -589,11 +570,11 @@ LABEL_11:
 
 + (id)keyCommandForEvent:(__IOHIDEvent *)event gsKeyboard:(__GSKeyboard *)keyboard activeModifiers:(int64_t *)modifiers
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   IntegerValue = IOHIDEventGetIntegerValue();
   v8 = IOHIDEventGetIntegerValue();
   v9 = IOHIDEventGetIntegerValue();
-  [objc_opt_class() _isModifierKeyWithPage:v9 usage:IntegerValue];
+  [objc_opt_class() _isModifierKeyWithPage:? usage:?];
   if ((IntegerValue - 83) < 0x11 || IntegerValue == 133 || IntegerValue == 103)
   {
     v12 = 0x200000;
@@ -611,30 +592,30 @@ LABEL_11:
       *modifiers = v12;
     }
 
-    v42[0] = 0;
+    v35 = 0;
     if (IntegerValue - 4 <= 0x19)
     {
-      v15 = IntegerValue + 93;
-LABEL_57:
-      LOBYTE(v42[0]) = v15;
-      v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v42];
-      v21 = [objc_opt_class() keyCommandWithInput:v25 modifierFlags:v12];
-      v21[2] = IntegerValue;
-      [v21 setUnmodifiedInput:v25];
+      v13 = IntegerValue + 93;
+LABEL_49:
+      LOBYTE(v35) = v13;
+      v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+      v17 = [objc_opt_class() keyCommandWithInput:? modifierFlags:?];
+      v17[2] = IntegerValue;
+      [v17 setUnmodifiedInput:?];
 
-      goto LABEL_58;
+      goto LABEL_50;
     }
 
     if (IntegerValue - 30 <= 9)
     {
-      v15 = IntegerValue + 18;
-      goto LABEL_57;
+      v13 = IntegerValue + 18;
+      goto LABEL_49;
     }
 
     if (IntegerValue - 89 <= 9)
     {
-      v15 = IntegerValue - 41;
-      goto LABEL_57;
+      v13 = IntegerValue - 41;
+      goto LABEL_49;
     }
 
     if (IntegerValue > 0x57u)
@@ -643,10 +624,10 @@ LABEL_57:
       {
         if (IntegerValue != 133)
         {
-          goto LABEL_52;
+          goto LABEL_44;
         }
 
-        goto LABEL_55;
+        goto LABEL_47;
       }
     }
 
@@ -654,127 +635,98 @@ LABEL_57:
     {
       if (IntegerValue != 54)
       {
-LABEL_52:
-        v21 = [objc_opt_class() keyCommandWithKeyCode:IntegerValue modifierFlags:v12];
-        goto LABEL_58;
+LABEL_44:
+        v17 = [objc_opt_class() keyCommandWithKeyCode:? modifierFlags:?];
+        goto LABEL_50;
       }
 
-LABEL_55:
-      v15 = 44;
-      goto LABEL_57;
+LABEL_47:
+      v13 = 44;
+      goto LABEL_49;
     }
 
-    v15 = 13;
-    goto LABEL_57;
+    v13 = 13;
+    goto LABEL_49;
   }
 
-  v37 = 0;
-  v38 = 0;
-  v36 = 0;
-  LiveModifierState = GSKeyboardGetLiveModifierState();
-  v33 = 0;
-  v34 = v9;
-  v32 = &v36;
-  v30 = &v37;
-  v31 = v39;
-  v28 = &v37 + 2;
-  v29 = v40;
+  v31 = 0;
+  v32 = 0;
+  v30 = 0;
+  GSKeyboardGetLiveModifierState();
+  v28 = 0;
+  v29 = v9;
+  v27 = &v30;
+  v25 = &v31;
+  v26 = v33;
+  v23 = &v31 + 2;
+  v24 = v34;
   GSKeyboardTranslateKeyExtendedCommandWithUsagePage();
   if (v8)
   {
-    v14 = v12;
-    LiveModifierState = GSKeyboardGetLiveModifierState();
+    GSKeyboardGetLiveModifierState();
   }
 
-  else
-  {
-    v14 = v12;
-  }
-
-  if ((LiveModifierState & 0x480000) != 0)
-  {
-    v16 = (((LiveModifierState & 0x1010000) != 0) << 20) | 0x80000;
-  }
-
-  else
-  {
-    v16 = ((LiveModifierState & 0x1010000) != 0) << 20;
-  }
-
-  if ((LiveModifierState & 0x900000) != 0)
-  {
-    v16 |= 0x40000uLL;
-  }
-
-  if ((LiveModifierState & 0x220000) != 0)
-  {
-    v16 |= 0x20000uLL;
-  }
-
-  v35 = v16;
-  v17 = (LiveModifierState >> 3) & 0x800000 | (LiveModifierState >> 2) & 0x10000;
   if (modifiers)
   {
-    v18 = GSKeyboardGetLiveModifierState();
-    if ((v18 & 0x480000) != 0)
+    LiveModifierState = GSKeyboardGetLiveModifierState();
+    if ((LiveModifierState & 0x480000) != 0)
     {
-      v19 = (((v18 & 0x1010000) != 0) << 20) | 0x80000;
+      v15 = (((LiveModifierState & 0x1010000) != 0) << 20) | 0x80000;
     }
 
     else
     {
-      v19 = ((v18 & 0x1010000) != 0) << 20;
+      v15 = ((LiveModifierState & 0x1010000) != 0) << 20;
     }
 
-    if ((v18 & 0x900000) != 0)
+    if ((LiveModifierState & 0x900000) != 0)
     {
-      v19 |= 0x40000uLL;
+      v15 |= 0x40000uLL;
     }
 
-    if ((v18 & 0x220000) != 0)
+    if ((LiveModifierState & 0x220000) != 0)
     {
-      v19 |= 0x20000uLL;
+      v15 |= 0x20000uLL;
     }
 
-    *modifiers = v19 | (v18 >> 3) & 0x800000 | (v18 >> 2) & 0x10000;
+    *modifiers = v15 | (LiveModifierState >> 3) & 0x800000 | (LiveModifierState >> 2) & 0x10000;
   }
 
-  if (HIWORD(v38))
+  if (HIWORD(v32))
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithCharacters:v42 length:{&v37 + 2, v40, &v37, v39, &v36, 0, v9}];
+    v16 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v31 + 2 length:{v34, &v31, v33, &v30, 0, v9}];
   }
 
   else
   {
-    v20 = 0;
+    v16 = 0;
   }
 
-  v21 = [objc_opt_class() keyCommandWithInput:v20 modifierFlags:v35 | v17 | v14];
-  v21[2] = IntegerValue;
-  if (v38)
+  v17 = [objc_opt_class() keyCommandWithInput:? modifierFlags:?];
+  v17[2] = IntegerValue;
+  if (v32)
   {
-    v22 = [MEMORY[0x1E696AEC0] stringWithCharacters:v41 length:?];
-    [v21 setUnmodifiedInput:v22];
+    v18 = [MEMORY[0x1E696AEC0] stringWithCharacters:? length:?];
+    [v17 setUnmodifiedInput:?];
   }
 
-  if (HIWORD(v37))
+  if (HIWORD(v31))
   {
-    v23 = [MEMORY[0x1E696AEC0] stringWithCharacters:v40 length:?];
-    [v21 setShiftModifiedInput:v23];
+    v19 = [MEMORY[0x1E696AEC0] stringWithCharacters:? length:?];
+    [v17 setShiftModifiedInput:?];
   }
 
-  if (v37)
+  if (v31)
   {
-    v24 = [MEMORY[0x1E696AEC0] stringWithCharacters:v39 length:?];
-    [v21 setCommandModifiedInput:v24];
+    v20 = [MEMORY[0x1E696AEC0] stringWithCharacters:? length:?];
+    [v17 setCommandModifiedInput:?];
   }
 
-  [v21 setUsagePage:{v9, v28, v29, v30, v31, v32, v33, v34}];
+  [v17 setUsagePage:{v23, v24, v25, v26, v27, v28, v29}];
 
-LABEL_58:
-  v26 = *MEMORY[0x1E69E9840];
+LABEL_50:
 
-  return v21;
+  return v17;
 }
 
 + (id)_descriptionForKeyCommandCollection:(id)collection
@@ -782,7 +734,7 @@ LABEL_58:
   v4 = MEMORY[0x1E698E688];
   collectionCopy = collection;
   v6 = objc_alloc_init(v4);
-  [self _appendDescriptionOfKeyCommandCollection:collectionCopy toStream:v6];
+  [self _appendDescriptionOfKeyCommandCollection:? toStream:?];
 
   v7 = [v6 description];
 
@@ -791,86 +743,68 @@ LABEL_58:
 
 + (void)_appendDescriptionOfKeyCommandCollection:(id)collection toStream:(id)stream
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   streamCopy = stream;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"collection must be an NSSet, NSArray, or NSOrderedSet"];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = NSStringFromSelector(a2);
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v14 = NSStringFromSelector(a2);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       *buf = 138544642;
-      v22 = v15;
-      v23 = 2114;
-      v24 = v17;
-      v25 = 2048;
+      v21 = v14;
+      v22 = 2114;
+      v23 = v16;
+      v24 = 2048;
       selfCopy = self;
-      v27 = 2114;
-      v28 = @"BKSHIDEventKeyCommand.m";
-      v29 = 1024;
-      v30 = 328;
-      v31 = 2114;
-      v32 = v14;
+      v26 = 2114;
+      v27 = @"BKSHIDEventKeyCommand.m";
+      v28 = 1024;
+      v29 = 328;
+      v30 = 2114;
+      v31 = v13;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v14 UTF8String];
+    [v13 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186359038);
   }
 
-  v9 = [collectionCopy bs_dictionaryByPartitioning:&__block_literal_global_357];
-  v10 = [MEMORY[0x1E698E690] build:&__block_literal_global_62];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_3;
-  v18[3] = &unk_1E6F466A0;
-  v19 = streamCopy;
-  v20 = v10;
+  v9 = [collectionCopy bs_dictionaryByPartitioning:?];
+  v10 = [MEMORY[0x1E698E690] build:?];
+  v17 = MEMORY[0x1E69E9820];
+  v18 = streamCopy;
+  v19 = v10;
   v11 = v10;
   v12 = streamCopy;
-  [v12 appendDictionary:v9 withName:0 itemBlock:v18];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [v12 appendDictionary:v17 withName:3221225472 itemBlock:{__75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_3, &unk_1E6F466A0}];
 }
 
 void __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_4;
-  v12[3] = &unk_1E6F46678;
-  v13 = v7;
-  v14 = *(a1 + 40);
-  v15 = v6;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_7;
-  v10[3] = &unk_1E6F477E8;
-  v11 = v5;
-  v8 = v5;
-  v9 = v6;
-  [v13 appendCustomFormatForValue:v12 withCustomFormatForName:v10];
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 40);
+  v13 = v6;
+  v9 = MEMORY[0x1E69E9820];
+  v10 = v5;
+  v7 = v5;
+  v8 = v6;
+  [v11 appendCustomFormatForValue:v9 withCustomFormatForName:{3221225472, __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_7, &unk_1E6F477E8}];
 }
 
 void __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_5;
-  v4[3] = &unk_1E6F47C78;
-  v5 = v2;
-  v6 = *(a1 + 48);
-  [v5 overlayStyle:v3 block:v4];
+  v2 = MEMORY[0x1E69E9820];
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 48);
+  [v3 overlayStyle:v2 block:{3221225472, __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_5, &unk_1E6F47C78}];
 }
 
 void __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_7(uint64_t a1, void *a2)
@@ -883,34 +817,28 @@ void __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStre
 void __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_5(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_6;
-  v3[3] = &unk_1E6F46650;
-  v4 = v1;
-  [v4 appendCollection:v2 withName:0 itemBlock:v3];
+  [v1 appendCollection:? withName:? itemBlock:?];
 }
 
 void __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 setCollectionLineBreak:2];
-  v3 = [MEMORY[0x1E695DFD8] setWithObject:@"skipModifiers"];
-  [v2 setClientInformation:v3];
+  [v2 setCollectionLineBreak:?];
+  v3 = [MEMORY[0x1E695DFD8] setWithObject:?];
+  [v2 setClientInformation:?];
 }
 
-uint64_t __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke(uint64_t a1, void *a2)
+void *__75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_toStream___block_invoke(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x1E696AD98];
-  v3 = [a2 modifierFlags];
+  [a2 modifierFlags];
 
-  return [v2 numberWithInteger:v3];
+  return [v2 numberWithInteger:?];
 }
 
 + (id)keyCommandWithKeyCode:(int64_t)code modifierFlags:(int64_t)flags
 {
-  v4 = [[BKSHIDEventKeyCommand alloc] _initWithInput:0 keyCode:code modifierFlags:flags];
+  v4 = [BKSHIDEventKeyCommand _initWithInput:"_initWithInput:keyCode:modifierFlags:" keyCode:? modifierFlags:?];
 
   return v4;
 }
@@ -919,17 +847,17 @@ uint64_t __75__BKSHIDEventKeyCommand__appendDescriptionOfKeyCommandCollection_to
 {
   inputCopy = input;
   null = [MEMORY[0x1E695DFB0] null];
-  v7 = [inputCopy isEqual:null];
+  v6 = [inputCopy isEqual:?];
 
-  if (v7)
+  if (v6)
   {
 
     inputCopy = 0;
   }
 
-  v8 = [[BKSHIDEventKeyCommand alloc] _initWithInput:inputCopy keyCode:-1 modifierFlags:flags];
+  v7 = [BKSHIDEventKeyCommand _initWithInput:"_initWithInput:keyCode:modifierFlags:" keyCode:? modifierFlags:?];
 
-  return v8;
+  return v7;
 }
 
 @end

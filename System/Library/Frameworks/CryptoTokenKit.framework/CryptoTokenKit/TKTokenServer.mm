@@ -389,7 +389,7 @@
 - (void)setTokenRegistry:(id)registry
 {
   registryCopy = registry;
-  v6 = sub_1000164FC();
+  v6 = sub_1000164FC(registryCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100020B08(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -408,28 +408,27 @@
 
 - (BOOL)waitForRegistry
 {
-  [(NSCondition *)self->_tokenRegistrySetCondition lock];
+  lock = [(NSCondition *)self->_tokenRegistrySetCondition lock];
   while (!self->_tokenRegistrySet)
   {
-    v6 = sub_1000164FC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      sub_100020B40(&buf, v11, v6);
-    }
-
-    [(NSCondition *)self->_tokenRegistrySetCondition wait];
-    v7 = sub_1000164FC();
+    v7 = sub_1000164FC(lock);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_100020B80(&v8, v9, v7);
+      sub_100020B40(&buf, v12, v7);
+    }
+
+    v8 = sub_1000164FC([(NSCondition *)self->_tokenRegistrySetCondition wait]);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100020B80(&v9, v10, v8);
     }
   }
 
   [(NSCondition *)self->_tokenRegistrySetCondition unlock];
   tokenRegistry = [(TKTokenServer *)self tokenRegistry];
-  v4 = tokenRegistry != 0;
+  v5 = tokenRegistry != 0;
 
-  return v4;
+  return v5;
 }
 
 - (void)dealloc
@@ -445,10 +444,11 @@
   tokenServerListener = [(TKTokenServer *)self tokenServerListener];
   [tokenServerListener resume];
 
-  if (notify_post([TKTokenWatcherServerStartedNotification UTF8String]))
+  v4 = notify_post([TKTokenWatcherServerStartedNotification UTF8String]);
+  if (v4)
   {
-    v4 = sub_1000164FC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1000164FC(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100020BC0();
     }

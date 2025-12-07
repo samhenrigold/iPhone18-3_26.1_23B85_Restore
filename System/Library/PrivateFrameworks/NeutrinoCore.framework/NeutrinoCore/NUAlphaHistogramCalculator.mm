@@ -320,10 +320,10 @@ uint64_t __73__NUAlphaHistogramCalculator__computeAlphaHistogramForBufferBGRA8_e
   {
     if ([(NUHistogramCalculator *)self binCount]== 256)
     {
-      [(NUHistogramCalculator *)self range];
+      objc_msgSend_range(self);
       if (v11 == 0.0)
       {
-        [(NUHistogramCalculator *)self range];
+        objc_msgSend_range(self);
         if (v12 == 1.0)
         {
           v13 = [(NUAlphaHistogramCalculator *)self _computeAlphaHistogramForBufferBGRA8:v7 error:error];

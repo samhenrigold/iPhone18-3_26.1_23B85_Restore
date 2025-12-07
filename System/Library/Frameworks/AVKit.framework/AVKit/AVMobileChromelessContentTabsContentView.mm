@@ -3,7 +3,7 @@
 - (double)_contentOffsetForTab:(id *)tab;
 - (id)_updateContentSize;
 - (uint64_t)_indexForContentTab:(id *)tab;
-- (void)_attachViewForContentTab:(id *)tab;
+- (void)_attachViewForContentTab:(void *)tab;
 - (void)_updateActiveContentTabFrom:(void *)from to:(uint64_t)to withChangingReason:;
 - (void)_updateContentTabViewFrame:(id *)frame;
 - (void)didMoveToSuperview;
@@ -162,7 +162,7 @@
   MEMORY[0x1EEE66BB8](tabCopy, v6);
 }
 
-- (void)_attachViewForContentTab:(id *)tab
+- (void)_attachViewForContentTab:(void *)tab
 {
   v3 = a2;
   if (tab)

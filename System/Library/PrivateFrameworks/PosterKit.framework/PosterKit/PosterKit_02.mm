@@ -611,7 +611,7 @@ LABEL_29:
   memcpy(__dst, v60, 0x129uLL);
   __dst[297] = v58;
   __dst[298] = v55;
-  nullsub_1(__dst);
+  nullsub_1();
   memcpy(__src, __dst, 0x12BuLL);
   return memcpy(a5, __src, 0x12BuLL);
 }
@@ -683,7 +683,7 @@ LABEL_11:
       v12 = sub_1A8BDE134();
       v14 = v18;
 
-      sub_1A8BAF4B8(__src, &qword_1EB341718);
+      sub_1A8BAF4B8(__src, &qword_1EB341718, &qword_1A8BF9AD8);
     }
 
     else
@@ -717,7 +717,7 @@ LABEL_11:
       }
 
       sub_1A8BAF018(v29, v37);
-      sub_1A8BAF4B8(__src, &qword_1EB341718);
+      sub_1A8BAF4B8(__src, &qword_1EB341718, &qword_1A8BF9AD8);
       v12 = *&v29[0];
       *&v37[0] = *&v29[0];
       *(v37 + 8) = *(v29 + 8);
@@ -955,7 +955,7 @@ void sub_1A8BC7644(void *a1)
   [v6 pointSize];
   CopyWithAttributes = CTFontCreateCopyWithAttributes(v6, v3 * v7, 0, 0);
   v9 = sub_1A8BDE104();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB341408);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB341408, &qword_1A8BF9058);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1A8BF8F70;
   v11 = *MEMORY[0x1E69DB648];
@@ -1019,7 +1019,7 @@ uint64_t sub_1A8BC79F0(uint64_t a1, uint64_t a2, uint64_t a3)
   return MEMORY[0x1EEDDA9B8](a1, a2, a3, v6);
 }
 
-void sub_1A8BC7A54()
+void sub_1A8BC7A54(uint64_t a1)
 {
   sub_1A8BC7A7C();
   sub_1A8BDDED4();
@@ -1040,7 +1040,7 @@ unint64_t sub_1A8BC7A7C()
 
 uint64_t sub_1A8BC7AD0(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB3411C0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB3411C0, &unk_1A8BF9060);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }

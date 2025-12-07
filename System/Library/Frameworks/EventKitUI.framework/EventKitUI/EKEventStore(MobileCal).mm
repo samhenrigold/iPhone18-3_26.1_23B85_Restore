@@ -17,9 +17,9 @@
     [EKEventStore(MobileCal) colorNamesInRainbowOrder];
   }
 
-  v1 = colorNamesInRainbowOrder___colorNames;
+  v2 = colorNamesInRainbowOrder___colorNames;
 
-  return v1;
+  return v2;
 }
 
 - (id)_uicolorFromString:()MobileCal

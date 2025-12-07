@@ -2,6 +2,8 @@
 - (BLSHInactiveBudgetBucket)initWithFutureSpecifier:(id)specifier;
 - (BLSHInactiveBudgetBucket)initWithInvalidation:(id)invalidation;
 - (BOOL)validAtDate:(id)date;
+- (double)addFutureSpecifier:(id)specifier hasSecondsBudget:(BOOL)budget allowBeforeStart:(BOOL)start;
+- (double)addInvalidation:(id)invalidation hasSecondsBudget:(BOOL)budget allowBeforeStart:(BOOL)start;
 - (double)addSpecifier:(char)specifier allowBeforeStart:(void *)start withCountBlock:;
 - (double)applyRenderedSpecifier:(id)specifier allowBeforeStart:(BOOL)start;
 - (id)debugDescription;
@@ -256,7 +258,7 @@ uint64_t __78__BLSHInactiveBudgetBucket_addInvalidation_hasSecondsBudget_allowBe
 
 - (double)addSpecifier:(char)specifier allowBeforeStart:(void *)start withCountBlock:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v7 = a2;
   startCopy = start;
   if (!self)
@@ -302,25 +304,25 @@ LABEL_7:
         [v21 timeIntervalSinceDate:date];
         v23 = v22;
         v24 = [*(self + 32) count];
-        v27 = 134220034;
+        v26 = 134220034;
         selfCopy = self;
-        v29 = 2114;
-        v30 = v7;
-        v31 = 2114;
-        v32 = v21;
-        v33 = 2114;
-        v34 = date;
-        v35 = 2048;
-        v36 = v23;
-        v37 = 2048;
-        v38 = v13;
-        v39 = 2048;
-        v40 = v15;
-        v41 = 1024;
-        v42 = v17;
-        v43 = 1024;
-        v44 = v24;
-        _os_log_debug_impl(&dword_21FD11000, v20, OS_LOG_TYPE_DEBUG, "%p added addSpecifier:%{public}@ start date will change:%{public}@->%{public}@ (%.3lfs) (intervalSinceStart:%lf; intervalAfterEnd:%lf) (count:%d->%d)", &v27, 0x54u);
+        v28 = 2114;
+        v29 = v7;
+        v30 = 2114;
+        v31 = v21;
+        v32 = 2114;
+        v33 = date;
+        v34 = 2048;
+        v35 = v23;
+        v36 = 2048;
+        v37 = v13;
+        v38 = 2048;
+        v39 = v15;
+        v40 = 1024;
+        v41 = v17;
+        v42 = 1024;
+        v43 = v24;
+        _os_log_debug_impl(&dword_21FD11000, v20, OS_LOG_TYPE_DEBUG, "%p added addSpecifier:%{public}@ start date will change:%{public}@->%{public}@ (%.3lfs) (intervalSinceStart:%lf; intervalAfterEnd:%lf) (count:%d->%d)", &v26, 0x54u);
       }
 
       objc_storeStrong((self + 16), date);
@@ -340,8 +342,19 @@ LABEL_7:
 LABEL_18:
 
 LABEL_19:
-  v25 = *MEMORY[0x277D85DE8];
   return v16;
+}
+
+- (double)addFutureSpecifier:(id)specifier hasSecondsBudget:(BOOL)budget allowBeforeStart:(BOOL)start
+{
+  budgetCopy = budget;
+  specifierCopy = specifier;
+  OUTLINED_FUNCTION_0_5();
+  v13 = v7;
+  v8 = v7;
+  v11 = OUTLINED_FUNCTION_1_10(v8, v9, v10);
+
+  return v11;
 }
 
 - (double)applyRenderedSpecifier:(id)specifier allowBeforeStart:(BOOL)start
@@ -359,20 +372,31 @@ LABEL_19:
   return v8;
 }
 
+- (double)addInvalidation:(id)invalidation hasSecondsBudget:(BOOL)budget allowBeforeStart:(BOOL)start
+{
+  budgetCopy = budget;
+  invalidationCopy = invalidation;
+  OUTLINED_FUNCTION_0_5();
+  v13 = v7;
+  v8 = v7;
+  v11 = OUTLINED_FUNCTION_1_10(v8, v9, v10);
+
+  return v11;
+}
+
 void __78__BLSHInactiveBudgetBucket_addInvalidation_hasSecondsBudget_allowBeforeStart___block_invoke_cold_1(uint64_t *a1, uint64_t *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = *a2;
   v6 = [*(*a1 + 32) count];
-  v8 = 134218498;
-  v9 = v4;
-  v10 = 2114;
-  v11 = v5;
-  v12 = 1024;
-  v13 = v6;
-  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%p added invalidation:%{public}@ total bucket count:%d", &v8, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218498;
+  v8 = v4;
+  v9 = 2114;
+  v10 = v5;
+  v11 = 1024;
+  v12 = v6;
+  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%p added invalidation:%{public}@ total bucket count:%d", &v7, 0x1Cu);
 }
 
 @end

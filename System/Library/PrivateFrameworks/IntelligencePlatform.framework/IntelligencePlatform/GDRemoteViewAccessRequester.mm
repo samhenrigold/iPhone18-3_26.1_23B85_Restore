@@ -32,7 +32,7 @@
 
 - (id)requestAssertionForViewName:(id)name useCase:(id)case error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v9 = GDSignpostLog();
   caseCopy = case;
@@ -45,10 +45,10 @@
   }
 
   v12 = mach_absolute_time();
-  v34 = 0;
-  v13 = [(GDRemoteViewAccessRequester *)self _requestAssertionForViewName:nameCopy useCase:caseCopy error:&v34];
+  v33 = 0;
+  v13 = [(GDRemoteViewAccessRequester *)self _requestAssertionForViewName:nameCopy useCase:caseCopy error:&v33];
 
-  v14 = v34;
+  v14 = v33;
   v15 = objc_opt_class();
   v16 = [v15 _machTimeToMilliseconds:mach_absolute_time() - v12];
   v17 = objc_opt_new();
@@ -83,7 +83,7 @@
   AnalyticsSendEvent();
   if (+[GDOSVariant isInternalDevice])
   {
-    v33 = v13;
+    v32 = v13;
     if (v13)
     {
       v21 = v11 - 1;
@@ -129,15 +129,15 @@ LABEL_25:
     if (v21 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
       *buf = 138543874;
-      v36 = nameCopy;
-      v37 = 2114;
-      v38 = v22;
-      v39 = 2050;
-      v40 = code;
+      v35 = nameCopy;
+      v36 = 2114;
+      v37 = v22;
+      v38 = 2050;
+      v39 = code;
       _os_signpost_emit_with_name_impl(&dword_1ABA78000, v9, OS_SIGNPOST_INTERVAL_END, v11, "viewServing", "viewName=%{signpost.telemetry:string1,public}@ result=%{signpost.telemetry:string2,public}@ errorCode=%{signpost.telemetry:number1,public}ld enableTelemetry=YES ", buf, 0x20u);
     }
 
-    v13 = v33;
+    v13 = v32;
     goto LABEL_29;
   }
 
@@ -150,9 +150,9 @@ LABEL_25:
     }
 
     *buf = 138543618;
-    v36 = nameCopy;
-    v37 = 2114;
-    v38 = v29;
+    v35 = nameCopy;
+    v36 = 2114;
+    v37 = v29;
     _os_signpost_emit_with_name_impl(&dword_1ABA78000, v9, OS_SIGNPOST_INTERVAL_END, v11, "viewServing", "viewName=%{signpost.telemetry:string1,public}@ result=%{signpost.telemetry:string2,public}@ enableTelemetry=YES ", buf, 0x16u);
   }
 
@@ -164,8 +164,6 @@ LABEL_29:
     v30 = v14;
     *error = v14;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

@@ -78,19 +78,19 @@ void __72__BCSShardResolver_triggerMegashardFetchForShardType_reason_completion_
 
 void __72__BCSShardResolver_triggerMegashardFetchForShardType_reason_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = ABSLogCommon();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromBCSShardType(*(a1 + 40));
-    v10 = 136315650;
-    v11 = "[BCSShardResolver triggerMegashardFetchForShardType:reason:completion:]_block_invoke_2";
-    v12 = 2112;
-    v13 = v7;
-    v14 = 1024;
-    v15 = a2;
-    _os_log_impl(&dword_242072000, v6, OS_LOG_TYPE_DEFAULT, "%s - Result of fetching megashards of type %@: %d", &v10, 0x1Cu);
+    v9 = 136315650;
+    v10 = "[BCSShardResolver triggerMegashardFetchForShardType:reason:completion:]_block_invoke_2";
+    v11 = 2112;
+    v12 = v7;
+    v13 = 1024;
+    v14 = a2;
+    _os_log_impl(&dword_242072000, v6, OS_LOG_TYPE_DEFAULT, "%s - Result of fetching megashards of type %@: %d", &v9, 0x1Cu);
   }
 
   v8 = *(a1 + 32);
@@ -98,24 +98,22 @@ void __72__BCSShardResolver_triggerMegashardFetchForShardType_reason_completion_
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shardItemsMatching:(id)matching metric:(id)metric completion:(id)completion
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   metricCopy = metric;
   completionCopy = completion;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__5;
-  v55 = __Block_byref_object_dispose__5;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__5;
+  v54 = __Block_byref_object_dispose__5;
   v8 = objc_alloc(MEMORY[0x277CBEB38]);
   itemIdentifiers = [matchingCopy itemIdentifiers];
-  v56 = [v8 initWithCapacity:{objc_msgSend(itemIdentifiers, "count")}];
+  v55 = [v8 initWithCapacity:{objc_msgSend(itemIdentifiers, "count")}];
 
   if (self)
   {
@@ -148,21 +146,21 @@ void __72__BCSShardResolver_triggerMegashardFetchForShardType_reason_completion_
 
   else
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     shardIdentifiers = [matchingCopy shardIdentifiers];
-    v17 = [shardIdentifiers countByEnumeratingWithState:&v47 objects:v61 count:16];
+    v17 = [shardIdentifiers countByEnumeratingWithState:&v46 objects:v60 count:16];
     if (v17)
     {
-      v18 = *v48;
+      v18 = *v47;
       do
       {
         v19 = 0;
         do
         {
-          if (*v48 != v18)
+          if (*v47 != v18)
           {
             objc_enumerationMutation(shardIdentifiers);
           }
@@ -177,13 +175,13 @@ void __72__BCSShardResolver_triggerMegashardFetchForShardType_reason_completion_
             shardCache = 0;
           }
 
-          v21 = *(*(&v47 + 1) + 8 * v19);
+          v21 = *(*(&v46 + 1) + 8 * v19);
           v22 = shardCache;
           v23 = [(BCSShardCaching *)v22 shardItemMatching:v21];
 
-          if (!v23 && [v52[5] count])
+          if (!v23 && [v51[5] count])
           {
-            [v52[5] removeAllObjects];
+            [v51[5] removeAllObjects];
             v15 = 0;
             goto LABEL_27;
           }
@@ -195,22 +193,22 @@ void __72__BCSShardResolver_triggerMegashardFetchForShardType_reason_completion_
             {
               v25 = NSStringFromBCSShardType([v21 type]);
               *buf = 136315394;
-              v58 = "[BCSShardResolver shardItemsMatching:metric:completion:]";
-              v59 = 2112;
-              v60 = v25;
+              v57 = "[BCSShardResolver shardItemsMatching:metric:completion:]";
+              v58 = 2112;
+              v59 = v25;
               _os_log_impl(&dword_242072000, v24, OS_LOG_TYPE_DEFAULT, "%s cached shard item found but expired - type: %@ --> will use expired shard but will attempt to download megashard from server in background", buf, 0x16u);
             }
 
             -[BCSShardResolver triggerMegashardFetchForShardType:reason:completion:](self, [v21 type], 4, 0);
           }
 
-          [v52[5] setObject:v23 forKeyedSubscript:v21];
+          [v51[5] setObject:v23 forKeyedSubscript:v21];
 
           ++v19;
         }
 
         while (v17 != v19);
-        v26 = [shardIdentifiers countByEnumeratingWithState:&v47 objects:v61 count:16];
+        v26 = [shardIdentifiers countByEnumeratingWithState:&v46 objects:v60 count:16];
         v17 = v26;
       }
 
@@ -241,9 +239,9 @@ LABEL_27:
   cacheHitMeasurement = [metricCopy cacheHitMeasurement];
   [cacheHitMeasurement setFlag:v15];
 
-  if (v15 && [v52[5] count])
+  if (v15 && [v51[5] count])
   {
-    v39[2](v39, v52[5], 0);
+    v38[2](v38, v51[5], 0);
   }
 
   else
@@ -251,60 +249,58 @@ LABEL_27:
     v34 = ABSLogCommon();
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v37 = NSStringFromBCSShardType([matchingCopy shardType]);
+      v36 = NSStringFromBCSShardType([matchingCopy shardType]);
       *buf = 136315394;
-      v58 = "[BCSShardResolver shardItemsMatching:metric:completion:]";
-      v59 = 2112;
-      v60 = v37;
+      v57 = "[BCSShardResolver shardItemsMatching:metric:completion:]";
+      v58 = 2112;
+      v59 = v36;
       _os_log_error_impl(&dword_242072000, v34, OS_LOG_TYPE_ERROR, "%s shard item missing!!! - type: %@ --> blocking to download megashard from server", buf, 0x16u);
     }
 
     shardType = [matchingCopy shardType];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __57__BCSShardResolver_shardItemsMatching_metric_completion___block_invoke;
-    v42[3] = &unk_278D39E38;
-    v43 = matchingCopy;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __57__BCSShardResolver_shardItemsMatching_metric_completion___block_invoke;
+    v41[3] = &unk_278D39E38;
+    v42 = matchingCopy;
     selfCopy = self;
-    v46 = &v51;
-    v45 = v39;
-    [(BCSShardResolver *)self triggerMegashardFetchForShardType:shardType reason:5 completion:v42];
+    v45 = &v50;
+    v44 = v38;
+    [(BCSShardResolver *)self triggerMegashardFetchForShardType:shardType reason:5 completion:v41];
   }
 
-  _Block_object_dispose(&v51, 8);
-
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v50, 8);
 }
 
 void __57__BCSShardResolver_shardItemsMatching_metric_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2)
   {
-    v21 = v5;
-    v24 = 0u;
-    v25 = 0u;
+    v19 = v5;
     v22 = 0u;
     v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v7 = [*(a1 + 32) shardIdentifiers];
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v21;
       do
       {
         v11 = 0;
         do
         {
-          if (*v23 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * v11);
+          v12 = *(*(&v20 + 1) + 8 * v11);
           v13 = *(a1 + 40);
           if (v13)
           {
@@ -316,7 +312,7 @@ void __57__BCSShardResolver_shardItemsMatching_metric_completion___block_invoke(
             v14 = 0;
           }
 
-          v15 = [v14 shardItemMatching:*(*(&v22 + 1) + 8 * v11)];
+          v15 = [v14 shardItemMatching:*(*(&v20 + 1) + 8 * v11)];
           [*(*(*(a1 + 56) + 8) + 40) setObject:v15 forKeyedSubscript:v12];
           if (!v15)
           {
@@ -325,9 +321,9 @@ void __57__BCSShardResolver_shardItemsMatching_metric_completion___block_invoke(
             {
               v17 = NSStringFromBCSShardType([*(a1 + 32) shardType]);
               *buf = 136315394;
-              v27 = "[BCSShardResolver shardItemsMatching:metric:completion:]_block_invoke";
-              v28 = 2112;
-              v29 = v17;
+              v25 = "[BCSShardResolver shardItemsMatching:metric:completion:]_block_invoke";
+              v26 = 2112;
+              v27 = v17;
               _os_log_error_impl(&dword_242072000, v16, OS_LOG_TYPE_ERROR, "%s - Successfully fetched megashard of type %@ but did not find shard in cache", buf, 0x16u);
             }
           }
@@ -336,26 +332,23 @@ void __57__BCSShardResolver_shardItemsMatching_metric_completion___block_invoke(
         }
 
         while (v9 != v11);
-        v18 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v18 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
         v9 = v18;
       }
 
       while (v18);
     }
 
-    v6 = v21;
+    v6 = v19;
   }
 
-  v19 = *(*(*(a1 + 56) + 8) + 40);
   (*(*(a1 + 48) + 16))();
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shardItemMatching:(id)matching clientBundleID:(id)d cacheOnly:(BOOL)only metric:(id)metric completion:(id)completion
 {
   onlyCopy = only;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   completionCopy = completion;
   if (self)
@@ -410,9 +403,9 @@ void __57__BCSShardResolver_shardItemsMatching_metric_completion___block_invoke(
     {
       v22 = NSStringFromBCSShardType([matchingCopy type]);
       *buf = 136315394;
-      v40 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]";
-      v41 = 2112;
-      v42 = v22;
+      v39 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]";
+      v40 = 2112;
+      v41 = v22;
       _os_log_impl(&dword_242072000, v21, OS_LOG_TYPE_DEFAULT, "%s cached shard item found but expired - type: %@ --> will use expired shard but will attempt to download megashard from server in background", buf, 0x16u);
     }
 
@@ -450,11 +443,11 @@ void __57__BCSShardResolver_shardItemsMatching_metric_completion___block_invoke(
     {
       if (v29)
       {
-        v33 = NSStringFromBCSShardType([matchingCopy type]);
+        v32 = NSStringFromBCSShardType([matchingCopy type]);
         *buf = 136315394;
-        v40 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]";
-        v41 = 2112;
-        v42 = v33;
+        v39 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]";
+        v40 = 2112;
+        v41 = v32;
         _os_log_error_impl(&dword_242072000, v28, OS_LOG_TYPE_ERROR, "%s shard item missing!!! - type: %@ --> triggering BACKGROUND download of megashard from server", buf, 0x16u);
       }
 
@@ -467,32 +460,30 @@ void __57__BCSShardResolver_shardItemsMatching_metric_completion___block_invoke(
     {
       if (v29)
       {
-        v34 = NSStringFromBCSShardType([matchingCopy type]);
+        v33 = NSStringFromBCSShardType([matchingCopy type]);
         *buf = 136315394;
-        v40 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]";
-        v41 = 2112;
-        v42 = v34;
+        v39 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]";
+        v40 = 2112;
+        v41 = v33;
         _os_log_error_impl(&dword_242072000, v28, OS_LOG_TYPE_ERROR, "%s shard item missing!!! - type: %@ --> blocking to download megashard from server", buf, 0x16u);
       }
 
       type = [matchingCopy type];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __81__BCSShardResolver_shardItemMatching_clientBundleID_cacheOnly_metric_completion___block_invoke_5;
-      v35[3] = &unk_278D39E60;
-      v36 = matchingCopy;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __81__BCSShardResolver_shardItemMatching_clientBundleID_cacheOnly_metric_completion___block_invoke_5;
+      v34[3] = &unk_278D39E60;
+      v35 = matchingCopy;
       selfCopy = self;
-      v38 = completionCopy;
-      [(BCSShardResolver *)self triggerMegashardFetchForShardType:type reason:5 completion:v35];
+      v37 = completionCopy;
+      [(BCSShardResolver *)self triggerMegashardFetchForShardType:type reason:5 completion:v34];
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __81__BCSShardResolver_shardItemMatching_clientBundleID_cacheOnly_metric_completion___block_invoke_5(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = ABSLogCommon();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -501,13 +492,13 @@ void __81__BCSShardResolver_shardItemMatching_clientBundleID_cacheOnly_metric_co
     if (v7)
     {
       v12 = NSStringFromBCSShardType([*(a1 + 32) type]);
-      v14 = 136315650;
-      v15 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
-      v16 = 2112;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v5;
-      _os_log_impl(&dword_242072000, v6, OS_LOG_TYPE_DEFAULT, "%s - Failed to fetch Megashard of type %@ - Error: %@", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
+      v15 = 2112;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v5;
+      _os_log_impl(&dword_242072000, v6, OS_LOG_TYPE_DEFAULT, "%s - Failed to fetch Megashard of type %@ - Error: %@", &v13, 0x20u);
       goto LABEL_11;
     }
 
@@ -520,11 +511,11 @@ LABEL_12:
   if (v7)
   {
     v8 = NSStringFromBCSShardType([*(a1 + 32) type]);
-    v14 = 136315394;
-    v15 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
-    v16 = 2112;
-    v17 = v8;
-    _os_log_impl(&dword_242072000, v6, OS_LOG_TYPE_DEFAULT, "%s - Successfully fetched megashard of type %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&dword_242072000, v6, OS_LOG_TYPE_DEFAULT, "%s - Successfully fetched megashard of type %@", &v13, 0x16u);
   }
 
   v9 = *(a1 + 40);
@@ -545,11 +536,11 @@ LABEL_12:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v12 = NSStringFromBCSShardType([*(a1 + 32) type]);
-      v14 = 136315394;
-      v15 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
-      v16 = 2112;
-      v17 = v12;
-      _os_log_error_impl(&dword_242072000, v6, OS_LOG_TYPE_ERROR, "%s - Successfully fetched megashard of type %@ but did not find shard in cache", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[BCSShardResolver shardItemMatching:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
+      v15 = 2112;
+      v16 = v12;
+      _os_log_error_impl(&dword_242072000, v6, OS_LOG_TYPE_ERROR, "%s - Successfully fetched megashard of type %@ but did not find shard in cache", &v13, 0x16u);
 LABEL_11:
 
       goto LABEL_12;
@@ -560,8 +551,6 @@ LABEL_11:
 
 LABEL_13:
   (*(*(a1 + 48) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

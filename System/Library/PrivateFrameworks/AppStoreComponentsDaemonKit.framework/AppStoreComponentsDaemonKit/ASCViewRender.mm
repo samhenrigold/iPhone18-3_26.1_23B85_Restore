@@ -133,19 +133,17 @@ void __20__ASCViewRender_log__block_invoke(uint64_t a1)
 
 + (void)launchCorrelationKeyWithTag:(unint64_t)tag withString:(id)string
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   [self willEmitSignpostOfType:1 withName:@"launchCorrelationKey"];
   v7 = [self log];
   v8 = v7;
   if (tag - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v10 = 138412290;
-    v11 = stringCopy;
-    _os_signpost_emit_with_name_impl(&dword_222629000, v8, OS_SIGNPOST_EVENT, tag, "launchCorrelationKey", "String=%{signpost.description:attribute}@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = stringCopy;
+    _os_signpost_emit_with_name_impl(&dword_222629000, v8, OS_SIGNPOST_EVENT, tag, "launchCorrelationKey", "String=%{signpost.description:attribute}@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestDidBeginWithTag:(unint64_t)tag

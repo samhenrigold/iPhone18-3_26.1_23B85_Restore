@@ -17,45 +17,56 @@
 
 - (void)beginService
 {
-  v7.receiver = self;
-  v7.super_class = CLSettingsManager;
-  [(CLSettingsManagerInternal *)&v7 beginService];
+  v21.receiver = self;
+  v21.super_class = CLSettingsManager;
+  [(CLSettingsManagerInternal *)&v21 beginService];
   v3 = objc_alloc_init(MEMORY[0x1E696ADC8]);
-  [v3 setUnderlyingQueue:{-[CLSilo queue](-[CLIntersiloService silo](self, "silo"), "queue")}];
-  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E696AA70];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = sub_1DF815F74;
-  v6[3] = &unk_1E86C8488;
-  v6[4] = self;
-  -[CLSettingsManager setNotificationObserver:](self, "setNotificationObserver:", [defaultCenter addObserverForName:v5 object:0 queue:v3 usingBlock:v6]);
+  v6 = objc_msgSend_silo(self, v4, v5);
+  v9 = objc_msgSend_queue(v6, v7, v8);
+  objc_msgSend_setUnderlyingQueue_(v3, v10, v9);
+  v13 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v11, v12);
+  v14 = *MEMORY[0x1E696AA70];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_1DF815F74;
+  v20[3] = &unk_1E86C8488;
+  v20[4] = self;
+  v16 = objc_msgSend_addObserverForName_object_queue_usingBlock_(v13, v15, v14, 0, v3, v20);
+  objc_msgSend_setNotificationObserver_(self, v17, v16);
 
-  [(CLSettingsManager *)self refresh];
+  objc_msgSend_refresh(self, v18, v19);
 }
 
 - (void)endService
 {
-  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
-  v3.receiver = self;
-  v3.super_class = CLSettingsManager;
-  [(CLSettingsManagerInternal *)&v3 endService];
+  v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2);
+  v7 = objc_msgSend_notificationObserver(self, v5, v6);
+  objc_msgSend_removeObserver_(v4, v8, v7);
+  v9.receiver = self;
+  v9.super_class = CLSettingsManager;
+  [(CLSettingsManagerInternal *)&v9 endService];
 }
 
 - (void)refresh
 {
-  -[CLSettingsManagerInternal setSettingsDictionary:](self, "setSettingsDictionary:", [objc_msgSend(objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")]);
-  [MEMORY[0x1E695DF20] dictionaryWithDictionary:{-[CLSettingsManagerInternal settingsDictionary](self, "settingsDictionary")}];
+  v4 = objc_msgSend_standardUserDefaults(MEMORY[0x1E695E000], a2, v2);
+  v7 = objc_msgSend_dictionaryRepresentation(v4, v5, v6);
+  v10 = objc_msgSend_cl_deepMutableCopy(v7, v8, v9);
+  objc_msgSend_setSettingsDictionary_(self, v11, v10);
+  v12 = MEMORY[0x1E695DF20];
+  v15 = objc_msgSend_settingsDictionary(self, v13, v14);
+  v17 = objc_msgSend_dictionaryWithDictionary_(v12, v16, v15);
 
-  MEMORY[0x1EEE66B58](self, sel_updateClientsWithDictionary_);
+  MEMORY[0x1EEE66B58](self, sel_updateClientsWithDictionary_, v17);
 }
 
 - (id)syncgetSetValue:(id)value forKey:(id)key withoutNotifying:(id)notifying
 {
-  [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
-  v10.receiver = self;
-  v10.super_class = CLSettingsManager;
-  return [(CLSettingsManagerInternal *)&v10 syncgetSetValue:value forKey:key withoutNotifying:notifying];
+  v9 = objc_msgSend_standardUserDefaults(MEMORY[0x1E695E000], a2, value);
+  objc_msgSend_setValue_forKey_(v9, v10, value, key);
+  v12.receiver = self;
+  v12.super_class = CLSettingsManager;
+  return [(CLSettingsManagerInternal *)&v12 syncgetSetValue:value forKey:key withoutNotifying:notifying];
 }
 
 @end

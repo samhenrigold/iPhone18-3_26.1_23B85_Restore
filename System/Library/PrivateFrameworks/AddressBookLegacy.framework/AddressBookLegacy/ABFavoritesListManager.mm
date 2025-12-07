@@ -102,52 +102,52 @@
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized)
     {
       location = 0;
-      v9 = [CPSharedResourcesDirectory() stringByAppendingPathComponent:@"Library/Preferences"];
+      v10 = [CPSharedResourcesDirectory() stringByAppendingPathComponent:@"Library/Preferences"];
       if ((_SpeedDialPath__checkedForDir & 1) == 0)
       {
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-        if (([defaultManager fileExistsAtPath:v9] & 1) == 0)
+        if (([defaultManager fileExistsAtPath:v10] & 1) == 0)
         {
-          stringByDeletingLastPathComponent = [v9 stringByDeletingLastPathComponent];
+          stringByDeletingLastPathComponent = [v10 stringByDeletingLastPathComponent];
           if (([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent] & 1) == 0)
           {
             mkdir([stringByDeletingLastPathComponent fileSystemRepresentation], 0x1C0u);
           }
 
-          mkdir([v9 fileSystemRepresentation], 0x1C0u);
+          mkdir([v10 fileSystemRepresentation], 0x1C0u);
         }
 
         _SpeedDialPath__checkedForDir = 1;
       }
 
-      v12 = [v9 stringByAppendingPathComponent:@"com.apple.mobilephone.speeddial.plist"];
-      v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:v12 isDirectory:0];
-      v14 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithContentsOfURL:v13 error:&location];
-      if (v14)
+      v13 = [v10 stringByAppendingPathComponent:@"com.apple.mobilephone.speeddial.plist"];
+      v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:v13 isDirectory:0];
+      v15 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithContentsOfURL:v14 error:&location];
+      if (v15)
       {
         ABDiagnosticsEnabled();
-        [v14 count];
-        _ABLog2(4, "[ABFavoritesListManager _loadListWithAddressBook:]", 109, 0, @"Read favorites file %@, count = %ld", v15, v16, v17, v12);
-        v18 = [v14 count];
-        if (v18)
+        [v15 count];
+        _ABLog2(4, "[ABFavoritesListManager _loadListWithAddressBook:]", 109, 0, @"Read favorites file %@, count = %ld", v16, v17, v18, v13);
+        v19 = [v15 count];
+        if (v19)
         {
-          v19 = v18;
-          v20 = 0;
+          v20 = v19;
+          v21 = 0;
           self->_list = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:50];
           do
           {
-            v21 = -[ABFavoritesEntry initWithDictionaryRepresentation:addressBook:]([ABFavoritesEntry alloc], "initWithDictionaryRepresentation:addressBook:", [v14 objectAtIndex:v20], book);
-            if (v21)
+            v22 = -[ABFavoritesEntry initWithDictionaryRepresentation:addressBook:]([ABFavoritesEntry alloc], "initWithDictionaryRepresentation:addressBook:", [v15 objectAtIndex:v21], book);
+            if (v22)
             {
-              v22 = v21;
-              [(NSMutableArray *)self->_list addObject:v21];
-              [(ABFavoritesListManager *)self _addEntryToMap:v22];
+              v23 = v22;
+              [(NSMutableArray *)self->_list addObject:v22];
+              [(ABFavoritesListManager *)self _addEntryToMap:v23];
             }
 
-            ++v20;
+            ++v21;
           }
 
-          while (v19 != v20);
+          while (v20 != v21);
           [(ABFavoritesListManager *)self recacheIdentitiesSoon];
         }
 
@@ -157,13 +157,13 @@
       else if ([(ABFavoritesListManager *)self shouldNotReportFavoritesError:location])
       {
         ABDiagnosticsEnabled();
-        v26 = location;
+        v27 = location;
         if (!location)
         {
-          v26 = @"no error returned";
+          v27 = @"no error returned";
         }
 
-        _ABLog2(4, "[ABFavoritesListManager _loadListWithAddressBook:]", 112, 0, @"Error reading favorites file, error: %@", v23, v24, v25, v26);
+        _ABLog2(4, "[ABFavoritesListManager _loadListWithAddressBook:]", 112, 0, @"Error reading favorites file, error: %@", v24, v25, v26, v27);
       }
 
       else
@@ -181,21 +181,21 @@
   else
   {
     v6 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
-    v7 = ABOSLogGeneral();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = ABOSLogGeneral(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(ABFavoritesListManager *)v6 _loadListWithAddressBook:v7];
+      [(ABFavoritesListManager *)v6 _loadListWithAddressBook:v8];
     }
 
     objc_initWeak(&location, self);
     mEMORY[0x1E69966B8] = [MEMORY[0x1E69966B8] sharedInstance];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __51__ABFavoritesListManager__loadListWithAddressBook___block_invoke;
-    v27[3] = &unk_1E7CCD180;
-    objc_copyWeak(&v28, &location);
-    [mEMORY[0x1E69966B8] addUnlockHandlerWithIdentifier:@"ABFavoriteListManager" block:v27];
-    objc_destroyWeak(&v28);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __51__ABFavoritesListManager__loadListWithAddressBook___block_invoke;
+    v28[3] = &unk_1E7CCD180;
+    objc_copyWeak(&v29, &location);
+    [mEMORY[0x1E69966B8] addUnlockHandlerWithIdentifier:@"ABFavoriteListManager" block:v28];
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 }

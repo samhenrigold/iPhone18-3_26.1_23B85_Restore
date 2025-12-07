@@ -1,11 +1,11 @@
-id _TVRMControlCenterLog()
+id _TVRMControlCenterLog(uint64_t a1)
 {
   if (_TVRMControlCenterLog_onceToken != -1)
   {
     _TVRMControlCenterLog_cold_1();
   }
 
-  v1 = _TVRMControlCenterLog_log;
+  v2 = _TVRMControlCenterLog_log;
 
-  return v1;
+  return v2;
 }

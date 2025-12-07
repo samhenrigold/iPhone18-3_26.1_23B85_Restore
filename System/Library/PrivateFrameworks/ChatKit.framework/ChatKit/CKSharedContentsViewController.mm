@@ -285,7 +285,7 @@
   [toolbar setItems:v7];
 
   v8 = objc_alloc(MEMORY[0x1E69DC708]);
-  v9 = CKFrameworkBundle();
+  v9 = CKFrameworkBundle(v8);
   v10 = [v9 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
   v11 = [v8 initWithTitle:v10 style:0 target:self action:sel_cancelSelectingContents_];
 
@@ -342,27 +342,27 @@
 
   if (v4 >= 2)
   {
-    v8 = MEMORY[0x1E696AEC0];
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"SAVE_ATTACHMENTS" value:&stru_1F04268F8 table:@"ChatKit"];
-    v11 = [v8 stringWithFormat:v10, v7];
+    v9 = MEMORY[0x1E696AEC0];
+    v10 = CKFrameworkBundle(v8);
+    v11 = [v10 localizedStringForKey:@"SAVE_ATTACHMENTS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v12 = [v9 stringWithFormat:v11, v7];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v14 = @"\u200F";
+      v15 = @"\u200F";
     }
 
     else
     {
-      v14 = @"\u200E";
+      v15 = @"\u200E";
     }
 
-    v15 = [(__CFString *)v14 stringByAppendingString:v11];
+    v16 = [(__CFString *)v15 stringByAppendingString:v12];
 
-    [saveButton setTitle:v15];
+    [saveButton setTitle:v16];
   }
 }
 
@@ -824,60 +824,60 @@ LABEL_5:
   {
     v6 = v5;
     attachmentItems = [(CKSharedContentsViewController *)self attachmentItems];
-    v8 = CKFrameworkBundle();
-    v33 = [v8 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = CKFrameworkBundle(attachmentItems);
+    v35 = [v8 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
 
     if (v6 == 1)
     {
-      v9 = CKFrameworkBundle();
-      v10 = [v9 localizedStringForKey:@"DELETE_ATTACHMENT" value:&stru_1F04268F8 table:@"ChatKit"];
+      v10 = CKFrameworkBundle(v9);
+      v11 = [v10 localizedStringForKey:@"DELETE_ATTACHMENT" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
     else
     {
-      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v6];
-      v9 = CKLocalizedStringForNumber(v11);
+      v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v6];
+      v10 = CKLocalizedStringForNumber(v12);
 
-      v12 = MEMORY[0x1E696AEC0];
-      v13 = CKFrameworkBundle();
-      v14 = [v13 localizedStringForKey:@"DELETE_ATTACHMENTS" value:&stru_1F04268F8 table:@"ChatKit"];
-      v15 = [v12 stringWithFormat:v14, v9];
+      v13 = MEMORY[0x1E696AEC0];
+      v15 = CKFrameworkBundle(v14);
+      v16 = [v15 localizedStringForKey:@"DELETE_ATTACHMENTS" value:&stru_1F04268F8 table:@"ChatKit"];
+      v17 = [v13 stringWithFormat:v16, v10];
 
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection == 1)
       {
-        v18 = @"\u200F";
+        v20 = @"\u200F";
       }
 
       else
       {
-        v18 = @"\u200E";
+        v20 = @"\u200E";
       }
 
-      v10 = [(__CFString *)v18 stringByAppendingString:v15];
+      v11 = [(__CFString *)v20 stringByAppendingString:v17];
     }
 
     collectionView = [(CKSharedContentsViewController *)self collectionView];
-    v20 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:0 preferredStyle:0];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __49__CKSharedContentsViewController_deleteContents___block_invoke;
-    v34[3] = &unk_1E72EC1A0;
-    v34[4] = self;
-    v21 = contentsCopy;
-    v35 = v21;
-    v22 = collectionView;
-    v36 = v22;
-    v23 = [CKAlertAction actionWithTitle:v10 style:2 handler:v34];
-    [v20 addAction:v23];
+    v22 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:0 preferredStyle:0];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __49__CKSharedContentsViewController_deleteContents___block_invoke;
+    v36[3] = &unk_1E72EC1A0;
+    v36[4] = self;
+    v23 = contentsCopy;
+    v37 = v23;
+    v24 = collectionView;
+    v38 = v24;
+    v25 = [CKAlertAction actionWithTitle:v11 style:2 handler:v36];
+    [v22 addAction:v25];
 
-    v24 = [CKAlertAction actionWithTitle:v33 style:1 handler:0];
-    [v20 addAction:v24];
+    v26 = [CKAlertAction actionWithTitle:v35 style:1 handler:0];
+    [v22 addAction:v26];
 
     deleteButton = [(CKSharedContentsViewController *)self deleteButton];
-    popoverPresentationController = [v20 popoverPresentationController];
+    popoverPresentationController = [v22 popoverPresentationController];
     if ([deleteButton isEnabled])
     {
       [popoverPresentationController setBarButtonItem:deleteButton];
@@ -885,25 +885,25 @@ LABEL_5:
 
     else
     {
-      lastObject = [v21 lastObject];
-      v28 = [attachmentItems indexOfObject:lastObject];
+      lastObject = [v23 lastObject];
+      v30 = [attachmentItems indexOfObject:lastObject];
 
-      if (v28 != 0x7FFFFFFFFFFFFFFFLL)
+      if (v30 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v29 = [MEMORY[0x1E696AC88] indexPathForRow:v28 inSection:0];
-        v30 = [v22 cellForItemAtIndexPath:v29];
-        [v30 contentView];
-        v31 = v32 = attachmentItems;
-        [popoverPresentationController setSourceView:v31];
-        [v31 bounds];
+        v31 = [MEMORY[0x1E696AC88] indexPathForRow:v30 inSection:0];
+        v32 = [v24 cellForItemAtIndexPath:v31];
+        [v32 contentView];
+        v33 = v34 = attachmentItems;
+        [popoverPresentationController setSourceView:v33];
+        [v33 bounds];
         [popoverPresentationController setSourceRect:?];
 
-        attachmentItems = v32;
+        attachmentItems = v34;
       }
     }
 
-    [v20 setPreferredStyle:0];
-    [(CKSharedContentsViewController *)self presentViewController:v20 animated:1 completion:0];
+    [v22 setPreferredStyle:0];
+    [(CKSharedContentsViewController *)self presentViewController:v22 animated:1 completion:0];
   }
 }
 

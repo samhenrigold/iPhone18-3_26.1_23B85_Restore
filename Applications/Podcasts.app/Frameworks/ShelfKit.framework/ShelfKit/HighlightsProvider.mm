@@ -83,7 +83,7 @@
 
 - (void)highlightCenter:(id)center didRemoveHighlights:(id)highlights
 {
-  sub_36174(0, &qword_503D28);
+  sub_36174(0, &qword_503D28, SLHighlight_ptr);
   v6 = sub_3ED584();
   centerCopy = center;
   selfCopy = self;

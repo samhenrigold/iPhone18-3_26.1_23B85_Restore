@@ -6,7 +6,7 @@
 
 - (void)validateWithCompletion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   queries = [(TPSDeviceCapabilityValidation *)self queries];
   v6 = [queries count];
@@ -19,35 +19,35 @@
 
     if (v9)
     {
-      v29 = completionCopy;
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
+      v28 = completionCopy;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       queries3 = [(TPSDeviceCapabilityValidation *)self queries];
       allKeys2 = [queries3 allKeys];
 
       obj = allKeys2;
-      v12 = [allKeys2 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v12 = [allKeys2 countByEnumeratingWithState:&v30 objects:v42 count:16];
       if (v12)
       {
         v14 = v12;
-        v15 = *v32;
+        v15 = *v31;
         LOBYTE(v16) = 1;
         *&v13 = 138413058;
-        v28 = v13;
+        v27 = v13;
         do
         {
           v17 = 0;
           do
           {
-            if (*v32 != v15)
+            if (*v31 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v31 + 1) + 8 * v17);
-            v19 = [v9 objectForKeyedSubscript:{v18, v28}];
+            v18 = *(*(&v30 + 1) + 8 * v17);
+            v19 = [v9 objectForKeyedSubscript:{v18, v27}];
             queries4 = [(TPSDeviceCapabilityValidation *)self queries];
             v21 = [queries4 objectForKeyedSubscript:v18];
 
@@ -55,14 +55,14 @@
             if (os_log_type_enabled(targeting, OS_LOG_TYPE_DEBUG))
             {
               v24 = objc_opt_class();
-              *buf = v28;
-              v36 = v24;
-              v37 = 2112;
-              v38 = v18;
-              v39 = 2112;
-              v40 = v19;
-              v41 = 2112;
-              v42 = v21;
+              *buf = v27;
+              v35 = v24;
+              v36 = 2112;
+              v37 = v18;
+              v38 = 2112;
+              v39 = v19;
+              v40 = 2112;
+              v41 = v21;
               v25 = v24;
               _os_log_debug_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEBUG, "%@ - checking %@...Answer: %@. Expected: %@", buf, 0x2Au);
             }
@@ -103,7 +103,7 @@ LABEL_22:
           }
 
           while (v14 != v17);
-          v26 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+          v26 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
           v14 = v26;
         }
 
@@ -117,8 +117,8 @@ LABEL_22:
 
 LABEL_25:
 
-      completionCopy = v29;
-      (*(v29 + 2))(v29, v16, 0);
+      completionCopy = v28;
+      (*(v28 + 2))(v28, v16, 0);
     }
 
     else
@@ -131,8 +131,6 @@ LABEL_25:
   {
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -49,7 +49,7 @@
   {
     v5 = PULocalizedString(@"PHOTOEDIT_ADJUSTMENT_CHANGE_TITLE");
     localizedName = [(PUAdjustmentInfo *)self localizedName];
-    v3 = PULocalizedStringWithValidatedFormat(v5, @"%@");
+    v3 = PULocalizedStringWithValidatedFormat(v5, @"%@", v7, v8, v9, v10, v11, v12, localizedName);
   }
 
   return v3;

@@ -1,8 +1,8 @@
-uint64_t __dbg_ScreenShape()
+uint64_t __dbg_ScreenShape(uint64_t a1)
 {
   result = _UIScreenTypePrivateForScreen();
-  v1 = (result - 10000) > 0xA || ((1 << (result - 16)) & 0x41F) == 0;
-  if (v1 && ((result - 20000) > 0xB || ((1 << (result - 32)) & 0xC03) == 0))
+  v2 = (result - 10000) > 0xA || ((1 << (result - 16)) & 0x41F) == 0;
+  if (v2 && ((result - 20000) > 0xB || ((1 << (result - 32)) & 0xC03) == 0))
   {
     return -1;
   }
@@ -264,12 +264,11 @@ id @objc ARView.__dbg_snapshotImage()(id a1, SEL a2)
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v6);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v4);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -303,14 +302,14 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
 
 id specialized static ARView.fallback_debugHierarchyObjectsInGroup(withID:on:outOptions:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  outlined init with copy of Any(a3, v35);
+  outlined init with copy of Any(a3, v34);
   type metadata accessor for ARView();
   if (swift_dynamicCast())
   {
-    v5 = v34;
+    v5 = v33;
     if (a1 == 0xD000000000000021 && 0x8000000000031390 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
-      v35[0] = v34;
+      v34[0] = v33;
       v6 = _Pointer.debugDescription.getter();
       v8 = v7;
       v9 = objc_opt_self();
@@ -342,11 +341,11 @@ id specialized static ARView.fallback_debugHierarchyObjectsInGroup(withID:on:out
           }
 
           __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29DebugHierarchyObject_Fallback_pMd, &_sSo29DebugHierarchyObject_Fallback_pMR);
-          v29 = _bridgeCocoaArray<A>(_:)();
+          v28 = _bridgeCocoaArray<A>(_:)();
 
 LABEL_31:
           swift_bridgeObjectRelease_n();
-          return v29;
+          return v28;
         }
       }
 
@@ -371,10 +370,10 @@ LABEL_31:
           goto LABEL_22;
         }
 
-        v30 = v9;
-        v31 = v6;
-        v32 = v34;
-        v35[0] = &_swiftEmptyArrayStorage;
+        v29 = v9;
+        v30 = v6;
+        v31 = v33;
+        v34[0] = &_swiftEmptyArrayStorage;
         result = specialized ContiguousArray.reserveCapacity(_:)();
         if ((v20 & 0x8000000000000000) == 0)
         {
@@ -396,23 +395,22 @@ LABEL_31:
             v25 = type metadata accessor for SpatialSceneDebugRepresentationWrapper();
             v26 = objc_allocWithZone(v25);
             *&v26[OBJC_IVAR____TtC22libViewDebuggerSupport38SpatialSceneDebugRepresentationWrapper_sceneDebugRepresentation] = v24;
-            v33.receiver = v26;
-            v33.super_class = v25;
-            objc_msgSendSuper2(&v33, "init");
+            v32.receiver = v26;
+            v32.super_class = v25;
+            objc_msgSendSuper2(&v32, "init");
             specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-            v27 = *(v35[0] + 2);
             specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
             specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
             specialized ContiguousArray._endMutation()();
           }
 
           while (v20 != v22);
-          v21 = v35[0];
+          v21 = v34[0];
 LABEL_22:
           result = [v9 sharedHub];
           if (result)
           {
-            v28 = result;
+            v27 = result;
 
             specialized DebugHierarchyTargetHub.cache(spatialSceneDebugRepresentation:for:)(v21, v6, v8);
 
@@ -425,7 +423,7 @@ LABEL_22:
             }
 
             __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29DebugHierarchyObject_Fallback_pMd, &_sSo29DebugHierarchyObject_Fallback_pMR);
-            v29 = _bridgeCocoaArray<A>(_:)();
+            v28 = _bridgeCocoaArray<A>(_:)();
 
             goto LABEL_31;
           }
@@ -450,15 +448,17 @@ LABEL_34:
   return 0;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -466,7 +466,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -482,147 +481,140 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
+Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSay22libViewDebuggerSupport38SpatialSceneDebugRepresentationWrapperCGGMd, &_ss18_DictionaryStorageCySSSay22libViewDebuggerSupport38SpatialSceneDebugRepresentationWrapperCGGMR);
-  v38 = a2;
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v36 = v3;
-    v37 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v33 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = *(*(v5 + 56) + 8 * v21);
-      if ((v38 & 1) == 0)
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = *(*(v5 + 56) + 8 * v20);
+      if ((v34 & 1) == 0)
       {
-        v26 = v22[1];
       }
 
-      v27 = *(v8 + 40);
       Hasher.init(_seed:)();
       String.hash(into:)();
       result = Hasher._finalize()();
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
       {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
         {
-          v33 = v30 == v32;
-          if (v30 == v32)
+          v30 = v27 == v29;
+          if (v27 == v29)
           {
-            v30 = 0;
+            v27 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
           {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      *(*(v8 + 56) + 8 * v16) = v25;
-      ++*(v8 + 16);
-      v5 = v37;
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      *(*(v7 + 56) + 8 * v15) = v24;
+      ++*(v7 + 16);
+      v5 = v33;
     }
 
-    v19 = v9;
+    v18 = v8;
     while (1)
     {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
       {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
       }
     }
 
-    if ((v38 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
 
-      v3 = v36;
-      goto LABEL_35;
+      v3 = v2;
+      goto LABEL_33;
     }
 
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
     {
-      bzero(v10, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v35;
+      *v9 = -1 << v32;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_35:
-  *v3 = v8;
+LABEL_33:
+  *v3 = v7;
   return result;
 }
 
@@ -648,9 +640,8 @@ uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1,
     if (v18 < v16 || (a4 & 1) != 0)
     {
       specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v16, a4 & 1);
-      v20 = *v5;
       v11 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-      if ((v17 & 1) != (v21 & 1))
+      if ((v17 & 1) != (v20 & 1))
       {
 LABEL_18:
         result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -667,22 +658,20 @@ LABEL_18:
     }
   }
 
-  v22 = *v5;
+  v21 = *v5;
   if (v17)
   {
-    v23 = v22[7];
-    v24 = *(v23 + 8 * v11);
-    *(v23 + 8 * v11) = a1;
+    *(v21[7] + 8 * v11) = a1;
   }
 
-  v22[(v11 >> 6) + 8] |= 1 << v11;
-  v26 = (v22[6] + 16 * v11);
-  *v26 = a2;
-  v26[1] = a3;
-  *(v22[7] + 8 * v11) = a1;
-  v27 = v22[2];
-  v15 = __OFADD__(v27, 1);
-  v28 = v27 + 1;
+  v21[(v11 >> 6) + 8] |= 1 << v11;
+  v23 = (v21[6] + 16 * v11);
+  *v23 = a2;
+  v23[1] = a3;
+  *(v21[7] + 8 * v11) = a1;
+  v24 = v21[2];
+  v15 = __OFADD__(v24, 1);
+  v25 = v24 + 1;
   if (v15)
   {
 LABEL_17:
@@ -690,7 +679,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v22[2] = v28;
+  v21[2] = v25;
 }
 
 void *specialized _NativeDictionary.copy()()
@@ -897,11 +886,11 @@ uint64_t outlined destroy of Any?(uint64_t a1)
   return a1;
 }
 
-id SpatialSceneDebugRepresentationWrapper.__deallocating_deinit()
+id SpatialSceneDebugRepresentationWrapper.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SpatialSceneDebugRepresentationWrapper();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SpatialSceneDebugRepresentationWrapper();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void static SpatialSceneDebugRepresentationWrapper.fallback_debugHierarchyValueForProperty(withName:on:outOptions:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
@@ -911,25 +900,23 @@ void static SpatialSceneDebugRepresentationWrapper.fallback_debugHierarchyValueF
     goto LABEL_7;
   }
 
-  outlined init with copy of Any(a3, v17);
+  outlined init with copy of Any(a3, v14);
   type metadata accessor for SpatialSceneDebugRepresentationWrapper();
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_7;
   }
 
-  v7 = v17[5];
-  v8 = type metadata accessor for PropertyListEncoder();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
+  v7 = v14[5];
+  type metadata accessor for PropertyListEncoder();
   swift_allocObject();
   PropertyListEncoder.init()();
-  v17[0] = *&v7[OBJC_IVAR____TtC22libViewDebuggerSupport38SpatialSceneDebugRepresentationWrapper_sceneDebugRepresentation];
-  v11 = v17[0];
+  v14[0] = *&v7[OBJC_IVAR____TtC22libViewDebuggerSupport38SpatialSceneDebugRepresentationWrapper_sceneDebugRepresentation];
+  v8 = v14[0];
   type metadata accessor for SpatialSceneDebugRepresentation();
   lazy protocol witness table accessor for type SpatialSceneDebugRepresentation and conformance SpatialSceneDebugRepresentation();
-  v12 = v11;
-  v13 = dispatch thunk of PropertyListEncoder.encode<A>(_:)();
+  v9 = v8;
+  v10 = dispatch thunk of PropertyListEncoder.encode<A>(_:)();
   if (v4)
   {
 
@@ -938,13 +925,13 @@ LABEL_7:
     return;
   }
 
-  v15 = v13;
-  v16 = v14;
+  v12 = v10;
+  v13 = v11;
 
   a4[3] = &type metadata for Data;
 
-  *a4 = v15;
-  a4[1] = v16;
+  *a4 = v12;
+  a4[1] = v13;
 }
 
 void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)

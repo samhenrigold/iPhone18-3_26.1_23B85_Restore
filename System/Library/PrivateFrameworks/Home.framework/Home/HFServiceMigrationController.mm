@@ -30,22 +30,22 @@
 
 - (id)migrateServicesToAccessory
 {
-  v37 = *MEMORY[0x277D85DE8];
-  home = [(HFServiceMigrationController *)self home];
-  home2 = [(HFServiceMigrationController *)self home];
-  currentUser = [home2 currentUser];
-  v6 = [home homeAccessControlForUser:currentUser];
+  v36 = *MEMORY[0x277D85DE8];
+  v3 = objc_msgSend_home(self, a2);
+  v4 = objc_msgSend_home(self);
+  currentUser = [v4 currentUser];
+  v6 = [v3 homeAccessControlForUser:currentUser];
   isAdministrator = [v6 isAdministrator];
 
   if (isAdministrator)
   {
     v8 = objc_opt_class();
-    home3 = [(HFServiceMigrationController *)self home];
-    v10 = [v8 primaryServicesToMigrateForHome:home3];
+    v9 = objc_msgSend_home(self);
+    v10 = [v8 primaryServicesToMigrateForHome:v9];
 
     v11 = objc_opt_class();
-    home4 = [(HFServiceMigrationController *)self home];
-    v13 = [v11 accessoriesToMigrateFavoritesForHome:home4];
+    v12 = objc_msgSend_home(self);
+    v13 = [v11 accessoriesToMigrateFavoritesForHome:v12];
 
     v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
     v15 = HFLogForCategory(9uLL);
@@ -58,26 +58,26 @@
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v35 = 0x2020000000;
-    v36 = 0;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke;
-    v30[3] = &unk_277DF7450;
-    v30[4] = self;
-    v16 = v13;
-    v31 = v16;
-    p_buf = &buf;
-    v17 = v14;
-    v32 = v17;
-    [v10 na_each:v30];
-    v18 = [MEMORY[0x277D2C900] combineAllFutures:v17];
+    v34 = 0x2020000000;
+    v35 = 0;
     v29[0] = MEMORY[0x277D85DD0];
     v29[1] = 3221225472;
-    v29[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_18;
-    v29[3] = &unk_277DF2720;
+    v29[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke;
+    v29[3] = &unk_277DF7450;
     v29[4] = self;
-    v19 = [v18 addSuccessBlock:v29];
+    v16 = v13;
+    v30 = v16;
+    p_buf = &buf;
+    v17 = v14;
+    v31 = v17;
+    [v10 na_each:v29];
+    v18 = [MEMORY[0x277D2C900] combineAllFutures:v17];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_18;
+    v28[3] = &unk_277DF2720;
+    v28[4] = self;
+    v19 = [v18 addSuccessBlock:v28];
     timeoutOverride = [(HFServiceMigrationController *)self timeoutOverride];
     if (timeoutOverride)
     {
@@ -90,13 +90,13 @@
     }
 
     v22 = dispatch_time(0, v21);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_20;
-    v27[3] = &unk_277DF3D38;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_20;
+    v26[3] = &unk_277DF3D38;
     futureWithNoResult = v18;
-    v28 = futureWithNoResult;
-    dispatch_after(v22, MEMORY[0x277D85CD0], v27);
+    v27 = futureWithNoResult;
+    dispatch_after(v22, MEMORY[0x277D85CD0], v26);
 
     _Block_object_dispose(&buf, 8);
   }
@@ -113,14 +113,12 @@
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return futureWithNoResult;
 }
 
 void __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke(uint64_t a1, void *a2)
 {
-  *&v40[5] = *MEMORY[0x277D85DE8];
+  *&v39[5] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 accessory];
   if (v4)
@@ -129,7 +127,7 @@ void __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke
     v6 = [v5 homeManager];
 
     v7 = [HFAccessoryBuilder alloc];
-    v8 = [*(a1 + 32) home];
+    v8 = objc_msgSend_home(*(a1 + 32));
     v9 = [(HFAccessoryBuilder *)v7 initWithExistingObject:v4 inHome:v8];
 
     [(HFAccessoryBuilder *)v9 setSkipPropagateFavoriteToServices:1];
@@ -143,9 +141,9 @@ void __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke
       {
         v13 = [v4 name];
         *buf = 67109378;
-        v40[0] = v11;
-        LOWORD(v40[1]) = 2112;
-        *(&v40[1] + 2) = v13;
+        v39[0] = v11;
+        LOWORD(v39[1]) = 2112;
+        *(&v39[1] + 2) = v13;
         _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Migrating showInHomeDashboard %{BOOL}d for %@", buf, 0x12u);
       }
 
@@ -184,24 +182,24 @@ LABEL_16:
 
     [(HFAccessoryBuilder *)v9 setName:v15];
     v26 = MEMORY[0x277D2C900];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_13;
-    v31[3] = &unk_277DF7428;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_13;
+    v30[3] = &unk_277DF7428;
     v15 = v15;
-    v32 = v15;
+    v31 = v15;
     v27 = v6;
     v28 = *(a1 + 32);
-    v33 = v27;
-    v34 = v28;
-    v35 = v4;
-    v36 = *(a1 + 48);
-    v37 = v9;
-    v38 = v3;
-    v29 = [v26 futureWithBlock:v31];
+    v32 = v27;
+    v33 = v28;
+    v34 = v4;
+    v35 = *(a1 + 48);
+    v36 = v9;
+    v37 = v3;
+    v29 = [v26 futureWithBlock:v30];
     [*(a1 + 48) addObject:v29];
 
-    v24 = v32;
+    v24 = v31;
     goto LABEL_16;
   }
 
@@ -209,50 +207,46 @@ LABEL_16:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v40 = v3;
+    *v39 = v3;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Service cannot be migrated because it does not have an accessory: %@", buf, 0xCu);
   }
 
 LABEL_17:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_13(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(9uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138412290;
-    v19 = v5;
+    v18 = v5;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Checking name %@ with home manager", buf, 0xCu);
   }
 
   v7 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v8 = [*(a1 + 48) home];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_14;
-  v11[3] = &unk_277DF7400;
-  v12 = *(a1 + 56);
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 64);
-  v15 = *(a1 + 72);
-  v16 = *(a1 + 80);
-  v17 = v3;
+  v8 = objc_msgSend_home(*(a1 + 48));
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_14;
+  v10[3] = &unk_277DF7400;
+  v11 = *(a1 + 56);
+  v12 = *(a1 + 32);
+  v13 = *(a1 + 64);
+  v14 = *(a1 + 72);
+  v15 = *(a1 + 80);
+  v16 = v3;
   v9 = v3;
-  [v6 checkName:v7 inHome:v8 withValidationOptions:1 completionHandler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [v6 checkName:v7 inHome:v8 withValidationOptions:1 completionHandler:v10];
 }
 
 void __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_14(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = v8;
@@ -263,11 +257,11 @@ void __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke
     {
       v11 = *(a1 + 32);
       v12 = *(a1 + 40);
-      v17 = 138412546;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Valid - Renaming %@ to primary service name %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Valid - Renaming %@ to primary service name %@", &v16, 0x16u);
     }
 
     v13 = *(a1 + 48);
@@ -283,12 +277,12 @@ LABEL_8:
     v14 = HFLogForCategory(9uLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 64);
-      v17 = 138412546;
-      v18 = v16;
-      v19 = 2112;
-      v20 = v9;
-      _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "Skip name migration on service %@ due to error %@", &v17, 0x16u);
+      v15 = *(a1 + 64);
+      v16 = 138412546;
+      v17 = v15;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "Skip name migration on service %@ due to error %@", &v16, 0x16u);
     }
 
     goto LABEL_8;
@@ -296,8 +290,6 @@ LABEL_8:
 
 LABEL_9:
   [*(a1 + 72) finishWithNoResult];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_18(uint64_t a1)
@@ -309,11 +301,11 @@ void __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke
     _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Name migration complete!", v5, 2u);
   }
 
-  v3 = [*(a1 + 32) home];
+  v3 = objc_msgSend_home(*(a1 + 32));
   v4 = [v3 hf_setHomeHasMigratedServicesToAccessories:1];
 }
 
-uint64_t __58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_20(uint64_t a1)
+void *__58__HFServiceMigrationController_migrateServicesToAccessory__block_invoke_20(uint64_t a1)
 {
   result = [*(a1 + 32) isFinished];
   if ((result & 1) == 0)
@@ -395,7 +387,7 @@ uint64_t __69__HFServiceMigrationController_accessoriesToMigrateFavoritesForHome
 
 + (BOOL)homeNeedsMigration:(id)migration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   migrationCopy = migration;
   hf_homeHasMigratedServicesToAccessories = [migrationCopy hf_homeHasMigratedServicesToAccessories];
   v5 = [objc_opt_class() primaryServicesToMigrateForHome:migrationCopy];
@@ -410,15 +402,15 @@ uint64_t __69__HFServiceMigrationController_accessoriesToMigrateFavoritesForHome
   v12 = hf_homeHasMigratedServicesToAccessories ^ 1;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16[0] = 67109888;
-    v16[1] = v12;
-    v17 = 1024;
-    v18 = v6 != 0;
-    v19 = 1024;
-    v20 = v7;
-    v21 = 1024;
-    v22 = isAdministrator;
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "homeNeedsMigration %{BOOL}d homeHasVisibleServicesToMigrate %{BOOL}d forcedMigrationPref %{BOOL}d isAdmin %{BOOL}d", v16, 0x1Au);
+    v15[0] = 67109888;
+    v15[1] = v12;
+    v16 = 1024;
+    v17 = v6 != 0;
+    v18 = 1024;
+    v19 = v7;
+    v20 = 1024;
+    v21 = isAdministrator;
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "homeNeedsMigration %{BOOL}d homeHasVisibleServicesToMigrate %{BOOL}d forcedMigrationPref %{BOOL}d isAdmin %{BOOL}d", v15, 0x1Au);
   }
 
   if (v6)
@@ -431,7 +423,6 @@ uint64_t __69__HFServiceMigrationController_accessoriesToMigrateFavoritesForHome
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return (v13 & isAdministrator | v7) & 1;
 }
 
@@ -453,14 +444,13 @@ uint64_t __69__HFServiceMigrationController_accessoriesToMigrateFavoritesForHome
 
 BOOL __71__HFServiceMigrationController_homeNeedsToDisplayMigrationOnboardingUI__block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() primaryServicesToMigrateForHome:v3];
+  v2 = a2;
+  v3 = [objc_opt_class() primaryServicesToMigrateForHome:v2];
 
-  v5 = [v4 na_filter:&__block_literal_global_33_1];
-  v6 = [v5 count] != 0;
+  v4 = [v3 na_filter:&__block_literal_global_33_1];
+  v5 = [v4 count] != 0;
 
-  return v6;
+  return v5;
 }
 
 BOOL __71__HFServiceMigrationController_homeNeedsToDisplayMigrationOnboardingUI__block_invoke_2(uint64_t a1, void *a2)

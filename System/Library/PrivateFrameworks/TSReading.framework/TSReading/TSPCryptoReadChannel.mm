@@ -416,7 +416,7 @@ LABEL_53:
   _Block_object_dispose(&v94, 8);
 }
 
-uint64_t __46__TSPCryptoReadChannel_readWithQueue_handler___block_invoke_4(void *a1, void *a2, uint64_t a3, char *a4, unint64_t a5)
+uint64_t __46__TSPCryptoReadChannel_readWithQueue_handler___block_invoke_4(void *a1, void *a2, uint64_t a3, char *a4, size_t a5)
 {
   v28 = a2;
   while (a5)

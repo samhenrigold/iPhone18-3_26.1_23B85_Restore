@@ -84,7 +84,7 @@ void __71__STUIStatusBarVisualProvider_LegacyPhone__updateLowerRegionsWithData__
   *(v7 + 24) = v8;
 }
 
-uint64_t __72__STUIStatusBarVisualProvider_LegacyPhone__updateExpandedTrailingRegion__block_invoke(uint64_t a1)
+void *__72__STUIStatusBarVisualProvider_LegacyPhone__updateExpandedTrailingRegion__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) expandedBaselineOffset];
   v3 = v2;
@@ -474,7 +474,7 @@ void __59__STUIStatusBarVisualProvider_iOS_animationForAirplaneMode__block_invok
   [v53 animateWithDuration:v46 delay:v58 options:v7 animations:v54 completion:0.0];
 }
 
-uint64_t __59__STUIStatusBarVisualProvider_iOS_animationForAirplaneMode__block_invoke_2(uint64_t a1)
+void *__59__STUIStatusBarVisualProvider_iOS_animationForAirplaneMode__block_invoke_2(uint64_t a1)
 {
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
@@ -858,7 +858,7 @@ void __68__STUIStatusBarVisualProvider_DynamicSplit_trailingItemCutoffWidths__bl
   qword_280C1E798 = &unk_287D1AEA0;
 }
 
-uint64_t __88__STUIStatusBarVisualProvider_DynamicSplit_updateDisplayItem_toDynamicallyHidden_scale___block_invoke(uint64_t a1)
+void *__88__STUIStatusBarVisualProvider_DynamicSplit_updateDisplayItem_toDynamicallyHidden_scale___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 56);
   v3 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"filters.gaussianBlur.inputRadius"];
@@ -1237,7 +1237,7 @@ void __73__STUIStatusBarVisualProvider_Split__additionAnimationForBatteryChargin
   v31 = v30;
   if (v8)
   {
-    [v8 transform];
+    objc_msgSend_transform(v8);
   }
 
   else

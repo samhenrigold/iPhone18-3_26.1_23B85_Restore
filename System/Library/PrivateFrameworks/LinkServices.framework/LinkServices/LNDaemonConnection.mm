@@ -20,11 +20,11 @@
 
 - (void)connectWithOptions:(id)options
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v28.receiver = self;
-  v28.super_class = LNDaemonConnection;
-  [(LNConnection *)&v28 connectWithOptions:optionsCopy];
+  v27.receiver = self;
+  v27.super_class = LNDaemonConnection;
+  [(LNConnection *)&v27 connectWithOptions:optionsCopy];
   v5 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
@@ -53,48 +53,46 @@
   queue2 = [(LNConnection *)self queue];
   [mediatorXPCConnection2 _setQueue:queue2];
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __41__LNDaemonConnection_connectWithOptions___block_invoke;
-  v25[3] = &unk_1E74B22C8;
-  v25[4] = activity;
-  objc_copyWeak(&v26, &location);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __41__LNDaemonConnection_connectWithOptions___block_invoke;
+  v24[3] = &unk_1E74B22C8;
+  v24[4] = activity;
+  objc_copyWeak(&v25, &location);
   mediatorXPCConnection3 = [(LNDaemonConnection *)self mediatorXPCConnection];
-  [mediatorXPCConnection3 setInterruptionHandler:v25];
+  [mediatorXPCConnection3 setInterruptionHandler:v24];
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __41__LNDaemonConnection_connectWithOptions___block_invoke_8;
-  v23[3] = &unk_1E74B22C8;
-  v23[4] = activity;
-  objc_copyWeak(&v24, &location);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __41__LNDaemonConnection_connectWithOptions___block_invoke_8;
+  v22[3] = &unk_1E74B22C8;
+  v22[4] = activity;
+  objc_copyWeak(&v23, &location);
   mediatorXPCConnection4 = [(LNDaemonConnection *)self mediatorXPCConnection];
-  [mediatorXPCConnection4 setInvalidationHandler:v23];
+  [mediatorXPCConnection4 setInvalidationHandler:v22];
 
   mediatorXPCConnection5 = [(LNDaemonConnection *)self mediatorXPCConnection];
   [mediatorXPCConnection5 resume];
 
   mediatorXPCConnection6 = [(LNDaemonConnection *)self mediatorXPCConnection];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __41__LNDaemonConnection_connectWithOptions___block_invoke_9;
-  v22[3] = &unk_1E74B1B90;
-  v22[4] = self;
-  v18 = [mediatorXPCConnection6 remoteObjectProxyWithErrorHandler:v22];
-  bundleIdentifier = [(LNConnection *)self bundleIdentifier];
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
-  v21[2] = __41__LNDaemonConnection_connectWithOptions___block_invoke_11;
-  v21[3] = &unk_1E74B13F0;
+  v21[2] = __41__LNDaemonConnection_connectWithOptions___block_invoke_9;
+  v21[3] = &unk_1E74B1B90;
   v21[4] = self;
-  [v18 getConnectionHostInterfaceForBundleIdentifier:bundleIdentifier completionHandler:v21];
+  v18 = [mediatorXPCConnection6 remoteObjectProxyWithErrorHandler:v21];
+  bundleIdentifier = [(LNConnection *)self bundleIdentifier];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __41__LNDaemonConnection_connectWithOptions___block_invoke_11;
+  v20[3] = &unk_1E74B13F0;
+  v20[4] = self;
+  [v18 getConnectionHostInterfaceForBundleIdentifier:bundleIdentifier completionHandler:v20];
 
-  objc_destroyWeak(&v24);
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
   os_activity_scope_leave(&buf);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __41__LNDaemonConnection_connectWithOptions___block_invoke(uint64_t a1)
@@ -172,7 +170,7 @@ void __41__LNDaemonConnection_connectWithOptions___block_invoke_11(uint64_t a1, 
   {
     if (v8)
     {
-      [v8 if_auditToken];
+      objc_msgSend_if_auditToken(v8);
     }
 
     else
@@ -186,19 +184,17 @@ void __41__LNDaemonConnection_connectWithOptions___block_invoke_11(uint64_t a1, 
 
 uint64_t __41__LNDaemonConnection_connectWithOptions___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_ERROR, "Unable to get remoteObjectProxyWithErrorHandler, error: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_ERROR, "Unable to get remoteObjectProxyWithErrorHandler, error: %{public}@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) setDisconnectedWithError:*(a1 + 32)];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) setDisconnectedWithError:*(a1 + 32)];
 }
 
 @end

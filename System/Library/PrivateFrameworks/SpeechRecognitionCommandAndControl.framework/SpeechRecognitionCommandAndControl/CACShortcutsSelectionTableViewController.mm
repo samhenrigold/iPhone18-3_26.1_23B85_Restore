@@ -101,13 +101,13 @@ void __59__CACShortcutsSelectionTableViewController_viewWillAppear___block_invok
   [(CACShortcutsSelectionTableViewController *)&v7 viewWillDisappear:disappearCopy];
 }
 
-void __62__CACShortcutsSelectionTableViewController_viewWillDisappear___block_invoke()
+void __62__CACShortcutsSelectionTableViewController_viewWillDisappear___block_invoke(uint64_t a1)
 {
-  v0 = CACLogShortcuts();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = CACLogShortcuts(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_26B354000, v0, OS_LOG_TYPE_DEFAULT, "View disappeared. Dismissing.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_26B354000, v1, OS_LOG_TYPE_DEFAULT, "View disappeared. Dismissing.", v2, 2u);
   }
 }
 
@@ -126,11 +126,11 @@ void __62__CACShortcutsSelectionTableViewController_cancelButtonAction__block_in
   v1 = [*(a1 + 32) shortcutsSelectionDelegate];
   [v1 didSelectShortcut:0];
 
-  v2 = CACLogShortcuts();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CACLogShortcuts(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_26B354000, v2, OS_LOG_TYPE_DEFAULT, "Cancelling selection of shortcut", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_26B354000, v3, OS_LOG_TYPE_DEFAULT, "Cancelling selection of shortcut", v4, 2u);
   }
 }
 
@@ -162,7 +162,7 @@ void __63__CACShortcutsSelectionTableViewController_setCachedShortcuts___block_i
 {
   v8 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  v5 = CACLogShortcuts();
+  v5 = CACLogShortcuts(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -252,7 +252,7 @@ void __63__CACShortcutsSelectionTableViewController_setCachedShortcuts___block_i
 void __78__CACShortcutsSelectionTableViewController_tableView_didSelectRowAtIndexPath___block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = CACLogShortcuts();
+  v2 = CACLogShortcuts(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);

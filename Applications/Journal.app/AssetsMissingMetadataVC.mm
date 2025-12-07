@@ -14,11 +14,11 @@
 
 - (void)controller:(id)controller didChangeContentWithSnapshot:(id)snapshot
 {
-  v6 = sub_1000F24EC(&unk_100AEC3B8);
+  v6 = sub_1000F24EC(&unk_100AEC3B8, &qword_1009617A8);
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v14 - v8;
-  sub_1000065A8(0, &qword_100AD43F0);
+  sub_1000065A8(0, &qword_100AD43F0, NSManagedObjectID_ptr);
   sub_10068CCF0();
   sub_1001E4B10();
   static NSDiffableDataSourceSnapshot._unconditionallyBridgeFromObjectiveC(_:)();

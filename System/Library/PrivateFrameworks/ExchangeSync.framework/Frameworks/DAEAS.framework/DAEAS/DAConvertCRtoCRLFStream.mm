@@ -126,7 +126,7 @@ LABEL_6:
 
 - (int64_t)read:(char *)read maxLength:(unint64_t)length
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v4 = -1;
   if (read)
   {
@@ -175,7 +175,7 @@ LABEL_6:
       v17 = v16 < v14;
       if (v16 < v14 && v4 < v15)
       {
-        v55 = v14;
+        v54 = v14;
         while (1)
         {
           v23 = v14 - v16;
@@ -230,9 +230,9 @@ LABEL_42:
           self->_lastByteCopiedWasCR = 0;
           v16 = self->_readOffset;
 LABEL_43:
-          v14 = v55;
-          v17 = v16 < v55;
-          if (v16 >= v55 || v4 >= v15)
+          v14 = v54;
+          v17 = v16 < v54;
+          if (v16 >= v54 || v4 >= v15)
           {
             goto LABEL_20;
           }
@@ -288,7 +288,7 @@ LABEL_20:
       v31 = self->_readOffset;
       if (v31 < v29 + v14 && v4 < lengthCopy)
       {
-        v56 = v29 + v14;
+        v55 = v29 + v14;
         do
         {
           v33 = v30 - v31;
@@ -316,13 +316,13 @@ LABEL_20:
           readCopy = v37;
           lengthCopy = v36;
           memcpy(&readCopy[v4], (bytes2 + v43), v34);
-          v30 = v56;
+          v30 = v55;
           v31 = (*(&self->super.super.super.isa + v39) + v34);
           *(&self->super.super.super.isa + v39) = v31;
           v4 += v34;
         }
 
-        while (v31 < v56 && v4 < v36);
+        while (v31 < v55 && v4 < v36);
       }
 
       if (shouldDALogAtLevel() && self->_intendToStream)
@@ -348,12 +348,12 @@ LABEL_20:
         totalLength = self->_totalLength;
         *buf = 138413058;
         selfCopy = self;
-        v59 = 2048;
-        v60 = v4;
-        v61 = 2048;
-        v62 = v50;
-        v63 = 2048;
-        v64 = totalLength;
+        v58 = 2048;
+        v59 = v4;
+        v60 = 2048;
+        v61 = v50;
+        v62 = 2048;
+        v63 = totalLength;
         _os_log_impl(&dword_24A0AC000, v48, v49, "%@ read %lu bytes (now up to %lu of %lu)", buf, 0x2Au);
       }
 
@@ -366,7 +366,6 @@ LABEL_20:
     }
   }
 
-  v52 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

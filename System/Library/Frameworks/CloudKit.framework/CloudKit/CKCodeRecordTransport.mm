@@ -247,7 +247,6 @@
     goto LABEL_13;
   }
 
-  v8 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((equalCopy[5] & 1) == 0 || self->_contents != *(equalCopy + 2))
@@ -264,27 +263,27 @@ LABEL_13:
   }
 
   localSerialization = self->_localSerialization;
-  v10 = equalCopy[3];
-  if (localSerialization | v10 && !objc_msgSend_isEqual_(localSerialization, v7, v10))
+  v9 = equalCopy[3];
+  if (localSerialization | v9 && !objc_msgSend_isEqual_(localSerialization, v7, v9))
   {
     goto LABEL_13;
   }
 
   wireSerialization = self->_wireSerialization;
-  v12 = equalCopy[4];
-  if (wireSerialization | v12)
+  v11 = equalCopy[4];
+  if (wireSerialization | v11)
   {
-    if (!objc_msgSend_isEqual_(wireSerialization, v7, v12))
+    if (!objc_msgSend_isEqual_(wireSerialization, v7, v11))
     {
       goto LABEL_13;
     }
   }
 
   encryptedMasterKey = self->_encryptedMasterKey;
-  v14 = equalCopy[2];
-  if (encryptedMasterKey | v14)
+  v13 = equalCopy[2];
+  if (encryptedMasterKey | v13)
   {
-    isEqual = objc_msgSend_isEqual_(encryptedMasterKey, v7, v14);
+    isEqual = objc_msgSend_isEqual_(encryptedMasterKey, v7, v13);
   }
 
   else
@@ -348,22 +347,22 @@ LABEL_14:
 
 - (CKCodeRecordTransport)initWithRecord:(id)record
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   recordCopy = record;
-  v28.receiver = self;
-  v28.super_class = CKCodeRecordTransport;
-  v8 = [(CKCodeRecordTransport *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = CKCodeRecordTransport;
+  v8 = [(CKCodeRecordTransport *)&v27 init];
   if (v8)
   {
     v9 = objc_msgSend_valueStore(recordCopy, v6, v7);
-    v29[0] = objc_opt_class();
-    v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v10, v29, 1);
+    v28[0] = objc_opt_class();
+    v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v10, v28, 1);
     v13 = objc_msgSend_containsValueOfClasses_options_passingTest_(v9, v12, v11, 1, &unk_1EFA2F148);
 
     if (v13)
     {
-      v26 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v14, v15);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v26, v27, a2, v8, @"CKRecord_CodeExtensions.m", 23, @"CKRecords sent via Inverness cannot container in-memory asset content");
+      v25 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v14, v15);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v25, v26, a2, v8, @"CKRecord_CodeExtensions.m", 23, @"CKRecords sent via Inverness cannot container in-memory asset content");
     }
 
     v16 = objc_alloc(MEMORY[0x1E696ACC8]);
@@ -373,7 +372,6 @@ LABEL_14:
     objc_msgSend_setLocalSerialization_(v8, v23, v22);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

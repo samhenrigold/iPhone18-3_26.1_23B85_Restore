@@ -38,8 +38,8 @@
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate
 {
   sub_26984C7F8();
-  sub_269854CB4();
-  static LiveServiceResolutionResult.disambiguation(with:)();
+  v3 = sub_269854CB4();
+  static LiveServiceResolutionResult.disambiguation(with:)(v3, v4, v5, v6, v7, v8, v9, v10);
 }
 
 @end

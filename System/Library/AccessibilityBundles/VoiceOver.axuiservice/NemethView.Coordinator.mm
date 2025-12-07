@@ -13,7 +13,7 @@
   navigationCopy = navigation;
   errorCopy = error;
   selfCopy = self;
-  sub_1F594(errorCopy, "Error during provisional navigation... %s");
+  sub_1F594(errorCopy, "Error during provisional navigation... %s", v11);
 }
 
 - (void)webView:(id)view didFinishNavigation:(id)navigation
@@ -30,7 +30,7 @@
   navigationCopy = navigation;
   errorCopy = error;
   selfCopy = self;
-  sub_1F594(errorCopy, "Error navigating to URL... %s");
+  sub_1F594(errorCopy, "Error navigating to URL... %s", v11);
 }
 
 - (_TtCV9VoiceOver10NemethView11Coordinator)init

@@ -1,6 +1,8 @@
 @interface MFMonitoredInvocation
 + (MFMonitoredInvocation)invocationWithMethodSignature:(id)signature;
 + (MFMonitoredInvocation)invocationWithSelector:(SEL)selector target:(id)target object1:(id)object1 object2:(id)object2 taskName:(id)name priority:(unint64_t)priority canBeCancelled:(BOOL)cancelled;
++ (MFMonitoredInvocation)invocationWithSelector:(SEL)selector target:(id)target object:(id)object taskName:(id)name priority:(unint64_t)priority canBeCancelled:(BOOL)cancelled;
++ (MFMonitoredInvocation)invocationWithSelector:(SEL)selector target:(id)target taskName:(id)name priority:(unint64_t)priority canBeCancelled:(BOOL)cancelled;
 - (id)description;
 - (void)dealloc;
 - (void)invoke;
@@ -10,19 +12,19 @@
 
 - (void)invoke
 {
-  v10[26] = *MEMORY[0x1E69E9840];
+  v9[26] = *MEMORY[0x1E69E9840];
   if (self->_powerAssertionId)
   {
     v3 = +[MFPowerController sharedInstance];
     [v3 retainAssertionWithIdentifier:self->_powerAssertionId];
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __31__MFMonitoredInvocation_invoke__block_invoke;
-    v10[3] = &unk_1E7AA7B98;
-    v10[4] = self;
-    v5 = [defaultCenter addObserverForName:@"MFPowerAssertionDidExpire" object:0 queue:0 usingBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __31__MFMonitoredInvocation_invoke__block_invoke;
+    v9[3] = &unk_1E7AA7B98;
+    v9[4] = self;
+    v5 = [defaultCenter addObserverForName:@"MFPowerAssertionDidExpire" object:0 queue:0 usingBlock:v9];
   }
 
   else
@@ -33,9 +35,9 @@
   [(MFActivityMonitor *)self->_monitor startActivity];
   if (![(MFActivityMonitor *)self->_monitor shouldCancel])
   {
-    v9.receiver = self;
-    v9.super_class = MFMonitoredInvocation;
-    [(MFMonitoredInvocation *)&v9 invoke];
+    v8.receiver = self;
+    v8.super_class = MFMonitoredInvocation;
+    [(MFMonitoredInvocation *)&v8 invoke];
     _MFFlushCurrentInvocation();
   }
 
@@ -48,13 +50,11 @@
     v7 = +[MFPowerController sharedInstance];
     [v7 releaseAssertionWithIdentifier:self->_powerAssertionId];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_shouldLogInvocation)
   {
     v3 = MFLogGeneral();
@@ -62,16 +62,15 @@
     {
       *buf = 134218242;
       selfCopy = self;
-      v8 = 2112;
+      v7 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEFAULT, "deallocating %p %@", buf, 0x16u);
     }
   }
 
-  v5.receiver = self;
-  v5.super_class = MFMonitoredInvocation;
-  [(MFMonitoredInvocation *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MFMonitoredInvocation;
+  [(MFMonitoredInvocation *)&v4 dealloc];
 }
 
 + (MFMonitoredInvocation)invocationWithMethodSignature:(id)signature
@@ -84,6 +83,33 @@
   v3[8] = v4;
 
   return v3;
+}
+
++ (MFMonitoredInvocation)invocationWithSelector:(SEL)selector target:(id)target taskName:(id)name priority:(unint64_t)priority canBeCancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  v9 = [self mf_invocationWithSelector:selector target:{target, name}];
+  monitor = [v9 monitor];
+  [monitor setCanBeCancelled:cancelledCopy];
+  [monitor setPriority:priority];
+
+  return v9;
+}
+
++ (MFMonitoredInvocation)invocationWithSelector:(SEL)selector target:(id)target object:(id)object taskName:(id)name priority:(unint64_t)priority canBeCancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  objectCopy = object;
+  v14 = [self invocationWithSelector:selector target:target taskName:name priority:priority canBeCancelled:cancelledCopy];
+  methodSignature = [v14 methodSignature];
+  numberOfArguments = [methodSignature numberOfArguments];
+
+  if (numberOfArguments >= 3)
+  {
+    [v14 setArgument:&objectCopy atIndex:2];
+  }
+
+  return v14;
 }
 
 + (MFMonitoredInvocation)invocationWithSelector:(SEL)selector target:(id)target object1:(id)object1 object2:(id)object2 taskName:(id)name priority:(unint64_t)priority canBeCancelled:(BOOL)cancelled

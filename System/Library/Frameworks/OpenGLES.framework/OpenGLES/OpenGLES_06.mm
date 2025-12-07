@@ -452,7 +452,7 @@ LABEL_76:
   a3[27] = v18;
 }
 
-void glvmOperationFIND_MSB(uint64_t a1, int32x4_t *a2, int *a3, unint64_t a4)
+void glvmOperationFIND_MSB(uint64_t a1, int8x16_t *a2, int *a3, unint64_t a4)
 {
   v4 = (a4 >> 36) & 0x1F;
   if (v4 == 8)
@@ -807,17 +807,17 @@ uint64_t glvmOperationINTERPOLATE_AT_SAMPLE(uint64_t result, uint64_t a2, uint64
 
 void glvmOperationSTOREWithMaskVP(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   if (*(a2 + 8))
   {
     v7 = 0;
     v8 = (a7 >> 19) & 3;
     v9 = (a7 >> 46) & 0x1F;
     v10 = vld1q_dup_f32(a2);
-    v121 = vandq_s8(v10, xmmword_23A29BFD0);
+    v120 = vandq_s8(v10, xmmword_23A29BFD0);
     do
     {
-      if (!v121.i32[v7])
+      if (!v120.i32[v7])
       {
         goto LABEL_4;
       }
@@ -1875,256 +1875,267 @@ LABEL_4:
 
     while (v7 != 4);
   }
-
-  v120 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t glvmOperationDispatchVP(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, unsigned int *a19, uint64_t a20, uint64_t a21, uint64_t a22)
+uint64_t glvmOperationDispatchVP(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, __int8 *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, unsigned int *a19, float32x4_t *a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
-  v22 = 0;
   v23 = 0;
-  v24 = a19;
-  v25 = a12;
-  v27 = a10;
-  v26 = a11;
-  v28 = a9;
-  v55 = *MEMORY[0x277D85DE8];
-  v29 = *a19;
-  memset(v54, 0, sizeof(v54));
-  v53[0] = 0;
-  v53[1] = 0;
-  v49 = v29;
-  v52 = vandq_s8(vdupq_n_s32(v29), xmmword_23A29BFD0);
+  v24 = 0;
+  v26 = a20;
+  v25 = a21;
+  v28 = a18;
+  v27 = a19;
+  v29 = a17;
+  v30 = a12;
+  v32 = a10;
+  v31 = a11;
+  v33 = a9;
+  v64 = *MEMORY[0x277D85DE8];
+  v34 = *a19;
+  memset(v63, 0, sizeof(v63));
+  v62[0] = 0;
+  v62[1] = 0;
+  v58 = v34;
+  v61 = vandq_s8(vdupq_n_s32(v34), xmmword_23A29BFD0);
   do
   {
-    if (v52.i32[v22])
+    if (v61.i32[v23])
     {
-      v30 = (v22 == 0) | (2 * (v22 == 1)) | (4 * (v22 == 2)) | (8 * (v22 == 3));
-      v31 = *(a21 + 8 * *(a22 + 32 * v22));
-      if (v23)
+      v35 = (v23 == 0) | (2 * (v23 == 1)) | (4 * (v23 == 2)) | (8 * (v23 == 3));
+      v36 = *(a21 + 8 * *(a22 + 32 * v23));
+      if (v24)
       {
-        v32 = 0;
-        while (v31 != *(v54 + v32))
+        v37 = 0;
+        while (v36 != *(v63 + v37))
         {
-          if (v23 == ++v32)
+          if (v24 == ++v37)
           {
             goto LABEL_2;
           }
         }
 
-        *(v53 + v32) |= v30;
+        *(v62 + v37) |= v35;
       }
 
       else
       {
-        LODWORD(v32) = 0;
+        LODWORD(v37) = 0;
       }
 
-      if (v32 == v23)
+      if (v37 == v24)
       {
 LABEL_2:
-        *(v54 + v23) = v31;
-        *(v53 + v23++) = v30;
+        *(v63 + v24) = v36;
+        *(v62 + v24++) = v35;
       }
 
-      v26 = a11;
-      v25 = a12;
-      v28 = a9;
-      v27 = a10;
+      v31 = a11;
+      v30 = a12;
+      v33 = a9;
+      v32 = a10;
     }
 
-    ++v22;
+    ++v23;
   }
 
-  while (v22 != 4);
-  if (v23)
+  while (v23 != 4);
+  if (v24)
   {
-    v33 = a14;
-    v34 = a13;
-    v35 = v53;
-    v36 = v54;
-    v37 = v23;
-    v51 = a2;
-    v50 = result;
+    v38 = a15;
+    v39 = a14;
+    v40 = a13;
+    v41 = v62;
+    v42 = v63;
+    v43 = v24;
+    v60 = a2;
+    v59 = result;
     do
     {
-      v38 = *v35++;
-      *v24 = v38;
-      v39 = *v36++;
-      v47 = v28;
-      v48 = v27;
-      v40 = a3;
-      v41 = a4;
-      v42 = a5;
-      v43 = a6;
-      v44 = a7;
-      v45 = a8;
-      glvmInterpretVPTransformFourInner(result, a2, a3, a4, a5, a6, a7, a8, v47, v48, v26, v25, v34, v33);
-      v34 = a13;
-      v33 = a14;
-      result = v50;
-      v26 = a11;
-      v25 = a12;
-      a3 = v40;
-      a4 = v41;
-      a5 = v42;
-      a2 = v51;
-      a6 = v43;
-      v28 = a9;
-      v27 = a10;
-      a7 = v44;
-      a8 = v45;
-      v24 = a19;
-      --v37;
+      v44 = *v41++;
+      *v27 = v44;
+      v45 = *v42++;
+      v57 = v25;
+      v56 = v27;
+      v54 = v29;
+      v55 = v28;
+      v52 = v33;
+      v53 = v32;
+      v46 = a3;
+      v47 = a4;
+      v48 = a5;
+      v49 = a6;
+      v50 = a7;
+      v51 = a8;
+      glvmInterpretVPTransformFourInner(result, a2, a3, a4, a5, a6, a7, a8, v52, v53, v31, v30, v40, v39, v38, a16, v54, v55, v56, v26, v57, (2 * (v45 & 0x7FFFFFFF)) | a23 & 0xFFFFFFFF00000000);
+      v40 = a13;
+      v39 = a14;
+      v38 = a15;
+      result = v59;
+      v31 = a11;
+      v30 = a12;
+      a3 = v46;
+      a4 = v47;
+      a5 = v48;
+      v25 = a21;
+      a2 = v60;
+      a6 = v49;
+      v33 = a9;
+      v32 = a10;
+      a7 = v50;
+      v29 = a17;
+      v28 = a18;
+      a8 = v51;
+      v27 = a19;
+      v26 = a20;
+      --v43;
     }
 
-    while (v37);
+    while (v43);
   }
 
-  *v24 = v49;
-  v46 = *MEMORY[0x277D85DE8];
+  *v27 = v58;
   return result;
 }
 
-void glvmInterpretVPTransformFourInner(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int8 *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int *a19, float32x4_t *a20, uint64_t a21, unint64_t a22)
+void glvmInterpretVPTransformFourInner(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int *a19, float32x4_t *a20, uint64_t a21, unint64_t a22)
 {
-  v135 = a8;
-  v129 = a4;
-  v153 = a2;
-  v154 = a3;
-  v155 = a1;
-  v133 = a21;
-  v132 = a20;
-  v130 = a19;
-  v131 = a18;
-  v170 = *MEMORY[0x277D85DE8];
+  v133 = a8;
+  v127 = a4;
+  v151 = a2;
+  v152 = a3;
+  v153 = a1;
+  v131 = a21;
+  v130 = a20;
+  v128 = a19;
+  v129 = a18;
+  v168 = *MEMORY[0x277D85DE8];
   v24 = a22 >> 1;
   v25 = &a6[2 * v24];
   v26 = *v25;
   v27 = a6[30];
-  v134 = v27;
+  v132 = v27;
   if (a6[18])
   {
-    v144 = a6[14];
+    v142 = a6[14];
   }
 
   else
   {
-    v144 = 0;
+    v142 = 0;
   }
 
-  v127 = a7;
+  v125 = a7;
   v28 = *a7;
   v29 = (v26 >> 14) & 1;
-  v151 = a6[8];
-  v152 = v28;
-  v162 = 0;
-  v163 = 0;
+  v149 = a6[8];
+  v150 = v28;
   v160 = 0;
   v161 = 0;
-  memset(v169, 0, sizeof(v169));
-  memset(v168, 0, sizeof(v168));
+  v158 = 0;
+  v159 = 0;
   memset(v167, 0, sizeof(v167));
   memset(v166, 0, sizeof(v166));
   memset(v165, 0, sizeof(v165));
   memset(v164, 0, sizeof(v164));
+  memset(v163, 0, sizeof(v163));
+  memset(v162, 0, sizeof(v162));
   v30 = a6[31];
   if ((*&a6[2 * a6[29]] & 0x3FC0) == 0x21C0)
   {
-    v140 = 0;
-    v128 = 0;
-    *&v156[8] = 0;
-    v157 = 0;
-    *v156 = (v26 >> 14) & 1;
+    v138 = 0;
+    v126 = 0;
+    *&v154[8] = 0;
+    v155 = 0;
+    *v154 = (v26 >> 14) & 1;
     if (v24 != v30)
     {
 LABEL_15:
-      v142 = HIWORD(a22);
-      v143 = WORD2(a22);
-      v139 = a17;
-      v138 = a16;
-      v137 = a15;
-      if (v134)
+      v140 = HIWORD(a22);
+      v141 = WORD2(a22);
+      v137 = a17;
+      v136 = a16;
+      v135 = a15;
+      if (v132)
       {
-        v37 = v29;
+        v36 = v29;
       }
 
       else
       {
-        v37 = 1;
+        v36 = 1;
       }
 
-      v141 = v37;
-      v126 = (4 * v134);
-      v125 = v27 << 8;
-      v136 = a14;
-      v148 = a13;
-      v124 = a22 & 0xFFFFFFFF00000000;
-      v123 = a22 & 0xFFFFFFFF00000000 | 1;
-      v147 = a12;
-      v146 = a11;
-      v145 = a10;
-      v149 = &a6[2 * v30];
-      v150 = a9;
+      v139 = v36;
+      v124 = (4 * v132);
+      v123 = v27 << 8;
+      v134 = a14;
+      v146 = a13;
+      v122 = a22 & 0xFFFFFFFF00000000;
+      v121 = a22 & 0xFFFFFFFF00000000 | 1;
+      v145 = a12;
+      v144 = a11;
+      v143 = a10;
+      v147 = &a6[2 * v30];
+      v148 = a9;
       while (1)
       {
-        v38 = v25;
-        v159 = 0;
-        v39 = *v25;
-        v40 = *v25 & 7;
-        v41 = WORD1(*v25) & 1;
-        v42 = (*v25 >> 15) & 1;
-        if (v41 | v42)
+        v37 = v25;
+        v157 = 0;
+        v38 = *v25;
+        v39 = *v25 & 7;
+        v40 = WORD1(*v25) & 1;
+        v41 = (*v25 >> 15) & 1;
+        if (v40 | v41)
         {
-          v43 = v25[(v40 + 1)];
-          LODWORD(v40) = v40 - (v42 + v41) + ((v39 << 14) >> 31);
+          v42 = *&v25[2 * (v39 + 1)];
+          LODWORD(v39) = v39 - (v41 + v40) + ((v38 << 14) >> 31);
         }
 
         else
         {
-          v43 = 0;
+          v42 = 0;
         }
 
-        v159 = v25[1];
+        v157 = *(v25 + 1);
         if (&a6[2 * a6[27]] != v25)
         {
-          v44 = &v25[-2 - ((*v25 >> 3) & 7)];
-          v45 = (*v44 >> 6) - 89;
-          v46 = v45 > 0x2E;
-          v47 = (1 << v45) & 0x400008000001;
-          if (!v46 && v47 != 0)
+          v43 = &v25[2 * (-2 - ((*v25 >> 3) & 7))];
+          v44 = (*v43 >> 6) - 89;
+          v45 = v44 > 0x2E;
+          v46 = (1 << v44) & 0x400008000001;
+          if (!v45 && v46 != 0)
           {
-            v49 = v44[1];
-            v50 = (v49 & 0x1FC0000) < 0xC0000 && (v49 & 0x100000000) == 0;
-            v51 = *v156;
-            if (v50)
+            v48 = v43[1];
+            v49 = (v48 & 0x1FC0000) < 0xC0000uLL && (v48 & 0x100000000) == 0;
+            v50 = *v154;
+            if (v49)
             {
-              v51 = v141;
+              v50 = v139;
             }
 
-            *v156 = v51;
+            *v154 = v50;
           }
         }
 
-        OperationSpec = glvmGetOperationSpec(v25, &v160);
-        v158 = 0;
-        if (!v40)
+        OperationSpec = glvmGetOperationSpec(v25, &v158);
+        v156 = 0;
+        if (!v39)
         {
           goto LABEL_84;
         }
 
-        v59 = v25[2];
-        glvmGetSourceOffsetStride(a6, (v39 >> 38) & 7, 0, v59, 0, v152, &v158, &v160, &v163);
-        if (v59)
+        v58 = *(v25 + 2);
+        glvmGetSourceOffsetStride(a6, (v38 >> 38) & 7, 0, v58, 0, v150, &v156, &v158, &v161);
+        if (v58)
         {
-          glvmSetSourceIndirectLimits(a6, v59, &v163, v151, v143, v142, v144);
+          glvmSetSourceIndirectLimits(a6, v58, &v161, v149, v141, v140, v142);
         }
 
-        v68 = (v59 >> 6) & 7;
-        if (!v68 || v68 == 5 || v158)
+        v67 = (v58 >> 6) & 7;
+        if (!v67 || v67 == 5 || v156)
         {
-          v54.n128_f64[0] = glvmLoadSourceAttribVP(v155, v153, v154, a5, a6, v150, v145, v146, v147, v148, *&v156[4], v157, v169, v59, v163);
-          if (v40 == 1)
+          v53.n128_f64[0] = glvmLoadSourceAttribVP(v153, v151, v152, a5, a6, v148, v143, v144, v145, v146, *&v154[4], v155, v167, v58, v161);
+          if (v39 == 1)
           {
             goto LABEL_84;
           }
@@ -2132,39 +2143,39 @@ LABEL_15:
 
         else
         {
-          if (v68 == 4)
+          if (v67 == 4)
           {
-            v54.n128_f64[0] = glvmLoadSourceAddress(v155, v153, v154, a5, a6, *&v156[4], v157, v169, v59, v163);
+            v53.n128_f64[0] = glvmLoadSourceAddress(v153, v151, v152, a5, a6, *&v154[4], v155, v167, v58, v161);
           }
 
-          else if (v68 == 1)
+          else if (v67 == 1)
           {
-            v54.n128_f64[0] = glvmLoadSourceTemp(v155, v153, v154, a5, a6, *&v156[4], v157, v169, v59, v163);
+            v53.n128_f64[0] = glvmLoadSourceTemp(v153, v151, v152, a5, a6, *&v154[4], v155, v167, v58, v161);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v155, v153, v154, v60, v61, v62, v63, v64, v65, v66, v67, a5, a6, *&v156[4], v157, v169[0].i32, v59, v163);
+            OperationSpec = glvmLoadSourceParam(v153, v151, v152, v59, v60, v61, v62, v63, v64, v65, v66, a5, a6, *&v154[4], v155, v167, v58, v161);
           }
 
-          if (v40 == 1)
+          if (v39 == 1)
           {
             goto LABEL_84;
           }
         }
 
-        v69 = v25[3];
-        glvmGetSourceOffsetStride(a6, (v39 >> 38) & 7, 1, v69, 0, v152, &v158, &v160, &v162);
-        if (v69)
+        v68 = *(v25 + 3);
+        glvmGetSourceOffsetStride(a6, (v38 >> 38) & 7, 1, v68, 0, v150, &v156, &v158, &v160);
+        if (v68)
         {
-          glvmSetSourceIndirectLimits(a6, v69, &v162, v151, v143, v142, v144);
+          glvmSetSourceIndirectLimits(a6, v68, &v160, v149, v141, v140, v142);
         }
 
-        v78 = (v69 >> 6) & 7;
-        if (!v78 || v78 == 5 || v158)
+        v77 = (v68 >> 6) & 7;
+        if (!v77 || v77 == 5 || v156)
         {
-          v54.n128_f64[0] = glvmLoadSourceAttribVP(v155, v153, v154, a5, a6, v150, v145, v146, v147, v148, *&v156[4], v157, v168, v69, v162);
-          if (v40 < 3)
+          v53.n128_f64[0] = glvmLoadSourceAttribVP(v153, v151, v152, a5, a6, v148, v143, v144, v145, v146, *&v154[4], v155, v166, v68, v160);
+          if (v39 < 3)
           {
             goto LABEL_84;
           }
@@ -2172,39 +2183,39 @@ LABEL_15:
 
         else
         {
-          if (v78 == 4)
+          if (v77 == 4)
           {
-            v54.n128_f64[0] = glvmLoadSourceAddress(v155, v153, v154, a5, a6, *&v156[4], v157, v168, v69, v162);
+            v53.n128_f64[0] = glvmLoadSourceAddress(v153, v151, v152, a5, a6, *&v154[4], v155, v166, v68, v160);
           }
 
-          else if (v78 == 1)
+          else if (v77 == 1)
           {
-            v54.n128_f64[0] = glvmLoadSourceTemp(v155, v153, v154, a5, a6, *&v156[4], v157, v168, v69, v162);
+            v53.n128_f64[0] = glvmLoadSourceTemp(v153, v151, v152, a5, a6, *&v154[4], v155, v166, v68, v160);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v155, v153, v154, v70, v71, v72, v73, v74, v75, v76, v77, a5, a6, *&v156[4], v157, v168[0].i32, v69, v162);
+            OperationSpec = glvmLoadSourceParam(v153, v151, v152, v69, v70, v71, v72, v73, v74, v75, v76, a5, a6, *&v154[4], v155, v166, v68, v160);
           }
 
-          if (v40 < 3)
+          if (v39 < 3)
           {
             goto LABEL_84;
           }
         }
 
-        v79 = v25[4];
-        glvmGetSourceOffsetStride(a6, (v39 >> 38) & 7, 2, v79, 0, v152, &v158, &v160, &v162);
-        if (v79)
+        v78 = *(v25 + 4);
+        glvmGetSourceOffsetStride(a6, (v38 >> 38) & 7, 2, v78, 0, v150, &v156, &v158, &v160);
+        if (v78)
         {
-          glvmSetSourceIndirectLimits(a6, v79, &v162, v151, v143, v142, v144);
+          glvmSetSourceIndirectLimits(a6, v78, &v160, v149, v141, v140, v142);
         }
 
-        v88 = (v79 >> 6) & 7;
-        if (!v88 || v88 == 5 || v158)
+        v87 = (v78 >> 6) & 7;
+        if (!v87 || v87 == 5 || v156)
         {
-          v54.n128_f64[0] = glvmLoadSourceAttribVP(v155, v153, v154, a5, a6, v150, v145, v146, v147, v148, *&v156[4], v157, v167, v79, v162);
-          if (v40 == 3)
+          v53.n128_f64[0] = glvmLoadSourceAttribVP(v153, v151, v152, a5, a6, v148, v143, v144, v145, v146, *&v154[4], v155, v165, v78, v160);
+          if (v39 == 3)
           {
             goto LABEL_84;
           }
@@ -2212,145 +2223,145 @@ LABEL_15:
 
         else
         {
-          if (v88 == 4)
+          if (v87 == 4)
           {
-            v54.n128_f64[0] = glvmLoadSourceAddress(v155, v153, v154, a5, a6, *&v156[4], v157, v167, v79, v162);
+            v53.n128_f64[0] = glvmLoadSourceAddress(v153, v151, v152, a5, a6, *&v154[4], v155, v165, v78, v160);
           }
 
-          else if (v88 == 1)
+          else if (v87 == 1)
           {
-            v54.n128_f64[0] = glvmLoadSourceTemp(v155, v153, v154, a5, a6, *&v156[4], v157, v167, v79, v162);
+            v53.n128_f64[0] = glvmLoadSourceTemp(v153, v151, v152, a5, a6, *&v154[4], v155, v165, v78, v160);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v155, v153, v154, v80, v81, v82, v83, v84, v85, v86, v87, a5, a6, *&v156[4], v157, v167[0].i32, v79, v162);
+            OperationSpec = glvmLoadSourceParam(v153, v151, v152, v79, v80, v81, v82, v83, v84, v85, v86, a5, a6, *&v154[4], v155, v165, v78, v160);
           }
 
-          if (v40 == 3)
+          if (v39 == 3)
           {
             goto LABEL_84;
           }
         }
 
-        v89 = v25[5];
-        glvmGetSourceOffsetStride(a6, (v39 >> 38) & 7, 3, v89, 0, v152, &v158, &v160, &v162);
-        if (v89)
+        v88 = *(v25 + 5);
+        glvmGetSourceOffsetStride(a6, (v38 >> 38) & 7, 3, v88, 0, v150, &v156, &v158, &v160);
+        if (v88)
         {
-          glvmSetSourceIndirectLimits(a6, v89, &v162, v151, v143, v142, v144);
+          glvmSetSourceIndirectLimits(a6, v88, &v160, v149, v141, v140, v142);
         }
 
-        v98 = (v89 >> 6) & 7;
-        if (!v98 || v98 == 5 || v158)
+        v97 = (v88 >> 6) & 7;
+        if (!v97 || v97 == 5 || v156)
         {
           break;
         }
 
-        if (v98 == 4)
+        if (v97 == 4)
         {
-          v54.n128_f64[0] = glvmLoadSourceAddress(v155, v153, v154, a5, a6, *&v156[4], v157, v166, v89, v162);
+          v53.n128_f64[0] = glvmLoadSourceAddress(v153, v151, v152, a5, a6, *&v154[4], v155, v164, v88, v160);
         }
 
-        else if (v98 == 1)
+        else if (v97 == 1)
         {
-          v54.n128_f64[0] = glvmLoadSourceTemp(v155, v153, v154, a5, a6, *&v156[4], v157, v166, v89, v162);
+          v53.n128_f64[0] = glvmLoadSourceTemp(v153, v151, v152, a5, a6, *&v154[4], v155, v164, v88, v160);
         }
 
         else
         {
-          OperationSpec = glvmLoadSourceParam(v155, v153, v154, v90, v91, v92, v93, v94, v95, v96, v97, a5, a6, *&v156[4], v157, v166[0].i32, v89, v162);
+          OperationSpec = glvmLoadSourceParam(v153, v151, v152, v89, v90, v91, v92, v93, v94, v95, v96, a5, a6, *&v154[4], v155, v164, v88, v160);
         }
 
-        if ((v39 & 0x100000000) != 0)
+        if ((v38 & 0x100000000) != 0)
         {
           goto LABEL_85;
         }
 
 LABEL_86:
-        v99 = (v39 >> 6);
-        v25 += (v39 & 7) + 2;
-        if (v99 > 0xA6)
+        v98 = (v38 >> 6);
+        v25 += 2 * (v38 & 7) + 4;
+        if (v98 > 0xA6)
         {
 LABEL_418:
-          if ((v39 & 0x100000000) != 0)
+          if ((v38 & 0x100000000) != 0)
           {
 LABEL_419:
-            v121 = (v159 >> 12) & 7;
-            if (*v156)
+            v119 = (v157 >> 12) & 7;
+            if (*v154)
             {
-              if (v121 == 1)
+              if (v119 == 1)
               {
-                glvmStoreDestTemp(*&v156[4], v157, v164, v159, v161, v54, v55.f64[0], v56.f64[0], v57, v58);
+                glvmStoreDestTemp(*&v154[4], v155, v162, v157, v159, v53, v54.f64[0], v55.f64[0], v56, v57);
               }
 
-              else if (v121 == 5 || v121 == 3)
+              else if (v119 == 5 || v119 == 3)
               {
-                glvmStoreDestOutputVP(v54, v150, v136, v137, v138, v139, *&v156[4], v157, v164, v159, v161);
+                glvmStoreDestOutputVP(v53, v148, v134, v135, v136, v137, *&v154[4], v155, v162, v157, v159);
               }
 
               else
               {
-                glvmStoreDestAddress(*&v156[4], v157, v164[0].i8, v159, v161);
+                glvmStoreDestAddress(*&v154[4], v155, v162[0].i8, v157, v159);
               }
             }
 
-            else if (v121 == 1)
+            else if (v119 == 1)
             {
-              glvmStoreDestTempWithMask(*&v156[4], v157, v164, v140, v159, v161, v54, v55.f64[0], v56.f64[0], v57, v58);
+              glvmStoreDestTempWithMask(*&v154[4], v155, v162, v138, v157, v159, v53, v54.f64[0], v55.f64[0], v56, v57);
             }
 
-            else if (v121 == 5 || v121 == 3)
+            else if (v119 == 5 || v119 == 3)
             {
-              glvmStoreDestOutputWithMaskVP(v54, v150, v136, v137, v138, v139, *&v156[4], v157, v164, v140, v159, v161);
+              glvmStoreDestOutputWithMaskVP(v53, v148, v134, v135, v136, v137, *&v154[4], v155, v162, v138, v157, v159);
             }
 
             else
             {
-              glvmStoreDestAddressWithMask(*&v156[4], v157, v164[0].i8, v140, v159, v161);
+              glvmStoreDestAddressWithMask(*&v154[4], v155, v162[0].i8, v138, v157, v159);
             }
           }
         }
 
         else
         {
-          v100 = 1;
-          switch((v39 >> 6))
+          v99 = 1;
+          switch((v38 >> 6))
           {
             case 1u:
-              v54 = glvmOperationLIT(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationLIT(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 2u:
-              v54 = glvmOperationABS(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationABS(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 3u:
-              glvmOperationCEI(a5, v169[0].i64, v164, v160, v54);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationCEI(a5, v167[0].i64, v162, v158, v53);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 4u:
-              glvmOperationFRC(a5, v169, v164[0].i64, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationFRC(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 5u:
-              glvmOperationFLR(a5, v169[0].i64, v164, v160, v54);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationFLR(a5, v167[0].i64, v162, v158, v53);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
@@ -2381,194 +2392,194 @@ LABEL_419:
             case 0xA4u:
               goto LABEL_418;
             case 7u:
-              v54 = glvmOperationSSG(v54, a5, v169, v164[0].i64, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationSSG(v53, a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 8u:
-              v54 = glvmOperationANY(v54, a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationANY(v53, a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 9u:
-              v54 = glvmOperationALL(v54, a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationALL(v53, a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xAu:
-              v54 = glvmOperationNOT(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationNOT(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xBu:
-              glvmOperationNSE(a5, v169[0].i32, v164[0].i32, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationNSE(a5, v167[0].i32, v162[0].i32, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xCu:
-              glvmOperationSQT(a5, v169[0].i64, v164[0].i64, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSQT(a5, v167[0].i64, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xDu:
-              v54 = glvmOperationRSQ(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationRSQ(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xEu:
-              v54 = glvmOperationRCP(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationRCP(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xFu:
-              glvmOperationRCC(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationRCC();
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x10u:
-              glvmOperationEX2(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationEX2(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x11u:
-              glvmOperationEXP(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationEXP(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x12u:
-              v54 = glvmOperationLEN(a5, v169, v164[0].i64, v160, v54, v55.f64[0], v56.f64[0], v57.f64[0]);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationLEN(a5, v167, v162, v158, v53, v54.f64[0], v55.f64[0], v56.f64[0]);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x13u:
-              glvmOperationLG2(a5, v169[0].i32, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationLG2(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x14u:
-              glvmOperationLOG(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationLOG(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x15u:
-              v54 = glvmOperationNRM(a5, v169, v164[0].i64, v160, v54);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationNRM(a5, v167, v162[0].i64, v158, v53);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x16u:
-              v54 = glvmOperationRAD(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationRAD(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x17u:
-              v54 = glvmOperationDEG(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationDEG(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x18u:
-              glvmOperationSCS(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53.n128_f64[0] = glvmOperationSCS(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x19u:
-              glvmOperationSIN(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53.n128_f64[0] = glvmOperationSIN(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x1Au:
-              glvmOperationCOS(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53.n128_f64[0] = glvmOperationCOS(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x1Bu:
-              v54 = glvmOperationTAN(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationTAN(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x1Cu:
-              v54 = glvmOperationASN(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationASN(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x1Du:
-              v54 = glvmOperationACS(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationACS(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x1Eu:
-              if (v40 == 1)
+              if (v39 == 1)
               {
-                v54.n128_f64[0] = glvmOperationATN(a5, v169, v164);
-                if ((v39 & 0x100000000) == 0)
+                v53.n128_f64[0] = glvmOperationATN(a5, v167, v162);
+                if ((v38 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -2576,8 +2587,8 @@ LABEL_419:
 
               else
               {
-                v54 = glvmOperationATN2(a5, v169, v168, v164);
-                if ((v39 & 0x100000000) == 0)
+                v53 = glvmOperationATN2(a5, v167, v166, v162);
+                if ((v38 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -2585,280 +2596,280 @@ LABEL_419:
 
               goto LABEL_419;
             case 0x1Fu:
-              glvmOperationADD(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationADD(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x20u:
-              glvmOperationSUB(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSUB(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x21u:
-              glvmOperationMOD(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationMOD(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x22u:
-              glvmOperationMUL(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationMUL(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x23u:
-              glvmOperationMLC(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationMLC();
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x24u:
-              v54 = glvmOperationANL(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationANL(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x25u:
-              v54 = glvmOperationORL(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationORL(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x26u:
-              v54 = glvmOperationXRL(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationXRL(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x27u:
-              glvmOperationDOT(v54.n128_f64[0], a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationDOT(v53.n128_f64[0], a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x28u:
-              glvmOperationDP3(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationDP3(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x29u:
-              glvmOperationDP4(v54.n128_f64[0], a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationDP4(v53.n128_f64[0], a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x2Au:
-              v54 = glvmOperationDPH(v54.n128_f64[0], a5, v169[0].i32, v168[0].i32, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationDPH(v53.n128_f64[0], a5, v167[0].i32, v166[0].i32, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x2Bu:
-              v54 = glvmOperationDST(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationDST(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x2Cu:
-              glvmOperationMIN(a5, v169[0].i64, v168[0].i64, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationMIN(a5, v167[0].i64, v166[0].i64, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x2Du:
-              glvmOperationMAX(a5, v169[0].i64, v168[0].i64, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationMAX(a5, v167[0].i64, v166[0].i64, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x2Eu:
-              v54.n128_f64[0] = glvmOperationXPD(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53.n128_f64[0] = glvmOperationXPD(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x2Fu:
-              v54 = glvmOperationRFL(v54, v55.f64[0], v56.f64[0], v57.f64[0], a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationRFL(v53, v54.f64[0], v55.f64[0], v56.f64[0], a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x30u:
-              v54 = glvmOperationSTR(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationSTR(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x31u:
-              v54 = glvmOperationSEQ(v54, a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationSEQ(v53, a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x32u:
-              glvmOperationSGE(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSGE(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x33u:
-              glvmOperationSGT(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSGT(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x34u:
-              glvmOperationSLE(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSLE(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x35u:
-              glvmOperationSLT(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSLT(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x36u:
-              v54 = glvmOperationSNE(v54, a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationSNE(v53, a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x37u:
-              v54.n128_f64[0] = glvmOperationSFL(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53.n128_f64[0] = glvmOperationSFL(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x38u:
-              glvmOperationPOW(a5, v169[0].i32, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationPOW(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x39u:
-              glvmOperationSEL(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSEL(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x3Au:
-              v54 = glvmOperationDIV(v54, a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationDIV(v53, a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x3Bu:
-              v54 = glvmOperationFFW(v54, v55, v56, v57, a5, v169, v168, v167, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationFFW(v53, v54, v55, v56, a5, v167, v166, v165, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x3Cu:
-              glvmOperationLRP(a5, v169, v168, v167, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationLRP(a5, v167, v166, v165, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x3Du:
-              glvmOperationCLM(a5, v169[0].i32, v168[0].i32, v167, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationCLM(a5, v167[0].i64, v166[0].i64, v165[0].i64, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x3Eu:
-              v54 = glvmOperationCMP(a5, v169, v168, v167, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationCMP(a5, v167, v166, v165, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x3Fu:
-              v54 = glvmOperationMAD(a5, v169, v168, v167, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationMAD(a5, v167, v166, v165, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x40u:
-              v54 = glvmOperationSMS(a5, v169, v168, v167, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationSMS(a5, v167, v166, v165, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x41u:
-              glvmOperationSWZ(a5, v169, v164, v43, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSWZ(a5, v167, v162, v42, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
@@ -2868,13 +2879,13 @@ LABEL_419:
             case 0x43u:
             case 0x44u:
             case 0x45u:
-              v101 = 0x80000000;
-              if ((v39 & 0x3F80) == 0x1080)
+              v100 = 0x80000000;
+              if ((v38 & 0x3F80) == 0x1080)
               {
-                v101 = 3221225472;
+                v100 = 3221225472;
               }
 
-              v160 = v160 & 0xFFFFFFFF3FFFFFFFLL | v101;
+              v158 = v158 & 0xFFFFFFFF3FFFFFFFLL | v100;
               goto LABEL_91;
             case 0x46u:
             case 0x47u:
@@ -2883,38 +2894,38 @@ LABEL_419:
             case 0xA5u:
             case 0xA6u:
 LABEL_91:
-              v100 = 0;
+              v99 = 0;
               goto LABEL_92;
             case 0x48u:
-              v54 = glvmOperationARL(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationARL(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x49u:
-              glvmOperationARR(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationARR();
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x4Au:
-              glvmOperationARA(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationARA();
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x4Cu:
-              if (v40 == 1)
+              if (v39 == 1)
               {
-                v160 = v123;
-                glvmOperationDispatchVP(v155, v153, v154, v129, a5, a6, v127, v135, v150, v145, v146, v147, v148, v136, v137, v138, v139, *&v156[4], v140, v157, v128, v169);
-                if ((v39 & 0x100000000) == 0)
+                v158 = v121;
+                glvmOperationDispatchVP(v153, v151, v152, v127, a5, a6, v125, v133, v148, v143, v144, v145, v146, v134, v135, v136, v137, *&v154[4], v138, v155, v126, v167, v121);
+                if ((v38 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -2922,9 +2933,9 @@ LABEL_91:
 
               else
               {
-                v160 = (2 * (v159 & 0x3FFFF)) | v124;
-                glvmInterpretVPTransformFourInner(v155, v153, v154, v129, a5, a6, v127, v135, v150, v145, v146, v147, v148, v136);
-                if ((v39 & 0x100000000) == 0)
+                v158 = (2 * (v157 & 0x3FFFF)) | v122;
+                glvmInterpretVPTransformFourInner(v153, v151, v152, v127, a5, a6, v125, v133, v148, v143, v144, v145, v146, v134, v135, v136, v137, *&v154[4], v138, v155, v126, v158);
+                if ((v38 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -2932,68 +2943,68 @@ LABEL_91:
 
               goto LABEL_419;
             case 0x4Du:
-              v115 = &a6[2 * (v159 & 0x3FFFF)];
-              v116 = glvmPredicateBRA(a5, v169, v140, (v159 >> 17) & 0x7F00 | (v159 >> 18) & 0x7F | (v115[1] >> 2) & 0x7F0000);
+              v113 = &a6[2 * (v157 & 0x3FFFF)];
+              v114 = glvmPredicateBRA(a5, v167, v138, (v157 >> 17) & 0x7F00 | (v157 >> 18) & 0x7F | (*(v113 + 1) >> 2) & 0x7F0000);
               goto LABEL_311;
             case 0x54u:
-              v115 = &a6[2 * (v159 & 0x3FFFF)];
-              v116 = glvmPredicateBRK(a5, v169, v140, (v159 >> 7) & 0x2000000 | (v159 >> 18) & 0x7F | (v115[1] >> 2) & 0x7F0000);
+              v113 = &a6[2 * (v157 & 0x3FFFF)];
+              v114 = glvmPredicateBRK(a5, v167, v138, (v157 >> 7) & 0x2000000 | (v157 >> 18) & 0x7F | (*(v113 + 1) >> 2) & 0x7F0000);
               goto LABEL_311;
             case 0x55u:
-              if (glvmPredicateIF(a5, v169, v140, v160, (v159 >> 18) & 0x7F))
+              if (glvmPredicateIF(a5, v167, v138, v158, (v157 >> 18) & 0x7F))
               {
                 goto LABEL_334;
               }
 
-              *v156 = 0;
-              if ((v39 & 0x100000000) != 0)
+              *v154 = 0;
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x58u:
-              if (!glvmPredicateELSE(a5, v169, v140, (v159 >> 18) & 0x7F))
+              if (!glvmPredicateELSE(a5, v167, v138, (v157 >> 18) & 0x7F))
               {
                 goto LABEL_418;
               }
 
               goto LABEL_335;
             case 0x59u:
-              glvmPredicateENDIF(a5, v169, v140, (v159 >> 7) & 0x2000000 | (v159 >> 18) & 0x7F | (v159 >> 17) & 0x7F00);
-              if ((v39 & 0x100000000) != 0)
+              glvmPredicateENDIF(a5, v167, v138, (v157 >> 7) & 0x2000000 | (v157 >> 18) & 0x7F | (v157 >> 17) & 0x7F00);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x5Cu:
-              glvmOperationPK2H(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationPK2H(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x5Du:
-              glvmOperationPK2US(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationPK2US(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x5Eu:
-              glvmOperationPK4B(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationPK4B(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x5Fu:
-              glvmOperationPK4UB(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationPK4UB(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
@@ -3002,132 +3013,131 @@ LABEL_91:
             case 0x62u:
             case 0x63u:
 LABEL_92:
-              v102 = &a6[2 * a6[23]] + ((v43 >> 35) & 0x7F0);
-              v103 = *v102;
-              if ((v160 & 0x100) != 0 && (v39 & 0x3F00 | 0x80) == 0x1180 || v99 - 167 <= 0xFFFFFFFD && (v160 & 0x1F000000) == 0x11000000)
+              v101 = &a6[2 * a6[23]] + ((v42 >> 35) & 0x7F0);
+              v102 = *v101;
+              if ((v158 & 0x100) != 0 && (v38 & 0x3F00 | 0x80) == 0x1180 || v98 - 167 <= 0xFFFFFFFD && (v158 & 0x1F000000) == 0x11000000)
               {
-                glvmOperationMOV(a5, v168, v165, 0x400004800000000uLL);
+                glvmOperationMOV(a5, v166, v163, 0x400004800000000uLL);
               }
 
-              if ((v160 & 0x200) == 0)
+              if ((v158 & 0x200) == 0)
               {
                 goto LABEL_110;
               }
 
-              if (v99 == 165)
+              if (v98 == 165)
               {
-                v104 = 0x400004800000000;
+                v103 = 0x400004800000000;
               }
 
               else
               {
-                v104 = 0x100001800000000;
+                v103 = 0x100001800000000;
               }
 
-              switch(v40)
+              switch(v39)
               {
                 case 2:
-                  v105 = v168;
+                  v104 = v166;
                   break;
                 case 4:
-                  v105 = v166;
+                  v104 = v164;
                   break;
                 case 3:
-                  v105 = v167;
+                  v104 = v165;
                   break;
                 default:
                   goto LABEL_110;
               }
 
-              glvmOperationMOV(a5, v105, v166, v104);
+              glvmOperationMOV(a5, v104, v164, v103);
 LABEL_110:
-              if (v99 == 166)
+              if (v98 == 166)
               {
-                v112 = BYTE3(v160) & 0x1F;
-                if (v112 <= 0x11 && ((1 << v112) & 0x219E0) != 0)
+                v111 = BYTE3(v158) & 0x1F;
+                if (v111 <= 0x11 && ((1 << v111) & 0x219E0) != 0)
                 {
-                  glvmOperationMOV(a5, v166, v165, 0x400004800000000uLL);
-                  glvmOperationMOV(a5, v167, v166, 0x400004800000000uLL);
+                  glvmOperationMOV(a5, v164, v163, 0x400004800000000uLL);
+                  glvmOperationMOV(a5, v165, v164, 0x400004800000000uLL);
 LABEL_123:
-                  glvmOperationZERO(a5, v167, 0x400000800000000uLL);
+                  glvmOperationZERO(a5, v165, 0x400000800000000uLL);
                   goto LABEL_124;
                 }
 
-                glvmOperationMOV(a5, v167, v165, 0x400004800000000uLL);
-                if (v40 == 4)
+                glvmOperationMOV(a5, v165, v163, 0x400004800000000uLL);
+                if (v39 == 4)
                 {
-                  glvmOperationMOV(a5, v166, v167, 0x100001800000000uLL);
+                  glvmOperationMOV(a5, v164, v165, 0x100001800000000uLL);
                 }
 
                 else
                 {
-                  glvmOperationZERO(a5, v167, 0x400000800000000uLL);
+                  glvmOperationZERO(a5, v165, 0x400000800000000uLL);
                 }
 
-                v109 = v166;
-                v110 = a5;
-                v111 = 0x400004800000000;
+                v108 = v164;
+                v109 = a5;
+                v110 = 0x400004800000000;
               }
 
               else
               {
-                if (v99 != 165)
+                if (v98 != 165)
                 {
                   goto LABEL_124;
                 }
 
-                v106 = BYTE3(v160) & 0x1F;
-                if (v106 <= 0x11 && ((1 << v106) & 0x219E0) != 0)
+                v105 = BYTE3(v158) & 0x1F;
+                if (v105 <= 0x11 && ((1 << v105) & 0x219E0) != 0)
                 {
                   goto LABEL_123;
                 }
 
-                v107 = v40 == 2;
-                if ((v160 & 0x200) != 0)
+                v106 = v39 == 2;
+                if ((v158 & 0x200) != 0)
                 {
-                  v107 = 0;
-                  v108 = v40 != 3;
+                  v106 = 0;
+                  v107 = v39 != 3;
                 }
 
                 else
                 {
-                  v108 = 1;
+                  v107 = 1;
                 }
 
-                if (!v107 && v108)
+                if (!v106 && v107)
                 {
                   goto LABEL_123;
                 }
 
-                v109 = v167;
-                v110 = a5;
-                v111 = 0x100001800000000;
+                v108 = v165;
+                v109 = a5;
+                v110 = 0x100001800000000;
               }
 
-              glvmOperationMOV(v110, v168, v109, v111);
+              glvmOperationMOV(v109, v166, v108, v110);
 LABEL_124:
-              v113 = v103 & 0xDFFFFFFFFFFFFFFFLL;
-              if (v100)
+              v112 = v102 & 0xDFFFFFFFFFFFFFFFLL;
+              if (v99)
               {
-                v113 = v103;
+                v112 = v102;
               }
 
-              v114 = *(v102 + 8);
-              if ((*(v102 + 7) & 4) != 0)
+              if ((v101[7] & 4) != 0)
               {
-                if (v99 == 131)
+                if (v98 == 131)
                 {
-                  v54 = glvmSamplerSize(v155, a5, v135, v169, v168, v167, v166, v165, v164, v113, *(v102 + 8), v160);
-                  if ((v39 & 0x100000000) != 0)
+                  v53 = glvmSamplerSize(v153, a5, v133, v167, v166, v165, v164, v163, v162, v112, *(v101 + 1), v158);
+                  if ((v38 & 0x100000000) != 0)
                   {
                     goto LABEL_419;
                   }
                 }
 
-                else if (v99 == 130)
+                else if (v98 == 130)
                 {
-                  v54 = glvmSamplerFetch(v155, a5, v135, v169, v168, v167, v166, v165, v164, v113, *(v102 + 8), HIDWORD(*(v102 + 8)), v160);
-                  if ((v39 & 0x100000000) != 0)
+                  v53 = glvmSamplerFetch(v153, a5, v133, v167, v166, v165, v164, v163, v162, v112, *(v101 + 1), HIDWORD(*(v101 + 1)), v158);
+                  if ((v38 & 0x100000000) != 0)
                   {
                     goto LABEL_419;
                   }
@@ -3135,8 +3145,8 @@ LABEL_124:
 
                 else
                 {
-                  glvmSamplerSample(v155, a5, v135, v169, v168, v167, v166, v165, v164, v113, *(v102 + 8), v160);
-                  if ((v39 & 0x100000000) != 0)
+                  glvmSamplerSample(v153, a5, v133, v167, v166, v165, v164, v163, v162, v112, *(v101 + 1), v158);
+                  if ((v38 & 0x100000000) != 0)
                   {
                     goto LABEL_419;
                   }
@@ -3145,8 +3155,8 @@ LABEL_124:
 
               else
               {
-                glvmSamplerInvalid(v155, a5, v135, v169, v168, v167, v166, v165, v164[0].i8, v113, *(v102 + 8), v160, SWORD2(v160), SBYTE6(v160), SHIBYTE(v160));
-                if ((v39 & 0x100000000) != 0)
+                glvmSamplerInvalid(v153, a5, v133, v167, v166, v165, v164, v163, v162[0].i8, v112, *(v101 + 1), v158, SWORD2(v158), SBYTE6(v158), SHIBYTE(v158));
+                if ((v38 & 0x100000000) != 0)
                 {
                   goto LABEL_419;
                 }
@@ -3154,55 +3164,55 @@ LABEL_124:
 
               break;
             case 0x64u:
-              glvmOperationUP2H(a5, v169, v164[0].i32);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationUP2H(a5, v167, v162[0].i32);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x65u:
-              v54 = glvmOperationUP2US(v54.n128_f32[0], a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationUP2US(v53.n128_f32[0], a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x66u:
-              v54 = glvmOperationUP4B(v54.n128_u64[0], a5, v169[0].i8, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationUP4B(v53.n128_u64[0], a5, v167[0].i8, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x67u:
-              v54 = glvmOperationUP4UB(v54.n128_f32[0], a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationUP4UB(v53.n128_f32[0], a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x69u:
-              glvmOperationRFR(a5, v169, v168, v167[0].i32, v164, v160, v54);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationRFR(a5, v167, v166, v165[0].i64, v162, v158, v53);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x6Au:
-              v115 = &a6[2 * (v159 & 0x3FFFF)];
-              v116 = glvmPredicateCONT(a5, v169, v140, (v115[1] >> 2) & 0x7F0000 | (v159 >> 18) & 0x7F);
+              v113 = &a6[2 * (v157 & 0x3FFFF)];
+              v114 = glvmPredicateCONT(a5, v167, v138, (*(v113 + 1) >> 2) & 0x7F0000 | (v157 >> 18) & 0x7F);
 LABEL_311:
-              if (v116)
+              if (v114)
               {
-                v25 = v115;
+                v25 = v113;
               }
 
-              if ((v39 & 0x100000000) != 0)
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
@@ -3210,181 +3220,181 @@ LABEL_311:
               break;
             case 0x6Bu:
               glvmPredicateWHILE();
-              *v156 = 0;
-              if ((v39 & 0x100000000) != 0)
+              *v154 = 0;
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x6Cu:
-              if (!glvmPredicateENDWHILE(a5, v169, v140, (v159 >> 7) & 0x2000000))
+              if (!glvmPredicateENDWHILE(a5, v167, v138, (v157 >> 7) & 0x2000000))
               {
                 goto LABEL_418;
               }
 
               goto LABEL_335;
             case 0x6Eu:
-              v117 = (v159 >> 12) & 7;
-              if (v117 != 3 && v117 != 5)
+              v115 = (v157 >> 12) & 7;
+              if (v115 != 3 && v115 != 5)
               {
-                glvmLoadDestTemp(*&v156[4], v157, v164, dword_23A29C020[2 * ((v159 >> 27) & 3)] & ((v159 >> 12) & 0xFF000000 | BYTE4(v159) & 0xF | (v159 >> 6) & 0x1C0 | (v159 >> 2) & 0x1E0000 | dword_23A29BFE0[2 * ((v159 >> 25) & 3)]) | dword_23A29C040[2 * ((v159 >> 27) & 3)] | dword_23A29C000[2 * ((v159 >> 29) & 3)], v161);
+                glvmLoadDestTemp(*&v154[4], v155, v162, dword_23A29C020[2 * ((v157 >> 27) & 3)] & ((v157 >> 12) & 0xFF000000 | BYTE4(v157) & 0xF | (v157 >> 6) & 0x1C0 | (v157 >> 2) & 0x1E0000 | dword_23A29BFE0[2 * ((v157 >> 25) & 3)]) | dword_23A29C040[2 * ((v157 >> 27) & 3)] | dword_23A29C000[2 * ((v157 >> 29) & 3)], v159);
               }
 
-              glvmOperationDSL(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationDSL(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x70u:
-              glvmOperationEXPE(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationEXPE(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x71u:
-              v54 = glvmOperationLOGE(a5, v169[0].i32, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationLOGE(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x73u:
-              glvmOperationTARGCONT(v140, (v159 >> 18) & 0x7F);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationTARGCONT(v138, (v157 >> 18) & 0x7F);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x74u:
-              glvmOperationTARGBRK(v140, (v159 >> 18) & 0x7F);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationTARGBRK(v138, (v157 >> 18) & 0x7F);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x7Au:
-              v54 = glvmOperationBDL(v129, a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationBDL(v127, a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x7Bu:
-              glvmOperationROUND(a5, v169[0].i32, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationROUND(a5, v167[0].i64, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x7Cu:
-              glvmOperationTRUNCATE(a5, v169[0].i32, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationTRUNCATE(a5, v167[0].i64, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x7Du:
-              v54 = glvmOperationAND(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationAND(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x7Eu:
-              v54 = glvmOperationOR(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationOR(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x7Fu:
-              v54 = glvmOperationXOR(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationXOR(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x80u:
-              glvmOperationSHL(a5, v169, v168, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSHL(a5, v167, v166, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x81u:
-              glvmOperationSHR(a5, v169[0].i32, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSHR(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x84u:
-              v54 = glvmOperationCOMP(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationCOMP(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x85u:
-              v54 = glvmOperationDISTANCE(a5, v169, v168, v164[0].i64, v160, v54);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationDISTANCE(a5, v167, v166, v162, v158, v53);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x86u:
-              v54.n128_f64[0] = glvmOperationINVERSESQRT(a5, v169[0].i64, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              v53.n128_f64[0] = glvmOperationINVERSESQRT(a5, v167[0].i64, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x87u:
-              if (v134)
+              if (v132)
               {
                 MEMORY[0x28223BE20](OperationSpec);
-                v119 = (&v122 - v118);
-                bzero(&v122 - v118, v120);
-                v160 = v125;
-                v140 = v119;
-                glvmOperationInitMasksForNested(a5, v130, v119, v125);
+                v117 = (&v120 - v116);
+                bzero(&v120 - v116, v118);
+                v158 = v123;
+                v138 = v117;
+                glvmOperationInitMasksForNested(a5, v128, v117, v123);
               }
 
-              glvmOperationFUNCSTART(v140, 0);
-              v128 = v133;
-              *&v156[4] = v131;
-              v157 = v132;
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationFUNCSTART();
+              v126 = v131;
+              *&v154[4] = v129;
+              v155 = v130;
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x88u:
-              if ((v159 & 0xFE000000) != 0)
+              if ((v157 & 0xFE000000) != 0)
               {
-                glvmOperationTARGBRA(v140, (v159 >> 17) & 0x7F00 | (v159 >> 18) & 0x7F);
-                v25 = v149;
-                if ((v39 & 0x100000000) == 0)
+                glvmOperationTARGBRA(v138, (v157 >> 17) & 0x7F00 | (v157 >> 18) & 0x7F);
+                v25 = v147;
+                if ((v38 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -3392,9 +3402,9 @@ LABEL_311:
 
               else
               {
-                glvmOperationRET(v140, 0);
-                v25 = v149;
-                if ((v39 & 0x100000000) == 0)
+                glvmOperationRET();
+                v25 = v147;
+                if ((v38 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -3402,230 +3412,230 @@ LABEL_311:
 
               goto LABEL_419;
             case 0x89u:
-              glvmOperationROUNDEVEN(a5, v169[0].i64, v164[0].i64, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationROUNDEVEN(a5, v167[0].i64, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x8Au:
-              glvmOperationISNAN(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationISNAN(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x8Bu:
-              glvmOperationISINF(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationISINF(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x8Cu:
-              if (!glvmPredicateSWITCH(a5, v169, v140, v160, (v159 >> 18) & 0x7F))
+              if (!glvmPredicateSWITCH(a5, v167, v138, v158, (v157 >> 18) & 0x7F))
               {
-                *v156 = 0;
+                *v154 = 0;
                 goto LABEL_418;
               }
 
 LABEL_334:
-              *v156 = 0;
+              *v154 = 0;
 LABEL_335:
-              v25 = &a6[2 * (v159 & 0x3FFFF)];
-              if ((v39 & 0x100000000) != 0)
+              v25 = &a6[2 * (v157 & 0x3FFFF)];
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x8Du:
-              if (!glvmPredicateCASE(a5, v169, v168, v140, v160, (v159 >> 18) & 0x7F))
+              if (!glvmPredicateCASE(a5, v167, v166, v138, v158, (v157 >> 18) & 0x7F))
               {
                 goto LABEL_418;
               }
 
               goto LABEL_335;
             case 0x8Eu:
-              if (!glvmPredicateDEFAULT(a5, v169, v140, (v159 >> 18) & 0x7F))
+              if (!glvmPredicateDEFAULT(a5, v167, v138, (v157 >> 18) & 0x7F))
               {
                 goto LABEL_418;
               }
 
               goto LABEL_335;
             case 0x8Fu:
-              if (!glvmPredicateENDSWITCH(a5, v169, v140, (v159 >> 7) & 0x2000000 | (v159 >> 18) & 0x7F | ((*v38 >> 46 != 0) << 26)))
+              if (!glvmPredicateENDSWITCH(a5, v167, v138, (v157 >> 7) & 0x2000000 | (v157 >> 18) & 0x7F | ((*v37 >> 46 != 0) << 26)))
               {
                 goto LABEL_418;
               }
 
               goto LABEL_335;
             case 0x90u:
-              glvmOperationSINH(a5, v169[0].i32, v164[0].i32);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSINH(a5, v167[0].i32, v162[0].i32);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x91u:
-              glvmOperationCOSH(a5, v169[0].i32, v164[0].i32);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationCOSH(a5, v167[0].i32, v162[0].i32);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x92u:
-              glvmOperationTANH(a5, v169[0].i32, v164[0].i32);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationTANH(a5, v167[0].i32, v162[0].i32);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x93u:
-              glvmOperationASINH(a5, v169[0].i32, v164[0].i32);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationASINH(a5, v167[0].i32, v162[0].i32);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x94u:
-              glvmOperationACOSH(a5, v169[0].i32, v164[0].i32);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationACOSH(a5, v167[0].i32, v162[0].i32);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x95u:
-              glvmOperationATANH(a5, v169[0].i32, v164[0].i32);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationATANH(a5, v167[0].i32, v162[0].i32);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x96u:
-              v54 = glvmOperationTO_BITS(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationTO_BITS(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x97u:
-              v54 = glvmOperationFROM_BITS(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              v53 = glvmOperationFROM_BITS(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x98u:
-              glvmOperationLOAD(v129, a5, v169, v168[0].i32, v167, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationLOAD(v127, a5, v167, v166[0].i32, v165, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x99u:
-              glvmOperationSTOREWithMaskVP(OperationSpec, v150, v53, v169, v168, v167, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationSTOREWithMaskVP(OperationSpec, v148, v52, v167, v166, v165, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x9Au:
-              glvmOperationEXTRACT_EXPONENT(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationEXTRACT_EXPONENT(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x9Bu:
-              glvmOperationEXTRACT_SIGNIFICAND(a5, v169[0].i32, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationEXTRACT_SIGNIFICAND(a5, v167[0].i64, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x9Cu:
-              glvmOperationLDEXP(a5, v169[0].i32, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationLDEXP(a5, v167[0].i64, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x9Du:
-              glvmOperationPK2W(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationPK2W(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x9Eu:
-              glvmOperationUP2W(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationUP2W(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0x9Fu:
-              glvmOperationMUL_HB(a5, v169, v168, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationMUL_HB(a5, v167, v166, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xA0u:
-              glvmOperationBITFIELD_REVERSE(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationBITFIELD_REVERSE(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xA1u:
-              glvmOperationBITCOUNT(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationBITCOUNT(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xA2u:
-              glvmOperationFIND_LSB(a5, v169, v164);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationFIND_LSB(a5, v167, v162);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             case 0xA3u:
-              glvmOperationFIND_MSB(a5, v169, v164[0].i32, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationFIND_MSB(a5, v167, v162[0].i32, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
 
               break;
             default:
-              glvmOperationMOV(a5, v169, v164, v160);
-              if ((v39 & 0x100000000) != 0)
+              glvmOperationMOV(a5, v167, v162, v158);
+              if ((v38 & 0x100000000) != 0)
               {
                 goto LABEL_419;
               }
@@ -3634,28 +3644,28 @@ LABEL_335:
           }
         }
 
-        if (v25 == v149)
+        if (v25 == v147)
         {
-          goto LABEL_14;
+          return;
         }
       }
 
-      v54.n128_f64[0] = glvmLoadSourceAttribVP(v155, v153, v154, a5, a6, v150, v145, v146, v147, v148, *&v156[4], v157, v166, v89, v162);
+      v53.n128_f64[0] = glvmLoadSourceAttribVP(v153, v151, v152, a5, a6, v148, v143, v144, v145, v146, *&v154[4], v155, v164, v88, v160);
 LABEL_84:
-      if ((v39 & 0x100000000) == 0)
+      if ((v38 & 0x100000000) == 0)
       {
         goto LABEL_86;
       }
 
 LABEL_85:
-      OperationSpec = glvmGetDestOffsetCount(a6, (v39 >> 38) & 7, &v159, &v160, 0, v151, &v161);
+      OperationSpec = glvmGetDestOffsetCount(a6, (v38 >> 38) & 7, &v157, &v158, 0, v149, &v159);
       goto LABEL_86;
     }
   }
 
   else
   {
-    if (v134)
+    if (v132)
     {
       v31 = (v26 >> 14) & 1;
     }
@@ -3665,14 +3675,14 @@ LABEL_85:
       v31 = 1;
     }
 
-    *v156 = v31;
-    if (v134)
+    *v154 = v31;
+    if (v132)
     {
-      (MEMORY[0x28223BE20])();
-      v33 = (&v122 - v32);
-      bzero(&v122 - v32, v34);
-      v160 = v27 << 8;
-      glvmOperationInitMasksForNested(a5, v130, v33, v160);
+      MEMORY[0x28223BE20](a1);
+      v33 = (&v120 - v32);
+      bzero(&v120 - v32, v34);
+      v158 = v27 << 8;
+      glvmOperationInitMasksForNested(a5, v128, v33, v158);
       v35 = v33;
     }
 
@@ -3681,19 +3691,16 @@ LABEL_85:
       v35 = 0;
     }
 
-    v140 = v35;
-    (glvmOperationFUNCSTART)();
-    v128 = v133;
-    *&v156[4] = v131;
-    v157 = v132;
+    v138 = v35;
+    glvmOperationFUNCSTART();
+    v126 = v131;
+    *&v154[4] = v129;
+    v155 = v130;
     if (v24 != v30)
     {
       goto LABEL_15;
     }
   }
-
-LABEL_14:
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t glvmWindowTransformVP(float32x4_t *a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, float32x4_t a8, uint64_t a9, float32x4_t *a10, float32x4_t *a11, float32x4_t *a12, float32x4_t *a13, uint64_t a14, uint64_t a15, unsigned int a16)
@@ -4118,28 +4125,28 @@ LABEL_16:
   return result;
 }
 
-uint64_t glvmInterpretVPTransformFour(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, __int8 *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, _DWORD *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+uint64_t glvmInterpretVPTransformFour(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, _DWORD *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, float32x4_t *a14, float32x4_t *a15, float32x4_t *a16, float32x4_t *a17)
 {
-  v78 = a4;
-  v85 = a3;
-  v83 = a2;
-  v91 = a1;
-  v101 = *MEMORY[0x277D85DE8];
-  v86 = *a7;
-  v82 = a6[8];
+  v77 = a4;
+  v84 = a3;
+  v82 = a2;
+  v90 = a1;
+  v100 = *MEMORY[0x277D85DE8];
+  v85 = *a7;
+  v81 = a6[8];
   v21 = MEMORY[0x28223BE20](a1);
-  v24 = &v77 - v23;
+  v24 = &v76 - v23;
   if (*(v25 + 120))
   {
     MEMORY[0x28223BE20](v21);
-    v77 = &v76;
-    v95 = 256;
-    LODWORD(v76) = *a9;
+    v76 = &v75;
+    v94 = 256;
+    LODWORD(v75) = *a9;
   }
 
   else
   {
-    v77 = 0;
+    v76 = 0;
   }
 
   if (a6[18])
@@ -4152,29 +4159,29 @@ uint64_t glvmInterpretVPTransformFour(float32x4_t *a1, uint64_t a2, uint64_t a3,
     v26 = 0;
   }
 
-  v90 = a17;
-  v89 = a16;
-  v88 = a15;
-  v87 = a14;
+  v89 = a17;
+  v88 = a16;
+  v87 = a15;
+  v86 = a14;
+  v95 = 0;
   v96 = 0;
-  v97 = 0;
+  memset(v98, 0, sizeof(v98));
   memset(v99, 0, sizeof(v99));
-  memset(v100, 0, sizeof(v100));
   bzero(v24, v22);
   v28 = a6[27];
   v29 = a6[31];
-  v80 = a8;
-  v81 = a5;
-  v84 = a9;
-  v79 = a7;
+  v79 = a8;
+  v80 = a5;
+  v83 = a9;
+  v78 = a7;
   if (v28 == v29)
   {
     MEMORY[0x28223BE20](v27);
-    v75 = 0u;
-    v76 = 0u;
-    v30 = &v98;
-    v73 = 0u;
     v74 = 0u;
+    v75 = 0u;
+    v30 = &v97;
+    v72 = 0u;
+    v73 = 0u;
   }
 
   else
@@ -4196,13 +4203,13 @@ uint64_t glvmInterpretVPTransformFour(float32x4_t *a1, uint64_t a2, uint64_t a3,
 
     while (v34 != v33);
     v35 = MEMORY[0x28223BE20](v27);
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
     v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
     MEMORY[0x28223BE20](v35);
-    v30 = &v77 - v36;
-    bzero(&v77 - v36, v37);
+    v30 = &v76 - v36;
+    bzero(&v76 - v36, v37);
     if (v28 != v29)
     {
       v38 = 0;
@@ -4213,8 +4220,8 @@ uint64_t glvmInterpretVPTransformFour(float32x4_t *a1, uint64_t a2, uint64_t a3,
           break;
         }
 
-        v95 = __PAIR64__(v32[2] & 0x3FFFF, v38);
-        glvmOperationInitSub(v30, v95);
+        v94 = __PAIR64__(v32[2] & 0x3FFFF, v38);
+        glvmOperationInitSub(v30, v94);
         v32 += 2 * (*v32 & 7) + 4;
         ++v38;
       }
@@ -4283,11 +4290,11 @@ uint64_t glvmInterpretVPTransformFour(float32x4_t *a1, uint64_t a2, uint64_t a3,
     v48 = 0;
   }
 
-  v95 = v48 | (2 * a6[29]);
-  *&v76 = v30;
-  v49 = v81;
-  glvmInterpretVPTransformFourInner(v91, v83, v85, v78, v81, a6, v79, v80, v84, a10, a11, a12, a13, v87, v88, v89, v90, v24, v77, &v73, v76, v95);
-  v57 = v82 & 0xFFFFFF;
+  v94 = v48 | (2 * a6[29]);
+  *&v75 = v30;
+  v49 = v80;
+  glvmInterpretVPTransformFourInner(v90, v82, v84, v77, v80, a6, v78, v79, v83, a10, a11, a12, a13, v86, v87, v88, v89, v24, v76, &v72, v75, v94);
+  v57 = v81 & 0xFFFFFF;
   v58 = a6[24];
   if (v58)
   {
@@ -4303,259 +4310,269 @@ uint64_t glvmInterpretVPTransformFour(float32x4_t *a1, uint64_t a2, uint64_t a3,
     while (v58);
     if (v60)
     {
-      v80 = a11;
-      v61 = v82;
-      v93 = 0x3100000000;
-      v94 = (v82 << 48) | 0x72079000;
-      v92 = 0;
-      glvmGetOperationSpec(&v93, &v95);
-      glvmGetSourceOffsetStride(a6, (v93 >> 38) & 7, 0, 0x1C800uLL, 0, v86, &v92, &v95, &v97);
-      glvmGetDestOffsetCount(a6, (v93 >> 38) & 7, &v94, &v95, 0, v61, &v96);
-      glvmLoadSourceAttribVP(v91, v83, v85, v49, a6, v84, a10, v80, a12, a13, v24, &v73, v100, 0x1C800u, v97);
-      glvmOperationMOV(v49, v100, v99, v95);
-      glvmStoreDestTemp(v24, &v73, v99, v94, v96, v62, v63, v64, v65, v66);
+      v79 = a11;
+      v61 = v81;
+      v92 = 0x3100000000;
+      v93 = (v81 << 48) | 0x72079000;
+      v91 = 0;
+      glvmGetOperationSpec(&v92, &v94);
+      glvmGetSourceOffsetStride(a6, (v92 >> 38) & 7, 0, 0x1C800uLL, 0, v85, &v91, &v94, &v96);
+      glvmGetDestOffsetCount(a6, (v92 >> 38) & 7, &v93, &v94, 0, v61, &v95);
+      glvmLoadSourceAttribVP(v90, v82, v84, v49, a6, v83, a10, v79, a12, a13, v24, &v72, v99, 0x1C800u, v96);
+      glvmOperationMOV(v49, v99, v98, v94);
+      glvmStoreDestTemp(v24, &v72, v98, v93, v95, v62, v63, v64, v65, v66);
     }
   }
 
-  v67 = v87;
-  v68 = v88;
-  v87[1].i32[3] = 0;
+  v67 = v86;
+  v68 = v87;
+  v86[1].i32[3] = 0;
   v68[1].i32[3] = 0;
-  v69 = v89;
-  v70 = v90;
-  v89[1].i32[3] = 0;
+  v69 = v88;
+  v70 = v89;
+  v88[1].i32[3] = 0;
   v70[1].i32[3] = 0;
-  v95 = v86;
-  result = glvmWindowTransformVP(v91, v49, v51, v52, v53, v54, v55, v56, v50, v67, v68, v69, v70, v24, v57, v86);
-  v72 = *MEMORY[0x277D85DE8];
-  return result;
+  v94 = v85;
+  return glvmWindowTransformVP(v90, v49, v51, v52, v53, v54, v55, v56, v50, v67, v68, v69, v70, v24, v57, v85);
 }
 
-uint64_t glvmOperationDispatchCP(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned int *a11, uint64_t a12, uint64_t a13, uint64_t a14)
+uint64_t glvmOperationDispatchCP(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, unsigned int *a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned int *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
-  v14 = 0;
   v15 = 0;
-  v16 = a11;
-  v39 = *MEMORY[0x277D85DE8];
-  v17 = *a11;
-  memset(v38, 0, sizeof(v38));
-  v37[0] = 0;
-  v37[1] = 0;
-  v34 = v17;
-  v36 = vandq_s8(vdupq_n_s32(v17), xmmword_23A29BFD0);
+  v16 = 0;
+  v18 = a12;
+  v17 = a13;
+  v20 = a10;
+  v19 = a11;
+  v21 = a9;
+  v48 = *MEMORY[0x277D85DE8];
+  v22 = *a11;
+  memset(v47, 0, sizeof(v47));
+  v46[0] = 0;
+  v46[1] = 0;
+  v43 = v22;
+  v45 = vandq_s8(vdupq_n_s32(v22), xmmword_23A29BFD0);
   do
   {
-    if (v36.i32[v14])
+    if (v45.i32[v15])
     {
-      v18 = (v14 == 0) | (2 * (v14 == 1)) | (4 * (v14 == 2)) | (8 * (v14 == 3));
-      v19 = *(a13 + 8 * *(a14 + 32 * v14));
-      if (v15)
+      v23 = (v15 == 0) | (2 * (v15 == 1)) | (4 * (v15 == 2)) | (8 * (v15 == 3));
+      v24 = *(a13 + 8 * *(a14 + 32 * v15));
+      if (v16)
       {
-        v20 = 0;
-        while (v19 != *(v38 + v20))
+        v25 = 0;
+        while (v24 != *(v47 + v25))
         {
-          if (v15 == ++v20)
+          if (v16 == ++v25)
           {
             goto LABEL_2;
           }
         }
 
-        *(v37 + v20) |= v18;
+        *(v46 + v25) |= v23;
       }
 
       else
       {
-        LODWORD(v20) = 0;
+        LODWORD(v25) = 0;
       }
 
-      if (v20 == v15)
+      if (v25 == v16)
       {
 LABEL_2:
-        *(v38 + v15) = v19;
-        *(v37 + v15++) = v18;
+        *(v47 + v16) = v24;
+        *(v46 + v16++) = v23;
       }
     }
 
-    ++v14;
+    ++v15;
   }
 
-  while (v14 != 4);
-  if (v15)
+  while (v15 != 4);
+  if (v16)
   {
-    v21 = v37;
-    v22 = v38;
-    v23 = v15;
-    v35 = a2;
+    v26 = v46;
+    v27 = v47;
+    v28 = v16;
+    v44 = a2;
     do
     {
-      v24 = *v21++;
-      *v16 = v24;
-      v25 = *v22++;
-      v26 = a3;
-      v27 = a4;
-      v28 = a5;
-      v29 = result;
-      v30 = a6;
-      v31 = a7;
-      v32 = a8;
-      glvmInterpretCPTransformPatchInner(result, a2, a3, a4, a5, a6);
-      a3 = v26;
-      a4 = v27;
-      a5 = v28;
-      a2 = v35;
-      a6 = v30;
-      result = v29;
-      a7 = v31;
-      a8 = v32;
-      v16 = a11;
-      --v23;
+      v29 = *v26++;
+      *v19 = v29;
+      v30 = *v27++;
+      v42 = v17;
+      v40 = v19;
+      v41 = v18;
+      v38 = v21;
+      v39 = v20;
+      v31 = a3;
+      v32 = a4;
+      v33 = a5;
+      v34 = result;
+      v35 = a6;
+      v36 = a7;
+      v37 = a8;
+      glvmInterpretCPTransformPatchInner(result, a2, a3, a4, a5, a6, a7, a8, v38, v39, v40, v41, v42, (2 * (v30 & 0x7FFFFFFF)) | a15 & 0xFFFFFFFF00000000);
+      a3 = v31;
+      a4 = v32;
+      a5 = v33;
+      v17 = a13;
+      a2 = v44;
+      a6 = v35;
+      result = v34;
+      a7 = v36;
+      v21 = a9;
+      v20 = a10;
+      a8 = v37;
+      v19 = a11;
+      v18 = a12;
+      --v28;
     }
 
-    while (v23);
+    while (v28);
   }
 
-  *v16 = v34;
-  v33 = *MEMORY[0x277D85DE8];
+  *v19 = v43;
   return result;
 }
 
 void glvmInterpretCPTransformPatchInner(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, unsigned int *a7, uint64_t a8, uint64_t a9, uint64_t a10, int *a11, float32x4_t *a12, uint64_t a13, unint64_t a14)
 {
-  v135 = a8;
-  v129 = a4;
-  v145 = a2;
-  v146 = a3;
-  v147 = a1;
-  v133 = a13;
-  v132 = a12;
-  v130 = a11;
-  v131 = a10;
-  v168 = *MEMORY[0x277D85DE8];
+  v133 = a8;
+  v127 = a4;
+  v143 = a2;
+  v144 = a3;
+  v145 = a1;
+  v131 = a13;
+  v130 = a12;
+  v128 = a11;
+  v129 = a10;
+  v166 = *MEMORY[0x277D85DE8];
   v16 = a14 >> 1;
   v17 = &a6[2 * v16];
   v18 = *v17;
   v19 = a6[30];
-  v134 = v19;
+  v132 = v19;
   if (a6[18])
   {
-    v140 = a6[14];
+    v138 = a6[14];
   }
 
   else
   {
-    v140 = 0;
+    v138 = 0;
   }
 
-  v127 = a7;
+  v125 = a7;
   v20 = *a7;
   v21 = (v18 >> 14) & 1;
-  v143 = a6[8];
-  v144 = v20;
-  v154 = 0;
-  v155 = 0;
+  v141 = a6[8];
+  v142 = v20;
   v152 = 0;
   v153 = 0;
-  memset(v161, 0, sizeof(v161));
+  v150 = 0;
+  v151 = 0;
+  memset(v159, 0, sizeof(v159));
+  v160 = 0u;
+  v161 = 0u;
   v162 = 0u;
   v163 = 0u;
   v164 = 0u;
   v165 = 0u;
-  v166 = 0u;
-  v167 = 0u;
-  memset(v160, 0, sizeof(v160));
-  memset(v159, 0, sizeof(v159));
   memset(v158, 0, sizeof(v158));
   memset(v157, 0, sizeof(v157));
   memset(v156, 0, sizeof(v156));
+  memset(v155, 0, sizeof(v155));
+  memset(v154, 0, sizeof(v154));
   v22 = a6[31];
   if ((*&a6[2 * a6[29]] & 0x3FC0) == 0x21C0)
   {
-    v136 = 0;
-    v128 = 0;
-    *&v148[8] = 0;
-    v149 = 0;
-    *v148 = (v18 >> 14) & 1;
+    v134 = 0;
+    v126 = 0;
+    *&v146[8] = 0;
+    v147 = 0;
+    *v146 = (v18 >> 14) & 1;
     if (v16 != v22)
     {
 LABEL_15:
-      v138 = HIWORD(a14);
-      v139 = WORD2(a14);
-      if (v134)
+      v136 = HIWORD(a14);
+      v137 = WORD2(a14);
+      if (v132)
       {
-        v29 = v21;
+        v28 = v21;
       }
 
       else
       {
-        v29 = 1;
+        v28 = 1;
       }
 
-      v137 = v29;
-      v126 = (4 * v134);
-      v125 = v19 << 8;
-      v124 = a14 & 0xFFFFFFFF00000000;
-      v123 = a14 & 0xFFFFFFFF00000000 | 1;
-      v141 = &a6[2 * v22];
-      v142 = a9;
+      v135 = v28;
+      v124 = (4 * v132);
+      v123 = v19 << 8;
+      v122 = a14 & 0xFFFFFFFF00000000;
+      v121 = a14 & 0xFFFFFFFF00000000 | 1;
+      v139 = &a6[2 * v22];
+      v140 = a9;
       while (1)
       {
-        v30 = v17;
-        v151 = 0;
-        v31 = *v17;
-        v32 = *v17 & 7;
-        v33 = WORD1(*v17) & 1;
-        v34 = (*v17 >> 15) & 1;
-        if (v33 | v34)
+        v29 = v17;
+        v149 = 0;
+        v30 = *v17;
+        v31 = *v17 & 7;
+        v32 = WORD1(*v17) & 1;
+        v33 = (*v17 >> 15) & 1;
+        if (v32 | v33)
         {
-          v35 = v17[(v32 + 1)];
-          LODWORD(v32) = v32 - (v34 + v33) + ((v31 << 14) >> 31);
+          v34 = *&v17[2 * (v31 + 1)];
+          LODWORD(v31) = v31 - (v33 + v32) + ((v30 << 14) >> 31);
         }
 
         else
         {
-          v35 = 0;
+          v34 = 0;
         }
 
-        v151 = v17[1];
+        v149 = *(v17 + 1);
         if (&a6[2 * a6[27]] != v17)
         {
-          v36 = &v17[-2 - ((*v17 >> 3) & 7)];
-          v37 = (*v36 >> 6) - 89;
-          v38 = v37 > 0x2E;
-          v39 = (1 << v37) & 0x400008000001;
-          if (!v38 && v39 != 0)
+          v35 = &v17[2 * (-2 - ((*v17 >> 3) & 7))];
+          v36 = (*v35 >> 6) - 89;
+          v37 = v36 > 0x2E;
+          v38 = (1 << v36) & 0x400008000001;
+          if (!v37 && v38 != 0)
           {
-            v41 = v36[1];
-            v42 = (v41 & 0x1FC0000) < 0xC0000 && (v41 & 0x100000000) == 0;
-            v43 = *v148;
-            if (v42)
+            v40 = v35[1];
+            v41 = (v40 & 0x1FC0000) < 0xC0000uLL && (v40 & 0x100000000) == 0;
+            v42 = *v146;
+            if (v41)
             {
-              v43 = v137;
+              v42 = v135;
             }
 
-            *v148 = v43;
+            *v146 = v42;
           }
         }
 
-        OperationSpec = glvmGetOperationSpec(v17, &v152);
-        v150 = 0;
-        if (!v32)
+        OperationSpec = glvmGetOperationSpec(v17, &v150);
+        v148 = 0;
+        if (!v31)
         {
           break;
         }
 
-        v50 = v17[2];
-        glvmGetSourceOffsetStride(a6, (v31 >> 38) & 7, 0, v50, 1, v144, &v150, &v152, &v155);
-        if (v50)
+        v49 = *(v17 + 2);
+        glvmGetSourceOffsetStride(a6, (v30 >> 38) & 7, 0, v49, 1, v142, &v148, &v150, &v153);
+        if (v49)
         {
-          glvmSetSourceIndirectLimits_0(a6, v50, &v155, v143, v139, v138, v140);
+          glvmSetSourceIndirectLimits_0(a6, v49, &v153, v141, v137, v136, v138);
         }
 
-        v59 = (v50 >> 6) & 7;
-        if (!v59 || v59 == 5 || v150)
+        v58 = (v49 >> 6) & 7;
+        if (!v58 || v58 == 5 || v148)
         {
-          OperationSpec = glvmLoadSourceAttribCP(v147, v145, v146, a5, a6, v142, *&v148[4], v149, v161[0].i8, v50, v155);
-          if (v32 == 1)
+          v44.n128_f64[0] = glvmLoadSourceAttribCP(v50, v145, v143, v144, a5, a6, v140, *&v146[4], v147, v159[0].i8, v49, v153);
+          if (v31 == 1)
           {
             break;
           }
@@ -4563,39 +4580,39 @@ LABEL_15:
 
         else
         {
-          if (v59 == 4)
+          if (v58 == 4)
           {
-            v45.n128_f64[0] = glvmLoadSourceAddress(v147, v145, v146, a5, a6, *&v148[4], v149, v161, v50, v155);
+            v44.n128_f64[0] = glvmLoadSourceAddress(v145, v143, v144, a5, a6, *&v146[4], v147, v159, v49, v153);
           }
 
-          else if (v59 == 1)
+          else if (v58 == 1)
           {
-            v45.n128_f64[0] = glvmLoadSourceTemp(v147, v145, v146, a5, a6, *&v148[4], v149, v161, v50, v155);
+            v44.n128_f64[0] = glvmLoadSourceTemp(v145, v143, v144, a5, a6, *&v146[4], v147, v159, v49, v153);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v147, v145, v146, v51, v52, v53, v54, v55, v56, v57, v58, a5, a6, *&v148[4], v149, v161[0].i32, v50, v155);
+            OperationSpec = glvmLoadSourceParam(v145, v143, v144, v50, v51, v52, v53, v54, v55, v56, v57, a5, a6, *&v146[4], v147, v159, v49, v153);
           }
 
-          if (v32 == 1)
+          if (v31 == 1)
           {
             break;
           }
         }
 
-        v60 = v30[3];
-        glvmGetSourceOffsetStride(a6, (v31 >> 38) & 7, 1, v60, 1, v144, &v150, &v152, &v154);
-        if (v60)
+        v59 = v29[3];
+        glvmGetSourceOffsetStride(a6, (v30 >> 38) & 7, 1, v59, 1, v142, &v148, &v150, &v152);
+        if (v59)
         {
-          glvmSetSourceIndirectLimits_0(a6, v60, &v154, v143, v139, v138, v140);
+          glvmSetSourceIndirectLimits_0(a6, v59, &v152, v141, v137, v136, v138);
         }
 
-        v69 = (v60 >> 6) & 7;
-        if (!v69 || v69 == 5 || v150)
+        v68 = (v59 >> 6) & 7;
+        if (!v68 || v68 == 5 || v148)
         {
-          OperationSpec = glvmLoadSourceAttribCP(v147, v145, v146, a5, a6, v142, *&v148[4], v149, v160[0].i8, v60, v154);
-          if (v32 < 3)
+          v44.n128_f64[0] = glvmLoadSourceAttribCP(v60, v145, v143, v144, a5, a6, v140, *&v146[4], v147, v158[0].i8, v59, v152);
+          if (v31 < 3)
           {
             break;
           }
@@ -4603,39 +4620,39 @@ LABEL_15:
 
         else
         {
-          if (v69 == 4)
+          if (v68 == 4)
           {
-            v45.n128_f64[0] = glvmLoadSourceAddress(v147, v145, v146, a5, a6, *&v148[4], v149, v160, v60, v154);
+            v44.n128_f64[0] = glvmLoadSourceAddress(v145, v143, v144, a5, a6, *&v146[4], v147, v158, v59, v152);
           }
 
-          else if (v69 == 1)
+          else if (v68 == 1)
           {
-            v45.n128_f64[0] = glvmLoadSourceTemp(v147, v145, v146, a5, a6, *&v148[4], v149, v160, v60, v154);
+            v44.n128_f64[0] = glvmLoadSourceTemp(v145, v143, v144, a5, a6, *&v146[4], v147, v158, v59, v152);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v147, v145, v146, v61, v62, v63, v64, v65, v66, v67, v68, a5, a6, *&v148[4], v149, v160[0].i32, v60, v154);
+            OperationSpec = glvmLoadSourceParam(v145, v143, v144, v60, v61, v62, v63, v64, v65, v66, v67, a5, a6, *&v146[4], v147, v158, v59, v152);
           }
 
-          if (v32 < 3)
+          if (v31 < 3)
           {
             break;
           }
         }
 
-        v70 = v30[4];
-        glvmGetSourceOffsetStride(a6, (v31 >> 38) & 7, 2, v70, 1, v144, &v150, &v152, &v154);
-        if (v70)
+        v69 = v29[4];
+        glvmGetSourceOffsetStride(a6, (v30 >> 38) & 7, 2, v69, 1, v142, &v148, &v150, &v152);
+        if (v69)
         {
-          glvmSetSourceIndirectLimits_0(a6, v70, &v154, v143, v139, v138, v140);
+          glvmSetSourceIndirectLimits_0(a6, v69, &v152, v141, v137, v136, v138);
         }
 
-        v79 = (v70 >> 6) & 7;
-        if (!v79 || v79 == 5 || v150)
+        v78 = (v69 >> 6) & 7;
+        if (!v78 || v78 == 5 || v148)
         {
-          OperationSpec = glvmLoadSourceAttribCP(v147, v145, v146, a5, a6, v142, *&v148[4], v149, v159[0].i8, v70, v154);
-          if (v32 == 3)
+          v44.n128_f64[0] = glvmLoadSourceAttribCP(v70, v145, v143, v144, a5, a6, v140, *&v146[4], v147, v157[0].i8, v69, v152);
+          if (v31 == 3)
           {
             break;
           }
@@ -4643,39 +4660,39 @@ LABEL_15:
 
         else
         {
-          if (v79 == 4)
+          if (v78 == 4)
           {
-            v45.n128_f64[0] = glvmLoadSourceAddress(v147, v145, v146, a5, a6, *&v148[4], v149, v159, v70, v154);
+            v44.n128_f64[0] = glvmLoadSourceAddress(v145, v143, v144, a5, a6, *&v146[4], v147, v157, v69, v152);
           }
 
-          else if (v79 == 1)
+          else if (v78 == 1)
           {
-            v45.n128_f64[0] = glvmLoadSourceTemp(v147, v145, v146, a5, a6, *&v148[4], v149, v159, v70, v154);
+            v44.n128_f64[0] = glvmLoadSourceTemp(v145, v143, v144, a5, a6, *&v146[4], v147, v157, v69, v152);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v147, v145, v146, v71, v72, v73, v74, v75, v76, v77, v78, a5, a6, *&v148[4], v149, v159[0].i32, v70, v154);
+            OperationSpec = glvmLoadSourceParam(v145, v143, v144, v70, v71, v72, v73, v74, v75, v76, v77, a5, a6, *&v146[4], v147, v157, v69, v152);
           }
 
-          if (v32 == 3)
+          if (v31 == 3)
           {
             break;
           }
         }
 
-        v87 = v30[5];
-        glvmGetSourceOffsetStride(a6, (v31 >> 38) & 7, 3, v87, 1, v144, &v150, &v152, &v154);
-        if (v87)
+        v86 = v29[5];
+        glvmGetSourceOffsetStride(a6, (v30 >> 38) & 7, 3, v86, 1, v142, &v148, &v150, &v152);
+        if (v86)
         {
-          glvmSetSourceIndirectLimits_0(a6, v87, &v154, v143, v139, v138, v140);
+          glvmSetSourceIndirectLimits_0(a6, v86, &v152, v141, v137, v136, v138);
         }
 
-        v96 = (v87 >> 6) & 7;
-        if (!v96 || v96 == 5 || v150)
+        v95 = (v86 >> 6) & 7;
+        if (!v95 || v95 == 5 || v148)
         {
-          OperationSpec = glvmLoadSourceAttribCP(v147, v145, v146, a5, a6, v142, *&v148[4], v149, v158[0].i8, v87, v154);
-          if ((v31 & 0x100000000) != 0)
+          v44.n128_f64[0] = glvmLoadSourceAttribCP(v87, v145, v143, v144, a5, a6, v140, *&v146[4], v147, v156[0].i8, v86, v152);
+          if ((v30 & 0x100000000) != 0)
           {
             goto LABEL_72;
           }
@@ -4683,49 +4700,49 @@ LABEL_15:
 
         else
         {
-          if (v96 == 4)
+          if (v95 == 4)
           {
-            v45.n128_f64[0] = glvmLoadSourceAddress(v147, v145, v146, a5, a6, *&v148[4], v149, v158, v87, v154);
+            v44.n128_f64[0] = glvmLoadSourceAddress(v145, v143, v144, a5, a6, *&v146[4], v147, v156, v86, v152);
           }
 
-          else if (v96 == 1)
+          else if (v95 == 1)
           {
-            v45.n128_f64[0] = glvmLoadSourceTemp(v147, v145, v146, a5, a6, *&v148[4], v149, v158, v87, v154);
+            v44.n128_f64[0] = glvmLoadSourceTemp(v145, v143, v144, a5, a6, *&v146[4], v147, v156, v86, v152);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v147, v145, v146, v88, v89, v90, v91, v92, v93, v94, v95, a5, a6, *&v148[4], v149, v158[0].i32, v87, v154);
+            OperationSpec = glvmLoadSourceParam(v145, v143, v144, v87, v88, v89, v90, v91, v92, v93, v94, a5, a6, *&v146[4], v147, v156, v86, v152);
           }
 
-          if ((v31 & 0x100000000) != 0)
+          if ((v30 & 0x100000000) != 0)
           {
             goto LABEL_72;
           }
         }
 
 LABEL_73:
-        v80 = (v31 >> 6);
-        v17 = &v30[(v31 & 7) + 2];
-        if (v80 <= 0xAA)
+        v79 = (v30 >> 6);
+        v17 = &v29[(v30 & 7) + 2];
+        if (v79 <= 0xAA)
         {
-          v81 = 1;
-          switch((v31 >> 6))
+          v80 = 1;
+          switch((v30 >> 6))
           {
             case 1u:
-              v45 = glvmOperationLIT(a5, v161, v156);
+              v44 = glvmOperationLIT(a5, v159, v154);
               break;
             case 2u:
-              v45 = glvmOperationABS(a5, v161, v156, v152);
+              v44 = glvmOperationABS(a5, v159, v154, v150);
               break;
             case 3u:
-              glvmOperationCEI(a5, v161[0].i64, v156, v152, v45);
+              glvmOperationCEI(a5, v159[0].i64, v154, v150, v44);
               break;
             case 4u:
-              glvmOperationFRC(a5, v161, v156[0].i64, v152);
+              glvmOperationFRC(a5, v159, v154, v150);
               break;
             case 5u:
-              glvmOperationFLR(a5, v161[0].i64, v156, v152, v45);
+              glvmOperationFLR(a5, v159[0].i64, v154, v150, v44);
               break;
             case 6u:
             case 0x4Bu:
@@ -4755,202 +4772,202 @@ LABEL_73:
             case 0xA9u:
               break;
             case 7u:
-              v45 = glvmOperationSSG(v45, a5, v161, v156[0].i64, v152);
+              v44 = glvmOperationSSG(v44, a5, v159, v154, v150);
               break;
             case 8u:
-              v45 = glvmOperationANY(v45, a5, v161, v156, v152);
+              v44 = glvmOperationANY(v44, a5, v159, v154, v150);
               break;
             case 9u:
-              v45 = glvmOperationALL(v45, a5, v161, v156, v152);
+              v44 = glvmOperationALL(v44, a5, v159, v154, v150);
               break;
             case 0xAu:
-              v45 = glvmOperationNOT(a5, v161, v156);
+              v44 = glvmOperationNOT(a5, v159, v154);
               break;
             case 0xBu:
-              glvmOperationNSE(a5, v161[0].i32, v156[0].i32, v152);
+              glvmOperationNSE(a5, v159[0].i32, v154[0].i32, v150);
               break;
             case 0xCu:
-              glvmOperationSQT(a5, v161[0].i64, v156[0].i64, v152);
+              glvmOperationSQT(a5, v159[0].i64, v154, v150);
               break;
             case 0xDu:
-              v45 = glvmOperationRSQ(a5, v161, v156);
+              v44 = glvmOperationRSQ(a5, v159, v154);
               break;
             case 0xEu:
-              v45 = glvmOperationRCP(a5, v161, v156);
+              v44 = glvmOperationRCP(a5, v159, v154);
               break;
             case 0xFu:
-              glvmOperationRCC(a5, v161, v156, v152);
+              glvmOperationRCC();
               break;
             case 0x10u:
-              glvmOperationEX2(a5, v161, v156, v152);
+              glvmOperationEX2(a5, v159, v154, v150);
               break;
             case 0x11u:
-              glvmOperationEXP(a5, v161, v156);
+              glvmOperationEXP(a5, v159, v154);
               break;
             case 0x12u:
-              v45 = glvmOperationLEN(a5, v161, v156[0].i64, v152, v45, v46.f64[0], v47.f64[0], v48.f64[0]);
+              v44 = glvmOperationLEN(a5, v159, v154, v150, v44, v45.f64[0], v46.f64[0], v47.f64[0]);
               break;
             case 0x13u:
-              glvmOperationLG2(a5, v161[0].i32, v156, v152);
+              glvmOperationLG2(a5, v159, v154, v150);
               break;
             case 0x14u:
-              glvmOperationLOG(a5, v161, v156);
+              glvmOperationLOG(a5, v159, v154);
               break;
             case 0x15u:
-              v45 = glvmOperationNRM(a5, v161, v156[0].i64, v152, v45);
+              v44 = glvmOperationNRM(a5, v159, v154[0].i64, v150, v44);
               break;
             case 0x16u:
-              v45 = glvmOperationRAD(a5, v161, v156);
+              v44 = glvmOperationRAD(a5, v159, v154);
               break;
             case 0x17u:
-              v45 = glvmOperationDEG(a5, v161, v156);
+              v44 = glvmOperationDEG(a5, v159, v154);
               break;
             case 0x18u:
-              glvmOperationSCS(a5, v161, v156);
+              v44.n128_f64[0] = glvmOperationSCS(a5, v159, v154);
               break;
             case 0x19u:
-              glvmOperationSIN(a5, v161, v156, v152);
+              v44.n128_f64[0] = glvmOperationSIN(a5, v159, v154);
               break;
             case 0x1Au:
-              glvmOperationCOS(a5, v161, v156);
+              v44.n128_f64[0] = glvmOperationCOS(a5, v159, v154);
               break;
             case 0x1Bu:
-              v45 = glvmOperationTAN(a5, v161, v156);
+              v44 = glvmOperationTAN(a5, v159, v154);
               break;
             case 0x1Cu:
-              v45 = glvmOperationASN(a5, v161, v156);
+              v44 = glvmOperationASN(a5, v159, v154);
               break;
             case 0x1Du:
-              v45 = glvmOperationACS(a5, v161, v156);
+              v44 = glvmOperationACS(a5, v159, v154);
               break;
             case 0x1Eu:
-              if (v32 == 1)
+              if (v31 == 1)
               {
-                v45.n128_f64[0] = glvmOperationATN(a5, v161, v156);
+                v44.n128_f64[0] = glvmOperationATN(a5, v159, v154);
               }
 
               else
               {
-                v45 = glvmOperationATN2(a5, v161, v160, v156);
+                v44 = glvmOperationATN2(a5, v159, v158, v154);
               }
 
               break;
             case 0x1Fu:
-              glvmOperationADD(a5, v161, v160, v156, v152);
+              glvmOperationADD(a5, v159, v158, v154, v150);
               break;
             case 0x20u:
-              glvmOperationSUB(a5, v161, v160, v156, v152);
+              glvmOperationSUB(a5, v159, v158, v154, v150);
               break;
             case 0x21u:
-              glvmOperationMOD(a5, v161, v160, v156, v152);
+              glvmOperationMOD(a5, v159, v158, v154, v150);
               break;
             case 0x22u:
-              glvmOperationMUL(a5, v161, v160, v156, v152);
+              glvmOperationMUL(a5, v159, v158, v154, v150);
               break;
             case 0x23u:
-              glvmOperationMLC(a5, v161, v160, v156, v152);
+              glvmOperationMLC();
               break;
             case 0x24u:
-              v45 = glvmOperationANL(a5, v161, v160, v156);
+              v44 = glvmOperationANL(a5, v159, v158, v154);
               break;
             case 0x25u:
-              v45 = glvmOperationORL(a5, v161, v160, v156);
+              v44 = glvmOperationORL(a5, v159, v158, v154);
               break;
             case 0x26u:
-              v45 = glvmOperationXRL(a5, v161, v160, v156);
+              v44 = glvmOperationXRL(a5, v159, v158, v154);
               break;
             case 0x27u:
-              glvmOperationDOT(v45.n128_f64[0], a5, v161, v160, v156, v152);
+              glvmOperationDOT(v44.n128_f64[0], a5, v159, v158, v154, v150);
               break;
             case 0x28u:
-              glvmOperationDP3(a5, v161, v160, v156, v152);
+              glvmOperationDP3(a5, v159, v158, v154, v150);
               break;
             case 0x29u:
-              glvmOperationDP4(v45.n128_f64[0], a5, v161, v160, v156, v152);
+              glvmOperationDP4(v44.n128_f64[0], a5, v159, v158, v154, v150);
               break;
             case 0x2Au:
-              v45 = glvmOperationDPH(v45.n128_f64[0], a5, v161[0].i32, v160[0].i32, v156);
+              v44 = glvmOperationDPH(v44.n128_f64[0], a5, v159[0].i32, v158[0].i32, v154);
               break;
             case 0x2Bu:
-              v45 = glvmOperationDST(a5, v161, v160, v156);
+              v44 = glvmOperationDST(a5, v159, v158, v154);
               break;
             case 0x2Cu:
-              glvmOperationMIN(a5, v161[0].i64, v160[0].i64, v156, v152);
+              glvmOperationMIN(a5, v159[0].i64, v158[0].i64, v154, v150);
               break;
             case 0x2Du:
-              glvmOperationMAX(a5, v161[0].i64, v160[0].i64, v156, v152);
+              glvmOperationMAX(a5, v159[0].i64, v158[0].i64, v154, v150);
               break;
             case 0x2Eu:
-              v45.n128_f64[0] = glvmOperationXPD(a5, v161, v160, v156, v152);
+              v44.n128_f64[0] = glvmOperationXPD(a5, v159, v158, v154, v150);
               break;
             case 0x2Fu:
-              v45 = glvmOperationRFL(v45, v46.f64[0], v47.f64[0], v48.f64[0], a5, v161, v160, v156, v152);
+              v44 = glvmOperationRFL(v44, v45.f64[0], v46.f64[0], v47.f64[0], a5, v159, v158, v154, v150);
               break;
             case 0x30u:
-              v45 = glvmOperationSTR(a5, v161, v160, v156);
+              v44 = glvmOperationSTR(a5, v159, v158, v154);
               break;
             case 0x31u:
-              v45 = glvmOperationSEQ(v45, a5, v161, v160, v156, v152);
+              v44 = glvmOperationSEQ(v44, a5, v159, v158, v154, v150);
               break;
             case 0x32u:
-              glvmOperationSGE(a5, v161, v160, v156, v152);
+              glvmOperationSGE(a5, v159, v158, v154, v150);
               break;
             case 0x33u:
-              glvmOperationSGT(a5, v161, v160, v156, v152);
+              glvmOperationSGT(a5, v159, v158, v154, v150);
               break;
             case 0x34u:
-              glvmOperationSLE(a5, v161, v160, v156, v152);
+              glvmOperationSLE(a5, v159, v158, v154, v150);
               break;
             case 0x35u:
-              glvmOperationSLT(a5, v161, v160, v156, v152);
+              glvmOperationSLT(a5, v159, v158, v154, v150);
               break;
             case 0x36u:
-              v45 = glvmOperationSNE(v45, a5, v161, v160, v156, v152);
+              v44 = glvmOperationSNE(v44, a5, v159, v158, v154, v150);
               break;
             case 0x37u:
-              v45.n128_f64[0] = glvmOperationSFL(a5, v161, v160, v156);
+              v44.n128_f64[0] = glvmOperationSFL(a5, v159, v158, v154);
               break;
             case 0x38u:
-              glvmOperationPOW(a5, v161[0].i32, v160, v156, v152);
+              glvmOperationPOW(a5, v159, v158, v154, v150);
               break;
             case 0x39u:
-              glvmOperationSEL(a5, v161, v160, v156, v152);
+              glvmOperationSEL(a5, v159, v158, v154, v150);
               break;
             case 0x3Au:
-              v45 = glvmOperationDIV(v45, a5, v161, v160, v156, v152);
+              v44 = glvmOperationDIV(v44, a5, v159, v158, v154, v150);
               break;
             case 0x3Bu:
-              v45 = glvmOperationFFW(v45, v46, v47, v48, a5, v161, v160, v159, v156, v152);
+              v44 = glvmOperationFFW(v44, v45, v46, v47, a5, v159, v158, v157, v154, v150);
               break;
             case 0x3Cu:
-              glvmOperationLRP(a5, v161, v160, v159, v156, v152);
+              glvmOperationLRP(a5, v159, v158, v157, v154, v150);
               break;
             case 0x3Du:
-              glvmOperationCLM(a5, v161[0].i32, v160[0].i32, v159, v156, v152);
+              glvmOperationCLM(a5, v159[0].i64, v158[0].i64, v157[0].i64, v154, v150);
               break;
             case 0x3Eu:
-              v45 = glvmOperationCMP(a5, v161, v160, v159, v156);
+              v44 = glvmOperationCMP(a5, v159, v158, v157, v154);
               break;
             case 0x3Fu:
-              v45 = glvmOperationMAD(a5, v161, v160, v159, v156, v152);
+              v44 = glvmOperationMAD(a5, v159, v158, v157, v154, v150);
               break;
             case 0x40u:
-              v45 = glvmOperationSMS(a5, v161, v160, v159, v156, v152);
+              v44 = glvmOperationSMS(a5, v159, v158, v157, v154, v150);
               break;
             case 0x41u:
-              glvmOperationSWZ(a5, v161, v156, v35, v152);
+              glvmOperationSWZ(a5, v159, v154, v34, v150);
               break;
             case 0x42u:
             case 0x43u:
             case 0x44u:
             case 0x45u:
-              v82 = 0x80000000;
-              if ((v31 & 0x3F80) == 0x1080)
+              v81 = 0x80000000;
+              if ((v30 & 0x3F80) == 0x1080)
               {
-                v82 = 3221225472;
+                v81 = 3221225472;
               }
 
-              v152 = v152 & 0xFFFFFFFF3FFFFFFFLL | v82;
+              v150 = v150 & 0xFFFFFFFF3FFFFFFFLL | v81;
               goto LABEL_78;
             case 0x46u:
             case 0x47u:
@@ -4959,286 +4976,285 @@ LABEL_73:
             case 0xA5u:
             case 0xA6u:
 LABEL_78:
-              v81 = 0;
+              v80 = 0;
               goto LABEL_79;
             case 0x48u:
-              v45 = glvmOperationARL(a5, v161, v156);
+              v44 = glvmOperationARL(a5, v159, v154);
               break;
             case 0x49u:
-              glvmOperationARR(a5, v161, v156, v152);
+              glvmOperationARR();
               break;
             case 0x4Au:
-              glvmOperationARA(a5, v161, v156, v152);
+              glvmOperationARA();
               break;
             case 0x4Cu:
-              if (v32 == 1)
+              if (v31 == 1)
               {
-                v152 = v123;
-                glvmOperationDispatchCP(v147, v145, v146, v129, a5, a6, v127, v135, v142, *&v148[4], v136, v149, v128, v161);
+                v150 = v121;
+                glvmOperationDispatchCP(v145, v143, v144, v127, a5, a6, v125, v133, v140, *&v146[4], v134, v147, v126, v159, v121);
               }
 
               else
               {
-                v152 = (2 * (v151 & 0x3FFFF)) | v124;
-                glvmInterpretCPTransformPatchInner(v147, v145, v146, v129, a5, a6);
+                v150 = (2 * (v149 & 0x3FFFF)) | v122;
+                glvmInterpretCPTransformPatchInner(v145, v143, v144, v127, a5, a6, v125, v133, v140, *&v146[4], v134, v147, v126, v150);
               }
 
               break;
             case 0x4Du:
-              v106 = &a6[2 * (v151 & 0x3FFFF)];
-              v107 = glvmPredicateBRA(a5, v161, v136, (v151 >> 17) & 0x7F00 | (v151 >> 18) & 0x7F | (v106[1] >> 2) & 0x7F0000);
+              v104 = &a6[2 * (v149 & 0x3FFFF)];
+              v105 = glvmPredicateBRA(a5, v159, v134, (v149 >> 17) & 0x7F00 | (v149 >> 18) & 0x7F | (*(v104 + 1) >> 2) & 0x7F0000);
               goto LABEL_204;
             case 0x54u:
-              v106 = &a6[2 * (v151 & 0x3FFFF)];
-              v107 = glvmPredicateBRK(a5, v161, v136, (v151 >> 7) & 0x2000000 | (v151 >> 18) & 0x7F | (v106[1] >> 2) & 0x7F0000);
+              v104 = &a6[2 * (v149 & 0x3FFFF)];
+              v105 = glvmPredicateBRK(a5, v159, v134, (v149 >> 7) & 0x2000000 | (v149 >> 18) & 0x7F | (*(v104 + 1) >> 2) & 0x7F0000);
               goto LABEL_204;
             case 0x55u:
-              if (glvmPredicateIF(a5, v161, v136, v152, (v151 >> 18) & 0x7F))
+              if (glvmPredicateIF(a5, v159, v134, v150, (v149 >> 18) & 0x7F))
               {
                 goto LABEL_221;
               }
 
               goto LABEL_260;
             case 0x58u:
-              if (!glvmPredicateELSE(a5, v161, v136, (v151 >> 18) & 0x7F))
+              if (!glvmPredicateELSE(a5, v159, v134, (v149 >> 18) & 0x7F))
               {
                 break;
               }
 
               goto LABEL_273;
             case 0x59u:
-              glvmPredicateENDIF(a5, v161, v136, (v151 >> 7) & 0x2000000 | (v151 >> 18) & 0x7F | (v151 >> 17) & 0x7F00);
+              glvmPredicateENDIF(a5, v159, v134, (v149 >> 7) & 0x2000000 | (v149 >> 18) & 0x7F | (v149 >> 17) & 0x7F00);
               break;
             case 0x5Cu:
-              glvmOperationPK2H(a5, v161, v156);
+              glvmOperationPK2H(a5, v159, v154);
               break;
             case 0x5Du:
-              glvmOperationPK2US(a5, v161, v156);
+              glvmOperationPK2US(a5, v159, v154);
               break;
             case 0x5Eu:
-              glvmOperationPK4B(a5, v161, v156);
+              glvmOperationPK4B(a5, v159, v154);
               break;
             case 0x5Fu:
-              glvmOperationPK4UB(a5, v161, v156);
+              glvmOperationPK4UB(a5, v159, v154);
               break;
             case 0x62u:
             case 0x63u:
 LABEL_79:
-              v83 = &a6[2 * a6[23]] + ((v35 >> 35) & 0x7F0);
-              v84 = *v83;
-              if ((v152 & 0x100) != 0 && (v31 & 0x3F00 | 0x80) == 0x1180 || v80 - 167 <= 0xFFFFFFFD && (v152 & 0x1F000000) == 0x11000000)
+              v82 = &a6[2 * a6[23]] + ((v34 >> 35) & 0x7F0);
+              v83 = *v82;
+              if ((v150 & 0x100) != 0 && (v30 & 0x3F00 | 0x80) == 0x1180 || v79 - 167 <= 0xFFFFFFFD && (v150 & 0x1F000000) == 0x11000000)
               {
-                glvmOperationMOV(a5, v160, v157, 0x400004800000000uLL);
+                glvmOperationMOV(a5, v158, v155, 0x400004800000000uLL);
               }
 
-              if ((v152 & 0x200) == 0)
+              if ((v150 & 0x200) == 0)
               {
                 goto LABEL_109;
               }
 
-              if (v80 == 165)
+              if (v79 == 165)
               {
-                v85 = 0x400004800000000;
+                v84 = 0x400004800000000;
               }
 
               else
               {
-                v85 = 0x100001800000000;
+                v84 = 0x100001800000000;
               }
 
-              switch(v32)
+              switch(v31)
               {
                 case 2:
-                  v86 = v160;
+                  v85 = v158;
                   break;
                 case 4:
-                  v86 = v158;
+                  v85 = v156;
                   break;
                 case 3:
-                  v86 = v159;
+                  v85 = v157;
                   break;
                 default:
                   goto LABEL_109;
               }
 
-              glvmOperationMOV(a5, v86, v158, v85);
+              glvmOperationMOV(a5, v85, v156, v84);
 LABEL_109:
-              if (v80 == 166)
+              if (v79 == 166)
               {
-                v103 = BYTE3(v152) & 0x1F;
-                if (v103 <= 0x11 && ((1 << v103) & 0x219E0) != 0)
+                v102 = BYTE3(v150) & 0x1F;
+                if (v102 <= 0x11 && ((1 << v102) & 0x219E0) != 0)
                 {
-                  glvmOperationMOV(a5, v158, v157, 0x400004800000000uLL);
-                  glvmOperationMOV(a5, v159, v158, 0x400004800000000uLL);
+                  glvmOperationMOV(a5, v156, v155, 0x400004800000000uLL);
+                  glvmOperationMOV(a5, v157, v156, 0x400004800000000uLL);
 LABEL_122:
-                  glvmOperationZERO(a5, v159, 0x400000800000000uLL);
+                  glvmOperationZERO(a5, v157, 0x400000800000000uLL);
                   goto LABEL_123;
                 }
 
-                glvmOperationMOV(a5, v159, v157, 0x400004800000000uLL);
-                if (v32 == 4)
+                glvmOperationMOV(a5, v157, v155, 0x400004800000000uLL);
+                if (v31 == 4)
                 {
-                  glvmOperationMOV(a5, v158, v159, 0x100001800000000uLL);
+                  glvmOperationMOV(a5, v156, v157, 0x100001800000000uLL);
                 }
 
                 else
                 {
-                  glvmOperationZERO(a5, v159, 0x400000800000000uLL);
+                  glvmOperationZERO(a5, v157, 0x400000800000000uLL);
                 }
 
-                v100 = v158;
-                v101 = a5;
-                v102 = 0x400004800000000;
+                v99 = v156;
+                v100 = a5;
+                v101 = 0x400004800000000;
               }
 
               else
               {
-                if (v80 != 165)
+                if (v79 != 165)
                 {
                   goto LABEL_123;
                 }
 
-                v97 = BYTE3(v152) & 0x1F;
-                if (v97 <= 0x11 && ((1 << v97) & 0x219E0) != 0)
+                v96 = BYTE3(v150) & 0x1F;
+                if (v96 <= 0x11 && ((1 << v96) & 0x219E0) != 0)
                 {
                   goto LABEL_122;
                 }
 
-                v98 = v32 == 2;
-                if ((v152 & 0x200) != 0)
+                v97 = v31 == 2;
+                if ((v150 & 0x200) != 0)
                 {
-                  v98 = 0;
-                  v99 = v32 != 3;
+                  v97 = 0;
+                  v98 = v31 != 3;
                 }
 
                 else
                 {
-                  v99 = 1;
+                  v98 = 1;
                 }
 
-                if (!v98 && v99)
+                if (!v97 && v98)
                 {
                   goto LABEL_122;
                 }
 
-                v100 = v159;
-                v101 = a5;
-                v102 = 0x100001800000000;
+                v99 = v157;
+                v100 = a5;
+                v101 = 0x100001800000000;
               }
 
-              glvmOperationMOV(v101, v160, v100, v102);
+              glvmOperationMOV(v100, v158, v99, v101);
 LABEL_123:
-              v104 = v84 & 0xDFFFFFFFFFFFFFFFLL;
-              if (v81)
+              v103 = v83 & 0xDFFFFFFFFFFFFFFFLL;
+              if (v80)
               {
-                v104 = v84;
+                v103 = v83;
               }
 
-              v105 = *(v83 + 8);
-              if ((*(v83 + 7) & 4) != 0)
+              if ((v82[7] & 4) != 0)
               {
-                if (v80 == 131)
+                if (v79 == 131)
                 {
-                  v45 = glvmSamplerSize(v147, a5, v135, v161, v160, v159, v158, v157, v156, v104, *(v83 + 8), v152);
+                  v44 = glvmSamplerSize(v145, a5, v133, v159, v158, v157, v156, v155, v154, v103, *(v82 + 1), v150);
                 }
 
-                else if (v80 == 130)
+                else if (v79 == 130)
                 {
-                  v45 = glvmSamplerFetch(v147, a5, v135, v161, v160, v159, v158, v157, v156, v104, *(v83 + 8), HIDWORD(*(v83 + 8)), v152);
+                  v44 = glvmSamplerFetch(v145, a5, v133, v159, v158, v157, v156, v155, v154, v103, *(v82 + 1), HIDWORD(*(v82 + 1)), v150);
                 }
 
                 else
                 {
-                  glvmSamplerSample(v147, a5, v135, v161, v160, v159, v158, v157, v156, v104, *(v83 + 8), v152);
+                  glvmSamplerSample(v145, a5, v133, v159, v158, v157, v156, v155, v154, v103, *(v82 + 1), v150);
                 }
               }
 
               else
               {
-                glvmSamplerInvalid(v147, a5, v135, v161, v160, v159, v158, v157, v156[0].i8, v104, *(v83 + 8), v152, SWORD2(v152), SBYTE6(v152), SHIBYTE(v152));
+                glvmSamplerInvalid(v145, a5, v133, v159, v158, v157, v156, v155, v154[0].i8, v103, *(v82 + 1), v150, SWORD2(v150), SBYTE6(v150), SHIBYTE(v150));
               }
 
               break;
             case 0x64u:
-              glvmOperationUP2H(a5, v161, v156[0].i32);
+              glvmOperationUP2H(a5, v159, v154[0].i32);
               break;
             case 0x65u:
-              v45 = glvmOperationUP2US(v45.n128_f32[0], a5, v161, v156);
+              v44 = glvmOperationUP2US(v44.n128_f32[0], a5, v159, v154);
               break;
             case 0x66u:
-              v45 = glvmOperationUP4B(v45.n128_u64[0], a5, v161[0].i8, v156);
+              v44 = glvmOperationUP4B(v44.n128_u64[0], a5, v159[0].i8, v154);
               break;
             case 0x67u:
-              v45 = glvmOperationUP4UB(v45.n128_f32[0], a5, v161, v156);
+              v44 = glvmOperationUP4UB(v44.n128_f32[0], a5, v159, v154);
               break;
             case 0x69u:
-              glvmOperationRFR(a5, v161, v160, v159[0].i32, v156, v152, v45);
+              glvmOperationRFR(a5, v159, v158, v157[0].i64, v154, v150, v44);
               break;
             case 0x6Au:
-              v106 = &a6[2 * (v151 & 0x3FFFF)];
-              v107 = glvmPredicateCONT(a5, v161, v136, (v106[1] >> 2) & 0x7F0000 | (v151 >> 18) & 0x7F);
+              v104 = &a6[2 * (v149 & 0x3FFFF)];
+              v105 = glvmPredicateCONT(a5, v159, v134, (*(v104 + 1) >> 2) & 0x7F0000 | (v149 >> 18) & 0x7F);
 LABEL_204:
-              if (v107)
+              if (v105)
               {
-                v17 = v106;
+                v17 = v104;
               }
 
               break;
             case 0x6Bu:
               glvmPredicateWHILE();
-              *v148 = 0;
+              *v146 = 0;
               break;
             case 0x6Cu:
-              if (glvmPredicateENDWHILE(a5, v161, v136, (v151 >> 7) & 0x2000000))
+              if (glvmPredicateENDWHILE(a5, v159, v134, (v149 >> 7) & 0x2000000))
               {
                 goto LABEL_273;
               }
 
               break;
             case 0x6Eu:
-              v113 = (v151 >> 12) & 7;
-              if (v113 != 3 && v113 != 5)
+              v111 = (v149 >> 12) & 7;
+              if (v111 != 3 && v111 != 5)
               {
-                glvmLoadDestTemp(*&v148[4], v149, v156, dword_23A29C0A0[2 * ((v151 >> 27) & 3)] & ((v151 >> 12) & 0xFF000000 | BYTE4(v151) & 0xF | (v151 >> 6) & 0x1C0 | (v151 >> 2) & 0x1E0000 | dword_23A29C060[2 * ((v151 >> 25) & 3)]) | dword_23A29C0C0[2 * ((v151 >> 27) & 3)] | dword_23A29C080[2 * ((v151 >> 29) & 3)], v153);
+                glvmLoadDestTemp(*&v146[4], v147, v154, dword_23A29C0A0[2 * ((v149 >> 27) & 3)] & ((v149 >> 12) & 0xFF000000 | BYTE4(v149) & 0xF | (v149 >> 6) & 0x1C0 | (v149 >> 2) & 0x1E0000 | dword_23A29C060[2 * ((v149 >> 25) & 3)]) | dword_23A29C0C0[2 * ((v149 >> 27) & 3)] | dword_23A29C080[2 * ((v149 >> 29) & 3)], v151);
               }
 
-              glvmOperationDSL(a5, v161, v160, v156, v152);
+              glvmOperationDSL(a5, v159, v158, v154, v150);
               break;
             case 0x70u:
-              glvmOperationEXPE(a5, v161, v156, v152);
+              glvmOperationEXPE(a5, v159, v154, v150);
               break;
             case 0x71u:
-              v45 = glvmOperationLOGE(a5, v161[0].i32, v156, v152);
+              v44 = glvmOperationLOGE(a5, v159, v154, v150);
               break;
             case 0x73u:
-              glvmOperationTARGCONT(v136, (v151 >> 18) & 0x7F);
+              glvmOperationTARGCONT(v134, (v149 >> 18) & 0x7F);
               break;
             case 0x74u:
-              glvmOperationTARGBRK(v136, (v151 >> 18) & 0x7F);
+              glvmOperationTARGBRK(v134, (v149 >> 18) & 0x7F);
               break;
             case 0x79u:
-              if (!v134 || (v108 = *v136, *v136 == 15))
+              if (!v132 || (v106 = *v134, *v134 == 15))
               {
-                v109 = v162;
-                v110 = v142;
-                *(v142 + 40) = v161[0].i32[0];
-                v110[11] = v109;
-                v111 = v166;
-                v110[12] = v164;
-                v110[13] = v111;
+                v107 = v160;
+                v108 = v140;
+                *(v140 + 40) = v159[0].i32[0];
+                v108[11] = v107;
+                v109 = v164;
+                v108[12] = v162;
+                v108[13] = v109;
                 break;
               }
 
-              v118 = v136;
-              v119 = v142;
-              if (v108)
+              v116 = v134;
+              v117 = v140;
+              if (v106)
               {
-                *(v142 + 40) = v161[0].i32[0];
-                v108 = *v118;
-                if ((*v118 & 2) == 0)
+                *(v140 + 40) = v159[0].i32[0];
+                v106 = *v116;
+                if ((*v116 & 2) == 0)
                 {
 LABEL_298:
-                  if ((v108 & 4) == 0)
+                  if ((v106 & 4) == 0)
                   {
                     goto LABEL_299;
                   }
@@ -5247,17 +5263,17 @@ LABEL_298:
                 }
               }
 
-              else if ((v108 & 2) == 0)
+              else if ((v106 & 2) == 0)
               {
                 goto LABEL_298;
               }
 
-              v119[11] = v162;
-              v108 = *v118;
-              if ((*v118 & 4) == 0)
+              v117[11] = v160;
+              v106 = *v116;
+              if ((*v116 & 4) == 0)
               {
 LABEL_299:
-                if ((v108 & 8) == 0)
+                if ((v106 & 8) == 0)
                 {
                   break;
                 }
@@ -5266,275 +5282,275 @@ LABEL_299:
               }
 
 LABEL_309:
-              v119[12] = v164;
-              if ((*v118 & 8) == 0)
+              v117[12] = v162;
+              if ((*v116 & 8) == 0)
               {
                 break;
               }
 
 LABEL_310:
-              v119[13] = v166;
+              v117[13] = v164;
               break;
             case 0x7Au:
-              v45 = glvmOperationBDL(v129, a5, v161, v160, v156, v152);
+              v44 = glvmOperationBDL(v127, a5, v159, v158, v154, v150);
               break;
             case 0x7Bu:
-              glvmOperationROUND(a5, v161[0].i32, v156, v152);
+              glvmOperationROUND(a5, v159[0].i64, v154, v150);
               break;
             case 0x7Cu:
-              glvmOperationTRUNCATE(a5, v161[0].i32, v156, v152);
+              glvmOperationTRUNCATE(a5, v159[0].i64, v154, v150);
               break;
             case 0x7Du:
-              v45 = glvmOperationAND(a5, v161, v160, v156);
+              v44 = glvmOperationAND(a5, v159, v158, v154);
               break;
             case 0x7Eu:
-              v45 = glvmOperationOR(a5, v161, v160, v156);
+              v44 = glvmOperationOR(a5, v159, v158, v154);
               break;
             case 0x7Fu:
-              v45 = glvmOperationXOR(a5, v161, v160, v156);
+              v44 = glvmOperationXOR(a5, v159, v158, v154);
               break;
             case 0x80u:
-              glvmOperationSHL(a5, v161, v160, v156);
+              glvmOperationSHL(a5, v159, v158, v154);
               break;
             case 0x81u:
-              glvmOperationSHR(a5, v161[0].i32, v160, v156, v152);
+              glvmOperationSHR(a5, v159, v158, v154, v150);
               break;
             case 0x84u:
-              v45 = glvmOperationCOMP(a5, v161, v156);
+              v44 = glvmOperationCOMP(a5, v159, v154);
               break;
             case 0x85u:
-              v45 = glvmOperationDISTANCE(a5, v161, v160, v156[0].i64, v152, v45);
+              v44 = glvmOperationDISTANCE(a5, v159, v158, v154, v150, v44);
               break;
             case 0x86u:
-              v45.n128_f64[0] = glvmOperationINVERSESQRT(a5, v161[0].i64, v156, v152);
+              v44.n128_f64[0] = glvmOperationINVERSESQRT(a5, v159[0].i64, v154, v150);
               break;
             case 0x87u:
-              if (v134)
+              if (v132)
               {
                 MEMORY[0x28223BE20](OperationSpec);
-                v115 = (&v122 - v114);
-                bzero(&v122 - v114, v116);
-                v152 = v125;
-                v136 = v115;
-                glvmOperationInitMasksForNested(a5, v130, v115, v125);
+                v113 = (&v120 - v112);
+                bzero(&v120 - v112, v114);
+                v150 = v123;
+                v134 = v113;
+                glvmOperationInitMasksForNested(a5, v128, v113, v123);
               }
 
-              glvmOperationFUNCSTART(v136, 0);
-              v128 = v133;
-              *&v148[4] = v131;
-              v149 = v132;
+              glvmOperationFUNCSTART();
+              v126 = v131;
+              *&v146[4] = v129;
+              v147 = v130;
               break;
             case 0x88u:
-              if ((v151 & 0xFE000000) != 0)
+              if ((v149 & 0xFE000000) != 0)
               {
-                glvmOperationTARGBRA(v136, (v151 >> 17) & 0x7F00 | (v151 >> 18) & 0x7F);
+                glvmOperationTARGBRA(v134, (v149 >> 17) & 0x7F00 | (v149 >> 18) & 0x7F);
               }
 
               else
               {
-                glvmOperationRET(v136, 0);
+                glvmOperationRET();
               }
 
-              v17 = v141;
+              v17 = v139;
               break;
             case 0x89u:
-              glvmOperationROUNDEVEN(a5, v161[0].i64, v156[0].i64, v152);
+              glvmOperationROUNDEVEN(a5, v159[0].i64, v154, v150);
               break;
             case 0x8Au:
-              glvmOperationISNAN(a5, v161, v156, v152);
+              glvmOperationISNAN(a5, v159, v154, v150);
               break;
             case 0x8Bu:
-              glvmOperationISINF(a5, v161, v156, v152);
+              glvmOperationISINF(a5, v159, v154, v150);
               break;
             case 0x8Cu:
-              if (glvmPredicateSWITCH(a5, v161, v136, v152, (v151 >> 18) & 0x7F))
+              if (glvmPredicateSWITCH(a5, v159, v134, v150, (v149 >> 18) & 0x7F))
               {
 LABEL_221:
-                *v148 = 0;
+                *v146 = 0;
 LABEL_273:
-                v17 = &a6[2 * (v151 & 0x3FFFF)];
+                v17 = &a6[2 * (v149 & 0x3FFFF)];
               }
 
               else
               {
 LABEL_260:
-                *v148 = 0;
+                *v146 = 0;
               }
 
               break;
             case 0x8Du:
-              if (!glvmPredicateCASE(a5, v161, v160, v136, v152, (v151 >> 18) & 0x7F))
+              if (!glvmPredicateCASE(a5, v159, v158, v134, v150, (v149 >> 18) & 0x7F))
               {
                 break;
               }
 
               goto LABEL_273;
             case 0x8Eu:
-              if (!glvmPredicateDEFAULT(a5, v161, v136, (v151 >> 18) & 0x7F))
+              if (!glvmPredicateDEFAULT(a5, v159, v134, (v149 >> 18) & 0x7F))
               {
                 break;
               }
 
               goto LABEL_273;
             case 0x8Fu:
-              if (!glvmPredicateENDSWITCH(a5, v161, v136, (v151 >> 7) & 0x2000000 | (v151 >> 18) & 0x7F | ((*v30 >> 46 != 0) << 26)))
+              if (!glvmPredicateENDSWITCH(a5, v159, v134, (v149 >> 7) & 0x2000000 | (v149 >> 18) & 0x7F | ((*v29 >> 46 != 0) << 26)))
               {
                 break;
               }
 
               goto LABEL_273;
             case 0x90u:
-              glvmOperationSINH(a5, v161[0].i32, v156[0].i32);
+              glvmOperationSINH(a5, v159[0].i32, v154[0].i32);
               break;
             case 0x91u:
-              glvmOperationCOSH(a5, v161[0].i32, v156[0].i32);
+              glvmOperationCOSH(a5, v159[0].i32, v154[0].i32);
               break;
             case 0x92u:
-              glvmOperationTANH(a5, v161[0].i32, v156[0].i32);
+              glvmOperationTANH(a5, v159[0].i32, v154[0].i32);
               break;
             case 0x93u:
-              glvmOperationASINH(a5, v161[0].i32, v156[0].i32);
+              glvmOperationASINH(a5, v159[0].i32, v154[0].i32);
               break;
             case 0x94u:
-              glvmOperationACOSH(a5, v161[0].i32, v156[0].i32);
+              glvmOperationACOSH(a5, v159[0].i32, v154[0].i32);
               break;
             case 0x95u:
-              glvmOperationATANH(a5, v161[0].i32, v156[0].i32);
+              glvmOperationATANH(a5, v159[0].i32, v154[0].i32);
               break;
             case 0x96u:
-              v45 = glvmOperationTO_BITS(a5, v161, v156);
+              v44 = glvmOperationTO_BITS(a5, v159, v154);
               break;
             case 0x97u:
-              v45 = glvmOperationFROM_BITS(a5, v161, v156);
+              v44 = glvmOperationFROM_BITS(a5, v159, v154);
               break;
             case 0x98u:
-              glvmOperationLOAD(v129, a5, v161, v160[0].i32, v159, v156, v152);
+              glvmOperationLOAD(v127, a5, v159, v158[0].i32, v157, v154, v150);
               break;
             case 0x9Au:
-              glvmOperationEXTRACT_EXPONENT(a5, v161, v156, v152);
+              glvmOperationEXTRACT_EXPONENT(a5, v159, v154, v150);
               break;
             case 0x9Bu:
-              glvmOperationEXTRACT_SIGNIFICAND(a5, v161[0].i32, v156, v152);
+              glvmOperationEXTRACT_SIGNIFICAND(a5, v159[0].i64, v154, v150);
               break;
             case 0x9Cu:
-              glvmOperationLDEXP(a5, v161[0].i32, v160, v156, v152);
+              glvmOperationLDEXP(a5, v159[0].i64, v158, v154, v150);
               break;
             case 0x9Du:
-              glvmOperationPK2W(a5, v161, v156);
+              glvmOperationPK2W(a5, v159, v154);
               break;
             case 0x9Eu:
-              glvmOperationUP2W(a5, v161, v156);
+              glvmOperationUP2W(a5, v159, v154);
               break;
             case 0x9Fu:
-              glvmOperationMUL_HB(a5, v161, v160, v156, v152);
+              glvmOperationMUL_HB(a5, v159, v158, v154, v150);
               break;
             case 0xA0u:
-              glvmOperationBITFIELD_REVERSE(a5, v161, v156);
+              glvmOperationBITFIELD_REVERSE(a5, v159, v154);
               break;
             case 0xA1u:
-              glvmOperationBITCOUNT(a5, v161, v156);
+              glvmOperationBITCOUNT(a5, v159, v154);
               break;
             case 0xA2u:
-              glvmOperationFIND_LSB(a5, v161, v156);
+              glvmOperationFIND_LSB(a5, v159, v154);
               break;
             case 0xA3u:
-              glvmOperationFIND_MSB(a5, v161, v156[0].i32, v152);
+              glvmOperationFIND_MSB(a5, v159, v154[0].i32, v150);
               break;
             case 0xAAu:
-              v112 = v142;
-              if ((*(a5 + 6896))(0xFFFFFFFFLL, *(v142 + 88)))
+              v110 = v140;
+              if ((*(a5 + 6896))(0xFFFFFFFFLL, *(v140 + 88)))
               {
-                (*(a5 + 6904))(*(v112 + 80), -1);
+                (*(a5 + 6904))(*(v110 + 80), -1);
               }
 
               else
               {
-                *(v112 + 72) = vextq_s8(*(v112 + 72), *(v112 + 72), 8uLL);
-                if (*(v112 + 64) == 1)
+                *(v110 + 72) = vextq_s8(*(v110 + 72), *(v110 + 72), 8uLL);
+                if (*(v110 + 64) == 1)
                 {
-                  v117 = 1;
+                  v115 = 1;
                 }
 
                 else
                 {
-                  v120 = 0;
+                  v118 = 0;
                   do
                   {
-                    (*(a5 + 6912))(*(v112 + 72));
-                    ++v120;
-                    v117 = *(v112 + 64);
+                    (*(a5 + 6912))(*(v110 + 72));
+                    ++v118;
+                    v115 = *(v110 + 64);
                   }
 
-                  while (v120 < v117 - 1);
+                  while (v118 < v115 - 1);
                 }
 
-                (*(a5 + 6896))(v117, *(v112 + 88));
+                (*(a5 + 6896))(v115, *(v110 + 88));
               }
 
               break;
             default:
-              glvmOperationMOV(a5, v161, v156, v152);
+              glvmOperationMOV(a5, v159, v154, v150);
               break;
           }
         }
 
-        if ((v31 & 0x100000000) != 0)
+        if ((v30 & 0x100000000) != 0)
         {
-          v121 = (v151 >> 12) & 7;
-          if (*v148)
+          v119 = (v149 >> 12) & 7;
+          if (*v146)
           {
-            if (v121 == 1)
+            if (v119 == 1)
             {
-              glvmStoreDestTemp(*&v148[4], v149, v156, v151, v153, v45, v46.f64[0], v47.f64[0], v48, v49);
+              glvmStoreDestTemp(*&v146[4], v147, v154, v149, v151, v44, v45.f64[0], v46.f64[0], v47, v48);
             }
 
-            else if (v121 == 5 || v121 == 3)
+            else if (v119 == 5 || v119 == 3)
             {
-              glvmStoreDestOutputCP(v142, *&v148[4], v149, v156, v151, v153);
+              glvmStoreDestOutputCP(v140, *&v146[4], v147, v154, v149, v151);
             }
 
             else
             {
-              glvmStoreDestAddress(*&v148[4], v149, v156[0].i8, v151, v153);
+              glvmStoreDestAddress(*&v146[4], v147, v154[0].i8, v149, v151);
             }
           }
 
-          else if (v121 == 1)
+          else if (v119 == 1)
           {
-            glvmStoreDestTempWithMask(*&v148[4], v149, v156, v136, v151, v153, v45, v46.f64[0], v47.f64[0], v48, v49);
+            glvmStoreDestTempWithMask(*&v146[4], v147, v154, v134, v149, v151, v44, v45.f64[0], v46.f64[0], v47, v48);
           }
 
-          else if (v121 == 5 || v121 == 3)
+          else if (v119 == 5 || v119 == 3)
           {
-            glvmStoreDestOutputWithMaskCP(v142, *&v148[4], v149, v156, v136, v151, v153);
+            glvmStoreDestOutputWithMaskCP(v140, *&v146[4], v147, v154, v134, v149, v151);
           }
 
           else
           {
-            glvmStoreDestAddressWithMask(*&v148[4], v149, v156[0].i8, v136, v151, v153);
+            glvmStoreDestAddressWithMask(*&v146[4], v147, v154[0].i8, v134, v149, v151);
           }
         }
 
-        if (v17 == v141)
+        if (v17 == v139)
         {
-          goto LABEL_14;
+          return;
         }
       }
 
-      if ((v31 & 0x100000000) == 0)
+      if ((v30 & 0x100000000) == 0)
       {
         goto LABEL_73;
       }
 
 LABEL_72:
-      OperationSpec = glvmGetDestOffsetCount(a6, (v31 >> 38) & 7, &v151, &v152, 1, v143, &v153);
+      OperationSpec = glvmGetDestOffsetCount(a6, (v30 >> 38) & 7, &v149, &v150, 1, v141, &v151);
       goto LABEL_73;
     }
   }
 
   else
   {
-    if (v134)
+    if (v132)
     {
       v23 = (v18 >> 14) & 1;
     }
@@ -5544,14 +5560,14 @@ LABEL_72:
       v23 = 1;
     }
 
-    *v148 = v23;
-    if (v134)
+    *v146 = v23;
+    if (v132)
     {
       MEMORY[0x28223BE20](a1);
-      v25 = (&v122 - v24);
-      bzero(&v122 - v24, v26);
-      v152 = v19 << 8;
-      glvmOperationInitMasksForNested(a5, v130, v25, v152);
+      v25 = (&v120 - v24);
+      bzero(&v120 - v24, v26);
+      v150 = v19 << 8;
+      glvmOperationInitMasksForNested(a5, v128, v25, v150);
       v27 = v25;
     }
 
@@ -5560,19 +5576,16 @@ LABEL_72:
       v27 = 0;
     }
 
-    v136 = v27;
-    glvmOperationFUNCSTART(v27, 0);
-    v128 = v133;
-    *&v148[4] = v131;
-    v149 = v132;
+    v134 = v27;
+    glvmOperationFUNCSTART();
+    v126 = v131;
+    *&v146[4] = v129;
+    v147 = v130;
     if (v16 != v22)
     {
       goto LABEL_15;
     }
   }
-
-LABEL_14:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 _DWORD *glvmSetSourceIndirectLimits_0(_DWORD *result, unint64_t a2, unint64_t *a3, __int16 a4, __int16 a5, __int16 a6, unsigned __int16 a7)
@@ -5641,127 +5654,136 @@ LABEL_16:
 
 void glvmInterpretCPTransformPatch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, unsigned int *a7, uint64_t a8)
 {
-  v55 = a1;
-  v56 = a2;
-  v60 = *MEMORY[0x277D85DE8];
-  v14 = a6[8] << 6;
-  v15 = MEMORY[0x28223BE20](a1);
-  v19 = &v51 - v18;
-  if (*(v20 + 120))
+  v53 = a1;
+  v54 = a2;
+  v58 = *MEMORY[0x277D85DE8];
+  v14 = MEMORY[0x28223BE20](a1);
+  v18 = &v49 - v17;
+  if (*(v19 + 120))
   {
-    MEMORY[0x28223BE20](v15);
-    v53 = &v50;
-    LODWORD(v50) = *v17;
+    MEMORY[0x28223BE20](v14);
+    v51 = &v48;
+    LODWORD(v48) = *v16;
   }
 
   else
   {
-    v53 = 0;
+    v51 = 0;
   }
 
-  v21 = a6[18];
-  v54 = v17;
-  if (v21)
+  v20 = a6[18];
+  v52 = v16;
+  if (v20)
   {
-    v22 = a6[14];
+    v21 = a6[14];
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  bzero(v19, v16);
-  v24 = a6[27];
-  v25 = a6[31];
-  v57 = a3;
-  v58 = a4;
-  if (v24 != v25)
+  bzero(v18, v15);
+  v23 = a6[27];
+  v24 = a6[31];
+  v55 = a3;
+  v56 = a4;
+  if (v23 != v24)
   {
-    v51 = a7;
-    v52 = a8;
-    v39 = 0;
+    v49 = a7;
+    v50 = a8;
+    v38 = 0;
+    v39 = &a6[2 * v23];
     v40 = &a6[2 * v24];
-    v41 = &a6[2 * v25];
-    v42 = v40;
+    v41 = v39;
     do
     {
-      if ((*v42 & 0x3FC0) != 0x12C0)
+      if ((*v41 & 0x3FC0) != 0x12C0)
       {
         break;
       }
 
-      ++v39;
-      v42 += (*v42 & 7) + 2;
+      ++v38;
+      v41 += (*v41 & 7) + 2;
     }
 
-    while (v42 != v41);
-    v43 = MEMORY[0x28223BE20](v23);
-    v26 = (&v51 - 8);
-    v49 = 0u;
-    v50 = 0u;
-    *(&v51 - 4) = 0u;
+    while (v41 != v40);
+    v42 = MEMORY[0x28223BE20](v22);
+    v25 = (&v49 - 8);
+    v47 = 0u;
     v48 = 0u;
-    MEMORY[0x28223BE20](v43);
-    v27 = &v51 - v44;
-    bzero(&v51 - v44, v45);
-    if (v24 != v25)
+    *(&v49 - 4) = 0u;
+    v46 = 0u;
+    MEMORY[0x28223BE20](v42);
+    v26 = &v49 - v43;
+    bzero(&v49 - v43, v44);
+    if (v23 != v24)
     {
-      v46 = 0;
+      v45 = 0;
       do
       {
-        if ((*v40 & 0x3FC0) != 0x12C0)
+        if ((*v39 & 0x3FC0) != 0x12C0)
         {
           break;
         }
 
-        glvmOperationInitSub(v27, v46 | ((v40[1] & 0x3FFFFLL) << 32));
-        v40 += (*v40 & 7) + 2;
-        ++v46;
+        glvmOperationInitSub(v26, v45 | ((v39[1] & 0x3FFFFLL) << 32));
+        v39 += (*v39 & 7) + 2;
+        ++v45;
       }
 
-      while (v40 != v41);
+      while (v39 != v40);
     }
 
-    a7 = v51;
-    a8 = v52;
-    v28 = v54;
-    if (v22)
+    a7 = v49;
+    a8 = v50;
+    v27 = v52;
+    if (v21)
     {
       goto LABEL_9;
     }
 
 LABEL_31:
-    v38 = 0;
+    v37 = 0;
     goto LABEL_32;
   }
 
-  MEMORY[0x28223BE20](v23);
-  v26 = (&v51 - 8);
-  v49 = 0u;
-  v50 = 0u;
-  *(&v51 - 4) = 0u;
+  MEMORY[0x28223BE20](v22);
+  v25 = (&v49 - 8);
+  v47 = 0u;
   v48 = 0u;
-  v27 = &v59;
-  v28 = v54;
-  if (!v22)
+  *(&v49 - 4) = 0u;
+  v46 = 0u;
+  v26 = &v57;
+  v27 = v52;
+  if (!v21)
   {
     goto LABEL_31;
   }
 
 LABEL_9:
+  v28 = 0;
   v29 = 0;
-  v30 = 0;
-  v31 = a6[15];
-  v32 = v22;
+  v30 = a6[15];
+  v31 = v21;
   do
   {
-    v33 = *&a6[2 * v31];
-    v34 = (v33 >> 8) & 0x1F;
-    v35 = HIDWORD(v33) & 0x3FFF;
-    if (v35 >= v29)
+    v32 = *&a6[2 * v30];
+    v33 = (v32 >> 8) & 0x1F;
+    v34 = HIDWORD(v32) & 0x3FFF;
+    if (v34 >= v28)
     {
-      v36 = v35 + 1;
+      v35 = v34 + 1;
+    }
+
+    else
+    {
+      v35 = v28;
+    }
+
+    if (v34 >= v29)
+    {
+      v36 = v34 + 1;
     }
 
     else
@@ -5769,45 +5791,34 @@ LABEL_9:
       v36 = v29;
     }
 
-    if (v35 >= v30)
+    if (v33 != 1)
     {
-      v37 = v35 + 1;
+      v36 = v29;
+    }
+
+    if (v33 == 2)
+    {
+      v28 = v35;
     }
 
     else
-    {
-      v37 = v30;
-    }
-
-    if (v34 != 1)
-    {
-      v37 = v30;
-    }
-
-    if (v34 == 2)
     {
       v29 = v36;
     }
 
-    else
-    {
-      v30 = v37;
-    }
-
-    ++v31;
-    --v32;
+    ++v30;
+    --v31;
   }
 
-  while (v32);
-  v38 = (v30 | (v29 << 16)) << 32;
+  while (v31);
+  v37 = (v29 | (v28 << 16)) << 32;
 LABEL_32:
-  glvmInterpretCPTransformPatchInner(v55, v56, v57, v58, a5, a6, a7, a8, v28, v19, v53, v26, v27, v38 | (2 * a6[29]));
-  v47 = *MEMORY[0x277D85DE8];
+  glvmInterpretCPTransformPatchInner(v53, v54, v55, v56, a5, a6, a7, a8, v27, v18, v51, v25, v26, v37 | (2 * a6[29]));
 }
 
 void glvmOperationSTOREWithMaskEP(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a2 + 80))
   {
     v7 = 0;
@@ -5815,10 +5826,10 @@ void glvmOperationSTOREWithMaskEP(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     v9 = (a7 >> 19) & 3;
     v10 = (a7 >> 46) & 0x1F;
     v11 = vld1q_dup_f32(a2);
-    v26 = vandq_s8(v11, xmmword_23A29BFD0);
+    v25 = vandq_s8(v11, xmmword_23A29BFD0);
     do
     {
-      if (v26.i32[v8])
+      if (v25.i32[v8])
       {
         v12 = *(a2 + 84);
         v13 = v12 > 7 || ((1 << v12) & 0x91) == 0;
@@ -5901,235 +5912,245 @@ void glvmOperationSTOREWithMaskEP(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 
     while (v7 != 128);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t glvmOperationDispatchEP(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned int *a11, uint64_t a12, uint64_t a13, uint64_t a14)
+uint64_t glvmOperationDispatchEP(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, __int8 *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned int *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
-  v14 = 0;
   v15 = 0;
-  v16 = a11;
-  v39 = *MEMORY[0x277D85DE8];
-  v17 = *a11;
-  memset(v38, 0, sizeof(v38));
-  v37[0] = 0;
-  v37[1] = 0;
-  v34 = v17;
-  v36 = vandq_s8(vdupq_n_s32(v17), xmmword_23A29BFD0);
+  v16 = 0;
+  v18 = a12;
+  v17 = a13;
+  v20 = a10;
+  v19 = a11;
+  v21 = a9;
+  v48 = *MEMORY[0x277D85DE8];
+  v22 = *a11;
+  memset(v47, 0, sizeof(v47));
+  v46[0] = 0;
+  v46[1] = 0;
+  v43 = v22;
+  v45 = vandq_s8(vdupq_n_s32(v22), xmmword_23A29BFD0);
   do
   {
-    if (v36.i32[v14])
+    if (v45.i32[v15])
     {
-      v18 = (v14 == 0) | (2 * (v14 == 1)) | (4 * (v14 == 2)) | (8 * (v14 == 3));
-      v19 = *(a13 + 8 * *(a14 + 32 * v14));
-      if (v15)
+      v23 = (v15 == 0) | (2 * (v15 == 1)) | (4 * (v15 == 2)) | (8 * (v15 == 3));
+      v24 = *(a13 + 8 * *(a14 + 32 * v15));
+      if (v16)
       {
-        v20 = 0;
-        while (v19 != *(v38 + v20))
+        v25 = 0;
+        while (v24 != *(v47 + v25))
         {
-          if (v15 == ++v20)
+          if (v16 == ++v25)
           {
             goto LABEL_2;
           }
         }
 
-        *(v37 + v20) |= v18;
+        *(v46 + v25) |= v23;
       }
 
       else
       {
-        LODWORD(v20) = 0;
+        LODWORD(v25) = 0;
       }
 
-      if (v20 == v15)
+      if (v25 == v16)
       {
 LABEL_2:
-        *(v38 + v15) = v19;
-        *(v37 + v15++) = v18;
+        *(v47 + v16) = v24;
+        *(v46 + v16++) = v23;
       }
     }
 
-    ++v14;
+    ++v15;
   }
 
-  while (v14 != 4);
-  if (v15)
+  while (v15 != 4);
+  if (v16)
   {
-    v21 = v37;
-    v22 = v38;
-    v23 = v15;
-    v35 = a2;
+    v26 = v46;
+    v27 = v47;
+    v28 = v16;
+    v44 = a2;
     do
     {
-      v24 = *v21++;
-      *v16 = v24;
-      v25 = *v22++;
-      v26 = a3;
-      v27 = a4;
-      v28 = a5;
-      v29 = result;
-      v30 = a6;
-      v31 = a7;
-      v32 = a8;
-      glvmInterpretEPTransformPatchInner(result, a2, a3, a4, a5, a6);
-      a3 = v26;
-      a4 = v27;
-      a5 = v28;
-      a2 = v35;
-      a6 = v30;
-      result = v29;
-      a7 = v31;
-      a8 = v32;
-      v16 = a11;
-      --v23;
+      v29 = *v26++;
+      *v19 = v29;
+      v30 = *v27++;
+      v42 = v17;
+      v40 = v19;
+      v41 = v18;
+      v38 = v21;
+      v39 = v20;
+      v31 = a3;
+      v32 = a4;
+      v33 = a5;
+      v34 = result;
+      v35 = a6;
+      v36 = a7;
+      v37 = a8;
+      glvmInterpretEPTransformPatchInner(result, a2, a3, a4, a5, a6, a7, a8, v38, v39, v40, v41, v42, (2 * (v30 & 0x7FFFFFFF)) | a15 & 0xFFFFFFFF00000000);
+      a3 = v31;
+      a4 = v32;
+      a5 = v33;
+      v17 = a13;
+      a2 = v44;
+      a6 = v35;
+      result = v34;
+      a7 = v36;
+      v21 = a9;
+      v20 = a10;
+      a8 = v37;
+      v19 = a11;
+      v18 = a12;
+      --v28;
     }
 
-    while (v23);
+    while (v28);
   }
 
-  *v16 = v34;
-  v33 = *MEMORY[0x277D85DE8];
+  *v19 = v43;
   return result;
 }
 
-void glvmInterpretEPTransformPatchInner(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int8 *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, int *a9, uint64_t a10, int *a11, float32x4_t *a12, uint64_t a13, unint64_t a14)
+void glvmInterpretEPTransformPatchInner(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, int *a9, uint64_t a10, int *a11, float32x4_t *a12, uint64_t a13, unint64_t a14)
 {
-  v132 = a8;
-  v126 = a4;
-  v142 = a2;
-  v143 = a3;
-  v144 = a1;
-  v130 = a13;
-  v129 = a12;
-  v127 = a11;
-  v128 = a10;
-  v165 = *MEMORY[0x277D85DE8];
+  v130 = a8;
+  v124 = a4;
+  v140 = a2;
+  v141 = a3;
+  v142 = a1;
+  v128 = a13;
+  v127 = a12;
+  v125 = a11;
+  v126 = a10;
+  v163 = *MEMORY[0x277D85DE8];
   v16 = a14 >> 1;
   v17 = &a6[2 * v16];
   v18 = *v17;
   v19 = a6[30];
-  v131 = v19;
+  v129 = v19;
   if (a6[18])
   {
-    v137 = a6[14];
+    v135 = a6[14];
   }
 
   else
   {
-    v137 = 0;
+    v135 = 0;
   }
 
-  v124 = a7;
+  v122 = a7;
   v20 = *a7;
   v21 = (v18 >> 14) & 1;
-  v140 = a6[8];
-  v141 = v20;
-  v151 = 0;
-  v152 = 0;
+  v138 = a6[8];
+  v139 = v20;
   v149 = 0;
   v150 = 0;
-  memset(v158, 0, sizeof(v158));
+  v147 = 0;
+  v148 = 0;
+  memset(v156, 0, sizeof(v156));
+  v157 = 0u;
+  v158 = 0u;
   v159 = 0u;
   v160 = 0u;
   v161 = 0u;
   v162 = 0u;
-  v163 = 0u;
-  v164 = 0u;
-  memset(v157, 0, sizeof(v157));
-  memset(v156, 0, sizeof(v156));
   memset(v155, 0, sizeof(v155));
   memset(v154, 0, sizeof(v154));
   memset(v153, 0, sizeof(v153));
+  memset(v152, 0, sizeof(v152));
+  memset(v151, 0, sizeof(v151));
   v22 = a6[31];
   if ((*&a6[2 * a6[29]] & 0x3FC0) == 0x21C0)
   {
-    v133 = 0;
-    v125 = 0;
-    *&v145[8] = 0;
-    v146 = 0;
-    *v145 = (v18 >> 14) & 1;
+    v131 = 0;
+    v123 = 0;
+    *&v143[8] = 0;
+    v144 = 0;
+    *v143 = (v18 >> 14) & 1;
     if (v16 != v22)
     {
 LABEL_15:
-      v135 = HIWORD(a14);
-      v136 = WORD2(a14);
-      if (v131)
+      v133 = HIWORD(a14);
+      v134 = WORD2(a14);
+      if (v129)
       {
-        v29 = v21;
+        v28 = v21;
       }
 
       else
       {
-        v29 = 1;
+        v28 = 1;
       }
 
-      v134 = v29;
-      v123 = (4 * v131);
-      v122 = v19 << 8;
-      v121 = a14 & 0xFFFFFFFF00000000;
-      v120 = a14 & 0xFFFFFFFF00000000 | 1;
-      v138 = &a6[2 * v22];
-      v139 = a9;
+      v132 = v28;
+      v121 = (4 * v129);
+      v120 = v19 << 8;
+      v119 = a14 & 0xFFFFFFFF00000000;
+      v118 = a14 & 0xFFFFFFFF00000000 | 1;
+      v136 = &a6[2 * v22];
+      v137 = a9;
       while (1)
       {
-        v30 = v17;
-        v148 = 0;
-        v31 = *v17;
-        v32 = *v17 & 7;
-        v33 = WORD1(*v17) & 1;
-        v34 = (*v17 >> 15) & 1;
-        if (v33 | v34)
+        v29 = v17;
+        v146 = 0;
+        v30 = *v17;
+        v31 = *v17 & 7;
+        v32 = WORD1(*v17) & 1;
+        v33 = (*v17 >> 15) & 1;
+        if (v32 | v33)
         {
-          v35 = v17[(v32 + 1)];
-          LODWORD(v32) = v32 - (v34 + v33) + ((v31 << 14) >> 31);
+          v34 = *&v17[2 * (v31 + 1)];
+          LODWORD(v31) = v31 - (v33 + v32) + ((v30 << 14) >> 31);
         }
 
         else
         {
-          v35 = 0;
+          v34 = 0;
         }
 
-        v148 = v17[1];
+        v146 = *(v17 + 1);
         if (&a6[2 * a6[27]] != v17)
         {
-          v36 = &v17[-2 - ((*v17 >> 3) & 7)];
-          v37 = (*v36 >> 6) - 89;
-          v38 = v37 > 0x2E;
-          v39 = (1 << v37) & 0x400008000001;
-          if (!v38 && v39 != 0)
+          v35 = &v17[2 * (-2 - ((*v17 >> 3) & 7))];
+          v36 = (*v35 >> 6) - 89;
+          v37 = v36 > 0x2E;
+          v38 = (1 << v36) & 0x400008000001;
+          if (!v37 && v38 != 0)
           {
-            v41 = v36[1];
-            v42 = (v41 & 0x1FC0000) < 0xC0000 && (v41 & 0x100000000) == 0;
-            v43 = *v145;
-            if (v42)
+            v40 = v35[1];
+            v41 = (v40 & 0x1FC0000) < 0xC0000uLL && (v40 & 0x100000000) == 0;
+            v42 = *v143;
+            if (v41)
             {
-              v43 = v134;
+              v42 = v132;
             }
 
-            *v145 = v43;
+            *v143 = v42;
           }
         }
 
-        OperationSpec = glvmGetOperationSpec(v17, &v149);
-        v147 = 0;
-        if (!v32)
+        OperationSpec = glvmGetOperationSpec(v17, &v147);
+        v145 = 0;
+        if (!v31)
         {
           break;
         }
 
-        v51 = v17[2];
-        glvmGetSourceOffsetStride(a6, (v31 >> 38) & 7, 0, v51, 2, v141, &v147, &v149, &v152);
-        if (v51)
+        v50 = *(v17 + 2);
+        glvmGetSourceOffsetStride(a6, (v30 >> 38) & 7, 0, v50, 2, v139, &v145, &v147, &v150);
+        if (v50)
         {
-          glvmSetSourceIndirectLimits_1(a6, v51, &v152, v140, v136, v135, v137);
+          glvmSetSourceIndirectLimits_1(a6, v50, &v150, v138, v134, v133, v135);
         }
 
-        v60 = (v51 >> 6) & 7;
-        if (!v60 || v60 == 5 || v147)
+        v59 = (v50 >> 6) & 7;
+        if (!v59 || v59 == 5 || v145)
         {
-          glvmLoadSourceAttribEP(*v52.i32, *v53.i64, *&v54, v144, v142, v143, a5, a6, v139, *&v145[4], v146, v158[0].i8, v51, v152);
-          if (v32 == 1)
+          v45.n128_f64[0] = glvmLoadSourceAttribEP(v51, *v52.i64, *&v53, v142, v140, v141, a5, a6, v137, *&v143[4], v144, v156[0].i8, v50, v150);
+          if (v31 == 1)
           {
             break;
           }
@@ -6137,39 +6158,39 @@ LABEL_15:
 
         else
         {
-          if (v60 == 4)
+          if (v59 == 4)
           {
-            v46.n128_f64[0] = glvmLoadSourceAddress(v144, v142, v143, a5, a6, *&v145[4], v146, v158, v51, v152);
+            v45.n128_f64[0] = glvmLoadSourceAddress(v142, v140, v141, a5, a6, *&v143[4], v144, v156, v50, v150);
           }
 
-          else if (v60 == 1)
+          else if (v59 == 1)
           {
-            v46.n128_f64[0] = glvmLoadSourceTemp(v144, v142, v143, a5, a6, *&v145[4], v146, v158, v51, v152);
+            v45.n128_f64[0] = glvmLoadSourceTemp(v142, v140, v141, a5, a6, *&v143[4], v144, v156, v50, v150);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v144, v142, v143, v52, v53, v54, v55, v56, v57, v58, v59, a5, a6, *&v145[4], v146, v158[0].i32, v51, v152);
+            OperationSpec = glvmLoadSourceParam(v142, v140, v141, v51, v52, v53, v54, v55, v56, v57, v58, a5, a6, *&v143[4], v144, v156, v50, v150);
           }
 
-          if (v32 == 1)
+          if (v31 == 1)
           {
             break;
           }
         }
 
-        v61 = v17[3];
-        glvmGetSourceOffsetStride(a6, (v31 >> 38) & 7, 1, v61, 2, v141, &v147, &v149, &v151);
-        if (v61)
+        v60 = *(v17 + 3);
+        glvmGetSourceOffsetStride(a6, (v30 >> 38) & 7, 1, v60, 2, v139, &v145, &v147, &v149);
+        if (v60)
         {
-          glvmSetSourceIndirectLimits_1(a6, v61, &v151, v140, v136, v135, v137);
+          glvmSetSourceIndirectLimits_1(a6, v60, &v149, v138, v134, v133, v135);
         }
 
-        v70 = (v61 >> 6) & 7;
-        if (!v70 || v70 == 5 || v147)
+        v69 = (v60 >> 6) & 7;
+        if (!v69 || v69 == 5 || v145)
         {
-          glvmLoadSourceAttribEP(*v62.i32, *v63.i64, *&v64, v144, v142, v143, a5, a6, v139, *&v145[4], v146, v157[0].i8, v61, v151);
-          if (v32 < 3)
+          v45.n128_f64[0] = glvmLoadSourceAttribEP(v61, *v62.i64, *&v63, v142, v140, v141, a5, a6, v137, *&v143[4], v144, v155[0].i8, v60, v149);
+          if (v31 < 3)
           {
             break;
           }
@@ -6177,39 +6198,39 @@ LABEL_15:
 
         else
         {
-          if (v70 == 4)
+          if (v69 == 4)
           {
-            v46.n128_f64[0] = glvmLoadSourceAddress(v144, v142, v143, a5, a6, *&v145[4], v146, v157, v61, v151);
+            v45.n128_f64[0] = glvmLoadSourceAddress(v142, v140, v141, a5, a6, *&v143[4], v144, v155, v60, v149);
           }
 
-          else if (v70 == 1)
+          else if (v69 == 1)
           {
-            v46.n128_f64[0] = glvmLoadSourceTemp(v144, v142, v143, a5, a6, *&v145[4], v146, v157, v61, v151);
+            v45.n128_f64[0] = glvmLoadSourceTemp(v142, v140, v141, a5, a6, *&v143[4], v144, v155, v60, v149);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v144, v142, v143, v62, v63, v64, v65, v66, v67, v68, v69, a5, a6, *&v145[4], v146, v157[0].i32, v61, v151);
+            OperationSpec = glvmLoadSourceParam(v142, v140, v141, v61, v62, v63, v64, v65, v66, v67, v68, a5, a6, *&v143[4], v144, v155, v60, v149);
           }
 
-          if (v32 < 3)
+          if (v31 < 3)
           {
             break;
           }
         }
 
-        v71 = v17[4];
-        glvmGetSourceOffsetStride(a6, (v31 >> 38) & 7, 2, v71, 2, v141, &v147, &v149, &v151);
-        if (v71)
+        v70 = *(v17 + 4);
+        glvmGetSourceOffsetStride(a6, (v30 >> 38) & 7, 2, v70, 2, v139, &v145, &v147, &v149);
+        if (v70)
         {
-          glvmSetSourceIndirectLimits_1(a6, v71, &v151, v140, v136, v135, v137);
+          glvmSetSourceIndirectLimits_1(a6, v70, &v149, v138, v134, v133, v135);
         }
 
-        v80 = (v71 >> 6) & 7;
-        if (!v80 || v80 == 5 || v147)
+        v79 = (v70 >> 6) & 7;
+        if (!v79 || v79 == 5 || v145)
         {
-          glvmLoadSourceAttribEP(*v72.i32, *v73.i64, *&v74, v144, v142, v143, a5, a6, v139, *&v145[4], v146, v156[0].i8, v71, v151);
-          if (v32 == 3)
+          v45.n128_f64[0] = glvmLoadSourceAttribEP(v71, *v72.i64, *&v73, v142, v140, v141, a5, a6, v137, *&v143[4], v144, v154[0].i8, v70, v149);
+          if (v31 == 3)
           {
             break;
           }
@@ -6217,39 +6238,39 @@ LABEL_15:
 
         else
         {
-          if (v80 == 4)
+          if (v79 == 4)
           {
-            v46.n128_f64[0] = glvmLoadSourceAddress(v144, v142, v143, a5, a6, *&v145[4], v146, v156, v71, v151);
+            v45.n128_f64[0] = glvmLoadSourceAddress(v142, v140, v141, a5, a6, *&v143[4], v144, v154, v70, v149);
           }
 
-          else if (v80 == 1)
+          else if (v79 == 1)
           {
-            v46.n128_f64[0] = glvmLoadSourceTemp(v144, v142, v143, a5, a6, *&v145[4], v146, v156, v71, v151);
+            v45.n128_f64[0] = glvmLoadSourceTemp(v142, v140, v141, a5, a6, *&v143[4], v144, v154, v70, v149);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v144, v142, v143, v72, v73, v74, v75, v76, v77, v78, v79, a5, a6, *&v145[4], v146, v156[0].i32, v71, v151);
+            OperationSpec = glvmLoadSourceParam(v142, v140, v141, v71, v72, v73, v74, v75, v76, v77, v78, a5, a6, *&v143[4], v144, v154, v70, v149);
           }
 
-          if (v32 == 3)
+          if (v31 == 3)
           {
             break;
           }
         }
 
-        v88 = v17[5];
-        glvmGetSourceOffsetStride(a6, (v31 >> 38) & 7, 3, v88, 2, v141, &v147, &v149, &v151);
-        if (v88)
+        v87 = *(v17 + 5);
+        glvmGetSourceOffsetStride(a6, (v30 >> 38) & 7, 3, v87, 2, v139, &v145, &v147, &v149);
+        if (v87)
         {
-          glvmSetSourceIndirectLimits_1(a6, v88, &v151, v140, v136, v135, v137);
+          glvmSetSourceIndirectLimits_1(a6, v87, &v149, v138, v134, v133, v135);
         }
 
-        v97 = (v88 >> 6) & 7;
-        if (!v97 || v97 == 5 || v147)
+        v96 = (v87 >> 6) & 7;
+        if (!v96 || v96 == 5 || v145)
         {
-          glvmLoadSourceAttribEP(*v89.i32, *v90.i64, *&v91, v144, v142, v143, a5, a6, v139, *&v145[4], v146, v155[0].i8, v88, v151);
-          if ((v31 & 0x100000000) != 0)
+          v45.n128_f64[0] = glvmLoadSourceAttribEP(v88, *v89.i64, *&v90, v142, v140, v141, a5, a6, v137, *&v143[4], v144, v153[0].i8, v87, v149);
+          if ((v30 & 0x100000000) != 0)
           {
             goto LABEL_72;
           }
@@ -6257,49 +6278,49 @@ LABEL_15:
 
         else
         {
-          if (v97 == 4)
+          if (v96 == 4)
           {
-            v46.n128_f64[0] = glvmLoadSourceAddress(v144, v142, v143, a5, a6, *&v145[4], v146, v155, v88, v151);
+            v45.n128_f64[0] = glvmLoadSourceAddress(v142, v140, v141, a5, a6, *&v143[4], v144, v153, v87, v149);
           }
 
-          else if (v97 == 1)
+          else if (v96 == 1)
           {
-            v46.n128_f64[0] = glvmLoadSourceTemp(v144, v142, v143, a5, a6, *&v145[4], v146, v155, v88, v151);
+            v45.n128_f64[0] = glvmLoadSourceTemp(v142, v140, v141, a5, a6, *&v143[4], v144, v153, v87, v149);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v144, v142, v143, v89, v90, v91, v92, v93, v94, v95, v96, a5, a6, *&v145[4], v146, v155[0].i32, v88, v151);
+            OperationSpec = glvmLoadSourceParam(v142, v140, v141, v88, v89, v90, v91, v92, v93, v94, v95, a5, a6, *&v143[4], v144, v153, v87, v149);
           }
 
-          if ((v31 & 0x100000000) != 0)
+          if ((v30 & 0x100000000) != 0)
           {
             goto LABEL_72;
           }
         }
 
 LABEL_73:
-        v81 = (v31 >> 6);
-        v17 += (v31 & 7) + 2;
-        if (v81 <= 0xA6)
+        v80 = (v30 >> 6);
+        v17 += 2 * (v30 & 7) + 4;
+        if (v80 <= 0xA6)
         {
-          v82 = 1;
-          switch((v31 >> 6))
+          v81 = 1;
+          switch((v30 >> 6))
           {
             case 1u:
-              v46 = glvmOperationLIT(a5, v158, v153);
+              v45 = glvmOperationLIT(a5, v156, v151);
               break;
             case 2u:
-              v46 = glvmOperationABS(a5, v158, v153, v149);
+              v45 = glvmOperationABS(a5, v156, v151, v147);
               break;
             case 3u:
-              glvmOperationCEI(a5, v158[0].i64, v153, v149, v46);
+              glvmOperationCEI(a5, v156[0].i64, v151, v147, v45);
               break;
             case 4u:
-              glvmOperationFRC(a5, v158, v153[0].i64, v149);
+              glvmOperationFRC(a5, v156, v151, v147);
               break;
             case 5u:
-              glvmOperationFLR(a5, v158[0].i64, v153, v149, v46);
+              glvmOperationFLR(a5, v156[0].i64, v151, v147, v45);
               break;
             case 6u:
             case 0x4Bu:
@@ -6325,202 +6346,202 @@ LABEL_73:
             case 0xA4u:
               break;
             case 7u:
-              v46 = glvmOperationSSG(v46, a5, v158, v153[0].i64, v149);
+              v45 = glvmOperationSSG(v45, a5, v156, v151, v147);
               break;
             case 8u:
-              v46 = glvmOperationANY(v46, a5, v158, v153, v149);
+              v45 = glvmOperationANY(v45, a5, v156, v151, v147);
               break;
             case 9u:
-              v46 = glvmOperationALL(v46, a5, v158, v153, v149);
+              v45 = glvmOperationALL(v45, a5, v156, v151, v147);
               break;
             case 0xAu:
-              v46 = glvmOperationNOT(a5, v158, v153);
+              v45 = glvmOperationNOT(a5, v156, v151);
               break;
             case 0xBu:
-              glvmOperationNSE(a5, v158[0].i32, v153[0].i32, v149);
+              glvmOperationNSE(a5, v156[0].i32, v151[0].i32, v147);
               break;
             case 0xCu:
-              glvmOperationSQT(a5, v158[0].i64, v153[0].i64, v149);
+              glvmOperationSQT(a5, v156[0].i64, v151, v147);
               break;
             case 0xDu:
-              v46 = glvmOperationRSQ(a5, v158, v153);
+              v45 = glvmOperationRSQ(a5, v156, v151);
               break;
             case 0xEu:
-              v46 = glvmOperationRCP(a5, v158, v153);
+              v45 = glvmOperationRCP(a5, v156, v151);
               break;
             case 0xFu:
-              glvmOperationRCC(a5, v158, v153, v149);
+              glvmOperationRCC();
               break;
             case 0x10u:
-              glvmOperationEX2(a5, v158, v153, v149);
+              glvmOperationEX2(a5, v156, v151, v147);
               break;
             case 0x11u:
-              glvmOperationEXP(a5, v158, v153);
+              glvmOperationEXP(a5, v156, v151);
               break;
             case 0x12u:
-              v46 = glvmOperationLEN(a5, v158, v153[0].i64, v149, v46, v47.f64[0], v48.f64[0], v49.f64[0]);
+              v45 = glvmOperationLEN(a5, v156, v151, v147, v45, v46.f64[0], v47.f64[0], v48.f64[0]);
               break;
             case 0x13u:
-              glvmOperationLG2(a5, v158[0].i32, v153, v149);
+              glvmOperationLG2(a5, v156, v151, v147);
               break;
             case 0x14u:
-              glvmOperationLOG(a5, v158, v153);
+              glvmOperationLOG(a5, v156, v151);
               break;
             case 0x15u:
-              v46 = glvmOperationNRM(a5, v158, v153[0].i64, v149, v46);
+              v45 = glvmOperationNRM(a5, v156, v151[0].i64, v147, v45);
               break;
             case 0x16u:
-              v46 = glvmOperationRAD(a5, v158, v153);
+              v45 = glvmOperationRAD(a5, v156, v151);
               break;
             case 0x17u:
-              v46 = glvmOperationDEG(a5, v158, v153);
+              v45 = glvmOperationDEG(a5, v156, v151);
               break;
             case 0x18u:
-              glvmOperationSCS(a5, v158, v153);
+              v45.n128_f64[0] = glvmOperationSCS(a5, v156, v151);
               break;
             case 0x19u:
-              glvmOperationSIN(a5, v158, v153, v149);
+              v45.n128_f64[0] = glvmOperationSIN(a5, v156, v151);
               break;
             case 0x1Au:
-              glvmOperationCOS(a5, v158, v153);
+              v45.n128_f64[0] = glvmOperationCOS(a5, v156, v151);
               break;
             case 0x1Bu:
-              v46 = glvmOperationTAN(a5, v158, v153);
+              v45 = glvmOperationTAN(a5, v156, v151);
               break;
             case 0x1Cu:
-              v46 = glvmOperationASN(a5, v158, v153);
+              v45 = glvmOperationASN(a5, v156, v151);
               break;
             case 0x1Du:
-              v46 = glvmOperationACS(a5, v158, v153);
+              v45 = glvmOperationACS(a5, v156, v151);
               break;
             case 0x1Eu:
-              if (v32 == 1)
+              if (v31 == 1)
               {
-                v46.n128_f64[0] = glvmOperationATN(a5, v158, v153);
+                v45.n128_f64[0] = glvmOperationATN(a5, v156, v151);
               }
 
               else
               {
-                v46 = glvmOperationATN2(a5, v158, v157, v153);
+                v45 = glvmOperationATN2(a5, v156, v155, v151);
               }
 
               break;
             case 0x1Fu:
-              glvmOperationADD(a5, v158, v157, v153, v149);
+              glvmOperationADD(a5, v156, v155, v151, v147);
               break;
             case 0x20u:
-              glvmOperationSUB(a5, v158, v157, v153, v149);
+              glvmOperationSUB(a5, v156, v155, v151, v147);
               break;
             case 0x21u:
-              glvmOperationMOD(a5, v158, v157, v153, v149);
+              glvmOperationMOD(a5, v156, v155, v151, v147);
               break;
             case 0x22u:
-              glvmOperationMUL(a5, v158, v157, v153, v149);
+              glvmOperationMUL(a5, v156, v155, v151, v147);
               break;
             case 0x23u:
-              glvmOperationMLC(a5, v158, v157, v153, v149);
+              glvmOperationMLC();
               break;
             case 0x24u:
-              v46 = glvmOperationANL(a5, v158, v157, v153);
+              v45 = glvmOperationANL(a5, v156, v155, v151);
               break;
             case 0x25u:
-              v46 = glvmOperationORL(a5, v158, v157, v153);
+              v45 = glvmOperationORL(a5, v156, v155, v151);
               break;
             case 0x26u:
-              v46 = glvmOperationXRL(a5, v158, v157, v153);
+              v45 = glvmOperationXRL(a5, v156, v155, v151);
               break;
             case 0x27u:
-              glvmOperationDOT(v46.n128_f64[0], a5, v158, v157, v153, v149);
+              glvmOperationDOT(v45.n128_f64[0], a5, v156, v155, v151, v147);
               break;
             case 0x28u:
-              glvmOperationDP3(a5, v158, v157, v153, v149);
+              glvmOperationDP3(a5, v156, v155, v151, v147);
               break;
             case 0x29u:
-              glvmOperationDP4(v46.n128_f64[0], a5, v158, v157, v153, v149);
+              glvmOperationDP4(v45.n128_f64[0], a5, v156, v155, v151, v147);
               break;
             case 0x2Au:
-              v46 = glvmOperationDPH(v46.n128_f64[0], a5, v158[0].i32, v157[0].i32, v153);
+              v45 = glvmOperationDPH(v45.n128_f64[0], a5, v156[0].i32, v155[0].i32, v151);
               break;
             case 0x2Bu:
-              v46 = glvmOperationDST(a5, v158, v157, v153);
+              v45 = glvmOperationDST(a5, v156, v155, v151);
               break;
             case 0x2Cu:
-              glvmOperationMIN(a5, v158[0].i64, v157[0].i64, v153, v149);
+              glvmOperationMIN(a5, v156[0].i64, v155[0].i64, v151, v147);
               break;
             case 0x2Du:
-              glvmOperationMAX(a5, v158[0].i64, v157[0].i64, v153, v149);
+              glvmOperationMAX(a5, v156[0].i64, v155[0].i64, v151, v147);
               break;
             case 0x2Eu:
-              v46.n128_f64[0] = glvmOperationXPD(a5, v158, v157, v153, v149);
+              v45.n128_f64[0] = glvmOperationXPD(a5, v156, v155, v151, v147);
               break;
             case 0x2Fu:
-              v46 = glvmOperationRFL(v46, v47.f64[0], v48.f64[0], v49.f64[0], a5, v158, v157, v153, v149);
+              v45 = glvmOperationRFL(v45, v46.f64[0], v47.f64[0], v48.f64[0], a5, v156, v155, v151, v147);
               break;
             case 0x30u:
-              v46 = glvmOperationSTR(a5, v158, v157, v153);
+              v45 = glvmOperationSTR(a5, v156, v155, v151);
               break;
             case 0x31u:
-              v46 = glvmOperationSEQ(v46, a5, v158, v157, v153, v149);
+              v45 = glvmOperationSEQ(v45, a5, v156, v155, v151, v147);
               break;
             case 0x32u:
-              glvmOperationSGE(a5, v158, v157, v153, v149);
+              glvmOperationSGE(a5, v156, v155, v151, v147);
               break;
             case 0x33u:
-              glvmOperationSGT(a5, v158, v157, v153, v149);
+              glvmOperationSGT(a5, v156, v155, v151, v147);
               break;
             case 0x34u:
-              glvmOperationSLE(a5, v158, v157, v153, v149);
+              glvmOperationSLE(a5, v156, v155, v151, v147);
               break;
             case 0x35u:
-              glvmOperationSLT(a5, v158, v157, v153, v149);
+              glvmOperationSLT(a5, v156, v155, v151, v147);
               break;
             case 0x36u:
-              v46 = glvmOperationSNE(v46, a5, v158, v157, v153, v149);
+              v45 = glvmOperationSNE(v45, a5, v156, v155, v151, v147);
               break;
             case 0x37u:
-              v46.n128_f64[0] = glvmOperationSFL(a5, v158, v157, v153);
+              v45.n128_f64[0] = glvmOperationSFL(a5, v156, v155, v151);
               break;
             case 0x38u:
-              glvmOperationPOW(a5, v158[0].i32, v157, v153, v149);
+              glvmOperationPOW(a5, v156, v155, v151, v147);
               break;
             case 0x39u:
-              glvmOperationSEL(a5, v158, v157, v153, v149);
+              glvmOperationSEL(a5, v156, v155, v151, v147);
               break;
             case 0x3Au:
-              v46 = glvmOperationDIV(v46, a5, v158, v157, v153, v149);
+              v45 = glvmOperationDIV(v45, a5, v156, v155, v151, v147);
               break;
             case 0x3Bu:
-              v46 = glvmOperationFFW(v46, v47, v48, v49, a5, v158, v157, v156, v153, v149);
+              v45 = glvmOperationFFW(v45, v46, v47, v48, a5, v156, v155, v154, v151, v147);
               break;
             case 0x3Cu:
-              glvmOperationLRP(a5, v158, v157, v156, v153, v149);
+              glvmOperationLRP(a5, v156, v155, v154, v151, v147);
               break;
             case 0x3Du:
-              glvmOperationCLM(a5, v158[0].i32, v157[0].i32, v156, v153, v149);
+              glvmOperationCLM(a5, v156[0].i64, v155[0].i64, v154[0].i64, v151, v147);
               break;
             case 0x3Eu:
-              v46 = glvmOperationCMP(a5, v158, v157, v156, v153);
+              v45 = glvmOperationCMP(a5, v156, v155, v154, v151);
               break;
             case 0x3Fu:
-              v46 = glvmOperationMAD(a5, v158, v157, v156, v153, v149);
+              v45 = glvmOperationMAD(a5, v156, v155, v154, v151, v147);
               break;
             case 0x40u:
-              v46 = glvmOperationSMS(a5, v158, v157, v156, v153, v149);
+              v45 = glvmOperationSMS(a5, v156, v155, v154, v151, v147);
               break;
             case 0x41u:
-              glvmOperationSWZ(a5, v158, v153, v35, v149);
+              glvmOperationSWZ(a5, v156, v151, v34, v147);
               break;
             case 0x42u:
             case 0x43u:
             case 0x44u:
             case 0x45u:
-              v83 = 0x80000000;
-              if ((v31 & 0x3F80) == 0x1080)
+              v82 = 0x80000000;
+              if ((v30 & 0x3F80) == 0x1080)
               {
-                v83 = 3221225472;
+                v82 = 3221225472;
               }
 
-              v149 = v149 & 0xFFFFFFFF3FFFFFFFLL | v83;
+              v147 = v147 & 0xFFFFFFFF3FFFFFFFLL | v82;
               goto LABEL_78;
             case 0x46u:
             case 0x47u:
@@ -6529,285 +6550,284 @@ LABEL_73:
             case 0xA5u:
             case 0xA6u:
 LABEL_78:
-              v82 = 0;
+              v81 = 0;
               goto LABEL_79;
             case 0x48u:
-              v46 = glvmOperationARL(a5, v158, v153);
+              v45 = glvmOperationARL(a5, v156, v151);
               break;
             case 0x49u:
-              glvmOperationARR(a5, v158, v153, v149);
+              glvmOperationARR();
               break;
             case 0x4Au:
-              glvmOperationARA(a5, v158, v153, v149);
+              glvmOperationARA();
               break;
             case 0x4Cu:
-              if (v32 == 1)
+              if (v31 == 1)
               {
-                v149 = v120;
-                glvmOperationDispatchEP(v144, v142, v143, v126, a5, a6, v124, v132, v139, *&v145[4], v133, v146, v125, v158);
+                v147 = v118;
+                glvmOperationDispatchEP(v142, v140, v141, v124, a5, a6, v122, v130, v137, *&v143[4], v131, v144, v123, v156, v118);
               }
 
               else
               {
-                v149 = (2 * (v148 & 0x3FFFF)) | v121;
-                glvmInterpretEPTransformPatchInner(v144, v142, v143, v126, a5, a6);
+                v147 = (2 * (v146 & 0x3FFFF)) | v119;
+                glvmInterpretEPTransformPatchInner(v142, v140, v141, v124, a5, a6, v122, v130, v137, *&v143[4], v131, v144, v123, v147);
               }
 
               break;
             case 0x4Du:
-              v107 = &a6[2 * (v148 & 0x3FFFF)];
-              v108 = glvmPredicateBRA(a5, v158, v133, (v148 >> 17) & 0x7F00 | (v148 >> 18) & 0x7F | (v107[1] >> 2) & 0x7F0000);
+              v105 = &a6[2 * (v146 & 0x3FFFF)];
+              v106 = glvmPredicateBRA(a5, v156, v131, (v146 >> 17) & 0x7F00 | (v146 >> 18) & 0x7F | (*(v105 + 1) >> 2) & 0x7F0000);
               goto LABEL_204;
             case 0x54u:
-              v107 = &a6[2 * (v148 & 0x3FFFF)];
-              v108 = glvmPredicateBRK(a5, v158, v133, (v148 >> 7) & 0x2000000 | (v148 >> 18) & 0x7F | (v107[1] >> 2) & 0x7F0000);
+              v105 = &a6[2 * (v146 & 0x3FFFF)];
+              v106 = glvmPredicateBRK(a5, v156, v131, (v146 >> 7) & 0x2000000 | (v146 >> 18) & 0x7F | (*(v105 + 1) >> 2) & 0x7F0000);
               goto LABEL_204;
             case 0x55u:
-              if (glvmPredicateIF(a5, v158, v133, v149, (v148 >> 18) & 0x7F))
+              if (glvmPredicateIF(a5, v156, v131, v147, (v146 >> 18) & 0x7F))
               {
                 goto LABEL_220;
               }
 
               goto LABEL_259;
             case 0x58u:
-              if (!glvmPredicateELSE(a5, v158, v133, (v148 >> 18) & 0x7F))
+              if (!glvmPredicateELSE(a5, v156, v131, (v146 >> 18) & 0x7F))
               {
                 break;
               }
 
               goto LABEL_272;
             case 0x59u:
-              glvmPredicateENDIF(a5, v158, v133, (v148 >> 7) & 0x2000000 | (v148 >> 18) & 0x7F | (v148 >> 17) & 0x7F00);
+              glvmPredicateENDIF(a5, v156, v131, (v146 >> 7) & 0x2000000 | (v146 >> 18) & 0x7F | (v146 >> 17) & 0x7F00);
               break;
             case 0x5Cu:
-              glvmOperationPK2H(a5, v158, v153);
+              glvmOperationPK2H(a5, v156, v151);
               break;
             case 0x5Du:
-              glvmOperationPK2US(a5, v158, v153);
+              glvmOperationPK2US(a5, v156, v151);
               break;
             case 0x5Eu:
-              glvmOperationPK4B(a5, v158, v153);
+              glvmOperationPK4B(a5, v156, v151);
               break;
             case 0x5Fu:
-              glvmOperationPK4UB(a5, v158, v153);
+              glvmOperationPK4UB(a5, v156, v151);
               break;
             case 0x62u:
             case 0x63u:
 LABEL_79:
-              v84 = &a6[2 * a6[23]] + ((v35 >> 35) & 0x7F0);
-              v85 = *v84;
-              if ((v149 & 0x100) != 0 && (v31 & 0x3F00 | 0x80) == 0x1180 || v81 - 167 <= 0xFFFFFFFD && (v149 & 0x1F000000) == 0x11000000)
+              v83 = &a6[2 * a6[23]] + ((v34 >> 35) & 0x7F0);
+              v84 = *v83;
+              if ((v147 & 0x100) != 0 && (v30 & 0x3F00 | 0x80) == 0x1180 || v80 - 167 <= 0xFFFFFFFD && (v147 & 0x1F000000) == 0x11000000)
               {
-                glvmOperationMOV(a5, v157, v154, 0x400004800000000uLL);
+                glvmOperationMOV(a5, v155, v152, 0x400004800000000uLL);
               }
 
-              if ((v149 & 0x200) == 0)
+              if ((v147 & 0x200) == 0)
               {
                 goto LABEL_109;
               }
 
-              if (v81 == 165)
+              if (v80 == 165)
               {
-                v86 = 0x400004800000000;
+                v85 = 0x400004800000000;
               }
 
               else
               {
-                v86 = 0x100001800000000;
+                v85 = 0x100001800000000;
               }
 
-              switch(v32)
+              switch(v31)
               {
                 case 2:
-                  v87 = v157;
+                  v86 = v155;
                   break;
                 case 4:
-                  v87 = v155;
+                  v86 = v153;
                   break;
                 case 3:
-                  v87 = v156;
+                  v86 = v154;
                   break;
                 default:
                   goto LABEL_109;
               }
 
-              glvmOperationMOV(a5, v87, v155, v86);
+              glvmOperationMOV(a5, v86, v153, v85);
 LABEL_109:
-              if (v81 == 166)
+              if (v80 == 166)
               {
-                v104 = BYTE3(v149) & 0x1F;
-                if (v104 <= 0x11 && ((1 << v104) & 0x219E0) != 0)
+                v103 = BYTE3(v147) & 0x1F;
+                if (v103 <= 0x11 && ((1 << v103) & 0x219E0) != 0)
                 {
-                  glvmOperationMOV(a5, v155, v154, 0x400004800000000uLL);
-                  glvmOperationMOV(a5, v156, v155, 0x400004800000000uLL);
+                  glvmOperationMOV(a5, v153, v152, 0x400004800000000uLL);
+                  glvmOperationMOV(a5, v154, v153, 0x400004800000000uLL);
 LABEL_122:
-                  glvmOperationZERO(a5, v156, 0x400000800000000uLL);
+                  glvmOperationZERO(a5, v154, 0x400000800000000uLL);
                   goto LABEL_123;
                 }
 
-                glvmOperationMOV(a5, v156, v154, 0x400004800000000uLL);
-                if (v32 == 4)
+                glvmOperationMOV(a5, v154, v152, 0x400004800000000uLL);
+                if (v31 == 4)
                 {
-                  glvmOperationMOV(a5, v155, v156, 0x100001800000000uLL);
+                  glvmOperationMOV(a5, v153, v154, 0x100001800000000uLL);
                 }
 
                 else
                 {
-                  glvmOperationZERO(a5, v156, 0x400000800000000uLL);
+                  glvmOperationZERO(a5, v154, 0x400000800000000uLL);
                 }
 
-                v101 = v155;
-                v102 = a5;
-                v103 = 0x400004800000000;
+                v100 = v153;
+                v101 = a5;
+                v102 = 0x400004800000000;
               }
 
               else
               {
-                if (v81 != 165)
+                if (v80 != 165)
                 {
                   goto LABEL_123;
                 }
 
-                v98 = BYTE3(v149) & 0x1F;
-                if (v98 <= 0x11 && ((1 << v98) & 0x219E0) != 0)
+                v97 = BYTE3(v147) & 0x1F;
+                if (v97 <= 0x11 && ((1 << v97) & 0x219E0) != 0)
                 {
                   goto LABEL_122;
                 }
 
-                v99 = v32 == 2;
-                if ((v149 & 0x200) != 0)
+                v98 = v31 == 2;
+                if ((v147 & 0x200) != 0)
                 {
-                  v99 = 0;
-                  v100 = v32 != 3;
+                  v98 = 0;
+                  v99 = v31 != 3;
                 }
 
                 else
                 {
-                  v100 = 1;
+                  v99 = 1;
                 }
 
-                if (!v99 && v100)
+                if (!v98 && v99)
                 {
                   goto LABEL_122;
                 }
 
-                v101 = v156;
-                v102 = a5;
-                v103 = 0x100001800000000;
+                v100 = v154;
+                v101 = a5;
+                v102 = 0x100001800000000;
               }
 
-              glvmOperationMOV(v102, v157, v101, v103);
+              glvmOperationMOV(v101, v155, v100, v102);
 LABEL_123:
-              v105 = v85 & 0xDFFFFFFFFFFFFFFFLL;
-              if (v82)
+              v104 = v84 & 0xDFFFFFFFFFFFFFFFLL;
+              if (v81)
               {
-                v105 = v85;
+                v104 = v84;
               }
 
-              v106 = *(v84 + 8);
-              if ((*(v84 + 7) & 4) != 0)
+              if ((v83[7] & 4) != 0)
               {
-                if (v81 == 131)
+                if (v80 == 131)
                 {
-                  v46 = glvmSamplerSize(v144, a5, v132, v158, v157, v156, v155, v154, v153, v105, *(v84 + 8), v149);
+                  v45 = glvmSamplerSize(v142, a5, v130, v156, v155, v154, v153, v152, v151, v104, *(v83 + 1), v147);
                 }
 
-                else if (v81 == 130)
+                else if (v80 == 130)
                 {
-                  v46 = glvmSamplerFetch(v144, a5, v132, v158, v157, v156, v155, v154, v153, v105, *(v84 + 8), HIDWORD(*(v84 + 8)), v149);
+                  v45 = glvmSamplerFetch(v142, a5, v130, v156, v155, v154, v153, v152, v151, v104, *(v83 + 1), HIDWORD(*(v83 + 1)), v147);
                 }
 
                 else
                 {
-                  glvmSamplerSample(v144, a5, v132, v158, v157, v156, v155, v154, v153, v105, *(v84 + 8), v149);
+                  glvmSamplerSample(v142, a5, v130, v156, v155, v154, v153, v152, v151, v104, *(v83 + 1), v147);
                 }
               }
 
               else
               {
-                glvmSamplerInvalid(v144, a5, v132, v158, v157, v156, v155, v154, v153[0].i8, v105, *(v84 + 8), v149, SWORD2(v149), SBYTE6(v149), SHIBYTE(v149));
+                glvmSamplerInvalid(v142, a5, v130, v156, v155, v154, v153, v152, v151[0].i8, v104, *(v83 + 1), v147, SWORD2(v147), SBYTE6(v147), SHIBYTE(v147));
               }
 
               break;
             case 0x64u:
-              glvmOperationUP2H(a5, v158, v153[0].i32);
+              glvmOperationUP2H(a5, v156, v151[0].i32);
               break;
             case 0x65u:
-              v46 = glvmOperationUP2US(v46.n128_f32[0], a5, v158, v153);
+              v45 = glvmOperationUP2US(v45.n128_f32[0], a5, v156, v151);
               break;
             case 0x66u:
-              v46 = glvmOperationUP4B(v46.n128_u64[0], a5, v158[0].i8, v153);
+              v45 = glvmOperationUP4B(v45.n128_u64[0], a5, v156[0].i8, v151);
               break;
             case 0x67u:
-              v46 = glvmOperationUP4UB(v46.n128_f32[0], a5, v158, v153);
+              v45 = glvmOperationUP4UB(v45.n128_f32[0], a5, v156, v151);
               break;
             case 0x69u:
-              glvmOperationRFR(a5, v158, v157, v156[0].i32, v153, v149, v46);
+              glvmOperationRFR(a5, v156, v155, v154[0].i64, v151, v147, v45);
               break;
             case 0x6Au:
-              v107 = &a6[2 * (v148 & 0x3FFFF)];
-              v108 = glvmPredicateCONT(a5, v158, v133, (v107[1] >> 2) & 0x7F0000 | (v148 >> 18) & 0x7F);
+              v105 = &a6[2 * (v146 & 0x3FFFF)];
+              v106 = glvmPredicateCONT(a5, v156, v131, (*(v105 + 1) >> 2) & 0x7F0000 | (v146 >> 18) & 0x7F);
 LABEL_204:
-              if (v108)
+              if (v106)
               {
-                v17 = v107;
+                v17 = v105;
               }
 
               break;
             case 0x6Bu:
               glvmPredicateWHILE();
-              *v145 = 0;
+              *v143 = 0;
               break;
             case 0x6Cu:
-              if (glvmPredicateENDWHILE(a5, v158, v133, (v148 >> 7) & 0x2000000))
+              if (glvmPredicateENDWHILE(a5, v156, v131, (v146 >> 7) & 0x2000000))
               {
                 goto LABEL_272;
               }
 
               break;
             case 0x6Eu:
-              v113 = (v148 >> 12) & 7;
-              if (v113 != 3 && v113 != 5)
+              v111 = (v146 >> 12) & 7;
+              if (v111 != 3 && v111 != 5)
               {
-                glvmLoadDestTemp(*&v145[4], v146, v153, dword_23A29C120[2 * ((v148 >> 27) & 3)] & ((v148 >> 12) & 0xFF000000 | BYTE4(v148) & 0xF | (v148 >> 6) & 0x1C0 | (v148 >> 2) & 0x1E0000 | dword_23A29C0E0[2 * ((v148 >> 25) & 3)]) | dword_23A29C140[2 * ((v148 >> 27) & 3)] | dword_23A29C100[2 * ((v148 >> 29) & 3)], v150);
+                glvmLoadDestTemp(*&v143[4], v144, v151, dword_23A29C120[2 * ((v146 >> 27) & 3)] & ((v146 >> 12) & 0xFF000000 | BYTE4(v146) & 0xF | (v146 >> 6) & 0x1C0 | (v146 >> 2) & 0x1E0000 | dword_23A29C0E0[2 * ((v146 >> 25) & 3)]) | dword_23A29C140[2 * ((v146 >> 27) & 3)] | dword_23A29C100[2 * ((v146 >> 29) & 3)], v148);
               }
 
-              glvmOperationDSL(a5, v158, v157, v153, v149);
+              glvmOperationDSL(a5, v156, v155, v151, v147);
               break;
             case 0x70u:
-              glvmOperationEXPE(a5, v158, v153, v149);
+              glvmOperationEXPE(a5, v156, v151, v147);
               break;
             case 0x71u:
-              v46 = glvmOperationLOGE(a5, v158[0].i32, v153, v149);
+              v45 = glvmOperationLOGE(a5, v156, v151, v147);
               break;
             case 0x73u:
-              glvmOperationTARGCONT(v133, (v148 >> 18) & 0x7F);
+              glvmOperationTARGCONT(v131, (v146 >> 18) & 0x7F);
               break;
             case 0x74u:
-              glvmOperationTARGBRK(v133, (v148 >> 18) & 0x7F);
+              glvmOperationTARGBRK(v131, (v146 >> 18) & 0x7F);
               break;
             case 0x79u:
-              if (!v131 || (v109 = *v133, *v133 == 15))
+              if (!v129 || (v107 = *v131, *v131 == 15))
               {
-                v110 = v159;
-                v111 = v139;
-                v139[14] = v158[0].i32[0];
-                v111[15] = v110;
-                v112 = v163;
-                v111[16] = v161;
-                v111[17] = v112;
+                v108 = v157;
+                v109 = v137;
+                v137[14] = v156[0].i32[0];
+                v109[15] = v108;
+                v110 = v161;
+                v109[16] = v159;
+                v109[17] = v110;
                 break;
               }
 
-              v117 = v133;
-              if (v109)
+              v115 = v131;
+              if (v107)
               {
-                v139[14] = v158[0].i32[0];
-                v109 = *v117;
-                if ((*v117 & 2) == 0)
+                v137[14] = v156[0].i32[0];
+                v107 = *v115;
+                if ((*v115 & 2) == 0)
                 {
 LABEL_295:
-                  if ((v109 & 4) == 0)
+                  if ((v107 & 4) == 0)
                   {
                     goto LABEL_296;
                   }
@@ -6816,265 +6836,265 @@ LABEL_295:
                 }
               }
 
-              else if ((v109 & 2) == 0)
+              else if ((v107 & 2) == 0)
               {
                 goto LABEL_295;
               }
 
-              v139[15] = v159;
-              v109 = *v117;
-              if ((*v117 & 4) == 0)
+              v137[15] = v157;
+              v107 = *v115;
+              if ((*v115 & 4) == 0)
               {
 LABEL_296:
-                if ((v109 & 8) == 0)
+                if ((v107 & 8) == 0)
                 {
                   break;
                 }
 
 LABEL_297:
-                v139[17] = v163;
+                v137[17] = v161;
                 break;
               }
 
 LABEL_316:
-              v139[16] = v161;
-              if ((*v117 & 8) != 0)
+              v137[16] = v159;
+              if ((*v115 & 8) != 0)
               {
                 goto LABEL_297;
               }
 
               break;
             case 0x7Au:
-              v46 = glvmOperationBDL(v126, a5, v158, v157, v153, v149);
+              v45 = glvmOperationBDL(v124, a5, v156, v155, v151, v147);
               break;
             case 0x7Bu:
-              glvmOperationROUND(a5, v158[0].i32, v153, v149);
+              glvmOperationROUND(a5, v156[0].i64, v151, v147);
               break;
             case 0x7Cu:
-              glvmOperationTRUNCATE(a5, v158[0].i32, v153, v149);
+              glvmOperationTRUNCATE(a5, v156[0].i64, v151, v147);
               break;
             case 0x7Du:
-              v46 = glvmOperationAND(a5, v158, v157, v153);
+              v45 = glvmOperationAND(a5, v156, v155, v151);
               break;
             case 0x7Eu:
-              v46 = glvmOperationOR(a5, v158, v157, v153);
+              v45 = glvmOperationOR(a5, v156, v155, v151);
               break;
             case 0x7Fu:
-              v46 = glvmOperationXOR(a5, v158, v157, v153);
+              v45 = glvmOperationXOR(a5, v156, v155, v151);
               break;
             case 0x80u:
-              glvmOperationSHL(a5, v158, v157, v153);
+              glvmOperationSHL(a5, v156, v155, v151);
               break;
             case 0x81u:
-              glvmOperationSHR(a5, v158[0].i32, v157, v153, v149);
+              glvmOperationSHR(a5, v156, v155, v151, v147);
               break;
             case 0x84u:
-              v46 = glvmOperationCOMP(a5, v158, v153);
+              v45 = glvmOperationCOMP(a5, v156, v151);
               break;
             case 0x85u:
-              v46 = glvmOperationDISTANCE(a5, v158, v157, v153[0].i64, v149, v46);
+              v45 = glvmOperationDISTANCE(a5, v156, v155, v151, v147, v45);
               break;
             case 0x86u:
-              v46.n128_f64[0] = glvmOperationINVERSESQRT(a5, v158[0].i64, v153, v149);
+              v45.n128_f64[0] = glvmOperationINVERSESQRT(a5, v156[0].i64, v151, v147);
               break;
             case 0x87u:
-              if (v131)
+              if (v129)
               {
                 MEMORY[0x28223BE20](OperationSpec);
-                v115 = (&v119 - v114);
-                bzero(&v119 - v114, v116);
-                v149 = v122;
-                v133 = v115;
-                glvmOperationInitMasksForNested(a5, v127, v115, v122);
+                v113 = (&v117 - v112);
+                bzero(&v117 - v112, v114);
+                v147 = v120;
+                v131 = v113;
+                glvmOperationInitMasksForNested(a5, v125, v113, v120);
               }
 
-              glvmOperationFUNCSTART(v133, 0);
-              v125 = v130;
-              *&v145[4] = v128;
-              v146 = v129;
+              glvmOperationFUNCSTART();
+              v123 = v128;
+              *&v143[4] = v126;
+              v144 = v127;
               break;
             case 0x88u:
-              if ((v148 & 0xFE000000) != 0)
+              if ((v146 & 0xFE000000) != 0)
               {
-                glvmOperationTARGBRA(v133, (v148 >> 17) & 0x7F00 | (v148 >> 18) & 0x7F);
+                glvmOperationTARGBRA(v131, (v146 >> 17) & 0x7F00 | (v146 >> 18) & 0x7F);
               }
 
               else
               {
-                glvmOperationRET(v133, 0);
+                glvmOperationRET();
               }
 
-              v17 = v138;
+              v17 = v136;
               break;
             case 0x89u:
-              glvmOperationROUNDEVEN(a5, v158[0].i64, v153[0].i64, v149);
+              glvmOperationROUNDEVEN(a5, v156[0].i64, v151, v147);
               break;
             case 0x8Au:
-              glvmOperationISNAN(a5, v158, v153, v149);
+              glvmOperationISNAN(a5, v156, v151, v147);
               break;
             case 0x8Bu:
-              glvmOperationISINF(a5, v158, v153, v149);
+              glvmOperationISINF(a5, v156, v151, v147);
               break;
             case 0x8Cu:
-              if (glvmPredicateSWITCH(a5, v158, v133, v149, (v148 >> 18) & 0x7F))
+              if (glvmPredicateSWITCH(a5, v156, v131, v147, (v146 >> 18) & 0x7F))
               {
 LABEL_220:
-                *v145 = 0;
+                *v143 = 0;
 LABEL_272:
-                v17 = &a6[2 * (v148 & 0x3FFFF)];
+                v17 = &a6[2 * (v146 & 0x3FFFF)];
               }
 
               else
               {
 LABEL_259:
-                *v145 = 0;
+                *v143 = 0;
               }
 
               break;
             case 0x8Du:
-              if (!glvmPredicateCASE(a5, v158, v157, v133, v149, (v148 >> 18) & 0x7F))
+              if (!glvmPredicateCASE(a5, v156, v155, v131, v147, (v146 >> 18) & 0x7F))
               {
                 break;
               }
 
               goto LABEL_272;
             case 0x8Eu:
-              if (!glvmPredicateDEFAULT(a5, v158, v133, (v148 >> 18) & 0x7F))
+              if (!glvmPredicateDEFAULT(a5, v156, v131, (v146 >> 18) & 0x7F))
               {
                 break;
               }
 
               goto LABEL_272;
             case 0x8Fu:
-              if (!glvmPredicateENDSWITCH(a5, v158, v133, (v148 >> 7) & 0x2000000 | (v148 >> 18) & 0x7F | ((*v30 >> 46 != 0) << 26)))
+              if (!glvmPredicateENDSWITCH(a5, v156, v131, (v146 >> 7) & 0x2000000 | (v146 >> 18) & 0x7F | ((*v29 >> 46 != 0) << 26)))
               {
                 break;
               }
 
               goto LABEL_272;
             case 0x90u:
-              glvmOperationSINH(a5, v158[0].i32, v153[0].i32);
+              glvmOperationSINH(a5, v156[0].i32, v151[0].i32);
               break;
             case 0x91u:
-              glvmOperationCOSH(a5, v158[0].i32, v153[0].i32);
+              glvmOperationCOSH(a5, v156[0].i32, v151[0].i32);
               break;
             case 0x92u:
-              glvmOperationTANH(a5, v158[0].i32, v153[0].i32);
+              glvmOperationTANH(a5, v156[0].i32, v151[0].i32);
               break;
             case 0x93u:
-              glvmOperationASINH(a5, v158[0].i32, v153[0].i32);
+              glvmOperationASINH(a5, v156[0].i32, v151[0].i32);
               break;
             case 0x94u:
-              glvmOperationACOSH(a5, v158[0].i32, v153[0].i32);
+              glvmOperationACOSH(a5, v156[0].i32, v151[0].i32);
               break;
             case 0x95u:
-              glvmOperationATANH(a5, v158[0].i32, v153[0].i32);
+              glvmOperationATANH(a5, v156[0].i32, v151[0].i32);
               break;
             case 0x96u:
-              v46 = glvmOperationTO_BITS(a5, v158, v153);
+              v45 = glvmOperationTO_BITS(a5, v156, v151);
               break;
             case 0x97u:
-              v46 = glvmOperationFROM_BITS(a5, v158, v153);
+              v45 = glvmOperationFROM_BITS(a5, v156, v151);
               break;
             case 0x98u:
-              glvmOperationLOAD(v126, a5, v158, v157[0].i32, v156, v153, v149);
+              glvmOperationLOAD(v124, a5, v156, v155[0].i32, v154, v151, v147);
               break;
             case 0x99u:
-              glvmOperationSTOREWithMaskEP(OperationSpec, v139, v45, v158, v157, v156, v149);
+              glvmOperationSTOREWithMaskEP(OperationSpec, v137, v44, v156, v155, v154, v147);
               break;
             case 0x9Au:
-              glvmOperationEXTRACT_EXPONENT(a5, v158, v153, v149);
+              glvmOperationEXTRACT_EXPONENT(a5, v156, v151, v147);
               break;
             case 0x9Bu:
-              glvmOperationEXTRACT_SIGNIFICAND(a5, v158[0].i32, v153, v149);
+              glvmOperationEXTRACT_SIGNIFICAND(a5, v156[0].i64, v151, v147);
               break;
             case 0x9Cu:
-              glvmOperationLDEXP(a5, v158[0].i32, v157, v153, v149);
+              glvmOperationLDEXP(a5, v156[0].i64, v155, v151, v147);
               break;
             case 0x9Du:
-              glvmOperationPK2W(a5, v158, v153);
+              glvmOperationPK2W(a5, v156, v151);
               break;
             case 0x9Eu:
-              glvmOperationUP2W(a5, v158, v153);
+              glvmOperationUP2W(a5, v156, v151);
               break;
             case 0x9Fu:
-              glvmOperationMUL_HB(a5, v158, v157, v153, v149);
+              glvmOperationMUL_HB(a5, v156, v155, v151, v147);
               break;
             case 0xA0u:
-              glvmOperationBITFIELD_REVERSE(a5, v158, v153);
+              glvmOperationBITFIELD_REVERSE(a5, v156, v151);
               break;
             case 0xA1u:
-              glvmOperationBITCOUNT(a5, v158, v153);
+              glvmOperationBITCOUNT(a5, v156, v151);
               break;
             case 0xA2u:
-              glvmOperationFIND_LSB(a5, v158, v153);
+              glvmOperationFIND_LSB(a5, v156, v151);
               break;
             case 0xA3u:
-              glvmOperationFIND_MSB(a5, v158, v153[0].i32, v149);
+              glvmOperationFIND_MSB(a5, v156, v151[0].i32, v147);
               break;
             default:
-              glvmOperationMOV(a5, v158, v153, v149);
+              glvmOperationMOV(a5, v156, v151, v147);
               break;
           }
         }
 
-        if ((v31 & 0x100000000) != 0)
+        if ((v30 & 0x100000000) != 0)
         {
-          v118 = (v148 >> 12) & 7;
-          if (*v145)
+          v116 = (v146 >> 12) & 7;
+          if (*v143)
           {
-            if (v118 == 1)
+            if (v116 == 1)
             {
-              glvmStoreDestTemp(*&v145[4], v146, v153, v148, v150, v46, v47.f64[0], v48.f64[0], v49, v50);
+              glvmStoreDestTemp(*&v143[4], v144, v151, v146, v148, v45, v46.f64[0], v47.f64[0], v48, v49);
             }
 
-            else if (v118 == 5 || v118 == 3)
+            else if (v116 == 5 || v116 == 3)
             {
-              glvmStoreDestOutputEP(v139, *&v145[4], v146, v153, v148, v150);
+              glvmStoreDestOutputEP(v137, *&v143[4], v144, v151, v146, v148);
             }
 
             else
             {
-              glvmStoreDestAddress(*&v145[4], v146, v153[0].i8, v148, v150);
+              glvmStoreDestAddress(*&v143[4], v144, v151[0].i8, v146, v148);
             }
           }
 
-          else if (v118 == 1)
+          else if (v116 == 1)
           {
-            glvmStoreDestTempWithMask(*&v145[4], v146, v153, v133, v148, v150, v46, v47.f64[0], v48.f64[0], v49, v50);
+            glvmStoreDestTempWithMask(*&v143[4], v144, v151, v131, v146, v148, v45, v46.f64[0], v47.f64[0], v48, v49);
           }
 
-          else if (v118 == 5 || v118 == 3)
+          else if (v116 == 5 || v116 == 3)
           {
-            glvmStoreDestOutputWithMaskEP(v139, *&v145[4], v146, v153, v133, v148, v150);
+            glvmStoreDestOutputWithMaskEP(v137, *&v143[4], v144, v151, v131, v146, v148);
           }
 
           else
           {
-            glvmStoreDestAddressWithMask(*&v145[4], v146, v153[0].i8, v133, v148, v150);
+            glvmStoreDestAddressWithMask(*&v143[4], v144, v151[0].i8, v131, v146, v148);
           }
         }
 
-        if (v17 == v138)
+        if (v17 == v136)
         {
-          goto LABEL_14;
+          return;
         }
       }
 
-      if ((v31 & 0x100000000) == 0)
+      if ((v30 & 0x100000000) == 0)
       {
         goto LABEL_73;
       }
 
 LABEL_72:
-      OperationSpec = glvmGetDestOffsetCount(a6, (v31 >> 38) & 7, &v148, &v149, 2, v140, &v150);
+      OperationSpec = glvmGetDestOffsetCount(a6, (v30 >> 38) & 7, &v146, &v147, 2, v138, &v148);
       goto LABEL_73;
     }
   }
 
   else
   {
-    if (v131)
+    if (v129)
     {
       v23 = (v18 >> 14) & 1;
     }
@@ -7084,14 +7104,14 @@ LABEL_72:
       v23 = 1;
     }
 
-    *v145 = v23;
-    if (v131)
+    *v143 = v23;
+    if (v129)
     {
       MEMORY[0x28223BE20](a1);
-      v25 = (&v119 - v24);
-      bzero(&v119 - v24, v26);
-      v149 = v19 << 8;
-      glvmOperationInitMasksForNested(a5, v127, v25, v149);
+      v25 = (&v117 - v24);
+      bzero(&v117 - v24, v26);
+      v147 = v19 << 8;
+      glvmOperationInitMasksForNested(a5, v125, v25, v147);
       v27 = v25;
     }
 
@@ -7100,19 +7120,16 @@ LABEL_72:
       v27 = 0;
     }
 
-    v133 = v27;
-    glvmOperationFUNCSTART(v27, 0);
-    v125 = v130;
-    *&v145[4] = v128;
-    v146 = v129;
+    v131 = v27;
+    glvmOperationFUNCSTART();
+    v123 = v128;
+    *&v143[4] = v126;
+    v144 = v127;
     if (v16 != v22)
     {
       goto LABEL_15;
     }
   }
-
-LABEL_14:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t glvmWindowTransformEP(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, double a5, double a6, double a7, double a8, double a9, float32x4_t a10)
@@ -7507,129 +7524,138 @@ LABEL_16:
   return result;
 }
 
-uint64_t glvmInterpretEPTransformPatch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int8 *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, int *a9)
+uint64_t glvmInterpretEPTransformPatch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t *a5, _DWORD *a6, unsigned int *a7, uint64_t a8, int *a9)
 {
-  v62 = a3;
-  v63 = a4;
-  v61 = a2;
-  v68 = *MEMORY[0x277D85DE8];
-  v64 = *a7;
-  v14 = a6[8] << 6;
-  v15 = MEMORY[0x28223BE20](a1);
-  v18 = &v57 - v17;
-  if (*(v19 + 120))
+  v60 = a3;
+  v61 = a4;
+  v59 = a2;
+  v66 = *MEMORY[0x277D85DE8];
+  v62 = *a7;
+  v14 = MEMORY[0x28223BE20](a1);
+  v17 = &v55 - v16;
+  if (*(v18 + 120))
   {
-    MEMORY[0x28223BE20](v15);
-    v60 = &v56;
-    LODWORD(v56) = *a9;
+    MEMORY[0x28223BE20](v14);
+    v58 = &v54;
+    LODWORD(v54) = *a9;
     if (a6[18])
     {
 LABEL_3:
-      v20 = a6[14];
+      v19 = a6[14];
       goto LABEL_6;
     }
   }
 
   else
   {
-    v60 = 0;
+    v58 = 0;
     if (a6[18])
     {
       goto LABEL_3;
     }
   }
 
-  v20 = 0;
+  v19 = 0;
 LABEL_6:
-  bzero(v18, v16);
-  v22 = a6[27];
-  v23 = a6[31];
-  v65 = a1;
-  v66 = a7;
-  if (v22 != v23)
+  bzero(v17, v15);
+  v21 = a6[27];
+  v22 = a6[31];
+  v63 = a1;
+  v64 = a7;
+  if (v21 != v22)
   {
-    v58 = a8;
-    v59 = a5;
-    v36 = 0;
+    v56 = a8;
+    v57 = a5;
+    v35 = 0;
+    v36 = &a6[2 * v21];
     v37 = &a6[2 * v22];
-    v38 = &a6[2 * v23];
-    v39 = v37;
+    v38 = v36;
     do
     {
-      if ((*v39 & 0x3FC0) != 0x12C0)
+      if ((*v38 & 0x3FC0) != 0x12C0)
       {
         break;
       }
 
-      ++v36;
-      v39 += (*v39 & 7) + 2;
+      ++v35;
+      v38 += (*v38 & 7) + 2;
     }
 
-    while (v39 != v38);
-    v40 = MEMORY[0x28223BE20](v21);
-    v24 = (&v57 - 8);
-    v55 = 0u;
-    v56 = 0u;
-    *(&v57 - 4) = 0u;
+    while (v38 != v37);
+    v39 = MEMORY[0x28223BE20](v20);
+    v23 = (&v55 - 8);
+    v53 = 0u;
     v54 = 0u;
-    MEMORY[0x28223BE20](v40);
-    v25 = &v57 - v41;
-    bzero(&v57 - v41, v42);
-    if (v22 != v23)
+    *(&v55 - 4) = 0u;
+    v52 = 0u;
+    MEMORY[0x28223BE20](v39);
+    v24 = &v55 - v40;
+    bzero(&v55 - v40, v41);
+    if (v21 != v22)
     {
-      v43 = 0;
+      v42 = 0;
       do
       {
-        if ((*v37 & 0x3FC0) != 0x12C0)
+        if ((*v36 & 0x3FC0) != 0x12C0)
         {
           break;
         }
 
-        glvmOperationInitSub(v25, v43 | ((v37[1] & 0x3FFFFLL) << 32));
-        v37 += (*v37 & 7) + 2;
-        ++v43;
+        glvmOperationInitSub(v24, v42 | ((v36[1] & 0x3FFFFLL) << 32));
+        v36 += (*v36 & 7) + 2;
+        ++v42;
       }
 
-      while (v37 != v38);
+      while (v36 != v37);
     }
 
-    a8 = v58;
-    a5 = v59;
-    if (v20)
+    a8 = v56;
+    a5 = v57;
+    if (v19)
     {
       goto LABEL_8;
     }
 
 LABEL_30:
-    v35 = 0;
+    v34 = 0;
     goto LABEL_31;
   }
 
-  MEMORY[0x28223BE20](v21);
-  v24 = (&v57 - 8);
-  v55 = 0u;
-  v56 = 0u;
-  *(&v57 - 4) = 0u;
+  MEMORY[0x28223BE20](v20);
+  v23 = (&v55 - 8);
+  v53 = 0u;
   v54 = 0u;
-  v25 = &v67;
-  if (!v20)
+  *(&v55 - 4) = 0u;
+  v52 = 0u;
+  v24 = &v65;
+  if (!v19)
   {
     goto LABEL_30;
   }
 
 LABEL_8:
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
-  v28 = a6[15];
-  v29 = v20;
+  v27 = a6[15];
+  v28 = v19;
   do
   {
-    v30 = *&a6[2 * v28];
-    v31 = (v30 >> 8) & 0x1F;
-    v32 = HIDWORD(v30) & 0x3FFF;
-    if (v32 >= v26)
+    v29 = *&a6[2 * v27];
+    v30 = (v29 >> 8) & 0x1F;
+    v31 = HIDWORD(v29) & 0x3FFF;
+    if (v31 >= v25)
     {
-      v33 = v32 + 1;
+      v32 = v31 + 1;
+    }
+
+    else
+    {
+      v32 = v25;
+    }
+
+    if (v31 >= v26)
+    {
+      v33 = v31 + 1;
     }
 
     else
@@ -7637,45 +7663,33 @@ LABEL_8:
       v33 = v26;
     }
 
-    if (v32 >= v27)
+    if (v30 != 1)
     {
-      v34 = v32 + 1;
+      v33 = v26;
+    }
+
+    if (v30 == 2)
+    {
+      v25 = v32;
     }
 
     else
-    {
-      v34 = v27;
-    }
-
-    if (v31 != 1)
-    {
-      v34 = v27;
-    }
-
-    if (v31 == 2)
     {
       v26 = v33;
     }
 
-    else
-    {
-      v27 = v34;
-    }
-
-    ++v28;
-    --v29;
+    ++v27;
+    --v28;
   }
 
-  while (v29);
-  v35 = (v27 | (v26 << 16)) << 32;
+  while (v28);
+  v34 = (v26 | (v25 << 16)) << 32;
 LABEL_31:
-  v44 = v35 | (2 * a6[29]);
-  *(&v54 + 1) = v18;
-  v45 = v65;
-  glvmInterpretEPTransformPatchInner(v65, v61, v62, v63, a5, a6, v66, a8, a9, *(&v54 + 1), v60, v24, v25, v44);
-  result = glvmWindowTransformEP(v45, a5, a9, v64, v46, v47, v48, v49, v50, v51);
-  v53 = *MEMORY[0x277D85DE8];
-  return result;
+  v43 = v34 | (2 * a6[29]);
+  *(&v52 + 1) = v17;
+  v44 = v63;
+  glvmInterpretEPTransformPatchInner(v63, v59, v60, v61, a5, a6, v64, a8, a9, *(&v52 + 1), v58, v23, v24, v43);
+  return glvmWindowTransformEP(v44, a5, a9, v62, v45, v46, v47, v48, v49, v50);
 }
 
 uint64_t glvmOperationSTOREWithMaskGP(uint64_t result, uint64_t a2, uint64_t a3, unsigned int *a4, unsigned int *a5, uint64_t a6, unint64_t a7)
@@ -8539,226 +8553,237 @@ LABEL_29:
   return result;
 }
 
-uint64_t glvmOperationDispatchGP(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned int *a11, uint64_t a12, uint64_t a13, uint64_t a14)
+uint64_t glvmOperationDispatchGP(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, unsigned int *a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned int *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
-  v14 = 0;
   v15 = 0;
-  v16 = a11;
-  v39 = *MEMORY[0x277D85DE8];
-  v17 = *a11;
-  memset(v38, 0, sizeof(v38));
-  v37[0] = 0;
-  v37[1] = 0;
-  v34 = v17;
-  v36 = vandq_s8(vdupq_n_s32(v17), xmmword_23A29BFD0);
+  v16 = 0;
+  v18 = a12;
+  v17 = a13;
+  v20 = a10;
+  v19 = a11;
+  v21 = a9;
+  v48 = *MEMORY[0x277D85DE8];
+  v22 = *a11;
+  memset(v47, 0, sizeof(v47));
+  v46[0] = 0;
+  v46[1] = 0;
+  v43 = v22;
+  v45 = vandq_s8(vdupq_n_s32(v22), xmmword_23A29BFD0);
   do
   {
-    if (v36.i32[v14])
+    if (v45.i32[v15])
     {
-      v18 = (v14 == 0) | (2 * (v14 == 1)) | (4 * (v14 == 2)) | (8 * (v14 == 3));
-      v19 = *(a13 + 8 * *(a14 + 32 * v14));
-      if (v15)
+      v23 = (v15 == 0) | (2 * (v15 == 1)) | (4 * (v15 == 2)) | (8 * (v15 == 3));
+      v24 = *(a13 + 8 * *(a14 + 32 * v15));
+      if (v16)
       {
-        v20 = 0;
-        while (v19 != *(v38 + v20))
+        v25 = 0;
+        while (v24 != *(v47 + v25))
         {
-          if (v15 == ++v20)
+          if (v16 == ++v25)
           {
             goto LABEL_2;
           }
         }
 
-        *(v37 + v20) |= v18;
+        *(v46 + v25) |= v23;
       }
 
       else
       {
-        LODWORD(v20) = 0;
+        LODWORD(v25) = 0;
       }
 
-      if (v20 == v15)
+      if (v25 == v16)
       {
 LABEL_2:
-        *(v38 + v15) = v19;
-        *(v37 + v15++) = v18;
+        *(v47 + v16) = v24;
+        *(v46 + v16++) = v23;
       }
     }
 
-    ++v14;
+    ++v15;
   }
 
-  while (v14 != 4);
-  if (v15)
+  while (v15 != 4);
+  if (v16)
   {
-    v21 = v37;
-    v22 = v38;
-    v23 = v15;
-    v35 = a2;
+    v26 = v46;
+    v27 = v47;
+    v28 = v16;
+    v44 = a2;
     do
     {
-      v24 = *v21++;
-      *v16 = v24;
-      v25 = *v22++;
-      v26 = a3;
-      v27 = a4;
-      v28 = a5;
-      v29 = result;
-      v30 = a6;
-      v31 = a7;
-      v32 = a8;
-      glvmInterpretGPTransformPrimitiveInner(result, a2);
-      a3 = v26;
-      a4 = v27;
-      a5 = v28;
-      a2 = v35;
-      a6 = v30;
-      result = v29;
-      a7 = v31;
-      a8 = v32;
-      v16 = a11;
-      --v23;
+      v29 = *v26++;
+      *v19 = v29;
+      v30 = *v27++;
+      v42 = v17;
+      v41 = v18;
+      v38 = v21;
+      v39 = v20;
+      v31 = a3;
+      v32 = a4;
+      v33 = a5;
+      v34 = result;
+      v35 = a6;
+      v36 = a7;
+      v37 = a8;
+      glvmInterpretGPTransformPrimitiveInner(result, a2, a3, a4, a5, a6, a7, a8, v38, v39, v40, v41, v42, (2 * (v30 & 0x7FFFFFFF)) | a15 & 0xFFFFFFFF00000000);
+      a3 = v31;
+      a4 = v32;
+      a5 = v33;
+      v17 = a13;
+      a2 = v44;
+      a6 = v35;
+      result = v34;
+      a7 = v36;
+      v21 = a9;
+      v20 = a10;
+      a8 = v37;
+      v19 = a11;
+      v18 = a12;
+      --v28;
     }
 
-    while (v23);
+    while (v28);
   }
 
-  *v16 = v34;
-  v33 = *MEMORY[0x277D85DE8];
+  *v19 = v43;
   return result;
 }
 
 void glvmInterpretGPTransformPrimitiveInner(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, unsigned int *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, float32x4_t *a12, uint64_t a13, unint64_t a14)
 {
-  v134 = a8;
-  v131 = a4;
-  v145 = a2;
-  v146 = a3;
-  v147 = a1;
-  v133 = a12;
-  v132 = a10;
-  v162 = *MEMORY[0x277D85DE8];
+  v133 = a8;
+  v130 = a4;
+  v144 = a2;
+  v145 = a3;
+  v146 = a1;
+  v132 = a12;
+  v131 = a10;
+  v161 = *MEMORY[0x277D85DE8];
   v16 = a14 >> 1;
   v17 = &a6[2 * v16];
   v18 = *v17;
   LODWORD(v19) = a6[30];
-  v135 = v19;
+  v134 = v19;
   if (a6[18])
   {
-    v140 = a6[14];
+    v139 = a6[14];
   }
 
   else
   {
-    v140 = 0;
+    v139 = 0;
   }
 
-  v128 = a7;
+  v127 = a7;
   v20 = *a7;
   v21 = (v18 >> 14) & 1;
-  v143 = a6[8];
-  v144 = v20;
-  v154 = 0;
-  v155 = 0;
-  v152 = 0;
+  v142 = a6[8];
+  v143 = v20;
   v153 = 0;
-  memset(v161, 0, sizeof(v161));
+  v154 = 0;
+  v151 = 0;
+  v152 = 0;
   memset(v160, 0, sizeof(v160));
   memset(v159, 0, sizeof(v159));
   memset(v158, 0, sizeof(v158));
   memset(v157, 0, sizeof(v157));
   memset(v156, 0, sizeof(v156));
+  memset(v155, 0, sizeof(v155));
   v22 = *&a6[2 * a6[29]] & 0x3FC0;
   v23 = a6[31];
-  v129 = a13;
+  v128 = a13;
   if (v22 == 8640)
   {
-    v136 = 0;
-    v130 = 0;
-    *&v148[8] = 0;
-    v149 = 0;
-    *v148 = (v18 >> 14) & 1;
+    v135 = 0;
+    v129 = 0;
+    *&v147[8] = 0;
+    v148 = 0;
+    *v147 = (v18 >> 14) & 1;
     if (v16 != v23)
     {
 LABEL_15:
-      v138 = HIWORD(a14);
-      v139 = WORD2(a14);
-      if (v135)
+      v137 = HIWORD(a14);
+      v138 = WORD2(a14);
+      if (v134)
       {
-        v31 = v21;
+        v30 = v21;
       }
 
       else
       {
-        v31 = 1;
+        v30 = 1;
       }
 
-      v137 = v31;
-      v142 = a9;
-      v127 = (4 * v135);
-      v126 = v19 << 8;
-      v125 = a14 & 0xFFFFFFFF00000000;
-      v123 = a9 + 220;
-      v124 = a14 & 0xFFFFFFFF00000000 | 1;
-      v141 = &a6[2 * v23];
+      v136 = v30;
+      v141 = a9;
+      v126 = (4 * v134);
+      v125 = v19 << 8;
+      v124 = a14 & 0xFFFFFFFF00000000;
+      v122 = a9 + 220;
+      v123 = a14 & 0xFFFFFFFF00000000 | 1;
+      v140 = &a6[2 * v23];
       while (1)
       {
-        v32 = v17;
-        v151 = 0;
-        v33 = *v17;
-        v34 = *v17 & 7;
-        v35 = WORD1(*v17) & 1;
-        v36 = (*v17 >> 15) & 1;
-        if (v35 | v36)
+        v31 = v17;
+        v150 = 0;
+        v32 = *v17;
+        v33 = *v17 & 7;
+        v34 = WORD1(*v17) & 1;
+        v35 = (*v17 >> 15) & 1;
+        if (v34 | v35)
         {
-          v37 = v17[(v34 + 1)];
-          LODWORD(v34) = v34 - (v36 + v35) + ((v33 << 14) >> 31);
+          v36 = *&v17[2 * (v33 + 1)];
+          LODWORD(v33) = v33 - (v35 + v34) + ((v32 << 14) >> 31);
         }
 
         else
         {
-          v37 = 0;
+          v36 = 0;
         }
 
-        v151 = v17[1];
+        v150 = *(v17 + 1);
         if (&a6[2 * a6[27]] != v17)
         {
-          v38 = &v17[-2 - ((*v17 >> 3) & 7)];
-          v39 = (*v38 >> 6) - 89;
-          v40 = v39 > 0x2E;
-          v41 = (1 << v39) & 0x400008000001;
-          if (!v40 && v41 != 0)
+          v37 = &v17[2 * (-2 - ((*v17 >> 3) & 7))];
+          v38 = (*v37 >> 6) - 89;
+          v39 = v38 > 0x2E;
+          v40 = (1 << v38) & 0x400008000001;
+          if (!v39 && v40 != 0)
           {
-            v43 = v38[1];
-            v44 = (v43 & 0x1FC0000) < 0xC0000 && (v43 & 0x100000000) == 0;
-            v45 = *v148;
-            if (v44)
+            v42 = v37[1];
+            v43 = (v42 & 0x1FC0000) < 0xC0000uLL && (v42 & 0x100000000) == 0;
+            v44 = *v147;
+            if (v43)
             {
-              v45 = v137;
+              v44 = v136;
             }
 
-            *v148 = v45;
+            *v147 = v44;
           }
         }
 
-        OperationSpec = glvmGetOperationSpec(v17, &v152);
-        v150 = 0;
-        if (!v34)
+        OperationSpec = glvmGetOperationSpec(v17, &v151);
+        v149 = 0;
+        if (!v33)
         {
           break;
         }
 
-        v53 = v17[2];
-        glvmGetSourceOffsetStride(a6, (v33 >> 38) & 7, 0, v53, 3, v144, &v150, &v152, &v155);
-        if (v53)
+        v52 = *(v17 + 2);
+        glvmGetSourceOffsetStride(a6, (v32 >> 38) & 7, 0, v52, 3, v143, &v149, &v151, &v154);
+        if (v52)
         {
-          glvmSetSourceIndirectLimits_2(a6, v53, &v155, v143, v139, v138, v140);
+          glvmSetSourceIndirectLimits_2(a6, v52, &v154, v142, v138, v137, v139);
         }
 
-        v62 = (v53 >> 6) & 7;
-        if (!v62 || v62 == 5 || v150)
+        v61 = (v52 >> 6) & 7;
+        if (!v61 || v61 == 5 || v149)
         {
-          v48.n128_f64[0] = glvmLoadSourceAttribGP(v54, v147, v145, v146, a5, a6, v142, *&v148[4], v149, v161, v53, v155);
-          if (v34 == 1)
+          v47.n128_f64[0] = glvmLoadSourceAttribGP(v53, v146, v144, v145, a5, a6, v141, *&v147[4], v148, v160, v52, v154);
+          if (v33 == 1)
           {
             break;
           }
@@ -8766,39 +8791,39 @@ LABEL_15:
 
         else
         {
-          if (v62 == 4)
+          if (v61 == 4)
           {
-            v48.n128_f64[0] = glvmLoadSourceAddress(v147, v145, v146, a5, a6, *&v148[4], v149, v161, v53, v155);
+            v47.n128_f64[0] = glvmLoadSourceAddress(v146, v144, v145, a5, a6, *&v147[4], v148, v160, v52, v154);
           }
 
-          else if (v62 == 1)
+          else if (v61 == 1)
           {
-            v48.n128_f64[0] = glvmLoadSourceTemp(v147, v145, v146, a5, a6, *&v148[4], v149, v161, v53, v155);
+            v47.n128_f64[0] = glvmLoadSourceTemp(v146, v144, v145, a5, a6, *&v147[4], v148, v160, v52, v154);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v147, v145, v146, v54, v55, v56, v57, v58, v59, v60, v61, a5, a6, *&v148[4], v149, v161[0].i32, v53, v155);
+            OperationSpec = glvmLoadSourceParam(v146, v144, v145, v53, v54, v55, v56, v57, v58, v59, v60, a5, a6, *&v147[4], v148, v160, v52, v154);
           }
 
-          if (v34 == 1)
+          if (v33 == 1)
           {
             break;
           }
         }
 
-        v63 = v32[3];
-        glvmGetSourceOffsetStride(a6, (v33 >> 38) & 7, 1, v63, 3, v144, &v150, &v152, &v154);
-        if (v63)
+        v62 = v31[3];
+        glvmGetSourceOffsetStride(a6, (v32 >> 38) & 7, 1, v62, 3, v143, &v149, &v151, &v153);
+        if (v62)
         {
-          glvmSetSourceIndirectLimits_2(a6, v63, &v154, v143, v139, v138, v140);
+          glvmSetSourceIndirectLimits_2(a6, v62, &v153, v142, v138, v137, v139);
         }
 
-        v72 = (v63 >> 6) & 7;
-        if (!v72 || v72 == 5 || v150)
+        v71 = (v62 >> 6) & 7;
+        if (!v71 || v71 == 5 || v149)
         {
-          v48.n128_f64[0] = glvmLoadSourceAttribGP(v64, v147, v145, v146, a5, a6, v142, *&v148[4], v149, v160, v63, v154);
-          if (v34 < 3)
+          v47.n128_f64[0] = glvmLoadSourceAttribGP(v63, v146, v144, v145, a5, a6, v141, *&v147[4], v148, v159, v62, v153);
+          if (v33 < 3)
           {
             break;
           }
@@ -8806,39 +8831,39 @@ LABEL_15:
 
         else
         {
-          if (v72 == 4)
+          if (v71 == 4)
           {
-            v48.n128_f64[0] = glvmLoadSourceAddress(v147, v145, v146, a5, a6, *&v148[4], v149, v160, v63, v154);
+            v47.n128_f64[0] = glvmLoadSourceAddress(v146, v144, v145, a5, a6, *&v147[4], v148, v159, v62, v153);
           }
 
-          else if (v72 == 1)
+          else if (v71 == 1)
           {
-            v48.n128_f64[0] = glvmLoadSourceTemp(v147, v145, v146, a5, a6, *&v148[4], v149, v160, v63, v154);
+            v47.n128_f64[0] = glvmLoadSourceTemp(v146, v144, v145, a5, a6, *&v147[4], v148, v159, v62, v153);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v147, v145, v146, v64, v65, v66, v67, v68, v69, v70, v71, a5, a6, *&v148[4], v149, v160[0].i32, v63, v154);
+            OperationSpec = glvmLoadSourceParam(v146, v144, v145, v63, v64, v65, v66, v67, v68, v69, v70, a5, a6, *&v147[4], v148, v159, v62, v153);
           }
 
-          if (v34 < 3)
+          if (v33 < 3)
           {
             break;
           }
         }
 
-        v73 = v32[4];
-        glvmGetSourceOffsetStride(a6, (v33 >> 38) & 7, 2, v73, 3, v144, &v150, &v152, &v154);
-        if (v73)
+        v72 = v31[4];
+        glvmGetSourceOffsetStride(a6, (v32 >> 38) & 7, 2, v72, 3, v143, &v149, &v151, &v153);
+        if (v72)
         {
-          glvmSetSourceIndirectLimits_2(a6, v73, &v154, v143, v139, v138, v140);
+          glvmSetSourceIndirectLimits_2(a6, v72, &v153, v142, v138, v137, v139);
         }
 
-        v82 = (v73 >> 6) & 7;
-        if (!v82 || v82 == 5 || v150)
+        v81 = (v72 >> 6) & 7;
+        if (!v81 || v81 == 5 || v149)
         {
-          v48.n128_f64[0] = glvmLoadSourceAttribGP(v74, v147, v145, v146, a5, a6, v142, *&v148[4], v149, v159, v73, v154);
-          if (v34 == 3)
+          v47.n128_f64[0] = glvmLoadSourceAttribGP(v73, v146, v144, v145, a5, a6, v141, *&v147[4], v148, v158, v72, v153);
+          if (v33 == 3)
           {
             break;
           }
@@ -8846,39 +8871,39 @@ LABEL_15:
 
         else
         {
-          if (v82 == 4)
+          if (v81 == 4)
           {
-            v48.n128_f64[0] = glvmLoadSourceAddress(v147, v145, v146, a5, a6, *&v148[4], v149, v159, v73, v154);
+            v47.n128_f64[0] = glvmLoadSourceAddress(v146, v144, v145, a5, a6, *&v147[4], v148, v158, v72, v153);
           }
 
-          else if (v82 == 1)
+          else if (v81 == 1)
           {
-            v48.n128_f64[0] = glvmLoadSourceTemp(v147, v145, v146, a5, a6, *&v148[4], v149, v159, v73, v154);
+            v47.n128_f64[0] = glvmLoadSourceTemp(v146, v144, v145, a5, a6, *&v147[4], v148, v158, v72, v153);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v147, v145, v146, v74, v75, v76, v77, v78, v79, v80, v81, a5, a6, *&v148[4], v149, v159[0].i32, v73, v154);
+            OperationSpec = glvmLoadSourceParam(v146, v144, v145, v73, v74, v75, v76, v77, v78, v79, v80, a5, a6, *&v147[4], v148, v158, v72, v153);
           }
 
-          if (v34 == 3)
+          if (v33 == 3)
           {
             break;
           }
         }
 
-        v90 = v32[5];
-        glvmGetSourceOffsetStride(a6, (v33 >> 38) & 7, 3, v90, 3, v144, &v150, &v152, &v154);
-        if (v90)
+        v89 = v31[5];
+        glvmGetSourceOffsetStride(a6, (v32 >> 38) & 7, 3, v89, 3, v143, &v149, &v151, &v153);
+        if (v89)
         {
-          glvmSetSourceIndirectLimits_2(a6, v90, &v154, v143, v139, v138, v140);
+          glvmSetSourceIndirectLimits_2(a6, v89, &v153, v142, v138, v137, v139);
         }
 
-        v99 = (v90 >> 6) & 7;
-        if (!v99 || v99 == 5 || v150)
+        v98 = (v89 >> 6) & 7;
+        if (!v98 || v98 == 5 || v149)
         {
-          v48.n128_f64[0] = glvmLoadSourceAttribGP(v91, v147, v145, v146, a5, a6, v142, *&v148[4], v149, v158, v90, v154);
-          if ((v33 & 0x100000000) != 0)
+          v47.n128_f64[0] = glvmLoadSourceAttribGP(v90, v146, v144, v145, a5, a6, v141, *&v147[4], v148, v157, v89, v153);
+          if ((v32 & 0x100000000) != 0)
           {
             goto LABEL_72;
           }
@@ -8886,112 +8911,112 @@ LABEL_15:
 
         else
         {
-          if (v99 == 4)
+          if (v98 == 4)
           {
-            v48.n128_f64[0] = glvmLoadSourceAddress(v147, v145, v146, a5, a6, *&v148[4], v149, v158, v90, v154);
+            v47.n128_f64[0] = glvmLoadSourceAddress(v146, v144, v145, a5, a6, *&v147[4], v148, v157, v89, v153);
           }
 
-          else if (v99 == 1)
+          else if (v98 == 1)
           {
-            v48.n128_f64[0] = glvmLoadSourceTemp(v147, v145, v146, a5, a6, *&v148[4], v149, v158, v90, v154);
+            v47.n128_f64[0] = glvmLoadSourceTemp(v146, v144, v145, a5, a6, *&v147[4], v148, v157, v89, v153);
           }
 
           else
           {
-            OperationSpec = glvmLoadSourceParam(v147, v145, v146, v91, v92, v93, v94, v95, v96, v97, v98, a5, a6, *&v148[4], v149, v158[0].i32, v90, v154);
+            OperationSpec = glvmLoadSourceParam(v146, v144, v145, v90, v91, v92, v93, v94, v95, v96, v97, a5, a6, *&v147[4], v148, v157, v89, v153);
           }
 
-          if ((v33 & 0x100000000) != 0)
+          if ((v32 & 0x100000000) != 0)
           {
             goto LABEL_72;
           }
         }
 
 LABEL_73:
-        v83 = (v33 >> 6);
-        v17 = &v32[(v33 & 7) + 2];
-        if (v83 > 0xA6)
+        v82 = (v32 >> 6);
+        v17 = &v31[(v32 & 7) + 2];
+        if (v82 > 0xA6)
         {
 LABEL_436:
-          if ((v33 & 0x100000000) != 0)
+          if ((v32 & 0x100000000) != 0)
           {
 LABEL_437:
-            v121 = (v151 >> 12) & 7;
-            if (*v148)
+            v119 = (v150 >> 12) & 7;
+            if (*v147)
             {
-              if (v121 == 1)
+              if (v119 == 1)
               {
-                glvmStoreDestTemp(*&v148[4], v149, v156, v151, v153, v48, v49.f64[0], v50.f64[0], v51, v52);
+                glvmStoreDestTemp(*&v147[4], v148, v155, v150, v152, v47, v48.f64[0], v49.f64[0], v50, v51);
               }
 
-              else if (v121 == 5 || v121 == 3)
+              else if (v119 == 5 || v119 == 3)
               {
-                glvmStoreDestOutputGP(v142, v48, *&v148[4], v149, v156, v151, v153);
+                glvmStoreDestOutputGP(v141, v47, *&v147[4], v148, v155, v150, v152);
               }
 
               else
               {
-                glvmStoreDestAddress(*&v148[4], v149, v156[0].i8, v151, v153);
+                glvmStoreDestAddress(*&v147[4], v148, v155[0].i8, v150, v152);
               }
             }
 
-            else if (v121 == 1)
+            else if (v119 == 1)
             {
-              glvmStoreDestTempWithMask(*&v148[4], v149, v156, v136, v151, v153, v48, v49.f64[0], v50.f64[0], v51, v52);
+              glvmStoreDestTempWithMask(*&v147[4], v148, v155, v135, v150, v152, v47, v48.f64[0], v49.f64[0], v50, v51);
             }
 
-            else if (v121 == 5 || v121 == 3)
+            else if (v119 == 5 || v119 == 3)
             {
-              glvmStoreDestOutputWithMaskGP(v142, v48, *&v148[4], v149, v156, v136, v151, v153);
+              glvmStoreDestOutputWithMaskGP(v141, v47, *&v147[4], v148, v155, v135, v150, v152);
             }
 
             else
             {
-              glvmStoreDestAddressWithMask(*&v148[4], v149, v156[0].i8, v136, v151, v153);
+              glvmStoreDestAddressWithMask(*&v147[4], v148, v155[0].i8, v135, v150, v152);
             }
           }
         }
 
         else
         {
-          v84 = 1;
-          switch((v33 >> 6))
+          v83 = 1;
+          switch((v32 >> 6))
           {
             case 1u:
-              v48 = glvmOperationLIT(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationLIT(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 2u:
-              v48 = glvmOperationABS(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationABS(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 3u:
-              glvmOperationCEI(a5, v161[0].i64, v156, v152, v48);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationCEI(a5, v160[0].i64, v155, v151, v47);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 4u:
-              glvmOperationFRC(a5, v161, v156[0].i64, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationFRC(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 5u:
-              glvmOperationFLR(a5, v161[0].i64, v156, v152, v48);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationFLR(a5, v160[0].i64, v155, v151, v47);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
@@ -9019,194 +9044,194 @@ LABEL_437:
             case 0xA4u:
               goto LABEL_436;
             case 7u:
-              v48 = glvmOperationSSG(v48, a5, v161, v156[0].i64, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationSSG(v47, a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 8u:
-              v48 = glvmOperationANY(v48, a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationANY(v47, a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 9u:
-              v48 = glvmOperationALL(v48, a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationALL(v47, a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xAu:
-              v48 = glvmOperationNOT(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationNOT(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xBu:
-              glvmOperationNSE(a5, v161[0].i32, v156[0].i32, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationNSE(a5, v160[0].i32, v155[0].i32, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xCu:
-              glvmOperationSQT(a5, v161[0].i64, v156[0].i64, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSQT(a5, v160[0].i64, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xDu:
-              v48 = glvmOperationRSQ(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationRSQ(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xEu:
-              v48 = glvmOperationRCP(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationRCP(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xFu:
-              glvmOperationRCC(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationRCC();
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x10u:
-              glvmOperationEX2(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationEX2(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x11u:
-              glvmOperationEXP(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationEXP(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x12u:
-              v48 = glvmOperationLEN(a5, v161, v156[0].i64, v152, v48, v49.f64[0], v50.f64[0], v51.f64[0]);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationLEN(a5, v160, v155, v151, v47, v48.f64[0], v49.f64[0], v50.f64[0]);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x13u:
-              glvmOperationLG2(a5, v161[0].i32, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationLG2(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x14u:
-              glvmOperationLOG(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationLOG(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x15u:
-              v48 = glvmOperationNRM(a5, v161, v156[0].i64, v152, v48);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationNRM(a5, v160, v155[0].i64, v151, v47);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x16u:
-              v48 = glvmOperationRAD(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationRAD(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x17u:
-              v48 = glvmOperationDEG(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationDEG(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x18u:
-              glvmOperationSCS(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47.n128_f64[0] = glvmOperationSCS(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x19u:
-              glvmOperationSIN(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47.n128_f64[0] = glvmOperationSIN(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x1Au:
-              glvmOperationCOS(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47.n128_f64[0] = glvmOperationCOS(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x1Bu:
-              v48 = glvmOperationTAN(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationTAN(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x1Cu:
-              v48 = glvmOperationASN(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationASN(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x1Du:
-              v48 = glvmOperationACS(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationACS(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x1Eu:
-              if (v34 == 1)
+              if (v33 == 1)
               {
-                v48.n128_f64[0] = glvmOperationATN(a5, v161, v156);
-                if ((v33 & 0x100000000) == 0)
+                v47.n128_f64[0] = glvmOperationATN(a5, v160, v155);
+                if ((v32 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -9214,8 +9239,8 @@ LABEL_437:
 
               else
               {
-                v48 = glvmOperationATN2(a5, v161, v160, v156);
-                if ((v33 & 0x100000000) == 0)
+                v47 = glvmOperationATN2(a5, v160, v159, v155);
+                if ((v32 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -9223,280 +9248,280 @@ LABEL_437:
 
               goto LABEL_437;
             case 0x1Fu:
-              glvmOperationADD(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationADD(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x20u:
-              glvmOperationSUB(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSUB(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x21u:
-              glvmOperationMOD(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationMOD(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x22u:
-              glvmOperationMUL(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationMUL(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x23u:
-              glvmOperationMLC(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationMLC();
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x24u:
-              v48 = glvmOperationANL(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationANL(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x25u:
-              v48 = glvmOperationORL(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationORL(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x26u:
-              v48 = glvmOperationXRL(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationXRL(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x27u:
-              glvmOperationDOT(v48.n128_f64[0], a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationDOT(v47.n128_f64[0], a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x28u:
-              glvmOperationDP3(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationDP3(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x29u:
-              glvmOperationDP4(v48.n128_f64[0], a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationDP4(v47.n128_f64[0], a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x2Au:
-              v48 = glvmOperationDPH(v48.n128_f64[0], a5, v161[0].i32, v160[0].i32, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationDPH(v47.n128_f64[0], a5, v160[0].i32, v159[0].i32, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x2Bu:
-              v48 = glvmOperationDST(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationDST(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x2Cu:
-              glvmOperationMIN(a5, v161[0].i64, v160[0].i64, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationMIN(a5, v160[0].i64, v159[0].i64, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x2Du:
-              glvmOperationMAX(a5, v161[0].i64, v160[0].i64, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationMAX(a5, v160[0].i64, v159[0].i64, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x2Eu:
-              v48.n128_f64[0] = glvmOperationXPD(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47.n128_f64[0] = glvmOperationXPD(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x2Fu:
-              v48 = glvmOperationRFL(v48, v49.f64[0], v50.f64[0], v51.f64[0], a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationRFL(v47, v48.f64[0], v49.f64[0], v50.f64[0], a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x30u:
-              v48 = glvmOperationSTR(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationSTR(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x31u:
-              v48 = glvmOperationSEQ(v48, a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationSEQ(v47, a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x32u:
-              glvmOperationSGE(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSGE(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x33u:
-              glvmOperationSGT(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSGT(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x34u:
-              glvmOperationSLE(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSLE(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x35u:
-              glvmOperationSLT(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSLT(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x36u:
-              v48 = glvmOperationSNE(v48, a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationSNE(v47, a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x37u:
-              v48.n128_f64[0] = glvmOperationSFL(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47.n128_f64[0] = glvmOperationSFL(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x38u:
-              glvmOperationPOW(a5, v161[0].i32, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationPOW(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x39u:
-              glvmOperationSEL(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSEL(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x3Au:
-              v48 = glvmOperationDIV(v48, a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationDIV(v47, a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x3Bu:
-              v48 = glvmOperationFFW(v48, v49, v50, v51, a5, v161, v160, v159, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationFFW(v47, v48, v49, v50, a5, v160, v159, v158, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x3Cu:
-              glvmOperationLRP(a5, v161, v160, v159, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationLRP(a5, v160, v159, v158, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x3Du:
-              glvmOperationCLM(a5, v161[0].i32, v160[0].i32, v159, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationCLM(a5, v160[0].i64, v159[0].i64, v158[0].i64, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x3Eu:
-              v48 = glvmOperationCMP(a5, v161, v160, v159, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationCMP(a5, v160, v159, v158, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x3Fu:
-              v48 = glvmOperationMAD(a5, v161, v160, v159, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationMAD(a5, v160, v159, v158, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x40u:
-              v48 = glvmOperationSMS(a5, v161, v160, v159, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationSMS(a5, v160, v159, v158, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x41u:
-              glvmOperationSWZ(a5, v161, v156, v37, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSWZ(a5, v160, v155, v36, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
@@ -9506,13 +9531,13 @@ LABEL_437:
             case 0x43u:
             case 0x44u:
             case 0x45u:
-              v85 = 0x80000000;
-              if ((v33 & 0x3F80) == 0x1080)
+              v84 = 0x80000000;
+              if ((v32 & 0x3F80) == 0x1080)
               {
-                v85 = 3221225472;
+                v84 = 3221225472;
               }
 
-              v152 = v152 & 0xFFFFFFFF3FFFFFFFLL | v85;
+              v151 = v151 & 0xFFFFFFFF3FFFFFFFLL | v84;
               goto LABEL_78;
             case 0x46u:
             case 0x47u:
@@ -9521,38 +9546,38 @@ LABEL_437:
             case 0xA5u:
             case 0xA6u:
 LABEL_78:
-              v84 = 0;
+              v83 = 0;
               goto LABEL_79;
             case 0x48u:
-              v48 = glvmOperationARL(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationARL(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x49u:
-              glvmOperationARR(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationARR();
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x4Au:
-              glvmOperationARA(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationARA();
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x4Cu:
-              if (v34 == 1)
+              if (v33 == 1)
               {
-                v152 = v124;
-                glvmOperationDispatchGP(v147, v145, v146, v131, a5, a6, v128, v134, v142, *&v148[4], v136, v149, v130, v161);
-                if ((v33 & 0x100000000) == 0)
+                v151 = v123;
+                glvmOperationDispatchGP(v146, v144, v145, v130, a5, a6, v127, v133, v141, *&v147[4], v135, v148, v129, v160, v123);
+                if ((v32 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -9560,9 +9585,9 @@ LABEL_78:
 
               else
               {
-                v152 = (2 * (v151 & 0x3FFFF)) | v125;
-                glvmInterpretGPTransformPrimitiveInner(v147, v145);
-                if ((v33 & 0x100000000) == 0)
+                v151 = (2 * (v150 & 0x3FFFF)) | v124;
+                glvmInterpretGPTransformPrimitiveInner(v146, v144, v145, v130, a5, a6, v127, v133, v141, *&v147[4], v120, v148, v129, v151);
+                if ((v32 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -9570,62 +9595,62 @@ LABEL_78:
 
               goto LABEL_437;
             case 0x4Du:
-              v109 = &a6[2 * (v151 & 0x3FFFF)];
-              v110 = glvmPredicateBRA(a5, v161, v136, (v151 >> 17) & 0x7F00 | (v151 >> 18) & 0x7F | (v109[1] >> 2) & 0x7F0000);
+              v107 = &a6[2 * (v150 & 0x3FFFF)];
+              v108 = glvmPredicateBRA(a5, v160, v135, (v150 >> 17) & 0x7F00 | (v150 >> 18) & 0x7F | (*(v107 + 1) >> 2) & 0x7F0000);
               goto LABEL_326;
             case 0x54u:
-              v109 = &a6[2 * (v151 & 0x3FFFF)];
-              v110 = glvmPredicateBRK(a5, v161, v136, (v151 >> 7) & 0x2000000 | (v151 >> 18) & 0x7F | (v109[1] >> 2) & 0x7F0000);
+              v107 = &a6[2 * (v150 & 0x3FFFF)];
+              v108 = glvmPredicateBRK(a5, v160, v135, (v150 >> 7) & 0x2000000 | (v150 >> 18) & 0x7F | (*(v107 + 1) >> 2) & 0x7F0000);
               goto LABEL_326;
             case 0x55u:
-              if (glvmPredicateIF(a5, v161, v136, v152, (v151 >> 18) & 0x7F))
+              if (glvmPredicateIF(a5, v160, v135, v151, (v150 >> 18) & 0x7F))
               {
                 goto LABEL_282;
               }
 
               goto LABEL_356;
             case 0x58u:
-              if (!glvmPredicateELSE(a5, v161, v136, (v151 >> 18) & 0x7F))
+              if (!glvmPredicateELSE(a5, v160, v135, (v150 >> 18) & 0x7F))
               {
                 goto LABEL_436;
               }
 
               goto LABEL_341;
             case 0x59u:
-              glvmPredicateENDIF(a5, v161, v136, (v151 >> 7) & 0x2000000 | (v151 >> 18) & 0x7F | (v151 >> 17) & 0x7F00);
-              if ((v33 & 0x100000000) != 0)
+              glvmPredicateENDIF(a5, v160, v135, (v150 >> 7) & 0x2000000 | (v150 >> 18) & 0x7F | (v150 >> 17) & 0x7F00);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x5Cu:
-              glvmOperationPK2H(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationPK2H(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x5Du:
-              glvmOperationPK2US(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationPK2US(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x5Eu:
-              glvmOperationPK4B(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationPK4B(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x5Fu:
-              glvmOperationPK4UB(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationPK4UB(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
@@ -9634,132 +9659,131 @@ LABEL_78:
             case 0x62u:
             case 0x63u:
 LABEL_79:
-              v86 = &a6[2 * a6[23]] + ((v37 >> 35) & 0x7F0);
-              v87 = *v86;
-              if ((v152 & 0x100) != 0 && (v33 & 0x3F00 | 0x80) == 0x1180 || v83 - 167 <= 0xFFFFFFFD && (v152 & 0x1F000000) == 0x11000000)
+              v85 = &a6[2 * a6[23]] + ((v36 >> 35) & 0x7F0);
+              v86 = *v85;
+              if ((v151 & 0x100) != 0 && (v32 & 0x3F00 | 0x80) == 0x1180 || v82 - 167 <= 0xFFFFFFFD && (v151 & 0x1F000000) == 0x11000000)
               {
-                glvmOperationMOV(a5, v160, v157, 0x400004800000000uLL);
+                glvmOperationMOV(a5, v159, v156, 0x400004800000000uLL);
               }
 
-              if ((v152 & 0x200) == 0)
+              if ((v151 & 0x200) == 0)
               {
                 goto LABEL_110;
               }
 
-              if (v83 == 165)
+              if (v82 == 165)
               {
-                v88 = 0x400004800000000;
+                v87 = 0x400004800000000;
               }
 
               else
               {
-                v88 = 0x100001800000000;
+                v87 = 0x100001800000000;
               }
 
-              switch(v34)
+              switch(v33)
               {
                 case 2:
-                  v89 = v160;
+                  v88 = v159;
                   break;
                 case 4:
-                  v89 = v158;
+                  v88 = v157;
                   break;
                 case 3:
-                  v89 = v159;
+                  v88 = v158;
                   break;
                 default:
                   goto LABEL_110;
               }
 
-              glvmOperationMOV(a5, v89, v158, v88);
+              glvmOperationMOV(a5, v88, v157, v87);
 LABEL_110:
-              if (v83 == 166)
+              if (v82 == 166)
               {
-                v106 = BYTE3(v152) & 0x1F;
-                if (v106 <= 0x11 && ((1 << v106) & 0x219E0) != 0)
+                v105 = BYTE3(v151) & 0x1F;
+                if (v105 <= 0x11 && ((1 << v105) & 0x219E0) != 0)
                 {
+                  glvmOperationMOV(a5, v157, v156, 0x400004800000000uLL);
                   glvmOperationMOV(a5, v158, v157, 0x400004800000000uLL);
-                  glvmOperationMOV(a5, v159, v158, 0x400004800000000uLL);
 LABEL_123:
-                  glvmOperationZERO(a5, v159, 0x400000800000000uLL);
+                  glvmOperationZERO(a5, v158, 0x400000800000000uLL);
                   goto LABEL_124;
                 }
 
-                glvmOperationMOV(a5, v159, v157, 0x400004800000000uLL);
-                if (v34 == 4)
+                glvmOperationMOV(a5, v158, v156, 0x400004800000000uLL);
+                if (v33 == 4)
                 {
-                  glvmOperationMOV(a5, v158, v159, 0x100001800000000uLL);
+                  glvmOperationMOV(a5, v157, v158, 0x100001800000000uLL);
                 }
 
                 else
                 {
-                  glvmOperationZERO(a5, v159, 0x400000800000000uLL);
+                  glvmOperationZERO(a5, v158, 0x400000800000000uLL);
                 }
 
-                v103 = v158;
-                v104 = a5;
-                v105 = 0x400004800000000;
+                v102 = v157;
+                v103 = a5;
+                v104 = 0x400004800000000;
               }
 
               else
               {
-                if (v83 != 165)
+                if (v82 != 165)
                 {
                   goto LABEL_124;
                 }
 
-                v100 = BYTE3(v152) & 0x1F;
-                if (v100 <= 0x11 && ((1 << v100) & 0x219E0) != 0)
+                v99 = BYTE3(v151) & 0x1F;
+                if (v99 <= 0x11 && ((1 << v99) & 0x219E0) != 0)
                 {
                   goto LABEL_123;
                 }
 
-                v101 = v34 == 2;
-                if ((v152 & 0x200) != 0)
+                v100 = v33 == 2;
+                if ((v151 & 0x200) != 0)
                 {
-                  v101 = 0;
-                  v102 = v34 != 3;
+                  v100 = 0;
+                  v101 = v33 != 3;
                 }
 
                 else
                 {
-                  v102 = 1;
+                  v101 = 1;
                 }
 
-                if (!v101 && v102)
+                if (!v100 && v101)
                 {
                   goto LABEL_123;
                 }
 
-                v103 = v159;
-                v104 = a5;
-                v105 = 0x100001800000000;
+                v102 = v158;
+                v103 = a5;
+                v104 = 0x100001800000000;
               }
 
-              glvmOperationMOV(v104, v160, v103, v105);
+              glvmOperationMOV(v103, v159, v102, v104);
 LABEL_124:
-              v107 = v87 & 0xDFFFFFFFFFFFFFFFLL;
-              if (v84)
+              v106 = v86 & 0xDFFFFFFFFFFFFFFFLL;
+              if (v83)
               {
-                v107 = v87;
+                v106 = v86;
               }
 
-              v108 = *(v86 + 8);
-              if ((*(v86 + 7) & 4) != 0)
+              if ((v85[7] & 4) != 0)
               {
-                if (v83 == 131)
+                if (v82 == 131)
                 {
-                  v48 = glvmSamplerSize(v147, a5, v134, v161, v160, v159, v158, v157, v156, v107, *(v86 + 8), v152);
-                  if ((v33 & 0x100000000) != 0)
+                  v47 = glvmSamplerSize(v146, a5, v133, v160, v159, v158, v157, v156, v155, v106, *(v85 + 1), v151);
+                  if ((v32 & 0x100000000) != 0)
                   {
                     goto LABEL_437;
                   }
                 }
 
-                else if (v83 == 130)
+                else if (v82 == 130)
                 {
-                  v48 = glvmSamplerFetch(v147, a5, v134, v161, v160, v159, v158, v157, v156, v107, *(v86 + 8), HIDWORD(*(v86 + 8)), v152);
-                  if ((v33 & 0x100000000) != 0)
+                  v47 = glvmSamplerFetch(v146, a5, v133, v160, v159, v158, v157, v156, v155, v106, *(v85 + 1), HIDWORD(*(v85 + 1)), v151);
+                  if ((v32 & 0x100000000) != 0)
                   {
                     goto LABEL_437;
                   }
@@ -9767,8 +9791,8 @@ LABEL_124:
 
                 else
                 {
-                  glvmSamplerSample(v147, a5, v134, v161, v160, v159, v158, v157, v156, v107, *(v86 + 8), v152);
-                  if ((v33 & 0x100000000) != 0)
+                  glvmSamplerSample(v146, a5, v133, v160, v159, v158, v157, v156, v155, v106, *(v85 + 1), v151);
+                  if ((v32 & 0x100000000) != 0)
                   {
                     goto LABEL_437;
                   }
@@ -9777,8 +9801,8 @@ LABEL_124:
 
               else
               {
-                glvmSamplerInvalid(v147, a5, v134, v161, v160, v159, v158, v157, v156[0].i8, v107, *(v86 + 8), v152, SWORD2(v152), SBYTE6(v152), SHIBYTE(v152));
-                if ((v33 & 0x100000000) != 0)
+                glvmSamplerInvalid(v146, a5, v133, v160, v159, v158, v157, v156, v155[0].i8, v106, *(v85 + 1), v151, SWORD2(v151), SBYTE6(v151), SHIBYTE(v151));
+                if ((v32 & 0x100000000) != 0)
                 {
                   goto LABEL_437;
                 }
@@ -9786,55 +9810,55 @@ LABEL_124:
 
               break;
             case 0x64u:
-              glvmOperationUP2H(a5, v161, v156[0].i32);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationUP2H(a5, v160, v155[0].i32);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x65u:
-              v48 = glvmOperationUP2US(v48.n128_f32[0], a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationUP2US(v47.n128_f32[0], a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x66u:
-              v48 = glvmOperationUP4B(v48.n128_u64[0], a5, v161[0].i8, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationUP4B(v47.n128_u64[0], a5, v160[0].i8, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x67u:
-              v48 = glvmOperationUP4UB(v48.n128_f32[0], a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationUP4UB(v47.n128_f32[0], a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x69u:
-              glvmOperationRFR(a5, v161, v160, v159[0].i32, v156, v152, v48);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationRFR(a5, v160, v159, v158[0].i64, v155, v151, v47);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x6Au:
-              v109 = &a6[2 * (v151 & 0x3FFFF)];
-              v110 = glvmPredicateCONT(a5, v161, v136, (v109[1] >> 2) & 0x7F0000 | (v151 >> 18) & 0x7F);
+              v107 = &a6[2 * (v150 & 0x3FFFF)];
+              v108 = glvmPredicateCONT(a5, v160, v135, (*(v107 + 1) >> 2) & 0x7F0000 | (v150 >> 18) & 0x7F);
 LABEL_326:
-              if (v110)
+              if (v108)
               {
-                v17 = v109;
+                v17 = v107;
               }
 
-              if ((v33 & 0x100000000) != 0)
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
@@ -9842,103 +9866,103 @@ LABEL_326:
               break;
             case 0x6Bu:
               glvmPredicateWHILE();
-              *v148 = 0;
-              if ((v33 & 0x100000000) != 0)
+              *v147 = 0;
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x6Cu:
-              if (!glvmPredicateENDWHILE(a5, v161, v136, (v151 >> 7) & 0x2000000))
+              if (!glvmPredicateENDWHILE(a5, v160, v135, (v150 >> 7) & 0x2000000))
               {
                 goto LABEL_436;
               }
 
               goto LABEL_341;
             case 0x6Eu:
-              v111 = (v151 >> 12) & 7;
-              if (v111 != 3 && v111 != 5)
+              v109 = (v150 >> 12) & 7;
+              if (v109 != 3 && v109 != 5)
               {
-                glvmLoadDestTemp(*&v148[4], v149, v156, dword_23A29C1A0[2 * ((v151 >> 27) & 3)] & ((v151 >> 12) & 0xFF000000 | BYTE4(v151) & 0xF | (v151 >> 6) & 0x1C0 | (v151 >> 2) & 0x1E0000 | dword_23A29C160[2 * ((v151 >> 25) & 3)]) | dword_23A29C1C0[2 * ((v151 >> 27) & 3)] | dword_23A29C180[2 * ((v151 >> 29) & 3)], v153);
+                glvmLoadDestTemp(*&v147[4], v148, v155, dword_23A29C1A0[2 * ((v150 >> 27) & 3)] & ((v150 >> 12) & 0xFF000000 | BYTE4(v150) & 0xF | (v150 >> 6) & 0x1C0 | (v150 >> 2) & 0x1E0000 | dword_23A29C160[2 * ((v150 >> 25) & 3)]) | dword_23A29C1C0[2 * ((v150 >> 27) & 3)] | dword_23A29C180[2 * ((v150 >> 29) & 3)], v152);
               }
 
-              glvmOperationDSL(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationDSL(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x70u:
-              glvmOperationEXPE(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationEXPE(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x71u:
-              v48 = glvmOperationLOGE(a5, v161[0].i32, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationLOGE(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x73u:
-              glvmOperationTARGCONT(v136, (v151 >> 18) & 0x7F);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationTARGCONT(v135, (v150 >> 18) & 0x7F);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x74u:
-              glvmOperationTARGBRK(v136, (v151 >> 18) & 0x7F);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationTARGBRK(v135, (v150 >> 18) & 0x7F);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x77u:
-              if (v135 && *v136 != 15 && (*v136 & 1) == 0)
+              if (v134 && *v135 != 15 && (*v135 & 1) == 0)
               {
                 goto LABEL_436;
               }
 
-              v112 = *(v142 + 132);
-              if (v112 >= *(v142 + 140))
+              v110 = *(v141 + 132);
+              if (v110 >= *(v141 + 140))
               {
                 goto LABEL_436;
               }
 
-              v113 = v161[0].u32[0];
-              if (!v161[0].i32[0])
+              v111 = v160[0].u32[0];
+              if (!v160[0].i32[0])
               {
-                v114 = v142;
-                v115 = *(v142 + 96);
-                v116 = *(v142 + 160);
-                v115[4] = *(v142 + 144);
-                v115[5] = v116;
-                v115[7] = 0;
-                *(v114 + 96) = v115 + 160;
+                v112 = v141;
+                v113 = *(v141 + 96);
+                v114 = *(v141 + 160);
+                v113[4] = *(v141 + 144);
+                v113[5] = v114;
+                v113[7] = 0;
+                *(v112 + 96) = v113 + 160;
               }
 
-              *(v142 + 132) = v112 + 1;
-              ++*(v123 + 4 * v113);
-              if ((v33 & 0x100000000) != 0)
+              *(v141 + 132) = v110 + 1;
+              ++*(v122 + 4 * v111);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x78u:
-              if (v135 && *v136 != 15)
+              if (v134 && *v135 != 15)
               {
-                glvmOperationENDSTREAMPRIMITIVEWithMask(a5, v142, v136, v161);
-                if ((v33 & 0x100000000) == 0)
+                glvmOperationENDSTREAMPRIMITIVEWithMask(a5, v141, v135, v160);
+                if ((v32 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -9946,8 +9970,8 @@ LABEL_326:
 
               else
               {
-                glvmOperationENDSTREAMPRIMITIVE(a5, v142, v161);
-                if ((v33 & 0x100000000) == 0)
+                glvmOperationENDSTREAMPRIMITIVE(a5, v141, v160);
+                if ((v32 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -9955,177 +9979,177 @@ LABEL_326:
 
               goto LABEL_437;
             case 0x79u:
-              if (v135 && *v136 != 15 && (*v136 & 1) == 0)
+              if (v134 && *v135 != 15 && (*v135 & 1) == 0)
               {
                 goto LABEL_436;
               }
 
-              *(v142 + 128) = v161[0].i32[0];
-              if ((v33 & 0x100000000) != 0)
+              *(v141 + 128) = v160[0].i32[0];
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x7Au:
-              v48 = glvmOperationBDL(v131, a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationBDL(v130, a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x7Bu:
-              glvmOperationROUND(a5, v161[0].i32, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationROUND(a5, v160[0].i64, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x7Cu:
-              glvmOperationTRUNCATE(a5, v161[0].i32, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationTRUNCATE(a5, v160[0].i64, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x7Du:
-              v48 = glvmOperationAND(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationAND(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x7Eu:
-              v48 = glvmOperationOR(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationOR(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x7Fu:
-              v48 = glvmOperationXOR(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationXOR(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x80u:
-              glvmOperationSHL(a5, v161, v160, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSHL(a5, v160, v159, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x81u:
-              glvmOperationSHR(a5, v161[0].i32, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSHR(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x84u:
-              v48 = glvmOperationCOMP(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationCOMP(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x85u:
-              v48 = glvmOperationDISTANCE(a5, v161, v160, v156[0].i64, v152, v48);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationDISTANCE(a5, v160, v159, v155, v151, v47);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x86u:
-              v48.n128_f64[0] = glvmOperationINVERSESQRT(a5, v161[0].i64, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              v47.n128_f64[0] = glvmOperationINVERSESQRT(a5, v160[0].i64, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x87u:
-              if (v135)
+              if (v134)
               {
                 MEMORY[0x28223BE20](OperationSpec);
-                v118 = (&v122 - v117);
-                bzero(&v122 - v117, v119);
-                v120 = BYTE1(v126);
-                v152 = v126;
-                v136 = v118;
-                *v118 = 0x100000001;
-                (*(a5 + 6928))(v118 + 2, 0, (4 * v120 + 0x3FFFFFFF8) & 0x3FFFFFFFCLL);
+                v116 = (&v121 - v115);
+                bzero(&v121 - v115, v117);
+                v118 = BYTE1(v125);
+                v151 = v125;
+                v135 = v116;
+                *v116 = 0x100000001;
+                (*(a5 + 6928))(v116 + 2, 0, (4 * v118 + 0x3FFFFFFF8) & 0x3FFFFFFFCLL);
               }
 
-              glvmOperationFUNCSTART(v136, 0);
-              v130 = v129;
-              *&v148[4] = v132;
-              v149 = v133;
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationFUNCSTART();
+              v129 = v128;
+              *&v147[4] = v131;
+              v148 = v132;
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x88u:
-              if ((v151 & 0xFE000000) == 0)
+              if ((v150 & 0xFE000000) == 0)
               {
-                glvmOperationRET(v136, 0);
-                v17 = v141;
+                glvmOperationRET();
+                v17 = v140;
                 goto LABEL_436;
               }
 
-              glvmOperationTARGBRA(v136, (v151 >> 17) & 0x7F00 | (v151 >> 18) & 0x7F);
-              v17 = v141;
-              if ((v33 & 0x100000000) == 0)
+              glvmOperationTARGBRA(v135, (v150 >> 17) & 0x7F00 | (v150 >> 18) & 0x7F);
+              v17 = v140;
+              if ((v32 & 0x100000000) == 0)
               {
                 break;
               }
 
               goto LABEL_437;
             case 0x89u:
-              glvmOperationROUNDEVEN(a5, v161[0].i64, v156[0].i64, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationROUNDEVEN(a5, v160[0].i64, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x8Au:
-              glvmOperationISNAN(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationISNAN(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x8Bu:
-              glvmOperationISINF(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationISINF(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x8Cu:
-              if (glvmPredicateSWITCH(a5, v161, v136, v152, (v151 >> 18) & 0x7F))
+              if (glvmPredicateSWITCH(a5, v160, v135, v151, (v150 >> 18) & 0x7F))
               {
 LABEL_282:
-                *v148 = 0;
+                *v147 = 0;
 LABEL_341:
-                v17 = &a6[2 * (v151 & 0x3FFFF)];
-                if ((v33 & 0x100000000) == 0)
+                v17 = &a6[2 * (v150 & 0x3FFFF)];
+                if ((v32 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -10134,8 +10158,8 @@ LABEL_341:
               else
               {
 LABEL_356:
-                *v148 = 0;
-                if ((v33 & 0x100000000) == 0)
+                *v147 = 0;
+                if ((v32 & 0x100000000) == 0)
                 {
                   break;
                 }
@@ -10143,189 +10167,189 @@ LABEL_356:
 
               goto LABEL_437;
             case 0x8Du:
-              if (!glvmPredicateCASE(a5, v161, v160, v136, v152, (v151 >> 18) & 0x7F))
+              if (!glvmPredicateCASE(a5, v160, v159, v135, v151, (v150 >> 18) & 0x7F))
               {
                 goto LABEL_436;
               }
 
               goto LABEL_341;
             case 0x8Eu:
-              if (!glvmPredicateDEFAULT(a5, v161, v136, (v151 >> 18) & 0x7F))
+              if (!glvmPredicateDEFAULT(a5, v160, v135, (v150 >> 18) & 0x7F))
               {
                 goto LABEL_436;
               }
 
               goto LABEL_341;
             case 0x8Fu:
-              if (!glvmPredicateENDSWITCH(a5, v161, v136, (v151 >> 7) & 0x2000000 | (v151 >> 18) & 0x7F | ((*v32 >> 46 != 0) << 26)))
+              if (!glvmPredicateENDSWITCH(a5, v160, v135, (v150 >> 7) & 0x2000000 | (v150 >> 18) & 0x7F | ((*v31 >> 46 != 0) << 26)))
               {
                 goto LABEL_436;
               }
 
               goto LABEL_341;
             case 0x90u:
-              glvmOperationSINH(a5, v161[0].i32, v156[0].i32);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSINH(a5, v160[0].i32, v155[0].i32);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x91u:
-              glvmOperationCOSH(a5, v161[0].i32, v156[0].i32);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationCOSH(a5, v160[0].i32, v155[0].i32);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x92u:
-              glvmOperationTANH(a5, v161[0].i32, v156[0].i32);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationTANH(a5, v160[0].i32, v155[0].i32);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x93u:
-              glvmOperationASINH(a5, v161[0].i32, v156[0].i32);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationASINH(a5, v160[0].i32, v155[0].i32);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x94u:
-              glvmOperationACOSH(a5, v161[0].i32, v156[0].i32);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationACOSH(a5, v160[0].i32, v155[0].i32);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x95u:
-              glvmOperationATANH(a5, v161[0].i32, v156[0].i32);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationATANH(a5, v160[0].i32, v155[0].i32);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x96u:
-              v48 = glvmOperationTO_BITS(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationTO_BITS(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x97u:
-              v48 = glvmOperationFROM_BITS(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              v47 = glvmOperationFROM_BITS(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x98u:
-              glvmOperationLOAD(v131, a5, v161, v160[0].i32, v159, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationLOAD(v130, a5, v160, v159[0].i32, v158, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x99u:
-              glvmOperationSTOREWithMaskGP(a5, v142, v47, v161, v160, v159, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationSTOREWithMaskGP(a5, v141, v46, v160, v159, v158, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x9Au:
-              glvmOperationEXTRACT_EXPONENT(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationEXTRACT_EXPONENT(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x9Bu:
-              glvmOperationEXTRACT_SIGNIFICAND(a5, v161[0].i32, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationEXTRACT_SIGNIFICAND(a5, v160[0].i64, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x9Cu:
-              glvmOperationLDEXP(a5, v161[0].i32, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationLDEXP(a5, v160[0].i64, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x9Du:
-              glvmOperationPK2W(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationPK2W(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x9Eu:
-              glvmOperationUP2W(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationUP2W(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0x9Fu:
-              glvmOperationMUL_HB(a5, v161, v160, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationMUL_HB(a5, v160, v159, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xA0u:
-              glvmOperationBITFIELD_REVERSE(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationBITFIELD_REVERSE(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xA1u:
-              glvmOperationBITCOUNT(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationBITCOUNT(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xA2u:
-              glvmOperationFIND_LSB(a5, v161, v156);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationFIND_LSB(a5, v160, v155);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             case 0xA3u:
-              glvmOperationFIND_MSB(a5, v161, v156[0].i32, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationFIND_MSB(a5, v160, v155[0].i32, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
 
               break;
             default:
-              glvmOperationMOV(a5, v161, v156, v152);
-              if ((v33 & 0x100000000) != 0)
+              glvmOperationMOV(a5, v160, v155, v151);
+              if ((v32 & 0x100000000) != 0)
               {
                 goto LABEL_437;
               }
@@ -10334,26 +10358,26 @@ LABEL_356:
           }
         }
 
-        if (v17 == v141)
+        if (v17 == v140)
         {
-          goto LABEL_14;
+          return;
         }
       }
 
-      if ((v33 & 0x100000000) == 0)
+      if ((v32 & 0x100000000) == 0)
       {
         goto LABEL_73;
       }
 
 LABEL_72:
-      OperationSpec = glvmGetDestOffsetCount(a6, (v33 >> 38) & 7, &v151, &v152, 3, v143, &v153);
+      OperationSpec = glvmGetDestOffsetCount(a6, (v32 >> 38) & 7, &v150, &v151, 3, v142, &v152);
       goto LABEL_73;
     }
   }
 
   else
   {
-    if (v135)
+    if (v134)
     {
       v24 = (v18 >> 14) & 1;
     }
@@ -10363,22 +10387,22 @@ LABEL_72:
       v24 = 1;
     }
 
-    *v148 = v24;
-    if (v135)
+    *v147 = v24;
+    if (v134)
     {
       MEMORY[0x28223BE20](a1);
-      LODWORD(v149) = v21;
+      LODWORD(v148) = v21;
       v25 = v19;
       v19 = a5;
-      v27 = (&v122 - v26);
-      bzero(&v122 - v26, v28);
-      v152 = v25 << 8;
+      v27 = (&v121 - v26);
+      bzero(&v121 - v26, v28);
+      v151 = v25 << 8;
       *v27 = 0x100000001;
       (*(v19 + 6928))(v27 + 1, 0, (4 * v25 + 0x3FFFFFFF8) & 0x3FFFFFFFCLL);
       v29 = v27;
       a5 = v19;
       LOBYTE(v19) = v25;
-      v21 = v149;
+      v21 = v148;
     }
 
     else
@@ -10386,17 +10410,14 @@ LABEL_72:
       v29 = 0;
     }
 
-    v136 = v29;
-    glvmOperationFUNCSTART(v29, 0);
-    v130 = a13;
-    *&v148[4] = v132;
-    v149 = v133;
+    v135 = v29;
+    glvmOperationFUNCSTART();
+    v129 = a13;
+    *&v147[4] = v131;
+    v148 = v132;
     if (v16 != v23)
     {
       goto LABEL_15;
     }
   }
-
-LABEL_14:
-  v30 = *MEMORY[0x277D85DE8];
 }

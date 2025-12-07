@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityHideVideoPlayer;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation EducationWelcomeControllerAccessibility
@@ -27,6 +28,14 @@
   v3.super_class = EducationWelcomeControllerAccessibility;
   [(EducationWelcomeControllerAccessibility *)&v3 _accessibilityLoadAccessibilityInformation];
   [(EducationWelcomeControllerAccessibility *)self _accessibilityHideVideoPlayer];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = EducationWelcomeControllerAccessibility;
+  [(EducationWelcomeControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(EducationWelcomeControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

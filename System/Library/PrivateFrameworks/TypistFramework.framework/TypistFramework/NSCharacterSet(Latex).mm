@@ -11,9 +11,9 @@
     +[NSCharacterSet(Latex) charactersRequiringExtentionCharacterSet];
   }
 
-  v1 = charactersRequiringExtentionCharacterSet_charSet;
+  v2 = charactersRequiringExtentionCharacterSet_charSet;
 
-  return v1;
+  return v2;
 }
 
 @end

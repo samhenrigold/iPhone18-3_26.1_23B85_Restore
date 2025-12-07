@@ -148,12 +148,13 @@
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  if (SKUIUserInterfaceIdiom(self->_clientContext) == 1)
+  v2 = SKUIUserInterfaceIdiom(self->_clientContext);
+  if (v2 == 1)
   {
     return 30;
   }
 
-  if (SKUIAllowsLandscapePhone())
+  if (SKUIAllowsLandscapePhone(v2, v3))
   {
     return 26;
   }
@@ -465,16 +466,16 @@ void __48__SKUIGiftViewController__loadGiftConfiguration__block_invoke_4(uint64_
   clientContext = self->_clientContext;
   if (clientContext)
   {
-    v6 = [(SKUIClientContext *)clientContext localizedStringForKey:stringCopy inTable:@"Gifting"];
+    v7 = [(SKUIClientContext *)clientContext localizedStringForKey:stringCopy inTable:@"Gifting"];
   }
 
   else
   {
-    v7 = SKUIBundle();
-    v6 = [v7 localizedStringForKey:stringCopy value:&stru_2827FFAC8 table:0];
+    v8 = SKUIBundle(0, v4);
+    v7 = [v8 localizedStringForKey:stringCopy value:&stru_2827FFAC8 table:0];
   }
 
-  return v6;
+  return v7;
 }
 
 - (SKUIGiftViewControllerDelegate)giftDelegate

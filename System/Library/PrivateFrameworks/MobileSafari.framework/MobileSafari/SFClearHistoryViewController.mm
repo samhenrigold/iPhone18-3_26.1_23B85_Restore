@@ -537,7 +537,7 @@ LABEL_10:
 
 - (void)submitButtonTapped:(id)tapped
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E695DF00] now];
   v5 = [(UITableViewDiffableDataSource *)self->_dataSource itemIdentifierForIndexPath:self->_currentlySelectedTimeframeIndex];
   integerValue = [v5 integerValue];
@@ -547,7 +547,7 @@ LABEL_10:
   [safari_browserDefaults setObject:v7 forKey:@"ClearHistoryLastSelectedTimeFrame"];
 
   v10 = 0;
-  v33 = v4;
+  v35 = v4;
   if (integerValue <= 2)
   {
     if (integerValue)
@@ -599,16 +599,16 @@ LABEL_14:
   v15 = [(UITableViewDiffableDataSource *)self->_dataSource itemIdentifierForIndexPath:self->_currentlySelectedProfileIndex];
   if (!v15)
   {
-    v31 = v7;
-    v32 = v5;
+    v33 = v7;
+    v34 = v5;
     goto LABEL_18;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v31 = v7;
-    v32 = v5;
+    v33 = v7;
+    v34 = v5;
     v16 = [(NSArray *)self->_profiles objectAtIndexedSubscript:[(NSIndexPath *)self->_currentlySelectedProfileIndex row]- 1];
     identifier = [v16 identifier];
 
@@ -620,7 +620,8 @@ LABEL_18:
     [safari_browserDefaults2 setObject:v19 forKey:@"ClearHistoryLastSelectedAllProfiles"];
 
     v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"profile: %@", v15];
-    v21 = 0;
+    v22 = v20;
+    v23 = 0;
     goto LABEL_19;
   }
 
@@ -629,48 +630,48 @@ LABEL_18:
     goto LABEL_28;
   }
 
-  v31 = v7;
-  v32 = v5;
-  v28 = [(NSArray *)self->_profiles count]> 1;
+  v33 = v7;
+  v34 = v5;
+  v30 = [(NSArray *)self->_profiles count]> 1;
   safari_browserDefaults3 = [MEMORY[0x1E695E000] safari_browserDefaults];
-  v30 = [MEMORY[0x1E696AD98] numberWithBool:v28];
-  [safari_browserDefaults3 setObject:v30 forKey:@"ClearHistoryLastSelectedAllProfiles"];
+  v32 = [MEMORY[0x1E696AD98] numberWithBool:v30];
+  [safari_browserDefaults3 setObject:v32 forKey:@"ClearHistoryLastSelectedAllProfiles"];
 
-  v21 = 1;
-  v20 = @"All profiles";
+  v23 = 1;
+  v22 = @"All profiles";
 LABEL_19:
-  v22 = WBS_LOG_CHANNEL_PREFIXProfiles();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  v24 = WBS_LOG_CHANNEL_PREFIXProfiles(v20, v21);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     if (self->_closeAllTabsToggleEnabled)
     {
-      v23 = MEMORY[0x1E695E118];
+      v25 = MEMORY[0x1E695E118];
     }
 
     else
     {
-      v23 = MEMORY[0x1E695E110];
+      v25 = MEMORY[0x1E695E110];
     }
 
     *buf = 138412546;
-    v35 = v20;
-    v36 = 2112;
-    v37 = v23;
-    _os_log_impl(&dword_18B7AC000, v22, OS_LOG_TYPE_INFO, "Clearing history for %@; closeAllTabs: %@", buf, 0x16u);
+    v37 = v22;
+    v38 = 2112;
+    v39 = v25;
+    _os_log_impl(&dword_18B7AC000, v24, OS_LOG_TYPE_INFO, "Clearing history for %@; closeAllTabs: %@", buf, 0x16u);
   }
 
-  v24 = self->_closeAllTabsToggleEnabled && self->_cachedTabCount != 0;
+  v26 = self->_closeAllTabsToggleEnabled && self->_cachedTabCount != 0;
   safari_browserDefaults4 = [MEMORY[0x1E695E000] safari_browserDefaults];
-  v26 = [MEMORY[0x1E696AD98] numberWithBool:self->_closeAllTabsToggleEnabled];
-  [safari_browserDefaults4 setObject:v26 forKey:@"ClearHistoryLastEnabledCloseAllTabs"];
+  v28 = [MEMORY[0x1E696AD98] numberWithBool:self->_closeAllTabsToggleEnabled];
+  [safari_browserDefaults4 setObject:v28 forKey:@"ClearHistoryLastEnabledCloseAllTabs"];
 
   delegate = [(SFClearHistoryViewController *)self delegate];
-  v4 = v33;
-  [delegate clearHistoryViewController:self clearHistoryVisitsAddedAfterDate:v10 beforeDate:v33 profileIdentifier:v14 clearAllProfiles:v21 closeAllTabs:v24];
+  v4 = v35;
+  [delegate clearHistoryViewController:self clearHistoryVisitsAddedAfterDate:v10 beforeDate:v35 profileIdentifier:v14 clearAllProfiles:v23 closeAllTabs:v26];
 
   [(SFClearHistoryViewController *)self dismissViewControllerAnimated:1 completion:0];
-  v7 = v31;
-  v5 = v32;
+  v7 = v33;
+  v5 = v34;
 LABEL_28:
 }
 

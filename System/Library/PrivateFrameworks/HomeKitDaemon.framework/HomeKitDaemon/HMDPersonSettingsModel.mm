@@ -64,26 +64,24 @@ void __44__HMDPersonSettingsModel_sentinelParentUUID__block_invoke()
 
 void __39__HMDPersonSettingsModel_hmbProperties__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"classificationNotificationSettingsData";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"classificationNotificationSettingsData";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = hmbProperties_properties_283170;
   hmbProperties_properties_283170 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)archiveClassificationNotificationsEnabledForPersonUUID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = MEMORY[0x277CCAAB0];
-  v6 = [dCopy copy];
-  v14 = 0;
-  v7 = [v5 archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v14];
-  v8 = v14;
+  v6 = objc_msgSend_copy(dCopy);
+  v13 = 0;
+  v7 = [v5 archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v13];
+  v8 = v13;
 
   if (v7)
   {
@@ -99,14 +97,12 @@ void __39__HMDPersonSettingsModel_hmbProperties__block_invoke()
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v12;
+      v15 = v12;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to archive classificationNotificationsEnabledForPersonUUID, settings updates have not been made", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)unarchivedClassificationNotificationsEnabledForPersonUUID
@@ -147,22 +143,22 @@ void __39__HMDPersonSettingsModel_hmbProperties__block_invoke()
 
 - (NSDictionary)faceClassificationNotificationsEnabledByPersonUUID
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   classificationNotificationSettingsData = [(HMDPersonSettingsModel *)self classificationNotificationSettingsData];
 
   if (classificationNotificationSettingsData)
   {
     v4 = MEMORY[0x277CCAAC8];
     v5 = MEMORY[0x277CBEB98];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v24[2] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v23[2] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
     v7 = [v5 setWithArray:v6];
     classificationNotificationSettingsData2 = [(HMDPersonSettingsModel *)self classificationNotificationSettingsData];
-    v19 = 0;
-    v9 = [v4 unarchivedObjectOfClasses:v7 fromData:classificationNotificationSettingsData2 error:&v19];
-    v10 = v19;
+    v18 = 0;
+    v9 = [v4 unarchivedObjectOfClasses:v7 fromData:classificationNotificationSettingsData2 error:&v18];
+    v10 = v18;
 
     if (v9)
     {
@@ -178,9 +174,9 @@ void __39__HMDPersonSettingsModel_hmbProperties__block_invoke()
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v21 = v16;
-        v22 = 2112;
-        v23 = v10;
+        v20 = v16;
+        v21 = 2112;
+        v22 = v10;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive classificationNotificationSettingsData with error: %@", buf, 0x16u);
       }
 
@@ -195,8 +191,6 @@ void __39__HMDPersonSettingsModel_hmbProperties__block_invoke()
   {
     dictionary2 = [MEMORY[0x277CBEAC0] dictionary];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return dictionary2;
 }

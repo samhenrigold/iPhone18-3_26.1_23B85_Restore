@@ -52,7 +52,7 @@ LABEL_4:
 LABEL_7:
   sub_1001843FC(v9, v11);
 
-  sub_100018F04(v16, &unk_1004A6970);
+  sub_100018F04(v16, &unk_1004A6970, &unk_1003D5710);
 }
 
 - (_TtC7Measure25SCNPlaneSelectionDebugger)init

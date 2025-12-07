@@ -73,9 +73,9 @@ LABEL_11:
   if ([keyCopy interactionType] == 10)
   {
     displayString2 = [keyCopy displayString];
-    v10 = [displayString2 isEqualToString:@"shift-symbol"];
+    isEqualToString = objc_msgSend_isEqualToString_(displayString2);
 
-    if (v10)
+    if (isEqualToString)
     {
       [v5 setDisplayPathType:1];
       [v5 setDisplayStringImage:@"shift"];
@@ -103,9 +103,10 @@ LABEL_12:
 - (id)enabledTextColor
 {
   renderConfig = [(UIKBRenderFactory *)self renderConfig];
-  v3 = _labelColorSecondary([renderConfig lightKeyboard]);
+  lightKeyboard = [renderConfig lightKeyboard];
+  v5 = _labelColorSecondary(lightKeyboard, v4);
 
-  return v3;
+  return v5;
 }
 
 - (id)activeTextColor
@@ -475,11 +476,11 @@ LABEL_24:
 
   [(UIKBRenderFactory_Monolith *)self keyRectCornerRadius];
   v13 = v12;
-  geometry = [v6 geometry];
-  [geometry setRoundRectRadius:v13];
+  v14 = objc_msgSend_geometry(v6);
+  [v14 setRoundRectRadius:v13];
 
-  geometry2 = [v6 geometry];
-  [geometry2 setRoundRectCorners:-1];
+  v15 = objc_msgSend_geometry(v6);
+  [v15 setRoundRectCorners:-1];
 
   return v6;
 }
@@ -643,9 +644,9 @@ LABEL_10:
   {
     case 10:
       displayString = [keyCopy displayString];
-      v11 = [displayString isEqualToString:@"shift-symbol"];
+      isEqualToString = objc_msgSend_isEqualToString_(displayString);
 
-      if (v11)
+      if (isEqualToString)
       {
         [(UIKBRenderFactory *)self scale];
         v13 = v12 == 2.0;
@@ -741,8 +742,8 @@ LABEL_7:
 {
   keyCopy = key;
   v5 = [(UIKBRenderFactory_Monolith *)self _enabledTraitsForKey:keyCopy];
-  geometry = [v5 geometry];
-  [(UIKBRenderFactory_Monolith *)self configureGeometry:geometry forControlKey:keyCopy];
+  v6 = objc_msgSend_geometry(v5);
+  [(UIKBRenderFactory_Monolith *)self configureGeometry:v6 forControlKey:keyCopy];
 
   keyplaneSwitcherBackgroundColor = [(UIKBRenderFactory_Monolith *)self keyplaneSwitcherBackgroundColor];
   v8 = [UIKBGradient gradientWithFlatColor:keyplaneSwitcherBackgroundColor];
@@ -772,8 +773,8 @@ LABEL_7:
     [v5 addRenderEffect:v13];
   }
 
-  geometry2 = [v5 geometry];
-  [(UIKBRenderFactory_Monolith *)self configureCornersOnGeometry:geometry2 forKey:keyCopy];
+  v14 = objc_msgSend_geometry(v5);
+  [(UIKBRenderFactory_Monolith *)self configureCornersOnGeometry:v14 forKey:keyCopy];
 
   symbolStyle2 = [v5 symbolStyle];
   [(UIKBRenderFactory_Monolith *)self configureSymbolStyle:symbolStyle2 forControlKey:keyCopy];
@@ -785,8 +786,8 @@ LABEL_7:
 {
   keyCopy = key;
   v5 = [(UIKBRenderFactory_Monolith *)self _highlightedTraitsForKey:keyCopy];
-  geometry = [v5 geometry];
-  [(UIKBRenderFactory_Monolith *)self configureGeometry:geometry forControlKey:keyCopy];
+  v6 = objc_msgSend_geometry(v5);
+  [(UIKBRenderFactory_Monolith *)self configureGeometry:v6 forControlKey:keyCopy];
 
   symbolStyle = [v5 symbolStyle];
   [(UIKBRenderFactory_Monolith *)self configureSymbolStyle:symbolStyle forControlKey:keyCopy];
@@ -796,8 +797,8 @@ LABEL_7:
 
   if (symbolStyle)
   {
-    geometry2 = [v5 geometry];
-    [geometry2 symbolFrame];
+    v9 = objc_msgSend_geometry(v5);
+    [v9 symbolFrame];
     [(UIKBRenderFactory_Monolith *)self controlKeyFocusBaseSize:v10, v11];
     v13 = v12;
     v15 = v14;

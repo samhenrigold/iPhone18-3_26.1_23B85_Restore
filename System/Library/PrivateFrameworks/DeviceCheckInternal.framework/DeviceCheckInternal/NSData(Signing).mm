@@ -6,7 +6,7 @@
 
 - (id)dc_compressedData:()Signing
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [self length];
   if (v5 < 0)
   {
@@ -21,13 +21,13 @@
       goto LABEL_19;
     }
 
-    v16 = 136315394;
-    v17 = "NSData+Signing.m";
-    v18 = 1024;
-    v19 = 21;
+    v15 = 136315394;
+    v16 = "NSData+Signing.m";
+    v17 = 1024;
+    v18 = 21;
     v12 = "%25s:%-5d Overflow while attempting to compress data.";
 LABEL_13:
-    _os_log_impl(&dword_2488FB000, v11, OS_LOG_TYPE_ERROR, v12, &v16, 0x12u);
+    _os_log_impl(&dword_2488FB000, v11, OS_LOG_TYPE_ERROR, v12, &v15, 0x12u);
     goto LABEL_19;
   }
 
@@ -46,10 +46,10 @@ LABEL_13:
       goto LABEL_19;
     }
 
-    v16 = 136315394;
-    v17 = "NSData+Signing.m";
-    v18 = 1024;
-    v19 = 27;
+    v15 = 136315394;
+    v16 = "NSData+Signing.m";
+    v17 = 1024;
+    v18 = 27;
     v12 = "%25s:%-5d Failed to allocate buffer for compressed data.";
     goto LABEL_13;
   }
@@ -70,18 +70,17 @@ LABEL_13:
   v13 = DCInternalLogSystem_log_4;
   if (os_log_type_enabled(DCInternalLogSystem_log_4, OS_LOG_TYPE_ERROR))
   {
-    v16 = 136315394;
-    v17 = "NSData+Signing.m";
-    v18 = 1024;
-    v19 = 33;
-    _os_log_impl(&dword_2488FB000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to compress data.", &v16, 0x12u);
+    v15 = 136315394;
+    v16 = "NSData+Signing.m";
+    v17 = 1024;
+    v18 = 33;
+    _os_log_impl(&dword_2488FB000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to compress data.", &v15, 0x12u);
   }
 
   free(v8);
 LABEL_19:
   v10 = 0;
 LABEL_20:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

@@ -41,7 +41,7 @@
 - (JavaUtilWeakHashMap_ValuesCollection)initWithJavaUtilWeakHashMap:(id)map
 {
   objc_storeWeak(&self->this$0_, map);
-  JavaUtilAbstractCollection_init(self, v4);
+  JavaUtilAbstractCollection_init();
   return self;
 }
 

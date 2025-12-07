@@ -21,8 +21,8 @@
 {
   changeCopy = change;
   portCopy = port;
-  layout = [(PXPlacesMapPipeline *)self layout];
-  v9 = [layout layoutForViewPort:portCopy andDataSourceChange:changeCopy];
+  v8 = objc_msgSend_layout(self);
+  v9 = [v8 layoutForViewPort:portCopy andDataSourceChange:changeCopy];
 
   updatePlan = [(PXPlacesMapPipeline *)self updatePlan];
   v11 = [updatePlan resultForNewLayoutResult:v9];

@@ -8,7 +8,7 @@
 
 - (void)observeEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -16,11 +16,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2114;
-    v15 = objc_opt_class();
-    _os_log_impl(&dword_22B074000, v7, OS_LOG_TYPE_DEBUG, "%{public}@[SiriAnalytics] Received event from dispatcher: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2114;
+    v14 = objc_opt_class();
+    _os_log_impl(&dword_22B074000, v7, OS_LOG_TYPE_DEBUG, "%{public}@[SiriAnalytics] Received event from dispatcher: %{public}@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -30,8 +30,6 @@
     siriInstrumentationMessage = [eventCopy siriInstrumentationMessage];
     [siriAnalyticsStream emitMessage:siriInstrumentationMessage];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMSiriSELFLogEventObserver)initWithSiriAnalyticsStream:(id)stream logEventDispatcher:(id)dispatcher
@@ -65,7 +63,6 @@
 
 uint64_t __42__HMMSiriSELFLogEventObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v2_1416 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

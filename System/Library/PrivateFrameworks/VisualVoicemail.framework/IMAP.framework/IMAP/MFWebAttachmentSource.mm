@@ -25,9 +25,11 @@
 
 uint64_t __41__MFWebAttachmentSource__setOfAllSources__block_invoke()
 {
-  _setOfAllSources_sAllWebAttachmentSources = objc_alloc_init(MEMORY[0x277D24FC8]);
+  v0 = objc_alloc_init(MEMORY[0x277D24FC8]);
+  v1 = _setOfAllSources_sAllWebAttachmentSources;
+  _setOfAllSources_sAllWebAttachmentSources = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)allSources

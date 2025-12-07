@@ -37,13 +37,13 @@
 
 void __51__EMPersistenceLayoutManager_baseMailDirectoryPath__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v1 = [*(a1 + 32) _nonContainerizedBaseMailDirectoryPathCreated:&v10];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v1 = [*(a1 + 32) _nonContainerizedBaseMailDirectoryPathCreated:&v9];
   v2 = baseMailDirectoryPath_mailDirectory;
   baseMailDirectoryPath_mailDirectory = v1;
 
-  if (v10 == 1)
+  if (v9 == 1)
   {
     v3 = open([baseMailDirectoryPath_mailDirectory fileSystemRepresentation], 0);
     if (v3 < 0)
@@ -52,7 +52,7 @@ void __51__EMPersistenceLayoutManager_baseMailDirectoryPath__block_invoke(uint64
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v12 = baseMailDirectoryPath_mailDirectory;
+        v11 = baseMailDirectoryPath_mailDirectory;
         _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "Could not open fd for %{public}@", buf, 0xCu);
       }
     }
@@ -68,9 +68,9 @@ void __51__EMPersistenceLayoutManager_baseMailDirectoryPath__block_invoke(uint64
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v12 = baseMailDirectoryPath_mailDirectory;
-          v13 = 1024;
-          v14 = v6;
+          v11 = baseMailDirectoryPath_mailDirectory;
+          v12 = 1024;
+          v13 = v6;
           _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "Could not set protection class on %{public}@: %d", buf, 0x12u);
         }
       }
@@ -78,8 +78,6 @@ void __51__EMPersistenceLayoutManager_baseMailDirectoryPath__block_invoke(uint64
       close(v4);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (NSURL)mailAccountDirectory
@@ -127,7 +125,7 @@ void __33__EMPersistenceLayoutManager_log__block_invoke(uint64_t a1)
 
 + (id)_nonContainerizedBaseMailDirectoryPathCreated:(BOOL *)created
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = EFNonContainerizedHomeDirectory();
   v7 = [v6 URLByAppendingPathComponent:@"Library"];
   v8 = [v7 URLByAppendingPathComponent:@"Mail"];
@@ -140,9 +138,9 @@ void __33__EMPersistenceLayoutManager_log__block_invoke(uint64_t a1)
 
   *created = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v20 = 0;
-  v10 = [defaultManager createDirectoryAtURL:v8 withIntermediateDirectories:0 attributes:0 error:&v20];
-  v11 = v20;
+  v19 = 0;
+  v10 = [defaultManager createDirectoryAtURL:v8 withIntermediateDirectories:0 attributes:0 error:&v19];
+  v11 = v19;
 
   if (v10)
   {
@@ -166,8 +164,6 @@ void __33__EMPersistenceLayoutManager_log__block_invoke(uint64_t a1)
   }
 
   path = [v8 path];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return path;
 }

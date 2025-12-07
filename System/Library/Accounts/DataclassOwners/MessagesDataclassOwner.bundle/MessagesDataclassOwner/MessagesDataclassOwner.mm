@@ -26,8 +26,9 @@ void sub_1B1C(uint64_t a1, void *a2)
   *(*(*(a1 + 48) + 8) + 24) = 1;
 }
 
-void sub_2DD4(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_2DD4(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (a2 == 1)
   {
     objc_begin_catch(exc_buf);
@@ -35,7 +36,7 @@ void sub_2DD4(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6
     JUMPOUT(0x2D74);
   }
 
-  _Block_object_dispose(&a15, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(exc_buf);
 }
 

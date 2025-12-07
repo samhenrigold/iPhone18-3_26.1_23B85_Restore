@@ -1,9 +1,9 @@
 @interface NSURL(AttachmentURLUtilities)
-- (uint64_t)mf_firstPartNumber;
 - (uint64_t)mf_isValidAttachmentURL;
 - (uint64_t)mf_lastPartNumber;
 - (uint64_t)mf_partNumbers;
 - (uint64_t)mf_rowID;
+- (void)mf_firstPartNumber;
 @end
 
 @implementation NSURL(AttachmentURLUtilities)
@@ -62,7 +62,7 @@
   return [mf_partNumbers lastObject];
 }
 
-- (uint64_t)mf_firstPartNumber
+- (void)mf_firstPartNumber
 {
   mf_partNumbers = [self mf_partNumbers];
   result = [mf_partNumbers count];

@@ -274,19 +274,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_value)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    minValue = self->_minValue;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -305,15 +304,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  maxValue = self->_maxValue;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    stepValue = self->_stepValue;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:

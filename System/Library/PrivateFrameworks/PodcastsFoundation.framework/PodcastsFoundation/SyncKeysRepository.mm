@@ -13,10 +13,16 @@
 - (_TtC18PodcastsFoundation18SyncKeysRepository)init;
 - (double)subscriptionsLastSyncTimestampFor:(int64_t)for;
 - (id)subscriptionsSyncVersionFor:(int64_t)for;
+- (void)markBookmarksSyncDirty:(BOOL)dirty for:(int64_t)for;
+- (void)markInterestSyncDirty:(BOOL)dirty;
 - (void)markSubscriptionSyncDirty:(BOOL)dirty for:(int64_t)for;
 - (void)resetSubscriptionsLastSyncTimestampFor:(int64_t)for;
 - (void)resetSubscriptionsSyncVersionFor:(int64_t)for;
 - (void)setInterestSyncVersion:(id)version;
+- (void)setIsInterestSyncDirty:(BOOL)dirty;
+- (void)setIsLibrarySyncEnabled:(BOOL)enabled;
+- (void)setIsNonFollowedShowsSyncDirty:(BOOL)dirty;
+- (void)setIsPlaylistSyncDirty:(BOOL)dirty;
 - (void)setNonFollowedShowsSyncVersion:(id)version;
 - (void)setPodcastsDomainVersion:(id)version;
 - (void)updateSubscriptionsLastSyncTimestampFor:(int64_t)for;
@@ -83,6 +89,20 @@
   return v3 & 1;
 }
 
+- (void)setIsNonFollowedShowsSyncDirty:(BOOL)dirty
+{
+  dirtyCopy = dirty;
+  v5 = self + OBJC_IVAR____TtC18PodcastsFoundation18SyncKeysRepository_syncKeysStore;
+  swift_beginAccess();
+  v6 = *(v5 + 3);
+  v7 = *(v5 + 4);
+  __swift_mutable_project_boxed_opaque_existential_1(v5, v6);
+  v8 = *(v7 + 16);
+  selfCopy = self;
+  v8(dirtyCopy, v6, v7);
+  swift_endAccess();
+}
+
 - (BOOL)isInterestSyncDirty
 {
   v3 = (&self->super.isa + OBJC_IVAR____TtC18PodcastsFoundation18SyncKeysRepository_syncKeysStore);
@@ -96,6 +116,20 @@
   swift_endAccess();
 
   return v3 & 1;
+}
+
+- (void)setIsInterestSyncDirty:(BOOL)dirty
+{
+  dirtyCopy = dirty;
+  v5 = self + OBJC_IVAR____TtC18PodcastsFoundation18SyncKeysRepository_syncKeysStore;
+  swift_beginAccess();
+  v6 = *(v5 + 3);
+  v7 = *(v5 + 4);
+  __swift_mutable_project_boxed_opaque_existential_1(v5, v6);
+  v8 = *(v7 + 40);
+  selfCopy = self;
+  v8(dirtyCopy, v6, v7);
+  swift_endAccess();
 }
 
 - (BOOL)isPlaylistSyncDirty
@@ -113,18 +147,33 @@
   return v3 & 1;
 }
 
+- (void)setIsPlaylistSyncDirty:(BOOL)dirty
+{
+  dirtyCopy = dirty;
+  v5 = self + OBJC_IVAR____TtC18PodcastsFoundation18SyncKeysRepository_syncKeysStore;
+  swift_beginAccess();
+  v6 = *(v5 + 3);
+  v7 = *(v5 + 4);
+  __swift_mutable_project_boxed_opaque_existential_1(v5, v6);
+  v8 = *(v7 + 64);
+  selfCopy = self;
+  v8(dirtyCopy, v6, v7);
+  swift_endAccess();
+}
+
 - (BOOL)isSubscriptionSyncDirtyFor:(int64_t)for
 {
   selfCopy = self;
-  LOBYTE(for) = SyncKeysRepository.isSubscriptionSyncDirty(for:)(for);
+  LOBYTE(for) = SyncKeysRepository.isSubscriptionSyncDirty(for:)(for, v5);
 
   return for & 1;
 }
 
 - (void)markSubscriptionSyncDirty:(BOOL)dirty for:(int64_t)for
 {
+  dirtyCopy = dirty;
   selfCopy = self;
-  SyncKeysRepository.markSubscriptionSyncDirty(_:for:)(dirty, for);
+  SyncKeysRepository.markSubscriptionSyncDirty(_:for:)(dirtyCopy, for);
 }
 
 - (void)updateSubscriptionsSyncVersionFor:(int64_t)for newValue:(id)value
@@ -177,6 +226,32 @@
   LOBYTE(for) = (*(v7 + 120))(for, v6, v7);
   __swift_destroy_boxed_opaque_existential_1Tm(v9);
   return for & 1;
+}
+
+- (void)markBookmarksSyncDirty:(BOOL)dirty for:(int64_t)for
+{
+  dirtyCopy = dirty;
+  v7 = OBJC_IVAR____TtC18PodcastsFoundation18SyncKeysRepository_syncKeysStore;
+  swift_beginAccess();
+  sub_1D8CFD9D8(self + v7, v10);
+  v8 = v11;
+  v9 = v12;
+  __swift_project_boxed_opaque_existential_1(v10, v11);
+  (*(v9 + 128))(dirtyCopy, for, v8, v9);
+  __swift_destroy_boxed_opaque_existential_1Tm(v10);
+}
+
+- (void)markInterestSyncDirty:(BOOL)dirty
+{
+  dirtyCopy = dirty;
+  v5 = OBJC_IVAR____TtC18PodcastsFoundation18SyncKeysRepository_syncKeysStore;
+  swift_beginAccess();
+  sub_1D8CFD9D8(self + v5, v8);
+  v6 = v9;
+  v7 = v10;
+  __swift_project_boxed_opaque_existential_1(v8, v9);
+  (*(v7 + 280))(dirtyCopy, v6, v7);
+  __swift_destroy_boxed_opaque_existential_1Tm(v8);
 }
 
 - (NSString)nonFollowedShowsSyncVersion
@@ -347,6 +422,20 @@
   return v3 & 1;
 }
 
+- (void)setIsLibrarySyncEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = self + OBJC_IVAR____TtC18PodcastsFoundation18SyncKeysRepository_syncKeysStore;
+  swift_beginAccess();
+  v6 = *(v5 + 3);
+  v7 = *(v5 + 4);
+  __swift_mutable_project_boxed_opaque_existential_1(v5, v6);
+  v8 = *(v7 + 144);
+  selfCopy = self;
+  v8(enabledCopy, v6, v7);
+  swift_endAccess();
+}
+
 - (double)subscriptionsLastSyncTimestampFor:(int64_t)for
 {
   v5 = OBJC_IVAR____TtC18PodcastsFoundation18SyncKeysRepository_syncKeysStore;
@@ -396,7 +485,7 @@
 
 + (BOOL)shouldSyncInReadOnlyMode
 {
-  if ((isRunningUnitTests() & 1) != 0 || ([objc_opt_self() isRunningOnHomepod] & 1) == 0)
+  if ((isRunningUnitTests(self, a2) & 1) != 0 || ([objc_opt_self() isRunningOnHomepod] & 1) == 0)
   {
     v2 = 0;
   }

@@ -3,7 +3,7 @@
 
 @implementation UIDataSourceBatchUpdateMapHelper
 
-uint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingForInvalidUpdates___block_invoke(uint64_t a1, unsigned int a2)
+unint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingForInvalidUpdates___block_invoke(uint64_t a1, unsigned int a2)
 {
   v2 = [*(a1 + 32) numberOfItemsBeforeSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -22,7 +22,7 @@ uint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingFor
   return 0xFFFFFFFFLL;
 }
 
-uint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingForInvalidUpdates___block_invoke_2(uint64_t a1, unsigned int a2)
+unint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingForInvalidUpdates___block_invoke_2(uint64_t a1, unsigned int a2)
 {
   v2 = [*(a1 + 32) numberOfItemsInSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -41,7 +41,7 @@ uint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingFor
   return 0xFFFFFFFFLL;
 }
 
-uint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingForInvalidUpdates___block_invoke_3(uint64_t a1, unsigned int a2)
+unint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingForInvalidUpdates___block_invoke_3(uint64_t a1, unsigned int a2)
 {
   v2 = [*(a1 + 32) numberOfItemsBeforeSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -60,7 +60,7 @@ uint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingFor
   return 0xFFFFFFFFLL;
 }
 
-uint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingForInvalidUpdates___block_invoke_4(uint64_t a1, unsigned int a2)
+unint64_t __83___UIDataSourceBatchUpdateMapHelper__generateUpdateMapsAssertingForInvalidUpdates___block_invoke_4(uint64_t a1, unsigned int a2)
 {
   v2 = [*(a1 + 32) numberOfItemsInSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)

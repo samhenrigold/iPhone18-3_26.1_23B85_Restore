@@ -16,21 +16,21 @@
     +[NSURL(IconServicesInternalAdditions) _is_unregisteredPersonlityFileExtensions];
   }
 
-  v1 = _is_unregisteredPersonlityFileExtensions_personalityMap;
+  v2 = _is_unregisteredPersonlityFileExtensions_personalityMap;
 
-  return v1;
+  return v2;
 }
 
 - (id)__is_canonicalURL
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E695DB78];
-  v12[0] = *MEMORY[0x1E695DA88];
-  v2 = v12[0];
-  v12[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-  v11 = 0;
-  v5 = [self __is_resourceValuesForKeys:v4 error:&v11];
+  v11[0] = *MEMORY[0x1E695DA88];
+  v2 = v11[0];
+  v11[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10 = 0;
+  v5 = [self __is_resourceValuesForKeys:v4 error:&v10];
 
   v6 = [v5 _IF_stringForKey:v2];
   v7 = [v5 _IF_BOOLForKey:v3];
@@ -43,8 +43,6 @@
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

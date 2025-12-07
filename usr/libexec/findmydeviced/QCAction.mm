@@ -1,6 +1,7 @@
 @interface QCAction
 - (BOOL)shouldCancelAction:(id)action;
 - (FMDServerInteractionController)serverInteractionController;
+- (QCAction)initWithAccount:(id)account shutdownActivityPending:(BOOL)pending serverInteractionController:(id)controller;
 - (id)_commandHandlers;
 - (id)_copyHandlerForCommand:(id)command params:(id)params;
 - (void)_didCompleteQueueCheckRequest:(id)request completion:(id)completion;
@@ -19,25 +20,25 @@
     goto LABEL_10;
   }
 
-  v12[0] = @"register";
-  v13[0] = objc_opt_class();
-  v12[1] = @"message";
-  v13[1] = objc_opt_class();
-  v12[2] = @"locate";
-  v13[2] = objc_opt_class();
-  v12[3] = @"dataUpdate";
-  v13[3] = objc_opt_class();
-  v12[4] = @"wipe";
-  v13[4] = objc_opt_class();
-  v12[5] = @"notify";
-  v13[5] = objc_opt_class();
-  v12[6] = @"lock";
-  v13[6] = objc_opt_class();
-  v12[7] = @"identityV5";
-  v13[7] = objc_opt_class();
-  v12[8] = @"lost";
-  v13[8] = objc_opt_class();
-  v3 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:9];
+  v13[0] = @"register";
+  v14[0] = objc_opt_class();
+  v13[1] = @"message";
+  v14[1] = objc_opt_class();
+  v13[2] = @"locate";
+  v14[2] = objc_opt_class();
+  v13[3] = @"dataUpdate";
+  v14[3] = objc_opt_class();
+  v13[4] = @"wipe";
+  v14[4] = objc_opt_class();
+  v13[5] = @"notify";
+  v14[5] = objc_opt_class();
+  v13[6] = @"lock";
+  v14[6] = objc_opt_class();
+  v13[7] = @"identityV5";
+  v14[7] = objc_opt_class();
+  v13[8] = @"lost";
+  v14[8] = objc_opt_class();
+  v3 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:9];
   v4 = [v3 mutableCopy];
   v5 = qword_100314788;
   qword_100314788 = v4;
@@ -57,20 +58,39 @@
   {
   }
 
-  [qword_100314788 fm_safeSetObject:objc_opt_class() forKey:@"accessory_config"];
+  v8 = [qword_100314788 fm_safeSetObject:objc_opt_class() forKey:@"accessory_config"];
 LABEL_7:
-  v8 = sub_100002880();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100002880(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = qword_100314788;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Command handlers : %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = qword_100314788;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Command handlers : %@", &v11, 0xCu);
   }
 
   v2 = qword_100314788;
 LABEL_10:
 
   return v2;
+}
+
+- (QCAction)initWithAccount:(id)account shutdownActivityPending:(BOOL)pending serverInteractionController:(id)controller
+{
+  pendingCopy = pending;
+  accountCopy = account;
+  controllerCopy = controller;
+  v13.receiver = self;
+  v13.super_class = QCAction;
+  v10 = [(QCAction *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(QCAction *)v10 setAccount:accountCopy];
+    [(QCAction *)v11 setShutdownActivityPending:pendingCopy];
+    [(QCAction *)v11 setServerInteractionController:controllerCopy];
+  }
+
+  return v11;
 }
 
 - (void)runWithCompletion:(id)completion
@@ -130,17 +150,17 @@ LABEL_10:
   commandContext = [(QCAction *)self commandContext];
   accessory = [commandContext accessory];
 
-  v5 = sub_100002880();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100002880(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     request = [(QCAction *)self request];
-    v11 = 138412802;
+    v12 = 138412802;
     selfCopy = self;
-    v13 = 2112;
-    v14 = request;
-    v15 = 2112;
-    v16 = accessory;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "QCAction(%@) will cancel request(%@) with command context accessory(%@)", &v11, 0x20u);
+    v14 = 2112;
+    v15 = request;
+    v16 = 2112;
+    v17 = accessory;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "QCAction(%@) will cancel request(%@) with command context accessory(%@)", &v12, 0x20u);
   }
 
   if (accessory)
@@ -190,52 +210,57 @@ LABEL_10:
     {
     }
 
-    else if (([requestCopy cancelled] & 1) == 0)
+    else
     {
-      v15 = sub_100002880();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      cancelled = [requestCopy cancelled];
+      if ((cancelled & 1) == 0)
       {
-        fm_logID = [requestCopy fm_logID];
-        v18 = 138412546;
-        v19 = fm_logID;
-        v20 = 2048;
-        httpResponseStatus = [requestCopy httpResponseStatus];
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@: successful with status %ld.", &v18, 0x16u);
-      }
+        v17 = sub_100002880(cancelled);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          fm_logID = [requestCopy fm_logID];
+          v20 = 138412546;
+          v21 = fm_logID;
+          v22 = 2048;
+          httpResponseStatus = [requestCopy httpResponseStatus];
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%@: successful with status %ld.", &v20, 0x16u);
+        }
 
-      httpResponseStatus2 = [requestCopy httpResponseStatus];
-      httpResponseBody = [requestCopy httpResponseBody];
-      [(QCAction *)self _handleQueueCheckResponseWithStatus:httpResponseStatus2 andBody:httpResponseBody completion:completionCopy];
-      goto LABEL_12;
+        httpResponseStatus2 = [requestCopy httpResponseStatus];
+        httpResponseBody = [requestCopy httpResponseBody];
+        [(QCAction *)self _handleQueueCheckResponseWithStatus:httpResponseStatus2 andBody:httpResponseBody completion:completionCopy];
+        goto LABEL_12;
+      }
     }
 
-    cancelled = [requestCopy cancelled];
-    httpResponseBody = sub_100002880();
-    v11 = os_log_type_enabled(httpResponseBody, OS_LOG_TYPE_DEFAULT);
-    if (cancelled)
+    cancelled2 = [requestCopy cancelled];
+    v10 = cancelled2;
+    httpResponseBody = sub_100002880(cancelled2);
+    v12 = os_log_type_enabled(httpResponseBody, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v11)
+      if (v12)
       {
         fm_logID2 = [requestCopy fm_logID];
-        v18 = 138412290;
-        v19 = fm_logID2;
-        _os_log_impl(&_mh_execute_header, httpResponseBody, OS_LOG_TYPE_DEFAULT, "%@: Cancelled", &v18, 0xCu);
+        v20 = 138412290;
+        v21 = fm_logID2;
+        _os_log_impl(&_mh_execute_header, httpResponseBody, OS_LOG_TYPE_DEFAULT, "%@: Cancelled", &v20, 0xCu);
 LABEL_11:
       }
     }
 
-    else if (v11)
+    else if (v12)
     {
       fm_logID2 = [requestCopy fm_logID];
       httpResponseStatus3 = [requestCopy httpResponseStatus];
       httpResponseError2 = [requestCopy httpResponseError];
-      v18 = 138412802;
-      v19 = fm_logID2;
-      v20 = 2048;
+      v20 = 138412802;
+      v21 = fm_logID2;
+      v22 = 2048;
       httpResponseStatus = httpResponseStatus3;
-      v22 = 2112;
-      v23 = httpResponseError2;
-      _os_log_impl(&_mh_execute_header, httpResponseBody, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v18, 0x20u);
+      v24 = 2112;
+      v25 = httpResponseError2;
+      _os_log_impl(&_mh_execute_header, httpResponseBody, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v20, 0x20u);
 
       goto LABEL_11;
     }
@@ -272,12 +297,12 @@ LABEL_7:
   }
 
   v12 = [bodyCopy objectForKeyedSubscript:@"cmd"];
-  v13 = sub_100002880();
+  v13 = sub_100002880(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v37 = 138412290;
-    *&v37[4] = v12;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Command Received: %@", v37, 0xCu);
+    *v38 = 138412290;
+    *&v38[4] = v12;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Command Received: %@", v38, 0xCu);
   }
 
   v14 = [(QCAction *)self _copyHandlerForCommand:v12 params:bodyCopy];
@@ -285,57 +310,56 @@ LABEL_7:
   v16 = v14 != 0;
   if (v14)
   {
-    [v14 executeCommand];
-    v17 = sub_100002880();
+    v17 = sub_100002880([v14 executeCommand]);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v37 = 138412290;
-      *&v37[4] = v12;
+      *v38 = 138412290;
+      *&v38[4] = v12;
       v18 = "Successfully finished command %@";
 LABEL_18:
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v18, v37, 0xCu);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v18, v38, 0xCu);
     }
   }
 
   else
   {
-    v17 = sub_100002880();
+    v17 = sub_100002880(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v37 = 138412290;
-      *&v37[4] = v12;
+      *v38 = 138412290;
+      *&v38[4] = v12;
       v18 = "No handler found for command %@";
       goto LABEL_18;
     }
   }
 
 LABEL_20:
-  v19 = +[FMDStartupRegisterManager sharedInstance];
+  v19 = [FMDStartupRegisterManager sharedInstance:*v38];
   [v19 eventDidOccur:8];
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy);
+    v20 = completionCopy[2](completionCopy);
   }
 
   switch(status)
   {
     case 200:
-      accessory = sub_100002880();
-      v21 = os_log_type_enabled(accessory, OS_LOG_TYPE_DEFAULT);
+      accessory = sub_100002880(v20);
+      v22 = os_log_type_enabled(accessory, OS_LOG_TYPE_DEFAULT);
       if (v16)
       {
-        if (v21)
+        if (v22)
         {
-          *v37 = 0;
-          _os_log_impl(&_mh_execute_header, accessory, OS_LOG_TYPE_DEFAULT, "More messages pending - checking now...", v37, 2u);
+          *v38 = 0;
+          _os_log_impl(&_mh_execute_header, accessory, OS_LOG_TYPE_DEFAULT, "More messages pending - checking now...", v38, 2u);
         }
 
-        v22 = [QCAction alloc];
+        v23 = [QCAction alloc];
         account = [(QCAction *)self account];
         shutdownActivityPending = [(QCAction *)self shutdownActivityPending];
         serverInteractionController = [(QCAction *)self serverInteractionController];
-        accessory = [(QCAction *)v22 initWithAccount:account shutdownActivityPending:shutdownActivityPending serverInteractionController:serverInteractionController];
+        accessory = [(QCAction *)v23 initWithAccount:account shutdownActivityPending:shutdownActivityPending serverInteractionController:serverInteractionController];
 
         requestDecorator = [(QCAction *)self requestDecorator];
         [accessory setRequestDecorator:requestDecorator];
@@ -343,26 +367,26 @@ LABEL_20:
         commandContext = [(QCAction *)self commandContext];
         [accessory setCommandContext:commandContext];
 
-        v28 = +[ActionManager sharedManager];
-        v29 = [v28 enqueueAction:accessory];
+        v29 = +[ActionManager sharedManager];
+        v30 = [v29 enqueueAction:accessory];
 
         goto LABEL_40;
       }
 
-      if (v21)
+      if (v22)
       {
-        *v37 = 0;
-        v30 = "Not checking for new messages - previous command was not successful or duplicate";
+        *v38 = 0;
+        v31 = "Not checking for new messages - previous command was not successful or duplicate";
         goto LABEL_33;
       }
 
       goto LABEL_40;
     case 204:
-      v31 = sub_100002880();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v32 = sub_100002880(v20);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        *v37 = 0;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "No more pending messages on the server 204...", v37, 2u);
+        *v38 = 0;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "No more pending messages on the server 204...", v38, 2u);
       }
 
       commandContext2 = [(QCAction *)self commandContext];
@@ -370,13 +394,13 @@ LABEL_20:
 
       if ([accessory connectionState]== 1)
       {
-        v33 = sub_100002880();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v34 = sub_100002880(1);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           commandContextUUID = [(QCAction *)self commandContextUUID];
-          *v37 = 138412290;
-          *&v37[4] = commandContextUUID;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "QCAction marking command complete %@", v37, 0xCu);
+          *v38 = 138412290;
+          *&v38[4] = commandContextUUID;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "QCAction marking command complete %@", v38, 0xCu);
         }
 
         commandContext3 = [(QCAction *)self commandContext];
@@ -386,13 +410,13 @@ LABEL_20:
 
       goto LABEL_40;
     case 210:
-      accessory = sub_100002880();
+      accessory = sub_100002880(v20);
       if (os_log_type_enabled(accessory, OS_LOG_TYPE_DEFAULT))
       {
-        *v37 = 0;
-        v30 = "No more pending messages on the server 210...";
+        *v38 = 0;
+        v31 = "No more pending messages on the server 210...";
 LABEL_33:
-        _os_log_impl(&_mh_execute_header, accessory, OS_LOG_TYPE_DEFAULT, v30, v37, 2u);
+        _os_log_impl(&_mh_execute_header, accessory, OS_LOG_TYPE_DEFAULT, v31, v38, 2u);
       }
 
 LABEL_40:
@@ -407,36 +431,36 @@ LABEL_40:
   paramsCopy = params;
   _commandHandlers = [(QCAction *)self _commandHandlers];
   v9 = [_commandHandlers objectForKeyedSubscript:commandCopy];
-  v10 = sub_100002880();
+  v10 = sub_100002880(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412546;
-    v16 = v9;
-    v17 = 2112;
-    v18 = commandCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Using handler %@ for command type %@", &v15, 0x16u);
+    v16 = 138412546;
+    v17 = v9;
+    v18 = 2112;
+    v19 = commandCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Using handler %@ for command type %@", &v16, 0x16u);
   }
 
   if (v9)
   {
-    v11 = +[FMDServiceProvider activeServiceProvider];
-    v12 = [[v9 alloc] initWithParams:paramsCopy provider:v11];
+    v12 = +[FMDServiceProvider activeServiceProvider];
+    v13 = [[v9 alloc] initWithParams:paramsCopy provider:v12];
     commandContext = [(QCAction *)self commandContext];
-    [v12 setCommandContext:commandContext];
+    [v13 setCommandContext:commandContext];
   }
 
   else
   {
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_100002880(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022B20C(commandCopy, v11);
+      sub_10022B20C(commandCopy, v12);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (FMDServerInteractionController)serverInteractionController

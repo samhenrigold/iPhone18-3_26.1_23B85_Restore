@@ -89,20 +89,18 @@ uint64_t __49__MSSiriIntelligenceSettings__initializeSettings__block_invoke(uint
 
 + (void)canShowSiriSuggestions
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self & 1;
-  _os_log_debug_impl(&dword_257F8E000, a2, OS_LOG_TYPE_DEBUG, "canShowSiriSuggestions = %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self & 1;
+  _os_log_debug_impl(&dword_257F8E000, a2, OS_LOG_TYPE_DEBUG, "canShowSiriSuggestions = %d", v2, 8u);
 }
 
 + (void)setCanShowSiriSuggestions:(char)a1 .cold.1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_257F8E000, a2, OS_LOG_TYPE_DEBUG, "setCanShowSiriSuggestions = %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_257F8E000, a2, OS_LOG_TYPE_DEBUG, "setCanShowSiriSuggestions = %d", v2, 8u);
 }
 
 @end

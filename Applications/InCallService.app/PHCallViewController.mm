@@ -569,24 +569,24 @@ LABEL_11:
 
     if (v13)
     {
-      v25.width = 40.0;
-      v25.height = 40.0;
-      UIGraphicsBeginImageContextWithOptions(v25, 0, 0.0);
+      v27.width = 40.0;
+      v27.height = 40.0;
+      UIGraphicsBeginImageContextWithOptions(v27, 0, 0.0);
       [v13 drawInRect:{0.0, 0.0, 40.0, 40.0}];
       v9 = UIGraphicsGetImageFromCurrentImageContext();
       UIGraphicsEndImageContext();
-      punchoutImageCache2 = sub_100004F84();
-      v15 = os_log_type_enabled(punchoutImageCache2, OS_LOG_TYPE_DEFAULT);
+      punchoutImageCache2 = sub_100004F84(v15);
+      v17 = os_log_type_enabled(punchoutImageCache2, OS_LOG_TYPE_DEFAULT);
       if (v9)
       {
-        if (v15)
+        if (v17)
         {
           identifier2 = [provider identifier];
-          v20 = 138412546;
-          v21 = v9;
-          v22 = 2112;
-          v23 = identifier2;
-          _os_log_impl(&_mh_execute_header, punchoutImageCache2, OS_LOG_TYPE_DEFAULT, "Adding punchout image (%@) to cache for key: %@", &v20, 0x16u);
+          v22 = 138412546;
+          v23 = v9;
+          v24 = 2112;
+          v25 = identifier2;
+          _os_log_impl(&_mh_execute_header, punchoutImageCache2, OS_LOG_TYPE_DEFAULT, "Adding punchout image (%@) to cache for key: %@", &v22, 0x16u);
         }
 
         punchoutImageCache2 = [(PHCallViewController *)self punchoutImageCache];
@@ -596,23 +596,23 @@ LABEL_11:
         goto LABEL_18;
       }
 
-      if (v15)
+      if (v17)
       {
-        LOWORD(v20) = 0;
-        v18 = "[WARN] Could not get image from current image context";
+        LOWORD(v22) = 0;
+        v20 = "[WARN] Could not get image from current image context";
         goto LABEL_16;
       }
     }
 
     else
     {
-      punchoutImageCache2 = sub_100004F84();
+      punchoutImageCache2 = sub_100004F84(v14);
       if (os_log_type_enabled(punchoutImageCache2, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        v18 = "[WARN] Could not generate image from iconTemplateImageData from provider";
+        LOWORD(v22) = 0;
+        v20 = "[WARN] Could not generate image from iconTemplateImageData from provider";
 LABEL_16:
-        _os_log_impl(&_mh_execute_header, punchoutImageCache2, OS_LOG_TYPE_DEFAULT, v18, &v20, 2u);
+        _os_log_impl(&_mh_execute_header, punchoutImageCache2, OS_LOG_TYPE_DEFAULT, v20, &v22, 2u);
       }
     }
 
@@ -640,7 +640,7 @@ LABEL_20:
 - (void)activateProviderInBackgroundForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -661,7 +661,7 @@ LABEL_20:
 - (void)activateProviderInBackgroundWithBundleID:(id)d
 {
   dCopy = d;
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(dCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -728,48 +728,48 @@ LABEL_20:
 
   if (v6)
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Call providers changed. Invalidating punchout image cache", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Call providers changed. Invalidating punchout image cache", buf, 2u);
     }
 
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
+    v19 = 0u;
     providerManager2 = [(PHCallViewController *)self providerManager];
     providers = [providerManager2 providers];
 
-    v10 = [providers countByEnumeratingWithState:&v17 objects:v22 count:16];
-    if (v10)
+    v11 = [providers countByEnumeratingWithState:&v18 objects:v23 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v18;
+      v12 = v11;
+      v13 = *v19;
       do
       {
-        v13 = 0;
+        v14 = 0;
         do
         {
-          if (*v18 != v12)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(providers);
           }
 
-          v14 = *(*(&v17 + 1) + 8 * v13);
+          v15 = *(*(&v18 + 1) + 8 * v14);
           punchoutImageCache = [(PHCallViewController *)self punchoutImageCache];
-          identifier = [v14 identifier];
+          identifier = [v15 identifier];
           [punchoutImageCache removeObjectForKey:identifier];
 
-          v13 = v13 + 1;
+          v14 = v14 + 1;
         }
 
-        while (v11 != v13);
-        v11 = [providers countByEnumeratingWithState:&v17 objects:v22 count:16];
+        while (v12 != v14);
+        v12 = [providers countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
   }
 }

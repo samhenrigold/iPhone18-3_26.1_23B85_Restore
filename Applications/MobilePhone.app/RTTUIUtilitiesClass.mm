@@ -8,7 +8,7 @@ void __RTTUIUtilitiesClass_block_invoke(id a1)
   RTTUIUtilitiesClass_sRTTUIUtilitiesClass = CUTWeakLinkClass();
   if (!RTTUIUtilitiesClass_sRTTUIUtilitiesClass)
   {
-    v1 = PHDefaultLog();
+    v1 = PHDefaultLog(0);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
       *v2 = 0;

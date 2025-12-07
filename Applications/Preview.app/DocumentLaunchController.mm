@@ -32,18 +32,18 @@
 {
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
-  v9 = __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
   v13 = &v17 - v12;
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   browserCopy = browser;
   selfCopy = self;
-  sub_1000122FC(v13, v11);
+  sub_1000122FC(v13, v10);
 
   v16 = *(v8 + 8);
-  v16(v11, v7);
+  v16(v10, v7);
   v16(v13, v7);
 }
 

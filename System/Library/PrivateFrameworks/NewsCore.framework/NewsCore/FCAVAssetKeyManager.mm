@@ -2,8 +2,8 @@
 - (FCAVAssetKeyManager)init;
 - (id)_keyURIForKeyIdentifier:(void *)identifier;
 - (id)initWithService:(void *)service cache:;
-- (uint64_t)_shouldRefreshKey:(uint64_t)result;
 - (void)_completeKeyRequest:(void *)request withData:(void *)data error:(void *)error session:;
+- (void)_shouldRefreshKey:(void *)result;
 - (void)contentKeySession:(id)session didProvideContentKeyRequest:(id)request;
 - (void)contentKeySession:(id)session didProvidePersistableContentKeyRequest:(id)request;
 - (void)fetchKeysWithIdentifiers:(id)identifiers completionHandler:(id)handler;
@@ -88,16 +88,16 @@ id __45__FCAVAssetKeyManager_initWithService_cache___block_invoke(uint64_t a1)
 
 - (void)registerAVURLAssetForAutomaticKeyManagement:(id)management
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   managementCopy = management;
   if ([managementCopy mayRequireContentKeysForMediaDataProcessing])
   {
     v5 = FCAVAssetLog;
     if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = managementCopy;
-      _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "AV asset key manager registering automatic key management for %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = managementCopy;
+      _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "AV asset key manager registering automatic key management for %{public}@", &v9, 0xCu);
     }
 
     if (self)
@@ -114,26 +114,24 @@ id __45__FCAVAssetKeyManager_initWithService_cache___block_invoke(uint64_t a1)
     value = [(NFLazy *)v7 value];
     [value addContentKeyRecipient:managementCopy];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchKeysWithIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___block_invoke;
-  v34[3] = &unk_1E7C38BD8;
-  v34[4] = self;
-  v7 = [identifiers fc_arrayByTransformingWithBlock:v34];
   v33[0] = MEMORY[0x1E69E9820];
   v33[1] = 3221225472;
-  v33[2] = __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___block_invoke_2;
-  v33[3] = &unk_1E7C467F8;
+  v33[2] = __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___block_invoke;
+  v33[3] = &unk_1E7C38BD8;
   v33[4] = self;
-  v8 = [v7 fc_arrayOfObjectsPassingTest:v33];
+  v7 = [identifiers fc_arrayByTransformingWithBlock:v33];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___block_invoke_2;
+  v32[3] = &unk_1E7C467F8;
+  v32[4] = self;
+  v8 = [v7 fc_arrayOfObjectsPassingTest:v32];
   if ([v8 count])
   {
     v9 = [MEMORY[0x1E6987F70] contentKeySessionWithKeySystem:*MEMORY[0x1E69873B0]];
@@ -146,11 +144,11 @@ id __45__FCAVAssetKeyManager_initWithService_cache___block_invoke(uint64_t a1)
       v12 = v11;
       v13 = [v8 count];
       *buf = 134218498;
-      v37 = v13;
-      v38 = 2114;
-      v39 = v9;
-      v40 = 2114;
-      v41 = v8;
+      v36 = v13;
+      v37 = 2114;
+      v38 = v9;
+      v39 = 2114;
+      v40 = v8;
       _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "AV asset key manager fetching %lu keys on session %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -169,31 +167,31 @@ id __45__FCAVAssetKeyManager_initWithService_cache___block_invoke(uint64_t a1)
     }
 
     [(FCThreadSafeMutableArray *)fetchRequests addObject:v16];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v18 = v7;
-    v19 = [v18 countByEnumeratingWithState:&v24 objects:v35 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v23 objects:v34 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v25;
+      v21 = *v24;
       do
       {
         v22 = 0;
         do
         {
-          if (*v25 != v21)
+          if (*v24 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          [v9 processContentKeyRequestWithIdentifier:*(*(&v24 + 1) + 8 * v22++) initializationData:0 options:{0, v24}];
+          [v9 processContentKeyRequestWithIdentifier:*(*(&v23 + 1) + 8 * v22++) initializationData:0 options:{0, v23}];
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v24 objects:v35 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v23 objects:v34 count:16];
       }
 
       while (v20);
@@ -202,16 +200,14 @@ id __45__FCAVAssetKeyManager_initWithService_cache___block_invoke(uint64_t a1)
 
   else
   {
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 3221225472;
-    v30 = __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___block_invoke_3;
-    v31 = &unk_1E7C379C8;
-    v32 = handlerCopy;
-    v32[2](v32, 0);
-    v9 = v32;
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___block_invoke_3;
+    v30 = &unk_1E7C379C8;
+    v31 = handlerCopy;
+    v31[2](v31, 0);
+    v9 = v31;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_keyURIForKeyIdentifier:(void *)identifier
@@ -275,7 +271,7 @@ uint64_t __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___
   return v6;
 }
 
-- (uint64_t)_shouldRefreshKey:(uint64_t)result
+- (void)_shouldRefreshKey:(void *)result
 {
   if (result)
   {
@@ -298,7 +294,7 @@ uint64_t __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___
 
 - (void)refreshKeysIfNearExpiration:(id)expiration completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   expirationCopy = expiration;
   handlerCopy = handler;
   if ([expirationCopy count])
@@ -308,16 +304,16 @@ uint64_t __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___
     {
       v9 = v8;
       *buf = 134217984;
-      v37 = [expirationCopy count];
+      v36 = [expirationCopy count];
       _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "AV asset key manager will see if %lu keys need refresh", buf, 0xCu);
     }
 
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler___block_invoke_18;
-    v33[3] = &unk_1E7C38D38;
-    v33[4] = self;
-    v10 = [expirationCopy fc_arrayByTransformingWithBlock:v33];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler___block_invoke_18;
+    v32[3] = &unk_1E7C38D38;
+    v32[4] = self;
+    v10 = [expirationCopy fc_arrayByTransformingWithBlock:v32];
     if ([v10 count])
     {
       v11 = FCAVAssetLog;
@@ -326,9 +322,9 @@ uint64_t __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___
         v12 = v11;
         v13 = [expirationCopy count];
         *buf = 134218242;
-        v37 = v13;
-        v38 = 2114;
-        v39 = expirationCopy;
+        v36 = v13;
+        v37 = 2114;
+        v38 = expirationCopy;
         _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "AV asset key manager found %lu keys needing refresh: %{public}@", buf, 0x16u);
       }
 
@@ -351,31 +347,31 @@ uint64_t __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___
       }
 
       [(FCThreadSafeMutableArray *)fetchRequests addObject:v18];
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v20 = v10;
-      v21 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v26 objects:v34 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v28;
+        v23 = *v27;
         do
         {
           v24 = 0;
           do
           {
-            if (*v28 != v23)
+            if (*v27 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            [v14 processContentKeyRequestWithIdentifier:*(*(&v27 + 1) + 8 * v24++) initializationData:0 options:{0, v27}];
+            [v14 processContentKeyRequestWithIdentifier:*(*(&v26 + 1) + 8 * v24++) initializationData:0 options:{0, v26}];
           }
 
           while (v22 != v24);
-          v22 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v26 objects:v34 count:16];
         }
 
         while (v22);
@@ -384,31 +380,29 @@ uint64_t __66__FCAVAssetKeyManager_fetchKeysWithIdentifiers_completionHandler___
 
     else
     {
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler___block_invoke_5;
-      v31[3] = &unk_1E7C379C8;
-      v32 = handlerCopy;
-      __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler___block_invoke_5(v31);
-      v14 = v32;
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler___block_invoke_5;
+      v30[3] = &unk_1E7C379C8;
+      v31 = handlerCopy;
+      __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler___block_invoke_5(v30);
+      v14 = v31;
     }
   }
 
   else
   {
-    v33[5] = MEMORY[0x1E69E9820];
-    v33[6] = 3221225472;
-    v33[7] = __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler___block_invoke;
-    v33[8] = &unk_1E7C379C8;
+    v32[5] = MEMORY[0x1E69E9820];
+    v32[6] = 3221225472;
+    v32[7] = __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler___block_invoke;
+    v32[8] = &unk_1E7C379C8;
     v25 = handlerCopy;
-    v34 = v25;
+    v33 = v25;
     if (v25)
     {
       (*(v25 + 2))(v25, 0);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler___block_invoke(uint64_t a1)
@@ -499,22 +493,21 @@ uint64_t __69__FCAVAssetKeyManager_refreshKeysIfNearExpiration_completionHandler
   }
 }
 
-void __69__FCAVAssetKeyManager_contentKeySession_didProvideContentKeyRequest___block_invoke(uint64_t a1)
+void __69__FCAVAssetKeyManager_contentKeySession_didProvideContentKeyRequest___block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v3 = a1[4];
     v4 = v2;
     v5 = [v3 identifier];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "AV asset key manager failed to get persistableContentKeyRequest for identifier: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "AV asset key manager failed to get persistableContentKeyRequest for identifier: %{public}@", &v6, 0xCu);
   }
 
-  [(FCAVAssetKeyManager *)*(a1 + 40) _completeKeyRequest:0 withData:*(a1 + 48) error:*(a1 + 56) session:?];
-  v6 = *MEMORY[0x1E69E9840];
+  [(FCAVAssetKeyManager *)a1[5] _completeKeyRequest:0 withData:a1[6] error:a1[7] session:?];
 }
 
 - (void)_completeKeyRequest:(void *)request withData:(void *)data error:(void *)error session:
@@ -558,7 +551,7 @@ void __69__FCAVAssetKeyManager_contentKeySession_didProvideContentKeyRequest___b
 
 - (void)contentKeySession:(id)session didProvidePersistableContentKeyRequest:(id)request
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   obj = request;
   requestCopy = request;
@@ -577,19 +570,19 @@ void __69__FCAVAssetKeyManager_contentKeySession_didProvideContentKeyRequest___b
 
   if (!v11)
   {
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke;
-    v45[3] = &unk_1E7C376A0;
-    v45[4] = self;
-    v46 = requestCopy;
-    v47 = sessionCopy;
-    __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke(v45);
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke;
+    v44[3] = &unk_1E7C376A0;
+    v44[4] = self;
+    v45 = requestCopy;
+    v46 = sessionCopy;
+    __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke(v44);
 
     goto LABEL_22;
   }
 
-  v32 = v11;
+  v31 = v11;
   if (self)
   {
     cache = self->_cache;
@@ -601,33 +594,33 @@ void __69__FCAVAssetKeyManager_contentKeySession_didProvideContentKeyRequest___b
   }
 
   v13 = cache;
-  v31 = [(FCAVAssetKeyCacheType *)v13 assetKeyForURI:v32];
+  v30 = [(FCAVAssetKeyCacheType *)v13 assetKeyForURI:v31];
 
-  if (!v31 || ([(FCAVAssetKeyManager *)self _shouldRefreshKey:v31]& 1) != 0)
+  if (!v30 || ([(FCAVAssetKeyManager *)self _shouldRefreshKey:v30]& 1) != 0)
   {
     goto LABEL_10;
   }
 
-  v14 = v32;
+  v14 = v31;
   v15 = v14;
   if (self)
   {
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
-    v51 = 0;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x2020000000;
+    v50 = 0;
     v16 = self->_fetchRequests;
     buf.receiver = MEMORY[0x1E69E9820];
     buf.super_class = 3221225472;
-    v53 = __50__FCAVAssetKeyManager__waitingOnRefreshForKeyURI___block_invoke;
-    v54 = &unk_1E7C46848;
+    v52 = __50__FCAVAssetKeyManager__waitingOnRefreshForKeyURI___block_invoke;
+    v53 = &unk_1E7C46848;
     v17 = v15;
-    v55 = v17;
-    v56 = &v48;
+    v54 = v17;
+    v55 = &v47;
     [(FCThreadSafeMutableArray *)v16 enumerateObjectsUsingBlock:&buf];
 
-    LOBYTE(v16) = *(v49 + 24);
-    _Block_object_dispose(&v48, 8);
+    LOBYTE(v16) = *(v48 + 24);
+    _Block_object_dispose(&v47, 8);
 
     if (v16)
     {
@@ -636,7 +629,7 @@ LABEL_10:
       if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf.receiver) = 138543362;
-        *(&buf.receiver + 4) = v32;
+        *(&buf.receiver + 4) = v31;
         _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "AV asset key manager fetching response for %{public}@", &buf, 0xCu);
       }
 
@@ -654,7 +647,7 @@ LABEL_10:
       }
 
       v22 = requestCopy;
-      v23 = v32;
+      v23 = v31;
       v24 = v20;
       v25 = v21;
       if (v19)
@@ -676,10 +669,10 @@ LABEL_10:
       newValue[1] = 3221225472;
       newValue[2] = __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_26;
       newValue[3] = &unk_1E7C46820;
-      v35 = v23;
+      v34 = v23;
       selfCopy = self;
-      v37 = v22;
-      v38 = sessionCopy;
+      v36 = v22;
+      v37 = sessionCopy;
       if (v19)
       {
         objc_setProperty_nonatomic_copy(v19, v27, newValue, 376);
@@ -695,22 +688,21 @@ LABEL_10:
   {
   }
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2;
-  v39[3] = &unk_1E7C376C8;
-  v40 = v15;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2;
+  v38[3] = &unk_1E7C376C8;
+  v39 = v15;
   selfCopy2 = self;
-  v42 = requestCopy;
-  v43 = v31;
-  v44 = sessionCopy;
-  __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2(v39);
+  v41 = requestCopy;
+  v42 = v30;
+  v43 = sessionCopy;
+  __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2(v38);
 
-  v19 = v40;
+  v19 = v39;
 LABEL_20:
 
 LABEL_22:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke(uint64_t a1)
@@ -723,44 +715,42 @@ void __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKey
 
 void __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset key manager using cached response for %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset key manager using cached response for %{public}@", &v7, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
   v6 = [*(a1 + 56) keyData];
   [(FCAVAssetKeyManager *)v4 _completeKeyRequest:v5 withData:v6 error:0 session:*(a1 + 64)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_26(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2_27;
-    v13[3] = &unk_1E7C376C8;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2_27;
+    v12[3] = &unk_1E7C376C8;
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v14 = v7;
-    v15 = v8;
-    v16 = v9;
-    v17 = v6;
-    v18 = *(a1 + 56);
-    __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2_27(v13);
+    v13 = v7;
+    v14 = v8;
+    v15 = v9;
+    v16 = v6;
+    v17 = *(a1 + 56);
+    __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2_27(v12);
   }
 
   else
@@ -770,30 +760,27 @@ void __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKey
     {
       v11 = *(a1 + 32);
       *buf = 138543362;
-      v20 = v11;
+      v19 = v11;
       _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "AV asset key manager fetched response for %{public}@", buf, 0xCu);
     }
 
     [(FCAVAssetKeyManager *)*(a1 + 40) _completeKeyRequest:v5 withData:0 error:*(a1 + 56) session:?];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __80__FCAVAssetKeyManager_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke_2_27(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset key manager failed to fetch response for %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset key manager failed to fetch response for %{public}@", &v4, 0xCu);
   }
 
   [(FCAVAssetKeyManager *)*(a1 + 40) _completeKeyRequest:0 withData:*(a1 + 56) error:*(a1 + 64) session:?];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__FCAVAssetKeyManager__waitingOnRefreshForKeyURI___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -820,14 +807,14 @@ uint64_t __50__FCAVAssetKeyManager__waitingOnRefreshForKeyURI___block_invoke(uin
 
 void __66__FCAVAssetKeyManager__completeKeyRequest_withData_error_session___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __66__FCAVAssetKeyManager__completeKeyRequest_withData_error_session___block_invoke_2;
-  v20[3] = &unk_1E7C46870;
-  v21 = *(a1 + 32);
-  v4 = [v3 fc_firstObjectPassingTest:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __66__FCAVAssetKeyManager__completeKeyRequest_withData_error_session___block_invoke_2;
+  v19[3] = &unk_1E7C46870;
+  v20 = *(a1 + 32);
+  v4 = [v3 fc_firstObjectPassingTest:v19];
   v5 = v4;
   if (v4)
   {
@@ -851,9 +838,9 @@ void __66__FCAVAssetKeyManager__completeKeyRequest_withData_error_session___bloc
       }
 
       *buf = 138543618;
-      v23 = v7;
-      v24 = 2114;
-      v25 = v8;
+      v22 = v7;
+      v23 = 2114;
+      v24 = v8;
       v9 = v6;
       _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "AV asset key manager removing keyURI %{public}@ from %{public}@", buf, 0x16u);
     }
@@ -897,7 +884,7 @@ void __66__FCAVAssetKeyManager__completeKeyRequest_withData_error_session___bloc
         }
 
         *buf = 138543362;
-        v23 = v13;
+        v22 = v13;
         v14 = v12;
         _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "AV asset key manager finished key requests for session: %{public}@", buf, 0xCu);
       }
@@ -917,8 +904,6 @@ void __66__FCAVAssetKeyManager__completeKeyRequest_withData_error_session___bloc
       [v3 removeObjectIdenticalTo:v5];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __66__FCAVAssetKeyManager__completeKeyRequest_withData_error_session___block_invoke_2(uint64_t a1, uint64_t a2)

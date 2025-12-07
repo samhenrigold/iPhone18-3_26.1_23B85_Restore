@@ -25,12 +25,14 @@
   }
 }
 
-uint64_t __38__JFXARMetadataMediaReader_initialize__block_invoke()
+uint64_t __38__JFXARMetadataMediaReader_initialize__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  s_JFXARMetadataClassName = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = s_JFXARMetadataClassName;
+  s_JFXARMetadataClassName = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 - (JFXARMetadataMediaReader)initWithMetadataReader:(id)reader
@@ -61,8 +63,8 @@ uint64_t __38__JFXARMetadataMediaReader_initialize__block_invoke()
 
 - (id)arMetadataItemForTime:(id *)time
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v5 = JFXMediaDataReaderIntervalSignpostCategory();
+  v24 = *MEMORY[0x277D85DE8];
+  v5 = JFXMediaDataReaderIntervalSignpostCategory(self, a2);
   signPostID = [(JFXARMetadataMediaReader *)self signPostID];
   if (signPostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
@@ -82,169 +84,169 @@ uint64_t __38__JFXARMetadataMediaReader_initialize__block_invoke()
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3032000000;
-  v19 = __Block_byref_object_copy__2;
-  v20 = __Block_byref_object_dispose__2;
-  v21 = 0;
+  v21 = __Block_byref_object_copy__2;
+  v22 = __Block_byref_object_dispose__2;
+  v23 = 0;
   synchronizationQueue = [(JFXARMetadataMediaReader *)self synchronizationQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __50__JFXARMetadataMediaReader_arMetadataItemForTime___block_invoke;
   block[3] = &unk_278D7A008;
-  v16 = *&time->var0;
+  v18 = *&time->var0;
   var3 = time->var3;
   block[4] = self;
   block[5] = &time;
   dispatch_sync(synchronizationQueue, block);
 
-  v10 = JFXMediaDataReaderIntervalSignpostCategory();
+  v12 = JFXMediaDataReaderIntervalSignpostCategory(v10, v11);
   signPostID2 = [(JFXARMetadataMediaReader *)self signPostID];
-  if (signPostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  if (signPostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_242A3B000, v10, OS_SIGNPOST_INTERVAL_END, signPostID2, "arMetadataItemForTime", &unk_242B66C87, v14, 2u);
+    *v16 = 0;
+    _os_signpost_emit_with_name_impl(&dword_242A3B000, v12, OS_SIGNPOST_INTERVAL_END, signPostID2, "arMetadataItemForTime", &unk_242B66C87, v16, 2u);
   }
 
-  v12 = *(*&time.timescale + 40);
+  v14 = *(*&time.timescale + 40);
   _Block_object_dispose(&time, 8);
 
-  return v12;
+  return v14;
 }
 
 void __50__JFXARMetadataMediaReader_arMetadataItemForTime___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cachedARMetadata];
   v3 = v2;
-  if (v2 && ([v2 timeRange], time = *(a1 + 48), CMTimeRangeContainsTime(&range, &time)))
+  if (v2 && (objc_msgSend_timeRange(v2), time = *(a1 + 48), CMTimeRangeContainsTime(&range, &time)))
   {
     v4 = JFXLog_DebugMediaDataReader();
     v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
     if (v5)
     {
-      v6 = JFXLog_DebugMediaDataReader();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = JFXLog_DebugMediaDataReader();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v34 = *(a1 + 32);
+        v41 = *(a1 + 32);
         *&range.start.value = *(a1 + 48);
         range.start.epoch = *(a1 + 64);
         Seconds = CMTimeGetSeconds(&range.start);
-        [v3 timeRange];
-        *&range.start.value = v40;
-        range.start.epoch = v41;
-        v36 = CMTimeGetSeconds(&range.start);
-        [v3 timeRange];
+        objc_msgSend_timeRange(v3);
+        *&range.start.value = v47;
+        range.start.epoch = v48;
+        v43 = CMTimeGetSeconds(&range.start);
+        objc_msgSend_timeRange(v3);
         CMTimeRangeGetEnd(&time, &range);
-        v37 = CMTimeGetSeconds(&time);
+        v44 = CMTimeGetSeconds(&time);
         LODWORD(range.start.value) = 138413058;
-        *(&range.start.value + 4) = v34;
+        *(&range.start.value + 4) = v41;
         LOWORD(range.start.flags) = 2048;
         *(&range.start.flags + 2) = Seconds;
         HIWORD(range.start.epoch) = 2048;
-        range.duration.value = v36;
+        range.duration.value = v43;
         LOWORD(range.duration.timescale) = 2048;
-        *(&range.duration.timescale + 2) = v37;
-        _os_log_debug_impl(&dword_242A3B000, v6, OS_LOG_TYPE_DEBUG, "%@ cached data found for time %f in cached sample at timerange %f-%f", &range, 0x2Au);
+        *(&range.duration.timescale + 2) = v44;
+        _os_log_debug_impl(&dword_242A3B000, v8, OS_LOG_TYPE_DEBUG, "%@ cached data found for time %f in cached sample at timerange %f-%f", &range, 0x2Au);
       }
     }
 
-    v7 = JFXMediaDataReaderEventSignpostPointCategory();
-    v8 = [*(a1 + 32) signPostID];
-    if ((v8 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    v9 = JFXMediaDataReaderEventSignpostPointCategory(v6, v7);
+    v10 = [*(a1 + 32) signPostID];
+    if ((v10 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v9 = v8;
-      if (os_signpost_enabled(v7))
+      v11 = v10;
+      if (os_signpost_enabled(v9))
       {
-        v10 = *(a1 + 32);
+        v12 = *(a1 + 32);
         *&range.start.value = *(a1 + 48);
         range.start.epoch = *(a1 + 64);
-        v11 = CMTimeGetSeconds(&range.start);
-        [v3 timeRange];
-        *&range.start.value = v38;
-        range.start.epoch = v39;
-        v12 = CMTimeGetSeconds(&range.start);
-        [v3 timeRange];
+        v13 = CMTimeGetSeconds(&range.start);
+        objc_msgSend_timeRange(v3);
+        *&range.start.value = v45;
+        range.start.epoch = v46;
+        v14 = CMTimeGetSeconds(&range.start);
+        objc_msgSend_timeRange(v3);
         CMTimeRangeGetEnd(&time, &range);
-        v13 = CMTimeGetSeconds(&time);
+        v15 = CMTimeGetSeconds(&time);
         LODWORD(range.start.value) = 138413058;
-        *(&range.start.value + 4) = v10;
+        *(&range.start.value + 4) = v12;
         LOWORD(range.start.flags) = 2048;
-        *(&range.start.flags + 2) = v11;
+        *(&range.start.flags + 2) = v13;
         HIWORD(range.start.epoch) = 2048;
-        range.duration.value = v12;
+        range.duration.value = v14;
         LOWORD(range.duration.timescale) = 2048;
-        *(&range.duration.timescale + 2) = v13;
-        _os_signpost_emit_with_name_impl(&dword_242A3B000, v7, OS_SIGNPOST_EVENT, v9, "arMetadataFoundInCache", "%@ found for time %f in cached sample at timerange %f-%f", &range, 0x2Au);
+        *(&range.duration.timescale + 2) = v15;
+        _os_signpost_emit_with_name_impl(&dword_242A3B000, v9, OS_SIGNPOST_EVENT, v11, "arMetadataFoundInCache", "%@ found for time %f in cached sample at timerange %f-%f", &range, 0x2Au);
       }
     }
 
-    v14 = JFXMediaDataReaderIntervalSignpostCategory();
-    v15 = [*(a1 + 32) signPostID];
-    if ((v15 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    v18 = JFXMediaDataReaderIntervalSignpostCategory(v16, v17);
+    v19 = [*(a1 + 32) signPostID];
+    if ((v19 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v16 = v15;
-      if (os_signpost_enabled(v14))
+      v20 = v19;
+      if (os_signpost_enabled(v18))
       {
         LOWORD(range.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_242A3B000, v14, OS_SIGNPOST_INTERVAL_END, v16, "arMetadataItemForTime", &unk_242B66C87, &range, 2u);
+        _os_signpost_emit_with_name_impl(&dword_242A3B000, v18, OS_SIGNPOST_INTERVAL_END, v20, "arMetadataItemForTime", &unk_242B66C87, &range, 2u);
       }
     }
 
-    v17 = *(*(a1 + 40) + 8);
-    v18 = v3;
-    v19 = *(v17 + 40);
-    *(v17 + 40) = v18;
+    v21 = *(*(a1 + 40) + 8);
+    v22 = v3;
+    v23 = *(v21 + 40);
+    *(v21 + 40) = v22;
   }
 
   else
   {
-    v20 = [*(a1 + 32) reader];
+    v24 = [*(a1 + 32) reader];
     *&range.start.value = *(a1 + 48);
     range.start.epoch = *(a1 + 64);
-    v19 = [v20 metadataForTime:&range];
+    v23 = [v24 metadataForTime:&range];
 
-    if (v19)
+    if (v23)
     {
-      v21 = JFXMediaDataReaderIntervalSignpostCategory();
-      v22 = [*(a1 + 32) signPostID];
-      if ((v22 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v23 = v22;
-        if (os_signpost_enabled(v21))
-        {
-          v24 = *(a1 + 32);
-          *&range.start.value = *(a1 + 48);
-          range.start.epoch = *(a1 + 64);
-          v25 = CMTimeGetSeconds(&range.start);
-          LODWORD(range.start.value) = 138412546;
-          *(&range.start.value + 4) = v24;
-          LOWORD(range.start.flags) = 2048;
-          *(&range.start.flags + 2) = v25;
-          _os_signpost_emit_with_name_impl(&dword_242A3B000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v23, "decodingARMetadata", "%@ for time %f", &range, 0x16u);
-        }
-      }
-
-      v26 = [*(a1 + 32) JFX_ARMetadataFromMetadataReaderItem:v19];
-      v27 = JFXMediaDataReaderIntervalSignpostCategory();
+      v27 = JFXMediaDataReaderIntervalSignpostCategory(v25, v26);
       v28 = [*(a1 + 32) signPostID];
       if ((v28 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
       {
         v29 = v28;
         if (os_signpost_enabled(v27))
         {
-          LOWORD(range.start.value) = 0;
-          _os_signpost_emit_with_name_impl(&dword_242A3B000, v27, OS_SIGNPOST_INTERVAL_END, v29, "decodingARMetadata", &unk_242B66C87, &range, 2u);
+          v30 = *(a1 + 32);
+          *&range.start.value = *(a1 + 48);
+          range.start.epoch = *(a1 + 64);
+          v31 = CMTimeGetSeconds(&range.start);
+          LODWORD(range.start.value) = 138412546;
+          *(&range.start.value + 4) = v30;
+          LOWORD(range.start.flags) = 2048;
+          *(&range.start.flags + 2) = v31;
+          _os_signpost_emit_with_name_impl(&dword_242A3B000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v29, "decodingARMetadata", "%@ for time %f", &range, 0x16u);
         }
       }
 
-      if (v26)
+      v32 = [*(a1 + 32) JFX_ARMetadataFromMetadataReaderItem:v23];
+      v34 = JFXMediaDataReaderIntervalSignpostCategory(v32, v33);
+      v35 = [*(a1 + 32) signPostID];
+      if ((v35 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v30 = [JFXARMetadataMediaReaderItem alloc];
-        [v19 timeRange];
-        v31 = [(JFXARMetadataMediaReaderItem *)v30 initWithARMetadata:v26 timeRange:&range];
-        v32 = *(*(a1 + 40) + 8);
-        v33 = *(v32 + 40);
-        *(v32 + 40) = v31;
+        v36 = v35;
+        if (os_signpost_enabled(v34))
+        {
+          LOWORD(range.start.value) = 0;
+          _os_signpost_emit_with_name_impl(&dword_242A3B000, v34, OS_SIGNPOST_INTERVAL_END, v36, "decodingARMetadata", &unk_242B66C87, &range, 2u);
+        }
+      }
+
+      if (v32)
+      {
+        v37 = [JFXARMetadataMediaReaderItem alloc];
+        objc_msgSend_timeRange(v23);
+        v38 = [(JFXARMetadataMediaReaderItem *)v37 initWithARMetadata:v32 timeRange:&range];
+        v39 = *(*(a1 + 40) + 8);
+        v40 = *(v39 + 40);
+        *(v39 + 40) = v38;
 
         [*(a1 + 32) setCachedARMetadata:*(*(*(a1 + 40) + 8) + 40)];
       }
@@ -314,7 +316,7 @@ __n128 __45__JFXARMetadataMediaReader_readableTimeRange__block_invoke(uint64_t a
   v3 = v2;
   if (v2)
   {
-    [v2 readableTimeRange];
+    objc_msgSend_readableTimeRange(v2);
   }
 
   else
@@ -437,9 +439,12 @@ void __33__JFXARMetadataMediaReader_error__block_invoke(uint64_t a1)
 
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) lastDecodeError];
+    v6 = [*(a1 + 32) lastDecodeError];
+    v7 = *(*(a1 + 40) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v6, v8);
   }
 }
 

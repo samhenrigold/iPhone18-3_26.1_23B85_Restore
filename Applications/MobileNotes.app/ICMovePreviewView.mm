@@ -44,7 +44,7 @@
 
 - (NSArray)objectIds
 {
-  sub_1000054A4(0, &qword_1006BFEC0);
+  sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -53,7 +53,7 @@
 
 - (void)setObjectIds:(id)ids
 {
-  sub_1000054A4(0, &qword_1006BFEC0);
+  sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
   *(self + OBJC_IVAR___ICMovePreviewView_objectIds) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
 

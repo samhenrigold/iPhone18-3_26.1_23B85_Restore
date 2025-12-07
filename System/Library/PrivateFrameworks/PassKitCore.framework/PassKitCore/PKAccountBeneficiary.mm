@@ -38,40 +38,40 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v10 = [(__CFString *)v8 isEqualToString:@"child"];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if ((v10 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v12 = v9;
-    if (v12 == @"spouse" || (v13 = v12, v14 = [(__CFString *)v12 isEqualToString:@"spouse"], v13, (v14 & 1) != 0))
+    if (v12 == @"spouse" || (v13 = v12, v14 = objc_msgSend_isEqualToString_(v12), v13, (v14 & 1) != 0))
     {
       v11 = 2;
       goto LABEL_22;
     }
 
     v15 = v13;
-    if (v15 == @"domestic-partner" || (v16 = v15, v17 = [(__CFString *)v15 isEqualToString:@"domestic-partner"], v16, (v17 & 1) != 0))
+    if (v15 == @"domestic-partner" || (v16 = v15, v17 = objc_msgSend_isEqualToString_(v15), v16, (v17 & 1) != 0))
     {
       v11 = 3;
       goto LABEL_22;
     }
 
     v18 = v16;
-    if (v18 == @"parent" || (v19 = v18, v20 = [(__CFString *)v18 isEqualToString:@"parent"], v19, (v20 & 1) != 0))
+    if (v18 == @"parent" || (v19 = v18, v20 = objc_msgSend_isEqualToString_(v18), v19, (v20 & 1) != 0))
     {
       v11 = 4;
       goto LABEL_22;
     }
 
     v21 = v19;
-    if (v21 == @"sibling" || (v22 = v21, v23 = [(__CFString *)v21 isEqualToString:@"sibling"], v22, (v23 & 1) != 0))
+    if (v21 == @"sibling" || (v22 = v21, v23 = objc_msgSend_isEqualToString_(v21), v22, (v23 & 1) != 0))
     {
       v11 = 5;
       goto LABEL_22;
     }
 
     v24 = v22;
-    if (v24 == @"other" || (v25 = v24, v26 = [(__CFString *)v24 isEqualToString:@"other"], v25, v26))
+    if (v24 == @"other" || (v25 = v24, v26 = objc_msgSend_isEqualToString_(v24), v25, v26))
     {
       v11 = 6;
       goto LABEL_22;

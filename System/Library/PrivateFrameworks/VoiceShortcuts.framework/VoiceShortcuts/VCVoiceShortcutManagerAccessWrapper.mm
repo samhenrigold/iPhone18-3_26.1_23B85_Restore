@@ -21,6 +21,7 @@
 - (void)deleteVoiceShortcutWithIdentifier:(id)identifier name:(id)name completion:(id)completion;
 - (void)describeSyncStateIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)dismissToastedSessionKitSessionsWithReason:(id)reason completion:(id)completion;
+- (void)drawGlyphs:(id)glyphs withBackgroundColorValues:(id)values padding:(double)padding rounded:(BOOL)rounded intoContext:(id)context completion:(id)completion;
 - (void)fetchAllValueSectionsForStaccatoParameter:(id)parameter completion:(id)completion;
 - (void)fetchAvailableStaccatoActions:(id)actions;
 - (void)fetchURLForFPItem:(id)item completion:(id)completion;
@@ -89,6 +90,7 @@
 - (void)setOutcome:(int64_t)outcome forRunEvent:(id)event;
 - (void)setPerWorkflowStateData:(id)data forSmartPromptWithActionUUID:(id)d reference:(id)reference completion:(id)completion;
 - (void)setShortcutSuggestions:(id)suggestions forAppWithBundleIdentifier:(id)identifier;
+- (void)setTrustedToRunScripts:(BOOL)scripts forReference:(id)reference onDomain:(id)domain completion:(id)completion;
 - (void)showSingleStepCompletionForWebClip:(id)clip completion:(id)completion;
 - (void)storeQuarantineHashForWorkflowWithReference:(id)reference quarantineHash:(id)hash;
 - (void)storeSerializedParameters:(id)parameters forAppEntityIdentifier:(id)identifier queryName:(id)name badgeType:(unint64_t)type completion:(id)completion;
@@ -121,18 +123,18 @@
 
 - (void)defaultStaccatoActionWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v4 = +[WFConfiguredSystemActionProvider sharedProvider];
   v5 = [v4 defaultSystemActionForActionType:*MEMORY[0x277D7A5A8]];
   v6 = getWFStaccatoLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[VCVoiceShortcutManagerAccessWrapper defaultStaccatoActionWithCompletion:]";
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Returning default action: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[VCVoiceShortcutManagerAccessWrapper defaultStaccatoActionWithCompletion:]";
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Returning default action: %@", &v9, 0x16u);
   }
 
   if (v5)
@@ -145,39 +147,37 @@
     v7 = getWFStaccatoLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[VCVoiceShortcutManagerAccessWrapper defaultStaccatoActionWithCompletion:]";
-      _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_ERROR, "%s Unable to find default action for action button.", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[VCVoiceShortcutManagerAccessWrapper defaultStaccatoActionWithCompletion:]";
+      _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_ERROR, "%s Unable to find default action for action button.", &v9, 0xCu);
     }
 
     v8 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1002 reason:@"Unable to construct the default action"];
     (completionCopy)[2](completionCopy, 0, v8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configuredStaccatoActionFromTemplate:(id)template valuesByParameterKey:(id)key completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   keyCopy = key;
   completionCopy = completion;
   v10 = +[WFConfiguredSystemActionProvider sharedProvider];
-  v16 = 0;
-  v11 = [v10 configuredStaccatoActionFromTemplate:templateCopy valuesByParameterKey:keyCopy error:&v16];
-  v12 = v16;
+  v15 = 0;
+  v11 = [v10 configuredStaccatoActionFromTemplate:templateCopy valuesByParameterKey:keyCopy error:&v15];
+  v12 = v15;
   v13 = getWFStaccatoLogObject();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v18 = "[VCVoiceShortcutManagerAccessWrapper configuredStaccatoActionFromTemplate:valuesByParameterKey:completion:]";
-    v19 = 2112;
-    v20 = templateCopy;
-    v21 = 2112;
-    v22 = keyCopy;
-    v23 = 2112;
-    v24 = v11;
+    v17 = "[VCVoiceShortcutManagerAccessWrapper configuredStaccatoActionFromTemplate:valuesByParameterKey:completion:]";
+    v18 = 2112;
+    v19 = templateCopy;
+    v20 = 2112;
+    v21 = keyCopy;
+    v22 = 2112;
+    v23 = v11;
     _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_DEFAULT, "%s Configured action for template: %@ with parameters: %@ -> %@", buf, 0x2Au);
   }
 
@@ -192,21 +192,19 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[VCVoiceShortcutManagerAccessWrapper configuredStaccatoActionFromTemplate:valuesByParameterKey:completion:]";
-      v19 = 2112;
-      v20 = templateCopy;
+      v17 = "[VCVoiceShortcutManagerAccessWrapper configuredStaccatoActionFromTemplate:valuesByParameterKey:completion:]";
+      v18 = 2112;
+      v19 = templateCopy;
       _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_ERROR, "%s Failed to construct configured action with template: %@.", buf, 0x16u);
     }
 
     (completionCopy)[2](completionCopy, 0, v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAllValueSectionsForStaccatoParameter:(id)parameter completion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   completionCopy = completion;
   actionIdentifier = [parameterCopy actionIdentifier];
@@ -237,13 +235,13 @@
     aBlock[2] = __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoParameter_completion___block_invoke;
     aBlock[3] = &unk_2788FF298;
     v16 = v9;
-    v34 = v16;
-    v28 = v13;
-    v35 = v28;
+    v33 = v16;
+    v27 = v13;
+    v34 = v27;
     v17 = parameterCopy;
-    v36 = v17;
+    v35 = v17;
     v18 = completionCopy;
-    v37 = v18;
+    v36 = v18;
     v19 = _Block_copy(aBlock);
     v20 = getWFStaccatoLogObject();
     v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
@@ -252,25 +250,25 @@
       if (v21)
       {
         *buf = 136315650;
-        v39 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]";
-        v40 = 2112;
-        v41 = v17;
-        v42 = 2112;
-        v43 = v16;
+        v38 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]";
+        v39 = 2112;
+        v40 = v17;
+        v41 = 2112;
+        v42 = v16;
         _os_log_impl(&dword_23103C000, v20, OS_LOG_TYPE_DEFAULT, "%s Fetching dynamic values for parameter: %@ in action: %@", buf, 0x20u);
       }
 
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoParameter_completion___block_invoke_321;
-      v29[3] = &unk_2788FF2C0;
-      v30 = v15;
-      v31 = v18;
-      v32 = v19;
-      [v30 loadPossibleStatesWithCompletionHandler:v29];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoParameter_completion___block_invoke_321;
+      v28[3] = &unk_2788FF2C0;
+      v29 = v15;
+      v30 = v18;
+      v31 = v19;
+      [v29 loadPossibleStatesWithCompletionHandler:v28];
 
-      v22 = v30;
-      v23 = v28;
+      v22 = v29;
+      v23 = v27;
     }
 
     else
@@ -278,17 +276,17 @@
       if (v21)
       {
         *buf = 136315650;
-        v39 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]";
-        v40 = 2112;
-        v41 = v17;
-        v42 = 2112;
-        v43 = v16;
+        v38 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]";
+        v39 = 2112;
+        v40 = v17;
+        v41 = 2112;
+        v42 = v16;
         _os_log_impl(&dword_23103C000, v20, OS_LOG_TYPE_DEFAULT, "%s Fetching static values for parameter: %@ in action: %@", buf, 0x20u);
       }
 
       v25 = objc_alloc(MEMORY[0x277CD3E28]);
-      v23 = v28;
-      possibleStates = [v28 possibleStates];
+      v23 = v27;
+      possibleStates = [v27 possibleStates];
       v22 = [v25 initWithItems:possibleStates];
 
       (*(v19 + 2))(v19, v22);
@@ -303,52 +301,49 @@
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v39 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]";
-      v40 = 2112;
-      v41 = parameterCopy;
-      v42 = 2112;
-      v43 = v12;
+      v38 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]";
+      v39 = 2112;
+      v40 = parameterCopy;
+      v41 = 2112;
+      v42 = v12;
       _os_log_impl(&dword_23103C000, v24, OS_LOG_TYPE_ERROR, "%s Invalid parameter provided: %@ - %@.", buf, 0x20u);
     }
 
     (*(completionCopy + 2))(completionCopy, MEMORY[0x277CBEBF8], 0);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoParameter_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [a2 sections];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoParameter_completion___block_invoke_2;
-  v9[3] = &unk_2788FF270;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v4 = [v3 if_map:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoParameter_completion___block_invoke_2;
+  v8[3] = &unk_2788FF270;
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v4 = [v3 if_map:v8];
 
   v5 = getWFStaccatoLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 48);
     *buf = 136315650;
-    v13 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]_block_invoke";
-    v14 = 2112;
-    v15 = v4;
-    v16 = 2112;
-    v17 = v6;
+    v12 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]_block_invoke";
+    v13 = 2112;
+    v14 = v4;
+    v15 = 2112;
+    v16 = v6;
     _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_DEFAULT, "%s Returning: %@ values for parameter %@.", buf, 0x20u);
   }
 
   (*(*(a1 + 56) + 16))(*(a1 + 56), v4, 0, v7);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoParameter_completion___block_invoke_321(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -356,11 +351,11 @@ void __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoP
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v9 = 136315394;
-      v10 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]_block_invoke";
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_ERROR, "%s Failed to load possible states for parameter: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[VCVoiceShortcutManagerAccessWrapper fetchAllValueSectionsForStaccatoParameter:completion:]_block_invoke";
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_ERROR, "%s Failed to load possible states for parameter: %@", &v8, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -372,8 +367,6 @@ void __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoP
     v7 = [*(a1 + 32) possibleStatesCollection];
     (*(v6 + 16))(v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoParameter_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -387,30 +380,30 @@ id __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoPar
 
 - (void)fetchAvailableStaccatoActions:(id)actions
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   v4 = WFSystemStaccatoActionIdentifiersBySection();
-  v29 = objc_opt_new();
+  v28 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v6)
   {
-    v7 = *v32;
+    v7 = *v31;
     v8 = *MEMORY[0x277D7A228];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v32 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         if ([v10 isEqualToString:@"Camera"])
         {
           v11 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:v8 allowPlaceholder:0 error:0];
@@ -432,28 +425,28 @@ id __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoPar
 
         if (isAppleIntelligenceEnabled)
         {
-          v35 = 0;
-          v36 = &v35;
-          v37 = 0x2020000000;
+          v34 = 0;
+          v35 = &v34;
+          v36 = 0x2020000000;
           v15 = getAFVisualIntelligenceCameraRestrictedSymbolLoc_ptr;
-          v38 = getAFVisualIntelligenceCameraRestrictedSymbolLoc_ptr;
+          v37 = getAFVisualIntelligenceCameraRestrictedSymbolLoc_ptr;
           if (!getAFVisualIntelligenceCameraRestrictedSymbolLoc_ptr)
           {
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __getAFVisualIntelligenceCameraRestrictedSymbolLoc_block_invoke;
-            v41 = &unk_2788FFE98;
-            v42 = &v35;
+            v40 = &unk_2788FFE98;
+            v41 = &v34;
             __getAFVisualIntelligenceCameraRestrictedSymbolLoc_block_invoke(buf);
-            v15 = v36[3];
+            v15 = v35[3];
           }
 
-          _Block_object_dispose(&v35, 8);
+          _Block_object_dispose(&v34, 8);
           if (!v15)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL soft_AFVisualIntelligenceCameraRestricted(void)"];
-            [currentHandler handleFailureInFunction:v27 file:@"VCVoiceShortcutManagerAccessWrapper.m" lineNumber:85 description:{@"%s", dlerror()}];
+            v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL soft_AFVisualIntelligenceCameraRestricted(void)"];
+            [currentHandler handleFailureInFunction:v26 file:@"VCVoiceShortcutManagerAccessWrapper.m" lineNumber:85 description:{@"%s", dlerror()}];
 
             __break(1u);
           }
@@ -494,7 +487,7 @@ id __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoPar
           *&buf[12] = 2112;
           *&buf[14] = v18;
           *&buf[22] = 2112;
-          v41 = v19;
+          v40 = v19;
           _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_DEFAULT, "%s Should show Visual Intelligence: AI enabled: %@ VI enabled: %@", buf, 0x20u);
         }
 
@@ -502,18 +495,18 @@ id __92__VCVoiceShortcutManagerAccessWrapper_fetchAllValueSectionsForStaccatoPar
         {
 LABEL_24:
           v20 = [v5 objectForKeyedSubscript:v10];
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___block_invoke;
-          v30[3] = &unk_2788FF248;
-          v30[4] = self;
-          v30[5] = v10;
-          v21 = [v20 if_compactMap:v30];
-          [v29 setObject:v21 forKeyedSubscript:v10];
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___block_invoke;
+          v29[3] = &unk_2788FF248;
+          v29[4] = self;
+          v29[5] = v10;
+          v21 = [v20 if_compactMap:v29];
+          [v28 setObject:v21 forKeyedSubscript:v10];
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v6);
@@ -522,7 +515,7 @@ LABEL_24:
   v22 = getWFStaccatoLogObject();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = [v29 count];
+    v23 = [v28 count];
     *buf = 136315394;
     *&buf[4] = "[VCVoiceShortcutManagerAccessWrapper fetchAvailableStaccatoActions:]";
     *&buf[12] = 2048;
@@ -530,15 +523,13 @@ LABEL_24:
     _os_log_impl(&dword_23103C000, v22, OS_LOG_TYPE_DEFAULT, "%s Returning %ld available staccato sections.", buf, 0x16u);
   }
 
-  v24 = [v29 copy];
+  v24 = [v28 copy];
   actionsCopy[2](actionsCopy, v24, 0);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 id __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) linkActionWithStaccatoIdentifier:v3];
   if (v4)
@@ -547,13 +538,13 @@ id __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___blo
     v6 = getWFStaccatoLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315650;
-      v10 = "[VCVoiceShortcutManagerAccessWrapper fetchAvailableStaccatoActions:]_block_invoke";
-      v11 = 2112;
-      v12 = v3;
-      v13 = 2112;
-      v14 = v4;
-      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Found link action matching staccato identifier: %@ - %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[VCVoiceShortcutManagerAccessWrapper fetchAvailableStaccatoActions:]_block_invoke";
+      v10 = 2112;
+      v11 = v3;
+      v12 = 2112;
+      v13 = v4;
+      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Found link action matching staccato identifier: %@ - %@", &v8, 0x20u);
     }
   }
 
@@ -562,32 +553,30 @@ id __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___blo
     v6 = getWFStaccatoLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "[VCVoiceShortcutManagerAccessWrapper fetchAvailableStaccatoActions:]_block_invoke";
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_ERROR, "%s Link action for %@ not found.", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[VCVoiceShortcutManagerAccessWrapper fetchAvailableStaccatoActions:]_block_invoke";
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_ERROR, "%s Link action for %@ not found.", &v8, 0x16u);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)linkActionWithStaccatoIdentifier:(id)identifier
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D7C0D8];
   identifierCopy = identifier;
   v5 = [v3 alloc];
   v6 = [v5 initWithActionIdentifier:identifierCopy serializedParameters:MEMORY[0x277CBEC10]];
 
   mEMORY[0x277D7C598] = [MEMORY[0x277D7C598] sharedProvider];
-  v14[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [mEMORY[0x277D7C598] createActionsForRequests:v8];
 
   result = [v6 result];
@@ -612,30 +601,27 @@ id __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___blo
 
   v11 = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)unsupportedRequestErrorWithMessage:(id)message
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9B8];
   v4 = *MEMORY[0x277D7A388];
-  v11 = *MEMORY[0x277CCA450];
-  v12[0] = message;
+  v10 = *MEMORY[0x277CCA450];
+  v11[0] = message;
   v5 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v7 = [v5 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v3 errorWithDomain:v4 code:11006 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)loadDataWithItemProviderRequestMetadata:(id)metadata type:(id)type completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   typeCopy = type;
   completionCopy = completion;
@@ -643,11 +629,11 @@ id __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___blo
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v34 = "[VCVoiceShortcutManagerAccessWrapper loadDataWithItemProviderRequestMetadata:type:completion:]";
-    v35 = 2112;
-    v36 = metadataCopy;
-    v37 = 2112;
-    v38 = typeCopy;
+    v33 = "[VCVoiceShortcutManagerAccessWrapper loadDataWithItemProviderRequestMetadata:type:completion:]";
+    v34 = 2112;
+    v35 = metadataCopy;
+    v36 = 2112;
+    v37 = typeCopy;
     _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_DEFAULT, "%s Loading data representation with metadata: %@ type: %@", buf, 0x20u);
   }
 
@@ -659,28 +645,28 @@ id __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___blo
     metadata = [v14 metadata];
     v17 = [v15 policyWithEntityMetadata:metadata];
 
-    v31 = 0;
-    v18 = [v17 connectionWithError:&v31];
-    v19 = v31;
+    v30 = 0;
+    v18 = [v17 connectionWithError:&v30];
+    v19 = v30;
     if (v18)
     {
-      v27 = [objc_alloc(MEMORY[0x277D237C8]) initWithContentType:typeCopy];
-      v20 = [objc_alloc(MEMORY[0x277D23C18]) initWithContentType:v27 preferredExtractionType:1];
+      v26 = [objc_alloc(MEMORY[0x277D237C8]) initWithContentType:typeCopy];
+      v20 = [objc_alloc(MEMORY[0x277D23C18]) initWithContentType:v26 preferredExtractionType:1];
       entity = [v14 entity];
-      v32 = entity;
-      [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
-      v22 = v28 = v19;
+      v31 = entity;
+      [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+      v22 = v27 = v19;
       [v14 metadata];
       v24 = v23 = v17;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __95__VCVoiceShortcutManagerAccessWrapper_loadDataWithItemProviderRequestMetadata_type_completion___block_invoke;
-      v29[3] = &unk_2788FF220;
-      v30 = completionCopy;
-      [v18 exportEntities:v22 metadata:v24 withConfiguration:v20 completionHandler:v29];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __95__VCVoiceShortcutManagerAccessWrapper_loadDataWithItemProviderRequestMetadata_type_completion___block_invoke;
+      v28[3] = &unk_2788FF220;
+      v29 = completionCopy;
+      [v18 exportEntities:v22 metadata:v24 withConfiguration:v20 completionHandler:v28];
 
       v17 = v23;
-      v19 = v28;
+      v19 = v27;
     }
 
     else
@@ -689,9 +675,9 @@ id __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___blo
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v34 = "[VCVoiceShortcutManagerAccessWrapper loadDataWithItemProviderRequestMetadata:type:completion:]";
-        v35 = 2112;
-        v36 = v19;
+        v33 = "[VCVoiceShortcutManagerAccessWrapper loadDataWithItemProviderRequestMetadata:type:completion:]";
+        v34 = 2112;
+        v35 = v19;
         _os_log_impl(&dword_23103C000, v25, OS_LOG_TYPE_ERROR, "%s Unable to create connection: %@", buf, 0x16u);
       }
 
@@ -704,16 +690,14 @@ id __69__VCVoiceShortcutManagerAccessWrapper_fetchAvailableStaccatoActions___blo
     v14 = [(VCVoiceShortcutManagerAccessWrapper *)self unsupportedRequestErrorWithMessage:@"Unsupported item provider load request."];
     (*(completionCopy + 2))(completionCopy, 0, v14);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __95__VCVoiceShortcutManagerAccessWrapper_loadDataWithItemProviderRequestMetadata_type_completion___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v11 = [a2 value];
-    v3 = [v11 firstObject];
+    v10 = [a2 value];
+    v3 = [v10 firstObject];
     v4 = [v3 exportedContent];
 
     v5 = [v4 content];
@@ -726,16 +710,15 @@ void __95__VCVoiceShortcutManagerAccessWrapper_loadDataWithItemProviderRequestMe
 
   else
   {
-    v9 = *(a1 + 32);
-    v10 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
 
-    v10();
+    v9();
   }
 }
 
 - (void)loadFileURLWithItemProviderRequestMetadata:(id)metadata type:(id)type openInPlace:(BOOL)place completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   typeCopy = type;
   completionCopy = completion;
@@ -759,21 +742,21 @@ void __95__VCVoiceShortcutManagerAccessWrapper_loadDataWithItemProviderRequestMe
     metadata = [v15 metadata];
     v18 = [v16 policyWithEntityMetadata:metadata];
 
-    v36 = 0;
-    v19 = [v18 connectionWithError:&v36];
-    v20 = v36;
+    v35 = 0;
+    v19 = [v18 connectionWithError:&v35];
+    v20 = v35;
     v21 = v20;
     if (v19)
     {
-      v32 = v20;
+      v31 = v20;
       v22 = [objc_alloc(MEMORY[0x277D237C8]) initWithContentType:typeCopy];
       v23 = [objc_alloc(MEMORY[0x277D23C18]) initWithContentType:v22 preferredExtractionType:0];
       processInfo = [MEMORY[0x277CCAC38] processInfo];
       v25 = processInfo;
-      v33 = v18;
+      v32 = v18;
       if (processInfo)
       {
-        [processInfo if_auditToken];
+        objc_msgSend_if_auditToken(processInfo);
       }
 
       else
@@ -784,18 +767,18 @@ void __95__VCVoiceShortcutManagerAccessWrapper_loadDataWithItemProviderRequestMe
       v27 = [v23 configurationWithAuditToken:buf];
 
       entity = [v15 entity];
-      v37 = entity;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+      v36 = entity;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
       metadata2 = [v15 metadata];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __110__VCVoiceShortcutManagerAccessWrapper_loadFileURLWithItemProviderRequestMetadata_type_openInPlace_completion___block_invoke;
-      v34[3] = &unk_2788FF220;
-      v35 = completionCopy;
-      [v19 exportEntities:v29 metadata:metadata2 withConfiguration:v27 completionHandler:v34];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __110__VCVoiceShortcutManagerAccessWrapper_loadFileURLWithItemProviderRequestMetadata_type_openInPlace_completion___block_invoke;
+      v33[3] = &unk_2788FF220;
+      v34 = completionCopy;
+      [v19 exportEntities:v29 metadata:metadata2 withConfiguration:v27 completionHandler:v33];
 
-      v21 = v32;
-      v18 = v33;
+      v21 = v31;
+      v18 = v32;
     }
 
     else
@@ -819,16 +802,14 @@ void __95__VCVoiceShortcutManagerAccessWrapper_loadDataWithItemProviderRequestMe
     v15 = [(VCVoiceShortcutManagerAccessWrapper *)self unsupportedRequestErrorWithMessage:@"Unsupported item provider load request."];
     (*(completionCopy + 2))(completionCopy, 0, v15);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __110__VCVoiceShortcutManagerAccessWrapper_loadFileURLWithItemProviderRequestMetadata_type_openInPlace_completion___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v11 = [a2 value];
-    v3 = [v11 firstObject];
+    v10 = [a2 value];
+    v3 = [v10 firstObject];
     v4 = [v3 exportedContent];
 
     v5 = [v4 content];
@@ -841,10 +822,9 @@ void __110__VCVoiceShortcutManagerAccessWrapper_loadFileURLWithItemProviderReque
 
   else
   {
-    v9 = *(a1 + 32);
-    v10 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
 
-    v10();
+    v9();
   }
 }
 
@@ -1143,6 +1123,38 @@ LABEL_4:
 
   v31 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
   (completionCopy)[2](completionCopy, 0, v31);
+LABEL_6:
+}
+
+- (void)setTrustedToRunScripts:(BOOL)scripts forReference:(id)reference onDomain:(id)domain completion:(id)completion
+{
+  scriptsCopy = scripts;
+  referenceCopy = reference;
+  domainCopy = domain;
+  completionCopy = completion;
+  accessSpecifier = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
+  if ([accessSpecifier allowReadAccessToShortcutsLibrary])
+  {
+
+LABEL_4:
+    database = [(VCVoiceShortcutManagerAccessWrapper *)self database];
+    [database setTrustedToRunScripts:scriptsCopy forReference:referenceCopy onDomain:domainCopy];
+
+    completionCopy[2](completionCopy, 0);
+    goto LABEL_6;
+  }
+
+  accessSpecifier2 = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
+  isBackgroundShortcutRunner = [accessSpecifier2 isBackgroundShortcutRunner];
+
+  if (isBackgroundShortcutRunner)
+  {
+    goto LABEL_4;
+  }
+
+  v16 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
+  (completionCopy)[2](completionCopy, v16);
+
 LABEL_6:
 }
 
@@ -1666,7 +1678,7 @@ LABEL_6:
 
 - (void)requestSandboxExtensionForToolKitIndexingWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   accessSpecifier = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
   isBackgroundShortcutRunner = [accessSpecifier isBackgroundShortcutRunner];
@@ -1675,10 +1687,10 @@ LABEL_6:
   {
     allAvailableExtensionResourceClassNames = [MEMORY[0x277D7A0C8] allAvailableExtensionResourceClassNames];
     sandboxExtensionManager = [(VCVoiceShortcutManagerAccessWrapper *)self sandboxExtensionManager];
-    [(VCVoiceShortcutManagerAccessWrapper *)self auditToken];
-    v20 = 0;
-    v9 = [sandboxExtensionManager requestSandboxExtensionForResources:allAvailableExtensionResourceClassNames destinationProcessAuditToken:buf unauthorizedResources:&v20];
-    v10 = v20;
+    objc_msgSend_auditToken(self);
+    v18 = 0;
+    v9 = [sandboxExtensionManager requestSandboxExtensionForResources:allAvailableExtensionResourceClassNames destinationProcessAuditToken:buf unauthorizedResources:&v18];
+    v10 = v18;
 
     if ([v10 count])
     {
@@ -1686,9 +1698,9 @@ LABEL_6:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v22 = "[VCVoiceShortcutManagerAccessWrapper requestSandboxExtensionForToolKitIndexingWithCompletion:]";
-        v23 = 2112;
-        v24 = v10;
+        v20 = "[VCVoiceShortcutManagerAccessWrapper requestSandboxExtensionForToolKitIndexingWithCompletion:]";
+        v21 = 2112;
+        v22 = v10;
         _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_DEFAULT, "%s Failed to extend sandbox for access resources: %@", buf, 0x16u);
       }
     }
@@ -1700,16 +1712,12 @@ LABEL_6:
 
     v16 = [objc_alloc(MEMORY[0x277CCAC90]) initWithURL:v15];
     completionCopy[2](completionCopy, v9, v16, 0);
-
-    v17 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v19 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
+    v17 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
     (completionCopy[2])(completionCopy, 0, 0);
-
-    v18 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1723,7 +1731,7 @@ LABEL_6:
   if (isBackgroundShortcutRunner)
   {
     sandboxExtensionManager = [(VCVoiceShortcutManagerAccessWrapper *)self sandboxExtensionManager];
-    [(VCVoiceShortcutManagerAccessWrapper *)self auditToken];
+    objc_msgSend_auditToken(self);
     v13 = 0;
     v11 = [sandboxExtensionManager requestSandboxExtensionForResources:resourcesCopy destinationProcessAuditToken:v14 unauthorizedResources:&v13];
     v12 = v13;
@@ -1834,7 +1842,7 @@ LABEL_6:
 
 - (void)resetAutomationConfirmationStatusWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   accessSpecifier = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
   allowResettingAutomationConfirmationLevel = [accessSpecifier allowResettingAutomationConfirmationLevel];
@@ -1843,9 +1851,9 @@ LABEL_6:
   {
     voiceShortcutManager = [(VCVoiceShortcutManagerAccessWrapper *)self voiceShortcutManager];
     databaseProvider = [voiceShortcutManager databaseProvider];
-    v24 = 0;
-    v9 = [databaseProvider databaseWithError:&v24];
-    v10 = v24;
+    v23 = 0;
+    v9 = [databaseProvider databaseWithError:&v23];
+    v10 = v23;
 
     if (v9)
     {
@@ -1854,15 +1862,15 @@ LABEL_6:
       descriptors = [allConfiguredTriggers descriptors];
 
       v14 = [objc_alloc(MEMORY[0x277D7C988]) initWithDatabase:v9];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __87__VCVoiceShortcutManagerAccessWrapper_resetAutomationConfirmationStatusWithCompletion___block_invoke;
-      v21[3] = &unk_2788FF1F8;
-      v22 = v14;
-      v23 = v11;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __87__VCVoiceShortcutManagerAccessWrapper_resetAutomationConfirmationStatusWithCompletion___block_invoke;
+      v20[3] = &unk_2788FF1F8;
+      v21 = v14;
+      v22 = v11;
       v15 = v11;
       v16 = v14;
-      [descriptors enumerateObjectsUsingBlock:v21];
+      [descriptors enumerateObjectsUsingBlock:v20];
       firstObject = [v15 firstObject];
       completionCopy[2](completionCopy, firstObject);
     }
@@ -1873,9 +1881,9 @@ LABEL_6:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v26 = "[VCVoiceShortcutManagerAccessWrapper resetAutomationConfirmationStatusWithCompletion:]";
-        v27 = 2112;
-        v28 = v10;
+        v25 = "[VCVoiceShortcutManagerAccessWrapper resetAutomationConfirmationStatusWithCompletion:]";
+        v26 = 2112;
+        v27 = v10;
         _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_ERROR, "%s Couldn't access database when resetting automation confirmation status with error: %@!", buf, 0x16u);
       }
 
@@ -1889,18 +1897,16 @@ LABEL_6:
     v18 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
     completionCopy[2](completionCopy, v18);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __87__VCVoiceShortcutManagerAccessWrapper_resetAutomationConfirmationStatusWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
-  v9 = 0;
-  v5 = [v4 updateNotificationLevel:0 forConfiguredTrigger:v3 error:&v9];
-  v6 = v9;
+  v8 = 0;
+  v5 = [v4 updateNotificationLevel:0 forConfiguredTrigger:v3 error:&v8];
+  v6 = v8;
   if ((v5 & 1) == 0)
   {
     [*(a1 + 40) addObject:v6];
@@ -1908,21 +1914,19 @@ void __87__VCVoiceShortcutManagerAccessWrapper_resetAutomationConfirmationStatus
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v11 = "[VCVoiceShortcutManagerAccessWrapper resetAutomationConfirmationStatusWithCompletion:]_block_invoke";
-      v12 = 2114;
-      v13 = v3;
-      v14 = 2114;
-      v15 = v6;
+      v10 = "[VCVoiceShortcutManagerAccessWrapper resetAutomationConfirmationStatusWithCompletion:]_block_invoke";
+      v11 = 2114;
+      v12 = v3;
+      v13 = 2114;
+      v14 = v6;
       _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_ERROR, "%s Could not reset automation confirmation status for trigger: %{public}@ with error: %{public}@", buf, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userHasAutomationsWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   accessSpecifier = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
   allowResettingAutomationConfirmationLevel = [accessSpecifier allowResettingAutomationConfirmationLevel];
@@ -1931,9 +1935,9 @@ void __87__VCVoiceShortcutManagerAccessWrapper_resetAutomationConfirmationStatus
   {
     voiceShortcutManager = [(VCVoiceShortcutManagerAccessWrapper *)self voiceShortcutManager];
     databaseProvider = [voiceShortcutManager databaseProvider];
-    v17 = 0;
-    v9 = [databaseProvider databaseWithError:&v17];
-    v10 = v17;
+    v16 = 0;
+    v9 = [databaseProvider databaseWithError:&v16];
+    v10 = v16;
 
     if (v9)
     {
@@ -1949,9 +1953,9 @@ void __87__VCVoiceShortcutManagerAccessWrapper_resetAutomationConfirmationStatus
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v19 = "[VCVoiceShortcutManagerAccessWrapper userHasAutomationsWithCompletion:]";
-        v20 = 2112;
-        v21 = v10;
+        v18 = "[VCVoiceShortcutManagerAccessWrapper userHasAutomationsWithCompletion:]";
+        v19 = 2112;
+        v20 = v10;
         _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_ERROR, "%s Couldn't access database when checking if user has automations with error: %@!", buf, 0x16u);
       }
 
@@ -1965,8 +1969,6 @@ void __87__VCVoiceShortcutManagerAccessWrapper_resetAutomationConfirmationStatus
     v13 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
     (completionCopy)[2](completionCopy, 0, v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPerWorkflowStateData:(id)data forSmartPromptWithActionUUID:(id)d reference:(id)reference completion:(id)completion
@@ -2041,14 +2043,14 @@ void __87__VCVoiceShortcutManagerAccessWrapper_resetAutomationConfirmationStatus
 
 void __103__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithBookmarkableString_path_workflowID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = a2;
     v5 = [v4 startAccessingSecurityScopedResource];
-    v20 = 0;
-    v6 = [v4 bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&v20];
-    v7 = v20;
+    v19 = 0;
+    v6 = [v4 bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&v19];
+    v7 = v19;
     if (v6)
     {
       if (v5)
@@ -2059,9 +2061,9 @@ void __103__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithBookmarkableSt
       v8 = [MEMORY[0x277D7C2F0] defaultDatabase];
       v9 = *(a1 + 32);
       v10 = [*(a1 + 40) stringByStandardizingPath];
-      v19 = v7;
-      v11 = [v8 createBookmarkWithWorkflowID:v9 path:v10 bookmarkData:v6 error:&v19];
-      v12 = v19;
+      v18 = v7;
+      v11 = [v8 createBookmarkWithWorkflowID:v9 path:v10 bookmarkData:v6 error:&v18];
+      v12 = v18;
 
       v13 = getWFFilesLogObject();
       v14 = v13;
@@ -2070,7 +2072,7 @@ void __103__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithBookmarkableSt
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v22 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithBookmarkableString:path:workflowID:completion:]_block_invoke";
+          v21 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithBookmarkableString:path:workflowID:completion:]_block_invoke";
           _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_DEBUG, "%s Created local bookmark", buf, 0xCu);
         }
       }
@@ -2078,9 +2080,9 @@ void __103__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithBookmarkableSt
       else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v22 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithBookmarkableString:path:workflowID:completion:]_block_invoke";
-        v23 = 2112;
-        v24 = v12;
+        v21 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithBookmarkableString:path:workflowID:completion:]_block_invoke";
+        v22 = 2112;
+        v23 = v12;
         _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_ERROR, "%s Failed to create local bookmark with error: %@", buf, 0x16u);
       }
 
@@ -2094,9 +2096,9 @@ void __103__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithBookmarkableSt
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v22 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithBookmarkableString:path:workflowID:completion:]_block_invoke";
-        v23 = 2112;
-        v24 = v7;
+        v21 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithBookmarkableString:path:workflowID:completion:]_block_invoke";
+        v22 = 2112;
+        v23 = v7;
         _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_ERROR, "%s Could not create bookmark data with error: %@", buf, 0x16u);
       }
 
@@ -2110,21 +2112,19 @@ void __103__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithBookmarkableSt
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithBookmarkableString:path:workflowID:completion:]_block_invoke";
-      v23 = 2112;
-      v24 = a3;
+      v21 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithBookmarkableString:path:workflowID:completion:]_block_invoke";
+      v22 = 2112;
+      v23 = a3;
       _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_ERROR, "%s Could not create document url from bookmarkable string with error: %@", buf, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createBookmarkWithURL:(id)l workflowID:(id)d completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   lCopy = l;
   dCopy = d;
   completionCopy = completion;
@@ -2141,7 +2141,7 @@ void __103__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithBookmarkableSt
       *&buf[12] = 2112;
       *&buf[14] = lCopy;
       *&buf[22] = 2112;
-      v29 = dCopy;
+      v28 = dCopy;
       _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_DEFAULT, "%s Attempting to create local bookmark with URL: %@ workflowID: %@", buf, 0x20u);
     }
 
@@ -2152,22 +2152,22 @@ void __103__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithBookmarkableSt
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v29 = __Block_byref_object_copy__4916;
-    v30 = __Block_byref_object_dispose__4917;
-    v31 = 0;
+    v28 = __Block_byref_object_copy__4916;
+    v29 = __Block_byref_object_dispose__4917;
+    v30 = 0;
     v17 = [lCopy url];
     v18 = (*&buf[8] + 40);
     obj = *(*&buf[8] + 40);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __83__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithURL_workflowID_completion___block_invoke;
-    v21[3] = &unk_2788FF1A8;
-    v22 = lCopy;
-    v24 = completionCopy;
-    v25 = buf;
-    v26 = startAccessingSecurityScopedResource;
-    v23 = dCopy;
-    [v16 coordinateReadingItemAtURL:v17 options:0 error:&obj byAccessor:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __83__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithURL_workflowID_completion___block_invoke;
+    v20[3] = &unk_2788FF1A8;
+    v21 = lCopy;
+    v23 = completionCopy;
+    v24 = buf;
+    v25 = startAccessingSecurityScopedResource;
+    v22 = dCopy;
+    [v16 coordinateReadingItemAtURL:v17 options:0 error:&obj byAccessor:v20];
     objc_storeStrong(v18, obj);
 
     _Block_object_dispose(buf, 8);
@@ -2178,31 +2178,29 @@ void __103__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithBookmarkableSt
     v19 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
     (*(completionCopy + 2))(completionCopy, 0, v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __83__VCVoiceShortcutManagerAccessWrapper_createBookmarkWithURL_workflowID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 wf_fileIsReadable] & 1) == 0)
   {
-    v17 = getWFFilesLogObject();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = getWFFilesLogObject();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = [*(a1 + 32) url];
+      v17 = [*(a1 + 32) url];
       *buf = 136315650;
-      v29 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
-      v30 = 2112;
-      v31 = v3;
-      v32 = 2112;
-      v33 = v18;
-      _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_ERROR, "%s Do not have access to new url: %@ original url: %@ during coordinated read", buf, 0x20u);
+      v25 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
+      v26 = 2112;
+      v27 = v3;
+      v28 = 2112;
+      v29 = v17;
+      _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_ERROR, "%s Do not have access to new url: %@ original url: %@ during coordinated read", buf, 0x20u);
     }
 
     v5 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:10002 reason:@"Could not create bookmark for file."];
-    v16 = *(*(a1 + 48) + 16);
+    v15 = *(*(a1 + 48) + 16);
     goto LABEL_16;
   }
 
@@ -2225,14 +2223,13 @@ LABEL_10:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v29 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
+        v25 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
         _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_INFO, "%s Created local bookmark", buf, 0xCu);
       }
 
-      v15 = *(*(*(a1 + 56) + 8) + 40);
-      v16 = *(*(a1 + 48) + 16);
+      v15 = *(*(a1 + 48) + 16);
 LABEL_16:
-      v16();
+      v15();
       goto LABEL_23;
     }
 
@@ -2240,7 +2237,7 @@ LABEL_16:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v29 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
+      v25 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
       _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_INFO, "%s Workflow identifier present persisting to database", buf, 0xCu);
     }
 
@@ -2249,9 +2246,9 @@ LABEL_16:
     v10 = [v3 path];
     v11 = [v10 stringByStandardizingPath];
     v12 = *(*(a1 + 56) + 8);
-    v26 = *(v12 + 40);
-    v13 = [v8 createBookmarkWithWorkflowID:v9 path:v11 bookmarkData:v5 error:&v26];
-    objc_storeStrong((v12 + 40), v26);
+    v22 = *(v12 + 40);
+    v13 = [v8 createBookmarkWithWorkflowID:v9 path:v11 bookmarkData:v5 error:&v22];
+    objc_storeStrong((v12 + 40), v22);
 
     if (v13)
     {
@@ -2259,47 +2256,43 @@ LABEL_16:
       goto LABEL_10;
     }
 
-    v22 = getWFFilesLogObject();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v20 = getWFFilesLogObject();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(*(*(a1 + 56) + 8) + 40);
+      v21 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 136315394;
-      v29 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
-      v30 = 2112;
-      v31 = v23;
-      _os_log_impl(&dword_23103C000, v22, OS_LOG_TYPE_ERROR, "%s Failed to save local bookmark with error: %@", buf, 0x16u);
+      v25 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
+      v26 = 2112;
+      v27 = v21;
+      _os_log_impl(&dword_23103C000, v20, OS_LOG_TYPE_ERROR, "%s Failed to save local bookmark with error: %@", buf, 0x16u);
     }
 
-    v24 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v19 = getWFFilesLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = getWFFilesLogObject();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(*(*(a1 + 56) + 8) + 40);
+      v19 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 136315394;
-      v29 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
-      v30 = 2112;
-      v31 = v20;
-      _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_ERROR, "%s Could not create bookmark data with error: %@", buf, 0x16u);
+      v25 = "[VCVoiceShortcutManagerAccessWrapper createBookmarkWithURL:workflowID:completion:]_block_invoke";
+      v26 = 2112;
+      v27 = v19;
+      _os_log_impl(&dword_23103C000, v18, OS_LOG_TYPE_ERROR, "%s Could not create bookmark data with error: %@", buf, 0x16u);
     }
 
-    v21 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 48) + 16))();
     v5 = 0;
   }
 
 LABEL_23:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resolveCrossDeviceItemID:(id)d completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   accessSpecifier = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
@@ -2311,15 +2304,15 @@ LABEL_23:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v15 = "[VCVoiceShortcutManagerAccessWrapper resolveCrossDeviceItemID:completion:]";
-      v16 = 2112;
-      v17 = dCopy;
+      v14 = "[VCVoiceShortcutManagerAccessWrapper resolveCrossDeviceItemID:completion:]";
+      v15 = 2112;
+      v16 = dCopy;
       _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEBUG, "%s Resolving itemID: %@", buf, 0x16u);
     }
 
     if (dCopy)
     {
-      v13 = completionCopy;
+      v12 = completionCopy;
       FPItemURLForCrossDeviceItemID();
     }
 
@@ -2334,28 +2327,24 @@ LABEL_23:
     v11 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
     (*(completionCopy + 2))(completionCopy, 0, v11);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__VCVoiceShortcutManagerAccessWrapper_resolveCrossDeviceItemID_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = getWFFilesLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315650;
-    v10 = "[VCVoiceShortcutManagerAccessWrapper resolveCrossDeviceItemID:completion:]_block_invoke";
-    v11 = 2112;
-    v12 = a2;
-    v13 = 2112;
-    v14 = a3;
-    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEBUG, "%s Resolved to url: %@ with error: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[VCVoiceShortcutManagerAccessWrapper resolveCrossDeviceItemID:completion:]_block_invoke";
+    v10 = 2112;
+    v11 = a2;
+    v12 = 2112;
+    v13 = a3;
+    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEBUG, "%s Resolved to url: %@ with error: %@", &v8, 0x20u);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)resolveBookmarkData:(id)data completion:(id)completion
@@ -2424,7 +2413,7 @@ LABEL_8:
 
 void __70__VCVoiceShortcutManagerAccessWrapper_resolveBookmarkData_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 wf_fileIsWritable];
   v5 = *(*(a1 + 48) + 8);
@@ -2436,26 +2425,26 @@ void __70__VCVoiceShortcutManagerAccessWrapper_resolveBookmarkData_completion___
   {
     v8 = *(a1 + 32);
     *buf = 136315394;
-    v17 = "[VCVoiceShortcutManagerAccessWrapper resolveBookmarkData:completion:]_block_invoke";
-    v18 = 2112;
-    v19 = v8;
+    v15 = "[VCVoiceShortcutManagerAccessWrapper resolveBookmarkData:completion:]_block_invoke";
+    v16 = 2112;
+    v17 = v8;
     _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_DEBUG, "%s Created bookmark url: %@ from bookmark data", buf, 0x16u);
   }
 
   if (*(*(*(a1 + 56) + 8) + 24) == 1)
   {
-    v14 = 0;
-    v9 = [v3 bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&v14];
-    v10 = v14;
+    v12 = 0;
+    v9 = [v3 bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&v12];
+    v10 = v12;
     if (!v9)
     {
       v11 = getWFFilesLogObject();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v17 = "[VCVoiceShortcutManagerAccessWrapper resolveBookmarkData:completion:]_block_invoke";
-        v18 = 2114;
-        v19 = v10;
+        v15 = "[VCVoiceShortcutManagerAccessWrapper resolveBookmarkData:completion:]_block_invoke";
+        v16 = 2114;
+        v17 = v10;
         _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_ERROR, "%s Could not create bookmark data from resolved url with error: %{public}@", buf, 0x16u);
       }
     }
@@ -2471,15 +2460,12 @@ void __70__VCVoiceShortcutManagerAccessWrapper_resolveBookmarkData_completion___
     [*(a1 + 32) stopAccessingSecurityScopedResource];
   }
 
-  v12 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resolveFilePath:(id)path workflowID:(id)d completion:(id)completion
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   dCopy = d;
   completionCopy = completion;
@@ -2488,45 +2474,45 @@ void __70__VCVoiceShortcutManagerAccessWrapper_resolveBookmarkData_completion___
 
   if (allowFileBookmarksAccess)
   {
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x3032000000;
-    v50 = __Block_byref_object_copy__4916;
-    v51 = __Block_byref_object_dispose__4917;
-    v52 = 0;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x3032000000;
+    v49 = __Block_byref_object_copy__4916;
+    v50 = __Block_byref_object_dispose__4917;
+    v51 = 0;
     stringByStandardizingPath = [pathCopy stringByStandardizingPath];
     defaultDatabase = [MEMORY[0x277D7C2F0] defaultDatabase];
-    v15 = (v48 + 5);
-    obj = v48[5];
+    v15 = (v47 + 5);
+    obj = v47[5];
     v16 = [defaultDatabase bookmarkDataForWorkflowID:dCopy path:stringByStandardizingPath error:&obj];
     objc_storeStrong(v15, obj);
     if (v16)
     {
-      v37 = defaultDatabase;
-      v45 = 0;
+      v36 = defaultDatabase;
+      v44 = 0;
       v17 = MEMORY[0x277CBEBC0];
       bookmarkData = [v16 bookmarkData];
-      v19 = (v48 + 5);
-      v44 = v48[5];
-      v20 = [v17 URLByResolvingBookmarkData:bookmarkData options:0 relativeToURL:0 bookmarkDataIsStale:&v45 error:&v44];
-      objc_storeStrong(v19, v44);
+      v19 = (v47 + 5);
+      v43 = v47[5];
+      v20 = [v17 URLByResolvingBookmarkData:bookmarkData options:0 relativeToURL:0 bookmarkDataIsStale:&v44 error:&v43];
+      objc_storeStrong(v19, v43);
 
       if (v20)
       {
         startAccessingSecurityScopedResource = [v20 startAccessingSecurityScopedResource];
         v22 = objc_opt_new();
-        v23 = (v48 + 5);
-        v43 = v48[5];
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __77__VCVoiceShortcutManagerAccessWrapper_resolveFilePath_workflowID_completion___block_invoke;
-        v38[3] = &unk_2788FF130;
-        v39 = v20;
-        v41 = &v47;
-        v42 = startAccessingSecurityScopedResource;
-        v40 = completionCopy;
-        [v22 coordinateReadingItemAtURL:v39 options:0 error:&v43 byAccessor:v38];
-        objc_storeStrong(v23, v43);
+        v23 = (v47 + 5);
+        v42 = v47[5];
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __77__VCVoiceShortcutManagerAccessWrapper_resolveFilePath_workflowID_completion___block_invoke;
+        v37[3] = &unk_2788FF130;
+        v38 = v20;
+        v40 = &v46;
+        v41 = startAccessingSecurityScopedResource;
+        v39 = completionCopy;
+        [v22 coordinateReadingItemAtURL:v38 options:0 error:&v42 byAccessor:v37];
+        objc_storeStrong(v23, v42);
       }
 
       else
@@ -2534,44 +2520,44 @@ void __70__VCVoiceShortcutManagerAccessWrapper_resolveBookmarkData_completion___
         v27 = getWFFilesLogObject();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          v28 = v48[5];
+          v28 = v47[5];
           *buf = 136315650;
-          v54 = "[VCVoiceShortcutManagerAccessWrapper resolveFilePath:workflowID:completion:]";
-          v55 = 2112;
-          v56 = v16;
-          v57 = 2112;
-          v58 = v28;
+          v53 = "[VCVoiceShortcutManagerAccessWrapper resolveFilePath:workflowID:completion:]";
+          v54 = 2112;
+          v55 = v16;
+          v56 = 2112;
+          v57 = v28;
           _os_log_impl(&dword_23103C000, v27, OS_LOG_TYPE_ERROR, "%s Failed to create bookmark from %@ with error %@", buf, 0x20u);
         }
 
         v29 = MEMORY[0x277CCA9B8];
-        localizedFailureReason = [v48[5] localizedFailureReason];
+        localizedFailureReason = [v47[5] localizedFailureReason];
         v31 = [v29 vc_voiceShortcutErrorWithCode:10003 reason:{@"%@", localizedFailureReason}];
-        v32 = v48[5];
-        v48[5] = v31;
+        v32 = v47[5];
+        v47[5] = v31;
 
-        (*(completionCopy + 2))(completionCopy, 0, v48[5]);
+        (*(completionCopy + 2))(completionCopy, 0, v47[5]);
       }
 
-      defaultDatabase = v37;
+      defaultDatabase = v36;
     }
 
     else
     {
-      if (v48[5])
+      if (v47[5])
       {
         v25 = getWFFilesLogObject();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          v26 = v48[5];
+          v26 = v47[5];
           *buf = 136315906;
-          v54 = "[VCVoiceShortcutManagerAccessWrapper resolveFilePath:workflowID:completion:]";
-          v55 = 2112;
-          v56 = stringByStandardizingPath;
-          v57 = 2112;
-          v58 = dCopy;
-          v59 = 2112;
-          v60 = v26;
+          v53 = "[VCVoiceShortcutManagerAccessWrapper resolveFilePath:workflowID:completion:]";
+          v54 = 2112;
+          v55 = stringByStandardizingPath;
+          v56 = 2112;
+          v57 = dCopy;
+          v58 = 2112;
+          v59 = v26;
           _os_log_impl(&dword_23103C000, v25, OS_LOG_TYPE_ERROR, "%s Failed to look up bookmark for path %@ workflowID %@, with error %@", buf, 0x2Au);
         }
       }
@@ -2582,24 +2568,24 @@ void __70__VCVoiceShortcutManagerAccessWrapper_resolveBookmarkData_completion___
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v54 = "[VCVoiceShortcutManagerAccessWrapper resolveFilePath:workflowID:completion:]";
-          v55 = 2112;
-          v56 = stringByStandardizingPath;
-          v57 = 2112;
-          v58 = dCopy;
+          v53 = "[VCVoiceShortcutManagerAccessWrapper resolveFilePath:workflowID:completion:]";
+          v54 = 2112;
+          v55 = stringByStandardizingPath;
+          v56 = 2112;
+          v57 = dCopy;
           _os_log_impl(&dword_23103C000, v33, OS_LOG_TYPE_ERROR, "%s No bookmark found for path %@ workflowID %@", buf, 0x20u);
         }
 
         v25 = WFLocalizedString(@"No bookmark found for file.");
         v34 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:10001 reason:{@"%@", v25}];
-        v35 = v48[5];
-        v48[5] = v34;
+        v35 = v47[5];
+        v47[5] = v34;
       }
 
-      (*(completionCopy + 2))(completionCopy, 0, v48[5]);
+      (*(completionCopy + 2))(completionCopy, 0, v47[5]);
     }
 
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
   }
 
   else
@@ -2607,13 +2593,11 @@ void __70__VCVoiceShortcutManagerAccessWrapper_resolveBookmarkData_completion___
     v24 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
     (*(completionCopy + 2))(completionCopy, 0, v24);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __77__VCVoiceShortcutManagerAccessWrapper_resolveFilePath_workflowID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 wf_fileIsWritable];
   v5 = getWFFilesLogObject();
@@ -2621,9 +2605,9 @@ void __77__VCVoiceShortcutManagerAccessWrapper_resolveFilePath_workflowID_comple
   {
     v6 = *(a1 + 32);
     *buf = 136315394;
-    v13 = "[VCVoiceShortcutManagerAccessWrapper resolveFilePath:workflowID:completion:]_block_invoke";
-    v14 = 2112;
-    v15 = v6;
+    v11 = "[VCVoiceShortcutManagerAccessWrapper resolveFilePath:workflowID:completion:]_block_invoke";
+    v12 = 2112;
+    v13 = v6;
     _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_DEBUG, "%s Created URL %@ from bookmark", buf, 0x16u);
   }
 
@@ -2637,10 +2621,7 @@ void __77__VCVoiceShortcutManagerAccessWrapper_resolveFilePath_workflowID_comple
     [*(a1 + 32) stopAccessingSecurityScopedResource];
   }
 
-  v9 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLinkActionWithAppBundleIdentifier:(id)identifier appIntentIdentifier:(id)intentIdentifier expandingParameterName:(id)name limit:(int64_t)limit completion:(id)completion
@@ -2764,14 +2745,12 @@ void __92__VCVoiceShortcutManagerAccessWrapper_getUpcomingMediaForBundleIdentifi
 
 void __92__VCVoiceShortcutManagerAccessWrapper_getUpcomingMediaForBundleIdentifier_limit_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 32);
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 32);
   v2 = MEMORY[0x277CBEA60];
   v3 = a2;
-  v4 = [v2 arrayWithObjects:&v6 count:1];
-  [v3 setBundleIdentifiers:{v4, v6, v7}];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [v2 arrayWithObjects:&v5 count:1];
+  [v3 setBundleIdentifiers:{v4, v5, v6}];
 }
 
 void __92__VCVoiceShortcutManagerAccessWrapper_getUpcomingMediaForBundleIdentifier_limit_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2902,16 +2881,15 @@ void __81__VCVoiceShortcutManagerAccessWrapper_getSuggestedShortcutsWithLimit_co
 {
   if (a2)
   {
-    v5 = [a2 if_compactMap:&__block_literal_global_243_4954];
+    v4 = [a2 if_compactMap:&__block_literal_global_243_4954];
     (*(*(a1 + 32) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -3104,7 +3082,7 @@ id __71__VCVoiceShortcutManagerAccessWrapper_getStingWorkflowsWithCompletion___b
 
 - (void)getFirstUnsortedWorkflowWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   accessSpecifier = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
   allowReadAccessToShortcutsLibrary = [accessSpecifier allowReadAccessToShortcutsLibrary];
@@ -3131,7 +3109,7 @@ id __71__VCVoiceShortcutManagerAccessWrapper_getStingWorkflowsWithCompletion___b
         glyphCharacter = [firstObject glyphCharacter];
         associatedAppBundleIdentifier = [firstObject associatedAppBundleIdentifier];
         [firstObject searchAttributionAppBundleIdentifier];
-        v19 = v26 = v9;
+        v19 = v25 = v9;
         v20 = [v13 initWithIdentifier:identifier name:name color:color glyphCharacter:glyphCharacter associatedAppBundleIdentifier:associatedAppBundleIdentifier searchAttributionAppBundleIdentifier:v19];
 
         v21 = MEMORY[0x277CCABB0];
@@ -3139,7 +3117,7 @@ id __71__VCVoiceShortcutManagerAccessWrapper_getStingWorkflowsWithCompletion___b
         v23 = [v21 numberWithInteger:{objc_msgSend(icon, "backgroundColorValue")}];
 
         completionCopy[2](completionCopy, v20, v23, 0);
-        v9 = v26;
+        v9 = v25;
       }
 
       else
@@ -3148,7 +3126,7 @@ id __71__VCVoiceShortcutManagerAccessWrapper_getStingWorkflowsWithCompletion___b
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v28 = "[VCVoiceShortcutManagerAccessWrapper getFirstUnsortedWorkflowWithCompletion:]";
+          v27 = "[VCVoiceShortcutManagerAccessWrapper getFirstUnsortedWorkflowWithCompletion:]";
           _os_log_impl(&dword_23103C000, v24, OS_LOG_TYPE_DEFAULT, "%s Unable to get first unsorted workflow, nothing was returned by the query", buf, 0xCu);
         }
 
@@ -3168,8 +3146,19 @@ id __71__VCVoiceShortcutManagerAccessWrapper_getStingWorkflowsWithCompletion___b
     database = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied"];
     (completionCopy)[2](completionCopy, 0, 0, database);
   }
+}
 
-  v25 = *MEMORY[0x277D85DE8];
+- (void)drawGlyphs:(id)glyphs withBackgroundColorValues:(id)values padding:(double)padding rounded:(BOOL)rounded intoContext:(id)context completion:(id)completion
+{
+  roundedCopy = rounded;
+  completionCopy = completion;
+  contextCopy = context;
+  valuesCopy = values;
+  glyphsCopy = glyphs;
+  voiceShortcutManager = [(VCVoiceShortcutManagerAccessWrapper *)self voiceShortcutManager];
+  [voiceShortcutManager drawGlyphs:glyphsCopy withBackgroundColorValues:valuesCopy padding:roundedCopy rounded:contextCopy intoContext:padding];
+
+  completionCopy[2]();
 }
 
 - (void)sendAceCommandDictionary:(id)dictionary completion:(id)completion
@@ -3456,7 +3445,7 @@ void __82__VCVoiceShortcutManagerAccessWrapper_fireTriggerWithIdentifier_force_c
 
 - (void)unregisterTriggerWithIdentifier:(id)identifier triggerBacking:(int64_t)backing completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   accessSpecifier = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
@@ -3476,11 +3465,11 @@ void __82__VCVoiceShortcutManagerAccessWrapper_fireTriggerWithIdentifier_force_c
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       accessSpecifier2 = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
-      v17 = 136315394;
-      v18 = "[VCVoiceShortcutManagerAccessWrapper unregisterTriggerWithIdentifier:triggerBacking:completion:]";
-      v19 = 2112;
-      v20 = accessSpecifier2;
-      _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_ERROR, "%s Denying access to trigger writes for accessSpecifier (%@)", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[VCVoiceShortcutManagerAccessWrapper unregisterTriggerWithIdentifier:triggerBacking:completion:]";
+      v18 = 2112;
+      v19 = accessSpecifier2;
+      _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_ERROR, "%s Denying access to trigger writes for accessSpecifier (%@)", &v16, 0x16u);
     }
 
     v15 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied (no write access to triggers)"];
@@ -3488,23 +3477,21 @@ void __82__VCVoiceShortcutManagerAccessWrapper_fireTriggerWithIdentifier_force_c
 
     completionCopy = v15;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshTriggerWithIdentifier:(id)identifier completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = getWFTriggersLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315394;
-    v17 = "[VCVoiceShortcutManagerAccessWrapper refreshTriggerWithIdentifier:completion:]";
-    v18 = 2112;
-    v19 = identifierCopy;
-    _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEFAULT, "%s Refresh trigger with identifier %@.", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "[VCVoiceShortcutManagerAccessWrapper refreshTriggerWithIdentifier:completion:]";
+    v17 = 2112;
+    v18 = identifierCopy;
+    _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEFAULT, "%s Refresh trigger with identifier %@.", &v15, 0x16u);
   }
 
   accessSpecifier = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
@@ -3531,18 +3518,16 @@ void __82__VCVoiceShortcutManagerAccessWrapper_fireTriggerWithIdentifier_force_c
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       accessSpecifier2 = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
-      v16 = 136315394;
-      v17 = "[VCVoiceShortcutManagerAccessWrapper refreshTriggerWithIdentifier:completion:]";
-      v18 = 2112;
-      v19 = accessSpecifier2;
-      _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_ERROR, "%s Denying access to trigger writes for accessSpecifier (%@)", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[VCVoiceShortcutManagerAccessWrapper refreshTriggerWithIdentifier:completion:]";
+      v17 = 2112;
+      v18 = accessSpecifier2;
+      _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_ERROR, "%s Denying access to trigger writes for accessSpecifier (%@)", &v15, 0x16u);
     }
 
     v12 = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:1011 reason:@"Access was denied (no write access to triggers)"];
     completionCopy[2](completionCopy, 0, v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSiriPodcastsDatabaseURLWithCompletion:(id)completion
@@ -3647,7 +3632,7 @@ void __82__VCVoiceShortcutManagerAccessWrapper_fireTriggerWithIdentifier_force_c
 
 - (void)getResultsForQuery:(id)query resultClassName:(id)name completion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   nameCopy = name;
   completionCopy = completion;
@@ -3691,13 +3676,13 @@ LABEL_6:
   {
     accessSpecifier3 = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
     bundleIdentifier = [accessSpecifier3 bundleIdentifier];
-    v31 = 136315650;
-    v32 = "[VCVoiceShortcutManagerAccessWrapper getResultsForQuery:resultClassName:completion:]";
-    v33 = 2112;
-    v34 = v13;
-    v35 = 2112;
-    v36 = bundleIdentifier;
-    _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_INFO, "%s Running query: %@ for client: %@", &v31, 0x20u);
+    v30 = 136315650;
+    v31 = "[VCVoiceShortcutManagerAccessWrapper getResultsForQuery:resultClassName:completion:]";
+    v32 = 2112;
+    v33 = v13;
+    v34 = 2112;
+    v35 = bundleIdentifier;
+    _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_INFO, "%s Running query: %@ for client: %@", &v30, 0x20u);
   }
 
   v22 = getWFGeneralLogObject();
@@ -3709,9 +3694,9 @@ LABEL_6:
   {
     accessSpecifier4 = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
     bundleIdentifier2 = [accessSpecifier4 bundleIdentifier];
-    v31 = 138412290;
-    v32 = bundleIdentifier2;
-    _os_signpost_emit_with_name_impl(&dword_23103C000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "GetResultsForXPCQuery", "client=%{signpost.description:attribute}@", &v31, 0xCu);
+    v30 = 138412290;
+    v31 = bundleIdentifier2;
+    _os_signpost_emit_with_name_impl(&dword_23103C000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "GetResultsForXPCQuery", "client=%{signpost.description:attribute}@", &v30, 0xCu);
   }
 
   voiceShortcutManager = [(VCVoiceShortcutManagerAccessWrapper *)self voiceShortcutManager];
@@ -3721,13 +3706,11 @@ LABEL_6:
   v18 = v29;
   if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
   {
-    LOWORD(v31) = 0;
-    _os_signpost_emit_with_name_impl(&dword_23103C000, v18, OS_SIGNPOST_INTERVAL_END, v23, "GetResultsForXPCQuery", "", &v31, 2u);
+    LOWORD(v30) = 0;
+    _os_signpost_emit_with_name_impl(&dword_23103C000, v18, OS_SIGNPOST_INTERVAL_END, v23, "GetResultsForXPCQuery", "", &v30, 2u);
   }
 
 LABEL_16:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getShareSheetWorkflowsForExtensionMatchingDictionaries:(id)dictionaries hostBundleIdentifier:(id)identifier completion:(id)completion
@@ -3839,17 +3822,15 @@ LABEL_16:
 
 - (void)getVoiceShortcutsForAppWithBundleIdentifier:(id)identifier completion:(id)completion
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   identifierCopy = identifier;
   voiceShortcutManager = [(VCVoiceShortcutManagerAccessWrapper *)self voiceShortcutManager];
-  v12[0] = identifierCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = identifierCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
   accessSpecifier = [(VCVoiceShortcutManagerAccessWrapper *)self accessSpecifier];
   [voiceShortcutManager getVoiceShortcutsForAppsWithBundleIdentifiers:v9 accessSpecifier:accessSpecifier completion:completionCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getVoiceShortcutsWithCompletion:(id)completion

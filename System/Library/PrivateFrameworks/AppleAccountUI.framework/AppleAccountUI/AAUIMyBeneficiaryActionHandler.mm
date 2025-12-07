@@ -35,7 +35,7 @@
 
 - (void)doDestructiveAction:(id)action specifier:(id)specifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   specifierCopy = specifier;
   accounts = [(AIDAAccountManager *)self->_accountManager accounts];
@@ -43,30 +43,30 @@
 
   if (v9)
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _AAUILogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       handle = [(AALocalContactInfo *)self->_contact handle];
       *buf = 138412290;
-      v19 = handle;
-      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Removing beneficiary %@.", buf, 0xCu);
+      v20 = handle;
+      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "Removing beneficiary %@.", buf, 0xCu);
     }
 
     spinnerManager = self->_spinnerManager;
     identifier = [specifierCopy identifier];
     [(AAUISpinnerManager *)spinnerManager startSpinnerInSpecifier:specifierCopy forKey:identifier];
 
-    v14 = objc_alloc_init(MEMORY[0x1E698DCC0]);
+    v15 = objc_alloc_init(MEMORY[0x1E698DCC0]);
     objc_initWeak(buf, self);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __64__AAUIMyBeneficiaryActionHandler_doDestructiveAction_specifier___block_invoke;
-    v15[3] = &unk_1E820CC00;
-    objc_copyWeak(&v17, buf);
-    v16 = actionCopy;
-    [v14 aaui_authenticateAccount:v9 forceInteraction:0 presentingViewController:v16 completion:v15];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __64__AAUIMyBeneficiaryActionHandler_doDestructiveAction_specifier___block_invoke;
+    v16[3] = &unk_1E820CC00;
+    objc_copyWeak(&v18, buf);
+    v17 = actionCopy;
+    [v15 aaui_authenticateAccount:v9 forceInteraction:0 presentingViewController:v17 completion:v16];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
   }
 }
@@ -75,7 +75,7 @@ void __64__AAUIMyBeneficiaryActionHandler_doDestructiveAction_specifier___block_
 {
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(WeakRetained);
   v8 = v7;
   if (!a2 || v5)
   {
@@ -130,7 +130,7 @@ void __73__AAUIMyBeneficiaryActionHandler__doBeneficiaryRemoveWithViewController
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(WeakRetained);
   v6 = v5;
   if (!v3)
   {
@@ -260,8 +260,7 @@ void __66__AAUIMyBeneficiaryActionHandler__showAuthPromptInViewController___bloc
   v7 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained _stopAllSpinners];
-    v8 = _AAUILogSystem();
+    v8 = _AAUILogSystem([WeakRetained _stopAllSpinners]);
     v9 = v8;
     if (!a2 || v5)
     {
@@ -364,6 +363,20 @@ void __50__AAUIMyBeneficiaryActionHandler__stopAllSpinners__block_invoke(uint64_
     [WeakRetained[1] stopAllSpinners];
     WeakRetained = v2;
   }
+}
+
+void __64__AAUIMyBeneficiaryActionHandler_doDestructiveAction_specifier___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1C5355000, a2, a3, "Unable to authenticate: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __73__AAUIMyBeneficiaryActionHandler__doBeneficiaryRemoveWithViewController___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1C5355000, a2, a3, "Error removing Beneficiary - %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

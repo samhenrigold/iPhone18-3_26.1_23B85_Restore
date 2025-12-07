@@ -41,39 +41,39 @@
 
 - (void)configureCell:(id)cell atIndexPath:(id)path withDescription:(id)description inGroupWithIdentifier:(id)identifier
 {
-  v11 = sub_100168088(&qword_100576038);
-  __chkstk_darwin(v11 - 8);
-  v13 = &v21 - v12;
+  sub_100168088(&qword_100576038, &unk_100406B10);
+  __chkstk_darwin();
+  v12 = &v20 - v11;
   if (path)
   {
     static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-    v14 = type metadata accessor for IndexPath();
-    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
+    v13 = type metadata accessor for IndexPath();
+    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
   }
 
   else
   {
-    v15 = type metadata accessor for IndexPath();
-    (*(*(v15 - 8) + 56))(v13, 1, 1, v15);
+    v14 = type metadata accessor for IndexPath();
+    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
   }
 
   if (identifier)
   {
-    v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    identifier = v17;
+    v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    identifier = v16;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   cellCopy = cell;
   descriptionCopy = description;
   selfCopy = self;
-  sub_1001D1C5C(cell, v13, description, v16, identifier);
+  sub_1001D1C5C(cell, v12, description, v15, identifier);
 
-  sub_100009104(v13, &qword_100576038);
+  sub_100009104(v12, &qword_100576038, &unk_100406B10);
 }
 
 - (double)heightForRowWithDescription:(id)description inGroupWithIdentifier:(id)identifier

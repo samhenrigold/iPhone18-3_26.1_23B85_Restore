@@ -346,7 +346,7 @@ uint64_t __33__JFXVideoCameraController_clear__block_invoke_2(uint64_t a1)
   return v3;
 }
 
-uint64_t __38__JFXVideoCameraController_cameraMode__block_invoke(uint64_t a1)
+void *__38__JFXVideoCameraController_cameraMode__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cameraMode_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -372,7 +372,7 @@ uint64_t __38__JFXVideoCameraController_cameraMode__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __48__JFXVideoCameraController_cameraSessionRunning__block_invoke(uint64_t a1)
+void *__48__JFXVideoCameraController_cameraSessionRunning__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) captureSessionRunning_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -398,7 +398,7 @@ uint64_t __48__JFXVideoCameraController_cameraSessionRunning__block_invoke(uint6
   return v3;
 }
 
-uint64_t __44__JFXVideoCameraController_cameraColorSpace__block_invoke(uint64_t a1)
+void *__44__JFXVideoCameraController_cameraColorSpace__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cameraColorSpace_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -424,7 +424,7 @@ uint64_t __44__JFXVideoCameraController_cameraColorSpace__block_invoke(uint64_t 
   return v3;
 }
 
-uint64_t __40__JFXVideoCameraController_audioEnabled__block_invoke(uint64_t a1)
+void *__40__JFXVideoCameraController_audioEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) JFX_isAudioEnabledCaptureSessionQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -462,7 +462,7 @@ uint64_t __40__JFXVideoCameraController_audioEnabled__block_invoke(uint64_t a1)
   return v6 & 1;
 }
 
-uint64_t __40__JFXVideoCameraController_depthEnabled__block_invoke(uint64_t a1)
+void *__40__JFXVideoCameraController_depthEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) JFX_isDepthEnabledCaptureSessionQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -529,7 +529,7 @@ void __45__JFXVideoCameraController_hasFFCZoomEnabled__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __40__JFXVideoCameraController_isFlashScene__block_invoke(uint64_t a1)
+void *__40__JFXVideoCameraController_isFlashScene__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isFlashScene_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -556,10 +556,10 @@ uint64_t __40__JFXVideoCameraController_isFlashScene__block_invoke(uint64_t a1)
   return v3;
 }
 
-CMVideoDimensions __43__JFXVideoCameraController_depthDimensions__block_invoke(uint64_t a1)
+void *__43__JFXVideoCameraController_depthDimensions__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) JFX_isDepthEnabledCaptureSessionQueue];
-  if (result.width)
+  if (result)
   {
     v3 = [*(*(a1 + 32) + 24) device];
     v4 = [v3 activeDepthDataFormat];
@@ -591,7 +591,7 @@ CMVideoDimensions __43__JFXVideoCameraController_depthDimensions__block_invoke(u
   return v3;
 }
 
-uint64_t __38__JFXVideoCameraController_zoomFactor__block_invoke(uint64_t a1)
+void *__38__JFXVideoCameraController_zoomFactor__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cameraVideoZoomFactor_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -658,7 +658,7 @@ uint64_t __42__JFXVideoCameraController_setZoomFactor___block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __40__JFXVideoCameraController_ARKitEnabled__block_invoke(uint64_t a1)
+void *__40__JFXVideoCameraController_ARKitEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) JFX_isARKitEnabledCaptureSessionQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -717,9 +717,12 @@ _BYTE *__48__JFXVideoCameraController_mostRecentARMetadata__block_invoke(uint64_
   result = *(a1 + 32);
   if (result[188] == 1)
   {
-    *(*(*(a1 + 40) + 8) + 40) = [result mostRecentARMetadata_queryDataQueue];
+    v3 = [result mostRecentARMetadata_queryDataQueue];
+    v4 = *(*(a1 + 40) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -756,7 +759,7 @@ _BYTE *__48__JFXVideoCameraController_mostRecentARMetadata__block_invoke(uint64_
   return v3;
 }
 
-uint64_t __55__JFXVideoCameraController_sessionRequiresFaceTracking__block_invoke(uint64_t a1)
+void *__55__JFXVideoCameraController_sessionRequiresFaceTracking__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) sessionRequiresFaceTracking_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -794,7 +797,7 @@ uint64_t __55__JFXVideoCameraController_sessionRequiresFaceTracking__block_invok
   return v3;
 }
 
-uint64_t __67__JFXVideoCameraController_skipARProcessingWhenNoFaceDataIsPresent__block_invoke(uint64_t a1)
+void *__67__JFXVideoCameraController_skipARProcessingWhenNoFaceDataIsPresent__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) skipARProcessingWhenNoFaceData_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -825,9 +828,12 @@ uint64_t __67__JFXVideoCameraController_skipARProcessingWhenNoFaceDataIsPresent_
 
 uint64_t __48__JFXVideoCameraController_stillImageFaceAnchor__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) stillImageFaceAnchor_queryDataQueue];
+  v2 = [*(a1 + 32) stillImageFaceAnchor_queryDataQueue];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setAllowARMetadata:(BOOL)metadata
@@ -872,7 +878,7 @@ void __47__JFXVideoCameraController_setAllowARMetadata___block_invoke(uint64_t a
   return v3;
 }
 
-uint64_t __43__JFXVideoCameraController_allowARMetadata__block_invoke(uint64_t a1)
+void *__43__JFXVideoCameraController_allowARMetadata__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) allowARMetadata_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -910,7 +916,7 @@ uint64_t __43__JFXVideoCameraController_allowARMetadata__block_invoke(uint64_t a
   return v3;
 }
 
-uint64_t __44__JFXVideoCameraController_hasValidFaceData__block_invoke(uint64_t a1)
+void *__44__JFXVideoCameraController_hasValidFaceData__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasValidFaceData_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1330,9 +1336,11 @@ void __68__JFXVideoCameraController_JFX_audioSessionRouteChangeNotification___bl
 
 uint64_t __42__JFXVideoCameraController_sharedInstance__block_invoke()
 {
-  s_sharedInstanceLock = objc_alloc_init(MEMORY[0x277CCAAF8]);
+  v0 = objc_alloc_init(MEMORY[0x277CCAAF8]);
+  v1 = s_sharedInstanceLock;
+  s_sharedInstanceLock = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)prepareCameraForMode:(int64_t)mode position:(int64_t)position completion:(id)completion
@@ -1589,9 +1597,12 @@ uint64_t __46__JFXVideoCameraController_stopCameraSession___block_invoke_2(uint6
 
 uint64_t __38__JFXVideoCameraController_cameraType__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) cameraType_queryDataQueue];
+  v2 = [*(a1 + 32) cameraType_queryDataQueue];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (int64_t)cameraPosition
@@ -1613,7 +1624,7 @@ uint64_t __38__JFXVideoCameraController_cameraType__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __42__JFXVideoCameraController_cameraPosition__block_invoke(uint64_t a1)
+void *__42__JFXVideoCameraController_cameraPosition__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) currentCameraPosition_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1639,7 +1650,7 @@ uint64_t __42__JFXVideoCameraController_cameraPosition__block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __51__JFXVideoCameraController_captureVideoOrientation__block_invoke(uint64_t a1)
+void *__51__JFXVideoCameraController_captureVideoOrientation__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) captureVideoOrientation_queryDataQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1719,24 +1730,24 @@ uint64_t __41__JFXVideoCameraController_switchCamera___block_invoke_2(uint64_t a
   dispatch_async(captureSessionQueue, block);
 }
 
-void __62__JFXVideoCameraController_switchCameraToPosition_completion___block_invoke(uint64_t a1)
+void __62__JFXVideoCameraController_switchCameraToPosition_completion___block_invoke(id *a1)
 {
-  if ([*(a1 + 32) currentCameraPosition_captureSessionQueue] == *(a1 + 48))
+  if ([a1[4] currentCameraPosition_captureSessionQueue] == a1[6])
   {
-    if (*(a1 + 40))
+    if (a1[5])
     {
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __62__JFXVideoCameraController_switchCameraToPosition_completion___block_invoke_2;
       block[3] = &unk_278D7A168;
-      v4 = *(a1 + 40);
+      v4 = a1[5];
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
 
   else
   {
-    v2 = *(a1 + 32);
+    v2 = a1[4];
 
     [v2 switchCameraToPosition:? applyFFCZoom:? configureLockedCamera:? completion:?];
   }
@@ -1866,12 +1877,12 @@ void __63__JFXVideoCameraController_setCameraZoomFactorForUIZoomFactor___block_i
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __63__JFXVideoCameraController_setCameraZoomFactorForUIZoomFactor___block_invoke_2(uint64_t a1)
+uint64_t __63__JFXVideoCameraController_setCameraZoomFactorForUIZoomFactor___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   [objc_opt_class() cameraZoomFactorForUIZoomFactor:*(a1 + 40) captureDeviceType:*(a1 + 48)];
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setZoomFactor:?];
+  return [v3 setZoomFactor:?];
 }
 
 - (void)scaleCurrentZoomFactor:(double)factor
@@ -1995,7 +2006,7 @@ void __54__JFXVideoCameraController_minFrameRate_maxFrameRate___block_invoke(voi
   v3 = v2;
   if (v2)
   {
-    [v2 activeVideoMinFrameDuration];
+    objc_msgSend_activeVideoMinFrameDuration(v2);
   }
 
   else
@@ -2012,7 +2023,7 @@ void __54__JFXVideoCameraController_minFrameRate_maxFrameRate___block_invoke(voi
   v6 = v5;
   if (v5)
   {
-    [v5 activeVideoMaxFrameDuration];
+    objc_msgSend_activeVideoMaxFrameDuration(v5);
   }
 
   else
@@ -2198,7 +2209,7 @@ void __59__JFXVideoCameraController_setCaptureTorchMode_completion___block_invok
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __59__JFXVideoCameraController_setCaptureTorchMode_completion___block_invoke_2(uint64_t a1, void *a2)
+void *__59__JFXVideoCameraController_setCaptureTorchMode_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 setTorchMode:*(a1 + 40)];
   *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -2743,7 +2754,7 @@ void __89__JFXVideoCameraController_preProcessFrameWithPixelBuffer_metadata_time
   dispatch_async(dataOutSynchQueue, v17);
 }
 
-uint64_t __79__JFXVideoCameraController_notifyExternalARKitFaceTrackedImageData_completion___block_invoke(uint64_t a1)
+void *__79__JFXVideoCameraController_notifyExternalARKitFaceTrackedImageData_completion___block_invoke(uint64_t a1)
 {
   [*(a1 + 80) setCaptureVideoOrientation_dataOutSynchQueue:{objc_msgSend(*(a1 + 88), "orientation")}];
   [*(a1 + 80) setCameraDeviceIntrinsics_dataOutSynchQueue:{*(a1 + 32), *(a1 + 48), *(a1 + 64)}];
@@ -2784,7 +2795,7 @@ uint64_t __79__JFXVideoCameraController_notifyExternalARKitFaceTrackedImageData_
     result = *(a1 + 96);
     if (result)
     {
-      v9 = *(result + 16);
+      v9 = result[2];
 
       return v9();
     }
@@ -2793,7 +2804,7 @@ uint64_t __79__JFXVideoCameraController_notifyExternalARKitFaceTrackedImageData_
   else
   {
     v7 = [*(a1 + 88) pixelBuffer];
-    [*(a1 + 88) timestamp];
+    objc_msgSend_timestamp(*(a1 + 88));
 
     return [v6 preProcessFrameWithPixelBuffer:v7 metadata:0 timestamp:0 completion:?];
   }
@@ -2869,7 +2880,7 @@ LABEL_6:
   v12 = v11;
   [*(a1 + 88) rollAngle];
   memset(&v40, 0, sizeof(v40));
-  [*(a1 + 88) timestamp];
+  objc_msgSend_timestamp(*(a1 + 88));
   CMTimeMakeWithSeconds(&v40, v13, 1000000);
   memset(&v39, 0, sizeof(v39));
   CMTimeMake(&v39, 1, [*(a1 + 88) captureFramesPerSecond]);
@@ -2915,7 +2926,7 @@ LABEL_10:
   v41 = @"PVFrameSetMetadataARMetadataKey";
   v42[0] = v24;
   v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
-  [*(a1 + 88) timestamp];
+  objc_msgSend_timestamp(*(a1 + 88));
   v29 = v28;
   v35[0] = MEMORY[0x277D85DD0];
   v35[1] = 3221225472;
@@ -2933,11 +2944,11 @@ LABEL_10:
   }
 }
 
-uint64_t __63__JFXVideoCameraController_notifyExternalImageData_completion___block_invoke_2(uint64_t result, uint64_t a2)
+id *__63__JFXVideoCameraController_notifyExternalImageData_completion___block_invoke_2(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) setMostRecentARMetadata:*(result + 40)];
+    return [result[4] setMostRecentARMetadata:result[5]];
   }
 
   return result;
@@ -3679,7 +3690,7 @@ void __80__JFXVideoCameraController_JFX_notifyVideoDelegatesOfFrameSetDataOutSyn
 - (void)didUpdateFrame:(id)frame
 {
   frameCopy = frame;
-  [frameCopy timestamp];
+  objc_msgSend_timestamp(frameCopy);
   CMTimeMakeWithSeconds(&v26, v5, 1000000000);
   time = v26;
   CMTimeGetSeconds(&time);
@@ -3722,7 +3733,7 @@ void __80__JFXVideoCameraController_JFX_notifyVideoDelegatesOfFrameSetDataOutSyn
   v18 = [[JFXARMetadata alloc] initWithARFrame:frameCopy faceAnchor:v10];
   [dictionary setObject:v18 forKeyedSubscript:@"PVFrameSetMetadataARMetadataKey"];
   capturedImage = [frameCopy capturedImage];
-  [frameCopy timestamp];
+  objc_msgSend_timestamp(frameCopy);
   v21 = v20;
   v23[0] = MEMORY[0x277D85DD0];
   v23[1] = 3221225472;
@@ -3746,11 +3757,11 @@ void __43__JFXVideoCameraController_didUpdateFrame___block_invoke(uint64_t a1)
   JFX_configureCaptureDevice(v2, v3);
 }
 
-uint64_t __43__JFXVideoCameraController_didUpdateFrame___block_invoke_3(uint64_t result, uint64_t a2)
+id *__43__JFXVideoCameraController_didUpdateFrame___block_invoke_3(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) setMostRecentARMetadata:*(result + 40)];
+    return [result[4] setMostRecentARMetadata:result[5]];
   }
 
   return result;
@@ -3758,7 +3769,7 @@ uint64_t __43__JFXVideoCameraController_didUpdateFrame___block_invoke_3(uint64_t
 
 - (BOOL)faceTrackingEnabled
 {
-  v3 = isFaceTrackingEnabledOnBackCamera();
+  v3 = isFaceTrackingEnabledOnBackCamera(self, a2);
   if ([(JFXVideoCameraController *)self cameraPosition]!= 1)
   {
     return [(JFXVideoCameraController *)self cameraPosition]!= 0;
@@ -3795,9 +3806,12 @@ uint64_t __43__JFXVideoCameraController_didUpdateFrame___block_invoke_3(uint64_t
 
 uint64_t __57__JFXVideoCameraController_updateCurrentlyTrackedFaceID___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) JFX_updateCurrentlyTrackedFaceID:*(a1 + 40)];
+  v2 = [*(a1 + 32) JFX_updateCurrentlyTrackedFaceID:*(a1 + 40)];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (BOOL)JFX_buildCaptureSessionGraphError:(id *)error
@@ -5038,21 +5052,22 @@ uint64_t __77__JFXVideoCameraController_JFX_configureCaptureSessionDataOutputSyn
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-  if (JFXLowResolutionDevice())
+  v11 = JFXLowResolutionDevice(v9, v10);
+  if (v11)
   {
-    v9 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v9 = JFXMediumResolutionDevice();
+    v13 = JFXMediumResolutionDevice(v11, v12);
   }
 
   jfx_trueDepthCamera = [formatCopy jfx_trueDepthCamera];
   cameraMode_captureSessionQueue = [(JFXVideoCameraController *)self cameraMode_captureSessionQueue];
-  v12 = JFXIsCTMCameraMode(cameraMode_captureSessionQueue);
+  v16 = JFXIsCTMCameraMode(cameraMode_captureSessionQueue);
   jfx_hasTrueDepthFrontCameraCustomZoomFormat = 0;
-  if (zoomCopy && !userInterfaceIdiom && (v9 & 1) == 0 && jfx_trueDepthCamera && v12)
+  if (zoomCopy && !userInterfaceIdiom && (v13 & 1) == 0 && jfx_trueDepthCamera && v16)
   {
     currentDevice2 = [MEMORY[0x277D75418] currentDevice];
     jfx_hasTrueDepthFrontCameraCustomZoomFormat = [currentDevice2 jfx_hasTrueDepthFrontCameraCustomZoomFormat];
@@ -5061,51 +5076,51 @@ uint64_t __77__JFXVideoCameraController_JFX_configureCaptureSessionDataOutputSyn
   switch(cameraMode_captureSessionQueue)
   {
     case 4:
-      v16 = 0x2D000000000;
-      v17 = 2;
-      v15 = 1280;
+      v20 = 0x2D000000000;
+      v21 = 2;
+      v19 = 1280;
       break;
     case 5:
-      v16 = 0x43800000000;
-      v17 = 2;
-      v15 = 1920;
+      v20 = 0x43800000000;
+      v21 = 2;
+      v19 = 1920;
       break;
     case 7:
-      v15 = 3088;
+      v19 = 3088;
       if (!jfx_hasTrueDepthFrontCameraCustomZoomFormat)
       {
-        v15 = 1920;
+        v19 = 1920;
       }
 
-      v16 = 0x5A000000000;
+      v20 = 0x5A000000000;
       if (jfx_hasTrueDepthFrontCameraCustomZoomFormat)
       {
-        v16 = 0x90C00000000;
+        v20 = 0x90C00000000;
       }
 
-      v17 = 2;
+      v21 = 2;
       break;
     default:
       if (!jfx_hasTrueDepthFrontCameraCustomZoomFormat)
       {
-        v19 = 0;
+        v23 = 0;
         goto LABEL_23;
       }
 
-      v16 = 0x90C00000000;
-      v17 = 1;
-      v15 = 3088;
+      v20 = 0x90C00000000;
+      v21 = 1;
+      v19 = 3088;
       break;
   }
 
-  v18 = [(JFXVideoCameraController *)self JFX_getFormatForCaptureDevice:formatCopy previewDimensions:v16 | v15 colorSpace:v17];
-  [formatCopy setActiveFormat:v18];
-  [formatCopy setActiveColorSpace:v17];
+  v22 = [(JFXVideoCameraController *)self JFX_getFormatForCaptureDevice:formatCopy previewDimensions:v20 | v19 colorSpace:v21];
+  [formatCopy setActiveFormat:v22];
+  [formatCopy setActiveColorSpace:v21];
 
-  v19 = 1;
+  v23 = 1;
 LABEL_23:
 
-  return v19;
+  return v23;
 }
 
 - (void)JFX_configureLockedCaptureDeviceForDepth:(id)depth
@@ -5335,7 +5350,7 @@ void __69__JFXVideoCameraController_JFX_configureLockedCaptureDeviceForDepth___b
   CMTimeMake(&v38, 1, v5);
   if (deviceCopy)
   {
-    [deviceCopy activeVideoMinFrameDuration];
+    objc_msgSend_activeVideoMinFrameDuration(deviceCopy);
   }
 
   else
@@ -5354,7 +5369,7 @@ void __69__JFXVideoCameraController_JFX_configureLockedCaptureDeviceForDepth___b
   CMTimeMake(&time2, 1, rate);
   if (deviceCopy)
   {
-    [deviceCopy activeVideoMaxFrameDuration];
+    objc_msgSend_activeVideoMaxFrameDuration(deviceCopy);
   }
 
   else
@@ -5412,7 +5427,7 @@ void __69__JFXVideoCameraController_JFX_configureLockedCaptureDeviceForDepth___b
     CMTimeMake(&time1, 1, v14);
     if (deviceCopy)
     {
-      [v13 activeDepthDataMinFrameDuration];
+      objc_msgSend_activeDepthDataMinFrameDuration(v13);
     }
 
     else
@@ -5482,68 +5497,68 @@ void __69__JFXVideoCameraController_JFX_configureLockedCaptureDeviceForDepth___b
   }
 }
 
-void __87__JFXVideoCameraController_JFX_configureLockedCaptureDevice_minFrameRate_maxFrameRate___block_invoke(uint64_t a1)
+void __87__JFXVideoCameraController_JFX_configureLockedCaptureDevice_minFrameRate_maxFrameRate___block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = a1;
-  v26 = *MEMORY[0x277D85DE8];
-  v20 = 0;
+  v2 = a1;
+  v27 = *MEMORY[0x277D85DE8];
   v21 = 0;
   v22 = 0;
-  v2 = *(a1 + 32);
-  if (v2)
+  v23 = 0;
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 activeDepthDataMinFrameDuration];
-    v2 = *(v1 + 32);
-    v1 = v21 / v20;
+    objc_msgSend_activeDepthDataMinFrameDuration(v3, a2);
+    v3 = *(v2 + 32);
+    v2 = v22 / v21;
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v3 = [v2 activeDepthDataFormat];
-  v4 = [v3 videoSupportedFrameRateRanges];
+  v18 = 0u;
+  v4 = [v3 activeDepthDataFormat];
+  v5 = [v4 videoSupportedFrameRateRanges];
 
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v25 count:16];
-  if (v5)
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v26 count:16];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v17;
+    v7 = v6;
+    v8 = *v18;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v7)
+        if (*v18 != v8)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
-        [v9 minFrameRate];
-        if (v10 <= v1)
+        v10 = *(*(&v17 + 1) + 8 * i);
+        [v10 minFrameRate];
+        if (v11 <= v2)
         {
-          [v9 minFrameRate];
-          v1 = v11;
+          [v10 minFrameRate];
+          v2 = v12;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v26 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 
-  v12 = *MEMORY[0x277CE59D0];
-  v23[0] = *MEMORY[0x277CE59E0];
-  v23[1] = v12;
-  v24[0] = &unk_28556D308;
-  v24[1] = &unk_28556D320;
-  v23[2] = *MEMORY[0x277CE59E8];
-  v13 = [MEMORY[0x277CCABB0] numberWithInt:v1];
-  v24[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
-  v15 = JFX_configureLockedCaptureDevice_minFrameRate_maxFrameRate__depthSystemPressureLevelFPSLookup;
-  JFX_configureLockedCaptureDevice_minFrameRate_maxFrameRate__depthSystemPressureLevelFPSLookup = v14;
+  v13 = *MEMORY[0x277CE59D0];
+  v24[0] = *MEMORY[0x277CE59E0];
+  v24[1] = v13;
+  v25[0] = &unk_28556D308;
+  v25[1] = &unk_28556D320;
+  v24[2] = *MEMORY[0x277CE59E8];
+  v14 = [MEMORY[0x277CCABB0] numberWithInt:v2];
+  v25[2] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+  v16 = JFX_configureLockedCaptureDevice_minFrameRate_maxFrameRate__depthSystemPressureLevelFPSLookup;
+  JFX_configureLockedCaptureDevice_minFrameRate_maxFrameRate__depthSystemPressureLevelFPSLookup = v15;
 }
 
 - (void)JFX_setCaptureDeviceType:(id)type captureDevicePositionCaptureSessionQueue:(int64_t)queue
@@ -6062,7 +6077,7 @@ BOOL __60__JFXVideoCameraController_JFX_currentAVMetadataFaceObject___block_invo
   if ([v42 count])
   {
     firstObject = [v42 firstObject];
-    [firstObject transform];
+    objc_msgSend_transform(firstObject);
     v75 = v44;
     v70 = v46;
     v71 = v45;

@@ -9,7 +9,7 @@
 
 - (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   storeCopy = store;
   oldAccountCopy = oldAccount;
@@ -17,10 +17,10 @@
   {
     *buf = 67109634;
     typeCopy = type;
-    v27 = 2112;
-    v28 = oldAccountCopy;
-    v29 = 2112;
-    v30 = accountCopy;
+    v26 = 2112;
+    v27 = oldAccountCopy;
+    v28 = 2112;
+    v29 = accountCopy;
     _os_log_impl(&dword_29C89E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "[BluetoothUserAccountPlugin] changeType: %d oldAccount: %@ account: %@", buf, 0x1Cu);
   }
 
@@ -46,9 +46,9 @@
     block[2] = sub_29C89EF64;
     block[3] = &unk_29F32D180;
     typeCopy2 = type;
-    v20 = accountCopy;
-    v21 = v14;
-    v22 = oldAccountCopy;
+    v19 = accountCopy;
+    v20 = v14;
+    v21 = oldAccountCopy;
     selfCopy = self;
     dispatch_async(MEMORY[0x29EDCA578], block);
   }
@@ -58,39 +58,35 @@
     *buf = 0;
     _os_log_impl(&dword_29C89E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "[BluetoothUserAccountPlugin] No Apple Account Identifier Found", buf, 2u);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 - (void)account:(id)account didPerformActionsForDataclasses:(id)dataclasses
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   dataclassesCopy = dataclasses;
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = dataclassesCopy;
-    v11 = 2112;
-    v12 = accountCopy;
-    _os_log_impl(&dword_29C89E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "[BluetoothUserAccountPlugin] didPerformActionsForDataclasses: %@ for account: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = dataclassesCopy;
+    v10 = 2112;
+    v11 = accountCopy;
+    _os_log_impl(&dword_29C89E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "[BluetoothUserAccountPlugin] didPerformActionsForDataclasses: %@ for account: %@", &v8, 0x16u);
   }
 
   if ((([dataclassesCopy containsObject:*MEMORY[0x29EDB8090]] & 1) != 0 || (objc_msgSend(dataclassesCopy, "containsObject:", *MEMORY[0x29EDB8150]) & 1) != 0 || (objc_msgSend(dataclassesCopy, "containsObject:", *MEMORY[0x29EDB8098]) & 1) != 0 || (objc_msgSend(dataclassesCopy, "containsObject:", *MEMORY[0x29EDB8180]) & 1) != 0 || objc_msgSend(dataclassesCopy, "containsObject:", *MEMORY[0x29EDB8108])) && objc_msgSend(accountCopy, "isActive") && objc_msgSend(accountCopy, "isAuthenticated"))
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412546;
-      v10 = dataclassesCopy;
-      v11 = 2112;
-      v12 = accountCopy;
-      _os_log_impl(&dword_29C89E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "[BluetoothUserAccountPlugin] interested account properties changed: %@ for account: %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = dataclassesCopy;
+      v10 = 2112;
+      v11 = accountCopy;
+      _os_log_impl(&dword_29C89E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "[BluetoothUserAccountPlugin] interested account properties changed: %@ for account: %@", &v8, 0x16u);
     }
 
     [(CloudPairingAccountNotificationPlugin *)self accountModified];
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 - (id)daemonConection

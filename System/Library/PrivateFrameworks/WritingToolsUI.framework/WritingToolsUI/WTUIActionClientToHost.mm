@@ -128,8 +128,8 @@ void __60__WTUIActionClientToHost_actionForEndWritingToolsWithError___block_invo
 
   if (v3)
   {
-    v4 = _WTVCLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _WTVCLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __60__WTUIActionClientToHost_actionForEndWritingToolsWithError___block_invoke_cold_1(v2);
     }
@@ -415,8 +415,8 @@ void __87__WTUIActionClientToHost_actionForShowAlertWithTitle_message_buttonTitl
 
   if (v4)
   {
-    v5 = _WTVCLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _WTVCLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __87__WTUIActionClientToHost_actionForShowAlertWithTitle_message_buttonTitle_buttonAction___block_invoke_cold_1(v3);
     }
@@ -822,13 +822,17 @@ void __58__WTUIActionClientToHost_performActionForSceneController___block_invoke
 void __60__WTUIActionClientToHost_actionForEndWritingToolsWithError___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_1(&dword_1D451D000, v2, v3, "Unexpected error when ending writing tools: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_1D451D000, v2, v3, "Unexpected error when ending writing tools: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __87__WTUIActionClientToHost_actionForShowAlertWithTitle_message_buttonTitle_buttonAction___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_1(&dword_1D451D000, v2, v3, "Unexpected error when showing alert: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_1D451D000, v2, v3, "Unexpected error when showing alert: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

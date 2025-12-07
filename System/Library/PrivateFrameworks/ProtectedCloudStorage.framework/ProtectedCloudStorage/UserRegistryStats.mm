@@ -39,13 +39,13 @@
 
 - (void)printUserRegistryStats:(__sFILE *)stats
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   lastfetchRecordZoneChangesAtStart = [(UserRegistryStats *)self lastfetchRecordZoneChangesAtStart];
   if (lastfetchRecordZoneChangesAtStart)
   {
-    memset(&v6, 0, sizeof(v6));
-    localtime_r(&lastfetchRecordZoneChangesAtStart, &v6);
-    strftime(v8, 0x80uLL, "%Y-%m-%d-%H:%M:%S", &v6);
+    memset(&v5, 0, sizeof(v5));
+    localtime_r(&lastfetchRecordZoneChangesAtStart, &v5);
+    strftime(v7, 0x80uLL, "%Y-%m-%d-%H:%M:%S", &v5);
   }
 
   else
@@ -55,25 +55,24 @@
 
   fwrite("UserRegistryStats:\n\n", 0x14uLL, 1uLL, stats);
   fprintf(stats, "\tfetchRecordZoneChanges: %lld\n", [(UserRegistryStats *)self fetchRecordZoneChanges]);
-  fprintf(stats, "\tlastfetchRecordZoneChangesAtStart: %s\n", v8);
+  fprintf(stats, "\tlastfetchRecordZoneChangesAtStart: %s\n", v7);
   fprintf(stats, "\tpushNotifications: %lld\n", [(UserRegistryStats *)self pushNotifications]);
   fprintf(stats, "\tzoneReset: %lld\n", [(UserRegistryStats *)self zoneReset]);
   fprintf(stats, "\trecordFetch: %lld\n", [(UserRegistryStats *)self recordFetch]);
   fprintf(stats, "\trecordModify: %lld\n", [(UserRegistryStats *)self recordModify]);
   fputc(10, stats);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getUserRegistryStats
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   lastfetchRecordZoneChangesAtStart = [(UserRegistryStats *)self lastfetchRecordZoneChangesAtStart];
   if (lastfetchRecordZoneChangesAtStart)
   {
-    memset(&v12, 0, sizeof(v12));
-    localtime_r(&lastfetchRecordZoneChangesAtStart, &v12);
-    strftime(v14, 0x80uLL, "%Y-%m-%d-%H:%M:%S", &v12);
+    memset(&v11, 0, sizeof(v11));
+    localtime_r(&lastfetchRecordZoneChangesAtStart, &v11);
+    strftime(v13, 0x80uLL, "%Y-%m-%d-%H:%M:%S", &v11);
   }
 
   else
@@ -84,7 +83,7 @@
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[UserRegistryStats fetchRecordZoneChanges](self, "fetchRecordZoneChanges")}];
   [v3 setObject:v4 forKeyedSubscript:@"fetch_record_zone_changes"];
 
-  v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v14];
+  v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v13];
   [v3 setObject:v5 forKeyedSubscript:@"last_fetch_record_zone_changes_at_start"];
 
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[UserRegistryStats pushNotifications](self, "pushNotifications")}];
@@ -98,8 +97,6 @@
 
   v9 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[UserRegistryStats recordModify](self, "recordModify")}];
   [v3 setObject:v9 forKeyedSubscript:@"record_modify"];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

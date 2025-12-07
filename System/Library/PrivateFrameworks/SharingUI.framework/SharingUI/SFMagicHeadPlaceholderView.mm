@@ -10,9 +10,9 @@
 
 - (SFMagicHeadPlaceholderView)initWithFrame:(CGRect)frame
 {
-  v28.receiver = self;
-  v28.super_class = SFMagicHeadPlaceholderView;
-  v3 = [(SFMagicHeadPlaceholderView *)&v28 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v29.receiver = self;
+  v29.super_class = SFMagicHeadPlaceholderView;
+  v3 = [(SFMagicHeadPlaceholderView *)&v29 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -42,21 +42,21 @@
     v4->_label = v15;
 
     [(UILabel *)v4->_label setTextAlignment:1];
-    v17 = SFFontForTextStyleWithAdditionalSymbolicTraits(*MEMORY[0x1E69DDD28], 32770);
-    [(UILabel *)v4->_label setFont:v17];
+    v18 = SFFontForTextStyleWithAdditionalSymbolicTraits(v17, *MEMORY[0x1E69DDD28], 32770);
+    [(UILabel *)v4->_label setFont:v18];
 
     [(UILabel *)v4->_label setNumberOfLines:2];
-    v18 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:5 weight:2 scale:64.0];
-    v19 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"arrow.up" withConfiguration:v18];
-    v20 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v19];
+    v19 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:5 weight:2 scale:64.0];
+    v20 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"arrow.up" withConfiguration:v19];
+    v21 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v20];
     imageView = v4->_imageView;
-    v4->_imageView = v20;
+    v4->_imageView = v21;
 
-    v22 = [MEMORY[0x1E69DD248] effectForBlurEffect:v9 style:1];
+    v23 = [MEMORY[0x1E69DD248] effectForBlurEffect:v9 style:1];
 
-    v23 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:v22];
+    v24 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:v23];
     contentVisualEffectView = v4->_contentVisualEffectView;
-    v4->_contentVisualEffectView = v23;
+    v4->_contentVisualEffectView = v24;
 
     contentView2 = [(UIVisualEffectView *)v4->_contentVisualEffectView contentView];
     [contentView2 addSubview:v4->_label];

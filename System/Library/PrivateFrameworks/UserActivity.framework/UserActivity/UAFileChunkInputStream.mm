@@ -42,19 +42,16 @@
 
 - (int64_t)read:(char *)read maxLength:(unint64_t)length
 {
-  v23 = *MEMORY[0x277D85DE8];
   if ([(UAFileChunkInputStream *)self status]== 5 || [(UAFileChunkInputStream *)self status]== 6 || [(UAFileChunkInputStream *)self status]== 7)
   {
-    goto LABEL_15;
+    return 0;
   }
 
   readSize = [(UAFileChunkInputStream *)self readSize];
   if (readSize >= [(UAFileChunkInputStream *)self chunkSize])
   {
     [(UAFileChunkInputStream *)self setStatus:5];
-LABEL_15:
-    v19 = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   [(UAFileChunkInputStream *)self setStatus:3];
@@ -101,8 +98,6 @@ LABEL_15:
 
   objc_sync_exit(file);
 
-LABEL_16:
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

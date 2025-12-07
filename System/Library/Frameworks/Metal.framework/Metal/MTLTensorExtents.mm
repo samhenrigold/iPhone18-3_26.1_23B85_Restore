@@ -113,7 +113,7 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v15[8] = *MEMORY[0x1E69E9840];
+  v14[8] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   string = [MEMORY[0x1E696AD60] string];
   rank = self->_private.rank;
@@ -137,20 +137,18 @@
   }
 
   v10 = MEMORY[0x1E696AEC0];
-  v14.receiver = self;
-  v14.super_class = MTLTensorExtents;
-  v11 = [(MTLTensorExtents *)&v14 description];
-  v15[0] = v4;
-  v15[1] = @"Rank =";
-  v15[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:rank];
-  v15[3] = @" ";
-  v15[4] = v4;
-  v15[5] = @"Extents = [";
-  v15[6] = string;
-  v15[7] = @"]";
-  result = [v10 stringWithFormat:@"%@%@", v11, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 8), "componentsJoinedByString:", @" "];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  v13.receiver = self;
+  v13.super_class = MTLTensorExtents;
+  v11 = [(MTLTensorExtents *)&v13 description];
+  v14[0] = v4;
+  v14[1] = @"Rank =";
+  v14[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:rank];
+  v14[3] = @" ";
+  v14[4] = v4;
+  v14[5] = @"Extents = [";
+  v14[6] = string;
+  v14[7] = @"]";
+  return [v10 stringWithFormat:@"%@%@", v11, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v14, 8), "componentsJoinedByString:", @" "];
 }
 
 @end

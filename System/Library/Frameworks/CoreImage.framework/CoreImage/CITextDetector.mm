@@ -82,7 +82,7 @@
 
 void __42__CITextDetector_initWithContext_options___block_invoke()
 {
-  if (FutharkLibraryCore())
+  if (FutharkLibraryCore(0))
   {
     initWithContext_options__loadedOK = 1;
   }
@@ -116,7 +116,7 @@ void __42__CITextDetector_initWithContext_options___block_invoke()
 - (id)featuresInImage:(id)image options:(id)options
 {
   v79[1] = *MEMORY[0x1E69E9840];
-  v7 = ci_signpost_log_detector();
+  v7 = ci_signpost_log_detector(self, a2);
   if (&self->super.super.isa + 1 >= 2)
   {
     v56 = v7;
@@ -382,21 +382,21 @@ LABEL_15:
 
   v8 = v75;
 LABEL_33:
-  v8(v74);
+  (v8)(v74);
   return v59;
 }
 
-void __42__CITextDetector_featuresInImage_options___block_invoke(uint64_t a1)
+void __42__CITextDetector_featuresInImage_options___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = ci_signpost_log_detector();
-  v3 = *(a1 + 32);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v5 = ci_signpost_log_detector(a1, a2);
+  v6 = *(a1 + 32);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
+    v7 = v5;
+    if (os_signpost_enabled(v5))
     {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "CITextDetector", &unk_19CFBCBAE, v5, 2u);
+      *v8 = 0;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v7, OS_SIGNPOST_INTERVAL_END, v6, "CITextDetector", &unk_19CFBCBAE, v8, 2u);
     }
   }
 }
@@ -478,31 +478,30 @@ void __42__CITextDetector_featuresInImage_options___block_invoke(uint64_t a1)
 
 - (id)adjustedImageFromImage:(id)image orientation:(int)orientation inverseCTM:(CGAffineTransform *)m
 {
-  v6 = *&orientation;
   imageCopy = image;
-  memset(&v13, 0, sizeof(v13));
+  memset(&v12, 0, sizeof(v12));
   [image extent];
   if (self)
   {
-    [(CITextDetector *)self ctmForImageWithBounds:v6 orientation:?];
+    objc_msgSend_ctmForImageWithBounds_orientation_(self);
   }
 
   else
   {
-    memset(&v13, 0, sizeof(v13));
+    memset(&v12, 0, sizeof(v12));
   }
 
-  v11 = v13;
-  CGAffineTransformInvert(&v12, &v11);
-  v9 = *&v12.c;
-  *&m->a = *&v12.a;
-  *&m->c = v9;
-  *&m->tx = *&v12.tx;
-  v12 = v13;
-  if (!CGAffineTransformIsIdentity(&v12))
+  v10 = v12;
+  CGAffineTransformInvert(&v11, &v10);
+  v8 = *&v11.c;
+  *&m->a = *&v11.a;
+  *&m->c = v8;
+  *&m->tx = *&v11.tx;
+  v11 = v12;
+  if (!CGAffineTransformIsIdentity(&v11))
   {
-    v12 = v13;
-    return [imageCopy imageByApplyingTransform:&v12];
+    v11 = v12;
+    return [imageCopy imageByApplyingTransform:&v11];
   }
 
   return imageCopy;

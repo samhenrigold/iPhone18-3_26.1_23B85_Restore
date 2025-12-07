@@ -10,7 +10,7 @@
 
 - (PKAutoFillCardsViewController)initWithDescriptors:(id)descriptors authentication:(id)authentication context:(int64_t)context settingsController:(id)controller groupsController:(id)groupsController
 {
-  sub_1BD0E5E8C(0, &qword_1EBD420C0);
+  sub_1BD0E5E8C(0, &qword_1EBD420C0, 0x1E69B8678);
   v11 = sub_1BE052744();
   authenticationCopy = authentication;
   controllerCopy = controller;

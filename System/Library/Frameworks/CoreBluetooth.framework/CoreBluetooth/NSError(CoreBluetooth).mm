@@ -797,13 +797,11 @@ LABEL_166:
 
 + (void)errorWithInfo:()CoreBluetooth .cold.4(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v5 = 134217984;
-  v6 = [a2 integerValue];
-  _os_log_error_impl(&dword_1C0AC1000, v3, OS_LOG_TYPE_ERROR, "WARNING: Unknown error: %ld", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134217984;
+  v5 = [a2 integerValue];
+  _os_log_error_impl(&dword_1C0AC1000, v3, OS_LOG_TYPE_ERROR, "WARNING: Unknown error: %ld", &v4, 0xCu);
 }
 
 @end

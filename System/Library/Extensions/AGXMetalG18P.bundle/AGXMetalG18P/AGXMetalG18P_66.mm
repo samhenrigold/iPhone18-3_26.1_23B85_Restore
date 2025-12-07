@@ -167,76 +167,78 @@ void AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEnc
     memcpy(*&v10[*MEMORY[0x29EDC5638] + 24], *(v8 + *MEMORY[0x29EDC5638] + 24), *(a1 + 692) << 7);
   }
 
-  if (*(a1 + 692) <= 1u)
+  v11 = *(a1 + 692);
+  if (v11 <= 1)
   {
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v11 = *(a1 + 692);
+    v12 = v11;
   }
 
   *(a1 + 692) = a2;
   atomic_fetch_add((v9 + 24 * v7), 0x80000000);
   if ((add & 0x80000000) == 0)
   {
-    v12 = v9 + 24 * add;
-    if (atomic_fetch_add(v12, 0x80000000) == 0x80000000)
+    v13 = v9 + 24 * add;
+    if (atomic_fetch_add(v13, 0x80000000) == 0x80000000)
     {
       os_unfair_lock_assert_owner((a1 + 752));
-      if ((*(v12 + 4) & 1) == 0)
+      if ((*(v13 + 4) & 1) == 0)
       {
-        *(v12 + 4) = 1;
+        *(v13 + 4) = 1;
       }
     }
   }
 
   if (a3)
   {
-    AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(a1 + 696, v11, a2 - 1);
+    AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(a1 + 696, v12, a2 - 1);
   }
 
-  v13 = *(a1 + 768);
-  v14 = *v13;
-  if ((*v13 + 1) > 1)
+  v14 = *(a1 + 768);
+  v15 = *v14;
+  if ((*v14 + 1) > 1)
   {
-    v15 = v14 + 1;
+    v16 = v15 + 1;
   }
 
   else
   {
-    v15 = 1;
+    v16 = 1;
   }
 
-  v16 = *v13;
-  atomic_compare_exchange_strong(v13, &v16, v15);
-  if (v16 != v14)
+  v17 = *v14;
+  atomic_compare_exchange_strong(v14, &v17, v16);
+  if (v17 != v15)
   {
-    v17 = v16;
+    v18 = v17;
     do
     {
-      if ((v16 + 1) > 1)
+      if ((v17 + 1) > 1)
       {
-        v18 = v16 + 1;
+        v19 = v17 + 1;
       }
 
       else
       {
-        v18 = 1;
+        v19 = 1;
       }
 
-      atomic_compare_exchange_strong(v13, &v17, v18);
-      v19 = v17 == v16;
-      v16 = v17;
+      atomic_compare_exchange_strong(v14, &v18, v19);
+      v20 = v18 == v17;
+      v17 = v18;
     }
 
-    while (!v19);
+    while (!v20);
   }
 }
 
-uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::RangeAllocation::RangeAllocation(uint64_t a1, os_unfair_lock_s *a2, unsigned int a3, int a4)
+uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::RangeAllocation::RangeAllocation(uint64_t a1, os_unfair_lock_s *a2, uint64_t a3, int a4)
 {
+  v4 = a3;
   *a1 = a4;
   *(a1 + 4) = a3;
   *(a1 + 8) = a2;
@@ -244,7 +246,7 @@ uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTabl
   os_unfair_lock_lock(a2 + 188);
   if ((*(a1 + 16) & 1) == 0)
   {
-    v7 = AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::FreeIntervalList::pop((*(a1 + 8) + 696), a3);
+    v7 = AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::FreeIntervalList::pop(*(a1 + 8) + 696, v4);
     *a1 = v7;
     if (!v7)
     {
@@ -252,7 +254,7 @@ uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTabl
       v11 = *(v10 + 692);
       if (v11)
       {
-        v12 = v11 + a3;
+        v12 = v11 + v4;
         do
         {
           if (v11)
@@ -275,14 +277,14 @@ uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTabl
         AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::grow(v10, 0x20u, 1);
       }
 
-      *a1 = AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::FreeIntervalList::pop((*(a1 + 8) + 696), a3);
+      *a1 = AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::FreeIntervalList::pop(*(a1 + 8) + 696, v4);
     }
   }
 
   explicit = atomic_load_explicit((*(a1 + 8) + 756), memory_order_acquire);
-  if (explicit <= a3 + *a1 - 1)
+  if (explicit <= v4 + *a1 - 1)
   {
-    explicit = a3 + *a1 - 1;
+    explicit = v4 + *a1 - 1;
   }
 
   atomic_store(explicit, (*(a1 + 8) + 756));
@@ -291,16 +293,16 @@ uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTabl
   return a1;
 }
 
-uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::FreeIntervalList::pop(void *a1, unsigned int a2)
+uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::FreeIntervalList::pop(uint64_t a1, unsigned int a2)
 {
-  v3 = (a1 + 5);
-  v2 = a1[5];
+  v3 = (a1 + 40);
+  v2 = *(a1 + 40);
   if (!v2)
   {
     return 0;
   }
 
-  v6 = (a1 + 5);
+  v6 = a1 + 40;
   do
   {
     v7 = *(v2 + 32);
@@ -320,18 +322,18 @@ uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTabl
     return 0;
   }
 
-  v10 = a1 + 2;
-  v9 = a1[2];
-  v11 = (a1 + 1);
-  v12 = *(v6 + 7);
-  v13 = *(v6 + 8);
+  v10 = (a1 + 16);
+  v9 = *(a1 + 16);
+  v11 = (a1 + 8);
+  v12 = *(v6 + 28);
+  v13 = *(v6 + 32);
   if (!v9)
   {
     goto LABEL_21;
   }
 
-  v14 = a1 + 2;
-  v15 = a1[2];
+  v14 = (a1 + 16);
+  v15 = *(a1 + 16);
   do
   {
     while (1)
@@ -362,7 +364,7 @@ LABEL_17:
   if (v14 == v10 || (v18 = *(v14 + 7), v12 < v18) || v18 >= v12 && v13 < *(v14 + 8))
   {
 LABEL_21:
-    v14 = a1 + 2;
+    v14 = (a1 + 16);
   }
 
   v19 = v14[1];
@@ -395,10 +397,10 @@ LABEL_21:
     *v11 = v20;
   }
 
-  --a1[3];
+  --*(a1 + 24);
   std::__tree_remove[abi:nn200100]<std::__tree_node_base<void *> *>(v9, v14);
   operator delete(v14);
-  v23 = v6[1];
+  v23 = *(v6 + 8);
   if (v23)
   {
     do
@@ -423,20 +425,20 @@ LABEL_21:
     while (!v22);
   }
 
-  if (a1[4] == v6)
+  if (*(a1 + 32) == v6)
   {
-    a1[4] = v24;
+    *(a1 + 32) = v24;
   }
 
-  v26 = a1[5];
-  --a1[6];
+  v26 = *(a1 + 40);
+  --*(a1 + 48);
   std::__tree_remove[abi:nn200100]<std::__tree_node_base<void *> *>(v26, v6);
   operator delete(v6);
   v27 = v13 - a2;
   if (v13 != a2)
   {
     v28 = v12 + a2;
-    if (!*std::__tree<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval,AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::IntervalIndexComparator,std::allocator<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval>>::__find_equal<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval>(a1 + 1, v20, &v37, &v36, v28, v27))
+    if (!*std::__tree<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval,AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::IntervalIndexComparator,std::allocator<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval>>::__find_equal<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval>((a1 + 8), v20, &v37, &v36, v28, v27))
     {
       operator new();
     }
@@ -486,16 +488,16 @@ LABEL_56:
   return v12;
 }
 
-uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::RangeAllocation::~RangeAllocation(uint64_t result)
+unsigned int *AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::RangeAllocation::~RangeAllocation(unsigned int *result)
 {
   if (*result)
   {
-    if ((*(result + 16) & 1) == 0)
+    if ((result[4] & 1) == 0)
     {
-      v1 = *(result + 8);
+      v1 = *(result + 1);
       v2 = result;
       os_unfair_lock_lock(v1 + 188);
-      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(*(v2 + 8) + 696, *v2, *v2 + *(v2 + 4) - 1);
+      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(*(v2 + 1) + 696, *v2, *v2 + v2[1] - 1);
       os_unfair_lock_unlock(v1 + 188);
       return v2;
     }
@@ -511,32 +513,32 @@ void sub_29CDCA28C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(os_unfair_lock_s *a1, uint64_t a2)
+uint64_t AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3)
 {
   os_unfair_lock_lock(a1 + 188);
   os_unfair_lock_assert_owner(a1 + 188);
-  v4 = &a1[6 * a1[170]._os_unfair_lock_opaque];
-  v6 = *&v4[4]._os_unfair_lock_opaque;
-  v5 = v4 + 4;
-  v7 = *(a2 + 8);
-  v8 = MEMORY[0x29EDC5638];
-  v9 = v6 + *MEMORY[0x29EDC5638];
-  v10 = *(v9 + 8);
-  if (**a2 == v10 && ((*(v9 + 40) ^ *(*v7 + 40)) & 0xFFFFFFFFFFFFFFLL) == 0)
+  v5 = &a1[6 * a1[170]._os_unfair_lock_opaque];
+  v7 = *&v5[4]._os_unfair_lock_opaque;
+  v6 = v5 + 4;
+  v8 = *(a2 + 8);
+  v9 = MEMORY[0x29EDC5638];
+  v10 = v7 + *MEMORY[0x29EDC5638];
+  v11 = *(v10 + 8);
+  if (**a2 == v11 && ((*(v10 + 40) ^ *(*v8 + 40)) & 0xFFFFFFFFFFFFFFLL) == 0)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    **a2 = v10;
-    *v7 = *&v5->_os_unfair_lock_opaque + *v8;
+    **a2 = v11;
+    *v8 = *&v6->_os_unfair_lock_opaque + *v9;
     MTLResourceListAddResource();
-    v11 = 1;
+    v12 = 1;
   }
 
   os_unfair_lock_unlock(a1 + 188);
-  return v11;
+  return v12;
 }
 
 void AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setFunction(void *a1, uint64_t a2, unsigned int a3)
@@ -587,9 +589,9 @@ void AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::C
   }
 }
 
-void sub_29CDCBAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29CDCBAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::shared_ptr<AGX::HAL300::Sampler>::~shared_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -601,9 +603,9 @@ void sub_29CDCBAEC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_29CDCC2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_29CDCC2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   std::shared_ptr<AGX::HAL300::Sampler>::~shared_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -617,14 +619,12 @@ void sub_29CDCC2FC(_Unwind_Exception *a1)
 
 __n128 __Block_byref_object_copy__6262(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -682,7 +682,7 @@ void sub_29CDCD7E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ___ZN3AGX35DriverIntersectionFunctionTableBaseINS_35DriverIntersectionFunctionTableGen2INS_6HAL3008EncodersENS2_7ClassesENS2_10ObjClassesEEES3_S4_E23compileAndPopulateTableEPNS_8CompilerE_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void ___ZN3AGX35DriverIntersectionFunctionTableBaseINS_35DriverIntersectionFunctionTableGen2INS_6HAL3008EncodersENS2_7ClassesENS2_10ObjClassesEEES3_S4_E23compileAndPopulateTableEPNS_8CompilerE_block_invoke(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (!a3)
   {
@@ -714,18 +714,18 @@ void ___ZN3AGX35DriverIntersectionFunctionTableBaseINS_35DriverIntersectionFunct
 
   v9 = 0;
   v10 = 0;
-  AGX::DriverIntersectionProgramKey::serialize((a1 + 48), &v9, &v10);
+  AGX::DriverIntersectionProgramKey::serialize((a1 + 6), &v9, &v10);
   v8[0] = a4;
   v8[1] = v6;
   v8[2] = v10;
   v8[3] = v9;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CDCDA68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CDCDA68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  std::shared_ptr<AGX::HAL300::Sampler>::~shared_ptr[abi:nn200100](v3 - 88);
+  va_start(va, a5);
+  std::shared_ptr<AGX::HAL300::Sampler>::~shared_ptr[abi:nn200100](v5 - 88);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
   _Unwind_Resume(a1);
 }
@@ -742,7 +742,7 @@ uint64_t ___ZN3AGX8Compiler14compileProgramINS_28DriverIntersectionProgramKeyEEE
   return v5();
 }
 
-void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3AGX29IntersectionProgramVariantSetINS8_6HAL3008EncodersENSA_7ClassesENSA_10ObjClassesEE8VariantsENSE_15EmulationDylibsEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSI_1EJSF_SG_EEEEEEDcSK_DpT0_(uint64_t a1, void **a2)
+void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3AGX29IntersectionProgramVariantSetINS8_6HAL3008EncodersENSA_7ClassesENSA_10ObjClassesEE8VariantsENSE_15EmulationDylibsEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSI_1EJSF_SG_EEEEEEDcSK_DpT0_(uint64_t a1, char **a2)
 {
   v2 = *a2;
   if (*a2)
@@ -773,7 +773,7 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__d
   }
 }
 
-void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3AGX29IntersectionProgramVariantSetINS8_6HAL3008EncodersENSA_7ClassesENSA_10ObjClassesEE8VariantsENSE_15EmulationDylibsEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSI_1EJSF_SG_EEEEEEDcSK_DpT0_(uint64_t a1, void **a2)
+void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3AGX29IntersectionProgramVariantSetINS8_6HAL3008EncodersENSA_7ClassesENSA_10ObjClassesEE8VariantsENSE_15EmulationDylibsEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSI_1EJSF_SG_EEEEEEDcSK_DpT0_(uint64_t a1, char **a2)
 {
   v2 = *a2;
   if (*a2)
@@ -872,9 +872,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_28DriverIntersectionProgramKeyE20AGCD
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CDCDF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CDCDF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -903,13 +903,13 @@ void __destroy_helper_block_e8_48c40_ZTSN3AGX28DriverIntersectionProgramKeyE(voi
   }
 }
 
-uint64_t __copy_helper_block_e8_48c40_ZTSN3AGX28DriverIntersectionProgramKeyE(uint64_t result, uint64_t a2)
+void *__copy_helper_block_e8_48c40_ZTSN3AGX28DriverIntersectionProgramKeyE(void *result, uint64_t a2)
 {
-  *(result + 48) = &unk_2A23F7590;
-  *(result + 56) = *(a2 + 56);
-  *(result + 72) = 0;
-  *(result + 80) = 0;
-  *(result + 64) = 0;
+  result[6] = &unk_2A23F7590;
+  *(result + 14) = *(a2 + 56);
+  result[9] = 0;
+  result[10] = 0;
+  result[8] = 0;
   v3 = *(a2 + 64);
   v2 = *(a2 + 72);
   if (v2 != v3)
@@ -922,8 +922,8 @@ uint64_t __copy_helper_block_e8_48c40_ZTSN3AGX28DriverIntersectionProgramKeyE(ui
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
 
-  *(result + 48) = &unk_2A23F7540;
-  *(result + 88) = *(a2 + 88);
+  result[6] = &unk_2A23F7540;
+  *(result + 22) = *(a2 + 88);
   return result;
 }
 
@@ -1018,21 +1018,21 @@ void sub_29CDCE598(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(uint64_t a1)
+uint64_t AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(void *a1, uint64_t a2, __int16 a3)
 {
   result = IOGPUResourceListAddResource();
-  v4 = *(a1 + 64);
-  v3 = *(a1 + 72);
-  while (v4 != v3)
+  v6 = a1[8];
+  v5 = a1[9];
+  while (v6 != v5)
   {
-    result = *v4;
-    if (*v4)
+    result = *v6;
+    if (*v6)
     {
       AGX::IntersectionPipelineSet<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getEslResourceInfo(result);
       result = IOGPUResourceListAddResource();
     }
 
-    v4 += 2;
+    v6 += 2;
   }
 
   return result;
@@ -1164,10 +1164,7 @@ LABEL_21:
   if ((v16 & 0x30000) != 0)
   {
 LABEL_22:
-    *v17 = *(a1 + 10);
-    v17[1] = *(a1 + 11);
-    v17[2] = *(a1 + 12);
-    v17[3] = *(a1 + 13);
+    *v17 = *(a1 + 40);
     v17 += 4;
     v16 = *(a1 + 5);
   }
@@ -1811,7 +1808,7 @@ LABEL_28:
   if (v45 | a24)
   {
     v52 = v51 | 0x1000000000000000;
-    v53 = (a24 & 0xF | (16 * (v45 & 0xF))) << 44;
+    v53 = (a24 & 0xF | (16 * (v45 & 0xFu))) << 44;
     *v32 = v53;
     v54 = 0x8000000000000000;
   }
@@ -8921,12 +8918,12 @@ uint64_t VectorMap<AGX::ComputeProgramKey,AGX::ProgramVariantEntry<AGX::HAL300::
   return a1;
 }
 
-void std::__tree<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::__map_value_compare<AGX::UserIntersectionProgramKey,std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::less<AGX::UserIntersectionProgramKey>,true>,std::allocator<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>>>::destroy(void *a1)
+void std::__tree<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::__map_value_compare<AGX::UserIntersectionProgramKey,std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::less<AGX::UserIntersectionProgramKey>,true>,std::allocator<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>>>::destroy(void *a1, uint64_t a2)
 {
   if (a1)
   {
-    std::__tree<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::__map_value_compare<AGX::UserIntersectionProgramKey,std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::less<AGX::UserIntersectionProgramKey>,true>,std::allocator<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>>>::destroy(*a1);
-    std::__tree<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::__map_value_compare<AGX::UserIntersectionProgramKey,std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::less<AGX::UserIntersectionProgramKey>,true>,std::allocator<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>>>::destroy(a1[1]);
+    std::__tree<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::__map_value_compare<AGX::UserIntersectionProgramKey,std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::less<AGX::UserIntersectionProgramKey>,true>,std::allocator<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>>>::destroy(*a1, a2);
+    std::__tree<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::__map_value_compare<AGX::UserIntersectionProgramKey,std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,std::less<AGX::UserIntersectionProgramKey>,true>,std::allocator<std::__value_type<AGX::UserIntersectionProgramKey,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>>>::destroy(a1[1], v3);
     std::__destroy_at[abi:nn200100]<std::pair<AGX::UserIntersectionProgramKey const,AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VariantSetEntry>,0>((a1 + 4));
 
     operator delete(a1);
@@ -8984,7 +8981,7 @@ void std::__destroy_at[abi:nn200100]<std::pair<AGX::UserIntersectionProgramKey c
   }
 }
 
-uint64_t *VisibleFunctionsMap::getVisibleFunctionOffset(int8x8_t *this, const char *__s)
+uint64_t VisibleFunctionsMap::getVisibleFunctionOffset(int8x8_t *this, const char *__s)
 {
   if (__s)
   {
@@ -9436,13 +9433,13 @@ LABEL_18:
   }
 }
 
-void sub_29CDD92C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_29CDD92C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,unsigned int>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,unsigned int>,void *>>>>::~unique_ptr[abi:nn200100](va);
-  if (v12 < 0)
+  if (v19 < 0)
   {
-    operator delete(v13);
+    operator delete(v20);
   }
 
   _Unwind_Resume(a1);

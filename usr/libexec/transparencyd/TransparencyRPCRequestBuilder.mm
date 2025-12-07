@@ -4,6 +4,7 @@
 + (id)buildConsistencyProofRequest:(id)request revisions:(id)revisions error:(id *)error;
 + (id)buildPublicKeysRequest:(id)request error:(id *)error;
 + (id)buildQueryRequest:(id)request application:(id)application error:(id *)error;
++ (id)buildRevisionLogInclusionProofRequest:(id)request logType:(int)type revisions:(id)revisions error:(id *)error;
 @end
 
 @implementation TransparencyRPCRequestBuilder
@@ -232,6 +233,50 @@ LABEL_16:
   }
 
   return v8;
+}
+
++ (id)buildRevisionLogInclusionProofRequest:(id)request logType:(int)type revisions:(id)revisions error:(id *)error
+{
+  v7 = *&type;
+  requestCopy = request;
+  revisionsCopy = revisions;
+  v10 = objc_alloc_init(RevisionLogInclusionProofRequest);
+  [(RevisionLogInclusionProofRequest *)v10 setVersion:kTransparencyProtocolVersion];
+  v11 = [TransparencyApplication applicationValueForIdentifier:requestCopy];
+  -[RevisionLogInclusionProofRequest setApplication:](v10, "setApplication:", [v11 intValue]);
+
+  [(RevisionLogInclusionProofRequest *)v10 setLogType:v7];
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v12 = revisionsCopy;
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v21;
+    do
+    {
+      for (i = 0; i != v14; i = i + 1)
+      {
+        if (*v21 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v17 = *(*(&v20 + 1) + 8 * i);
+        revisionArray = [(RevisionLogInclusionProofRequest *)v10 revisionArray];
+        [revisionArray addValue:{objc_msgSend(v17, "unsignedLongLongValue")}];
+      }
+
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v14);
+  }
+
+  return v10;
 }
 
 @end

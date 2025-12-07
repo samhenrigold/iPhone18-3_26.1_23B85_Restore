@@ -127,7 +127,7 @@
 
 void __47__CNData_dataWithContentsOfURL_sessionFactory___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   if (a4)
@@ -156,13 +156,13 @@ void __47__CNData_dataWithContentsOfURL_sessionFactory___block_invoke(uint64_t a
       v13 = v12;
       v14 = MEMORY[0x1E696ABC0];
       v15 = *MEMORY[0x1E696A250];
-      v21[0] = @"status code";
+      v20[0] = @"status code";
       v16 = [MEMORY[0x1E696AD98] numberWithInteger:v12];
-      v21[1] = @"description";
-      v22[0] = v16;
+      v20[1] = @"description";
+      v21[0] = v16;
       v17 = [MEMORY[0x1E696AC68] localizedStringForStatusCode:v13];
-      v22[1] = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+      v21[1] = v17;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
       v19 = [v14 errorWithDomain:v15 code:256 userInfo:v18];
 
       [*(a1 + 32) finishWithError:v19];
@@ -173,8 +173,6 @@ void __47__CNData_dataWithContentsOfURL_sessionFactory___block_invoke(uint64_t a
       [*(a1 + 32) finishWithResult:v7];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __47__CNData_dataWithContentsOfURL_sessionFactory___block_invoke_2(uint64_t a1, uint64_t a2)

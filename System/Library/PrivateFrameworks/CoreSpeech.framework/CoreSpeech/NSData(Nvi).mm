@@ -41,7 +41,7 @@
 
 - (void)splitAudioDataToReachSampleCount:()Nvi currSampleCount:numBytesPerSample:completionHandler:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v10 = a6;
   v11 = a3 - a4;
   if ((a3 - a4) <= 0)
@@ -49,13 +49,13 @@
     v18 = NviLogContextFacility;
     if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315650;
-      v21 = "[NSData(Nvi) splitAudioDataToReachSampleCount:currSampleCount:numBytesPerSample:completionHandler:]";
-      v22 = 2050;
-      v23 = a4;
-      v24 = 2050;
-      v25 = a3;
-      _os_log_impl(&dword_222E4D000, v18, OS_LOG_TYPE_DEFAULT, "%s RequiredSampleCount reached: currSampleCount=%{public}lu, endingSampleCount=%{public}lu", &v20, 0x20u);
+      v19 = 136315650;
+      v20 = "[NSData(Nvi) splitAudioDataToReachSampleCount:currSampleCount:numBytesPerSample:completionHandler:]";
+      v21 = 2050;
+      v22 = a4;
+      v23 = 2050;
+      v24 = a3;
+      _os_log_impl(&dword_222E4D000, v18, OS_LOG_TYPE_DEFAULT, "%s RequiredSampleCount reached: currSampleCount=%{public}lu, endingSampleCount=%{public}lu", &v19, 0x20u);
     }
 
     (*(v10 + 2))(v10, 0, 0, 0, 0, 1);
@@ -90,8 +90,6 @@
 
     (*(v10 + 2))(v10, selfCopy, v14, v17, v15, v14 + a4 >= a3);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

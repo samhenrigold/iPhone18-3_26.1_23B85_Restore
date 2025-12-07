@@ -10,6 +10,7 @@
 - (void)_removeLocalDeviceWithReason:(id)reason deviceInfo:(id)info;
 - (void)_shouldElectLocalDeviceAsClusterLeaderWithReason:(id)reason deviceInfo:(id)info completion:(id)completion;
 - (void)airplayActiveDidChangeNotification:(id)notification;
+- (void)clusterController:(id)controller clusterTypeDidChange:(unsigned int)change;
 - (void)eventuallyMaybeCommitLocalDeviceForReason:(id)reason;
 - (void)eventuallyMaybeElectLocalDeviceAsClusterLeaderWithReason:(id)reason;
 - (void)eventuallyMaybeRemoveLocalDeviceForReason:(id)reason;
@@ -123,6 +124,13 @@
   v9 = v5;
   v7 = v5;
   dispatch_async(serialQueue, v8);
+}
+
+- (void)clusterController:(id)controller clusterTypeDidChange:(unsigned int)change
+{
+  [(MRDAVLocalDeviceCommitManager *)self eventuallyMaybeCommitLocalDeviceForReason:@"clusterTypeDidChange", *&change];
+
+  [(MRDAVLocalDeviceCommitManager *)self eventuallyMaybeElectLocalDeviceAsClusterLeaderWithReason:@"clusterTypeDidChange"];
 }
 
 - (void)eventuallyMaybeRemoveLocalDeviceForReason:(id)reason

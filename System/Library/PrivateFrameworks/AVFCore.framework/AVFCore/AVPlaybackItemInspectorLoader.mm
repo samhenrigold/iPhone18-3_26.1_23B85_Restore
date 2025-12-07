@@ -280,7 +280,7 @@ LABEL_6:
     self = [($3CC8671D27C23BF42ADDB32F2B5E48AE *)self assetInspector];
     if (self)
     {
-      self = [($3CC8671D27C23BF42ADDB32F2B5E48AE *)self duration];
+      self = objc_msgSend_duration(self);
     }
 
     else

@@ -21,7 +21,7 @@
 
 + (id)getHandlerByName:(id)name
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = [managedEventHandlers objectForKey:nameCopy];
   if (v4)
@@ -32,11 +32,11 @@
     {
       v7 = v6;
       v8 = [nameCopy description];
-      v14 = 134218242;
-      v15 = v5;
-      v16 = 2080;
+      v13 = 134218242;
+      v14 = v5;
+      v15 = 2080;
       uTF8String = [v8 UTF8String];
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "EvaluatorForSymptom: found handler at %p for name %s\n", &v14, 0x16u);
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "EvaluatorForSymptom: found handler at %p for name %s\n", &v13, 0x16u);
     }
   }
 
@@ -48,11 +48,11 @@
     {
       v10 = v9;
       v11 = [nameCopy description];
-      v14 = 134218242;
-      v15 = v5;
-      v16 = 2080;
+      v13 = 134218242;
+      v14 = v5;
+      v15 = 2080;
       uTF8String = [v11 UTF8String];
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "EvaluatorForSymptom: created new handler at %p for name %s\n", &v14, 0x16u);
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "EvaluatorForSymptom: created new handler at %p for name %s\n", &v13, 0x16u);
     }
 
     if (v5)
@@ -60,8 +60,6 @@
       [managedEventHandlers setObject:v5 forKey:nameCopy];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -115,15 +113,15 @@
 
 - (void)didReceiveSyndrome:(id)syndrome
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   syndromeCopy = syndrome;
   v5 = [ManagedEventTransport obtainEventId:self];
   v6 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 134217984;
-    v14 = v5;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Managed Event Handler, used event id %lld", &v13, 0xCu);
+    v12 = 134217984;
+    v13 = v5;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Managed Event Handler, used event id %lld", &v12, 0xCu);
   }
 
   v7 = [[ManagedEvent alloc] initWithId:v5 details:syndromeCopy];
@@ -134,8 +132,8 @@
     v8 = evaluationLogHandle;
     if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Trim managed event array", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Trim managed event array", &v12, 2u);
     }
 
     v9 = [(NSMutableArray *)self->_managedEvents objectAtIndex:0];
@@ -149,41 +147,38 @@
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_INFO))
   {
     notifyString = self->_notifyString;
-    v13 = 136315394;
-    v14 = notifyString;
-    v15 = 2048;
-    v16 = v5;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "Notify to %s with token %lld", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = notifyString;
+    v14 = 2048;
+    v15 = v5;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "Notify to %s with token %lld", &v12, 0x16u);
   }
 
   notify_set_state(self->_NotifyToken, v5);
   notify_post(self->_notifyString);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendNotificationWithId:(unint64_t)id
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_INFO))
   {
     notifyString = self->_notifyString;
-    v8 = 136315394;
-    v9 = notifyString;
-    v10 = 2048;
+    v7 = 136315394;
+    v8 = notifyString;
+    v9 = 2048;
     idCopy = id;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Forced notify to %s with token %lld", &v8, 0x16u);
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Forced notify to %s with token %lld", &v7, 0x16u);
   }
 
   notify_set_state(self->_NotifyToken, id);
   notify_post(self->_notifyString);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateReply:(id)reply ForId:(unint64_t)id Count:(unint64_t)count
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v9 = xpc_array_create(0, 0);
   v10 = v9;
@@ -191,28 +186,28 @@
   {
     xarray = v9;
     xdict = replyCopy;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     reverseObjectEnumerator = [(NSMutableArray *)self->_managedEvents reverseObjectEnumerator];
-    v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
       selfCopy = self;
       v14 = 0;
-      v15 = *v25;
+      v15 = *v24;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(*(&v23 + 1) + 8 * i);
           if ([v17 id_number] <= id)
           {
             v18 = xpc_dictionary_create(0, 0, 0);
@@ -233,7 +228,7 @@
           }
         }
 
-        v13 = [reverseObjectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v13)
         {
           continue;
@@ -271,33 +266,31 @@ LABEL_17:
   }
 
   xpc_dictionary_set_uint64(replyCopy, managed_event_key_error, v19);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)feedbackForEventId:(unint64_t)id
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   reverseObjectEnumerator = [(NSMutableArray *)self->_managedEvents reverseObjectEnumerator];
-  v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([v9 id_number] == id)
         {
           details = [v9 details];
@@ -307,7 +300,7 @@ LABEL_17:
         }
       }
 
-      v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -320,8 +313,6 @@ LABEL_17:
   evaluations = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return evaluations;
 }
 
@@ -329,7 +320,8 @@ LABEL_11:
 {
   if (OUTLINED_FUNCTION_1_0())
   {
-    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict_strdup called with NULL string", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict_strdup called with NULL string", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;

@@ -174,7 +174,7 @@
   colorCount = self->_colorCount;
   if (colorCount == 1)
   {
-    if (![(UIColor *)self->_singleColor isEqual:v9])
+    if ((objc_msgSend_isEqual_(self->_singleColor) & 1) == 0)
     {
       ++self->_colorCount;
       singleColor = self->_singleColor;
@@ -413,8 +413,8 @@ LABEL_9:
 {
   effectCopy = effect;
   traitsCopy = traits;
-  geometry = [traitsCopy geometry];
-  [geometry paddedFrame];
+  v7 = objc_msgSend_geometry(traitsCopy);
+  [v7 paddedFrame];
   v9 = v8;
   v11 = v10;
   v13 = v12;
@@ -434,15 +434,15 @@ LABEL_9:
       }
 
       context = [(UIKBRenderer *)self context];
-      roundRectCorners = [geometry roundRectCorners];
-      [geometry roundRectRadius];
+      roundRectCorners = [v7 roundRectCorners];
+      [v7 roundRectRadius];
       v108 = v18;
       [effectCopy insets];
       v20 = v19;
       v22 = v21;
       v24 = v23;
       v26 = v25;
-      [geometry displayFrame];
+      [v7 displayFrame];
       v27 = fabs(v20);
       v106 = v24;
       v28 = fabs(v22);
@@ -461,11 +461,11 @@ LABEL_9:
           if (variantGeometries)
           {
             v35 = variantGeometries;
-            if ([geometry detachedVariants])
+            if ([v7 detachedVariants])
             {
 
 LABEL_45:
-              if ([geometry flickDirection] != -3)
+              if ([v7 flickDirection] != -3)
               {
                 context2 = [(UIKBRenderer *)self context];
                 v114.origin.x = v9 + -0.25;
@@ -482,7 +482,7 @@ LABEL_45:
               goto LABEL_51;
             }
 
-            flickDirection = [geometry flickDirection];
+            flickDirection = [v7 flickDirection];
 
             if (flickDirection != -3)
             {
@@ -490,7 +490,7 @@ LABEL_45:
             }
           }
 
-          if ([geometry flickDirection] == -3)
+          if ([v7 flickDirection] == -3)
           {
             if (v108 == 0.0 && !roundRectCorners)
             {
@@ -508,14 +508,14 @@ LABEL_51:
               goto LABEL_52;
             }
 
-            v104 = [geometry copy];
+            v104 = [v7 copy];
             [v104 applyInsets:{v20, v22, v24, v26}];
             [(UIKBRenderer *)self addPathForRenderGeometry:v104];
           }
 
           else
           {
-            v104 = [geometry copy];
+            v104 = [v7 copy];
             [v104 applyInsets:{v20, v22, v24, v26}];
             [(UIKBRenderer *)self addPathForFlickGeometry:v104];
           }
@@ -546,7 +546,7 @@ LABEL_51:
           if (gradient)
           {
             gradient2 = [effectCopy gradient];
-            [geometry displayFrame];
+            [v7 displayFrame];
             selfCopy2 = self;
             v45 = gradient2;
 LABEL_38:
@@ -601,7 +601,7 @@ LABEL_52:
       else
       {
         v54 = 0.0;
-        if ([geometry popupBias])
+        if ([v7 popupBias])
         {
           v55 = 0.0;
         }
@@ -611,7 +611,7 @@ LABEL_52:
           v55 = v50;
         }
 
-        v56 = [geometry copy];
+        v56 = [v7 copy];
         [v56 paddedFrame];
         v59 = v51 + v53;
         [v56 setPaddedFrame:{v51 + v57, v55 + v58, v60 - v59, v61 - (v52 + v55)}];
@@ -660,7 +660,7 @@ LABEL_52:
           v71 = 0.0;
         }
 
-        if (![geometry popupBias])
+        if (![v7 popupBias])
         {
           v54 = v68;
         }
@@ -699,10 +699,10 @@ LABEL_54:
 {
   effectCopy = effect;
   traitsCopy = traits;
-  geometry = [traitsCopy geometry];
+  v7 = objc_msgSend_geometry(traitsCopy);
   if ([effectCopy isValid])
   {
-    [geometry displayFrame];
+    [v7 displayFrame];
     if (!CGRectIsEmpty(v57))
     {
       if (self->_colorDetectMode)
@@ -733,9 +733,9 @@ LABEL_54:
         goto LABEL_34;
       }
 
-      v22 = [geometry copy];
+      v22 = [v7 copy];
       variantGeometries = [v17 variantGeometries];
-      if (!variantGeometries || [geometry popupBias])
+      if (!variantGeometries || [v7 popupBias])
       {
         [effectCopy insets];
         [v22 applyShadowInsets:?];
@@ -867,9 +867,9 @@ LABEL_35:
 {
   traitsCopy = traits;
   v25 = _UIImageWithName(@"spacekey_grabber_handles.png");
-  geometry = [traitsCopy geometry];
+  v6 = objc_msgSend_geometry(traitsCopy);
 
-  [geometry frame];
+  [v6 frame];
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -1016,8 +1016,8 @@ LABEL_9:
     goto LABEL_92;
   }
 
-  geometry = [traitsCopy geometry];
-  [geometry displayFrame];
+  v13 = objc_msgSend_geometry(traitsCopy);
+  [v13 displayFrame];
   v15 = v14;
   v17 = v16;
   v19 = v18;
@@ -1451,8 +1451,8 @@ LABEL_9:
     CGContextRestoreGState(v11);
   }
 
-  geometry = [traitsCopy geometry];
-  if (!geometry || (v13 = geometry, [traitsCopy geometry], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "flickDirection"), v14, v13, v15 == -3))
+  v12 = objc_msgSend_geometry(traitsCopy);
+  if (!v12 || (v13 = v12, objc_msgSend_geometry(traitsCopy), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 flickDirection], v14, v13, v15 == -3))
   {
     variantDisplayContents = [contentsCopy variantDisplayContents];
 
@@ -1481,9 +1481,9 @@ LABEL_19:
   }
 
   variantTraits = [traitsCopy variantTraits];
-  geometry2 = [variantTraits geometry];
+  v21 = objc_msgSend_geometry(variantTraits);
 
-  if (geometry2)
+  if (v21)
   {
     v33 = 0u;
     v34 = 0u;
@@ -1863,8 +1863,8 @@ LABEL_32:
 
               if (v41)
               {
-                geometry = [v10 geometry];
-                [geometry symbolFrame];
+                v45 = objc_msgSend_geometry(v10);
+                [v45 symbolFrame];
                 -[UIKBRenderer _drawKeyImage:inRect:withStyle:force1xImages:flipHorizontally:isRGBImage:](self, "_drawKeyImage:inRect:withStyle:force1xImages:flipHorizontally:isRGBImage:", v41, lastObject, [contentsCopy force1xImages], objc_msgSend(contentsCopy, "flipImageHorizontally"), 0, v46, v47, v48, v49);
 
                 v62[3] = 3;
@@ -1983,8 +1983,8 @@ LABEL_17:
 LABEL_28:
     if (symbolStyle)
     {
-      geometry2 = [v10 geometry];
-      [geometry2 symbolFrame];
+      v34 = objc_msgSend_geometry(v10);
+      [v34 symbolFrame];
       -[UIKBRenderer _drawKeyImage:inRect:withStyle:force1xImages:flipHorizontally:isRGBImage:](self, "_drawKeyImage:inRect:withStyle:force1xImages:flipHorizontally:isRGBImage:", displayImage2, symbolStyle, [contentsCopy force1xImages], objc_msgSend(contentsCopy, "flipImageHorizontally"), v30, v35, v36, v37, v38);
 
       v62[3] = 3;
@@ -2041,7 +2041,7 @@ void __57__UIKBRenderer_renderKeyImageContents_withTraits_status___block_invoke_
     if (v8)
     {
       v9 = *(a1 + 32);
-      v10 = [*(a1 + 40) geometry];
+      v10 = objc_msgSend_geometry(*(a1 + 40));
       [v10 symbolFrame];
       [v9 _drawKeyImage:v8 inRect:v6 withStyle:objc_msgSend(*(a1 + 56) force1xImages:"force1xImages") flipHorizontally:objc_msgSend(*(a1 + 56) isRGBImage:{"flipImageHorizontally"), 0, v11, v12, v13, v14}];
 
@@ -2320,9 +2320,9 @@ LABEL_15:
         if (self->_contentColorFormat)
         {
           fontName2 = [styleCopy fontName];
-          v16 = [fontName2 isEqualToString:@"AppleColorEmoji"];
+          isEqualToString = objc_msgSend_isEqualToString_(fontName2);
 
-          if (v16)
+          if (isEqualToString)
           {
             self->_contentColorFormat = 0;
             self->_colorCount = 2;
@@ -2370,7 +2370,7 @@ LABEL_23:
       }
 
       v25 = UIKeyboardGetCurrentInputMode();
-      if (UIKeyboardRequiresFontFallbacksForInputMode())
+      if (UIKeyboardRequiresFontFallbacksForInputMode(v25))
       {
 
         goto LABEL_23;
@@ -2539,7 +2539,7 @@ LABEL_120:
                   v126 = v64;
                 }
 
-                v43 = UIKBCreateFitCTLineWithSymbolStyle(v64, styleCopy, v141, v60, v61, v62, v63);
+                v43 = UIKBCreateFitCTLineWithSymbolStyle(v64, styleCopy, v60, v61, v62, v63, v141);
                 if (v28)
                 {
                 }
@@ -2773,7 +2773,7 @@ LABEL_100:
             self = v42;
           }
 
-          v43 = UIKBCreateFitCTLineWithSymbolStyle(v42, styleCopy, v141, v39, v40, width, v41);
+          v43 = UIKBCreateFitCTLineWithSymbolStyle(v42, styleCopy, v39, v40, width, v41, v141);
           if (v28)
           {
           }
@@ -2872,8 +2872,8 @@ LABEL_10:
             if (v47)
             {
               displayString4 = [contentsCopy displayString];
-              geometry = [traitsCopy geometry];
-              [geometry symbolFrame];
+              v49 = objc_msgSend_geometry(traitsCopy);
+              [v49 symbolFrame];
               v51 = v50;
               v53 = v52;
               v55 = v54;
@@ -2950,8 +2950,8 @@ LABEL_10:
             [lastObject setTextOffset:{*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)}];
           }
 
-          geometry2 = [traitsCopy geometry];
-          [geometry2 symbolFrame];
+          v70 = objc_msgSend_geometry(traitsCopy);
+          [v70 symbolFrame];
           [(UIKBRenderer *)self _drawKeyString:v66 inRect:lastObject withStyle:?];
 
           v82[3] = 3;
@@ -2968,8 +2968,8 @@ LABEL_10:
 
   if ((status & 1) == 0)
   {
-    geometry3 = [traitsCopy geometry];
-    [geometry3 symbolFrame];
+    v21 = objc_msgSend_geometry(traitsCopy);
+    [v21 symbolFrame];
     v23 = v22;
     v25 = v24;
     v27 = v26;
@@ -3000,8 +3000,8 @@ LABEL_10:
     {
       fallbackContents2 = [contentsCopy fallbackContents];
       displayString5 = [fallbackContents2 displayString];
-      geometry4 = [traitsCopy geometry];
-      [geometry4 symbolFrame];
+      v36 = objc_msgSend_geometry(traitsCopy);
+      [v36 symbolFrame];
       v38 = v37;
       v40 = v39;
       v42 = v41;
@@ -3042,7 +3042,7 @@ void __58__UIKBRenderer_renderKeyStringContents_withTraits_status___block_invoke
     }
 
     v8 = *(a1 + 32);
-    v9 = [*(a1 + 40) geometry];
+    v9 = objc_msgSend_geometry(*(a1 + 40));
     [v9 symbolFrame];
     [v8 _drawKeyString:v10 inRect:v6 withStyle:?];
 
@@ -3195,12 +3195,12 @@ CGMutablePathRef __33__UIKBRenderer__deleteGlyphPaths__block_invoke()
 
     symbolStyle2 = [traitsCopy symbolStyle];
     textColor2 = [symbolStyle2 textColor];
-    v15 = [textColor2 isEqualToString:@"UIKBColorWhite"];
+    isEqualToString = objc_msgSend_isEqualToString_(textColor2);
 
     switch(displayPathType)
     {
       case 1:
-        if (v15)
+        if (isEqualToString)
         {
           _thickShiftGlyphPath = [(UIKBRenderer *)self _thickShiftGlyphPath];
           v17 = 0.0;
@@ -3262,8 +3262,8 @@ CGMutablePathRef __33__UIKBRenderer__deleteGlyphPaths__block_invoke()
         break;
     }
 
-    geometry = [traitsCopy geometry];
-    [geometry symbolFrame];
+    v20 = objc_msgSend_geometry(traitsCopy);
+    [v20 symbolFrame];
     v22 = v21;
 
     if (width <= v22)
@@ -3286,7 +3286,7 @@ CGMutablePathRef __33__UIKBRenderer__deleteGlyphPaths__block_invoke()
 
     else
     {
-      symbolStyle4 = [traitsCopy geometry];
+      symbolStyle4 = objc_msgSend_geometry(traitsCopy);
       [symbolStyle4 symbolFrame];
       v25 = v24 / width;
     }
@@ -3299,8 +3299,8 @@ LABEL_20:
     v33 = v32;
     v64 = v34;
 
-    geometry2 = [traitsCopy geometry];
-    [geometry2 symbolFrame];
+    v35 = objc_msgSend_geometry(traitsCopy);
+    [v35 symbolFrame];
     v37 = v36;
     v39 = v38;
     v41 = v40;
@@ -3356,7 +3356,7 @@ LABEL_20:
       if (displayPathType == 1)
       {
         v68 = v69;
-        [(UIKBRenderer *)self drawShiftPath:v15 weight:&v68 transform:CopyWithAlpha color:?];
+        [(UIKBRenderer *)self drawShiftPath:isEqualToString weight:&v68 transform:CopyWithAlpha color:?];
         goto LABEL_26;
       }
 
@@ -3413,23 +3413,23 @@ LABEL_30:
   v7 = traitsCopy;
   if (!self->_colorDetectMode)
   {
-    geometry = [traitsCopy geometry];
-    flickDirection = [geometry flickDirection];
+    v8 = objc_msgSend_geometry(traitsCopy);
+    flickDirection = [v8 flickDirection];
 
     if (flickDirection == -3)
     {
-      geometry2 = [v7 geometry];
-      splitLeftRect = [geometry2 splitLeftRect];
+      v10 = objc_msgSend_geometry(v7);
+      splitLeftRect = [v10 splitLeftRect];
       if (splitLeftRect)
       {
         v12 = splitLeftRect;
-        geometry3 = [v7 geometry];
-        splitRightRect = [geometry3 splitRightRect];
+        v13 = objc_msgSend_geometry(v7);
+        splitRightRect = [v13 splitRightRect];
 
         if (splitRightRect)
         {
-          geometry4 = [v7 geometry];
-          [(UIKBRenderer *)self addPathForSplitGeometry:geometry4];
+          variantGeometries4 = objc_msgSend_geometry(v7);
+          [(UIKBRenderer *)self addPathForSplitGeometry:variantGeometries4];
 LABEL_32:
 
           goto LABEL_33;
@@ -3440,18 +3440,18 @@ LABEL_32:
       {
       }
 
-      geometry5 = [v7 geometry];
-      if ([geometry5 detachedVariants])
+      v17 = objc_msgSend_geometry(v7);
+      if ([v17 detachedVariants])
       {
         variantGeometries = [v7 variantGeometries];
 
         if (variantGeometries)
         {
-          geometry6 = [v7 geometry];
-          geometry4 = [geometry6 copy];
+          v19 = objc_msgSend_geometry(v7);
+          variantGeometries4 = [v19 copy];
 
-          [geometry4 setPopupBias:0];
-          [(UIKBRenderer *)self addPathForRenderGeometry:geometry4];
+          [variantGeometries4 setPopupBias:0];
+          [(UIKBRenderer *)self addPathForRenderGeometry:variantGeometries4];
           x = *MEMORY[0x1E695F050];
           y = *(MEMORY[0x1E695F050] + 8);
           width = *(MEMORY[0x1E695F050] + 16);
@@ -3507,35 +3507,35 @@ LABEL_32:
             while (v26);
           }
 
-          geometry7 = [v7 geometry];
-          if ([geometry7 roundRectCorners])
+          v39 = objc_msgSend_geometry(v7);
+          if ([v39 roundRectCorners])
           {
           }
 
           else
           {
-            geometry8 = [v7 geometry];
-            [geometry8 roundRectRadius];
+            v50 = objc_msgSend_geometry(v7);
+            [v50 roundRectRadius];
             v52 = v51;
 
             if (v52 != 0.0)
             {
 LABEL_30:
-              [geometry4 setFrame:{x, y, width, height}];
-              [geometry4 setPaddedFrame:{x, y, width, height}];
-              [geometry4 setDisplayFrame:{x, y, width, height}];
-              [geometry4 setRoundRectCorners:-1];
-              geometry9 = [v7 geometry];
-              [geometry9 roundRectRadius];
-              [geometry4 setRoundRectRadius:?];
+              [variantGeometries4 setFrame:{x, y, width, height}];
+              [variantGeometries4 setPaddedFrame:{x, y, width, height}];
+              [variantGeometries4 setDisplayFrame:{x, y, width, height}];
+              [variantGeometries4 setRoundRectCorners:-1];
+              v57 = objc_msgSend_geometry(v7);
+              [v57 roundRectRadius];
+              [variantGeometries4 setRoundRectRadius:?];
 
               goto LABEL_31;
             }
           }
 
-          [geometry4 roundRectRadius];
+          [variantGeometries4 roundRectRadius];
           v54 = -v53;
-          [geometry4 roundRectRadius];
+          [variantGeometries4 roundRectRadius];
           v56 = -v55;
           v66.origin.x = x;
           v66.origin.y = y;
@@ -3554,9 +3554,9 @@ LABEL_30:
       {
       }
 
-      geometry4 = [v7 geometry];
+      variantGeometries4 = objc_msgSend_geometry(v7);
 LABEL_31:
-      [(UIKBRenderer *)self addPathForRenderGeometry:geometry4];
+      [(UIKBRenderer *)self addPathForRenderGeometry:variantGeometries4];
       goto LABEL_32;
     }
 
@@ -3564,28 +3564,28 @@ LABEL_31:
 
     if (variantGeometries3)
     {
-      geometry4 = [v7 variantGeometries];
-      [(UIKBRenderer *)self addPathForFlickPopupGeometries:geometry4];
+      variantGeometries4 = [v7 variantGeometries];
+      [(UIKBRenderer *)self addPathForFlickPopupGeometries:variantGeometries4];
       goto LABEL_32;
     }
 
     variantTraits = [v7 variantTraits];
-    geometry10 = [variantTraits geometry];
+    v41 = objc_msgSend_geometry(variantTraits);
 
-    geometry11 = [v7 geometry];
-    if (geometry10)
+    v42 = objc_msgSend_geometry(v7);
+    if (v41)
     {
-      [(UIKBRenderer *)self addPathForRenderGeometry:geometry11];
+      [(UIKBRenderer *)self addPathForRenderGeometry:v42];
     }
 
     else
     {
-      [(UIKBRenderer *)self addPathForFlickGeometry:geometry11];
+      [(UIKBRenderer *)self addPathForFlickGeometry:v42];
 
       if (rect)
       {
-        geometry12 = [v7 geometry];
-        [geometry12 popupSource];
+        v43 = objc_msgSend_geometry(v7);
+        [v43 popupSource];
         v45 = v44;
         v47 = v46;
         v48 = *MEMORY[0x1E695F060];

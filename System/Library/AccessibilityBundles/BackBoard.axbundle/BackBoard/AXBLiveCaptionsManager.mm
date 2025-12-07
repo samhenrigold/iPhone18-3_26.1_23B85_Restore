@@ -1,6 +1,7 @@
 @interface AXBLiveCaptionsManager
 + (void)initializeMonitor;
 - (AXBLiveCaptionsManager)init;
+- (void)_setLiveCaptionsEnabled:(BOOL)enabled;
 - (void)dealloc;
 - (void)profileConnectionDidReceiveEffectiveSettingsChangedNotification:(id)notification userInfo:(id)info;
 - (void)updateSettings;
@@ -91,9 +92,60 @@ void __43__AXBLiveCaptionsManager_initializeMonitor__block_invoke_3()
   [(AXBLiveCaptionsManager *)&v4 dealloc];
 }
 
+- (void)_setLiveCaptionsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v16 = *MEMORY[0x29EDCA608];
+  v4 = _os_feature_enabled_impl();
+  v5 = AXLogLiveTranscription();
+  v6 = v5;
+  if (v4)
+  {
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = [MEMORY[0x29EDBA070] numberWithBool:enabledCopy];
+      *buf = 138412290;
+      v15 = v7;
+      _os_log_impl(&dword_29BBBD000, v6, OS_LOG_TYPE_DEFAULT, "LiveCaptions monitor asked to enable LiveCaptions: %@", buf, 0xCu);
+    }
+
+    v8 = AXHasCapability();
+    LiveCaptionsServicesClass = getLiveCaptionsServicesClass();
+    if (enabledCopy && v8)
+    {
+      v13 = 0;
+      v10 = &v13;
+      [LiveCaptionsServicesClass startLiveCaptionsAndReturnError:&v13];
+    }
+
+    else
+    {
+      v12 = 0;
+      v10 = &v12;
+      [LiveCaptionsServicesClass stopLiveCaptionsAndReturnError:&v12];
+    }
+
+    v6 = *v10;
+    if (v6)
+    {
+      v11 = AXLogLiveTranscription();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [(AXBLiveCaptionsManager *)v6 _setLiveCaptionsEnabled:v11];
+      }
+    }
+  }
+
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_29BBBD000, v6, OS_LOG_TYPE_INFO, "Asked to enable/disable LiveCaptions integrated with LiveSpeech but feature flag is off, so no", buf, 2u);
+  }
+}
+
 - (void)profileConnectionDidReceiveEffectiveSettingsChangedNotification:(id)notification userInfo:(id)info
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   mEMORY[0x29EDC58E0] = [MEMORY[0x29EDC58E0] sharedConnection];
   v6 = [mEMORY[0x29EDC58E0] effectiveBoolValueForSetting:*MEMORY[0x29EDC5870]];
 
@@ -101,9 +153,9 @@ void __43__AXBLiveCaptionsManager_initializeMonitor__block_invoke_3()
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [MEMORY[0x29EDBA070] numberWithBool:v6 != 2];
-    v11 = 138412290;
-    v12 = v8;
-    _os_log_impl(&dword_29BBBD000, v7, OS_LOG_TYPE_INFO, "Managed configuration settings changed, Live Captions allowed: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&dword_29BBBD000, v7, OS_LOG_TYPE_INFO, "Managed configuration settings changed, Live Captions allowed: %@", &v10, 0xCu);
   }
 
   if (v6 == 2)
@@ -111,23 +163,21 @@ void __43__AXBLiveCaptionsManager_initializeMonitor__block_invoke_3()
     v9 = AXLogLiveTranscription();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_29BBBD000, v9, OS_LOG_TYPE_DEFAULT, "Managed Configuration is requesting Live Captions to be turned off", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_29BBBD000, v9, OS_LOG_TYPE_DEFAULT, "Managed Configuration is requesting Live Captions to be turned off", &v10, 2u);
     }
   }
 
   [(AXBLiveCaptionsManager *)self setIsManagedConfigurationOverridingLiveCaptions:v6 == 2];
   [(AXBLiveCaptionsManager *)self updateSettings];
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_setLiveCaptionsEnabled:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error toggling LiveCaptions: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error toggling LiveCaptions: %@", &v2, 0xCu);
 }
 
 @end

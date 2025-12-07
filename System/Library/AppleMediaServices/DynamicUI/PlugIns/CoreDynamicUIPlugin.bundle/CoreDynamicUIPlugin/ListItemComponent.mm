@@ -8,7 +8,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_4B66C();
+  sub_4B66C(selfCopy);
 }
 
 - (void)layoutSubviews

@@ -127,8 +127,8 @@ void __58__HAP2CoAPIOThread__processSessionBlock_consumer_context___block_invoke
 
 void __40__HAP2CoAPIOThread__unregisterConsumer___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20 = a2;
-  v5 = [v20 consumer];
+  v19 = a2;
+  v5 = [v19 consumer];
   v6 = *(a1 + 32);
 
   if (v5 == v6)
@@ -138,9 +138,9 @@ void __40__HAP2CoAPIOThread__unregisterConsumer___block_invoke(uint64_t a1, void
     v9 = *(v8 + 40);
     *(v8 + 40) = v7;
 
-    if ([v20 session])
+    if ([v19 session])
     {
-      v10 = [v20 session];
+      v10 = [v19 session];
       if (!v10)
       {
         __assert_rtn("coap_session_set_app_data", "coap_session.c", 86, "session");
@@ -148,7 +148,7 @@ void __40__HAP2CoAPIOThread__unregisterConsumer___block_invoke(uint64_t a1, void
 
       *(v10 + 344) = 0;
       v11 = [HAP2CoAPIOThreadSessionQueueEntry alloc];
-      v12 = [v20 session];
+      v12 = [v19 session];
       v13 = *(a1 + 40);
       if (v13)
       {
@@ -175,11 +175,10 @@ void __40__HAP2CoAPIOThread__unregisterConsumer___block_invoke(uint64_t a1, void
       }
 
       [v18 addObject:v16];
-      [v20 setSession:0];
+      [v19 setSession:0];
       [*(a1 + 32) didCloseSession];
     }
 
-    v19 = *(a1 + 32);
     if (objc_opt_respondsToSelector())
     {
       [*(a1 + 32) didUnregister];
@@ -381,7 +380,7 @@ void __40__HAP2CoAPIOThread__cleanupWithContext___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __40__HAP2CoAPIOThread__cleanupWithContext___block_invoke_4(uint64_t a1)
+void *__40__HAP2CoAPIOThread__cleanupWithContext___block_invoke_4(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (v2)
@@ -490,14 +489,14 @@ uint64_t __40__HAP2CoAPIOThread__cleanupWithContext___block_invoke_2(uint64_t a1
   v3 = MEMORY[0x28223BE20](self, a2, context);
   v5 = v4;
   v6 = v3;
-  v411 = *MEMORY[0x277D85DE8];
+  v403 = *MEMORY[0x277D85DE8];
   [v3 _assertIsCurrentThread];
-  v362 = 0;
-  v363 = &v362;
-  v364 = 0x3032000000;
-  v365 = __Block_byref_object_copy__20180;
-  v366 = __Block_byref_object_dispose__20181;
-  v367 = 0;
+  v354 = 0;
+  v355 = &v354;
+  v356 = 0x3032000000;
+  v357 = __Block_byref_object_copy__20180;
+  v358 = __Block_byref_object_dispose__20181;
+  v359 = 0;
   if (v6)
   {
     v7 = *(v6 + 13);
@@ -509,86 +508,86 @@ uint64_t __40__HAP2CoAPIOThread__cleanupWithContext___block_invoke_2(uint64_t a1
   }
 
   v8 = v7;
-  v361[0] = MEMORY[0x277D85DD0];
-  v361[1] = 3221225472;
-  v361[2] = __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke;
-  v361[3] = &unk_2786D6E60;
-  v361[4] = v6;
-  v361[5] = &v362;
-  [v8 performBlock:v361];
+  v353[0] = MEMORY[0x277D85DD0];
+  v353[1] = 3221225472;
+  v353[2] = __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke;
+  v353[3] = &unk_2786D6E60;
+  v353[4] = v6;
+  v353[5] = &v354;
+  [v8 performBlock:v353];
 
-  v359[0] = 0;
-  v359[1] = v359;
-  v359[2] = 0x3032000000;
-  v359[3] = __Block_byref_object_copy__20180;
-  v359[4] = __Block_byref_object_dispose__20181;
-  v360 = 0;
-  v9 = v363[5];
-  v358[0] = MEMORY[0x277D85DD0];
-  v358[1] = 3221225472;
-  v358[2] = __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_62;
-  v358[3] = &unk_2786D5E18;
-  v358[4] = v6;
-  v358[5] = v359;
-  v358[6] = v5;
-  [v9 hmf_enumerateWithAutoreleasePoolUsingBlock:v358];
+  v351[0] = 0;
+  v351[1] = v351;
+  v351[2] = 0x3032000000;
+  v351[3] = __Block_byref_object_copy__20180;
+  v351[4] = __Block_byref_object_dispose__20181;
+  v352 = 0;
+  v9 = v355[5];
+  v350[0] = MEMORY[0x277D85DD0];
+  v350[1] = 3221225472;
+  v350[2] = __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_62;
+  v350[3] = &unk_2786D5E18;
+  v350[4] = v6;
+  v350[5] = v351;
+  v350[6] = v5;
+  [v9 hmf_enumerateWithAutoreleasePoolUsingBlock:v350];
   if (v5)
   {
     v10 = MEMORY[0x277CCACA8];
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
-    v347 = [v10 stringWithFormat:@"%@ CoAP Run", v12];
+    v339 = [v10 stringWithFormat:@"%@ CoAP Run", v12];
 
-    v357 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:v347];
+    v349 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:v339];
     if (v6)
     {
-      v346 = *(v6 + 15);
+      v338 = *(v6 + 15);
     }
 
     else
     {
-      v346 = 0;
+      v338 = 0;
     }
 
-    memset(&v372, 0, sizeof(v372));
-    memset(v374, 0, 512);
-    v368 = 0;
-    v369 = 0;
+    memset(&v364, 0, sizeof(v364));
+    memset(v366, 0, 512);
+    v360 = 0;
+    v361 = 0;
     memset(__errnum, 0, sizeof(__errnum));
     gettimeofday(__errnum, 0);
-    v351 = __errnum[2];
-    v13 = *__errnum;
-    v353 = coap_clock_offset;
-    v356 = v5;
-    v14 = *(v5 + 16);
+    v343 = __errnum[2];
+    v14 = *__errnum;
+    v345 = coap_clock_offset;
+    v348 = v5;
+    v15 = *(v5 + 16);
     p_inst_meths = &OBJC_PROTOCOL___HAP2AccessoryServerPairingDriverDelegate.inst_meths;
-    if (v14)
+    if (v15)
     {
       while (1)
       {
-        v16 = v14;
-        v14 = *(v14 + 10);
-        v17 = *v16;
-        if ((*v16 & 4) != 0 && (*v16 & 3) != 0)
+        v17 = v15;
+        v15 = *(v15 + 10);
+        v18 = *v17;
+        if ((*v17 & 4) != 0 && (*v17 & 3) != 0)
         {
-          v17 &= ~2u;
-          *v16 = v17;
-          v18 = *(v16 + 1);
-          if (!v18)
+          v18 &= ~2u;
+          *v17 = v18;
+          v19 = *(v17 + 1);
+          if (!v19)
           {
             __assert_rtn("coap_notify_observers", "resource.c", 751, "h");
           }
 
-          v19 = *(v16 + 16);
-          if (v19)
+          v20 = *(v17 + 16);
+          if (v20)
           {
             break;
           }
         }
 
 LABEL_39:
-        *v16 = v17 & 0xFE;
-        if (!v14)
+        *v17 = v18 & 0xFE;
+        if (!v15)
         {
           goto LABEL_40;
         }
@@ -597,36 +596,35 @@ LABEL_39:
       memset(__errnum, 0, sizeof(__errnum));
       while (1)
       {
-        if ((*v16 & 1) != 0 || (v19[2] & 0x40) != 0)
+        if ((*v17 & 1) != 0 || (v20[2] & 0x40) != 0)
         {
-          v20 = v19[1];
-          if (!v20[226])
+          v21 = v20[1];
+          if (!v21[226])
           {
-            v21 = *(v19 + 16);
+            v22 = *(v20 + 16);
 LABEL_19:
-            *(v19 + 16) = v21 & 0xBF;
-            v22 = coap_session_max_pdu_size(v20);
-            v23 = coap_pdu_init(0, 0, 0, v22);
-            if (v23)
+            *(v20 + 16) = v22 & 0xBF;
+            v23 = coap_session_max_pdu_size(v21);
+            v24 = coap_pdu_init(0, 0, 0, v23);
+            if (v24)
             {
-              v24 = v23;
-              if (coap_add_token(v23, v19[4], v19 + 5))
+              v25 = v24;
+              if (coap_add_token(v24, v20[4], v20 + 5))
               {
-                *__errnum = v19[4];
-                *&__errnum[2] = v19 + 5;
-                v25 = v19[1];
-                v26 = *(v25 + 224) + 1;
-                *(v25 + 224) = v26;
-                *(v24 + 6) = v26;
-                *(v19 + 9) = v26;
-                v27 = (v16[144] & 2) == 0 && (v19[2] & 0xFu) < 5;
-                *v24 = v27;
-                v28 = v19[6];
-                v18(v5, v16);
-                v29 = *(v19 + 16);
+                *__errnum = v20[4];
+                *&__errnum[2] = v20 + 5;
+                v26 = v20[1];
+                v27 = *(v26 + 224) + 1;
+                *(v26 + 224) = v27;
+                *(v25 + 6) = v27;
+                *(v20 + 9) = v27;
+                v28 = (v17[144] & 2) == 0 && (v20[2] & 0xFu) < 5;
+                *v25 = v28;
+                v19(v5, v17);
+                v29 = *(v20 + 16);
                 v30 = v29 + 1;
                 v31 = v29 & 0xF0;
-                if (*v24)
+                if (*v25)
                 {
                   v32 = v31 & 0xF0 | v30 & 0xF;
                 }
@@ -636,38 +634,38 @@ LABEL_19:
                   v32 = v31;
                 }
 
-                *(v19 + 16) = v32;
+                *(v20 + 16) = v32;
                 p_inst_meths = &OBJC_PROTOCOL___HAP2AccessoryServerPairingDriverDelegate.inst_meths;
-                if (coap_send(v19[1], v24) == -1)
+                if (coap_send(v20[1], v25) == -1)
                 {
                   if (maxlog >= 7)
                   {
                     coap_log_impl(7, "coap_check_notify: sending failed, resource stays partially dirty\n");
                   }
 
-                  *(v19 + 16) |= 0x40u;
-                  *v16 |= 2u;
+                  *(v20 + 16) |= 0x40u;
+                  *v17 |= 2u;
                 }
               }
 
               else
               {
-                *(v19 + 16) |= 0x40u;
-                *v16 |= 2u;
+                *(v20 + 16) |= 0x40u;
+                *v17 |= 2u;
                 p_inst_meths = &OBJC_PROTOCOL___HAP2AccessoryServerPairingDriverDelegate.inst_meths;
                 if (maxlog >= 7)
                 {
                   coap_log_impl(7, "coap_check_notify: cannot add token, resource stays partially dirty\n");
                 }
 
-                coap_delete_pdu(v24);
+                coap_delete_pdu(v25);
               }
             }
 
             else
             {
-              *(v19 + 16) |= 0x40u;
-              *v16 |= 2u;
+              *(v20 + 16) |= 0x40u;
+              *v17 |= 2u;
               if (maxlog >= 7)
               {
                 coap_log_impl(7, "coap_check_notify: pdu init failed, resource stays partially dirty\n");
@@ -677,10 +675,10 @@ LABEL_19:
             goto LABEL_37;
           }
 
-          if ((v16[144] & 2) == 0)
+          if ((v17[144] & 2) == 0)
           {
-            v21 = *(v19 + 16);
-            if ((v21 & 0xFu) <= 4)
+            v22 = *(v20 + 16);
+            if ((v22 & 0xFu) <= 4)
             {
               goto LABEL_19;
             }
@@ -688,17 +686,18 @@ LABEL_19:
         }
 
 LABEL_37:
-        v19 = *v19;
-        if (!v19)
+        v20 = *v20;
+        if (!v20)
         {
-          v17 = *v16;
+          v18 = *v17;
           goto LABEL_39;
         }
       }
     }
 
 LABEL_40:
-    v33 = 1000 * (v13 - v353) + ((v351 * 1.024 + 512.0) >> 10);
+    v13.n128_f64[0] = v343 * 1.024 + 512.0;
+    v33 = 1000 * (v14 - v345) + (v13.n128_f64[0] >> 10);
     v34 = *(v5 + 192);
     if (v34)
     {
@@ -724,7 +723,7 @@ LABEL_40:
     {
       if ((*(v36 + 14) & 0x70) != 0 && v37 <= 0x1FF)
       {
-        *(v374 + v37++) = v36 + 3;
+        *(v366 + v37++) = v36 + 3;
       }
 
       v39 = v36[10];
@@ -750,7 +749,7 @@ LABEL_40:
 LABEL_53:
           if ((*(v40 + 180) & 0x30) != 0 && v37 <= 0x1FF)
           {
-            *(v374 + v37++) = v40 + 176;
+            *(v366 + v37++) = v40 + 176;
           }
         }
 
@@ -765,8 +764,8 @@ LABEL_53:
 
     while (v36);
 LABEL_67:
-    v350 = v33;
-    v44 = *(v356 + 64);
+    v342 = v33;
+    v44 = *(v348 + 64);
     while (v44)
     {
       while (1)
@@ -780,7 +779,7 @@ LABEL_67:
 
         if (v45[2] == 4)
         {
-          v46 = *(v356 + 204);
+          v46 = *(v348 + 204);
           if (v46)
           {
             break;
@@ -790,7 +789,7 @@ LABEL_67:
 LABEL_75:
         if (*v45 - 3 <= 1 && v45[2] == 3)
         {
-          v49 = *(v356 + 208);
+          v49 = *(v348 + 208);
           if (v49)
           {
             v50 = *(v45 + 38);
@@ -822,7 +821,7 @@ LABEL_75:
 LABEL_95:
         if ((*(v45 + 90) & 0xB0) != 0 && v37 <= 0x1FF)
         {
-          *(v374 + v37++) = v45 + 176;
+          *(v366 + v37++) = v45 + 176;
         }
 
         if (!v44)
@@ -875,9 +874,9 @@ LABEL_95:
         {
           *(v45 + 34) = v33;
           *(v45 + 36) = v33;
-          if (v38 - 1 >= 1000 * *(v356 + 204))
+          if (v38 - 1 >= 1000 * *(v348 + 204))
           {
-            v38 = 1000 * *(v356 + 204);
+            v38 = 1000 * *(v348 + 204);
           }
 
           if (v45[1] != 1)
@@ -896,18 +895,18 @@ LABEL_95:
 
 LABEL_101:
       ++*(v45 + 1);
-      coap_session_disconnected(v45, 1);
+      coap_session_disconnected(v45, 1, v13);
       coap_session_release(v45);
     }
 
 LABEL_102:
-    v61 = v356;
-    v62 = (v356 + 48);
-    v63 = *(v356 + 48);
+    v61 = v348;
+    v62 = (v348 + 48);
+    v63 = *(v348 + 48);
     if (v63)
     {
-      v352 = (v356 + 48);
-      v354 = v38;
+      v344 = (v348 + 48);
+      v346 = v38;
       do
       {
         v64 = v61[5];
@@ -915,10 +914,10 @@ LABEL_102:
         v66 = v33 < v64 || v65 > v33 - v64;
         if (v66)
         {
-          v127 = v64 - v33 + v65;
-          if (v38 - 1 >= v127)
+          v122 = v64 - v33 + v65;
+          if (v38 - 1 >= v122)
           {
-            v38 = v127;
+            v38 = v122;
           }
 
           break;
@@ -949,7 +948,7 @@ LABEL_102:
             v73 = v61[2];
             if (v73)
             {
-              v348 = v63;
+              v340 = v63;
               v74 = *(v72 + 4);
               v75 = *(v72 + 40);
               do
@@ -1026,7 +1025,7 @@ LABEL_102:
                       v84 = v79[4];
                     }
 
-                    coap_cancel_all_messages(v356, v80, v79 + 5, v84);
+                    coap_cancel_all_messages(v348, v80, v79 + 5, v84);
                     coap_session_release(v79[1]);
                     v85 = v79[6];
                     if (v85)
@@ -1043,18 +1042,18 @@ LABEL_124:
               }
 
               while (v73);
-              v63 = v348;
-              v69 = *(v348 + 24);
-              v61 = v356;
+              v63 = v340;
+              v69 = *(v340 + 24);
+              v61 = v348;
               p_inst_meths = (&OBJC_PROTOCOL___HAP2AccessoryServerPairingDriverDelegate + 24);
             }
 
             else
             {
-              v61 = v356;
+              v61 = v348;
             }
 
-            v33 = v350;
+            v33 = v342;
           }
 
           if (*(v69 + 226))
@@ -1062,7 +1061,7 @@ LABEL_124:
             --*(v69 + 226);
             if (*(v69 + 2) == 4)
             {
-              coap_session_connected(v69);
+              coap_session_connected(v69, v13);
             }
           }
 
@@ -1071,7 +1070,6 @@ LABEL_124:
             v94 = v61[10];
             if (v94)
             {
-              v95 = *(v63 + 32);
               v94(v61, *(v63 + 24));
             }
           }
@@ -1113,11 +1111,11 @@ LABEL_124:
         v88 = *(v63 + 40);
         if ((v87 - 1) > 0x3E)
         {
-          coap_send_pdu(v86, *(v63 + 40), v63);
+          coap_send_pdu(v86, *(v63 + 40), v63, v13);
           goto LABEL_165;
         }
 
-        v349 = v63;
+        v341 = v63;
         v89 = *(v88 + 40);
         v90 = *(v88 + 3);
         v91 = *(v88 + 24);
@@ -1134,24 +1132,24 @@ LABEL_124:
 
         else
         {
-          v96 = *(v86 + 25);
-          if (!v96)
+          v95 = *(v86 + 25);
+          if (!v95)
           {
             __assert_rtn("coap_send_pdu_dscp", "net.c", 953, "session->endpoint != NULL");
           }
 
-          v93 = (v96 + 24);
+          v93 = (v95 + 24);
         }
 
         if (*v93 == -1)
         {
-          v98 = *(p_inst_meths + 756);
-          v99 = "Invalid socket file descriptor (fd = -1).\n";
+          v97 = *(p_inst_meths + 756);
+          v98 = "Invalid socket file descriptor (fd = -1).\n";
           goto LABEL_185;
         }
 
-        v97 = v86[141];
-        if (v97 == 2)
+        v96 = v86[141];
+        if (v96 == 2)
         {
           if ((*(v86 + 36) & 0xF0) == 0xE0)
           {
@@ -1159,7 +1157,7 @@ LABEL_124:
           }
         }
 
-        else if (v97 == 30 && v86[148] == 255)
+        else if (v96 == 30 && v86[148] == 255)
         {
 LABEL_176:
           if (*(v88 + 1) > 0x5Fu)
@@ -1180,12 +1178,12 @@ LABEL_176:
         {
           if ((~v92 & 0x1001) == 0)
           {
-            v98 = *(p_inst_meths + 756);
-            v99 = "Multicast requests cannot be Confirmable (RFC7252 8.1)\n";
+            v97 = *(p_inst_meths + 756);
+            v98 = "Multicast requests cannot be Confirmable (RFC7252 8.1)\n";
 LABEL_185:
-            if (v98 > 2)
+            if (v97 > 2)
             {
-              coap_log_impl(3, v99);
+              coap_log_impl(3, v98);
             }
 
             goto LABEL_165;
@@ -1199,15 +1197,15 @@ LABEL_185:
             }
 
 LABEL_180:
-            memset(&v373, 0, sizeof(v373));
-            v378[0] = v89 - v90;
-            v378[1] = v91 + v90;
+            memset(&v365, 0, sizeof(v365));
+            v370[0] = v89 - v90;
+            v370[1] = v91 + v90;
             if ((v93[4] & 4) != 0)
             {
-              v100 = v93;
-              v373.msg_name = 0;
-              v373.msg_namelen = 0;
-              v101 = "Using connected socket path (msg_name=NULL).\n";
+              v99 = v93;
+              v365.msg_name = 0;
+              v365.msg_namelen = 0;
+              v100 = "Using connected socket path (msg_name=NULL).\n";
               if (*(p_inst_meths + 756) > 6)
               {
                 goto LABEL_192;
@@ -1216,26 +1214,26 @@ LABEL_180:
 
             else
             {
-              v100 = v93;
-              v373.msg_name = v86 + 108;
-              v373.msg_namelen = *(v86 + 26);
-              v101 = "Using unconnected socket path (msg_name set).\n";
+              v99 = v93;
+              v365.msg_name = v86 + 108;
+              v365.msg_namelen = *(v86 + 26);
+              v100 = "Using unconnected socket path (msg_name set).\n";
               if (*(p_inst_meths + 756) < 7)
               {
                 goto LABEL_193;
               }
 
 LABEL_192:
-              coap_log_impl(7, v101);
+              coap_log_impl(7, v100);
             }
 
 LABEL_193:
-            v373.msg_iov = v378;
-            v373.msg_iovlen = 1;
-            v373.msg_control = 0;
-            v373.msg_controllen = 0;
-            v102 = v86[109];
-            if (v102 != 30 && v102 != 2)
+            v365.msg_iov = v370;
+            v365.msg_iovlen = 1;
+            v365.msg_control = 0;
+            v365.msg_controllen = 0;
+            v101 = v86[109];
+            if (v101 != 30 && v101 != 2)
             {
               if (*(p_inst_meths + 756) >= 7)
               {
@@ -1245,26 +1243,26 @@ LABEL_193:
               goto LABEL_224;
             }
 
-            v373.msg_control = &v375;
-            v373.msg_controllen = 32;
-            v375 = 16;
-            v377 = 4 * v87;
-            if (v102 == 2)
+            v365.msg_control = &v367;
+            v365.msg_controllen = 32;
+            v367 = 16;
+            v369 = 4 * v87;
+            if (v101 == 2)
             {
-              v376 = 0x300000000;
-              v103 = "Setting IP_TOS to 0x%x (DSCP %d)\n";
+              v368 = 0x300000000;
+              v102 = "Setting IP_TOS to 0x%x (DSCP %d)\n";
               if (*(p_inst_meths + 756) <= 6)
               {
 LABEL_200:
-                v104 = &v375 + ((v375 + 3) & 0x1FFFFFFFCLL);
-                if (v104 + 12 > v373.msg_control + v373.msg_controllen)
+                v103 = &v367 + ((v367 + 3) & 0x1FFFFFFFCLL);
+                if (v103 + 12 > v365.msg_control + v365.msg_controllen)
                 {
                   if (*(p_inst_meths + 756) >= 4)
                   {
                     coap_log_impl(4, "Could not get next control message header for AQM.\n");
                   }
 
-                  v105 = 16;
+                  v104 = 16;
                   goto LABEL_223;
                 }
 
@@ -1272,7 +1270,7 @@ LABEL_200:
                 {
                   if (v87 == 8)
                   {
-                    v106 = 100;
+                    v105 = 100;
                     goto LABEL_220;
                   }
                 }
@@ -1281,7 +1279,7 @@ LABEL_200:
                 {
                   if (v87 == 40)
                   {
-                    v106 = 700;
+                    v105 = 700;
                     goto LABEL_220;
                   }
                 }
@@ -1293,114 +1291,110 @@ LABEL_200:
                     case '.':
                       goto LABEL_209;
                     case '8':
-                      v106 = 900;
+                      v105 = 900;
                       goto LABEL_220;
                     case '0':
 LABEL_209:
-                      v106 = 800;
+                      v105 = 800;
 LABEL_220:
-                      *v104 = 0xFFFF00000010;
-                      *(v104 + 2) = 4230;
-                      *(v104 + 3) = v106;
+                      *v103 = 0xFFFF00000010;
+                      *(v103 + 2) = 4230;
+                      *(v103 + 3) = v105;
                       if (*(p_inst_meths + 756) >= 7)
                       {
-                        coap_log_impl(7, "Also setting SO_TRAFFIC_CLASS to %d (mapped from DSCP %d)\n", v106, v87);
+                        coap_log_impl(7, "Also setting SO_TRAFFIC_CLASS to %d (mapped from DSCP %d)\n", v105, v87);
                       }
 
-                      v105 = 32;
+                      v104 = 32;
 LABEL_223:
-                      v373.msg_controllen = v105;
+                      v365.msg_controllen = v104;
 LABEL_224:
                       coap_show_pdu(v88);
-                      v107 = sendmsg(*v100, &v373, 0);
+                      v106 = sendmsg(*v99, &v365, 0);
                       if (*(p_inst_meths + 756) > 6)
                       {
-                        coap_log_impl(7, "Chosen sock->fd = %d, flags = %d\n", *v100, *(v100 + 2));
+                        coap_log_impl(7, "Chosen sock->fd = %d, flags = %d\n", *v99, *(v99 + 2));
                         if (*(p_inst_meths + 756) >= 7)
                         {
                           coap_log_impl(7, "%s --- msghdr Info ---\n", "TX: ");
                         }
                       }
 
-                      msg_name = v373.msg_name;
-                      if (v373.msg_name && v373.msg_namelen)
+                      if (v365.msg_name && v365.msg_namelen)
                       {
-                        v109 = *(v373.msg_name + 1);
-                        if (v109 == 30)
+                        v107 = *(v365.msg_name + 1);
+                        if (v107 == 30)
                         {
-                          inet_ntop(30, v373.msg_name + 8, __errnum, 0x36u);
+                          inet_ntop(30, v365.msg_name + 8, __errnum, 0x36u);
                           if (*(p_inst_meths + 756) >= 7)
                           {
-                            v345 = bswap32(msg_name[1]) >> 16;
                             coap_log_impl(7, "%s msg_name: AF_INET6 %s:%d (len %d)\n");
                           }
                         }
 
-                        else if (v109 == 2)
+                        else if (v107 == 2)
                         {
-                          inet_ntop(2, v373.msg_name + 4, __errnum, 0x36u);
+                          inet_ntop(2, v365.msg_name + 4, __errnum, 0x36u);
                           if (*(p_inst_meths + 756) >= 7)
                           {
-                            v344 = bswap32(msg_name[1]) >> 16;
                             coap_log_impl(7, "%s msg_name: AF_INET %s:%d (len %d)\n");
                           }
                         }
 
                         else if (*(p_inst_meths + 756) >= 7)
                         {
-                          v342 = *(v373.msg_name + 1);
                           coap_log_impl(7, "%s msg_name: Unknown Family %d (len %d)\n");
                         }
 
 LABEL_235:
-                        v110 = *(p_inst_meths + 756);
-                        if (v110 >= 7)
+                        v108 = *(p_inst_meths + 756);
+                        if (v108 >= 7)
                         {
-                          coap_log_impl(7, "%s msg_iovlen: %d\n", "TX: ", v373.msg_iovlen);
-                          LOWORD(v110) = *(p_inst_meths + 756);
+                          coap_log_impl(7, "%s msg_iovlen: %d\n", "TX: ", v365.msg_iovlen);
+                          LOWORD(v108) = *(p_inst_meths + 756);
                         }
                       }
 
                       else
                       {
-                        v110 = *(p_inst_meths + 756);
-                        if (v110 >= 7)
+                        v108 = *(p_inst_meths + 756);
+                        if (v108 >= 7)
                         {
                           coap_log_impl(7, "%s msg_name: NULL (len %d)\n");
                           goto LABEL_235;
                         }
                       }
 
-                      msg_iovlen = v373.msg_iovlen;
-                      if (v373.msg_iovlen >= 1)
+                      msg_iovlen = v365.msg_iovlen;
+                      if (v365.msg_iovlen >= 1)
                       {
-                        v112 = 0;
-                        v113 = 0;
+                        v110 = 0;
+                        v111 = 0;
                         do
                         {
-                          if (v110 >= 7)
+                          if (v108 >= 7)
                           {
-                            coap_log_impl(7, "%s   iov[%d]: base=%p, len=%zu\n", "TX: ", v113, v373.msg_iov[v112].iov_base, v373.msg_iov[v112].iov_len);
-                            LOWORD(v110) = *(p_inst_meths + 756);
-                            msg_iovlen = v373.msg_iovlen;
+                            coap_log_impl(7, "%s   iov[%d]: base=%p, len=%zu\n", "TX: ", v111, v365.msg_iov[v110].iov_base, v365.msg_iov[v110].iov_len);
+                            LOWORD(v108) = *(p_inst_meths + 756);
+                            msg_iovlen = v365.msg_iovlen;
                           }
 
-                          ++v113;
-                          ++v112;
+                          ++v111;
+                          ++v110;
                         }
 
-                        while (v113 < msg_iovlen);
+                        while (v111 < msg_iovlen);
                       }
 
-                      if (v110 > 6)
+                      if (v108 > 6)
                       {
-                        coap_log_impl(7, "%s msg_controllen: %u\n", "TX: ", v373.msg_controllen);
+                        coap_log_impl(7, "%s msg_controllen: %u\n", "TX: ", v365.msg_controllen);
                       }
 
-                      msg_control = v373.msg_control;
-                      if (v373.msg_control && v373.msg_controllen)
+                      msg_control = v365.msg_control;
+                      if (v365.msg_control && v365.msg_controllen)
                       {
-                        if (v373.msg_controllen >= 0xC)
+                        if (v365.msg_controllen >= 0xC)
                         {
                           do
                           {
@@ -1409,60 +1403,57 @@ LABEL_235:
                               coap_log_impl(7, "%s   cmsg: level=%d, type=%d, len=%u\n", "TX: ", msg_control[1], msg_control[2], *msg_control);
                             }
 
-                            v115 = msg_control[1];
-                            switch(v115)
+                            v113 = msg_control[1];
+                            switch(v113)
                             {
                               case 0xFFFFu:
                                 if (msg_control[2] == 4230 && *(p_inst_meths + 756) >= 7)
                                 {
-                                  v121 = msg_control[3];
                                   coap_log_impl(7, "%s     SO_TRAFFIC_CLASS: %d\n");
                                 }
 
                                 break;
                               case 0x29u:
-                                v118 = msg_control[2];
-                                if (v118 == 36)
+                                v115 = msg_control[2];
+                                if (v115 == 36)
                                 {
                                   if (*(p_inst_meths + 756) >= 7)
                                   {
-                                    v343 = (msg_control[3] >> 2);
+                                    v337 = (msg_control[3] >> 2);
                                     coap_log_impl(7, "%s     IPV6_TCLASS: 0x%02x (DSCP 0x%02x)\n");
                                   }
                                 }
 
-                                else if (v118 == 46)
+                                else if (v115 == 46)
                                 {
                                   inet_ntop(30, msg_control + 3, __errnum, 0x2Eu);
                                   if (*(p_inst_meths + 756) >= 7)
                                   {
-                                    v119 = msg_control[7];
-                                    v343 = __errnum;
+                                    v337 = __errnum;
                                     coap_log_impl(7, "%s     IPV6_PKTINFO: ifindex=%d, addr=%s\n");
                                   }
                                 }
 
                                 break;
                               case 0u:
-                                v116 = msg_control[2];
-                                if (v116 == 3)
+                                v114 = msg_control[2];
+                                if (v114 == 3)
                                 {
                                   if (*(p_inst_meths + 756) >= 7)
                                   {
-                                    v343 = (msg_control[3] >> 2);
+                                    v337 = (msg_control[3] >> 2);
                                     coap_log_impl(7, "%s     IP_TOS: 0x%02x (DSCP 0x%02x)\n");
                                   }
                                 }
 
-                                else if (v116 == 26)
+                                else if (v114 == 26)
                                 {
                                   inet_ntop(2, msg_control + 5, __errnum, 0x10u);
                                   if (*(p_inst_meths + 756) >= 7)
                                   {
-                                    v117 = msg_control[3];
-                                    v379[0] = 0;
-                                    v379[1] = 0;
-                                    v343 = inet_ntop(2, msg_control + 4, v379, 0x10u);
+                                    v371[0] = 0;
+                                    v371[1] = 0;
+                                    v337 = inet_ntop(2, msg_control + 4, v371, 0x10u);
                                     coap_log_impl(7, "%s     IP_PKTINFO: ifindex=%d, ipi_spec_dst=%s, ipi_addr=%s\n");
                                   }
                                 }
@@ -1473,27 +1464,27 @@ LABEL_235:
                             msg_control = (msg_control + ((*msg_control + 3) & 0x1FFFFFFFCLL));
                           }
 
-                          while ((msg_control + 3) <= v373.msg_control + v373.msg_controllen);
+                          while ((msg_control + 3) <= v365.msg_control + v365.msg_controllen);
                         }
 
 LABEL_273:
-                        v122 = *(p_inst_meths + 756);
-                        if (v122 > 6)
+                        v117 = *(p_inst_meths + 756);
+                        if (v117 > 6)
                         {
-                          coap_log_impl(7, "%s msg_flags: 0x%x [", "TX: ", v373.msg_flags);
-                          v122 = *(p_inst_meths + 756);
-                          msg_flags = v373.msg_flags;
-                          if ((v373.msg_flags & 0x20) != 0 && v122 >= 7)
+                          coap_log_impl(7, "%s msg_flags: 0x%x [", "TX: ", v365.msg_flags);
+                          v117 = *(p_inst_meths + 756);
+                          msg_flags = v365.msg_flags;
+                          if ((v365.msg_flags & 0x20) != 0 && v117 >= 7)
                           {
                             coap_log_impl(7, "MSG_CTRUNC ");
-                            msg_flags = v373.msg_flags;
-                            LOWORD(v122) = *(p_inst_meths + 756);
+                            msg_flags = v365.msg_flags;
+                            LOWORD(v117) = *(p_inst_meths + 756);
                           }
 
                           if ((msg_flags & 0x10) == 0)
                           {
 LABEL_282:
-                            if (v122 >= 7)
+                            if (v117 >= 7)
                             {
                               coap_log_impl(7, "]\n");
                               if (*(p_inst_meths + 756) >= 7)
@@ -1506,39 +1497,39 @@ LABEL_282:
                           }
 
 LABEL_280:
-                          if (v122 >= 7)
+                          if (v117 >= 7)
                           {
                             coap_log_impl(7, "MSG_TRUNC ");
-                            LOWORD(v122) = *(p_inst_meths + 756);
+                            LOWORD(v117) = *(p_inst_meths + 756);
                             goto LABEL_282;
                           }
 
 LABEL_285:
-                          if (v107 < 0 && *(p_inst_meths + 756) >= 3)
+                          if (v106 < 0 && *(p_inst_meths + 756) >= 3)
                           {
-                            v124 = __error();
-                            v125 = strerror(*v124);
-                            v126 = __error();
-                            coap_log_impl(3, "coap_send_pdu_dscp failed: %s (%d)\n", v125, *v126);
+                            v119 = __error();
+                            v120 = strerror(*v119);
+                            v121 = __error();
+                            coap_log_impl(3, "coap_send_pdu_dscp failed: %s (%d)\n", v120, *v121);
                           }
 
-                          v61 = v356;
-                          v33 = v350;
+                          v61 = v348;
+                          v33 = v342;
                           goto LABEL_165;
                         }
                       }
 
                       else
                       {
-                        v122 = *(p_inst_meths + 756);
-                        if (v122 >= 7)
+                        v117 = *(p_inst_meths + 756);
+                        if (v117 >= 7)
                         {
                           coap_log_impl(7, "%s   No control messages.\n", "TX: ");
                           goto LABEL_273;
                         }
                       }
 
-                      if ((v373.msg_flags & 0x10) == 0)
+                      if ((v365.msg_flags & 0x10) == 0)
                       {
                         goto LABEL_282;
                       }
@@ -1547,34 +1538,34 @@ LABEL_285:
                   }
                 }
 
-                v106 = 0;
+                v105 = 0;
                 goto LABEL_220;
               }
             }
 
             else
             {
-              v376 = 0x2400000029;
-              v103 = "Setting IPV6_TCLASS to 0x%x (DSCP %d)\n";
+              v368 = 0x2400000029;
+              v102 = "Setting IPV6_TCLASS to 0x%x (DSCP %d)\n";
               if (*(p_inst_meths + 756) < 7)
               {
                 goto LABEL_200;
               }
             }
 
-            coap_log_impl(7, v103, (4 * v87), v87);
+            coap_log_impl(7, v102, (4 * v87), v87);
             goto LABEL_200;
           }
         }
 
-        coap_session_delay_pdu(v86, v88, v349);
+        coap_session_delay_pdu(v86, v88, v341);
 LABEL_165:
-        v62 = (v356 + 48);
-        v38 = v354;
-        v63 = *v352;
+        v62 = (v348 + 48);
+        v38 = v346;
+        v63 = *v344;
       }
 
-      while (*v352);
+      while (*v344);
     }
 
     if (hap2LogInitialize_onceToken != -1)
@@ -1582,112 +1573,112 @@ LABEL_165:
       dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
     }
 
-    v128 = hap2Log_coap;
+    v123 = hap2Log_coap;
     if (os_log_type_enabled(hap2Log_coap, OS_LOG_TYPE_DEBUG))
     {
       __errnum[0] = 67109376;
       __errnum[1] = (1000 * v38 + 999) / 0x3E8uLL;
       LOWORD(__errnum[2]) = 1024;
       *(&__errnum[2] + 2) = 0;
-      _os_log_debug_impl(&dword_22AADC000, v128, OS_LOG_TYPE_DEBUG, "Coap_write timeout %u, requested time %u", __errnum, 0xEu);
+      _os_log_debug_impl(&dword_22AADC000, v123, OS_LOG_TYPE_DEBUG, "Coap_write timeout %u, requested time %u", __errnum, 0xEu);
     }
 
-    v355 = (1000 * v38 + 999) / 0x3E8uLL;
-    memset(&v372, 0, sizeof(v372));
-    memset(&v371, 0, sizeof(v371));
-    memset(&v370, 0, sizeof(v370));
-    v129 = 0;
+    v347 = (1000 * v38 + 999) / 0x3E8uLL;
+    memset(&v364, 0, sizeof(v364));
+    memset(&v363, 0, sizeof(v363));
+    memset(&v362, 0, sizeof(v362));
+    v124 = 0;
     if (v37)
     {
-      v130 = v374;
-      v131 = v37;
+      v125 = v366;
+      v126 = v37;
       do
       {
-        v132 = *v130;
-        v133 = **v130;
-        if (v133 >= v129)
+        v127 = *v125;
+        v128 = **v125;
+        if (v128 >= v124)
         {
-          v129 = v133 + 1;
+          v124 = v128 + 1;
         }
 
-        if ((v132[1] & 0x10) != 0 && __darwin_check_fd_set_overflow(**v130, &v372, 0))
+        if ((v127[1] & 0x10) != 0 && __darwin_check_fd_set_overflow(**v125, &v364, 0))
         {
-          *(v372.fds_bits + ((v133 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v133;
+          *(v364.fds_bits + ((v128 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v128;
         }
 
-        if ((v132[1] & 0x20) != 0)
+        if ((v127[1] & 0x20) != 0)
         {
-          v134 = *v132;
-          if (__darwin_check_fd_set_overflow(*v132, &v371, 0))
+          v129 = *v127;
+          if (__darwin_check_fd_set_overflow(*v127, &v363, 0))
           {
-            *(v371.fds_bits + ((v134 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v134;
+            *(v363.fds_bits + ((v129 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v129;
           }
         }
 
-        if ((v132[1] & 0x40) != 0)
+        if ((v127[1] & 0x40) != 0)
         {
-          v135 = *v132;
-          if (__darwin_check_fd_set_overflow(*v132, &v372, 0))
+          v130 = *v127;
+          if (__darwin_check_fd_set_overflow(*v127, &v364, 0))
           {
-            *(v372.fds_bits + ((v135 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v135;
+            *(v364.fds_bits + ((v130 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v130;
           }
         }
 
-        if ((v132[1] & 0x80) != 0)
+        if ((v127[1] & 0x80) != 0)
         {
-          v136 = *v132;
-          if (__darwin_check_fd_set_overflow(*v132, &v371, 0))
+          v131 = *v127;
+          if (__darwin_check_fd_set_overflow(*v127, &v363, 0))
           {
-            *(v371.fds_bits + ((v136 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v136;
+            *(v363.fds_bits + ((v131 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v131;
           }
 
-          v137 = *v132;
-          if (__darwin_check_fd_set_overflow(*v132, &v370, 0))
+          v132 = *v127;
+          if (__darwin_check_fd_set_overflow(*v127, &v362, 0))
           {
-            *(v370.fds_bits + ((v137 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v137;
+            *(v362.fds_bits + ((v132 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v132;
           }
         }
 
-        ++v130;
-        --v131;
+        ++v125;
+        --v126;
       }
 
-      while (v131);
+      while (v126);
     }
 
-    if (v355)
+    if (v347)
     {
-      LODWORD(v369) = 1000 * (v355 % 0x3E8);
-      v368 = v355 / 0x3E8uLL;
+      LODWORD(v361) = 1000 * (v347 % 0x3E8);
+      v360 = v347 / 0x3E8uLL;
     }
 
-    if ((v346 & 0x80000000) == 0)
+    if ((v338 & 0x80000000) == 0)
     {
-      if (__darwin_check_fd_set_overflow(v346, &v372, 0))
+      if (__darwin_check_fd_set_overflow(v338, &v364, 0))
       {
-        v372.fds_bits[v346 >> 5] |= 1 << v346;
+        v364.fds_bits[v338 >> 5] |= 1 << v338;
       }
 
-      if (v129 <= v346)
+      if (v124 <= v338)
       {
-        v129 = v346 + 1;
+        v124 = v338 + 1;
       }
     }
 
-    if (v355)
+    if (v347)
     {
-      v138 = &v368;
+      v133 = &v360;
     }
 
     else
     {
-      v138 = 0;
+      v133 = 0;
     }
 
     while (1)
     {
-      v139 = select(v129, &v372, &v371, &v370, v138);
-      if (v139 != -1)
+      v134 = select(v124, &v364, &v363, &v362, v133);
+      if (v134 != -1)
       {
         break;
       }
@@ -1697,8 +1688,8 @@ LABEL_165:
 LABEL_331:
         if (coap_get_log_level() >= 3)
         {
-          v140 = __error();
-          strerror(*v140);
+          v135 = __error();
+          strerror(*v135);
           coap_log_impl(3, "%s");
         }
 
@@ -1706,39 +1697,39 @@ LABEL_331:
       }
     }
 
-    if (v139 >= 1 && v37)
+    if (v134 >= 1 && v37)
     {
-      v141 = v374;
+      v136 = v366;
       while (1)
       {
-        v142 = *v141;
-        v143 = *(*v141 + 4);
-        if ((v143 & 0x10) == 0)
+        v137 = *v136;
+        v138 = *(*v136 + 4);
+        if ((v138 & 0x10) == 0)
         {
           goto LABEL_340;
         }
 
-        v144 = *v142;
-        if (__darwin_check_fd_set_overflow(*v142, &v372, 0))
+        v139 = *v137;
+        if (__darwin_check_fd_set_overflow(*v137, &v364, 0))
         {
           break;
         }
 
-        v143 = *(v142 + 4);
-        if ((v143 & 0x40) == 0)
+        v138 = *(v137 + 4);
+        if ((v138 & 0x40) == 0)
         {
           goto LABEL_341;
         }
 
 LABEL_349:
-        v147 = *v142;
-        if (__darwin_check_fd_set_overflow(*v142, &v372, 0))
+        v142 = *v137;
+        if (__darwin_check_fd_set_overflow(*v137, &v364, 0))
         {
-          v143 = *(v142 + 4);
-          if (((*(v372.fds_bits + ((v147 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v147) & 1) == 0)
+          v138 = *(v137 + 4);
+          if (((*(v364.fds_bits + ((v142 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v142) & 1) == 0)
           {
 LABEL_341:
-            if ((v143 & 0x20) == 0)
+            if ((v138 & 0x20) == 0)
             {
               goto LABEL_342;
             }
@@ -1746,9 +1737,9 @@ LABEL_341:
             goto LABEL_354;
           }
 
-          v143 |= 0x400u;
-          *(v142 + 4) = v143;
-          if ((v143 & 0x20) == 0)
+          v138 |= 0x400u;
+          *(v137 + 4) = v138;
+          if ((v138 & 0x20) == 0)
           {
             goto LABEL_342;
           }
@@ -1756,22 +1747,22 @@ LABEL_341:
 
         else
         {
-          v143 = *(v142 + 4);
-          if ((v143 & 0x20) == 0)
+          v138 = *(v137 + 4);
+          if ((v138 & 0x20) == 0)
           {
             goto LABEL_342;
           }
         }
 
 LABEL_354:
-        v148 = *v142;
-        if (__darwin_check_fd_set_overflow(*v142, &v371, 0))
+        v143 = *v137;
+        if (__darwin_check_fd_set_overflow(*v137, &v363, 0))
         {
-          v143 = *(v142 + 4);
-          if (((*(v371.fds_bits + ((v148 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v148) & 1) == 0)
+          v138 = *(v137 + 4);
+          if (((*(v363.fds_bits + ((v143 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v143) & 1) == 0)
           {
 LABEL_342:
-            if ((v143 & 0x80) != 0)
+            if ((v138 & 0x80) != 0)
             {
               goto LABEL_343;
             }
@@ -1779,41 +1770,41 @@ LABEL_342:
             goto LABEL_359;
           }
 
-          v149 = v143 | 0x200;
-          *(v142 + 4) = v149;
-          if ((v149 & 0x80) != 0)
+          v144 = v138 | 0x200;
+          *(v137 + 4) = v144;
+          if ((v144 & 0x80) != 0)
           {
             goto LABEL_343;
           }
         }
 
-        else if ((*(v142 + 4) & 0x80) != 0)
+        else if ((*(v137 + 4) & 0x80) != 0)
         {
 LABEL_343:
-          v145 = *v142;
-          if (__darwin_check_fd_set_overflow(*v142, &v371, 0) && ((*(v371.fds_bits + ((v145 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v145) & 1) != 0 || (v146 = *v142, __darwin_check_fd_set_overflow(*v142, &v370, 0)) && ((*(v370.fds_bits + ((v146 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v146) & 1) != 0)
+          v140 = *v137;
+          if (__darwin_check_fd_set_overflow(*v137, &v363, 0) && ((*(v363.fds_bits + ((v140 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v140) & 1) != 0 || (v141 = *v137, __darwin_check_fd_set_overflow(*v137, &v362, 0)) && ((*(v362.fds_bits + ((v141 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v141) & 1) != 0)
           {
-            *(v142 + 4) |= 0x800u;
+            *(v137 + 4) |= 0x800u;
           }
         }
 
 LABEL_359:
-        v141 = (v141 + 8);
+        v136 = (v136 + 8);
         if (!--v37)
         {
           goto LABEL_360;
         }
       }
 
-      v143 = *(v142 + 4);
-      if ((*(v372.fds_bits + ((v144 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v144))
+      v138 = *(v137 + 4);
+      if ((*(v364.fds_bits + ((v139 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v139))
       {
-        v143 |= 0x100u;
-        *(v142 + 4) = v143;
+        v138 |= 0x100u;
+        *(v137 + 4) = v138;
       }
 
 LABEL_340:
-      if ((v143 & 0x40) == 0)
+      if ((v138 & 0x40) == 0)
       {
         goto LABEL_341;
       }
@@ -1822,15 +1813,15 @@ LABEL_340:
     }
 
 LABEL_360:
-    v150 = v356;
-    if (v346 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(v346, &v372, 0) && ((v372.fds_bits[v346 >> 5] >> v346))
+    v145 = v348;
+    if (v338 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(v338, &v364, 0) && ((v364.fds_bits[v338 >> 5] >> v338))
     {
       do
       {
         while (1)
         {
-          v151 = read(v346, __errnum, 0x20uLL);
-          if (v151 != -1)
+          v146 = read(v338, __errnum, 0x20uLL);
+          if (v146 != -1)
           {
             break;
           }
@@ -1847,7 +1838,7 @@ LABEL_360:
         }
       }
 
-      while (v151);
+      while (v146);
       log_level = coap_get_log_level();
       if (log_level >= 3)
       {
@@ -1860,11 +1851,11 @@ LABEL_573:
         dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
       }
 
-      v336 = hap2Log_coap;
+      v332 = hap2Log_coap;
       if (os_log_type_enabled(hap2Log_coap, OS_LOG_TYPE_ERROR))
       {
         LOWORD(__errnum[0]) = 0;
-        _os_log_error_impl(&dword_22AADC000, v336, OS_LOG_TYPE_ERROR, "Failed to run coap_run_once", __errnum, 2u);
+        _os_log_error_impl(&dword_22AADC000, v332, OS_LOG_TYPE_ERROR, "Failed to run coap_run_once", __errnum, 2u);
       }
 
       v43 = 0;
@@ -1874,412 +1865,412 @@ LABEL_573:
 LABEL_370:
     memset(__errnum, 0, sizeof(__errnum));
     gettimeofday(__errnum, 0);
-    v152 = 1000 * (*__errnum - coap_clock_offset) + ((__errnum[2] * 1.024 + 512.0) >> 10);
-    v153 = *(v356 + 56);
-    if (v153)
+    v147 = 1000 * (*__errnum - coap_clock_offset) + ((__errnum[2] * 1.024 + 512.0) >> 10);
+    v148 = *(v348 + 56);
+    if (v148)
     {
-      v154 = 0uLL;
+      v149 = 0uLL;
       while (1)
       {
-        v155 = v153;
-        v153 = *v153;
-        v156 = *(v155 + 28);
-        if ((v156 & 0x100) != 0)
+        v150 = v148;
+        v148 = *v148;
+        v151 = *(v150 + 28);
+        if ((v151 & 0x100) != 0)
         {
           break;
         }
 
 LABEL_481:
-        if ((v156 & 0x400) != 0)
+        if ((v151 & 0x400) != 0)
         {
-          session = coap_make_session(*(v155 + 16), 2, (v155 + 48), 0, 0, 0, v150, v155);
-          v154 = 0uLL;
+          session = coap_make_session(*(v150 + 16), 2, (v150 + 48), 0, 0, 0, v145, v150);
+          v149 = 0uLL;
           if (session)
           {
-            v256 = session;
-            v257 = session + 104;
+            v251 = session;
+            v252 = session + 104;
             __errnum[0] = 1;
-            *(v155 + 28) &= ~0x400u;
-            v258 = accept(*(v155 + 24), (session + 108), session + 26);
-            *(v256 + 44) = v258;
-            if (v258 == -1)
+            *(v150 + 28) &= ~0x400u;
+            v253 = accept(*(v150 + 24), (session + 108), session + 26);
+            *(v251 + 44) = v253;
+            if (v253 == -1)
             {
               if (maxlog >= 4)
               {
-                v289 = __error();
-                v290 = strerror(*v289);
-                coap_log_impl(4, "coap_socket_accept_tcp: accept: %s\n", v290);
+                v284 = __error();
+                v285 = strerror(*v284);
+                coap_log_impl(4, "coap_socket_accept_tcp: accept: %s\n", v285);
               }
 
-              coap_session_free(v256);
-              v150 = v356;
+              coap_session_free(v251);
+              v145 = v348;
             }
 
             else
             {
-              if (getsockname(v258, (v256 + 140), v256 + 34) < 0 && maxlog >= 4)
+              if (getsockname(v253, (v251 + 140), v251 + 34) < 0 && maxlog >= 4)
               {
-                v259 = __error();
-                v260 = strerror(*v259);
-                coap_log_impl(4, "coap_socket_accept_tcp: getsockname: %s\n", v260);
+                v254 = __error();
+                v255 = strerror(*v254);
+                coap_log_impl(4, "coap_socket_accept_tcp: getsockname: %s\n", v255);
               }
 
-              if (ioctl(*(v256 + 44), 0x8004667EuLL, __errnum) == -1 && maxlog >= 4)
+              if (ioctl(*(v251 + 44), 0x8004667EuLL, __errnum) == -1 && maxlog >= 4)
               {
-                v262 = __error();
-                v263 = strerror(*v262);
-                coap_log_impl(4, "coap_socket_accept_tcp: ioctl FIONBIO: %s\n", v263);
+                v257 = __error();
+                v258 = strerror(*v257);
+                coap_log_impl(4, "coap_socket_accept_tcp: ioctl FIONBIO: %s\n", v258);
               }
 
-              v264 = 64;
-              *(v256 + 90) |= 0x15u;
-              *(v256 + 23) = v256;
-              v265 = 104;
-              v266 = -1640531527;
-              v267 = -1640531527;
-              v268 = -17973521;
+              v259 = 64;
+              *(v251 + 90) |= 0x15u;
+              *(v251 + 23) = v251;
+              v260 = 104;
+              v261 = -1640531527;
+              v262 = -1640531527;
+              v263 = -17973521;
               do
               {
-                v269 = *&v256[v265 + 4] + v266;
-                v270 = *&v256[v265 + 8] + v268;
-                v271 = (*&v256[v265] + v267 - (v269 + v270)) ^ (v270 >> 13);
-                v272 = (v269 - v270 - v271) ^ (v271 << 8);
-                v273 = (v270 - v271 - v272) ^ (v272 >> 13);
-                v274 = (v271 - v272 - v273) ^ (v273 >> 12);
-                v275 = (v272 - v273 - v274) ^ (v274 << 16);
-                v276 = (v273 - v274 - v275) ^ (v275 >> 5);
-                v267 = (v274 - v275 - v276) ^ (v276 >> 3);
-                v266 = (v275 - v276 - v267) ^ (v267 << 10);
-                v268 = (v276 - v267 - v266) ^ (v266 >> 15);
-                v264 -= 12;
-                v265 += 12;
+                v264 = *&v251[v260 + 4] + v261;
+                v265 = *&v251[v260 + 8] + v263;
+                v266 = (*&v251[v260] + v262 - (v264 + v265)) ^ (v265 >> 13);
+                v267 = (v264 - v265 - v266) ^ (v266 << 8);
+                v268 = (v265 - v266 - v267) ^ (v267 >> 13);
+                v269 = (v266 - v267 - v268) ^ (v268 >> 12);
+                v270 = (v267 - v268 - v269) ^ (v269 << 16);
+                v271 = (v268 - v269 - v270) ^ (v270 >> 5);
+                v262 = (v269 - v270 - v271) ^ (v271 >> 3);
+                v261 = (v270 - v271 - v262) ^ (v262 << 10);
+                v263 = (v271 - v262 - v261) ^ (v261 >> 15);
+                v259 -= 12;
+                v260 += 12;
               }
 
-              while (v264 > 0xB);
-              v277 = (v267 + (v256[167] << 24) + (v256[166] << 16) + (v256[165] << 8) + v256[164] + -64 - v268 - v266) ^ ((v268 + 64) >> 13);
-              v278 = (v266 + -64 - v268 - v277) ^ (v277 << 8);
-              v279 = (v268 + 64 - v277 - v278) ^ (v278 >> 13);
-              v280 = (v277 - v278 - v279) ^ (v279 >> 12);
-              v281 = (v278 - v279 - v280) ^ (v280 << 16);
-              v282 = (v279 - v280 - v281) ^ (v281 >> 5);
-              v283 = (v280 - v281 - v282) ^ (v282 >> 3);
-              v284 = (v282 - v283 - ((v281 - v282 - v283) ^ (v283 << 10))) ^ (((v281 - v282 - v283) ^ (v283 << 10)) >> 15);
-              v285 = (v256 + 48);
-              *(v256 + 11) = v257;
-              *(v256 + 24) = 64;
-              *(v256 + 25) = v284;
-              v286 = *(v155 + 80);
-              v154 = 0uLL;
-              if (v286)
+              while (v259 > 0xB);
+              v272 = (v262 + (v251[167] << 24) + (v251[166] << 16) + (v251[165] << 8) + v251[164] + -64 - v263 - v261) ^ ((v263 + 64) >> 13);
+              v273 = (v261 + -64 - v263 - v272) ^ (v272 << 8);
+              v274 = (v263 + 64 - v272 - v273) ^ (v273 >> 13);
+              v275 = (v272 - v273 - v274) ^ (v274 >> 12);
+              v276 = (v273 - v274 - v275) ^ (v275 << 16);
+              v277 = (v274 - v275 - v276) ^ (v276 >> 5);
+              v278 = (v275 - v276 - v277) ^ (v277 >> 3);
+              v279 = (v277 - v278 - ((v276 - v277 - v278) ^ (v278 << 10))) ^ (((v276 - v277 - v278) ^ (v278 << 10)) >> 15);
+              v280 = (v251 + 48);
+              *(v251 + 11) = v252;
+              *(v251 + 24) = 64;
+              *(v251 + 25) = v279;
+              v281 = *(v150 + 80);
+              v149 = 0uLL;
+              if (v281)
               {
-                v287 = *(v286 + 48);
-                *(v256 + 6) = v287;
-                *(v256 + 8) = 0;
-                v288 = *(v287 + 24);
-                *(v256 + 7) = v288 - *(v287 + 32);
-                *(v288 + 16) = v256;
-                *(v287 + 24) = v285;
-                v150 = v356;
+                v282 = *(v281 + 48);
+                *(v251 + 6) = v282;
+                *(v251 + 8) = 0;
+                v283 = *(v282 + 24);
+                *(v251 + 7) = v283 - *(v282 + 32);
+                *(v283 + 16) = v251;
+                *(v282 + 24) = v280;
+                v145 = v348;
               }
 
               else
               {
-                *(v256 + 7) = 0;
-                *(v256 + 8) = 0;
-                *(v155 + 80) = v256;
-                v291 = malloc_type_malloc(0x40uLL, 0x10200405F856B24uLL);
-                *(*(v155 + 80) + 48) = v291;
-                v150 = v356;
-                if (!v291)
+                *(v251 + 7) = 0;
+                *(v251 + 8) = 0;
+                *(v150 + 80) = v251;
+                v286 = malloc_type_malloc(0x40uLL, 0x10200405F856B24uLL);
+                *(*(v150 + 80) + 48) = v286;
+                v145 = v348;
+                if (!v286)
                 {
                   goto LABEL_587;
                 }
 
-                v291[2] = 0u;
-                v291[3] = 0u;
-                *v291 = 0u;
-                v291[1] = 0u;
-                v292 = *(v155 + 80);
-                v293 = *(v292 + 48);
-                v293[1] = 0x500000020;
-                v293[3] = v292 + 48;
-                v293[4] = 48;
-                v294 = malloc_type_malloc(0x200uLL, 0x1020040EDED9539uLL);
-                **(*(v155 + 80) + 48) = v294;
-                if (!v294)
+                v286[2] = 0u;
+                v286[3] = 0u;
+                *v286 = 0u;
+                v286[1] = 0u;
+                v287 = *(v150 + 80);
+                v288 = *(v287 + 48);
+                v288[1] = 0x500000020;
+                v288[3] = v287 + 48;
+                v288[4] = 48;
+                v289 = malloc_type_malloc(0x200uLL, 0x1020040EDED9539uLL);
+                **(*(v150 + 80) + 48) = v289;
+                if (!v289)
                 {
                   goto LABEL_587;
                 }
 
-                v154 = 0uLL;
-                v294[30] = 0u;
-                v294[31] = 0u;
-                v294[28] = 0u;
-                v294[29] = 0u;
-                v294[26] = 0u;
-                v294[27] = 0u;
-                v294[24] = 0u;
-                v294[25] = 0u;
-                v294[22] = 0u;
-                v294[23] = 0u;
-                v294[20] = 0u;
-                v294[21] = 0u;
-                v294[18] = 0u;
-                v294[19] = 0u;
-                v294[16] = 0u;
-                v294[17] = 0u;
-                v294[14] = 0u;
-                v294[15] = 0u;
-                v294[12] = 0u;
-                v294[13] = 0u;
-                v294[10] = 0u;
-                v294[11] = 0u;
-                v294[8] = 0u;
-                v294[9] = 0u;
-                v294[6] = 0u;
-                v294[7] = 0u;
-                v294[4] = 0u;
-                v294[5] = 0u;
-                v294[2] = 0u;
-                v294[3] = 0u;
-                *v294 = 0u;
-                v294[1] = 0u;
-                v287 = *(*(v155 + 80) + 48);
-                *(v287 + 56) = -1609490463;
+                v149 = 0uLL;
+                v289[30] = 0u;
+                v289[31] = 0u;
+                v289[28] = 0u;
+                v289[29] = 0u;
+                v289[26] = 0u;
+                v289[27] = 0u;
+                v289[24] = 0u;
+                v289[25] = 0u;
+                v289[22] = 0u;
+                v289[23] = 0u;
+                v289[20] = 0u;
+                v289[21] = 0u;
+                v289[18] = 0u;
+                v289[19] = 0u;
+                v289[16] = 0u;
+                v289[17] = 0u;
+                v289[14] = 0u;
+                v289[15] = 0u;
+                v289[12] = 0u;
+                v289[13] = 0u;
+                v289[10] = 0u;
+                v289[11] = 0u;
+                v289[8] = 0u;
+                v289[9] = 0u;
+                v289[6] = 0u;
+                v289[7] = 0u;
+                v289[4] = 0u;
+                v289[5] = 0u;
+                v289[2] = 0u;
+                v289[3] = 0u;
+                *v289 = 0u;
+                v289[1] = 0u;
+                v282 = *(*(v150 + 80) + 48);
+                *(v282 + 56) = -1609490463;
               }
 
-              ++*(v287 + 16);
-              v295 = *v287 + 16 * ((*(v287 + 8) - 1) & v284);
-              v296 = *(v295 + 8) + 1;
-              *(v295 + 8) = v296;
-              v297 = *v295;
-              *(v256 + 9) = 0;
-              *(v256 + 10) = v297;
-              if (v297)
+              ++*(v282 + 16);
+              v290 = *v282 + 16 * ((*(v282 + 8) - 1) & v279);
+              v291 = *(v290 + 8) + 1;
+              *(v290 + 8) = v291;
+              v292 = *v290;
+              *(v251 + 9) = 0;
+              *(v251 + 10) = v292;
+              if (v292)
               {
-                *(v297 + 24) = v285;
+                *(v292 + 24) = v280;
               }
 
-              *v295 = v285;
-              if (v296 >= 10 * *(v295 + 12) + 10 && !(*v285)[6].i32[1])
+              *v290 = v280;
+              if (v291 >= 10 * *(v290 + 12) + 10 && !(*v280)[6].i32[1])
               {
-                v298 = malloc_type_malloc(32 * (*v285)[1].u32[0], 0x1020040EDED9539uLL);
-                if (!v298)
+                v293 = malloc_type_malloc(32 * (*v280)[1].u32[0], 0x1020040EDED9539uLL);
+                if (!v293)
                 {
                   goto LABEL_587;
                 }
 
-                v299 = v298;
-                bzero(v298, 32 * (*v285)[1].u32[0]);
-                v300 = *v285;
-                v301 = (*v285)[2].u32[0];
-                v302 = (*v285)[1].u32[0];
-                v303 = 2 * v302 - 1;
-                if ((v303 & v301) != 0)
+                v294 = v293;
+                bzero(v293, 32 * (*v280)[1].u32[0]);
+                v295 = *v280;
+                v296 = (*v280)[2].u32[0];
+                v297 = (*v280)[1].u32[0];
+                v298 = 2 * v297 - 1;
+                if ((v298 & v296) != 0)
                 {
-                  v304 = (v301 >> ((*v285)[1].i32[1] + 1)) + 1;
+                  v299 = (v296 >> ((*v280)[1].i32[1] + 1)) + 1;
                 }
 
                 else
                 {
-                  v304 = v301 >> ((*v285)[1].i32[1] + 1);
+                  v299 = v296 >> ((*v280)[1].i32[1] + 1);
                 }
 
-                v300[5].i32[0] = v304;
-                v300[5].i32[1] = 0;
-                v305 = *v300;
-                if (v302)
+                v295[5].i32[0] = v299;
+                v295[5].i32[1] = 0;
+                v300 = *v295;
+                if (v297)
                 {
-                  v306 = 0;
-                  for (i = 0; i != v302; ++i)
+                  v301 = 0;
+                  for (i = 0; i != v297; ++i)
                   {
-                    v308 = v305[2 * i];
-                    if (v308)
+                    v303 = v300[2 * i];
+                    if (v303)
                     {
                       do
                       {
-                        v309 = *(v308 + 32);
-                        v310 = &v299[16 * (*(v308 + 52) & v303)];
-                        v311 = *(v310 + 2) + 1;
-                        *(v310 + 2) = v311;
-                        if (v311 > v304)
+                        v304 = *(v303 + 32);
+                        v305 = &v294[16 * (*(v303 + 52) & v298)];
+                        v306 = *(v305 + 2) + 1;
+                        *(v305 + 2) = v306;
+                        if (v306 > v299)
                         {
-                          v300[5].i32[1] = ++v306;
-                          *(v310 + 3) = v311 / v304;
+                          v295[5].i32[1] = ++v301;
+                          *(v305 + 3) = v306 / v299;
                         }
 
-                        *(v308 + 24) = 0;
-                        v312 = *v310;
-                        *(v308 + 32) = *v310;
-                        if (v312)
+                        *(v303 + 24) = 0;
+                        v307 = *v305;
+                        *(v303 + 32) = *v305;
+                        if (v307)
                         {
-                          *(v312 + 24) = v308;
+                          *(v307 + 24) = v303;
                         }
 
-                        *v310 = v308;
-                        v308 = v309;
+                        *v305 = v303;
+                        v303 = v304;
                       }
 
-                      while (v309);
+                      while (v304);
                     }
                   }
                 }
 
-                free(v305);
-                v313 = *v285;
-                v314 = (*v285)[1];
-                v315.i32[0] = vadd_s32(v314, v314).u32[0];
-                v315.i32[1] = vadd_s32(v314, 0x100000001).i32[1];
-                v313[1] = v315;
-                *v313 = v299;
-                if (v313[5].i32[1] <= v313[2].i32[0] >> 1)
+                free(v300);
+                v308 = *v280;
+                v309 = (*v280)[1];
+                v310.i32[0] = vadd_s32(v309, v309).u32[0];
+                v310.i32[1] = vadd_s32(v309, 0x100000001).i32[1];
+                v308[1] = v310;
+                *v308 = v294;
+                if (v308[5].i32[1] <= v308[2].i32[0] >> 1)
                 {
-                  v313[6].i32[0] = 0;
-                  v154 = 0uLL;
+                  v308[6].i32[0] = 0;
+                  v149 = 0uLL;
                 }
 
                 else
                 {
-                  v316 = v313[6].i32[0] + 1;
-                  v313[6].i32[0] = v316;
-                  v154 = 0uLL;
-                  if (v316 >= 2)
+                  v311 = v308[6].i32[0] + 1;
+                  v308[6].i32[0] = v311;
+                  v149 = 0uLL;
+                  if (v311 >= 2)
                   {
-                    v313[6].i32[1] = 1;
+                    v308[6].i32[1] = 1;
                   }
                 }
               }
 
               if (maxlog >= 7)
               {
-                coap_session_str(v256);
+                coap_session_str(v251);
                 coap_log_impl(7, "***%s: new incoming session\n", &coap_session_str_szSession);
-                v154 = 0uLL;
+                v149 = 0uLL;
               }
 
-              v317 = *v256;
-              if ((v317 - 3) <= 1)
+              v312 = *v251;
+              if ((v312 - 3) <= 1)
               {
-                coap_handle_event(*(v256 + 26), 4097, v256);
-                v154 = 0uLL;
-                v317 = *v256;
+                coap_handle_event(*(v251 + 26), 4097, v251);
+                v149 = 0uLL;
+                v312 = *v251;
               }
 
-              if (v317 != 4)
+              if (v312 != 4)
               {
-                if (v317 == 3)
+                if (v312 == 3)
                 {
-                  coap_session_send_csm(v256);
-                  v154 = 0uLL;
+                  coap_session_send_csm(v251);
+                  v149 = 0uLL;
                 }
 
-                *(v256 + 34) = v152;
+                *(v251 + 34) = v147;
                 goto LABEL_533;
               }
 
-              *(v256 + 27) = 0;
-              ++*(v256 + 1);
-              coap_session_release(v256);
+              *(v251 + 27) = 0;
+              ++*(v251 + 1);
+              coap_session_release(v251);
             }
 
-            v154 = 0uLL;
+            v149 = 0uLL;
           }
         }
 
 LABEL_533:
-        v318 = *(v155 + 80);
-        if (v318)
+        v313 = *(v150 + 80);
+        if (v313)
         {
           do
           {
-            v319 = *(v318 + 64);
-            v320 = *(v318 + 180);
-            if ((v320 & 0x100) != 0)
+            v314 = *(v313 + 64);
+            v315 = *(v313 + 180);
+            if ((v315 & 0x100) != 0)
             {
-              ++*(v318 + 4);
-              coap_read_session();
-              coap_session_release(v318);
-              v154 = 0uLL;
-              v320 = *(v318 + 180);
+              ++*(v313 + 4);
+              coap_read_session(v145, v313, v147);
+              coap_session_release(v313);
+              v149 = 0uLL;
+              v315 = *(v313 + 180);
             }
 
-            if ((v320 & 0x200) != 0)
+            if ((v315 & 0x200) != 0)
             {
-              ++*(v318 + 4);
-              coap_write_session(v318, v152);
-              coap_session_release(v318);
-              v154 = 0uLL;
+              ++*(v313 + 4);
+              coap_write_session(v313, v147);
+              coap_session_release(v313);
+              v149 = 0uLL;
             }
 
-            v318 = v319;
+            v313 = v314;
           }
 
-          while (v319);
+          while (v314);
         }
 
-        if (!v153)
+        if (!v148)
         {
           goto LABEL_540;
         }
       }
 
-      if (*(v155 + 16) - 3 <= 0xFFFFFFFD)
+      if (*(v150 + 16) - 3 <= 0xFFFFFFFD)
       {
         __assert_rtn("coap_read_endpoint", "net.c", 1632, "COAP_PROTO_NOT_RELIABLE(endpoint->proto)");
       }
 
-      if ((v156 & 2) == 0)
+      if ((v151 & 2) == 0)
       {
         __assert_rtn("coap_read_endpoint", "net.c", 1633, "endpoint->sock.flags & COAP_SOCKET_BOUND");
       }
 
-      v410 = v154;
-      v409 = v154;
-      v408 = v154;
-      v407 = v154;
-      v406 = v154;
-      v405 = v154;
-      v404 = v154;
-      v403 = v154;
-      v402 = v154;
-      v401 = v154;
-      v400 = v154;
-      v399 = v154;
-      v398 = v154;
-      v397 = v154;
-      v396 = v154;
-      v395 = v154;
-      v394 = v154;
-      v393 = v154;
-      v392 = v154;
-      v391 = v154;
-      v390 = v154;
-      v389 = v154;
-      v388 = v154;
-      v387 = v154;
-      v386 = v154;
-      v385 = v154;
-      v384 = v154;
-      v383 = v154;
-      *v382 = v154;
-      *&v382[16] = v154;
-      v157 = *(v155 + 48);
-      v381 = v154;
-      *__errnum = v154;
+      v402 = v149;
+      v401 = v149;
+      v400 = v149;
+      v399 = v149;
+      v398 = v149;
+      v397 = v149;
+      v396 = v149;
+      v395 = v149;
+      v394 = v149;
+      v393 = v149;
+      v392 = v149;
+      v391 = v149;
+      v390 = v149;
+      v389 = v149;
+      v388 = v149;
+      v387 = v149;
+      v386 = v149;
+      v385 = v149;
+      v384 = v149;
+      v383 = v149;
+      v382 = v149;
+      v381 = v149;
+      v380 = v149;
+      v379 = v149;
+      v378 = v149;
+      v377 = v149;
+      v376 = v149;
+      v375 = v149;
+      *v374 = v149;
+      *&v374[16] = v149;
+      v152 = *(v150 + 48);
+      v373 = v149;
+      *__errnum = v149;
       __errnum[0] = 28;
-      *v382 = v157;
-      v158 = *(v155 + 53);
-      if (v158 == 2)
+      *v374 = v152;
+      v153 = *(v150 + 53);
+      if (v153 == 2)
       {
-        *&v382[4] = *(v155 + 52);
+        *&v374[4] = *(v150 + 52);
       }
 
-      else if (v158 == 30)
+      else if (v153 == 30)
       {
-        v382[5] = 30;
-        *&v382[12] = *(v155 + 60);
-        *&v382[6] = *(v155 + 54);
-        *&v382[28] = *(v155 + 76);
+        v374[5] = 30;
+        *&v374[12] = *(v150 + 60);
+        *&v374[6] = *(v150 + 54);
+        *&v374[28] = *(v150 + 76);
       }
 
       else
@@ -2287,156 +2278,156 @@ LABEL_533:
         __memcpy_chk();
       }
 
-      v159 = (*(v150 + 120))(v155 + 24, __errnum);
-      if ((v159 & 0x8000000000000000) == 0)
+      v154 = (*(v145 + 120))(v150 + 24, __errnum);
+      if ((v154 & 0x8000000000000000) == 0)
       {
-        v160 = v159;
-        v154 = 0uLL;
-        if (!v159)
+        v155 = v154;
+        v149 = 0uLL;
+        if (!v154)
         {
           goto LABEL_480;
         }
 
-        v161 = 64;
-        v162 = __errnum;
-        v163 = -1640531527;
-        v164 = -1640531527;
-        v165 = -17973521;
+        v156 = 64;
+        v157 = __errnum;
+        v158 = -1640531527;
+        v159 = -1640531527;
+        v160 = -17973521;
         do
         {
-          v166 = v162[1] + v163;
-          v167 = v162[2] + v165;
-          v168 = (*v162 + v164 - (v166 + v167)) ^ (v167 >> 13);
-          v169 = (v166 - v167 - v168) ^ (v168 << 8);
-          v170 = (v167 - v168 - v169) ^ (v169 >> 13);
-          v171 = (v168 - v169 - v170) ^ (v170 >> 12);
-          v172 = (v169 - v170 - v171) ^ (v171 << 16);
-          v173 = (v170 - v171 - v172) ^ (v172 >> 5);
-          v164 = (v171 - v172 - v173) ^ (v173 >> 3);
-          v163 = (v172 - v173 - v164) ^ (v164 << 10);
-          v165 = (v173 - v164 - v163) ^ (v163 >> 15);
-          v162 += 3;
-          v161 -= 12;
+          v161 = v157[1] + v158;
+          v162 = v157[2] + v160;
+          v163 = (*v157 + v159 - (v161 + v162)) ^ (v162 >> 13);
+          v164 = (v161 - v162 - v163) ^ (v163 << 8);
+          v165 = (v162 - v163 - v164) ^ (v164 >> 13);
+          v166 = (v163 - v164 - v165) ^ (v165 >> 12);
+          v167 = (v164 - v165 - v166) ^ (v166 << 16);
+          v168 = (v165 - v166 - v167) ^ (v167 >> 5);
+          v159 = (v166 - v167 - v168) ^ (v168 >> 3);
+          v158 = (v167 - v168 - v159) ^ (v159 << 10);
+          v160 = (v168 - v159 - v158) ^ (v158 >> 15);
+          v157 += 3;
+          v156 -= 12;
         }
 
-        while (v161 > 0xB);
-        v174 = *(v155 + 80);
-        if (!v174)
+        while (v156 > 0xB);
+        v169 = *(v150 + 80);
+        if (!v169)
         {
-          v197 = *(v155 + 8);
+          v192 = *(v150 + 8);
           goto LABEL_422;
         }
 
-        v175 = (v164 + (v382[31] << 24) + (v382[30] << 16) + (v382[29] << 8) + v382[28] + -64 - v165 - v163) ^ ((v165 + 64) >> 13);
-        v176 = (v163 + -64 - v165 - v175) ^ (v175 << 8);
-        v177 = (v165 + 64 - v175 - v176) ^ (v176 >> 13);
-        v178 = (v175 - v176 - v177) ^ (v177 >> 12);
-        v179 = (v176 - v177 - v178) ^ (v178 << 16);
-        v180 = (v177 - v178 - v179) ^ (v179 >> 5);
-        v181 = (v178 - v179 - v180) ^ (v180 >> 3);
-        v182 = (v180 - v181 - ((v179 - v180 - v181) ^ (v181 << 10))) ^ (((v179 - v180 - v181) ^ (v181 << 10)) >> 15);
-        v183 = *(v174 + 48);
-        v184 = *(*v183 + 16 * ((*(v183 + 8) - 1) & v182));
-        if (v184)
+        v170 = (v159 + (v374[31] << 24) + (v374[30] << 16) + (v374[29] << 8) + v374[28] + -64 - v160 - v158) ^ ((v160 + 64) >> 13);
+        v171 = (v158 + -64 - v160 - v170) ^ (v170 << 8);
+        v172 = (v160 + 64 - v170 - v171) ^ (v171 >> 13);
+        v173 = (v170 - v171 - v172) ^ (v172 >> 12);
+        v174 = (v171 - v172 - v173) ^ (v173 << 16);
+        v175 = (v172 - v173 - v174) ^ (v174 >> 5);
+        v176 = (v173 - v174 - v175) ^ (v175 >> 3);
+        v177 = (v175 - v176 - ((v174 - v175 - v176) ^ (v176 << 10))) ^ (((v174 - v175 - v176) ^ (v176 << 10)) >> 15);
+        v178 = *(v169 + 48);
+        v179 = *(*v178 + 16 * ((*(v178 + 8) - 1) & v177));
+        if (v179)
         {
-          v185 = -*(v183 + 32);
+          v180 = -*(v178 + 32);
           while (1)
           {
-            v186 = v184 + v185;
-            if (*(v184 + v185 + 100) == v182 && *(v186 + 96) == 64)
+            v181 = v179 + v180;
+            if (*(v179 + v180 + 100) == v177 && *(v181 + 96) == 64)
             {
-              v187 = memcmp(*(v186 + 88), __errnum, 0x40uLL);
-              v154 = 0uLL;
-              if (!v187)
+              v182 = memcmp(*(v181 + 88), __errnum, 0x40uLL);
+              v149 = 0uLL;
+              if (!v182)
               {
                 break;
               }
             }
 
-            v184 = *(v186 + 80);
-            if (!v184)
+            v179 = *(v181 + 80);
+            if (!v179)
             {
               goto LABEL_391;
             }
           }
 
-          *(v186 + 272) = v152;
+          *(v181 + 272) = v147;
           goto LABEL_476;
         }
 
 LABEL_391:
-        v188 = 0;
-        v189 = 0;
-        v190 = 0;
-        v191 = 0;
+        v183 = 0;
+        v184 = 0;
+        v185 = 0;
+        v186 = 0;
         do
         {
-          if (!*(v174 + 4) && !*(v174 + 232))
+          if (!*(v169 + 4) && !*(v169 + 232))
           {
-            v192 = *(v174 + 1);
-            if (v192 == 3)
+            v187 = *(v169 + 1);
+            if (v187 == 3)
             {
               goto LABEL_402;
             }
 
-            if (v192 == 2)
+            if (v187 == 2)
             {
-              if (!v189 || *(v174 + 272) < *(v189 + 272))
+              if (!v184 || *(v169 + 272) < *(v184 + 272))
               {
-                v189 = v174;
+                v184 = v169;
               }
 
-              ++v191;
-              if (*(v174 + 2) == 2)
+              ++v186;
+              if (*(v169 + 2) == 2)
               {
 LABEL_402:
-                ++v190;
-                v193 = *(v174 + 272);
-                if (v193 + 30000 < v152 && (!v188 || v193 < *(v188 + 272)))
+                ++v185;
+                v188 = *(v169 + 272);
+                if (v188 + 30000 < v147 && (!v183 || v188 < *(v183 + 272)))
                 {
-                  v188 = v174;
+                  v183 = v169;
                 }
               }
             }
           }
 
-          v174 = *(v174 + 64);
+          v169 = *(v169 + 64);
         }
 
-        while (v174);
-        if (*(*(v155 + 8) + 196) - 1 >= v191)
+        while (v169);
+        if (*(*(v150 + 8) + 196) - 1 >= v186)
         {
-          if (!v188)
+          if (!v183)
           {
             goto LABEL_416;
           }
 
           if (maxlog >= 4)
           {
-            coap_session_str(v188);
+            coap_session_str(v183);
             coap_log_impl(4, "***%s: Incomplete session timed out\n", &coap_session_str_szSession);
           }
 
-          v189 = v188;
+          v184 = v183;
         }
 
-        coap_session_free(v189);
-        v154 = 0uLL;
+        coap_session_free(v184);
+        v149 = 0uLL;
 LABEL_416:
-        v197 = *(v155 + 8);
-        v198 = *(v197 + 200);
-        if (!v198)
+        v192 = *(v150 + 8);
+        v193 = *(v192 + 200);
+        if (!v193)
         {
-          v198 = 100;
+          v193 = 100;
         }
 
-        if (v190 > v198)
+        if (v185 > v193)
         {
           if (maxlog >= 7)
           {
-            coap_log_impl(7, "Oustanding sessions in COAP_SESSION_STATE_HANDSHAKE too large.  New request ignored\n", 0.0, v340, v341, v343);
+            coap_log_impl(7, "Oustanding sessions in COAP_SESSION_STATE_HANDSHAKE too large.  New request ignored\n", 0.0, v335, v336, v337);
 LABEL_479:
-            v154 = 0uLL;
+            v149 = 0uLL;
             goto LABEL_480;
           }
 
@@ -2444,10 +2435,10 @@ LABEL_479:
         }
 
 LABEL_422:
-        v199 = *(v155 + 16);
-        if (v199 == 2)
+        v194 = *(v150 + 16);
+        if (v194 == 2)
         {
-          if (*(&v383 + 1) <= 0xDuLL)
+          if (*(&v375 + 1) <= 0xDuLL)
           {
             if (maxlog >= 7)
             {
@@ -2456,17 +2447,17 @@ LABEL_422:
             }
 
 LABEL_480:
-            v156 = *(v155 + 28);
-            v150 = v356;
+            v151 = *(v150 + 28);
+            v145 = v348;
             goto LABEL_481;
           }
 
-          if (v384 == 21)
+          if (v376 == 21)
           {
             goto LABEL_480;
           }
 
-          if (v384 != 22 || BYTE13(v384) != 1)
+          if (v376 != 22 || BYTE13(v376) != 1)
           {
             if (maxlog >= 7)
             {
@@ -2477,234 +2468,218 @@ LABEL_480:
             goto LABEL_480;
           }
 
-          v199 = 2;
+          v194 = 2;
         }
 
-        v202 = coap_make_session(v199, 2, 0, v382, __errnum, v383, v197, v155);
-        v154 = 0uLL;
-        if (v202)
+        v197 = coap_make_session(v194, 2, 0, v374, __errnum, v375, v192, v150);
+        v149 = 0uLL;
+        if (v197)
         {
-          v186 = v202;
-          *(v202 + 34) = v152;
-          v203 = *(v155 + 16);
-          if (v203 == 2)
+          v181 = v197;
+          *(v197 + 34) = v147;
+          v198 = *(v150 + 16);
+          if (v198 == 2)
           {
-            v202[1] = 3;
+            v197[1] = 3;
           }
 
-          else if (v203 == 1)
+          else if (v198 == 1)
           {
-            v202[2] = 4;
+            v197[2] = 4;
           }
 
-          v204 = 64;
-          v205 = 104;
-          v206 = -1640531527;
-          v207 = -1640531527;
-          v208 = -17973521;
+          v199 = 64;
+          v200 = 104;
+          v201 = -1640531527;
+          v202 = -1640531527;
+          v203 = -17973521;
           do
           {
-            v209 = *&v202[v205 + 4] + v206;
-            v210 = *&v202[v205 + 8] + v208;
-            v211 = (*&v202[v205] + v207 - (v209 + v210)) ^ (v210 >> 13);
-            v212 = (v209 - v210 - v211) ^ (v211 << 8);
-            v213 = (v210 - v211 - v212) ^ (v212 >> 13);
-            v214 = (v211 - v212 - v213) ^ (v213 >> 12);
-            v215 = (v212 - v213 - v214) ^ (v214 << 16);
-            v216 = (v213 - v214 - v215) ^ (v215 >> 5);
-            v207 = (v214 - v215 - v216) ^ (v216 >> 3);
-            v206 = (v215 - v216 - v207) ^ (v207 << 10);
-            v208 = (v216 - v207 - v206) ^ (v206 >> 15);
-            v204 -= 12;
-            v205 += 12;
+            v204 = *&v197[v200 + 4] + v201;
+            v205 = *&v197[v200 + 8] + v203;
+            v206 = (*&v197[v200] + v202 - (v204 + v205)) ^ (v205 >> 13);
+            v207 = (v204 - v205 - v206) ^ (v206 << 8);
+            v208 = (v205 - v206 - v207) ^ (v207 >> 13);
+            v209 = (v206 - v207 - v208) ^ (v208 >> 12);
+            v210 = (v207 - v208 - v209) ^ (v209 << 16);
+            v211 = (v208 - v209 - v210) ^ (v210 >> 5);
+            v202 = (v209 - v210 - v211) ^ (v211 >> 3);
+            v201 = (v210 - v211 - v202) ^ (v202 << 10);
+            v203 = (v211 - v202 - v201) ^ (v201 >> 15);
+            v199 -= 12;
+            v200 += 12;
           }
 
-          while (v204 > 0xB);
-          v217 = (v207 + (v202[167] << 24) + (v202[166] << 16) + (v202[165] << 8) + v202[164] + -64 - v208 - v206) ^ ((v208 + 64) >> 13);
-          v218 = (v206 + -64 - v208 - v217) ^ (v217 << 8);
-          v219 = (v208 + 64 - v217 - v218) ^ (v218 >> 13);
-          v220 = (v217 - v218 - v219) ^ (v219 >> 12);
-          v221 = (v218 - v219 - v220) ^ (v220 << 16);
-          v222 = (v219 - v220 - v221) ^ (v221 >> 5);
-          v223 = (v220 - v221 - v222) ^ (v222 >> 3);
-          v224 = (v222 - v223 - ((v221 - v222 - v223) ^ (v223 << 10))) ^ (((v221 - v222 - v223) ^ (v223 << 10)) >> 15);
-          v225 = (v202 + 48);
-          *(v202 + 11) = v202 + 104;
-          *(v202 + 24) = 64;
-          *(v202 + 25) = v224;
-          v226 = *(v155 + 80);
-          if (v226)
+          while (v199 > 0xB);
+          v212 = (v202 + (v197[167] << 24) + (v197[166] << 16) + (v197[165] << 8) + v197[164] + -64 - v203 - v201) ^ ((v203 + 64) >> 13);
+          v213 = (v201 + -64 - v203 - v212) ^ (v212 << 8);
+          v214 = (v203 + 64 - v212 - v213) ^ (v213 >> 13);
+          v215 = (v212 - v213 - v214) ^ (v214 >> 12);
+          v216 = (v213 - v214 - v215) ^ (v215 << 16);
+          v217 = (v214 - v215 - v216) ^ (v216 >> 5);
+          v218 = (v215 - v216 - v217) ^ (v217 >> 3);
+          v219 = (v217 - v218 - ((v216 - v217 - v218) ^ (v218 << 10))) ^ (((v216 - v217 - v218) ^ (v218 << 10)) >> 15);
+          v220 = (v197 + 48);
+          *(v197 + 11) = v197 + 104;
+          *(v197 + 24) = 64;
+          *(v197 + 25) = v219;
+          v221 = *(v150 + 80);
+          if (v221)
           {
-            v227 = *(v226 + 48);
-            *(v202 + 6) = v227;
-            *(v202 + 8) = 0;
-            v228 = *(v227 + 24);
-            *(v202 + 7) = v228 - *(v227 + 32);
-            *(v228 + 16) = v202;
-            *(v227 + 24) = v225;
+            v222 = *(v221 + 48);
+            *(v197 + 6) = v222;
+            *(v197 + 8) = 0;
+            v223 = *(v222 + 24);
+            *(v197 + 7) = v223 - *(v222 + 32);
+            *(v223 + 16) = v197;
+            *(v222 + 24) = v220;
           }
 
           else
           {
-            *(v202 + 7) = 0;
-            *(v202 + 8) = 0;
-            *(v155 + 80) = v202;
-            v229 = malloc_type_malloc(0x40uLL, 0x10200405F856B24uLL);
-            *(*(v155 + 80) + 48) = v229;
-            if (!v229)
-            {
-              goto LABEL_587;
-            }
-
-            v229[2] = 0u;
-            v229[3] = 0u;
-            *v229 = 0u;
-            v229[1] = 0u;
-            v230 = *(v155 + 80);
-            v231 = *(v230 + 48);
-            v231[1] = 0x500000020;
-            v231[3] = v230 + 48;
-            v231[4] = 48;
-            v232 = malloc_type_malloc(0x200uLL, 0x1020040EDED9539uLL);
-            **(*(v155 + 80) + 48) = v232;
-            if (!v232)
+            *(v197 + 7) = 0;
+            *(v197 + 8) = 0;
+            *(v150 + 80) = v197;
+            v224 = malloc_type_malloc(0x40uLL, 0x10200405F856B24uLL);
+            *(*(v150 + 80) + 48) = v224;
+            if (!v224 || (v224[2] = 0u, v224[3] = 0u, *v224 = 0u, v224[1] = 0u, v225 = *(v150 + 80), v226 = *(v225 + 48), v226[1] = 0x500000020, v226[3] = v225 + 48, v226[4] = 48, v227 = malloc_type_malloc(0x200uLL, 0x1020040EDED9539uLL), (**(*(v150 + 80) + 48) = v227) == 0))
             {
 LABEL_587:
               exit(-1);
             }
 
-            v232[30] = 0u;
-            v232[31] = 0u;
-            v232[28] = 0u;
-            v232[29] = 0u;
-            v232[26] = 0u;
-            v232[27] = 0u;
-            v232[24] = 0u;
-            v232[25] = 0u;
-            v232[22] = 0u;
-            v232[23] = 0u;
-            v232[20] = 0u;
-            v232[21] = 0u;
-            v232[18] = 0u;
-            v232[19] = 0u;
-            v232[16] = 0u;
-            v232[17] = 0u;
-            v232[14] = 0u;
-            v232[15] = 0u;
-            v232[12] = 0u;
-            v232[13] = 0u;
-            v232[10] = 0u;
-            v232[11] = 0u;
-            v232[8] = 0u;
-            v232[9] = 0u;
-            v232[6] = 0u;
-            v232[7] = 0u;
-            v232[4] = 0u;
-            v232[5] = 0u;
-            v232[2] = 0u;
-            v232[3] = 0u;
-            *v232 = 0u;
-            v232[1] = 0u;
-            v227 = *(*(v155 + 80) + 48);
-            *(v227 + 56) = -1609490463;
+            v227[30] = 0u;
+            v227[31] = 0u;
+            v227[28] = 0u;
+            v227[29] = 0u;
+            v227[26] = 0u;
+            v227[27] = 0u;
+            v227[24] = 0u;
+            v227[25] = 0u;
+            v227[22] = 0u;
+            v227[23] = 0u;
+            v227[20] = 0u;
+            v227[21] = 0u;
+            v227[18] = 0u;
+            v227[19] = 0u;
+            v227[16] = 0u;
+            v227[17] = 0u;
+            v227[14] = 0u;
+            v227[15] = 0u;
+            v227[12] = 0u;
+            v227[13] = 0u;
+            v227[10] = 0u;
+            v227[11] = 0u;
+            v227[8] = 0u;
+            v227[9] = 0u;
+            v227[6] = 0u;
+            v227[7] = 0u;
+            v227[4] = 0u;
+            v227[5] = 0u;
+            v227[2] = 0u;
+            v227[3] = 0u;
+            *v227 = 0u;
+            v227[1] = 0u;
+            v222 = *(*(v150 + 80) + 48);
+            *(v222 + 56) = -1609490463;
           }
 
-          ++*(v227 + 16);
-          v233 = *v227 + 16 * ((*(v227 + 8) - 1) & v224);
-          v234 = *(v233 + 8) + 1;
-          *(v233 + 8) = v234;
-          v235 = *v233;
-          *(v186 + 72) = 0;
-          *(v186 + 80) = v235;
-          if (v235)
+          ++*(v222 + 16);
+          v228 = *v222 + 16 * ((*(v222 + 8) - 1) & v219);
+          v229 = *(v228 + 8) + 1;
+          *(v228 + 8) = v229;
+          v230 = *v228;
+          *(v181 + 72) = 0;
+          *(v181 + 80) = v230;
+          if (v230)
           {
-            *(v235 + 24) = v225;
+            *(v230 + 24) = v220;
           }
 
-          *v233 = v225;
-          if (v234 >= 10 * *(v233 + 12) + 10 && !(*v225)[6].i32[1])
+          *v228 = v220;
+          if (v229 >= 10 * *(v228 + 12) + 10 && !(*v220)[6].i32[1])
           {
-            v236 = malloc_type_malloc(32 * (*v225)[1].u32[0], 0x1020040EDED9539uLL);
-            if (!v236)
+            v231 = malloc_type_malloc(32 * (*v220)[1].u32[0], 0x1020040EDED9539uLL);
+            if (!v231)
             {
               goto LABEL_587;
             }
 
-            v237 = v236;
-            bzero(v236, 32 * (*v225)[1].u32[0]);
-            v238 = *v225;
-            v239 = (*v225)[2].u32[0];
-            v240 = (*v225)[1].u32[0];
-            v241 = 2 * v240 - 1;
-            if ((v241 & v239) != 0)
+            v232 = v231;
+            bzero(v231, 32 * (*v220)[1].u32[0]);
+            v233 = *v220;
+            v234 = (*v220)[2].u32[0];
+            v235 = (*v220)[1].u32[0];
+            v236 = 2 * v235 - 1;
+            if ((v236 & v234) != 0)
             {
-              v242 = (v239 >> ((*v225)[1].i32[1] + 1)) + 1;
+              v237 = (v234 >> ((*v220)[1].i32[1] + 1)) + 1;
             }
 
             else
             {
-              v242 = v239 >> ((*v225)[1].i32[1] + 1);
+              v237 = v234 >> ((*v220)[1].i32[1] + 1);
             }
 
-            v238[5].i32[0] = v242;
-            v238[5].i32[1] = 0;
-            v243 = *v238;
-            if (v240)
+            v233[5].i32[0] = v237;
+            v233[5].i32[1] = 0;
+            v238 = *v233;
+            if (v235)
             {
-              v244 = 0;
-              for (j = 0; j != v240; ++j)
+              v239 = 0;
+              for (j = 0; j != v235; ++j)
               {
-                v246 = v243[2 * j];
-                if (v246)
+                v241 = v238[2 * j];
+                if (v241)
                 {
                   do
                   {
-                    v247 = *(v246 + 32);
-                    v248 = &v237[16 * (*(v246 + 52) & v241)];
-                    v249 = *(v248 + 2) + 1;
-                    *(v248 + 2) = v249;
-                    if (v249 > v242)
+                    v242 = *(v241 + 32);
+                    v243 = &v232[16 * (*(v241 + 52) & v236)];
+                    v244 = *(v243 + 2) + 1;
+                    *(v243 + 2) = v244;
+                    if (v244 > v237)
                     {
-                      v238[5].i32[1] = ++v244;
-                      *(v248 + 3) = v249 / v242;
+                      v233[5].i32[1] = ++v239;
+                      *(v243 + 3) = v244 / v237;
                     }
 
-                    *(v246 + 24) = 0;
-                    v250 = *v248;
-                    *(v246 + 32) = *v248;
-                    if (v250)
+                    *(v241 + 24) = 0;
+                    v245 = *v243;
+                    *(v241 + 32) = *v243;
+                    if (v245)
                     {
-                      *(v250 + 24) = v246;
+                      *(v245 + 24) = v241;
                     }
 
-                    *v248 = v246;
-                    v246 = v247;
+                    *v243 = v241;
+                    v241 = v242;
                   }
 
-                  while (v247);
+                  while (v242);
                 }
               }
             }
 
-            free(v243);
-            v251 = *v225;
-            v252 = (*v225)[1];
-            v253.i32[0] = vadd_s32(v252, v252).u32[0];
-            v253.i32[1] = vadd_s32(v252, 0x100000001).i32[1];
-            v251[1] = v253;
-            *v251 = v237;
-            if (v251[5].i32[1] <= v251[2].i32[0] >> 1)
+            free(v238);
+            v246 = *v220;
+            v247 = (*v220)[1];
+            v248.i32[0] = vadd_s32(v247, v247).u32[0];
+            v248.i32[1] = vadd_s32(v247, 0x100000001).i32[1];
+            v246[1] = v248;
+            *v246 = v232;
+            if (v246[5].i32[1] <= v246[2].i32[0] >> 1)
             {
-              v251[6].i32[0] = 0;
+              v246[6].i32[0] = 0;
             }
 
             else
             {
-              v254 = v251[6].i32[0] + 1;
-              v251[6].i32[0] = v254;
-              if (v254 >= 2)
+              v249 = v246[6].i32[0] + 1;
+              v246[6].i32[0] = v249;
+              if (v249 >= 2)
               {
-                v251[6].i32[1] = 1;
+                v246[6].i32[1] = 1;
               }
             }
           }
@@ -2714,76 +2689,76 @@ LABEL_587:
             goto LABEL_478;
           }
 
-          coap_session_str(v186);
+          coap_session_str(v181);
           coap_log_impl(7, "***%s: new incoming session\n", &coap_session_str_szSession);
 LABEL_476:
           if (maxlog >= 7)
           {
-            coap_session_str(v186);
-            coap_log_impl(7, "*  %s: received %zd bytes\n", &coap_session_str_szSession, v160);
+            coap_session_str(v181);
+            coap_log_impl(7, "*  %s: received %zd bytes\n", &coap_session_str_szSession, v155);
           }
 
 LABEL_478:
-          coap_handle_dgram_for_proto(v356, v186, __errnum);
+          coap_handle_dgram_for_proto(v348, v181, __errnum);
           goto LABEL_479;
         }
 
         goto LABEL_480;
       }
 
-      v154 = 0uLL;
+      v149 = 0uLL;
       if (maxlog < 4)
       {
         goto LABEL_480;
       }
 
-      if (coap_print_addr(v155 + 48, &coap_endpoint_str_szEndpoint, 0x80uLL))
+      if (coap_print_addr(v150 + 48, &coap_endpoint_str_szEndpoint, 0x80uLL))
       {
-        v195 = strlen(&coap_endpoint_str_szEndpoint);
-        if (v195 > 121)
+        v190 = strlen(&coap_endpoint_str_szEndpoint);
+        if (v190 > 121)
         {
 LABEL_441:
-          coap_log_impl(4, "*  %s: read failed\n", v194);
+          coap_log_impl(4, "*  %s: read failed\n", v189);
           goto LABEL_479;
         }
 
-        v196 = (&coap_endpoint_str_szEndpoint + v195);
+        v191 = (&coap_endpoint_str_szEndpoint + v190);
       }
 
       else
       {
-        v196 = &coap_endpoint_str_szEndpoint;
+        v191 = &coap_endpoint_str_szEndpoint;
       }
 
-      v200 = *(v155 + 16);
-      if (v200 == 2)
+      v195 = *(v150 + 16);
+      if (v195 == 2)
       {
-        *(v196 + 2) = 83;
-        v201 = 1280590880;
+        *(v191 + 2) = 83;
+        v196 = 1280590880;
       }
 
-      else if (v200 == 1)
+      else if (v195 == 1)
       {
-        *(v196 + 4) = 0;
-        v201 = 1346655520;
+        *(v191 + 4) = 0;
+        v196 = 1346655520;
       }
 
       else
       {
-        *(v196 + 2) = 69;
-        v201 = 1313820192;
+        *(v191 + 2) = 69;
+        v196 = 1313820192;
       }
 
-      *v196 = v201;
+      *v191 = v196;
       goto LABEL_441;
     }
 
 LABEL_540:
-    v321 = *(v150 + 64);
-    if (!v321)
+    v316 = *(v145 + 64);
+    if (!v316)
     {
 LABEL_572:
-      if ((((((125 * (v152 - v350)) & 0x1FFFFFFFFFFFFFFFLL) * 0x20C49BA5E353F7CFuLL) >> 64) >> 4) == -1)
+      if ((((((125 * (v147 - v342)) & 0x1FFFFFFFFFFFFFFFLL) * 0x20C49BA5E353F7CFuLL) >> 64) >> 4) == -1)
       {
         goto LABEL_573;
       }
@@ -2797,11 +2772,11 @@ LABEL_579:
 
     while (1)
     {
-      v322 = *(v321 + 8);
-      v323 = *(v321 + 90);
-      if ((v323 & 0x800) == 0)
+      v317 = *(v316 + 8);
+      v318 = *(v316 + 90);
+      if ((v318 & 0x800) == 0)
       {
-        if ((*(v321 + 90) & 0x100) != 0)
+        if ((*(v316 + 90) & 0x100) != 0)
         {
           goto LABEL_560;
         }
@@ -2809,15 +2784,15 @@ LABEL_579:
         goto LABEL_543;
       }
 
-      ++*(v321 + 1);
+      ++*(v316 + 1);
       __errnum[0] = 0;
-      LODWORD(v373.msg_name) = 4;
-      *(v321 + 90) = v323 & 0xF77F;
-      if (getsockopt(*(v321 + 44), 0xFFFF, 4103, __errnum, &v373) == -1 && maxlog >= 4)
+      LODWORD(v365.msg_name) = 4;
+      *(v316 + 90) = v318 & 0xF77F;
+      if (getsockopt(*(v316 + 44), 0xFFFF, 4103, __errnum, &v365) == -1 && maxlog >= 4)
       {
-        v325 = __error();
-        v326 = strerror(*v325);
-        coap_log_impl(4, "coap_socket_finish_connect_tcp: getsockopt: %s\n", v326);
+        v320 = __error();
+        v321 = strerror(*v320);
+        coap_log_impl(4, "coap_socket_finish_connect_tcp: getsockopt: %s\n", v321);
       }
 
       if (__errnum[0])
@@ -2825,70 +2800,70 @@ LABEL_579:
         break;
       }
 
-      if (getsockname(*(v321 + 44), (v321 + 140), v321 + 34) == -1 && maxlog >= 4)
+      if (getsockname(*(v316 + 44), (v316 + 140), v316 + 34) == -1 && maxlog >= 4)
       {
-        v331 = __error();
-        v332 = strerror(*v331);
-        coap_log_impl(4, "coap_socket_connect_tcp: getsockname: %s\n", v332);
+        v327 = __error();
+        v328 = strerror(*v327);
+        coap_log_impl(4, "coap_socket_connect_tcp: getsockname: %s\n", v328);
       }
 
-      if (getpeername(*(v321 + 44), (v321 + 108), v321 + 26) == -1 && maxlog >= 4)
+      if (getpeername(*(v316 + 44), (v316 + 108), v316 + 26) == -1 && maxlog >= 4)
       {
-        v333 = __error();
-        v334 = strerror(*v333);
-        coap_log_impl(4, "coap_socket_connect_tcp: getpeername: %s\n", v334);
+        v329 = __error();
+        v330 = strerror(*v329);
+        coap_log_impl(4, "coap_socket_connect_tcp: getpeername: %s\n", v330);
       }
 
-      *(v321 + 34) = v152;
-      coap_handle_event(*(v321 + 26), 4097, v321);
-      v335 = *v321;
-      if (v335 == 4)
+      *(v316 + 34) = v147;
+      coap_handle_event(*(v316 + 26), 4097, v316);
+      v331 = *v316;
+      if (v331 == 4)
       {
-        v321[2] = 2;
-        *(v321 + 27) = 0;
-        coap_handle_event(*(v321 + 26), 512, v321);
-        v329 = v321;
-        v330 = 3;
+        v316[2] = 2;
+        *(v316 + 27) = 0;
+        coap_handle_event(*(v316 + 26), 512, v316);
+        v325 = v316;
+        v326 = 3;
 LABEL_558:
-        coap_session_disconnected(v329, v330);
+        coap_session_disconnected(v325, v326, v324);
         goto LABEL_559;
       }
 
-      if (v335 == 3)
+      if (v331 == 3)
       {
-        coap_session_send_csm(v321);
+        coap_session_send_csm(v316);
       }
 
 LABEL_559:
-      coap_session_release(v321);
-      v323 = *(v321 + 90);
-      if ((v323 & 0x100) != 0)
+      coap_session_release(v316);
+      v318 = *(v316 + 90);
+      if ((v318 & 0x100) != 0)
       {
 LABEL_560:
-        ++*(v321 + 1);
-        coap_read_session();
-        coap_session_release(v321);
-        if ((*(v321 + 90) & 0x200) == 0)
+        ++*(v316 + 1);
+        coap_read_session(v348, v316, v147);
+        coap_session_release(v316);
+        if ((*(v316 + 90) & 0x200) == 0)
         {
           goto LABEL_545;
         }
 
 LABEL_544:
-        ++*(v321 + 1);
-        coap_write_session(v321, v152);
-        coap_session_release(v321);
+        ++*(v316 + 1);
+        coap_write_session(v316, v147);
+        coap_session_release(v316);
         goto LABEL_545;
       }
 
 LABEL_543:
-      if ((v323 & 0x200) != 0)
+      if ((v318 & 0x200) != 0)
       {
         goto LABEL_544;
       }
 
 LABEL_545:
-      v321 = v322;
-      if (!v322)
+      v316 = v317;
+      if (!v317)
       {
         goto LABEL_572;
       }
@@ -2896,47 +2871,46 @@ LABEL_545:
 
     if (maxlog >= 4)
     {
-      v327 = strerror(__errnum[0]);
-      coap_log_impl(4, "coap_socket_finish_connect_tcp: connect failed: %s\n", v327);
+      v322 = strerror(__errnum[0]);
+      coap_log_impl(4, "coap_socket_finish_connect_tcp: connect failed: %s\n", v322);
     }
 
-    v328 = *(v321 + 44);
-    if (v328 != -1)
+    v323 = *(v316 + 44);
+    if (v323 != -1)
     {
-      *(v321 + 23) = 0;
-      *(v321 + 24) = 0;
-      close(v328);
-      *(v321 + 44) = -1;
+      *(v316 + 23) = 0;
+      *(v316 + 24) = 0;
+      close(v323);
+      *(v316 + 44) = -1;
     }
 
-    *(v321 + 90) = 0;
-    coap_handle_event(*(v321 + 26), 4099, v321);
-    v329 = v321;
-    v330 = 1;
+    *(v316 + 90) = 0;
+    coap_handle_event(*(v316 + 26), 4099, v316);
+    v325 = v316;
+    v326 = 1;
     goto LABEL_558;
   }
 
   v43 = 0;
 LABEL_580:
-  _Block_object_dispose(v359, 8);
+  _Block_object_dispose(v351, 8);
   __HMFActivityScopeLeave();
 
-  _Block_object_dispose(&v362, 8);
-  v337 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v354, 8);
   return v43;
 }
 
 void __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [(HAP2CoAPIOThread *)*(a1 + 32) completedQueue];
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_2;
-  v56[3] = &unk_2786D5DC8;
-  v56[4] = *v2;
-  [v3 hmf_enumerateWithAutoreleasePoolUsingBlock:v56];
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_2;
+  v55[3] = &unk_2786D5DC8;
+  v55[4] = *v2;
+  [v3 hmf_enumerateWithAutoreleasePoolUsingBlock:v55];
 
   v4 = [(HAP2CoAPIOThread *)*v2 completedQueue];
   [v4 removeAllObjects];
@@ -2950,12 +2924,12 @@ void __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke(uint64_t a1)
   v6 = v5;
   v7 = [v6 now];
 
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__20180;
-  v54 = __Block_byref_object_dispose__20181;
-  v55 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__20180;
+  v53 = __Block_byref_object_dispose__20181;
+  v54 = 0;
   v8 = *(a1 + 32);
   if (v8)
   {
@@ -2963,17 +2937,17 @@ void __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke(uint64_t a1)
   }
 
   v9 = v8;
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_3;
-  v47[3] = &unk_2786D5DF0;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_3;
+  v46[3] = &unk_2786D5DF0;
   v10 = v7;
-  v48 = v10;
-  v49 = &v50;
-  [v9 hmf_enumerateWithAutoreleasePoolUsingBlock:v47];
+  v47 = v10;
+  v48 = &v49;
+  [v9 hmf_enumerateWithAutoreleasePoolUsingBlock:v46];
 
-  v11 = v51;
-  if (v51[5])
+  v11 = v50;
+  if (v50[5])
   {
     v12 = *(a1 + 32);
     if (v12)
@@ -3103,22 +3077,21 @@ LABEL_28:
     v44 = hap2Log_coap;
     if (os_log_type_enabled(hap2Log_coap, OS_LOG_TYPE_DEBUG))
     {
-      v46 = *(a1 + 32);
-      if (v46)
+      v45 = *(a1 + 32);
+      if (v45)
       {
-        v46 = *(v46 + 144);
+        v45 = *(v45 + 144);
       }
 
       *buf = 134217984;
-      v58 = v46;
+      v57 = v45;
       _os_log_debug_impl(&dword_22AADC000, v44, OS_LOG_TYPE_DEBUG, "Coap IO all %lu sliding window slots in use", buf, 0xCu);
     }
   }
 
 LABEL_36:
 
-  _Block_object_dispose(&v50, 8);
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v49, 8);
 }
 
 void __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_62(uint64_t a1, void *a2)
@@ -3199,7 +3172,7 @@ void __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_2(uint64_t a
   [v9 minusSet:v7];
 }
 
-uint64_t __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 reapSession:*(a1 + 32)];
   if (result)
@@ -3213,10 +3186,7 @@ uint64_t __45__HAP2CoAPIOThread__processQueueWithContext___block_invoke_3(uint64
 
     else
     {
-      v9 = [MEMORY[0x277CCAB58] indexSetWithIndex:a3];
-      v10 = *(*(a1 + 40) + 8);
-      v11 = *(v10 + 40);
-      *(v10 + 40) = v9;
+      *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CCAB58] indexSetWithIndex:a3];
 
       return MEMORY[0x2821F96F8]();
     }
@@ -3815,7 +3785,7 @@ LABEL_5:
 
 - (void)_wakeUpThread
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   while (1)
   {
     v3 = self ? self->_wakeupPipeRead : 0;
@@ -3834,18 +3804,16 @@ LABEL_5:
       v4 = hap2Log_coap;
       if (os_log_type_enabled(hap2Log_coap, OS_LOG_TYPE_ERROR))
       {
-        v6 = v4;
-        v7 = *__error();
-        v8[0] = 67109120;
-        v8[1] = v7;
-        _os_log_error_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, "Error attempting to wake up thread %d", v8, 8u);
+        v5 = v4;
+        v6 = *__error();
+        v7[0] = 67109120;
+        v7[1] = v6;
+        _os_log_error_impl(&dword_22AADC000, v5, OS_LOG_TYPE_ERROR, "Error attempting to wake up thread %d", v7, 8u);
       }
 
-      break;
+      return;
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queueSessionCompletionForConsumer:(id)consumer
@@ -4033,12 +4001,12 @@ LABEL_5:
 
 - (HAP2CoAPIOThread)initWithQualityOfService:(int64_t)service delegate:(id)delegate dateProvider:(id)provider
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   providerCopy = provider;
-  v47.receiver = self;
-  v47.super_class = HAP2CoAPIOThread;
-  v10 = [(HAP2CoAPIOThread *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = HAP2CoAPIOThread;
+  v10 = [(HAP2CoAPIOThread *)&v46 init];
   v11 = v10;
   if (v10)
   {
@@ -4088,13 +4056,13 @@ LABEL_5:
     {
       pendingMessagesThreshold = v11->_pendingMessagesThreshold;
       *buf = 134217984;
-      v51 = pendingMessagesThreshold;
+      v50 = pendingMessagesThreshold;
       _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_INFO, "Using a sliding window count of %lu", buf, 0xCu);
     }
 
     v31 = pipe(buf);
     *&v11->super._bytes[44] = *buf;
-    v11->_wakeupPipeRead = v51;
+    v11->_wakeupPipeRead = v50;
     if (v31)
     {
       if (hap2LogInitialize_onceToken != -1)
@@ -4110,11 +4078,11 @@ LABEL_5:
 
       v33 = v32;
       v34 = *__error();
-      *v48 = 67109120;
-      v49 = v34;
+      *v47 = 67109120;
+      v48 = v34;
       v35 = "Error opening pipe with code %d";
 LABEL_23:
-      _os_log_error_impl(&dword_22AADC000, v33, OS_LOG_TYPE_ERROR, v35, v48, 8u);
+      _os_log_error_impl(&dword_22AADC000, v33, OS_LOG_TYPE_ERROR, v35, v47, 8u);
 
 LABEL_24:
       *&v11->super._bytes[44] = -1;
@@ -4139,8 +4107,8 @@ LABEL_24:
 
       v33 = v41;
       v42 = *__error();
-      *v48 = 67109120;
-      v49 = v42;
+      *v47 = 67109120;
+      v48 = v42;
       v35 = "Error setting O_NONBLOCK | O_CLOEXEC flag on read pipe  %d";
       goto LABEL_23;
     }
@@ -4160,8 +4128,8 @@ LABEL_24:
 
       v33 = v43;
       v44 = *__error();
-      *v48 = 67109120;
-      v49 = v44;
+      *v47 = 67109120;
+      v48 = v44;
       v35 = "Error setting O_NONBLOCK | O_CLOEXEC flag on write pipe  %d";
       goto LABEL_23;
     }
@@ -4178,7 +4146,6 @@ LABEL_24:
   v40 = v11;
 LABEL_25:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v40;
 }
 

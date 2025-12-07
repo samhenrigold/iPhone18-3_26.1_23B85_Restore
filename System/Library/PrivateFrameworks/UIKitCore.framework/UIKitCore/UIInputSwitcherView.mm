@@ -209,14 +209,14 @@ LABEL_20:
 + (BOOL)canShowKeyboardSettings
 {
   v2 = +[UIKeyboard keyboardBundleIdentifier];
-  if ([v2 isEqualToString:@"com.apple.Preferences"] & 1) != 0 || (objc_msgSend(v2, "isEqualToString:", @"com.apple.purplebuddy"))
+  if (objc_msgSend_isEqualToString_(v2) & 1) != 0 || (objc_msgSend_isEqualToString_(v2))
   {
     LOBYTE(v3) = 0;
   }
 
   else
   {
-    v3 = [v2 isEqualToString:@"com.apple.CheckerBoard"] ^ 1;
+    v3 = objc_msgSend_isEqualToString_(v2) ^ 1;
   }
 
   v4 = +[UIKeyboardInputModeController sharedInputModeController];
@@ -364,7 +364,7 @@ LABEL_26:
 
           [v17 setLocalizedTitle:v27];
 
-          if (UIKeyboardRequiresFontFallbacksForInputMode())
+          if (UIKeyboardRequiresFontFallbacksForInputMode(firstObject))
           {
             font = [(UIKeyboardMenuView *)self font];
             font2 = [(UIKeyboardMenuView *)self font];
@@ -632,9 +632,9 @@ uint64_t __48__UIInputSwitcherView__reloadInputSwitcherItems__block_invoke()
   {
     v9 = [(NSArray *)self->m_inputSwitcherItems objectAtIndex:i];
     identifier = [v9 identifier];
-    v11 = [identifier isEqualToString:identifierCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-    if (v11)
+    if (isEqualToString)
     {
       break;
     }
@@ -650,9 +650,9 @@ uint64_t __48__UIInputSwitcherView__reloadInputSwitcherItems__block_invoke()
   currentLinguisticInputMode = [v5 currentLinguisticInputMode];
 
   identifier = [currentLinguisticInputMode identifier];
-  v8 = [identifier isEqualToString:identifierCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  if (v8)
+  if (isEqualToString)
   {
     v9 = +[UIKeyboardInputModeController sharedInputModeController];
     v10 = [v9 inputModeForASCIIToggleWithTraits:0];
@@ -748,7 +748,7 @@ uint64_t __48__UIInputSwitcherView__reloadInputSwitcherItems__block_invoke()
     preferencesActions = [v11 preferencesActions];
     inputModeSelectionSequence = [preferencesActions inputModeSelectionSequence];
 
-    if ([inputModeSelectionSequence count] && (TIInputModeGetNormalizedIdentifier(), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(@"emoji", "isEqualToString:", v13), v13, v14))
+    if ([inputModeSelectionSequence count] && (TIInputModeGetNormalizedIdentifier(), v13 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(@"emoji"), v13, isEqualToString))
     {
       v15 = +[UIKeyboardInputModeController sharedInputModeController];
       v16 = +[UIKeyboardInputModeController sharedInputModeController];
@@ -1794,9 +1794,9 @@ LABEL_9:
         v63 = +[UIKeyboardInputMode dictationInputMode];
         v64 = +[UIKeyboardInputModeController sharedInputModeController];
         currentInputMode = [v64 currentInputMode];
-        v66 = [v63 isEqual:currentInputMode];
+        isEqual = objc_msgSend_isEqual_(v63);
 
-        if ((v66 & 1) == 0)
+        if ((isEqual & 1) == 0)
         {
           actionCopy[2](actionCopy);
           goto LABEL_32;
@@ -1937,7 +1937,7 @@ LABEL_33:
   return v60;
 }
 
-uint64_t __109__UIInputSwitcherView_buttonPressed_withEvent_location_isLocationInsideViewHitArea_isForDictation_tapAction___block_invoke(uint64_t a1)
+void *__109__UIInputSwitcherView_buttonPressed_withEvent_location_isLocationInsideViewHitArea_isForDictation_tapAction___block_invoke(uint64_t a1)
 {
   Current = CFAbsoluteTimeGetCurrent();
   [*(*(a1 + 32) + 680) touchDown];

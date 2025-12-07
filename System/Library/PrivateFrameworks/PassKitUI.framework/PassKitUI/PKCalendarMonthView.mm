@@ -42,12 +42,12 @@
   v3.super_class = PKCalendarMonthView;
   [(PKCalendarMonthView *)&v3 layoutSubviews];
   [(PKCalendarMonthView *)self bounds];
-  [(PKCalendarMonthView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKCalendarMonthView *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -58,178 +58,180 @@
   x = bounds.origin.x;
   width = bounds.size.width;
   y = bounds.origin.y;
-  v72 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v7 = 0.0;
+  v8 = 0.0;
   if ([(NSArray *)self->_dayViews count])
   {
-    v8 = [(NSArray *)self->_dayViews objectAtIndexedSubscript:0];
-    [v8 count];
+    v9 = [(NSArray *)self->_dayViews objectAtIndexedSubscript:0];
+    v8 = [v9 count];
   }
 
-  v9 = [(NSArray *)self->_dayViews count];
-  v10 = width + -16.0;
-  PKFloatRoundToPixel();
-  v12 = v11;
+  v10 = [(NSArray *)self->_dayViews count];
+  v11 = width + -16.0;
+  v12.n128_f64[0] = (width + -16.0) / v8;
+  PKFloatRoundToPixel(v12, v13);
+  v15 = v14;
   if ([(NSArray *)self->_dayViews count])
   {
-    v13 = [(NSArray *)self->_dayViews objectAtIndexedSubscript:0];
-    v14 = [v13 count];
+    v16 = [(NSArray *)self->_dayViews objectAtIndexedSubscript:0];
+    v17 = [v16 count];
 
-    if (v14)
+    if (v17)
     {
-      v15 = [(NSArray *)self->_dayViews objectAtIndexedSubscript:0];
-      v16 = [v15 objectAtIndexedSubscript:0];
+      v18 = [(NSArray *)self->_dayViews objectAtIndexedSubscript:0];
+      v19 = [v18 objectAtIndexedSubscript:0];
 
-      [v16 verticalMarginWithBounds:{x + 8.0, y + 0.0, v12, v12}];
-      v7 = v17;
+      [v19 verticalMarginWithBounds:{x + 8.0, y + 0.0, v15, v15}];
+      v7 = v20;
     }
   }
 
-  v18 = v7 + 0.0;
-  v19 = *(MEMORY[0x1E695F058] + 8);
-  v20 = *(MEMORY[0x1E695F058] + 16);
+  v21 = v7 + 0.0;
+  v22 = *(MEMORY[0x1E695F058] + 8);
+  v23 = *(MEMORY[0x1E695F058] + 16);
   headerView = self->_headerView;
-  v62 = *(MEMORY[0x1E695F058] + 24);
-  v63 = *MEMORY[0x1E695F058];
+  v65 = *(MEMORY[0x1E695F058] + 24);
+  v66 = *MEMORY[0x1E695F058];
   if (headerView)
   {
-    v22 = v7;
-    v23 = *(MEMORY[0x1E695F058] + 16);
+    v25 = v7;
+    v26 = *(MEMORY[0x1E695F058] + 16);
     [(UIView *)headerView sizeThatFits:width + -32.0, 3.40282347e38];
-    v24 = width;
+    v27 = width;
     PKRectCenteredXInRect();
-    v53 = v25;
-    v55 = v26;
-    v57 = v27;
-    v59 = v28;
-    v20 = v23;
-    v7 = v22;
-    v18 = v22 + v18 + v28;
+    v56 = v28;
+    v58 = v29;
+    v60 = v30;
+    v62 = v31;
+    v23 = v26;
+    v7 = v25;
+    v21 = v25 + v21 + v31;
   }
 
   else
   {
-    v24 = width;
-    v57 = *(MEMORY[0x1E695F058] + 16);
-    v59 = *(MEMORY[0x1E695F058] + 24);
-    v53 = *MEMORY[0x1E695F058];
-    v55 = *(MEMORY[0x1E695F058] + 8);
+    v27 = width;
+    v60 = *(MEMORY[0x1E695F058] + 16);
+    v62 = *(MEMORY[0x1E695F058] + 24);
+    v56 = *MEMORY[0x1E695F058];
+    v58 = *(MEMORY[0x1E695F058] + 8);
   }
 
   if (self->_headerSeparatorView)
   {
     PKUIPixelLength();
-    v29 = v24;
+    v32 = v27;
     PKRectCenteredXInRect();
-    v63 = v30;
-    v64 = v31;
-    v66 = v32;
-    v62 = v33;
-    v18 = v18 + v33;
+    v66 = v33;
+    v67 = v34;
+    v69 = v35;
+    v65 = v36;
+    v21 = v21 + v36;
   }
 
   else
   {
-    v64 = v20;
-    v66 = v19;
-    v29 = v24;
+    v67 = v23;
+    v69 = v22;
+    v32 = v27;
   }
 
-  v69 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v34 = self->_weekdayHeaders;
-  v35 = [(NSArray *)v34 countByEnumeratingWithState:&v67 objects:v71 count:16];
-  if (v35)
+  v71 = 0u;
+  v37 = self->_weekdayHeaders;
+  v38 = [(NSArray *)v37 countByEnumeratingWithState:&v70 objects:v74 count:16];
+  if (v38)
   {
-    v36 = v35;
-    v37 = *v68;
-    v38 = 0.0;
+    v39 = v38;
+    v40 = *v71;
+    v41 = 0.0;
     do
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v68 != v37)
+        if (*v71 != v40)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v37);
         }
 
-        [*(*(&v67 + 1) + 8 * i) sizeThatFits:{v10, 3.40282347e38, v53, v55, v57, *&v59}];
-        v38 = fmax(v38, v40);
+        [*(*(&v70 + 1) + 8 * i) sizeThatFits:{v11, 3.40282347e38, v56, v58, v60, *&v62}];
+        v41 = fmax(v41, v43);
       }
 
-      v36 = [(NSArray *)v34 countByEnumeratingWithState:&v67 objects:v71 count:16];
+      v39 = [(NSArray *)v37 countByEnumeratingWithState:&v70 objects:v74 count:16];
     }
 
-    while (v36);
+    while (v39);
   }
 
   else
   {
-    v38 = 0.0;
+    v41 = 0.0;
   }
 
-  v41 = v9;
+  v44 = v10;
 
-  v42 = v18 + v38;
+  v45 = v21 + v41;
   if (!layout)
   {
     if ([(NSArray *)self->_weekdayHeaders count])
     {
-      v43 = 0;
+      v46 = 0;
       do
       {
-        v44 = [(NSArray *)self->_weekdayHeaders objectAtIndexedSubscript:v43, v53, v55, v57, *&v59];
-        [v44 setFrame:{v43 * v12 + 8.0, v42, v12, v38}];
+        v47 = [(NSArray *)self->_weekdayHeaders objectAtIndexedSubscript:v46, v56, v58, v60, *&v62];
+        [v47 setFrame:{v46 * v15 + 8.0, v45, v15, v41}];
 
-        ++v43;
+        ++v46;
       }
 
-      while (v43 < [(NSArray *)self->_weekdayHeaders count]);
+      while (v46 < [(NSArray *)self->_weekdayHeaders count]);
     }
 
-    if ([(NSArray *)self->_weekdayHeaders count:v53])
+    if ([(NSArray *)self->_weekdayHeaders count:v56])
     {
-      v42 = v7 + v42;
+      v45 = v7 + v45;
     }
 
-    if (v9)
+    if (v10)
     {
-      v45 = 0;
-      v46 = 0.0;
+      v48 = 0;
+      v49 = 0.0;
       do
       {
-        v47 = [(NSArray *)self->_dayViews objectAtIndexedSubscript:v45];
-        if ([v47 count])
+        v50 = [(NSArray *)self->_dayViews objectAtIndexedSubscript:v48];
+        if ([v50 count])
         {
-          v48 = 0;
-          v49 = v7 + v42 + v46 * v12;
+          v51 = 0;
+          v52 = v7 + v45 + v49 * v15;
           do
           {
-            v50 = [v47 objectAtIndexedSubscript:v48];
-            [v50 setFrame:{v48 * v12 + 8.0, v49, v12, v12}];
+            v53 = [v50 objectAtIndexedSubscript:v51];
+            [v53 setFrame:{v51 * v15 + 8.0, v52, v15, v15}];
 
-            ++v48;
+            ++v51;
           }
 
-          while (v48 < [v47 count]);
+          while (v51 < [v50 count]);
         }
 
-        v46 = ++v45;
+        v49 = ++v48;
       }
 
-      while (v45 < v41);
+      while (v48 < v44);
     }
 
-    [(UIView *)self->_headerView setFrame:v54, v56, v58, v60];
-    [(UIView *)self->_headerSeparatorView setFrame:v63, v66, v64, v62];
+    [(UIView *)self->_headerView setFrame:v57, v59, v61, v63];
+    [(UIView *)self->_headerSeparatorView setFrame:v66, v69, v67, v65];
   }
 
-  v51 = v7 + v12 * v41 + v7 + 10.0 + v42;
-  v52 = v29;
-  result.height = v51;
-  result.width = v52;
+  v54 = v7 + v15 * v44 + v7 + 10.0 + v45;
+  v55 = v32;
+  result.height = v54;
+  result.width = v55;
   return result;
 }
 

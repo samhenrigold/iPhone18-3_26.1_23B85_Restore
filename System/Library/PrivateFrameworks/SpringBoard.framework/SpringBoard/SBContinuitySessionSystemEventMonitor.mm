@@ -124,46 +124,61 @@
 
 - (BOOL)isAirplayMirroring
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v12 = 0u;
+  v20 = *MEMORY[0x277D85DE8];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
   mEMORY[0x277D0AA90] = [MEMORY[0x277D0AA90] sharedInstance];
   connectedIdentities = [mEMORY[0x277D0AA90] connectedIdentities];
 
-  v4 = [connectedIdentities countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v4 = [connectedIdentities countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(connectedIdentities);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        if (([v8 isAirPlayDisplay] & 1) != 0 || (objc_msgSend(v8, "isRestrictedAirPlayDisplay") & 1) != 0 || (objc_msgSend(v8, "isMusicOnlyDisplay") & 1) != 0 || objc_msgSend(v8, "isiPodOnlyDisplay"))
+        v8 = *(*(&v13 + 1) + 8 * i);
+        isAirPlayDisplay = [v8 isAirPlayDisplay];
+        if ((isAirPlayDisplay & 1) == 0)
         {
-          v10 = SBLogContinuityDisplay();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          isAirPlayDisplay = [v8 isRestrictedAirPlayDisplay];
+          if ((isAirPlayDisplay & 1) == 0)
           {
-            *buf = 138543362;
-            v17 = v8;
-            _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Found airplay display: %{public}@", buf, 0xCu);
+            isAirPlayDisplay = [v8 isMusicOnlyDisplay];
+            if ((isAirPlayDisplay & 1) == 0)
+            {
+              isAirPlayDisplay = [v8 isiPodOnlyDisplay];
+              if (!isAirPlayDisplay)
+              {
+                continue;
+              }
+            }
           }
-
-          v9 = 1;
-          goto LABEL_17;
         }
+
+        v11 = SBLogContinuityDisplay(isAirPlayDisplay);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138543362;
+          v18 = v8;
+          _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "Found airplay display: %{public}@", buf, 0xCu);
+        }
+
+        v10 = 1;
+        goto LABEL_17;
       }
 
-      v5 = [connectedIdentities countByEnumeratingWithState:&v12 objects:v18 count:16];
-      v9 = 0;
+      v5 = [connectedIdentities countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v10 = 0;
       if (v5)
       {
         continue;
@@ -175,12 +190,12 @@
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
 LABEL_17:
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)isInStoreDemoMode
@@ -366,13 +381,13 @@ LABEL_17:
   [(SBContinuitySessionSystemEventMonitor *)self _setUIBlocked:(integerValue >> 2) & 1];
 }
 
-uint64_t __60__SBContinuitySessionSystemEventMonitor__callStatusChanged___block_invoke(uint64_t a1)
+uint64_t __60__SBContinuitySessionSystemEventMonitor__callStatusChanged___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = SBLogContinuityDisplay();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v5 = SBLogContinuityDisplay(a1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_INFO, "Call status changed", v4, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "Call status changed", v7, 2u);
   }
 
   return [*(a1 + 32) _setInCall:{objc_msgSend(*(a1 + 32), "_calculateIsInCall")}];
@@ -440,71 +455,82 @@ uint64_t __60__SBContinuitySessionSystemEventMonitor__callStatusChanged___block_
 
 - (BOOL)_calculateIsInCall
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v18 = 0u;
-  v19 = 0u;
+  v35 = *MEMORY[0x277D85DE8];
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   mEMORY[0x277D6EDF8] = [MEMORY[0x277D6EDF8] sharedInstance];
   currentAudioAndVideoCalls = [mEMORY[0x277D6EDF8] currentAudioAndVideoCalls];
 
   obj = currentAudioAndVideoCalls;
-  v4 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v18 objects:v32 count:16];
+  v4 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v20 objects:v34 count:16];
+  v5 = v4;
   if (v4)
   {
-    v5 = *v19;
+    v6 = *v21;
     while (2)
     {
-      for (i = 0; i != v4; ++i)
+      v7 = 0;
+      do
       {
-        if (*v19 != v5)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * i);
-        v8 = SBLogContinuityDisplay();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v8 = *(*(&v20 + 1) + 8 * v7);
+        v9 = SBLogContinuityDisplay(v4);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          callUUID = [v7 callUUID];
-          uniqueProxyIdentifier = [v7 uniqueProxyIdentifier];
+          callUUID = [v8 callUUID];
+          uniqueProxyIdentifier = [v8 uniqueProxyIdentifier];
           *buf = 134218498;
-          v23 = v7;
-          v24 = 2114;
-          v25 = callUUID;
+          v25 = v8;
           v26 = 2114;
-          v27 = uniqueProxyIdentifier;
-          _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Found current call: <%p:%{public}@ - %{public}@>", buf, 0x20u);
+          v27 = callUUID;
+          v28 = 2114;
+          v29 = uniqueProxyIdentifier;
+          _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "Found current call: <%p:%{public}@ - %{public}@>", buf, 0x20u);
         }
 
-        if ([v7 status] == 1 && (objc_msgSend(v7, "isEndpointOnCurrentDevice") & 1) != 0)
+        status = [v8 status];
+        if (status == 1)
         {
-          LOBYTE(v4) = 1;
-          goto LABEL_16;
+          status = [v8 isEndpointOnCurrentDevice];
+          if (status)
+          {
+            LOBYTE(v5) = 1;
+            goto LABEL_16;
+          }
         }
 
-        v11 = SBLogContinuityDisplay();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v13 = SBLogContinuityDisplay(status);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          callUUID2 = [v7 callUUID];
-          uniqueProxyIdentifier2 = [v7 uniqueProxyIdentifier];
-          status = [v7 status];
-          isEndpointOnCurrentDevice = [v7 isEndpointOnCurrentDevice];
+          callUUID2 = [v8 callUUID];
+          uniqueProxyIdentifier2 = [v8 uniqueProxyIdentifier];
+          status2 = [v8 status];
+          isEndpointOnCurrentDevice = [v8 isEndpointOnCurrentDevice];
           *buf = 134219010;
-          v23 = v7;
-          v24 = 2114;
-          v25 = callUUID2;
+          v25 = v8;
           v26 = 2114;
-          v27 = uniqueProxyIdentifier2;
-          v28 = 1024;
-          v29 = status;
+          v27 = callUUID2;
+          v28 = 2114;
+          v29 = uniqueProxyIdentifier2;
           v30 = 1024;
-          v31 = isEndpointOnCurrentDevice;
-          _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "Call <%p:%{public}@ - %{public}@> doesn't meet criteria -> call status: %d, isEndpointOnCurrentDevice: %{BOOL}u", buf, 0x2Cu);
+          v31 = status2;
+          v32 = 1024;
+          v33 = isEndpointOnCurrentDevice;
+          _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "Call <%p:%{public}@ - %{public}@> doesn't meet criteria -> call status: %d, isEndpointOnCurrentDevice: %{BOOL}u", buf, 0x2Cu);
         }
+
+        ++v7;
       }
 
-      v4 = [obj countByEnumeratingWithState:&v18 objects:v32 count:16];
+      while (v5 != v7);
+      v4 = [obj countByEnumeratingWithState:&v20 objects:v34 count:16];
+      v5 = v4;
       if (v4)
       {
         continue;
@@ -516,7 +542,7 @@ uint64_t __60__SBContinuitySessionSystemEventMonitor__callStatusChanged___block_
 
 LABEL_16:
 
-  return v4;
+  return v5;
 }
 
 - (void)_setSOSActive:(BOOL)active
@@ -560,16 +586,16 @@ LABEL_16:
 
 - (void)_reevaluateSecureAppUsage
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = +[SBCoverSheetPresentationManager sharedInstance];
   isCoverSheetHostingAnApp = [v3 isCoverSheetHostingAnApp];
 
-  v5 = SBLogContinuityDisplay();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = SBLogContinuityDisplay(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6[0] = 67109120;
-    v6[1] = isCoverSheetHostingAnApp;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "Reevaluating secure app usage... cover sheet hosting an app: %{BOOL}u", v6, 8u);
+    v7[0] = 67109120;
+    v7[1] = isCoverSheetHostingAnApp;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "Reevaluating secure app usage... cover sheet hosting an app: %{BOOL}u", v7, 8u);
   }
 
   [(SBContinuitySessionSystemEventMonitor *)self _setUsingSecureApp:isCoverSheetHostingAnApp];
@@ -623,7 +649,7 @@ uint64_t __95__SBContinuitySessionSystemEventMonitor__calculateUserInitiatedRemo
   {
     v4 = _calculateUserInitiatedRemoteTransientOverlayPresented_allowedBundleIdentifiers;
     v5 = [v3 serviceBundleIdentifier];
-    v6 = [v4 containsObject:v5];
+    v6 = objc_msgSend_containsObject_(v4);
   }
 
   else

@@ -168,9 +168,9 @@
   {
     v14 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K >= %d", @"localAvailability", 1];
     firstObject = [uuidsCopy firstObject];
-    v16 = [firstObject isEqualToString:@"all"];
+    isEqualToString = objc_msgSend_isEqualToString_(firstObject);
 
-    if ((v16 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v17 = MEMORY[0x1E696AB28];
       v35[0] = v14;
@@ -1893,87 +1893,89 @@ LABEL_11:
 
 - (void)queryUserIdentitiesWithEmails:(id)emails phoneNumbers:(id)numbers reply:(id)reply
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   emailsCopy = emails;
   numbersCopy = numbers;
   replyCopy = reply;
-  v45 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v46 = 0u;
-  v44 = 0u;
   enabled = [MEMORY[0x1E69BF350] enabled];
-  LOBYTE(v44) = enabled;
+  LOBYTE(v46) = enabled;
   if (enabled)
   {
     v12 = _os_activity_create(&dword_19BF1F000, "PLXPC Service: queryUserIdentitiesWithEmails:phoneNumbers:reply:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    v13 = *(&v44 + 1);
-    *(&v44 + 1) = v12;
+    v13 = *(&v46 + 1);
+    *(&v46 + 1) = v12;
 
-    os_activity_scope_enter(v12, (&v45 + 8));
+    os_activity_scope_enter(v12, (&v47 + 8));
   }
 
-  v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(numbersCopy, "count") + objc_msgSend(emailsCopy, "count")}];
+  v14 = MEMORY[0x1E695DF70];
+  v15 = objc_msgSend_count(emailsCopy);
+  v16 = [v14 arrayWithCapacity:objc_msgSend_count(numbersCopy) + v15];
+  v44 = 0u;
+  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v15 = emailsCopy;
-  v16 = [v15 countByEnumeratingWithState:&v40 objects:v50 count:16];
-  if (v16)
+  v17 = emailsCopy;
+  v18 = [v17 countByEnumeratingWithState:&v42 objects:v52 count:16];
+  if (v18)
   {
-    v17 = *v41;
+    v19 = *v43;
     do
     {
-      v18 = 0;
+      v20 = 0;
       do
       {
-        if (*v41 != v17)
+        if (*v43 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v17);
         }
 
-        v19 = [objc_alloc(MEMORY[0x1E6994BC8]) initWithEmail:*(*(&v40 + 1) + 8 * v18)];
-        [v14 addObject:v19];
+        v21 = [objc_alloc(MEMORY[0x1E6994BC8]) initWithEmail:*(*(&v42 + 1) + 8 * v20)];
+        [v16 addObject:v21];
 
-        ++v18;
+        ++v20;
       }
 
-      while (v16 != v18);
-      v16 = [v15 countByEnumeratingWithState:&v40 objects:v50 count:16];
+      while (v18 != v20);
+      v18 = [v17 countByEnumeratingWithState:&v42 objects:v52 count:16];
     }
 
-    while (v16);
+    while (v18);
   }
 
+  v40 = 0u;
+  v41 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v20 = numbersCopy;
-  v21 = [v20 countByEnumeratingWithState:&v36 objects:v49 count:16];
-  if (v21)
+  v22 = numbersCopy;
+  v23 = [v22 countByEnumeratingWithState:&v38 objects:v51 count:16];
+  if (v23)
   {
-    v22 = *v37;
+    v24 = *v39;
     do
     {
-      v23 = 0;
+      v25 = 0;
       do
       {
-        if (*v37 != v22)
+        if (*v39 != v24)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v22);
         }
 
-        v24 = [objc_alloc(MEMORY[0x1E6994BC8]) initWithPhoneNumber:*(*(&v36 + 1) + 8 * v23)];
-        [v14 addObject:v24];
+        v26 = [objc_alloc(MEMORY[0x1E6994BC8]) initWithPhoneNumber:*(*(&v38 + 1) + 8 * v25)];
+        [v16 addObject:v26];
 
-        ++v23;
+        ++v25;
       }
 
-      while (v21 != v23);
-      v21 = [v20 countByEnumeratingWithState:&v36 objects:v49 count:16];
+      while (v23 != v25);
+      v23 = [v22 countByEnumeratingWithState:&v38 objects:v51 count:16];
     }
 
-    while (v21);
+    while (v23);
   }
 
   libraryServicesManager = [(PLAbstractLibraryServicesManagerService *)self libraryServicesManager];
@@ -1981,41 +1983,41 @@ LABEL_11:
 
   if (cloudPhotoLibraryManager)
   {
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __82__PLAssetsdCloudInternalService_queryUserIdentitiesWithEmails_phoneNumbers_reply___block_invoke;
-    v34[3] = &unk_1E756B9C0;
-    v35 = replyCopy;
-    [cloudPhotoLibraryManager queryUserIdentitiesWithParticipants:v14 completionHandler:v34];
-    v27 = v35;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __82__PLAssetsdCloudInternalService_queryUserIdentitiesWithEmails_phoneNumbers_reply___block_invoke;
+    v36[3] = &unk_1E756B9C0;
+    v37 = replyCopy;
+    [cloudPhotoLibraryManager queryUserIdentitiesWithParticipants:v16 completionHandler:v36];
+    v29 = v37;
   }
 
   else
   {
-    v28 = MEMORY[0x1E696ABC0];
-    v47 = *MEMORY[0x1E696A578];
-    v48 = @"PLCloudPhotoLibraryManager not available";
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-    v29 = [v28 errorWithDomain:*MEMORY[0x1E69BFF48] code:41004 userInfo:v27];
-    (*(replyCopy + 2))(replyCopy, 0, 0, v29);
+    v30 = MEMORY[0x1E696ABC0];
+    v49 = *MEMORY[0x1E696A578];
+    v50 = @"PLCloudPhotoLibraryManager not available";
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v31 = [v30 errorWithDomain:*MEMORY[0x1E69BFF48] code:41004 userInfo:v29];
+    (*(replyCopy + 2))(replyCopy, 0, 0, v31);
   }
 
-  if (v44 == 1)
+  if (v46 == 1)
   {
-    os_activity_scope_leave((&v45 + 8));
+    os_activity_scope_leave((&v47 + 8));
   }
 
-  if (v45)
+  if (v47)
   {
-    v30 = PLRequestGetLog();
-    v31 = v30;
-    v32 = v45;
-    if ((v45 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+    v32 = PLRequestGetLog();
+    v33 = v32;
+    v34 = v47;
+    if ((v47 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
     {
-      Name = sel_getName(*(&v46 + 1));
+      Name = sel_getName(*(&v48 + 1));
       *buf = 136446210;
-      v52 = Name;
-      _os_signpost_emit_with_name_impl(&dword_19BF1F000, v31, OS_SIGNPOST_INTERVAL_END, v32, "########## Syncing with Cloud Photo Library!", "%{public}s", buf, 0xCu);
+      v54 = Name;
+      _os_signpost_emit_with_name_impl(&dword_19BF1F000, v33, OS_SIGNPOST_INTERVAL_END, v34, "########## Syncing with Cloud Photo Library!", "%{public}s", buf, 0xCu);
     }
   }
 }
@@ -2030,7 +2032,7 @@ void __82__PLAssetsdCloudInternalService_queryUserIdentitiesWithEmails_phoneNumb
 
   else
   {
-    v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v5)];
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
     v8[2] = __82__PLAssetsdCloudInternalService_queryUserIdentitiesWithEmails_phoneNumbers_reply___block_invoke_2;
@@ -2890,7 +2892,7 @@ void __59__PLAssetsdCloudInternalService_getSystemBudgetsWithReply___block_invok
     v22 = 0u;
     if (cloudPhotoLibraryManager)
     {
-      [cloudPhotoLibraryManager currentTransferProgress];
+      objc_msgSend_currentTransferProgress(cloudPhotoLibraryManager);
       v11 = *buf;
       v10 = *&buf[8];
       v12 = *(&v22 + 1);

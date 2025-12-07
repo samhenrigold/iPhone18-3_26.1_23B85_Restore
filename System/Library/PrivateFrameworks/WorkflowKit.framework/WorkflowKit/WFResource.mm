@@ -9,6 +9,7 @@
 - (void)invalidateAvailability;
 - (void)notifyResourcesAboutAvailabilityChange;
 - (void)refreshAvailabilityIfNeeded;
+- (void)refreshAvailabilityWithNotification:(BOOL)notification;
 - (void)updateAvailability:(BOOL)availability withError:(id)error completionHandler:(id)handler;
 @end
 
@@ -67,6 +68,15 @@ uint64_t __61__WFResource_updateAvailability_withError_completionHandler___block
   }
 
   return result;
+}
+
+- (void)refreshAvailabilityWithNotification:(BOOL)notification
+{
+  if ([(WFResource *)self shouldNotifyResourcesAfterAvailabilityUpdateWithForcedNotification:notification])
+  {
+
+    [(WFResource *)self notifyResourcesAboutAvailabilityChange];
+  }
 }
 
 - (void)notifyResourcesAboutAvailabilityChange
@@ -268,14 +278,12 @@ uint64_t __25__WFResource_isAvailable__block_invoke(uint64_t result)
 
 - (NSDictionary)eventDictionary
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"resource_name";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"resource_name";
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

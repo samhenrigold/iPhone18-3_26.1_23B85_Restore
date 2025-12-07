@@ -2,25 +2,27 @@
 - (HAMenstrualAlgorithmsHistoricalAnalyzer)init;
 - (id)analyzeWithError:(id *)error;
 - (void)appendDay:(id)day;
+- (void)beginPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day;
 - (void)dealloc;
+- (void)endPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day;
 @end
 
 @implementation HAMenstrualAlgorithmsHistoricalAnalyzer
 
 - (HAMenstrualAlgorithmsHistoricalAnalyzer)init
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v3 = ha_get_log();
+  v30 = *MEMORY[0x277D85DE8];
+  v3 = ha_get_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v30 = "[HAMenstrualAlgorithmsHistoricalAnalyzer init]";
+    v29 = "[HAMenstrualAlgorithmsHistoricalAnalyzer init]";
     _os_log_impl(&dword_251282000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
   }
 
-  v27.receiver = self;
-  v27.super_class = HAMenstrualAlgorithmsHistoricalAnalyzer;
-  v4 = [(HAMenstrualAlgorithmsHistoricalAnalyzer *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = HAMenstrualAlgorithmsHistoricalAnalyzer;
+  v4 = [(HAMenstrualAlgorithmsHistoricalAnalyzer *)&v26 init];
   if (v4)
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:100];
@@ -35,28 +37,28 @@
     [(NSXPCConnection *)v4->_connectionToService setRemoteObjectInterface:v9];
 
     v10 = MEMORY[0x277CBEB98];
-    v28[0] = objc_opt_class();
-    v28[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+    v27[0] = objc_opt_class();
+    v27[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
     v12 = [v10 setWithArray:v11];
 
     remoteObjectInterface = [(NSXPCConnection *)v4->_connectionToService remoteObjectInterface];
     [remoteObjectInterface setClasses:v12 forSelector:sel_finishSessionWithReply_ argumentIndex:0 ofReply:1];
 
     objc_initWeak(buf, v4);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke;
-    v25[3] = &unk_2796B3C48;
-    objc_copyWeak(&v26, buf);
-    [(NSXPCConnection *)v4->_connectionToService setInvalidationHandler:v25];
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke_563;
-    v23 = &unk_2796B3C48;
-    objc_copyWeak(&v24, buf);
-    [(NSXPCConnection *)v4->_connectionToService setInterruptionHandler:&v20];
-    [(NSXPCConnection *)v4->_connectionToService resume:v20];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke;
+    v24[3] = &unk_2796B3C48;
+    objc_copyWeak(&v25, buf);
+    [(NSXPCConnection *)v4->_connectionToService setInvalidationHandler:v24];
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke_563;
+    v22 = &unk_2796B3C48;
+    objc_copyWeak(&v23, buf);
+    [(NSXPCConnection *)v4->_connectionToService setInterruptionHandler:&v19];
+    [(NSXPCConnection *)v4->_connectionToService resume:v19];
     remoteObjectProxy = [(NSXPCConnection *)v4->_connectionToService remoteObjectProxy];
     remoteObjectProxy = v4->_remoteObjectProxy;
     v4->_remoteObjectProxy = remoteObjectProxy;
@@ -65,18 +67,17 @@
     [remoteObjectProxy2 beginSession];
 
     v17 = v4;
-    objc_destroyWeak(&v24);
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(buf);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 void __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke(uint64_t a1)
 {
-  v2 = ha_get_log();
+  v2 = ha_get_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -89,7 +90,7 @@ void __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke(uint64_t a
 
 void __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke_563(uint64_t a1)
 {
-  v2 = ha_get_log();
+  v2 = ha_get_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke_563_cold_1();
@@ -130,10 +131,26 @@ void __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke_563(uint64
   }
 }
 
+- (void)beginPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day
+{
+  v4 = *&day;
+  phaseCopy = phase;
+  remoteObjectProxy = [(HAMenstrualAlgorithmsHistoricalAnalyzer *)self remoteObjectProxy];
+  [remoteObjectProxy beginPhase:phaseCopy onJulianDay:v4];
+}
+
+- (void)endPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day
+{
+  v4 = *&day;
+  phaseCopy = phase;
+  remoteObjectProxy = [(HAMenstrualAlgorithmsHistoricalAnalyzer *)self remoteObjectProxy];
+  [remoteObjectProxy endPhase:phaseCopy onJulianDay:v4];
+}
+
 - (id)analyzeWithError:(id *)error
 {
   v26 = *MEMORY[0x277D85DE8];
-  v5 = ha_get_log();
+  v5 = ha_get_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136446210;
@@ -168,36 +185,34 @@ void __47__HAMenstrualAlgorithmsHistoricalAnalyzer_init__block_invoke_563(uint64
   v20[2] = __60__HAMenstrualAlgorithmsHistoricalAnalyzer_analyzeWithError___block_invoke_566;
   v20[3] = &unk_2796B3CB8;
   v20[4] = &buf;
-  [v12 finishSessionWithReply:v20];
+  v13 = [v12 finishSessionWithReply:v20];
   if (!*(*(&buf + 1) + 40))
   {
-    v13 = ha_get_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = ha_get_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [HAMenstrualAlgorithmsHistoricalAnalyzer analyzeWithError:];
     }
 
     if (error)
     {
-      v14 = MEMORY[0x277CCA9B8];
-      v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      bundleIdentifier = [v15 bundleIdentifier];
-      *error = [v14 errorWithDomain:bundleIdentifier code:-1 userInfo:0];
+      v15 = MEMORY[0x277CCA9B8];
+      v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      bundleIdentifier = [v16 bundleIdentifier];
+      *error = [v15 errorWithDomain:bundleIdentifier code:-1 userInfo:0];
     }
   }
 
-  v17 = *(*(&buf + 1) + 40);
+  v18 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v18;
 }
 
 void __60__HAMenstrualAlgorithmsHistoricalAnalyzer_analyzeWithError___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = ha_get_log();
+  v3 = ha_get_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __100__HAMenstrualAlgorithmsDayStreamProcessor_analyzeWithMostRecentMenstrualFlowJulianDayUpdated_error___block_invoke_cold_1();

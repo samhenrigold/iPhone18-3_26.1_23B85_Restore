@@ -6,6 +6,7 @@
 - (BOOL)_deleteShareUsageForShareID:(id)d inContainer:(id)container withError:(id *)error;
 - (BOOL)_deleteZoneUsageForZoneID:(id)d inContainer:(id)container withError:(id *)error;
 - (BOOL)_isThrottledError:(id)error;
+- (BOOL)_isThrottledOperationType:(int)type forContainer:(id)container databaseScope:(int64_t)scope throttleManager:(id)manager;
 - (BOOL)_noteRecordWithUnknownShareUsageForRecordID:(id)d container:(id)container date:(id)date withError:(id *)error;
 - (BOOL)_noteShareUsageForShareID:(id)d container:(id)container date:(id)date withError:(id *)error;
 - (BOOL)_setRecordWithUnknownShareUsage:(id)usage forRecordID:(id)d inContainer:(id)container withError:(id *)error;
@@ -29,7 +30,10 @@
 - (id)lookupStringForContainer:(id)container;
 - (void)_handleCacheErrorBeforeServerRequest:(id)request skipErrorMitigation:(BOOL)mitigation;
 - (void)_handleCacheUpdateErrorAfterServerRequest:(id)request skipErrorMitigation:(BOOL)mitigation;
+- (void)_handleDeviceCapabilitiesResultForContainer:(id)container savedCapabilities:(id)capabilities skipErrorMitigation:(BOOL)mitigation withCapabilitiesError:(id)error operationError:(id)operationError;
 - (void)_handleOperationCompletedForContainerLookupName:(id)name containerID:(id)d;
+- (void)_handleShareUsageResultForContainer:(id)container shareID:(id)d date:(id)date skipErrorMitigation:(BOOL)mitigation withUsageError:(id)error operationError:(id)operationError;
+- (void)_handleZoneUsageResultForContainer:(id)container zoneID:(id)d date:(id)date skipErrorMitigation:(BOOL)mitigation withUsageError:(id)error operationError:(id)operationError;
 - (void)_incrementBackoffForError:(id)error;
 - (void)_sendToServerForContainer:(id)container operation:(id)operation;
 - (void)dropCacheConnectionForContainer:(id)container;
@@ -133,7 +137,7 @@
 
 - (id)_deviceAndCapabilityCacheForContainer:(id)container
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   v7 = objc_msgSend_queue(self, v5, v6);
   dispatch_assert_queue_V2(v7);
@@ -158,11 +162,11 @@
       v19 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
-        v27 = v19;
-        v30 = objc_msgSend_containerID(containerCopy, v28, v29);
-        v35 = 138412290;
-        v36 = v30;
-        _os_log_debug_impl(&dword_22506F000, v27, OS_LOG_TYPE_DEBUG, "Initialized device capability cache for container with ID: %@", &v35, 0xCu);
+        v26 = v19;
+        v29 = objc_msgSend_containerID(containerCopy, v27, v28);
+        v34 = 138412290;
+        v35 = v29;
+        _os_log_debug_impl(&dword_22506F000, v26, OS_LOG_TYPE_DEBUG, "Initialized device capability cache for container with ID: %@", &v34, 0xCu);
       }
 
       v22 = objc_msgSend_capabilitiesAndUsagesCachePerContainer(self, v20, v21);
@@ -179,18 +183,16 @@
       v24 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
-        v31 = v24;
-        v34 = objc_msgSend_containerID(containerCopy, v32, v33);
-        v35 = 138412290;
-        v36 = v34;
-        _os_log_error_impl(&dword_22506F000, v31, OS_LOG_TYPE_ERROR, "Failed to initialize the device capability cache for container with ID: %@", &v35, 0xCu);
+        v30 = v24;
+        v33 = objc_msgSend_containerID(containerCopy, v31, v32);
+        v34 = 138412290;
+        v35 = v33;
+        _os_log_error_impl(&dword_22506F000, v30, OS_LOG_TYPE_ERROR, "Failed to initialize the device capability cache for container with ID: %@", &v34, 0xCu);
       }
 
       v14 = 0;
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -241,7 +243,7 @@
 
 - (id)_zoneUsageForZoneID:(id)d inContainer:(id)container withError:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   containerCopy = container;
   v12 = objc_msgSend_queue(self, v10, v11);
@@ -258,15 +260,13 @@
   {
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CBBF50];
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = @"Device capability usage cache unavailable.";
-    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v23, &v22, 1);
+    v21 = *MEMORY[0x277CCA450];
+    v22[0] = @"Device capability usage cache unavailable.";
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v22, &v21, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v16, v19, v17, 1, v18);
 
     error = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -339,7 +339,7 @@
 
 - (id)_shareUsageForShareID:(id)d inContainer:(id)container withError:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   containerCopy = container;
   v12 = objc_msgSend_queue(self, v10, v11);
@@ -356,15 +356,13 @@
   {
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CBBF50];
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = @"Device capability usage cache unavailable.";
-    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v23, &v22, 1);
+    v21 = *MEMORY[0x277CCA450];
+    v22[0] = @"Device capability usage cache unavailable.";
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v22, &v21, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v16, v19, v17, 1, v18);
 
     error = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -676,6 +674,25 @@ LABEL_6:
   return IsCode;
 }
 
+- (BOOL)_isThrottledOperationType:(int)type forContainer:(id)container databaseScope:(int64_t)scope throttleManager:(id)manager
+{
+  v8 = *&type;
+  v9 = MEMORY[0x277CBC798];
+  managerCopy = manager;
+  containerCopy = container;
+  v12 = [v9 alloc];
+  v15 = objc_msgSend_containerID(containerCopy, v13, v14);
+
+  v17 = objc_msgSend_initWithContainerID_databaseScope_(v12, v16, v15, scope);
+  v19 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v18, v8);
+  objc_msgSend_setOperationType_(v17, v20, v19);
+
+  objc_msgSend_setOperationGroupName_(v17, v21, @"UpdateDeviceCapabilities");
+  v23 = objc_msgSend_enforcedThrottleForCriteria_willSendRequest_outThrottleError_(managerCopy, v22, v17, 1, 0);
+
+  return v23 != 0;
+}
+
 - (BOOL)isObsoleteCapabilities:(id)capabilities operation:(id)operation
 {
   capabilitiesCopy = capabilities;
@@ -955,6 +972,503 @@ LABEL_23:
   objc_msgSend_removeObjectForKey_(v12, v11, nameCopy);
 }
 
+- (void)_handleZoneUsageResultForContainer:(id)container zoneID:(id)d date:(id)date skipErrorMitigation:(BOOL)mitigation withUsageError:(id)error operationError:(id)operationError
+{
+  mitigationCopy = mitigation;
+  v79 = *MEMORY[0x277D85DE8];
+  containerCopy = container;
+  dCopy = d;
+  dateCopy = date;
+  errorCopy = error;
+  v20 = objc_msgSend_queue(self, v18, v19);
+  dispatch_assert_queue_V2(v20);
+
+  v70 = 0;
+  v22 = objc_msgSend__zoneUsageForZoneID_inContainer_withError_(self, v21, dCopy, containerCopy, &v70);
+  v25 = v70;
+  if (v22)
+  {
+    if (objc_msgSend_isNone(v22, v23, v24))
+    {
+      if (*MEMORY[0x277CBC880] != -1)
+      {
+        dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+      }
+
+      v27 = *MEMORY[0x277CBC830];
+      if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
+      {
+        v28 = v27;
+        v31 = objc_msgSend_containerID(containerCopy, v29, v30);
+        *buf = 138412546;
+        v72 = v31;
+        v73 = 2112;
+        v74 = dCopy;
+        _os_log_error_impl(&dword_22506F000, v28, OS_LOG_TYPE_ERROR, "_handleZoneUsageResultForContainer called with unrecognized containerID %@ and zoneID %@", buf, 0x16u);
+      }
+
+      goto LABEL_35;
+    }
+
+    v66 = dateCopy;
+    objc_msgSend_completeSendingForDate_withSuccess_(v22, v26, dateCopy, errorCopy == 0);
+    v69 = v25;
+    v33 = objc_msgSend__setZoneUsage_forZoneID_inContainer_withError_(self, v32, v22, dCopy, containerCopy, &v69);
+    v34 = v69;
+
+    if ((v33 & 1) == 0)
+    {
+      objc_msgSend__handleCacheUpdateErrorAfterServerRequest_skipErrorMitigation_(self, v35, v34, mitigationCopy);
+      v25 = v34;
+      dateCopy = v66;
+LABEL_35:
+
+      goto LABEL_36;
+    }
+
+    if (!errorCopy)
+    {
+      if (*MEMORY[0x277CBC880] != -1)
+      {
+        dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+      }
+
+      v47 = v34;
+      v48 = *MEMORY[0x277CBC830];
+      if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
+      {
+        v60 = v48;
+        v63 = objc_msgSend_containerID(containerCopy, v61, v62);
+        *buf = 138543874;
+        v72 = v63;
+        v73 = 2112;
+        v74 = v66;
+        v75 = 2114;
+        v76 = dCopy;
+        _os_log_debug_impl(&dword_22506F000, v60, OS_LOG_TYPE_DEBUG, "Sent zone usage to the server. \n\tcontainerID: %{public}@ \n\tdate: %@ \n\tzoneID: %{public}@", buf, 0x20u);
+      }
+
+      v51 = objc_msgSend_now(MEMORY[0x277CBEAA8], v49, v50);
+      v68 = v47;
+      objc_msgSend__updateUsageSavedDate_forContainer_withError_(self, v52, v51, containerCopy, &v68);
+      v25 = v68;
+
+      v39 = v51;
+      goto LABEL_30;
+    }
+
+    v36 = MEMORY[0x277CBC878];
+    v37 = *MEMORY[0x277CBC878];
+    v38 = MEMORY[0x277CBC830];
+    if (operationError)
+    {
+      v39 = v34;
+      if (*MEMORY[0x277CBC880] != -1)
+      {
+        dispatch_once(MEMORY[0x277CBC880], v37);
+      }
+
+      v40 = *v38;
+      if (!os_log_type_enabled(*v38, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_24;
+      }
+
+      v43 = v40;
+      v46 = objc_msgSend_containerID(containerCopy, v44, v45);
+      *buf = 138543874;
+      v72 = v46;
+      v73 = 2112;
+      v74 = v66;
+      v75 = 2114;
+      v76 = dCopy;
+      _os_log_impl(&dword_22506F000, v43, OS_LOG_TYPE_INFO, "Failed to send zone usage to the server: \n\tcontainerID: %{public}@ \n\tdate: %@ \n\tzoneID: %{public}@", buf, 0x20u);
+    }
+
+    else
+    {
+      v39 = v34;
+      if (*MEMORY[0x277CBC880] != -1)
+      {
+        dispatch_once(MEMORY[0x277CBC880], v37);
+      }
+
+      v53 = *v38;
+      if (!os_log_type_enabled(*v38, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_24;
+      }
+
+      v43 = v53;
+      v46 = objc_msgSend_containerID(containerCopy, v64, v65);
+      *buf = 138413058;
+      v72 = errorCopy;
+      v73 = 2114;
+      v74 = v46;
+      v75 = 2112;
+      v76 = v66;
+      v77 = 2114;
+      v78 = dCopy;
+      _os_log_error_impl(&dword_22506F000, v43, OS_LOG_TYPE_ERROR, "Failed to send zone usage to the server: %@ \n\tcontainerID: %{public}@ \n\tdate: %@ \n\tzoneID: %{public}@", buf, 0x2Au);
+    }
+
+    v36 = MEMORY[0x277CBC878];
+LABEL_24:
+    if (objc_msgSend_failureCount(v22, v41, v42) < 4)
+    {
+      v25 = v39;
+      goto LABEL_32;
+    }
+
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *v36);
+    }
+
+    v54 = *v38;
+    if (os_log_type_enabled(*v38, OS_LOG_TYPE_DEFAULT))
+    {
+      v56 = v54;
+      v59 = objc_msgSend_failureCount(v22, v57, v58);
+      *buf = 138412546;
+      v72 = dCopy;
+      v73 = 2048;
+      v74 = v59;
+      _os_log_impl(&dword_22506F000, v56, OS_LOG_TYPE_DEFAULT, "Sending usage for zone %@ has failed %zu times, will not resend.", buf, 0x16u);
+    }
+
+    v67 = v39;
+    objc_msgSend__deleteZoneUsageForZoneID_inContainer_withError_(self, v55, dCopy, containerCopy, &v67);
+    v25 = v67;
+LABEL_30:
+
+LABEL_32:
+    dateCopy = v66;
+  }
+
+  if (v25)
+  {
+    objc_msgSend__handleCacheUpdateErrorAfterServerRequest_skipErrorMitigation_(self, v23, v25, mitigationCopy);
+    goto LABEL_35;
+  }
+
+LABEL_36:
+}
+
+- (void)_handleShareUsageResultForContainer:(id)container shareID:(id)d date:(id)date skipErrorMitigation:(BOOL)mitigation withUsageError:(id)error operationError:(id)operationError
+{
+  mitigationCopy = mitigation;
+  v75 = *MEMORY[0x277D85DE8];
+  containerCopy = container;
+  dCopy = d;
+  dateCopy = date;
+  errorCopy = error;
+  v20 = objc_msgSend_queue(self, v18, v19);
+  dispatch_assert_queue_V2(v20);
+
+  v66 = 0;
+  v22 = objc_msgSend__shareUsageForShareID_inContainer_withError_(self, v21, dCopy, containerCopy, &v66);
+  v23 = v66;
+  v26 = v23;
+  if (!v22)
+  {
+    if (!v23)
+    {
+      goto LABEL_37;
+    }
+
+    objc_msgSend__handleCacheUpdateErrorAfterServerRequest_skipErrorMitigation_(self, v24, v23, mitigationCopy);
+LABEL_36:
+
+    goto LABEL_37;
+  }
+
+  if (objc_msgSend_isNone(v22, v24, v25))
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+    }
+
+    v28 = *MEMORY[0x277CBC830];
+    if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v68 = dCopy;
+      _os_log_error_impl(&dword_22506F000, v28, OS_LOG_TYPE_ERROR, "_handleShareUsageResultForContainer called with unrecognized share ID: %@", buf, 0xCu);
+    }
+
+    goto LABEL_36;
+  }
+
+  v62 = mitigationCopy;
+  objc_msgSend_completeSendingForDate_withSuccess_(v22, v27, dateCopy, errorCopy == 0);
+  v65 = v26;
+  v30 = objc_msgSend__setShareUsage_forShareID_inContainer_withError_(self, v29, v22, dCopy, containerCopy, &v65);
+  v31 = v65;
+
+  if ((v30 & 1) == 0)
+  {
+    objc_msgSend__handleCacheUpdateErrorAfterServerRequest_skipErrorMitigation_(self, v32, v31, v62);
+    v26 = v31;
+    goto LABEL_36;
+  }
+
+  if (!errorCopy)
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+    }
+
+    v43 = *MEMORY[0x277CBC830];
+    if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
+    {
+      v56 = v43;
+      v59 = objc_msgSend_containerID(containerCopy, v57, v58);
+      *buf = 138543874;
+      v68 = v59;
+      v69 = 2112;
+      v70 = dateCopy;
+      v71 = 2114;
+      v72 = dCopy;
+      _os_log_debug_impl(&dword_22506F000, v56, OS_LOG_TYPE_DEBUG, "Sent share usage to the server. \n\tcontainerID: %{public}@ \n\tdate: %@ \n\tshareID: %{public}@", buf, 0x20u);
+    }
+
+    v46 = objc_msgSend_now(MEMORY[0x277CBEAA8], v44, v45);
+    v64 = v31;
+    objc_msgSend__updateUsageSavedDate_forContainer_withError_(self, v47, v46, containerCopy, &v64);
+    v26 = v64;
+
+    v31 = v46;
+    goto LABEL_32;
+  }
+
+  v33 = *MEMORY[0x277CBC878];
+  v34 = MEMORY[0x277CBC830];
+  if (operationError)
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], v33);
+    }
+
+    v35 = *v34;
+    if (os_log_type_enabled(*v34, OS_LOG_TYPE_INFO))
+    {
+      v38 = v34;
+      v39 = v35;
+      v42 = objc_msgSend_containerID(containerCopy, v40, v41);
+      *buf = 138543874;
+      v68 = v42;
+      v69 = 2112;
+      v70 = dateCopy;
+      v71 = 2114;
+      v72 = dCopy;
+      _os_log_impl(&dword_22506F000, v39, OS_LOG_TYPE_INFO, "Failed to send share usage to the server: \n\tcontainerID: %{public}@ \n\tdate: %@ \n\tshareID: %{public}@", buf, 0x20u);
+LABEL_16:
+
+      v34 = v38;
+    }
+  }
+
+  else
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], v33);
+    }
+
+    v48 = *v34;
+    if (os_log_type_enabled(*v34, OS_LOG_TYPE_ERROR))
+    {
+      v38 = v34;
+      v39 = v48;
+      v42 = objc_msgSend_containerID(containerCopy, v60, v61);
+      *buf = 138413058;
+      v68 = errorCopy;
+      v69 = 2114;
+      v70 = v42;
+      v71 = 2112;
+      v72 = dateCopy;
+      v73 = 2114;
+      v74 = dCopy;
+      _os_log_error_impl(&dword_22506F000, v39, OS_LOG_TYPE_ERROR, "Failed to send share usage to the server: %@ \n\tcontainerID: %{public}@ \n\tdate: %@ \n\tshareID: %{public}@", buf, 0x2Au);
+      goto LABEL_16;
+    }
+  }
+
+  if (objc_msgSend_failureCount(v22, v36, v37) >= 4)
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+    }
+
+    v50 = *v34;
+    if (os_log_type_enabled(*v34, OS_LOG_TYPE_DEFAULT))
+    {
+      v52 = v50;
+      v55 = objc_msgSend_failureCount(v22, v53, v54);
+      *buf = 138412546;
+      v68 = dCopy;
+      v69 = 2048;
+      v70 = v55;
+      _os_log_impl(&dword_22506F000, v52, OS_LOG_TYPE_DEFAULT, "Sending usage for share %@ has failed %zu times, will not resend.", buf, 0x16u);
+    }
+
+    v63 = v31;
+    objc_msgSend__deleteShareUsageForShareID_inContainer_withError_(self, v51, dCopy, containerCopy, &v63);
+    v26 = v63;
+LABEL_32:
+
+    goto LABEL_34;
+  }
+
+  v26 = v31;
+LABEL_34:
+  if (v26)
+  {
+    objc_msgSend__handleCacheUpdateErrorAfterServerRequest_skipErrorMitigation_(self, v49, v26, v62);
+    goto LABEL_36;
+  }
+
+LABEL_37:
+}
+
+- (void)_handleDeviceCapabilitiesResultForContainer:(id)container savedCapabilities:(id)capabilities skipErrorMitigation:(BOOL)mitigation withCapabilitiesError:(id)error operationError:(id)operationError
+{
+  mitigationCopy = mitigation;
+  v64 = *MEMORY[0x277D85DE8];
+  containerCopy = container;
+  capabilitiesCopy = capabilities;
+  errorCopy = error;
+  operationErrorCopy = operationError;
+  v18 = objc_msgSend_queue(self, v16, v17);
+  dispatch_assert_queue_V2(v18);
+
+  if (!errorCopy)
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+    }
+
+    v32 = *MEMORY[0x277CBC830];
+    if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
+    {
+      v35 = v32;
+      v38 = objc_msgSend_containerID(containerCopy, v36, v37);
+      *buf = 138543618;
+      v59 = v38;
+      v60 = 2114;
+      v61 = capabilitiesCopy;
+      _os_log_impl(&dword_22506F000, v35, OS_LOG_TYPE_INFO, "Successfully saved updated device capabilties to the server for containerID %{public}@: %{public}@", buf, 0x16u);
+    }
+
+    objc_msgSend_setLastTrackedFailureTime_(self, v33, v34, 0.0);
+    objc_msgSend_setFailureBackoffDelay_(self, v39, v40, 0.0);
+    v43 = objc_msgSend_now(MEMORY[0x277CBEAA8], v41, v42);
+    v57 = 0;
+    updated = objc_msgSend__updateLastSentCapabilities_capabilitySetSavedDate_forContainer_withError_(self, v44, capabilitiesCopy, v43, containerCopy, &v57);
+    v47 = v57;
+    if ((updated & 1) == 0)
+    {
+      objc_msgSend__handleCacheUpdateErrorAfterServerRequest_skipErrorMitigation_(self, v46, v47, mitigationCopy);
+    }
+
+    goto LABEL_25;
+  }
+
+  v19 = MEMORY[0x277CBC878];
+  v20 = *MEMORY[0x277CBC878];
+  v21 = MEMORY[0x277CBC880];
+  v22 = MEMORY[0x277CBC830];
+  if (operationErrorCopy)
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], v20);
+    }
+
+    v23 = *v22;
+    if (os_log_type_enabled(*v22, OS_LOG_TYPE_ERROR))
+    {
+      v25 = v23;
+      v28 = objc_msgSend_containerID(containerCopy, v26, v27);
+      *buf = 138543618;
+      v59 = v28;
+      v60 = 2114;
+      v61 = operationErrorCopy;
+      v29 = "Failed to save device capabilities and/or share/zone usage to the server for container ID %{public}@: %{public}@";
+      v30 = v25;
+      v31 = 22;
+LABEL_28:
+      _os_log_error_impl(&dword_22506F000, v30, OS_LOG_TYPE_ERROR, v29, buf, v31);
+
+      v19 = MEMORY[0x277CBC878];
+    }
+  }
+
+  else
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], v20);
+    }
+
+    v48 = *v22;
+    if (os_log_type_enabled(*v22, OS_LOG_TYPE_ERROR))
+    {
+      v25 = v48;
+      v28 = objc_msgSend_containerID(containerCopy, v55, v56);
+      *buf = 138543874;
+      v59 = v28;
+      v60 = 2114;
+      v61 = capabilitiesCopy;
+      v62 = 2114;
+      v63 = errorCopy;
+      v29 = "Failed to save device capabilities to the server for container ID %{public}@. capabilities: %{public}@, error: %{public}@";
+      v30 = v25;
+      v31 = 32;
+      goto LABEL_28;
+    }
+  }
+
+  if ((objc_msgSend__isThrottledError_(self, v24, operationErrorCopy) & 1) == 0 && !mitigationCopy)
+  {
+    v49 = v19;
+    if (operationErrorCopy)
+    {
+      v50 = operationErrorCopy;
+    }
+
+    else
+    {
+      v50 = errorCopy;
+    }
+
+    v43 = v50;
+    objc_msgSend__incrementBackoffForError_(self, v51, v43);
+    objc_msgSend_failureBackoffDelay(self, v52, v53);
+    v47 = CKDescriptionForTimeInterval();
+    if (*v21 != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *v49);
+    }
+
+    v54 = *v22;
+    if (os_log_type_enabled(*v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v59 = v47;
+      _os_log_impl(&dword_22506F000, v54, OS_LOG_TYPE_DEFAULT, "Next earliest attempt at sending device capabilities or share/zone usage to the server will be in %{public}@.", buf, 0xCu);
+    }
+
+LABEL_25:
+  }
+}
+
 - (void)_incrementBackoffForError:(id)error
 {
   v4 = MEMORY[0x277CBEAA8];
@@ -986,7 +1500,7 @@ LABEL_23:
 
 - (void)_handleCacheErrorBeforeServerRequest:(id)request skipErrorMitigation:(BOOL)mitigation
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (requestCopy)
   {
@@ -998,8 +1512,8 @@ LABEL_23:
 
   else
   {
-    v15 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v7, v8);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v15, v16, a2, self, @"CKDDeviceCapabilityManager.m", 983, @"Expected an error");
+    v14 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v7, v8);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v14, v15, a2, self, @"CKDDeviceCapabilityManager.m", 983, @"Expected an error");
 
     if (mitigation)
     {
@@ -1018,18 +1532,17 @@ LABEL_23:
   v13 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = v12;
-    _os_log_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEFAULT, "Due to the cache failure when preparing to send the server request, the next earliest attempt at sending device capabilities or share/zone usage to the server will be in %{public}@.", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v12;
+    _os_log_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEFAULT, "Due to the cache failure when preparing to send the server request, the next earliest attempt at sending device capabilities or share/zone usage to the server will be in %{public}@.", &v16, 0xCu);
   }
 
 LABEL_8:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCacheUpdateErrorAfterServerRequest:(id)request skipErrorMitigation:(BOOL)mitigation
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (requestCopy)
   {
@@ -1041,8 +1554,8 @@ LABEL_8:
 
   else
   {
-    v25 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v7, v8);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v25, v26, a2, self, @"CKDDeviceCapabilityManager.m", 1000, @"Expected an error");
+    v24 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v7, v8);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v24, v25, a2, self, @"CKDDeviceCapabilityManager.m", 1000, @"Expected an error");
 
     if (mitigation)
     {
@@ -1071,18 +1584,17 @@ LABEL_8:
   v23 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138543362;
-    v28 = v22;
-    _os_log_impl(&dword_22506F000, v23, OS_LOG_TYPE_DEFAULT, "Due to the cache failure after sending the server request, the next earliest attempt at sending device capabilities or share/zone usage to the server will be in %{public}@.", &v27, 0xCu);
+    v26 = 138543362;
+    v27 = v22;
+    _os_log_impl(&dword_22506F000, v23, OS_LOG_TYPE_DEFAULT, "Due to the cache failure after sending the server request, the next earliest attempt at sending device capabilities or share/zone usage to the server will be in %{public}@.", &v26, 0xCu);
   }
 
 LABEL_10:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteZoneUsageForOperation:(id)operation container:(id)container
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   containerCopy = container;
   if (objc_msgSend_allowsDeviceCapabilitiesReporting(containerCopy, v8, v9))
@@ -1097,28 +1609,28 @@ LABEL_10:
         v28 = objc_msgSend_zoneIDsUsed(operationCopy, v18, v19);
         if (v28)
         {
-          v45 = 0;
-          v46 = &v45;
-          v47 = 0x3032000000;
-          v48 = sub_225073F50;
-          v49 = sub_225073534;
-          v50 = 0;
+          v44 = 0;
+          v45 = &v44;
+          v46 = 0x3032000000;
+          v47 = sub_225073F50;
+          v48 = sub_225073534;
+          v49 = 0;
           v29 = objc_msgSend_queue(self, v26, v27);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = sub_2251697D4;
           block[3] = &unk_278547020;
           v30 = operationCopy;
-          v40 = v30;
+          v39 = v30;
           v31 = v28;
-          v41 = v31;
+          v40 = v31;
           selfCopy = self;
           v32 = containerCopy;
-          v43 = v32;
-          v44 = &v45;
+          v42 = v32;
+          v43 = &v44;
           dispatch_sync(v29, block);
 
-          if (v46[5])
+          if (v45[5])
           {
             if (*MEMORY[0x277CBC880] != -1)
             {
@@ -1128,11 +1640,11 @@ LABEL_10:
             v34 = *MEMORY[0x277CBC830];
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
-              v38 = objc_msgSend_containerID(v32, v35, v36);
+              v37 = objc_msgSend_containerID(v32, v35, v36);
               *buf = 138412546;
-              v52 = v38;
-              v53 = 2112;
-              v54 = v31;
+              v51 = v37;
+              v52 = 2112;
+              v53 = v31;
               _os_log_debug_impl(&dword_22506F000, v34, OS_LOG_TYPE_DEBUG, "Failed to save zone usage to the cache. containerID: %@, zoneIDs: %@", buf, 0x16u);
             }
           }
@@ -1142,18 +1654,16 @@ LABEL_10:
             objc_msgSend__sendToServerForContainer_operation_(self, v33, v32, v30);
           }
 
-          _Block_object_dispose(&v45, 8);
+          _Block_object_dispose(&v44, 8);
         }
       }
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteShareUsageForRequest:(id)request container:(id)container
 {
-  v170[2] = *MEMORY[0x277D85DE8];
+  v168[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   containerCopy = container;
   if (objc_msgSend_allowsDeviceCapabilitiesReporting(containerCopy, v8, v9))
@@ -1163,36 +1673,35 @@ LABEL_10:
 
     if ((v15 & 1) == 0)
     {
-      v170[0] = objc_opt_class();
-      v170[1] = objc_opt_class();
-      objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v16, v170, 2);
+      v168[0] = objc_opt_class();
+      v168[1] = objc_opt_class();
+      objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v16, v168, 2);
+      v159 = 0u;
+      v160 = 0u;
       v161 = 0u;
-      v162 = 0u;
-      v163 = 0u;
-      v17 = v164 = 0u;
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v161, v169, 16);
+      v17 = v162 = 0u;
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v159, v167, 16);
       if (v19)
       {
         v20 = v19;
-        v21 = *v162;
+        v21 = *v160;
         while (2)
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v162 != v21)
+            if (*v160 != v21)
             {
               objc_enumerationMutation(v17);
             }
 
-            v23 = *(*(&v161 + 1) + 8 * i);
             if (objc_opt_isKindOfClass())
             {
-              v27 = v17;
+              v26 = v17;
               goto LABEL_19;
             }
           }
 
-          v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v24, &v161, v169, 16);
+          v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v23, &v159, v167, 16);
           if (v20)
           {
             continue;
@@ -1202,129 +1711,129 @@ LABEL_10:
         }
       }
 
-      v27 = objc_msgSend_operation(requestCopy, v25, v26);
+      v26 = objc_msgSend_operation(requestCopy, v24, v25);
       if ((objc_opt_respondsToSelector() & 1) == 0)
       {
         goto LABEL_19;
       }
 
-      if (objc_msgSend_databaseScope(v27, v28, v29) != 3)
+      if (objc_msgSend_databaseScope(v26, v27, v28) != 3)
       {
         goto LABEL_19;
       }
 
       selfCopy = self;
-      v32 = MEMORY[0x277CBC810];
+      v31 = MEMORY[0x277CBC810];
       if (*MEMORY[0x277CBC810] == 1)
       {
-        v33 = objc_msgSend_unitTestOverrides(v27, v30, v31);
-        v35 = objc_msgSend_objectForKeyedSubscript_(v33, v34, @"UpdateCapabilitiesAsChildOperation");
-        v38 = objc_msgSend_BOOLValue(v35, v36, v37);
+        v32 = objc_msgSend_unitTestOverrides(v26, v29, v30);
+        v34 = objc_msgSend_objectForKeyedSubscript_(v32, v33, @"UpdateCapabilitiesAsChildOperation");
+        v37 = objc_msgSend_BOOLValue(v34, v35, v36);
 
-        if (!v38)
+        if (!v37)
         {
           goto LABEL_19;
         }
       }
 
-      v130 = v27;
-      v41 = objc_msgSend_now(MEMORY[0x277CBEAA8], v30, v31);
-      if (*v32 == 1)
+      v128 = v26;
+      v40 = objc_msgSend_now(MEMORY[0x277CBEAA8], v29, v30);
+      if (*v31 == 1)
       {
-        v42 = objc_msgSend_unitTestOverrides(v27, v39, v40);
-        v44 = objc_msgSend_objectForKeyedSubscript_(v42, v43, @"InvalidUsageTimestamp");
-        v47 = objc_msgSend_BOOLValue(v44, v45, v46);
+        v41 = objc_msgSend_unitTestOverrides(v26, v38, v39);
+        v43 = objc_msgSend_objectForKeyedSubscript_(v41, v42, @"InvalidUsageTimestamp");
+        v46 = objc_msgSend_BOOLValue(v43, v44, v45);
 
-        if (v47)
+        if (v46)
         {
-          v49 = MEMORY[0x277CBEAA8];
-          objc_msgSend_timeIntervalSince1970(v41, v39, v48);
-          v53 = objc_msgSend_dateWithTimeIntervalSince1970_(v49, v51, v52, v50 + -2764800.0);
+          v48 = MEMORY[0x277CBEAA8];
+          objc_msgSend_timeIntervalSince1970(v40, v38, v47);
+          v52 = objc_msgSend_dateWithTimeIntervalSince1970_(v48, v50, v51, v49 + -2764800.0);
         }
 
         else
         {
-          if ((*v32 & 1) == 0)
+          if ((*v31 & 1) == 0)
           {
             goto LABEL_25;
           }
 
-          v55 = objc_msgSend_unitTestOverrides(v27, v39, v48);
-          v57 = objc_msgSend_objectForKey_(v55, v56, @"ZoneAndShareUsageDate");
+          v53 = objc_msgSend_unitTestOverrides(v26, v38, v47);
+          v55 = objc_msgSend_objectForKey_(v53, v54, @"ZoneAndShareUsageDate");
 
-          if (!v57)
+          if (!v55)
           {
             goto LABEL_25;
           }
 
-          v59 = objc_msgSend_unitTestOverrides(v27, v39, v58);
-          v53 = objc_msgSend_objectForKeyedSubscript_(v59, v60, @"ZoneAndShareUsageDate");
+          v57 = objc_msgSend_unitTestOverrides(v26, v38, v56);
+          v52 = objc_msgSend_objectForKeyedSubscript_(v57, v58, @"ZoneAndShareUsageDate");
 
-          v41 = v59;
+          v40 = v57;
         }
 
-        v41 = v53;
+        v40 = v52;
       }
 
 LABEL_25:
-      v140 = objc_msgSend_cacheForContainer_(CKDShareIDCache, v39, containerCopy);
-      v63 = objc_msgSend_zoneIDsUsed(v27, v61, v62);
-      if (v63)
+      v138 = objc_msgSend_cacheForContainer_(CKDShareIDCache, v38, containerCopy);
+      v61 = objc_msgSend_zoneIDsUsed(v26, v59, v60);
+      if (v61)
       {
-        v138 = v41;
-        v64 = v63;
-        v133 = objc_opt_new();
+        v136 = v40;
+        v62 = v61;
+        v131 = objc_opt_new();
+        v155 = 0u;
+        v156 = 0u;
         v157 = 0u;
         v158 = 0u;
-        v159 = 0u;
-        v160 = 0u;
-        v129 = v64;
-        obj = v64;
-        v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v65, &v157, v168, 16);
-        if (v66)
+        v127 = v62;
+        obj = v62;
+        v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v63, &v155, v166, 16);
+        if (v64)
         {
-          v68 = v66;
-          v137 = 0;
-          v69 = 0;
-          v70 = *v158;
+          v66 = v64;
+          v135 = 0;
+          v67 = 0;
+          v68 = *v156;
           while (2)
           {
-            for (j = 0; j != v68; ++j)
+            for (j = 0; j != v66; ++j)
             {
-              if (*v158 != v70)
+              if (*v156 != v68)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v72 = *(*(&v157 + 1) + 8 * j);
-              v74 = objc_msgSend_zoneShareIDForZoneID_(v140, v67, v72);
-              if (v74)
+              v70 = *(*(&v155 + 1) + 8 * j);
+              v72 = objc_msgSend_zoneShareIDForZoneID_(v138, v65, v70);
+              if (v72)
               {
-                v156 = v69;
-                v75 = objc_msgSend__noteShareUsageForShareID_container_date_withError_(selfCopy, v73, v74, containerCopy, v138, &v156);
-                v76 = v156;
+                v154 = v67;
+                v73 = objc_msgSend__noteShareUsageForShareID_container_date_withError_(selfCopy, v71, v72, containerCopy, v136, &v154);
+                v74 = v154;
 
-                if ((v75 & 1) == 0)
+                if ((v73 & 1) == 0)
                 {
 
-                  v69 = v76;
-                  v41 = v138;
-                  v77 = v133;
+                  v67 = v74;
+                  v40 = v136;
+                  v75 = v131;
                   goto LABEL_82;
                 }
 
-                v137 = 1;
-                v69 = v76;
+                v135 = 1;
+                v67 = v74;
               }
 
               else
               {
-                objc_msgSend_addObject_(v133, v73, v72);
+                objc_msgSend_addObject_(v131, v71, v70);
               }
             }
 
-            v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v67, &v157, v168, 16);
-            if (v68)
+            v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v65, &v155, v166, 16);
+            if (v66)
             {
               continue;
             }
@@ -1335,82 +1844,82 @@ LABEL_25:
 
         else
         {
-          v137 = 0;
-          v69 = 0;
+          v135 = 0;
+          v67 = 0;
         }
 
-        if (objc_msgSend_isFullZoneRequest(requestCopy, v78, v79))
+        if (objc_msgSend_isFullZoneRequest(requestCopy, v76, v77))
         {
-          v154 = 0u;
-          v155 = 0u;
           v152 = 0u;
           v153 = 0u;
-          v77 = v133;
-          v82 = v133;
-          v84 = selfCopy;
-          v126 = objc_msgSend_countByEnumeratingWithState_objects_count_(v82, v83, &v152, v167, 16);
-          if (v126)
+          v150 = 0u;
+          v151 = 0u;
+          v75 = v131;
+          v80 = v131;
+          v82 = selfCopy;
+          v124 = objc_msgSend_countByEnumeratingWithState_objects_count_(v80, v81, &v150, v165, 16);
+          if (v124)
           {
-            v86 = *v153;
-            v128 = v82;
-            v125 = *v153;
+            v84 = *v151;
+            v126 = v80;
+            v123 = *v151;
             do
             {
-              v87 = 0;
+              v85 = 0;
               do
               {
-                if (*v153 != v86)
+                if (*v151 != v84)
                 {
-                  v88 = v87;
-                  objc_enumerationMutation(v82);
-                  v87 = v88;
+                  v86 = v85;
+                  objc_enumerationMutation(v80);
+                  v85 = v86;
                 }
 
-                v127 = v87;
-                v89 = objc_msgSend_knownShareIDsForZoneID_(v140, v85, *(*(&v152 + 1) + 8 * v87));
+                v125 = v85;
+                v87 = objc_msgSend_knownShareIDsForZoneID_(v138, v83, *(*(&v150 + 1) + 8 * v85));
+                v146 = 0u;
+                v147 = 0u;
                 v148 = 0u;
                 v149 = 0u;
-                v150 = 0u;
-                v151 = 0u;
-                v131 = v89;
-                v91 = objc_msgSend_countByEnumeratingWithState_objects_count_(v131, v90, &v148, v166, 16);
-                if (v91)
+                v129 = v87;
+                v89 = objc_msgSend_countByEnumeratingWithState_objects_count_(v129, v88, &v146, v164, 16);
+                if (v89)
                 {
-                  v94 = v91;
-                  obja = *v149;
+                  v92 = v89;
+                  obja = *v147;
                   while (2)
                   {
-                    for (k = 0; k != v94; ++k)
+                    for (k = 0; k != v92; ++k)
                     {
-                      if (*v149 != obja)
+                      if (*v147 != obja)
                       {
-                        objc_enumerationMutation(v131);
+                        objc_enumerationMutation(v129);
                       }
 
-                      v96 = *(*(&v148 + 1) + 8 * k);
-                      v97 = objc_msgSend_zoneID(v96, v92, v93);
-                      v100 = objc_msgSend_anonymousCKUserID(v97, v98, v99);
-                      v103 = objc_msgSend_length(v100, v101, v102);
+                      v94 = *(*(&v146 + 1) + 8 * k);
+                      v95 = objc_msgSend_zoneID(v94, v90, v91);
+                      v98 = objc_msgSend_anonymousCKUserID(v95, v96, v97);
+                      v101 = objc_msgSend_length(v98, v99, v100);
 
-                      if (!v103)
+                      if (!v101)
                       {
-                        v147 = v69;
-                        v104 = objc_msgSend__noteShareUsageForShareID_container_date_withError_(selfCopy, v92, v96, containerCopy, v138, &v147);
-                        v105 = v147;
+                        v145 = v67;
+                        v102 = objc_msgSend__noteShareUsageForShareID_container_date_withError_(selfCopy, v90, v94, containerCopy, v136, &v145);
+                        v103 = v145;
 
-                        if (!v104)
+                        if (!v102)
                         {
 
                           goto LABEL_80;
                         }
 
-                        v137 = 1;
-                        v69 = v105;
+                        v135 = 1;
+                        v67 = v103;
                       }
                     }
 
-                    v94 = objc_msgSend_countByEnumeratingWithState_objects_count_(v131, v92, &v148, v166, 16);
-                    if (v94)
+                    v92 = objc_msgSend_countByEnumeratingWithState_objects_count_(v129, v90, &v146, v164, 16);
+                    if (v92)
                     {
                       continue;
                     }
@@ -1419,102 +1928,102 @@ LABEL_25:
                   }
                 }
 
-                v87 = v127 + 1;
-                v84 = selfCopy;
-                v77 = v133;
-                v82 = v128;
-                v86 = v125;
+                v85 = v125 + 1;
+                v82 = selfCopy;
+                v75 = v131;
+                v80 = v126;
+                v84 = v123;
               }
 
-              while (v127 + 1 != v126);
-              v106 = objc_msgSend_countByEnumeratingWithState_objects_count_(v128, v85, &v152, v167, 16);
-              v86 = v125;
-              v126 = v106;
+              while (v125 + 1 != v124);
+              v104 = objc_msgSend_countByEnumeratingWithState_objects_count_(v126, v83, &v150, v165, 16);
+              v84 = v123;
+              v124 = v104;
             }
 
-            while (v106);
+            while (v104);
           }
 
-          if (v137)
+          if (v135)
           {
-            objc_msgSend__sendToServerForContainer_operation_(v84, v107, containerCopy, v130);
+            objc_msgSend__sendToServerForContainer_operation_(v82, v105, containerCopy, v128);
           }
 
 LABEL_81:
-          v41 = v138;
+          v40 = v136;
         }
 
         else
         {
-          v77 = v133;
-          v108 = objc_msgSend_count(v133, v80, v81);
-          v110 = selfCopy;
-          if (v108)
+          v75 = v131;
+          v106 = objc_msgSend_count(v131, v78, v79);
+          v108 = selfCopy;
+          if (v106)
           {
-            objc_msgSend_recordIDsUsedInZones_(requestCopy, v109, v133);
+            objc_msgSend_recordIDsUsedInZones_(requestCopy, v107, v131);
+            v141 = 0u;
+            v142 = 0u;
             v143 = 0u;
-            v144 = 0u;
-            v145 = 0u;
-            v132 = v146 = 0u;
-            v112 = objc_msgSend_countByEnumeratingWithState_objects_count_(v132, v111, &v143, v165, 16);
-            if (v112)
+            v130 = v144 = 0u;
+            v110 = objc_msgSend_countByEnumeratingWithState_objects_count_(v130, v109, &v141, v163, 16);
+            if (v110)
             {
-              v115 = v112;
-              objb = *v144;
+              v113 = v110;
+              objb = *v142;
               while (2)
               {
-                for (m = 0; m != v115; ++m)
+                for (m = 0; m != v113; ++m)
                 {
-                  if (*v144 != objb)
+                  if (*v142 != objb)
                   {
-                    objc_enumerationMutation(v132);
+                    objc_enumerationMutation(v130);
                   }
 
-                  v117 = *(*(&v143 + 1) + 8 * m);
-                  v118 = objc_msgSend_zoneID(v117, v113, v114);
-                  v120 = objc_msgSend_containsObject_(v77, v119, v118);
+                  v115 = *(*(&v141 + 1) + 8 * m);
+                  v116 = objc_msgSend_zoneID(v115, v111, v112);
+                  v118 = objc_msgSend_containsObject_(v75, v117, v116);
 
-                  if (v120)
+                  if (v118)
                   {
-                    v122 = objc_msgSend_shareIDForRecordID_(v140, v113, v117);
-                    if (v122)
+                    v120 = objc_msgSend_shareIDForRecordID_(v138, v111, v115);
+                    if (v120)
                     {
-                      v142 = v69;
-                      v123 = objc_msgSend__noteShareUsageForShareID_container_date_withError_(selfCopy, v121, v122, containerCopy, v138, &v142);
-                      v105 = v142;
+                      v140 = v67;
+                      v121 = objc_msgSend__noteShareUsageForShareID_container_date_withError_(selfCopy, v119, v120, containerCopy, v136, &v140);
+                      v103 = v140;
 
-                      if ((v123 & 1) == 0)
+                      if ((v121 & 1) == 0)
                       {
                         goto LABEL_79;
                       }
 
-                      v137 = 1;
+                      v135 = 1;
                     }
 
                     else
                     {
-                      v141 = v69;
-                      v124 = objc_msgSend__noteRecordWithUnknownShareUsageForRecordID_container_date_withError_(selfCopy, v121, v117, containerCopy, v138, &v141);
-                      v105 = v141;
+                      v139 = v67;
+                      v122 = objc_msgSend__noteRecordWithUnknownShareUsageForRecordID_container_date_withError_(selfCopy, v119, v115, containerCopy, v136, &v139);
+                      v103 = v139;
 
-                      if (!v124)
+                      if (!v122)
                       {
 LABEL_79:
 
 LABEL_80:
-                        v69 = v105;
-                        v77 = v133;
+                        v67 = v103;
+                        v75 = v131;
                         goto LABEL_81;
                       }
                     }
 
-                    v69 = v105;
-                    v77 = v133;
+                    v67 = v103;
+                    v75 = v131;
                   }
                 }
 
-                v115 = objc_msgSend_countByEnumeratingWithState_objects_count_(v132, v113, &v143, v165, 16);
-                if (v115)
+                v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(v130, v111, &v141, v163, 16);
+                if (v113)
                 {
                   continue;
                 }
@@ -1523,32 +2032,30 @@ LABEL_80:
               }
             }
 
-            v41 = v138;
-            v110 = selfCopy;
+            v40 = v136;
+            v108 = selfCopy;
           }
 
           else
           {
-            v41 = v138;
+            v40 = v136;
           }
 
-          if (v137)
+          if (v135)
           {
-            objc_msgSend__sendToServerForContainer_operation_(v110, v109, containerCopy, v130);
+            objc_msgSend__sendToServerForContainer_operation_(v108, v107, containerCopy, v128);
           }
         }
 
 LABEL_82:
 
-        v63 = v129;
-        v27 = v130;
+        v61 = v127;
+        v26 = v128;
       }
 
 LABEL_19:
     }
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteShareUsageForDeletedRecordID:(id)d at:(id)at container:(id)container operation:(id)operation
@@ -1684,34 +2191,34 @@ LABEL_19:
 
 - (BOOL)_noteRecordWithUnknownShareUsageForRecordID:(id)d container:(id)container date:(id)date withError:(id *)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dCopy = d;
   containerCopy = container;
   dateCopy = date;
   objc_initWeak(&location, self);
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = sub_225073F50;
-  v37 = sub_225073534;
-  v38 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_225073F50;
+  v36 = sub_225073534;
+  v37 = 0;
   v15 = objc_msgSend_queue(self, v13, v14);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_22516AAE0;
   block[3] = &unk_278546FF8;
-  objc_copyWeak(&v32, &location);
+  objc_copyWeak(&v31, &location);
   v16 = dateCopy;
-  v27 = v16;
+  v26 = v16;
   selfCopy = self;
   v17 = dCopy;
-  v29 = v17;
+  v28 = v17;
   v18 = containerCopy;
-  v30 = v18;
-  v31 = &v33;
+  v29 = v18;
+  v30 = &v32;
   dispatch_sync(v15, block);
 
-  v19 = v34[5];
+  v19 = v33[5];
   if (v19)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -1722,31 +2229,30 @@ LABEL_19:
     v20 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v25 = objc_msgSend_containerID(v18, v21, v22);
+      v24 = objc_msgSend_containerID(v18, v21, v22);
       *buf = 138412546;
-      v41 = v17;
-      v42 = 2112;
-      v43 = v25;
+      v40 = v17;
+      v41 = 2112;
+      v42 = v24;
       _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Failed to save unknown share usage to local cache for recordID: %@, containerID: %@", buf, 0x16u);
     }
 
     if (error)
     {
-      *error = v34[5];
+      *error = v33[5];
     }
   }
 
-  objc_destroyWeak(&v32);
-  _Block_object_dispose(&v33, 8);
+  objc_destroyWeak(&v31);
+  _Block_object_dispose(&v32, 8);
 
   objc_destroyWeak(&location);
-  v23 = *MEMORY[0x277D85DE8];
   return v19 == 0;
 }
 
 - (BOOL)_noteShareUsageForShareID:(id)d container:(id)container date:(id)date withError:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dCopy = d;
   containerCopy = container;
   dateCopy = date;
@@ -1761,12 +2267,12 @@ LABEL_19:
 
   else
   {
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x3032000000;
-    v43 = sub_225073F50;
-    v44 = sub_225073534;
-    v45 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x3032000000;
+    v42 = sub_225073F50;
+    v43 = sub_225073534;
+    v44 = 0;
     v25 = objc_msgSend_queue(self, v22, v23);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -1774,14 +2280,14 @@ LABEL_19:
     block[3] = &unk_278547020;
     block[4] = self;
     v26 = dCopy;
-    v36 = v26;
+    v35 = v26;
     v27 = containerCopy;
-    v37 = v27;
-    v39 = &v40;
-    v38 = dateCopy;
+    v36 = v27;
+    v38 = &v39;
+    v37 = dateCopy;
     dispatch_sync(v25, block);
 
-    v28 = v41[5];
+    v28 = v40[5];
     v24 = v28 == 0;
     if (v28)
     {
@@ -1793,24 +2299,23 @@ LABEL_19:
       v29 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
-        v34 = objc_msgSend_containerID(v27, v30, v31);
+        v33 = objc_msgSend_containerID(v27, v30, v31);
         *buf = 138412546;
-        v47 = v26;
-        v48 = 2112;
-        v49 = v34;
+        v46 = v26;
+        v47 = 2112;
+        v48 = v33;
         _os_log_debug_impl(&dword_22506F000, v29, OS_LOG_TYPE_DEBUG, "Failed to save share usage to local cache for shareID: %@, containerID: %@", buf, 0x16u);
       }
 
       if (error)
       {
-        *error = v41[5];
+        *error = v40[5];
       }
     }
 
-    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v39, 8);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

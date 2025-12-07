@@ -751,7 +751,7 @@ LABEL_122:
   [(FigCaptureSourceConfiguration *)v4 setMaxFrameRateClientOverride:?];
   if (dword_1EB58E740)
   {
-    v33 = 0;
+    v33[0] = 0;
     v32 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -782,7 +782,7 @@ LABEL_122:
         }
 
         v15 = *(*(&v28 + 1) + 8 * i);
-        if (([v15 isEqualToString:@"CMCaptureLocalSessionSinkID_MetadataObject"] & 1) == 0 && (objc_msgSend(v15, "isEqualToString:", @"CMCaptureLocalSessionSinkID_MetadataCameraMetadataObject") & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v15) & 1) == 0 && (objc_msgSend_isEqualToString_(v15) & 1) == 0)
         {
           v16 = objc_alloc_init(FigVideoCaptureConnectionConfiguration);
           -[FigCaptureConnectionConfiguration setConnectionID:](v16, "setConnectionID:", [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.cameracaptured-%@", v15]);
@@ -1184,7 +1184,7 @@ LABEL_122:
         }
 
         v11 = *(*(&v24 + 1) + 8 * i);
-        if ([objc_msgSend(objc_msgSend(v11 "sinkConfiguration")])
+        if (objc_msgSend_isEqualToString_([objc_msgSend(v11 "sinkConfiguration")]))
         {
           v12 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_streamsBySinkID objectForKeyedSubscript:{@"CMCaptureLocalSessionSinkID_MainVideo", "videoConfiguration"}];
           if (![v12 supportsCenterStage])
@@ -1221,7 +1221,7 @@ LABEL_122:
           continue;
         }
 
-        if ([objc_msgSend(objc_msgSend(v11 "sinkConfiguration")])
+        if (objc_msgSend_isEqualToString_([objc_msgSend(v11 "sinkConfiguration")]))
         {
           v21 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_streamsBySinkID objectForKeyedSubscript:{@"CMCaptureLocalSessionSinkID_DeskcamVideo", "videoConfiguration"}];
 LABEL_13:
@@ -1324,7 +1324,7 @@ LABEL_13:
           objc_enumerationMutation(connectionConfigurations);
         }
 
-        if ([objc_msgSend(objc_msgSend(*(*(&v63 + 1) + 8 * i) "sinkConfiguration")])
+        if (objc_msgSend_isEqualToString_([objc_msgSend(*(*(&v63 + 1) + 8 * i) "sinkConfiguration")]))
         {
           v8 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_streamsBySinkID objectForKeyedSubscript:{@"CMCaptureLocalSessionSinkID_MainVideo", "videoConfiguration"}];
           if ([v8 supportsCenterStage])
@@ -2020,9 +2020,9 @@ void __77__CMCaptureLocalSessionController__stopSessionForVideoCameraStream_outE
 
         else
         {
-          v17 = @"ErrorStatus";
+          *v17 = @"ErrorStatus";
           v18[0] = &unk_1F2245A90;
-          [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+          [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:1];
           CMNotificationCenterGetDefaultLocalCenter();
           CMNotificationCenterPostNotification();
         }
@@ -2072,9 +2072,9 @@ void __77__CMCaptureLocalSessionController__stopSessionForVideoCameraStream_outE
 
       else
       {
-        v17 = @"ErrorStatus";
+        *v17 = @"ErrorStatus";
         v18[0] = &unk_1F2245A90;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:1];
         CMNotificationCenterGetDefaultLocalCenter();
         CMNotificationCenterPostNotification();
       }
@@ -2245,9 +2245,9 @@ void __80__CMCaptureLocalSessionController__stopSessionForMetadataCameraStream_o
 
     else
     {
-      v40 = @"ErrorStatus";
+      *v40 = @"ErrorStatus";
       v41 = &unk_1F2245A90;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:v40 count:1];
       CMNotificationCenterGetDefaultLocalCenter();
       CMNotificationCenterPostNotification();
     }
@@ -2458,9 +2458,9 @@ void __82__CMCaptureLocalSessionController__updateSessionConfigurationForVideoCa
 
       else
       {
-        v16 = @"ErrorStatus";
+        *v16 = @"ErrorStatus";
         v17[0] = &unk_1F2245A90;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:1];
         CMNotificationCenterGetDefaultLocalCenter();
         CMNotificationCenterPostNotification();
       }
@@ -2491,9 +2491,9 @@ void __82__CMCaptureLocalSessionController__updateSessionConfigurationForVideoCa
 
       else
       {
-        v16 = @"ErrorStatus";
+        *v16 = @"ErrorStatus";
         v17[0] = &unk_1F2245A90;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:1];
         CMNotificationCenterGetDefaultLocalCenter();
         CMNotificationCenterPostNotification();
       }
@@ -2573,9 +2573,9 @@ LABEL_12:
 
     else
     {
-      v11 = @"ErrorStatus";
+      *v11 = @"ErrorStatus";
       v12 = &unk_1F2245A90;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:{1, v9, v10}];
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:v11 count:{1, v9, v10}];
       CMNotificationCenterGetDefaultLocalCenter();
       CMNotificationCenterPostNotification();
     }
@@ -2608,7 +2608,7 @@ void __82__CMCaptureLocalSessionController_observeValueForKeyPath_ofObject_chang
   if (WeakRetained)
   {
     v3 = WeakRetained;
-    if ([*(a1 + 32) isEqualToString:@"systemState"])
+    if (objc_msgSend_isEqualToString_(*(a1 + 32)))
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -2791,21 +2791,21 @@ void __70__CMCaptureLocalSessionController_setCaptureSourceProperty_withValue___
   {
     if (self->_videoCameraCaptureSession)
     {
-      CMNotificationCenterGetDefaultLocalCenter();
-      OUTLINED_FUNCTION_0_86();
+      DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
+      OUTLINED_FUNCTION_0_86(DefaultLocalCenter);
       videoCameraCaptureSession = self->_videoCameraCaptureSession;
       if (videoCameraCaptureSession)
       {
-        v5 = *(*(CMBaseObjectGetVTable() + 8) + 24);
-        if (v5)
-        {
-          v5(videoCameraCaptureSession);
-        }
-
-        v6 = self->_videoCameraCaptureSession;
+        v6 = *(*(CMBaseObjectGetVTable() + 8) + 24);
         if (v6)
         {
-          CFRelease(v6);
+          v6(videoCameraCaptureSession);
+        }
+
+        v7 = self->_videoCameraCaptureSession;
+        if (v7)
+        {
+          CFRelease(v7);
         }
       }
     }
@@ -2813,46 +2813,46 @@ void __70__CMCaptureLocalSessionController_setCaptureSourceProperty_withValue___
     videoCameraCaptureSource = self->_videoCameraCaptureSource;
     if (videoCameraCaptureSource)
     {
-      v8 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-      if (v8)
-      {
-        v8(videoCameraCaptureSource);
-      }
-
-      v9 = self->_videoCameraCaptureSource;
+      v9 = *(*(CMBaseObjectGetVTable() + 16) + 16);
       if (v9)
       {
-        v10 = *(*(CMBaseObjectGetVTable() + 8) + 24);
-        if (v10)
-        {
-          v10(v9);
-        }
+        v9(videoCameraCaptureSource);
+      }
 
-        v11 = self->_videoCameraCaptureSource;
+      v10 = self->_videoCameraCaptureSource;
+      if (v10)
+      {
+        v11 = *(*(CMBaseObjectGetVTable() + 8) + 24);
         if (v11)
         {
-          CFRelease(v11);
+          v11(v10);
+        }
+
+        v12 = self->_videoCameraCaptureSource;
+        if (v12)
+        {
+          CFRelease(v12);
         }
       }
     }
 
     if (self->_metadataCameraCaptureSession)
     {
-      CMNotificationCenterGetDefaultLocalCenter();
-      OUTLINED_FUNCTION_0_86();
+      v13 = CMNotificationCenterGetDefaultLocalCenter();
+      OUTLINED_FUNCTION_0_86(v13);
       metadataCameraCaptureSession = self->_metadataCameraCaptureSession;
       if (metadataCameraCaptureSession)
       {
-        v13 = *(*(CMBaseObjectGetVTable() + 8) + 24);
-        if (v13)
+        v15 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+        if (v15)
         {
-          v13(metadataCameraCaptureSession);
+          v15(metadataCameraCaptureSession);
         }
 
-        v14 = self->_metadataCameraCaptureSession;
-        if (v14)
+        v16 = self->_metadataCameraCaptureSession;
+        if (v16)
         {
-          CFRelease(v14);
+          CFRelease(v16);
         }
       }
     }
@@ -2860,25 +2860,25 @@ void __70__CMCaptureLocalSessionController_setCaptureSourceProperty_withValue___
     metadataCameraCaptureSource = self->_metadataCameraCaptureSource;
     if (metadataCameraCaptureSource)
     {
-      v16 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-      if (v16)
+      v18 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+      if (v18)
       {
-        v16(metadataCameraCaptureSource);
+        v18(metadataCameraCaptureSource);
       }
 
-      v17 = self->_metadataCameraCaptureSource;
-      if (v17)
+      v19 = self->_metadataCameraCaptureSource;
+      if (v19)
       {
-        v18 = *(*(CMBaseObjectGetVTable() + 8) + 24);
-        if (v18)
+        v20 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+        if (v20)
         {
-          v18(v17);
+          v20(v19);
         }
 
-        v19 = self->_metadataCameraCaptureSource;
-        if (v19)
+        v21 = self->_metadataCameraCaptureSource;
+        if (v21)
         {
-          CFRelease(v19);
+          CFRelease(v21);
         }
       }
     }
@@ -2914,9 +2914,9 @@ void __70__CMCaptureLocalSessionController_setCaptureSourceProperty_withValue___
 
       else
       {
-        v8 = @"ErrorStatus";
+        *v8 = @"ErrorStatus";
         v9 = &unk_1F2245A90;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:v8 count:1];
         CMNotificationCenterGetDefaultLocalCenter();
         CMNotificationCenterPostNotification();
       }

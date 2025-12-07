@@ -38,30 +38,8 @@
     goto LABEL_6;
   }
 
-  if (![coderCopy containsValueForKey:@"watchAppURL"])
+  if (![coderCopy containsValueForKey:@"watchAppURL"] || (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"watchAppURL"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBEBC0], "URLWithString:", v6), v7 = objc_claimAutoreleasedReturnValue(), watchAppURL = v5->_watchAppURL, v5->_watchAppURL = v7, watchAppURL, v6, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"lsSequenceNumber"), v9 = objc_claimAutoreleasedReturnValue(), v5->_lsSequenceNumber = objc_msgSend(v9, "unsignedIntegerValue"), v9, v10 = MEMORY[0x277CBEB98], v11 = objc_opt_class(), objc_msgSend(v10, "setWithObjects:", v11, objc_opt_class(), 0), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClasses:forKey:", v12, @"clockFaceExtensionPaths"), v13 = objc_claimAutoreleasedReturnValue(), clockFaceExtensionPaths = v5->_clockFaceExtensionPaths, v5->_clockFaceExtensionPaths = v13, clockFaceExtensionPaths, v12, v5->_isTrusted = objc_msgSend(coderCopy, "decodeBoolForKey:", @"isTrusted"), (objc_msgSend(coderCopy, "containsValueForKey:", @"companionAppURL") & 1) == 0))
   {
-    goto LABEL_8;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"watchAppURL"];
-  v7 = [MEMORY[0x277CBEBC0] URLWithString:v6];
-  watchAppURL = v5->_watchAppURL;
-  v5->_watchAppURL = v7;
-
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"lsSequenceNumber"];
-  v5->_lsSequenceNumber = [v9 unsignedIntegerValue];
-
-  v10 = MEMORY[0x277CBEB98];
-  v11 = objc_opt_class();
-  v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0}];
-  v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"clockFaceExtensionPaths"];
-  clockFaceExtensionPaths = v5->_clockFaceExtensionPaths;
-  v5->_clockFaceExtensionPaths = v13;
-
-  v5->_isTrusted = [coderCopy decodeBoolForKey:@"isTrusted"];
-  if (([coderCopy containsValueForKey:@"companionAppURL"] & 1) == 0)
-  {
-LABEL_8:
     if (gLogHandle && *(gLogHandle + 44) < 3)
     {
       goto LABEL_10;
@@ -165,9 +143,9 @@ LABEL_11:
 {
   trustCopy = trust;
   dictionaryCopy = dictionary;
-  v42.receiver = self;
-  v42.super_class = ACXApplication;
-  v7 = [(ACXRemoteApplication *)&v42 initWithSerializedDictionary:dictionaryCopy];
+  v44.receiver = self;
+  v44.super_class = ACXApplication;
+  v7 = [(ACXRemoteApplication *)&v44 initWithSerializedDictionary:dictionaryCopy];
   if (v7)
   {
     v8 = [dictionaryCopy objectForKeyedSubscript:@"LSSequenceNumber"];
@@ -224,7 +202,7 @@ LABEL_36:
 LABEL_37:
 
 LABEL_63:
-      v40 = 0;
+      v42 = 0;
       goto LABEL_64;
     }
 
@@ -367,21 +345,21 @@ LABEL_62:
         }
 
         v36 = [dictionaryCopy objectForKeyedSubscript:@"autoInstallOverride"];
-        objc_opt_class();
-        v37 = _ACXValidateObject(v36);
+        v37 = objc_opt_class();
+        v38 = _ACXValidateObject(v36, v37);
 
-        if (v37)
+        if (v38)
         {
-          v7->_autoInstallOverride = [v37 unsignedIntegerValue];
+          v7->_autoInstallOverride = [v38 unsignedIntegerValue];
         }
 
-        v38 = [dictionaryCopy objectForKeyedSubscript:@"isPlaceholder"];
-        objc_opt_class();
-        v39 = _ACXValidateObject(v38);
+        v39 = [dictionaryCopy objectForKeyedSubscript:@"isPlaceholder"];
+        v40 = objc_opt_class();
+        v41 = _ACXValidateObject(v39, v40);
 
-        if (v39)
+        if (v41)
         {
-          v7->_isEmbeddedPlaceholder = [v39 BOOLValue];
+          v7->_isEmbeddedPlaceholder = [v41 BOOLValue];
 
           if (trustCopy)
           {
@@ -411,10 +389,10 @@ LABEL_31:
   }
 
 LABEL_59:
-  v40 = v7;
+  v42 = v7;
 LABEL_64:
 
-  return v40;
+  return v42;
 }
 
 - (id)serialize
@@ -563,25 +541,24 @@ LABEL_64:
 
 uint64_t __70__ACXApplication__parseArchitectureSlicesForWatchKitAppExecutableURL___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v5 = *(a3 + 4);
   v4 = *(a3 + 8);
   if (gLogHandle && *(gLogHandle + 44) >= 7)
   {
-    v12 = *(a3 + 4);
-    v13 = *(a3 + 8);
+    v11 = *(a3 + 4);
+    v12 = *(a3 + 8);
     MOLogWrite();
   }
 
   v6 = *(a1 + 32);
-  v7 = [MEMORY[0x277CCABB0] numberWithInt:{v5, v12, v13}];
-  v14[0] = v7;
+  v7 = [MEMORY[0x277CCABB0] numberWithInt:{v5, v11, v12}];
+  v13[0] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithInt:v4];
-  v14[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   [v6 addObject:v9];
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -633,7 +610,7 @@ LABEL_12:
 
 + (id)gizmoApplicationsFromCompanionAppRecord:(id)record databaseUUID:(id)d startingSequenceNumber:(unint64_t)number
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   dCopy = d;
   if (recordCopy)
@@ -643,32 +620,32 @@ LABEL_12:
     v11 = counterpartIdentifiers;
     if (counterpartIdentifiers && [counterpartIdentifiers count])
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
-      v22 = v11;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v21 = v11;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v24;
+        v15 = *v23;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v24 != v15)
+            if (*v23 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = [objc_alloc(objc_opt_class()) initWithApplicationRecord:recordCopy gizmoBundleIdentifier:*(*(&v23 + 1) + 8 * i) databaseUUID:dCopy sequenceNumber:number];
+            v17 = [objc_alloc(objc_opt_class()) initWithApplicationRecord:recordCopy gizmoBundleIdentifier:*(*(&v22 + 1) + 8 * i) databaseUUID:dCopy sequenceNumber:number];
             if (!v17)
             {
 
               v19 = 0;
-              v11 = v22;
+              v11 = v21;
               goto LABEL_21;
             }
 
@@ -677,7 +654,7 @@ LABEL_12:
             [v9 addObject:v17];
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v14)
           {
             continue;
@@ -687,7 +664,7 @@ LABEL_12:
         }
       }
 
-      v11 = v22;
+      v11 = v21;
     }
 
     else
@@ -715,19 +692,17 @@ LABEL_21:
   v19 = 0;
 LABEL_22:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (ACXApplication)initWithApplicationRecord:(id)record gizmoBundleIdentifier:(id)identifier databaseUUID:(id)d sequenceNumber:(unint64_t)number
 {
-  v215 = *MEMORY[0x277D85DE8];
+  v236 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   identifierCopy = identifier;
-  v208.receiver = self;
-  v208.super_class = ACXApplication;
-  v176 = recordCopy;
+  v229.receiver = self;
+  v229.super_class = ACXApplication;
+  v197 = recordCopy;
   dCopy = d;
   v10 = [ACXRemoteApplication initWithApplicationRecord:sel_initWithApplicationRecord_databaseUUID_sequenceNumber_ databaseUUID:recordCopy sequenceNumber:?];
   if (!v10)
@@ -791,7 +766,7 @@ LABEL_22:
               goto LABEL_112;
             }
 
-            goto LABEL_50;
+            goto LABEL_81;
           }
 
           v13 = 1;
@@ -811,801 +786,797 @@ LABEL_22:
         companionAppURL = v10->_companionAppURL;
         v10->_companionAppURL = v18;
 
-        if (v10->_companionAppURL)
+        if (!v10->_companionAppURL)
         {
-          v20 = [objc_opt_class() localizedAppNameFromRecord:recordCopy];
-          companionAppName = v10->_companionAppName;
-          v10->_companionAppName = v20;
-
-          if (v10->_companionAppName)
+          if (gLogHandle && *(gLogHandle + 44) < 3)
           {
-            v10->_lsSequenceNumber = [recordCopy sequenceNumber];
-            if ([(ACXRemoteApplication *)v10 isSystemApp])
+            goto LABEL_112;
+          }
+
+          goto LABEL_81;
+        }
+
+        v20 = [objc_opt_class() localizedAppNameFromRecord:recordCopy];
+        companionAppName = v10->_companionAppName;
+        v10->_companionAppName = v20;
+
+        if (!v10->_companionAppName)
+        {
+          if (gLogHandle && *(gLogHandle + 44) < 3)
+          {
+            goto LABEL_112;
+          }
+
+          goto LABEL_81;
+        }
+
+        v10->_lsSequenceNumber = [recordCopy sequenceNumber];
+        if ([(ACXRemoteApplication *)v10 isSystemApp])
+        {
+          if (identifierCopy && [identifierCopy length])
+          {
+            [(ACXSyncedApplication *)v10 setBundleIdentifier:identifierCopy];
+            counterpartIdentifiers = [recordCopy counterpartIdentifiers];
+            if ([counterpartIdentifiers containsObject:identifierCopy])
             {
-              if (identifierCopy && [identifierCopy length])
+              [(ACXApplication *)v10 setIsTrusted:1];
+              v23 = [objc_opt_class() localizedAppNameFromRecord:recordCopy];
+              [(ACXSyncedApplication *)v10 setApplicationName:v23];
+
+              aCX_watchKitAppExtensionBundleID = [recordCopy ACX_watchKitAppExtensionBundleID];
+              if (aCX_watchKitAppExtensionBundleID)
               {
-                [(ACXSyncedApplication *)v10 setBundleIdentifier:identifierCopy];
-                counterpartIdentifiers = [recordCopy counterpartIdentifiers];
-                if ([counterpartIdentifiers containsObject:identifierCopy])
-                {
-                  [(ACXApplication *)v10 setIsTrusted:1];
-                  v23 = [objc_opt_class() localizedAppNameFromRecord:recordCopy];
-                  [(ACXSyncedApplication *)v10 setApplicationName:v23];
+                [(ACXRemoteApplication *)v10 setWatchKitAppExtensionBundleID:aCX_watchKitAppExtensionBundleID];
+                [(ACXRemoteApplication *)v10 setWatchKitVersion:@"2.0"];
+                [(ACXRemoteApplication *)v10 setTeamID:&stru_2851ED680];
+              }
 
-                  aCX_watchKitAppExtensionBundleID = [recordCopy ACX_watchKitAppExtensionBundleID];
-                  if (aCX_watchKitAppExtensionBundleID)
-                  {
-                    [(ACXRemoteApplication *)v10 setWatchKitAppExtensionBundleID:aCX_watchKitAppExtensionBundleID];
-                    [(ACXRemoteApplication *)v10 setWatchKitVersion:@"2.0"];
-                    [(ACXRemoteApplication *)v10 setTeamID:&stru_2851ED680];
-                  }
-
-                  [(ACXRemoteApplication *)v10 setApplicationMode:0];
+              [(ACXRemoteApplication *)v10 setApplicationMode:0];
 
 LABEL_42:
 LABEL_43:
-                  v14 = v10;
-                  goto LABEL_44;
-                }
+              v14 = v10;
+              goto LABEL_44;
+            }
 
-                v56 = [counterpartIdentifiers componentsJoinedByString:{@", "}];
-                if (!gLogHandle || *(gLogHandle + 44) >= 3)
-                {
-                  v137 = v10->_companionAppName;
-                  MOLogWrite();
-                }
-              }
-
-              else if (!gLogHandle || *(gLogHandle + 44) >= 3)
-              {
-                v135 = v10->_companionAppName;
-                MOLogWrite();
-              }
+            v57 = [counterpartIdentifiers componentsJoinedByString:{@", "}];
+            if (!gLogHandle || *(gLogHandle + 44) >= 3)
+            {
+              MOLogWrite();
+            }
 
 LABEL_112:
+            goto LABEL_30;
+          }
 
-              goto LABEL_30;
-            }
+          if (gLogHandle && *(gLogHandle + 44) < 3)
+          {
+            goto LABEL_112;
+          }
 
-            v207 = 0;
-            v159 = [(ACXApplication *)v10 _mostCurrentWKAppURLInCompanionAppRecord:recordCopy isPlaceholder:&v207];
-            if (!v159)
+LABEL_81:
+          MOLogWrite();
+          goto LABEL_112;
+        }
+
+        v228 = 0;
+        v180 = [(ACXApplication *)v10 _mostCurrentWKAppURLInCompanionAppRecord:recordCopy isPlaceholder:&v228];
+        if (!v180)
+        {
+          if (gLogHandle && *(gLogHandle + 44) >= 7)
+          {
+            MOLogWrite();
+          }
+
+          goto LABEL_112;
+        }
+
+        v10->_isEmbeddedPlaceholder = v228;
+        v26 = [(ACXApplication *)v10 _URLsOfExtensionsInBundleURL:v180 mayNotExist:0];
+        v27 = objc_opt_new();
+        v226 = 0u;
+        v227 = 0u;
+        v224 = 0u;
+        v225 = 0u;
+        obj = v26;
+        v191 = [obj countByEnumeratingWithState:&v224 objects:v235 count:16];
+        if (v191)
+        {
+          v28 = 0;
+          v187 = *v225;
+          do
+          {
+            for (i = 0; i != v191; i = i + 1)
             {
-              if (gLogHandle && *(gLogHandle + 44) >= 7)
+              if (*v225 != v187)
               {
-                MOLogWrite();
+                objc_enumerationMutation(obj);
               }
 
-              goto LABEL_112;
-            }
-
-            v10->_isEmbeddedPlaceholder = v207;
-            v27 = [(ACXApplication *)v10 _URLsOfExtensionsInBundleURL:v159 mayNotExist:0];
-            v28 = objc_opt_new();
-            v205 = 0u;
-            v206 = 0u;
-            v203 = 0u;
-            v204 = 0u;
-            obj = v27;
-            v170 = [obj countByEnumeratingWithState:&v203 objects:v214 count:16];
-            if (v170)
-            {
-              v29 = 0;
-              v166 = *v204;
-              do
+              v30 = *(*(&v224 + 1) + 8 * i);
+              v31 = [(ACXApplication *)v10 _infoPlistForPluginBundle:v30];
+              if (v31)
               {
-                for (i = 0; i != v170; i = i + 1)
+                [v27 setObject:v31 forKeyedSubscript:v30];
+                v32 = [v31 objectForKeyedSubscript:@"NSExtension"];
+                v193 = [v32 objectForKeyedSubscript:@"NSExtensionPointIdentifier"];
+
+                if ([v193 isEqualToString:@"com.apple.watchkit"])
                 {
-                  if (*v204 != v166)
+                  v33 = [(ACXApplication *)v10 _URLsOfExtensionsInBundleURL:v30 mayNotExist:1];
+                  v185 = v33;
+                  v34 = v33;
+                  if (v33)
                   {
-                    objc_enumerationMutation(obj);
-                  }
-
-                  v31 = *(*(&v203 + 1) + 8 * i);
-                  v32 = [(ACXApplication *)v10 _infoPlistForPluginBundle:v31];
-                  if (v32)
-                  {
-                    [v28 setObject:v32 forKeyedSubscript:v31];
-                    v33 = [v32 objectForKeyedSubscript:@"NSExtension"];
-                    v172 = [v33 objectForKeyedSubscript:@"NSExtensionPointIdentifier"];
-
-                    if ([v172 isEqualToString:@"com.apple.watchkit"])
+                    v35 = [v33 count];
+                    v34 = v185;
+                    if (v35)
                     {
-                      v34 = [(ACXApplication *)v10 _URLsOfExtensionsInBundleURL:v31 mayNotExist:1];
-                      v164 = v34;
-                      v35 = v34;
-                      if (v34)
+                      v222 = 0u;
+                      v223 = 0u;
+                      v220 = 0u;
+                      v221 = 0u;
+                      v36 = v185;
+                      v37 = [v36 countByEnumeratingWithState:&v220 objects:v234 count:16];
+                      if (v37)
                       {
-                        v36 = [v34 count];
-                        v35 = v164;
-                        if (v36)
-                        {
-                          v201 = 0u;
-                          v202 = 0u;
-                          v199 = 0u;
-                          v200 = 0u;
-                          v37 = v164;
-                          v38 = [v37 countByEnumeratingWithState:&v199 objects:v213 count:16];
-                          if (v38)
-                          {
-                            v39 = *v200;
-                            do
-                            {
-                              for (j = 0; j != v38; ++j)
-                              {
-                                if (*v200 != v39)
-                                {
-                                  objc_enumerationMutation(v37);
-                                }
-
-                                v41 = *(*(&v199 + 1) + 8 * j);
-                                v42 = [(ACXApplication *)v10 _infoPlistForPluginBundle:v41];
-                                if (v42)
-                                {
-                                  [v28 setObject:v42 forKeyedSubscript:v41];
-                                }
-                              }
-
-                              v38 = [v37 countByEnumeratingWithState:&v199 objects:v213 count:16];
-                            }
-
-                            while (v38);
-                          }
-
-                          v35 = v164;
-                        }
-                      }
-
-                      v29 = 1;
-                    }
-                  }
-                }
-
-                v170 = [obj countByEnumeratingWithState:&v203 objects:v214 count:16];
-              }
-
-              while (v170);
-            }
-
-            else
-            {
-              v29 = 0;
-            }
-
-            v43 = *MEMORY[0x277CBED58];
-            v44 = *MEMORY[0x277CBEC50];
-            v45 = *MEMORY[0x277CBEC40];
-            v152 = *MEMORY[0x277D1C1E8];
-            v154 = *MEMORY[0x277CBED38];
-            v167 = *MEMORY[0x277CBED30];
-            v153 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CBED58], *MEMORY[0x277CBEC50], *MEMORY[0x277CBEC40], *MEMORY[0x277CBED50], *MEMORY[0x277CBED30], @"MinimumOSVersion", @"UIRequiredDeviceCapabilities", @"NSUserActivityTypes", @"WKRunsIndependentlyOfCompanionApp", @"WKApplication", *MEMORY[0x277D1C1E8], 0}];
-            v46 = ACXLoadInfoPlist(v159, v153);
-            v156 = v46;
-            if (v46)
-            {
-              if ([v46 count])
-              {
-                v47 = [v156 objectForKeyedSubscript:v154];
-                objc_opt_class();
-                v150 = _ACXValidateObject(v47);
-
-                if (v150)
-                {
-                  v48 = [v156 objectForKeyedSubscript:@"WKApplication"];
-                  v49 = ACXBooleanValue(v48, 0);
-
-                  if ((v49 | v29))
-                  {
-                    [(ACXSyncedApplication *)v10 setBundleIdentifier:v150];
-                    v50 = [v156 objectForKeyedSubscript:v43];
-                    objc_opt_class();
-                    v51 = _ACXValidateObject(v50);
-                    [(ACXRemoteApplication *)v10 setBundleVersion:v51];
-
-                    v52 = [v156 objectForKeyedSubscript:v44];
-                    objc_opt_class();
-                    v53 = _ACXValidateObject(v52);
-                    [(ACXRemoteApplication *)v10 setBundleShortVersion:v53];
-
-                    v54 = [(ACXApplication *)v10 _watchKitApplicationNameFromWKAppInfoPlist:v156 containerRecord:v176];
-                    [(ACXSyncedApplication *)v10 setApplicationName:v54];
-
-                    [(ACXApplication *)v10 _evaluateTrustInfoForReevaluation:0];
-                    v198 = 0;
-                    v148 = MobileInstallationCopyAppMetadata();
-                    v144 = 0;
-                    if (v148)
-                    {
-                      if (!v207)
-                      {
-                        watchKitAppExecutableHash = [v148 watchKitAppExecutableHash];
-                        [(ACXRemoteApplication *)v10 setWatchKitAppExecutableHash:watchKitAppExecutableHash];
-                      }
-
-                      v10->_autoInstallOverride = [v148 autoInstallOverride];
-                    }
-
-                    else if (!gLogHandle || *(gLogHandle + 44) >= 3)
-                    {
-                      v136 = bundleIdentifier;
-                      v142 = v144;
-                      MOLogWrite();
-                    }
-
-                    v59 = [v156 objectForKeyedSubscript:{@"MinimumOSVersion", v136, v142}];
-                    objc_opt_class();
-                    v60 = _ACXValidateObject(v59);
-                    [(ACXRemoteApplication *)v10 setMinimumOSVersion:v60];
-
-                    iTunesMetadata2 = [v176 iTunesMetadata];
-                    v10->_isPurchasedReDownload = [iTunesMetadata2 isPurchasedRedownload];
-
-                    v146 = [v156 objectForKeyedSubscript:@"UIRequiredDeviceCapabilities"];
-                    if (!v146)
-                    {
-LABEL_133:
-                      [(ACXRemoteApplication *)v10 setWatchKitVersion:@"2.0"];
-                      teamIdentifier = [v176 teamIdentifier];
-                      [(ACXRemoteApplication *)v10 setTeamID:teamIdentifier];
-
-                      teamID = [(ACXRemoteApplication *)v10 teamID];
-                      if (!teamID || (-[ACXRemoteApplication teamID](v10, "teamID"), v72 = objc_claimAutoreleasedReturnValue(), v73 = [v72 isEqualToString:@"0000000000"], v72, teamID, v73))
-                      {
-                        [(ACXRemoteApplication *)v10 setTeamID:&stru_2851ED680];
-                      }
-
-                      objc_storeStrong(&v10->_watchAppURL, v159);
-                      if (v207)
-                      {
-                        v74 = [v156 objectForKeyedSubscript:v152];
-                        objc_opt_class();
-                        path = _ACXValidateObject(v74);
-                        v76 = _ValidateSupportedArchitecturesListForPlaceholder(path, v159);
-                        [(ACXRemoteApplication *)v10 setArchitectureSlices:v76];
-                      }
-
-                      else
-                      {
-                        v77 = [v156 objectForKeyedSubscript:v167];
-                        objc_opt_class();
-                        v74 = _ACXValidateObject(v77);
-
-                        if (v74)
-                        {
-                          path = [v159 URLByAppendingPathComponent:v74 isDirectory:0];
-                          v78 = [(ACXApplication *)v10 _parseArchitectureSlicesForWatchKitAppExecutableURL:path];
-                          [(ACXRemoteApplication *)v10 setArchitectureSlices:v78];
-                        }
-
-                        else
-                        {
-                          if (gLogHandle && *(gLogHandle + 44) < 3)
-                          {
-                            goto LABEL_144;
-                          }
-
-                          path = [v159 path];
-                          path2 = path;
-                          MOLogWrite();
-                        }
-                      }
-
-LABEL_144:
-                      v79 = [v156 objectForKeyedSubscript:@"NSUserActivityTypes"];
-                      objc_opt_class();
-                      v147 = _ACXValidateObject(v79);
-
-                      if (v147)
-                      {
-                        objc_opt_class();
-                        if (ACXArrayContainsOnlyClass(v147))
-                        {
-                          [(ACXRemoteApplication *)v10 setUserActivityTypes:v147];
-                        }
-
-                        else if (!gLogHandle || *(gLogHandle + 44) >= 3)
-                        {
-                          path2 = [v159 path];
-                          MOLogWrite();
-                        }
-                      }
-
-                      v80 = [v156 objectForKeyedSubscript:{@"WKRunsIndependentlyOfCompanionApp", path2}];
-                      objc_opt_class();
-                      v145 = _ACXValidateObject(v80);
-
-                      if (v145 && ([v145 BOOLValue] & 1) != 0)
-                      {
-                        v81 = 2;
-                      }
-
-                      else
-                      {
-                        v81 = 1;
-                      }
-
-                      [(ACXRemoteApplication *)v10 setApplicationMode:v81];
-                      v149 = objc_opt_new();
-                      v187 = 0u;
-                      v188 = 0u;
-                      v185 = 0u;
-                      v186 = 0u;
-                      v168 = v28;
-                      v165 = [v168 countByEnumeratingWithState:&v185 objects:v211 count:16];
-                      if (!v165)
-                      {
-                        v155 = 0;
-LABEL_254:
-
-                        v129 = [v149 copy];
-                        clockFaceExtensionPaths = v10->_clockFaceExtensionPaths;
-                        v10->_clockFaceExtensionPaths = v129;
-
-                        clockFaceExtensionPaths = [(ACXApplication *)v10 clockFaceExtensionPaths];
-                        v132 = [clockFaceExtensionPaths count] == 0;
-
-                        if (!v132)
-                        {
-                          [(ACXRemoteApplication *)v10 setHasClockfaces:1];
-                        }
-
-                        v133 = [objc_opt_class() buildLocalizedInfoPlistStringsDictForAppBundleURL:v10->_watchAppURL watchKitExtensionURL:v155];
-                        [(ACXSyncedApplication *)v10 setLocalizedInfoPlistStrings:v133];
-
-                        aCX_externalVersionIdentifier = [v176 ACX_externalVersionIdentifier];
-                        [(ACXSyncedApplication *)v10 setExternalVersionIdentifier:aCX_externalVersionIdentifier];
-
-                        [(ACXApplication *)v10 _populateStoreMetadata];
-                        v128 = 1;
-                        v157 = v155;
-LABEL_257:
-
-                        if (v128)
-                        {
-                          goto LABEL_42;
-                        }
-
-                        goto LABEL_112;
-                      }
-
-                      v155 = 0;
-                      v160 = *v186;
-LABEL_156:
-                      v82 = 0;
-                      while (1)
-                      {
-                        if (*v186 != v160)
-                        {
-                          objc_enumerationMutation(v168);
-                        }
-
-                        v83 = *(*(&v185 + 1) + 8 * v82);
-                        v173 = [v168 objectForKeyedSubscript:{v83, path6}];
-                        v84 = [v173 objectForKeyedSubscript:@"NSExtension"];
-                        objc_opt_class();
-                        path3 = _ACXValidateObject(v84);
-
-                        if (path3)
-                        {
-                          break;
-                        }
-
-                        if (gLogHandle && *(gLogHandle + 44) < 3)
-                        {
-                          goto LABEL_200;
-                        }
-
-                        path3 = [v83 path];
-                        path6 = path3;
-                        MOLogWrite();
-LABEL_199:
-
-LABEL_200:
-                        if (++v82 == v165)
-                        {
-                          v127 = [v168 countByEnumeratingWithState:&v185 objects:v211 count:16];
-                          v165 = v127;
-                          if (v127)
-                          {
-                            goto LABEL_156;
-                          }
-
-                          goto LABEL_254;
-                        }
-                      }
-
-                      v86 = [path3 objectForKeyedSubscript:@"NSExtensionPointIdentifier"];
-                      objc_opt_class();
-                      v171 = _ACXValidateObject(v86);
-
-                      v87 = v171;
-                      if (v171)
-                      {
-                        if ([v171 isEqualToString:@"com.apple.watchkit"])
-                        {
-                          v157 = v83;
-
-                          path7 = [v173 objectForKeyedSubscript:@"CLKComplicationPrincipalClass"];
-                          if (path7)
-                          {
-                            objc_opt_class();
-                            v89 = _ACXValidateObject(path7);
-                            v90 = v89 == 0;
-
-                            if (v90)
-                            {
-                              if (!gLogHandle || *(gLogHandle + 44) >= 3)
-                              {
-                                path6 = bundleIdentifier;
-                                v143 = path7;
-                                MOLogWrite();
-                              }
-
-                              path7 = 0;
-                            }
-                          }
-
-                          v91 = [v173 objectForKeyedSubscript:{@"CLKComplicationSupportedFamilies", path6, v143}];
-                          if (v91)
-                          {
-                            objc_opt_class();
-                            v92 = _ACXValidateObject(v91);
-                            if (!v92 || (objc_opt_class(), v93 = ACXArrayContainsOnlyClass(v91), v92, (v93 & 1) == 0))
-                            {
-                              if (!gLogHandle || *(gLogHandle + 44) >= 3)
-                              {
-                                v140 = bundleIdentifier;
-                                v143 = v91;
-                                MOLogWrite();
-                              }
-
-                              v91 = 0;
-                            }
-                          }
-
-                          if (path7)
-                          {
-                            [(ACXRemoteApplication *)v10 setComplicationPrincipalClass:path7];
-                          }
-
-                          if (v91)
-                          {
-                            [(ACXRemoteApplication *)v10 setSupportedComplicationFamilies:v91];
-                          }
-
-                          v94 = [v173 objectForKeyedSubscript:{v154, v140}];
-                          objc_opt_class();
-                          v95 = _ACXValidateObject(v94);
-
-                          if (!v95)
-                          {
-                            if (!gLogHandle || *(gLogHandle + 44) >= 3)
-                            {
-                              path4 = [v157 path];
-                              MOLogWrite();
-                            }
-
-                            v128 = 0;
-                            goto LABEL_257;
-                          }
-
-                          [(ACXRemoteApplication *)v10 setWatchKitAppExtensionBundleID:v95];
-                          v96 = [v173 objectForKeyedSubscript:@"WKRunsIndependentlyOfCompanionApp"];
-                          objc_opt_class();
-                          v97 = _ACXValidateObject(v96);
-
-                          if (v97 && ([v97 BOOLValue] & 1) != 0)
-                          {
-                            v98 = 2;
-                          }
-
-                          else
-                          {
-                            v98 = 1;
-                          }
-
-                          [(ACXRemoteApplication *)v10 setApplicationMode:v98];
-                          if (v207)
-                          {
-                            v100 = [v173 objectForKeyedSubscript:v152];
-                            objc_opt_class();
-                            v101 = _ACXValidateObject(v100);
-                            v102 = _ValidateSupportedArchitecturesListForPlaceholder(v101, v157);
-                            [(ACXRemoteApplication *)v10 setArchitectureSlices:v102];
-                          }
-
-                          v155 = v157;
-                          goto LABEL_196;
-                        }
-
-                        if ([v171 isEqualToString:@"com.apple.clockface"])
-                        {
-                          path5 = [v83 path];
-                          path7 = path5;
-                          if (path5)
-                          {
-                            [v149 addObject:path5];
-                            path7 = path5;
-                          }
-
-                          goto LABEL_196;
-                        }
-
-                        if (![v171 isEqualToString:@"com.apple.intents-service"])
-                        {
-                          goto LABEL_197;
-                        }
-
-                        v103 = [path3 objectForKeyedSubscript:@"NSExtensionAttributes"];
-                        objc_opt_class();
-                        v158 = _ACXValidateObject(v103);
-
-                        if (v158)
-                        {
-                          v104 = [v158 objectForKeyedSubscript:@"IntentsSupported"];
-                          objc_opt_class();
-                          v151 = _ACXValidateObject(v104);
-
-                          if (v151)
-                          {
-                            objc_opt_class();
-                            if ((ACXArrayContainsOnlyClass(v151) & 1) == 0)
-                            {
-                              if (!gLogHandle || *(gLogHandle + 44) >= 3)
-                              {
-                                path6 = [v83 path];
-                                MOLogWrite();
-                              }
-
-LABEL_246:
-                              path7 = v158;
-                              goto LABEL_196;
-                            }
-
-                            if ([v151 count])
-                            {
-                              intentsSupported = [(ACXRemoteApplication *)v10 intentsSupported];
-                              v106 = intentsSupported == 0;
-
-                              if (v106)
-                              {
-                                [(ACXRemoteApplication *)v10 setIntentsSupported:v151];
-                              }
-
-                              else
-                              {
-                                intentsSupported2 = [(ACXRemoteApplication *)v10 intentsSupported];
-                                v108 = [intentsSupported2 mutableCopy];
-
-                                v183 = 0u;
-                                v184 = 0u;
-                                v181 = 0u;
-                                v182 = 0u;
-                                v109 = v151;
-                                v110 = [v109 countByEnumeratingWithState:&v181 objects:v210 count:16];
-                                if (v110)
-                                {
-                                  v111 = *v182;
-                                  do
-                                  {
-                                    for (k = 0; k != v110; ++k)
-                                    {
-                                      if (*v182 != v111)
-                                      {
-                                        objc_enumerationMutation(v109);
-                                      }
-
-                                      v113 = *(*(&v181 + 1) + 8 * k);
-                                      if (([v108 containsObject:v113] & 1) == 0)
-                                      {
-                                        [v108 addObject:v113];
-                                      }
-                                    }
-
-                                    v110 = [v109 countByEnumeratingWithState:&v181 objects:v210 count:16];
-                                  }
-
-                                  while (v110);
-                                }
-
-                                v114 = [v108 copy];
-                                [(ACXRemoteApplication *)v10 setIntentsSupported:v114];
-                              }
-                            }
-                          }
-
-                          v115 = [v158 objectForKeyedSubscript:@"IntentsRestrictedWhileLocked"];
-                          objc_opt_class();
-                          v116 = _ACXValidateObject(v115);
-
-                          if (v116)
-                          {
-                            objc_opt_class();
-                            if ((ACXArrayContainsOnlyClass(v116) & 1) == 0)
-                            {
-                              if (!gLogHandle || *(gLogHandle + 44) >= 3)
-                              {
-                                path6 = [v83 path];
-                                MOLogWrite();
-                              }
-
-                              goto LABEL_199;
-                            }
-
-                            if ([v116 count])
-                            {
-                              intentsRestrictedWhileLocked = [(ACXRemoteApplication *)v10 intentsRestrictedWhileLocked];
-                              v118 = intentsRestrictedWhileLocked == 0;
-
-                              if (v118)
-                              {
-                                [(ACXRemoteApplication *)v10 setIntentsRestrictedWhileLocked:v116];
-                              }
-
-                              else
-                              {
-                                intentsRestrictedWhileLocked2 = [(ACXRemoteApplication *)v10 intentsRestrictedWhileLocked];
-                                v120 = [intentsRestrictedWhileLocked2 mutableCopy];
-
-                                v179 = 0u;
-                                v180 = 0u;
-                                v177 = 0u;
-                                v178 = 0u;
-                                v121 = v116;
-                                v122 = [v121 countByEnumeratingWithState:&v177 objects:v209 count:16];
-                                if (v122)
-                                {
-                                  v123 = *v178;
-                                  do
-                                  {
-                                    for (m = 0; m != v122; ++m)
-                                    {
-                                      if (*v178 != v123)
-                                      {
-                                        objc_enumerationMutation(v121);
-                                      }
-
-                                      v125 = *(*(&v177 + 1) + 8 * m);
-                                      if (([v120 containsObject:v125] & 1) == 0)
-                                      {
-                                        [v120 addObject:v125];
-                                      }
-                                    }
-
-                                    v122 = [v121 countByEnumeratingWithState:&v177 objects:v209 count:16];
-                                  }
-
-                                  while (v122);
-                                }
-
-                                v126 = [v120 copy];
-                                [(ACXRemoteApplication *)v10 setIntentsRestrictedWhileLocked:v126];
-                              }
-                            }
-                          }
-
-                          goto LABEL_246;
-                        }
-
-                        if (gLogHandle && *(gLogHandle + 44) < 3)
-                        {
-                          goto LABEL_197;
-                        }
-                      }
-
-                      else if (gLogHandle && *(gLogHandle + 44) < 3)
-                      {
-                        goto LABEL_198;
-                      }
-
-                      path7 = [v83 path];
-                      path6 = path7;
-                      MOLogWrite();
-LABEL_196:
-
-LABEL_197:
-                      v87 = v171;
-LABEL_198:
-
-                      goto LABEL_199;
-                    }
-
-                    objc_opt_class();
-                    v62 = _ACXValidateObject(v146);
-                    if (v62)
-                    {
-                      objc_opt_class();
-                      if (!ACXArrayContainsOnlyClass(v62))
-                      {
-LABEL_132:
-
-                        goto LABEL_133;
-                      }
-
-                      v63 = objc_opt_new();
-                      v196 = 0u;
-                      v197 = 0u;
-                      v194 = 0u;
-                      v195 = 0u;
-                      v64 = v62;
-                      v65 = [v64 countByEnumeratingWithState:&v194 objects:v212 count:16];
-                      if (v65)
-                      {
-                        v66 = *v195;
-                        v67 = MEMORY[0x277CBEC38];
+                        v38 = *v221;
                         do
                         {
-                          for (n = 0; n != v65; ++n)
+                          for (j = 0; j != v37; ++j)
                           {
-                            if (*v195 != v66)
+                            if (*v221 != v38)
                             {
-                              objc_enumerationMutation(v64);
+                              objc_enumerationMutation(v36);
                             }
 
-                            [v63 setObject:v67 forKeyedSubscript:*(*(&v194 + 1) + 8 * n)];
+                            v40 = *(*(&v220 + 1) + 8 * j);
+                            v41 = [(ACXApplication *)v10 _infoPlistForPluginBundle:v40];
+                            if (v41)
+                            {
+                              [v27 setObject:v41 forKeyedSubscript:v40];
+                            }
                           }
 
-                          v65 = [v64 countByEnumeratingWithState:&v194 objects:v212 count:16];
+                          v37 = [v36 countByEnumeratingWithState:&v220 objects:v234 count:16];
                         }
 
-                        while (v65);
+                        while (v37);
                       }
 
-                      [(ACXRemoteApplication *)v10 setRequiredCapabilities:v63];
+                      v34 = v185;
+                    }
+                  }
+
+                  v28 = 1;
+                }
+              }
+            }
+
+            v191 = [obj countByEnumeratingWithState:&v224 objects:v235 count:16];
+          }
+
+          while (v191);
+        }
+
+        else
+        {
+          v28 = 0;
+        }
+
+        v42 = *MEMORY[0x277CBED58];
+        v43 = *MEMORY[0x277CBEC50];
+        v173 = *MEMORY[0x277D1C1E8];
+        v175 = *MEMORY[0x277CBED38];
+        v188 = *MEMORY[0x277CBED30];
+        v174 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CBED58], *MEMORY[0x277CBEC50], *MEMORY[0x277CBEC40], *MEMORY[0x277CBED50], *MEMORY[0x277CBED30], @"MinimumOSVersion", @"UIRequiredDeviceCapabilities", @"NSUserActivityTypes", @"WKRunsIndependentlyOfCompanionApp", @"WKApplication", *MEMORY[0x277D1C1E8], 0}];
+        v44 = ACXLoadInfoPlist(v180, v174);
+        v177 = v44;
+        if (v44)
+        {
+          if ([v44 count])
+          {
+            v45 = [v177 objectForKeyedSubscript:v175];
+            v46 = objc_opt_class();
+            v171 = _ACXValidateObject(v45, v46);
+
+            if (v171)
+            {
+              v47 = [v177 objectForKeyedSubscript:@"WKApplication"];
+              v48 = ACXBooleanValue(v47, 0);
+
+              if ((v48 | v28))
+              {
+                [(ACXSyncedApplication *)v10 setBundleIdentifier:v171];
+                v49 = [v177 objectForKeyedSubscript:v42];
+                v50 = objc_opt_class();
+                v51 = _ACXValidateObject(v49, v50);
+                [(ACXRemoteApplication *)v10 setBundleVersion:v51];
+
+                v52 = [v177 objectForKeyedSubscript:v43];
+                v53 = objc_opt_class();
+                v54 = _ACXValidateObject(v52, v53);
+                [(ACXRemoteApplication *)v10 setBundleShortVersion:v54];
+
+                v55 = [(ACXApplication *)v10 _watchKitApplicationNameFromWKAppInfoPlist:v177 containerRecord:v197];
+                [(ACXSyncedApplication *)v10 setApplicationName:v55];
+
+                [(ACXApplication *)v10 _evaluateTrustInfoForReevaluation:0];
+                v219 = 0;
+                v169 = MobileInstallationCopyAppMetadata();
+                v165 = 0;
+                if (v169)
+                {
+                  if (!v228)
+                  {
+                    watchKitAppExecutableHash = [v169 watchKitAppExecutableHash];
+                    [(ACXRemoteApplication *)v10 setWatchKitAppExecutableHash:watchKitAppExecutableHash];
+                  }
+
+                  v10->_autoInstallOverride = [v169 autoInstallOverride];
+                }
+
+                else if (!gLogHandle || *(gLogHandle + 44) >= 3)
+                {
+                  v158 = bundleIdentifier;
+                  v163 = v165;
+                  MOLogWrite();
+                }
+
+                v60 = [v177 objectForKeyedSubscript:{@"MinimumOSVersion", v158, v163}];
+                v61 = objc_opt_class();
+                v62 = _ACXValidateObject(v60, v61);
+                [(ACXRemoteApplication *)v10 setMinimumOSVersion:v62];
+
+                iTunesMetadata2 = [v197 iTunesMetadata];
+                v10->_isPurchasedReDownload = [iTunesMetadata2 isPurchasedRedownload];
+
+                v167 = [v177 objectForKeyedSubscript:@"UIRequiredDeviceCapabilities"];
+                if (!v167)
+                {
+LABEL_133:
+                  [(ACXRemoteApplication *)v10 setWatchKitVersion:@"2.0"];
+                  teamIdentifier = [v197 teamIdentifier];
+                  [(ACXRemoteApplication *)v10 setTeamID:teamIdentifier];
+
+                  teamID = [(ACXRemoteApplication *)v10 teamID];
+                  if (!teamID || (-[ACXRemoteApplication teamID](v10, "teamID"), v77 = objc_claimAutoreleasedReturnValue(), v78 = [v77 isEqualToString:@"0000000000"], v77, teamID, v78))
+                  {
+                    [(ACXRemoteApplication *)v10 setTeamID:&stru_2851ED680];
+                  }
+
+                  objc_storeStrong(&v10->_watchAppURL, v180);
+                  if (v228)
+                  {
+                    v79 = [v177 objectForKeyedSubscript:v173];
+                    v80 = objc_opt_class();
+                    path = _ACXValidateObject(v79, v80);
+                    v82 = _ValidateSupportedArchitecturesListForPlaceholder(path, v180);
+                    [(ACXRemoteApplication *)v10 setArchitectureSlices:v82];
+                  }
+
+                  else
+                  {
+                    v83 = [v177 objectForKeyedSubscript:v188];
+                    v84 = objc_opt_class();
+                    v79 = _ACXValidateObject(v83, v84);
+
+                    if (v79)
+                    {
+                      path = [v180 URLByAppendingPathComponent:v79 isDirectory:0];
+                      v85 = [(ACXApplication *)v10 _parseArchitectureSlicesForWatchKitAppExecutableURL:path];
+                      [(ACXRemoteApplication *)v10 setArchitectureSlices:v85];
                     }
 
                     else
                     {
-                      objc_opt_class();
-                      v69 = _ACXValidateObject(v146);
-                      v63 = v69;
-                      if (v69)
+                      if (gLogHandle && *(gLogHandle + 44) < 3)
                       {
-                        v190 = 0;
-                        v191 = &v190;
-                        v192 = 0x2020000000;
-                        v193 = 1;
-                        v189[0] = MEMORY[0x277D85DD0];
-                        v189[1] = 3221225472;
-                        v189[2] = __94__ACXApplication_initWithApplicationRecord_gizmoBundleIdentifier_databaseUUID_sequenceNumber___block_invoke;
-                        v189[3] = &unk_278C8D0A0;
-                        v189[4] = &v190;
-                        [v69 enumerateKeysAndObjectsUsingBlock:v189];
-                        if (*(v191 + 24) == 1)
-                        {
-                          [(ACXRemoteApplication *)v10 setRequiredCapabilities:v63];
-                        }
-
-                        _Block_object_dispose(&v190, 8);
+                        goto LABEL_144;
                       }
-                    }
 
-                    goto LABEL_132;
+                      path = [v180 path];
+                      path2 = path;
+                      MOLogWrite();
+                    }
                   }
 
-                  if (gLogHandle && *(gLogHandle + 44) < 3)
+LABEL_144:
+                  v86 = [v177 objectForKeyedSubscript:@"NSUserActivityTypes"];
+                  v87 = objc_opt_class();
+                  v168 = _ACXValidateObject(v86, v87);
+
+                  if (v168)
                   {
-LABEL_111:
+                    v88 = objc_opt_class();
+                    if (ACXArrayContainsOnlyClass(v168, v88))
+                    {
+                      [(ACXRemoteApplication *)v10 setUserActivityTypes:v168];
+                    }
+
+                    else if (!gLogHandle || *(gLogHandle + 44) >= 3)
+                    {
+                      path2 = [v180 path];
+                      MOLogWrite();
+                    }
+                  }
+
+                  v89 = [v177 objectForKeyedSubscript:{@"WKRunsIndependentlyOfCompanionApp", path2}];
+                  v90 = objc_opt_class();
+                  v166 = _ACXValidateObject(v89, v90);
+
+                  if (v166 && ([v166 BOOLValue] & 1) != 0)
+                  {
+                    v91 = 2;
+                  }
+
+                  else
+                  {
+                    v91 = 1;
+                  }
+
+                  [(ACXRemoteApplication *)v10 setApplicationMode:v91];
+                  v170 = objc_opt_new();
+                  v208 = 0u;
+                  v209 = 0u;
+                  v206 = 0u;
+                  v207 = 0u;
+                  v189 = v27;
+                  v186 = [v189 countByEnumeratingWithState:&v206 objects:v232 count:16];
+                  if (!v186)
+                  {
+                    v176 = 0;
+LABEL_254:
+
+                    v152 = [v170 copy];
+                    clockFaceExtensionPaths = v10->_clockFaceExtensionPaths;
+                    v10->_clockFaceExtensionPaths = v152;
+
+                    clockFaceExtensionPaths = [(ACXApplication *)v10 clockFaceExtensionPaths];
+                    v155 = [clockFaceExtensionPaths count] == 0;
+
+                    if (!v155)
+                    {
+                      [(ACXRemoteApplication *)v10 setHasClockfaces:1];
+                    }
+
+                    v156 = [objc_opt_class() buildLocalizedInfoPlistStringsDictForAppBundleURL:v10->_watchAppURL watchKitExtensionURL:v176];
+                    [(ACXSyncedApplication *)v10 setLocalizedInfoPlistStrings:v156];
+
+                    aCX_externalVersionIdentifier = [v197 ACX_externalVersionIdentifier];
+                    [(ACXSyncedApplication *)v10 setExternalVersionIdentifier:aCX_externalVersionIdentifier];
+
+                    [(ACXApplication *)v10 _populateStoreMetadata];
+                    v151 = 1;
+                    v178 = v176;
+LABEL_257:
+
+                    if (v151)
+                    {
+                      goto LABEL_42;
+                    }
 
                     goto LABEL_112;
                   }
+
+                  v176 = 0;
+                  v181 = *v207;
+LABEL_156:
+                  v92 = 0;
+                  while (1)
+                  {
+                    if (*v207 != v181)
+                    {
+                      objc_enumerationMutation(v189);
+                    }
+
+                    v93 = *(*(&v206 + 1) + 8 * v92);
+                    v194 = [v189 objectForKeyedSubscript:{v93, path6}];
+                    v94 = [v194 objectForKeyedSubscript:@"NSExtension"];
+                    v95 = objc_opt_class();
+                    path3 = _ACXValidateObject(v94, v95);
+
+                    if (path3)
+                    {
+                      break;
+                    }
+
+                    if (gLogHandle && *(gLogHandle + 44) < 3)
+                    {
+                      goto LABEL_200;
+                    }
+
+                    path3 = [v93 path];
+                    path6 = path3;
+                    MOLogWrite();
+LABEL_199:
+
+LABEL_200:
+                    if (++v92 == v186)
+                    {
+                      v150 = [v189 countByEnumeratingWithState:&v206 objects:v232 count:16];
+                      v186 = v150;
+                      if (v150)
+                      {
+                        goto LABEL_156;
+                      }
+
+                      goto LABEL_254;
+                    }
+                  }
+
+                  v97 = [path3 objectForKeyedSubscript:@"NSExtensionPointIdentifier"];
+                  v98 = objc_opt_class();
+                  v192 = _ACXValidateObject(v97, v98);
+
+                  v99 = v192;
+                  if (v192)
+                  {
+                    if ([v192 isEqualToString:@"com.apple.watchkit"])
+                    {
+                      v178 = v93;
+
+                      path7 = [v194 objectForKeyedSubscript:@"CLKComplicationPrincipalClass"];
+                      if (path7)
+                      {
+                        v101 = objc_opt_class();
+                        v102 = _ACXValidateObject(path7, v101);
+                        v103 = v102 == 0;
+
+                        if (v103)
+                        {
+                          if (!gLogHandle || *(gLogHandle + 44) >= 3)
+                          {
+                            path6 = bundleIdentifier;
+                            v164 = path7;
+                            MOLogWrite();
+                          }
+
+                          path7 = 0;
+                        }
+                      }
+
+                      v104 = [v194 objectForKeyedSubscript:{@"CLKComplicationSupportedFamilies", path6, v164}];
+                      if (v104)
+                      {
+                        v105 = objc_opt_class();
+                        v106 = _ACXValidateObject(v104, v105);
+                        if (!v106 || (v107 = objc_opt_class(), v108 = ACXArrayContainsOnlyClass(v104, v107), v106, (v108 & 1) == 0))
+                        {
+                          if (!gLogHandle || *(gLogHandle + 44) >= 3)
+                          {
+                            v161 = bundleIdentifier;
+                            v164 = v104;
+                            MOLogWrite();
+                          }
+
+                          v104 = 0;
+                        }
+                      }
+
+                      if (path7)
+                      {
+                        [(ACXRemoteApplication *)v10 setComplicationPrincipalClass:path7];
+                      }
+
+                      if (v104)
+                      {
+                        [(ACXRemoteApplication *)v10 setSupportedComplicationFamilies:v104];
+                      }
+
+                      v109 = [v194 objectForKeyedSubscript:{v175, v161}];
+                      v110 = objc_opt_class();
+                      v111 = _ACXValidateObject(v109, v110);
+
+                      if (!v111)
+                      {
+                        if (!gLogHandle || *(gLogHandle + 44) >= 3)
+                        {
+                          path4 = [v178 path];
+                          MOLogWrite();
+                        }
+
+                        v151 = 0;
+                        goto LABEL_257;
+                      }
+
+                      [(ACXRemoteApplication *)v10 setWatchKitAppExtensionBundleID:v111];
+                      v112 = [v194 objectForKeyedSubscript:@"WKRunsIndependentlyOfCompanionApp"];
+                      v113 = objc_opt_class();
+                      v114 = _ACXValidateObject(v112, v113);
+
+                      if (v114 && ([v114 BOOLValue] & 1) != 0)
+                      {
+                        v115 = 2;
+                      }
+
+                      else
+                      {
+                        v115 = 1;
+                      }
+
+                      [(ACXRemoteApplication *)v10 setApplicationMode:v115];
+                      if (v228)
+                      {
+                        v117 = [v194 objectForKeyedSubscript:v173];
+                        v118 = objc_opt_class();
+                        v119 = _ACXValidateObject(v117, v118);
+                        v120 = _ValidateSupportedArchitecturesListForPlaceholder(v119, v178);
+                        [(ACXRemoteApplication *)v10 setArchitectureSlices:v120];
+                      }
+
+                      v176 = v178;
+                      goto LABEL_196;
+                    }
+
+                    if ([v192 isEqualToString:@"com.apple.clockface"])
+                    {
+                      path5 = [v93 path];
+                      path7 = path5;
+                      if (path5)
+                      {
+                        [v170 addObject:path5];
+                        path7 = path5;
+                      }
+
+                      goto LABEL_196;
+                    }
+
+                    if (![v192 isEqualToString:@"com.apple.intents-service"])
+                    {
+                      goto LABEL_197;
+                    }
+
+                    v121 = [path3 objectForKeyedSubscript:@"NSExtensionAttributes"];
+                    v122 = objc_opt_class();
+                    v179 = _ACXValidateObject(v121, v122);
+
+                    if (v179)
+                    {
+                      v123 = [v179 objectForKeyedSubscript:@"IntentsSupported"];
+                      v124 = objc_opt_class();
+                      v172 = _ACXValidateObject(v123, v124);
+
+                      if (v172)
+                      {
+                        v125 = objc_opt_class();
+                        if ((ACXArrayContainsOnlyClass(v172, v125) & 1) == 0)
+                        {
+                          if (!gLogHandle || *(gLogHandle + 44) >= 3)
+                          {
+                            path6 = [v93 path];
+                            MOLogWrite();
+                          }
+
+LABEL_246:
+                          path7 = v179;
+                          goto LABEL_196;
+                        }
+
+                        if ([v172 count])
+                        {
+                          intentsSupported = [(ACXRemoteApplication *)v10 intentsSupported];
+                          v127 = intentsSupported == 0;
+
+                          if (v127)
+                          {
+                            [(ACXRemoteApplication *)v10 setIntentsSupported:v172];
+                          }
+
+                          else
+                          {
+                            intentsSupported2 = [(ACXRemoteApplication *)v10 intentsSupported];
+                            v129 = [intentsSupported2 mutableCopy];
+
+                            v204 = 0u;
+                            v205 = 0u;
+                            v202 = 0u;
+                            v203 = 0u;
+                            v130 = v172;
+                            v131 = [v130 countByEnumeratingWithState:&v202 objects:v231 count:16];
+                            if (v131)
+                            {
+                              v132 = *v203;
+                              do
+                              {
+                                for (k = 0; k != v131; ++k)
+                                {
+                                  if (*v203 != v132)
+                                  {
+                                    objc_enumerationMutation(v130);
+                                  }
+
+                                  v134 = *(*(&v202 + 1) + 8 * k);
+                                  if (([v129 containsObject:v134] & 1) == 0)
+                                  {
+                                    [v129 addObject:v134];
+                                  }
+                                }
+
+                                v131 = [v130 countByEnumeratingWithState:&v202 objects:v231 count:16];
+                              }
+
+                              while (v131);
+                            }
+
+                            v135 = [v129 copy];
+                            [(ACXRemoteApplication *)v10 setIntentsSupported:v135];
+                          }
+                        }
+                      }
+
+                      v136 = [v179 objectForKeyedSubscript:@"IntentsRestrictedWhileLocked"];
+                      v137 = objc_opt_class();
+                      v138 = _ACXValidateObject(v136, v137);
+
+                      if (v138)
+                      {
+                        v139 = objc_opt_class();
+                        if ((ACXArrayContainsOnlyClass(v138, v139) & 1) == 0)
+                        {
+                          if (!gLogHandle || *(gLogHandle + 44) >= 3)
+                          {
+                            path6 = [v93 path];
+                            MOLogWrite();
+                          }
+
+                          goto LABEL_199;
+                        }
+
+                        if ([v138 count])
+                        {
+                          intentsRestrictedWhileLocked = [(ACXRemoteApplication *)v10 intentsRestrictedWhileLocked];
+                          v141 = intentsRestrictedWhileLocked == 0;
+
+                          if (v141)
+                          {
+                            [(ACXRemoteApplication *)v10 setIntentsRestrictedWhileLocked:v138];
+                          }
+
+                          else
+                          {
+                            intentsRestrictedWhileLocked2 = [(ACXRemoteApplication *)v10 intentsRestrictedWhileLocked];
+                            v143 = [intentsRestrictedWhileLocked2 mutableCopy];
+
+                            v200 = 0u;
+                            v201 = 0u;
+                            v198 = 0u;
+                            v199 = 0u;
+                            v144 = v138;
+                            v145 = [v144 countByEnumeratingWithState:&v198 objects:v230 count:16];
+                            if (v145)
+                            {
+                              v146 = *v199;
+                              do
+                              {
+                                for (m = 0; m != v145; ++m)
+                                {
+                                  if (*v199 != v146)
+                                  {
+                                    objc_enumerationMutation(v144);
+                                  }
+
+                                  v148 = *(*(&v198 + 1) + 8 * m);
+                                  if (([v143 containsObject:v148] & 1) == 0)
+                                  {
+                                    [v143 addObject:v148];
+                                  }
+                                }
+
+                                v145 = [v144 countByEnumeratingWithState:&v198 objects:v230 count:16];
+                              }
+
+                              while (v145);
+                            }
+
+                            v149 = [v143 copy];
+                            [(ACXRemoteApplication *)v10 setIntentsRestrictedWhileLocked:v149];
+                          }
+                        }
+                      }
+
+                      goto LABEL_246;
+                    }
+
+                    if (gLogHandle && *(gLogHandle + 44) < 3)
+                    {
+                      goto LABEL_197;
+                    }
+                  }
+
+                  else if (gLogHandle && *(gLogHandle + 44) < 3)
+                  {
+                    goto LABEL_198;
+                  }
+
+                  path7 = [v93 path];
+                  path6 = path7;
+                  MOLogWrite();
+LABEL_196:
+
+LABEL_197:
+                  v99 = v192;
+LABEL_198:
+
+                  goto LABEL_199;
                 }
 
-                else if (gLogHandle && *(gLogHandle + 44) < 3)
+                v64 = objc_opt_class();
+                v65 = _ACXValidateObject(v167, v64);
+                if (v65)
                 {
-                  goto LABEL_111;
+                  v66 = objc_opt_class();
+                  if (!ACXArrayContainsOnlyClass(v65, v66))
+                  {
+LABEL_132:
+
+                    goto LABEL_133;
+                  }
+
+                  v67 = objc_opt_new();
+                  v217 = 0u;
+                  v218 = 0u;
+                  v215 = 0u;
+                  v216 = 0u;
+                  v68 = v65;
+                  v69 = [v68 countByEnumeratingWithState:&v215 objects:v233 count:16];
+                  if (v69)
+                  {
+                    v70 = *v216;
+                    v71 = MEMORY[0x277CBEC38];
+                    do
+                    {
+                      for (n = 0; n != v69; ++n)
+                      {
+                        if (*v216 != v70)
+                        {
+                          objc_enumerationMutation(v68);
+                        }
+
+                        [v67 setObject:v71 forKeyedSubscript:*(*(&v215 + 1) + 8 * n)];
+                      }
+
+                      v69 = [v68 countByEnumeratingWithState:&v215 objects:v233 count:16];
+                    }
+
+                    while (v69);
+                  }
+
+                  [(ACXRemoteApplication *)v10 setRequiredCapabilities:v67];
                 }
 
-                path8 = [v159 path];
-                MOLogWrite();
+                else
+                {
+                  v73 = objc_opt_class();
+                  v74 = _ACXValidateObject(v167, v73);
+                  v67 = v74;
+                  if (v74)
+                  {
+                    v211 = 0;
+                    v212 = &v211;
+                    v213 = 0x2020000000;
+                    v214 = 1;
+                    v210[0] = MEMORY[0x277D85DD0];
+                    v210[1] = 3221225472;
+                    v210[2] = __94__ACXApplication_initWithApplicationRecord_gizmoBundleIdentifier_databaseUUID_sequenceNumber___block_invoke;
+                    v210[3] = &unk_278C8D0A0;
+                    v210[4] = &v211;
+                    [v74 enumerateKeysAndObjectsUsingBlock:v210];
+                    if (*(v212 + 24) == 1)
+                    {
+                      [(ACXRemoteApplication *)v10 setRequiredCapabilities:v67];
+                    }
 
-                goto LABEL_111;
+                    _Block_object_dispose(&v211, 8);
+                  }
+                }
+
+                goto LABEL_132;
               }
 
-              v46 = v156;
               if (gLogHandle && *(gLogHandle + 44) < 3)
               {
-LABEL_104:
+LABEL_111:
 
                 goto LABEL_112;
               }
@@ -1613,30 +1584,34 @@ LABEL_104:
 
             else if (gLogHandle && *(gLogHandle + 44) < 3)
             {
-              goto LABEL_104;
+              goto LABEL_111;
             }
 
-            path9 = [v159 path];
+            path8 = [v180 path];
             MOLogWrite();
 
-            v46 = v156;
-            goto LABEL_104;
+            goto LABEL_111;
           }
 
+          v44 = v177;
           if (gLogHandle && *(gLogHandle + 44) < 3)
           {
+LABEL_104:
+
             goto LABEL_112;
           }
         }
 
         else if (gLogHandle && *(gLogHandle + 44) < 3)
         {
-          goto LABEL_112;
+          goto LABEL_104;
         }
 
-LABEL_50:
+        path9 = [v180 path];
         MOLogWrite();
-        goto LABEL_112;
+
+        v44 = v177;
+        goto LABEL_104;
       }
 
       if (gLogHandle && *(gLogHandle + 44) < 3)
@@ -1668,7 +1643,6 @@ LABEL_30:
   v14 = 0;
 LABEL_44:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1777,14 +1751,14 @@ LABEL_7:
 
 + (int)_systemTrustsApplicationWithBundleURL:(id)l
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = *MEMORY[0x277D82AC0];
-  v16[0] = *MEMORY[0x277D82AD0];
-  v16[1] = v5;
-  v17[0] = MEMORY[0x277CBEC38];
-  v17[1] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = *MEMORY[0x277D82AD0];
+  v15[1] = v5;
+  v16[0] = MEMORY[0x277CBEC38];
+  v16[1] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   path = [lCopy path];
   v8 = MISValidateSignature();
 
@@ -1794,12 +1768,12 @@ LABEL_7:
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
       [lCopy path];
-      v14 = v8;
-      v13 = v15 = v9;
+      v13 = v8;
+      v12 = v14 = v9;
       MOLogWrite();
     }
 
-    if ([self _isIndeterminateMISError:{v8, v13, v14, v15}])
+    if ([self _isIndeterminateMISError:{v8, v12, v13, v14}])
     {
       v10 = 2;
     }
@@ -1815,7 +1789,6 @@ LABEL_7:
     v10 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1919,43 +1892,45 @@ LABEL_31:
 
 uint64_t __44__ACXApplication__infoPlistForPluginBundle___block_invoke()
 {
-  _infoPlistForPluginBundle__keysToLoad = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CBED38], @"CLKComplicationPrincipalClass", @"CLKComplicationSupportedFamilies", @"NSExtension", @"WKRunsIndependentlyOfCompanionApp", *MEMORY[0x277D1C1E8], 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CBED38], @"CLKComplicationPrincipalClass", @"CLKComplicationSupportedFamilies", @"NSExtension", @"WKRunsIndependentlyOfCompanionApp", *MEMORY[0x277D1C1E8], 0}];
+  v1 = _infoPlistForPluginBundle__keysToLoad;
+  _infoPlistForPluginBundle__keysToLoad = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_URLOfFirstItemWithExtension:(id)extension inDirectory:(id)directory
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   directoryCopy = directory;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v24 = 0;
-  v8 = [defaultManager contentsOfDirectoryAtURL:directoryCopy includingPropertiesForKeys:0 options:5 error:&v24];
-  v9 = v24;
+  v23 = 0;
+  v8 = [defaultManager contentsOfDirectoryAtURL:directoryCopy includingPropertiesForKeys:0 options:5 error:&v23];
+  v9 = v23;
 
   if (v8)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v11)
     {
-      v19 = v9;
-      v12 = *v21;
+      v18 = v9;
+      v12 = *v20;
       while (2)
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           pathExtension = [v14 pathExtension];
           v16 = [pathExtension isEqualToString:extensionCopy];
 
@@ -1966,7 +1941,7 @@ uint64_t __44__ACXApplication__infoPlistForPluginBundle___block_invoke()
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
         if (v11)
         {
           continue;
@@ -1976,7 +1951,7 @@ uint64_t __44__ACXApplication__infoPlistForPluginBundle___block_invoke()
       }
 
 LABEL_12:
-      v9 = v19;
+      v9 = v18;
     }
   }
 
@@ -1984,8 +1959,6 @@ LABEL_12:
   {
     v11 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

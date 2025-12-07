@@ -11,42 +11,42 @@
 
 + (id)getSaliencyOutputOf:(id)of forArray:(id)array
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   ofCopy = of;
   arrayCopy = array;
   v7 = objc_alloc(MEMORY[0x277CBFF48]);
-  v27[0] = &unk_284749590;
-  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(arrayCopy, "count")}];
-  v27[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
-  v25 = 0;
-  v10 = [v7 initWithShape:v9 dataType:65568 error:&v25];
-  v11 = v25;
+  v26[0] = &unk_284749590;
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:objc_msgSend_count(arrayCopy)];
+  v26[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v24 = 0;
+  v10 = [v7 initWithShape:v9 dataType:65568 error:&v24];
+  v11 = v24;
 
   if (v10)
   {
-    if ([arrayCopy count])
+    if (objc_msgSend_count(arrayCopy))
     {
       v12 = 0;
       do
       {
         v13 = [arrayCopy objectAtIndexedSubscript:v12];
-        v26[0] = &unk_284749578;
+        v25[0] = &unk_284749578;
         v14 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-        v26[1] = v14;
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+        v25[1] = v14;
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
         [v10 setObject:v13 forKeyedSubscript:v15];
 
         ++v12;
       }
 
-      while ([arrayCopy count] > v12);
+      while (objc_msgSend_count(arrayCopy) > v12);
     }
 
     v16 = [[SGMISaliencyModelFeatureProvider alloc] initWithData:v10];
-    v24 = v11;
-    v17 = [ofCopy predictionFromFeatures:v16 error:&v24];
-    v18 = v24;
+    v23 = v11;
+    v17 = [ofCopy predictionFromFeatures:v16 error:&v23];
+    v18 = v23;
 
     if (v17)
     {
@@ -77,8 +77,6 @@
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
@@ -103,7 +101,7 @@
 
 + (id)saliencyForFeatureVector:(id)vector
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   vectorCopy = vector;
   v5 = +[SGMISaliencyModelConfig defaultConfig];
   v6 = v5;
@@ -115,7 +113,7 @@
     {
       selfCopy = self;
       v9 = [vectorCopy flatVectorForFeatureNames:featureNames];
-      v67 = defaultModel;
+      v66 = defaultModel;
       modelDescription = [defaultModel modelDescription];
       inputDescriptionsByName = [modelDescription inputDescriptionsByName];
       v12 = [inputDescriptionsByName objectForKeyedSubscript:@"featureVector"];
@@ -124,23 +122,23 @@
       v15 = [shape objectAtIndexedSubscript:1];
 
       v16 = v15;
-      v17 = [v9 count];
+      v17 = objc_msgSend_count(v9);
       if (v17 == [v15 unsignedIntegerValue])
       {
         v18 = objc_alloc(MEMORY[0x277CBFF48]);
-        v71[0] = &unk_284749590;
-        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
-        v71[1] = v19;
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
-        v69 = 0;
-        v21 = [v18 initWithShape:v20 dataType:65568 error:&v69];
-        v22 = v69;
+        v70[0] = &unk_284749590;
+        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:objc_msgSend_count(v9)];
+        v70[1] = v19;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+        v68 = 0;
+        v21 = [v18 initWithShape:v20 dataType:65568 error:&v68];
+        v22 = v68;
 
         if (v21)
         {
-          v64 = v22;
-          v65 = v15;
-          if ([v9 count])
+          v63 = v22;
+          v64 = v15;
+          if (objc_msgSend_count(v9))
           {
             v23 = 0;
             do
@@ -160,30 +158,30 @@
               v34 = v33;
 
               v35 = [MEMORY[0x277CCABB0] numberWithDouble:(v26 - v30) / v34];
-              v70[0] = &unk_284749578;
+              v69[0] = &unk_284749578;
               v36 = [MEMORY[0x277CCABB0] numberWithInt:v23];
-              v70[1] = v36;
-              v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+              v69[1] = v36;
+              v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
               [v21 setObject:v35 forKeyedSubscript:v37];
 
               ++v23;
             }
 
-            while ([v9 count] > v23);
+            while (objc_msgSend_count(v9) > v23);
           }
 
           v38 = [[SGMISaliencyModelFeatureProvider alloc] initWithData:v21];
-          v68 = v64;
-          defaultModel = v67;
-          v39 = [v67 predictionFromFeatures:v38 error:&v68];
-          v63 = v68;
+          v67 = v63;
+          defaultModel = v66;
+          v39 = [v66 predictionFromFeatures:v38 error:&v67];
+          v62 = v67;
 
           if (v39)
           {
             v40 = [v39 featureValueForName:@"Identity"];
             multiArrayValue = [v40 multiArrayValue];
 
-            v62 = v39;
+            v61 = v39;
             if (multiArrayValue)
             {
               v42 = [[SGMISaliencyModelOutput alloc] initWithData:multiArrayValue];
@@ -196,7 +194,7 @@
               v49 = v47 > v48;
               v50 = [MEMORY[0x277CCABB0] numberWithDouble:v47];
               v51 = v49;
-              defaultModel = v67;
+              defaultModel = v66;
               [vectorCopy saliencyWithScore:v50 isSalient:v51];
               defaultSaliencyOnError = v52 = multiArrayValue;
             }
@@ -214,25 +212,25 @@
               v52 = 0;
             }
 
-            v16 = v65;
-            v22 = v63;
+            v16 = v64;
+            v22 = v62;
 
-            v39 = v62;
+            v39 = v61;
           }
 
           else
           {
             v58 = sgMailIntelligenceLogHandle();
-            v22 = v63;
+            v22 = v62;
             if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v73 = v63;
+              v72 = v62;
               _os_log_error_impl(&dword_231E60000, v58, OS_LOG_TYPE_ERROR, "SGMISaliencyModel: Error while running SGMISaliencyModel inference: %@", buf, 0xCu);
             }
 
             defaultSaliencyOnError = [vectorCopy defaultSaliencyOnError];
-            v16 = v65;
+            v16 = v64;
           }
         }
 
@@ -242,12 +240,12 @@
           if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v73 = v22;
+            v72 = v22;
             _os_log_error_impl(&dword_231E60000, v57, OS_LOG_TYPE_ERROR, "SGMISaliencyModel: Error while initializing MLMultiArray for SGMISaliencyModel inference: %@", buf, 0xCu);
           }
 
           defaultSaliencyOnError = [vectorCopy defaultSaliencyOnError];
-          defaultModel = v67;
+          defaultModel = v66;
         }
       }
 
@@ -257,14 +255,14 @@
         if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v73 = v15;
-          v74 = 2048;
-          v75 = [v9 count];
+          v72 = v15;
+          v73 = 2048;
+          v74 = objc_msgSend_count(v9);
           _os_log_error_impl(&dword_231E60000, v56, OS_LOG_TYPE_ERROR, "Error while preparing feature vector for mlmodel: dimension mismatch, expecting %@ got %lu", buf, 0x16u);
         }
 
         defaultSaliencyOnError = [vectorCopy defaultSaliencyOnError];
-        defaultModel = v67;
+        defaultModel = v66;
       }
     }
 
@@ -292,8 +290,6 @@
 
     defaultSaliencyOnError = [vectorCopy defaultSaliencyOnError];
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 
   return defaultSaliencyOnError;
 }
@@ -323,7 +319,7 @@
 
 + (id)defaultModel
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = sgMailIntelligenceLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -353,7 +349,7 @@ LABEL_13:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v5;
+    v19 = v5;
     _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEFAULT, "SGMISaliencyModel: Loading model from Trial at path: %@", buf, 0xCu);
   }
 
@@ -376,9 +372,9 @@ LABEL_24:
   v8 = v7;
   v9 = objc_opt_new();
   [v9 setComputeUnits:0];
-  v18 = 0;
-  v10 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v8 configuration:v9 error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v8 configuration:v9 error:&v17];
+  v11 = v17;
   v12 = sgMailIntelligenceLogHandle();
   v13 = v12;
   if (v10)
@@ -397,13 +393,12 @@ LABEL_24:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v20 = v11;
+      v19 = v11;
       _os_log_fault_impl(&dword_231E60000, v13, OS_LOG_TYPE_FAULT, "SGMISaliencyModel: Error while initializing MLModel: %@", buf, 0xCu);
     }
   }
 
 LABEL_20:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

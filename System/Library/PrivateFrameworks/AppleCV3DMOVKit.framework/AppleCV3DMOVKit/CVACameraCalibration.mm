@@ -132,46 +132,46 @@
 
 - (id)dictionary
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   metadataID = self->_metadataID;
   if (!metadataID)
   {
     metadataID = &stru_28521B010;
   }
 
-  v21[0] = metadataID;
-  v20[0] = @"id";
-  v20[1] = @"w";
+  v20[0] = metadataID;
+  v19[0] = @"id";
+  v19[1] = @"w";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_imageWidth];
-  v21[1] = v4;
-  v20[2] = @"h";
+  v20[1] = v4;
+  v19[2] = @"h";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_imageHeight];
-  v21[2] = v5;
-  v20[3] = @"px";
+  v20[2] = v5;
+  v19[3] = @"px";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_principalPointX];
-  v21[3] = v6;
-  v20[4] = @"py";
+  v20[3] = v6;
+  v19[4] = @"py";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->_principalPointY];
-  v21[4] = v7;
-  v20[5] = @"fx";
+  v20[4] = v7;
+  v19[5] = @"fx";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_focalLengthX];
-  v21[5] = v8;
-  v20[6] = @"fy";
+  v20[5] = v8;
+  v19[6] = @"fy";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_focalLengthY];
-  v21[6] = v9;
-  v20[7] = @"dm";
+  v20[6] = v9;
+  v19[7] = @"dm";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:self->_lensDistortionModel];
-  v19 = vdupq_n_s64(MEMORY[0x277CBEBF8]);
-  v11 = vbslq_s8(vceqzq_s64(*&self->_radialDistortion), v19, *&self->_radialDistortion);
-  v12 = vbslq_s8(vceqzq_s64(*&self->_lensOffset), v19, *&self->_lensOffset);
-  v21[7] = v10;
-  v20[8] = @"rd";
-  v20[9] = @"td";
-  v20[10] = @"lo";
-  v20[11] = @"co";
-  v22 = v11;
-  v23 = v12;
-  v20[12] = @"tc";
+  v18 = vdupq_n_s64(MEMORY[0x277CBEBF8]);
+  v11 = vbslq_s8(vceqzq_s64(*&self->_radialDistortion), v18, *&self->_radialDistortion);
+  v12 = vbslq_s8(vceqzq_s64(*&self->_lensOffset), v18, *&self->_lensOffset);
+  v20[7] = v10;
+  v19[8] = @"rd";
+  v19[9] = @"td";
+  v19[10] = @"lo";
+  v19[11] = @"co";
+  v21 = v11;
+  v22 = v12;
+  v19[12] = @"tc";
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestampCorrection];
   v14 = v13;
   readoutTime = &unk_285225248;
@@ -180,15 +180,13 @@
     readoutTime = self->_readoutTime;
   }
 
-  v24 = v13;
-  v25 = readoutTime;
-  v20[13] = @"rt";
-  v20[14] = @"r";
-  v20[15] = @"t";
-  v26 = vbslq_s8(vceqzq_s64(*&self->_cameraToIMURotation), v19, *&self->_cameraToIMURotation);
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:16];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v23 = v13;
+  v24 = readoutTime;
+  v19[13] = @"rt";
+  v19[14] = @"r";
+  v19[15] = @"t";
+  v25 = vbslq_s8(vceqzq_s64(*&self->_cameraToIMURotation), v18, *&self->_cameraToIMURotation);
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:16];
 
   return v16;
 }

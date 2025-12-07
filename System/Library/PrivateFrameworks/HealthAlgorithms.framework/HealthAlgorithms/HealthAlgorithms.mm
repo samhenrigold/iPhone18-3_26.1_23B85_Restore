@@ -1,13 +1,13 @@
-id ha_diagnostic_log()
+id ha_diagnostic_log(uint64_t a1)
 {
   if (ha_diagnostic_log_onceToken != -1)
   {
     ha_diagnostic_log_cold_1();
   }
 
-  v1 = ha_diagnostic_log_log;
+  v2 = ha_diagnostic_log_log;
 
-  return v1;
+  return v2;
 }
 
 void __destructor_8_s0_s16(uint64_t a1)
@@ -15,9 +15,9 @@ void __destructor_8_s0_s16(uint64_t a1)
   v2 = *(a1 + 16);
 }
 
-void sub_251283AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_251283AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -29,37 +29,43 @@ uint64_t __ha_diagnostic_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t ScandiumLibraryCore()
+uint64_t ScandiumLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!ScandiumLibraryCore_frameworkLibrary)
   {
     ScandiumLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = ScandiumLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return ScandiumLibraryCore_frameworkLibrary;
 }
 
 uint64_t __ScandiumLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ScandiumLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __getSCProcessorClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
 {
-  if (!ScandiumLibraryCore())
+  v20 = 0;
+  v10 = ScandiumLibraryCore(&v20);
+  v11 = v20;
+  if (v10)
   {
-    v10 = abort_report_np();
-    free(v10);
+    if (!v20)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v11 = abort_report_np("%s", v20);
+  }
+
+  free(v11);
+LABEL_3:
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("SCProcessor");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
@@ -68,15 +74,16 @@ void __getSCProcessorClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, u
 
   else
   {
-    v11 = __getSCProcessorClass_block_invoke_cold_1();
-    OUTLINED_FUNCTION_0(v11, v12, v13, v14, v15, v16, v17, v18, a9);
+    __getSCProcessorClass_block_invoke_cold_1();
+    OUTLINED_FUNCTION_0(v12, v13, v14, v15, v16, v17, v18, v19, a9);
   }
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t ha_sensitive_logging_is_enabled()
@@ -87,16 +94,16 @@ uint64_t ha_sensitive_logging_is_enabled()
   return v1;
 }
 
-id ha_get_log()
+id ha_get_log(uint64_t a1)
 {
   if (ha_get_log_onceToken != -1)
   {
     ha_get_log_cold_1();
   }
 
-  v1 = ha_get_log_log;
+  v2 = ha_get_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ha_get_log_block_invoke()
@@ -108,70 +115,72 @@ uint64_t __ha_get_log_block_invoke()
 
 uint64_t HAFacialMetricsGenerateHashForTimestamp(double a1)
 {
-  *&v6[1] = a1;
+  *&v7[1] = a1;
   v1 = SecSHA1DigestCreate();
   v2 = v1;
   if (!v1)
   {
-    v4 = ha_get_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = ha_get_log(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      HAFacialMetricsGenerateHashForTimestamp_cold_2(v4);
+      HAFacialMetricsGenerateHashForTimestamp_cold_2(v5);
     }
 
     goto LABEL_8;
   }
 
-  v6[0] = 0;
-  if ([v1 length] < 8)
+  v7[0] = 0;
+  v3 = [v1 length];
+  if (v3 < 8)
   {
-    v4 = ha_get_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = ha_get_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      HAFacialMetricsGenerateHashForTimestamp_cold_1(v4);
+      HAFacialMetricsGenerateHashForTimestamp_cold_1(v5);
     }
 
 LABEL_8:
 
-    v3 = 0;
+    v4 = 0;
     goto LABEL_9;
   }
 
-  [v2 getBytes:v6 length:8];
-  v3 = v6[0];
+  [v2 getBytes:v7 length:8];
+  v4 = v7[0];
 LABEL_9:
 
-  return v3;
+  return v4;
 }
 
-void sub_251284CEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id location, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_251284CEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id location, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
+  va_start(va, a19);
   std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](&a16);
-  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](&a20);
-  std::__function::__value_func<BOOL ()(mimosa::CodecVersion const&)>::~__value_func[abi:ne200100](v22 - 72);
+  std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](va);
+  std::__function::__value_func<BOOL ()(mimosa::CodecVersion const&)>::~__value_func[abi:ne200100](v21 - 72);
   objc_destroyWeak(&location);
 
   _Unwind_Resume(a1);
 }
 
-void sub_251284E1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_251284E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   v13 = va_arg(va2, void);
   v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   std::__function::__value_func<BOOL ()(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,double)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<BOOL ()(mimosa::Metadata const&)>::~__value_func[abi:ne200100](va1);
   std::__function::__value_func<BOOL ()(mimosa::CodecVersion const&)>::~__value_func[abi:ne200100](va2);
-  MEMORY[0x25306FDD0](v3, v2);
+  MEMORY[0x25306FDD0](v4, v3);
   _Unwind_Resume(a1);
 }
 
@@ -182,7 +191,7 @@ void sub_251285038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a12);
   }
 
-  MEMORY[0x25306FDD0](v12, v13);
+  MEMORY[0x25306FDD0](v12, v13, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -1985,7 +1994,7 @@ uint64_t *std::unique_ptr<health_algorithms::PPGProcessor>::reset[abi:ne200100](
   *result = a2;
   if (v2)
   {
-    std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::~__hash_table(v2 + 16);
+    std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::~__hash_table((v2 + 16));
     v3 = *(v2 + 8);
     if (v3)
     {
@@ -1998,9 +2007,9 @@ uint64_t *std::unique_ptr<health_algorithms::PPGProcessor>::reset[abi:ne200100](
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -2351,12 +2360,12 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10_
   *(v3 + 32) = 0;
   *(v3 + 40) = 0;
   *(v3 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(v3 + 32, *(a2 + 32), *(a2 + 40), 0x8E38E38E38E38E39 * ((*(a2 + 40) - *(a2 + 32)) >> 2));
+  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>((v3 + 32), *(a2 + 32), *(a2 + 40), 0x8E38E38E38E38E39 * ((*(a2 + 40) - *(a2 + 32)) >> 2));
   *(v3 + 56) = *(a2 + 56);
   *(v3 + 80) = 0;
   *(v3 + 88) = 0;
   *(v3 + 72) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(v3 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((v3 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   result = *(a2 + 96);
   v5 = *(a2 + 128);
   *(v3 + 112) = *(a2 + 112);
@@ -2385,12 +2394,12 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm5EEE10_
   *(v3 + 32) = 0;
   *(v3 + 40) = 0;
   *(v3 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(v3 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>((v3 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
   *(v3 + 56) = *(a2 + 56);
   *(v3 + 80) = 0;
   *(v3 + 88) = 0;
   *(v3 + 72) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(v3 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((v3 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   *(v3 + 96) = *(a2 + 96);
   v4 = *(a2 + 112);
   v5 = *(a2 + 128);
@@ -2436,12 +2445,12 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm6EEE10_
   *(v3 + 32) = 0;
   *(v3 + 40) = 0;
   *(v3 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(v3 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>((v3 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
   *(v3 + 56) = *(a2 + 56);
   *(v3 + 80) = 0;
   *(v3 + 88) = 0;
   *(v3 + 72) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(v3 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((v3 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   v4 = *(a2 + 112);
   *(v3 + 96) = *(a2 + 96);
   *(v3 + 112) = v4;
@@ -2489,12 +2498,12 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm7EEE10_
   *(v3 + 32) = 0;
   *(v3 + 40) = 0;
   *(v3 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(v3 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>((v3 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
   *(v3 + 56) = *(a2 + 56);
   *(v3 + 80) = 0;
   *(v3 + 88) = 0;
   *(v3 + 72) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(v3 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((v3 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   v4 = *(a2 + 112);
   *(v3 + 96) = *(a2 + 96);
   *(v3 + 112) = v4;
@@ -2542,12 +2551,12 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm8EEE10_
   *(v3 + 32) = 0;
   *(v3 + 40) = 0;
   *(v3 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(v3 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>((v3 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
   *(v3 + 56) = *(a2 + 56);
   *(v3 + 80) = 0;
   *(v3 + 88) = 0;
   *(v3 + 72) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(v3 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((v3 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   v4 = *(a2 + 112);
   *(v3 + 96) = *(a2 + 96);
   *(v3 + 112) = v4;
@@ -2581,12 +2590,12 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm9EEE10_
   *(v3 + 32) = 0;
   *(v3 + 40) = 0;
   *(v3 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(v3 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>((v3 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
   *(v3 + 56) = *(a2 + 56);
   *(v3 + 80) = 0;
   *(v3 + 88) = 0;
   *(v3 + 72) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(v3 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((v3 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   v4 = *(a2 + 96);
   v5 = *(a2 + 112);
   v6 = *(a2 + 144);
@@ -2631,12 +2640,12 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm10EEE10
   *(v3 + 32) = 0;
   *(v3 + 40) = 0;
   *(v3 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(v3 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>((v3 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
   *(v3 + 56) = *(a2 + 56);
   *(v3 + 80) = 0;
   *(v3 + 88) = 0;
   *(v3 + 72) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(v3 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((v3 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   v4 = *(a2 + 112);
   *(v3 + 96) = *(a2 + 96);
   *(v3 + 112) = v4;
@@ -2684,12 +2693,12 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm11EEE10
   *(v3 + 32) = 0;
   *(v3 + 40) = 0;
   *(v3 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(v3 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>((v3 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
   *(v3 + 56) = *(a2 + 56);
   *(v3 + 80) = 0;
   *(v3 + 88) = 0;
   *(v3 + 72) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(v3 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((v3 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   v4 = *(a2 + 112);
   *(v3 + 96) = *(a2 + 96);
   *(v3 + 112) = v4;
@@ -2729,7 +2738,7 @@ void sub_2512884F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2751,7 +2760,7 @@ void sub_25128856C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<mimosa::OpticalSampleV1>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<mimosa::OpticalSampleV1>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x71C71C71C71C71DLL)
   {
@@ -2785,7 +2794,7 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-uint64_t std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2807,7 +2816,7 @@ void sub_25128873C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<mimosa::AccelSample>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<mimosa::AccelSample>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xCCCCCCCCCCCCCCDLL)
   {
@@ -2834,13 +2843,13 @@ mimosa::PacketV2 *mimosa::PacketV2::PacketV2(mimosa::PacketV2 *this, const mimos
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(this + 32, *(a2 + 4), *(a2 + 5), 0x8E38E38E38E38E39 * ((*(a2 + 5) - *(a2 + 4)) >> 2));
+  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(this + 4, *(a2 + 4), *(a2 + 5), 0x8E38E38E38E38E39 * ((*(a2 + 5) - *(a2 + 4)) >> 2));
   v4 = *(a2 + 56);
   *(this + 9) = 0;
   *(this + 56) = v4;
   *(this + 10) = 0;
   *(this + 11) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(this + 72, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(this + 9, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
   v5 = *(a2 + 6);
   v6 = *(a2 + 8);
   *(this + 7) = *(a2 + 7);
@@ -2851,7 +2860,7 @@ mimosa::PacketV2 *mimosa::PacketV2::PacketV2(mimosa::PacketV2 *this, const mimos
   *(this + 9) = v7;
   *(this + 21) = 0;
   *(this + 22) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(this + 160, *(a2 + 20), *(a2 + 21), (*(a2 + 21) - *(a2 + 20)) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(this + 20, *(a2 + 20), *(a2 + 21), (*(a2 + 21) - *(a2 + 20)) >> 1);
   *(this + 92) = *(a2 + 92);
   v8 = *(a2 + 13);
   *(this + 12) = *(a2 + 12);
@@ -2885,7 +2894,7 @@ void sub_2512888F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -2907,7 +2916,7 @@ void sub_251288988(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2934,13 +2943,13 @@ uint64_t mimosa::PacketV3::PacketV3(uint64_t a1, uint64_t a2)
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(a1 + 32, *(a2 + 32), *(a2 + 40), 0x8E38E38E38E38E39 * ((*(a2 + 40) - *(a2 + 32)) >> 2));
+  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>((a1 + 32), *(a2 + 32), *(a2 + 40), 0x8E38E38E38E38E39 * ((*(a2 + 40) - *(a2 + 32)) >> 2));
   v4 = *(a2 + 56);
   *(a1 + 72) = 0;
   *(a1 + 56) = v4;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a1 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a1 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   v5 = *(a2 + 96);
   v6 = *(a2 + 128);
   *(a1 + 112) = *(a2 + 112);
@@ -2951,7 +2960,7 @@ uint64_t mimosa::PacketV3::PacketV3(uint64_t a1, uint64_t a2)
   *(a1 + 144) = v7;
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1 + 160, *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>((a1 + 160), *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 1);
   v8 = *(a2 + 184);
   *(a1 + 192) = *(a2 + 192);
   *(a1 + 184) = v8;
@@ -2984,13 +2993,13 @@ uint64_t mimosa::PacketV4::PacketV4(uint64_t a1, uint64_t a2)
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(a1 + 32, *(a2 + 32), *(a2 + 40), 0x8E38E38E38E38E39 * ((*(a2 + 40) - *(a2 + 32)) >> 2));
+  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>((a1 + 32), *(a2 + 32), *(a2 + 40), 0x8E38E38E38E38E39 * ((*(a2 + 40) - *(a2 + 32)) >> 2));
   v4 = *(a2 + 56);
   *(a1 + 72) = 0;
   *(a1 + 56) = v4;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a1 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a1 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   v5 = *(a2 + 96);
   v6 = *(a2 + 128);
   *(a1 + 112) = *(a2 + 112);
@@ -3001,7 +3010,7 @@ uint64_t mimosa::PacketV4::PacketV4(uint64_t a1, uint64_t a2)
   *(a1 + 144) = v7;
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1 + 160, *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>((a1 + 160), *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 1);
   v8 = *(a2 + 184);
   *(a1 + 192) = *(a2 + 192);
   *(a1 + 184) = v8;
@@ -3044,13 +3053,13 @@ uint64_t mimosa::PacketV5::PacketV5(uint64_t a1, uint64_t a2)
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(a1 + 32, *(a2 + 32), *(a2 + 40), 0x8E38E38E38E38E39 * ((*(a2 + 40) - *(a2 + 32)) >> 2));
+  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>((a1 + 32), *(a2 + 32), *(a2 + 40), 0x8E38E38E38E38E39 * ((*(a2 + 40) - *(a2 + 32)) >> 2));
   v4 = *(a2 + 56);
   *(a1 + 72) = 0;
   *(a1 + 56) = v4;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a1 + 72, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a1 + 72), *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
   v5 = *(a2 + 96);
   v6 = *(a2 + 128);
   *(a1 + 112) = *(a2 + 112);
@@ -3061,7 +3070,7 @@ uint64_t mimosa::PacketV5::PacketV5(uint64_t a1, uint64_t a2)
   *(a1 + 144) = v7;
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1 + 160, *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>((a1 + 160), *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 1);
   v8 = *(a2 + 184);
   *(a1 + 192) = *(a2 + 192);
   *(a1 + 184) = v8;
@@ -3101,7 +3110,7 @@ void sub_251288DC8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3123,7 +3132,7 @@ void sub_251288E5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<mimosa::OpticalSampleV2>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<mimosa::OpticalSampleV2>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -3266,11 +3275,11 @@ uint64_t std::__optional_copy_base<mimosa::LightPathSemantics,false>::__optional
     *(a1 + 24) = 0;
     *(a1 + 32) = 0;
     *(a1 + 40) = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 24, *(a2 + 24), *(a2 + 32), *(a2 + 32) - *(a2 + 24));
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 24), *(a2 + 24), *(a2 + 32), *(a2 + 32) - *(a2 + 24));
     *(a1 + 48) = 0;
     *(a1 + 56) = 0;
     *(a1 + 64) = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 48, *(a2 + 48), *(a2 + 56), *(a2 + 56) - *(a2 + 48));
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 48), *(a2 + 48), *(a2 + 56), *(a2 + 56) - *(a2 + 48));
     *(a1 + 72) = 1;
   }
 
@@ -3301,7 +3310,7 @@ void sub_25128933C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -3323,7 +3332,7 @@ void sub_2512893EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -3916,7 +3925,7 @@ LABEL_16:
 
   else
   {
-    v8 = hal9000::SignalProcessor::compute_nr_coef(a1, a3);
+    v8 = hal9000::SignalProcessor::compute_nr_coef(a1, a2, a3);
     if ((v8 & 0x100000000) != 0)
     {
       v9 = *&v8;
@@ -4085,7 +4094,7 @@ BOOL hal9000::SignalProcessor::blank_data_is_absent(uint64_t a1, uint64_t a2, in
   }
 
   v5 = __clz(__rbit32(v3));
-  second_pd_idx = hal9000::get_second_pd_idx(v3, a3);
+  second_pd_idx = hal9000::get_second_pd_idx(v3, a2, a3);
   v7 = *(a2 + 24 + 8 * v5);
   result = v7 == 0;
   if (second_pd_idx != 255)
@@ -4106,7 +4115,7 @@ uint64_t hal9000::SignalProcessor::get_blank_validity(uint64_t a1, uint64_t a2, 
   }
 
   v5 = __clz(__rbit32(v3));
-  second_pd_idx = hal9000::get_second_pd_idx(v3, a3);
+  second_pd_idx = hal9000::get_second_pd_idx(v3, a2, a3);
   v7 = *(*(a2 + 24 + 8 * v5) + 12);
   if (!*(*(a2 + 24 + 8 * v5) + 12))
   {
@@ -4124,55 +4133,55 @@ uint64_t hal9000::SignalProcessor::get_blank_validity(uint64_t a1, uint64_t a2, 
   return v7;
 }
 
-uint64_t hal9000::get_second_pd_idx(hal9000 *this, int8x8_t a2)
+uint64_t hal9000::get_second_pd_idx(hal9000 *this, uint64_t a2, int8x8_t a3)
 {
-  a2.i32[0] = this;
-  v2 = vcnt_s8(a2);
-  v2.i16[0] = vaddlv_u8(v2);
-  if ((v2.i32[0] - 3) <= 0xFFFFFFFD)
+  a3.i32[0] = this;
+  v3 = vcnt_s8(a3);
+  v3.i16[0] = vaddlv_u8(v3);
+  if ((v3.i32[0] - 3) <= 0xFFFFFFFD)
   {
     hal9000::get_second_pd_idx();
   }
 
-  v3 = 31 - __clz(this);
-  if (v2.u8[0] == 1)
+  v4 = 31 - __clz(this);
+  if (v3.u8[0] == 1)
   {
     return -1;
   }
 
   else
   {
-    return v3;
+    return v4;
   }
 }
 
-unint64_t hal9000::SignalProcessor::compute_nr_coef(uint64_t a1, int8x8_t a2)
+unint64_t hal9000::SignalProcessor::compute_nr_coef(uint64_t a1, uint64_t a2, int8x8_t a3)
 {
   if (!*(a1 + 136))
   {
     hal9000::SignalProcessor::compute_nr_coef();
   }
 
-  v3 = *(a1 + 72);
-  *v4.i32 = hal9000::SignalProcessor::get_opre_gain(a1, a2);
-  v5 = *v4.i32;
-  opre_ndce = hal9000::SignalProcessor::get_opre_ndce(a1, v4);
+  v4 = *(a1 + 72);
+  *v5.i32 = hal9000::SignalProcessor::get_opre_gain(a1, a2, a3);
+  v6 = *v5.i32;
+  opre_ndce = hal9000::SignalProcessor::get_opre_ndce(a1, v7, v5);
   hal9000::SignalProcessor::get_led_nl_poly_fit(a1);
-  v8 = *(a1 + 24);
-  v9 = 0.0;
-  if (v8 <= 4)
+  v10 = *(a1 + 24);
+  v11 = 0.0;
+  if (v10 <= 4)
   {
-    v9 = flt_2512C7D14[v8];
+    v11 = flt_2512C7D14[v10];
   }
 
-  v10 = (v5 / ((v3 * opre_ndce) * (v7 * v9))) * 1000000000.0;
-  v11 = (LODWORD(v10) & 0x7FFFFFFFu) < 0x7F800000;
-  if ((LODWORD(v10) & 0x7FFFFFFFu) >= 0x7F800000)
+  v12 = (v6 / ((v4 * opre_ndce) * (v9 * v11))) * 1000000000.0;
+  v13 = (LODWORD(v12) & 0x7FFFFFFFu) < 0x7F800000;
+  if ((LODWORD(v12) & 0x7FFFFFFFu) >= 0x7F800000)
   {
-    v10 = 0.0;
+    v12 = 0.0;
   }
 
-  return LODWORD(v10) | (v11 << 32);
+  return LODWORD(v12) | (v13 << 32);
 }
 
 void hal9000::SignalProcessor::compute_noise_terms(uint64_t a1, uint64_t a2, float a3)
@@ -4203,7 +4212,7 @@ float hal9000::SignalProcessor::get_device_white_noise(hal9000::SignalProcessor 
 float hal9000::SignalProcessor::get_device_pink_noise(hal9000::SignalProcessor *a1, uint64_t a2, float a3)
 {
   idc = hal9000::SignalProcessor::get_idc(a1, *a2, *(a2 + 4), *(a2 + 16), 0);
-  nled = hal9000::SignalProcessor::get_nled(a1);
+  nled = hal9000::SignalProcessor::get_nled(a1, v6);
   return (a3 * a3) * (((idc * 0.000005) * (idc * 0.000005)) + (((idc * 0.000005) * (idc * 0.000005)) + ((idc * nled) * (idc * nled))));
 }
 
@@ -4277,15 +4286,15 @@ uint64_t hal9000::SignalProcessor::populate_new_noise(uint64_t result, uint64_t 
   return result;
 }
 
-float hal9000::SignalProcessor::get_opre_gain(hal9000::SignalProcessor *this, int8x8_t a2)
+float hal9000::SignalProcessor::get_opre_gain(hal9000::SignalProcessor *this, uint64_t a2, int8x8_t a3)
 {
-  v2 = *(this + 139);
+  v3 = *(this + 139);
   if (!*(this + 139))
   {
     hal9000::SignalProcessor::blank_data_is_absent();
   }
 
-  second_pd_idx = hal9000::get_second_pd_idx(*(this + 139), a2);
+  second_pd_idx = hal9000::get_second_pd_idx(*(this + 139), a2, a3);
   if (!*(this + 6))
   {
     return 1.0;
@@ -4293,22 +4302,21 @@ float hal9000::SignalProcessor::get_opre_gain(hal9000::SignalProcessor *this, in
 
   if (second_pd_idx == 255)
   {
-    LOBYTE(v6) = __clz(__rbit32(v2));
+    LOBYTE(v7) = __clz(__rbit32(v3));
   }
 
   else
   {
-    v5 = *(this + 139) - 5;
-    if (v5 >= 6 || ((0x33u >> v5) & 1) == 0)
+    v6 = *(this + 139) - 5;
+    if (v6 >= 6 || ((0x33u >> v6) & 1) == 0)
     {
       hal9000::SignalProcessor::get_opre_gain();
     }
 
-    v6 = 0x10200000000uLL >> (8 * (v5 & 0x1F));
+    v7 = 0x10200000000uLL >> (8 * (v6 & 0x1F));
   }
 
-  v8 = this + 44;
-  v9 = *(this + 60);
+  v9 = this + 44;
   if (*(this + 132) == 1)
   {
     if ((*(this + 60) & 1) == 0)
@@ -4321,9 +4329,9 @@ float hal9000::SignalProcessor::get_opre_gain(hal9000::SignalProcessor *this, in
       hal9000::SignalProcessor::get_opre_gain();
     }
 
-    if (v6 < 4u)
+    if (v7 < 4u)
     {
-      return *&v8[4 * v6] * (vcvts_n_f32_s32(*(this + v6 + 64), 8uLL) + 1.0);
+      return *&v9[4 * v7] * (vcvts_n_f32_s32(*(this + v7 + 64), 8uLL) + 1.0);
     }
 
 LABEL_22:
@@ -4335,35 +4343,35 @@ LABEL_22:
     hal9000::SignalProcessor::get_opre_gain();
   }
 
-  if (v6 >= 4u)
+  if (v7 >= 4u)
   {
     goto LABEL_22;
   }
 
-  return *&v8[4 * v6];
+  return *&v9[4 * v7];
 }
 
-float hal9000::SignalProcessor::get_opre_ndce(hal9000::SignalProcessor *this, int8x8_t a2)
+float hal9000::SignalProcessor::get_opre_ndce(hal9000::SignalProcessor *this, uint64_t a2, int8x8_t a3)
 {
-  v3 = *(this + 139);
-  if (!v3)
+  v4 = *(this + 139);
+  if (!v4)
   {
     hal9000::SignalProcessor::blank_data_is_absent();
   }
 
-  v4 = __clz(__rbit32(v3));
-  second_pd_idx = hal9000::get_second_pd_idx(v3, a2);
+  v5 = __clz(__rbit32(v4));
+  second_pd_idx = hal9000::get_second_pd_idx(v4, a2, a3);
   if (second_pd_idx == 255)
   {
-    v6 = 0.0;
+    v7 = 0.0;
   }
 
   else
   {
-    v6 = *(this + second_pd_idx + 19);
+    v7 = *(this + second_pd_idx + 19);
   }
 
-  return *(this + v4 + 19) + v6;
+  return *(this + v5 + 19) + v7;
 }
 
 float hal9000::SignalProcessor::get_iled_corrected_mA(hal9000::SignalProcessor *this)
@@ -4543,7 +4551,7 @@ uint64_t hal9000::SignalProcessor::get_ambient_counts_from_blank(uint64_t a1, ui
   }
 
   v6 = __clz(__rbit32(v4));
-  second_pd_idx = hal9000::get_second_pd_idx(v4, a3);
+  second_pd_idx = hal9000::get_second_pd_idx(v4, a2, a3);
   if (!*(a1 + 24))
   {
     if (second_pd_idx != 255)
@@ -4601,7 +4609,7 @@ float hal9000::SignalProcessor::get_blank_idc(uint64_t a1, uint64_t a2, int8x8_t
     hal9000::SignalProcessor::blank_data_is_absent();
   }
 
-  second_pd_idx = hal9000::get_second_pd_idx(*(a1 + 139), a3);
+  second_pd_idx = hal9000::get_second_pd_idx(*(a1 + 139), a2, a3);
   if (*(a1 + 142) == 1)
   {
     hal9000::SignalProcessor::get_blank_idc();
@@ -4627,12 +4635,12 @@ float hal9000::SignalProcessor::get_blank_idc(uint64_t a1, uint64_t a2, int8x8_t
   return idc;
 }
 
-float hal9000::SignalProcessor::get_nled(hal9000::SignalProcessor *this)
+float hal9000::SignalProcessor::get_nled(hal9000::SignalProcessor *this, uint64_t a2)
 {
-  v2 = *(this + 6);
-  if (v2 > 2)
+  v3 = *(this + 6);
+  if (v3 > 2)
   {
-    if ((v2 - 3) >= 2)
+    if ((v3 - 3) >= 2)
     {
       goto LABEL_12;
     }
@@ -4640,20 +4648,20 @@ float hal9000::SignalProcessor::get_nled(hal9000::SignalProcessor *this)
 
   else
   {
-    if (!v2)
+    if (!v3)
     {
-      v3 = *(this + 141) == 0;
-      v4 = flt_2512C7618;
-      return v4[v3];
+      v4 = *(this + 141) == 0;
+      v5 = flt_2512C7618;
+      return v5[v4];
     }
 
-    if (v2 != 1)
+    if (v3 != 1)
     {
-      if (v2 == 2)
+      if (v3 == 2)
       {
-        v3 = *(this + 141) == 0;
-        v4 = flt_2512C7610;
-        return v4[v3];
+        v4 = *(this + 141) == 0;
+        v5 = flt_2512C7610;
+        return v5[v4];
       }
 
 LABEL_12:
@@ -4661,18 +4669,18 @@ LABEL_12:
     }
   }
 
-  return hal9000::SignalProcessor::get_nled_gemstone(this);
+  return hal9000::SignalProcessor::get_nled_gemstone(this, a2);
 }
 
-float hal9000::SignalProcessor::get_nled_gemstone(hal9000::SignalProcessor *this)
+float hal9000::SignalProcessor::get_nled_gemstone(hal9000::SignalProcessor *this, uint64_t a2)
 {
-  v1 = *(this + 141);
-  if (v1 >= 4)
+  v2 = *(this + 141);
+  if (v2 >= 4)
   {
     hal9000::SignalProcessor::get_nled_gemstone();
   }
 
-  return flt_2512C7DD0[v1];
+  return flt_2512C7DD0[v2];
 }
 
 float hal9000::SignalProcessor::get_adc_counts_to_current_factor(hal9000::SignalProcessor *this)
@@ -4732,10 +4740,6 @@ void hal9000::SignalProcessor::get_led_nl_poly_fit(hal9000::SignalProcessor *thi
     v2 = flt_2512C7D00[v1];
   }
 
-  v3 = *(this + 7);
-  v4 = *(this + 8);
-  v6 = *(this + 9);
-  v5 = *(this + 10);
   if ((v1 - 2) >= 3 && v1 <= 1)
   {
     powf(v2 * *(this + 68), 3.0);
@@ -4872,8 +4876,8 @@ float hal9000::SignalProcessor::get_thermal_noise(hal9000::SignalProcessor *this
 {
   v3 = a3;
   v4 = *&a2;
-  pd_noise = hal9000::SignalProcessor::get_pd_noise(this, a3, *&a2);
-  v7 = *&pd_noise;
+  v6.n128_f64[0] = hal9000::SignalProcessor::get_pd_noise(this, a3, *&a2);
+  v7 = v6.n128_f32[0];
   v8 = *(this + 6);
   if (v8 > 4)
   {
@@ -4887,7 +4891,7 @@ float hal9000::SignalProcessor::get_thermal_noise(hal9000::SignalProcessor *this
 
   else
   {
-    lpf1_gain_sunstone3p75 = hal9000::SignalProcessor::get_lpf1_gain_sunstone3p75(this);
+    lpf1_gain_sunstone3p75 = hal9000::SignalProcessor::get_lpf1_gain_sunstone3p75(this, v6);
   }
 
   return ((v7 * v7) / (((v3 * v3) * (lpf1_gain_sunstone3p75 * lpf1_gain_sunstone3p75)) * 1.4641)) * v4;
@@ -4895,7 +4899,7 @@ float hal9000::SignalProcessor::get_thermal_noise(hal9000::SignalProcessor *this
 
 double hal9000::SignalProcessor::get_pd_noise(hal9000::SignalProcessor *this, hal9000 *a2, int8x8_t a3)
 {
-  if (hal9000::get_second_pd_idx(*(this + 139), a3) == 255)
+  if (hal9000::get_second_pd_idx(*(this + 139), a2, a3) == 255)
   {
 
     return hal9000::SignalProcessor::get_vnth_pd(this, a2);
@@ -4910,25 +4914,25 @@ double hal9000::SignalProcessor::get_pd_noise(hal9000::SignalProcessor *this, ha
   return result;
 }
 
-double hal9000::SignalProcessor::get_lpf1_gain(hal9000::SignalProcessor *this)
+double hal9000::SignalProcessor::get_lpf1_gain(hal9000::SignalProcessor *this, __n128 a2)
 {
-  v1 = *(this + 6);
-  if (v1 > 4)
+  v2 = *(this + 6);
+  if (v2 > 4)
   {
-    return 0.0;
+    a2.n128_u64[0] = 0;
   }
 
-  if (((1 << v1) & 0xB) != 0)
+  else if (((1 << v2) & 0xB) != 0)
   {
-    LODWORD(result) = 1.0;
+    a2.n128_u32[0] = 1.0;
   }
 
   else
   {
-    *&result = hal9000::SignalProcessor::get_lpf1_gain_sunstone3p75(this);
+    a2.n128_f32[0] = hal9000::SignalProcessor::get_lpf1_gain_sunstone3p75(this, a2);
   }
 
-  return result;
+  return a2.n128_f64[0];
 }
 
 double hal9000::SignalProcessor::get_vnth_pd(hal9000::SignalProcessor *this, hal9000 *a2)
@@ -4990,14 +4994,14 @@ float hal9000::SignalProcessor::get_vnth_2pd(hal9000::SignalProcessor *this, hal
       return result;
     }
 
-    tia_index_by_gain = hal9000::get_tia_index_by_gain(a2);
+    tia_index_by_gain = hal9000::get_tia_index_by_gain(a2, a2);
     v5 = &unk_2512C7D28;
     return v5[tia_index_by_gain];
   }
 
   if (v2 == 3)
   {
-    tia_index_by_gain = hal9000::get_tia_index_by_gain(a2);
+    tia_index_by_gain = hal9000::get_tia_index_by_gain(a2, a2);
     v5 = &unk_2512C7D48;
     return v5[tia_index_by_gain];
   }
@@ -5013,44 +5017,44 @@ float hal9000::SignalProcessor::get_vnth_2pd(hal9000::SignalProcessor *this, hal
 
 float hal9000::SignalProcessor::get_pd_noise_sunstone2p5(hal9000::SignalProcessor *this, hal9000 *a2)
 {
-  tia_index_by_gain = hal9000::get_tia_index_by_gain(a2);
-  second_pd_idx = hal9000::get_second_pd_idx(*(this + 139), v4);
+  tia_index_by_gain = hal9000::get_tia_index_by_gain(a2, a2);
+  second_pd_idx = hal9000::get_second_pd_idx(*(this + 139), v4, v5);
   if (*(this + 132) != 1)
   {
-    v7 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_dcs;
-    return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+    v8 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_dcs;
+    return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
   }
 
-  v6 = *(this + 130);
-  if (v6 > 0x22)
+  v7 = *(this + 130);
+  if (v7 > 0x22)
   {
     if (*(this + 130) <= 0x29u)
     {
-      if (v6 == 35)
+      if (v7 == 35)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_77k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_77k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
 
-      if (v6 == 40)
+      if (v7 == 40)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_95k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_95k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
     }
 
     else
     {
-      if (v6 == 42 || v6 == 45)
+      if (v7 == 42 || v7 == 45)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_123k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_123k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
 
-      if (v6 == 46)
+      if (v7 == 46)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_131k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_131k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
     }
 
@@ -5059,13 +5063,13 @@ float hal9000::SignalProcessor::get_pd_noise_sunstone2p5(hal9000::SignalProcesso
 
   if (*(this + 130) <= 0x18u)
   {
-    if (v6 == 19)
+    if (v7 == 19)
     {
-      v7 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_32k;
-      return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+      v8 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_32k;
+      return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
     }
 
-    if (v6 == 23)
+    if (v7 == 23)
     {
       goto LABEL_16;
     }
@@ -5074,20 +5078,20 @@ LABEL_24:
     hal9000::SignalProcessor::get_pd_noise_sunstone2p5();
   }
 
-  if (v6 == 25 || v6 == 28)
+  if (v7 == 25 || v7 == 28)
   {
 LABEL_16:
-    v7 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_55k;
-    return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+    v8 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_55k;
+    return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
   }
 
-  if (v6 != 31)
+  if (v7 != 31)
   {
     goto LABEL_24;
   }
 
-  v7 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_65k;
-  return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+  v8 = &hal9000::SignalProcessor::get_pd_noise_sunstone2p5const::noise_65k;
+  return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
 }
 
 float hal9000::SignalProcessor::get_pd_noise_sunstone3p75(hal9000::SignalProcessor *this, hal9000 *a2)
@@ -5110,7 +5114,7 @@ float hal9000::SignalProcessor::get_pd_noise_sunstone3p75(hal9000::SignalProcess
   }
 }
 
-uint64_t hal9000::get_tia_index_by_gain(hal9000 *this)
+uint64_t hal9000::get_tia_index_by_gain(hal9000 *this, uint64_t a2)
 {
   if (this > 119999)
   {
@@ -5185,45 +5189,45 @@ LABEL_20:
 
 float hal9000::SignalProcessor::get_pd_noise_N21x(hal9000::SignalProcessor *this, hal9000 *a2)
 {
-  tia_index_by_gain = hal9000::get_tia_index_by_gain(a2);
-  second_pd_idx = hal9000::get_second_pd_idx(*(this + 139), v4);
+  tia_index_by_gain = hal9000::get_tia_index_by_gain(a2, a2);
+  second_pd_idx = hal9000::get_second_pd_idx(*(this + 139), v4, v5);
   if (*(this + 132) != 1)
   {
-    v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_dcs;
-    return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+    v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_dcs;
+    return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
   }
 
-  v6 = *(this + 130);
-  if (v6 > 0x22)
+  v7 = *(this + 130);
+  if (v7 > 0x22)
   {
     if (*(this + 130) <= 0x29u)
     {
-      if (v6 == 35)
+      if (v7 == 35)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_77k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_77k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
 
-      if (v6 == 40)
+      if (v7 == 40)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_95k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_95k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
     }
 
     else
     {
-      switch(v6)
+      switch(v7)
       {
         case '*':
-          v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_104k;
-          return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+          v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_104k;
+          return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
         case '-':
-          v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_123k;
-          return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+          v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_123k;
+          return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
         case '.':
-          v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_131k;
-          return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+          v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_131k;
+          return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
     }
 
@@ -5233,82 +5237,82 @@ LABEL_27:
 
   if (*(this + 130) <= 0x18u)
   {
-    if (v6 == 19)
+    if (v7 == 19)
     {
-      v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_32k;
-      return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+      v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_32k;
+      return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
     }
 
-    if (v6 == 23)
+    if (v7 == 23)
     {
-      v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_40k;
-      return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+      v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_40k;
+      return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
     }
 
     goto LABEL_27;
   }
 
-  if (v6 == 25)
+  if (v7 == 25)
   {
-    v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_47k;
-    return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+    v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_47k;
+    return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
   }
 
-  if (v6 == 28)
+  if (v7 == 28)
   {
-    v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_55k;
-    return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+    v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_55k;
+    return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
   }
 
-  if (v6 != 31)
+  if (v7 != 31)
   {
     goto LABEL_27;
   }
 
-  v7 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_65k;
-  return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+  v8 = &hal9000::SignalProcessor::get_pd_noise_N21xconst::noise_65k;
+  return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
 }
 
 float hal9000::SignalProcessor::get_pd_noise_N22x(hal9000::SignalProcessor *this, hal9000 *a2)
 {
-  tia_index_by_gain = hal9000::get_tia_index_by_gain(a2);
-  second_pd_idx = hal9000::get_second_pd_idx(*(this + 139), v4);
+  tia_index_by_gain = hal9000::get_tia_index_by_gain(a2, a2);
+  second_pd_idx = hal9000::get_second_pd_idx(*(this + 139), v4, v5);
   if (*(this + 132) != 1)
   {
-    v7 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_dcs;
-    return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+    v8 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_dcs;
+    return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
   }
 
-  v6 = *(this + 130);
-  if (v6 > 0x22)
+  v7 = *(this + 130);
+  if (v7 > 0x22)
   {
     if (*(this + 130) <= 0x29u)
     {
-      if (v6 == 35)
+      if (v7 == 35)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_77k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_77k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
 
-      if (v6 == 40)
+      if (v7 == 40)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_95k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_95k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
     }
 
     else
     {
-      if (v6 == 42 || v6 == 45)
+      if (v7 == 42 || v7 == 45)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_110k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_110k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
 
-      if (v6 == 46)
+      if (v7 == 46)
       {
-        v7 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_131k;
-        return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+        v8 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_131k;
+        return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
       }
     }
 
@@ -5317,13 +5321,13 @@ float hal9000::SignalProcessor::get_pd_noise_N22x(hal9000::SignalProcessor *this
 
   if (*(this + 130) <= 0x18u)
   {
-    if (v6 == 19)
+    if (v7 == 19)
     {
-      v7 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_32k;
-      return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+      v8 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_32k;
+      return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
     }
 
-    if (v6 == 23)
+    if (v7 == 23)
     {
       goto LABEL_17;
     }
@@ -5332,40 +5336,40 @@ LABEL_24:
     hal9000::SignalProcessor::get_pd_noise_N22x();
   }
 
-  if (v6 == 25)
+  if (v7 == 25)
   {
 LABEL_17:
-    v7 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_47k;
-    return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+    v8 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_47k;
+    return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
   }
 
-  if (v6 != 28 && v6 != 31)
+  if (v7 != 28 && v7 != 31)
   {
     goto LABEL_24;
   }
 
-  v7 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_65k;
-  return v7[8 * (second_pd_idx != 255) + tia_index_by_gain];
+  v8 = &hal9000::SignalProcessor::get_pd_noise_N22xconst::noise_65k;
+  return v8[8 * (second_pd_idx != 255) + tia_index_by_gain];
 }
 
-float hal9000::SignalProcessor::get_lpf1_gain_sunstone3p75(hal9000::SignalProcessor *this)
+float hal9000::SignalProcessor::get_lpf1_gain_sunstone3p75(hal9000::SignalProcessor *this, __n128 a2)
 {
   result = 1.0;
   if (*(this + 132) == 1)
   {
-    v2 = *(this + 130);
-    if (v2 > 0x22)
+    v3 = *(this + 130);
+    if (v3 > 0x22)
     {
       if (*(this + 130) <= 0x29u)
       {
-        if (v2 == 35)
+        if (v3 == 35)
         {
           return 0.888;
         }
 
         else
         {
-          if (v2 != 40)
+          if (v3 != 40)
           {
             goto LABEL_26;
           }
@@ -5376,7 +5380,7 @@ float hal9000::SignalProcessor::get_lpf1_gain_sunstone3p75(hal9000::SignalProces
 
       else
       {
-        switch(v2)
+        switch(v3)
         {
           case '*':
             return 0.8196;
@@ -5392,14 +5396,14 @@ float hal9000::SignalProcessor::get_lpf1_gain_sunstone3p75(hal9000::SignalProces
 
     else if (*(this + 130) <= 0x18u)
     {
-      if (v2 == 19)
+      if (v3 == 19)
       {
         return 0.977;
       }
 
       else
       {
-        if (v2 != 23)
+        if (v3 != 23)
         {
           goto LABEL_26;
         }
@@ -5410,7 +5414,7 @@ float hal9000::SignalProcessor::get_lpf1_gain_sunstone3p75(hal9000::SignalProces
 
     else
     {
-      switch(v2)
+      switch(v3)
       {
         case 0x19u:
           return 0.953;
@@ -5428,29 +5432,27 @@ LABEL_26:
   return result;
 }
 
-void *hal9000::extract_subframe_types<mimosa::OpticalSamplesV1Subpacket>@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void hal9000::extract_subframe_types<mimosa::OpticalSamplesV1Subpacket>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  result = std::vector<std::pair<hal9000::SubframeType,unsigned char>>::reserve(a2, 0x8E38E38E38E38E39 * ((*(a1 + 24) - *(a1 + 16)) >> 2));
-  v6 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  v9 = a2;
-  while (v6 != v5)
+  std::vector<std::pair<hal9000::SubframeType,unsigned char>>::reserve(a2, 0x8E38E38E38E38E39 * ((*(a1 + 24) - *(a1 + 16)) >> 2));
+  v5 = *(a1 + 16);
+  v4 = *(a1 + 24);
+  v8 = a2;
+  while (v5 != v4)
   {
-    v7 = *(v6 + 4);
-    if (v7 >= 0x15)
+    v6 = *(v5 + 4);
+    if (v6 >= 0x15)
     {
       __assert_rtn("get_subframe_type", "SignalProcessor.cpp", 274, "false");
     }
 
-    v8 = v7 | (*(v6 + 32) << 8);
-    result = std::back_insert_iterator<std::vector<std::pair<hal9000::SubframeType,unsigned char>>>::operator=[abi:ne200100](&v9, &v8);
-    v6 += 36;
+    v7 = v6 | (*(v5 + 32) << 8);
+    std::back_insert_iterator<std::vector<std::pair<hal9000::SubframeType,unsigned char>>>::operator=[abi:ne200100](&v8, &v7);
+    v5 += 36;
   }
-
-  return result;
 }
 
 void sub_25128BF84(_Unwind_Exception *exception_object)
@@ -5465,20 +5467,17 @@ void sub_25128BF84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::pair<hal9000::SubframeType,unsigned char>>::reserve(void *result, unint64_t a2)
+void std::vector<std::pair<hal9000::SubframeType,unsigned char>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 1)
+  if (a2 > (a1[2] - *a1) >> 1)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(a1, a2);
     }
 
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t *std::back_insert_iterator<std::vector<std::pair<hal9000::SubframeType,unsigned char>>>::operator=[abi:ne200100](uint64_t *a1, _WORD *a2)
@@ -5546,26 +5545,24 @@ uint64_t *std::back_insert_iterator<std::vector<std::pair<hal9000::SubframeType,
   return a1;
 }
 
-void *hal9000::extract_subframe_types<mimosa::OpticalSamplesV2Subpacket>@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void hal9000::extract_subframe_types<mimosa::OpticalSamplesV2Subpacket>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  result = std::vector<std::pair<hal9000::SubframeType,unsigned char>>::reserve(a2, (*(a1 + 24) - *(a1 + 16)) >> 5);
-  v6 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  for (i = a2; v6 != v5; v6 += 32)
+  std::vector<std::pair<hal9000::SubframeType,unsigned char>>::reserve(a2, (*(a1 + 24) - *(a1 + 16)) >> 5);
+  v5 = *(a1 + 16);
+  v4 = *(a1 + 24);
+  for (i = a2; v5 != v4; v5 += 32)
   {
-    if ((*(v6 + 30) & 4) == 0)
+    if ((*(v5 + 30) & 4) == 0)
     {
       __assert_rtn("get_subframe_type", "SignalProcessor.cpp", 286, "false");
     }
 
-    v7 = (*(v6 + 24) << 8) | 0x15;
-    result = std::back_insert_iterator<std::vector<std::pair<hal9000::SubframeType,unsigned char>>>::operator=[abi:ne200100](&i, &v7);
+    v6 = (*(v5 + 24) << 8) | 0x15;
+    std::back_insert_iterator<std::vector<std::pair<hal9000::SubframeType,unsigned char>>>::operator=[abi:ne200100](&i, &v6);
   }
-
-  return result;
 }
 
 void sub_25128C1D4(_Unwind_Exception *exception_object)
@@ -5580,7 +5577,7 @@ void sub_25128C1D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double *std::vector<double>::insert(void *a1, char *__src, double *a3)
+char *std::vector<double>::insert(void *a1, char *__src, double *a3)
 {
   v4 = __src;
   v6 = a1[1];
@@ -5594,7 +5591,7 @@ double *std::vector<double>::insert(void *a1, char *__src, double *a3)
       std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -5697,13 +5694,13 @@ void sub_25128C390(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double std::__split_buffer<double>::emplace_back<double const&>(void *a1, double *a2)
+double std::__split_buffer<double>::emplace_back<double const&>(unint64_t *a1, double *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
   {
     v5 = a1[1];
-    v6 = &v5[-*a1];
+    v6 = v5 - *a1;
     if (v5 <= *a1)
     {
       if (v4 == *a1)
@@ -5713,7 +5710,7 @@ double std::__split_buffer<double>::emplace_back<double const&>(void *a1, double
 
       else
       {
-        v11 = &v4[-*a1] >> 2;
+        v11 = (v4 - *a1) >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(a1[4], v11);
@@ -5721,21 +5718,21 @@ double std::__split_buffer<double>::emplace_back<double const&>(void *a1, double
 
     v7 = ((v6 >> 3) + 1) / -2;
     v8 = ((v6 >> 3) + 1) / 2;
-    v9 = &v5[-8 * v8];
+    v9 = &v5[-v8];
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      memmove(&v5[-8 * v8], v5, v4 - v5);
+      memmove(&v5[-v8], v5, v4 - v5);
       v5 = a1[1];
     }
 
-    v4 = &v9[v10];
-    a1[1] = &v5[8 * v7];
+    v4 = (v9 + v10);
+    a1[1] = &v5[v7];
   }
 
   result = *a2;
   *v4 = *a2;
-  a1[2] = v4 + 8;
+  a1[2] = (v4 + 1);
   return result;
 }
 
@@ -5770,217 +5767,205 @@ void std::__throw_bad_optional_access[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82770], MEMORY[0x277D82618]);
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(id ***a1, uint64_t a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(id ****a1, uint64_t a2)
 {
   v33 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  if ([*(***a1 + 7) length] > 0x19)
+  v4 = [(***a1)[7] length];
+  if (v4 <= 0x19)
   {
-    [*(**v3 + 7) getBytes:a2 length:26];
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(a2 + 9)];
-    v6 = [v5 stringValue];
-    v7 = **v3;
-    v8 = v7[4];
-    v7[4] = v6;
-
-    v9 = *v3;
-    *(**v3 + 3) = *(a2 + 10);
-    *(*v9 + 4) = *(a2 + 14);
-    v10 = objc_alloc(MEMORY[0x277CCAB10]);
-    v11 = *(a2 + 18);
-    v12 = [MEMORY[0x277CCAE30] milliwatts];
-    v13 = [v10 initWithDoubleValue:v12 unit:v11];
-    v14 = **v3;
-    v15 = v14[5];
-    v14[5] = v13;
-
-    v16 = objc_alloc(MEMORY[0x277CCAB10]);
-    v17 = *(a2 + 22);
-    v18 = [MEMORY[0x277CCAE30] milliwatts];
-    v19 = [v16 initWithDoubleValue:v18 unit:v17];
-    v20 = **v3;
-    v21 = v20[6];
-    v20[6] = v19;
-
-    v22 = [*(**v3 + 7) length];
-    v23 = ((v22 - 26) * 0x8618618618618619) >> 64;
-    v24 = (v23 + ((v22 - 26 - v23) >> 1)) >> 4;
-    if (v22 - 26 == 21 * v24)
+    v5 = ha_get_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v28 = *v3;
-      *(**v3 + 8) = v24;
-      *(*v28 + 9) = 26;
-      v29 = [*v28 sessionIntervalV0WithStartTime:*(a2 + 1)];
-      v30 = **v3;
-      v31 = v30[3];
-      v30[3] = v29;
-
-      result = 1;
-      goto LABEL_10;
+      std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(v32, [(**v3)[7] length]);
     }
 
-    v25 = ha_get_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    return 0;
+  }
+
+  [(**v3)[7] getBytes:a2 length:26];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(a2 + 9)];
+  v7 = [v6 stringValue];
+  v8 = **v3;
+  v9 = v8[4];
+  v8[4] = v7;
+
+  v10 = *v3;
+  *(**v3 + 3) = *(a2 + 10);
+  *(*v10 + 4) = *(a2 + 14);
+  v11 = objc_alloc(MEMORY[0x277CCAB10]);
+  v12 = *(a2 + 18);
+  v13 = [MEMORY[0x277CCAE30] milliwatts];
+  v14 = [v11 initWithDoubleValue:v13 unit:v12];
+  v15 = **v3;
+  v16 = v15[5];
+  v15[5] = v14;
+
+  v17 = objc_alloc(MEMORY[0x277CCAB10]);
+  v18 = *(a2 + 22);
+  v19 = [MEMORY[0x277CCAE30] milliwatts];
+  v20 = [v17 initWithDoubleValue:v19 unit:v18];
+  v21 = **v3;
+  v22 = v21[6];
+  v21[6] = v20;
+
+  v23 = [(**v3)[7] length];
+  v24 = ((v23 - 26) * 0x8618618618618619) >> 64;
+  v25 = (v24 + ((v23 - 26 - v24) >> 1)) >> 4;
+  if (v23 - 26 != 21 * v25)
+  {
+    v26 = ha_get_log(v23);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>();
     }
+
+    return 0;
   }
 
-  else
-  {
-    v4 = ha_get_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(v32, [*(**v3 + 7) length]);
-    }
-  }
+  v28 = *v3;
+  (**v3)[8] = v25;
+  *(*v28 + 9) = 26;
+  v29 = [*v28 sessionIntervalV0WithStartTime:*(a2 + 1)];
+  v30 = **v3;
+  v31 = v30[3];
+  v30[3] = v29;
 
-  result = 0;
-LABEL_10:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(id ***a1, uint64_t a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(id ****a1, uint64_t a2)
 {
   v33 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  if ([*(***a1 + 7) length] > 0x1A)
+  v4 = [(***a1)[7] length];
+  if (v4 <= 0x1A)
   {
-    [*(**v3 + 7) getBytes:a2 length:27];
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(a2 + 9)];
-    v6 = [v5 stringValue];
-    v7 = **v3;
-    v8 = v7[4];
-    v7[4] = v6;
-
-    v9 = *v3;
-    *(**v3 + 3) = *(a2 + 10);
-    *(*v9 + 4) = *(a2 + 14);
-    v10 = objc_alloc(MEMORY[0x277CCAB10]);
-    v11 = *(a2 + 18);
-    v12 = [MEMORY[0x277CCAE30] milliwatts];
-    v13 = [v10 initWithDoubleValue:v12 unit:v11];
-    v14 = **v3;
-    v15 = v14[5];
-    v14[5] = v13;
-
-    v16 = objc_alloc(MEMORY[0x277CCAB10]);
-    v17 = *(a2 + 22);
-    v18 = [MEMORY[0x277CCAE30] milliwatts];
-    v19 = [v16 initWithDoubleValue:v18 unit:v17];
-    v20 = **v3;
-    v21 = v20[6];
-    v20[6] = v19;
-
-    v22 = [*(**v3 + 7) length];
-    v23 = ((v22 - 27) * 0x8618618618618619) >> 64;
-    v24 = (v23 + ((v22 - 27 - v23) >> 1)) >> 4;
-    if (v22 - 27 == 21 * v24)
+    v5 = ha_get_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v28 = *v3;
-      *(**v3 + 8) = v24;
-      *(*v28 + 9) = 27;
-      v29 = [*v28 sessionIntervalV0WithStartTime:*(a2 + 1)];
-      v30 = **v3;
-      v31 = v30[3];
-      v30[3] = v29;
-
-      result = 1;
-      goto LABEL_10;
+      std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(v32, [(**v3)[7] length]);
     }
 
-    v25 = ha_get_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    return 0;
+  }
+
+  [(**v3)[7] getBytes:a2 length:27];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(a2 + 9)];
+  v7 = [v6 stringValue];
+  v8 = **v3;
+  v9 = v8[4];
+  v8[4] = v7;
+
+  v10 = *v3;
+  *(**v3 + 3) = *(a2 + 10);
+  *(*v10 + 4) = *(a2 + 14);
+  v11 = objc_alloc(MEMORY[0x277CCAB10]);
+  v12 = *(a2 + 18);
+  v13 = [MEMORY[0x277CCAE30] milliwatts];
+  v14 = [v11 initWithDoubleValue:v13 unit:v12];
+  v15 = **v3;
+  v16 = v15[5];
+  v15[5] = v14;
+
+  v17 = objc_alloc(MEMORY[0x277CCAB10]);
+  v18 = *(a2 + 22);
+  v19 = [MEMORY[0x277CCAE30] milliwatts];
+  v20 = [v17 initWithDoubleValue:v19 unit:v18];
+  v21 = **v3;
+  v22 = v21[6];
+  v21[6] = v20;
+
+  v23 = [(**v3)[7] length];
+  v24 = ((v23 - 27) * 0x8618618618618619) >> 64;
+  v25 = (v24 + ((v23 - 27 - v24) >> 1)) >> 4;
+  if (v23 - 27 != 21 * v25)
+  {
+    v26 = ha_get_log(v23);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>();
     }
+
+    return 0;
   }
 
-  else
-  {
-    v4 = ha_get_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(v32, [*(**v3 + 7) length]);
-    }
-  }
+  v28 = *v3;
+  (**v3)[8] = v25;
+  *(*v28 + 9) = 27;
+  v29 = [*v28 sessionIntervalV0WithStartTime:*(a2 + 1)];
+  v30 = **v3;
+  v31 = v30[3];
+  v30[3] = v29;
 
-  result = 0;
-LABEL_10:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(id ***a1, uint64_t a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(id ****a1, uint64_t a2)
 {
   v33 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  if ([*(***a1 + 7) length] > 0x1E)
+  v4 = [(***a1)[7] length];
+  if (v4 <= 0x1E)
   {
-    [*(**v3 + 7) getBytes:a2 length:31];
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(a2 + 9)];
-    v6 = [v5 stringValue];
-    v7 = **v3;
-    v8 = v7[4];
-    v7[4] = v6;
-
-    v9 = *v3;
-    *(**v3 + 3) = *(a2 + 10);
-    *(*v9 + 4) = *(a2 + 14);
-    v10 = objc_alloc(MEMORY[0x277CCAB10]);
-    v11 = *(a2 + 22);
-    v12 = [MEMORY[0x277CCAE30] milliwatts];
-    v13 = [v10 initWithDoubleValue:v12 unit:v11];
-    v14 = **v3;
-    v15 = v14[5];
-    v14[5] = v13;
-
-    v16 = objc_alloc(MEMORY[0x277CCAB10]);
-    v17 = *(a2 + 26);
-    v18 = [MEMORY[0x277CCAE30] milliwatts];
-    v19 = [v16 initWithDoubleValue:v18 unit:v17];
-    v20 = **v3;
-    v21 = v20[6];
-    v20[6] = v19;
-
-    v22 = [*(**v3 + 7) length];
-    v23 = ((v22 - 31) * 0x8618618618618619) >> 64;
-    v24 = (v23 + ((v22 - 31 - v23) >> 1)) >> 4;
-    if (v22 - 31 == 21 * v24)
+    v5 = ha_get_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v28 = *v3;
-      *(**v3 + 8) = v24;
-      *(*v28 + 9) = 31;
-      v29 = [*v28 sessionIntervalV0WithStartTime:*(a2 + 1)];
-      v30 = **v3;
-      v31 = v30[3];
-      v30[3] = v29;
-
-      result = 1;
-      goto LABEL_10;
+      std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(v32, [(**v3)[7] length]);
     }
 
-    v25 = ha_get_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    return 0;
+  }
+
+  [(**v3)[7] getBytes:a2 length:31];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(a2 + 9)];
+  v7 = [v6 stringValue];
+  v8 = **v3;
+  v9 = v8[4];
+  v8[4] = v7;
+
+  v10 = *v3;
+  *(**v3 + 3) = *(a2 + 10);
+  *(*v10 + 4) = *(a2 + 14);
+  v11 = objc_alloc(MEMORY[0x277CCAB10]);
+  v12 = *(a2 + 22);
+  v13 = [MEMORY[0x277CCAE30] milliwatts];
+  v14 = [v11 initWithDoubleValue:v13 unit:v12];
+  v15 = **v3;
+  v16 = v15[5];
+  v15[5] = v14;
+
+  v17 = objc_alloc(MEMORY[0x277CCAB10]);
+  v18 = *(a2 + 26);
+  v19 = [MEMORY[0x277CCAE30] milliwatts];
+  v20 = [v17 initWithDoubleValue:v19 unit:v18];
+  v21 = **v3;
+  v22 = v21[6];
+  v21[6] = v20;
+
+  v23 = [(**v3)[7] length];
+  v24 = ((v23 - 31) * 0x8618618618618619) >> 64;
+  v25 = (v24 + ((v23 - 31 - v24) >> 1)) >> 4;
+  if (v23 - 31 != 21 * v25)
+  {
+    v26 = ha_get_log(v23);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>();
     }
+
+    return 0;
   }
 
-  else
-  {
-    v4 = ha_get_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<-[HAWristTemperatureSession parsePacket:]::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,PackedWristTemperatureHeaderV0,PackedWristTemperatureHeaderV1,PackedWristTemperatureHeaderV2> &>(v32, [*(**v3 + 7) length]);
-    }
-  }
+  v28 = *v3;
+  (**v3)[8] = v25;
+  *(*v28 + 9) = 31;
+  v29 = [*v28 sessionIntervalV0WithStartTime:*(a2 + 1)];
+  v30 = **v3;
+  v31 = v30[3];
+  v30[3] = v29;
 
-  result = 0;
-LABEL_10:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t OUTLINED_FUNCTION_1@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -5997,10 +5982,11 @@ void OUTLINED_FUNCTION_2(void *a1, int a2, os_log_t log, const char *a4, uint8_t
   _os_log_fault_impl(a1, log, OS_LOG_TYPE_FAULT, a4, a5, 0x16u);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
 void sub_25128E850(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -6100,7 +6086,7 @@ void sub_251291AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_251291FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_251291FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -6141,7 +6127,7 @@ void sub_251292C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_251293154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_251293154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -6248,23 +6234,23 @@ os_log_t get_ppg_processor_log(void)
   return result;
 }
 
-uint64_t health_algorithms::PPGProcessor::PPGProcessor(uint64_t result, void *a2)
+uint64_t health_algorithms::PPGProcessor::PPGProcessor(uint64_t a1, void *a2)
 {
   v2 = a2[1];
-  *result = *a2;
-  *(result + 8) = v2;
+  *a1 = *a2;
+  *(a1 + 8) = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
   v3 = 0;
-  *(result + 16) = 0u;
-  *(result + 32) = 0u;
-  *(result + 48) = 1065353216;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 1065353216;
   do
   {
-    v4 = result + v3;
+    v4 = a1 + v3;
     *(v4 + 56) = 0;
     *(v4 + 76) = 0;
     v3 += 24;
@@ -6277,7 +6263,7 @@ uint64_t health_algorithms::PPGProcessor::PPGProcessor(uint64_t result, void *a2
     std::allocate_shared[abi:ne200100]<mimosa::Metadata,std::allocator<mimosa::Metadata>,mimosa::Metadata const&,0>();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2512935D4(_Unwind_Exception *a1)
@@ -6305,12 +6291,12 @@ void health_algorithms::PPGProcessor::raw_ppg_datums_for_packet(void *a1@<X8>)
   a1[2] = 0;
 }
 
-void *health_algorithms::PPGProcessor::raw_ppg_datums_for_packet@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void health_algorithms::PPGProcessor::raw_ppg_datums_for_packet(uint64_t a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  result = std::vector<health_algorithms::PPGProcessor::RawPPGDatum>::reserve(a2, 0x8E38E38E38E38E39 * ((*(a1 + 40) - *(a1 + 32)) >> 2));
+  std::vector<health_algorithms::PPGProcessor::RawPPGDatum>::reserve(a2, 0x8E38E38E38E38E39 * ((*(a1 + 40) - *(a1 + 32)) >> 2));
   v5 = *(a1 + 128);
   v6 = *(a1 + 160);
   v7 = *(a1 + 168);
@@ -6342,7 +6328,7 @@ void *health_algorithms::PPGProcessor::raw_ppg_datums_for_packet@<X0>(uint64_t a
       v21 = v10 >> 1;
       v14 = (10000 * *v9);
       v22 = *(v9 - 3);
-      v23 = health_algorithms::index_for_tia_gain(v14);
+      v23 = health_algorithms::index_for_tia_gain(v14, v4);
       v24 = 1 << (v10 & 1);
       v25 = 0x300000002000100uLL >> (8 * v12);
       if (v10 >= 0x3E)
@@ -6355,43 +6341,41 @@ void *health_algorithms::PPGProcessor::raw_ppg_datums_for_packet@<X0>(uint64_t a
       v28 = (v10 < 0x18) & (0xC30000u >> v10);
       v29 = (*(a1 + 112) >> (v10 >> 1)) & 1;
       v30 = 0;
-      result = std::back_insert_iterator<std::vector<health_algorithms::PPGProcessor::RawPPGDatum>>::operator=[abi:ne200100](&v31, &v15);
+      std::back_insert_iterator<std::vector<health_algorithms::PPGProcessor::RawPPGDatum>>::operator=[abi:ne200100](&v31, &v15);
       ++v6;
       v9 += 36;
     }
 
     while (v6 != v7);
   }
-
-  return result;
 }
 
 {
-  return health_algorithms::PPGProcessor::extract_datums(a1 + 16, a1 + 144, *(a1 + 112), a2);
+  health_algorithms::PPGProcessor::extract_datums(a1 + 16, a1 + 144, *(a1 + 112), a2);
 }
 
 {
-  return health_algorithms::PPGProcessor::extract_datums(a1 + 16, a1 + 144, *(a1 + 112), a2);
+  health_algorithms::PPGProcessor::extract_datums(a1 + 16, a1 + 144, *(a1 + 112), a2);
 }
 
 {
-  return health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 112), a2);
+  health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 112), a2);
 }
 
 {
-  return health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 128), a2);
+  health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 128), a2);
 }
 
 {
-  return health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 128), a2);
+  health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 128), a2);
 }
 
 {
-  return health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 128), a2);
+  health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 128), a2);
 }
 
 {
-  return health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 128), a2);
+  health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(a1 + 16, *(a1 + 128), a2);
 }
 
 void sub_251293828(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -6406,28 +6390,25 @@ void sub_251293828(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<health_algorithms::PPGProcessor::RawPPGDatum>::reserve(void *result, unint64_t a2)
+void std::vector<health_algorithms::PPGProcessor::RawPPGDatum>::reserve(void *a1, unint64_t a2)
 {
-  if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x492492492492493)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<health_algorithms::PPGProcessor::RawPPGDatum>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<health_algorithms::PPGProcessor::RawPPGDatum>>(a1, a2);
     }
 
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+void health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  result = std::vector<health_algorithms::PPGProcessor::RawPPGDatum>::reserve(a3, (*(a1 + 24) - *(a1 + 16)) >> 5);
+  std::vector<health_algorithms::PPGProcessor::RawPPGDatum>::reserve(a3, (*(a1 + 24) - *(a1 + 16)) >> 5);
   v8 = *(a1 + 16);
   v7 = *(a1 + 24);
   for (i = a3; v8 != v7; v8 += 32)
@@ -6458,7 +6439,7 @@ void *health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples@<X0>(u
     v19 = *(v8 + 18);
     v20 = v14 >> 2;
     v21 = *(v8 + 24);
-    v22 = health_algorithms::index_for_tia_gain((10000 * *(v8 + 28)));
+    v22 = health_algorithms::index_for_tia_gain((10000 * *(v8 + 28)), v6);
     v23 = *(v8 + 27);
     v24 = *(v8 + 26);
     v25 = *(v8 + 25);
@@ -6466,10 +6447,8 @@ void *health_algorithms::PPGProcessor::raw_ppg_datums_for_optical_samples@<X0>(u
     is_light_path_redacted_for_gemstone_and_newer = health_algorithms::is_light_path_redacted_for_gemstone_and_newer(*(v8 + 12));
     v28 = (a2 >> (v14 >> 2)) & 1;
     v29 = (*(v8 + 30) & 2) != 0;
-    result = std::back_insert_iterator<std::vector<health_algorithms::PPGProcessor::RawPPGDatum>>::operator=[abi:ne200100](&i, &v15);
+    std::back_insert_iterator<std::vector<health_algorithms::PPGProcessor::RawPPGDatum>>::operator=[abi:ne200100](&i, &v15);
   }
-
-  return result;
 }
 
 void sub_251293A80(_Unwind_Exception *exception_object)
@@ -6484,7 +6463,7 @@ void sub_251293A80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *health_algorithms::PPGProcessor::extract_datums@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
+void health_algorithms::PPGProcessor::extract_datums(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6497,7 +6476,7 @@ void *health_algorithms::PPGProcessor::extract_datums@<X0>(uint64_t a1@<X0>, uin
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  result = std::vector<health_algorithms::PPGProcessor::RawPPGDatum>::reserve(a4, v6);
+  std::vector<health_algorithms::PPGProcessor::RawPPGDatum>::reserve(a4, v6);
   v11 = *(a1 + 16);
   v10 = *(a1 + 24);
   v12 = *(a2 + 16);
@@ -6524,7 +6503,7 @@ void *health_algorithms::PPGProcessor::extract_datums@<X0>(uint64_t a1@<X0>, uin
     v26 = *(v11 + 32);
     v17 = (10000 * *(v11 + 35));
     v25 = v14 >> 2;
-    v27 = health_algorithms::index_for_tia_gain(v17);
+    v27 = health_algorithms::index_for_tia_gain(v17, v9);
     if (v14 >= 0xC8)
     {
       std::__throw_out_of_range[abi:ne200100]("array::at");
@@ -6537,11 +6516,9 @@ void *health_algorithms::PPGProcessor::extract_datums@<X0>(uint64_t a1@<X0>, uin
     is_light_path_redacted_for_gemstone_and_newer = health_algorithms::is_light_path_redacted_for_gemstone_and_newer(v14);
     v33 = (a3 >> v15) & 1;
     v34 = 0;
-    result = std::back_insert_iterator<std::vector<health_algorithms::PPGProcessor::RawPPGDatum>>::operator=[abi:ne200100](&i, &v19);
+    std::back_insert_iterator<std::vector<health_algorithms::PPGProcessor::RawPPGDatum>>::operator=[abi:ne200100](&i, &v19);
     v11 += 36;
   }
-
-  return result;
 }
 
 void sub_251293CB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -6614,7 +6591,7 @@ unint64_t health_algorithms::PPGProcessor::update_blank_samples(unint64_t result
 
 void health_algorithms::PPGProcessor::make_processor(uint64_t *a1, uint64_t a2, int a3, char a4)
 {
-  v4 = *a1;
+  v5 = *a1;
   if ((*(*a1 + 144) & 1) == 0)
   {
     health_algorithms::PPGProcessor::make_processor();
@@ -6622,69 +6599,69 @@ void health_algorithms::PPGProcessor::make_processor(uint64_t *a1, uint64_t a2, 
 
   if (!a3)
   {
-    if (*(v4 + 143) < 0)
+    if (*(v5 + 143) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, *(v4 + 120), *(v4 + 128));
+      std::string::__init_copy_ctor_external(&__p, *(v5 + 120), *(v5 + 128));
     }
 
     else
     {
-      __p = *(v4 + 120);
+      __p = *(v5 + 120);
     }
 
-    v80 = 0;
-    v10 = *(a2 + 44);
-    if (v10 < 6)
+    v81 = 0;
+    v11 = *(a2 + 44);
+    if (v11 < 6)
     {
-      v11 = health_algorithms::compute_carnelian_calibration_slice(unsigned char)::led_nl_coeff_c[v10];
-      v82 = health_algorithms::compute_carnelian_calibration_slice(unsigned char)::led_nl_coeff_b[v10];
-      v83 = v11;
-      v12 = health_algorithms::compute_carnelian_calibration_slice(unsigned char)::led_nl_coeff_d[v10];
-      v81 = 0;
+      v12 = health_algorithms::compute_carnelian_calibration_slice(unsigned char)::led_nl_coeff_c[v11];
+      v83 = health_algorithms::compute_carnelian_calibration_slice(unsigned char)::led_nl_coeff_b[v11];
       v84 = v12;
-      LOBYTE(v85) = 0;
-      v89 = 0;
-      LOBYTE(v90) = 0;
-      v91 = 0;
-      *v92 = dword_2512C7EB0[v10 < 2];
-      *&v92[4] = health_algorithms::compute_carnelian_calibration_slice(unsigned char)::n_dce_cal[v10];
-      v92[20] = 0;
-      v94 = 0;
-      LOBYTE(v95) = 0;
-      v96 = 0;
+      v13 = health_algorithms::compute_carnelian_calibration_slice(unsigned char)::led_nl_coeff_d[v11];
+      v82 = 0;
+      v85 = v13;
+      LOBYTE(v86) = 0;
+      v90 = 0;
+      LOBYTE(v91) = 0;
+      v92 = 0;
+      *v93 = dword_2512C7EB0[v11 < 2];
+      *&v93[4] = health_algorithms::compute_carnelian_calibration_slice(unsigned char)::n_dce_cal[v11];
+      v93[20] = 0;
+      v95 = 0;
+      LOBYTE(v96) = 0;
       v97 = 0;
       v98 = 0;
-      v99 = *(a2 + 32);
-      v100 = *(a2 + 36);
-      v101 = *(a2 + 40);
-      v102 = *(a2 + 42);
-      v103 = 2 * (v10 < 2);
-      v104 = 0;
-      v105 = a4;
+      v99 = 0;
+      v100 = *(a2 + 32);
+      v101 = *(a2 + 36);
+      v102 = *(a2 + 40);
+      v103 = *(a2 + 42);
+      v104 = 2 * (v11 < 2);
+      v105 = 0;
+      v106 = a4;
       operator new();
     }
 
     __assert_rtn("compute_carnelian_calibration_slice", "PPGProcessor.cpp", 270, "led < 6");
   }
 
-  if ((*(v4 + 2476) & 1) == 0)
+  if ((*(v5 + 2476) & 1) == 0)
   {
     health_algorithms::PPGProcessor::make_processor();
   }
 
-  v8 = *(a2 + 16);
-  v9 = *(a2 + 14);
+  v9 = *(a2 + 16);
+  v10 = *(a2 + 14);
   if (a3 > 2)
   {
     if (a3 == 3)
     {
-      if (*(v4 + 143) < 0)
+      if (*(v5 + 143) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, *(v4 + 120), *(v4 + 128));
-        v4 = *a1;
-        v27 = *(*a1 + 2476);
-        v80 = 3;
-        if ((v27 & 1) == 0)
+        std::string::__init_copy_ctor_external(&__p, *(v5 + 120), *(v5 + 128));
+        v5 = *a1;
+        v28 = *(*a1 + 2476);
+        v81 = 3;
+        if ((v28 & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
@@ -6692,86 +6669,86 @@ void health_algorithms::PPGProcessor::make_processor(uint64_t *a1, uint64_t a2, 
 
       else
       {
-        __p = *(v4 + 120);
-        v80 = 3;
+        __p = *(v5 + 120);
+        v81 = 3;
       }
 
-      if (*(v4 + 2472) == 1)
+      if (*(v5 + 2472) == 1)
       {
-        v28 = *(a2 + 44);
-        if (v28 > 0xC)
+        v29 = *(a2 + 44);
+        if (v29 > 0xC)
         {
-          v72 = "led < static_cast<uint8_t>(OpticalTransmitIndex::SIZE)";
-          v73 = 344;
+          v73 = "led < static_cast<uint8_t>(OpticalTransmitIndex::SIZE)";
+          v74 = 344;
         }
 
         else
         {
-          v29 = *(a2 + 41);
-          if (v29 < 8)
+          v30 = *(a2 + 41);
+          if (v30 < 8)
           {
-            v30 = health_algorithms::led_to_wavelength_index(3, *(a2 + 44));
-            v31 = (v4 + 4 * v28);
-            v81 = v31[59];
-            v82 = v31[72];
-            v83 = v31[85];
-            v84 = v31[98];
-            v32 = (v4 + 4 * v29);
-            v33 = v32[119];
-            v34 = v32[127];
-            v35 = v32[135];
-            v85 = v32[111];
-            v86 = v33;
+            v31 = health_algorithms::led_to_wavelength_index(3, *(a2 + 44));
+            v32 = (v5 + 4 * v29);
+            v82 = v32[59];
+            v83 = v32[72];
+            v84 = v32[85];
+            v85 = v32[98];
+            v33 = (v5 + 4 * v30);
+            v34 = v33[119];
+            v35 = v33[127];
+            v36 = v33[135];
+            v86 = v33[111];
             v87 = v34;
             v88 = v35;
-            v89 = 1;
-            LOBYTE(v90) = 0;
-            v91 = 0;
-            LODWORD(v36) = *(v4 + 4 * v30 + 1596);
-            v37 = v4 + 16 * v28;
-            LODWORD(v38) = *(v37 + 1624);
-            DWORD1(v36) = *(v37 + 1612);
-            *(&v36 + 1) = *(v37 + 1616);
-            *v92 = v36;
-            v39 = v4 + 24 * v30;
-            DWORD1(v38) = *(v39 + 1820);
-            v40 = *(v39 + 1840);
-            *(&v38 + 1) = *(v39 + 1824);
-            *&v92[16] = v38;
-            *v93 = *(v39 + 1832);
-            *&v93[8] = v40;
-            v94 = 1;
-            v95 = *(v4 + 1916);
-            v96 = 1;
-            v97 = 0;
+            v89 = v36;
+            v90 = 1;
+            LOBYTE(v91) = 0;
+            v92 = 0;
+            LODWORD(v37) = *(v5 + 4 * v31 + 1596);
+            v38 = v5 + 16 * v29;
+            LODWORD(v39) = *(v38 + 1624);
+            DWORD1(v37) = *(v38 + 1612);
+            *(&v37 + 1) = *(v38 + 1616);
+            *v93 = v37;
+            v40 = v5 + 24 * v31;
+            DWORD1(v39) = *(v40 + 1820);
+            v41 = *(v40 + 1840);
+            *(&v39 + 1) = *(v40 + 1824);
+            *&v93[16] = v39;
+            *v94 = *(v40 + 1832);
+            *&v94[8] = v41;
+            v95 = 1;
+            v96 = *(v5 + 1916);
+            v97 = 1;
             v98 = 0;
-            v99 = *(a2 + 32);
-            v100 = *(a2 + 36);
-            v101 = *(a2 + 40);
-            v102 = *(a2 + 42);
-            v103 = health_algorithms::led_to_wavelength_index(3, *(a2 + 44));
-            v104 = 0;
-            v105 = a4;
+            v99 = 0;
+            v100 = *(a2 + 32);
+            v101 = *(a2 + 36);
+            v102 = *(a2 + 40);
+            v103 = *(a2 + 42);
+            v104 = health_algorithms::led_to_wavelength_index(3, *(a2 + 44));
+            v105 = 0;
+            v106 = a4;
             operator new();
           }
 
-          v72 = "tia_gain_index < 8";
-          v73 = 345;
+          v73 = "tia_gain_index < 8";
+          v74 = 345;
         }
 
-        __assert_rtn("compute_calibration_slice", "PPGProcessor.cpp", v73, v72);
+        __assert_rtn("compute_calibration_slice", "PPGProcessor.cpp", v74, v73);
       }
 
       std::__throw_bad_variant_access[abi:ne200100]();
     }
 
-    if (*(v4 + 143) < 0)
+    if (*(v5 + 143) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, *(v4 + 120), *(v4 + 128));
-      v4 = *a1;
-      v55 = *(*a1 + 2476);
-      v80 = 4;
-      if ((v55 & 1) == 0)
+      std::string::__init_copy_ctor_external(&__p, *(v5 + 120), *(v5 + 128));
+      v5 = *a1;
+      v56 = *(*a1 + 2476);
+      v81 = 4;
+      if ((v56 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
@@ -6779,88 +6756,88 @@ void health_algorithms::PPGProcessor::make_processor(uint64_t *a1, uint64_t a2, 
 
     else
     {
-      __p = *(v4 + 120);
-      v80 = 4;
+      __p = *(v5 + 120);
+      v81 = 4;
     }
 
-    if (*(v4 + 2472) == 2)
+    if (*(v5 + 2472) == 2)
     {
-      v56 = *(a2 + 44);
-      if (v56 > 0xC)
+      v57 = *(a2 + 44);
+      if (v57 > 0xC)
       {
-        v77 = "led < static_cast<uint8_t>(OpticalTransmitIndex::SIZE)";
-        v78 = 375;
+        v78 = "led < static_cast<uint8_t>(OpticalTransmitIndex::SIZE)";
+        v79 = 375;
       }
 
-      else if (v56 == 4)
+      else if (v57 == 4)
       {
-        v77 = "led != 4";
-        v78 = 376;
+        v78 = "led != 4";
+        v79 = 376;
       }
 
       else
       {
-        v57 = *(a2 + 41);
-        if (v57 < 8)
+        v58 = *(a2 + 41);
+        if (v58 < 8)
         {
-          v58 = health_algorithms::led_to_wavelength_index(4, *(a2 + 44));
-          v59 = (v4 + 4 * v56);
-          v81 = v59[59];
-          v82 = v59[72];
-          v83 = v59[85];
-          v84 = v59[98];
-          v60 = (v4 + 4 * v57);
-          v61 = v60[119];
-          v62 = v60[127];
-          v63 = v60[135];
-          v85 = v60[111];
-          v86 = v61;
+          v59 = health_algorithms::led_to_wavelength_index(4, *(a2 + 44));
+          v60 = (v5 + 4 * v57);
+          v82 = v60[59];
+          v83 = v60[72];
+          v84 = v60[85];
+          v85 = v60[98];
+          v61 = (v5 + 4 * v58);
+          v62 = v61[119];
+          v63 = v61[127];
+          v64 = v61[135];
+          v86 = v61[111];
           v87 = v62;
           v88 = v63;
-          v89 = 1;
-          LOBYTE(v90) = 0;
-          v91 = 0;
-          LODWORD(v64) = *(v4 + 4 * v58 + 1532);
-          v65 = v4 + 16 * v56;
-          LODWORD(v66) = *(v65 + 1560);
-          DWORD1(v64) = *(v65 + 1548);
-          *(&v64 + 1) = *(v65 + 1552);
-          *v92 = v64;
-          v67 = v4 + 24 * v58;
-          v68 = *(v67 + 1776);
-          DWORD1(v66) = *(v67 + 1756);
-          *(&v66 + 1) = *(v67 + 1760);
-          *&v92[16] = v66;
-          *v93 = *(v67 + 1768);
-          *&v93[8] = v68;
-          v94 = 1;
-          v95 = *(v4 + 1828);
-          v96 = 1;
-          if (v8)
+          v89 = v64;
+          v90 = 1;
+          LOBYTE(v91) = 0;
+          v92 = 0;
+          LODWORD(v65) = *(v5 + 4 * v59 + 1532);
+          v66 = v5 + 16 * v57;
+          LODWORD(v67) = *(v66 + 1560);
+          DWORD1(v65) = *(v66 + 1548);
+          *(&v65 + 1) = *(v66 + 1552);
+          *v93 = v65;
+          v68 = v5 + 24 * v59;
+          v69 = *(v68 + 1776);
+          DWORD1(v67) = *(v68 + 1756);
+          *(&v67 + 1) = *(v68 + 1760);
+          *&v93[16] = v67;
+          *v94 = *(v68 + 1768);
+          *&v94[8] = v69;
+          v95 = 1;
+          v96 = *(v5 + 1828);
+          v97 = 1;
+          if (v9)
           {
-            v69 = (v4 + 320 * v58 + 10 * v57 + health_algorithms::mdm_frequency_to_index(4, v9));
-            LODWORD(v69) = v69[572] | (v69[652] << 8) | (v69[732] << 16) | (v69[812] << 24);
-            v91 = 1;
-            v90 = v69;
+            v70 = (v5 + 320 * v59 + 10 * v58 + health_algorithms::mdm_frequency_to_index(4, v10));
+            LODWORD(v70) = v70[572] | (v70[652] << 8) | (v70[732] << 16) | (v70[812] << 24);
+            v92 = 1;
+            v91 = v70;
           }
 
-          v97 = 0;
           v98 = 0;
-          v99 = *(a2 + 32);
-          v100 = *(a2 + 36);
-          v101 = *(a2 + 40);
-          v102 = *(a2 + 42);
-          v103 = health_algorithms::led_to_wavelength_index(4, *(a2 + 44));
-          v104 = 0;
-          v105 = a4;
+          v99 = 0;
+          v100 = *(a2 + 32);
+          v101 = *(a2 + 36);
+          v102 = *(a2 + 40);
+          v103 = *(a2 + 42);
+          v104 = health_algorithms::led_to_wavelength_index(4, *(a2 + 44));
+          v105 = 0;
+          v106 = a4;
           operator new();
         }
 
-        v77 = "tia_gain_index < 8";
-        v78 = 377;
+        v78 = "tia_gain_index < 8";
+        v79 = 377;
       }
 
-      __assert_rtn("compute_calibration_slice", "PPGProcessor.cpp", v78, v77);
+      __assert_rtn("compute_calibration_slice", "PPGProcessor.cpp", v79, v78);
     }
 
     std::__throw_bad_variant_access[abi:ne200100]();
@@ -6868,13 +6845,13 @@ void health_algorithms::PPGProcessor::make_processor(uint64_t *a1, uint64_t a2, 
 
   if (a3 == 1)
   {
-    if (*(v4 + 143) < 0)
+    if (*(v5 + 143) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, *(v4 + 120), *(v4 + 128));
-      v4 = *a1;
-      v13 = *(*a1 + 2476);
-      v80 = 1;
-      if ((v13 & 1) == 0)
+      std::string::__init_copy_ctor_external(&__p, *(v5 + 120), *(v5 + 128));
+      v5 = *a1;
+      v14 = *(*a1 + 2476);
+      v81 = 1;
+      if ((v14 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
@@ -6882,87 +6859,87 @@ void health_algorithms::PPGProcessor::make_processor(uint64_t *a1, uint64_t a2, 
 
     else
     {
-      __p = *(v4 + 120);
-      v80 = 1;
+      __p = *(v5 + 120);
+      v81 = 1;
     }
 
-    if (!*(v4 + 2472))
+    if (!*(v5 + 2472))
     {
-      v14 = *(a2 + 44);
-      if (v14 > 0xC)
+      v15 = *(a2 + 44);
+      if (v15 > 0xC)
       {
-        v70 = "led < static_cast<uint8_t>(OpticalTransmitIndex::SIZE)";
-        v71 = 307;
+        v71 = "led < static_cast<uint8_t>(OpticalTransmitIndex::SIZE)";
+        v72 = 307;
       }
 
       else
       {
-        v15 = *(a2 + 41);
-        if (v15 < 8)
+        v16 = *(a2 + 41);
+        if (v16 < 8)
         {
-          v16 = health_algorithms::led_to_wavelength_index(1, *(a2 + 44));
-          v17 = (v4 + 4 * v14);
-          v81 = v17[59];
-          v82 = v17[72];
-          v83 = v17[85];
-          v84 = v17[98];
-          v18 = (v4 + 4 * v15);
-          v19 = v18[119];
-          v20 = v18[127];
-          v21 = v18[135];
-          v85 = v18[111];
-          v86 = v19;
+          v17 = health_algorithms::led_to_wavelength_index(1, *(a2 + 44));
+          v18 = (v5 + 4 * v15);
+          v82 = v18[59];
+          v83 = v18[72];
+          v84 = v18[85];
+          v85 = v18[98];
+          v19 = (v5 + 4 * v16);
+          v20 = v19[119];
+          v21 = v19[127];
+          v22 = v19[135];
+          v86 = v19[111];
           v87 = v20;
           v88 = v21;
-          v89 = 1;
-          LOBYTE(v90) = 0;
-          v91 = 0;
-          LODWORD(v22) = *(v4 + 4 * v16 + 764);
-          v23 = v4 + 16 * v14;
-          LODWORD(v24) = *(v23 + 792);
-          DWORD1(v22) = *(v23 + 780);
-          *(&v22 + 1) = *(v23 + 784);
-          *v92 = v22;
-          v95 = *(v4 + 1052);
-          v96 = 1;
-          v25 = v4 + 16 * v16;
-          *&v22 = *(v25 + 992);
-          v26 = *(v25 + 1000);
-          *&v93[4] = 0;
-          v94 = 1;
-          DWORD1(v24) = *(v25 + 988);
-          *(&v24 + 1) = v22;
-          *&v92[16] = v24;
-          *v93 = v26;
-          v97 = 0;
+          v89 = v22;
+          v90 = 1;
+          LOBYTE(v91) = 0;
+          v92 = 0;
+          LODWORD(v23) = *(v5 + 4 * v17 + 764);
+          v24 = v5 + 16 * v15;
+          LODWORD(v25) = *(v24 + 792);
+          DWORD1(v23) = *(v24 + 780);
+          *(&v23 + 1) = *(v24 + 784);
+          *v93 = v23;
+          v96 = *(v5 + 1052);
+          v97 = 1;
+          v26 = v5 + 16 * v17;
+          *&v23 = *(v26 + 992);
+          v27 = *(v26 + 1000);
+          *&v94[4] = 0;
+          v95 = 1;
+          DWORD1(v25) = *(v26 + 988);
+          *(&v25 + 1) = v23;
+          *&v93[16] = v25;
+          *v94 = v27;
           v98 = 0;
-          v99 = *(a2 + 32);
-          v100 = *(a2 + 36);
-          v101 = *(a2 + 40);
-          v102 = *(a2 + 42);
-          v103 = health_algorithms::led_to_wavelength_index(1, *(a2 + 44));
-          v104 = 0;
-          v105 = a4;
+          v99 = 0;
+          v100 = *(a2 + 32);
+          v101 = *(a2 + 36);
+          v102 = *(a2 + 40);
+          v103 = *(a2 + 42);
+          v104 = health_algorithms::led_to_wavelength_index(1, *(a2 + 44));
+          v105 = 0;
+          v106 = a4;
           operator new();
         }
 
-        v70 = "tia_gain_index < 8";
-        v71 = 308;
+        v71 = "tia_gain_index < 8";
+        v72 = 308;
       }
 
-      __assert_rtn("compute_calibration_slice", "PPGProcessor.cpp", v71, v70);
+      __assert_rtn("compute_calibration_slice", "PPGProcessor.cpp", v72, v71);
     }
 
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  if (*(v4 + 143) < 0)
+  if (*(v5 + 143) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, *(v4 + 120), *(v4 + 128));
-    v4 = *a1;
-    v41 = *(*a1 + 2476);
-    v80 = 2;
-    if ((v41 & 1) == 0)
+    std::string::__init_copy_ctor_external(&__p, *(v5 + 120), *(v5 + 128));
+    v5 = *a1;
+    v42 = *(*a1 + 2476);
+    v81 = 2;
+    if ((v42 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
@@ -6970,97 +6947,97 @@ void health_algorithms::PPGProcessor::make_processor(uint64_t *a1, uint64_t a2, 
 
   else
   {
-    __p = *(v4 + 120);
-    v80 = 2;
+    __p = *(v5 + 120);
+    v81 = 2;
   }
 
-  if (*(v4 + 2472) != 4)
+  if (*(v5 + 2472) != 4)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  v42 = *(a2 + 44);
-  if (v42 > 0xC)
+  v43 = *(a2 + 44);
+  if (v43 > 0xC)
   {
-    v74 = "led < to_underlying(OpticalTransmitIndex::SIZE)";
-    v75 = 200;
+    v75 = "led < to_underlying(OpticalTransmitIndex::SIZE)";
+    v76 = 200;
   }
 
   else
   {
-    if ((0x1E03u >> v42))
+    if ((0x1E03u >> v43))
     {
-      v43 = *(a2 + 41);
-      if (v43 < 8)
+      v44 = *(a2 + 41);
+      if (v44 < 8)
       {
-        v44 = qword_2512C8118[v42];
-        v45 = qword_2512C8180[v42];
-        v46 = (v4 + 4 * v45);
-        v81 = v46[59];
-        v82 = v46[65];
-        v83 = v46[71];
-        v84 = v46[77];
-        v47 = (v4 + 4 * v43);
-        v48 = v47[91];
-        v49 = v47[99];
-        v50 = v47[107];
-        v85 = v47[83];
-        v86 = v48;
+        v45 = qword_2512C8118[v43];
+        v46 = qword_2512C8180[v43];
+        v47 = (v5 + 4 * v46);
+        v82 = v47[59];
+        v83 = v47[65];
+        v84 = v47[71];
+        v85 = v47[77];
+        v48 = (v5 + 4 * v44);
+        v49 = v48[91];
+        v50 = v48[99];
+        v51 = v48[107];
+        v86 = v48[83];
         v87 = v49;
         v88 = v50;
-        v89 = 1;
-        LOBYTE(v90) = 0;
-        v91 = 0;
-        LODWORD(v51) = *(v4 + 4 * v44 + 1100);
-        v52 = v4 + 16 * v45;
-        v53 = *(v52 + 1120);
-        DWORD1(v51) = *(v52 + 1108);
-        *(&v51 + 1) = *(v52 + 1112);
-        *v92 = v51;
-        *&v92[16] = v53;
-        v92[20] = 0;
-        v94 = 0;
-        LOBYTE(v95) = 0;
-        v96 = 0;
-        if (v8)
+        v89 = v51;
+        v90 = 1;
+        LOBYTE(v91) = 0;
+        v92 = 0;
+        LODWORD(v52) = *(v5 + 4 * v45 + 1100);
+        v53 = v5 + 16 * v46;
+        v54 = *(v53 + 1120);
+        DWORD1(v52) = *(v53 + 1108);
+        *(&v52 + 1) = *(v53 + 1112);
+        *v93 = v52;
+        *&v93[16] = v54;
+        v93[20] = 0;
+        v95 = 0;
+        LOBYTE(v96) = 0;
+        v97 = 0;
+        if (v9)
         {
-          v54 = (v4 + 320 * v44 + 10 * v43 + health_algorithms::mdm_frequency_to_index(2, v9));
-          LODWORD(v54) = v54[460] | (v54[540] << 8) | (v54[620] << 16) | (v54[700] << 24);
-          v91 = 1;
-          v90 = v54;
-          LODWORD(v42) = *(a2 + 44);
+          v55 = (v5 + 320 * v45 + 10 * v44 + health_algorithms::mdm_frequency_to_index(2, v10));
+          LODWORD(v55) = v55[460] | (v55[540] << 8) | (v55[620] << 16) | (v55[700] << 24);
+          v92 = 1;
+          v91 = v55;
+          LODWORD(v43) = *(a2 + 44);
         }
 
-        v97 = 0;
         v98 = 0;
-        v99 = *(a2 + 32);
-        v100 = *(a2 + 36);
-        v101 = *(a2 + 40);
-        v102 = *(a2 + 42);
-        v103 = health_algorithms::led_to_wavelength_index(2, v42);
-        v104 = 0;
-        v105 = a4;
+        v99 = 0;
+        v100 = *(a2 + 32);
+        v101 = *(a2 + 36);
+        v102 = *(a2 + 40);
+        v103 = *(a2 + 42);
+        v104 = health_algorithms::led_to_wavelength_index(2, v43);
+        v105 = 0;
+        v106 = a4;
         operator new();
       }
 
-      v74 = "tia_gain_index < mimosa::OpRTv1::gain_count";
-      v75 = 425;
-      v76 = "compute_calibration_slice";
+      v75 = "tia_gain_index < mimosa::OpRTv1::gain_count";
+      v76 = 425;
+      v77 = "compute_calibration_slice";
 LABEL_60:
-      __assert_rtn(v76, "PPGProcessor.cpp", v75, v74);
+      __assert_rtn(v77, "PPGProcessor.cpp", v76, v75);
     }
 
-    v74 = "cal_led != Sunstone2p5OpticalLedIdx::S2P5_INVALID";
-    v75 = 226;
+    v75 = "cal_led != Sunstone2p5OpticalLedIdx::S2P5_INVALID";
+    v76 = 226;
   }
 
-  v76 = "sunstone2p5_led_to_idx";
+  v77 = "sunstone2p5_led_to_idx";
   goto LABEL_60;
 }
 
-void sub_251294854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_251294854(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
-  MEMORY[0x25306FDD0](v14, 0x1012C40419E608ALL);
+  MEMORY[0x25306FDD0](v14, 0x1012C40419E608ALL, a3, a4, a5, a6, a7, a8);
   if (a14 < 0)
   {
     operator delete(__p);
@@ -7071,7 +7048,7 @@ void sub_251294854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t health_algorithms::led_to_wavelength_index(int a1, unsigned int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (a1 == 2)
   {
     if (a2 >= 0xD)
@@ -7081,12 +7058,12 @@ uint64_t health_algorithms::led_to_wavelength_index(int a1, unsigned int a2)
 
     if (a2 >= 2)
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = 3;
+      return 3;
     }
   }
 
@@ -7097,10 +7074,10 @@ uint64_t health_algorithms::led_to_wavelength_index(int a1, unsigned int a2)
       health_algorithms::led_to_wavelength_index();
     }
 
-    v4 = 33686018;
-    v5 = 3;
-    v6 = 16843009;
-    result = *(&v4 + a2);
+    v3 = 33686018;
+    v4 = 3;
+    v5 = 16843009;
+    return *(&v3 + a2);
   }
 
   else
@@ -7110,18 +7087,15 @@ uint64_t health_algorithms::led_to_wavelength_index(int a1, unsigned int a2)
       health_algorithms::led_to_wavelength_index();
     }
 
-    result = 2 * (a2 < 2);
+    return 2 * (a2 < 2);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void health_algorithms::PPGProcessor::process_packet(uint64_t *a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
+void health_algorithms::PPGProcessor::process_packet(uint64_t *a1@<X0>, uint64_t a2@<X1>, size_t *a3@<X8>)
 {
   v3 = a3;
-  a3[1] = 0u;
-  a3[2] = 0u;
+  *(a3 + 1) = 0u;
+  *(a3 + 2) = 0u;
   *a3 = 0u;
   v87 = *a1 + 232;
   v4 = *(a2 + 320);
@@ -7828,20 +7802,17 @@ uint64_t health_algorithms::PPGProcessor::determine_interpolated_accel_scheme(ui
   return (off_286352A60[v1])(&v4, a1);
 }
 
-void *std::vector<health_algorithms::PPGProcessor::AccelOutputSignal>::reserve(void *result, unint64_t a2)
+void std::vector<health_algorithms::PPGProcessor::AccelOutputSignal>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<health_algorithms::PPGProcessor::AccelOutputSignal>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<health_algorithms::PPGProcessor::AccelOutputSignal>>(a1, a2);
     }
 
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<health_algorithms::PPGProcessor::RawPPGDatum>>(uint64_t a1, unint64_t a2)
@@ -7927,7 +7898,7 @@ uint64_t *std::back_insert_iterator<std::vector<health_algorithms::PPGProcessor:
   return a1;
 }
 
-uint64_t health_algorithms::index_for_tia_gain(health_algorithms *this)
+uint64_t health_algorithms::index_for_tia_gain(health_algorithms *this, uint64_t a2)
 {
   if (this > 119999)
   {
@@ -8012,7 +7983,7 @@ BOOL health_algorithms::is_light_path_redacted_for_gemstone_and_newer(health_alg
   return result;
 }
 
-uint64_t health_algorithms::mdm_frequency_to_index(int a1, int a2)
+uint64_t health_algorithms::mdm_frequency_to_index(uint64_t a1, uint64_t a2)
 {
   if (a1 != 4 && a1 != 2)
   {
@@ -8132,8 +8103,7 @@ uint64_t health_algorithms::mdm_frequency_to_index(int a1, int a2)
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::Visitor<health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_0,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_1,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_2,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_3,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_4,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_5,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_6,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_7,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_8,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_9,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_10,health_algorithms::determine_hardware_generation(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&,std::optional<std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1>> const&)::$_11>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(uint64_t **a1)
 {
-  v1 = **a1;
-  if (*(v1 + 2244) == 1 && *(v1 + 2240) == 2)
+  if (__PAIR64__(*(**a1 + 2244), *(**a1 + 2240)) == 0x100000002)
   {
     return 4;
   }
@@ -9071,33 +9041,33 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,health_algorithm
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::__emplace_unique_key_args<unsigned int,unsigned int const&,health_algorithms::PPGProcessor::SignalProcessorAndFriends>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::__emplace_unique_key_args<unsigned int,unsigned int const&,health_algorithms::PPGProcessor::SignalProcessorAndFriends>(float *a1, unsigned int *a2, _DWORD *a3, uint64_t *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -9105,47 +9075,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -9161,7 +9131,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PP
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -9169,7 +9139,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PP
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -9193,7 +9163,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PP
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,health_algorithms::PPGProcessor::SignalProcessorAndFriends>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -9241,35 +9211,33 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-float std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, __int128 *a2)
+float std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, uint64_t a2)
 {
   v3 = *a1;
-  v7 = *a2;
-  v8 = a2[1];
-  v10 = 0;
-  v11 = 0;
+  v8 = 0;
   v9 = 0;
-  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(&v9, *(a2 + 4), *(a2 + 5), 0x8E38E38E38E38E39 * ((*(a2 + 5) - *(a2 + 4)) >> 2));
-  v12 = *(a2 + 56);
-  v14 = 0;
-  v15 = 0;
+  v7 = 0;
+  std::vector<mimosa::OpticalSampleV1>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV1*,mimosa::OpticalSampleV1*>(&v7, *(a2 + 32), *(a2 + 40), 0x8E38E38E38E38E39 * ((*(a2 + 40) - *(a2 + 32)) >> 2));
+  v10 = *(a2 + 56);
+  v12 = 0;
+  v13 = 0;
   __p = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
-  v4 = a2[7];
-  v16 = a2[6];
-  v17 = v4;
-  v18 = a2[8];
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  v4 = *(a2 + 112);
+  v14 = *(a2 + 96);
+  v15 = v4;
+  v16 = *(a2 + 128);
   v5 = *v3;
   if (__p)
   {
-    v14 = __p;
+    v12 = __p;
     operator delete(__p);
   }
 
-  if (v9)
+  if (v7)
   {
-    v10 = v9;
-    operator delete(v9);
+    v8 = v7;
+    operator delete(v7);
   }
 
   return v5;
@@ -9377,9 +9345,9 @@ float std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch
   return result;
 }
 
-void sub_251297408(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_251297408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mimosa::PacketV2::~PacketV2(va);
   _Unwind_Resume(a1);
 }
@@ -9417,51 +9385,49 @@ float std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch
   return result;
 }
 
-float std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, __int128 *a2)
+float std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, uint64_t a2)
 {
   v3 = *a1;
-  v13 = *a2;
-  v14 = a2[1];
-  v16 = 0;
-  v17 = 0;
+  v14 = 0;
   v15 = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v15, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 5);
-  v18 = *(a2 + 56);
-  v20 = 0;
-  v21 = 0;
+  v13 = 0;
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v13, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  v16 = *(a2 + 56);
+  v18 = 0;
+  v19 = 0;
   __p = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
-  v4 = a2[17];
-  v28[4] = a2[16];
-  v28[5] = v4;
-  v29 = *(a2 + 36);
-  v5 = a2[13];
-  v28[0] = a2[12];
-  v28[1] = v5;
-  v6 = a2[15];
-  v28[2] = a2[14];
-  v28[3] = v6;
-  v7 = a2[9];
-  v24 = a2[8];
-  v25 = v7;
-  v8 = a2[11];
-  v26 = a2[10];
-  v27 = v8;
-  v9 = a2[7];
-  v22 = a2[6];
-  v23 = v9;
-  v10 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV2Subpacket>(v28 + 8, *(*(v3 + 1) + 38));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  v4 = *(a2 + 272);
+  v26[4] = *(a2 + 256);
+  v26[5] = v4;
+  v27 = *(a2 + 288);
+  v5 = *(a2 + 208);
+  v26[0] = *(a2 + 192);
+  v26[1] = v5;
+  v6 = *(a2 + 240);
+  v26[2] = *(a2 + 224);
+  v26[3] = v6;
+  v7 = *(a2 + 144);
+  v22 = *(a2 + 128);
+  v23 = v7;
+  v8 = *(a2 + 176);
+  v24 = *(a2 + 160);
+  v25 = v8;
+  v9 = *(a2 + 112);
+  v20 = *(a2 + 96);
+  v21 = v9;
+  v10 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV2Subpacket>(v26 + 8, *(*(v3 + 1) + 38));
   v11 = *v3;
   if (__p)
   {
-    v20 = __p;
+    v18 = __p;
     operator delete(__p);
   }
 
-  if (v15)
+  if (v13)
   {
-    v16 = v15;
-    operator delete(v15);
+    v14 = v13;
+    operator delete(v13);
   }
 
   result = v11;
@@ -9473,53 +9439,51 @@ float std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch
   return result;
 }
 
-float std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, __int128 *a2)
+float std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, uint64_t a2)
 {
   v3 = *a1;
-  v14 = *a2;
-  v15 = a2[1];
-  v17 = 0;
-  v18 = 0;
+  v15 = 0;
   v16 = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v16, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 5);
-  v19 = *(a2 + 56);
-  v21 = 0;
-  v22 = 0;
+  v14 = 0;
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v14, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  v17 = *(a2 + 56);
+  v19 = 0;
+  v20 = 0;
   __p = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
-  v4 = a2[17];
-  v29[4] = a2[16];
-  v29[5] = v4;
-  v5 = a2[19];
-  v29[6] = a2[18];
-  v29[7] = v5;
-  v6 = a2[13];
-  v29[0] = a2[12];
-  v29[1] = v6;
-  v7 = a2[15];
-  v29[2] = a2[14];
-  v29[3] = v7;
-  v8 = a2[9];
-  v25 = a2[8];
-  v26 = v8;
-  v9 = a2[11];
-  v27 = a2[10];
-  v28 = v9;
-  v10 = a2[7];
-  v23 = a2[6];
-  v24 = v10;
-  v11 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV3Subpacket>(v29 + 8, *(*(v3 + 1) + 38));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  v4 = *(a2 + 272);
+  v27[4] = *(a2 + 256);
+  v27[5] = v4;
+  v5 = *(a2 + 304);
+  v27[6] = *(a2 + 288);
+  v27[7] = v5;
+  v6 = *(a2 + 208);
+  v27[0] = *(a2 + 192);
+  v27[1] = v6;
+  v7 = *(a2 + 240);
+  v27[2] = *(a2 + 224);
+  v27[3] = v7;
+  v8 = *(a2 + 144);
+  v23 = *(a2 + 128);
+  v24 = v8;
+  v9 = *(a2 + 176);
+  v25 = *(a2 + 160);
+  v26 = v9;
+  v10 = *(a2 + 112);
+  v21 = *(a2 + 96);
+  v22 = v10;
+  v11 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV3Subpacket>(v27 + 8, *(*(v3 + 1) + 38));
   v12 = *v3;
   if (__p)
   {
-    v21 = __p;
+    v19 = __p;
     operator delete(__p);
   }
 
-  if (v16)
+  if (v14)
   {
-    v17 = v16;
-    operator delete(v16);
+    v15 = v14;
+    operator delete(v14);
   }
 
   result = v12;
@@ -9531,53 +9495,51 @@ float std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch
   return result;
 }
 
-float std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, __int128 *a2)
+float std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, uint64_t a2)
 {
   v3 = *a1;
-  v14 = *a2;
-  v15 = a2[1];
-  v17 = 0;
-  v18 = 0;
+  v15 = 0;
   v16 = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v16, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 5);
-  v19 = *(a2 + 56);
-  v21 = 0;
-  v22 = 0;
+  v14 = 0;
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v14, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  v17 = *(a2 + 56);
+  v19 = 0;
+  v20 = 0;
   __p = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
-  v4 = a2[17];
-  v29[4] = a2[16];
-  v29[5] = v4;
-  v5 = a2[19];
-  v29[6] = a2[18];
-  v29[7] = v5;
-  v6 = a2[13];
-  v29[0] = a2[12];
-  v29[1] = v6;
-  v7 = a2[15];
-  v29[2] = a2[14];
-  v29[3] = v7;
-  v8 = a2[9];
-  v25 = a2[8];
-  v26 = v8;
-  v9 = a2[11];
-  v27 = a2[10];
-  v28 = v9;
-  v10 = a2[7];
-  v23 = a2[6];
-  v24 = v10;
-  v11 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV3Subpacket>(v29 + 8, *(*(v3 + 1) + 38));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  v4 = *(a2 + 272);
+  v27[4] = *(a2 + 256);
+  v27[5] = v4;
+  v5 = *(a2 + 304);
+  v27[6] = *(a2 + 288);
+  v27[7] = v5;
+  v6 = *(a2 + 208);
+  v27[0] = *(a2 + 192);
+  v27[1] = v6;
+  v7 = *(a2 + 240);
+  v27[2] = *(a2 + 224);
+  v27[3] = v7;
+  v8 = *(a2 + 144);
+  v23 = *(a2 + 128);
+  v24 = v8;
+  v9 = *(a2 + 176);
+  v25 = *(a2 + 160);
+  v26 = v9;
+  v10 = *(a2 + 112);
+  v21 = *(a2 + 96);
+  v22 = v10;
+  v11 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV3Subpacket>(v27 + 8, *(*(v3 + 1) + 38));
   v12 = *v3;
   if (__p)
   {
-    v21 = __p;
+    v19 = __p;
     operator delete(__p);
   }
 
-  if (v16)
+  if (v14)
   {
-    v17 = v16;
-    operator delete(v16);
+    v15 = v14;
+    operator delete(v14);
   }
 
   result = v12;
@@ -9589,40 +9551,38 @@ float std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch
   return result;
 }
 
-float std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, __int128 *a2)
+float std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, uint64_t a2)
 {
   v3 = *a1;
-  v9 = *a2;
-  v10 = a2[1];
-  v12 = 0;
-  v13 = 0;
+  v10 = 0;
   v11 = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v11, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 5);
-  v14 = *(a2 + 56);
-  v16 = 0;
-  v17 = 0;
+  v9 = 0;
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v9, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  v12 = *(a2 + 56);
+  v14 = 0;
+  v15 = 0;
   __p = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
-  v4 = a2[7];
-  v18 = a2[6];
-  v19 = v4;
-  v5 = a2[11];
-  v22 = a2[10];
-  v23 = v5;
-  v6 = a2[9];
-  v20 = a2[8];
-  v21 = v6;
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  v4 = *(a2 + 112);
+  v16 = *(a2 + 96);
+  v17 = v4;
+  v5 = *(a2 + 176);
+  v20 = *(a2 + 160);
+  v21 = v5;
+  v6 = *(a2 + 144);
+  v18 = *(a2 + 128);
+  v19 = v6;
   v7 = *v3;
   if (__p)
   {
-    v16 = __p;
+    v14 = __p;
     operator delete(__p);
   }
 
-  if (v11)
+  if (v9)
   {
-    v12 = v11;
-    operator delete(v11);
+    v10 = v9;
+    operator delete(v9);
   }
 
   return v7;
@@ -9638,50 +9598,48 @@ void sub_251297948(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, __int128 *a2)
+float std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, uint64_t a2)
 {
   v3 = *a1;
-  v13 = *a2;
-  v14 = a2[1];
-  v16 = 0;
-  v17 = 0;
+  v14 = 0;
   v15 = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v15, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 5);
-  v18 = *(a2 + 56);
-  v20 = 0;
-  v21 = 0;
+  v13 = 0;
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v13, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  v16 = *(a2 + 56);
+  v18 = 0;
+  v19 = 0;
   __p = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
-  v4 = a2[15];
-  v28[2] = a2[14];
-  v28[3] = v4;
-  v5 = a2[17];
-  v28[4] = a2[16];
-  v28[5] = v5;
-  v6 = a2[11];
-  v26 = a2[10];
-  v27 = v6;
-  v7 = a2[13];
-  v28[0] = a2[12];
-  v28[1] = v7;
-  v8 = a2[7];
-  v22 = a2[6];
-  v23 = v8;
-  v9 = a2[9];
-  v24 = a2[8];
-  v25 = v9;
-  v10 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV2Subpacket>(v28, *(*(v3 + 1) + 38));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  v4 = *(a2 + 240);
+  v26[2] = *(a2 + 224);
+  v26[3] = v4;
+  v5 = *(a2 + 272);
+  v26[4] = *(a2 + 256);
+  v26[5] = v5;
+  v6 = *(a2 + 176);
+  v24 = *(a2 + 160);
+  v25 = v6;
+  v7 = *(a2 + 208);
+  v26[0] = *(a2 + 192);
+  v26[1] = v7;
+  v8 = *(a2 + 112);
+  v20 = *(a2 + 96);
+  v21 = v8;
+  v9 = *(a2 + 144);
+  v22 = *(a2 + 128);
+  v23 = v9;
+  v10 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV2Subpacket>(v26, *(*(v3 + 1) + 38));
   v11 = *v3;
   if (__p)
   {
-    v20 = __p;
+    v18 = __p;
     operator delete(__p);
   }
 
-  if (v15)
+  if (v13)
   {
-    v16 = v15;
-    operator delete(v15);
+    v14 = v13;
+    operator delete(v13);
   }
 
   result = v11;
@@ -9693,52 +9651,50 @@ float std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch
   return result;
 }
 
-float std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, __int128 *a2)
+float std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, uint64_t a2)
 {
   v3 = *a1;
-  v13 = *a2;
-  v14 = a2[1];
-  v16 = 0;
-  v17 = 0;
+  v14 = 0;
   v15 = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v15, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 5);
-  v18 = *(a2 + 56);
-  v20 = 0;
-  v21 = 0;
+  v13 = 0;
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v13, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  v16 = *(a2 + 56);
+  v18 = 0;
+  v19 = 0;
   __p = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
-  v4 = a2[17];
-  v28[4] = a2[16];
-  v28[5] = v4;
-  v28[6] = a2[18];
-  v29 = *(a2 + 38);
-  v5 = a2[13];
-  v28[0] = a2[12];
-  v28[1] = v5;
-  v6 = a2[15];
-  v28[2] = a2[14];
-  v28[3] = v6;
-  v7 = a2[9];
-  v24 = a2[8];
-  v25 = v7;
-  v8 = a2[11];
-  v26 = a2[10];
-  v27 = v8;
-  v9 = a2[7];
-  v22 = a2[6];
-  v23 = v9;
-  v10 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV3Subpacket>(v28, *(*(v3 + 1) + 38));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  v4 = *(a2 + 272);
+  v26[4] = *(a2 + 256);
+  v26[5] = v4;
+  v26[6] = *(a2 + 288);
+  v27 = *(a2 + 304);
+  v5 = *(a2 + 208);
+  v26[0] = *(a2 + 192);
+  v26[1] = v5;
+  v6 = *(a2 + 240);
+  v26[2] = *(a2 + 224);
+  v26[3] = v6;
+  v7 = *(a2 + 144);
+  v22 = *(a2 + 128);
+  v23 = v7;
+  v8 = *(a2 + 176);
+  v24 = *(a2 + 160);
+  v25 = v8;
+  v9 = *(a2 + 112);
+  v20 = *(a2 + 96);
+  v21 = v9;
+  v10 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV3Subpacket>(v26, *(*(v3 + 1) + 38));
   v11 = *v3;
   if (__p)
   {
-    v20 = __p;
+    v18 = __p;
     operator delete(__p);
   }
 
-  if (v15)
+  if (v13)
   {
-    v16 = v15;
-    operator delete(v15);
+    v14 = v13;
+    operator delete(v13);
   }
 
   result = v11;
@@ -9750,52 +9706,50 @@ float std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatc
   return result;
 }
 
-float std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, __int128 *a2)
+float std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::process_packet(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_7> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>(unsigned __int16 **a1, uint64_t a2)
 {
   v3 = *a1;
-  v13 = *a2;
-  v14 = a2[1];
-  v16 = 0;
-  v17 = 0;
+  v14 = 0;
   v15 = 0;
-  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v15, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 5);
-  v18 = *(a2 + 56);
-  v20 = 0;
-  v21 = 0;
+  v13 = 0;
+  std::vector<mimosa::OpticalSampleV2>::__init_with_size[abi:ne200100]<mimosa::OpticalSampleV2*,mimosa::OpticalSampleV2*>(&v13, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 5);
+  v16 = *(a2 + 56);
+  v18 = 0;
+  v19 = 0;
   __p = 0;
-  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 9), *(a2 + 10), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 10) - *(a2 + 9)) >> 2));
-  v4 = a2[17];
-  v28[4] = a2[16];
-  v28[5] = v4;
-  v28[6] = a2[18];
-  v29 = *(a2 + 38);
-  v5 = a2[13];
-  v28[0] = a2[12];
-  v28[1] = v5;
-  v6 = a2[15];
-  v28[2] = a2[14];
-  v28[3] = v6;
-  v7 = a2[9];
-  v24 = a2[8];
-  v25 = v7;
-  v8 = a2[11];
-  v26 = a2[10];
-  v27 = v8;
-  v9 = a2[7];
-  v22 = a2[6];
-  v23 = v9;
-  v10 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV3Subpacket>(v28, *(*(v3 + 1) + 38));
+  std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(&__p, *(a2 + 72), *(a2 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+  v4 = *(a2 + 272);
+  v26[4] = *(a2 + 256);
+  v26[5] = v4;
+  v26[6] = *(a2 + 288);
+  v27 = *(a2 + 304);
+  v5 = *(a2 + 208);
+  v26[0] = *(a2 + 192);
+  v26[1] = v5;
+  v6 = *(a2 + 240);
+  v26[2] = *(a2 + 224);
+  v26[3] = v6;
+  v7 = *(a2 + 144);
+  v22 = *(a2 + 128);
+  v23 = v7;
+  v8 = *(a2 + 176);
+  v24 = *(a2 + 160);
+  v25 = v8;
+  v9 = *(a2 + 112);
+  v20 = *(a2 + 96);
+  v21 = v9;
+  v10 = health_algorithms::get_effective_wavelength<mimosa::WavelengthV3Subpacket>(v26, *(*(v3 + 1) + 38));
   v11 = *v3;
   if (__p)
   {
-    v20 = __p;
+    v18 = __p;
     operator delete(__p);
   }
 
-  if (v15)
+  if (v13)
   {
-    v16 = v15;
-    operator delete(v15);
+    v14 = v13;
+    operator delete(v13);
   }
 
   result = v11;
@@ -9805,4 +9759,42 @@ float std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatc
   }
 
   return result;
+}
+
+uint64_t health_algorithms::get_effective_wavelength<mimosa::WavelengthV2Subpacket>(uint64_t a1, int a2)
+{
+  if (*(a1 + 64))
+  {
+    goto LABEL_2;
+  }
+
+  v4 = (a1 + 20);
+  v3 = 48;
+  while (*v4 != a2)
+  {
+    v4 += 4;
+    v3 -= 8;
+    if (!v3)
+    {
+      v2 = 0;
+      return v3 | v2;
+    }
+  }
+
+  v5 = *(v4 - 1);
+  if (!v5)
+  {
+LABEL_2:
+    v2 = 0;
+    v3 = 0;
+  }
+
+  else
+  {
+    *&v6 = vcvtd_n_f64_u32(v5, 7uLL);
+    v3 = v6;
+    v2 = 0x100000000;
+  }
+
+  return v3 | v2;
 }

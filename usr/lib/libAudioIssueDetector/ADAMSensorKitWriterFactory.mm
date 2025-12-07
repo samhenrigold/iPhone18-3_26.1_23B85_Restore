@@ -54,7 +54,7 @@
 
 + (id)GetSensorKitWriterWithIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   identifierCopy = identifier;
   if (!objc_opt_class())
   {
@@ -114,23 +114,21 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [+[ADAMSensorKitWriterFactory GetSensorKitWriterWithIdentifier:]::dict objectForKey:identifierCopy];
-      v16 = 136315906;
-      v17 = "ADAMSensorKitWriterFactory.mm";
-      v18 = 1024;
-      v19 = 60;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2112;
-      v23 = identifierCopy;
-      _os_log_impl(&dword_296C34000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Created SRSensorWriter: [%@] for identifier: [%@]", &v16, 0x26u);
+      v15 = 136315906;
+      v16 = "ADAMSensorKitWriterFactory.mm";
+      v17 = 1024;
+      v18 = 60;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2112;
+      v22 = identifierCopy;
+      _os_log_impl(&dword_296C34000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Created SRSensorWriter: [%@] for identifier: [%@]", &v15, 0x26u);
     }
   }
 
 LABEL_17:
   v4 = [+[ADAMSensorKitWriterFactory GetSensorKitWriterWithIdentifier:]::dict objectForKey:identifierCopy];
 LABEL_18:
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return v4;
 }

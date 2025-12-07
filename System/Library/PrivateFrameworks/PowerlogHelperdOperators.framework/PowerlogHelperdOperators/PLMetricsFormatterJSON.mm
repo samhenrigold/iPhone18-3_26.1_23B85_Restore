@@ -6,10 +6,12 @@
 - (BOOL)writeSessionFile;
 - (PLMetricsFormatterJSON)init;
 - (id)createHeaderForSessionsFile;
+- (id)customRound:(int)round precision:(int)precision;
 - (id)getCurrentTimeFormatted:(BOOL)formatted;
 - (id)getFileHandle;
 - (id)getOSVersion;
 - (id)metricsToStringAsJSON;
+- (id)roundArrayValuesToNearestX:(id)x precision:(int)precision;
 - (id)sanitizeDictionary:(id)dictionary;
 - (void)addAllMetrics:(id)metrics signpostData:(id)data;
 - (void)addAppEnergy:(id)energy userData:(id)data;
@@ -217,6 +219,69 @@ void __30__PLMetricsFormatterJSON_init__block_invoke(uint64_t a1, void *a2)
   [*(*(a1 + 32) + 128) addObject:v12];
 }
 
+- (id)customRound:(int)round precision:(int)precision
+{
+  if (round >= precision)
+  {
+    v5 = (round / precision * precision);
+    v4 = MEMORY[0x277CCABB0];
+    if (round - v5 > precision - (round - v5))
+    {
+      v5 = (v5 + precision);
+    }
+  }
+
+  else
+  {
+    v4 = MEMORY[0x277CCABB0];
+    v5 = *&precision;
+  }
+
+  v7 = [v4 numberWithInt:v5];
+
+  return v7;
+}
+
+- (id)roundArrayValuesToNearestX:(id)x precision:(int)precision
+{
+  v4 = *&precision;
+  v21 = *MEMORY[0x277D85DE8];
+  xCopy = x;
+  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v8 = xCopy;
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v17;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v17 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = -[PLMetricsFormatterJSON customRound:precision:](self, "customRound:precision:", [*(*(&v16 + 1) + 8 * i) intValue], v4);
+        [v7 addObject:v13];
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v10);
+  }
+
+  v14 = [v7 sortedArrayUsingSelector:sel_compare_];
+
+  return v14;
+}
+
 - (BOOL)checkKeyExistence:(id)existence secondLevel:(id)level dictToCheck:(id)check
 {
   levelCopy = level;
@@ -228,44 +293,44 @@ void __30__PLMetricsFormatterJSON_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)addSubKeysThirdLevel:(id)level extractFromHere:(id)here deviceFirstLevelMetric:(id)metric firstLevelKey:(id)key secondLevelKey:(id)levelKey thirdLevelKey:(id)thirdLevelKey subKeyMap:(id)map
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   levelCopy = level;
   hereCopy = here;
   metricCopy = metric;
   keyCopy = key;
   levelKeyCopy = levelKey;
   thirdLevelKeyCopy = thirdLevelKey;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = map;
-  v17 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v17 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v42;
+    v19 = *v41;
     selfCopy = self;
     do
     {
       v20 = 0;
-      v38 = v18;
+      v37 = v18;
       do
       {
-        if (*v42 != v19)
+        if (*v41 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v41 + 1) + 8 * v20);
+        v21 = *(*(&v40 + 1) + 8 * v20);
         v22 = [v21 objectAtIndexedSubscript:{1, selfCopy}];
         v23 = [(PLMetricsFormatterJSON *)self checkKeyExistence:metricCopy secondLevel:v22 dictToCheck:hereCopy];
 
         if (v23)
         {
           v24 = [v21 objectAtIndexedSubscript:0];
-          v40 = [levelCopy objectForKeyedSubscript:keyCopy];
-          v25 = [v40 objectForKeyedSubscript:levelKeyCopy];
+          v39 = [levelCopy objectForKeyedSubscript:keyCopy];
+          v25 = [v39 objectForKeyedSubscript:levelKeyCopy];
           v26 = [v25 objectForKeyedSubscript:thirdLevelKeyCopy];
           [hereCopy objectForKeyedSubscript:metricCopy];
           v28 = v27 = hereCopy;
@@ -278,62 +343,60 @@ void __30__PLMetricsFormatterJSON_init__block_invoke(uint64_t a1, void *a2)
           hereCopy = v27;
 
           self = selfCopy;
-          v18 = v38;
+          v18 = v37;
         }
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v18 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v18);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSubKeys:(id)keys extractFromHere:(id)here deviceFirstLevelMetric:(id)metric firstLevelKey:(id)key secondLevelKey:(id)levelKey subKeyMap:(id)map
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   hereCopy = here;
   metricCopy = metric;
   keyCopy = key;
   levelKeyCopy = levelKey;
   v16 = hereCopy;
-  v33 = levelKeyCopy;
+  v32 = levelKeyCopy;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = map;
-  v17 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v17 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v40;
+    v19 = *v39;
     do
     {
       v20 = 0;
-      v36 = v18;
+      v35 = v18;
       do
       {
-        if (*v40 != v19)
+        if (*v39 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v39 + 1) + 8 * v20);
-        v22 = [v21 objectAtIndexedSubscript:{1, v33}];
+        v21 = *(*(&v38 + 1) + 8 * v20);
+        v22 = [v21 objectAtIndexedSubscript:{1, v32}];
         v23 = [(PLMetricsFormatterJSON *)self checkKeyExistence:metricCopy secondLevel:v22 dictToCheck:v16];
 
         if (v23)
         {
           v24 = [v21 objectAtIndexedSubscript:0];
           v25 = [keysCopy objectForKeyedSubscript:keyCopy];
-          [v25 objectForKeyedSubscript:v33];
+          [v25 objectForKeyedSubscript:v32];
           v27 = v26 = v19;
           [v16 objectForKeyedSubscript:metricCopy];
           v29 = v28 = v16;
@@ -343,20 +406,18 @@ void __30__PLMetricsFormatterJSON_init__block_invoke(uint64_t a1, void *a2)
 
           v16 = v28;
           v19 = v26;
-          v18 = v36;
+          v18 = v35;
         }
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v18 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v18);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAppTime:(id)time userData:(id)data
@@ -368,35 +429,34 @@ void __30__PLMetricsFormatterJSON_init__block_invoke(uint64_t a1, void *a2)
   v9 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
   [v9 setObject:dictionary forKey:@"app_time"];
 
-  appTimeMapping = self->appTimeMapping;
   [PLMetricsFormatterJSON addSubKeys:"addSubKeys:extractFromHere:deviceFirstLevelMetric:firstLevelKey:secondLevelKey:subKeyMap:" extractFromHere:timeCopy deviceFirstLevelMetric:dataCopy firstLevelKey:? secondLevelKey:? subKeyMap:?];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-  v11 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
-  v12 = [v11 objectForKeyedSubscript:@"app_time"];
-  [v12 setObject:dictionary2 forKey:@"bg_total"];
+  v10 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
+  v11 = [v10 objectForKeyedSubscript:@"app_time"];
+  [v11 setObject:dictionary2 forKey:@"bg_total"];
 
   [(PLMetricsFormatterJSON *)self addSubKeysThirdLevel:timeCopy extractFromHere:dataCopy deviceFirstLevelMetric:&unk_287146228 firstLevelKey:@"power_metrics" secondLevelKey:@"app_time" thirdLevelKey:@"bg_total" subKeyMap:self->appBGTimeMapping];
   dictionary3 = [MEMORY[0x277CBEB38] dictionary];
-  v13 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
-  [v13 setObject:dictionary3 forKey:@"fg_unplugged"];
+  v12 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
+  [v12 setObject:dictionary3 forKey:@"fg_unplugged"];
 
   [(PLMetricsFormatterJSON *)self addSubKeys:timeCopy extractFromHere:dataCopy deviceFirstLevelMetric:&unk_287146228 firstLevelKey:@"power_metrics" secondLevelKey:@"app_time" subKeyMap:self->appTimeUnpluggedMapping];
   dictionary4 = [MEMORY[0x277CBEB38] dictionary];
-  v14 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
-  v15 = [v14 objectForKeyedSubscript:@"app_time"];
-  [v15 setObject:dictionary4 forKey:@"bg_unplugged"];
+  v13 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
+  v14 = [v13 objectForKeyedSubscript:@"app_time"];
+  [v14 setObject:dictionary4 forKey:@"bg_unplugged"];
 
   [(PLMetricsFormatterJSON *)self addSubKeysThirdLevel:timeCopy extractFromHere:dataCopy deviceFirstLevelMetric:&unk_287146228 firstLevelKey:@"power_metrics" secondLevelKey:@"app_time" thirdLevelKey:@"bg_unplugged" subKeyMap:self->appBGTimeUpMapping];
   dictionary5 = [MEMORY[0x277CBEB38] dictionary];
-  v17 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
-  v18 = [v17 objectForKeyedSubscript:@"app_time"];
-  [v18 setObject:dictionary5 forKey:@"location_activity"];
+  v16 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
+  v17 = [v16 objectForKeyedSubscript:@"app_time"];
+  [v17 setObject:dictionary5 forKey:@"location_activity"];
 
   [(PLMetricsFormatterJSON *)self addSubKeysThirdLevel:timeCopy extractFromHere:dataCopy deviceFirstLevelMetric:&unk_287146228 firstLevelKey:@"power_metrics" secondLevelKey:@"app_time" thirdLevelKey:@"location_activity" subKeyMap:self->appTimeLocationActivityMapping];
   dictionary6 = [MEMORY[0x277CBEB38] dictionary];
-  v20 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
-  v21 = [v20 objectForKeyedSubscript:@"app_time"];
-  [v21 setObject:dictionary6 forKey:@"cellular_condition"];
+  v19 = [timeCopy objectForKeyedSubscript:@"power_metrics"];
+  v20 = [v19 objectForKeyedSubscript:@"app_time"];
+  [v20 setObject:dictionary6 forKey:@"cellular_condition"];
 
   [(PLMetricsFormatterJSON *)self addSubKeysThirdLevel:timeCopy extractFromHere:dataCopy deviceFirstLevelMetric:&unk_287146228 firstLevelKey:@"power_metrics" secondLevelKey:@"app_time" thirdLevelKey:@"cellular_condition" subKeyMap:self->appTimeCellularConditionMapping];
 }
@@ -533,8 +593,8 @@ void __30__PLMetricsFormatterJSON_init__block_invoke(uint64_t a1, void *a2)
           v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON addAppPerformanceKeysLaunch:userData:launchTimeData:]"];
           [v20 logMessage:v19 fromFile:lastPathComponent fromFunction:v23 fromLineNumber:487];
 
-          v24 = PLLogCommon();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          v25 = PLLogCommon(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
           {
             __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
           }
@@ -542,44 +602,44 @@ void __30__PLMetricsFormatterJSON_init__block_invoke(uint64_t a1, void *a2)
       }
 
       dictionary3 = [MEMORY[0x277CBEB38] dictionary];
-      v26 = [launchCopy objectForKeyedSubscript:@"app_bundleid"];
-      v27 = [timeDataCopy objectForKeyedSubscript:v26];
-      v28 = [v27 objectForKeyedSubscript:&unk_287146258];
-      [(PLMetricsFormatterJSON *)self roundArrayValuesToNearestX:v28 precision:50];
-      v30 = v29 = self;
-      [dictionary3 setObject:v30 forKeyedSubscript:@"sessions"];
+      v27 = [launchCopy objectForKeyedSubscript:@"app_bundleid"];
+      v28 = [timeDataCopy objectForKeyedSubscript:v27];
+      v29 = [v28 objectForKeyedSubscript:&unk_287146258];
+      [(PLMetricsFormatterJSON *)self roundArrayValuesToNearestX:v29 precision:50];
+      v31 = v30 = self;
+      [dictionary3 setObject:v31 forKeyedSubscript:@"sessions"];
 
-      v31 = MEMORY[0x277CCABB0];
-      v32 = [launchCopy objectForKeyedSubscript:@"app_bundleid"];
-      v33 = [timeDataCopy objectForKeyedSubscript:v32];
-      v34 = [v33 objectForKeyedSubscript:&unk_287146258];
-      v35 = [v31 numberWithLong:{objc_msgSend(v34, "count")}];
-      [dictionary3 setObject:v35 forKeyedSubscript:@"count"];
+      v32 = MEMORY[0x277CCABB0];
+      v33 = [launchCopy objectForKeyedSubscript:@"app_bundleid"];
+      v34 = [timeDataCopy objectForKeyedSubscript:v33];
+      v35 = [v34 objectForKeyedSubscript:&unk_287146258];
+      v36 = [v32 numberWithLong:{objc_msgSend(v35, "count")}];
+      [dictionary3 setObject:v36 forKeyedSubscript:@"count"];
 
       dictionary4 = [MEMORY[0x277CBEB38] dictionary];
-      v37 = [launchCopy objectForKeyedSubscript:@"app_bundleid"];
-      v38 = [timeDataCopy objectForKeyedSubscript:v37];
-      v39 = [v38 objectForKeyedSubscript:&unk_287146270];
-      v40 = [(PLMetricsFormatterJSON *)v29 roundArrayValuesToNearestX:v39 precision:50];
-      [dictionary4 setObject:v40 forKeyedSubscript:@"sessions"];
+      v38 = [launchCopy objectForKeyedSubscript:@"app_bundleid"];
+      v39 = [timeDataCopy objectForKeyedSubscript:v38];
+      v40 = [v39 objectForKeyedSubscript:&unk_287146270];
+      v41 = [(PLMetricsFormatterJSON *)v30 roundArrayValuesToNearestX:v40 precision:50];
+      [dictionary4 setObject:v41 forKeyedSubscript:@"sessions"];
 
-      v41 = MEMORY[0x277CCABB0];
-      v42 = [launchCopy objectForKeyedSubscript:@"app_bundleid"];
-      v43 = [timeDataCopy objectForKeyedSubscript:v42];
-      v44 = [v43 objectForKeyedSubscript:&unk_287146270];
-      v45 = [v41 numberWithLong:{objc_msgSend(v44, "count")}];
-      [dictionary4 setObject:v45 forKeyedSubscript:@"count"];
+      v42 = MEMORY[0x277CCABB0];
+      v43 = [launchCopy objectForKeyedSubscript:@"app_bundleid"];
+      v44 = [timeDataCopy objectForKeyedSubscript:v43];
+      v45 = [v44 objectForKeyedSubscript:&unk_287146270];
+      v46 = [v42 numberWithLong:{objc_msgSend(v45, "count")}];
+      [dictionary4 setObject:v46 forKeyedSubscript:@"count"];
 
       [dictionary2 setObject:dictionary3 forKeyedSubscript:@"fg"];
       [dictionary2 setObject:dictionary4 forKeyedSubscript:@"bg"];
-      v46 = [launchCopy objectForKeyedSubscript:@"performance_metrics"];
-      v47 = [v46 objectForKeyedSubscript:@"app_performance"];
-      [v47 setObject:dictionary2 forKey:@"launch"];
+      v47 = [launchCopy objectForKeyedSubscript:@"performance_metrics"];
+      v48 = [v47 objectForKeyedSubscript:@"app_performance"];
+      [v48 setObject:dictionary2 forKey:@"launch"];
     }
   }
 }
 
-uint64_t __78__PLMetricsFormatterJSON_addAppPerformanceKeysLaunch_userData_launchTimeData___block_invoke(uint64_t a1)
+void *__78__PLMetricsFormatterJSON_addAppPerformanceKeysLaunch_userData_launchTimeData___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addAppPerformanceKeysLaunch_userData_launchTimeData__classDebugEnabled = result;
@@ -588,7 +648,7 @@ uint64_t __78__PLMetricsFormatterJSON_addAppPerformanceKeysLaunch_userData_launc
 
 - (void)addAppPerformanceKeysActivations:(id)activations activationData:(id)data
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   activationsCopy = activations;
   dataCopy = data;
   v8 = [activationsCopy objectForKeyedSubscript:@"app_bundleid"];
@@ -600,44 +660,44 @@ uint64_t __78__PLMetricsFormatterJSON_addAppPerformanceKeysLaunch_userData_launc
 
     if (v11)
     {
-      v59 = activationsCopy;
+      v60 = activationsCopy;
       v12 = [activationsCopy objectForKeyedSubscript:@"app_bundleid"];
-      v58 = dataCopy;
+      v59 = dataCopy;
       v13 = [dataCopy objectForKeyedSubscript:v12];
       v14 = [v13 mutableCopy];
 
       dictionary = [MEMORY[0x277CBEB38] dictionary];
-      v62 = v14;
-      v69 = 0u;
+      v63 = v14;
       v70 = 0u;
       v71 = 0u;
       v72 = 0u;
+      v73 = 0u;
       v15 = [v14 objectForKeyedSubscript:&unk_287146258];
       allKeys = [v15 allKeys];
 
-      v17 = [allKeys countByEnumeratingWithState:&v69 objects:v74 count:16];
+      v17 = [allKeys countByEnumeratingWithState:&v70 objects:v75 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v70;
+        v19 = *v71;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v70 != v19)
+            if (*v71 != v19)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v21 = *(*(&v69 + 1) + 8 * i);
-            v22 = [v62 objectForKeyedSubscript:&unk_287146258];
+            v21 = *(*(&v70 + 1) + 8 * i);
+            v22 = [v63 objectForKeyedSubscript:&unk_287146258];
             v23 = [v22 objectForKeyedSubscript:v21];
             v24 = [(PLMetricsFormatterJSON *)self roundArrayValuesToNearestX:v23 precision:50];
             stringValue = [v21 stringValue];
             [dictionary setObject:v24 forKeyedSubscript:stringValue];
           }
 
-          v18 = [allKeys countByEnumeratingWithState:&v69 objects:v74 count:16];
+          v18 = [allKeys countByEnumeratingWithState:&v70 objects:v75 count:16];
         }
 
         while (v18);
@@ -659,7 +719,7 @@ uint64_t __78__PLMetricsFormatterJSON_addAppPerformanceKeysLaunch_userData_launc
         if (addAppPerformanceKeysActivations_activationData__classDebugEnabled == 1)
         {
           v27 = MEMORY[0x277CCACA8];
-          v28 = [v59 objectForKeyedSubscript:@"app_bundleid"];
+          v28 = [v60 objectForKeyedSubscript:@"app_bundleid"];
           v29 = [v27 stringWithFormat:@"%@ FG Activation Data: %@", v28, dictionary];
 
           v30 = MEMORY[0x277D3F178];
@@ -668,8 +728,8 @@ uint64_t __78__PLMetricsFormatterJSON_addAppPerformanceKeysLaunch_userData_launc
           v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON addAppPerformanceKeysActivations:activationData:]"];
           [v30 logMessage:v29 fromFile:lastPathComponent fromFunction:v33 fromLineNumber:522];
 
-          v34 = PLLogCommon();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+          v35 = PLLogCommon(v34);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
             __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
           }
@@ -677,97 +737,95 @@ uint64_t __78__PLMetricsFormatterJSON_addAppPerformanceKeysLaunch_userData_launc
       }
 
       dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-      v64 = 0u;
       v65 = 0u;
       v66 = 0u;
       v67 = 0u;
-      v35 = [v62 objectForKeyedSubscript:&unk_287146270];
-      allKeys2 = [v35 allKeys];
+      v68 = 0u;
+      v36 = [v63 objectForKeyedSubscript:&unk_287146270];
+      allKeys2 = [v36 allKeys];
 
-      v37 = [allKeys2 countByEnumeratingWithState:&v64 objects:v73 count:16];
-      if (v37)
+      v38 = [allKeys2 countByEnumeratingWithState:&v65 objects:v74 count:16];
+      if (v38)
       {
-        v38 = v37;
-        v39 = *v65;
+        v39 = v38;
+        v40 = *v66;
         do
         {
-          for (j = 0; j != v38; ++j)
+          for (j = 0; j != v39; ++j)
           {
-            if (*v65 != v39)
+            if (*v66 != v40)
             {
               objc_enumerationMutation(allKeys2);
             }
 
-            v41 = *(*(&v64 + 1) + 8 * j);
-            v42 = [v62 objectForKeyedSubscript:&unk_287146270];
-            v43 = [v42 objectForKeyedSubscript:v41];
-            v44 = [(PLMetricsFormatterJSON *)self roundArrayValuesToNearestX:v43 precision:50];
-            stringValue2 = [v41 stringValue];
-            [dictionary2 setObject:v44 forKeyedSubscript:stringValue2];
+            v42 = *(*(&v65 + 1) + 8 * j);
+            v43 = [v63 objectForKeyedSubscript:&unk_287146270];
+            v44 = [v43 objectForKeyedSubscript:v42];
+            v45 = [(PLMetricsFormatterJSON *)self roundArrayValuesToNearestX:v44 precision:50];
+            stringValue2 = [v42 stringValue];
+            [dictionary2 setObject:v45 forKeyedSubscript:stringValue2];
           }
 
-          v38 = [allKeys2 countByEnumeratingWithState:&v64 objects:v73 count:16];
+          v39 = [allKeys2 countByEnumeratingWithState:&v65 objects:v74 count:16];
         }
 
-        while (v38);
+        while (v39);
       }
 
-      activationsCopy = v59;
+      activationsCopy = v60;
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
-        v46 = objc_opt_class();
-        v63[0] = MEMORY[0x277D85DD0];
-        v63[1] = 3221225472;
-        v63[2] = __74__PLMetricsFormatterJSON_addAppPerformanceKeysActivations_activationData___block_invoke_308;
-        v63[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v63[4] = v46;
+        v47 = objc_opt_class();
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __74__PLMetricsFormatterJSON_addAppPerformanceKeysActivations_activationData___block_invoke_308;
+        v64[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v64[4] = v47;
         if (addAppPerformanceKeysActivations_activationData__defaultOnce_306 != -1)
         {
-          dispatch_once(&addAppPerformanceKeysActivations_activationData__defaultOnce_306, v63);
+          dispatch_once(&addAppPerformanceKeysActivations_activationData__defaultOnce_306, v64);
         }
 
         if (addAppPerformanceKeysActivations_activationData__classDebugEnabled_307 == 1)
         {
-          v47 = MEMORY[0x277CCACA8];
-          v48 = [v59 objectForKeyedSubscript:@"app_bundleid"];
-          v49 = [v47 stringWithFormat:@"%@ BG Activation Data: %@", v48, dictionary2];
+          v48 = MEMORY[0x277CCACA8];
+          v49 = [v60 objectForKeyedSubscript:@"app_bundleid"];
+          v50 = [v48 stringWithFormat:@"%@ BG Activation Data: %@", v49, dictionary2];
 
-          v50 = MEMORY[0x277D3F178];
-          v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
-          lastPathComponent2 = [v51 lastPathComponent];
-          v53 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON addAppPerformanceKeysActivations:activationData:]"];
-          [v50 logMessage:v49 fromFile:lastPathComponent2 fromFunction:v53 fromLineNumber:527];
+          v51 = MEMORY[0x277D3F178];
+          v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
+          lastPathComponent2 = [v52 lastPathComponent];
+          v54 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON addAppPerformanceKeysActivations:activationData:]"];
+          [v51 logMessage:v50 fromFile:lastPathComponent2 fromFunction:v54 fromLineNumber:527];
 
-          v54 = PLLogCommon();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+          v56 = PLLogCommon(v55);
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
           {
             __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
           }
         }
       }
 
-      [v62 removeObjectsForKeys:&unk_28714CAA0];
-      [v62 setObject:dictionary forKeyedSubscript:@"fg"];
-      [v62 setObject:dictionary2 forKeyedSubscript:@"bg"];
-      v55 = [v59 objectForKeyedSubscript:@"performance_metrics"];
-      v56 = [v55 objectForKeyedSubscript:@"app_performance"];
-      [v56 setObject:v62 forKeyedSubscript:@"activation"];
+      [v63 removeObjectsForKeys:&unk_28714CAA0];
+      [v63 setObject:dictionary forKeyedSubscript:@"fg"];
+      [v63 setObject:dictionary2 forKeyedSubscript:@"bg"];
+      v57 = [v60 objectForKeyedSubscript:@"performance_metrics"];
+      v58 = [v57 objectForKeyedSubscript:@"app_performance"];
+      [v58 setObject:v63 forKeyedSubscript:@"activation"];
 
-      dataCopy = v58;
+      dataCopy = v59;
     }
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __74__PLMetricsFormatterJSON_addAppPerformanceKeysActivations_activationData___block_invoke(uint64_t a1)
+void *__74__PLMetricsFormatterJSON_addAppPerformanceKeysActivations_activationData___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addAppPerformanceKeysActivations_activationData__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __74__PLMetricsFormatterJSON_addAppPerformanceKeysActivations_activationData___block_invoke_308(uint64_t a1)
+void *__74__PLMetricsFormatterJSON_addAppPerformanceKeysActivations_activationData___block_invoke_308(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addAppPerformanceKeysActivations_activationData__classDebugEnabled_307 = result;
@@ -814,33 +872,33 @@ uint64_t __74__PLMetricsFormatterJSON_addAppPerformanceKeysActivations_activatio
           v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON addAppPerformanceKeysResume:userData:resumeTimeData:]"];
           [v19 logMessage:v18 fromFile:lastPathComponent fromFunction:v22 fromLineNumber:555];
 
-          v23 = PLLogCommon();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v24 = PLLogCommon(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
           }
         }
       }
 
-      v24 = [resumeCopy objectForKeyedSubscript:@"app_bundleid"];
-      v25 = [timeDataCopy objectForKeyedSubscript:v24];
-      v26 = [(PLMetricsFormatterJSON *)self roundArrayValuesToNearestX:v25 precision:5];
-      [dictionary setObject:v26 forKeyedSubscript:@"sessions"];
+      v25 = [resumeCopy objectForKeyedSubscript:@"app_bundleid"];
+      v26 = [timeDataCopy objectForKeyedSubscript:v25];
+      v27 = [(PLMetricsFormatterJSON *)self roundArrayValuesToNearestX:v26 precision:5];
+      [dictionary setObject:v27 forKeyedSubscript:@"sessions"];
 
-      v27 = MEMORY[0x277CCABB0];
-      v28 = [resumeCopy objectForKeyedSubscript:@"app_bundleid"];
-      v29 = [timeDataCopy objectForKeyedSubscript:v28];
-      v30 = [v27 numberWithLong:{objc_msgSend(v29, "count")}];
-      [dictionary setObject:v30 forKeyedSubscript:@"count"];
+      v28 = MEMORY[0x277CCABB0];
+      v29 = [resumeCopy objectForKeyedSubscript:@"app_bundleid"];
+      v30 = [timeDataCopy objectForKeyedSubscript:v29];
+      v31 = [v28 numberWithLong:{objc_msgSend(v30, "count")}];
+      [dictionary setObject:v31 forKeyedSubscript:@"count"];
 
-      v31 = [resumeCopy objectForKeyedSubscript:@"performance_metrics"];
-      v32 = [v31 objectForKeyedSubscript:@"app_performance"];
-      [v32 setObject:dictionary forKey:@"resume"];
+      v32 = [resumeCopy objectForKeyedSubscript:@"performance_metrics"];
+      v33 = [v32 objectForKeyedSubscript:@"app_performance"];
+      [v33 setObject:dictionary forKey:@"resume"];
     }
   }
 }
 
-uint64_t __78__PLMetricsFormatterJSON_addAppPerformanceKeysResume_userData_resumeTimeData___block_invoke(uint64_t a1)
+void *__78__PLMetricsFormatterJSON_addAppPerformanceKeysResume_userData_resumeTimeData___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addAppPerformanceKeysResume_userData_resumeTimeData__classDebugEnabled = result;
@@ -887,33 +945,33 @@ uint64_t __78__PLMetricsFormatterJSON_addAppPerformanceKeysResume_userData_resum
           v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON addAppPerformanceKeysHang:userData:hangTimeData:]"];
           [v19 logMessage:v18 fromFile:lastPathComponent fromFunction:v22 fromLineNumber:583];
 
-          v23 = PLLogCommon();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v24 = PLLogCommon(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
           }
         }
       }
 
-      v24 = [hangCopy objectForKeyedSubscript:@"app_bundleid"];
-      v25 = [timeDataCopy objectForKeyedSubscript:v24];
-      v26 = [(PLMetricsFormatterJSON *)self roundArrayValuesToNearestX:v25 precision:10];
-      [dictionary setObject:v26 forKeyedSubscript:@"sessions"];
+      v25 = [hangCopy objectForKeyedSubscript:@"app_bundleid"];
+      v26 = [timeDataCopy objectForKeyedSubscript:v25];
+      v27 = [(PLMetricsFormatterJSON *)self roundArrayValuesToNearestX:v26 precision:10];
+      [dictionary setObject:v27 forKeyedSubscript:@"sessions"];
 
-      v27 = MEMORY[0x277CCABB0];
-      v28 = [hangCopy objectForKeyedSubscript:@"app_bundleid"];
-      v29 = [timeDataCopy objectForKeyedSubscript:v28];
-      v30 = [v27 numberWithLong:{objc_msgSend(v29, "count")}];
-      [dictionary setObject:v30 forKeyedSubscript:@"count"];
+      v28 = MEMORY[0x277CCABB0];
+      v29 = [hangCopy objectForKeyedSubscript:@"app_bundleid"];
+      v30 = [timeDataCopy objectForKeyedSubscript:v29];
+      v31 = [v28 numberWithLong:{objc_msgSend(v30, "count")}];
+      [dictionary setObject:v31 forKeyedSubscript:@"count"];
 
-      v31 = [hangCopy objectForKeyedSubscript:@"performance_metrics"];
-      v32 = [v31 objectForKeyedSubscript:@"app_performance"];
-      [v32 setObject:dictionary forKey:@"hang"];
+      v32 = [hangCopy objectForKeyedSubscript:@"performance_metrics"];
+      v33 = [v32 objectForKeyedSubscript:@"app_performance"];
+      [v33 setObject:dictionary forKey:@"hang"];
     }
   }
 }
 
-uint64_t __74__PLMetricsFormatterJSON_addAppPerformanceKeysHang_userData_hangTimeData___block_invoke(uint64_t a1)
+void *__74__PLMetricsFormatterJSON_addAppPerformanceKeysHang_userData_hangTimeData___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addAppPerformanceKeysHang_userData_hangTimeData__classDebugEnabled = result;
@@ -1036,29 +1094,29 @@ uint64_t __74__PLMetricsFormatterJSON_addAppPerformanceKeysHang_userData_hangTim
 
 - (void)addAllMetrics:(id)metrics signpostData:(id)data
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   dataCopy = data;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = metricsCopy;
-  v21 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v21)
+  v20 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v20)
   {
-    v19 = *v23;
+    v18 = *v22;
     do
     {
       v8 = 0;
       do
       {
-        if (*v23 != v19)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(v7);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * v8);
+        v9 = *(*(&v21 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
         dictionary = [MEMORY[0x277CBEB38] dictionary];
         dictionary2 = [MEMORY[0x277CBEB38] dictionary];
@@ -1082,40 +1140,38 @@ uint64_t __74__PLMetricsFormatterJSON_addAppPerformanceKeysHang_userData_hangTim
         ++v8;
       }
 
-      while (v21 != v8);
-      v21 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      while (v20 != v8);
+      v20 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sanitizeDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allKeys = [dictionaryCopy allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = [dictionaryCopy objectForKeyedSubscript:v9];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -1152,13 +1208,11 @@ LABEL_10:
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return dictionaryCopy;
 }
@@ -1198,22 +1252,20 @@ void __38__PLMetricsFormatterJSON_getOSVersion__block_invoke()
 
 - (id)createHeaderForSessionsFile
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   getOSVersion = [(PLMetricsFormatterJSON *)self getOSVersion];
   v3 = getOSVersion;
-  v8[0] = @"bug_type";
-  v8[1] = @"os_version";
+  v7[0] = @"bug_type";
+  v7[1] = @"os_version";
   v4 = @"<unknown>";
   if (getOSVersion)
   {
     v4 = getOSVersion;
   }
 
-  v9[0] = @"278";
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[0] = @"278";
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -1258,17 +1310,17 @@ void __38__PLMetricsFormatterJSON_getOSVersion__block_invoke()
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:self->tmpFilePath];
-  v23 = 0;
-  [defaultManager moveItemAtPath:v6 toPath:v4 error:&v23];
-  v7 = v23;
+  v25 = 0;
+  [defaultManager moveItemAtPath:v6 toPath:v4 error:&v25];
+  v7 = v25;
 
   v8 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4];
   v9 = OSAMoveFileForSubmissions();
 
   if (!v9)
   {
-    v15 = PLLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = PLLogCommon(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [PLMetricsFormatterJSON moveLogFile];
     }
@@ -1276,20 +1328,20 @@ void __38__PLMetricsFormatterJSON_getOSVersion__block_invoke()
     goto LABEL_11;
   }
 
-  v10 = MEMORY[0x277CBEBC0];
+  v11 = MEMORY[0x277CBEBC0];
   lastPathComponent = [v4 lastPathComponent];
-  v12 = [@"/var/mobile/Library/Logs/CrashReporter/" stringByAppendingPathComponent:lastPathComponent];
-  v13 = [v10 fileURLWithPath:v12];
-  [PPSFileUtilities markAsPurgeable:v13 urgency:512 startDate:0];
+  v13 = [@"/var/mobile/Library/Logs/CrashReporter/" stringByAppendingPathComponent:lastPathComponent];
+  v14 = [v11 fileURLWithPath:v13];
+  [PPSFileUtilities markAsPurgeable:v14 urgency:512 startDate:0];
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v14 = objc_opt_class();
+    v15 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __37__PLMetricsFormatterJSON_moveLogFile__block_invoke;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v14;
+    block[4] = v15;
     if (moveLogFile_defaultOnce != -1)
     {
       dispatch_once(&moveLogFile_defaultOnce, block);
@@ -1297,15 +1349,15 @@ void __38__PLMetricsFormatterJSON_getOSVersion__block_invoke()
 
     if (moveLogFile_classDebugEnabled == 1)
     {
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Power log: written to %@", v4];
-      v16 = MEMORY[0x277D3F178];
-      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
-      lastPathComponent2 = [v17 lastPathComponent];
-      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON moveLogFile]"];
-      [v16 logMessage:v15 fromFile:lastPathComponent2 fromFunction:v19 fromLineNumber:824];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Power log: written to %@", v4];
+      v17 = MEMORY[0x277D3F178];
+      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
+      lastPathComponent2 = [v18 lastPathComponent];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON moveLogFile]"];
+      [v17 logMessage:v16 fromFile:lastPathComponent2 fromFunction:v20 fromLineNumber:824];
 
-      v20 = PLLogCommon();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v22 = PLLogCommon(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
       }
@@ -1317,7 +1369,7 @@ LABEL_11:
   return v9;
 }
 
-uint64_t __37__PLMetricsFormatterJSON_moveLogFile__block_invoke(uint64_t a1)
+void *__37__PLMetricsFormatterJSON_moveLogFile__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   moveLogFile_classDebugEnabled = result;
@@ -1334,72 +1386,72 @@ uint64_t __37__PLMetricsFormatterJSON_moveLogFile__block_invoke(uint64_t a1)
 
 - (void)sendAppMetricToCoreAnalytics:(id)analytics
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   analyticsCopy = analytics;
   v4 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
 
   if (v4)
   {
-    v5 = objc_opt_new();
-    v6 = [analyticsCopy objectForKeyedSubscript:@"app_bundleid"];
-    [v5 setObject:v6 forKeyedSubscript:@"app_bundleid"];
+    v6 = objc_opt_new();
+    v7 = [analyticsCopy objectForKeyedSubscript:@"app_bundleid"];
+    [v6 setObject:v7 forKeyedSubscript:@"app_bundleid"];
 
-    v7 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
-    v8 = [v7 objectForKeyedSubscript:@"app_time"];
-    if (v8)
+    v8 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
+    v9 = [v8 objectForKeyedSubscript:@"app_time"];
+    if (v9)
     {
-      v9 = v8;
-      v10 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
-      v11 = [v10 objectForKeyedSubscript:@"app_time"];
-      v12 = [v11 objectForKeyedSubscript:@"cellular_condition"];
+      v10 = v9;
+      v11 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
+      v12 = [v11 objectForKeyedSubscript:@"app_time"];
+      v13 = [v12 objectForKeyedSubscript:@"cellular_condition"];
 
-      if (v12)
+      if (v13)
       {
-        v13 = v5;
-        v64 = 0u;
+        v14 = v6;
         v65 = 0u;
-        v62 = 0u;
+        v66 = 0u;
         v63 = 0u;
-        v14 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
-        v15 = [v14 objectForKeyedSubscript:@"app_time"];
-        v16 = [v15 objectForKeyedSubscript:@"cellular_condition"];
+        v64 = 0u;
+        v15 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
+        v16 = [v15 objectForKeyedSubscript:@"app_time"];
+        v17 = [v16 objectForKeyedSubscript:@"cellular_condition"];
 
-        obj = v16;
-        v17 = [v16 countByEnumeratingWithState:&v62 objects:v67 count:16];
-        if (v17)
+        obj = v17;
+        v18 = [v17 countByEnumeratingWithState:&v63 objects:v68 count:16];
+        if (v18)
         {
-          v18 = v17;
-          v19 = *v63;
+          v19 = v18;
+          v20 = *v64;
           do
           {
-            v20 = 0;
+            v21 = 0;
             do
             {
-              if (*v63 != v19)
+              if (*v64 != v20)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v21 = *(*(&v62 + 1) + 8 * v20);
+              v22 = *(*(&v63 + 1) + 8 * v21);
               [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
-              v23 = v22 = analyticsCopy;
-              v24 = [v23 objectForKeyedSubscript:@"app_time"];
-              v25 = [v24 objectForKeyedSubscript:@"cellular_condition"];
-              v26 = [v25 objectForKeyedSubscript:v21];
-              [v13 setObject:v26 forKeyedSubscript:v21];
+              v24 = v23 = analyticsCopy;
+              v25 = [v24 objectForKeyedSubscript:@"app_time"];
+              v26 = [v25 objectForKeyedSubscript:@"cellular_condition"];
+              v27 = [v26 objectForKeyedSubscript:v22];
+              [v14 setObject:v27 forKeyedSubscript:v22];
 
-              analyticsCopy = v22;
-              ++v20;
+              analyticsCopy = v23;
+              ++v21;
             }
 
-            while (v18 != v20);
-            v18 = [obj countByEnumeratingWithState:&v62 objects:v67 count:16];
+            while (v19 != v21);
+            v19 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
           }
 
-          while (v18);
+          while (v19);
         }
 
-        v5 = v13;
+        v6 = v14;
       }
     }
 
@@ -1407,62 +1459,62 @@ uint64_t __37__PLMetricsFormatterJSON_moveLogFile__block_invoke(uint64_t a1)
     {
     }
 
-    v27 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
-    v28 = [v27 objectForKeyedSubscript:@"network_io"];
+    v28 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
+    v29 = [v28 objectForKeyedSubscript:@"network_io"];
 
-    if (v28)
+    if (v29)
     {
-      v29 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
-      v30 = [v29 objectForKeyedSubscript:@"network_io"];
-      v31 = v5;
-      v32 = [v30 objectForKeyedSubscript:@"cellular"];
-      [v32 objectForKeyedSubscript:@"totalDownload"];
-      v33 = obja = analyticsCopy;
-      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"cellular", @"totalDownload"];
-      [v5 setObject:v33 forKeyedSubscript:v34];
+      v30 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
+      v31 = [v30 objectForKeyedSubscript:@"network_io"];
+      v32 = v6;
+      v33 = [v31 objectForKeyedSubscript:@"cellular"];
+      [v33 objectForKeyedSubscript:@"totalDownload"];
+      v34 = obja = analyticsCopy;
+      v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"cellular", @"totalDownload"];
+      [v6 setObject:v34 forKeyedSubscript:v35];
 
-      v35 = [obja objectForKeyedSubscript:@"power_metrics"];
-      v36 = [v35 objectForKeyedSubscript:@"network_io"];
-      v37 = [v36 objectForKeyedSubscript:@"cellular"];
-      v38 = [v37 objectForKeyedSubscript:@"totalUpload"];
-      v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"cellular", @"totalUpload"];
-      [v31 setObject:v38 forKeyedSubscript:v39];
+      v36 = [obja objectForKeyedSubscript:@"power_metrics"];
+      v37 = [v36 objectForKeyedSubscript:@"network_io"];
+      v38 = [v37 objectForKeyedSubscript:@"cellular"];
+      v39 = [v38 objectForKeyedSubscript:@"totalUpload"];
+      v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"cellular", @"totalUpload"];
+      [v32 setObject:v39 forKeyedSubscript:v40];
 
-      v40 = [obja objectForKeyedSubscript:@"power_metrics"];
-      v41 = [v40 objectForKeyedSubscript:@"network_io"];
-      v42 = [v41 objectForKeyedSubscript:@"wifi"];
-      v43 = [v42 objectForKeyedSubscript:@"totalDownload"];
-      v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"wifi", @"totalDownload"];
-      [v31 setObject:v43 forKeyedSubscript:v44];
+      v41 = [obja objectForKeyedSubscript:@"power_metrics"];
+      v42 = [v41 objectForKeyedSubscript:@"network_io"];
+      v43 = [v42 objectForKeyedSubscript:@"wifi"];
+      v44 = [v43 objectForKeyedSubscript:@"totalDownload"];
+      v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"wifi", @"totalDownload"];
+      [v32 setObject:v44 forKeyedSubscript:v45];
 
       analyticsCopy = obja;
-      v45 = [obja objectForKeyedSubscript:@"power_metrics"];
-      v46 = [v45 objectForKeyedSubscript:@"network_io"];
-      v47 = [v46 objectForKeyedSubscript:@"wifi"];
-      v48 = [v47 objectForKeyedSubscript:@"totalUpload"];
-      v5 = v31;
-      v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"wifi", @"totalUpload"];
-      [v5 setObject:v48 forKeyedSubscript:v49];
+      v46 = [obja objectForKeyedSubscript:@"power_metrics"];
+      v47 = [v46 objectForKeyedSubscript:@"network_io"];
+      v48 = [v47 objectForKeyedSubscript:@"wifi"];
+      v49 = [v48 objectForKeyedSubscript:@"totalUpload"];
+      v6 = v32;
+      v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", @"wifi", @"totalUpload"];
+      [v6 setObject:v49 forKeyedSubscript:v50];
     }
 
-    v50 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
-    v51 = [v50 objectForKeyedSubscript:@"display_apl"];
+    v51 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
+    v52 = [v51 objectForKeyedSubscript:@"display_apl"];
 
-    if (v51)
+    if (v52)
     {
-      v52 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
-      v53 = [v52 objectForKeyedSubscript:@"display_apl"];
-      v54 = [v53 objectForKeyedSubscript:@"averagePixelLuminance"];
-      [v5 setObject:v54 forKeyedSubscript:@"averagePixelLuminance"];
+      v54 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
+      v55 = [v54 objectForKeyedSubscript:@"display_apl"];
+      v56 = [v55 objectForKeyedSubscript:@"averagePixelLuminance"];
+      [v6 setObject:v56 forKeyedSubscript:@"averagePixelLuminance"];
 
-      v55 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
-      v56 = [v55 objectForKeyedSubscript:@"display_apl"];
-      v57 = [v56 objectForKeyedSubscript:@"totalFrameCount"];
-      [v5 setObject:v57 forKeyedSubscript:@"totalFrameCount"];
+      v57 = [analyticsCopy objectForKeyedSubscript:@"power_metrics"];
+      v58 = [v57 objectForKeyedSubscript:@"display_apl"];
+      v59 = [v58 objectForKeyedSubscript:@"totalFrameCount"];
+      [v6 setObject:v59 forKeyedSubscript:@"totalFrameCount"];
     }
 
-    v58 = PLLogAggregateSummarizationService();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+    v60 = PLLogAggregateSummarizationService(v53);
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
     {
       [PLMetricsFormatterJSON sendAppMetricToCoreAnalytics:];
     }
@@ -1472,15 +1524,13 @@ uint64_t __37__PLMetricsFormatterJSON_moveLogFile__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = PLLogAggregateSummarizationService();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = PLLogAggregateSummarizationService(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_25EE51000, v5, OS_LOG_TYPE_INFO, "No power_metrics to report to Core Analytics", buf, 2u);
+      _os_log_impl(&dword_25EE51000, v6, OS_LOG_TYPE_INFO, "No power_metrics to report to Core Analytics", buf, 2u);
     }
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCurrentTimeFormatted:(BOOL)formatted
@@ -1520,7 +1570,7 @@ uint64_t __37__PLMetricsFormatterJSON_moveLogFile__block_invoke(uint64_t a1)
 
 - (id)getFileHandle
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (!confstr(65537, __s, 0x400uLL))
   {
     goto LABEL_10;
@@ -1550,52 +1600,50 @@ uint64_t __37__PLMetricsFormatterJSON_moveLogFile__block_invoke(uint64_t a1)
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON getFileHandle]"];
       [v5 logMessage:v4 fromFile:lastPathComponent fromFunction:v8 fromLineNumber:926];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = PLLogCommon(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
       }
     }
   }
 
-  v10 = mkstemp(__s);
-  if ((v10 + 1) >= 2 && (v14 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v10]) != 0)
+  v11 = mkstemp(__s);
+  if ((v11 + 1) >= 2 && (v14 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v11]) != 0)
   {
     v15 = v14;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v24 = *MEMORY[0x277CCA180];
-    v25 = &unk_2871462A0;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v25 = *MEMORY[0x277CCA180];
+    v26 = &unk_2871462A0;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:__s];
-    v22 = 0;
-    v19 = [defaultManager setAttributes:v17 ofItemAtPath:v18 error:&v22];
-    v20 = v22;
+    v23 = 0;
+    v19 = [defaultManager setAttributes:v17 ofItemAtPath:v18 error:&v23];
+    v20 = v23;
 
     if ((v19 & 1) == 0)
     {
-      v21 = PLLogCommon();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = PLLogCommon(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [PLMetricsFormatterJSON getFileHandle];
       }
     }
 
     strncpy(self->tmpFilePath, __s, 0x400uLL);
-    v11 = v15;
+    v12 = v15;
   }
 
   else
   {
 LABEL_10:
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
-uint64_t __39__PLMetricsFormatterJSON_getFileHandle__block_invoke(uint64_t a1)
+void *__39__PLMetricsFormatterJSON_getFileHandle__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   getFileHandle_classDebugEnabled = result;
@@ -1626,8 +1674,8 @@ uint64_t __39__PLMetricsFormatterJSON_getFileHandle__block_invoke(uint64_t a1)
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON test]"];
       [v5 logMessage:v4 fromFile:lastPathComponent fromFunction:v8 fromLineNumber:955];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = PLLogCommon(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
       }
@@ -1636,28 +1684,28 @@ uint64_t __39__PLMetricsFormatterJSON_getFileHandle__block_invoke(uint64_t a1)
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v10 = objc_opt_class();
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __30__PLMetricsFormatterJSON_test__block_invoke_430;
-    v17[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v17[4] = v10;
+    v11 = objc_opt_class();
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __30__PLMetricsFormatterJSON_test__block_invoke_430;
+    v19[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v19[4] = v11;
     if (test_defaultOnce_428 != -1)
     {
-      dispatch_once(&test_defaultOnce_428, v17);
+      dispatch_once(&test_defaultOnce_428, v19);
     }
 
     if (test_classDebugEnabled_429 == 1)
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", self->allMetrics];
-      v12 = MEMORY[0x277D3F178];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
-      lastPathComponent2 = [v13 lastPathComponent];
-      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON test]"];
-      [v12 logMessage:v11 fromFile:lastPathComponent2 fromFunction:v15 fromLineNumber:956];
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", self->allMetrics];
+      v13 = MEMORY[0x277D3F178];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
+      lastPathComponent2 = [v14 lastPathComponent];
+      v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON test]"];
+      [v13 logMessage:v12 fromFile:lastPathComponent2 fromFunction:v16 fromLineNumber:956];
 
-      v16 = PLLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v18 = PLLogCommon(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
       }
@@ -1665,14 +1713,14 @@ uint64_t __39__PLMetricsFormatterJSON_getFileHandle__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __30__PLMetricsFormatterJSON_test__block_invoke(uint64_t a1)
+void *__30__PLMetricsFormatterJSON_test__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   test_classDebugEnabled = result;
   return result;
 }
 
-uint64_t __30__PLMetricsFormatterJSON_test__block_invoke_430(uint64_t a1)
+void *__30__PLMetricsFormatterJSON_test__block_invoke_430(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   test_classDebugEnabled_429 = result;
@@ -1703,8 +1751,8 @@ uint64_t __30__PLMetricsFormatterJSON_test__block_invoke_430(uint64_t a1)
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON metricsToStringAsJSON]"];
       [v5 logMessage:v4 fromFile:lastPathComponent fromFunction:v8 fromLineNumber:961];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = PLLogCommon(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
       }
@@ -1712,36 +1760,36 @@ uint64_t __30__PLMetricsFormatterJSON_test__block_invoke_430(uint64_t a1)
   }
 
   allMetrics = self->allMetrics;
-  v29 = 0;
-  v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:allMetrics options:1 error:&v29];
-  v12 = v29;
-  if (v11)
+  v32 = 0;
+  v12 = [MEMORY[0x277CCAAA0] dataWithJSONObject:allMetrics options:1 error:&v32];
+  v13 = v32;
+  if (v12)
   {
-    v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v11 encoding:4];
+    v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v12 encoding:4];
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v14 = objc_opt_class();
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_445;
-      v27[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v27[4] = v14;
+      v15 = objc_opt_class();
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_445;
+      v30[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v30[4] = v15;
       if (metricsToStringAsJSON_defaultOnce_443 != -1)
       {
-        dispatch_once(&metricsToStringAsJSON_defaultOnce_443, v27);
+        dispatch_once(&metricsToStringAsJSON_defaultOnce_443, v30);
       }
 
       if (metricsToStringAsJSON_classDebugEnabled_444 == 1)
       {
-        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n"];
-        v16 = MEMORY[0x277D3F178];
-        v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
-        lastPathComponent2 = [v17 lastPathComponent];
-        v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON metricsToStringAsJSON]"];
-        [v16 logMessage:v15 fromFile:lastPathComponent2 fromFunction:v19 fromLineNumber:971];
+        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n"];
+        v17 = MEMORY[0x277D3F178];
+        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
+        lastPathComponent2 = [v18 lastPathComponent];
+        v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON metricsToStringAsJSON]"];
+        [v17 logMessage:v16 fromFile:lastPathComponent2 fromFunction:v20 fromLineNumber:971];
 
-        v20 = PLLogCommon();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = PLLogCommon(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
         }
@@ -1755,58 +1803,58 @@ LABEL_22:
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v21 = objc_opt_class();
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_436;
-      v28[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v28[4] = v21;
+      v23 = objc_opt_class();
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_436;
+      v31[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v31[4] = v23;
       if (metricsToStringAsJSON_defaultOnce_434 != -1)
       {
-        dispatch_once(&metricsToStringAsJSON_defaultOnce_434, v28);
+        dispatch_once(&metricsToStringAsJSON_defaultOnce_434, v31);
       }
 
       if (metricsToStringAsJSON_classDebugEnabled_435 == 1)
       {
-        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got an error: %@", v12];
-        v22 = MEMORY[0x277D3F178];
-        v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
-        lastPathComponent3 = [v23 lastPathComponent];
-        v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON metricsToStringAsJSON]"];
-        [v22 logMessage:v15 fromFile:lastPathComponent3 fromFunction:v25 fromLineNumber:967];
+        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got an error: %@", v13];
+        v24 = MEMORY[0x277D3F178];
+        v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
+        lastPathComponent3 = [v25 lastPathComponent];
+        v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON metricsToStringAsJSON]"];
+        [v24 logMessage:v16 fromFile:lastPathComponent3 fromFunction:v27 fromLineNumber:967];
 
-        v20 = PLLogCommon();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = PLLogCommon(v28);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
         }
 
-        v13 = @"{}";
+        v14 = @"{}";
         goto LABEL_22;
       }
     }
 
-    v13 = @"{}";
+    v14 = @"{}";
   }
 
-  return v13;
+  return v14;
 }
 
-uint64_t __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke(uint64_t a1)
+void *__47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   metricsToStringAsJSON_classDebugEnabled = result;
   return result;
 }
 
-uint64_t __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_436(uint64_t a1)
+void *__47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_436(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   metricsToStringAsJSON_classDebugEnabled_435 = result;
   return result;
 }
 
-uint64_t __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_445(uint64_t a1)
+void *__47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_445(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   metricsToStringAsJSON_classDebugEnabled_444 = result;
@@ -1819,10 +1867,10 @@ uint64_t __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_445(ui
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __50__PLMetricsFormatterJSON_printAllMetricsToConsole__block_invoke;
-    v15 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v16 = v3;
+    v14 = 3221225472;
+    v15 = __50__PLMetricsFormatterJSON_printAllMetricsToConsole__block_invoke;
+    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v17 = v3;
     if (printAllMetricsToConsole_defaultOnce != -1)
     {
       dispatch_once(&printAllMetricsToConsole_defaultOnce, &block);
@@ -1832,7 +1880,7 @@ uint64_t __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_445(ui
     {
       v4 = MEMORY[0x277CCACA8];
       metricsToStringAsJSON = [(PLMetricsFormatterJSON *)self metricsToStringAsJSON];
-      v6 = [v4 stringWithFormat:@"%@", metricsToStringAsJSON, block, v13, v14, v15, v16];
+      v6 = [v4 stringWithFormat:@"%@", metricsToStringAsJSON, block, v14, v15, v16, v17];
 
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/PLMetricsFormatterJSON.m"];
@@ -1840,8 +1888,8 @@ uint64_t __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_445(ui
       v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLMetricsFormatterJSON printAllMetricsToConsole]"];
       [v7 logMessage:v6 fromFile:lastPathComponent fromFunction:v10 fromLineNumber:978];
 
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = PLLogCommon(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         __111__PLProcessPortMap_pidAndProcessNameForDestAddress_withDestPort_withSourceAddress_withSourcePort_withProtocol___block_invoke_cold_1();
       }
@@ -1849,7 +1897,7 @@ uint64_t __47__PLMetricsFormatterJSON_metricsToStringAsJSON__block_invoke_445(ui
   }
 }
 
-uint64_t __50__PLMetricsFormatterJSON_printAllMetricsToConsole__block_invoke(uint64_t a1)
+void *__50__PLMetricsFormatterJSON_printAllMetricsToConsole__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   printAllMetricsToConsole_classDebugEnabled = result;
@@ -2009,28 +2057,18 @@ void __40__PLMetricsFormatterJSON_testAllMetrics__block_invoke()
 
 - (void)moveLogFile
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "Couldn't move tempSession from %@ using OSAMoveFileForSubmissions", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendAppMetricToCoreAnalytics:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "Sending saniztized app metric data to Core Analytics: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "Couldn't move tempSession from %@ using OSAMoveFileForSubmissions", v1, 0xCu);
 }
 
 - (void)getFileHandle
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_25EE51000, v1, OS_LOG_TYPE_ERROR, "Couldn't change the permissions of tempSession log at %s. Error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_25EE51000, v1, OS_LOG_TYPE_ERROR, "Couldn't change the permissions of tempSession log at %s. Error: %@", v2, 0x16u);
 }
 
 @end

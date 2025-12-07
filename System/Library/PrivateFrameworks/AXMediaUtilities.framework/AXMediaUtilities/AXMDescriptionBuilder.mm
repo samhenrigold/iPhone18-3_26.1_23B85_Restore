@@ -203,7 +203,7 @@ LABEL_11:
 void __65__AXMDescriptionBuilder__shouldReplaceCaptionWithGenericTemplate__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (CoreAnalyticsLibraryCore())
+  if (CoreAnalyticsLibraryCore(0))
   {
     v3 = dispatch_get_global_queue(17, 0);
     block[0] = MEMORY[0x1E69E9820];
@@ -217,34 +217,35 @@ void __65__AXMDescriptionBuilder__shouldReplaceCaptionWithGenericTemplate__block
 
 void __65__AXMDescriptionBuilder__shouldReplaceCaptionWithGenericTemplate__block_invoke_2(uint64_t a1)
 {
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __65__AXMDescriptionBuilder__shouldReplaceCaptionWithGenericTemplate__block_invoke_3;
-  v4[3] = &unk_1E7A1CC90;
-  v5 = *(a1 + 32);
-  v1 = v4;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __65__AXMDescriptionBuilder__shouldReplaceCaptionWithGenericTemplate__block_invoke_3;
+  v5[3] = &unk_1E7A1CC90;
+  v6 = *(a1 + 32);
+  v1 = v5;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getAnalyticsSendEventLazySymbolLoc_ptr;
-  v10 = getAnalyticsSendEventLazySymbolLoc_ptr;
+  v11 = getAnalyticsSendEventLazySymbolLoc_ptr;
   if (!getAnalyticsSendEventLazySymbolLoc_ptr)
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __getAnalyticsSendEventLazySymbolLoc_block_invoke;
-    v6[3] = &unk_1E7A1C700;
-    v6[4] = &v7;
-    __getAnalyticsSendEventLazySymbolLoc_block_invoke(v6);
-    v2 = v8[3];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __getAnalyticsSendEventLazySymbolLoc_block_invoke;
+    v7[3] = &unk_1E7A1C700;
+    v7[4] = &v8;
+    __getAnalyticsSendEventLazySymbolLoc_block_invoke(v7);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    v3 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v3);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v4 = v3;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v4);
   }
 
   v2(@"com.apple.accessibility.vot.caption.fallbacktemplates", v1);
@@ -1036,13 +1037,13 @@ LABEL_74:
   return v5;
 }
 
-void __46__AXMDescriptionBuilder__templateRulesForTag___block_invoke()
+void __46__AXMDescriptionBuilder__templateRulesForTag___block_invoke(uint64_t a1)
 {
-  v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v0 = [v3 pathForResource:@"AXCaptionTemplateRules" ofType:@"plist"];
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v0];
-  v2 = _templateRulesForTag___TemplateRules;
-  _templateRulesForTag___TemplateRules = v1;
+  v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v1 = [v4 pathForResource:@"AXCaptionTemplateRules" ofType:@"plist"];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v1];
+  v3 = _templateRulesForTag___TemplateRules;
+  _templateRulesForTag___TemplateRules = v2;
 }
 
 - (id)_subsumedTagsForTags:(id)tags

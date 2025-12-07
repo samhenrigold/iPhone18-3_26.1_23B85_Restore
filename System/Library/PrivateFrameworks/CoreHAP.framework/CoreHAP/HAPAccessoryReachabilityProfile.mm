@@ -19,7 +19,7 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = MEMORY[0x277CCABB0];
   [(HAPAccessoryReachabilityProfile *)self sleepInterval];
@@ -28,14 +28,12 @@
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   sleepIntervalCharacteristic = [(HAPAccessoryReachabilityProfile *)self sleepIntervalCharacteristic];
   v9 = [v7 initWithName:@"Sleep Interval Characteristic" value:sleepIntervalCharacteristic];
-  v16[1] = v9;
+  v15[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   pollCharacteristic = [(HAPAccessoryReachabilityProfile *)self pollCharacteristic];
   v12 = [v10 initWithName:@"Poll Characteristic" value:pollCharacteristic];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }
@@ -56,31 +54,31 @@
 
 - (HAPAccessoryReachabilityProfile)initWithDiscoveredServices:(id)services
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   v5 = [(HAPAccessoryReachabilityProfile *)self init];
   if (v5)
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v6 = servicesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v39;
+      v9 = *v38;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v39 != v9)
+        if (*v38 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * v10);
+        v11 = *(*(&v37 + 1) + 8 * v10);
         type = [v11 type];
         v13 = [type isEqualToString:@"00000239-0000-1000-8000-0026BB765291"];
 
@@ -91,7 +89,7 @@ LABEL_4:
 
         if (v8 == ++v10)
         {
-          v8 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -108,28 +106,28 @@ LABEL_4:
         goto LABEL_29;
       }
 
-      v32 = v14;
-      v33 = servicesCopy;
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
+      v31 = v14;
+      v32 = servicesCopy;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       characteristics = [v14 characteristics];
-      v16 = [characteristics countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v16 = [characteristics countByEnumeratingWithState:&v33 objects:v41 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v35;
+        v18 = *v34;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v35 != v18)
+            if (*v34 != v18)
             {
               objc_enumerationMutation(characteristics);
             }
 
-            v20 = *(*(&v34 + 1) + 8 * i);
+            v20 = *(*(&v33 + 1) + 8 * i);
             type2 = [v20 type];
             v22 = [type2 isEqualToString:@"0000023A-0000-1000-8000-0026BB765291"];
 
@@ -170,14 +168,14 @@ LABEL_4:
             }
           }
 
-          v17 = [characteristics countByEnumeratingWithState:&v34 objects:v42 count:16];
+          v17 = [characteristics countByEnumeratingWithState:&v33 objects:v41 count:16];
         }
 
         while (v17);
       }
 
       v28 = v5;
-      servicesCopy = v33;
+      servicesCopy = v32;
     }
 
     else
@@ -189,7 +187,6 @@ LABEL_29:
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

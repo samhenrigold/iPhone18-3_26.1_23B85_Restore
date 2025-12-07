@@ -29,22 +29,23 @@ id __63__NSSet_PhotoLibraryServices___pl_prettyDescriptionWithIndent___block_inv
 
   v6 = [MEMORY[0x1E696AD60] string];
   v7 = PLIndentToString();
-  [v6 appendFormat:@"<%@: %p> count=%lu [", objc_opt_class(), *(a1 + 32), objc_msgSend(*(a1 + 32), "count")];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __63__NSSet_PhotoLibraryServices___pl_prettyDescriptionWithIndent___block_invoke_2;
-  v13[3] = &unk_1E7573A20;
-  v16 = *(a1 + 40);
-  v8 = v6;
-  v14 = v8;
-  v15 = v7;
-  v9 = v7;
-  [v2 enumerateObjectsUsingBlock:v13];
-  [v8 appendFormat:@"\n%@]", v9];
-  v10 = v15;
-  v11 = v8;
+  v8 = objc_opt_class();
+  [v6 appendFormat:@"<%@: %p> count=%lu [", v8, *(a1 + 32), objc_msgSend_count(*(a1 + 32))];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __63__NSSet_PhotoLibraryServices___pl_prettyDescriptionWithIndent___block_invoke_2;
+  v14[3] = &unk_1E7573A20;
+  v17 = *(a1 + 40);
+  v9 = v6;
+  v15 = v9;
+  v16 = v7;
+  v10 = v7;
+  [v2 enumerateObjectsUsingBlock:v14];
+  [v9 appendFormat:@"\n%@]", v10];
+  v11 = v16;
+  v12 = v9;
 
-  return v8;
+  return v9;
 }
 
 void __63__NSSet_PhotoLibraryServices___pl_prettyDescriptionWithIndent___block_invoke_2(uint64_t a1, void *a2)

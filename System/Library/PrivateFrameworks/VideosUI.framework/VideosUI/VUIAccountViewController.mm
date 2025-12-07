@@ -42,7 +42,7 @@
 
 - (void)signInController:(id)controller didCompleteWithOperationsResults:(id)results
 {
-  sub_1E3280A90(0, &unk_1ECF37CB0);
+  sub_1E3280A90(0, &unk_1ECF37CB0, 0x1E698C260);
   v6 = sub_1E4205C64();
   controllerCopy = controller;
   selfCopy = self;

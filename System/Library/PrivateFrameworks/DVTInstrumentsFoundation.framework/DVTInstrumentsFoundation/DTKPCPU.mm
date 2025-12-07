@@ -16,77 +16,77 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    DTKPSetupLogging();
-    v2 = objc_opt_new();
-    v3 = qword_27EE84378;
-    qword_27EE84378 = v2;
+    DTKPSetupLogging(v3, v4);
+    v5 = objc_opt_new();
+    v6 = qword_27EE84378;
+    qword_27EE84378 = v5;
 
-    v4 = dispatch_semaphore_create(1);
-    v5 = qword_27EE84380;
-    qword_27EE84380 = v4;
+    v7 = dispatch_semaphore_create(1);
+    v8 = qword_27EE84380;
+    qword_27EE84380 = v7;
   }
 }
 
 + (id)localCPU:(id *)u
 {
-  v4 = *MEMORY[0x277D85F48];
   if (CSTaskIsTranslated())
   {
     DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPU", u, 4294966596, @"CPU Counters are not supported when running under Rosetta.");
-    v5 = 0;
+    v4 = 0;
     goto LABEL_14;
   }
 
   dispatch_semaphore_wait(qword_27EE84380, 0xFFFFFFFFFFFFFFFFLL);
   if (!qword_27EE84388)
   {
-    v6 = kpep_db_create();
-    v7 = v6;
-    if (v6 == 7)
+    v5 = kpep_db_create();
+    v6 = v5;
+    if (v5 == 7)
     {
       if (!DTCoreIs64BitCapable())
       {
 LABEL_12:
-        v5 = 0;
+        v4 = 0;
         goto LABEL_13;
       }
     }
 
-    else if (!v6)
+    else if (!v5)
     {
-      v8 = kpep_db_name();
-      if (!v8)
+      v7 = kpep_db_name();
+      if (!v7)
       {
-        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:0];
-        v12 = qword_27EE84388;
-        qword_27EE84388 = v11;
+        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:0];
+        v11 = qword_27EE84388;
+        qword_27EE84388 = v10;
 
-        v13 = [DTKPCPU alloc];
-        v5 = [(DTKPCPU *)v13 initWithName:qword_27EE84388 database:0];
-        [qword_27EE84378 setObject:v5 forKeyedSubscript:qword_27EE84388];
+        v12 = [DTKPCPU alloc];
+        v4 = [(DTKPCPU *)v12 initWithName:qword_27EE84388 database:0];
+        [qword_27EE84378 setObject:v4 forKeyedSubscript:qword_27EE84388];
         goto LABEL_13;
       }
 
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error getting CPU database name local machine (%d).", v8];
-      DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPU", u, 4294966596, v9);
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error getting CPU database name local machine (%d).", v7];
+      DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPU", u, 4294966596, v8);
       goto LABEL_11;
     }
 
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error creating CPU database for local machine (%d).", v7];
-    DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPU", u, 4294966596, v9);
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error creating CPU database for local machine (%d).", v6];
+    DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPU", u, 4294966596, v8);
 LABEL_11:
 
     goto LABEL_12;
   }
 
-  v5 = [qword_27EE84378 objectForKeyedSubscript:?];
+  v4 = [qword_27EE84378 objectForKeyedSubscript:?];
 LABEL_13:
   dispatch_semaphore_signal(qword_27EE84380);
 LABEL_14:
 
-  return v5;
+  return v4;
 }
 
 + (id)cpuNamed:(id)named fromSerializedData:(id)data error:(id *)error
@@ -140,11 +140,11 @@ LABEL_14:
 
 - (DTKPCPU)initWithName:(id)name database:(kpep_db *)database
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v24.receiver = self;
-  v24.super_class = DTKPCPU;
-  v7 = [(DTKPCPU *)&v24 init];
+  v22.receiver = self;
+  v22.super_class = DTKPCPU;
+  v7 = [(DTKPCPU *)&v22 init];
   if (v7)
   {
     v8 = sDTKPLogClient;
@@ -173,7 +173,7 @@ LABEL_14:
     v7->_events = v14;
 
     v16 = objc_opt_new();
-    v23 = 0;
+    v21 = 0;
     if (kpep_db_name())
     {
       v17 = [(NSString *)v7->_lookupName copy];
@@ -181,14 +181,13 @@ LABEL_14:
 
     else
     {
-      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:v23];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:v21];
     }
 
     name = v7->_name;
     v7->_name = v17;
 
     count = 0;
-    kpepDB = v7->_kpepDB;
     if (kpep_db_events_count())
     {
       DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPU", 0, 4294966496, @"Error fetching events count from counters database.");
@@ -197,7 +196,6 @@ LABEL_14:
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -295,50 +293,48 @@ LABEL_5:
 
 - (id)allAliasAndNameStrings
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   events = self->_events;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_247FC9AEC;
-  v11[3] = &unk_278EF33F0;
-  v12 = v3;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_247FC9AEC;
+  v10[3] = &unk_278EF33F0;
+  v11 = v3;
   v5 = v3;
-  [(NSMutableArray *)events enumerateObjectsUsingBlock:v11];
+  [(NSMutableArray *)events enumerateObjectsUsingBlock:v10];
   v6 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"self" ascending:1 selector:sel_localizedCaseInsensitiveCompare_];
-  v13[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v8 = [v5 sortedArrayUsingDescriptors:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)mnemonicToAliasMapping
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = self->_events;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         alias = [v9 alias];
         if (alias)
         {
@@ -354,13 +350,11 @@ LABEL_5:
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

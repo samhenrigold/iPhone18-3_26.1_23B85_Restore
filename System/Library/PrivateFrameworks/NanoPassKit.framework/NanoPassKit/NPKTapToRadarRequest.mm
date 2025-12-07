@@ -79,65 +79,64 @@
 {
   lCopy = l;
   v5 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:1];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__19;
-  v31 = __Block_byref_object_dispose__19;
-  v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__19;
-  v25 = __Block_byref_object_dispose__19;
   v26 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__19;
-  v19 = __Block_byref_object_dispose__19;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__19;
+  v30 = __Block_byref_object_dispose__19;
+  v31 = 0;
   v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__19;
+  v24 = __Block_byref_object_dispose__19;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__19;
+  v18 = __Block_byref_object_dispose__19;
+  v19 = 0;
   scheme = [v5 scheme];
   v7 = [scheme isEqualToString:@"tap-to-radar"];
 
   if (v7)
   {
     queryItems = [v5 queryItems];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __36__NPKTapToRadarRequest_initWithURL___block_invoke;
-    v14[3] = &unk_279949468;
-    v14[4] = &v27;
-    v14[5] = &v21;
-    v14[6] = &v15;
-    [queryItems enumerateObjectsUsingBlock:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __36__NPKTapToRadarRequest_initWithURL___block_invoke;
+    v13[3] = &unk_279949468;
+    v13[4] = &v26;
+    v13[5] = &v20;
+    v13[6] = &v14;
+    [queryItems enumerateObjectsUsingBlock:v13];
   }
 
-  if (!v16[5])
+  if (!v15[5])
   {
     v9 = [MEMORY[0x277CBEB98] set];
-    v10 = v16[5];
-    v16[5] = v9;
+    v10 = v15[5];
+    v15[5] = v9;
   }
 
-  if (v28[5] && v22[5])
+  if (v27[5] && v21[5])
   {
-    v11 = v16[5];
-    v12 = [NPKTapToRadarRequest initWithTitle:"initWithTitle:body:attachmentPaths:" body:? attachmentPaths:?];
+    v11 = [NPKTapToRadarRequest initWithTitle:"initWithTitle:body:attachmentPaths:" body:? attachmentPaths:?];
   }
 
   else
   {
 
-    v12 = 0;
+    v11 = 0;
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
 
-  return v12;
+  return v11;
 }
 
 void __36__NPKTapToRadarRequest_initWithURL___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -259,15 +258,15 @@ LABEL_7:
 
 - (void)post
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (PKIsInternalInstall())
   {
-    v9[0] = @"NPKTapToRadarTitleUserNotificationKey";
-    v9[1] = @"NPKTapToRadarBodyUserNotificationKey";
+    v8[0] = @"NPKTapToRadarTitleUserNotificationKey";
+    v8[1] = @"NPKTapToRadarBodyUserNotificationKey";
     body = self->_body;
-    v10[0] = self->_title;
-    v10[1] = body;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v9[0] = self->_title;
+    v9[1] = body;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
     if ([(NSSet *)self->_attachmentsPaths count])
     {
       v5 = [v4 mutableCopy];
@@ -280,8 +279,6 @@ LABEL_7:
     defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
     [defaultCenter postNotificationName:@"com.apple.nanoPassKit.presentTapToRadarDistributedNotification" object:0 userInfo:v4];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)postWithTitle:(id)title body:(id)body

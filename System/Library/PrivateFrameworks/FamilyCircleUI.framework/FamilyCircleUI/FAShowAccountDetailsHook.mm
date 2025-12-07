@@ -43,16 +43,16 @@
 
 - (void)_showAccountDetailsFor:(id)for withCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   forCopy = for;
   completionCopy = completion;
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v18 = "[FAShowAccountDetailsHook _showAccountDetailsFor:withCompletion:]";
-    v19 = 2112;
-    v20 = forCopy;
+    v17 = "[FAShowAccountDetailsHook _showAccountDetailsFor:withCompletion:]";
+    v18 = 2112;
+    v19 = forCopy;
     _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "%s - show account details for %@", buf, 0x16u);
   }
 
@@ -60,21 +60,19 @@
   [v9 setCachePolicy:1];
   [v9 setQualityOfService:33];
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke;
-  v13[3] = &unk_2782F3DA0;
-  objc_copyWeak(&v16, buf);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke;
+  v12[3] = &unk_2782F3DA0;
+  objc_copyWeak(&v15, buf);
   v10 = completionCopy;
-  v15 = v10;
+  v14 = v10;
   v11 = forCopy;
-  v14 = v11;
-  [v9 startRequestWithCompletionHandler:v13];
+  v13 = v11;
+  [v9 startRequestWithCompletionHandler:v12];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke(id *a1, void *a2, void *a3)
@@ -82,12 +80,13 @@ void __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___bloc
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
+  v8 = WeakRetained;
   if (v6)
   {
-    v8 = _FALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _FALogSystem(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke_cold_1(v6, v8);
+      __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke_cold_1(v6, v9);
     }
 
     (*(a1[5] + 2))();
@@ -95,40 +94,40 @@ void __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___bloc
 
   else
   {
-    v9 = [v5 members];
-    v10 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_13];
-    v11 = [v9 filteredArrayUsingPredicate:v10];
-    v12 = [v11 firstObject];
+    v10 = [v5 members];
+    v11 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_13];
+    v12 = [v10 filteredArrayUsingPredicate:v11];
+    v13 = [v12 firstObject];
 
-    v13 = v12;
     v14 = v13;
+    v15 = v14;
     if ([a1[4] length])
     {
-      v15 = [v5 members];
-      v16 = MEMORY[0x277CCAC30];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke_2;
-      v29[3] = &unk_2782F3D50;
-      v30 = a1[4];
-      v17 = [v16 predicateWithBlock:v29];
-      v18 = [v15 filteredArrayUsingPredicate:v17];
-      v14 = [v18 firstObject];
+      v16 = [v5 members];
+      v17 = MEMORY[0x277CCAC30];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke_2;
+      v30[3] = &unk_2782F3D50;
+      v31 = a1[4];
+      v18 = [v17 predicateWithBlock:v30];
+      v19 = [v16 filteredArrayUsingPredicate:v18];
+      v15 = [v19 firstObject];
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke_3;
     block[3] = &unk_2782F3D78;
-    v23 = v13;
     v24 = v14;
-    v25 = v5;
-    v26 = WeakRetained;
-    v19 = a1[5];
-    v27 = 0;
-    v28 = v19;
-    v20 = v14;
-    v21 = v13;
+    v25 = v15;
+    v26 = v5;
+    v27 = v8;
+    v20 = a1[5];
+    v28 = 0;
+    v29 = v20;
+    v21 = v15;
+    v22 = v14;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 }
@@ -143,30 +142,26 @@ uint64_t __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___
 
 void __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke_3(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [_TtC14FamilyCircleUI34FASwiftUIHostingControllerProvider familyMemberAccountChangePasswordControllerWithMainAccount:a1[4] memberToShow:a1[5] familyCircle:a1[6]];
   WeakRetained = objc_loadWeakRetained((a1[7] + 8));
   v4 = [WeakRetained presentationContextForHook:a1[7]];
 
-  [v4 showViewController:v2 sender:0];
-  v5 = _FALogSystem();
+  v5 = _FALogSystem([v4 showViewController:v2 sender:0]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = a1[4];
     v7 = a1[5];
-    v10 = 136315650;
-    v11 = "[FAShowAccountDetailsHook _showAccountDetailsFor:withCompletion:]_block_invoke_3";
+    v8 = 136315650;
+    v9 = "[FAShowAccountDetailsHook _showAccountDetailsFor:withCompletion:]_block_invoke_3";
+    v10 = 2112;
+    v11 = v6;
     v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "%s - %@ Displaying member details for %@", &v10, 0x20u);
+    v13 = v7;
+    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "%s - %@ Displaying member details for %@", &v8, 0x20u);
   }
 
-  v8 = a1[8];
   (*(a1[9] + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (RUIServerHookDelegate)delegate
@@ -178,13 +173,12 @@ void __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___bloc
 
 void __66__FAShowAccountDetailsHook__showAccountDetailsFor_withCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[FAShowAccountDetailsHook _showAccountDetailsFor:withCompletion:]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Error %s - %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[FAShowAccountDetailsHook _showAccountDetailsFor:withCompletion:]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Error %s - %@", &v2, 0x16u);
 }
 
 @end

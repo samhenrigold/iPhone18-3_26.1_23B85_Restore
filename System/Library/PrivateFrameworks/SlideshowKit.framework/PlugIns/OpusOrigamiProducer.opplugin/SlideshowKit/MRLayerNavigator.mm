@@ -1082,7 +1082,7 @@ LABEL_107:
       v66 = -(v72 - v43 * v47) / mTransitionDuration;
     }
 
-    [(MRLayer *)self->mCurrentSublayer duration];
+    objc_msgSend_duration(self->mCurrentSublayer);
     v82 = (1.0 - v66) * self->mTransitionDuration;
     if (v82 < 0.001)
     {
@@ -1116,7 +1116,7 @@ LABEL_107:
     v85 = self->mTransitionDuration;
     v66 = 1.0 - -(v51 - v43 * v47) / v85;
     [(MRLayerClock *)[(MRLayer *)self->mCurrentSublayer clock] setContainerTime:v85 * v66];
-    [(MRLayer *)self->mNextSublayer duration];
+    objc_msgSend_duration(self->mNextSublayer);
     v87 = (1.0 - v66) * self->mTransitionDuration;
     if (v87 < 0.001)
     {
@@ -2109,7 +2109,7 @@ LABEL_25:
     if (self->mControlsSublayerTimes)
     {
       [(MRLayerClock *)[(MRLayer *)self->mCurrentSublayer clock] setContainerTime:self->mCurrentSublayerContainerTimeOnTransitionStart];
-      [(MRLayer *)self->mCurrentSublayer duration];
+      objc_msgSend_duration(self->mCurrentSublayer);
       v4 = v3;
       [(MRLayerClock *)[(MRLayer *)self->mCurrentSublayer clock] containerTime];
       if (v4 < v5 + 4.0)
@@ -3414,7 +3414,7 @@ LABEL_19:
     {
       [objc_msgSend(v6 "plugAsSerial")];
       v12 = v11;
-      [v6 duration];
+      objc_msgSend_duration(v6);
       v14 = v13 - v12 + -0.1;
       if (v10 >= v14)
       {
@@ -4504,7 +4504,7 @@ LABEL_82:
         {
           [(MRLayer *)self->mCurrentSublayer timeIn];
           v55 = v54;
-          [(MRLayer *)self->mCurrentSublayer duration];
+          objc_msgSend_duration(self->mCurrentSublayer);
           v57 = v55 + v56;
           [(MCPlugSerial *)[(MRLayer *)self->mCurrentSublayer plugAsSerial] transitionDuration];
           [(MRLayer *)mExtraSublayer setTimeIn:v57 - v58];
@@ -4728,7 +4728,7 @@ LABEL_126:
     self->mCurrentSublayerInterestingTime = v8;
     [(MRLayer *)self->mCurrentSublayer phaseOutDuration];
     self->mCurrentSublayerAnimationDuration = v9;
-    [(MRLayer *)self->mCurrentSublayer duration];
+    objc_msgSend_duration(self->mCurrentSublayer);
     self->mCurrentSublayerLazyDuration = v10 - self->mCurrentSublayerInterestingTime - self->mCurrentSublayerAnimationDuration;
     self->mCurrentSublayerLazyFactor = 0.0;
   }
@@ -4757,7 +4757,7 @@ LABEL_126:
     self->mNextSublayerInterestingTime = v17;
     [(MRLayer *)self->mNextSublayer phaseOutDuration];
     self->mNextSublayerAnimationDuration = v18;
-    [(MRLayer *)self->mNextSublayer duration];
+    objc_msgSend_duration(self->mNextSublayer);
     self->mNextSublayerLazyDuration = v19 - self->mNextSublayerInterestingTime - self->mNextSublayerAnimationDuration;
     self->mNextSublayerLazyFactor = 0.0;
   }

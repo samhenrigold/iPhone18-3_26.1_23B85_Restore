@@ -47,9 +47,9 @@
 - (void)setBarButtonItems:(id)items
 {
   type metadata accessor for UIBarButtonItem();
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  DOCBarButtonItemGroup.barButtonItems.setter();
+  DOCBarButtonItemGroup.barButtonItems.setter(v4);
 }
 
 - (BOOL)isHidden

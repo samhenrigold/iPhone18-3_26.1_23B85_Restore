@@ -40,6 +40,7 @@
 - (void)markPairedDeviceWithUdid:(id)udid asMissingUsingToken:(id)token withCompletion:(id)completion;
 - (void)monitorAndSendDeviceIdentityLaterWithIdentityInfo:(id)info;
 - (void)registerCommonNotifications;
+- (void)registerDeviceWithCause:(id)cause force:(BOOL)force;
 - (void)registerDidSucceed;
 - (void)sendDeviceIdentity:(int64_t)identity;
 - (void)sendDeviceIdentityIfEligibleWithIdentityInfo:(id)info;
@@ -61,9 +62,9 @@
 
 - (FMDFMIPServiceProvider)init
 {
-  v24.receiver = self;
-  v24.super_class = FMDFMIPServiceProvider;
-  v2 = [(FMDServiceProvider *)&v24 init];
+  v26.receiver = self;
+  v26.super_class = FMDFMIPServiceProvider;
+  v2 = [(FMDServiceProvider *)&v26 init];
   v3 = v2;
   if (v2)
   {
@@ -89,36 +90,36 @@
     block[1] = 3221225472;
     block[2] = sub_10016E448;
     block[3] = &unk_1002CD518;
-    objc_copyWeak(&v22, &location);
+    objc_copyWeak(&v24, &location);
     dispatch_async(&_dispatch_main_q, block);
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_100002880(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022A178(v11);
+      sub_10022A178(v12);
     }
 
-    v12 = [[FMNanoIDSManager alloc] initWithServiceId:@"com.apple.private.alloy.findmydeviced.watch" minimumVersion:2];
-    v13 = [[FMDFMIPNanoIDSListener alloc] initWithManager:v12];
-    [(FMDFMIPServiceProvider *)v3 setIdsListener:v13];
-
-    v14 = +[NSNotificationCenter defaultCenter];
-    [v14 addObserver:v3 selector:"checkShutdownSoonRegistration" name:@"FMDFMIPLowBatteryLocateStateDidChangeLocalNotification" object:0];
+    v13 = [[FMNanoIDSManager alloc] initWithServiceId:@"com.apple.private.alloy.findmydeviced.watch" minimumVersion:2];
+    v14 = [[FMDFMIPNanoIDSListener alloc] initWithManager:v13];
+    [(FMDFMIPServiceProvider *)v3 setIdsListener:v14];
 
     v15 = +[NSNotificationCenter defaultCenter];
-    [v15 addObserver:v3 selector:"_fmipStateChangeLocalNotification:" name:@"FMIPStateChangeLocalNotification" object:0];
+    [v15 addObserver:v3 selector:"checkShutdownSoonRegistration" name:@"FMDFMIPLowBatteryLocateStateDidChangeLocalNotification" object:0];
 
-    v16 = sub_100002880();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v16 = +[NSNotificationCenter defaultCenter];
+    [v16 addObserver:v3 selector:"_fmipStateChangeLocalNotification:" name:@"FMIPStateChangeLocalNotification" object:0];
+
+    v18 = sub_100002880(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Findmy MagSafe enabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Findmy MagSafe enabled", buf, 2u);
     }
 
-    v17 = objc_alloc_init(FMDMagSafeSetupLauncher);
+    v19 = objc_alloc_init(FMDMagSafeSetupLauncher);
     magSafeSetupLauncher = v3->_magSafeSetupLauncher;
-    v3->_magSafeSetupLauncher = v17;
+    v3->_magSafeSetupLauncher = v19;
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
 
@@ -169,12 +170,12 @@
   v3 = +[FMDSystemConfig sharedInstance];
   isBuddyDone = [v3 isBuddyDone];
 
-  v5 = sub_100002880();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100002880(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = isBuddyDone;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Buddy status: %d", v7, 8u);
+    v8[0] = 67109120;
+    v8[1] = isBuddyDone;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Buddy status: %d", v8, 8u);
   }
 
   [(FMDFMIPServiceProvider *)self _checkForBuddyCompletionAndReinitialize:0 withBuddyStatus:isBuddyDone];
@@ -183,19 +184,19 @@
 
 - (void)didMakeProviderActive
 {
-  v22.receiver = self;
-  v22.super_class = FMDFMIPServiceProvider;
-  [(FMDDeviceActionsServiceProvider *)&v22 didMakeProviderActive];
+  v23.receiver = self;
+  v23.super_class = FMDFMIPServiceProvider;
+  [(FMDDeviceActionsServiceProvider *)&v23 didMakeProviderActive];
   account = [(FMDServiceProvider *)self account];
   unregisterState = [account unregisterState];
 
   if (unregisterState <= 4 && ((1 << unregisterState) & 0x1A) != 0)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Found an fmip account that was previously unregistering in the last run of findmydeviced. That unregister may or may not have failed & error may or may not have been shown to the user. Showing error to user & turning FMIP back on", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Found an fmip account that was previously unregistering in the last run of findmydeviced. That unregister may or may not have failed & error may or may not have been shown to the user. Showing error to user & turning FMIP back on", v22, 2u);
     }
 
     account2 = [(FMDServiceProvider *)self account];
@@ -212,15 +213,15 @@
     fmipDisableContext = [account5 fmipDisableContext];
     if (fmipDisableContext <= 1)
     {
-      v12 = 1;
+      v13 = 1;
     }
 
     else
     {
-      v12 = fmipDisableContext;
+      v13 = fmipDisableContext;
     }
 
-    [(FMDFMIPServiceProvider *)self _showUnregisterDeviceErrorForResponseError:2 inContext:v12];
+    [(FMDFMIPServiceProvider *)self _showUnregisterDeviceErrorForResponseError:2 inContext:v13];
   }
 
   unregisterTokenStore = [(FMDFMIPServiceProvider *)self unregisterTokenStore];
@@ -228,8 +229,8 @@
 
   [(FMDFMIPServiceProvider *)self registerCommonNotifications];
   [(FMDFMIPServiceProvider *)self synchronizeLocalActivationLockState];
-  v14 = objc_alloc_init(FMDDetachNotificationManager);
-  [(FMDFMIPServiceProvider *)self setDetachNotificationManager:v14];
+  v15 = objc_alloc_init(FMDDetachNotificationManager);
+  [(FMDFMIPServiceProvider *)self setDetachNotificationManager:v15];
 
   accessoryRegistry = [(FMDServiceProvider *)self accessoryRegistry];
   detachNotificationManager = [(FMDFMIPServiceProvider *)self detachNotificationManager];
@@ -383,11 +384,11 @@ LABEL_11:
 
   if (unregisterState == 1)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Sending unregister because account state changed to UnregisterPending", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Sending unregister because account state changed to UnregisterPending", buf, 2u);
     }
 
     [(FMDServiceProvider *)self makeProviderInactive];
@@ -397,23 +398,23 @@ LABEL_11:
     locationTracker = [(FMDDeviceActionsServiceProvider *)self locationTracker];
     [locationTracker deleteLocationTrackingInfoAndStopTracking];
 
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10016F0B0;
-    v12[3] = &unk_1002CEE48;
-    v12[4] = self;
-    v13 = completionCopy;
-    [(FMDFMIPServiceProvider *)self unregisterDeviceWithCompletion:v12];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10016F0B0;
+    v13[3] = &unk_1002CEE48;
+    v13[4] = self;
+    v14 = completionCopy;
+    [(FMDFMIPServiceProvider *)self unregisterDeviceWithCompletion:v13];
   }
 
   else
   {
-    v10 = +[FMDMagSafeDataStore sharedInstance];
-    [v10 clearDataStore];
+    v11 = +[FMDMagSafeDataStore sharedInstance];
+    [v11 clearDataStore];
 
-    v11.receiver = self;
-    v11.super_class = FMDFMIPServiceProvider;
-    [(FMDDeviceActionsServiceProvider *)&v11 accountRemoveRequestedWithCompletion:completionCopy];
+    v12.receiver = self;
+    v12.super_class = FMDFMIPServiceProvider;
+    [(FMDDeviceActionsServiceProvider *)&v12 accountRemoveRequestedWithCompletion:completionCopy];
   }
 }
 
@@ -493,13 +494,14 @@ LABEL_11:
 - (void)sendDeviceIdentityWithIdentityInfo:(id)info
 {
   infoCopy = info;
-  if ([(FMDFMIPServiceProvider *)self isMonitoringPendingDeviceIdentity])
+  isMonitoringPendingDeviceIdentity = [(FMDFMIPServiceProvider *)self isMonitoringPendingDeviceIdentity];
+  if (isMonitoringPendingDeviceIdentity)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(isMonitoringPendingDeviceIdentity);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Already waiting to send deviceIdentity", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Already waiting to send deviceIdentity", v7, 2u);
     }
   }
 
@@ -516,7 +518,7 @@ LABEL_11:
   if (essentialServerInfoMissingError != 1196379972)
   {
     v9 = essentialServerInfoMissingError;
-    v10 = sub_100002880();
+    v10 = sub_100002880(essentialServerInfoMissingError);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [NSString stringWithFourCC:v9];
@@ -549,6 +551,21 @@ LABEL_11:
     [(FMDRequest *)accountStore setCompletionHandler:v13];
     [(FMDServiceProvider *)self enqueueRequest:accountStore];
 LABEL_7:
+  }
+}
+
+- (void)registerDeviceWithCause:(id)cause force:(BOOL)force
+{
+  forceCopy = force;
+  causeCopy = cause;
+  account = [(FMDServiceProvider *)self account];
+  unregisterState = [account unregisterState];
+
+  if (!unregisterState)
+  {
+    v9.receiver = self;
+    v9.super_class = FMDFMIPServiceProvider;
+    [(FMDServiceProvider *)&v9 registerDeviceWithCause:causeCopy force:forceCopy];
   }
 }
 
@@ -592,8 +609,7 @@ LABEL_7:
   v17[3] = &unk_1002CD1D0;
   v18 = completionCopy;
   v14 = completionCopy;
-  [(FMDRequest *)v7 setCompletionHandler:v17];
-  v15 = sub_10017DE2C();
+  v15 = sub_10017DE2C([(FMDRequest *)v7 setCompletionHandler:v17]);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID = [(FMDDisableLocationDisplayRequest *)v7 fm_logID];
@@ -610,7 +626,7 @@ LABEL_7:
   completionCopy = completion;
   contextCopy = context;
   repairDeviceMode = [contextCopy repairDeviceMode];
-  v8 = sub_10017DD1C();
+  v8 = sub_10017DD1C(repairDeviceMode);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (repairDeviceMode == 2)
   {
@@ -706,7 +722,7 @@ LABEL_10:
   {
     v8 = MAEUCRTUpgradeRequired();
     v9 = 0;
-    v10 = sub_10017DC94();
+    v10 = sub_10017DC94(v9);
     v11 = v10;
     if ((v8 & 1) == 0 && v9)
     {
@@ -729,7 +745,7 @@ LABEL_20:
       }
 
       *buf = 136315138;
-      v22 = v16;
+      v23 = v16;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "UCRT Upgrade required %s", buf, 0xCu);
     }
 
@@ -741,20 +757,20 @@ LABEL_20:
     v17 = MAEReissueUCRTWithError();
     v18 = v9;
 
-    v19 = sub_10017DC94();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_10017DC94(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = "false";
+      v21 = "false";
       if (v17)
       {
-        v20 = "true";
+        v21 = "true";
       }
 
       *buf = 136315394;
-      v22 = v20;
-      v23 = 2112;
-      v24 = v18;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Is UCRT Success: %s,: Error: %@", buf, 0x16u);
+      v23 = v21;
+      v24 = 2112;
+      v25 = v18;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Is UCRT Success: %s,: Error: %@", buf, 0x16u);
     }
 
     completionCopy[2](completionCopy, v17, v18);
@@ -764,16 +780,16 @@ LABEL_20:
   else
   {
     v9 = [NSString stringWithFormat:@"Username or password is not correct types"];
-    v12 = sub_10017DC94();
+    v12 = sub_10017DC94(v9);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     v13 = kFMDErrorDomain;
-    v25 = NSLocalizedFailureReasonErrorKey;
-    v26 = v9;
-    v14 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v26 = NSLocalizedFailureReasonErrorKey;
+    v27 = v9;
+    v14 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     v15 = [NSError errorWithDomain:v13 code:7 userInfo:v14];
 
     completionCopy[2](completionCopy, 0, v15);
@@ -788,7 +804,7 @@ LABEL_21:
   clientCopy = client;
   completionCopy = completion;
   repairDeviceMode = [contextCopy repairDeviceMode];
-  v12 = sub_10017DD1C();
+  v12 = sub_10017DD1C(repairDeviceMode);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   if (repairDeviceMode == 2)
   {
@@ -830,11 +846,11 @@ LABEL_10:
 
   if (ephemeralToken)
   {
-    v16 = sub_10017DD1C();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_10017DD1C(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Got ephemeral token for repair device.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Got ephemeral token for repair device.", buf, 2u);
     }
 
     [(FMDFMIPServiceProvider *)self _enableRepairWithContext:contextCopy callingClient:clientCopy completion:completionCopy];
@@ -842,15 +858,15 @@ LABEL_10:
 
   else
   {
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100170CC8;
-    v17[3] = &unk_1002CF580;
-    v21 = completionCopy;
-    v18 = contextCopy;
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100170CC8;
+    v18[3] = &unk_1002CF580;
+    v22 = completionCopy;
+    v19 = contextCopy;
     selfCopy = self;
-    v20 = clientCopy;
-    [(FMDFMIPServiceProvider *)self ephemeralTokenForUserWithCompletion:v17];
+    v21 = clientCopy;
+    [(FMDFMIPServiceProvider *)self ephemeralTokenForUserWithCompletion:v18];
   }
 }
 
@@ -936,8 +952,7 @@ LABEL_12:
 
           v24 = v30;
           [(FMDRequest *)v35 setDecorator:v30];
-          [(FMDFMIPServiceProvider *)self setCompletionHandlerForRepairDeviceRequest:v35 thisDevice:v10 completion:completionCopy];
-          v36 = sub_10017DD1C();
+          v36 = sub_10017DD1C([(FMDFMIPServiceProvider *)self setCompletionHandlerForRepairDeviceRequest:v35 thisDevice:v10 completion:completionCopy]);
           if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -1038,7 +1053,7 @@ LABEL_20:
 
       else
       {
-        v18 = sub_100002880();
+        v18 = sub_100002880(0);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -1053,7 +1068,7 @@ LABEL_20:
 
     else
     {
-      v16 = sub_100002880();
+      v16 = sub_100002880(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -1090,28 +1105,28 @@ LABEL_20:
   v9 = +[NRPairedDeviceRegistry pairedDevicesSelectorBlock];
   v10 = [v8 getAllDevicesWithArchivedAltAccountDevicesMatching:v9];
 
-  v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
+  v47 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v46 objects:v52 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v46;
+    v14 = *v47;
     v15 = NRDevicePropertyIsPaired;
     v16 = NRDevicePropertyUDID;
 LABEL_3:
     v17 = 0;
     while (1)
     {
-      if (*v46 != v14)
+      if (*v47 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v18 = *(*(&v45 + 1) + 8 * v17);
+      v18 = *(*(&v46 + 1) + 8 * v17);
       v19 = [v18 valueForProperty:{v15, selfCopy}];
       bOOLValue = [v19 BOOLValue];
 
@@ -1131,7 +1146,7 @@ LABEL_3:
 
       if (v13 == ++v17)
       {
-        v13 = [v11 countByEnumeratingWithState:&v45 objects:v51 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v46 objects:v52 count:16];
         if (v13)
         {
           goto LABEL_3;
@@ -1141,55 +1156,55 @@ LABEL_3:
       }
     }
 
-    v23 = v18;
+    v24 = v18;
 
-    if (!v23)
+    if (!v24)
     {
       goto LABEL_15;
     }
 
-    v24 = objc_alloc_init(FMDFMIPUnregisterDeviceInfo);
-    v25 = [v23 valueForProperty:v16];
-    [(FMDFMIPUnregisterDeviceInfo *)v24 setUdid:v25];
+    v25 = objc_alloc_init(FMDFMIPUnregisterDeviceInfo);
+    v26 = [v24 valueForProperty:v16];
+    [(FMDFMIPUnregisterDeviceInfo *)v25 setUdid:v26];
 
-    v26 = [v23 valueForProperty:NRDevicePropertySerialNumber];
-    [(FMDFMIPUnregisterDeviceInfo *)v24 setSerialNumber:v26];
+    v27 = [v24 valueForProperty:NRDevicePropertySerialNumber];
+    [(FMDFMIPUnregisterDeviceInfo *)v25 setSerialNumber:v27];
 
-    v27 = [v23 valueForProperty:NRDevicePropertyProductType];
-    [(FMDFMIPUnregisterDeviceInfo *)v24 setProductType:v27];
+    v28 = [v24 valueForProperty:NRDevicePropertyProductType];
+    [(FMDFMIPUnregisterDeviceInfo *)v25 setProductType:v28];
 
-    v28 = [v23 valueForProperty:NRDevicePropertyPairingID];
-    uUIDString = [v28 UUIDString];
-    [(FMDFMIPUnregisterDeviceInfo *)v24 setPairingId:uUIDString];
+    v29 = [v24 valueForProperty:NRDevicePropertyPairingID];
+    uUIDString = [v29 UUIDString];
+    [(FMDFMIPUnregisterDeviceInfo *)v25 setPairingId:uUIDString];
 
-    v30 = [FMPreferencesUtil stringForKey:@"productVersionOverride" inDomain:kFMDNotBackedUpPrefDomain];
-    v32 = completionCopy;
-    v31 = accountCopy;
-    if (v30)
+    v31 = [FMPreferencesUtil stringForKey:@"productVersionOverride" inDomain:kFMDNotBackedUpPrefDomain];
+    v33 = completionCopy;
+    v32 = accountCopy;
+    if (v31)
     {
-      [(FMDFMIPUnregisterDeviceInfo *)v24 setProductVersion:v30];
+      [(FMDFMIPUnregisterDeviceInfo *)v25 setProductVersion:v31];
     }
 
     else
     {
-      v35 = [v23 valueForProperty:NRDevicePropertySystemVersion];
-      [(FMDFMIPUnregisterDeviceInfo *)v24 setProductVersion:v35];
+      v36 = [v24 valueForProperty:NRDevicePropertySystemVersion];
+      [(FMDFMIPUnregisterDeviceInfo *)v25 setProductVersion:v36];
     }
 
-    v36 = [v23 valueForProperty:NRDevicePropertySystemBuildVersion];
-    [(FMDFMIPUnregisterDeviceInfo *)v24 setBuildVersion:v36];
+    v37 = [v24 valueForProperty:NRDevicePropertySystemBuildVersion];
+    [(FMDFMIPUnregisterDeviceInfo *)v25 setBuildVersion:v37];
 
-    [(FMDFMIPUnregisterDeviceInfo *)v24 setDisableContext:5];
-    v37 = [[FMDRequestFMIPUnregister alloc] initWithAccount:accountCopy device:v24 otherDevices:0];
-    v41[0] = _NSConcreteStackBlock;
-    v41[1] = 3221225472;
-    v41[2] = sub_1001720F8;
-    v41[3] = &unk_1002CF618;
-    v42 = dCopy;
-    v43 = selfCopy;
-    v44 = completionCopy;
-    [(FMDRequest *)v37 setCompletionHandler:v41];
-    [(FMDServiceProvider *)selfCopy enqueueRequest:v37 account:accountCopy];
+    [(FMDFMIPUnregisterDeviceInfo *)v25 setDisableContext:5];
+    v38 = [[FMDRequestFMIPUnregister alloc] initWithAccount:accountCopy device:v25 otherDevices:0];
+    v42[0] = _NSConcreteStackBlock;
+    v42[1] = 3221225472;
+    v42[2] = sub_1001720F8;
+    v42[3] = &unk_1002CF618;
+    v43 = dCopy;
+    v44 = selfCopy;
+    v45 = completionCopy;
+    [(FMDRequest *)v38 setCompletionHandler:v42];
+    [(FMDServiceProvider *)selfCopy enqueueRequest:v38 account:accountCopy];
 
     goto LABEL_21;
   }
@@ -1197,22 +1212,22 @@ LABEL_3:
 LABEL_11:
 
 LABEL_15:
-  v33 = sub_100002880();
-  v32 = completionCopy;
-  v31 = accountCopy;
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  v34 = sub_100002880(v23);
+  v33 = completionCopy;
+  v32 = accountCopy;
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
     sub_10022A308();
   }
 
   if (completionCopy)
   {
-    v34 = kFMDErrorDomain;
-    v49 = NSLocalizedFailureReasonErrorKey;
-    v50 = @"No paired device with this UDID";
-    v23 = [NSDictionary dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-    v24 = [NSError errorWithDomain:v34 code:1 userInfo:v23];
-    (*(completionCopy + 2))(completionCopy, v24);
+    v35 = kFMDErrorDomain;
+    v50 = NSLocalizedFailureReasonErrorKey;
+    v51 = @"No paired device with this UDID";
+    v24 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+    v25 = [NSError errorWithDomain:v35 code:1 userInfo:v24];
+    (*(completionCopy + 2))(completionCopy, v25);
 LABEL_21:
   }
 }
@@ -1358,28 +1373,28 @@ LABEL_21:
   v9 = +[NRPairedDeviceRegistry pairedDevicesSelectorBlock];
   v10 = [v8 getAllDevicesWithArchivedAltAccountDevicesMatching:v9];
 
-  v45 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
+  v45 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v44;
+    v14 = *v45;
     v15 = NRDevicePropertyIsPaired;
     v16 = NRDevicePropertyUDID;
 LABEL_3:
     v17 = 0;
     while (1)
     {
-      if (*v44 != v14)
+      if (*v45 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v18 = *(*(&v43 + 1) + 8 * v17);
+      v18 = *(*(&v44 + 1) + 8 * v17);
       v19 = [v18 valueForProperty:v15];
       bOOLValue = [v19 BOOLValue];
 
@@ -1399,7 +1414,7 @@ LABEL_3:
 
       if (v13 == ++v17)
       {
-        v13 = [v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v44 objects:v50 count:16];
         if (v13)
         {
           goto LABEL_3;
@@ -1409,52 +1424,52 @@ LABEL_3:
       }
     }
 
-    v23 = v18;
+    v24 = v18;
 
-    if (!v23)
+    if (!v24)
     {
       goto LABEL_15;
     }
 
-    v24 = objc_alloc_init(FMDFMIPMissingDeviceInfo);
-    v25 = [v23 valueForProperty:v16];
-    [(FMDFMIPMissingDeviceInfo *)v24 setUdid:v25];
+    v25 = objc_alloc_init(FMDFMIPMissingDeviceInfo);
+    v26 = [v24 valueForProperty:v16];
+    [(FMDFMIPMissingDeviceInfo *)v25 setUdid:v26];
 
-    v26 = [v23 valueForProperty:NRDevicePropertySerialNumber];
-    [(FMDFMIPMissingDeviceInfo *)v24 setSerialNumber:v26];
+    v27 = [v24 valueForProperty:NRDevicePropertySerialNumber];
+    [(FMDFMIPMissingDeviceInfo *)v25 setSerialNumber:v27];
 
-    v27 = [v23 valueForProperty:NRDevicePropertyProductType];
-    [(FMDFMIPMissingDeviceInfo *)v24 setProductType:v27];
+    v28 = [v24 valueForProperty:NRDevicePropertyProductType];
+    [(FMDFMIPMissingDeviceInfo *)v25 setProductType:v28];
 
-    v28 = [FMPreferencesUtil stringForKey:@"productVersionOverride" inDomain:kFMDNotBackedUpPrefDomain];
-    v29 = tokenCopy;
-    if (v28)
+    v29 = [FMPreferencesUtil stringForKey:@"productVersionOverride" inDomain:kFMDNotBackedUpPrefDomain];
+    v30 = tokenCopy;
+    if (v29)
     {
-      [(FMDFMIPMissingDeviceInfo *)v24 setProductVersion:v28];
+      [(FMDFMIPMissingDeviceInfo *)v25 setProductVersion:v29];
     }
 
     else
     {
-      v33 = [v23 valueForProperty:NRDevicePropertySystemVersion];
-      [(FMDFMIPMissingDeviceInfo *)v24 setProductVersion:v33];
+      v34 = [v24 valueForProperty:NRDevicePropertySystemVersion];
+      [(FMDFMIPMissingDeviceInfo *)v25 setProductVersion:v34];
     }
 
-    v34 = [v23 valueForProperty:NRDevicePropertySystemBuildVersion];
-    [(FMDFMIPMissingDeviceInfo *)v24 setBuildVersion:v34];
+    v35 = [v24 valueForProperty:NRDevicePropertySystemBuildVersion];
+    [(FMDFMIPMissingDeviceInfo *)v25 setBuildVersion:v35];
 
-    v35 = [FMDRequestMissingDevice alloc];
+    v36 = [FMDRequestMissingDevice alloc];
     account = [(FMDServiceProvider *)self account];
-    v37 = [(FMDRequestMissingDevice *)v35 initWithAccount:account token:tokenCopy andMissingDeviceInfo:v24];
+    v38 = [(FMDRequestMissingDevice *)v36 initWithAccount:account token:tokenCopy andMissingDeviceInfo:v25];
 
-    v41[0] = _NSConcreteStackBlock;
-    v41[1] = 3221225472;
-    v41[2] = sub_100173D3C;
-    v41[3] = &unk_1002CF668;
-    v41[4] = self;
-    v31 = completionCopy;
-    v42 = completionCopy;
-    [(FMDRequest *)v37 setCompletionHandler:v41];
-    [(FMDServiceProvider *)self enqueueRequest:v37];
+    v42[0] = _NSConcreteStackBlock;
+    v42[1] = 3221225472;
+    v42[2] = sub_100173D3C;
+    v42[3] = &unk_1002CF668;
+    v42[4] = self;
+    v32 = completionCopy;
+    v43 = completionCopy;
+    [(FMDRequest *)v38 setCompletionHandler:v42];
+    [(FMDServiceProvider *)self enqueueRequest:v38];
 
     goto LABEL_21;
   }
@@ -1462,22 +1477,22 @@ LABEL_3:
 LABEL_11:
 
 LABEL_15:
-  v30 = sub_100002880();
-  v31 = completionCopy;
-  v29 = tokenCopy;
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v31 = sub_100002880(v23);
+  v32 = completionCopy;
+  v30 = tokenCopy;
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     sub_10022A308();
   }
 
   if (completionCopy)
   {
-    v32 = kFMDErrorDomain;
-    v47 = NSLocalizedFailureReasonErrorKey;
-    v48 = @"No paired device with this UDID";
-    v23 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-    v24 = [NSError errorWithDomain:v32 code:1 userInfo:v23];
-    (*(completionCopy + 2))(completionCopy, v24);
+    v33 = kFMDErrorDomain;
+    v48 = NSLocalizedFailureReasonErrorKey;
+    v49 = @"No paired device with this UDID";
+    v24 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    v25 = [NSError errorWithDomain:v33 code:1 userInfo:v24];
+    (*(completionCopy + 2))(completionCopy, v25);
 LABEL_21:
   }
 }
@@ -1637,7 +1652,7 @@ LABEL_21:
 - (void)_checkForBuddyCompletionAndReinitialize:(BOOL)reinitialize withBuddyStatus:(BOOL)status
 {
   statusCopy = status;
-  v7 = sub_100002880();
+  v7 = sub_100002880(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1657,7 +1672,7 @@ LABEL_21:
 
 - (void)syncFMIPStateToWatch
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1679,36 +1694,36 @@ LABEL_21:
   account3 = [(FMDServiceProvider *)self account];
   lowBatteryLocateEnabled = [account3 lowBatteryLocateEnabled];
 
-  v64 = dsid;
+  v67 = dsid;
   if (fmipState > 2)
   {
     v15 = v11;
-    v86 = @"Enabled";
-    v87 = &__kCFBooleanFalse;
-    v16 = &v87;
-    v17 = &v86;
+    v89 = @"Enabled";
+    v90 = &__kCFBooleanFalse;
+    v16 = &v90;
+    v17 = &v89;
     v18 = 1;
   }
 
   else
   {
     v14 = &__kCFBooleanTrue;
-    v88[0] = @"Enabled";
-    v88[1] = @"AccountId";
-    v89[0] = &__kCFBooleanTrue;
-    v89[1] = dsid;
-    v88[2] = @"AccountAddTime";
-    v88[3] = @"LowBatteryLocateEnabled";
+    v91[0] = @"Enabled";
+    v91[1] = @"AccountId";
+    v92[0] = &__kCFBooleanTrue;
+    v92[1] = dsid;
+    v91[2] = @"AccountAddTime";
+    v91[3] = @"LowBatteryLocateEnabled";
     if (!lowBatteryLocateEnabled)
     {
       v14 = &__kCFBooleanFalse;
     }
 
     v15 = v11;
-    v89[2] = v11;
-    v89[3] = v14;
-    v16 = v89;
-    v17 = v88;
+    v92[2] = v11;
+    v92[3] = v14;
+    v16 = v92;
+    v17 = v91;
     v18 = 4;
   }
 
@@ -1716,54 +1731,54 @@ LABEL_21:
   v20 = +[NSMutableSet set];
   [FMPreferencesUtil synchronizeDomain:kFMDWatchNotBackedUpPrefDomain];
   v21 = [FMPreferencesUtil objectForKey:@"FMIPInfo" inDomain:kFMDWatchNotBackedUpPrefDomain];
-  v63 = [FMPreferencesUtil objectForKey:@"ActivationLockAllowed" inDomain:kFMDWatchNotBackedUpPrefDomain];
-  v60 = v21;
+  v66 = [FMPreferencesUtil objectForKey:@"ActivationLockAllowed" inDomain:kFMDWatchNotBackedUpPrefDomain];
+  v63 = v21;
   if (([v21 isEqual:v19] & 1) == 0)
   {
     [v20 addObject:@"FMIPInfo"];
   }
 
-  if (allowsActivationLock != [v63 BOOLValue])
+  if (allowsActivationLock != [v66 BOOLValue])
   {
     [v20 addObject:@"ActivationLockAllowed"];
   }
 
-  v62 = v20;
-  v69 = v19;
-  v61 = v15;
+  v65 = v20;
+  v72 = v19;
+  v64 = v15;
   if ([v20 count])
   {
     v22 = +[NSDate date];
     [v22 timeIntervalSinceReferenceDate];
     v23 = [NSNumber numberWithDouble:?];
 
-    v24 = sub_100002880();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = sub_100002880(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = [v69 objectForKeyedSubscript:@"Enabled"];
-      bOOLValue = [v25 BOOLValue];
+      v26 = [v72 objectForKeyedSubscript:@"Enabled"];
+      bOOLValue = [v26 BOOLValue];
       *buf = 134218754;
-      v79 = bOOLValue;
-      v80 = 2112;
-      v81 = dsid;
-      v82 = 2048;
-      v83 = allowsActivationLock;
-      v84 = 2112;
-      v85 = v23;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Updating watch with fmipEnabled:%ld, fmipAccount:%@, activationLockAllowed:%ld, lastUpdated:%@...", buf, 0x2Au);
+      v82 = bOOLValue;
+      v83 = 2112;
+      v84 = dsid;
+      v85 = 2048;
+      v86 = allowsActivationLock;
+      v87 = 2112;
+      v88 = v23;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Updating watch with fmipEnabled:%ld, fmipAccount:%@, activationLockAllowed:%ld, lastUpdated:%@...", buf, 0x2Au);
     }
 
-    [v62 addObject:@"LastUpdated"];
+    [v65 addObject:@"LastUpdated"];
     [FMPreferencesUtil setObject:v23 forKey:@"LastUpdated" inDomain:kFMDWatchNotBackedUpPrefDomain];
-    [FMPreferencesUtil setObject:v69 forKey:@"FMIPInfo" inDomain:kFMDWatchNotBackedUpPrefDomain];
+    [FMPreferencesUtil setObject:v72 forKey:@"FMIPInfo" inDomain:kFMDWatchNotBackedUpPrefDomain];
     [FMPreferencesUtil setBool:allowsActivationLock forKey:@"ActivationLockAllowed" inDomain:kFMDWatchNotBackedUpPrefDomain];
-    v27 = objc_alloc_init(NPSManager);
-    [v27 synchronizeUserDefaultsDomain:kFMDWatchNotBackedUpPrefDomain keys:v62];
+    v28 = objc_alloc_init(NPSManager);
+    [v28 synchronizeUserDefaultsDomain:kFMDWatchNotBackedUpPrefDomain keys:v65];
   }
 
   else
   {
-    v23 = sub_100002880();
+    v23 = sub_100002880(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1771,135 +1786,135 @@ LABEL_21:
     }
   }
 
-  v28 = +[NRPairedDeviceRegistry sharedInstance];
-  getPairedDevices = [v28 getPairedDevices];
+  v29 = +[NRPairedDeviceRegistry sharedInstance];
+  getPairedDevices = [v29 getPairedDevices];
 
-  v74 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v30 = getPairedDevices;
-  v31 = [v30 countByEnumeratingWithState:&v72 objects:v77 count:16];
-  if (v31)
+  v76 = 0u;
+  v31 = getPairedDevices;
+  v32 = [v31 countByEnumeratingWithState:&v75 objects:v80 count:16];
+  if (v32)
   {
-    v32 = v31;
-    v33 = *v73;
-    v71 = NRDevicePropertyIsPaired;
-    v70 = NRDevicePropertySystemVersion;
-    v65 = NRDevicePropertyLocalPairingDataStorePath;
-    v66 = NRDevicePropertyPairingID;
-    v67 = *v73;
-    v68 = v30;
+    v33 = v32;
+    v34 = *v76;
+    v74 = NRDevicePropertyIsPaired;
+    v73 = NRDevicePropertySystemVersion;
+    v68 = NRDevicePropertyLocalPairingDataStorePath;
+    v69 = NRDevicePropertyPairingID;
+    v70 = *v76;
+    v71 = v31;
     do
     {
-      for (i = 0; i != v32; i = i + 1)
+      for (i = 0; i != v33; i = i + 1)
       {
-        if (*v73 != v33)
+        if (*v76 != v34)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v31);
         }
 
-        v35 = *(*(&v72 + 1) + 8 * i);
-        v36 = [v35 valueForProperty:v71];
-        bOOLValue2 = [v36 BOOLValue];
+        v36 = *(*(&v75 + 1) + 8 * i);
+        v37 = [v36 valueForProperty:v74];
+        bOOLValue2 = [v37 BOOLValue];
 
         if (bOOLValue2)
         {
-          v38 = [v35 valueForProperty:v70];
-          v39 = NRRawVersionFromString();
+          v39 = [v36 valueForProperty:v73];
+          v40 = NRRawVersionFromString();
 
-          v40 = sub_100002880();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v42 = sub_100002880(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134218240;
-            v79 = HIWORD(v39);
-            v80 = 2048;
-            v81 = 3;
-            _os_log_debug_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, "Comparing paired version %ld to %ld", buf, 0x16u);
+            v82 = HIWORD(v40);
+            v83 = 2048;
+            v84 = 3;
+            _os_log_debug_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "Comparing paired version %ld to %ld", buf, 0x16u);
           }
 
-          if (HIWORD(v39) <= 2u)
+          if (HIWORD(v40) <= 2u)
           {
-            v41 = @"ShowFMWUpgradeAlert";
+            v43 = @"ShowFMWUpgradeAlert";
             if (@"ShowFMWUpgradeAlert")
             {
-              v42 = v41;
-              v43 = [v35 valueForProperty:v66];
-              v44 = sub_100002880();
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+              v44 = v43;
+              v45 = [v36 valueForProperty:v69];
+              v46 = sub_100002880(v45);
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v79 = v43;
-                v80 = 2112;
-                v81 = @"ShowFMWUpgradeAlert";
-                _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Found old paired device with pairing ID %@. Checking if upgrade alert state needs to be synced for %@...", buf, 0x16u);
+                v82 = v45;
+                v83 = 2112;
+                v84 = @"ShowFMWUpgradeAlert";
+                _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Found old paired device with pairing ID %@. Checking if upgrade alert state needs to be synced for %@...", buf, 0x16u);
               }
 
-              v45 = [v35 valueForProperty:v65];
-              v46 = [NPSDomainAccessor alloc];
-              v47 = [v46 initWithDomain:kFMDWatchNotBackedUpPrefDomain pairingID:v43 pairingDataStore:v45];
-              synchronize = [v47 synchronize];
-              v49 = [v47 BOOLForKey:v42];
-              v50 = [v69 objectForKeyedSubscript:@"Enabled"];
-              bOOLValue3 = [v50 BOOLValue];
+              v47 = [v36 valueForProperty:v68];
+              v48 = [NPSDomainAccessor alloc];
+              v49 = [v48 initWithDomain:kFMDWatchNotBackedUpPrefDomain pairingID:v45 pairingDataStore:v47];
+              synchronize = [v49 synchronize];
+              v51 = [v49 BOOLForKey:v44];
+              v52 = [v72 objectForKeyedSubscript:@"Enabled"];
+              bOOLValue3 = [v52 BOOLValue];
 
-              v52 = sub_100002880();
-              v53 = os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT);
-              if (v49 == bOOLValue3)
+              v55 = sub_100002880(v54);
+              v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
+              if (v51 == bOOLValue3)
               {
-                if (v53)
+                if (v56)
                 {
-                  v59 = @"Don't Show";
+                  v62 = @"Don't Show";
                   if (bOOLValue3)
                   {
-                    v59 = @"Show";
+                    v62 = @"Show";
                   }
 
                   *buf = 138412290;
-                  v79 = v59;
-                  _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "Upgrade alert state is already in sync : '%@'", buf, 0xCu);
+                  v82 = v62;
+                  _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Upgrade alert state is already in sync : '%@'", buf, 0xCu);
                 }
               }
 
               else
               {
-                if (v53)
+                if (v56)
                 {
                   *buf = 138412546;
-                  v54 = @"Don't Show";
+                  v57 = @"Don't Show";
                   if (bOOLValue3)
                   {
-                    v54 = @"Show";
+                    v57 = @"Show";
                   }
 
-                  v79 = @"ShowFMWUpgradeAlert";
-                  v80 = 2112;
-                  v81 = v54;
-                  _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "Syncing %@ upgrade alert state : '%@'", buf, 0x16u);
+                  v82 = @"ShowFMWUpgradeAlert";
+                  v83 = 2112;
+                  v84 = v57;
+                  _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Syncing %@ upgrade alert state : '%@'", buf, 0x16u);
                 }
 
-                [v47 setBool:bOOLValue3 forKey:v42];
-                synchronize2 = [v47 synchronize];
-                v52 = objc_opt_new();
-                v56 = kFMDWatchNotBackedUpPrefDomain;
-                v76 = v42;
-                v57 = [NSArray arrayWithObjects:&v76 count:1];
-                v58 = [NSSet setWithArray:v57];
-                [v52 synchronizeNanoDomain:v56 keys:v58];
+                [v49 setBool:bOOLValue3 forKey:v44];
+                synchronize2 = [v49 synchronize];
+                v55 = objc_opt_new();
+                v59 = kFMDWatchNotBackedUpPrefDomain;
+                v79 = v44;
+                v60 = [NSArray arrayWithObjects:&v79 count:1];
+                v61 = [NSSet setWithArray:v60];
+                [v55 synchronizeNanoDomain:v59 keys:v61];
               }
 
-              v33 = v67;
+              v34 = v70;
 
-              v30 = v68;
+              v31 = v71;
             }
           }
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v72 objects:v77 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v75 objects:v80 count:16];
     }
 
-    while (v32);
+    while (v33);
   }
 }
 
@@ -1953,9 +1968,8 @@ LABEL_21:
 
   v2 = objc_alloc_init(BKSApplicationStateMonitor);
   v3 = [v2 applicationStateForApplication:@"com.apple.Preferences"];
-  [v2 invalidate];
   v4 = v3 != 8;
-  v5 = sub_100002880();
+  v5 = sub_100002880([v2 invalidate]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10022A42C(v3 != 8, v5);
@@ -1984,33 +1998,34 @@ LABEL_21:
 - (void)_serialQueue_sendDeviceIdentityIfEligibleWithIdentityInfo:(id)info
 {
   infoCopy = info;
-  if ([(FMDFMIPServiceProvider *)self isMonitoringPendingDeviceIdentity])
+  isMonitoringPendingDeviceIdentity = [(FMDFMIPServiceProvider *)self isMonitoringPendingDeviceIdentity];
+  if (isMonitoringPendingDeviceIdentity)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(isMonitoringPendingDeviceIdentity);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 0;
-      v6 = "Already monitoring for the right time to send a deviceIdentity request.";
-      v7 = &v13;
+      v16 = 0;
+      v7 = "Already monitoring for the right time to send a deviceIdentity request.";
+      v8 = &v16;
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
       goto LABEL_10;
     }
 
     goto LABEL_10;
   }
 
-  v8 = +[FMDSystemConfig sharedInstance];
-  allowsActivationLock = [v8 allowsActivationLock];
+  v9 = +[FMDSystemConfig sharedInstance];
+  allowsActivationLock = [v9 allowsActivationLock];
 
   if ((allowsActivationLock & 1) == 0)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(v11);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v6 = "Not sending a deviceIdentity request because activation lock is not allowed.";
-      v7 = buf;
+      v7 = "Not sending a deviceIdentity request because activation lock is not allowed.";
+      v8 = buf;
       goto LABEL_9;
     }
 
@@ -2019,18 +2034,19 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if ([(FMDFMIPServiceProvider *)self _canSendDeviceIdentityNow])
+  _canSendDeviceIdentityNow = [(FMDFMIPServiceProvider *)self _canSendDeviceIdentityNow];
+  if (_canSendDeviceIdentityNow)
   {
     [(FMDFMIPServiceProvider *)self _sendDeviceIdentityNowWithIdentityInfo:infoCopy];
   }
 
   else
   {
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100002880(_canSendDeviceIdentityNow);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Cannot send a deviceIdentity request now. Will wait for the right moment", v11, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Cannot send a deviceIdentity request now. Will wait for the right moment", v14, 2u);
     }
 
     [(FMDFMIPServiceProvider *)self monitorAndSendDeviceIdentityLaterWithIdentityInfo:infoCopy];
@@ -2111,11 +2127,12 @@ LABEL_11:
 {
   infoCopy = info;
   _canSendDeviceIdentityNow = [(FMDFMIPServiceProvider *)self _canSendDeviceIdentityNow];
-  if ([(FMDFMIPServiceProvider *)self isMonitoringPendingDeviceIdentity]&& _canSendDeviceIdentityNow)
+  isMonitoringPendingDeviceIdentity = [(FMDFMIPServiceProvider *)self isMonitoringPendingDeviceIdentity];
+  if (isMonitoringPendingDeviceIdentity && _canSendDeviceIdentityNow)
   {
     [(FMDFMIPServiceProvider *)self stopMonitoringPendingDeviceIdentity];
-    v6 = +[FMDSystemConfig sharedInstance];
-    allowsActivationLock = [v6 allowsActivationLock];
+    v7 = +[FMDSystemConfig sharedInstance];
+    allowsActivationLock = [v7 allowsActivationLock];
 
     if (allowsActivationLock)
     {
@@ -2124,55 +2141,55 @@ LABEL_11:
 
     else
     {
-      v12 = sub_100002880();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100002880(v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Not sending a deviceIdentity request because activation lock is not allowed.", &v15, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not sending a deviceIdentity request because activation lock is not allowed.", &v17, 2u);
       }
     }
 
-    v13 = +[FMXPCTransactionManager sharedInstance];
+    v15 = +[FMXPCTransactionManager sharedInstance];
     deviceIdentityPendingXpcTransactionName = [(FMDFMIPServiceProvider *)self deviceIdentityPendingXpcTransactionName];
-    [v13 endTransaction:deviceIdentityPendingXpcTransactionName];
+    [v15 endTransaction:deviceIdentityPendingXpcTransactionName];
 
     [(FMDFMIPServiceProvider *)self setDeviceIdentityPendingXpcTransactionName:0];
   }
 
   else
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002880(isMonitoringPendingDeviceIdentity);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      isMonitoringPendingDeviceIdentity = [(FMDFMIPServiceProvider *)self isMonitoringPendingDeviceIdentity];
-      v10 = @"NO";
-      if (isMonitoringPendingDeviceIdentity)
+      isMonitoringPendingDeviceIdentity2 = [(FMDFMIPServiceProvider *)self isMonitoringPendingDeviceIdentity];
+      v12 = @"NO";
+      if (isMonitoringPendingDeviceIdentity2)
       {
-        v11 = @"YES";
+        v13 = @"YES";
       }
 
       else
       {
-        v11 = @"NO";
+        v13 = @"NO";
       }
 
       if (_canSendDeviceIdentityNow)
       {
-        v10 = @"YES";
+        v12 = @"YES";
       }
 
-      v15 = 138412546;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not sending a deviceIdentity request... monitoring:%@, canSend:%@", &v15, 0x16u);
+      v17 = 138412546;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not sending a deviceIdentity request... monitoring:%@, canSend:%@", &v17, 0x16u);
     }
   }
 }
 
 - (void)_buddyCompletionCheckTimerFired:(id)fired
 {
-  v4 = sub_100002880();
+  v4 = sub_100002880(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -2187,7 +2204,7 @@ LABEL_11:
 
 - (void)buddyDidComplete:(id)complete
 {
-  v4 = sub_100002880();
+  v4 = sub_100002880(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -2202,7 +2219,7 @@ LABEL_11:
 
 - (void)_fmipStateChangeLocalNotification:(id)notification
 {
-  v4 = sub_100002880();
+  v4 = sub_100002880(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -2227,29 +2244,29 @@ LABEL_11:
 
   if (lowBatteryLocateEnabled)
   {
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100176900;
-    v15[3] = &unk_1002CD580;
-    v15[4] = self;
-    v6 = [[FMDActingRequestDecorator alloc] initWithDeviceContextGenerator:&stru_1002CF700 deviceInfoGenerator:v15 serverContextGenerator:0 requestHeaderGenerator:0];
-    v7 = [QCAction alloc];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100176900;
+    v16[3] = &unk_1002CD580;
+    v16[4] = self;
+    v7 = [[FMDActingRequestDecorator alloc] initWithDeviceContextGenerator:&stru_1002CF700 deviceInfoGenerator:v16 serverContextGenerator:0 requestHeaderGenerator:0];
+    v8 = [QCAction alloc];
     account2 = [(FMDServiceProvider *)self account];
     serverInteractionController = [(FMDServiceProvider *)self serverInteractionController];
-    v10 = [(QCAction *)v7 initWithAccount:account2 shutdownActivityPending:1 serverInteractionController:serverInteractionController];
+    v11 = [(QCAction *)v8 initWithAccount:account2 shutdownActivityPending:1 serverInteractionController:serverInteractionController];
 
-    [(QCAction *)v10 setRequestDecorator:v6];
-    v11 = +[ActionManager sharedManager];
-    v12 = [v11 enqueueAction:v10];
+    [(QCAction *)v11 setRequestDecorator:v7];
+    v12 = +[ActionManager sharedManager];
+    v13 = [v12 enqueueAction:v11];
   }
 
   else
   {
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100002880(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received shutdown soon notification, but ignoring it since low battery locate is disabled", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Received shutdown soon notification, but ignoring it since low battery locate is disabled", v15, 2u);
     }
   }
 }

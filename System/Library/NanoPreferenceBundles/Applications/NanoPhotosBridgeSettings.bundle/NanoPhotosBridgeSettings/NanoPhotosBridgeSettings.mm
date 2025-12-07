@@ -153,15 +153,15 @@ id sub_2E54(uint64_t a1, void *a2)
   return v7;
 }
 
-id sub_2F3C()
+id sub_2F3C(uint64_t a1)
 {
   objc_opt_self();
   objc_opt_self();
-  v0 = [NSBundle bundleForClass:objc_opt_class()];
-  v1 = [v0 bundleIdentifier];
-  v2 = [NSString stringWithFormat:@"bridge:root=%@", v1];
+  v1 = [NSBundle bundleForClass:objc_opt_class()];
+  v2 = [v1 bundleIdentifier];
+  v3 = [NSString stringWithFormat:@"bridge:root=%@", v2];
 
-  return v2;
+  return v3;
 }
 
 void sub_3A54(id a1)
@@ -173,17 +173,16 @@ void sub_3A54(id a1)
 
 void sub_3B18(uint64_t a1)
 {
-  v2 = +[PUInterfaceManager currentTheme];
-  v3 = qword_12F58;
-  qword_12F58 = v2;
+  v1 = +[PUInterfaceManager currentTheme];
+  v2 = qword_12F58;
+  qword_12F58 = v1;
 
-  v4 = objc_opt_class();
-  ClassMethod = class_getClassMethod(v4, "currentTheme");
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = class_getClassMethod(v7, "sharedInstance");
+  v3 = objc_opt_class();
+  ClassMethod = class_getClassMethod(v3, "currentTheme");
+  v5 = objc_opt_class();
+  v6 = class_getClassMethod(v5, "sharedInstance");
 
-  method_exchangeImplementations(ClassMethod, v8);
+  method_exchangeImplementations(ClassMethod, v6);
 }
 
 void sub_3F84(id a1, NSError *a2)

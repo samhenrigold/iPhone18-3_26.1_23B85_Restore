@@ -12,7 +12,7 @@
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D87D878, "6o\b");
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for ResidentDiscoveryListener();
+  v6.super_class = type metadata accessor for ResidentDiscoveryListener(0);
   return [(ResidentDiscoveryListener *)&v6 init];
 }
 

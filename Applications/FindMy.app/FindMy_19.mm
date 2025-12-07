@@ -1,10 +1,10 @@
 void sub_1002021D0()
 {
   v1 = v0;
-  v2 = sub_10007EBC0(&qword_1006B07D0);
+  v2 = sub_10007EBC0(&qword_1006B07D0, qword_100552820);
   __chkstk_darwin(v2 - 8);
   v28 = &v27 - v3;
-  v4 = sub_10007EBC0(&unk_1006BBCE0);
+  v4 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v4 - 8);
   v6 = &v27 - v5;
   v7 = type metadata accessor for FMIPDevice();
@@ -38,7 +38,7 @@ void sub_1002021D0()
 
   if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    sub_100012DF0(v6, &unk_1006BBCE0);
+    sub_100012DF0(v6, &unk_1006BBCE0, &unk_1005534C0);
     v19 = Logger.logObject.getter();
     v20 = static os_log_type_t.error.getter();
     if (os_log_type_enabled(v19, v20))
@@ -55,14 +55,14 @@ void sub_1002021D0()
     (*(v8 + 32))(v27, v6, v7);
     v23 = *&v1[v15] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
     swift_beginAccess();
-    v24 = type metadata accessor for FMDeviceDetailViewModel();
+    v24 = type metadata accessor for FMDeviceDetailViewModel(0);
     v25 = v28;
-    sub_100007204(v23 + *(v24 + 36), v28, &qword_1006B07D0);
+    sub_100007204(v23 + *(v24 + 36), v28, &qword_1006B07D0, qword_100552820);
     v26 = *&v1[v14];
 
     sub_1000E11B0(v22, v25, v26, v1);
 
-    sub_100012DF0(v25, &qword_1006B07D0);
+    sub_100012DF0(v25, &qword_1006B07D0, qword_100552820);
     (*(v8 + 8))(v22, v7);
   }
 }
@@ -70,14 +70,14 @@ void sub_1002021D0()
 void sub_100202644()
 {
   v1 = v0;
-  v2 = sub_10007EBC0(&unk_1006BBCE0);
+  v2 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v2 - 8);
   v4 = &v26 - v3;
   v5 = type metadata accessor for FMIPDevice();
   v6 = *(v5 - 8);
-  v7 = __chkstk_darwin(v5);
-  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v5);
+  v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
   v26 = &v26 - v10;
   if (qword_1006AEBE0 != -1)
   {
@@ -104,7 +104,7 @@ void sub_100202644()
 
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    sub_100012DF0(v4, &unk_1006BBCE0);
+    sub_100012DF0(v4, &unk_1006BBCE0, &unk_1005534C0);
     v18 = Logger.logObject.getter();
     v19 = static os_log_type_t.error.getter();
     if (os_log_type_enabled(v18, v19))
@@ -119,10 +119,10 @@ void sub_100202644()
   {
     v21 = v26;
     (*(v6 + 32))(v26, v4, v5);
-    type metadata accessor for FMDeviceLockViewController();
-    (*(v6 + 16))(v9, v21, v5);
+    type metadata accessor for FMDeviceLockViewController(0);
+    (*(v6 + 16))(v8, v21, v5);
     v22 = swift_retain_n();
-    v23 = sub_10018E900(v22, v9);
+    v23 = sub_10018E900(v22, v8);
     objc_allocWithZone(type metadata accessor for FMActivityIndicatingNavigationController());
     v24 = v23;
     v25 = sub_1000CC510(v24, 2);
@@ -135,7 +135,7 @@ void sub_100202644()
 void sub_100202A78()
 {
   v1 = v0;
-  v2 = sub_10007EBC0(&unk_1006BBCE0);
+  v2 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v2 - 8);
   v4 = &countAndFlagsBits - v3;
   if (qword_1006AEBE0 != -1)
@@ -185,7 +185,7 @@ void sub_100202A78()
   sub_10022E0A8(v19, v21, v23, v25, 0, 0);
 
   swift_bridgeObjectRelease_n();
-  sub_100012DF0(v4, &unk_1006BBCE0);
+  sub_100012DF0(v4, &unk_1006BBCE0, &unk_1005534C0);
   v26 = [v9 mainBundle];
   v42._object = 0x8000000100579B60;
   v27._countAndFlagsBits = 0x4F545455425F4B4FLL;
@@ -322,7 +322,7 @@ void sub_100203020()
 
 uint64_t sub_100203540()
 {
-  v0 = sub_10007EBC0(&unk_1006B0120);
+  v0 = sub_10007EBC0(&unk_1006B0120, &qword_100552B60);
   __chkstk_darwin(v0 - 8);
   v2 = &v13 - v1;
   v3 = type metadata accessor for URL();
@@ -344,7 +344,7 @@ uint64_t sub_100203540()
     v11 = v10;
     sub_10015391C(_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_10021E650(&qword_1006AF360, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_10021E650(&qword_1006AF360, type metadata accessor for OpenExternalURLOptionsKey, &unk_100551F4C);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
     [v8 openURL:v11 options:isa completionHandler:0];
@@ -358,7 +358,7 @@ uint64_t sub_100203540()
 void sub_1002037D8()
 {
   v1 = v0;
-  v2 = sub_10007EBC0(&unk_1006BBCE0);
+  v2 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v2 - 8);
   v4 = &v18 - v3;
   v5 = type metadata accessor for FMIPDevice();
@@ -375,7 +375,7 @@ void sub_1002037D8()
 
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    sub_100012DF0(v4, &unk_1006BBCE0);
+    sub_100012DF0(v4, &unk_1006BBCE0, &unk_1005534C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -406,7 +406,7 @@ void sub_1002037D8()
 
 void sub_100203B10()
 {
-  v1 = sub_10007EBC0(&unk_1006BBCE0);
+  v1 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v1 - 8);
   v3 = &v16 - v2;
   v4 = type metadata accessor for FMIPDevice();
@@ -422,7 +422,7 @@ void sub_100203B10()
 
   if ((*(v5 + 48))(v3, 1, v4) == 1)
   {
-    sub_100012DF0(v3, &unk_1006BBCE0);
+    sub_100012DF0(v3, &unk_1006BBCE0, &unk_1005534C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -453,9 +453,9 @@ void sub_100203B10()
   }
 }
 
-uint64_t sub_100203E40(uint64_t a1, uint64_t a2)
+double sub_100203E40(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = DeviceManagementSectionViewModel.isCancelling.setter();
+  DeviceManagementSectionViewModel.isCancelling.setter();
   if (a2)
   {
 
@@ -511,99 +511,99 @@ void sub_100203F0C()
 
 void sub_1002041FC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v54 = a4;
+  v55 = a4;
   v5 = type metadata accessor for FMIPNotifyItemActionType();
-  v48 = *(v5 - 8);
-  v49 = v5;
+  v49 = *(v5 - 8);
+  v50 = v5;
   __chkstk_darwin(v5);
-  v50 = &v43 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_10007EBC0(&qword_1006B07D0);
+  v51 = &v44 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_10007EBC0(&qword_1006B07D0, qword_100552820);
   __chkstk_darwin(v7 - 8);
-  v52 = &v43 - v8;
+  v53 = &v44 - v8;
   v9 = type metadata accessor for FMIPItem();
   v10 = *(v9 - 8);
-  v11 = __chkstk_darwin(v9);
-  v47 = &v43 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v51 = &v43 - v13;
+  __chkstk_darwin(v9);
+  v48 = &v44 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v52 = &v44 - v13;
   v14 = type metadata accessor for FMIPAnalyticsActionType();
-  v53 = *(v14 - 8);
+  v54 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v16 = &v43 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = &v44 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = type metadata accessor for FMIPDevice();
   v18 = *(v17 - 8);
   __chkstk_darwin(v17);
-  v20 = &v43 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = &v44 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
     v22 = Strong;
-    v46 = v10;
+    v47 = v10;
     *(Strong + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenFoundOnOverride) = a3 & 1;
     [*(Strong + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView) setUserInteractionEnabled:0];
-    v45 = a3;
+    v46 = a3;
     if (a3)
     {
       v23 = *(*&v22[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + 40);
       v24 = *v23;
-      v44 = v9;
+      v45 = v9;
       v25 = *(v24 + class metadata base offset for ManagedBuffer + 16);
       v26 = (*(v24 + 48) + 3) & 0x1FFFFFFFCLL;
 
       os_unfair_lock_lock((v23 + v26));
       v27 = v23 + v25;
-      v9 = v44;
+      v9 = v45;
       (*(v18 + 16))(v20, v27, v17);
       os_unfair_lock_unlock((v23 + v26));
 
-      v28 = v53;
-      (*(v53 + 104))(v16, enum case for FMIPAnalyticsActionType.enableNotifyWhenFound(_:), v14);
-      sub_10020D6E8(v20, v16);
-      (*(v28 + 8))(v16, v14);
+      v28 = v54;
+      (*(v54 + 104))(v16, enum case for FMIPAnalyticsActionType.enableNotifyWhenFound(_:), v14);
+      v29 = sub_10020D6E8(v20, v16);
+      (*(v28 + 8))(v16, v14, v29);
       (*(v18 + 8))(v20, v17);
     }
 
-    v29 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
-    v30 = *&v22[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+    v30 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
+    v31 = *&v22[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
     swift_beginAccess();
-    v31 = v54;
-    if (*(v30 + 40) == 1 && (FMIPDevice.shouldDisplaySeparatedLocation.getter() & 1) != 0)
+    v32 = v55;
+    if (*(v31 + 40) == 1 && (FMIPDevice.shouldDisplaySeparatedLocation.getter() & 1) != 0)
     {
-      v32 = *&v22[v29] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+      v33 = *&v22[v30] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
       swift_beginAccess();
-      v33 = type metadata accessor for FMDeviceDetailViewModel();
-      v34 = v52;
-      sub_100007204(v32 + *(v33 + 36), v52, &qword_1006B07D0);
-      v35 = v46;
-      if ((*(v46 + 48))(v34, 1, v9) != 1)
+      v34 = type metadata accessor for FMDeviceDetailViewModel(0);
+      v35 = v53;
+      sub_100007204(v33 + *(v34 + 36), v53, &qword_1006B07D0, qword_100552820);
+      v36 = v47;
+      if ((*(v47 + 48))(v35, 1, v9) != 1)
       {
-        v38 = v51;
-        (*(v35 + 32))(v51, v34, v9);
-        (*(v35 + 16))(v47, v38, v9);
-        (*(v48 + 104))(v50, enum case for FMIPNotifyItemActionType.whenFound(_:), v49);
+        v39 = v52;
+        (*(v36 + 32))(v52, v35, v9);
+        (*(v36 + 16))(v48, v39, v9);
+        (*(v49 + 104))(v51, enum case for FMIPNotifyItemActionType.whenFound(_:), v50);
         type metadata accessor for FMIPNotifyItemAction();
         swift_allocObject();
-        v39 = v35;
-        v40 = FMIPNotifyItemAction.init(item:type:state:)();
-        v41 = swift_allocObject();
-        *(v41 + 16) = v22;
+        v40 = v36;
+        v41 = FMIPNotifyItemAction.init(item:type:state:)();
+        v42 = swift_allocObject();
+        *(v42 + 16) = v22;
 
-        v42 = v22;
-        sub_1000D6A90(v40, sub_10021E6C8, v41);
+        v43 = v22;
+        sub_1000D6A90(v41, sub_10021E6C8, v42);
 
-        (*(v39 + 8))(v38, v9);
+        (*(v40 + 8))(v39, v9);
         return;
       }
 
-      sub_100012DF0(v34, &qword_1006B07D0);
+      sub_100012DF0(v35, &qword_1006B07D0, qword_100552820);
     }
 
-    v36 = swift_allocObject();
-    *(v36 + 16) = v22;
-    v37 = v22;
+    v37 = swift_allocObject();
+    *(v37 + 16) = v22;
+    v38 = v22;
 
-    sub_1000DD424(v31, sub_10021E6C0, v36);
+    sub_1000DD424(v32, sub_10021E6C0, v37);
   }
 }
 
@@ -612,54 +612,54 @@ void sub_1002048AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v7 = type metadata accessor for FMIPItemActionStatus();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for FMDeviceDetailViewModel();
-  __chkstk_darwin(v11 - 8);
-  v13 = v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  [*(a4 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView) setUserInteractionEnabled:1];
-  v14 = *(a4 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
-  v15 = OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+  v10 = v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for FMDeviceDetailViewModel(0);
+  *&v12 = __chkstk_darwin(v11 - 8).n128_u64[0];
+  v14 = v31 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  [*(a4 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView) setUserInteractionEnabled:{1, v12}];
+  v15 = *(a4 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
+  v16 = OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
   swift_beginAccess();
-  sub_10022017C(v14 + v15, v13, type metadata accessor for FMDeviceDetailViewModel);
-  sub_1002053C8(v13);
-  sub_1002201E4(v13, type metadata accessor for FMDeviceDetailViewModel);
+  sub_10022017C(v15 + v16, v14, type metadata accessor for FMDeviceDetailViewModel);
+  sub_1002053C8(v14, v17, v18);
+  sub_1002201E4(v14, type metadata accessor for FMDeviceDetailViewModel);
   if (qword_1006AEBE0 != -1)
   {
     swift_once();
   }
 
-  v16 = type metadata accessor for Logger();
-  sub_100005B14(v16, qword_1006D4630);
+  v19 = type metadata accessor for Logger();
+  sub_100005B14(v19, qword_1006D4630);
   (*(v8 + 16))(v10, a1, v7);
   swift_errorRetain();
-  v17 = Logger.logObject.getter();
-  v18 = static os_log_type_t.default.getter();
+  v20 = Logger.logObject.getter();
+  v21 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v17, v18))
+  if (os_log_type_enabled(v20, v21))
   {
-    v19 = swift_slowAlloc();
-    v20 = swift_slowAlloc();
-    v28[0] = a4;
-    v29 = v20;
-    *v19 = 136315394;
-    sub_10021E650(&unk_1006B4D60, &type metadata accessor for FMIPItemActionStatus);
-    v21 = dispatch thunk of CustomStringConvertible.description.getter();
-    v23 = v22;
+    v22 = swift_slowAlloc();
+    v23 = swift_slowAlloc();
+    v31[0] = a4;
+    v32 = v23;
+    *v22 = 136315394;
+    sub_10021E650(&unk_1006B4D60, &type metadata accessor for FMIPItemActionStatus, &protocol conformance descriptor for FMIPItemActionStatus);
+    v24 = dispatch thunk of CustomStringConvertible.description.getter();
+    v26 = v25;
     (*(v8 + 8))(v10, v7);
-    v24 = sub_100005B4C(v21, v23, &v29);
+    v27 = sub_100005B4C(v24, v26, &v32);
 
-    *(v19 + 4) = v24;
-    *(v19 + 12) = 2080;
-    v28[1] = a3;
+    *(v22 + 4) = v27;
+    *(v22 + 12) = 2080;
+    v31[1] = a3;
     swift_errorRetain();
-    sub_10007EBC0(&qword_1006B9570);
-    v25 = String.init<A>(describing:)();
-    v27 = sub_100005B4C(v25, v26, &v29);
+    sub_10007EBC0(&qword_1006B9570, &qword_1005523F0);
+    v28 = String.init<A>(describing:)();
+    v30 = sub_100005B4C(v28, v29, &v32);
 
-    *(v19 + 14) = v27;
-    _os_log_impl(&_mh_execute_header, v17, v18, "FMDeviceDetailContentViewController: Toggling notify when found completed with status: %s, error: %s", v19, 0x16u);
+    *(v22 + 14) = v30;
+    _os_log_impl(&_mh_execute_header, v20, v21, "FMDeviceDetailContentViewController: Toggling notify when found completed with status: %s, error: %s", v22, 0x16u);
     swift_arrayDestroy();
-    a4 = v28[0];
+    a4 = v31[0];
   }
 
   else
@@ -673,84 +673,84 @@ void sub_1002048AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_100204C7C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = type metadata accessor for FMDeviceDetailViewModel();
-  __chkstk_darwin(v4 - 8);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  [*(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView) setUserInteractionEnabled:1];
-  v7 = *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
-  v8 = OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+  v4 = type metadata accessor for FMDeviceDetailViewModel(0);
+  *&v5 = __chkstk_darwin(v4 - 8).n128_u64[0];
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  [*(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView) setUserInteractionEnabled:{1, v5}];
+  v8 = *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
+  v9 = OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
   swift_beginAccess();
-  sub_10022017C(v7 + v8, v6, type metadata accessor for FMDeviceDetailViewModel);
-  sub_1002053C8(v6);
-  result = sub_1002201E4(v6, type metadata accessor for FMDeviceDetailViewModel);
+  sub_10022017C(v8 + v9, v7, type metadata accessor for FMDeviceDetailViewModel);
+  sub_1002053C8(v7, v10, v11);
+  result = sub_1002201E4(v7, type metadata accessor for FMDeviceDetailViewModel);
   *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenFoundOnOverride) = 2;
   return result;
 }
 
-uint64_t sub_100204D8C()
+char *sub_100204D8C(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for FMIPDevice();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v30 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = type metadata accessor for FMIPDevice();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v32 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v5 = result;
+    v7 = result;
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
     }
 
-    v6 = type metadata accessor for Logger();
-    sub_100005B14(v6, qword_1006D4630);
-    v7 = Logger.logObject.getter();
-    v8 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v7, v8))
+    v8 = type metadata accessor for Logger();
+    sub_100005B14(v8, qword_1006D4630);
+    v9 = Logger.logObject.getter();
+    v10 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v9, v10))
     {
-      v9 = swift_slowAlloc();
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v7, v8, "FMDeviceDetailContentViewController: present NWLB Detail Screen", v9, 2u);
+      v11 = swift_slowAlloc();
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v9, v10, "FMDeviceDetailContentViewController: present NWLB Detail Screen", v11, 2u);
     }
 
-    v10 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
-    v11 = *&v5[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource];
-    v12 = v11 + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+    v12 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
+    v13 = *&v7[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource];
+    v14 = v13 + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
     swift_beginAccess();
-    v13 = type metadata accessor for FMDeviceDetailViewModel();
-    v14 = (*(v12 + *(v13 + 96)) >> 12) & 1;
-    v30 = (*(v12 + *(v13 + 92)) >> 14) & 1;
-    v31 = v14;
-    v15 = *(v11 + 40);
-    v16 = *(*v15 + class metadata base offset for ManagedBuffer + 16);
-    v17 = (*(*v15 + 48) + 3) & 0x1FFFFFFFCLL;
+    v15 = type metadata accessor for FMDeviceDetailViewModel(0);
+    v16 = (*(v14 + *(v15 + 96)) >> 12) & 1;
+    v32 = (*(v14 + *(v15 + 92)) >> 14) & 1;
+    v33 = v16;
+    v17 = *(v13 + 40);
+    v18 = *(*v17 + class metadata base offset for ManagedBuffer + 16);
+    v19 = (*(*v17 + 48) + 3) & 0x1FFFFFFFCLL;
 
-    os_unfair_lock_lock((v15 + v17));
-    v18 = v1;
-    (*(v1 + 16))(v3, v15 + v16, v0);
-    os_unfair_lock_unlock((v15 + v17));
+    os_unfair_lock_lock((v17 + v19));
+    v20 = v3;
+    (*(v3 + 16))(v5, v17 + v18, v2);
+    os_unfair_lock_unlock((v17 + v19));
 
-    v19 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_trustedLocationsDetailViewController;
-    v20 = *&v5[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_trustedLocationsDetailViewController];
-    v21 = FMIPDevice.safeLocations.getter();
-    v22 = (*&v5[v10] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel);
+    v21 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_trustedLocationsDetailViewController;
+    v22 = *&v7[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_trustedLocationsDetailViewController];
+    v23 = FMIPDevice.safeLocations.getter();
+    v24 = (*&v7[v12] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel);
     swift_beginAccess();
-    v32 = v0;
-    v23 = v22[2];
-    v24 = v22[3];
-    v25 = v22[4];
+    v34 = v2;
+    v25 = v24[2];
+    v26 = v24[3];
+    v27 = v24[4];
 
-    sub_1004AC438(v21, v30, v31, v23, v24, v25);
+    sub_1004AC438(v23, v32, v33, v25, v26, v27);
 
-    v26 = *&v5[v19];
-    v27 = objc_allocWithZone(type metadata accessor for FMTransparentNavigationController());
-    v28 = v26;
-    v29 = sub_1000CC510(v28, 2);
-    [v29 setDelegate:v29];
+    v28 = *&v7[v21];
+    v29 = objc_allocWithZone(type metadata accessor for FMTransparentNavigationController());
+    v30 = v28;
+    v31 = sub_1000CC510(v30, 2);
+    [v31 setDelegate:v31];
 
-    [v5 presentViewController:v29 animated:1 completion:0];
-    return (*(v18 + 8))(v3, v32);
+    [v7 presentViewController:v31 animated:1 completion:0];
+    return (*(v20 + 8))(v5, v34);
   }
 
   return result;
@@ -804,87 +804,87 @@ void sub_100205128()
   [v0 presentViewController:v17 animated:1 completion:0];
 }
 
-void sub_1002053C8(uint64_t a1)
+double sub_1002053C8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v187 = type metadata accessor for DispatchWorkItemFlags();
-  v186 = *(v187 - 8);
-  __chkstk_darwin(v187);
-  v184 = &v170 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v185 = type metadata accessor for DispatchQoS();
-  v183 = *(v185 - 8);
-  __chkstk_darwin(v185);
-  v182 = &v170 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v197 = type metadata accessor for FMIPFeatures();
-  v196 = *(v197 - 8);
-  v5 = __chkstk_darwin(v197);
-  v195 = &v170 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v194 = &v170 - v7;
-  v191 = type metadata accessor for FMIPSeparationMonitoringState();
-  v190 = *(v191 - 8);
-  __chkstk_darwin(v191);
-  v189 = &v170 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v219 = type metadata accessor for FMFDevice();
-  v215 = *(v219 - 8);
-  __chkstk_darwin(v219);
-  v218 = &v170 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_10007EBC0(&qword_1006B68E8);
-  v192 = *(v10 - 8);
-  v11 = __chkstk_darwin(v10 - 8);
-  v181 = &v170 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __chkstk_darwin(v11);
-  v205 = &v170 - v14;
-  v15 = __chkstk_darwin(v13);
-  v193 = &v170 - v16;
-  v202 = v17;
-  __chkstk_darwin(v15);
-  v203 = &v170 - v18;
-  v210 = type metadata accessor for FMIPDeviceState();
-  v209 = *(v210 - 1);
-  v19 = __chkstk_darwin(v210);
-  v208 = &v170 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v192 = type metadata accessor for DispatchWorkItemFlags();
+  v191 = *(v192 - 8);
+  __chkstk_darwin(v192);
+  v189 = &v175 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v190 = type metadata accessor for DispatchQoS();
+  v188 = *(v190 - 8);
+  __chkstk_darwin(v190);
+  v187 = &v175 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v202 = type metadata accessor for FMIPFeatures();
+  v201 = *(v202 - 8);
+  __chkstk_darwin(v202);
+  v200 = &v175 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v199 = &v175 - v9;
+  v196 = type metadata accessor for FMIPSeparationMonitoringState();
+  v195 = *(v196 - 8);
+  __chkstk_darwin(v196);
+  v194 = &v175 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v224 = type metadata accessor for FMFDevice();
+  v220 = *(v224 - 8);
+  __chkstk_darwin(v224);
+  v223 = &v175 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = sub_10007EBC0(&qword_1006B68E8, &unk_100563FF0);
+  v197 = *(v12 - 8);
+  __chkstk_darwin(v12 - 8);
+  v186 = &v175 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v210 = &v175 - v15;
+  __chkstk_darwin(v16);
+  v198 = &v175 - v17;
+  v207 = v18;
   __chkstk_darwin(v19);
-  v207 = &v170 - v21;
-  v22 = sub_10007EBC0(&qword_1006AF748);
-  v23 = __chkstk_darwin(v22 - 8);
-  v214 = &v170 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = __chkstk_darwin(v23);
-  v199 = (&v170 - v26);
-  __chkstk_darwin(v25);
-  v198 = &v170 - v27;
-  v28 = sub_10007EBC0(&unk_1006BBCE0);
-  __chkstk_darwin(v28 - 8);
-  v30 = &v170 - v29;
-  v31 = type metadata accessor for FMIPDevice();
-  v32 = *(v31 - 8);
-  v33 = __chkstk_darwin(v31);
-  v180 = &v170 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = __chkstk_darwin(v33);
-  v204 = &v170 - v36;
-  v37 = __chkstk_darwin(v35);
-  v188 = &v170 - v38;
-  v201 = v39;
-  __chkstk_darwin(v37);
-  v41 = &v170 - v40;
-  v42 = swift_allocObject();
-  v211 = v42;
-  *(v42 + 16) = 1;
-  v179 = (v42 + 16);
-  v216 = OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator;
-  v43 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
-  v217 = v1;
-  v44 = (*&v1[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel);
+  v208 = &v175 - v20;
+  v215 = type metadata accessor for FMIPDeviceState();
+  v214 = *(v215 - 1);
+  __chkstk_darwin(v215);
+  v213 = &v175 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v22);
+  v212 = &v175 - v23;
+  v24 = sub_10007EBC0(&qword_1006AF748, &unk_100558AD0);
+  __chkstk_darwin(v24 - 8);
+  v219 = &v175 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v26);
+  v204 = (&v175 - v27);
+  __chkstk_darwin(v28);
+  v203 = &v175 - v29;
+  v30 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
+  __chkstk_darwin(v30 - 8);
+  v32 = &v175 - v31;
+  v33 = type metadata accessor for FMIPDevice();
+  v34 = *(v33 - 8);
+  __chkstk_darwin(v33);
+  v185 = &v175 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v36);
+  v209 = &v175 - v37;
+  __chkstk_darwin(v38);
+  v193 = &v175 - v39;
+  v206 = v40;
+  __chkstk_darwin(v41);
+  v43 = &v175 - v42;
+  v44 = swift_allocObject();
+  v216 = v44;
+  *(v44 + 16) = 1;
+  v184 = (v44 + 16);
+  v221 = OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator;
+  v45 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
+  v222 = v3;
+  v46 = (*&v3[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel);
   swift_beginAccess();
-  v46 = *v44;
-  v45 = v44[1];
+  v48 = *v46;
+  v47 = v46[1];
 
-  v47 = v46;
-  v48 = v31;
-  sub_1000E512C(v47, v45, v30);
+  v49 = v48;
+  v50 = v33;
+  sub_1000E512C(v49, v47, v32);
 
-  if (v32[6](v30, 1, v31) == 1)
+  if (v34[6](v32, 1, v33) == 1)
   {
-    sub_100012DF0(v30, &unk_1006BBCE0);
+    sub_100012DF0(v32, &unk_1006BBCE0, &unk_1005534C0);
     if (qword_1006AEBE0 != -1)
     {
       goto LABEL_68;
@@ -893,436 +893,436 @@ void sub_1002053C8(uint64_t a1)
     goto LABEL_3;
   }
 
-  v53 = v32[4];
-  v206 = v41;
-  v178 = (v32 + 4);
-  v177 = v53;
-  v53(v41, v30, v31);
-  v54 = type metadata accessor for FMDeviceDetailViewModel();
-  v55 = v54;
-  v56 = *(a1 + *(v54 + 92));
-  v57 = a1;
-  v200 = v56;
-  if ((v56 & 0x10000) != 0)
+  v56 = v34[4];
+  v211 = v43;
+  v183 = (v34 + 4);
+  v182 = v56;
+  v56(v43, v32, v33);
+  v57 = type metadata accessor for FMDeviceDetailViewModel(0);
+  v58 = v57;
+  v59 = *(a1 + *(v57 + 92));
+  v60 = a1;
+  v205 = v59;
+  if ((v59 & 0x10000) != 0)
   {
-    v58 = *(a1 + *(v54 + 96));
-    v56 = v32;
-    v59 = v48;
-    v60 = *(*&v217[v216] + 16);
-    v61 = *&v217[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView];
-    v62 = v60;
-    v63 = sub_100057590();
+    v61 = *(a1 + *(v57 + 96));
+    v59 = v34;
+    v62 = v50;
+    v63 = *(*&v222[v221] + 16);
+    v64 = *&v222[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView];
+    v65 = v63;
+    v68 = sub_100057590(v65, v66, v67);
 
-    v48 = v59;
-    v32 = v56;
-    LODWORD(v56) = v200;
-    sub_100242594((v58 & 0x8000) != 0, (v63 & 0xFFFFFFFFFFFFFFFDLL) == 1);
+    v50 = v62;
+    v34 = v59;
+    LODWORD(v59) = v205;
+    sub_100242594((v61 & 0x8000) != 0, (v68 & 0xFFFFFFFFFFFFFFFDLL) == 1);
   }
 
-  v64 = v217;
-  if ((v56 & 0x8000) == 0)
+  v69 = v222;
+  if ((v59 & 0x8000) == 0)
   {
-    v65 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView;
-    v66 = *&v217[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView];
-    sub_10024271C(1, (v56 & 0x10000) == 0);
+    v70 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView;
+    v71 = *&v222[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView];
+    sub_10024271C(1, (v59 & 0x10000) == 0);
 
-    v67 = *(v211 + 16);
-    v68 = *&v64[v65];
-    sub_100242940(v67);
+    v72 = *(v216 + 16);
+    v73 = *&v69[v70];
+    sub_100242940(v72);
 
-    (v32[1])(v206, v48);
+    (v34[1])(v211, v50);
 LABEL_57:
 
-    return;
+    return result;
   }
 
-  if (*(v57 + 40) == 1 && (FMIPDevice.shouldDisplaySeparatedLocation.getter() & 1) != 0 && (v69 = v57 + v55[11], (*(v69 + 8) & 1) == 0) && (v70 = (v57 + v55[10]), (v70[1] & 1) == 0))
+  if (*(v60 + 40) == 1 && (FMIPDevice.shouldDisplaySeparatedLocation.getter() & 1) != 0 && (v74 = v60 + v58[11], (*(v74 + 8) & 1) == 0) && (v75 = v60 + v58[10], (*(v75 + 8) & 1) == 0))
   {
-    v168 = *v70;
-    v169 = (*v69 >> 7) & 1;
-    if (v64[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenFoundOnOverride] != 2)
+    v173 = *v75;
+    v174 = (*v74 >> 7) & 1;
+    if (v69[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenFoundOnOverride] != 2)
     {
-      LODWORD(v169) = v64[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenFoundOnOverride];
+      LODWORD(v174) = v69[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenFoundOnOverride];
     }
 
-    v174 = v169;
-    v172 = v168 & 8;
+    v179 = v174;
+    v177 = v173 & 8;
   }
 
   else
   {
-    v71 = v64[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenFoundOnOverride];
-    if (v71 == 2)
+    v76 = v69[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenFoundOnOverride];
+    if (v76 == 2)
     {
-      v71 = (*(v57 + v55[24]) >> 3) & 1;
+      v76 = (*(v60 + v58[24]) >> 3) & 1;
     }
 
-    v174 = v71;
-    v172 = v56 & 0x40;
+    v179 = v76;
+    v177 = v59 & 0x40;
   }
 
-  v72 = v64[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenLeftBehindOnOverride];
-  if (v72 == 2)
+  v77 = v69[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenLeftBehindOnOverride];
+  if (v77 == 2)
   {
-    v72 = (*(v57 + v55[24] + 1) >> 4) & 1;
+    v77 = (*(v60 + v58[24] + 1) >> 4) & 1;
   }
 
-  v173 = v72;
-  v73 = *&v64[v43] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+  v178 = v77;
+  v78 = *&v69[v45] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
   swift_beginAccess();
-  v175 = *(v73 + v55[35]);
+  v180 = *(v78 + v58[35]);
 
-  v74 = v198;
+  v79 = v203;
   dispatch thunk of FMFManager.myInfo.getter();
 
-  v75 = type metadata accessor for FMFMyInfo();
-  v76 = *(v75 - 8);
-  v77 = *(v76 + 48);
-  v213 = v76 + 48;
-  v212 = v77;
-  v78 = v77(v74, 1, v75);
-  v176 = v48;
-  v170 = v76;
-  if (v78 == 1)
+  v80 = type metadata accessor for FMFMyInfo();
+  v81 = *(v80 - 8);
+  v82 = *(v81 + 48);
+  v218 = v81 + 48;
+  v217 = v82;
+  v83 = v82(v79, 1, v80);
+  v181 = v50;
+  v175 = v81;
+  if (v83 == 1)
   {
-    sub_100012DF0(v74, &qword_1006AF748);
-    v79 = 0;
-    v80 = 0;
+    sub_100012DF0(v79, &qword_1006AF748, &unk_100558AD0);
+    v84 = 0;
+    v85 = 0;
   }
 
   else
   {
-    v81 = FMFMyInfo.meDeviceId.getter();
-    v80 = v82;
-    v83 = v74;
-    v79 = v81;
-    (*(v76 + 8))(v83, v75);
+    v86 = FMFMyInfo.meDeviceId.getter();
+    v85 = v87;
+    v88 = v79;
+    v84 = v86;
+    (*(v81 + 8))(v88, v80);
   }
 
-  v84 = v199;
-  v199 = v32;
+  v89 = v204;
+  v204 = v34;
 
   dispatch thunk of FMFManager.myInfo.getter();
 
-  if (v212(v84, 1, v75) == 1)
+  if (v217(v89, 1, v80) == 1)
   {
-    sub_100012DF0(v84, &qword_1006AF748);
-    if (!v80)
+    sub_100012DF0(v89, &qword_1006AF748, &unk_100558AD0);
+    if (!v85)
     {
-      LODWORD(v198) = 1;
-      v85 = v210;
-      v86 = v209;
+      LODWORD(v203) = 1;
+      v90 = v215;
+      v91 = v214;
       goto LABEL_33;
     }
 
     goto LABEL_30;
   }
 
-  v87 = FMFMyInfo.deviceId.getter();
-  v89 = v88;
-  (*(v170 + 8))(v84, v75);
-  if (v80)
+  v92 = FMFMyInfo.deviceId.getter();
+  v94 = v93;
+  (*(v175 + 8))(v89, v80);
+  if (v85)
   {
-    if (v89)
+    if (v94)
     {
-      if (v79 == v87 && v80 == v89)
+      if (v84 == v92 && v85 == v94)
       {
 
-        LODWORD(v198) = 1;
+        LODWORD(v203) = 1;
       }
 
       else
       {
-        LODWORD(v198) = _stringCompareWithSmolCheck(_:_:expecting:)();
+        LODWORD(v203) = _stringCompareWithSmolCheck(_:_:expecting:)();
       }
 
       goto LABEL_31;
     }
 
 LABEL_30:
-    LODWORD(v198) = 0;
+    LODWORD(v203) = 0;
 LABEL_31:
-    v85 = v210;
-    v86 = v209;
+    v90 = v215;
+    v91 = v214;
 LABEL_32:
 
     goto LABEL_33;
   }
 
-  v85 = v210;
-  v86 = v209;
-  if (v89)
+  v90 = v215;
+  v91 = v214;
+  if (v94)
   {
-    LODWORD(v198) = 0;
+    LODWORD(v203) = 0;
     goto LABEL_32;
   }
 
-  LODWORD(v198) = 1;
+  LODWORD(v203) = 1;
 LABEL_33:
-  v90 = v207;
+  v95 = v212;
   FMIPDevice.state.getter();
-  v91 = v208;
+  v96 = v213;
   static FMIPDeviceState.isThisDevice.getter();
-  sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState);
-  v171 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-  v92 = *(v86 + 8);
-  v92(v91, v85);
-  v92(v90, v85);
+  sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState, &protocol conformance descriptor for FMIPDeviceState);
+  v176 = dispatch thunk of SetAlgebra.isSuperset(of:)();
+  v97 = *(v91 + 8);
+  v97(v96, v90);
+  v97(v95, v90);
 
-  v93 = dispatch thunk of FMFManager.devices.getter();
+  v98 = dispatch thunk of FMFManager.devices.getter();
 
-  if (!v93)
+  if (!v98)
   {
     goto LABEL_47;
   }
 
-  v210 = v75;
-  v209 = *(v93 + 16);
-  if (!v209)
+  v215 = v80;
+  v214 = *(v98 + 16);
+  if (!v214)
   {
 LABEL_46:
 
 LABEL_47:
-    v106 = v203;
-    (*(v215 + 56))(v203, 1, 1, v219);
+    v111 = v208;
+    (*(v220 + 56))(v208, 1, 1, v224);
 LABEL_48:
-    v107 = v211;
-    LODWORD(v219) = v172 != 0;
-    LODWORD(v214) = (v200 & 0x10000) == 0;
+    v112 = v216;
+    LODWORD(v224) = v177 != 0;
+    LODWORD(v219) = (v205 & 0x10000) == 0;
 
-    v108 = v189;
+    v113 = v194;
     FMIPManager.separationMonitoringState.getter();
 
-    LODWORD(v218) = FMIPSeparationMonitoringState.allowsSeparationMonitoringUI.getter();
-    v109 = *(v190 + 8);
-    v110 = v191;
-    v109(v108, v191);
+    LODWORD(v223) = FMIPSeparationMonitoringState.allowsSeparationMonitoringUI.getter();
+    v114 = *(v195 + 8);
+    v115 = v196;
+    v114(v113, v196);
 
     FMIPManager.separationMonitoringState.getter();
 
-    LODWORD(v212) = FMIPSeparationMonitoringState.allowsSeparationMonitoringConfiguration.getter();
-    v109(v108, v110);
-    v111 = v194;
-    v112 = v206;
+    LODWORD(v217) = FMIPSeparationMonitoringState.allowsSeparationMonitoringConfiguration.getter();
+    v114(v113, v115);
+    v116 = v199;
+    v117 = v211;
     FMIPDevice.features.getter();
-    v113 = v195;
+    v118 = v200;
     static FMIPFeatures.canBeLeashedByHost.getter();
-    sub_10021E650(&qword_1006C1D50, &type metadata accessor for FMIPFeatures);
-    v114 = v197;
-    LODWORD(v215) = dispatch thunk of SetAlgebra.isSuperset(of:)();
-    v115 = *(v196 + 8);
-    v115(v113, v114);
-    v115(v111, v114);
-    *(v107 + 16) = 0;
-    v116 = v107;
-    v118 = (v199 + 2);
-    v117 = v199[2];
-    v119 = v188;
-    v120 = v176;
-    v117(v188, v112, v176);
-    v121 = v193;
-    sub_100007204(v106, v193, &qword_1006B68E8);
-    v210 = v117;
-    v117(v204, v119, v120);
-    sub_100007204(v121, v205, &qword_1006B68E8);
-    v195 = v118;
-    v122 = v118[64];
-    v123 = (v122 + 49) & ~v122;
-    v124 = v123 + v201;
-    v125 = *(v192 + 80);
-    v126 = (v125 + v123 + v201 + 2) & ~v125;
-    v127 = v126 + v202;
-    v197 = v122;
-    v213 = v125;
-    v207 = (v122 | v125);
-    v128 = swift_allocObject();
-    *(v128 + 16) = v218 & 1;
-    *(v128 + 24) = v116;
-    LODWORD(v208) = v198 & 1;
-    *(v128 + 32) = v198 & 1;
-    LOBYTE(v112) = v171;
-    LODWORD(v209) = v171 & 1;
-    *(v128 + 33) = v171 & 1;
-    *(v128 + 34) = (v200 & 0x4000) != 0;
-    *(v128 + 35) = v175;
-    *(v128 + 36) = v215 & 1;
-    v129 = v217;
-    *(v128 + 40) = v217;
-    LODWORD(v196) = v173 & 1;
-    *(v128 + 48) = v173 & 1;
-    v130 = v128 + v123;
-    v131 = v129;
-    v177(v130, v119, v120);
-    v132 = (v128 + v124);
-    *v132 = v219;
-    v133 = v174 & 1;
-    v132[1] = v174 & 1;
-    sub_100035318(v121, v128 + v126, &qword_1006B68E8);
-    v134 = v212 & 1;
-    *(v128 + v127) = v134;
-    v135 = *&v131[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView];
-    v136 = v131;
+    sub_10021E650(&qword_1006C1D50, &type metadata accessor for FMIPFeatures, &protocol conformance descriptor for FMIPFeatures);
+    v119 = v202;
+    LODWORD(v220) = dispatch thunk of SetAlgebra.isSuperset(of:)();
+    v120 = *(v201 + 8);
+    v120(v118, v119);
+    v120(v116, v119);
+    *(v112 + 16) = 0;
+    v121 = v112;
+    v123 = (v204 + 2);
+    v122 = v204[2];
+    v124 = v193;
+    v125 = v181;
+    v122(v193, v117, v181);
+    v126 = v198;
+    sub_100007204(v111, v198, &qword_1006B68E8, &unk_100563FF0);
+    v215 = v122;
+    v122(v209, v124, v125);
+    sub_100007204(v126, v210, &qword_1006B68E8, &unk_100563FF0);
+    v200 = v123;
+    v127 = v123[64];
+    v128 = (v127 + 49) & ~v127;
+    v129 = v128 + v206;
+    v130 = *(v197 + 80);
+    v131 = (v130 + v128 + v206 + 2) & ~v130;
+    v132 = v131 + v207;
+    v202 = v127;
+    v218 = v130;
+    v212 = (v127 | v130);
+    v133 = swift_allocObject();
+    *(v133 + 16) = v223 & 1;
+    *(v133 + 24) = v121;
+    LODWORD(v213) = v203 & 1;
+    *(v133 + 32) = v203 & 1;
+    LOBYTE(v117) = v176;
+    LODWORD(v214) = v176 & 1;
+    *(v133 + 33) = v176 & 1;
+    *(v133 + 34) = (v205 & 0x4000) != 0;
+    *(v133 + 35) = v180;
+    *(v133 + 36) = v220 & 1;
+    v134 = v222;
+    *(v133 + 40) = v222;
+    LODWORD(v201) = v178 & 1;
+    *(v133 + 48) = v178 & 1;
+    v135 = v133 + v128;
+    v136 = v134;
+    v182(v135, v124, v125);
+    v137 = (v133 + v129);
+    *v137 = v224;
+    v138 = v179 & 1;
+    v137[1] = v179 & 1;
+    sub_100035318(v126, v133 + v131, &qword_1006B68E8, &unk_100563FF0);
+    v139 = v217 & 1;
+    *(v133 + v132) = v139;
+    v140 = *&v136[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView];
+    v141 = v136;
 
-    v137 = v135;
-    sub_10024271C(0, v214);
+    v142 = v140;
+    sub_10024271C(0, v219);
 
-    if (v112)
+    if (v117)
     {
-      sub_100012DF0(v205, &qword_1006B68E8);
-      v138 = v199[1];
-      v139 = v176;
-      (v138)(v204, v176);
-      v140 = swift_allocObject();
-      *(v140 + 16) = sub_10021EBE4;
-      *(v140 + 24) = v128;
+      sub_100012DF0(v210, &qword_1006B68E8, &unk_100563FF0);
+      v143 = v204[1];
+      v144 = v181;
+      (v143)(v209, v181);
+      v145 = swift_allocObject();
+      *(v145 + 16) = sub_10021EBE4;
+      *(v145 + 24) = v133;
 
       FMIPManager.isCompanion(completion:)();
 
-      sub_100012DF0(v203, &qword_1006B68E8);
-      (v138)(v206, v139);
+      sub_100012DF0(v208, &qword_1006B68E8, &unk_100563FF0);
+      (v143)(v211, v144);
     }
 
     else
     {
-      LODWORD(v216) = v133;
-      v217 = v136;
-      v141 = v176;
-      v142 = v200 & 0x4000;
-      v143 = v179;
-      if ((v218 & 1) == 0)
+      LODWORD(v221) = v138;
+      v222 = v141;
+      v146 = v181;
+      v147 = v205 & 0x4000;
+      v148 = v184;
+      if ((v223 & 1) == 0)
       {
         swift_beginAccess();
-        *v143 = 1;
+        *v148 = 1;
       }
 
-      LODWORD(v218) = v134;
-      v144 = v197;
-      v214 = ~v213;
-      v145 = v205;
-      v146 = v204;
-      if (!v142 || v175 || ((v198 ^ 1 | v215) & 1) == 0)
+      LODWORD(v223) = v139;
+      v149 = v202;
+      v219 = ~v218;
+      v150 = v210;
+      v151 = v209;
+      if (!v147 || v180 || ((v203 ^ 1 | v220) & 1) == 0)
       {
         swift_beginAccess();
-        *v143 = 1;
+        *v148 = 1;
       }
 
-      v212 = (v142 >> 14);
-      sub_10000905C(0, &qword_1006AEDC0);
-      v215 = static OS_dispatch_queue.main.getter();
-      v147 = v180;
-      v148 = v141;
-      (v210)(v180, v146, v141);
-      v149 = v181;
-      sub_100007204(v145, v181, &qword_1006B68E8);
-      v150 = (v144 + 25) & ~v144;
-      v151 = v150 + v201;
-      v152 = (v213 + v150 + v201 + 4) & v214;
-      v153 = v152 + v202;
-      v154 = (v152 + v202 + 9) & 0xFFFFFFFFFFFFFFF8;
-      v155 = swift_allocObject();
-      *(v155 + 16) = v217;
-      *(v155 + 24) = v196;
-      v177((v155 + v150), v147, v148);
-      v156 = (v155 + v151);
-      *v156 = v212;
-      v156[1] = v219;
-      v156[2] = v216;
-      v156[3] = v208;
-      sub_100035318(v149, v155 + v152, &qword_1006B68E8);
-      v157 = (v155 + v153);
-      *v157 = v209;
-      v157[1] = v218;
-      *(v155 + v154) = v211;
+      v217 = (v147 >> 14);
+      sub_10000905C(0, &qword_1006AEDC0, OS_dispatch_queue_ptr);
+      v220 = static OS_dispatch_queue.main.getter();
+      v152 = v185;
+      v153 = v146;
+      (v215)(v185, v151, v146);
+      v154 = v186;
+      sub_100007204(v150, v186, &qword_1006B68E8, &unk_100563FF0);
+      v155 = (v149 + 25) & ~v149;
+      v156 = v155 + v206;
+      v157 = (v218 + v155 + v206 + 4) & v219;
+      v158 = v157 + v207;
+      v159 = (v157 + v207 + 9) & 0xFFFFFFFFFFFFFFF8;
+      v160 = swift_allocObject();
+      *(v160 + 16) = v222;
+      *(v160 + 24) = v201;
+      v182((v160 + v155), v152, v153);
+      v161 = (v160 + v156);
+      *v161 = v217;
+      v161[1] = v224;
+      v161[2] = v221;
+      v161[3] = v213;
+      sub_100035318(v154, v160 + v157, &qword_1006B68E8, &unk_100563FF0);
+      v162 = (v160 + v158);
+      *v162 = v214;
+      v162[1] = v223;
+      *(v160 + v159) = v216;
       aBlock[4] = sub_10021ED30;
-      aBlock[5] = v155;
+      aBlock[5] = v160;
       aBlock[0] = _NSConcreteStackBlock;
       aBlock[1] = 1107296256;
       aBlock[2] = sub_100004AE4;
       aBlock[3] = &unk_10062DA70;
-      v158 = _Block_copy(aBlock);
-      v159 = v217;
+      v163 = _Block_copy(aBlock);
+      v164 = v222;
 
-      v160 = v182;
+      v165 = v187;
       static DispatchQoS.unspecified.getter();
       aBlock[0] = _swiftEmptyArrayStorage;
-      sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags);
-      sub_10007EBC0(&unk_1006B0640);
-      sub_100004044(&qword_1006AEDF0, &unk_1006B0640);
-      v161 = v184;
-      v162 = v187;
+      sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      sub_10007EBC0(&unk_1006B0640, &unk_100552B10);
+      sub_100004044(&qword_1006AEDF0, &unk_1006B0640, &unk_100552B10);
+      v166 = v189;
+      v167 = v192;
       dispatch thunk of SetAlgebra.init<A>(_:)();
-      v163 = v215;
+      v168 = v220;
       OS_dispatch_queue.async(group:qos:flags:execute:)();
-      _Block_release(v158);
+      _Block_release(v163);
 
-      (*(v186 + 8))(v161, v162);
-      (*(v183 + 8))(v160, v185);
-      sub_100012DF0(v205, &qword_1006B68E8);
-      v164 = v199[1];
-      v165 = v176;
-      (v164)(v204, v176);
-      sub_100012DF0(v203, &qword_1006B68E8);
-      (v164)(v206, v165);
+      (*(v191 + 8))(v166, v167);
+      (*(v188 + 8))(v165, v190);
+      sub_100012DF0(v210, &qword_1006B68E8, &unk_100563FF0);
+      v169 = v204[1];
+      v170 = v181;
+      (v169)(v209, v181);
+      sub_100012DF0(v208, &qword_1006B68E8, &unk_100563FF0);
+      (v169)(v211, v170);
     }
 
     goto LABEL_57;
   }
 
-  v94 = 0;
-  v208 = (v93 + ((*(v215 + 80) + 32) & ~*(v215 + 80)));
-  v207 = (v215 + 16);
-  v95 = (v170 + 8);
-  v96 = (v215 + 8);
-  while (v94 < *(v93 + 16))
+  v99 = 0;
+  v213 = (v98 + ((*(v220 + 80) + 32) & ~*(v220 + 80)));
+  v212 = (v220 + 16);
+  v100 = (v175 + 8);
+  v101 = (v220 + 8);
+  while (v99 < *(v98 + 16))
   {
-    (*(v215 + 16))(v218, &v208[*(v215 + 72) * v94], v219);
-    v97 = FMFDevice.identifier.getter();
-    v99 = v98;
+    (*(v220 + 16))(v223, &v213[*(v220 + 72) * v99], v224);
+    v102 = FMFDevice.identifier.getter();
+    v104 = v103;
 
-    v100 = v214;
+    v105 = v219;
     dispatch thunk of FMFManager.myInfo.getter();
 
-    v101 = v210;
-    if (v212(v100, 1, v210) == 1)
+    v106 = v215;
+    if (v217(v105, 1, v215) == 1)
     {
-      sub_100012DF0(v100, &qword_1006AF748);
+      sub_100012DF0(v105, &qword_1006AF748, &unk_100558AD0);
 LABEL_37:
 
       goto LABEL_38;
     }
 
-    v102 = FMFMyInfo.meDeviceId.getter();
-    v104 = v103;
-    (*v95)(v100, v101);
-    if (!v104)
+    v107 = FMFMyInfo.meDeviceId.getter();
+    v109 = v108;
+    (*v100)(v105, v106);
+    if (!v109)
     {
       goto LABEL_37;
     }
 
-    if (v97 == v102 && v104 == v99)
+    if (v102 == v107 && v109 == v104)
     {
 
 LABEL_62:
 
-      v166 = v215;
-      v106 = v203;
-      v167 = v219;
-      (*(v215 + 32))(v203, v218, v219);
-      (*(v166 + 56))(v106, 0, 1, v167);
+      v171 = v220;
+      v111 = v208;
+      v172 = v224;
+      (*(v220 + 32))(v208, v223, v224);
+      (*(v171 + 56))(v111, 0, 1, v172);
       goto LABEL_48;
     }
 
-    v105 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v110 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v105)
+    if (v110)
     {
       goto LABEL_62;
     }
 
 LABEL_38:
-    ++v94;
-    (*v96)(v218, v219);
-    if (v209 == v94)
+    ++v99;
+    (*v101)(v223, v224);
+    if (v214 == v99)
     {
       goto LABEL_46;
     }
@@ -1332,24 +1332,27 @@ LABEL_38:
 LABEL_68:
   swift_once();
 LABEL_3:
-  v49 = type metadata accessor for Logger();
-  sub_100005B14(v49, qword_1006D4630);
-  v50 = Logger.logObject.getter();
-  v51 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v50, v51))
+  v51 = type metadata accessor for Logger();
+  sub_100005B14(v51, qword_1006D4630);
+  v52 = Logger.logObject.getter();
+  v53 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v52, v53))
   {
-    v52 = swift_slowAlloc();
-    *v52 = 0;
-    _os_log_impl(&_mh_execute_header, v50, v51, "FMDeviceDetailContentViewController: cannot enable notify when detach for unknown device", v52, 2u);
+    v54 = swift_slowAlloc();
+    *v54 = 0;
+    _os_log_impl(&_mh_execute_header, v52, v53, "FMDeviceDetailContentViewController: cannot enable notify when detach for unknown device", v54, 2u);
   }
+
+  return result;
 }
 
-uint64_t sub_100206E04(char a1, char a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, void *a9, unsigned __int8 a10, uint64_t a11, unsigned __int8 a12, unsigned __int8 a13, uint64_t a14, unsigned __int8 a15)
+uint64_t sub_100206E04(char a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, void *a9, unsigned __int8 a10, uint64_t a11, unsigned __int8 a12, unsigned __int8 a13, uint64_t a14, unsigned __int8 a15)
 {
   LODWORD(v47) = a8;
   LODWORD(v54) = a7;
   v64 = a5;
   v65 = a4;
+  v17 = a2;
   v19 = type metadata accessor for DispatchWorkItemFlags();
   v62 = *(v19 - 8);
   v63 = v19;
@@ -1359,7 +1362,7 @@ uint64_t sub_100206E04(char a1, char a2, uint64_t a3, int a4, int a5, int a6, in
   v59 = *(v61 - 8);
   __chkstk_darwin(v61);
   v58 = &v47 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = sub_10007EBC0(&qword_1006B68E8);
+  v22 = sub_10007EBC0(&qword_1006B68E8, &unk_100563FF0);
   v53 = *(v22 - 8);
   v23 = *(v53 + 64);
   __chkstk_darwin(v22 - 8);
@@ -1369,7 +1372,7 @@ uint64_t sub_100206E04(char a1, char a2, uint64_t a3, int a4, int a5, int a6, in
   v26 = *(v25 + 64);
   __chkstk_darwin(v55);
   v27 = &v47 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if ((a2 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
     swift_beginAccess();
     *(a3 + 16) = 1;
@@ -1393,12 +1396,12 @@ uint64_t sub_100206E04(char a1, char a2, uint64_t a3, int a4, int a5, int a6, in
     *(a3 + 16) = 1;
   }
 
-  sub_10000905C(0, &qword_1006AEDC0);
+  sub_10000905C(0, &qword_1006AEDC0, OS_dispatch_queue_ptr);
   v54 = static OS_dispatch_queue.main.getter();
   v28 = v55;
   (*(v25 + 16))(&v47 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0), a11, v55);
   v29 = v56;
-  sub_100007204(a14, v56, &qword_1006B68E8);
+  sub_100007204(a14, v56, &qword_1006B68E8, &unk_100563FF0);
   v30 = *(v25 + 80);
   v47 = a3;
   v31 = (v30 + 25) & ~v30;
@@ -1416,7 +1419,7 @@ uint64_t sub_100206E04(char a1, char a2, uint64_t a3, int a4, int a5, int a6, in
   v38[1] = v49 & 1;
   v38[2] = v50 & 1;
   v38[3] = v65 & 1;
-  sub_100035318(v29, v35 + v33, &qword_1006B68E8);
+  sub_100035318(v29, v35 + v33, &qword_1006B68E8, &unk_100563FF0);
   v39 = (v35 + v34);
   *v39 = v64 & 1;
   v39[1] = v51 & 1;
@@ -1433,9 +1436,9 @@ uint64_t sub_100206E04(char a1, char a2, uint64_t a3, int a4, int a5, int a6, in
   v42 = v58;
   static DispatchQoS.unspecified.getter();
   aBlock[0] = _swiftEmptyArrayStorage;
-  sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags);
-  sub_10007EBC0(&unk_1006B0640);
-  sub_100004044(&qword_1006AEDF0, &unk_1006B0640);
+  sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_10007EBC0(&unk_1006B0640, &unk_100552B10);
+  sub_100004044(&qword_1006AEDF0, &unk_1006B0640, &unk_100552B10);
   v43 = v60;
   v44 = v63;
   dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -1449,34 +1452,34 @@ uint64_t sub_100206E04(char a1, char a2, uint64_t a3, int a4, int a5, int a6, in
 
 void sub_10020746C(uint64_t a1, int a2, uint64_t a3, int a4, int a5, int a6, int a7, uint64_t a8, unsigned __int8 a9, unsigned __int8 a10, uint64_t a11)
 {
-  v47 = a6;
-  v48 = a7;
-  v45 = a4;
-  v46 = a5;
-  v50 = a11;
-  v42 = a10;
-  v43 = a9;
-  v44 = a2;
+  v49 = a6;
+  v50 = a7;
+  v47 = a4;
+  v48 = a5;
+  v52 = a11;
+  v44 = a10;
+  v45 = a9;
+  v46 = a2;
   v13 = type metadata accessor for FMIPDeviceState();
   v14 = *(v13 - 8);
-  v15 = __chkstk_darwin(v13);
-  v17 = &v39 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v19 = &v39 - v18;
-  v20 = sub_10007EBC0(&qword_1006B68E8);
+  __chkstk_darwin(v13);
+  v16 = &v41 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v19 = &v41 - v18;
+  v20 = sub_10007EBC0(&qword_1006B68E8, &unk_100563FF0);
   __chkstk_darwin(v20 - 8);
-  v22 = &v39 - v21;
-  v49 = a1;
-  v41 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView;
-  v40 = *(a1 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView);
-  v39 = *(FMIPDevice.safeLocations.getter() + 16);
+  v22 = &v41 - v21;
+  v51 = a1;
+  v43 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView;
+  v42 = *(a1 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView);
+  v41 = *(FMIPDevice.safeLocations.getter() + 16);
 
-  sub_100007204(a8, v22, &qword_1006B68E8);
+  sub_100007204(a8, v22, &qword_1006B68E8, &unk_100563FF0);
   v23 = type metadata accessor for FMFDevice();
   v24 = *(v23 - 8);
   if ((*(v24 + 48))(v22, 1, v23) == 1)
   {
-    sub_100012DF0(v22, &qword_1006B68E8);
+    sub_100012DF0(v22, &qword_1006B68E8, &unk_100563FF0);
     v25 = 0;
     v26 = 0;
   }
@@ -1491,25 +1494,25 @@ void sub_10020746C(uint64_t a1, int a2, uint64_t a3, int a4, int a5, int a6, int
 
   FMIPDevice.state.getter();
   static FMIPDeviceState.separationWarningPaused.getter();
-  sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState);
+  sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState, &protocol conformance descriptor for FMIPDeviceState);
   v29 = dispatch thunk of SetAlgebra.isSuperset(of:)();
   v30 = *(v14 + 8);
-  v30(v17, v13);
+  v30(v16, v13);
   v30(v19, v13);
-  v31 = v49;
-  v32 = *(*(v49 + OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator) + 16);
-  v33 = sub_100057590();
+  v31 = v51;
+  v32 = *(*(v51 + OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator) + 16);
+  v35 = sub_100057590(v32, v33, v34);
 
-  v34 = (v33 & 0xFFFFFFFFFFFFFFFDLL) == 1;
-  v35 = v40;
-  sub_100241AEC(v44 & 1, v39, v45 & 1, v46 & 1, v47 & 1, v48 & 1, v25, v26, v43 & 1, (v42 & 1) == 0, v29 & 1, v34);
+  v36 = (v35 & 0xFFFFFFFFFFFFFFFDLL) == 1;
+  v37 = v42;
+  sub_100241AEC(v46 & 1, v41, v47 & 1, v48 & 1, v49 & 1, v50 & 1, v25, v26, v45 & 1, (v44 & 1) == 0, v29 & 1, v36);
 
-  v36 = *(v31 + v41);
-  v37 = v50;
+  v38 = *(v31 + v43);
+  v39 = v52;
   swift_beginAccess();
-  LOBYTE(v37) = *(v37 + 16);
-  v38 = v36;
-  sub_100242940(v37);
+  LOBYTE(v39) = *(v39 + 16);
+  v40 = v38;
+  sub_100242940(v39);
 }
 
 void sub_10020782C(int a1, uint64_t a2, uint64_t a3)
@@ -1517,15 +1520,15 @@ void sub_10020782C(int a1, uint64_t a2, uint64_t a3)
   v34 = a2;
   v35 = a3;
   v33 = a1;
-  v4 = sub_10007EBC0(&unk_1006BBCE0);
+  v4 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v4 - 8);
   v6 = &v31 - v5;
   v7 = type metadata accessor for FMIPDevice();
   v8 = *(v7 - 8);
   v9 = *(v8 + 64);
-  v10 = __chkstk_darwin(v7);
-  v11 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
+  __chkstk_darwin(v7);
+  v10 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
   v13 = &v31 - v12;
   v14 = (*(v3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource) + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel);
   swift_beginAccess();
@@ -1536,7 +1539,7 @@ void sub_10020782C(int a1, uint64_t a2, uint64_t a3)
 
   if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    sub_100012DF0(v6, &unk_1006BBCE0);
+    sub_100012DF0(v6, &unk_1006BBCE0, &unk_1005534C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -1577,38 +1580,38 @@ void sub_10020782C(int a1, uint64_t a2, uint64_t a3)
 
     v25 = swift_allocObject();
     swift_unknownObjectWeakInit();
-    (*(v8 + 16))(v11, v13, v7);
+    (*(v8 + 16))(v10, v13, v7);
     v26 = (*(v8 + 80) + 24) & ~*(v8 + 80);
     v27 = swift_allocObject();
     *(v27 + 16) = v25;
-    v32((v27 + v26), v11, v7);
+    v32((v27 + v26), v10, v7);
     v28 = (v27 + ((v9 + v26 + 7) & 0xFFFFFFFFFFFFFFF8));
     v29 = v34;
     v30 = v35;
     *v28 = v34;
     v28[1] = v30;
-    sub_100062900(v29);
+    sub_100062900(v29, v30);
     sub_1000C5474(sub_10021EAEC, v27, 0, 0);
 
     (*(v8 + 8))(v13, v7);
   }
 }
 
-uint64_t sub_100207CA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double sub_100207CA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   swift_beginAccess();
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
   {
-    v9 = result;
-    v10 = swift_allocObject();
-    v10[2] = v9;
-    v10[3] = a4;
-    v10[4] = a5;
+    v10 = Strong;
+    v11 = swift_allocObject();
+    v11[2] = v10;
+    v11[3] = a4;
+    v11[4] = a5;
 
-    v11 = v9;
-    sub_100062900(a4);
-    sub_1000DDAB8(a3, sub_10021EBD8, v10);
+    v12 = v10;
+    sub_100062900(a4, a5);
+    sub_1000DDAB8(a3, sub_10021EBD8, v11);
   }
 
   return result;
@@ -1616,76 +1619,77 @@ uint64_t sub_100207CA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 void sub_100207DA0(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(BOOL), uint64_t a5)
 {
-  v30[2] = a5;
-  v31 = a4;
-  v30[1] = a1;
+  v36 = a5;
+  v37 = a4;
+  v35[1] = a1;
   v7 = type metadata accessor for FMIPActionStatus();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v35 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = type metadata accessor for FMIPDeviceState();
   v12 = *(v11 - 8);
-  v13 = __chkstk_darwin(v11);
-  v15 = v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v17 = v30 - v16;
+  __chkstk_darwin(v11);
+  v14 = v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v17 = v35 - v16;
   if (a2 && *(a2 + 16))
   {
     type metadata accessor for FMIPDevice();
     FMIPDevice.state.getter();
     static FMIPDeviceState.isNotifyWhenDetachedEnabled.getter();
-    sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState);
+    sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState, &protocol conformance descriptor for FMIPDeviceState);
     v18 = dispatch thunk of SetAlgebra.isSuperset(of:)();
     v19 = *(v12 + 8);
-    v19(v15, v11);
+    v19(v14, v11);
     v19(v17, v11);
     v20 = *(*(a3 + OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator) + 16);
     v21 = *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView);
     v22 = v20;
-    v23 = sub_100057590();
+    v25 = sub_100057590(v22, v23, v24);
 
-    v24 = (v23 & 0xFFFFFFFFFFFFFFFDLL) == 1;
-    v25 = v18 & 1;
+    v26 = (v25 & 0xFFFFFFFFFFFFFFFDLL) == 1;
+    v27 = v18 & 1;
   }
 
   else
   {
-    v26 = *(*(a3 + OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator) + 16);
+    v28 = *(*(a3 + OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator) + 16);
     v21 = *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView);
-    v27 = v26;
-    v28 = sub_100057590();
+    v29 = v28;
+    v32 = sub_100057590(v29, v30, v31);
 
-    v24 = (v28 & 0xFFFFFFFFFFFFFFFDLL) == 1;
-    v25 = 0;
+    v26 = (v32 & 0xFFFFFFFFFFFFFFFDLL) == 1;
+    v27 = 0;
   }
 
-  sub_100242594(v25, v24);
+  sub_100242594(v27, v26);
 
-  v29 = v31;
-  if (v31)
+  v33 = v37;
+  if (v37)
   {
     (*(v8 + 104))(v10, enum case for FMIPActionStatus.success(_:), v7);
-    sub_10021E650(&qword_1006C1D70, &type metadata accessor for FMIPActionStatus);
+    sub_10021E650(&qword_1006C1D70, &type metadata accessor for FMIPActionStatus, &protocol conformance descriptor for FMIPActionStatus);
+    v34 = v36;
 
     dispatch thunk of RawRepresentable.rawValue.getter();
     dispatch thunk of RawRepresentable.rawValue.getter();
     (*(v8 + 8))(v10, v7);
-    v29(v33 == v32);
-    sub_10001835C(v29);
+    v33(v39 == v38);
+    sub_10001835C(v33, v34);
   }
 }
 
 void sub_10020816C()
 {
   v1 = v0;
-  v2 = sub_10007EBC0(&unk_1006BBCE0);
+  v2 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v2 - 8);
   v4 = &v24 - v3;
   v5 = type metadata accessor for FMIPDevice();
   v6 = *(v5 - 8);
-  v7 = __chkstk_darwin(v5);
-  v9 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v5);
+  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
   v11 = &v24 - v10;
   v12 = (*&v0[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel);
   swift_beginAccess();
@@ -1696,7 +1700,7 @@ void sub_10020816C()
 
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    sub_100012DF0(v4, &unk_1006BBCE0);
+    sub_100012DF0(v4, &unk_1006BBCE0, &unk_1005534C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -1717,10 +1721,10 @@ void sub_10020816C()
   else
   {
     (*(v6 + 32))(v11, v4, v5);
-    (*(v6 + 16))(v9, v11, v5);
-    v19 = objc_allocWithZone(type metadata accessor for FMNotifyWhenDetachedViewController());
+    (*(v6 + 16))(v8, v11, v5);
+    v19 = objc_allocWithZone(type metadata accessor for FMNotifyWhenDetachedViewController(0));
 
-    v21 = sub_1003E7A10(v20, v9);
+    v21 = sub_1003E7A10(v20, v8);
     *&v21[OBJC_IVAR____TtC6FindMy34FMNotifyWhenDetachedViewController_delegate + 8] = &off_10062D290;
     swift_unknownObjectWeakAssign();
     objc_allocWithZone(type metadata accessor for FMTransparentNavigationController());
@@ -1736,15 +1740,15 @@ void sub_10020816C()
 void sub_10020850C(int a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v31 = a3;
-  v30 = a1;
-  v6 = sub_10007EBC0(&unk_1006BBCE0);
+  v32 = a3;
+  v31 = a1;
+  v6 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v6 - 8);
-  v8 = &v29[-v7];
+  v8 = &v30[-v7];
   v9 = type metadata accessor for FMIPDevice();
   v10 = *(v9 - 8);
   __chkstk_darwin(v9);
-  v12 = &v29[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = &v30[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v13 = (*&v3[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel);
   swift_beginAccess();
   v15 = *v13;
@@ -1754,7 +1758,7 @@ void sub_10020850C(int a1, uint64_t a2, uint64_t a3)
 
   if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
-    sub_100012DF0(v8, &unk_1006BBCE0);
+    sub_100012DF0(v8, &unk_1006BBCE0, &unk_1005534C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -1788,7 +1792,7 @@ void sub_10020850C(int a1, uint64_t a2, uint64_t a3)
     {
       v23 = swift_slowAlloc();
       *v23 = 67109120;
-      *(v23 + 4) = v30 & 1;
+      *(v23 + 4) = v31 & 1;
       _os_log_impl(&_mh_execute_header, v21, v22, "FMDeviceDetailContentViewController: Show contact details button toggled with state = %{BOOL}d", v23, 8u);
     }
 
@@ -1798,24 +1802,25 @@ void sub_10020850C(int a1, uint64_t a2, uint64_t a3)
     v27 = swift_allocObject();
     v27[2] = v4;
     v27[3] = a2;
-    v27[4] = v31;
+    v28 = v32;
+    v27[4] = v32;
 
-    v28 = v4;
-    sub_100062900(a2);
+    v29 = v4;
+    sub_100062900(a2, v28);
     sub_1000DDE18(v12, v25, v26, sub_10021EAE0, v27);
 
     (*(v10 + 8))(v12, v9);
   }
 }
 
-void sub_100208944(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
+void sub_100208944(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t), uint64_t a5)
 {
-  v8 = type metadata accessor for FMIPDeviceState();
-  v9 = *(v8 - 8);
-  v10 = __chkstk_darwin(v8);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for FMIPDeviceState();
+  v11 = *(v10 - 8);
   __chkstk_darwin(v10);
-  v14 = &v17 - v13;
+  v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v16 = &v19 - v15;
   if (a2)
   {
     if (*(a2 + 16))
@@ -1823,11 +1828,11 @@ void sub_100208944(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
       type metadata accessor for FMIPDevice();
       FMIPDevice.state.getter();
       static FMIPDeviceState.isShowContactDetailsEnabled.getter();
-      sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState);
+      sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState, &protocol conformance descriptor for FMIPDeviceState);
       LOBYTE(a2) = dispatch thunk of SetAlgebra.isSuperset(of:)();
-      v15 = *(v9 + 8);
-      v15(v12, v8);
-      v15(v14, v8);
+      v17 = *(v11 + 8);
+      v17(v13, v10);
+      v17(v16, v10);
     }
 
     else
@@ -1836,28 +1841,28 @@ void sub_100208944(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
     }
   }
 
-  v16 = *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_showContactDetailsView);
+  v18 = *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_showContactDetailsView);
   sub_10044C7B8(a2 & 1);
 
   if (a4)
   {
 
     a4(a1);
-    sub_10001835C(a4);
+    sub_10001835C(a4, a5);
   }
 }
 
 char *sub_100208B54()
 {
   v1 = v0;
-  v2 = sub_10007EBC0(&unk_1006BBCE0);
+  v2 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v2 - 8);
   v4 = &v27 - v3;
   v5 = type metadata accessor for FMIPDevice();
   v6 = *(v5 - 8);
-  v7 = __chkstk_darwin(v5);
-  v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v5);
+  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
   v11 = &v27 - v10;
   v12 = OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator;
   v13 = (*&v0[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel);
@@ -1869,7 +1874,7 @@ char *sub_100208B54()
 
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    sub_100012DF0(v4, &unk_1006BBCE0);
+    sub_100012DF0(v4, &unk_1006BBCE0, &unk_1005534C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -1893,12 +1898,12 @@ char *sub_100208B54()
   {
     (*(v6 + 32))(v11, v4, v5);
     v21 = *&v0[v12];
-    (*(v6 + 16))(v9, v11, v5);
+    (*(v6 + 16))(v8, v11, v5);
     v22 = *&v0[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_showContactDetailsPhoneNumber];
     v23 = *&v1[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_showContactDetailsPhoneNumber + 8];
-    objc_allocWithZone(type metadata accessor for FMContactDetailsWelcomeScreenViewController());
+    objc_allocWithZone(type metadata accessor for FMContactDetailsWelcomeScreenViewController(0));
 
-    v24 = sub_100228D20(v21, v9, v22, v23);
+    v24 = sub_100228D20(v21, v8, v22, v23);
 
     *&v24[OBJC_IVAR____TtC6FindMy43FMContactDetailsWelcomeScreenViewController_delegate + 8] = &off_10062D280;
     swift_unknownObjectWeakAssign();
@@ -1913,22 +1918,22 @@ char *sub_100208B54()
   }
 }
 
-uint64_t sub_100208F5C(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
+double sub_100208F5C(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   swift_beginAccess();
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
   {
-    v7 = a3 & 1;
-    *(result + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenLeftBehindOnOverride) = v7;
-    v8 = result;
-    [*(result + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView) setUserInteractionEnabled:0];
-    v9 = swift_allocObject();
-    *(v9 + 16) = v8;
-    *(v9 + 24) = v7;
+    v8 = a3 & 1;
+    *(Strong + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenLeftBehindOnOverride) = v8;
+    v9 = Strong;
+    [*(Strong + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView) setUserInteractionEnabled:0];
+    v10 = swift_allocObject();
+    *(v10 + 16) = v9;
+    *(v10 + 24) = v8;
 
-    v10 = v8;
-    sub_1000DE0C0(a4, v7, sub_10021EAD4, v9);
+    v11 = v9;
+    sub_1000DE0C0(a4, v8, sub_10021EAD4, v10);
   }
 
   return result;
@@ -1939,23 +1944,23 @@ uint64_t sub_100209074(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
   v6 = type metadata accessor for FMIPActionStatus();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for FMDeviceDetailViewModel();
-  __chkstk_darwin(v10 - 8);
-  v12 = v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  [*(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView) setUserInteractionEnabled:1];
-  v13 = *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
-  v14 = OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+  v9 = v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for FMDeviceDetailViewModel(0);
+  *&v11 = __chkstk_darwin(v10 - 8).n128_u64[0];
+  v13 = v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  [*(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView) setUserInteractionEnabled:{1, v11}];
+  v14 = *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
+  v15 = OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
   swift_beginAccess();
-  sub_10022017C(v13 + v14, v12, type metadata accessor for FMDeviceDetailViewModel);
-  sub_1002053C8(v12);
-  sub_1002201E4(v12, type metadata accessor for FMDeviceDetailViewModel);
+  sub_10022017C(v14 + v15, v13, type metadata accessor for FMDeviceDetailViewModel);
+  sub_1002053C8(v13, v16, v17);
+  sub_1002201E4(v13, type metadata accessor for FMDeviceDetailViewModel);
   (*(v7 + 104))(v9, enum case for FMIPActionStatus.success(_:), v6);
-  sub_10021E650(&qword_1006C1D70, &type metadata accessor for FMIPActionStatus);
+  sub_10021E650(&qword_1006C1D70, &type metadata accessor for FMIPActionStatus, &protocol conformance descriptor for FMIPActionStatus);
   dispatch thunk of RawRepresentable.rawValue.getter();
   dispatch thunk of RawRepresentable.rawValue.getter();
   result = (*(v7 + 8))(v9, v6);
-  *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenLeftBehindOnOverride) = (v16[2] == v16[1]) & a4;
+  *(a3 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_isNotifyWhenLeftBehindOnOverride) = (v19[2] == v19[1]) & a4;
   return result;
 }
 
@@ -1973,7 +1978,7 @@ void sub_1002092CC()
   *&v9[OBJC_IVAR____TtC6FindMy39FMSeparationWelcomeScreenViewController_delegate + 8] = &off_10062D208;
   swift_unknownObjectWeakAssign();
   v10 = *&v1[v2];
-  sub_10007EBC0(&qword_1006AFC30);
+  sub_10007EBC0(&qword_1006AFC30, &unk_1005523E0);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_100552EE0;
   *(v11 + 32) = v6;
@@ -1993,49 +1998,49 @@ void sub_1002092CC()
 void sub_1002094C8(uint64_t a1)
 {
   v2 = v1;
-  v93 = a1;
-  v3 = sub_10007EBC0(&qword_1006BC990);
+  v97 = a1;
+  v3 = sub_10007EBC0(&qword_1006BC990, &unk_100558AC0);
   __chkstk_darwin(v3 - 8);
-  v95 = &v83 - v4;
-  v5 = sub_10007EBC0(&unk_1006BB1B0);
+  v99 = &v87 - v4;
+  v5 = sub_10007EBC0(&unk_1006BB1B0, qword_10055C5C0);
   __chkstk_darwin(v5 - 8);
-  v96 = &v83 - v6;
+  v100 = &v87 - v6;
   v7 = type metadata accessor for TimeZone();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v83 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_10007EBC0(&unk_1006B0000);
+  v10 = &v87 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_10007EBC0(&unk_1006B0000, &unk_100552AA0);
   __chkstk_darwin(v11 - 8);
-  v13 = &v83 - v12;
+  v13 = &v87 - v12;
   v14 = type metadata accessor for Date();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v17 = &v83 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v94 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
+  v17 = &v87 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v98 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
   v18 = *&v2[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
   swift_beginAccess();
   v19 = *(v18 + 24);
   if (v19)
   {
-    v92 = v17;
+    v96 = v17;
     v20 = OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator;
     v21 = *&v2[OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator];
-    v90 = *(v18 + 16);
+    v94 = *(v18 + 16);
     v22 = *(v21 + 56) + OBJC_IVAR____TtC6FindMy21FMSelectionController_pendingActionInfo;
     swift_beginAccess();
-    v91 = type metadata accessor for FMPendingActionInfo(0);
-    sub_100007204(v22 + *(v91 + 28), v13, &unk_1006B0000);
+    v95 = type metadata accessor for FMPendingActionInfo(0);
+    sub_100007204(v22 + *(v95 + 28), v13, &unk_1006B0000, &unk_100552AA0);
     if ((*(v15 + 48))(v13, 1, v14) == 1)
     {
-      sub_100012DF0(v13, &unk_1006B0000);
+      sub_100012DF0(v13, &unk_1006B0000, &unk_100552AA0);
     }
 
     else
     {
-      v88 = v15;
+      v92 = v15;
       v27 = *(v15 + 32);
-      v89 = v14;
-      v27(v92, v13);
+      v93 = v14;
+      v27(v96, v13);
       v28 = objc_allocWithZone(NSDateFormatter);
 
       v29 = [v28 init];
@@ -2046,24 +2051,24 @@ void sub_1002094C8(uint64_t a1)
 
       [v29 setTimeStyle:1];
       v31 = Date._bridgeToObjectiveC()().super.isa;
-      v86 = v29;
+      v90 = v29;
       v32 = [v29 stringFromDate:v31];
 
-      v85 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v84 = v33;
+      v89 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v88 = v33;
 
-      v87 = v20;
+      v91 = v20;
       v34 = *&v2[v20];
-      sub_10007EBC0(&unk_1006AF770);
+      sub_10007EBC0(&unk_1006AF770, &unk_1005542D0);
       v35 = swift_allocObject();
       *(v35 + 16) = xmmword_100552220;
-      *(v35 + 32) = v90;
+      *(v35 + 32) = v94;
       *(v35 + 40) = v19;
       v36 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_pendingSafeLocation;
       swift_beginAccess();
-      sub_100007204(&v2[v36], v96, &unk_1006BB1B0);
-      sub_100007204(v93, v95, &qword_1006BC990);
-      v37 = objc_allocWithZone(type metadata accessor for FMSeparationNotificationWelcomeViewController());
+      sub_100007204(&v2[v36], v100, &unk_1006BB1B0, qword_10055C5C0);
+      sub_100007204(v97, v99, &qword_1006BC990, &unk_100558AC0);
+      v37 = objc_allocWithZone(type metadata accessor for FMSeparationNotificationWelcomeViewController(0));
       v38 = &v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_scrollHandler];
       *v38 = 0;
       v38[1] = 0;
@@ -2090,88 +2095,88 @@ void sub_1002094C8(uint64_t a1)
       v51 = objc_allocWithZone(v47);
       *&v37[v49] = sub_100038758(v50, 1, 0, 1);
       v52 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_informativeImage;
-      sub_10000905C(0, &qword_1006BC2B0);
-      v53 = sub_1003DE3DC(0xD00000000000001ALL, 0x8000000100586BE0, 6778480, 0xE300000000000000);
-      v54 = [objc_allocWithZone(UIImageView) initWithImage:v53];
+      sub_10000905C(0, &qword_1006BC2B0, UIImage_ptr);
+      v57 = sub_1003DE3DC(0xD00000000000001ALL, 0x8000000100586BE0, 6778480, 0xE300000000000000, v53, v54, v55, v56, v87);
+      v58 = [objc_allocWithZone(UIImageView) initWithImage:v57];
 
-      *&v37[v52] = v54;
+      *&v37[v52] = v58;
       *&v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_heightConstraint] = 0;
-      v55 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_singleItem;
-      v56 = type metadata accessor for FMIPItem();
-      (*(*(v56 - 8) + 56))(&v37[v55], 1, 1, v56);
-      v57 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_singleDevice;
-      v58 = type metadata accessor for FMIPDevice();
-      (*(*(v58 - 8) + 56))(&v37[v57], 1, 1, v58);
-      v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_separationGroupType] = 2;
-      v59 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_safeLocationSuggestion;
-      v60 = type metadata accessor for FMIPSafeLocation();
+      v59 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_singleItem;
+      v60 = type metadata accessor for FMIPItem();
       (*(*(v60 - 8) + 56))(&v37[v59], 1, 1, v60);
-      v61 = &v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_separationTime];
-      *v61 = 0;
-      v61[1] = 0;
-      v62 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_separationLocation;
-      v63 = type metadata accessor for FMIPSeparationLocation();
-      (*(*(v63 - 8) + 56))(&v37[v62], 1, 1, v63);
-      v64 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_mapSnapshotter;
+      v61 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_singleDevice;
+      v62 = type metadata accessor for FMIPDevice();
+      (*(*(v62 - 8) + 56))(&v37[v61], 1, 1, v62);
+      v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_separationGroupType] = 2;
+      v63 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_safeLocationSuggestion;
+      v64 = type metadata accessor for FMIPSafeLocation();
+      (*(*(v64 - 8) + 56))(&v37[v63], 1, 1, v64);
+      v65 = &v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_separationTime];
+      *v65 = 0;
+      v65[1] = 0;
+      v66 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_separationLocation;
+      v67 = type metadata accessor for FMIPSeparationLocation();
+      (*(*(v67 - 8) + 56))(&v37[v66], 1, 1, v67);
+      v68 = OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_mapSnapshotter;
       type metadata accessor for FMMapSnapshotter();
       swift_allocObject();
-      *&v37[v64] = sub_10012114C();
+      *&v37[v68] = sub_10012114C();
       v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_type] = 0;
       *&v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_beaconUUIDs] = v35;
       swift_beginAccess();
-      sub_1000BBE44(v96, &v37[v59], &unk_1006BB1B0);
+      sub_1000BBE44(v100, &v37[v63], &unk_1006BB1B0, qword_10055C5C0);
       swift_endAccess();
-      v65 = v34;
-      v66 = *(v34 + 56) + OBJC_IVAR____TtC6FindMy21FMSelectionController_pendingActionInfo;
+      v69 = v34;
+      v70 = *(v34 + 56) + OBJC_IVAR____TtC6FindMy21FMSelectionController_pendingActionInfo;
       swift_beginAccess();
-      v67 = 1;
-      v68 = *(v66 + *(v91 + 32));
-      if (v68)
+      v71 = 1;
+      v72 = *(v70 + *(v95 + 32));
+      if (v72)
       {
-        v67 = *(v68 + 16);
+        v71 = *(v72 + 16);
       }
 
-      *&v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_beaconCount] = v67;
-      v69 = v84;
-      *v61 = v85;
-      v61[1] = v69;
+      *&v37[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_beaconCount] = v71;
+      v73 = v88;
+      *v65 = v89;
+      v65[1] = v73;
 
       swift_beginAccess();
-      v70 = v95;
-      sub_1000BBE44(v95, &v37[v62], &qword_1006BC990);
+      v74 = v99;
+      sub_1000BBE44(v99, &v37[v66], &qword_1006BC990, &unk_100558AC0);
       swift_endAccess();
-      *&v37[OBJC_IVAR____TtC6FindMy24FMMediatedViewController_mediator] = v65;
-      v71 = type metadata accessor for FMMediatedViewController();
-      v97.receiver = v37;
-      v97.super_class = v71;
+      *&v37[OBJC_IVAR____TtC6FindMy24FMMediatedViewController_mediator] = v69;
+      v75 = type metadata accessor for FMMediatedViewController();
+      v101.receiver = v37;
+      v101.super_class = v75;
 
-      v72 = objc_msgSendSuper2(&v97, "initWithNibName:bundle:", 0, 0);
+      v76 = objc_msgSendSuper2(&v101, "initWithNibName:bundle:", 0, 0);
       sub_1002EEB9C();
       sub_1002EF8A8();
-      v73 = objc_allocWithZone(UITapGestureRecognizer);
-      v74 = v72;
-      v75 = [v73 initWithTarget:v74 action:"primaryAction"];
-      [*&v74[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_actionButton] addGestureRecognizer:v75];
-      v76 = [objc_allocWithZone(UITapGestureRecognizer) initWithTarget:v74 action:"secondaryAction"];
+      v77 = objc_allocWithZone(UITapGestureRecognizer);
+      v78 = v76;
+      v79 = [v77 initWithTarget:v78 action:"primaryAction"];
+      [*&v78[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_actionButton] addGestureRecognizer:v79];
+      v80 = [objc_allocWithZone(UITapGestureRecognizer) initWithTarget:v78 action:"secondaryAction"];
 
-      [*&v74[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_secondaryActionButton] addGestureRecognizer:v76];
+      [*&v78[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_secondaryActionButton] addGestureRecognizer:v80];
 
-      sub_100012DF0(v70, &qword_1006BC990);
-      sub_100012DF0(v96, &unk_1006BB1B0);
-      *&v74[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_delegate + 8] = &off_10062D1F8;
+      sub_100012DF0(v74, &qword_1006BC990, &unk_100558AC0);
+      sub_100012DF0(v100, &unk_1006BB1B0, qword_10055C5C0);
+      *&v78[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_delegate + 8] = &off_10062D1F8;
       swift_unknownObjectWeakAssign();
-      v77 = [objc_allocWithZone(type metadata accessor for FMTransparentNavigationController()) initWithRootViewController:v74];
-      [v2 presentViewController:v77 animated:1 completion:0];
-      v78 = *(*&v2[v87] + 16);
-      v79 = *&v2[v94] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+      v81 = [objc_allocWithZone(type metadata accessor for FMTransparentNavigationController()) initWithRootViewController:v78];
+      [v2 presentViewController:v81 animated:1 completion:0];
+      v82 = *(*&v2[v91] + 16);
+      v83 = *&v2[v98] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
       swift_beginAccess();
-      v81 = *(v79 + 16);
-      v80 = *(v79 + 24);
+      v85 = *(v83 + 16);
+      v84 = *(v83 + 24);
 
-      v82 = v78;
-      sub_100424A30(v81, v80);
+      v86 = v82;
+      sub_100424A30(v85, v84);
 
-      (*(v88 + 8))(v92, v89);
+      (*(v92 + 8))(v96, v93);
     }
   }
 
@@ -2195,7 +2200,7 @@ void sub_1002094C8(uint64_t a1)
   }
 }
 
-uint64_t sub_10020A0F0(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
+double sub_10020A0F0(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
 {
   v5 = v4;
   v29 = a3;
@@ -2227,7 +2232,7 @@ uint64_t sub_10020A0F0(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
   v19 = *(v21 + 8);
   if (!v19 || !*(v19 + 16))
   {
-    sub_10007EBC0(&unk_1006AF770);
+    sub_10007EBC0(&unk_1006AF770, &unk_1005542D0);
     v23 = swift_allocObject();
     *(v23 + 16) = xmmword_100552220;
     if (v20)
@@ -2280,6 +2285,8 @@ LABEL_16:
   *(v27 + 24) = a4;
 
   sub_1000D6C5C(v26, sub_10021E964, v27);
+
+  return result;
 }
 
 uint64_t sub_10020A424(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(BOOL))
@@ -2302,7 +2309,7 @@ uint64_t sub_10020A424(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v16 = v11;
     *v10 = 136315138;
     swift_errorRetain();
-    sub_10007EBC0(&qword_1006B9570);
+    sub_10007EBC0(&qword_1006B9570, &qword_1005523F0);
     v12 = String.init<A>(describing:)();
     v14 = sub_100005B4C(v12, v13, &v16);
 
@@ -2317,7 +2324,7 @@ uint64_t sub_10020A424(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 void sub_10020A5C4()
 {
   v1 = v0;
-  v2 = sub_1001D73FC();
+  v2 = sub_1001D73FC(&aBlock);
   v4 = v3;
   v5 = type metadata accessor for FMIPSeparationEvent();
   if (!(*(*(v5 - 8) + 48))(v4, 1, v5))
@@ -2363,7 +2370,7 @@ void sub_10020A5C4()
     v15._object = 0xE000000000000000;
     NSLocalizedString(_:tableName:bundle:value:comment:)(v13, v14, v12, v15, v61);
 
-    sub_10007EBC0(&unk_1006B20B0);
+    sub_10007EBC0(&unk_1006B20B0, &unk_1005523B0);
     v16 = swift_allocObject();
     *(v16 + 16) = xmmword_100552220;
     v18 = *&v1[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_separationAddress];
@@ -2494,16 +2501,16 @@ void sub_10020A5C4()
   }
 }
 
-void sub_10020ADAC(void *a1)
+void sub_10020ADAC(char *a1)
 {
-  v2 = sub_10007EBC0(&unk_1006BB1B0);
+  v2 = sub_10007EBC0(&unk_1006BB1B0, qword_10055C5C0);
   __chkstk_darwin(v2 - 8);
   v4 = &v20[-v3];
   v5 = type metadata accessor for FMIPSafeLocation();
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v20[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v9 = sub_1001D73FC();
+  v9 = sub_1001D73FC(v20);
   v11 = v10;
   v12 = type metadata accessor for FMIPSeparationEvent();
   if (!(*(*(v12 - 8) + 48))(v11, 1, v12))
@@ -2514,10 +2521,10 @@ void sub_10020ADAC(void *a1)
   (v9)(v20, 0);
   v13 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_pendingSafeLocation;
   swift_beginAccess();
-  sub_100007204(a1 + v13, v4, &unk_1006BB1B0);
+  sub_100007204(&a1[v13], v4, &unk_1006BB1B0, qword_10055C5C0);
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    sub_100012DF0(v4, &unk_1006BB1B0);
+    sub_100012DF0(v4, &unk_1006BB1B0, qword_10055C5C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -2557,7 +2564,7 @@ uint64_t sub_10020B0DC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   v11 = *(v19 - 8);
   __chkstk_darwin(v19);
   v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10000905C(0, &qword_1006AEDC0);
+  sub_10000905C(0, &qword_1006AEDC0, OS_dispatch_queue_ptr);
   v14 = static OS_dispatch_queue.main.getter();
   v15 = swift_allocObject();
   *(v15 + 16) = a2;
@@ -2572,9 +2579,9 @@ uint64_t sub_10020B0DC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = _swiftEmptyArrayStorage;
-  sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags);
-  sub_10007EBC0(&unk_1006B0640);
-  sub_100004044(&qword_1006AEDF0, &unk_1006B0640);
+  sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_10007EBC0(&unk_1006B0640, &unk_100552B10);
+  sub_100004044(&qword_1006AEDF0, &unk_1006B0640, &unk_100552B10);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v16);
@@ -2583,9 +2590,9 @@ uint64_t sub_10020B0DC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   return (*(v11 + 8))(v13, v19);
 }
 
-void sub_10020B3AC(void *a1)
+void sub_10020B3AC(char *a1)
 {
-  v2 = sub_10007EBC0(&unk_1006BB1B0);
+  v2 = sub_10007EBC0(&unk_1006BB1B0, qword_10055C5C0);
   __chkstk_darwin(v2 - 8);
   v4 = &v16 - v3;
   v5 = type metadata accessor for FMIPSafeLocation();
@@ -2594,10 +2601,10 @@ void sub_10020B3AC(void *a1)
   v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_pendingSafeLocation;
   swift_beginAccess();
-  sub_100007204(a1 + v9, v4, &unk_1006BB1B0);
+  sub_100007204(&a1[v9], v4, &unk_1006BB1B0, qword_10055C5C0);
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    sub_100012DF0(v4, &unk_1006BB1B0);
+    sub_100012DF0(v4, &unk_1006BB1B0, qword_10055C5C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -2627,7 +2634,7 @@ void sub_10020B3AC(void *a1)
   }
 }
 
-uint64_t sub_10020B668(char a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double sub_10020B668(char a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = type metadata accessor for DispatchWorkItemFlags();
   v41 = *(v9 - 8);
@@ -2639,7 +2646,7 @@ uint64_t sub_10020B668(char a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
   v15 = &v40 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1)
   {
-    sub_10000905C(0, &qword_1006AEDC0);
+    sub_10000905C(0, &qword_1006AEDC0, OS_dispatch_queue_ptr);
     v40 = static OS_dispatch_queue.main.getter();
     v16 = swift_allocObject();
     *(v16 + 16) = a2;
@@ -2654,16 +2661,16 @@ uint64_t sub_10020B668(char a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 
     static DispatchQoS.unspecified.getter();
     aBlock[0] = _swiftEmptyArrayStorage;
-    sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags);
-    sub_10007EBC0(&unk_1006B0640);
-    sub_100004044(&qword_1006AEDF0, &unk_1006B0640);
+    sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_10007EBC0(&unk_1006B0640, &unk_100552B10);
+    sub_100004044(&qword_1006AEDF0, &unk_1006B0640, &unk_100552B10);
     dispatch thunk of SetAlgebra.init<A>(_:)();
     v19 = v40;
     OS_dispatch_queue.async(group:qos:flags:execute:)();
     _Block_release(v17);
 
     (*(v41 + 8))(v11, v9);
-    return (*(v13 + 8))(v15, v12);
+    (*(v13 + 8))(v15, v12);
   }
 
   else
@@ -2718,37 +2725,39 @@ uint64_t sub_10020B668(char a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 
     sub_10027CEB4(v30._countAndFlagsBits, v30._object, v35._countAndFlagsBits, v35._object, v39._countAndFlagsBits, v39._object);
   }
+
+  return result;
 }
 
 uint64_t sub_10020BBC4(uint64_t a1)
 {
-  v2 = type metadata accessor for FMDeviceDetailViewModel();
+  v2 = type metadata accessor for FMDeviceDetailViewModel(0);
   __chkstk_darwin(v2 - 8);
-  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(a1 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_pendingSafeLocationAdded) = 1;
   v5 = *(a1 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
   v6 = OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
   swift_beginAccess();
-  sub_10022017C(v5 + v6, v4, type metadata accessor for FMDeviceDetailViewModel);
-  sub_1001F995C();
+  v7 = sub_10022017C(v5 + v6, v4, type metadata accessor for FMDeviceDetailViewModel);
+  sub_1001F995C(v7, v8, v9);
   return sub_1002201E4(v4, type metadata accessor for FMDeviceDetailViewModel);
 }
 
 void sub_10020BCFC()
 {
-  v1 = sub_10007EBC0(&unk_1006BBCE0);
+  v1 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v1 - 8);
   v3 = &v101 - v2;
   v4 = type metadata accessor for FMIPDevice();
   v5 = *(v4 - 8);
-  v6 = __chkstk_darwin(v4);
-  v108 = (&v101 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = __chkstk_darwin(v6);
-  v111 = &v101 - v9;
-  v10 = __chkstk_darwin(v8);
-  v107 = &v101 - v11;
-  v110 = v12;
-  __chkstk_darwin(v10);
+  __chkstk_darwin(v4);
+  v108 = (&v101 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v7);
+  v111 = &v101 - v8;
+  __chkstk_darwin(v9);
+  v107 = &v101 - v10;
+  v110 = v11;
+  __chkstk_darwin(v12);
   v14 = &v101 - v13;
   v109 = OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator;
   v15 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
@@ -2764,7 +2773,7 @@ void sub_10020BCFC()
 
   if ((*(v5 + 48))(v3, 1, v20) == 1)
   {
-    sub_100012DF0(v3, &unk_1006BBCE0);
+    sub_100012DF0(v3, &unk_1006BBCE0, &unk_1005534C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -2789,7 +2798,7 @@ void sub_10020BCFC()
     v105 = v0;
     v27 = *&v0[v15] + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
     swift_beginAccess();
-    v28 = *(v27 + *(type metadata accessor for FMDeviceDetailViewModel() + 92) + 2);
+    v28 = *(v27 + *(type metadata accessor for FMDeviceDetailViewModel(0) + 92) + 2);
     v106 = v14;
     if ((v28 & 0x10) != 0)
     {
@@ -2962,7 +2971,7 @@ void sub_10020BCFC()
       v59 = v106;
       v60 = v111;
       v30(v111, v106, v20);
-      v61 = objc_allocWithZone(type metadata accessor for FMRemoveDeviceViewController());
+      v61 = objc_allocWithZone(type metadata accessor for FMRemoveDeviceViewController(0));
 
       v63 = sub_1005047C0(v62, v60);
       objc_allocWithZone(type metadata accessor for FMTransparentNavigationController());
@@ -2989,32 +2998,34 @@ void sub_10020BCFC()
   }
 }
 
-uint64_t sub_10020C928(uint64_t a1, void *a2, uint64_t a3)
+double sub_10020C928(uint64_t a1, char *a2, uint64_t a3)
 {
   v5 = type metadata accessor for FMIPDevice();
   v6 = *(v5 - 8);
   v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v6 + 16))(v8, a3, v5);
-  v9 = (*(v6 + 80) + 16) & ~*(v6 + 80);
-  v10 = (v7 + v9 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v11 = swift_allocObject();
-  (*(v6 + 32))(v11 + v9, v8, v5);
-  *(v11 + v10) = a2;
+  v8 = __chkstk_darwin(v5);
+  v9 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v6 + 16))(v9, a3, v5, v8);
+  v10 = (*(v6 + 80) + 16) & ~*(v6 + 80);
+  v11 = (v7 + v10 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v12 = swift_allocObject();
+  (*(v6 + 32))(v12 + v10, v9, v5);
+  *(v12 + v11) = a2;
 
-  sub_1000DE3B4(a3, a2, sub_10021E784, v11);
+  sub_1000DE3B4(a3, a2, sub_10021E784, v12);
+
+  return result;
 }
 
 void sub_10020CAB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v8 = type metadata accessor for FMIPDevice();
   v9 = *(v8 - 8);
-  v10 = __chkstk_darwin(v8);
-  v12 = v67 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __chkstk_darwin(v10);
-  v15 = v67 - v14;
-  __chkstk_darwin(v13);
+  __chkstk_darwin(v8);
+  v11 = v67 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v14 = v67 - v13;
+  __chkstk_darwin(v15);
   v17 = v67 - v16;
   if (!a2)
   {
@@ -3052,7 +3063,7 @@ void sub_10020CAB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
   }
 
   swift_getErrorValue();
-  v18 = sub_100271E80(v67[1]);
+  v18 = sub_100271E80(v67[1], v67[2]);
   v20 = v19;
   v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   if (v20)
@@ -3072,7 +3083,7 @@ void sub_10020CAB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
     }
 
     swift_getErrorValue();
-    if (sub_100271D20(v67[5]) == -7003)
+    if (sub_100271D20(v67[5], v67[6]) == -7003)
     {
       if (qword_1006AEBE0 != -1)
       {
@@ -3081,13 +3092,13 @@ void sub_10020CAB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 
       v35 = type metadata accessor for Logger();
       sub_100005B14(v35, qword_1006D4630);
-      (*(v9 + 16))(v12, a4, v8);
+      (*(v9 + 16))(v11, a4, v8);
       v26 = Logger.logObject.getter();
       v27 = static os_log_type_t.default.getter();
       if (!os_log_type_enabled(v26, v27))
       {
 
-        (*(v9 + 8))(v12, v8);
+        (*(v9 + 8))(v11, v8);
         return;
       }
 
@@ -3097,7 +3108,7 @@ void sub_10020CAB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
       *v28 = 136315138;
       v36 = FMIPDevice.name.getter();
       v38 = v37;
-      (*(v9 + 8))(v12, v8);
+      (*(v9 + 8))(v11, v8);
       v39 = sub_100005B4C(v36, v38, &v68);
 
       *(v28 + 4) = v39;
@@ -3122,7 +3133,7 @@ LABEL_21:
 
   v40 = type metadata accessor for Logger();
   sub_100005B14(v40, qword_1006D4630);
-  (*(v9 + 16))(v15, a4, v8);
+  (*(v9 + 16))(v14, a4, v8);
   swift_errorRetain();
   v41 = Logger.logObject.getter();
   v42 = static os_log_type_t.error.getter();
@@ -3135,14 +3146,14 @@ LABEL_21:
     v44 = FMIPDevice.name.getter();
     v45 = v8;
     v47 = v46;
-    (*(v9 + 8))(v15, v45);
+    (*(v9 + 8))(v14, v45);
     v48 = sub_100005B4C(v44, v47, &v68);
 
     *(v43 + 4) = v48;
     *(v43 + 12) = 2080;
     v67[8] = a2;
     swift_errorRetain();
-    sub_10007EBC0(&qword_1006B9570);
+    sub_10007EBC0(&qword_1006B9570, &qword_1005523F0);
     v49 = String.init<A>(describing:)();
     v51 = sub_100005B4C(v49, v50, &v68);
 
@@ -3154,7 +3165,7 @@ LABEL_21:
   else
   {
 
-    (*(v9 + 8))(v15, v8);
+    (*(v9 + 8))(v14, v8);
   }
 
   v52 = objc_opt_self();
@@ -3199,19 +3210,19 @@ LABEL_21:
   [a5 presentViewController:v61 animated:1 completion:0];
 }
 
-void sub_10020D468()
+void sub_10020D468(uint64_t a1)
 {
   sub_10020DB1C(319, &qword_1006B3F80, &type metadata accessor for Date);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_10020DB1C(319, &qword_1006B67A8, &type metadata accessor for FMIPAirPodsPlaySoundEvent);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_10020DB1C(319, &qword_1006BB190, &type metadata accessor for FMIPSafeLocation);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_10020DB1C(319, &qword_1006B67B0, &type metadata accessor for FMIPSeparationEvent);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_updateClassMetadata2();
         }
@@ -3220,52 +3231,54 @@ void sub_10020D468()
   }
 }
 
-uint64_t sub_10020D6E8(uint64_t a1, uint64_t a2)
+double sub_10020D6E8(uint64_t a1, uint64_t a2)
 {
-  v21 = a2;
-  v23 = a1;
+  v22 = a2;
+  v24 = a1;
   v2 = type metadata accessor for FMIPDevice();
-  v24 = *(v2 - 8);
-  v25 = v2;
+  v25 = *(v2 - 8);
+  v26 = v2;
   __chkstk_darwin(v2);
-  v22 = &v20 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = type metadata accessor for FMIPAnalyticsProductType();
   __chkstk_darwin(v4 - 8);
-  v20 = type metadata accessor for FMIPAnalyticsOwnerContext();
-  v5 = *(v20 - 8);
-  __chkstk_darwin(v20);
-  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = type metadata accessor for FMIPAnalyticsOwnerContext();
+  v5 = *(v21 - 8);
+  __chkstk_darwin(v21);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for FMIPAnalyticsActionType();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for FMIPActionEvent();
   v13 = *(v12 - 8);
-  __chkstk_darwin(v12);
-  v15 = &v20 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v9 + 16))(v11, v21, v8);
+  v14 = __chkstk_darwin(v12);
+  v16 = &v21 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v9 + 16))(v11, v22, v8, v14);
 
-  v16 = v23;
-  v17 = FMIPDevice.isOwned.getter();
-  v18 = &enum case for FMIPAnalyticsOwnerContext.owner(_:);
-  if ((v17 & 1) == 0)
+  v17 = v24;
+  v18 = FMIPDevice.isOwned.getter();
+  v19 = &enum case for FMIPAnalyticsOwnerContext.owner(_:);
+  if ((v18 & 1) == 0)
   {
-    v18 = &enum case for FMIPAnalyticsOwnerContext.shared(_:);
+    v19 = &enum case for FMIPAnalyticsOwnerContext.shared(_:);
   }
 
-  (*(v5 + 104))(v7, *v18, v20);
-  (*(v24 + 16))(v22, v16, v25);
+  (*(v5 + 104))(v7, *v19, v21);
+  (*(v25 + 16))(v23, v17, v26);
   FMIPAnalyticsProductType.init(device:)();
   FMIPActionEvent.init(type:ownerContext:productType:)();
   FMIPManager.enqueue(actionEvent:)();
-  (*(v13 + 8))(v15, v12);
+  (*(v13 + 8))(v16, v12);
+
+  return result;
 }
 
 uint64_t sub_10020DA3C()
 {
-  v1 = type metadata accessor for FMDeviceDetailViewModel();
+  v1 = type metadata accessor for FMDeviceDetailViewModel(0);
   __chkstk_darwin(v1 - 8);
-  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = (&v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
   v4 = *(v0 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
   v5 = OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
   swift_beginAccess();
@@ -3274,7 +3287,7 @@ uint64_t sub_10020DA3C()
   return sub_1002201E4(v3, type metadata accessor for FMDeviceDetailViewModel);
 }
 
-void sub_10020DB1C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_10020DB1C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -3287,9 +3300,9 @@ void sub_10020DB1C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-uint64_t sub_10020DB78()
+uint64_t sub_10020DB78(uint64_t a1)
 {
-  sub_10000905C(0, &qword_1006B4980);
+  sub_10000905C(0, &qword_1006B4980, NSObject_ptr);
   result = static NSObject.== infix(_:_:)();
   if (result)
   {
@@ -3302,9 +3315,9 @@ uint64_t sub_10020DB78()
 
 void sub_10020DBEC()
 {
-  v1 = type metadata accessor for FMDeviceDetailViewModel();
+  v1 = type metadata accessor for FMDeviceDetailViewModel(0);
   __chkstk_darwin(v1 - 8);
-  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = (&v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_100208F2C(0);
   v4 = *(v0 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_showSeparationAttention);
   *(v0 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_showSeparationAttention) = 0;
@@ -3319,14 +3332,14 @@ void sub_10020DBEC()
   }
 }
 
-uint64_t sub_10020DCF8(char *a1, uint64_t a2)
+double sub_10020DCF8(char *a1, uint64_t a2)
 {
-  v4 = type metadata accessor for FMDeviceDetailViewModel();
+  v4 = type metadata accessor for FMDeviceDetailViewModel(0);
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = sub_10007EBC0(&unk_1006BEF30);
-  result = __chkstk_darwin(v7 - 8);
+  v7 = sub_10007EBC0(&unk_1006BEF30, &qword_100554550);
+  *&result = __chkstk_darwin(v7 - 8).n128_u64[0];
   v10 = &v16 - v9;
   v11 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_connectionMaterialTask;
   if (!*&a1[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_connectionMaterialTask] && !*&a1[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_btDeviceDiscoveryToken])
@@ -3359,7 +3372,7 @@ uint64_t sub_10020DF08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v5[38] = v7;
   v5[39] = *(v7 - 8);
   v5[40] = swift_task_alloc();
-  sub_10007EBC0(&unk_1006B20C0);
+  sub_10007EBC0(&unk_1006B20C0, &unk_100552E10);
   v5[41] = swift_task_alloc();
   v8 = type metadata accessor for UUID();
   v5[42] = v8;
@@ -3387,7 +3400,7 @@ LABEL_7:
   UUID.init(uuidString:)();
   if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
-    sub_100012DF0(v0[41], &unk_1006B20C0);
+    sub_100012DF0(v0[41], &unk_1006B20C0, &unk_100552E10);
     goto LABEL_7;
   }
 
@@ -3424,7 +3437,7 @@ uint64_t sub_10020E5F0()
     v0[7] = v0 + 31;
     v0[3] = sub_10020E97C;
     v4 = swift_continuation_init();
-    v0[17] = sub_10007EBC0(&qword_1006B6988);
+    v0[17] = sub_10007EBC0(&qword_1006B6988, &unk_100558BA0);
     v0[10] = _NSConcreteStackBlock;
     v0[11] = 1107296256;
     v0[12] = sub_10020F6A0;
@@ -3459,9 +3472,9 @@ uint64_t sub_10020E5F0()
     v11 = v8;
     static DispatchQoS.unspecified.getter();
     v0[30] = _swiftEmptyArrayStorage;
-    sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags);
-    sub_10007EBC0(&unk_1006B0640);
-    sub_100004044(&qword_1006AEDF0, &unk_1006B0640);
+    sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_10007EBC0(&unk_1006B0640, &unk_100552B10);
+    sub_100004044(&qword_1006AEDF0, &unk_1006B0640, &unk_100552B10);
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
     _Block_release(v10);
@@ -3527,7 +3540,7 @@ uint64_t sub_10020EA94()
       *(v8 + 4) = v10;
       *v9 = v10;
       _os_log_impl(&_mh_execute_header, v6, v7, "FMDeviceDetailContentViewController: Attempting to get connection material failed with error: %@", v8, 0xCu);
-      sub_100012DF0(v9, &unk_1006AF760);
+      sub_100012DF0(v9, &unk_1006AF760, &qword_100552DB0);
     }
 
     else
@@ -3563,7 +3576,7 @@ uint64_t sub_10020EA94()
       v23 = swift_slowAlloc();
       v69 = v23;
       *v22 = 136315138;
-      sub_10021E650(&qword_1006B7830, &type metadata accessor for UUID);
+      sub_10021E650(&qword_1006B7830, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
       v24 = dispatch thunk of CustomStringConvertible.description.getter();
       v26 = v25;
       (*(v19 + 8))(v20, v21);
@@ -3617,9 +3630,9 @@ uint64_t sub_10020EA94()
     v46 = v42;
     static DispatchQoS.unspecified.getter();
     v0[32] = _swiftEmptyArrayStorage;
-    sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags);
-    sub_10007EBC0(&unk_1006B0640);
-    sub_100004044(&qword_1006AEDF0, &unk_1006B0640);
+    sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_10007EBC0(&unk_1006B0640, &unk_100552B10);
+    sub_100004044(&qword_1006AEDF0, &unk_1006B0640, &unk_100552B10);
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
     v47 = v44;
@@ -3652,9 +3665,9 @@ uint64_t sub_10020EA94()
   v54 = v51;
   static DispatchQoS.unspecified.getter();
   v0[30] = _swiftEmptyArrayStorage;
-  sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags);
-  sub_10007EBC0(&unk_1006B0640);
-  sub_100004044(&qword_1006AEDF0, &unk_1006B0640);
+  sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_10007EBC0(&unk_1006B0640, &unk_100552B10);
+  sub_100004044(&qword_1006AEDF0, &unk_1006B0640, &unk_100552B10);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v53);
@@ -3667,10 +3680,10 @@ uint64_t sub_10020EA94()
   return v55();
 }
 
-uint64_t sub_10020F2E0()
+uint64_t sub_10020F2E0(uint64_t a1)
 {
-  v1 = v0[49];
-  v2 = v0[48];
+  v2 = v1[49];
+  v3 = v1[48];
   swift_willThrow();
 
   if (qword_1006AEBE0 != -1)
@@ -3678,64 +3691,64 @@ uint64_t sub_10020F2E0()
     swift_once();
   }
 
-  v3 = type metadata accessor for Logger();
-  sub_100005B14(v3, qword_1006D4630);
+  v4 = type metadata accessor for Logger();
+  sub_100005B14(v4, qword_1006D4630);
   swift_errorRetain();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v4, v5))
+  if (os_log_type_enabled(v5, v6))
   {
-    v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
-    *v6 = 138412290;
+    v8 = swift_slowAlloc();
+    *v7 = 138412290;
     swift_errorRetain();
-    v8 = _swift_stdlib_bridgeErrorToNSError();
-    *(v6 + 4) = v8;
-    *v7 = v8;
-    _os_log_impl(&_mh_execute_header, v4, v5, "FMDeviceDetailContentViewController: Attempting to get connection material failed with error: %@", v6, 0xCu);
-    sub_100012DF0(v7, &unk_1006AF760);
+    v9 = _swift_stdlib_bridgeErrorToNSError();
+    *(v7 + 4) = v9;
+    *v8 = v9;
+    _os_log_impl(&_mh_execute_header, v5, v6, "FMDeviceDetailContentViewController: Attempting to get connection material failed with error: %@", v7, 0xCu);
+    sub_100012DF0(v8, &unk_1006AF760, &qword_100552DB0);
   }
 
   else
   {
   }
 
-  v22 = v0[42];
-  v23 = v0[45];
-  v19 = v0[39];
-  v9 = v0[37];
-  v20 = v0[38];
-  v21 = v0[43];
-  v11 = v0[35];
-  v10 = v0[36];
-  v12 = v0[34];
-  v18 = v0[40];
-  v13 = swift_allocObject();
-  *(v13 + 16) = v12;
-  v0[22] = sub_1002200EC;
-  v0[23] = v13;
-  v0[18] = _NSConcreteStackBlock;
-  v0[19] = 1107296256;
-  v0[20] = sub_100004AE4;
-  v0[21] = &unk_10062F870;
-  v14 = _Block_copy(v0 + 18);
-  v15 = v12;
+  v23 = v1[42];
+  v24 = v1[45];
+  v20 = v1[39];
+  v10 = v1[37];
+  v21 = v1[38];
+  v22 = v1[43];
+  v12 = v1[35];
+  v11 = v1[36];
+  v13 = v1[34];
+  v19 = v1[40];
+  v14 = swift_allocObject();
+  *(v14 + 16) = v13;
+  v1[22] = sub_1002200EC;
+  v1[23] = v14;
+  v1[18] = _NSConcreteStackBlock;
+  v1[19] = 1107296256;
+  v1[20] = sub_100004AE4;
+  v1[21] = &unk_10062F870;
+  v15 = _Block_copy(v1 + 18);
+  v16 = v13;
   static DispatchQoS.unspecified.getter();
-  v0[30] = _swiftEmptyArrayStorage;
-  sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags);
-  sub_10007EBC0(&unk_1006B0640);
-  sub_100004044(&qword_1006AEDF0, &unk_1006B0640);
+  v1[30] = _swiftEmptyArrayStorage;
+  sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_10007EBC0(&unk_1006B0640, &unk_100552B10);
+  sub_100004044(&qword_1006AEDF0, &unk_1006B0640, &unk_100552B10);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
-  _Block_release(v14);
-  (*(v10 + 8))(v9, v11);
-  (*(v19 + 8))(v18, v20);
-  (*(v21 + 8))(v23, v22);
+  _Block_release(v15);
+  (*(v11 + 8))(v10, v12);
+  (*(v20 + 8))(v19, v21);
+  (*(v22 + 8))(v24, v23);
 
-  v16 = v0[1];
+  v17 = v1[1];
 
-  return v16();
+  return v17();
 }
 
 uint64_t sub_10020F6A0(uint64_t a1, void *a2, void *a3)
@@ -3744,7 +3757,7 @@ uint64_t sub_10020F6A0(uint64_t a1, void *a2, void *a3)
   v6 = *v5;
   if (a3)
   {
-    sub_10007EBC0(&unk_1006AF7B0);
+    sub_10007EBC0(&unk_1006AF7B0, &qword_100552E20);
     v7 = swift_allocError();
     *v8 = a3;
     v9 = a3;
@@ -3770,157 +3783,157 @@ uint64_t sub_10020F6A0(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10020F7E0(uint64_t a1, uint64_t a2)
+void sub_10020F7E0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = type metadata accessor for FindingMode(0);
-  __chkstk_darwin(v3);
-  v5 = (&v64 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v6 = sub_10007EBC0(&unk_1006B20C0);
-  __chkstk_darwin(v6 - 8);
-  v71 = &v64 - v7;
-  v8 = type metadata accessor for UUID();
-  v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v64 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for FMIPDevice();
-  v13 = *(v12 - 8);
-  v14 = __chkstk_darwin(v12);
-  v72 = &v64 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v17 = &v64 - v16;
+  v4 = type metadata accessor for FindingMode(0);
+  __chkstk_darwin(v4);
+  v6 = (&v65 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = sub_10007EBC0(&unk_1006B20C0, &unk_100552E10);
+  __chkstk_darwin(v7 - 8);
+  v72 = &v65 - v8;
+  v9 = type metadata accessor for UUID();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v65 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for FMIPDevice();
+  v14 = *(v13 - 8);
+  __chkstk_darwin(v13);
+  v73 = &v65 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v16);
+  v18 = &v65 - v17;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v19 = Strong;
-    v73 = v12;
-    v65 = v11;
-    v67 = v3;
+    v20 = Strong;
+    v74 = v13;
+    v66 = v12;
+    v68 = v4;
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
     }
 
-    v20 = type metadata accessor for Logger();
-    sub_100005B14(v20, qword_1006D4630);
-    v21 = v19;
+    v21 = type metadata accessor for Logger();
+    sub_100005B14(v21, qword_1006D4630);
+    v22 = v20;
     swift_errorRetain();
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.default.getter();
+    v23 = Logger.logObject.getter();
+    v24 = static os_log_type_t.default.getter();
 
-    v70 = v23;
-    v24 = os_log_type_enabled(v22, v23);
-    v25 = &qword_1006B6000;
-    v66 = v5;
-    v68 = v9;
-    v69 = v8;
-    v74 = v21;
-    if (v24)
+    v71 = v24;
+    v25 = os_log_type_enabled(v23, v24);
+    v26 = &qword_1006B6000;
+    v67 = v6;
+    v69 = v10;
+    v70 = v9;
+    v75 = v22;
+    if (v25)
     {
-      v26 = swift_slowAlloc();
-      v64 = swift_slowAlloc();
-      v75 = v64;
-      *v26 = 136315394;
-      v27 = *(*&v21[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + 40);
-      v28 = *(*v27 + class metadata base offset for ManagedBuffer + 16);
-      v29 = (*(*v27 + 48) + 3) & 0x1FFFFFFFCLL;
+      v27 = swift_slowAlloc();
+      v65 = swift_slowAlloc();
+      v76 = v65;
+      *v27 = 136315394;
+      v28 = *(*&v22[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource] + 40);
+      v29 = *(*v28 + class metadata base offset for ManagedBuffer + 16);
+      v30 = (*(*v28 + 48) + 3) & 0x1FFFFFFFCLL;
 
-      os_unfair_lock_lock((v27 + v29));
-      v30 = v73;
-      (*(v13 + 16))(v17, v27 + v28, v73);
-      os_unfair_lock_unlock((v27 + v29));
+      os_unfair_lock_lock((v28 + v30));
+      v31 = v74;
+      (*(v14 + 16))(v18, v28 + v29, v74);
+      os_unfair_lock_unlock((v28 + v30));
 
-      v31 = FMIPDevice.baIdentifier.getter();
-      v33 = v32;
-      (*(v13 + 8))(v17, v30);
-      v76 = v31;
-      v77 = v33;
-      sub_10007EBC0(&qword_1006AF8F0);
-      v34 = String.init<A>(describing:)();
-      v36 = sub_100005B4C(v34, v35, &v75);
+      v32 = FMIPDevice.baIdentifier.getter();
+      v34 = v33;
+      (*(v14 + 8))(v18, v31);
+      v77 = v32;
+      v78 = v34;
+      sub_10007EBC0(&qword_1006AF8F0, &qword_100555D20);
+      v35 = String.init<A>(describing:)();
+      v37 = sub_100005B4C(v35, v36, &v76);
 
-      *(v26 + 4) = v36;
-      *(v26 + 12) = 2080;
-      v76 = a2;
+      *(v27 + 4) = v37;
+      *(v27 + 12) = 2080;
+      v77 = a2;
       swift_errorRetain();
-      sub_10007EBC0(&qword_1006B9570);
-      v37 = String.init<A>(describing:)();
-      v39 = sub_100005B4C(v37, v38, &v75);
+      sub_10007EBC0(&qword_1006B9570, &qword_1005523F0);
+      v38 = String.init<A>(describing:)();
+      v40 = sub_100005B4C(v38, v39, &v76);
 
-      *(v26 + 14) = v39;
-      v25 = &qword_1006B6000;
-      _os_log_impl(&_mh_execute_header, v22, v70, "FMDeviceDetailContentViewController, fast advertisement stopped for device: %s. With error?: %s", v26, 0x16u);
+      *(v27 + 14) = v40;
+      v26 = &qword_1006B6000;
+      _os_log_impl(&_mh_execute_header, v23, v71, "FMDeviceDetailContentViewController, fast advertisement stopped for device: %s. With error?: %s", v27, 0x16u);
       swift_arrayDestroy();
     }
 
     else
     {
 
-      v30 = v73;
+      v31 = v74;
     }
 
-    v40 = v25[181];
-    v41 = *(*&v74[v40] + 40);
-    v42 = *(*v41 + class metadata base offset for ManagedBuffer + 16);
-    v43 = (*(*v41 + 48) + 3) & 0x1FFFFFFFCLL;
+    v41 = v26[181];
+    v42 = *(*&v75[v41] + 40);
+    v43 = *(*v42 + class metadata base offset for ManagedBuffer + 16);
+    v44 = (*(*v42 + 48) + 3) & 0x1FFFFFFFCLL;
 
-    os_unfair_lock_lock((v41 + v43));
-    v44 = *(v13 + 16);
-    v44(v17, v41 + v42, v30);
-    os_unfair_lock_unlock((v41 + v43));
+    os_unfair_lock_lock((v42 + v44));
+    v45 = *(v14 + 16);
+    v45(v18, v42 + v43, v31);
+    os_unfair_lock_unlock((v42 + v44));
 
-    v45 = FMIPDevice.isLocalFindable.getter();
-    v46 = *(v13 + 8);
-    v46(v17, v30);
-    if (v45)
+    v46 = FMIPDevice.isLocalFindable.getter();
+    v47 = *(v14 + 8);
+    v47(v18, v31);
+    if (v46)
     {
-      v47 = v74;
-      v48 = *&v74[v40];
-      v49 = v48 + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+      v48 = v75;
+      v49 = *&v75[v41];
+      v50 = v49 + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
       swift_beginAccess();
-      if (*(v49 + *(type metadata accessor for FMDeviceDetailViewModel() + 156)) == 1)
+      if (*(v50 + *(type metadata accessor for FMDeviceDetailViewModel(0) + 156)) == 1)
       {
-        v50 = *(v48 + 40);
-        v51 = *(*v50 + class metadata base offset for ManagedBuffer + 16);
-        v52 = (*(*v50 + 48) + 3) & 0x1FFFFFFFCLL;
+        v51 = *(v49 + 40);
+        v52 = *(*v51 + class metadata base offset for ManagedBuffer + 16);
+        v53 = (*(*v51 + 48) + 3) & 0x1FFFFFFFCLL;
 
-        os_unfair_lock_lock((v50 + v52));
-        v53 = v50 + v51;
-        v55 = v72;
-        v54 = v73;
-        v44(v72, v53, v73);
-        os_unfair_lock_unlock((v50 + v52));
+        os_unfair_lock_lock((v51 + v53));
+        v54 = v51 + v52;
+        v56 = v73;
+        v55 = v74;
+        v45(v73, v54, v74);
+        os_unfair_lock_unlock((v51 + v53));
 
         FMIPDevice.baIdentifier.getter();
-        v57 = v56;
-        v46(v55, v54);
-        if (v57)
+        v58 = v57;
+        v47(v56, v55);
+        if (v58)
         {
-          v58 = v71;
+          v59 = v72;
           UUID.init(uuidString:)();
 
-          v60 = v68;
-          v59 = v69;
-          if ((*(v68 + 48))(v58, 1, v69) == 1)
+          v61 = v69;
+          v60 = v70;
+          if ((*(v69 + 48))(v59, 1, v70) == 1)
           {
 
-            sub_100012DF0(v58, &unk_1006B20C0);
+            sub_100012DF0(v59, &unk_1006B20C0, &unk_100552E10);
             return;
           }
 
-          v61 = v65;
-          (*(v60 + 32))(v65, v58, v59);
-          v62 = *(v60 + 16);
-          v63 = v66;
-          v62(v66, v61, v59);
+          v62 = v66;
+          (*(v61 + 32))(v66, v59, v60);
+          v63 = *(v61 + 16);
+          v64 = v67;
+          v63(v67, v62, v60);
           swift_storeEnumTagMultiPayload();
-          sub_100162FAC(v63);
-          sub_1002201E4(v63, type metadata accessor for FindingMode);
-          v62(v63, v61, v59);
+          sub_100162FAC(v64);
+          sub_1002201E4(v64, type metadata accessor for FindingMode);
+          v63(v64, v62, v60);
           swift_storeEnumTagMultiPayload();
-          sub_100458B70(v63);
-          sub_1002201E4(v63, type metadata accessor for FindingMode);
-          (*(v60 + 8))(v61, v59);
+          sub_100458B70(v64);
+          sub_1002201E4(v64, type metadata accessor for FindingMode);
+          (*(v61 + 8))(v62, v60);
         }
       }
     }
@@ -3935,43 +3948,43 @@ void sub_10020FFF0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
 {
   v13 = type metadata accessor for FMIPItemActionStatus();
   v14 = *(v13 - 8);
-  __chkstk_darwin(v13);
-  v16 = &v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = __chkstk_darwin(v13);
+  v17 = &v26 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a3)
   {
-    v27 = a1;
-    v28 = a7;
+    v28 = a1;
+    v29 = a7;
     swift_errorRetain();
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
     }
 
-    v17 = type metadata accessor for Logger();
-    sub_100005B14(v17, qword_1006D4630);
+    v18 = type metadata accessor for Logger();
+    sub_100005B14(v18, qword_1006D4630);
     swift_errorRetain();
 
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.error.getter();
+    v19 = Logger.logObject.getter();
+    v20 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v18, v19))
+    if (os_log_type_enabled(v19, v20))
     {
-      v20 = swift_slowAlloc();
-      v26 = a6;
-      v21 = v20;
-      v30 = swift_slowAlloc();
-      *v21 = 136315394;
-      *(v21 + 4) = sub_100005B4C(a4, a5, &v30);
-      *(v21 + 12) = 2080;
+      v21 = swift_slowAlloc();
+      v27 = a6;
+      v22 = v21;
+      v31 = swift_slowAlloc();
+      *v22 = 136315394;
+      *(v22 + 4) = sub_100005B4C(a4, a5, &v31);
+      *(v22 + 12) = 2080;
       swift_getErrorValue();
-      v22 = Error.localizedDescription.getter();
-      v24 = sub_100005B4C(v22, v23, &v30);
+      v23 = Error.localizedDescription.getter();
+      v25 = sub_100005B4C(v23, v24, &v31);
 
-      *(v21 + 14) = v24;
-      _os_log_impl(&_mh_execute_header, v18, v19, "FMDeviceDetailContentViewController: Failed to play sound for item identifier: %s - error: %s", v21, 0x16u);
+      *(v22 + 14) = v25;
+      _os_log_impl(&_mh_execute_header, v19, v20, "FMDeviceDetailContentViewController: Failed to play sound for item identifier: %s - error: %s", v22, 0x16u);
       swift_arrayDestroy();
 
-      a6 = v26;
+      a6 = v27;
     }
 
     else
@@ -3981,19 +3994,19 @@ void sub_10020FFF0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
 
   if (a6)
   {
-    (*(v14 + 104))(v16, enum case for FMIPItemActionStatus.success(_:), v13);
-    sub_10021E650(&qword_1006B6898, &type metadata accessor for FMIPItemActionStatus);
+    (*(v14 + 104))(v17, enum case for FMIPItemActionStatus.success(_:), v13, v15);
+    sub_10021E650(&qword_1006B6898, &type metadata accessor for FMIPItemActionStatus, &protocol conformance descriptor for FMIPItemActionStatus);
     dispatch thunk of RawRepresentable.rawValue.getter();
     dispatch thunk of RawRepresentable.rawValue.getter();
-    (*(v14 + 8))(v16, v13);
-    a6(v30 == v29);
+    (*(v14 + 8))(v17, v13);
+    a6(v31 == v30);
   }
 }
 
 uint64_t sub_100210320(char a1, uint64_t a2)
 {
   v3 = v2;
-  v6 = type metadata accessor for FMDeviceDetailViewModel();
+  v6 = type metadata accessor for FMDeviceDetailViewModel(0);
   __chkstk_darwin(v6);
   v8 = v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0) + 24;
   if (qword_1006AEBE0 != -1)
@@ -4058,10 +4071,10 @@ void sub_1002105F0(uint64_t a1, void *a2, uint64_t a3)
   v81 = &v77 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = __chkstk_darwin(v8);
-  v12 = &v77 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v78 = v11;
-  __chkstk_darwin(v10);
+  __chkstk_darwin(v8);
+  v11 = &v77 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v78 = v10;
+  __chkstk_darwin(v12);
   v79 = &v77 - v13;
   v14 = type metadata accessor for FMIPDevice();
   v15 = *(v14 - 8);
@@ -4072,7 +4085,7 @@ void sub_1002105F0(uint64_t a1, void *a2, uint64_t a3)
   v19 = v18;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong && (v21 = *(Strong + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource), v22 = Strong, , v22, v23 = *(v21 + 40), v24 = *v23, v87 = v19, v88 = v9, v25 = v12, v26 = v17, v27 = v14, v28 = v8, v29 = a3, v30 = *(v24 + class metadata base offset for ManagedBuffer + 16), v31 = (*(v24 + 48) + 3) & 0x1FFFFFFFCLL, , os_unfair_lock_lock((v23 + v31)), v32 = v23 + v30, v33 = v29, v8 = v28, v14 = v27, v17 = v26, v12 = v25, v34 = v87, (*(v15 + 16))(v17, v32, v14), v35 = (v23 + v31), v9 = v88, os_unfair_lock_unlock(v35), , , v36 = FMIPDevice.baIdentifier.getter(), v38 = v37, (*(v15 + 8))(v17, v14), v38))
+  if (Strong && (v21 = *(Strong + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource), v22 = Strong, , v22, v23 = *(v21 + 40), v24 = *v23, v87 = v19, v88 = v9, v25 = v11, v26 = v17, v27 = v14, v28 = v8, v29 = a3, v30 = *(v24 + class metadata base offset for ManagedBuffer + 16), v31 = (*(v24 + 48) + 3) & 0x1FFFFFFFCLL, , os_unfair_lock_lock((v23 + v31)), v32 = v23 + v30, v33 = v29, v8 = v28, v14 = v27, v17 = v26, v11 = v25, v34 = v87, (*(v15 + 16))(v17, v32, v14), v35 = (v23 + v31), v9 = v88, os_unfair_lock_unlock(v35), , , v36 = FMIPDevice.baIdentifier.getter(), v38 = v37, (*(v15 + 8))(v17, v14), v38))
   {
     if (v89 == v36 && v38 == v34)
     {
@@ -4114,9 +4127,9 @@ LABEL_14:
         v71 = v81;
         static DispatchQoS.unspecified.getter();
         v92 = _swiftEmptyArrayStorage;
-        sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags);
-        sub_10007EBC0(&unk_1006B0640);
-        sub_100004044(&qword_1006AEDF0, &unk_1006B0640);
+        sub_10021E650(&qword_1006AEDE0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+        sub_10007EBC0(&unk_1006B0640, &unk_100552B10);
+        sub_100004044(&qword_1006AEDF0, &unk_1006B0640, &unk_100552B10);
         v72 = v83;
         v73 = v86;
         dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -4142,7 +4155,7 @@ LABEL_14:
 
   v39 = type metadata accessor for Logger();
   sub_100005B14(v39, qword_1006D4630);
-  (*(v9 + 2))(v12, v90, v8);
+  (*(v9 + 2))(v11, v90, v8);
 
   v40 = Logger.logObject.getter();
   v41 = static os_log_type_t.default.getter();
@@ -4155,10 +4168,10 @@ LABEL_14:
     v89 = swift_slowAlloc();
     v92 = v89;
     *v42 = 136315394;
-    sub_10021E650(&qword_1006B7830, &type metadata accessor for UUID);
+    sub_10021E650(&qword_1006B7830, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
     v43 = dispatch thunk of CustomStringConvertible.description.getter();
     v45 = v44;
-    (*(v9 + 1))(v12, v8);
+    (*(v9 + 1))(v11, v8);
     v46 = sub_100005B4C(v43, v45, &v92);
 
     *(v42 + 4) = v46;
@@ -4194,7 +4207,7 @@ LABEL_14:
 
     aBlock[6] = v56;
     aBlock[7] = v58;
-    sub_10007EBC0(&qword_1006AF8F0);
+    sub_10007EBC0(&qword_1006AF8F0, &qword_100555D20);
     v74 = String.init<A>(describing:)();
     v76 = sub_100005B4C(v74, v75, &v92);
 
@@ -4206,7 +4219,7 @@ LABEL_14:
   else
   {
 
-    (*(v9 + 1))(v12, v8);
+    (*(v9 + 1))(v11, v8);
   }
 }
 
@@ -4236,7 +4249,7 @@ void sub_100210F88(uint64_t a1, void *a2, uint64_t a3)
     v51 = a3;
     v52[0] = v16;
     *v15 = 136315650;
-    sub_10021E650(&qword_1006B7830, &type metadata accessor for UUID);
+    sub_10021E650(&qword_1006B7830, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
     v17 = dispatch thunk of CustomStringConvertible.description.getter();
     v19 = v18;
     (*(v7 + 8))(v9, v6);
@@ -4317,20 +4330,20 @@ uint64_t sub_100211414(uint64_t a1, uint64_t a2, void *a3)
   return (*(v6 + 8))(v8, v5);
 }
 
-void sub_100211528()
+void sub_100211528(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_localFindableConnectionMaterialMonitoringSession;
-    v3 = *(Strong + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_localFindableConnectionMaterialMonitoringSession);
+    v2 = Strong;
+    v3 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_localFindableConnectionMaterialMonitoringSession;
+    v4 = *(Strong + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_localFindableConnectionMaterialMonitoringSession);
     *(Strong + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_localFindableConnectionMaterialMonitoringSession) = 0;
 
     sub_1001DC624();
-    v4 = *&v1[v2];
-    if (v4)
+    v5 = *&v2[v3];
+    if (v5)
     {
       aBlock[4] = sub_10021162C;
       aBlock[5] = 0;
@@ -4338,12 +4351,12 @@ void sub_100211528()
       aBlock[1] = 1107296256;
       aBlock[2] = sub_1001A44B4;
       aBlock[3] = &unk_10062FA00;
-      v5 = _Block_copy(aBlock);
-      v6 = v4;
-      [v6 startLocalFindableConnectionMaterialMonitoringWithCompletion:v5];
+      v6 = _Block_copy(aBlock);
+      v7 = v5;
+      [v7 startLocalFindableConnectionMaterialMonitoringWithCompletion:v6];
 
-      _Block_release(v5);
-      v1 = v6;
+      _Block_release(v6);
+      v2 = v7;
     }
   }
 }
@@ -4393,7 +4406,7 @@ void sub_10021162C(uint64_t a1)
     *(v3 + 4) = v5;
     *v4 = v5;
     _os_log_impl(&_mh_execute_header, oslog, v2, "Error starting characteristic monitoring session: %@", v3, 0xCu);
-    sub_100012DF0(v4, &unk_1006AF760);
+    sub_100012DF0(v4, &unk_1006AF760, &qword_100552DB0);
 
 LABEL_10:
 
@@ -4405,35 +4418,35 @@ void sub_10021187C(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, const ch
 {
   v11 = type metadata accessor for FMIPActionStatus();
   v12 = *(v11 - 8);
-  __chkstk_darwin(v11);
-  v14 = &v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v12 + 104))(v14, enum case for FMIPActionStatus.success(_:), v11);
-  sub_10021E650(&qword_1006C1D70, &type metadata accessor for FMIPActionStatus);
+  v13 = __chkstk_darwin(v11);
+  v15 = &v28 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v12 + 104))(v15, enum case for FMIPActionStatus.success(_:), v11, v13);
+  sub_10021E650(&qword_1006C1D70, &type metadata accessor for FMIPActionStatus, &protocol conformance descriptor for FMIPActionStatus);
   dispatch thunk of RawRepresentable.rawValue.getter();
   dispatch thunk of RawRepresentable.rawValue.getter();
-  (*(v12 + 8))(v14, v11);
-  if (v28 == v27)
+  (*(v12 + 8))(v15, v11);
+  if (v29 == v28)
   {
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
     }
 
-    v15 = type metadata accessor for Logger();
-    sub_100005B14(v15, qword_1006D4630);
+    v16 = type metadata accessor for Logger();
+    sub_100005B14(v16, qword_1006D4630);
 
-    v16 = Logger.logObject.getter();
-    v17 = static os_log_type_t.default.getter();
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v16, v17))
+    if (os_log_type_enabled(v17, v18))
     {
-      v18 = swift_slowAlloc();
       v19 = swift_slowAlloc();
-      v28 = v19;
-      *v18 = 136315138;
-      *(v18 + 4) = sub_100005B4C(a3, a4, &v28);
-      _os_log_impl(&_mh_execute_header, v16, v17, a5, v18, 0xCu);
-      sub_100006060(v19);
+      v20 = swift_slowAlloc();
+      v29 = v20;
+      *v19 = 136315138;
+      *(v19 + 4) = sub_100005B4C(a3, a4, &v29);
+      _os_log_impl(&_mh_execute_header, v17, v18, a5, v19, 0xCu);
+      sub_100006060(v20);
     }
   }
 
@@ -4444,63 +4457,63 @@ void sub_10021187C(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, const ch
       swift_once();
     }
 
-    v20 = type metadata accessor for Logger();
-    sub_100005B14(v20, qword_1006D4630);
+    v21 = type metadata accessor for Logger();
+    sub_100005B14(v21, qword_1006D4630);
     swift_errorRetain();
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
+    v22 = Logger.logObject.getter();
+    v23 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v21, v22))
+    if (os_log_type_enabled(v22, v23))
     {
-      v23 = swift_slowAlloc();
       v24 = swift_slowAlloc();
-      *v23 = 138412290;
+      v25 = swift_slowAlloc();
+      *v24 = 138412290;
       if (a2)
       {
         swift_errorRetain();
-        v25 = _swift_stdlib_bridgeErrorToNSError();
-        v26 = v25;
+        v26 = _swift_stdlib_bridgeErrorToNSError();
+        v27 = v26;
       }
 
       else
       {
-        v25 = 0;
         v26 = 0;
+        v27 = 0;
       }
 
-      *(v23 + 4) = v25;
-      *v24 = v26;
-      _os_log_impl(&_mh_execute_header, v21, v22, a6, v23, 0xCu);
-      sub_100012DF0(v24, &unk_1006AF760);
+      *(v24 + 4) = v26;
+      *v25 = v27;
+      _os_log_impl(&_mh_execute_header, v22, v23, a6, v24, 0xCu);
+      sub_100012DF0(v25, &unk_1006AF760, &qword_100552DB0);
     }
   }
 }
 
 uint64_t sub_100211C28()
 {
-  sub_100012DF0(v0 + OBJC_IVAR____TtC6FindMyP33_FDB0C6A0A8911E0A6244ECE6337EF12425LostModeStatusCoordinator_continuation, &qword_1006B68D0);
+  sub_100012DF0(v0 + OBJC_IVAR____TtC6FindMyP33_FDB0C6A0A8911E0A6244ECE6337EF12425LostModeStatusCoordinator_continuation, &qword_1006B68D0, &qword_100558A88);
 
   return swift_deallocClassInstance();
 }
 
-void sub_100211CC4()
+void sub_100211CC4(uint64_t a1)
 {
-  sub_100211D54();
-  if (v0 <= 0x3F)
+  sub_100211D54(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void sub_100211D54()
+void sub_100211D54(uint64_t a1)
 {
   if (!qword_1006B67F8)
   {
-    sub_10007EC08(&unk_1006B6800);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    sub_10007EC08(&unk_1006B6800, &qword_100558950);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1006B67F8);
+      atomic_store(v1, &qword_1006B67F8);
     }
   }
 }
@@ -4516,9 +4529,9 @@ uint64_t sub_100211DB8(uint64_t (*a1)(void))
   return result;
 }
 
-Swift::Int sub_100211DE8(void **a1)
+void sub_100211DE8(uint64_t *a1)
 {
-  v2 = *(sub_10007EBC0(&qword_1006AF940) - 8);
+  v2 = *(sub_10007EBC0(&qword_1006AF940, &unk_100555E70) - 8);
   v3 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
@@ -4526,22 +4539,21 @@ Swift::Int sub_100211DE8(void **a1)
   }
 
   v4 = v3[2];
-  v6[0] = v3 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
-  v6[1] = v4;
-  result = sub_100211E9C(v6);
+  v5[0] = v3 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
+  v5[1] = v4;
+  sub_100211E9C(v5);
   *a1 = v3;
-  return result;
 }
 
-Swift::Int sub_100211E9C(unint64_t *a1)
+void sub_100211E9C(unint64_t *a1)
 {
   v2 = a1[1];
-  result = _minimumMergeRunLength(_:)(v2);
-  if (result < v2)
+  v3 = _minimumMergeRunLength(_:)(v2);
+  if (v3 < v2)
   {
     if (v2 >= -1)
     {
-      v4 = result;
+      v4 = v3;
       v5 = v2 / 2;
       if (v2 <= 1)
       {
@@ -4550,22 +4562,24 @@ Swift::Int sub_100211E9C(unint64_t *a1)
 
       else
       {
-        sub_10007EBC0(&qword_1006AF940);
+        sub_10007EBC0(&qword_1006AF940, &unk_100555E70);
         v6 = static Array._allocateBufferUninitialized(minimumCapacity:)();
         v6[2] = v5;
       }
 
-      v7 = *(sub_10007EBC0(&qword_1006AF940) - 8);
+      v7 = *(sub_10007EBC0(&qword_1006AF940, &unk_100555E70) - 8);
       v8[0] = v6 + ((*(v7 + 80) + 32) & ~*(v7 + 80));
       v8[1] = v5;
       sub_100212260(v8, v9, a1, v4);
       v6[2] = 0;
+
+      return;
     }
 
     __break(1u);
 LABEL_12:
     __break(1u);
-    return result;
+    return;
   }
 
   if (v2 < 0)
@@ -4575,78 +4589,76 @@ LABEL_12:
 
   if (v2)
   {
-    return sub_100211FE0(0, v2, 1, a1);
+    sub_100211FE0(0, v2, 1, a1);
   }
-
-  return result;
 }
 
-uint64_t sub_100211FE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void sub_100211FE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v36 = sub_10007EBC0(&qword_1006AF940);
-  v8 = __chkstk_darwin(v36);
-  v35 = &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __chkstk_darwin(v8);
-  v12 = (&v27 - v11);
-  result = __chkstk_darwin(v10);
-  v16 = (&v27 - v15);
-  v29 = a2;
+  v35 = sub_10007EBC0(&qword_1006AF940, &unk_100555E70);
+  __chkstk_darwin(v35);
+  v34 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v11 = (&v26 - v10);
+  __chkstk_darwin(v12);
+  v15 = (&v26 - v14);
+  v28 = a2;
   if (a3 != a2)
   {
-    v17 = *a4;
-    v18 = *(v14 + 72);
-    v19 = *a4 + v18 * (a3 - 1);
-    v20 = -v18;
-    v21 = a1 - a3;
-    v34 = v17;
-    v28 = v18;
-    v22 = v17 + v18 * a3;
+    v16 = *a4;
+    v17 = *(v13 + 72);
+    v18 = *a4 + v17 * (a3 - 1);
+    v19 = -v17;
+    v20 = a1 - a3;
+    v33 = v16;
+    v27 = v17;
+    v21 = v16 + v17 * a3;
 LABEL_6:
-    v32 = v19;
-    v33 = a3;
-    v30 = v22;
-    v31 = v21;
+    v31 = v18;
+    v32 = a3;
+    v29 = v21;
+    v30 = v20;
     while (1)
     {
-      sub_100007204(v22, v16, &qword_1006AF940);
-      sub_100007204(v19, v12, &qword_1006AF940);
-      if (*v16 == *v12 && v16[1] == v12[1])
+      sub_100007204(v21, v15, &qword_1006AF940, &unk_100555E70);
+      sub_100007204(v18, v11, &qword_1006AF940, &unk_100555E70);
+      if (*v15 == *v11 && v15[1] == v11[1])
       {
-        sub_100012DF0(v12, &qword_1006AF940);
-        result = sub_100012DF0(v16, &qword_1006AF940);
+        sub_100012DF0(v11, &qword_1006AF940, &unk_100555E70);
+        sub_100012DF0(v15, &qword_1006AF940, &unk_100555E70);
 LABEL_5:
-        a3 = v33 + 1;
-        v19 = v32 + v28;
-        v21 = v31 - 1;
-        v22 = v30 + v28;
-        if (v33 + 1 == v29)
+        a3 = v32 + 1;
+        v18 = v31 + v27;
+        v20 = v30 - 1;
+        v21 = v29 + v27;
+        if (v32 + 1 == v28)
         {
-          return result;
+          return;
         }
 
         goto LABEL_6;
       }
 
-      v24 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      sub_100012DF0(v12, &qword_1006AF940);
-      result = sub_100012DF0(v16, &qword_1006AF940);
-      if ((v24 & 1) == 0)
+      v23 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      sub_100012DF0(v11, &qword_1006AF940, &unk_100555E70);
+      sub_100012DF0(v15, &qword_1006AF940, &unk_100555E70);
+      if ((v23 & 1) == 0)
       {
         goto LABEL_5;
       }
 
-      if (!v34)
+      if (!v33)
       {
         break;
       }
 
-      v25 = v35;
-      sub_100035318(v22, v35, &qword_1006AF940);
+      v24 = v34;
+      sub_100035318(v21, v34, &qword_1006AF940, &unk_100555E70);
       swift_arrayInitWithTakeFrontToBack();
-      result = sub_100035318(v25, v19, &qword_1006AF940);
-      v19 += v20;
-      v22 += v20;
-      if (__CFADD__(v21++, 1))
+      sub_100035318(v24, v18, &qword_1006AF940, &unk_100555E70);
+      v18 += v19;
+      v21 += v19;
+      if (__CFADD__(v20++, 1))
       {
         goto LABEL_5;
       }
@@ -4654,265 +4666,267 @@ LABEL_5:
 
     __break(1u);
   }
-
-  return result;
 }
 
-uint64_t sub_100212260(unint64_t *a1, uint64_t a2, unint64_t *a3, unint64_t a4)
+void sub_100212260(unint64_t *a1, uint64_t a2, unint64_t *a3, unint64_t a4)
 {
   v5 = v4;
-  v117 = a1;
-  v132 = sub_10007EBC0(&qword_1006AF940);
-  v8 = *(v132 - 8);
-  v9 = __chkstk_darwin(v132);
-  v122 = &v112 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v9);
-  v131 = &v112 - v12;
-  v13 = __chkstk_darwin(v11);
-  v14 = __chkstk_darwin(v13);
-  v15 = __chkstk_darwin(v14);
-  v129 = (&v112 - v16);
-  v17 = __chkstk_darwin(v15);
-  v128 = (&v112 - v18);
-  v19 = __chkstk_darwin(v17);
-  v116 = (&v112 - v20);
-  result = __chkstk_darwin(v19);
-  v115 = (&v112 - v24);
-  v25 = a3[1];
-  if (v25 < 1)
+  v116 = a1;
+  v131 = sub_10007EBC0(&qword_1006AF940, &unk_100555E70);
+  v8 = *(v131 - 8);
+  __chkstk_darwin(v131);
+  v121 = &v111 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v130 = &v111 - v11;
+  __chkstk_darwin(v12);
+  __chkstk_darwin(v13);
+  __chkstk_darwin(v14);
+  v128 = (&v111 - v15);
+  __chkstk_darwin(v16);
+  v127 = (&v111 - v17);
+  __chkstk_darwin(v18);
+  v115 = (&v111 - v19);
+  __chkstk_darwin(v20);
+  v114 = (&v111 - v23);
+  v24 = a3[1];
+  if (v24 < 1)
   {
-    v29 = a3;
-    v27 = _swiftEmptyArrayStorage;
+    v28 = a3;
+    v26 = _swiftEmptyArrayStorage;
 LABEL_112:
-    a4 = *v117;
-    if (!*v117)
+    a4 = *v116;
+    if (!*v116)
     {
       goto LABEL_150;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
 LABEL_144:
-      result = sub_10025EFD4(v27);
-      v27 = result;
+      v26 = sub_10025EFD4(v26);
     }
 
-    v135 = v27;
-    v107 = *(v27 + 16);
-    if (v107 >= 2)
+    v134 = v26;
+    v106 = *(v26 + 16);
+    if (v106 >= 2)
     {
-      while (*v29)
+      while (*v28)
       {
-        v108 = v27;
-        v27 = v107 - 1;
-        v109 = *&v108[16 * v107];
-        v110 = *&v108[16 * v107 + 24];
-        sub_100212CC8(*v29 + *(v8 + 72) * v109, *v29 + *(v8 + 72) * *&v108[16 * v107 + 16], *v29 + *(v8 + 72) * v110, a4);
+        v107 = v26;
+        v26 = v106 - 1;
+        v108 = *&v107[16 * v106];
+        v109 = *&v107[16 * v106 + 24];
+        sub_100212CC8(*v28 + *(v8 + 72) * v108, *v28 + *(v8 + 72) * *&v107[16 * v106 + 16], *v28 + *(v8 + 72) * v109, a4);
         if (v5)
         {
+          goto LABEL_122;
         }
 
-        if (v110 < v109)
+        if (v109 < v108)
         {
           goto LABEL_137;
         }
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v108 = sub_10025EFD4(v108);
+          v107 = sub_10025EFD4(v107);
         }
 
-        if (v107 - 2 >= *(v108 + 2))
+        if (v106 - 2 >= *(v107 + 2))
         {
           goto LABEL_138;
         }
 
-        v111 = &v108[16 * v107];
-        *v111 = v109;
-        *(v111 + 1) = v110;
-        v135 = v108;
-        result = sub_10025EF48(v27);
-        v27 = v135;
-        v107 = *(v135 + 16);
-        if (v107 <= 1)
+        v110 = &v107[16 * v106];
+        *v110 = v108;
+        *(v110 + 1) = v109;
+        v134 = v107;
+        sub_10025EF48(v26);
+        v26 = v134;
+        v106 = *(v134 + 16);
+        if (v106 <= 1)
         {
+          goto LABEL_122;
         }
       }
 
       goto LABEL_148;
     }
+
+LABEL_122:
+
+    return;
   }
 
-  v133 = v23;
-  v134 = v22;
-  v112 = a4;
-  v26 = 0;
-  v27 = _swiftEmptyArrayStorage;
-  v28 = &unk_100555E70;
-  v29 = a3;
-  v118 = a3;
-  v126 = v8;
+  v132 = v22;
+  v133 = v21;
+  v111 = a4;
+  v25 = 0;
+  v26 = _swiftEmptyArrayStorage;
+  v27 = &unk_100555E70;
+  v28 = a3;
+  v117 = a3;
+  v125 = v8;
   while (1)
   {
-    v30 = v26++;
-    v119 = v30;
-    if (v26 >= v25)
+    v29 = v25++;
+    v118 = v29;
+    if (v25 >= v24)
     {
       goto LABEL_37;
     }
 
-    v124 = v25;
-    a4 = *v29;
+    v123 = v24;
+    a4 = *v28;
     v8 = *(v8 + 72);
-    v31 = v30;
-    v32 = v115;
-    sub_100007204(*v29 + v8 * v26, v115, &qword_1006AF940);
-    v127 = v8;
-    v33 = a4 + v8 * v31;
-    v34 = v116;
-    sub_100007204(v33, v116, &qword_1006AF940);
-    v35 = *v32 == *v34 && v32[1] == v34[1];
-    v114 = v5;
-    if (v35)
+    v30 = v29;
+    v31 = v114;
+    sub_100007204(*v28 + v8 * v25, v114, &qword_1006AF940, v27);
+    v126 = v8;
+    v32 = a4 + v8 * v30;
+    v33 = v115;
+    sub_100007204(v32, v115, &qword_1006AF940, v27);
+    v34 = *v31 == *v33 && v31[1] == v33[1];
+    v113 = v5;
+    if (v34)
     {
-      LODWORD(v125) = 0;
+      LODWORD(v124) = 0;
     }
 
     else
     {
-      LODWORD(v125) = _stringCompareWithSmolCheck(_:_:expecting:)();
+      LODWORD(v124) = _stringCompareWithSmolCheck(_:_:expecting:)();
     }
 
-    v113 = v27;
-    sub_100012DF0(v116, &qword_1006AF940);
-    result = sub_100012DF0(v115, &qword_1006AF940);
-    v36 = v119 + 2;
-    v37 = v127 * (v119 + 2);
-    v38 = a4 + v37;
-    v39 = v127 * v26;
-    v5 = a4 + v127 * v26;
-    v40 = v26;
+    v112 = v26;
+    sub_100012DF0(v115, &qword_1006AF940, v27);
+    sub_100012DF0(v114, &qword_1006AF940, v27);
+    v35 = v118 + 2;
+    v36 = v126 * (v118 + 2);
+    v37 = a4 + v36;
+    v38 = v126 * v25;
+    v5 = a4 + v126 * v25;
+    v39 = v25;
     do
     {
+      v25 = v35;
+      v28 = v39;
+      v40 = v38;
       v26 = v36;
-      v29 = v40;
-      v41 = v39;
-      v27 = v37;
-      if (v36 >= v124)
+      if (v35 >= v123)
       {
         break;
       }
 
-      v130 = v36;
-      v42 = v128;
+      v129 = v35;
+      v41 = v127;
       v8 = &qword_1006AF940;
-      sub_100007204(v38, v128, &qword_1006AF940);
-      v43 = v129;
-      sub_100007204(v5, v129, &qword_1006AF940);
-      v44 = *v42 == *v43 && v42[1] == v43[1];
-      a4 = v44 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
-      sub_100012DF0(v129, &qword_1006AF940);
-      result = sub_100012DF0(v128, &qword_1006AF940);
-      v26 = v130;
-      v36 = v130 + 1;
-      v38 += v127;
-      v5 += v127;
-      v40 = (v29 + 1);
-      v39 = v41 + v127;
-      v37 = v27 + v127;
+      sub_100007204(v37, v127, &qword_1006AF940, &unk_100555E70);
+      v42 = v128;
+      sub_100007204(v5, v128, &qword_1006AF940, &unk_100555E70);
+      v43 = *v41 == *v42 && v41[1] == v42[1];
+      a4 = v43 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
+      sub_100012DF0(v128, &qword_1006AF940, &unk_100555E70);
+      sub_100012DF0(v127, &qword_1006AF940, &unk_100555E70);
+      v25 = v129;
+      v35 = v129 + 1;
+      v37 += v126;
+      v5 += v126;
+      v39 = (v28 + 1);
+      v38 = v40 + v126;
+      v36 = v26 + v126;
     }
 
-    while (((v125 ^ a4) & 1) == 0);
-    if (v125)
+    while (((v124 ^ a4) & 1) == 0);
+    if (v124)
     {
-      v30 = v119;
-      if (v26 < v119)
+      v29 = v118;
+      if (v25 < v118)
       {
         goto LABEL_141;
       }
 
-      if (v119 >= v26)
+      if (v118 >= v25)
       {
-        v5 = v114;
-        v29 = v118;
+        v5 = v113;
+        v28 = v117;
         goto LABEL_36;
       }
 
-      v45 = v119;
-      v46 = v119 * v127;
+      v44 = v118;
+      v45 = v118 * v126;
       do
       {
-        if (v45 != v29)
+        if (v44 != v28)
         {
-          a4 = *v118;
-          if (!*v118)
+          a4 = *v117;
+          if (!*v117)
           {
             goto LABEL_147;
           }
 
-          sub_100035318(a4 + v46, v122, &qword_1006AF940);
-          if (v46 < v41 || a4 + v46 >= a4 + v27)
+          sub_100035318(a4 + v45, v121, &qword_1006AF940, &unk_100555E70);
+          if (v45 < v40 || a4 + v45 >= a4 + v26)
           {
             swift_arrayInitWithTakeFrontToBack();
           }
 
-          else if (v46 != v41)
+          else if (v45 != v40)
           {
             swift_arrayInitWithTakeBackToFront();
           }
 
-          result = sub_100035318(v122, a4 + v41, &qword_1006AF940);
+          sub_100035318(v121, a4 + v40, &qword_1006AF940, &unk_100555E70);
         }
 
-        v45 = (v45 + 1);
-        v41 -= v127;
-        v27 -= v127;
-        v46 += v127;
-        v47 = v45 < v29;
-        v29 = (v29 - 1);
+        v44 = (v44 + 1);
+        v40 -= v126;
+        v26 -= v126;
+        v45 += v126;
+        v46 = v44 < v28;
+        v28 = (v28 - 1);
       }
 
-      while (v47);
+      while (v46);
     }
 
-    v5 = v114;
+    v5 = v113;
+    v28 = v117;
     v29 = v118;
-    v30 = v119;
 LABEL_36:
-    v8 = v126;
-    v27 = v113;
-    v28 = &unk_100555E70;
+    v8 = v125;
+    v26 = v112;
+    v27 = &unk_100555E70;
 LABEL_37:
-    v48 = v29[1];
-    if (v26 < v48)
+    v47 = v28[1];
+    if (v25 < v47)
     {
-      if (__OFSUB__(v26, v30))
+      if (__OFSUB__(v25, v29))
       {
         goto LABEL_140;
       }
 
-      if (v26 - v30 < v112)
+      if (v25 - v29 < v111)
       {
-        v49 = v30 + v112;
-        if (__OFADD__(v30, v112))
+        v48 = v29 + v111;
+        if (__OFADD__(v29, v111))
         {
           goto LABEL_142;
         }
 
-        if (v49 >= v48)
+        if (v48 >= v47)
         {
-          v49 = v29[1];
+          v48 = v28[1];
         }
 
-        if (v49 < v30)
+        if (v48 < v29)
         {
 LABEL_143:
           __break(1u);
           goto LABEL_144;
         }
 
-        if (v26 != v49)
+        if (v25 != v48)
         {
           break;
         }
@@ -4920,91 +4934,88 @@ LABEL_143:
     }
 
 LABEL_60:
-    if (v26 < v30)
+    if (v25 < v29)
     {
       goto LABEL_139;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      result = sub_10008B8B8(0, *(v27 + 16) + 1, 1, v27);
-      v27 = result;
+      v26 = sub_10008B8B8(0, *(v26 + 16) + 1, 1, v26);
     }
 
-    a4 = *(v27 + 16);
-    v62 = *(v27 + 24);
-    v63 = a4 + 1;
-    if (a4 >= v62 >> 1)
+    a4 = *(v26 + 16);
+    v61 = *(v26 + 24);
+    v62 = a4 + 1;
+    if (a4 >= v61 >> 1)
     {
-      result = sub_10008B8B8((v62 > 1), a4 + 1, 1, v27);
-      v27 = result;
+      v26 = sub_10008B8B8((v61 > 1), a4 + 1, 1, v26);
     }
 
-    *(v27 + 16) = v63;
-    v64 = v27 + 16 * a4;
-    *(v64 + 32) = v119;
-    *(v64 + 40) = v26;
-    if (!*v117)
+    *(v26 + 16) = v62;
+    v63 = v26 + 16 * a4;
+    *(v63 + 32) = v118;
+    *(v63 + 40) = v25;
+    if (!*v116)
     {
       goto LABEL_149;
     }
 
     if (a4)
     {
-      v8 = *v117;
+      v8 = *v116;
       while (1)
       {
-        a4 = v63 - 1;
-        if (v63 >= 4)
+        a4 = v62 - 1;
+        if (v62 >= 4)
         {
           break;
         }
 
-        if (v63 == 3)
+        if (v62 == 3)
         {
-          v65 = *(v27 + 32);
-          v66 = *(v27 + 40);
-          v75 = __OFSUB__(v66, v65);
-          v67 = v66 - v65;
-          v68 = v75;
+          v64 = *(v26 + 32);
+          v65 = *(v26 + 40);
+          v74 = __OFSUB__(v65, v64);
+          v66 = v65 - v64;
+          v67 = v74;
 LABEL_81:
-          if (v68)
+          if (v67)
           {
             goto LABEL_128;
           }
 
-          v81 = (v27 + 16 * v63);
-          v83 = *v81;
-          v82 = v81[1];
-          v84 = __OFSUB__(v82, v83);
-          v85 = v82 - v83;
-          v86 = v84;
-          if (v84)
+          v80 = (v26 + 16 * v62);
+          v82 = *v80;
+          v81 = v80[1];
+          v83 = __OFSUB__(v81, v82);
+          v84 = v81 - v82;
+          v85 = v83;
+          if (v83)
           {
             goto LABEL_131;
           }
 
-          v87 = (v27 + 32 + 16 * a4);
-          v89 = *v87;
-          v88 = v87[1];
-          v75 = __OFSUB__(v88, v89);
-          v90 = v88 - v89;
-          if (v75)
+          v86 = (v26 + 32 + 16 * a4);
+          v88 = *v86;
+          v87 = v86[1];
+          v74 = __OFSUB__(v87, v88);
+          v89 = v87 - v88;
+          if (v74)
           {
             goto LABEL_134;
           }
 
-          if (__OFADD__(v85, v90))
+          if (__OFADD__(v84, v89))
           {
             goto LABEL_135;
           }
 
-          if (v85 + v90 >= v67)
+          if (v84 + v89 >= v66)
           {
-            if (v67 < v90)
+            if (v66 < v89)
             {
-              a4 = v63 - 2;
+              a4 = v62 - 2;
             }
 
             goto LABEL_102;
@@ -5013,36 +5024,36 @@ LABEL_81:
           goto LABEL_95;
         }
 
-        v91 = (v27 + 16 * v63);
-        v93 = *v91;
-        v92 = v91[1];
-        v75 = __OFSUB__(v92, v93);
-        v85 = v92 - v93;
-        v86 = v75;
+        v90 = (v26 + 16 * v62);
+        v92 = *v90;
+        v91 = v90[1];
+        v74 = __OFSUB__(v91, v92);
+        v84 = v91 - v92;
+        v85 = v74;
 LABEL_95:
-        if (v86)
+        if (v85)
         {
           goto LABEL_130;
         }
 
-        v94 = v27 + 16 * a4;
-        v96 = *(v94 + 32);
-        v95 = *(v94 + 40);
-        v75 = __OFSUB__(v95, v96);
-        v97 = v95 - v96;
-        if (v75)
+        v93 = v26 + 16 * a4;
+        v95 = *(v93 + 32);
+        v94 = *(v93 + 40);
+        v74 = __OFSUB__(v94, v95);
+        v96 = v94 - v95;
+        if (v74)
         {
           goto LABEL_133;
         }
 
-        if (v97 < v85)
+        if (v96 < v84)
         {
           goto LABEL_3;
         }
 
 LABEL_102:
-        v102 = a4 - 1;
-        if (a4 - 1 >= v63)
+        v101 = a4 - 1;
+        if (a4 - 1 >= v62)
         {
           __break(1u);
 LABEL_124:
@@ -5086,101 +5097,102 @@ LABEL_142:
           goto LABEL_143;
         }
 
-        if (!*v29)
+        if (!*v28)
         {
           goto LABEL_146;
         }
 
-        v103 = v27;
-        v104 = v27 + 32;
-        v27 = *(v27 + 32 + 16 * v102);
-        v105 = *(v104 + 16 * a4 + 8);
-        sub_100212CC8(*v29 + *(v126 + 72) * v27, *v29 + *(v126 + 72) * *(v104 + 16 * a4), *v29 + *(v126 + 72) * v105, v8);
+        v102 = v26;
+        v103 = v26 + 32;
+        v26 = *(v26 + 32 + 16 * v101);
+        v104 = *(v103 + 16 * a4 + 8);
+        sub_100212CC8(*v28 + *(v125 + 72) * v26, *v28 + *(v125 + 72) * *(v103 + 16 * a4), *v28 + *(v125 + 72) * v104, v8);
         if (v5)
         {
+          goto LABEL_122;
         }
 
-        if (v105 < v27)
+        if (v104 < v26)
         {
           goto LABEL_124;
         }
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v103 = sub_10025EFD4(v103);
+          v102 = sub_10025EFD4(v102);
         }
 
-        if (v102 >= *(v103 + 2))
+        if (v101 >= *(v102 + 2))
         {
           goto LABEL_125;
         }
 
-        v106 = &v103[16 * v102];
-        *(v106 + 4) = v27;
-        *(v106 + 5) = v105;
-        v135 = v103;
-        result = sub_10025EF48(a4);
-        v27 = v135;
-        v63 = *(v135 + 16);
-        v28 = &unk_100555E70;
-        if (v63 <= 1)
+        v105 = &v102[16 * v101];
+        *(v105 + 4) = v26;
+        *(v105 + 5) = v104;
+        v134 = v102;
+        sub_10025EF48(a4);
+        v26 = v134;
+        v62 = *(v134 + 16);
+        v27 = &unk_100555E70;
+        if (v62 <= 1)
         {
           goto LABEL_3;
         }
       }
 
-      v69 = v27 + 32 + 16 * v63;
-      v70 = *(v69 - 64);
-      v71 = *(v69 - 56);
-      v75 = __OFSUB__(v71, v70);
-      v72 = v71 - v70;
-      if (v75)
+      v68 = v26 + 32 + 16 * v62;
+      v69 = *(v68 - 64);
+      v70 = *(v68 - 56);
+      v74 = __OFSUB__(v70, v69);
+      v71 = v70 - v69;
+      if (v74)
       {
         goto LABEL_126;
       }
 
-      v74 = *(v69 - 48);
-      v73 = *(v69 - 40);
-      v75 = __OFSUB__(v73, v74);
-      v67 = v73 - v74;
-      v68 = v75;
-      if (v75)
+      v73 = *(v68 - 48);
+      v72 = *(v68 - 40);
+      v74 = __OFSUB__(v72, v73);
+      v66 = v72 - v73;
+      v67 = v74;
+      if (v74)
       {
         goto LABEL_127;
       }
 
-      v76 = (v27 + 16 * v63);
-      v78 = *v76;
-      v77 = v76[1];
-      v75 = __OFSUB__(v77, v78);
-      v79 = v77 - v78;
-      if (v75)
+      v75 = (v26 + 16 * v62);
+      v77 = *v75;
+      v76 = v75[1];
+      v74 = __OFSUB__(v76, v77);
+      v78 = v76 - v77;
+      if (v74)
       {
         goto LABEL_129;
       }
 
-      v75 = __OFADD__(v67, v79);
-      v80 = v67 + v79;
-      if (v75)
+      v74 = __OFADD__(v66, v78);
+      v79 = v66 + v78;
+      if (v74)
       {
         goto LABEL_132;
       }
 
-      if (v80 >= v72)
+      if (v79 >= v71)
       {
-        v98 = (v27 + 32 + 16 * a4);
-        v100 = *v98;
-        v99 = v98[1];
-        v75 = __OFSUB__(v99, v100);
-        v101 = v99 - v100;
-        if (v75)
+        v97 = (v26 + 32 + 16 * a4);
+        v99 = *v97;
+        v98 = v97[1];
+        v74 = __OFSUB__(v98, v99);
+        v100 = v98 - v99;
+        if (v74)
         {
           goto LABEL_136;
         }
 
-        if (v67 < v101)
+        if (v66 < v100)
         {
-          a4 = v63 - 2;
+          a4 = v62 - 2;
         }
 
         goto LABEL_102;
@@ -5190,84 +5202,84 @@ LABEL_142:
     }
 
 LABEL_3:
-    v25 = v29[1];
-    v8 = v126;
-    if (v26 >= v25)
+    v24 = v28[1];
+    v8 = v125;
+    if (v25 >= v24)
     {
       goto LABEL_112;
     }
   }
 
-  v113 = v27;
-  v114 = v5;
-  v50 = *v29;
-  v51 = *(v8 + 72);
-  v52 = *v29 + v51 * (v26 - 1);
-  v53 = -v51;
-  v54 = v30 - v26;
-  v130 = v50;
-  v120 = v51;
-  v121 = v49;
-  a4 = v50 + v26 * v51;
+  v112 = v26;
+  v113 = v5;
+  v49 = *v28;
+  v50 = *(v8 + 72);
+  v51 = *v28 + v50 * (v25 - 1);
+  v52 = -v50;
+  v53 = v29 - v25;
+  v129 = v49;
+  v119 = v50;
+  v120 = v48;
+  a4 = v49 + v25 * v50;
   v8 = &qword_1006AF940;
   while (2)
   {
-    v127 = v26;
-    v123 = a4;
-    v124 = v54;
-    v125 = v52;
+    v126 = v25;
+    v122 = a4;
+    v123 = v53;
+    v124 = v51;
 LABEL_49:
-    v55 = v133;
-    sub_100007204(a4, v133, &qword_1006AF940);
-    v56 = v28;
-    v57 = v134;
-    sub_100007204(v52, v134, &qword_1006AF940);
-    if (*v55 == *v57 && v55[1] == v57[1])
+    v54 = v132;
+    sub_100007204(a4, v132, &qword_1006AF940, v27);
+    v55 = v27;
+    v56 = v133;
+    sub_100007204(v51, v133, &qword_1006AF940, v55);
+    if (*v54 == *v56 && v54[1] == v56[1])
     {
-      sub_100012DF0(v57, &qword_1006AF940);
-      sub_100012DF0(v55, &qword_1006AF940);
-      v28 = v56;
+      sub_100012DF0(v56, &qword_1006AF940, v55);
+      sub_100012DF0(v54, &qword_1006AF940, v55);
+      v27 = v55;
 LABEL_47:
-      v26 = v127 + 1;
-      v52 = v125 + v120;
-      v54 = v124 - 1;
-      a4 = v123 + v120;
-      if (v127 + 1 != v121)
+      v25 = v126 + 1;
+      v51 = v124 + v119;
+      v53 = v123 - 1;
+      a4 = v122 + v119;
+      if (v126 + 1 != v120)
       {
         continue;
       }
 
-      v26 = v121;
-      v5 = v114;
+      v25 = v120;
+      v5 = v113;
+      v28 = v117;
       v29 = v118;
-      v30 = v119;
-      v27 = v113;
+      v26 = v112;
       goto LABEL_60;
     }
 
     break;
   }
 
-  v59 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  sub_100012DF0(v57, &qword_1006AF940);
-  result = sub_100012DF0(v55, &qword_1006AF940);
-  v28 = v56;
-  if ((v59 & 1) == 0)
+  v58 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  sub_100012DF0(v56, &qword_1006AF940, v55);
+  sub_100012DF0(v54, &qword_1006AF940, v55);
+  v27 = v55;
+  if ((v58 & 1) == 0)
   {
     v8 = &qword_1006AF940;
     goto LABEL_47;
   }
 
-  if (v130)
+  if (v129)
   {
-    v60 = v131;
+    v59 = v130;
     v8 = &qword_1006AF940;
-    sub_100035318(a4, v131, &qword_1006AF940);
+    sub_100035318(a4, v130, &qword_1006AF940, v55);
     swift_arrayInitWithTakeFrontToBack();
-    sub_100035318(v60, v52, &qword_1006AF940);
-    v52 += v53;
-    a4 += v53;
-    if (__CFADD__(v54++, 1))
+    sub_100035318(v59, v51, &qword_1006AF940, v55);
+    v51 += v52;
+    a4 += v52;
+    if (__CFADD__(v53++, 1))
     {
       goto LABEL_47;
     }
@@ -5286,22 +5298,21 @@ LABEL_149:
   __break(1u);
 LABEL_150:
   __break(1u);
-  return result;
 }
 
-uint64_t sub_100212CC8(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
+void sub_100212CC8(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  v54 = sub_10007EBC0(&qword_1006AF940);
-  v8 = __chkstk_darwin(v54);
-  v53 = &v47 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __chkstk_darwin(v8);
-  v52 = (&v47 - v11);
-  v12 = __chkstk_darwin(v10);
-  v14 = (&v47 - v13);
-  result = __chkstk_darwin(v12);
-  v17 = (&v47 - v16);
-  v19 = *(v18 + 72);
-  if (!v19)
+  v53 = sub_10007EBC0(&qword_1006AF940, &unk_100555E70);
+  __chkstk_darwin(v53);
+  v52 = &v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v51 = (&v46 - v10);
+  __chkstk_darwin(v11);
+  v13 = (&v46 - v12);
+  __chkstk_darwin(v14);
+  v16 = (&v46 - v15);
+  v18 = *(v17 + 72);
+  if (!v18)
   {
     __break(1u);
 LABEL_75:
@@ -5309,23 +5320,23 @@ LABEL_75:
     goto LABEL_76;
   }
 
-  if (a2 - a1 == 0x8000000000000000 && v19 == -1)
+  if (a2 - a1 == 0x8000000000000000 && v18 == -1)
   {
     goto LABEL_75;
   }
 
-  v20 = a3 - a2;
-  if (a3 - a2 != 0x8000000000000000 || v19 != -1)
+  v19 = a3 - a2;
+  if (a3 - a2 != 0x8000000000000000 || v18 != -1)
   {
-    v21 = (a2 - a1) / v19;
-    v58 = a1;
-    v57 = a4;
-    v55 = v19;
-    if (v21 < v20 / v19)
+    v20 = (a2 - a1) / v18;
+    v57 = a1;
+    v56 = a4;
+    v54 = v18;
+    if (v20 < v19 / v18)
     {
-      v22 = a2;
-      v23 = v21 * v19;
-      if (a4 < a1 || a1 + v23 <= a4)
+      v21 = a2;
+      v22 = v20 * v18;
+      if (a4 < a1 || a1 + v22 <= a4)
       {
         swift_arrayInitWithTakeFrontToBack();
       }
@@ -5335,28 +5346,28 @@ LABEL_75:
         swift_arrayInitWithTakeBackToFront();
       }
 
-      v53 = a4 + v23;
-      v56 = a4 + v23;
-      if (v23 >= 1 && v22 < a3)
+      v52 = a4 + v22;
+      v55 = a4 + v22;
+      if (v22 >= 1 && v21 < a3)
       {
-        v26 = v22;
+        v25 = v21;
         while (1)
         {
-          v27 = v26;
-          sub_100007204(v26, v17, &qword_1006AF940);
-          sub_100007204(a4, v14, &qword_1006AF940);
-          if (*v17 == *v14 && v17[1] == v14[1])
+          v26 = v25;
+          sub_100007204(v25, v16, &qword_1006AF940, &unk_100555E70);
+          sub_100007204(a4, v13, &qword_1006AF940, &unk_100555E70);
+          if (*v16 == *v13 && v16[1] == v13[1])
           {
-            sub_100012DF0(v14, &qword_1006AF940);
-            sub_100012DF0(v17, &qword_1006AF940);
+            sub_100012DF0(v13, &qword_1006AF940, &unk_100555E70);
+            sub_100012DF0(v16, &qword_1006AF940, &unk_100555E70);
 LABEL_31:
-            v30 = v55;
-            v32 = a4 + v55;
-            if (a1 < a4 || a1 >= v32)
+            v29 = v54;
+            v31 = a4 + v54;
+            if (a1 < a4 || a1 >= v31)
             {
               swift_arrayInitWithTakeFrontToBack();
 LABEL_36:
-              v30 = v55;
+              v29 = v54;
             }
 
             else if (a1 != a4)
@@ -5365,39 +5376,39 @@ LABEL_36:
               goto LABEL_36;
             }
 
-            v57 = v32;
-            a4 = v32;
-            v26 = v27;
+            v56 = v31;
+            a4 = v31;
+            v25 = v26;
             goto LABEL_41;
           }
 
-          v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
-          sub_100012DF0(v14, &qword_1006AF940);
-          sub_100012DF0(v17, &qword_1006AF940);
-          if ((v29 & 1) == 0)
+          v28 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          sub_100012DF0(v13, &qword_1006AF940, &unk_100555E70);
+          sub_100012DF0(v16, &qword_1006AF940, &unk_100555E70);
+          if ((v28 & 1) == 0)
           {
             goto LABEL_31;
           }
 
-          v30 = v55;
-          v31 = v27 + v55;
-          if (a1 < v27 || a1 >= v31)
+          v29 = v54;
+          v30 = v26 + v54;
+          if (a1 < v26 || a1 >= v30)
           {
             break;
           }
 
-          if (a1 != v27)
+          if (a1 != v26)
           {
             swift_arrayInitWithTakeBackToFront();
 LABEL_39:
-            v30 = v55;
+            v29 = v54;
           }
 
-          v26 = v31;
+          v25 = v30;
 LABEL_41:
-          a1 += v30;
-          v58 = a1;
-          if (a4 >= v53 || v26 >= a3)
+          a1 += v29;
+          v57 = a1;
+          if (a4 >= v52 || v25 >= a3)
           {
             goto LABEL_73;
           }
@@ -5410,8 +5421,8 @@ LABEL_41:
       goto LABEL_73;
     }
 
-    v24 = v20 / v19 * v19;
-    if (a4 < a2 || a2 + v24 <= a4)
+    v23 = v19 / v18 * v18;
+    if (a4 < a2 || a2 + v23 <= a4)
     {
       swift_arrayInitWithTakeFrontToBack();
     }
@@ -5421,118 +5432,117 @@ LABEL_41:
       if (a4 == a2)
       {
 LABEL_46:
-        v33 = a4 + v24;
-        if (v24 >= 1)
+        v32 = a4 + v23;
+        if (v23 >= 1)
         {
-          v34 = -v19;
-          v35 = v33;
-          v55 = -v19;
-          v49 = a4;
+          v33 = -v18;
+          v34 = v32;
+          v54 = -v18;
+          v48 = a4;
           do
           {
-            v47 = v33;
-            v36 = a2;
-            v37 = a2 + v34;
+            v46 = v32;
+            v35 = a2;
+            v36 = a2 + v33;
+            v49 = v35;
             v50 = v36;
-            v51 = v37;
             while (1)
             {
-              if (v36 <= a1)
+              if (v35 <= a1)
               {
-                v58 = v36;
-                v33 = v47;
+                v57 = v35;
+                v32 = v46;
                 goto LABEL_72;
               }
 
-              v39 = a3;
-              v48 = v33;
-              v40 = v35 + v34;
+              v38 = a3;
+              v47 = v32;
+              v39 = v34 + v33;
+              v40 = v51;
+              sub_100007204(v39, v51, &qword_1006AF940, &unk_100555E70);
               v41 = v52;
-              sub_100007204(v40, v52, &qword_1006AF940);
-              v42 = v53;
-              sub_100007204(v37, v53, &qword_1006AF940);
-              v43 = *v41 == *v42 && v41[1] == v42[1];
-              v44 = v43 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
-              a3 = v39 + v55;
-              sub_100012DF0(v53, &qword_1006AF940);
-              sub_100012DF0(v52, &qword_1006AF940);
-              v36 = v50;
-              if (v44)
+              sub_100007204(v36, v52, &qword_1006AF940, &unk_100555E70);
+              v42 = *v40 == *v41 && v40[1] == v41[1];
+              v43 = v42 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
+              a3 = v38 + v54;
+              sub_100012DF0(v52, &qword_1006AF940, &unk_100555E70);
+              sub_100012DF0(v51, &qword_1006AF940, &unk_100555E70);
+              v35 = v49;
+              if (v43)
               {
                 break;
               }
 
-              v33 = v40;
-              v45 = v49;
-              if (v39 < v35 || a3 >= v35)
+              v32 = v39;
+              v44 = v48;
+              if (v38 < v34 || a3 >= v34)
               {
                 swift_arrayInitWithTakeFrontToBack();
-                v33 = v40;
-                v37 = v51;
+                v32 = v39;
+                v36 = v50;
               }
 
               else
               {
-                v37 = v51;
-                if (v39 != v35)
+                v36 = v50;
+                if (v38 != v34)
                 {
                   swift_arrayInitWithTakeBackToFront();
-                  v33 = v40;
+                  v32 = v39;
                 }
               }
 
-              v35 = v33;
-              v38 = v40 > v45;
-              v34 = v55;
-              if (!v38)
+              v34 = v32;
+              v37 = v39 > v44;
+              v33 = v54;
+              if (!v37)
               {
-                v58 = v36;
+                v57 = v35;
                 goto LABEL_72;
               }
             }
 
-            v46 = v49;
-            if (v39 < v50 || a3 >= v50)
+            v45 = v48;
+            if (v38 < v49 || a3 >= v49)
             {
-              a2 = v51;
+              a2 = v50;
               swift_arrayInitWithTakeFrontToBack();
-              v34 = v55;
+              v33 = v54;
             }
 
             else
             {
-              a2 = v51;
-              v34 = v55;
-              if (v39 != v50)
+              a2 = v50;
+              v33 = v54;
+              if (v38 != v49)
               {
                 swift_arrayInitWithTakeBackToFront();
               }
             }
 
-            v33 = v48;
+            v32 = v47;
           }
 
-          while (v35 > v46);
+          while (v34 > v45);
         }
 
-        v58 = a2;
+        v57 = a2;
 LABEL_72:
-        v56 = v33;
+        v55 = v32;
 LABEL_73:
-        sub_10025F000(&v58, &v57, &v56);
-        return 1;
+        sub_10025F000(&v57, &v56, &v55);
+        return;
       }
 
       swift_arrayInitWithTakeBackToFront();
     }
 
-    v19 = v55;
+    v18 = v54;
     goto LABEL_46;
   }
 
 LABEL_76:
   __break(1u);
-  return result;
 }
 
 void *sub_100213264(void *result, uint64_t a2, uint64_t a3, uint64_t (*a4)(char *))
@@ -5555,95 +5565,98 @@ void *sub_100213264(void *result, uint64_t a2, uint64_t a3, uint64_t (*a4)(char 
       a4 = v7;
     }
 
-    v8 = sub_100215AFC(result, a2, a3, a4);
+    sub_100215AFC(result, a2, a3, a4);
+    v9 = v8;
 
-    return v8;
+    return v9;
   }
 
   return result;
 }
 
-uint64_t sub_1002132F4(uint64_t a1)
+void sub_1002132F4(uint64_t a1)
 {
-  v3 = sub_10007EBC0(&qword_1006B6948);
+  v3 = sub_10007EBC0(&qword_1006B6948, &qword_100558B38);
   __chkstk_darwin(v3 - 8);
-  v5 = v18 - v4;
+  v5 = v17 - v4;
   v6 = type metadata accessor for FMIPPlaySoundChannels();
   v7 = *(v6 - 8);
-  result = __chkstk_darwin(v6);
-  v10 = v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*(*v1 + 16))
   {
-    v11 = 1 << *(a1 + 32);
-    v12 = -1;
-    if (v11 < 64)
+    v10 = 1 << *(a1 + 32);
+    v11 = -1;
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
-    v13 = v12 & *(a1 + 56);
-    v14 = (v11 + 63) >> 6;
-    v18[0] = v7 + 8;
-    v18[1] = v7 + 16;
+    v12 = v11 & *(a1 + 56);
+    v13 = (v10 + 63) >> 6;
+    v17[0] = v7 + 8;
+    v17[1] = v7 + 16;
 
-    for (i = 0; v13; result = sub_100012DF0(v5, &qword_1006B6948))
+    v14 = 0;
+    while (v12)
     {
-      v16 = i;
+      v15 = v14;
 LABEL_10:
-      v17 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-      (*(v7 + 16))(v10, *(a1 + 48) + *(v7 + 72) * (v17 | (v16 << 6)), v6);
-      sub_10021554C(v10, v5);
-      (*(v7 + 8))(v10, v6);
+      v16 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+      (*(v7 + 16))(v9, *(a1 + 48) + *(v7 + 72) * (v16 | (v15 << 6)), v6);
+      sub_10021554C(v9, v5);
+      (*(v7 + 8))(v9, v6);
+      sub_100012DF0(v5, &qword_1006B6948, &qword_100558B38);
     }
 
     while (1)
     {
-      v16 = i + 1;
-      if (__OFADD__(i, 1))
+      v15 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         break;
       }
 
-      if (v16 >= v14)
+      if (v15 >= v13)
       {
+
+        return;
       }
 
-      v13 = *(a1 + 56 + 8 * v16);
-      ++i;
-      if (v13)
+      v12 = *(a1 + 56 + 8 * v15);
+      ++v14;
+      if (v12)
       {
-        i = v16;
+        v14 = v15;
         goto LABEL_10;
       }
     }
 
     __break(1u);
   }
-
-  return result;
 }
 
 void *sub_100213510(uint64_t a1, void *a2)
 {
   v4 = type metadata accessor for FMIPPlaySoundChannels();
   v5 = *(v4 - 8);
-  v6 = __chkstk_darwin(v4);
-  v56 = v48 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v6);
-  v10 = v48 - v9;
-  __chkstk_darwin(v8);
-  i = v48 - v11;
+  __chkstk_darwin(v4);
+  v57 = v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v9 = v49 - v8;
+  __chkstk_darwin(v10);
+  i = v49 - v11;
   if (!a2[2])
   {
 
     return _swiftEmptySetSingleton;
   }
 
-  v62[0] = a1;
+  v63[0] = a1;
   v12 = *(a1 + 16);
 
-  v50 = v12;
+  v51 = v12;
   if (!v12)
   {
     goto LABEL_30;
@@ -5653,27 +5666,27 @@ void *sub_100213510(uint64_t a1, void *a2)
   v15 = *(v5 + 16);
   v14 = v5 + 16;
   v16 = *(v14 + 64);
-  v52 = a1;
-  v53 = a1 + ((v16 + 32) & ~v16);
-  v59 = *(v14 + 56);
-  v60 = v15;
-  v57 = a2 + 7;
-  v58 = a2;
-  v61 = v14;
+  v53 = a1;
+  v54 = a1 + ((v16 + 32) & ~v16);
+  v60 = *(v14 + 56);
+  v61 = v15;
+  v58 = a2 + 7;
+  v59 = a2;
+  v62 = v14;
   v17 = (v14 - 8);
-  v49 = ((v14 - 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
+  v50 = ((v14 - 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
   while (1)
   {
-    v54 = v13 + 1;
-    v62[1] = v13 + 1;
-    v60(i, v53 + v59 * v13, v4);
-    v51 = sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
+    v55 = v13 + 1;
+    v63[1] = v13 + 1;
+    v61(i, v54 + v60 * v13, v4);
+    v52 = sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
     v18 = dispatch thunk of Hashable._rawHashValue(seed:)();
     v19 = -1 << *(a2 + 32);
     v20 = v18 & ~v19;
     v21 = v20 >> 6;
     v22 = 1 << v20;
-    if (((1 << v20) & v57[v20 >> 6]) != 0)
+    if (((1 << v20) & v58[v20 >> 6]) != 0)
     {
       break;
     }
@@ -5681,8 +5694,8 @@ void *sub_100213510(uint64_t a1, void *a2)
     v25 = *v17;
 LABEL_10:
     v25(i, v4);
-    v13 = v54;
-    if (v54 == v50)
+    v13 = v55;
+    if (v55 == v51)
     {
       goto LABEL_30;
     }
@@ -5691,11 +5704,11 @@ LABEL_10:
   v23 = ~v19;
   while (1)
   {
-    v60(v10, v58[6] + v20 * v59, v4);
-    sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels);
+    v61(v9, v59[6] + v20 * v60, v4);
+    sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
     v24 = dispatch thunk of static Equatable.== infix(_:_:)();
     v25 = *v17;
-    (*v17)(v10, v4);
+    (*v17)(v9, v4);
     if (v24)
     {
       break;
@@ -5704,18 +5717,18 @@ LABEL_10:
     v20 = (v20 + 1) & v23;
     v21 = v20 >> 6;
     v22 = 1 << v20;
-    if (((1 << v20) & v57[v20 >> 6]) == 0)
+    if (((1 << v20) & v58[v20 >> 6]) == 0)
     {
-      a2 = v58;
+      a2 = v59;
       goto LABEL_10;
     }
   }
 
   v26 = (v25)(i, v4);
-  v27 = v58;
-  v28 = *(v58 + 32);
-  v48[0] = ((1 << v28) + 63) >> 6;
-  v29 = 8 * v48[0];
+  v27 = v59;
+  v28 = *(v59 + 32);
+  v49[0] = ((1 << v28) + 63) >> 6;
+  v29 = 8 * v49[0];
   if ((v28 & 0x3Fu) > 0xD)
   {
     goto LABEL_34;
@@ -5723,44 +5736,44 @@ LABEL_10:
 
   while (2)
   {
-    v48[1] = v48;
+    v49[1] = v49;
     __chkstk_darwin(v26);
-    v31 = v48 - ((v30 + 15) & 0x3FFFFFFFFFFFFFF0);
-    memcpy(v31, v57, v30);
-    v32 = *(v27 + 16);
+    v31 = v49 - ((v30 + 15) & 0x3FFFFFFFFFFFFFF0);
+    memcpy(v31, v58, v30);
+    v32 = v27[2];
     *&v31[8 * v21] &= ~v22;
-    v49 = v31;
-    v50 = (v32 - 1);
-    v33 = *(v52 + 16);
-    v34 = v54;
+    v50 = v31;
+    v51 = (v32 - 1);
+    v33 = *(v53 + 16);
+    v34 = v55;
     for (i = v33; ; v33 = i)
     {
       if (v34 == v33)
       {
-        a2 = sub_100214EFC(v49, v48[0], v50, v27);
+        a2 = sub_100214EFC(v50, v49[0], v51, v27);
         goto LABEL_30;
       }
 
-      if (v34 >= *(v52 + 16))
+      if (v34 >= *(v53 + 16))
       {
         break;
       }
 
-      v54 = v34;
-      v60(v56, v53 + v34 * v59, v4);
+      v55 = v34;
+      v61(v57, v54 + v34 * v60, v4);
       v36 = dispatch thunk of Hashable._rawHashValue(seed:)();
       v37 = -1 << *(v27 + 32);
       v20 = v36 & ~v37;
       v22 = v20 >> 6;
       v21 = 1 << v20;
-      if (((1 << v20) & v57[v20 >> 6]) == 0)
+      if (((1 << v20) & v58[v20 >> 6]) == 0)
       {
         goto LABEL_15;
       }
 
-      v60(v10, v58[6] + v20 * v59, v4);
+      v61(v9, v59[6] + v20 * v60, v4);
       v38 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v25(v10, v4);
+      v25(v9, v4);
       if ((v38 & 1) == 0)
       {
         v39 = ~v37;
@@ -5769,14 +5782,14 @@ LABEL_10:
           v20 = (v20 + 1) & v39;
           v22 = v20 >> 6;
           v21 = 1 << v20;
-          if (((1 << v20) & v57[v20 >> 6]) == 0)
+          if (((1 << v20) & v58[v20 >> 6]) == 0)
           {
             break;
           }
 
-          v60(v10, v58[6] + v20 * v59, v4);
+          v61(v9, v59[6] + v20 * v60, v4);
           v40 = dispatch thunk of static Equatable.== infix(_:_:)();
-          v25(v10, v4);
+          v25(v9, v4);
           if (v40)
           {
             goto LABEL_25;
@@ -5784,31 +5797,31 @@ LABEL_10:
         }
 
 LABEL_15:
-        v25(v56, v4);
-        v27 = v58;
+        v25(v57, v4);
+        v27 = v59;
 LABEL_16:
-        v35 = v54;
+        v35 = v55;
         goto LABEL_17;
       }
 
 LABEL_25:
-      v25(v56, v4);
-      v41 = v49[v22];
-      v49[v22] = v41 & ~v21;
-      v27 = v58;
+      v25(v57, v4);
+      v41 = v50[v22];
+      v50[v22] = v41 & ~v21;
+      v27 = v59;
       if ((v41 & v21) == 0)
       {
         goto LABEL_16;
       }
 
-      v42 = v50 - 1;
-      v35 = v54;
-      if (__OFSUB__(v50, 1))
+      v42 = v51 - 1;
+      v35 = v55;
+      if (__OFSUB__(v51, 1))
       {
         goto LABEL_33;
       }
 
-      --v50;
+      --v51;
       if (!v42)
       {
 
@@ -5829,7 +5842,7 @@ LABEL_34:
     v45 = v44;
     if (swift_stdlib_isStackAllocationSafe())
     {
-      v46 = v58;
+      v46 = v59;
 
       v27 = v46;
       continue;
@@ -5839,40 +5852,41 @@ LABEL_34:
   }
 
   v47 = swift_slowAlloc();
-  memcpy(v47, v57, v45);
-  a2 = sub_100214634(v47, v48[0], v58, v20, v62);
+  memcpy(v47, v58, v45);
+  sub_100214634(v47, v49[0], v59, v20, v63);
+  a2 = v48;
 
 LABEL_30:
 
   return a2;
 }
 
-void *sub_100213BD0(uint64_t a1, void *a2)
+char *sub_100213BD0(uint64_t a1, char *a2)
 {
-  v5 = sub_10007EBC0(&qword_1006B6948);
-  v6 = __chkstk_darwin(v5 - 8);
-  v8 = &v64 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = (&v64 - v9);
+  v5 = sub_10007EBC0(&qword_1006B6948, &qword_100558B38);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v66 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v10 = (&v66 - v9);
   v11 = type metadata accessor for FMIPPlaySoundChannels();
-  v12 = __chkstk_darwin(v11);
-  v84 = (&v64 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = __chkstk_darwin(v12);
-  v16 = (&v64 - v15);
-  __chkstk_darwin(v14);
-  v79 = (&v64 - v18);
-  if (!a2[2])
+  __chkstk_darwin(v11);
+  v86 = (&v66 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v13);
+  v15 = (&v66 - v14);
+  __chkstk_darwin(v16);
+  v81 = (&v66 - v18);
+  if (!*(a2 + 2))
   {
 
     return _swiftEmptySetSingleton;
   }
 
-  v65 = v10;
-  v67 = v8;
+  v67 = v10;
+  v69 = v7;
   v20 = a1 + 56;
   v19 = *(a1 + 56);
   v21 = -1 << *(a1 + 32);
-  v78 = ~v21;
+  v80 = ~v21;
   if (-v21 < 64)
   {
     v22 = ~(-1 << -v21);
@@ -5883,35 +5897,35 @@ void *sub_100213BD0(uint64_t a1, void *a2)
     v22 = -1;
   }
 
-  v86 = (v22 & v19);
-  v71 = (63 - v21) >> 6;
-  v85 = v17 + 16;
-  v76 = (v17 + 48);
-  v77 = (v17 + 56);
-  v75 = (v17 + 32);
-  v81 = a2 + 7;
-  v66 = v17;
-  v87 = (v17 + 8);
+  v88 = (v22 & v19);
+  v73 = (63 - v21) >> 6;
+  v87 = v17 + 16;
+  v78 = (v17 + 48);
+  v79 = (v17 + 56);
+  v77 = (v17 + 32);
+  v83 = a2 + 56;
+  v68 = v17;
+  v89 = (v17 + 8);
 
   v24 = 0;
-  v68 = a1;
+  v70 = a1;
   for (i = a1 + 56; ; v20 = i)
   {
-    v25 = v86;
+    v25 = v88;
     v26 = v24;
-    if (v86)
+    if (v88)
     {
 LABEL_14:
       v2 = (v25 - 1) & v25;
-      v30 = v65;
-      (*(v66 + 16))(v65, *(a1 + 48) + *(v66 + 72) * (__clz(__rbit64(v25)) | (v26 << 6)), v11);
+      v30 = v67;
+      (*(v68 + 16))(v67, *(a1 + 48) + *(v68 + 72) * (__clz(__rbit64(v25)) | (v26 << 6)), v11);
       v31 = 0;
       v28 = v26;
     }
 
     else
     {
-      v27 = v71 <= (v24 + 1) ? v24 + 1 : v71;
+      v27 = v73 <= (v24 + 1) ? v24 + 1 : v73;
       v28 = v27 - 1;
       v29 = v24;
       while (1)
@@ -5919,10 +5933,10 @@ LABEL_14:
         v26 = v29 + 1;
         if (__OFADD__(v29, 1))
         {
-          goto LABEL_57;
+          goto LABEL_58;
         }
 
-        if (v26 >= v71)
+        if (v26 >= v73)
         {
           break;
         }
@@ -5937,131 +5951,132 @@ LABEL_14:
 
       v2 = 0;
       v31 = 1;
-      v30 = v65;
+      v30 = v67;
     }
 
-    v73 = *v77;
-    v73(v30, v31, 1, v11);
-    v88 = a1;
-    v89 = v20;
-    v90 = v78;
-    v91 = v28;
-    v92 = v2;
-    v72 = *v76;
-    if (v72(v30, 1, v11) == 1)
+    v75 = *v79;
+    v75(v30, v31, 1, v11);
+    v90 = a1;
+    v91 = v20;
+    v92 = v80;
+    v93 = v28;
+    v94 = v2;
+    v74 = *v78;
+    if (v74(v30, 1, v11) == 1)
     {
-      sub_100012DF0(v30, &qword_1006B6948);
-      goto LABEL_52;
+      sub_100012DF0(v30, &qword_1006B6948, &qword_100558B38);
+      v59 = a1;
+      goto LABEL_53;
     }
 
-    v70 = *v75;
-    v70(v79, v30, v11);
-    v69 = sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
+    v72 = *v77;
+    v72(v81, v30, v11);
+    v71 = sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
     v32 = dispatch thunk of Hashable._rawHashValue(seed:)();
-    v33 = -1 << *(a2 + 32);
+    v33 = -1 << a2[32];
     v24 = v32 & ~v33;
     v26 = v24 >> 6;
     v20 = 1 << v24;
-    if (((1 << v24) & v81[v24 >> 6]) != 0)
+    if (((1 << v24) & v83[v24 >> 6]) != 0)
     {
       break;
     }
 
-    (*v87)(v79, v11);
+    (*v89)(v81, v11);
 LABEL_22:
     v24 = v28;
-    v86 = v2;
+    v88 = v2;
   }
 
-  v64 = v87 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v80 = ~v33;
-  v34 = *(v66 + 72);
-  v82 = *(v66 + 16);
-  v83 = v34;
+  v66 = v89 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v82 = ~v33;
+  v34 = *(v68 + 72);
+  v84 = *(v68 + 16);
+  v85 = v34;
   while (1)
   {
-    v82(v16, a2[6] + v83 * v24, v11);
-    v35 = sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels);
+    v84(v15, *(a2 + 6) + v85 * v24, v11);
+    v35 = sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
     v36 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v86 = *v87;
-    v86(v16, v11);
+    v88 = *v89;
+    v88(v15, v11);
     if (v36)
     {
       break;
     }
 
-    v24 = (v24 + 1) & v80;
+    v24 = (v24 + 1) & v82;
     v26 = v24 >> 6;
     v20 = 1 << v24;
-    if (((1 << v24) & v81[v24 >> 6]) == 0)
+    if (((1 << v24) & v83[v24 >> 6]) == 0)
     {
-      a1 = v68;
-      v86(v79, v11);
+      a1 = v70;
+      v88(v81, v11);
       goto LABEL_22;
     }
   }
 
-  v80 = v35;
-  v37 = (v86)(v79, v11);
-  v38 = *(a2 + 32);
-  v64 = ((1 << v38) + 63) >> 6;
-  v23 = 8 * v64;
-  a1 = v68;
+  v82 = v35;
+  v37 = (v88)(v81, v11);
+  v38 = a2[32];
+  v66 = ((1 << v38) + 63) >> 6;
+  v23 = 8 * v66;
+  a1 = v70;
   if ((v38 & 0x3Fu) > 0xD)
   {
-    goto LABEL_58;
+    goto LABEL_59;
   }
 
   while (2)
   {
-    v65 = &v64;
+    v67 = &v66;
     __chkstk_darwin(v37);
-    v40 = &v64 - ((v39 + 15) & 0x3FFFFFFFFFFFFFF0);
-    memcpy(v40, v81, v39);
+    v40 = &v66 - ((v39 + 15) & 0x3FFFFFFFFFFFFFF0);
+    memcpy(v40, v83, v39);
     v41 = *&v40[8 * v26] & ~v20;
-    v42 = a2[2];
-    v79 = v40;
+    v42 = *(a2 + 2);
+    v81 = v40;
     *&v40[8 * v26] = v41;
     v43 = v42 - 1;
-    v24 = v67;
+    v24 = v69;
     v44 = i;
-    v45 = v71;
+    v45 = v73;
 LABEL_26:
-    v66 = v43;
+    v68 = v43;
     while (v2)
     {
       v46 = v28;
 LABEL_38:
       v49 = __clz(__rbit64(v2));
       v2 &= v2 - 1;
-      v82(v24, *(a1 + 48) + (v49 | (v46 << 6)) * v83, v11);
+      v84(v24, *(a1 + 48) + (v49 | (v46 << 6)) * v85, v11);
       v50 = 0;
 LABEL_39:
-      v73(v24, v50, 1, v11);
-      v88 = a1;
-      v89 = v44;
-      v90 = v78;
-      v91 = v28;
-      v92 = v2;
-      if (v72(v24, 1, v11) == 1)
+      v75(v24, v50, 1, v11);
+      v90 = a1;
+      v91 = v44;
+      v92 = v80;
+      v93 = v28;
+      v94 = v2;
+      if (v74(v24, 1, v11) == 1)
       {
-        sub_100012DF0(v24, &qword_1006B6948);
-        a2 = sub_100214EFC(v79, v64, v66, a2);
+        sub_100012DF0(v24, &qword_1006B6948, &qword_100558B38);
+        a2 = sub_100214EFC(v81, v66, v68, a2);
         goto LABEL_52;
       }
 
-      v70(v84, v24, v11);
+      v72(v86, v24, v11);
       v51 = dispatch thunk of Hashable._rawHashValue(seed:)();
       v52 = a2;
-      v53 = -1 << *(a2 + 32);
+      v53 = -1 << a2[32];
       v54 = v51 & ~v53;
       v26 = v54 >> 6;
       v20 = 1 << v54;
-      if (((1 << v54) & v81[v54 >> 6]) != 0)
+      if (((1 << v54) & v83[v54 >> 6]) != 0)
       {
-        v82(v16, v52[6] + v54 * v83, v11);
+        v84(v15, *(v52 + 6) + v54 * v85, v11);
         v55 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v86(v16, v11);
+        v88(v15, v11);
         if ((v55 & 1) == 0)
         {
           v56 = ~v53;
@@ -6070,36 +6085,36 @@ LABEL_39:
             v54 = (v54 + 1) & v56;
             v26 = v54 >> 6;
             v20 = 1 << v54;
-            if (((1 << v54) & v81[v54 >> 6]) == 0)
+            if (((1 << v54) & v83[v54 >> 6]) == 0)
             {
               goto LABEL_27;
             }
 
-            v82(v16, v52[6] + v54 * v83, v11);
+            v84(v15, *(v52 + 6) + v54 * v85, v11);
             v57 = dispatch thunk of static Equatable.== infix(_:_:)();
-            v86(v16, v11);
+            v88(v15, v11);
           }
 
           while ((v57 & 1) == 0);
         }
 
-        v86(v84, v11);
-        v58 = v79[v26];
-        v79[v26] = v58 & ~v20;
+        v88(v86, v11);
+        v58 = v81[v26];
+        v81[v26] = v58 & ~v20;
         a2 = v52;
-        a1 = v68;
-        v24 = v67;
+        a1 = v70;
+        v24 = v69;
         v44 = i;
-        v45 = v71;
+        v45 = v73;
         if ((v58 & v20) != 0)
         {
-          v43 = v66 - 1;
-          if (__OFSUB__(v66, 1))
+          v43 = v68 - 1;
+          if (__OFSUB__(v68, 1))
           {
             __break(1u);
           }
 
-          if (v66 == 1)
+          if (v68 == 1)
           {
 
             a2 = _swiftEmptySetSingleton;
@@ -6113,12 +6128,12 @@ LABEL_39:
       else
       {
 LABEL_27:
-        v86(v84, v11);
+        v88(v86, v11);
         a2 = v52;
-        a1 = v68;
-        v24 = v67;
+        a1 = v70;
+        v24 = v69;
         v44 = i;
-        v45 = v71;
+        v45 = v73;
       }
     }
 
@@ -6159,43 +6174,46 @@ LABEL_27:
     }
 
     __break(1u);
-LABEL_57:
-    __break(1u);
 LABEL_58:
-    v60 = v23;
+    __break(1u);
+LABEL_59:
+    v61 = v23;
 
-    v79 = a2;
-    v61 = v60;
+    v81 = a2;
+    v62 = v61;
     if (swift_stdlib_isStackAllocationSafe())
     {
-      v62 = v79;
+      v63 = v81;
 
-      a2 = v62;
+      a2 = v63;
       continue;
     }
 
     break;
   }
 
-  v63 = swift_slowAlloc();
-  memcpy(v63, v81, v61);
-  a2 = sub_100214A28(v63, v64, v79, v24, &v88);
+  v64 = swift_slowAlloc();
+  memcpy(v64, v83, v62);
+  sub_100214A28(v64, v66, v81, v24, &v90);
+  a2 = v65;
 
 LABEL_52:
-  sub_10000BEC8();
+  v59 = v90;
+LABEL_53:
+  sub_10000BEC8(v59);
   return a2;
 }
 
-void *sub_100214634(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
+void sub_100214634(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
 {
   v35 = a2;
   v9 = type metadata accessor for FMIPPlaySoundChannels();
   v10 = *(v9 - 8);
-  v11 = __chkstk_darwin(v9);
-  v13 = &v35 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __chkstk_darwin(v11);
-  v42 = &v35 - v15;
-  result = __chkstk_darwin(v14);
+  __chkstk_darwin(v9);
+  v12 = &v35 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v13);
+  v42 = &v35 - v14;
+  v16 = __chkstk_darwin(v15);
   v48 = &v35 - v17;
   v18 = *(a3 + 16);
   *(a1 + ((a4 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a4) - 1;
@@ -6208,7 +6226,8 @@ void *sub_100214634(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, void 
   {
 LABEL_2:
 
-    return sub_100214EFC(v36, v35, v37, a3);
+    sub_100214EFC(v36, v35, v37, a3);
+    return;
   }
 
   v40 = v10 + 32;
@@ -6223,10 +6242,10 @@ LABEL_2:
     v45 = *(v10 + 72);
     v24 = v42;
     v44 = *(v10 + 16);
-    v44(v42, v19 + ((v23 + 32) & ~v23) + v45 * v20, v9);
+    v44(v42, v19 + ((v23 + 32) & ~v23) + v45 * v20, v9, v16);
     a5[1] = v20 + 1;
     (*(v10 + 32))(v48, v24, v9);
-    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
+    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
     v25 = dispatch thunk of Hashable._rawHashValue(seed:)();
     v26 = -1 << *(a3 + 32);
     v27 = v25 & ~v26;
@@ -6235,9 +6254,9 @@ LABEL_2:
     if (((1 << v27) & *(v43 + 8 * (v27 >> 6))) == 0)
     {
       v22 = *v47;
-LABEL_6:
-      result = (v22)(v48, v9);
-      goto LABEL_7;
+LABEL_5:
+      v22(v48, v9);
+      goto LABEL_6;
     }
 
     v39 = v47 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
@@ -6245,11 +6264,11 @@ LABEL_6:
     v31 = ~v26;
     while (1)
     {
-      v44(v13, *(v30 + 48) + v27 * v45, v9);
-      sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels);
+      (v44)(v12, *(v30 + 48) + v27 * v45, v9);
+      sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
       v32 = dispatch thunk of static Equatable.== infix(_:_:)();
       v22 = *v47;
-      (*v47)(v13, v9);
+      (*v47)(v12, v9);
       if (v32)
       {
         break;
@@ -6262,27 +6281,27 @@ LABEL_6:
       {
         a3 = v30;
         a5 = v38;
-        goto LABEL_6;
+        goto LABEL_5;
       }
     }
 
-    result = (v22)(v48, v9);
+    v22(v48, v9);
     v33 = v36[v28];
     v36[v28] = v33 & ~v29;
     if ((v33 & v29) == 0)
     {
       a3 = v30;
       a5 = v38;
-LABEL_7:
+LABEL_6:
       v10 = v41;
-      goto LABEL_8;
+      goto LABEL_7;
     }
 
     v34 = v37 - 1;
     v10 = v41;
     if (__OFSUB__(v37, 1))
     {
-      goto LABEL_21;
+      goto LABEL_20;
     }
 
     a3 = v30;
@@ -6290,10 +6309,10 @@ LABEL_7:
     --v37;
     if (!v34)
     {
-      return _swiftEmptySetSingleton;
+      return;
     }
 
-LABEL_8:
+LABEL_7:
     v19 = *a5;
     v20 = a5[1];
     v21 = *(*a5 + 16);
@@ -6304,21 +6323,20 @@ LABEL_8:
   }
 
   __break(1u);
-LABEL_21:
+LABEL_20:
   __break(1u);
-  return result;
 }
 
-void *sub_100214A28(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
+void sub_100214A28(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
 {
   v47 = a2;
-  v9 = sub_10007EBC0(&qword_1006B6948);
+  v9 = sub_10007EBC0(&qword_1006B6948, &qword_100558B38);
   __chkstk_darwin(v9 - 8);
   v11 = &v46 - v10;
   v12 = type metadata accessor for FMIPPlaySoundChannels();
-  v13 = __chkstk_darwin(v12);
-  v57 = &v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = __chkstk_darwin(v13);
+  __chkstk_darwin(v12);
+  v57 = &v46 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = __chkstk_darwin(v14);
   v63 = &v46 - v16;
   v17 = *(a3 + 16);
   v18 = (a4 >> 3) & 0x1FFFFFFFFFFFFFF8;
@@ -6386,13 +6404,13 @@ void *sub_100214A28(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, void 
           }
 
           __break(1u);
-          goto LABEL_30;
+          goto LABEL_29;
         }
 
         v28 = a5[3];
 LABEL_14:
         v32 = (v27 - 1) & v27;
-        (*(v56 + 16))(v11, *(v23 + 48) + *(v56 + 72) * (__clz(__rbit64(v27)) | (v28 << 6)), v12);
+        (*(v56 + 16))(v11, *(v23 + 48) + *(v56 + 72) * (__clz(__rbit64(v27)) | (v28 << 6)), v12, v15);
         v33 = 0;
         v31 = v28;
 LABEL_15:
@@ -6404,15 +6422,16 @@ LABEL_15:
         a5[4] = v32;
         if ((*v54)(v11, 1, v12) == 1)
         {
-          sub_100012DF0(v11, &qword_1006B6948);
+          sub_100012DF0(v11, &qword_1006B6948, &qword_100558B38);
           v45 = v61;
 
-          return sub_100214EFC(v49, v47, v48, v45);
+          sub_100214EFC(v49, v47, v48, v45);
+          return;
         }
 
         (*v53)(v63, v11, v12);
         v34 = v61;
-        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
+        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
         v35 = dispatch thunk of Hashable._rawHashValue(seed:)();
         v36 = -1 << *(v34 + 32);
         v37 = v35 & ~v36;
@@ -6425,7 +6444,7 @@ LABEL_15:
 
         v22 = *v62;
 LABEL_4:
-        result = (v22)(v63, v12);
+        v22(v63, v12);
       }
 
       v52 = v62 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
@@ -6436,7 +6455,7 @@ LABEL_4:
       {
         v42 = v57;
         v41(v57, *(v61 + 48) + v40 * v37, v12);
-        sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels);
+        sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
         v43 = dispatch thunk of static Equatable.== infix(_:_:)();
         v22 = *v62;
         (*v62)(v42, v12);
@@ -6456,7 +6475,7 @@ LABEL_4:
         }
       }
 
-      result = (v22)(v63, v12);
+      v22(v63, v12);
       v11 = v50;
       v44 = v49[v38];
       v49[v38] = v44 & ~v39;
@@ -6467,9 +6486,9 @@ LABEL_4:
     v20 = v48 - 1;
     if (__OFSUB__(v48, 1))
     {
-LABEL_30:
+LABEL_29:
       __break(1u);
-      return result;
+      return;
     }
 
     if (v48 != 1)
@@ -6477,7 +6496,7 @@ LABEL_30:
       continue;
     }
 
-    return _swiftEmptySetSingleton;
+    break;
   }
 }
 
@@ -6498,7 +6517,7 @@ uint64_t sub_100214EFC(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     return a4;
   }
 
-  sub_10007EBC0(&qword_1006B6950);
+  sub_10007EBC0(&qword_1006B6950, &qword_100558B40);
   result = static _SetStorage.allocate(capacity:)();
   v10 = result;
   if (a2 < 1)
@@ -6524,7 +6543,7 @@ LABEL_16:
     v18 = *(a4 + 48);
     v33 = *(v8 + 72);
     (*(v8 + 16))(v34, v18 + v33 * (v15 | (v13 << 6)), v35);
-    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
+    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
     result = dispatch thunk of Hashable._rawHashValue(seed:)();
     v19 = -1 << *(v10 + 32);
     v20 = result & ~v19;
@@ -6622,7 +6641,7 @@ uint64_t sub_100215224(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     return a4;
   }
 
-  sub_10007EBC0(&qword_1006B6910);
+  sub_10007EBC0(&qword_1006B6910, &unk_100558B10);
   result = static _SetStorage.allocate(capacity:)();
   v10 = result;
   if (a2 < 1)
@@ -6648,7 +6667,7 @@ LABEL_16:
     v18 = *(a4 + 48);
     v33 = *(v8 + 72);
     (*(v8 + 16))(v34, v18 + v33 * (v15 | (v13 << 6)), v35);
-    sub_10021E650(&qword_1006B6918, &type metadata accessor for FMIPItem);
+    sub_10021E650(&qword_1006B6918, &type metadata accessor for FMIPItem, &protocol conformance descriptor for FMIPItem);
     result = dispatch thunk of Hashable._rawHashValue(seed:)();
     v19 = -1 << *(v10 + 32);
     v20 = result & ~v19;
@@ -6736,7 +6755,7 @@ uint64_t sub_10021554C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   __chkstk_darwin(v5);
   v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *v2;
-  sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
+  sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
   v31 = a1;
   v10 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v11 = v9 + 56;
@@ -6757,7 +6776,7 @@ uint64_t sub_10021554C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     while (1)
     {
       v15(v8, *(v30 + 48) + v18 * v13, v5);
-      sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels);
+      sub_10021E650(&qword_1006B41D0, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
       v19 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*(v16 - 8))(v8, v5);
       if (v19)
@@ -6801,68 +6820,68 @@ uint64_t sub_10021554C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return (*(v6 + 56))(a2, v20, 1, v5);
 }
 
-uint64_t sub_1002157F4(int64_t a1)
+void sub_1002157F4(int64_t a1)
 {
   v3 = type metadata accessor for FMIPPlaySoundChannels();
   v4 = *(v3 - 8);
-  result = __chkstk_darwin(v3);
-  v7 = &v33 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *v1;
-  v9 = *v1 + 56;
-  v10 = -1 << *(*v1 + 32);
-  v11 = (a1 + 1) & ~v10;
-  if (((1 << v11) & *(v9 + 8 * (v11 >> 6))) != 0)
+  __chkstk_darwin(v3);
+  v6 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *v1;
+  v8 = *v1 + 56;
+  v9 = -1 << *(*v1 + 32);
+  v10 = (a1 + 1) & ~v9;
+  if (((1 << v10) & *(v8 + 8 * (v10 >> 6))) != 0)
   {
-    v12 = ~v10;
+    v11 = ~v9;
 
-    v13 = _HashTable.previousHole(before:)();
-    if ((*(v9 + 8 * (v11 >> 6)) & (1 << v11)) != 0)
+    v12 = _HashTable.previousHole(before:)();
+    if ((*(v8 + 8 * (v10 >> 6)) & (1 << v10)) != 0)
     {
-      v14 = v12;
-      v15 = (v13 + 1) & v12;
-      v35 = *(v4 + 16);
-      v36 = v4 + 16;
-      v16 = *(v4 + 72);
-      v33 = (v4 + 8);
-      v34 = v9;
-      v17 = v16;
+      v13 = v11;
+      v14 = (v12 + 1) & v11;
+      v34 = *(v4 + 16);
+      v35 = v4 + 16;
+      v15 = *(v4 + 72);
+      v32 = (v4 + 8);
+      v33 = v8;
+      v16 = v15;
       do
       {
-        v18 = v17;
-        v19 = v17 * v11;
-        v35(v7, *(v8 + 48) + v17 * v11, v3);
-        v20 = v8;
-        v21 = v15;
-        v22 = v14;
-        v23 = v20;
-        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
-        v24 = dispatch thunk of Hashable._rawHashValue(seed:)();
-        (*v33)(v7, v3);
-        v25 = v24 & v22;
-        v14 = v22;
-        v15 = v21;
-        if (a1 >= v21)
+        v17 = v16;
+        v18 = v16 * v10;
+        v34(v6, *(v7 + 48) + v16 * v10, v3);
+        v19 = v7;
+        v20 = v14;
+        v21 = v13;
+        v22 = v19;
+        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+        v23 = dispatch thunk of Hashable._rawHashValue(seed:)();
+        (*v32)(v6, v3);
+        v24 = v23 & v21;
+        v13 = v21;
+        v14 = v20;
+        if (a1 >= v20)
         {
-          if (v25 >= v21 && a1 >= v25)
+          if (v24 >= v20 && a1 >= v24)
           {
 LABEL_16:
-            v8 = v23;
-            v28 = *(v23 + 48);
-            v17 = v18;
-            v29 = v18 * a1;
-            if (v18 * a1 < v19 || v28 + v18 * a1 >= (v28 + v19 + v18))
+            v7 = v22;
+            v27 = *(v22 + 48);
+            v16 = v17;
+            v28 = v17 * a1;
+            if (v17 * a1 < v18 || v27 + v17 * a1 >= (v27 + v18 + v17))
             {
               swift_arrayInitWithTakeFrontToBack();
-              a1 = v11;
+              a1 = v10;
             }
 
             else
             {
-              a1 = v11;
-              if (v29 != v19)
+              a1 = v10;
+              if (v28 != v18)
               {
                 swift_arrayInitWithTakeBackToFront();
-                a1 = v11;
+                a1 = v10;
               }
             }
 
@@ -6870,53 +6889,51 @@ LABEL_16:
           }
         }
 
-        else if (v25 >= v21 || a1 >= v25)
+        else if (v24 >= v20 || a1 >= v24)
         {
           goto LABEL_16;
         }
 
-        v8 = v23;
-        v17 = v18;
+        v7 = v22;
+        v16 = v17;
 LABEL_5:
-        v11 = (v11 + 1) & v14;
-        v9 = v34;
+        v10 = (v10 + 1) & v13;
+        v8 = v33;
       }
 
-      while (((*(v34 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) != 0);
+      while (((*(v33 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) != 0);
     }
 
-    *(v9 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
+    *(v8 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
   }
 
   else
   {
-    *(v9 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
+    *(v8 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
   }
 
-  v30 = *(v8 + 16);
-  v31 = __OFSUB__(v30, 1);
-  v32 = v30 - 1;
-  if (v31)
+  v29 = *(v7 + 16);
+  v30 = __OFSUB__(v29, 1);
+  v31 = v29 - 1;
+  if (v30)
   {
     __break(1u);
   }
 
   else
   {
-    *(v8 + 16) = v32;
-    ++*(v8 + 36);
+    *(v7 + 16) = v31;
+    ++*(v7 + 36);
   }
-
-  return result;
 }
 
-uint64_t sub_100215AFC(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(char *))
+void sub_100215AFC(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(char *))
 {
   v35 = a4;
   v29 = a2;
   v30 = a1;
   v38 = type metadata accessor for FMIPItem();
-  result = __chkstk_darwin(v38);
+  v7 = __chkstk_darwin(v38);
   v36 = a3;
   v37 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = 0;
@@ -6932,10 +6949,10 @@ uint64_t sub_100215AFC(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(c
 
   v15 = v14 & v10;
   v16 = (v13 + 63) >> 6;
-  v33 = v7 + 16;
-  v34 = v7;
+  v33 = v6 + 16;
+  v34 = v6;
   v31 = 0;
-  v32 = (v7 + 8);
+  v32 = (v6 + 8);
   while (v15)
   {
     v17 = __clz(__rbit64(v15));
@@ -6944,16 +6961,17 @@ uint64_t sub_100215AFC(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(c
     v19 = v38;
     v20 = v37;
 LABEL_11:
-    (*(v34 + 16))(v20, *(v36 + 48) + *(v34 + 72) * v18, v19);
+    (*(v34 + 16))(v20, *(v36 + 48) + *(v34 + 72) * v18, v19, v7);
     v23 = v35(v20);
     v24 = v20;
     if (v4)
     {
-      return (*v32)(v20, v19);
+      (*v32)(v20, v19);
+      return;
     }
 
     v25 = v23;
-    result = (*v32)(v24, v19);
+    (*v32)(v24, v19);
     if (v25)
     {
       *(v30 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
@@ -6963,7 +6981,8 @@ LABEL_11:
 LABEL_16:
         v27 = v36;
 
-        return sub_100215224(v30, v29, v31, v27);
+        sub_100215224(v30, v29, v31, v27);
+        return;
       }
     }
   }
@@ -6995,7 +7014,6 @@ LABEL_16:
   }
 
   __break(1u);
-  return result;
 }
 
 void sub_100215D8C(int a1, const char *a2, uint64_t a3, uint64_t a4, const char *a5)
@@ -7004,13 +7022,13 @@ void sub_100215D8C(int a1, const char *a2, uint64_t a3, uint64_t a4, const char 
   v35 = a3;
   v33 = a2;
   v36 = a1;
-  v7 = sub_10007EBC0(&unk_1006BBCE0);
+  v7 = sub_10007EBC0(&unk_1006BBCE0, &unk_1005534C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v31 - v8;
   v10 = type metadata accessor for FMIPDevice();
   v11 = *(v10 - 8);
   v12 = *(v11 + 64);
-  v13 = __chkstk_darwin(v10);
+  __chkstk_darwin(v10);
   v34 = &v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v13);
   v15 = &v31 - v14;
@@ -7023,7 +7041,7 @@ void sub_100215D8C(int a1, const char *a2, uint64_t a3, uint64_t a4, const char 
 
   if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    sub_100012DF0(v9, &unk_1006BBCE0);
+    sub_100012DF0(v9, &unk_1006BBCE0, &unk_1005534C0);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
@@ -7079,155 +7097,156 @@ void sub_100215D8C(int a1, const char *a2, uint64_t a3, uint64_t a4, const char 
 void *sub_1002161DC()
 {
   v0 = type metadata accessor for FMIPPlaySoundChannels();
-  v198 = *(v0 - 8);
-  v1 = __chkstk_darwin(v0);
-  v197 = &v183 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v1);
-  v196 = &v183 - v3;
-  v4 = sub_10007EBC0(&qword_1006B6958);
-  v5 = __chkstk_darwin(v4 - 8);
-  v195 = &v183 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __chkstk_darwin(v5);
-  v194 = &v183 - v8;
-  v9 = __chkstk_darwin(v7);
-  v193 = &v183 - v10;
-  __chkstk_darwin(v9);
-  v191 = &v183 - v11;
+  v199 = *(v0 - 8);
+  __chkstk_darwin(v0);
+  v198 = &v184 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v197 = &v184 - v3;
+  v4 = sub_10007EBC0(&qword_1006B6958, &qword_100558B48);
+  __chkstk_darwin(v4 - 8);
+  v196 = &v184 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v195 = &v184 - v7;
+  __chkstk_darwin(v8);
+  v194 = &v184 - v9;
+  __chkstk_darwin(v10);
+  v192 = &v184 - v11;
   v12 = type metadata accessor for FMIPItemState();
   v13 = *(v12 - 8);
-  v14 = __chkstk_darwin(v12);
-  v212 = &v183 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __chkstk_darwin(v14);
-  v18 = &v183 - v17;
-  v19 = __chkstk_darwin(v16);
-  v208 = &v183 - v20;
-  v21 = __chkstk_darwin(v19);
-  v209 = &v183 - v22;
-  __chkstk_darwin(v21);
-  v210 = &v183 - v23;
+  __chkstk_darwin(v12);
+  v213 = &v184 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v17 = &v184 - v16;
+  __chkstk_darwin(v18);
+  v209 = &v184 - v19;
+  __chkstk_darwin(v20);
+  v210 = &v184 - v21;
+  __chkstk_darwin(v22);
+  v211 = &v184 - v23;
   v24 = type metadata accessor for FMIPPartType();
-  v202 = *(v24 - 8);
-  v25 = __chkstk_darwin(v24);
-  v220 = &v183 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = __chkstk_darwin(v25);
-  v219 = &v183 - v28;
-  v29 = __chkstk_darwin(v27);
-  v214 = &v183 - v30;
-  v31 = __chkstk_darwin(v29);
-  v213 = &v183 - v32;
-  v33 = __chkstk_darwin(v31);
-  v185 = &v183 - v34;
-  v35 = __chkstk_darwin(v33);
-  v224 = &v183 - v36;
-  v37 = __chkstk_darwin(v35);
-  v226 = &v183 - v38;
-  __chkstk_darwin(v37);
-  v225 = &v183 - v39;
-  v230 = type metadata accessor for FMIPItem();
-  v227 = *(v230 - 8);
-  v40 = __chkstk_darwin(v230);
-  v221 = &v183 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = __chkstk_darwin(v40);
-  v222 = &v183 - v43;
-  v44 = __chkstk_darwin(v42);
-  v223 = &v183 - v45;
-  __chkstk_darwin(v44);
-  v47 = &v183 - v46;
-  v48 = sub_10007EBC0(&qword_1006B07D0);
-  v49 = __chkstk_darwin(v48 - 8);
-  v192 = &v183 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v51 = __chkstk_darwin(v49);
-  v190 = &v183 - v52;
-  v53 = __chkstk_darwin(v51);
-  v189 = &v183 - v54;
-  v55 = __chkstk_darwin(v53);
-  v188 = &v183 - v56;
-  v57 = __chkstk_darwin(v55);
-  v204 = &v183 - v58;
-  v59 = __chkstk_darwin(v57);
-  v205 = &v183 - v60;
-  v61 = __chkstk_darwin(v59);
-  v206 = &v183 - v62;
-  __chkstk_darwin(v61);
-  v207 = &v183 - v63;
-  v64 = sub_10007EBC0(&unk_1006BB1C0);
+  v203 = *(v24 - 8);
+  __chkstk_darwin(v24);
+  v221 = &v184 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v26);
+  v220 = &v184 - v27;
+  __chkstk_darwin(v28);
+  v215 = &v184 - v29;
+  __chkstk_darwin(v30);
+  v214 = &v184 - v31;
+  __chkstk_darwin(v32);
+  v186 = &v184 - v33;
+  __chkstk_darwin(v34);
+  v225 = &v184 - v35;
+  __chkstk_darwin(v36);
+  v227 = &v184 - v37;
+  __chkstk_darwin(v38);
+  v226 = &v184 - v39;
+  v231 = type metadata accessor for FMIPItem();
+  v228 = *(v231 - 8);
+  __chkstk_darwin(v231);
+  v222 = &v184 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v41);
+  v223 = &v184 - v42;
+  __chkstk_darwin(v43);
+  v224 = &v184 - v44;
+  __chkstk_darwin(v45);
+  v47 = &v184 - v46;
+  v48 = sub_10007EBC0(&qword_1006B07D0, qword_100552820);
+  __chkstk_darwin(v48 - 8);
+  v193 = &v184 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v50);
+  v191 = &v184 - v51;
+  __chkstk_darwin(v52);
+  v190 = &v184 - v53;
+  __chkstk_darwin(v54);
+  v189 = &v184 - v55;
+  __chkstk_darwin(v56);
+  v205 = &v184 - v57;
+  __chkstk_darwin(v58);
+  v206 = &v184 - v59;
+  __chkstk_darwin(v60);
+  v207 = &v184 - v61;
+  __chkstk_darwin(v62);
+  v208 = &v184 - v63;
+  v64 = sub_10007EBC0(&unk_1006BB1C0, &unk_1005534F0);
   __chkstk_darwin(v64 - 8);
-  v66 = &v183 - v65;
-  v199 = FMIPDevice.identifier.getter();
-  v203 = v67;
-  v235 = _swiftEmptySetSingleton;
+  v66 = &v184 - v65;
+  v200 = FMIPDevice.identifier.getter();
+  v204 = v67;
+  v236 = _swiftEmptySetSingleton;
   FMIPDevice.itemGroup.getter();
   v68 = type metadata accessor for FMIPItemGroup();
   v69 = *(v68 - 8);
   if ((*(v69 + 48))(v66, 1, v68) == 1)
   {
     v70 = &unk_1006BB1C0;
-    v71 = v66;
+    v71 = &unk_1005534F0;
+    v72 = v66;
     goto LABEL_80;
   }
 
-  v72 = FMIPItemGroup.items.getter();
+  v73 = FMIPItemGroup.items.getter();
   (*(v69 + 8))(v66, v68);
-  v73 = *(v72 + 16);
-  v184 = v12;
-  v183 = v13;
-  v186 = v18;
-  v228 = v73;
-  v229 = v72;
-  v187 = v0;
-  if (v73)
+  v74 = *(v73 + 16);
+  v185 = v12;
+  v184 = v13;
+  v187 = v17;
+  v229 = v74;
+  v230 = v73;
+  v188 = v0;
+  if (v74)
   {
-    v74 = v72;
-    v75 = 0;
-    v76 = v227;
-    v218 = (v227 + 16);
-    LODWORD(v217) = enum case for FMIPPartType.leftBud(_:);
-    v77 = (v202 + 104);
-    v78 = (v202 + 8);
-    v79 = (v227 + 8);
-    v80 = v230;
-    while (v75 < *(v74 + 16))
+    v75 = v73;
+    v76 = 0;
+    v77 = v228;
+    v219 = (v228 + 16);
+    LODWORD(v218) = enum case for FMIPPartType.leftBud(_:);
+    v78 = (v203 + 104);
+    v79 = (v203 + 8);
+    v80 = (v228 + 8);
+    v81 = v231;
+    while (v76 < *(v75 + 16))
     {
-      (*(v76 + 16))(v47, v74 + ((*(v76 + 80) + 32) & ~*(v76 + 80)) + *(v76 + 72) * v75, v80);
+      (*(v77 + 16))(v47, v75 + ((*(v77 + 80) + 32) & ~*(v77 + 80)) + *(v77 + 72) * v76, v81);
       FMIPItem.partType.getter();
-      (*v77)(v226, v217, v24);
-      sub_10021E650(&qword_1006BEF50, &type metadata accessor for FMIPPartType);
+      (*v78)(v227, v218, v24);
+      sub_10021E650(&qword_1006BEF50, &type metadata accessor for FMIPPartType, &protocol conformance descriptor for FMIPPartType);
       dispatch thunk of RawRepresentable.rawValue.getter();
       dispatch thunk of RawRepresentable.rawValue.getter();
-      if (v233 == v231 && v234 == v232)
+      if (v234 == v232 && v235 == v233)
       {
-        v85 = *v78;
-        (*v78)(v226, v24);
-        v85(v225, v24);
+        v86 = *v79;
+        (*v79)(v227, v24);
+        v86(v226, v24);
 
 LABEL_13:
-        v76 = v227;
-        v84 = v207;
-        v80 = v230;
-        (*(v227 + 32))(v207, v47, v230);
-        v83 = 0;
+        v77 = v228;
+        v85 = v208;
+        v81 = v231;
+        (*(v228 + 32))(v208, v47, v231);
+        v84 = 0;
         goto LABEL_14;
       }
 
-      v81 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v82 = *v78;
-      (*v78)(v226, v24);
-      v82(v225, v24);
+      v82 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v83 = *v79;
+      (*v79)(v227, v24);
+      v83(v226, v24);
 
-      if (v81)
+      if (v82)
       {
         goto LABEL_13;
       }
 
-      ++v75;
-      v80 = v230;
-      (*v79)(v47, v230);
-      v76 = v227;
-      v74 = v229;
-      if (v228 == v75)
+      ++v76;
+      v81 = v231;
+      (*v80)(v47, v231);
+      v77 = v228;
+      v75 = v230;
+      if (v229 == v76)
       {
-        v83 = 1;
-        v84 = v207;
+        v84 = 1;
+        v85 = v208;
         goto LABEL_14;
       }
     }
@@ -7241,338 +7260,338 @@ LABEL_89:
 
   else
   {
-    v83 = 1;
-    v84 = v207;
-    v80 = v230;
-    v76 = v227;
+    v84 = 1;
+    v85 = v208;
+    v81 = v231;
+    v77 = v228;
 LABEL_14:
-    v86 = *(v76 + 56);
-    v86(v84, v83, 1, v80);
-    v201 = v76 + 56;
-    v200 = v86;
-    if (v228)
+    v87 = *(v77 + 56);
+    v87(v85, v84, 1, v81);
+    v202 = v77 + 56;
+    v201 = v87;
+    if (v229)
     {
-      v87 = 0;
-      v226 = (v76 + 16);
-      v211 = enum case for FMIPPartType.rightBud(_:);
-      v225 = (v202 + 104);
-      v88 = (v202 + 8);
-      v216 = (v76 + 8);
-      v89 = v185;
+      v88 = 0;
+      v227 = (v77 + 16);
+      v212 = enum case for FMIPPartType.rightBud(_:);
+      v226 = (v203 + 104);
+      v89 = (v203 + 8);
+      v217 = (v77 + 8);
+      v90 = v186;
       while (1)
       {
-        if (v87 >= *(v229 + 16))
+        if (v88 >= *(v230 + 16))
         {
           goto LABEL_88;
         }
 
-        v90 = (*(v76 + 80) + 32) & ~*(v76 + 80);
-        v215 = *(v76 + 72);
-        v218 = *(v76 + 16);
-        v218(v223, v229 + v90 + v215 * v87, v80);
+        v91 = (*(v77 + 80) + 32) & ~*(v77 + 80);
+        v216 = *(v77 + 72);
+        v219 = *(v77 + 16);
+        v219(v224, v230 + v91 + v216 * v88, v81);
         FMIPItem.partType.getter();
-        v217 = *v225;
-        v217(v89, v211, v24);
-        sub_10021E650(&qword_1006BEF50, &type metadata accessor for FMIPPartType);
+        v218 = *v226;
+        v218(v90, v212, v24);
+        sub_10021E650(&qword_1006BEF50, &type metadata accessor for FMIPPartType, &protocol conformance descriptor for FMIPPartType);
         dispatch thunk of RawRepresentable.rawValue.getter();
         dispatch thunk of RawRepresentable.rawValue.getter();
-        if (v233 == v231 && v234 == v232)
+        if (v234 == v232 && v235 == v233)
         {
           break;
         }
 
-        v91 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        v92 = *v88;
-        (*v88)(v89, v24);
-        v92(v224, v24);
+        v92 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v93 = *v89;
+        (*v89)(v90, v24);
+        v93(v225, v24);
 
-        if (v91)
+        if (v92)
         {
           goto LABEL_24;
         }
 
-        ++v87;
-        v80 = v230;
-        (*v216)(v223, v230);
-        v76 = v227;
-        if (v228 == v87)
+        ++v88;
+        v81 = v231;
+        (*v217)(v224, v231);
+        v77 = v228;
+        if (v229 == v88)
         {
-          v93 = 1;
-          v94 = v206;
+          v94 = 1;
+          v95 = v207;
           goto LABEL_25;
         }
       }
 
-      v97 = *v88;
-      (*v88)(v89, v24);
-      v97(v224, v24);
+      v98 = *v89;
+      (*v89)(v90, v24);
+      v98(v225, v24);
 
 LABEL_24:
-      v94 = v206;
-      v80 = v230;
-      (*(v227 + 32))(v206, v223, v230);
-      v93 = 0;
+      v95 = v207;
+      v81 = v231;
+      (*(v228 + 32))(v207, v224, v231);
+      v94 = 0;
 LABEL_25:
-      v200(v94, v93, 1, v80);
-      v98 = 0;
-      LODWORD(v224) = enum case for FMIPPartType.case(_:);
-      v99 = v229;
-      v100 = v229 + v90;
-      v101 = v213;
+      v201(v95, v94, 1, v81);
+      v99 = 0;
+      LODWORD(v225) = enum case for FMIPPartType.case(_:);
+      v100 = v230;
+      v101 = v230 + v91;
+      v102 = v214;
       while (1)
       {
-        if (v98 >= *(v99 + 16))
+        if (v99 >= *(v100 + 16))
         {
           goto LABEL_89;
         }
 
-        v218(v222, v100, v80);
+        v219(v223, v101, v81);
         FMIPItem.partType.getter();
-        v102 = v214;
-        v217(v214, v224, v24);
+        v103 = v215;
+        v218(v215, v225, v24);
         dispatch thunk of RawRepresentable.rawValue.getter();
         dispatch thunk of RawRepresentable.rawValue.getter();
-        v103 = v233 == v231 && v234 == v232;
-        if (v103)
+        v104 = v234 == v232 && v235 == v233;
+        if (v104)
         {
           break;
         }
 
-        v104 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        v105 = v102;
-        v106 = v104;
-        v107 = *v88;
-        (*v88)(v105, v24);
-        v107(v101, v24);
+        v105 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v106 = v103;
+        v107 = v105;
+        v108 = *v89;
+        (*v89)(v106, v24);
+        v108(v102, v24);
 
-        if (v106)
+        if (v107)
         {
           goto LABEL_35;
         }
 
-        ++v98;
-        v80 = v230;
-        (*v216)(v222, v230);
-        v100 += v215;
-        v99 = v229;
-        if (v228 == v98)
+        ++v99;
+        v81 = v231;
+        (*v217)(v223, v231);
+        v101 += v216;
+        v100 = v230;
+        if (v229 == v99)
         {
-          v95 = 1;
-          v96 = v205;
+          v96 = 1;
+          v97 = v206;
           goto LABEL_36;
         }
       }
 
-      v108 = *v88;
-      (*v88)(v102, v24);
-      v108(v101, v24);
+      v109 = *v89;
+      (*v89)(v103, v24);
+      v109(v102, v24);
 
 LABEL_35:
-      v96 = v205;
-      v80 = v230;
-      (*(v227 + 32))(v205, v222, v230);
-      v95 = 0;
+      v97 = v206;
+      v81 = v231;
+      (*(v228 + 32))(v206, v223, v231);
+      v96 = 0;
 LABEL_36:
-      v86 = v200;
+      v87 = v201;
       goto LABEL_37;
     }
 
-    v95 = 1;
-    v86(v206, 1, 1, v80);
-    v96 = v205;
+    v96 = 1;
+    v87(v207, 1, 1, v81);
+    v97 = v206;
 LABEL_37:
-    v86(v96, v95, 1, v80);
-    if (!v228)
+    v87(v97, v96, 1, v81);
+    if (!v229)
     {
 LABEL_44:
 
-      v116 = 1;
-      v117 = v204;
-      v118 = v227;
+      v117 = 1;
+      v118 = v205;
+      v119 = v228;
 LABEL_47:
-      v200(v117, v116, 1, v80);
-      v120 = v188;
-      sub_100007204(v207, v188, &qword_1006B07D0);
-      v121 = *(v118 + 48);
-      v122 = v121(v120, 1, v80);
-      v123 = v80;
-      v124 = v184;
-      v125 = v183;
-      if (v122 == 1)
+      v201(v118, v117, 1, v81);
+      v121 = v189;
+      sub_100007204(v208, v189, &qword_1006B07D0, qword_100552820);
+      v122 = *(v119 + 48);
+      v123 = v122(v121, 1, v81);
+      v124 = v81;
+      v125 = v185;
+      v126 = v184;
+      if (v123 == 1)
       {
-        sub_100012DF0(v120, &qword_1006B07D0);
-        v126 = *(v125 + 56);
-        v127 = v191;
-        v126(v191, 1, 1, v124);
+        sub_100012DF0(v121, &qword_1006B07D0, qword_100552820);
+        v127 = *(v126 + 56);
+        v128 = v192;
+        v127(v192, 1, 1, v125);
         static FMIPItemState.normal.getter();
-        if ((*(v125 + 48))(v127, 1, v124) != 1)
+        if ((*(v126 + 48))(v128, 1, v125) != 1)
         {
-          sub_100012DF0(v127, &qword_1006B6958);
+          sub_100012DF0(v128, &qword_1006B6958, &qword_100558B48);
         }
 
-        v128 = v187;
-        v123 = v230;
+        v129 = v188;
+        v124 = v231;
       }
 
       else
       {
-        v129 = v191;
+        v130 = v192;
         FMIPItem.state.getter();
-        (*(v118 + 8))(v120, v123);
-        v126 = *(v125 + 56);
-        v126(v129, 0, 1, v124);
-        (*(v125 + 32))(v210, v129, v124);
-        v128 = v187;
+        (*(v119 + 8))(v121, v124);
+        v127 = *(v126 + 56);
+        v127(v130, 0, 1, v125);
+        (*(v126 + 32))(v211, v130, v125);
+        v129 = v188;
       }
 
-      v130 = v189;
-      sub_100007204(v206, v189, &qword_1006B07D0);
-      if (v121(v130, 1, v123) == 1)
+      v131 = v190;
+      sub_100007204(v207, v190, &qword_1006B07D0, qword_100552820);
+      if (v122(v131, 1, v124) == 1)
       {
-        sub_100012DF0(v130, &qword_1006B07D0);
-        v131 = v193;
-        v126(v193, 1, 1, v124);
+        sub_100012DF0(v131, &qword_1006B07D0, qword_100552820);
+        v132 = v194;
+        v127(v194, 1, 1, v125);
         static FMIPItemState.normal.getter();
-        v132 = (*(v125 + 48))(v131, 1, v124);
-        v133 = v194;
-        if (v132 != 1)
+        v133 = (*(v126 + 48))(v132, 1, v125);
+        v134 = v195;
+        if (v133 != 1)
         {
-          sub_100012DF0(v131, &qword_1006B6958);
-        }
-      }
-
-      else
-      {
-        v134 = v193;
-        FMIPItem.state.getter();
-        (*(v227 + 8))(v130, v123);
-        v126(v134, 0, 1, v124);
-        (*(v125 + 32))(v209, v134, v124);
-        v133 = v194;
-      }
-
-      v135 = v190;
-      sub_100007204(v205, v190, &qword_1006B07D0);
-      v136 = v230;
-      if (v121(v135, 1, v230) == 1)
-      {
-        sub_100012DF0(v135, &qword_1006B07D0);
-        v126(v133, 1, 1, v124);
-        static FMIPItemState.normal.getter();
-        v103 = (*(v125 + 48))(v133, 1, v124) == 1;
-        v137 = v192;
-        v138 = v204;
-        if (!v103)
-        {
-          v139 = v204;
-          sub_100012DF0(v133, &qword_1006B6958);
-          v138 = v139;
+          sub_100012DF0(v132, &qword_1006B6958, &qword_100558B48);
         }
       }
 
       else
       {
+        v135 = v194;
         FMIPItem.state.getter();
-        (*(v227 + 8))(v135, v136);
-        v126(v133, 0, 1, v124);
-        (*(v125 + 32))(v208, v133, v124);
-        v137 = v192;
-        v138 = v204;
+        (*(v228 + 8))(v131, v124);
+        v127(v135, 0, 1, v125);
+        (*(v126 + 32))(v210, v135, v125);
+        v134 = v195;
       }
 
-      sub_100007204(v138, v137, &qword_1006B07D0);
-      v140 = v230;
-      if (v121(v137, 1, v230) == 1)
+      v136 = v191;
+      sub_100007204(v206, v191, &qword_1006B07D0, qword_100552820);
+      v137 = v231;
+      if (v122(v136, 1, v231) == 1)
       {
-        sub_100012DF0(v137, &qword_1006B07D0);
-        v141 = v195;
-        v126(v195, 1, 1, v124);
+        sub_100012DF0(v136, &qword_1006B07D0, qword_100552820);
+        v127(v134, 1, 1, v125);
         static FMIPItemState.normal.getter();
-        v142 = (*(v125 + 48))(v141, 1, v124);
-        v143 = v198;
-        v144 = v212;
-        v145 = v196;
+        v104 = (*(v126 + 48))(v134, 1, v125) == 1;
+        v138 = v193;
+        v139 = v205;
+        if (!v104)
+        {
+          v140 = v205;
+          sub_100012DF0(v134, &qword_1006B6958, &qword_100558B48);
+          v139 = v140;
+        }
+      }
+
+      else
+      {
+        FMIPItem.state.getter();
+        (*(v228 + 8))(v136, v137);
+        v127(v134, 0, 1, v125);
+        (*(v126 + 32))(v209, v134, v125);
+        v138 = v193;
+        v139 = v205;
+      }
+
+      sub_100007204(v139, v138, &qword_1006B07D0, qword_100552820);
+      v141 = v231;
+      if (v122(v138, 1, v231) == 1)
+      {
+        sub_100012DF0(v138, &qword_1006B07D0, qword_100552820);
+        v142 = v196;
+        v127(v196, 1, 1, v125);
+        static FMIPItemState.normal.getter();
+        v143 = (*(v126 + 48))(v142, 1, v125);
+        v144 = v199;
+        v145 = v213;
         v146 = v197;
-        if (v142 != 1)
+        v147 = v198;
+        if (v143 != 1)
         {
-          sub_100012DF0(v141, &qword_1006B6958);
+          sub_100012DF0(v142, &qword_1006B6958, &qword_100558B48);
         }
       }
 
       else
       {
-        v147 = v195;
+        v148 = v196;
         FMIPItem.state.getter();
-        (*(v227 + 8))(v137, v140);
-        v126(v147, 0, 1, v124);
-        (*(v125 + 32))(v186, v147, v124);
-        v143 = v198;
-        v144 = v212;
-        v145 = v196;
+        (*(v228 + 8))(v138, v141);
+        v127(v148, 0, 1, v125);
+        (*(v126 + 32))(v187, v148, v125);
+        v144 = v199;
+        v145 = v213;
         v146 = v197;
+        v147 = v198;
       }
 
       static FMIPItemState.soundPlaying.getter();
-      sub_10021E650(&qword_1006C0350, &type metadata accessor for FMIPItemState);
-      v148 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-      v149 = v144;
-      v150 = *(v125 + 8);
-      v150(v149, v124);
-      if (v148 & 1) != 0 || (v151 = v212, static FMIPItemState.soundPending.getter(), v152 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v150(v151, v124), (v152) || (v153 = v212, static FMIPItemState.soundQueued.getter(), v154 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v150(v153, v124), (v154))
+      sub_10021E650(&qword_1006C0350, &type metadata accessor for FMIPItemState, &protocol conformance descriptor for FMIPItemState);
+      v149 = dispatch thunk of SetAlgebra.isSuperset(of:)();
+      v150 = v145;
+      v151 = *(v126 + 8);
+      v151(v150, v125);
+      if (v149 & 1) != 0 || (v152 = v213, static FMIPItemState.soundPending.getter(), v153 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v151(v152, v125), (v153) || (v154 = v213, static FMIPItemState.soundQueued.getter(), v155 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v151(v154, v125), (v155))
       {
-        (*(v143 + 104))(v146, enum case for FMIPPlaySoundChannels.left(_:), v128);
-        sub_1002546CC(v145, v146);
-        (*(v143 + 8))(v145, v128);
+        (*(v144 + 104))(v147, enum case for FMIPPlaySoundChannels.left(_:), v129);
+        sub_1002546CC(v146, v147);
+        (*(v144 + 8))(v146, v129);
       }
 
-      v155 = v212;
+      v156 = v213;
       static FMIPItemState.soundPlaying.getter();
-      v156 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-      v150(v155, v124);
-      if (v156 & 1) != 0 || (v157 = v212, static FMIPItemState.soundPending.getter(), v158 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v150(v157, v124), (v158) || (v159 = v212, static FMIPItemState.soundQueued.getter(), v160 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v150(v159, v124), (v160))
+      v157 = dispatch thunk of SetAlgebra.isSuperset(of:)();
+      v151(v156, v125);
+      if (v157 & 1) != 0 || (v158 = v213, static FMIPItemState.soundPending.getter(), v159 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v151(v158, v125), (v159) || (v160 = v213, static FMIPItemState.soundQueued.getter(), v161 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v151(v160, v125), (v161))
       {
-        (*(v143 + 104))(v146, enum case for FMIPPlaySoundChannels.right(_:), v128);
-        sub_1002546CC(v145, v146);
-        (*(v143 + 8))(v145, v128);
+        (*(v144 + 104))(v147, enum case for FMIPPlaySoundChannels.right(_:), v129);
+        sub_1002546CC(v146, v147);
+        (*(v144 + 8))(v146, v129);
       }
 
-      v161 = v212;
+      v162 = v213;
       static FMIPItemState.soundPlaying.getter();
-      v162 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-      v150(v161, v124);
-      if (v162 & 1) != 0 || (v163 = v212, static FMIPItemState.soundPending.getter(), v164 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v150(v163, v124), (v164) || (v165 = v212, static FMIPItemState.soundQueued.getter(), v166 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v150(v165, v124), (v166))
+      v163 = dispatch thunk of SetAlgebra.isSuperset(of:)();
+      v151(v162, v125);
+      if (v163 & 1) != 0 || (v164 = v213, static FMIPItemState.soundPending.getter(), v165 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v151(v164, v125), (v165) || (v166 = v213, static FMIPItemState.soundQueued.getter(), v167 = dispatch thunk of SetAlgebra.isSuperset(of:)(), v151(v166, v125), (v167))
       {
-        (*(v143 + 104))(v146, enum case for FMIPPlaySoundChannels.case(_:), v128);
-        sub_1002546CC(v145, v146);
-        (*(v143 + 8))(v145, v128);
+        (*(v144 + 104))(v147, enum case for FMIPPlaySoundChannels.case(_:), v129);
+        sub_1002546CC(v146, v147);
+        (*(v144 + 8))(v146, v129);
       }
 
-      v167 = v212;
+      v168 = v213;
       static FMIPItemState.soundPlaying.getter();
-      v168 = v186;
-      v169 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-      v150(v167, v124);
-      if ((v169 & 1) == 0)
+      v169 = v187;
+      v170 = dispatch thunk of SetAlgebra.isSuperset(of:)();
+      v151(v168, v125);
+      if ((v170 & 1) == 0)
       {
         static FMIPItemState.soundPending.getter();
-        v170 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-        v150(v167, v124);
-        if ((v170 & 1) == 0)
+        v171 = dispatch thunk of SetAlgebra.isSuperset(of:)();
+        v151(v168, v125);
+        if ((v171 & 1) == 0)
         {
           static FMIPItemState.soundQueued.getter();
-          v171 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-          v150(v167, v124);
-          if ((v171 & 1) == 0)
+          v172 = dispatch thunk of SetAlgebra.isSuperset(of:)();
+          v151(v168, v125);
+          if ((v172 & 1) == 0)
           {
-            v150(v168, v124);
-            v150(v208, v124);
-            v150(v209, v124);
-            v150(v210, v124);
-            sub_100012DF0(v204, &qword_1006B07D0);
-            sub_100012DF0(v205, &qword_1006B07D0);
-            sub_100012DF0(v206, &qword_1006B07D0);
-            sub_100012DF0(v207, &qword_1006B07D0);
-            v24 = v203;
+            v151(v169, v125);
+            v151(v209, v125);
+            v151(v210, v125);
+            v151(v211, v125);
+            sub_100012DF0(v205, &qword_1006B07D0, qword_100552820);
+            sub_100012DF0(v206, &qword_1006B07D0, qword_100552820);
+            sub_100012DF0(v207, &qword_1006B07D0, qword_100552820);
+            sub_100012DF0(v208, &qword_1006B07D0, qword_100552820);
+            v24 = v204;
 LABEL_81:
             if (qword_1006AEBE0 == -1)
             {
@@ -7584,69 +7603,70 @@ LABEL_81:
         }
       }
 
-      v172 = v187;
-      (*(v143 + 104))(v146, enum case for FMIPPlaySoundChannels.standalone(_:), v187);
-      sub_1002546CC(v145, v146);
-      (*(v143 + 8))(v145, v172);
-      v150(v168, v124);
-      v150(v208, v124);
-      v150(v209, v124);
-      v150(v210, v124);
-      sub_100012DF0(v204, &qword_1006B07D0);
-      sub_100012DF0(v205, &qword_1006B07D0);
-      sub_100012DF0(v206, &qword_1006B07D0);
-      v71 = v207;
+      v173 = v188;
+      (*(v144 + 104))(v147, enum case for FMIPPlaySoundChannels.standalone(_:), v188);
+      sub_1002546CC(v146, v147);
+      (*(v144 + 8))(v146, v173);
+      v151(v169, v125);
+      v151(v209, v125);
+      v151(v210, v125);
+      v151(v211, v125);
+      sub_100012DF0(v205, &qword_1006B07D0, qword_100552820);
+      sub_100012DF0(v206, &qword_1006B07D0, qword_100552820);
+      sub_100012DF0(v207, &qword_1006B07D0, qword_100552820);
+      v72 = v208;
       v70 = &qword_1006B07D0;
+      v71 = qword_100552820;
 LABEL_80:
-      sub_100012DF0(v71, v70);
-      v24 = v203;
+      sub_100012DF0(v72, v70, v71);
+      v24 = v204;
       goto LABEL_81;
     }
 
-    v109 = 0;
-    v226 = (v227 + 16);
-    v110 = enum case for FMIPPartType.standalone(_:);
-    v111 = (v202 + 104);
-    v112 = (v202 + 8);
-    v113 = (v227 + 8);
-    while (v109 < *(v229 + 16))
+    v110 = 0;
+    v227 = (v228 + 16);
+    v111 = enum case for FMIPPartType.standalone(_:);
+    v112 = (v203 + 104);
+    v113 = (v203 + 8);
+    v114 = (v228 + 8);
+    while (v110 < *(v230 + 16))
     {
-      (*(v227 + 16))(v221, v229 + ((*(v227 + 80) + 32) & ~*(v227 + 80)) + *(v227 + 72) * v109, v80);
+      (*(v228 + 16))(v222, v230 + ((*(v228 + 80) + 32) & ~*(v228 + 80)) + *(v228 + 72) * v110, v81);
       FMIPItem.partType.getter();
-      (*v111)(v220, v110, v24);
-      sub_10021E650(&qword_1006BEF50, &type metadata accessor for FMIPPartType);
+      (*v112)(v221, v111, v24);
+      sub_10021E650(&qword_1006BEF50, &type metadata accessor for FMIPPartType, &protocol conformance descriptor for FMIPPartType);
       dispatch thunk of RawRepresentable.rawValue.getter();
       dispatch thunk of RawRepresentable.rawValue.getter();
-      if (v233 == v231 && v234 == v232)
+      if (v234 == v232 && v235 == v233)
       {
-        v119 = *v112;
-        (*v112)(v220, v24);
-        v119(v219, v24);
+        v120 = *v113;
+        (*v113)(v221, v24);
+        v120(v220, v24);
 
 LABEL_46:
 
-        v118 = v227;
-        v117 = v204;
-        v80 = v230;
-        (*(v227 + 32))(v204, v221, v230);
-        v116 = 0;
+        v119 = v228;
+        v118 = v205;
+        v81 = v231;
+        (*(v228 + 32))(v205, v222, v231);
+        v117 = 0;
         goto LABEL_47;
       }
 
-      v114 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v115 = *v112;
-      (*v112)(v220, v24);
-      v115(v219, v24);
+      v115 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v116 = *v113;
+      (*v113)(v221, v24);
+      v116(v220, v24);
 
-      if (v114)
+      if (v115)
       {
         goto LABEL_46;
       }
 
-      ++v109;
-      v80 = v230;
-      (*v113)(v221, v230);
-      if (v228 == v109)
+      ++v110;
+      v81 = v231;
+      (*v114)(v222, v231);
+      if (v229 == v110)
       {
         goto LABEL_44;
       }
@@ -7657,33 +7677,33 @@ LABEL_46:
 LABEL_91:
   swift_once();
 LABEL_82:
-  v173 = type metadata accessor for Logger();
-  sub_100005B14(v173, qword_1006D4630);
+  v174 = type metadata accessor for Logger();
+  sub_100005B14(v174, qword_1006D4630);
 
-  v174 = Logger.logObject.getter();
-  v175 = static os_log_type_t.default.getter();
+  v175 = Logger.logObject.getter();
+  v176 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v174, v175))
+  if (os_log_type_enabled(v175, v176))
   {
-    v176 = swift_slowAlloc();
-    v233 = swift_slowAlloc();
-    *v176 = 141558531;
-    *(v176 + 4) = 1752392040;
-    *(v176 + 12) = 2081;
-    v177 = sub_100005B4C(v199, v24, &v233);
+    v177 = swift_slowAlloc();
+    v234 = swift_slowAlloc();
+    *v177 = 141558531;
+    *(v177 + 4) = 1752392040;
+    *(v177 + 12) = 2081;
+    v178 = sub_100005B4C(v200, v24, &v234);
 
-    *(v176 + 14) = v177;
-    *(v176 + 22) = 2082;
+    *(v177 + 14) = v178;
+    *(v177 + 22) = 2082;
     swift_beginAccess();
-    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
+    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
 
-    v178 = Set.description.getter();
-    v180 = v179;
+    v179 = Set.description.getter();
+    v181 = v180;
 
-    v181 = sub_100005B4C(v178, v180, &v233);
+    v182 = sub_100005B4C(v179, v181, &v234);
 
-    *(v176 + 24) = v181;
-    _os_log_impl(&_mh_execute_header, v174, v175, "FMDeviceDetailContentViewController: offlineActiveChannels for %{private,mask.hash}s %{public}s.", v176, 0x20u);
+    *(v177 + 24) = v182;
+    _os_log_impl(&_mh_execute_header, v175, v176, "FMDeviceDetailContentViewController: offlineActiveChannels for %{private,mask.hash}s %{public}s.", v177, 0x20u);
     swift_arrayDestroy();
   }
 
@@ -7692,70 +7712,72 @@ LABEL_82:
   }
 
   swift_beginAccess();
-  return v235;
+  return v236;
 }
 
-uint64_t sub_100218158()
+double sub_100218158()
 {
-  v1 = sub_10007EBC0(&unk_1006B0000);
+  v1 = sub_10007EBC0(&unk_1006B0000, &unk_100552AA0);
   __chkstk_darwin(v1 - 8);
-  v3 = &v7 - v2;
-  if ((*(*(v0 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_playSoundButton) + OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_active) & 1) != 0 || (v4 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_playSoundInFlight, swift_beginAccess(), sub_100007204(v0 + v4, v3, &unk_1006B0000), v5 = type metadata accessor for Date(), LODWORD(v4) = (*(*(v5 - 8) + 48))(v3, 1, v5), sub_100012DF0(v3, &unk_1006B0000), v4 != 1))
+  v3 = &v10 - v2;
+  if ((*(*(v0 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_playSoundButton) + OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_active) & 1) != 0 || (v4 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_playSoundInFlight, swift_beginAccess(), sub_100007204(v0 + v4, v3, &unk_1006B0000, &unk_100552AA0), v5 = type metadata accessor for Date(), LODWORD(v4) = (*(*(v5 - 8) + 48))(v3, 1, v5), sub_100012DF0(v3, &unk_1006B0000, &unk_100552AA0), v4 != 1))
   {
     sub_1001EFE58();
   }
 
   *(*(v0 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource) + 104) = 0;
 
-  sub_1004E156C();
+  sub_1004E156C(v6, v7, v8);
+
+  return result;
 }
 
-uint64_t sub_1002182B8()
+double sub_1002182B8()
 {
   v1 = v0;
   v2 = type metadata accessor for FMIPFeatures();
-  v44 = *(v2 - 8);
-  v3 = __chkstk_darwin(v2);
-  v5 = &v38 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v38 - v6;
+  v47 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v4 = &v41 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v7 = &v41 - v6;
   v8 = type metadata accessor for FMIPDevice();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v38 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v41 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource;
   v13 = *(v0 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
   v14 = v13 + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
   swift_beginAccess();
-  if ((*(v14 + *(type metadata accessor for FMDeviceDetailViewModel() + 148)) & 1) == 0)
+  if ((*(v14 + *(type metadata accessor for FMDeviceDetailViewModel(0) + 148)) & 1) == 0)
   {
     v15 = *(v13 + 40);
     v16 = *v15;
-    v42 = v2;
-    v43 = v12;
+    v45 = v2;
+    v46 = v12;
     v17 = *(v16 + class metadata base offset for ManagedBuffer + 16);
     v18 = v1;
     v19 = (*(v16 + 48) + 3) & 0x1FFFFFFFCLL;
 
     os_unfair_lock_lock((v15 + v19));
-    v40 = *(v9 + 16);
-    v41 = v9 + 16;
-    v40(v11, v15 + v17, v8);
+    v43 = *(v9 + 16);
+    v44 = v9 + 16;
+    v43(v11, v15 + v17, v8);
     v20 = (v15 + v19);
     v1 = v18;
     os_unfair_lock_unlock(v20);
 
     FMIPDevice.features.getter();
-    v39 = *(v9 + 8);
-    v39(v11, v8);
+    v42 = *(v9 + 8);
+    v42(v11, v8);
     static FMIPFeatures.isBTFindingSupported.getter();
-    sub_10021E650(&qword_1006C1D50, &type metadata accessor for FMIPFeatures);
-    v21 = v42;
+    sub_10021E650(&qword_1006C1D50, &type metadata accessor for FMIPFeatures, &protocol conformance descriptor for FMIPFeatures);
+    v21 = v45;
     v22 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-    v23 = *(v44 + 8);
-    v23(v5, v21);
+    v23 = *(v47 + 8);
+    v23(v4, v21);
     v23(v7, v21);
-    v12 = v43;
+    v12 = v46;
     if (v22)
     {
       if (qword_1006AEBE0 != -1)
@@ -7781,13 +7803,13 @@ uint64_t sub_1002182B8()
 
       os_unfair_lock_lock((v29 + v31));
       v32 = (v29 + v30);
-      v12 = v43;
-      v40(v11, v32, v8);
+      v12 = v46;
+      v43(v11, v32, v8);
       os_unfair_lock_unlock((v29 + v31));
 
       v33 = FMIPDevice.baIdentifier.getter();
       v35 = v34;
-      v39(v11, v8);
+      v42(v11, v8);
       v36 = swift_allocObject();
       swift_unknownObjectWeakInit();
       sub_1001A4FD0(v33, v35, 0, v28, v36);
@@ -7796,10 +7818,12 @@ uint64_t sub_1002182B8()
 
   *(*(v1 + v12) + 104) = 1;
 
-  sub_1004E156C();
+  sub_1004E156C(v37, v38, v39);
+
+  return result;
 }
 
-void sub_1002187A4(uint64_t a1, int a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
+void sub_1002187A4(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v32 = a5;
   v33 = a6;
@@ -7809,9 +7833,9 @@ void sub_1002187A4(uint64_t a1, int a2, uint64_t a3, unint64_t a4, uint64_t a5, 
   v35 = a1;
   v7 = type metadata accessor for FMIPItem();
   v8 = *(v7 - 8);
-  v9 = __chkstk_darwin(v7);
-  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v7);
+  v10 = &v29 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
   v31 = &v29 - v12;
   v29 = OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator;
   v30 = v6;
@@ -7824,14 +7848,14 @@ void sub_1002187A4(uint64_t a1, int a2, uint64_t a3, unint64_t a4, uint64_t a5, 
     v15 = 0;
     while (v15 < *(v13 + 16))
     {
-      (*(v8 + 16))(v11, v13 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v15, v7);
+      (*(v8 + 16))(v10, v13 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v15, v7);
       if (FMIPItem.identifier.getter() == v37 && v16 == v36)
       {
         v24 = v36;
 
 LABEL_14:
         v25 = v31;
-        (*(v8 + 32))(v31, v11, v7);
+        (*(v8 + 32))(v31, v10, v7);
         v26 = swift_allocObject();
         v26[2] = v37;
         v26[3] = v24;
@@ -7840,7 +7864,7 @@ LABEL_14:
         v26[4] = v32;
         v26[5] = v27;
 
-        sub_100062900(v28);
+        sub_100062900(v28, v27);
         sub_1000DB0B0(v25, v35, v34 & 1, sub_10021E644, v26);
 
         (*(v8 + 8))(v25, v7);
@@ -7857,7 +7881,7 @@ LABEL_14:
       }
 
       ++v15;
-      (*(v8 + 8))(v11, v7);
+      (*(v8 + 8))(v10, v7);
       if (v14 == v15)
       {
         goto LABEL_8;
@@ -7898,7 +7922,7 @@ LABEL_16:
 void sub_100218B88()
 {
   v1 = v0;
-  v2 = sub_10007EBC0(&qword_1006B0080);
+  v2 = sub_10007EBC0(&qword_1006B0080, &unk_100552AF0);
   __chkstk_darwin(v2 - 8);
   v172 = &v166 - v3;
   v171 = type metadata accessor for OS_dispatch_queue.Attributes();
@@ -7911,7 +7935,7 @@ void sub_100218B88()
   v176 = *(v174 - 8);
   __chkstk_darwin(v174);
   v169 = &v166 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v179 = type metadata accessor for FMPlatterIcon();
+  v179 = type metadata accessor for FMPlatterIcon(0);
   __chkstk_darwin(v179);
   v9 = &v166 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(v0 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_delegate + 8) = 0;
@@ -7923,7 +7947,7 @@ void sub_100218B88()
   v182 = objc_opt_self();
   v10 = [v182 systemIndigoColor];
   swift_storeEnumTagMultiPayload();
-  v11 = type metadata accessor for FMIconPlatterButton();
+  v11 = type metadata accessor for FMIconPlatterButton(0);
   v12 = objc_allocWithZone(v11);
   v13 = OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_iconView;
   *&v12[v13] = [objc_allocWithZone(UIImageView) init];
@@ -8269,7 +8293,7 @@ void sub_100218B88()
   *(v1 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_itemConnectionManager) = 0;
   v168 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_findButton;
   v103 = [v182 systemBlueColor];
-  v104 = *(sub_10007EBC0(&qword_1006B68B0) + 48);
+  v104 = *(sub_10007EBC0(&qword_1006B68B0, &unk_100565040) + 48);
   v105 = enum case for FMFindingType.owner(_:);
   v106 = type metadata accessor for FMFindingType();
   (*(*(v106 - 8) + 104))(v57, v105, v106);
@@ -8345,7 +8369,7 @@ void sub_100218B88()
   *(v1 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_connectionMaterialTask) = 0;
   *(v1 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_localFindableConnectionMaterialMonitoringSession) = 0;
   v175 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_connectionMaterialUpdateQueue;
-  v179 = sub_10000905C(0, &qword_1006AEDC0);
+  v179 = sub_10000905C(0, &qword_1006AEDC0, OS_dispatch_queue_ptr);
   LODWORD(v181) = enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:);
   v124 = *(v176 + 104);
   v176 += 104;
@@ -8354,9 +8378,9 @@ void sub_100218B88()
   (v124)(v169);
   static DispatchQoS.unspecified.getter();
   aBlock = _swiftEmptyArrayStorage;
-  v178 = sub_10021E650(&unk_1006B0620, &type metadata accessor for OS_dispatch_queue.Attributes);
-  v177 = sub_10007EBC0(&unk_1006AEDD0);
-  v180 = sub_100004044(&unk_1006B0630, &unk_1006AEDD0);
+  v178 = sub_10021E650(&unk_1006B0620, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  v177 = sub_10007EBC0(&unk_1006AEDD0, &unk_100550420);
+  v180 = sub_100004044(&unk_1006B0630, &unk_1006AEDD0, &unk_100550420);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   *(v175 + v1) = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   v126 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_notificationsView;
@@ -8370,7 +8394,7 @@ void sub_100218B88()
   *v130 = 0;
   v130[1] = 0xE000000000000000;
   v131 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_separationAttention;
-  v132 = type metadata accessor for FMExtendedPlatterInfoView();
+  v132 = type metadata accessor for FMExtendedPlatterInfoView(0);
   v133 = objc_allocWithZone(v132);
   *(v1 + v131) = sub_10032B2F8(1, 0);
   *(v1 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_markAsLostHostingController) = 0;
@@ -8378,7 +8402,7 @@ void sub_100218B88()
   v135 = objc_allocWithZone(v132);
   *(v1 + v134) = sub_10032B2F8(1, 0);
   v136 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_soundPendingAttention;
-  v137 = objc_allocWithZone(type metadata accessor for FMFailablePlatterInfoView());
+  v137 = objc_allocWithZone(type metadata accessor for FMFailablePlatterInfoView(0));
   v138 = OBJC_IVAR____TtC6FindMy25FMFailablePlatterInfoView_isActionable;
   v137[OBJC_IVAR____TtC6FindMy25FMFailablePlatterInfoView_isActionable] = 0;
   v137[OBJC_IVAR____TtC6FindMy25FMFailablePlatterInfoView_playSoundFailureCode] = 0;
@@ -8456,691 +8480,220 @@ uint64_t sub_10021AB40(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for FMIPPlaySoundChannels();
   v5 = *(v4 - 8);
-  v6 = __chkstk_darwin(v4);
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v18 - v9;
-  v19 = a2;
-  v11 = *(a1 + 16);
-  if (v11)
+  __chkstk_darwin(v4);
+  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v8);
+  v11 = &v19 - v10;
+  v20 = a2;
+  v12 = *(a1 + 16);
+  if (v12)
   {
-    v14 = *(v5 + 16);
-    v12 = v5 + 16;
-    v13 = v14;
-    v15 = a1 + ((*(v12 + 64) + 32) & ~*(v12 + 64));
-    v16 = *(v12 + 56);
+    v15 = *(v5 + 16);
+    v13 = v5 + 16;
+    v14 = v15;
+    v16 = a1 + ((*(v13 + 64) + 32) & ~*(v13 + 64));
+    v17 = *(v13 + 56);
     do
     {
-      v13(v8, v15, v4);
-      sub_1002546CC(v10, v8);
-      (*(v12 - 8))(v10, v4);
-      v15 += v16;
-      --v11;
+      v14(v7, v16, v4, v9);
+      sub_1002546CC(v11, v7);
+      (*(v13 - 8))(v11, v4);
+      v16 += v17;
+      --v12;
     }
 
-    while (v11);
-    return v19;
+    while (v12);
+    return v20;
   }
 
   return a2;
 }
 
-uint64_t sub_10021ACA0(uint64_t a1, uint64_t a2, void *a3)
+double sub_10021ACA0(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = type metadata accessor for FMIPPlaySoundMethod();
-  v174 = *(v6 - 8);
-  v175 = v6;
-  v7 = __chkstk_darwin(v6);
-  v163 = &v156[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v7);
-  v166 = &v156[-v9];
+  v176 = *(v6 - 8);
+  v177 = v6;
+  __chkstk_darwin(v6);
+  v165 = &v158[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v8);
+  v168 = &v158[-v9];
   v10 = type metadata accessor for FMIPDevice();
   v11 = *(v10 - 8);
   __chkstk_darwin(v10);
-  v13 = &v156[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v13 = &v158[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v14 = type metadata accessor for FMIPPlaySoundChannels();
   v15 = *(v14 - 8);
-  v16 = __chkstk_darwin(v14);
-  v160 = &v156[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v18 = __chkstk_darwin(v16);
-  v158 = &v156[-v19];
-  v20 = __chkstk_darwin(v18);
-  v162 = &v156[-v21];
-  v159 = v22;
-  __chkstk_darwin(v20);
-  v24 = &v156[-v23];
-  v167 = swift_allocObject();
-  *(v167 + 16) = a3;
-  v177 = v15;
-  v178 = v24;
+  __chkstk_darwin(v14);
+  v162 = &v158[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v17);
+  v160 = &v158[-v18];
+  __chkstk_darwin(v19);
+  v164 = &v158[-v20];
+  v161 = v21;
+  __chkstk_darwin(v22);
+  v24 = &v158[-v23];
+  v169 = swift_allocObject();
+  *(v169 + 16) = a3;
+  v179 = v15;
+  v180 = v24;
   v25 = *(v15 + 16);
-  *&v164 = a1;
-  v179 = v14;
-  v172 = v25;
-  v173 = v15 + 16;
+  *&v166 = a1;
+  v181 = v14;
+  v174 = v25;
+  v175 = v15 + 16;
   v25(v24, a1, v14);
-  v171 = a2;
+  v173 = a2;
   v26 = *(a2 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
   v27 = v26 + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
   swift_beginAccess();
-  v28 = *(type metadata accessor for FMDeviceDetailViewModel() + 100);
+  v28 = *(type metadata accessor for FMDeviceDetailViewModel(0) + 100);
   v29 = *(v26 + 40);
   v30 = *(*v29 + class metadata base offset for ManagedBuffer + 16);
   v31 = (*(*v29 + 48) + 3) & 0x1FFFFFFFCLL;
-  LOBYTE(v24) = *(v27 + v28);
-  v161 = a3;
+  v32 = *(v27 + v28);
+  v163 = a3;
 
   os_unfair_lock_lock((v29 + v31));
-  v169 = v11;
-  v32 = *(v11 + 16);
-  v170 = v10;
-  v32(v13, v29 + v30, v10);
+  v171 = v11;
+  v33 = *(v11 + 16);
+  v172 = v10;
+  v33(v13, v29 + v30, v10);
   os_unfair_lock_unlock((v29 + v31));
 
-  v33 = FMIPDevice.identifier.getter();
-  v35 = v34;
-  v168 = v13;
-  v36 = sub_1002161DC();
-  v37 = sub_1001F0AF8(v24);
-  if (v36[2] <= v37[2] >> 3)
+  v34 = FMIPDevice.identifier.getter();
+  v36 = v35;
+  v170 = v13;
+  v37 = sub_1002161DC();
+  v38 = sub_1001F0AF8(v32);
+  if (v37[2] <= *(v38 + 2) >> 3)
   {
-    aBlock[0] = v37;
-    sub_1002132F4(v36);
-    v38 = aBlock[0];
+    aBlock[0] = v38;
+    sub_1002132F4(v37);
+    v39 = aBlock[0];
   }
 
   else
   {
-    v38 = sub_100213BD0(v36, v37);
+    v39 = sub_100213BD0(v37, v38);
   }
 
-  v39 = v178;
-  v40 = sub_1001605D4(v178, v38);
-  v41 = v179;
-  v42 = v177;
-  v176 = v33;
-  if (v40)
+  v40 = v180;
+  v41 = sub_1001605D4(v180, v39);
+  v42 = v181;
+  v43 = v179;
+  v178 = v34;
+  if (v41)
   {
-    sub_10007EBC0(&qword_1006AF788);
-    v43 = (*(v42 + 80) + 32) & ~*(v42 + 80);
-    v44 = swift_allocObject();
-    *(v44 + 16) = xmmword_100552220;
-    v172(v44 + v43, v39, v41);
-    v45 = sub_100213510(v44, v38);
+    sub_10007EBC0(&qword_1006AF788, &qword_1005523C0);
+    v44 = (*(v43 + 80) + 32) & ~*(v43 + 80);
+    v45 = swift_allocObject();
+    *(v45 + 16) = xmmword_100552220;
+    v174(v45 + v44, v40, v42);
+    v46 = sub_100213510(v45, v39);
     swift_setDeallocating();
     swift_arrayDestroy();
     swift_deallocClassInstance();
-    if (v36[2] <= v45[2] >> 3)
+    if (v37[2] <= *(v46 + 2) >> 3)
     {
-      aBlock[0] = v45;
-      sub_1002132F4(v36);
+      aBlock[0] = v46;
+      sub_1002132F4(v37);
 
-      v46 = aBlock[0];
+      v47 = aBlock[0];
     }
 
     else
     {
-      v46 = sub_100213BD0(v36, v45);
+      v47 = sub_100213BD0(v37, v46);
     }
 
-    v67 = qword_1006AEB18;
+    v68 = qword_1006AEB18;
 
-    if (v67 != -1)
+    if (v68 != -1)
     {
       swift_once();
     }
 
-    v68 = type metadata accessor for Logger();
-    sub_100005B14(v68, qword_1006D4110);
+    v69 = type metadata accessor for Logger();
+    sub_100005B14(v69, qword_1006D4110);
 
-    v69 = Logger.logObject.getter();
-    v70 = v35;
-    v71 = static os_log_type_t.default.getter();
+    v70 = Logger.logObject.getter();
+    v71 = v36;
+    v72 = static os_log_type_t.default.getter();
 
-    v72 = os_log_type_enabled(v69, v71);
-    v165 = v70;
-    if (v72)
+    v73 = os_log_type_enabled(v70, v72);
+    v167 = v71;
+    if (v73)
     {
-      v73 = swift_slowAlloc();
+      v74 = swift_slowAlloc();
       aBlock[0] = swift_slowAlloc();
-      *v73 = 136446723;
-      sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
-      v74 = Set.description.getter();
-      v76 = sub_100005B4C(v74, v75, aBlock);
+      *v74 = 136446723;
+      sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+      v75 = Set.description.getter();
+      v77 = sub_100005B4C(v75, v76, aBlock);
 
-      *(v73 + 4) = v76;
-      v41 = v179;
-      *(v73 + 12) = 2160;
-      *(v73 + 14) = 1752392040;
-      *(v73 + 22) = 2081;
-      *(v73 + 24) = sub_100005B4C(v176, v70, aBlock);
-      _os_log_impl(&_mh_execute_header, v69, v71, "FMDeviceDetailContentViewController: mute sound selecting channels to play Classic %{public}s for %{private,mask.hash}s.", v73, 0x20u);
+      *(v74 + 4) = v77;
+      v42 = v181;
+      *(v74 + 12) = 2160;
+      *(v74 + 14) = 1752392040;
+      *(v74 + 22) = 2081;
+      *(v74 + 24) = sub_100005B4C(v178, v71, aBlock);
+      _os_log_impl(&_mh_execute_header, v70, v72, "FMDeviceDetailContentViewController: mute sound selecting channels to play Classic %{public}s for %{private,mask.hash}s.", v74, 0x20u);
       swift_arrayDestroy();
     }
 
-    (v174[13].isa)(v166, enum case for FMIPPlaySoundMethod.classic(_:), v175);
-    v77 = v46[2];
-    if (!v77)
+    (v176[13].isa)(v168, enum case for FMIPPlaySoundMethod.classic(_:), v177);
+    v78 = v47[2];
+    if (!v78)
     {
-      v35 = _swiftEmptyArrayStorage;
+      v36 = _swiftEmptyArrayStorage;
       goto LABEL_27;
     }
 
-    v35 = sub_10008C8DC(v46[2], 0);
-    v78 = sub_1004A2EA8(aBlock, &v35[v43], v77, v46);
-    v41 = aBlock[0];
-    v42 = v182;
-    v47 = v184;
+    v36 = sub_10008C8DC(v47[2], 0);
+    sub_1004A2EA8(aBlock, &v36[v44], v78, v47);
+    v80 = v79;
+    v42 = aBlock[0];
+    v43 = v184;
+    v48 = v186;
 
-    sub_10000BEC8();
-    if (v78 == v77)
+    sub_10000BEC8(v42);
+    if (v80 == v78)
     {
-      v41 = v179;
+      v42 = v181;
 LABEL_27:
-      v111 = swift_allocObject();
-      v112 = v176;
-      v111[2] = v46;
-      v111[3] = v112;
-      v111[4] = v165;
-      v111[5] = sub_10021F5D4;
-      v111[6] = v167;
+      v113 = swift_allocObject();
+      v114 = v178;
+      v113[2] = v47;
+      v113[3] = v114;
+      v113[4] = v167;
+      v113[5] = sub_10021F5D4;
+      v113[6] = v169;
 
-      v113 = v166;
-      sub_1001F3DC8(v166, 1, 0, v35, sub_1002204C8, v111);
+      v115 = v168;
+      sub_1001F3DC8(v168, 1, 0, v36, sub_1002204C8, v113);
 
-      (v174[1].isa)(v113, v175);
-      (*(v169 + 8))(v168, v170);
-      (*(v177 + 8))(v39, v41);
+      (v176[1].isa)(v115, v177);
+      (*(v171 + 8))(v170, v172);
+      (*(v179 + 8))(v40, v42);
+      goto LABEL_37;
     }
 
     __break(1u);
     goto LABEL_39;
   }
 
-  if (sub_1001605D4(v39, v36))
+  if (sub_1001605D4(v40, v37))
   {
 
-    sub_10007EBC0(&qword_1006AF788);
-    v47 = (*(v42 + 80) + 32) & ~*(v42 + 80);
-    v166 = *(v42 + 9);
-    v48 = swift_allocObject();
-    v164 = xmmword_100552220;
-    *(v48 + 16) = xmmword_100552220;
-    v172(v48 + v47, v39, v41);
-    v46 = sub_100213510(v48, v36);
-    swift_setDeallocating();
-    swift_arrayDestroy();
-    swift_deallocClassInstance();
-    v49 = qword_1006AEB18;
-
-    if (v49 == -1)
-    {
-LABEL_9:
-      v50 = type metadata accessor for Logger();
-      sub_100005B14(v50, qword_1006D4110);
-
-      v51 = Logger.logObject.getter();
-      v52 = v35;
-      v53 = static os_log_type_t.default.getter();
-
-      v54 = os_log_type_enabled(v51, v53);
-      v165 = v52;
-      if (v54)
-      {
-        v55 = swift_slowAlloc();
-        v173 = swift_slowAlloc();
-        aBlock[0] = v173;
-        *v55 = 136446723;
-        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
-        v56 = Set.description.getter();
-        LODWORD(v172) = v53;
-        v58 = sub_100005B4C(v56, v57, aBlock);
-
-        *(v55 + 4) = v58;
-        v41 = v179;
-        *(v55 + 12) = 2160;
-        *(v55 + 14) = 1752392040;
-        *(v55 + 22) = 2081;
-        *(v55 + 24) = sub_100005B4C(v176, v52, aBlock);
-        _os_log_impl(&_mh_execute_header, v51, v172, "FMDeviceDetailContentViewController: mute sound selecting channels to play LE %{public}s for %{private,mask.hash}s.", v55, 0x20u);
-        swift_arrayDestroy();
-      }
-
-      v60 = v174;
-      v59 = v175;
-      v61 = v163;
-      (v174[13].isa)(v163, enum case for FMIPPlaySoundMethod.ble(_:), v175);
-      v62 = swift_allocObject();
-      *(v62 + 16) = v164;
-      (*(v42 + 13))(v62 + v47, enum case for FMIPPlaySoundChannels.mute(_:), v41);
-      aBlock[0] = sub_10008BB18(0, v46[2] + 1, 0, _swiftEmptyArrayStorage);
-
-      sub_100494038(v63);
-      sub_100493EC8(v62);
-      v64 = aBlock[0];
-      v65 = swift_allocObject();
-      v66 = v176;
-      v65[2] = v46;
-      v65[3] = v66;
-      v65[4] = v165;
-      v65[5] = sub_10021F5D4;
-      v65[6] = v167;
-
-      sub_1001F3DC8(v61, 1, 0, v64, sub_1002204C4, v65);
-
-      (v60[1].isa)(v61, v59);
-      (*(v169 + 8))(v168, v170);
-      (*(v42 + 1))(v178, v41);
-    }
-
-LABEL_39:
-    swift_once();
-    goto LABEL_9;
-  }
-
-  v79 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_lastPlayAction;
-  v80 = v171;
-  swift_beginAccess();
-  v81 = *(v80 + v79);
-  v82 = v162;
-  if (*(v81 + 16))
-  {
-
-    v83 = sub_1001B3AC8(v39);
-    if (v84)
-    {
-      v85 = v41;
-      v86 = *(*(v81 + 56) + 8 * v83);
-
-      v174 = v86;
-      v87 = sub_1001F0FF8(v86, v36, v39, v38);
-      if (qword_1006AEB18 != -1)
-      {
-        swift_once();
-      }
-
-      v88 = type metadata accessor for Logger();
-      sub_100005B14(v88, qword_1006D4110);
-      v89 = v158;
-      v172(v158, v164, v41);
-
-      v90 = Logger.logObject.getter();
-      v91 = static os_log_type_t.default.getter();
-
-      v92 = os_log_type_enabled(v90, v91);
-      v165 = v35;
-      v175 = v87;
-      if (v92)
-      {
-        v93 = swift_slowAlloc();
-        v161 = v90;
-        v94 = v89;
-        v95 = v93;
-        v162 = swift_slowAlloc();
-        aBlock[0] = v162;
-        *v95 = 136447491;
-        v157 = v91;
-        sub_10021E650(&qword_1006B6938, &type metadata accessor for FMIPPlaySoundChannels);
-        v96 = dispatch thunk of CustomStringConvertible.description.getter();
-        v98 = v97;
-        v99 = *(v42 + 1);
-        v163 = ((v42 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
-        v166 = v99;
-        (v99)(v94, v85);
-        v100 = sub_100005B4C(v96, v98, aBlock);
-
-        *(v95 + 4) = v100;
-        *(v95 + 12) = 2160;
-        *(v95 + 14) = 1752392040;
-        *(v95 + 22) = 2081;
-        *(v95 + 24) = sub_100005B4C(v176, v35, aBlock);
-        *(v95 + 32) = 2082;
-        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
-        v101 = Set.description.getter();
-        v103 = sub_100005B4C(v101, v102, aBlock);
-
-        *(v95 + 34) = v103;
-        *(v95 + 42) = 2082;
-        v104 = Set.description.getter();
-        v106 = sub_100005B4C(v104, v105, aBlock);
-
-        *(v95 + 44) = v106;
-        *(v95 + 52) = 2082;
-        v180 = v175;
-        type metadata accessor for FMIPPlaySoundDeviceAction();
-        sub_10021E650(&qword_1006B6940, &type metadata accessor for FMIPPlaySoundDeviceAction);
-        v107 = dispatch thunk of CustomStringConvertible.description.getter();
-        v109 = sub_100005B4C(v107, v108, aBlock);
-
-        *(v95 + 54) = v109;
-        v110 = v161;
-        _os_log_impl(&_mh_execute_header, v161, v157, "FMDeviceDetailContentViewController: mute %{public}s sound button pressed for %{private,mask.hash}s. onlineActiveChannels: %{public}s, offlineActiveChannels: %{public}s - Reissuing action %{public}s.", v95, 0x3Eu);
-        swift_arrayDestroy();
-      }
-
-      else
-      {
-
-        v144 = *(v42 + 1);
-        v163 = ((v42 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
-        v166 = v144;
-        (v144)(v89, v85);
-      }
-
-      v171 = *(*(*(v171 + OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator) + 24) + 32);
-      v172(v160, v164, v85);
-      v145 = (*(v42 + 80) + 16) & ~*(v42 + 80);
-      v146 = (v159 + v145 + 7) & 0xFFFFFFFFFFFFFFF8;
-      v173 = (v146 + 23) & 0xFFFFFFFFFFFFFFF8;
-      v147 = (v173 + 15) & 0xFFFFFFFFFFFFFFF8;
-      v148 = (v147 + 15) & 0xFFFFFFFFFFFFFFF8;
-      v149 = swift_allocObject();
-      (*(v42 + 4))(v149 + v145, v160, v85);
-      v150 = (v149 + v146);
-      v151 = v175;
-      v152 = v165;
-      *v150 = v176;
-      v150[1] = v152;
-      *(v149 + v173) = v38;
-      *(v149 + v147) = v36;
-      *(v149 + v148) = v151;
-      v153 = (v149 + ((v148 + 15) & 0xFFFFFFFFFFFFFFF8));
-      v154 = v167;
-      *v153 = sub_10021F5D4;
-      v153[1] = v154;
-
-      sub_1000DA734(v151, sub_1002204CC, v149);
-
-      (*(v169 + 8))(v168, v170);
-      (v166)(v178, v85);
-    }
-  }
-
-  if (qword_1006AEB18 != -1)
-  {
-    swift_once();
-  }
-
-  v114 = type metadata accessor for Logger();
-  sub_100005B14(v114, qword_1006D4110);
-  v172(v82, v164, v41);
-
-  v115 = Logger.logObject.getter();
-  v116 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v115, v116))
-  {
-    v117 = swift_slowAlloc();
-    v175 = swift_slowAlloc();
-    aBlock[0] = v175;
-    *v117 = 136447235;
-    sub_10021E650(&qword_1006B6938, &type metadata accessor for FMIPPlaySoundChannels);
-    v174 = v115;
-    v118 = dispatch thunk of CustomStringConvertible.description.getter();
-    v119 = v82;
-    v121 = v120;
-    v177 = *(v42 + 1);
-    LODWORD(v173) = v116;
-    (v177)(v119, v41);
-    v122 = sub_100005B4C(v118, v121, aBlock);
-
-    *(v117 + 4) = v122;
-    *(v117 + 12) = 2160;
-    *(v117 + 14) = 1752392040;
-    *(v117 + 22) = 2081;
-    v123 = sub_100005B4C(v176, v35, aBlock);
-
-    *(v117 + 24) = v123;
-    *(v117 + 32) = 2082;
-    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
-    v124 = Set.description.getter();
-    v125 = v41;
-    v127 = v126;
-
-    v128 = sub_100005B4C(v124, v127, aBlock);
-
-    *(v117 + 34) = v128;
-    *(v117 + 42) = 2082;
-    v129 = Set.description.getter();
-    v131 = v130;
-
-    v132 = sub_100005B4C(v129, v131, aBlock);
-
-    *(v117 + 44) = v132;
-    v133 = v174;
-    _os_log_impl(&_mh_execute_header, v174, v173, "FMDeviceDetailContentViewController: mute %{public}s sound button pressed for %{private,mask.hash}s. onlineActiveChannels: %{public}s, offlineActiveChannels: %{public}s - Failed to reissue action, no last action.", v117, 0x34u);
-    swift_arrayDestroy();
-
-    v134 = v177;
-  }
-
-  else
-  {
-
-    v134 = *(v42 + 1);
-    v134(v82, v41);
-    v125 = v41;
-  }
-
-  v135 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteLeftButton;
-  v136 = v161;
-  v137 = *(&v161->isa + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteLeftButton);
-  v137[OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_pending] = 0;
-  v138 = v137;
-  sub_1000D17E8();
-
-  v139 = *(&v136->isa + v135);
-  v139[OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_showActivityIndicator] = 0;
-  v140 = objc_opt_self();
-  v141 = swift_allocObject();
-  *(v141 + 16) = v139;
-  v184 = sub_100141428;
-  v185 = v141;
-  aBlock[0] = _NSConcreteStackBlock;
-  aBlock[1] = 1107296256;
-  v182 = sub_100004AE4;
-  v183 = &unk_10062E240;
-  v142 = _Block_copy(aBlock);
-  v143 = v139;
-
-  [v140 animateWithDuration:4 delay:v142 options:0 animations:0.3 completion:0.0];
-  _Block_release(v142);
-
-  [*(&v136->isa + v135) setUserInteractionEnabled:1];
-  (*(v169 + 8))(v168, v170);
-  v134(v178, v125);
-}
-
-uint64_t sub_10021C3F4(uint64_t a1, uint64_t a2, void *a3)
-{
-  v6 = type metadata accessor for FMIPPlaySoundMethod();
-  v182 = *(v6 - 8);
-  v183 = v6;
-  v7 = __chkstk_darwin(v6);
-  v171 = &v164 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v173 = (&v164 - v9);
-  v10 = type metadata accessor for FMIPDevice();
-  v11 = *(v10 - 8);
-  __chkstk_darwin(v10);
-  v13 = &v164 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for FMIPPlaySoundChannels();
-  v15 = *(v14 - 8);
-  v16 = __chkstk_darwin(v14);
-  v168 = &v164 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __chkstk_darwin(v16);
-  v166 = &v164 - v19;
-  v20 = __chkstk_darwin(v18);
-  v169 = &v164 - v21;
-  v167 = v22;
-  __chkstk_darwin(v20);
-  v24 = &v164 - v23;
-  v174 = swift_allocObject();
-  *(v174 + 16) = a3;
-  v186 = v15;
-  isa = v15[2].isa;
-  v184 = v24;
-  *&v172 = a1;
-  v185 = v14;
-  v180 = isa;
-  v181 = v15 + 2;
-  isa(v24, a1, v14);
-  v179 = a2;
-  v26 = *(a2 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
-  v27 = v26 + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
-  swift_beginAccess();
-  v28 = *(type metadata accessor for FMDeviceDetailViewModel() + 100);
-  v29 = *(v26 + 40);
-  v30 = *(*v29 + class metadata base offset for ManagedBuffer + 16);
-  v31 = (*(*v29 + 48) + 3) & 0x1FFFFFFFCLL;
-  LOBYTE(v24) = *(v27 + v28);
-  v170 = a3;
-
-  os_unfair_lock_lock((v29 + v31));
-  v176 = v11;
-  v32 = *(v11 + 16);
-  v177 = v10;
-  v32(v13, v29 + v30, v10);
-  os_unfair_lock_unlock((v29 + v31));
-
-  v33 = FMIPDevice.identifier.getter();
-  v35 = v34;
-  v175 = v13;
-  v36 = sub_1002161DC();
-  v37 = sub_1001F0AF8(v24);
-  if (v36[2] <= v37[2] >> 3)
-  {
-    aBlock[0] = v37;
-    sub_1002132F4(v36);
-    v38 = aBlock[0];
-  }
-
-  else
-  {
-    v38 = sub_100213BD0(v36, v37);
-  }
-
-  v39 = v184;
-  v40 = sub_1001605D4(v184, v38);
-  v41 = v185;
-  v42 = v186;
-  v178 = v33;
-  if (v40)
-  {
-    sub_10007EBC0(&qword_1006AF788);
-    v43 = (LOBYTE(v42[10].isa) + 32) & ~LOBYTE(v42[10].isa);
-    v44 = swift_allocObject();
-    *(v44 + 16) = xmmword_100552220;
-    v180(v44 + v43, v39, v41);
-    v45 = sub_100213510(v44, v38);
-    swift_setDeallocating();
-    swift_arrayDestroy();
-    swift_deallocClassInstance();
-    if (v36[2] <= v45[2] >> 3)
-    {
-      aBlock[0] = v45;
-      sub_1002132F4(v36);
-
-      v46 = aBlock[0];
-    }
-
-    else
-    {
-      v46 = sub_100213BD0(v36, v45);
-    }
-
-    v71 = qword_1006AEB18;
-
-    if (v71 != -1)
-    {
-      swift_once();
-    }
-
-    v72 = type metadata accessor for Logger();
-    sub_100005B14(v72, qword_1006D4110);
-
-    v73 = Logger.logObject.getter();
-    v74 = v35;
-    v75 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v73, v75))
-    {
-      v76 = swift_slowAlloc();
-      aBlock[0] = swift_slowAlloc();
-      *v76 = 136446723;
-      sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
-      v77 = Set.description.getter();
-      v79 = sub_100005B4C(v77, v78, aBlock);
-
-      *(v76 + 4) = v79;
-      v41 = v185;
-      *(v76 + 12) = 2160;
-      *(v76 + 14) = 1752392040;
-      *(v76 + 22) = 2081;
-      v80 = v33;
-      v81 = v74;
-      *(v76 + 24) = sub_100005B4C(v80, v74, aBlock);
-      _os_log_impl(&_mh_execute_header, v73, v75, "FMDeviceDetailContentViewController: mute sound selecting channels to play Classic %{public}s for %{private,mask.hash}s.", v76, 0x20u);
-      swift_arrayDestroy();
-      v39 = v184;
-    }
-
-    else
-    {
-      v81 = v74;
-    }
-
-    (*(v182 + 104))(v173, enum case for FMIPPlaySoundMethod.classic(_:), v183);
-    v116 = v46[2];
-    if (!v116)
-    {
-      v35 = _swiftEmptyArrayStorage;
-      goto LABEL_28;
-    }
-
-    v35 = sub_10008C8DC(v46[2], 0);
-    v117 = sub_1004A2EA8(aBlock, &v35[v43], v116, v46);
-    v39 = v189;
-    v48 = v191;
-
-    sub_10000BEC8();
-    if (v117 == v116)
-    {
-      v39 = v184;
-      v41 = v185;
-LABEL_28:
-      v118 = swift_allocObject();
-      v119 = v178;
-      v118[2] = v46;
-      v118[3] = v119;
-      v118[4] = v81;
-      v118[5] = sub_10021F57C;
-      v118[6] = v174;
-
-      v120 = v173;
-      sub_1001F3DC8(v173, 1, 0, v35, sub_10021F594, v118);
-
-      (*(v182 + 8))(v120, v183);
-      (*(v176 + 8))(v175, v177);
-      (v186[1].isa)(v39, v41);
-    }
-
-    __break(1u);
-    goto LABEL_40;
-  }
-
-  if (sub_1001605D4(v39, v36))
-  {
-
-    sub_10007EBC0(&qword_1006AF788);
-    v47 = v42[9].isa;
-    v48 = (LOBYTE(v42[10].isa) + 32) & ~LOBYTE(v42[10].isa);
-    v173 = v47;
+    sub_10007EBC0(&qword_1006AF788, &qword_1005523C0);
+    v48 = (*(v43 + 80) + 32) & ~*(v43 + 80);
+    v168 = *(v43 + 9);
     v49 = swift_allocObject();
-    v172 = xmmword_100552220;
+    v166 = xmmword_100552220;
     *(v49 + 16) = xmmword_100552220;
-    v180(v49 + v48, v39, v41);
-    v46 = sub_100213510(v49, v36);
+    v174(v49 + v48, v40, v42);
+    v47 = sub_100213510(v49, v37);
     swift_setDeallocating();
     swift_arrayDestroy();
     swift_deallocClassInstance();
@@ -9153,81 +8706,81 @@ LABEL_9:
       sub_100005B14(v51, qword_1006D4110);
 
       v52 = Logger.logObject.getter();
-      v53 = v35;
+      v53 = v36;
       v54 = static os_log_type_t.default.getter();
 
       v55 = os_log_type_enabled(v52, v54);
-      v165 = v53;
+      v167 = v53;
       if (v55)
       {
         v56 = swift_slowAlloc();
-        v181 = swift_slowAlloc();
-        aBlock[0] = v181;
+        v175 = swift_slowAlloc();
+        aBlock[0] = v175;
         *v56 = 136446723;
-        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
+        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
         v57 = Set.description.getter();
-        LODWORD(v180) = v54;
+        LODWORD(v174) = v54;
         v59 = sub_100005B4C(v57, v58, aBlock);
 
         *(v56 + 4) = v59;
+        v42 = v181;
         *(v56 + 12) = 2160;
         *(v56 + 14) = 1752392040;
         *(v56 + 22) = 2081;
         *(v56 + 24) = sub_100005B4C(v178, v53, aBlock);
-        _os_log_impl(&_mh_execute_header, v52, v180, "FMDeviceDetailContentViewController: mute sound selecting channels to play LE %{public}s for %{private,mask.hash}s.", v56, 0x20u);
+        _os_log_impl(&_mh_execute_header, v52, v174, "FMDeviceDetailContentViewController: mute sound selecting channels to play LE %{public}s for %{private,mask.hash}s.", v56, 0x20u);
         swift_arrayDestroy();
       }
 
-      v61 = v182;
-      v60 = v183;
-      v62 = v171;
-      (*(v182 + 104))(v171, enum case for FMIPPlaySoundMethod.ble(_:), v183);
+      v61 = v176;
+      v60 = v177;
+      v62 = v165;
+      (v176[13].isa)(v165, enum case for FMIPPlaySoundMethod.ble(_:), v177);
       v63 = swift_allocObject();
-      *(v63 + 16) = v172;
-      v64 = v186;
-      v65 = v63 + v48;
-      v66 = v185;
-      (v186[13].isa)(v65, enum case for FMIPPlaySoundChannels.mute(_:), v185);
-      aBlock[0] = sub_10008BB18(0, v46[2] + 1, 0, _swiftEmptyArrayStorage);
+      *(v63 + 16) = v166;
+      (*(v43 + 13))(v63 + v48, enum case for FMIPPlaySoundChannels.mute(_:), v42);
+      aBlock[0] = sub_10008BB18(0, v47[2] + 1, 0, _swiftEmptyArrayStorage);
 
-      sub_100494038(v67);
+      sub_100494038(v64);
       sub_100493EC8(v63);
-      v68 = aBlock[0];
-      v69 = swift_allocObject();
-      v70 = v178;
-      v69[2] = v46;
-      v69[3] = v70;
-      v69[4] = v165;
-      v69[5] = sub_10021F57C;
-      v69[6] = v174;
+      v65 = aBlock[0];
+      v66 = swift_allocObject();
+      v67 = v178;
+      v66[2] = v47;
+      v66[3] = v67;
+      v66[4] = v167;
+      v66[5] = sub_10021F5D4;
+      v66[6] = v169;
 
-      sub_1001F3DC8(v62, 1, 0, v68, sub_10021F588, v69);
+      sub_1001F3DC8(v62, 1, 0, v65, sub_1002204C4, v66);
 
-      (*(v61 + 8))(v62, v60);
-      (*(v176 + 8))(v175, v177);
-      (v64[1].isa)(v39, v66);
+      (v61[1].isa)(v62, v60);
+      (*(v171 + 8))(v170, v172);
+      (*(v43 + 1))(v180, v42);
+      goto LABEL_37;
     }
 
-LABEL_40:
+LABEL_39:
     swift_once();
     goto LABEL_9;
   }
 
-  v82 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_lastPlayAction;
-  v83 = v179;
+  v81 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_lastPlayAction;
+  v82 = v173;
   swift_beginAccess();
-  v84 = *(v83 + v82);
-  if (*(v84 + 16))
+  v83 = *(v82 + v81);
+  v84 = v164;
+  if (*(v83 + 16))
   {
 
-    v85 = sub_1001B3AC8(v39);
+    v85 = sub_1001B3AC8(v40);
     if (v86)
     {
-      v87 = v41;
-      v88 = *(*(v84 + 56) + 8 * v85);
+      v87 = v42;
+      v88 = *(*(v83 + 56) + 8 * v85);
 
-      v182 = v88;
-      v89 = sub_1001F0FF8(v88, v36, v39, v38);
+      v176 = v88;
+      v89 = sub_1001F0FF8(v88, v37, v40, v39);
       if (qword_1006AEB18 != -1)
       {
         swift_once();
@@ -9235,105 +8788,99 @@ LABEL_40:
 
       v90 = type metadata accessor for Logger();
       sub_100005B14(v90, qword_1006D4110);
-      v91 = v166;
-      v92 = v172;
-      v180(v166, v172, v41);
+      v91 = v160;
+      v174(v160, v166, v42);
 
-      v93 = Logger.logObject.getter();
-      v94 = static os_log_type_t.default.getter();
+      v92 = Logger.logObject.getter();
+      v93 = static os_log_type_t.default.getter();
 
-      LODWORD(v170) = v94;
-      v95 = os_log_type_enabled(v93, v94);
-      v183 = v89;
-      v165 = v35;
-      if (v95)
+      v94 = os_log_type_enabled(v92, v93);
+      v167 = v36;
+      v177 = v89;
+      if (v94)
       {
-        v96 = swift_slowAlloc();
-        v164 = v93;
-        v97 = v92;
-        v98 = v91;
-        v99 = v96;
-        v169 = swift_slowAlloc();
-        aBlock[0] = v169;
-        *v99 = 136447491;
-        sub_10021E650(&qword_1006B6938, &type metadata accessor for FMIPPlaySoundChannels);
-        v100 = dispatch thunk of CustomStringConvertible.description.getter();
-        v102 = v101;
-        v103 = v186[1].isa;
-        v171 = (&v186[1] & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
-        v104 = v98;
-        v92 = v97;
-        v173 = v103;
-        (v103)(v104, v87);
-        v105 = sub_100005B4C(v100, v102, aBlock);
+        v95 = swift_slowAlloc();
+        v163 = v92;
+        v96 = v91;
+        v97 = v95;
+        v164 = swift_slowAlloc();
+        aBlock[0] = v164;
+        *v97 = 136447491;
+        v159 = v93;
+        sub_10021E650(&qword_1006B6938, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+        v98 = dispatch thunk of CustomStringConvertible.description.getter();
+        v100 = v99;
+        v101 = *(v43 + 1);
+        v165 = ((v43 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
+        v168 = v101;
+        (v101)(v96, v87);
+        v102 = sub_100005B4C(v98, v100, aBlock);
 
-        *(v99 + 4) = v105;
-        *(v99 + 12) = 2160;
-        *(v99 + 14) = 1752392040;
-        *(v99 + 22) = 2081;
-        *(v99 + 24) = sub_100005B4C(v178, v35, aBlock);
-        *(v99 + 32) = 2082;
-        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
+        *(v97 + 4) = v102;
+        *(v97 + 12) = 2160;
+        *(v97 + 14) = 1752392040;
+        *(v97 + 22) = 2081;
+        *(v97 + 24) = sub_100005B4C(v178, v36, aBlock);
+        *(v97 + 32) = 2082;
+        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+        v103 = Set.description.getter();
+        v105 = sub_100005B4C(v103, v104, aBlock);
+
+        *(v97 + 34) = v105;
+        *(v97 + 42) = 2082;
         v106 = Set.description.getter();
         v108 = sub_100005B4C(v106, v107, aBlock);
 
-        *(v99 + 34) = v108;
-        *(v99 + 42) = 2082;
-        v109 = Set.description.getter();
+        *(v97 + 44) = v108;
+        *(v97 + 52) = 2082;
+        v182 = v177;
+        type metadata accessor for FMIPPlaySoundDeviceAction();
+        sub_10021E650(&qword_1006B6940, &type metadata accessor for FMIPPlaySoundDeviceAction, &protocol conformance descriptor for FMIPDeviceAction);
+        v109 = dispatch thunk of CustomStringConvertible.description.getter();
         v111 = sub_100005B4C(v109, v110, aBlock);
 
-        *(v99 + 44) = v111;
-        *(v99 + 52) = 2082;
-        v187 = v183;
-        type metadata accessor for FMIPPlaySoundDeviceAction();
-        sub_10021E650(&qword_1006B6940, &type metadata accessor for FMIPPlaySoundDeviceAction);
-        v112 = dispatch thunk of CustomStringConvertible.description.getter();
-        v114 = sub_100005B4C(v112, v113, aBlock);
-
-        *(v99 + 54) = v114;
-        v115 = v164;
-        _os_log_impl(&_mh_execute_header, v164, v170, "FMDeviceDetailContentViewController: mute %{public}s sound button pressed for %{private,mask.hash}s. onlineActiveChannels: %{public}s, offlineActiveChannels: %{public}s - Reissuing action %{public}s.", v99, 0x3Eu);
+        *(v97 + 54) = v111;
+        v112 = v163;
+        _os_log_impl(&_mh_execute_header, v163, v159, "FMDeviceDetailContentViewController: mute %{public}s sound button pressed for %{private,mask.hash}s. onlineActiveChannels: %{public}s, offlineActiveChannels: %{public}s - Reissuing action %{public}s.", v97, 0x3Eu);
         swift_arrayDestroy();
-
-        v42 = v186;
       }
 
       else
       {
 
-        v151 = v42[1].isa;
-        v171 = (&v42[1] & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
-        v173 = v151;
-        (v151)(v91, v87);
+        v146 = *(v43 + 1);
+        v165 = ((v43 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
+        v168 = v146;
+        (v146)(v91, v87);
       }
 
-      v179 = *(*(*(v179 + OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator) + 24) + 32);
-      v180(v168, v92, v87);
-      v152 = v42;
-      v153 = (LOBYTE(v42[10].isa) + 16) & ~LOBYTE(v42[10].isa);
-      v154 = (v167 + v153 + 7) & 0xFFFFFFFFFFFFFFF8;
-      v181 = ((v154 + 23) & 0xFFFFFFFFFFFFFFF8);
-      v155 = (&v181[1].isa + 7) & 0xFFFFFFFFFFFFFFF8;
-      v156 = (v155 + 15) & 0xFFFFFFFFFFFFFFF8;
-      v157 = swift_allocObject();
-      (v152[4].isa)(v157 + v153, v168, v87);
-      v158 = (v157 + v154);
-      v159 = v165;
-      *v158 = v178;
-      v158[1] = v159;
-      *(&v181->isa + v157) = v38;
-      *(v157 + v155) = v36;
-      v160 = v183;
-      *(v157 + v156) = v183;
-      v161 = (v157 + ((v156 + 15) & 0xFFFFFFFFFFFFFFF8));
-      v162 = v174;
-      *v161 = sub_10021F57C;
-      v161[1] = v162;
+      v173 = *(*(*(v173 + OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator) + 24) + 32);
+      v174(v162, v166, v87);
+      v147 = (*(v43 + 80) + 16) & ~*(v43 + 80);
+      v148 = (v161 + v147 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v175 = (v148 + 23) & 0xFFFFFFFFFFFFFFF8;
+      v149 = (v175 + 15) & 0xFFFFFFFFFFFFFFF8;
+      v150 = (v149 + 15) & 0xFFFFFFFFFFFFFFF8;
+      v151 = swift_allocObject();
+      (*(v43 + 4))(v151 + v147, v162, v87);
+      v152 = (v151 + v148);
+      v153 = v177;
+      v154 = v167;
+      *v152 = v178;
+      v152[1] = v154;
+      *(v151 + v175) = v39;
+      *(v151 + v149) = v37;
+      *(v151 + v150) = v153;
+      v155 = (v151 + ((v150 + 15) & 0xFFFFFFFFFFFFFFF8));
+      v156 = v169;
+      *v155 = sub_10021F5D4;
+      v155[1] = v156;
 
-      sub_1000DA734(v160, sub_10021F584, v157);
+      sub_1000DA734(v153, sub_1002204CC, v151);
 
-      (*(v176 + 8))(v175, v177);
-      (v173)(v184, v87);
+      (*(v171 + 8))(v170, v172);
+      (v168)(v180, v87);
+      goto LABEL_37;
     }
   }
 
@@ -9342,108 +8889,600 @@ LABEL_40:
     swift_once();
   }
 
-  v121 = type metadata accessor for Logger();
-  sub_100005B14(v121, qword_1006D4110);
-  v122 = v169;
-  v180(v169, v172, v41);
+  v116 = type metadata accessor for Logger();
+  sub_100005B14(v116, qword_1006D4110);
+  v174(v84, v166, v42);
 
-  v123 = Logger.logObject.getter();
-  v124 = static os_log_type_t.error.getter();
+  v117 = Logger.logObject.getter();
+  v118 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v123, v124))
+  if (os_log_type_enabled(v117, v118))
   {
-    v125 = swift_slowAlloc();
-    v183 = swift_slowAlloc();
-    aBlock[0] = v183;
-    *v125 = 136447235;
-    sub_10021E650(&qword_1006B6938, &type metadata accessor for FMIPPlaySoundChannels);
-    LODWORD(v182) = v124;
-    v126 = dispatch thunk of CustomStringConvertible.description.getter();
-    v181 = v123;
-    v128 = v127;
-    v129 = v186[1].isa;
-    v129(v122, v41);
-    v130 = sub_100005B4C(v126, v128, aBlock);
+    v119 = swift_slowAlloc();
+    v177 = swift_slowAlloc();
+    aBlock[0] = v177;
+    *v119 = 136447235;
+    sub_10021E650(&qword_1006B6938, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+    v176 = v117;
+    v120 = dispatch thunk of CustomStringConvertible.description.getter();
+    v121 = v84;
+    v123 = v122;
+    v179 = *(v43 + 1);
+    LODWORD(v175) = v118;
+    (v179)(v121, v42);
+    v124 = sub_100005B4C(v120, v123, aBlock);
 
-    *(v125 + 4) = v130;
-    *(v125 + 12) = 2160;
-    *(v125 + 14) = 1752392040;
-    *(v125 + 22) = 2081;
-    v131 = sub_100005B4C(v178, v35, aBlock);
+    *(v119 + 4) = v124;
+    *(v119 + 12) = 2160;
+    *(v119 + 14) = 1752392040;
+    *(v119 + 22) = 2081;
+    v125 = sub_100005B4C(v178, v36, aBlock);
 
-    *(v125 + 24) = v131;
-    *(v125 + 32) = 2082;
-    v39 = v184;
-    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels);
-    v132 = Set.description.getter();
-    v134 = v133;
+    *(v119 + 24) = v125;
+    *(v119 + 32) = 2082;
+    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+    v126 = Set.description.getter();
+    v127 = v42;
+    v129 = v128;
 
-    v135 = sub_100005B4C(v132, v134, aBlock);
-    v41 = v185;
+    v130 = sub_100005B4C(v126, v129, aBlock);
 
-    *(v125 + 34) = v135;
-    *(v125 + 42) = 2082;
-    v136 = Set.description.getter();
-    v138 = v137;
-    v139 = v129;
+    *(v119 + 34) = v130;
+    *(v119 + 42) = 2082;
+    v131 = Set.description.getter();
+    v133 = v132;
 
-    v140 = sub_100005B4C(v136, v138, aBlock);
+    v134 = sub_100005B4C(v131, v133, aBlock);
 
-    *(v125 + 44) = v140;
-    v141 = v181;
-    _os_log_impl(&_mh_execute_header, v181, v182, "FMDeviceDetailContentViewController: mute %{public}s sound button pressed for %{private,mask.hash}s. onlineActiveChannels: %{public}s, offlineActiveChannels: %{public}s - Failed to reissue action, no last action.", v125, 0x34u);
+    *(v119 + 44) = v134;
+    v135 = v176;
+    _os_log_impl(&_mh_execute_header, v176, v175, "FMDeviceDetailContentViewController: mute %{public}s sound button pressed for %{private,mask.hash}s. onlineActiveChannels: %{public}s, offlineActiveChannels: %{public}s - Failed to reissue action, no last action.", v119, 0x34u);
+    swift_arrayDestroy();
+
+    v136 = v179;
+  }
+
+  else
+  {
+
+    v136 = *(v43 + 1);
+    v136(v84, v42);
+    v127 = v42;
+  }
+
+  v137 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteLeftButton;
+  v138 = v163;
+  v139 = *(&v163->isa + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteLeftButton);
+  v139[OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_pending] = 0;
+  v140 = v139;
+  sub_1000D17E8();
+
+  v141 = *(&v138->isa + v137);
+  v141[OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_showActivityIndicator] = 0;
+  v142 = objc_opt_self();
+  v143 = swift_allocObject();
+  *(v143 + 16) = v141;
+  v186 = sub_100141428;
+  v187 = v143;
+  aBlock[0] = _NSConcreteStackBlock;
+  aBlock[1] = 1107296256;
+  v184 = sub_100004AE4;
+  v185 = &unk_10062E240;
+  v144 = _Block_copy(aBlock);
+  v145 = v141;
+
+  [v142 animateWithDuration:4 delay:v144 options:0 animations:0.3 completion:0.0];
+  _Block_release(v144);
+
+  [*(&v138->isa + v137) setUserInteractionEnabled:1];
+  (*(v171 + 8))(v170, v172);
+  v136(v180, v127);
+LABEL_37:
+
+  return result;
+}
+
+double sub_10021C3F4(uint64_t a1, uint64_t a2, void *a3)
+{
+  v6 = type metadata accessor for FMIPPlaySoundMethod();
+  v185 = *(v6 - 8);
+  v186 = v6;
+  __chkstk_darwin(v6);
+  v174 = &v167 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v176 = (&v167 - v9);
+  v10 = type metadata accessor for FMIPDevice();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v167 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for FMIPPlaySoundChannels();
+  v15 = *(v14 - 8);
+  __chkstk_darwin(v14);
+  v171 = &v167 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v169 = &v167 - v18;
+  __chkstk_darwin(v19);
+  v172 = &v167 - v20;
+  v170 = v21;
+  __chkstk_darwin(v22);
+  v24 = &v167 - v23;
+  v177 = swift_allocObject();
+  *(v177 + 16) = a3;
+  v189 = v15;
+  isa = v15[2].isa;
+  v187 = v24;
+  *&v175 = a1;
+  v188 = v14;
+  v183 = isa;
+  v184 = v15 + 2;
+  isa(v24, a1, v14);
+  v182 = a2;
+  v26 = *(a2 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource);
+  v27 = v26 + OBJC_IVAR____TtC6FindMy24FMDeviceDetailDataSource_deviceViewModel;
+  swift_beginAccess();
+  v28 = *(type metadata accessor for FMDeviceDetailViewModel(0) + 100);
+  v29 = *(v26 + 40);
+  v30 = *(*v29 + class metadata base offset for ManagedBuffer + 16);
+  v31 = (*(*v29 + 48) + 3) & 0x1FFFFFFFCLL;
+  v32 = *(v27 + v28);
+  v173 = a3;
+
+  os_unfair_lock_lock((v29 + v31));
+  v179 = v11;
+  v33 = *(v11 + 16);
+  v180 = v10;
+  v33(v13, v29 + v30, v10);
+  os_unfair_lock_unlock((v29 + v31));
+
+  v34 = FMIPDevice.identifier.getter();
+  v36 = v35;
+  v178 = v13;
+  v37 = sub_1002161DC();
+  v38 = sub_1001F0AF8(v32);
+  if (v37[2] <= *(v38 + 2) >> 3)
+  {
+    aBlock[0] = v38;
+    sub_1002132F4(v37);
+    v39 = aBlock[0];
+  }
+
+  else
+  {
+    v39 = sub_100213BD0(v37, v38);
+  }
+
+  v40 = v187;
+  v41 = sub_1001605D4(v187, v39);
+  v42 = v188;
+  v43 = v189;
+  v181 = v34;
+  if (v41)
+  {
+    sub_10007EBC0(&qword_1006AF788, &qword_1005523C0);
+    v44 = (LOBYTE(v43[10].isa) + 32) & ~LOBYTE(v43[10].isa);
+    v45 = swift_allocObject();
+    *(v45 + 16) = xmmword_100552220;
+    v183(v45 + v44, v40, v42);
+    v46 = sub_100213510(v45, v39);
+    swift_setDeallocating();
+    swift_arrayDestroy();
+    swift_deallocClassInstance();
+    if (v37[2] <= *(v46 + 2) >> 3)
+    {
+      aBlock[0] = v46;
+      sub_1002132F4(v37);
+
+      v47 = aBlock[0];
+    }
+
+    else
+    {
+      v47 = sub_100213BD0(v37, v46);
+    }
+
+    v72 = qword_1006AEB18;
+
+    if (v72 != -1)
+    {
+      swift_once();
+    }
+
+    v73 = type metadata accessor for Logger();
+    sub_100005B14(v73, qword_1006D4110);
+
+    v74 = Logger.logObject.getter();
+    v75 = v36;
+    v76 = static os_log_type_t.default.getter();
+
+    if (os_log_type_enabled(v74, v76))
+    {
+      v77 = swift_slowAlloc();
+      aBlock[0] = swift_slowAlloc();
+      *v77 = 136446723;
+      sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+      v78 = Set.description.getter();
+      v80 = sub_100005B4C(v78, v79, aBlock);
+
+      *(v77 + 4) = v80;
+      v42 = v188;
+      *(v77 + 12) = 2160;
+      *(v77 + 14) = 1752392040;
+      *(v77 + 22) = 2081;
+      v81 = v34;
+      v82 = v75;
+      *(v77 + 24) = sub_100005B4C(v81, v75, aBlock);
+      _os_log_impl(&_mh_execute_header, v74, v76, "FMDeviceDetailContentViewController: mute sound selecting channels to play Classic %{public}s for %{private,mask.hash}s.", v77, 0x20u);
+      swift_arrayDestroy();
+      v40 = v187;
+    }
+
+    else
+    {
+      v82 = v75;
+    }
+
+    (*(v185 + 104))(v176, enum case for FMIPPlaySoundMethod.classic(_:), v186);
+    v117 = v47[2];
+    if (!v117)
+    {
+      v36 = _swiftEmptyArrayStorage;
+      goto LABEL_28;
+    }
+
+    v36 = sub_10008C8DC(v47[2], 0);
+    sub_1004A2EA8(aBlock, &v36[v44], v117, v47);
+    v119 = v118;
+    v120 = aBlock[0];
+    v40 = v192;
+    v49 = v194;
+
+    sub_10000BEC8(v120);
+    if (v119 == v117)
+    {
+      v40 = v187;
+      v42 = v188;
+LABEL_28:
+      v121 = swift_allocObject();
+      v122 = v181;
+      v121[2] = v47;
+      v121[3] = v122;
+      v121[4] = v82;
+      v121[5] = sub_10021F57C;
+      v121[6] = v177;
+
+      v123 = v176;
+      sub_1001F3DC8(v176, 1, 0, v36, sub_10021F594, v121);
+
+      (*(v185 + 8))(v123, v186);
+      (*(v179 + 8))(v178, v180);
+      (v189[1].isa)(v40, v42);
+      goto LABEL_38;
+    }
+
+    __break(1u);
+    goto LABEL_40;
+  }
+
+  if (sub_1001605D4(v40, v37))
+  {
+
+    sub_10007EBC0(&qword_1006AF788, &qword_1005523C0);
+    v48 = v43[9].isa;
+    v49 = (LOBYTE(v43[10].isa) + 32) & ~LOBYTE(v43[10].isa);
+    v176 = v48;
+    v50 = swift_allocObject();
+    v175 = xmmword_100552220;
+    *(v50 + 16) = xmmword_100552220;
+    v183(v50 + v49, v40, v42);
+    v47 = sub_100213510(v50, v37);
+    swift_setDeallocating();
+    swift_arrayDestroy();
+    swift_deallocClassInstance();
+    v51 = qword_1006AEB18;
+
+    if (v51 == -1)
+    {
+LABEL_9:
+      v52 = type metadata accessor for Logger();
+      sub_100005B14(v52, qword_1006D4110);
+
+      v53 = Logger.logObject.getter();
+      v54 = v36;
+      v55 = static os_log_type_t.default.getter();
+
+      v56 = os_log_type_enabled(v53, v55);
+      v168 = v54;
+      if (v56)
+      {
+        v57 = swift_slowAlloc();
+        v184 = swift_slowAlloc();
+        aBlock[0] = v184;
+        *v57 = 136446723;
+        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+        v58 = Set.description.getter();
+        LODWORD(v183) = v55;
+        v60 = sub_100005B4C(v58, v59, aBlock);
+
+        *(v57 + 4) = v60;
+        *(v57 + 12) = 2160;
+        *(v57 + 14) = 1752392040;
+        *(v57 + 22) = 2081;
+        *(v57 + 24) = sub_100005B4C(v181, v54, aBlock);
+        _os_log_impl(&_mh_execute_header, v53, v183, "FMDeviceDetailContentViewController: mute sound selecting channels to play LE %{public}s for %{private,mask.hash}s.", v57, 0x20u);
+        swift_arrayDestroy();
+      }
+
+      v62 = v185;
+      v61 = v186;
+      v63 = v174;
+      (*(v185 + 104))(v174, enum case for FMIPPlaySoundMethod.ble(_:), v186);
+      v64 = swift_allocObject();
+      *(v64 + 16) = v175;
+      v65 = v189;
+      v66 = v64 + v49;
+      v67 = v188;
+      (v189[13].isa)(v66, enum case for FMIPPlaySoundChannels.mute(_:), v188);
+      aBlock[0] = sub_10008BB18(0, v47[2] + 1, 0, _swiftEmptyArrayStorage);
+
+      sub_100494038(v68);
+      sub_100493EC8(v64);
+      v69 = aBlock[0];
+      v70 = swift_allocObject();
+      v71 = v181;
+      v70[2] = v47;
+      v70[3] = v71;
+      v70[4] = v168;
+      v70[5] = sub_10021F57C;
+      v70[6] = v177;
+
+      sub_1001F3DC8(v63, 1, 0, v69, sub_10021F588, v70);
+
+      (*(v62 + 8))(v63, v61);
+      (*(v179 + 8))(v178, v180);
+      (v65[1].isa)(v40, v67);
+      goto LABEL_38;
+    }
+
+LABEL_40:
+    swift_once();
+    goto LABEL_9;
+  }
+
+  v83 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_lastPlayAction;
+  v84 = v182;
+  swift_beginAccess();
+  v85 = *(v84 + v83);
+  if (*(v85 + 16))
+  {
+
+    v86 = sub_1001B3AC8(v40);
+    if (v87)
+    {
+      v88 = v42;
+      v89 = *(*(v85 + 56) + 8 * v86);
+
+      v185 = v89;
+      v90 = sub_1001F0FF8(v89, v37, v40, v39);
+      if (qword_1006AEB18 != -1)
+      {
+        swift_once();
+      }
+
+      v91 = type metadata accessor for Logger();
+      sub_100005B14(v91, qword_1006D4110);
+      v92 = v169;
+      v93 = v175;
+      v183(v169, v175, v42);
+
+      v94 = Logger.logObject.getter();
+      v95 = static os_log_type_t.default.getter();
+
+      LODWORD(v173) = v95;
+      v96 = os_log_type_enabled(v94, v95);
+      v186 = v90;
+      v168 = v36;
+      if (v96)
+      {
+        v97 = swift_slowAlloc();
+        v167 = v94;
+        v98 = v93;
+        v99 = v92;
+        v100 = v97;
+        v172 = swift_slowAlloc();
+        aBlock[0] = v172;
+        *v100 = 136447491;
+        sub_10021E650(&qword_1006B6938, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+        v101 = dispatch thunk of CustomStringConvertible.description.getter();
+        v103 = v102;
+        v104 = v189[1].isa;
+        v174 = (&v189[1] & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
+        v105 = v99;
+        v93 = v98;
+        v176 = v104;
+        (v104)(v105, v88);
+        v106 = sub_100005B4C(v101, v103, aBlock);
+
+        *(v100 + 4) = v106;
+        *(v100 + 12) = 2160;
+        *(v100 + 14) = 1752392040;
+        *(v100 + 22) = 2081;
+        *(v100 + 24) = sub_100005B4C(v181, v36, aBlock);
+        *(v100 + 32) = 2082;
+        sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+        v107 = Set.description.getter();
+        v109 = sub_100005B4C(v107, v108, aBlock);
+
+        *(v100 + 34) = v109;
+        *(v100 + 42) = 2082;
+        v110 = Set.description.getter();
+        v112 = sub_100005B4C(v110, v111, aBlock);
+
+        *(v100 + 44) = v112;
+        *(v100 + 52) = 2082;
+        v190 = v186;
+        type metadata accessor for FMIPPlaySoundDeviceAction();
+        sub_10021E650(&qword_1006B6940, &type metadata accessor for FMIPPlaySoundDeviceAction, &protocol conformance descriptor for FMIPDeviceAction);
+        v113 = dispatch thunk of CustomStringConvertible.description.getter();
+        v115 = sub_100005B4C(v113, v114, aBlock);
+
+        *(v100 + 54) = v115;
+        v116 = v167;
+        _os_log_impl(&_mh_execute_header, v167, v173, "FMDeviceDetailContentViewController: mute %{public}s sound button pressed for %{private,mask.hash}s. onlineActiveChannels: %{public}s, offlineActiveChannels: %{public}s - Reissuing action %{public}s.", v100, 0x3Eu);
+        swift_arrayDestroy();
+
+        v43 = v189;
+      }
+
+      else
+      {
+
+        v154 = v43[1].isa;
+        v174 = (&v43[1] & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
+        v176 = v154;
+        (v154)(v92, v88);
+      }
+
+      v182 = *(*(*(v182 + OBJC_IVAR____TtC6FindMy27FMBaseContentViewController_mediator) + 24) + 32);
+      v183(v171, v93, v88);
+      v155 = v43;
+      v156 = (LOBYTE(v43[10].isa) + 16) & ~LOBYTE(v43[10].isa);
+      v157 = (v170 + v156 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v184 = ((v157 + 23) & 0xFFFFFFFFFFFFFFF8);
+      v158 = (&v184[1].isa + 7) & 0xFFFFFFFFFFFFFFF8;
+      v159 = (v158 + 15) & 0xFFFFFFFFFFFFFFF8;
+      v160 = swift_allocObject();
+      (v155[4].isa)(v160 + v156, v171, v88);
+      v161 = (v160 + v157);
+      v162 = v168;
+      *v161 = v181;
+      v161[1] = v162;
+      *(&v184->isa + v160) = v39;
+      *(v160 + v158) = v37;
+      v163 = v186;
+      *(v160 + v159) = v186;
+      v164 = (v160 + ((v159 + 15) & 0xFFFFFFFFFFFFFFF8));
+      v165 = v177;
+      *v164 = sub_10021F57C;
+      v164[1] = v165;
+
+      sub_1000DA734(v163, sub_10021F584, v160);
+
+      (*(v179 + 8))(v178, v180);
+      (v176)(v187, v88);
+      goto LABEL_38;
+    }
+  }
+
+  if (qword_1006AEB18 != -1)
+  {
+    swift_once();
+  }
+
+  v124 = type metadata accessor for Logger();
+  sub_100005B14(v124, qword_1006D4110);
+  v125 = v172;
+  v183(v172, v175, v42);
+
+  v126 = Logger.logObject.getter();
+  v127 = static os_log_type_t.error.getter();
+
+  if (os_log_type_enabled(v126, v127))
+  {
+    v128 = swift_slowAlloc();
+    v186 = swift_slowAlloc();
+    aBlock[0] = v186;
+    *v128 = 136447235;
+    sub_10021E650(&qword_1006B6938, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+    LODWORD(v185) = v127;
+    v129 = dispatch thunk of CustomStringConvertible.description.getter();
+    v184 = v126;
+    v131 = v130;
+    v132 = v189[1].isa;
+    v132(v125, v42);
+    v133 = sub_100005B4C(v129, v131, aBlock);
+
+    *(v128 + 4) = v133;
+    *(v128 + 12) = 2160;
+    *(v128 + 14) = 1752392040;
+    *(v128 + 22) = 2081;
+    v134 = sub_100005B4C(v181, v36, aBlock);
+
+    *(v128 + 24) = v134;
+    *(v128 + 32) = 2082;
+    v40 = v187;
+    sub_10021E650(&qword_1006B41C8, &type metadata accessor for FMIPPlaySoundChannels, &protocol conformance descriptor for FMIPPlaySoundChannels);
+    v135 = Set.description.getter();
+    v137 = v136;
+
+    v138 = sub_100005B4C(v135, v137, aBlock);
+    v42 = v188;
+
+    *(v128 + 34) = v138;
+    *(v128 + 42) = 2082;
+    v139 = Set.description.getter();
+    v141 = v140;
+    v142 = v132;
+
+    v143 = sub_100005B4C(v139, v141, aBlock);
+
+    *(v128 + 44) = v143;
+    v144 = v184;
+    _os_log_impl(&_mh_execute_header, v184, v185, "FMDeviceDetailContentViewController: mute %{public}s sound button pressed for %{private,mask.hash}s. onlineActiveChannels: %{public}s, offlineActiveChannels: %{public}s - Failed to reissue action, no last action.", v128, 0x34u);
     swift_arrayDestroy();
   }
 
   else
   {
 
-    v139 = v186[1].isa;
-    v139(v122, v41);
+    v142 = v189[1].isa;
+    v142(v125, v42);
   }
 
-  v142 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteRightButton;
-  v143 = v170;
-  v144 = *&v170[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteRightButton];
-  v144[OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_pending] = 0;
-  v145 = v144;
+  v145 = OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteRightButton;
+  v146 = v173;
+  v147 = *&v173[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteRightButton];
+  v147[OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_pending] = 0;
+  v148 = v147;
   sub_1000D17E8();
 
-  v146 = *&v143[v142];
-  v146[OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_showActivityIndicator] = 0;
-  v147 = objc_opt_self();
-  v148 = swift_allocObject();
-  *(v148 + 16) = v146;
-  v191 = sub_100141428;
-  v192 = v148;
+  v149 = *&v146[v145];
+  v149[OBJC_IVAR____TtC6FindMy19FMIconPlatterButton_showActivityIndicator] = 0;
+  v150 = objc_opt_self();
+  v151 = swift_allocObject();
+  *(v151 + 16) = v149;
+  v194 = sub_100141428;
+  v195 = v151;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
-  v189 = sub_100004AE4;
-  v190 = &unk_10062E0B0;
-  v149 = _Block_copy(aBlock);
-  v150 = v146;
+  v192 = sub_100004AE4;
+  v193 = &unk_10062E0B0;
+  v152 = _Block_copy(aBlock);
+  v153 = v149;
 
-  [v147 animateWithDuration:4 delay:v149 options:0 animations:0.3 completion:0.0];
-  _Block_release(v149);
+  [v150 animateWithDuration:4 delay:v152 options:0 animations:0.3 completion:0.0];
+  _Block_release(v152);
 
-  [*&v143[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteLeftButton] setUserInteractionEnabled:1];
-  (*(v176 + 8))(v175, v177);
-  v139(v39, v41);
+  [*&v146[OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_muteLeftButton] setUserInteractionEnabled:1];
+  (*(v179 + 8))(v178, v180);
+  v142(v40, v42);
+LABEL_38:
+
+  return result;
 }
 
-void sub_10021DE68()
+double sub_10021DE68()
 {
   v1 = v0;
-  v25 = type metadata accessor for FMIPDeviceState();
-  v2 = *(v25 - 8);
-  v3 = __chkstk_darwin(v25);
-  v5 = &v24 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v24 - v6;
+  v26 = type metadata accessor for FMIPDeviceState();
+  v2 = *(v26 - 8);
+  __chkstk_darwin(v26);
+  v4 = &v25 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v7 = &v25 - v6;
   v8 = type metadata accessor for FMIPDevice();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_1006AEBE0 != -1)
   {
     swift_once();
@@ -9463,7 +9502,7 @@ void sub_10021DE68()
   v16 = *(*(v1 + OBJC_IVAR____TtC6FindMy35FMDeviceDetailContentViewController_dataSource) + 40);
   v17 = *(*v16 + class metadata base offset for ManagedBuffer + 16);
   v18 = *(*v16 + 48) + 3;
-  v24 = v1;
+  v25 = v1;
   v19 = v18 & 0x1FFFFFFFCLL;
 
   os_unfair_lock_lock((v16 + v19));
@@ -9473,11 +9512,11 @@ void sub_10021DE68()
   FMIPDevice.state.getter();
   (*(v9 + 8))(v11, v8);
   static FMIPDeviceState.separationWarningPaused.getter();
-  sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState);
-  v20 = v25;
+  sub_10021E650(&qword_1006BBCF0, &type metadata accessor for FMIPDeviceState, &protocol conformance descriptor for FMIPDeviceState);
+  v20 = v26;
   v21 = dispatch thunk of SetAlgebra.isSuperset(of:)();
   v22 = *(v2 + 8);
-  v22(v5, v20);
+  v22(v4, v20);
   v22(v7, v20);
   if (v21)
   {
@@ -9486,56 +9525,58 @@ void sub_10021DE68()
 
   else
   {
-    v23 = swift_allocObject();
+    v24 = swift_allocObject();
     swift_unknownObjectWeakInit();
-    sub_1000C5474(sub_10021E6A0, v23, 0, 0);
+    sub_1000C5474(sub_10021E6A0, v24, 0, 0);
   }
+
+  return result;
 }
 
-void sub_10021E228()
+void sub_10021E228(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_10007EBC0(&unk_1006B0120);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v17 - v1;
-  v3 = type metadata accessor for URL();
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_10007EBC0(&unk_1006B0120, &qword_100552B60);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v19 - v3;
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   URL.init(string:)();
-  if ((*(v4 + 48))(v2, 1, v3) == 1)
+  if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    sub_100012DF0(v2, &unk_1006B0120);
+    sub_100012DF0(v4, &unk_1006B0120, &qword_100552B60);
     if (qword_1006AEBE0 != -1)
     {
       swift_once();
     }
 
-    v7 = type metadata accessor for Logger();
-    sub_100005B14(v7, qword_1006D4630);
-    v8 = Logger.logObject.getter();
-    v9 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v8, v9))
+    v9 = type metadata accessor for Logger();
+    sub_100005B14(v9, qword_1006D4630);
+    v10 = Logger.logObject.getter();
+    v11 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v10, v11))
     {
-      v10 = swift_slowAlloc();
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v8, v9, "FMDeviceDetailContentViewController: Error opening settings. Invalid URL", v10, 2u);
+      v12 = swift_slowAlloc();
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v10, v11, "FMDeviceDetailContentViewController: Error opening settings. Invalid URL", v12, 2u);
     }
   }
 
   else
   {
-    (*(v4 + 32))(v6, v2, v3);
-    v11 = [objc_opt_self() defaultWorkspace];
-    if (v11)
+    (*(v6 + 32))(v8, v4, v5);
+    v13 = [objc_opt_self() defaultWorkspace];
+    if (v13)
     {
-      v13 = v11;
-      URL._bridgeToObjectiveC()(v12);
-      v15 = v14;
+      v15 = v13;
+      URL._bridgeToObjectiveC()(v14);
+      v17 = v16;
       isa = Dictionary._bridgeToObjectiveC()().super.isa;
-      [v13 openSensitiveURL:v15 withOptions:isa];
+      [v15 openSensitiveURL:v17 withOptions:isa];
     }
 
-    (*(v4 + 8))(v6, v3);
+    (*(v6 + 8))(v8, v5);
   }
 }
 
@@ -9560,7 +9601,7 @@ uint64_t sub_10021E4E4(const char *a1, uint64_t (*a2)(void))
   return a2();
 }
 
-uint64_t sub_10021E650(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10021E650(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9573,7 +9614,7 @@ uint64_t sub_10021E650(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_10021E710(uint64_t a1)
+double sub_10021E710(uint64_t a1)
 {
   v3 = *(type metadata accessor for FMIPDevice() - 8);
   v4 = *(v1 + 16);
@@ -9614,7 +9655,7 @@ uint64_t sub_10021EA48(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t, uint64_t,
   return a2(a1, v5, v6, v7);
 }
 
-uint64_t sub_10021EAEC(uint64_t a1)
+double sub_10021EAEC(uint64_t a1)
 {
   v3 = *(type metadata accessor for FMIPDevice() - 8);
   v4 = (*(v3 + 80) + 24) & ~*(v3 + 80);
@@ -9640,7 +9681,7 @@ uint64_t sub_10021EBE4(char a1)
   v3 = *(type metadata accessor for FMIPDevice() - 8);
   v4 = (*(v3 + 80) + 49) & ~*(v3 + 80);
   v5 = v4 + *(v3 + 64);
-  v6 = *(sub_10007EBC0(&qword_1006B68E8) - 8);
+  v6 = *(sub_10007EBC0(&qword_1006B68E8, &unk_100563FF0) - 8);
   v7 = (v5 + *(v6 + 80) + 2) & ~*(v6 + 80);
   return sub_100206E04(a1, *(v1 + 16), *(v1 + 24), *(v1 + 32), *(v1 + 33), *(v1 + 34), *(v1 + 35), *(v1 + 36), *(v1 + 40), *(v1 + 48), v1 + v4, *(v1 + v5), *(v1 + v5 + 1), v1 + v7, *(v1 + v7 + *(v6 + 64)));
 }
@@ -9652,7 +9693,7 @@ uint64_t sub_10021ED5C()
   v3 = *(v2 + 80);
   v4 = (v3 + 25) & ~v3;
   v5 = *(v2 + 64);
-  v6 = *(sub_10007EBC0(&qword_1006B68E8) - 8);
+  v6 = *(sub_10007EBC0(&qword_1006B68E8, &unk_100563FF0) - 8);
   v7 = *(v6 + 80);
   v8 = (v5 + v4 + v7 + 4) & ~v7;
   v9 = *(v6 + 64);
@@ -9673,7 +9714,7 @@ void sub_10021EF14()
   v1 = *(type metadata accessor for FMIPDevice() - 8);
   v2 = (*(v1 + 80) + 25) & ~*(v1 + 80);
   v3 = v2 + *(v1 + 64);
-  v4 = *(sub_10007EBC0(&qword_1006B68E8) - 8);
+  v4 = *(sub_10007EBC0(&qword_1006B68E8, &unk_100563FF0) - 8);
   v5 = (v3 + *(v4 + 80) + 4) & ~*(v4 + 80);
   sub_10020746C(*(v0 + 16), *(v0 + 24), v0 + v2, *(v0 + v3), *(v0 + v3 + 1), *(v0 + v3 + 2), *(v0 + v3 + 3), v0 + v5, *(v0 + v5 + *(v4 + 64)), *(v0 + v5 + *(v4 + 64) + 1), *(v0 + ((v5 + *(v4 + 64) + 9) & 0xFFFFFFFFFFFFFFF8)));
 }
@@ -9745,32 +9786,4 @@ uint64_t sub_10021F5DC()
   (*(v2 + 8))(v0 + v4, v1);
 
   return _swift_deallocObject(v0, v5 + 16, v3 | 7);
-}
-
-uint64_t sub_10021F6D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v9 = *(type metadata accessor for FMIPPlaySoundChannels() - 8);
-  v10 = (*(v9 + 80) + 16) & ~*(v9 + 80);
-  v11 = (*(v9 + 64) + v10 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v12 = (v11 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v13 = (v12 + 15) & 0xFFFFFFFFFFFFFFF8;
-  return sub_1001F150C(a1, a2, a3, a4, v4 + v10, *(v4 + v11), *(v4 + v11 + 8), *(v4 + v12), *(v4 + v13), *(v4 + ((v13 + 15) & 0xFFFFFFFFFFFFFFF8)), *(v4 + ((((v13 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8)), *(v4 + ((((v13 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8));
-}
-
-uint64_t sub_10021F7D0()
-{
-
-  return _swift_deallocObject(v0, 56, 7);
-}
-
-uint64_t sub_10021F86C()
-{
-
-  return _swift_deallocObject(v0, 40, 7);
-}
-
-uint64_t sub_10021F918()
-{
-
-  return _swift_deallocObject(v0, 40, 7);
 }

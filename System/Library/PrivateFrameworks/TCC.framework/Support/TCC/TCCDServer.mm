@@ -74,15 +74,15 @@
 
 - (void)updateClient:(id)client client:(const char *)a4 clientType:(int)type
 {
-  v64 = 0;
+  v65 = 0;
   clientCopy = client;
   isRevocable = [clientCopy isRevocable];
   if (!type && (isRevocable & 1) == 0)
   {
-    v45 = [NSString stringWithUTF8String:a4];
-    if (v45)
+    v46 = [NSString stringWithUTF8String:a4];
+    if (v46)
     {
-      v44 = a4;
+      v45 = a4;
       if (&_SBSProcessIDForDisplayIdentifier && SBSProcessIDForDisplayIdentifier())
       {
         name = [clientCopy name];
@@ -101,15 +101,15 @@
             v15 = strerror(*v14);
             name2 = [clientCopy name];
             *buf = 136447234;
-            v68 = v44;
-            v69 = 1024;
-            *v70 = v64;
-            *&v70[4] = 1024;
-            *&v70[6] = v13;
-            *&v70[10] = 2082;
-            *&v70[12] = v15;
-            LOWORD(v71[0]) = 2114;
-            *(v71 + 2) = name2;
+            v69 = v45;
+            v70 = 1024;
+            *v71 = v65;
+            *&v71[4] = 1024;
+            *&v71[6] = v13;
+            *&v71[10] = 2082;
+            *&v71[12] = v15;
+            LOWORD(v72[0]) = 2114;
+            *(v72 + 2) = name2;
             _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Unable to terminate_with_reason() %{public}s[%d]: %d (%{public}s) for service %{public}@", buf, 0x2Cu);
           }
         }
@@ -118,37 +118,37 @@
         {
           name3 = [clientCopy name];
           *buf = 136446722;
-          v68 = a4;
-          v69 = 1024;
-          *v70 = v64;
-          *&v70[4] = 2114;
-          *&v70[6] = name3;
+          v69 = a4;
+          v70 = 1024;
+          *v71 = v65;
+          *&v71[4] = 2114;
+          *&v71[6] = name3;
           _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Terminating %{public}s[%d] because access to the %{public}@ service changed.", buf, 0x1Cu);
         }
       }
 
-      v62 = 0u;
       v63 = 0u;
-      v60 = 0u;
+      v64 = 0u;
       v61 = 0u;
-      v18 = [LSApplicationProxy applicationProxyForIdentifier:v45];
+      v62 = 0u;
+      v18 = [LSApplicationProxy applicationProxyForIdentifier:v46];
       plugInKitPlugins = [v18 plugInKitPlugins];
 
-      v20 = [plugInKitPlugins countByEnumeratingWithState:&v60 objects:v66 count:16];
+      v20 = [plugInKitPlugins countByEnumeratingWithState:&v61 objects:v67 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v61;
+        v22 = *v62;
         do
         {
           for (i = 0; i != v21; i = i + 1)
           {
-            if (*v61 != v22)
+            if (*v62 != v22)
             {
               objc_enumerationMutation(plugInKitPlugins);
             }
 
-            v24 = *(*(&v60 + 1) + 8 * i);
+            v24 = *(*(&v61 + 1) + 8 * i);
             bundleIdentifier = [v24 bundleIdentifier];
             [bundleIdentifier UTF8String];
 
@@ -156,83 +156,84 @@
             [bundleVersion UTF8String];
 
             v27 = dispatch_get_global_queue(0, 0);
-            v52 = _NSConcreteStackBlock;
-            v53 = 3221225472;
-            v54 = sub_100038C74;
-            v55 = &unk_1000A61B8;
+            v53 = _NSConcreteStackBlock;
+            v54 = 3221225472;
+            v55 = sub_100038C74;
+            v56 = &unk_1000A61B8;
             selfCopy = self;
-            v57 = v24;
-            v58 = v45;
-            v59 = clientCopy;
+            v58 = v24;
+            v59 = v46;
+            v60 = clientCopy;
             launch_remove_external_service();
           }
 
-          v21 = [plugInKitPlugins countByEnumeratingWithState:&v60 objects:v66 count:16];
+          v21 = [plugInKitPlugins countByEnumeratingWithState:&v61 objects:v67 count:16];
         }
 
         while (v21);
       }
 
       name4 = [clientCopy name];
-      v29 = [NSString stringWithFormat:@"%@ authorization changed for assumed identity %@", name4, v45];
+      v29 = [NSString stringWithFormat:@"%@ authorization changed for assumed identity %@", name4, v46];
 
       assumedIdentityMonitor = [(TCCDServer *)self assumedIdentityMonitor];
-      v31 = [assumedIdentityMonitor monitoredProcessesAssumingIdentityWithIdentifier:v45];
+      v31 = [assumedIdentityMonitor monitoredProcessesAssumingIdentityWithIdentifier:v46];
 
-      v50 = 0u;
       v51 = 0u;
-      v48 = 0u;
+      v52 = 0u;
       v49 = 0u;
+      v50 = 0u;
       v32 = v31;
-      v33 = [v32 countByEnumeratingWithState:&v48 objects:v65 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v49 objects:v66 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v49;
+        v35 = *v50;
         do
         {
           for (j = 0; j != v34; j = j + 1)
           {
-            if (*v49 != v35)
+            if (*v50 != v35)
             {
               objc_enumerationMutation(v32);
             }
 
-            v37 = *(*(&v48 + 1) + 8 * j);
+            v37 = *(*(&v49 + 1) + 8 * j);
             [v37 pid];
             [v29 UTF8String];
             v38 = terminate_with_reason();
-            v39 = tcc_assumed_identity_monitor_log();
-            assumedIdentityMonitor2 = v39;
-            if (v38)
+            v39 = v38;
+            v40 = tcc_assumed_identity_monitor_log(v38);
+            assumedIdentityMonitor2 = v40;
+            if (v39)
             {
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
                 name5 = [clientCopy name];
-                v42 = *__error();
+                v43 = *__error();
                 *buf = 138544130;
-                v68 = v37;
-                v69 = 2082;
-                *v70 = v44;
-                *&v70[8] = 2114;
-                *&v70[10] = name5;
-                *&v70[18] = 1024;
-                v71[0] = v42;
+                v69 = v37;
+                v70 = 2082;
+                *v71 = v45;
+                *&v71[8] = 2114;
+                *&v71[10] = name5;
+                *&v71[18] = 1024;
+                v72[0] = v43;
                 _os_log_error_impl(&_mh_execute_header, assumedIdentityMonitor2, OS_LOG_TYPE_ERROR, "Unable to terminate_with_reason() %{public}@ assuming identity %{public}s for %{public}@: %{darwin.errno}d", buf, 0x26u);
               }
             }
 
             else
             {
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
               {
                 name6 = [clientCopy name];
                 *buf = 138543874;
-                v68 = v37;
-                v69 = 2082;
-                *v70 = v44;
-                *&v70[8] = 2114;
-                *&v70[10] = name6;
+                v69 = v37;
+                v70 = 2082;
+                *v71 = v45;
+                *&v71[8] = 2114;
+                *&v71[10] = name6;
                 _os_log_impl(&_mh_execute_header, assumedIdentityMonitor2, OS_LOG_TYPE_DEFAULT, "Terminated %{public}@ assuming identity %{public}s because the assumed identity's %{public}@ authorization changed.", buf, 0x20u);
               }
 
@@ -241,7 +242,7 @@
             }
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v48 objects:v65 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v49 objects:v66 count:16];
         }
 
         while (v34);

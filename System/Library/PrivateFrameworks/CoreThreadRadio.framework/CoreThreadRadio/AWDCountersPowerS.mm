@@ -64,27 +64,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v7 = toCopy;
   if (*&self->_has)
   {
-    hostWakeupsCount = self->_hostWakeupsCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   p_hostWakeupsCountHistograms = &self->_hostWakeupsCountHistograms;
   if (p_hostWakeupsCountHistograms->count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = p_hostWakeupsCountHistograms->list[v7];
       PBDataWriterWriteUint32Field();
-      toCopy = v9;
-      ++v7;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v7 < p_hostWakeupsCountHistograms->count);
+    while (v6 < p_hostWakeupsCountHistograms->count);
   }
 }
 
@@ -135,7 +133,6 @@
     goto LABEL_8;
   }
 
-  v5 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_hostWakeupsCount != *(equalCopy + 8))

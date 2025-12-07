@@ -7,41 +7,41 @@
 
 - (MRSyncOutputDevicesMessage)initWithOutputDevices:(id)devices forClientWithDeviceInfo:(id)info
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   infoCopy = info;
-  v39.receiver = self;
-  v39.super_class = MRSyncOutputDevicesMessage;
-  v9 = [(MRProtocolMessage *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = MRSyncOutputDevicesMessage;
+  v9 = [(MRProtocolMessage *)&v38 init];
   v10 = v9;
   if (v9)
   {
-    v27 = v9;
+    v26 = v9;
     objc_storeStrong(&v9->_outputDevices, devices);
     v11 = objc_alloc_init(_MRUpdateOutputDevicesMessageProtobuf);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v28 = devicesCopy;
+    v27 = devicesCopy;
     v12 = devicesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v36;
-      v29 = v12;
-      v30 = infoCopy;
+      v15 = *v35;
+      v28 = v12;
+      v29 = infoCopy;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v36 != v15)
+          if (*v35 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v35 + 1) + 8 * i);
+          v17 = *(*(&v34 + 1) + 8 * i);
           descriptor = [v17 descriptor];
           if (descriptor)
           {
@@ -50,37 +50,37 @@
             {
               if ([v17 deviceSubtype] == 15)
               {
-                v33 = 0u;
-                v34 = 0u;
-                v31 = 0u;
                 v32 = 0u;
+                v33 = 0u;
+                v30 = 0u;
+                v31 = 0u;
                 clusterComposition = [v17 clusterComposition];
-                v20 = [clusterComposition countByEnumeratingWithState:&v31 objects:v40 count:16];
+                v20 = [clusterComposition countByEnumeratingWithState:&v30 objects:v39 count:16];
                 if (v20)
                 {
                   v21 = v20;
-                  v22 = *v32;
+                  v22 = *v31;
                   do
                   {
                     for (j = 0; j != v21; ++j)
                     {
-                      if (*v32 != v22)
+                      if (*v31 != v22)
                       {
                         objc_enumerationMutation(clusterComposition);
                       }
 
-                      descriptor2 = [*(*(&v31 + 1) + 8 * j) descriptor];
+                      descriptor2 = [*(*(&v30 + 1) + 8 * j) descriptor];
                       [(_MRUpdateOutputDevicesMessageProtobuf *)v11 addOutputDevices:descriptor2];
                     }
 
-                    v21 = [clusterComposition countByEnumeratingWithState:&v31 objects:v40 count:16];
+                    v21 = [clusterComposition countByEnumeratingWithState:&v30 objects:v39 count:16];
                   }
 
                   while (v21);
                 }
 
-                v12 = v29;
-                infoCopy = v30;
+                v12 = v28;
+                infoCopy = v29;
               }
 
               else
@@ -91,19 +91,18 @@
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v14);
     }
 
-    v10 = v27;
-    [(MRProtocolMessage *)v27 setUnderlyingCodableMessage:v11];
+    v10 = v26;
+    [(MRProtocolMessage *)v26 setUnderlyingCodableMessage:v11];
 
-    devicesCopy = v28;
+    devicesCopy = v27;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -345,7 +345,7 @@ uint64_t __47__MKMarkerAnnotationView__didDragWithVelocity___block_invoke(uint64
   v34 = 0u;
   v35 = 0u;
   v33 = 0u;
-  [(MKMarkerAnnotationView *)self _metricsForState:?];
+  objc_msgSend__metricsForState_(self, a2);
   if (!state || !calloutCopy)
   {
     if (state)

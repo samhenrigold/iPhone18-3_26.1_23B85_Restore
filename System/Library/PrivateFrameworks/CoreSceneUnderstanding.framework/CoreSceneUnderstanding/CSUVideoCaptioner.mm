@@ -11,7 +11,7 @@
 {
   v25 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v7 = sub_1AC090E50();
+  v7 = sub_1AC090E50(configurationCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v12 = objc_msgSend_configPath(configurationCopy, v8, v9, v10, v11);
@@ -23,32 +23,32 @@
   v22 = 0;
   v15 = objc_msgSend__initWithConfiguration_error_(self, v13, configurationCopy, &v22, v14);
   v16 = v22;
+  v17 = v16;
   if (v15)
   {
-    v17 = sub_1AC090E50();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v18 = sub_1AC090E50(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1AC05D000, v17, OS_LOG_TYPE_INFO, "End CSUVideoCaptioner init", buf, 2u);
+      _os_log_impl(&dword_1AC05D000, v18, OS_LOG_TYPE_INFO, "End CSUVideoCaptioner init", buf, 2u);
     }
   }
 
   else
   {
-    v18 = sub_1AC090E50();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = sub_1AC090E50(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      sub_1AC11FBF8(v16, v18);
+      sub_1AC11FBF8(v17, v19);
     }
 
     if (error)
     {
-      v19 = v16;
-      *error = v16;
+      v20 = v17;
+      *error = v17;
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

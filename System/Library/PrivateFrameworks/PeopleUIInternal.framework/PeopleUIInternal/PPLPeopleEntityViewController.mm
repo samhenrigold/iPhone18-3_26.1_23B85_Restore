@@ -10,7 +10,9 @@
 - (void)sceneManager:(id)manager didGrantOwnershipOfScene:(id)scene;
 - (void)sceneManager:(id)manager didRevokeOwnershipOfScene:(id)scene;
 - (void)sceneManager:(id)manager sceneDidRequestDismissal:(id)dismissal;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PPLPeopleEntityViewController
@@ -39,6 +41,28 @@
   }
 
   return v10;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  sceneManager = [(PPLPeopleEntityViewController *)self sceneManager];
+  [sceneManager addSceneRequester:self];
+
+  v6.receiver = self;
+  v6.super_class = PPLPeopleEntityViewController;
+  [(PPLPeopleEntityViewController *)&v6 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  sceneManager = [(PPLPeopleEntityViewController *)self sceneManager];
+  [sceneManager removeSceneRequester:self];
+
+  v6.receiver = self;
+  v6.super_class = PPLPeopleEntityViewController;
+  [(PPLPeopleEntityViewController *)&v6 viewDidDisappear:disappearCopy];
 }
 
 - (CGRect)initialSceneFrame
@@ -120,11 +144,11 @@
     v29 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
     [v29 setActive:1];
 
-    v30 = PPLPeopleViewServiceLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v31 = PPLPeopleViewServiceLog(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25E21C000, v30, OS_LOG_TYPE_DEFAULT, "created scene", buf, 2u);
+      _os_log_impl(&dword_25E21C000, v31, OS_LOG_TYPE_DEFAULT, "created scene", buf, 2u);
     }
 
     view2 = [(PPLPeopleEntityViewController *)self view];
@@ -154,7 +178,7 @@ void __71__PPLPeopleEntityViewController_sceneManager_didGrantOwnershipOfScene__
 
 - (void)sceneManager:(id)manager sceneDidRequestDismissal:(id)dismissal
 {
-  v5 = PPLPeopleViewServiceLog();
+  v5 = PPLPeopleViewServiceLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;

@@ -1098,9 +1098,9 @@ void sub_1DE000054(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t VBAPSpatializer::setExclusionZones(void *a1, float **a2)
+uint64_t VBAPSpatializer::setExclusionZones(uint64_t a1, float **a2)
 {
-  v4 = a1[6];
+  v4 = *(a1 + 48);
   v6 = *a2;
   v5 = a2[1];
   v7 = *(v4 + 192);
@@ -1126,15 +1126,15 @@ LABEL_5:
     v31 = 0;
     v32 = 0;
     v33 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v31, a1[45], a1[46], (a1[46] - a1[45]) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v31, *(a1 + 360), *(a1 + 368), (*(a1 + 368) - *(a1 + 360)) >> 2);
     v28 = 0;
     v29 = 0;
     v30 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v28, a1[48], a1[49], (a1[49] - a1[48]) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v28, *(a1 + 384), *(a1 + 392), (*(a1 + 392) - *(a1 + 384)) >> 2);
     __p = 0;
     v26 = 0;
     v27 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, a1[51], a1[52], (a1[52] - a1[51]) >> 2);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(a1 + 408), *(a1 + 416), (*(a1 + 416) - *(a1 + 408)) >> 2);
     v8 = *a2;
     v23 = a2[1];
     if (*a2 != v23)
@@ -1277,7 +1277,7 @@ uint64_t VBAPSpatializer::calculateExclusionBypassCoeffs(void *a1, VBAP *a2, uin
   v6 = a1 + 6;
   v7 = (*(a1[6] + 152) - *(a1[6] + 144)) >> 2;
   v41.i32[0] = 0;
-  std::vector<float>::vector[abi:ne200100](&v39, v7);
+  std::vector<float>::vector[abi:ne200100](&v39, v7, &v41);
   __C = 0.0;
   vDSP_svesq(*(*v6 + 144), 1, &__C, (*(*v6 + 152) - *(*v6 + 144)) >> 2);
   if (fabsf(__C) >= 0.00000011921)
@@ -2839,7 +2839,7 @@ LABEL_12:
   return result;
 }
 
-_DWORD *AUNeuralNetSPP::Cleanup(NeuralNetRES **this, int16x4_t a2)
+_DWORD *AUNeuralNetSPP::Cleanup(AUNeuralNetSPP *this, int16x4_t a2)
 {
   v12 = *MEMORY[0x1E69E9840];
   if (AUNeuralNetSPPLogScope(void)::once != -1)
@@ -2873,12 +2873,12 @@ _DWORD *AUNeuralNetSPP::Cleanup(NeuralNetRES **this, int16x4_t a2)
 LABEL_9:
   if (*(this + 616) == 1)
   {
-    NeuralNetRES::Cleanup(this[129]);
+    NeuralNetRES::Cleanup(*(this + 129));
   }
 
   if (*(this + 617) == 1)
   {
-    NeuralNetRES::Cleanup(this[130]);
+    NeuralNetRES::Cleanup(*(this + 130));
   }
 
   v4 = (*(this + 155) + 1);
@@ -3674,7 +3674,7 @@ uint64_t AU::SpatialCapture::MicSelector::SetParameter(uint64_t result, int a2, 
 void Meter::SetMeterType(uint64_t a1, int a2, int16x4_t a3, float a4)
 {
   v5 = a3.i32[0];
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v9 = (a1 + 200);
   v8 = *(a1 + 200);
   *(a1 + 224) = a2;
@@ -3687,33 +3687,33 @@ void Meter::SetMeterType(uint64_t a1, int a2, int16x4_t a3, float a4)
     {
       if (a2 == 1)
       {
-        LODWORD(v11) = *(a1 + 228);
-        DspLib::Biquad::Design::aWeighting(v11, &__src);
+        v12.n128_u32[0] = *(a1 + 228);
+        DspLib::Biquad::Design::aWeighting(v12.n128_u64[0], v10, &__src);
         DspLib::Biquad::Filter::setCoefficients(a1, &__src, 3, 0, 0x41uLL);
       }
 
       else if (a2 == 2)
       {
-        LODWORD(v11) = *(a1 + 228);
-        DspLib::Biquad::Design::cWeighting(v11, &__src);
+        v12.n128_u32[0] = *(a1 + 228);
+        DspLib::Biquad::Design::cWeighting(v12.n128_u64[0], v10, &__src);
         DspLib::Biquad::Filter::setCoefficients(a1, &__src, 2, 0, 0x41uLL);
         __src = DspLib::Biquad::kBypassSection;
-        LODWORD(v17) = 0;
+        LODWORD(v18) = 0;
         DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 2, 0x41uLL);
       }
     }
 
     else
     {
-      LODWORD(v11) = *(a1 + 228);
-      DspLib::Biquad::Design::kWeighting(v11, &__src);
+      v12.n128_u32[0] = *(a1 + 228);
+      DspLib::Biquad::Design::kWeighting(&__src, v12.n128_u64[0]);
       DspLib::Biquad::Filter::setCoefficients(a1, &__src, 2, 0, 0x41uLL);
       __src = DspLib::Biquad::kBypassSection;
-      LODWORD(v17) = 0;
+      LODWORD(v18) = 0;
       DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 2, 0x41uLL);
       __src = xmmword_1DE115118;
-      v17 = unk_1DE115128;
-      std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(v9, &__src, v18, 8uLL);
+      v18 = unk_1DE115128;
+      std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(v9, &__src, v19, 8uLL);
     }
   }
 
@@ -3721,63 +3721,66 @@ void Meter::SetMeterType(uint64_t a1, int a2, int16x4_t a3, float a4)
   {
     if (a2 == 5)
     {
-      v12 = 8;
-      v13 = v5;
-      v14 = 0;
-      v15 = a4;
-      DspLib::Biquad::Design::ParametricEQ::design(&v12, *(a1 + 228), 0, v10, &__src);
+      v13 = 8;
+      v14 = v5;
+      v15 = 0;
+      v16 = a4;
+      v12.n128_f32[0] = *(a1 + 228);
+      DspLib::Biquad::Design::ParametricEQ::design(&v13, v12, 0, &__src, v11);
       DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 0, 0x41uLL);
       __src = DspLib::Biquad::kBypassSection;
-      LODWORD(v17) = 0;
+      LODWORD(v18) = 0;
       DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 1, 0x41uLL);
       __src = DspLib::Biquad::kBypassSection;
-      LODWORD(v17) = 0;
+      LODWORD(v18) = 0;
       DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 2, 0x41uLL);
     }
 
     else if (a2 == 6)
     {
-      v12 = 9;
-      v13 = v5;
-      v14 = 0;
-      v15 = a4;
-      DspLib::Biquad::Design::ParametricEQ::design(&v12, *(a1 + 228), 0, v10, &__src);
+      v13 = 9;
+      v14 = v5;
+      v15 = 0;
+      v16 = a4;
+      v12.n128_f32[0] = *(a1 + 228);
+      DspLib::Biquad::Design::ParametricEQ::design(&v13, v12, 0, &__src, v11);
       DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 0, 0x41uLL);
       __src = DspLib::Biquad::kBypassSection;
-      LODWORD(v17) = 0;
+      LODWORD(v18) = 0;
       DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 1, 0x41uLL);
       __src = DspLib::Biquad::kBypassSection;
-      LODWORD(v17) = 0;
+      LODWORD(v18) = 0;
       DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 2, 0x41uLL);
     }
   }
 
   else if (a2 == 3)
   {
-    LODWORD(v17) = 0;
+    LODWORD(v18) = 0;
     __src = DspLib::Biquad::kBypassSection;
     DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 0, 0x41uLL);
     __src = DspLib::Biquad::kBypassSection;
-    LODWORD(v17) = 0;
+    LODWORD(v18) = 0;
     DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 1, 0x41uLL);
     __src = DspLib::Biquad::kBypassSection;
-    LODWORD(v17) = 0;
+    LODWORD(v18) = 0;
     DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 2, 0x41uLL);
   }
 
   else
   {
-    v12 = 14;
-    v13 = v5;
-    v14 = 0;
-    v15 = a4;
-    DspLib::Biquad::Design::ParametricEQ::design(&v12, *(a1 + 228), 0, v10, &__src);
+    v13 = 14;
+    v14 = v5;
+    v15 = 0;
+    v16 = a4;
+    v12.n128_f32[0] = *(a1 + 228);
+    DspLib::Biquad::Design::ParametricEQ::design(&v13, v12, 0, &__src, v11);
     DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 0, 0x41uLL);
     __src = DspLib::Biquad::kBypassSection;
-    LODWORD(v17) = 0;
+    LODWORD(v18) = 0;
     DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 1, 0x41uLL);
     __src = DspLib::Biquad::kBypassSection;
-    LODWORD(v17) = 0;
+    LODWORD(v18) = 0;
     DspLib::Biquad::Filter::setCoefficients(a1, &__src, 1, 2, 0x41uLL);
   }
 
@@ -8592,7 +8595,7 @@ void STFT<float>::privateProcessBlock(uint64_t a1, unsigned int *a2, int *a3)
   __Z.realp = v28;
   __Z.imagp = (&v58 - v27);
   MEMORY[0x1EEE9AC00](v29);
-  v31 = MEMORY[0x1EEE9AC00](v30);
+  v31.n128_f64[0] = MEMORY[0x1EEE9AC00](v30);
   v63.realp = v33;
   v63.imagp = (&v58 - v32);
   if (*(a1 + 8) >= 1)

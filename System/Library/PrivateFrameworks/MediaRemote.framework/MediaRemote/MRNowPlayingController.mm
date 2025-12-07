@@ -20,6 +20,7 @@
 - (void)_notifyDelegateOfInvalidation;
 - (void)_notifyDelegateOfNewResponse:(id)response;
 - (void)_notifyDelegateOfPlaybackQueueChange:(id)change;
+- (void)_notifyDelegateOfPlaybackStateChange:(unsigned int)change;
 - (void)_notifyDelegateOfPlayerPathChange:(id)change;
 - (void)_notifyDelegateOfSupportedCommandsChange:(id)change;
 - (void)_notifyDelegateOfUpdate;
@@ -179,7 +180,7 @@ void __37__MRNowPlayingController__makeHelper__block_invoke_19(uint64_t a1)
 
 - (void)_notifyDelegateOfInvalidation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_workerQueue);
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -197,11 +198,11 @@ void __37__MRNowPlayingController__makeHelper__block_invoke_19(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       delegate = [(MRNowPlayingController *)selfCopy delegate];
-      v13 = 138412546;
-      v14 = selfCopy;
-      v15 = 2112;
-      v16 = delegate;
-      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingController] %@ NotifyInvalidated %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = selfCopy;
+      v14 = 2112;
+      v15 = delegate;
+      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingController] %@ NotifyInvalidated %@", &v12, 0x16u);
     }
   }
 
@@ -213,8 +214,6 @@ void __37__MRNowPlayingController__makeHelper__block_invoke_19(uint64_t a1)
     delegate3 = [(MRNowPlayingController *)selfCopy delegate];
     [delegate3 controllerWillReloadForInvalidation:selfCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __37__MRNowPlayingController__makeHelper__block_invoke_21(uint64_t a1, void *a2)
@@ -244,7 +243,7 @@ void __37__MRNowPlayingController__makeHelper__block_invoke_21(uint64_t a1, void
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -257,10 +256,9 @@ void __37__MRNowPlayingController__makeHelper__block_invoke_21(uint64_t a1, void
   v4 = +[MRMediaRemoteServiceClient sharedServiceClient];
   [v4 removeNowPlayingController:self];
 
-  v6.receiver = self;
-  v6.super_class = MRNowPlayingController;
-  [(MRNowPlayingController *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MRNowPlayingController;
+  [(MRNowPlayingController *)&v5 dealloc];
 }
 
 - (void)endLoadingUpdates
@@ -304,12 +302,12 @@ void __37__MRNowPlayingController__makeHelper__block_invoke_21(uint64_t a1, void
 - (MRNowPlayingController)initWithUID:(id)d
 {
   dCopy = d;
-  if ([dCopy isEqualToString:@"proactiveEndpoint"])
+  if (objc_msgSend_isEqualToString_(dCopy))
   {
     v5 = +[MRDestination proactiveDestination];
   }
 
-  else if ([dCopy isEqualToString:@"userSelectedEndpoint"])
+  else if (objc_msgSend_isEqualToString_(dCopy))
   {
     v5 = +[MRDestination userSelectedDestination];
   }
@@ -456,7 +454,7 @@ void __55__MRNowPlayingController_performRequestWithCompletion___block_invoke(ui
 
 + (void)performRequest:(id)request withCompletion:(id)completion
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
   if (!completionCopy)
@@ -487,21 +485,21 @@ void __55__MRNowPlayingController_performRequestWithCompletion___block_invoke(ui
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v53 = v18;
+    v52 = v18;
     _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __56__MRNowPlayingController_performRequest_withCompletion___block_invoke;
-  v44[3] = &unk_1E769D430;
-  v45 = v14;
-  v46 = requestCopy;
-  v47 = v16;
-  v48 = uUIDString;
-  v50 = v15;
-  v51 = completionCopy;
-  v49 = v11;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __56__MRNowPlayingController_performRequest_withCompletion___block_invoke;
+  v43[3] = &unk_1E769D430;
+  v44 = v14;
+  v45 = requestCopy;
+  v46 = v16;
+  v47 = uUIDString;
+  v49 = v15;
+  v50 = completionCopy;
+  v48 = v11;
   v20 = v15;
   v21 = completionCopy;
   v22 = v11;
@@ -509,42 +507,40 @@ void __55__MRNowPlayingController_performRequestWithCompletion___block_invoke(ui
   v24 = v16;
   v25 = requestCopy;
   v26 = v14;
-  v27 = MEMORY[0x1A58E3570](v44);
+  v27 = MEMORY[0x1A58E3570](v43);
   v28 = [MRBlockGuard alloc];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_269;
-  v42[3] = &unk_1E769AD80;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_269;
+  v41[3] = &unk_1E769AD80;
   v29 = v27;
-  v43 = v29;
-  v30 = [(MRBlockGuard *)v28 initWithTimeout:v24 reason:v42 handler:30.0];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_2;
-  v39[3] = &unk_1E76A3210;
+  v42 = v29;
+  v30 = [(MRBlockGuard *)v28 initWithTimeout:v24 reason:v41 handler:30.0];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_2;
+  v38[3] = &unk_1E76A3210;
   v31 = v30;
-  v40 = v31;
+  v39 = v31;
   v32 = v29;
-  v41 = v32;
-  [(MRNowPlayingControllerHelper *)v20 setDidLoadResponse:v39];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_3;
-  v36[3] = &unk_1E769BCD0;
-  v37 = v31;
-  v38 = v32;
+  v40 = v32;
+  [(MRNowPlayingControllerHelper *)v20 setDidLoadResponse:v38];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_3;
+  v35[3] = &unk_1E769BCD0;
+  v36 = v31;
+  v37 = v32;
   v33 = v32;
   v34 = v31;
-  [(MRNowPlayingControllerHelper *)v20 setDidFailWithError:v36];
+  [(MRNowPlayingControllerHelper *)v20 setDidFailWithError:v35];
   [(MRNowPlayingController *)v26 setDelegate:v20];
   [(MRNowPlayingController *)v26 beginLoadingUpdates];
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __56__MRNowPlayingController_performRequest_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) endLoadingUpdates];
@@ -563,21 +559,21 @@ void __56__MRNowPlayingController_performRequest_withCompletion___block_invoke(u
         v13 = *(a1 + 40);
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 64)];
-        v36 = 138544386;
-        v37 = v12;
-        v38 = 2114;
-        v39 = v11;
-        v40 = 2112;
-        v41 = v5;
-        v42 = 2114;
-        v43 = v13;
-        v44 = 2048;
-        v45 = v15;
+        v35 = 138544386;
+        v36 = v12;
+        v37 = 2114;
+        v38 = v11;
+        v39 = 2112;
+        v40 = v5;
+        v41 = 2114;
+        v42 = v13;
+        v43 = 2048;
+        v44 = v15;
         v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v17 = v9;
         v18 = 52;
 LABEL_16:
-        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v36, v18);
+        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v35, v18);
         goto LABEL_17;
       }
 
@@ -593,14 +589,14 @@ LABEL_16:
     v30 = *(a1 + 56);
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 64)];
-    v36 = 138544130;
-    v37 = v29;
-    v38 = 2114;
-    v39 = v30;
-    v40 = 2112;
-    v41 = v5;
-    v42 = 2048;
-    v43 = v31;
+    v35 = 138544130;
+    v36 = v29;
+    v37 = 2114;
+    v38 = v30;
+    v39 = 2112;
+    v40 = v5;
+    v41 = 2048;
+    v42 = v31;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v17 = v9;
@@ -620,17 +616,17 @@ LABEL_15:
         v22 = *(a1 + 40);
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 64)];
-        v36 = 138544386;
-        v37 = v21;
-        v38 = 2114;
-        v39 = v20;
-        v40 = 2114;
-        v41 = v6;
-        v42 = 2114;
-        v43 = v22;
-        v44 = 2048;
-        v45 = v23;
-        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v36, 0x34u);
+        v35 = 138544386;
+        v36 = v21;
+        v37 = 2114;
+        v38 = v20;
+        v39 = 2114;
+        v40 = v6;
+        v41 = 2114;
+        v42 = v22;
+        v43 = 2048;
+        v44 = v23;
+        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v35, 0x34u);
 LABEL_17:
 
         goto LABEL_22;
@@ -657,12 +653,12 @@ LABEL_17:
     v33 = *(a1 + 56);
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 64)];
-    v36 = 138543874;
-    v37 = v32;
-    v38 = 2114;
-    v39 = v33;
-    v40 = 2048;
-    v41 = v34;
+    v35 = 138543874;
+    v36 = v32;
+    v37 = 2114;
+    v38 = v33;
+    v39 = 2048;
+    v40 = v34;
     v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v17 = v9;
     v18 = 32;
@@ -676,14 +672,14 @@ LABEL_17:
     v27 = *(a1 + 40);
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 64)];
-    v36 = 138544130;
-    v37 = v26;
-    v38 = 2114;
-    v39 = v25;
-    v40 = 2114;
-    v41 = v27;
-    v42 = 2048;
-    v43 = v28;
+    v35 = 138544130;
+    v36 = v26;
+    v37 = 2114;
+    v38 = v25;
+    v39 = 2114;
+    v40 = v27;
+    v41 = 2048;
+    v42 = v28;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
@@ -693,8 +689,6 @@ LABEL_22:
   (*(*(a1 + 80) + 16))();
   [*(a1 + 72) setDidLoadResponse:0];
   [*(a1 + 72) setDidFailWithError:0];
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_2(uint64_t a1, void *a2)
@@ -717,7 +711,7 @@ void __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_3
 
 + (void)sendCommand:(unsigned int)command toDestination:(id)destination options:(id)options appOptions:(unsigned int)appOptions withCompletion:(id)completion
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   optionsCopy = options;
   completionCopy = completion;
@@ -750,67 +744,65 @@ void __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_3
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v64 = v21;
+    v63 = v21;
     _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v23 = qos_class_self();
   v24 = dispatch_get_global_queue(v23, 0);
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke;
-  v56[3] = &unk_1E76A3238;
-  v57 = destinationCopy;
-  v58 = v19;
-  v59 = uUIDString;
-  v60 = v18;
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke;
+  v55[3] = &unk_1E76A3238;
+  v56 = destinationCopy;
+  v57 = v19;
+  v58 = uUIDString;
+  v59 = v18;
   v25 = v24;
-  v61 = v25;
-  v62 = completionCopy;
-  v42 = completionCopy;
-  v41 = v18;
-  v40 = uUIDString;
+  v60 = v25;
+  v61 = completionCopy;
+  v41 = completionCopy;
+  v40 = v18;
+  v39 = uUIDString;
   v26 = v19;
   v27 = destinationCopy;
-  v28 = MEMORY[0x1A58E3570](v56);
+  v28 = MEMORY[0x1A58E3570](v55);
   v29 = [MRBlockGuard alloc];
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke_2;
-  v54[3] = &unk_1E769AD80;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke_2;
+  v53[3] = &unk_1E769AD80;
   v30 = v28;
-  v55 = v30;
-  v31 = [(MRBlockGuard *)v29 initWithTimeout:v26 reason:v54 handler:45.0];
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke_3;
-  v51[3] = &unk_1E769FBA8;
-  v52 = v31;
-  v53 = v30;
+  v54 = v30;
+  v31 = [(MRBlockGuard *)v29 initWithTimeout:v26 reason:v53 handler:45.0];
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke_3;
+  v50[3] = &unk_1E769FBA8;
+  v51 = v31;
+  v52 = v30;
   v32 = v30;
   v33 = v31;
-  v34 = MEMORY[0x1A58E3570](v51);
+  v34 = MEMORY[0x1A58E3570](v50);
   impl = [(MRNowPlayingController *)v13 impl];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke_4;
-  v45[3] = &unk_1E76A3260;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke_4;
+  v44[3] = &unk_1E76A3260;
   commandCopy = command;
   appOptionsCopy = appOptions;
-  v46 = optionsCopy;
-  v47 = v25;
-  v48 = v34;
+  v45 = optionsCopy;
+  v46 = v25;
+  v47 = v34;
   v36 = v34;
   v37 = v25;
   v38 = optionsCopy;
-  [impl destinationWithCompletion:v45];
-
-  v39 = *MEMORY[0x1E69E9840];
+  [impl destinationWithCompletion:v44];
 }
 
 void __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -829,15 +821,15 @@ void __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_w
         v11 = [MEMORY[0x1E695DF00] date];
         [v11 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544386;
-        v42 = v9;
-        v43 = 2114;
-        v44 = v8;
-        v45 = 2112;
-        v46 = v3;
-        v47 = 2114;
-        v48 = v10;
-        v49 = 2048;
-        v50 = v12;
+        v40 = v9;
+        v41 = 2114;
+        v42 = v8;
+        v43 = 2112;
+        v44 = v3;
+        v45 = 2114;
+        v46 = v10;
+        v47 = 2048;
+        v48 = v12;
         v13 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v14 = v6;
         v15 = 52;
@@ -859,13 +851,13 @@ LABEL_16:
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544130;
-    v42 = v30;
-    v43 = 2114;
-    v44 = v31;
-    v45 = 2112;
-    v46 = v3;
-    v47 = 2048;
-    v48 = v32;
+    v40 = v30;
+    v41 = 2114;
+    v42 = v31;
+    v43 = 2112;
+    v44 = v3;
+    v45 = 2048;
+    v46 = v32;
     v13 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v14 = v6;
@@ -892,15 +884,15 @@ LABEL_15:
         v23 = [MEMORY[0x1E695DF00] date];
         [v23 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544386;
-        v42 = v20;
+        v40 = v20;
+        v41 = 2114;
+        v42 = v21;
         v43 = 2114;
-        v44 = v21;
+        v44 = v11;
         v45 = 2114;
-        v46 = v11;
-        v47 = 2114;
-        v48 = v22;
-        v49 = 2048;
-        v50 = v24;
+        v46 = v22;
+        v47 = 2048;
+        v48 = v24;
         _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 
 LABEL_17:
@@ -929,11 +921,11 @@ LABEL_17:
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138543874;
-    v42 = v33;
-    v43 = 2114;
-    v44 = v34;
-    v45 = 2048;
-    v46 = v35;
+    v40 = v33;
+    v41 = 2114;
+    v42 = v34;
+    v43 = 2048;
+    v44 = v35;
     v13 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v14 = v6;
     v15 = 32;
@@ -948,26 +940,23 @@ LABEL_17:
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544130;
-    v42 = v27;
+    v40 = v27;
+    v41 = 2114;
+    v42 = v26;
     v43 = 2114;
-    v44 = v26;
-    v45 = 2114;
-    v46 = v28;
-    v47 = 2048;
-    v48 = v29;
+    v44 = v28;
+    v45 = 2048;
+    v46 = v29;
     v13 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
 
 LABEL_22:
 
-  v36 = *(a1 + 64);
-  v39 = v3;
-  v40 = *(a1 + 72);
   v37 = v3;
+  v38 = *(a1 + 72);
+  v36 = v3;
   msv_dispatch_async_on_queue();
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke_2(uint64_t a1)
@@ -1007,7 +996,7 @@ void __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_w
 
 - (void)sendCommand:(unsigned int)command options:(id)options appOptions:(unsigned int)appOptions completion:(id)completion
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   completionCopy = completion;
   v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NowPlayingController<%p>.sendCommand", self];
@@ -1036,54 +1025,54 @@ void __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_w
     [v16 appendFormat:@" for %@", destination2];
   }
 
-  v42 = optionsCopy;
+  v41 = optionsCopy;
   v21 = _MRLogForCategory(0xAuLL);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v54 = v16;
+    v53 = v16;
     _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __68__MRNowPlayingController_sendCommand_options_appOptions_completion___block_invoke;
-  v48[3] = &unk_1E769FA08;
-  v48[4] = self;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __68__MRNowPlayingController_sendCommand_options_appOptions_completion___block_invoke;
+  v47[3] = &unk_1E769FA08;
+  v47[4] = self;
   v22 = v10;
-  v49 = v22;
+  v48 = v22;
   v23 = uUIDString;
-  v50 = v23;
+  v49 = v23;
   v24 = v15;
-  v51 = v24;
+  v50 = v24;
   v25 = completionCopy;
-  v52 = v25;
-  v26 = MEMORY[0x1A58E3570](v48);
+  v51 = v25;
+  v26 = MEMORY[0x1A58E3570](v47);
   v27 = [MRBlockGuard alloc];
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __68__MRNowPlayingController_sendCommand_options_appOptions_completion___block_invoke_283;
-  v46[3] = &unk_1E769AD80;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __68__MRNowPlayingController_sendCommand_options_appOptions_completion___block_invoke_283;
+  v45[3] = &unk_1E769AD80;
   v28 = v26;
-  v47 = v28;
-  v29 = [(MRBlockGuard *)v27 initWithTimeout:v22 reason:v46 handler:63.0];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __68__MRNowPlayingController_sendCommand_options_appOptions_completion___block_invoke_2;
-  v43[3] = &unk_1E769FBA8;
+  v46 = v28;
+  v29 = [(MRBlockGuard *)v27 initWithTimeout:v22 reason:v45 handler:63.0];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __68__MRNowPlayingController_sendCommand_options_appOptions_completion___block_invoke_2;
+  v42[3] = &unk_1E769FBA8;
   v30 = v29;
-  v44 = v30;
+  v43 = v30;
   v31 = v28;
-  v45 = v31;
-  v32 = MEMORY[0x1A58E3570](v43);
+  v44 = v31;
+  v32 = MEMORY[0x1A58E3570](v42);
   playerPath = [(MRNowPlayingController *)self playerPath];
   origin = [playerPath origin];
 
   if (origin)
   {
     workerQueue = [(MRNowPlayingController *)self workerQueue];
-    v36 = v42;
-    MRMediaRemoteSendCommandToPlayerWithResult(command, v42, playerPath, appOptions, workerQueue, v32);
+    v36 = v41;
+    MRMediaRemoteSendCommandToPlayerWithResult(command, v41, playerPath, appOptions, workerQueue, v32);
   }
 
   else
@@ -1091,16 +1080,14 @@ void __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_w
     v37 = objc_opt_class();
     workerQueue = [(MRNowPlayingControllerConfiguration *)self->_configuration destination];
     v38 = v37;
-    v36 = v42;
-    [v38 sendCommand:command toDestination:workerQueue options:v42 appOptions:appOptions withCompletion:v32];
+    v36 = v41;
+    [v38 sendCommand:command toDestination:workerQueue options:v41 appOptions:appOptions withCompletion:v32];
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __68__MRNowPlayingController_sendCommand_options_appOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -1124,21 +1111,21 @@ void __68__MRNowPlayingController_sendCommand_options_appOptions_completion___bl
       v12 = [v11 destination];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:*(a1 + 56)];
-      v42 = 138544386;
-      v43 = v10;
-      v44 = 2114;
-      v45 = v9;
-      v46 = 2112;
-      v47 = v3;
-      v48 = 2114;
-      v49 = v12;
-      v50 = 2048;
-      v51 = v14;
+      v41 = 138544386;
+      v42 = v10;
+      v43 = 2114;
+      v44 = v9;
+      v45 = 2112;
+      v46 = v3;
+      v47 = 2114;
+      v48 = v12;
+      v49 = 2048;
+      v50 = v14;
       v15 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v16 = v7;
       v17 = 52;
 LABEL_13:
-      _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, v15, &v42, v17);
+      _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, v15, &v41, v17);
 LABEL_14:
 
 LABEL_22:
@@ -1154,14 +1141,14 @@ LABEL_22:
     v32 = *(a1 + 48);
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
-    v42 = 138544130;
-    v43 = v31;
-    v44 = 2114;
-    v45 = v32;
-    v46 = 2112;
-    v47 = v3;
-    v48 = 2048;
-    v49 = v33;
+    v41 = 138544130;
+    v42 = v31;
+    v43 = 2114;
+    v44 = v32;
+    v45 = 2112;
+    v46 = v3;
+    v47 = 2048;
+    v48 = v33;
     v34 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     v35 = v7;
     v36 = 42;
@@ -1191,14 +1178,14 @@ LABEL_22:
       v12 = [v11 destination];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:*(a1 + 56)];
-      v42 = 138544130;
-      v43 = v29;
-      v44 = 2114;
-      v45 = v28;
-      v46 = 2114;
-      v47 = v12;
-      v48 = 2048;
-      v49 = v30;
+      v41 = 138544130;
+      v42 = v29;
+      v43 = 2114;
+      v44 = v28;
+      v45 = 2114;
+      v46 = v12;
+      v47 = 2048;
+      v48 = v30;
       v15 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v16 = v7;
       v17 = 42;
@@ -1214,17 +1201,17 @@ LABEL_22:
     v38 = *(a1 + 48);
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
-    v42 = 138543874;
-    v43 = v37;
-    v44 = 2114;
-    v45 = v38;
-    v46 = 2048;
-    v47 = v39;
+    v41 = 138543874;
+    v42 = v37;
+    v43 = 2114;
+    v44 = v38;
+    v45 = 2048;
+    v46 = v39;
     v34 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v35 = v7;
     v36 = 32;
 LABEL_21:
-    _os_log_impl(&dword_1A2860000, v35, OS_LOG_TYPE_DEFAULT, v34, &v42, v36);
+    _os_log_impl(&dword_1A2860000, v35, OS_LOG_TYPE_DEFAULT, v34, &v41, v36);
     goto LABEL_22;
   }
 
@@ -1243,17 +1230,17 @@ LABEL_21:
     v13 = [v12 destination];
     v25 = [MEMORY[0x1E695DF00] date];
     [v25 timeIntervalSinceDate:*(a1 + 56)];
-    v42 = 138544386;
-    v43 = v23;
-    v44 = 2114;
-    v45 = v24;
-    v46 = 2114;
-    v47 = v11;
-    v48 = 2114;
-    v49 = v13;
-    v50 = 2048;
-    v51 = v26;
-    _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v42, 0x34u);
+    v41 = 138544386;
+    v42 = v23;
+    v43 = 2114;
+    v44 = v24;
+    v45 = 2114;
+    v46 = v11;
+    v47 = 2114;
+    v48 = v13;
+    v49 = 2048;
+    v50 = v26;
+    _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v41, 0x34u);
 
     goto LABEL_14;
   }
@@ -1270,8 +1257,6 @@ LABEL_23:
   {
     (*(v40 + 16))(v40, v3);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __68__MRNowPlayingController_sendCommand_options_appOptions_completion___block_invoke_283(uint64_t a1)
@@ -1331,7 +1316,7 @@ void __68__MRNowPlayingController_sendCommand_options_appOptions_completion___bl
 
 - (void)_notifyDelegateOfNewResponse:(id)response
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   dispatch_assert_queue_V2(self->_workerQueue);
   selfCopy = self;
@@ -1354,11 +1339,11 @@ void __68__MRNowPlayingController_sendCommand_options_appOptions_completion___bl
       response = [(MRNowPlayingController *)selfCopy response];
       v15 = (customDescriptionForResponse)[2](customDescriptionForResponse, response);
       *buf = 138412802;
-      v56 = selfCopy;
-      v57 = 2112;
-      v58 = delegate;
-      v59 = 2112;
-      v60 = v15;
+      v55 = selfCopy;
+      v56 = 2112;
+      v57 = delegate;
+      v58 = 2112;
+      v59 = v15;
       _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingController] %@ NotifyLoadResponse %@ %@", buf, 0x20u);
     }
   }
@@ -1462,8 +1447,45 @@ void __68__MRNowPlayingController_sendCommand_options_appOptions_completion___bl
 
     [(MRNowPlayingController *)selfCopy _notifyDelegateOfUpdate];
   }
+}
 
-  v53 = *MEMORY[0x1E69E9840];
+- (void)_notifyDelegateOfPlaybackStateChange:(unsigned int)change
+{
+  v3 = *&change;
+  dispatch_assert_queue_V2(self->_workerQueue);
+  obj = self;
+  objc_sync_enter(obj);
+  response = obj->_response;
+  if (!response)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:obj file:@"MRNowPlayingController.m" lineNumber:691 description:{@"Invalid parameter not satisfying: %@", @"_response"}];
+
+    response = obj->_response;
+  }
+
+  playbackState = [(MRNowPlayingPlayerResponse *)response playbackState];
+  if (playbackState == v3)
+  {
+    objc_sync_exit(obj);
+  }
+
+  else
+  {
+    [(MRNowPlayingPlayerResponse *)obj->_response setPlaybackState:v3];
+    objc_sync_exit(obj);
+
+    delegate = [(MRNowPlayingController *)obj delegate];
+    v9 = objc_opt_respondsToSelector();
+
+    if (v9)
+    {
+      delegate2 = [(MRNowPlayingController *)obj delegate];
+      [delegate2 controller:obj playbackStateDidChangeFrom:playbackState to:v3];
+    }
+
+    [(MRNowPlayingController *)obj _notifyDelegateOfUpdate];
+  }
 }
 
 - (void)_notifyDelegateOfPlaybackQueueChange:(id)change
@@ -1537,7 +1559,7 @@ LABEL_13:
 
 - (void)_notifyDelegateOfUpdatedContentItemsWithContentItems:(id)items
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   dispatch_assert_queue_V2(self->_workerQueue);
   selfCopy = self;
@@ -1553,25 +1575,25 @@ LABEL_13:
 
   [(MRNowPlayingPlayerResponse *)response playbackRate];
   v9 = v8;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v10 = itemsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v11)
   {
-    v12 = *v35;
+    v12 = *v34;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v35 != v12)
+        if (*v34 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * i);
+        v14 = *(*(&v33 + 1) + 8 * i);
         playbackQueue = [(MRNowPlayingPlayerResponse *)selfCopy->_response playbackQueue];
         identifier = [v14 identifier];
         v17 = [playbackQueue contentItemForIdentifier:identifier];
@@ -1585,7 +1607,7 @@ LABEL_13:
         v19 = v18;
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v11);
@@ -1634,16 +1656,14 @@ LABEL_13:
 
     [(MRNowPlayingController *)selfCopy _notifyDelegateOfUpdate];
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyDelegateOfUpdatedArtwork:(id)artwork
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   artworkCopy = artwork;
   dispatch_assert_queue_V2(self->_workerQueue);
-  v27 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(artworkCopy, "count")}];
+  v26 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(artworkCopy, "count")}];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_response)
@@ -1652,25 +1672,25 @@ LABEL_13:
     [currentHandler handleFailureInMethod:a2 object:selfCopy file:@"MRNowPlayingController.m" lineNumber:786 description:{@"Invalid parameter not satisfying: %@", @"_response"}];
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v7 = artworkCopy;
-  v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v8)
   {
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         playbackQueue = [(MRNowPlayingPlayerResponse *)selfCopy->_response playbackQueue];
         identifier = [v11 identifier];
         v14 = [playbackQueue contentItemForIdentifier:identifier];
@@ -1699,21 +1719,21 @@ LABEL_13:
             [v14 setArtwork:artwork3];
 
             identifier2 = [v11 identifier];
-            [v27 addObject:identifier2];
+            [v26 addObject:identifier2];
           }
         }
 
 LABEL_14:
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v8);
   }
 
   objc_sync_exit(selfCopy);
-  if ([v27 count])
+  if ([v26 count])
   {
     delegate = [(MRNowPlayingController *)selfCopy delegate];
     v23 = objc_opt_respondsToSelector();
@@ -1721,13 +1741,11 @@ LABEL_14:
     if (v23)
     {
       delegate2 = [(MRNowPlayingController *)selfCopy delegate];
-      [delegate2 controller:selfCopy didLoadArtworkForContentItems:v27];
+      [delegate2 controller:selfCopy didLoadArtworkForContentItems:v26];
     }
 
     [(MRNowPlayingController *)selfCopy _notifyDelegateOfUpdate];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyDelegateOfSupportedCommandsChange:(id)change
@@ -1968,7 +1986,7 @@ LABEL_8:
 
 - (void)_notifyDelegateOfUpdate
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_workerQueue);
   v3 = [MEMORY[0x1E695DF00] now];
   lastUpdateDate = self->_lastUpdateDate;
@@ -1984,13 +2002,13 @@ LABEL_8:
       customDescriptionForResponse = [configuration customDescriptionForResponse];
       response = [(MRNowPlayingController *)self response];
       v10 = (customDescriptionForResponse)[2](customDescriptionForResponse, response);
-      v16 = 138412802;
+      v15 = 138412802;
       selfCopy = self;
-      v18 = 2112;
-      v19 = delegate;
-      v20 = 2112;
-      v21 = v10;
-      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingController] %@ NotifyUpdate %@ %@", &v16, 0x20u);
+      v17 = 2112;
+      v18 = delegate;
+      v19 = 2112;
+      v20 = v10;
+      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingController] %@ NotifyUpdate %@ %@", &v15, 0x20u);
     }
   }
 
@@ -2003,13 +2021,11 @@ LABEL_8:
     response2 = [(MRNowPlayingController *)self response];
     [delegate3 controller:self didUpdateResponse:response2];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyDelegateOfError:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_workerQueue);
   selfCopy = self;
@@ -2027,13 +2043,13 @@ LABEL_8:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       delegate = [(MRNowPlayingController *)selfCopy delegate];
-      v15 = 138412802;
-      v16 = selfCopy;
-      v17 = 2112;
-      v18 = errorCopy;
-      v19 = 2112;
-      v20 = delegate;
-      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingController] %@ NotifyError %@ %@", &v15, 0x20u);
+      v14 = 138412802;
+      v15 = selfCopy;
+      v16 = 2112;
+      v17 = errorCopy;
+      v18 = 2112;
+      v19 = delegate;
+      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingController] %@ NotifyError %@ %@", &v14, 0x20u);
     }
   }
 
@@ -2045,8 +2061,6 @@ LABEL_8:
     delegate3 = [(MRNowPlayingController *)selfCopy delegate];
     [delegate3 controller:selfCopy didFailWithError:errorCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createImplWithConfiguration:(id)configuration
@@ -2237,33 +2251,23 @@ void __37__MRNowPlayingController__makeHelper__block_invoke_17(uint64_t a1, void
   [v4 handleFailureInMethod:a1 object:a2 file:@"MRNowPlayingController.m" lineNumber:480 description:{@"Invalid parameter not satisfying: %@", @"completion"}];
 }
 
-void __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_cold_1(void *a1)
+void __56__MRNowPlayingController_performRequest_withCompletion___block_invoke_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = a1[6];
-  v3 = a1[7];
-  v4 = [MEMORY[0x1E695DF00] date];
-  [v4 timeIntervalSinceDate:a1[8]];
+  v2 = [MEMORY[0x1E695DF00] date];
+  [v2 timeIntervalSinceDate:*(a1 + 64)];
   OUTLINED_FUNCTION_0_23();
   OUTLINED_FUNCTION_2_11();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v3, v4, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v5, v6, v7, v8);
 }
 
-void __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke_cold_1(void *a1, void *a2)
+void __86__MRNowPlayingController_sendCommand_toDestination_options_appOptions_withCompletion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = [a2 error];
-  v6 = [MEMORY[0x1E695DF00] date];
-  [v6 timeIntervalSinceDate:a1[7]];
+  v3 = [a2 error];
+  v4 = [MEMORY[0x1E695DF00] date];
+  [v4 timeIntervalSinceDate:*(a1 + 56)];
   OUTLINED_FUNCTION_0_23();
   OUTLINED_FUNCTION_2_11();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v7, v8, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10);
 }
 
 @end

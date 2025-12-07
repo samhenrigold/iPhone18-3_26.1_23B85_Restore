@@ -106,35 +106,35 @@
 
 - (void)updateMouseProfiles:(id)profiles
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [(GCSMouseProfilesCollection *)self storeVersionIsCompatible])
   {
     v5 = objc_opt_new();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = profilesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         v10 = 0;
         do
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * v10);
+          v11 = *(*(&v14 + 1) + 8 * v10);
           v12 = [GCSMouseProfile alloc];
-          v13 = [(GCSMouseProfile *)v12 initWithJSONObject:v11, v15];
+          v13 = [(GCSMouseProfile *)v12 initWithJSONObject:v11, v14];
           if (v13)
           {
             [v5 addObject:v13];
@@ -144,7 +144,7 @@
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -157,33 +157,31 @@
   {
     [(GCSMouseProfilesCollection *)self setValues:MEMORY[0x277CBEBF8]];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mouseProfileForBundleIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   values = [(GCSMouseProfilesCollection *)self values];
-  v6 = [values countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [values countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(values);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         bundleIdentifier = [v9 bundleIdentifier];
         v11 = [bundleIdentifier isEqualToString:identifierCopy];
 
@@ -194,7 +192,7 @@
         }
       }
 
-      v6 = [values countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [values countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -205,8 +203,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

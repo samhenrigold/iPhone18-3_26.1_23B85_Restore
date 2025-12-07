@@ -28,13 +28,21 @@
 - (void)removeFullscreenInstructingViewIfNeeded;
 - (void)resetLayout;
 - (void)setCoachingHidden:(BOOL)hidden animated:(BOOL)animated completion:(id)completion;
+- (void)setCustomDetailString:(id)string forState:(int)state;
+- (void)setCustomInstructionString:(id)string forState:(int)state;
 - (void)setEnrollmentConfiguration:(unint64_t)configuration;
 - (void)setExistingIdentity:(id)identity;
+- (void)setInBuddy:(BOOL)buddy;
+- (void)setInSheet:(BOOL)sheet;
 - (void)setTransparencyForCoachingController;
 - (void)setupFullscreenInstructingViewIfNeeded;
+- (void)showFullscreenInstructingView:(BOOL)view;
 - (void)showOrHideFullscreenInstructingViewIfNeeded;
 - (void)startInternalGlassesFlow;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -90,7 +98,7 @@
 
 - (void)startInternalGlassesFlow
 {
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -166,7 +174,7 @@ uint64_t __53__BKUIPearlEnrollController_startInternalGlassesFlow__block_invoke(
 
 - (void)viewDidLoad
 {
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -317,21 +325,19 @@ void __40__BKUIPearlEnrollController_viewDidLoad__block_invoke(uint64_t a1)
 
   [view setAlpha:v10];
 
-  v11 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _BKUILoggingFacility(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     coachingController2 = [(BKUIPearlEnrollController *)self coachingController];
     view2 = [coachingController2 view];
     [view2 alpha];
-    v14 = self->_orientation;
+    v15 = self->_orientation;
     v17 = 134218240;
-    v18 = v15;
+    v18 = v16;
     v19 = 2048;
-    v20 = v14;
-    _os_log_impl(&dword_241B0A000, v11, OS_LOG_TYPE_DEFAULT, "Coaching controller transparency: %f for orientation: %ld", &v17, 0x16u);
+    v20 = v15;
+    _os_log_impl(&dword_241B0A000, v12, OS_LOG_TYPE_DEFAULT, "Coaching controller transparency: %f for orientation: %ld", &v17, 0x16u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)enrollmentConfiguration
@@ -388,6 +394,67 @@ void __40__BKUIPearlEnrollController_viewDidLoad__block_invoke(uint64_t a1)
   return v12;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = _BKUILoggingFacility(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v25[0]) = 0;
+    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Main enroll controller: viewWillAppear", v25, 2u);
+  }
+
+  v26.receiver = self;
+  v26.super_class = BKUIPearlEnrollController;
+  [(BKUIPearlEnrollController *)&v26 viewWillAppear:appearCopy];
+  view = [(BKUIPearlEnrollController *)self view];
+  blackColor = [MEMORY[0x277D75348] blackColor];
+  [view setBackgroundColor:blackColor];
+
+  currentDevice = [MEMORY[0x277D75418] currentDevice];
+  userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+
+  if (userInterfaceIdiom == 1)
+  {
+    [(BKUIPearlEnrollController *)self _copyAndShowInternalNavBar];
+    navbarCopy = [(BKUIPearlEnrollController *)self navbarCopy];
+    view2 = [(BKUIPearlEnrollController *)self view];
+    v12 = navbarCopy;
+    [view2 bounds];
+    v14 = v13;
+    [v12 bounds];
+    [v12 setFrame:{0.0, 10.0, v14}];
+
+    navbarCopy2 = [(BKUIPearlEnrollController *)self navbarCopy];
+    magentaColor = [MEMORY[0x277D75348] magentaColor];
+    v17 = [navbarCopy2 bkui_debugBorder:magentaColor withWidth:1];
+
+    view3 = [(BKUIPearlEnrollController *)self view];
+    layer = [view3 layer];
+    v20 = *(MEMORY[0x277CD9DE8] + 80);
+    v25[4] = *(MEMORY[0x277CD9DE8] + 64);
+    v25[5] = v20;
+    v21 = *(MEMORY[0x277CD9DE8] + 112);
+    v25[6] = *(MEMORY[0x277CD9DE8] + 96);
+    v25[7] = v21;
+    v22 = *(MEMORY[0x277CD9DE8] + 16);
+    v25[0] = *MEMORY[0x277CD9DE8];
+    v25[1] = v22;
+    v23 = *(MEMORY[0x277CD9DE8] + 48);
+    v25[2] = *(MEMORY[0x277CD9DE8] + 32);
+    v25[3] = v23;
+    [layer setTransform:v25];
+
+    coachingController = [(BKUIPearlEnrollController *)self coachingController];
+    LODWORD(layer) = [coachingController needsToShow];
+
+    [(BKUIPearlEnrollController *)self setCoachingHidden:layer ^ 1 animated:appearCopy];
+    [(BKUIPearlEnrollController *)self diffSystemAndForcedRotationOrientations];
+  }
+
+  [(BKUIPearlEnrollController *)self showOrHideFullscreenInstructingViewIfNeeded];
+}
+
 - (id)navigationItem
 {
   navbarCopy = [(BKUIPearlEnrollController *)self navbarCopy];
@@ -420,15 +487,16 @@ void __40__BKUIPearlEnrollController_viewDidLoad__block_invoke(uint64_t a1)
     v9 = +[BKUIDevice sharedInstance];
     isRestrictedToLandscapeEnrollment = [v9 isRestrictedToLandscapeEnrollment];
 
-    if ([(BKUIPearlEnrollController *)self inSheet])
+    inSheet = [(BKUIPearlEnrollController *)self inSheet];
+    if (inSheet)
     {
       if (isRestrictedToLandscapeEnrollment)
       {
         v8 = v8 + -70.0;
       }
 
-      v11 = 0.0;
       v12 = 0.0;
+      v13 = 0.0;
     }
 
     else
@@ -436,31 +504,31 @@ void __40__BKUIPearlEnrollController_viewDidLoad__block_invoke(uint64_t a1)
       mainScreen = [MEMORY[0x277D759A0] mainScreen];
       fixedCoordinateSpace = [mainScreen fixedCoordinateSpace];
       [fixedCoordinateSpace bounds];
-      v12 = v15;
-      v11 = v16;
-      v6 = v17;
-      v8 = v18;
+      v13 = v16;
+      v12 = v17;
+      v6 = v18;
+      v8 = v19;
     }
 
-    v19 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = _BKUILoggingFacility(inSheet);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v39.origin.x = v12;
-      v39.origin.y = v11;
+      v39.origin.x = v13;
+      v39.origin.y = v12;
       v39.size.width = v6;
       v39.size.height = v8;
-      v20 = NSStringFromCGRect(v39);
+      v21 = NSStringFromCGRect(v39);
       view = [(BKUIPearlEnrollController *)self view];
       [view bounds];
-      v22 = NSStringFromCGRect(v40);
-      v23 = [MEMORY[0x277CCABB0] numberWithBool:{-[BKUIPearlEnrollController inSheet](self, "inSheet")}];
+      v23 = NSStringFromCGRect(v40);
+      v24 = [MEMORY[0x277CCABB0] numberWithBool:{-[BKUIPearlEnrollController inSheet](self, "inSheet")}];
       *buf = 138412802;
-      v33 = v20;
+      v33 = v21;
       v34 = 2112;
-      v35 = v22;
+      v35 = v23;
       v36 = 2112;
-      v37 = v23;
-      _os_log_impl(&dword_241B0A000, v19, OS_LOG_TYPE_DEFAULT, "PearlEnrollController: viewWillLayoutSubviews: enrollViewController bounds = %@, self bound = %@, inSheet = %@", buf, 0x20u);
+      v37 = v24;
+      _os_log_impl(&dword_241B0A000, v20, OS_LOG_TYPE_DEFAULT, "PearlEnrollController: viewWillLayoutSubviews: enrollViewController bounds = %@, self bound = %@, inSheet = %@", buf, 0x20u);
     }
 
     view2 = [(BKUIPearlEnrollController *)self view];
@@ -476,8 +544,6 @@ void __40__BKUIPearlEnrollController_viewDidLoad__block_invoke(uint64_t a1)
 
     [(BKUIPearlEnrollController *)self showOrHideFullscreenInstructingViewIfNeeded];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)preferredContentSize
@@ -578,8 +644,7 @@ LABEL_14:
     view2 = [(BKUIFullscreenInstructingViewController *)self->_fullscreenInstructingVC view];
     [view addSubview:view2];
 
-    [(BKUIFullscreenInstructingViewController *)self->_fullscreenInstructingVC didMoveToParentViewController:self];
-    v7 = _BKUILoggingFacility();
+    v7 = _BKUILoggingFacility([(BKUIFullscreenInstructingViewController *)self->_fullscreenInstructingVC didMoveToParentViewController:self]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -605,7 +670,7 @@ LABEL_14:
 void __67__BKUIPearlEnrollController_setupFullscreenInstructingViewIfNeeded__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = _BKUILoggingFacility();
+  v2 = _BKUILoggingFacility(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -622,8 +687,6 @@ void __67__BKUIPearlEnrollController_setupFullscreenInstructingViewIfNeeded__blo
 
   if (!fullscreenInstructingVC)
   {
-LABEL_15:
-    v18 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -632,49 +695,47 @@ LABEL_15:
 
   if (state >= 8)
   {
-    v6 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _BKUILoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       enrollViewController2 = [(BKUIPearlEnrollController *)self enrollViewController];
       v19[0] = 67109120;
       v19[1] = [enrollViewController2 state];
-      _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Main enroll controller: Ignoring evaluating showing/hiding FullScreenView as enrollment state [%u] is past state: SubsequentScanComplete", v19, 8u);
+      _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "Main enroll controller: Ignoring evaluating showing/hiding FullScreenView as enrollment state [%u] is past state: SubsequentScanComplete", v19, 8u);
     }
 
-    goto LABEL_15;
+    return;
   }
 
   fullscreenInstructingVC2 = [(BKUIPearlEnrollController *)self fullscreenInstructingVC];
   view = [fullscreenInstructingVC2 view];
-  if (!view)
+  if (view)
   {
+    v11 = view;
+    fullscreenInstructingVC3 = [(BKUIPearlEnrollController *)self fullscreenInstructingVC];
+    view2 = [fullscreenInstructingVC3 view];
+    view3 = [(BKUIPearlEnrollController *)self view];
+    v15 = [view2 isDescendantOfView:view3];
 
-    goto LABEL_12;
-  }
-
-  v10 = view;
-  fullscreenInstructingVC3 = [(BKUIPearlEnrollController *)self fullscreenInstructingVC];
-  view2 = [fullscreenInstructingVC3 view];
-  view3 = [(BKUIPearlEnrollController *)self view];
-  v14 = [view2 isDescendantOfView:view3];
-
-  if ((v14 & 1) == 0)
-  {
-LABEL_12:
-    v17 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    if (v15)
     {
-      LOWORD(v19[0]) = 0;
-      _os_log_impl(&dword_241B0A000, v17, OS_LOG_TYPE_DEFAULT, "Main enroll controller: Ignoring evaluating showing/hiding FullScreenView as we no longer have the view", v19, 2u);
-    }
+      mustShowFullscreenInstructingView = [(BKUIPearlEnrollController *)self mustShowFullscreenInstructingView];
 
-    goto LABEL_15;
+      [(BKUIPearlEnrollController *)self showFullscreenInstructingView:mustShowFullscreenInstructingView];
+      return;
+    }
   }
 
-  mustShowFullscreenInstructingView = [(BKUIPearlEnrollController *)self mustShowFullscreenInstructingView];
-  v16 = *MEMORY[0x277D85DE8];
+  else
+  {
+  }
 
-  [(BKUIPearlEnrollController *)self showFullscreenInstructingView:mustShowFullscreenInstructingView];
+  v18 = _BKUILoggingFacility(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v19[0]) = 0;
+    _os_log_impl(&dword_241B0A000, v18, OS_LOG_TYPE_DEFAULT, "Main enroll controller: Ignoring evaluating showing/hiding FullScreenView as we no longer have the view", v19, 2u);
+  }
 }
 
 - (BOOL)mustShowFullscreenInstructingView
@@ -705,47 +766,65 @@ LABEL_12:
   v38.size.width = v19;
   v38.size.height = v21;
   v22 = CGRectEqualToRect(v34, v38);
-  v23 = _BKUILoggingFacility();
-  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-  if (v22)
+  v23 = v22;
+  v24 = _BKUILoggingFacility(v22);
+  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+  if (v23)
   {
-    if (v24)
+    if (v25)
     {
       v35.origin.x = v15;
       v35.origin.y = v17;
       v35.size.width = v19;
       v35.size.height = v21;
-      v25 = NSStringFromRect(v35);
+      v26 = NSStringFromRect(v35);
       v29 = 138412290;
-      v30 = v25;
-      _os_log_impl(&dword_241B0A000, v23, OS_LOG_TYPE_DEFAULT, "Main enroll controller: We are full screen: %@", &v29, 0xCu);
+      v30 = v26;
+      _os_log_impl(&dword_241B0A000, v24, OS_LOG_TYPE_DEFAULT, "Main enroll controller: We are full screen: %@", &v29, 0xCu);
 LABEL_6:
     }
   }
 
-  else if (v24)
+  else if (v25)
   {
     v36.origin.x = v6;
     v36.origin.y = v8;
     v36.size.width = v10;
     v36.size.height = v12;
-    v25 = NSStringFromRect(v36);
+    v26 = NSStringFromRect(v36);
     v37.origin.x = v15;
     v37.origin.y = v17;
     v37.size.width = v19;
     v37.size.height = v21;
-    v26 = NSStringFromRect(v37);
+    v27 = NSStringFromRect(v37);
     v29 = 138412546;
-    v30 = v25;
+    v30 = v26;
     v31 = 2112;
-    v32 = v26;
-    _os_log_impl(&dword_241B0A000, v23, OS_LOG_TYPE_DEFAULT, "Main enroll controller: We are not full screen: %@ vs %@", &v29, 0x16u);
+    v32 = v27;
+    _os_log_impl(&dword_241B0A000, v24, OS_LOG_TYPE_DEFAULT, "Main enroll controller: We are not full screen: %@ vs %@", &v29, 0x16u);
 
     goto LABEL_6;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-  return !v22;
+  return !v23;
+}
+
+- (void)showFullscreenInstructingView:(BOOL)view
+{
+  viewCopy = view;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = _BKUILoggingFacility(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:viewCopy];
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Main enroll controller: Showing FullScreenView: %@", &v9, 0xCu);
+  }
+
+  fullscreenInstructingVC = [(BKUIPearlEnrollController *)self fullscreenInstructingVC];
+  view = [fullscreenInstructingVC view];
+  [view setHidden:viewCopy ^ 1];
 }
 
 - (void)removeFullscreenInstructingViewIfNeeded
@@ -754,11 +833,11 @@ LABEL_6:
 
   if (fullscreenInstructingVC)
   {
-    v4 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _BKUILoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "Main enroll controller: Removed subview: FullscreenInstructing as enrollment is past state: SubsequentScanComplete", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Main enroll controller: Removed subview: FullscreenInstructing as enrollment is past state: SubsequentScanComplete", v9, 2u);
     }
 
     fullscreenInstructingVC2 = [(BKUIPearlEnrollController *)self fullscreenInstructingVC];
@@ -773,7 +852,7 @@ LABEL_6:
 - (void)deviceOrientationChanged:(int64_t)changed duration:(double)duration
 {
   v60 = *MEMORY[0x277D85DE8];
-  v7 = _BKUILoggingFacility();
+  v7 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf[0].f64[0]) = 134218240;
@@ -830,7 +909,7 @@ LABEL_6:
 
       objc_destroyWeak(&v54);
       objc_destroyWeak(buf);
-      goto LABEL_23;
+      return;
     }
   }
 
@@ -862,11 +941,11 @@ LABEL_6:
       [enrollViewController2 setEnrollMovieViewHidden:0];
     }
 
-    v38 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v39 = _BKUILoggingFacility(v37);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0].f64[0]) = 0;
-      _os_log_impl(&dword_241B0A000, v38, OS_LOG_TYPE_DEFAULT, "Enroll controller completed size transition", buf, 2u);
+      _os_log_impl(&dword_241B0A000, v39, OS_LOG_TYPE_DEFAULT, "Enroll controller completed size transition", buf, 2u);
     }
 
     if ([(BKUIPearlEnrollController *)self hasBeenPortrait])
@@ -875,10 +954,10 @@ LABEL_6:
       memset(buf, 0, sizeof(buf));
       enrollViewController3 = [(BKUIPearlEnrollController *)self enrollViewController];
       view3 = [enrollViewController3 view];
-      v41 = view3;
+      v42 = view3;
       if (view3)
       {
-        [view3 transform];
+        objc_msgSend_transform(view3);
       }
 
       else
@@ -918,9 +997,9 @@ LABEL_6:
     }
 
     view5 = [(BKUIPearlEnrollController *)self view];
-    v45 = [BKUIUtils activeInterfaceOrientationForView:view5]== 1;
+    v46 = [BKUIUtils activeInterfaceOrientationForView:view5]== 1;
 
-    if (v45)
+    if (v46)
     {
       [(BKUIPearlEnrollController *)self setHasBeenPortrait:1];
     }
@@ -928,9 +1007,6 @@ LABEL_6:
     self->_systemRotationAnimating = 0;
     objc_destroyWeak(buf);
   }
-
-LABEL_23:
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __63__BKUIPearlEnrollController_deviceOrientationChanged_duration___block_invoke(uint64_t a1)
@@ -960,7 +1036,7 @@ void __63__BKUIPearlEnrollController_deviceOrientationChanged_duration___block_i
 void __63__BKUIPearlEnrollController_deviceOrientationChanged_duration___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -977,7 +1053,7 @@ void __63__BKUIPearlEnrollController_deviceOrientationChanged_duration___block_i
     v6 = v5;
     if (v5)
     {
-      [v5 transform];
+      objc_msgSend_transform(v5);
     }
 
     else
@@ -1059,7 +1135,7 @@ void __44__BKUIPearlEnrollController__startObserving__block_invoke(uint64_t a1, 
   v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = [WeakRetained bkui_uiforDeviceOrientation:a2];
-  v5 = _BKUILoggingFacility();
+  v5 = _BKUILoggingFacility(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 134218240;
@@ -1069,18 +1145,18 @@ void __44__BKUIPearlEnrollController__startObserving__block_invoke(uint64_t a1, 
     _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "ForcedRotation: orientation changed: deviceOrientation = %lu, orientation = %lu", &v12, 0x16u);
   }
 
-  if (!a2 || (a2 - 5) < 2 || (a2 - 5) < 2 == a2 || ([MEMORY[0x277D75128] sharedApplication], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "applicationState"), v6, v7))
+  if (!a2 || (a2 - 5) < 2 || (a2 - 5) < 2 == a2 || ([MEMORY[0x277D75128] sharedApplication], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "applicationState"), v7, v8))
   {
-    v8 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _BKUILoggingFacility(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [MEMORY[0x277D75128] sharedApplication];
-      v10 = [v9 applicationState];
+      v10 = [MEMORY[0x277D75128] sharedApplication];
+      v11 = [v10 applicationState];
       v12 = 134218240;
-      v13 = v10;
+      v13 = v11;
       v14 = 2048;
       v15 = a2;
-      _os_log_impl(&dword_241B0A000, v8, OS_LOG_TYPE_DEFAULT, "ForcedRotration:[orientation stat change callback pruned] - application state %li, orientation %li", &v12, 0x16u);
+      _os_log_impl(&dword_241B0A000, v9, OS_LOG_TYPE_DEFAULT, "ForcedRotration:[orientation stat change callback pruned] - application state %li, orientation %li", &v12, 0x16u);
     }
   }
 
@@ -1089,22 +1165,18 @@ void __44__BKUIPearlEnrollController__startObserving__block_invoke(uint64_t a1, 
     [WeakRetained deviceOrientationChanged:v4];
     [WeakRetained setNeedsUpdateOfHomeIndicatorAutoHidden];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__BKUIPearlEnrollController__startObserving__block_invoke_34(uint64_t a1, int a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = _BKUILoggingFacility();
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = _BKUILoggingFacility(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = a2;
-    _os_log_impl(&dword_241B0A000, v3, OS_LOG_TYPE_DEFAULT, "ForcedRotration:[rotation lock status changed] - locked:%i", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = a2;
+    _os_log_impl(&dword_241B0A000, v3, OS_LOG_TYPE_DEFAULT, "ForcedRotration:[rotation lock status changed] - locked:%i", v4, 8u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetLayout
@@ -1168,6 +1240,35 @@ void __44__BKUIPearlEnrollController__startObserving__block_invoke_34(uint64_t a
   [view addSubview:navbarCopy2];
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = BKUIPearlEnrollController;
+  [(BKUIPearlEnrollController *)&v6 viewWillDisappear:disappear];
+  navbarCopy = [(BKUIPearlEnrollController *)self navbarCopy];
+  [navbarCopy removeFromSuperview];
+
+  navigationController = [(BKUIPearlEnrollController *)self navigationController];
+  [navigationController setNavigationBarHidden:0 animated:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = BKUIPearlEnrollController;
+  [(BKUIPearlEnrollController *)&v7 viewDidDisappear:disappear];
+  [(BKUIPearlEnrollController *)self setRotationLockToken:0];
+  v4 = _BKUILoggingFacility([(BKUIPearlEnrollController *)self setRotationChangeToken:0]);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *v6 = 0;
+    _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "Main enroll controller: Stop observing", v6, 2u);
+  }
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self];
+}
+
 - (BOOL)prefersHomeIndicatorAutoHidden
 {
   currentDevice = [MEMORY[0x277D75418] currentDevice];
@@ -1204,15 +1305,15 @@ void __44__BKUIPearlEnrollController__startObserving__block_invoke_34(uint64_t a
 {
   animatedCopy = animated;
   hiddenCopy = hidden;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v9 = _BKUILoggingFacility();
+  v9 = _BKUILoggingFacility(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v20 = hiddenCopy;
-    v21 = 1024;
-    v22 = animatedCopy;
+    v19 = hiddenCopy;
+    v20 = 1024;
+    v21 = animatedCopy;
     _os_log_impl(&dword_241B0A000, v9, OS_LOG_TYPE_DEFAULT, "Setting coaching hidden: %i animated: %i", buf, 0xEu);
   }
 
@@ -1227,23 +1328,21 @@ void __44__BKUIPearlEnrollController__startObserving__block_invoke_34(uint64_t a
   }
 
   v11 = MEMORY[0x277D75D18];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __67__BKUIPearlEnrollController_setCoachingHidden_animated_completion___block_invoke;
-  v17[3] = &unk_278D0A110;
-  v17[4] = self;
-  v18 = hiddenCopy;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __67__BKUIPearlEnrollController_setCoachingHidden_animated_completion___block_invoke_2;
-  v14[3] = &unk_278D0A138;
-  v16 = hiddenCopy;
-  v14[4] = self;
-  v15 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __67__BKUIPearlEnrollController_setCoachingHidden_animated_completion___block_invoke;
+  v16[3] = &unk_278D0A110;
+  v16[4] = self;
+  v17 = hiddenCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __67__BKUIPearlEnrollController_setCoachingHidden_animated_completion___block_invoke_2;
+  v13[3] = &unk_278D0A138;
+  v15 = hiddenCopy;
+  v13[4] = self;
+  v14 = completionCopy;
   v12 = completionCopy;
-  [(UIView *)v11 bkui_animateWithDuration:v17 animations:v14 completion:v10];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(UIView *)v11 bkui_animateWithDuration:v16 animations:v13 completion:v10];
 }
 
 void __67__BKUIPearlEnrollController_setCoachingHidden_animated_completion___block_invoke(uint64_t a1)
@@ -1284,27 +1383,27 @@ uint64_t __67__BKUIPearlEnrollController_setCoachingHidden_animated_completion__
 
 - (int64_t)preferredStatusBarStyle
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   childViewControllers = [(BKUIPearlEnrollController *)self childViewControllers];
-  v4 = [childViewControllers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [childViewControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v13 != v6)
+      if (*v12 != v6)
       {
         objc_enumerationMutation(childViewControllers);
       }
 
-      enrollViewController = *(*(&v12 + 1) + 8 * v7);
+      enrollViewController = *(*(&v11 + 1) + 8 * v7);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -1313,7 +1412,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [childViewControllers countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [childViewControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1334,7 +1433,6 @@ LABEL_9:
 
   preferredStatusBarStyle = [enrollViewController preferredStatusBarStyle];
 
-  v10 = *MEMORY[0x277D85DE8];
   return preferredStatusBarStyle;
 }
 
@@ -1346,11 +1444,48 @@ LABEL_9:
   return inBuddy;
 }
 
+- (void)setInBuddy:(BOOL)buddy
+{
+  buddyCopy = buddy;
+  enrollViewController = [(BKUIPearlEnrollController *)self enrollViewController];
+  [enrollViewController setInBuddy:buddyCopy];
+
+  coachingController = [(BKUIPearlEnrollController *)self coachingController];
+  [coachingController setInBuddy:buddyCopy];
+}
+
+- (void)setInSheet:(BOOL)sheet
+{
+  sheetCopy = sheet;
+  self->_inSheet = sheet;
+  enrollViewController = [(BKUIPearlEnrollController *)self enrollViewController];
+  [enrollViewController setInSheet:sheetCopy];
+
+  coachingController = [(BKUIPearlEnrollController *)self coachingController];
+  [coachingController setInSheet:sheetCopy];
+}
+
 - (void)setExistingIdentity:(id)identity
 {
   identityCopy = identity;
   enrollViewController = [(BKUIPearlEnrollController *)self enrollViewController];
   [enrollViewController setExistingIdentity:identityCopy];
+}
+
+- (void)setCustomInstructionString:(id)string forState:(int)state
+{
+  v4 = *&state;
+  stringCopy = string;
+  enrollViewController = [(BKUIPearlEnrollController *)self enrollViewController];
+  [enrollViewController setCustomInstructionString:stringCopy forState:v4];
+}
+
+- (void)setCustomDetailString:(id)string forState:(int)state
+{
+  v4 = *&state;
+  stringCopy = string;
+  enrollViewController = [(BKUIPearlEnrollController *)self enrollViewController];
+  [enrollViewController setCustomDetailString:stringCopy forState:v4];
 }
 
 - (void)primeWithPasscode:(id)passcode
@@ -1400,8 +1535,8 @@ uint64_t __60__BKUIPearlEnrollController_pearlEnrollControllerCompleted___block_
 
 - (void)pearlEnrollViewControllerStateChanged:(int)changed
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = _BKUILoggingFacility();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1409,21 +1544,20 @@ uint64_t __60__BKUIPearlEnrollController_pearlEnrollControllerCompleted___block_
     _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Main enroll controller: Enroll state changed to: %i", buf, 8u);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __67__BKUIPearlEnrollController_pearlEnrollViewControllerStateChanged___block_invoke;
-  v7[3] = &unk_278D09FB0;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __67__BKUIPearlEnrollController_pearlEnrollViewControllerStateChanged___block_invoke;
+  v6[3] = &unk_278D09FB0;
   changedCopy2 = changed;
-  v7[4] = self;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v6[4] = self;
+  dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __67__BKUIPearlEnrollController_pearlEnrollViewControllerStateChanged___block_invoke(uint64_t result)
+id *__67__BKUIPearlEnrollController_pearlEnrollViewControllerStateChanged___block_invoke(id *result)
 {
-  if (*(result + 40) >= 8u)
+  if (*(result + 10) >= 8u)
   {
-    return [*(result + 32) showFullscreenInstructingView:0];
+    return [result[4] showFullscreenInstructingView:0];
   }
 
   return result;
@@ -1454,36 +1588,36 @@ uint64_t __67__BKUIPearlEnrollController_pearlEnrollViewControllerStateChanged__
 
 + (BOOL)isPearlInterlocked
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   BKDeviceClass = getBKDeviceClass();
   v3 = [getBKDeviceDescriptorClass() deviceDescriptorForType:2];
-  v16 = 0;
-  v4 = [BKDeviceClass deviceWithDescriptor:v3 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [BKDeviceClass deviceWithDescriptor:v3 error:&v15];
+  v5 = v15;
 
   if (v4)
   {
-    v15 = 0;
     v14 = 0;
-    v6 = [v4 bioLockoutState:&v15 forUser:getuid() error:&v14];
-    v7 = v14;
-    v8 = _BKUILoggingFacility();
+    v13 = 0;
+    v6 = [v4 bioLockoutState:&v14 forUser:getuid() error:&v13];
+    v7 = v13;
+    v8 = _BKUILoggingFacility(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithInteger:v15];
+      v9 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
       v10 = [MEMORY[0x277CCABB0] numberWithBool:v6];
       *buf = 138413058;
-      v18 = v4;
-      v19 = 2112;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v5;
-      v23 = 2112;
-      v24 = v10;
+      v17 = v4;
+      v18 = 2112;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v5;
+      v22 = 2112;
+      v23 = v10;
       _os_log_impl(&dword_241B0A000, v8, OS_LOG_TYPE_DEFAULT, "Biolockout state for device: %@, state: %@, error: %@, success: %@", buf, 0x2Au);
     }
 
-    v11 = v15 == 7;
+    v11 = v14 == 7;
   }
 
   else
@@ -1491,7 +1625,6 @@ uint64_t __67__BKUIPearlEnrollController_pearlEnrollViewControllerStateChanged__
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

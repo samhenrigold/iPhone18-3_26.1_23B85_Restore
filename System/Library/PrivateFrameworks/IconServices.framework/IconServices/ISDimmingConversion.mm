@@ -110,56 +110,56 @@ LABEL_17:
 
 - (void)_computeDimmingParameters
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   if ([(ISDimmingConversion *)self _prepareSamplesIfNeeded])
   {
     targetHighlightBrightnessLevel = self->_targetHighlightBrightnessLevel;
     targetMeanBrightnessLevel = self->_targetMeanBrightnessLevel;
     samples = self->_samples;
-    v40 = *self->_anon_38;
+    v39 = *self->_anon_38;
     numberOfSamples = self->_numberOfSamples;
     v6 = malloc_type_malloc(0x1F40uLL, 0x100004052888210uLL);
     v7 = 0;
-    v38 = 10;
+    v37 = 10;
     do
     {
-      v8 = ISSegmentationMathUtils_rand_open(&v38, 0, numberOfSamples);
-      v43 = samples;
-      *&v44 = v40;
-      v42.i32[2] = 0;
-      v42.i64[0] = 0;
-      v41 = 0.0;
-      ISSegmentationSamples_readSample_i(&v43, v8, &v42, &v41);
-      v6[v7++] = (v41 * (ISSegmentationMathUtils_luma(v42) + -0.0784)) + 0.0784;
+      v8 = ISSegmentationMathUtils_rand_open(&v37, 0, numberOfSamples);
+      v42 = samples;
+      *&v43 = v39;
+      v41.i32[2] = 0;
+      v41.i64[0] = 0;
+      v40 = 0.0;
+      ISSegmentationSamples_readSample_i(&v42, v8, &v41, &v40, *&samples.width);
+      v6[v7++] = (v40 * (ISSegmentationMathUtils_luma(v41) + -0.0784)) + 0.0784;
     }
 
     while (v7 != 2000);
     v9 = 0;
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
-    v62 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v60 = 0u;
+    v64 = 0u;
     v61 = 0u;
-    v58 = 0u;
+    v62 = 0u;
     v59 = 0u;
-    v56 = 0u;
+    v60 = 0u;
     v57 = 0u;
-    v54 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v52 = 0u;
+    v56 = 0u;
     v53 = 0u;
-    v50 = 0u;
+    v54 = 0u;
     v51 = 0u;
-    v48 = 0u;
+    v52 = 0u;
     v49 = 0u;
-    v46 = 0u;
+    v50 = 0u;
     v47 = 0u;
-    v44 = 0u;
+    v48 = 0u;
     v45 = 0u;
-    v43 = 0;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v42 = 0;
     v10.i32[1] = 0;
     do
     {
@@ -169,7 +169,7 @@ LABEL_17:
         v11 = 99;
       }
 
-      ++*(&v43.width + v11);
+      ++*(&v42.width + v11);
       ++v9;
     }
 
@@ -178,7 +178,7 @@ LABEL_17:
     v13 = 99;
     while (1)
     {
-      v12 += *(&v43.width + v13);
+      v12 += *(&v42.width + v13);
       if (v12 >= 300)
       {
         break;
@@ -204,19 +204,19 @@ LABEL_13:
       v19 = 2000;
       __asm { FMOV            V0.4S, #1.0 }
 
-      v32 = _Q0;
-      v33 = v18;
+      v31 = _Q0;
+      v32 = v18;
       v25 = v6;
       do
       {
-        v37 = *v25;
-        v36 = powf(COERCE_FLOAT(*v25), v17);
-        v35 = powf(v37.f32[1], v17);
-        v34 = powf(v37.f32[2], v17);
-        v26 = powf(v37.f32[3], v17);
-        v27.i64[0] = __PAIR64__(LODWORD(v35), LODWORD(v36));
-        v27.i64[1] = __PAIR64__(LODWORD(v26), LODWORD(v34));
-        *v25++ = vmulq_f32(v37, vmlaq_f32(v32, v27, v33));
+        v36 = *v25;
+        v35 = powf(COERCE_FLOAT(*v25), v17);
+        v34 = powf(v36.f32[1], v17);
+        v33 = powf(v36.f32[2], v17);
+        v26 = powf(v36.f32[3], v17);
+        v27.i64[0] = __PAIR64__(LODWORD(v34), LODWORD(v35));
+        v27.i64[1] = __PAIR64__(LODWORD(v26), LODWORD(v33));
+        *v25++ = vmulq_f32(v36, vmlaq_f32(v31, v27, v32));
         v19 -= 4;
       }
 
@@ -241,8 +241,6 @@ LABEL_13:
     self->_shouldAdjustMeanBrightness = v30 > targetMeanBrightnessLevel;
     free(v6);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isDimmable
@@ -288,7 +286,7 @@ LABEL_13:
         v32.i32[2] = 0;
         v32.i64[0] = 0;
         v31 = 0.0;
-        ISSegmentationSamples_readSample_i(&v29, v6, &v32, &v31);
+        ISSegmentationSamples_readSample_i(&v29, v6, &v32, &v31, *&samples.width);
         v14 = ISSegmentationMathUtils_luma(v32);
         if (v31 == 0.0)
         {

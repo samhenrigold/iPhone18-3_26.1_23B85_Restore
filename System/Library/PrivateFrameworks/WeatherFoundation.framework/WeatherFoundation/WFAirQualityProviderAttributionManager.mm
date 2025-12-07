@@ -24,9 +24,11 @@
 
 uint64_t __55__WFAirQualityProviderAttributionManager_sharedManager__block_invoke()
 {
-  sharedManager_attributionManager = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedManager_attributionManager;
+  sharedManager_attributionManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WFAirQualityProviderAttributionManager)init
@@ -38,7 +40,7 @@ uint64_t __55__WFAirQualityProviderAttributionManager_sharedManager__block_invok
   if (v2)
   {
     v2->_dataSynchronizationLock._os_unfair_lock_opaque = 0;
-    v4 = WeatherFoundationInternalUserDefaults();
+    v4 = WeatherFoundationInternalUserDefaults(v2);
     v5 = [v4 objectForKey:@"providerAttributionPrimitives"];
 
     if (v5)
@@ -198,8 +200,8 @@ void __80__WFAirQualityProviderAttributionManager_loadAttributionForProvider_com
     v8 = [attributionCache2 copy];
 
     os_unfair_lock_unlock(&self->_dataSynchronizationLock);
-    v9 = WeatherFoundationInternalUserDefaults();
-    [v9 setObject:v8 forKey:@"providerAttributionPrimitives"];
+    v10 = WeatherFoundationInternalUserDefaults(v9);
+    [v10 setObject:v8 forKey:@"providerAttributionPrimitives"];
   }
 }
 

@@ -66,9 +66,9 @@
 - (NTKBasePhotosFaceView)initWithFaceStyle:(int64_t)style forDevice:(id)device clientIdentifier:(id)identifier
 {
   deviceCopy = device;
-  v22.receiver = self;
-  v22.super_class = NTKBasePhotosFaceView;
-  v9 = [(NTKFaceView *)&v22 initWithFaceStyle:style forDevice:deviceCopy clientIdentifier:identifier];
+  v23.receiver = self;
+  v23.super_class = NTKBasePhotosFaceView;
+  v9 = [(NTKFaceView *)&v23 initWithFaceStyle:style forDevice:deviceCopy clientIdentifier:identifier];
   if (v9)
   {
     if (CLKIsClockFaceApp())
@@ -94,9 +94,9 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v9 selector:sel__unpauseFromSwitcher name:@"NTKFaceLibraryDismissedNotification" object:0];
 
-    v19 = NTKDefaultMonochromeColorMatrix();
+    v20 = NTKDefaultMonochromeColorMatrix(v19);
     monochromeColorMatrix = v9->_monochromeColorMatrix;
-    v9->_monochromeColorMatrix = v19;
+    v9->_monochromeColorMatrix = v20;
   }
 
   return v9;

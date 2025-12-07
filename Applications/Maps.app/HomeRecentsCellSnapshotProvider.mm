@@ -13,7 +13,7 @@
 - (id)observers
 {
   swift_getKeyPath();
-  sub_1000D6850(&qword_101923EE0, type metadata accessor for HomeRecentsCellSnapshotProvider);
+  sub_1000D6850(&qword_101923EE0, type metadata accessor for HomeRecentsCellSnapshotProvider, &unk_1011E45A0);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -33,7 +33,7 @@
 - (BOOL)active
 {
   swift_getKeyPath();
-  sub_1000D6850(&qword_101923EE0, type metadata accessor for HomeRecentsCellSnapshotProvider);
+  sub_1000D6850(&qword_101923EE0, type metadata accessor for HomeRecentsCellSnapshotProvider, &unk_1011E45A0);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 

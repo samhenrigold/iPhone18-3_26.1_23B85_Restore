@@ -1,4 +1,4 @@
-uint64_t sub_1000013E0()
+uint64_t sub_1000013E0(uint64_t a1, uint64_t a2)
 {
   if (qword_1000310E0 != -1)
   {
@@ -82,11 +82,11 @@ void sub_100002404()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void ps_error_logger_dump_buffer(PSERRLOG::PSErrorLogger *this)
+void ps_error_logger_dump_buffer(PSERRLOG::PSErrorLogger *result)
 {
-  if (this)
+  if (result)
   {
-    PSERRLOG::PSErrorLogger::dumpLogBufferSync(this);
+    PSERRLOG::PSErrorLogger::dumpLogBufferSync(result);
   }
 }
 
@@ -391,7 +391,7 @@ PSLOG::PSEventHandler *PSLOG::PSEventHandler::PSEventHandler(PSLOG::PSEventHandl
   return this;
 }
 
-ssize_t PSLOG::PSEventHandler::triggerDiagnosticRequest(int *a1, int a2, int a3)
+ssize_t PSLOG::PSEventHandler::triggerDiagnosticRequest(int *a1, int a2, uint64_t a3)
 {
   v21 = 0u;
   v22 = 0u;
@@ -423,12 +423,10 @@ ssize_t PSLOG::PSEventHandler::triggerDiagnosticRequest(int *a1, int a2, int a3)
   return write(*a1, __str, v4 + 1);
 }
 
-ssize_t PSLOG::PSEventHandler::triggerLogArchive(int *a1, int a2, int a3)
+ssize_t PSLOG::PSEventHandler::triggerLogArchive(int *a1, uint64_t a2, uint64_t a3)
 {
-  memset(v10, 0, sizeof(v10));
-  v5 = ps_event_handler_archive_all_log_files_for_pid(a3, v10);
-  v6 = off_100028B08[a2];
-  if (v5)
+  memset(v7, 0, sizeof(v7));
+  if (ps_event_handler_archive_all_log_files_for_pid(a3, v7))
   {
     snprintf(__str, 0x200uLL, "Event: %s PID: %d err=%d [%s]\n");
   }
@@ -438,8 +436,8 @@ ssize_t PSLOG::PSEventHandler::triggerLogArchive(int *a1, int a2, int a3)
     snprintf(__str, 0x200uLL, "Event: %s PID: %d Archive file: %s\n");
   }
 
-  v7 = strlen(__str);
-  return write(*a1, __str, v7 + 1);
+  v4 = strlen(__str);
+  return write(*a1, __str, v4 + 1);
 }
 
 void PSLOG::PSEventHandler::_reportOnError(uint64_t a1, int a2, uint64_t a3, const __CFData *a4)
@@ -456,8 +454,8 @@ void PSLOG::PSEventHandler::_reportOnError(uint64_t a1, int a2, uint64_t a3, con
       ps_error_logger_dump_buffer(*(a1 + 16));
       break;
     case 2:
-      v17 = CFDataGetBytePtr(a4);
-      PSLOG::PSEventHandler::triggerDiagnosticRequest(a1, 2, *v17);
+      v18 = CFDataGetBytePtr(a4);
+      PSLOG::PSEventHandler::triggerDiagnosticRequest(a1, 2, *v18);
       break;
     case 1:
       v9 = *a1;
@@ -467,31 +465,31 @@ void PSLOG::PSEventHandler::_reportOnError(uint64_t a1, int a2, uint64_t a3, con
       v12 = sub_1000045A8();
       if (v12)
       {
-        v13 = v12;
-        v14 = *a1;
-        v15 = CFDataGetBytePtr(v12);
-        v16 = CFDataGetLength(v13);
-        write(v14, v15, v16);
-        CFRelease(v13);
+        v14 = v12;
+        v15 = *a1;
+        v16 = CFDataGetBytePtr(v12);
+        v17 = CFDataGetLength(v14);
+        write(v15, v16, v17);
+        CFRelease(v14);
       }
 
       else
       {
-        v21 = sub_100013BF4();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v22 = sub_100013BF4(0, v13);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Unable to acquire liveness dump", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Unable to acquire liveness dump", buf, 2u);
         }
       }
 
       break;
   }
 
-  v19 = mach_absolute_time();
-  snprintf(__str, 0x80uLL, "[ %llu ] %s event: %s\n", v19, "End", v7);
-  v20 = strlen(__str);
-  write(*a1, __str, v20 + 1);
+  v20 = mach_absolute_time();
+  snprintf(__str, 0x80uLL, "[ %llu ] %s event: %s\n", v20, "End", v7);
+  v21 = strlen(__str);
+  write(*a1, __str, v21 + 1);
   CFRelease(a4);
 }
 
@@ -509,15 +507,16 @@ void PSLOG::PSEventHandler::reportOnError(uint64_t a1, int a2, uint64_t a3, uint
   dispatch_async(v4, v5);
 }
 
-uint64_t ps_event_handler_archive_all_log_files_for_pid(int a1, char *a2)
+uint64_t ps_event_handler_archive_all_log_files_for_pid(uint64_t a1, char *a2)
 {
-  v4 = sub_100013BF4();
+  v3 = a1;
+  v4 = sub_100013BF4(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = a2;
     *&buf[12] = 1024;
-    *&buf[14] = a1;
+    *&buf[14] = v3;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Archive requested file: %s by pid: %d", buf, 0x12u);
   }
 
@@ -526,66 +525,67 @@ uint64_t ps_event_handler_archive_all_log_files_for_pid(int a1, char *a2)
   v5 = sysctlbyname("kern.bootsessionuuid", buf, __nbyte, 0, 0);
   if (v5)
   {
-    v6 = v5;
-    v7 = sub_100013BF4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v7 = v5;
+    v8 = sub_100013BF4(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v74.st_dev = 67109120;
-      *&v74.st_mode = v6;
-      v8 = "Unable to read boot session UUID string ret=%d";
-      v9 = v7;
-      v10 = 8;
+      v96.st_dev = 67109120;
+      *&v96.st_mode = v7;
+      v9 = "Unable to read boot session UUID string ret=%d";
+      v10 = v8;
+      v11 = 8;
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, v8, &v74, v10);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v9, &v96, v11);
     }
   }
 
   else
   {
-    v11 = open("/tmp/com.apple.polarisd/ps_log_boot_session.txt", 513);
-    if ((v11 & 0x80000000) == 0)
+    v12 = open("/tmp/com.apple.polarisd/ps_log_boot_session.txt", 513);
+    if ((v12 & 0x80000000) == 0)
     {
-      v12 = v11;
-      write(v11, buf, *__nbyte);
-      close(v12);
+      v14 = v12;
+      write(v12, buf, *__nbyte);
+      close(v14);
       goto LABEL_10;
     }
 
-    v7 = sub_100013BF4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100013BF4(v12, v13);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v74.st_dev = 136315138;
-      *&v74.st_mode = "/tmp/com.apple.polarisd/ps_log_boot_session.txt";
-      v8 = "Unable to open %s for writing";
-      v9 = v7;
-      v10 = 12;
+      v96.st_dev = 136315138;
+      *&v96.st_mode = "/tmp/com.apple.polarisd/ps_log_boot_session.txt";
+      v9 = "Unable to open %s for writing";
+      v10 = v8;
+      v11 = 12;
       goto LABEL_6;
     }
   }
 
 LABEL_10:
-  v13 = +[NSFileManager defaultManager];
-  v14 = [v13 contentsOfDirectoryAtPath:@"/tmp/com.apple.polarisd" error:0];
+  v15 = +[NSFileManager defaultManager];
+  v16 = [v15 contentsOfDirectoryAtPath:@"/tmp/com.apple.polarisd" error:0];
 
-  v53[0] = _NSConcreteStackBlock;
-  v53[1] = 3221225472;
-  v53[2] = sub_100003C98;
-  v53[3] = &unk_100028B50;
-  v15 = objc_alloc_init(NSMutableArray);
-  v54 = v15;
-  v55 = @"/tmp/com.apple.polarisd";
-  [v14 enumerateObjectsUsingBlock:v53];
-  if ([v15 count] <= 1)
+  v75[0] = _NSConcreteStackBlock;
+  v75[1] = 3221225472;
+  v75[2] = sub_100003C98;
+  v75[3] = &unk_100028B50;
+  v17 = objc_alloc_init(NSMutableArray);
+  v76 = v17;
+  v77 = @"/tmp/com.apple.polarisd";
+  [v16 enumerateObjectsUsingBlock:v75];
+  v18 = [v17 count];
+  if (v18 <= 1)
   {
-    v16 = sub_100013BF4();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100013BF4(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *&buf[4] = a1;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No Archive written for pid=%d", buf, 8u);
+      *&buf[4] = v3;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "No Archive written for pid=%d", buf, 8u);
     }
 
-    v17 = 0xFFFFFFFFLL;
+    v21 = 0xFFFFFFFFLL;
     goto LABEL_33;
   }
 
@@ -594,146 +594,151 @@ LABEL_10:
     strcpy(a2, "/tmp/com.apple.polarisd/polaris-syshealth.tgz");
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v58 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
+  v80 = 0u;
   memset(buf, 0, sizeof(buf));
   snprintf(buf, 0x100uLL, "%s.tmp", a2);
   if (!archive_write_new())
   {
-    v18 = sub_100013BF4();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v25 = sub_100013BF4(0, v22);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v74.st_dev = 136315138;
-      *&v74.st_mode = a2;
-      v19 = "Unable to create a new archive %s.";
+      v96.st_dev = 136315138;
+      *&v96.st_mode = a2;
+      v26 = "Unable to create a new archive %s.";
       goto LABEL_30;
     }
 
 LABEL_31:
-    v17 = 0xFFFFFFFFLL;
+    v21 = 0xFFFFFFFFLL;
     goto LABEL_32;
   }
 
-  if (archive_write_add_filter_gzip())
+  v23 = archive_write_add_filter_gzip();
+  if (v23)
   {
-    v18 = sub_100013BF4();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v25 = sub_100013BF4(v23, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v74.st_dev = 136315138;
-      *&v74.st_mode = a2;
-      v19 = "Unable to set filter for archive %s";
+      v96.st_dev = 136315138;
+      *&v96.st_mode = a2;
+      v26 = "Unable to set filter for archive %s";
 LABEL_30:
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, v19, &v74, 0xCu);
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, v26, &v96, 0xCu);
       goto LABEL_31;
     }
 
     goto LABEL_31;
   }
 
-  if (archive_write_set_format_pax_restricted())
+  v27 = archive_write_set_format_pax_restricted();
+  if (v27)
   {
-    v18 = sub_100013BF4();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v25 = sub_100013BF4(v27, v28);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v74.st_dev = 136315138;
-      *&v74.st_mode = a2;
-      v19 = "Unable to set format for archive %s";
+      v96.st_dev = 136315138;
+      *&v96.st_mode = a2;
+      v26 = "Unable to set format for archive %s";
       goto LABEL_30;
     }
 
     goto LABEL_31;
   }
 
-  if (archive_write_open_filename())
+  v29 = archive_write_open_filename();
+  if (v29)
   {
-    v18 = sub_100013BF4();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v25 = sub_100013BF4(v29, v30);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v74.st_dev = 136315138;
-      *&v74.st_mode = a2;
-      v19 = "Unable to open the new archive %s";
+      v96.st_dev = 136315138;
+      *&v96.st_mode = a2;
+      v26 = "Unable to open the new archive %s";
       goto LABEL_30;
     }
 
     goto LABEL_31;
   }
 
-  v45 = a1;
-  v46 = a2;
-  v47 = v15;
-  v48 = v14;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v21 = v15;
-  v22 = [v21 countByEnumeratingWithState:&v49 objects:v56 count:16];
-  if (!v22)
+  v67 = v3;
+  v68 = a2;
+  v69 = v17;
+  v70 = v16;
+  v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v32 = v17;
+  v33 = [v32 countByEnumeratingWithState:&v71 objects:v78 count:16];
+  if (!v33)
   {
     goto LABEL_60;
   }
 
-  v23 = v22;
-  v24 = *v50;
+  v34 = v33;
+  v35 = *v72;
   do
   {
-    for (i = 0; i != v23; i = i + 1)
+    for (i = 0; i != v34; i = i + 1)
     {
-      if (*v50 != v24)
+      if (*v72 != v35)
       {
-        objc_enumerationMutation(v21);
+        objc_enumerationMutation(v32);
       }
 
-      v26 = [NSString stringWithFormat:@"%@", *(*(&v49 + 1) + 8 * i)];
-      v27 = [v26 pathExtension];
-      memset(&v74, 0, sizeof(v74));
-      if (!stat([v26 UTF8String], &v74))
+      v37 = [NSString stringWithFormat:@"%@", *(*(&v71 + 1) + 8 * i)];
+      v38 = [v37 pathExtension];
+      memset(&v96, 0, sizeof(v96));
+      v39 = stat([v37 UTF8String], &v96);
+      if (!v39)
       {
         if (archive_entry_new())
         {
-          v31 = [v26 lastPathComponent];
-          [v31 UTF8String];
+          v45 = [v37 lastPathComponent];
+          [v45 UTF8String];
           archive_entry_set_pathname();
 
           archive_entry_set_size();
           archive_entry_set_filetype();
           archive_entry_set_perm();
-          if (archive_write_header())
+          v46 = archive_write_header();
+          if (v46)
           {
-            v32 = sub_100013BF4();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            v48 = sub_100013BF4(v46, v47);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
             {
-              v33 = [v26 UTF8String];
+              v49 = [v37 UTF8String];
               *__nbyte = 136315138;
-              *&__nbyte[4] = v33;
-              v34 = v32;
-              v35 = "Unable to set archive file header: %s";
+              *&__nbyte[4] = v49;
+              v50 = v48;
+              v51 = "Unable to set archive file header: %s";
               goto LABEL_49;
             }
 
             goto LABEL_50;
           }
 
-          if (sub_10000ACC8() && [v27 compare:@"tgz"] && objc_msgSend(v27, "compare:", @"txt"))
+          if (sub_10000ACC8(v46, v47) && [v38 compare:@"tgz"] && objc_msgSend(v38, "compare:", @"txt"))
           {
-            [v26 UTF8String];
+            [v37 UTF8String];
             sub_1000040E0();
           }
 
           else
           {
-            [v26 UTF8String];
+            [v37 UTF8String];
             sub_100003F80();
           }
 
@@ -742,115 +747,117 @@ LABEL_30:
 
         else
         {
-          v32 = sub_100013BF4();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v48 = sub_100013BF4(0, v44);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
-            v36 = [v26 UTF8String];
+            v52 = [v37 UTF8String];
             *__nbyte = 136315138;
-            *&__nbyte[4] = v36;
-            v34 = v32;
-            v35 = "Unable to write file: %s to archive";
+            *&__nbyte[4] = v52;
+            v50 = v48;
+            v51 = "Unable to write file: %s to archive";
 LABEL_49:
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, v35, __nbyte, 0xCu);
+            _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, v51, __nbyte, 0xCu);
           }
 
 LABEL_50:
         }
 
-        v37 = [v26 UTF8String];
-        remove(v37, v38);
+        v53 = [v37 UTF8String];
+        remove(v53, v54);
         goto LABEL_58;
       }
 
-      v28 = sub_100013BF4();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v41 = sub_100013BF4(v39, v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = [v26 UTF8String];
-        v30 = *__error();
+        v42 = [v37 UTF8String];
+        v43 = *__error();
         *__nbyte = 136315394;
-        *&__nbyte[4] = v29;
-        v72 = 1024;
-        v73 = v30;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Ignoring file: %s error=%d", __nbyte, 0x12u);
+        *&__nbyte[4] = v42;
+        v94 = 1024;
+        v95 = v43;
+        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Ignoring file: %s error=%d", __nbyte, 0x12u);
       }
 
 LABEL_58:
     }
 
-    v23 = [v21 countByEnumeratingWithState:&v49 objects:v56 count:16];
+    v34 = [v32 countByEnumeratingWithState:&v71 objects:v78 count:16];
   }
 
-  while (v23);
+  while (v34);
 LABEL_60:
 
-  if (archive_write_close())
+  v55 = archive_write_close();
+  if (v55)
   {
-    v18 = sub_100013BF4();
-    v14 = v48;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v25 = sub_100013BF4(v55, v56);
+    v16 = v70;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v74.st_dev = 136315138;
-      *&v74.st_mode = v46;
-      v39 = "Unable to close the new archive %s";
+      v96.st_dev = 136315138;
+      *&v96.st_mode = v68;
+      v57 = "Unable to close the new archive %s";
       goto LABEL_66;
     }
 
     goto LABEL_67;
   }
 
-  v14 = v48;
-  if (!archive_write_free())
+  v58 = archive_write_free();
+  v16 = v70;
+  if (!v58)
   {
-    v40 = +[NSFileManager defaultManager];
-    v41 = [NSString stringWithCString:buf encoding:4];
-    v42 = [NSString stringWithCString:v46 encoding:4];
-    v43 = [v40 moveItemAtPath:v41 toPath:v42 error:0];
+    v60 = +[NSFileManager defaultManager];
+    v61 = [NSString stringWithCString:buf encoding:4];
+    v62 = [NSString stringWithCString:v68 encoding:4];
+    v63 = [v60 moveItemAtPath:v61 toPath:v62 error:0];
 
-    v44 = sub_100013BF4();
-    v18 = v44;
-    if (v43)
+    v66 = sub_100013BF4(v64, v65);
+    v25 = v66;
+    if (v63)
     {
-      v15 = v47;
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v17 = v69;
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
-        v74.st_dev = 67109120;
-        *&v74.st_mode = v45;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Archive written for pid: %d", &v74, 8u);
+        v96.st_dev = 67109120;
+        *&v96.st_mode = v67;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Archive written for pid: %d", &v96, 8u);
       }
 
-      v17 = 0;
+      v21 = 0;
       goto LABEL_32;
     }
 
-    v15 = v47;
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v17 = v69;
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      v74.st_dev = 136315138;
-      *&v74.st_mode = v46;
-      v19 = "Unable to remove the .tmp ending from %s";
+      v96.st_dev = 136315138;
+      *&v96.st_mode = v68;
+      v26 = "Unable to remove the .tmp ending from %s";
       goto LABEL_30;
     }
 
     goto LABEL_31;
   }
 
-  v18 = sub_100013BF4();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v25 = sub_100013BF4(v58, v59);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    v74.st_dev = 136315138;
-    *&v74.st_mode = v46;
-    v39 = "Unable to free the new archive %s";
+    v96.st_dev = 136315138;
+    *&v96.st_mode = v68;
+    v57 = "Unable to free the new archive %s";
 LABEL_66:
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, v39, &v74, 0xCu);
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, v57, &v96, 0xCu);
   }
 
 LABEL_67:
-  v17 = 0xFFFFFFFFLL;
-  v15 = v47;
+  v21 = 0xFFFFFFFFLL;
+  v17 = v69;
 LABEL_32:
 
 LABEL_33:
-  return v17;
+  return v21;
 }
 
 void sub_100003C98(uint64_t a1, void *a2)
@@ -869,7 +876,7 @@ void sub_100003C98(uint64_t a1, void *a2)
   }
 }
 
-uint64_t ps_event_handler_trigger_dp(const char *a1, int a2, char *__str)
+uint64_t ps_event_handler_trigger_dp(const char *a1, uint64_t a2, char *__str)
 {
   snprintf(__str, 0x100uLL, "/tmp/com.apple.polarisd/ps_log_file_archive-%d.tgz", a2);
   if (ps_event_handler_archive_all_log_files_for_pid(a2, __str))
@@ -894,13 +901,13 @@ uint64_t ps_event_handler_trigger_dp(const char *a1, int a2, char *__str)
 
     if (v9)
     {
-      v10 = sub_100013BF4();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100013BF4(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [v9 localizedDescription];
+        v13 = [v9 localizedDescription];
         *buf = 136315138;
-        v14 = [v11 UTF8String];
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Errors detecting when submitting DP: %s", buf, 0xCu);
+        v16 = [v13 UTF8String];
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Errors detecting when submitting DP: %s", buf, 0xCu);
       }
 
       strcpy(__str, "Error submitting to Diagnostic Pipeline");
@@ -929,21 +936,22 @@ uint64_t sub_100003F80()
 {
   v0 = __chkstk_darwin();
   v1 = open(v0, 0);
-  v2 = read(v1, v10, 0x2000uLL);
+  v2 = read(v1, v12, 0x2000uLL);
   if (v2 >= 1)
   {
-    for (i = v2; i > 0; i = read(v1, v10, 0x2000uLL))
+    for (i = v2; i > 0; i = read(v1, v12, 0x2000uLL))
     {
-      if (archive_write_data() != i)
+      v4 = archive_write_data();
+      if (v4 != i)
       {
-        v4 = sub_100013BF4();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+        v6 = sub_100013BF4(v4, v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218242;
-          v7 = i;
-          v8 = 2080;
-          v9 = v0;
-          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Error writing binary data size=%ld to archive %s", buf, 0x16u);
+          v9 = i;
+          v10 = 2080;
+          v11 = v0;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Error writing binary data size=%ld to archive %s", buf, 0x16u);
         }
       }
     }
@@ -987,9 +995,9 @@ void sub_1000040E0()
   }
 }
 
-void sub_1000042FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000042FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -998,26 +1006,26 @@ void sub_100004314(void *a1, char *__s)
 {
   v4 = strlen(__s);
   *&__s[v4 + 1] = 10;
-  v5 = a1[5];
-  v6 = v4 + 3;
-  v7 = archive_write_data();
-  *(*(a1[4] + 8) + 24) += v7;
-  if (v6 != v7)
+  v5 = v4 + 3;
+  v6 = archive_write_data();
+  v8 = v6;
+  *(*(a1[4] + 8) + 24) += v6;
+  if (v5 != v6)
   {
-    v8 = sub_100013BF4();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100013BF4(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(*(a1[4] + 8) + 24);
-      v10 = a1[6];
-      v11[0] = 67109890;
-      v11[1] = v7;
-      v12 = 1024;
-      v13 = v9;
-      v14 = 2080;
-      v15 = __s;
-      v16 = 2080;
-      v17 = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Error [%d:%d] writing line [%s] to archive [%s]", v11, 0x22u);
+      v10 = *(*(a1[4] + 8) + 24);
+      v11 = a1[6];
+      v12[0] = 67109890;
+      v12[1] = v8;
+      v13 = 1024;
+      v14 = v10;
+      v15 = 2080;
+      v16 = __s;
+      v17 = 2080;
+      v18 = v11;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Error [%d:%d] writing line [%s] to archive [%s]", v12, 0x22u);
     }
   }
 }
@@ -1026,31 +1034,31 @@ void sub_100004440(void *a1, char *__s)
 {
   v4 = strlen(__s);
   *&__s[v4 + 1] = 10;
-  v5 = a1[5];
-  v6 = v4 + 3;
-  v7 = archive_write_data();
-  *(*(a1[4] + 8) + 24) += v7;
-  if (v6 != v7)
+  v5 = v4 + 3;
+  v6 = archive_write_data();
+  v8 = v6;
+  *(*(a1[4] + 8) + 24) += v6;
+  if (v5 != v6)
   {
-    v8 = sub_100013BF4();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100013BF4(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(*(a1[4] + 8) + 24);
-      v10 = a1[6];
-      v11[0] = 67109890;
-      v11[1] = v7;
-      v12 = 1024;
-      v13 = v9;
-      v14 = 2080;
-      v15 = __s;
-      v16 = 2080;
-      v17 = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Error [%d:%d] writing line [%s] to archive [%s]", v11, 0x22u);
+      v10 = *(*(a1[4] + 8) + 24);
+      v11 = a1[6];
+      v12[0] = 67109890;
+      v12[1] = v8;
+      v13 = 1024;
+      v14 = v10;
+      v15 = 2080;
+      v16 = __s;
+      v17 = 2080;
+      v18 = v11;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Error [%d:%d] writing line [%s] to archive [%s]", v12, 0x22u);
     }
   }
 }
 
-uint64_t sub_10000456C()
+uint64_t sub_10000456C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = ps_liveness_node_get_total_deadline_exceeded_count();
   if (!result)
@@ -1074,7 +1082,7 @@ __CFData *sub_1000045A8()
   return Mutable;
 }
 
-uint64_t sub_100004658()
+uint64_t sub_100004658(uint64_t a1)
 {
   result = ps_liveness_node_get_status();
   if (!result)
@@ -1266,7 +1274,7 @@ LABEL_18:
   [*(a1 + 32) refreshState];
 }
 
-void sub_100009080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, char *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
+void sub_100009080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
 {
   sub_100009308(&a22, a23);
   if (__p)
@@ -1310,7 +1318,7 @@ void sub_1000094FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_100009518(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_100009518(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1336,12 +1344,12 @@ uint64_t *sub_100009570(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1355,22 +1363,22 @@ uint64_t *sub_100009570(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1404,13 +1412,13 @@ uint64_t *sub_100009570(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1641,8 +1649,8 @@ uint64_t sub_10000A9D4(uint64_t result, unint64_t a2, int a3, unint64_t *a4, uni
 {
   if (a3 >= a2)
   {
-    v10 = sub_1000176D4(&v11);
-    return sub_10000AA4C(v10);
+    v10 = sub_1000176D4(v13);
+    return sub_10000AA4C(v10, v11, v12);
   }
 
   else
@@ -1713,21 +1721,22 @@ uint64_t sub_10000AA4C(uint64_t result, int a2, int a3)
 
 uint64_t sub_10000AACC()
 {
-  v2 = *v0;
 
   return abort_with_reason();
 }
 
-void sub_10000AAEC(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_10000AAEC(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x26u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x26u);
 }
 
-void sub_10000AB0C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_10000AB0C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 BOOL sub_10000AB60(NSObject *a1)
@@ -1748,7 +1757,7 @@ uint64_t sub_10000AB90()
   return usleep(0x1E8480u);
 }
 
-uint64_t sub_10000ABA8()
+uint64_t sub_10000ABA8(uint64_t a1, uint64_t a2)
 {
   if (qword_100031100 != -1)
   {
@@ -1767,17 +1776,17 @@ unint64_t sub_10000AC10(unint64_t a1)
   return (v2 / v3 * a1);
 }
 
-dispatch_queue_t sub_10000AC60(const char *a1)
+dispatch_queue_t sub_10000AC60(const char *a1, uint64_t a2)
 {
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_workloop_set_scheduler_priority();
   dispatch_activate(inactive);
-  v3 = dispatch_queue_create_with_target_V2(a1, 0, inactive);
+  v4 = dispatch_queue_create_with_target_V2(a1, 0, inactive);
   dispatch_release(inactive);
-  return v3;
+  return v4;
 }
 
-uint64_t sub_10000ACC8()
+uint64_t sub_10000ACC8(uint64_t a1, uint64_t a2)
 {
   if (qword_100031118 != -1)
   {
@@ -1864,7 +1873,7 @@ LABEL_15:
   [*(a1 + 32) refreshState];
 }
 
-void sub_10001087C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, char *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37)
+void sub_10001087C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37)
 {
   sub_100009308(&a24, a25);
   if (__p)
@@ -1885,69 +1894,69 @@ void sub_100011154(void *value)
 uint64_t sub_100011424(void *a1, uint64_t a2)
 {
   v3 = a1;
-  v4 = *(a2 + 8);
-  if (v4)
+  v5 = v3;
+  v6 = *(a2 + 8);
+  if (v6)
   {
-    v5 = *(v4 + 1068);
-    v6 = [NSString stringWithCString:v4 + 44 encoding:4];
-    v7 = sub_100013BF4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = *(v6 + 1068);
+    v8 = [NSString stringWithCString:v6 + 44 encoding:4];
+    v10 = sub_100013BF4(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(v4 + 1068);
-      LODWORD(v13[0]) = 136315394;
-      *(v13 + 4) = v4 + 44;
-      WORD6(v13[0]) = 1024;
-      *(v13 + 14) = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "got key %s msg type %d", v13, 0x12u);
+      v11 = *(v6 + 1068);
+      LODWORD(v15[0]) = 136315394;
+      *(v15 + 4) = v6 + 44;
+      WORD6(v15[0]) = 1024;
+      *(v15 + 14) = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "got key %s msg type %d", v15, 0x12u);
     }
 
-    if (v5 > 1)
+    if (v7 > 1)
     {
-      if (v5 == 2)
+      if (v7 == 2)
       {
-        v9 = [v3 startStreamWithKey:v6];
+        v12 = [v5 startStreamWithKey:v8];
         goto LABEL_16;
       }
 
-      if (v5 == 3)
+      if (v7 == 3)
       {
-        v9 = [v3 stopStreamWithKey:v6];
+        v12 = [v5 stopStreamWithKey:v8];
         goto LABEL_16;
       }
     }
 
     else
     {
-      if (!v5)
+      if (!v7)
       {
-        v9 = [v3 openStreamWithKey:v6];
+        v12 = [v5 openStreamWithKey:v8];
         goto LABEL_16;
       }
 
-      if (v5 == 1)
+      if (v7 == 1)
       {
-        v9 = [v3 closeStreamWithKey:v6];
+        v12 = [v5 closeStreamWithKey:v8];
 LABEL_16:
-        memset(v13, 0, sizeof(v13));
-        v10 = (v9 & 1) != 0;
+        memset(v15, 0, sizeof(v15));
+        v13 = (v12 & 1) != 0;
         goto LABEL_17;
       }
     }
 
-    v10 = 0;
-    memset(v13, 0, 44);
+    v13 = 0;
+    memset(v15, 0, 44);
 LABEL_17:
-    HIDWORD(v13[2]) = v10;
-    v11 = *(a2 + 16);
+    HIDWORD(v15[2]) = v13;
     ps_comms_reply();
     goto LABEL_18;
   }
 
-  v6 = sub_100013BF4();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100013BF4(v3, v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Valid data not received.", v13, 2u);
+    LOWORD(v15[0]) = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Valid data not received.", v15, 2u);
   }
 
 LABEL_18:
@@ -1963,7 +1972,7 @@ void sub_100011DA8(uint64_t a1)
 
   bzero(qword_100031130, 0x4E0uLL);
   memset(dword_100032180, 255, sizeof(dword_100032180));
-  bzero(&qword_100031610, 0x4E0uLL);
+  bzero(qword_100031610, 0x4E0uLL);
   qword_100032520 = 0;
   xmmword_100032500 = 0u;
   unk_100032510 = 0u;
@@ -1985,7 +1994,7 @@ void sub_100011DA8(uint64_t a1)
   unk_100032410 = 0u;
   xmmword_1000323F0 = 0u;
 
-  bzero(&unk_100032528, 0x4E0uLL);
+  bzero(qword_100032528, 0x4E0uLL);
 }
 
 void start()
@@ -2000,109 +2009,110 @@ void start()
 
   if ((v3 - 1) <= 0xFFFFFFFD)
   {
-    v4 = sub_100013BF4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100013BF4(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v33 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Polarisd sleeping for (%ld) seconds.", buf, 0xCu);
+      v47 = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Polarisd sleeping for (%ld) seconds.", buf, 0xCu);
     }
 
     sleep(v3);
   }
 
-  v5 = objc_autoreleasePoolPush();
-  v6 = [NSURL fileURLWithPath:@"/tmp/com.apple.polarisd" isDirectory:1];
-  v7 = +[NSFileManager defaultManager];
-  v36 = 0;
-  [v7 createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v36];
-  v8 = v36;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [NSURL fileURLWithPath:@"/tmp/com.apple.polarisd" isDirectory:1];
+  v9 = +[NSFileManager defaultManager];
+  v50 = 0;
+  [v9 createDirectoryAtURL:v8 withIntermediateDirectories:1 attributes:0 error:&v50];
+  v10 = v50;
 
-  if (v8)
+  if (v10)
   {
-    v9 = sub_100013BF4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = sub_100013BF4(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v33 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to create a folder for polarisd in /tmp folder : %@", buf, 0xCu);
+      v47 = v10;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to create a folder for polarisd in /tmp folder : %@", buf, 0xCu);
     }
   }
 
-  objc_autoreleasePoolPop(v5);
-  v10 = sub_100013BF4();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  objc_autoreleasePoolPop(v7);
+  v16 = sub_100013BF4(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v33 = "Oct 10 2025";
-    v34 = 2080;
-    v35 = "21:55:44";
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Starting Polarisd (built on %s %s)", buf, 0x16u);
+    v47 = "Oct 10 2025";
+    v48 = 2080;
+    v49 = "21:55:44";
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Starting Polarisd (built on %s %s)", buf, 0x16u);
   }
 
-  v11 = sub_10000ACC8();
-  v12 = sub_100013BF4();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_10000ACC8(v17, v18);
+  v20 = v19;
+  v22 = sub_100013BF4(v19, v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = "a customer";
-    if (v11)
+    v23 = "a customer";
+    if (v20)
     {
-      v13 = "an internal";
+      v23 = "an internal";
     }
 
     *buf = 136446210;
-    v33 = v13;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Running on %{public}s build", buf, 0xCu);
+    v47 = v23;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Running on %{public}s build", buf, 0xCu);
   }
 
-  v14 = objc_autoreleasePoolPush();
-  v15 = +[PLSSettings currentSettings];
-  v16 = [v15 enableFastTransition];
+  v24 = objc_autoreleasePoolPush();
+  v25 = +[PLSSettings currentSettings];
+  v26 = [v25 enableFastTransition];
 
-  if (v16)
+  if (v26)
   {
-    v17 = sub_100013BF4();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_100013BF4(v27, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Initializing the system graph server queue", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Initializing the system graph server queue", buf, 2u);
     }
 
-    v18 = sub_10000AC60("PolarisD-System-Graph-Server-Queue");
-    v19 = qword_100032098;
-    qword_100032098 = v18;
+    v30 = sub_10000AC60("PolarisD-System-Graph-Server-Queue", 60);
+    v31 = qword_100032098;
+    qword_100032098 = v30;
   }
 
-  v20 = [PSDaemon alloc];
-  v21 = [v20 initWithDispatchQueue:qword_100032098];
-  v22 = qword_1000320B8;
-  qword_1000320B8 = v21;
+  v32 = [PSDaemon alloc];
+  v33 = [v32 initWithDispatchQueue:qword_100032098];
+  v34 = qword_1000320B8;
+  qword_1000320B8 = v33;
 
-  v23 = [PSSharedStreamManager alloc];
-  v24 = [qword_1000320B8 comms_server];
-  v25 = [qword_1000320B8 device];
-  v26 = -[PSSharedStreamManager initWithServer:device:gsm:](v23, "initWithServer:device:gsm:", v24, v25, [qword_1000320B8 gsm]);
-  v27 = qword_100032070;
-  qword_100032070 = v26;
+  v35 = [PSSharedStreamManager alloc];
+  v36 = [qword_1000320B8 comms_server];
+  v37 = [qword_1000320B8 device];
+  v38 = -[PSSharedStreamManager initWithServer:device:gsm:](v35, "initWithServer:device:gsm:", v36, v37, [qword_1000320B8 gsm]);
+  v39 = qword_100032070;
+  qword_100032070 = v38;
 
-  [qword_1000320B8 start];
+  v40 = [qword_1000320B8 start];
   if ((v3 - 1) <= 0xFFFFFFFD)
   {
-    v28 = sub_100013BF4();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v42 = sub_100013BF4(v40, v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v33 = v3;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Polarisd sleeping for (%ld) seconds.", buf, 0xCu);
+      v47 = v3;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Polarisd sleeping for (%ld) seconds.", buf, 0xCu);
     }
 
     sleep(v3);
   }
 
-  v29 = [PSPowerManager alloc];
-  v30 = -[PSPowerManager initWithgsm:](v29, "initWithgsm:", [qword_1000320B8 gsm]);
-  v31 = qword_100032078;
-  qword_100032078 = v30;
+  v43 = [PSPowerManager alloc];
+  v44 = -[PSPowerManager initWithgsm:](v43, "initWithgsm:", [qword_1000320B8 gsm]);
+  v45 = qword_100032078;
+  qword_100032078 = v44;
 
   [qword_1000320B8 comms_server];
   ps_event_handler_init();
@@ -2128,20 +2138,42 @@ void sub_100013A10(id a1, int a2, BOOL a3)
   ps_event_handler_report(v6, v5, v7, v4);
 }
 
+BOOL sub_100013A90(id a1, unsigned int a2)
+{
+  v7 = 0;
+  v8 = 0;
+  v2 = sub_10000456C(*&a2, &v8, &v7);
+  v4 = v7;
+  if (v7)
+  {
+    v5 = sub_100013BF4(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 134218240;
+      v10 = v8;
+      v11 = 2048;
+      v12 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Liveness miss qos:%llu result:%llu", buf, 0x16u);
+    }
+  }
+
+  return v4 != 0;
+}
+
 void sub_100013B70(id a1)
 {
   [qword_1000320B8 stop];
   j__ps_system_action_stop();
-  [qword_100032078 stop];
-  v1 = sub_100013BF4();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v1 = [qword_100032078 stop];
+  v3 = sub_100013BF4(v1, v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "PolarisD : Received SIGTERM ", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "PolarisD : Received SIGTERM ", v4, 2u);
   }
 }
 
-uint64_t sub_100013BF4()
+uint64_t sub_100013BF4(uint64_t a1, uint64_t a2)
 {
   if (qword_100032118 != -1)
   {
@@ -2154,52 +2186,53 @@ uint64_t sub_100013BF4()
 void sub_100013D60(void *a1, uint64_t a2, int a3, intptr_t a4)
 {
   v6 = a1;
-  HIDWORD(v8) = a3 + 536870288;
-  LODWORD(v8) = a3 + 536870288;
-  v7 = v8 >> 4;
-  if (v7 <= 1)
+  v8 = v6;
+  HIDWORD(v10) = a3 + 536870288;
+  LODWORD(v10) = a3 + 536870288;
+  v9 = v10 >> 4;
+  if (v9 <= 1)
   {
-    if (v7)
+    if (v9)
     {
-      if (v7 != 1)
+      if (v9 != 1)
       {
         goto LABEL_26;
       }
 
-      v12 = sub_100013BF4();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100013BF4(v6, v7);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received kIOMessageSystemWillSleep \n", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Received kIOMessageSystemWillSleep \n", buf, 2u);
       }
 
       ps_liveness_server_pause_liveness();
-      ps_gsm_pause_all_sources([v6 gsm]);
+      ps_gsm_pause_all_sources([v8 gsm]);
     }
 
     else
     {
-      v15 = sub_100013BF4();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_100013BF4(v6, v7);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v20 = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Received kIOMessageCanSystemSleep.\n", v20, 2u);
+        *v23 = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Received kIOMessageCanSystemSleep.\n", v23, 2u);
       }
     }
 
-    IOAllowPowerChange([v6 pm_ack_port], a4);
+    IOAllowPowerChange([v8 pm_ack_port], a4);
     goto LABEL_26;
   }
 
-  switch(v7)
+  switch(v9)
   {
     case 2:
-      v9 = sub_100013BF4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100013BF4(v6, v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        v10 = "Received kIOMessageSystemWillNotSleep \n";
-        v11 = v18;
+        *v21 = 0;
+        v12 = "Received kIOMessageSystemWillNotSleep \n";
+        v13 = v21;
         goto LABEL_14;
       }
 
@@ -2207,21 +2240,21 @@ LABEL_15:
 
       break;
     case 9:
-      v13 = sub_100013BF4();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100013BF4(v6, v7);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *v17 = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received kIOMessageSystemHasPoweredOn.\n", v17, 2u);
+        *v20 = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Received kIOMessageSystemHasPoweredOn.\n", v20, 2u);
       }
 
-      ps_gsm_resume_all_sources([v6 gsm]);
-      if ([v6 resolvedUserActivity] == 2)
+      ps_gsm_resume_all_sources([v8 gsm]);
+      if ([v8 resolvedUserActivity] == 2)
       {
-        v14 = sub_100013BF4();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_100013BF4(2, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          *v16 = 0;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "User is Active on wake.\n", v16, 2u);
+          *v19 = 0;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "User is Active on wake.\n", v19, 2u);
         }
 
         ps_liveness_server_resume_liveness();
@@ -2229,14 +2262,14 @@ LABEL_15:
 
       break;
     case 11:
-      v9 = sub_100013BF4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100013BF4(v6, v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 0;
-        v10 = "Received kIOMessageSystemWillPowerOn.\n";
-        v11 = &v19;
+        v22 = 0;
+        v12 = "Received kIOMessageSystemWillPowerOn.\n";
+        v13 = &v22;
 LABEL_14:
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v12, v13, 2u);
         goto LABEL_15;
       }
 
@@ -2250,18 +2283,17 @@ id sub_100014294(uint64_t a1)
 {
   *(*(a1 + 32) + 40) = *(a1 + 40);
   v2 = *(a1 + 32);
-  v3 = *(v2 + 64);
-  v7[1] = _NSConcreteStackBlock;
-  v7[2] = 3221225472;
-  v7[3] = sub_10001433C;
-  v7[4] = &unk_100028EA0;
-  v7[5] = v2;
+  v6[1] = _NSConcreteStackBlock;
+  v6[2] = 3221225472;
+  v6[3] = sub_10001433C;
+  v6[4] = &unk_100028EA0;
+  v6[5] = v2;
   result = IOPMScheduleUserActivityLevelNotificationWithTimeout();
   *(*(a1 + 32) + 8) = result;
   if (!*(*(a1 + 32) + 8))
   {
-    v5 = sub_1000182FC(v7);
-    return sub_10001433C(v5, v6);
+    v4 = sub_1000182FC(v6);
+    return sub_10001433C(v4, v5);
   }
 
   return result;
@@ -2270,7 +2302,7 @@ id sub_100014294(uint64_t a1)
 id sub_10001433C(uint64_t a1, uint64_t a2)
 {
   v4 = a2 & 5;
-  v5 = sub_100013BF4();
+  v5 = sub_100013BF4(a1, a2);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
@@ -2381,103 +2413,104 @@ void sub_100014A34()
   v0 = IOServiceNameMatching("AppleBoraModule");
   if (!v0)
   {
-    v6 = sub_100013BF4();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100013BF4(0, v1);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
     *buffer = 0;
-    v7 = "strapAnalytics: Failed to get module";
+    v11 = "strapAnalytics: Failed to get module";
     goto LABEL_13;
   }
 
   MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v0);
   if (!MatchingService)
   {
-    v6 = sub_100013BF4();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100013BF4(MatchingService, v3);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
     *buffer = 0;
-    v7 = "strapAnalytics: Failed to get io_service";
+    v11 = "strapAnalytics: Failed to get io_service";
     goto LABEL_13;
   }
 
-  v2 = MatchingService;
+  v4 = MatchingService;
   CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"LeviathanWorkaroundOutcome", kCFAllocatorDefault, 0);
   if (!CFProperty)
   {
     CFRelease(@"LeviathanWorkaroundOutcome");
-    IOObjectRelease(v2);
-    v6 = sub_100013BF4();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v12 = IOObjectRelease(v4);
+    v10 = sub_100013BF4(v12, v13);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
     *buffer = 0;
-    v7 = "strapAnalytics: Failed to get cfprop";
+    v11 = "strapAnalytics: Failed to get cfprop";
 LABEL_13:
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v7, buffer, 2u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v11, buffer, 2u);
 LABEL_14:
-    v8 = dword_100032128++;
-    if (v8 > 1)
+    v14 = dword_100032128++;
+    if (v14 > 1)
     {
       sub_100014C6C("Failed to get strapAnalytics");
     }
 
     else
     {
-      v9 = dispatch_time(0, 3000000000);
+      v15 = dispatch_time(0, 3000000000);
       global_queue = dispatch_get_global_queue(0, 0);
-      dispatch_after(v9, global_queue, &stru_100028FB0);
+      dispatch_after(v15, global_queue, &stru_100028FB0);
     }
 
     return;
   }
 
-  v4 = CFProperty;
-  CFStringGetCString(CFProperty, buffer, 128, 0x8000100u);
-  v5 = sub_100013BF4();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CFProperty;
+  CString = CFStringGetCString(CFProperty, buffer, 128, 0x8000100u);
+  v9 = sub_100013BF4(CString, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = buffer;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "strapAnalytics: PASS, outcomeStr - %s", &v11, 0xCu);
+    v17 = 136315138;
+    v18 = buffer;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "strapAnalytics: PASS, outcomeStr - %s", &v17, 0xCu);
   }
 
   sub_100014C6C(buffer);
-  IOObjectRelease(v2);
+  IOObjectRelease(v4);
   CFRelease(@"LeviathanWorkaroundOutcome");
-  CFRelease(v4);
+  CFRelease(v6);
 }
 
 void sub_100014C6C(const char *a1)
 {
   empty = xpc_dictionary_create_empty();
   xpc_dictionary_set_string(empty, off_100031038[0], a1);
-  v5 = _NSConcreteStackBlock;
-  v6 = 0x40000000;
-  v7 = sub_100014D4C;
-  v8 = &unk_100028FD0;
-  v9 = empty;
-  if ((analytics_send_event_lazy() & 1) == 0)
+  v7 = _NSConcreteStackBlock;
+  v8 = 0x40000000;
+  v9 = sub_100014D4C;
+  v10 = &unk_100028FD0;
+  v11 = empty;
+  v3 = analytics_send_event_lazy();
+  if ((v3 & 1) == 0)
   {
-    v3 = sub_100013BF4();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100013BF4(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "strapAnalytics: Failed to send CA event", v4, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "strapAnalytics: Failed to send CA event", v6, 2u);
     }
 
     xpc_release(empty);
   }
 }
 
-uint64_t sub_100014D54(uint64_t result)
+uint64_t sub_100014D54(uint64_t result, uint64_t a2)
 {
   if (*(result + 128) == 1)
   {
@@ -2507,7 +2540,7 @@ void sub_100014DA0(semaphore_t a1)
       sub_100018464(&v3, v1);
     }
 
-    v2 = sub_1000013E0();
+    v2 = sub_1000013E0(v1, v1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       v3 = 136315650;
@@ -2528,16 +2561,18 @@ char *sub_100014E84(void *a1, mach_error_t error_value)
   return mach_error_string(error_value);
 }
 
-void sub_100014EA4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_100014EA4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_FAULT, a4, &buf, 0x2Cu);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_FAULT, a4, va, 0x2Cu);
 }
 
-void sub_100014EC4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_100014EC4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 unint64_t sub_100014F08(unint64_t result)
@@ -2565,18 +2600,18 @@ unint64_t *sub_100014F30(unint64_t *result, unint64_t a2)
   return result;
 }
 
-uint64_t sub_100014F64(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_100014F64(uint64_t result, atomic_ullong *a2, uint64_t a3, uint64_t a4)
 {
   v5 = result;
-  v6 = (a2 + 8);
-  explicit = atomic_load_explicit((a2 + 8), memory_order_acquire);
+  v6 = (a2 + 1);
+  explicit = atomic_load_explicit(a2 + 1, memory_order_acquire);
   while ((explicit & 0xFFFFFFFFFFLL) == a3)
   {
     if (explicit == (a3 & 0xFFFFFFFFFFLL | a4 | 0x400000000000000))
     {
       if (*(a2 + 1184) == 1)
       {
-        sub_100015F90(result, *(a2 + 1202), *(a2 + 1200));
+        sub_100015F90(result, *(a2 + 601), *(a2 + 600));
       }
 
       v10 = **(v5 + 64);
@@ -2604,7 +2639,7 @@ uint64_t sub_100015034(uint64_t a1, int a2, int a3, uint64_t a4)
 {
   sub_1000150B4(a2, 1024);
   sub_1000150B4(a3, 16);
-  v8 = *(a1 + 72) + 1320 * a2;
+  v8 = (*(a1 + 72) + 1320 * a2);
 
   return sub_100014F64(a1, v8, a4, (1 << a3) << 40);
 }
@@ -2614,34 +2649,34 @@ uint64_t sub_1000150B4(uint64_t result, uint64_t a2)
   if (result >= a2)
   {
     v3 = result;
-    v8 = 0;
-    asprintf(&v8, "Out of bounds assert error (%llud>= %lld)", result, a2);
-    v4 = sub_10000ABA8();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v11 = 0;
+    v4 = asprintf(&v11, "Out of bounds assert error (%llud>= %lld)", result, a2);
+    v6 = sub_10000ABA8(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v10 = "ps_util_assert_less_than_signed";
-      v11 = 1024;
-      v12 = 213;
-      v13 = 2048;
-      v14 = v3;
-      v15 = 2048;
-      v16 = a2;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llud>= %lld)", buf, 0x26u);
+      v13 = "ps_util_assert_less_than_signed";
+      v14 = 1024;
+      v15 = 213;
+      v16 = 2048;
+      v17 = v3;
+      v18 = 2048;
+      v19 = a2;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llud>= %lld)", buf, 0x26u);
     }
 
-    v5 = OSLogFlushBuffers();
-    if (v5)
+    v7 = OSLogFlushBuffers();
+    if (v7)
     {
-      v6 = v5;
-      v7 = sub_10000ABA8();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = v7;
+      v10 = sub_10000ABA8(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v10 = "ps_util_assert_less_than_signed";
-        v11 = 1024;
-        v12 = v6;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v13 = "ps_util_assert_less_than_signed";
+        v14 = 1024;
+        v15 = v9;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -2952,69 +2987,67 @@ LABEL_20:
   }
 }
 
-uint64_t sub_1000156FC(uint64_t a1, char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1000156FC(uint64_t a1, char *a2, int a3)
 {
-  v120 = a2;
-  v119 = a3;
-  v118 = *(a1 + 432);
-  sub_100015A2C(&v120, &v119, "Name: %s group-synced:%d\n", a4, a5, a6, a7, a8, a1 + 16);
+  v12 = a2;
+  v11 = a3;
+  sub_100015A2C(&v12, &v11, "Name: %s group-synced:%d\n", (a1 + 16), *(a1 + 432));
   explicit = atomic_load_explicit((a1 + 8), memory_order_acquire);
-  sub_100015A2C(&v120, &v119, "\nToken:\n", v10, v11, v12, v13, v14, v111);
-  sub_100015A2C(&v120, &v119, "\tpid: %u\n", v15, v16, v17, v18, v19, explicit);
-  sub_100015A2C(&v120, &v119, "\tcounter: %u\n", v20, v21, v22, v23, v24, SBYTE4(explicit));
-  sub_100015A2C(&v120, &v119, "\tnonce: %llu\n", v25, v26, v27, v28, v29, explicit);
-  sub_100015A2C(&v120, &v119, "\tsources: %0x\n", v30, v31, v32, v33, v34, SBYTE5(explicit));
-  sub_100015A2C(&v120, &v119, "\twaiter: %u\n", v35, v36, v37, v38, v39, HIBYTE(explicit) & 1);
-  sub_100015A2C(&v120, &v119, "\nInit complete: %d\n", v40, v41, v42, v43, v44, (explicit & 0x400000000000000) != 0);
-  sub_100015A2C(&v120, &v119, "\nSources:\n", v45, v46, v47, v48, v49, v112);
+  sub_100015A2C(&v12, &v11, "\nToken:\n");
+  sub_100015A2C(&v12, &v11, "\tpid: %u\n", explicit);
+  sub_100015A2C(&v12, &v11, "\tcounter: %u\n", BYTE4(explicit));
+  sub_100015A2C(&v12, &v11, "\tnonce: %llu\n", explicit & 0xFFFFFFFFFFLL);
+  sub_100015A2C(&v12, &v11, "\tsources: %0x\n", (HIDWORD(explicit) >> 8));
+  sub_100015A2C(&v12, &v11, "\twaiter: %u\n", HIBYTE(explicit) & 1);
+  sub_100015A2C(&v12, &v11, "\nInit complete: %d\n", (explicit & 0x400000000000000) != 0);
+  sub_100015A2C(&v12, &v11, "\nSources:\n");
   if (*(a1 + 144) >= 1)
   {
-    v55 = 0;
-    v56 = (a1 + 212);
+    v5 = 0;
+    v6 = (a1 + 212);
     do
     {
-      sub_100015A2C(&v120, &v119, "\tglobal_source_index: %u\n", v50, v51, v52, v53, v54, *(v56 - 16));
-      sub_100015A2C(&v120, &v119, "\tlocal_gst_index: %u\n", v57, v58, v59, v60, v61, *v56);
-      sub_100015A2C(&v120, &v119, "\tdown sample: %u\n", v62, v63, v64, v65, v66, v56[23]);
-      sub_100015A2C(&v120, &v119, "\tstride: %u\n", v67, v68, v69, v70, v71, v56[39]);
-      sub_100015A2C(&v120, &v119, "\n", v72, v73, v74, v75, v76, v114);
-      ++v55;
-      ++v56;
+      sub_100015A2C(&v12, &v11, "\tglobal_source_index: %u\n", *(v6 - 16));
+      sub_100015A2C(&v12, &v11, "\tlocal_gst_index: %u\n", *v6);
+      sub_100015A2C(&v12, &v11, "\tdown sample: %u\n", v6[23]);
+      sub_100015A2C(&v12, &v11, "\tstride: %u\n", v6[39]);
+      sub_100015A2C(&v12, &v11, "\n");
+      ++v5;
+      ++v6;
     }
 
-    while (v55 < *(a1 + 144));
+    while (v5 < *(a1 + 144));
   }
 
-  v77 = atomic_load_explicit((a1 + 1176), memory_order_acquire);
-  sub_100015A2C(&v120, &v119, "\nTrigger:\n", v50, v51, v52, v53, v54, v113);
-  if ((v77 & 0xFFFFFFFFFFFFLL) == 0xFFFFFFFFFFFFLL)
+  v7 = atomic_load_explicit((a1 + 1176), memory_order_acquire);
+  sub_100015A2C(&v12, &v11, "\nTrigger:\n");
+  if ((v7 & 0xFFFFFFFFFFFFLL) == 0xFFFFFFFFFFFFLL)
   {
-    v83 = "\ttag: TAG_READ\n";
+    sub_100015A2C(&v12, &v11, "\ttag: TAG_READ\n");
   }
 
   else
   {
-    v115 = v77;
-    v83 = "\ttag: %llu\n";
+    sub_100015A2C(&v12, &v11, "\ttag: %llu\n");
   }
 
-  sub_100015A2C(&v120, &v119, v83, v78, v79, v80, v81, v82, v115);
-  sub_100015A2C(&v120, &v119, "\tshould_exit: %d\n", v84, v85, v86, v87, v88, BYTE6(v77) & 1);
-  sub_100015A2C(&v120, &v119, "\tsequenced_teardown: %d\n", v89, v90, v91, v92, v93, (v77 & 0x2000000000000) != 0);
-  sub_100015A2C(&v120, &v119, "\tsem_signaled: %d\n", v94, v95, v96, v97, v98, (v77 & 0x4000000000000) != 0);
-  sub_100015A2C(&v120, &v119, "\nReady sources:\n", v99, v100, v101, v102, v103, v116);
+  sub_100015A2C(&v12, &v11, "\tshould_exit: %d\n", HIWORD(v7) & 1);
+  sub_100015A2C(&v12, &v11, "\tsequenced_teardown: %d\n", (v7 >> 49) & 1);
+  sub_100015A2C(&v12, &v11, "\tsem_signaled: %d\n", (v7 >> 50) & 1);
+  sub_100015A2C(&v12, &v11, "\nReady sources:\n");
   for (i = 0; i != 91; ++i)
   {
-    atomic_load_explicit((a1 + 448 + 8 * i), memory_order_acquire);
-    sub_100015A2C(&v120, &v119, "\t%d: tag: %llu ready: %0x", v104, v105, v106, v107, v108, i);
+    v9 = atomic_load_explicit((a1 + 448 + 8 * i), memory_order_acquire);
+    sub_100015A2C(&v12, &v11, "\t%d: tag: %llu ready: %0x", i, v9 & 0xFFFFFFFFFFFFLL, HIWORD(v9) & 0x3FFF);
   }
 
-  return sub_100015A2C(&v120, &v119, "\n", v104, v105, v106, v107, v108, v117);
+  return sub_100015A2C(&v12, &v11, "\n");
 }
 
-uint64_t sub_100015A2C(char **a1, _DWORD *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t sub_100015A2C(char **a1, _DWORD *a2, const char *a3, ...)
 {
-  result = vsnprintf(*a1, *a2, a3, &a9);
+  va_start(va, a3);
+  result = vsnprintf(*a1, *a2, a3, va);
   if (result < 1 || *a2 <= result)
   {
     *a2 = 0;
@@ -3029,10 +3062,11 @@ uint64_t sub_100015A2C(char **a1, _DWORD *a2, const char *a3, uint64_t a4, uint6
   return result;
 }
 
-void sub_100015A9C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_100015A9C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x26u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x26u);
 }
 
 BOOL sub_100015ABC(uint64_t a1, unint64_t a2)
@@ -3097,36 +3131,48 @@ uint64_t sub_100015B88(uint64_t result, unint64_t a2)
     explicit = atomic_load_explicit((result + 1304), memory_order_acquire);
     while (*(v3 + 24 * (HIWORD(explicit) & 3) + 8) <= a2)
     {
-      v12 = v4;
-      v13 = a2;
-      v14 = result;
-      v11 = explicit;
+      v13 = v4;
+      v14 = a2;
+      v15 = result;
+      v12 = explicit;
       do
       {
-        sub_100015D54(v14, v3 + 24 * (HIWORD(explicit) & 3));
+        sub_100015D54(v15, v3 + 24 * (HIWORD(explicit) & 3));
         v6 = explicit + 0x1000000000000;
         v7 = ((explicit + 0x1C000000000000) & 0x1C000000000000) == 0;
         explicit = (explicit + 0x1000000000000) & 0x3000000000000 | explicit & 0xFFE0FFFFFFFFFFFFLL | (explicit + 0x1C000000000000) & 0x1C000000000000;
       }
 
-      while (!v7 && *(v3 + 24 * (HIWORD(v6) & 3) + 8) <= v13);
-      a2 = v13;
-      result = v14;
-      v8 = v11;
-      v9 = v11;
-      atomic_compare_exchange_strong((v14 + 1304), &v9, explicit);
+      while (!v7 && *(v3 + 24 * (HIWORD(v6) & 3) + 8) <= v14);
+      a2 = v14;
+      result = v15;
+      v8 = v12;
+      v9 = v12;
+      atomic_compare_exchange_strong((v15 + 1304), &v9, explicit);
       explicit = v9;
-      v4 = v12;
+      v4 = v13;
       if (v9 == v8)
       {
-        if (*(v14 + 440) != v12)
+        if (*(v15 + 440) != v13)
         {
-          v10 = sub_1000013E0();
+          v10 = sub_1000013E0(v15, v14);
           result = os_signpost_enabled(v10);
           if (result)
           {
-            v15 = *(v14 + 440);
-            return _os_signpost_emit_unreliably_with_name_impl();
+            v11 = *(v15 + 440);
+            v16 = 136316419;
+            v17 = v15 + 16;
+            v18 = 2048;
+            v19 = v14;
+            v20 = 1025;
+            v21 = v13;
+            v22 = 1025;
+            v23 = HIDWORD(v13);
+            v24 = 1025;
+            v25 = v11;
+            v26 = 1025;
+            v27 = HIDWORD(v11);
+            return _os_signpost_emit_unreliably_with_name_impl(&_mh_execute_header, v10, 0, 0xEEEEB0B5B2B2EEEELL, "PSGSM Log", "Graph stride changed for graph %s at frame ID %llu. Previous cadence: (%{private}u, %{private}u). Current cadence: (%{private}u, %{private}u).", &v16, 46);
           }
         }
 
@@ -3158,34 +3204,34 @@ unint64_t sub_100015D80(unint64_t result, unint64_t a2)
   if (result >= a2)
   {
     v3 = result;
-    v8 = 0;
-    asprintf(&v8, "Out of bounds assert error (%llu >= %llu)", result, a2);
-    v4 = sub_10000ABA8();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v11 = 0;
+    v4 = asprintf(&v11, "Out of bounds assert error (%llu >= %llu)", result, a2);
+    v6 = sub_10000ABA8(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v10 = "ps_util_assert_less_than_unsigned";
-      v11 = 1024;
-      v12 = 192;
-      v13 = 2048;
-      v14 = v3;
-      v15 = 2048;
-      v16 = a2;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llu >= %llu)", buf, 0x26u);
+      v13 = "ps_util_assert_less_than_unsigned";
+      v14 = 1024;
+      v15 = 192;
+      v16 = 2048;
+      v17 = v3;
+      v18 = 2048;
+      v19 = a2;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llu >= %llu)", buf, 0x26u);
     }
 
-    v5 = OSLogFlushBuffers();
-    if (v5)
+    v7 = OSLogFlushBuffers();
+    if (v7)
     {
-      v6 = v5;
-      v7 = sub_10000ABA8();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = v7;
+      v10 = sub_10000ABA8(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v10 = "ps_util_assert_less_than_unsigned";
-        v11 = 1024;
-        v12 = v6;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v13 = "ps_util_assert_less_than_unsigned";
+        v14 = 1024;
+        v15 = v9;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -3236,80 +3282,78 @@ void sub_100015F00(uint64_t a1, unsigned int a2, unsigned int a3)
   }
 }
 
-void sub_100015F90(uint64_t a1, unsigned int a2, unsigned int a3)
+void sub_100015F90(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   sub_100015D80(a2, 0x80uLL);
-  sub_100015D80(a3, 0x40uLL);
-  v6 = (*(a1 + 120) + 312 * a2);
-  if ((atomic_load_explicit(v6 + 21, memory_order_acquire) >> a3))
+  v6 = sub_100015D80(a3, 0x40uLL);
+  v8 = (*(a1 + 120) + 312 * a2);
+  if ((atomic_load_explicit(v8 + 21, memory_order_acquire) >> a3))
   {
-    v7 = sub_1000013E0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sub_1000013E0(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = v6 + 1;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Shared Trigger (%s) Could not repair. The shared trigger will go out of commission.", &v15, 0xCu);
+      v17 = 136315138;
+      v18 = v8 + 1;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Shared Trigger (%s) Could not repair. The shared trigger will go out of commission.", &v17, 0xCu);
     }
   }
 
   else
   {
-    explicit = atomic_load_explicit(v6 + 17, memory_order_acquire);
-    sub_10000AA4C((v6 + 18), a3, 0);
-    sub_10000A9A4((v6 + 21), 0x40uLL, a3);
+    explicit = atomic_load_explicit(v8 + 17, memory_order_acquire);
+    sub_10000AA4C((v8 + 18), a3, 0);
+    sub_10000A9A4((v8 + 21), 0x40uLL, a3);
     do
     {
-      v9 = explicit;
+      v11 = explicit;
       if ((explicit & 0xFF00000000) != 0)
       {
-        v10 = explicit & 0xFFFFFF00FFFFFFFFLL | (((explicit + 0xFF00000000) >> 32) << 32);
+        v12 = explicit & 0xFFFFFF00FFFFFFFFLL | (((explicit + 0xFF00000000) >> 32) << 32);
       }
 
       else
       {
-        v10 = explicit;
+        v12 = explicit;
       }
 
-      atomic_compare_exchange_strong(v6 + 17, &explicit, v10);
+      atomic_compare_exchange_strong(v8 + 17, &explicit, v12);
     }
 
-    while (explicit != v9);
-    v11 = v9 & 0x10000000000;
-    if ((v10 & 0xFF00000000) == 0 && v11 != 0)
+    while (explicit != v11);
+    v13 = v11 & 0x10000000000;
+    if ((v12 & 0xFF00000000) == 0 && v13 != 0)
     {
-      v13 = *(a1 + 112);
-      v14 = *v6;
+      v15 = *(a1 + 112);
+      v16 = *v8;
 
-      sub_10000A9CC(v13, 0x80uLL, v14, v6 + 17);
+      sub_10000A9CC(v15, 0x80uLL, v16, v8 + 17);
     }
   }
 }
 
-void sub_100016138(uint64_t a1, unsigned int *a2)
+void sub_100016138(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
   v4 = xpc_dictionary_create(0, 0, 0);
-  v5 = *a2;
-  v6 = *(a2 + 144);
   populateSourceInfo();
-  v7 = xpc_session_send_message(*(a1 + 4784), v4);
-  if (v7)
+  v5 = xpc_session_send_message(*(a1 + 4784), v4);
+  if (v5)
   {
-    v8 = xpc_rich_error_copy_description(v7);
-    v9 = sub_1000013E0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v6 = xpc_rich_error_copy_description(v5);
+    v8 = sub_1000013E0(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to send an XPC message for graphsAddedRemoved to polarisd, aborting! Error = %s", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to send an XPC message for graphsAddedRemoved to polarisd, aborting! Error = %s", &v9, 0xCu);
     }
 
-    free(v8);
+    free(v6);
   }
 
   xpc_release(v4);
 }
 
-uint64_t ps_gsm_finish_clear_gst(uint64_t a1, uint64_t a2, int a3)
+uint64_t ps_gsm_finish_clear_gst(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = (a2 + 8 * a3 + 160);
   explicit = atomic_load_explicit(v5, memory_order_acquire);
@@ -3375,7 +3419,7 @@ uint64_t ps_gsm_notify(uint64_t a1, uint64_t a2, uint64_t a3)
             }
 
             while (!v14);
-            sub_100016138(a1, a2);
+            sub_100016138(a1, a2, v8);
           }
 
           else
@@ -3394,7 +3438,7 @@ LABEL_21:
     while (v7);
   }
 
-  return sub_100014D54(a1);
+  return sub_100014D54(a1, 0);
 }
 
 uint64_t sub_10001641C(uint64_t a1, int a2, int a3)
@@ -3408,7 +3452,7 @@ uint64_t sub_10001641C(uint64_t a1, int a2, int a3)
   return *(a1 + v3) + 672 * a3 + 16;
 }
 
-void sub_10001671C()
+void sub_10001671C(uint64_t result, uint64_t a2)
 {
   if (qword_100032140 != -1)
   {
@@ -3416,7 +3460,7 @@ void sub_10001671C()
   }
 }
 
-uint64_t sub_100016788()
+uint64_t sub_100016788(uint64_t a1, uint64_t a2)
 {
   if (qword_100032148 != -1)
   {
@@ -3439,7 +3483,7 @@ uint64_t sub_1000167F0(uint64_t a1, uint64_t a2)
   return v4 + a2 + 48;
 }
 
-void sub_100016848()
+void sub_100016848(uint64_t result, uint64_t a2)
 {
   if (qword_100032158 != -1)
   {
@@ -3449,34 +3493,35 @@ void sub_100016848()
 
 void sub_100016874(id a1)
 {
-  dword_100033F08 = getpid();
-  sub_10001671C();
+  v1 = getpid();
+  dword_100033F08 = v1;
+  sub_10001671C(v1, v2);
   proc_name(dword_100033F08, byte_100032160, 0x20u);
   qword_100033F28 = ps_buffer_create_serial_data_reader();
   buffer = ps_buffer_get_serial_data_read_buffer();
-  v2 = atomic_load(buffer);
-  v3 = buffer + 1;
-  if (v2)
+  v4 = atomic_load(buffer);
+  v5 = buffer + 1;
+  if (v4)
   {
-    v4 = 0;
+    v6 = 0;
     if (!strncmp(byte_100032160, (buffer + 3), 0x20uLL))
     {
 LABEL_7:
-      qword_100032EF8[0] = v3 + 34 * v4;
+      qword_100032EF8[0] = v5 + 34 * v6;
       qword_100033F20 = ps_buffer_create_serial_data_reader();
       qword_100032F00 = ps_buffer_get_serial_data_read_buffer();
       goto LABEL_9;
     }
 
-    v5 = (buffer + 37);
-    while (v2 - 1 != v4)
+    v7 = (buffer + 37);
+    while (v4 - 1 != v6)
     {
-      v6 = strncmp(byte_100032160, v5, 0x20uLL);
-      v5 += 34;
-      ++v4;
-      if (!v6)
+      v8 = strncmp(byte_100032160, v7, 0x20uLL);
+      v7 += 34;
+      ++v6;
+      if (!v8)
       {
-        if (v4 >= v2)
+        if (v6 >= v4)
         {
           break;
         }
@@ -3487,34 +3532,34 @@ LABEL_7:
   }
 
   add = atomic_fetch_add(buffer, 1u);
-  qword_100032EF8[0] = v3 + 34 * add;
+  qword_100032EF8[0] = v5 + 34 * add;
   qword_100033F18 = ps_buffer_create_serial_data_writer();
   qword_100032F00 = ps_buffer_get_serial_data_write_buffer();
   atomic_store(0, qword_100032F00);
   strlcpy((qword_100032EF8[0] + 2), byte_100032160, 0x20uLL);
-  v8 = qword_100032EF8[0];
+  v10 = qword_100032EF8[0];
   atomic_store(add, (qword_100032EF8[0] + 1));
-  atomic_store(0, v8);
+  atomic_store(0, v10);
 LABEL_9:
   qword_100033F10 = dispatch_queue_create("polaris.telemetry.bufferAllocation", 0);
-  v9 = atomic_load(qword_100032EF8[0]);
-  if (v9)
+  v11 = atomic_load(qword_100032EF8[0]);
+  if (v11)
   {
-    v10 = 0;
-    v11 = &qword_100032F10;
+    v12 = 0;
+    v13 = &qword_100032F10;
     do
     {
-      v12 = atomic_load((qword_100032EF8[0] + 1));
-      snprintf(__str, 0x1DuLL, "group.pls.local.%d.", v12);
+      v14 = atomic_load((qword_100032EF8[0] + 1));
+      snprintf(__str, 0x1DuLL, "group.pls.local.%d.", v14);
       serial_data_reader = ps_buffer_create_serial_data_reader();
-      *(v11 - 1) = ps_buffer_get_serial_data_read_buffer();
-      *v11 = 0;
-      v11[2] = serial_data_reader;
-      ++v10;
-      v11 += 4;
+      *(v13 - 1) = ps_buffer_get_serial_data_read_buffer();
+      *v13 = 0;
+      v13[2] = serial_data_reader;
+      ++v12;
+      v13 += 4;
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
   }
 
   dispatch_async(qword_100033F10, &stru_100029138);
@@ -3550,18 +3595,19 @@ uint64_t sub_100016AF0(uint64_t a1)
   return v2;
 }
 
-void sub_100016BC0(uint64_t a1)
+void sub_100016BC0(uint64_t *a1, uint64_t a2)
 {
-  v2 = atomic_load(qword_100032EF8[0]);
-  if (v2)
+  v2 = a1;
+  v3 = atomic_load(qword_100032EF8[0]);
+  if (v3)
   {
-    v3 = v2 + 1;
-    v4 = &qword_100032EF8[4 * v2 - 2];
-    while (v4[1] || atomic_load(*v4))
+    v4 = v3 + 1;
+    v5 = &qword_100032EF8[4 * v3 - 2];
+    while (v5[1] || atomic_load(*v5))
     {
-      --v3;
-      v4 -= 4;
-      if (v3 <= 1)
+      --v4;
+      v5 -= 4;
+      if (v4 <= 1)
       {
         goto LABEL_6;
       }
@@ -3571,50 +3617,50 @@ void sub_100016BC0(uint64_t a1)
   else
   {
 LABEL_6:
-    v4 = 0;
+    v5 = 0;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = v4;
-  v6 = *(*(*(a1 + 32) + 8) + 24);
-  if (v6 || (*(*(*(a1 + 32) + 8) + 24) = sub_100016D90(), (v6 = *(*(*(a1 + 32) + 8) + 24)) != 0))
+  *(*(a1[4] + 8) + 24) = v5;
+  v7 = *(*(a1[4] + 8) + 24);
+  if (v7 || (a1 = sub_100016D90(), *(*(v2[4] + 8) + 24) = a1, (v7 = *(*(v2[4] + 8) + 24)) != 0))
   {
-    if (atomic_load(*v6))
+    if (atomic_load(*v7))
     {
       sub_100018A14();
     }
 
-    atomic_store(1u, (**(*(*(a1 + 32) + 8) + 24) + 8));
-    *(*(*(*(a1 + 32) + 8) + 24) + 8) = *(a1 + 40);
-    v8 = sub_100016788();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    atomic_store(1u, (**(*(v2[4] + 8) + 24) + 8));
+    *(*(*(v2[4] + 8) + 24) + 8) = v2[5];
+    v9 = sub_100016788(a1, a2);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
-      v10 = *(**(*(*(a1 + 32) + 8) + 24) + 9);
-      v17 = 67109376;
-      LODWORD(v18[0]) = v10;
-      WORD2(v18[0]) = 2048;
-      *(v18 + 6) = v9;
-      v11 = "acquired buffer %d for thread %llu";
-      v12 = v8;
-      v13 = OS_LOG_TYPE_DEFAULT;
-      v14 = 18;
+      v10 = v2[5];
+      v11 = *(**(*(v2[4] + 8) + 24) + 9);
+      v18 = 67109376;
+      LODWORD(v19[0]) = v11;
+      WORD2(v19[0]) = 2048;
+      *(v19 + 6) = v10;
+      v12 = "acquired buffer %d for thread %llu";
+      v13 = v9;
+      v14 = OS_LOG_TYPE_DEFAULT;
+      v15 = 18;
 LABEL_12:
-      _os_log_impl(&_mh_execute_header, v12, v13, v11, &v17, v14);
+      _os_log_impl(&_mh_execute_header, v13, v14, v12, &v18, v15);
     }
   }
 
   else
   {
-    v15 = sub_100016788();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100016788(a1, a2);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 40);
-      v17 = 134217984;
-      v18[0] = v16;
-      v11 = "unable to acquire buffer for thread %llu";
-      v12 = v15;
-      v13 = OS_LOG_TYPE_ERROR;
-      v14 = 12;
+      v17 = v2[5];
+      v18 = 134217984;
+      v19[0] = v17;
+      v12 = "unable to acquire buffer for thread %llu";
+      v13 = v16;
+      v14 = OS_LOG_TYPE_ERROR;
+      v15 = 12;
       goto LABEL_12;
     }
   }
@@ -3640,14 +3686,14 @@ uint64_t *sub_100016D90()
   atomic_store(1u, (*v1 + 8));
   v1[1] = 0;
   atomic_fetch_add(qword_100032EF8[0], 1u);
-  v5 = sub_100016788();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = sub_100016788(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v8 = __str;
-    v9 = 1024;
-    v10 = v0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "allocated local buffer with key: %s id: %d", buf, 0x12u);
+    v9 = __str;
+    v10 = 1024;
+    v11 = v0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "allocated local buffer with key: %s id: %d", buf, 0x12u);
   }
 
   return v1;
@@ -3655,76 +3701,78 @@ uint64_t *sub_100016D90()
 
 void sub_100016EE8(id a1)
 {
-  v1 = atomic_load(qword_100032EF8[0]);
-  v2 = sub_100016788();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v2 = atomic_load(qword_100032EF8[0]);
+  v3 = sub_100016788(a1, v1);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+  if (v4)
   {
-    v9 = 67109376;
-    v10 = v1;
-    v11 = 1024;
-    v12 = 128;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "thread buffer count: %d, max: %d", &v9, 0xEu);
+    v14 = 67109376;
+    v15 = v2;
+    v16 = 1024;
+    v17 = 128;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "thread buffer count: %d, max: %d", &v14, 0xEu);
   }
 
-  if (v1)
+  if (v2)
   {
-    if (v1 == 128)
+    if (v2 == 128)
     {
       return;
     }
 
-    v3 = 0;
-    v4 = &qword_100032F10;
-    v5 = v1;
+    v6 = 0;
+    v7 = &qword_100032F10;
+    v8 = v2;
     do
     {
-      if (!*v4 && !atomic_load(*(v4 - 1)))
+      if (!*v7 && !atomic_load(*(v7 - 1)))
       {
-        ++v3;
+        ++v6;
       }
 
-      v4 += 4;
-      --v5;
+      v7 += 4;
+      --v8;
     }
 
-    while (v5);
+    while (v8);
   }
 
   else
   {
-    v3 = 0;
+    v6 = 0;
   }
 
-  v7 = sub_100016788();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v10 = sub_100016788(v4, v5);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  if (v11)
   {
-    v9 = 67109376;
-    v10 = v3;
-    v11 = 1024;
-    v12 = 4;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "free buffer count: %d, watermark: %d", &v9, 0xEu);
+    v14 = 67109376;
+    v15 = v6;
+    v16 = 1024;
+    v17 = 4;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "free buffer count: %d, watermark: %d", &v14, 0xEu);
   }
 
-  if (v3 <= 3u)
+  if (v6 <= 3u)
   {
-    if (128 - v1 >= (4 - v3))
+    if (128 - v2 >= (4 - v6))
     {
-      LOBYTE(v1) = 4 - v3;
+      LOBYTE(v2) = 4 - v6;
     }
 
     else
     {
-      LOBYTE(v1) = 0x80 - v1;
+      LOBYTE(v2) = 0x80 - v2;
     }
 
-    v8 = sub_100016788();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v13 = sub_100016788(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v1) = v1;
-      v9 = 67109120;
-      v10 = v1;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "will allocate %d to meet watermark", &v9, 8u);
-      if (!v1)
+      LODWORD(v2) = v2;
+      v14 = 67109120;
+      v15 = v2;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "will allocate %d to meet watermark", &v14, 8u);
+      if (!v2)
       {
         return;
       }
@@ -3732,8 +3780,8 @@ void sub_100016EE8(id a1)
 
     else
     {
-      LODWORD(v1) = v1;
-      if (!v1)
+      LODWORD(v2) = v2;
+      if (!v2)
       {
         return;
       }
@@ -3742,74 +3790,75 @@ void sub_100016EE8(id a1)
     do
     {
       sub_100016D90();
-      LODWORD(v1) = v1 - 1;
+      LODWORD(v2) = v2 - 1;
     }
 
-    while (v1);
+    while (v2);
   }
 }
 
-void sub_1000170D8(uint64_t a1, char *a2, unint64_t a3, uint64_t a4)
+void sub_1000170D8(uint64_t a1, char *a2, size_t a3, uint64_t a4)
 {
   if (a3 >= 0x7FC1)
   {
     sub_100018A40();
   }
 
-  if (sub_100018848())
+  v8 = sub_100018848();
+  if (v8)
   {
-    v8 = atomic_load(qword_100032EF8 + "ary/Frameworks/CoreVideo.framework/CoreVideo");
-    if ((v8 & 1) == 0)
+    v10 = atomic_load(qword_100032EF8 + "ary/Frameworks/CoreVideo.framework/CoreVideo");
+    if ((v10 & 1) == 0)
     {
-      sub_100016848();
+      sub_100016848(v8, v9);
     }
 
     off_100031048();
-    v10 = v9;
-    if ((*v9 & 1) == 0)
+    v12 = v11;
+    if ((*v11 & 1) == 0)
     {
       sub_1000172A4();
     }
 
     off_100031060();
-    if (*v11)
+    if (*v13)
     {
-      v12 = v11;
-      if (*(v10 + 7))
+      v14 = v13;
+      if (*(v12 + 7))
       {
-        v13 = sub_1000167F0(*(v10 + 1), 32);
-        v14 = atomic_load(*v12);
-        if (v14 + v13 > 0x7FF0)
+        v15 = sub_1000167F0(*(v12 + 1), 32);
+        v16 = atomic_load(*v14);
+        if (v16 + v15 > 0x7FF0)
         {
-          *(v10 + 3) = vadd_s32(*(v10 + 24), (sub_1000167F0(*(v10 + 1), a3) | 0x100000000));
+          *(v12 + 3) = vadd_s32(*(v12 + 24), (sub_1000167F0(*(v12 + 1), a3) | 0x100000000));
           return;
         }
 
-        v23 = 0;
-        v21 = *(v10 + 2);
-        v15 = *(v10 + 3);
-        v16.i64[0] = v15;
-        v16.i64[1] = HIDWORD(v15);
-        v22 = vextq_s8(v16, v16, 8uLL);
+        v25 = 0;
+        v23 = *(v12 + 2);
+        v17 = *(v12 + 3);
+        v18.i64[0] = v17;
+        v18.i64[1] = HIDWORD(v17);
+        v24 = vextq_s8(v18, v18, 8uLL);
         off_100031078();
-        LOWORD(v23) = *v17;
-        sub_1000172C8(7, &v21, 0x20uLL, 8, v18);
-        *(v10 + 3) = 0;
+        LOWORD(v25) = *v19;
+        sub_1000172C8(7, &v23, 0x20uLL, 8, v20);
+        *(v12 + 3) = 0;
       }
 
-      v19 = sub_1000167F0(*(v10 + 1), a3);
-      v20 = atomic_load(*v12);
-      if (v20 + v19 >= 0x7FF1)
+      v21 = sub_1000167F0(*(v12 + 1), a3);
+      v22 = atomic_load(*v14);
+      if (v22 + v21 >= 0x7FF1)
       {
-        *(v10 + 6) = v19;
-        *(v10 + 7) = 1;
-        *(v10 + 2) = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+        *(v12 + 6) = v21;
+        *(v12 + 7) = 1;
+        *(v12 + 2) = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
       }
 
       else
       {
 
-        sub_1000172C8(a1, a2, a3, a4, v19);
+        sub_1000172C8(a1, a2, a3, a4, v21);
       }
     }
   }
@@ -3823,7 +3872,7 @@ void sub_1000172A4()
   }
 }
 
-void *sub_1000172C8(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, unint64_t a5)
+void *sub_1000172C8(uint64_t a1, char *a2, size_t a3, uint64_t a4, unint64_t a5)
 {
   off_100031048();
   if ((*(v10 + 8) - 32705) <= 0xFFFFFFFFFFFF800ELL)
@@ -3882,32 +3931,32 @@ void sub_100017458(NSObject *a1)
 void sub_100017568(char **a1)
 {
   *a1 = 0;
-  asprintf(a1, "Two policies are trying to set target strides. This is an invalid configuration! Aborting!");
-  v2 = sub_100013BF4();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = asprintf(a1, "Two policies are trying to set target strides. This is an invalid configuration! Aborting!");
+  v4 = sub_100013BF4(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v3 = *a1;
-    v9 = 136315650;
-    v10 = "[PSOrchestrator(Policy) updateGraphTargetState:fromPolicy:]";
-    v11 = 1024;
-    v12 = 87;
-    v13 = 2080;
-    v14 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "%s:%d %s", &v9, 0x1Cu);
+    v5 = *a1;
+    v10 = 136315650;
+    v11 = "[PSOrchestrator(Policy) updateGraphTargetState:fromPolicy:]";
+    v12 = 1024;
+    v13 = 87;
+    v14 = 2080;
+    v15 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "%s:%d %s", &v10, 0x1Cu);
   }
 
-  v4 = OSLogFlushBuffers();
-  if (v4)
+  v6 = OSLogFlushBuffers();
+  if (v6)
   {
-    v5 = v4;
-    v6 = sub_100013BF4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = v6;
+    v9 = sub_100013BF4(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "[PSOrchestrator(Policy) updateGraphTargetState:fromPolicy:]";
-      v11 = 1024;
-      v12 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v9, 0x12u);
+      v10 = 136315394;
+      v11 = "[PSOrchestrator(Policy) updateGraphTargetState:fromPolicy:]";
+      v12 = 1024;
+      v13 = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v10, 0x12u);
     }
   }
 
@@ -3916,29 +3965,29 @@ void sub_100017568(char **a1)
     usleep(0x1E8480u);
   }
 
-  v7 = *a1;
-  v8 = abort_with_reason();
-  sub_1000176A8(v8);
+  abort_with_reason();
+  sub_1000176A8();
 }
 
 uint64_t sub_1000176D4(char **a1)
 {
   *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "ps_reservation_clear_get_updated_mask", "index < count");
-  v1 = sub_10000ABA8();
-  if (sub_10000AB60(v1))
+  v1 = asprintf(a1, "%s: Assertion failed for %s", "ps_reservation_clear_get_updated_mask", "index < count");
+  v3 = sub_10000ABA8(v1, v2);
+  if (sub_10000AB60(v3))
   {
     sub_10000AB2C();
-    sub_10000AAEC(&_mh_execute_header, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, 2u);
+    sub_10000AAEC(&_mh_execute_header, v4, v5, "%s:%d %s: Assertion failed for %s", v6, v7, v8, v9, v21, v22);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v8 = sub_10000ABA8();
-    if (sub_10000AB78(v8))
+    v12 = sub_10000ABA8(v10, v11);
+    if (sub_10000AB78(v12))
     {
       sub_10000AB48();
-      sub_10000AB0C(&_mh_execute_header, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, buf);
+      sub_10000AB0C(&_mh_execute_header, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22);
     }
   }
 
@@ -3947,28 +3996,29 @@ uint64_t sub_1000176D4(char **a1)
     sub_10000AB90();
   }
 
-  v15 = sub_10000AACC();
-  return sub_1000177A8(v15);
+  v19 = sub_10000AACC();
+  return sub_1000177A8(v19);
 }
 
 void sub_1000177A8(char **a1)
 {
   *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "ps_reservation_set_mask_value_at_index", "index < 64");
-  v1 = sub_10000ABA8();
-  if (sub_10000AB60(v1))
+  v1 = asprintf(a1, "%s: Assertion failed for %s", "ps_reservation_set_mask_value_at_index", "index < 64");
+  v3 = sub_10000ABA8(v1, v2);
+  if (sub_10000AB60(v3))
   {
     sub_10000AB2C();
-    sub_10000AAEC(&_mh_execute_header, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v15, v16, 2u);
+    sub_10000AAEC(&_mh_execute_header, v4, v5, "%s:%d %s: Assertion failed for %s", v6, v7, v8, v9, v19, v20);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v8 = sub_10000ABA8();
-    if (sub_10000AB78(v8))
+    v12 = sub_10000ABA8(v10, v11);
+    if (sub_10000AB78(v12))
     {
       sub_10000AB48();
-      sub_10000AB0C(&_mh_execute_header, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v15, v16, buf);
+      sub_10000AB0C(&_mh_execute_header, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v19, v20);
     }
   }
 
@@ -3981,35 +4031,35 @@ void sub_1000177A8(char **a1)
   sub_10001787C();
 }
 
-uint64_t sub_1000178A4(char **a1)
+CVPixelBufferRef sub_1000178A4(char **a1)
 {
   *a1 = 0;
-  asprintf(a1, "Two policies are trying to set target strides. This is an invalid configuration! Aborting!");
-  v2 = sub_100013BF4();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = asprintf(a1, "Two policies are trying to set target strides. This is an invalid configuration! Aborting!");
+  v4 = sub_100013BF4(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v3 = *a1;
-    v10 = 136315650;
-    v11 = "[PSOrchestrator_v2(Policy) updateGraphTargetState:fromPolicy:]";
-    v12 = 1024;
-    v13 = 85;
-    v14 = 2080;
-    v15 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "%s:%d %s", &v10, 0x1Cu);
+    v5 = *a1;
+    v12 = 136315650;
+    v13 = "[PSOrchestrator_v2(Policy) updateGraphTargetState:fromPolicy:]";
+    v14 = 1024;
+    v15 = 85;
+    v16 = 2080;
+    v17 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "%s:%d %s", &v12, 0x1Cu);
   }
 
-  v4 = OSLogFlushBuffers();
-  if (v4)
+  v6 = OSLogFlushBuffers();
+  if (v6)
   {
-    v5 = v4;
-    v6 = sub_100013BF4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = v6;
+    v9 = sub_100013BF4(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[PSOrchestrator_v2(Policy) updateGraphTargetState:fromPolicy:]";
-      v12 = 1024;
-      v13 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v10, 0x12u);
+      v12 = 136315394;
+      v13 = "[PSOrchestrator_v2(Policy) updateGraphTargetState:fromPolicy:]";
+      v14 = 1024;
+      v15 = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v12, 0x12u);
     }
   }
 
@@ -4018,9 +4068,8 @@ uint64_t sub_1000178A4(char **a1)
     usleep(0x1E8480u);
   }
 
-  v7 = *a1;
-  v8 = abort_with_reason();
-  return sub_1000179E4(v8);
+  v10 = abort_with_reason();
+  return sub_1000179E4(v10);
 }
 
 CVPixelBufferRef sub_1000179E4(uint64_t a1)
@@ -4030,7 +4079,7 @@ CVPixelBufferRef sub_1000179E4(uint64_t a1)
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v69 = v3;
+  v72 = v3;
   v5 = CVPixelFormatDescriptionCreateWithPixelFormatType(kCFAllocatorDefault, v3);
   [CFDictionaryGetValue(v5 kCVPixelFormatContainsRGB)];
   v6 = [CFDictionaryGetValue(v5 kCVPixelFormatContainsYCbCr)];
@@ -4070,8 +4119,8 @@ LABEL_6:
 
   if (v6)
   {
-    v66 = v10;
-    if (v69 == 875836534)
+    v69 = v10;
+    if (v72 == 875836534)
     {
       v13 = v1;
     }
@@ -4081,7 +4130,7 @@ LABEL_6:
       v13 = (v1 + 1) >> 1;
     }
 
-    if (v69 == 875836534)
+    if (v72 == 875836534)
     {
       v14 = v2;
     }
@@ -4095,9 +4144,9 @@ LABEL_6:
     v16 = (v2 + 63) & 0xFFFFFFFFFFFFFFC0;
     v17 = v16 * v15;
     v18 = 2 * v16 * v15;
-    v67 = v15;
+    v70 = v15;
     v19 = (v16 >> 1) * v15;
-    if (v69 == 875836534)
+    if (v72 == 875836534)
     {
       v20 = v18;
     }
@@ -4110,15 +4159,15 @@ LABEL_6:
     CFDictionarySetValue(Mutable, kIOSurfaceCacheMode, &off_100029A60);
     sub_100011154([NSNumber numberWithUnsignedInteger:v1]);
     sub_100011154([NSNumber numberWithUnsignedInteger:v2]);
-    sub_100011154([NSNumber numberWithUnsignedInt:v69]);
-    v68 = v17;
+    sub_100011154([NSNumber numberWithUnsignedInt:v72]);
+    v71 = v17;
     sub_100011154([NSNumber numberWithUnsignedLong:v20 + v17]);
     v21 = value;
     CFDictionarySetValue(Mutable, kIOSurfacePlaneInfo, value);
     v22 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (!v22)
     {
-      v10 = v66;
+      v10 = v69;
       goto LABEL_28;
     }
 
@@ -4132,24 +4181,24 @@ LABEL_6:
     v26 = sub_100011170();
     CFDictionarySetValue(v26, kIOSurfacePlaneHeight, v27);
     CFDictionarySetValue(v23, kIOSurfacePlaneBytesPerElement, &off_100029A78);
-    [NSNumber numberWithUnsignedLong:v67];
+    [NSNumber numberWithUnsignedLong:v70];
     v28 = sub_100011170();
     CFDictionarySetValue(v28, kIOSurfacePlaneBytesPerRow, v29);
-    [NSNumber numberWithUnsignedLong:v68];
+    [NSNumber numberWithUnsignedLong:v71];
     v30 = sub_100011170();
     CFDictionarySetValue(v30, kIOSurfacePlaneSize, v31);
     CFRelease(v23);
     v32 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (!v32)
     {
-      v10 = v66;
+      v10 = v69;
       v21 = value;
       goto LABEL_28;
     }
 
     v33 = v32;
     CFArrayAppendValue(value, v32);
-    [NSNumber numberWithUnsignedLong:v68];
+    [NSNumber numberWithUnsignedLong:v71];
     v34 = sub_100011170();
     CFDictionarySetValue(v34, kIOSurfacePlaneOffset, v35);
     [NSNumber numberWithUnsignedLong:v13];
@@ -4159,24 +4208,24 @@ LABEL_6:
     v38 = sub_100011170();
     CFDictionarySetValue(v38, kIOSurfacePlaneHeight, v39);
     CFDictionarySetValue(v33, kIOSurfacePlaneBytesPerElement, &off_100029A90);
-    [NSNumber numberWithUnsignedLong:v67 << (v69 == 875836534)];
+    [NSNumber numberWithUnsignedLong:v70 << (v72 == 875836534)];
     v40 = sub_100011170();
     CFDictionarySetValue(v40, kIOSurfacePlaneBytesPerRow, v41);
     [NSNumber numberWithUnsignedLong:v20];
     v42 = sub_100011170();
     CFDictionarySetValue(v42, kIOSurfacePlaneSize, v43);
-    v10 = v66;
+    v10 = v69;
     goto LABEL_23;
   }
 
   v44 = v7 / v11 / v12;
   sub_100011154([NSNumber numberWithUnsignedInteger:v1]);
   sub_100011154([NSNumber numberWithUnsignedInteger:v2]);
-  sub_100011154([NSNumber numberWithUnsignedInt:v69]);
+  sub_100011154([NSNumber numberWithUnsignedInt:v72]);
   sub_100011154([NSNumber numberWithUnsignedLong:v44 >> 3]);
   v45 = (v1 * v44 + 511) >> 3;
   sub_100011154([NSNumber numberWithUnsignedLong:v45 & 0x1FFFFFFFFFFFFFC0]);
-  if (v69 != 1899524402)
+  if (v72 != 1899524402)
   {
     goto LABEL_24;
   }
@@ -4207,52 +4256,52 @@ LABEL_24:
     v55 = IOSurfaceCreate(Mutable);
     if (!v55)
     {
-      v61 = sub_100013BF4();
+      v64 = sub_100013BF4(0, v56);
       v21 = value;
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "failed to allocate IO Surface for properties", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "failed to allocate IO Surface for properties", buf, 2u);
       }
 
       goto LABEL_28;
     }
 
-    v56 = v55;
+    v57 = v55;
     CFDictionarySetValue(Mutable, kCVPixelBufferDoNotIncrementUseCountKey, kCFBooleanTrue);
-    v57 = CVPixelBufferCreateWithIOSurface(kCFAllocatorDefault, v56, Mutable, &pixelBufferOut);
-    if (v57)
+    v58 = CVPixelBufferCreateWithIOSurface(kCFAllocatorDefault, v57, Mutable, &pixelBufferOut);
+    if (v58)
     {
-      v62 = v57;
-      v63 = sub_100013BF4();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v65 = v58;
+      v66 = sub_100013BF4(v58, v59);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v73 = v62;
-        v64 = "failed to create CV Pixel Buffer for resource ret=%d";
+        v76 = v65;
+        v67 = "failed to create CV Pixel Buffer for resource ret=%d";
 LABEL_39:
-        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, v64, buf, 8u);
+        _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, v67, buf, 8u);
       }
     }
 
     else
     {
-      v58 = CVPixelBufferIncrementUseCountForCategory();
-      if (!v58)
+      v60 = CVPixelBufferIncrementUseCountForCategory();
+      if (!v60)
       {
 LABEL_27:
         CFRelease(value);
-        v21 = v56;
+        v21 = v57;
         goto LABEL_28;
       }
 
-      v65 = v58;
-      v63 = sub_100013BF4();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v68 = v60;
+      v66 = sub_100013BF4(v60, v61);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v73 = v65;
-        v64 = "failed to increment category 1 use count for CV Pixel Buffer ret=%d";
+        v76 = v68;
+        v67 = "failed to increment category 1 use count for CV Pixel Buffer ret=%d";
         goto LABEL_39;
       }
     }
@@ -4268,31 +4317,31 @@ LABEL_29:
     CFRelease(Mutable);
   }
 
-  v59 = pixelBufferOut;
+  v62 = pixelBufferOut;
 
-  return v59;
+  return v62;
 }
 
-void sub_1000181C8()
+void sub_1000181C8(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_100013BF4();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = sub_100013BF4(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    *v1 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "Serialize: metadata size exceeds allocated size!\n", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Serialize: metadata size exceeds allocated size!\n", v3, 2u);
   }
 
   abort();
 }
 
-void sub_100018224(uint64_t a1)
+void sub_100018224(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_100013BF4();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = sub_100013BF4(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = 138412290;
-    v4 = a1;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Key : %@ not found in map. Make sure you have created the enum for the resource", &v3, 0xCu);
+    v4 = 138412290;
+    v5 = a1;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Key : %@ not found in map. Make sure you have created the enum for the resource", &v4, 0xCu);
   }
 
   abort();
@@ -4313,32 +4362,32 @@ void sub_100018290(char a1, uint64_t a2, os_log_t log)
 uint64_t sub_1000182FC(char **a1)
 {
   *a1 = 0;
-  asprintf(a1, "Failed to register for user activity notifications");
-  v2 = sub_100013BF4();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = asprintf(a1, "Failed to register for user activity notifications");
+  v4 = sub_100013BF4(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v3 = *a1;
-    v10 = 136315650;
-    v11 = "[PSPowerManager registerForUserActivityNotifications:]_block_invoke";
-    v12 = 1024;
-    v13 = 209;
-    v14 = 2080;
-    v15 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "%s:%d %s", &v10, 0x1Cu);
+    v5 = *a1;
+    v12 = 136315650;
+    v13 = "[PSPowerManager registerForUserActivityNotifications:]_block_invoke";
+    v14 = 1024;
+    v15 = 209;
+    v16 = 2080;
+    v17 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "%s:%d %s", &v12, 0x1Cu);
   }
 
-  v4 = OSLogFlushBuffers();
-  if (v4)
+  v6 = OSLogFlushBuffers();
+  if (v6)
   {
-    v5 = v4;
-    v6 = sub_100013BF4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = v6;
+    v9 = sub_100013BF4(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[PSPowerManager registerForUserActivityNotifications:]_block_invoke";
-      v12 = 1024;
-      v13 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v10, 0x12u);
+      v12 = 136315394;
+      v13 = "[PSPowerManager registerForUserActivityNotifications:]_block_invoke";
+      v14 = 1024;
+      v15 = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v12, 0x12u);
     }
   }
 
@@ -4347,9 +4396,8 @@ uint64_t sub_1000182FC(char **a1)
     usleep(0x1E8480u);
   }
 
-  v7 = *a1;
-  v8 = abort_with_reason();
-  return sub_10001843C(v8);
+  v10 = abort_with_reason();
+  return sub_10001843C(v10);
 }
 
 uint64_t sub_10001843C(uint64_t result)
@@ -4365,21 +4413,22 @@ uint64_t sub_10001843C(uint64_t result)
 void sub_100018464(void *a1, mach_error_t a2)
 {
   v4 = sub_100014E84(a1, a2);
-  asprintf(v2, "%s: semaphore_signal failed with code %d (%s)", "ps_gsm_signal_sem", v3, v4);
-  v5 = sub_1000013E0();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v5 = asprintf(v2, "%s: semaphore_signal failed with code %d (%s)", "ps_gsm_signal_sem", v3, v4);
+  v7 = sub_1000013E0(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     mach_error_string(v3);
     sub_100014EE4();
-    sub_100014EA4(&_mh_execute_header, v6, v7, "%s:%d %s: semaphore_signal failed with code %d (%s)", v8, v9, v10, v11, v21, v22, v23, v24, 2u);
+    sub_100014EA4(&_mh_execute_header, v8, v9, "%s:%d %s: semaphore_signal failed with code %d (%s)", v10, v11, v12, v13, v25, v26, v27, v28);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = sub_1000013E0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = sub_1000013E0(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100014EC4(&_mh_execute_header, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23, v24, 2u);
+      sub_100014EC4(&_mh_execute_header, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v25, v26, v27, v28);
     }
   }
 
@@ -4388,27 +4437,28 @@ void sub_100018464(void *a1, mach_error_t a2)
     usleep(0x1E8480u);
   }
 
-  v19 = sub_10000AACC();
-  sub_10001855C(v19, v20);
+  v23 = sub_10000AACC();
+  sub_10001855C(v23, v24);
 }
 
 void sub_10001855C(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "Out of bounds assert error (%llu > %llu)", a2, 1024);
-  v2 = sub_10000ABA8();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = asprintf(a1, "Out of bounds assert error (%llu > %llu)", a2, 1024);
+  v4 = sub_10000ABA8(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    sub_100015A9C(&_mh_execute_header, v3, v4, "%s:%d Out of bounds assert error (%llu > %llu)", v5, v6, v7, v8, v18, v19, 2u);
+    sub_100015A9C(&_mh_execute_header, v5, v6, "%s:%d Out of bounds assert error (%llu > %llu)", v7, v8, v9, v10, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = sub_10000ABA8();
-    if (sub_10000AB78(v9))
+    v13 = sub_10000ABA8(v11, v12);
+    if (sub_10000AB78(v13))
     {
       sub_10000AB48();
-      sub_10000AB0C(&_mh_execute_header, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, buf);
+      sub_10000AB0C(&_mh_execute_header, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23);
     }
   }
 
@@ -4417,35 +4467,36 @@ void sub_10001855C(char **a1, uint64_t a2)
     sub_10000AB90();
   }
 
-  v16 = sub_10000AACC();
-  sub_100018644(v16, v17);
+  v20 = sub_10000AACC();
+  sub_100018644(v20, v21);
 }
 
 void sub_100018644(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "Stride %llu does not fit within the allocated %d bits.", a2, 10);
-  v3 = sub_1000013E0();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+  v3 = asprintf(a1, "Stride %llu does not fit within the allocated %d bits.", a2, 10);
+  v5 = sub_1000013E0(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315906;
-    v15 = "ps_gsm_gst_trigger_set_stride";
-    v16 = 1024;
-    v17 = 96;
-    v18 = 2048;
-    v19 = a2;
-    v20 = 1024;
-    v21 = 10;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "%s:%d Stride %llu does not fit within the allocated %d bits.", buf, 0x22u);
+    v18 = "ps_gsm_gst_trigger_set_stride";
+    v19 = 1024;
+    v20 = 96;
+    v21 = 2048;
+    v22 = a2;
+    v23 = 1024;
+    v24 = 10;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "%s:%d Stride %llu does not fit within the allocated %d bits.", buf, 0x22u);
   }
 
-  if (OSLogFlushBuffers())
+  v6 = OSLogFlushBuffers();
+  if (v6)
   {
-    v4 = sub_1000013E0();
-    if (sub_10000AB78(v4))
+    v8 = sub_1000013E0(v6, v7);
+    if (sub_10000AB78(v8))
     {
       sub_10000AB48();
-      sub_10000AB0C(&_mh_execute_header, v5, v6, "%s() failed to flush buffers with error code: %d", v7, v8, v9, v10, v12, v13, buf[0]);
+      sub_10000AB0C(&_mh_execute_header, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v15, v16);
     }
   }
 
@@ -4454,8 +4505,8 @@ void sub_100018644(char **a1, uint64_t a2)
     sub_10000AB90();
   }
 
-  v11 = sub_10000AACC();
-  sub_100018740(v11);
+  sub_10000AACC();
+  sub_100018740();
 }
 
 uint64_t sub_100018848()
@@ -4548,17 +4599,17 @@ void sub_100018A6C()
     pthread_getname_np(v4, __s1, 0x40uLL);
     sub_1000188E4(__s1);
     off_100031078();
-    *v5 = v6;
-    LOBYTE(v6) = atomic_load(qword_100032EF8 + "ary/Frameworks/CoreVideo.framework/CoreVideo");
-    if ((v6 & 1) == 0)
+    *v5 = v7;
+    LOBYTE(v7) = atomic_load(qword_100032EF8 + "ary/Frameworks/CoreVideo.framework/CoreVideo");
+    if ((v7 & 1) == 0)
     {
-      sub_100016848();
+      sub_100016848(v5, v6);
     }
 
     sub_100016AF0(*v3);
     off_100031060();
-    *v7 = v8;
-    if (v8)
+    *v8 = v9;
+    if (v9)
     {
       *(v1 + 1) = 0;
       *(v1 + 3) = 0;

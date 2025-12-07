@@ -1,4 +1,5 @@
 @interface SPRPINController
+- (BOOL)addDigitWithCode:(unsigned __int8)code seed:(id)seed error:(id *)error;
 - (BOOL)capturePINWithParameters:(id)parameters error:(id *)error;
 - (BOOL)captureWithParameters:(id)parameters entropy:(id)entropy digitCodeMap:(char *)map error:(id *)error;
 - (BOOL)copyDigitCodeMap:(char *)map;
@@ -128,6 +129,123 @@
   }
 
   return pinCrypto != 0;
+}
+
+- (BOOL)addDigitWithCode:(unsigned __int8)code seed:(id)seed error:(id *)error
+{
+  codeCopy = code;
+  seedCopy = seed;
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = sub_26A941FD4;
+  v87 = sub_26A941FE4;
+  v88 = 0;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x2020000000;
+  v82 = 0;
+  v13 = objc_msgSend_xpcClient(MEMORY[0x277D498B8], v9, v10, v11, v12);
+  v14 = os_signpost_id_generate(v13);
+
+  v19 = objc_msgSend_xpcClient(MEMORY[0x277D498B8], v15, v16, v17, v18);
+  v20 = v19;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_26A93A000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v14, "add digit client", "begin add digit client", buf, 2u);
+  }
+
+  if (self->_pinCrypto)
+  {
+    v24 = objc_msgSend_dataWithLength_(MEMORY[0x277CBEB28], v21, 32, v22, v23);
+    v29 = objc_msgSend_length(v24, v25, v26, v27, v28);
+    v30 = v24;
+    v35 = objc_msgSend_mutableBytes(v30, v31, v32, v33, v34);
+    if (SecRandomCopyBytes(*MEMORY[0x277CDC540], v29, v35))
+    {
+      v40 = objc_msgSend_errorWithCode_reason_(SPRError, v36, 11006, @"seed generation failed", v39);
+      v41 = v84[5];
+      v84[5] = v40;
+    }
+
+    else
+    {
+      if (seedCopy)
+      {
+        v74 = codeCopy;
+        v43 = objc_msgSend_length(seedCopy, v36, v37, v38, v39);
+        if (v43 >= 0x20)
+        {
+          v44 = 32;
+        }
+
+        else
+        {
+          v44 = v43;
+        }
+
+        v45 = v24;
+        v50 = objc_msgSend_mutableBytes(v45, v46, v47, v48, v49);
+        v51 = seedCopy;
+        v56 = objc_msgSend_bytes(v51, v52, v53, v54, v55);
+        memcpy(v50, v56, v44);
+        codeCopy = v74;
+      }
+
+      pinCrypto = self->_pinCrypto;
+      v58 = (v84 + 5);
+      obj = v84[5];
+      v41 = objc_msgSend_encryptCode_seed_error_(pinCrypto, v36, codeCopy, v24, &obj);
+      objc_storeStrong(v58, obj);
+      if (v41)
+      {
+        v76[0] = MEMORY[0x277D85DD0];
+        v76[1] = 3221225472;
+        v76[2] = sub_26A9428D0;
+        v76[3] = &unk_279CA5428;
+        v76[4] = &v83;
+        v62 = objc_msgSend_syncProxyWithErrorHandler_(self, v59, v76, v60, v61);
+        v75[0] = MEMORY[0x277D85DD0];
+        v75[1] = 3221225472;
+        v75[2] = sub_26A9428E0;
+        v75[3] = &unk_279CA5670;
+        v75[4] = &v79;
+        v75[5] = &v83;
+        objc_msgSend_addDigitWithCipher_reply_(v62, v63, v41, v75, v64);
+      }
+    }
+  }
+
+  else
+  {
+    v42 = objc_msgSend_errorWithCode_reason_(SPRError, v21, 11006, @"addDigitWithValue: PIN Capture not in progress", v23);
+    v24 = v84[5];
+    v84[5] = v42;
+  }
+
+  v69 = objc_msgSend_xpcClient(MEMORY[0x277D498B8], v65, v66, v67, v68);
+  v70 = v69;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v69))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_26A93A000, v70, OS_SIGNPOST_INTERVAL_END, v14, "add digit client", "end add digit client", buf, 2u);
+  }
+
+  if (error)
+  {
+    v71 = v84[5];
+    if (v71)
+    {
+      *error = v71;
+    }
+  }
+
+  v72 = *(v80 + 24);
+  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v83, 8);
+
+  return v72;
 }
 
 - (BOOL)removeLastDigitAndReturnError:(id *)error

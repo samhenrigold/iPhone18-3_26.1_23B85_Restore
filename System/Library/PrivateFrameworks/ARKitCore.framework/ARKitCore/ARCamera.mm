@@ -22,14 +22,14 @@
 - (simd_float4x4)transform;
 - (simd_float4x4)viewMatrixForOrientation:(UIInterfaceOrientation)orientation;
 - (uint64_t)extrinsicMatrixToDeviceType:(void *)type;
-- (uint64_t)initWithIntrinsics:(double)intrinsics imageResolution:(double)resolution;
 - (void)encodeWithCoder:(id)coder;
+- (void)initWithIntrinsics:(double)intrinsics imageResolution:(double)resolution;
 - (void)setRadialDistortion:(ARCamera *)self;
 @end
 
 @implementation ARCamera
 
-- (uint64_t)initWithIntrinsics:(double)intrinsics imageResolution:(double)resolution
+- (void)initWithIntrinsics:(double)intrinsics imageResolution:(double)resolution
 {
   v9 = objc_opt_new();
   memset(v15, 0, sizeof(v15));
@@ -140,7 +140,7 @@
 
 - (simd_float3)eulerAngles
 {
-  [(ARCamera *)self transform];
+  objc_msgSend_transform(self, a2);
 
   *result.i64 = AREulerAnglesFromMatrix(v2, v3, v4);
   return result;
@@ -306,7 +306,7 @@
   v41 = v13;
   v38 = v16;
   v39 = v15;
-  [(ARCamera *)self transform];
+  objc_msgSend_transform(self);
   v21 = 0;
   v49[0] = v41;
   v49[1] = v40;
@@ -325,7 +325,7 @@
   while (v21 != 4);
   v22 = vdivq_f32(v45, v43);
   v46 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v50, v22.f32[0]), v51, *v22.f32, 1), v52, v22, 2), v53, v22, 3);
-  [(ARCamera *)self transform];
+  objc_msgSend_transform(self);
   v24 = vsubq_f32(v46, v23);
   v25 = vmulq_f32(v24, v24);
   *&v26 = v25.f32[2] + vaddv_f32(*v25.f32);
@@ -355,10 +355,10 @@
 {
   height = viewportSize.height;
   width = viewportSize.width;
-  v27 = *&self->_anon_90[16];
-  v26 = *self->_anon_90;
+  v29 = *&self->_anon_90[16];
+  v28 = *self->_anon_90;
   v9 = ARCameraToDisplayRotation(orientation);
-  v10 = ARAdjustIntrincisForOrientation(v9, *&v26, *&v27);
+  v10 = ARAdjustIntrincisForOrientation(v9, *&v28, *&v29);
   v13 = self->_imageResolution.height;
   if (v9 == 90 || v9 == -90)
   {
@@ -371,17 +371,17 @@
     v13 = self->_imageResolution.width;
   }
 
-  v15 = ARAdjustIntrinsicsForViewportSize(*&v10, v11, v12, v13, v14, width, height);
+  v17 = ARAdjustIntrinsicsForViewportSize(*&v10, v11, v12, v13, v14, width, height);
 
-  *&v18 = ARMatrixMakeFrustum(v15, v16, v17, width, height);
-  result.columns[3].i64[1] = v25;
-  result.columns[3].i64[0] = v24;
-  result.columns[2].i64[1] = v23;
-  result.columns[2].i64[0] = v22;
-  result.columns[1].i64[1] = v21;
-  result.columns[1].i64[0] = v20;
-  result.columns[0].i64[1] = v19;
-  result.columns[0].i64[0] = v18;
+  *&v20 = ARMatrixMakeFrustum(v15, v16, v17, v18, v19, width, height);
+  result.columns[3].i64[1] = v27;
+  result.columns[3].i64[0] = v26;
+  result.columns[2].i64[1] = v25;
+  result.columns[2].i64[0] = v24;
+  result.columns[1].i64[1] = v23;
+  result.columns[1].i64[0] = v22;
+  result.columns[0].i64[1] = v21;
+  result.columns[0].i64[0] = v20;
   return result;
 }
 
@@ -396,7 +396,7 @@
   v20 = v7;
   v17 = v10;
   v18 = v9;
-  [(ARCamera *)self transform];
+  objc_msgSend_transform(self);
   v15 = 0;
   v21[0] = v20;
   v21[1] = v19;
@@ -419,7 +419,8 @@
 {
   [type extrinsicMatrix4x4ToDeviceType:?];
 
-  return ARMatrix4x3FromMatrix4x4(v1, v2, v3, v4);
+  ARMatrix4x3FromMatrix4x4();
+  return result;
 }
 
 - (__n128)extrinsicMatrix4x4ToDeviceType:(uint64_t)type
@@ -549,7 +550,7 @@
   cameraPosition = [dataCopy cameraPosition];
   if (dataCopy)
   {
-    [dataCopy radialDistortion];
+    objc_msgSend_radialDistortion(dataCopy);
     [dataCopy tangentialDistortion];
   }
 
@@ -559,7 +560,7 @@
   }
 
   v22 = v13;
-  [dataCopy exposureDuration];
+  objc_msgSend_exposureDuration(dataCopy);
   v15 = v14;
   calibrationData = [dataCopy calibrationData];
   extrinsicsMap = [dataCopy extrinsicsMap];

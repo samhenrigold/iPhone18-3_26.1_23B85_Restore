@@ -26,7 +26,10 @@
 - (id)name;
 - (int64_t)typeCompare:(id)compare;
 - (unsigned)currentIndex;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setCurrentIndex:(unsigned int)index;
+- (void)setOn:(BOOL)on;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -34,32 +37,32 @@
 
 - (int64_t)typeCompare:(id)compare
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   compareCopy = compare;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   combinations = [(CAFVent *)self combinations];
-  v6 = [combinations countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [combinations countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(combinations);
         }
 
-        v8 |= [*(*(&v24 + 1) + 8 * i) unsignedIntValue];
+        v8 |= [*(*(&v23 + 1) + 8 * i) unsignedIntValue];
       }
 
-      v7 = [combinations countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [combinations countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v7);
@@ -70,30 +73,30 @@
     v8 = 0;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   combinations2 = [compareCopy combinations];
-  v12 = [combinations2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v12 = [combinations2 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(combinations2);
         }
 
-        v14 |= [*(*(&v20 + 1) + 8 * j) unsignedIntValue];
+        v14 |= [*(*(&v19 + 1) + 8 * j) unsignedIntValue];
       }
 
-      v13 = [combinations2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v13 = [combinations2 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v13);
@@ -105,7 +108,6 @@
   }
 
   v17 = [CAFBitMaskUtilities compareBitmask1:v8 bitmask2:v14 optionsSort:&unk_284682FA0];
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -236,6 +238,13 @@
   return uint32Value;
 }
 
+- (void)setCurrentIndex:(unsigned int)index
+{
+  v3 = *&index;
+  currentIndexCharacteristic = [(CAFVent *)self currentIndexCharacteristic];
+  [currentIndexCharacteristic setUint32Value:v3];
+}
+
 - (CAFUInt32Range)currentIndexRange
 {
   currentIndexCharacteristic = [(CAFVent *)self currentIndexCharacteristic];
@@ -344,6 +353,13 @@
   return bOOLValue;
 }
 
+- (void)setOn:(BOOL)on
+{
+  onCopy = on;
+  onCharacteristic = [(CAFVent *)self onCharacteristic];
+  [onCharacteristic setBoolValue:onCopy];
+}
+
 - (BOOL)hasOn
 {
   onCharacteristic = [(CAFVent *)self onCharacteristic];
@@ -408,6 +424,124 @@
   stringValue = [vehicleLayoutKeyCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000031000025"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    combinationsCharacteristic = [(CAFVent *)self combinationsCharacteristic];
+    uniqueIdentifier2 = [combinationsCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      combinations = [(CAFVent *)self combinations];
+      [observers ventService:self didUpdateCombinations:combinations];
+LABEL_20:
+
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000038"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    currentIndexCharacteristic = [(CAFVent *)self currentIndexCharacteristic];
+    uniqueIdentifier4 = [currentIndexCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers ventService:self didUpdateCurrentIndex:{-[CAFVent currentIndex](self, "currentIndex")}];
+LABEL_21:
+
+      goto LABEL_22;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x000000003000005F"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    autoModeCharacteristic = [(CAFVent *)self autoModeCharacteristic];
+    uniqueIdentifier6 = [autoModeCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      [observers ventService:self didUpdateAutoMode:{-[CAFVent autoMode](self, "autoMode")}];
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000030000002"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    onCharacteristic = [(CAFVent *)self onCharacteristic];
+    uniqueIdentifier8 = [onCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      [observers ventService:self didUpdateOn:{-[CAFVent on](self, "on")}];
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_21;
+  }
+
+  uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFVent *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier10 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v32 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+  if (v32)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFVent *)self vehicleLayoutKey];
+    [observers2 ventService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    combinations = [(CAFVent *)self name];
+    [observers ventService:self didUpdateName:combinations];
+    goto LABEL_20;
+  }
+
+LABEL_22:
+  v35.receiver = self;
+  v35.super_class = CAFVent;
+  [(CAFService *)&v35 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForVentCombinations

@@ -73,33 +73,33 @@
 
 - (void)resetThrottles
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_throttleLock);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v3 = self->_throttleList;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v17, v21, 16);
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v16, v20, 16);
   if (v5)
   {
     v7 = v5;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        objc_msgSend_throttleWillBeRemoved_(self, v6, *(*(&v17 + 1) + 8 * v9++), v17);
+        objc_msgSend_throttleWillBeRemoved_(self, v6, *(*(&v16 + 1) + 8 * v9++), v16);
       }
 
       while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v17, v21, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v16, v20, 16);
     }
 
     while (v7);
@@ -112,13 +112,11 @@
   WeakRetained = objc_loadWeakRetained(&self->_observer);
   pthread_mutex_unlock(&self->_throttleLock);
   objc_msgSend_throttlesWereReset(WeakRetained, v14, v15);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)addThrottle:(id)throttle
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   throttleCopy = throttle;
   isExpired = objc_msgSend_isExpired(throttleCopy, v5, v6);
   pthread_mutex_lock(&self->_throttleLock);
@@ -136,30 +134,30 @@
     goto LABEL_22;
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v15 = self->_throttleList;
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v48, v62, 16);
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v47, v61, 16);
   if (v19)
   {
-    v46 = isExpired;
-    v47 = throttleCopy;
-    v20 = *v49;
+    v45 = isExpired;
+    v46 = throttleCopy;
+    v20 = *v48;
 LABEL_4:
     v21 = 0;
     while (1)
     {
-      if (*v49 != v20)
+      if (*v48 != v20)
       {
         objc_enumerationMutation(v15);
       }
 
-      v22 = *(*(&v48 + 1) + 8 * v21);
+      v22 = *(*(&v47 + 1) + 8 * v21);
       if (v10)
       {
-        v23 = objc_msgSend_label(*(*(&v48 + 1) + 8 * v21), v17, v18);
+        v23 = objc_msgSend_label(*(*(&v47 + 1) + 8 * v21), v17, v18);
         isEqualToString = objc_msgSend_isEqualToString_(v23, v24, v10);
 
         if (isEqualToString)
@@ -178,7 +176,7 @@ LABEL_4:
 
       if (v19 == ++v21)
       {
-        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v48, v62, 16);
+        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v47, v61, 16);
         if (v19)
         {
           goto LABEL_4;
@@ -193,19 +191,19 @@ LABEL_4:
 
     if (v19)
     {
-      v61 = v19;
+      v60 = v19;
       v29 = 1;
-      v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v13, &v61, 1);
+      v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v13, &v60, 1);
       sub_1885A067C(&self->super.isa, v15);
 LABEL_17:
-      throttleCopy = v47;
-      isExpired = v46;
+      throttleCopy = v46;
+      isExpired = v45;
       goto LABEL_19;
     }
 
     v29 = 0;
-    throttleCopy = v47;
-    if ((v46 & 1) == 0)
+    throttleCopy = v46;
+    if ((v45 & 1) == 0)
     {
       goto LABEL_22;
     }
@@ -227,8 +225,8 @@ LABEL_22:
 
       else
       {
-        v60 = throttleCopy;
-        objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v13, &v60, 1);
+        v59 = throttleCopy;
+        objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v13, &v59, 1);
       }
       v31 = ;
       v32 = self->_throttleList;
@@ -259,28 +257,27 @@ LABEL_26:
 
     v42 = @"\nreplaces: ";
     *buf = 138544130;
-    v53 = v41;
+    v52 = v41;
     v43 = &stru_1EFA32970;
-    v54 = 2114;
-    v55 = throttleCopy;
+    v53 = 2114;
+    v54 = throttleCopy;
     if (!v19)
     {
       v42 = &stru_1EFA32970;
     }
 
-    v56 = 2114;
+    v55 = 2114;
     if (v19)
     {
       v43 = v19;
     }
 
-    v57 = v42;
-    v58 = 2114;
-    v59 = v43;
+    v56 = v42;
+    v57 = 2114;
+    v58 = v43;
     _os_log_impl(&dword_1883EA000, v40, OS_LOG_TYPE_INFO, "new throttle: %{public}@ = %{public}@%{public}@%{public}@", buf, 0x2Au);
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -296,15 +293,15 @@ LABEL_26:
 - (id)enforcedThrottleForCriteria:(id)criteria willSendRequest:(BOOL)request outThrottleError:(id *)error
 {
   requestCopy = request;
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   criteriaCopy = criteria;
   pthread_mutex_lock(&self->_throttleLock);
+  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
   v84 = 0u;
-  v85 = 0u;
   v9 = self->_throttleList;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v82, v95, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v81, v94, 16);
   if (!v13)
   {
 
@@ -318,23 +315,23 @@ LABEL_26:
     goto LABEL_36;
   }
 
-  v76 = requestCopy;
+  v75 = requestCopy;
   errorCopy = error;
-  v77 = 0;
+  v76 = 0;
   v14 = 0;
   v15 = 0;
-  v16 = *v83;
+  v16 = *v82;
   v17 = 0.0;
   do
   {
     for (i = 0; i != v13; i = i + 1)
     {
-      if (*v83 != v16)
+      if (*v82 != v16)
       {
         objc_enumerationMutation(v9);
       }
 
-      v19 = *(*(&v82 + 1) + 8 * i);
+      v19 = *(*(&v81 + 1) + 8 * i);
       if (objc_msgSend_isExpired(v19, v11, v12))
       {
         if (!v15)
@@ -363,51 +360,51 @@ LABEL_26:
           v32 = v31;
           v33 = v19;
 
-          v77 = v33;
+          v76 = v33;
           v17 = v32;
         }
       }
     }
 
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v82, v95, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v81, v94, 16);
   }
 
   while (v13);
 
   if (v17 <= 0.0)
   {
-    v13 = v77;
-    if (!v76)
+    v13 = v76;
+    if (!v75)
     {
       goto LABEL_45;
     }
 
 LABEL_36:
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
     v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
     v47 = v14;
-    v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v63, &v78, v86, 16);
+    v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v63, &v77, v85, 16);
     if (v64)
     {
       v67 = v64;
-      v68 = *v79;
+      v68 = *v78;
       do
       {
         for (j = 0; j != v67; ++j)
         {
-          if (*v79 != v68)
+          if (*v78 != v68)
           {
             objc_enumerationMutation(v47);
           }
 
-          v70 = *(*(&v78 + 1) + 8 * j);
+          v70 = *(*(&v77 + 1) + 8 * j);
           objc_msgSend_incrementSentRequestCount(v70, v65, v66);
           objc_msgSend_noteDataChangeForThrottle_(self, v71, v70);
         }
 
-        v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v65, &v78, v86, 16);
+        v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v65, &v77, v85, 16);
       }
 
       while (v67);
@@ -417,8 +414,8 @@ LABEL_36:
     goto LABEL_44;
   }
 
-  v13 = v77;
-  if (v76)
+  v13 = v76;
+  if (v75)
   {
     if (ck_log_initialization_predicate != -1)
     {
@@ -429,13 +426,13 @@ LABEL_36:
     if (os_log_type_enabled(ck_log_facility_op, OS_LOG_TYPE_DEFAULT))
     {
       v37 = v36;
-      v40 = objc_msgSend_throttleID(v77, v38, v39);
+      v40 = objc_msgSend_throttleID(v76, v38, v39);
       *buf = 138543874;
-      v90 = v40;
-      v91 = 2048;
-      v92 = v17;
-      v93 = 2112;
-      v94 = criteriaCopy;
+      v89 = v40;
+      v90 = 2048;
+      v91 = v17;
+      v92 = 2112;
+      v93 = criteriaCopy;
       _os_log_impl(&dword_1883EA000, v37, OS_LOG_TYPE_DEFAULT, "Throttle %{public}@ triggered, allowed in %lds: %@", buf, 0x20u);
     }
   }
@@ -447,7 +444,7 @@ LABEL_36:
       __assert_rtn("[CKThrottleManager enforcedThrottleForCriteria:willSendRequest:outThrottleError:]", "CKThrottleManager.m", 265, "applicableThrottles");
     }
 
-    v41 = objc_msgSend_errorCode(v77, v34, v35);
+    v41 = objc_msgSend_errorCode(v76, v34, v35);
     v44 = objc_msgSend_integerValue(v41, v42, v43);
 
     v46 = @"Operation throttled by server. Retry after %.1f seconds. (Other operations may be allowed.)";
@@ -466,7 +463,7 @@ LABEL_36:
       objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v45, v46, *&v17);
     }
     v47 = ;
-    v50 = objc_msgSend_label(v77, v48, v49);
+    v50 = objc_msgSend_label(v76, v48, v49);
     v51 = v50;
     v52 = @"<nil label>";
     if (v50)
@@ -476,21 +473,21 @@ LABEL_36:
 
     v53 = v52;
 
-    v88[0] = v53;
-    v87[0] = @"ThrottleLabel";
-    v87[1] = @"CKRetryAfter";
+    v87[0] = v53;
+    v86[0] = @"ThrottleLabel";
+    v86[1] = @"CKRetryAfter";
     v56 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v54, v55, v17);
-    v88[1] = v56;
-    v88[2] = v47;
+    v87[1] = v56;
+    v87[2] = v47;
     v57 = *MEMORY[0x1E696A578];
-    v87[2] = @"CKErrorDescription";
-    v87[3] = v57;
-    v88[3] = v47;
-    v59 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v58, v88, v87, 4);
+    v86[2] = @"CKErrorDescription";
+    v86[3] = v57;
+    v87[3] = v47;
+    v59 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v58, v87, v86, 4);
 
     v61 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v60, @"CKInternalErrorDomain", v44, v59);
 
-    v13 = v77;
+    v13 = v76;
     v62 = v61;
     *errorCopy = v61;
 
@@ -507,8 +504,6 @@ LABEL_45:
 
     pthread_mutex_unlock(&self->_throttleLock);
   }
-
-  v73 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

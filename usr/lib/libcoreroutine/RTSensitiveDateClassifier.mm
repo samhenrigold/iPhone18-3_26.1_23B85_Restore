@@ -2275,14 +2275,14 @@ LABEL_24:
   dispatch_async(queue, v7);
 }
 
-void __59__RTSensitiveDateClassifier_onWifiScanResultsNotification___block_invoke(uint64_t a1)
+void __59__RTSensitiveDateClassifier_onWifiScanResultsNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = [*(a1 + 32) scanResults];
-    v2 = [*(a1 + 40) accessPoints];
-    [v2 addObjectsFromArray:v3];
+    v4 = [*(a1 + 32) scanResults];
+    v3 = [*(a1 + 40) accessPoints];
+    [v3 addObjectsFromArray:v4];
 
     [*(a1 + 40) _processWifiScanResults];
   }

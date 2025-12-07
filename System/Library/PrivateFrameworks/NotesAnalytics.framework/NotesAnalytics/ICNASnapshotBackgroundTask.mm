@@ -1,6 +1,7 @@
 @interface ICNASnapshotBackgroundTask
 + (id)makeTaskRequest;
 - (ICNASnapshotBackgroundTask)initWithAnalyticsController:(id)controller eventReporter:(id)reporter snapshotReporter:(id)snapshotReporter;
+- (void)didRegister:(BOOL)register;
 - (void)handleTaskExpiration;
 - (void)runTaskWithCompletion:(id)completion;
 @end
@@ -34,6 +35,27 @@
   }
 
   return v13;
+}
+
+- (void)didRegister:(BOOL)register
+{
+  registerCopy = register;
+  eventReporter = [(ICNASnapshotBackgroundTask *)self eventReporter];
+  [eventReporter submitSnapshotRegisterEventIsSuccessful:registerCopy];
+
+  v6 = +[ICNASnapshotReporter sharedReporter];
+  [v6 scheduleSnapshotIfNecessary];
+
+  v7 = dispatch_get_global_queue(-32768, 0);
+  v8 = dispatch_time(0, 1000000000);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __42__ICNASnapshotBackgroundTask_didRegister___block_invoke;
+  v10[3] = &unk_2799AF050;
+  v10[4] = self;
+  v11 = v7;
+  v9 = v7;
+  dispatch_after(v8, v9, v10);
 }
 
 void __42__ICNASnapshotBackgroundTask_didRegister___block_invoke(uint64_t a1)

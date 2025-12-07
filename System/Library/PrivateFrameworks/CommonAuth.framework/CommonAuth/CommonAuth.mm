@@ -33,8 +33,9 @@ double heim_ntlm_free_targetinfo(uint64_t a1)
   return result;
 }
 
-uint64_t heim_ntlm_encode_targetinfo(uint64_t a1, int a2, void *a3)
+uint64_t heim_ntlm_encode_targetinfo(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   *a3 = 0;
   a3[1] = 0;
   v6 = krb5_storage_emem();
@@ -46,35 +47,29 @@ uint64_t heim_ntlm_encode_targetinfo(uint64_t a1, int a2, void *a3)
   v7 = v6;
   v8 = 2733221632;
   krb5_storage_set_byteorder(v6, 32);
-  if (!*a1 || !encode_ti_string(v7, 1, a2, *a1))
+  if (!*a1 || !encode_ti_string(v7, 1, v4, *a1))
   {
     v9 = *(a1 + 8);
-    if (!v9 || !encode_ti_string(v7, 2, a2, v9))
+    if (!v9 || !encode_ti_string(v7, 2, v4, v9))
     {
       v10 = *(a1 + 24);
-      if (!v10 || !encode_ti_string(v7, 3, a2, v10))
+      if (!v10 || !encode_ti_string(v7, 3, v4, v10))
       {
         v11 = *(a1 + 16);
-        if (!v11 || !encode_ti_string(v7, 4, a2, v11))
+        if (!v11 || !encode_ti_string(v7, 4, v4, v11))
         {
           v12 = *(a1 + 32);
-          if ((!v12 || !encode_ti_string(v7, 5, a2, v12)) && (!*(a1 + 40) || !krb5_store_uint16(v7, 6) && !krb5_store_uint16(v7, 4) && !krb5_store_uint32(v7, *(a1 + 40))) && (!*(a1 + 72) || !krb5_store_uint16(v7, 7) && !krb5_store_uint16(v7, 8) && !krb5_store_uint32(v7, *(a1 + 72)) && !krb5_store_uint32(v7, *(a1 + 76))))
+          if ((!v12 || !encode_ti_string(v7, 5, v4, v12)) && (!*(a1 + 40) || !krb5_store_uint16(v7, 6) && !krb5_store_uint16(v7, 4) && !krb5_store_uint32(v7, *(a1 + 40))) && (!*(a1 + 72) || !krb5_store_uint16(v7, 7) && !krb5_store_uint16(v7, 8) && !krb5_store_uint32(v7, *(a1 + 72)) && !krb5_store_uint32(v7, *(a1 + 76))))
           {
             v13 = *(a1 + 48);
-            if (!v13 || !encode_ti_string(v7, 9, a2, v13))
+            if ((!v13 || !encode_ti_string(v7, 9, v4, v13)) && (!*(a1 + 56) || !krb5_store_uint16(v7, 10) && !krb5_store_uint16(v7, *(a1 + 56)) && krb5_storage_write(v7) == *(a1 + 56)) && !krb5_store_int16(v7, 0) && !krb5_store_int16(v7, 0))
             {
-              if (!*(a1 + 56) || !krb5_store_uint16(v7, 10) && !krb5_store_uint16(v7, *(a1 + 56)) && (v14 = *(a1 + 56), krb5_storage_write(v7) == v14))
-              {
-                if (!krb5_store_int16(v7, 0) && !krb5_store_int16(v7, 0))
-                {
-                  v17 = 0;
-                  v18 = 0;
-                  v8 = krb5_storage_to_data(v7, &v17);
-                  v15 = v18;
-                  *a3 = v17;
-                  a3[1] = v15;
-                }
-              }
+              v16 = 0;
+              v17 = 0;
+              v8 = krb5_storage_to_data(v7, &v16);
+              v14 = v17;
+              *a3 = v16;
+              a3[1] = v14;
             }
           }
         }
@@ -86,7 +81,7 @@ uint64_t heim_ntlm_encode_targetinfo(uint64_t a1, int a2, void *a3)
   return v8;
 }
 
-uint64_t encode_ti_string(uint64_t a1, __int16 a2, int a3, char *a4)
+uint64_t encode_ti_string(uint64_t a1, uint64_t a2, int a3, char *a4)
 {
   v7 = 2733221632;
   if (!krb5_store_uint16(a1, a2))
@@ -109,8 +104,9 @@ uint64_t encode_ti_string(uint64_t a1, __int16 a2, int a3, char *a4)
   return v7;
 }
 
-uint64_t heim_ntlm_decode_targetinfo(uint64_t *a1, int a2, uint64_t a3)
+uint64_t heim_ntlm_decode_targetinfo(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   *(a3 + 48) = 0u;
   *(a3 + 64) = 0u;
   *(a3 + 16) = 0u;
@@ -159,7 +155,7 @@ LABEL_37:
               {
                 v10 = size;
                 v12 = v6;
-                v13 = a2;
+                v13 = v3;
                 v11 = a3;
                 goto LABEL_29;
               }
@@ -187,7 +183,7 @@ LABEL_37:
               v11 = (a3 + 16);
 LABEL_28:
               v12 = v6;
-              v13 = a2;
+              v13 = v3;
               goto LABEL_29;
             }
 
@@ -359,14 +355,14 @@ double heim_ntlm_free_type1(uint64_t a1)
   return result;
 }
 
-uint64_t heim_ntlm_decode_type1(uint64_t *a1, uint64_t a2)
+uint64_t heim_ntlm_decode_type1(uint64_t *a1, _OWORD *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v13 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v9 = 0;
   v10 = 0;
-  *v11 = 0;
   *a2 = 0u;
-  *(a2 + 16) = 0u;
+  a2[1] = 0u;
   v3 = krb5_storage_from_readonly_mem(a1[1], *a1);
   if (!v3)
   {
@@ -376,42 +372,41 @@ uint64_t heim_ntlm_decode_type1(uint64_t *a1, uint64_t a2)
 
   v4 = v3;
   krb5_storage_set_byteorder(v3, 32);
-  if (krb5_storage_read(v4) == 8 && v13 == 0x5053534D4C544ELL && !krb5_ret_uint32(v4, &v12) && v12 == 1 && !krb5_ret_uint32(v4, a2))
+  if (krb5_storage_read(v4) == 8 && v12 == 0x5053534D4C544ELL && !krb5_ret_uint32(v4, &v11) && v11 == 1 && !krb5_ret_uint32(v4, a2))
   {
-    v8 = *a2;
-    if (!ret_sec_buffer(v4, v11) && !ret_sec_buffer(v4, &v10))
+    v7 = *a2;
+    if (!ret_sec_buffer(v4, &v10) && !ret_sec_buffer(v4, &v9))
     {
-      v9 = *a2;
+      v8 = *a2;
       if ((*a2 & 0x2000000) != 0)
       {
-        if (krb5_ret_uint32(v4, (a2 + 24)) || krb5_ret_uint32(v4, (a2 + 28)))
+        if (krb5_ret_uint32(v4, a2 + 6) || krb5_ret_uint32(v4, a2 + 7))
         {
           goto LABEL_4;
         }
 
-        v9 = *a2;
+        v8 = *a2;
         if ((*a2 & 0x1000) == 0)
         {
           goto LABEL_20;
         }
       }
 
-      else if ((v9 & 0x1000) == 0)
+      else if ((v8 & 0x1000) == 0)
       {
 LABEL_20:
-        if ((v9 & 0x2000) == 0 || !ret_sec_string(v4, v8 & 1, &v10, (a2 + 16)))
+        if ((v8 & 0x2000) == 0 || !ret_sec_string(v4, v7 & 1, &v9, a2 + 2))
         {
           krb5_storage_free(v4);
-          v5 = 0;
-          goto LABEL_7;
+          return 0;
         }
 
         goto LABEL_4;
       }
 
-      if (!ret_sec_string(v4, v8 & 1, v11, (a2 + 8)))
+      if (!ret_sec_string(v4, v7 & 1, &v10, a2 + 1))
       {
-        v9 = *a2;
+        v8 = *a2;
         goto LABEL_20;
       }
     }
@@ -422,8 +417,6 @@ LABEL_4:
   v5 = 2733221632;
 LABEL_6:
   heim_ntlm_free_type1(a2);
-LABEL_7:
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -449,8 +442,7 @@ uint64_t ret_sec_buffer(uint64_t a1, uint64_t a2)
 uint64_t ret_sec_string(uint64_t a1, int a2, unsigned __int16 *a3, void **a4)
 {
   v8 = 2733221632;
-  v9 = *(a3 + 1);
-  if (krb5_storage_seek(a1) == v9)
+  if (krb5_storage_seek(a1) == *(a3 + 1))
   {
     if (ret_string(a1, a2, *a3, a4))
     {
@@ -585,12 +577,12 @@ size_t len_string(int a1, char *__s)
   }
 }
 
-uint64_t store_sec_buffer(uint64_t a1, uint64_t a2)
+uint64_t store_sec_buffer(uint64_t a1, unsigned __int16 *a2)
 {
   v4 = 2733221632;
-  if (!krb5_store_uint16(a1, *a2) && !krb5_store_uint16(a1, *(a2 + 2)))
+  if (!krb5_store_uint16(a1, *a2) && !krb5_store_uint16(a1, a2[1]))
   {
-    if (krb5_store_uint32(a1, *(a2 + 4)))
+    if (krb5_store_uint32(a1, *(a2 + 1)))
     {
       return 2733221632;
     }
@@ -691,29 +683,28 @@ double heim_ntlm_free_type2(uint64_t a1)
   return result;
 }
 
-uint64_t heim_ntlm_decode_type2(uint64_t *a1, uint64_t a2)
+uint64_t heim_ntlm_decode_type2(uint64_t *a1, int *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v9 = 0;
-  *v10 = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v8 = 0;
+  *v9 = 0;
   *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0;
+  *(a2 + 1) = 0u;
+  *(a2 + 2) = 0u;
+  *(a2 + 6) = 0;
   v3 = krb5_storage_from_readonly_mem(a1[1], *a1);
   if (v3)
   {
     v4 = v3;
     krb5_storage_set_byteorder(v3, 32);
-    if (krb5_storage_read(v4) == 8 && v14 == 0x5053534D4C544ELL && !krb5_ret_uint32(v4, &v11) && v11 == 2 && !ret_sec_buffer(v4, v10) && !krb5_ret_uint32(v4, a2))
+    if (krb5_storage_read(v4) == 8 && v13 == 0x5053534D4C544ELL && !krb5_ret_uint32(v4, &v10) && v10 == 2 && !ret_sec_buffer(v4, v9) && !krb5_ret_uint32(v4, a2))
     {
-      v8 = *a2;
-      if (krb5_storage_read(v4) == 8 && !krb5_ret_uint32(v4, &v12) && !krb5_ret_uint32(v4, &v13) && !ret_sec_buffer(v4, &v9) && ((*(a2 + 3) & 2) == 0 || !krb5_ret_uint32(v4, (a2 + 48)) && !krb5_ret_uint32(v4, (a2 + 52))) && !ret_sec_string(v4, v8 & 1, v10, (a2 + 8)) && !ret_buf(v4, &v9, (a2 + 16)))
+      v7 = *a2;
+      if (krb5_storage_read(v4) == 8 && !krb5_ret_uint32(v4, &v11) && !krb5_ret_uint32(v4, &v12) && !ret_sec_buffer(v4, &v8) && ((*(a2 + 3) & 2) == 0 || !krb5_ret_uint32(v4, a2 + 12) && !krb5_ret_uint32(v4, a2 + 13)) && !ret_sec_string(v4, v7 & 1, v9, a2 + 1) && !ret_buf(v4, &v8, a2 + 2))
       {
         krb5_storage_free(v4);
-        v5 = 0;
-        goto LABEL_7;
+        return 0;
       }
     }
 
@@ -727,22 +718,17 @@ uint64_t heim_ntlm_decode_type2(uint64_t *a1, uint64_t a2)
   }
 
   heim_ntlm_free_type2(a2);
-LABEL_7:
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t ret_buf(uint64_t a1, unsigned __int16 *a2, uint64_t *a3)
+uint64_t ret_buf(uint64_t a1, unsigned __int16 *a2, void *a3)
 {
   v6 = 2733221632;
   v7 = malloc_type_malloc(*a2, 0x13C2514DuLL);
   *a3 = *a2;
   a3[1] = v7;
-  v8 = *(a2 + 1);
-  if (krb5_storage_seek(a1) == v8)
+  if (krb5_storage_seek(a1) == *(a2 + 1))
   {
-    v10 = *a3;
-    v9 = a3[1];
     if (krb5_storage_read(a1) == *a3)
     {
       return 0;
@@ -770,12 +756,12 @@ uint64_t heim_ntlm_encode_type2(unsigned int *a1, void *a2)
     v5 = 48;
   }
 
-  v17 = v5;
-  v16[0] = len_string(v4 & 1, *(a1 + 1));
-  v16[1] = v16[0];
-  v15 = v5 + v16[0];
-  v14[0] = *(a1 + 8);
-  v14[1] = v14[0];
+  v16 = v5;
+  v15[0] = len_string(v4 & 1, *(a1 + 1));
+  v15[1] = v15[0];
+  v14 = v5 + v15[0];
+  v13[0] = *(a1 + 8);
+  v13[1] = v13[0];
   v6 = krb5_storage_emem();
   if (!v6)
   {
@@ -785,18 +771,14 @@ uint64_t heim_ntlm_encode_type2(unsigned int *a1, void *a2)
   v7 = v6;
   v8 = 2733221632;
   krb5_storage_set_byteorder(v6, 32);
-  if (krb5_storage_write(v7) == 8 && !krb5_store_uint32(v7, 2) && !store_sec_buffer(v7, v16) && !krb5_store_uint32(v7, *a1) && krb5_storage_write(v7) == 8 && !krb5_store_uint32(v7, 0) && !krb5_store_uint32(v7, 0) && !store_sec_buffer(v7, v14) && ((*(a1 + 3) & 2) == 0 || !encode_os_version(v7)) && !put_string(v7, v4 & 1, *(a1 + 1)))
+  if (krb5_storage_write(v7) == 8 && !krb5_store_uint32(v7, 2) && !store_sec_buffer(v7, v15) && !krb5_store_uint32(v7, *a1) && krb5_storage_write(v7) == 8 && !krb5_store_uint32(v7, 0) && !krb5_store_uint32(v7, 0) && !store_sec_buffer(v7, v13) && ((*(a1 + 3) & 2) == 0 || !encode_os_version(v7)) && !put_string(v7, v4 & 1, *(a1 + 1)) && krb5_storage_write(v7) == *(a1 + 2))
   {
-    v9 = *(a1 + 2);
-    if (krb5_storage_write(v7) == v9)
-    {
-      v12 = 0;
-      v13 = 0;
-      v8 = krb5_storage_to_data(v7, &v12);
-      v10 = v13;
-      *a2 = v12;
-      a2[1] = v10;
-    }
+    v11 = 0;
+    v12 = 0;
+    v8 = krb5_storage_to_data(v7, &v11);
+    v9 = v12;
+    *a2 = v11;
+    a2[1] = v9;
   }
 
   krb5_storage_free(v7);
@@ -858,14 +840,14 @@ double heim_ntlm_free_type3(uint64_t a1)
 
 uint64_t heim_ntlm_decode_type3(uint64_t *a1, int a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v26 = 0;
-  v24 = 0;
+  v27 = *MEMORY[0x277D85DE8];
   v25 = 0;
-  v22 = 0;
   v23 = 0;
-  v20 = 0;
+  v24 = 0;
   v21 = 0;
+  v22 = 0;
+  v19 = 0;
+  v20 = 0;
   *a3 = 0u;
   *(a3 + 16) = 0u;
   *(a3 + 32) = 0u;
@@ -882,81 +864,81 @@ uint64_t heim_ntlm_decode_type3(uint64_t *a1, int a2, uint64_t a3)
 
   v6 = v5;
   krb5_storage_set_byteorder(v5, 32);
-  if (krb5_storage_read(v6) == 8 && v27 == 0x5053534D4C544ELL && !krb5_ret_uint32(v6, &v26) && v26 == 3 && !ret_sec_buffer(v6, &v25))
+  if (krb5_storage_read(v6) == 8 && v26 == 0x5053534D4C544ELL && !krb5_ret_uint32(v6, &v25) && v25 == 3 && !ret_sec_buffer(v6, &v24))
   {
-    v10 = WORD1(v25);
-    v11 = HIDWORD(v25);
-    if (!ret_sec_buffer(v6, &v24))
+    v9 = WORD1(v24);
+    v10 = HIDWORD(v24);
+    if (!ret_sec_buffer(v6, &v23))
     {
-      if (v10)
+      if (v9)
       {
-        v12 = v11;
+        v11 = v10;
       }
 
       else
       {
-        v12 = -1;
+        v11 = -1;
       }
 
-      v13 = HIDWORD(v24);
-      if (v12 < HIDWORD(v24))
+      v12 = HIDWORD(v23);
+      if (v11 < HIDWORD(v23))
       {
-        v13 = v12;
+        v12 = v11;
       }
 
-      v14 = WORD1(v24) ? v13 : v12;
-      if (!ret_sec_buffer(v6, &v23))
+      v13 = WORD1(v23) ? v12 : v11;
+      if (!ret_sec_buffer(v6, &v22))
       {
-        v15 = HIDWORD(v23);
-        if (!ret_sec_buffer(v6, &v22))
+        v14 = HIDWORD(v22);
+        if (!ret_sec_buffer(v6, &v21))
         {
-          v16 = HIDWORD(v22);
-          if (!ret_sec_buffer(v6, &v20))
+          v15 = HIDWORD(v21);
+          if (!ret_sec_buffer(v6, &v19))
           {
-            if (v14 >= v15)
+            if (v13 >= v14)
             {
-              v17 = v15;
+              v16 = v14;
             }
 
             else
             {
-              v17 = v14;
+              v16 = v13;
             }
 
-            if (v17 >= v16)
+            if (v16 >= v15)
+            {
+              v16 = v15;
+            }
+
+            v17 = HIDWORD(v19);
+            if (v16 < HIDWORD(v19))
             {
               v17 = v16;
             }
 
-            v18 = HIDWORD(v20);
-            if (v17 < HIDWORD(v20))
+            if (WORD1(v19))
             {
               v18 = v17;
             }
 
-            if (WORD1(v20))
-            {
-              v19 = v18;
-            }
-
             else
             {
-              v19 = v17;
+              v18 = v16;
             }
 
-            if (v19 < 0x34)
+            if (v18 < 0x34)
             {
               goto LABEL_44;
             }
 
-            if (ret_sec_buffer(v6, &v21))
+            if (ret_sec_buffer(v6, &v20))
             {
               goto LABEL_4;
             }
 
-            if (v19 >= HIDWORD(v21))
+            if (v18 >= HIDWORD(v20))
             {
-              v19 = HIDWORD(v21);
+              v18 = HIDWORD(v20);
             }
 
             if (krb5_ret_uint32(v6, a3))
@@ -964,7 +946,7 @@ uint64_t heim_ntlm_decode_type3(uint64_t *a1, int a2, uint64_t a3)
               goto LABEL_4;
             }
 
-            if (v19 < 0x48)
+            if (v18 < 0x48)
             {
               goto LABEL_44;
             }
@@ -974,16 +956,15 @@ uint64_t heim_ntlm_decode_type3(uint64_t *a1, int a2, uint64_t a3)
               goto LABEL_4;
             }
 
-            if (v19 < 0x58)
+            if (v18 < 0x58)
             {
 LABEL_44:
               *(a3 + 88) = 0;
 LABEL_45:
-              if (!ret_buf(v6, &v25, (a3 + 24)) && !ret_buf(v6, &v24, (a3 + 40)) && !ret_sec_string(v6, a2, &v23, (a3 + 16)) && !ret_sec_string(v6, a2, &v22, (a3 + 8)) && !ret_sec_string(v6, a2, &v20, (a3 + 72)) && (!HIDWORD(v21) || !ret_buf(v6, &v21, (a3 + 56))))
+              if (!ret_buf(v6, &v24, (a3 + 24)) && !ret_buf(v6, &v23, (a3 + 40)) && !ret_sec_string(v6, a2, &v22, (a3 + 16)) && !ret_sec_string(v6, a2, &v21, (a3 + 8)) && !ret_sec_string(v6, a2, &v19, (a3 + 72)) && (!HIDWORD(v20) || !ret_buf(v6, &v20, (a3 + 56))))
               {
                 krb5_storage_free(v6);
-                v7 = 0;
-                goto LABEL_7;
+                return 0;
               }
 
               goto LABEL_4;
@@ -1005,8 +986,6 @@ LABEL_4:
   v7 = 2733221632;
 LABEL_6:
   heim_ntlm_free_type3(a3);
-LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1029,29 +1008,29 @@ uint64_t heim_ntlm_encode_type3(unsigned int *a1, void *a2, uint64_t *a3)
     LODWORD(v7) = v7 | 0x10;
   }
 
-  v21 = 0;
-  v22 = 0;
+  v18 = 0;
   v19 = 0;
-  v20[0] = 0;
-  v18 = 0uLL;
-  v20[1] = v7;
-  LOWORD(v20[0]) = len_string(v6 & 1, *(a1 + 2));
-  HIWORD(v20[0]) = v20[0];
-  HIDWORD(v19) = v7 + LOWORD(v20[0]);
-  LOWORD(v19) = len_string(v6 & 1, *(a1 + 1));
+  v16 = 0;
+  v17[0] = 0;
+  v15 = 0uLL;
+  v17[1] = v7;
+  LOWORD(v17[0]) = len_string(v6 & 1, *(a1 + 2));
+  HIWORD(v17[0]) = v17[0];
+  HIDWORD(v16) = v7 + LOWORD(v17[0]);
+  LOWORD(v16) = len_string(v6 & 1, *(a1 + 1));
+  WORD1(v16) = v16;
+  *(&v15 + 4) = HIDWORD(v16) + v16;
+  LOWORD(v15) = len_string(v6 & 1, *(a1 + 9));
+  WORD1(v15) = v15;
+  HIDWORD(v19) = DWORD1(v15) + v15;
+  LOWORD(v19) = a1[6];
   WORD1(v19) = v19;
-  *(&v18 + 4) = HIDWORD(v19) + v19;
-  LOWORD(v18) = len_string(v6 & 1, *(a1 + 9));
+  HIDWORD(v18) = HIDWORD(v19) + v19;
+  LOWORD(v18) = a1[10];
   WORD1(v18) = v18;
-  HIDWORD(v22) = DWORD1(v18) + v18;
-  LOWORD(v22) = a1[6];
-  WORD1(v22) = v22;
-  HIDWORD(v21) = HIDWORD(v22) + v22;
-  LOWORD(v21) = a1[10];
-  WORD1(v21) = v21;
-  HIDWORD(v18) = HIDWORD(v21) + v21;
-  WORD4(v18) = *(a1 + 28);
-  WORD5(v18) = WORD4(v18);
+  HIDWORD(v15) = HIDWORD(v18) + v18;
+  WORD4(v15) = *(a1 + 28);
+  WORD5(v15) = WORD4(v15);
   v8 = krb5_storage_emem();
   if (!v8)
   {
@@ -1061,26 +1040,14 @@ uint64_t heim_ntlm_encode_type3(unsigned int *a1, void *a2, uint64_t *a3)
   v9 = v8;
   v10 = 2733221632;
   krb5_storage_set_byteorder(v8, 32);
-  if (krb5_storage_write(v9) == 8 && !krb5_store_uint32(v9, 3) && !store_sec_buffer(v9, &v22) && !store_sec_buffer(v9, &v21) && !store_sec_buffer(v9, v20) && !store_sec_buffer(v9, &v19) && !store_sec_buffer(v9, &v18) && !store_sec_buffer(v9, &v18 + 8) && !krb5_store_uint32(v9, *a1) && ((*(a1 + 3) & 2) == 0 || !encode_os_version(v9)) && (!a3 || krb5_storage_write(v9) == 16) && !put_string(v9, v6 & 1, *(a1 + 2)) && !put_string(v9, v6 & 1, *(a1 + 1)) && !put_string(v9, v6 & 1, *(a1 + 9)))
+  if (krb5_storage_write(v9) == 8 && !krb5_store_uint32(v9, 3) && !store_sec_buffer(v9, &v19) && !store_sec_buffer(v9, &v18) && !store_sec_buffer(v9, v17) && !store_sec_buffer(v9, &v16) && !store_sec_buffer(v9, &v15) && !store_sec_buffer(v9, &v15 + 4) && !krb5_store_uint32(v9, *a1) && ((*(a1 + 3) & 2) == 0 || !encode_os_version(v9)) && (!a3 || krb5_storage_write(v9) == 16) && !put_string(v9, v6 & 1, *(a1 + 2)) && !put_string(v9, v6 & 1, *(a1 + 1)) && !put_string(v9, v6 & 1, *(a1 + 9)) && krb5_storage_write(v9) == *(a1 + 3) && krb5_storage_write(v9) == *(a1 + 5) && krb5_storage_write(v9) == *(a1 + 7))
   {
-    v12 = *(a1 + 3);
-    if (krb5_storage_write(v9) == v12)
-    {
-      v13 = *(a1 + 5);
-      if (krb5_storage_write(v9) == v13)
-      {
-        v14 = *(a1 + 7);
-        if (krb5_storage_write(v9) == v14)
-        {
-          v16 = 0;
-          v17 = 0;
-          v10 = krb5_storage_to_data(v9, &v16);
-          v15 = v17;
-          *a2 = v16;
-          a2[1] = v15;
-        }
-      }
-    }
+    v13 = 0;
+    v14 = 0;
+    v10 = krb5_storage_to_data(v9, &v13);
+    v12 = v14;
+    *a2 = v13;
+    a2[1] = v12;
   }
 
   krb5_storage_free(v9);
@@ -1096,10 +1063,10 @@ uint64_t heim_ntlm_nt_key(char *a1, void *a2)
     return 12;
   }
 
+  v10 = 0;
   v11 = 0;
-  v12 = 0;
   *a2 = 16;
-  v5 = ascii2ucs2le(a1, 0, &v11);
+  v5 = ascii2ucs2le(a1, 0, &v10);
   if (v5)
   {
     v6 = v5;
@@ -1116,25 +1083,24 @@ uint64_t heim_ntlm_nt_key(char *a1, void *a2)
 
   if (!CCDigestCreate())
   {
-    v9 = a2[1];
-    if (v9)
+    v8 = a2[1];
+    if (v8)
     {
-      free(v9);
+      free(v8);
     }
 
     *a2 = 0;
     a2[1] = 0;
-    if (v12)
+    if (v11)
     {
-      free(v12);
+      free(v11);
     }
 
     return 12;
   }
 
-  v6 = v12;
+  v6 = v11;
   CCDigestUpdate();
-  v8 = a2[1];
   CCDigestFinal();
   CCDigestDestroy();
   if (v6)
@@ -1249,78 +1215,65 @@ uint64_t ascii2ucs2le(char *a1, int a2, void *a3)
 
 uint64_t heim_ntlm_calculate_ntlm1(__int128 *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (a2 == 16)
+  v11 = *MEMORY[0x277D85DE8];
+  if (a2 != 16)
   {
-    v10 = *a1;
-    v11 = 0;
-    v12 = 0;
-    v5 = malloc_type_malloc(0x18uLL, 0xF8EBBC5BuLL);
-    a4[1] = v5;
-    if (v5)
-    {
-      *a4 = 24;
-      splitandenc(&v10);
-      v6 = a4[1];
-      splitandenc(&v10 + 7);
-      v7 = a4[1];
-      splitandenc((&v10 | 0xE));
-      result = 0;
-    }
-
-    else
-    {
-      result = 12;
-    }
+    return 2733221633;
   }
 
-  else
+  v8 = *a1;
+  v9 = 0;
+  v10 = 0;
+  v6 = malloc_type_malloc(0x18uLL, 0xF8EBBC5BuLL);
+  a4[1] = v6;
+  if (!v6)
   {
-    result = 2733221633;
+    return 12;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  *a4 = 24;
+  splitandenc(&v8, a3, v6);
+  splitandenc(&v8 + 7, a3, a4[1] + 8);
+  splitandenc((&v8 | 0xE), a3, a4[1] + 16);
+  return 0;
 }
 
-uint64_t splitandenc(_BYTE *a1)
+uint64_t splitandenc(_BYTE *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11[0] = *a1;
-  HIDWORD(v2) = v11[0];
-  LODWORD(v2) = a1[1] << 24;
-  v1 = v2 >> 25;
-  v3 = a1[2];
-  HIDWORD(v2) = a1[1];
-  LODWORD(v2) = v3 << 24;
-  v13 = 0;
-  memset(v12, 0, sizeof(v12));
-  v11[1] = v1;
-  v11[2] = v2 >> 26;
-  v4 = a1[3];
-  HIDWORD(v2) = v3;
-  LODWORD(v2) = v4 << 24;
-  v11[3] = v2 >> 27;
-  v5 = a1[4];
-  HIDWORD(v2) = v4;
-  LODWORD(v2) = v5 << 24;
-  v11[4] = v2 >> 28;
-  v6 = a1[5];
-  HIDWORD(v2) = v5;
-  LODWORD(v2) = v6 << 24;
-  v11[5] = v2 >> 29;
-  v7 = a1[6];
-  HIDWORD(v2) = v6;
-  LODWORD(v2) = v7 << 24;
-  v11[6] = v2 >> 30;
-  v11[7] = 2 * v7;
-  hc_EVP_CIPHER_CTX_init(v12);
-  v8 = hc_EVP_des_cbc();
-  hc_EVP_CipherInit_ex(v12, v8, 0, v11, 0, 1);
-  hc_EVP_Cipher(v12);
-  result = hc_EVP_CIPHER_CTX_cleanup(v12);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v15 = *MEMORY[0x277D85DE8];
+  v12[0] = *a1;
+  HIDWORD(v4) = v12[0];
+  LODWORD(v4) = a1[1] << 24;
+  v3 = v4 >> 25;
+  v5 = a1[2];
+  HIDWORD(v4) = a1[1];
+  LODWORD(v4) = v5 << 24;
+  v14 = 0;
+  memset(v13, 0, sizeof(v13));
+  v12[1] = v3;
+  v12[2] = v4 >> 26;
+  v6 = a1[3];
+  HIDWORD(v4) = v5;
+  LODWORD(v4) = v6 << 24;
+  v12[3] = v4 >> 27;
+  v7 = a1[4];
+  HIDWORD(v4) = v6;
+  LODWORD(v4) = v7 << 24;
+  v12[4] = v4 >> 28;
+  v8 = a1[5];
+  HIDWORD(v4) = v7;
+  LODWORD(v4) = v8 << 24;
+  v12[5] = v4 >> 29;
+  v9 = a1[6];
+  HIDWORD(v4) = v8;
+  LODWORD(v4) = v9 << 24;
+  v12[6] = v4 >> 30;
+  v12[7] = 2 * v9;
+  hc_EVP_CIPHER_CTX_init(v13);
+  v10 = hc_EVP_des_cbc();
+  hc_EVP_CipherInit_ex(v13, v10, 0, v12, 0, 1);
+  hc_EVP_Cipher(v13);
+  return hc_EVP_CIPHER_CTX_cleanup(v13);
 }
 
 uint64_t heim_ntlm_v1_base_session(uint64_t a1, uint64_t a2, void *a3)
@@ -1333,16 +1286,15 @@ uint64_t heim_ntlm_v1_base_session(uint64_t a1, uint64_t a2, void *a3)
     if (CCDigestCreate())
     {
       CCDigestUpdate();
-      v5 = a3[1];
       CCDigestFinal();
       CCDigestDestroy();
       return 0;
     }
 
-    v7 = a3[1];
-    if (v7)
+    v6 = a3[1];
+    if (v6)
     {
-      free(v7);
+      free(v6);
     }
 
     a3[1] = 0;
@@ -1371,9 +1323,9 @@ uint64_t heim_ntlm_v2_base_session(const void *a1, size_t a2, uint64_t a3, void 
   return 0;
 }
 
-uint64_t heim_ntlm_keyex_wrap(void *a1, uint64_t *a2, uint64_t *a3)
+uint64_t heim_ntlm_keyex_wrap(void *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = 2733221633;
   if (*a1 == 16)
   {
@@ -1387,77 +1339,71 @@ uint64_t heim_ntlm_keyex_wrap(void *a1, uint64_t *a2, uint64_t *a3)
       a3[1] = v8;
       if (v8)
       {
-        v24 = 0;
-        memset(v23, 0, sizeof(v23));
-        hc_EVP_CIPHER_CTX_init(v23);
+        v17 = 0;
+        memset(v16, 0, sizeof(v16));
+        hc_EVP_CIPHER_CTX_init(v16);
         v9 = hc_EVP_rc4();
-        if (hc_EVP_CipherInit_ex(v23, v9, 0, a1[1], 0, 1) == 1)
+        if (hc_EVP_CipherInit_ex(v16, v9, 0, a1[1], 0, 1) == 1)
         {
-          v10 = *MEMORY[0x277D85C28];
-          v12 = *a2;
-          v11 = a2[1];
           if (CCRandomCopyBytes())
           {
-            hc_EVP_CIPHER_CTX_cleanup(v23);
-            v13 = a3[1];
-            if (v13)
+            hc_EVP_CIPHER_CTX_cleanup(v16);
+            v10 = a3[1];
+            if (v10)
             {
-              free(v13);
+              free(v10);
             }
 
             *a3 = 0;
             a3[1] = 0;
-            v14 = a2[1];
-            if (v14)
+            v11 = a2[1];
+            if (v11)
             {
-              free(v14);
+              free(v11);
             }
 
             *a2 = 0;
             a2[1] = 0;
-            v3 = 2733221635;
+            return 2733221635;
           }
 
           else
           {
-            v18 = a2[1];
-            v20 = *a3;
-            v19 = a3[1];
-            hc_EVP_Cipher(v23);
-            hc_EVP_CIPHER_CTX_cleanup(v23);
-            v3 = 0;
+            hc_EVP_Cipher(v16);
+            hc_EVP_CIPHER_CTX_cleanup(v16);
+            return 0;
           }
         }
 
         else
         {
-          hc_EVP_CIPHER_CTX_cleanup(v23);
-          v16 = a3[1];
-          if (v16)
+          hc_EVP_CIPHER_CTX_cleanup(v16);
+          v13 = a3[1];
+          if (v13)
           {
-            free(v16);
+            free(v13);
           }
 
           *a3 = 0;
           a3[1] = 0;
-          v17 = a2[1];
-          if (v17)
+          v14 = a2[1];
+          if (v14)
           {
-            free(v17);
+            free(v14);
           }
 
           *a2 = 0;
           a2[1] = 0;
-          v3 = 2733221634;
+          return 2733221634;
         }
       }
 
       else
       {
-        v15 = a2[1];
-        if (v15)
+        v12 = a2[1];
+        if (v12)
         {
-          free(v15);
+          free(v12);
         }
 
         *a2 = 0;
@@ -1470,15 +1416,14 @@ uint64_t heim_ntlm_keyex_wrap(void *a1, uint64_t *a2, uint64_t *a3)
     else
     {
       *a2 = 0;
-      v3 = 12;
+      return 12;
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-uint64_t heim_ntlm_build_ntlm1_master(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+uint64_t heim_ntlm_build_ntlm1_master(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v8 = 0;
   v9 = 0;
@@ -1495,7 +1440,7 @@ uint64_t heim_ntlm_build_ntlm1_master(uint64_t a1, uint64_t a2, uint64_t *a3, ui
   return v6;
 }
 
-uint64_t heim_ntlm_build_ntlm2_master(const void *a1, size_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+uint64_t heim_ntlm_build_ntlm2_master(const void *a1, size_t a2, uint64_t a3, void *a4, void *a5)
 {
   v9 = 0;
   v10 = 0;
@@ -1512,56 +1457,52 @@ uint64_t heim_ntlm_build_ntlm2_master(const void *a1, size_t a2, uint64_t a3, ui
   return v7;
 }
 
-uint64_t heim_ntlm_keyex_unwrap(void *a1, void *a2, uint64_t *a3)
+uint64_t heim_ntlm_keyex_unwrap(void *a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = 2733221633;
   *a3 = 0;
   a3[1] = 0;
   if (*a2 == 16 && *a1 == 16)
   {
     *a3 = 16;
-    v7 = malloc_type_malloc(0x10uLL, 0xCD1D2584uLL);
-    a3[1] = v7;
-    if (v7)
+    v6 = malloc_type_malloc(0x10uLL, 0xCD1D2584uLL);
+    a3[1] = v6;
+    if (v6)
     {
-      v16 = 0;
-      memset(v15, 0, sizeof(v15));
-      hc_EVP_CIPHER_CTX_init(v15);
-      v8 = hc_EVP_rc4();
-      if (hc_EVP_CipherInit_ex(v15, v8, 0, a1[1], 0, 0) == 1)
+      v11 = 0;
+      memset(v10, 0, sizeof(v10));
+      hc_EVP_CIPHER_CTX_init(v10);
+      v7 = hc_EVP_rc4();
+      if (hc_EVP_CipherInit_ex(v10, v7, 0, a1[1], 0, 0) == 1)
       {
-        v9 = a2[1];
-        v11 = *a3;
-        v10 = a3[1];
-        hc_EVP_Cipher(v15);
-        hc_EVP_CIPHER_CTX_cleanup(v15);
-        v3 = 0;
+        hc_EVP_Cipher(v10);
+        hc_EVP_CIPHER_CTX_cleanup(v10);
+        return 0;
       }
 
       else
       {
-        hc_EVP_CIPHER_CTX_cleanup(v15);
-        v12 = a3[1];
-        if (v12)
+        hc_EVP_CIPHER_CTX_cleanup(v10);
+        v8 = a3[1];
+        if (v8)
         {
-          free(v12);
+          free(v8);
         }
 
         *a3 = 0;
         a3[1] = 0;
-        v3 = 2733221634;
+        return 2733221634;
       }
     }
 
     else
     {
       *a3 = 0;
-      v3 = 12;
+      return 12;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1593,33 +1534,24 @@ uint64_t heim_ntlm_ntlmv2_key(void *key, size_t keyLength, char *a3, char *a4, i
 
 uint64_t heim_ntlm_calculate_lm2(void *a1, size_t a2, char *a3, char *a4, const void *a5, void *a6, void *a7)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  v14 = *MEMORY[0x277D85C28];
+  v16[1] = *MEMORY[0x277D85DE8];
   if (CCRandomCopyBytes())
   {
-    result = 2733221635;
+    return 2733221635;
   }
 
-  else
+  heim_ntlm_ntlmv2_key(a1, a2, a3, a4, 0, a6);
+  v15 = malloc_type_malloc(0x18uLL, 0xD57CA6CAuLL);
+  a7[1] = v15;
+  if (!v15)
   {
-    heim_ntlm_ntlmv2_key(a1, a2, a3, a4, 0, a6);
-    v16 = malloc_type_malloc(0x18uLL, 0xD57CA6CAuLL);
-    a7[1] = v16;
-    if (v16)
-    {
-      *a7 = 24;
-      heim_ntlm_derive_ntlm2_sess(a6, v18, 8uLL, a5, v16);
-      result = 0;
-      *(a7[1] + 16) = v18[0];
-    }
-
-    else
-    {
-      result = 12;
-    }
+    return 12;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  *a7 = 24;
+  heim_ntlm_derive_ntlm2_sess(a6, v16, 8uLL, a5, v15);
+  result = 0;
+  *(a7[1] + 16) = v16[0];
   return result;
 }
 
@@ -1632,49 +1564,48 @@ void heim_ntlm_derive_ntlm2_sess(void *key, const void *a2, size_t a3, const voi
   CCHmacFinal(&v9, a5);
 }
 
-uint64_t heim_ntlm_calculate_ntlm2(void *a1, size_t a2, char *a3, char *a4, const void *a5, uint64_t *a6, void *a7, void *a8)
+uint64_t heim_ntlm_calculate_ntlm2(void *a1, size_t a2, char *a3, char *a4, const void *a5, void *a6, void *a7, void *a8)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v16 = 2733221632;
-  v29 = 0;
-  v30 = 0;
+  v25 = 0;
+  v26 = 0;
   v17 = time(0);
-  v18 = *MEMORY[0x277D85C28];
   if (!CCRandomCopyBytes())
   {
     heim_ntlm_ntlmv2_key(a1, a2, a3, a4, 0, a7);
-    v19 = krb5_storage_emem();
-    if (v19)
+    v18 = krb5_storage_emem();
+    if (v18)
     {
-      v20 = v19;
-      krb5_storage_set_flags(v19, 32);
-      if (krb5_store_uint32(v20, 257) || krb5_store_uint32(v20, 0) || (v21 = 10000000 * v17 + 116444736000000000, krb5_store_uint32(v20, v21)) || krb5_store_uint32(v20, HIDWORD(v21)) || krb5_storage_write(v20) != 8 || krb5_store_uint32(v20, 0) || (v23 = *a6, v22 = a6[1], krb5_storage_write(v20) != *a6) || krb5_store_uint32(v20, 0) || krb5_storage_to_data(v20, &v29))
+      v19 = v18;
+      krb5_storage_set_flags(v18, 32);
+      if (krb5_store_uint32(v19, 257) || krb5_store_uint32(v19, 0) || (v20 = 10000000 * v17 + 116444736000000000, krb5_store_uint32(v19, v20)) || krb5_store_uint32(v19, HIDWORD(v20)) || krb5_storage_write(v19) != 8 || krb5_store_uint32(v19, 0) || krb5_storage_write(v19) != *a6 || krb5_store_uint32(v19, 0) || krb5_storage_to_data(v19, &v25))
       {
 LABEL_13:
-        krb5_storage_free(v20);
-        goto LABEL_21;
+        krb5_storage_free(v19);
+        return v16;
       }
 
-      krb5_storage_free(v20);
-      heim_ntlm_derive_ntlm2_sess(a7, v30, v29, a5, v31);
-      v24 = krb5_storage_emem();
-      if (v24)
+      krb5_storage_free(v19);
+      heim_ntlm_derive_ntlm2_sess(a7, v26, v25, a5, v27);
+      v21 = krb5_storage_emem();
+      if (v21)
       {
-        v20 = v24;
-        if (krb5_storage_write(v24) == 16)
+        v19 = v21;
+        if (krb5_storage_write(v21) == 16)
         {
-          v25 = krb5_storage_write(v20);
-          if (v25 == v29)
+          v22 = krb5_storage_write(v19);
+          if (v22 == v25)
           {
-            krb5_data_free(&v29);
-            if (!krb5_storage_to_data(v20, &v29))
+            krb5_data_free(&v25);
+            if (!krb5_storage_to_data(v19, &v25))
             {
-              krb5_storage_free(v20);
+              krb5_storage_free(v19);
               v16 = 0;
-              v26 = v30;
-              *a8 = v29;
-              a8[1] = v26;
-              goto LABEL_21;
+              v23 = v26;
+              *a8 = v25;
+              a8[1] = v23;
+              return v16;
             }
           }
         }
@@ -1682,17 +1613,13 @@ LABEL_13:
         goto LABEL_13;
       }
 
-      krb5_data_free(&v29);
+      krb5_data_free(&v25);
     }
 
-    v16 = 12;
-    goto LABEL_21;
+    return 12;
   }
 
-  v16 = 2733221635;
-LABEL_21:
-  v27 = *MEMORY[0x277D85DE8];
-  return v16;
+  return 2733221635;
 }
 
 uint64_t heim_ntlm_verify_ntlm2(void *a1, size_t a2, char *a3, char *a4, uint64_t a5, const void *a6, uint64_t *a7, size_t *a8, void *a9)
@@ -1710,14 +1637,13 @@ uint64_t heim_ntlm_verify_ntlm2(void *a1, size_t a2, char *a3, char *a4, uint64_
 
 uint64_t verify_ntlm2(void *key, size_t keyLength, char *a3, char *a4, int a5, uint64_t a6, const void *a7, uint64_t *a8, size_t *a9, void *a10)
 {
-  v34[5] = *MEMORY[0x277D85DE8];
+  v32[5] = *MEMORY[0x277D85DE8];
   v10 = 2733221632;
   *a9 = 0;
   a9[1] = 0;
   if (*a8 < 0x10)
   {
-    v10 = 2733221633;
-    goto LABEL_29;
+    return 2733221633;
   }
 
   v12 = a6;
@@ -1730,30 +1656,29 @@ uint64_t verify_ntlm2(void *key, size_t keyLength, char *a3, char *a4, int a5, u
   v18 = krb5_storage_from_readonly_mem(a8[1], *a8);
   if (!v18)
   {
-    v10 = 12;
-    goto LABEL_29;
+    return 12;
   }
 
   v19 = v18;
-  v33 = 0;
+  v31 = 0;
   krb5_storage_set_flags(v18, 32);
-  if (krb5_storage_read(v19) == 16 && !krb5_ret_uint32(v19, &v33) && v33 == 257)
+  if (krb5_storage_read(v19) == 16 && !krb5_ret_uint32(v19, &v31) && v31 == 257)
   {
-    v20 = krb5_ret_uint32(v19, &v33);
-    if (!(v20 | v33) && !krb5_ret_uint32(v19, &v33))
+    v20 = krb5_ret_uint32(v19, &v31);
+    if (!(v20 | v31) && !krb5_ret_uint32(v19, &v31))
     {
-      v21 = v33;
-      if (!krb5_ret_uint32(v19, &v33))
+      v21 = v31;
+      if (!krb5_ret_uint32(v19, &v31))
       {
-        v22 = ((v21 | (v33 << 32)) - 116444736000000000) / 0x989680 - v12;
+        v22 = ((v21 | (v31 << 32)) - 116444736000000000) / 0x989680 - v12;
         if (v22 < 0)
         {
-          v22 = v12 - ((v21 | (v33 << 32)) - 116444736000000000) / 0x989680;
+          v22 = v12 - ((v21 | (v31 << 32)) - 116444736000000000) / 0x989680;
         }
 
         if (v22 <= 0x1C20)
         {
-          if (krb5_storage_read(v19) == 8 && !krb5_ret_uint32(v19, &v33))
+          if (krb5_storage_read(v19) == 8 && !krb5_ret_uint32(v19, &v31))
           {
             v23 = *a8;
             v24 = v23 - krb5_storage_seek(v19);
@@ -1769,10 +1694,9 @@ uint64_t verify_ntlm2(void *key, size_t keyLength, char *a3, char *a4, int a5, u
                 v10 = 12;
 LABEL_28:
                 krb5_storage_free(v19);
-                goto LABEL_29;
+                return v10;
               }
 
-              v26 = *a9;
               if (krb5_storage_read(v19) != *a9)
               {
                 goto LABEL_25;
@@ -1781,26 +1705,21 @@ LABEL_28:
               krb5_storage_free(v19);
               if (*a8 >= 0x10)
               {
-                heim_ntlm_derive_ntlm2_sess(a10, (a8[1] + 16), *a8 - 16, a7, v34);
-                if (v34[0] == v34[3] && v34[1] == v34[4])
+                heim_ntlm_derive_ntlm2_sess(a10, (a8[1] + 16), *a8 - 16, a7, v32);
+                if (v32[0] == v32[3] && v32[1] == v32[4])
                 {
-                  v10 = 0;
+                  return 0;
                 }
 
-                else
+                v29 = a9[1];
+                if (v29)
                 {
-                  v31 = a9[1];
-                  if (v31)
-                  {
-                    free(v31);
-                  }
-
-                  *a9 = 0;
-                  a9[1] = 0;
-                  v10 = 2733221636;
+                  free(v29);
                 }
 
-                goto LABEL_29;
+                *a9 = 0;
+                a9[1] = 0;
+                return 2733221636;
               }
 
               v19 = 0;
@@ -1819,10 +1738,10 @@ LABEL_28:
   }
 
 LABEL_25:
-  v27 = a9[1];
-  if (v27)
+  v26 = a9[1];
+  if (v26)
   {
-    free(v27);
+    free(v26);
   }
 
   *a9 = 0;
@@ -1832,15 +1751,13 @@ LABEL_25:
     goto LABEL_28;
   }
 
-LABEL_29:
-  v28 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t heim_ntlm_calculate_ntlm2_sess(void *a1, uint64_t a2, __int128 *a3, uint64_t a4, void *a5)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  result = heim_ntlm_calculate_ntlm2_sess_hash(a1, a2, v18);
+  v17[1] = *MEMORY[0x277D85DE8];
+  result = heim_ntlm_calculate_ntlm2_sess_hash(a1, a2, v17);
   if (!result)
   {
     v10 = malloc_type_malloc(0x18uLL, 0x3C18CD75uLL);
@@ -1858,52 +1775,43 @@ uint64_t heim_ntlm_calculate_ntlm2_sess(void *a1, uint64_t a2, __int128 *a3, uin
         v12[1] = 0;
         v12[2] = 0;
         **(a4 + 8) = *a1;
+        v15 = 0;
         v16 = 0;
-        v17 = 0;
-        v15 = *a3;
+        v14 = *a3;
         v13 = a5[1];
-        splitandenc(&v15);
-        splitandenc(&v15 + 7);
-        splitandenc((&v15 | 0xE));
-        result = 0;
-        goto LABEL_7;
+        splitandenc(&v14, v17, v13);
+        splitandenc(&v14 + 7, v17, v13 + 8);
+        splitandenc((&v14 | 0xE), v17, v13 + 16);
+        return 0;
       }
 
       free(*(a4 + 8));
       *(a4 + 8) = 0;
     }
 
-    result = 12;
+    return 12;
   }
 
-LABEL_7:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t heim_ntlm_calculate_ntlm2_sess_hash(uint64_t a1, uint64_t a2, void *a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  if (CCDigestCreate())
+  if (!CCDigestCreate())
   {
-    CCDigestUpdate();
-    CCDigestUpdate();
-    CCDigestFinal();
-    CCDigestDestroy();
-    result = 0;
-    *a3 = v6;
+    return 12;
   }
 
-  else
-  {
-    result = 12;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
+  CCDigestUpdate();
+  CCDigestUpdate();
+  CCDigestFinal();
+  CCDigestDestroy();
+  result = 0;
+  *a3 = v5;
   return result;
 }
 
-uint64_t heim_ntlm_mppe_getmasterkey()
+uint64_t heim_ntlm_mppe_getmasterkey(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!CCDigestCreate())
   {
@@ -1920,41 +1828,32 @@ uint64_t heim_ntlm_mppe_getmasterkey()
 
 uint64_t heim_ntlm_mppe_getasymmetricstartkey(uint64_t a1, void *a2, size_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (a3 <= 0x14)
+  v7 = *MEMORY[0x277D85DE8];
+  if (a3 > 0x14)
   {
-    if (CCDigestCreate())
-    {
-      CCDigestUpdate();
-      CCDigestUpdate();
-      CCDigestUpdate();
-      CCDigestUpdate();
-      CCDigestFinal();
-      CCDigestDestroy();
-      memcpy(a2, __src, a3);
-      result = 0;
-    }
-
-    else
-    {
-      result = 12;
-    }
+    return 22;
   }
 
-  else
+  if (!CCDigestCreate())
   {
-    result = 22;
+    return 12;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  CCDigestUpdate();
+  CCDigestUpdate();
+  CCDigestUpdate();
+  CCDigestUpdate();
+  CCDigestFinal();
+  CCDigestDestroy();
+  memcpy(a2, __src, a3);
+  return 0;
 }
 
 uint64_t heim_ntlm_mppe_getsessionkey(const void *a1, uint64_t a2, uint64_t a3, size_t a4, void *a5, void *a6)
 {
   v14 = *MEMORY[0x277D85DE8];
   CC_MD4(a1, 0x10u, md);
-  result = heim_ntlm_mppe_getmasterkey();
+  result = heim_ntlm_mppe_getmasterkey(md, a2, v11);
   *md = 0;
   v13 = 0;
   if (!result)
@@ -1962,11 +1861,10 @@ uint64_t heim_ntlm_mppe_getsessionkey(const void *a1, uint64_t a2, uint64_t a3, 
     result = heim_ntlm_mppe_getasymmetricstartkey(v11, a5, a4);
     if (!result)
     {
-      result = heim_ntlm_mppe_getasymmetricstartkey(v11, a6, a4);
+      return heim_ntlm_mppe_getasymmetricstartkey(v11, a6, a4);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2020,19 +1918,19 @@ uint64_t krb5_storage_to_data(uint64_t a1, size_t *a2)
   return v4;
 }
 
-uint64_t krb5_store_int32(uint64_t a1, unsigned int a2)
+uint64_t krb5_store_int32(uint64_t a1, uint64_t a2)
 {
   if ((*(a1 + 48) & 0x60) != 0x40 && (*(a1 + 48) & 1) == 0)
   {
     if ((*(a1 + 48) & 0x60) == 0x20)
     {
-      a2 = rk_bswap32(a2);
+      LODWORD(a2) = rk_bswap32(a2);
     }
   }
 
   else
   {
-    a2 = bswap32(a2);
+    LODWORD(a2) = bswap32(a2);
   }
 
   return krb5_store_int(a1, a2, 4);
@@ -2040,27 +1938,25 @@ uint64_t krb5_store_int32(uint64_t a1, unsigned int a2)
 
 uint64_t krb5_store_int(uint64_t a1, int a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  _krb5_put_int(v9, a2, a3);
-  v5 = (*(a1 + 16))(a1, v9, a3);
+  v9 = *MEMORY[0x277D85DE8];
+  _krb5_put_int(v8, a2, a3);
+  v5 = (*(a1 + 16))(a1, v8, a3);
   if (v5 < 0)
   {
     v7 = __error();
-LABEL_6:
-    result = *v7;
-    goto LABEL_7;
   }
 
-  if (v5 != a3)
+  else
   {
+    if (v5 == a3)
+    {
+      return 0;
+    }
+
     v7 = (a1 + 52);
-    goto LABEL_6;
   }
 
-  result = 0;
-LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return *v7;
 }
 
 uint64_t krb5_ret_int32(uint64_t a1, unsigned int *a2)
@@ -2291,11 +2187,9 @@ uint64_t emem_seek(uint64_t a1, unint64_t a2, int a3)
   {
     case 2:
       v6 = *(a1 + 24);
-      v8 = v3[2] + a2;
       goto LABEL_10;
     case 1:
       v6 = *(a1 + 24);
-      v7 = v3[3] + a2 - *v3;
 LABEL_10:
       v6();
       return v3[3] - *v3;
@@ -2409,7 +2303,6 @@ uint64_t mem_seek(uint64_t a1, unint64_t a2, int a3)
   if (a3 == 2)
   {
     v7 = *(a1 + 24);
-    v9 = v4[1] + a2;
   }
 
   else
@@ -2438,7 +2331,6 @@ uint64_t mem_seek(uint64_t a1, unint64_t a2, int a3)
     }
 
     v7 = *(a1 + 24);
-    v8 = v4[2] + a2 - *v4;
   }
 
   return v7();
@@ -2503,19 +2395,17 @@ uint64_t krb5_data_alloc(size_t *a1, size_t a2)
 
 uint64_t heim_apop_create(const char *a1, const char *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  memset(&v8, 0, sizeof(v8));
-  CC_MD5_Init(&v8);
+  v10 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  memset(&v7, 0, sizeof(v7));
+  CC_MD5_Init(&v7);
   v4 = strlen(a1);
-  CC_MD5_Update(&v8, a1, v4);
+  CC_MD5_Update(&v7, a1, v4);
   v5 = strlen(a2);
-  CC_MD5_Update(&v8, a2, v5);
-  CC_MD5_Final(md, &v8);
-  rk_hex_encode_lower(md, 16, &v9);
-  result = v9;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  CC_MD5_Update(&v7, a2, v5);
+  CC_MD5_Final(md, &v7);
+  rk_hex_encode_lower(md, 16, &v8);
+  return v8;
 }
 
 uint64_t heim_apop_verify(const char *a1, const char *a2, const char *a3)
@@ -2542,23 +2432,23 @@ uint64_t heim_apop_verify(const char *a1, const char *a2, const char *a3)
 
 int8x16_t heim_cram_md5_export(const char *a1, int8x16_t *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = strlen(a1);
-  v21 = 0;
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v20 = 0;
   v18 = 0u;
-  memset(v16, 0, sizeof(v16));
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  memset(v15, 0, sizeof(v15));
   if (v4 < 0x41)
   {
     __memcpy_chk();
     *&v6 = 0x3636363636363636;
     *(&v6 + 1) = 0x3636363636363636;
     data = v6;
+    v22 = v6;
     v23 = v6;
     v24 = v6;
-    v25 = v6;
     if (!v4)
     {
       v8 = 1;
@@ -2572,9 +2462,9 @@ int8x16_t heim_cram_md5_export(const char *a1, int8x16_t *a2)
     *&v5 = 0x3636363636363636;
     *(&v5 + 1) = 0x3636363636363636;
     data = v5;
+    v22 = v5;
     v23 = v5;
     v24 = v5;
-    v25 = v5;
     v4 = 8;
   }
 
@@ -2585,15 +2475,15 @@ int8x16_t heim_cram_md5_export(const char *a1, int8x16_t *a2)
 
   v8 = 0;
 LABEL_7:
-  CC_MD5_Init(v16);
-  CC_MD5_Init(&v16[92]);
-  CC_MD5_Update(v16, &data, 0x40u);
+  CC_MD5_Init(v15);
+  CC_MD5_Init(&v15[92]);
+  CC_MD5_Update(v15, &data, 0x40u);
   *&v9 = 0x5C5C5C5C5C5C5C5CLL;
   *(&v9 + 1) = 0x5C5C5C5C5C5C5C5CLL;
   data = v9;
+  v22 = v9;
   v23 = v9;
   v24 = v9;
-  v25 = v9;
   if ((v8 & 1) == 0)
   {
     p_data = &data;
@@ -2609,12 +2499,11 @@ LABEL_7:
     while (v4);
   }
 
-  CC_MD5_Update(&v16[92], &data, 0x40u);
-  result = vrev32q_s8(*v16);
-  v14 = vrev32q_s8(*&v16[92]);
+  CC_MD5_Update(&v15[92], &data, 0x40u);
+  result = vrev32q_s8(*v15);
+  v14 = vrev32q_s8(*&v15[92]);
   *a2 = result;
   a2[1] = v14;
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2642,53 +2531,47 @@ char *heim_cram_md5_import(int8x16_t *a1, uint64_t a2)
 
 uint64_t heim_cram_md5_verify_ctx(CC_MD5_CTX *a1, char *__s, const char *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14 = 0;
+  v15 = *MEMORY[0x277D85DE8];
+  v13 = 0;
   v6 = strlen(__s);
   CC_MD5_Update(a1, __s, v6);
   CC_MD5_Final(md, a1);
   CC_MD5_Update(a1 + 1, md, 0x10u);
   CC_MD5_Final(md, a1 + 1);
-  rk_hex_encode_lower(md, 16, &v14);
-  v7 = v14;
-  if (!v14)
+  rk_hex_encode_lower(md, 16, &v13);
+  v7 = v13;
+  if (!v13)
   {
-    goto LABEL_8;
+    return 12;
   }
 
   v8 = 2733221642;
   if (strlen(a3) != 32)
   {
-    goto LABEL_9;
+    return v8;
   }
 
   v9 = strdup(a3);
   if (!v9)
   {
     free(v7);
-LABEL_8:
-    v8 = 12;
-    goto LABEL_9;
+    return 12;
   }
 
   v10 = v9;
   rk_strlwr(v9);
-  v11 = ct_memcmp(v14, v10, 32);
+  v11 = ct_memcmp(v13, v10, 32);
   free(v10);
-  free(v14);
+  free(v13);
   if (v11)
   {
-    v8 = 2733221642;
+    return 2733221642;
   }
 
   else
   {
-    v8 = 0;
+    return 0;
   }
-
-LABEL_9:
-  v12 = *MEMORY[0x277D85DE8];
-  return v8;
 }
 
 void heim_cram_md5_free(void *a1)
@@ -2710,19 +2593,17 @@ void heim_cram_md5_free(void *a1)
 
 uint64_t heim_cram_md5_create(const char *a1, char *__s)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   memset(&ctx, 0, sizeof(ctx));
-  v8 = 0;
+  v7 = 0;
   v4 = strlen(__s);
   CCHmacInit(&ctx, 1u, __s, v4);
   v5 = strlen(a1);
   CCHmacUpdate(&ctx, a1, v5);
   CCHmacFinal(&ctx, macOut);
   memset(&ctx, 0, sizeof(ctx));
-  rk_hex_encode_lower(macOut, 16, &v8);
-  result = v8;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  rk_hex_encode_lower(macOut, 16, &v7);
+  return v7;
 }
 
 uint64_t heim_cram_md5_verify(const char *a1, char *a2, char *a3)
@@ -2777,9 +2658,9 @@ _DWORD *heim_digest_create(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t heim_digest_generate_challenge(uint64_t a1)
+char *heim_digest_generate_challenge(uint64_t a1)
 {
-  v9 = 0;
+  v5 = 0;
   if (!*(a1 + 32))
   {
     return 0;
@@ -2798,8 +2679,7 @@ uint64_t heim_digest_generate_challenge(uint64_t a1)
           {
             if (v3 == 1)
             {
-              v5 = *(a1 + 32);
-              asprintf(&v9, "realm=%s,nonce=%s");
+              asprintf(&v5, "realm=%s,nonce=%s");
             }
 
             goto LABEL_20;
@@ -2812,30 +2692,27 @@ uint64_t heim_digest_generate_challenge(uint64_t a1)
         {
           if (v3 == 4)
           {
-            v6 = *(a1 + 32);
-            asprintf(&v9, "realm=%s,nonce=%s,algorithm=md5-sess,qop=%s");
+            asprintf(&v5, "realm=%s,nonce=%s,algorithm=md5-sess,qop=%s");
           }
 
           else if (v3 == 2)
           {
-            v4 = *(a1 + 32);
-            asprintf(&v9, "realm=%s,nonce=%s,algorithm=md5,qop=%s");
+            asprintf(&v5, "realm=%s,nonce=%s,algorithm=md5,qop=%s");
           }
 
           goto LABEL_20;
         }
 
-        v7 = *(a1 + 32);
-        asprintf(&v9, "realm=%s,nonce=%s,qop=%s,algorithm=md5-sess,charset=utf-8,maxbuf=%s");
+        asprintf(&v5, "realm=%s,nonce=%s,qop=%s,algorithm=md5-sess,charset=utf-8,maxbuf=%s");
 LABEL_20:
-        v8 = *(a1 + 144);
-        if (v8)
+        v4 = *(a1 + 144);
+        if (v4)
         {
-          free(v8);
+          free(v4);
         }
 
-        result = v9;
-        *(a1 + 144) = v9;
+        result = v5;
+        *(a1 + 144) = v5;
       }
     }
   }
@@ -2845,25 +2722,23 @@ LABEL_20:
 
 uint64_t generate_nonce()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 0;
-  v0 = *MEMORY[0x277D85C28];
-  v1 = CCRandomCopyBytes();
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 0;
+  v0 = CCRandomCopyBytes();
   result = 0;
-  if (!v1)
+  if (!v0)
   {
-    if (rk_hex_encode(v5, 8, &v4) >= 0)
+    if (rk_hex_encode(v3, 8, &v2) >= 0)
     {
-      result = v4;
+      return v2;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2950,7 +2825,7 @@ LABEL_13:
   return 0;
 }
 
-uint64_t parse_values(const char *a1, void ***a2)
+uint64_t parse_values(const char *a1, char ***a2)
 {
   *a2 = 0;
   v3 = strdup(a1);
@@ -3528,26 +3403,25 @@ unsigned __int8 *heim_digest_userhash(const char *a1, const char *a2, const char
 
 unsigned __int8 *MD5_Final_hex(CC_MD5_CTX *c)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4 = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   CC_MD5_Final(md, c);
-  rk_hex_encode(md, 16, &v4);
+  rk_hex_encode(md, 16, &v3);
   *md = 0;
-  v6 = 0;
+  v5 = 0;
   *&c->A = 0u;
   *&c->Nl = 0u;
   *&c->data[2] = 0u;
   *&c->data[6] = 0u;
   *&c->data[10] = 0u;
   *&c->data[13] = 0u;
-  result = v4;
-  if (v4)
+  result = v3;
+  if (v3)
   {
-    rk_strlwr(v4);
-    result = v4;
+    rk_strlwr(v3);
+    return v3;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3755,7 +3629,7 @@ char *heim_digest_create_response(uint64_t a1, void *a2)
 
 unsigned __int8 *build_A1_hash(uint64_t a1, int a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ((*a1 & 6) != 0)
   {
     v4 = strdup(*(a1 + 16));
@@ -3766,19 +3640,19 @@ unsigned __int8 *build_A1_hash(uint64_t a1, int a2)
     v10 = *(a1 + 8);
     if (!v10)
     {
-      goto LABEL_27;
+      return 0;
     }
 
     v11 = *(a1 + 72);
     if (!v11)
     {
-      goto LABEL_27;
+      return 0;
     }
 
     v12 = *(a1 + 32);
     if (!v12)
     {
-      goto LABEL_27;
+      return 0;
     }
 
     v4 = heim_digest_userhash(v11, v12, v10);
@@ -3787,14 +3661,14 @@ unsigned __int8 *build_A1_hash(uint64_t a1, int a2)
   v5 = v4;
   if (!v4)
   {
-    goto LABEL_28;
+    return v5;
   }
 
   v6 = *(a1 + 4);
   v7 = v6 == 8 || v6 == 4;
   if (!v7 || (*a1 & 4) != 0)
   {
-    goto LABEL_28;
+    return v5;
   }
 
   if (!*(a1 + 24))
@@ -3803,13 +3677,11 @@ LABEL_26:
     v18 = strlen(v5);
     bzero(v5, v18);
     free(v5);
-LABEL_27:
-    v5 = 0;
-    goto LABEL_28;
+    return 0;
   }
 
-  memset(&v21, 0, sizeof(v21));
-  CC_MD5_Init(&v21);
+  memset(&v20, 0, sizeof(v20));
+  CC_MD5_Init(&v20);
   if (a2 || *(a1 + 4) == 8)
   {
     if (rk_hex_decode(v5, data, 0x10uLL) == 16)
@@ -3825,32 +3697,29 @@ LABEL_27:
   v8 = strlen(v5);
   v9 = v5;
 LABEL_20:
-  CC_MD5_Update(&v21, v9, v8);
+  CC_MD5_Update(&v20, v9, v8);
   v13 = strlen(v5);
   bzero(v5, v13);
   free(v5);
-  CC_MD5_Update(&v21, ":", 1u);
+  CC_MD5_Update(&v20, ":", 1u);
   v14 = strlen(*(a1 + 24));
-  CC_MD5_Update(&v21, *(a1 + 24), v14);
+  CC_MD5_Update(&v20, *(a1 + 24), v14);
   if (*(a1 + 104))
   {
-    CC_MD5_Update(&v21, ":", 1u);
+    CC_MD5_Update(&v20, ":", 1u);
     v15 = strlen(*(a1 + 104));
-    CC_MD5_Update(&v21, *(a1 + 104), v15);
+    CC_MD5_Update(&v20, *(a1 + 104), v15);
   }
 
   if (*(a1 + 4) == 8 && *(a1 + 136))
   {
-    CC_MD5_Update(&v21, ":", 1u);
+    CC_MD5_Update(&v20, ":", 1u);
     v16 = *(a1 + 136);
     v17 = strlen(v16);
-    CC_MD5_Update(&v21, v16, v17);
+    CC_MD5_Update(&v20, v16, v17);
   }
 
-  v5 = MD5_Final_hex(&v21);
-LABEL_28:
-  v19 = *MEMORY[0x277D85DE8];
-  return v5;
+  return MD5_Final_hex(&v20);
 }
 
 unsigned __int8 *build_digest(uint64_t a1, const char *a2, const char *a3)
@@ -3949,7 +3818,7 @@ void build_server_response(uint64_t a1, const char *a2, void *a3)
   }
 }
 
-uint64_t heim_digest_verify(uint64_t a1, char **a2)
+uint64_t heim_digest_verify(uint64_t a1, const char **a2)
 {
   if (a2)
   {
@@ -4030,7 +3899,7 @@ LABEL_14:
   return result;
 }
 
-unsigned __int8 *heim_digest_server_response(void *a1)
+char *heim_digest_server_response(void *a1)
 {
   if (!a1[3])
   {
@@ -4493,7 +4362,7 @@ LABEL_11:
   return v9;
 }
 
-uint64_t rk_hex_decode(const char *a1, _BYTE *a2, size_t a3)
+unint64_t rk_hex_decode(char *a1, _BYTE *a2, size_t a3)
 {
   v5 = a1;
   v6 = strlen(a1);
@@ -4811,12 +4680,12 @@ LABEL_21:
 
     else
     {
-      v18 = a1 + 1;
+      v18 = (a1 + 1);
     }
 
     if (v8)
     {
-      v19 = a1 + 1;
+      v19 = (a1 + 1);
     }
 
     else

@@ -19,6 +19,7 @@
 - (void)cancelOutgoingMessageWithID:(unint64_t)d;
 - (void)dealloc;
 - (void)enqueueOutgoingMessage:(id)message forOriginator:(id)originator;
+- (void)handleAcknowledgmentForOutgoingMessageWithResult:(id)result ackTimestamp:(unint64_t)timestamp linkQuality:(int)quality connectionType:(int64_t)type onInterface:(id)interface;
 - (void)handleConnectionClosedOnInterface:(id)interface;
 - (void)handleConnectionOpenedOnInterface:(id)interface;
 - (void)handleErrorSendingOutgoingMessage:(id)message error:(id)error;
@@ -27,6 +28,7 @@
 - (void)setCriticalMessageTimeout:(id)timeout;
 - (void)setForcedShortTimeoutInterval:(id)interval;
 - (void)setNumberOfCriticalMessageFlushesBeforeDisconnecting:(id)disconnecting;
+- (void)setShouldReportLastReversePushRTT:(BOOL)t onInterface:(id)interface;
 - (void)transferOwnershipOfPendingMessagesToHandler:(id)handler;
 @end
 
@@ -744,6 +746,59 @@ LABEL_9:
   return v6;
 }
 
+- (void)setShouldReportLastReversePushRTT:(BOOL)t onInterface:(id)interface
+{
+  tCopy = t;
+  interfaceCopy = interface;
+  if (interfaceCopy)
+  {
+    v7 = [(NSMutableDictionary *)self->_shouldReportLastReversePushRTT objectForKeyedSubscript:interfaceCopy];
+    bOOLValue = [v7 BOOLValue];
+
+    if (bOOLValue != tCopy)
+    {
+      v9 = [NSNumber numberWithBool:tCopy];
+      [(NSMutableDictionary *)self->_shouldReportLastReversePushRTT setObject:v9 forKeyedSubscript:interfaceCopy];
+
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = @"NO";
+        *v12 = 138412802;
+        *&v12[4] = self;
+        *&v12[12] = 2112;
+        if (tCopy)
+        {
+          v10 = @"YES";
+        }
+
+        *&v12[14] = v10;
+        v13 = 2112;
+        v14 = interfaceCopy;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ asked to set shouldReportLastReversePushRTT to %@ on  %@", v12, 0x20u);
+      }
+    }
+
+    [(NSMutableDictionary *)self->_lastReversePushRTTMilliseconds setObject:0 forKeyedSubscript:interfaceCopy, *v12, *&v12[8]];
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = @"NO";
+    *v12 = 138412802;
+    *&v12[4] = self;
+    *&v12[12] = 2112;
+    if (tCopy)
+    {
+      v11 = @"YES";
+    }
+
+    *&v12[14] = v11;
+    v13 = 2112;
+    v14 = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ asked to set shouldReportLastReversePushRTT %@ on invalid interface %@", v12, 0x20u);
+  }
+}
+
 - (id)lastReversePushRTTMillisecondsOnInterface:(id)interface
 {
   interfaceCopy = interface;
@@ -786,6 +841,190 @@ LABEL_8:
 LABEL_9:
 
   return v7;
+}
+
+- (void)handleAcknowledgmentForOutgoingMessageWithResult:(id)result ackTimestamp:(unint64_t)timestamp linkQuality:(int)quality connectionType:(int64_t)type onInterface:(id)interface
+{
+  v8 = *&quality;
+  resultCopy = result;
+  interfaceCopy = interface;
+  p_queue = &self->_queue;
+  v13 = [(NSMutableArray *)self->_queue count];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = resultCopy;
+    v16 = 0;
+    while (1)
+    {
+      v17 = [(NSMutableArray *)*p_queue objectAtIndex:v16];
+      sendInterfaceIdentifier = [v17 sendInterfaceIdentifier];
+      v19 = [sendInterfaceIdentifier isEqualToString:interfaceCopy];
+
+      if (v19)
+      {
+        break;
+      }
+
+      if (v14 == ++v16)
+      {
+        v16 = 0x7FFFFFFFFFFFFFFFLL;
+        break;
+      }
+    }
+
+    resultCopy = v15;
+  }
+
+  else
+  {
+    v16 = 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    selfCopy5 = self;
+    v59 = 2048;
+    v60 = *&v16;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ handleAcknowledgmentForOutgoingMessageWithResult - firstSentIndex %lu", buf, 0x16u);
+  }
+
+  if (v16 != 0x7FFFFFFFFFFFFFFFLL && -[NSMutableArray count](*p_queue, "count") && (-[NSMutableArray objectAtIndex:](*p_queue, "objectAtIndex:", v16), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 wasSent], v20, v21))
+  {
+    v53 = resultCopy;
+    +[NSDate timeIntervalSinceReferenceDate];
+    self->_lastReceivedAckOrReconnect = v22;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      lastReceivedAckOrReconnect = self->_lastReceivedAckOrReconnect;
+      *buf = 138412546;
+      selfCopy5 = self;
+      v59 = 2048;
+      v60 = lastReceivedAckOrReconnect;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ updating lastReceivedAck to %f", buf, 0x16u);
+    }
+
+    v24 = [(NSMutableArray *)self->_queue objectAtIndex:v16];
+    messageID = [v24 messageID];
+    APSAlert();
+    sentTimestamp = [v24 sentTimestamp];
+    v26 = +[NSDate date];
+    v52 = sentTimestamp;
+    [v26 timeIntervalSinceDate:sentTimestamp];
+    v28 = v27;
+
+    v29 = [NSNumber numberWithDouble:v28];
+    v30 = [NSNumber numberWithInt:v8];
+    v31 = [NSNumber numberWithUnsignedInteger:self->_criticalMessageFlushCount];
+    v32 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v24 payloadLength]);
+    v67[0] = @"ConnectionType";
+    v33 = sub_10001B3FC(type);
+    v68[0] = v33;
+    v68[1] = v30;
+    v55 = v30;
+    v67[1] = @"LinkQuality";
+    v67[2] = @"FlushCount";
+    v50 = v32;
+    v51 = v31;
+    v68[2] = v31;
+    v68[3] = v29;
+    v67[3] = @"SendDuration";
+    v67[4] = @"PayloadSize";
+    v68[4] = v32;
+    v67[5] = @"MessageIdentifier";
+    v34 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v24 identifier]);
+    v68[5] = v34;
+    v67[6] = @"Topic";
+    topic = [v24 topic];
+    v68[6] = topic;
+    v36 = [NSDictionary dictionaryWithObjects:v68 forKeys:v67 count:7];
+
+    v37 = v29;
+    [v29 doubleValue];
+    v39 = [NSNumber numberWithUnsignedInteger:(v38 * 1000.0)];
+    [(NSMutableDictionary *)self->_lastReversePushRTTMilliseconds setObject:v39 forKeyedSubscript:interfaceCopy];
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      v40 = [(NSMutableDictionary *)self->_lastReversePushRTTMilliseconds objectForKeyedSubscript:interfaceCopy];
+      *buf = 138412802;
+      selfCopy5 = self;
+      v59 = 2112;
+      v60 = *&v40;
+      v61 = 2112;
+      v62 = interfaceCopy;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ record _lastReversePushRTTMilliseconds %@ on %@", buf, 0x20u);
+    }
+
+    v41 = [(NSMutableDictionary *)self->_lastReversePushRTTMilliseconds objectForKeyedSubscript:interfaceCopy];
+    [v24 setSendRTT:{objc_msgSend(v41, "unsignedIntegerValue")}];
+
+    [v24 setAckReceived:1];
+    [v24 setAckTimestamp:timestamp];
+    resultCopy = v53;
+    if (([v24 wasCancelled] & 1) != 0 || objc_msgSend(v24, "hasTimedOut"))
+    {
+      v42 = &fputc_ptr;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        messageID2 = [v24 messageID];
+        *buf = 138412546;
+        selfCopy5 = self;
+        v59 = 2048;
+        v60 = *&messageID2;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@: Ack'ed outgoing message %lu was already cancelled or timed out", buf, 0x16u);
+      }
+
+      APSPowerLog();
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        messageID3 = [v24 messageID];
+        identifier = [v24 identifier];
+        code = [v53 code];
+        localizedDescription = [v53 localizedDescription];
+        *buf = 138413314;
+        selfCopy5 = self;
+        v59 = 2048;
+        v60 = *&messageID3;
+        v61 = 2048;
+        v62 = identifier;
+        v63 = 2048;
+        v64 = code;
+        resultCopy = v53;
+        v65 = 2112;
+        v66 = localizedDescription;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@: Delivering result for outgoing message %lu with idenitifer %lu: %ld '%@'", buf, 0x34u);
+      }
+
+      APSPowerLog();
+      [(APSOutgoingMessageQueue *)self _deliverResult:resultCopy forMessage:v24];
+      v42 = &fputc_ptr;
+    }
+
+    [(NSMutableArray *)self->_queue removeObjectAtIndex:v16];
+    ++self->_numberAcked;
+    [v42[474] timeIntervalSinceReferenceDate];
+    self->_lastNotificationAcked = v48;
+    [(APSOutgoingMessageQueue *)self _queueChanged];
+  }
+
+  else if ([(NSMutableArray *)*p_queue count])
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10010A8D4(self, &self->_queue);
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+  {
+    sub_10010A9C4(self);
+  }
 }
 
 - (void)handleConnectionOpenedOnInterface:(id)interface

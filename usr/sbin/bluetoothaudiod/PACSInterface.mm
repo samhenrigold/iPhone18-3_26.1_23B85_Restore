@@ -8,6 +8,7 @@
 - (unsigned)getNumOfChanLocSet:(BOOL)set;
 - (unsigned)getSupportedAudioChannelCountMask:(BOOL)mask;
 - (unsigned)getSupportedAudioContexts:(BOOL)contexts;
+- (unsigned)supportsAudioLocationWithLocation:(unsigned int)location withDirection:(BOOL)direction;
 - (void)checkAllAttributesReady;
 - (void)createCodecConfigList:(BOOL)list;
 - (void)handleAudioLocationsUpdateWithDirection:(BOOL)direction;
@@ -939,6 +940,115 @@ LABEL_25:
   }
 
   return v10;
+}
+
+- (unsigned)supportsAudioLocationWithLocation:(unsigned int)location withDirection:(BOOL)direction
+{
+  directionCopy = direction;
+  v5 = *&location;
+  if (direction)
+  {
+    sinkPacRecordSet = [(PACSInterface *)self sinkPacRecordSet];
+    sinkLocationMask = [(PACSInterface *)self sinkLocationMask];
+    sinkPacRecordSet2 = [(PACSInterface *)self sinkPacRecordSet];
+    v10 = [sinkPacRecordSet2 count];
+
+    if (!v10)
+    {
+      v11 = 11;
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+    sinkPacRecordSet = [(PACSInterface *)self sourcePacRecordSet];
+    sinkLocationMask = [(PACSInterface *)self sourceLocationMask];
+    sourcePacRecordSet = [(PACSInterface *)self sourcePacRecordSet];
+    v13 = [sourcePacRecordSet count];
+
+    if (!v13)
+    {
+      v11 = 12;
+      goto LABEL_28;
+    }
+  }
+
+  v11 = 0;
+  if (v5 && sinkLocationMask)
+  {
+    v14 = [(PACSInterface *)self determineChannelCount:v5];
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    sinkPacRecordSet = sinkPacRecordSet;
+    v15 = [sinkPacRecordSet countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v26;
+      v18 = 1 << (v14 - 1);
+      v19 = sinkLocationMask & v5;
+      while (2)
+      {
+        for (i = 0; i != v16; i = i + 1)
+        {
+          if (*v26 != v17)
+          {
+            objc_enumerationMutation(sinkPacRecordSet);
+          }
+
+          v21 = *(*(&v25 + 1) + 8 * i);
+          if ((v18 & [v21 supportedAudioChanCount]) != 0 && v19 == v5)
+          {
+            supportedAudioChanCount = [v21 supportedAudioChanCount];
+            if (directionCopy)
+            {
+              [(PACSInterface *)self setSinkSupportedAudioChanCount:supportedAudioChanCount];
+            }
+
+            else
+            {
+              [(PACSInterface *)self setSourceSupportedAudioChanCount:supportedAudioChanCount];
+            }
+
+            goto LABEL_27;
+          }
+        }
+
+        v16 = [sinkPacRecordSet countByEnumeratingWithState:&v25 objects:v29 count:16];
+        if (v16)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    else
+    {
+      v19 = sinkLocationMask & v5;
+    }
+
+    if (v19 == v5)
+    {
+      [(PACSInterface *)self setSourceSupportedAudioChanCount:1];
+      [(PACSInterface *)self setSinkSupportedAudioChanCount:1];
+LABEL_27:
+      v11 = 0;
+    }
+
+    else
+    {
+      v11 = 13;
+    }
+  }
+
+LABEL_28:
+
+  return v11;
 }
 
 - (unsigned)determineChannelCount:(unsigned int)count

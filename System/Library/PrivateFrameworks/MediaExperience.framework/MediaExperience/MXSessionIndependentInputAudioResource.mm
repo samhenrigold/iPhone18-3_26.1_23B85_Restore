@@ -26,9 +26,9 @@
 - (MXSessionIndependentInputAudioResource)initWithOptions:(id)options
 {
   location[16] = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = MXSessionIndependentInputAudioResource;
-  v4 = [(MXSessionIndependentAudioResource *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = MXSessionIndependentInputAudioResource;
+  v4 = [(MXSessionIndependentAudioResource *)&v8 init];
   if (v4)
   {
     if (options && (v5 = [[MXCoreSessionIndependentInputAudioResource alloc] initWithOptions:options]) != 0)
@@ -46,11 +46,10 @@
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-      v4 = 0;
+      return 0;
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -211,7 +210,7 @@ LABEL_22:
 
 - (void)dumpDebugInfo
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -236,8 +235,6 @@ LABEL_22:
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (int)_beginInterruptionWithSecTask:(__SecTask *)task andFlags:(unint64_t)flags
@@ -264,56 +261,56 @@ LABEL_22:
 
 - (uint64_t)copyPropertyForKeyInternal:(_DWORD *)a1 valueOut:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)copyPropertyForKeyInternal:(_DWORD *)a1 valueOut:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)copyPropertyForKeyInternal:(_DWORD *)a1 valueOut:.cold.3(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKeyInternal:(_DWORD *)a1 value:fromPropertiesBatch:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKeyInternal:(_DWORD *)a1 value:fromPropertiesBatch:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKeyInternal:(_DWORD *)a1 value:fromPropertiesBatch:.cold.3(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKeyInternal:(_DWORD *)a1 value:fromPropertiesBatch:.cold.4(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKeyInternal:(_DWORD *)a1 value:fromPropertiesBatch:.cold.5(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

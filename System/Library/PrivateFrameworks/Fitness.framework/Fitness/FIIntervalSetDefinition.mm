@@ -40,25 +40,25 @@
 
 + (id)definitionFromDictionary:(id)dictionary error:(id *)error
 {
-  v39[8] = *MEMORY[0x277D85DE8];
+  v38[8] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [FIValidation validationWithName:@"Key 'intervalDefinitions' exists" test:&__block_literal_global_59];
-  v39[0] = v4;
+  v38[0] = v4;
   v5 = [FIValidation validationWithName:@"Key 'repeatCount' exists" test:&__block_literal_global_64];
-  v39[1] = v5;
+  v38[1] = v5;
   v6 = [FIValidation validationWithName:@"Key 'setType' exists" test:&__block_literal_global_69];
-  v39[2] = v6;
+  v38[2] = v6;
   v7 = [FIValidation validationWithName:@"'setType' is number" test:&__block_literal_global_74];
-  v39[3] = v7;
+  v38[3] = v7;
   v8 = [FIValidation validationWithName:@"'repeatCount' is number" test:&__block_literal_global_79];
-  v39[4] = v8;
+  v38[4] = v8;
   v9 = [FIValidation validationWithName:@"'intervalDefinitions' is an array" test:&__block_literal_global_84];
-  v39[5] = v9;
+  v38[5] = v9;
   v10 = [FIValidation validationWithName:@"'setType' is a valid identifier" test:&__block_literal_global_90];
-  v39[6] = v10;
+  v38[6] = v10;
   v11 = [FIValidation validationWithName:@"'intervalDefinitions' contains dictionaries only" test:&__block_literal_global_95];
-  v39[7] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:8];
+  v38[7] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:8];
 
   v13 = dictionaryCopy;
   LODWORD(v4) = [FIValidation performValidations:v12 withObject:dictionaryCopy error:error];
@@ -69,12 +69,12 @@
     goto LABEL_19;
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v14 = [dictionaryCopy objectForKeyedSubscript:@"intervalDefinitions"];
-  v15 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (!v15)
   {
 
@@ -91,7 +91,7 @@ LABEL_17:
 
   v16 = v15;
   v17 = 0;
-  v18 = *v35;
+  v18 = *v34;
   v19 = MEMORY[0x277CBEBF8];
   while (2)
   {
@@ -100,15 +100,15 @@ LABEL_17:
     v22 = v17;
     do
     {
-      if (*v35 != v18)
+      if (*v34 != v18)
       {
         objc_enumerationMutation(v14);
       }
 
-      v23 = *(*(&v34 + 1) + 8 * v20);
-      v33 = v22;
-      v24 = [FIIntervalDefinition definitionFromDictionary:v23 error:&v33];
-      v17 = v33;
+      v23 = *(*(&v33 + 1) + 8 * v20);
+      v32 = v22;
+      v24 = [FIIntervalDefinition definitionFromDictionary:v23 error:&v32];
+      v17 = v32;
 
       if (!v24)
       {
@@ -124,7 +124,7 @@ LABEL_17:
     }
 
     while (v16 != v20);
-    v16 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v16 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v16)
     {
       continue;
@@ -147,28 +147,25 @@ LABEL_13:
 LABEL_18:
 
 LABEL_19:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
 
 - (id)dictionaryRepresentation
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   intervalDefinitions = [(FIIntervalSetDefinition *)self intervalDefinitions];
   v4 = [intervalDefinitions fi_mapUsingBlock:&__block_literal_global_13];
 
-  v11[0] = v4;
-  v10[0] = @"intervalDefinitions";
-  v10[1] = @"repeatCount";
+  v10[0] = v4;
+  v9[0] = @"intervalDefinitions";
+  v9[1] = @"repeatCount";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[FIIntervalSetDefinition repeatCount](self, "repeatCount")}];
-  v11[1] = v5;
-  v10[2] = @"setType";
+  v10[1] = v5;
+  v9[2] = @"setType";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{-[FIIntervalSetDefinition setType](self, "setType")}];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }

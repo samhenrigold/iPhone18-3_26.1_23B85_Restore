@@ -152,7 +152,7 @@ void __49___TVAnimatedLabel__prepareNextMarqueeWithDelay___block_invoke_2(id *a1
   }
 }
 
-uint64_t __41___TVAnimatedLabel__startMarqueeIfNeeded__block_invoke(uint64_t a1)
+void *__41___TVAnimatedLabel__startMarqueeIfNeeded__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 946) = 0;
   result = [*(a1 + 32) isAnimating];
@@ -202,7 +202,7 @@ void __33___TVAnimatedLabel_setAnimating___block_invoke_cold_1(uint64_t a1, void
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_1() text];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v5, v6, "AL(%@): starting timeout end", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v5, v6, "AL(%@): starting timeout end", v7, v8, v9, v10);
 }
 
 void __58___TVAnimatedLabel_stopAnimatingWithoutResetWithDuration___block_invoke_cold_1(uint64_t a1, void *a2)
@@ -210,7 +210,7 @@ void __58___TVAnimatedLabel_stopAnimatingWithoutResetWithDuration___block_invoke
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_1() text];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v5, v6, "AL(%@): stopping timeout end", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v5, v6, "AL(%@): stopping timeout end", v7, v8, v9, v10);
 }
 
 void __51___TVAnimatedLabel_stopAndResetScrollWithDuration___block_invoke_34_cold_1(uint64_t a1, void *a2)
@@ -218,7 +218,7 @@ void __51___TVAnimatedLabel_stopAndResetScrollWithDuration___block_invoke_34_col
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_1() text];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v5, v6, "AL(%@): stop-and-reset timeout end", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v5, v6, "AL(%@): stop-and-reset timeout end", v7, v8, v9, v10);
 }
 
 @end

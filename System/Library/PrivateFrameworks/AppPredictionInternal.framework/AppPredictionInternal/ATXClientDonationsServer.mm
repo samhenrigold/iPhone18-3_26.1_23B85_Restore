@@ -61,19 +61,19 @@ uint64_t __42__ATXClientDonationsServer_sharedInstance__block_invoke()
   return 1;
 }
 
-void __63__ATXClientDonationsServer_listener_shouldAcceptNewConnection___block_invoke()
+void __63__ATXClientDonationsServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_client_donations();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_client_donations(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __63__ATXClientDonationsServer_listener_shouldAcceptNewConnection___block_invoke_cold_1();
   }
 }
 
-void __63__ATXClientDonationsServer_listener_shouldAcceptNewConnection___block_invoke_23()
+void __63__ATXClientDonationsServer_listener_shouldAcceptNewConnection___block_invoke_23(uint64_t a1)
 {
-  v0 = __atxlog_handle_client_donations();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_client_donations(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __63__ATXClientDonationsServer_listener_shouldAcceptNewConnection___block_invoke_23_cold_1();
   }
@@ -83,26 +83,26 @@ void __63__ATXClientDonationsServer_listener_shouldAcceptNewConnection___block_i
 {
   itemCopy = item;
   completionCopy = completion;
-  v7 = __atxlog_handle_client_donations();
+  v7 = __atxlog_handle_client_donations(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ATXClientDonationsServer donateMenuItem:itemCopy completion:v7];
   }
 
-  v8 = __atxlog_handle_client_donations();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = __atxlog_handle_client_donations(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [ATXClientDonationsServer donateMenuItem:completion:];
   }
 
-  v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CEB260] code:4 userInfo:0];
-  completionCopy[2](completionCopy, v9);
+  v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CEB260] code:4 userInfo:0];
+  completionCopy[2](completionCopy, v10);
 }
 
 - (void)donateDocumentInteraction:(id)interaction completion:(id)completion
 {
   completionCopy = completion;
-  v5 = __atxlog_handle_client_donations();
+  v5 = __atxlog_handle_client_donations(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [ATXClientDonationsServer donateDocumentInteraction:completion:];
@@ -114,27 +114,10 @@ void __63__ATXClientDonationsServer_listener_shouldAcceptNewConnection___block_i
 
 - (void)donateMenuItem:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Got menu item donation %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)donateMenuItem:completion:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)donateDocumentInteraction:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Got menu item donation %@", &v2, 0xCu);
 }
 
 @end

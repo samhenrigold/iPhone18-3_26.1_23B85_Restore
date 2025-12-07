@@ -8,7 +8,7 @@
 
 - (_TtC20ProductPageExtension12IconGridView)initWithCoder:(id)coder
 {
-  v4 = sub_10000A5D4(&qword_10094B7E8);
+  v4 = sub_10000A5D4(&qword_10094B7E8, &qword_100791A70);
   __chkstk_darwin(v4);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension12IconGridView_artworkViews) = _swiftEmptyArrayStorage;
   sub_10075FD2C();

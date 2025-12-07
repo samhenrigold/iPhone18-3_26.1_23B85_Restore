@@ -568,7 +568,7 @@ LABEL_24:
   return v11;
 }
 
-uint64_t __69__MPConcreteMediaItem__initWithPersistentID_library_propertiesCache___block_invoke()
+void *__69__MPConcreteMediaItem__initWithPersistentID_library_propertiesCache___block_invoke()
 {
   __MPMediaItemPropertyArtworkHash = [@"artwork" hash];
   result = [@"playbackStoreID" hash];

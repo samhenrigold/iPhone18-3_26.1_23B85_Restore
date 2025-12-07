@@ -2,6 +2,8 @@
 + (BOOL)isValidSignature:(id)signature;
 + (BOOL)isValidV2Signature:(id)signature;
 + (id)signatureForStreamingAsset;
++ (id)signatureWithFileDescriptor:(int)descriptor boundaryKey:(id)key error:(id *)error;
++ (id)signatureWithFileDescriptor:(int)descriptor error:(id *)error;
 - (CKSignatureGenerator)init;
 - (CKSignatureGenerator)initWithBoundaryKey:(id)key;
 - (CKSignatureGenerator)initWithVerificationKey:(id)key;
@@ -255,6 +257,164 @@ LABEL_6:
   return objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(v4, v8, v3, v7, 1);
 }
 
++ (id)signatureWithFileDescriptor:(int)descriptor error:(id *)error
+{
+  v5 = *&descriptor;
+  v25[0] = 0;
+  if (error)
+  {
+    v6 = v25;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v7 = off_1EA919BC8;
+  v30 = off_1EA919BC8;
+  if (!off_1EA919BC8)
+  {
+    v25[1] = MEMORY[0x1E69E9820];
+    v25[2] = 3221225472;
+    v25[3] = sub_1886C2D74;
+    v25[4] = &unk_1E70BBE90;
+    v26 = &v27;
+    v8 = sub_1886C2A1C(self, a2, *&descriptor);
+    v9 = dlsym(v8, "MMCSSignatureCreateFromFileDescriptor");
+    *(v26[1] + 24) = v9;
+    off_1EA919BC8 = *(v26[1] + 24);
+    v7 = v28[3];
+  }
+
+  _Block_object_dispose(&v27, 8);
+  if (!v7)
+  {
+    v20 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v10, v11);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v21, "unsigned char *__MMCSSignatureCreateFromFileDescriptor(int, CFErrorRef *)");
+    v23 = dlerror();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v20, v24, v22, @"CKSignatureGenerator.m", 43, @"%s", v23);
+
+    __break(1u);
+    return result;
+  }
+
+  v14 = v7(v5, v6);
+  if (v25[0])
+  {
+    if (!error)
+    {
+      CFRelease(v25[0]);
+      if (v14)
+      {
+        goto LABEL_11;
+      }
+
+LABEL_13:
+      v18 = 0;
+      goto LABEL_14;
+    }
+
+    *error = v25[0];
+  }
+
+  if (!v14)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_11:
+  v15 = MEMORY[0x1E695DEF0];
+  sub_1886C1FF8(v14, v12, v13);
+  v18 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(v15, v17, v14, v16, 1);
+LABEL_14:
+
+  return v18;
+}
+
++ (id)signatureWithFileDescriptor:(int)descriptor boundaryKey:(id)key error:(id *)error
+{
+  v6 = *&descriptor;
+  keyCopy = key;
+  v10 = keyCopy;
+  v30[0] = 0;
+  if (error)
+  {
+    v11 = v30;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v12 = off_1EA919BD0;
+  v35 = off_1EA919BD0;
+  if (!off_1EA919BD0)
+  {
+    v30[1] = MEMORY[0x1E69E9820];
+    v30[2] = 3221225472;
+    v30[3] = sub_1886C2DC4;
+    v30[4] = &unk_1E70BBE90;
+    v31 = &v32;
+    v13 = sub_1886C2A1C(keyCopy, v8, v9);
+    v14 = dlsym(v13, "MMCSSignatureCreateWithBoundaryKeyFromFileDescriptor");
+    *(v31[1] + 24) = v14;
+    off_1EA919BD0 = *(v31[1] + 24);
+    v12 = v33[3];
+  }
+
+  _Block_object_dispose(&v32, 8);
+  if (!v12)
+  {
+    v25 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v15, v16);
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v26, "unsigned char *__MMCSSignatureCreateWithBoundaryKeyFromFileDescriptor(CFDataRef, int, CFErrorRef *)");
+    v28 = dlerror();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v25, v29, v27, @"CKSignatureGenerator.m", 46, @"%s", v28);
+
+    __break(1u);
+    return result;
+  }
+
+  v19 = v12(v10, v6, v11);
+  if (v30[0])
+  {
+    if (!error)
+    {
+      CFRelease(v30[0]);
+      if (v19)
+      {
+        goto LABEL_11;
+      }
+
+LABEL_13:
+      v23 = 0;
+      goto LABEL_14;
+    }
+
+    *error = v30[0];
+  }
+
+  if (!v19)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_11:
+  v20 = MEMORY[0x1E695DEF0];
+  sub_1886C1FF8(v19, v17, v18);
+  v23 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(v20, v22, v19, v21, 1);
+LABEL_14:
+
+  return v23;
+}
+
 + (BOOL)isValidSignature:(id)signature
 {
   signatureCopy = signature;
@@ -341,21 +501,19 @@ LABEL_8:
 
 + (id)signatureForStreamingAsset
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695DF88]);
   v4 = objc_msgSend_initWithCapacity_(v2, v3, 21);
-  v15 = 3;
-  objc_msgSend_appendBytes_length_(v4, v5, &v15, 1);
+  v14 = 3;
+  objc_msgSend_appendBytes_length_(v4, v5, &v14, 1);
   for (i = 0; i != 20; ++i)
   {
-    v16[i] = arc4random();
+    v15[i] = arc4random();
   }
 
-  v8 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v7, v16, 20);
+  v8 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v7, v15, 20);
   objc_msgSend_appendData_(v4, v9, v8);
   v12 = objc_msgSend_copy(v4, v10, v11);
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

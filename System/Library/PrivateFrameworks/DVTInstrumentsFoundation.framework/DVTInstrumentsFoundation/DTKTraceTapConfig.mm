@@ -11,7 +11,10 @@
 - (unsigned)recordingPriority;
 - (void)enumerateTriggerConfigs:(id)configs;
 - (void)setBufferSizeOverride:(unint64_t)override;
+- (void)setBufferSizeOverrideClamping:(BOOL)clamping;
+- (void)setCanUseRawKtraceFile:(BOOL)file;
 - (void)setCollectionInterval:(unint64_t)interval;
+- (void)setRecordingPriority:(unsigned __int8)priority;
 - (void)setSessionHandler:(id)handler;
 @end
 
@@ -67,6 +70,25 @@
   return v4;
 }
 
+- (void)setRecordingPriority:(unsigned __int8)priority
+{
+  priorityCopy = priority;
+  if (priority != 10 && priority != 100)
+  {
+    NSLog(&cfstr_UnsupportedRec.isa, a2, priority);
+    priorityCopy = 10;
+  }
+
+  v5 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:priorityCopy];
+  [(DTTapConfig *)self _setSerializableObject:v5 forKey:@"rp"];
+}
+
+- (void)setCanUseRawKtraceFile:(BOOL)file
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:file];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"curkt"];
+}
+
 - (BOOL)canUseRawKtraceFile
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"curkt"];
@@ -114,6 +136,12 @@
   return bOOLValue;
 }
 
+- (void)setBufferSizeOverrideClamping:(BOOL)clamping
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:clamping];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"bsoc"];
+}
+
 - (unint64_t)collectionInterval
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"kco"];
@@ -137,29 +165,29 @@
 
 - (void)enumerateTriggerConfigs:(id)configs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   configsCopy = configs;
   v5 = [(DTTapConfig *)self _getSerializableObjectForKey:@"tc"];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_opt_new();
         [v11 _SetTriggerDict:v10];
         configsCopy[2](configsCopy, v11);
@@ -168,13 +196,11 @@
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)triggerConfigCount

@@ -1,9 +1,25 @@
 @interface _APRSBiomeAppStateEvent
++ (id)eventWithAppBundleID:(id)d appState:(int)state;
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (id)serialize;
 @end
 
 @implementation _APRSBiomeAppStateEvent
+
++ (id)eventWithAppBundleID:(id)d appState:(int)state
+{
+  v4 = *&state;
+  dCopy = d;
+  v6 = objc_alloc_init(_APRSBiomeAppStateEvent);
+  v7 = v6;
+  if (v6)
+  {
+    [(_APRSBiomeAppStateEvent *)v6 setBundleID:dCopy];
+    [(_APRSBiomeAppStateEvent *)v7 setAppState:v4];
+  }
+
+  return v7;
+}
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version
 {

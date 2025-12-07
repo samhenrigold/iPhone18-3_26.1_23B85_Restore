@@ -128,7 +128,7 @@
       goto LABEL_7;
     }
 
-    [(HDCodableSample *)sample mergeFrom:?];
+    sample = [(HDCodableSample *)sample mergeFrom:?];
   }
 
   else
@@ -138,17 +138,18 @@
       goto LABEL_7;
     }
 
-    [(HDCodableBinarySample *)self setSample:?];
+    sample = [(HDCodableBinarySample *)self setSample:?];
   }
 
   fromCopy = v7;
 LABEL_7:
   if (fromCopy[1])
   {
-    [(HDCodableBinarySample *)self setPayload:?];
+    sample = [(HDCodableBinarySample *)self setPayload:?];
+    fromCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](sample, fromCopy);
 }
 
 - (BOOL)applyToObject:(id)object

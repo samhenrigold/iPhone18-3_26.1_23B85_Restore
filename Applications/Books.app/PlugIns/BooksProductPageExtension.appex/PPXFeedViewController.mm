@@ -1,6 +1,7 @@
 @interface PPXFeedViewController
 - (CGSize)_windowSize;
 - (PPXFeedViewController)initWithOptions:(id)options;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation PPXFeedViewController
@@ -29,6 +30,14 @@
   v9 = [(PPXFeedViewController *)&v11 initWithOptions:v5];
 
   return v9;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PPXFeedViewController;
+  [(PPXFeedViewController *)&v4 viewDidDisappear:disappear];
+  [(PPXFeedViewController *)self suspendAndTeardownForReason:@"PPX disappear"];
 }
 
 - (CGSize)_windowSize

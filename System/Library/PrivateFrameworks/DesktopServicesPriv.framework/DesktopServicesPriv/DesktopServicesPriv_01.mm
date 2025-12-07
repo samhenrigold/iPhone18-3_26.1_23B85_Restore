@@ -1,98 +1,3 @@
-__CFString *SanitizedStr(TString *a1)
-{
-  v43[1] = *MEMORY[0x1E69E9840];
-  if (!CFStringGetLength(a1->fString.fRef) || !IsRedactionEnabled())
-  {
-    goto LABEL_6;
-  }
-
-  {
-    operator"" _t("/", 1, &v9);
-    operator"" _t("Volumes", 7, &v10);
-    operator"" _t("Data", 4, &v11);
-    operator"" _t("Users", 5, &v12);
-    operator"" _t("Applications", 12, &v13);
-    operator"" _t("Utilities", 9, &v14);
-    operator"" _t("System", 6, &v15);
-    operator"" _t("Network", 7, &v16);
-    operator"" _t("Desktop", 7, &v17);
-    operator"" _t("Documents", 9, &v18);
-    operator"" _t("Downloads", 9, &v19);
-    operator"" _t("Library", 7, &v20);
-    operator"" _t("Movies", 6, &v21);
-    operator"" _t("Music", 5, &v22);
-    operator"" _t("Pictures", 8, &v23);
-    operator"" _t("Public", 6, &v24);
-    operator"" _t("Drop Box", 8, &v25);
-    operator"" _t("Finder", 6, &v26);
-    operator"" _t("Finder.app", 10, &v27);
-    operator"" _t("Containers", 10, &v28);
-    operator"" _t("Shared", 6, &v29);
-    operator"" _t("Mobile Documents", 16, &v30);
-    operator"" _t(".DS_Store", 9, &v31);
-    operator"" _t(".localized", 10, &v32);
-    operator"" _t(".Trash", 6, &v33);
-    operator"" _t(".Trashes", 8, &v34);
-    operator"" _t(".nofollow", 9, &v35);
-    operator"" _t("private", 7, &v36);
-    operator"" _t("var", 3, &v37);
-    operator"" _t("Icon?", 5, &v38);
-    operator"" _t(".VolumeIcon.icns", 16, &v39);
-    operator"" _t("AppGroup", 8, &v40);
-    operator"" _t("File Provider Storage", 21, &v41);
-    operator"" _t("CloudStorage", 12, &v42);
-    operator"" _t("mobile", 6, v43);
-    std::unordered_set<TString>::unordered_set(IsCommonName(TString const&)::sCommonNames, &v9, 35);
-    for (i = 272; i != -8; i -= 8)
-    {
-      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef((&v9 + i));
-    }
-  }
-
-  {
-    operator"" _t("com~apple~", 10, &v9);
-    operator"" _t("iCloud~com~apple~", 17, &v10);
-    operator"" _t("FruitBasket-", 12, &v11);
-    IsCommonName(TString const&)::sPartialCommonNames = 0;
-    unk_1ECFF4660 = 0;
-    qword_1ECFF4668 = 0;
-    std::vector<TString>::__init_with_size[abi:ne200100]<TString const*,TString const*>(&IsCommonName(TString const&)::sPartialCommonNames, &v9, &v12, 3uLL);
-    for (j = 16; j != -8; j -= 8)
-    {
-      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef((&v9 + j));
-    }
-  }
-
-  if (!std::__hash_table<TString,std::hash<TString>,std::equal_to<TString>,std::allocator<TString>>::find<TString>(IsCommonName(TString const&)::sCommonNames, a1))
-  {
-    v5 = IsCommonName(TString const&)::sPartialCommonNames;
-    v6 = unk_1ECFF4660;
-    while (v5 != v6)
-    {
-      if (TString::BeginsWith(a1, v5))
-      {
-        goto LABEL_6;
-      }
-
-      ++v5;
-    }
-
-    RedactedStr(a1, &v9);
-    v2 = v9;
-    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v9);
-  }
-
-  else
-  {
-LABEL_6:
-    v2 = a1->fString.fRef;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-
-  return v2;
-}
-
 void sub_1E5688DD0(_Unwind_Exception *a1)
 {
   v3 = -24;
@@ -106,9 +11,9 @@ void sub_1E5688DD0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-__FSEventStream *CreateFSEventStreamForPath(TString *a1, void (__cdecl *a2)(ConstFSEventStreamRef, void *, size_t, void *, const FSEventStreamEventFlags *, const FSEventStreamEventId *), const __CFArray *a3)
+__FSEventStream *CreateFSEventStreamForPath(__CFString *a1, void (__cdecl *a2)(ConstFSEventStreamRef, void *, size_t, void *, const FSEventStreamEventFlags *, const FSEventStreamEventId *), const __CFArray *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = *MEMORY[0x1E695E480];
   pathsToWatch = CFArrayCreateMutable(*MEMORY[0x1E695E480], 1, MEMORY[0x1E695E9C0]);
   CFArraySetValueAtIndex(pathsToWatch, 0, a1);
@@ -141,8 +46,8 @@ __FSEventStream *CreateFSEventStreamForPath(TString *a1, void (__cdecl *a2)(Cons
       v11 = SanitizedPath(&cf1);
       *buf = 138543618;
       *&buf[4] = v11;
-      v17 = 2048;
-      v18 = v7;
+      v16 = 2048;
+      v17 = v7;
       _os_log_impl(&dword_1E5674000, v10, OS_LOG_TYPE_DEFAULT, "Creating FSEvent Stream for %{public}@ = %p", buf, 0x16u);
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf1);
     }
@@ -156,7 +61,6 @@ __FSEventStream *CreateFSEventStreamForPath(TString *a1, void (__cdecl *a2)(Cons
   FSEventStreamSetDispatchQueue(v7, gSystemNotificationGCDQueue);
   FSEventStreamStart(v7);
   TAutoRef<__CFArray *,TRetainReleasePolicy<__CFArray *>>::~TAutoRef(&pathsToWatch);
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -400,10 +304,10 @@ const void **Description@<X0>(const void **result@<X0>, TString *a2@<X8>)
   }
 }
 
-void sub_1E5689C70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5689C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v2);
+  va_start(va, a3);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -613,10 +517,10 @@ void sub_1E568A0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-const void **TNode::Path@<X0>(TNode *this@<X0>, CFTypeRef *a2@<X8>)
+const void **TNode::Path@<X0>(uint64_t *__return_ptr a1@<X8>, TNode *this@<X0>)
 {
-  TNode::GetPath(this, cf);
-  *a2 = cf[0];
+  TNode::GetPath(cf, this);
+  *a1 = cf[0];
   cf[0] = 0;
   CFRetain(&stru_1F5F42870);
   if (cf[0])
@@ -628,18 +532,18 @@ const void **TNode::Path@<X0>(TNode *this@<X0>, CFTypeRef *a2@<X8>)
   return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(cf);
 }
 
-const void **TNode::GetPath@<X0>(TNode *this@<X0>, uint64_t a2@<X8>)
+const void **TNode::GetPath@<X0>(uint64_t *__return_ptr a1@<X8>, TNode *this@<X0>)
 {
   v6.fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
   FullPOSIXPathDetails = TNode::GetFullPOSIXPathDetails(this, &v6);
-  fstd::optional_err<TString,int>::optional_err(a2, &v6, &FullPOSIXPathDetails);
+  fstd::optional_err<TString,int>::optional_err(a1, &v6, &FullPOSIXPathDetails);
   return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v6.fString.fRef);
 }
 
-void sub_1E568A1AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E568A1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -653,16 +557,16 @@ uint64_t fstd::optional_err<TString,int>::optional_err(uint64_t a1, TString **a2
   return a1;
 }
 
-uint64_t std::vector<TString>::__emplace_back_slow_path<char const(&)[30]>(uint64_t a1, const char *a2)
+uint64_t std::vector<TString>::__emplace_back_slow_path<char const(&)[30]>(CFTypeRef **a1, const char *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = a1[1] - *a1;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     std::vector<std::pair<TNodePtr,TNodePtr>>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -688,14 +592,14 @@ uint64_t std::vector<TString>::__emplace_back_slow_path<char const(&)[30]>(uint6
   v15 = 8 * v2;
   TString::TString((8 * v2), a2);
   v16 = (8 * v2 + 8);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = (8 * v2 + *a1 - v8);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TString>,TString*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -704,9 +608,9 @@ uint64_t std::vector<TString>::__emplace_back_slow_path<char const(&)[30]>(uint6
   return v13;
 }
 
-void sub_1E568A328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E568A328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -720,23 +624,23 @@ void ConcatenateWithSeparator<std::vector<TString>>(uint64_t *a1@<X0>, const TSt
   std::vector<TString>::__destroy_vector::operator()[abi:ne200100](&v6);
 }
 
-void sub_1E568A3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E568A3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<TString>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void FormatDetails(__int128 *a1@<X0>, std::string *a2@<X8>)
+void FormatDetails(std::string *a1@<X0>, std::string *a2@<X8>)
 {
   v2 = a2;
-  memset(&v20, 0, sizeof(v20));
-  v19 = *a1;
-  *(&v18.__r_.__value_.__s + 23) = 3;
-  LODWORD(v18.__r_.__value_.__l.__data_) = 8223525;
-  v3 = *(&v19 + 1);
-  v4 = v19;
-  if (*(&v19 + 1))
+  memset(&v19, 0, sizeof(v19));
+  v18 = *&a1->__r_.__value_.__l.__data_;
+  *(&v17.__r_.__value_.__s + 23) = 3;
+  LODWORD(v17.__r_.__value_.__l.__data_) = 8223525;
+  v3 = *(&v18 + 1);
+  v4 = v18;
+  if (*(&v18 + 1))
   {
     while (2)
     {
@@ -744,7 +648,7 @@ void FormatDetails(__int128 *a1@<X0>, std::string *a2@<X8>)
       v6 = v4;
 LABEL_3:
       v7 = 0;
-      while (*v6 != v18.__r_.__value_.__s.__data_[v7])
+      while (*v6 != v17.__r_.__value_.__s.__data_[v7])
       {
         if (++v7 == 3)
         {
@@ -762,64 +666,64 @@ LABEL_3:
         v8 = v6 - v4;
         if (v6 - v4 != -1)
         {
-          std::string::append(&v20, v4, v6 - v4);
-          if (*(&v19 + 1) < v8)
+          std::string::append(&v19, v4, v6 - v4);
+          if (*(&v18 + 1) < v8)
           {
             std::__throw_out_of_range[abi:ne200100]("string_view::substr");
           }
 
-          *&v19 = v19 + v8;
-          *(&v19 + 1) -= v8;
-          ParseFormat(&v19, &v18);
-          size = v18.__r_.__value_.__l.__size_;
-          if (!v18.__r_.__value_.__l.__size_)
+          *&v18 = v18 + v8;
+          *(&v18 + 1) -= v8;
+          ParseFormat(&v17, &v18);
+          size = v17.__r_.__value_.__l.__size_;
+          if (!v17.__r_.__value_.__l.__size_)
           {
             operator new();
           }
 
-          if (LODWORD(v18.__r_.__value_.__r.__words[2]) != 7)
+          if (LODWORD(v17.__r_.__value_.__r.__words[2]) != 7)
           {
             operator new();
           }
 
-          DeEscapeFormatFragment(&v18, __p);
-          if ((v17 & 0x80u) == 0)
+          DeEscapeFormatFragment(&v17, &__p);
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v10 = __p;
+            p_p = &__p;
           }
 
           else
           {
-            v10 = __p[0];
+            p_p = __p.__r_.__value_.__r.__words[0];
           }
 
-          if ((v17 & 0x80u) == 0)
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v11 = v17;
+            v11 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v11 = __p[1];
+            v11 = __p.__r_.__value_.__l.__size_;
           }
 
-          std::string::append(&v20, v10, v11);
-          if (v17 < 0)
+          std::string::append(&v19, p_p, v11);
+          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(__p[0]);
+            operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (*(&v19 + 1) < size)
+          if (*(&v18 + 1) < size)
           {
             std::__throw_out_of_range[abi:ne200100]("string_view::substr");
           }
 
-          v4 = (v19 + size);
-          *(&v18.__r_.__value_.__s + 23) = 3;
-          LODWORD(v18.__r_.__value_.__l.__data_) = 8223525;
-          v3 = *(&v19 + 1) - size;
-          *&v19 = v4;
-          *(&v19 + 1) = v3;
+          v4 = (v18 + size);
+          *(&v17.__r_.__value_.__s + 23) = 3;
+          LODWORD(v17.__r_.__value_.__l.__data_) = 8223525;
+          v3 = *(&v18 + 1) - size;
+          *&v18 = v4;
+          *(&v18 + 1) = v3;
           if (v3)
           {
             continue;
@@ -844,46 +748,46 @@ LABEL_25:
     operator new();
   }
 
-  *(&v18.__r_.__value_.__s + 23) = v3;
+  *(&v17.__r_.__value_.__s + 23) = v3;
   if (v3)
   {
-    memmove(&v18, v4, v3);
+    memmove(&v17, v4, v3);
   }
 
-  v18.__r_.__value_.__s.__data_[v3] = 0;
-  if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v17.__r_.__value_.__s.__data_[v3] = 0;
+  if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v12 = &v20;
+    v12 = &v19;
   }
 
   else
   {
-    v12 = v20.__r_.__value_.__r.__words[0];
+    v12 = v19.__r_.__value_.__r.__words[0];
   }
 
-  if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v13 = HIBYTE(v20.__r_.__value_.__r.__words[2]);
+    v13 = HIBYTE(v19.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v13 = v20.__r_.__value_.__l.__size_;
+    v13 = v19.__r_.__value_.__l.__size_;
   }
 
-  v14 = std::string::insert(&v18, 0, v12, v13);
+  v14 = std::string::insert(&v17, 0, v12, v13);
   *v2 = *v14;
   v14->__r_.__value_.__l.__size_ = 0;
   v14->__r_.__value_.__r.__words[2] = 0;
   v14->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v18.__r_.__value_.__l.__data_);
+    operator delete(v17.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v20.__r_.__value_.__l.__data_);
+    operator delete(v19.__r_.__value_.__l.__data_);
   }
 }
 
@@ -1042,9 +946,9 @@ void type_traits_extras::CopyAsHelper<std::vector<fstd::optional_err<FPItem * {_
   std::vector<std::pair<TNodePtr,TNodePtr>>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
-void sub_1E568AE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E568AE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::pair<TNodePtr,TNodePtr>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1078,35 +982,35 @@ uint64_t IDContainerIteratorAdaptor<NSMutableArray<FPProviderDomain *>>::NSForwa
   return a1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::__emplace_unique_key_args<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>> const,std::pair<FINode * {__weak},unsigned long>> const&>(void *a1, CFTypeRef *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::__emplace_unique_key_args<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>> const,std::pair<FINode * {__weak},unsigned long>> const&>(void *a1, CFTypeRef *a2, uint64_t a3)
 {
-  v4 = CFHash(*a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = CFHash(*a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::__construct_node_hash<std::pair<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>> const,std::pair<FINode * {__weak},unsigned long>> const&>();
@@ -1114,44 +1018,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if ((IsEqual(v11[2], *a2) & 1) == 0)
+  if ((IsEqual(v12[2], *a2) & 1) == 0)
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_1E568B170(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -1313,15 +1217,15 @@ TNodeRequest **TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *
   return a1;
 }
 
-void ColonsToSlashes(const TString *a1@<X0>, TString *a2@<X8>)
+void ColonsToSlashes(TString *__return_ptr a1@<X8>, const TString *a2@<X0>)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (!CFStringGetLength(a1->fString.fRef))
+  v11 = *MEMORY[0x1E69E9840];
+  if (!CFStringGetLength(a2->fString.fRef))
   {
     goto LABEL_13;
   }
 
-  v4 = RetainCF<__CFString const*>(&a1->fString.fRef);
+  v4 = RetainCF<__CFString const*>(&a2->fString.fRef);
   if (v4)
   {
     v5 = CFAutorelease(v4);
@@ -1347,23 +1251,21 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  if ((v6 & 1) == 0)
+  if (v6)
   {
-LABEL_13:
-    a2->fString.fRef = &stru_1F5F42870;
+    v8 = CFStringCreateWithCString(0, buffer, 0x8000100u);
+    v9 = v8;
+    a1->fString.fRef = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(a2, a1->fString.fRef);
-    goto LABEL_14;
+    TString::SetStringRefAsImmutable(a1, v8);
+    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v9);
+    return;
   }
 
-  v8 = CFStringCreateWithCString(0, buffer, 0x8000100u);
-  v10 = v8;
-  a2->fString.fRef = &stru_1F5F42870;
+LABEL_13:
+  a1->fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  TString::SetStringRefAsImmutable(a2, v8);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v10);
-LABEL_14:
-  v9 = *MEMORY[0x1E69E9840];
+  TString::SetStringRefAsImmutable(a1, a2->fString.fRef);
 }
 
 void sub_1E568B818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
@@ -1419,14 +1321,14 @@ uint64_t TNode::GetFullPOSIXPathDetails(uint64_t a1, TString *a2)
   }
 }
 
-void sub_1E568B938(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E568B938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(va);
-  if (v2)
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   _Unwind_Resume(a1);
@@ -2172,14 +2074,14 @@ uint64_t std::vector<TString>::__emplace_back_slow_path<char const(&)[22]>(uint6
   return v13;
 }
 
-void sub_1E568C568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E568C568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<TString>::__init_with_size[abi:ne200100]<TString*,TString*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TString>::__init_with_size[abi:ne200100]<TString*,TString*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2255,33 +2157,32 @@ void *ConcatenateWithSeparatorAs<TString,std::vector<TString>,TString>@<X0>(cons
   return result;
 }
 
-ISignpostInterval *AutoSignpostInterval_General_OpenSync::AutoSignpostInterval_General_OpenSync<char [34],NSString * {__strong},TString>(ISignpostInterval *a1, void *a2, __CFString *a3, void **a4, TString **a5)
+std::mutex *AutoSignpostInterval_General_OpenSync::AutoSignpostInterval_General_OpenSync<char [34],NSString * {__strong},TString>(std::mutex *a1, void *a2, __CFString *a3, void **a4, TString **a5)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v10 = LogObj(5);
-  TString::TString(v15, "OpenSync");
+  TString::TString(v14, "OpenSync");
   ISignpostInterval::ISignpostInterval(a1, v10);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v15[0].fString.fRef);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v14[0].fString.fRef);
 
-  *(a1 + 14) = ISignpostInterval::MakeSignpostID(a1, a2);
+  *&a1[1].__m_.__opaque[40] = ISignpostInterval::MakeSignpostID(a1, a2);
   std::mutex::lock(a1);
-  v15[0].fString.fRef = a3;
-  v15[1].fString.fRef = strlen(a3);
-  FormatDetails<NSString * {__strong},TString>(v15, a4, a5, &__p);
-  v11 = *(a1 + 14);
-  v15[0].fString.fRef = &unk_1F5F40788;
-  v15[1].fString.fRef = a1;
-  v15[2].fString.fRef = &__p;
-  v15[3].fString.fRef = v15;
-  ISignpostInterval::BeginPriv(a1, v11, v15);
-  std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v15);
+  v14[0].fString.fRef = a3;
+  v14[1].fString.fRef = strlen(a3);
+  FormatDetails<NSString * {__strong},TString>(v14, a5, &__p, a4);
+  v11 = *&a1[1].__m_.__opaque[40];
+  v14[0].fString.fRef = &unk_1F5F40788;
+  v14[1].fString.fRef = a1;
+  v14[2].fString.fRef = &__p;
+  v14[3].fString.fRef = v14;
+  ISignpostInterval::BeginPriv(a1, v11, v14);
+  std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v14);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::mutex::unlock(a1);
-  v12 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -2298,23 +2199,23 @@ void sub_1E568C894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void FormatDetails<NSString * {__strong},TString>(__int128 *a1@<X0>, void **a2@<X1>, TString **a3@<X2>, std::string *a4@<X8>)
+void FormatDetails<NSString * {__strong},TString>(__int128 *a1@<X0>, TString **a2@<X2>, std::string *a3@<X8>, void **a4@<X1>)
 {
   memset(&__p, 0, sizeof(__p));
   v12 = *a1;
   do
   {
-    v7 = FormatOneDetails<NSString * {__strong}>(&v12, &__p, a2);
+    v7 = FormatOneDetails<NSString * {__strong}>(&v12, &__p, a4);
     if (v7)
     {
-      *(&a4->__r_.__value_.__s + 23) = 0;
-      a4->__r_.__value_.__s.__data_[0] = 0;
+      *(&a3->__r_.__value_.__s + 23) = 0;
+      a3->__r_.__value_.__s.__data_[0] = 0;
       goto LABEL_13;
     }
   }
 
   while (v7 == 0x700000000);
-  FormatDetails<TString>(&v12, a3, &v11);
+  FormatDetails<TString>(&v12, &v11, a2);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -2336,7 +2237,7 @@ void FormatDetails<NSString * {__strong},TString>(__int128 *a1@<X0>, void **a2@<
   }
 
   v10 = std::string::insert(&v11, 0, p_p, size);
-  *a4 = *v10;
+  *a3 = *v10;
   v10->__r_.__value_.__l.__size_ = 0;
   v10->__r_.__value_.__r.__words[2] = 0;
   v10->__r_.__value_.__r.__words[0] = 0;
@@ -2415,7 +2316,7 @@ LABEL_3:
 
       *a1 += v13;
       a1[1] = v16;
-      ParseFormat(a1, &v36);
+      ParseFormat(&v36, a1);
       v17 = v37;
       if (!v37)
       {
@@ -2572,7 +2473,7 @@ LABEL_89:
         *(&__dst.__r_.__value_.__s + 23) = v37;
         memmove(&__dst, v36, v37);
         __dst.__r_.__value_.__s.__data_[v17] = 0;
-        ExtractEmbeddedFormat(&__dst, &__p);
+        ExtractEmbeddedFormat(&__p, &__dst);
         if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__dst.__r_.__value_.__l.__data_);
@@ -2588,7 +2489,7 @@ LABEL_89:
 
         v33.__r_.__value_.__r.__words[0] = v23;
         v33.__r_.__value_.__l.__size_ = v22;
-        FormatDetails<NSString * {__strong}>(&v33, &__dst);
+        FormatDetails<NSString * {__strong}>(&v33, a3, &__dst);
         v24 = v37;
         if (v37 > 0x7FFFFFFFFFFFFFF7)
         {
@@ -2737,19 +2638,19 @@ void sub_1E568CF20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ParseFormat(void *a1@<X0>, uint64_t a2@<X8>)
+void ParseFormat(uint64_t *__return_ptr a1@<X8>, uint64_t *a2@<X0>)
 {
   v4 = 80;
   v5 = &off_1E877F660;
   do
   {
     v6 = *v5;
-    if (std::string_view::starts_with[abi:ne200100](a1, *v5, v5[1]))
+    if (std::string_view::starts_with[abi:ne200100](a2, *v5, v5[1]))
     {
-      *(a2 + 1) = *(v5 + 1);
-      *(a2 + 8) = v5[1];
-      *a2 = v6;
-      *(a2 + 16) = 0;
+      *(a1 + 1) = *(v5 + 1);
+      a1[1] = v5[1];
+      *a1 = v6;
+      *(a1 + 4) = 0;
       return;
     }
 
@@ -2758,52 +2659,52 @@ void ParseFormat(void *a1@<X0>, uint64_t a2@<X8>)
   }
 
   while (v4);
-  if (std::string_view::starts_with[abi:ne200100](a1, "%x", 2uLL) || std::string_view::starts_with[abi:ne200100](a1, "%p", 2uLL))
+  if (std::string_view::starts_with[abi:ne200100](a2, "%x", 2uLL) || std::string_view::starts_with[abi:ne200100](a2, "%p", 2uLL))
   {
-    *a2 = *a1;
-    *(a2 + 8) = 2;
+    *a1 = *a2;
+    a1[1] = 2;
     v7 = 4;
 LABEL_9:
-    *(a2 + 16) = v7;
+    *(a1 + 4) = v7;
     return;
   }
 
-  if (std::string_view::starts_with[abi:ne200100](a1, "%d", 2uLL))
+  if (std::string_view::starts_with[abi:ne200100](a2, "%d", 2uLL))
   {
-    *a2 = *a1;
-    *(a2 + 8) = 2;
-    *(a2 + 16) = 2;
+    *a1 = *a2;
+    a1[1] = 2;
+    *(a1 + 4) = 2;
     return;
   }
 
-  if (std::string_view::starts_with[abi:ne200100](a1, "%f", 2uLL))
+  if (std::string_view::starts_with[abi:ne200100](a2, "%f", 2uLL))
   {
-    *a2 = *a1;
-    *(a2 + 8) = 2;
+    *a1 = *a2;
+    a1[1] = 2;
     v7 = 1;
     goto LABEL_9;
   }
 
-  if (std::string_view::starts_with[abi:ne200100](a1, "%-@", 3uLL))
+  if (std::string_view::starts_with[abi:ne200100](a2, "%-@", 3uLL))
   {
-    *a2 = *a1;
-    *(a2 + 8) = 3;
+    *a1 = *a2;
+    a1[1] = 3;
 LABEL_19:
     v7 = 5;
     goto LABEL_9;
   }
 
-  if (std::string_view::starts_with[abi:ne200100](a1, "%{public}-@", 0xBuLL))
+  if (std::string_view::starts_with[abi:ne200100](a2, "%{public}-@", 0xBuLL))
   {
-    *a2 = "%{public}-@";
-    *(a2 + 8) = 11;
+    *a1 = "%{public}-@";
+    a1[1] = 11;
     goto LABEL_19;
   }
 
-  if (std::string_view::starts_with[abi:ne200100](a1, "%%", 2uLL) || std::string_view::starts_with[abi:ne200100](a1, "{{", 2uLL) || std::string_view::starts_with[abi:ne200100](a1, "}}", 2uLL))
+  if (std::string_view::starts_with[abi:ne200100](a2, "%%", 2uLL) || std::string_view::starts_with[abi:ne200100](a2, "{{", 2uLL) || std::string_view::starts_with[abi:ne200100](a2, "}}", 2uLL))
   {
-    *a2 = *a1;
-    *(a2 + 8) = 2;
+    *a1 = *a2;
+    a1[1] = 2;
     v7 = 7;
     goto LABEL_9;
   }
@@ -2817,11 +2718,11 @@ LABEL_19:
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&ParseFormat(std::string_view const&)::extendedFormatPattern, "([{][^{}]*[}])(.|\\n)*", 0);
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::extendedFormatPattern, *a1, (*a1 + a1[1]), &v66, 4160))
+  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::extendedFormatPattern, *a2, (*a2 + a2[1]), &v66, 0x1040u))
   {
     if (!v66.__suffix_.matched)
     {
-      v8 = *a1;
+      v8 = *a2;
       begin = v66.__matches_.__begin_;
       v10 = 0xAAAAAAAAAAAAAAABLL * ((v66.__matches_.__end_ - v66.__matches_.__begin_) >> 3);
       if (v10 <= 1)
@@ -2847,11 +2748,11 @@ LABEL_19:
         {
           v13 = __p;
           v14 = v64;
-          *a2 = v8;
-          *(a2 + 8) = v14;
+          *a1 = v8;
+          a1[1] = v14;
           v15 = 8;
 LABEL_141:
-          *(a2 + 16) = v15;
+          *(a1 + 4) = v15;
 LABEL_142:
           operator delete(v13);
           goto LABEL_156;
@@ -2863,8 +2764,8 @@ LABEL_142:
         v12 = 0;
       }
 
-      *a2 = v8;
-      *(a2 + 8) = v12;
+      *a1 = v8;
+      a1[1] = v12;
       v28 = 8;
       goto LABEL_155;
     }
@@ -2876,7 +2777,7 @@ LABEL_142:
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&ParseFormat(std::string_view const&)::hexFormatPattern, "(%([{](public|private)[}])?[+\\- #0]?[0-9]*(hh|h|ll|l|j|z|t)?[xXp])(.|\\n)*", 0);
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::hexFormatPattern, *a1, (*a1 + a1[1]), &v66, 4160))
+  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::hexFormatPattern, *a2, (*a2 + a2[1]), &v66, 0x1040u))
   {
     if (v66.__suffix_.matched)
     {
@@ -2884,7 +2785,7 @@ LABEL_142:
       goto LABEL_32;
     }
 
-    v16 = *a1;
+    v16 = *a2;
     v17 = v66.__matches_.__begin_;
     v18 = 0xAAAAAAAAAAAAAAABLL * ((v66.__matches_.__end_ - v66.__matches_.__begin_) >> 3);
     if (v18 <= 1)
@@ -2910,8 +2811,8 @@ LABEL_142:
       {
         v13 = __p;
         v21 = v64;
-        *a2 = v16;
-        *(a2 + 8) = v21;
+        *a1 = v16;
+        a1[1] = v21;
         v15 = 4;
         goto LABEL_141;
       }
@@ -2922,8 +2823,8 @@ LABEL_142:
       v20 = 0;
     }
 
-    *a2 = v16;
-    *(a2 + 8) = v20;
+    *a1 = v16;
+    a1[1] = v20;
     v28 = 4;
     goto LABEL_155;
   }
@@ -2933,7 +2834,7 @@ LABEL_32:
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&ParseFormat(std::string_view const&)::floatFormatPattern, "(%([{](public|private)[}])?[+\\- #0]?(([0-9]+)|[\\\\*])?(\\.(([0-9]+)|[\\*]))?(hh|h|ll|l|j|z|t|L)?[fFeEgGaA])(.|\\n)*", 0);
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::floatFormatPattern, *a1, (*a1 + a1[1]), &v66, 4160))
+  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::floatFormatPattern, *a2, (*a2 + a2[1]), &v66, 0x1040u))
   {
     if (v66.__suffix_.matched)
     {
@@ -2941,7 +2842,7 @@ LABEL_32:
       goto LABEL_36;
     }
 
-    v22 = *a1;
+    v22 = *a2;
     v23 = v66.__matches_.__begin_;
     v24 = 0xAAAAAAAAAAAAAAABLL * ((v66.__matches_.__end_ - v66.__matches_.__begin_) >> 3);
     if (v24 <= 1)
@@ -2967,8 +2868,8 @@ LABEL_32:
       {
         v13 = __p;
         v27 = v64;
-        *a2 = v22;
-        *(a2 + 8) = v27;
+        *a1 = v22;
+        a1[1] = v27;
         v15 = 1;
         goto LABEL_141;
       }
@@ -2979,8 +2880,8 @@ LABEL_32:
       v26 = 0;
     }
 
-    *a2 = v22;
-    *(a2 + 8) = v26;
+    *a1 = v22;
+    a1[1] = v26;
     v28 = 1;
     goto LABEL_155;
   }
@@ -2990,7 +2891,7 @@ LABEL_36:
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&ParseFormat(std::string_view const&)::integralFormatPattern, "(%([{](public|private)[}])?[+\\- #0]?(([0-9]+)|[\\\\*])?(\\.(([0-9]+)|[\\*]))?(hh|h|ll|l|j|z|t|L)?[diu])(.|\\n)*", 0);
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::integralFormatPattern, *a1, (*a1 + a1[1]), &v66, 4160))
+  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::integralFormatPattern, *a2, (*a2 + a2[1]), &v66, 0x1040u))
   {
     if (v66.__suffix_.matched)
     {
@@ -2998,7 +2899,7 @@ LABEL_36:
       goto LABEL_40;
     }
 
-    v29 = *a1;
+    v29 = *a2;
     v30 = v66.__matches_.__begin_;
     v31 = 0xAAAAAAAAAAAAAAABLL * ((v66.__matches_.__end_ - v66.__matches_.__begin_) >> 3);
     if (v31 <= 1)
@@ -3024,8 +2925,8 @@ LABEL_36:
       {
         v13 = __p;
         v34 = v64;
-        *a2 = v29;
-        *(a2 + 8) = v34;
+        *a1 = v29;
+        a1[1] = v34;
         v15 = 2;
         goto LABEL_141;
       }
@@ -3036,8 +2937,8 @@ LABEL_36:
       v33 = 0;
     }
 
-    *a2 = v29;
-    *(a2 + 8) = v33;
+    *a1 = v29;
+    a1[1] = v33;
     v28 = 2;
     goto LABEL_155;
   }
@@ -3047,7 +2948,7 @@ LABEL_40:
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&ParseFormat(std::string_view const&)::altIntegralFormatPattern, "(%([{](public|private)[}])?[+\\- #0]?(([0-9]+)|[\\\\*])?(\\.(([0-9]+)|[\\*]))?(hh|h|ll|l|j|z|t|L)?[oc])(.|\\n)*", 0);
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::altIntegralFormatPattern, *a1, (*a1 + a1[1]), &v66, 4160))
+  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::altIntegralFormatPattern, *a2, (*a2 + a2[1]), &v66, 0x1040u))
   {
     if (v66.__suffix_.matched)
     {
@@ -3055,7 +2956,7 @@ LABEL_40:
       goto LABEL_44;
     }
 
-    v35 = *a1;
+    v35 = *a2;
     v36 = v66.__matches_.__begin_;
     v37 = 0xAAAAAAAAAAAAAAABLL * ((v66.__matches_.__end_ - v66.__matches_.__begin_) >> 3);
     if (v37 <= 1)
@@ -3081,8 +2982,8 @@ LABEL_40:
       {
         v13 = __p;
         v40 = v64;
-        *a2 = v35;
-        *(a2 + 8) = v40;
+        *a1 = v35;
+        a1[1] = v40;
         v15 = 3;
         goto LABEL_141;
       }
@@ -3093,8 +2994,8 @@ LABEL_40:
       v39 = 0;
     }
 
-    *a2 = v35;
-    *(a2 + 8) = v39;
+    *a1 = v35;
+    a1[1] = v39;
     v28 = 3;
     goto LABEL_155;
   }
@@ -3104,7 +3005,7 @@ LABEL_44:
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&ParseFormat(std::string_view const&)::restrictedStringPattern, "%[0-9]*\\.[0-9]+s", 0);
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::restrictedStringPattern, *a1, (*a1 + a1[1]), &v66, 4160))
+  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::restrictedStringPattern, *a2, (*a2 + a2[1]), &v66, 0x1040u))
   {
     if (v66.__suffix_.matched)
     {
@@ -3169,7 +3070,7 @@ LABEL_44:
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&ParseFormat(std::string_view const&)::longDescriptionPattern, "(%([{](public|private)[}])?l@)(.|\\n)*", 0);
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::longDescriptionPattern, *a1, (*a1 + a1[1]), &v66, 4160))
+  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::longDescriptionPattern, *a2, (*a2 + a2[1]), &v66, 0x1040u))
   {
     if (v66.__suffix_.matched)
     {
@@ -3177,7 +3078,7 @@ LABEL_44:
       goto LABEL_116;
     }
 
-    v45 = *a1;
+    v45 = *a2;
     v46 = v66.__matches_.__begin_;
     v47 = 0xAAAAAAAAAAAAAAABLL * ((v66.__matches_.__end_ - v66.__matches_.__begin_) >> 3);
     if (v47 <= 1)
@@ -3203,8 +3104,8 @@ LABEL_44:
       {
         v13 = __p;
         v50 = v64;
-        *a2 = v45;
-        *(a2 + 8) = v50;
+        *a1 = v45;
+        a1[1] = v50;
         v15 = 6;
         goto LABEL_141;
       }
@@ -3215,8 +3116,8 @@ LABEL_44:
       v49 = 0;
     }
 
-    *a2 = v45;
-    *(a2 + 8) = v49;
+    *a1 = v45;
+    a1[1] = v49;
     v28 = 6;
     goto LABEL_155;
   }
@@ -3226,7 +3127,7 @@ LABEL_116:
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&ParseFormat(std::string_view const&)::shortDescriptionPattern, "(%([{](public|private)[}])?[-]@)(.|\\n)*", 0);
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::shortDescriptionPattern, *a1, (*a1 + a1[1]), &v66, 4160))
+  if (std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::shortDescriptionPattern, *a2, (*a2 + a2[1]), &v66, 0x1040u))
   {
     if (v66.__suffix_.matched)
     {
@@ -3234,7 +3135,7 @@ LABEL_116:
       goto LABEL_120;
     }
 
-    v51 = *a1;
+    v51 = *a2;
     v52 = v66.__matches_.__begin_;
     v53 = 0xAAAAAAAAAAAAAAABLL * ((v66.__matches_.__end_ - v66.__matches_.__begin_) >> 3);
     if (v53 <= 1)
@@ -3260,8 +3161,8 @@ LABEL_116:
       {
         v13 = __p;
         v56 = v64;
-        *a2 = v51;
-        *(a2 + 8) = v56;
+        *a1 = v51;
+        a1[1] = v56;
         v15 = 5;
         goto LABEL_141;
       }
@@ -3272,11 +3173,11 @@ LABEL_116:
       v55 = 0;
     }
 
-    *a2 = v51;
-    *(a2 + 8) = v55;
+    *a1 = v51;
+    a1[1] = v55;
     v28 = 5;
 LABEL_155:
-    *(a2 + 16) = v28;
+    *(a1 + 4) = v28;
     goto LABEL_156;
   }
 
@@ -3285,14 +3186,14 @@ LABEL_120:
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&ParseFormat(std::string_view const&)::formatPattern, "(%([{](public|private)[}])?[+\\- #0]?(([0-9]+)|[\\\\*])?(\\.(([0-9]+)|[\\*]))?(hh|h|ll|l|j|z|t|L)?[diuoxXfFeEgGaAcspn@])(.|\\n)*", 0);
   }
 
-  if (!std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::formatPattern, *a1, (*a1 + a1[1]), &v66, 4160))
+  if (!std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(&ParseFormat(std::string_view const&)::formatPattern, *a2, (*a2 + a2[1]), &v66, 0x1040u))
   {
     goto LABEL_124;
   }
 
   if (!v66.__suffix_.matched)
   {
-    v57 = *a1;
+    v57 = *a2;
     v58 = v66.__matches_.__begin_;
     v59 = 0xAAAAAAAAAAAAAAABLL * ((v66.__matches_.__end_ - v66.__matches_.__begin_) >> 3);
     if (v59 <= 1)
@@ -3318,9 +3219,9 @@ LABEL_120:
       {
         v13 = __p;
         v62 = v64;
-        *a2 = v57;
-        *(a2 + 8) = v62;
-        *(a2 + 16) = 0;
+        *a1 = v57;
+        a1[1] = v62;
+        *(a1 + 4) = 0;
         goto LABEL_142;
       }
     }
@@ -3330,17 +3231,17 @@ LABEL_120:
       v61 = 0;
     }
 
-    *a2 = v57;
-    *(a2 + 8) = v61;
+    *a1 = v57;
+    a1[1] = v61;
     goto LABEL_160;
   }
 
   v66.__matches_.__end_ = v66.__matches_.__begin_;
 LABEL_124:
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  *a1 = 0;
+  a1[1] = 0;
 LABEL_160:
-  *(a2 + 16) = 0;
+  *(a1 + 4) = 0;
 LABEL_156:
   if (v66.__matches_.__begin_)
   {
@@ -3359,7 +3260,7 @@ void sub_1E568DAA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *Description<NSString * {__strong}>@<X0>(void **a1@<X0>, _BYTE *a2@<X8>)
+void *Description<NSString * {__strong}>@<X0>(void **a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   if (v3)
@@ -3386,7 +3287,7 @@ _BYTE *Description<NSString * {__strong}>@<X0>(void **a1@<X0>, _BYTE *a2@<X8>)
   return std::string::basic_string[abi:ne200100]<0>(a2, v6);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3400,17 +3301,17 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void RedactForPrivacy(void **a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
+void RedactForPrivacy(char **a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
 {
   if (IsRedactionEnabled())
   {
@@ -3485,17 +3386,17 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void FormatDetails<TString>(__int128 *a1@<X0>, TString **a2@<X1>, std::string *a3@<X8>)
+void FormatDetails<TString>(_OWORD *a1@<X0>, std::string *a2@<X8>, TString **a3@<X1>)
 {
   memset(&__p, 0, sizeof(__p));
-  v10 = *a1;
+  *&v10.__r_.__value_.__l.__data_ = *a1;
   do
   {
-    v5 = FormatOneDetails<TString>(&v10, &__p, a2);
+    v5 = FormatOneDetails<TString>(&v10.__r_.__value_.__l.__data_, &__p, a3);
     if (v5)
     {
-      *(&a3->__r_.__value_.__s + 23) = 0;
-      a3->__r_.__value_.__s.__data_[0] = 0;
+      *(&a2->__r_.__value_.__s + 23) = 0;
+      a2->__r_.__value_.__s.__data_[0] = 0;
       goto LABEL_13;
     }
   }
@@ -3523,7 +3424,7 @@ void FormatDetails<TString>(__int128 *a1@<X0>, TString **a2@<X1>, std::string *a
   }
 
   v8 = std::string::insert(&v9, 0, p_p, size);
-  *a3 = *v8;
+  *a2 = *v8;
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
@@ -3565,7 +3466,7 @@ unint64_t FormatOneDetails<TString>(const std::string::value_type **a1, std::str
   }
 
   v7 = *a1;
-  v8 = &v3[*a1];
+  v8 = &(*a1)[v3];
   v9 = 1;
   v10 = *a1;
 LABEL_3:
@@ -3594,7 +3495,7 @@ LABEL_3:
       std::string::append(this, v7, v10 - v7);
       v14 = a1[1];
       v15 = v14 >= v13;
-      v16 = &v14[-v13];
+      v16 = v14 - v13;
       if (!v15)
       {
         goto LABEL_98;
@@ -3602,7 +3503,7 @@ LABEL_3:
 
       *a1 += v13;
       a1[1] = v16;
-      ParseFormat(a1, &v38);
+      ParseFormat(&v38, a1);
       v17 = v39;
       if (!v39)
       {
@@ -3667,7 +3568,7 @@ LABEL_94:
 
 LABEL_95:
             v30 = a1[1];
-            v31 = &v30[-v39];
+            v31 = v30 - v39;
             if (v30 >= v39)
             {
               v9 = 0;
@@ -3689,7 +3590,7 @@ LABEL_47:
         v35.__r_.__value_.__r.__words[0] = &stru_1F5F42870;
         CFRetain(&stru_1F5F42870);
         TString::SetStringRefAsImmutable(&v35, *a3);
-        TString::Str(&v35, &__dst);
+        TString::Str(&__dst, &v35);
         RedactForPrivacy(&v38, &__dst, &__p);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
@@ -3796,7 +3697,7 @@ LABEL_47:
         *(&__dst.__r_.__value_.__s + 23) = v39;
         memmove(&__dst, v38, v39);
         __dst.__r_.__value_.__s.__data_[v17] = 0;
-        ExtractEmbeddedFormat(&__dst, &__p);
+        ExtractEmbeddedFormat(&__p, &__dst);
         if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__dst.__r_.__value_.__l.__data_);
@@ -3812,7 +3713,7 @@ LABEL_47:
 
         v35.__r_.__value_.__r.__words[0] = v25;
         v35.__r_.__value_.__l.__size_ = v24;
-        FormatDetails<TString>(&__dst, &v35, a3);
+        FormatDetails<TString>(&v35, &__dst);
         v26 = v39;
         if (v39 > 0x7FFFFFFFFFFFFFF7)
         {
@@ -3938,7 +3839,7 @@ void sub_1E568E4DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TString::Str(TString *this@<X0>, _BYTE *a2@<X8>)
+void TString::Str(uint64_t *__return_ptr a1@<X8>, TString *this@<X0>)
 {
   v6 = this->fString.fRef;
   v3 = [(__CFString *)v6 UTF8String];
@@ -3954,18 +3855,18 @@ void TString::Str(TString *this@<X0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
-    memmove(a2, v3, v4);
+    memmove(a1, v3, v4);
   }
 
-  a2[v5] = 0;
+  *(a1 + v5) = 0;
 }
 
 void AutoSignpostInterval_General_OpenSync::AutoSignpostInterval_General_OpenSync<char [34],NSString * {__strong},TString>(void *,char [34],NSString * {__strong},TString const&)::{lambda(NSObject  {objcproto9OS_os_log}*)#1}::operator()(uint64_t *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *a1;
   v5 = v3;
@@ -3994,14 +3895,12 @@ void AutoSignpostInterval_General_OpenSync::AutoSignpostInterval_General_OpenSyn
       v9 = "";
     }
 
-    v11 = 136446466;
-    v12 = v9;
-    v13 = 2082;
-    v14 = v8;
-    _os_signpost_emit_with_name_impl(&dword_1E5674000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "OpenSync", "Begin%{public}s%{public}s", &v11, 0x16u);
+    v10 = 136446466;
+    v11 = v9;
+    v12 = 2082;
+    v13 = v8;
+    _os_signpost_emit_with_name_impl(&dword_1E5674000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "OpenSync", "Begin%{public}s%{public}s", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 AutoSignpostInterval_General_OpenSync *std::unique_ptr<AutoSignpostInterval_General_OpenSync>::reset[abi:ne200100](AutoSignpostInterval_General_OpenSync **a1, AutoSignpostInterval_General_OpenSync *a2)
@@ -4018,7 +3917,7 @@ AutoSignpostInterval_General_OpenSync *std::unique_ptr<AutoSignpostInterval_Gene
   return result;
 }
 
-void TNode::SendNotification(const TNode *a1, int a2, id *a3, int a4, int a5)
+void TNode::SendNotification(const TNode *a1, uint64_t a2, id *a3, uint64_t a4, int a5)
 {
   v15.fData.__impl_.__index = 0;
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v15);
@@ -4057,10 +3956,12 @@ uint64_t std::__variant_detail::__dtor<std::__variant_detail::__traits<std::mono
   return result;
 }
 
-void TNodeEvent::CreateNodeEvent(int a1@<W0>, id *a2@<X1>, int a3@<W2>, TPropertyValue *a4@<X3>, uint64_t *a5@<X4>, TDSNotifier **a6@<X5>, void *a7@<X8>)
+void TNodeEvent::CreateNodeEvent(uint64_t a1@<X0>, id *a2@<X1>, uint64_t a3@<X2>, TPropertyValue *a4@<X3>, uint64_t *a5@<X4>, TDSNotifier **a6@<X5>, void *a7@<X8>)
 {
+  v10 = a3;
+  v12 = a1;
   v14 = [FINodeEvent alloc];
-  TNodeEvent::TNodeEvent(&v15, a1, a2, a3, a4, a5, a6);
+  TNodeEvent::TNodeEvent(&v15, v12, a2, v10, a4, a5, a6);
   *a7 = [(FINodeEvent *)v14 init:&v15];
   TNodeEvent::~TNodeEvent(&v15);
 }
@@ -4422,8 +4323,9 @@ uint64_t TNodeEventPtr::operator->(void *a1)
   }
 }
 
-void TNodeEvent::NotifyNode(TDSNotifier ***__return_ptr a1@<X8>, TNodeEvent *this@<X0>, const TNodePtr *a3@<X1>, int a4@<W2>)
+void TNodeEvent::NotifyNode(TDSNotifier ***__return_ptr a1@<X8>, TNode *this@<X0>, const TNodePtr *a3@<X1>, uint64_t a4@<X2>)
 {
+  v4 = a4;
   v7 = TNodeFromFINode(a3->fFINode);
   TNode::Notifiers(v7, a1);
   if (TNode::IsContextOpen(v8))
@@ -4439,7 +4341,7 @@ void TNodeEvent::NotifyNode(TDSNotifier ***__return_ptr a1@<X8>, TNodeEvent *thi
         TDSNotifier::AddPtrReference(v11);
       }
 
-      TNodeEvent::NotifyCommon(&this->fEventKind, &v12, a4);
+      TNodeEvent::NotifyCommon(this, &v12, v4);
       TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v12);
       ++v9;
     }
@@ -4448,9 +4350,9 @@ void TNodeEvent::NotifyNode(TDSNotifier ***__return_ptr a1@<X8>, TNodeEvent *thi
   }
 }
 
-void sub_1E568F06C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E568F06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4464,7 +4366,7 @@ BOOL TNode::IsContextOpen(TNode *this)
   return v1;
 }
 
-void TNode::Notifiers(TNode *this@<X0>, void *a2@<X8>)
+void TNode::Notifiers(TNode *this@<X0>, uint64_t *a2@<X8>)
 {
   v4 = TNode::InfoLock(this);
   os_unfair_lock_lock(v4);
@@ -4579,7 +4481,7 @@ LABEL_11:
     v25 = fEventKind - 1 < 2 && v23 != 0;
     if ((v25 | v16))
     {
-      TNodeEvent::Notify(v8, &v39, this->fProperty);
+      TNodeEvent::Notify(v8, &v39);
       fProperty = this->fProperty;
       v36[0] = 0;
       v36[1] = 0;
@@ -4891,9 +4793,9 @@ id static_objc_cast<NSString,objc_object * {__strong}>(id a1)
   return a1;
 }
 
-void *UserTagsMap(void)
+void *UserTagsMap(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1ECFF4410, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ECFF4410, memory_order_acquire) & 1) == 0)
   {
     UserTagsMap();
   }
@@ -4903,64 +4805,64 @@ void *UserTagsMap(void)
 
 void UserTagsMap()
 {
-  if (__cxa_guard_acquire(&qword_1ECFF4410))
+  if (__cxa_guard_acquire(byte_1ECFF4410))
   {
     unk_1ECFF4428 = 0u;
     unk_1ECFF4418 = 0u;
     dword_1ECFF4438 = 1065353216;
 
-    __cxa_guard_release(&qword_1ECFF4410);
+    __cxa_guard_release(byte_1ECFF4410);
   }
 }
 
-void std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::__emplace_unique_key_args<TString,std::piecewise_construct_t const&,std::tuple<TString const&>,std::tuple<>>(void *a1, TString *this)
+uint64_t **std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::__emplace_unique_key_args<TString,std::piecewise_construct_t const&,std::tuple<TString const&>,std::tuple<>>(void *a1, TString *this, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = FowlerNollVoHash::hash(this, this);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = FowlerNollVoHash::hash(this, this);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<TString const&>,std::tuple<>>();
@@ -4968,49 +4870,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!CFEqual(v11[2], this->fString.fRef))
+  if (!CFEqual(v14[2], this->fString.fRef))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_1E568FD54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E568FD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<TString,TBusyFolders::TSpecialFolderStream>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5029,7 +4931,7 @@ id TGlobalNodes::AllProvidersNode@<X0>(void *a1@<X8>)
     TGlobalNodes::RootNode();
   }
 
-  v3 = TGlobalNodes::gGlobalNodes;
+  v2 = TGlobalNodes::gGlobalNodes;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = ___ZN12TGlobalNodes16AllProvidersNodeEv_block_invoke;
@@ -5040,7 +4942,7 @@ id TGlobalNodes::AllProvidersNode@<X0>(void *a1@<X8>)
     dispatch_once(&TGlobalNodes::AllProvidersNode(void)::onceToken, block);
   }
 
-  result = *(v3 + 96);
+  result = *(v2 + 96);
   *a1 = result;
   return result;
 }
@@ -5155,7 +5057,7 @@ void sub_1E56900C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TFSVolumeInfo::InitializeVirtualVolume(uint64_t a1, unsigned int a2)
+void TFSVolumeInfo::InitializeVirtualVolume(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 64);
   *(a1 + 56) = 0;
@@ -5170,7 +5072,7 @@ void TFSVolumeInfo::InitializeVirtualVolume(uint64_t a1, unsigned int a2)
   {
     if (((1 << a2) & 0xB000000) != 0)
     {
-      TFSVolumeInfo::SetRootDirectoryForSidebarInfo();
+      TFSVolumeInfo::SetRootDirectoryForSidebarInfo(a1, a2);
     }
 
     if (((1 << a2) & 0x700000000) != 0)
@@ -5185,12 +5087,12 @@ void TFSVolumeInfo::InitializeVirtualVolume(uint64_t a1, unsigned int a2)
     }
   }
 
-  TFSVolumeInfo::SetRootDirectoryForSidebarInfo();
+  TFSVolumeInfo::SetRootDirectoryForSidebarInfo(a1, a2);
 }
 
-void sub_1E569028C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E569028C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   TAutoRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
@@ -5218,10 +5120,10 @@ void *std::__shared_ptr_emplace<TVolumeSyncThread>::__shared_ptr_emplace[abi:ne2
   return a1;
 }
 
-const void **TFSInfo::Path@<X0>(TFSInfo *this@<X0>, CFTypeRef *a2@<X8>)
+const void **TFSInfo::Path@<X0>(uint64_t *__return_ptr a1@<X8>, TFSInfo *this@<X0>)
 {
   TFSInfo::GetPath(this, cf);
-  *a2 = cf[0];
+  *a1 = cf[0];
   cf[0] = 0;
   CFRetain(&stru_1F5F42870);
   if (cf[0])
@@ -5423,23 +5325,23 @@ void std::__optional_storage_base<FPItem * {__strong},false>::__assign_from[abi:
   }
 }
 
-void std::__function::__func<TNode::UpdateFPItemsIfNeeded(std::vector<TNodePtr> const&,std::chrono::duration<double,std::ratio<1l,1l>> const&,BOOL,BOOL,BOOL)::$_3,std::allocator<TNode::UpdateFPItemsIfNeeded(std::vector<TNodePtr> const&,std::chrono::duration<double,std::ratio<1l,1l>> const&,BOOL,BOOL,BOOL)::$_3>,void ()(__CFURL const*,FPItem *,NSError *)>::operator()(uint64_t a1, FINode **a2, id *a3, void **a4)
+void std::__function::__func<TNode::UpdateFPItemsIfNeeded(std::vector<TNodePtr> const&,std::chrono::duration<double,std::ratio<1l,1l>> const&,BOOL,BOOL,BOOL)::$_3,std::allocator<TNode::UpdateFPItemsIfNeeded(std::vector<TNodePtr> const&,std::chrono::duration<double,std::ratio<1l,1l>> const&,BOOL,BOOL,BOOL)::$_3>,void ()(__CFURL const*,FPItem *,NSError *)>::operator()(_BYTE *a1, FINode **a2, id *a3, void **a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = *a2;
   v6 = *a4;
   v7 = *a3;
   v8 = v6;
-  v17.fFINode = v5;
+  v16.fFINode = v5;
   if (v5)
   {
     CFRetain(v5);
   }
 
-  v15[0] = &v17;
-  v9 = std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::__emplace_unique_key_args<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::piecewise_construct_t const&,std::tuple<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>&&>,std::tuple<>>((a1 + 8), &v17.fFINode);
+  v14[0] = &v16;
+  v9 = std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::__emplace_unique_key_args<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::piecewise_construct_t const&,std::tuple<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>&&>,std::tuple<>>(a1 + 1, &v16.fFINode, &std::piecewise_construct, v14);
   WeakRetained = objc_loadWeakRetained(v9 + 3);
-  TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v17.fFINode);
+  TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v16.fFINode);
   if (WeakRetained)
   {
     v11 = [(FINode *)WeakRetained fpItem];
@@ -5449,23 +5351,21 @@ void std::__function::__func<TNode::UpdateFPItemsIfNeeded(std::vector<TNodePtr> 
 
     else
     {
-      v12 = *(a1 + 48);
+      v12 = a1[48];
 
       if (v12)
       {
         v13 = TNodeFromFINode(WeakRetained);
-        TNodePtr::TNodePtr(&v17, v13);
-        v18 = v7;
-        memset(v15, 0, sizeof(v15));
-        std::vector<std::pair<TNodePtr,FPItem * {__strong}>>::__init_with_size[abi:ne200100]<std::pair<TNodePtr,FPItem * {__strong}> const*,std::pair<TNodePtr,FPItem * {__strong}> const*>(v15, &v17, &v19, 1uLL);
-        TNode::AttachFPItemsMetadata(v15, *(a1 + 49), *(a1 + 50));
-        v16 = v15;
-        std::vector<std::pair<TNodePtr,TNodePtr>>::__destroy_vector::operator()[abi:ne200100](&v16);
+        TNodePtr::TNodePtr(&v16, v13);
+        v17 = v7;
+        memset(v14, 0, sizeof(v14));
+        std::vector<std::pair<TNodePtr,FPItem * {__strong}>>::__init_with_size[abi:ne200100]<std::pair<TNodePtr,FPItem * {__strong}> const*,std::pair<TNodePtr,FPItem * {__strong}> const*>(v14, &v16, &v18, 1uLL);
+        TNode::AttachFPItemsMetadata(v14, a1[49], a1[50]);
+        v15 = v14;
+        std::vector<std::pair<TNodePtr,TNodePtr>>::__destroy_vector::operator()[abi:ne200100](&v15);
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E5690A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, id a14, id a15)
@@ -5475,9 +5375,9 @@ void sub_1E5690A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5564,47 +5464,45 @@ uint64_t TNode::HandleSyncStarted(uint64_t a1, uint64_t a2, BOOL *a3)
 
 void TPropertyRecordSet::TPropertyRecordSet(TPropertyRecordSet *this)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   *this = 0u;
   *(this + 1) = 0u;
   *(this + 9) = 1065353216;
-  memcpy(v4, aManp, sizeof(v4));
+  memcpy(v3, aManp, sizeof(v3));
   std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,std::allocator<std::hash>>::__rehash<true>(this, 0x51uLL);
   for (i = 0; i != 3240; i += 40)
   {
-    std::__hash_table<TPropertyRecord,std::hash<TPropertyRecord>,std::equal_to<TPropertyRecord>,std::allocator<TPropertyRecord>>::__emplace_unique_key_args<TPropertyRecord,TPropertyRecord const&>(this, &v4[i]);
+    std::__hash_table<TPropertyRecord,std::hash<TPropertyRecord>,std::equal_to<TPropertyRecord>,std::allocator<TPropertyRecord>>::__emplace_unique_key_args<TPropertyRecord,TPropertyRecord const&>(this, &v3[i], &v3[i]);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t *std::__hash_table<TPropertyRecord,std::hash<TPropertyRecord>,std::equal_to<TPropertyRecord>,std::allocator<TPropertyRecord>>::__emplace_unique_key_args<TPropertyRecord,TPropertyRecord const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<TPropertyRecord,std::hash<TPropertyRecord>,std::equal_to<TPropertyRecord>,std::allocator<TPropertyRecord>>::__emplace_unique_key_args<TPropertyRecord,TPropertyRecord const&>(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -5612,44 +5510,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void TFSInfo::GetDisplayNameWhileLocked(TFSInfo *this@<X0>, TString *a2@<X8>)
@@ -5710,7 +5608,7 @@ void TNodeEventPtr::~TNodeEventPtr(id *this)
 
 void TNode::HandleSyncCompleted(uint64_t a1, int a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v4 = TNode::InfoLock(a1);
   os_unfair_lock_lock(v4);
   v6 = *(a1 + 16);
@@ -5732,7 +5630,7 @@ void TNode::HandleSyncCompleted(uint64_t a1, int a2)
     goto LABEL_59;
   }
 
-  StRegistrationLock::StRegistrationLock(&v41);
+  StRegistrationLock::StRegistrationLock(&v40);
   if ((a2 & 0xC00000) == 0)
   {
     goto LABEL_12;
@@ -5801,12 +5699,12 @@ LABEL_12:
       v20 = LogObj(4);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        Description(0x1B, &v40);
-        v21 = v40;
+        Description(0x1B, &v39);
+        v21 = v39;
         *buf = 138543362;
         *&buf[4] = v21;
         _os_log_impl(&dword_1E5674000, v20, OS_LOG_TYPE_INFO, "Deferred All Providers Node open sync is now complete: %{public}@", buf, 0xCu);
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v40);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v39);
       }
     }
 
@@ -5822,12 +5720,12 @@ LABEL_29:
       v20 = LogObj(4);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        Description(0x1B, &v40);
-        v22 = v40;
+        Description(0x1B, &v39);
+        v22 = v39;
         *buf = 138543362;
         *&buf[4] = v22;
         _os_log_impl(&dword_1E5674000, v20, OS_LOG_TYPE_INFO, "Deferring All Providers Node open sync: %{public}@", buf, 0xCu);
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v40);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v39);
       }
     }
 
@@ -5836,136 +5734,133 @@ LABEL_29:
 
 LABEL_30:
   v23 = TNode::VirtualType(a1);
-  if (!v14)
+  if (v14)
   {
-LABEL_58:
-    StRegistrationLock::~StRegistrationLock(&v41);
-LABEL_59:
-    TNodePtr::TNodePtr(buf, a1);
-
-    goto LABEL_60;
-  }
-
-  v24 = v23;
-  v25 = ICloudDriveFPFSEnabled();
-  if ((v24 & 0xFE) == 0x18)
-  {
-    v26 = v25;
-  }
-
-  else
-  {
-    v26 = 0;
-  }
-
-  if (v26 == 1)
-  {
-    v27 = TChildrenList::GetCollectionStatusObserver(*(a1 + 56));
-    if (![v27 isPopulated])
+    v24 = v23;
+    v25 = ICloudDriveFPFSEnabled();
+    if ((v24 & 0xFE) == 0x18)
     {
-      if ((atomic_fetch_or((a1 + 88), 0x20u) & 0x20) == 0)
+      v26 = v25;
+    }
+
+    else
+    {
+      v26 = 0;
+    }
+
+    if (v26 == 1)
+    {
+      v27 = TChildrenList::GetCollectionStatusObserver(*(a1 + 56));
+      if (![v27 isPopulated])
       {
+        if ((atomic_fetch_or((a1 + 88), 0x20u) & 0x20) != 0)
+        {
+LABEL_57:
+
+          goto LABEL_58;
+        }
+
         v36 = LogObj(4);
         if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
-          Description(v24, &v40);
-          v37 = as_ns<TString>(&v40);
+          Description(v24, &v39);
+          v37 = as_ns<TString>(&v39);
           *buf = 138543362;
           *&buf[4] = v37;
           _os_log_impl(&dword_1E5674000, v36, OS_LOG_TYPE_INFO, "Deferring App Library Collection open sync: %{public}@", buf, 0xCu);
-          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v40);
+          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v39);
         }
 
-        goto LABEL_56;
+LABEL_56:
+
+        goto LABEL_57;
       }
 
-LABEL_57:
+      v28 = LogObj(4);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      {
+        Description(v24, &v39);
+        v29 = as_ns<TString>(&v39);
+        *buf = 138543362;
+        *&buf[4] = v29;
+        _os_log_impl(&dword_1E5674000, v28, OS_LOG_TYPE_INFO, "Deferred App Library Collection open sync is now complete: %{public}@", buf, 0xCu);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v39);
+      }
+    }
+
+    if (!TNode::IsFPv2(a1, 1))
+    {
+      goto LABEL_48;
+    }
+
+    v27 = TChildrenList::GetCollectionStatusObserver(*(a1 + 56));
+    if ([v27 isPopulated])
+    {
+      v30 = LogObj(4);
+      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
+      if (v31)
+      {
+        v32 = TNode::InfoLock(v31);
+        os_unfair_lock_lock(v32);
+        v34 = *(a1 + 16);
+        v33 = *(a1 + 24);
+        if (v33)
+        {
+          atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
+        }
+
+        os_unfair_lock_unlock(v32);
+        TFSInfo::Name(v34, &v39);
+        if (v33)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+        }
+
+        v35 = SanitizedStr(&v39);
+        *buf = 138543362;
+        *&buf[4] = v35;
+        _os_log_impl(&dword_1E5674000, v30, OS_LOG_TYPE_INFO, "Deferred FPv2 open sync is now complete: %{public}@", buf, 0xCu);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v39);
+      }
+
+LABEL_48:
+      if ((atomic_fetch_or((a1 + 88), 0x10u) & 0x10) == 0)
+      {
+        atomic_fetch_and((a1 + 88), 0xFFDFu);
+        StRegistrationLock::~StRegistrationLock(&v40);
+        std::unique_ptr<AutoSignpostInterval_General_OpenSync>::reset[abi:ne200100]((a1 + 80), 0);
+        TNodePtr::TNodePtr(buf, a1);
+        TNode::SendNotification(a1, 8, buf, 0, 0);
+
+        return;
+      }
 
       goto LABEL_58;
     }
 
-    v28 = LogObj(4);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    if ((atomic_fetch_or((a1 + 88), 0x20u) & 0x20) != 0)
     {
-      Description(v24, &v40);
-      v29 = as_ns<TString>(&v40);
-      *buf = 138543362;
-      *&buf[4] = v29;
-      _os_log_impl(&dword_1E5674000, v28, OS_LOG_TYPE_INFO, "Deferred App Library Collection open sync is now complete: %{public}@", buf, 0xCu);
-      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v40);
-    }
-  }
-
-  if (!TNode::IsFPv2(a1, 1))
-  {
-    goto LABEL_48;
-  }
-
-  v27 = TChildrenList::GetCollectionStatusObserver(*(a1 + 56));
-  if (![v27 isPopulated])
-  {
-    if ((atomic_fetch_or((a1 + 88), 0x20u) & 0x20) == 0)
-    {
-      v36 = LogObj(4);
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
-      {
-        TNode::Name(a1, &v40);
-        v38 = SanitizedStr(&v40);
-        *buf = 138543362;
-        *&buf[4] = v38;
-        _os_log_impl(&dword_1E5674000, v36, OS_LOG_TYPE_INFO, "Deferring FPv2 open sync: %{public}@", buf, 0xCu);
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v40);
-      }
-
-LABEL_56:
-
       goto LABEL_57;
     }
 
-    goto LABEL_57;
-  }
-
-  v30 = LogObj(4);
-  v31 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
-  if (v31)
-  {
-    v32 = TNode::InfoLock(v31);
-    os_unfair_lock_lock(v32);
-    v34 = *(a1 + 16);
-    v33 = *(a1 + 24);
-    if (v33)
+    v36 = LogObj(4);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
+      TNode::Name(a1, &v39);
+      v38 = SanitizedStr(&v39);
+      *buf = 138543362;
+      *&buf[4] = v38;
+      _os_log_impl(&dword_1E5674000, v36, OS_LOG_TYPE_INFO, "Deferring FPv2 open sync: %{public}@", buf, 0xCu);
+      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v39);
     }
 
-    os_unfair_lock_unlock(v32);
-    TFSInfo::Name(v34, &v40);
-    if (v33)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v33);
-    }
-
-    v35 = SanitizedStr(&v40);
-    *buf = 138543362;
-    *&buf[4] = v35;
-    _os_log_impl(&dword_1E5674000, v30, OS_LOG_TYPE_INFO, "Deferred FPv2 open sync is now complete: %{public}@", buf, 0xCu);
-    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v40);
+    goto LABEL_56;
   }
 
-LABEL_48:
-  if ((atomic_fetch_or((a1 + 88), 0x10u) & 0x10) != 0)
-  {
-    goto LABEL_58;
-  }
-
-  atomic_fetch_and((a1 + 88), 0xFFDFu);
-  StRegistrationLock::~StRegistrationLock(&v41);
-  std::unique_ptr<AutoSignpostInterval_General_OpenSync>::reset[abi:ne200100]((a1 + 80), 0);
+LABEL_58:
+  StRegistrationLock::~StRegistrationLock(&v40);
+LABEL_59:
   TNodePtr::TNodePtr(buf, a1);
-  TNode::SendNotification(a1, 8, buf, 0, 0);
-
-LABEL_60:
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E569189C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, int a10, __int16 a11, char a12, char a13)
@@ -6076,45 +5971,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_pt
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -6151,45 +6038,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,TRecordProgres
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -6236,21 +6115,19 @@ uint64_t std::function<void ()(StSignpostMacroHelper *,unsigned long long)>::ope
 
 uint64_t std::__function::__func<NodeContextOpen::$_1,std::allocator<NodeContextOpen::$_1>,void ()(StSignpostMacroHelper *,unsigned long long)>::operator()(uint64_t a1, uint64_t *a2, unint64_t *a3)
 {
-  v7[4] = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v6 = *a3;
-  v7[0] = &unk_1F5F3FEA0;
-  v7[1] = &v6;
-  v7[3] = v7;
-  ISignpostInterval::EndPriv(v3, v6, v7);
-  result = std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v7);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v5 = *a3;
+  v6[0] = &unk_1F5F3FEA0;
+  v6[1] = &v5;
+  v6[3] = v6;
+  ISignpostInterval::EndPriv(v3, v5, v6);
+  return std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_1E5691EB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5691EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6273,26 +6150,24 @@ uint64_t std::__function::__value_func<void ()(StSignpostMacroHelper *,unsigned 
 
 uint64_t std::__function::__func<_NodeContextOpenExtended::$_1,std::allocator<_NodeContextOpenExtended::$_1>,void ()(StSignpostMacroHelper *,unsigned long long)>::operator()(uint64_t a1, uint64_t *a2, unint64_t *a3)
 {
-  v7[4] = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v6 = *a3;
-  v7[0] = &unk_1F5F3FD20;
-  v7[1] = &v6;
-  v7[3] = v7;
-  ISignpostInterval::EndPriv(v3, v6, v7);
-  result = std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v7);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v5 = *a3;
+  v6[0] = &unk_1F5F3FD20;
+  v6[1] = &v5;
+  v6[3] = v6;
+  ISignpostInterval::EndPriv(v3, v5, v6);
+  return std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_1E5691FE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5691FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-const void **TFSVolumeInfo::GetVolumeInfoFor@<X0>(char a1@<W0>, void *a2@<X8>)
+const void **TFSVolumeInfo::GetVolumeInfoFor@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = 0;
   v6 = 0;
@@ -6304,7 +6179,7 @@ const void **TFSVolumeInfo::GetVolumeInfoFor@<X0>(char a1@<W0>, void *a2@<X8>)
   result = TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TRef(&v5);
   if (!*a2)
   {
-    TFSVolumeInfo::AddVirtualVolume();
+    TFSVolumeInfo::AddVirtualVolume(a1, a2);
   }
 
   return result;
@@ -6350,7 +6225,7 @@ void ___ZN12TGlobalNodes16AllProvidersNodeEv_block_invoke(uint64_t a1)
 
   v6 = 0;
   v7 = 0;
-  TNode::CreateNode(&obj, &v10, &v8, &v6);
+  TNode::CreateNode(&v10, &v8, &v6, &obj);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
@@ -6435,7 +6310,7 @@ void sub_1E56922E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TNode::GetProperty(uint64_t a1, uint64_t a2, TPropertyReference *a3, TOperationErrorRecord **a4, uint64_t a5)
+uint64_t TNode::GetProperty(uint64_t a1, uint64_t a2, TPropertyReference *a3, TOperationErrorRecord **a4, unsigned int a5)
 {
   if (*a4)
   {
@@ -6615,7 +6490,7 @@ LABEL_35:
           TOperationErrorRecord::AddPtrReference(v29);
         }
 
-        TNode::RequestTask(a1, 102, a2, &v31, &v30);
+        TNode::RequestTask(a1, 102, a2, &v31, &v30, 0);
       }
     }
 
@@ -6630,21 +6505,21 @@ LABEL_35:
       TOperationErrorRecord::AddPtrReference(v28);
     }
 
-    TNode::RequestTask(a1, 1, a2, &v31, &v30);
+    TNode::RequestTask(a1, 1, a2, &v31, &v30, 0);
   }
 
-  TNode::UpdatePropertySynchronous(a1);
+  TNode::UpdatePropertySynchronous(a1, a2, a5, 0);
   TPropertyReference::Clear(a3);
   return TNode::GetProperty(a1, a2, a3, a5);
 }
 
-void TNode::GetVolumeInfo(TNode *this@<X0>, void *a2@<X8>)
+void TNode::GetVolumeInfo(uint64_t *__return_ptr a1@<X8>, TNode *this@<X0>)
 {
   v4 = TNode::InfoLock(this);
   os_unfair_lock_lock(v4);
   v5 = *(this + 1);
-  *a2 = *this;
-  a2[1] = v5;
+  *a1 = *this;
+  a1[1] = v5;
   if (v5)
   {
     atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -6653,25 +6528,25 @@ void TNode::GetVolumeInfo(TNode *this@<X0>, void *a2@<X8>)
   os_unfair_lock_unlock(v4);
 }
 
-uint64_t TFSInfo::GetDisplayName(TFSInfo *a1, uint64_t a2)
+uint64_t TFSInfo::GetDisplayName(os_unfair_lock_s *a1, uint64_t a2)
 {
-  TFSInfo::DisplayName(a1, &v5);
+  TFSInfo::DisplayName(&v5, a1);
   v3 = TPropertyReference::SetAs<TString>(a2, &v5);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v5.fString.fRef);
   return v3;
 }
 
-void sub_1E56927DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E56927DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
-void TFSInfo::DisplayName(TFSInfo *this@<X0>, TString *a2@<X8>)
+void TFSInfo::DisplayName(TString *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
 {
   os_unfair_lock_lock(this + 26);
-  TFSInfo::GetDisplayNameWhileLocked(this, a2);
+  TFSInfo::GetDisplayNameWhileLocked(this, a1);
 
   os_unfair_lock_unlock(this + 26);
 }
@@ -6718,7 +6593,7 @@ uint64_t std::unordered_map<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL con
   std::__hash_table<std::__hash_value_type<unsigned long long,TRecordProgress>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,TRecordProgress>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::__emplace_unique_key_args<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>> const,std::pair<FINode * {__weak},unsigned long>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<FINode * {__weak},unsigned long>>>>::__emplace_unique_key_args<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::pair<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>> const,std::pair<FINode * {__weak},unsigned long>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
@@ -6773,36 +6648,36 @@ void TNode::FPItemsFromURLsWithTimeout(__CFArray const*,std::chrono::duration<do
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  IDContainerIteratorAdaptor<NSArray>::NSForwardIterator<NSArray>::NSForwardIterator(v24, v4);
-  IDContainerIteratorAdaptor<NSArray>::IDContainerIteratorAdaptor(v23, -1, v4);
-  v7 = algorithm_extras::distance_or_zero<IDContainerIteratorAdaptor<NSArray>>(v24, v23);
+  IDContainerIteratorAdaptor<NSArray>::NSForwardIterator<NSArray>::NSForwardIterator(v28, v4);
+  IDContainerIteratorAdaptor<NSArray>::IDContainerIteratorAdaptor(v27, -1, v4);
+  v7 = algorithm_extras::distance_or_zero<IDContainerIteratorAdaptor<NSArray>>(v28, v27);
 
-  type_traits_extras::CopyAsHelper<std::vector<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>>::MakeWithCapacity(v7, &v21);
+  type_traits_extras::CopyAsHelper<std::vector<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>>::MakeWithCapacity(v7, &v25);
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   IDContainerIteratorAdaptor<NSArray>::NSForwardIterator<NSArray>::NSForwardIterator(&obj, v4);
-  IDContainerIteratorAdaptor<NSArray>::IDContainerIteratorAdaptor(v25, -1, v4);
+  IDContainerIteratorAdaptor<NSArray>::IDContainerIteratorAdaptor(v29, -1, v4);
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  while (obj != v25[0] || v31 != v25[16])
+  while (obj != v29[0] || v35 != v29[16])
   {
-    v8 = *(v27[1] + 8 * v30);
+    v8 = *(v31[1] + 8 * v34);
     v9 = v8;
-    v34[0] = v8;
+    v37 = v8;
     if (v8)
     {
       CFRetain(v8);
     }
 
-    v34[2] = v34;
-    v10 = std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::tuple<std::optional<FPItem * {__strong}>,std::optional<NSError * {__strong}>,std::shared_ptr<std::function<void ()(__CFURL const*,FPItem *,NSError *)>>>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::tuple<std::optional<FPItem * {__strong}>,std::optional<NSError * {__strong}>,std::shared_ptr<std::function<void ()(__CFURL const*,FPItem *,NSError *)>>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::tuple<std::optional<FPItem * {__strong}>,std::optional<NSError * {__strong}>,std::shared_ptr<std::function<void ()(__CFURL const*,FPItem *,NSError *)>>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::tuple<std::optional<FPItem * {__strong}>,std::optional<NSError * {__strong}>,std::shared_ptr<std::function<void ()(__CFURL const*,FPItem *,NSError *)>>>>>>::__emplace_unique_key_args<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::piecewise_construct_t const&,std::tuple<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>&&>,std::tuple<>>(v6, v34);
-    TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(v34);
+    v38 = &v37;
+    v10 = std::__hash_table<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::tuple<std::optional<FPItem * {__strong}>,std::optional<NSError * {__strong}>,std::shared_ptr<std::function<void ()(__CFURL const*,FPItem *,NSError *)>>>>,std::__unordered_map_hasher<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::tuple<std::optional<FPItem * {__strong}>,std::optional<NSError * {__strong}>,std::shared_ptr<std::function<void ()(__CFURL const*,FPItem *,NSError *)>>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::__unordered_map_equal<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::tuple<std::optional<FPItem * {__strong}>,std::optional<NSError * {__strong}>,std::shared_ptr<std::function<void ()(__CFURL const*,FPItem *,NSError *)>>>>,std::equal_to<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,std::hash<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>,true>,std::allocator<std::__hash_value_type<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::tuple<std::optional<FPItem * {__strong}>,std::optional<NSError * {__strong}>,std::shared_ptr<std::function<void ()(__CFURL const*,FPItem *,NSError *)>>>>>>::__emplace_unique_key_args<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,std::piecewise_construct_t const&,std::tuple<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>&&>,std::tuple<>>(v6, &v37, &std::piecewise_construct, &v38);
+    TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v37);
     v11 = v10[7];
     if (v11)
     {
@@ -6852,27 +6727,27 @@ void TNode::FPItemsFromURLsWithTimeout(__CFArray const*,std::chrono::duration<do
     }
 
     v18 = v17;
-    v32 = v16;
-    v33 = v18;
+    *&v36 = v16;
+    *(&v36 + 1) = v18;
 
-    std::vector<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>::push_back[abi:ne200100](&v21, &v32);
-    v19 = v30;
-    if (v30 >= v29 - 1)
+    std::vector<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>::push_back[abi:ne200100](&v25, &v36, v19, v20, v21, v22);
+    v23 = v34;
+    if (v34 >= v33 - 1)
     {
-      v20 = [obj countByEnumeratingWithState:v27 objects:v28 count:4];
-      v19 = -1;
-      v29 = v20;
-      v30 = -1;
+      v24 = [obj countByEnumeratingWithState:v31 objects:v32 count:4];
+      v23 = -1;
+      v33 = v24;
+      v34 = -1;
     }
 
-    if (v28[4] != *v27[2])
+    if (v32[4] != *v31[2])
     {
       objc_enumerationMutation(obj);
-      v19 = v30;
+      v23 = v34;
     }
 
-    ++v31;
-    v30 = v19 + 1;
+    ++v35;
+    v34 = v23 + 1;
   }
 
   if (v5)
@@ -6886,11 +6761,11 @@ void TNode::FPItemsFromURLsWithTimeout(__CFArray const*,std::chrono::duration<do
   {
   }
 
-  *a2 = v21;
-  *(a2 + 16) = v22;
-  v22 = 0;
-  v21 = 0uLL;
-  obj = &v21;
+  *a2 = v25;
+  *(a2 + 16) = v26;
+  v26 = 0;
+  v25 = 0uLL;
+  obj = &v25;
   std::vector<std::pair<TNodePtr,TNodePtr>>::__destroy_vector::operator()[abi:ne200100](&obj);
   if (v5)
   {
@@ -6900,16 +6775,16 @@ void TNode::FPItemsFromURLsWithTimeout(__CFArray const*,std::chrono::duration<do
 
 void sub_1E5692DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (v67)
+  if (v66)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v67);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v66);
   }
 
-  *(v68 - 128) = &a11;
-  std::vector<std::pair<TNodePtr,TNodePtr>>::__destroy_vector::operator()[abi:ne200100]((v68 - 128));
-  if (v67)
+  *(v67 - 128) = &a11;
+  std::vector<std::pair<TNodePtr,TNodePtr>>::__destroy_vector::operator()[abi:ne200100]((v67 - 128));
+  if (v66)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v67);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v66);
   }
 
   _Unwind_Resume(a1);
@@ -6999,47 +6874,45 @@ void std::__allocator_destroy[abi:ne200100]<std::allocator<std::pair<TNodePtr,TN
   }
 }
 
-uint64_t std::vector<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>::push_back[abi:ne200100](void *a1, uint64_t a2)
+_OWORD *std::vector<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>::push_back[abi:ne200100](uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v7 = *(a1 + 8);
+  if (v7 >= *(a1 + 16))
   {
-    result = std::vector<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>::__emplace_back_slow_path<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>(a1, a2);
+    result = std::vector<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>::__emplace_back_slow_path<fstd::optional_err<FPItem * {__strong},NSError * {__strong}>>(a1, a2, a3, a4, a5, a6);
   }
 
   else
   {
-    v4 = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *v3 = v4;
-    result = (v3 + 1);
+    v8 = *a2;
+    *a2 = 0uLL;
+    *v7 = v8;
+    result = v7 + 1;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
 void AutoSignpostInterval_General_OpenSync::~AutoSignpostInterval_General_OpenSync(AutoSignpostInterval_General_OpenSync *this)
 {
-  v4[4] = *MEMORY[0x1E69E9840];
+  v3[4] = *MEMORY[0x1E69E9840];
   std::mutex::lock(this);
-  v4[0] = *(this + 14);
-  if (std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::find<unsigned long long>(this + 9, v4))
+  v3[0] = *(this + 14);
+  if (std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::find<unsigned long long>(this + 9, v3))
   {
     v2 = *(this + 14);
-    v4[0] = &unk_1F5F40658;
-    v4[1] = this;
-    v4[3] = v4;
-    ISignpostInterval::EndPriv(this, v2, v4);
-    std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v4);
+    v3[0] = &unk_1F5F40658;
+    v3[1] = this;
+    v3[3] = v3;
+    ISignpostInterval::EndPriv(this, v2, v3);
+    std::__function::__value_func<void ()(NSObject  {objcproto9OS_os_log}*)>::~__value_func[abi:ne200100](v3);
   }
 
   std::mutex::unlock(this);
   std::__hash_table<std::__hash_value_type<unsigned long long,TRecordProgress>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,TRecordProgress>>>::~__hash_table(this + 72);
 
   std::mutex::~mutex(this);
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E5693178(_Unwind_Exception *a1, int a2)
@@ -7066,74 +6939,73 @@ uint64_t *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std
 
 void TFSInfo::SetUserTagsMap(void *a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v16 = a1;
+  v26 = *MEMORY[0x1E69E9840];
+  v17 = a1;
   v1 = LogObj(5);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    *&buf[4] = [v16 count];
+    *&buf[4] = [v17 count];
     _os_log_impl(&dword_1E5674000, v1, OS_LOG_TYPE_INFO, "Updating user tags with %d tags.", buf, 8u);
   }
 
-  v2 = UserTagsMap();
-  v14 = v3;
-  std::mutex::lock(v3);
-  std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::clear(v2);
-  v20 = 0u;
+  v4 = UserTagsMap(v2, v3);
+  v15 = v5;
+  std::mutex::lock(v5);
+  std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::clear(v4);
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  obj = [v16 allKeys];
-  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v4)
+  v20 = 0u;
+  obj = [v17 allKeys];
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
+  if (v6)
   {
-    v5 = *v19;
+    v7 = *v20;
     do
     {
-      v6 = 0;
+      v8 = 0;
       do
       {
-        if (*v19 != v5)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * v6);
-        v17.fString.fRef = &stru_1F5F42870;
+        v9 = *(*(&v19 + 1) + 8 * v8);
+        v18.fString.fRef = &stru_1F5F42870;
         CFRetain(&stru_1F5F42870);
-        TString::SetStringRefAsImmutable(&v17, v7);
+        TString::SetStringRefAsImmutable(&v18, v9);
 
-        v8 = [v16 objectForKeyedSubscript:{v7, v14}];
-        v9 = static_objc_cast<NSString,objc_object * {__strong}>(v8);
-        v10 = [v9 shortValue];
+        v10 = [v17 objectForKeyedSubscript:{v9, v15}];
+        v11 = static_objc_cast<NSString,objc_object * {__strong}>(v10);
+        v12 = [v11 shortValue];
 
-        *buf = &v17;
-        v11 = std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::__emplace_unique_key_args<TString,std::piecewise_construct_t const&,std::tuple<TString const&>,std::tuple<>>(v2, &v17);
-        if (v10 >= 7)
+        *buf = &v18;
+        v13 = std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::__emplace_unique_key_args<TString,std::piecewise_construct_t const&,std::tuple<TString const&>,std::tuple<>>(v4, &v18, &std::piecewise_construct, buf, &v23);
+        if (v12 >= 7)
         {
-          v12 = 7;
+          v14 = 7;
         }
 
         else
         {
-          v12 = v10;
+          v14 = v12;
         }
 
-        *(v11 + 12) = v12 & ~(v12 >> 31);
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v17.fString.fRef);
-        ++v6;
+        *(v13 + 12) = v14 & ~(v14 >> 31);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v18.fString.fRef);
+        ++v8;
       }
 
-      while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      while (v6 != v8);
+      v6 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
-    while (v4);
+    while (v6);
   }
 
-  std::mutex::unlock(v14);
-  v13 = *MEMORY[0x1E69E9840];
+  std::mutex::unlock(v15);
 }
 
 void *std::__shared_ptr_emplace<TFSInfo>::__shared_ptr_emplace[abi:ne200100]<FSInfoVirtualType &,std::allocator<TFSInfo>,0>(void *a1, unsigned __int8 *a2)
@@ -7245,7 +7117,7 @@ void sub_1E569375C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 24);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -7259,13 +7131,13 @@ const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<c
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -7285,32 +7157,28 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
 id FIDSNodeSubclassForVirtualType(unsigned int a1)
 {
   if (a1 <= 0x24 && ((0x1FFFFF18FFuLL >> a1) & 1) != 0)
   {
-    isa = off_1E877F538[a1]->isa;
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 void TChildrenList::TChildrenList(TChildrenList *this, const TNode *a2)
@@ -7338,8 +7206,8 @@ uint64_t TFSInfo::IsApplication(TFSInfo *this)
 
 void TNodeEvent::CreateEventQueue(void *a1)
 {
-  a1;
-  EventQueueSpinLock();
+  v2 = a1;
+  EventQueueSpinLock(v2, v1);
   os_unfair_lock_lock(&_MergedGlobals);
   ++sEventQueueSerial;
   std::allocate_shared[abi:ne200100]<TBlockingEventQueue,std::allocator<TBlockingEventQueue>,void({block_pointer} {__strong}&)(OpaqueEventQueue *),unsigned long long &,0>();
@@ -7352,9 +7220,9 @@ void sub_1E5693B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void EventQueueSpinLock(void)
+void EventQueueSpinLock(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1ECFF43F0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ECFF43F0, memory_order_acquire) & 1) == 0)
   {
     EventQueueSpinLock();
   }
@@ -7362,17 +7230,17 @@ void EventQueueSpinLock(void)
 
 void EventQueueSpinLock()
 {
-  if (__cxa_guard_acquire(&qword_1ECFF43F0))
+  if (__cxa_guard_acquire(byte_1ECFF43F0))
   {
     _MergedGlobals = 0;
 
-    __cxa_guard_release(&qword_1ECFF43F0);
+    __cxa_guard_release(byte_1ECFF43F0);
   }
 }
 
-void TBlockingEventQueue::TBlockingEventQueue(uint64_t a1, void *a2)
+void TBlockingEventQueue::TBlockingEventQueue(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
+  v4 = a2;
   *a1 = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 48) = 850045863;
@@ -7402,8 +7270,7 @@ void std::__shared_ptr_emplace<TBlockingEventQueue>::__shared_ptr_emplace[abi:ne
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F5F3D7A0;
-  v3 = *a3;
-  TBlockingEventQueue::TBlockingEventQueue((a1 + 3), *a2);
+  TBlockingEventQueue::TBlockingEventQueue((a1 + 3), *a2, *a3);
 }
 
 uint64_t EventQueues(void)
@@ -7415,33 +7282,33 @@ uint64_t EventQueues(void)
   return EventQueues(void)::map;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<TBlockingEventQueue>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7449,51 +7316,51 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void NodeNewChangeHandlerOnQueue(uint64_t a1, void *a2, void *a3)
+void NodeNewChangeHandlerOnQueue(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  memset(v3, 0, sizeof(v3));
-  TClientChangeNotifier::Make(v3, a1, a3, a2, &v4);
-  AddToNodeChangeNotifierRegistry();
+  memset(v4, 0, sizeof(v4));
+  TClientChangeNotifier::Make(v4, a1, a3, a2, &v5);
+  AddToNodeChangeNotifierRegistry(v5, &v5);
 }
 
 void sub_1E5694124(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
@@ -7506,7 +7373,7 @@ void sub_1E5694124(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TClientChangeNotifier::Make(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X3>, void *a4@<X4>, void *a5@<X8>)
+void TClientChangeNotifier::Make(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X3>, void *a4@<X4>, std::__shared_weak_count **a5@<X8>)
 {
   v9 = a3;
   v10 = a4;
@@ -7550,7 +7417,7 @@ LABEL_11:
 
   v15 = *v11;
   *a5 = *v11;
-  if (!v15 || v15[2] != *a1 || v15[5] != a2 || v15[6] != v9)
+  if (!v15 || v15->__shared_weak_owners_ != *a1 || v15[1].__shared_weak_owners_ != a2 || v15[2].__vftable != v9)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v14);
     goto LABEL_11;
@@ -7569,7 +7436,7 @@ void sub_1E5694474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t TClientChangeNotifier::TClientChangeNotifier(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7)
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   v12 = a6;
   v13 = a7;
   *a1 = 0;
@@ -7587,25 +7454,24 @@ uint64_t TClientChangeNotifier::TClientChangeNotifier(uint64_t a1, uint64_t a2, 
     *(a1 + 88) = &unk_1F5F41618;
     *(a1 + 96) = MEMORY[0x1E692D6D0](v13);
     *(a1 + 112) = a1 + 88;
-    v19[0] = &unk_1F5F41728;
+    v18[0] = &unk_1F5F41728;
   }
 
   else
   {
-    v19[0] = &unk_1F5F416A8;
-    v19[1] = a5;
+    v18[0] = &unk_1F5F416A8;
+    v18[1] = a5;
   }
 
-  v19[3] = v19;
-  std::__function::__value_func<void ()(OpaqueEventQueue *)>::swap[abi:ne200100](v19, (a1 + 56));
-  std::__function::__value_func<void ()(OpaqueEventQueue *)>::~__value_func[abi:ne200100](v19);
+  v18[3] = v18;
+  std::__function::__value_func<void ()(OpaqueEventQueue *)>::swap[abi:ne200100](v18, (a1 + 56));
+  std::__function::__value_func<void ()(OpaqueEventQueue *)>::~__value_func[abi:ne200100](v18);
   v16 = *(a1 + 24);
   if (v16 && *(a1 + 16))
   {
     v16();
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -7625,7 +7491,7 @@ void sub_1E5694644(_Unwind_Exception *a1)
 
 void *std::__function::__value_func<void ()(OpaqueEventQueue *)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   if (a2 != result)
   {
     v3 = result;
@@ -7635,15 +7501,15 @@ void *std::__function::__value_func<void ()(OpaqueEventQueue *)>::swap[abi:ne200
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -7671,7 +7537,6 @@ void *std::__function::__value_func<void ()(OpaqueEventQueue *)>::swap[abi:ne200
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7758,9 +7623,9 @@ void std::__split_buffer<std::weak_ptr<TClientChangeNotifier>>::clear[abi:ne2001
   }
 }
 
-void *NodeChangeNotifierRegistry(void)
+void *NodeChangeNotifierRegistry(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_2, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_2, memory_order_acquire) & 1) == 0)
   {
     NodeChangeNotifierRegistry();
   }
@@ -7768,11 +7633,11 @@ void *NodeChangeNotifierRegistry(void)
   return &unk_1ECFF4468;
 }
 
-void AddToNodeChangeNotifierRegistry()
+void AddToNodeChangeNotifierRegistry(uint64_t a1, uint64_t a2)
 {
-  NodeChangeNotifierRegistry();
-  std::mutex::lock(v0);
-  std::__hash_table<std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::__unordered_map_hasher<OpaqueEventNotifier *,std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::hash<OpaqueEventNotifier *>,std::equal_to<OpaqueEventNotifier *>,true>,std::__unordered_map_equal<OpaqueEventNotifier *,std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::equal_to<OpaqueEventNotifier *>,std::hash<OpaqueEventNotifier *>,true>,std::allocator<std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>>>::__emplace_multi<OpaqueEventNotifier *&,std::shared_ptr<TClientChangeNotifier> const&>();
+  v2 = NodeChangeNotifierRegistry(a1, a2);
+  std::mutex::lock(v3);
+  std::__hash_table<std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::__unordered_map_hasher<OpaqueEventNotifier *,std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::hash<OpaqueEventNotifier *>,std::equal_to<OpaqueEventNotifier *>,true>,std::__unordered_map_equal<OpaqueEventNotifier *,std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::equal_to<OpaqueEventNotifier *>,std::hash<OpaqueEventNotifier *>,true>,std::allocator<std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>>>::__emplace_multi<OpaqueEventNotifier *&,std::shared_ptr<TClientChangeNotifier> const&>(v2);
 }
 
 void sub_1E5694B88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -7787,13 +7652,13 @@ void sub_1E5694B88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void NodeChangeNotifierRegistry()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_2))
+  if (__cxa_guard_acquire(_MergedGlobals_2))
   {
     unk_1ECFF4478 = 0u;
     unk_1ECFF4468 = 0u;
     dword_1ECFF4488 = 1065353216;
 
-    __cxa_guard_release(&_MergedGlobals_2);
+    __cxa_guard_release(_MergedGlobals_2);
   }
 }
 
@@ -8053,14 +7918,12 @@ void NodeObservedOptionsCountRegistry::StartedObserving(void *a1, uint64_t a2)
   std::mutex::lock(&NodeObservedOptionsCountRegistry::gRegistryLock);
   if (!NodeObservedOptionsCountRegistry::gRegistry)
   {
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
+    memset(v16, 0, sizeof(v16));
     operator new();
   }
 
-  v16 = &v15;
-  v3 = std::__hash_table<std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::__unordered_map_hasher<FINode * {__strong},std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::hash<FINode * {__strong}>,std::equal_to<FINode * {__strong}>,true>,std::__unordered_map_equal<FINode * {__strong},std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::equal_to<FINode * {__strong}>,std::hash<FINode * {__strong}>,true>,std::allocator<std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>>>::__emplace_unique_key_args<FINode * {__strong},std::piecewise_construct_t const&,std::tuple<FINode * const {__strong}&>,std::tuple<>>(NodeObservedOptionsCountRegistry::gRegistry, &v15);
+  v16[0] = &v15;
+  v3 = std::__hash_table<std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::__unordered_map_hasher<FINode * {__strong},std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::hash<FINode * {__strong}>,std::equal_to<FINode * {__strong}>,true>,std::__unordered_map_equal<FINode * {__strong},std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::equal_to<FINode * {__strong}>,std::hash<FINode * {__strong}>,true>,std::allocator<std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>>>::__emplace_unique_key_args<FINode * {__strong},std::piecewise_construct_t const&,std::tuple<FINode * const {__strong}&>,std::tuple<>>(NodeObservedOptionsCountRegistry::gRegistry, &v15, &std::piecewise_construct, v16);
   if (a2)
   {
     v4 = 1;
@@ -8103,9 +7966,9 @@ LABEL_10:
   v12 = !v11;
   while ((v10 != end_iter) | v12 & 1)
   {
-    LODWORD(v19) = v4 & HIDWORD(v10);
-    v16 = &v19;
-    v13 = std::__hash_table<std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::__unordered_map_hasher<NodeNotificationOptions,std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::hash<NodeNotificationOptions>,std::equal_to<NodeNotificationOptions>,true>,std::__unordered_map_equal<NodeNotificationOptions,std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::equal_to<NodeNotificationOptions>,std::hash<NodeNotificationOptions>,true>,std::allocator<std::__hash_value_type<NodeNotificationOptions,unsigned long>>>::__emplace_unique_key_args<NodeNotificationOptions,std::piecewise_construct_t const&,std::tuple<NodeNotificationOptions const&>,std::tuple<>>(v3 + 3, &v19);
+    LODWORD(v17) = v4 & HIDWORD(v10);
+    v16[0] = &v17;
+    v13 = std::__hash_table<std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::__unordered_map_hasher<NodeNotificationOptions,std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::hash<NodeNotificationOptions>,std::equal_to<NodeNotificationOptions>,true>,std::__unordered_map_equal<NodeNotificationOptions,std::__hash_value_type<NodeNotificationOptions,unsigned long>,std::equal_to<NodeNotificationOptions>,std::hash<NodeNotificationOptions>,true>,std::allocator<std::__hash_value_type<NodeNotificationOptions,unsigned long>>>::__emplace_unique_key_args<NodeNotificationOptions,std::piecewise_construct_t const&,std::tuple<NodeNotificationOptions const&>,std::tuple<>>(v3 + 3, &v17, &std::piecewise_construct, v16);
     ++v13[3];
     if (HIDWORD(v10))
     {
@@ -8138,35 +8001,35 @@ void sub_1E56953E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::__unordered_map_hasher<FINode * {__strong},std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::hash<FINode * {__strong}>,std::equal_to<FINode * {__strong}>,true>,std::__unordered_map_equal<FINode * {__strong},std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::equal_to<FINode * {__strong}>,std::hash<FINode * {__strong}>,true>,std::allocator<std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>>>::__emplace_unique_key_args<FINode * {__strong},std::piecewise_construct_t const&,std::tuple<FINode * const {__strong}&>,std::tuple<>>(void *a1, id *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::__unordered_map_hasher<FINode * {__strong},std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::hash<FINode * {__strong}>,std::equal_to<FINode * {__strong}>,true>,std::__unordered_map_equal<FINode * {__strong},std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>,std::equal_to<FINode * {__strong}>,std::hash<FINode * {__strong}>,true>,std::allocator<std::__hash_value_type<FINode * {__strong},std::unordered_map<NodeNotificationOptions,unsigned long>>>>::__emplace_unique_key_args<FINode * {__strong},std::piecewise_construct_t const&,std::tuple<FINode * const {__strong}&>,std::tuple<>>(void *a1, id *a2, uint64_t a3, id **a4)
 {
-  v4 = [*a2 hash];
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = [*a2 hash];
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -8174,44 +8037,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if ((std::equal_to<FINode * {__strong}>::operator()(a1, v11[2], *a2) & 1) == 0)
+  if ((std::equal_to<FINode * {__strong}>::operator()(a1, v13[2], *a2) & 1) == 0)
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 uint64_t std::unique_ptr<NodeObservedOptionsCountRegistry>::reset[abi:ne200100](uint64_t *a1, uint64_t a2)
@@ -8239,7 +8102,7 @@ void TNode::RequestSynchronize(TGlobalNodes *a1, int a2)
     std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v5);
     v5.fData.__impl_.__index = 21;
     v5.fData.__impl_.__data.__tail.__tail.__tail.__tail.__head.__value = a2;
-    TNode::RequestInternalTask();
+    TNode::RequestInternalTask(a1, 1000, &v5, 0);
   }
 }
 
@@ -8313,18 +8176,18 @@ TNodeTask *TNode::HandleNodeRequest(id **a1)
     v4 = **a1;
     v3 = 0;
     v10.fFINode = v4;
-    v6 = *(*a1 + 4);
-    if (v6 > 34)
+    v5 = *(*a1 + 4);
+    if (v5 > 34)
     {
-      switch(v6)
+      v6 = 1;
+      switch(v5)
       {
         case 1000:
           TNode::HandleSync(a1, &v10.fFINode);
-          goto LABEL_40;
+          goto LABEL_41;
         case 1001:
-        case 1024:
-          NodeRequest = TNode::HandleVolumeAdded(a1);
-          goto LABEL_42;
+          v6 = 0;
+          goto LABEL_33;
         case 1002:
         case 1004:
         case 1005:
@@ -8340,54 +8203,58 @@ TNodeTask *TNode::HandleNodeRequest(id **a1)
         case 1025:
         case 1026:
         case 1027:
-          goto LABEL_43;
+          goto LABEL_44;
         case 1003:
           TNode::HandleRegisterForNotification(a1, &v10.fFINode);
-          goto LABEL_40;
+          goto LABEL_41;
         case 1007:
           TNode::HandleMarkAsUsed(v4, &v10.fFINode);
-          goto LABEL_40;
+          goto LABEL_41;
         case 1008:
           NodeRequest = TNode::HandleSubscribeWithKQueue(v4, &v10.fFINode);
-          goto LABEL_42;
+          goto LABEL_43;
         case 1009:
           NodeRequest = TNode::HandleUnsubscribeWithKQueue(v4, &v10.fFINode);
-          goto LABEL_42;
+          goto LABEL_43;
         case 1010:
           NodeRequest = TNode::HandleVolumeDeleted(v4, &v10.fFINode);
-          goto LABEL_42;
+          goto LABEL_43;
         case 1011:
           TNodeFromFINode(v4);
-          goto LABEL_40;
+          goto LABEL_41;
         case 1012:
-          TNodeEvent::Notify(0, 1, v5);
-          goto LABEL_40;
+          TNodeEvent::Notify(0, 1);
+          goto LABEL_41;
         case 1019:
           v8 = TNodeFromFINode(v4);
           TNode::DoExternalUnRegistration(v8);
-          goto LABEL_40;
+          goto LABEL_41;
         case 1021:
           TNode::HandleRegisterInternalNotificationTask(v4, &v10.fFINode);
-          goto LABEL_40;
+          goto LABEL_41;
         case 1023:
           TNode::HandleSyncComputerName(v4);
-          goto LABEL_40;
+          goto LABEL_41;
+        case 1024:
+LABEL_33:
+          NodeRequest = TNode::HandleVolumeAdded(a1, v6);
+          goto LABEL_43;
         case 1028:
           TNode::HandleFPProviderError(v4, &v10.fFINode);
-LABEL_40:
+LABEL_41:
           v3 = 0;
-          goto LABEL_43;
+          goto LABEL_44;
         default:
-          if (v6 == 35)
+          if (v5 == 35)
           {
             NodeRequest = TNode::HandleAddServerToSidebarRequest(a1, &v10.fFINode);
           }
 
           else
           {
-            if (v6 != 36)
+            if (v5 != 36)
             {
-              goto LABEL_43;
+              goto LABEL_44;
             }
 
             NodeRequest = TNode::HandleRemoveServerFromSidebarRequest(a1, &v10.fFINode);
@@ -8396,14 +8263,14 @@ LABEL_40:
           break;
       }
 
-      goto LABEL_42;
+      goto LABEL_43;
     }
 
-    if (v6 > 10)
+    if (v5 > 10)
     {
-      if (v6 > 32)
+      if (v5 > 32)
       {
-        if (v6 == 33)
+        if (v5 == 33)
         {
           NodeRequest = TNode::HandleOpenServerRequest(a1, &v10.fFINode);
         }
@@ -8413,54 +8280,54 @@ LABEL_40:
           NodeRequest = TNode::HandleDisconnectShareRequest(a1, &v10.fFINode);
         }
 
-        goto LABEL_42;
+        goto LABEL_43;
       }
 
-      if (v6 == 11)
+      if (v5 == 11)
       {
         NodeRequest = TNode::HandleFetchNodeRequest(a1);
-        goto LABEL_42;
+        goto LABEL_43;
       }
 
-      if (v6 == 32)
+      if (v5 == 32)
       {
         NodeRequest = TNode::HandleOpenScreenShareRequest(a1, &v10.fFINode);
-        goto LABEL_42;
+        goto LABEL_43;
       }
     }
 
-    else if (v6 > 7)
+    else if (v5 > 7)
     {
-      if (v6 == 8)
+      if (v5 == 8)
       {
         NodeRequest = TNode::HandleFetchBookmarkData(a1, &v10);
-        goto LABEL_42;
+        goto LABEL_43;
       }
 
-      if (v6 == 10)
+      if (v5 == 10)
       {
         NodeRequest = TNode::HandleResolveAlias(a1, &v10.fFINode);
-        goto LABEL_42;
+        goto LABEL_43;
       }
     }
 
     else
     {
-      if (v6 == 1)
+      if (v5 == 1)
       {
         NodeRequest = TNode::HandleFetchProperty(a1, &v10.fFINode);
-        goto LABEL_42;
+        goto LABEL_43;
       }
 
-      if (v6 == 2)
+      if (v5 == 2)
       {
         NodeRequest = TNode::HandleStoreProperty(a1, &v10.fFINode);
-LABEL_42:
+LABEL_43:
         v3 = NodeRequest;
       }
     }
 
-LABEL_43:
+LABEL_44:
 
     v2 = *a1;
     return TNodeTask::SetRequestStatus(v2, v3);
@@ -8470,7 +8337,7 @@ LABEL_43:
   return TNodeTask::SetRequestStatus(v2, v3);
 }
 
-TNodeTask *___ZZN9TNodeTask19PostNodeTaskRequestERKNSt3__110shared_ptrIS_EERKNS1_I17TVolumeSyncThreadEEENK3__0clEv_block_invoke(uint64_t a1)
+uint64_t ___ZZN9TNodeTask19PostNodeTaskRequestERKNSt3__110shared_ptrIS_EERKNS1_I17TVolumeSyncThreadEEENK3__0clEv_block_invoke(uint64_t a1)
 {
   if (*(a1 + 72) == 1)
   {
@@ -8656,11 +8523,11 @@ LABEL_38:
   return v17;
 }
 
-void sub_1E5696108(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5696108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va1);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
@@ -8668,7 +8535,7 @@ void sub_1E5696108(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void TNode::HandleRegisterForNotification(TNodeTask **a1, FINode **a2)
 {
-  TNodeTask::GetClientChangeNotifier(*a1, &v13);
+  TNodeTask::GetClientChangeNotifier(&v13, *a1);
   if ((TNodeTask::GetNotificationOptions(*a1) & 2) != 0)
   {
     v4 = *(*a1 + 12);
@@ -8726,10 +8593,10 @@ TString *TString::Append(TString *this, const __CFString *a2)
   return this;
 }
 
-TDSNotifier **TNodeTask::GetClientChangeNotifier@<X0>(TNodeTask *this@<X0>, void *a2@<X8>)
+TDSNotifier **TNodeTask::GetClientChangeNotifier@<X0>(uint64_t *__return_ptr a1@<X8>, TNodeTask *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   TNodeTask::GetNotifier(this, &v6);
   if (v6)
   {
@@ -8740,24 +8607,24 @@ TDSNotifier **TNodeTask::GetClientChangeNotifier@<X0>(TNodeTask *this@<X0>, void
       atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
     }
 
-    *a2 = v4;
-    a2[1] = v3;
+    *a1 = v4;
+    a1[1] = v3;
   }
 
   return TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v6);
 }
 
-const void **TFSInfo::GetVolumeID@<X0>(TFSInfo *this@<X0>, void *a2@<X8>)
+const void **TFSInfo::GetVolumeID@<X0>(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
 {
   os_unfair_lock_lock(this + 27);
-  v4 = *(this + 2);
+  v4 = *&this[4]._os_unfair_lock_opaque;
   v8 = v4;
   if (v4)
   {
     CFRetain(v4);
     os_unfair_lock_unlock(this + 27);
     VolumeIdentifier = TCFURLInfo::GetVolumeIdentifier(v4, v5);
-    *a2 = VolumeIdentifier;
+    *a1 = VolumeIdentifier;
     if (VolumeIdentifier)
     {
       CFRetain(VolumeIdentifier);
@@ -8770,7 +8637,7 @@ const void **TFSInfo::GetVolumeID@<X0>(TFSInfo *this@<X0>, void *a2@<X8>)
   {
     os_unfair_lock_unlock(this + 27);
     result = TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v8);
-    *a2 = 0;
+    *a1 = 0;
   }
 
   return result;
@@ -8874,10 +8741,10 @@ uint64_t NodeRegisterChangeNotification(TNode *a1, OpaqueNodeRef *a2, uint64_t a
       if (!v3)
       {
         [(TNode *)a1 registeringChangeNotification:a3];
-        ClientNotifierFromNodeNotifier(a2, &v10);
-        if (v10)
+        ClientNotifierFromNodeNotifier(&v11, a2, v9);
+        if (v11)
         {
-          v3 = TNode::RegisterChangeNotification(v7, &v10, a3);
+          v3 = TNode::RegisterChangeNotification(v7, &v11, a3);
         }
 
         else
@@ -8885,9 +8752,9 @@ uint64_t NodeRegisterChangeNotification(TNode *a1, OpaqueNodeRef *a2, uint64_t a
           v3 = 4294959224;
         }
 
-        if (v11)
+        if (v12)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v12);
         }
       }
     }
@@ -8906,60 +8773,58 @@ void sub_1E56966B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1E5696718(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1E5696718(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = FINodeIterator;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void ClientNotifierFromNodeNotifier(OpaqueEventNotifier *a1@<X0>, void *a2@<X8>)
+void ClientNotifierFromNodeNotifier(uint64_t *__return_ptr a1@<X8>, OpaqueEventNotifier *a2@<X0>, uint64_t a3@<X1>)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v10 = a1;
-  if (a1)
+  v10 = a2;
+  if (a2)
   {
-    v3 = NodeChangeNotifierRegistry();
-    v5 = v4;
-    std::mutex::lock(v4);
-    v6 = std::__hash_table<std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::__unordered_map_hasher<OpaqueEventNotifier *,std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::hash<OpaqueEventNotifier *>,std::equal_to<OpaqueEventNotifier *>,true>,std::__unordered_map_equal<OpaqueEventNotifier *,std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::equal_to<OpaqueEventNotifier *>,std::hash<OpaqueEventNotifier *>,true>,std::allocator<std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>>>::find<OpaqueEventNotifier *>(v3, &v10);
-    if (v6)
+    v4 = NodeChangeNotifierRegistry(a2, a3);
+    v6 = v5;
+    std::mutex::lock(v5);
+    v7 = std::__hash_table<std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::__unordered_map_hasher<OpaqueEventNotifier *,std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::hash<OpaqueEventNotifier *>,std::equal_to<OpaqueEventNotifier *>,true>,std::__unordered_map_equal<OpaqueEventNotifier *,std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>,std::equal_to<OpaqueEventNotifier *>,std::hash<OpaqueEventNotifier *>,true>,std::allocator<std::__hash_value_type<OpaqueEventNotifier *,std::shared_ptr<TClientChangeNotifier>>>>::find<OpaqueEventNotifier *>(v4, &v10);
+    if (v7)
     {
-      v7 = v6[4];
-      *a2 = v6[3];
-      a2[1] = v7;
-      if (v7)
+      v8 = v7[4];
+      *a1 = v7[3];
+      a1[1] = v8;
+      if (v8)
       {
-        atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
       }
     }
 
     else
     {
-      v8 = LogObj(5);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = LogObj(5);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 134349056;
         v12 = v10;
-        _os_log_impl(&dword_1E5674000, v8, OS_LOG_TYPE_ERROR, "Requested client notifier for node notifier not being tracked: %{public}p", buf, 0xCu);
+        _os_log_impl(&dword_1E5674000, v9, OS_LOG_TYPE_ERROR, "Requested client notifier for node notifier not being tracked: %{public}p", buf, 0xCu);
       }
 
-      *a2 = 0;
-      a2[1] = 0;
+      *a1 = 0;
+      a1[1] = 0;
     }
 
-    std::mutex::unlock(v5);
+    std::mutex::unlock(v6);
   }
 
   else
   {
-    *a2 = 0;
-    a2[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void TNode::FindRegistration(TNode *a1@<X0>, uint64_t a2@<X1>, FINode **a3@<X2>, TDSNotifier **a4@<X8>)
@@ -9018,7 +8883,8 @@ LABEL_17:
         break;
       }
 
-      if (++v13 == v17)
+      v13 += 8;
+      if (v13 == v17)
       {
         goto LABEL_12;
       }
@@ -9043,7 +8909,7 @@ void sub_1E56969D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void TNotifierList::Notifiers(TNotifierList *this@<X0>, void *a2@<X8>)
+void TNotifierList::Notifiers(TNotifierList *this@<X0>, uint64_t *a2@<X8>)
 {
   os_unfair_lock_lock(this + 16);
   *a2 = 0;
@@ -9132,7 +8998,7 @@ void sub_1E5696BD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>>::__init_with_size[abi:ne200100]<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>*,TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>>::__init_with_size[abi:ne200100]<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>*,TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9182,51 +9048,43 @@ void *std::__hash_table<std::__hash_value_type<OpaqueEventNotifier *,std::shared
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void std::vector<TRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -9238,12 +9096,12 @@ void std::vector<TRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>>::__val
 
 void TDSNotifier::Register(TDSNotifier *a1, FINode **a2, FINode **a3, uint64_t a4)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   TDSNotifier::GetRegistrationLock(a1);
   std::recursive_mutex::lock(&TDSNotifier::GetRegistrationLock(void)::gRegistrationLock);
   v8 = TNodeFromFINode(*a2);
-  TNode::FindRegistration(v8, a1, a3, &v61);
-  if (!v61)
+  TNode::FindRegistration(v8, a1, a3, &v59);
+  if (!v59)
   {
     operator new();
   }
@@ -9300,8 +9158,8 @@ void TDSNotifier::Register(TDSNotifier *a1, FINode **a2, FINode **a3, uint64_t a
 
   if ((v17 & 0x20) != 0 || (v18 = TNodeFromFINode(*a2), TNode::AliasIsContainer(v18)))
   {
-    v19 = atomic_load(v61 + 11);
-    atomic_fetch_add(v61 + 11, 1u);
+    v19 = atomic_load(v59 + 11);
+    atomic_fetch_add(v59 + 11, 1u);
     v20 = TNodeFromFINode(*a2);
     NotifierList = TNode::GetNotifierList(v20);
     add = atomic_fetch_add(NotifierList, 1u);
@@ -9333,15 +9191,15 @@ void TDSNotifier::Register(TDSNotifier *a1, FINode **a2, FINode **a3, uint64_t a
           if (TNode::IsInitialPopulating(v27))
           {
             TNodeFromFINode(*a2);
-            TNodeEvent::Notify(9, a2, 0);
+            TNodeEvent::Notify(9, a2);
             TNodeEvent::CreateNodeEvent(9, a2, 0, &buf);
             v28 = TNodeEventPtr::operator->(&buf);
-            TNodeEvent::Notify(v28, &v61, 1);
+            TNodeEvent::Notify(v28, &v59, 1);
             TNodeEventPtr::~TNodeEventPtr(&buf);
           }
         }
 
-        *(v61 + 8) = a4;
+        *(v59 + 8) = a4;
         TReferenceCounted::Make<TDSNotifier *>();
       }
     }
@@ -9371,7 +9229,7 @@ LABEL_30:
 
     if ((v33 & 0x20) != 0 || (v34 = TNodeFromFINode(*a2), TNode::AliasIsContainer(v34)))
     {
-      ++*(v61 + 12);
+      ++*(v59 + 12);
       v35 = TNodeFromFINode(*a2);
       v36 = atomic_fetch_add((TNode::GetNotifierList(v35) + 4), 1u);
       if ((v36 & 0x80000000) != 0)
@@ -9388,15 +9246,15 @@ LABEL_30:
       else if (!v36)
       {
         v37 = TNodeFromFINode(*a2);
-        Path = TNode::GetPath(&buf, v37, 1, 1);
+        Path = TNode::GetPath(v37, 1, &buf);
         v39 = TString::KEmptyString(Path);
-        v59.fString.fRef = &stru_1F5F42870;
+        v57.fString.fRef = &stru_1F5F42870;
         CFRetain(&stru_1F5F42870);
-        TString::SetStringRefAsImmutable(&v59, *v39);
-        fstd::optional_err<TString,int>::value_or<TString>(&buf, &v59.fString.fRef, &v60);
-        TSystemNotificationTask::StartObservingDirectory(&v60, 1);
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v60.fString.fRef);
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v59.fString.fRef);
+        TString::SetStringRefAsImmutable(&v57, *v39);
+        fstd::optional_err<TString,int>::value_or<TString>(&v58, &buf, &v57.fString.fRef);
+        TSystemNotificationTask::StartObservingDirectory(&v58, 1);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v58.fString.fRef);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v57.fString.fRef);
         TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&buf);
       }
     }
@@ -9440,42 +9298,41 @@ LABEL_30:
         }
       }
 
-      ++*(v61 + 13);
+      ++*(v59 + 13);
       if (!v48)
       {
         v52 = TNodeFromFINode(*a2);
-        TNodeEvent::Notify(v52, 1, v53);
+        TNodeEvent::Notify(v52, 1);
       }
     }
   }
 
   if ((a4 & 0x10) != 0)
   {
-    ++*(v61 + 14);
-    v54 = TNodeFromFINode(*a2);
-    v55 = atomic_fetch_add((TNode::GetNotifierList(v54) + 12), 1u);
-    if ((v55 & 0x80000000) != 0)
+    ++*(v59 + 14);
+    v53 = TNodeFromFINode(*a2);
+    v54 = atomic_fetch_add((TNode::GetNotifierList(v53) + 12), 1u);
+    if ((v54 & 0x80000000) != 0)
     {
-      v57 = LogObj(4);
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v56 = LogObj(4);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
         buf.fData.__impl_.__data.__tail.__tail.__tail.__tail.__head.__value = 67109120;
-        buf.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__head.__value.length = v55 + 1;
-        _os_log_impl(&dword_1E5674000, v57, OS_LOG_TYPE_ERROR, "Incorrect ubiquityRegistrations when incrementing: %d", &buf, 8u);
+        buf.fData.__impl_.__data.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__tail.__head.__value.length = v54 + 1;
+        _os_log_impl(&dword_1E5674000, v56, OS_LOG_TYPE_ERROR, "Incorrect ubiquityRegistrations when incrementing: %d", &buf, 8u);
       }
     }
 
-    else if (!v55)
+    else if (!v54)
     {
-      v56 = TNodeFromFINode(*a2);
-      TNode::SetShouldSyncUbiquityAttributes(v56, 1);
+      v55 = TNodeFromFINode(*a2);
+      TNode::SetShouldSyncUbiquityAttributes(v55, 1);
     }
   }
 
-  atomic_fetch_add(v61 + 10, TDSNotifier::CountForOptions(a4));
-  TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v61);
-  StRegistrationLock::~StRegistrationLock(&v62);
-  v58 = *MEMORY[0x1E69E9840];
+  atomic_fetch_add(v59 + 10, TDSNotifier::CountForOptions(a4));
+  TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v59);
+  StRegistrationLock::~StRegistrationLock(&v60);
 }
 
 void sub_1E5697508(_Unwind_Exception *a1, char a2, int a3, __int16 a4, char a5, char a6, int a7, int a8, __int16 a9, char a10, char a11, TPropertyValue *a12, TDSNotifier *a13, int a14, __int16 a15, char a16, char a17)
@@ -9627,9 +9484,9 @@ void sub_1E569790C(_Unwind_Exception *a1)
 
 uint64_t TNode::DoExternalRegistration(uint64_t a1, TDSNotifier **a2, int a3)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v4 = *a2;
-  v61 = v4;
+  v60 = v4;
   if (!v4)
   {
     v19 = 0;
@@ -9676,7 +9533,7 @@ LABEL_11:
 
     if (a3)
     {
-      *&buf = v61[3];
+      *&buf = v60[3];
       TProgressMap::AddSubscriberForExternalProgress(&buf, v21);
     }
 
@@ -9750,10 +9607,10 @@ LABEL_6:
       v31 = TNode::FPItemsCollection(a1, v30);
 
       v32 = *(a1 + 56);
-      TNodePtr::TNodePtr(&v58, a1);
-      TNode::GetVolumeInfo(a1, &buf);
+      TNodePtr::TNodePtr(&v57, a1);
+      TNode::GetVolumeInfo(&buf, a1);
       v33 = TFSVolumeInfo::GetSynchingGCDQueue(buf);
-      TChildrenList::StartCollectionStatusObserver(v32, v31, &v58, v33, 0);
+      TChildrenList::StartCollectionStatusObserver(v32, v31, &v57, v33, 0);
 
       if (*(&buf + 1))
       {
@@ -9766,55 +9623,55 @@ LABEL_6:
 
   if ((v10 & 0xFE) != 0x18)
   {
-    v60 = 0;
+    v59 = 0;
     IsNetworkNode = TNode::IsNetworkNode(a1, 0x6E74776B);
     if (IsNetworkNode || (IsNetworkNode = TNode::IsNetworkNode(a1, 0x6E747362)) || (IsNetworkNode = TNode::IsNetworkNode(a1, 0x6D74726D)))
     {
-      v43 = TNode::InfoLock(IsNetworkNode);
-      os_unfair_lock_lock(v43);
-      v45 = *(a1 + 16);
-      v44 = *(a1 + 24);
-      if (v44)
+      v42 = TNode::InfoLock(IsNetworkNode);
+      os_unfair_lock_lock(v42);
+      v44 = *(a1 + 16);
+      v43 = *(a1 + 24);
+      if (v43)
       {
-        atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      os_unfair_lock_unlock(v43);
-      v46 = TFSInfo::CopySFBrowserRef(v45);
-      v60 = v46;
-      if (v44)
+      os_unfair_lock_unlock(v42);
+      v45 = TFSInfo::CopySFBrowserRef(v44);
+      v59 = v45;
+      if (v43)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v43);
       }
 
-      if (v46)
+      if (v45)
       {
         RootNode = SFBrowserGetRootNode();
         os_unfair_lock_lock(v8);
-        v48 = *(v8 + 5);
+        v47 = *(v8 + 5);
         os_unfair_lock_unlock(v8);
-        if ((v48 & 1) == 0)
+        if ((v47 & 1) == 0)
         {
-          LOBYTE(v58.fFINode) = 0;
+          LOBYTE(v57.fFINode) = 0;
           atomic_fetch_and((a1 + 88), 0xFFF7u);
           atomic_fetch_and((a1 + 88), 0xFFEFu);
-          TNode::HandleSyncStarted(a1, 276824064, &v58);
-          v57 = 0;
-          v49 = TFSInfo::BrowserOpenNode(v60, RootNode, 0, 0, &v57);
-          if (LOBYTE(v58.fFINode) == 1)
+          TNode::HandleSyncStarted(a1, 276824064, &v57);
+          v56 = 0;
+          v48 = TFSInfo::BrowserOpenNode(v59, RootNode, 0, 0, &v56);
+          if (LOBYTE(v57.fFINode) == 1)
           {
             atomic_fetch_or((a1 + 88), 0x20u);
-            if (v57)
+            if (v56)
             {
-              v50 = dispatch_time(0, 3000000000);
-              v51 = dispatch_get_global_queue(0, 0);
-              v55[0] = MEMORY[0x1E69E9820];
-              v55[1] = 3321888768;
-              v55[2] = ___ZN5TNode22DoExternalRegistrationERK4TRefIP11TDSNotifier20TRetainReleasePolicyIS2_EEb_block_invoke;
-              v55[3] = &__block_descriptor_40_ea8_32c94_ZTSKZN5TNode22DoExternalRegistrationERK4TRefIP11TDSNotifier20TRetainReleasePolicyIS2_EEbE3__0_e5_v8__0l;
+              v49 = dispatch_time(0, 3000000000);
+              v50 = dispatch_get_global_queue(0, 0);
+              v54[0] = MEMORY[0x1E69E9820];
+              v54[1] = 3321888768;
+              v54[2] = ___ZN5TNode22DoExternalRegistrationERK4TRefIP11TDSNotifier20TRetainReleasePolicyIS2_EEb_block_invoke;
+              v54[3] = &__block_descriptor_40_ea8_32c94_ZTSKZN5TNode22DoExternalRegistrationERK4TRefIP11TDSNotifier20TRetainReleasePolicyIS2_EEbE3__0_e5_v8__0l;
               TNodePtr::TNodePtr(&buf, a1);
-              v56 = buf;
-              dispatch_after(v50, v51, v55);
+              v55 = buf;
+              dispatch_after(v49, v50, v54);
             }
 
             else if ((atomic_fetch_and((a1 + 88), 0xFFDFu) & 0x20) != 0)
@@ -9823,31 +9680,31 @@ LABEL_6:
             }
           }
 
-          if (v49)
+          if (v48)
           {
             v19 = 4294959241;
 LABEL_72:
-            TAutoRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>::~TAutoRef(&v60);
+            TAutoRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>::~TAutoRef(&v59);
             goto LABEL_37;
           }
 
           os_unfair_lock_lock(v8);
           *(v8 + 5) = 1;
           os_unfair_lock_unlock(v8);
-          v54 = TNode::VirtualType(a1);
+          v53 = TNode::VirtualType(a1);
           TNodePtr::TNodePtr(&buf, a1);
-          TNode::AddNWNode(v54, RootNode, &buf);
+          TNode::AddNWNode(v53, RootNode, &buf);
         }
       }
     }
 
     else
     {
-      TNode::GetFSInfo(a1, &buf);
-      TNode::GetFSInfo(a1, &v58);
-      if (v59)
+      TNode::GetFSInfo(&buf, a1);
+      TNode::GetFSInfo(&v57, a1);
+      if (v58)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v59);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v58);
       }
 
       if (*(&buf + 1))
@@ -9880,7 +9737,7 @@ LABEL_36:
       }
 
       LOWORD(buf) = 0;
-      v52 = "No domain id found for enterprise iCloud libraries collection";
+      v51 = "No domain id found for enterprise iCloud libraries collection";
     }
 
     else
@@ -9892,10 +9749,10 @@ LABEL_36:
       }
 
       LOWORD(buf) = 0;
-      v52 = "No domain id found for iCloud libraries collection";
+      v51 = "No domain id found for iCloud libraries collection";
     }
 
-    _os_log_impl(&dword_1E5674000, v37, OS_LOG_TYPE_ERROR, v52, &buf, 2u);
+    _os_log_impl(&dword_1E5674000, v37, OS_LOG_TYPE_ERROR, v51, &buf, 2u);
     goto LABEL_76;
   }
 
@@ -9906,10 +9763,10 @@ LABEL_36:
   if (v37)
   {
     v38 = *(a1 + 56);
-    TNodePtr::TNodePtr(&v58, a1);
-    TNode::GetVolumeInfo(a1, &buf);
+    TNodePtr::TNodePtr(&v57, a1);
+    TNode::GetVolumeInfo(&buf, a1);
     v39 = TFSVolumeInfo::GetSynchingGCDQueue(buf);
-    TChildrenList::StartCollectionStatusObserver(v38, v37, &v58, v39, 0);
+    TChildrenList::StartCollectionStatusObserver(v38, v37, &v57, v39, 0);
 
     if (*(&buf + 1))
     {
@@ -9922,23 +9779,23 @@ LABEL_36:
 
   if (v10 == 25)
   {
-    v53 = LogObj(3);
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v52 = LogObj(3);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v35;
-      _os_log_impl(&dword_1E5674000, v53, OS_LOG_TYPE_ERROR, "No app libraries collection found skipping start observing accountID='%@'", &buf, 0xCu);
+      _os_log_impl(&dword_1E5674000, v52, OS_LOG_TYPE_ERROR, "No app libraries collection found skipping start observing accountID='%@'", &buf, 0xCu);
     }
   }
 
   else
   {
-    v53 = LogObj(4);
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v52 = LogObj(4);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v35;
-      _os_log_impl(&dword_1E5674000, v53, OS_LOG_TYPE_ERROR, "No app libraries collection found skipping start observing accountID='%@'", &buf, 0xCu);
+      _os_log_impl(&dword_1E5674000, v52, OS_LOG_TYPE_ERROR, "No app libraries collection found skipping start observing accountID='%@'", &buf, 0xCu);
     }
   }
 
@@ -9953,7 +9810,6 @@ LABEL_37:
   }
 
 LABEL_39:
-  TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v61);
-  v40 = *MEMORY[0x1E69E9840];
+  TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(&v60);
   return v19;
 }

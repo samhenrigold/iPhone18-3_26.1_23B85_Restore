@@ -14,12 +14,12 @@
 
 - (CMIOExtensionProxyContext)initWithConnection:(id)connection serverConnection:(id)serverConnection queue:(id)queue delegate:(id)delegate
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (connection && serverConnection)
   {
-    v29.receiver = self;
-    v29.super_class = CMIOExtensionProxyContext;
-    v10 = [(CMIOExtensionProxyContext *)&v29 init];
+    v30.receiver = self;
+    v30.super_class = CMIOExtensionProxyContext;
+    v10 = [(CMIOExtensionProxyContext *)&v30 init];
     v11 = v10;
     if (v10)
     {
@@ -48,18 +48,18 @@
       handler[1] = 3221225472;
       handler[2] = __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke;
       handler[3] = &unk_27885C1C0;
-      objc_copyWeak(&v27, &location);
+      objc_copyWeak(&v28, &location);
       handler[4] = serverConnection;
       xpc_connection_set_event_handler(serverConnection, handler);
       xpc_connection_set_target_queue(serverConnection, v11->_queue);
       xpc_connection_activate(serverConnection);
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke_22;
-      v24[3] = &unk_27885C1C0;
-      objc_copyWeak(&v25, &location);
-      v24[4] = connection;
-      xpc_connection_set_event_handler(connection, v24);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke_22;
+      v25[3] = &unk_27885C1C0;
+      objc_copyWeak(&v26, &location);
+      v25[4] = connection;
+      xpc_connection_set_event_handler(connection, v25);
       xpc_connection_set_target_queue(connection, v11->_queue);
       xpc_connection_activate(connection);
       xpc_connection_get_audit_token();
@@ -73,25 +73,25 @@
       v11->_activeStreams = 0;
       v11->_description = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<CMIOExtensionProxyContext: pid %u, ID %@, delegate %@>", pid, uUID, delegate];
       v11->_redactedDescription = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<CMIOExtensionProxyContext: pid -, ID ->"];
-      [(CMIOExtensionProxyContext *)v11 sendClientInfo];
-      v19 = CMIOLog();
-      v20 = v19;
-      if (v19 && os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      sendClientInfo = [(CMIOExtensionProxyContext *)v11 sendClientInfo];
+      v21 = CMIOLog(sendClientInfo, v20);
+      v22 = v21;
+      if (v21 && os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
+        v23 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
         *buf = 136315907;
-        *&buf[4] = v21;
+        *&buf[4] = v23;
         *&buf[12] = 1024;
         *&buf[14] = 265;
         *&buf[18] = 2080;
         *&buf[20] = "[CMIOExtensionProxyContext initWithConnection:serverConnection:queue:delegate:]";
         *&buf[28] = 2113;
         *&buf[30] = v11;
-        _os_log_impl(&dword_22EA08000, v20, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@", buf, 0x26u);
+        _os_log_impl(&dword_22EA08000, v22, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@", buf, 0x26u);
       }
 
-      objc_destroyWeak(&v25);
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(&location);
     }
   }
@@ -100,24 +100,27 @@
   {
 
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"Invalid argument"];
-    v11 = 0;
+    return 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = MEMORY[0x2318F1BC0](a2);
   if (v5 == MEMORY[0x277D86480])
   {
-    v6 = CMIOLog();
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CMIOLog(v5, v6);
+    if (v7)
     {
-      __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke_cold_1(a1);
+      v7 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+      if (v7)
+      {
+        __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke_cold_1(a1);
+      }
     }
 
     if (a2 == MEMORY[0x277D863F0])
@@ -127,21 +130,21 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
 
     else if (a2 == MEMORY[0x277D863F8] && WeakRetained && (*(WeakRetained + 49) & 1) == 0)
     {
-      v7 = CMIOLog();
-      if (v7)
+      v9 = CMIOLog(v7, v8);
+      if (v9)
       {
-        v8 = v7;
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v10 = v9;
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 136315907;
-          v11 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
-          v12 = 1024;
-          v13 = 210;
-          v14 = 2080;
-          v15 = "[CMIOExtensionProxyContext initWithConnection:serverConnection:queue:delegate:]_block_invoke";
-          v16 = 2113;
-          v17 = WeakRetained;
-          _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@, serverConnection is invalidated", &v10, 0x26u);
+          v11 = 136315907;
+          v12 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
+          v13 = 1024;
+          v14 = 210;
+          v15 = 2080;
+          v16 = "[CMIOExtensionProxyContext initWithConnection:serverConnection:queue:delegate:]_block_invoke";
+          v17 = 2113;
+          v18 = WeakRetained;
+          _os_log_impl(&dword_22EA08000, v10, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@, serverConnection is invalidated", &v11, 0x26u);
         }
       }
 
@@ -154,21 +157,23 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
   {
     [WeakRetained handleServerMessageWithConnection:*(a1 + 32) message:a2];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke_22(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = MEMORY[0x2318F1BC0](a2);
   if (v5 == MEMORY[0x277D86480])
   {
-    v6 = CMIOLog();
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CMIOLog(v5, v6);
+    if (v7)
     {
-      __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke_22_cold_1(a1);
+      v7 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+      if (v7)
+      {
+        __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke_22_cold_1(a1);
+      }
     }
 
     if (a2 == MEMORY[0x277D863F0])
@@ -178,21 +183,21 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
 
     else if (a2 == MEMORY[0x277D863F8] && WeakRetained && (*(WeakRetained + 49) & 1) == 0)
     {
-      v7 = CMIOLog();
-      if (v7)
+      v9 = CMIOLog(v7, v8);
+      if (v9)
       {
-        v8 = v7;
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v10 = v9;
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 136315907;
-          v11 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
-          v12 = 1024;
-          v13 = 237;
-          v14 = 2080;
-          v15 = "[CMIOExtensionProxyContext initWithConnection:serverConnection:queue:delegate:]_block_invoke";
-          v16 = 2113;
-          v17 = WeakRetained;
-          _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@, connection is invalidated", &v10, 0x26u);
+          v11 = 136315907;
+          v12 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
+          v13 = 1024;
+          v14 = 237;
+          v15 = 2080;
+          v16 = "[CMIOExtensionProxyContext initWithConnection:serverConnection:queue:delegate:]_block_invoke";
+          v17 = 2113;
+          v18 = WeakRetained;
+          _os_log_impl(&dword_22EA08000, v10, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@, connection is invalidated", &v11, 0x26u);
         }
       }
 
@@ -205,47 +210,45 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
   {
     [WeakRetained handleClientMessageWithConnection:*(a1 + 32) message:a2];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v3 = CMIOLog();
+  v24 = *MEMORY[0x277D85DE8];
+  v3 = CMIOLog(self, a2);
   if (v3)
   {
     v4 = v3;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315907;
-      v18 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
-      v19 = 1024;
-      v20 = 272;
-      v21 = 2080;
-      v22 = "[CMIOExtensionProxyContext dealloc]";
-      v23 = 2113;
+      v17 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
+      v18 = 1024;
+      v19 = 272;
+      v20 = 2080;
+      v21 = "[CMIOExtensionProxyContext dealloc]";
+      v22 = 2113;
       selfCopy = self;
       _os_log_impl(&dword_22EA08000, v4, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@", buf, 0x26u);
     }
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = [-[CMIOExtensionClient stCameraCaptureAttributionsMap](self->_clientInfo "stCameraCaptureAttributionsMap")];
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
@@ -254,7 +257,7 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -267,10 +270,9 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
     self->_activeStreams = 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = CMIOExtensionProxyContext;
-  [(CMIOExtensionProxyContext *)&v11 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = CMIOExtensionProxyContext;
+  [(CMIOExtensionProxyContext *)&v10 dealloc];
 }
 
 - (id)description
@@ -289,20 +291,20 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
 
 - (void)invalidate
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v3 = CMIOLog();
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = CMIOLog(self, a2);
   if (v3)
   {
     v4 = v3;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 136315907;
-      v19 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
-      v20 = 1024;
-      v21 = 310;
-      v22 = 2080;
-      v23 = "[CMIOExtensionProxyContext invalidate]";
-      v24 = 2113;
+      v18 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
+      v19 = 1024;
+      v20 = 310;
+      v21 = 2080;
+      v22 = "[CMIOExtensionProxyContext invalidate]";
+      v23 = 2113;
       selfCopy = self;
       _os_log_impl(&dword_22EA08000, v4, OS_LOG_TYPE_INFO, "%s:%d:%s %{private}@", buf, 0x26u);
     }
@@ -318,22 +320,22 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
   {
     self->_invalidated = 1;
     os_unfair_lock_unlock(&self->_lock);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     stCameraCaptureAttributionsMap = [-[CMIOExtensionClient stCameraCaptureAttributionsMap](self->_clientInfo stCameraCaptureAttributionsMap];
-    v6 = [stCameraCaptureAttributionsMap countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [stCameraCaptureAttributionsMap countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(stCameraCaptureAttributionsMap);
           }
@@ -342,7 +344,7 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
         }
 
         while (v7 != v9);
-        v7 = [stCameraCaptureAttributionsMap countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [stCameraCaptureAttributionsMap countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -370,19 +372,15 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
 
     self->_transaction = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendClientInfo
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke(uint64_t a1, void *a2)
@@ -392,8 +390,8 @@ void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke(uint64_t a1, v
     v3 = MEMORY[0x2318F1BC0](a2);
     if (v3 == MEMORY[0x277D86480])
     {
-      v5 = CMIOLog();
-      if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = CMIOLog(v3, v4);
+      if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke_cold_3();
       }
@@ -401,12 +399,13 @@ void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke(uint64_t a1, v
 
     else if (v3 == MEMORY[0x277D86468])
     {
-      if (xpc_dictionary_get_int64(a2, "errorReturn"))
+      int64 = xpc_dictionary_get_int64(a2, "errorReturn");
+      if (int64)
       {
-        v6 = CMIOLog();
-        if (v6)
+        v9 = CMIOLog(int64, v8);
+        if (v9)
         {
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke_cold_2();
           }
@@ -416,10 +415,10 @@ void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke(uint64_t a1, v
 
     else
     {
-      v4 = CMIOLog();
-      if (v4)
+      v5 = CMIOLog(v3, v4);
+      if (v5)
       {
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke_cold_1();
         }
@@ -430,16 +429,17 @@ void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke(uint64_t a1, v
 
 - (void)receivedSample:(id)sample message:(id)message
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   cf = 0;
-  cmio_XPCMessageCopyCFString(message, "param1", &cf);
+  v6 = cmio_XPCMessageCopyCFString(message, "param1", &cf);
   if (cf)
   {
     int64 = xpc_dictionary_get_int64(message, "param2");
-    if (!xpc_dictionary_get_value(message, "param3"))
+    value = xpc_dictionary_get_value(message, "param3");
+    if (!value)
     {
-      v10 = CMIOLog();
-      if (v10 && os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = CMIOLog(0, v10);
+      if (v14 && os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionProxyContext receivedSample:message:];
       }
@@ -449,10 +449,11 @@ void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke(uint64_t a1, v
 
     if (int64 == 1836415096)
     {
-      v13 = [(CMIOExtensionClient *)self->_clientInfo microphoneAuthorizationStatus]== 3 && [(CMIOExtensionClient *)self->_clientInfo cameraAuthorizationStatus]== 3;
-      v8 = [(CMIOExtensionClient *)self->_clientInfo microphoneAuthorizationStatus]== 0;
-      v12 = [(CMIOExtensionClient *)self->_clientInfo cameraAuthorizationStatus]== 0;
-      if (!v13)
+      v17 = [(CMIOExtensionClient *)self->_clientInfo microphoneAuthorizationStatus]== 3 && [(CMIOExtensionClient *)self->_clientInfo cameraAuthorizationStatus]== 3;
+      v12 = [(CMIOExtensionClient *)self->_clientInfo microphoneAuthorizationStatus]== 0;
+      value = [(CMIOExtensionClient *)self->_clientInfo cameraAuthorizationStatus];
+      v16 = value == 0;
+      if (!v17)
       {
         goto LABEL_25;
       }
@@ -465,66 +466,67 @@ void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke(uint64_t a1, v
         if (int64 == 1936684398)
         {
           microphoneAuthorizationStatus = [(CMIOExtensionClient *)self->_clientInfo microphoneAuthorizationStatus];
-          v8 = [(CMIOExtensionClient *)self->_clientInfo microphoneAuthorizationStatus]== 0;
+          value = [(CMIOExtensionClient *)self->_clientInfo microphoneAuthorizationStatus];
+          v12 = value == 0;
           if (microphoneAuthorizationStatus == 3)
           {
 LABEL_24:
-            v14 = xpc_dictionary_create(0, 0, 0);
+            v18 = xpc_dictionary_create(0, 0, 0);
             applier[0] = MEMORY[0x277D85DD0];
             applier[1] = 3221225472;
             applier[2] = __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke;
             applier[3] = &unk_27885BF98;
-            applier[4] = v14;
+            applier[4] = v18;
             xpc_dictionary_apply(message, applier);
-            xpc_connection_send_message(self->_connection, v14);
-            xpc_release(v14);
+            xpc_connection_send_message(self->_connection, v18);
+            xpc_release(v18);
 LABEL_39:
             CFRelease(cf);
-            goto LABEL_40;
+            return;
           }
         }
 
         else
         {
-          v8 = 0;
+          v12 = 0;
         }
 
-        v12 = 0;
+        v16 = 0;
 LABEL_25:
-        v15 = CMIOLog();
-        if (v15)
+        v19 = CMIOLog(value, v10);
+        if (v19)
         {
-          v16 = v15;
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v20 = v19;
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v17 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
+            v21 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
             *buf = 136315650;
-            v26 = v17;
-            v27 = 1024;
-            v28 = 423;
-            v29 = 2080;
-            v30 = "[CMIOExtensionProxyContext receivedSample:message:]";
-            _os_log_impl(&dword_22EA08000, v16, OS_LOG_TYPE_DEFAULT, "%s:%d:%s Not authorized", buf, 0x1Cu);
+            v29 = v21;
+            v30 = 1024;
+            v31 = 423;
+            v32 = 2080;
+            v33 = "[CMIOExtensionProxyContext receivedSample:message:]";
+            _os_log_impl(&dword_22EA08000, v20, OS_LOG_TYPE_DEFAULT, "%s:%d:%s Not authorized", buf, 0x1Cu);
           }
         }
 
-        v18 = objc_autoreleasePoolPush();
-        v19 = [MEMORY[0x277CCACA8] stringWithString:cf];
+        v22 = objc_autoreleasePoolPush();
+        v23 = [MEMORY[0x277CCACA8] stringWithString:cf];
         if (int64 != 1836415096)
         {
           if (int64 == 1986618469)
           {
 LABEL_35:
-            if (![(CMIOExtensionClient *)self->_clientInfo hasPendingCameraAuthorizationRequest]&& v12)
+            if (![(CMIOExtensionClient *)self->_clientInfo hasPendingCameraAuthorizationRequest]&& v16)
             {
               clientInfo = self->_clientInfo;
-              v22[0] = MEMORY[0x277D85DD0];
-              v22[1] = 3221225472;
-              v22[2] = __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke_45;
-              v22[3] = &unk_27885C228;
-              v22[4] = self;
-              v22[5] = v19;
-              [(CMIOExtensionClient *)clientInfo requestAccessForMediaType:1986618469 reply:v22];
+              v25[0] = MEMORY[0x277D85DD0];
+              v25[1] = 3221225472;
+              v25[2] = __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke_45;
+              v25[3] = &unk_27885C228;
+              v25[4] = self;
+              v25[5] = v23;
+              [(CMIOExtensionClient *)clientInfo requestAccessForMediaType:1986618469 reply:v25];
             }
 
             goto LABEL_38;
@@ -533,12 +535,12 @@ LABEL_35:
           if (int64 != 1936684398)
           {
 LABEL_38:
-            objc_autoreleasePoolPop(v18);
+            objc_autoreleasePoolPop(v22);
             goto LABEL_39;
           }
         }
 
-        if (![(CMIOExtensionClient *)self->_clientInfo hasPendingMicrophoneAuthorizationRequest]&& v8)
+        if (![(CMIOExtensionClient *)self->_clientInfo hasPendingMicrophoneAuthorizationRequest]&& v12)
         {
           [(CMIOExtensionClient *)self->_clientInfo requestAccessForMediaType:1936684398 reply:&__block_literal_global_44];
         }
@@ -552,10 +554,11 @@ LABEL_38:
       }
 
       cameraAuthorizationStatus = [(CMIOExtensionClient *)self->_clientInfo cameraAuthorizationStatus];
-      v12 = [(CMIOExtensionClient *)self->_clientInfo cameraAuthorizationStatus]== 0;
+      value = [(CMIOExtensionClient *)self->_clientInfo cameraAuthorizationStatus];
+      v16 = value == 0;
       if (cameraAuthorizationStatus != 3)
       {
-        v8 = 0;
+        v12 = 0;
         goto LABEL_25;
       }
     }
@@ -568,27 +571,24 @@ LABEL_38:
     goto LABEL_24;
   }
 
-  v9 = CMIOLog();
-  if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v13 = CMIOLog(v6, v7);
+  if (v13 && os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionProxyContext receivedSample:message:];
   }
-
-LABEL_40:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke_41(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = CMIOLog();
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = CMIOLog(a1, a2);
   if (v3)
   {
     v4 = v3;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315906;
-      v8 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
+      v6 = 136315906;
+      v7 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
       if (a2 == 3)
       {
         v5 = 89;
@@ -599,30 +599,28 @@ void __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke_41(ui
         v5 = 78;
       }
 
-      v9 = 1024;
-      v10 = 429;
-      v11 = 2080;
-      v12 = "[CMIOExtensionProxyContext receivedSample:message:]_block_invoke";
-      v13 = 1024;
-      v14 = v5;
-      _os_log_impl(&dword_22EA08000, v4, OS_LOG_TYPE_DEFAULT, "%s:%d:%s Authorized microphone %c", &v7, 0x22u);
+      v8 = 1024;
+      v9 = 429;
+      v10 = 2080;
+      v11 = "[CMIOExtensionProxyContext receivedSample:message:]_block_invoke";
+      v12 = 1024;
+      v13 = v5;
+      _os_log_impl(&dword_22EA08000, v4, OS_LOG_TYPE_DEFAULT, "%s:%d:%s Authorized microphone %c", &v6, 0x22u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke_45(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v4 = CMIOLog();
+  v16 = *MEMORY[0x277D85DE8];
+  v4 = CMIOLog(a1, a2);
   if (v4)
   {
     v5 = v4;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315906;
-      v10 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
+      v8 = 136315906;
+      v9 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
       if (a2 == 3)
       {
         v6 = 89;
@@ -633,13 +631,13 @@ void __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke_45(ui
         v6 = 78;
       }
 
-      v11 = 1024;
-      v12 = 437;
-      v13 = 2080;
-      v14 = "[CMIOExtensionProxyContext receivedSample:message:]_block_invoke";
-      v15 = 1024;
-      v16 = v6;
-      _os_log_impl(&dword_22EA08000, v5, OS_LOG_TYPE_DEFAULT, "%s:%d:%s Authorized camera %c", &v9, 0x22u);
+      v10 = 1024;
+      v11 = 437;
+      v12 = 2080;
+      v13 = "[CMIOExtensionProxyContext receivedSample:message:]_block_invoke";
+      v14 = 1024;
+      v15 = v6;
+      _os_log_impl(&dword_22EA08000, v5, OS_LOG_TYPE_DEFAULT, "%s:%d:%s Authorized camera %c", &v8, 0x22u);
     }
   }
 
@@ -651,14 +649,13 @@ void __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke_45(ui
       [v7 _addCameraAttribution:*(a1 + 40)];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleClientMessageWithConnection:(id)connection message:(id)message
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   uint64 = xpc_dictionary_get_uint64(message, "MessageType");
+  v9 = uint64;
   if (CMIOModuleLogLevel_once_0 != -1)
   {
     [CMIOExtensionProxyContext sendClientInfo];
@@ -666,52 +663,56 @@ void __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke_45(ui
 
   if (CMIOModuleLogLevel_cmioLevel_0 >= 1)
   {
-    v8 = CMIOLog();
-    if (v8)
+    uint64 = CMIOLog(uint64, v8);
+    if (uint64)
     {
-      v9 = v8;
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = uint64;
+      uint64 = os_log_type_enabled(uint64, OS_LOG_TYPE_DEFAULT);
+      if (uint64)
       {
         *buf = 136316163;
         *&buf[4] = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
-        v34 = 1024;
-        v35 = 457;
-        v36 = 2080;
-        v37 = "[CMIOExtensionProxyContext handleClientMessageWithConnection:message:]";
-        v38 = 2113;
+        v41 = 1024;
+        v42 = 457;
+        v43 = 2080;
+        v44 = "[CMIOExtensionProxyContext handleClientMessageWithConnection:message:]";
+        v45 = 2113;
         selfCopy = self;
-        v40 = 2048;
-        v41 = uint64;
-        _os_log_impl(&dword_22EA08000, v9, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@ %lld", buf, 0x30u);
+        v47 = 2048;
+        v48 = v9;
+        _os_log_impl(&dword_22EA08000, v10, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@ %lld", buf, 0x30u);
       }
     }
   }
 
-  if (uint64 <= 19)
+  if (v9 <= 19)
   {
-    if ((uint64 - 1) >= 4 && (uint64 - 10) >= 4)
+    if ((v9 - 1) >= 4 && (v9 - 10) >= 4)
     {
-      if (uint64 == 5)
+      if (v9 == 5)
       {
         reply = xpc_dictionary_create_reply(message);
         if (reply)
         {
-          v11 = reply;
+          v13 = reply;
           xpc_dictionary_set_int64(reply, "errorReturn", 0);
-          xpc_connection_send_message(connection, v11);
-          xpc_release(v11);
+          xpc_connection_send_message(connection, v13);
+          xpc_release(v13);
         }
 
         else
         {
-          v24 = CMIOLog();
-          if (v24 && os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v31 = CMIOLog(0, v12);
+          if (v31)
           {
-            [CMIOExtensionProxyContext handleClientMessageWithConnection:message:];
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            {
+              [CMIOExtensionProxyContext handleClientMessageWithConnection:message:];
+            }
           }
         }
 
-        goto LABEL_20;
+        return;
       }
 
       goto LABEL_33;
@@ -720,11 +721,11 @@ void __52__CMIOExtensionProxyContext_receivedSample_message___block_invoke_45(ui
     goto LABEL_14;
   }
 
-  if (uint64 < 23)
+  if (v9 < 23)
   {
 LABEL_14:
-    v12 = xpc_dictionary_create_reply(message);
-    if (v12)
+    v14 = xpc_dictionary_create_reply(message);
+    if (v14)
     {
       serverConnection = self->_serverConnection;
       queue = self->_queue;
@@ -732,44 +733,44 @@ LABEL_14:
       handler[1] = 3221225472;
       handler[2] = __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke;
       handler[3] = &unk_27885C250;
-      handler[4] = v12;
+      handler[4] = v14;
       handler[5] = connection;
-      v15 = handler;
+      v18 = handler;
 LABEL_16:
-      xpc_connection_send_message_with_reply(serverConnection, message, queue, v15);
-      goto LABEL_20;
+      xpc_connection_send_message_with_reply(serverConnection, message, queue, v18);
+      return;
     }
 
-    v16 = CMIOLog();
-    if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = CMIOLog(0, v15);
+    if (v19 && os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [CMIOExtensionProxyContext handleClientMessageWithConnection:message:];
     }
 
-    goto LABEL_20;
+    return;
   }
 
-  switch(uint64)
+  switch(v9)
   {
     case 23:
-      v22 = xpc_dictionary_create_reply(message);
-      if (v22)
+      v28 = xpc_dictionary_create_reply(message);
+      if (v28)
       {
         serverConnection = self->_serverConnection;
         queue = self->_queue;
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_48;
-        v31[3] = &unk_27885C278;
-        v31[4] = v22;
-        v31[5] = self;
-        v31[6] = connection;
-        v15 = v31;
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_48;
+        v38[3] = &unk_27885C278;
+        v38[4] = v28;
+        v38[5] = self;
+        v38[6] = connection;
+        v18 = v38;
         goto LABEL_16;
       }
 
-      v27 = CMIOLog();
-      if (v27 && os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v34 = CMIOLog(0, v29);
+      if (v34 && os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionProxyContext handleClientMessageWithConnection:message:];
       }
@@ -777,13 +778,13 @@ LABEL_16:
       break;
     case 24:
       *buf = 0;
-      cmio_XPCMessageCopyCFString(message, "param1", buf);
+      v22 = cmio_XPCMessageCopyCFString(message, "param1", buf);
       if (*buf)
       {
-        v19 = [(NSMutableDictionary *)self->_deviceIDsByStreamID objectForKeyedSubscript:?];
-        if (v19)
+        v24 = [(NSMutableDictionary *)self->_deviceIDsByStreamID objectForKeyedSubscript:?];
+        if (v24)
         {
-          STCameraCaptureAttributionMapKey = cmio_getSTCameraCaptureAttributionMapKey(v19, *buf);
+          STCameraCaptureAttributionMapKey = cmio_getSTCameraCaptureAttributionMapKey(v24, *buf);
           [+[CMIOExtensionProxyAttribution sharedAttribution](CMIOExtensionProxyAttribution "sharedAttribution")];
           [-[CMIOExtensionClient stCameraCaptureAttributionsMap](self->_clientInfo "stCameraCaptureAttributionsMap")];
           [(NSMutableDictionary *)self->_deviceIDsByStreamID removeObjectForKey:*buf];
@@ -791,24 +792,24 @@ LABEL_16:
         }
 
         CFRelease(*buf);
-        v21 = xpc_dictionary_create_reply(message);
-        if (v21)
+        v26 = xpc_dictionary_create_reply(message);
+        if (v26)
         {
           serverConnection = self->_serverConnection;
           queue = self->_queue;
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_50;
-          v30[3] = &unk_27885C278;
-          v30[4] = v21;
-          v30[5] = self;
-          v30[6] = connection;
-          v15 = v30;
+          v37[0] = MEMORY[0x277D85DD0];
+          v37[1] = 3221225472;
+          v37[2] = __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_50;
+          v37[3] = &unk_27885C278;
+          v37[4] = v26;
+          v37[5] = self;
+          v37[6] = connection;
+          v18 = v37;
           goto LABEL_16;
         }
 
-        v28 = CMIOLog();
-        if (v28 && os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v35 = CMIOLog(0, v27);
+        if (v35 && os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionProxyContext handleClientMessageWithConnection:message:];
         }
@@ -816,8 +817,8 @@ LABEL_16:
 
       else
       {
-        v25 = CMIOLog();
-        if (v25 && os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v32 = CMIOLog(v22, v23);
+        if (v32 && os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionProxyContext handleClientMessageWithConnection:message:];
         }
@@ -827,23 +828,23 @@ LABEL_16:
     case 25:
 
       self->_transaction = 0;
-      v18 = xpc_dictionary_create_reply(message);
-      if (v18)
+      v20 = xpc_dictionary_create_reply(message);
+      if (v20)
       {
         serverConnection = self->_serverConnection;
         queue = self->_queue;
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_52;
-        v29[3] = &unk_27885C250;
-        v29[4] = v18;
-        v29[5] = connection;
-        v15 = v29;
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_52;
+        v36[3] = &unk_27885C250;
+        v36[4] = v20;
+        v36[5] = connection;
+        v18 = v36;
         goto LABEL_16;
       }
 
-      v26 = CMIOLog();
-      if (v26 && os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v33 = CMIOLog(0, v21);
+      if (v33 && os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionProxyContext handleClientMessageWithConnection:message:];
       }
@@ -851,17 +852,14 @@ LABEL_16:
       break;
     default:
 LABEL_33:
-      v23 = CMIOLog();
-      if (v23 && os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v30 = CMIOLog(uint64, v8);
+      if (v30 && os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionProxyContext handleClientMessageWithConnection:message:];
       }
 
-      break;
+      return;
   }
-
-LABEL_20:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke(uint64_t a1, void *a2)
@@ -869,8 +867,8 @@ void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message__
   v4 = MEMORY[0x2318F1BC0](a2);
   if (v4 == MEMORY[0x277D86480])
   {
-    v6 = CMIOLog();
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CMIOLog(v4, v5);
+    if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_cold_2();
     }
@@ -889,8 +887,8 @@ void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message__
       goto LABEL_11;
     }
 
-    v5 = CMIOLog();
-    if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = CMIOLog(v4, v5);
+    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_cold_1();
     }
@@ -907,8 +905,8 @@ void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message__
   v4 = MEMORY[0x2318F1BC0](a2);
   if (v4 == MEMORY[0x277D86480])
   {
-    v6 = CMIOLog();
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CMIOLog(v4, v5);
+    if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_48_cold_2();
     }
@@ -929,8 +927,8 @@ void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message__
       goto LABEL_11;
     }
 
-    v5 = CMIOLog();
-    if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = CMIOLog(v4, v5);
+    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_48_cold_1();
     }
@@ -947,8 +945,8 @@ void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message__
   v4 = MEMORY[0x2318F1BC0](a2);
   if (v4 == MEMORY[0x277D86480])
   {
-    v6 = CMIOLog();
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CMIOLog(v4, v5);
+    if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_50_cold_2();
     }
@@ -958,8 +956,8 @@ void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message__
 
   if (v4 != MEMORY[0x277D86468])
   {
-    v5 = CMIOLog();
-    if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = CMIOLog(v4, v5);
+    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_50_cold_1();
     }
@@ -969,10 +967,10 @@ LABEL_9:
     goto LABEL_13;
   }
 
-  v7 = *(a1 + 40);
-  if (*(v7 + 52) >= 1)
+  v8 = *(a1 + 40);
+  if (*(v8 + 52) >= 1)
   {
-    [objc_loadWeak((v7 + 56)) proxyStreamsHaveStopped:1];
+    [objc_loadWeak((v8 + 56)) proxyStreamsHaveStopped:1];
     --*(*(a1 + 40) + 52);
   }
 
@@ -992,8 +990,8 @@ void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message__
   v4 = MEMORY[0x2318F1BC0](a2);
   if (v4 == MEMORY[0x277D86480])
   {
-    v6 = CMIOLog();
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CMIOLog(v4, v5);
+    if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_52_cold_2();
     }
@@ -1012,8 +1010,8 @@ void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message__
       goto LABEL_11;
     }
 
-    v5 = CMIOLog();
-    if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = CMIOLog(v4, v5);
+    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_52_cold_1();
     }
@@ -1027,8 +1025,9 @@ LABEL_11:
 
 - (void)handleServerMessageWithConnection:(id)connection message:(id)message
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   uint64 = xpc_dictionary_get_uint64(message, "MessageType");
+  v9 = uint64;
   if (CMIOModuleLogLevel_once_0 != -1)
   {
     [CMIOExtensionProxyContext sendClientInfo];
@@ -1036,48 +1035,49 @@ LABEL_11:
 
   if (CMIOModuleLogLevel_cmioLevel_0 >= 1)
   {
-    v8 = CMIOLog();
-    if (v8)
+    uint64 = CMIOLog(uint64, v8);
+    if (uint64)
     {
-      v9 = v8;
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = uint64;
+      uint64 = os_log_type_enabled(uint64, OS_LOG_TYPE_DEFAULT);
+      if (uint64)
       {
         *buf = 136316163;
-        v25 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
-        v26 = 1024;
-        v27 = 620;
-        v28 = 2080;
-        v29 = "[CMIOExtensionProxyContext handleServerMessageWithConnection:message:]";
-        v30 = 2113;
+        v26 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
+        v27 = 1024;
+        v28 = 620;
+        v29 = 2080;
+        v30 = "[CMIOExtensionProxyContext handleServerMessageWithConnection:message:]";
+        v31 = 2113;
         selfCopy = self;
-        v32 = 2048;
-        v33 = uint64;
-        _os_log_impl(&dword_22EA08000, v9, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@ %lld", buf, 0x30u);
+        v33 = 2048;
+        v34 = v9;
+        _os_log_impl(&dword_22EA08000, v10, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@ %lld", buf, 0x30u);
       }
     }
   }
 
-  v10 = MEMORY[0x277D86468];
-  if (uint64 <= 4)
+  v11 = MEMORY[0x277D86468];
+  if (v9 <= 4)
   {
-    if ((uint64 - 1) < 4)
+    if ((v9 - 1) < 4)
     {
-      if (MEMORY[0x2318F1BC0](message) == v10)
+      if (MEMORY[0x2318F1BC0](message) == v11)
       {
         dictionary = xpc_dictionary_get_dictionary(message, "param2");
         if (dictionary)
         {
-          v12 = [CMIOExtensionPropertyState copyPropertyStatesFromXPCDictionary:dictionary];
-          if ([objc_msgSend(v12 "allKeys")] && objc_msgSend(objc_msgSend(v12, "allKeys"), "containsObject:", 0x284358E38) && objc_msgSend(objc_msgSend(v12, "allKeys"), "containsObject:", 0x284358DB8) && objc_msgSend(objc_msgSend(objc_msgSend(v12, "objectForKeyedSubscript:", 0x284358E18), "value"), "intValue"))
+          v13 = [CMIOExtensionPropertyState copyPropertyStatesFromXPCDictionary:dictionary];
+          if ([objc_msgSend(v13 "allKeys")] && objc_msgSend(objc_msgSend(v13, "allKeys"), "containsObject:", 0x284358E38) && objc_msgSend(objc_msgSend(v13, "allKeys"), "containsObject:", 0x284358DB8) && objc_msgSend(objc_msgSend(objc_msgSend(v13, "objectForKeyedSubscript:", 0x284358E18), "value"), "intValue"))
           {
-            v13 = [v12 objectForKeyedSubscript:0x284358E38];
-            v14 = [v12 objectForKeyedSubscript:0x284358DD8];
-            if (!v14)
+            v14 = [v13 objectForKeyedSubscript:0x284358E38];
+            v15 = [v13 objectForKeyedSubscript:0x284358DD8];
+            if (!v15)
             {
-              v14 = [v12 objectForKeyedSubscript:0x284358DB8];
+              v15 = [v13 objectForKeyedSubscript:0x284358DB8];
             }
 
-            -[NSMutableDictionary setObject:forKeyedSubscript:](self->_deviceIDsByStreamID, "setObject:forKeyedSubscript:", [v14 value], objc_msgSend(v13, "value"));
+            -[NSMutableDictionary setObject:forKeyedSubscript:](self->_deviceIDsByStreamID, "setObject:forKeyedSubscript:", [v15 value], objc_msgSend(v14, "value"));
           }
         }
       }
@@ -1088,14 +1088,14 @@ LABEL_11:
     goto LABEL_29;
   }
 
-  if (uint64 <= 7)
+  if (v9 <= 7)
   {
-    if (uint64 != 5)
+    if (v9 != 5)
     {
-      if (uint64 == 7)
+      if (v9 == 7)
       {
         [(CMIOExtensionProxyContext *)self receivedSample:connection message:message];
-        goto LABEL_35;
+        return;
       }
 
       goto LABEL_29;
@@ -1104,35 +1104,35 @@ LABEL_11:
     goto LABEL_25;
   }
 
-  if (uint64 != 8)
+  if (v9 != 8)
   {
-    if (uint64 != 9)
+    if (v9 != 9)
     {
 LABEL_29:
-      v19 = CMIOLog();
-      if (v19 && os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = CMIOLog(uint64, v8);
+      if (v21 && os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionProxyContext handleServerMessageWithConnection:message:];
       }
 
-      goto LABEL_35;
+      return;
     }
 
 LABEL_25:
-    if (MEMORY[0x2318F1BC0](message) == v10)
+    if (MEMORY[0x2318F1BC0](message) == v11)
     {
-      v15 = xpc_dictionary_create(0, 0, 0);
+      v16 = xpc_dictionary_create(0, 0, 0);
       applier[0] = MEMORY[0x277D85DD0];
       applier[1] = 3221225472;
       applier[2] = __71__CMIOExtensionProxyContext_handleServerMessageWithConnection_message___block_invoke;
       applier[3] = &unk_27885BF98;
-      applier[4] = v15;
+      applier[4] = v16;
       xpc_dictionary_apply(message, applier);
-      xpc_connection_send_message(self->_connection, v15);
-      xpc_release(v15);
+      xpc_connection_send_message(self->_connection, v16);
+      xpc_release(v16);
     }
 
-    goto LABEL_35;
+    return;
   }
 
   reply = xpc_dictionary_create_reply(message);
@@ -1151,15 +1151,12 @@ LABEL_25:
 
   else
   {
-    v20 = CMIOLog();
-    if (v20 && os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = CMIOLog(0, v18);
+    if (v22 && os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [CMIOExtensionProxyContext handleServerMessageWithConnection:message:];
     }
   }
-
-LABEL_35:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleServerMessageWithConnection_message___block_invoke_55(uint64_t a1, void *a2)
@@ -1167,8 +1164,8 @@ void __71__CMIOExtensionProxyContext_handleServerMessageWithConnection_message__
   v4 = MEMORY[0x2318F1BC0](a2);
   if (v4 == MEMORY[0x277D86480])
   {
-    v6 = CMIOLog();
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CMIOLog(v4, v5);
+    if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleServerMessageWithConnection_message___block_invoke_55_cold_2();
     }
@@ -1187,8 +1184,8 @@ void __71__CMIOExtensionProxyContext_handleServerMessageWithConnection_message__
       goto LABEL_11;
     }
 
-    v5 = CMIOLog();
-    if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = CMIOLog(v4, v5);
+    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __71__CMIOExtensionProxyContext_handleServerMessageWithConnection_message___block_invoke_55_cold_1();
     }
@@ -1202,7 +1199,6 @@ LABEL_11:
 
 void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   xpc_connection_get_pid(*(a1 + 32));
   OUTLINED_FUNCTION_7_0();
@@ -1210,12 +1206,10 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
   OUTLINED_FUNCTION_5_2();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Cu);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_delegate___block_invoke_22_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   xpc_connection_get_pid(*(a1 + 32));
   OUTLINED_FUNCTION_7_0();
@@ -1223,299 +1217,250 @@ void __80__CMIOExtensionProxyContext_initWithConnection_serverConnection_queue_d
   OUTLINED_FUNCTION_5_2();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Cu);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CMIOExtensionProxyContext_sendClientInfo__block_invoke_cold_3()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedSample:message:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedSample:message:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleClientMessageWithConnection:message:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleClientMessageWithConnection:message:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleClientMessageWithConnection:message:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleClientMessageWithConnection:message:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleClientMessageWithConnection:message:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleClientMessageWithConnection:message:.cold.7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleClientMessageWithConnection:message:.cold.8()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_48_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_48_cold_2()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_50_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_50_cold_2()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_52_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleClientMessageWithConnection_message___block_invoke_52_cold_2()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleServerMessageWithConnection:message:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleServerMessageWithConnection:message:.cold.3()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleServerMessageWithConnection_message___block_invoke_55_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CMIOExtensionProxyContext_handleServerMessageWithConnection_message___block_invoke_55_cold_2()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProxy.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -247,14 +247,14 @@ LABEL_8:
   return v10;
 }
 
-void __48__HUQuickControlButtonRowView_updateConstraints__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __48__HUQuickControlButtonRowView_updateConstraints__block_invoke_2(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
   v30 = v5;
   if (a3)
   {
     v6 = [*(a1 + 40) buttonViews];
-    v7 = [v6 count] - 1;
+    v7 = ([v6 count] - 1);
 
     v8 = [*(a1 + 40) buttonViews];
     v9 = [v8 objectAtIndexedSubscript:a3 - 1];

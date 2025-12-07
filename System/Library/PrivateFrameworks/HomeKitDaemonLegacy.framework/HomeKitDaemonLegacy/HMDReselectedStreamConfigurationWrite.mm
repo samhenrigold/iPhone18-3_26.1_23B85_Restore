@@ -22,31 +22,30 @@
 
 - (HMDReselectedStreamConfigurationWrite)initWithCoder:(id)coder
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = HMDReselectedStreamConfigurationWrite;
-  v5 = [(HMDReselectedStreamConfigurationWrite *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = HMDReselectedStreamConfigurationWrite;
+  v5 = [(HMDReselectedStreamConfigurationWrite *)&v17 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v20[0] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"kSelectedStreamConfigurationWrite__SessionControl"];
     sessionControl = v5->_sessionControl;
     v5->_sessionControl = v9;
 
     v11 = MEMORY[0x277CBEB98];
-    v19 = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+    v18 = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"kSelectedStreamConfigurationWrite__SelectedVideoParameters"];
     videoParameters = v5->_videoParameters;
     v5->_videoParameters = v14;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -65,13 +64,13 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEB38] wrappertlv:1 name:@"kSelectedStreamConfigurationWrite__SessionControl"];
   v4 = [MEMORY[0x277CFEB38] wrappertlv:2 name:@"kSelectedStreamConfigurationWrite__SelectedVideoParameters"];
-  v27[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
-  v26 = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v26[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25 = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
   v7 = [(HAPTLVBase *)self _parseMandatory:v5 optional:v6];
 
   if (v7)
@@ -96,7 +95,6 @@
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

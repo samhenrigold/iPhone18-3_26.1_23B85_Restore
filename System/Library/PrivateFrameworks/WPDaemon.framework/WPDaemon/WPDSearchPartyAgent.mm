@@ -9,6 +9,8 @@
 - (OS_dispatch_queue)queue;
 - (WPDSearchPartyAgent)initWithQueue:(id)queue beaconChange:(id)change tokensChange:(id)tokensChange;
 - (unsigned)beaconStatus;
+- (void)completedKeyRequestID:(unint64_t)d success:(BOOL)success;
+- (void)completedTokenRequestID:(unint64_t)d success:(BOOL)success;
 - (void)dealloc;
 - (void)generateStateDump;
 - (void)initSPObjects;
@@ -269,7 +271,7 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
 
 - (void)generateStateDump
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDSearchPartyAgent generateStateDump];
@@ -287,7 +289,7 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
     }
 
     *buf = 136315138;
-    *v54 = v7;
+    *v53 = v7;
     _os_log_impl(&dword_272965000, v5, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: testMode: %s", buf, 0xCu);
   }
 
@@ -308,7 +310,7 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
     }
 
     *buf = 136315138;
-    *v54 = v11;
+    *v53 = v11;
     _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: continue adv on fail: %s", buf, 0xCu);
   }
 
@@ -338,17 +340,17 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
     beaconStatus = [(WPDSearchPartyAgent *)obj beaconStatus];
     beaconReserved = [(WPDSearchPartyAgent *)obj beaconReserved];
     *buf = 136316418;
-    *v54 = v13;
-    *&v54[8] = 1024;
-    *&v54[10] = spBeaconState;
-    *&v54[14] = 1024;
-    *&v54[16] = isTestMode2;
-    v55 = 2112;
-    v56 = beaconKey;
-    v57 = 1024;
-    v58 = beaconStatus;
-    v59 = 2112;
-    v60 = beaconReserved;
+    *v53 = v13;
+    *&v53[8] = 1024;
+    *&v53[10] = spBeaconState;
+    *&v53[14] = 1024;
+    *&v53[16] = isTestMode2;
+    v54 = 2112;
+    v55 = beaconKey;
+    v56 = 1024;
+    v57 = beaconStatus;
+    v58 = 2112;
+    v59 = beaconReserved;
     _os_log_impl(&dword_272965000, v12, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: beaconing: %s (SP:%d || Test:%d) key %@ status: 0x%02x reserved: %@", buf, 0x32u);
   }
 
@@ -374,9 +376,9 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
 
     beaconKeysUpdated = [(WPDSearchPartyAgent *)obj beaconKeysUpdated];
     *buf = 67109378;
-    *v54 = v20;
-    *&v54[4] = 2112;
-    *&v54[6] = beaconKeysUpdated;
+    *v53 = v20;
+    *&v53[4] = 2112;
+    *&v53[6] = beaconKeysUpdated;
     _os_log_impl(&dword_272965000, v18, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: beaconing keys (%d) updated: %@", buf, 0x12u);
 
     if (beaconKeys)
@@ -388,27 +390,27 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
 
   if (beaconKeys2)
   {
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     beaconKeys3 = [(WPDSearchPartyAgent *)obj beaconKeys];
-    v24 = [beaconKeys3 countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v24 = [beaconKeys3 countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (v24)
     {
-      v25 = *v49;
+      v25 = *v48;
       spBeaconState = &dword_272965000;
       do
       {
         v26 = 0;
         do
         {
-          if (*v49 != v25)
+          if (*v48 != v25)
           {
             objc_enumerationMutation(beaconKeys3);
           }
 
-          v27 = *(*(&v48 + 1) + 8 * v26);
+          v27 = *(*(&v47 + 1) + 8 * v26);
           if (WPLogInitOnce != -1)
           {
             [WPDSearchPartyAgent generateStateDump];
@@ -418,7 +420,7 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
           if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *v54 = v27;
+            *v53 = v27;
             _os_log_impl(&dword_272965000, v28, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump:     %@", buf, 0xCu);
           }
 
@@ -426,7 +428,7 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
         }
 
         while (v24 != v26);
-        v24 = [beaconKeys3 countByEnumeratingWithState:&v48 objects:v52 count:16];
+        v24 = [beaconKeys3 countByEnumeratingWithState:&v47 objects:v51 count:16];
       }
 
       while (v24);
@@ -455,9 +457,9 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
 
     nearbyTokensUpdated = [(WPDSearchPartyAgent *)obj nearbyTokensUpdated];
     *buf = 67109378;
-    *v54 = v31;
-    *&v54[4] = 2112;
-    *&v54[6] = nearbyTokensUpdated;
+    *v53 = v31;
+    *&v53[4] = 2112;
+    *&v53[6] = nearbyTokensUpdated;
     _os_log_impl(&dword_272965000, v29, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: near owner tokens (%d) updated: %@", buf, 0x12u);
 
     if (nearbyTokens)
@@ -492,9 +494,9 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
         nearbyTokens5 = [(WPDSearchPartyAgent *)obj nearbyTokens];
         v41 = [nearbyTokens5 objectAtIndexedSubscript:i];
         *buf = 138412546;
-        *v54 = v39;
-        *&v54[8] = 2112;
-        *&v54[10] = v41;
+        *v53 = v39;
+        *&v53[8] = 2112;
+        *&v53[10] = v41;
         _os_log_impl(&dword_272965000, v37, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump:     token: %@ address: %@", buf, 0x16u);
       }
     }
@@ -510,7 +512,7 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
   {
     pendingTokenCompletions = [(WPDSearchPartyAgent *)obj pendingTokenCompletions];
     *buf = 138412290;
-    *v54 = pendingTokenCompletions;
+    *v53 = pendingTokenCompletions;
     _os_log_impl(&dword_272965000, v42, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: %@", buf, 0xCu);
   }
 
@@ -524,12 +526,11 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
   {
     pendingKeyCompletions = [(WPDSearchPartyAgent *)obj pendingKeyCompletions];
     *buf = 138412290;
-    *v54 = pendingKeyCompletions;
+    *v53 = pendingKeyCompletions;
     _os_log_impl(&dword_272965000, v44, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: %@", buf, 0xCu);
   }
 
   objc_sync_exit(obj);
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initSPObjects
@@ -617,7 +618,7 @@ void __63__WPDSearchPartyAgent_initWithQueue_beaconChange_tokensChange___block_i
 
 void __36__WPDSearchPartyAgent_initSPObjects__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -636,9 +637,9 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke(uint64_t a1, uint64_t
         v8 = "YES";
       }
 
-      v12 = 136315138;
-      v13 = v8;
-      _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beaconManager state changed to %s", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = v8;
+      _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beaconManager state changed to %s", &v11, 0xCu);
     }
 
     v9 = WeakRetained;
@@ -653,13 +654,11 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke(uint64_t a1, uint64_t
       [v9 rollKeys_async_completion:v5];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_217(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -674,9 +673,9 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_217(uint64_t a1, void
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       v9 = v8;
-      v13 = 134217984;
-      v14 = [v5 count];
-      _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beaconManager keys updated: %lu keys", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = [v5 count];
+      _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beaconManager keys updated: %lu keys", &v12, 0xCu);
     }
 
     if (WPLogInitOnce != -1)
@@ -701,13 +700,11 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_217(uint64_t a1, void
       [v10 rollKeys_async_completion:v6];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_225(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -720,9 +717,9 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_225(uint64_t a1, uint
     v7 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 67109120;
-      v11[1] = a2;
-      _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beaconManager status changed to 0x%02x", v11, 8u);
+      v10[0] = 67109120;
+      v10[1] = a2;
+      _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beaconManager status changed to 0x%02x", v10, 8u);
     }
 
     v8 = WeakRetained;
@@ -737,13 +734,11 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_225(uint64_t a1, uint
       [v8 rollKeys_async_completion:v5];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_230(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -759,7 +754,7 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_230(uint64_t a1, void
     {
       v9 = v8;
       *buf = 134217984;
-      v21 = [v5 count];
+      v20 = [v5 count];
       _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beaconManager nearbyTokensChangeBlock with %lu tokens", buf, 0xCu);
     }
 
@@ -767,13 +762,13 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_230(uint64_t a1, void
     if (v5)
     {
       v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{2 * objc_msgSend(v5, "count")}];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __36__WPDSearchPartyAgent_initSPObjects__block_invoke_234;
-      v18[3] = &unk_279E58F88;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __36__WPDSearchPartyAgent_initSPObjects__block_invoke_234;
+      v17[3] = &unk_279E58F88;
       v12 = v11;
-      v19 = v12;
-      [v5 enumerateObjectsUsingBlock:v18];
+      v18 = v12;
+      [v5 enumerateObjectsUsingBlock:v17];
       v13 = WeakRetained;
       objc_sync_enter(v13);
       v14 = [MEMORY[0x277CBEA60] arrayWithArray:v12];
@@ -808,8 +803,6 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_230(uint64_t a1, void
       [v15 rollTokens_async_completion:v6];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_234(uint64_t a1, void *a2, uint64_t a3)
@@ -825,6 +818,20 @@ void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_234(uint64_t a1, void
 
   v10 = [v9 dataWithData:v11];
   [*(a1 + 32) setObject:v10 atIndexedSubscript:(2 * a3) | 1];
+}
+
+- (void)completedKeyRequestID:(unint64_t)d success:(BOOL)success
+{
+  successCopy = success;
+  pendingKeyCompletions = [(WPDSearchPartyAgent *)self pendingKeyCompletions];
+  [pendingKeyCompletions completeID:d success:successCopy];
+}
+
+- (void)completedTokenRequestID:(unint64_t)d success:(BOOL)success
+{
+  successCopy = success;
+  pendingTokenCompletions = [(WPDSearchPartyAgent *)self pendingTokenCompletions];
+  [pendingTokenCompletions completeID:d success:successCopy];
 }
 
 - (void)rollKeys_async_completion:(id)keys_async_completion
@@ -861,15 +868,15 @@ void __49__WPDSearchPartyAgent_rollKeys_async_completion___block_invoke(uint64_t
 
 - (void)rollKeysWithRequestID:(unint64_t)d
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if ([(WPDSearchPartyAgent *)self beaconState])
   {
-    *v27 = 0;
-    v28 = v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy_;
-    v31 = __Block_byref_object_dispose_;
-    v32 = 0;
+    *v26 = 0;
+    v27 = v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy_;
+    v30 = __Block_byref_object_dispose_;
+    v31 = 0;
     v5 = objc_opt_new();
     if (WPLogInitOnce != -1)
     {
@@ -880,28 +887,28 @@ void __49__WPDSearchPartyAgent_rollKeys_async_completion___block_invoke(uint64_t
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       beaconKeys = [(WPDSearchPartyAgent *)self beaconKeys];
-      v20 = [beaconKeys count];
+      v19 = [beaconKeys count];
       *buf = 134217984;
-      v34 = v20;
+      v33 = v19;
       _os_log_debug_impl(&dword_272965000, v6, OS_LOG_TYPE_DEBUG, "WPDSearchPartyAgent has %lu beacon keys", buf, 0xCu);
     }
 
     beaconKeys2 = [(WPDSearchPartyAgent *)self beaconKeys];
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __45__WPDSearchPartyAgent_rollKeysWithRequestID___block_invoke_250;
-    v24 = &unk_279E58FD8;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __45__WPDSearchPartyAgent_rollKeysWithRequestID___block_invoke_250;
+    v23 = &unk_279E58FD8;
     v8 = v5;
-    v25 = v8;
-    v26 = v27;
-    [beaconKeys2 enumerateObjectsUsingBlock:&v21];
+    v24 = v8;
+    v25 = v26;
+    [beaconKeys2 enumerateObjectsUsingBlock:&v20];
 
-    if (*(v28 + 5))
+    if (*(v27 + 5))
     {
-      v9 = [(WPDSearchPartyAgent *)self beaconKey:v21];
-      if (!v9 || (v10 = *(v28 + 5), -[WPDSearchPartyAgent beaconKey](self, "beaconKey"), v11 = objc_claimAutoreleasedReturnValue(), LOBYTE(v10) = [v10 isEqualToData:v11], v11, v9, (v10 & 1) == 0))
+      v9 = [(WPDSearchPartyAgent *)self beaconKey:v20];
+      if (!v9 || (v10 = *(v27 + 5), -[WPDSearchPartyAgent beaconKey](self, "beaconKey"), v11 = objc_claimAutoreleasedReturnValue(), LOBYTE(v10) = [v10 isEqualToData:v11], v11, v9, (v10 & 1) == 0))
       {
-        v12 = [MEMORY[0x277CBEA90] dataWithData:*(v28 + 5)];
+        v12 = [MEMORY[0x277CBEA90] dataWithData:*(v27 + 5)];
         [(WPDSearchPartyAgent *)self setBeaconKey:v12];
 
         if (WPLogInitOnce != -1)
@@ -914,13 +921,13 @@ void __49__WPDSearchPartyAgent_rollKeys_async_completion___block_invoke(uint64_t
         {
           beaconKey = [(WPDSearchPartyAgent *)self beaconKey];
           *buf = 138543362;
-          v34 = beaconKey;
+          v33 = beaconKey;
           _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beacon key updated to %{public}@", buf, 0xCu);
         }
       }
     }
 
-    else if ([(WPDSearchPartyAgent *)self continueAdvOnFail:v21])
+    else if ([(WPDSearchPartyAgent *)self continueAdvOnFail:v20])
     {
       if (WPLogInitOnce != -1)
       {
@@ -947,7 +954,7 @@ void __49__WPDSearchPartyAgent_rollKeys_async_completion___block_invoke(uint64_t
       }
     }
 
-    _Block_object_dispose(v27, 8);
+    _Block_object_dispose(v26, 8);
   }
 
   else
@@ -961,8 +968,8 @@ void __49__WPDSearchPartyAgent_rollKeys_async_completion___block_invoke(uint64_t
     v15 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      *v27 = 0;
-      _os_log_impl(&dword_272965000, v15, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beaconing was turned off", v27, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_272965000, v15, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent beaconing was turned off", v26, 2u);
     }
   }
 
@@ -973,8 +980,6 @@ void __49__WPDSearchPartyAgent_rollKeys_async_completion___block_invoke(uint64_t
     beaconChange2 = [(WPDSearchPartyAgent *)self beaconChange];
     beaconChange2[2](beaconChange2, d);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __45__WPDSearchPartyAgent_rollKeysWithRequestID___block_invoke_250(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -1049,7 +1054,7 @@ void __51__WPDSearchPartyAgent_rollTokens_async_completion___block_invoke(uint64
 
 - (void)rollTokensWithRequestID:(unint64_t)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDSearchPartyAgent rollTokensWithRequestID:];
@@ -1060,9 +1065,9 @@ void __51__WPDSearchPartyAgent_rollTokens_async_completion___block_invoke(uint64
   {
     v6 = v5;
     nearbyTokens = [(WPDSearchPartyAgent *)self nearbyTokens];
-    v12 = 134217984;
-    v13 = [nearbyTokens count];
-    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent has %lu nearby tokens", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = [nearbyTokens count];
+    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "WPDSearchPartyAgent has %lu nearby tokens", &v11, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
@@ -1075,8 +1080,6 @@ void __51__WPDSearchPartyAgent_rollTokens_async_completion___block_invoke(uint64
     tokensChange2 = [(WPDSearchPartyAgent *)self tokensChange];
     tokensChange2[2](tokensChange2, d);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTest
@@ -1287,41 +1290,32 @@ void __44__WPDSearchPartyAgent_updateTestBeaconKeys___block_invoke_280(uint64_t 
 
 void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_217_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __36__WPDSearchPartyAgent_initSPObjects__block_invoke_230_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __45__WPDSearchPartyAgent_rollKeysWithRequestID___block_invoke_250_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __45__WPDSearchPartyAgent_rollKeysWithRequestID___block_invoke_250_cold_4(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 dateInterval];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTestNearOwnerTokens:.cold.2()
@@ -1340,13 +1334,10 @@ void __45__WPDSearchPartyAgent_rollKeysWithRequestID___block_invoke_250_cold_4(v
 
 - (void)updateTestBeaconStatus:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 unsignedCharValue];
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTestBeaconExtended:.cold.2()
@@ -1358,31 +1349,24 @@ void __45__WPDSearchPartyAgent_rollKeysWithRequestID___block_invoke_250_cold_4(v
 
 - (void)updateTestBeaconState:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 BOOLValue];
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)spBeaconKeyFromTestKey:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)spBeaconKeyFromTestKey:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

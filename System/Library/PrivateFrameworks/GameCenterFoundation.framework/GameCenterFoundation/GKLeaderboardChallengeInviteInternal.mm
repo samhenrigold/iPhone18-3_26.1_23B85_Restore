@@ -17,31 +17,29 @@
   return v3;
 }
 
-void __63__GKLeaderboardChallengeInviteInternal_secureCodedPropertyKeys__block_invoke()
+void __63__GKLeaderboardChallengeInviteInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8[6] = *MEMORY[0x277D85DE8];
-  v7[0] = @"challengeID";
-  v8[0] = objc_opt_class();
-  v7[1] = @"challengeVendorID";
-  v8[1] = objc_opt_class();
-  v7[2] = @"bundleID";
-  v8[2] = objc_opt_class();
-  v7[3] = @"bundleIDs";
-  v0 = MEMORY[0x277CBEB98];
-  v6[0] = objc_opt_class();
-  v6[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v2 = [v0 setWithArray:v1];
-  v8[3] = v2;
-  v7[4] = @"fromPlayerID";
-  v8[4] = objc_opt_class();
-  v7[5] = @"invitedDate";
-  v8[5] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:6];
-  v4 = secureCodedPropertyKeys_sSecureCodedKeys_331;
-  secureCodedPropertyKeys_sSecureCodedKeys_331 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
+  v9[6] = *MEMORY[0x277D85DE8];
+  v8[0] = @"challengeID";
+  v9[0] = objc_opt_class();
+  v8[1] = @"challengeVendorID";
+  v9[1] = objc_opt_class();
+  v8[2] = @"bundleID";
+  v9[2] = objc_opt_class();
+  v8[3] = @"bundleIDs";
+  v2 = MEMORY[0x277CBEB98];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v4 = [v2 setWithArray:v3];
+  v9[3] = v4;
+  v8[4] = @"fromPlayerID";
+  v9[4] = objc_opt_class();
+  v8[5] = @"invitedDate";
+  v9[5] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:6];
+  v6 = secureCodedPropertyKeys_sSecureCodedKeys_331;
+  secureCodedPropertyKeys_sSecureCodedKeys_331 = v5;
 }
 
 + (id)initWithServerFragment:(id)fragment

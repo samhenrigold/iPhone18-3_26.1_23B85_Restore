@@ -12,28 +12,24 @@
 {
   if (*&self->userIDResetFlag[OBJC_IVAR___AAUserIDResetFlag_userIDResetFlag])
   {
-    v2 = *(&self->super.isa + OBJC_IVAR___AAUserIDResetFlag_userIDResetFlag);
-    v3 = *&self->userIDResetFlag[OBJC_IVAR___AAUserIDResetFlag_userIDResetFlag];
 
-    v4 = sub_1B6AB92B0();
+    v2 = sub_1B6AB92B0();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)userDataIDsResetKey
 {
-  v2 = *&self->userIDResetFlag[OBJC_IVAR___AAUserIDResetFlag_userIDResetFlag + 8];
-  v3 = *&self->userIDResetFlag[OBJC_IVAR___AAUserIDResetFlag_userIDResetFlag + 16];
 
-  v4 = sub_1B6AB92B0();
+  v2 = sub_1B6AB92B0();
 
-  return v4;
+  return v2;
 }
 
 - (AAUserIDResetFlag)initWithSuiteName:(id)name userDataIDsResetKey:(id)key

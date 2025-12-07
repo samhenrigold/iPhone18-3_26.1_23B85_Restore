@@ -15,11 +15,11 @@
   v12 = v11;
   if (v11)
   {
-    [(CMContinuityCaptureState *)v11 setName:attributesCopy];
-    [(CMContinuityCaptureState *)v12 setEntryAction:actionCopy];
-    [(CMContinuityCaptureState *)v12 setExitAction:exitActionCopy];
+    [(CMContinuityCaptureState *)v11 setName:?];
+    [(CMContinuityCaptureState *)v12 setEntryAction:?];
+    [(CMContinuityCaptureState *)v12 setExitAction:?];
     v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    [(CMContinuityCaptureState *)v12 setPendingEvents:v13];
+    [(CMContinuityCaptureState *)v12 setPendingEvents:?];
 
     pendingEvents = [(CMContinuityCaptureState *)v12 pendingEvents];
 

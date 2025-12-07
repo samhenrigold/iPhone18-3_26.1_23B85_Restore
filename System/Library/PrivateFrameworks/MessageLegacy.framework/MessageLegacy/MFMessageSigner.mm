@@ -64,7 +64,7 @@
 - (MFError)error
 {
   v2 = 0;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   status = self->_status;
   if (status <= 0xC)
   {
@@ -80,7 +80,7 @@
 
       v8 = self->_status;
       *buf = 134217984;
-      v14 = v8;
+      v13 = v8;
       v9 = "#SMIMEErrors Verification was not good (%ld)";
     }
 
@@ -88,7 +88,7 @@
     {
       if ((v5 & 0x201) == 0)
       {
-        goto LABEL_9;
+        return v2;
       }
 
       v6 = MFLookupLocalizedString(@"SMIME_UNREADABLE_SIG", @"There was a problem reading the digital signature for this message.", @"Delayed");
@@ -98,9 +98,9 @@
         goto LABEL_6;
       }
 
-      v12 = self->_status;
+      v11 = self->_status;
       *buf = 134217984;
-      v14 = v12;
+      v13 = v11;
       v9 = "#SMIMEErrors Verification went south (%ld)";
     }
 
@@ -116,12 +116,10 @@ LABEL_6:
 
     else
     {
-      v2 = 0;
+      return 0;
     }
   }
 
-LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

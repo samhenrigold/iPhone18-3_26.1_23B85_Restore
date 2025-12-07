@@ -142,31 +142,32 @@ uint64_t __103___SFPrintController__didFinishPrintingCurrentItemWithResult_fromP
 
 void __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 48) + 8);
-  if ((*(v4 + 24) & 1) == 0)
+  v5 = v3;
+  v6 = *(*(a1 + 48) + 8);
+  if ((*(v6 + 24) & 1) == 0)
   {
-    *(v4 + 24) = 1;
+    *(v6 + 24) = 1;
     if (*(a1 + 56) == 1)
     {
-      [*(a1 + 32) printInteractionControllerDidFinish];
+      v3 = [*(a1 + 32) printInteractionControllerDidFinish];
     }
 
-    v5 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXPrinting(v3, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = v5;
-      v7 = 134217984;
-      v8 = [v3 length];
-      _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_DEFAULT, "Finished generating PDF data of length %zu", &v7, 0xCu);
+      v8 = v7;
+      v9 = 134217984;
+      v10 = [v5 length];
+      _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Finished generating PDF data of length %zu", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
   }
 }
 
-void __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_29(uint64_t a1, char a2)
+void __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_29(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -212,7 +213,7 @@ void __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_2
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXPrinting();
+    v8 = WBS_LOG_CHANNEL_PREFIXPrinting(a1, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -227,24 +228,24 @@ void __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_3
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPrinting(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_30_cold_1(v9, v7, v5);
+      __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_30_cold_1(v10, v8, v5);
     }
 
-    v8 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v8 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
   }
 
-  v8();
+  v9();
 }
 
 void __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_31(uint64_t a1, void *a2)
@@ -264,63 +265,63 @@ void __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_3
 
 void __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_2(void *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695DEF0]);
   v3 = a1[4];
-  v16 = 0;
-  v4 = [v2 initWithContentsOfURL:v3 options:1 error:&v16];
-  v5 = v16;
-  v6 = WBS_LOG_CHANNEL_PREFIXPrinting();
-  v7 = v6;
+  v17 = 0;
+  v4 = [v2 initWithContentsOfURL:v3 options:1 error:&v17];
+  v5 = v17;
+  v7 = WBS_LOG_CHANNEL_PREFIXPrinting(v5, v6);
+  v8 = v7;
   if (v5)
   {
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = v4 == 0;
+    v9 = v4 == 0;
   }
 
-  if (v8)
+  if (v9)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = v7;
-      v10 = [v5 safari_privacyPreservingDescription];
-      v11 = [v4 length];
-      v12 = a1[4];
+      v10 = v8;
+      v11 = [v5 safari_privacyPreservingDescription];
+      v12 = [v4 length];
+      v13 = a1[4];
       *buf = 138543875;
-      v18 = v10;
-      v19 = 2048;
-      v20 = v11;
-      v21 = 2113;
-      v22 = v12;
-      _os_log_error_impl(&dword_1D4644000, v9, OS_LOG_TYPE_ERROR, "Failed to generate PDF data: %{public}@; PDF data length: %zu; PDF URL: %{private}@", buf, 0x20u);
+      v19 = v11;
+      v20 = 2048;
+      v21 = v12;
+      v22 = 2113;
+      v23 = v13;
+      _os_log_error_impl(&dword_1D4644000, v10, OS_LOG_TYPE_ERROR, "Failed to generate PDF data: %{public}@; PDF data length: %zu; PDF URL: %{private}@", buf, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v14 = v7;
-    v15 = [v4 length];
+    v15 = v8;
+    v16 = [v4 length];
     *buf = 134217984;
-    v18 = v15;
-    _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_INFO, "Successfully generated PDF data of length %zu", buf, 0xCu);
+    v19 = v16;
+    _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_INFO, "Successfully generated PDF data of length %zu", buf, 0xCu);
   }
 
   (*(a1[6] + 16))();
   [*(a1[5] + 104) _cleanPrintState];
 }
 
-uint64_t __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_34(uint64_t a1)
+uint64_t __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_34(uint64_t a1, uint64_t a2)
 {
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = WBS_LOG_CHANNEL_PREFIXPrinting(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_34_cold_1(v2);
+      __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_34_cold_1(v3);
     }
   }
 

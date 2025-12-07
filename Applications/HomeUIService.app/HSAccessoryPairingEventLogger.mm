@@ -10,6 +10,8 @@
 - (void)logHUISDismiss;
 - (void)logHUISLaunchWithReason:(int64_t)reason accessoryDescription:(id)description;
 - (void)logHUISUserType:(unint64_t)type;
+- (void)logIsUsingCHIPCommunicationProtocol:(BOOL)protocol;
+- (void)logLaunchedToSetupASpecificAccessory:(BOOL)accessory;
 - (void)logNumberOfPairedAccessories:(unint64_t)accessories;
 - (void)logPairingBegin;
 - (void)logPairingComplete;
@@ -116,6 +118,18 @@ LABEL_7:
 {
   v4 = [NSNumber numberWithUnsignedInteger:type];
   [(HSAccessoryPairingEventLogger *)self setHuisUserType:v4];
+}
+
+- (void)logLaunchedToSetupASpecificAccessory:(BOOL)accessory
+{
+  v4 = [NSNumber numberWithBool:accessory];
+  [(HSAccessoryPairingEventLogger *)self setIsLaunchedToSetupASpecificAccessory:v4];
+}
+
+- (void)logIsUsingCHIPCommunicationProtocol:(BOOL)protocol
+{
+  v4 = [NSNumber numberWithBool:protocol];
+  [(HSAccessoryPairingEventLogger *)self setIsUsingCHIPCommunicationProtocol:v4];
 }
 
 - (void)logCodeInputMethod:(unint64_t)method

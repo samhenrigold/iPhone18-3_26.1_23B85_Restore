@@ -88,29 +88,29 @@ uint64_t __37__CNVCardXSOCIALPROFILEParser_os_log__block_invoke()
 
 + (void)processExtensionValuesForLines:(id)lines parser:(id)parser
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   linesCopy = lines;
   parserCopy = parser;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = linesCopy;
-  v21 = [linesCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v21)
+  v20 = [linesCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v20)
   {
-    v20 = *v23;
+    v19 = *v22;
     v7 = *MEMORY[0x277CFBD30];
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v23 != v20)
+        if (*v22 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
         grouping = [v9 grouping];
         v11 = [parserCopy firstValueForKey:@"X-USERID" inExtensionGroup:grouping];
 
@@ -132,22 +132,20 @@ uint64_t __37__CNVCardXSOCIALPROFILEParser_os_log__block_invoke()
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v20 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)urlSuffixForSocialProperty:(id)property
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
-  v25 = 0;
-  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(X-SOCIALPROFILE[:].*?)[:]*(http[s]*:.*?)$" options:17 error:&v25];;
-  v5 = v25;
+  v24 = 0;
+  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(X-SOCIALPROFILE[:].*?)[:]*(http[s]*:.*?)$" options:17 error:&v24];;
+  v5 = v24;
   v6 = [v4 matchesInString:propertyCopy options:0 range:{0, objc_msgSend(propertyCopy, "length")}];
   v7 = v6;
   if (v5)
@@ -162,9 +160,9 @@ LABEL_5:
     }
 
     *buf = 138412546;
-    v27 = propertyCopy;
-    v28 = 2114;
-    v29 = v5;
+    v26 = propertyCopy;
+    v27 = 2114;
+    v28 = v5;
     v9 = "Error: could not extract url suffix from %@: error %{public}@";
     v10 = os_log;
     v11 = 22;
@@ -178,10 +176,10 @@ LABEL_4:
     goto LABEL_10;
   }
 
-  v24 = 0;
-  v21 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(X-SOCIALPROFILE[:].*?)[:]*(x-apple:.*?)$" options:17 error:&v24];;
-  v5 = v24;
-  v22 = [v21 matchesInString:propertyCopy options:0 range:{0, objc_msgSend(propertyCopy, "length")}];
+  v23 = 0;
+  v20 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(X-SOCIALPROFILE[:].*?)[:]*(x-apple:.*?)$" options:17 error:&v23];;
+  v5 = v23;
+  v21 = [v20 matchesInString:propertyCopy options:0 range:{0, objc_msgSend(propertyCopy, "length")}];
 
   if (v5)
   {
@@ -189,25 +187,25 @@ LABEL_4:
     if (os_log_type_enabled(os_log2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v27 = propertyCopy;
-      v28 = 2114;
-      v29 = v5;
+      v26 = propertyCopy;
+      v27 = 2114;
+      v28 = v5;
       _os_log_impl(&dword_2771F5000, os_log2, OS_LOG_TYPE_DEFAULT, "Error: could not extract url suffix from %@: error %{public}@", buf, 0x16u);
     }
 
     goto LABEL_16;
   }
 
-  if (![v22 count])
+  if (![v21 count])
   {
 LABEL_16:
     v12 = [MEMORY[0x277CFBE70] pairWithFirst:propertyCopy second:0];
 
-    v7 = v22;
+    v7 = v21;
     goto LABEL_6;
   }
 
-  v7 = v22;
+  v7 = v21;
 LABEL_10:
   v5 = [v7 objectAtIndexedSubscript:0];
   if ([v5 numberOfRanges] != 3)
@@ -219,32 +217,31 @@ LABEL_10:
     }
 
     *buf = 138412290;
-    v27 = propertyCopy;
+    v26 = propertyCopy;
     v9 = "Error: could not extract url from %@: too few matched ranges";
     v10 = os_log;
     v11 = 12;
     goto LABEL_4;
   }
 
-  v15 = [v5 rangeAtIndex:1];
-  v17 = [propertyCopy substringWithRange:{v15, v16}];
-  v18 = [v5 rangeAtIndex:2];
-  v20 = [propertyCopy substringWithRange:{v18, v19}];
-  v12 = [MEMORY[0x277CFBE70] pairWithFirst:v17 second:v20];
+  v14 = [v5 rangeAtIndex:1];
+  v16 = [propertyCopy substringWithRange:{v14, v15}];
+  v17 = [v5 rangeAtIndex:2];
+  v19 = [propertyCopy substringWithRange:{v17, v18}];
+  v12 = [MEMORY[0x277CFBE70] pairWithFirst:v16 second:v19];
 
 LABEL_6:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)typeForSocialProperty:(id)property
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
-  v24 = 0;
-  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(X-SOCIALPROFILE[:].*?)type=(\\w+)[:;](.*$)" options:17 error:&v24];;
-  v5 = v24;
+  v23 = 0;
+  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(X-SOCIALPROFILE[:].*?)type=(\\w+)[:;](.*$)" options:17 error:&v23];;
+  v5 = v23;
   v6 = [v4 matchesInString:propertyCopy options:0 range:{0, objc_msgSend(propertyCopy, "length")}];
   v7 = v6;
   if (v5)
@@ -253,9 +250,9 @@ LABEL_6:
     if (os_log_type_enabled(os_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v26 = propertyCopy;
-      v27 = 2114;
-      v28 = v5;
+      v25 = propertyCopy;
+      v26 = 2114;
+      v27 = v5;
       _os_log_impl(&dword_2771F5000, os_log, OS_LOG_TYPE_DEFAULT, "Error: could not extract type from %@: error %{public}@", buf, 0x16u);
     }
 
@@ -288,7 +285,7 @@ LABEL_5:
     if (os_log_type_enabled(os_log2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = propertyCopy;
+      v25 = propertyCopy;
       _os_log_impl(&dword_2771F5000, os_log2, OS_LOG_TYPE_DEFAULT, "Error: could not extract type from %@: too few matched ranges", buf, 0xCu);
     }
 
@@ -296,7 +293,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -337,7 +333,7 @@ LABEL_13:
 
 + (id)adjust:(id)adjust withParameters:(id)parameters
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   adjustCopy = adjust;
   parametersCopy = parameters;
   v8 = [parametersCopy objectForKeyedSubscript:@"RAW"];
@@ -346,9 +342,9 @@ LABEL_13:
     os_log = [objc_opt_class() os_log];
     if (os_log_type_enabled(os_log, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v8;
-      _os_log_impl(&dword_2771F5000, os_log, OS_LOG_TYPE_DEFAULT, "Warning: falling back to extracting social profile from %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v8;
+      _os_log_impl(&dword_2771F5000, os_log, OS_LOG_TYPE_DEFAULT, "Warning: falling back to extracting social profile from %@", &v17, 0xCu);
     }
 
     v10 = [self profileFromURL:v8];
@@ -380,8 +376,6 @@ LABEL_13:
   {
     [adjustCopy setObject:v15 forKeyedSubscript:@"teamIdentifier"];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return adjustCopy;
 }
@@ -535,21 +529,12 @@ LABEL_5:
   return v4;
 }
 
-+ (void)parametersForSocialProperty:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2771F5000, v0, v1, "Error: could not extract parameters from %@: error %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 + (void)parametersForSocialProperty:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2771F5000, a2, OS_LOG_TYPE_ERROR, "Error: could not extract parameters from %@: too few matched ranges", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2771F5000, a2, OS_LOG_TYPE_ERROR, "Error: could not extract parameters from %@: too few matched ranges", &v2, 0xCu);
 }
 
 @end

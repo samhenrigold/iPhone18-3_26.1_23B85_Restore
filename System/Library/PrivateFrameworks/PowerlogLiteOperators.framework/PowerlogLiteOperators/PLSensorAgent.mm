@@ -32,168 +32,156 @@
 
 + (id)entryEventPointDefinitions
 {
-  v11[5] = *MEMORY[0x277D85DE8];
-  v10[0] = @"MotionActivity";
+  v10[5] = *MEMORY[0x277D85DE8];
+  v9[0] = @"MotionActivity";
   v2 = +[PLSensorAgent entryEventPointDefinitionActivity];
-  v11[0] = v2;
-  v10[1] = @"DeviceOrientation";
+  v10[0] = v2;
+  v9[1] = @"DeviceOrientation";
   v3 = +[PLSensorAgent entryEventPointDefinitionOrientation];
-  v11[1] = v3;
-  v10[2] = @"PocketState";
+  v10[1] = v3;
+  v9[2] = @"PocketState";
   v4 = +[PLSensorAgent entryEventPointDefinitionPocketState];
-  v11[2] = v4;
-  v10[3] = @"Proximity";
+  v10[2] = v4;
+  v9[3] = @"Proximity";
   v5 = +[PLSensorAgent entryEventPointDefinitionProximity];
-  v11[3] = v5;
-  v10[4] = @"ALS";
+  v10[3] = v5;
+  v9[4] = @"ALS";
   v6 = +[PLSensorAgent entryEventPointDefinitionALS];
-  v11[4] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[4] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:5];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionActivity
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1CAF8;
-  v15[1] = MEMORY[0x277CBEC38];
-  v14[2] = *MEMORY[0x277D3F580];
-  v15[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"Stationary";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1CAF8;
+  v14[1] = MEMORY[0x277CBEC38];
+  v13[2] = *MEMORY[0x277D3F580];
+  v14[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"Stationary";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v12[1] = @"Confidence";
-  v13[0] = commonTypeDict_IntegerFormat;
+  v11[1] = @"Confidence";
+  v12[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventPointDefinitionOrientation
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1CAF8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v12[2] = *MEMORY[0x277D3F580];
-  v13[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"Orientation";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1CAF8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v11[2] = *MEMORY[0x277D3F580];
+  v12[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"Orientation";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11 = commonTypeDict_IntegerFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_IntegerFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionPocketState
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1CAF8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v12[2] = *MEMORY[0x277D3F580];
-  v13[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"State";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1CAF8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v11[2] = *MEMORY[0x277D3F580];
+  v12[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"State";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11 = commonTypeDict_IntegerFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_IntegerFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionProximity
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1CAF8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v12[2] = *MEMORY[0x277D3F580];
-  v13[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"State";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1CAF8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v11[2] = *MEMORY[0x277D3F580];
+  v12[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"State";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionALS
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1CB08;
-  v15[1] = MEMORY[0x277CBEC38];
-  v14[2] = *MEMORY[0x277D3F580];
-  v15[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"Lux";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1CB08;
+  v14[1] = MEMORY[0x277CBEC38];
+  v13[2] = *MEMORY[0x277D3F580];
+  v14[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"Lux";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v12[1] = @"RearLux";
-  v13[0] = commonTypeDict_IntegerFormat;
+  v11[1] = @"RearLux";
+  v12[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
@@ -236,67 +224,63 @@
   deviceOrientationManager = self->_deviceOrientationManager;
   self->_deviceOrientationManager = v9;
 
-  v11 = *MEMORY[0x277CBECE8];
   self->_proximityHIDClient = IOHIDEventSystemClientCreate();
-  v12 = objc_alloc_init(MEMORY[0x277CFD390]);
+  v11 = objc_alloc_init(MEMORY[0x277CFD390]);
   brightnessSystemClient = self->_brightnessSystemClient;
-  self->_brightnessSystemClient = v12;
+  self->_brightnessSystemClient = v11;
 
-  v14 = self->_motionActivityManager;
+  v13 = self->_motionActivityManager;
   operationQueue = [(PLSensorAgent *)self operationQueue];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke;
-  v33[3] = &unk_278261A98;
-  v33[4] = self;
-  [(CMMotionActivityManager *)v14 startActivityUpdatesToQueue:operationQueue withHandler:v33];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke;
+  v29[3] = &unk_278261A98;
+  v29[4] = self;
+  [(CMMotionActivityManager *)v13 startActivityUpdatesToQueue:operationQueue withHandler:v29];
 
-  v16 = self->_deviceOrientationManager;
+  v15 = self->_deviceOrientationManager;
   operationQueue2 = [(PLSensorAgent *)self operationQueue];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_2;
-  v32[3] = &unk_278261AC0;
-  v32[4] = self;
-  [(CMDeviceOrientationManager *)v16 startDeviceOrientationUpdatesToQueue:operationQueue2 withHandler:v32];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_2;
+  v28[3] = &unk_278261AC0;
+  v28[4] = self;
+  [(CMDeviceOrientationManager *)v15 startDeviceOrientationUpdatesToQueue:operationQueue2 withHandler:v28];
 
   [(CMPocketStateManager *)self->_pocketStateManager setDelegate:self];
-  v18 = self->_pocketStateManager;
+  v17 = self->_pocketStateManager;
   workQueue = [(PLOperator *)self workQueue];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_3;
-  v31[3] = &unk_278261AE8;
-  v31[4] = self;
-  [(CMPocketStateManager *)v18 queryStateOntoQueue:workQueue andMonitorFor:v31 withTimeout:0.0 andHandler:1.0];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_3;
+  v27[3] = &unk_278261AE8;
+  v27[4] = self;
+  [(CMPocketStateManager *)v17 queryStateOntoQueue:workQueue andMonitorFor:v27 withTimeout:0.0 andHandler:1.0];
 
-  v20 = self->_brightnessSystemClient;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_4;
-  v30[3] = &unk_27825D620;
-  v30[4] = self;
-  [(BrightnessSystemClient *)v20 registerNotificationBlock:v30 forProperties:&unk_282C168A8];
-  proximityHIDClient = self->_proximityHIDClient;
+  v19 = self->_brightnessSystemClient;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_4;
+  v26[3] = &unk_27825D620;
+  v26[4] = self;
+  [(BrightnessSystemClient *)v19 registerNotificationBlock:v26 forProperties:&unk_282C168A8];
   IOHIDEventSystemClientSetMatching();
-  v22 = self->_proximityHIDClient;
   workQueue2 = [(PLOperator *)self workQueue];
   IOHIDEventSystemClientScheduleWithDispatchQueue();
 
-  v24 = self->_proximityHIDClient;
   IOHIDEventSystemClientRegisterEventCallback();
   if ([MEMORY[0x277D3F180] BOOLForKey:@"EnableALSProximity" ifNotSet:1])
   {
-    v25 = objc_alloc(MEMORY[0x277D3F250]);
+    v21 = objc_alloc(MEMORY[0x277D3F250]);
     date = [MEMORY[0x277CBEAA8] date];
     workQueue3 = [(PLOperator *)self workQueue];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_87;
-    v29[3] = &unk_278259C40;
-    v29[4] = self;
-    v28 = [v25 initWithFireDate:date withInterval:1 withTolerance:0 repeats:workQueue3 withUserInfo:v29 withQueue:60.0 withBlock:0.0];
-    [(PLSensorAgent *)self setProximityTimer:v28];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_87;
+    v25[3] = &unk_278259C40;
+    v25[4] = self;
+    v24 = [v21 initWithFireDate:date withInterval:1 withTolerance:0 repeats:workQueue3 withUserInfo:v25 withQueue:60.0 withBlock:0.0];
+    [(PLSensorAgent *)self setProximityTimer:v24];
   }
 }
 
@@ -380,7 +364,7 @@ void __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_87(uint64_t 
 
 - (void)handleBrightnessClientNotification:(id)notification withValue:(id)value
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v7 = [notification isEqual:@"Lux"];
   if (valueCopy && v7)
@@ -395,18 +379,18 @@ void __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_87(uint64_t 
 
       if (+[PLSensorAgent shouldLogRearLux])
       {
-        v19 = 0;
-        *&buf = &v22;
-        *(&buf + 1) = &v21;
-        v18 = &v23;
-        v20 = 0x4E0000001;
+        v18 = 0;
+        *&buf = &v21;
+        *(&buf + 1) = &v20;
+        v17 = &v22;
+        v19 = 0x4E0000001;
         workQueue = [(PLOperator *)self workQueue];
         ApplePhotonDetectorServicesGetLux();
       }
 
-      v15 = @"Lux";
-      v16 = valueCopy;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v14 = @"Lux";
+      v15 = valueCopy;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
       [(PLSensorAgent *)self logEventPointALS:v12];
 
       v13 = PLLogSensor();
@@ -418,8 +402,6 @@ void __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_87(uint64_t 
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)shouldLogRearLux
@@ -435,7 +417,7 @@ void __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_87(uint64_t 
 
 - (void)handleOrientationManagerNotification:(id)notification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (notificationCopy)
   {
@@ -463,17 +445,15 @@ void __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_87(uint64_t 
     }
 
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{v6, @"Orientation"}];
-    v11 = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v10 = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
     [(PLSensorAgent *)self logEventPointDeviceOrientation:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMotionActivityManagerNotification:(id)notification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (notificationCopy)
   {
@@ -481,28 +461,26 @@ void __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_87(uint64_t 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v13 = notificationCopy;
+      v12 = notificationCopy;
       _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Device activity event: %@", buf, 0xCu);
     }
 
     if ([notificationCopy confidence] >= 1)
     {
       v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(notificationCopy, "stationary", @"Stationary"}];
-      v10[1] = @"Confidence";
-      v11[0] = v6;
+      v9[1] = @"Confidence";
+      v10[0] = v6;
       v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(notificationCopy, "confidence")}];
-      v11[1] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+      v10[1] = v7;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
       [(PLSensorAgent *)self logEventPointActivity:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePocketStateManagerNotification:(int64_t)notification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = PLLogSensor();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -512,11 +490,9 @@ void __45__PLSensorAgent_initTaskOperatorDependancies__block_invoke_87(uint64_t 
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{notification, @"State"}];
-  v10 = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v9 = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
   [(PLSensorAgent *)self logEventPointPocketState:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pocketStateManager:(id)manager didUpdateState:(int64_t)state

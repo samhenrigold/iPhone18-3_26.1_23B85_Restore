@@ -31,7 +31,6 @@
 - (uint64_t)doc_isSMBSharepoint;
 - (uint64_t)folderType;
 - (uint64_t)isAppContainer;
-- (uint64_t)isBrowsable;
 - (uint64_t)isCloudItem;
 - (uint64_t)isCopying;
 - (uint64_t)isDownloaded;
@@ -52,6 +51,7 @@
 - (void)fetchParent:()DOCNode;
 - (void)fetchParents:()DOCNode;
 - (void)fetchURL:()DOCNode;
+- (void)isBrowsable;
 @end
 
 @implementation FINode(DOCNode)
@@ -119,7 +119,7 @@
 
 - (id)customizedFolderIdentifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([self isFolder])
   {
     tags = [self tags];
@@ -142,29 +142,29 @@
         else
         {
           v11 = objc_alloc_init(MEMORY[0x277CCAB68]);
+          v17 = 0u;
           v18 = 0u;
           v19 = 0u;
           v20 = 0u;
-          v21 = 0u;
           v10 = allValues;
-          v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v19;
+            v14 = *v18;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v19 != v14)
+                if (*v18 != v14)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                [(__CFString *)v11 appendFormat:@"%@|", *(*(&v18 + 1) + 8 * i)];
+                [(__CFString *)v11 appendFormat:@"%@|", *(*(&v17 + 1) + 8 * i)];
               }
 
-              v13 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+              v13 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
             }
 
             while (v13);
@@ -190,8 +190,6 @@
   {
     v7 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -486,7 +484,7 @@ LABEL_9:
 
 - (id)domainFromFileURL
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fileURL = [self fileURL];
   path = [fileURL path];
   stringByStandardizingPath = [path stringByStandardizingPath];
@@ -513,27 +511,27 @@ LABEL_9:
     }
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   domainPathCache = [MEMORY[0x277CC6420] domainPathCache];
   allKeys = [domainPathCache allKeys];
 
-  v9 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
-    v13 = *v21;
+    v13 = *v20;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         domainPathCache2 = [MEMORY[0x277CC6420] domainPathCache];
         v17 = [domainPathCache2 objectForKeyedSubscript:v15];
 
@@ -545,7 +543,7 @@ LABEL_9:
         }
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v9)
       {
         continue;
@@ -558,7 +556,6 @@ LABEL_9:
 LABEL_17:
 
 LABEL_18:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -594,7 +591,7 @@ LABEL_18:
 
 - (id)cachedDomain:()DOCNode
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fpDomain = [self fpDomain];
   if (fpDomain)
   {
@@ -609,9 +606,9 @@ LABEL_18:
     goto LABEL_12;
   }
 
-  v16 = 0;
-  v8 = [MEMORY[0x277CC6420] providerDomainWithID:providerDomainID cachePolicy:3 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [MEMORY[0x277CC6420] providerDomainWithID:providerDomainID cachePolicy:3 error:&v15];
+  v9 = v15;
   if (v9)
   {
     v10 = docEnumerationLogHandle;
@@ -623,15 +620,15 @@ LABEL_18:
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = v10;
+      v13 = v10;
       localizedDescription = [v9 localizedDescription];
       *buf = 138543874;
       selfCopy = self;
-      v19 = 2114;
-      v20 = providerDomainID;
-      v21 = 2114;
-      v22 = localizedDescription;
-      _os_log_error_impl(&dword_249340000, v14, OS_LOG_TYPE_ERROR, "Error getting domain for node %{public}@ from domainID: %{public}@, domain error: %{public}@", buf, 0x20u);
+      v18 = 2114;
+      v19 = providerDomainID;
+      v20 = 2114;
+      v21 = localizedDescription;
+      _os_log_error_impl(&dword_249340000, v13, OS_LOG_TYPE_ERROR, "Error getting domain for node %{public}@ from domainID: %{public}@, domain error: %{public}@", buf, 0x20u);
 
       if (!a3)
       {
@@ -655,7 +652,6 @@ LABEL_12:
   v6 = v8;
 
 LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -711,12 +707,12 @@ LABEL_13:
   return [self nodePermissions:v2] != 0;
 }
 
-- (uint64_t)isBrowsable
+- (void)isBrowsable
 {
   result = [self isContainer];
   if (result)
   {
-    return [self nodePermissions:2048] != 0;
+    return ([self nodePermissions:2048] != 0);
   }
 
   return result;
@@ -1178,16 +1174,16 @@ LABEL_12:
 
 - (id)_buildFetchError
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = _DocumentManagerBundle();
   v4 = [v3 localizedStringForKey:@"FINode (%@) has no fpItem nor fileURL value:impossible to fetch a corresponding FPItem" table:{@"FINode (%@) has no fpItem nor fileURL, impossible to fetch a corresponding FPItem", @"Localizable"}];
   v5 = [v2 localizedStringWithFormat:v4, self];
 
   v6 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = v5;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = v5;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v8 = [v6 errorWithDomain:@"com.apple.DocumentManager.Node" code:2 userInfo:v7];
 
   v9 = docEnumerationLogHandle;
@@ -1201,8 +1197,6 @@ LABEL_12:
   {
     [(FINode(DOCNode) *)v9 _buildFetchError];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1277,13 +1271,13 @@ LABEL_12:
 
 - (id)doc_eligibleActions
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   fpItem = [self fpItem];
   if (fpItem)
   {
     defaultManager = [MEMORY[0x277CC6408] defaultManager];
-    v10[0] = fpItem;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = fpItem;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     v5 = [defaultManager eligibleActionsForItems:v4];
 
     goto LABEL_17;
@@ -1400,63 +1394,61 @@ LABEL_16:
 
 LABEL_17:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (uint64_t)canPerformActions:()DOCNode
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 count])
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v4, "count")}];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v44 objects:v52 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v43 objects:v51 count:16];
     if (v7)
     {
       v8 = v7;
-      v36 = v5;
-      v32 = v4;
+      v35 = v5;
+      v31 = v4;
       v9 = 0;
-      v10 = *v45;
+      v10 = *v44;
       v11 = *MEMORY[0x277CC6028];
       v12 = *MEMORY[0x277CC6048];
-      v43 = *MEMORY[0x277CC5FD8];
-      v41 = *MEMORY[0x277CC5FE0];
-      v42 = *MEMORY[0x277CC6040];
-      v39 = *MEMORY[0x277CC6078];
-      v40 = *MEMORY[0x277CC6058];
-      v37 = *MEMORY[0x277CC6030];
-      v38 = *MEMORY[0x277CC6050];
-      v35 = *MEMORY[0x277CC6010];
-      v31 = *MEMORY[0x277CC6018];
-      v29 = *MEMORY[0x277CC6060];
-      v30 = *MEMORY[0x277CC5FD0];
-      v28 = *MEMORY[0x277CC6020];
-      v27 = *MEMORY[0x277CC6068];
-      v25 = *MEMORY[0x277CC5FF8];
-      v26 = *MEMORY[0x277CC5FE8];
-      v23 = *MEMORY[0x277CC6000];
-      v24 = *MEMORY[0x277CC5FF0];
-      v22 = *MEMORY[0x277CC6070];
+      v42 = *MEMORY[0x277CC5FD8];
+      v40 = *MEMORY[0x277CC5FE0];
+      v41 = *MEMORY[0x277CC6040];
+      v38 = *MEMORY[0x277CC6078];
+      v39 = *MEMORY[0x277CC6058];
+      v36 = *MEMORY[0x277CC6030];
+      v37 = *MEMORY[0x277CC6050];
+      v34 = *MEMORY[0x277CC6010];
+      v30 = *MEMORY[0x277CC6018];
+      v28 = *MEMORY[0x277CC6060];
+      v29 = *MEMORY[0x277CC5FD0];
+      v27 = *MEMORY[0x277CC6020];
+      v26 = *MEMORY[0x277CC6068];
+      v24 = *MEMORY[0x277CC5FF8];
+      v25 = *MEMORY[0x277CC5FE8];
+      v22 = *MEMORY[0x277CC6000];
+      v23 = *MEMORY[0x277CC5FF0];
+      v21 = *MEMORY[0x277CC6070];
       do
       {
         v13 = 0;
         do
         {
-          if (*v45 != v10)
+          if (*v44 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v14 = *(*(&v44 + 1) + 8 * v13);
-          if ([v14 isEqualToString:{v11, v22}])
+          v14 = *(*(&v43 + 1) + 8 * v13);
+          if ([v14 isEqualToString:{v11, v21}])
           {
             if ([self isContainer])
             {
@@ -1476,44 +1468,44 @@ LABEL_17:
             v9 = v9 | 2;
           }
 
-          else if ([v14 isEqualToString:v43])
+          else if ([v14 isEqualToString:v42])
           {
             v9 = v9 | 0x10000;
           }
 
-          else if ([v14 isEqualToString:v42])
+          else if ([v14 isEqualToString:v41])
           {
             v9 = v9 | 1;
           }
 
-          else if ([v14 isEqualToString:v41])
+          else if ([v14 isEqualToString:v40])
           {
             v9 = v9 | 0x400000;
           }
 
-          else if ([v14 isEqualToString:v40])
+          else if ([v14 isEqualToString:v39])
           {
             v9 = v9 | 0x200000;
           }
 
-          else if ([v14 isEqualToString:v39])
+          else if ([v14 isEqualToString:v38])
           {
             v9 = v9 | 0x800000;
           }
 
-          else if ([v14 isEqualToString:v38])
+          else if ([v14 isEqualToString:v37])
           {
             v9 = v9 | 0x100000;
           }
 
-          else if ([v14 isEqualToString:v37])
+          else if ([v14 isEqualToString:v36])
           {
             v9 = v9 | 0x2000;
           }
 
-          else if (([v14 isEqualToString:v35] & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v31) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v30) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v29) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v28) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v27) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v26) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v25) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v24) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v23) & 1) != 0 || objc_msgSend(v14, "isEqualToString:", v22))
+          else if (([v14 isEqualToString:v34] & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v30) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v29) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v28) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v27) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v26) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v25) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v24) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v23) & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", v22) & 1) != 0 || objc_msgSend(v14, "isEqualToString:", v21))
           {
-            [v36 addObject:v14];
+            [v35 addObject:v14];
             v16 = docEnumerationLogHandle;
             if (!docEnumerationLogHandle)
             {
@@ -1525,8 +1517,8 @@ LABEL_17:
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v49 = v14;
-              v50 = 2114;
+              v48 = v14;
+              v49 = 2114;
               selfCopy2 = self;
               _os_log_error_impl(&dword_249340000, log, OS_LOG_TYPE_ERROR, "Unsupported action: %{public}@. Falling back to FPItem: %{public}@", buf, 0x16u);
             }
@@ -1534,13 +1526,13 @@ LABEL_17:
 
           else
           {
-            [v36 addObject:v14];
+            [v35 addObject:v14];
             loga = DOCEnumerationLogHandle();
             if (os_log_type_enabled(loga, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v49 = v14;
-              v50 = 2114;
+              v48 = v14;
+              v49 = 2114;
               selfCopy2 = self;
               _os_log_error_impl(&dword_249340000, loga, OS_LOG_TYPE_ERROR, "Unknown/Unexpected action: %{public}@. Falling back to FPItem: %{public}@", buf, 0x16u);
             }
@@ -1550,7 +1542,7 @@ LABEL_17:
         }
 
         while (v8 != v13);
-        v17 = [v6 countByEnumeratingWithState:&v44 objects:v52 count:16];
+        v17 = [v6 countByEnumeratingWithState:&v43 objects:v51 count:16];
         v8 = v17;
       }
 
@@ -1566,8 +1558,8 @@ LABEL_17:
         v18 = 1;
       }
 
-      v4 = v32;
-      v5 = v36;
+      v4 = v31;
+      v5 = v35;
     }
 
     else
@@ -1588,7 +1580,6 @@ LABEL_17:
     v18 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -1602,14 +1593,12 @@ LABEL_17:
 
 - (void)_buildFetchError
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   localizedDescription = [a2 localizedDescription];
-  v6 = 138543362;
-  v7 = localizedDescription;
-  _os_log_fault_impl(&dword_249340000, selfCopy, OS_LOG_TYPE_FAULT, "FPItem bridging error: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = localizedDescription;
+  _os_log_fault_impl(&dword_249340000, selfCopy, OS_LOG_TYPE_FAULT, "FPItem bridging error: %{public}@", &v5, 0xCu);
 }
 
 @end

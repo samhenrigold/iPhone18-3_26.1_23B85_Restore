@@ -106,40 +106,39 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_lock lock];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   targets = self->_targets;
-  v6 = [(NSMutableArray *)targets countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)targets countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(targets);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         [invocation invokeWithTarget:v9];
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [(NSMutableArray *)targets countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)targets countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   [(NSLock *)self->_lock unlock];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

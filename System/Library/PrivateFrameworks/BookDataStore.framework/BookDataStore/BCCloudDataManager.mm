@@ -141,10 +141,11 @@ LABEL_12:
 {
   errorCopy = error;
   atCopy = at;
+  v7 = atCopy;
   if (errorCopy)
   {
-    v7 = BDSCloudKitLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BDSCloudKitLog(atCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1E4709238();
     }
@@ -153,18 +154,15 @@ LABEL_12:
 
 - (void)mq_incrementCloudVersion
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   mq_cloudSyncVersions = [(BCCloudDataManager *)self mq_cloudSyncVersions];
-  [mq_cloudSyncVersions setCloudVersion:{objc_msgSend(mq_cloudSyncVersions, "cloudVersion") + 1}];
-  v3 = BDSCloudKitLog();
+  v3 = BDSCloudKitLog([mq_cloudSyncVersions setCloudVersion:{objc_msgSend(mq_cloudSyncVersions, "cloudVersion") + 1}]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
+    v4 = 134217984;
     cloudVersion = [mq_cloudSyncVersions cloudVersion];
-    _os_log_impl(&dword_1E45E0000, v3, OS_LOG_TYPE_DEFAULT, "BCCloudDataManager Incremented cloudSyncVersion to %lld", &v5, 0xCu);
+    _os_log_impl(&dword_1E45E0000, v3, OS_LOG_TYPE_DEFAULT, "BCCloudDataManager Incremented cloudSyncVersion to %lld", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startSyncToCKWithSyncManager:(id)manager completion:(id)completion
@@ -281,23 +279,23 @@ LABEL_12:
 
 - (id)mq_sanitizeError:(id)error
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   if (error)
   {
     v3 = *MEMORY[0x1E696A278];
-    v14[0] = @"CoreDataError";
-    v13[0] = v3;
-    v13[1] = @"domain";
+    v13[0] = @"CoreDataError";
+    v12[0] = v3;
+    v12[1] = @"domain";
     errorCopy = error;
     domain = [errorCopy domain];
-    v14[1] = domain;
-    v13[2] = @"code";
+    v13[1] = domain;
+    v12[2] = @"code";
     v6 = MEMORY[0x1E696AD98];
     code = [errorCopy code];
 
     v8 = [v6 numberWithInteger:code];
-    v14[2] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+    v13[2] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
 
     v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BDSErrorDomain" code:1002 userInfo:v9];
   }
@@ -306,8 +304,6 @@ LABEL_12:
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -941,34 +937,32 @@ LABEL_12:
 
 - (id)_fetchHistoryAfterToken:(id)token inMoc:(id)moc error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   mocCopy = moc;
-  v10 = BDSCloudKitLog();
+  v10 = BDSCloudKitLog(mocCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     entityName = [(BCCloudDataManager *)self entityName];
     *buf = 138543618;
-    v19 = entityName;
-    v20 = 2114;
-    v21 = tokenCopy;
+    v18 = entityName;
+    v19 = 2114;
+    v20 = tokenCopy;
     _os_log_impl(&dword_1E45E0000, v10, OS_LOG_TYPE_INFO, "BCCloudDataManager %{public}@ getChangesSince _fetchHistoryAfterToken: %{public}@", buf, 0x16u);
   }
 
   v12 = [MEMORY[0x1E695D698] fetchHistoryAfterToken:tokenCopy];
   [v12 setResultType:5];
   [v12 setFetchBatchSize:1024];
-  v17 = 0;
-  v13 = [mocCopy executeRequest:v12 error:&v17];
+  v16 = 0;
+  v13 = [mocCopy executeRequest:v12 error:&v16];
 
-  v14 = v17;
+  v14 = v16;
   if (error)
   {
     v14 = v14;
     *error = v14;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1003,22 +997,22 @@ LABEL_12:
 
   if (verboseLoggingEnabled)
   {
-    v12 = BDSCloudKitDevelopmentLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = BDSCloudKitDevelopmentLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       entityName = [(BCCloudDataManager *)self entityName];
       *buf = 138412546;
       v27 = entityName;
       v28 = 2112;
       v29 = sinceCopy;
-      _os_log_impl(&dword_1E45E0000, v12, OS_LOG_TYPE_DEFAULT, "\\BCCloudDataManager %@ getChangesSince cloudSyncVersions:%@\\"", buf, 0x16u);
+      _os_log_impl(&dword_1E45E0000, v13, OS_LOG_TYPE_DEFAULT, "\\BCCloudDataManager %@ getChangesSince cloudSyncVersions:%@\", buf, 0x16u);
     }
   }
 
-  v14 = [(BCCloudDataManager *)self moc];
-  v15 = v14 == 0;
+  v15 = [(BCCloudDataManager *)self moc];
+  v16 = v15 == 0;
 
-  if (v15)
+  if (v16)
   {
     responseQueue = [(BCCloudDataManager *)self responseQueue];
     block[0] = MEMORY[0x1E69E9820];
@@ -1033,7 +1027,7 @@ LABEL_12:
   else
   {
     objc_initWeak(buf, self);
-    v16 = [(BCCloudDataManager *)self moc];
+    v17 = [(BCCloudDataManager *)self moc];
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
     v19[2] = sub_1E464E2EC;
@@ -1043,13 +1037,11 @@ LABEL_12:
     selfCopy = self;
     v23[1] = class;
     v22 = completionCopy;
-    [v16 performBlock:v19];
+    [v17 performBlock:v19];
 
     objc_destroyWeak(v23);
     objc_destroyWeak(buf);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion
@@ -1087,14 +1079,14 @@ LABEL_12:
 
 - (void)hasSaltChangedWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = BDSCloudKitLog();
+  v5 = BDSCloudKitLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     entityName = [(BCCloudDataManager *)self entityName];
     *buf = 138412290;
-    v18 = entityName;
+    v17 = entityName;
     _os_log_impl(&dword_1E45E0000, v5, OS_LOG_TYPE_DEFAULT, "BCCloudDataManager %@ #hasSaltChangedWithCompletion", buf, 0xCu);
   }
 
@@ -1108,7 +1100,7 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = sub_1E464F514;
     block[3] = &unk_1E875A2E0;
-    v16 = completionCopy;
+    v15 = completionCopy;
     dispatch_async(responseQueue, block);
   }
 
@@ -1116,19 +1108,17 @@ LABEL_12:
   {
     objc_initWeak(buf, self);
     v9 = [(BCCloudDataManager *)self moc];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_1E464F5D8;
-    v12[3] = &unk_1E87596B0;
-    objc_copyWeak(&v14, buf);
-    v13 = completionCopy;
-    [v9 performBlock:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = sub_1E464F5D8;
+    v11[3] = &unk_1E87596B0;
+    objc_copyWeak(&v13, buf);
+    v12 = completionCopy;
+    [v9 performBlock:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)diagnosticDirtyCloudDataInfos
@@ -1137,40 +1127,40 @@ LABEL_12:
 
   if (v3)
   {
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x3032000000;
-    v14 = sub_1E4648848;
-    v15 = sub_1E4648858;
-    v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = sub_1E4648848;
+    v16 = sub_1E4648858;
+    v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
     objc_initWeak(&location, self);
-    v4 = [(BCCloudDataManager *)self moc];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = sub_1E464FB48;
-    v8[3] = &unk_1E875B570;
-    objc_copyWeak(&v9, &location);
-    v8[4] = &v11;
-    [v4 performBlockAndWait:v8];
+    v5 = [(BCCloudDataManager *)self moc];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1E464FB48;
+    v9[3] = &unk_1E875B570;
+    objc_copyWeak(&v10, &location);
+    v9[4] = &v12;
+    [v5 performBlockAndWait:v9];
 
-    v5 = v12[5];
-    objc_destroyWeak(&v9);
+    v6 = v13[5];
+    objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v12, 8);
   }
 
   else
   {
-    v6 = BDSCloudKitLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BDSCloudKitLog(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E47092BC();
     }
 
-    v5 = MEMORY[0x1E695E0F0];
+    v6 = MEMORY[0x1E695E0F0];
   }
 
-  return v5;
+  return v6;
 }
 
 - (BDSCloudDataManagerMonitor)monitor

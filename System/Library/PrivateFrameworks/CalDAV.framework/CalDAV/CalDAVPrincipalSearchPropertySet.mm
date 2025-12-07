@@ -3,6 +3,7 @@
 - (BOOL)isEqualToPropertySet:(id)set;
 - (BOOL)supportsPropertySearch;
 - (BOOL)supportsPropertyTypeWithNameSpace:(id)space andName:(id)name;
+- (BOOL)supportsWellKnownType:(int)type;
 - (CalDAVPrincipalSearchPropertySet)initWithSearchProperties:(id)properties;
 - (CalDAVPrincipalSearchPropertySet)initWithStringProperties:(id)properties;
 @end
@@ -11,36 +12,36 @@
 
 - (CalDAVPrincipalSearchPropertySet)initWithSearchProperties:(id)properties
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
-  v28.receiver = self;
-  v28.super_class = CalDAVPrincipalSearchPropertySet;
-  v5 = [(CalDAVPrincipalSearchPropertySet *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = CalDAVPrincipalSearchPropertySet;
+  v5 = [(CalDAVPrincipalSearchPropertySet *)&v27 init];
   v6 = v5;
   if (v5)
   {
-    v23 = v5;
+    v22 = v5;
     v7 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(propertiesCopy, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v8 = propertiesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          prop = [*(*(&v24 + 1) + 8 * i) prop];
+          prop = [*(*(&v23 + 1) + 8 * i) prop];
           extraChildItems = [prop extraChildItems];
           lastObject = [extraChildItems lastObject];
 
@@ -54,18 +55,17 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v10);
     }
 
     v20 = [objc_alloc(MEMORY[0x277CBEB98]) initWithSet:v7];
-    v6 = v23;
-    [(CalDAVPrincipalSearchPropertySet *)v23 setStringProperties:v20];
+    v6 = v22;
+    [(CalDAVPrincipalSearchPropertySet *)v22 setStringProperties:v20];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -99,6 +99,15 @@
   v7 = [stringProperties containsObject:v5];
 
   return v7;
+}
+
+- (BOOL)supportsWellKnownType:(int)type
+{
+  v4 = [CalDAVPrincipalSearchSupport namespaceAndNameForWellKnownType:*&type];
+  stringProperties = [(CalDAVPrincipalSearchPropertySet *)self stringProperties];
+  v6 = [stringProperties containsObject:v4];
+
+  return v6;
 }
 
 - (BOOL)supportsPropertySearch

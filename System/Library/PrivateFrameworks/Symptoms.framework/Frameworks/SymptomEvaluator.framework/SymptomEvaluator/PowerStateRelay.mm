@@ -90,43 +90,39 @@
 
 void __23__PowerStateRelay_init__block_invoke_8(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) getCurrentKeybagLockState];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
-    v6[0] = 67109120;
-    v6[1] = [v3 screenUnlocked];
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Power: screen-unlocked %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = [v3 screenUnlocked];
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Power: screen-unlocked %d", v5, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCurrentKeybagLockState
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"ExtendedDeviceLockState";
-  v9[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"ExtendedDeviceLockState";
+  v8[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = MKBGetDeviceLockState();
   [(PowerStateRelay *)self setScreenUnlocked:(v4 < 8) & (0x89u >> v4)];
   v5 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = v4;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Power: keybag state:%d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = v4;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Power: keybag state:%d", v6, 8u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __23__PowerStateRelay_init__block_invoke_6(uint64_t a1, int token)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(token, &state64);
   [*(a1 + 32) setScreenBrightness:state64];
@@ -137,16 +133,14 @@ void __23__PowerStateRelay_init__block_invoke_6(uint64_t a1, int token)
     v5 = v3;
     v6 = [v4 screenBrightness];
     *buf = 67109120;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Power: screen-brightness %u", buf, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __23__PowerStateRelay_init__block_invoke_4(uint64_t a1, int token)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(token, &state64);
   [*(a1 + 32) setScreenNotDark:state64 != 1];
@@ -157,11 +151,9 @@ void __23__PowerStateRelay_init__block_invoke_4(uint64_t a1, int token)
     v5 = v3;
     v6 = [v4 screenNotDark];
     *buf = 67109120;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Power: screen-notdark %d", buf, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (double)batteryPercentage
@@ -306,10 +298,10 @@ void __23__PowerStateRelay_init__block_invoke_4(uint64_t a1, int token)
 
 - (PowerStateRelay)init
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v50.receiver = self;
-  v50.super_class = PowerStateRelay;
-  v2 = [(PowerStateRelay *)&v50 init];
+  v54 = *MEMORY[0x277D85DE8];
+  v49.receiver = self;
+  v49.super_class = PowerStateRelay;
+  v2 = [(PowerStateRelay *)&v49 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
@@ -323,7 +315,7 @@ void __23__PowerStateRelay_init__block_invoke_4(uint64_t a1, int token)
     handler[2] = __23__PowerStateRelay_init__block_invoke;
     handler[3] = &unk_27898B048;
     v7 = v2;
-    v49 = v7;
+    v48 = v7;
     notify_register_dispatch("com.apple.springboard.pluggedin", &v2->powerStateToken, v6, handler);
     state64 = 0;
     notify_get_state(v2->powerStateToken, &state64);
@@ -339,13 +331,13 @@ void __23__PowerStateRelay_init__block_invoke_4(uint64_t a1, int token)
     }
 
     v11 = v2->_powerStateQueue;
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __23__PowerStateRelay_init__block_invoke_4;
-    v45[3] = &unk_27898B048;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __23__PowerStateRelay_init__block_invoke_4;
+    v44[3] = &unk_27898B048;
     v12 = v7;
-    v46 = v12;
-    notify_register_dispatch("com.apple.springboard.hasBlankedScreen", v7 + 3, v11, v45);
+    v45 = v12;
+    notify_register_dispatch("com.apple.springboard.hasBlankedScreen", v7 + 3, v11, v44);
     *buf = 0;
     notify_get_state(v7[3], buf);
     [v12 setScreenNotDark:*buf != 1];
@@ -354,49 +346,49 @@ void __23__PowerStateRelay_init__block_invoke_4(uint64_t a1, int token)
     {
       v14 = v13;
       screenNotDark = [v12 screenNotDark];
-      *v53 = 67109120;
-      *&v53[4] = screenNotDark;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Power: screen-notdark %d (baseline)", v53, 8u);
+      *v52 = 67109120;
+      *&v52[4] = screenNotDark;
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Power: screen-notdark %d (baseline)", v52, 8u);
     }
 
     v16 = v2->_powerStateQueue;
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __23__PowerStateRelay_init__block_invoke_6;
-    v43[3] = &unk_27898B048;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __23__PowerStateRelay_init__block_invoke_6;
+    v42[3] = &unk_27898B048;
     v17 = v12;
-    v44 = v17;
-    notify_register_dispatch("UIBacklightLevelChangedNotification", v12 + 4, v16, v43);
-    *v53 = 0;
-    notify_get_state(v2->powerStateToken, v53);
-    [v17 setScreenBrightness:*v53];
+    v43 = v17;
+    notify_register_dispatch("UIBacklightLevelChangedNotification", v12 + 4, v16, v42);
+    *v52 = 0;
+    notify_get_state(v2->powerStateToken, v52);
+    [v17 setScreenBrightness:*v52];
     v18 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v19 = v18;
       screenBrightness = [v17 screenBrightness];
-      *v51 = 67109120;
-      v52 = screenBrightness;
-      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "Power: screen-brightness %u (baseline)", v51, 8u);
+      *v50 = 67109120;
+      v51 = screenBrightness;
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "Power: screen-brightness %u (baseline)", v50, 8u);
     }
 
     v21 = v2->_powerStateQueue;
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __23__PowerStateRelay_init__block_invoke_8;
-    v41[3] = &unk_27898B048;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __23__PowerStateRelay_init__block_invoke_8;
+    v40[3] = &unk_27898B048;
     v22 = v17;
-    v42 = v22;
-    notify_register_dispatch("com.apple.mobile.keybagd.lock_status", v17 + 6, v21, v41);
+    v41 = v22;
+    notify_register_dispatch("com.apple.mobile.keybagd.lock_status", v17 + 6, v21, v40);
     [v22 getCurrentKeybagLockState];
     v23 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v24 = v23;
       screenUnlocked = [v22 screenUnlocked];
-      *v51 = 67109120;
-      v52 = screenUnlocked;
-      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Power: screen-unlocked %d (baseline)", v51, 8u);
+      *v50 = 67109120;
+      v51 = screenUnlocked;
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Power: screen-unlocked %d (baseline)", v50, 8u);
     }
 
     [v22 enableIOKitBatteryLevelNotifications];
@@ -410,9 +402,9 @@ void __23__PowerStateRelay_init__block_invoke_4(uint64_t a1, int token)
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v29 = v22[64];
-      *v51 = 67109120;
-      v52 = v29;
-      _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "Power: low-power-mode %d (baseline)", v51, 8u);
+      *v50 = 67109120;
+      v51 = v29;
+      _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "Power: low-power-mode %d (baseline)", v50, 8u);
     }
 
     aBlock[0] = MEMORY[0x277D85DD0];
@@ -420,27 +412,26 @@ void __23__PowerStateRelay_init__block_invoke_4(uint64_t a1, int token)
     aBlock[2] = __23__PowerStateRelay_init__block_invoke_12;
     aBlock[3] = &unk_27898E650;
     v30 = v22;
-    v40 = v30;
+    v39 = v30;
     v31 = _Block_copy(aBlock);
     v32 = *MEMORY[0x277D85E48];
     v33 = v2->_powerStateQueue;
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __23__PowerStateRelay_init__block_invoke_16;
-    v37[3] = &unk_27898E678;
-    v38 = v31;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __23__PowerStateRelay_init__block_invoke_16;
+    v36[3] = &unk_27898E678;
+    v37 = v31;
     v34 = v31;
-    notify_register_dispatch(v32, v30 + 5, v33, v37);
+    notify_register_dispatch(v32, v30 + 5, v33, v36);
     v34[2](v34, v30[5], 1);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __23__PowerStateRelay_init__block_invoke(uint64_t a1, int token)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(token, &state64);
   [*(a1 + 32) setPluggedIn:state64 == 1];
@@ -451,16 +442,14 @@ void __23__PowerStateRelay_init__block_invoke(uint64_t a1, int token)
     v5 = v3;
     v6 = [v4 pluggedIn];
     *buf = 67109120;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Power: plugged-in %d", buf, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __23__PowerStateRelay_init__block_invoke_12(uint64_t a1, int token, int a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   state64 = 0;
   state = notify_get_state(token, &state64);
   if (state)
@@ -477,9 +466,9 @@ void __23__PowerStateRelay_init__block_invoke_12(uint64_t a1, int token, int a3)
       }
 
       *buf = 67109378;
-      *v18 = v6;
-      *&v18[4] = 2080;
-      *&v18[6] = v8;
+      *v17 = v6;
+      *&v17[4] = 2080;
+      *&v17[6] = v8;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "notify_get_state() for kOSThermalNotificationPressureLevelName failed (%d) %s", buf, 0x12u);
     }
   }
@@ -501,14 +490,12 @@ void __23__PowerStateRelay_init__block_invoke_12(uint64_t a1, int token, int a3)
       }
 
       *buf = 138412546;
-      *v18 = v12;
-      *&v18[8] = 2080;
-      *&v18[10] = v14;
+      *v17 = v12;
+      *&v17[8] = 2080;
+      *&v17[10] = v14;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Power: thermal-pressure %@ %s", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)thermalPressureLevelToString:(int64_t)string
@@ -621,7 +608,7 @@ LABEL_20:
 
 - (void)enableIOKitBatteryLevelNotifications
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CD28A0];
   v4 = IOServiceMatching("IOPMPowerSource");
   MatchingService = IOServiceGetMatchingService(v3, v4);
@@ -631,7 +618,7 @@ LABEL_20:
     v14 = analyticsLogHandle;
     if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_19;
+      return;
     }
 
     *buf = 0;
@@ -641,7 +628,7 @@ LABEL_10:
     v17 = 2;
 LABEL_17:
     _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
-    goto LABEL_19;
+    return;
   }
 
   v6 = IONotificationPortCreate(v3);
@@ -651,7 +638,7 @@ LABEL_17:
     v14 = analyticsLogHandle;
     if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_19;
+      return;
     }
 
     *buf = 0;
@@ -671,7 +658,7 @@ LABEL_17:
     }
 
     *buf = 67109120;
-    v23 = v9;
+    v22 = v9;
     v10 = "Power: Failure to add interest notification for battery level: %d";
     v11 = v8;
     v12 = OS_LOG_TYPE_ERROR;
@@ -695,26 +682,24 @@ LABEL_17:
   _os_log_impl(&dword_23255B000, v11, v12, v10, buf, v13);
 LABEL_14:
   v18 = IOPSGetPercentRemaining();
-  if (!v18)
+  if (v18)
   {
-    [(PowerStateRelay *)self setBatteryPercentage:0];
-    goto LABEL_19;
-  }
+    v19 = v18;
+    v20 = analyticsLogHandle;
+    if (!os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
 
-  v19 = v18;
-  v20 = analyticsLogHandle;
-  if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
-  {
     *buf = 67109120;
-    v23 = v19;
+    v22 = v19;
     v15 = "Power: Failure from IOPSGetPercentRemaining: %d";
     v16 = v20;
     v17 = 8;
     goto LABEL_17;
   }
 
-LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
+  [(PowerStateRelay *)self setBatteryPercentage:0];
 }
 
 - (void)disableIOKitBatteryLevelNotifications
@@ -942,7 +927,7 @@ LABEL_19:
 
 - (void)updateBatteryValuesFromPowerSourceDictionary:(id)dictionary
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = dictionaryCopy;
   if (dictionaryCopy)
@@ -998,7 +983,7 @@ LABEL_19:
       -[PowerStateRelay setBatteryDepthOfDischarge:](self, "setBatteryDepthOfDischarge:", [v19 unsignedIntValue]);
     }
 
-    v61 = v12;
+    v60 = v12;
     v21 = [v5 objectForKeyedSubscript:@"Voltage"];
     v22 = v21;
     if (v21)
@@ -1006,7 +991,7 @@ LABEL_19:
       -[PowerStateRelay setBatteryVoltage:](self, "setBatteryVoltage:", [v21 unsignedIntValue]);
     }
 
-    v63 = v6;
+    v62 = v6;
     v23 = [v5 objectForKeyedSubscript:{@"TimeRemaining", v22}];
     v24 = v23;
     if (v23)
@@ -1014,7 +999,7 @@ LABEL_19:
       -[PowerStateRelay setBatteryTimeRemaining:](self, "setBatteryTimeRemaining:", [v23 unsignedIntValue]);
     }
 
-    v62 = v7;
+    v61 = v7;
     v25 = [v5 objectForKeyedSubscript:@"ExternalConnected"];
     v26 = v25;
     if (v25)
@@ -1022,7 +1007,7 @@ LABEL_19:
       -[PowerStateRelay setBatteryExternalPowerIsConnected:](self, "setBatteryExternalPowerIsConnected:", [v25 BOOLValue]);
     }
 
-    v60 = v14;
+    v59 = v14;
     v27 = [v5 objectForKeyedSubscript:@"IsCharging"];
     v28 = v27;
     if (v27)
@@ -1030,7 +1015,7 @@ LABEL_19:
       -[PowerStateRelay setBatteryIsCharging:](self, "setBatteryIsCharging:", [v27 BOOLValue]);
     }
 
-    v59 = v16;
+    v58 = v16;
     v29 = [v5 objectForKeyedSubscript:@"FullyCharged"];
     v30 = v29;
     if (v29)
@@ -1038,7 +1023,7 @@ LABEL_19:
       -[PowerStateRelay setBatteryFullyCharged:](self, "setBatteryFullyCharged:", [v29 BOOLValue]);
     }
 
-    v58 = v18;
+    v57 = v18;
     v31 = [v5 objectForKeyedSubscript:@"AtWarnLevel"];
     v32 = v31;
     if (v31)
@@ -1046,7 +1031,7 @@ LABEL_19:
       -[PowerStateRelay setBatteryAtWarnLevel:](self, "setBatteryAtWarnLevel:", [v31 BOOLValue]);
     }
 
-    v57 = v20;
+    v56 = v20;
     v33 = [v5 objectForKeyedSubscript:@"AtCriticalLevel"];
     v34 = v33;
     if (v33)
@@ -1082,39 +1067,39 @@ LABEL_19:
       batteryVoltage = self->_batteryVoltage;
       batteryDepthOfDischarge = self->_batteryDepthOfDischarge;
       *buf = 134222080;
-      v65 = batteryPercentage;
-      v66 = 1024;
-      v67 = batteryExternalPowerIsConnected;
-      v68 = 1024;
-      v69 = batteryIsCharging;
-      v70 = 1024;
-      v71 = batteryAtWarnLevel;
-      v72 = 1024;
-      v73 = batteryAtCriticalLevel;
-      v74 = 1024;
-      v75 = batteryAbsoluteCapacity;
-      v76 = 1024;
-      v77 = batteryVoltage;
-      v78 = 1024;
-      v79 = batteryCurrentCapacity;
-      v80 = 1024;
-      v81 = batteryMaximumCapacity;
-      v82 = 1024;
-      v83 = batteryDesignCapacity;
-      v84 = 1024;
-      v85 = batteryTimeRemaining;
-      v86 = 1024;
-      v87 = batteryFullyCharged;
-      v88 = 1024;
-      v89 = batteryTemperature;
-      v90 = 1024;
-      v91 = screenBrightness;
-      v92 = 1024;
-      v93 = batteryRawCurrentCapacity;
-      v94 = 1024;
-      v95 = batteryRawMaximumCapacity;
-      v96 = 1024;
-      v97 = batteryDepthOfDischarge;
+      v64 = batteryPercentage;
+      v65 = 1024;
+      v66 = batteryExternalPowerIsConnected;
+      v67 = 1024;
+      v68 = batteryIsCharging;
+      v69 = 1024;
+      v70 = batteryAtWarnLevel;
+      v71 = 1024;
+      v72 = batteryAtCriticalLevel;
+      v73 = 1024;
+      v74 = batteryAbsoluteCapacity;
+      v75 = 1024;
+      v76 = batteryVoltage;
+      v77 = 1024;
+      v78 = batteryCurrentCapacity;
+      v79 = 1024;
+      v80 = batteryMaximumCapacity;
+      v81 = 1024;
+      v82 = batteryDesignCapacity;
+      v83 = 1024;
+      v84 = batteryTimeRemaining;
+      v85 = 1024;
+      v86 = batteryFullyCharged;
+      v87 = 1024;
+      v88 = batteryTemperature;
+      v89 = 1024;
+      v90 = screenBrightness;
+      v91 = 1024;
+      v92 = batteryRawCurrentCapacity;
+      v93 = 1024;
+      v94 = batteryRawMaximumCapacity;
+      v95 = 1024;
+      v96 = batteryDepthOfDischarge;
       _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEFAULT, "Power: battery-percentage %.2f battery-power-connected %d battery-charging %d battery-warn %d battery-critical %d battery-absolute-capacity-mAh %u battery-voltage-mV %u battery-current-capacity-%% %u battery-maximum-capacity-%% %u battery-design-capacity-mAh %u battery-time-remaining %u battery-fully-charged %d battery-temperature %d screen-brightness %u battery-raw-current-capacity %u battery-raw-maximum-capacity %u presentDOD %u", buf, 0x6Cu);
     }
   }
@@ -1123,8 +1108,6 @@ LABEL_19:
   {
     [(PowerStateRelay *)self setBatteryPercentage:100.0];
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePowerStateChange:(id)change
@@ -1143,19 +1126,17 @@ LABEL_19:
 
 void __42__PowerStateRelay_handlePowerStateChange___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setLowPowerModeEnabled:*(a1 + 40)];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
-    v6[0] = 67109120;
-    v6[1] = [v3 lowPowerModeEnabled];
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Power: low-power-mode %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = [v3 lowPowerModeEnabled];
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Power: low-power-mode %d", v5, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLowPowerModeEnabled:(BOOL)enabled

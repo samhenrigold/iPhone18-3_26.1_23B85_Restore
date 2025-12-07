@@ -25,7 +25,7 @@
 
 - (MTCallerSuppliedFields)initWithPageId:(id)id pageType:(id)type pageContext:(id)context eventData:(id)data
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   typeCopy = type;
   contextCopy = context;
@@ -49,8 +49,8 @@
 
   if ([v15 count])
   {
-    v21[0] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     if ([dataCopy count])
     {
       v17 = [v16 arrayByAddingObjectsFromArray:dataCopy];
@@ -66,7 +66,6 @@
 
   v18 = [(MTCallerSuppliedFields *)self initWithEventData:v16];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

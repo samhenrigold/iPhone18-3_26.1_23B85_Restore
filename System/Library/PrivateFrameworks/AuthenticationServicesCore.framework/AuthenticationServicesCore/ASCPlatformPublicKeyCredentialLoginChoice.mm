@@ -236,99 +236,26 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    publicKeyCredentialOperationUUID = self->_publicKeyCredentialOperationUUID;
     publicKeyCredentialOperationUUID = [v5 publicKeyCredentialOperationUUID];
-    LODWORD(publicKeyCredentialOperationUUID) = WBSIsEqual();
+    v7 = WBSIsEqual();
 
-    if (!publicKeyCredentialOperationUUID)
+    if (v7 && self->_isRegistrationRequest == v5[8] && [(NSString *)self->_name isEqualToString:*(v5 + 2)]&& [(NSString *)self->_displayName isEqualToString:*(v5 + 3)]&& WBSIsEqual() && [(NSString *)self->_relyingPartyIdentifier isEqualToString:*(v5 + 6)]&& WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual())
     {
-      goto LABEL_18;
-    }
-
-    if (self->_isRegistrationRequest != v5[8])
-    {
-      goto LABEL_18;
-    }
-
-    if (![(NSString *)self->_name isEqualToString:*(v5 + 2)])
-    {
-      goto LABEL_18;
-    }
-
-    if (![(NSString *)self->_displayName isEqualToString:*(v5 + 3)])
-    {
-      goto LABEL_18;
-    }
-
-    identifier = self->_identifier;
-    v9 = *(v5 + 7);
-    if (!WBSIsEqual())
-    {
-      goto LABEL_18;
-    }
-
-    if (![(NSString *)self->_relyingPartyIdentifier isEqualToString:*(v5 + 6)])
-    {
-      goto LABEL_18;
-    }
-
-    credentialIdentity = self->_credentialIdentity;
-    v11 = *(v5 + 9);
-    if (!WBSIsEqual())
-    {
-      goto LABEL_18;
-    }
-
-    externalCredentialProviderName = self->_externalCredentialProviderName;
-    v13 = *(v5 + 10);
-    if (!WBSIsEqual())
-    {
-      goto LABEL_18;
-    }
-
-    externalCredentialProviderBundleID = self->_externalCredentialProviderBundleID;
-    v15 = *(v5 + 11);
-    if (!WBSIsEqual())
-    {
-      goto LABEL_18;
-    }
-
-    clientDataHash = self->_clientDataHash;
-    v17 = *(v5 + 12);
-    if (!WBSIsEqual())
-    {
-      goto LABEL_18;
-    }
-
-    userVerificationPreference = self->_userVerificationPreference;
-    v19 = *(v5 + 13);
-    if (!WBSIsEqual())
-    {
-      goto LABEL_18;
-    }
-
-    supportedAlgorithms = self->_supportedAlgorithms;
-    v21 = *(v5 + 14);
-    if (WBSIsEqual() && (excludedCredentials = self->_excludedCredentials, v23 = *(v5 + 15), WBSIsEqual()) && (groupID = self->_groupID, v25 = *(v5 + 16), WBSIsEqual()))
-    {
-      groupName = self->_groupName;
-      v27 = *(v5 + 17);
-      v28 = WBSIsEqual();
+      v8 = WBSIsEqual();
     }
 
     else
     {
-LABEL_18:
-      v28 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v28 = 0;
+    v8 = 0;
   }
 
-  return v28;
+  return v8;
 }
 
 - (int64_t)compare:(id)compare

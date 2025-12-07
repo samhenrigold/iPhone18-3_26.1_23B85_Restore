@@ -20,7 +20,7 @@
 
 - (void)applyTagsFromNodes:(id)nodes
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   DOCTagsCollectionViewData.applyTagsFromNodes(_:)(v4);
@@ -30,7 +30,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  DOCTagsCollectionViewData.applyPendingExternalChange(_:timeout:)(changeCopy);
+  DOCTagsCollectionViewData.applyPendingExternalChange(_:timeout:)(changeCopy, timeout);
 }
 
 - (id)tagAtIndex:(int64_t)index

@@ -67,21 +67,19 @@
 
 - (NSData)uid
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   if (self->_type == 2)
   {
-    v5[0] = 0;
-    v5[1] = 0;
-    [(NSUUID *)self->_uuid getUUIDBytes:v5];
-    v2 = [MEMORY[0x1E695DEF0] dataWithBytes:v5 length:16];
+    v4[0] = 0;
+    v4[1] = 0;
+    [(NSUUID *)self->_uuid getUUIDBytes:v4];
+    v2 = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:16];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -141,7 +139,7 @@
 
 - (BOOL)isConnected:(BOOL *)connected error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
   {
@@ -158,9 +156,9 @@
     xpcClient = self->_device->_xpcClient;
     v10 = v8;
     *buf = 134218240;
-    *v35 = connected;
-    *&v35[8] = 2048;
-    v36[0] = [(BiometricKitXPCClient *)xpcClient connectionId];
+    *v34 = connected;
+    *&v34[8] = 2048;
+    v35[0] = [(BiometricKitXPCClient *)xpcClient connectionId];
     _os_log_impl(&dword_1C82AD000, v10, OS_LOG_TYPE_DEFAULT, "BKAccessory:isConnected: %p (_cid:%lu)\n", buf, 0x16u);
   }
 
@@ -171,43 +169,43 @@
 LABEL_30:
     if (__osLogTrace)
     {
-      v26 = __osLogTrace;
+      v25 = __osLogTrace;
     }
 
     else
     {
-      v26 = v7;
+      v25 = v7;
     }
 
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       if (connected)
       {
-        v27 = *connected;
+        v26 = *connected;
       }
 
       else
       {
-        v27 = -1;
+        v26 = -1;
       }
 
       if (error)
       {
-        v28 = *error;
+        v27 = *error;
       }
 
       else
       {
-        v28 = 0;
+        v27 = 0;
       }
 
       *buf = 67109634;
-      *v35 = 0;
-      *&v35[4] = 1024;
-      *&v35[6] = v27;
-      LOWORD(v36[0]) = 2112;
-      *(v36 + 2) = v28;
-      _os_log_impl(&dword_1C82AD000, v26, OS_LOG_TYPE_ERROR, "BKAccessory::isConnected: -> %d, connected:%d, error:%@\n", buf, 0x18u);
+      *v34 = 0;
+      *&v34[4] = 1024;
+      *&v34[6] = v26;
+      LOWORD(v35[0]) = 2112;
+      *(v35 + 2) = v27;
+      _os_log_impl(&dword_1C82AD000, v25, OS_LOG_TYPE_ERROR, "BKAccessory::isConnected: -> %d, connected:%d, error:%@\n", buf, 0x18u);
     }
 
     v23 = 0;
@@ -215,9 +213,9 @@ LABEL_30:
   }
 
   v11 = self->_device->_xpcClient;
-  v33 = 0;
-  v12 = [(BiometricKitXPCClient *)v11 listAccessories:&v33];
-  v13 = v33;
+  v32 = 0;
+  v12 = [(BiometricKitXPCClient *)v11 listAccessories:&v32];
+  v13 = v32;
   v14 = v13;
   if (v12)
   {
@@ -225,34 +223,34 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v30;
+    v17 = *v29;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v30 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v29 + 1) + 8 * i);
-        if ([(BKAccessory *)self isEqualToServerAccessory:v19, v29])
+        v19 = *(*(&v28 + 1) + 8 * i);
+        if ([(BKAccessory *)self isEqualToServerAccessory:v19, v28])
         {
           *connected = ([v19 flags] & 2) != 0;
           goto LABEL_18;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
       if (v16)
       {
         continue;
@@ -289,11 +287,11 @@ LABEL_18:
 
     *buf = 67109634;
     v23 = 1;
-    *v35 = 1;
-    *&v35[4] = 1024;
-    *&v35[6] = v21;
-    LOWORD(v36[0]) = 2112;
-    *(v36 + 2) = v22;
+    *v34 = 1;
+    *&v34[4] = 1024;
+    *&v34[6] = v21;
+    LOWORD(v35[0]) = 2112;
+    *(v35 + 2) = v22;
     _os_log_impl(&dword_1C82AD000, v20, OS_LOG_TYPE_DEFAULT, "BKAccessory::isConnected: -> %d, connected:%d, error:%@\n", buf, 0x18u);
   }
 
@@ -304,13 +302,12 @@ LABEL_18:
 
 LABEL_27:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (BOOL)isAuthorized:(BOOL *)authorized error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
   {
@@ -327,9 +324,9 @@ LABEL_27:
     xpcClient = self->_device->_xpcClient;
     v10 = v8;
     *buf = 134218240;
-    *v35 = authorized;
-    *&v35[8] = 2048;
-    v36[0] = [(BiometricKitXPCClient *)xpcClient connectionId];
+    *v34 = authorized;
+    *&v34[8] = 2048;
+    v35[0] = [(BiometricKitXPCClient *)xpcClient connectionId];
     _os_log_impl(&dword_1C82AD000, v10, OS_LOG_TYPE_DEFAULT, "BKAccessory:isAuthorized: %p (_cid:%lu)\n", buf, 0x16u);
   }
 
@@ -340,43 +337,43 @@ LABEL_27:
 LABEL_30:
     if (__osLogTrace)
     {
-      v26 = __osLogTrace;
+      v25 = __osLogTrace;
     }
 
     else
     {
-      v26 = v7;
+      v25 = v7;
     }
 
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       if (authorized)
       {
-        v27 = *authorized;
+        v26 = *authorized;
       }
 
       else
       {
-        v27 = -1;
+        v26 = -1;
       }
 
       if (error)
       {
-        v28 = *error;
+        v27 = *error;
       }
 
       else
       {
-        v28 = 0;
+        v27 = 0;
       }
 
       *buf = 67109634;
-      *v35 = 0;
-      *&v35[4] = 1024;
-      *&v35[6] = v27;
-      LOWORD(v36[0]) = 2112;
-      *(v36 + 2) = v28;
-      _os_log_impl(&dword_1C82AD000, v26, OS_LOG_TYPE_ERROR, "BKAccessory::isAuthorized: -> %d, authorized:%d, error:%@\n", buf, 0x18u);
+      *v34 = 0;
+      *&v34[4] = 1024;
+      *&v34[6] = v26;
+      LOWORD(v35[0]) = 2112;
+      *(v35 + 2) = v27;
+      _os_log_impl(&dword_1C82AD000, v25, OS_LOG_TYPE_ERROR, "BKAccessory::isAuthorized: -> %d, authorized:%d, error:%@\n", buf, 0x18u);
     }
 
     v23 = 0;
@@ -384,9 +381,9 @@ LABEL_30:
   }
 
   v11 = self->_device->_xpcClient;
-  v33 = 0;
-  v12 = [(BiometricKitXPCClient *)v11 listAccessories:&v33];
-  v13 = v33;
+  v32 = 0;
+  v12 = [(BiometricKitXPCClient *)v11 listAccessories:&v32];
+  v13 = v32;
   v14 = v13;
   if (v12)
   {
@@ -394,34 +391,34 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v30;
+    v17 = *v29;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v30 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v29 + 1) + 8 * i);
-        if ([(BKAccessory *)self isEqualToServerAccessory:v19, v29])
+        v19 = *(*(&v28 + 1) + 8 * i);
+        if ([(BKAccessory *)self isEqualToServerAccessory:v19, v28])
         {
           *authorized = ([v19 flags] & 4) != 0;
           goto LABEL_18;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
       if (v16)
       {
         continue;
@@ -458,11 +455,11 @@ LABEL_18:
 
     *buf = 67109634;
     v23 = 1;
-    *v35 = 1;
-    *&v35[4] = 1024;
-    *&v35[6] = v21;
-    LOWORD(v36[0]) = 2112;
-    *(v36 + 2) = v22;
+    *v34 = 1;
+    *&v34[4] = 1024;
+    *&v34[6] = v21;
+    LOWORD(v35[0]) = 2112;
+    *(v35 + 2) = v22;
     _os_log_impl(&dword_1C82AD000, v20, OS_LOG_TYPE_DEFAULT, "BKAccessory::isAuthorized: -> %d, authorized:%d, error:%@\n", buf, 0x18u);
   }
 
@@ -473,84 +470,68 @@ LABEL_18:
 
 LABEL_27:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (void)initWithServerAccessory:(void *)a1 device:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)isConnected:(void *)a3 error:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10, v13);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10);
   }
 
-  result = setErrorWithOSStatus(a2, a3);
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return setErrorWithOSStatus(a2, a3);
 }
 
 - (id)isConnected:(void *)a1 error:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v10);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
-  result = setError(1, a1);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return setError(1, a1);
 }
 
 - (id)isAuthorized:(void *)a3 error:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10, v13);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10);
   }
 
-  result = setErrorWithOSStatus(a2, a3);
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return setErrorWithOSStatus(a2, a3);
 }
 
 - (id)isAuthorized:(void *)a1 error:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v10);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
-  result = setError(1, a1);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return setError(1, a1);
 }
 
 @end

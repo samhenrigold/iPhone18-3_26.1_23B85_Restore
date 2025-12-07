@@ -58,7 +58,7 @@
   bodyDetections = [metadataCopy bodyDetections];
   if (metadataCopy)
   {
-    [metadataCopy timestamp];
+    objc_msgSend_timestamp(metadataCopy);
   }
 
   else
@@ -88,7 +88,7 @@
     rectangleAnimator = self->_rectangleAnimator;
     if (metadataCopy)
     {
-      [metadataCopy timestamp];
+      objc_msgSend_timestamp(metadataCopy);
     }
 
     else
@@ -181,7 +181,7 @@
   v14 = v13;
   if (metadataCopy)
   {
-    [metadataCopy timestamp];
+    objc_msgSend_timestamp(metadataCopy);
   }
 
   else
@@ -415,7 +415,7 @@ LABEL_30:
   sceneFramingEngine = self->_sceneFramingEngine;
   if (metadataCopy)
   {
-    [metadataCopy timestamp];
+    objc_msgSend_timestamp(metadataCopy);
   }
 
   else

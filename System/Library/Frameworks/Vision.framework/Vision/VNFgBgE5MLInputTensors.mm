@@ -17,16 +17,16 @@
   {
     v43 = v12;
     LODWORD(v61) = -1082130432;
-    std::vector<float>::vector[abi:ne200100](&v63, ((length + (length >> 31)) & 0xFFFFFFFE));
+    std::vector<float>::vector[abi:ne200100](&v63, ((length + (length >> 31)) & 0xFFFFFFFE), &v61);
     LODWORD(v59) = -1082130432;
-    std::vector<float>::vector[abi:ne200100](&v61, 2 * length);
+    std::vector<float>::vector[abi:ne200100](&v61, 2 * length, &v59);
     v14 = (length / 2);
     v15 = v14;
     LODWORD(v57) = 1065353216;
-    std::vector<float>::vector[abi:ne200100](&v59, v14);
+    std::vector<float>::vector[abi:ne200100](&v59, v14, &v57);
     v16 = length + numberCopy;
     v56 = -971227136;
-    std::vector<float>::vector[abi:ne200100](&v57, (v16 * v16));
+    std::vector<float>::vector[abi:ne200100](&v57, (v16 * v16), &v56);
     if (v14 != ((*(list + 1) - *list) >> 3))
     {
       __assert_rtn("[VNFgBgE5MLInputTensors initWithTargetPointList:queryNumber:maxSpatialLength:inputSize:radius:error:]", "VNFgBgE5MLProcess.mm", 198, "targetPointNum == positiveMaxSpatialLength");
@@ -251,16 +251,16 @@
   {
     LODWORD(v69) = -1082130432;
     v59 = v16;
-    std::vector<float>::vector[abi:ne200100](&v71, ((length + (length >> 31)) & 0xFFFFFFFE));
+    std::vector<float>::vector[abi:ne200100](&v71, ((length + (length >> 31)) & 0xFFFFFFFE), &v69);
     LODWORD(v67) = -1082130432;
-    std::vector<float>::vector[abi:ne200100](&v69, 2 * length);
+    std::vector<float>::vector[abi:ne200100](&v69, 2 * length, &v67);
     LODWORD(v65) = 1065353216;
     v58 = length / 2;
-    std::vector<float>::vector[abi:ne200100](&v67, v58);
+    std::vector<float>::vector[abi:ne200100](&v67, v58, &v65);
     errorCopy = error;
     v18 = length + number;
     v64 = -971227136;
-    std::vector<float>::vector[abi:ne200100](&v65, (v18 * v18));
+    std::vector<float>::vector[abi:ne200100](&v65, (v18 * v18), &v64);
     if (number >= 1)
     {
       v19 = 0;

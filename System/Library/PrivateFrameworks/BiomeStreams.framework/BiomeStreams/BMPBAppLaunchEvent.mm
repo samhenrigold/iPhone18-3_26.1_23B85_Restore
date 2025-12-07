@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)launchTypeAsString:(int)string;
 - (int)StringAsLaunchType:(id)type;
 - (int)launchType;
 - (unint64_t)hash;
@@ -42,6 +43,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)launchTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E53790[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsLaunchType:(id)type
@@ -216,19 +232,18 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_launchReason)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    launchType = self->_launchType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -247,9 +262,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  starting = self->_starting;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -263,46 +277,44 @@ LABEL_6:
   }
 
 LABEL_23:
-  absoluteTimestamp = self->_absoluteTimestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_7:
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_parentBundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_extensionHostID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_shortVersionString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_exactVersionString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -490,7 +502,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 84);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 84) & 4) == 0 || self->_launchType != *(equalCopy + 14))
@@ -512,7 +523,7 @@ LABEL_6:
     }
 
 LABEL_37:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_38;
   }
 
@@ -521,7 +532,6 @@ LABEL_37:
     goto LABEL_37;
   }
 
-  v7 = *(equalCopy + 80);
   if (self->_starting)
   {
     if ((*(equalCopy + 80) & 1) == 0)
@@ -598,17 +608,17 @@ LABEL_11:
   exactVersionString = self->_exactVersionString;
   if (exactVersionString | *(equalCopy + 4))
   {
-    v13 = [(NSString *)exactVersionString isEqual:?];
+    v11 = [(NSString *)exactVersionString isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_38:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

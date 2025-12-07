@@ -72,11 +72,11 @@ void __74__VCPProtoMovieSafetyResult_LegacyConversion__resultFromLegacyDictionar
 - (id)exportToLegacyDictionary
 {
   v20[2] = *MEMORY[0x1E69E9840];
-  timeRange = [(VCPProtoMovieSafetyResult *)self timeRange];
-  v4 = timeRange;
-  if (timeRange)
+  v3 = objc_msgSend_timeRange(self, a2);
+  v4 = v3;
+  if (v3)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v3);
   }
 
   else

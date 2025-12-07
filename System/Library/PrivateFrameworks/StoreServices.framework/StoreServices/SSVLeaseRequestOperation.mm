@@ -198,16 +198,16 @@ void __43__SSVLeaseRequestOperation_setOutputBlock___block_invoke(uint64_t a1)
 
 - (void)main
 {
-  v120 = *MEMORY[0x1E69E9840];
-  v106 = 0;
-  v107 = &v106;
-  v108 = 0x3032000000;
-  v109 = __Block_byref_object_copy__56;
-  v110 = __Block_byref_object_dispose__56;
-  v111 = 0;
+  v119 = *MEMORY[0x1E69E9840];
+  v105 = 0;
+  v106 = &v105;
+  v107 = 0x3032000000;
+  v108 = __Block_byref_object_copy__56;
+  v109 = __Block_byref_object_dispose__56;
+  v110 = 0;
   obj = 0;
   v3 = [(SSVLeaseRequestOperation *)self _resolveConfigurationAndURLReturningError:&obj];
-  objc_storeStrong(&v111, obj);
+  objc_storeStrong(&v110, obj);
   if (!v3)
   {
     v28 = +[SSLogConfig sharedStoreServicesConfig];
@@ -216,54 +216,57 @@ void __43__SSVLeaseRequestOperation_setOutputBlock___block_invoke(uint64_t a1)
       v28 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v28 shouldLog];
+    LODWORD(v29) = [v28 shouldLog];
     shouldLogToDisk = [v28 shouldLogToDisk];
     oSLogObject = [v28 OSLogObject];
     v32 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v29) = v29 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog &= 2u;
+      v29 = v29;
     }
 
-    if (shouldLog)
+    else
+    {
+      v29 &= 2u;
+    }
+
+    if (v29)
     {
       v33 = objc_opt_class();
       v34 = NSStringFromClass(v33);
-      v35 = v107[5];
-      *v116 = 138412546;
-      *&v116[4] = v34;
-      *&v116[12] = 2112;
-      *&v116[14] = v35;
-      LODWORD(v95) = 22;
-      v94 = v116;
-      v36 = _os_log_send_and_compose_impl();
+      v35 = v106[5];
+      *v115 = 138412546;
+      *&v115[4] = v34;
+      *&v115[12] = 2112;
+      *&v115[14] = v35;
+      v36 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1D48BA000, v32, 0, "%@: Could not load configuration with error: %@", v115, 22);
 
       if (!v36)
       {
-LABEL_26:
+LABEL_28:
 
-LABEL_38:
+LABEL_41:
         v58 = 0;
-        goto LABEL_76;
+        goto LABEL_80;
       }
 
-      v32 = [MEMORY[0x1E696AEC0] stringWithCString:v36 encoding:{4, v116, v95}];
+      v32 = [MEMORY[0x1E696AEC0] stringWithCString:v36 encoding:4];
       free(v36);
       SSFileLog(v28, @"%@", v37, v38, v39, v40, v41, v42, v32);
     }
 
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
-  v4 = (v107 + 5);
-  v104 = v107[5];
-  v5 = [(SSVLeaseRequestOperation *)self _loadCertificateDataIfNecessary:&v104];
-  objc_storeStrong(v4, v104);
+  v4 = (v106 + 5);
+  v103 = v106[5];
+  v5 = [(SSVLeaseRequestOperation *)self _loadCertificateDataIfNecessary:&v103];
+  objc_storeStrong(v4, v103);
   if (!v5)
   {
     v43 = +[SSLogConfig sharedStoreServicesConfig];
@@ -272,59 +275,62 @@ LABEL_38:
       v43 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v43 shouldLog];
+    LODWORD(v44) = [v43 shouldLog];
     shouldLogToDisk2 = [v43 shouldLogToDisk];
     oSLogObject2 = [v43 OSLogObject];
     v47 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v44) = v44 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog2 &= 2u;
+      v44 = v44;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v44 &= 2u;
+    }
+
+    if (v44)
     {
       v48 = objc_opt_class();
       v49 = NSStringFromClass(v48);
-      v50 = v107[5];
-      *v116 = 138412546;
-      *&v116[4] = v49;
-      *&v116[12] = 2112;
-      *&v116[14] = v50;
-      LODWORD(v95) = 22;
-      v94 = v116;
-      v51 = _os_log_send_and_compose_impl();
+      v50 = v106[5];
+      *v115 = 138412546;
+      *&v115[4] = v49;
+      *&v115[12] = 2112;
+      *&v115[14] = v50;
+      v51 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &dword_1D48BA000, v47, 0, "%@: Could not load certificate data: %@", v115, 22);
 
       if (!v51)
       {
-LABEL_37:
+LABEL_40:
 
-        goto LABEL_38;
+        goto LABEL_41;
       }
 
-      v47 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:{4, v116, v95}];
+      v47 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:4];
       free(v51);
       SSFileLog(v43, @"%@", v52, v53, v54, v55, v56, v57, v47);
     }
 
-    goto LABEL_37;
+    goto LABEL_40;
   }
 
   v6 = 0;
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x2020000000;
-  v103 = 0;
-  *v116 = 0;
-  *&v116[8] = v116;
-  *&v116[16] = 0x3032000000;
-  v117 = __Block_byref_object_copy__56;
-  v118 = __Block_byref_object_dispose__56;
-  v119 = 0;
+  v99 = 0;
+  v100 = &v99;
+  v101 = 0x2020000000;
+  v102 = 0;
+  *v115 = 0;
+  *&v115[8] = v115;
+  *&v115[16] = 0x3032000000;
+  v116 = __Block_byref_object_copy__56;
+  v117 = __Block_byref_object_dispose__56;
+  v118 = 0;
   while (1)
   {
     v7 = objc_alloc(MEMORY[0x1E696AD68]);
@@ -342,22 +348,22 @@ LABEL_37:
     storeFrontSuffix = [(SSVPlaybackLeaseConfiguration *)self->_configuration storeFrontSuffix];
     [(SSVLoadURLOperation *)v10 setStoreFrontSuffix:storeFrontSuffix];
 
-    v99[0] = MEMORY[0x1E69E9820];
-    v99[1] = 3221225472;
-    v99[2] = __32__SSVLeaseRequestOperation_main__block_invoke;
-    v99[3] = &unk_1E84B1CC8;
-    v99[4] = &v106;
-    v99[5] = v116;
-    [(SSVLoadURLOperation *)v10 setOutputBlock:v99];
     v98[0] = MEMORY[0x1E69E9820];
     v98[1] = 3221225472;
-    v98[2] = __32__SSVLeaseRequestOperation_main__block_invoke_2;
-    v98[3] = &unk_1E84B1CF0;
-    v98[4] = self;
-    v98[5] = &v100;
-    [(SSVLoadURLOperation *)v10 setPrepareRequestBlock:v98];
+    v98[2] = __32__SSVLeaseRequestOperation_main__block_invoke;
+    v98[3] = &unk_1E84B1CC8;
+    v98[4] = &v105;
+    v98[5] = v115;
+    [(SSVLoadURLOperation *)v10 setOutputBlock:v98];
+    v97[0] = MEMORY[0x1E69E9820];
+    v97[1] = 3221225472;
+    v97[2] = __32__SSVLeaseRequestOperation_main__block_invoke_2;
+    v97[3] = &unk_1E84B1CF0;
+    v97[4] = self;
+    v97[5] = &v99;
+    [(SSVLoadURLOperation *)v10 setPrepareRequestBlock:v97];
     [(SSVOperation *)self runChildOperation:v10];
-    if (![(SSVLeaseRequestOperation *)self _shouldRetryForError:v107[5]])
+    if (![(SSVLeaseRequestOperation *)self _shouldRetryForError:v106[5]])
     {
       break;
     }
@@ -368,43 +374,47 @@ LABEL_37:
       v13 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v13 shouldLog];
+    LODWORD(v14) = [v13 shouldLog];
     shouldLogToDisk3 = [v13 shouldLogToDisk];
     oSLogObject3 = [v13 OSLogObject];
     v17 = oSLogObject3;
     if (shouldLogToDisk3)
     {
-      shouldLog3 |= 2u;
+      LODWORD(v14) = v14 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
     {
-      shouldLog3 &= 2u;
+      v14 = v14;
     }
 
-    if (shouldLog3)
+    else
+    {
+      v14 &= 2u;
+    }
+
+    if (v14)
     {
       v18 = objc_opt_class();
       v19 = NSStringFromClass(v18);
-      v112 = 138412290;
-      v113 = v19;
-      LODWORD(v95) = 12;
-      v94 = &v112;
-      v20 = _os_log_send_and_compose_impl();
+      v111 = 138412290;
+      v112 = v19;
+      LODWORD(v94) = 12;
+      v20 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, v17, 2, "%@: Retrying after timeout", &v111, v94);
 
       if (!v20)
       {
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      v17 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v112, v95}];
+      v17 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog(v13, @"%@", v21, v22, v23, v24, v25, v26, v17);
     }
 
-LABEL_15:
-    v27 = v107[5];
-    v107[5] = 0;
+LABEL_16:
+    v27 = v106[5];
+    v106[5] = 0;
 
     v6 = v10;
   }
@@ -413,11 +423,11 @@ LABEL_15:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v60 = [*(*&v116[8] + 40) objectForKey:@"failureType"];
+    v60 = [*(*&v115[8] + 40) objectForKey:@"failureType"];
     if (v60)
     {
       leaseInfoData = objc_alloc_init(MEMORY[0x1E695DF90]);
-      subscriptionKeyBagData = [*(*&v116[8] + 40) objectForKey:@"dialog"];
+      subscriptionKeyBagData = [*(*&v115[8] + 40) objectForKey:@"dialog"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -443,15 +453,15 @@ LABEL_15:
 
       v71 = [v63 errorWithDomain:@"SSServerErrorDomain" code:integerValue userInfo:leaseInfoData];
       v58 = 0;
-      v69 = v107[5];
-      v107[5] = v71;
-LABEL_55:
+      v69 = v106[5];
+      v106[5] = v71;
+LABEL_58:
 
-      goto LABEL_56;
+      goto LABEL_59;
     }
 
     v66 = [SSVPlaybackLeaseResponse alloc];
-    v58 = [(SSVPlaybackResponse *)v66 initWithDictionary:*(*&v116[8] + 40) URLResponse:uRLResponse];
+    v58 = [(SSVPlaybackResponse *)v66 initWithDictionary:*(*&v115[8] + 40) URLResponse:uRLResponse];
     pastisKeyServerURL = [(SSVPlaybackLeaseConfiguration *)self->_configuration pastisKeyServerURL];
     [(SSVPlaybackResponse *)v58 setFallbackStreamingKeyServerURL:pastisKeyServerURL];
 
@@ -465,43 +475,43 @@ LABEL_55:
       if (leaseInfoData | subscriptionKeyBagData)
       {
         v69 = objc_alloc_init(SSVFairPlaySubscriptionController);
-        v70 = (v107 + 5);
-        v97 = v107[5];
-        [(SSVFairPlaySubscriptionController *)v69 importSubscriptionKeyBagData:subscriptionKeyBagData leaseInfoData:leaseInfoData returningError:&v97];
-        objc_storeStrong(v70, v97);
-        goto LABEL_55;
+        v70 = (v106 + 5);
+        v96 = v106[5];
+        [(SSVFairPlaySubscriptionController *)v69 importSubscriptionKeyBagData:subscriptionKeyBagData leaseInfoData:leaseInfoData returningError:&v96];
+        objc_storeStrong(v70, v96);
+        goto LABEL_58;
       }
 
-LABEL_56:
+LABEL_59:
     }
 
-LABEL_57:
+LABEL_60:
   }
 
   else
   {
-    if (!v107[5])
+    if (!v106[5])
     {
       v65 = SSError(@"SSErrorDomain", 100, 0, 0);
       v58 = 0;
-      v60 = v107[5];
-      v107[5] = v65;
-      goto LABEL_57;
+      v60 = v106[5];
+      v106[5] = v65;
+      goto LABEL_60;
     }
 
     v58 = 0;
   }
 
-  if (v101[3])
+  if (v100[3])
   {
     leaseInfoData2 = [(SSVPlaybackLeaseResponse *)v58 leaseInfoData];
     v73 = leaseInfoData2;
     if (leaseInfoData2)
     {
-      v96 = 0;
-      v74 = v101[3];
+      v95 = 0;
+      v74 = v100[3];
       v75 = leaseInfoData2;
-      v76 = C956s6fM(v74, [v73 bytes], objc_msgSend(v73, "length"), &v96);
+      v76 = C956s6fM(v74, [v73 bytes], objc_msgSend(v73, "length"), &v95);
       if (v76)
       {
         v77 = +[SSLogConfig sharedStoreServicesConfig];
@@ -510,59 +520,63 @@ LABEL_57:
           v77 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog4 = [v77 shouldLog];
+        LODWORD(v78) = [v77 shouldLog];
         shouldLogToDisk4 = [v77 shouldLogToDisk];
         oSLogObject4 = [v77 OSLogObject];
         v81 = oSLogObject4;
         if (shouldLogToDisk4)
         {
-          shouldLog4 |= 2u;
+          LODWORD(v78) = v78 | 2;
         }
 
-        if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog4 &= 2u;
+          v78 = v78;
         }
 
-        if (shouldLog4)
+        else
+        {
+          v78 &= 2u;
+        }
+
+        if (v78)
         {
           v82 = objc_opt_class();
           v83 = NSStringFromClass(v82);
-          v112 = 138412546;
-          v113 = v83;
-          v114 = 2048;
-          v115 = v76;
-          LODWORD(v95) = 22;
-          v94 = &v112;
-          v84 = _os_log_send_and_compose_impl();
+          v111 = 138412546;
+          v112 = v83;
+          v113 = 2048;
+          v114 = v76;
+          LODWORD(v94) = 22;
+          v84 = _os_log_send_and_compose_impl(v78, 0, 0, 0, &dword_1D48BA000, v81, 0, "[%@] KDProcessResponseCKC failed: %ld", &v111, v94);
 
           if (v84)
           {
-            v81 = [MEMORY[0x1E696AEC0] stringWithCString:v84 encoding:{4, &v112, v95}];
+            v81 = [MEMORY[0x1E696AEC0] stringWithCString:v84 encoding:4];
             free(v84);
             SSFileLog(v77, @"%@", v85, v86, v87, v88, v89, v90, v81);
-            goto LABEL_70;
+            goto LABEL_74;
           }
         }
 
         else
         {
-LABEL_70:
+LABEL_74:
         }
       }
 
-      if (v96)
+      if (v95)
       {
-        N8pdwAfn(v96);
+        N8pdwAfn(v95);
       }
     }
 
-    JE2f6WCx(v101[3]);
+    JE2f6WCx(v100[3]);
   }
 
-  _Block_object_dispose(v116, 8);
-  _Block_object_dispose(&v100, 8);
-LABEL_76:
+  _Block_object_dispose(v115, 8);
+  _Block_object_dispose(&v99, 8);
+LABEL_80:
   _certificateData = [(SSVPlaybackLeaseRequest *)self->_request _certificateData];
   [(SSVPlaybackLeaseResponse *)v58 setCertificateData:_certificateData];
 
@@ -571,10 +585,10 @@ LABEL_76:
   v93 = outputBlock;
   if (outputBlock)
   {
-    (*(outputBlock + 16))(outputBlock, v58, v107[5]);
+    (*(outputBlock + 16))(outputBlock, v58, v106[5]);
   }
 
-  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(&v105, 8);
 }
 
 void __32__SSVLeaseRequestOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -589,7 +603,7 @@ void __32__SSVLeaseRequestOperation_main__block_invoke(uint64_t a1, void *a2, vo
 
 void __32__SSVLeaseRequestOperation_main__block_invoke_2(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(*(a1 + 32) + 344);
   v5 = 30.0;
@@ -607,16 +621,21 @@ void __32__SSVLeaseRequestOperation_main__block_invoke_2(uint64_t a1, void *a2)
   v7 = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = v7 | 2;
+    LODWORD(v8) = v7 | 2;
   }
 
   else
   {
-    v8 = v7;
+    LODWORD(v8) = v7;
   }
 
   v9 = [v6 OSLogObject];
-  if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
@@ -625,25 +644,23 @@ void __32__SSVLeaseRequestOperation_main__block_invoke_2(uint64_t a1, void *a2)
   {
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
-    v29 = 138412546;
-    v30 = v11;
-    v31 = 2048;
-    v32 = v5;
-    LODWORD(v26) = 22;
-    v25 = &v29;
-    v12 = _os_log_send_and_compose_impl();
+    v27 = 138412546;
+    v28 = v11;
+    v29 = 2048;
+    v30 = v5;
+    v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, v9, 2, "%@: Setting timeout interval %.0f", &v27, 22);
 
     if (!v12)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v29, v26}];
+    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog(v6, @"%@", v13, v14, v15, v16, v17, v18, v9);
   }
 
-LABEL_14:
+LABEL_15:
   [v3 setTimeoutInterval:v5];
   v19 = *(*(a1 + 40) + 8);
   v20 = *(v19 + 24);
@@ -653,7 +670,7 @@ LABEL_14:
     v19 = *(*(a1 + 40) + 8);
   }
 
-  v21 = [*(*(a1 + 32) + 336) _copyBodyDictionaryWithFairPlaySession:{v19 + 24, v25}];
+  v21 = [*(*(a1 + 32) + 336) _copyBodyDictionaryWithFairPlaySession:v19 + 24];
   if ([v21 count])
   {
     v22 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v21 options:0 error:0];
@@ -663,13 +680,13 @@ LABEL_14:
   }
 
   v23 = [*(*(a1 + 32) + 336) HTTPHeaderFields];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __32__SSVLeaseRequestOperation_main__block_invoke_21;
-  v27[3] = &unk_1E84ADD90;
-  v28 = v3;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __32__SSVLeaseRequestOperation_main__block_invoke_21;
+  v25[3] = &unk_1E84ADD90;
+  v26 = v3;
   v24 = v3;
-  [v23 enumerateKeysAndObjectsUsingBlock:v27];
+  [v23 enumerateKeysAndObjectsUsingBlock:v25];
 }
 
 - (BOOL)_loadCertificateDataIfNecessary:(id *)necessary

@@ -16,11 +16,10 @@
 
 - (id)getValue
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR____TtC20AudioDSPManagerSwift36InteropLayerPropertyValueArrayUInt32_value);
 
-  v3 = sub_223BF467C();
+  v2 = sub_223BF467C();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC20AudioDSPManagerSwift36InteropLayerPropertyValueArrayUInt32)init

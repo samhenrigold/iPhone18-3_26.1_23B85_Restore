@@ -34,13 +34,13 @@
 - (void)didTapEditButton
 {
   v3 = AXMeasureAccessibilityStateObserver();
-  [v3 axHasConfirmedRectangle];
+  axHasConfirmedRectangle = [v3 axHasConfirmedRectangle];
 
-  v5.receiver = self;
-  v5.super_class = EditViewAccessibility;
-  [(EditViewAccessibility *)&v5 didTapEditButton];
-  v4 = accessibilityLocalizedString(@"DID_ADD_FIRST_POINT");
-  AXMeasureAnnounceUpdatedMeasurement(v4, 0);
+  v6.receiver = self;
+  v6.super_class = EditViewAccessibility;
+  [(EditViewAccessibility *)&v6 didTapEditButton];
+  v5 = accessibilityLocalizedString(@"DID_ADD_FIRST_POINT");
+  AXMeasureAnnounceUpdatedMeasurement(v5, 0, axHasConfirmedRectangle);
 }
 
 @end

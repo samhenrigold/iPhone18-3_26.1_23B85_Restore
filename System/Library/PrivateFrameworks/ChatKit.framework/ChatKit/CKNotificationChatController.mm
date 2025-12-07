@@ -857,19 +857,21 @@ LABEL_29:
 
 - (BOOL)inputAccessoryViewControllerEnabled
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (IMOSLoggingEnabled())
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = IMOSLoggingEnabled();
+  if (v2)
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+    if (v5)
     {
-      v4[0] = 67109120;
-      v4[1] = CKInputAccessoryViewControllerEnabled();
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "input accessory view enabled: %d", v4, 8u);
+      v8[0] = 67109120;
+      v8[1] = CKInputAccessoryViewControllerEnabled(v5, v6);
+      _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "input accessory view enabled: %d", v8, 8u);
     }
   }
 
-  return CKInputAccessoryViewControllerEnabled() != 0;
+  return CKInputAccessoryViewControllerEnabled(v2, v3) != 0;
 }
 
 - (id)inputAccessoryViewController
@@ -1190,7 +1192,7 @@ void __60__CKNotificationChatController__setEntryViewFrame_animated___block_invo
 
 - (void)sendComposition:(id)composition
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   compositionCopy = composition;
   if (IMOSLoggingEnabled())
   {
@@ -1213,9 +1215,9 @@ void __60__CKNotificationChatController__setEntryViewFrame_animated___block_invo
 
       if (v9)
       {
-        v35 = 0;
-        v10 = [conversation canSendComposition:compositionCopy error:&v35];
-        v11 = v35;
+        v37 = 0;
+        v10 = [conversation canSendComposition:compositionCopy error:&v37];
+        v11 = v37;
         if (v10)
         {
           activeKeyboard = [MEMORY[0x1E69DCBB8] activeKeyboard];
@@ -1243,8 +1245,8 @@ void __60__CKNotificationChatController__setEntryViewFrame_animated___block_invo
           {
             collectionViewController = [(CKCoreChatController *)self collectionViewController];
             impactEffectManager = [collectionViewController impactEffectManager];
-            v36 = v13;
-            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+            v38 = v13;
+            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
             [impactEffectManager animateMessages:v22];
           }
 
@@ -1280,28 +1282,29 @@ void __60__CKNotificationChatController__setEntryViewFrame_animated___block_invo
             goto LABEL_41;
           }
 
-          if (IMOSLoggingEnabled())
+          v30 = IMOSLoggingEnabled();
+          if (v30)
           {
-            v30 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            v31 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v38 = v11;
-              _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "Composition content error: %@", buf, 0xCu);
+              v40 = v11;
+              _os_log_impl(&dword_19020E000, v31, OS_LOG_TYPE_INFO, "Composition content error: %@", buf, 0xCu);
             }
           }
 
-          v31 = CKFrameworkBundle();
-          v13 = [v31 localizedStringForKey:@"CANNOT_SEND_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v32 = CKFrameworkBundle(v30);
+          v13 = [v32 localizedStringForKey:@"CANNOT_SEND_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          v32 = CKFrameworkBundle();
-          textView = [v32 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+          v34 = CKFrameworkBundle(v33);
+          textView = [v34 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          v33 = CKCreateAlertControllerWithError(v11, v13, 0, textView, 0);
-          if (v33)
+          v35 = CKCreateAlertControllerWithError(v11, v13, 0, textView, 0);
+          if (v35)
           {
             delegate = [(CKCoreChatController *)self delegate];
-            [v33 presentFromViewController:delegate animated:1 completion:0];
+            [v35 presentFromViewController:delegate animated:1 completion:0];
           }
         }
 
@@ -1793,7 +1796,7 @@ LABEL_8:
 
 void __68__CKNotificationChatController__messageReceivedInCurrentTranscript___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
@@ -1819,9 +1822,9 @@ void __68__CKNotificationChatController__messageReceivedInCurrentTranscript___bl
         }
 
         *buf = 138412546;
-        v14 = v9;
-        v15 = 2112;
-        v16 = v10;
+        v27 = v9;
+        v28 = 2112;
+        v29 = v10;
         _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Error playing alert for guid [%@]: [%@]", buf, 0x16u);
         if (v5)
         {
@@ -1832,15 +1835,16 @@ void __68__CKNotificationChatController__messageReceivedInCurrentTranscript___bl
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
       v11 = [*(a1 + 32) guid];
+      v18 = v11;
       if (v5)
       {
-        v12 = [v5 userInfo];
-        _CKLogExternal();
+        v25 = [v5 userInfo];
+        _CKLogExternal(0x30u, @"Error playing alert for guid [%@]: [%@]", v19, v20, v21, v22, v23, v24, v18);
       }
 
       else
       {
-        _CKLogExternal();
+        _CKLogExternal(0x30u, @"Error playing alert for guid [%@]: [%@]", v12, v13, v14, v15, v16, v17, v11);
       }
     }
   }
@@ -2353,15 +2357,15 @@ void __60__CKNotificationChatController__launchMessagesForInputMode___block_invo
   objc_destroyWeak(buf);
 }
 
-uint64_t __108__CKNotificationChatController__dismissFullScreenBubbleViewControllerAnimated_withSendAnimation_completion___block_invoke(uint64_t a1)
+uint64_t __108__CKNotificationChatController__dismissFullScreenBubbleViewControllerAnimated_withSendAnimation_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "_dismissFullScreenBubbleViewControllerAnimated:withSendAnimation:dismissViewController", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "_dismissFullScreenBubbleViewControllerAnimated:withSendAnimation:dismissViewController", v6, 2u);
     }
   }
 
@@ -2609,8 +2613,8 @@ void __121__CKNotificationChatController_FullScreenBalloonViewControllerDelegate
     }
   }
 
-  collectionViewController = [(CKCoreChatController *)self collectionViewController];
-  [collectionViewController verticallyScrollTranscriptByAmount:animatedCopy animated:completionCopy completion:amount];
+  v15 = [(CKCoreChatController *)self collectionViewController:*v16];
+  [v15 verticallyScrollTranscriptByAmount:animatedCopy animated:completionCopy completion:amount];
 }
 
 void __47__CKNotificationChatController_viewWillAppear___block_invoke_cold_1(os_log_t log)
@@ -2627,6 +2631,20 @@ void __47__CKNotificationChatController_viewWillAppear___block_invoke_cold_1(os_
   v1 = 134217984;
   v2 = 3600;
   _os_log_fault_impl(&dword_19020E000, log, OS_LOG_TYPE_FAULT, "Notification view appeared more than %ld seconds ago. Not allowing message to be marked as read.", &v1, 0xCu);
+}
+
+void __53__CKNotificationChatController__openMessagesForChat___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_1_0(&dword_19020E000, a2, a3, "Failed to open messages for URL: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)messageEntryViewWantsGenerativePlaygroundPluginPresented:(uint64_t)a3 presentationStyle:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CKNotificationChatController messageEntryViewWantsGenerativePlaygroundPluginPresented:presentationStyle:]";
+  OUTLINED_FUNCTION_1_0(&dword_19020E000, a1, a3, "%s - this should not be called in here", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

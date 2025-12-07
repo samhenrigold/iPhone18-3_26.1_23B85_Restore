@@ -24,11 +24,13 @@
   return v5;
 }
 
-uint64_t __53__POInternalProtocols_interfaceWithInternalProtocol___block_invoke()
+uint64_t __53__POInternalProtocols_interfaceWithInternalProtocol___block_invoke(uint64_t a1, uint64_t a2)
 {
-  interfaceWithInternalProtocol__protocolCache = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = interfaceWithInternalProtocol__protocolCache;
+  interfaceWithInternalProtocol__protocolCache = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 @end

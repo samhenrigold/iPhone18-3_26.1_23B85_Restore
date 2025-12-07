@@ -1,341 +1,341 @@
 void boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::lazy_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sss(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = *(a2 + 32);
-  v10 = (v9 >> 2) & 8;
-  v11 = *(a2 + (v10 ^ 8));
-  v12 = *(a2 + v10);
-  v13 = v11 - v12;
-  if ((v9 & 0x20) != 0)
+  v10 = *(a2 + 32);
+  v11 = (v10 >> 2) & 8;
+  v12 = *(a2 + (v11 ^ 8));
+  v13 = *(a2 + v11);
+  v14 = v12 - v13;
+  if ((v10 & 0x20) != 0)
   {
-    v14 = 4;
+    v15 = 4;
   }
 
   else
   {
-    v14 = 12;
+    v15 = 12;
   }
 
-  v15 = *(a2 + v14);
+  v16 = *(a2 + v15);
   if ((*(a2 + 32) & 0x20) != 0)
   {
-    v16 = 12;
+    v17 = 12;
   }
 
   else
   {
-    v16 = 4;
+    v17 = 4;
   }
 
-  v17 = *(a2 + v16);
-  v18 = v15 - v17;
-  v108 = v11 - v12;
-  v101 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v12, v17, v11, v15);
-  v19 = *(a3 + 32);
-  v20 = (v19 >> 2) & 8;
-  v21 = *(a3 + (v20 ^ 8));
-  v22 = *(a3 + v20);
-  v23 = v21 - v22;
-  v99 = v23;
-  if ((v19 & 0x20) != 0)
+  v18 = *(a2 + v17);
+  v19 = v16 - v18;
+  v109 = v12 - v13;
+  v102 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v13, v18, v12, v16);
+  v20 = *(a3 + 32);
+  v21 = (v20 >> 2) & 8;
+  v22 = *(a3 + (v21 ^ 8));
+  v23 = *(a3 + v21);
+  v24 = v22 - v23;
+  v100 = v24;
+  if ((v20 & 0x20) != 0)
   {
-    v24 = 4;
+    v25 = 4;
   }
 
   else
   {
-    v24 = 12;
+    v25 = 12;
   }
 
-  v25 = *(a3 + v24);
+  v26 = *(a3 + v25);
   if ((*(a3 + 32) & 0x20) != 0)
   {
-    v26 = 12;
+    v27 = 12;
   }
 
   else
   {
-    v26 = 4;
+    v27 = 4;
   }
 
-  v27 = *(a3 + v26);
-  v28 = v25 - v27;
-  v103 = v28;
-  v102 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v22, v27, v21, v25);
-  v29 = *(a4 + 32);
-  v30 = (v29 >> 2) & 8;
-  v31 = *(a4 + (v30 ^ 8));
-  v32 = *(a4 + v30);
-  v33 = v31 - v32;
-  v100 = v33;
-  if ((v29 & 0x20) != 0)
+  v28 = *(a3 + v27);
+  v29 = v26 - v28;
+  v104 = v29;
+  v103 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v23, v28, v22, v26);
+  v30 = *(a4 + 32);
+  v31 = (v30 >> 2) & 8;
+  v32 = *(a4 + (v31 ^ 8));
+  v33 = *(a4 + v31);
+  v34 = v32 - v33;
+  v101 = v34;
+  if ((v30 & 0x20) != 0)
   {
-    v34 = 4;
+    v35 = 4;
   }
 
   else
   {
-    v34 = 12;
+    v35 = 12;
   }
 
-  v35 = *(a4 + v34);
+  v36 = *(a4 + v35);
   if ((*(a4 + 32) & 0x20) != 0)
   {
-    v36 = 12;
+    v37 = 12;
   }
 
   else
   {
-    v36 = 4;
+    v37 = 4;
   }
 
-  v37 = *(a4 + v36);
-  v38 = v35 - v37;
-  v104 = v38;
-  v98 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v32, v37, v31, v35);
-  *&v117 = v13 * v13;
-  *(&v117 + 1) = 0x3FF0000000000000;
-  *v116 = v18 * v18;
-  *(&v116[0] + 1) = 0x3FF0000000000000;
-  v39 = boost::polygon::detail::robust_fpt<double>::operator+(&v117, v116);
-  v106 = v40 * 0.5 + 1.0;
-  *&v117 = v23 * v23;
-  *(&v117 + 1) = 0x3FF0000000000000;
-  *v116 = v28 * v28;
-  *(&v116[0] + 1) = 0x3FF0000000000000;
-  v41 = sqrt(v39);
-  v42 = boost::polygon::detail::robust_fpt<double>::operator+(&v117, v116);
-  v107 = v43 * 0.5 + 1.0;
-  *&v117 = v33 * v33;
-  *(&v117 + 1) = 0x3FF0000000000000;
-  *v116 = v38 * v38;
-  *(&v116[0] + 1) = 0x3FF0000000000000;
-  v44 = sqrt(v42);
-  v45 = boost::polygon::detail::robust_fpt<double>::operator+(&v117, v116);
-  v47 = *(a2 + 32);
-  v105 = sqrt(v45);
-  v48 = *(a2 + ((v47 >> 2) & 8 ^ 8)) - *(a2 + ((v47 >> 2) & 8));
-  if ((v47 & 0x20) != 0)
+  v38 = *(a4 + v37);
+  v39 = v36 - v38;
+  v105 = v39;
+  v99 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v33, v38, v32, v36);
+  *&v118 = v14 * v14;
+  *(&v118 + 1) = 0x3FF0000000000000;
+  *v117 = v19 * v19;
+  *(&v117[0] + 1) = 0x3FF0000000000000;
+  v40 = boost::polygon::detail::robust_fpt<double>::operator+(&v118, v117);
+  v107 = v41 * 0.5 + 1.0;
+  *&v118 = v24 * v24;
+  *(&v118 + 1) = 0x3FF0000000000000;
+  *v117 = v29 * v29;
+  *(&v117[0] + 1) = 0x3FF0000000000000;
+  v42 = sqrt(v40);
+  v43 = boost::polygon::detail::robust_fpt<double>::operator+(&v118, v117);
+  v108 = v44 * 0.5 + 1.0;
+  *&v118 = v34 * v34;
+  *(&v118 + 1) = 0x3FF0000000000000;
+  *v117 = v39 * v39;
+  *(&v117[0] + 1) = 0x3FF0000000000000;
+  v45 = sqrt(v43);
+  v46 = boost::polygon::detail::robust_fpt<double>::operator+(&v118, v117);
+  v48 = *(a2 + 32);
+  v106 = sqrt(v46);
+  v49 = *(a2 + ((v48 >> 2) & 8 ^ 8)) - *(a2 + ((v48 >> 2) & 8));
+  if ((v48 & 0x20) != 0)
   {
-    v49 = 4;
+    v50 = 4;
   }
 
   else
   {
-    v49 = 12;
+    v50 = 12;
   }
 
-  v50 = *(a2 + v49);
+  v51 = *(a2 + v50);
   if ((*(a2 + 32) & 0x20) != 0)
   {
-    v51 = 12;
+    v52 = 12;
   }
 
   else
   {
-    v51 = 4;
+    v52 = 4;
   }
 
-  v52 = v50 - *(a2 + v51);
-  v53 = *(a3 + 32);
-  v54 = v46 * 0.5 + 1.0;
-  v55 = *(a3 + ((v53 >> 2) & 8 ^ 8)) - *(a3 + ((v53 >> 2) & 8));
-  if ((v53 & 0x20) != 0)
+  v53 = v51 - *(a2 + v52);
+  v54 = *(a3 + 32);
+  v55 = v47 * 0.5 + 1.0;
+  v56 = *(a3 + ((v54 >> 2) & 8 ^ 8)) - *(a3 + ((v54 >> 2) & 8));
+  if ((v54 & 0x20) != 0)
   {
-    v56 = 4;
+    v57 = 4;
   }
 
   else
   {
-    v56 = 12;
+    v57 = 12;
   }
 
-  v57 = *(a3 + v56);
+  v58 = *(a3 + v57);
   if ((*(a3 + 32) & 0x20) != 0)
   {
-    v58 = 12;
+    v59 = 12;
   }
 
   else
   {
-    v58 = 4;
+    v59 = 4;
   }
 
-  v59 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v48, v52, v55, v57 - *(a3 + v58));
-  v60 = *(a3 + 32);
-  v61 = *(a3 + ((v60 >> 2) & 8 ^ 8)) - *(a3 + ((v60 >> 2) & 8));
-  if ((v60 & 0x20) != 0)
+  v60 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v49, v53, v56, v58 - *(a3 + v59));
+  v61 = *(a3 + 32);
+  v62 = *(a3 + ((v61 >> 2) & 8 ^ 8)) - *(a3 + ((v61 >> 2) & 8));
+  if ((v61 & 0x20) != 0)
   {
-    v62 = 4;
+    v63 = 4;
   }
 
   else
   {
-    v62 = 12;
+    v63 = 12;
   }
 
-  v63 = *(a3 + v62);
+  v64 = *(a3 + v63);
   if ((*(a3 + 32) & 0x20) != 0)
   {
-    v64 = 12;
+    v65 = 12;
   }
 
   else
   {
-    v64 = 4;
+    v65 = 4;
   }
 
-  v65 = *(a4 + 32);
-  v66 = v63 - *(a3 + v64);
-  if ((v65 & 0x20) != 0)
+  v66 = *(a4 + 32);
+  v67 = v64 - *(a3 + v65);
+  if ((v66 & 0x20) != 0)
   {
-    v67 = 4;
+    v68 = 4;
   }
 
   else
   {
-    v67 = 12;
+    v68 = 12;
   }
 
-  v68 = *(a4 + v67);
-  if ((v65 & 0x20) != 0)
+  v69 = *(a4 + v68);
+  if ((v66 & 0x20) != 0)
   {
-    v69 = 12;
+    v70 = 12;
   }
 
   else
   {
-    v69 = 4;
+    v70 = 4;
   }
 
-  v70 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v61, v66, *(a4 + ((v65 >> 2) & 8 ^ 8)) - *(a4 + ((v65 >> 2) & 8)), v68 - *(a4 + v69));
-  v71 = *(a4 + 32);
-  v72 = *(a4 + ((v71 >> 2) & 8 ^ 8)) - *(a4 + ((v71 >> 2) & 8));
-  if ((v71 & 0x20) != 0)
+  v71 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v62, v67, *(a4 + ((v66 >> 2) & 8 ^ 8)) - *(a4 + ((v66 >> 2) & 8)), v69 - *(a4 + v70));
+  v72 = *(a4 + 32);
+  v73 = *(a4 + ((v72 >> 2) & 8 ^ 8)) - *(a4 + ((v72 >> 2) & 8));
+  if ((v72 & 0x20) != 0)
   {
-    v73 = 4;
+    v74 = 4;
   }
 
   else
   {
-    v73 = 12;
+    v74 = 12;
   }
 
-  v74 = *(a4 + v73);
+  v75 = *(a4 + v74);
   if ((*(a4 + 32) & 0x20) != 0)
   {
-    v75 = 12;
+    v76 = 12;
   }
 
   else
   {
-    v75 = 4;
+    v76 = 4;
   }
 
-  v76 = *(a2 + 32);
-  v77 = v74 - *(a4 + v75);
-  if ((v76 & 0x20) != 0)
+  v77 = *(a2 + 32);
+  v78 = v75 - *(a4 + v76);
+  if ((v77 & 0x20) != 0)
   {
-    v78 = 4;
+    v79 = 4;
   }
 
   else
   {
-    v78 = 12;
+    v79 = 12;
   }
 
-  v79 = *(a2 + v78);
-  if ((v76 & 0x20) != 0)
+  v80 = *(a2 + v79);
+  if ((v77 & 0x20) != 0)
   {
-    v80 = 12;
+    v81 = 12;
   }
 
   else
   {
-    v80 = 4;
+    v81 = 4;
   }
 
-  v81 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v72, v77, *(a2 + ((v76 >> 2) & 8 ^ 8)) - *(a2 + ((v76 >> 2) & 8)), v79 - *(a2 + v80));
-  v117 = 0u;
+  v82 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v73, v78, *(a2 + ((v77 >> 2) & 8 ^ 8)) - *(a2 + ((v77 >> 2) & 8)), v80 - *(a2 + v81));
   v118 = 0u;
-  *v116 = v105 * v59;
-  *(v116 + 1) = v54 + 1.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v117, v116);
-  *v116 = v41 * v70;
-  *(v116 + 1) = v106 + 1.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v117, v116);
-  *v116 = v44 * v81;
-  *(v116 + 1) = v107 + 1.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v117, v116);
-  memset(v116, 0, sizeof(v116));
-  *&v114 = v98 * v59;
-  *(&v114 + 1) = 0x4008000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(v116, &v114);
-  *&v114 = v101 * v70;
-  *(&v114 + 1) = 0x4008000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(v116, &v114);
-  *&v114 = v102 * v81;
-  *(&v114 + 1) = 0x4008000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(v116, &v114);
-  v114 = 0u;
+  v119 = 0u;
+  *v117 = v106 * v60;
+  *(v117 + 1) = v55 + 1.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v118, v117);
+  *v117 = v42 * v71;
+  *(v117 + 1) = v107 + 1.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v118, v117);
+  *v117 = v45 * v82;
+  *(v117 + 1) = v108 + 1.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v118, v117);
+  memset(v117, 0, sizeof(v117));
+  *&v115 = v99 * v60;
+  *(&v115 + 1) = 0x4008000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(v117, &v115);
+  *&v115 = v102 * v71;
+  *(&v115 + 1) = 0x4008000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(v117, &v115);
+  *&v115 = v103 * v82;
+  *(&v115 + 1) = 0x4008000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(v117, &v115);
   v115 = 0u;
-  *&v112 = v108 * v102 * v105;
-  *(&v112 + 1) = v54 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v114, &v112);
-  *&v112 = v101 * v99 * v105;
-  *(&v112 + 1) = v54 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v114, &v112);
-  *&v112 = v99 * v98 * v41;
-  *(&v112 + 1) = v106 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v114, &v112);
-  *&v112 = v102 * v100 * v41;
-  *(&v112 + 1) = v106 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v114, &v112);
-  *&v112 = v101 * v100 * v44;
-  *(&v112 + 1) = v107 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v114, &v112);
-  *&v112 = v108 * v98 * v44;
-  *(&v112 + 1) = v107 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v114, &v112);
-  v112 = 0u;
+  v116 = 0u;
+  *&v113 = v109 * v103 * v106;
+  *(&v113 + 1) = v55 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v115, &v113);
+  *&v113 = v102 * v100 * v106;
+  *(&v113 + 1) = v55 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v115, &v113);
+  *&v113 = v100 * v99 * v42;
+  *(&v113 + 1) = v107 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v115, &v113);
+  *&v113 = v103 * v101 * v42;
+  *(&v113 + 1) = v107 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v115, &v113);
+  *&v113 = v102 * v101 * v45;
+  *(&v113 + 1) = v108 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v115, &v113);
+  *&v113 = v109 * v99 * v45;
+  *(&v113 + 1) = v108 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v115, &v113);
   v113 = 0u;
-  v109 = v18 * v102 * v105;
-  v110 = v54 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v112, &v109);
-  v109 = v101 * v103 * v105;
-  v110 = v54 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v112, &v109);
-  v109 = v103 * v98 * v41;
-  v110 = v106 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v112, &v109);
-  v109 = v102 * v104 * v41;
-  v110 = v106 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v112, &v109);
-  v109 = v101 * v104 * v44;
-  v110 = v107 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v112, &v109);
-  v109 = v18 * v98 * v44;
-  v110 = v107 + 2.0 + 1.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v112, &v109);
-  v109 = boost::polygon::detail::operator+<boost::polygon::detail::robust_fpt<double>>(&v114, v116);
-  v110 = v82;
-  v111[0] = v83;
-  v111[1] = v84;
-  v85 = boost::polygon::detail::robust_fpt<double>::operator-(&v117, &v118);
-  v87 = v86;
-  v88 = boost::polygon::detail::robust_fpt<double>::operator-(&v114, &v115);
-  v90 = v87 + v89 + 1.0;
-  v91 = v88 / v85;
-  v92 = boost::polygon::detail::robust_fpt<double>::operator-(&v112, &v113);
-  v94 = v87 + v93 + 1.0;
-  v95 = v92 / v85;
-  v97 = boost::polygon::detail::robust_fpt<double>::operator-(&v109, v111) / v85;
-  *a5 = v91;
-  *(a5 + 8) = v95;
-  *(a5 + 16) = v97;
+  v114 = 0u;
+  v110 = v19 * v103 * v106;
+  v111 = v55 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v113, &v110);
+  v110 = v102 * v104 * v106;
+  v111 = v55 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v113, &v110);
+  v110 = v104 * v99 * v42;
+  v111 = v107 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v113, &v110);
+  v110 = v103 * v105 * v42;
+  v111 = v107 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v113, &v110);
+  v110 = v102 * v105 * v45;
+  v111 = v108 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v113, &v110);
+  v110 = v19 * v99 * v45;
+  v111 = v108 + 2.0 + 1.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v113, &v110);
+  v110 = boost::polygon::detail::operator+<boost::polygon::detail::robust_fpt<double>>(&v115, v117);
+  v111 = v83;
+  v112[0] = v84;
+  v112[1] = v85;
+  v86 = boost::polygon::detail::robust_fpt<double>::operator-(&v118, &v119);
+  v88 = v87;
+  v89 = boost::polygon::detail::robust_fpt<double>::operator-(&v115, &v116);
+  v91 = v88 + v90 + 1.0;
+  v92 = v89 / v86;
+  v93 = boost::polygon::detail::robust_fpt<double>::operator-(&v113, &v114);
+  v95 = v88 + v94 + 1.0;
+  v96 = v93 / v86;
+  v98 = boost::polygon::detail::robust_fpt<double>::operator-(&v110, v112) / v86;
+  *a5 = v92;
+  *(a5 + 8) = v96;
+  *(a5 + 16) = v98;
   *(a5 + 24) = 1;
-  if (v90 > 64.0 || v94 > 64.0 || v87 + v96 + 1.0 > 64.0)
+  if (v91 > 64.0 || v95 > 64.0 || v88 + v97 + 1.0 > 64.0)
   {
-    boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sss();
+    boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sss(a1);
   }
 }
 
@@ -369,324 +369,324 @@ double *boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<do
   return a1;
 }
 
-void boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::ppp()
+void boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::ppp(uint64_t a1)
 {
-  MEMORY[0x28223BE20]();
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v107 = *MEMORY[0x277D85DE8];
-  v11 = *v0;
+  MEMORY[0x28223BE20](a1);
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v108 = *MEMORY[0x277D85DE8];
   v12 = *v1;
-  v13 = v11 - v12;
-  if (v11 > v12)
+  v13 = *v2;
+  v14 = v12 - v13;
+  if (v12 > v13)
   {
-    v14 = 1;
+    v15 = 1;
 LABEL_3:
-    v101[0] = v13;
+    v102[0] = v14;
     goto LABEL_6;
   }
 
-  if (v13 < 0)
+  if (v14 < 0)
   {
-    v13 = v12 - v11;
-    v14 = -1;
+    v14 = v13 - v12;
+    v15 = -1;
     goto LABEL_3;
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_6:
-  v102 = v14;
-  v15 = *v2;
-  v16 = v12 - v15;
-  if (v12 > v15)
+  v103 = v15;
+  v16 = *v3;
+  v17 = v13 - v16;
+  if (v13 > v16)
   {
-    v17 = 1;
+    v18 = 1;
 LABEL_8:
-    v103[0] = v16;
+    v104[0] = v17;
     goto LABEL_11;
   }
 
-  if (v16 < 0)
+  if (v17 < 0)
   {
-    v16 = v15 - v12;
-    v17 = -1;
+    v17 = v16 - v13;
+    v18 = -1;
     goto LABEL_8;
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_11:
-  v104 = v17;
-  v18 = v11 - v15;
-  if (v11 > v15)
+  v105 = v18;
+  v19 = v12 - v16;
+  if (v12 > v16)
   {
-    v19 = 1;
+    v20 = 1;
 LABEL_13:
-    v105[0] = v18;
+    v106[0] = v19;
     goto LABEL_16;
   }
 
-  if (v18 < 0)
+  if (v19 < 0)
   {
-    v18 = v15 - v11;
-    v19 = -1;
+    v19 = v16 - v12;
+    v20 = -1;
     goto LABEL_13;
   }
 
-  v19 = 0;
+  v20 = 0;
 LABEL_16:
-  v106 = v19;
-  v20 = v0[1];
+  v107 = v20;
   v21 = v1[1];
-  v22 = v20 - v21;
-  if (v20 > v21)
+  v22 = v2[1];
+  v23 = v21 - v22;
+  if (v21 > v22)
   {
-    v23 = 1;
+    v24 = 1;
 LABEL_18:
-    *v95 = v22;
+    *v96 = v23;
     goto LABEL_21;
   }
 
-  if (v22 < 0)
+  if (v23 < 0)
   {
-    v22 = v21 - v20;
-    v23 = -1;
+    v23 = v22 - v21;
+    v24 = -1;
     goto LABEL_18;
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_21:
-  v96 = v23;
-  v24 = v2[1];
-  v25 = v21 - v24;
-  if (v21 > v24)
+  v97 = v24;
+  v25 = v3[1];
+  v26 = v22 - v25;
+  if (v22 > v25)
   {
-    v26 = 1;
+    v27 = 1;
 LABEL_23:
-    v97[0] = v25;
+    v98[0] = v26;
     goto LABEL_26;
   }
 
-  if (v25 < 0)
+  if (v26 < 0)
   {
-    v25 = v24 - v21;
-    v26 = -1;
+    v26 = v25 - v22;
+    v27 = -1;
     goto LABEL_23;
   }
 
-  v26 = 0;
+  v27 = 0;
 LABEL_26:
-  v98 = v26;
-  v27 = v20 - v24;
-  if (v20 > v24)
+  v99 = v27;
+  v28 = v21 - v25;
+  if (v21 > v25)
   {
-    v28 = 1;
+    v29 = 1;
 LABEL_28:
-    *v99 = v27;
+    *v100 = v28;
     goto LABEL_31;
   }
 
-  if (v27 < 0)
+  if (v28 < 0)
   {
-    v27 = v24 - v20;
-    v28 = -1;
+    v28 = v25 - v21;
+    v29 = -1;
     goto LABEL_28;
   }
 
-  v28 = 0;
+  v29 = 0;
 LABEL_31:
-  v100 = v28;
-  v29 = v12 + v11;
-  if (v29 < 1)
+  v101 = v29;
+  v30 = v13 + v12;
+  if (v30 < 1)
   {
-    if (v29 < 0)
+    if (v30 < 0)
     {
-      v91[0] = -v29;
-      if (-v29 >> 32)
+      v92[0] = -v30;
+      if (-v30 >> 32)
       {
-        v30 = -2;
+        v31 = -2;
       }
 
       else
       {
-        v30 = -1;
+        v31 = -1;
       }
     }
 
     else
     {
-      v30 = 0;
+      v31 = 0;
     }
   }
 
   else
   {
-    v91[0] = v29;
-    v30 = 1;
+    v92[0] = v30;
+    v31 = 1;
   }
 
-  v92 = v30;
-  v31 = v15 + v12;
-  if (v31 < 1)
+  v93 = v31;
+  v32 = v16 + v13;
+  if (v32 < 1)
   {
-    if (v31 < 0)
+    if (v32 < 0)
     {
-      v93[0] = -v31;
-      if (-v31 >> 32)
+      v94[0] = -v32;
+      if (-v32 >> 32)
       {
-        v32 = -2;
+        v33 = -2;
       }
 
       else
       {
-        v32 = -1;
+        v33 = -1;
       }
     }
 
     else
     {
-      v32 = 0;
+      v33 = 0;
     }
   }
 
   else
   {
-    v93[0] = v31;
-    v32 = 1;
+    v94[0] = v32;
+    v33 = 1;
   }
 
-  v94 = v32;
-  v33 = v21 + v20;
-  if (v21 + v20 < 1)
+  v95 = v33;
+  v34 = v22 + v21;
+  if (v22 + v21 < 1)
   {
-    if (v33 < 0)
+    if (v34 < 0)
     {
-      v87[0] = -v33;
-      if (-v33 >> 32)
+      v88[0] = -v34;
+      if (-v34 >> 32)
       {
-        v34 = -2;
+        v35 = -2;
       }
 
       else
       {
-        v34 = -1;
+        v35 = -1;
       }
     }
 
     else
     {
-      v34 = 0;
+      v35 = 0;
     }
   }
 
   else
   {
-    v87[0] = v21 + v20;
-    v34 = 1;
+    v88[0] = v22 + v21;
+    v35 = 1;
   }
 
-  v88 = v34;
-  v35 = v24 + v21;
-  if (v24 + v21 < 1)
+  v89 = v35;
+  v36 = v25 + v22;
+  if (v25 + v22 < 1)
   {
-    if (v35 < 0)
+    if (v36 < 0)
     {
-      v89[0] = -v35;
-      if (-v35 >> 32)
+      v90[0] = -v36;
+      if (-v36 >> 32)
       {
-        v36 = -2;
+        v37 = -2;
       }
 
       else
       {
-        v36 = -1;
+        v37 = -1;
       }
     }
 
     else
     {
-      v36 = 0;
+      v37 = 0;
     }
   }
 
   else
   {
-    v89[0] = v24 + v21;
-    v36 = 1;
+    v90[0] = v25 + v22;
+    v37 = 1;
   }
 
-  v90 = v36;
-  boost::polygon::detail::extended_int<64ul>::mul(__src, v101, v97);
-  boost::polygon::detail::extended_int<64ul>::mul(v84, v103, v95);
-  boost::polygon::detail::extended_int<64ul>::dif (__dst, __src, v84);
-  boost::polygon::detail::extended_int<64ul>::p(__dst, v37, v38, v39);
-  v42 = 0.5 / ldexp(v40, v41);
-  boost::polygon::detail::extended_int<64ul>::mul(__src, v101, v91);
-  boost::polygon::detail::extended_int<64ul>::mul(v84, v95, v87);
-  boost::polygon::detail::extended_int<64ul>::add(__dst, __src, v84);
-  boost::polygon::detail::extended_int<64ul>::mul(v84, v103, v93);
-  boost::polygon::detail::extended_int<64ul>::mul(v83, v97, v89);
-  boost::polygon::detail::extended_int<64ul>::add(__src, v84, v83);
-  if ((v8 & 1) != 0 || v4)
+  v91 = v37;
+  boost::polygon::detail::extended_int<64ul>::mul(__src, v102, v98);
+  boost::polygon::detail::extended_int<64ul>::mul(v85, v104, v96);
+  boost::polygon::detail::extended_int<64ul>::dif (__dst, __src, v85);
+  boost::polygon::detail::extended_int<64ul>::p(__dst, v38, v39, v40);
+  v43 = 0.5 / ldexp(v41, v42);
+  boost::polygon::detail::extended_int<64ul>::mul(__src, v102, v92);
+  boost::polygon::detail::extended_int<64ul>::mul(v85, v96, v88);
+  boost::polygon::detail::extended_int<64ul>::add(__dst, __src, v85);
+  boost::polygon::detail::extended_int<64ul>::mul(v85, v104, v94);
+  boost::polygon::detail::extended_int<64ul>::mul(v84, v98, v90);
+  boost::polygon::detail::extended_int<64ul>::add(__src, v85, v84);
+  if ((v9 & 1) != 0 || v5)
   {
-    boost::polygon::detail::extended_int<64ul>::mul(v83, __dst, v97);
-    boost::polygon::detail::extended_int<64ul>::mul(v82, __src, v95);
-    boost::polygon::detail::extended_int<64ul>::dif (v84, v83, v82);
-    boost::polygon::detail::extended_int<64ul>::p(v84, v43, v44, v45);
-    *v10 = v42 * ldexp(v46, v47);
-    if (v4)
+    boost::polygon::detail::extended_int<64ul>::mul(v84, __dst, v98);
+    boost::polygon::detail::extended_int<64ul>::mul(v83, __src, v96);
+    boost::polygon::detail::extended_int<64ul>::dif (v85, v84, v83);
+    boost::polygon::detail::extended_int<64ul>::p(v85, v44, v45, v46);
+    *v11 = v43 * ldexp(v47, v48);
+    if (v5)
     {
-      boost::polygon::detail::extended_int<64ul>::mul(v80, v101, v101);
-      boost::polygon::detail::extended_int<64ul>::mul(v79, v95, v95);
-      boost::polygon::detail::extended_int<64ul>::add(v81, v80, v79);
-      boost::polygon::detail::extended_int<64ul>::mul(v77, v103, v103);
-      boost::polygon::detail::extended_int<64ul>::mul(v76, v97, v97);
-      boost::polygon::detail::extended_int<64ul>::add(v78, v77, v76);
-      boost::polygon::detail::extended_int<64ul>::mul(v82, v81, v78);
-      boost::polygon::detail::extended_int<64ul>::mul(v74, v105, v105);
-      boost::polygon::detail::extended_int<64ul>::mul(v73, v99, v99);
-      boost::polygon::detail::extended_int<64ul>::add(v75, v74, v73);
-      boost::polygon::detail::extended_int<64ul>::mul(v83, v82, v75);
-      boost::polygon::detail::extended_int<64ul>::p(v83, v48, v49, v50);
-      v53 = ldexp(v51, v52);
-      v54 = *v10;
-      v55 = sqrt(v53);
-      if (*v10 >= 0.0)
+      boost::polygon::detail::extended_int<64ul>::mul(v81, v102, v102);
+      boost::polygon::detail::extended_int<64ul>::mul(v80, v96, v96);
+      boost::polygon::detail::extended_int<64ul>::add(v82, v81, v80);
+      boost::polygon::detail::extended_int<64ul>::mul(v78, v104, v104);
+      boost::polygon::detail::extended_int<64ul>::mul(v77, v98, v98);
+      boost::polygon::detail::extended_int<64ul>::add(v79, v78, v77);
+      boost::polygon::detail::extended_int<64ul>::mul(v83, v82, v79);
+      boost::polygon::detail::extended_int<64ul>::mul(v75, v106, v106);
+      boost::polygon::detail::extended_int<64ul>::mul(v74, v100, v100);
+      boost::polygon::detail::extended_int<64ul>::add(v76, v75, v74);
+      boost::polygon::detail::extended_int<64ul>::mul(v84, v83, v76);
+      boost::polygon::detail::extended_int<64ul>::p(v84, v49, v50, v51);
+      v54 = ldexp(v52, v53);
+      v55 = *v11;
+      v56 = sqrt(v54);
+      if (*v11 >= 0.0)
       {
-        if (v42 >= 0.0)
+        if (v43 >= 0.0)
         {
-          v67 = v54 + v55 * v42;
+          v68 = v55 + v56 * v43;
         }
 
         else
         {
-          v67 = v54 - v55 * v42;
+          v68 = v55 - v56 * v43;
         }
       }
 
       else
       {
-        boost::polygon::detail::extended_int<64ul>::mul(v81, v84, v84);
-        boost::polygon::detail::extended_int<64ul>::dif (v82, v81, v83);
-        boost::polygon::detail::extended_int<64ul>::p(v82, v56, v57, v58);
-        v61 = ldexp(v59, v60);
-        v62 = v42 * v61;
-        boost::polygon::detail::extended_int<64ul>::p(v84, v61, v63, v64);
-        v67 = v62 / (v55 + ldexp(v65, v66));
+        boost::polygon::detail::extended_int<64ul>::mul(v82, v85, v85);
+        boost::polygon::detail::extended_int<64ul>::dif (v83, v82, v84);
+        boost::polygon::detail::extended_int<64ul>::p(v83, v57, v58, v59);
+        v62 = ldexp(v60, v61);
+        v63 = v43 * v62;
+        boost::polygon::detail::extended_int<64ul>::p(v85, v62, v64, v65);
+        v68 = v63 / (v56 + ldexp(v66, v67));
       }
 
-      *(v10 + 16) = v67;
+      *(v11 + 16) = v68;
     }
   }
 
-  if (v6)
+  if (v7)
   {
-    boost::polygon::detail::extended_int<64ul>::mul(v83, __src, v101);
-    boost::polygon::detail::extended_int<64ul>::mul(v82, __dst, v103);
-    boost::polygon::detail::extended_int<64ul>::dif (v84, v83, v82);
-    boost::polygon::detail::extended_int<64ul>::p(v84, v68, v69, v70);
-    *(v10 + 8) = v42 * ldexp(v71, v72);
+    boost::polygon::detail::extended_int<64ul>::mul(v84, __src, v102);
+    boost::polygon::detail::extended_int<64ul>::mul(v83, __dst, v104);
+    boost::polygon::detail::extended_int<64ul>::dif (v85, v84, v83);
+    boost::polygon::detail::extended_int<64ul>::p(v85, v69, v70, v71);
+    *(v11 + 8) = v43 * ldexp(v72, v73);
   }
 }
 
@@ -1203,7 +1203,7 @@ void *boost::polygon::detail::extended_int<64ul>::add(_DWORD *__dst, unsigned in
 
 void boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::pps(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
-  v9 = MEMORY[0x28223BE20]();
+  v9 = MEMORY[0x28223BE20](a1);
   v11 = v10;
   v13 = v12;
   v15 = v14;
@@ -1310,7 +1310,7 @@ LABEL_21:
   {
     if (v46 < 0)
     {
-      *v130 = -v46;
+      v130[0] = -v46;
       if (-v46 >> 32)
       {
         v47 = -2;
@@ -1330,7 +1330,7 @@ LABEL_21:
 
   else
   {
-    *v130 = v46;
+    v130[0] = v46;
     v47 = 1;
   }
 
@@ -1935,7 +1935,7 @@ uint64_t boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extend
 
 void boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::pss(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
-  v9 = MEMORY[0x28223BE20]();
+  v9 = MEMORY[0x28223BE20](a1);
   v11 = v10;
   v117 = v12;
   v14 = v13;
@@ -2190,7 +2190,7 @@ LABEL_85:
                                 *&v153[256] = -1;
                                 boost::polygon::detail::extended_int<64ul>::mul(v126, __dst, v153);
                                 memcpy(v137, v126, sizeof(v137));
-                                v102 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>();
+                                v102 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>(v118);
                                 v104 = ldexp(*&v102, v103);
                                 boost::polygon::detail::extended_int<64ul>::p(v132, v104, v105, v106);
                                 v109 = v104 * ldexp(v107, v108);
@@ -2218,7 +2218,7 @@ LABEL_85:
                                   memcpy(v139, v153, sizeof(v139));
                                   boost::polygon::detail::extended_int<64ul>::mul(v153, v130, v127);
                                   memcpy(v140, v153, sizeof(v140));
-                                  v110 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>();
+                                  v110 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>(v118);
                                   *(v14 + 8) = ldexp(*&v110, v111) / v109;
                                 }
 
@@ -2248,7 +2248,7 @@ LABEL_85:
                                   memcpy(v140, v153, sizeof(v140));
                                   if (v117)
                                   {
-                                    v112 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>();
+                                    v112 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>(v118);
                                     *v14 = ldexp(*&v112, v113) / v109;
                                   }
 
@@ -2272,7 +2272,7 @@ LABEL_85:
                                     *&v153[256] = v114;
                                     boost::polygon::detail::extended_int<64ul>::mul(v126, __dst, v153);
                                     memcpy(v141, v126, sizeof(v141));
-                                    v115 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>();
+                                    v115 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>(v118);
                                     v71 = ldexp(*&v115, v116) / v109;
 LABEL_96:
                                     *(v14 + 16) = v71;
@@ -2501,11 +2501,11 @@ LABEL_96:
   }
 }
 
-uint64_t boost::polygon::detail::extended_int<64ul>::operator*@<X0>(unsigned int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t boost::polygon::detail::extended_int<64ul>::operator*@<X0>(unsigned int *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   if (a2 < 1)
   {
-    if (a2 < 0)
+    if ((a2 & 0x8000000000000000) != 0)
     {
       v7[0] = -a2;
       if (-a2 >> 32)
@@ -2543,144 +2543,144 @@ uint64_t boost::polygon::detail::extended_int<64ul>::operator*@<X0>(unsigned int
   return boost::polygon::detail::extended_int<64ul>::mul(a3, a1, v7);
 }
 
-uint64_t boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>()
+uint64_t boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss4<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>(uint64_t a1)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v6 = v2;
-  v7 = v1;
-  v8 = v0;
-  v83 = *MEMORY[0x277D85DE8];
-  if (v1[259])
+  v1 = MEMORY[0x28223BE20](a1);
+  v7 = v3;
+  v8 = v2;
+  v9 = v1;
+  v84 = *MEMORY[0x277D85DE8];
+  if (v2[259])
   {
     __dst[0] = 1;
     __dst[64] = 1;
-    boost::polygon::detail::extended_int<64ul>::mul(v76, v2, (v2 + 65));
-    memcpy(v80, v6 + 130, sizeof(v80));
-    v77[0] = 1;
-    v77[64] = 1;
-    v12 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval1(v9, v10, v11, v8, v7 + 130, v6 + 195);
-    v14 = v13;
-    v16 = v15;
-    __src[0] = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval2(v8, __dst, v76, v12, v17, v18);
-    LODWORD(__src[1]) = v19;
+    boost::polygon::detail::extended_int<64ul>::mul(v77, v3, (v3 + 65));
+    memcpy(v81, v7 + 130, sizeof(v81));
+    v78[0] = 1;
+    v78[64] = 1;
+    v13 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval1(v10, v11, v12, v9, v8 + 130, v7 + 195);
+    v15 = v14;
+    v17 = v16;
+    __src[0] = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval2(v9, __dst, v77, v13, v18, v19);
+    LODWORD(__src[1]) = v20;
     boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>::sqrt(__src);
-    v22 = v21 + v14;
-    v23 = frexp(v16 * v20, &v75[1]);
-    LODWORD(v75[1]) += v22;
-    v65 = v23;
-    v66 = v75[1];
-    memcpy(__dst, v7, sizeof(__dst));
-    memcpy(v76, v6, sizeof(v76));
-    memcpy(v80, v7 + 65, sizeof(v80));
-    memcpy(v77, v6 + 65, 0x104uLL);
-    memcpy(v81, v7 + 195, sizeof(v81));
-    v77[65] = 1;
-    v77[129] = 1;
-    v27 = COERCE_DOUBLE(boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval3(v8, __dst, v76, v24, v25, v26));
-    v63 = v27;
+    v23 = v22 + v15;
+    v24 = frexp(v17 * v21, &v76[1]);
+    LODWORD(v76[1]) += v23;
+    v66 = v24;
+    v67 = v76[1];
+    memcpy(__dst, v8, sizeof(__dst));
+    memcpy(v77, v7, sizeof(v77));
+    memcpy(v81, v8 + 65, sizeof(v81));
+    memcpy(v78, v7 + 65, 0x104uLL);
+    memcpy(v82, v8 + 195, sizeof(v82));
+    v78[65] = 1;
+    v78[129] = 1;
+    v28 = COERCE_DOUBLE(boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval3(v9, __dst, v77, v25, v26, v27));
     v64 = v28;
-    if (v27 >= 0.0 && v23 >= 0.0 || v27 <= 0.0 && v23 <= 0.0)
+    v65 = v29;
+    if (v28 >= 0.0 && v24 >= 0.0 || v28 <= 0.0 && v24 <= 0.0)
     {
-      v29 = &v63;
-      v30 = &v65;
-      return boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>::operator+(v29, v30);
+      v30 = &v64;
+      v31 = &v66;
+      return boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>::operator+(v30, v31);
     }
 
-    boost::polygon::detail::extended_int<64ul>::mul(v73, v7 + 195, v7);
-    LODWORD(v75[0]) = 2;
-    LODWORD(v75[32]) = 1;
-    boost::polygon::detail::extended_int<64ul>::mul(__src, v73, v75);
+    boost::polygon::detail::extended_int<64ul>::mul(v74, v8 + 195, v8);
+    LODWORD(v76[0]) = 2;
+    LODWORD(v76[32]) = 1;
+    boost::polygon::detail::extended_int<64ul>::mul(__src, v74, v76);
     memcpy(__dst, __src, sizeof(__dst));
-    boost::polygon::detail::extended_int<64ul>::mul(v73, v7 + 195, (v7 + 65));
-    LODWORD(v75[0]) = 2;
-    LODWORD(v75[32]) = 1;
-    boost::polygon::detail::extended_int<64ul>::mul(__src, v73, v75);
-    memcpy(v80, __src, sizeof(v80));
-    boost::polygon::detail::extended_int<64ul>::mul(v71, v7, v7);
-    boost::polygon::detail::extended_int<64ul>::mul(v72, v71, v6);
-    boost::polygon::detail::extended_int<64ul>::mul(v69, v7 + 65, (v7 + 65));
-    boost::polygon::detail::extended_int<64ul>::mul(v70, v69, (v6 + 65));
-    boost::polygon::detail::extended_int<64ul>::add(v73, v72, v70);
-    boost::polygon::detail::extended_int<64ul>::mul(v68, v7 + 195, (v7 + 195));
-    boost::polygon::detail::extended_int<64ul>::add(__src, v73, v68);
-    boost::polygon::detail::extended_int<64ul>::mul(&v59, v7 + 130, (v7 + 130));
-    boost::polygon::detail::extended_int<64ul>::mul(&v61, &v59, (v6 + 130));
-    boost::polygon::detail::extended_int<64ul>::mul(v67, &v61, (v6 + 195));
-    boost::polygon::detail::extended_int<64ul>::dif (v75, __src, v67);
-    memcpy(v81, v75, sizeof(v81));
-    boost::polygon::detail::extended_int<64ul>::mul(v73, v7, (v7 + 65));
-    LODWORD(v75[0]) = 2;
-    LODWORD(v75[32]) = 1;
-    boost::polygon::detail::extended_int<64ul>::mul(__src, v73, v75);
-    boost::polygon::detail::extended_int<64ul>::mul(v71, v7 + 130, (v7 + 130));
-    boost::polygon::detail::extended_int<64ul>::mul(v72, v71, (v6 + 195));
-    boost::polygon::detail::extended_int<64ul>::dif (v75, __src, v72);
-    memcpy(v82, v75, sizeof(v82));
-    boost::polygon::detail::extended_int<64ul>::mul(v75, v6, (v6 + 65));
-    memcpy(v78, v75, sizeof(v78));
-    v52 = COERCE_DOUBLE(boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss3<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>(v8, __dst, v76, v49, v50, v51));
-    v53 = &v63;
-    v54 = &v65;
+    boost::polygon::detail::extended_int<64ul>::mul(v74, v8 + 195, (v8 + 65));
+    LODWORD(v76[0]) = 2;
+    LODWORD(v76[32]) = 1;
+    boost::polygon::detail::extended_int<64ul>::mul(__src, v74, v76);
+    memcpy(v81, __src, sizeof(v81));
+    boost::polygon::detail::extended_int<64ul>::mul(v72, v8, v8);
+    boost::polygon::detail::extended_int<64ul>::mul(v73, v72, v7);
+    boost::polygon::detail::extended_int<64ul>::mul(v70, v8 + 65, (v8 + 65));
+    boost::polygon::detail::extended_int<64ul>::mul(v71, v70, (v7 + 65));
+    boost::polygon::detail::extended_int<64ul>::add(v74, v73, v71);
+    boost::polygon::detail::extended_int<64ul>::mul(v69, v8 + 195, (v8 + 195));
+    boost::polygon::detail::extended_int<64ul>::add(__src, v74, v69);
+    boost::polygon::detail::extended_int<64ul>::mul(&v60, v8 + 130, (v8 + 130));
+    boost::polygon::detail::extended_int<64ul>::mul(&v62, &v60, (v7 + 130));
+    boost::polygon::detail::extended_int<64ul>::mul(v68, &v62, (v7 + 195));
+    boost::polygon::detail::extended_int<64ul>::dif (v76, __src, v68);
+    memcpy(v82, v76, sizeof(v82));
+    boost::polygon::detail::extended_int<64ul>::mul(v74, v8, (v8 + 65));
+    LODWORD(v76[0]) = 2;
+    LODWORD(v76[32]) = 1;
+    boost::polygon::detail::extended_int<64ul>::mul(__src, v74, v76);
+    boost::polygon::detail::extended_int<64ul>::mul(v72, v8 + 130, (v8 + 130));
+    boost::polygon::detail::extended_int<64ul>::mul(v73, v72, (v7 + 195));
+    boost::polygon::detail::extended_int<64ul>::dif (v76, __src, v73);
+    memcpy(v83, v76, sizeof(v83));
+    boost::polygon::detail::extended_int<64ul>::mul(v76, v7, (v7 + 65));
+    memcpy(v79, v76, sizeof(v79));
+    v53 = COERCE_DOUBLE(boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss3<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>(v9, __dst, v77, v50, v51, v52));
+    v54 = &v64;
+    v55 = &v66;
   }
 
   else
   {
-    v31 = COERCE_DOUBLE(boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval2(v0, v1, v2, v3, v4, v5));
-    v61 = v31;
+    v32 = COERCE_DOUBLE(boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval2(v1, v2, v3, v4, v5, v6));
     v62 = v32;
+    v63 = v33;
     __dst[0] = 1;
     __dst[64] = 1;
-    boost::polygon::detail::extended_int<64ul>::mul(v76, v6, (v6 + 65));
-    memcpy(v80, v6 + 130, sizeof(v80));
-    v77[0] = 1;
-    v77[64] = 1;
-    v36 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval1(v33, v34, v35, v8, v7 + 130, v6 + 195);
-    v38 = v37;
-    v40 = v39;
-    __src[0] = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval2(v8, __dst, v76, v36, v41, v42);
-    LODWORD(__src[1]) = v43;
+    boost::polygon::detail::extended_int<64ul>::mul(v77, v7, (v7 + 65));
+    memcpy(v81, v7 + 130, sizeof(v81));
+    v78[0] = 1;
+    v78[64] = 1;
+    v37 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval1(v34, v35, v36, v9, v8 + 130, v7 + 195);
+    v39 = v38;
+    v41 = v40;
+    __src[0] = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval2(v9, __dst, v77, v37, v42, v43);
+    LODWORD(__src[1]) = v44;
     boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>::sqrt(__src);
-    v46 = v45 + v38;
-    v47 = frexp(v40 * v44, &v75[1]);
-    LODWORD(v75[1]) += v46;
-    v59 = v47;
-    v60 = v75[1];
-    if (v31 >= 0.0 && v47 >= 0.0 || v31 <= 0.0 && v47 <= 0.0)
+    v47 = v46 + v39;
+    v48 = frexp(v41 * v45, &v76[1]);
+    LODWORD(v76[1]) += v47;
+    v60 = v48;
+    v61 = v76[1];
+    if (v32 >= 0.0 && v48 >= 0.0 || v32 <= 0.0 && v48 <= 0.0)
     {
-      v29 = &v61;
-      v30 = &v59;
-      return boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>::operator+(v29, v30);
+      v30 = &v62;
+      v31 = &v60;
+      return boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>::operator+(v30, v31);
     }
 
-    boost::polygon::detail::extended_int<64ul>::mul(v72, v7, v7);
-    boost::polygon::detail::extended_int<64ul>::mul(v73, v72, v6);
-    boost::polygon::detail::extended_int<64ul>::mul(v70, v7 + 65, (v7 + 65));
-    boost::polygon::detail::extended_int<64ul>::mul(v71, v70, (v6 + 65));
-    boost::polygon::detail::extended_int<64ul>::add(__src, v73, v71);
-    boost::polygon::detail::extended_int<64ul>::mul(v67, v7 + 130, (v7 + 130));
-    boost::polygon::detail::extended_int<64ul>::mul(v68, v67, (v6 + 195));
-    boost::polygon::detail::extended_int<64ul>::mul(v69, v68, (v6 + 130));
-    boost::polygon::detail::extended_int<64ul>::dif (v75, __src, v69);
-    memcpy(__dst, v75, sizeof(__dst));
-    v76[0] = 1;
-    v76[64] = 1;
-    boost::polygon::detail::extended_int<64ul>::mul(v73, v7, (v7 + 65));
-    LODWORD(v75[0]) = 2;
-    LODWORD(v75[32]) = 1;
-    boost::polygon::detail::extended_int<64ul>::mul(__src, v73, v75);
-    boost::polygon::detail::extended_int<64ul>::mul(v71, v7 + 130, (v7 + 130));
-    boost::polygon::detail::extended_int<64ul>::mul(v72, v71, (v6 + 195));
-    boost::polygon::detail::extended_int<64ul>::dif (v75, __src, v72);
-    memcpy(v80, v75, sizeof(v80));
-    boost::polygon::detail::extended_int<64ul>::mul(v75, v6, (v6 + 65));
-    memcpy(v77, v75, 0x104uLL);
-    v52 = COERCE_DOUBLE(boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval2(v8, __dst, v76, v55, v56, v57));
-    v53 = &v61;
-    v54 = &v59;
+    boost::polygon::detail::extended_int<64ul>::mul(v73, v8, v8);
+    boost::polygon::detail::extended_int<64ul>::mul(v74, v73, v7);
+    boost::polygon::detail::extended_int<64ul>::mul(v71, v8 + 65, (v8 + 65));
+    boost::polygon::detail::extended_int<64ul>::mul(v72, v71, (v7 + 65));
+    boost::polygon::detail::extended_int<64ul>::add(__src, v74, v72);
+    boost::polygon::detail::extended_int<64ul>::mul(v68, v8 + 130, (v8 + 130));
+    boost::polygon::detail::extended_int<64ul>::mul(v69, v68, (v7 + 195));
+    boost::polygon::detail::extended_int<64ul>::mul(v70, v69, (v7 + 130));
+    boost::polygon::detail::extended_int<64ul>::dif (v76, __src, v70);
+    memcpy(__dst, v76, sizeof(__dst));
+    v77[0] = 1;
+    v77[64] = 1;
+    boost::polygon::detail::extended_int<64ul>::mul(v74, v8, (v8 + 65));
+    LODWORD(v76[0]) = 2;
+    LODWORD(v76[32]) = 1;
+    boost::polygon::detail::extended_int<64ul>::mul(__src, v74, v76);
+    boost::polygon::detail::extended_int<64ul>::mul(v72, v8 + 130, (v8 + 130));
+    boost::polygon::detail::extended_int<64ul>::mul(v73, v72, (v7 + 195));
+    boost::polygon::detail::extended_int<64ul>::dif (v76, __src, v73);
+    memcpy(v81, v76, sizeof(v81));
+    boost::polygon::detail::extended_int<64ul>::mul(v76, v7, (v7 + 65));
+    memcpy(v78, v76, 0x104uLL);
+    v53 = COERCE_DOUBLE(boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval2(v9, __dst, v77, v56, v57, v58));
+    v54 = &v62;
+    v55 = &v60;
   }
 
-  v58 = COERCE_DOUBLE(boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>::operator-(v53, v54));
-  return frexp(v52 / v58, &v75[1]);
+  v59 = COERCE_DOUBLE(boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>::operator-(v54, v55));
+  return frexp(v53 / v59, &v76[1]);
 }
 
 uint64_t boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sqrt_expr_evaluator_pss3<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>>(uint64_t a1, unsigned int *a2, _DWORD *a3, double a4, double a5, double a6)
@@ -2736,455 +2736,455 @@ double boost::polygon::detail::operator+<boost::polygon::detail::robust_fpt<doub
   return v5;
 }
 
-void boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sss()
+void boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::sss(uint64_t a1)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v97 = v4;
-  v93 = v5;
-  v95 = v6;
-  v8 = v7;
-  v96 = v0;
-  v122 = *MEMORY[0x277D85DE8];
-  v9 = *(v1 + 32);
-  v10 = (v9 >> 2) & 8;
-  v11 = *(v1 + (v10 ^ 8));
-  v12 = *(v1 + v10);
-  v13 = v11 - v12;
-  if (v11 > v12)
+  v1 = MEMORY[0x28223BE20](a1);
+  v98 = v5;
+  v94 = v6;
+  v96 = v7;
+  v9 = v8;
+  v97 = v1;
+  v123 = *MEMORY[0x277D85DE8];
+  v10 = *(v2 + 32);
+  v11 = (v10 >> 2) & 8;
+  v12 = *(v2 + (v11 ^ 8));
+  v13 = *(v2 + v11);
+  v14 = v12 - v13;
+  if (v12 > v13)
   {
-    v14 = 1;
+    v15 = 1;
 LABEL_3:
-    v116[0] = v13;
+    v117[0] = v14;
     goto LABEL_6;
   }
 
-  if (v13 < 0)
+  if (v14 < 0)
   {
-    v13 = v12 - v11;
-    v14 = -1;
+    v14 = v13 - v12;
+    v15 = -1;
     goto LABEL_3;
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_6:
-  v117 = v14;
-  v15 = *(v2 + 32);
-  v16 = (v15 >> 2) & 8;
-  v17 = *(v2 + (v16 ^ 8));
-  v18 = *(v2 + v16);
-  v19 = v17 - v18;
-  if (v17 > v18)
+  v118 = v15;
+  v16 = *(v3 + 32);
+  v17 = (v16 >> 2) & 8;
+  v18 = *(v3 + (v17 ^ 8));
+  v19 = *(v3 + v17);
+  v20 = v18 - v19;
+  if (v18 > v19)
   {
-    v20 = 1;
+    v21 = 1;
 LABEL_8:
-    v118 = v19;
+    v119 = v20;
     goto LABEL_11;
   }
 
-  if (v19 < 0)
+  if (v20 < 0)
   {
-    v19 = v18 - v17;
-    v20 = -1;
+    v20 = v19 - v18;
+    v21 = -1;
     goto LABEL_8;
   }
 
-  v20 = 0;
+  v21 = 0;
 LABEL_11:
-  v119 = v20;
-  v21 = *(v3 + 32);
-  v22 = (v21 >> 2) & 8;
-  v23 = *(v3 + (v22 ^ 8));
-  v24 = *(v3 + v22);
-  v25 = v23 - v24;
-  if (v23 > v24)
+  v120 = v21;
+  v22 = *(v4 + 32);
+  v23 = (v22 >> 2) & 8;
+  v24 = *(v4 + (v23 ^ 8));
+  v25 = *(v4 + v23);
+  v26 = v24 - v25;
+  if (v24 > v25)
   {
-    v26 = 1;
+    v27 = 1;
 LABEL_13:
-    v120 = v25;
+    v121 = v26;
     goto LABEL_16;
   }
 
-  if (v25 < 0)
+  if (v26 < 0)
   {
-    v25 = v24 - v23;
-    v26 = -1;
+    v26 = v25 - v24;
+    v27 = -1;
     goto LABEL_13;
   }
 
-  v26 = 0;
+  v27 = 0;
 LABEL_16:
-  v121 = v26;
-  v27 = (v9 & 0x20) == 0;
-  v28 = 4;
-  if (v27)
+  v122 = v27;
+  v28 = (v10 & 0x20) == 0;
+  v29 = 4;
+  if (v28)
+  {
+    v30 = 12;
+  }
+
+  else
+  {
+    v30 = 4;
+  }
+
+  v31 = *(v2 + v30);
+  if (!v28)
   {
     v29 = 12;
   }
 
-  else
+  v32 = *(v2 + v29);
+  v33 = v31 - v32;
+  if (v31 > v32)
   {
-    v29 = 4;
-  }
-
-  v30 = *(v1 + v29);
-  if (!v27)
-  {
-    v28 = 12;
-  }
-
-  v31 = *(v1 + v28);
-  v32 = v30 - v31;
-  if (v30 > v31)
-  {
-    v33 = 1;
+    v34 = 1;
 LABEL_23:
-    v110[0] = v32;
+    v111[0] = v33;
     goto LABEL_26;
   }
 
-  if (v32 < 0)
+  if (v33 < 0)
   {
-    v32 = v31 - v30;
-    v33 = -1;
+    v33 = v32 - v31;
+    v34 = -1;
     goto LABEL_23;
   }
 
-  v33 = 0;
+  v34 = 0;
 LABEL_26:
-  v111 = v33;
-  v34 = (v15 & 0x20) == 0;
-  v35 = 4;
-  if (v34)
+  v112 = v34;
+  v35 = (v16 & 0x20) == 0;
+  v36 = 4;
+  if (v35)
+  {
+    v37 = 12;
+  }
+
+  else
+  {
+    v37 = 4;
+  }
+
+  v38 = *(v3 + v37);
+  if (!v35)
   {
     v36 = 12;
   }
 
-  else
+  v39 = *(v3 + v36);
+  v40 = v38 - v39;
+  if (v38 > v39)
   {
-    v36 = 4;
-  }
-
-  v37 = *(v2 + v36);
-  if (!v34)
-  {
-    v35 = 12;
-  }
-
-  v38 = *(v2 + v35);
-  v39 = v37 - v38;
-  if (v37 > v38)
-  {
-    v40 = 1;
+    v41 = 1;
 LABEL_33:
-    v112 = v39;
+    v113 = v40;
     goto LABEL_36;
   }
 
-  if (v39 < 0)
+  if (v40 < 0)
   {
-    v39 = v38 - v37;
-    v40 = -1;
+    v40 = v39 - v38;
+    v41 = -1;
     goto LABEL_33;
   }
 
-  v40 = 0;
+  v41 = 0;
 LABEL_36:
-  v113 = v40;
-  v41 = 4;
-  if ((v21 & 0x20) != 0)
+  v114 = v41;
+  v42 = 4;
+  if ((v22 & 0x20) != 0)
   {
-    v42 = 4;
+    v43 = 4;
   }
 
   else
+  {
+    v43 = 12;
+  }
+
+  v44 = *(v4 + v43);
+  if ((v22 & 0x20) != 0)
   {
     v42 = 12;
   }
 
-  v43 = *(v3 + v42);
-  if ((v21 & 0x20) != 0)
+  v45 = *(v4 + v42);
+  v46 = v44 - v45;
+  if (v44 <= v45)
   {
-    v41 = 12;
-  }
-
-  v44 = *(v3 + v41);
-  v45 = v43 - v44;
-  if (v43 <= v44)
-  {
-    if ((v45 & 0x8000000000000000) == 0)
+    if ((v46 & 0x8000000000000000) == 0)
     {
-      v46 = 0;
+      v47 = 0;
       goto LABEL_46;
     }
 
-    v45 = v44 - v43;
-    v46 = -1;
+    v46 = v45 - v44;
+    v47 = -1;
   }
 
   else
   {
-    v46 = 1;
+    v47 = 1;
   }
 
-  v114 = v45;
-LABEL_46:
   v115 = v46;
-  v47 = v30 * v12 - v31 * v11;
-  if (v47 < 1)
+LABEL_46:
+  v116 = v47;
+  v48 = v31 * v13 - v32 * v12;
+  if (v48 < 1)
   {
-    if (v47 < 0)
+    if (v48 < 0)
     {
-      v104[0] = -v47;
-      if (-v47 >> 32)
+      v105[0] = -v48;
+      if (-v48 >> 32)
       {
-        v48 = -2;
+        v49 = -2;
       }
 
       else
       {
-        v48 = -1;
+        v49 = -1;
       }
     }
 
     else
     {
-      v48 = 0;
+      v49 = 0;
     }
   }
 
   else
   {
-    v104[0] = v47;
-    if (HIDWORD(v47))
+    v105[0] = v48;
+    if (HIDWORD(v48))
     {
-      v48 = 2;
+      v49 = 2;
     }
 
     else
     {
-      v48 = 1;
+      v49 = 1;
     }
   }
 
-  v105 = v48;
-  v49 = v37 * v18 - v38 * v17;
-  if (v49 < 1)
+  v106 = v49;
+  v50 = v38 * v19 - v39 * v18;
+  if (v50 < 1)
   {
-    if (v49 < 0)
+    if (v50 < 0)
     {
-      v106 = -v49;
-      if (-v49 >> 32)
+      v107 = -v50;
+      if (-v50 >> 32)
       {
-        v50 = -2;
+        v51 = -2;
       }
 
       else
       {
-        v50 = -1;
+        v51 = -1;
       }
     }
 
     else
     {
-      v50 = 0;
+      v51 = 0;
     }
   }
 
   else
   {
-    v106 = v49;
-    if (HIDWORD(v49))
+    v107 = v50;
+    if (HIDWORD(v50))
     {
-      v50 = 2;
+      v51 = 2;
     }
 
     else
     {
-      v50 = 1;
+      v51 = 1;
     }
   }
 
-  v107 = v50;
-  v51 = v43 * v24 - v44 * v23;
-  if (v51 < 1)
+  v108 = v51;
+  v52 = v44 * v25 - v45 * v24;
+  if (v52 < 1)
   {
-    if (v51 < 0)
+    if (v52 < 0)
     {
-      v108 = -v51;
-      if (-v51 >> 32)
+      v109 = -v52;
+      if (-v52 >> 32)
       {
-        v52 = -2;
+        v53 = -2;
       }
 
       else
       {
-        v52 = -1;
+        v53 = -1;
       }
     }
 
     else
     {
-      v52 = 0;
+      v53 = 0;
     }
   }
 
   else
   {
-    v108 = v51;
-    if (HIDWORD(v51))
+    v109 = v52;
+    if (HIDWORD(v52))
     {
-      v52 = 2;
+      v53 = 2;
     }
 
     else
     {
-      v52 = 1;
+      v53 = 1;
     }
   }
 
-  v53 = 0;
-  v109 = v52;
-  do
-  {
-    boost::polygon::detail::extended_int<64ul>::mul(__dst, (v116 + v53), v116 + v53);
-    boost::polygon::detail::extended_int<64ul>::mul(v99, (v110 + v53), v110 + v53);
-    boost::polygon::detail::extended_int<64ul>::add(__src, __dst, v99);
-    memcpy(&v101[v53 / 4], __src, 0x104uLL);
-    v53 += 260;
-  }
-
-  while (v53 != 780);
   v54 = 0;
-  v55 = -1;
-  v56 = 1;
+  v110 = v53;
   do
   {
-    v57 = v55;
-    if (v54 == 130)
+    boost::polygon::detail::extended_int<64ul>::mul(__dst, (v117 + v54), v117 + v54);
+    boost::polygon::detail::extended_int<64ul>::mul(v100, (v111 + v54), v111 + v54);
+    boost::polygon::detail::extended_int<64ul>::add(__src, __dst, v100);
+    memcpy(&v102[v54 / 4], __src, 0x104uLL);
+    v54 += 260;
+  }
+
+  while (v54 != 780);
+  v55 = 0;
+  v56 = -1;
+  v57 = 1;
+  do
+  {
+    v58 = v56;
+    if (v55 == 130)
     {
-      v58 = 0;
+      v59 = 0;
     }
 
     else
     {
-      v58 = v56;
+      v59 = v57;
     }
 
-    v59 = 65 * v58;
-    if (!(v54 * 4))
+    v60 = 65 * v59;
+    if (!(v55 * 4))
     {
-      v57 = 2;
+      v58 = 2;
     }
 
-    v60 = 65 * v57;
-    boost::polygon::detail::extended_int<64ul>::mul(v99, v116 + 65 * v58, v110 + 260 * v57);
-    boost::polygon::detail::extended_int<64ul>::mul(v98, v116 + v60, v110 + 4 * v59);
-    boost::polygon::detail::extended_int<64ul>::dif (__dst, v99, v98);
-    memcpy(&__src[v54], __dst, 0x104uLL);
-    ++v55;
-    v54 += 65;
+    v61 = 65 * v58;
+    boost::polygon::detail::extended_int<64ul>::mul(v100, v117 + 65 * v59, v111 + 260 * v58);
+    boost::polygon::detail::extended_int<64ul>::mul(v99, v117 + v61, v111 + 4 * v60);
+    boost::polygon::detail::extended_int<64ul>::dif (__dst, v100, v99);
+    memcpy(&__src[v55], __dst, 0x104uLL);
     ++v56;
+    v55 += 65;
+    ++v57;
   }
 
-  while (v54 != 195);
-  v64 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval3(v96, __src, v101, v61, v62, v63);
-  v66 = ldexp(*&v64, v65);
-  if (v93)
+  while (v55 != 195);
+  v65 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval3(v97, __src, v102, v62, v63, v64);
+  v67 = ldexp(*&v65, v66);
+  if (v94)
   {
-    v67 = 0;
-    v68 = -1;
-    v69 = 1;
+    v68 = 0;
+    v69 = -1;
+    v70 = 1;
     do
     {
-      v70 = v68;
-      if (v67 == 130)
+      v71 = v69;
+      if (v68 == 130)
       {
-        v71 = 0;
+        v72 = 0;
       }
 
       else
       {
-        v71 = v69;
+        v72 = v70;
       }
 
-      v72 = 65 * v71;
-      if (!(v67 * 4))
+      v73 = 65 * v72;
+      if (!(v68 * 4))
       {
-        v70 = 2;
+        v71 = 2;
       }
 
-      v73 = 65 * v70;
-      boost::polygon::detail::extended_int<64ul>::mul(v99, v110 + 65 * v71, v104 + 260 * v70);
-      boost::polygon::detail::extended_int<64ul>::mul(v98, v110 + v73, v104 + 4 * v72);
-      boost::polygon::detail::extended_int<64ul>::dif (__dst, v99, v98);
-      memcpy(&__src[v67], __dst, 0x104uLL);
-      ++v68;
-      v67 += 65;
+      v74 = 65 * v71;
+      boost::polygon::detail::extended_int<64ul>::mul(v100, v111 + 65 * v72, v105 + 260 * v71);
+      boost::polygon::detail::extended_int<64ul>::mul(v99, v111 + v74, v105 + 4 * v73);
+      boost::polygon::detail::extended_int<64ul>::dif (__dst, v100, v99);
+      memcpy(&__src[v68], __dst, 0x104uLL);
       ++v69;
+      v68 += 65;
+      ++v70;
     }
 
-    while (v67 != 195);
-    v77 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval3(v96, __src, v101, v74, v75, v76);
-    *(v8 + 8) = ldexp(*&v77, v78) / v66;
+    while (v68 != 195);
+    v78 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval3(v97, __src, v102, v75, v76, v77);
+    *(v9 + 8) = ldexp(*&v78, v79) / v67;
   }
 
-  if ((v95 & 1) != 0 || v97)
+  if ((v96 & 1) != 0 || v98)
   {
-    v94 = v8;
-    v79 = 0;
-    v103[64] = 0;
-    v80 = -1;
-    v81 = 1;
+    v95 = v9;
+    v80 = 0;
+    v104[64] = 0;
+    v81 = -1;
+    v82 = 1;
     do
     {
-      v82 = v80;
-      if (v79 == 130)
+      v83 = v81;
+      if (v80 == 130)
       {
-        v83 = 0;
+        v84 = 0;
       }
 
       else
       {
-        v83 = v81;
+        v84 = v82;
       }
 
-      v84 = 65 * v83;
-      if (!(v79 * 4))
+      v85 = 65 * v84;
+      if (!(v80 * 4))
       {
-        v82 = 2;
+        v83 = 2;
       }
 
-      v85 = 65 * v82;
-      boost::polygon::detail::extended_int<64ul>::mul(v99, v116 + 65 * v83, v104 + 260 * v82);
-      boost::polygon::detail::extended_int<64ul>::mul(v98, v116 + v85, v104 + 4 * v84);
-      boost::polygon::detail::extended_int<64ul>::dif (__dst, v99, v98);
-      memcpy(&__src[v79], __dst, 0x104uLL);
-      if (v97)
+      v86 = 65 * v83;
+      boost::polygon::detail::extended_int<64ul>::mul(v100, v117 + 65 * v84, v105 + 260 * v83);
+      boost::polygon::detail::extended_int<64ul>::mul(v99, v117 + v86, v105 + 4 * v85);
+      boost::polygon::detail::extended_int<64ul>::dif (__dst, v100, v99);
+      memcpy(&__src[v80], __dst, 0x104uLL);
+      if (v98)
       {
-        boost::polygon::detail::extended_int<64ul>::mul(v99, &__src[v79], v110 + v79 * 4);
-        boost::polygon::detail::extended_int<64ul>::add(__dst, v103, v99);
-        memcpy(v103, __dst, sizeof(v103));
+        boost::polygon::detail::extended_int<64ul>::mul(v100, &__src[v80], v111 + v80 * 4);
+        boost::polygon::detail::extended_int<64ul>::add(__dst, v104, v100);
+        memcpy(v104, __dst, sizeof(v104));
       }
 
-      ++v80;
-      v79 += 65;
       ++v81;
+      v80 += 65;
+      ++v82;
     }
 
-    while (v79 != 195);
-    if (v95)
+    while (v80 != 195);
+    if (v96)
     {
-      v89 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval3(v96, __src, v101, v86, v87, v88);
-      v86 = ldexp(*&v89, v90) / v66;
-      *v94 = v86;
+      v90 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval3(v97, __src, v102, v87, v88, v89);
+      v87 = ldexp(*&v90, v91) / v67;
+      *v95 = v87;
     }
 
-    if (v97)
+    if (v98)
     {
-      v101[195] = 1;
-      v101[259] = 1;
-      v91 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval4(v96, __src, v101, v86, v87, v88);
-      *(v94 + 16) = ldexp(*&v91, v92) / v66;
+      v102[195] = 1;
+      v102[259] = 1;
+      v92 = boost::polygon::detail::robust_sqrt_expr<boost::polygon::detail::extended_int<64ul>,boost::polygon::detail::extended_exponent_fpt<double,boost::polygon::detail::extened_exponent_fpt_traits<double>>,boost::polygon::detail::type_converter_efpt>::eval4(v97, __src, v102, v87, v88, v89);
+      *(v95 + 16) = ldexp(*&v92, v93) / v67;
     }
   }
 }
@@ -3731,7 +3731,7 @@ uint64_t std::vector<boost::polygon::segment_data<double>>::__swap_out_circular_
   return result;
 }
 
-uint64_t std::vector<std::vector<boost::polygon::segment_data<double>>>::__construct_one_at_end[abi:ne200100]<std::vector<boost::polygon::segment_data<double>> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<boost::polygon::segment_data<double>>>::__construct_one_at_end[abi:ne200100]<std::vector<boost::polygon::segment_data<double>> const&>(uint64_t a1, void **a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -3742,21 +3742,21 @@ uint64_t std::vector<std::vector<boost::polygon::segment_data<double>>>::__const
   return result;
 }
 
-uint64_t std::vector<std::vector<boost::polygon::segment_data<double>>>::__emplace_back_slow_path<std::vector<boost::polygon::segment_data<double>> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<boost::polygon::segment_data<double>>>::__emplace_back_slow_path<std::vector<boost::polygon::segment_data<double>> const&>(char **a1, void **a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -3780,16 +3780,16 @@ uint64_t std::vector<std::vector<boost::polygon::segment_data<double>>>::__empla
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<boost::polygon::segment_data<double>>::__init_with_size[abi:ne200100]<boost::polygon::segment_data<double>*,boost::polygon::segment_data<double>*>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 5);
+  std::vector<boost::polygon::segment_data<double>>::__init_with_size[abi:ne200100]<boost::polygon::segment_data<double>*,boost::polygon::segment_data<double>*>((24 * v2), *a2, a2[1], (a2[1] - *a2) >> 5);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -3798,9 +3798,9 @@ uint64_t std::vector<std::vector<boost::polygon::segment_data<double>>>::__empla
   return v8;
 }
 
-void sub_26C883700(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C883700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<boost::polygon::segment_data<double>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3899,7 +3899,7 @@ double std::vector<boost::polygon::segment_data<double>>::__move_range(uint64_t 
   return *&v6;
 }
 
-double std::__split_buffer<boost::polygon::segment_data<double>>::emplace_back<boost::polygon::segment_data<double> const&>(void *a1, uint64_t a2)
+double std::__split_buffer<boost::polygon::segment_data<double>>::emplace_back<boost::polygon::segment_data<double> const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = a1[2];
   v3 = v2;
@@ -4170,7 +4170,7 @@ id DictionaryForNode(void *a1, void *a2)
         [v16 addObject:v17];
       }
 
-      v15 = *(v15 + 48);
+      v15 = v15[6];
     }
 
     while (v15);
@@ -4277,7 +4277,7 @@ uint64_t TSDGPUDataBufferDataTypeSize(uint64_t a1)
   }
 }
 
-float TSDGPUDataBufferMetalfloatWithDataType(__int16 *a1, uint64_t a2, int a3, float a4)
+float TSDGPUDataBufferMetalfloatWithDataType(__int16 *a1, uint64_t a2, uint64_t a3, float a4)
 {
   v4 = -1.0;
   if (a2 <= 2)
@@ -4338,7 +4338,7 @@ LABEL_15:
   return v4;
 }
 
-void TSDGPUDataBufferSetMetalfloatWithDataType(float *a1, uint64_t a2, int a3, float a4)
+void TSDGPUDataBufferSetMetalfloatWithDataType(float *a1, uint64_t a2, uint64_t a3, float a4)
 {
   if (a2 > 2)
   {
@@ -4405,7 +4405,7 @@ void TSDGPUDataBufferSetMetalfloatWithDataType(float *a1, uint64_t a2, int a3, f
   }
 }
 
-float TSDGPUDataBufferMetalPoint2DWithDataType(__int16 *a1, uint64_t a2, int a3, float a4)
+float TSDGPUDataBufferMetalPoint2DWithDataType(__int16 *a1, uint64_t a2, uint64_t a3, float a4)
 {
   v4 = 0.0;
   if (a2 > 2)
@@ -4480,7 +4480,7 @@ float TSDGPUDataBufferMetalPoint2DWithDataType(__int16 *a1, uint64_t a2, int a3,
   return v4;
 }
 
-void TSDGPUDataBufferSetMetalPoint2DWithDataType(float *a1, uint64_t a2, int a3, float a4, float a5)
+void TSDGPUDataBufferSetMetalPoint2DWithDataType(float *a1, uint64_t a2, uint64_t a3, float a4, float a5)
 {
   if (a2 > 2)
   {
@@ -4575,7 +4575,7 @@ void TSDGPUDataBufferSetMetalPoint2DWithDataType(float *a1, uint64_t a2, int a3,
   }
 }
 
-float TSDGPUDataBufferMetalPoint3DWithDataType(__int16 *a1, uint64_t a2, int a3, float a4)
+float TSDGPUDataBufferMetalPoint3DWithDataType(__int16 *a1, uint64_t a2, uint64_t a3, float a4)
 {
   v4 = 0.0;
   if (a2 > 2)
@@ -4650,7 +4650,7 @@ float TSDGPUDataBufferMetalPoint3DWithDataType(__int16 *a1, uint64_t a2, int a3,
   return v4;
 }
 
-void TSDGPUDataBufferSetMetalPoint3DWithDataType(uint64_t a1, uint64_t a2, int a3, float a4, float a5, float a6)
+void TSDGPUDataBufferSetMetalPoint3DWithDataType(uint64_t a1, uint64_t a2, uint64_t a3, float a4, float a5, float a6)
 {
   if (a2 > 2)
   {
@@ -4771,7 +4771,7 @@ void TSDGPUDataBufferSetMetalPoint3DWithDataType(uint64_t a1, uint64_t a2, int a
   }
 }
 
-int8x16_t TSDGPUDataBufferMetalPoint4DWithDataType(int16x4_t *a1, uint64_t a2, unsigned int a3)
+int8x16_t TSDGPUDataBufferMetalPoint4DWithDataType(int16x4_t *a1, uint64_t a2, uint64_t a3)
 {
   result = TSDMetalPoint4DZero;
   if (a2 <= 2)
@@ -4820,7 +4820,7 @@ int8x16_t TSDGPUDataBufferMetalPoint4DWithDataType(int16x4_t *a1, uint64_t a2, u
   return result;
 }
 
-void TSDGPUDataBufferSetMetalPoint4DWithDataType(uint64_t a1, uint64_t a2, int a3, float a4, float a5, float a6, float a7)
+void TSDGPUDataBufferSetMetalPoint4DWithDataType(uint64_t a1, uint64_t a2, uint64_t a3, float a4, float a5, float a6, float a7)
 {
   if (a2 > 2)
   {
@@ -4952,7 +4952,7 @@ void TSDGPUDataBufferSetMetalPoint4DWithDataType(uint64_t a1, uint64_t a2, int a
   }
 }
 
-uint64_t TSDGLGetRenderQueue()
+uint64_t TSDGLGetRenderQueue(uint64_t a1, uint64_t a2)
 {
   if (TSDGLGetRenderQueue_pred != -1)
   {
@@ -5218,12 +5218,12 @@ __CFString *NSStringFromTSDGestureState(unsigned int a1)
   return @"#Unknown TSDGestureState#";
 }
 
-void sub_26C8982F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26C8982F4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TSDBrushStrokeDirectSurfaceRenderingContext;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5369,7 +5369,7 @@ void __destroy_helper_block_ea8_56c60_ZTSNSt3__16vectorI18TSDBrushVertexDataNS_9
   }
 }
 
-void sub_26C89E6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_26C89E6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5390,7 +5390,7 @@ void sub_26C89EA10(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26C89EBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_26C89EBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5404,7 +5404,7 @@ void sub_26C89EDEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26C89EF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_26C89EF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5428,7 +5428,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<TSDBrushVertexData>>(
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<TSDBrushVertexData>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TSDBrushVertexData>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -5438,18 +5438,18 @@ void std::vector<TSDBrushVertexData>::__vallocate[abi:nn200100](uint64_t a1, uni
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void *std::vector<TSDBrushVertexData>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<TSDBrushVertexData>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<TSDBrushVertexData>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 5);
+    std::vector<TSDBrushVertexData>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 5);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t TSDMixingTypeBestFromMixingTypes(uint64_t result, uint64_t a2)
@@ -5722,7 +5722,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t TSDMixingMixedObjectWithFraction(void *a1, void *a2, uint64_t a3)
+void *TSDMixingMixedObjectWithFraction(void *a1, void *a2, uint64_t a3)
 {
   if ([a1 mixingTypeWithObject:a2] == 1)
   {
@@ -5741,7 +5741,7 @@ uint64_t TSDMixingMixedObjectWithFraction(void *a1, void *a2, uint64_t a3)
   return v9(a3);
 }
 
-uint64_t TSDMixingMixedObjectWithFractionEx(void *a1, unint64_t a2, double a3)
+void *TSDMixingMixedObjectWithFractionEx(void *a1, void *a2, double a3)
 {
   if (TSDMixingTypeWithObjects(a1, a2) == 1)
   {
@@ -5812,9 +5812,9 @@ void sub_26C8AC928(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26C8B2B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_26C8B2B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5829,9 +5829,9 @@ double calculateReflectionShadingValues(double *a1, double *a2, uint64_t a3)
   return result;
 }
 
-void sub_26C8CC298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C8CC298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5896,7 +5896,7 @@ uint64_t TSDCapabilitiesDeviceTypeFromHWModelString(void *a1)
   return result;
 }
 
-uint64_t TSDBundle()
+uint64_t TSDBundle(uint64_t a1, uint64_t a2)
 {
   if (TSDBundle::onceToken != -1)
   {
@@ -5906,7 +5906,7 @@ uint64_t TSDBundle()
   return TSDBundle::bundle;
 }
 
-uint64_t __TSDBundle_block_invoke()
+void *__TSDBundle_block_invoke()
 {
   result = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   TSDBundle::bundle = result;
@@ -5982,7 +5982,7 @@ uint64_t KNEffectIsEmphasisEffect(uint64_t a1)
   return [v2 containsObject:a1];
 }
 
-uint64_t __KNEffectIsEmphasisEffect_block_invoke()
+void *__KNEffectIsEmphasisEffect_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"apple:action-pop", @"apple:action-pulse", @"apple:action-blink", @"apple:action-flip", @"apple:action-bounce", @"apple:action-jiggle", 0}];
   KNEffectIsEmphasisEffect_sEmphasisEffectsSet = result;
@@ -6004,7 +6004,7 @@ uint64_t KNEffectIsActionEffect(uint64_t a1)
   return KNEffectIsEmphasisEffect(a1);
 }
 
-uint64_t __KNEffectIsActionEffect_block_invoke()
+void *__KNEffectIsActionEffect_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"apple:action-opacity", @"apple:action-motion-path", @"apple:action-rotation", @"apple:action-scale", 0}];
   KNEffectIsActionEffect_sActionEffectsSet = result;
@@ -6363,7 +6363,7 @@ uint64_t TSDprint_polygon(int *a1)
   return puts("end poly\n");
 }
 
-void TSDgpc_polygon_clip(unsigned int a1, unsigned int *a2, int *a3, unsigned int *a4)
+void TSDgpc_polygon_clip(uint64_t a1, int *a2, int *a3, int *a4)
 {
   v4 = a4;
   v7 = a1;
@@ -6374,6 +6374,7 @@ void TSDgpc_polygon_clip(unsigned int a1, unsigned int *a2, int *a3, unsigned in
   v218 = 0;
   v8 = *a2;
   v9 = *a3;
+  v215 = a1;
   if (!*a2)
   {
     if (a1 >= 2 && v9)
@@ -6408,7 +6409,7 @@ LABEL_18:
   if (a1 <= 1 && v8 >= 1 && v9 >= 1)
   {
     minimax_test(a2, a3, a1);
-    v7 = a1;
+    v7 = v215;
     v8 = *a2;
   }
 
@@ -6428,7 +6429,7 @@ LABEL_16:
 
   else
   {
-    v13 = build_lmt(&v219, v222, &v218, a3, 0, a1);
+    v13 = build_lmt(&v219, v222, &v218, a3, 0, v215);
   }
 
   v200 = v219;
@@ -6481,7 +6482,7 @@ LABEL_16:
       v214 = 0;
       v23 = 0.0;
       v24 = 0.0;
-      v25 = a1;
+      v25 = v215;
       do
       {
         v26 = v19 + 1;
@@ -6509,7 +6510,7 @@ LABEL_16:
 
             while (v29);
             v17 = v220;
-            v25 = a1;
+            v25 = v215;
             v20 = v31;
             v21 = v30;
           }
@@ -6715,7 +6716,7 @@ LABEL_155:
                     v99 = v20;
                     v100 = gpc_malloc(0x18uLL);
                     v20 = v99;
-                    v25 = a1;
+                    v25 = v215;
                     *v100 = v72;
                     v100[1] = v27;
                     v101 = *(v213 + 32);
@@ -6769,7 +6770,7 @@ LABEL_155:
                 *(v43 + 120) = 0;
                 v21 = 1;
 LABEL_208:
-                v25 = a1;
+                v25 = v215;
                 goto LABEL_209;
               }
 
@@ -6840,7 +6841,7 @@ LABEL_208:
               }
 
 LABEL_200:
-              v25 = a1;
+              v25 = v215;
               goto LABEL_185;
             }
 
@@ -6866,7 +6867,7 @@ LABEL_200:
 
                   *(v43 + 112) = *(v43 + 120);
                   v21 = 1;
-                  v25 = a1;
+                  v25 = v215;
                   goto LABEL_185;
                 }
 
@@ -6902,7 +6903,7 @@ LABEL_196:
                 v214 = v94;
                 v72 = v42;
                 *(v43 + 112) = v94;
-                v25 = a1;
+                v25 = v215;
 LABEL_209:
                 v20 = v77;
                 goto LABEL_185;
@@ -6961,7 +6962,7 @@ LABEL_192:
             v84 = v20;
             v85 = gpc_malloc(0x18uLL);
             v20 = v84;
-            v25 = a1;
+            v25 = v215;
             *v85 = v72;
             v85[1] = v27;
             v86 = *(v83 + 32);
@@ -7127,7 +7128,7 @@ LABEL_229:
           v116 = v221;
           if (v221)
           {
-            v25 = a1;
+            v25 = v215;
             v20 = v115;
             v21 = v205;
             while (1)
@@ -7301,7 +7302,7 @@ LABEL_318:
                     v156 = gpc_malloc(0x28uLL);
                     v157 = gpc_malloc(0x18uLL);
                     v21 = v205;
-                    v25 = a1;
+                    v25 = v215;
                     *v157 = v208;
                     v157[1] = v139;
                     v157[2] = 0.0;
@@ -7350,7 +7351,7 @@ LABEL_318:
                   v211 = v125;
                   v152 = gpc_malloc(0x18uLL);
                   v21 = v205;
-                  v25 = a1;
+                  v25 = v215;
                   *v152 = v211;
                   v152[1] = v139;
                   v153 = *(v122 + 32);
@@ -7395,7 +7396,7 @@ LABEL_318:
                 v143 = v123;
                 v158 = gpc_malloc(0x18uLL);
                 v21 = v205;
-                v25 = a1;
+                v25 = v215;
                 *v158 = v212;
                 v158[1] = v139;
                 v158[2] = 0.0;
@@ -7428,7 +7429,7 @@ LABEL_323:
                   v143 = v123;
                   v144 = gpc_malloc(0x18uLL);
                   v21 = v205;
-                  v25 = a1;
+                  v25 = v215;
                   *v144 = v207;
                   v144[1] = v139;
                   v145 = *(v143 + 32);
@@ -7459,7 +7460,7 @@ LABEL_323:
                 merge_right(v122, v203, v214);
 LABEL_307:
                 v21 = v205;
-                v25 = a1;
+                v25 = v215;
                 *v121 = 0;
                 goto LABEL_323;
               }
@@ -7475,7 +7476,7 @@ LABEL_307:
                 v210 = v125;
                 v150 = gpc_malloc(0x18uLL);
                 v21 = v205;
-                v25 = a1;
+                v25 = v215;
                 *v150 = v210;
                 v150[1] = v139;
                 v150[2] = 0.0;
@@ -7601,7 +7602,7 @@ LABEL_341:
             }
           }
 
-          v25 = a1;
+          v25 = v215;
           v20 = v115;
           v21 = v205;
 LABEL_345:
@@ -8324,15 +8325,16 @@ double build_sbt(int *a1, uint64_t a2, uint64_t a3)
 {
   do
   {
-    if (*(a3 + 8))
+    v6 = *(a3 + 8);
+    if (v6)
     {
-      build_sbt(a1, a2);
+      build_sbt(a1, a2, v6);
     }
 
     result = *a3;
-    v7 = *a1;
-    *(a2 + 8 * v7) = *a3;
-    *a1 = v7 + 1;
+    v8 = *a1;
+    *(a2 + 8 * v8) = *a3;
+    *a1 = v8 + 1;
     a3 = *(a3 + 16);
   }
 

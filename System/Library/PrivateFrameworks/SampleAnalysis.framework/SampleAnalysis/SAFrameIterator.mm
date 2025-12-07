@@ -2,13 +2,13 @@
 - (BOOL)hasStack;
 - (NSString)debugDescription;
 - (SAFrameIterator)init;
-- (uint64_t)addressForStackDepth:(uint64_t *)depth frames:(unsigned int)frames numFrames:(int)numFrames isUserspace:(int)userspace isSwiftAsync:(BOOL *)async isLeaf:(unsigned int *)leaf frameIndexUsed:;
-- (uint64_t)translatedAddressForNativeAddress:(uint64_t)address;
+- (void)addressForStackDepth:(uint64_t)depth frames:(unsigned int)frames numFrames:(int)numFrames isUserspace:(int)userspace isSwiftAsync:(BOOL *)async isLeaf:(unsigned int *)leaf frameIndexUsed:;
 - (void)binaryLoadInfoForUserAddress:(void *)address;
 - (void)clearTaskData;
 - (void)clearThreadData;
 - (void)dealloc;
 - (void)iterateFramesWithBacktraceStyle:(unint64_t)style block:(id)block;
+- (void)translatedAddressForNativeAddress:(uint64_t)address;
 @end
 
 @implementation SAFrameIterator
@@ -104,7 +104,7 @@
   return address;
 }
 
-- (uint64_t)translatedAddressForNativeAddress:(uint64_t)address
+- (void)translatedAddressForNativeAddress:(uint64_t)address
 {
   v2 = a2;
   v3 = *(address + 120);
@@ -139,42 +139,42 @@ LABEL_7:
   return v2;
 }
 
-- (uint64_t)addressForStackDepth:(uint64_t *)depth frames:(unsigned int)frames numFrames:(int)numFrames isUserspace:(int)userspace isSwiftAsync:(BOOL *)async isLeaf:(unsigned int *)leaf frameIndexUsed:
+- (void)addressForStackDepth:(uint64_t)depth frames:(unsigned int)frames numFrames:(int)numFrames isUserspace:(int)userspace isSwiftAsync:(BOOL *)async isLeaf:(unsigned int *)leaf frameIndexUsed:
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_50;
+    return 0;
   }
 
   if (!depth || (v9 = frames) == 0)
   {
+    v27 = *__error();
+    v28 = _sa_logt();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1E0E2F000, v28, OS_LOG_TYPE_ERROR, "No frames", buf, 2u);
+    }
+
+    *__error() = v27;
+    _SASetCrashLogMessage(646, "No frames");
+    _os_crash();
+    __break(1u);
+LABEL_66:
     v29 = *__error();
     v30 = _sa_logt();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      *buf = 0;
-      _os_log_error_impl(&dword_1E0E2F000, v30, OS_LOG_TYPE_ERROR, "No frames", buf, 2u);
+      *buf = 67109376;
+      v32 = v8;
+      v33 = 1024;
+      v34 = v9;
+      _os_log_error_impl(&dword_1E0E2F000, v30, OS_LOG_TYPE_ERROR, "stack depth %d, but only %d frames", buf, 0xEu);
     }
 
     *__error() = v29;
-    _SASetCrashLogMessage(646, "No frames", v31, v32, v33, v34, v35, v36, v45);
-    _os_crash();
-    __break(1u);
-LABEL_66:
-    v37 = *__error();
-    v38 = _sa_logt();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 67109376;
-      v47 = v8;
-      v48 = 1024;
-      v49 = v9;
-      _os_log_error_impl(&dword_1E0E2F000, v38, OS_LOG_TYPE_ERROR, "stack depth %d, but only %d frames", buf, 0xEu);
-    }
-
-    *__error() = v37;
-    _SASetCrashLogMessage(647, "stack depth %d, but only %d frames", v39, v40, v41, v42, v43, v44, v8);
+    _SASetCrashLogMessage(647, "stack depth %d, but only %d frames", v8, v9);
     _os_crash();
     __break(1u);
   }
@@ -190,7 +190,7 @@ LABEL_66:
     v13 = ~a2 + frames;
     if (!leaf)
     {
-      goto LABEL_34;
+      return *(depth + 8 * v13);
     }
 
     goto LABEL_33;
@@ -203,7 +203,7 @@ LABEL_66:
     {
       if (v16 != 2)
       {
-        goto LABEL_35;
+        return v10;
       }
 
       v13 = ~a2 + frames;
@@ -215,7 +215,7 @@ LABEL_66:
 
       if (!numFrames || v13 || !*(self + 120))
       {
-        goto LABEL_34;
+        return *(depth + 8 * v13);
       }
 
       goto LABEL_25;
@@ -225,40 +225,38 @@ LABEL_66:
     {
       if (*(self + 120))
       {
-        v21 = frames - 2;
-        v22 = frames - 1;
-        if (frames - 2 == a2 || v22 == a2)
+        v20 = frames - 2;
+        v21 = frames - 1;
+        if (frames - 2 == a2 || v21 == a2)
         {
           v10 = *depth;
-          v27 = [(SAFrameIterator *)self translatedAddressForNativeAddress:?];
-          if (v27 == v10)
+          v25 = [(SAFrameIterator *)self translatedAddressForNativeAddress:?];
+          if (v25 == v10)
           {
-            if (v22 == v8)
+            if (v21 == v8)
             {
 LABEL_48:
               if (leaf)
               {
                 v10 = 0;
                 *leaf = -1;
-                goto LABEL_35;
+                return v10;
               }
 
-LABEL_50:
-              v10 = 0;
-              goto LABEL_35;
+              return 0;
             }
 
             *async = 1;
-            v28 = depth[1];
-            v27 = [(SAFrameIterator *)self translatedAddressForNativeAddress:v28];
-            if (v27 == v28)
+            v26 = *(depth + 8);
+            v25 = [(SAFrameIterator *)self translatedAddressForNativeAddress:v26];
+            if (v25 == v26)
             {
               if (leaf)
               {
                 *leaf = 0;
               }
 
-              goto LABEL_35;
+              return v10;
             }
 
             if (leaf)
@@ -269,7 +267,7 @@ LABEL_50:
 
           else
           {
-            if (v21 == v8)
+            if (v20 == v8)
             {
               *async = 0;
               if (leaf)
@@ -277,8 +275,7 @@ LABEL_50:
                 *leaf = 1;
               }
 
-              v10 = depth[1];
-              goto LABEL_35;
+              return *(depth + 8);
             }
 
             *async = 1;
@@ -288,8 +285,7 @@ LABEL_50:
             }
           }
 
-          v10 = v27;
-          goto LABEL_35;
+          return v25;
         }
       }
     }
@@ -299,14 +295,12 @@ LABEL_32:
     *async = v13 == 0;
     if (!leaf)
     {
-LABEL_34:
-      v10 = depth[v13];
-      goto LABEL_35;
+      return *(depth + 8 * v13);
     }
 
 LABEL_33:
     *leaf = v13;
-    goto LABEL_34;
+    return *(depth + 8 * v13);
   }
 
   if (!v16)
@@ -316,8 +310,6 @@ LABEL_33:
 
   if (v16 != 1)
   {
-LABEL_35:
-    v23 = *MEMORY[0x1E69E9840];
     return v10;
   }
 
@@ -333,31 +325,31 @@ LABEL_35:
 
     if (numFrames && frames - 2 == a2 && *(self + 120))
     {
-      v24 = *depth;
+      v22 = *depth;
       v10 = [(SAFrameIterator *)self translatedAddressForNativeAddress:?];
-      if (v10 == v24)
+      if (v10 == v22)
       {
-        v10 = v24;
+        v10 = v22;
         if (*(self + 28) == 1)
         {
-          v25 = depth[v17];
-          v26 = [(SAFrameIterator *)self translatedAddressForNativeAddress:v25];
-          if (v26 == v25)
+          v23 = *(depth + 8 * v17);
+          v24 = [(SAFrameIterator *)self translatedAddressForNativeAddress:v23];
+          if (v24 == v23)
           {
-            v10 = v24;
+            return v22;
           }
 
           else
           {
-            v10 = v26;
+            return v24;
           }
         }
       }
 
-      goto LABEL_35;
+      return v10;
     }
 
-    goto LABEL_34;
+    return *(depth + 8 * v13);
   }
 
   if (frames != 1)
@@ -373,13 +365,11 @@ LABEL_35:
 
   if (!numFrames || !*(self + 120))
   {
-    v10 = *depth;
-    goto LABEL_35;
+    return *depth;
   }
 
 LABEL_25:
   v18 = *depth;
-  v19 = *MEMORY[0x1E69E9840];
 
   return [(SAFrameIterator *)self translatedAddressForNativeAddress:v18];
 }
@@ -388,7 +378,7 @@ LABEL_25:
 {
   styleCopy = style;
   selfCopy = self;
-  v119 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   if ((style & 2) != 0)
   {
     goto LABEL_70;
@@ -396,32 +386,32 @@ LABEL_25:
 
   if ((style & 8) != 0 && (style & 0x14) != 0)
   {
-    v65 = *__error();
+    v62 = *__error();
     selfCopy = _sa_logt();
     if (os_log_type_enabled(selfCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      *v116 = styleCopy;
+      *v81 = styleCopy;
       _os_log_error_impl(&dword_1E0E2F000, selfCopy, OS_LOG_TYPE_ERROR, "backtrace style specified both swift async only and prefer/only C root frames: 0x%llx", buf, 0xCu);
     }
 
-    *__error() = v65;
-    _SASetCrashLogMessage(853, "backtrace style specified both swift async only and prefer/only C root frames: 0x%llx", v66, v67, v68, v69, v70, v71, styleCopy);
+    *__error() = v62;
+    _SASetCrashLogMessage(853, "backtrace style specified both swift async only and prefer/only C root frames: 0x%llx", styleCopy);
     _os_crash();
     __break(1u);
 LABEL_115:
-    v72 = *__error();
-    v73 = _sa_logt();
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+    v63 = *__error();
+    v64 = _sa_logt();
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
-      v74 = *(selfCopy + 44);
+      v65 = *(selfCopy + 44);
       *buf = 67109120;
-      *v116 = v74;
-      _os_log_error_impl(&dword_1E0E2F000, v73, OS_LOG_TYPE_ERROR, "%d _numKernelFrames", buf, 8u);
+      *v81 = v65;
+      _os_log_error_impl(&dword_1E0E2F000, v64, OS_LOG_TYPE_ERROR, "%d _numKernelFrames", buf, 8u);
     }
 
-    *__error() = v72;
-    _SASetCrashLogMessage(954, "%d _numKernelFrames", v75, v76, v77, v78, v79, v80, *(selfCopy + 44));
+    *__error() = v63;
+    _SASetCrashLogMessage(954, "%d _numKernelFrames", *(selfCopy + 44));
     _os_crash();
     __break(1u);
     goto LABEL_118;
@@ -548,19 +538,18 @@ LABEL_36:
     v28 = _sa_logt();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
-      v62 = *(selfCopy + 40);
-      v112 = *(selfCopy + 40);
-      v113 = *(selfCopy + 32);
-      v63 = [selfCopy debugDescription];
-      uTF8String = [v63 UTF8String];
+      v77 = *(selfCopy + 40);
+      v78 = *(selfCopy + 32);
+      v60 = [selfCopy debugDescription];
+      uTF8String = [v60 UTF8String];
       *buf = 67109890;
-      *v116 = v112;
-      *&v116[4] = 1024;
-      *&v116[6] = v113;
-      v117 = 1024;
-      *v118 = v4;
-      *&v118[4] = 2080;
-      *&v118[6] = uTF8String;
+      *v81 = v77;
+      *&v81[4] = 1024;
+      *&v81[6] = v78;
+      v82 = 1024;
+      *v83 = v4;
+      *&v83[4] = 2080;
+      *&v83[6] = uTF8String;
       _os_log_fault_impl(&dword_1E0E2F000, v28, OS_LOG_TYPE_FAULT, "_swiftAsyncStitchIndex %u, _numUserFrames %u, maxDepth %u: %s", buf, 0x1Eu);
     }
 
@@ -606,17 +595,17 @@ LABEL_36:
   {
 LABEL_118:
     styleCopy = *__error();
-    v81 = _sa_logt();
-    if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+    v66 = _sa_logt();
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      v82 = *(selfCopy + 32);
+      v67 = *(selfCopy + 32);
       *buf = 67109120;
-      *v116 = v82;
-      _os_log_error_impl(&dword_1E0E2F000, v81, OS_LOG_TYPE_ERROR, "%d _numUserFrames", buf, 8u);
+      *v81 = v67;
+      _os_log_error_impl(&dword_1E0E2F000, v66, OS_LOG_TYPE_ERROR, "%d _numUserFrames", buf, 8u);
     }
 
     *__error() = styleCopy;
-    _SASetCrashLogMessage(906, "%d _numUserFrames", v83, v84, v85, v86, v87, v88, *(selfCopy + 32));
+    _SASetCrashLogMessage(906, "%d _numUserFrames", *(selfCopy + 32));
     _os_crash();
     __break(1u);
     goto LABEL_121;
@@ -655,52 +644,49 @@ LABEL_55:
   if (v37 > v5)
   {
 LABEL_121:
-    v89 = *__error();
-    v90 = _sa_logt();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+    v68 = *__error();
+    v69 = _sa_logt();
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
     {
-      v91 = *(selfCopy + 40);
+      v70 = *(selfCopy + 40);
       styleCopy = [selfCopy debugDescription];
       uTF8String2 = [styleCopy UTF8String];
       *buf = 67109634;
-      *v116 = v91;
-      *&v116[4] = 1024;
-      *&v116[6] = v4;
-      v117 = 2080;
-      *v118 = uTF8String2;
-      _os_log_error_impl(&dword_1E0E2F000, v90, OS_LOG_TYPE_ERROR, "_swiftAsyncStitchIndex %u, maxDepth %u: %s", buf, 0x18u);
+      *v81 = v70;
+      *&v81[4] = 1024;
+      *&v81[6] = v4;
+      v82 = 2080;
+      *v83 = uTF8String2;
+      _os_log_error_impl(&dword_1E0E2F000, v69, OS_LOG_TYPE_ERROR, "_swiftAsyncStitchIndex %u, maxDepth %u: %s", buf, 0x18u);
     }
 
-    *__error() = v89;
-    v93 = *(selfCopy + 40);
+    *__error() = v68;
+    v72 = *(selfCopy + 40);
     selfCopy = [selfCopy debugDescription];
-    [selfCopy UTF8String];
-    _SASetCrashLogMessage(921, "_swiftAsyncStitchIndex %u, maxDepth %u: %s", v94, v95, v96, v97, v98, v99, v93);
+    _SASetCrashLogMessage(921, "_swiftAsyncStitchIndex %u, maxDepth %u: %s", v72, v4, [selfCopy UTF8String]);
 
     _os_crash();
     __break(1u);
 LABEL_124:
-    v100 = *__error();
-    v101 = _sa_logt();
-    if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+    v73 = *__error();
+    v74 = _sa_logt();
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
     {
-      v102 = *(selfCopy + 32);
-      v103 = *(selfCopy + 40);
+      v75 = *(selfCopy + 32);
+      v76 = *(selfCopy + 40);
       *buf = 67109888;
-      *v116 = v5;
-      *&v116[4] = 1024;
-      *&v116[6] = v102;
-      v117 = 2048;
-      *v118 = styleCopy;
-      *&v118[8] = 1024;
-      *&v118[10] = v103;
-      _os_log_error_impl(&dword_1E0E2F000, v101, OS_LOG_TYPE_ERROR, "endingDepth %u, numUserFrames %u, backtraceStyle 0x%llx, stitchIndex %u", buf, 0x1Eu);
+      *v81 = v5;
+      *&v81[4] = 1024;
+      *&v81[6] = v75;
+      v82 = 2048;
+      *v83 = styleCopy;
+      *&v83[8] = 1024;
+      *&v83[10] = v76;
+      _os_log_error_impl(&dword_1E0E2F000, v74, OS_LOG_TYPE_ERROR, "endingDepth %u, numUserFrames %u, backtraceStyle 0x%llx, stitchIndex %u", buf, 0x1Eu);
     }
 
-    *__error() = v100;
-    v111 = *(selfCopy + 40);
-    v110 = *(selfCopy + 32);
-    _SASetCrashLogMessage(926, "endingDepth %u, numUserFrames %u, backtraceStyle 0x%llx, stitchIndex %u", v104, v105, v106, v107, v108, v109, v5);
+    *__error() = v73;
+    _SASetCrashLogMessage(926, "endingDepth %u, numUserFrames %u, backtraceStyle 0x%llx, stitchIndex %u", v5, *(selfCopy + 32), styleCopy, *(selfCopy + 40));
     _os_crash();
     __break(1u);
   }
@@ -770,7 +756,7 @@ LABEL_124:
 LABEL_70:
   if ((styleCopy & 0x19) != 0)
   {
-    goto LABEL_111;
+    return;
   }
 
   v45 = (selfCopy + 8);
@@ -780,149 +766,144 @@ LABEL_70:
     *(*(selfCopy + 8) + 8) |= 4u;
   }
 
-  if (*(selfCopy + 104))
+  if (!*(selfCopy + 104))
   {
-    if (*(selfCopy + 44))
+    v57 = *(selfCopy + 112);
+    if (!v57)
     {
-      if (*(selfCopy + 27) == 1)
-      {
-        if (*v45)
-        {
-          *(*v45 + 8) |= 8u;
-          v46 = *v45;
-        }
-
-        else
-        {
-          v46 = 0;
-        }
-
-        (*(block + 2))(block, v46);
-        if (*v45)
-        {
-          *(*v45 + 8) &= ~8u;
-        }
-      }
-
-      v47 = *(selfCopy + 44);
-      if (*(selfCopy + 48) == -1)
-      {
-        v48 = 1;
-      }
-
-      else
-      {
-        v48 = (styleCopy >> 5) & 1;
-      }
-
-      if (*(*(selfCopy + 104) + 4))
-      {
-        v49 = 0xFFFFFFFFLL;
-      }
-
-      else
-      {
-        v49 = *MEMORY[0x1E69E9AC8] - 1;
-      }
-
-      if (v47)
-      {
-        v50 = 0;
-        v51 = 0;
-        v52 = 1;
-        do
-        {
-          v114 = 0;
-          *buf = -1;
-          v53 = [(SAFrameIterator *)selfCopy addressForStackDepth:v50 frames:*(selfCopy + 104) numFrames:v47 isUserspace:0 isSwiftAsync:0 isLeaf:&v114 frameIndexUsed:buf];
-          if (((v48 | v51) & 1) == 0)
-          {
-            if (*buf >= *(selfCopy + 48))
-            {
-              v51 = 0;
-            }
-
-            else
-            {
-              (*(block + 2))(block, *(selfCopy + 16));
-              v51 = 1;
-            }
-          }
-
-          v52 &= v53 < v49;
-          if ((v52 & 1) == 0)
-          {
-            v54 = v114;
-            if (*v45)
-            {
-              *(*v45 + 8) = *(*v45 + 8) & 0xFE | !v114;
-              if (*v45)
-              {
-                *(*v45 + 16) = v53;
-              }
-            }
-
-            v55 = [SABinaryLoadInfo binaryLoadInfoForAddress:v53 inBinaryLoadInfos:*(selfCopy + 72) libraryCache:0];
-            v56 = *(selfCopy + 8);
-            if (v56)
-            {
-              objc_storeWeak((v56 + 24), v55);
-            }
-
-            (*(block + 2))(block, *v45);
-            if (v54)
-            {
-              break;
-            }
-          }
-
-          ++v50;
-          v47 = *(selfCopy + 44);
-        }
-
-        while (v50 < v47);
-      }
-
-      else
-      {
-        v51 = 0;
-      }
-
-      if (((v48 | v51) & 1) == 0)
-      {
-        v45 = (selfCopy + 16);
-LABEL_110:
-        (*(block + 2))(block, *v45);
-        goto LABEL_111;
-      }
-
-      goto LABEL_111;
+      return;
     }
 
-    goto LABEL_115;
-  }
-
-  v57 = *(selfCopy + 112);
-  if (v57)
-  {
     if (*v45)
     {
       *(*v45 + 16) = v57;
     }
 
-    v58 = *(selfCopy + 72);
-    v59 = [SABinaryLoadInfo binaryLoadInfoForAddress:"binaryLoadInfoForAddress:inBinaryLoadInfos:libraryCache:" inBinaryLoadInfos:? libraryCache:?];
-    v60 = *(selfCopy + 8);
-    if (v60)
+    v58 = [SABinaryLoadInfo binaryLoadInfoForAddress:"binaryLoadInfoForAddress:inBinaryLoadInfos:libraryCache:" inBinaryLoadInfos:? libraryCache:?];
+    v59 = *(selfCopy + 8);
+    if (v59)
     {
-      objc_storeWeak((v60 + 24), v59);
+      objc_storeWeak((v59 + 24), v58);
     }
 
     goto LABEL_110;
   }
 
-LABEL_111:
-  v61 = *MEMORY[0x1E69E9840];
+  if (!*(selfCopy + 44))
+  {
+    goto LABEL_115;
+  }
+
+  if (*(selfCopy + 27) == 1)
+  {
+    if (*v45)
+    {
+      *(*v45 + 8) |= 8u;
+      v46 = *v45;
+    }
+
+    else
+    {
+      v46 = 0;
+    }
+
+    (*(block + 2))(block, v46);
+    if (*v45)
+    {
+      *(*v45 + 8) &= ~8u;
+    }
+  }
+
+  v47 = *(selfCopy + 44);
+  if (*(selfCopy + 48) == -1)
+  {
+    v48 = 1;
+  }
+
+  else
+  {
+    v48 = (styleCopy >> 5) & 1;
+  }
+
+  if (*(*(selfCopy + 104) + 4))
+  {
+    v49 = 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+    v49 = *MEMORY[0x1E69E9AC8] - 1;
+  }
+
+  if (v47)
+  {
+    v50 = 0;
+    v51 = 0;
+    v52 = 1;
+    do
+    {
+      v79 = 0;
+      *buf = -1;
+      v53 = [(SAFrameIterator *)selfCopy addressForStackDepth:v50 frames:*(selfCopy + 104) numFrames:v47 isUserspace:0 isSwiftAsync:0 isLeaf:&v79 frameIndexUsed:buf];
+      if (((v48 | v51) & 1) == 0)
+      {
+        if (*buf >= *(selfCopy + 48))
+        {
+          v51 = 0;
+        }
+
+        else
+        {
+          (*(block + 2))(block, *(selfCopy + 16));
+          v51 = 1;
+        }
+      }
+
+      v52 &= v53 < v49;
+      if ((v52 & 1) == 0)
+      {
+        v54 = v79;
+        if (*v45)
+        {
+          *(*v45 + 8) = *(*v45 + 8) & 0xFE | !v79;
+          if (*v45)
+          {
+            *(*v45 + 16) = v53;
+          }
+        }
+
+        v55 = [SABinaryLoadInfo binaryLoadInfoForAddress:v53 inBinaryLoadInfos:*(selfCopy + 72) libraryCache:0];
+        v56 = *(selfCopy + 8);
+        if (v56)
+        {
+          objc_storeWeak((v56 + 24), v55);
+        }
+
+        (*(block + 2))(block, *v45);
+        if (v54)
+        {
+          break;
+        }
+      }
+
+      ++v50;
+      v47 = *(selfCopy + 44);
+    }
+
+    while (v50 < v47);
+  }
+
+  else
+  {
+    v51 = 0;
+  }
+
+  if (((v48 | v51) & 1) == 0)
+  {
+    v45 = (selfCopy + 16);
+LABEL_110:
+    (*(block + 2))(block, *v45);
+  }
 }
 
 - (BOOL)hasStack

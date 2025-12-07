@@ -34,7 +34,7 @@ uint64_t __46__OSSystemExtensionsWorkspace_sharedWorkspace__block_invoke()
 
 - (id)systemExtensionsForApplicationWithBundleID:(id)d error:(id *)error
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   error = 0;
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
@@ -44,9 +44,9 @@ uint64_t __46__OSSystemExtensionsWorkspace_sharedWorkspace__block_invoke()
   if ((v8 & 1) == 0)
   {
     v29 = MEMORY[0x277CCA9B8];
-    v60 = *MEMORY[0x277CCA450];
-    v61[0] = @"Apps can only query for system extensions embedded within them";
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v60 count:1];
+    v59 = *MEMORY[0x277CCA450];
+    v60[0] = @"Apps can only query for system extensions embedded within them";
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:1];
     v28 = [v29 errorWithDomain:@"OSSystemExtensionErrorDomain" code:1 userInfo:v30];
 
 LABEL_19:
@@ -84,12 +84,12 @@ LABEL_20:
     {
       [MEMORY[0x277CCACA8] stringWithFormat:@"Missing the %@ entitlement", @"com.apple.developer.system-extension.install"];
     }
-    v38 = ;
-    v39 = MEMORY[0x277CCA9B8];
-    v58 = *MEMORY[0x277CCA450];
-    v59 = v38;
-    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-    v28 = [v39 errorWithDomain:@"OSSystemExtensionErrorDomain" code:2 userInfo:v40];
+    v37 = ;
+    v38 = MEMORY[0x277CCA9B8];
+    v57 = *MEMORY[0x277CCA450];
+    v58 = v37;
+    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    v28 = [v38 errorWithDomain:@"OSSystemExtensionErrorDomain" code:2 userInfo:v39];
 
     v12 = 0;
     goto LABEL_20;
@@ -99,11 +99,11 @@ LABEL_20:
   v13 = CFGetTypeID(v11);
   if (v13 != CFBooleanGetTypeID() || !CFBooleanGetValue(v12))
   {
-    v35 = MEMORY[0x277CCA9B8];
-    v56 = *MEMORY[0x277CCA450];
-    v57 = @"Require com.apple.developer.system-extension.install:true in entitlement";
-    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-    v28 = [v35 errorWithDomain:@"OSSystemExtensionErrorDomain" code:2 userInfo:v36];
+    v34 = MEMORY[0x277CCA9B8];
+    v55 = *MEMORY[0x277CCA450];
+    v56 = @"Require com.apple.developer.system-extension.install:true in entitlement";
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v28 = [v34 errorWithDomain:@"OSSystemExtensionErrorDomain" code:2 userInfo:v35];
 
     goto LABEL_20;
   }
@@ -119,39 +119,39 @@ LABEL_20:
       [OSSystemExtensionsWorkspace systemExtensionsForApplicationWithBundleID:dCopy error:?];
     }
 
-    v42 = MEMORY[0x277CCA9B8];
-    v54 = *MEMORY[0x277CCA450];
-    v55 = dCopy;
-    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-    v28 = [v42 errorWithDomain:@"OSSystemExtensionErrorDomain" code:1 userInfo:v43];
+    v41 = MEMORY[0x277CCA9B8];
+    v53 = *MEMORY[0x277CCA450];
+    v54 = dCopy;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+    v28 = [v41 errorWithDomain:@"OSSystemExtensionErrorDomain" code:1 userInfo:v42];
 
     goto LABEL_20;
   }
 
-  v44 = v10;
+  v43 = v10;
   errorCopy2 = error;
-  v46 = dCopy;
+  v45 = dCopy;
   v16 = objc_opt_new();
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = v15;
-  v17 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v17 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v49;
+    v19 = *v48;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v49 != v19)
+        if (*v48 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v48 + 1) + 8 * i);
+        v21 = *(*(&v47 + 1) + 8 * i);
         v22 = [OSSystemExtensionProperties alloc];
         bundleIdentifier2 = [v21 bundleIdentifier];
         driverIsApproved = [v21 driverIsApproved];
@@ -162,7 +162,7 @@ LABEL_20:
         [v16 addObject:v27];
       }
 
-      v18 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v18 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
     }
 
     while (v18);
@@ -170,8 +170,8 @@ LABEL_20:
 
   v28 = 0;
   error = errorCopy2;
-  dCopy = v46;
-  v10 = v44;
+  dCopy = v45;
+  v10 = v43;
 LABEL_21:
   if (error && !v16)
   {
@@ -191,18 +191,15 @@ LABEL_21:
 
   v32 = [v16 copy];
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v32;
 }
 
 - (void)systemExtensionsForApplicationWithBundleID:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&dword_23AAC5000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_error_impl(&dword_23AAC5000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", &v1, 0xCu);
 }
 
 @end

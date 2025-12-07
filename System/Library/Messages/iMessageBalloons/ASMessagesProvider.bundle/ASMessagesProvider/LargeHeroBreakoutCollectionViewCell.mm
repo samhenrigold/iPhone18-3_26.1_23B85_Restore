@@ -32,13 +32,15 @@
 
 - (void)didTapActionButton
 {
-  v2 = *(*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider35LargeHeroBreakoutCollectionViewCell_detailsView) + OBJC_IVAR____TtC18ASMessagesProvider19BreakoutDetailsView_callToActionButtonHandler);
-  if (v2)
+  v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider35LargeHeroBreakoutCollectionViewCell_detailsView) + OBJC_IVAR____TtC18ASMessagesProvider19BreakoutDetailsView_callToActionButtonHandler;
+  v3 = *v2;
+  if (*v2)
   {
+    v4 = *(v2 + 1);
     selfCopy = self;
-    v3 = sub_F714(v2);
-    v2(v3);
-    sub_F704(v2);
+    v5 = sub_F714(v3, v4);
+    v3(v5);
+    sub_F704(v3, v4);
   }
 }
 

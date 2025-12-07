@@ -243,77 +243,77 @@ LABEL_9:
 
   v31 = [dictionaryCopy PKStringForKey:@"stateReason"];
   v62 = v15;
-  if ([v31 isEqualToString:@"delinquent"])
+  if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 1;
   }
 
-  else if ([v31 isEqualToString:{@"hardship", v15}])
+  else if (objc_msgSend_isEqualToString_(v31, v15))
   {
     v32 = 3;
   }
 
-  else if ([v31 isEqualToString:@"disasterRecovery"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 2;
   }
 
-  else if ([v31 isEqualToString:@"termsOfUseViolation"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 4;
   }
 
-  else if ([v31 isEqualToString:@"fraudSuspected"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 5;
   }
 
-  else if ([v31 isEqualToString:@"fraudConfirmed"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 6;
   }
 
-  else if ([v31 isEqualToString:@"fraudConfirmedCustomer"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 7;
   }
 
-  else if ([v31 isEqualToString:@"chargedOff"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 8;
   }
 
-  else if ([v31 isEqualToString:@"securityDowngrade"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 9;
   }
 
-  else if ([v31 isEqualToString:@"embargoRecovery"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 10;
   }
 
-  else if ([v31 isEqualToString:@"mergeComplete"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 12;
   }
 
-  else if ([v31 isEqualToString:@"merging"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 11;
   }
 
-  else if ([v31 isEqualToString:@"removed"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 13;
   }
 
-  else if ([v31 isEqualToString:@"mergeInitiated"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 14;
   }
 
-  else if ([v31 isEqualToString:@"bankruptcy"])
+  else if (objc_msgSend_isEqualToString_(v31))
   {
     v32 = 15;
   }
@@ -1377,7 +1377,7 @@ LABEL_69:
       v10 = MEMORY[0x1E696AB90];
       if (v8)
       {
-        [v8 decimalValue];
+        objc_msgSend_decimalValue(v8);
       }
 
       else
@@ -1607,9 +1607,9 @@ LABEL_69:
 
         v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
-        v11 = [identifier isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v11)
+        if (isEqualToString)
         {
           v6 = v9;
           goto LABEL_11;

@@ -1,13 +1,13 @@
-id SafariLibraryPath()
+id SafariLibraryPath(uint64_t a1)
 {
   if (qword_100010B08 != -1)
   {
     sub_1000059BC();
   }
 
-  v1 = qword_100010B00;
+  v2 = qword_100010B00;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000105C(id a1)
@@ -21,23 +21,23 @@ void sub_10000105C(id a1)
 
   else
   {
-    SafariNonContaineredLibraryPath();
+    SafariNonContaineredLibraryPath(0);
   }
   v2 = ;
   v3 = qword_100010B00;
   qword_100010B00 = v2;
 }
 
-id SafariNonContaineredLibraryPath()
+id SafariNonContaineredLibraryPath(uint64_t a1)
 {
   if (qword_100010B18 != -1)
   {
     sub_1000059D0();
   }
 
-  v1 = qword_100010B10;
+  v2 = qword_100010B10;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000110C(id a1)
@@ -52,7 +52,7 @@ id SafariSettingsDirectoryPath()
   v0 = qword_100010B20;
   if (!qword_100010B20)
   {
-    v1 = SafariLibraryPath();
+    v1 = SafariLibraryPath(0);
     v2 = [v1 stringByAppendingPathComponent:@"Safari"];
     v3 = qword_100010B20;
     qword_100010B20 = v2;
@@ -108,12 +108,11 @@ void sub_1000013BC(id a1)
 
 void sub_1000014D8(uint64_t a1)
 {
-  v2 = [WBTabGroupManager alloc];
-  v3 = *(a1 + 32);
-  v6 = [objc_opt_class() _tabCollection];
-  v4 = [v2 initWithCollection:v6];
-  v5 = qword_100010B58;
-  qword_100010B58 = v4;
+  v1 = [WBTabGroupManager alloc];
+  v4 = [objc_opt_class() _tabCollection];
+  v2 = [v1 initWithCollection:v4];
+  v3 = qword_100010B58;
+  qword_100010B58 = v2;
 }
 
 void sub_100001598(id a1)
@@ -150,30 +149,28 @@ void sub_100001970(uint64_t a1)
   v4 = *(v3 + 8);
   *(v3 + 8) = v2;
 
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() defaultContentBlockerManager];
-  [v6 addObserver:*(a1 + 32)];
+  v5 = [objc_opt_class() defaultContentBlockerManager];
+  [v5 addObserver:*(a1 + 32)];
 
-  v7 = dispatch_semaphore_create(0);
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 16);
-  *(v8 + 16) = v7;
+  v6 = dispatch_semaphore_create(0);
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 16);
+  *(v7 + 16) = v6;
 
-  v10 = *(a1 + 32);
-  v11 = [objc_opt_class() defaultWebExtensionsController];
-  [v11 addObserver:*(a1 + 32)];
+  v9 = [objc_opt_class() defaultWebExtensionsController];
+  [v9 addObserver:*(a1 + 32)];
 }
 
-void sub_1000025EC(uint64_t a1, void *a2)
+void sub_1000025EC(id *a1, void *a2)
 {
-  v12 = a2;
-  if ([*(a1 + 32) isPrivateBrowsing])
+  v11 = a2;
+  if ([a1[4] isPrivateBrowsing])
   {
     v3 = @"Private Tab";
     goto LABEL_4;
   }
 
-  v4 = [v12 url];
+  v4 = [v11 url];
   v3 = [v4 absoluteString];
 
   if (v3)
@@ -187,7 +184,7 @@ LABEL_4:
 
   v3 = @"Start Page";
 LABEL_6:
-  v5 = [v12 uuid];
+  v5 = [v11 uuid];
   if ([v5 length])
   {
     v6 = [(__CFString *)v3 stringByAppendingFormat:@" (%@)", v5];
@@ -195,40 +192,37 @@ LABEL_6:
     v3 = v6;
   }
 
-  v7 = *(a1 + 40);
   if (WBSIsEqual())
   {
-    v8 = [*(a1 + 32) uuid];
-    v9 = [*(a1 + 48) activeTabGroupUUID];
-    v10 = WBSIsEqual();
+    v7 = [a1[4] uuid];
+    v8 = [a1[6] activeTabGroupUUID];
+    v9 = WBSIsEqual();
 
-    if (v10)
+    if (v9)
     {
-      v11 = [(__CFString *)v3 stringByAppendingString:@" (Current)"];
+      v10 = [(__CFString *)v3 stringByAppendingString:@" (Current)"];
 
-      v3 = v11;
+      v3 = v10;
     }
   }
 
-  [*(a1 + 56) appendFormat:@"%@\n", v3];
+  [a1[7] appendFormat:@"%@\n", v3];
 }
 
 uint64_t sub_100002DD4(uint64_t a1, void *a2)
 {
-  v3 = [a2 uuid];
-  v4 = *(a1 + 32);
-  v5 = WBSIsEqual();
+  v2 = [a2 uuid];
+  v3 = WBSIsEqual();
 
-  return v5;
+  return v3;
 }
 
 void sub_100003750(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() defaultWebExtensionsController];
-  v4 = *(*(a1 + 32) + 16);
-  v5 = dispatch_time(0, 10000000000);
-  dispatch_semaphore_wait(v4, v5);
+  v2 = [objc_opt_class() defaultWebExtensionsController];
+  v3 = *(*(a1 + 32) + 16);
+  v4 = dispatch_time(0, 10000000000);
+  dispatch_semaphore_wait(v3, v4);
   if (qword_100010B30 != -1)
   {
     sub_100005A34();
@@ -239,54 +233,54 @@ void sub_100003750(uint64_t a1)
     sub_100005D04();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  obj = [v3 allDiscoveredExtensions];
-  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v6)
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  obj = [v2 allDiscoveredExtensions];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v20 = *v22;
+    v6 = v5;
+    v19 = *v21;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v6; i = i + 1)
       {
-        if (*v22 != v20)
+        if (*v21 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
-        v10 = [v3 webExtensionForExtension:v9];
-        v11 = [v10 displayName];
-        v12 = [v9 _plugIn];
-        v13 = [v12 identifier];
-        v14 = [NSString stringWithFormat:@"%@ (%@)", v11, v13];
+        v8 = *(*(&v20 + 1) + 8 * i);
+        v9 = [v2 webExtensionForExtension:v8];
+        v10 = [v9 displayName];
+        v11 = [v8 _plugIn];
+        v12 = [v11 identifier];
+        v13 = [NSString stringWithFormat:@"%@ (%@)", v10, v12];
 
-        v15 = [v3 extensionIsEnabled:v9];
-        v16 = *(a1 + 40);
-        v17 = @"disabled:";
-        if (v15)
+        v14 = [v2 extensionIsEnabled:v8];
+        v15 = *(a1 + 40);
+        v16 = @"disabled:";
+        if (v14)
         {
-          v17 = @"enabled:";
+          v16 = @"enabled:";
         }
 
-        v18 = [NSString stringWithFormat:@"%@ %@", v17, v14];
-        [v16 addObject:v18];
+        v17 = [NSString stringWithFormat:@"%@ %@", v16, v13];
+        [v15 addObject:v17];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 }
 
-void sub_10000406C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000406C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -317,6 +311,13 @@ void sub_1000040B0(uint64_t a1, void *a2)
   v6 = v3;
 
   dispatch_semaphore_signal(*(a1 + 32));
+}
+
+void sub_100004CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_100004D2C(uint64_t a1, void *a2)
@@ -369,28 +370,32 @@ void sub_1000056B0(id a1)
   _objc_release_x1();
 }
 
-void sub_100005920(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005920(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_10000594C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000594C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_100005968(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005968(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_10000599C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000599C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100005A70()
@@ -399,7 +404,7 @@ void sub_100005A70()
   v2 = v1;
   v3 = [sub_100005984() safari_privacyPreservingDescription];
   sub_100005908();
-  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write file with list of open tabs to %{public}@: %{public}@", v6, v7, v8, v9, v10);
+  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write file with list of open tabs to %{public}@: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100005B08()
@@ -408,7 +413,7 @@ void sub_100005B08()
   v2 = v1;
   v3 = [sub_100005984() safari_privacyPreservingDescription];
   sub_100005908();
-  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write file with list of open tabs to %{public}@, error: %{public}@", v6, v7, v8, v9, v10);
+  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write file with list of open tabs to %{public}@, error: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100005BD4()
@@ -417,7 +422,7 @@ void sub_100005BD4()
   v2 = v1;
   v3 = [sub_100005984() safari_privacyPreservingDescription];
   sub_100005908();
-  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write list of content blockers to %{public}@: %{public}@", v6, v7, v8, v9, v10);
+  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write list of content blockers to %{public}@: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100005C6C()
@@ -426,14 +431,16 @@ void sub_100005C6C()
   v2 = v1;
   v3 = [sub_100005984() safari_privacyPreservingDescription];
   sub_100005908();
-  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write list of web extensions to %{public}@: %{public}@", v6, v7, v8, v9, v10);
+  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write list of web extensions to %{public}@: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100005D38(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  sub_10000599C(&_mh_execute_header, v5, v6, "Error collecting migration eligibility logs: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  sub_10000599C(&_mh_execute_header, v5, v6, "Error collecting migration eligibility logs: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_100005E38(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -449,7 +456,9 @@ void sub_100005F08(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  sub_10000599C(&_mh_execute_header, v5, v6, "Failed to delete sensitive data from database with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  sub_10000599C(&_mh_execute_header, v5, v6, "Failed to delete sensitive data from database with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_100005FA0()
@@ -458,7 +467,7 @@ void sub_100005FA0()
   v2 = v1;
   v3 = [sub_100005984() safari_privacyPreservingDescription];
   sub_100005908();
-  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write file with tab collection diagnostics to %{public}@, error: %{public}@", v6, v7, v8, v9, v10);
+  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write file with tab collection diagnostics to %{public}@, error: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_1000060A0(void *a1, uint8_t *buf, os_log_t log)
@@ -474,5 +483,5 @@ void sub_100006194()
   v2 = v1;
   v3 = [sub_100005984() safari_privacyPreservingDescription];
   sub_100005908();
-  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write file with CloudTab restoration diagnostics to %{public}@, error: %{public}@", v6, v7, v8, v9, v10);
+  sub_100005920(&_mh_execute_header, v4, v5, "Failed to write file with CloudTab restoration diagnostics to %{public}@, error: %{public}@", v6, v7, v8, v9);
 }

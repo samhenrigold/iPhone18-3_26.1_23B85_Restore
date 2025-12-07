@@ -92,9 +92,7 @@ uint64_t __29__MXDependencyFactory_shared__block_invoke(uint64_t a1)
   metricServices = self->_metricServices;
   self->_metricServices = v23;
 
-  v25 = [[MXDiagnosticServices alloc] initWithSourcePathUtil:self->_sourcePathUtil andDateUtil:self->_dateUtil];
-  diagnosticServices = self->_diagnosticServices;
-  self->_diagnosticServices = v25;
+  self->_diagnosticServices = [[MXDiagnosticServices alloc] initWithSourcePathUtil:self->_sourcePathUtil andDateUtil:self->_dateUtil];
 
   MEMORY[0x2821F96F8]();
 }

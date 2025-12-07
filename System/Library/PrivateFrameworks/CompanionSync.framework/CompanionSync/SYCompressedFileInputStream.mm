@@ -86,19 +86,17 @@
 
   getCFRunLoop = [loopCopy getCFRunLoop];
   runloopSource = self->_internal->_runloopSource;
-  v10 = [(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]];
-  v11 = *MEMORY[0x1E695E8E0];
-  if (v10)
+  if ([(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]])
   {
-    v12 = *MEMORY[0x1E695E8E0];
+    v10 = *MEMORY[0x1E695E8E0];
   }
 
   else
   {
-    v12 = modeCopy;
+    v10 = modeCopy;
   }
 
-  CFRunLoopAddSource(getCFRunLoop, runloopSource, v12);
+  CFRunLoopAddSource(getCFRunLoop, runloopSource, v10);
 }
 
 - (void)removeFromRunLoop:(id)loop forMode:(id)mode
@@ -106,23 +104,21 @@
   modeCopy = mode;
   if (self->_internal->_runloopSource)
   {
-    v12 = modeCopy;
+    v10 = modeCopy;
     getCFRunLoop = [loop getCFRunLoop];
     runloopSource = self->_internal->_runloopSource;
-    v9 = [(__CFString *)v12 isEqualToString:*MEMORY[0x1E695D918]];
-    v10 = *MEMORY[0x1E695E8E0];
-    if (v9)
+    if ([(__CFString *)v10 isEqualToString:*MEMORY[0x1E695D918]])
     {
-      v11 = *MEMORY[0x1E695E8E0];
+      v9 = *MEMORY[0x1E695E8E0];
     }
 
     else
     {
-      v11 = v12;
+      v9 = v10;
     }
 
-    CFRunLoopRemoveSource(getCFRunLoop, runloopSource, v11);
-    modeCopy = v12;
+    CFRunLoopRemoveSource(getCFRunLoop, runloopSource, v9);
+    modeCopy = v10;
   }
 }
 
@@ -395,10 +391,9 @@ LABEL_17:
 
 - (void)stream:handleEvent:.cold.1()
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_1DF835000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Unknown stream %{public}@ is sending me (%{public}@) delegate messages...", v1, 0x16u);
-  v0 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF835000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Unknown stream %{public}@ is sending me (%{public}@) delegate messages...", v0, 0x16u);
 }
 
 @end

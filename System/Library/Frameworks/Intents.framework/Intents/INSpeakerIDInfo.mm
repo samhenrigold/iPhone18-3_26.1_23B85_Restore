@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"sharedUserID";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"sharedUserID";
   sharedUserID = self->_sharedUserID;
   null = sharedUserID;
   if (!sharedUserID)
@@ -23,17 +23,15 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v9[1] = @"speakerIDConfidence";
-  v10[0] = null;
+  v8[1] = @"speakerIDConfidence";
+  v9[0] = null;
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_speakerIDConfidence];
-  v10[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   if (!sharedUserID)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

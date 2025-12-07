@@ -149,13 +149,13 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
 
 - (void)_refreshExternalDeviceMetadata
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = BRKLoggingObjectForDomain();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412290;
-    v15 = @"Refreshing device identifier and session upload count after significant time change.";
-    _os_log_impl(&dword_241ED9000, v3, OS_LOG_TYPE_INFO, "%@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = @"Refreshing device identifier and session upload count after significant time change.";
+    _os_log_impl(&dword_241ED9000, v3, OS_LOG_TYPE_INFO, "%@", &v13, 0xCu);
   }
 
   v4 = BRKLoggingObjectForDomain();
@@ -163,11 +163,11 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
   {
     externalDailyDeviceIdentifier = self->_externalDailyDeviceIdentifier;
     externalDailySessionUploadCount = self->_externalDailySessionUploadCount;
-    v14 = 138412546;
-    v15 = externalDailyDeviceIdentifier;
-    v16 = 2048;
-    v17 = externalDailySessionUploadCount;
-    _os_log_impl(&dword_241ED9000, v4, OS_LOG_TYPE_INFO, "Current device identifier: %@, session upload count: %lu", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = externalDailyDeviceIdentifier;
+    v15 = 2048;
+    v16 = externalDailySessionUploadCount;
+    _os_log_impl(&dword_241ED9000, v4, OS_LOG_TYPE_INFO, "Current device identifier: %@, session upload count: %lu", &v13, 0x16u);
   }
 
   uUID = [MEMORY[0x277CCAD78] UUID];
@@ -181,14 +181,12 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
   {
     v11 = self->_externalDailyDeviceIdentifier;
     v12 = self->_externalDailySessionUploadCount;
-    v14 = 138412546;
-    v15 = v11;
-    v16 = 2048;
-    v17 = v12;
-    _os_log_impl(&dword_241ED9000, v10, OS_LOG_TYPE_INFO, "Refreshed device identifier: %@, session upload count: %lu", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v11;
+    v15 = 2048;
+    v16 = v12;
+    _os_log_impl(&dword_241ED9000, v10, OS_LOG_TYPE_INFO, "Refreshed device identifier: %@, session upload count: %lu", &v13, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_purgeFilesForOSUpdate
@@ -215,34 +213,34 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
 
 - (void)_purgeOutdatedFiles
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if ([(BRKDataCollectionLogger *)self _dataCollectionIsAllowedToRunInCurrentProcess])
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->_storageDirectory];
     v5 = [defaultManager enumeratorAtURL:v4 includingPropertiesForKeys:0 options:0 errorHandler:0];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * i);
+          v12 = *(*(&v22 + 1) + 8 * i);
           v13 = BRKFileModifiedDate();
           [v13 timeIntervalSinceNow];
           v15 = fabs(v14);
@@ -250,9 +248,9 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
           if (v15 > 259200.0)
           {
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-            v22 = v9;
-            v17 = [defaultManager2 removeItemAtURL:v12 error:&v22];
-            v18 = v22;
+            v21 = v9;
+            v17 = [defaultManager2 removeItemAtURL:v12 error:&v21];
+            v18 = v21;
 
             if ((v17 & 1) == 0)
             {
@@ -260,9 +258,9 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v28 = v12;
-                v29 = 2112;
-                v30 = v18;
+                v27 = v12;
+                v28 = 2112;
+                v29 = v18;
                 _os_log_error_impl(&dword_241ED9000, v19, OS_LOG_TYPE_ERROR, "Unable to remove stale file %@ %@", buf, 0x16u);
               }
             }
@@ -271,7 +269,7 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v8);
@@ -289,8 +287,6 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
       _os_log_impl(&dword_241ED9000, v20, OS_LOG_TYPE_DEFAULT, "Purged outdated log files", buf, 2u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_stringByRemovingPathExtension:(id)extension
@@ -328,13 +324,13 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
 
 - (id)markFileForUpload:(id)upload
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   uploadCopy = upload;
   v5 = BRKLoggingObjectForDomain();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = uploadCopy;
+    v26 = uploadCopy;
     _os_log_impl(&dword_241ED9000, v5, OS_LOG_TYPE_DEFAULT, "Mark file for upload: %@", buf, 0xCu);
   }
 
@@ -354,9 +350,9 @@ uint64_t __41__BRKDataCollectionLogger_sharedInstance__block_invoke()
 
     v15 = [(NSString *)self->_storageDirectory stringByAppendingPathComponent:v14];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v25 = 0;
-    v17 = [defaultManager copyItemAtPath:uploadCopy toPath:v15 error:&v25];
-    v18 = v25;
+    v24 = 0;
+    v17 = [defaultManager copyItemAtPath:uploadCopy toPath:v15 error:&v24];
+    v18 = v24;
 
     v19 = BRKLoggingObjectForDomain();
     v20 = v19;
@@ -406,18 +402,15 @@ LABEL_16:
   v22 = 0;
 LABEL_17:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (void)clearCollectedData
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_241ED9000, a2, OS_LOG_TYPE_ERROR, "Unable to clear collected data %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_241ED9000, a2, OS_LOG_TYPE_ERROR, "Unable to clear collected data %@", &v2, 0xCu);
 }
 
 - (BOOL)_dataCollectionEnabled
@@ -524,13 +517,12 @@ void __47__BRKDataCollectionLogger__scheduleUploadTimer__block_invoke(uint64_t a
 
 - (void)markFileForUpload:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_241ED9000, log, OS_LOG_TYPE_ERROR, "Unable to move file for upload %@ %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_241ED9000, log, OS_LOG_TYPE_ERROR, "Unable to move file for upload %@ %@", &v3, 0x16u);
 }
 
 @end

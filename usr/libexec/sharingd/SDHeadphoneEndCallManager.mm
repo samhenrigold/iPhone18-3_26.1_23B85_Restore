@@ -13,17 +13,17 @@
   v4 = [(SDHeadphoneEndCallManager *)&v10 init];
   v5 = [addressCopy copy];
 
-  v6 = *(v4 + 1);
-  *(v4 + 1) = v5;
+  bluetoothAddressString = v4->_bluetoothAddressString;
+  v4->_bluetoothAddressString = v5;
 
   if (dword_10096FCE8 <= 30 && (dword_10096FCE8 != -1 || _LogCategory_Initialize()))
   {
-    sub_100087E0C(v4 + 1);
+    sub_100087E0C(&v4->_bluetoothAddressString);
   }
 
   v7 = +[BluetoothManager sharedInstance];
-  v8 = *(v4 + 3);
-  *(v4 + 3) = v7;
+  btManager = v4->_btManager;
+  v4->_btManager = v7;
 
   return v4;
 }

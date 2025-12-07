@@ -42,7 +42,7 @@
   v12 = (self + OBJC_IVAR____TtC8Freeform37CRLCommandSetAccessibilityDescription_accessibilityDescription);
   *v12 = v9;
   v12[1] = v11;
-  v13 = type metadata accessor for CRLCommandSetAccessibilityDescription();
+  v13 = type metadata accessor for CRLCommandSetAccessibilityDescription(0);
   v16.receiver = self;
   v16.super_class = v13;
   v14 = [(CRLCommand *)&v16 init];

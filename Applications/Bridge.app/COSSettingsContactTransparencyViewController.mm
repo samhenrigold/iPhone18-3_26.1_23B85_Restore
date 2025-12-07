@@ -186,7 +186,7 @@
       v6 = pbb_setupflow_log();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_100186950();
+        sub_100186950(self);
       }
     }
   }
@@ -196,7 +196,7 @@
     v5 = pbb_setupflow_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1001869DC();
+      sub_1001869DC(self);
     }
   }
 }

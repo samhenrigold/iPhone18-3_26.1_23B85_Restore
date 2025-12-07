@@ -55,37 +55,37 @@
 
 - (BOOL)validateOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   context = [(FCIssuesFetchOperation *)self context];
 
   if (!context && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues fetch operation requires a context"];
-    v10 = 136315906;
-    v11 = "[FCIssuesFetchOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCIssuesFetchOperation.m";
-    v14 = 1024;
-    v15 = 60;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues fetch operation requires a context"];
+    v9 = 136315906;
+    v10 = "[FCIssuesFetchOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCIssuesFetchOperation.m";
+    v13 = 1024;
+    v14 = 60;
+    v15 = 2114;
+    v16 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   issueIDs = [(FCIssuesFetchOperation *)self issueIDs];
 
   if (!issueIDs && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues fetch operation requires issue IDs"];
-    v10 = 136315906;
-    v11 = "[FCIssuesFetchOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCIssuesFetchOperation.m";
-    v14 = 1024;
-    v15 = 64;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues fetch operation requires issue IDs"];
+    v9 = 136315906;
+    v10 = "[FCIssuesFetchOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCIssuesFetchOperation.m";
+    v13 = 1024;
+    v14 = 64;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   if (context)
@@ -98,14 +98,12 @@
     v5 = 1;
   }
 
-  result = !v5;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v5;
 }
 
 - (void)performOperation
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(FCRecordChainFetchOperation);
   context = [(FCIssuesFetchOperation *)self context];
   [(FCRecordChainFetchOperation *)v3 setContext:context];
@@ -113,36 +111,34 @@
   issueIDs = [(FCIssuesFetchOperation *)self issueIDs];
   [(FCRecordChainFetchOperation *)v3 setTopLevelRecordIDs:issueIDs];
 
-  v16[0] = @"Issue";
-  v15 = @"channelTagID";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
-  v16[1] = @"Tag";
-  v17[0] = v6;
-  v17[1] = MEMORY[0x1E695E0F0];
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = @"Issue";
+  v14 = @"channelTagID";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
+  v15[1] = @"Tag";
+  v16[0] = v6;
+  v16[1] = MEMORY[0x1E695E0F0];
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   [(FCRecordChainFetchOperation *)v3 setLinkKeysByRecordType:v7];
 
   cachePolicy = [(FCIssuesFetchOperation *)self cachePolicy];
 
   if (cachePolicy)
   {
-    v13 = @"Issue";
+    v12 = @"Issue";
     cachePolicy2 = [(FCIssuesFetchOperation *)self cachePolicy];
-    v14 = cachePolicy2;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v13 = cachePolicy2;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
     [(FCRecordChainFetchOperation *)v3 setCachePoliciesByRecordType:v10];
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __42__FCIssuesFetchOperation_performOperation__block_invoke;
-  v12[3] = &unk_1E7C39358;
-  v12[4] = self;
-  [(FCRecordChainFetchOperation *)v3 setRecordChainCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __42__FCIssuesFetchOperation_performOperation__block_invoke;
+  v11[3] = &unk_1E7C39358;
+  v11[4] = self;
+  [(FCRecordChainFetchOperation *)v3 setRecordChainCompletionHandler:v11];
   [(FCOperation *)self associateChildOperation:v3];
   [(FCOperation *)v3 start];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __42__FCIssuesFetchOperation_performOperation__block_invoke(uint64_t a1, void *a2, void *a3)

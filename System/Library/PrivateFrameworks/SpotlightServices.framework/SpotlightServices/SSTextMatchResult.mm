@@ -60,45 +60,43 @@
 
 - (id)matchedStrings
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   termMatches = [(SSTextMatchResult *)self termMatches];
-  v5 = [termMatches countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [termMatches countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(termMatches);
         }
 
-        term = [*(*(&v12 + 1) + 8 * i) term];
+        term = [*(*(&v11 + 1) + 8 * i) term];
         [array addObject:term];
       }
 
-      v6 = [termMatches countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [termMatches countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)matchInfo
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
   source = [(SSTextMatchResult *)self source];
@@ -108,26 +106,26 @@
 
   if (termMatches)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     termMatches2 = [(SSTextMatchResult *)self termMatches];
-    v8 = [termMatches2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [termMatches2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(termMatches2);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           v13 = [v12 pos];
           source2 = [(SSTextMatchResult *)self source];
           v15 = [dictionary objectForKeyedSubscript:source2];
@@ -135,14 +133,12 @@
           [v15 setObject:v13 forKeyedSubscript:term];
         }
 
-        v9 = [termMatches2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [termMatches2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

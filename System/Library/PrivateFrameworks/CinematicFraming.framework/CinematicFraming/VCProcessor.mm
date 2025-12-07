@@ -1926,78 +1926,78 @@ LABEL_13:
 
 - (int)_render
 {
-  v25 = 0;
-  v26 = 0;
+  v27 = 0;
+  v28 = 0;
   if (!self->_centerStagePassthrough || !self->_autoFramingEnabled)
   {
-    v8 = [(VCProcessor *)self _bindCVPixleBuffer:self->_inputPixelBuffer usage:1];
-    v9 = v8;
-    if (v8 && [v8 count] == 2)
+    v9 = [(VCProcessor *)self _bindCVPixleBuffer:self->_inputPixelBuffer usage:1];
+    v10 = v9;
+    if (v9 && [v9 count] == 2)
     {
-      v10 = [(VCProcessor *)self _bindCVPixleBuffer:self->_outputPixelBuffer usage:7];
-      v11 = v10;
-      if (v10 && [v10 count] == 2)
+      v11 = [(VCProcessor *)self _bindCVPixleBuffer:self->_outputPixelBuffer usage:7];
+      v12 = v11;
+      if (v11 && [v11 count] == 2)
       {
-        v3 = [v9 objectAtIndexedSubscript:0];
-        v12 = [v9 objectAtIndexedSubscript:1];
-        v5 = [v11 objectAtIndexedSubscript:0];
-        v13 = [v11 objectAtIndexedSubscript:1];
-        v22 = v12;
+        v4 = [v10 objectAtIndexedSubscript:0];
+        v13 = [v10 objectAtIndexedSubscript:1];
+        v6 = [v12 objectAtIndexedSubscript:0];
+        v14 = [v12 objectAtIndexedSubscript:1];
+        v24 = v13;
 
-        v23 = 0;
-        v24 = 0;
-        v21 = v13;
-        v4 = [(VCProcessor *)self _createRenderTargetForOutputLumaTex:v5 outputChromaTex:v13 renderTargetLumaTex:&v24 renderTargetChromaTex:&v23];
-        v14 = v24;
-        v26 = v14;
-        v15 = v23;
-        v25 = v15;
-        if (v4)
+        v25 = 0;
+        v26 = 0;
+        v23 = v14;
+        v5 = [(VCProcessor *)self _createRenderTargetForOutputLumaTex:v6 outputChromaTex:v14 renderTargetLumaTex:&v26 renderTargetChromaTex:&v25];
+        v15 = v26;
+        v28 = v15;
+        v16 = v25;
+        v27 = v16;
+        if (v5)
         {
-          v6 = 0;
           v7 = 0;
+          v8 = 0;
         }
 
         else
         {
-          v16 = v15;
+          v17 = v16;
           commandBuffer = [(FigMetalContext *)self->_context commandBuffer];
-          v18 = commandBuffer;
+          v19 = commandBuffer;
           if (commandBuffer)
           {
             computeCommandEncoder = [commandBuffer computeCommandEncoder];
             if (computeCommandEncoder)
             {
-              v4 = [(VCProcessor *)self _encodeRender:computeCommandEncoder inputLumaTex:v3 inputChromaTex:v22 outputLumaTex:v14 outputChromaTex:v16];
-              if (!v4)
+              v5 = [(VCProcessor *)self _encodeRender:computeCommandEncoder inputLumaTex:v4 inputChromaTex:v24 outputLumaTex:v15 outputChromaTex:v17];
+              if (!v5)
               {
-                v4 = [(VCProcessor *)self _encodeRenderTargetResolve:computeCommandEncoder renderTargetLumaTex:v14 renderTargetChromaTex:v16 outputLumaTex:v5 outputChromaTex:v21];
-                if (!v4)
+                v5 = [(VCProcessor *)self _encodeRenderTargetResolve:computeCommandEncoder renderTargetLumaTex:v15 renderTargetChromaTex:v17 outputLumaTex:v6 outputChromaTex:v23];
+                if (!v5)
                 {
                   [computeCommandEncoder endEncoding];
                   [(FigMetalContext *)self->_context commit];
-                  v4 = 0;
+                  v5 = 0;
                 }
               }
 
-              v6 = v18;
-              v7 = computeCommandEncoder;
+              v7 = v19;
+              v8 = computeCommandEncoder;
             }
 
             else
             {
-              v7 = 0;
-              v4 = -1;
-              v6 = v18;
+              v8 = 0;
+              v5 = -1;
+              v7 = v19;
             }
           }
 
           else
           {
             fig_log_get_emitter();
-            v6 = 0;
-            v4 = FigSignalErrorAtGM();
             v7 = 0;
+            v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v22, v2, v14);
+            v8 = 0;
           }
         }
 
@@ -2005,29 +2005,29 @@ LABEL_13:
       }
     }
 
-    v21 = 0;
-    v22 = 0;
-    v5 = 0;
-    v3 = 0;
+    v23 = 0;
+    v24 = 0;
     v6 = 0;
+    v4 = 0;
     v7 = 0;
-    v4 = -1;
+    v8 = 0;
+    v5 = -1;
 LABEL_15:
     FigMetalDecRef();
     FigMetalDecRef();
     goto LABEL_16;
   }
 
-  v3 = 0;
-  v4 = [(CinematicFramingSession *)self->_framingSession processPixelBuffer:self->_inputPixelBuffer outputPixelBuffer:self->_outputPixelBuffer];
-  v21 = 0;
-  v22 = 0;
-  v5 = 0;
+  v4 = 0;
+  v5 = [(CinematicFramingSession *)self->_framingSession processPixelBuffer:self->_inputPixelBuffer outputPixelBuffer:self->_outputPixelBuffer];
+  v23 = 0;
+  v24 = 0;
   v6 = 0;
   v7 = 0;
+  v8 = 0;
 LABEL_16:
 
-  return v4;
+  return v5;
 }
 
 - (int)_setOutputPixelBufferAttachments
@@ -2310,7 +2310,7 @@ void __47__VCProcessor__setOutputPixelBufferAttachments__block_invoke(uint64_t a
     inputMetadata = self->_inputMetadata;
     if (inputMetadata)
     {
-      [(CinematicFramingSessionInputMetadata *)inputMetadata timestamp];
+      objc_msgSend_timestamp(inputMetadata);
     }
 
     else
@@ -2328,7 +2328,7 @@ void __47__VCProcessor__setOutputPixelBufferAttachments__block_invoke(uint64_t a
     v6 = self->_inputMetadata;
     if (v6)
     {
-      [(CinematicFramingSessionInputMetadata *)v6 timestamp];
+      objc_msgSend_timestamp(v6);
     }
 
     else

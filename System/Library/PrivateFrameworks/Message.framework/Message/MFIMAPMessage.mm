@@ -39,11 +39,11 @@
 
 - (id)messageID
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *__str = v2;
-  v9 = v2;
+  v8 = v2;
   if ((self->super._messageFlags & 0x400000000) != 0)
   {
     v3 = "temp-";
@@ -56,7 +56,6 @@
 
   v4 = snprintf(__str, 0x1FuLL, "%s%u", v3, self->_uid);
   v5 = CFStringCreateWithBytes(0, __str, v4, 0x600u, 0);
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

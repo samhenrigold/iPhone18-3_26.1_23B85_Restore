@@ -203,30 +203,29 @@
   scaleFactor = self->_scaleFactor;
   [v5 handWidth];
   [v5 setHandWidth:scaleFactor * v7];
-  height = self->_size.height;
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
   [mainScreen scale];
   UIRoundToScale();
   [v5 setHandLength:?];
 
   [v5 pegRadius];
-  [v5 setPegRadius:scaleFactor * 1.3333 * v10];
+  [v5 setPegRadius:scaleFactor * 1.3333 * v9];
   [v5 pegStrokeWidth];
-  [v5 setPegStrokeWidth:scaleFactor / 1.3333 * v11];
+  [v5 setPegStrokeWidth:scaleFactor / 1.3333 * v10];
   [v5 tailLength];
-  [v5 setTailLength:scaleFactor * v12];
+  [v5 setTailLength:scaleFactor * v11];
   [v5 dropShadowRadius];
-  [v5 setDropShadowRadius:scaleFactor * v13];
+  [v5 setDropShadowRadius:scaleFactor * v12];
   [v5 radialShadowRadius];
-  [v5 setRadialShadowRadius:scaleFactor * v14];
+  [v5 setRadialShadowRadius:scaleFactor * v13];
   [v5 setRadialShadowOpacity:0.15];
   [v5 directionalShadowOffset];
-  v16 = scaleFactor * v15;
+  v15 = scaleFactor * v14;
   [v5 directionalShadowOffset];
-  [v5 setDirectionalShadowOffset:{v16, scaleFactor * v17}];
-  v18 = [v5 cp_handConfigurationRoundedToScaleOfView:self];
+  [v5 setDirectionalShadowOffset:{v15, scaleFactor * v16}];
+  v17 = [v5 cp_handConfigurationRoundedToScaleOfView:self];
 
-  return v18;
+  return v17;
 }
 
 @end

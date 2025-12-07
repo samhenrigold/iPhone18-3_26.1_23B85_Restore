@@ -150,11 +150,21 @@ uint64_t __58__PKAnimatedNavigationBarTitleView_setTitleView_animated___block_in
 {
   [*(a1 + 32) setAlpha:0.0];
   [*(a1 + 40) bounds];
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
   [*(a1 + 32) frame];
-  PKSizeAlignedInRect();
-  v2 = *(a1 + 32);
+  v11.n128_u64[0] = v10;
+  v13.n128_u64[0] = v12;
+  v14.n128_u64[0] = v3;
+  v15.n128_u64[0] = v5;
+  v16.n128_u64[0] = v7;
+  v17.n128_u64[0] = v9;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v11, v13, v14, v15, v16, v17, v18);
+  v19 = *(a1 + 32);
 
-  return [v2 setFrame:?];
+  return [v19 setFrame:?];
 }
 
 void __58__PKAnimatedNavigationBarTitleView_setTitleView_animated___block_invoke_2(uint64_t a1)
@@ -229,49 +239,56 @@ LABEL_7:
 
 - (void)layoutSubviews
 {
-  v27.receiver = self;
-  v27.super_class = PKAnimatedNavigationBarTitleView;
-  [(PKAnimatedNavigationBarTitleView *)&v27 layoutSubviews];
+  v39.receiver = self;
+  v39.super_class = PKAnimatedNavigationBarTitleView;
+  [(PKAnimatedNavigationBarTitleView *)&v39 layoutSubviews];
   [(PKAnimatedNavigationBarTitleView *)self bounds];
-  v4 = v3 + -10.0;
-  [(UIView *)self->_titleView sizeThatFits:v5, v3 + -10.0];
-  v7 = v6;
-  v9 = v8;
+  v4 = *&v3;
+  v6 = v5 + 0.0;
+  v8 = v7 + 5.0;
+  v10 = v9 + -10.0;
+  [(UIView *)self->_titleView sizeThatFits:v3, v9 + -10.0];
+  v12 = v11;
+  v14 = v13;
   layer = [(UIView *)self->_titleView layer];
   maxWidth = self->_maxWidth;
-  if (maxWidth <= 0.0 || v7 <= maxWidth)
+  if (maxWidth <= 0.0 || v12 <= maxWidth)
   {
     PKSizeAspectFit();
-    v7 = v13;
-    v9 = v14;
+    v12 = v18;
+    v14 = v19;
   }
 
   else
   {
-    v15 = _UISolariumFeatureFlagEnabled();
-    if ((v15 & 1) == 0)
+    v20 = _UISolariumFeatureFlagEnabled();
+    if ((v20 & 1) == 0)
     {
-      CATransform3DMakeScale(&v26, self->_maxWidth / v7, self->_maxWidth / v7, 1.0);
-      [layer setTransform:&v26];
+      CATransform3DMakeScale(&v38, self->_maxWidth / v12, self->_maxWidth / v12, 1.0);
+      [layer setTransform:&v38];
     }
 
     PKSizeAspectFit();
   }
 
   PKSizeAspectFit();
-  PKSizeAlignedInRect();
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
+  v21.n128_f64[0] = v6;
+  v22.n128_f64[0] = v8;
+  v23.n128_u64[0] = v4;
+  v24.n128_f64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v25, v26, v21, v22, v23, v24, v27);
+  v29 = v28;
+  v31 = v30;
+  v33 = v32;
+  v35 = v34;
   if ((_UISolariumFeatureFlagEnabled() & 1) == 0 && !self->_viewState)
   {
-    v19 = v4;
+    v31 = v10;
   }
 
-  [layer setBounds:{0.0, 0.0, v7, v9}];
+  [layer setBounds:{0.0, 0.0, v12, v14}];
   [layer anchorPoint];
-  [layer setPosition:{v17 + v24 * v21, v19 + v25 * v23}];
+  [layer setPosition:{v29 + v36 * v33, v31 + v37 * v35}];
 }
 
 - (void)_animateTitleView:(id)view animateIn:(BOOL)in completion:(id)completion

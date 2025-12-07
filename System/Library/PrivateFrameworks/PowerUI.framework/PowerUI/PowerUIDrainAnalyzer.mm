@@ -166,13 +166,13 @@ void __46__PowerUIDrainAnalyzer_monitorPluggedInStatus__block_invoke_2(uint64_t 
 
 - (void)scheduleLowSOCPrediction
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [(NSUserDefaults *)self->_defaults objectForKey:@"pluggedinTime"];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = v3;
+    v15 = v3;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Device pluggedin at %@", buf, 0xCu);
   }
 
@@ -221,39 +221,31 @@ void __46__PowerUIDrainAnalyzer_monitorPluggedInStatus__block_invoke_2(uint64_t 
       _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Device pluggedin for less than 3 hours. Skipping Low SOC prediction", buf, 2u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PowerUIDrainAnalyzer_scheduleLowSOCPrediction__block_invoke(uint64_t a1, xpc_activity_t activity)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   state = xpc_activity_get_state(activity);
   if (state == 2)
   {
     [*(a1 + 32) recordPredictionResultAndTime];
     *(*(a1 + 32) + 48) = 101;
     [*(a1 + 32) updateLPMAndMinSOC];
-    v6 = *(a1 + 32);
-    v7 = *MEMORY[0x277D85DE8];
+    v5 = *(a1 + 32);
 
-    [v6 scheduleAnalyticsActivity];
+    [v5 scheduleAnalyticsActivity];
   }
 
-  else
+  else if (!state)
   {
-    if (!state)
+    v4 = *(*(a1 + 32) + 8);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = *(*(a1 + 32) + 8);
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-      {
-        v8 = 136315138;
-        v9 = "com.apple.powerui.lowSOCPrediction.prediction";
-        _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_INFO, "Checking in for %s!", &v8, 0xCu);
-      }
+      v6 = 136315138;
+      v7 = "com.apple.powerui.lowSOCPrediction.prediction";
+      _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_INFO, "Checking in for %s!", &v6, 0xCu);
     }
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -277,37 +269,31 @@ void __48__PowerUIDrainAnalyzer_scheduleLowSOCPrediction__block_invoke(uint64_t 
 
 void __49__PowerUIDrainAnalyzer_scheduleAnalyticsActivity__block_invoke(uint64_t a1, xpc_activity_t activity)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   state = xpc_activity_get_state(activity);
   if (state == 2)
   {
     [*(a1 + 32) recordAnalytics];
-    v6 = *(a1 + 32);
-    v7 = *MEMORY[0x277D85DE8];
+    v5 = *(a1 + 32);
 
-    [v6 resetState];
+    [v5 resetState];
   }
 
-  else
+  else if (!state)
   {
-    if (!state)
+    v4 = *(*(a1 + 32) + 8);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = *(*(a1 + 32) + 8);
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-      {
-        v8 = 136315138;
-        v9 = "com.apple.powerui.lowSOCPrediction.analytics";
-        _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_INFO, "Checking in for %s!", &v8, 0xCu);
-      }
+      v6 = 136315138;
+      v7 = "com.apple.powerui.lowSOCPrediction.analytics";
+      _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_INFO, "Checking in for %s!", &v6, 0xCu);
     }
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)recordPredictionResultAndTime
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [PowerUISmartChargeUtilities currentBatteryLevelWithContext:self->_context];
   predictor = [MEMORY[0x277D36CC8] predictor];
   lowSOCPredictionOutput = [predictor lowSOCPredictionOutput];
@@ -318,18 +304,18 @@ void __49__PowerUIDrainAnalyzer_scheduleAnalyticsActivity__block_invoke(uint64_t
   {
     if (v8)
     {
-      *v22 = 134217984;
-      *&v22[4] = 15;
+      *v21 = 134217984;
+      *&v21[4] = 15;
       v9 = "Predicted to hit low SOC: %ld%%";
 LABEL_6:
-      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, v9, v22, 0xCu);
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, v9, v21, 0xCu);
     }
   }
 
   else if (v8)
   {
-    *v22 = 134217984;
-    *&v22[4] = 15;
+    *v21 = 134217984;
+    *&v21[4] = 15;
     v9 = "Not predicted to hit low SOC: %ld%%";
     goto LABEL_6;
   }
@@ -355,8 +341,6 @@ LABEL_6:
   [lowSOCPredictionOutput confidence];
   v20 = [v19 numberWithDouble:?];
   [(NSUserDefaults *)v18 setObject:v20 forKey:@"predictionConfidence"];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateLPMAndMinSOC
@@ -400,7 +384,7 @@ void __42__PowerUIDrainAnalyzer_updateLPMAndMinSOC__block_invoke(uint64_t a1)
 
 - (void)recordAnalytics
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   [(PowerUIDrainAnalyzer *)self updateLPMAndMinSOC];
   v3 = [(NSUserDefaults *)self->_defaults objectForKey:@"predictionTime"];
   if (v3)
@@ -513,13 +497,13 @@ void __42__PowerUIDrainAnalyzer_updateLPMAndMinSOC__block_invoke(uint64_t a1)
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v43 = dictionary;
+        v42 = dictionary;
         _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Sending to analytics %@", buf, 0xCu);
       }
 
       if ([dictionary count])
       {
-        v41 = dictionary;
+        v40 = dictionary;
         AnalyticsSendEventLazy();
       }
     }
@@ -542,8 +526,6 @@ void __42__PowerUIDrainAnalyzer_updateLPMAndMinSOC__block_invoke(uint64_t a1)
       [(PowerUIDrainAnalyzer *)v10 recordAnalytics];
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetState

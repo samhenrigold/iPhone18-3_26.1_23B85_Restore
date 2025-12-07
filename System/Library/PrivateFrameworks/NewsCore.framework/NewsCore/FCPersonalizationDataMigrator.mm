@@ -69,7 +69,7 @@
 
 - (id)keyValueStore:(id)store migrateObject:(id)object forKey:(id)key fromVersion:(unint64_t)version
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   objectCopy = object;
   keyCopy = key;
@@ -88,30 +88,30 @@
     openChangeGroupDeltas = [v15 openChangeGroupDeltas];
     __80__FCPersonalizationDataMigrator_keyValueStore_migrateObject_forKey_fromVersion___block_invoke(openChangeGroupDeltas);
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     closedChangeGroups = [v15 closedChangeGroups];
-    v18 = [closedChangeGroups countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v18 = [closedChangeGroups countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v29;
+      v20 = *v28;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v29 != v20)
+          if (*v28 != v20)
           {
             objc_enumerationMutation(closedChangeGroups);
           }
 
-          deltas = [*(*(&v28 + 1) + 8 * i) deltas];
+          deltas = [*(*(&v27 + 1) + 8 * i) deltas];
           __80__FCPersonalizationDataMigrator_keyValueStore_migrateObject_forKey_fromVersion___block_invoke(deltas);
         }
 
-        v19 = [closedChangeGroups countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v19 = [closedChangeGroups countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v19);
@@ -133,34 +133,32 @@
 
 LABEL_14:
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return data;
 }
 
 void __80__FCPersonalizationDataMigrator_keyValueStore_migrateObject_forKey_fromVersion___block_invoke(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v1 = a1;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v14;
+    v4 = *v13;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v14 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
+        v6 = *(*(&v12 + 1) + 8 * i);
         v7 = [v6 eventsCount];
         if (v7)
         {
@@ -174,13 +172,11 @@ void __80__FCPersonalizationDataMigrator_keyValueStore_migrateObject_forKey_from
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v3);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

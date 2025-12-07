@@ -393,8 +393,8 @@ LABEL_61:
       if (Current - *&_AXSGuidedAccessActiveCached_lastFallbackTime >= 1.0)
       {
         _AXSGuidedAccessActiveCached_lastFallbackTime = *&Current;
-        v23 = +[AXBackBoardServer server];
-        _AXSGuidedAccessActiveCached_lastFallbackResult = [v23 isGuidedAccessActive];
+        v25 = +[AXBackBoardServer server];
+        _AXSGuidedAccessActiveCached_lastFallbackResult = [v25 isGuidedAccessActive];
       }
 
       comfortSoundsEnabled = _AXSGuidedAccessActiveCached_lastFallbackResult;
@@ -463,24 +463,24 @@ LABEL_38:
       CategoryEnabled = _AXSReduceMotionEnabledGlobal();
       goto LABEL_57;
     case 25:
-      v29 = 0;
-      v30 = &v29;
-      v31 = 0x2050000000;
+      v31 = 0;
+      v32 = &v31;
+      v33 = 0x2050000000;
       v5 = getHUComfortSoundsSettingsClass_softClass;
-      v32 = getHUComfortSoundsSettingsClass_softClass;
+      v34 = getHUComfortSoundsSettingsClass_softClass;
       if (!getHUComfortSoundsSettingsClass_softClass)
       {
         state64 = MEMORY[0x1E69E9820];
-        v25 = 3221225472;
-        v26 = __getHUComfortSoundsSettingsClass_block_invoke;
-        v27 = &unk_1E71E9A80;
-        v28 = &v29;
+        v27 = 3221225472;
+        v28 = __getHUComfortSoundsSettingsClass_block_invoke;
+        v29 = &unk_1E71E9A80;
+        v30 = &v31;
         __getHUComfortSoundsSettingsClass_block_invoke(&state64);
-        v5 = v30[3];
+        v5 = v32[3];
       }
 
       v6 = v5;
-      _Block_object_dispose(&v29, 8);
+      _Block_object_dispose(&v31, 8);
       sharedInstance = [v5 sharedInstance];
       comfortSoundsEnabled = [sharedInstance comfortSoundsEnabled];
       goto LABEL_54;
@@ -520,25 +520,25 @@ LABEL_55:
       CategoryEnabled = _AXSHapticMusicEnabled();
       goto LABEL_57;
     case 39:
-      v29 = 0;
-      v30 = &v29;
-      v31 = 0x2020000000;
+      v31 = 0;
+      v32 = &v31;
+      v33 = 0x2020000000;
       v14 = getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_ptr;
-      v32 = getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_ptr;
+      v34 = getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_ptr;
       if (!getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_ptr)
       {
         state64 = MEMORY[0x1E69E9820];
-        v25 = 3221225472;
-        v26 = __getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_block_invoke;
-        v27 = &unk_1E71E9A80;
-        v28 = &v29;
+        v27 = 3221225472;
+        v28 = __getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_block_invoke;
+        v29 = &unk_1E71E9A80;
+        v30 = &v31;
         v15 = PersonalAudioLibrary();
-        v30[3] = dlsym(v15, "paCurrentBluetoothDeviceSupportingTransparencyAccommodations");
-        getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_ptr = *(v28[1] + 24);
-        v14 = v30[3];
+        v32[3] = dlsym(v15, "paCurrentBluetoothDeviceSupportingTransparencyAccommodations");
+        getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_ptr = *(v30[1] + 24);
+        v14 = v32[3];
       }
 
-      _Block_object_dispose(&v29, 8);
+      _Block_object_dispose(&v31, 8);
       if (!v14)
       {
         +[AXTripleClickHelpers _localValueForAccessibilityShortcutOption:];
@@ -546,7 +546,8 @@ LABEL_55:
 
       sharedInstance = v14();
       address = [sharedInstance address];
-      if (![address length] || !soft_paCurrentRouteSupportsTransparencyAccommodations() || !soft_paBluetoothDeviceSupportsSSL(sharedInstance))
+      v17 = [address length];
+      if (!v17 || !soft_paCurrentRouteSupportsTransparencyAccommodations(v17, v18) || !soft_paBluetoothDeviceSupportsSSL(sharedInstance))
       {
         comfortSoundsEnabled = 0;
         goto LABEL_53;
@@ -560,7 +561,7 @@ LABEL_55:
         if (listeningMode == 3)
         {
           sharedInstance3 = [getPASettingsClass() sharedInstance];
-          v20 = [sharedInstance3 transparencyCustomizedForAddress:address];
+          v22 = [sharedInstance3 transparencyCustomizedForAddress:address];
           goto LABEL_66;
         }
       }
@@ -570,9 +571,9 @@ LABEL_55:
       }
 
       sharedInstance3 = [getPASettingsClass() sharedInstance];
-      v20 = [sharedInstance3 sslEnabledForAddress:address];
+      v22 = [sharedInstance3 sslEnabledForAddress:address];
 LABEL_66:
-      comfortSoundsEnabled = v20;
+      comfortSoundsEnabled = v22;
 
 LABEL_53:
 LABEL_54:
@@ -689,7 +690,7 @@ LABEL_21:
 {
   if (option == 23)
   {
-    if (!WatchControlSettingsLibraryCore())
+    if (!WatchControlSettingsLibraryCore(0))
     {
       return 0;
     }
@@ -751,7 +752,7 @@ LABEL_21:
 
   _AXSVoiceOverTouchSetEnabled();
 
-  MEMORY[0x1EEE611A0](v2 == 0, v3);
+  MEMORY[0x1EEE611A0](v2 == 0);
 }
 
 + (void)_promptToDisableBrightnessFilters:(id)filters data:(id)data
@@ -808,9 +809,11 @@ uint64_t __63__AXTripleClickHelpers__promptToDisableBrightnessFilters_data___blo
 
 uint64_t __46__AXTripleClickHelpers__displayFilterUIClient__block_invoke()
 {
-  _displayFilterUIClient_DisplayFilterUIClient = [objc_alloc(getAXUIClientClass()) initWithIdentifier:@"HomeClickController" serviceBundleName:@"DisplayFilterUIServer"];
+  v0 = [objc_alloc(getAXUIClientClass()) initWithIdentifier:@"HomeClickController" serviceBundleName:@"DisplayFilterUIServer"];
+  v1 = _displayFilterUIClient_DisplayFilterUIClient;
+  _displayFilterUIClient_DisplayFilterUIClient = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (void)_toggleSmartInvertColorsOffMainThread
@@ -957,7 +960,7 @@ void __61__AXTripleClickHelpers__toggleSmartInvertColorsOffMainThread__block_inv
 {
   v2 = _AXSHoverTextTypingEnabled() == 0;
 
-  MEMORY[0x1EEE60C58](v2, v3);
+  MEMORY[0x1EEE60C58](v2);
 }
 
 + (void)toggleSpeakScreen
@@ -1042,7 +1045,7 @@ uint64_t __57__AXTripleClickHelpers__disableSwitchControlWithHandler___block_inv
     if (!v5)
     {
 
-      MEMORY[0x1EEE608B8](1, v6);
+      MEMORY[0x1EEE608B8](1);
     }
   }
 
@@ -1057,7 +1060,7 @@ uint64_t __45__AXTripleClickHelpers__toggleAssistiveTouch__block_invoke()
 {
   _AXSAssistiveTouchSetEnabled();
 
-  return MEMORY[0x1EEE608B8](1, v0);
+  return MEMORY[0x1EEE608B8](1);
 }
 
 + (void)toggleReduceWhitePoint
@@ -1830,20 +1833,20 @@ LABEL_32:
   }
 }
 
-void __71__AXTripleClickHelpers_registerObserverForAccessibilityShortcutOption___block_invoke(uint64_t a1)
+void __71__AXTripleClickHelpers_registerObserverForAccessibilityShortcutOption___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = AXLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = AXLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = NSStringFromSelector(*(a1 + 32));
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_18B15E000, v2, OS_LOG_TYPE_DEFAULT, "Handling triple click for selector: %@", &v5, 0xCu);
+    v4 = NSStringFromSelector(*(a1 + 32));
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_18B15E000, v3, OS_LOG_TYPE_DEFAULT, "Handling triple click for selector: %@", &v6, 0xCu);
   }
 
-  v4 = [MEMORY[0x1E6994278] sharedInstance];
-  [v4 reloadControlsForExtension:@"com.apple.AccessibilityUIServer.AccessibilityControlsExtension" kind:0 reason:@"AX shortcut preference changed"];
+  v5 = [MEMORY[0x1E6994278] sharedInstance];
+  [v5 reloadControlsForExtension:@"com.apple.AccessibilityUIServer.AccessibilityControlsExtension" kind:0 reason:@"AX shortcut preference changed"];
 }
 
 + (void)_npsToggleTripleClickOption:(int)option
@@ -1851,7 +1854,7 @@ void __71__AXTripleClickHelpers_registerObserverForAccessibilityShortcutOption__
   v18[1] = *MEMORY[0x1E69E9840];
   if (option == 23)
   {
-    if (WatchControlSettingsLibraryCore())
+    if (WatchControlSettingsLibraryCore(0))
     {
       sharedInstance = [getWatchControlSettingsClass() sharedInstance];
       featureEnabled = [sharedInstance featureEnabled];

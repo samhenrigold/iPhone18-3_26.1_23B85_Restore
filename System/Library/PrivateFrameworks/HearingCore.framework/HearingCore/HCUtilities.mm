@@ -194,53 +194,50 @@ void __42__HCUtilities_currentProcessIsPreferences__block_invoke()
 
 + (int64_t)systemBootTime
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   result = systemBootTime___boottime;
   if (!systemBootTime___boottime)
   {
-    v7 = 0;
-    v5[1] = 0;
-    *v6 = 0x1500000001;
-    v4 = 16;
-    v5[0] = 0;
-    if (sysctl(v6, 2u, v5, &v4, 0, 0) == -1)
+    v6 = 0;
+    v4[1] = 0;
+    *v5 = 0x1500000001;
+    v3 = 16;
+    v4[0] = 0;
+    if (sysctl(v5, 2u, v4, &v3, 0, 0) == -1)
     {
       result = 0;
     }
 
     else
     {
-      result = v5[0];
+      result = v4[0];
     }
 
     systemBootTime___boottime = result;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (id)messagePayloadFromDictionary:(id)dictionary andIdentifier:(unint64_t)identifier
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = dictionaryCopy;
   if (dictionaryCopy && [dictionaryCopy count])
   {
-    v11[0] = @"axha_messageID";
+    v10[0] = @"axha_messageID";
     v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:identifier];
-    v11[1] = @"axha_payload";
-    v12[0] = v7;
-    v12[1] = v6;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v10[1] = @"axha_payload";
+    v11[0] = v7;
+    v11[1] = v6;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   }
 
   else
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -284,15 +281,16 @@ void __38__HCUtilities_comfortSoundsAudioQueue__block_invoke()
 
 void __31__HCUtilities_isLEAudioEnabled__block_invoke()
 {
-  if (_os_feature_enabled_impl())
+  v0 = _os_feature_enabled_impl();
+  if (v0)
   {
     isLEAudioEnabled__IsLEAudioEnabled = 1;
 LABEL_3:
-    v0 = HCLogHearingAids();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+    v1 = HCLogHearingAids(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      *v1 = 0;
-      _os_log_impl(&dword_1D952C000, v0, OS_LOG_TYPE_DEFAULT, "LEA 3 feature is enabled: yes", v1, 2u);
+      *v2 = 0;
+      _os_log_impl(&dword_1D952C000, v1, OS_LOG_TYPE_DEFAULT, "LEA 3 feature is enabled: yes", v2, 2u);
     }
 
     return;
@@ -304,8 +302,9 @@ LABEL_3:
     return;
   }
 
-  isLEAudioEnabled__IsLEAudioEnabled = +[HCUtilities isBTLEAudioEnabled];
-  if (isLEAudioEnabled__IsLEAudioEnabled)
+  v0 = +[HCUtilities isBTLEAudioEnabled];
+  isLEAudioEnabled__IsLEAudioEnabled = v0;
+  if (v0)
   {
     goto LABEL_3;
   }
@@ -327,31 +326,30 @@ void __38__HCUtilities_isDeviceInDeveloperMode__block_invoke()
   v5 = 8;
   v6 = 0;
   v0 = sysctlbyname("security.mac.amfi.developer_mode_status", &v6, &v5, 0, 0);
+  v1 = v0;
   if (v0)
   {
-    v1 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v1 = v6 == 1;
+    v2 = v6 == 1;
   }
 
-  v2 = v1;
-  isDeviceInDeveloperMode__isDeviceInDeveloperMode = v2;
-  v3 = HCLogHearingAids();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = v2;
+  isDeviceInDeveloperMode__isDeviceInDeveloperMode = v3;
+  v4 = HCLogHearingAids(v0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
     v8 = isDeviceInDeveloperMode__isDeviceInDeveloperMode;
     v9 = 2048;
     v10 = v6;
     v11 = 1024;
-    v12 = v0;
-    _os_log_impl(&dword_1D952C000, v3, OS_LOG_TYPE_DEFAULT, "Device is in Developer Mode: %d (%llu/1, %d/0)", buf, 0x18u);
+    v12 = v1;
+    _os_log_impl(&dword_1D952C000, v4, OS_LOG_TYPE_DEFAULT, "Device is in Developer Mode: %d (%llu/1, %d/0)", buf, 0x18u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isBTLEAudioEnabled
@@ -367,23 +365,24 @@ void __38__HCUtilities_isDeviceInDeveloperMode__block_invoke()
 void __33__HCUtilities_isBTLEAudioEnabled__block_invoke()
 {
   keyExistsAndHasValidFormat = 0;
-  if (CFPreferencesGetAppBooleanValue(@"enableHALEAudio", @"com.apple.bluetooth", &keyExistsAndHasValidFormat))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"enableHALEAudio", @"com.apple.bluetooth", &keyExistsAndHasValidFormat);
+  if (AppBooleanValue)
   {
-    v0 = HCLogHearingAids();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+    v1 = HCLogHearingAids(AppBooleanValue);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      *v1 = 0;
-      _os_log_impl(&dword_1D952C000, v0, OS_LOG_TYPE_DEFAULT, "BT LEA 3 Enabled: yes", v1, 2u);
+      *v2 = 0;
+      _os_log_impl(&dword_1D952C000, v1, OS_LOG_TYPE_DEFAULT, "BT LEA 3 Enabled: yes", v2, 2u);
     }
   }
 }
 
-void __36__HCUtilities_currentProcessIsHeard__block_invoke()
+void __36__HCUtilities_currentProcessIsHeard__block_invoke(uint64_t a1)
 {
-  v0 = HCProcessGetName();
-  v1 = [v0 isEqualToString:@"heard"];
+  v1 = HCProcessGetName(a1);
+  v2 = [v1 isEqualToString:@"heard"];
 
-  if (v1)
+  if (v2)
   {
     currentProcessIsHeard__AXIsProcess = 1;
   }
@@ -524,23 +523,21 @@ uint64_t __38__HCUtilities_supportsAlwaysListening__block_invoke()
 
 + (BOOL)supportsLEA2
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (supportsLEA2_onceToken != -1)
   {
     +[HCUtilities supportsLEA2];
   }
 
-  v2 = HCLogHearingAids();
+  v2 = HCLogHearingAids(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = supportsLEA2_SupportsLEA2;
-    _os_log_impl(&dword_1D952C000, v2, OS_LOG_TYPE_DEFAULT, "This device support LEA 2.0 hearing aids: %hhd", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = supportsLEA2_SupportsLEA2;
+    _os_log_impl(&dword_1D952C000, v2, OS_LOG_TYPE_DEFAULT, "This device support LEA 2.0 hearing aids: %hhd", v4, 8u);
   }
 
-  result = supportsLEA2_SupportsLEA2;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return supportsLEA2_SupportsLEA2;
 }
 
 void __27__HCUtilities_supportsLEA2__block_invoke()
@@ -578,12 +575,11 @@ uint64_t __34__HCUtilities_deviceHasHomeButton__block_invoke()
 
 + (void)deviceIsMultiUser
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *self;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1D952C000, a2, OS_LOG_TYPE_ERROR, "could not ascertain whether device is multi-user: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1D952C000, a2, OS_LOG_TYPE_ERROR, "could not ascertain whether device is multi-user: %@", &v3, 0xCu);
 }
 
 @end

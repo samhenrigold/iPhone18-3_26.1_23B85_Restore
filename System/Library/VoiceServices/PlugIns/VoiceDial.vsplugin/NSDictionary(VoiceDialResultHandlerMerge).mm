@@ -6,41 +6,39 @@
 
 - (id)mergeSetValuesIntoArray
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v2 = objc_alloc(MEMORY[0x29EDB8DE8]);
   allKeys = [self allKeys];
   v4 = [v2 initWithCapacity:{objc_msgSend(allKeys, "count")}];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = [selfCopy objectForKey:{*(*(&v13 + 1) + 8 * i), v13}];
+        v10 = [selfCopy objectForKey:{*(*(&v12 + 1) + 8 * i), v12}];
         [v4 addObject:v10];
       }
 
-      v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v4;
 }

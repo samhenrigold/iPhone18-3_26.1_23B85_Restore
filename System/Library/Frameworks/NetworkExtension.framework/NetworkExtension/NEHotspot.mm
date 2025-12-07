@@ -4,6 +4,7 @@
 - (NEHotspot)init;
 - (NEHotspot)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -25,9 +26,44 @@
   return configurationCopy;
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v7 appendPrettyBOOL:-[NEHotspot isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  evaluationProviderBundleIdentifier = [(NEHotspot *)self evaluationProviderBundleIdentifier];
+  [v7 appendPrettyObject:evaluationProviderBundleIdentifier withName:@"hotspot evaluation provider bundle identifier" andIndent:v5 options:options];
+
+  authenticationProviderBundleIdentifier = [(NEHotspot *)self authenticationProviderBundleIdentifier];
+  [v7 appendPrettyObject:authenticationProviderBundleIdentifier withName:@"hotspot authentication provider bundle identifier" andIndent:v5 options:options];
+
+  pluginType = [(NEHotspot *)self pluginType];
+  [v7 appendPrettyObject:pluginType withName:@"plugin type" andIndent:v5 options:options];
+
+  evaluatedSSIDs = [(NEHotspot *)self evaluatedSSIDs];
+  v12 = [evaluatedSSIDs count];
+
+  if (v12)
+  {
+    evaluatedSSIDs2 = [(NEHotspot *)self evaluatedSSIDs];
+    [v7 appendPrettyObject:evaluatedSSIDs2 withName:@"evaluated Wi-Fi hotspots" andIndent:v5 options:options];
+  }
+
+  safariDomains = [(NEHotspot *)self safariDomains];
+  v15 = [safariDomains count];
+
+  if (v15)
+  {
+    safariDomains2 = [(NEHotspot *)self safariDomains];
+    [v7 appendPrettyObject:safariDomains2 withName:@"Safari Domains" andIndent:v5 options:options];
+  }
+
+  return v7;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   evaluationProviderBundleIdentifier = [(NEHotspot *)self evaluationProviderBundleIdentifier];
   v6 = [evaluationProviderBundleIdentifier length];
@@ -65,30 +101,30 @@
     goto LABEL_9;
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   evaluatedSSIDs2 = [(NEHotspot *)self evaluatedSSIDs];
-  v18 = [evaluatedSSIDs2 countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (!v18)
+  v17 = [evaluatedSSIDs2 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (!v17)
   {
     goto LABEL_21;
   }
 
-  v19 = v18;
-  v20 = *v42;
+  v18 = v17;
+  v19 = *v41;
   do
   {
-    for (i = 0; i != v19; ++i)
+    for (i = 0; i != v18; ++i)
     {
-      if (*v42 != v20)
+      if (*v41 != v19)
       {
         objc_enumerationMutation(evaluatedSSIDs2);
       }
 
-      v22 = *(*(&v41 + 1) + 8 * i);
-      if (!isa_nsstring(v22) || ![v22 length])
+      v21 = *(*(&v40 + 1) + 8 * i);
+      if (!isa_nsstring(v21) || ![v21 length])
       {
         [NEConfiguration addError:errorsCopy toList:?];
 
@@ -96,16 +132,16 @@
       }
     }
 
-    v19 = [evaluatedSSIDs2 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v18 = [evaluatedSSIDs2 countByEnumeratingWithState:&v40 objects:v45 count:16];
   }
 
-  while (v19);
+  while (v18);
 LABEL_21:
 
   safariDomains = [(NEHotspot *)self safariDomains];
-  v24 = [safariDomains count];
+  v23 = [safariDomains count];
 
-  if (v24 >= 0xB)
+  if (v23 >= 0xB)
   {
     v13 = @"hotspot configuration can have maximum 10 Safari Domains";
 LABEL_9:
@@ -115,65 +151,65 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = [(NEHotspot *)self safariDomains];
-  v25 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
-  v14 = v25 == 0;
-  if (v25)
+  v24 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v14 = v24 == 0;
+  if (v24)
   {
-    v26 = v25;
-    v27 = 0;
-    v36 = *v38;
+    v25 = v24;
+    v26 = 0;
+    v35 = *v37;
 LABEL_26:
-    v28 = 0;
+    v27 = 0;
     while (1)
     {
-      if (*v38 != v36)
+      if (*v37 != v35)
       {
         objc_enumerationMutation(obj);
       }
 
-      v29 = *(*(&v37 + 1) + 8 * v28);
-      if (!isa_nsstring(v29) || ![v29 length])
+      v28 = *(*(&v36 + 1) + 8 * v27);
+      if (!isa_nsstring(v28) || ![v28 length])
       {
         break;
       }
 
       whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-      v31 = [v29 rangeOfCharacterFromSet:whitespaceAndNewlineCharacterSet];
+      v30 = [v28 rangeOfCharacterFromSet:whitespaceAndNewlineCharacterSet];
 
-      if (v31 != 0x7FFFFFFFFFFFFFFFLL)
+      if (v30 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v34 = @"Safari domain string has whitespace characters";
+        v33 = @"Safari domain string has whitespace characters";
         goto LABEL_43;
       }
 
-      v32 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"*."];
-      v33 = [v29 stringByTrimmingCharactersInSet:v32];
-      if (v33)
+      v31 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"*."];
+      v32 = [v28 stringByTrimmingCharactersInSet:v31];
+      if (v32)
       {
-        if (!v27)
+        if (!v26)
         {
-          v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
         }
 
-        [v27 addObject:v33];
+        [v26 addObject:v32];
       }
 
-      if (v26 == ++v28)
+      if (v25 == ++v27)
       {
-        v26 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
-        if (v26)
+        v25 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+        if (v25)
         {
           goto LABEL_26;
         }
 
-        if (v27)
+        if (v26)
         {
-          [(NEHotspot *)self setSafariDomains:v27];
+          [(NEHotspot *)self setSafariDomains:v26];
           v14 = 1;
           goto LABEL_45;
         }
@@ -183,19 +219,18 @@ LABEL_26:
       }
     }
 
-    v34 = @"invalid or empty string in the safariDomains array";
+    v33 = @"invalid or empty string in the safariDomains array";
 LABEL_43:
-    [NEConfiguration addError:v34 toList:errorsCopy];
+    [NEConfiguration addError:v33 toList:errorsCopy];
     goto LABEL_44;
   }
 
-  v27 = 0;
+  v26 = 0;
 LABEL_44:
 
 LABEL_45:
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

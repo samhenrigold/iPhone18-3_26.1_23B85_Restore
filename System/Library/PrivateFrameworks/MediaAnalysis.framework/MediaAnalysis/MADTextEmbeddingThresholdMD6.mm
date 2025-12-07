@@ -19,12 +19,12 @@
   return *&+[MADTextEmbeddingThresholdMD6 thresholdBase]::thresholdBase;
 }
 
-uint64_t __45__MADTextEmbeddingThresholdMD6_thresholdBase__block_invoke()
+void *__45__MADTextEmbeddingThresholdMD6_thresholdBase__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  LODWORD(v1) = 1053944709;
-  result = [v0 computeThresholdBase:v1];
-  +[MADTextEmbeddingThresholdMD6 thresholdBase]::thresholdBase = v3;
+  v2 = objc_opt_class();
+  LODWORD(v3) = 1053944709;
+  result = [v2 computeThresholdBase:v3];
+  +[MADTextEmbeddingThresholdMD6 thresholdBase]::thresholdBase = v5;
   return result;
 }
 

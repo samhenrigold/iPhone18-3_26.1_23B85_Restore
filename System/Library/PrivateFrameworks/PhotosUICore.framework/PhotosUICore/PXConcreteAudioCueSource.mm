@@ -88,7 +88,7 @@
     return [(PXConcreteAudioCueSource *)self firstCueIndex];
   }
 
-  [(PXConcreteAudioCueSource *)self cueTimeRange];
+  objc_msgSend_cueTimeRange(self, a2);
   v7 = *&range->var0.var3;
   *&v12.start.value = *&range->var0.var0;
   *&v12.start.epoch = v7;
@@ -521,7 +521,7 @@ __n128 __57__PXConcreteAudioCueSource_bestCueInRange_preferredTime___block_invok
       {
         if (v5)
         {
-          [(PXConcreteAudioCueSource *)v5 timeRange];
+          objc_msgSend_timeRange(v5);
         }
 
         else
@@ -529,7 +529,7 @@ __n128 __57__PXConcreteAudioCueSource_bestCueInRange_preferredTime___block_invok
           memset(&range1, 0, sizeof(range1));
         }
 
-        [(PXConcreteAudioCueSource *)self timeRange];
+        objc_msgSend_timeRange(self);
         if (CMTimeRangeEqual(&range1, &v17))
         {
           cues = [(PXConcreteAudioCueSource *)self cues];

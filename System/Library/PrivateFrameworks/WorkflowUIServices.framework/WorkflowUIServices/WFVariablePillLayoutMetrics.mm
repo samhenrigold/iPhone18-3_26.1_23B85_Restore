@@ -10,7 +10,7 @@
   v11 = v10;
   iconCopy = icon;
   fontCopy = font;
-  return VariablePillLayoutMetrics.init(name:icon:font:height:)(height, v9, v11, icon, font);
+  return VariablePillLayoutMetrics.init(name:icon:font:height:)(v9, v11, icon, font, height);
 }
 
 @end

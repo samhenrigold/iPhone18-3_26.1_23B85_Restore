@@ -7,7 +7,7 @@
 
 + (id)ik_cssRuleForRule:()IKJSInspector withOrdinal:forStyleSheetHeader:forStyleMarkup:withNewLineIndexSet:
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v12 = a3;
   v13 = a5;
   v14 = MEMORY[0x277D7B6C8];
@@ -58,12 +58,10 @@
     queryExpression = [mediaQuery queryExpression];
     [v33 setText:queryExpression];
 
-    v39[0] = v33;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+    v38[0] = v33;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
     [v27 setGroupings:v36];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

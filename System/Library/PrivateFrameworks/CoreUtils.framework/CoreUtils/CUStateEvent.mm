@@ -33,24 +33,24 @@
 {
   nameCopy = name;
   infoCopy = info;
-  v22.receiver = self;
-  v22.super_class = CUStateEvent;
-  v8 = [(CUStateEvent *)&v22 init];
+  v15.receiver = self;
+  v15.super_class = CUStateEvent;
+  v8 = [(CUStateEvent *)&v15 init];
   if (!v8)
   {
-    FatalErrorF("init failed", v9, v10, v11, v12, v13, v14, v15, v22.receiver);
+    FatalErrorF("init failed");
   }
 
-  v16 = v8;
-  v17 = [nameCopy copy];
-  name = v16->_name;
-  v16->_name = v17;
+  v9 = v8;
+  v10 = [nameCopy copy];
+  name = v9->_name;
+  v9->_name = v10;
 
-  v19 = [infoCopy copy];
-  userInfo = v16->_userInfo;
-  v16->_userInfo = v19;
+  v12 = [infoCopy copy];
+  userInfo = v9->_userInfo;
+  v9->_userInfo = v12;
 
-  return v16;
+  return v9;
 }
 
 + (id)initialTransition

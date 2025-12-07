@@ -38,18 +38,16 @@
 
 void __72__HDHRBloodPressureJournalControlServer_remote_closeJournal_completion___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v8[0] = *(a1 + 40);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [v2 updateNotificationSyncManagerWithClosedJournals:v3];
 
   v4 = [*(a1 + 48) profile];
   v5 = [v4 heartHealthProfileExtension];
   v6 = [v5 bloodPressureJournalSyncRequester];
   [v6 requestStateSyncWithReason:@"Blood Pressure journal is closed"];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_closeJournalWithIdentifier:(id)identifier completion:(id)completion
@@ -141,10 +139,9 @@ uint64_t __71__HDHRBloodPressureJournalControlServer_remote_saveJournal_completi
   v4 = [v3 bloodPressureJournalSyncRequester];
   [v4 requestStateSyncWithReason:@"Blood Pressure journal is saved"];
 
-  v5 = *(a1 + 40);
-  v6 = *(*(a1 + 48) + 16);
+  v5 = *(*(a1 + 48) + 16);
 
-  return v6();
+  return v5();
 }
 
 - (void)remote_snoozeJournalNotificationWithIdentifier:(id)identifier journalType:(int64_t)type userInfo:(id)info onDate:(id)date completion:(id)completion
@@ -166,7 +163,7 @@ uint64_t __71__HDHRBloodPressureJournalControlServer_remote_saveJournal_completi
 
 - (void)remote_observeJournalChanges:(BOOL)changes completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
   self->_shouldObserveChanges = changes;
@@ -181,11 +178,11 @@ uint64_t __71__HDHRBloodPressureJournalControlServer_remote_saveJournal_completi
     v10 = HKLogBloodPressureJournal();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
+      v12 = 138543362;
       selfCopy2 = self;
       v11 = "%{public}@: Began observing changes to journal manager.";
 LABEL_6:
-      _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, v11, &v13, 0xCu);
+      _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, v11, &v12, 0xCu);
     }
   }
 
@@ -196,7 +193,7 @@ LABEL_6:
     v10 = HKLogBloodPressureJournal();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
+      v12 = 138543362;
       selfCopy2 = self;
       v11 = "%{public}@: Stopped observing changes to journal manager.";
       goto LABEL_6;
@@ -205,8 +202,6 @@ LABEL_6:
 
   os_unfair_lock_unlock(&self->_lock);
   completionCopy[2](completionCopy, 1, 0);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createTaskServerWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate error:(id *)error
@@ -236,19 +231,19 @@ LABEL_6:
 
 - (void)journalManager:(id)manager didAddOrModifyJournals:(id)journals
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   journalsCopy = journals;
   os_unfair_lock_lock(&self->_lock);
   shouldObserveChanges = self->_shouldObserveChanges;
   os_unfair_lock_unlock(&self->_lock);
   if (shouldObserveChanges)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __79__HDHRBloodPressureJournalControlServer_journalManager_didAddOrModifyJournals___block_invoke;
-    v13[3] = &unk_2786609B8;
-    v13[4] = self;
-    v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __79__HDHRBloodPressureJournalControlServer_journalManager_didAddOrModifyJournals___block_invoke;
+    v12[3] = &unk_2786609B8;
+    v12[4] = self;
+    v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v12];
     _HKInitializeLogging();
     v8 = HKLogBloodPressureJournal();
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
@@ -261,8 +256,8 @@ LABEL_6:
         v11 = [journalsCopy count];
         *buf = 138543618;
         selfCopy2 = self;
-        v16 = 2048;
-        v17 = v11;
+        v15 = 2048;
+        v16 = v11;
         _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_INFO, "%{public}@: Notify client for didAddOrModifyJournals journal count %ld", buf, 0x16u);
       }
     }
@@ -281,8 +276,6 @@ LABEL_6:
       _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: ignoring changes from didAddOrModifyJournals", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HDHRBloodPressureJournalControlServer_journalManager_didAddOrModifyJournals___block_invoke(uint64_t a1, void *a2)
@@ -298,14 +291,13 @@ void __79__HDHRBloodPressureJournalControlServer_journalManager_didAddOrModifyJo
 
 void __79__HDHRBloodPressureJournalControlServer_journalManager_didAddOrModifyJournals___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "%{public}@: Unable to notify client for didAddOrModifyJournals: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "%{public}@: Unable to notify client for didAddOrModifyJournals: %{public}@", &v4, 0x16u);
 }
 
 @end

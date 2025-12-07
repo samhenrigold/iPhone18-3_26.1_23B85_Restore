@@ -82,39 +82,39 @@
 
 - (BOOL)startElement:(id)element attributes:(id)attributes
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   attributesCopy = attributes;
   if ([elementCopy isEqualToString:@"a"])
   {
     v8 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:attributesCopy];
     allKeys = [attributesCopy allKeys];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v10 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
+          v14 = *(*(&v20 + 1) + 8 * i);
           if ([v14 hasPrefix:@"x-apple-"])
           {
             [v8 removeObjectForKey:v14];
           }
         }
 
-        v11 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v11);
@@ -132,11 +132,10 @@
     attributesCopy = v16;
   }
 
-  v20.receiver = self;
-  v20.super_class = ENMLWriter;
-  v17 = [(ENXMLWriter *)&v20 startElement:elementCopy attributes:attributesCopy];
+  v19.receiver = self;
+  v19.super_class = ENMLWriter;
+  v17 = [(ENXMLWriter *)&v19 startElement:elementCopy attributes:attributesCopy];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

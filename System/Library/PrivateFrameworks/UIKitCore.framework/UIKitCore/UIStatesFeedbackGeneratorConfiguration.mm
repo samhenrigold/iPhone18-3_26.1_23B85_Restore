@@ -40,7 +40,7 @@ void __81___UIStatesFeedbackGeneratorConfiguration__alternateFeedback_forDevice_
   v7 = *(a1 + 32);
   v12 = v6;
   v8 = [v6 thresholdFeedback];
-  LODWORD(v7) = [v7 isEqual:v8];
+  LODWORD(v7) = objc_msgSend_isEqual_(v7);
 
   if (v7)
   {

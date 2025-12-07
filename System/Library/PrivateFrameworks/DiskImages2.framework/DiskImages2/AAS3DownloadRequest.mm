@@ -9,12 +9,12 @@
 
 - (AAS3DownloadRequest)initWithSession:(id)session size:(unint64_t)size atOffset:(int64_t)offset destinationBuffer:(char *)buffer destinationStream:(AAAsyncByteStream_impl *)stream completionSemaphore:(id)semaphore
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   semaphoreCopy = semaphore;
-  v28.receiver = self;
-  v28.super_class = AAS3DownloadRequest;
-  v16 = [(AAS3DownloadRequest *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = AAS3DownloadRequest;
+  v16 = [(AAS3DownloadRequest *)&v27 init];
   v17 = v16;
   if (v16)
   {
@@ -42,7 +42,6 @@
     v25 = v17;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -55,36 +54,36 @@
     downloadSession = [(AAS3DownloadRequest *)self downloadSession];
     urlSession = [(AAS3DownloadSession *)downloadSession urlSession];
     urlRequest = [(AAS3DownloadRequest *)self urlRequest];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3254779904;
-    v15 = __42__AAS3DownloadRequest_createAndResumeTask__block_invoke;
-    v16 = &__block_descriptor_40_e8_32w_e46_v32__0__NSData_8__NSURLResponse_16__NSError_24l;
-    objc_copyWeak(&v17, &location);
-    v8 = [(NSURLSession *)urlSession dataTaskWithRequest:urlRequest completionHandler:&v13];
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3254779904;
+    v11 = __42__AAS3DownloadRequest_createAndResumeTask__block_invoke;
+    v12 = &__block_descriptor_40_e8_32w_e46_v32__0__NSData_8__NSURLResponse_16__NSError_24l;
+    objc_copyWeak(&v13, &location);
+    v6 = [(NSURLSession *)urlSession dataTaskWithRequest:urlRequest completionHandler:&v9];
 
-    if (v8)
+    if (v6)
     {
-      [(NSURLSessionDataTask *)v8 resume:v13];
-      v11 = 0;
+      [(NSURLSessionDataTask *)v6 resume:v9];
+      v7 = 0;
     }
 
     else
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchiveS3/AAS3DownloadStreamURLSession.m", "[AAS3DownloadRequest createAndResumeTask]", 164, 121, 0, "dataTaskWithRequest", v9, v10, v13);
-      v11 = -1;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchiveS3/AAS3DownloadStreamURLSession.m", "[AAS3DownloadRequest createAndResumeTask]", 164, 121, 0, "dataTaskWithRequest", v9, v10, v11, v12);
+      v7 = -1;
     }
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchiveS3/AAS3DownloadStreamURLSession.m", "[AAS3DownloadRequest createAndResumeTask]", 150, 121, 0, "no more attempts allowed", v3, v4, v13);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchiveS3/AAS3DownloadStreamURLSession.m", "[AAS3DownloadRequest createAndResumeTask]", 150, 121, 0, "no more attempts allowed");
     return -1;
   }
 
-  return v11;
+  return v7;
 }
 
 void __42__AAS3DownloadRequest_createAndResumeTask__block_invoke(uint64_t a1, void *a2, void *a3, id a4)

@@ -123,31 +123,31 @@
 
 - (BOOL)multiplePhoneNumbersTiedToAccount
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   idsAccount = [(IMDIDSAccount *)self idsAccount];
   devices = [idsAccount devices];
 
-  v4 = [devices countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v4 = [devices countByEnumeratingWithState:&v25 objects:v30 count:16];
   v5 = v4 != 0;
   if (v4)
   {
     v6 = v4;
     v7 = 0;
-    v8 = *v27;
+    v8 = *v26;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(devices);
         }
 
-        linkedUserURIs = [*(*(&v26 + 1) + 8 * i) linkedUserURIs];
+        linkedUserURIs = [*(*(&v25 + 1) + 8 * i) linkedUserURIs];
         v11 = [linkedUserURIs count];
 
         if (((v11 != 0) & v7) != 0)
@@ -158,7 +158,7 @@
         v7 |= v11 != 0;
       }
 
-      v6 = [devices countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v6 = [devices countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v6)
       {
         continue;
@@ -169,14 +169,14 @@
 
     if (v7)
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v12 = +[IMDAccountController sharedInstance];
       devices = [v12 accounts];
 
-      v13 = [devices countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v13 = [devices countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (!v13)
       {
 LABEL_19:
@@ -185,17 +185,17 @@ LABEL_19:
       }
 
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
 LABEL_12:
       v16 = 0;
       while (1)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(devices);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * v16);
+        v17 = *(*(&v21 + 1) + 8 * v16);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -210,7 +210,7 @@ LABEL_12:
 
         if (v14 == ++v16)
         {
-          v14 = [devices countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v14 = [devices countByEnumeratingWithState:&v21 objects:v29 count:16];
           if (v14)
           {
             goto LABEL_12;
@@ -225,7 +225,7 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    v5 = 0;
+    return 0;
   }
 
   else
@@ -233,7 +233,6 @@ LABEL_20:
 LABEL_21:
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

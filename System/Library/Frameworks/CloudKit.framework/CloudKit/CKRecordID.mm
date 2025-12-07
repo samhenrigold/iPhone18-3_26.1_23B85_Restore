@@ -8,6 +8,7 @@
 - (CKRecordID)initWithRecordName:(NSString *)recordName zoneID:(CKRecordZoneID *)zoneID;
 - (CKRecordID)initWithSqliteRepresentation:(id)representation;
 - (CKRoughlyEquivalentProperties)equivalencyProperties;
+- (id)CKShortDescriptionRedact:(BOOL)redact;
 - (id)copyWithAnonymousCKUserID:(id)d;
 - (id)sqliteRepresentation;
 - (int64_t)compareToRecordID:(id)d;
@@ -234,6 +235,17 @@
   objc_msgSend_addProperty_value_shouldRedact_(usingCopy, v11, @"zoneID", v12, 0);
 }
 
+- (id)CKShortDescriptionRedact:(BOOL)redact
+{
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_msgSend_recordName(self, a2, redact);
+  v8 = objc_msgSend_zoneID(self, v6, v7);
+  v11 = objc_msgSend_ckShortDescription(v8, v9, v10);
+  v13 = objc_msgSend_stringWithFormat_(v4, v12, @"%@:(%@)", v5, v11);
+
+  return v13;
+}
+
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
@@ -332,7 +344,7 @@
 {
   recordName = self->_recordName;
   self->_recordName = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, recordName);
 }
 
 - (CKRecordID)initWithCoder:(id)coder

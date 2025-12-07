@@ -1220,17 +1220,17 @@ uint64_t __77__GKMultiplayerDataSource_addPlayers_withStatus_replaceAutomatches_
   return [*(a1 + 32) updateParticipants];
 }
 
-uint64_t __77__GKMultiplayerDataSource_addPlayers_withStatus_replaceAutomatches_complete___block_invoke_2(uint64_t a1)
+uint64_t __77__GKMultiplayerDataSource_addPlayers_withStatus_replaceAutomatches_complete___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v2 = GKOSLoggers();
+    v3 = GKOSLoggers();
   }
 
-  v3 = *MEMORY[0x277D0C270];
+  v4 = *MEMORY[0x277D0C270];
   if (os_log_type_enabled(*MEMORY[0x277D0C270], OS_LOG_TYPE_DEBUG))
   {
-    __77__GKMultiplayerDataSource_addPlayers_withStatus_replaceAutomatches_complete___block_invoke_2_cold_1(a1, v3);
+    __77__GKMultiplayerDataSource_addPlayers_withStatus_replaceAutomatches_complete___block_invoke_2_cold_1(a1, v4);
   }
 
   result = *(a1 + 48);
@@ -1368,17 +1368,17 @@ uint64_t __50__GKMultiplayerDataSource_removePlayers_complete___block_invoke(uin
   return [*(a1 + 40) updateParticipants];
 }
 
-uint64_t __50__GKMultiplayerDataSource_removePlayers_complete___block_invoke_2(uint64_t a1)
+uint64_t __50__GKMultiplayerDataSource_removePlayers_complete___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v2 = GKOSLoggers();
+    v3 = GKOSLoggers();
   }
 
-  v3 = *MEMORY[0x277D0C270];
+  v4 = *MEMORY[0x277D0C270];
   if (os_log_type_enabled(*MEMORY[0x277D0C270], OS_LOG_TYPE_DEBUG))
   {
-    __50__GKMultiplayerDataSource_removePlayers_complete___block_invoke_2_cold_1(a1, v3);
+    __50__GKMultiplayerDataSource_removePlayers_complete___block_invoke_2_cold_1(a1, v4);
   }
 
   result = *(a1 + 48);
@@ -2102,10 +2102,9 @@ uint64_t __129__GKMultiplayerDataSource_setParticipantsWithPlayers_automatchPlay
   OUTLINED_FUNCTION_4();
   v2 = MEMORY[0x277CCACA8];
   v4 = v3;
-  v12 = v0;
-  v5 = [v2 stringWithFormat:@"- END - uuid: %@, playersToRemove: %@"];
+  v5 = [v2 stringWithFormat:@"- END - uuid: %@, playersToRemove: %@", v1, v0];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_1(&dword_24DE53000, v6, v7, "****** - GKCVC - %s \n%@", v8, v9, v10, v11, v1, v12, 2u);
+  OUTLINED_FUNCTION_2_1(&dword_24DE53000, v6, v7, "****** - GKCVC - %s \n%@", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)failedToInvitePlayers:(id)players
@@ -2847,10 +2846,9 @@ LABEL_12:
   v2 = MEMORY[0x277CCACA8];
   v4 = v3;
   v5 = [OUTLINED_FUNCTION_7() collectionViewDebugDescription];
-  v13 = v0;
-  v6 = [v2 stringWithFormat:@"uuid: %@, %@"];
+  v6 = [v2 stringWithFormat:@"uuid: %@, %@", v0, v5];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_1(&dword_24DE53000, v7, v8, "****** - GKCVC - %s \n%@", v9, v10, v11, v12, v13, v5, 2u);
+  OUTLINED_FUNCTION_2_1(&dword_24DE53000, v7, v8, "****** - GKCVC - %s \n%@", v9, v10, v11, v12, v13, v14);
 }
 
 void __77__GKMultiplayerDataSource_addPlayers_withStatus_replaceAutomatches_complete___block_invoke_2_cold_1(uint64_t a1, void *a2)
@@ -2859,9 +2857,9 @@ void __77__GKMultiplayerDataSource_addPlayers_withStatus_replaceAutomatches_comp
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [OUTLINED_FUNCTION_5() collectionViewDebugDescription];
-  v7 = [v3 stringWithFormat:@"- END - uuid: %@, completed with %@"];
+  v7 = [v3 stringWithFormat:@"- END - uuid: %@, completed with %@", v4, v6];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v8, v9, "****** - GKCVC - %s \n%@", v10, v11, v12, v13, v4, v6, 2u);
+  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v8, v9, "****** - GKCVC - %s \n%@", v10, v11, v12, v13, v14, v15);
 }
 
 - (void)removePlayers:complete:.cold.1()
@@ -2870,10 +2868,9 @@ void __77__GKMultiplayerDataSource_addPlayers_withStatus_replaceAutomatches_comp
   v2 = MEMORY[0x277CCACA8];
   v4 = v3;
   v5 = [OUTLINED_FUNCTION_7() collectionViewDebugDescription];
-  v13 = v0;
-  v6 = [v2 stringWithFormat:@"uuid: %@, %@"];
+  v6 = [v2 stringWithFormat:@"uuid: %@, %@", v0, v5];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_1(&dword_24DE53000, v7, v8, "****** - GKCVC - %s \n%@", v9, v10, v11, v12, v13, v5, 2u);
+  OUTLINED_FUNCTION_2_1(&dword_24DE53000, v7, v8, "****** - GKCVC - %s \n%@", v9, v10, v11, v12, v13, v14);
 }
 
 void __50__GKMultiplayerDataSource_removePlayers_complete___block_invoke_2_cold_1(uint64_t a1, void *a2)
@@ -2882,9 +2879,9 @@ void __50__GKMultiplayerDataSource_removePlayers_complete___block_invoke_2_cold_
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [OUTLINED_FUNCTION_5() collectionViewDebugDescription];
-  v7 = [v3 stringWithFormat:@"- END - uuid: %@, completed with %@"];
+  v7 = [v3 stringWithFormat:@"- END - uuid: %@, completed with %@", v4, v6];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v8, v9, "****** - GKCVC - %s \n%@", v10, v11, v12, v13, v4, v6, 2u);
+  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v8, v9, "****** - GKCVC - %s \n%@", v10, v11, v12, v13, v14, v15);
 }
 
 - (void)setStatus:(void *)a1 forPlayers:uuid:.cold.1(void *a1)
@@ -2894,7 +2891,7 @@ void __50__GKMultiplayerDataSource_removePlayers_complete___block_invoke_2_cold_
   OUTLINED_FUNCTION_8();
   v4 = [v2 stringWithFormat:@"- MIDDLE 7 - uuid: %@, refreshing index paths:"];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v5, v6, "****** - GKCVC - %s \n%@", v7, v8, v9, v10, v11, v12, 2u);
+  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v5, v6, "****** - GKCVC - %s \n%@", v7, v8, v9, v10, v11, v12);
 }
 
 - (void)setStatus:(void *)a1 forPlayers:uuid:.cold.2(void *a1)
@@ -2904,7 +2901,7 @@ void __50__GKMultiplayerDataSource_removePlayers_complete___block_invoke_2_cold_
   OUTLINED_FUNCTION_8();
   v4 = [v2 stringWithFormat:@"- MIDDLE 9 - uuid: %@, no refresh is needed as index path count is 0"];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v5, v6, "****** - GKCVC - %s \n%@", v7, v8, v9, v10, v11, v12, 2u);
+  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v5, v6, "****** - GKCVC - %s \n%@", v7, v8, v9, v10, v11, v12);
 }
 
 void __57__GKMultiplayerDataSource_setStatus_forPlayers_complete___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, void *a3)
@@ -2913,9 +2910,9 @@ void __57__GKMultiplayerDataSource_setStatus_forPlayers_complete___block_invoke_
   v5 = *(a1 + 48);
   v6 = a3;
   v7 = [OUTLINED_FUNCTION_5() collectionViewDebugDescription];
-  v8 = [v4 stringWithFormat:@"- END - uuid: %@, completed with %@"];
+  v8 = [v4 stringWithFormat:@"- END - uuid: %@, completed with %@", v5, v7];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v9, v10, "****** - GKCVC - %s \n%@", v11, v12, v13, v14, v5, v7, 2u);
+  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v9, v10, "****** - GKCVC - %s \n%@", v11, v12, v13, v14, v15, v16);
 }
 
 - (void)failedToInvitePlayers:(void *)a1 .cold.1(void *a1)
@@ -2925,7 +2922,7 @@ void __57__GKMultiplayerDataSource_setStatus_forPlayers_complete___block_invoke_
   OUTLINED_FUNCTION_8();
   v4 = [v2 stringWithFormat:@"- START - uuid: %@"];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v5, v6, "****** - GKCVC - %s \n%@", v7, v8, v9, v10, v11, v12, 2u);
+  OUTLINED_FUNCTION_1_3(&dword_24DE53000, v5, v6, "****** - GKCVC - %s \n%@", v7, v8, v9, v10, v11, v12);
 }
 
 - (void)failedToInvitePlayers:.cold.2()
@@ -2933,10 +2930,9 @@ void __57__GKMultiplayerDataSource_setStatus_forPlayers_complete___block_invoke_
   OUTLINED_FUNCTION_4();
   v2 = MEMORY[0x277CCACA8];
   v4 = v3;
-  v12 = v0;
-  v5 = [v2 stringWithFormat:@"- END - uuid: %@, failedPlayers: %@"];
+  v5 = [v2 stringWithFormat:@"- END - uuid: %@, failedPlayers: %@", v1, v0];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_1(&dword_24DE53000, v6, v7, "****** - GKCVC - %s \n%@", v8, v9, v10, v11, v1, v12, 2u);
+  OUTLINED_FUNCTION_2_1(&dword_24DE53000, v6, v7, "****** - GKCVC - %s \n%@", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)refreshStatusForParticipant:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

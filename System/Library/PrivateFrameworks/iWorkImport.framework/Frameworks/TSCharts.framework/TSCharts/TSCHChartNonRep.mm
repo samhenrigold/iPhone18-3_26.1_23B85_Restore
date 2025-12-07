@@ -50,7 +50,7 @@
     v18 = self->_chartLayout;
     if (v18 || (v19 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, "[TSCHChartNonRep chartLayout]"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v22, v23, v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartNonRep.m"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v26, v27, v28, v29, v20, v25, 41, 0, "invalid nil value for '%{public}s'", "_chartLayout"), v25, v20, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33), (v18 = self->_chartLayout) != 0))
     {
-      objc_msgSend_layoutSettings(v18, v14, v15, v16, v17);
+      objc_msgSend_layoutSettings(v18, v15, v16, v17);
     }
 
     else
@@ -106,20 +106,20 @@
   v6 = objc_msgSend_chartLayout(self, a2, v2, v3, v4);
   v11 = objc_msgSend_chartInfo(self, v7, v8, v9, v10);
   v16 = objc_msgSend_geometry(v11, v12, v13, v14, v15);
-  objc_msgSend_size(v16, v17, v18, v19, v20);
-  objc_msgSend_layoutForChartBodySize_(v6, v21, v22, v23, v24);
+  objc_msgSend_size(v16, v17, v18, v19);
+  objc_msgSend_layoutForChartBodySize_(v6, v20, v21, v22, v23);
 
-  v25 = objc_alloc(MEMORY[0x277D80300]);
-  v30 = objc_msgSend_chartLayout(self, v26, v27, v28, v29);
-  objc_msgSend_outerShadowFrame(v30, v31, v32, v33, v34);
-  v36 = v35;
-  v37 = *(MEMORY[0x277CBF2C0] + 16);
-  v42[0] = *MEMORY[0x277CBF2C0];
-  v42[1] = v37;
-  v43 = *(MEMORY[0x277CBF2C0] + 32);
-  v40 = objc_msgSend_initWithSize_transform_(v25, v38, v39, v36, *&v43, v42);
+  v24 = objc_alloc(MEMORY[0x277D80300]);
+  v29 = objc_msgSend_chartLayout(self, v25, v26, v27, v28);
+  objc_msgSend_outerShadowFrame(v29, v30, v31, v32, v33);
+  v35 = v34;
+  v36 = *(MEMORY[0x277CBF2C0] + 16);
+  v41[0] = *MEMORY[0x277CBF2C0];
+  v41[1] = v36;
+  v42 = *(MEMORY[0x277CBF2C0] + 32);
+  v39 = objc_msgSend_initWithSize_transform_(v24, v37, v38, v35, *&v42, v41);
 
-  return v40;
+  return v39;
 }
 
 - (id)renderSeriesIndexSet
@@ -166,7 +166,7 @@
 
 - (void)drawInContext:(CGContext *)context
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   ClipBoundingBox = CGContextGetClipBoundingBox(context);
   x = ClipBoundingBox.origin.x;
   y = ClipBoundingBox.origin.y;
@@ -175,37 +175,37 @@
   v10 = objc_msgSend_chartLayout(self, v9, ClipBoundingBox.origin.x, ClipBoundingBox.origin.y, ClipBoundingBox.size.width);
   v15 = objc_msgSend_chartInfo(self, v11, v12, v13, v14);
   v20 = objc_msgSend_geometry(v15, v16, v17, v18, v19);
-  objc_msgSend_size(v20, v21, v22, v23, v24);
-  objc_msgSend_layoutForChartBodySize_(v10, v25, v26, v27, v28);
+  objc_msgSend_size(v20, v21, v22, v23);
+  objc_msgSend_layoutForChartBodySize_(v10, v24, v25, v26, v27);
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  v32 = objc_msgSend_renderers(self, v29, 0.0, v30, v31, 0);
-  v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, v34, v35, v36, &v45, v49, 16);
-  if (v37)
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v31 = objc_msgSend_renderers(self, v28, 0.0, v29, v30, 0);
+  v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v32, v33, v34, v35, &v44, v48, 16);
+  if (v36)
   {
-    v39 = v37;
-    v40 = *v46;
+    v38 = v36;
+    v39 = *v45;
     do
     {
-      v41 = 0;
+      v40 = 0;
       do
       {
-        if (*v46 != v40)
+        if (*v45 != v39)
         {
-          objc_enumerationMutation(v32);
+          objc_enumerationMutation(v31);
         }
 
-        objc_msgSend_renderIntoContext_visible_(*(*(&v45 + 1) + 8 * v41++), v38, x, y, width, context, height);
+        objc_msgSend_renderIntoContext_visible_(*(*(&v44 + 1) + 8 * v40++), v37, x, y, width, context, height);
       }
 
-      while (v39 != v41);
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v38, v42, v43, v44, &v45, v49, 16);
+      while (v38 != v40);
+      v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v37, v41, v42, v43, &v44, v48, 16);
     }
 
-    while (v39);
+    while (v38);
   }
 }
 

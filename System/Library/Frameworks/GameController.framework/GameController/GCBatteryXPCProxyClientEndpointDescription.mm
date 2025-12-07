@@ -29,22 +29,23 @@
 - (GCBatteryXPCProxyClientEndpointDescription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v12.receiver = self;
-  v12.super_class = GCBatteryXPCProxyClientEndpointDescription;
-  v5 = [(GCBatteryXPCProxyClientEndpointDescription *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = GCBatteryXPCProxyClientEndpointDescription;
+  v5 = [(GCBatteryXPCProxyClientEndpointDescription *)&v13 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = GCIPCObjectIdentifier_Classes();
-    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"identifier"];
-    identifier = v5->_identifier;
-    v5->_identifier = v7;
+    v7 = GCIPCObjectIdentifier_Classes(v5);
+    v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"identifier"];
+    identifier = v6->_identifier;
+    v6->_identifier = v8;
 
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"initialBattery"];
-    initialBattery = v5->_initialBattery;
-    v5->_initialBattery = v9;
+    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"initialBattery"];
+    initialBattery = v6->_initialBattery;
+    v6->_initialBattery = v10;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -71,43 +72,43 @@
   if (v8)
   {
     batteryXPCProxyServiceRemoteServer = [v8 batteryXPCProxyServiceRemoteServer];
-    v10 = [[GCBatteryXPCProxyClientEndpoint alloc] initWithIdentifier:self->_identifier initialBattery:self->_initialBattery];
+    v12 = [[GCBatteryXPCProxyClientEndpoint alloc] initWithIdentifier:self->_identifier initialBattery:self->_initialBattery];
     iPCObjectRegistry = [v5 IPCObjectRegistry];
-    [iPCObjectRegistry registerIPCObject:v10];
+    [iPCObjectRegistry registerIPCObject:v12];
 
-    v12 = dispatch_semaphore_create(0);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __69__GCBatteryXPCProxyClientEndpointDescription_materializeWithContext___block_invoke;
-    v21[3] = &unk_1E8418D90;
-    v13 = v10;
-    v22 = v13;
-    v23 = v8;
-    v24 = v12;
-    v14 = v12;
-    v15 = v8;
-    [batteryXPCProxyServiceRemoteServer batteryXPCProxyServiceClientEndpointConnect:v13 reply:v21];
-    v16 = dispatch_time(0, 1000000000);
-    dispatch_semaphore_wait(v14, v16);
-    v17 = self->_materializedObject;
-    self->_materializedObject = v13;
-    v18 = v13;
+    v14 = dispatch_semaphore_create(0);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __69__GCBatteryXPCProxyClientEndpointDescription_materializeWithContext___block_invoke;
+    v23[3] = &unk_1E8418D90;
+    v15 = v12;
+    v24 = v15;
+    v25 = v8;
+    v26 = v14;
+    v16 = v14;
+    v17 = v8;
+    [batteryXPCProxyServiceRemoteServer batteryXPCProxyServiceClientEndpointConnect:v15 reply:v23];
+    v18 = dispatch_time(0, 1000000000);
+    dispatch_semaphore_wait(v16, v18);
+    v19 = self->_materializedObject;
+    self->_materializedObject = v15;
+    v20 = v15;
 
     materializedObject = self->_materializedObject;
 LABEL_4:
-    v19 = materializedObject;
+    v21 = materializedObject;
     goto LABEL_5;
   }
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v9, v10))
   {
-    [GCBatteryXPCProxyClientEndpointDescription materializeWithContext:];
+    [GCBatteryXPCProxyClientEndpointDescription materializeWithContext:?];
   }
 
-  v19 = 0;
+  v21 = 0;
 LABEL_5:
 
-  return v19;
+  return v21;
 }
 
 intptr_t __69__GCBatteryXPCProxyClientEndpointDescription_materializeWithContext___block_invoke(void *a1, void *a2)
@@ -123,17 +124,14 @@ intptr_t __69__GCBatteryXPCProxyClientEndpointDescription_materializeWithContext
   return dispatch_semaphore_signal(v7);
 }
 
-- (void)materializeWithContext:.cold.1()
+- (void)materializeWithContext:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Materialization failure - Service not present: %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Materialization failure - Service not present: %@", v5, v6, v7, v8);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

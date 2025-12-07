@@ -72,19 +72,20 @@
     BSSerializeSetToXPCDictionaryWithKey();
   }
 
-  if (self->_legacyAlertOptions)
+  legacyAlertOptions = self->_legacyAlertOptions;
+  if (legacyAlertOptions)
   {
-    BSSerializeCFValueToXPCDictionaryWithKey();
+    legacyAlertOptions = BSSerializeCFValueToXPCDictionaryWithKey();
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](legacyAlertOptions);
 }
 
-id __62__SBSRemoteAlertConfigurationContext_encodeWithXPCDictionary___block_invoke()
+id __62__SBSRemoteAlertConfigurationContext_encodeWithXPCDictionary___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = BSCreateSerializedBSXPCEncodableObject();
+  v2 = BSCreateSerializedBSXPCEncodableObject();
 
-  return v0;
+  return v2;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -125,11 +126,11 @@ id __62__SBSRemoteAlertConfigurationContext_encodeWithXPCDictionary___block_invo
   }
 }
 
-id __54__SBSRemoteAlertConfigurationContext_encodeWithCoder___block_invoke()
+id __54__SBSRemoteAlertConfigurationContext_encodeWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = BSCreateSerializedBSXPCEncodableObject();
+  v2 = BSCreateSerializedBSXPCEncodableObject();
 
-  return v0;
+  return v2;
 }
 
 - (SBSRemoteAlertConfigurationContext)initWithCoder:(id)coder

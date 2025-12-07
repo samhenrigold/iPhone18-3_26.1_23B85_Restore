@@ -347,14 +347,14 @@
   if (payloadDelegate == self)
   {
     [textInputPayloadController setPayloadDelegate:0];
-    [textInputPayloadController setSupportedPayloadIds:MEMORY[0x1E695E0F0]];
+    v6 = [textInputPayloadController setSupportedPayloadIds:MEMORY[0x1E695E0F0]];
   }
 
-  clientActionsDelegate = [__DDActionClass() clientActionsDelegate];
+  clientActionsDelegate = [__DDActionClass(v6) clientActionsDelegate];
 
   if (clientActionsDelegate == self)
   {
-    [__DDActionClass() setClientActionsDelegate:0];
+    [__DDActionClass(v8) setClientActionsDelegate:0];
   }
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -368,9 +368,9 @@
   [(CKDeviceOrientationManager *)self->_orientationManager invalidate];
   [(CKHandwritingPresentationController *)self->_handwritingPresentationController setSendDelegate:0];
 
-  v9.receiver = self;
-  v9.super_class = CKChatInputController;
-  [(CKChatInputController *)&v9 dealloc];
+  v11.receiver = self;
+  v11.super_class = CKChatInputController;
+  [(CKChatInputController *)&v11 dealloc];
 }
 
 - (CKChatInputController)init
@@ -877,11 +877,11 @@ LABEL_20:
 LABEL_24:
 }
 
-uint64_t __72__CKChatInputController__sendLaterSelectedFromSendMenuWithPresentation___block_invoke_2(uint64_t result)
+id *__72__CKChatInputController__sendLaterSelectedFromSendMenuWithPresentation___block_invoke_2(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) showKeyboard];
+    return [result[4] showKeyboard];
   }
 
   return result;
@@ -1162,11 +1162,11 @@ LABEL_12:
   }
 }
 
-uint64_t __108__CKChatInputController_dismissAppCardIfNecessaryAnimated_isFocusingKeyboard_overrideExceptions_completion___block_invoke(uint64_t result)
+id *__108__CKChatInputController_dismissAppCardIfNecessaryAnimated_isFocusingKeyboard_overrideExceptions_completion___block_invoke(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) showKeyboard];
+    return [result[4] showKeyboard];
   }
 
   return result;
@@ -3315,43 +3315,43 @@ void __76__CKChatInputController__presentFullScreenModalBrowserForPlugin_dataSou
 {
   handlerCopy = handler;
   identifierCopy = identifier;
-  v8 = CKFrameworkBundle();
+  v8 = CKFrameworkBundle(identifierCopy);
   v9 = [v8 localizedStringForKey:@"SHELF_SEND_LATER_UNSUPPORTED_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v10 = CKFrameworkBundle();
-  v11 = [v10 localizedStringForKey:@"SHELF_SEND_LATER_UNSUPPORTED_ITEM" value:&stru_1F04268F8 table:@"ChatKit"];
+  v11 = CKFrameworkBundle(v10);
+  v12 = [v11 localizedStringForKey:@"SHELF_SEND_LATER_UNSUPPORTED_ITEM" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v12 = IMBalloonExtensionIDWithSuffix();
-  v13 = [identifierCopy isEqualToString:v12];
+  v13 = IMBalloonExtensionIDWithSuffix();
+  v14 = [identifierCopy isEqualToString:v13];
 
-  if (v13)
+  if (v14)
   {
-    v14 = CKFrameworkBundle();
-    v15 = [v14 localizedStringForKey:@"SHELF_SEND_LATER_UNSUPPORTED_APPLE_CASH_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v16 = CKFrameworkBundle(v15);
+    v17 = [v16 localizedStringForKey:@"SHELF_SEND_LATER_UNSUPPORTED_APPLE_CASH_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v16 = CKFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"SHELF_SEND_LATER_UNSUPPORTED_APPLE_CASH" value:&stru_1F04268F8 table:@"ChatKit"];
+    v19 = CKFrameworkBundle(v18);
+    v20 = [v19 localizedStringForKey:@"SHELF_SEND_LATER_UNSUPPORTED_APPLE_CASH" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v11 = v17;
-    v9 = v15;
+    v12 = v20;
+    v9 = v17;
   }
 
-  v18 = [CKAlertController alertControllerWithTitle:v9 message:v11 preferredStyle:1];
-  v19 = CKFrameworkBundle();
-  v20 = [v19 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __80__CKChatInputController__presentSendLaterUnsupportedAlertForIdentifier_handler___block_invoke;
-  v27 = &unk_1E72F35C8;
+  v21 = [CKAlertController alertControllerWithTitle:v9 message:v12 preferredStyle:1];
+  v22 = CKFrameworkBundle(v21);
+  v23 = [v22 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+  v27 = MEMORY[0x1E69E9820];
+  v28 = 3221225472;
+  v29 = __80__CKChatInputController__presentSendLaterUnsupportedAlertForIdentifier_handler___block_invoke;
+  v30 = &unk_1E72F35C8;
   selfCopy = self;
-  v29 = handlerCopy;
-  v21 = handlerCopy;
-  v22 = [CKAlertAction actionWithTitle:v20 style:0 handler:&v24];
-  [v18 addAction:{v22, v24, v25, v26, v27, selfCopy}];
+  v32 = handlerCopy;
+  v24 = handlerCopy;
+  v25 = [CKAlertAction actionWithTitle:v23 style:0 handler:&v27];
+  [v21 addAction:{v25, v27, v28, v29, v30, selfCopy}];
 
   [(CKChatInputController *)self setIsDisplayingReplaceCompositionAlert:1];
   delegate = [(CKChatInputController *)self delegate];
-  [v18 presentFromViewController:delegate animated:1 completion:0];
+  [v21 presentFromViewController:delegate animated:1 completion:0];
 }
 
 uint64_t __80__CKChatInputController__presentSendLaterUnsupportedAlertForIdentifier_handler___block_invoke(uint64_t a1)
@@ -4080,8 +4080,9 @@ LABEL_8:
   }
 }
 
-void __72__CKChatInputController_handleTextInputPayload_withPayloadID_forPlugin___block_invoke(uint64_t a1, int a2)
+void __72__CKChatInputController_handleTextInputPayload_withPayloadID_forPlugin___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -4092,7 +4093,7 @@ void __72__CKChatInputController_handleTextInputPayload_withPayloadID_forPlugin_
       v6 = 138412546;
       v7 = v5;
       v8 = 1024;
-      v9 = a2;
+      v9 = v2;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Plugin %@ did handle text input payload: %d", &v6, 0x12u);
     }
   }
@@ -4333,8 +4334,9 @@ LABEL_28:
 LABEL_34:
 }
 
-void __67__CKChatInputController__handleSelectionOfExtensionWithIdentifier___block_invoke(uint64_t a1, int a2)
+void __67__CKChatInputController__handleSelectionOfExtensionWithIdentifier___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -4345,14 +4347,15 @@ void __67__CKChatInputController__handleSelectionOfExtensionWithIdentifier___blo
       v6 = 138412546;
       v7 = v5;
       v8 = 1024;
-      v9 = a2;
+      v9 = v2;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Plugin %@ did handle text input payload: %d", &v6, 0x12u);
     }
   }
 }
 
-void __67__CKChatInputController__handleSelectionOfExtensionWithIdentifier___block_invoke_382(uint64_t a1, int a2)
+void __67__CKChatInputController__handleSelectionOfExtensionWithIdentifier___block_invoke_382(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -4363,7 +4366,7 @@ void __67__CKChatInputController__handleSelectionOfExtensionWithIdentifier___blo
       v6 = 138412546;
       v7 = v5;
       v8 = 1024;
-      v9 = a2;
+      v9 = v2;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Plugin %@ did handle text input payload: %d", &v6, 0x12u);
     }
   }
@@ -4673,8 +4676,9 @@ LABEL_39:
 LABEL_40:
 }
 
-void __68__CKChatInputController_messageEntryView_didReceiveInputSuggestion___block_invoke(uint64_t a1, int a2)
+void __68__CKChatInputController_messageEntryView_didReceiveInputSuggestion___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -4685,12 +4689,12 @@ void __68__CKChatInputController_messageEntryView_didReceiveInputSuggestion___bl
       v6 = 138412546;
       v7 = v5;
       v8 = 1024;
-      v9 = a2;
+      v9 = v2;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Plugin %@ did handle text input payload: %d", &v6, 0x12u);
     }
   }
 
-  if (a2)
+  if (v2)
   {
     [*(a1 + 40) _evaluateMetricsForKeyboardSuggestionWithBundleIdentifier:*MEMORY[0x1E69A6928]];
   }
@@ -5125,11 +5129,11 @@ void __98__CKChatInputController__presentSendMenuForAppCardContentViewController
       block[1] = 3221225472;
       block[2] = __60__CKChatInputController_openURL_pluginID_completionHandler___block_invoke_3;
       block[3] = &unk_1E72F21A8;
-      v12 = v18;
-      v18[0] = lCopy;
+      v12 = v25;
+      v25[0] = lCopy;
       v13 = handlerCopy;
-      v18[1] = self;
-      v19 = v13;
+      v25[1] = self;
+      v26 = v13;
       dispatch_async(v11, block);
 
 LABEL_16:
@@ -5138,14 +5142,14 @@ LABEL_16:
 
     if (handlerCopy)
     {
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __60__CKChatInputController_openURL_pluginID_completionHandler___block_invoke_2;
-      v20[3] = &unk_1E72EBDB8;
-      v12 = &v21;
-      v21 = handlerCopy;
-      v15 = MEMORY[0x1E69E96A0];
-      v16 = v20;
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __60__CKChatInputController_openURL_pluginID_completionHandler___block_invoke_2;
+      v27[3] = &unk_1E72EBDB8;
+      v12 = &v28;
+      v28 = handlerCopy;
+      v21 = MEMORY[0x1E69E96A0];
+      v22 = v27;
       goto LABEL_15;
     }
   }
@@ -5165,21 +5169,21 @@ LABEL_16:
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(0xDu, @"_openURL not allowed as we are not user interactable", v15, v16, v17, v18, v19, v20, v23);
     }
 
     if (handlerCopy)
     {
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __60__CKChatInputController_openURL_pluginID_completionHandler___block_invoke;
-      v22[3] = &unk_1E72EBDB8;
-      v12 = &v23;
-      v23 = handlerCopy;
-      v15 = MEMORY[0x1E69E96A0];
-      v16 = v22;
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __60__CKChatInputController_openURL_pluginID_completionHandler___block_invoke;
+      v29[3] = &unk_1E72EBDB8;
+      v12 = &v30;
+      v30 = handlerCopy;
+      v21 = MEMORY[0x1E69E96A0];
+      v22 = v29;
 LABEL_15:
-      dispatch_async(v15, v16);
+      dispatch_async(v21, v22);
       goto LABEL_16;
     }
   }
@@ -5220,46 +5224,47 @@ void __60__CKChatInputController_openURL_pluginID_completionHandler___block_invo
   }
 }
 
-uint64_t __60__CKChatInputController_openURL_pluginID_completionHandler___block_invoke_5(uint64_t a1)
+uint64_t __60__CKChatInputController_openURL_pluginID_completionHandler___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(13);
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = *(a1 + 40);
-      v5 = _Block_copy(*(a1 + 56));
-      v6 = v5;
-      v7 = *(a1 + 48);
+      v4 = *(a1 + 32);
+      v5 = *(a1 + 40);
+      v6 = _Block_copy(*(a1 + 56));
+      v7 = v6;
+      v8 = *(a1 + 48);
       *buf = 138413058;
-      v12 = v3;
-      if (v7)
+      v20 = v4;
+      if (v8)
       {
-        v8 = @"YES";
+        v9 = @"YES";
       }
 
       else
       {
-        v8 = @"NO";
+        v9 = @"NO";
       }
 
-      v13 = 2112;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "LS _openURL %@ URL %@ completionHandler %@, result %@", buf, 0x2Au);
+      v21 = 2112;
+      v22 = v5;
+      v23 = 2112;
+      v24 = v6;
+      v25 = 2112;
+      v26 = v9;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "LS _openURL %@ URL %@ completionHandler %@, result %@", buf, 0x2Au);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    v9 = _Block_copy(*(a1 + 56));
-    _CKLogExternal();
+    v10 = *(a1 + 32);
+    v11 = _Block_copy(*(a1 + 56));
+    _CKLogExternal(0xDu, @"LS _openURL %@ URL %@ completionHandler %@, result %@", v12, v13, v14, v15, v16, v17, v10);
   }
 
   return (*(*(a1 + 56) + 16))(*(a1 + 56), *(a1 + 48) != 0);
@@ -5277,7 +5282,7 @@ uint64_t __60__CKChatInputController_openURL_pluginID_completionHandler___block_
 
 - (void)_openContainingBundleID:(id)d applicationService:(id)service withURL:(id)l pluginID:(id)iD completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
   lCopy = l;
@@ -5296,18 +5301,18 @@ uint64_t __60__CKChatInputController_openURL_pluginID_completionHandler___block_
         v20 = _Block_copy(handlerCopy);
         *buf = 138412802;
         selfCopy = self;
-        v41 = 2112;
-        v42 = lCopy;
-        v43 = 2112;
-        v44 = v20;
+        v60 = 2112;
+        v61 = lCopy;
+        v62 = 2112;
+        v63 = v20;
         _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "_openURL %@ URL %@ completionHandler %@", buf, 0x20u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      v29 = _Block_copy(handlerCopy);
-      _CKLogExternal();
+      v48 = _Block_copy(handlerCopy);
+      _CKLogExternal(0xDu, @"_openURL %@ URL %@ completionHandler %@", v21, v22, v23, v24, v25, v26, self);
     }
 
     if (lCopy)
@@ -5315,66 +5320,66 @@ uint64_t __60__CKChatInputController_openURL_pluginID_completionHandler___block_
       if (IMOSLoggingEnabled())
       {
         CKLogCStringForType(13);
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
           selfCopy = dCopy;
-          _os_log_impl(&dword_19020E000, v21, OS_LOG_TYPE_INFO, "_openURL containingBundleID: %@", buf, 0xCu);
+          _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "_openURL containingBundleID: %@", buf, 0xCu);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
       {
-        _CKLogExternal();
+        _CKLogExternal(0xDu, @"_openURL containingBundleID: %@", v28, v29, v30, v31, v32, v33, dCopy);
       }
 
-      v22 = _openContainingBundleID_applicationService_withURL_pluginID_completionHandler____FBSOpenApplicationOptionKeyPayloadURL;
+      v34 = _openContainingBundleID_applicationService_withURL_pluginID_completionHandler____FBSOpenApplicationOptionKeyPayloadURL;
       if (!_openContainingBundleID_applicationService_withURL_pluginID_completionHandler____FBSOpenApplicationOptionKeyPayloadURL)
       {
-        v23 = MEMORY[0x193AF5ED0]("FBSOpenApplicationOptionKeyPayloadURL", @"FrontBoardServices");
-        if (v23)
+        v35 = MEMORY[0x193AF5ED0]("FBSOpenApplicationOptionKeyPayloadURL", @"FrontBoardServices");
+        if (v35)
         {
-          v24 = *v23;
+          v36 = *v35;
         }
 
         else
         {
-          v24 = 0;
+          v36 = 0;
         }
 
-        objc_storeStrong(&_openContainingBundleID_applicationService_withURL_pluginID_completionHandler____FBSOpenApplicationOptionKeyPayloadURL, v24);
-        v22 = _openContainingBundleID_applicationService_withURL_pluginID_completionHandler____FBSOpenApplicationOptionKeyPayloadURL;
+        objc_storeStrong(&_openContainingBundleID_applicationService_withURL_pluginID_completionHandler____FBSOpenApplicationOptionKeyPayloadURL, v36);
+        v34 = _openContainingBundleID_applicationService_withURL_pluginID_completionHandler____FBSOpenApplicationOptionKeyPayloadURL;
       }
 
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{lCopy, v22, 0, v29}];
+      v45 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{lCopy, v34, 0, v48}];
       if (__FBSOpenApplicationOptionsClass_onceToken != -1)
       {
         [CKChatInputController _openContainingBundleID:applicationService:withURL:pluginID:completionHandler:];
       }
 
-      v26 = [__FBSOpenApplicationOptionsClass__optionsClass optionsWithDictionary:v27];
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __103__CKChatInputController__openContainingBundleID_applicationService_withURL_pluginID_completionHandler___block_invoke_435;
-      v30[3] = &unk_1E72F56E0;
-      v31 = lCopy;
-      v32 = dCopy;
-      v33 = v27;
-      v34 = handlerCopy;
-      v28 = v27;
-      [serviceCopy openApplication:v32 withOptions:v26 completion:v30];
+      v44 = [__FBSOpenApplicationOptionsClass__optionsClass optionsWithDictionary:v45];
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __103__CKChatInputController__openContainingBundleID_applicationService_withURL_pluginID_completionHandler___block_invoke_435;
+      v49[3] = &unk_1E72F56E0;
+      v50 = lCopy;
+      v51 = dCopy;
+      v52 = v45;
+      v53 = handlerCopy;
+      v46 = v45;
+      [serviceCopy openApplication:v51 withOptions:v44 completion:v49];
     }
 
     else
     {
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __103__CKChatInputController__openContainingBundleID_applicationService_withURL_pluginID_completionHandler___block_invoke_427;
-      v35[3] = &unk_1E72EBDB8;
-      v36 = handlerCopy;
-      dispatch_async(MEMORY[0x1E69E96A0], v35);
-      v26 = v36;
+      v54[0] = MEMORY[0x1E69E9820];
+      v54[1] = 3221225472;
+      v54[2] = __103__CKChatInputController__openContainingBundleID_applicationService_withURL_pluginID_completionHandler___block_invoke_427;
+      v54[3] = &unk_1E72EBDB8;
+      v55 = handlerCopy;
+      dispatch_async(MEMORY[0x1E69E96A0], v54);
+      v44 = v55;
     }
 
     goto LABEL_35;
@@ -5383,17 +5388,17 @@ uint64_t __60__CKChatInputController_openURL_pluginID_completionHandler___block_
   if (v18)
   {
     CKLogCStringForType(13);
-    v25 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v37 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_INFO, "_openURL not allowed as we are not user interactable", buf, 2u);
+      _os_log_impl(&dword_19020E000, v37, OS_LOG_TYPE_INFO, "_openURL not allowed as we are not user interactable", buf, 2u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    _CKLogExternal();
+    _CKLogExternal(0xDu, @"_openURL not allowed as we are not user interactable", v38, v39, v40, v41, v42, v43, v47);
   }
 
   if (handlerCopy)
@@ -5402,9 +5407,9 @@ uint64_t __60__CKChatInputController_openURL_pluginID_completionHandler___block_
     block[1] = 3221225472;
     block[2] = __103__CKChatInputController__openContainingBundleID_applicationService_withURL_pluginID_completionHandler___block_invoke;
     block[3] = &unk_1E72EBDB8;
-    v38 = handlerCopy;
+    v57 = handlerCopy;
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v26 = v38;
+    v44 = v57;
 LABEL_35:
   }
 }
@@ -5422,7 +5427,7 @@ uint64_t __103__CKChatInputController__openContainingBundleID_applicationService
 
 void __103__CKChatInputController__openContainingBundleID_applicationService_withURL_pluginID_completionHandler___block_invoke_435(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -5437,20 +5442,20 @@ void __103__CKChatInputController__openContainingBundleID_applicationService_wit
         v9 = *(a1 + 40);
         v10 = *(a1 + 48);
         *buf = 138413058;
-        v15 = v8;
-        v16 = 2112;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v10;
-        v20 = 2112;
-        v21 = v6;
+        v21 = v8;
+        v22 = 2112;
+        v23 = v9;
+        v24 = 2112;
+        v25 = v10;
+        v26 = 2112;
+        v27 = v6;
         _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "_openURL error when trying to openURL %@ with bundle ID %@ options dict %@ error %@", buf, 0x2Au);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(0xDu, @"_openURL error when trying to openURL %@ with bundle ID %@ options dict %@ error %@", v11, v12, v13, v14, v15, v16, *(a1 + 32));
     }
   }
 
@@ -5458,8 +5463,8 @@ void __103__CKChatInputController__openContainingBundleID_applicationService_wit
   block[1] = 3221225472;
   block[2] = __103__CKChatInputController__openContainingBundleID_applicationService_withURL_pluginID_completionHandler___block_invoke_439;
   block[3] = &unk_1E72ED478;
-  v12 = *(a1 + 56);
-  v13 = v6 == 0;
+  v18 = *(a1 + 56);
+  v19 = v6 == 0;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
@@ -6815,22 +6820,22 @@ void __46__CKChatInputController__startEditingPayload___block_invoke(uint64_t a1
 
 void __46__CKChatInputController__startEditingPayload___block_invoke_2(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 shelfPluginPayload];
   v5 = [v4 pluginBundleID];
   v6 = [*(a1 + 32) pluginBundleID];
   v7 = [v5 isEqualToString:v6];
 
-  v41 = [v4 pluginBundleID];
-  if ([v41 isEqualToString:*MEMORY[0x1E69A6A00]])
+  v43 = [v4 pluginBundleID];
+  if ([v43 isEqualToString:*MEMORY[0x1E69A6A00]])
   {
     v8 = 1;
   }
 
   else
   {
-    v8 = [v41 containsString:*MEMORY[0x1E69A6A08]];
+    v8 = [v43 containsString:*MEMORY[0x1E69A6A08]];
   }
 
   if ([*(a1 + 40) _isiMessageConversation])
@@ -6864,22 +6869,22 @@ void __46__CKChatInputController__startEditingPayload___block_invoke_2(uint64_t 
   aBlock[1] = 3221225472;
   aBlock[2] = __46__CKChatInputController__startEditingPayload___block_invoke_707;
   aBlock[3] = &unk_1E72F5730;
-  v44 = *(a1 + 56);
-  v40 = v12;
-  v45 = v40;
-  v48 = v8;
+  v46 = *(a1 + 56);
+  v42 = v12;
+  v47 = v42;
+  v50 = v8;
   v13 = *(a1 + 32);
   v14 = *(a1 + 40);
-  v46 = v13;
-  v47 = v14;
+  v48 = v13;
+  v49 = v14;
   v15 = _Block_copy(aBlock);
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __46__CKChatInputController__startEditingPayload___block_invoke_2_708;
-  v42[3] = &unk_1E72EBFE8;
-  v42[4] = *(a1 + 40);
-  v16 = _Block_copy(v42);
-  if (([*(a1 + 32) supportsSendLater] & 1) != 0 || (objc_msgSend(*(a1 + 40), "entryView", v40), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "sendLaterPluginInfo"), v18 = objc_claimAutoreleasedReturnValue(), v19 = v18 == 0, v18, v17, v19))
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __46__CKChatInputController__startEditingPayload___block_invoke_2_708;
+  v44[3] = &unk_1E72EBFE8;
+  v44[4] = *(a1 + 40);
+  v16 = _Block_copy(v44);
+  if (([*(a1 + 32) supportsSendLater] & 1) != 0 || (objc_msgSend(*(a1 + 40), "entryView", v42), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "sendLaterPluginInfo"), v18 = objc_claimAutoreleasedReturnValue(), v19 = v18 == 0, v18, v17, v19))
   {
     if ((v4 == 0) | v7 & 1)
     {
@@ -6888,40 +6893,39 @@ void __46__CKChatInputController__startEditingPayload___block_invoke_2(uint64_t 
 
     else
     {
-      [*(a1 + 40) setIsDisplayingReplaceCompositionAlert:1];
-      v24 = CKFrameworkBundle();
+      v24 = CKFrameworkBundle([*(a1 + 40) setIsDisplayingReplaceCompositionAlert:1]);
       v25 = [v24 localizedStringForKey:@"SHELF_REPLACE_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-      v26 = CKFrameworkBundle();
+      v26 = CKFrameworkBundle(v25);
       v27 = [v26 localizedStringForKey:@"SHELF_REPLACE_ITEM" value:&stru_1F04268F8 table:@"ChatKit"];
       v28 = [CKAlertController alertControllerWithTitle:v25 message:v27 preferredStyle:1];
 
-      v29 = CKFrameworkBundle();
-      v30 = [v29 localizedStringForKey:@"SHELF_REPLACE_ITEM_OK_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-      v31 = [CKAlertAction actionWithTitle:v30 style:0 handler:v15];
-      [v28 addAction:v31];
+      v30 = CKFrameworkBundle(v29);
+      v31 = [v30 localizedStringForKey:@"SHELF_REPLACE_ITEM_OK_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v32 = [CKAlertAction actionWithTitle:v31 style:0 handler:v15];
+      [v28 addAction:v32];
 
-      v32 = CKFrameworkBundle();
-      v33 = [v32 localizedStringForKey:@"SHELF_REPLACE_ITEM_CANCEL_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-      v34 = [CKAlertAction actionWithTitle:v33 style:0 handler:v16];
-      [v28 addAction:v34];
+      v34 = CKFrameworkBundle(v33);
+      v35 = [v34 localizedStringForKey:@"SHELF_REPLACE_ITEM_CANCEL_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v36 = [CKAlertAction actionWithTitle:v35 style:0 handler:v16];
+      [v28 addAction:v36];
 
-      v35 = [*(a1 + 32) pluginBundleID];
-      v36 = IMBalloonExtensionIDWithSuffix();
-      LODWORD(v34) = [v35 isEqualToString:v36];
+      v37 = [*(a1 + 32) pluginBundleID];
+      v38 = IMBalloonExtensionIDWithSuffix();
+      LODWORD(v36) = [v37 isEqualToString:v38];
 
-      if (v34 && IMSharedHelperDeviceIsiPad())
+      if (v36 && IMSharedHelperDeviceIsiPad())
       {
-        v37 = [*(a1 + 40) delegate];
-        v38 = [v37 activeSendMenuPresentationForChatInputController:*(a1 + 40)];
+        v39 = [*(a1 + 40) delegate];
+        v40 = [v39 activeSendMenuPresentationForChatInputController:*(a1 + 40)];
 
-        v39 = [v38 sendMenuViewController];
-        [v28 presentFromViewController:v39 animated:1 completion:0];
+        v41 = [v40 sendMenuViewController];
+        [v28 presentFromViewController:v41 animated:1 completion:0];
       }
 
       else
       {
-        v38 = [*(a1 + 40) delegate];
-        [v28 presentFromViewController:v38 animated:1 completion:0];
+        v40 = [*(a1 + 40) delegate];
+        [v28 presentFromViewController:v40 animated:1 completion:0];
       }
     }
   }
@@ -6935,7 +6939,7 @@ void __46__CKChatInputController__startEditingPayload___block_invoke_2(uint64_t 
       {
         v21 = [*(a1 + 32) pluginBundleID];
         *buf = 138412290;
-        v50 = v21;
+        v52 = v21;
         _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_INFO, "_startEditingPayload: Plugin bundle ID (%@) not supported for Send Later. Presenting alert and aborting.", buf, 0xCu);
       }
     }
@@ -7085,7 +7089,7 @@ uint64_t __46__CKChatInputController__startEditingPayload___block_invoke_2_708(u
   shelfPluginPayload = [composition shelfPluginPayload];
 
   pluginBundleID = [shelfPluginPayload pluginBundleID];
-  v46 = [pluginBundleID isEqualToString:*MEMORY[0x1E69A6A00]];
+  v49 = [pluginBundleID isEqualToString:*MEMORY[0x1E69A6A00]];
   if (v7)
   {
     pluginBundleID2 = IMBalloonExtensionIDWithSuffix();
@@ -7111,7 +7115,7 @@ uint64_t __46__CKChatInputController__startEditingPayload___block_invoke_2_708(u
   }
 
   v16 = objc_alloc_init(CKBrowserItemPayload);
-  v45 = v7;
+  v48 = v7;
   [(CKBrowserItemPayload *)v16 setPluginBundleID:v7];
   [(CKBrowserItemPayload *)v16 setPhotoShelfViewController:shelfCopy];
   v17 = [CKComposition compositionWithShelfPluginPayload:v16];
@@ -7136,7 +7140,7 @@ uint64_t __46__CKChatInputController__startEditingPayload___block_invoke_2_708(u
     [mEMORY[0x1E69A5B80] preWarmConnection];
   }
 
-  v44 = v17;
+  v47 = v17;
   if (composition2)
   {
     v23 = [composition2 compositionByAppendingComposition:v17];
@@ -7144,10 +7148,11 @@ uint64_t __46__CKChatInputController__startEditingPayload___block_invoke_2_708(u
 
   else
   {
-    v23 = v17;
+    v24 = v17;
+    v23 = v24;
   }
 
-  if ((shelfPluginPayload2 == 0) | v46 & 1 | shouldSendAsMediaObject & 1)
+  if ((shelfPluginPayload2 == 0) | v49 & 1 | shouldSendAsMediaObject & 1)
   {
     entryView3 = [(CKChatInputController *)self entryView];
 
@@ -7162,7 +7167,7 @@ uint64_t __46__CKChatInputController__startEditingPayload___block_invoke_2_708(u
       [(CKChatInputController *)self setDeferredComposition:v23];
     }
 
-    v41 = v45;
+    v44 = v48;
     if (completionCopy)
     {
       completionCopy[2](completionCopy, 1);
@@ -7171,48 +7176,48 @@ uint64_t __46__CKChatInputController__startEditingPayload___block_invoke_2_708(u
 
   else
   {
-    v26 = CKFrameworkBundle();
-    v42 = v16;
-    [v26 localizedStringForKey:@"SHELF_REPLACE_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v27 = v43 = pluginBundleID;
-    CKFrameworkBundle();
-    v29 = v28 = completionCopy;
-    v30 = [v29 localizedStringForKey:@"SHELF_REPLACE_ITEM" value:&stru_1F04268F8 table:@"ChatKit"];
-    v31 = [CKAlertController alertControllerWithTitle:v27 message:v30 preferredStyle:1];
+    v27 = CKFrameworkBundle(v24);
+    v45 = v16;
+    [v27 localizedStringForKey:@"SHELF_REPLACE_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v28 = v46 = pluginBundleID;
+    CKFrameworkBundle(v28);
+    v30 = v29 = completionCopy;
+    v31 = [v30 localizedStringForKey:@"SHELF_REPLACE_ITEM" value:&stru_1F04268F8 table:@"ChatKit"];
+    v32 = [CKAlertController alertControllerWithTitle:v28 message:v31 preferredStyle:1];
 
-    v32 = CKFrameworkBundle();
-    v33 = [v32 localizedStringForKey:@"SHELF_REPLACE_ITEM_OK_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v34 = CKFrameworkBundle(v33);
+    v35 = [v34 localizedStringForKey:@"SHELF_REPLACE_ITEM_OK_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __61__CKChatInputController_showEntryViewPhotosShelf_completion___block_invoke;
+    v54[3] = &unk_1E72EDEF0;
+    v54[4] = self;
+    v55 = v23;
+    v36 = v29;
+    v56 = v36;
+    v37 = [CKAlertAction actionWithTitle:v35 style:0 handler:v54];
+    [v32 addAction:v37];
+
+    completionCopy = v29;
+    v39 = CKFrameworkBundle(v38);
+    v40 = [v39 localizedStringForKey:@"SHELF_REPLACE_ITEM_CANCEL_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     v51[0] = MEMORY[0x1E69E9820];
     v51[1] = 3221225472;
-    v51[2] = __61__CKChatInputController_showEntryViewPhotosShelf_completion___block_invoke;
-    v51[3] = &unk_1E72EDEF0;
+    v51[2] = __61__CKChatInputController_showEntryViewPhotosShelf_completion___block_invoke_2;
+    v51[3] = &unk_1E72F5780;
+    v53 = v49;
     v51[4] = self;
-    v52 = v23;
-    v34 = v28;
-    v53 = v34;
-    v35 = [CKAlertAction actionWithTitle:v33 style:0 handler:v51];
-    [v31 addAction:v35];
+    v41 = v36;
+    pluginBundleID = v46;
+    v52 = v41;
+    v42 = [CKAlertAction actionWithTitle:v40 style:0 handler:v51];
+    [v32 addAction:v42];
 
-    completionCopy = v28;
-    v36 = CKFrameworkBundle();
-    v37 = [v36 localizedStringForKey:@"SHELF_REPLACE_ITEM_CANCEL_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __61__CKChatInputController_showEntryViewPhotosShelf_completion___block_invoke_2;
-    v48[3] = &unk_1E72F5780;
-    v50 = v46;
-    v48[4] = self;
-    v38 = v34;
-    pluginBundleID = v43;
-    v49 = v38;
-    v39 = [CKAlertAction actionWithTitle:v37 style:0 handler:v48];
-    [v31 addAction:v39];
-
-    v16 = v42;
+    v16 = v45;
     delegate = [(CKChatInputController *)self delegate];
-    [v31 presentFromViewController:delegate animated:1 completion:0];
+    [v32 presentFromViewController:delegate animated:1 completion:0];
 
-    v41 = v45;
+    v44 = v48;
   }
 }
 
@@ -7780,7 +7785,7 @@ LABEL_13:
       os_activity_scope_enter(v11, &v20);
       mediaObjectFromPayload = [payloadCopy mediaObjectFromPayload];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || ([mediaObjectFromPayload duration], v14 = v13, objc_msgSend(targetConversation, "maxTrimDurationForMedia:", mediaObjectFromPayload), v14 <= v15))
+      if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_msgSend_duration(mediaObjectFromPayload), v14 = v13, [targetConversation maxTrimDurationForMedia:mediaObjectFromPayload], v14 <= v15))
       {
         transfer = [mediaObjectFromPayload transfer];
         v17 = CKFileSizeEligibleForEagerUpload([transfer totalBytes]);
@@ -8190,8 +8195,9 @@ void __114__CKChatInputController_TextInputPayloads__registerForTextInputPayload
   }
 }
 
-void __72__CKChatInputController_TextInputPayloads__handlePayload_withPayloadId___block_invoke(uint64_t a1, int a2)
+void __72__CKChatInputController_TextInputPayloads__handlePayload_withPayloadId___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -8202,12 +8208,12 @@ void __72__CKChatInputController_TextInputPayloads__handlePayload_withPayloadId_
       *buf = 138412546;
       v8 = v5;
       v9 = 1024;
-      v10 = a2;
+      v10 = v2;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Keyboard Suggestion. Plugin %@ did handle text input payload: %d", buf, 0x12u);
     }
   }
 
-  if (a2)
+  if (v2)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -8527,8 +8533,9 @@ LABEL_25:
 LABEL_32:
 }
 
-void __115__CKChatInputController_TextInputPayloads___presentPluginWithBundleID_sendingTextInputPayload_withPayloadID_style___block_invoke(uint64_t a1, int a2)
+void __115__CKChatInputController_TextInputPayloads___presentPluginWithBundleID_sendingTextInputPayload_withPayloadID_style___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -8539,14 +8546,15 @@ void __115__CKChatInputController_TextInputPayloads___presentPluginWithBundleID_
       v6 = 138412546;
       v7 = v5;
       v8 = 1024;
-      v9 = a2;
+      v9 = v2;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Plugin %@ did handle text input payload: %d", &v6, 0x12u);
     }
   }
 }
 
-void __115__CKChatInputController_TextInputPayloads___presentPluginWithBundleID_sendingTextInputPayload_withPayloadID_style___block_invoke_286(uint64_t a1, int a2)
+void __115__CKChatInputController_TextInputPayloads___presentPluginWithBundleID_sendingTextInputPayload_withPayloadID_style___block_invoke_286(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -8557,7 +8565,7 @@ void __115__CKChatInputController_TextInputPayloads___presentPluginWithBundleID_
       v6 = 138412546;
       v7 = v5;
       v8 = 1024;
-      v9 = a2;
+      v9 = v2;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Plugin %@ did handle text input payload: %d", &v6, 0x12u);
     }
   }
@@ -8565,7 +8573,7 @@ void __115__CKChatInputController_TextInputPayloads___presentPluginWithBundleID_
 
 - (id)localizedTitleForClientActionFromUrl:(id)url context:(id)context
 {
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(self);
   v5 = [v4 localizedStringForKey:@"DATA_DETECTORS_PHOTOS_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v5;
@@ -8821,7 +8829,7 @@ uint64_t __93__CKChatInputController_DDClientActionsDelegate__shouldShowMoneyAct
 
 - (void)commitPayload:(CKBrowserItemPayload *)payload forPlugin:(NSString *)plugin allowAllCommits:(BOOL)commits completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);

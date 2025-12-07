@@ -237,7 +237,7 @@ LABEL_30:
 
 + (BOOL)isMigrationNeededWithExistingCloudConfig:(id)config newCloudConfig:(id)cloudConfig
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   configCopy = config;
   cloudConfigCopy = cloudConfig;
   if (cloudConfigCopy)
@@ -251,8 +251,8 @@ LABEL_30:
       v18 = 0;
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v25) = 0;
-        _os_log_impl(&dword_247E39000, v19, OS_LOG_TYPE_DEFAULT, "DMCMigrationHelper: new cloud config does not have a migration deadline.", &v25, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_247E39000, v19, OS_LOG_TYPE_DEFAULT, "DMCMigrationHelper: new cloud config does not have a migration deadline.", &v24, 2u);
         v18 = 0;
       }
 
@@ -273,11 +273,11 @@ LABEL_30:
       {
         if (v22)
         {
-          v25 = 138543618;
-          v26 = mdmServerUID;
-          v27 = 2114;
-          v28 = v12;
-          _os_log_impl(&dword_247E39000, v21, OS_LOG_TYPE_DEFAULT, "DMCMigrationHelper: server UID has changed from %{public}@ to %{public}@.", &v25, 0x16u);
+          v24 = 138543618;
+          v25 = mdmServerUID;
+          v26 = 2114;
+          v27 = v12;
+          _os_log_impl(&dword_247E39000, v21, OS_LOG_TYPE_DEFAULT, "DMCMigrationHelper: server UID has changed from %{public}@ to %{public}@.", &v24, 0x16u);
         }
 
         v18 = 1;
@@ -286,7 +286,7 @@ LABEL_30:
 
       if (v22)
       {
-        LOWORD(v25) = 0;
+        LOWORD(v24) = 0;
         v14 = "DMCMigrationHelper: Migration to ABE is not supported";
         v15 = v21;
         v16 = 2;
@@ -299,13 +299,13 @@ LABEL_30:
       v13 = *(DMCLogObjects() + 8);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138543362;
-        v26 = v12;
+        v24 = 138543362;
+        v25 = v12;
         v14 = "DMCMigrationHelper: server UID hasn't changed: %{public}@.";
         v15 = v13;
         v16 = 12;
 LABEL_14:
-        _os_log_impl(&dword_247E39000, v15, OS_LOG_TYPE_DEFAULT, v14, &v25, v16);
+        _os_log_impl(&dword_247E39000, v15, OS_LOG_TYPE_DEFAULT, v14, &v24, v16);
       }
     }
 
@@ -320,20 +320,19 @@ LABEL_17:
   v18 = 0;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v25) = 0;
-    _os_log_impl(&dword_247E39000, v17, OS_LOG_TYPE_DEFAULT, "DMCMigrationHelper: new cloud config does not exist.", &v25, 2u);
+    LOWORD(v24) = 0;
+    _os_log_impl(&dword_247E39000, v17, OS_LOG_TYPE_DEFAULT, "DMCMigrationHelper: new cloud config does not exist.", &v24, 2u);
     v18 = 0;
   }
 
 LABEL_18:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 + (BOOL)isMigrationMandatoryWithPendingCloudConfig:(id)config
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D24640];
   configCopy = config;
   v5 = [[v3 alloc] initWithCloudConfigDetails:configCopy];
@@ -345,16 +344,15 @@ LABEL_18:
   v9 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315650;
-    v13 = "+[DMCMigrationHelper isMigrationMandatoryWithPendingCloudConfig:]";
-    v14 = 1024;
-    v15 = v8 != -1;
-    v16 = 2114;
-    v17 = migrationDeadline;
-    _os_log_impl(&dword_247E39000, v9, OS_LOG_TYPE_DEFAULT, "%s is migration mandatory: %d. Deadline: %{public}@.", &v12, 0x1Cu);
+    v11 = 136315650;
+    v12 = "+[DMCMigrationHelper isMigrationMandatoryWithPendingCloudConfig:]";
+    v13 = 1024;
+    v14 = v8 != -1;
+    v15 = 2114;
+    v16 = migrationDeadline;
+    _os_log_impl(&dword_247E39000, v9, OS_LOG_TYPE_DEFAULT, "%s is migration mandatory: %d. Deadline: %{public}@.", &v11, 0x1Cu);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8 != -1;
 }
 
@@ -421,7 +419,7 @@ LABEL_13:
 + (void)setMigrationIncomplete:(BOOL)incomplete
 {
   incompleteCopy = incomplete;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc(MEMORY[0x277D03568]);
   _migrationConfigFilePath = [self _migrationConfigFilePath];
   v7 = [v5 initWithFilePath:_migrationConfigFilePath];
@@ -437,41 +435,39 @@ LABEL_13:
   }
 
   v9 = *MEMORY[0x277D03418];
-  v13 = 0;
-  [v7 saveValue:v8 forKey:v9 error:&v13];
-  v10 = v13;
+  v12 = 0;
+  [v7 saveValue:v8 forKey:v9 error:&v12];
+  v10 = v12;
   if (v10)
   {
     v11 = *DMCLogObjects();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v10;
+      v14 = v10;
       _os_log_impl(&dword_247E39000, v11, OS_LOG_TYPE_ERROR, "Failed to save HasIncompleteMigration info with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)launchMigrationApplicationWithError:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc(MEMORY[0x277D03568]);
   _migrationConfigFilePath = [self _migrationConfigFilePath];
   v7 = [v5 initWithFilePath:_migrationConfigFilePath];
 
   v8 = *MEMORY[0x277D03420];
-  v16 = 0;
-  [v7 saveValue:MEMORY[0x277CBEC38] forKey:v8 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  [v7 saveValue:MEMORY[0x277CBEC38] forKey:v8 error:&v15];
+  v9 = v15;
   v10 = *DMCLogObjects();
   if (v9)
   {
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&dword_247E39000, v10, OS_LOG_TYPE_ERROR, "Failed to save UserInitiatedMigration info with error: %{public}@", buf, 0xCu);
     }
 
@@ -496,28 +492,27 @@ LABEL_13:
     [mEMORY[0x277D0AE18] shutdownWithOptions:v12];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9 == 0;
 }
 
 + (BOOL)userInititiatedMigration
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D03568]);
   _migrationConfigFilePath = [self _migrationConfigFilePath];
   v5 = [v3 initWithFilePath:_migrationConfigFilePath];
 
   v6 = *MEMORY[0x277D03420];
-  v13 = 0;
-  v7 = [v5 retrieveValueForKey:v6 error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [v5 retrieveValueForKey:v6 error:&v12];
+  v8 = v12;
   if (v8)
   {
     v9 = *DMCLogObjects();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&dword_247E39000, v9, OS_LOG_TYPE_ERROR, "Failed to retrieve UserInitiatedMigration info with error: %{public}@", buf, 0xCu);
     }
 
@@ -529,14 +524,13 @@ LABEL_13:
     bOOLValue = [v7 BOOLValue];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 + (void)setUserInititiatedMigration:(BOOL)migration
 {
   migrationCopy = migration;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc(MEMORY[0x277D03568]);
   _migrationConfigFilePath = [self _migrationConfigFilePath];
   v7 = [v5 initWithFilePath:_migrationConfigFilePath];
@@ -552,21 +546,19 @@ LABEL_13:
   }
 
   v9 = *MEMORY[0x277D03420];
-  v13 = 0;
-  [v7 saveValue:v8 forKey:v9 error:&v13];
-  v10 = v13;
+  v12 = 0;
+  [v7 saveValue:v8 forKey:v9 error:&v12];
+  v10 = v12;
   if (v10)
   {
     v11 = *DMCLogObjects();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v10;
+      v14 = v10;
       _os_log_impl(&dword_247E39000, v11, OS_LOG_TYPE_ERROR, "Failed to save UserInitiatedMigration info with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)makeStartMigrationRequestWithCloudConfig:(id)config completionHandler:(id)handler
@@ -585,7 +577,7 @@ LABEL_13:
 
 void __81__DMCMigrationHelper_makeStartMigrationRequestWithCloudConfig_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = *DMCLogObjects();
@@ -593,9 +585,9 @@ void __81__DMCMigrationHelper_makeStartMigrationRequestWithCloudConfig_completio
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v18 = 138543362;
-      v19 = v7;
-      _os_log_impl(&dword_247E39000, v8, OS_LOG_TYPE_ERROR, "Failed to make start migration request with error: %{public}@", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v7;
+      _os_log_impl(&dword_247E39000, v8, OS_LOG_TYPE_ERROR, "Failed to make start migration request with error: %{public}@", &v17, 0xCu);
     }
 
     v9 = *(*(a1 + 32) + 16);
@@ -604,9 +596,9 @@ void __81__DMCMigrationHelper_makeStartMigrationRequestWithCloudConfig_completio
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138543362;
-    v19 = v6;
-    _os_log_impl(&dword_247E39000, v8, OS_LOG_TYPE_DEFAULT, "Start migration got back with response: %{public}@", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v6;
+    _os_log_impl(&dword_247E39000, v8, OS_LOG_TYPE_DEFAULT, "Start migration got back with response: %{public}@", &v17, 0xCu);
   }
 
   v10 = [v6 objectForKeyedSubscript:*MEMORY[0x277D03150]];
@@ -620,21 +612,20 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v13 = *DMCLogObjects();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v12 = *DMCLogObjects();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_247E39000, v13, OS_LOG_TYPE_ERROR, "Start migration got back with failed response", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_247E39000, v12, OS_LOG_TYPE_ERROR, "Start migration got back with failed response", &v17, 2u);
   }
 
-  v15 = *(a1 + 32);
-  v14 = *(a1 + 40);
-  v16 = [v6 objectForKeyedSubscript:*MEMORY[0x277D03148]];
-  v17 = [v14 _createStartMigrationRequestFailedErrorWithDEPResponse:v16];
-  (*(v15 + 16))(v15, 0, v17);
+  v14 = *(a1 + 32);
+  v13 = *(a1 + 40);
+  v15 = [v6 objectForKeyedSubscript:*MEMORY[0x277D03148]];
+  v16 = [v13 _createStartMigrationRequestFailedErrorWithDEPResponse:v15];
+  (*(v14 + 16))(v14, 0, v16);
 
 LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)makeEndMigrationRequestIfNeededWithCloudConfig:(id)config success:(BOOL)success completionHandler:(id)handler
@@ -656,7 +647,7 @@ LABEL_10:
 
 void __95__DMCMigrationHelper_makeEndMigrationRequestIfNeededWithCloudConfig_success_completionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D24640]) initWithCloudConfigDetails:*(a1 + 32)];
   v3 = [v2 mdmServerUID];
   v4 = *DMCLogObjects();
@@ -666,9 +657,9 @@ void __95__DMCMigrationHelper_makeEndMigrationRequestIfNeededWithCloudConfig_suc
     {
       v5 = *(a1 + 48);
       *buf = 138543618;
-      v12 = v3;
-      v13 = 1024;
-      v14 = v5;
+      v11 = v3;
+      v12 = 1024;
+      v13 = v5;
       _os_log_impl(&dword_247E39000, v4, OS_LOG_TYPE_INFO, "Sending EndMDMMigration request with serverUID %{public}@, success: %d", buf, 0x12u);
     }
 
@@ -683,12 +674,12 @@ void __95__DMCMigrationHelper_makeEndMigrationRequestIfNeededWithCloudConfig_suc
       v7 = @"fail";
     }
 
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __95__DMCMigrationHelper_makeEndMigrationRequestIfNeededWithCloudConfig_success_completionHandler___block_invoke_15;
-    v9[3] = &unk_278EE4060;
-    v10 = *(a1 + 40);
-    [v6 makeEndMDMMigrationRequestWithServerUID:v3 status:v7 completionBlock:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __95__DMCMigrationHelper_makeEndMigrationRequestIfNeededWithCloudConfig_success_completionHandler___block_invoke_15;
+    v8[3] = &unk_278EE4060;
+    v9 = *(a1 + 40);
+    [v6 makeEndMDMMigrationRequestWithServerUID:v3 status:v7 completionBlock:v8];
   }
 
   else
@@ -701,52 +692,46 @@ void __95__DMCMigrationHelper_makeEndMigrationRequestIfNeededWithCloudConfig_suc
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __95__DMCMigrationHelper_makeEndMigrationRequestIfNeededWithCloudConfig_success_completionHandler___block_invoke_15(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = *DMCLogObjects();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_247E39000, v8, OS_LOG_TYPE_DEFAULT, "End MDM migration request returned with response: %{public}@, error: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v7;
+    _os_log_impl(&dword_247E39000, v8, OS_LOG_TYPE_DEFAULT, "End MDM migration request returned with response: %{public}@, error: %{public}@", &v9, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)readPendingCloudConfigDetails
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D03568]);
   v3 = MDMCloudConfigurationPendingMigrationDetailsFilePath();
   v4 = [v2 initWithFilePath:v3];
 
-  v10 = 0;
-  v5 = [v4 retrieveDictionaryWithError:&v10];
-  v6 = v10;
+  v9 = 0;
+  v5 = [v4 retrieveDictionaryWithError:&v9];
+  v6 = v9;
   if (v6)
   {
     v7 = *DMCLogObjects();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v12 = v6;
+      v11 = v6;
       _os_log_impl(&dword_247E39000, v7, OS_LOG_TYPE_ERROR, "Failed to read pending cloud config details with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

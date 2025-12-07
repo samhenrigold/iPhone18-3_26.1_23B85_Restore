@@ -58,7 +58,7 @@
 
 - (void)didFireTimerForMediaGroupsAggregateBackupMessageTimer:(id)timer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   participantAccessoryUUID = [timerCopy participantAccessoryUUID];
   v6 = [(HMDMediaGroupsAggregatorBackupSender *)self backupTimerForParticipantAccessoryUUID:participantAccessoryUUID];
@@ -72,24 +72,22 @@
     {
       v10 = HMFGetLogIdentifier();
       participantAccessoryUUID2 = [timerCopy participantAccessoryUUID];
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2112;
-      v17 = participantAccessoryUUID2;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Backup timer fired for participant accessory uuid: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v10;
+      v15 = 2112;
+      v16 = participantAccessoryUUID2;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Backup timer fired for participant accessory uuid: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     participantAccessoryUUID3 = [timerCopy participantAccessoryUUID];
     [(HMDMediaGroupsAggregatorBackupSender *)selfCopy _sendBackupToParticipantAccessoryUUID:participantAccessoryUUID3];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAttemptForParticipantAccessoryUUID:(id)d withMessageIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   identifierCopy = identifier;
   v8 = [(HMDMediaGroupsAggregatorBackupSender *)self backupTimerForParticipantAccessoryUUID:dCopy];
@@ -107,17 +105,15 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2112;
-      v18 = dCopy;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to mark backup timer attempt due to no timer for accessory UUID: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v13;
+      v16 = 2112;
+      v17 = dCopy;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to mark backup timer attempt due to no timer for accessory UUID: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startBackupTimerWithParticipantAccessoryUUID:(id)d dueToFailedMessageIdentifier:(id)identifier
@@ -164,7 +160,7 @@
 
 - (void)createNewBackupTimerForParticipantAccessoryUUID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   backupTimerProvider = [(HMDMediaGroupsAggregatorBackupSender *)self backupTimerProvider];
   v6 = backupTimerProvider;
@@ -183,20 +179,18 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new backup timer due to no provider", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new backup timer due to no provider", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)receiverForParticipantAccessoryUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDMediaGroupsAggregatorBackupSender *)self dataSource];
   v6 = dataSource;
@@ -213,25 +207,23 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = dCopy;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get receiver for participant accessory uuid: %@ due to no data source", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = dCopy;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get receiver for participant accessory uuid: %@ due to no data source", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)routerParticipantAccessoryUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDMediaGroupsAggregatorBackupSender *)self dataSource];
   v6 = dataSource;
@@ -248,25 +240,23 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = dCopy;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get router for participant accessory uuid: %@ due to no data source", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = dCopy;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get router for participant accessory uuid: %@ due to no data source", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)backupGroupsForParticipantAccessoryUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDMediaGroupsAggregatorBackupSender *)self dataSource];
   v6 = dataSource;
@@ -283,25 +273,23 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = dCopy;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get backup groups for participant accessory uuid: %@ due to no data source", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = dCopy;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get backup groups for participant accessory uuid: %@ due to no data source", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)locallyRouteGroupsBackupDataMessage:(id)message toParticipantAccessoryUUID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dCopy = d;
   v8 = [(HMDMediaGroupsAggregatorBackupSender *)self receiverForParticipantAccessoryUUID:dCopy];
@@ -319,24 +307,22 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = messageCopy;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to locally route due to no receiver for groups backup data message: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = messageCopy;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to locally route due to no receiver for groups backup data message: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v14 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:4];
     [messageCopy respondWithError:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)routeBackedUpGroupsMessage:(id)message toParticipantAccessoryUUID:(id)d
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dCopy = d;
   v8 = objc_autoreleasePoolPush();
@@ -348,11 +334,11 @@
     name = [messageCopy name];
     identifier = [messageCopy identifier];
     *buf = 138543874;
-    v24 = v11;
-    v25 = 2112;
-    v26 = name;
-    v27 = 2112;
-    v28 = identifier;
+    v23 = v11;
+    v24 = 2112;
+    v25 = name;
+    v26 = 2112;
+    v27 = identifier;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Routing message: %@(%@)", buf, 0x20u);
   }
 
@@ -360,13 +346,13 @@
   v14 = [(HMDMediaGroupsAggregatorBackupSender *)selfCopy routerParticipantAccessoryUUID:dCopy];
   if (v14)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __94__HMDMediaGroupsAggregatorBackupSender_routeBackedUpGroupsMessage_toParticipantAccessoryUUID___block_invoke;
-    v21[3] = &unk_2797316B0;
-    v21[4] = selfCopy;
-    v22 = dCopy;
-    [v14 routeMessage:messageCopy localHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __94__HMDMediaGroupsAggregatorBackupSender_routeBackedUpGroupsMessage_toParticipantAccessoryUUID___block_invoke;
+    v20[3] = &unk_2797316B0;
+    v20[4] = selfCopy;
+    v21 = dCopy;
+    [v14 routeMessage:messageCopy localHandler:v20];
   }
 
   else
@@ -378,9 +364,9 @@
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v18;
-      v25 = 2112;
-      v26 = dCopy;
+      v23 = v18;
+      v24 = 2112;
+      v25 = dCopy;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to route backup group data due to no router found for participant accessory UUID: %@", buf, 0x16u);
     }
 
@@ -388,8 +374,6 @@
     v19 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:4];
     [messageCopy respondWithError:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearCachedDataForParticipantAccessoryUUID:(id)d
@@ -412,42 +396,41 @@
 
 - (void)_sendBackupToFirstPartyParticipantAccessoryUUID:(id)d backupGroups:(id)groups
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   groupsCopy = groups;
-  v28 = @"HMDMediaGroupsBackupDataKey";
-  v29[0] = groupsCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v27 = @"HMDMediaGroupsBackupDataKey";
+  v28[0] = groupsCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   v9 = objc_alloc(MEMORY[0x277D0F820]);
   identifier = [(HMDMediaGroupsAggregatorBackupSender *)self identifier];
   v11 = [v9 initWithTarget:identifier];
 
   v12 = [objc_alloc(MEMORY[0x277D0F848]) initWithName:@"HMDMediaGroupsBackupDataMessage" destination:v11 payload:v8];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__42652;
-  v26 = __Block_byref_object_dispose__42653;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__42652;
+  v25 = __Block_byref_object_dispose__42653;
   identifier2 = [v12 identifier];
-  [(HMDMediaGroupsAggregatorBackupSender *)self markAttemptForParticipantAccessoryUUID:dCopy withMessageIdentifier:v23[5]];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __101__HMDMediaGroupsAggregatorBackupSender__sendBackupToFirstPartyParticipantAccessoryUUID_backupGroups___block_invoke;
-  v18 = &unk_279725FA0;
+  [(HMDMediaGroupsAggregatorBackupSender *)self markAttemptForParticipantAccessoryUUID:dCopy withMessageIdentifier:v22[5]];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __101__HMDMediaGroupsAggregatorBackupSender__sendBackupToFirstPartyParticipantAccessoryUUID_backupGroups___block_invoke;
+  v17 = &unk_279725FA0;
   selfCopy = self;
   v13 = dCopy;
-  v20 = v13;
-  v21 = &v22;
-  [v12 setResponseHandler:&v15];
-  [(HMDMediaGroupsAggregatorBackupSender *)self routeBackedUpGroupsMessage:v12 toParticipantAccessoryUUID:v13, v15, v16, v17, v18, selfCopy];
+  v19 = v13;
+  v20 = &v21;
+  [v12 setResponseHandler:&v14];
+  [(HMDMediaGroupsAggregatorBackupSender *)self routeBackedUpGroupsMessage:v12 toParticipantAccessoryUUID:v13, v14, v15, v16, v17, selfCopy];
 
-  _Block_object_dispose(&v22, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
 }
 
 void __101__HMDMediaGroupsAggregatorBackupSender__sendBackupToFirstPartyParticipantAccessoryUUID_backupGroups___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -458,11 +441,11 @@ void __101__HMDMediaGroupsAggregatorBackupSender__sendBackupToFirstPartyParticip
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Groups backup data message responded with error: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Groups backup data message responded with error: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -473,13 +456,11 @@ void __101__HMDMediaGroupsAggregatorBackupSender__sendBackupToFirstPartyParticip
   {
     [*(a1 + 32) removeBackupTimerWithParticipantAccessoryUUID:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendBackupToParticipantAccessoryUUID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -487,11 +468,11 @@ void __101__HMDMediaGroupsAggregatorBackupSender__sendBackupToFirstPartyParticip
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v8;
-    v17 = 2112;
-    v18 = dCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Sending backup group data message to participant accessory uuid: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v8;
+    v16 = 2112;
+    v17 = dCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Sending backup group data message to participant accessory uuid: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -509,18 +490,16 @@ void __101__HMDMediaGroupsAggregatorBackupSender__sendBackupToFirstPartyParticip
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2112;
-      v18 = dCopy;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to get backup groups to send for participant accessory uuid: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v13;
+      v16 = 2112;
+      v17 = dCopy;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to get backup groups to send for participant accessory uuid: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     [(HMDMediaGroupsAggregatorBackupSender *)v11 removeBackupTimerWithParticipantAccessoryUUID:dCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendBackupToParticipantAccessoryUUID:(id)d
@@ -580,12 +559,11 @@ LABEL_7:
 
 uint64_t __51__HMDMediaGroupsAggregatorBackupSender_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v18_42672;
-  logCategory__hmf_once_v18_42672 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v18_42672;
+  logCategory__hmf_once_v18_42672 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

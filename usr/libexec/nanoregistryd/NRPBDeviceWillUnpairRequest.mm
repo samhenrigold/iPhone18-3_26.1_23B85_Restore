@@ -72,20 +72,16 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  advertisedName = self->_advertisedName;
-  v12 = toCopy;
   PBDataWriterWriteStringField();
   has = self->_has;
   if ((has & 4) != 0)
   {
-    shouldObliterate = self->_shouldObliterate;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    pairingFailureCode = self->_pairingFailureCode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -94,17 +90,15 @@
     PBDataWriterWriteStringField();
   }
 
-  v9 = self->_has;
-  if ((v9 & 2) != 0)
+  v5 = self->_has;
+  if ((v5 & 2) != 0)
   {
-    shouldBrick = self->_shouldBrick;
     PBDataWriterWriteBOOLField();
-    v9 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v9 & 8) != 0)
+  if ((v5 & 8) != 0)
   {
-    shouldPreserveESim = self->_shouldPreserveESim;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -169,7 +163,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 32);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 32) & 4) == 0)
@@ -177,7 +170,6 @@
       goto LABEL_28;
     }
 
-    v8 = *(equalCopy + 29);
     if (self->_shouldObliterate)
     {
       if ((*(equalCopy + 29) & 1) == 0)
@@ -228,7 +220,6 @@
       goto LABEL_28;
     }
 
-    v12 = *(equalCopy + 28);
     if (self->_shouldBrick)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -248,7 +239,7 @@
     goto LABEL_28;
   }
 
-  v10 = (*(equalCopy + 32) & 8) == 0;
+  v8 = (*(equalCopy + 32) & 8) == 0;
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 32) & 8) != 0)
@@ -264,18 +255,18 @@
       else if (!*(equalCopy + 30))
       {
 LABEL_36:
-        v10 = 1;
+        v8 = 1;
         goto LABEL_29;
       }
     }
 
 LABEL_28:
-    v10 = 0;
+    v8 = 0;
   }
 
 LABEL_29:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

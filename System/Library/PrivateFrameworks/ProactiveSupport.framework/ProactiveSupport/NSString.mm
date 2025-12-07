@@ -1,5 +1,5 @@
 @interface NSString
-+ (_PASUTF8String)_pas_stringWithDataNoCopy:(uint64_t)copy encoding:(uint64_t)encoding nullTerminated:(Boolean)terminated isExternalRepresentation:(unint64_t)representation utf8StringThreshold:;
++ (_PASUTF8String)_pas_stringWithDataNoCopy:(unint64_t)copy encoding:(uint64_t)encoding nullTerminated:(uint64_t)terminated isExternalRepresentation:(unint64_t)representation utf8StringThreshold:;
 + (__CFString)_pas_foundationStringNoCopyWithBufferStart:(unint64_t)start bufferEnd:(unint64_t)end encoding:(int)encoding nullTerminated:(Boolean)terminated isExternalRepresentation:(const __CFAllocator *)representation allocator:;
 @end
 
@@ -22,8 +22,9 @@ void __60__NSString__PASDistilledString___pas_distilledStringClasses__block_invo
   objc_autoreleasePoolPop(v0);
 }
 
-+ (_PASUTF8String)_pas_stringWithDataNoCopy:(uint64_t)copy encoding:(uint64_t)encoding nullTerminated:(Boolean)terminated isExternalRepresentation:(unint64_t)representation utf8StringThreshold:
++ (_PASUTF8String)_pas_stringWithDataNoCopy:(unint64_t)copy encoding:(uint64_t)encoding nullTerminated:(uint64_t)terminated isExternalRepresentation:(unint64_t)representation utf8StringThreshold:
 {
+  terminatedCopy = terminated;
   v10 = a2;
   objc_opt_self();
   if (!v10)
@@ -68,7 +69,7 @@ LABEL_30:
           v33 = v14;
           copyCopy2 = copy;
           encodingCopy2 = encoding;
-          terminatedCopy2 = terminated;
+          v36 = terminatedCopy;
           v37 = v30;
         }
 
@@ -82,11 +83,11 @@ LABEL_30:
           v33 = v14;
           copyCopy2 = copy;
           encodingCopy2 = encoding;
-          terminatedCopy2 = terminated;
+          v36 = terminatedCopy;
           v37 = 0;
         }
 
-        v38 = [(NSString *)v32 _pas_foundationStringNoCopyWithBufferStart:v33 bufferEnd:v31 encoding:copyCopy2 nullTerminated:encodingCopy2 isExternalRepresentation:terminatedCopy2 allocator:v37];
+        v38 = [(NSString *)v32 _pas_foundationStringNoCopyWithBufferStart:v33 bufferEnd:v31 encoding:copyCopy2 nullTerminated:encodingCopy2 isExternalRepresentation:v36 allocator:v37];
         CFRelease(v30);
 
         goto LABEL_33;

@@ -71,7 +71,7 @@ uint64_t __36__SLDCloudDocsService_sharedService__block_invoke()
   dataCopy = data;
   replyCopy = reply;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  v12 = SLDaemonLogHandle();
+  v12 = SLDaemonLogHandle(currentConnection);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -89,15 +89,15 @@ uint64_t __36__SLDCloudDocsService_sharedService__block_invoke()
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
     v29 = 0;
-    v13 = [(SLDCloudDocsService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:lCopy clientConnection:currentConnection error:&v29];
-    v14 = v29;
-    v15 = v14;
-    v31 = v13;
+    v14 = [(SLDCloudDocsService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:lCopy clientConnection:currentConnection error:&v29];
+    v15 = v29;
+    v16 = v15;
+    v31 = v14;
     if (*(*&buf[8] + 24) == -1)
     {
-      if (!v14)
+      if (!v15)
       {
-        v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCloudDocsService" code:1 userInfo:0];
+        v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCloudDocsService" code:1 userInfo:0];
       }
 
       replyCopy[2](replyCopy, 0);
@@ -105,9 +105,9 @@ uint64_t __36__SLDCloudDocsService_sharedService__block_invoke()
 
     else
     {
-      v16 = objc_alloc(MEMORY[0x277CFAED8]);
+      v17 = objc_alloc(MEMORY[0x277CFAED8]);
       identifier = [*MEMORY[0x277CE1E90] identifier];
-      v18 = [v16 initWithFileURL:lCopy documentType:identifier];
+      v19 = [v17 initWithFileURL:lCopy documentType:identifier];
 
       v22 = MEMORY[0x277D85DD0];
       v23 = 3221225472;
@@ -116,10 +116,10 @@ uint64_t __36__SLDCloudDocsService_sharedService__block_invoke()
       selfCopy = self;
       v28 = buf;
       v27 = replyCopy;
-      [v18 setCopyShareURLCompletionBlock:&v22];
-      v19 = objc_alloc_init(MEMORY[0x277CCABD8]);
-      [v19 setMaxConcurrentOperationCount:{1, v22, v23, v24, v25, selfCopy}];
-      [v19 addOperation:v18];
+      [v19 setCopyShareURLCompletionBlock:&v22];
+      v20 = objc_alloc_init(MEMORY[0x277CCABD8]);
+      [v20 setMaxConcurrentOperationCount:{1, v22, v23, v24, v25, selfCopy}];
+      [v20 addOperation:v19];
     }
 
     _Block_object_dispose(buf, 8);
@@ -127,8 +127,8 @@ uint64_t __36__SLDCloudDocsService_sharedService__block_invoke()
 
   else
   {
-    v20 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = SLDaemonLogHandle(v13);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218498;
       *&buf[4] = self;
@@ -136,26 +136,24 @@ uint64_t __36__SLDCloudDocsService_sharedService__block_invoke()
       *&buf[14] = lCopy;
       *&buf[22] = 2112;
       v31 = dataCopy;
-      _os_log_error_impl(&dword_231772000, v20, OS_LOG_TYPE_ERROR, "[SLDCloudDocsService: %p] invalid fileURL/sandboxTokenData passed in: %@, %@", buf, 0x20u);
+      _os_log_error_impl(&dword_231772000, v21, OS_LOG_TYPE_ERROR, "[SLDCloudDocsService: %p] invalid fileURL/sandboxTokenData passed in: %@, %@", buf, 0x20u);
     }
 
     replyCopy[2](replyCopy, 0);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  [*(a1 + 32) _releaseSandboxHandle:*(*(*(a1 + 48) + 8) + 24)];
+  v7 = [*(a1 + 32) _releaseSandboxHandle:*(*(*(a1 + 48) + 8) + 24)];
   if (!v5 || v6)
   {
-    v8 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SLDaemonLogHandle(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block_invoke_cold_1((a1 + 32), v6, v8);
+      __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block_invoke_cold_1((a1 + 32), v6, v9);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -163,45 +161,45 @@ void __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block
 
   else
   {
-    v7 = SLURLMinusFragmentForCKURLs(v5);
+    v8 = SLURLMinusFragmentForCKURLs(v5);
     (*(*(a1 + 40) + 16))();
   }
 }
 
 - (void)getCollaborationHighlightForShareURL:(id)l fileURL:(id)rL sandboxTokenData:(id)data reply:(id)reply
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   dataCopy = data;
   replyCopy = reply;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  v15 = SLDaemonLogHandle();
+  v15 = SLDaemonLogHandle(currentConnection);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
     selfCopy = "[SLDCloudDocsService getCollaborationHighlightForShareURL:fileURL:sandboxTokenData:reply:]";
-    v33 = 2112;
-    v34 = lCopy;
-    v35 = 2112;
-    v36 = rLCopy;
-    v37 = 2112;
-    v38 = dataCopy;
+    v34 = 2112;
+    v35 = lCopy;
+    v36 = 2112;
+    v37 = rLCopy;
+    v38 = 2112;
+    v39 = dataCopy;
     _os_log_impl(&dword_231772000, v15, OS_LOG_TYPE_DEFAULT, "%s shareURL: %@ fileURL: %@ sandboxTokenData: %@", buf, 0x2Au);
   }
 
   if (rLCopy && lCopy && dataCopy)
   {
-    v16 = SLURLMinusFragmentForCKURLs(lCopy);
-    v30 = 0;
-    v17 = [(SLDCloudDocsService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:rLCopy clientConnection:currentConnection error:&v30];
-    v18 = v30;
-    v19 = v18;
-    if (v17 == -1)
+    v17 = SLURLMinusFragmentForCKURLs(lCopy);
+    v31 = 0;
+    v18 = [(SLDCloudDocsService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:rLCopy clientConnection:currentConnection error:&v31];
+    v19 = v31;
+    v20 = v19;
+    if (v18 == -1)
     {
-      if (!v18)
+      if (!v19)
       {
-        v19 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCloudDocsService" code:1 userInfo:0];
+        v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCloudDocsService" code:1 userInfo:0];
       }
 
       replyCopy[2](replyCopy, 0);
@@ -209,26 +207,26 @@ void __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block
 
     else
     {
-      v29 = currentConnection;
-      v20 = v16;
+      v30 = currentConnection;
+      v21 = v17;
       highlightCenter = [(SLDCloudDocsService *)self highlightCenter];
       highlights = [highlightCenter highlights];
-      v23 = [highlights count];
+      v24 = [highlights count];
 
-      if (v23)
+      if (v24)
       {
         urlToCollaborationHighlightCache = [(SLDCloudDocsService *)self urlToCollaborationHighlightCache];
-        v16 = v20;
-        v25 = [urlToCollaborationHighlightCache objectForKey:v20];
+        v17 = v21;
+        v27 = [urlToCollaborationHighlightCache objectForKey:v21];
 
-        (replyCopy)[2](replyCopy, v25);
+        (replyCopy)[2](replyCopy, v27);
       }
 
       else
       {
-        v27 = SLDaemonLogHandle();
-        v16 = v20;
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v29 = SLDaemonLogHandle(v25);
+        v17 = v21;
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [SLDCloudDocsService getCollaborationHighlightForShareURL:fileURL:sandboxTokenData:reply:];
         }
@@ -236,30 +234,28 @@ void __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block
         replyCopy[2](replyCopy, 0);
       }
 
-      currentConnection = v29;
+      currentConnection = v30;
     }
   }
 
   else
   {
-    v26 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = SLDaemonLogHandle(v16);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218754;
       selfCopy = self;
-      v33 = 2112;
-      v34 = lCopy;
-      v35 = 2112;
-      v36 = rLCopy;
-      v37 = 2112;
-      v38 = dataCopy;
-      _os_log_error_impl(&dword_231772000, v26, OS_LOG_TYPE_ERROR, "[SLDCloudDocsService: %p] invalid shareURL/fileURL/sandboxTokenData passed in: %@, %@, %@", buf, 0x2Au);
+      v34 = 2112;
+      v35 = lCopy;
+      v36 = 2112;
+      v37 = rLCopy;
+      v38 = 2112;
+      v39 = dataCopy;
+      _os_log_error_impl(&dword_231772000, v28, OS_LOG_TYPE_ERROR, "[SLDCloudDocsService: %p] invalid shareURL/fileURL/sandboxTokenData passed in: %@, %@, %@", buf, 0x2Au);
     }
 
     replyCopy[2](replyCopy, 0);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)highlights
@@ -348,7 +344,7 @@ void __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block
 
 - (void)generateURLToCollaborationHighlightCache
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   urlToCollaborationHighlightCache = [(SLDCloudDocsService *)self urlToCollaborationHighlightCache];
   allObjects = [urlToCollaborationHighlightCache allObjects];
   v5 = [allObjects count];
@@ -359,27 +355,27 @@ void __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block
   if (v5 != v7)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEA78]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     highlights2 = [(SLDCloudDocsService *)self highlights];
-    v10 = [highlights2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [highlights2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         v13 = 0;
         do
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(highlights2);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * v13);
+          v14 = *(*(&v18 + 1) + 8 * v13);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -393,7 +389,7 @@ void __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block
         }
 
         while (v11 != v13);
-        v11 = [highlights2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [highlights2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -401,8 +397,6 @@ void __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block
 
     [(SLDCloudDocsService *)self setUrlToCollaborationHighlightCache:v8];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchHighlights
@@ -428,7 +422,7 @@ void __38__SLDCloudDocsService_fetchHighlights__block_invoke(uint64_t a1, uint64
 
   else
   {
-    v4 = SLDaemonLogHandle();
+    v4 = SLDaemonLogHandle(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __38__SLDCloudDocsService_fetchHighlights__block_invoke_cold_1(a1, v4);
@@ -438,46 +432,44 @@ void __38__SLDCloudDocsService_fetchHighlights__block_invoke(uint64_t a1, uint64
 
 - (void)highlightCenter:(id)center didRemoveHighlights:(id)highlights
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = SLDaemonLogHandle();
+  v8 = *MEMORY[0x277D85DE8];
+  v5 = SLDaemonLogHandle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_INFO, "[%p] Handling highlightCenter:didRemoveHighlights: delegate callback", &v7, 0xCu);
+    _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_INFO, "[%p] Handling highlightCenter:didRemoveHighlights: delegate callback", &v6, 0xCu);
   }
 
   [(NSCache *)self->_urlToCollaborationHighlightCache removeAllObjects];
   [(SLDCloudDocsService *)self fetchHighlights];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)highlightCenterDidAddHighlights:(id)highlights
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = SLDaemonLogHandle();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = SLDaemonLogHandle(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_231772000, v4, OS_LOG_TYPE_INFO, "[%p] Handling highlightCenterDidAddHighlights: delegate callback", &v6, 0xCu);
+    _os_log_impl(&dword_231772000, v4, OS_LOG_TYPE_INFO, "[%p] Handling highlightCenterDidAddHighlights: delegate callback", &v5, 0xCu);
   }
 
   [(NSCache *)self->_urlToCollaborationHighlightCache removeAllObjects];
   [(SLDCloudDocsService *)self fetchHighlights];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_acquireSandboxHandleData:(id)data ForFileProviderDocumentURL:(id)l clientConnection:(id)connection error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   lCopy = l;
   connectionCopy = connection;
   if (![dataCopy length])
   {
-    v13 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SLDCloudDocsService _acquireSandboxHandleData:ForFileProviderDocumentURL:clientConnection:error:];
     }
@@ -486,11 +478,11 @@ void __38__SLDCloudDocsService_fetchHighlights__block_invoke(uint64_t a1, uint64
   }
 
   buf[0] = 0;
-  [dataCopy getBytes:buf range:{objc_msgSend(dataCopy, "length") - 1, 1}];
+  v13 = [dataCopy getBytes:buf range:{objc_msgSend(dataCopy, "length") - 1, 1}];
   if (buf[0])
   {
-    v13 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = SLDaemonLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SLDCloudDocsService _acquireSandboxHandleData:ForFileProviderDocumentURL:clientConnection:error:];
     }
@@ -498,8 +490,8 @@ void __38__SLDCloudDocsService_fetchHighlights__block_invoke(uint64_t a1, uint64
 LABEL_7:
 
 LABEL_8:
-    v14 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = SLDaemonLogHandle(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SLDCloudDocsService _acquireSandboxHandleData:ForFileProviderDocumentURL:clientConnection:error:];
     }
@@ -510,30 +502,31 @@ LABEL_8:
     }
 
 LABEL_12:
-    v15 = -1;
+    v17 = -1;
     goto LABEL_13;
   }
 
   [dataCopy bytes];
-  v18 = sandbox_extension_consume();
-  if (v18 == -1)
+  v15 = sandbox_extension_consume();
+  if (v15 == -1)
   {
     goto LABEL_8;
   }
 
-  v15 = v18;
-  if (![(SLDCloudDocsService *)self _connection:connectionCopy hasPermissionForFileURL:lCopy])
+  v17 = v15;
+  v19 = [(SLDCloudDocsService *)self _connection:connectionCopy hasPermissionForFileURL:lCopy];
+  if ((v19 & 1) == 0)
   {
-    v23 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = SLDaemonLogHandle(v19);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218498;
       selfCopy3 = self;
-      v27 = 2112;
-      v28 = lCopy;
-      v29 = 2112;
-      v30 = connectionCopy;
-      _os_log_error_impl(&dword_231772000, v23, OS_LOG_TYPE_ERROR, "[%p] _acquireSandboxHandleData: acquired a sandbox handle for a file (%@), but the xpc connection (%@) does not have permission to access the file. Releasing sandbox handle.", buf, 0x20u);
+      v28 = 2112;
+      v29 = lCopy;
+      v30 = 2112;
+      v31 = connectionCopy;
+      _os_log_error_impl(&dword_231772000, v24, OS_LOG_TYPE_ERROR, "[%p] _acquireSandboxHandleData: acquired a sandbox handle for a file (%@), but the xpc connection (%@) does not have permission to access the file. Releasing sandbox handle.", buf, 0x20u);
     }
 
     if (error)
@@ -541,26 +534,26 @@ LABEL_12:
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCloudDocsService" code:4 userInfo:0];
     }
 
-    [(SLDCloudDocsService *)self _releaseSandboxHandle:v15];
+    [(SLDCloudDocsService *)self _releaseSandboxHandle:v17];
     goto LABEL_12;
   }
 
-  v24 = 0;
-  v19 = [(SLDCloudDocsService *)self _fileURLHasFileProvider:lCopy error:&v24];
-  v20 = v24;
-  v21 = SLDaemonLogHandle();
-  v22 = v21;
-  if (!v19)
+  v25 = 0;
+  v20 = [(SLDCloudDocsService *)self _fileURLHasFileProvider:lCopy error:&v25];
+  v21 = v25;
+  v22 = SLDaemonLogHandle(v21);
+  v23 = v22;
+  if (!v20)
   {
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218498;
       selfCopy3 = self;
-      v27 = 2112;
-      v28 = lCopy;
-      v29 = 2112;
-      v30 = v20;
-      _os_log_error_impl(&dword_231772000, v22, OS_LOG_TYPE_ERROR, "[%p] _acquireSandboxHandleData: acquired a sandbox handle for a file (%@), but could not find a valid FPItem for that file. This file might not be managed by a FileProvider. Releasing sandbox handle. FileProvider error: %@", buf, 0x20u);
+      v28 = 2112;
+      v29 = lCopy;
+      v30 = 2112;
+      v31 = v21;
+      _os_log_error_impl(&dword_231772000, v23, OS_LOG_TYPE_ERROR, "[%p] _acquireSandboxHandleData: acquired a sandbox handle for a file (%@), but could not find a valid FPItem for that file. This file might not be managed by a FileProvider. Releasing sandbox handle. FileProvider error: %@", buf, 0x20u);
     }
 
     if (error)
@@ -568,25 +561,24 @@ LABEL_12:
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCloudDocsService" code:3 userInfo:0];
     }
 
-    [(SLDCloudDocsService *)self _releaseSandboxHandle:v15];
+    [(SLDCloudDocsService *)self _releaseSandboxHandle:v17];
 
     goto LABEL_12;
   }
 
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
     selfCopy3 = self;
-    v27 = 2048;
-    v28 = v15;
-    v29 = 2112;
-    v30 = lCopy;
-    _os_log_impl(&dword_231772000, v22, OS_LOG_TYPE_DEFAULT, "[%p] _acquireSandboxHandleData: acquired a new handle: %lld for file: %@", buf, 0x20u);
+    v28 = 2048;
+    v29 = v17;
+    v30 = 2112;
+    v31 = lCopy;
+    _os_log_impl(&dword_231772000, v23, OS_LOG_TYPE_DEFAULT, "[%p] _acquireSandboxHandleData: acquired a new handle: %lld for file: %@", buf, 0x20u);
   }
 
 LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v17;
 }
 
 - (BOOL)_fileURLHasFileProvider:(id)provider error:(id *)error
@@ -603,9 +595,9 @@ LABEL_13:
 {
   _connectionCopy = _connection;
   lCopy = l;
-  if (_connectionCopy && ([_connectionCopy auditToken], objc_msgSend(lCopy, "isFileURL")) && (objc_msgSend(lCopy, "path"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v8))
+  if (_connectionCopy && (objc_msgSend_auditToken(_connectionCopy), [lCopy isFileURL]) && (objc_msgSend(lCopy, "path"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v8))
   {
-    [_connectionCopy auditToken];
+    objc_msgSend_auditToken(_connectionCopy);
     path = [lCopy path];
     [path fileSystemRepresentation];
     v10 = sandbox_check_by_audit_token() == 0;
@@ -623,89 +615,52 @@ LABEL_13:
 {
   v13 = *MEMORY[0x277D85DE8];
   v5 = sandbox_extension_release();
-  v6 = SLDaemonLogHandle();
-  v7 = v6;
-  if (v5)
+  v6 = v5;
+  v7 = SLDaemonLogHandle(v5);
+  v8 = v7;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(SLDCloudDocsService *)self _releaseSandboxHandle:handle, v7];
+      [(SLDCloudDocsService *)self _releaseSandboxHandle:handle, v8];
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 134218240;
     selfCopy = self;
     v11 = 2048;
     handleCopy = handle;
-    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "[%p] _releaseSandboxHandle: released handle: %lld", &v9, 0x16u);
+    _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "[%p] _releaseSandboxHandle: released handle: %lld", &v9, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SLDCloudDocsService_shareURLForFileURL_sandboxTokenData_reply___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "[SLDCloudDocsService: %p] failed to get url with error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getCollaborationHighlightForShareURL:fileURL:sandboxTokenData:reply:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "[SLDCloudDocsService: %p] no highlights to check against a highlight for URL: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "[SLDCloudDocsService: %p] failed to get url with error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __38__SLDCloudDocsService_fetchHighlights__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[%p] fetchHighlights: failed to fetch highlights", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_acquireSandboxHandleData:ForFileProviderDocumentURL:clientConnection:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "[%p] _acquireSandboxHandleData: sandbox token for file (%@) was not null-terminated.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_acquireSandboxHandleData:ForFileProviderDocumentURL:clientConnection:error:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "[%p] _acquireSandboxHandleData: tokenData for file (%@) was empty.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_acquireSandboxHandleData:ForFileProviderDocumentURL:clientConnection:error:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "[%p] _acquireSandboxHandleData: failed to consume sandbox token for file: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[%p] fetchHighlights: failed to fetch highlights", &v3, 0xCu);
 }
 
 - (void)_releaseSandboxHandle:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 134218240;
-  *(&v4 + 4) = a1;
-  WORD6(v4) = 2048;
-  HIWORD(v4) = a2;
-  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "[%p] _releaseSandboxHandle: unable to release sandbox extension handle: %lld. Sandbox extensions are a limited resource and this should be investigated!", v4, *(&v4 + 1));
-  v3 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 134218240;
+  *(&v3 + 4) = a1;
+  WORD6(v3) = 2048;
+  HIWORD(v3) = a2;
+  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "[%p] _releaseSandboxHandle: unable to release sandbox extension handle: %lld. Sandbox extensions are a limited resource and this should be investigated!", v3, *(&v3 + 1));
 }
 
 @end

@@ -1,10 +1,11 @@
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
-uint64_t getIOSurface(int a1, os_log_t oslog)
+uint64_t getIOSurface(uint64_t a1, os_log_t oslog)
 {
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
   {
@@ -21,10 +22,11 @@ void sub_25DF595B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25DF64438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, void *a27, void *a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_25DF64438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, void *a27, void *a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  aneserializers::anemodelnewinstanceparams_v1::_ANEModelInstanceParametersSerializerDeserializer::~_ANEModelInstanceParametersSerializerDeserializer(&a34);
+  va_start(va, a33);
 
+  aneserializers::anemodelnewinstanceparams_v1::_ANEModelInstanceParametersSerializerDeserializer::~_ANEModelInstanceParametersSerializerDeserializer(va);
   _Unwind_Resume(a1);
 }
 
@@ -91,12 +93,12 @@ void sub_25DF68C64(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void aneserializers::anemodelnewinstanceparams_v1::_ANEModelInstanceParametersSerializerDeserializer::_ANEModelInstanceParametersSerializerDeserializer(uint64_t a1, uint64_t a2, void *a3)
+void aneserializers::anemodelnewinstanceparams_v1::_ANEModelInstanceParametersSerializerDeserializer::_ANEModelInstanceParametersSerializerDeserializer(unsigned int *a1, uint64_t a2, void *a3)
 {
   a3;
   v5 = *(a2 + 8);
   *a1 = *a2;
-  *(a1 + 8) = v5;
+  a1[2] = v5;
   std::allocate_shared[abi:ne200100]<_IOSurfaceWrapper,std::allocator<_IOSurfaceWrapper>,unsigned int &,NSObject  {objcproto9OS_os_log}* {__strong}&,0>();
 }
 
@@ -125,19 +127,17 @@ void _IOSurfaceWrapper::~_IOSurfaceWrapper(_IOSurfaceWrapper *this)
   }
 }
 
-void aneserializers::anemodelnewinstanceparams_v1::_ANEProcedureDataSerializerDeserializer::_ANEProcedureDataSerializerDeserializer(uint64_t a1, uint64_t a2, void *a3)
+void aneserializers::anemodelnewinstanceparams_v1::_ANEProcedureDataSerializerDeserializer::_ANEProcedureDataSerializerDeserializer(unsigned int *a1, uint64_t a2, void *a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
   a3;
   v5 = *(a2 + 8);
   *a1 = *a2;
-  *(a1 + 8) = v5;
+  a1[2] = v5;
   std::allocate_shared[abi:ne200100]<_IOSurfaceWrapper,std::allocator<_IOSurfaceWrapper>,unsigned int &,NSObject  {objcproto9OS_os_log}* {__strong}&,0>();
 }
 
 void aneserializers::anemodelnewinstanceparams_v1::_ANEWeightSerializerDeserializer::_ANEWeightSerializerDeserializer(_OWORD *a1, _OWORD *a2, void *a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
   a3;
   v5 = *(a2 + 12);
   *a1 = *a2;
@@ -346,23 +346,11 @@ id OUTLINED_FUNCTION_31(id a1)
   return a1;
 }
 
-void getIOSurface()
+void aneserializers::anemodelnewinstanceparams_v1::_ANEModelInstanceParametersSerializerDeserializer::_ANEModelInstanceParametersSerializerDeserializer()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_20();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void aneserializers::anemodelnewinstanceparams_v1::_ANEModelInstanceParametersSerializerDeserializer::_ANEModelInstanceParametersSerializerDeserializer(unsigned int *a1, uint64_t *a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *a2;
   OUTLINED_FUNCTION_26();
   OUTLINED_FUNCTION_17();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void operator delete(void *__p)

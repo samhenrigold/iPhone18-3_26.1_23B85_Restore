@@ -79,7 +79,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v8 = defaultLogHandle();
+  v8 = defaultLogHandle(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __51__NSDictionary_xpcdictConv__initWithXPCDictionary___block_invoke_cold_1(v6, v8);
@@ -93,11 +93,10 @@ LABEL_23:
 
 void __51__NSDictionary_xpcdictConv__initWithXPCDictionary___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_259B7D000, a2, OS_LOG_TYPE_ERROR, "The value for key %{public}@ has a type that is not supported yet", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_259B7D000, a2, OS_LOG_TYPE_ERROR, "The value for key %{public}@ has a type that is not supported yet", &v2, 0xCu);
 }
 
 @end

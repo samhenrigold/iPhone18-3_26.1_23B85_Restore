@@ -39,7 +39,7 @@ flatbuffers::DetachedBuffer *__33__QSSAudioAnalytics_flatbuffData__block_invoke(
 
 - (Offset<siri::speech::schema_fb::AudioAnalytics>)addObjectToBuffer:(void *)buffer
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   speech_recognition_features = [(QSSAudioAnalytics *)self speech_recognition_features];
   v5 = [speech_recognition_features count];
   if (v5)
@@ -52,16 +52,11 @@ flatbuffers::DetachedBuffer *__33__QSSAudioAnalytics_flatbuffData__block_invoke(
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  memset(v22, 0, sizeof(v22));
   obj = [(QSSAudioAnalytics *)self speech_recognition_features];
-  if ([obj countByEnumeratingWithState:&v27 objects:v32 count:16])
+  if ([obj countByEnumeratingWithState:v22 objects:v24 count:16])
   {
-    *v28;
-    *v28;
-    [**(&v27 + 1) addObjectToBuffer:buffer];
+    [**(&v22[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -80,17 +75,12 @@ flatbuffers::DetachedBuffer *__33__QSSAudioAnalytics_flatbuffData__block_invoke(
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  memset(v21, 0, sizeof(v21));
   acoustic_features2 = [(QSSAudioAnalytics *)self acoustic_features];
-  v18 = v6;
-  if ([acoustic_features2 countByEnumeratingWithState:&v23 objects:v31 count:16])
+  v16 = v6;
+  if ([acoustic_features2 countByEnumeratingWithState:v21 objects:v23 count:16])
   {
-    *v24;
-    *v24;
-    [**(&v23 + 1) addObjectToBuffer:obja];
+    [**(&v21[0] + 1) addObjectToBuffer:obja];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -101,9 +91,9 @@ flatbuffers::DetachedBuffer *__33__QSSAudioAnalytics_flatbuffData__block_invoke(
   v10 = *(obja + 8);
   v11 = *(obja + 12);
   v12 = *(obja + 10);
-  if (v18)
+  if (v16)
   {
-    v13 = flatbuffers::FlatBufferBuilder::ReferTo(obja, v18);
+    v13 = flatbuffers::FlatBufferBuilder::ReferTo(obja, v16);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(obja, 4, v13);
   }
 
@@ -113,9 +103,7 @@ flatbuffers::DetachedBuffer *__33__QSSAudioAnalytics_flatbuffData__block_invoke(
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(obja, 6, v14);
   }
 
-  v15.var0 = flatbuffers::FlatBufferBuilder::EndTable(obja, v10 - v11 + v12);
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return flatbuffers::FlatBufferBuilder::EndTable(obja, v10 - v11 + v12);
 }
 
 - (NSArray)acoustic_features

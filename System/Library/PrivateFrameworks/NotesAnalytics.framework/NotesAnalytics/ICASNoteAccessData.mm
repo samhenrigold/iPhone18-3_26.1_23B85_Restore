@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"isPasswordProtected";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"isPasswordProtected";
   isPasswordProtected = [(ICASNoteAccessData *)self isPasswordProtected];
   if (isPasswordProtected)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = isPasswordProtected2;
-  v19[0] = isPasswordProtected2;
-  v18[1] = @"isPinned";
+  v18[0] = isPasswordProtected2;
+  v17[1] = @"isPinned";
   isPinned = [(ICASNoteAccessData *)self isPinned];
   if (isPinned)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = isPinned2;
-  v19[1] = isPinned2;
-  v18[2] = @"collaborationStatus";
+  v18[1] = isPinned2;
+  v17[2] = @"collaborationStatus";
   collaborationStatus = [(ICASNoteAccessData *)self collaborationStatus];
   if (collaborationStatus)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = collaborationStatus2;
-  v19[2] = collaborationStatus2;
-  v18[3] = @"collaborationType";
+  v18[2] = collaborationStatus2;
+  v17[3] = @"collaborationType";
   collaborationType = [(ICASNoteAccessData *)self collaborationType];
   if (collaborationType)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = collaborationType2;
-  v19[3] = collaborationType2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = collaborationType2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

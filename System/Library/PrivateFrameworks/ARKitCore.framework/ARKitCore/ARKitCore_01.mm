@@ -1,4 +1,4 @@
-void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -18,17 +18,17 @@ void _ZNSt3__19allocatorIDv3_fE17allocate_at_leastB8ne200100Em(uint64_t a1, unin
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C24E46F0(_Unwind_Exception *exception_object)
@@ -43,17 +43,17 @@ void sub_1C24E46F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C24E4768(_Unwind_Exception *exception_object)
@@ -68,7 +68,7 @@ void sub_1C24E4768(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -95,7 +95,7 @@ void ___ZL13_ARLogGeneralv_block_invoke_12()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-uint64_t _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -117,7 +117,7 @@ void sub_1C24E489C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -314,7 +314,7 @@ __n128 std::vector<ARPatch>::__move_assign(uint64_t a1, __n128 *a2)
   return result;
 }
 
-uint64_t std::vector<ARPatch>::__init_with_size[abi:ne200100]<ARPatch*,ARPatch*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ARPatch>::__init_with_size[abi:ne200100]<ARPatch*,ARPatch*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -358,37 +358,33 @@ void sub_1C24E6CA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<__ARC3DShapeVertex>::reserve(void *result, unint64_t a2)
+void std::vector<__ARC3DShapeVertex>::reserve(void *a1, unint64_t a2)
 {
-  if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 4) < a2)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x333333333333334)
     {
-      std::allocator<__ARC3DShapeVertex>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<__ARC3DShapeVertex>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
-void *std::vector<short>::reserve(void *result, unint64_t a2)
+void std::vector<short>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 1)
+  if (a2 > (a1[2] - *a1) >> 1)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      std::allocator<short>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<short>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
-void std::vector<short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<short>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -444,7 +440,7 @@ void std::vector<short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 2;
   }
 
   a1[1] = v6;
@@ -475,7 +471,7 @@ void sub_1C24E7458(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -497,7 +493,7 @@ void sub_1C24E7610(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<short>::__assign_with_size[abi:ne200100]<short const*,short const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<short>::__assign_with_size[abi:ne200100]<short const*,short const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -571,10 +567,8 @@ void *std::vector<short>::__assign_with_size[abi:ne200100]<short const*,short co
       v16 = v12;
       do
       {
-        v17 = *v14;
-        v14 += 2;
-        *v16 = v17;
-        v16 += 2;
+        v17 = *v14++;
+        *v16++ = v17;
         v15 += 2;
       }
 
@@ -619,7 +613,7 @@ void ___ZL13_ARLogGeneralv_block_invoke_13()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-uint64_t std::vector<short>::__init_with_size[abi:ne200100]<short const*,short const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<short>::__init_with_size[abi:ne200100]<short const*,short const*>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -668,19 +662,17 @@ void sub_1C24E7A40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      _ZNSt3__19allocatorIDv3_fE17allocate_at_leastB8ne200100Em(result, a2);
+      _ZNSt3__19allocatorIDv3_fE17allocate_at_leastB8ne200100Em(a1, a2);
     }
 
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
 void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(uint64_t a1, _OWORD *a2)
@@ -742,7 +734,7 @@ void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(uint64_
   *(a1 + 8) = v6;
 }
 
-void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -791,7 +783,7 @@ void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, v
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -847,20 +839,20 @@ void std::vector<float>::reserve(std::vector<int> *this, std::vector<int>::size_
   }
 }
 
-void std::vector<unsigned long long>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned long long>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned long long>::__append(a1, a2 - v2);
+    std::vector<unsigned long long>::__append(result, a2 - v2);
   }
 }
 
@@ -940,7 +932,7 @@ void sub_1C24E89FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C24E8E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, void *a47)
+void sub_1C24E8E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47)
 {
   if (__p)
   {
@@ -962,14 +954,15 @@ void sub_1C24E8E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C24E8FA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, char a12)
+void sub_1C24E8FA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   if (__p)
   {
     operator delete(__p);
   }
 
-  +[(ARPointCloud *)&a12];
+  +[(ARPointCloud *)va];
   _Unwind_Resume(a1);
 }
 
@@ -1063,17 +1056,17 @@ void std::vector<unsigned long long>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::vector<unsigned long long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C24E9B20(_Unwind_Exception *exception_object)
@@ -1088,7 +1081,7 @@ void sub_1C24E9B20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1110,50 +1103,49 @@ void sub_1C24E9B9C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16__treeINS_12__value_typeIyDv4_fEENS_19__map_value_compareIyS3_NS_4lessIyEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIyJNS_4pairIyS2_EEEEENSC_INS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(uint64_t a1, unint64_t *a2)
+void *_ZNSt3__16__treeINS_12__value_typeIyDv4_fEENS_19__map_value_compareIyS3_NS_4lessIyEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIyJNS_4pairIyS2_EEEEENSC_INS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::deque<std::pair<int,int>>::push_back(void *result, void *a2)
+void std::deque<std::pair<int,int>>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   v6 = ((v4 - v5) << 6) - 1;
@@ -1165,14 +1157,13 @@ void *std::deque<std::pair<int,int>>::push_back(void *result, void *a2)
   v7 = result[5] + result[4];
   if (v6 == v7)
   {
-    result = std::deque<std::pair<int,int>>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5] + v3[4];
+    std::deque<std::pair<int,int>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
   *(*(v5 + ((v7 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v7 & 0x1FF)) = *a2;
-  ++v3[5];
-  return result;
+  ++result[5];
 }
 
 void sub_1C24EA290(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -1185,19 +1176,19 @@ void sub_1C24EA290(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<std::pair<int,int>>::__add_back_capacity(void *a1)
+void std::deque<std::pair<int,int>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1205,25 +1196,25 @@ void *std::deque<std::pair<int,int>>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_back<std::pair<int,int> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_back<std::pair<int,int> *&>(a1, &v9);
 }
 
 void sub_1C24EA9B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -1237,27 +1228,26 @@ void sub_1C24EA9B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_back<std::pair<int,int> *&>(void *result, void *a2)
+void std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_back<std::pair<int,int> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](result, v11);
+      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1266,28 +1256,26 @@ void *std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_front<std::pair<int,int> *>(const void **result, void *a2)
+void std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_front<std::pair<int,int> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1300,52 +1288,50 @@ const void **std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<i
         v9 = (v7 - v4) >> 2;
       }
 
-      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](result, v9);
+      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *> &>::emplace_back<std::pair<int,int> *>(void *result, void *a2)
+void std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *> &>::emplace_back<std::pair<int,int> *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](result[4], v11);
+      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1354,28 +1340,26 @@ void *std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *> &>::emplace_front<std::pair<int,int> *&>(const void **result, void *a2)
+void std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *> &>::emplace_front<std::pair<int,int> *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1388,41 +1372,40 @@ const void **std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<i
         v9 = (v7 - v4) >> 2;
       }
 
-      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](result[4], v9);
+      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-id _ARLogGeneral_16()
+id _ARLogGeneral_16(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_17 != -1)
   {
     _ARLogGeneral_cold_1_16();
   }
 
-  v1 = _ARLogGeneral_logObj_17;
+  v2 = _ARLogGeneral_logObj_17;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_29()
@@ -1432,20 +1415,20 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_29()
   return result;
 }
 
-void std::vector<simd_float4x4>::resize(void *a1, unint64_t a2)
+void std::vector<simd_float4x4>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 6;
+  v2 = (result[1] - *result) >> 6;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + (a2 << 6);
+      result[1] = *result + (a2 << 6);
     }
   }
 
   else
   {
-    std::vector<simd_float4x4>::__append(a1, a2 - v2);
+    std::vector<simd_float4x4>::__append(result, a2 - v2);
   }
 }
 
@@ -1456,7 +1439,7 @@ void sub_1C24EC170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1478,7 +1461,7 @@ void sub_1C24ED09C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<simd_float4x4>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<simd_float4x4>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -1498,7 +1481,7 @@ void std::allocator<simd_float4x4>::allocate_at_least[abi:ne200100](uint64_t a1,
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<ARSRT>::__init_with_size[abi:ne200100]<ARSRT const*,ARSRT const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ARSRT>::__init_with_size[abi:ne200100]<ARSRT const*,ARSRT const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1520,7 +1503,7 @@ void sub_1C24ED1A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<ARSRT>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ARSRT>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -1603,7 +1586,7 @@ void std::vector<simd_float4x4>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::vector<simd_float4x4>::__assign_with_size[abi:ne200100]<simd_float4x4*,simd_float4x4*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<simd_float4x4>::__assign_with_size[abi:ne200100]<simd_float4x4*,simd_float4x4*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -1679,7 +1662,7 @@ void *std::vector<simd_float4x4>::__assign_with_size[abi:ne200100]<simd_float4x4
   return result;
 }
 
-void *std::vector<ARSRT>::__assign_with_size[abi:ne200100]<ARSRT*,ARSRT*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<ARSRT>::__assign_with_size[abi:ne200100]<ARSRT*,ARSRT*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -1946,7 +1929,7 @@ LABEL_12:
   return v2;
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -2022,7 +2005,7 @@ void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void
   return result;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2058,28 +2041,28 @@ void ___ZL13_ARLogGeneralv_block_invoke_14()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-id _ARLogGeneral_17()
+id _ARLogGeneral_17(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_18[0] != -1)
   {
     _ARLogGeneral_cold_1_17();
   }
 
-  v1 = _ARLogGeneral_logObj_18;
+  v2 = _ARLogGeneral_logObj_18;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral_18()
+id _ARLogGeneral_18(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_19 != -1)
   {
     _ARLogGeneral_cold_1_18();
   }
 
-  v1 = _ARLogGeneral_logObj_19;
+  v2 = _ARLogGeneral_logObj_19;
 
-  return v1;
+  return v2;
 }
 
 __CFString *ARMLDepthDataSourceDescription(uint64_t a1)
@@ -2101,7 +2084,7 @@ __CFString *ARMLDepthDataSourceDescription(uint64_t a1)
   }
 }
 
-ARPlaneAnchor *ARCreatePlaneAnchorFromCV3DPlane(const CV3DPlaneDetectionPlane *a1, NSUUID *a2, simd_float4x4 a3, simd_float4x4 a4, char a5, int a6, __int16 a7)
+ARPlaneAnchor *ARCreatePlaneAnchorFromCV3DPlane(const CV3DPlaneDetectionPlane *a1, NSUUID *a2, simd_float4x4 a3, simd_float4x4 a4, uint64_t a5, int a6, __int16 a7)
 {
   v71 = a4.columns[2];
   v74 = a4.columns[3];
@@ -2132,7 +2115,7 @@ ARPlaneAnchor *ARCreatePlaneAnchorFromCV3DPlane(const CV3DPlaneDetectionPlane *a
   {
     v87 = v83;
     v88 = v84;
-    if ((atomic_load_explicit(&qword_1EBF41CE8, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1EBF41CE8, memory_order_acquire) & 1) == 0)
     {
       ARCreatePlaneAnchorFromCV3DPlane();
     }
@@ -2755,8 +2738,9 @@ void sub_1C24F7E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void setSemantics(ARPlaneAnchor *a1, char a2, const CV3DPlaneDetectionPlane *a3)
+void setSemantics(ARPlaneAnchor *a1, uint64_t a2, const CV3DPlaneDetectionPlane *a3)
 {
+  v3 = a2;
   v4 = a1;
   v5 = objc_opt_new();
   if (CV3DPlaneDetectionGetSemanticLabel())
@@ -2776,10 +2760,10 @@ void setSemantics(ARPlaneAnchor *a1, char a2, const CV3DPlaneDetectionPlane *a3)
     }
   }
 
-  setSemanticsFromCV3D(0, v5, a2, v4);
+  setSemanticsFromCV3D(0, v5, v3, v4);
 }
 
-ARPlaneAnchor *ARUpdatePlaneAnchorFromCV3DPlane(ARPlaneAnchor *a1, const CV3DPlaneDetectionPlane *a2, simd_float4x4 a3, simd_float4x4 a4, char a5, int a6, __int16 a7)
+ARPlaneAnchor *ARUpdatePlaneAnchorFromCV3DPlane(ARPlaneAnchor *a1, const CV3DPlaneDetectionPlane *a2, simd_float4x4 a3, simd_float4x4 a4, uint64_t a5, int a6, __int16 a7)
 {
   v67 = a4.columns[2];
   v70 = a4.columns[3];
@@ -2808,7 +2792,7 @@ ARPlaneAnchor *ARUpdatePlaneAnchorFromCV3DPlane(ARPlaneAnchor *a1, const CV3DPla
   {
     v88 = v84;
     v89 = v85;
-    if ((atomic_load_explicit(&qword_1EBF41CE8, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1EBF41CE8, memory_order_acquire) & 1) == 0)
     {
       ARCreatePlaneAnchorFromCV3DPlane();
     }
@@ -2947,8 +2931,9 @@ ARPlaneAnchor *ARUpdatePlaneAnchorFromCV3DPlane(ARPlaneAnchor *a1, const CV3DPla
   return v43;
 }
 
-void setSemanticsFromCV3D(unsigned int a1, void *a2, char a3, void *a4)
+void setSemanticsFromCV3D(uint64_t a1, void *a2, char a3, void *a4)
 {
+  v6 = a1;
   v21 = a2;
   v7 = a4;
   v8 = v21;
@@ -2990,11 +2975,11 @@ LABEL_15:
     }
   }
 
-  if (a1)
+  if (v6)
   {
-    [v9 setClassification:ARPlaneClassificationForSceneUnderstandingLabel(a1)];
+    [v9 setClassification:ARPlaneClassificationForSceneUnderstandingLabel(v6)];
     [v9 setClassificationStatus:3];
-    v19 = NSStringFromSceneUnderstandingLabel(a1);
+    v19 = NSStringFromSceneUnderstandingLabel(v6);
     [v9 setClassificationLabel:v19];
   }
 
@@ -3016,16 +3001,16 @@ void ___ZL13_ARLogGeneralv_block_invoke_15()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-id _ARLogGeneral_19()
+id _ARLogGeneral_19(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_20 != -1)
   {
     _ARLogGeneral_cold_1_19();
   }
 
-  v1 = _ARLogGeneral_logObj_20;
+  v2 = _ARLogGeneral_logObj_20;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_30()
@@ -3035,53 +3020,53 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_30()
   return result;
 }
 
-void std::vector<unsigned char>::resize(uint64_t a1, unint64_t a2)
+void std::vector<unsigned char>::resize(char **result, unint64_t a2)
 {
-  v2 = *(a1 + 8) - *a1;
+  v2 = result[1] - *result;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<unsigned char>::__append(a1, v4);
+    std::vector<unsigned char>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    *(a1 + 8) = *a1 + a2;
+    result[1] = &(*result)[a2];
   }
 }
 
-void _ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
-void _ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
@@ -3285,7 +3270,7 @@ void _ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE8__appendEm(uint64_t a1, unint64_
   }
 }
 
-char *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100INS_11__wrap_iterIPS1_EES8_EES8_NS6_IPKS1_EET_T0_l(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100INS_11__wrap_iterIPS1_EES8_EES8_NS6_IPKS1_EET_T0_l(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -3294,8 +3279,8 @@ char *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 4)
   {
     v11 = *a1;
@@ -3333,23 +3318,24 @@ char *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
     v35 = (16 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 16;
       *v35++ = v36;
       v34 -= 16;
     }
 
     while (v34);
-    memcpy((v33 + 16 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 16 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 16 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 16 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -3364,14 +3350,14 @@ char *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
   {
     v29 = &__dst[16 * a5];
     v30 = (v10 - 16 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[16 * a5], __dst, v10 - v29);
@@ -3386,11 +3372,11 @@ char *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[16 * a5];
@@ -3410,7 +3396,7 @@ char *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[16 * a5], v5, v21 - v22);
@@ -3441,10 +3427,10 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
   v7 = __src;
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 < __len)
+  if ((v9 - v10) < __len)
   {
     v11 = *a1;
-    v12 = &v10[__len - *a1];
+    v12 = v10 - *a1 + __len;
     if (v12 < 0)
     {
       _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
@@ -3501,10 +3487,10 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
   }
 
   v15 = v10 - __dst;
-  if (v10 - __dst >= __len)
+  if ((v10 - __dst) >= __len)
   {
     v26 = &__dst[__len];
-    v27 = &v10[-__len];
+    v27 = (v10 - __len);
     v28 = *(a1 + 8);
     if (v10 >= __len)
     {
@@ -3535,16 +3521,16 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
     memmove(*(a1 + 8), &__src[v15], a4 - &__src[v15]);
   }
 
-  v18 = &v10[v17];
-  *(a1 + 8) = &v10[v17];
+  v18 = (v10 + v17);
+  *(a1 + 8) = v10 + v17;
   if (v15 >= 1)
   {
     v19 = &v5[v6];
-    v20 = &v10[v17];
+    v20 = (v10 + v17);
     if (&v18[-v6] < v10)
     {
-      v21 = a4 - &v7[v6];
-      v22 = a4 - v7;
+      v21 = (a4 - &v7[v6]);
+      v22 = (a4 - v7);
       do
       {
         v5[v22++] = v5[v21++];
@@ -3570,7 +3556,7 @@ LABEL_27:
   return v5;
 }
 
-char *_ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100INS_11__wrap_iterIPS1_EES8_EES8_NS6_IPKS1_EET_T0_l(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *_ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100INS_11__wrap_iterIPS1_EES8_EES8_NS6_IPKS1_EET_T0_l(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -3579,8 +3565,8 @@ char *_ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -3618,23 +3604,24 @@ char *_ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -3649,14 +3636,14 @@ char *_ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -3671,11 +3658,11 @@ char *_ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -3695,7 +3682,7 @@ char *_ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -3714,7 +3701,7 @@ LABEL_29:
   return v5;
 }
 
-char *_ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100INS_11__wrap_iterIPS1_EES8_EES8_NS6_IPKS1_EET_T0_l(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *_ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100INS_11__wrap_iterIPS1_EES8_EES8_NS6_IPKS1_EET_T0_l(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -3723,8 +3710,8 @@ char *_ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 3)
   {
     v11 = *a1;
@@ -3762,23 +3749,24 @@ char *_ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
 
     while (v34);
-    memcpy((v33 + 8 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 8 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 8 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 8 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -3793,14 +3781,14 @@ char *_ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
   {
     v29 = &__dst[8 * a5];
     v30 = (v10 - 8 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[8 * a5], __dst, v10 - v29);
@@ -3815,11 +3803,11 @@ char *_ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[8 * a5];
@@ -3839,7 +3827,7 @@ char *_ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE18__insert_with_sizeB8ne200100IN
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[8 * a5], v5, v21 - v22);
@@ -3865,24 +3853,24 @@ void sub_1C24FE878(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C24FF338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C24FF338(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ARSpatialMappingResultData;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C24FF470(_Unwind_Exception *exception_object)
@@ -3897,7 +3885,7 @@ void sub_1C24FF470(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -3907,7 +3895,7 @@ void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t
   _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -3943,28 +3931,28 @@ void ___ZL13_ARLogGeneralv_block_invoke_17()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-id _ARLogGeneral_20()
+id _ARLogGeneral_20(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_21[0] != -1)
   {
     _ARLogGeneral_cold_1_20();
   }
 
-  v1 = _ARLogGeneral_logObj_21;
+  v2 = _ARLogGeneral_logObj_21;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral_21()
+id _ARLogGeneral_21(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_22 != -1)
   {
     _ARLogGeneral_cold_1_21();
   }
 
-  v1 = _ARLogGeneral_logObj_22;
+  v2 = _ARLogGeneral_logObj_22;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ARCaptureLensFromMakerNotesDictionary(void *a1)
@@ -3979,7 +3967,7 @@ uint64_t ARCaptureLensFromMakerNotesDictionary(void *a1)
     }
 
     v7 = ARShouldUseLogTypeError_internalOSVersion_30;
-    v8 = _ARLogGeneral_21();
+    v8 = _ARLogGeneral_21(v1);
     v4 = v8;
     if (v7 == 1)
     {
@@ -4023,7 +4011,7 @@ uint64_t ARCaptureLensFromMakerNotesDictionary(void *a1)
     }
 
     v13 = ARShouldUseLogTypeError_internalOSVersion_30;
-    v14 = _ARLogGeneral_21();
+    v14 = _ARLogGeneral_21(v3);
     v15 = v14;
     if (v13 == 1)
     {
@@ -4073,16 +4061,16 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_31()
   return result;
 }
 
-id _ARLogGeneral_22()
+id _ARLogGeneral_22(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_23 != -1)
   {
     _ARLogGeneral_cold_1_22();
   }
 
-  v1 = _ARLogGeneral_logObj_23;
+  v2 = _ARLogGeneral_logObj_23;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_32()
@@ -4121,16 +4109,16 @@ BOOL _isPointCloudBlackened(void *a1)
   return v4;
 }
 
-id _ARLogGeneral_23()
+id _ARLogGeneral_23(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_24 != -1)
   {
     _ARLogGeneral_cold_1_23();
   }
 
-  v1 = _ARLogGeneral_logObj_24;
+  v2 = _ARLogGeneral_logObj_24;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_33()
@@ -4352,7 +4340,7 @@ id NSStringFromARCollaborationData(void *a1)
 
   [v5 appendFormat:@" priority=%@", v7];
   [v5 appendFormat:@" version=%ti", objc_msgSend(v2, "version")];
-  [v2 timestamp];
+  objc_msgSend_timestamp(v2);
   [v5 appendFormat:@" timestamp=%f", v8];
   v9 = [v2 vioData];
   [v5 appendFormat:@" vioData=%tu", objc_msgSend(v9, "length")];
@@ -4451,16 +4439,16 @@ __CFString *NSStringFromARAltitudeSource(unint64_t a1)
   }
 }
 
-id _ARLogGeneral_24()
+id _ARLogGeneral_24(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_26 != -1)
   {
     _ARLogGeneral_cold_1_24();
   }
 
-  v1 = _ARLogGeneral_logObj_26;
+  v2 = _ARLogGeneral_logObj_26;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_34()
@@ -4602,41 +4590,41 @@ void sub_1C2515F30(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long>(uint64_t a1, unint64_t *a2)
+void *std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -4652,7 +4640,7 @@ void *std::set<unsigned long long>::set[abi:ne200100](void *a1, uint64_t a2)
   return a1;
 }
 
-uint64_t std::set<unsigned long long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long>>(uint64_t result, void *a2, void *a3)
+void *std::set<unsigned long long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -4660,7 +4648,7 @@ uint64_t std::set<unsigned long long>::insert[abi:ne200100]<std::__tree_const_it
     v5 = result;
     do
     {
-      result = std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(v5, (v5 + 8), v4 + 4, v4 + 4);
       v6 = v4[1];
       if (v6)
       {
@@ -4694,15 +4682,15 @@ uint64_t std::set<unsigned long long>::insert[abi:ne200100]<std::__tree_const_it
   return result;
 }
 
-uint64_t std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, void *a2, unint64_t *a3)
+void *std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(uint64_t **a1, void *a2, unint64_t *a3, void *a4)
 {
-  v3 = *std::__tree<unsigned long long>::__find_equal<unsigned long long>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<unsigned long long>::__find_equal<unsigned long long>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<unsigned long long>::__find_equal<unsigned long long>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -5003,7 +4991,7 @@ void ARConvertVisionSourceToWorldSource(void *a1, int a2, simd_float4 a3, simd_f
   }
 }
 
-char **cv3d::recon::mesh_util::TriMesh<float,unsigned int>::operator=(char **a1, char **a2)
+uint64_t *cv3d::recon::mesh_util::TriMesh<float,unsigned int>::operator=(uint64_t *a1, char **a2)
 {
   if (a1 != a2)
   {
@@ -5019,7 +5007,7 @@ char **cv3d::recon::mesh_util::TriMesh<float,unsigned int>::operator=(char **a1,
   return a1;
 }
 
-char *std::vector<cva::Matrix<float,3u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<float,3u,1u,false>*,cva::Matrix<float,3u,1u,false>*>(char **a1, char *a2, char *a3, unint64_t a4)
+char *std::vector<cva::Matrix<float,3u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<float,3u,1u,false>*,cva::Matrix<float,3u,1u,false>*>(uint64_t *a1, char *a2, char *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -5129,7 +5117,7 @@ char *std::vector<cva::Matrix<float,3u,1u,false>>::__assign_with_size[abi:ne2001
   return result;
 }
 
-void std::vector<cva::Matrix<float,3u,1u,false>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<cva::Matrix<float,3u,1u,false>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1555555555555556)
   {
@@ -5149,7 +5137,7 @@ void std::allocator<cva::Matrix<float,3u,1u,false>>::allocate_at_least[abi:ne200
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-char *std::vector<cva::Matrix<unsigned int,2u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<unsigned int,2u,1u,false>*,cva::Matrix<unsigned int,2u,1u,false>*>(char **a1, char *a2, char *a3, unint64_t a4)
+char *std::vector<cva::Matrix<unsigned int,2u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<unsigned int,2u,1u,false>*,cva::Matrix<unsigned int,2u,1u,false>*>(uint64_t *a1, char *a2, char *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -5253,7 +5241,7 @@ char *std::vector<cva::Matrix<unsigned int,2u,1u,false>>::__assign_with_size[abi
   return result;
 }
 
-void *cv3d::recon::mesh_util::TriMesh<float,unsigned int>::TriMesh(void *a1, uint64_t *a2)
+uint64_t *cv3d::recon::mesh_util::TriMesh<float,unsigned int>::TriMesh(uint64_t *a1, uint64_t **a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -5262,27 +5250,27 @@ void *cv3d::recon::mesh_util::TriMesh<float,unsigned int>::TriMesh(void *a1, uin
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<cva::Matrix<float,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,3u,1u,false>*,cva::Matrix<float,3u,1u,false>*>((a1 + 3), a2[3], a2[4], 0xAAAAAAAAAAAAAAABLL * ((a2[4] - a2[3]) >> 2));
+  std::vector<cva::Matrix<float,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,3u,1u,false>*,cva::Matrix<float,3u,1u,false>*>(a1 + 3, a2[3], a2[4], 0xAAAAAAAAAAAAAAABLL * ((a2[4] - a2[3]) >> 2));
   a1[6] = 0;
   a1[7] = 0;
   a1[8] = 0;
-  std::vector<cva::Matrix<float,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,3u,1u,false>*,cva::Matrix<float,3u,1u,false>*>((a1 + 6), a2[6], a2[7], 0xAAAAAAAAAAAAAAABLL * ((a2[7] - a2[6]) >> 2));
+  std::vector<cva::Matrix<float,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,3u,1u,false>*,cva::Matrix<float,3u,1u,false>*>(a1 + 6, a2[6], a2[7], 0xAAAAAAAAAAAAAAABLL * ((a2[7] - a2[6]) >> 2));
   a1[9] = 0;
   a1[10] = 0;
   a1[11] = 0;
-  std::vector<cva::Matrix<unsigned int,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,3u,1u,false>*,cva::Matrix<unsigned int,3u,1u,false>*>((a1 + 9), a2[9], a2[10], 0xAAAAAAAAAAAAAAABLL * ((a2[10] - a2[9]) >> 2));
+  std::vector<cva::Matrix<unsigned int,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,3u,1u,false>*,cva::Matrix<unsigned int,3u,1u,false>*>(a1 + 9, a2[9], a2[10], 0xAAAAAAAAAAAAAAABLL * ((a2[10] - a2[9]) >> 2));
   a1[12] = 0;
   a1[13] = 0;
   a1[14] = 0;
-  std::vector<cva::Matrix<unsigned int,2u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,2u,1u,false>*,cva::Matrix<unsigned int,2u,1u,false>*>((a1 + 12), a2[12], a2[13], (a2[13] - a2[12]) >> 3);
+  std::vector<cva::Matrix<unsigned int,2u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,2u,1u,false>*,cva::Matrix<unsigned int,2u,1u,false>*>(a1 + 12, a2[12], a2[13], a2[13] - a2[12]);
   a1[15] = 0;
   a1[16] = 0;
   a1[17] = 0;
-  std::vector<cva::Matrix<float,2u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,2u,1u,false>*,cva::Matrix<float,2u,1u,false>*>((a1 + 15), a2[15], a2[16], (a2[16] - a2[15]) >> 3);
+  std::vector<cva::Matrix<float,2u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,2u,1u,false>*,cva::Matrix<float,2u,1u,false>*>(a1 + 15, a2[15], a2[16], a2[16] - a2[15]);
   a1[18] = 0;
   a1[19] = 0;
   a1[20] = 0;
-  std::vector<cva::Matrix<unsigned int,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,3u,1u,false>*,cva::Matrix<unsigned int,3u,1u,false>*>((a1 + 18), a2[18], a2[19], 0xAAAAAAAAAAAAAAABLL * ((a2[19] - a2[18]) >> 2));
+  std::vector<cva::Matrix<unsigned int,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,3u,1u,false>*,cva::Matrix<unsigned int,3u,1u,false>*>(a1 + 18, a2[18], a2[19], 0xAAAAAAAAAAAAAAABLL * ((a2[19] - a2[18]) >> 2));
   return a1;
 }
 
@@ -5333,7 +5321,7 @@ void sub_1C2518F1C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<cva::Matrix<float,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,3u,1u,false>*,cva::Matrix<float,3u,1u,false>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<cva::Matrix<float,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,3u,1u,false>*,cva::Matrix<float,3u,1u,false>*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5355,7 +5343,7 @@ void sub_1C2519014(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<cva::Matrix<unsigned int,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,3u,1u,false>*,cva::Matrix<unsigned int,3u,1u,false>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<cva::Matrix<unsigned int,3u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,3u,1u,false>*,cva::Matrix<unsigned int,3u,1u,false>*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5377,7 +5365,7 @@ void sub_1C2519094(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<cva::Matrix<unsigned int,2u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,2u,1u,false>*,cva::Matrix<unsigned int,2u,1u,false>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<cva::Matrix<unsigned int,2u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<unsigned int,2u,1u,false>*,cva::Matrix<unsigned int,2u,1u,false>*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5399,7 +5387,7 @@ void sub_1C2519108(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<cva::Matrix<float,2u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,2u,1u,false>*,cva::Matrix<float,2u,1u,false>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<cva::Matrix<float,2u,1u,false>>::__init_with_size[abi:ne200100]<cva::Matrix<float,2u,1u,false>*,cva::Matrix<float,2u,1u,false>*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5421,7 +5409,7 @@ void sub_1C251917C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -5598,31 +5586,31 @@ __CFString *NSStringFromARPlaneAlignment(uint64_t a1)
 
 id ARCreateOBJStringForPlaneAnchors(void *a1, void *a2, float a3)
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = [MEMORY[0x1E696AD60] string];
-  v77 = 0u;
-  v78 = 0u;
-  v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v77 objects:v84 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v80 objects:v87 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
     v11 = 0;
-    v12 = *v78;
+    v12 = *v81;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v78 != v12)
+        if (*v81 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v77 + 1) + 8 * i);
+        v14 = *(*(&v80 + 1) + 8 * i);
         v15 = [v14 geometry];
         v11 += [v15 vertexCount];
 
@@ -5630,137 +5618,138 @@ id ARCreateOBJStringForPlaneAnchors(void *a1, void *a2, float a3)
         v10 += [v16 triangleCount];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v77 objects:v84 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v80 objects:v87 count:16];
     }
 
     while (v9);
 
     if (v11)
     {
-      v17 = v10 == 0;
+      v18 = v10 == 0;
     }
 
     else
     {
-      v17 = 1;
+      v18 = 1;
     }
 
-    if (!v17)
+    if (!v18)
     {
       [v6 appendString:@"#\n"];
-      v18 = MEMORY[0x1E696AEC0];
-      v19 = [MEMORY[0x1E696AAE8] mainBundle];
-      v20 = [v19 bundleIdentifier];
-      v21 = ARVersionStringForIdentifier(v20);
-      v22 = ARVersionStringForIdentifier(@"com.apple.ARKit");
+      v19 = MEMORY[0x1E696AEC0];
+      v20 = [MEMORY[0x1E696AAE8] mainBundle];
+      v21 = [v20 bundleIdentifier];
+      v22 = ARVersionStringForIdentifier(v21);
+      v23 = ARVersionStringForIdentifier(@"com.apple.ARKit");
       ARVersionStringForIdentifier(@"com.apple.AppleCV3D");
-      v23 = v66 = v7;
-      v24 = [v18 stringWithFormat:@"# ARKit plane geometry mesh exported from ARExamples %@, ARKit %@, AppleCV3D %@\n", v21, v22, v23];
-      [v6 appendString:v24];
-
-      [v6 appendString:@"#\n"];
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"# Vertex count: %d\n", v11];
+      v24 = v69 = v7;
+      v25 = [v19 stringWithFormat:@"# ARKit plane geometry mesh exported from ARExamples %@, ARKit %@, AppleCV3D %@\n", v22, v23, v24];
       [v6 appendString:v25];
 
-      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"# Face count: %d\n", (2 * v10)];
+      [v6 appendString:@"#\n"];
+      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"# Vertex count: %d\n", v11];
       [v6 appendString:v26];
+
+      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"# Face count: %d\n", (2 * v10)];
+      [v6 appendString:v27];
 
       [v6 appendString:@"#\n"];
       [v6 appendString:@"# Real world scale is 1 unit = 1 m\n"];
       [v6 appendString:@"# Each vertex is followed by four RGBA color values in range [0.0 - 1.0] (not in spec)\n"];
-      v74 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       v75 = 0u;
-      v72 = 0u;
-      v73 = 0u;
-      obj = v66;
-      v69 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
-      if (v69)
+      v76 = 0u;
+      obj = v69;
+      v72 = [obj countByEnumeratingWithState:&v75 objects:v84 count:16];
+      if (v72)
       {
-        v27 = 1;
-        v68 = *v73;
-        v28 = a3;
+        v28 = 1;
+        v71 = *v76;
+        v29 = a3;
         do
         {
-          v29 = 0;
+          v30 = 0;
           do
           {
-            if (*v73 != v68)
+            if (*v76 != v71)
             {
               objc_enumerationMutation(obj);
             }
 
-            v70 = v29;
-            v30 = *(*(&v72 + 1) + 8 * v29);
+            v73 = v30;
+            v31 = *(*(&v75 + 1) + 8 * v30);
             [v6 appendString:@"\n"];
-            v31 = MEMORY[0x1E696AEC0];
-            v32 = [v30 identifier];
-            v33 = [v32 UUIDString];
-            v34 = [v31 stringWithFormat:@"o plane_anchor_%@\n", v33];
-            [v6 appendString:v34];
+            v32 = MEMORY[0x1E696AEC0];
+            v33 = [v31 identifier];
+            v34 = [v33 UUIDString];
+            v35 = [v32 stringWithFormat:@"o plane_anchor_%@\n", v34];
+            [v6 appendString:v35];
 
             [v6 appendString:@"\n"];
-            v35 = [v30 geometry];
-            v36 = [v35 vertices];
-            v37 = [v35 vertexCount];
-            v38 = ARCV3DColorComponentsForARKitSemantics([v30 classification]);
-            v71 = v37;
-            if (v37)
+            v36 = [v31 geometry];
+            v37 = [v36 vertices];
+            v38 = [v36 vertexCount];
+            v39 = [v31 classification];
+            v41 = ARCV3DColorComponentsForARKitSemantics(v39, v40);
+            v74 = v38;
+            if (v38)
             {
-              v39 = v38.n128_f32[0];
-              v40 = v38.n128_f32[1];
-              v41 = v38.n128_f32[2];
-              v42 = v37;
+              v42 = v41.n128_f32[0];
+              v43 = v41.n128_f32[1];
+              v44 = v41.n128_f32[2];
+              v45 = v38;
               do
               {
-                v43 = *v36++;
-                [v30 transform];
-                v48 = vaddq_f32(v47, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v44, v43.f32[0]), v45, *v43.f32, 1), v46, v43, 2));
-                v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"v %.03f %.03f %.03f %.03f %.03f %.03f %.03f\n", v48.f32[0], v48.f32[1], v48.f32[2], *&v39, *&v40, *&v41, *&v28];
-                [v6 appendString:v49];
+                v46 = *v37++;
+                objc_msgSend_transform(v31);
+                v51 = vaddq_f32(v50, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v47, v46.f32[0]), v48, *v46.f32, 1), v49, v46, 2));
+                v52 = [MEMORY[0x1E696AEC0] stringWithFormat:@"v %.03f %.03f %.03f %.03f %.03f %.03f %.03f\n", v51.f32[0], v51.f32[1], v51.f32[2], *&v42, *&v43, *&v44, *&v29];
+                [v6 appendString:v52];
 
-                --v42;
+                --v45;
               }
 
-              while (v42);
+              while (v45);
             }
 
-            [v6 appendString:{@"\n", v38.n128_f64[0]}];
-            v50 = [v35 triangleIndices];
-            v51 = [v35 triangleCount];
-            if (v51)
+            [v6 appendString:{@"\n", v41.n128_f64[0]}];
+            v53 = [v36 triangleIndices];
+            v54 = [v36 triangleCount];
+            if (v54)
             {
-              v52 = v51;
-              v53 = (v50 + 4);
+              v55 = v54;
+              v56 = (v53 + 4);
               do
               {
-                v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"f %d %d %d\n", (v27 + *(v53 - 2)), (v27 + *(v53 - 1)), (v27 + *v53)];
-                [v6 appendString:v54];
+                v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"f %d %d %d\n", (v28 + *(v56 - 2)), (v28 + *(v56 - 1)), (v28 + *v56)];
+                [v6 appendString:v57];
 
-                v55 = [MEMORY[0x1E696AEC0] stringWithFormat:@"f %d %d %d\n", (v27 + *v53), (v27 + *(v53 - 1)), (v27 + *(v53 - 2))];
-                [v6 appendString:v55];
+                v58 = [MEMORY[0x1E696AEC0] stringWithFormat:@"f %d %d %d\n", (v28 + *v56), (v28 + *(v56 - 1)), (v28 + *(v56 - 2))];
+                [v6 appendString:v58];
 
-                v53 += 3;
-                --v52;
+                v56 += 3;
+                --v55;
               }
 
-              while (v52);
+              while (v55);
             }
 
-            v27 += v71;
+            v28 += v74;
 
-            v29 = v70 + 1;
+            v30 = v73 + 1;
           }
 
-          while (v70 + 1 != v69);
-          v69 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
+          while (v73 + 1 != v72);
+          v72 = [obj countByEnumeratingWithState:&v75 objects:v84 count:16];
         }
 
-        while (v69);
+        while (v72);
       }
 
       [v6 appendString:@"\n"];
       [v6 appendString:@"# EOF\n"];
-      v7 = v66;
+      v7 = v69;
       goto LABEL_37;
     }
   }
@@ -5774,46 +5763,46 @@ id ARCreateOBJStringForPlaneAnchors(void *a1, void *a2, float a3)
     ARCreateOBJStringForPlaneAnchors_cold_1();
   }
 
-  v56 = ARShouldUseLogTypeError_internalOSVersion_34;
-  v57 = _ARLogGeneral_25();
-  v58 = v57;
-  if (v56 == 1)
+  v59 = ARShouldUseLogTypeError_internalOSVersion_34;
+  v60 = _ARLogGeneral_25(v17);
+  v61 = v60;
+  if (v59 == 1)
   {
-    if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_35;
     }
 
     *buf = 0;
-    v59 = "No mesh to save.";
-    v60 = v58;
-    v61 = OS_LOG_TYPE_ERROR;
+    v62 = "No mesh to save.";
+    v63 = v61;
+    v64 = OS_LOG_TYPE_ERROR;
   }
 
   else
   {
-    if (!os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
     {
       goto LABEL_35;
     }
 
     *buf = 0;
-    v59 = "Error: No mesh to save.";
-    v60 = v58;
-    v61 = OS_LOG_TYPE_INFO;
+    v62 = "Error: No mesh to save.";
+    v63 = v61;
+    v64 = OS_LOG_TYPE_INFO;
   }
 
-  _os_log_impl(&dword_1C241C000, v60, v61, v59, buf, 2u);
+  _os_log_impl(&dword_1C241C000, v63, v64, v62, buf, 2u);
 LABEL_35:
 
   if (a2)
   {
-    v62 = MEMORY[0x1E696ABC0];
-    v63 = *MEMORY[0x1E696A250];
-    v82 = *MEMORY[0x1E696A578];
-    v83 = @"There is no plane geometry mesh to save.";
-    v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-    *a2 = [v62 errorWithDomain:v63 code:-1 userInfo:v64];
+    v65 = MEMORY[0x1E696ABC0];
+    v66 = *MEMORY[0x1E696A250];
+    v85 = *MEMORY[0x1E696A578];
+    v86 = @"There is no plane geometry mesh to save.";
+    v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+    *a2 = [v65 errorWithDomain:v66 code:-1 userInfo:v67];
   }
 
 LABEL_37:
@@ -5821,16 +5810,16 @@ LABEL_37:
   return v6;
 }
 
-id _ARLogGeneral_25()
+id _ARLogGeneral_25(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_27 != -1)
   {
     _ARLogGeneral_cold_1_25();
   }
 
-  v1 = _ARLogGeneral_logObj_27;
+  v2 = _ARLogGeneral_logObj_27;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_35()
@@ -5872,16 +5861,16 @@ uint64_t ARPowerUsageForPowerPressureLevel(int a1)
   }
 }
 
-id _ARLogGeneral_26()
+id _ARLogGeneral_26(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_28 != -1)
   {
     _ARLogGeneral_cold_1_26();
   }
 
-  v1 = _ARLogGeneral_logObj_28;
+  v2 = _ARLogGeneral_logObj_28;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_36()
@@ -5891,16 +5880,16 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_36()
   return result;
 }
 
-id _ARLogGeneral_27()
+id _ARLogGeneral_27(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_29 != -1)
   {
     _ARLogGeneral_cold_1_27();
   }
 
-  v1 = _ARLogGeneral_logObj_29;
+  v2 = _ARLogGeneral_logObj_29;
 
-  return v1;
+  return v2;
 }
 
 ARSkeletonJointName ARSkeletonJointNameForRecognizedPointKey(VNRecognizedPointKey recognizedPointKey)
@@ -5923,7 +5912,7 @@ ARSkeletonJointName ARSkeletonJointNameForRecognizedPointKey(VNRecognizedPointKe
   return v5;
 }
 
-void anonymous namespace::populateJointnameToIndex(void *a1, void *a2)
+void anonymous namespace::populateJointnameToIndex(void *a1, float *a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -5949,7 +5938,7 @@ void anonymous namespace::populateJointnameToIndex(void *a1, void *a2)
         v8[0] = [*(*(&v9 + 1) + 8 * v7) UTF8String];
         v8[1] = strlen(v8[0]);
         v13 = v8;
-        std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(a2, v8)[4] = v5;
+        std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(a2, v8, &std::piecewise_construct, &v13)[4] = v5;
         ++v7;
         v5 = (v5 + 1);
       }
@@ -5962,83 +5951,83 @@ void anonymous namespace::populateJointnameToIndex(void *a1, void *a2)
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(float *a1, uint64_t **a2, uint64_t a3, _OWORD **a4)
 {
-  v4 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v7 = v6;
+  v8 = *(a1 + 2);
+  if (!*&v8)
   {
     goto LABEL_20;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_20:
     operator new();
   }
 
-  v14 = a2;
-  v12 = *a2;
-  v13 = *(v14 + 8);
+  v16 = a2;
+  v14 = *a2;
+  v15 = v16[1];
   while (1)
   {
-    v15 = v11[1];
-    if (v15 == v5)
+    v17 = v13[1];
+    if (v17 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v15 >= *&v6)
+      if (v17 >= *&v8)
       {
-        v15 %= *&v6;
+        v17 %= *&v8;
       }
     }
 
     else
     {
-      v15 &= *&v6 - 1;
+      v17 &= *&v8 - 1;
     }
 
-    if (v15 != v9)
+    if (v17 != v11)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_20;
     }
   }
 
-  if (v11[3] != v13 || memcmp(v11[2], v12, v13))
+  if (v13[3] != v15 || memcmp(v13[2], v14, v15))
   {
     goto LABEL_19;
   }
 
-  return v11;
+  return v13;
 }
 
 unint64_t std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2, unint64_t a3)
@@ -6179,7 +6168,7 @@ unint64_t std::__murmur2_or_cityhash<unsigned long,64ul>::__hash_len_33_to_64[ab
   return 0x9AE16A3B2F90404FLL * ((v11 - 0x3C5A37A36834CED9 * (v13 ^ (v13 >> 47))) ^ ((v11 - 0x3C5A37A36834CED9 * (v13 ^ (v13 >> 47))) >> 47));
 }
 
-void std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -6195,7 +6184,7 @@ void std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,st
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -6203,7 +6192,7 @@ void std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,st
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -6227,7 +6216,7 @@ void std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,st
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -6254,9 +6243,9 @@ void std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,st
   *(a1 + 8) = 0;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::find<std::string_view>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::find<std::string_view>(void *a1, const void **a2)
 {
-  v4 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
+  v4 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, a2[1]);
   v5 = a1[1];
   if (!*&v5)
   {
@@ -6292,7 +6281,7 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,unsigned lo
   {
     v14 = a2;
     v12 = *a2;
-    v13 = *(v14 + 8);
+    v13 = v14[1];
     do
     {
       v15 = v11[1];
@@ -6359,28 +6348,28 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string_view,unsigned long
   return a1;
 }
 
-id _ARLogSensor_10()
+id _ARLogSensor_10(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_14 != -1)
   {
     _ARLogSensor_cold_1_10();
   }
 
-  v1 = _ARLogSensor_logObj_14;
+  v2 = _ARLogSensor_logObj_14;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral_28()
+id _ARLogGeneral_28(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_30 != -1)
   {
     _ARLogGeneral_cold_1_28();
   }
 
-  v1 = _ARLogGeneral_logObj_30;
+  v2 = _ARLogGeneral_logObj_30;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_37()
@@ -6390,29 +6379,29 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_37()
   return result;
 }
 
-id _ARLogGeneral_29()
+id _ARLogGeneral_29(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_31 != -1)
   {
     _ARLogGeneral_cold_1_29();
   }
 
-  v1 = _ARLogGeneral_logObj_31;
+  v2 = _ARLogGeneral_logObj_31;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C2528A5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1C2528A5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void (*)(uint64_t *));
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v14(va);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void (*)(uint64_t *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t));
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v21(va, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
@@ -6424,16 +6413,16 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_38()
   return result;
 }
 
-id _ARLogGeneral_30()
+id _ARLogGeneral_30(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_32 != -1)
   {
     _ARLogGeneral_cold_1_30();
   }
 
-  v1 = _ARLogGeneral_logObj_32;
+  v2 = _ARLogGeneral_logObj_32;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_39()
@@ -6443,9 +6432,9 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_39()
   return result;
 }
 
-void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned char>::reserve(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -6454,11 +6443,9 @@ void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
 
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
-void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -6515,10 +6502,10 @@ void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
   *(a1 + 8) = v5;
 }
 
-void sub_1C252C3EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C252C3EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ARCubemapCompletion;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6556,20 +6543,20 @@ void ___ZL13_ARLogGeneralv_block_invoke_19()
 float AREarthMoversDistance(uint64_t a1, uint64_t a2)
 {
   v2 = 0;
-  v43 = 0;
   v44 = 0;
   v45 = 0;
-  v40 = 0;
+  v46 = 0;
   v41 = 0;
   v42 = 0;
-  v37 = 0;
+  v43 = 0;
   v38 = 0;
   v39 = 0;
-  v34 = 0;
+  v40 = 0;
   v35 = 0;
+  v36 = 0;
   v3 = (a1 + 4);
   v4 = (a2 + 4);
-  v36 = 0;
+  v37 = 0;
   do
   {
     v5 = 0;
@@ -6585,18 +6572,18 @@ float AREarthMoversDistance(uint64_t a1, uint64_t a2)
         v11 = *v9;
         if (*v10 > 0.0 || v11 > 0.0)
         {
-          *v33 = *v10;
-          std::vector<double>::push_back[abi:ne200100](&v43, v33);
+          *v34 = *v10;
+          std::vector<double>::push_back[abi:ne200100](&v44, v34);
           *&v12 = v8 + v8;
           *(&v12 + 1) = v5;
           *(&v12 + 2) = v2;
           v31 = v12;
-          v33[0] = v12;
-          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(&v40, v33);
-          *v33 = v11;
-          std::vector<double>::push_back[abi:ne200100](&v37, v33);
-          v33[0] = v31;
-          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(&v34, v33);
+          v34[0] = v12;
+          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(&v41, v34);
+          *v34 = v11;
+          std::vector<double>::push_back[abi:ne200100](&v38, v34);
+          v34[0] = v31;
+          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(&v35, v34);
         }
 
         ++v8;
@@ -6617,29 +6604,30 @@ float AREarthMoversDistance(uint64_t a1, uint64_t a2)
   }
 
   while (v2 != 8);
-  v14 = v43;
-  v13 = v44;
-  std::vector<double>::vector[abi:ne200100](__p, (v38 - v37) >> 3);
-  std::vector<std::vector<double>>::vector[abi:ne200100](v33, (v13 - v14) >> 3);
+  v14 = v44;
+  v13 = v45;
+  v32 = 0;
+  std::vector<double>::vector[abi:ne200100](__p, (v39 - v38) >> 3, &v32);
+  std::vector<std::vector<double>>::vector[abi:ne200100](v34, (v13 - v14) >> 3);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (v44 == v43)
+  if (v45 == v44)
   {
     goto LABEL_23;
   }
 
   v15 = 0;
-  v16 = (v44 - v43) >> 3;
-  v18 = v37;
-  v17 = v38;
-  v19 = (v38 - v37) >> 3;
-  v20 = v40;
-  v21 = v34;
-  v22 = *&v33[0];
+  v16 = (v45 - v44) >> 3;
+  v18 = v38;
+  v17 = v39;
+  v19 = (v39 - v38) >> 3;
+  v20 = v41;
+  v21 = v35;
+  v22 = *&v34[0];
   if (v19 <= 1)
   {
     v19 = 1;
@@ -6673,7 +6661,7 @@ float AREarthMoversDistance(uint64_t a1, uint64_t a2)
   }
 
   while (v15 != v16);
-  if (v38 == v37)
+  if (v39 == v38)
   {
 LABEL_23:
     v29 = INFINITY;
@@ -6681,33 +6669,33 @@ LABEL_23:
 
   else
   {
-    v29 = emd_hat_gd_metric<double,(FLOW_TYPE_T)0>::operator()(-1.0, __p, &v43, &v37, v33);
+    v29 = emd_hat_gd_metric<double,(FLOW_TYPE_T)0>::operator()(-1.0, __p, &v44, &v38, v34, 0);
   }
 
-  __p[0] = v33;
+  __p[0] = v34;
   std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](__p);
-  if (v34)
+  if (v35)
   {
-    v35 = v34;
-    operator delete(v34);
+    v36 = v35;
+    operator delete(v35);
   }
 
-  if (v37)
+  if (v38)
   {
-    v38 = v37;
-    operator delete(v37);
+    v39 = v38;
+    operator delete(v38);
   }
 
-  if (v40)
+  if (v41)
   {
-    v41 = v40;
-    operator delete(v40);
+    v42 = v41;
+    operator delete(v41);
   }
 
-  if (v43)
+  if (v44)
   {
-    v44 = v43;
-    operator delete(v43);
+    v45 = v44;
+    operator delete(v44);
   }
 
   return v29;
@@ -6745,7 +6733,7 @@ void sub_1C252E92C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6794,74 +6782,74 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-double emd_hat_gd_metric<double,(FLOW_TYPE_T)0>::operator()(double a1, uint64_t a2, uint64_t *a3, uint64_t *a4, double ***a5)
+double emd_hat_gd_metric<double,(FLOW_TYPE_T)0>::operator()(double a1, uint64_t a2, uint64_t a3, uint64_t a4, double ***a5, uint64_t a6)
 {
-  v23 = 0;
   v24 = 0;
   v25 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v23, *a3, a3[1], (a3[1] - *a3) >> 3);
+  v26 = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v24, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
   __p = 0;
-  v21 = 0;
   v22 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
-  v9 = v23;
-  if (v24 != v23)
+  v23 = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&__p, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
+  v10 = v24;
+  if (v25 != v24)
   {
-    v10 = 0;
-    v11 = (v24 - v23) >> 3;
-    v12 = __p;
-    if (v11 <= 1)
+    v11 = 0;
+    v12 = (v25 - v24) >> 3;
+    v13 = __p;
+    if (v12 <= 1)
     {
-      v11 = 1;
+      v12 = 1;
     }
 
-    v13 = v23;
+    v14 = v24;
     do
     {
-      v14 = *v13;
-      v15 = *v12;
-      if (*v13 >= *v12)
+      v15 = *v14;
+      v16 = *v13;
+      if (*v14 >= *v13)
       {
-        *v13 = v14 - v15;
-        v16 = v12;
+        *v14 = v15 - v16;
+        v17 = v13;
       }
 
       else
       {
-        v16 = &v9[8 * v10];
-        *v12 = v15 - v14;
+        v17 = &v10[8 * v11];
+        *v13 = v16 - v15;
       }
 
-      *v16 = 0.0;
-      ++v10;
-      ++v12;
+      *v17 = 0.0;
+      ++v11;
       ++v13;
-      --v11;
+      ++v14;
+      --v12;
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v17 = emd_hat_impl<double,(FLOW_TYPE_T)0>::operator()(a1, &v19, a3, a4, &v23, &__p, a5);
+  v18 = emd_hat_impl<double,(FLOW_TYPE_T)0>::operator()(a1, &v20, a3, a4, &v24, &__p, a5);
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
-  if (v23)
+  if (v24)
   {
-    v24 = v23;
-    operator delete(v23);
+    v25 = v24;
+    operator delete(v24);
   }
 
-  return v17;
+  return v18;
 }
 
 void sub_1C252EBCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15)
@@ -6894,9 +6882,9 @@ float ARCubemapSimilarity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
     memset(__src, 0, 512);
     if (v12)
     {
-      [v12 colorHistogramForCubemap:v8];
+      objc_msgSend_colorHistogramForCubemap_(v12);
       memset(v17, 0, 512);
-      [v13 colorHistogramForCubemap:v10];
+      objc_msgSend_colorHistogramForCubemap_(v13);
     }
 
     else
@@ -6913,17 +6901,17 @@ float ARCubemapSimilarity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
   return v11;
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C252EEBC(_Unwind_Exception *exception_object)
@@ -6938,20 +6926,20 @@ void sub_1C252EEBC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::vector<double>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<double>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<double>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<double>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -6971,7 +6959,7 @@ void std::allocator<std::vector<double>>::allocate_at_least[abi:ne200100](uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7124,7 +7112,7 @@ double emd_hat_impl<double,(FLOW_TYPE_T)0>::operator()(double a1, uint64_t a2, u
       v32[v24] = vcvtmd_s64_f64(*(v31 + 8 * v24) * v26 + 0.5);
       v34[v24] = vcvtmd_s64_f64(*(v33 + 8 * v24) * v26 + 0.5);
       v37 = v14[3 * v24];
-      v38 = *(v35 + 24 * v24);
+      v38 = v35[3 * v24];
       v39 = (v13 >> 3) & 0x7FFFFFFF;
       do
       {
@@ -7225,17 +7213,17 @@ void sub_1C252F464(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<long long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<long long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C252F580(_Unwind_Exception *exception_object)
@@ -7250,20 +7238,20 @@ void sub_1C252F580(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::vector<long long>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<long long>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<long long>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<long long>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<long long>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<long long>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7283,7 +7271,7 @@ void std::allocator<std::vector<long long>>::allocate_at_least[abi:ne200100](uin
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7305,7 +7293,7 @@ void sub_1C252F75C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t emd_hat_impl_integral_types<long long,(FLOW_TYPE_T)0>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, char **a4, char **a5, uint64_t *a6, uint64_t a7)
+uint64_t emd_hat_impl_integral_types<long long,(FLOW_TYPE_T)0>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, char **a4, char **a5, uint64_t **a6, uint64_t a7)
 {
   v7 = a4[1] - *a4;
   v8 = v7 >> 3;
@@ -7321,7 +7309,7 @@ uint64_t emd_hat_impl_integral_types<long long,(FLOW_TYPE_T)0>::operator()(uint6
   v97 = 0;
   v98 = 0;
   memset(v95, 0, sizeof(v95));
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long>*,std::vector<long long>*>(v95, *a6, a6[1], 0xAAAAAAAAAAAAAAABLL * ((a6[1] - *a6) >> 3));
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long>*,std::vector<long long>*>(v95, *a6, a6[1], 0xAAAAAAAAAAAAAAABLL * (a6[1] - *a6));
   v12 = (v7 >> 3) & 0x7FFFFFFF;
   if (v8 < 1)
   {
@@ -7533,9 +7521,9 @@ LABEL_23:
         {
           if (v93[v51] && *(*(v95[0] + 24 * v75) + 8 * v50) != v41)
           {
-            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v89, &v75);
+            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v89, &v75, &v75);
             LODWORD(v83[0]) = v51;
-            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v87, v83);
+            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v87, v83, v83);
           }
 
           ++v50;
@@ -7577,7 +7565,7 @@ LABEL_23:
   }
 
   v84 = -1;
-  std::vector<int>::vector[abi:ne200100](v83, (v94 - v93) >> 3);
+  std::vector<int>::vector[abi:ne200100](v83, (v94 - v93) >> 3, &v84);
   memset(&v82, 0, sizeof(v82));
   std::vector<float>::reserve(&v82, (v94 - v93) >> 3);
   LODWORD(v75) = 0;
@@ -7733,7 +7721,7 @@ LABEL_23:
   return v70 * v72 + v69;
 }
 
-void sub_1C253018C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char *a20, void *__p, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, char a40, void *a41)
+void sub_1C253018C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char *a20, void *__p, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41)
 {
   *(v42 - 96) = v41;
   std::vector<std::list<edge<long long>>>::__destroy_vector::operator()[abi:ne200100]((v42 - 96));
@@ -7793,7 +7781,7 @@ void sub_1C253018C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7842,13 +7830,13 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-uint64_t min_cost_flow<long long>::operator()(int *a1, uint64_t *a2, void *a3, uint64_t *a4)
+uint64_t min_cost_flow<long long>::operator()(int *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   v4 = a2[1] - *a2;
   v5 = a3[1] - *a3;
@@ -8104,7 +8092,7 @@ void sub_1C2530930(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long>*,std::vector<long long>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long>*,std::vector<long long>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8121,7 +8109,7 @@ void sub_1C2530A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<long long>>,std::vector<long long>*,std::vector<long long>*,std::vector<long long>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<long long>>,std::vector<long long>*,std::vector<long long>*,std::vector<long long>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -8138,8 +8126,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -8187,7 +8175,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<long long>>,s
   }
 }
 
-void *std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -8263,20 +8251,20 @@ void *std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long 
   return result;
 }
 
-void *std::vector<std::list<edge<long long>>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::list<edge<long long>>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8349,70 +8337,58 @@ void *std::__list_imp<edge<long long>>::clear(void *result)
   return result;
 }
 
-uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2)
+uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_1C2531070(_Unwind_Exception *exception_object)
@@ -8427,24 +8403,24 @@ void sub_1C2531070(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::list<edge0<long long>>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::list<edge0<long long>>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void min_cost_flow<long long>::compute_shortest_path(int *a1, uint64_t *a2, void *a3, int a4, uint64_t *a5, uint64_t *a6, void *a7, int *a8)
 {
-  std::vector<edge3<long long>>::vector[abi:ne200100](&v62, *a1);
-  v14 = v62;
-  *v62 = a4;
+  std::vector<edge3<long long>>::vector[abi:ne200100](&v63, *a1);
+  v14 = v63;
+  *v63 = a4;
   v16 = a1 + 2;
   v15 = *(a1 + 1);
   *(v15 + 4 * a4) = 0;
@@ -8492,12 +8468,13 @@ void min_cost_flow<long long>::compute_shortest_path(int *a1, uint64_t *a2, void
     while (v21 < v22);
   }
 
-  std::vector<int>::vector[abi:ne200100](__p, v22);
-  v24 = v62;
+  v61 = 0;
+  std::vector<int>::vector[abi:ne200100](__p, v22, &v61);
+  v24 = v63;
   while (1)
   {
     v25 = *v24;
-    *(*a2 + 8 * v25) = v24[1];
+    *(*a2 + 8 * v25) = *(v24 + 1);
     v26 = __p[0];
     *(__p[0] + v25) = 1;
     if ((*(*a7 + 8 * v25) & 0x8000000000000000) != 0)
@@ -8505,7 +8482,7 @@ void min_cost_flow<long long>::compute_shortest_path(int *a1, uint64_t *a2, void
       break;
     }
 
-    min_cost_flow<long long>::heap_remove_first(a1, &v62, a1 + 1);
+    min_cost_flow<long long>::heap_remove_first(a1, &v63, a1 + 1);
     v27 = *a5;
     v28 = *a5 + 24 * v25;
     v29 = *(v28 + 8);
@@ -8519,12 +8496,12 @@ void min_cost_flow<long long>::compute_shortest_path(int *a1, uint64_t *a2, void
 
       v31 = *(v29 + 16);
       v32 = *(*v16 + 4 * v31);
-      if (v32 < (v63 - v62) >> 4)
+      if (v32 < (v64 - v63) >> 4)
       {
         v33 = *(*a2 + 8 * v25) + v30;
-        if (v33 < *(v62 + 2 * v32 + 1))
+        if (v33 < *(v63 + 2 * v32 + 1))
         {
-          min_cost_flow<long long>::heap_decrease_key(a1, &v62, a1 + 1, *(v29 + 16), v33);
+          min_cost_flow<long long>::heap_decrease_key(a1, &v63, a1 + 1, *(v29 + 16), v33);
           *(*a3 + 4 * v31) = v25;
           v27 = *a5;
         }
@@ -8549,12 +8526,12 @@ void min_cost_flow<long long>::compute_shortest_path(int *a1, uint64_t *a2, void
 
         v38 = *(v36 + 16);
         v39 = *(*v16 + 4 * v38);
-        if (v39 < (v63 - v62) >> 4)
+        if (v39 < (v64 - v63) >> 4)
         {
           v40 = *(*a2 + 8 * v25) + v37;
-          if (v40 < *(v62 + 2 * v39 + 1))
+          if (v40 < *(v63 + 2 * v39 + 1))
           {
-            min_cost_flow<long long>::heap_decrease_key(a1, &v62, a1 + 1, *(v36 + 16), v40);
+            min_cost_flow<long long>::heap_decrease_key(a1, &v63, a1 + 1, *(v36 + 16), v40);
             *(*a3 + 4 * v38) = v25;
             v34 = *a6;
           }
@@ -8565,8 +8542,8 @@ void min_cost_flow<long long>::compute_shortest_path(int *a1, uint64_t *a2, void
       v35 = v34 + 24 * v25;
     }
 
-    v24 = v62;
-    if (v62 == v63)
+    v24 = v63;
+    if (v63 == v64)
     {
       v26 = __p[0];
       v41 = a8;
@@ -8654,12 +8631,12 @@ LABEL_29:
   {
     __p[1] = v26;
     operator delete(v26);
-    v24 = v62;
+    v24 = v63;
   }
 
   if (v24)
   {
-    v63 = v24;
+    v64 = v24;
     operator delete(v24);
   }
 }
@@ -8674,30 +8651,43 @@ void sub_1C253151C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::list<edge1<long long>>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::list<edge1<long long>>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void *std::vector<std::list<edge2<long long>>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::list<edge2<long long>>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::list<edge<long long>>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
+}
+
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_1C25316C4(_Unwind_Exception *exception_object)
@@ -8712,18 +8702,18 @@ void sub_1C25316C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 min_cost_flow<long long>::heap_remove_first(uint64_t a1, uint64_t *a2, uint64_t *a3)
+__n128 min_cost_flow<long long>::heap_remove_first(uint64_t a1, __int128 **a2, uint64_t *a3)
 {
   v3 = ((a2[1] - *a2) >> 4) - 1;
   v4 = **a2;
-  **a2 = *(*a2 + 16 * v3);
-  *(*a2 + 16 * v3) = v4;
+  **a2 = (*a2)[v3];
+  (*a2)[v3] = v4;
   v5 = *a2;
   v6 = a2[1];
   v7 = *a3;
-  *(*a3 + 4 * *(*a2 + 16 * v3)) = v3;
+  *(*a3 + 4 * SLODWORD((*a2)[v3])) = v3;
   *(v7 + 4 * *v5) = 0;
-  a2[1] = v6 - 16;
+  a2[1] = v6 - 1;
   min_cost_flow<long long>::heapify(a1, a2, a3, 0);
   return result;
 }
@@ -8761,17 +8751,17 @@ __n128 min_cost_flow<long long>::heap_decrease_key(uint64_t a1, uint64_t *a2, ui
   return result;
 }
 
-void *std::vector<edge3<long long>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<edge3<long long>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<edge3<long long>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<edge3<long long>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C2531820(_Unwind_Exception *exception_object)
@@ -8786,7 +8776,7 @@ void sub_1C2531820(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<edge3<long long>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<edge3<long long>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -8945,7 +8935,7 @@ double homogenize(uint64_t a1)
 
 float32x2_t dehomogenize@<D0>(float32x2_t *a1@<X0>, float32x2_t *a2@<X8>)
 {
-  v2 = &a1[1];
+  v2 = a1 + 1;
   v3 = vld1_dup_f32(v2);
   result = vdiv_f32(*a1, v3);
   *a2 = result;
@@ -8971,16 +8961,16 @@ float32x2_t dehomogenize(float32x2_t *a1)
   return vdiv_f32(*a1, vdup_laneq_s32(*a1->f32, 3));
 }
 
-id _ARLogGeneral_31()
+id _ARLogGeneral_31(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_33 != -1)
   {
     _ARLogGeneral_cold_1_31();
   }
 
-  v1 = _ARLogGeneral_logObj_33;
+  v2 = _ARLogGeneral_logObj_33;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_40()
@@ -8990,16 +8980,16 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_40()
   return result;
 }
 
-id _ARLogGeneral_32()
+id _ARLogGeneral_32(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_34 != -1)
   {
     _ARLogGeneral_cold_1_32();
   }
 
-  v1 = _ARLogGeneral_logObj_34;
+  v2 = _ARLogGeneral_logObj_34;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_41()
@@ -9009,16 +8999,16 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_41()
   return result;
 }
 
-id _ARLogGeneral_33()
+id _ARLogGeneral_33(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_35 != -1)
   {
     _ARLogGeneral_cold_1_33();
   }
 
-  v1 = _ARLogGeneral_logObj_35;
+  v2 = _ARLogGeneral_logObj_35;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_42()
@@ -9028,16 +9018,16 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_42()
   return result;
 }
 
-id _ARLogGeneral_34()
+id _ARLogGeneral_34(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_36 != -1)
   {
     _ARLogGeneral_cold_1_34();
   }
 
-  v1 = _ARLogGeneral_logObj_36;
+  v2 = _ARLogGeneral_logObj_36;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_43()
@@ -9061,13 +9051,13 @@ void ___ZL13_ARLogGeneralv_block_invoke_20()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-double cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(float32x4_t *a1, uint64_t a2)
+double cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(float32x4_t *a1, uint64_t *a2)
 {
-  if (*(a2 + 8) == a1)
+  if (a2[1] == a1)
   {
     v11[0] = 0uLL;
     cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(v11, a2);
-    v8.i64[0] = *&v11[0];
+    v8.i64[0] = v11[0].i64[0];
     *a1 = v11[0];
   }
 
@@ -9078,7 +9068,7 @@ double cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExp
     cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(v11, v4);
     v5 = 0uLL;
     v6 = 0;
-    v7 = *(a2 + 8);
+    v7 = a2[1];
     do
     {
       v8 = v11[v6];
@@ -9094,45 +9084,45 @@ double cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExp
   return *v8.i64;
 }
 
-uint64_t cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(uint64_t result, uint64_t *a2)
+uint64_t cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(uint64_t result, uint64_t *a2, double a3)
 {
-  v2 = result;
-  v3 = *a2;
-  if (*a2 == result || (v4 = a2[1], v4 == result))
+  v3 = result;
+  v4 = *a2;
+  if (*a2 == result || (v5 = a2[1], v5 == result))
   {
+    v12 = 0;
     v11 = 0;
-    v10 = 0;
-    result = cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v10);
-    *v2 = v10;
-    *(v2 + 8) = v11;
+    result = cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v11, a2, a3);
+    *v3 = v11;
+    *(v3 + 8) = v12;
   }
 
   else
   {
     for (i = 0; i != 3; ++i)
     {
-      v6 = 0;
-      v7 = 0.0;
-      v8 = v4;
+      v7 = 0;
+      v8 = 0.0;
+      v9 = v5;
       do
       {
-        v9 = *v8++;
-        v7 = v7 + (*(v3 + v6) * v9);
-        v6 += 12;
+        v10 = *v9++;
+        v8 = v8 + (*(v4 + v7) * v10);
+        v7 += 12;
       }
 
-      while (v6 != 36);
-      *(result + 4 * i) = v7;
-      v3 += 4;
+      while (v7 != 36);
+      *(result + 4 * i) = v8;
+      v4 += 4;
     }
   }
 
   return result;
 }
 
-void cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,3u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(uint64_t a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,3u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(uint64_t a1, uint64_t *a2)
 {
-  if (*(a2 + 8) == a1)
+  if (a2[1] == a1)
   {
     DWORD2(v12[0]) = 0;
     *&v12[0] = 0;
@@ -9148,7 +9138,7 @@ void cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixMultExpr<
     v5 = v12;
     cva::assign<false,false,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,4u,4u,false>>(v12, v4);
     v6 = 0;
-    v7 = *(a2 + 8);
+    v7 = a2[1];
     do
     {
       v8 = 0;
@@ -9178,7 +9168,7 @@ double cva::assign<false,false,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,
     v14 = 0u;
     v15 = 0u;
     v13 = 0u;
-    cva::assign<false,false,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,4u,4u,false>>(&v13);
+    cva::assign<false,false,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,4u,4u,false>>(&v13, a2);
     v12 = v14;
     *a1 = v13;
     a1[1] = v12;
@@ -9225,7 +9215,7 @@ double cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,
     v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(&v13);
+    cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(&v13, a2);
     v10 = v14;
     *a1 = v13;
     a1[1] = v10;
@@ -9337,7 +9327,7 @@ float homographySquareTo@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-BOOL hartleyNormalize(uint64_t a1, _OWORD *a2, float32x2_t *a3)
+BOOL hartleyNormalize(uint64_t a1, _OWORD *a2, uint64_t a3)
 {
   v3 = *(a1 + 8);
   v4 = a1 + 12;
@@ -9366,39 +9356,40 @@ BOOL hartleyNormalize(uint64_t a1, _OWORD *a2, float32x2_t *a3)
   v20.f32[0] = (*v6.i32 + sqrtf(vaddv_f32(v20))) / 1.4142;
   if (v20.f32[0] >= 0.00000011921)
   {
-    a3->f32[0] = 1.0 / v20.f32[0];
-    a3[1] = 0;
-    a3->i32[1] = 0;
-    a3[2].f32[0] = 1.0 / v20.f32[0];
-    a3[2].i32[1] = 0;
-    a3[3] = vdiv_f32(vneg_f32(v18), vdup_lane_s32(v20, 0));
-    a3[4].i32[0] = 1065353216;
-    v29[0] = a3;
-    v29[1] = a1;
-    *v30 = 0;
-    *&v30[8] = 0;
-    v25 = v20.i32[0];
-    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(v30, v29);
-    v28[0] = a3;
-    v28[1] = v4;
-    *&v30[12] = 0;
-    *&v30[20] = 0;
-    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v30[12], v28);
-    v27[0] = a3;
-    v27[1] = v7;
-    *&v30[24] = 0;
-    LODWORD(v31) = 0;
-    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v30[24], v27);
-    v26[0] = a3;
-    v26[1] = v9;
-    *(&v31 + 4) = 0;
-    HIDWORD(v31) = 0;
-    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v31 + 4, v26);
-    v20.i32[0] = v25;
-    v23 = *&v30[16];
-    *a2 = *v30;
-    a2[1] = v23;
-    a2[2] = v31;
+    *a3 = 1.0 / v20.f32[0];
+    *(a3 + 8) = 0;
+    *(a3 + 4) = 0;
+    *(a3 + 16) = 1.0 / v20.f32[0];
+    *(a3 + 20) = 0;
+    v23 = COERCE_DOUBLE(vdiv_f32(vneg_f32(v18), vdup_lane_s32(v20, 0)));
+    *(a3 + 24) = v23;
+    *(a3 + 32) = 1065353216;
+    v33[0] = a3;
+    v33[1] = a1;
+    *v34 = 0;
+    *&v34[8] = 0;
+    v29 = v20.i32[0];
+    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(v34, v33, v23);
+    v32[0] = a3;
+    v32[1] = v4;
+    *&v34[12] = 0;
+    *&v34[20] = 0;
+    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v34[12], v32, v24);
+    v31[0] = a3;
+    v31[1] = v7;
+    *&v34[24] = 0;
+    LODWORD(v35) = 0;
+    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v34[24], v31, v25);
+    v30[0] = a3;
+    v30[1] = v9;
+    *(&v35 + 4) = 0;
+    HIDWORD(v35) = 0;
+    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v35 + 4, v30, v26);
+    v20.i32[0] = v29;
+    v27 = *&v34[16];
+    *a2 = *v34;
+    a2[1] = v27;
+    a2[2] = v35;
   }
 
   return v20.f32[0] >= 0.00000011921;
@@ -9656,9 +9647,9 @@ double cva::assign<false,false,cva::Matrix<float,3u,3u,false>,cva::MatrixMultExp
   return result;
 }
 
-double cva::assign<false,false,cva::Matrix<float,3u,3u,false>,cva::MatrixMultExpr<cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,3u,false>>,cva::Matrix<float,3u,3u,false>>(uint64_t a1, uint64_t a2)
+double cva::assign<false,false,cva::Matrix<float,3u,3u,false>,cva::MatrixMultExpr<cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,3u,false>>,cva::Matrix<float,3u,3u,false>>(uint64_t a1, uint64_t *a2)
 {
-  if (*(a2 + 8) == a1)
+  if (a2[1] == a1)
   {
     v16 = 0;
     v14 = 0u;
@@ -9679,7 +9670,7 @@ double cva::assign<false,false,cva::Matrix<float,3u,3u,false>,cva::MatrixMultExp
     v16 = 0;
     cva::assign<false,false,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,3u,false>>(&v14, v4);
     v5 = 0;
-    v6 = *(a2 + 8);
+    v6 = a2[1];
     do
     {
       v7 = 0;
@@ -9719,7 +9710,7 @@ double cva::assign<false,false,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,
     v15 = 0;
     v13 = 0u;
     v14 = 0u;
-    cva::assign<false,false,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,3u,false>>(&v13);
+    cva::assign<false,false,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,3u,false>>(&v13, a2);
     result = *&v13;
     v12 = v14;
     *a1 = v13;
@@ -9757,10 +9748,10 @@ double cva::assign<false,false,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,
   return result;
 }
 
-void sub_1C2537E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, void *a26, uint64_t a27, char a28, void *a29, uint64_t a30, char a31, void *a32, uint64_t a33, char a34, void *a35, uint64_t a36, char a37, void *a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1C2537E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   ARTexturedPlane::~ARTexturedPlane(&a41);
-  ARTexturedPlane::~ARTexturedPlane(&a69);
+  ARTexturedPlane::~ARTexturedPlane(&a65);
   ARTexturedPlane::~ARTexturedPlane(&STACK[0x2C0]);
   ARTexturedPlane::~ARTexturedPlane(&STACK[0x720]);
   std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::destroy(a21, *(a21 + 8));

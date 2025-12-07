@@ -2076,9 +2076,9 @@ uint64_t __48__UIInputWindowController_hostViewWillDisappear__block_invoke(uint6
   }
 }
 
-uint64_t __59__UIInputWindowController_performWithSafeTransitionFrames___block_invoke(uint64_t result)
+int *__59__UIInputWindowController_performWithSafeTransitionFrames___block_invoke(int *result)
 {
-  if (*(result + 40) >= 1)
+  if (result[10] >= 1)
   {
     v7 = v2;
     v8 = v1;
@@ -2088,19 +2088,19 @@ uint64_t __59__UIInputWindowController_performWithSafeTransitionFrames___block_i
     v6 = 0;
     do
     {
-      result = [*(v5 + 32) setInputViewsHidden:{0, v7, v8, v9, v10}];
+      result = [*(v5 + 4) setInputViewsHidden:{0, v7, v8, v9, v10}];
       ++v6;
     }
 
-    while (v6 < *(v5 + 40));
+    while (v6 < v5[10]);
   }
 
   return result;
 }
 
-uint64_t __59__UIInputWindowController_performWithSafeTransitionFrames___block_invoke_2(uint64_t result)
+int *__59__UIInputWindowController_performWithSafeTransitionFrames___block_invoke_2(int *result)
 {
-  if (*(result + 40) >= 1)
+  if (result[10] >= 1)
   {
     v7 = v2;
     v8 = v1;
@@ -2110,11 +2110,11 @@ uint64_t __59__UIInputWindowController_performWithSafeTransitionFrames___block_i
     v6 = 0;
     do
     {
-      result = [*(v5 + 32) setInputViewsHidden:{1, v7, v8, v9, v10}];
+      result = [*(v5 + 4) setInputViewsHidden:{1, v7, v8, v9, v10}];
       ++v6;
     }
 
-    while (v6 < *(v5 + 40));
+    while (v6 < v5[10]);
   }
 
   return result;
@@ -2563,7 +2563,7 @@ uint64_t __52__UIInputWindowController_hostAppSceneBoundsChanged__block_invoke(u
   currentUIState = [v30 currentUIState];
   bundleIdentifier = [currentUIState bundleIdentifier];
   v7 = _UIMainBundleIdentifier();
-  if (![bundleIdentifier isEqualToString:v7])
+  if (!objc_msgSend_isEqualToString_(bundleIdentifier))
   {
     goto LABEL_13;
   }
@@ -5808,7 +5808,7 @@ uint64_t __48__UIInputWindowController_viewDidLayoutSubviews__block_invoke_517(u
             v17 = [UIPeripheralHost endPlacementForInputViewSet:inputViewSet2 windowScene:windowScene];
 
             placement2 = [(UIInputWindowController *)self placement];
-            LOBYTE(_window) = [placement2 isEqual:v17];
+            LOBYTE(_window) = objc_msgSend_isEqual_(placement2);
 
             if ((_window & 1) == 0)
             {
@@ -5976,7 +5976,7 @@ LABEL_9:
 
   toPlacement = [v6 toPlacement];
   toPlacement2 = [transitionCopy toPlacement];
-  if (([toPlacement isEqual:toPlacement2] & 1) == 0)
+  if ((objc_msgSend_isEqual_(toPlacement) & 1) == 0)
   {
 
 LABEL_7:
@@ -6046,9 +6046,9 @@ LABEL_15:
 
   animationStyle4 = [v6 animationStyle];
   animationStyle5 = [transitionCopy animationStyle];
-  v11 = [animationStyle4 isEqual:animationStyle5];
+  isEqual = objc_msgSend_isEqual_(animationStyle4);
 
-  if ((v11 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_7;
   }
@@ -6918,11 +6918,11 @@ LABEL_26:
 LABEL_37:
   fromPlacement2 = [v34 fromPlacement];
 
-  v40 = [fromPlacement2 isEqual:v137];
+  isEqual = objc_msgSend_isEqual_(fromPlacement2);
   animationStyle = [v34 animationStyle];
   v42 = [animationStyle extraOptions] & 0xFFFFFFFFFFFFFFFDLL;
   v43 = 2;
-  if (!v40)
+  if (!isEqual)
   {
     v43 = 0;
   }
@@ -6935,7 +6935,7 @@ LABEL_37:
     startingCopy[2]();
   }
 
-  if ([fromPlacement2 isEqual:v137])
+  if (objc_msgSend_isEqual_(fromPlacement2))
   {
     v44 = +[UIInputViewAnimationStyle animationStyleImmediate];
     [v34 setAnimationStyle:v44];
@@ -7020,7 +7020,7 @@ LABEL_37:
   [(UIInputWindowController *)self performWithSafeTransitionFrames:v177];
   [v34 didAdvanceAnimationToState:1];
   [(UIInputWindowController *)self updateAppearStatesForPlacement:v137 start:1 animated:1];
-  if (([fromPlacement2 isEqual:self->_placement] & 1) == 0)
+  if ((objc_msgSend_isEqual_(fromPlacement2) & 1) == 0)
   {
     view = [(UIViewController *)self view];
     [view frame];
@@ -7145,7 +7145,7 @@ LABEL_76:
 
   v85 = v84;
 
-  if (![v133 isEqual:fromPlacement2] || (objc_msgSend(v85, "isEqual:", v73) & 1) == 0)
+  if (!objc_msgSend_isEqual_(v133) || (objc_msgSend_isEqual_(v85) & 1) == 0)
   {
     v86 = _UIInputWindowControllerLogger();
     if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
@@ -7319,7 +7319,7 @@ LABEL_76:
 LABEL_113:
 }
 
-uint64_t __77__UIInputWindowController_moveFromPlacement_toPlacement_starting_completion___block_invoke(uint64_t a1)
+void *__77__UIInputWindowController_moveFromPlacement_toPlacement_starting_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 1056) itemForPurpose:1];
   [v2 notificationsFrame];
@@ -8231,7 +8231,7 @@ void __77__UIInputWindowController_moveFromPlacement_toPlacement_starting_comple
     _os_log_impl(&dword_188A29000, v13, OS_LOG_TYPE_DEFAULT, "chainPlacementsIfNecessaryFrom, from: %@, to: %@ transition: %@", buf, 0x20u);
   }
 
-  if ([fromCopy isEqual:placementCopy])
+  if (objc_msgSend_isEqual_(fromCopy))
   {
     goto LABEL_41;
   }
@@ -9125,9 +9125,9 @@ void __75__UIInputWindowController_updateKeyboardLayoutGuideForRotationOrientati
     {
       placement2 = [(UIInputWindowController *)self placement];
       v14 = +[UIInputViewSetPlacementInitialPosition placement];
-      v15 = [placement2 isEqual:v14];
+      isEqual = objc_msgSend_isEqual_(placement2);
 
-      if ((v15 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         [(UIInputWindowController *)self updateGuideForOffscreenRotationWithDuration:duration];
       }
@@ -9279,7 +9279,7 @@ void __75__UIInputWindowController_updateKeyboardLayoutGuideForRotationOrientati
       v65 = _inputView2;
       if (_inputView2)
       {
-        [_inputView2 transform];
+        objc_msgSend_transform(_inputView2);
       }
 
       else
@@ -9301,7 +9301,7 @@ void __75__UIInputWindowController_updateKeyboardLayoutGuideForRotationOrientati
         v69 = _inputAssistantView4;
         if (_inputAssistantView4)
         {
-          [_inputAssistantView4 transform];
+          objc_msgSend_transform(_inputAssistantView4);
         }
 
         else
@@ -9331,7 +9331,7 @@ void __75__UIInputWindowController_updateKeyboardLayoutGuideForRotationOrientati
         v73 = _inputAccessoryView4;
         if (_inputAccessoryView4)
         {
-          [_inputAccessoryView4 transform];
+          objc_msgSend_transform(_inputAccessoryView4);
         }
 
         else
@@ -9581,7 +9581,7 @@ uint64_t __78__UIInputWindowController_willAnimateRotationToInterfaceOrientation
       v11 = *(a1 + 32);
       if (v11)
       {
-        [v11 transform];
+        objc_msgSend_transform(v11, *MEMORY[0x1E695F060], v8);
         v9 = *(*(a1 + 56) + 1072);
         v11 = *(a1 + 32);
       }
@@ -9613,7 +9613,7 @@ uint64_t __78__UIInputWindowController_willAnimateRotationToInterfaceOrientation
       v21 = *(a1 + 40);
       if (v21)
       {
-        [v21 transform];
+        objc_msgSend_transform(v21, *v6, v18);
         v19 = *(*(a1 + 56) + 1088);
         v21 = *(a1 + 40);
       }
@@ -9646,7 +9646,7 @@ uint64_t __78__UIInputWindowController_willAnimateRotationToInterfaceOrientation
       v32 = *(a1 + 48);
       if (v32)
       {
-        [v32 transform];
+        objc_msgSend_transform(v32, *v6, v29);
         v32 = *(a1 + 48);
         v30 = *(*(a1 + 56) + 1104);
       }
@@ -10059,9 +10059,9 @@ uint64_t __61__UIInputWindowController_didRotateFromInterfaceOrientation___block
         }
 
         hostView = [*(*(&v12 + 1) + 8 * i) hostView];
-        v10 = [viewCopy isEqual:hostView];
+        isEqual = objc_msgSend_isEqual_(viewCopy);
 
-        if (v10)
+        if (isEqual)
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
@@ -10924,10 +10924,9 @@ uint64_t __48__UIInputWindowController_changeToInputViewSet___block_invoke(uint6
     }
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(*(a1 + 32) + 1440);
+  v6 = *(*(a1 + 32) + 1440);
 
-  return [v7 isEqual:v6];
+  return objc_msgSend_isEqual_(v6);
 }
 
 void __48__UIInputWindowController_changeToInputViewSet___block_invoke_2(uint64_t a1)
@@ -10998,8 +10997,8 @@ void __48__UIInputWindowController_changeToInputViewSet___block_invoke_4(uint64_
 
     [(UIInputWindowController *)self updateInputAssistantViewForInputViewSet:setCopy];
     [(UIInputWindowController *)self updateInputSwitcherView:setCopy];
-    v13 = [(UIInputViewSet *)self->_inputViewSet isEqual:setCopy];
-    if (v13)
+    isEqual = objc_msgSend_isEqual_(self->_inputViewSet);
+    if (isEqual)
     {
       v48 = 0;
     }
@@ -11021,7 +11020,7 @@ void __48__UIInputWindowController_changeToInputViewSet___block_invoke_4(uint64_
       {
         v47 = [setCopy isCustomInputView] ^ 1;
 LABEL_24:
-        v14 = !v13;
+        v14 = isEqual ^ 1;
         if (+[UIKeyboard usesInputSystemUI]&& [(UIInputViewSet *)self->_inputViewSet isInputViewPlaceholder])
         {
           inputView = [(UIInputViewSet *)self->_inputViewSet inputView];
@@ -11062,14 +11061,14 @@ LABEL_24:
         [v24 setOtherPlacement:v23];
         currentTransition2 = [(UIInputWindowController *)self currentTransition];
         toPlacement = [currentTransition2 toPlacement];
-        v27 = [v24 isEqual:toPlacement];
+        v27 = objc_msgSend_isEqual_(v24);
 
         v28 = v14 | v27 ^ 1;
         if ((v28 & 1) == 0)
         {
           currentTransition3 = [(UIInputWindowController *)self currentTransition];
           animationStyle = [currentTransition3 animationStyle];
-          v31 = [nextAnimationStyle isEqual:animationStyle];
+          v31 = objc_msgSend_isEqual_(nextAnimationStyle);
 
           if (v31)
           {
@@ -11094,14 +11093,14 @@ LABEL_24:
           v33 = 0;
         }
 
-        if ([(UIInputViewSet *)self->_inputViewSet isEqual:setCopy])
+        if (objc_msgSend_isEqual_(self->_inputViewSet))
         {
           v34 = 0;
         }
 
         else
         {
-          v34 = [*(*&buf[8] + 40) isEqual:v23] ^ 1;
+          v34 = objc_msgSend_isEqual_(*(*&buf[8] + 40)) ^ 1;
         }
 
         subPlacements = [*(*&buf[8] + 40) subPlacements];
@@ -11169,7 +11168,7 @@ LABEL_24:
             {
               currentTransition4 = [(UIInputWindowController *)self currentTransition];
               toPlacement2 = [currentTransition4 toPlacement];
-              v45 = [toPlacement2 isEqual:v24];
+              v45 = objc_msgSend_isEqual_(toPlacement2);
 
               v40 = (v45 | v47) & 1;
             }
@@ -11263,7 +11262,7 @@ void __43__UIInputWindowController_setInputViewSet___block_invoke(uint64_t a1)
 
   v6 = [*(a1 + 48) subPlacements];
   v7 = [v6 firstObject];
-  if ([v7 isEqual:*(a1 + 56)])
+  if (objc_msgSend_isEqual_(v7))
   {
 
 LABEL_4:
@@ -11271,9 +11270,9 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v8 = [*(*(*(a1 + 64) + 8) + 40) isEqual:*(a1 + 48)];
+  isEqual = objc_msgSend_isEqual_(*(*(*(a1 + 64) + 8) + 40));
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_4;
   }
@@ -11386,7 +11385,7 @@ uint64_t __43__UIInputWindowController_setInputViewSet___block_invoke_9(uint64_t
   return [v3 _updateBackdropViews];
 }
 
-uint64_t __43__UIInputWindowController_setInputViewSet___block_invoke_10(uint64_t a1)
+void *__43__UIInputWindowController_setInputViewSet___block_invoke_10(uint64_t a1)
 {
   result = [*(a1 + 32) isFloating];
   if ((result & 1) == 0)
@@ -11853,7 +11852,7 @@ uint64_t __71__UIInputWindowController_animateAccessoryViewVisibility_withDurati
     {
       shouldShowWithinAppWindow = [visualModeManager shouldShowWithinAppWindow];
 
-      if ((shouldShowWithinAppWindow & 1) == 0 && SpringBoardServicesLibraryCore() && getSBSAcquireFocusPreventingFullScreenPresentationAssertionSymbolLoc())
+      if ((shouldShowWithinAppWindow & 1) == 0 && SpringBoardServicesLibraryCore(0) && getSBSAcquireFocusPreventingFullScreenPresentationAssertionSymbolLoc())
       {
         v10 = dispatch_get_global_queue(25, 0);
         v11[0] = MEMORY[0x1E69E9820];

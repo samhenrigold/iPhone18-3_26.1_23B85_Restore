@@ -4,6 +4,7 @@
 - (void)loadView;
 - (void)pauseHearingTestSession;
 - (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -43,9 +44,8 @@
 {
   v3 = sub_20CE12924();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20CE13B84();
   sub_20CE13B74();
   sub_20CE13B24();
@@ -54,17 +54,17 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v8 = type metadata accessor for HTUIEvaluationViewController();
-  v10.receiver = self;
-  v10.super_class = v8;
+  v7 = type metadata accessor for HTUIEvaluationViewController(0);
+  v9.receiver = self;
+  v9.super_class = v7;
   selfCopy = self;
-  [(HTUIEvaluationViewController *)&v10 viewDidLoad];
+  [(HTUIEvaluationViewController *)&v9 viewDidLoad];
   sub_20CDD1D3C();
   sub_20CDD2764();
-  (*(v4 + 104))(v7, *MEMORY[0x277D12CD8], v3);
-  sub_20CDD2958(v7);
+  (*(v4 + 104))(v6, *MEMORY[0x277D12CD8], v3);
+  sub_20CDD2958(v6);
 
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -79,6 +79,28 @@
 
   selfCopy = self;
   sub_20CDD16A4(appear);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  sub_20CE13B84();
+  sub_20CE13B74();
+  sub_20CE13B24();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for HTUIEvaluationViewController(0);
+  selfCopy = self;
+  [(HTUIEvaluationViewController *)&v8 viewDidDisappear:disappearCopy];
+  sub_20CDD19E0(0);
+  v6 = OBJC_IVAR____TtC13HearingTestUI28HTUIEvaluationViewController_flowManager;
+  [*(*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI28HTUIEvaluationViewController_flowManager) + OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_application) setIdleTimerDisabled_];
+  v7 = __swift_project_boxed_opaque_existential_1((*(&selfCopy->super.super.super.isa + v6) + OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_interruptionViewControllerManager), *(*(&selfCopy->super.super.super.isa + v6) + OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_interruptionViewControllerManager + 24));
+  sub_20CDB9494(selfCopy, *v7);
 }
 
 - (_TtC13HearingTestUI28HTUIEvaluationViewController)initWithNibName:(id)name bundle:(id)bundle

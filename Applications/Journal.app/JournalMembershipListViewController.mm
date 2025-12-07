@@ -20,13 +20,13 @@
   *v4 = 0;
   v4[1] = 0;
   v5 = OBJC_IVAR____TtC7Journal35JournalMembershipListViewController__dataSource;
-  sub_1000F24EC(&qword_100AD4380);
+  sub_1000F24EC(&qword_100AD4380, &qword_100942BA0);
   UIViewController.ViewLoading.init()();
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC7Journal35JournalMembershipListViewController_style) = 0;
-  sub_100004DF8(*v4);
-  v6 = sub_1000F24EC(&unk_100AD4450);
+  sub_100004DF8(*v4, v4[1]);
+  v6 = sub_1000F24EC(&unk_100AD4450, &qword_100942DF8);
   (*(*(v6 - 8) + 8))(self + v5, v6);
-  type metadata accessor for JournalMembershipListViewController();
+  type metadata accessor for JournalMembershipListViewController(0);
   swift_deallocPartialClassInstance();
   return 0;
 }
@@ -58,7 +58,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10012E8E8(viewCopy);
+  sub_10012E8E8(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

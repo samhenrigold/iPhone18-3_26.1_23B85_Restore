@@ -17,12 +17,12 @@
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
-- (void)_previewViewControllerForAssetReference:()PhotosSupport dataSource:previewDelegate:previewMode:.cold.1()
+- (void)_previewViewControllerForAssetReference:()PhotosSupport dataSource:previewDelegate:previewMode:.cold.1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 - (void)_presentPreviewViewControllerFromPhotosViewController:()PhotosSupport assetReference:.cold.1()
@@ -60,12 +60,12 @@
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_assetReferenceForDisplayedGridChatItem:()PhotosSupport selectionSnapshot:.cold.1()
+- (void)_assetReferenceForDisplayedGridChatItem:()PhotosSupport selectionSnapshot:.cold.1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 - (void)_assetReferenceForDisplayedGridChatItem:()PhotosSupport selectionSnapshot:.cold.2(void *a1)

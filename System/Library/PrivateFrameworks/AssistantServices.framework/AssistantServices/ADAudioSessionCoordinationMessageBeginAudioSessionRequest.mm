@@ -37,7 +37,7 @@
   if (representation)
   {
     representationCopy = representation;
-    v5 = [representationCopy objectForKey:@"effectiveDate"];
+    v5 = objc_msgSend_objectForKey_(representationCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -49,7 +49,7 @@
       v6 = 0;
     }
 
-    v8 = [representationCopy objectForKey:@"expirationDuration"];
+    v8 = objc_msgSend_objectForKey_(representationCopy);
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())

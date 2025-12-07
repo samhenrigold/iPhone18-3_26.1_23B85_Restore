@@ -42,7 +42,7 @@
 
 void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -95,10 +95,10 @@ void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___bloc
     }
 
     v20 = [v19 OSLogObject];
-    v50 = v6;
+    v49 = v6;
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v48 = v5;
+      v47 = v5;
       v21 = AMSLogKey();
       v22 = MEMORY[0x1E696AEC0];
       v23 = objc_opt_class();
@@ -121,7 +121,7 @@ void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___bloc
       *&buf[12] = 2114;
       *&buf[14] = v26;
       *&buf[22] = 2114;
-      v55 = v27;
+      v54 = v27;
       _os_log_impl(&dword_1BB036000, v20, OS_LOG_TYPE_DEBUG, "%{public}@[AIDAAccountManager addAccountChangeObserver:handler:] called with old account: %{public}@, new account: %{public}@", buf, 0x20u);
       if (v21)
       {
@@ -129,8 +129,8 @@ void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___bloc
         v25 = v6;
       }
 
-      v5 = v48;
-      v6 = v50;
+      v5 = v47;
+      v6 = v49;
     }
 
     if ((v18 != 0) != (v16 != 0))
@@ -171,7 +171,7 @@ void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___bloc
     v33 = [v32 OSLogObject];
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      v49 = v16;
+      v48 = v16;
       v34 = v5;
       v35 = AMSLogKey();
       v36 = MEMORY[0x1E696AEC0];
@@ -206,8 +206,8 @@ void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___bloc
       }
 
       v5 = v34;
-      v16 = v49;
-      v6 = v50;
+      v16 = v48;
+      v6 = v49;
     }
 
     if (v28)
@@ -216,32 +216,30 @@ void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___bloc
       v42 = [v41 copy];
 
       [WeakRetained setSpecifiers:0];
-      v51[0] = MEMORY[0x1E69E9820];
-      v51[1] = 3221225472;
-      v51[2] = __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___block_invoke_50;
-      v51[3] = &unk_1E7F243C0;
-      v52 = WeakRetained;
-      v53 = v42;
-      v43 = v51;
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___block_invoke_50;
+      v50[3] = &unk_1E7F243C0;
+      v51 = WeakRetained;
+      v52 = v42;
+      v43 = v50;
       v44 = v42;
       v45 = AMSLogKey();
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __AMSDispatchAsync_block_invoke_3;
-      v55 = &unk_1E7F245E0;
-      v56 = v45;
-      v57 = v43;
+      v54 = &unk_1E7F245E0;
+      v55 = v45;
+      v56 = v43;
       v46 = v45;
       dispatch_async(MEMORY[0x1E69E96A0], buf);
     }
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___block_invoke_50(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E698C968] sharedAccountsConfig];
   if (!v3)
   {
@@ -253,49 +251,44 @@ void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___bloc
   {
     v5 = AMSLogKey();
     v6 = MEMORY[0x1E696AEC0];
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = v8;
+    v7 = objc_opt_class();
+    v8 = v7;
     if (v5)
     {
       v1 = AMSLogKey();
-      [v6 stringWithFormat:@"%@: [%@] ", v9, v1];
+      [v6 stringWithFormat:@"%@: [%@] ", v8, v1];
     }
 
     else
     {
-      [v6 stringWithFormat:@"%@: ", v8];
+      [v6 stringWithFormat:@"%@: ", v7];
     }
-    v10 = ;
-    v11 = [*(a1 + 32) delegate];
+    v9 = ;
+    v10 = [*(a1 + 32) delegate];
+    v11 = AMSHashIfNeeded();
     v12 = AMSHashIfNeeded();
-    v13 = *(a1 + 32);
-    v14 = AMSHashIfNeeded();
-    v15 = *(a1 + 40);
-    v16 = AMSHashIfNeeded();
+    v13 = AMSHashIfNeeded();
     *buf = 138544386;
-    v20 = v10;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v11;
+    v19 = 2114;
+    v20 = v12;
     v21 = 2114;
-    v22 = v12;
+    v22 = v13;
     v23 = 2114;
-    v24 = v14;
-    v25 = 2114;
-    v26 = v16;
-    v27 = 2114;
-    v28 = @"false";
+    v24 = @"false";
     _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling [AAUISpecifierProviderDelegate reloadSpecifiersForProvider:oldSpecifiers:animated:] on delegate: %{public}@ with provider: %{public}@, oldSpecifiers: %{public}@, animated: %{public}@", buf, 0x34u);
 
     if (v5)
     {
 
-      v10 = v1;
+      v9 = v1;
     }
   }
 
-  v17 = [*(a1 + 32) delegate];
-  [v17 reloadSpecifiersForProvider:*(a1 + 32) oldSpecifiers:*(a1 + 40) animated:0];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = [*(a1 + 32) delegate];
+  [v14 reloadSpecifiersForProvider:*(a1 + 32) oldSpecifiers:*(a1 + 40) animated:0];
 }
 
 - (void)dealloc
@@ -310,7 +303,7 @@ void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___bloc
 
 - (NSArray)specifiers
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   specifiers = self->_specifiers;
   if (specifiers)
   {
@@ -321,7 +314,7 @@ void __66__AMSUIManageSubsriptionSpecifierProvider_initWithAccountManager___bloc
 
   if (!_storeAccount)
   {
-    v17 = self->_specifiers;
+    v16 = self->_specifiers;
     self->_specifiers = MEMORY[0x1E695E0F0];
 
     specifiers = self->_specifiers;
@@ -353,14 +346,13 @@ LABEL_2:
     [v8 setProperty:aa_formattedUsername forKey:*MEMORY[0x1E69C59A0]];
   }
 
-  v18[0] = v8;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = v8;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   v14 = self->_specifiers;
   self->_specifiers = v13;
 
   v3 = self->_specifiers;
 LABEL_9:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -606,7 +598,7 @@ void __72__AMSUIManageSubsriptionSpecifierProvider__loadManageSubsWithSpecifier_
 
 void __72__AMSUIManageSubsriptionSpecifierProvider__loadManageSubsWithSpecifier___block_invoke_4(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v3)
   {
@@ -618,39 +610,36 @@ void __72__AMSUIManageSubsriptionSpecifierProvider__loadManageSubsWithSpecifier_
   {
     v5 = AMSLogKey();
     v6 = MEMORY[0x1E696AEC0];
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = v8;
+    v7 = objc_opt_class();
+    v8 = v7;
     if (v5)
     {
       v1 = AMSLogKey();
-      [v6 stringWithFormat:@"%@: [%@] ", v9, v1];
+      [v6 stringWithFormat:@"%@: [%@] ", v8, v1];
     }
 
     else
     {
-      [v6 stringWithFormat:@"%@: ", v8];
+      [v6 stringWithFormat:@"%@: ", v7];
     }
-    v10 = ;
+    v9 = ;
     *buf = 138543362;
-    v14 = v10;
+    v12 = v9;
     _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Presenting manage subs", buf, 0xCu);
     if (v5)
     {
 
-      v10 = v1;
+      v9 = v1;
     }
   }
 
-  v11 = [*(a1 + 32) delegate];
-  [v11 specifierProvider:*(a1 + 32) showViewController:*(a1 + 40)];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = [*(a1 + 32) delegate];
+  [v10 specifierProvider:*(a1 + 32) showViewController:*(a1 + 40)];
 }
 
-void __72__AMSUIManageSubsriptionSpecifierProvider__loadManageSubsWithSpecifier___block_invoke_80(uint64_t a1, void *a2)
+void __72__AMSUIManageSubsriptionSpecifierProvider__loadManageSubsWithSpecifier___block_invoke_80(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v4)
@@ -663,34 +652,31 @@ void __72__AMSUIManageSubsriptionSpecifierProvider__loadManageSubsWithSpecifier_
   {
     v6 = AMSLogKey();
     v7 = MEMORY[0x1E696AEC0];
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = v9;
+    v8 = objc_opt_class();
+    v9 = v8;
     if (v6)
     {
       a1 = AMSLogKey();
-      [v7 stringWithFormat:@"%@: [%@] ", v10, a1];
+      [v7 stringWithFormat:@"%@: [%@] ", v9, a1];
     }
 
     else
     {
-      [v7 stringWithFormat:@"%@: ", v9];
+      [v7 stringWithFormat:@"%@: ", v8];
     }
-    v11 = ;
-    v12 = AMSLogableError();
+    v10 = ;
+    v11 = AMSLogableError();
     *buf = 138543618;
+    v13 = v10;
+    v14 = 2114;
     v15 = v11;
-    v16 = 2114;
-    v17 = v12;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@Failed to load manage subs. error = %{public}@", buf, 0x16u);
     if (v6)
     {
 
-      v11 = a1;
+      v10 = a1;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (AAUISpecifierProviderDelegate)delegate

@@ -9,21 +9,21 @@
 - (id)activityViewControllerPlaceholderItem:(id)item
 {
   v4 = sub_1BA4A15D8();
-  v5 = MEMORY[0x1EEE9AC00](v4);
-  (*(v7 + 16))(&v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC18HealthExperienceUI27ShareFileActivityItemSource_fileURL, v4, v5);
-  v8 = sub_1BA4A8398();
+  v6 = MEMORY[0x1EEE9AC00](v4, v5);
+  (*(v8 + 16))(&v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC18HealthExperienceUI27ShareFileActivityItemSource_fileURL, v4, v6);
+  v9 = sub_1BA4A8398();
 
-  return v8;
+  return v9;
 }
 
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
   v5 = sub_1BA4A15D8();
-  v6 = MEMORY[0x1EEE9AC00](v5);
-  (*(v8 + 16))(&v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC18HealthExperienceUI27ShareFileActivityItemSource_fileURL, v5, v6);
-  v9 = sub_1BA4A8398();
+  v7 = MEMORY[0x1EEE9AC00](v5, v6);
+  (*(v9 + 16))(&v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC18HealthExperienceUI27ShareFileActivityItemSource_fileURL, v5, v7);
+  v10 = sub_1BA4A8398();
 
-  return v9;
+  return v10;
 }
 
 - (_TtC18HealthExperienceUI27ShareFileActivityItemSource)init

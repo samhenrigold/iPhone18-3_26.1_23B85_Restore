@@ -64,38 +64,38 @@
 
 - (void)applySettings:(id)settings
 {
-  v33[14] = *MEMORY[0x1E69E9840];
+  v32[14] = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
-  v32[0] = @"alarmId";
-  v32[1] = @"hour";
-  v33[0] = &stru_1F29360E0;
-  v33[1] = &unk_1F2965E40;
-  v32[2] = @"minute";
-  v32[3] = @"allowsSnooze";
-  v33[2] = &unk_1F2965E40;
-  v33[3] = MEMORY[0x1E695E110];
-  v32[4] = @"isSleepAlarm";
-  v32[5] = @"bedtimeHour";
-  v33[4] = MEMORY[0x1E695E110];
-  v33[5] = &unk_1F2965E40;
-  v32[6] = @"bedtimeMinute";
-  v32[7] = @"daySetting";
-  v33[6] = &unk_1F2965E40;
-  v33[7] = &unk_1F2965E40;
-  v32[8] = @"title";
-  v32[9] = @"soundType";
-  v33[8] = &stru_1F29360E0;
-  v33[9] = &unk_1F2965E58;
-  v32[10] = @"sound";
-  v32[11] = @"vibe";
-  v33[10] = &stru_1F29360E0;
-  v33[11] = &stru_1F29360E0;
-  v33[12] = self->_lastModified;
-  v32[12] = @"lastModified";
-  v32[13] = @"revision";
+  v31[0] = @"alarmId";
+  v31[1] = @"hour";
+  v32[0] = &stru_1F29360E0;
+  v32[1] = &unk_1F2965E40;
+  v31[2] = @"minute";
+  v31[3] = @"allowsSnooze";
+  v32[2] = &unk_1F2965E40;
+  v32[3] = MEMORY[0x1E695E110];
+  v31[4] = @"isSleepAlarm";
+  v31[5] = @"bedtimeHour";
+  v32[4] = MEMORY[0x1E695E110];
+  v32[5] = &unk_1F2965E40;
+  v31[6] = @"bedtimeMinute";
+  v31[7] = @"daySetting";
+  v32[6] = &unk_1F2965E40;
+  v32[7] = &unk_1F2965E40;
+  v31[8] = @"title";
+  v31[9] = @"soundType";
+  v32[8] = &stru_1F29360E0;
+  v32[9] = &unk_1F2965E58;
+  v31[10] = @"sound";
+  v31[11] = @"vibe";
+  v32[10] = &stru_1F29360E0;
+  v32[11] = &stru_1F29360E0;
+  v32[12] = self->_lastModified;
+  v31[12] = @"lastModified";
+  v31[13] = @"revision";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_revision];
-  v33[13] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:14];
+  v32[13] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:14];
   v7 = [v6 mutableCopy];
   settings = self->_settings;
   self->_settings = v7;
@@ -172,8 +172,6 @@
       [(NSMutableDictionary *)v29 setObject:v30 forKey:@"revision"];
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareEditingProxy
@@ -218,7 +216,7 @@
 {
   editingProxy = self->_editingProxy;
   self->_editingProxy = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, editingProxy);
 }
 
 + (BOOL)verifyIdSetting:(id)setting withMessageList:(id)list
@@ -331,7 +329,7 @@ LABEL_7:
 
 + (BOOL)verifySettings:(id)settings
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:5];
   v5 = v4;
@@ -355,55 +353,54 @@ LABEL_7:
       goto LABEL_20;
     }
 
-    v23 = settingsCopy;
+    v22 = settingsCopy;
     settingsCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Settings :: settings %@", settingsCopy];
     [v5 addObject:settingsCopy];
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
     [v4 addObject:@"Settings is nil"];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v15 = v5;
-  v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     v19 = MEMORY[0x1E698B6B8];
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        NSLog(&stru_1F29367E0.isa, *(*(&v24 + 1) + 8 * i));
+        NSLog(&stru_1F29367E0.isa, *(*(&v23 + 1) + 8 * i));
         if (__shouldLog == 1 && atomic_load_explicit(v19, memory_order_acquire) >= 6)
         {
           _CPLog();
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v17);
   }
 
   v13 = 0;
-  settingsCopy = v23;
+  settingsCopy = v22;
 LABEL_20:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -750,9 +747,11 @@ LABEL_18:
     type = 0;
   }
 
+  p_sound = &self->_sound;
+  obja = v6;
   if (v6 != self->_sound)
   {
-    objc_storeStrong(&self->_sound, v6);
+    objc_storeStrong(p_sound, v6);
     if (self->_sound)
     {
       sound = self->_sound;
@@ -763,18 +762,21 @@ LABEL_18:
       sound = &stru_1F29360E0;
     }
 
-    [(NSMutableDictionary *)self->_settings setObject:sound forKey:@"sound"];
+    p_sound = [(NSMutableDictionary *)self->_settings setObject:sound forKey:@"sound"];
+    v6 = obja;
   }
 
   if (type != self->_soundType)
   {
     self->_soundType = type;
     settings = self->_settings;
-    v9 = [MEMORY[0x1E696AD98] numberWithInt:type];
-    [(NSMutableDictionary *)settings setObject:v9 forKey:@"soundType"];
+    v10 = [MEMORY[0x1E696AD98] numberWithInt:type];
+    [(NSMutableDictionary *)settings setObject:v10 forKey:@"soundType"];
+
+    v6 = obja;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](p_sound, v6);
 }
 
 - (void)setSoundVolume:(id)volume

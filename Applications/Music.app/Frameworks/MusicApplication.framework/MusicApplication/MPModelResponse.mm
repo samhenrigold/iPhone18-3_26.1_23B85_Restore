@@ -8,7 +8,7 @@
 {
   v3 = sub_AB3820();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
+  __chkstk_darwin();
   v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   v7 = variable initialization expression of Library.Context.useDownloadedContentOnly();

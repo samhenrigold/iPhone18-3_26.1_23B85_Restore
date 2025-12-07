@@ -18,8 +18,10 @@
 - (id)messagesForGroupedSender:(id)sender limit:(int64_t)limit;
 - (unint64_t)_sectionIndexForGroupedSender:(id)sender sectionIdentifier:(id *)identifier;
 - (void)_filterGroupedSenderChanges:(id)changes withVisibleSenders:(id)senders;
+- (void)_messagesWereAdded:(id)added toInitialBatch:(BOOL)batch;
 - (void)_messagesWereChanged:(id)changed previousMessages:(id)messages forKeyPaths:(id)paths deleted:(BOOL)deleted;
 - (void)_notifyObserversOfInsertedSenders:(id)senders senderItemIDsBySection:(id)section previousSender:(id)sender includePrecachedSenders:(BOOL)precachedSenders notifyBlock:(id)block;
+- (void)_notifyObserversOfMovedSenders:(id)senders previousSender:(id)sender includePrecachedSenders:(BOOL)precachedSenders notifyBlock:(id)block;
 - (void)_notifyResultsObserverOfChangesToVisibleGroupedSendersFrom:(id)from to:(id)to forChangedGroups:(id)groups itemIDsWithSectionChanges:(id)changes includePrecachedSenders:(BOOL)senders logMessage:(id)message;
 - (void)_persistenceDidFinishMergingBusinesses;
 - (void)cancel;
@@ -27,6 +29,7 @@
 - (void)queryHelper:(id)helper businessIDDidChangeForMessages:(id)messages fromBusinessID:(int64_t)d;
 - (void)queryHelper:(id)helper didAddMessages:(id)messages searchInfo:(id)info;
 - (void)queryHelper:(id)helper didDeleteMessages:(id)messages;
+- (void)queryHelper:(id)helper didFindMessages:(id)messages searchInfo:(id)info forInitialBatch:(BOOL)batch;
 - (void)queryHelper:(id)helper didUpdateMessages:(id)messages forKeyPaths:(id)paths;
 - (void)queryHelper:(id)helper messageFlagsDidChangeForMessages:(id)messages previousMessages:(id)previousMessages;
 - (void)queryHelperDidFindAllMessages:(id)messages localSearchInfoCollector:(id)collector;
@@ -119,94 +122,95 @@ void ___ef_log_EDGroupedSenderQueryHandler_block_invoke()
 
 - (void)updateUnseenCountsForBusinessesWithExternalIDs:(id)ds
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   groupedSenders = [(EDGroupedSenderQueryHandler *)self groupedSenders];
-  v6 = _ef_log_EDGroupedSenderQueryHandler();
+  v6 = _ef_log_EDGroupedSenderQueryHandler(groupedSenders);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v43 = objc_opt_class();
-    v44 = 2048;
-    selfCopy5 = self;
+    v45 = objc_opt_class();
     v46 = 2048;
-    v47 = v5;
-    v7 = v43;
+    selfCopy5 = self;
+    v48 = 2048;
+    v49 = v5;
+    v7 = v45;
     _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entering grouped sender list %p lock for updating unseen counts", buf, 0x20u);
   }
 
-  v35 = 88;
+  v37 = 88;
   os_unfair_lock_lock(&self->_groupedSendersLock);
-  v8 = _ef_log_EDGroupedSenderQueryHandler();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _ef_log_EDGroupedSenderQueryHandler(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = objc_opt_class();
+    v10 = objc_opt_class();
     *buf = 138412802;
-    v43 = v9;
-    v44 = 2048;
-    selfCopy5 = self;
+    v45 = v10;
     v46 = 2048;
-    v47 = v5;
-    v10 = v9;
-    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entered grouped sender list %p lock for updating unseen counts", buf, 0x20u);
+    selfCopy5 = self;
+    v48 = 2048;
+    v49 = v5;
+    v11 = v10;
+    _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entered grouped sender list %p lock for updating unseen counts", buf, 0x20u);
   }
 
+  v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
   orderedGroupedSenders = [groupedSenders orderedGroupedSenders];
-  v12 = [orderedGroupedSenders countByEnumeratingWithState:&v37 objects:v41 count:16];
-  if (v12)
+  v13 = [orderedGroupedSenders countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v13)
   {
-    v13 = *v38;
+    v14 = *v40;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v38 != v13)
+        if (*v40 != v14)
         {
           objc_enumerationMutation(orderedGroupedSenders);
         }
 
-        v15 = *(*(&v37 + 1) + 8 * i);
-        externalBusinessID = [v15 externalBusinessID];
-        v17 = [dsCopy containsObject:externalBusinessID];
+        v16 = *(*(&v39 + 1) + 8 * i);
+        externalBusinessID = [v16 externalBusinessID];
+        v18 = [dsCopy containsObject:externalBusinessID];
 
-        if (v17)
+        if (v18)
         {
-          recalculateUnseenCount = [v15 recalculateUnseenCount];
-          objectID = [v15 objectID];
+          recalculateUnseenCount = [v16 recalculateUnseenCount];
+          objectID = [v16 objectID];
           [v5 setObject:recalculateUnseenCount forKeyedSubscript:objectID];
         }
       }
 
-      v12 = [orderedGroupedSenders countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v13 = [orderedGroupedSenders countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
   query = [(EDMessageRepositoryQueryHandler *)self query];
   limit = [query limit];
 
-  v22 = [groupedSenders orderedGroupedSendersWithLimit:limit & ~(limit >> 63)];
-  [(EDGroupedSenderQueryHandler *)self _filterGroupedSenderChanges:v5 withVisibleSenders:v22];
-  if ([v5 count])
+  v23 = [groupedSenders orderedGroupedSendersWithLimit:limit & ~(limit >> 63)];
+  [(EDGroupedSenderQueryHandler *)self _filterGroupedSenderChanges:v5 withVisibleSenders:v23];
+  v24 = [v5 count];
+  if (v24)
   {
-    v23 = _ef_log_EDGroupedSenderQueryHandler();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v25 = _ef_log_EDGroupedSenderQueryHandler(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = objc_opt_class();
-      v25 = [v5 count];
+      v26 = objc_opt_class();
+      v27 = [v5 count];
       *buf = 138412802;
-      v43 = v24;
-      v44 = 2048;
-      selfCopy5 = self;
+      v45 = v26;
       v46 = 2048;
-      v47 = v25;
-      _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu changed groups (after last seen dates changed)", buf, 0x20u);
+      selfCopy5 = self;
+      v48 = 2048;
+      v49 = v27;
+      _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu changed groups (after last seen dates changed)", buf, 0x20u);
     }
 
     resultsObserverIfUncanceled = [(EDGroupedSenderQueryHandler *)self resultsObserverIfUncanceled];
@@ -214,36 +218,34 @@ void ___ef_log_EDGroupedSenderQueryHandler_block_invoke()
     [resultsObserverIfUncanceled observer:observationIdentifier matchedChangesForObjectIDs:v5];
   }
 
-  v28 = _ef_log_EDGroupedSenderQueryHandler();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v30 = _ef_log_EDGroupedSenderQueryHandler(v24);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = objc_opt_class();
+    v31 = objc_opt_class();
     *buf = 138412802;
-    v43 = v29;
-    v44 = 2048;
-    selfCopy5 = self;
+    v45 = v31;
     v46 = 2048;
-    v47 = v5;
-    v30 = v29;
-    _os_log_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exiting grouped sender list %p lock for updating unseen counts", buf, 0x20u);
+    selfCopy5 = self;
+    v48 = 2048;
+    v49 = v5;
+    v32 = v31;
+    _os_log_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exiting grouped sender list %p lock for updating unseen counts", buf, 0x20u);
   }
 
-  os_unfair_lock_unlock((self + v35));
-  v31 = _ef_log_EDGroupedSenderQueryHandler();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  os_unfair_lock_unlock((self + v37));
+  v34 = _ef_log_EDGroupedSenderQueryHandler(v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = objc_opt_class();
+    v35 = objc_opt_class();
     *buf = 138412802;
-    v43 = v32;
-    v44 = 2048;
-    selfCopy5 = self;
+    v45 = v35;
     v46 = 2048;
-    v47 = v5;
-    v33 = v32;
-    _os_log_impl(&dword_1C61EF000, v31, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exited grouped sender list %p lock for updating unseen counts", buf, 0x20u);
+    selfCopy5 = self;
+    v48 = 2048;
+    v49 = v5;
+    v36 = v35;
+    _os_log_impl(&dword_1C61EF000, v34, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exited grouped sender list %p lock for updating unseen counts", buf, 0x20u);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_groupedSenderForObjectID:(id)d
@@ -267,8 +269,8 @@ void ___ef_log_EDGroupedSenderQueryHandler_block_invoke()
 
     if (!newestMessage)
     {
-      v7 = _ef_log_EDGroupedSenderQueryHandler();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v8 = _ef_log_EDGroupedSenderQueryHandler(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
         v19 = objc_opt_class();
@@ -277,11 +279,11 @@ void ___ef_log_EDGroupedSenderQueryHandler_block_invoke()
         v22 = 2114;
         v23 = senderCopy;
         v13 = v19;
-        _os_log_fault_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_FAULT, "<%@ %p> Empty group sender being created: %{public}@", buf, 0x20u);
+        _os_log_fault_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_FAULT, "<%@ %p> Empty group sender being created: %{public}@", buf, 0x20u);
       }
     }
 
-    v8 = objc_alloc(MEMORY[0x1E699ACC0]);
+    v9 = objc_alloc(MEMORY[0x1E699ACC0]);
     objectID = [senderCopy objectID];
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
@@ -290,17 +292,15 @@ void ___ef_log_EDGroupedSenderQueryHandler_block_invoke()
     selfCopy2 = self;
     v17 = a2;
     v15 = senderCopy;
-    v10 = [v8 initWithObjectID:objectID builder:v14];
+    v11 = [v9 initWithObjectID:objectID builder:v14];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v11;
 }
 
 void __64__EDGroupedSenderQueryHandler__groupedSenderForEDGroupedSender___block_invoke(uint64_t a1, void *a2)
@@ -522,6 +522,17 @@ void __36__EDGroupedSenderQueryHandler_start__block_invoke(uint64_t a1)
   }
 }
 
+- (void)queryHelper:(id)helper didFindMessages:(id)messages searchInfo:(id)info forInitialBatch:(BOOL)batch
+{
+  batchCopy = batch;
+  helperCopy = helper;
+  messagesCopy = messages;
+  if ([(EDGroupedSenderQueryHandler *)self _queryHelperIsCurrent:helperCopy])
+  {
+    [(EDGroupedSenderQueryHandler *)self _messagesWereAdded:messagesCopy toInitialBatch:batchCopy];
+  }
+}
+
 - (void)queryHelper:(id)helper didUpdateMessages:(id)messages forKeyPaths:(id)paths
 {
   helperCopy = helper;
@@ -535,21 +546,19 @@ void __36__EDGroupedSenderQueryHandler_start__block_invoke(uint64_t a1)
 
 - (void)queryHelper:(id)helper messageFlagsDidChangeForMessages:(id)messages previousMessages:(id)previousMessages
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   messagesCopy = messages;
   previousMessagesCopy = previousMessages;
   if ([(EDGroupedSenderQueryHandler *)self _queryHelperIsCurrent:helperCopy])
   {
     v11 = *MEMORY[0x1E699A8E8];
-    v14[0] = *MEMORY[0x1E699A8A0];
-    v14[1] = v11;
-    v14[2] = *MEMORY[0x1E699A898];
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+    v13[0] = *MEMORY[0x1E699A8A0];
+    v13[1] = v11;
+    v13[2] = *MEMORY[0x1E699A898];
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
     [(EDGroupedSenderQueryHandler *)self _messagesWereChanged:messagesCopy previousMessages:previousMessagesCopy forKeyPaths:v12 deleted:0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryHelper:(id)helper didDeleteMessages:(id)messages
@@ -564,202 +573,202 @@ void __36__EDGroupedSenderQueryHandler_start__block_invoke(uint64_t a1)
 
 - (void)queryHelper:(id)helper businessIDDidChangeForMessages:(id)messages fromBusinessID:(int64_t)d
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   query = [(EDMessageRepositoryQueryHandler *)self query];
   limit = [query limit];
 
   [(EDGroupedSenderQueryHandler *)self groupedSenders];
-  v62 = v56 = limit & ~(limit >> 63);
-  v59 = [v62 orderedGroupedSendersWithLimit:?];
-  array = [v59 array];
-  v58 = [(EDGroupedSenderQueryHandler *)self _senderItemIDsBySectionForSenders:array];
+  v68 = v62 = limit & ~(limit >> 63);
+  v65 = [v68 orderedGroupedSendersWithLimit:?];
+  array = [v65 array];
+  v64 = [(EDGroupedSenderQueryHandler *)self _senderItemIDsBySectionForSenders:array];
 
-  v60 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v63 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v66 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v69 = objc_alloc_init(MEMORY[0x1E695DF90]);
   firstObject = [messagesCopy firstObject];
   businessID = [firstObject businessID];
   dCopy = d;
 
-  v12 = _ef_log_EDGroupedSenderQueryHandler();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _ef_log_EDGroupedSenderQueryHandler(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v66 = objc_opt_class();
-    v67 = 2048;
+    v72 = objc_opt_class();
+    v73 = 2048;
     selfCopy7 = self;
-    v69 = 2048;
-    v70 = v63;
-    v13 = v66;
-    _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entering grouped sender list %p lock for updating business IDs", buf, 0x20u);
+    v75 = 2048;
+    v76 = v69;
+    v14 = v72;
+    _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entering grouped sender list %p lock for updating business IDs", buf, 0x20u);
   }
 
   os_unfair_lock_lock(&self->_groupedSendersLock);
-  v14 = _ef_log_EDGroupedSenderQueryHandler();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = _ef_log_EDGroupedSenderQueryHandler(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = objc_opt_class();
+    v17 = objc_opt_class();
     *buf = 138412802;
-    v66 = v15;
-    v67 = 2048;
+    v72 = v17;
+    v73 = 2048;
     selfCopy7 = self;
-    v69 = 2048;
-    v70 = v63;
-    v16 = v15;
-    _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entered grouped sender list %p lock for updating business IDs", buf, 0x20u);
+    v75 = 2048;
+    v76 = v69;
+    v18 = v17;
+    _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entered grouped sender list %p lock for updating business IDs", buf, 0x20u);
   }
 
-  v17 = [MEMORY[0x1E696AD98] numberWithLongLong:businessID];
-  v18 = [v62 objectForKeyedSubscript:v17];
+  v19 = [MEMORY[0x1E696AD98] numberWithLongLong:businessID];
+  v20 = [v68 objectForKeyedSubscript:v19];
 
-  if (v18)
+  if (v20)
   {
-    v19 = [(EDGroupedSender *)v18 addMessages:messagesCopy];
-    [v62 updateGroupedSender:v18];
-    if (v19)
+    v21 = [(EDGroupedSender *)v20 addMessages:messagesCopy];
+    [v68 updateGroupedSender:v20];
+    if (v21)
     {
-      objectID = [(EMObject *)v18 objectID];
-      [v63 setObject:v19 forKeyedSubscript:objectID];
+      objectID = [(EMObject *)v20 objectID];
+      [v69 setObject:v21 forKeyedSubscript:objectID];
 
-      [v60 addObject:v18];
+      [v66 addObject:v20];
     }
   }
 
   else
   {
     businessPersistence = [(EDGroupedSenderQueryHandler *)self businessPersistence];
-    v19 = [businessPersistence businessExternalIDForBusinessID:businessID];
+    v21 = [businessPersistence businessExternalIDForBusinessID:businessID];
 
-    v22 = [EDGroupedSender alloc];
+    v24 = [EDGroupedSender alloc];
     query2 = [(EDMessageRepositoryQueryHandler *)self query];
-    v23 = [(EDGroupedSenderQueryHandler *)self _messageQueryFromGroupedQuery:?];
+    v25 = [(EDGroupedSenderQueryHandler *)self _messageQueryFromGroupedQuery:?];
     businessPersistence2 = [(EDGroupedSenderQueryHandler *)self businessPersistence];
     messagePersistence = [(EDGroupedSenderQueryHandler *)self messagePersistence];
     businessCloudStorage = [(EDGroupedSenderQueryHandler *)self businessCloudStorage];
     unsubscribeDetector = [(EDGroupedSenderQueryHandler *)self unsubscribeDetector];
-    v18 = [(EDGroupedSender *)v22 initWithBusinessID:businessID externalBusinessID:v19 messages:messagesCopy originatingQuery:v23 businessPersistence:businessPersistence2 messagePersistence:messagePersistence businessCloudStorage:businessCloudStorage unsubscribeDetector:unsubscribeDetector];
+    v20 = [(EDGroupedSender *)v24 initWithBusinessID:businessID externalBusinessID:v21 messages:messagesCopy originatingQuery:v25 businessPersistence:businessPersistence2 messagePersistence:messagePersistence businessCloudStorage:businessCloudStorage unsubscribeDetector:unsubscribeDetector];
 
-    displayMessageItemID = [(EDGroupedSender *)v18 displayMessageItemID];
+    displayMessageItemID = [(EDGroupedSender *)v20 displayMessageItemID];
 
     if (displayMessageItemID)
     {
-      [v62 addGroupedSender:v18];
-      [v60 addObject:v18];
+      [v68 addGroupedSender:v20];
+      [v66 addObject:v20];
     }
 
     else
     {
-      v29 = _ef_log_EDGroupedSenderQueryHandler();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v32 = _ef_log_EDGroupedSenderQueryHandler(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v53 = objc_opt_class();
+        v59 = objc_opt_class();
         *buf = 138412802;
-        v66 = v53;
-        v67 = 2048;
+        v72 = v59;
+        v73 = 2048;
         selfCopy7 = self;
-        v69 = 2048;
-        v70 = businessID;
-        v54 = v53;
-        _os_log_error_impl(&dword_1C61EF000, v29, OS_LOG_TYPE_ERROR, "<%@ %p> Avoid creating group sender with displayMessageItemID equals nil for BusinessID:%lld", buf, 0x20u);
+        v75 = 2048;
+        v76 = businessID;
+        v60 = v59;
+        _os_log_error_impl(&dword_1C61EF000, v32, OS_LOG_TYPE_ERROR, "<%@ %p> Avoid creating group sender with displayMessageItemID equals nil for BusinessID:%lld", buf, 0x20u);
       }
     }
   }
 
-  v30 = [MEMORY[0x1E696AD98] numberWithLongLong:dCopy];
-  v31 = [v62 objectForKeyedSubscript:v30];
+  v33 = [MEMORY[0x1E696AD98] numberWithLongLong:dCopy];
+  v34 = [v68 objectForKeyedSubscript:v33];
 
-  if (v31)
+  if (v34)
   {
-    v64 = 0;
-    v32 = [v31 removeMessages:messagesCopy isGroupEmpty:&v64 messageProvider:self];
-    if (v64 == 1)
+    v70 = 0;
+    v36 = [v34 removeMessages:messagesCopy isGroupEmpty:&v70 messageProvider:self];
+    v37 = v36;
+    if (v70 == 1)
     {
-      v33 = _ef_log_EDGroupedSenderQueryHandler();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v38 = _ef_log_EDGroupedSenderQueryHandler(v36);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = objc_opt_class();
+        v39 = objc_opt_class();
         *buf = 138412802;
-        v66 = v34;
-        v67 = 2048;
+        v72 = v39;
+        v73 = 2048;
         selfCopy7 = self;
-        v69 = 2114;
-        v70 = v31;
-        v35 = v34;
-        _os_log_impl(&dword_1C61EF000, v33, OS_LOG_TYPE_DEFAULT, "<%@ %p> Removed messages from group and it's now empty for sender:%{public}@", buf, 0x20u);
+        v75 = 2114;
+        v76 = v34;
+        v40 = v39;
+        _os_log_impl(&dword_1C61EF000, v38, OS_LOG_TYPE_DEFAULT, "<%@ %p> Removed messages from group and it's now empty for sender:%{public}@", buf, 0x20u);
       }
 
-      [v62 removeGroupedSender:v31];
+      [v68 removeGroupedSender:v34];
     }
 
-    if (v32)
+    if (v37)
     {
-      [v62 updateGroupedSender:v31];
-      objectID2 = [v31 objectID];
-      [v63 setObject:v32 forKeyedSubscript:objectID2];
+      [v68 updateGroupedSender:v34];
+      objectID2 = [v34 objectID];
+      [v69 setObject:v37 forKeyedSubscript:objectID2];
 
-      [v60 addObject:v31];
+      [v66 addObject:v34];
     }
   }
 
-  v37 = _ef_log_EDGroupedSenderQueryHandler();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v42 = _ef_log_EDGroupedSenderQueryHandler(v35);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
-    v38 = objc_opt_class();
+    v43 = objc_opt_class();
     *buf = 138412802;
-    v66 = v38;
-    v67 = 2048;
+    v72 = v43;
+    v73 = 2048;
     selfCopy7 = self;
-    v69 = 2048;
-    v70 = v63;
-    v39 = v38;
-    _os_log_impl(&dword_1C61EF000, v37, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exiting grouped sender list %p lock for updating business IDs", buf, 0x20u);
+    v75 = 2048;
+    v76 = v69;
+    v44 = v43;
+    _os_log_impl(&dword_1C61EF000, v42, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exiting grouped sender list %p lock for updating business IDs", buf, 0x20u);
   }
 
   os_unfair_lock_unlock(&self->_groupedSendersLock);
-  v40 = _ef_log_EDGroupedSenderQueryHandler();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v46 = _ef_log_EDGroupedSenderQueryHandler(v45);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = objc_opt_class();
+    v47 = objc_opt_class();
     *buf = 138412802;
-    v66 = v41;
-    v67 = 2048;
+    v72 = v47;
+    v73 = 2048;
     selfCopy7 = self;
-    v69 = 2048;
-    v70 = v63;
-    v42 = v41;
-    _os_log_impl(&dword_1C61EF000, v40, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exited grouped sender list %p lock for updating business IDs", buf, 0x20u);
+    v75 = 2048;
+    v76 = v69;
+    v48 = v47;
+    _os_log_impl(&dword_1C61EF000, v46, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exited grouped sender list %p lock for updating business IDs", buf, 0x20u);
   }
 
-  v43 = [v62 orderedGroupedSendersWithLimit:v56];
-  array2 = [v59 array];
-  v45 = [(EDGroupedSenderQueryHandler *)self _senderItemIDsBySectionForSenders:array2];
+  v49 = [v68 orderedGroupedSendersWithLimit:v62];
+  array2 = [v65 array];
+  v51 = [(EDGroupedSenderQueryHandler *)self _senderItemIDsBySectionForSenders:array2];
 
-  [(EDGroupedSenderQueryHandler *)self _filterGroupedSenderChanges:v63 withVisibleSenders:v43];
-  if ([v63 count])
+  [(EDGroupedSenderQueryHandler *)self _filterGroupedSenderChanges:v69 withVisibleSenders:v49];
+  v52 = [v69 count];
+  if (v52)
   {
-    v46 = _ef_log_EDGroupedSenderQueryHandler();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    v53 = _ef_log_EDGroupedSenderQueryHandler(v52);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = objc_opt_class();
-      v48 = [v63 count];
+      v54 = objc_opt_class();
+      v55 = [v69 count];
       *buf = 138412802;
-      v66 = v47;
-      v67 = 2048;
+      v72 = v54;
+      v73 = 2048;
       selfCopy7 = self;
-      v69 = 2048;
-      v70 = v48;
-      _os_log_impl(&dword_1C61EF000, v46, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu changed groups (after businessID was changed for messages)", buf, 0x20u);
+      v75 = 2048;
+      v76 = v55;
+      _os_log_impl(&dword_1C61EF000, v53, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu changed groups (after businessID was changed for messages)", buf, 0x20u);
     }
 
     resultsObserverIfUncanceled = [(EDGroupedSenderQueryHandler *)self resultsObserverIfUncanceled];
     observationIdentifier = [(EDMessageRepositoryQueryHandler *)self observationIdentifier];
-    [resultsObserverIfUncanceled observer:observationIdentifier matchedChangesForObjectIDs:v63];
+    [resultsObserverIfUncanceled observer:observationIdentifier matchedChangesForObjectIDs:v69];
   }
 
-  v51 = [(EDGroupedSenderQueryHandler *)self _itemIDsWithSectionChangesFrom:v58 to:v45];
-  [(EDGroupedSenderQueryHandler *)self _notifyResultsObserverOfChangesToVisibleGroupedSendersFrom:v59 to:v43 forChangedGroups:v60 itemIDsWithSectionChanges:v51 includePrecachedSenders:0 logMessage:@"after businessID was changed for messages"];
-
-  v52 = *MEMORY[0x1E69E9840];
+  v58 = [(EDGroupedSenderQueryHandler *)self _itemIDsWithSectionChangesFrom:v64 to:v51];
+  [(EDGroupedSenderQueryHandler *)self _notifyResultsObserverOfChangesToVisibleGroupedSendersFrom:v65 to:v49 forChangedGroups:v66 itemIDsWithSectionChanges:v58 includePrecachedSenders:0 logMessage:@"after businessID was changed for messages"];
 }
 
 - (unint64_t)_sectionIndexForGroupedSender:(id)sender sectionIdentifier:(id *)identifier
@@ -886,168 +895,221 @@ uint64_t __79__EDGroupedSenderQueryHandler__comparatorForSortDescriptors_section
   return v9;
 }
 
+- (void)_messagesWereAdded:(id)added toInitialBatch:(BOOL)batch
+{
+  batchCopy = batch;
+  v40 = *MEMORY[0x1E69E9840];
+  addedCopy = added;
+  [(EDGroupedSenderQueryHandler *)self grouping];
+  v29 = _groupMessagesBySender(self, addedCopy);
+  v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  query = [(EDMessageRepositoryQueryHandler *)self query];
+  limit = [query limit];
+
+  groupedSenders = [(EDGroupedSenderQueryHandler *)self groupedSenders];
+  v27 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v9 = limit & ~(limit >> 63);
+  v10 = [groupedSenders orderedGroupedSendersWithLimit:{v9, groupedSenders}];
+  array = [v10 array];
+  v28 = [(EDGroupedSenderQueryHandler *)self _senderItemIDsBySectionForSenders:array];
+
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __65__EDGroupedSenderQueryHandler__messagesWereAdded_toInitialBatch___block_invoke;
+  v30[3] = &unk_1E82523F0;
+  v30[4] = self;
+  v12 = v25;
+  v31 = v12;
+  v13 = groupedSenders;
+  v32 = v13;
+  v14 = v27;
+  v33 = v14;
+  [v29 enumerateKeysAndObjectsUsingBlock:v30];
+  v15 = [v13 orderedGroupedSendersWithLimit:v9];
+  array2 = [v10 array];
+  v17 = [(EDGroupedSenderQueryHandler *)self _senderItemIDsBySectionForSenders:array2];
+
+  [(EDGroupedSenderQueryHandler *)self _filterGroupedSenderChanges:v12 withVisibleSenders:v15];
+  v18 = [v12 count];
+  if (v18)
+  {
+    v19 = _ef_log_EDGroupedSenderQueryHandler(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = objc_opt_class();
+      v21 = [v12 count];
+      *buf = 138412802;
+      v35 = v20;
+      v36 = 2048;
+      selfCopy = self;
+      v38 = 2048;
+      v39 = v21;
+      _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu changed groups (after messages were added)", buf, 0x20u);
+    }
+
+    resultsObserverIfUncanceled = [(EDGroupedSenderQueryHandler *)self resultsObserverIfUncanceled];
+    observationIdentifier = [(EDMessageRepositoryQueryHandler *)self observationIdentifier];
+    [resultsObserverIfUncanceled observer:observationIdentifier matchedChangesForObjectIDs:v12];
+  }
+
+  v24 = [(EDGroupedSenderQueryHandler *)self _itemIDsWithSectionChangesFrom:v28 to:v17];
+  [(EDGroupedSenderQueryHandler *)self _notifyResultsObserverOfChangesToVisibleGroupedSendersFrom:v10 to:v15 forChangedGroups:v14 itemIDsWithSectionChanges:v24 includePrecachedSenders:batchCopy logMessage:@"after messages were added"];
+}
+
 void __65__EDGroupedSenderQueryHandler__messagesWereAdded_toInitialBatch___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v69 = *MEMORY[0x1E69E9840];
-  v62 = a2;
+  v66 = *MEMORY[0x1E69E9840];
+  v59 = a2;
   v5 = a3;
   v6 = [v5 ef_filter:&__block_literal_global_48];
 
   v7 = [v6 count];
-  v8 = _ef_log_EDGroupedSenderQueryHandler();
+  v8 = _ef_log_EDGroupedSenderQueryHandler(v7);
   v9 = v8;
   if (v7)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
+      v10 = objc_opt_class();
+      v11 = *(a1 + 32);
+      v12 = *(a1 + 40);
       *buf = 138412802;
-      v64 = v11;
-      v65 = 2048;
-      v66 = v12;
-      v67 = 2048;
-      v68 = v13;
-      v14 = v11;
+      v61 = v10;
+      v62 = 2048;
+      v63 = v11;
+      v64 = 2048;
+      v65 = v12;
+      v13 = v10;
       _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entering grouped sender list %p lock for adding messages", buf, 0x20u);
     }
 
-    v61 = *(a1 + 32);
-    os_unfair_lock_lock(v61 + 22);
-    v15 = _ef_log_EDGroupedSenderQueryHandler();
+    v58 = *(a1 + 32);
+    os_unfair_lock_lock(v58 + 22);
+    v15 = _ef_log_EDGroupedSenderQueryHandler(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
-      v18 = *(a1 + 32);
-      v19 = *(a1 + 40);
+      v16 = objc_opt_class();
+      v17 = *(a1 + 32);
+      v18 = *(a1 + 40);
       *buf = 138412802;
-      v64 = v17;
-      v65 = 2048;
-      v66 = v18;
-      v67 = 2048;
-      v68 = v19;
-      v20 = v17;
+      v61 = v16;
+      v62 = 2048;
+      v63 = v17;
+      v64 = 2048;
+      v65 = v18;
+      v19 = v16;
       _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entered grouped sender list %p lock for adding messages", buf, 0x20u);
     }
 
-    v21 = [*(a1 + 48) objectForKeyedSubscript:v62];
-    v22 = v21;
-    if (v21)
+    v20 = [*(a1 + 48) objectForKeyedSubscript:v59];
+    v21 = v20;
+    if (v20)
     {
-      v23 = [(EDGroupedSender *)v21 addMessages:v6];
-      if (v23)
+      v22 = [(EDGroupedSender *)v20 addMessages:v6];
+      if (v22)
       {
-        [*(a1 + 48) updateGroupedSender:v22];
-        v24 = *(a1 + 40);
-        v25 = [(EMObject *)v22 objectID];
-        [v24 setObject:v23 forKeyedSubscript:v25];
+        [*(a1 + 48) updateGroupedSender:v21];
+        v23 = *(a1 + 40);
+        v24 = [(EMObject *)v21 objectID];
+        [v23 setObject:v22 forKeyedSubscript:v24];
 
-        [*(a1 + 56) addObject:v22];
+        [*(a1 + 56) addObject:v21];
       }
     }
 
     else
     {
-      v30 = *(a1 + 32);
-      v31 = [v6 firstObject];
-      v32 = [v31 senderAddress];
-      v23 = [v30 _externalBusinessIDForEmailAddress:v32];
+      v28 = *(a1 + 32);
+      v29 = [v6 firstObject];
+      v30 = [v29 senderAddress];
+      v22 = [v28 _externalBusinessIDForEmailAddress:v30];
 
-      v33 = [EDGroupedSender alloc];
-      v60 = [v6 firstObject];
-      v34 = [v60 businessID];
-      v35 = *(a1 + 32);
-      v59 = [v35 query];
-      v36 = [v35 _messageQueryFromGroupedQuery:?];
-      v37 = [*(a1 + 32) businessPersistence];
-      v38 = [*(a1 + 32) messagePersistence];
-      v39 = [*(a1 + 32) businessCloudStorage];
-      v40 = [*(a1 + 32) unsubscribeDetector];
-      v22 = [(EDGroupedSender *)v33 initWithBusinessID:v34 externalBusinessID:v23 messages:v6 originatingQuery:v36 businessPersistence:v37 messagePersistence:v38 businessCloudStorage:v39 unsubscribeDetector:v40];
+      v31 = [EDGroupedSender alloc];
+      v57 = [v6 firstObject];
+      v32 = [v57 businessID];
+      v33 = *(a1 + 32);
+      v56 = [v33 query];
+      v34 = [v33 _messageQueryFromGroupedQuery:?];
+      v35 = [*(a1 + 32) businessPersistence];
+      v36 = [*(a1 + 32) messagePersistence];
+      v37 = [*(a1 + 32) businessCloudStorage];
+      v38 = [*(a1 + 32) unsubscribeDetector];
+      v21 = [(EDGroupedSender *)v31 initWithBusinessID:v32 externalBusinessID:v22 messages:v6 originatingQuery:v34 businessPersistence:v35 messagePersistence:v36 businessCloudStorage:v37 unsubscribeDetector:v38];
 
-      v41 = [(EDGroupedSender *)v22 displayMessageItemID];
+      v39 = [(EDGroupedSender *)v21 displayMessageItemID];
 
-      if (v41)
+      if (v39)
       {
-        [*(a1 + 48) addGroupedSender:v22];
-        [*(a1 + 56) addObject:v22];
+        [*(a1 + 48) addGroupedSender:v21];
+        [*(a1 + 56) addObject:v21];
       }
 
       else
       {
-        v42 = _ef_log_EDGroupedSenderQueryHandler();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v41 = _ef_log_EDGroupedSenderQueryHandler(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          v55 = *(a1 + 32);
-          v56 = objc_opt_class();
-          v57 = *(a1 + 32);
+          v53 = objc_opt_class();
+          v54 = *(a1 + 32);
           *buf = 138412802;
-          v64 = v56;
-          v65 = 2048;
-          v66 = v57;
-          v67 = 2114;
-          v68 = v62;
-          v58 = v56;
-          _os_log_error_impl(&dword_1C61EF000, v42, OS_LOG_TYPE_ERROR, "<%@ %p> Avoid creating group sender with displayMessageItemID equals nil for BusinessID:%{public}@", buf, 0x20u);
+          v61 = v53;
+          v62 = 2048;
+          v63 = v54;
+          v64 = 2114;
+          v65 = v59;
+          v55 = v53;
+          _os_log_error_impl(&dword_1C61EF000, v41, OS_LOG_TYPE_ERROR, "<%@ %p> Avoid creating group sender with displayMessageItemID equals nil for BusinessID:%{public}@", buf, 0x20u);
         }
       }
     }
 
-    v43 = _ef_log_EDGroupedSenderQueryHandler();
+    v43 = _ef_log_EDGroupedSenderQueryHandler(v42);
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = *(a1 + 32);
-      v45 = objc_opt_class();
-      v46 = *(a1 + 32);
-      v47 = *(a1 + 40);
+      v44 = objc_opt_class();
+      v45 = *(a1 + 32);
+      v46 = *(a1 + 40);
       *buf = 138412802;
-      v64 = v45;
-      v65 = 2048;
-      v66 = v46;
-      v67 = 2048;
-      v68 = v47;
-      v48 = v45;
+      v61 = v44;
+      v62 = 2048;
+      v63 = v45;
+      v64 = 2048;
+      v65 = v46;
+      v47 = v44;
       _os_log_impl(&dword_1C61EF000, v43, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exiting grouped sender list %p lock for adding messages", buf, 0x20u);
     }
 
-    os_unfair_lock_unlock(v61 + 22);
-    v9 = _ef_log_EDGroupedSenderQueryHandler();
+    os_unfair_lock_unlock(v58 + 22);
+    v9 = _ef_log_EDGroupedSenderQueryHandler(v48);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v49 = *(a1 + 32);
-      v50 = objc_opt_class();
-      v51 = *(a1 + 32);
-      v52 = *(a1 + 40);
+      v49 = objc_opt_class();
+      v50 = *(a1 + 32);
+      v51 = *(a1 + 40);
       *buf = 138412802;
-      v64 = v50;
-      v65 = 2048;
-      v66 = v51;
-      v67 = 2048;
-      v68 = v52;
-      v53 = v50;
+      v61 = v49;
+      v62 = 2048;
+      v63 = v50;
+      v64 = 2048;
+      v65 = v51;
+      v52 = v49;
       _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exited grouped sender list %p lock for adding messages", buf, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
+    v25 = objc_opt_class();
     v26 = *(a1 + 32);
-    v27 = objc_opt_class();
-    v28 = *(a1 + 32);
     *buf = 138412802;
-    v64 = v27;
-    v65 = 2048;
-    v66 = v28;
-    v67 = 2114;
-    v68 = v62;
-    v29 = v27;
+    v61 = v25;
+    v62 = 2048;
+    v63 = v26;
+    v64 = 2114;
+    v65 = v59;
+    v27 = v25;
     _os_log_error_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_ERROR, "<%@ %p> Avoid creating empty group sender for BusinessID:%{public}@", buf, 0x20u);
   }
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__EDGroupedSenderQueryHandler__messagesWereAdded_toInitialBatch___block_invoke_2(uint64_t a1, void *a2)
@@ -1065,7 +1127,7 @@ uint64_t __65__EDGroupedSenderQueryHandler__messagesWereAdded_toInitialBatch___b
   changedCopy = changed;
   messagesCopy = messages;
   pathsCopy = paths;
-  v10 = _ef_log_EDGroupedSenderQueryHandler();
+  v10 = _ef_log_EDGroupedSenderQueryHandler(pathsCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = objc_opt_class();
@@ -1148,28 +1210,29 @@ uint64_t __65__EDGroupedSenderQueryHandler__messagesWereAdded_toInitialBatch___b
   v29 = [(EDGroupedSenderQueryHandler *)self _senderItemIDsBySectionForSenders:array2];
 
   [(EDGroupedSenderQueryHandler *)self _filterGroupedSenderChanges:v24 withVisibleSenders:v27];
-  if ([v24 count])
+  v30 = [v24 count];
+  if (v30)
   {
-    v30 = _ef_log_EDGroupedSenderQueryHandler();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v31 = _ef_log_EDGroupedSenderQueryHandler(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = objc_opt_class();
-      v32 = [v24 count];
-      v33 = @"changed";
+      v32 = objc_opt_class();
+      v33 = [v24 count];
+      v34 = @"changed";
       *buf = 138413058;
-      v64 = v31;
+      v64 = v32;
       if (deletedCopy)
       {
-        v33 = @"deleted";
+        v34 = @"deleted";
       }
 
       v65 = 2048;
       selfCopy2 = self;
       v67 = 2048;
-      v68 = v32;
+      v68 = v33;
       v69 = 2114;
-      v70 = v33;
-      _os_log_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu changed groups (after messages were %{public}@)", buf, 0x2Au);
+      v70 = v34;
+      _os_log_impl(&dword_1C61EF000, v31, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu changed groups (after messages were %{public}@)", buf, 0x2Au);
     }
 
     resultsObserverIfUncanceled = [(EDGroupedSenderQueryHandler *)self resultsObserverIfUncanceled];
@@ -1177,120 +1240,116 @@ uint64_t __65__EDGroupedSenderQueryHandler__messagesWereAdded_toInitialBatch___b
     [resultsObserverIfUncanceled observer:observationIdentifier matchedChangesForObjectIDs:v24];
   }
 
-  v36 = [(EDGroupedSenderQueryHandler *)self _itemIDsWithSectionChangesFrom:v45 to:v29];
+  v37 = [(EDGroupedSenderQueryHandler *)self _itemIDsWithSectionChangesFrom:v45 to:v29];
   if (deletedCopy)
   {
-    v37 = @"after messages were deleted";
+    v38 = @"after messages were deleted";
   }
 
   else
   {
-    v37 = @"after messages were changed";
+    v38 = @"after messages were changed";
   }
 
-  [(EDGroupedSenderQueryHandler *)self _notifyResultsObserverOfChangesToVisibleGroupedSendersFrom:v50 to:v27 forChangedGroups:v26 itemIDsWithSectionChanges:v36 includePrecachedSenders:0 logMessage:v37];
-
-  v38 = *MEMORY[0x1E69E9840];
+  [(EDGroupedSenderQueryHandler *)self _notifyResultsObserverOfChangesToVisibleGroupedSendersFrom:v50 to:v27 forChangedGroups:v26 itemIDsWithSectionChanges:v37 includePrecachedSenders:0 logMessage:v38];
 }
 
 void __89__EDGroupedSenderQueryHandler__messagesWereChanged_previousMessages_forKeyPaths_deleted___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v85 = *MEMORY[0x1E69E9840];
-  v73 = a2;
+  v81 = *MEMORY[0x1E69E9840];
+  v69 = a2;
   v5 = a3;
   v6 = [v5 count];
-  v7 = _ef_log_EDGroupedSenderQueryHandler();
+  v7 = _ef_log_EDGroupedSenderQueryHandler(v6);
   v8 = v7;
   if (v6)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
+      v9 = objc_opt_class();
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
       *buf = 138412802;
-      v80 = v10;
-      v81 = 2048;
-      v82 = v11;
-      v83 = 2048;
-      v84 = v12;
-      v13 = v10;
+      v76 = v9;
+      v77 = 2048;
+      v78 = v10;
+      v79 = 2048;
+      v80 = v11;
+      v12 = v9;
       _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entering grouped sender list %p lock for updating messages", buf, 0x20u);
     }
 
-    v72 = *(a1 + 32);
-    os_unfair_lock_lock(v72 + 22);
-    v14 = _ef_log_EDGroupedSenderQueryHandler();
+    v68 = *(a1 + 32);
+    os_unfair_lock_lock(v68 + 22);
+    v14 = _ef_log_EDGroupedSenderQueryHandler(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 32);
-      v16 = objc_opt_class();
-      v17 = *(a1 + 32);
-      v18 = *(a1 + 40);
+      v15 = objc_opt_class();
+      v16 = *(a1 + 32);
+      v17 = *(a1 + 40);
       *buf = 138412802;
-      v80 = v16;
-      v81 = 2048;
-      v82 = v17;
-      v83 = 2048;
-      v84 = v18;
-      v19 = v16;
+      v76 = v15;
+      v77 = 2048;
+      v78 = v16;
+      v79 = 2048;
+      v80 = v17;
+      v18 = v15;
       _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entered grouped sender list %p lock for updating messages", buf, 0x20u);
     }
 
-    v20 = [*(a1 + 48) objectForKeyedSubscript:v73];
-    v21 = v20;
-    if (v20)
+    v19 = [*(a1 + 48) objectForKeyedSubscript:v69];
+    v20 = v19;
+    if (v19)
     {
       if (*(a1 + 80))
       {
-        v78 = 0;
-        v22 = [(EDGroupedSender *)v20 removeMessages:v5 isGroupEmpty:&v78 messageProvider:*(a1 + 32)];
-        if (v78 == 1)
+        v74 = 0;
+        v21 = [(EDGroupedSender *)v19 removeMessages:v5 isGroupEmpty:&v74 messageProvider:*(a1 + 32)];
+        v22 = v21;
+        if (v74 == 1)
         {
-          v23 = _ef_log_EDGroupedSenderQueryHandler();
+          v23 = _ef_log_EDGroupedSenderQueryHandler(v21);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            v24 = *(a1 + 32);
-            v25 = objc_opt_class();
-            v26 = *(a1 + 32);
+            v24 = objc_opt_class();
+            v25 = *(a1 + 32);
             *buf = 138412802;
-            v80 = v25;
-            v81 = 2048;
-            v82 = v26;
-            v83 = 2114;
-            v84 = v21;
-            v27 = v25;
+            v76 = v24;
+            v77 = 2048;
+            v78 = v25;
+            v79 = 2114;
+            v80 = v20;
+            v26 = v24;
             _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "<%@ %p> Remove messages from group and it's now empty for sender:%{public}@", buf, 0x20u);
           }
 
-          [*(a1 + 48) removeGroupedSender:v21];
+          [*(a1 + 48) removeGroupedSender:v20];
         }
       }
 
       else
       {
-        v74[0] = MEMORY[0x1E69E9820];
-        v74[1] = 3221225472;
-        v74[2] = __89__EDGroupedSenderQueryHandler__messagesWereChanged_previousMessages_forKeyPaths_deleted___block_invoke_53;
-        v74[3] = &unk_1E8252418;
-        v33 = *(a1 + 56);
-        v34 = *(a1 + 32);
-        v75 = v33;
-        v76 = v34;
-        v77 = *(a1 + 64);
-        v35 = [v5 ef_map:v74];
-        v22 = [(EDGroupedSender *)v21 changeKeyPaths:*(a1 + 64) forMessages:v35 messageProvider:*(a1 + 32)];
+        v70[0] = MEMORY[0x1E69E9820];
+        v70[1] = 3221225472;
+        v70[2] = __89__EDGroupedSenderQueryHandler__messagesWereChanged_previousMessages_forKeyPaths_deleted___block_invoke_53;
+        v70[3] = &unk_1E8252418;
+        v31 = *(a1 + 56);
+        v32 = *(a1 + 32);
+        v71 = v31;
+        v72 = v32;
+        v73 = *(a1 + 64);
+        v33 = [v5 ef_map:v70];
+        v22 = [(EDGroupedSender *)v20 changeKeyPaths:*(a1 + 64) forMessages:v33 messageProvider:*(a1 + 32)];
       }
 
       if (v22)
       {
-        [*(a1 + 48) updateGroupedSender:v21];
-        v36 = *(a1 + 40);
-        v37 = [(EMObject *)v21 objectID];
-        [v36 setObject:v22 forKeyedSubscript:v37];
+        [*(a1 + 48) updateGroupedSender:v20];
+        v34 = *(a1 + 40);
+        v35 = [(EMObject *)v20 objectID];
+        [v34 setObject:v22 forKeyedSubscript:v35];
 
-        [*(a1 + 72) addObject:v21];
+        [*(a1 + 72) addObject:v20];
       }
 
       goto LABEL_27;
@@ -1298,105 +1357,101 @@ void __89__EDGroupedSenderQueryHandler__messagesWereChanged_previousMessages_for
 
     if (*(a1 + 80))
     {
-      v32 = _ef_log_EDGroupedSenderQueryHandler();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v30 = _ef_log_EDGroupedSenderQueryHandler(0);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v62 = *(a1 + 32);
-        v63 = objc_opt_class();
-        v64 = *(a1 + 32);
+        v60 = objc_opt_class();
+        v61 = *(a1 + 32);
         *buf = 138412802;
-        v80 = v63;
-        v81 = 2048;
-        v82 = v64;
-        v83 = 2114;
-        v84 = v73;
-        v65 = v63;
-        _os_log_error_impl(&dword_1C61EF000, v32, OS_LOG_TYPE_ERROR, "<%@ %p> Group sender already removed for BusinessID:%{public}@", buf, 0x20u);
+        v76 = v60;
+        v77 = 2048;
+        v78 = v61;
+        v79 = 2114;
+        v80 = v69;
+        v62 = v60;
+        _os_log_error_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_ERROR, "<%@ %p> Group sender already removed for BusinessID:%{public}@", buf, 0x20u);
       }
 
-      v21 = 0;
-      v22 = v32;
+      v20 = 0;
+      v22 = v30;
     }
 
     else
     {
-      v38 = *(a1 + 32);
-      v39 = [v5 firstObject];
-      v40 = [v39 senderAddress];
-      v22 = [v38 _externalBusinessIDForEmailAddress:v40];
+      v36 = *(a1 + 32);
+      v37 = [v5 firstObject];
+      v38 = [v37 senderAddress];
+      v22 = [v36 _externalBusinessIDForEmailAddress:v38];
 
-      v41 = [EDGroupedSender alloc];
-      v71 = [v5 firstObject];
-      v42 = [v71 businessID];
-      v43 = *(a1 + 32);
-      v70 = [v43 query];
-      v44 = [v43 _messageQueryFromGroupedQuery:?];
-      v45 = [*(a1 + 32) businessPersistence];
-      v46 = [*(a1 + 32) messagePersistence];
-      v47 = [*(a1 + 32) businessCloudStorage];
-      v48 = [*(a1 + 32) unsubscribeDetector];
-      v21 = [(EDGroupedSender *)v41 initWithBusinessID:v42 externalBusinessID:v22 messages:v5 originatingQuery:v44 businessPersistence:v45 messagePersistence:v46 businessCloudStorage:v47 unsubscribeDetector:v48];
+      v39 = [EDGroupedSender alloc];
+      v67 = [v5 firstObject];
+      v40 = [v67 businessID];
+      v41 = *(a1 + 32);
+      v66 = [v41 query];
+      v42 = [v41 _messageQueryFromGroupedQuery:?];
+      v43 = [*(a1 + 32) businessPersistence];
+      v44 = [*(a1 + 32) messagePersistence];
+      v45 = [*(a1 + 32) businessCloudStorage];
+      v46 = [*(a1 + 32) unsubscribeDetector];
+      v20 = [(EDGroupedSender *)v39 initWithBusinessID:v40 externalBusinessID:v22 messages:v5 originatingQuery:v42 businessPersistence:v43 messagePersistence:v44 businessCloudStorage:v45 unsubscribeDetector:v46];
 
-      v49 = [(EDGroupedSender *)v21 displayMessageItemID];
+      v47 = [(EDGroupedSender *)v20 displayMessageItemID];
 
-      if (v49)
+      if (v47)
       {
-        [*(a1 + 48) addGroupedSender:v21];
-        [*(a1 + 72) addObject:v21];
+        [*(a1 + 48) addGroupedSender:v20];
+        [*(a1 + 72) addObject:v20];
 LABEL_27:
 
-        v50 = _ef_log_EDGroupedSenderQueryHandler();
+        v50 = _ef_log_EDGroupedSenderQueryHandler(v49);
         if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          v51 = *(a1 + 32);
-          v52 = objc_opt_class();
-          v53 = *(a1 + 32);
-          v54 = *(a1 + 40);
+          v51 = objc_opt_class();
+          v52 = *(a1 + 32);
+          v53 = *(a1 + 40);
           *buf = 138412802;
-          v80 = v52;
-          v81 = 2048;
-          v82 = v53;
-          v83 = 2048;
-          v84 = v54;
-          v55 = v52;
+          v76 = v51;
+          v77 = 2048;
+          v78 = v52;
+          v79 = 2048;
+          v80 = v53;
+          v54 = v51;
           _os_log_impl(&dword_1C61EF000, v50, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exiting grouped sender list %p lock for updating messages", buf, 0x20u);
         }
 
-        os_unfair_lock_unlock(v72 + 22);
-        v8 = _ef_log_EDGroupedSenderQueryHandler();
+        os_unfair_lock_unlock(v68 + 22);
+        v8 = _ef_log_EDGroupedSenderQueryHandler(v55);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v56 = *(a1 + 32);
-          v57 = objc_opt_class();
-          v58 = *(a1 + 32);
-          v59 = *(a1 + 40);
+          v56 = objc_opt_class();
+          v57 = *(a1 + 32);
+          v58 = *(a1 + 40);
           *buf = 138412802;
-          v80 = v57;
-          v81 = 2048;
-          v82 = v58;
-          v83 = 2048;
-          v84 = v59;
-          v60 = v57;
+          v76 = v56;
+          v77 = 2048;
+          v78 = v57;
+          v79 = 2048;
+          v80 = v58;
+          v59 = v56;
           _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exited grouped sender list %p lock for updating messages", buf, 0x20u);
         }
 
         goto LABEL_31;
       }
 
-      v32 = _ef_log_EDGroupedSenderQueryHandler();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v30 = _ef_log_EDGroupedSenderQueryHandler(v48);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v66 = *(a1 + 32);
-        v67 = objc_opt_class();
-        v68 = *(a1 + 32);
+        v63 = objc_opt_class();
+        v64 = *(a1 + 32);
         *buf = 138412802;
-        v80 = v67;
-        v81 = 2048;
-        v82 = v68;
-        v83 = 2114;
-        v84 = v73;
-        v69 = v67;
-        _os_log_error_impl(&dword_1C61EF000, v32, OS_LOG_TYPE_ERROR, "<%@ %p> Avoid creating group sender with displayMessageItemID equals nil for BusinessID:%{public}@", buf, 0x20u);
+        v76 = v63;
+        v77 = 2048;
+        v78 = v64;
+        v79 = 2114;
+        v80 = v69;
+        v65 = v63;
+        _os_log_error_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_ERROR, "<%@ %p> Avoid creating group sender with displayMessageItemID equals nil for BusinessID:%{public}@", buf, 0x20u);
       }
     }
 
@@ -1405,27 +1460,24 @@ LABEL_27:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
+    v27 = objc_opt_class();
     v28 = *(a1 + 32);
-    v29 = objc_opt_class();
-    v30 = *(a1 + 32);
     *buf = 138412802;
-    v80 = v29;
-    v81 = 2048;
-    v82 = v30;
-    v83 = 2114;
-    v84 = v73;
-    v31 = v29;
+    v76 = v27;
+    v77 = 2048;
+    v78 = v28;
+    v79 = 2114;
+    v80 = v69;
+    v29 = v27;
     _os_log_error_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_ERROR, "<%@ %p> Avoid creating empty group sender for BusinessID:%{public}@", buf, 0x20u);
   }
 
 LABEL_31:
-
-  v61 = *MEMORY[0x1E69E9840];
 }
 
 id __89__EDGroupedSenderQueryHandler__messagesWereChanged_previousMessages_forKeyPaths_deleted___block_invoke_53(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1[4];
   v5 = [v3 objectID];
@@ -1433,31 +1485,28 @@ id __89__EDGroupedSenderQueryHandler__messagesWereChanged_previousMessages_forKe
 
   if (!v6)
   {
-    v7 = _ef_log_EDGroupedSenderQueryHandler();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ef_log_EDGroupedSenderQueryHandler(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = a1[5];
-      v12 = objc_opt_class();
-      v14 = a1[5];
-      v13 = a1[6];
-      v15 = [v3 ef_publicDescription];
-      v16 = 138413058;
-      v17 = v12;
-      v18 = 2048;
-      v19 = v14;
-      v20 = 2114;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v15;
-      _os_log_error_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_ERROR, "<%@ %p> No previous message for keyPaths:%{public}@ message: %{public}@", &v16, 0x2Au);
+      v11 = objc_opt_class();
+      v13 = a1[5];
+      v12 = a1[6];
+      v14 = [v3 ef_publicDescription];
+      v15 = 138413058;
+      v16 = v11;
+      v17 = 2048;
+      v18 = v13;
+      v19 = 2114;
+      v20 = v12;
+      v21 = 2114;
+      v22 = v14;
+      _os_log_error_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_ERROR, "<%@ %p> No previous message for keyPaths:%{public}@ message: %{public}@", &v15, 0x2Au);
     }
   }
 
-  v8 = [objc_alloc(MEMORY[0x1E699B848]) initWithFirst:v6 second:v3];
+  v9 = [objc_alloc(MEMORY[0x1E699B848]) initWithFirst:v6 second:v3];
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v9;
 }
 
 - (id)_updateDifference:(id)difference from:(id)from forChangedGroups:(id)groups
@@ -1642,161 +1691,161 @@ LABEL_38:
 - (void)_notifyResultsObserverOfChangesToVisibleGroupedSendersFrom:(id)from to:(id)to forChangedGroups:(id)groups itemIDsWithSectionChanges:(id)changes includePrecachedSenders:(BOOL)senders logMessage:(id)message
 {
   sendersCopy = senders;
-  v81 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   toCopy = to;
   groupsCopy = groups;
   changesCopy = changes;
   messageCopy = message;
-  v47 = toCopy;
-  v42 = fromCopy;
-  v43 = groupsCopy;
+  v48 = toCopy;
+  v43 = fromCopy;
+  v44 = groupsCopy;
   v16 = [toCopy differenceFromOrderedSet:fromCopy withOptions:4];
   selfCopy = self;
   v17 = [(EDGroupedSenderQueryHandler *)self _updateDifference:v16 from:fromCopy forChangedGroups:groupsCopy];
 
-  v46 = v17;
+  v47 = v17;
   ef_removalsExcludingMoves = [v17 ef_removalsExcludingMoves];
   v19 = [ef_removalsExcludingMoves ef_map:&__block_literal_global_73];
 
-  v44 = v19;
-  if ([v19 count])
+  v45 = v19;
+  v20 = [v19 count];
+  if (v20)
   {
-    v20 = _ef_log_EDGroupedSenderQueryHandler();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = _ef_log_EDGroupedSenderQueryHandler(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = objc_opt_class();
-      v22 = [v44 count];
-      v23 = loggableIdentifiers(v44);
+      v22 = objc_opt_class();
+      v23 = [v45 count];
+      v24 = loggableIdentifiers(v45);
       *buf = 138413314;
-      v72 = v21;
-      v73 = 2048;
-      v74 = selfCopy;
-      v75 = 2048;
-      v76 = v22;
-      v77 = 2114;
-      v78 = messageCopy;
-      v79 = 2114;
-      v80 = v23;
-      _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu deleted groups (%{public}@):\n%{public}@", buf, 0x34u);
+      v73 = v22;
+      v74 = 2048;
+      v75 = selfCopy;
+      v76 = 2048;
+      v77 = v23;
+      v78 = 2114;
+      v79 = messageCopy;
+      v80 = 2114;
+      v81 = v24;
+      _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu deleted groups (%{public}@):\n%{public}@", buf, 0x34u);
     }
 
     resultsObserverIfUncanceled = [(EDGroupedSenderQueryHandler *)selfCopy resultsObserverIfUncanceled];
     observationIdentifier = [(EDMessageRepositoryQueryHandler *)selfCopy observationIdentifier];
-    [resultsObserverIfUncanceled observer:observationIdentifier matchedDeletedObjectIDs:v44];
+    [resultsObserverIfUncanceled observer:observationIdentifier matchedDeletedObjectIDs:v45];
   }
 
-  v26 = [changesCopy mutableCopy];
-  [v46 ef_groupedInsertionsByObjectForTargetOrderedSet:toCopy inferMoves:1];
-  v67 = 0u;
+  v27 = [changesCopy mutableCopy];
+  [v47 ef_groupedInsertionsByObjectForTargetOrderedSet:toCopy inferMoves:1];
   v68 = 0u;
-  v65 = 0u;
-  obj = v66 = 0u;
-  v27 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
-  if (v27)
+  v69 = 0u;
+  v66 = 0u;
+  obj = v67 = 0u;
+  v28 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
+  if (v28)
   {
-    v49 = *v66;
+    v50 = *v67;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v66 != v49)
+        if (*v67 != v50)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v65 + 1) + 8 * i);
-        objects = [v29 objects];
-        previousObject = [v29 previousObject];
-        if ([v29 isMove])
+        v30 = *(*(&v66 + 1) + 8 * i);
+        objects = [v30 objects];
+        previousObject = [v30 previousObject];
+        if ([v30 isMove])
         {
-          v63[0] = MEMORY[0x1E69E9820];
-          v63[1] = 3221225472;
-          v63[2] = __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke_74;
-          v63[3] = &unk_1E8252488;
-          v63[4] = selfCopy;
-          v64 = messageCopy;
-          [(EDGroupedSenderQueryHandler *)selfCopy _notifyObserversOfMovedSenders:objects previousSender:previousObject includePrecachedSenders:sendersCopy notifyBlock:v63];
+          v64[0] = MEMORY[0x1E69E9820];
+          v64[1] = 3221225472;
+          v64[2] = __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke_74;
+          v64[3] = &unk_1E8252488;
+          v64[4] = selfCopy;
+          v65 = messageCopy;
+          [(EDGroupedSenderQueryHandler *)selfCopy _notifyObserversOfMovedSenders:objects previousSender:previousObject includePrecachedSenders:sendersCopy notifyBlock:v64];
         }
 
         else
         {
-          v32 = [(EDGroupedSenderQueryHandler *)selfCopy _senderItemIDsBySectionForSenders:objects];
-          v61[0] = MEMORY[0x1E69E9820];
-          v61[1] = 3221225472;
-          v61[2] = __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke_76;
-          v61[3] = &unk_1E8252488;
-          v61[4] = selfCopy;
-          v62 = messageCopy;
-          [(EDGroupedSenderQueryHandler *)selfCopy _notifyObserversOfInsertedSenders:objects senderItemIDsBySection:v32 previousSender:previousObject includePrecachedSenders:sendersCopy notifyBlock:v61];
+          v33 = [(EDGroupedSenderQueryHandler *)selfCopy _senderItemIDsBySectionForSenders:objects];
+          v62[0] = MEMORY[0x1E69E9820];
+          v62[1] = 3221225472;
+          v62[2] = __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke_76;
+          v62[3] = &unk_1E8252488;
+          v62[4] = selfCopy;
+          v63 = messageCopy;
+          [(EDGroupedSenderQueryHandler *)selfCopy _notifyObserversOfInsertedSenders:objects senderItemIDsBySection:v33 previousSender:previousObject includePrecachedSenders:sendersCopy notifyBlock:v62];
         }
 
-        v59 = 0u;
         v60 = 0u;
-        v57 = 0u;
+        v61 = 0u;
         v58 = 0u;
-        objects2 = [v29 objects];
-        v34 = [objects2 countByEnumeratingWithState:&v57 objects:v69 count:16];
-        if (v34)
+        v59 = 0u;
+        objects2 = [v30 objects];
+        v35 = [objects2 countByEnumeratingWithState:&v58 objects:v70 count:16];
+        if (v35)
         {
-          v35 = *v58;
+          v36 = *v59;
           do
           {
-            for (j = 0; j != v34; ++j)
+            for (j = 0; j != v35; ++j)
             {
-              if (*v58 != v35)
+              if (*v59 != v36)
               {
                 objc_enumerationMutation(objects2);
               }
 
-              itemID = [*(*(&v57 + 1) + 8 * j) itemID];
-              [v26 removeObject:itemID];
+              itemID = [*(*(&v58 + 1) + 8 * j) itemID];
+              [v27 removeObject:itemID];
             }
 
-            v34 = [objects2 countByEnumeratingWithState:&v57 objects:v69 count:16];
+            v35 = [objects2 countByEnumeratingWithState:&v58 objects:v70 count:16];
           }
 
-          while (v34);
+          while (v35);
         }
       }
 
-      v27 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
+      v28 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
     }
 
-    while (v27);
+    while (v28);
   }
 
-  if ([v26 count])
+  v39 = [v27 count];
+  if (v39)
   {
-    v38 = _ef_log_EDGroupedSenderQueryHandler();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v40 = _ef_log_EDGroupedSenderQueryHandler(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = objc_opt_class();
-      v40 = [v26 count];
+      v41 = objc_opt_class();
+      v42 = [v27 count];
       *buf = 138413314;
-      v72 = v39;
-      v73 = 2048;
-      v74 = selfCopy;
-      v75 = 2048;
-      v76 = v40;
-      v77 = 2114;
-      v78 = messageCopy;
-      v79 = 2114;
-      v80 = v26;
-      _os_log_impl(&dword_1C61EF000, v38, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu additional groups with section changes (%{public}@):\n%{public}@", buf, 0x34u);
+      v73 = v41;
+      v74 = 2048;
+      v75 = selfCopy;
+      v76 = 2048;
+      v77 = v42;
+      v78 = 2114;
+      v79 = messageCopy;
+      v80 = 2114;
+      v81 = v27;
+      _os_log_impl(&dword_1C61EF000, v40, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu additional groups with section changes (%{public}@):\n%{public}@", buf, 0x34u);
     }
 
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke_77;
-    v53[3] = &unk_1E82524B0;
-    v54 = v26;
-    v55 = selfCopy;
-    v56 = v47;
-    [v56 enumerateObjectsUsingBlock:v53];
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke_77;
+    v54[3] = &unk_1E82524B0;
+    v55 = v27;
+    v56 = selfCopy;
+    v57 = v48;
+    [v57 enumerateObjectsUsingBlock:v54];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 id __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke(uint64_t a1, void *a2)
@@ -1809,81 +1858,75 @@ id __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGr
 
 void __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke_74(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = _ef_log_EDGroupedSenderQueryHandler();
+  v10 = _ef_log_EDGroupedSenderQueryHandler(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 32);
-    v12 = objc_opt_class();
-    v13 = *(a1 + 32);
-    v14 = [v7 count];
-    v15 = *(a1 + 40);
-    v16 = loggableIdentifiers(v7);
-    v20 = 138413570;
+    v11 = objc_opt_class();
+    v12 = *(a1 + 32);
+    v13 = [v7 count];
+    v14 = *(a1 + 40);
+    v15 = loggableIdentifiers(v7);
+    v18 = 138413570;
+    v19 = v11;
+    v20 = 2048;
     v21 = v12;
     v22 = 2048;
     v23 = v13;
-    v24 = 2048;
-    v25 = v14;
+    v24 = 2114;
+    v25 = v8;
     v26 = 2114;
-    v27 = v8;
+    v27 = v14;
     v28 = 2114;
     v29 = v15;
-    v30 = 2114;
-    v31 = v16;
-    _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu groups moved after %{public}@ (%{public}@):\n%{public}@", &v20, 0x3Eu);
+    _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu groups moved after %{public}@ (%{public}@):\n%{public}@", &v18, 0x3Eu);
   }
 
-  v17 = [*(a1 + 32) resultsObserverIfUncanceled];
-  v18 = [*(a1 + 32) observationIdentifier];
-  [v17 observer:v18 matchedMovedObjectIDs:v7 after:v8 extraInfo:v9];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = [*(a1 + 32) resultsObserverIfUncanceled];
+  v17 = [*(a1 + 32) observationIdentifier];
+  [v16 observer:v17 matchedMovedObjectIDs:v7 after:v8 extraInfo:v9];
 }
 
 void __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke_76(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = _ef_log_EDGroupedSenderQueryHandler();
+  v10 = _ef_log_EDGroupedSenderQueryHandler(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 32);
-    v12 = objc_opt_class();
-    v13 = *(a1 + 32);
-    v14 = [v7 count];
-    v15 = *(a1 + 40);
-    v16 = loggableIdentifiers(v7);
-    v20 = 138413570;
+    v11 = objc_opt_class();
+    v12 = *(a1 + 32);
+    v13 = [v7 count];
+    v14 = *(a1 + 40);
+    v15 = loggableIdentifiers(v7);
+    v18 = 138413570;
+    v19 = v11;
+    v20 = 2048;
     v21 = v12;
     v22 = 2048;
     v23 = v13;
-    v24 = 2048;
-    v25 = v14;
+    v24 = 2114;
+    v25 = v8;
     v26 = 2114;
-    v27 = v8;
+    v27 = v14;
     v28 = 2114;
     v29 = v15;
-    v30 = 2114;
-    v31 = v16;
-    _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu groups inserted after %{public}@ (%{public}@):\n%{public}@", &v20, 0x3Eu);
+    _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu groups inserted after %{public}@ (%{public}@):\n%{public}@", &v18, 0x3Eu);
   }
 
-  v17 = [*(a1 + 32) resultsObserverIfUncanceled];
-  v18 = [*(a1 + 32) observationIdentifier];
-  [v17 observer:v18 matchedAddedObjectIDs:v7 after:v8 extraInfo:v9];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = [*(a1 + 32) resultsObserverIfUncanceled];
+  v17 = [*(a1 + 32) observationIdentifier];
+  [v16 observer:v17 matchedAddedObjectIDs:v7 after:v8 extraInfo:v9];
 }
 
 void __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisibleGroupedSendersFrom_to_forChangedGroups_itemIDsWithSectionChanges_includePrecachedSenders_logMessage___block_invoke_77(uint64_t a1, void *a2, char *a3)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = *(a1 + 32);
   v7 = [v5 itemID];
@@ -1892,8 +1935,8 @@ void __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisible
   if (v6)
   {
     v8 = *(a1 + 40);
-    v19[0] = v5;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18[0] = v5;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     v10 = [v8 _senderItemIDsBySectionForSenders:v9];
 
     v11 = [*(a1 + 40) _extraInfoForSenderItemIDsBySection:v10 includePrecachedSendersFromSenders:0];
@@ -1905,13 +1948,59 @@ void __171__EDGroupedSenderQueryHandler__notifyResultsObserverOfChangesToVisible
     v12 = [*(a1 + 40) resultsObserverIfUncanceled];
     v13 = [*(a1 + 40) observationIdentifier];
     v14 = [v5 objectID];
-    v18 = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+    v17 = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
     v16 = [a3 objectID];
     [v12 observer:v13 matchedMovedObjectIDs:v15 after:v16 extraInfo:v11];
   }
+}
 
-  v17 = *MEMORY[0x1E69E9840];
+- (void)_notifyObserversOfMovedSenders:(id)senders previousSender:(id)sender includePrecachedSenders:(BOOL)precachedSenders notifyBlock:(id)block
+{
+  precachedSendersCopy = precachedSenders;
+  sendersCopy = senders;
+  senderCopy = sender;
+  blockCopy = block;
+  v13 = senderCopy;
+  v23 = v13;
+  v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{sendersCopy, 0}];
+  while ([v14 count])
+  {
+    lastObject = [v14 lastObject];
+    [v14 removeLastObject];
+    v16 = [(EDGroupedSenderQueryHandler *)self _senderItemIDsBySectionForSenders:lastObject];
+    if ([lastObject count] >= 2)
+    {
+      v17 = [v16 count];
+      if (v17 == 1 && ([v16 allValues], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "firstObject"), v7 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v7, "count"), v18 == objc_msgSend(sendersCopy, "count")))
+      {
+      }
+
+      else
+      {
+        v19 = [v16 count];
+        if (v17 == 1)
+        {
+        }
+
+        if (v19)
+        {
+          v20 = [lastObject count];
+          v21 = [lastObject ef_suffix:v20 - (v20 >> 1)];
+          [v14 addObject:v21];
+
+          v22 = [lastObject ef_prefix:v20 >> 1];
+          [v14 addObject:v22];
+          goto LABEL_12;
+        }
+      }
+    }
+
+    [(EDGroupedSenderQueryHandler *)self _notifyObserversOfInsertedSenders:lastObject senderItemIDsBySection:v16 previousSender:v13 includePrecachedSenders:precachedSendersCopy notifyBlock:blockCopy];
+    [lastObject lastObject];
+    v13 = v22 = v13;
+LABEL_12:
+  }
 }
 
 - (void)_notifyObserversOfInsertedSenders:(id)senders senderItemIDsBySection:(id)section previousSender:(id)sender includePrecachedSenders:(BOOL)precachedSenders notifyBlock:(id)block
@@ -2015,36 +2104,36 @@ id __102__EDGroupedSenderQueryHandler__extraInfoForSenderItemIDsBySection_includ
 
 - (id)_itemIDsWithSectionChangesFrom:(id)from to:(id)to
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   toCopy = to;
   v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v7 = objc_alloc(MEMORY[0x1E695DFA8]);
   allKeys = [fromCopy allKeys];
-  v23 = [v7 initWithArray:allKeys];
+  v22 = [v7 initWithArray:allKeys];
 
   allKeys2 = [toCopy allKeys];
-  [v23 addObjectsFromArray:allKeys2];
+  [v22 addObjectsFromArray:allKeys2];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
-  obj = v23;
-  v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  obj = v22;
+  v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v10)
   {
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
         v14 = objc_alloc(MEMORY[0x1E695DFD8]);
         v15 = [fromCopy objectForKeyedSubscript:v13];
         v16 = [v14 initWithArray:v15];
@@ -2063,13 +2152,11 @@ id __102__EDGroupedSenderQueryHandler__extraInfoForSenderItemIDsBySection_includ
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v10);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -2130,36 +2217,36 @@ id __78__EDGroupedSenderQueryHandler__filterGroupedSenderChanges_withVisibleSend
 
 - (id)messagesForGroupedSender:(id)sender limit:(int64_t)limit
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   senderCopy = sender;
   v7 = senderCopy;
   if (senderCopy)
   {
     v8 = [MEMORY[0x1E699ADA0] predicateForMessagesForBusinessID:{objc_msgSend(senderCopy, "businessID")}];
     messageQueryHelper = [(EDGroupedSenderQueryHandler *)self messageQueryHelper];
-    v28[0] = v8;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+    v27[0] = v8;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
     v11 = [messageQueryHelper messagesWithAdditionalPredicates:v10 limit:limit];
 
     if (![v11 count])
     {
-      v12 = _ef_log_EDGroupedSenderQueryHandler();
+      v12 = _ef_log_EDGroupedSenderQueryHandler(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v15 = objc_opt_class();
+        v14 = objc_opt_class();
         messageQueryHelper2 = [(EDGroupedSenderQueryHandler *)self messageQueryHelper];
         query = [messageQueryHelper2 query];
-        v18 = 138413314;
-        v19 = v15;
-        v20 = 2048;
+        v17 = 138413314;
+        v18 = v14;
+        v19 = 2048;
         selfCopy = self;
-        v22 = 2114;
-        v23 = v7;
-        v24 = 2048;
+        v21 = 2114;
+        v22 = v7;
+        v23 = 2048;
         limitCopy = limit;
-        v26 = 2114;
-        v27 = query;
-        _os_log_error_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_ERROR, "<%@ %p> found 0 messages for grouped sender:%{public}@ limit:%ld query:%{public}@", &v18, 0x34u);
+        v25 = 2114;
+        v26 = query;
+        _os_log_error_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_ERROR, "<%@ %p> found 0 messages for grouped sender:%{public}@ limit:%ld query:%{public}@", &v17, 0x34u);
       }
     }
   }
@@ -2168,8 +2255,6 @@ id __78__EDGroupedSenderQueryHandler__filterGroupedSenderChanges_withVisibleSend
   {
     v11 = MEMORY[0x1E695E0F0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -2257,20 +2342,21 @@ id __78__EDGroupedSenderQueryHandler__filterGroupedSenderChanges_withVisibleSend
     v21 = [(EDGroupedSenderQueryHandler *)self _senderItemIDsBySectionForSenders:array2];
 
     [(EDGroupedSenderQueryHandler *)self _filterGroupedSenderChanges:v17 withVisibleSenders:v19];
-    if ([v17 count])
+    v22 = [v17 count];
+    if (v22)
     {
-      v22 = _ef_log_EDGroupedSenderQueryHandler();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = _ef_log_EDGroupedSenderQueryHandler(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = objc_opt_class();
-        v24 = [v17 count];
+        v24 = objc_opt_class();
+        v25 = [v17 count];
         *buf = 138412802;
-        v33 = v23;
+        v33 = v24;
         v34 = 2048;
         selfCopy = self;
         v36 = 2048;
-        v37 = v24;
-        _os_log_impl(&dword_1C61EF000, v22, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu changed groups (after groups were merged)", buf, 0x20u);
+        v37 = v25;
+        _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "<%@ %p> Notifying observer of %lu changed groups (after groups were merged)", buf, 0x20u);
       }
 
       resultsObserverIfUncanceled = [(EDGroupedSenderQueryHandler *)self resultsObserverIfUncanceled];
@@ -2278,62 +2364,58 @@ id __78__EDGroupedSenderQueryHandler__filterGroupedSenderChanges_withVisibleSend
       [resultsObserverIfUncanceled observer:observationIdentifier matchedChangesForObjectIDs:v17];
     }
 
-    v27 = [(EDGroupedSenderQueryHandler *)self _itemIDsWithSectionChangesFrom:v15 to:v21];
-    [(EDGroupedSenderQueryHandler *)self _notifyResultsObserverOfChangesToVisibleGroupedSendersFrom:v13 to:v19 forChangedGroups:0 itemIDsWithSectionChanges:v27 includePrecachedSenders:0 logMessage:@"after groups were merged"];
+    v28 = [(EDGroupedSenderQueryHandler *)self _itemIDsWithSectionChangesFrom:v15 to:v21];
+    [(EDGroupedSenderQueryHandler *)self _notifyResultsObserverOfChangesToVisibleGroupedSendersFrom:v13 to:v19 forChangedGroups:0 itemIDsWithSectionChanges:v28 includePrecachedSenders:0 logMessage:@"after groups were merged"];
   }
 
   else
   {
     v8 = v5;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __69__EDGroupedSenderQueryHandler__persistenceDidFinishMergingBusinesses__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v69 = *MEMORY[0x1E69E9840];
-  v6 = _ef_log_EDGroupedSenderQueryHandler();
+  v67 = *MEMORY[0x1E69E9840];
+  v6 = _ef_log_EDGroupedSenderQueryHandler(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
+    v7 = objc_opt_class();
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
     *buf = 138412802;
+    v62 = v7;
+    v63 = 2048;
     v64 = v8;
     v65 = 2048;
     v66 = v9;
-    v67 = 2048;
-    v68 = v10;
-    v11 = v8;
+    v10 = v7;
     _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entering grouped sender list %p lock for merging businesses", buf, 0x20u);
   }
 
-  v62 = *(a1 + 32);
-  os_unfair_lock_lock(v62 + 22);
-  v12 = _ef_log_EDGroupedSenderQueryHandler();
+  v60 = *(a1 + 32);
+  os_unfair_lock_lock(v60 + 22);
+  v12 = _ef_log_EDGroupedSenderQueryHandler(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 32);
-    v14 = objc_opt_class();
-    v15 = *(a1 + 32);
-    v16 = *(a1 + 40);
+    v13 = objc_opt_class();
+    v14 = *(a1 + 32);
+    v15 = *(a1 + 40);
     *buf = 138412802;
+    v62 = v13;
+    v63 = 2048;
     v64 = v14;
     v65 = 2048;
     v66 = v15;
-    v67 = 2048;
-    v68 = v16;
-    v17 = v14;
+    v16 = v13;
     _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "<%@ %p> Entered grouped sender list %p lock for merging businesses", buf, 0x20u);
   }
 
-  v18 = *(a1 + 48);
-  v19 = [MEMORY[0x1E696AD98] numberWithLongLong:a2];
-  v20 = [v18 objectForKeyedSubscript:v19];
+  v17 = *(a1 + 48);
+  v18 = [MEMORY[0x1E696AD98] numberWithLongLong:a2];
+  v19 = [v17 objectForKeyedSubscript:v18];
 
-  if (v20)
+  if (v19)
   {
     v21 = *(a1 + 48);
     v22 = [MEMORY[0x1E696AD98] numberWithLongLong:a3];
@@ -2341,7 +2423,7 @@ void __69__EDGroupedSenderQueryHandler__persistenceDidFinishMergingBusinesses__b
 
     if (v23)
     {
-      v24 = [v20 messages];
+      v24 = [v19 messages];
       v25 = [v23 addMessages:v24];
 
       [*(a1 + 48) updateGroupedSender:v23];
@@ -2355,102 +2437,96 @@ void __69__EDGroupedSenderQueryHandler__persistenceDidFinishMergingBusinesses__b
 
     else
     {
-      v25 = [v20 externalBusinessID];
-      v32 = [v20 messages];
-      v33 = [v32 count] == 0;
+      v25 = [v19 externalBusinessID];
+      v31 = [v19 messages];
+      v32 = [v31 count] == 0;
 
-      if (v33)
+      if (v32)
       {
-        v34 = _ef_log_EDGroupedSenderQueryHandler();
+        v34 = _ef_log_EDGroupedSenderQueryHandler(v33);
         if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
+          v55 = objc_opt_class();
           v56 = *(a1 + 32);
-          v57 = objc_opt_class();
-          v58 = *(a1 + 32);
           *buf = 138412802;
-          v64 = v57;
-          v65 = 2048;
-          v66 = v58;
-          v67 = 2114;
-          v68 = v20;
-          v59 = v57;
+          v62 = v55;
+          v63 = 2048;
+          v64 = v56;
+          v65 = 2114;
+          v66 = v19;
+          v57 = v55;
           _os_log_error_impl(&dword_1C61EF000, v34, OS_LOG_TYPE_ERROR, "<%@ %p> Finished Merging Businesses: Found empty messages with old grouped sender:%{public}@", buf, 0x20u);
         }
       }
 
       v35 = [EDGroupedSender alloc];
-      v36 = [v20 messages];
+      v36 = [v19 messages];
       v37 = *(a1 + 32);
-      v60 = [v37 query];
-      v61 = [v37 _messageQueryFromGroupedQuery:v60];
+      v58 = [v37 query];
+      v59 = [v37 _messageQueryFromGroupedQuery:v58];
       v38 = [*(a1 + 32) businessPersistence];
       v39 = a3;
       v40 = [*(a1 + 32) messagePersistence];
       v41 = [*(a1 + 32) businessCloudStorage];
       v42 = [*(a1 + 32) unsubscribeDetector];
-      v23 = [(EDGroupedSender *)v35 initWithBusinessID:v39 externalBusinessID:v25 messages:v36 originatingQuery:v61 businessPersistence:v38 messagePersistence:v40 businessCloudStorage:v41 unsubscribeDetector:v42];
+      v23 = [(EDGroupedSender *)v35 initWithBusinessID:v39 externalBusinessID:v25 messages:v36 originatingQuery:v59 businessPersistence:v38 messagePersistence:v40 businessCloudStorage:v41 unsubscribeDetector:v42];
 
       [*(a1 + 48) addGroupedSender:v23];
     }
 
-    [*(a1 + 48) removeGroupedSender:v20];
+    [*(a1 + 48) removeGroupedSender:v19];
   }
 
   else
   {
-    v23 = _ef_log_EDGroupedSenderQueryHandler();
+    v23 = _ef_log_EDGroupedSenderQueryHandler(v20);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v28 = *(a1 + 32);
-      v29 = objc_opt_class();
-      v30 = *(a1 + 32);
+      v28 = objc_opt_class();
+      v29 = *(a1 + 32);
       *buf = 138412802;
+      v62 = v28;
+      v63 = 2048;
       v64 = v29;
       v65 = 2048;
-      v66 = v30;
-      v67 = 2048;
-      v68 = a2;
-      v31 = v29;
+      v66 = a2;
+      v30 = v28;
       _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_INFO, "<%@ %p> Ignoring business ID %lld being merged because it does not exist in our groups", buf, 0x20u);
     }
   }
 
-  v43 = _ef_log_EDGroupedSenderQueryHandler();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+  v44 = _ef_log_EDGroupedSenderQueryHandler(v43);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
-    v44 = *(a1 + 32);
     v45 = objc_opt_class();
     v46 = *(a1 + 32);
     v47 = *(a1 + 40);
     *buf = 138412802;
-    v64 = v45;
+    v62 = v45;
+    v63 = 2048;
+    v64 = v46;
     v65 = 2048;
-    v66 = v46;
-    v67 = 2048;
-    v68 = v47;
+    v66 = v47;
     v48 = v45;
-    _os_log_impl(&dword_1C61EF000, v43, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exiting grouped sender list %p lock for merging businesses", buf, 0x20u);
+    _os_log_impl(&dword_1C61EF000, v44, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exiting grouped sender list %p lock for merging businesses", buf, 0x20u);
   }
 
-  os_unfair_lock_unlock(v62 + 22);
-  v49 = _ef_log_EDGroupedSenderQueryHandler();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  os_unfair_lock_unlock(v60 + 22);
+  v50 = _ef_log_EDGroupedSenderQueryHandler(v49);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
-    v50 = *(a1 + 32);
     v51 = objc_opt_class();
     v52 = *(a1 + 32);
     v53 = *(a1 + 40);
     *buf = 138412802;
-    v64 = v51;
+    v62 = v51;
+    v63 = 2048;
+    v64 = v52;
     v65 = 2048;
-    v66 = v52;
-    v67 = 2048;
-    v68 = v53;
+    v66 = v53;
     v54 = v51;
-    _os_log_impl(&dword_1C61EF000, v49, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exited grouped sender list %p lock for merging businesses", buf, 0x20u);
+    _os_log_impl(&dword_1C61EF000, v50, OS_LOG_TYPE_DEFAULT, "<%@ %p> Exited grouped sender list %p lock for merging businesses", buf, 0x20u);
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 + (id)resolveMergePathsForMergedBusinesses:(id)businesses

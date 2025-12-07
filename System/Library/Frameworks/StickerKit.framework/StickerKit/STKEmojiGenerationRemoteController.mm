@@ -38,7 +38,7 @@
   }
 
   v13.receiver = self;
-  v13.super_class = type metadata accessor for EmojiGenerationRemoteController();
+  v13.super_class = type metadata accessor for EmojiGenerationRemoteController(0);
   v11 = [(RemoteBaseSceneHostingController *)&v13 initWithNibName:v8 bundle:bundle];
 
   return v11;
@@ -51,7 +51,7 @@
   v5[1] = 0;
   swift_unknownObjectWeakInit();
   v9.receiver = self;
-  v9.super_class = type metadata accessor for EmojiGenerationRemoteController();
+  v9.super_class = type metadata accessor for EmojiGenerationRemoteController(0);
   coderCopy = coder;
   v7 = [(RemoteBaseSceneHostingController *)&v9 initWithCoder:coderCopy];
 

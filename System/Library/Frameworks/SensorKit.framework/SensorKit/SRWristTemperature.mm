@@ -104,8 +104,8 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v18[4] = *MEMORY[0x1E69E9840];
-  v17[0] = @"timestamp";
+  v17[4] = *MEMORY[0x1E69E9840];
+  v16[0] = @"timestamp";
   [(NSDate *)[(SRWristTemperature *)self timestamp] timeIntervalSinceReferenceDate];
   v4 = v3;
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
@@ -119,8 +119,8 @@
     v6 = v5;
   }
 
-  v18[0] = v6;
-  v17[1] = @"value";
+  v17[0] = v6;
+  v16[1] = @"value";
   [(NSMeasurement *)[(SRWristTemperature *)self value] doubleValue];
   v8 = v7;
   v9 = [MEMORY[0x1E696AD98] numberWithDouble:?];
@@ -134,10 +134,10 @@
     v10 = v9;
   }
 
-  v18[1] = v10;
-  v17[2] = @"condition";
-  v18[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[SRWristTemperature condition](self, "condition")}];
-  v17[3] = @"errorEstimate";
+  v17[1] = v10;
+  v16[2] = @"condition";
+  v17[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[SRWristTemperature condition](self, "condition")}];
+  v16[3] = @"errorEstimate";
   [(NSMeasurement *)[(SRWristTemperature *)self errorEstimate] doubleValue];
   v12 = v11;
   v13 = [MEMORY[0x1E696AD98] numberWithDouble:?];
@@ -151,10 +151,8 @@
     v14 = v13;
   }
 
-  v18[3] = v14;
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  v17[3] = v14;
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
 }
 
 - (BOOL)isEqual:(id)equal

@@ -150,7 +150,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -170,7 +169,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  configurationID = self->_configurationID;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -182,7 +180,6 @@ LABEL_4:
     }
 
 LABEL_10:
-    pageLoadTime = self->_pageLoadTime;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -193,7 +190,6 @@ LABEL_10:
   }
 
 LABEL_9:
-  pageID = self->_pageID;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -208,7 +204,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  errorCode = self->_errorCode;
 
   PBDataWriterWriteInt64Field();
 }

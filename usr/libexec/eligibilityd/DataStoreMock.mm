@@ -23,7 +23,6 @@
   v3 = sub_1000125F0(&_swiftEmptyArrayStorage);
   v4 = OBJC_IVAR___DataStoreMock_dataStorage;
   swift_beginAccess();
-  v5 = *(&selfCopy->super.isa + v4);
   *(&selfCopy->super.isa + v4) = v3;
 }
 
@@ -54,42 +53,40 @@
 - (id)getGracePeriodStartDate:(id)date
 {
   v4 = sub_100001EB0(&qword_10005BD00, "^/");
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v18 - v6;
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
+  v6 = &v17 - v5;
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
   selfCopy = self;
-  sub_100011938(v8, v10, v7);
+  sub_100011938(v7, v9, v6);
 
-  v12 = type metadata accessor for Date();
-  v13 = *(v12 - 8);
-  v14 = (*(v13 + 48))(v7, 1, v12);
-  v15 = 0;
-  if (v14 != 1)
+  v11 = type metadata accessor for Date();
+  v12 = *(v11 - 8);
+  v13 = (*(v12 + 48))(v6, 1, v11);
+  v14 = 0;
+  if (v13 != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v13 + 8))(v7, v12);
-    v15 = isa;
+    (*(v12 + 8))(v6, v11);
+    v14 = isa;
   }
 
-  return v15;
+  return v14;
 }
 
 - (void)insertGracePeriod:(id)period date:(id)date
 {
   v5 = type metadata accessor for Date();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = v11;
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v11 = v10;
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100011C2C(v10, v12, v9);
+  sub_100011C2C(v9, v11, v8);
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (void)deleteGracePeriod:(id)period

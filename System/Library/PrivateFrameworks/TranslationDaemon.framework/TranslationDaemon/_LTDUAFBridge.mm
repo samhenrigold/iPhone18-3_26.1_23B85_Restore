@@ -16,28 +16,28 @@
 + (id)assetUsagesForAssetType:(unint64_t)type
 {
   v3 = 0;
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (type > 6)
   {
     switch(type)
     {
       case 7uLL:
-        v11 = @"lid";
+        v10 = @"lid";
         v4 = MEMORY[0x277CBEA60];
-        v5 = &v11;
+        v5 = &v10;
         break;
       case 8uLL:
-        v10[0] = @"mt.family";
-        v10[1] = @"mt.language";
-        v10[2] = @"mt.capability";
+        v9[0] = @"mt.family";
+        v9[1] = @"mt.language";
+        v9[2] = @"mt.capability";
         v4 = MEMORY[0x277CBEA60];
-        v5 = v10;
+        v5 = v9;
         v6 = 3;
         goto LABEL_14;
       case 0xAuLL:
-        v9 = @"pb.language";
+        v8 = @"pb.language";
         v4 = MEMORY[0x277CBEA60];
-        v5 = &v9;
+        v5 = &v8;
         break;
       default:
         goto LABEL_15;
@@ -49,19 +49,19 @@
     switch(type)
     {
       case 2uLL:
-        v14[0] = @"asr.language";
+        v13[0] = @"asr.language";
         v4 = MEMORY[0x277CBEA60];
-        v5 = v14;
+        v5 = v13;
         break;
       case 5uLL:
-        v13 = @"config";
-        v4 = MEMORY[0x277CBEA60];
-        v5 = &v13;
-        break;
-      case 6uLL:
-        v12 = @"endpointer";
+        v12 = @"config";
         v4 = MEMORY[0x277CBEA60];
         v5 = &v12;
+        break;
+      case 6uLL:
+        v11 = @"endpointer";
+        v4 = MEMORY[0x277CBEA60];
+        v5 = &v11;
         break;
       default:
         goto LABEL_15;
@@ -72,7 +72,6 @@
 LABEL_14:
   v3 = [v4 arrayWithObjects:v5 count:v6];
 LABEL_15:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -283,7 +282,7 @@ LABEL_21:
 
 + (id)assetIdentifierForAssetSpecifier:(id)specifier
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   if (![specifierCopy hasPrefix:@"com.apple.sequoia.asset"])
   {
@@ -328,11 +327,11 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v19[0] = @"PB";
+    v18[0] = @"PB";
     lastObject = [v7 lastObject];
-    v19[1] = lastObject;
+    v18[1] = lastObject;
     v13 = MEMORY[0x277CBEA60];
-    v14 = v19;
+    v14 = v18;
   }
 
   else
@@ -358,11 +357,11 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v20[0] = @"ASR";
+    v19[0] = @"ASR";
     lastObject = [v7 lastObject];
-    v20[1] = lastObject;
+    v19[1] = lastObject;
     v13 = MEMORY[0x277CBEA60];
-    v14 = v20;
+    v14 = v19;
   }
 
   v10 = [v13 arrayWithObjects:v14 count:2];
@@ -371,40 +370,39 @@ LABEL_21:
   v11 = [v10 componentsJoinedByString:@"-"];
 
 LABEL_22:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)assetSpecifiersForAssetType:(unint64_t)type locale:(id)locale
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   v7 = [MEMORY[0x277CBEB58] set];
   v8 = [self assetUsagesForAssetType:type locale:localeCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [self assetSpecifierForAssetUsages:*(*(&v17 + 1) + 8 * i)];
+        v13 = [self assetSpecifierForAssetUsages:*(*(&v16 + 1) + 8 * i)];
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -412,14 +410,12 @@ LABEL_22:
 
   v14 = [v7 copy];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (id)assetUsagesForAssetType:(unint64_t)type locale:(id)locale
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   languageCode = [localeCopy languageCode];
   lowercaseString = [languageCode lowercaseString];
@@ -434,7 +430,7 @@ LABEL_22:
         _ltLocaleIdentifier = [_LTDUAFAssetService assetUsageValuesForAssetType:8];
         v14 = [_ltLocaleIdentifier objectForKeyedSubscript:@"mt.capability"];
         lastObject = [v14 lastObject];
-        v26 = v14;
+        v25 = v14;
         if (v13 < [lastObject integerValue])
         {
           [v14 firstObject];
@@ -446,37 +442,37 @@ LABEL_22:
         }
         v17 = ;
 
-        v25 = [_ltLocaleIdentifier objectForKeyedSubscript:?];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __48___LTDUAFBridge_assetUsagesForAssetType_locale___block_invoke;
-        v27[3] = &unk_2789B6A48;
+        v24 = [_ltLocaleIdentifier objectForKeyedSubscript:?];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __48___LTDUAFBridge_assetUsagesForAssetType_locale___block_invoke;
+        v26[3] = &unk_2789B6A48;
         v18 = lowercaseString;
-        v28 = v18;
-        v19 = [v25 lt_firstObjectPassingTest:v27];
-        v33[0] = @"mt.capability";
-        v33[1] = @"mt.family";
-        v34[0] = v17;
-        v34[1] = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
-        v35[0] = v20;
-        v31[0] = @"mt.capability";
-        v31[1] = @"mt.family";
-        v32[0] = v17;
-        v32[1] = v19;
-        v31[2] = @"mt.language";
-        v32[2] = v18;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
-        v35[1] = v21;
-        v29[0] = @"mt.capability";
-        v29[1] = @"mt.family";
-        v30[0] = v17;
-        v30[1] = v19;
-        v29[2] = @"mt.language";
-        v30[2] = @"en";
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
-        v35[2] = v22;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
+        v27 = v18;
+        v19 = [v24 lt_firstObjectPassingTest:v26];
+        v32[0] = @"mt.capability";
+        v32[1] = @"mt.family";
+        v33[0] = v17;
+        v33[1] = v19;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+        v34[0] = v20;
+        v30[0] = @"mt.capability";
+        v30[1] = @"mt.family";
+        v31[0] = v17;
+        v31[1] = v19;
+        v30[2] = @"mt.language";
+        v31[2] = v18;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
+        v34[1] = v21;
+        v28[0] = @"mt.capability";
+        v28[1] = @"mt.family";
+        v29[0] = v17;
+        v29[1] = v19;
+        v28[2] = @"mt.language";
+        v29[2] = @"en";
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
+        v34[2] = v22;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
 
         goto LABEL_18;
       }
@@ -493,12 +489,12 @@ LABEL_22:
       if (([lowercaseString isEqualToString:@"hi"] & 1) == 0)
       {
         _ltLocaleIdentifier = [localeCopy _ltLocaleIdentifier];
-        v44 = @"asr.language";
-        v45 = _ltLocaleIdentifier;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-        v46[0] = v9;
+        v43 = @"asr.language";
+        v44 = _ltLocaleIdentifier;
+        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+        v45[0] = v9;
         v10 = MEMORY[0x277CBEA60];
-        v11 = v46;
+        v11 = v45;
         v12 = 1;
 LABEL_17:
         v16 = [v10 arrayWithObjects:v11 count:v12];
@@ -519,36 +515,35 @@ LABEL_11:
 
   if (![lowercaseString isEqualToString:@"en"])
   {
-    v38 = @"pb.language";
-    v39 = lowercaseString;
-    _ltLocaleIdentifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-    v40[0] = _ltLocaleIdentifier;
-    v36 = @"pb.language";
-    v37 = @"en";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v40[1] = v9;
+    v37 = @"pb.language";
+    v38 = lowercaseString;
+    _ltLocaleIdentifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v39[0] = _ltLocaleIdentifier;
+    v35 = @"pb.language";
+    v36 = @"en";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v39[1] = v9;
     v10 = MEMORY[0x277CBEA60];
-    v11 = v40;
+    v11 = v39;
     v12 = 2;
     goto LABEL_17;
   }
 
-  v41 = @"pb.language";
-  v42 = lowercaseString;
-  _ltLocaleIdentifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-  v43 = _ltLocaleIdentifier;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+  v40 = @"pb.language";
+  v41 = lowercaseString;
+  _ltLocaleIdentifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+  v42 = _ltLocaleIdentifier;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
 LABEL_18:
 
 LABEL_19:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (id)assetUsagesForAssetSpecifier:(id)specifier
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   if (![specifierCopy hasPrefix:@"com.apple.sequoia.asset"])
   {
@@ -570,12 +565,12 @@ LABEL_19:
   switch(v10)
   {
     case 10:
-      v25 = @"pb.language";
+      v24 = @"pb.language";
       lastObject = [v6 lastObject];
-      v26 = lastObject;
+      v25 = lastObject;
       v12 = MEMORY[0x277CBEAC0];
-      v13 = &v26;
-      v14 = &v25;
+      v13 = &v25;
+      v14 = &v24;
       goto LABEL_12;
     case 8:
       lastObject = [v6 objectAtIndexedSubscript:v9 - 1];
@@ -595,27 +590,27 @@ LABEL_19:
       v18 = v17;
       if (v15)
       {
-        v29[0] = @"mt.family";
-        v29[1] = @"mt.language";
-        v30[0] = v17;
-        v30[1] = v15;
-        v29[2] = @"mt.capability";
-        v30[2] = lastObject;
+        v28[0] = @"mt.family";
+        v28[1] = @"mt.language";
+        v29[0] = v17;
+        v29[1] = v15;
+        v28[2] = @"mt.capability";
+        v29[2] = lastObject;
         v19 = MEMORY[0x277CBEAC0];
-        v20 = v30;
-        v21 = v29;
+        v20 = v29;
+        v21 = v28;
         v22 = 3;
       }
 
       else
       {
-        v27[0] = @"mt.family";
-        v27[1] = @"mt.capability";
-        v28[0] = v17;
-        v28[1] = lastObject;
+        v26[0] = @"mt.family";
+        v26[1] = @"mt.capability";
+        v27[0] = v17;
+        v27[1] = lastObject;
         v19 = MEMORY[0x277CBEAC0];
-        v20 = v28;
-        v21 = v27;
+        v20 = v27;
+        v21 = v26;
         v22 = 2;
       }
 
@@ -623,12 +618,12 @@ LABEL_19:
 
       goto LABEL_18;
     case 2:
-      v31 = @"asr.language";
+      v30 = @"asr.language";
       lastObject = [v6 lastObject];
-      v32[0] = lastObject;
+      v31[0] = lastObject;
       v12 = MEMORY[0x277CBEAC0];
-      v13 = v32;
-      v14 = &v31;
+      v13 = v31;
+      v14 = &v30;
 LABEL_12:
       v8 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:1];
 LABEL_18:
@@ -641,7 +636,6 @@ LABEL_3:
 LABEL_19:
 
 LABEL_20:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

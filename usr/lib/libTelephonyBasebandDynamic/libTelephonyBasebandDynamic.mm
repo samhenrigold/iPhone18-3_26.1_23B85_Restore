@@ -1,116 +1,106 @@
 uint64_t TelephonyBasebandControllerRemoveFreqListExt(unsigned int *a1, unsigned int a2, char *a3, uint64_t a4)
 {
   input[2] = *MEMORY[0x29EDCA608];
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerRemoveFreqListExt", "Remove Frequency list\n");
   input[1] = a4;
-  if (a2)
+  if (!a2)
   {
-    v8 = a2;
-    if (a2 < 9)
-    {
-      v9 = 1;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v9 = 1;
-      do
-      {
-        v8 -= 8;
-        input[0] = 8;
-        v9 &= _TelephonyBasebandControllerCallMethodGeneric(a1, 0x22u, "Remove frequency list", input, 2u, a3, 0x80uLL, 0, 0, 0, 0, 1);
-        a3 += 128;
-      }
-
-      while (v8 > 8);
-    }
-
-    input[0] = v8;
-    result = _TelephonyBasebandControllerCallMethodGeneric(a1, 0x22u, "Remove frequency list", input, 2u, a3, 16 * v8, 0, 0, 0, 0, 1) & v9;
+  v8 = a2;
+  if (a2 < 9)
+  {
+    v9 = 1;
   }
 
   else
   {
-    result = 0;
+    v9 = 1;
+    do
+    {
+      v8 -= 8;
+      input[0] = 8;
+      v9 &= _TelephonyBasebandControllerCallMethodGeneric(a1, 0x22u, "Remove frequency list", input, 2u, a3, 0x80uLL, 0, 0, 0, 0, 1);
+      a3 += 128;
+    }
+
+    while (v8 > 8);
   }
 
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  input[0] = v8;
+  return _TelephonyBasebandControllerCallMethodGeneric(a1, 0x22u, "Remove frequency list", input, 2u, a3, 16 * v8, 0, 0, 0, 0, 1) & v9;
 }
 
 uint64_t TelephonyBasebandControllerAddFreqListExt(mach_port_t *a1, unsigned int a2, char *a3, uint64_t a4)
 {
   input[2] = *MEMORY[0x29EDCA608];
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerAddFreqListExt", "Add Frequency list\n");
   input[1] = a4;
-  if (a2)
+  if (!a2)
   {
-    v8 = a2;
-    if (a2 < 9)
-    {
-      v9 = 1;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v9 = 1;
-      do
-      {
-        input[0] = 8;
-        if (*a1)
-        {
-          v9 &= IOConnectCallMethod(*a1, 0x21u, input, 2u, a3, 0x80uLL, 0, 0, 0, 0) == 0;
-        }
-
-        else
-        {
-          v9 = 0;
-        }
-
-        v8 -= 8;
-        a3 += 128;
-      }
-
-      while (v8 > 8);
-    }
-
-    input[0] = v8;
-    result = *a1;
-    if (result)
-    {
-      result = (IOConnectCallMethod(result, 0x21u, input, 2u, a3, 16 * v8, 0, 0, 0, 0) == 0) & v9;
-    }
+  v8 = a2;
+  if (a2 < 9)
+  {
+    v9 = 1;
   }
 
   else
   {
-    result = 0;
+    v9 = 1;
+    do
+    {
+      input[0] = 8;
+      if (*a1)
+      {
+        v9 &= IOConnectCallMethod(*a1, 0x21u, input, 2u, a3, 0x80uLL, 0, 0, 0, 0) == 0;
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+
+      v8 -= 8;
+      a3 += 128;
+    }
+
+    while (v8 > 8);
   }
 
-  v11 = *MEMORY[0x29EDCA608];
+  input[0] = v8;
+  result = *a1;
+  if (result)
+  {
+    return (IOConnectCallMethod(result, 0x21u, input, 2u, a3, 16 * v8, 0, 0, 0, 0) == 0) & v9;
+  }
+
   return result;
 }
 
-uint64_t _TelephonyBasebandControllerCallMethodGeneric(unsigned int *a1, uint32_t a2, int a3, uint64_t *input, uint32_t inputCnt, void *inputStruct, size_t inputStructCnt, uint64_t *output, uint32_t *outputCnt, void *outputStruct, size_t *a11, char a12)
+uint64_t _TelephonyBasebandControllerCallMethodGeneric(unsigned int *a1, uint32_t a2, const char *a3, uint64_t *input, uint32_t inputCnt, void *inputStruct, size_t inputStructCnt, uint64_t *output, uint32_t *outputCnt, void *outputStruct, size_t *a11, char a12)
 {
   result = *a1;
   if (result)
   {
-    v13 = IOConnectCallMethod(result, a2, input, inputCnt, inputStruct, inputStructCnt, output, outputCnt, outputStruct, a11);
-    result = v13 == 0;
-    if (v13)
+    v14 = IOConnectCallMethod(result, a2, input, inputCnt, inputStruct, inputStructCnt, output, outputCnt, outputStruct, a11);
+    result = v14 == 0;
+    if (v14)
     {
-      v14 = a12 == 0;
+      v15 = a12 == 0;
     }
 
     else
     {
-      v14 = 1;
+      v15 = 1;
     }
 
-    if (!v14)
+    if (!v15)
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerCallMethodGeneric", "%s: operation '%s' failed: 0x%08x\n", "TelephonyBasebandController", a3, v14);
       return 0;
     }
   }
@@ -124,7 +114,7 @@ uint64_t _TelephonyBasebandResetCallback(uint64_t a1, uint64_t a2, uint64_t a3, 
   {
     if (a3 == -469794803)
     {
-      _TelephonyUtilDebugPrint();
+      _TelephonyUtilDebugPrint("_TelephonyBasebandResetCallback", "received coredump ready message\n");
       v9 = *(a1 + 72);
       block = MEMORY[0x29EDCA5F8];
       v14 = 0x40000000;
@@ -139,7 +129,7 @@ uint64_t _TelephonyBasebandResetCallback(uint64_t a1, uint64_t a2, uint64_t a3, 
         goto LABEL_10;
       }
 
-      _TelephonyUtilDebugPrint();
+      _TelephonyUtilDebugPrint("_TelephonyBasebandResetCallback", "received wake-asserted message\n");
       v9 = *(a1 + 72);
       block = MEMORY[0x29EDCA5F8];
       v14 = 0x40000000;
@@ -161,27 +151,30 @@ LABEL_10:
     return result;
   }
 
-  return _TelephonyUtilDebugPrintError();
+  return _TelephonyUtilDebugPrintError("_TelephonyBasebandResetCallback", "invalid baseband controller context\n", a3, a4);
 }
 
 BOOL TelephonyBasebandSetPowerDebugOptionsInternal(unsigned int *a1)
 {
-  if (!a1)
+  if (a1)
   {
-    goto LABEL_8;
-  }
+    if (*a1 >= 0x80)
+    {
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandPowerDebugOptionsAreValid", "power debug command mask value (%u) falls outside acceptable range");
+LABEL_7:
+      _TelephonyUtilDebugPrintError("TelephonyBasebandSetPowerDebugOptionsInternal", "not setting power debug options because they are invalid");
+      return 0;
+    }
 
-  if (*a1 < 0x80)
-  {
     if (a1[1] >= 4)
     {
-      v11 = a1[1];
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandPowerDebugOptionsAreValid", "power debug intervention value (%u) falls outside acceptable range");
       goto LABEL_7;
     }
 
     os_unfair_lock_lock(&sPowerDebugOptionsLock);
     std::string::basic_string[abi:ne200100]<0>(__p, "CommandMask");
-    if (v13 >= 0)
+    if (v11 >= 0)
     {
       v4 = __p;
     }
@@ -193,7 +186,7 @@ BOOL TelephonyBasebandSetPowerDebugOptionsInternal(unsigned int *a1)
 
     v5 = ctu::cf::plist_adapter::set<unsigned int>(*a1, v4);
     v2 = v5;
-    if (v13 < 0)
+    if (v11 < 0)
     {
       operator delete(__p[0]);
       if (!v2)
@@ -211,7 +204,7 @@ LABEL_40:
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, "Intervention");
-    if (v13 >= 0)
+    if (v11 >= 0)
     {
       v6 = __p;
     }
@@ -222,7 +215,7 @@ LABEL_40:
     }
 
     v2 = ctu::cf::plist_adapter::set<unsigned int>(a1[1], v6);
-    if (v13 < 0)
+    if (v11 < 0)
     {
       operator delete(__p[0]);
     }
@@ -230,7 +223,7 @@ LABEL_40:
     if (v2)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "TimeoutMilliseconds");
-      if (v13 >= 0)
+      if (v11 >= 0)
       {
         v7 = __p;
       }
@@ -241,7 +234,7 @@ LABEL_40:
       }
 
       v2 = ctu::cf::plist_adapter::set<unsigned int>(a1[2], v7);
-      if (v13 < 0)
+      if (v11 < 0)
       {
         operator delete(__p[0]);
       }
@@ -249,7 +242,7 @@ LABEL_40:
       if (v2)
       {
         std::string::basic_string[abi:ne200100]<0>(__p, "ShouldOnlyInterveneOnce");
-        if (v13 >= 0)
+        if (v11 >= 0)
         {
           v8 = __p;
         }
@@ -260,7 +253,7 @@ LABEL_40:
         }
 
         v2 = ctu::cf::plist_adapter::set<BOOL>(*(a1 + 12), v8, 0);
-        if (v13 < 0)
+        if (v11 < 0)
         {
           operator delete(__p[0]);
         }
@@ -268,7 +261,7 @@ LABEL_40:
         if (v2)
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "DidInterveneOnce");
-          if (v13 >= 0)
+          if (v11 >= 0)
           {
             v9 = __p;
           }
@@ -279,7 +272,7 @@ LABEL_40:
           }
 
           v2 = ctu::cf::plist_adapter::set<BOOL>(*(a1 + 13), v9, 1);
-          if (v13 < 0)
+          if (v11 < 0)
           {
             operator delete(__p[0]);
           }
@@ -290,11 +283,7 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  v10 = *a1;
-LABEL_7:
-  _TelephonyUtilDebugPrintError();
-LABEL_8:
-  _TelephonyUtilDebugPrintError();
+  _TelephonyUtilDebugPrintError("TelephonyBasebandSetPowerDebugOptionsInternal", "null power debug options arg");
   return 0;
 }
 
@@ -363,7 +352,7 @@ BOOL TelephonyBasebandGetPowerDebugOptionsInternal(_OWORD *a1)
     }
 
 LABEL_5:
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandGetPowerDebugOptionsInternal", "null power debug options arg");
     return a1 != 0;
   }
 
@@ -502,11 +491,11 @@ BOOL ctu::cf::plist_adapter::set<unsigned int>(unsigned int a1, const char *a2)
   return v5 != 0;
 }
 
-void sub_298239700(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298239700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   MEMORY[0x29C284010](va);
   _Unwind_Resume(a1);
@@ -624,26 +613,26 @@ const char *TelephonyBasebandPMUTraceToString(int a1)
   }
 }
 
-const void *TelephonyBasebandCreateController()
+const void *TelephonyBasebandCreateController(uint64_t a1)
 {
   v7 = *MEMORY[0x29EDCA608];
   if (!TelephonyRadiosGetRadio())
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandCreateController", "Device not supported\n");
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       _os_log_error_impl(&dword_298238000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Device not supported", buf, 2u);
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   pthread_once(&_TelephonyBasebandControllerRegisterOnce, _TelephonyBasebandControllerRegisterClass);
   Instance = _CFRuntimeCreateInstance();
   if (!Instance)
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerAllocate", "Failed to create %s instance\n", "TelephonyUtilBasebandController");
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
@@ -651,7 +640,7 @@ const void *TelephonyBasebandCreateController()
       _os_log_error_impl(&dword_298238000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Failed to create %s instance", buf, 0xCu);
     }
 
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandCreateController", "Failed to allocate baseband controller.\n");
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -661,20 +650,20 @@ const void *TelephonyBasebandCreateController()
     goto LABEL_11;
   }
 
-  v1 = Instance;
+  v2 = Instance;
   *(Instance + 16) = 0u;
-  v2 = (Instance + 16);
-  v2[5] = 0u;
-  v2[6] = 0u;
-  v2[3] = 0u;
-  v2[4] = 0u;
-  v2[1] = 0u;
-  v2[2] = 0u;
-  if ((TelephonyBasebandControllerInitContext(v2) & 1) == 0)
+  v3 = (Instance + 16);
+  v3[5] = 0u;
+  v3[6] = 0u;
+  v3[3] = 0u;
+  v3[4] = 0u;
+  v3[1] = 0u;
+  v3[2] = 0u;
+  if ((TelephonyBasebandControllerInitContext(v3) & 1) == 0)
   {
-    CFRelease(v1);
+    CFRelease(v2);
 LABEL_11:
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandCreateController", "Unable to communicate with AppleBaseband driver\n");
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -682,17 +671,15 @@ LABEL_11:
     }
 
     __TUAssertTrigger();
-LABEL_14:
-    v1 = 0;
+    return 0;
   }
 
-  v3 = *MEMORY[0x29EDCA608];
-  return v1;
+  return v2;
 }
 
 uint64_t TelephonyBasebandPowerDebugUnblock(uint64_t a1)
 {
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerPowerDebugUnblock", "Power Debug Unblock\n");
 
   return _TelephonyBasebandControllerCallMethod((a1 + 16), 0x2Eu, "unblock command", 0, 0, 0, 0);
 }
@@ -708,16 +695,26 @@ BOOL TelephonyBasebandSetPowerDebugOptions(__int128 *a1)
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandSetPowerDebugOptions", "null power debug options arg");
     return 0;
   }
 }
 
 uint64_t TelephonyBasebandNoOp()
 {
-  v1 = 0;
-  _TelephonyBasebandHandlePowerDebugIntervention(1, &v1);
-  _TelephonyUtilDebugPrint();
+  v2 = 0;
+  _TelephonyBasebandHandlePowerDebugIntervention(1, &v2);
+  if (v2)
+  {
+    v0 = "true";
+  }
+
+  else
+  {
+    v0 = "false";
+  }
+
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerNoOp", "No Op (should skip = %s)\n", v0);
   return 1;
 }
 
@@ -782,7 +779,7 @@ uint64_t TelephonyBasebandGetResetReq(uint64_t a1, _BYTE *a2)
   return result;
 }
 
-uint64_t TelephonyBasebandReportThermalData(uint64_t a1, const void *a2, unsigned int a3, _DWORD *a4)
+uint64_t TelephonyBasebandReportThermalData(char *a1, const void *a2, uint64_t a3, _DWORD *a4)
 {
   if (a1 && a2 && a4)
   {
@@ -793,7 +790,7 @@ uint64_t TelephonyBasebandReportThermalData(uint64_t a1, const void *a2, unsigne
 
   else
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandReportThermalData", "A required input parameter is NULL: ref: %p, data: %p, result: %p\n", a1, a2, a4);
     return 0;
   }
 }
@@ -816,11 +813,11 @@ uint64_t _TelephonyBasebandControllerRegisterClass()
 
 uint64_t TelephonyBasebandControllerInitContext(uint64_t a1)
 {
-  v23 = *MEMORY[0x29EDCA608];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2000000000;
-  v20 = 0;
+  v22 = *MEMORY[0x29EDCA608];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2000000000;
+  v19 = 0;
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
   *a1 = 0u;
@@ -847,7 +844,7 @@ uint64_t TelephonyBasebandControllerInitContext(uint64_t a1)
   block[1] = 1107296256;
   block[2] = __TelephonyBasebandControllerInitContext_block_invoke_2;
   block[3] = &__block_descriptor_tmp_5;
-  block[4] = &v17;
+  block[4] = &v16;
   block[5] = a1;
   dispatch_sync(v3, block);
   if (*(a1 + 24) && !*(a1 + 4))
@@ -856,26 +853,26 @@ uint64_t TelephonyBasebandControllerInitContext(uint64_t a1)
     *(a1 + 16) = v4;
     dispatch_group_enter(v4);
     v5 = *(a1 + 72);
-    v15[0] = MEMORY[0x29EDCA5F8];
-    v15[1] = 1107296256;
-    v15[2] = __TelephonyBasebandControllerInitContext_block_invoke_6;
-    v15[3] = &__block_descriptor_tmp_10;
-    v15[4] = &v17;
-    v15[5] = a1;
-    dispatch_async(v5, v15);
+    v14[0] = MEMORY[0x29EDCA5F8];
+    v14[1] = 1107296256;
+    v14[2] = __TelephonyBasebandControllerInitContext_block_invoke_6;
+    v14[3] = &__block_descriptor_tmp_10;
+    v14[4] = &v16;
+    v14[5] = a1;
+    dispatch_async(v5, v14);
     v6 = *(a1 + 16);
     v7 = dispatch_time(0, 15000000000);
     if (dispatch_group_wait(v6, v7))
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("TelephonyBasebandControllerInitContext", "%s: Timeout for waiting for the driver!\n", "TelephonyBasebandController");
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v22 = "TelephonyBasebandController";
+        v21 = "TelephonyBasebandController";
         _os_log_error_impl(&dword_298238000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "%s: Timeout for waiting for the driver!", buf, 0xCu);
       }
 
-      *(v18 + 24) = 0;
+      *(v17 + 24) = 0;
     }
 
     v8 = *(a1 + 8);
@@ -893,16 +890,16 @@ uint64_t TelephonyBasebandControllerInitContext(uint64_t a1)
     }
   }
 
-  if (v18[3])
+  if (v17[3])
   {
     v10 = *(a1 + 72);
-    v14[0] = MEMORY[0x29EDCA5F8];
-    v14[1] = 1107296256;
-    v14[2] = __TelephonyBasebandControllerInitContext_block_invoke_12;
-    v14[3] = &__block_descriptor_tmp_15;
-    v14[4] = &v17;
-    v14[5] = a1;
-    dispatch_sync(v10, v14);
+    v13[0] = MEMORY[0x29EDCA5F8];
+    v13[1] = 1107296256;
+    v13[2] = __TelephonyBasebandControllerInitContext_block_invoke_12;
+    v13[3] = &__block_descriptor_tmp_15;
+    v13[4] = &v16;
+    v13[5] = a1;
+    dispatch_sync(v10, v13);
   }
 
   else
@@ -910,9 +907,8 @@ uint64_t TelephonyBasebandControllerInitContext(uint64_t a1)
     TelephonyBasebandControllerFreeContext(a1);
   }
 
-  v11 = *(v18 + 24);
-  _Block_object_dispose(&v17, 8);
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *(v17 + 24);
+  _Block_object_dispose(&v16, 8);
   return v11;
 }
 
@@ -931,7 +927,7 @@ dispatch_queue_t __TelephonyBasebandControllerInitContext_block_invoke()
 
 void __TelephonyBasebandControllerInitContext_block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v2 = *MEMORY[0x29EDBB110];
   *(*(a1 + 40) + 24) = IONotificationPortCreate(*MEMORY[0x29EDBB110]);
   v3 = *(a1 + 40);
@@ -954,10 +950,10 @@ void __TelephonyBasebandControllerInitContext_block_invoke_2(uint64_t a1)
         v8 = 1;
 LABEL_11:
         *(*(*(a1 + 32) + 8) + 24) = v8;
-        goto LABEL_12;
+        return;
       }
 
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerInitContext_sync", "%s: Failed to find %s service, registering for matching notification\n", "TelephonyBasebandController", "AppleBaseband");
       if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
 LABEL_10:
@@ -966,9 +962,9 @@ LABEL_10:
       }
 
       *buf = 136315394;
-      v14 = "TelephonyBasebandController";
-      v15 = 2080;
-      v16 = "AppleBaseband";
+      v13 = "TelephonyBasebandController";
+      v14 = 2080;
+      v15 = "AppleBaseband";
       v9 = MEMORY[0x29EDCA988];
       v10 = "%s: Failed to find %s service, registering for matching notification";
       v11 = 22;
@@ -976,14 +972,14 @@ LABEL_10:
 
     else
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerInitContext_sync", "%s: Could not create run loop source\n", "TelephonyBasebandController");
       if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_10;
       }
 
       *buf = 136315138;
-      v14 = "TelephonyBasebandController";
+      v13 = "TelephonyBasebandController";
       v9 = MEMORY[0x29EDCA988];
       v10 = "%s: Could not create run loop source";
       v11 = 12;
@@ -993,26 +989,23 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  _TelephonyUtilDebugPrintError();
+  _TelephonyUtilDebugPrintError("TelephonyBasebandControllerInitContext_block_invoke_2", "%s: Could not create notification port\n", "TelephonyBasebandController");
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v14 = "TelephonyBasebandController";
+    v13 = "TelephonyBasebandController";
     _os_log_error_impl(&dword_298238000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "%s: Could not create notification port", buf, 0xCu);
   }
-
-LABEL_12:
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void __TelephonyBasebandControllerInitContext_block_invoke_6(uint64_t a1)
 {
-  v18 = *MEMORY[0x29EDCA608];
-  _TelephonyUtilDebugPrint();
+  v17 = *MEMORY[0x29EDCA608];
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerInitContext_block_invoke", "%s: AppleBaseband IOService is not found. Finding it via matching service\n", "TelephonyBasebandController");
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "TelephonyBasebandController";
+    v14 = "TelephonyBasebandController";
     _os_log_impl(&dword_298238000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s: AppleBaseband IOService is not found. Finding it via matching service", buf, 0xCu);
   }
 
@@ -1020,14 +1013,14 @@ void __TelephonyBasebandControllerInitContext_block_invoke_6(uint64_t a1)
   v3 = *(v2 + 24);
   if (!v3)
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerFindMatchingService_sync", "%s: Invalid notification port\n", "TelephonyBasebandController");
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_11;
     }
 
     *buf = 136315138;
-    v15 = "TelephonyBasebandController";
+    v14 = "TelephonyBasebandController";
     v9 = MEMORY[0x29EDCA988];
     v10 = "%s: Invalid notification port";
 LABEL_15:
@@ -1038,14 +1031,14 @@ LABEL_15:
   v4 = *(v2 + 72);
   if (!v4)
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerFindMatchingService_sync", "%s: Invalid queue\n", "TelephonyBasebandController");
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_11;
     }
 
     *buf = 136315138;
-    v15 = "TelephonyBasebandController";
+    v14 = "TelephonyBasebandController";
     v9 = MEMORY[0x29EDCA988];
     v10 = "%s: Invalid queue";
     goto LABEL_15;
@@ -1063,13 +1056,13 @@ LABEL_15:
   }
 
   v8 = v7;
-  _TelephonyUtilDebugPrintError();
+  _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerFindMatchingService_sync", "%s: Failed to add IOService notification, err: 0x%x\n", "TelephonyBasebandController", v7);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v15 = "TelephonyBasebandController";
-    v16 = 1024;
-    v17 = v8;
+    v14 = "TelephonyBasebandController";
+    v15 = 1024;
+    v16 = v8;
     v9 = MEMORY[0x29EDCA988];
     v10 = "%s: Failed to add IOService notification, err: 0x%x";
     v11 = 18;
@@ -1081,7 +1074,6 @@ LABEL_11:
   v12 = 0;
 LABEL_12:
   *(*(*(a1 + 32) + 8) + 24) = v12;
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t TelephonyBasebandControllerFreeContext(uint64_t a1)
@@ -1155,7 +1147,7 @@ uint64_t TelephonyBasebandControllerFreeContext(uint64_t a1)
 
 void __TelephonyBasebandControllerInitContext_block_invoke_12(uint64_t a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   *(*(a1 + 40) + 88) = &qword_2A1898FC8;
   *(*(a1 + 40) + 96) = &qword_2A1898FD8;
   *(*(a1 + 40) + 104) = &qword_2A1898FE8;
@@ -1170,17 +1162,17 @@ LABEL_2:
   v4 = IOServiceOpen(v2[1], *MEMORY[0x29EDCA6B0], 0, v2);
   if (!v4)
   {
-    *&v7 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v11 = v7;
-    v12 = v7;
-    *__str = v7;
-    *&__str[16] = v7;
-    v8 = getprogname();
-    snprintf(__str, 0x40uLL, "%s: TelephonyBaseband", v8);
+    *&v6 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v10 = v6;
+    v11 = v6;
+    *__str = v6;
+    *&__str[16] = v6;
+    v7 = getprogname();
+    snprintf(__str, 0x40uLL, "%s: TelephonyBaseband", v7);
     if (IOConnectCallMethod(*v2, 0xFu, 0, 0, __str, 0x40uLL, 0, 0, 0, 0))
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerOpen_sync", "Failed to self-identify with AppleBaseband\n");
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -1192,7 +1184,7 @@ LABEL_2:
   }
 
   v5 = v4;
-  _TelephonyUtilDebugPrintError();
+  _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerOpen_sync", "%s: could not open service, ret = 0x%08x\n", "TelephonyBasebandController", v4);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     *__str = 136315394;
@@ -1205,7 +1197,6 @@ LABEL_2:
   v3 = 0;
 LABEL_7:
   *(*(*(a1 + 32) + 8) + 24) = v3;
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __TelephonyBasebandControllerFreeContext_block_invoke(uint64_t a1)
@@ -1213,7 +1204,7 @@ uint64_t __TelephonyBasebandControllerFreeContext_block_invoke(uint64_t a1)
   v2 = *(a1 + 40);
   if (*v2 && (v3 = IOServiceClose(*v2), *v2 = 0, v3))
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerClose", "%s: could not close service, ret = 0x%08x\n", "TelephonyBasebandController", v3);
     v4 = 0;
   }
 
@@ -1324,42 +1315,166 @@ uint64_t TelephonyBasebandControllerResetModem(uint64_t a1)
 {
   input = 0;
   SafeResetTime = TelephonyCapabilitiesRadioGetSafeResetTime();
-  v20 = 0;
-  if (_TelephonyBasebandHandlePowerDebugIntervention(16, &v20) && v20 == 1)
+  v26 = 0;
+  if (_TelephonyBasebandHandlePowerDebugIntervention(16, &v26) && v26 == 1)
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerResetModem", "Skipping Reset\n");
     return 1;
   }
 
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerResetModem", "Reset\n");
   if (!SafeResetTime)
   {
     return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
   }
 
   *outputCnt = 0;
-  v23 = outputCnt;
-  v24 = 0x2000000000;
-  v25 = 1;
+  v29 = outputCnt;
+  v30 = 0x2000000000;
+  v31 = 1;
   v4 = *(a1 + 72);
   block = MEMORY[0x29EDCA5F8];
-  v29 = 1107296256;
-  v30 = ___TelephonyBasebandControllerIsEmptyEventQueue_block_invoke;
-  v31 = &__block_descriptor_tmp_203;
-  v32 = outputCnt;
-  v33 = a1;
+  v35 = 1107296256;
+  v36 = ___TelephonyBasebandControllerIsEmptyEventQueue_block_invoke;
+  v37 = &__block_descriptor_tmp_203;
+  v38 = outputCnt;
+  v39 = a1;
   dispatch_sync(v4, &block);
-  v5 = *(v23 + 24);
+  v5 = *(v29 + 24);
   _Block_object_dispose(outputCnt, 8);
-  if (v5 == 1)
+  if (v5 != 1)
   {
-    _TelephonyUtilDebugPrint();
-    v27 = -86;
-    if (TelephonyBasebandControllerIsBootStageDown(&v27))
+    v32 = 0;
+    if (TelephonyCapabilitiesRadioCoreDumpSupportsWakeReadySignal())
     {
-      if (v27 == 1)
+      _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "safe reset %u\n", SafeResetTime);
+      if (CFRunLoopGetCurrent() == *(a1 + 48))
       {
-        goto LABEL_71;
+        _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "cannot do safe reset from this runloop context\n", v25);
+        return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
+      }
+
+      if (TelephonyRadiosGetRadioVendor() == 4)
+      {
+        v6 = 0;
+        while (1)
+        {
+          block = 0xAAAAAAAAAAAAAAAALL;
+          outputCnt[0] = 1;
+          if (_TelephonyBasebandControllerCallMethod(a1, 3u, "get reset", 0, 0, &block, outputCnt))
+          {
+            if (block)
+            {
+              _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "modem in reset\n");
+              goto LABEL_59;
+            }
+
+            _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "modem not in reset\n");
+            sleep(1u);
+          }
+
+          else
+          {
+            _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "failed to get reset\n");
+          }
+
+          if (v6++ >= 0x27)
+          {
+            goto LABEL_59;
+          }
+        }
+      }
+
+      v33 = -86;
+      if (!TelephonyBasebandControllerIsBootStageDown(&v33) || (v33 & 1) != 0)
+      {
+        _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "ret %u, boot stage down %d\n");
+        return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
+      }
+
+      block = 0xAAAAAAAAAAAAAAAALL;
+      outputCnt[0] = 1;
+      if ((_TelephonyBasebandControllerCallMethod(a1, 3u, "get reset", 0, 0, &block, outputCnt) & 1) == 0)
+      {
+        _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "failed to get reset\n", v25);
+        return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
+      }
+
+      if (!block)
+      {
+        _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "modem not in reset\n", v25);
+        return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
+      }
+
+LABEL_59:
+      v16 = malloc(0x18uLL);
+      if (!v16)
+      {
+        _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "failed to allocate TelephonyBasebandWakeStruct\n", v25);
+        return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
+      }
+
+      v17 = v16;
+      v18 = dispatch_group_create();
+      *v17 = v18;
+      v19 = *(a1 + 72);
+      block = MEMORY[0x29EDCA5F8];
+      v35 = 0x40000000;
+      v36 = ___TelephonyBasebandControllerInsertInWakeQueue_block_invoke;
+      v37 = &__block_descriptor_tmp_239;
+      v38 = v17;
+      v39 = a1;
+      dispatch_sync(v19, &block);
+      block = 0xAAAAAAAAAAAAAAAALL;
+      outputCnt[0] = 1;
+      v20 = _TelephonyBasebandControllerCallMethod(a1, 0xBu, "get pmuext on", 0, 0, &block, outputCnt);
+      if (!v20 || !block)
+      {
+        _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "Found wake asserted when polling, wake %u, ret %u\n", 0, v20);
+        v21 = *(a1 + 72);
+        block = MEMORY[0x29EDCA5F8];
+        v35 = 0x40000000;
+        v36 = ___TelephonyBasebandControllerRemoveFromWakeQueue_block_invoke;
+        v37 = &__block_descriptor_tmp_240;
+        v38 = v17;
+        v39 = a1;
+        dispatch_sync(v21, &block);
+      }
+
+      v22 = dispatch_time(0, 1000000 * SafeResetTime);
+      if (dispatch_group_wait(v18, v22))
+      {
+        _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemLegacy", "timeout for wake\n");
+        v23 = *(a1 + 72);
+        block = MEMORY[0x29EDCA5F8];
+        v35 = 0x40000000;
+        v36 = ___TelephonyBasebandControllerRemoveFromWakeQueue_block_invoke;
+        v37 = &__block_descriptor_tmp_240;
+        v38 = v17;
+        v39 = a1;
+        dispatch_sync(v23, &block);
+      }
+
+      dispatch_release(v18);
+      free(v17);
+      v10 = "_TelephonyBasebandControllerSafeResetModemLegacy";
+LABEL_66:
+      _TelephonyUtilDebugPrint(v10, "safe reset %u --done\n");
+      return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
+    }
+
+    _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModem", "safe reset %u\n", SafeResetTime);
+    if (CFRunLoopGetCurrent() == *(a1 + 48))
+    {
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerSafeResetModem", "cannot do safe reset from this runloop context\n");
+    }
+
+    else if (TelephonyBasebandControllerIsBootStageDown(&v32))
+    {
+      if (v32 == 1)
+      {
+        _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModem", "boot Stage Down %d\n");
+        return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
       }
 
       block = 0xAAAAAAAAAAAAAAAALL;
@@ -1368,367 +1483,278 @@ uint64_t TelephonyBasebandControllerResetModem(uint64_t a1)
       {
         if (!block)
         {
-          _TelephonyUtilDebugPrint();
+          _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModem", "modem not in reset, proceeding\n");
         }
 
-        ready = TelephonyCapabilitiesRadioCoreDumpSupportsWakeReadySignal();
-        for (i = 0; i < SafeResetTime; i += 500)
+        v11 = malloc(0x18uLL);
+        if (v11)
         {
-          if (ready)
+          v12 = v11;
+          LOBYTE(outputCnt[0]) = 0;
+          v13 = dispatch_group_create();
+          *v12 = v13;
+          v14 = *(a1 + 72);
+          block = MEMORY[0x29EDCA5F8];
+          v35 = 0x40000000;
+          v36 = ___TelephonyBasebandControllerInsertInCoredumpReadyQueue_block_invoke;
+          v37 = &__block_descriptor_tmp_241;
+          v38 = v12;
+          v39 = a1;
+          dispatch_sync(v14, &block);
+          if (TelephonyBasebandControllerGetCoredumpReadyStatus(a1, outputCnt))
           {
-            block = 0xAAAAAAAAAAAAAAAALL;
-            outputCnt[0] = 1;
-            if ((_TelephonyBasebandControllerCallMethod(a1, 0xBu, "get pmuext on", 0, 0, &block, outputCnt) & 1) == 0)
+            if (LOBYTE(outputCnt[0]) == 1)
             {
-              goto LABEL_43;
+              _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModem", "found coredump ready when polling\n");
+              _TelephonyBasebandControllerRemoveFromCoredumpReadyQueue(a1, v12);
             }
 
-            if (!block)
+            v15 = dispatch_time(0, 1000000 * SafeResetTime);
+            if (dispatch_group_wait(v13, v15))
             {
-              goto LABEL_71;
+              _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModem", "timeout for coredump ready\n");
+              _TelephonyBasebandControllerRemoveFromCoredumpReadyQueue(a1, v12);
             }
+
+            dispatch_release(v13);
+            free(v12);
+            v10 = "_TelephonyBasebandControllerSafeResetModem";
+            goto LABEL_66;
           }
 
-          else
-          {
-            LOBYTE(block) = 0;
-            if ((TelephonyBasebandControllerGetCoredumpReadyStatus(a1, &block) & 1) == 0)
-            {
-              goto LABEL_43;
-            }
-
-            if (block)
-            {
-              goto LABEL_71;
-            }
-          }
-
-          usleep(0x7A120u);
+          _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerSafeResetModem", "failed to get coredump ready status\n");
+          _TelephonyBasebandControllerRemoveFromCoredumpReadyQueue(a1, v12);
         }
 
-        _TelephonyUtilDebugPrint();
-        goto LABEL_71;
-      }
-    }
-
-    goto LABEL_43;
-  }
-
-  v26 = 0;
-  if (!TelephonyCapabilitiesRadioCoreDumpSupportsWakeReadySignal())
-  {
-    _TelephonyUtilDebugPrint();
-    if (CFRunLoopGetCurrent() == *(a1 + 48) || !TelephonyBasebandControllerIsBootStageDown(&v26))
-    {
-      goto LABEL_43;
-    }
-
-    if (v26 == 1)
-    {
-      goto LABEL_71;
-    }
-
-    block = 0xAAAAAAAAAAAAAAAALL;
-    outputCnt[0] = 1;
-    if (!_TelephonyBasebandControllerCallMethod(a1, 3u, "get reset", 0, 0, &block, outputCnt))
-    {
-      goto LABEL_43;
-    }
-
-    if (!block)
-    {
-      _TelephonyUtilDebugPrint();
-    }
-
-    v10 = malloc(0x18uLL);
-    if (!v10)
-    {
-LABEL_43:
-      _TelephonyUtilDebugPrintError();
-LABEL_44:
-      _TelephonyUtilDebugPrintError();
-      return 0;
-    }
-
-    v11 = v10;
-    LOBYTE(outputCnt[0]) = 0;
-    v12 = dispatch_group_create();
-    *v11 = v12;
-    v13 = *(a1 + 72);
-    block = MEMORY[0x29EDCA5F8];
-    v29 = 0x40000000;
-    v30 = ___TelephonyBasebandControllerInsertInCoredumpReadyQueue_block_invoke;
-    v31 = &__block_descriptor_tmp_241;
-    v32 = v11;
-    v33 = a1;
-    dispatch_sync(v13, &block);
-    if (!TelephonyBasebandControllerGetCoredumpReadyStatus(a1, outputCnt))
-    {
-      _TelephonyUtilDebugPrintError();
-      _TelephonyBasebandControllerRemoveFromCoredumpReadyQueue(a1, v11);
-      goto LABEL_44;
-    }
-
-    if (LOBYTE(outputCnt[0]) == 1)
-    {
-      _TelephonyUtilDebugPrint();
-      _TelephonyBasebandControllerRemoveFromCoredumpReadyQueue(a1, v11);
-    }
-
-    v14 = dispatch_time(0, 1000000 * SafeResetTime);
-    if (dispatch_group_wait(v12, v14))
-    {
-      _TelephonyUtilDebugPrint();
-      _TelephonyBasebandControllerRemoveFromCoredumpReadyQueue(a1, v11);
-    }
-
-    goto LABEL_63;
-  }
-
-  _TelephonyUtilDebugPrint();
-  if (CFRunLoopGetCurrent() == *(a1 + 48))
-  {
-    goto LABEL_71;
-  }
-
-  if (TelephonyRadiosGetRadioVendor() == 4)
-  {
-    v6 = 0;
-    do
-    {
-      block = 0xAAAAAAAAAAAAAAAALL;
-      outputCnt[0] = 1;
-      if (_TelephonyBasebandControllerCallMethod(a1, 3u, "get reset", 0, 0, &block, outputCnt))
-      {
-        if (block)
+        else
         {
-          _TelephonyUtilDebugPrint();
-          goto LABEL_57;
+          _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerSafeResetModem", "failed to allocate TelephonyBasebandCoredumpReadyStruct\n");
         }
-
-        _TelephonyUtilDebugPrint();
-        sleep(1u);
       }
 
       else
       {
-        _TelephonyUtilDebugPrint();
+        _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerSafeResetModem", "failed to get reset\n");
       }
     }
 
-    while (v6++ < 0x27);
+    else
+    {
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerSafeResetModem", "failed to get boot stage\n");
+    }
+
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerResetModem", "failed to safe reset\n");
+    return 0;
   }
 
-  v27 = -86;
-  if (!TelephonyBasebandControllerIsBootStageDown(&v27))
+  _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemPolling", "safe reset %u, polling\n", SafeResetTime);
+  v33 = -86;
+  if ((TelephonyBasebandControllerIsBootStageDown(&v33) & 1) == 0)
   {
-    goto LABEL_71;
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerSafeResetModemPolling", "failed to get BootStageDown state\n");
+    goto LABEL_21;
   }
 
-  if (v27)
+  if (v33 == 1)
   {
-    goto LABEL_71;
+    _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemPolling", "boot stage down, no need to safe reset\n", v24);
+    return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
   }
 
   block = 0xAAAAAAAAAAAAAAAALL;
   outputCnt[0] = 1;
-  if ((_TelephonyBasebandControllerCallMethod(a1, 3u, "get reset", 0, 0, &block, outputCnt) & 1) == 0 || !block)
+  if ((_TelephonyBasebandControllerCallMethod(a1, 3u, "get reset", 0, 0, &block, outputCnt) & 1) == 0)
   {
-    goto LABEL_71;
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerSafeResetModemPolling", "failed to get reset\n");
+    goto LABEL_21;
   }
 
-LABEL_57:
-  v15 = malloc(0x18uLL);
-  if (v15)
+  if (!block)
   {
-    v11 = v15;
-    v12 = dispatch_group_create();
-    *v11 = v12;
-    v16 = *(a1 + 72);
-    block = MEMORY[0x29EDCA5F8];
-    v29 = 0x40000000;
-    v30 = ___TelephonyBasebandControllerInsertInWakeQueue_block_invoke;
-    v31 = &__block_descriptor_tmp_239;
-    v32 = v11;
-    v33 = a1;
-    dispatch_sync(v16, &block);
-    block = 0xAAAAAAAAAAAAAAAALL;
-    outputCnt[0] = 1;
-    if (!_TelephonyBasebandControllerCallMethod(a1, 0xBu, "get pmuext on", 0, 0, &block, outputCnt) || !block)
-    {
-      _TelephonyUtilDebugPrint();
-      v17 = *(a1 + 72);
-      block = MEMORY[0x29EDCA5F8];
-      v29 = 0x40000000;
-      v30 = ___TelephonyBasebandControllerRemoveFromWakeQueue_block_invoke;
-      v31 = &__block_descriptor_tmp_240;
-      v32 = v11;
-      v33 = a1;
-      dispatch_sync(v17, &block);
-    }
-
-    v18 = dispatch_time(0, 1000000 * SafeResetTime);
-    if (dispatch_group_wait(v12, v18))
-    {
-      _TelephonyUtilDebugPrint();
-      v19 = *(a1 + 72);
-      block = MEMORY[0x29EDCA5F8];
-      v29 = 0x40000000;
-      v30 = ___TelephonyBasebandControllerRemoveFromWakeQueue_block_invoke;
-      v31 = &__block_descriptor_tmp_240;
-      v32 = v11;
-      v33 = a1;
-      dispatch_sync(v19, &block);
-    }
-
-LABEL_63:
-    dispatch_release(v12);
-    free(v11);
+    _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemPolling", "modem not in reset, proceeding\n");
   }
 
-LABEL_71:
-  _TelephonyUtilDebugPrint();
-  return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
+  ready = TelephonyCapabilitiesRadioCoreDumpSupportsWakeReadySignal();
+  v9 = 0;
+  while ((ready & 1) == 0)
+  {
+    LOBYTE(block) = 0;
+    if ((TelephonyBasebandControllerGetCoredumpReadyStatus(a1, &block) & 1) == 0)
+    {
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerSafeResetModemPolling", "failed to get coredump ready status\n");
+      goto LABEL_21;
+    }
+
+    if (block)
+    {
+      goto LABEL_38;
+    }
+
+LABEL_36:
+    usleep(0x7A120u);
+    v9 += 500;
+    if (v9 >= SafeResetTime)
+    {
+      _TelephonyUtilDebugPrint("_TelephonyBasebandControllerSafeResetModemPolling", "timeout for safe reset\n");
+LABEL_38:
+      v10 = "_TelephonyBasebandControllerSafeResetModemPolling";
+      goto LABEL_66;
+    }
+  }
+
+  block = 0xAAAAAAAAAAAAAAAALL;
+  outputCnt[0] = 1;
+  if (_TelephonyBasebandControllerCallMethod(a1, 0xBu, "get pmuext on", 0, 0, &block, outputCnt))
+  {
+    if (!block)
+    {
+      goto LABEL_38;
+    }
+
+    goto LABEL_36;
+  }
+
+  _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerSafeResetModemPolling", "failed to get PMUExtOn\n");
+LABEL_21:
+  _TelephonyUtilDebugPrintError("TelephonyBasebandControllerResetModem", "failed to safe reset via polling\n");
+  return 0;
 }
 
-BOOL _TelephonyBasebandHandlePowerDebugIntervention(int a1, char *a2)
+BOOL _TelephonyBasebandHandlePowerDebugIntervention(uint64_t a1, char *a2)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if (!a2)
   {
-    goto LABEL_8;
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandHandlePowerDebugIntervention", "null should skip arg");
+    return a2 != 0;
   }
 
+  v3 = a1;
   *a2 = 0;
   if (TelephonyBasebandGetPowerDebugOptionsInternal::sOnce != -1)
   {
     dispatch_once(&TelephonyBasebandGetPowerDebugOptionsInternal::sOnce, &__block_literal_global);
   }
 
-  v13 = sPowerDebugOptions;
-  if ((sPowerDebugOptions & a1) != 0)
+  v12 = sPowerDebugOptions;
+  if ((sPowerDebugOptions & v3) != 0)
   {
-    if (BYTE12(v13) == 1)
+    if (BYTE12(v12) == 1)
     {
-      if (BYTE13(v13) == 1)
+      if (BYTE13(v12) == 1)
       {
-        goto LABEL_10;
+        _TelephonyUtilDebugPrint("_TelephonyBasebandHandlePowerDebugIntervention", "skipping intervention since power debug options indicate it should only be applied once");
+        return a2 != 0;
       }
 
-      _TelephonyUtilDebugPrint();
-      BYTE13(v13) = 1;
-      if (!TelephonyBasebandSetPowerDebugOptionsInternal(&v13))
+      _TelephonyUtilDebugPrint("_TelephonyBasebandHandlePowerDebugIntervention", "setting did-intervene-once flag");
+      BYTE13(v12) = 1;
+      if (!TelephonyBasebandSetPowerDebugOptionsInternal(&v12))
       {
-        _TelephonyUtilDebugPrintError();
+        _TelephonyUtilDebugPrintError("_TelephonyBasebandHandlePowerDebugIntervention", "failed to set did-intervene-once flag");
       }
     }
 
-    v4 = BYTE4(v13);
-    if (DWORD1(v13) == 3)
+    v4 = BYTE4(v12);
+    switch(DWORD1(v12))
     {
-      v14 = 0xAAAAAAAAAAAAAAAALL;
-      *&v7 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *&__attr.__sig = v7;
-      *&__attr.__opaque[8] = v7;
-      *&__attr.__opaque[24] = v7;
-      *&__attr.__opaque[40] = v7;
-      pthread_attr_init(&__attr);
-      pthread_attr_set_qos_class_np(&__attr, QOS_CLASS_USER_INITIATED, 0);
-      if (pthread_create(&v14, &__attr, _TelephonyBasebandPowerDebugBlockingThread, &v13))
-      {
-        _TelephonyUtilDebugPrintError();
-      }
-
-      else
-      {
-        LODWORD(v8) = DWORD2(v13);
-        v9 = v8 / 1000.0;
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
-        v20 = 0u;
-        *__str = 0u;
-        v18 = 0u;
-        memset(v16, 0, sizeof(v16));
-        v10 = _TelephonyBasebandPowerDebugCommandMaskToString(a1);
-        snprintf(__str, 0x80uLL, "Telephony Baseband Command %s Detected", v10);
-        if (v9 == 0.0)
+      case 3:
+        v13 = 0xAAAAAAAAAAAAAAAALL;
+        *&v7 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        *&__attr.__sig = v7;
+        *&__attr.__opaque[8] = v7;
+        *&__attr.__opaque[24] = v7;
+        *&__attr.__opaque[40] = v7;
+        pthread_attr_init(&__attr);
+        pthread_attr_set_qos_class_np(&__attr, QOS_CLASS_USER_INITIATED, 0);
+        if (pthread_create(&v13, &__attr, _TelephonyBasebandPowerDebugBlockingThread, &v12))
         {
-          strcpy(v16, "This command will be blocked until the baseband driver sends an out-of-band notification (e.g. bbutil debug power unblock)");
+          _TelephonyUtilDebugPrintError("_TelephonyBasebandHandlePowerDebugInterventionBlock", "failed to create unblocking thread so skipping block power debug intervention");
         }
 
         else
         {
-          snprintf(v16, 0x100uLL, "This command will be blocked until the baseband driver sends an out-of-band notification (e.g. bbutil debug power unblock) or until after %.0f s.", v9);
+          LODWORD(v8) = DWORD2(v12);
+          v9 = v8 / 1000.0;
+          v22 = 0u;
+          v23 = 0u;
+          v20 = 0u;
+          v21 = 0u;
+          v18 = 0u;
+          v19 = 0u;
+          *__str = 0u;
+          v17 = 0u;
+          memset(v15, 0, sizeof(v15));
+          v10 = _TelephonyBasebandPowerDebugCommandMaskToString(v3);
+          snprintf(__str, 0x80uLL, "Telephony Baseband Command %s Detected", v10);
+          if (v9 == 0.0)
+          {
+            strcpy(v15, "This command will be blocked until the baseband driver sends an out-of-band notification (e.g. bbutil debug power unblock)");
+          }
+
+          else
+          {
+            snprintf(v15, 0x100uLL, "This command will be blocked until the baseband driver sends an out-of-band notification (e.g. bbutil debug power unblock) or until after %.0f s.", v9);
+          }
+
+          TelephonyUtilDisplayAlert();
+          pthread_join(v13, 0);
         }
 
-        TelephonyUtilDisplayAlert();
-        pthread_join(v14, 0);
-      }
+        pthread_attr_destroy(&__attr);
+        break;
+      case 2:
+        if (isatty(0) || isatty(1) || isatty(2))
+        {
+          v5 = _TelephonyBasebandPowerDebugCommandMaskToString(v3);
+          printf("(power-debug) %s detected\n(power-debug) [continue] c; [skip] s\n(power-debug) ", v5);
+          while (1)
+          {
+            v6 = getchar();
+            if (v6 == -1 || v6 == 99)
+            {
+              break;
+            }
 
-      pthread_attr_destroy(&__attr);
-      goto LABEL_33;
-    }
+            if (v6 == 115)
+            {
+              v4 = 1;
+              goto LABEL_25;
+            }
+          }
+        }
 
-    if (DWORD1(v13) != 2)
-    {
-      if (DWORD1(v13) == 1)
-      {
+        else
+        {
+          _TelephonyUtilDebugPrintError("_TelephonyBasebandHandlePowerDebugInterventionAsk", "no terminal available so power debug intervention not applied");
+        }
+
+        break;
+      case 1:
 LABEL_25:
         *a2 = v4;
-      }
-
-      goto LABEL_33;
+        break;
     }
-
-    if (isatty(0) || isatty(1) || isatty(2))
-    {
-      v5 = _TelephonyBasebandPowerDebugCommandMaskToString(a1);
-      printf("(power-debug) %s detected\n(power-debug) [continue] c; [skip] s\n(power-debug) ", v5);
-      while (1)
-      {
-        v6 = getchar();
-        if (v6 == -1 || v6 == 99)
-        {
-          goto LABEL_33;
-        }
-
-        if (v6 == 115)
-        {
-          v4 = 1;
-          goto LABEL_25;
-        }
-      }
-    }
-
-LABEL_8:
-    _TelephonyUtilDebugPrintError();
-    goto LABEL_33;
   }
 
-  if (sPowerDebugOptions)
+  else if (sPowerDebugOptions)
   {
-LABEL_10:
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("_TelephonyBasebandHandlePowerDebugIntervention", "power debug options are set but not for this command, proceeding normally...");
   }
 
-LABEL_33:
-  result = a2 != 0;
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return a2 != 0;
 }
 
-uint64_t _TelephonyBasebandControllerCallMethod(unsigned int *a1, uint32_t a2, int a3, uint64_t *input, uint32_t inputCnt, uint64_t *output, uint32_t *outputCnt)
+uint64_t _TelephonyBasebandControllerCallMethod(unsigned int *a1, uint32_t a2, const char *a3, uint64_t *input, uint32_t inputCnt, uint64_t *output, uint32_t *outputCnt)
 {
   result = *a1;
   if (result)
   {
-    if (IOConnectCallScalarMethod(result, a2, input, inputCnt, output, outputCnt))
+    v9 = IOConnectCallScalarMethod(result, a2, input, inputCnt, output, outputCnt);
+    if (v9)
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerCallMethod", "%s: operation '%s' failed: 0x%08x\n", "TelephonyBasebandController", a3, v9);
       return 0;
     }
 
@@ -1743,7 +1769,7 @@ uint64_t _TelephonyBasebandControllerCallMethod(unsigned int *a1, uint32_t a2, i
 
 uint64_t TelephonyBasebandControllerDebugCommand(unsigned int *a1, const void *a2)
 {
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerDebugCommand", "Debug Action\n");
   result = *a1;
   if (result)
   {
@@ -1759,13 +1785,13 @@ uint64_t TelephonyBasebandControllerForceResetModem(unsigned int *a1)
   v3 = 0;
   if (_TelephonyBasebandHandlePowerDebugIntervention(16, &v3) && v3 == 1)
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerForceResetModem", "Skipping Force Reset\n");
     return 1;
   }
 
   else
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerForceResetModem", "Force Reset\n");
     return _TelephonyBasebandControllerCallMethod(a1, 0, "reset modem", &input, 1u, 0, 0);
   }
 }
@@ -1775,13 +1801,13 @@ uint64_t TelephonyBasebandControllerPowercycleModem(unsigned int *a1)
   v3 = 0;
   if (_TelephonyBasebandHandlePowerDebugIntervention(8, &v3) && v3 == 1)
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerPowercycleModem", "Skipping Powercycle\n");
     return 1;
   }
 
   else
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerPowercycleModem", "Powercycling\n");
     return _TelephonyBasebandControllerCallMethod(a1, 6u, "powercycle modem", 0, 0, 0, 0);
   }
 }
@@ -1802,13 +1828,13 @@ uint64_t TelephonyBasebandControllerPowerOnModem(unsigned int *a1, unsigned int 
 
   if (_TelephonyBasebandHandlePowerDebugIntervention(v4, &v7) && v7 == 1)
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerPowerOnModem", "Skipping Radio on to %u\n", a2);
     return 1;
   }
 
   else
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerPowerOnModem", "Radio on to %u\n", a2);
     if (a2)
     {
       v6 = "power on";
@@ -1829,13 +1855,13 @@ uint64_t TelephonyBasebandControllerSetModemCoredumpGPIO(unsigned int *a1, unsig
   v6 = 0;
   if (_TelephonyBasebandHandlePowerDebugIntervention(64, &v6) && v6 == 1)
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerSetModemCoredumpGPIO", "Skipping Modem Coredump GPIO = %u\n", a2);
     return 1;
   }
 
   else
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerSetModemCoredumpGPIO", "Modem Coredump GPIO = %u\n", a2);
     if (a2)
     {
       v5 = "coredump on";
@@ -1855,13 +1881,13 @@ uint64_t TelephonyBasebandControllerCrashModemWithSPMI(unsigned int *a1)
   v3 = 0;
   if (_TelephonyBasebandHandlePowerDebugIntervention(32, &v3) && v3 == 1)
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerCrashModemWithSPMI", "Skipping Modem Crash via SPMI\n");
     return 1;
   }
 
   else
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerCrashModemWithSPMI", "Modem Crash via SPMI\n");
     return _TelephonyBasebandControllerCallMethod(a1, 0x2Bu, "crash modem via spmi", 0, 0, 0, 0);
   }
 }
@@ -1871,13 +1897,13 @@ uint64_t TelephonyBasebandControllerCrashModemWithSPMIWithReason(unsigned int *a
   v5 = 0;
   if (_TelephonyBasebandHandlePowerDebugIntervention(32, &v5) && v5 == 1)
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerCrashModemWithSPMIWithReason", "Skipping Modem Crash via SPMI with reason\n");
     return 1;
   }
 
   else
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerCrashModemWithSPMIWithReason", "Modem Crash via SPMI with reason\n");
     result = *a1;
     if (result)
     {
@@ -1890,7 +1916,7 @@ uint64_t TelephonyBasebandControllerCrashModemWithSPMIWithReason(unsigned int *a
 
 uint64_t TelephonyBasebandControllerGetPMUTrace(unsigned int *a1, int *a2)
 {
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerGetPMUTrace", "Get Modem PMU Trace\n");
   RadioVendor = TelephonyRadiosGetRadioVendor();
   v5 = 0;
   if (a2 && RadioVendor == 3)
@@ -1900,7 +1926,7 @@ uint64_t TelephonyBasebandControllerGetPMUTrace(unsigned int *a1, int *a2)
     if (v5)
     {
       v6 = v9;
-      _TelephonyUtilDebugPrint();
+      _TelephonyUtilDebugPrint("getBasebandPMUTraceINT", "output: 0x%x\n", v9);
       switch(v6)
       {
         case -2147483648:
@@ -1952,7 +1978,7 @@ LABEL_20:
 
     else
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("getBasebandPMUTraceINT", "Failed to read SPMI HEB\n");
     }
   }
 
@@ -1961,28 +1987,23 @@ LABEL_20:
 
 uint64_t TelephonyBasebandControllerAPTimeSync(unsigned int *a1, _OWORD *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
-  if (a2)
+  v6 = *MEMORY[0x29EDCA608];
+  if (!a2)
   {
-    output[0] = 0;
-    output[1] = 0;
-    outputCnt = 2;
-    result = _TelephonyBasebandControllerCallMethod(a1, 0x14u, "timesync", 0, 0, output, &outputCnt);
-    *a2 = *output;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v4 = *MEMORY[0x29EDCA608];
+  output[0] = 0;
+  output[1] = 0;
+  outputCnt = 2;
+  result = _TelephonyBasebandControllerCallMethod(a1, 0x14u, "timesync", 0, 0, output, &outputCnt);
+  *a2 = *output;
   return result;
 }
 
 uint64_t TelephonyBasebandControllerEnableModemVBUS(unsigned int *a1, unsigned int a2)
 {
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerEnableModemVBUS", "VBUS on to %u\n", a2);
   input = a2;
   if (a2)
   {
@@ -1999,7 +2020,7 @@ uint64_t TelephonyBasebandControllerEnableModemVBUS(unsigned int *a1, unsigned i
 
 uint64_t TelephonyBasebandControllerEnableModemMux(unsigned int *a1, unsigned int a2)
 {
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerEnableModemMux", "Mux to %u\n", a2);
   input = a2;
   if (a2)
   {
@@ -2016,13 +2037,13 @@ uint64_t TelephonyBasebandControllerEnableModemMux(unsigned int *a1, unsigned in
 
 uint64_t TelephonyBasebandControllerEnableModemUSBEnumerationWithAP(uint64_t a1, int a2)
 {
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerEnableModemUSBEnumerationWithAP", "Enabling Enumeration to %u\n", a2);
   existing = -1431655766;
   v3 = *MEMORY[0x29EDBB110];
   v4 = IOServiceMatching("AppleS5L8930XUSBArbitrator");
   if (IOServiceGetMatchingServices(v3, v4, &existing))
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerEnableModemUSBEnumerationWithAP", "Failed to find %s service\n", "AppleS5L8930XUSBArbitrator");
     v5 = 0;
   }
 
@@ -2046,9 +2067,10 @@ uint64_t TelephonyBasebandControllerEnableModemUSBEnumerationWithAP(uint64_t a1,
       v9 = *v6;
       do
       {
-        if (IORegistryEntrySetCFProperty(v8, @"EnableBBUSB", v9))
+        v10 = IORegistryEntrySetCFProperty(v8, @"EnableBBUSB", v9);
+        if (v10)
         {
-          _TelephonyUtilDebugPrintError();
+          _TelephonyUtilDebugPrintError("TelephonyBasebandControllerEnableModemUSBEnumerationWithAP", "Failed to configure property, ret = 0x%08x\n", v10);
         }
 
         else
@@ -2068,7 +2090,7 @@ uint64_t TelephonyBasebandControllerEnableModemUSBEnumerationWithAP(uint64_t a1,
       v5 = 0;
     }
 
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerEnableModemUSBEnumerationWithAP", "Finished scanning for %s service\n", "AppleS5L8930XUSBArbitrator");
   }
 
   if (existing)
@@ -2121,17 +2143,26 @@ uint64_t TelephonyBasebandControllerRegisterForReset(uint64_t a1, __CFRunLoop *a
 
 uint64_t _TelephonyBasebandControllerRegisterForService(IONotificationPort *a1, io_object_t *notification, io_service_t service, __CFRunLoopSource *a4, __CFRunLoop *a5, IOServiceInterestCallback callback, void *refCon)
 {
-  if (a1 && a4 && !IOServiceAddInterestNotification(a1, service, "IOGeneralInterest", callback, refCon, notification))
+  if (!a1)
   {
-    CFRunLoopAddSource(a5, a4, *MEMORY[0x29EDB8FB8]);
-    return 1;
-  }
-
-  else
-  {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerRegisterForService", "Notification port was not successfully created\n");
     return 0;
   }
+
+  if (!a4)
+  {
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerRegisterForService", "Could not create run loop source\n");
+    return 0;
+  }
+
+  if (IOServiceAddInterestNotification(a1, service, "IOGeneralInterest", callback, refCon, notification))
+  {
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerRegisterForService", "Could not add interest notification on service: %#x\n");
+    return 0;
+  }
+
+  CFRunLoopAddSource(a5, a4, *MEMORY[0x29EDB8FB8]);
+  return 1;
 }
 
 BOOL _TelephonyBasebandControllerInsertInEventQueue(uint64_t a1, uint64_t a2)
@@ -2152,7 +2183,7 @@ BOOL _TelephonyBasebandControllerInsertInEventQueue(uint64_t a1, uint64_t a2)
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerInsertInEventQueue", "failed to allocate TelephonyBasebandEventStruct\n");
   }
 
   return v4 != 0;
@@ -2162,19 +2193,19 @@ BOOL TelephonyBasebandControllerRegisterForEvents(uint64_t a1, __CFRunLoop *a2, 
 {
   if (a1)
   {
-    v9[0] = MEMORY[0x29EDCA5F8];
-    v9[1] = 0x40000000;
-    v9[2] = __TelephonyBasebandControllerRegisterForEvents_block_invoke;
-    v9[3] = &__block_descriptor_tmp_71;
-    v9[4] = a3;
-    v9[5] = a4;
+    v9 = MEMORY[0x29EDCA5F8];
+    v10 = 0x40000000;
+    v11 = __TelephonyBasebandControllerRegisterForEvents_block_invoke;
+    v12 = &__block_descriptor_tmp_71;
+    v13 = a3;
+    v14 = a4;
     v6 = *(a1 + 80);
     if (v6)
     {
       _Block_release(v6);
     }
 
-    *(a1 + 80) = _Block_copy(v9);
+    *(a1 + 80) = _Block_copy(&v9);
     if (_TelephonyBasebandControllerRegisterForService(*(a1 + 24), (a1 + 32), *(a1 + 4), *(a1 + 40), a2, _TelephonyBasebandEventCallback, a1))
     {
       *(a1 + 48) = a2;
@@ -2186,12 +2217,12 @@ BOOL TelephonyBasebandControllerRegisterForEvents(uint64_t a1, __CFRunLoop *a2, 
       v7 = 0;
     }
 
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerRegisterForEvents", "registered for baseband events\n", v9, v10, v11, v12, v13, v14);
   }
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerRegisterForEvents", "invalid baseband controller context\n", a3, a4);
     return 0;
   }
 
@@ -2204,29 +2235,77 @@ uint64_t _TelephonyBasebandEventCallback(uint64_t a1, uint64_t a2, uint64_t a3, 
   {
     switch(a3)
     {
+      case 0xE3FF8000:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received reset detected message\n");
+        break;
+      case 0xE3FF8001:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received baseband alive message\n");
+        break;
+      case 0xE3FF8002:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received powering down message\n");
+        break;
+      case 0xE3FF8003:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received powered on message\n");
+        break;
+      case 0xE3FF8004:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received baseband down message\n");
+        break;
+      case 0xE3FF8005:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received baseband up message\n");
+        break;
+      case 0xE3FF8006:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received PCI Cpl message\n");
+        break;
       case 0xE3FF8007:
-        _TelephonyUtilDebugPrint();
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received wake-asserted message\n");
         v10 = *(a1 + 72);
         block = MEMORY[0x29EDCA5F8];
         v14 = 0x40000000;
         v11 = ___TelephonyBasebandControllerRemoveAllFromWakeQueue_block_invoke;
         v12 = &__block_descriptor_tmp_252;
-        goto LABEL_8;
+        goto LABEL_21;
+      case 0xE3FF8008:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received wake deasserted message\n");
+        break;
+      case 0xE3FF8009:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received PCIAER message\n");
+        break;
+      case 0xE3FF800A:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received PCI link down message\n");
+        break;
+      case 0xE3FF800B:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received PCI bad request message\n");
+        break;
+      case 0xE3FF800C:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received OCP read ready message\n");
+        break;
       case 0xE3FF800D:
-        _TelephonyUtilDebugPrint();
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received coredump ready message\n");
         v10 = *(a1 + 72);
         block = MEMORY[0x29EDCA5F8];
         v14 = 0x40000000;
         v11 = ___TelephonyBasebandControllerRemoveAllFromCoredumpReadyQueue_block_invoke;
         v12 = &__block_descriptor_tmp_253;
-LABEL_8:
+LABEL_21:
         v15 = v11;
         v16 = v12;
         v17 = a1;
         dispatch_sync(v10, &block);
         break;
+      case 0xE3FF800E:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received OCP write message\n");
+        break;
+      case 0xE3FF800F:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received billboard is ready message\n");
+        break;
+      case 0xE3FF8010:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received GNSS Wake ACK message\n");
+        break;
+      case 0xE3FF8011:
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received GNSS Trap ACK message\n");
+        break;
       default:
-        _TelephonyUtilDebugPrint();
+        _TelephonyUtilDebugPrint("_TelephonyBasebandEventCallback", "received unknown baseband event %u\n");
         break;
     }
 
@@ -2240,7 +2319,7 @@ LABEL_8:
   else
   {
 
-    return _TelephonyUtilDebugPrintError();
+    return _TelephonyUtilDebugPrintError("_TelephonyBasebandEventCallback", "invalid baseband controller context\n", a3, a4);
   }
 
   return result;
@@ -2249,14 +2328,14 @@ LABEL_8:
 uint64_t TelephonyBasebandControllerClearFreqListExt(unsigned int *a1, uint64_t a2)
 {
   input = a2;
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerClearFreqListExt", "Clear Frequency list\n");
   return _TelephonyBasebandControllerCallMethod(a1, 0x20u, "clear frequency list", &input, 1u, 0, 0);
 }
 
 uint64_t TelephonyBasebandControllerPollGPIO(unsigned int *a1, int a2, int a3, int a4, int a5)
 {
-  v20 = 0;
-  time(&v20);
+  v24 = 0;
+  time(&v24);
   if (!a4)
   {
     return 0;
@@ -2265,14 +2344,14 @@ uint64_t TelephonyBasebandControllerPollGPIO(unsigned int *a1, int a2, int a3, i
   v10 = a5 ? 1000 * a5 : 1000 * a4;
   if (a2 == 8)
   {
-    v19 = 0;
+    v23 = 0;
     outputCnt = 1;
-    if (_TelephonyBasebandControllerCallMethod(a1, 0x12u, "RESET_REQUEST", 0, 0, &v19, &outputCnt))
+    if (_TelephonyBasebandControllerCallMethod(a1, 0x12u, "RESET_REQUEST", 0, 0, &v23, &outputCnt))
     {
       v11 = 0;
       while (1)
       {
-        v12 = v19 != 0;
+        v12 = v23 != 0;
         v11 += v10;
         if (v12 == a3 || v11 >= 1000 * a4)
         {
@@ -2280,7 +2359,7 @@ uint64_t TelephonyBasebandControllerPollGPIO(unsigned int *a1, int a2, int a3, i
         }
 
         usleep(v10);
-        if ((_TelephonyBasebandControllerCallMethod(a1, 0x12u, "RESET_REQUEST", 0, 0, &v19, &outputCnt) & 1) == 0)
+        if ((_TelephonyBasebandControllerCallMethod(a1, 0x12u, "RESET_REQUEST", 0, 0, &v23, &outputCnt) & 1) == 0)
         {
           goto LABEL_16;
         }
@@ -2292,44 +2371,58 @@ uint64_t TelephonyBasebandControllerPollGPIO(unsigned int *a1, int a2, int a3, i
     else
     {
       v12 = 0;
+      v11 = 0;
 LABEL_16:
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("TelephonyBasebandControllerPollGPIO", "Failed to query GPIO %s\n", "RESET_REQUEST");
       v14 = 0;
+      v11 += v10;
     }
+
+    v15 = "RESET_REQUEST";
   }
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerPollGPIO", "invalid GPIO\n");
+    v11 = 0;
     v14 = 0;
     v12 = 0;
+    v15 = "UNDEFINED_PIN";
   }
 
-  v15 = v14 & (v12 == a3);
-  _TelephonyUtilDebugPrint();
-  if (!v15)
+  v16 = v12 == a3;
+  v17 = "inactive";
+  if (a3)
+  {
+    v17 = "active";
+  }
+
+  v18 = v14 & v16;
+  v19 = (v14 & v16) != 0 ? "done" : "timed out";
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerPollGPIO", "checking %s %s %s after %u.%06u seconds\n", v15, v17, v19, v11 / 0xF4240, v11 % 0xF4240);
+  if (!v18)
   {
     return 0;
   }
 
-  v19 = 0;
-  time(&v19);
-  v16 = (difftime(v19, v20) * 1000.0);
-  if (v16 <= 1)
+  v23 = 0;
+  time(&v23);
+  v20 = (difftime(v23, v24) * 1000.0);
+  if (v20 <= 1)
   {
     return 1;
   }
 
   else
   {
-    return v16;
+    return v20;
   }
 }
 
 uint64_t TelephonyBasebandControllerSetManagerState(unsigned int *a1, unsigned int a2)
 {
   input = a2;
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSetManagerState", "Manager state = %llu\n", a2);
   if (a2)
   {
     v4 = "Started";
@@ -2366,18 +2459,25 @@ uint64_t TelephonyBasebandControllerGetCoredumpReadyStatus(unsigned int *a1, BOO
 {
   output = 0;
   outputCnt = 1;
-  if (a2 && _TelephonyBasebandControllerCallMethod(a1, 0x2Au, "get coredump ready status", 0, 0, &output, &outputCnt))
+  if (a2)
   {
-    *a2 = output != 0;
-    _TelephonyUtilDebugPrint();
-    return 1;
+    if (_TelephonyBasebandControllerCallMethod(a1, 0x2Au, "get coredump ready status", 0, 0, &output, &outputCnt))
+    {
+      v3 = output;
+      *a2 = output != 0;
+      _TelephonyUtilDebugPrint("TelephonyBasebandControllerGetCoredumpReadyStatus", "Coredump Ready Status = %llu\n", v3);
+      return 1;
+    }
+
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerGetCoredumpReadyStatus", "failed to get coredump ready status\n");
   }
 
   else
   {
-    _TelephonyUtilDebugPrintError();
-    return 0;
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerGetCoredumpReadyStatus", "bad argument\n");
   }
+
+  return 0;
 }
 
 uint64_t TelephonyBasebandControllerGetBasebandState(unsigned int *a1, _DWORD *a2)
@@ -2390,12 +2490,13 @@ uint64_t TelephonyBasebandControllerGetBasebandState(unsigned int *a1, _DWORD *a
   }
 
   v3 = _TelephonyBasebandControllerCallMethod(a1, 0x1Au, "get baseband state", 0, 0, &output, &outputCnt);
+  v4 = output;
   if (v3)
   {
     *a2 = output;
   }
 
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerGetBasebandState", "Baseband state = %llu\n", v4);
   return v3;
 }
 
@@ -2403,7 +2504,7 @@ uint64_t TelephonyBasebandControllerSetBasebandState(unsigned int *a1, unsigned 
 {
   input = a2;
   outputCnt = 0;
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSetBasebandState", "Baseband state = %llu\n", a2);
   return _TelephonyBasebandControllerCallMethod(a1, 0x1Bu, "Set Baseband State", &input, 1u, 0, &outputCnt);
 }
 
@@ -2418,12 +2519,13 @@ uint64_t TelephonyBasebandControllerGetBasebandProperty(unsigned int *a1, unsign
 
   output = 0xAAAAAAAAAAAAAAAALL;
   v4 = _TelephonyBasebandControllerCallMethod(a1, 0x1Cu, "get baseband property", &input, 1u, &output, &outputCnt);
+  v5 = output;
   if (v4)
   {
     *a3 = output;
   }
 
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerGetBasebandProperty", "Baseband property = %llu\n", v5);
   return v4;
 }
 
@@ -2433,15 +2535,13 @@ uint64_t TelephonyBasebandControllerSetBasebandProperty(unsigned int *a1, unsign
   input[0] = a2;
   input[1] = a3;
   outputCnt = 0;
-  _TelephonyUtilDebugPrint();
-  result = _TelephonyBasebandControllerCallMethod(a1, 0x1Du, "set baseband property", input, 2u, 0, &outputCnt);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSetBasebandProperty", "Baseband property = %d, %llu\n", a2, a3);
+  return _TelephonyBasebandControllerCallMethod(a1, 0x1Du, "set baseband property", input, 2u, 0, &outputCnt);
 }
 
 uint64_t TelephonyBasebandControllerReportThermalData(unsigned int *a1, const void *a2, unsigned int a3, _DWORD *a4)
 {
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerReportThermalData", "Report Thermal Data\n");
   if (a1 && a2 && a4)
   {
     output = 0xAAAAAAAAAAAAAAAALL;
@@ -2462,7 +2562,7 @@ uint64_t TelephonyBasebandControllerReportThermalData(unsigned int *a1, const vo
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerReportThermalData", "A required input parameter is NULL: context: %p, thermalData: %p, result: %p\n", a1, a2, a4);
   }
 
   return 0;
@@ -2471,103 +2571,114 @@ uint64_t TelephonyBasebandControllerReportThermalData(unsigned int *a1, const vo
 uint64_t TelephonyBasebandControllerResetSPMI(unsigned int *a1, uint64_t a2)
 {
   input = a2;
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerResetSPMI", "Reset SPMI with data (0x%llx)\n", a2);
   return _TelephonyBasebandControllerCallMethod(a1, 0x23u, "Reset SPMI", &input, 1u, 0, 0);
 }
 
 uint64_t TelephonyBasebandControllerGNSSTrapTrigger(unsigned int *a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  _TelephonyUtilDebugPrint();
+  v4 = *MEMORY[0x29EDCA608];
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerGNSSTrapTrigger", "GNSS Trap Trigger!\n");
   *input = xmmword_298241B10;
-  result = _TelephonyBasebandControllerCallMethodGeneric(a1, 0x2Du, "GNSS trigger trap", input, 2u, 0, 0, 0, 0, 0, 0, 1);
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  return _TelephonyBasebandControllerCallMethodGeneric(a1, 0x2Du, "GNSS trigger trap", input, 2u, 0, 0, 0, 0, 0, 0, 1);
 }
 
 uint64_t TelephonyBasebandControllerGNSSWakeTrigger(unsigned int *a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  _TelephonyUtilDebugPrint();
+  v4 = *MEMORY[0x29EDCA608];
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerGNSSWakeTrigger", "GNSS Wake Trigger!\n");
   *input = xmmword_298241B20;
-  result = _TelephonyBasebandControllerCallMethodGeneric(a1, 0x2Du, "GNSS trigger wake", input, 2u, 0, 0, 0, 0, 0, 0, 1);
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  return _TelephonyBasebandControllerCallMethodGeneric(a1, 0x2Du, "GNSS trigger wake", input, 2u, 0, 0, 0, 0, 0, 0, 1);
 }
 
 uint64_t TelephonyBasebandControllerSetCPMSBudgetPolicy(unsigned int *a1, unsigned int a2)
 {
   input = a2;
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSetCPMSBudgetPolicy", "Budget Policy = %llu\n", a2);
   return _TelephonyBasebandControllerCallMethod(a1, 0x31u, "Set budget policy", &input, 1u, 0, 0);
 }
 
 uint64_t TelephonyBasebandControllerSPMIRawWrite(unsigned int *a1, unsigned int a2, unsigned int a3, unsigned __int8 *a4, unsigned int a5)
 {
   input[3] = *MEMORY[0x29EDCA608];
-  _TelephonyUtilDebugPrint();
+  v10 = "HEB";
+  if ((a2 & 2) == 0)
+  {
+    v10 = "Unknown";
+  }
+
+  if (a2)
+  {
+    v10 = "IDC";
+  }
+
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawWrite", "SPMI Raw Write: [%s:0x%x]\n", v10, a3);
   if (!a4)
   {
-    _TelephonyUtilDebugPrintError();
-    goto LABEL_5;
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerSPMIRawWrite", "No data is given!\n");
+    return 0;
   }
 
   if (a5 >= 0x41)
   {
-    _TelephonyUtilDebugPrint();
-LABEL_5:
-    result = 0;
-    goto LABEL_10;
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawWrite", "Data size (%u) is greater than the max size (%lu)\n", a5, 64);
+    return 0;
   }
 
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawWrite", "Data: ");
   if (a5)
   {
-    v11 = a4;
-    v12 = a5;
+    v12 = a4;
+    v13 = a5;
     do
     {
-      v13 = *v11++;
-      _TelephonyUtilDebugPrint();
-      --v12;
+      v14 = *v12++;
+      _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawWrite", "0x%x ", v14);
+      --v13;
     }
 
-    while (v12);
+    while (v13);
   }
 
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawWrite", "\n");
   input[0] = a2;
   input[1] = a3;
   input[2] = a5;
-  *&v14 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  inputStruct[2] = v14;
-  inputStruct[3] = v14;
-  inputStruct[0] = v14;
-  inputStruct[1] = v14;
+  *&v15 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  inputStruct[2] = v15;
+  inputStruct[3] = v15;
+  inputStruct[0] = v15;
+  inputStruct[1] = v15;
   __memcpy_chk();
-  result = _TelephonyBasebandControllerCallMethodGeneric(a1, 0x24u, "SPMI raw-write", input, 3u, inputStruct, 0x40uLL, 0, 0, 0, 0, 1);
-LABEL_10:
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  return _TelephonyBasebandControllerCallMethodGeneric(a1, 0x24u, "SPMI raw-write", input, 3u, inputStruct, 0x40uLL, 0, 0, 0, 0, 1);
 }
 
 uint64_t TelephonyBasebandControllerSPMIRawRead(unsigned int *a1, unsigned int a2, unsigned int a3, unsigned int a4, void *a5)
 {
   input[3] = *MEMORY[0x29EDCA608];
-  _TelephonyUtilDebugPrint();
+  v10 = "HEB";
+  if ((a2 & 2) == 0)
+  {
+    v10 = "Unknown";
+  }
+
+  if (a2)
+  {
+    v10 = "IDC";
+  }
+
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawRead", "SPMI Raw Read: [%s:0x%x]\n", v10, a3);
   if (!a5)
   {
-    _TelephonyUtilDebugPrintError();
-    goto LABEL_5;
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerSPMIRawRead", "No data memory is given!\n");
+    return 0;
   }
 
   if (a4 >= 0x41)
   {
-    _TelephonyUtilDebugPrint();
-LABEL_5:
-    v10 = 0;
-    goto LABEL_6;
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawRead", "Data size (%u) is greater than the max size (%lu)\n", a4, 64);
+    return 0;
   }
 
   input[0] = a2;
@@ -2575,10 +2686,10 @@ LABEL_5:
   input[2] = a4;
   memset(__src, 0, sizeof(__src));
   v16 = 64;
-  v10 = _TelephonyBasebandControllerCallMethodGeneric(a1, 0x25u, "SPMI raw-read", input, 3u, 0, 0, 0, 0, __src, &v16, 1);
-  if (v10)
+  v11 = _TelephonyBasebandControllerCallMethodGeneric(a1, 0x25u, "SPMI raw-read", input, 3u, 0, 0, 0, 0, __src, &v16, 1);
+  if (v11)
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawRead", "Data: ");
     if (a4)
     {
       v13 = __src;
@@ -2586,42 +2697,49 @@ LABEL_5:
       do
       {
         v15 = *v13++;
-        _TelephonyUtilDebugPrint();
+        _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawRead", "0x%x ", v15);
         --v14;
       }
 
       while (v14);
     }
 
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIRawRead", "\n");
     memcpy(a5, __src, a4);
   }
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerSPMIRawRead", "Failed reading data!\n");
   }
 
-LABEL_6:
-  v11 = *MEMORY[0x29EDCA608];
-  return v10;
+  return v11;
 }
 
 uint64_t TelephonyBasebandControllerSPMIReg0Write(unsigned int *a1, unsigned int a2, unsigned int a3)
 {
   input[2] = *MEMORY[0x29EDCA608];
-  _TelephonyUtilDebugPrint();
+  v6 = "HEB";
+  if ((a2 & 2) == 0)
+  {
+    v6 = "Unknown";
+  }
+
+  if (a2)
+  {
+    v6 = "IDC";
+  }
+
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIReg0Write", "SPMI Reg0Write: [%s:0x%x]\n", v6, a3);
   input[0] = a2;
   input[1] = a3;
-  result = _TelephonyBasebandControllerCallMethodGeneric(a1, 0x2Du, "SPMI reg0write", input, 2u, 0, 0, 0, 0, 0, 0, 1);
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  return _TelephonyBasebandControllerCallMethodGeneric(a1, 0x2Du, "SPMI reg0write", input, 2u, 0, 0, 0, 0, 0, 0, 1);
 }
 
 uint64_t TelephonyBasebandControllerSPMIGetEvents(unsigned int *a1, void *a2, unsigned int *a3)
 {
   v24 = *MEMORY[0x29EDCA608];
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIGetEvents", "SPMI Get Events!\n");
   if (a2 && a3)
   {
     *&v6 = 0xAAAAAAAAAAAAAAAALL;
@@ -2658,19 +2776,29 @@ uint64_t TelephonyBasebandControllerSPMIGetEvents(unsigned int *a1, void *a2, un
             v20 = v11;
             v12 = localtime(&v17);
             strftime(v19, 0x40uLL, "%Y-%m-%d %H:%M:%S", v12);
-            _TelephonyUtilDebugPrint();
-            *v10;
-            _TelephonyUtilDebugPrint();
+            _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIGetEvents", "[%u] timestamp: %s\n", v9, v19);
             if (*v10 == 2)
             {
-              v13 = v10[4];
-              if (v13 <= 4)
-              {
-                v14 = (&off_29EE8DF90)[v13];
-              }
+              v13 = "HEB";
             }
 
-            _TelephonyUtilDebugPrint();
+            else
+            {
+              v13 = "IDC";
+            }
+
+            _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIGetEvents", "[%u] bus: %s\n", v9, v13);
+            if (*v10 == 2 && (v14 = v10[4], v14 <= 4))
+            {
+              v15 = (&off_29EE8DF90)[v14];
+            }
+
+            else
+            {
+              v15 = "Unknown";
+            }
+
+            _TelephonyUtilDebugPrint("TelephonyBasebandControllerSPMIGetEvents", "[%u] interrupt source: %s\n", v9, v15);
             v8 = *a3;
           }
 
@@ -2686,40 +2814,38 @@ uint64_t TelephonyBasebandControllerSPMIGetEvents(unsigned int *a1, void *a2, un
 
     else
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("TelephonyBasebandControllerSPMIGetEvents", "Failed to receive interrupt lists\n");
     }
   }
 
   else
   {
-    _TelephonyUtilDebugPrintError();
-    v7 = 0;
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerSPMIGetEvents", "events (%p) or outputStructCnt (%p) is NULL!\n", a2, a3);
+    return 0;
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
-uint64_t TelephonyBasebandControllerSetPPMReportConfig(unsigned int *a1, unsigned __int16 *a2, unsigned int a3)
+uint64_t TelephonyBasebandControllerSetPPMReportConfig(unsigned int *a1, unsigned __int16 *a2, uint64_t a3)
 {
   if (a2)
   {
-    _TelephonyUtilDebugPrint();
-    if (a3)
+    v3 = a3;
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerSetPPMReportConfig", "Received %u configs\n", a3);
+    if (v3)
     {
       v6 = a2 + 2;
-      v7 = a3;
+      v7 = v3;
       do
       {
-        outputCnt = *(v6 - 1);
-        v11 = *v6;
-        _TelephonyUtilDebugPrint();
+        _TelephonyUtilDebugPrint("TelephonyBasebandControllerSetPPMReportConfig", "\tReport type: %u, Report Config: %u\n", *(v6 - 1), *v6);
         v6 += 4;
         --v7;
       }
 
       while (v7);
-      v8 = 8 * a3;
+      v8 = 8 * v3;
     }
 
     else
@@ -2732,24 +2858,25 @@ uint64_t TelephonyBasebandControllerSetPPMReportConfig(unsigned int *a1, unsigne
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerSetPPMReportConfig", "Invalid config parameter provided\n", a3);
     return 0;
   }
 }
 
-uint64_t TelephonyBasebandControllerGetPPMReport(unsigned int *a1, int a2, unsigned int a3, void *a4)
+uint64_t TelephonyBasebandControllerGetPPMReport(unsigned int *a1, int a2, uint64_t a3, void *a4)
 {
   LODWORD(input) = a2;
   if (a4)
   {
-    _TelephonyUtilDebugPrint();
-    v8 = a3;
+    v5 = a3;
+    _TelephonyUtilDebugPrint("TelephonyBasebandControllerGetPPMReport", "Received a request to read %u bytes of a report of type %u\n", a3, a2);
+    v8 = v5;
     return _TelephonyBasebandControllerCallMethodGeneric(a1, 0x30u, "Get PPM Report", &input, 1u, 0, 0, 0, 0, a4, &v8, 1);
   }
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerGetPPMReport", "Invalid report parameter provided\n", a3);
     return 0;
   }
 }
@@ -2764,59 +2891,54 @@ uint64_t TelephonyBasebandControllerGetPPMBudget(unsigned int *a1, void *a2)
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerGetPPMBudget", "Invalid report parameter provided\n");
     return 0;
   }
 }
 
 void _TelephonyBasebandControllerServiceNotifyCallback(uint64_t a1, io_iterator_t iterator)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerServiceNotifyCallback", "%s: context cannot be NULL\n", "TelephonyBasebandController");
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
     *buf = 136315138;
-    v10 = "TelephonyBasebandController";
-    v6 = MEMORY[0x29EDCA988];
-    v7 = "%s: context cannot be NULL";
-LABEL_12:
-    _os_log_error_impl(&dword_298238000, v6, OS_LOG_TYPE_ERROR, v7, buf, 0xCu);
-    goto LABEL_10;
+    v8 = "TelephonyBasebandController";
+    v5 = MEMORY[0x29EDCA988];
+    v6 = "%s: context cannot be NULL";
+    goto LABEL_12;
   }
 
   v3 = IOIteratorNext(iterator);
   if (!v3)
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandControllerServiceNotifyCallback", "%s: no service is found\n", "TelephonyBasebandController");
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
     *buf = 136315138;
-    v10 = "TelephonyBasebandController";
-    v6 = MEMORY[0x29EDCA988];
-    v7 = "%s: no service is found";
-    goto LABEL_12;
+    v8 = "TelephonyBasebandController";
+    v5 = MEMORY[0x29EDCA988];
+    v6 = "%s: no service is found";
+LABEL_12:
+    _os_log_error_impl(&dword_298238000, v5, OS_LOG_TYPE_ERROR, v6, buf, 0xCu);
+    return;
   }
 
   *(a1 + 4) = v3;
   v4 = *(a1 + 16);
-  if (!v4)
+  if (v4)
   {
-LABEL_10:
-    v8 = *MEMORY[0x29EDCA608];
-    return;
+
+    dispatch_group_leave(v4);
   }
-
-  v5 = *MEMORY[0x29EDCA608];
-
-  dispatch_group_leave(v4);
 }
 
 const char *_TelephonyBasebandPowerDebugCommandMaskToString(int a1)
@@ -2876,13 +2998,13 @@ uint64_t _TelephonyBasebandPowerDebugBlockingThread(uint64_t a1)
 {
   v2 = isatty(1);
   Current = CFRunLoopGetCurrent();
-  v17 = 0;
   v18 = 0;
-  atomic_store(0, &v17);
-  atomic_store(0, &v17 + 1);
-  v16.version = 0;
-  memset(&v16.retain, 0, 24);
-  v16.info = &v17;
+  v19 = 0;
+  atomic_store(0, &v18);
+  atomic_store(0, &v18 + 1);
+  v17.version = 0;
+  memset(&v17.retain, 0, 24);
+  v17.info = &v18;
   if (*(a1 + 8))
   {
     v4 = CFAbsoluteTimeGetCurrent();
@@ -2895,67 +3017,79 @@ uint64_t _TelephonyBasebandPowerDebugBlockingThread(uint64_t a1)
     v6 = 1.79769313e308;
   }
 
-  v7 = CFRunLoopTimerCreate(*MEMORY[0x29EDB8ED8], v6, 0.0, 0, 0, _TelephonyBasebandPowerDebugTimeoutCallback, &v16);
-  if (v7)
+  v7 = *MEMORY[0x29EDB8ED8];
+  v8 = CFRunLoopTimerCreate(*MEMORY[0x29EDB8ED8], v6, 0.0, 0, 0, _TelephonyBasebandPowerDebugTimeoutCallback, &v17);
+  if (v8)
   {
-    v8 = v7;
-    v18 = v7;
-    v9 = *MEMORY[0x29EDB8FC0];
-    CFRunLoopAddTimer(Current, v7, *MEMORY[0x29EDB8FC0]);
-    Controller = TelephonyBasebandCreateController();
+    v9 = v8;
+    v19 = v8;
+    v10 = *MEMORY[0x29EDB8FC0];
+    CFRunLoopAddTimer(Current, v8, *MEMORY[0x29EDB8FC0]);
+    Controller = TelephonyBasebandCreateController(v7);
     if (Controller)
     {
-      v11 = Controller;
-      if ((TelephonyBasebandControllerRegisterForReset(Controller + 16, Current, _TelephonyBasebandPowerDebugUnblockCallback, &v17) & 1) == 0)
+      v12 = Controller;
+      if (TelephonyBasebandControllerRegisterForReset(Controller + 16, Current, _TelephonyBasebandPowerDebugUnblockCallback, &v18))
       {
-        goto LABEL_11;
-      }
+        _TelephonyUtilDebugPrint("_TelephonyBasebandPowerDebugBlockingThread", "================== POWER DEBUG BLOCKING ==================", *&v17.version, *&v17.retain, v17.copyDescription);
+        if (v2)
+        {
+          puts("================== POWER DEBUG BLOCKING ==================");
+          v13 = MEMORY[0x29EDCA620];
+          fflush(*MEMORY[0x29EDCA620]);
+          CFRunLoopRun();
+          _TelephonyUtilDebugPrint("_TelephonyBasebandPowerDebugBlockingThread", "================== POWER DEBUG UNBLOCKED =================");
+          puts("================== POWER DEBUG UNBLOCKED =================");
+          fflush(*v13);
+        }
 
-      _TelephonyUtilDebugPrint();
-      if (v2)
-      {
-        puts("================== POWER DEBUG BLOCKING ==================");
-        v12 = MEMORY[0x29EDCA620];
-        fflush(*MEMORY[0x29EDCA620]);
-        CFRunLoopRun();
-        _TelephonyUtilDebugPrint();
-        puts("================== POWER DEBUG UNBLOCKED =================");
-        fflush(*v12);
+        else
+        {
+          CFRunLoopRun();
+          _TelephonyUtilDebugPrint("_TelephonyBasebandPowerDebugBlockingThread", "================== POWER DEBUG UNBLOCKED =================");
+        }
+
+        v14 = atomic_load(&v18);
+        if (v14)
+        {
+          _TelephonyUtilDebugPrint("_TelephonyBasebandPowerDebugBlockingThread", "unblocked because unblock message received");
+        }
+
+        else
+        {
+          v15 = atomic_load(&v18 + 1);
+          if (v15)
+          {
+            _TelephonyUtilDebugPrint("_TelephonyBasebandPowerDebugBlockingThread", "unblocked due to timeout");
+          }
+
+          else
+          {
+            _TelephonyUtilDebugPrintError("_TelephonyBasebandPowerDebugBlockingThread", "somehow neither unblock message was received nor did timeout occur", *&v17.version, *&v17.retain, v17.copyDescription);
+          }
+        }
       }
 
       else
       {
-        CFRunLoopRun();
-        _TelephonyUtilDebugPrint();
+        _TelephonyUtilDebugPrintError("_TelephonyBasebandPowerDebugBlockingThread", "failed to register for resets", *&v17.version, *&v17.retain, v17.copyDescription);
       }
 
-      v13 = atomic_load(&v17);
-      if (v13 & 1) != 0 || (v14 = atomic_load(&v17 + 1), (v14))
-      {
-        _TelephonyUtilDebugPrint();
-      }
-
-      else
-      {
-LABEL_11:
-        _TelephonyUtilDebugPrintError();
-      }
-
-      CFRelease(v11);
+      CFRelease(v12);
     }
 
     else
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("_TelephonyBasebandPowerDebugBlockingThread", "failed to create baseband controller", *&v17.version, *&v17.retain, v17.copyDescription);
     }
 
-    CFRunLoopRemoveTimer(Current, v8, v9);
-    CFRelease(v8);
+    CFRunLoopRemoveTimer(Current, v9, v10);
+    CFRelease(v9);
   }
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("_TelephonyBasebandPowerDebugBlockingThread", "failed to create runloop timer", *&v17.version, *&v17.retain, v17.copyDescription);
   }
 
   return 0;
@@ -2963,7 +3097,7 @@ LABEL_11:
 
 void _TelephonyBasebandPowerDebugTimeoutCallback(uint64_t a1, unsigned __int8 *a2)
 {
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("_TelephonyBasebandPowerDebugTimeoutCallback", "power debug unblock timeout");
   v3 = atomic_load(a2);
   if ((v3 & 1) == 0)
   {
@@ -2978,7 +3112,7 @@ void _TelephonyBasebandPowerDebugUnblockCallback(uint64_t a1, uint64_t a2, int a
 {
   if (a3 == -469794798)
   {
-    _TelephonyUtilDebugPrint();
+    _TelephonyUtilDebugPrint("_TelephonyBasebandPowerDebugUnblockCallback", "received power debug unblock message");
     v4 = atomic_load((a1 + 1));
     if ((v4 & 1) == 0)
     {
@@ -3008,7 +3142,7 @@ uint64_t TelephonyBasebandControllerIsBootStageDown(uint64_t a1)
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerIsBootStageDown", "failed to detect PCIe control driver variant\n");
     return 0;
   }
 }
@@ -3061,7 +3195,7 @@ uint64_t TelephonyBasebandControllerIsBootStageDownABP(const char *a1, BOOL *a2)
 
       else
       {
-        _TelephonyUtilDebugPrintError();
+        _TelephonyUtilDebugPrintError("TelephonyBasebandControllerIsBootStageDownABP", "failed to retrieve ABP boot stage property\n");
         v10 = 0;
       }
 
@@ -3070,7 +3204,7 @@ uint64_t TelephonyBasebandControllerIsBootStageDownABP(const char *a1, BOOL *a2)
 
     else
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("TelephonyBasebandControllerIsBootStageDownABP", "failed to retrieve ABP boot stage property\n");
       v10 = 0;
     }
 
@@ -3079,7 +3213,7 @@ uint64_t TelephonyBasebandControllerIsBootStageDownABP(const char *a1, BOOL *a2)
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerIsBootStageDownABP", "failed to open ABP control driver\n");
     return 0;
   }
 
@@ -3108,7 +3242,7 @@ uint64_t TelephonyBasebandControllerIsBootStageDownACIPC(const char *a1, BOOL *a
 
       else
       {
-        _TelephonyUtilDebugPrintError();
+        _TelephonyUtilDebugPrintError("TelephonyBasebandControllerIsBootStageDownACIPC", "failed to retrieve ACIPC boot stage property\n");
         v10 = 0;
       }
 
@@ -3117,7 +3251,7 @@ uint64_t TelephonyBasebandControllerIsBootStageDownACIPC(const char *a1, BOOL *a
 
     else
     {
-      _TelephonyUtilDebugPrintError();
+      _TelephonyUtilDebugPrintError("TelephonyBasebandControllerIsBootStageDownACIPC", "failed to retrieve ACIPC boot stage property\n");
       v10 = 0;
     }
 
@@ -3126,7 +3260,7 @@ uint64_t TelephonyBasebandControllerIsBootStageDownACIPC(const char *a1, BOOL *a
 
   else
   {
-    _TelephonyUtilDebugPrintError();
+    _TelephonyUtilDebugPrintError("TelephonyBasebandControllerIsBootStageDownACIPC", "failed to open ACIPC control driver\n");
     return 0;
   }
 

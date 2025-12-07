@@ -1015,11 +1015,11 @@ LABEL_129:
             *(v71 + 1) = v116;
           }
 
-          v71 = (v114 + 8);
+          v71 = v114 + 2;
           v7 = v114;
         }
 
-        while ((v114 + 8) != a2);
+        while (v114 + 2 != a2);
       }
 
       return result;
@@ -1453,7 +1453,7 @@ LABEL_62:
         goto LABEL_81;
       }
 
-      v54 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[VisionCoreValueConfidenceCurve _finalizeInitialization]::$_0 &,VisionCoreValueConfidencePoint *>(v7, v9 - 8);
+      v54 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[VisionCoreValueConfidenceCurve _finalizeInitialization]::$_0 &,VisionCoreValueConfidencePoint *>(v7, (v9 - 8));
       result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[VisionCoreValueConfidenceCurve _finalizeInitialization]::$_0 &,VisionCoreValueConfidencePoint *>(v9, a2);
       if (result)
       {
@@ -1469,7 +1469,7 @@ LABEL_62:
       if (!v54)
       {
 LABEL_81:
-        result = std::__introsort<std::_ClassicAlgPolicy,[VisionCoreValueConfidenceCurve _finalizeInitialization]::$_0 &,VisionCoreValueConfidencePoint *,false>(v7, v9 - 8, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,[VisionCoreValueConfidenceCurve _finalizeInitialization]::$_0 &,VisionCoreValueConfidencePoint *,false>(v7, (v9 - 8), a3, a4 & 1);
         a4 = 0;
       }
     }

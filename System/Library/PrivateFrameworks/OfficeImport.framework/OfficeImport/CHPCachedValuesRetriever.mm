@@ -76,7 +76,7 @@ LABEL_8:
 
     else if (typeForEDCell(nextCell))
     {
-      EDValue::makeFromCell(v15, &v23);
+      EDValue::makeFromCell(&v23.type, v15);
       EDValue::operator=(&v25, &v23);
       EDValue::~EDValue(&v23);
       currentCellIndex = [v13 currentCellIndex];

@@ -193,35 +193,30 @@
     v7 = [(NSData *)[(MBURLRequest *)self->_request data] length];
     *buf = 138413058;
     selfCopy = self;
-    v17 = 2112;
-    v18 = method;
-    v19 = 2112;
-    v20 = path;
-    v21 = 2048;
-    v22 = v7;
+    v13 = 2112;
+    v14 = method;
+    v15 = 2112;
+    v16 = path;
+    v17 = 2048;
+    v18 = v7;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%@: starting: %@ %@ (%lu)", buf, 0x2Au);
-    method2 = [(MBURLRequest *)self->_request method];
-    v13 = path;
-    v14 = [(NSData *)[(MBURLRequest *)self->_request data] length];
-    selfCopy2 = self;
-    v12 = method2;
-    _MBLog();
+    _MBLog(@"I ", "%@: starting: %@ %@ (%lu)", self, [(MBURLRequest *)self->_request method], path, [(NSData *)[(MBURLRequest *)self->_request data] length]);
   }
 
-  v9 = MBGetDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v8 = MBGetDefaultLog();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [(MBURLRequest *)self->_request headers];
-    v10 = MBStringWithDictionary();
+    v9 = MBStringWithDictionary();
     *buf = 138412290;
-    selfCopy = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+    selfCopy = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     [(MBURLRequest *)self->_request headers];
-    selfCopy2 = MBStringWithDictionary();
-    _MBLog();
+    v10 = MBStringWithDictionary();
+    _MBLog(@"Db", "%@", v10);
   }
 
-  [(NSURLConnection *)self->_connection start:selfCopy2];
+  [(NSURLConnection *)self->_connection start];
 }
 
 - (void)cancel
@@ -232,7 +227,7 @@
     *buf = 138412290;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%@: canceling", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "%@: canceling", self);
   }
 
   queue = self->_queue;
@@ -261,24 +256,23 @@
       v16 = 2112;
       v17 = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@: response received: %ld (%@)", buf, 0x20u);
-      [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
-      _MBLog();
+      _MBLog(@"I ", "%@: response received: %ld (%@)", self, statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode]);
     }
 
     v8 = MBGetDefaultLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [response allHeaderFields];
-      v10 = MBStringWithDictionary();
+      v9 = MBStringWithDictionary();
       *buf = 138412290;
-      selfCopy = v10;
+      selfCopy = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       [response allHeaderFields];
-      MBStringWithDictionary();
-      _MBLog();
+      v10 = MBStringWithDictionary();
+      _MBLog(@"Db", "%@", v10);
     }
 
-    (*(self->_responseReceived + 2))(self->_responseReceived, response, v9);
+    (*(self->_responseReceived + 2))();
   }
 
   else
@@ -300,11 +294,10 @@
     v9 = 2048;
     v10 = [data length];
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%@: data received (%lu bytes)", buf, 0x16u);
-    [data length];
-    _MBLog();
+    _MBLog(@"I ", "%@: data received (%lu bytes)", self, [data length]);
   }
 
-  (*(self->_dataReceived + 2))(self->_dataReceived, data);
+  (*(self->_dataReceived + 2))();
 }
 
 - (void)connection:(id)connection didFailWithError:(id)error
@@ -323,11 +316,11 @@
     v9 = 2112;
     errorCopy = error;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%@: failure: %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"E ", "%@: failure: %@", self, error);
   }
 
   self->_done = 1;
-  (*(self->_failure + 2))(self->_failure, error);
+  (*(self->_failure + 2))();
 }
 
 - (void)connectionDidFinishLoading:(id)loading
@@ -344,11 +337,11 @@
     *buf = 138412290;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%@: finished loading", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "%@: finished loading", self);
   }
 
   self->_done = 1;
-  (*(self->_finishedLoading + 2))(self->_finishedLoading);
+  (*(self->_finishedLoading + 2))();
 }
 
 - (void)connection:(id)connection willSendRequestForAuthenticationChallenge:(id)challenge

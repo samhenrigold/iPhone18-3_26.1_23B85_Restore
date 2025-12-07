@@ -37,6 +37,7 @@
 - (void)insertTopSupplementalCandidateSurroundingCursorToFrontOfResultSet:(id)set;
 - (void)keyboardActivityDidTransition:(id)transition;
 - (void)lastAcceptedCandidateCorrected;
+- (void)performAccept:(void *)accept isPartial:(BOOL)partial;
 - (void)performOperationAsync:(id)async withBackgroundActivityAssertion:(BOOL)assertion;
 - (void)releaseBackgroundActivityAssertion;
 - (void)resetMecabraEnvironment;
@@ -248,7 +249,7 @@ void __42__TIWordSearch_adjustEnvironmentOnAction___block_invoke(uint64_t a1)
 
 void __40__TIWordSearch_clearLeftDocumentContext__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) mecabraEnvironment];
   [v1 setLeftDocumentContext:&stru_283FDFAF8];
 
@@ -262,14 +263,12 @@ void __40__TIWordSearch_clearLeftDocumentContext__block_invoke(uint64_t a1)
     v2 = TIOSLogFacility();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [Environment] Clear left context", "-[TIWordSearch clearLeftDocumentContext]_block_invoke"];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [Environment] Clear left context", "-[TIWordSearch clearLeftDocumentContext]_block_invoke"];
       *buf = 138412290;
-      v6 = v4;
+      v5 = v3;
       _os_log_debug_impl(&dword_22CA55000, v2, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLeftDocumentContext:(id)context rightDocumentContext:(id)documentContext
@@ -291,7 +290,7 @@ void __40__TIWordSearch_clearLeftDocumentContext__block_invoke(uint64_t a1)
 
 void __60__TIWordSearch_setLeftDocumentContext_rightDocumentContext___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = [*(a1 + 32) mecabraEnvironment];
   [v3 setLeftDocumentContext:v2];
@@ -310,19 +309,17 @@ void __60__TIWordSearch_setLeftDocumentContext_rightDocumentContext___block_invo
     v6 = TIOSLogFacility();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v8 = MEMORY[0x277CCACA8];
-      v9 = [*(a1 + 32) mecabraEnvironment];
-      v10 = [v9 leftDocumentContext];
-      v11 = [*(a1 + 32) mecabraEnvironment];
-      v12 = [v11 rightDocumentContext];
-      v13 = [v8 stringWithFormat:@"%s [Environment] Set left context: %@, Right context: %@", "-[TIWordSearch setLeftDocumentContext:rightDocumentContext:]_block_invoke", v10, v12];
+      v7 = MEMORY[0x277CCACA8];
+      v8 = [*(a1 + 32) mecabraEnvironment];
+      v9 = [v8 leftDocumentContext];
+      v10 = [*(a1 + 32) mecabraEnvironment];
+      v11 = [v10 rightDocumentContext];
+      v12 = [v7 stringWithFormat:@"%s [Environment] Set left context: %@, Right context: %@", "-[TIWordSearch setLeftDocumentContext:rightDocumentContext:]_block_invoke", v9, v11];
       *buf = 138412290;
-      v15 = v13;
+      v14 = v12;
       _os_log_debug_impl(&dword_22CA55000, v6, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flushDynamicData
@@ -367,12 +364,12 @@ void __39__TIWordSearch_setDisablePersonalData___block_invoke(uint64_t a1)
 
 - (void)updateDictionaryPaths
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   mecabraWrapper = [(TIWordSearch *)self mecabraWrapper];
   mecabraRef = [mecabraWrapper mecabraRef];
   inputMode = [(TIWordSearch *)self inputMode];
-  v17[0] = inputMode;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = inputMode;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v7 = +[TIWordSearch sharedOperationQueue];
   v8 = [TIMecabraEnvironment loadMobileAssetContentsWhenMobileAssetChangesForMecabra:mecabraRef inputModes:v6 onQueue:v7 oldMobileAssetChangeListener:self->_dictionaryUpdateObserver];
   dictionaryUpdateObserver = self->_dictionaryUpdateObserver;
@@ -381,20 +378,18 @@ void __39__TIWordSearch_setDisablePersonalData___block_invoke(uint64_t a1)
   v10 = TIAssetsOSLogFacility();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = MEMORY[0x277CCACA8];
+    v11 = MEMORY[0x277CCACA8];
     inputMode2 = [(TIWordSearch *)self inputMode];
-    v14 = [v12 stringWithFormat:@"%s updateDictionaryPaths for %@", "-[TIWordSearch updateDictionaryPaths]", inputMode2];
+    v13 = [v11 stringWithFormat:@"%s updateDictionaryPaths for %@", "-[TIWordSearch updateDictionaryPaths]", inputMode2];
     *buf = 138412290;
-    v16 = v14;
+    v15 = v13;
     _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAddressBook
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   if (self->_contactObserver)
@@ -404,7 +399,7 @@ void __39__TIWordSearch_setDisablePersonalData___block_invoke(uint64_t a1)
     {
       v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s %@:updateAddressBook - removing observer", "-[TIWordSearch updateAddressBook]", v4];
       *buf = 138412290;
-      v27 = v6;
+      v26 = v6;
       _os_log_impl(&dword_22CA55000, v5, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
@@ -424,59 +419,57 @@ void __39__TIWordSearch_setDisablePersonalData___block_invoke(uint64_t a1)
   {
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s %@:updateAddressBook - adding observer", "-[TIWordSearch updateAddressBook]", v4];
     *buf = 138412290;
-    v27 = v12;
+    v26 = v12;
     _os_log_impl(&dword_22CA55000, v11, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
   v13 = +[TITransientLexiconManager sharedInstance];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __33__TIWordSearch_updateAddressBook__block_invoke;
-  v20[3] = &unk_278730FF8;
-  v21 = v4;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __33__TIWordSearch_updateAddressBook__block_invoke;
+  v19[3] = &unk_278730FF8;
+  v20 = v4;
   v14 = v4;
-  objc_copyWeak(&v24, &location);
-  v22 = mecabraEnvironment;
-  v23 = mecabraWrapper;
+  objc_copyWeak(&v23, &location);
+  v21 = mecabraEnvironment;
+  v22 = mecabraWrapper;
   v15 = mecabraWrapper;
   v16 = mecabraEnvironment;
-  v17 = [v13 addContactObserver:v20];
+  v17 = [v13 addContactObserver:v19];
   contactObserver = self->_contactObserver;
   self->_contactObserver = v17;
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __33__TIWordSearch_updateAddressBook__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TIPersonalizationContactOSLogFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s %@:updateAddressBook - processing %ld contacts", "-[TIWordSearch updateAddressBook]_block_invoke", *(a1 + 32), objc_msgSend(v3, "count")];
     *buf = 138412290;
-    v14 = v5;
+    v13 = v5;
     _os_log_impl(&dword_22CA55000, v4, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
   v6 = [v3 copy];
   v7 = _TIQueueBackground();
-  objc_copyWeak(&v12, (a1 + 56));
-  v10 = *(a1 + 40);
-  v11 = *(a1 + 48);
+  objc_copyWeak(&v11, (a1 + 56));
+  v9 = *(a1 + 40);
+  v10 = *(a1 + 48);
   v8 = v6;
   TIDispatchAsync();
 
-  objc_destroyWeak(&v12);
-  v9 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v11);
 }
 
 void __33__TIWordSearch_updateAddressBook__block_invoke_117(id *a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   if (WeakRetained)
   {
@@ -484,46 +477,45 @@ void __33__TIWordSearch_updateAddressBook__block_invoke_117(id *a1)
     if ([WeakRetained shareVocabulary])
     {
       Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-      v52 = 0;
-      v53 = &v52;
-      v54 = 0x3032000000;
-      v55 = __Block_byref_object_copy__10217;
-      v56 = __Block_byref_object_dispose__10218;
-      v57 = 0;
-      v47 = MEMORY[0x277D85DD0];
-      v48 = 3221225472;
-      v49 = __33__TIWordSearch_updateAddressBook__block_invoke_118;
-      v50 = &unk_278733760;
-      v51 = &v52;
+      v50 = 0;
+      v51 = &v50;
+      v52 = 0x3032000000;
+      v53 = __Block_byref_object_copy__10217;
+      v54 = __Block_byref_object_dispose__10218;
+      v55 = 0;
+      v45 = MEMORY[0x277D85DD0];
+      v46 = 3221225472;
+      v47 = __33__TIWordSearch_updateAddressBook__block_invoke_118;
+      v48 = &unk_278733760;
+      v49 = &v50;
       TIDispatchSync();
-      v45 = 0u;
-      v46 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v5 = v53[5];
-      v6 = [v5 countByEnumeratingWithState:&v43 objects:v60 count:16];
+      v41 = 0u;
+      v42 = 0u;
+      v5 = v51[5];
+      v6 = [v5 countByEnumeratingWithState:&v41 objects:v58 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v44;
+        v8 = *v42;
         do
         {
           v9 = 0;
           do
           {
-            if (*v44 != v8)
+            if (*v42 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v43 + 1) + 8 * v9);
             LanguageWithRegion = TIInputModeGetLanguageWithRegion();
             CFArrayAppendValue(Mutable, LanguageWithRegion);
             ++v9;
           }
 
           while (v7 != v9);
-          v7 = [v5 countByEnumeratingWithState:&v43 objects:v60 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v41 objects:v58 count:16];
         }
 
         while (v7);
@@ -533,91 +525,89 @@ void __33__TIWordSearch_updateAddressBook__block_invoke_117(id *a1)
       LMVocabularyReset();
       LMVocabularySetLanguages();
       CFRelease(Mutable);
-      v41 = 0u;
-      v42 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v13 = a1[4];
-      v14 = [v13 countByEnumeratingWithState:&v39 objects:v59 count:16];
-      if (v14)
+      v37 = 0u;
+      v38 = 0u;
+      v12 = a1[4];
+      v13 = [v12 countByEnumeratingWithState:&v37 objects:v57 count:16];
+      if (v13)
       {
-        v15 = v14;
-        v16 = *v40;
+        v14 = v13;
+        v15 = *v38;
         do
         {
-          v17 = 0;
+          v16 = 0;
           do
           {
-            if (*v40 != v16)
+            if (*v38 != v15)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v12);
             }
 
-            v18 = [a1[4] objectForKeyedSubscript:*(*(&v39 + 1) + 8 * v17)];
-            [WeakRetained addContact:v18 toVocabulary:SharedVocabulary toReadingPairs:v3];
+            v17 = [a1[4] objectForKeyedSubscript:*(*(&v37 + 1) + 8 * v16)];
+            [WeakRetained addContact:v17 toVocabulary:SharedVocabulary toReadingPairs:v3];
 
-            ++v17;
+            ++v16;
           }
 
-          while (v15 != v17);
-          v15 = [v13 countByEnumeratingWithState:&v39 objects:v59 count:16];
+          while (v14 != v16);
+          v14 = [v12 countByEnumeratingWithState:&v37 objects:v57 count:16];
         }
 
-        while (v15);
+        while (v14);
       }
 
-      _Block_object_dispose(&v52, 8);
+      _Block_object_dispose(&v50, 8);
     }
 
     else
     {
-      v37 = 0u;
-      v38 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v19 = a1[4];
-      v20 = [v19 countByEnumeratingWithState:&v35 objects:v58 count:16];
-      if (v20)
+      v33 = 0u;
+      v34 = 0u;
+      v18 = a1[4];
+      v19 = [v18 countByEnumeratingWithState:&v33 objects:v56 count:16];
+      if (v19)
       {
-        v21 = v20;
-        v22 = *v36;
+        v20 = v19;
+        v21 = *v34;
         do
         {
-          v23 = 0;
+          v22 = 0;
           do
           {
-            if (*v36 != v22)
+            if (*v34 != v21)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v18);
             }
 
-            v24 = [a1[4] objectForKeyedSubscript:*(*(&v35 + 1) + 8 * v23)];
-            TICreateNameReadingPairFromContactAndAppendToArray(v24, [WeakRetained nameReadingPairGenerationMode], a1[5], v3);
+            v23 = [a1[4] objectForKeyedSubscript:*(*(&v33 + 1) + 8 * v22)];
+            TICreateNameReadingPairFromContactAndAppendToArray(v23, [WeakRetained nameReadingPairGenerationMode], a1[5], v3);
 
-            ++v23;
+            ++v22;
           }
 
-          while (v21 != v23);
-          v21 = [v19 countByEnumeratingWithState:&v35 objects:v58 count:16];
+          while (v20 != v22);
+          v20 = [v18 countByEnumeratingWithState:&v33 objects:v56 count:16];
         }
 
-        while (v21);
+        while (v20);
       }
     }
 
-    v25 = +[TIWordSearch sharedOperationQueue];
-    v29 = MEMORY[0x277D85DD0];
-    v30 = 3221225472;
-    v31 = __33__TIWordSearch_updateAddressBook__block_invoke_2;
-    v32 = &unk_278733738;
-    v33 = a1[6];
-    v34 = v3;
-    v26 = v3;
-    v27 = [(NSBlockOperation *)TINoncancellableBlockOperation blockOperationWithBlock:&v29];
-    [v25 addOperation:{v27, v29, v30, v31, v32}];
+    v24 = +[TIWordSearch sharedOperationQueue];
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __33__TIWordSearch_updateAddressBook__block_invoke_2;
+    v30 = &unk_278733738;
+    v31 = a1[6];
+    v32 = v3;
+    v25 = v3;
+    v26 = [(NSBlockOperation *)TINoncancellableBlockOperation blockOperationWithBlock:&v27];
+    [v24 addOperation:{v26, v27, v28, v29, v30}];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __33__TIWordSearch_updateAddressBook__block_invoke_118(uint64_t a1)
@@ -739,55 +729,55 @@ LABEL_17:
 
 void __41__TIWordSearch_updateSupplementalLexicon__block_invoke(id *a1, void *a2)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v37 = v3;
+  v36 = v3;
   [v3 items];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  obj = v56 = 0u;
-  v38 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
-  if (v38)
+  obj = v55 = 0u;
+  v37 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+  if (v37)
   {
-    v34 = *v54;
+    v33 = *v53;
     do
     {
       v5 = 0;
       do
       {
-        if (*v54 != v34)
+        if (*v53 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v40 = v5;
-        v6 = *(*(&v53 + 1) + 8 * v5);
+        v39 = v5;
+        v6 = *(*(&v52 + 1) + 8 * v5);
         v7 = [a1[4] nameReadingPairGenerationMode];
         v8 = [a1[4] mecabraEnvironment];
         v9 = [v6 core_nameReadingPairsWithGenerationMode:v7 mecabraEnvironment:v8];
 
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
         v2 = v9;
-        v10 = [v2 countByEnumeratingWithState:&v49 objects:v60 count:16];
+        v10 = [v2 countByEnumeratingWithState:&v48 objects:v59 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v50;
+          v12 = *v49;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v50 != v12)
+              if (*v49 != v12)
               {
                 objc_enumerationMutation(v2);
               }
 
-              v14 = *(*(&v49 + 1) + 8 * i);
+              v14 = *(*(&v48 + 1) + 8 * i);
               v15 = [v4 objectForKeyedSubscript:v14];
               if (!v15)
               {
@@ -799,46 +789,46 @@ void __41__TIWordSearch_updateSupplementalLexicon__block_invoke(id *a1, void *a2
               [v15 addObject:v16];
             }
 
-            v11 = [v2 countByEnumeratingWithState:&v49 objects:v60 count:16];
+            v11 = [v2 countByEnumeratingWithState:&v48 objects:v59 count:16];
           }
 
           while (v11);
         }
 
-        v5 = v40 + 1;
+        v5 = v39 + 1;
       }
 
-      while (v40 + 1 != v38);
-      v38 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
+      while (v39 + 1 != v37);
+      v37 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
 
-  v39 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v38 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v17 = v4;
-  v41 = [v17 countByEnumeratingWithState:&v45 objects:v59 count:16];
-  if (v41)
+  v40 = [v17 countByEnumeratingWithState:&v44 objects:v58 count:16];
+  if (v40)
   {
-    v35 = *v46;
+    v34 = *v45;
     do
     {
-      for (j = 0; j != v41; ++j)
+      for (j = 0; j != v40; ++j)
       {
-        if (*v46 != v35)
+        if (*v45 != v34)
         {
           objc_enumerationMutation(v17);
         }
 
-        v19 = *(*(&v45 + 1) + 8 * j);
-        v57[0] = *MEMORY[0x277D82A88];
+        v19 = *(*(&v44 + 1) + 8 * j);
+        v56[0] = *MEMORY[0x277D82A88];
         v20 = [v19 name];
-        v58[0] = v20;
-        v57[1] = *MEMORY[0x277D82A80];
+        v57[0] = v20;
+        v56[1] = *MEMORY[0x277D82A80];
         v21 = [v19 reading];
         v22 = v21;
         if (!v21)
@@ -847,44 +837,42 @@ void __41__TIWordSearch_updateSupplementalLexicon__block_invoke(id *a1, void *a2
           v22 = v2;
         }
 
-        v58[1] = v22;
-        v57[2] = *MEMORY[0x277D82A70];
+        v57[1] = v22;
+        v56[2] = *MEMORY[0x277D82A70];
         v23 = [v17 objectForKeyedSubscript:v19];
         v24 = [v23 allObjects];
-        v58[2] = v24;
-        v57[3] = *MEMORY[0x277D82A78];
-        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v37, "searchPrefixCharacter")}];
-        v58[3] = v25;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:4];
+        v57[2] = v24;
+        v56[3] = *MEMORY[0x277D82A78];
+        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v36, "searchPrefixCharacter")}];
+        v57[3] = v25;
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:4];
 
         if (!v21)
         {
         }
 
-        [v39 addObject:v26];
+        [v38 addObject:v26];
       }
 
-      v41 = [v17 countByEnumeratingWithState:&v45 objects:v59 count:16];
+      v40 = [v17 countByEnumeratingWithState:&v44 objects:v58 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
 
   v27 = v17;
 
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v29 = [objc_opt_class() sharedOperationQueue];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __41__TIWordSearch_updateSupplementalLexicon__block_invoke_2;
-  v42[3] = &unk_278733738;
-  v43 = a1[5];
-  v44 = v39;
-  v30 = v39;
-  v31 = [(NSBlockOperation *)TINoncancellableBlockOperation blockOperationWithBlock:v42];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __41__TIWordSearch_updateSupplementalLexicon__block_invoke_2;
+  v41[3] = &unk_278733738;
+  v42 = a1[5];
+  v43 = v38;
+  v30 = v38;
+  v31 = [(NSBlockOperation *)TINoncancellableBlockOperation blockOperationWithBlock:v41];
   [v29 addOperation:v31];
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __41__TIWordSearch_updateSupplementalLexicon__block_invoke_3(uint64_t a1, void *a2)
@@ -995,7 +983,7 @@ void __90__TIWordSearch_setLanguageModelAdaptationContextWithClientIdentifier_re
 
 void __90__TIWordSearch_setLanguageModelAdaptationContextWithClientIdentifier_recipientIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [[TILanguageModelAdaptationContext alloc] initWithClientIdentifier:*(a1 + 32) andRecipientRecord:v3];
   if (TICanLogMessageAtLevel_onceToken != -1)
@@ -1008,17 +996,15 @@ void __90__TIWordSearch_setLanguageModelAdaptationContextWithClientIdentifier_re
     v5 = TIOSLogFacility();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Language model adaptation context = %@, recipient = %@ (%@)", "-[TIWordSearch setLanguageModelAdaptationContextWithClientIdentifier:recipientIdentifier:]_block_invoke_2", v4, *(a1 + 40), v3];
+      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Language model adaptation context = %@, recipient = %@ (%@)", "-[TIWordSearch setLanguageModelAdaptationContextWithClientIdentifier:recipientIdentifier:]_block_invoke_2", v4, *(a1 + 40), v3];
       *buf = 138412290;
-      v10 = v8;
+      v9 = v7;
       _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
   v6 = [[TIWordSearchOperationSetLanguageModelAdaptationContext alloc] initWithWordSearch:*(a1 + 48) adaptationContext:v4];
   [*(a1 + 48) performOperationAsync:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __90__TIWordSearch_setLanguageModelAdaptationContextWithClientIdentifier_recipientIdentifier___block_invoke_99(uint64_t a1, void *a2)
@@ -1177,7 +1163,7 @@ void __82__TIWordSearch_insertTopSupplementalCandidateSurroundingCursorToFrontOf
 
 uint64_t __38__TIWordSearch_saveLearningDictionary__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (TICanLogMessageAtLevel_onceToken != -1)
   {
     dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
@@ -1186,16 +1172,14 @@ uint64_t __38__TIWordSearch_saveLearningDictionary__block_invoke(uint64_t a1)
   v2 = TIOSLogFacility();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Calling MecabraFlushDynamicData", "-[TIWordSearch saveLearningDictionary]_block_invoke"];
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Calling MecabraFlushDynamicData", "-[TIWordSearch saveLearningDictionary]_block_invoke"];
     *buf = 138412290;
-    v7 = v5;
+    v6 = v4;
     _os_log_debug_impl(&dword_22CA55000, v2, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   [*(a1 + 32) mecabraRef];
-  result = MecabraFlushDynamicData();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return MecabraFlushDynamicData();
 }
 
 - (void)completeOperationsInQueue
@@ -1225,7 +1209,7 @@ uint64_t __38__TIWordSearch_saveLearningDictionary__block_invoke(uint64_t a1)
 - (void)performOperationAsync:(id)async withBackgroundActivityAssertion:(BOOL)assertion
 {
   assertionCopy = assertion;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   asyncCopy = async;
   if (assertionCopy)
   {
@@ -1234,45 +1218,45 @@ uint64_t __38__TIWordSearch_saveLearningDictionary__block_invoke(uint64_t a1)
 
     objc_initWeak(&location, self);
     completionBlock = [asyncCopy completionBlock];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __70__TIWordSearch_performOperationAsync_withBackgroundActivityAssertion___block_invoke;
-    v24[3] = &unk_278730EF8;
-    objc_copyWeak(&v26, &location);
-    v25 = completionBlock;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __70__TIWordSearch_performOperationAsync_withBackgroundActivityAssertion___block_invoke;
+    v23[3] = &unk_278730EF8;
+    objc_copyWeak(&v25, &location);
+    v24 = completionBlock;
     v9 = completionBlock;
-    [asyncCopy setCompletionBlock:v24];
+    [asyncCopy setCompletionBlock:v23];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = +[TIWordSearch sharedOperationQueue];
     operations = [v10 operations];
 
-    v12 = [operations countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v12 = [operations countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         v15 = 0;
         do
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(operations);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * v15);
+          v16 = *(*(&v19 + 1) + 8 * v15);
           if ([v16 isMemberOfClass:objc_opt_class()])
           {
             v17 = v16;
@@ -1286,7 +1270,7 @@ uint64_t __38__TIWordSearch_saveLearningDictionary__block_invoke(uint64_t a1)
         }
 
         while (v13 != v15);
-        v13 = [operations countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [operations countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v13);
@@ -1295,8 +1279,6 @@ uint64_t __38__TIWordSearch_saveLearningDictionary__block_invoke(uint64_t a1)
 
   v18 = +[TIWordSearch sharedOperationQueue];
   [v18 addOperation:asyncCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__TIWordSearch_performOperationAsync_withBackgroundActivityAssertion___block_invoke(uint64_t a1)
@@ -1342,13 +1324,27 @@ uint64_t __70__TIWordSearch_performOperationAsync_withBackgroundActivityAssertio
   }
 }
 
+- (void)performAccept:(void *)accept isPartial:(BOOL)partial
+{
+  partialCopy = partial;
+  if ([(TIWordSearch *)self mecabra])
+  {
+    v7 = [[TIWordSearchOperationContextAcceptCandidate alloc] initWithWordSearch:self mecabraCandidate:accept isPartial:partialCopy isPrediction:0];
+    [(TIWordSearch *)self performOperationAsync:?];
+    if (!partialCopy)
+    {
+      [(TIWordSearch *)self clearCache];
+    }
+  }
+}
+
 - (BOOL)addFacemarkCandidatesToResultSet:(id)set forInput:(id)input
 {
   setCopy = set;
   inputCopy = input;
-  if (([inputCopy isEqualToString:@"^_^"] & 1) == 0 && (objc_msgSend(inputCopy, "isEqualToString:", @"☺") & 1) == 0 && (objc_msgSend(inputCopy, "isEqualToString:", @"☻") & 1) == 0 && (objc_msgSend(inputCopy, "isEqualToString:", @"^_^") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(inputCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(inputCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(inputCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(inputCopy) & 1) == 0)
   {
-    if (([inputCopy isEqualToString:@"……"] & 1) == 0 && !objc_msgSend(inputCopy, "isEqualToString:", @"⋯⋯"))
+    if ((objc_msgSend_isEqualToString_(inputCopy) & 1) == 0 && !objc_msgSend_isEqualToString_(inputCopy))
     {
       v8 = 0;
       goto LABEL_9;
@@ -1366,41 +1362,39 @@ LABEL_9:
 
 - (void)_addFacemarkCandidatesToResultSet:(id)set forInput:(id)input
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   setCopy = set;
   inputCopy = input;
   [(TIWordSearch *)self mecabra];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v8 = MecabraCreateFacemarkCandidates();
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [setCopy addMecabraFacemarkCandidate:*(*(&v14 + 1) + 8 * v12++) forInput:{inputCopy, v14}];
+        [setCopy addMecabraFacemarkCandidate:*(*(&v13 + 1) + 8 * v12++) forInput:{inputCopy, v13}];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedCandidatesForOperation:(id)operation
@@ -1609,7 +1603,6 @@ uint64_t __46__TIWordSearch_keyboardActivityDidTransition___block_invoke(uint64_
   keys[0] = *MEMORY[0x277D82A58];
   values = *MEMORY[0x277CBED28];
   v2 = CFDictionaryCreate(0, keys, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

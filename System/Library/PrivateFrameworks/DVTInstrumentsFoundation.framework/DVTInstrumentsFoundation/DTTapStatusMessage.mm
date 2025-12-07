@@ -1,4 +1,5 @@
 @interface DTTapStatusMessage
+- (DTTapStatusMessage)initWithStatus:(unsigned int)status timestamp:(unint64_t)timestamp notice:(id)notice info:(id)info;
 - (NSDictionary)info;
 - (NSString)notice;
 - (unint64_t)timestamp;
@@ -10,6 +11,29 @@
 @end
 
 @implementation DTTapStatusMessage
+
+- (DTTapStatusMessage)initWithStatus:(unsigned int)status timestamp:(unint64_t)timestamp notice:(id)notice info:(id)info
+{
+  v8 = *&status;
+  noticeCopy = notice;
+  infoCopy = info;
+  v15.receiver = self;
+  v15.super_class = DTTapStatusMessage;
+  v12 = [(DTTapMessage *)&v15 initAsKind:8];
+  v13 = v12;
+  if (v12)
+  {
+    [(DTTapStatusMessage *)v12 setStatus:v8];
+    [(DTTapStatusMessage *)v13 setTimestamp:timestamp];
+    [(DTTapStatusMessage *)v13 setNotice:noticeCopy];
+    if (infoCopy)
+    {
+      [(DTTapStatusMessage *)v13 setInfo:infoCopy];
+    }
+  }
+
+  return v13;
+}
 
 - (unsigned)status
 {

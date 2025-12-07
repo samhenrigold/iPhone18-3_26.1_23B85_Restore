@@ -3,7 +3,7 @@
 
 @implementation UITextView
 
-void __79__UITextView_UITextViewDrawing___removeDrawingAttachment_withView_forDeletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void __79__UITextView_UITextViewDrawing___removeDrawingAttachment_withView_forDeletion___block_invoke(uint64_t a1, void *a2, char *a3, uint64_t a4, _BYTE *a5)
 {
   v9 = a2;
   if (*(a1 + 32) == v9)
@@ -85,7 +85,7 @@ BOOL __79__UITextView_UITextViewDrawing___removeDrawingAttachment_withView_forDe
 {
   if (a5 <= 10.0)
   {
-    (*(*(a1 + 32) + 16))();
+    (*(*(a1 + 32) + 16))(a2, a3, a4);
   }
 
   return a5 <= 10.0;

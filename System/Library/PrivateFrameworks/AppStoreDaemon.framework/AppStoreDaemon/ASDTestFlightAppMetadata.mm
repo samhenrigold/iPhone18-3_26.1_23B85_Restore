@@ -174,7 +174,7 @@
 
 - (ASDTestFlightAppMetadata)initWithCoder:(id)coder
 {
-  v96[6] = *MEMORY[0x1E69E9840];
+  v95[6] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"BI"];
   v6 = [(ASDTestFlightAppMetadata *)self initWithBundleID:v5];
@@ -189,13 +189,13 @@
     v6->_artworkURL = v9;
 
     v11 = MEMORY[0x1E695DFD8];
-    v96[0] = objc_opt_class();
-    v96[1] = objc_opt_class();
-    v96[2] = objc_opt_class();
-    v96[3] = objc_opt_class();
-    v96[4] = objc_opt_class();
-    v96[5] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v96 count:6];
+    v95[0] = objc_opt_class();
+    v95[1] = objc_opt_class();
+    v95[2] = objc_opt_class();
+    v95[3] = objc_opt_class();
+    v95[4] = objc_opt_class();
+    v95[5] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v95 count:6];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"BA"];
     backgroundAssetMetadata = v6->_backgroundAssetMetadata;
@@ -347,7 +347,6 @@
     v6->_volumeID = v92;
   }
 
-  v94 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

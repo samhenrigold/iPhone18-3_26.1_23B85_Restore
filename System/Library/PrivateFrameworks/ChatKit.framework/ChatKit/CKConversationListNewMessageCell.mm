@@ -33,18 +33,18 @@
 
 - (CKConversationListNewMessageCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v34.receiver = self;
-  v34.super_class = CKConversationListNewMessageCell;
-  v4 = [(CKConversationListNewMessageCell *)&v34 initWithStyle:style reuseIdentifier:identifier];
+  v35.receiver = self;
+  v35.super_class = CKConversationListNewMessageCell;
+  v4 = [(CKConversationListNewMessageCell *)&v35 initWithStyle:style reuseIdentifier:identifier];
   if (v4)
   {
     v5 = +[CKUIBehavior sharedBehaviors];
     theme = [v5 theme];
 
-    v7 = CKFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"NEW_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = CKFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"NEW_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
     textLabel = [(CKConversationListNewMessageCell *)v4 textLabel];
-    [textLabel setText:v8];
+    [textLabel setText:v9];
 
     textLabel2 = [(CKConversationListNewMessageCell *)v4 textLabel];
     conversationListSenderColor = [theme conversationListSenderColor];
@@ -53,36 +53,36 @@
     textLabel3 = [(CKConversationListNewMessageCell *)v4 textLabel];
     [textLabel3 setHighlightedTextColor:0];
 
-    v13 = *MEMORY[0x1E695F058];
-    v14 = *(MEMORY[0x1E695F058] + 8);
-    v15 = +[CKUIBehavior sharedBehaviors];
-    [v15 conversationListContactImageDiameter];
-    v17 = v16;
+    v14 = *MEMORY[0x1E695F058];
+    v15 = *(MEMORY[0x1E695F058] + 8);
+    v16 = +[CKUIBehavior sharedBehaviors];
+    [v16 conversationListContactImageDiameter];
+    v18 = v17;
 
-    v18 = [[CKAvatarView alloc] initWithFrame:v13, v14, v17, v17];
+    v19 = [[CKAvatarView alloc] initWithFrame:v14, v15, v18, v18];
     avatarView = v4->_avatarView;
-    v4->_avatarView = v18;
+    v4->_avatarView = v19;
 
     contentView = [(CKConversationListNewMessageCell *)v4 contentView];
     [contentView addSubview:v4->_avatarView];
 
-    v21 = +[CKUIBehavior sharedBehaviors];
-    preferredDeleteButtonVisibilityForNewCompose = [v21 preferredDeleteButtonVisibilityForNewCompose];
+    v22 = +[CKUIBehavior sharedBehaviors];
+    preferredDeleteButtonVisibilityForNewCompose = [v22 preferredDeleteButtonVisibilityForNewCompose];
 
     if ((preferredDeleteButtonVisibilityForNewCompose - 1) <= 1)
     {
-      v23 = [MEMORY[0x1E69DC738] buttonWithType:0];
+      v24 = [MEMORY[0x1E69DC738] buttonWithType:0];
       closeButton = v4->_closeButton;
-      v4->_closeButton = v23;
+      v4->_closeButton = v24;
 
-      v25 = [MEMORY[0x1E69DB878] systemFontOfSize:15.0 weight:*MEMORY[0x1E69DB980]];
-      v26 = [MEMORY[0x1E69DCAD8] configurationWithFont:v25 scale:2];
-      v27 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark" withConfiguration:v26];
-      [(UIButton *)v4->_closeButton setImage:v27 forState:0];
+      v26 = [MEMORY[0x1E69DB878] systemFontOfSize:15.0 weight:*MEMORY[0x1E69DB980]];
+      v27 = [MEMORY[0x1E69DCAD8] configurationWithFont:v26 scale:2];
+      v28 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark" withConfiguration:v27];
+      [(UIButton *)v4->_closeButton setImage:v28 forState:0];
       [(UIButton *)v4->_closeButton addTarget:v4 action:sel_deleteButtonTapped forEvents:64];
       imageView = [(UIButton *)v4->_closeButton imageView];
-      v29 = +[CKUIBehavior sharedBehaviors];
-      theme2 = [v29 theme];
+      v30 = +[CKUIBehavior sharedBehaviors];
+      theme2 = [v30 theme];
       conversationListSummaryColor = [theme2 conversationListSummaryColor];
       [imageView setTintColor:conversationListSummaryColor];
 
@@ -178,53 +178,53 @@
 
     if (displayName)
     {
-      v11 = MEMORY[0x1E696AEC0];
-      v12 = CKFrameworkBundle();
-      v13 = [v12 localizedStringForKey:@"NEW_MESSAGE_TO" value:&stru_1F04268F8 table:@"ChatKit"];
-      v14 = [v11 stringWithFormat:v13, displayName];
+      v12 = MEMORY[0x1E696AEC0];
+      v13 = CKFrameworkBundle(v6);
+      v14 = [v13 localizedStringForKey:@"NEW_MESSAGE_TO" value:&stru_1F04268F8 table:@"ChatKit"];
+      v15 = [v12 stringWithFormat:v14, displayName];
 
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection == 1)
       {
-        v17 = @"\u200F";
+        v18 = @"\u200F";
       }
 
       else
       {
-        v17 = @"\u200E";
+        v18 = @"\u200E";
       }
 
-      v25 = [(__CFString *)v17 stringByAppendingString:v14];
+      v26 = [(__CFString *)v18 stringByAppendingString:v15];
     }
 
     else
     {
 LABEL_12:
-      v18 = MEMORY[0x1E696AEC0];
-      v19 = CKFrameworkBundle();
-      v20 = [v19 localizedStringForKey:@"NEW_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-      displayName = [v18 stringWithFormat:v20];
+      v19 = MEMORY[0x1E696AEC0];
+      v20 = CKFrameworkBundle(v6);
+      v21 = [v20 localizedStringForKey:@"NEW_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+      displayName = [v19 stringWithFormat:v21];
 
       mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection2 == 1)
       {
-        v23 = @"\u200F";
+        v24 = @"\u200F";
       }
 
       else
       {
-        v23 = @"\u200E";
+        v24 = @"\u200E";
       }
 
-      v25 = [(__CFString *)v23 stringByAppendingString:displayName];
+      v26 = [(__CFString *)v24 stringByAppendingString:displayName];
     }
 
     textLabel2 = [(CKConversationListNewMessageCell *)self textLabel];
-    [textLabel2 setText:v25];
+    [textLabel2 setText:v26];
   }
 }
 

@@ -18,12 +18,11 @@
 
 uint64_t __58__HMDStereoPairSettingsControllerStateManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_22380;
-  logCategory__hmf_once_v1_22380 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_22380;
+  logCategory__hmf_once_v1_22380 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

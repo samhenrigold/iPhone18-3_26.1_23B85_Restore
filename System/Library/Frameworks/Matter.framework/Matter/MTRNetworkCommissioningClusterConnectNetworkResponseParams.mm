@@ -73,11 +73,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:49 commandID:7 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -139,17 +139,17 @@ LABEL_6:
 
   if (*(struct + 8) == 1)
   {
-    v6 = sub_238DE36B8(struct + 8);
-    v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v6 length:v6[1] encoding:4];
-    [(MTRNetworkCommissioningClusterConnectNetworkResponseParams *)self setDebugText:v7];
+    v7 = sub_238DE36B8(struct + 8, v6);
+    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v7 length:v7[1] encoding:4];
+    [(MTRNetworkCommissioningClusterConnectNetworkResponseParams *)self setDebugText:v8];
 
     debugText = [(MTRNetworkCommissioningClusterConnectNetworkResponseParams *)self debugText];
 
     if (!debugText)
     {
-      v9 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-      v10 = 0x189E00000000;
-      v11 = 47;
+      v10 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+      v11 = 0x189E00000000;
+      v12 = 47;
       goto LABEL_9;
     }
   }
@@ -161,8 +161,8 @@ LABEL_6:
 
   if (*(struct + 36))
   {
-    v12 = [MEMORY[0x277CCABB0] numberWithInt:*(struct + 8)];
-    [(MTRNetworkCommissioningClusterConnectNetworkResponseParams *)self setErrorValue:v12];
+    v13 = [MEMORY[0x277CCABB0] numberWithInt:*(struct + 8)];
+    [(MTRNetworkCommissioningClusterConnectNetworkResponseParams *)self setErrorValue:v13];
   }
 
   else
@@ -170,14 +170,14 @@ LABEL_6:
     [(MTRNetworkCommissioningClusterConnectNetworkResponseParams *)self setErrorValue:0];
   }
 
-  v10 = 0;
   v11 = 0;
-  v9 = 0;
+  v12 = 0;
+  v10 = 0;
 LABEL_9:
-  v13 = v11 | v10;
-  result.mFile = v9;
-  result.mError = v13;
-  result.mLine = HIDWORD(v13);
+  v14 = v12 | v11;
+  result.mFile = v10;
+  result.mError = v14;
+  result.mLine = HIDWORD(v14);
   return result;
 }
 

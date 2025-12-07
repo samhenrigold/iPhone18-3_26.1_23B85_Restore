@@ -59,17 +59,17 @@
 
 - (id)reportedReasonString
 {
-  v13 = *MEMORY[0x277D85DE8];
-  memset(v12, 0, sizeof(v12));
+  v12 = *MEMORY[0x277D85DE8];
+  memset(v11, 0, sizeof(v11));
   availableReasonString = [(WiFiUsageWatchdogDetails *)self availableReasonString];
   v4 = availableReasonString;
   if (!availableReasonString || ![availableReasonString length])
   {
     Apple80211Open();
     [(WiFiUsageWatchdogDetails *)self availableReason];
-    if (LOBYTE(v12[0]))
+    if (LOBYTE(v11[0]))
     {
-      unavailableReasonString = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:v12];
+      unavailableReasonString = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:v11];
     }
 
     else
@@ -102,10 +102,10 @@ LABEL_7:
 
 LABEL_8:
   [(WiFiUsageWatchdogDetails *)self unavailableReason];
-  if (LOBYTE(v12[0]))
+  if (LOBYTE(v11[0]))
   {
 LABEL_9:
-    v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:v12];
+    v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:v11];
 LABEL_10:
     v8 = v7;
 
@@ -115,7 +115,7 @@ LABEL_10:
 
   if ([(WiFiUsageWatchdogDetails *)self unavailableSubreason])
   {
-    if (LOBYTE(v12[0]))
+    if (LOBYTE(v11[0]))
     {
       goto LABEL_9;
     }
@@ -145,15 +145,14 @@ LABEL_12:
   }
 
 LABEL_15:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)reportedSubreasonString
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v10, 0, sizeof(v10));
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v9, 0, sizeof(v9));
   Apple80211Open();
   [(WiFiUsageWatchdogDetails *)self availableSubreason];
   unavailableReasonString = [(WiFiUsageWatchdogDetails *)self unavailableReasonString];
@@ -161,7 +160,7 @@ LABEL_15:
   if (!unavailableReasonString || (-[WiFiUsageWatchdogDetails unavailableReasonString](self, "unavailableReasonString"), v4 = objc_claimAutoreleasedReturnValue(), (unavailableReasonString = v4) == 0) || ![v4 length])
   {
     [(WiFiUsageWatchdogDetails *)self unavailableReason];
-    if (LOBYTE(v10[0]))
+    if (LOBYTE(v9[0]))
     {
       v5 = MEMORY[0x277CCACA8];
       goto LABEL_6;
@@ -169,7 +168,7 @@ LABEL_15:
 
     if ([(WiFiUsageWatchdogDetails *)self unavailableSubreason])
     {
-      if (!LOBYTE(v10[0]))
+      if (!LOBYTE(v9[0]))
       {
         v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown=0x%x:0x%x", -[WiFiUsageWatchdogDetails unavailableReason](self, "unavailableReason"), -[WiFiUsageWatchdogDetails unavailableSubreason](self, "unavailableSubreason")];
         goto LABEL_7;
@@ -177,15 +176,13 @@ LABEL_15:
 
       v5 = MEMORY[0x277CCACA8];
 LABEL_6:
-      v6 = [[v5 alloc] initWithCString:v10];
+      v6 = [[v5 alloc] initWithCString:v9];
 LABEL_7:
       v7 = v6;
 
       unavailableReasonString = v7;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return unavailableReasonString;
 }

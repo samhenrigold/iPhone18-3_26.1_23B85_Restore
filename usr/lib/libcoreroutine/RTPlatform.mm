@@ -30,7 +30,7 @@
   return v2;
 }
 
-uint64_t __29__RTPlatform_currentPlatform__block_invoke()
+uint64_t __29__RTPlatform_currentPlatform__block_invoke(uint64_t a1, uint64_t a2)
 {
   qword_2814A7D68 = objc_opt_new();
 
@@ -158,7 +158,7 @@ LABEL_5:
   v5 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   if (version->var0 < 0)
@@ -186,7 +186,7 @@ LABEL_5:
   v5 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   if (version->var0 > 0)

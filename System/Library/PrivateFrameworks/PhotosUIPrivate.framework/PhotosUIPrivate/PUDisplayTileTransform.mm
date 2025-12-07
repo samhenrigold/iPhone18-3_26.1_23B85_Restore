@@ -64,7 +64,7 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   hasUserInput = [(PUDisplayTileTransform *)self hasUserInput];
-  [(PUDisplayTileTransform *)self affineTransform];
+  objc_msgSend_affineTransform(self);
   v7 = NSStringFromCGAffineTransform(&transform);
   v8 = [v3 stringWithFormat:@"<%@: %p hasUserInput:%i; affineTransform:%@>", v5, self, hasUserInput, v7];;
 
@@ -95,7 +95,7 @@
   {
     v40 = *MEMORY[0x1E695EFF8];
     v39 = 1.0;
-    [(PUDisplayTileTransform *)self affineTransform];
+    objc_msgSend_affineTransform(self);
     PUDecomposeTransform(v38, &v40, &v39, 0, 0);
     [(PUDisplayTileTransform *)self _initialScale];
     v5 = v4;

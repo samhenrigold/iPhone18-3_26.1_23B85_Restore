@@ -23,8 +23,8 @@
   v11 = 1;
   v12 = 256;
   v13 = 0;
-  v2.var0 = [(OPTTSFinalTextToSpeechStreamingResponse *)self addObjectToBuffer:&v5];
-  flatbuffers::FlatBufferBuilder::Finish(&v5, v2.var0, v3);
+  v2 = [(OPTTSFinalTextToSpeechStreamingResponse *)self addObjectToBuffer:?];
+  flatbuffers::FlatBufferBuilder::Finish(&v5, v2, v3);
   operator new();
 }
 
@@ -120,48 +120,16 @@ flatbuffers::DetachedBuffer *__55__OPTTSFinalTextToSpeechStreamingResponse_flatb
 
 - (NSString)stream_id
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 12].var0;
-  if (*root[-v3 + 12].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSString)error_str
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 10].var0;
-  if (*root[-v3 + 10].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (int)error_code
@@ -181,48 +149,16 @@ flatbuffers::DetachedBuffer *__55__OPTTSFinalTextToSpeechStreamingResponse_flatb
 
 - (NSString)session_id
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 6].var0;
-  if (*root[-v3 + 6].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSString)speech_id
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 4].var0;
-  if (*root[-v3 + 4].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (OPTTSFinalTextToSpeechStreamingResponse)initWithFlatbuffData:(id)data root:(const FinalTextToSpeechStreamingResponse *)root verify:(BOOL)verify
@@ -253,7 +189,7 @@ flatbuffers::DetachedBuffer *__55__OPTTSFinalTextToSpeechStreamingResponse_flatb
       bytes2 = [(NSData *)v10->_data bytes];
       v14 = [(NSData *)v10->_data length];
       root = v10->_root;
-      if (root < bytes2 || root > bytes2 + v14)
+      if (root < bytes2 || root > v14 + bytes2)
       {
         goto LABEL_16;
       }

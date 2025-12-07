@@ -83,7 +83,7 @@ void ___MRPSMPerformLegacyMigration_block_invoke_3(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-uint64_t ___MRPSMPerformLegacyMigration_block_invoke_5(uint64_t a1, void *a2)
+void *___MRPSMPerformLegacyMigration_block_invoke_5(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = [a2 request];
@@ -304,7 +304,7 @@ void ___MRPSMPerformLegacyMigration_block_invoke_15(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-uint64_t ___MRPSMPerformLegacyMigration_block_invoke_17(uint64_t a1, void *a2)
+void *___MRPSMPerformLegacyMigration_block_invoke_17(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = [a2 request];
@@ -325,139 +325,129 @@ void ___MRPSMPerformLegacyMigration_block_invoke_18(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 64);
-    v4 = *(*(a1 + 64) + 16);
+    v3 = *(*(a1 + 64) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = ___MRPSMPerformLegacyMigration_block_invoke_19;
-    v66[3] = &unk_1E769D888;
-    v67 = *(a1 + 32);
-    v68 = *(a1 + 40);
-    v5 = *(a1 + 48);
-    v6 = *(a1 + 72);
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = ___MRPSMPerformLegacyMigration_block_invoke_19;
+    v65[3] = &unk_1E769D888;
+    v66 = *(a1 + 32);
+    v67 = *(a1 + 40);
+    v4 = *(a1 + 48);
+    v5 = *(a1 + 72);
+    v68 = v4;
     v69 = v5;
-    v70 = v6;
-    v7 = MEMORY[0x1A58E3570](v66);
-    v64[0] = MEMORY[0x1E69E9820];
-    v64[1] = 3221225472;
-    v64[2] = ___MRPSMPerformLegacyMigration_block_invoke_21;
-    v64[3] = &unk_1E769DAE0;
-    v65 = vextq_s8(*(a1 + 72), *(a1 + 72), 8uLL);
-    v8 = MEMORY[0x1A58E3570](v64);
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = ___MRPSMPerformLegacyMigration_block_invoke_26;
-    v58[3] = &unk_1E769DB30;
-    v59 = *(a1 + 32);
-    v9 = v8;
-    v62 = v9;
-    v60 = *(a1 + 56);
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 88);
-    v61 = v10;
-    v63 = v11;
-    v12 = MEMORY[0x1A58E3570](v58);
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = ___MRPSMPerformLegacyMigration_block_invoke_31;
-    v53[3] = &unk_1E769D888;
-    v54 = *(a1 + 32);
-    v55 = *(a1 + 40);
-    v13 = *(a1 + 48);
-    v14 = *(a1 + 80);
+    v6 = MEMORY[0x1A58E3570](v65);
+    v63[0] = MEMORY[0x1E69E9820];
+    v63[1] = 3221225472;
+    v63[2] = ___MRPSMPerformLegacyMigration_block_invoke_21;
+    v63[3] = &unk_1E769DAE0;
+    v64 = vextq_s8(*(a1 + 72), *(a1 + 72), 8uLL);
+    v7 = MEMORY[0x1A58E3570](v63);
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = ___MRPSMPerformLegacyMigration_block_invoke_26;
+    v57[3] = &unk_1E769DB30;
+    v58 = *(a1 + 32);
+    v8 = v7;
+    v61 = v8;
+    v59 = *(a1 + 56);
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 88);
+    v60 = v9;
+    v62 = v10;
+    v11 = MEMORY[0x1A58E3570](v57);
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = ___MRPSMPerformLegacyMigration_block_invoke_31;
+    v52[3] = &unk_1E769D888;
+    v53 = *(a1 + 32);
+    v54 = *(a1 + 40);
+    v12 = *(a1 + 48);
+    v13 = *(a1 + 80);
+    v55 = v12;
     v56 = v13;
-    v57 = v14;
-    v35 = MEMORY[0x1A58E3570](v53);
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = ___MRPSMPerformLegacyMigration_block_invoke_33;
-    v49[3] = &unk_1E769D9F0;
-    v50 = *(a1 + 32);
-    v51 = *(a1 + 40);
-    v52 = *(a1 + 48);
-    v15 = MEMORY[0x1A58E3570](v49);
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = ___MRPSMPerformLegacyMigration_block_invoke_35;
-    v43[3] = &unk_1E769DBD0;
-    v44 = *(a1 + 32);
-    v45 = *(a1 + 40);
-    v46 = *(a1 + 48);
-    v16 = v15;
-    v17 = *(a1 + 96);
+    v34 = MEMORY[0x1A58E3570](v52);
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = ___MRPSMPerformLegacyMigration_block_invoke_33;
+    v48[3] = &unk_1E769D9F0;
+    v49 = *(a1 + 32);
+    v50 = *(a1 + 40);
+    v51 = *(a1 + 48);
+    v14 = MEMORY[0x1A58E3570](v48);
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = ___MRPSMPerformLegacyMigration_block_invoke_35;
+    v42[3] = &unk_1E769DBD0;
+    v43 = *(a1 + 32);
+    v44 = *(a1 + 40);
+    v45 = *(a1 + 48);
+    v15 = v14;
+    v16 = *(a1 + 96);
+    v46 = v15;
     v47 = v16;
-    v48 = v17;
-    v18 = MEMORY[0x1A58E3570](v43);
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = ___MRPSMPerformLegacyMigration_block_invoke_134;
-    v37[3] = &unk_1E769DC48;
-    v38 = *(a1 + 32);
-    v41 = v9;
-    v39 = *(a1 + 56);
-    v40 = *(a1 + 48);
-    v42 = v16;
-    v19 = v16;
-    v36 = v9;
-    v20 = MEMORY[0x1A58E3570](v37);
-    v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v22 = v7;
-    v23 = [v7 copy];
-    v24 = MEMORY[0x1A58E3570]();
-    [v21 addObject:v24];
+    v17 = MEMORY[0x1A58E3570](v42);
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = ___MRPSMPerformLegacyMigration_block_invoke_134;
+    v36[3] = &unk_1E769DC48;
+    v37 = *(a1 + 32);
+    v40 = v8;
+    v38 = *(a1 + 56);
+    v39 = *(a1 + 48);
+    v41 = v15;
+    v18 = v15;
+    v35 = v8;
+    v19 = MEMORY[0x1A58E3570](v36);
+    v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v21 = v6;
+    v22 = [v6 copy];
+    v23 = MEMORY[0x1A58E3570]();
+    [v20 addObject:v23];
 
-    v25 = [v12 copy];
-    v26 = MEMORY[0x1A58E3570]();
-    [v21 addObject:v26];
+    v24 = [v11 copy];
+    v25 = MEMORY[0x1A58E3570]();
+    [v20 addObject:v25];
 
-    v27 = [v22 copy];
-    v28 = MEMORY[0x1A58E3570]();
-    [v21 addObject:v28];
+    v26 = [v21 copy];
+    v27 = MEMORY[0x1A58E3570]();
+    [v20 addObject:v27];
 
-    v29 = [v35 copy];
-    v30 = MEMORY[0x1A58E3570]();
-    [v21 addObject:v30];
+    v28 = [v34 copy];
+    v29 = MEMORY[0x1A58E3570]();
+    [v20 addObject:v29];
 
-    v31 = [v18 copy];
-    v32 = MEMORY[0x1A58E3570]();
-    [v21 addObject:v32];
+    v30 = [v17 copy];
+    v31 = MEMORY[0x1A58E3570]();
+    [v20 addObject:v31];
 
-    v33 = [v20 copy];
-    v34 = MEMORY[0x1A58E3570]();
-    [v21 addObject:v34];
+    v32 = [v19 copy];
+    v33 = MEMORY[0x1A58E3570]();
+    [v20 addObject:v33];
 
-    MRPerformAsyncOperationsUntilError(v21, *(a1 + 64));
+    MRPerformAsyncOperationsUntilError(v20, *(a1 + 64));
   }
 }
 
 void ___MRPSMPerformLegacyMigration_block_invoke_19(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [*(a1 + 32) startEvent:@"GetPlaybackQueue" role:2];
-  v5 = [[MRPlaybackQueueRequest alloc] initWithRange:0, 1];
-  v6 = [*(a1 + 32) requestID];
-  [(MRPlaybackQueueRequest *)v5 setRequestIdentifier:v6];
+  [*(a1 + 32) startEvent:@"GetPlaybackQueue" role:2];
+  v4 = [[MRPlaybackQueueRequest alloc] initWithRange:0, 1];
+  v5 = [*(a1 + 32) requestID];
+  [(MRPlaybackQueueRequest *)v4 setRequestIdentifier:v5];
 
-  [(MRPlaybackQueueRequest *)v5 setIncludeMetadata:1];
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = ___MRPSMPerformLegacyMigration_block_invoke_20;
-  v11[3] = &unk_1E769DA18;
-  v14 = *(a1 + 56);
-  v9 = *(a1 + 32);
-  v15 = v4;
-  v12 = v9;
-  v13 = v3;
-  v10 = v3;
-  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync(v5, v7, v8, v11);
+  [(MRPlaybackQueueRequest *)v4 setIncludeMetadata:1];
+  v7 = *(a1 + 32);
+  v8 = v3;
+  v6 = v3;
+  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
 }
 
 uint64_t ___MRPSMPerformLegacyMigration_block_invoke_20(uint64_t a1, void *a2, uint64_t a3)
@@ -591,57 +581,56 @@ void ___MRPSMPerformLegacyMigration_block_invoke_26(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [*(a1 + 32) startEvent:@"SendPlaybackSession" role:1];
-  v5 = *(a1 + 32);
-  v6 = (*(*(a1 + 56) + 16))();
-  [v6 setPlayerOptions:0];
-  [v6 setEndpointOptions:0];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = ___MRPSMPerformLegacyMigration_block_invoke_27;
-  v30[3] = &unk_1E769D978;
-  v7 = *(a1 + 32);
-  v33 = v4;
-  v31 = v7;
-  v32 = v3;
-  v8 = v3;
-  v9 = MEMORY[0x1A58E3570](v30);
-  v10 = [*(a1 + 40) origin];
-  if ([v10 isLocal])
+  v5 = (*(*(a1 + 56) + 16))();
+  [v5 setPlayerOptions:0];
+  [v5 setEndpointOptions:0];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = ___MRPSMPerformLegacyMigration_block_invoke_27;
+  v29[3] = &unk_1E769D978;
+  v6 = *(a1 + 32);
+  v32 = v4;
+  v30 = v6;
+  v31 = v3;
+  v7 = v3;
+  v8 = MEMORY[0x1A58E3570](v29);
+  v9 = [*(a1 + 40) origin];
+  if ([v9 isLocal])
   {
-    v11 = 7.0;
+    v10 = 7.0;
   }
 
   else
   {
-    v11 = 15.0;
+    v10 = 15.0;
   }
 
-  v12 = [MRBlockGuard alloc];
-  v13 = MEMORY[0x1E696AEC0];
-  v14 = [*(a1 + 32) requestID];
-  v15 = [v13 stringWithFormat:@"sendPlaybackSession<%@>", v14];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = ___MRPSMPerformLegacyMigration_block_invoke_28;
-  v27[3] = &unk_1E769BCD0;
-  v28 = *(a1 + 48);
-  v16 = v9;
-  v29 = v16;
-  v17 = [(MRBlockGuard *)v12 initWithTimeout:v15 reason:v27 handler:v11];
+  v11 = [MRBlockGuard alloc];
+  v12 = MEMORY[0x1E696AEC0];
+  v13 = [*(a1 + 32) requestID];
+  v14 = [v12 stringWithFormat:@"sendPlaybackSession<%@>", v13];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = ___MRPSMPerformLegacyMigration_block_invoke_28;
+  v26[3] = &unk_1E769BCD0;
+  v27 = *(a1 + 48);
+  v15 = v8;
+  v28 = v15;
+  v16 = [(MRBlockGuard *)v11 initWithTimeout:v14 reason:v26 handler:v10];
 
-  v18 = *(*(*(a1 + 64) + 8) + 40);
-  v19 = *(a1 + 40);
-  v20 = *(a1 + 48);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = ___MRPSMPerformLegacyMigration_block_invoke_30;
-  v23[3] = &unk_1E769DB08;
-  v24 = v17;
-  v25 = *(a1 + 32);
-  v26 = v16;
+  v17 = *(*(*(a1 + 64) + 8) + 40);
+  v18 = *(a1 + 40);
+  v19 = *(a1 + 48);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = ___MRPSMPerformLegacyMigration_block_invoke_30;
+  v22[3] = &unk_1E769DB08;
+  v23 = v16;
+  v24 = *(a1 + 32);
+  v25 = v15;
+  v20 = v15;
   v21 = v16;
-  v22 = v17;
-  MRMediaRemoteSendPlaybackSession(v18, v6, v19, v20, v23);
+  MRMediaRemoteSendPlaybackSession(v17, v5, v18, v19, v22);
 }
 
 void ___MRPSMPerformLegacyMigration_block_invoke_27(uint64_t a1, void *a2)
@@ -792,42 +781,40 @@ void ___MRPSMPerformLegacyMigration_block_invoke_36(uint64_t a1, uint64_t a2, vo
       ___MRPSMPerformLegacyMigration_block_invoke_36_cold_1(v5, v6);
     }
 
-    v7 = *(a1 + 48);
-    v8 = *(*(a1 + 40) + 16);
+    v7 = *(*(a1 + 40) + 16);
   }
 
   else
   {
     *(*(*(a1 + 56) + 8) + 24) = a2;
-    v8 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
   }
 
-  v8();
+  v7();
 }
 
 void ___MRPSMPerformLegacyMigration_block_invoke_134(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [*(a1 + 32) startEvent:@"CoordinatePlayback" role:1];
-  v5 = *(a1 + 32);
-  v6 = (*(*(a1 + 56) + 16))();
-  v7 = [MEMORY[0x1E695DF00] date];
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 48);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = ___MRPSMPerformLegacyMigration_block_invoke_2_138;
-  v13[3] = &unk_1E769DC20;
-  v10 = *(a1 + 32);
-  v19 = v4;
-  v14 = v10;
-  v15 = v7;
-  v16 = *(a1 + 48);
-  v17 = *(a1 + 64);
-  v18 = v3;
-  v11 = v3;
-  v12 = v7;
-  MRMediaRemoteSendPlaybackSession(0, v6, v8, v9, v13);
+  v5 = (*(*(a1 + 56) + 16))();
+  v6 = [MEMORY[0x1E695DF00] date];
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = ___MRPSMPerformLegacyMigration_block_invoke_2_138;
+  v12[3] = &unk_1E769DC20;
+  v9 = *(a1 + 32);
+  v18 = v4;
+  v13 = v9;
+  v14 = v6;
+  v15 = *(a1 + 48);
+  v16 = *(a1 + 64);
+  v17 = v3;
+  v10 = v3;
+  v11 = v6;
+  MRMediaRemoteSendPlaybackSession(0, v5, v7, v8, v12);
 }
 
 void ___MRPSMPerformLegacyMigration_block_invoke_2_138(uint64_t a1, uint64_t a2, void *a3)
@@ -889,11 +876,10 @@ uint64_t ___MRPSMPerformLegacyMigration_block_invoke_4_140(uint64_t a1, uint64_t
 
 void ___MRPSMPerformLegacyMigration_block_invoke_36_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRPlaybackSession] Fade out failed with error %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRPlaybackSession] Fade out failed with error %{public}@", &v2, 0xCu);
 }
 
 @end

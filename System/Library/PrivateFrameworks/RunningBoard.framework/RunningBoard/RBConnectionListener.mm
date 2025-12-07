@@ -101,17 +101,17 @@ void __29__RBConnectionListener_start__block_invoke(uint64_t a1, void *a2)
 
 void __29__RBConnectionListener_start__block_invoke_2(id *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  memset(&v30, 0, sizeof(v30));
+  memset(&v29, 0, sizeof(v29));
   RBSInvalidRealAuditToken();
   xpc_connection_get_audit_token();
   memset(&atoken, 0, sizeof(atoken));
   if (RBSRealAuditTokenValid())
   {
-    atoken = v30;
+    atoken = v29;
     v3 = audit_token_to_euid(&atoken);
-    atoken = v30;
+    atoken = v29;
     v4 = audit_token_to_auid(&atoken);
     if (v4 + 1 >= 2)
     {
@@ -130,7 +130,7 @@ void __29__RBConnectionListener_start__block_invoke_2(id *a1)
     v3 = 0;
   }
 
-  atoken = v30;
+  atoken = v29;
   v6 = [MEMORY[0x277D46DE0] tokenFromAuditToken:&atoken];
   v7 = rbs_connection_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -181,19 +181,19 @@ void __29__RBConnectionListener_start__block_invoke_2(id *a1)
     v18 = +[RBConnectionListener sharedConnectionWorkloop];
     xpc_connection_set_target_queue(v2, v18);
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __29__RBConnectionListener_start__block_invoke_30;
-    v25[3] = &unk_279B33778;
-    v26 = v16;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __29__RBConnectionListener_start__block_invoke_30;
+    v24[3] = &unk_279B33778;
+    v25 = v16;
     v19 = v2;
     v20 = a1[6];
-    v27 = v19;
-    v28 = v20;
-    v29 = v11;
+    v26 = v19;
+    v27 = v20;
+    v28 = v11;
     v21 = v11;
     v22 = v16;
-    xpc_connection_set_event_handler(v19, v25);
+    xpc_connection_set_event_handler(v19, v24);
     xpc_connection_activate(v19);
   }
 
@@ -209,8 +209,6 @@ void __29__RBConnectionListener_start__block_invoke_2(id *a1)
     xpc_connection_activate(v2);
     xpc_connection_cancel(v2);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedConnectionWorkloop
@@ -248,36 +246,36 @@ void __48__RBConnectionListener_sharedConnectionWorkloop__block_invoke()
 
 - (NSString)debugDescription
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   os_unfair_lock_lock(&self->_lock);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   objectEnumerator = [(NSMapTable *)self->_lock_connectionToClientMap objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         processIdentity = [(RBConnectionClient *)v9 processIdentity];
         v11 = [processIdentity description];
         processIdentifier = [(RBConnectionClient *)v9 processIdentifier];
         [v3 appendFormat:@"%@:%d\n\t", v11, objc_msgSend(processIdentifier, "pid")];
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -287,8 +285,6 @@ void __48__RBConnectionListener_sharedConnectionWorkloop__block_invoke()
   v13 = objc_alloc(MEMORY[0x277CCACA8]);
   v14 = [objc_opt_class() description];
   v15 = [v13 initWithFormat:@"<%@|  clients:[\n\t%@]>", v14, v3];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -379,21 +375,19 @@ void __48__RBConnectionListener_sharedConnectionWorkloop__block_invoke()
 
 void __29__RBConnectionListener_start__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   string = xpc_dictionary_get_string(a1, *MEMORY[0x277D86400]);
-  v5 = 136315138;
-  v6 = string;
-  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Error on xpc listener connection: %s", &v5, 0xCu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315138;
+  v5 = string;
+  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Error on xpc listener connection: %s", &v4, 0xCu);
 }
 
 void __29__RBConnectionListener_start__block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109120;
-  v4[1] = [a1 pid];
-  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Unable to create a reference to incoming connection from %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = [a1 pid];
+  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Unable to create a reference to incoming connection from %d", v3, 8u);
 }
 
 @end

@@ -23,7 +23,7 @@
 
 - (void)setHomeManager:(id)manager
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   WeakRetained = objc_loadWeakRetained(&self->_homeManager);
 
@@ -35,17 +35,15 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_FAULT, "%{public}@HMDBackingStoreSingleton's homeManager is being set more than once per process lifecycle", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_FAULT, "%{public}@HMDBackingStoreSingleton's homeManager is being set more than once per process lifecycle", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
   objc_storeWeak(&self->_homeManager, managerCopy);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resetBackingStore
@@ -86,10 +84,10 @@
 
 - (HMDBackingStoreSingleton)init
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = HMDBackingStoreSingleton;
-  v2 = [(HMDBackingStoreSingleton *)&v25 init];
+  v27 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = HMDBackingStoreSingleton;
+  v2 = [(HMDBackingStoreSingleton *)&v24 init];
   if (v2)
   {
     strongToWeakObjectsMapTable = [MEMORY[0x277CCAB00] strongToWeakObjectsMapTable];
@@ -136,7 +134,7 @@
         {
           v21 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v27 = v21;
+          v26 = v21;
           _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to create our local storage.", buf, 0xCu);
         }
 
@@ -147,7 +145,6 @@
     v22 = v2;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -165,12 +162,11 @@
 
 uint64_t __39__HMDBackingStoreSingleton_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v51_164208;
-  logCategory__hmf_once_v51_164208 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v51_164208;
+  logCategory__hmf_once_v51_164208 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)resetSchemaHash

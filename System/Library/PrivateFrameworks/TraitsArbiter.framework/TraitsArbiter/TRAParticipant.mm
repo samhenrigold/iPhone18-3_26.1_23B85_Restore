@@ -23,6 +23,7 @@
 - (void)dealloc;
 - (void)invalidate;
 - (void)setNeedsUpdatePreferencesWithReason:(id)reason;
+- (void)setNeedsUpdatePreferencesWithReason:(id)reason force:(BOOL)force;
 - (void)setNeedsUpdatePreferencesWithReason:(id)reason force:(BOOL)force animate:(BOOL)animate;
 - (void)setOrientationPreferences:(id)preferences;
 - (void)setZOrderLevelPreferences:(id)preferences;
@@ -274,6 +275,20 @@ LABEL_5:
   [(TRAParticipant *)self setNeedsUpdatePreferencesWithReason:reasonCopy force:0 animate:1];
 }
 
+- (void)setNeedsUpdatePreferencesWithReason:(id)reason force:(BOOL)force
+{
+  forceCopy = force;
+  reasonCopy = reason;
+  v7 = reasonCopy;
+  if (!reasonCopy)
+  {
+    [TRAParticipant setNeedsUpdatePreferencesWithReason:force:];
+    reasonCopy = 0;
+  }
+
+  [(TRAParticipant *)self setNeedsUpdatePreferencesWithReason:reasonCopy force:forceCopy animate:1];
+}
+
 - (void)setNeedsUpdatePreferencesWithReason:(id)reason force:(BOOL)force animate:(BOOL)animate
 {
   reasonCopy = reason;
@@ -299,12 +314,12 @@ LABEL_5:
 
 void __68__TRAParticipant_setNeedsUpdatePreferencesWithReason_force_animate___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 setReason:*(a1 + 32)];
   [v3 setForceOrientationResolution:*(a1 + 48)];
-  v7[0] = *(*(a1 + 40) + 104);
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = *(*(a1 + 40) + 104);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [v3 setRequestingParticipantsUniqueIdentifiers:v4];
 
   if ((*(a1 + 49) & 1) == 0)
@@ -312,8 +327,6 @@ void __68__TRAParticipant_setNeedsUpdatePreferencesWithReason_force_animate___bl
     v5 = [[TRASettingsActuationContext alloc] initWithAnimationSettings:0 drawingFence:0];
     [v3 setOrientationActuationContext:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate

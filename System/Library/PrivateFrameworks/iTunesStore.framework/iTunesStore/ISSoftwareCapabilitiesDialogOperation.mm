@@ -11,7 +11,7 @@
 
 - (ISSoftwareCapabilitiesDialogOperation)initWithRequiredCapabilities:(id)capabilities mismatches:(id)mismatches
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISSoftwareCapabilitiesDialogOperation.m", 39, a2);
   v7 = [(ISOperation *)self init];
   if (v7)
   {
@@ -134,38 +134,37 @@
       shouldLog = [mEMORY[0x277D69B38] shouldLog];
       if ([mEMORY[0x277D69B38] shouldLogToDisk])
       {
-        v27 = shouldLog | 2;
+        v28 = shouldLog | 2;
       }
 
       else
       {
-        v27 = shouldLog;
+        v28 = shouldLog;
       }
 
-      if (os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = v27;
+        v30 = v28;
       }
 
       else
       {
-        v28 = v27 & 2;
+        v30 = v28 & 2;
       }
 
-      if (v28)
+      if (v30)
       {
-        v29 = objc_opt_class();
+        v31 = objc_opt_class();
         v46 = 138412290;
-        v47 = v29;
-        LODWORD(v35) = 12;
-        v34 = &v46;
-        v30 = _os_log_send_and_compose_impl();
-        if (v30)
+        v47 = v31;
+        v32 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: Failed, so posting default dialog", &v46, 12);
+        if (v32)
         {
-          v31 = v30;
-          v32 = [MEMORY[0x277CCACA8] stringWithCString:v30 encoding:{4, &v46, v35}];
-          free(v31);
-          v34 = v32;
+          v33 = v32;
+          v34 = [MEMORY[0x277CCACA8] stringWithCString:v32 encoding:4];
+          free(v33);
+          v35 = v34;
           SSFileLog();
         }
       }
@@ -194,29 +193,28 @@
       v20 = shouldLog2;
     }
 
-    if (os_log_type_enabled([mEMORY[0x277D69B38]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = v20;
+      v22 = v20;
     }
 
     else
     {
-      v21 = v20 & 2;
+      v22 = v20 & 2;
     }
 
-    if (v21)
+    if (v22)
     {
       v46 = 138412290;
       v47 = objc_opt_class();
-      LODWORD(v35) = 12;
-      v34 = &v46;
-      v22 = _os_log_send_and_compose_impl();
-      if (v22)
+      v23 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_275BC3000, oSLogObject2, 0, "%@: No bag key, posting default dialog", &v46, 12);
+      if (v23)
       {
-        v23 = v22;
-        v24 = [MEMORY[0x277CCACA8] stringWithCString:v22 encoding:{4, &v46, v35}];
-        free(v23);
-        v34 = v24;
+        v24 = v23;
+        v25 = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:4];
+        free(v24);
+        v35 = v25;
         SSFileLog();
       }
     }
@@ -224,14 +222,12 @@
     [(ISSoftwareCapabilitiesDialogOperation *)self _postDefaultDialog];
     [(ISOperation *)self setSuccess:1];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postDefaultDialog
 {
-  v8 = MGCopyAnswer();
-  intValue = [v8 intValue];
+  v7 = MGCopyAnswer();
+  intValue = [v7 intValue];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = @"HARDWARE_INCOMPATIBLE_ERROR_BODY_IPHONE";
   if (intValue == 3)
@@ -251,7 +247,6 @@
 
   [v3 localizedStringForKey:v5 value:&stru_2884BCFD0 table:0];
   v6 = +[ISOperationQueue mainQueue];
-  v7 = *MEMORY[0x277D6A110];
   [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"HARDWARE_INCOMPATIBLE_ERROR_TITLE", &stru_2884BCFD0, 0}];
   [v6 addOperation:{+[ISDialogOperation operationWithError:](ISDialogOperation, "operationWithError:", SSError())}];
 }

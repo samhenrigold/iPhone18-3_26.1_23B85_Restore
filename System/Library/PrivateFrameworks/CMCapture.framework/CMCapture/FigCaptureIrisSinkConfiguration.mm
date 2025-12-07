@@ -20,7 +20,7 @@
   v47 = 0;
   if (self)
   {
-    [(FigCaptureIrisSinkConfiguration *)self irisMovieVideoFrameDuration];
+    objc_msgSend_irisMovieVideoFrameDuration(self, a2);
   }
 
   if ([(FigCaptureIrisPreparedSettings *)self->_preparedSettings count])
@@ -92,7 +92,7 @@
   irisMovieCaptureEnabled = [(FigCaptureIrisSinkConfiguration *)self irisMovieCaptureEnabled];
   irisMovieCaptureSuspended = [(FigCaptureIrisSinkConfiguration *)self irisMovieCaptureSuspended];
   preservesIrisMovieCaptureSuspendedOnSessionStop = [(FigCaptureIrisSinkConfiguration *)self preservesIrisMovieCaptureSuspendedOnSessionStop];
-  [(FigCaptureIrisSinkConfiguration *)self irisMovieDuration];
+  objc_msgSend_irisMovieDuration(self);
   Seconds = CMTimeGetSeconds(&time);
   irisMovieAutoTrimMethod = [(FigCaptureIrisSinkConfiguration *)self irisMovieAutoTrimMethod];
   if (v45)
@@ -242,9 +242,9 @@
   xpc_dictionary_set_BOOL(copyXPCEncoding, "preservesIrisMovieCaptureSuspendedOnSessionStop", [(FigCaptureIrisSinkConfiguration *)self preservesIrisMovieCaptureSuspendedOnSessionStop]);
   if (self)
   {
-    [(FigCaptureIrisSinkConfiguration *)self irisMovieDuration];
+    objc_msgSend_irisMovieDuration(self);
     FigXPCMessageSetCMTime();
-    [(FigCaptureIrisSinkConfiguration *)self irisMovieVideoFrameDuration];
+    objc_msgSend_irisMovieVideoFrameDuration(self);
   }
 
   else
@@ -522,11 +522,11 @@ uint64_t __50__FigCaptureIrisSinkConfiguration_copyXPCEncoding__block_invoke(uin
   [v5 setPreservesIrisMovieCaptureSuspendedOnSessionStop:{-[FigCaptureIrisSinkConfiguration preservesIrisMovieCaptureSuspendedOnSessionStop](self, "preservesIrisMovieCaptureSuspendedOnSessionStop")}];
   if (self)
   {
-    [(FigCaptureIrisSinkConfiguration *)self irisMovieDuration];
+    objc_msgSend_irisMovieDuration(self);
     v10 = v12;
     v11 = v13;
     [v5 setIrisMovieDuration:&v10];
-    [(FigCaptureIrisSinkConfiguration *)self irisMovieVideoFrameDuration];
+    objc_msgSend_irisMovieVideoFrameDuration(self);
   }
 
   else
@@ -582,10 +582,10 @@ uint64_t __50__FigCaptureIrisSinkConfiguration_copyXPCEncoding__block_invoke(uin
 
 - (BOOL)isEqual:(id)equal
 {
-  v45.receiver = self;
-  v45.super_class = FigCaptureIrisSinkConfiguration;
-  v5 = [(FigCaptureSinkConfiguration *)&v45 isEqual:?];
-  if (v5)
+  v46.receiver = self;
+  v46.super_class = FigCaptureIrisSinkConfiguration;
+  isEqualToString = [(FigCaptureSinkConfiguration *)&v46 isEqual:?];
+  if (isEqualToString)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -613,7 +613,7 @@ uint64_t __50__FigCaptureIrisSinkConfiguration_copyXPCEncoding__block_invoke(uin
 
     if (self)
     {
-      [(FigCaptureIrisSinkConfiguration *)self irisMovieDuration];
+      objc_msgSend_irisMovieDuration(self);
     }
 
     else
@@ -623,22 +623,22 @@ uint64_t __50__FigCaptureIrisSinkConfiguration_copyXPCEncoding__block_invoke(uin
 
     if (equal)
     {
-      [equal irisMovieDuration];
+      objc_msgSend_irisMovieDuration(equal);
     }
 
     else
     {
-      memset(&v43, 0, sizeof(v43));
+      memset(&v44, 0, sizeof(v44));
     }
 
-    if (CMTimeCompare(&time1, &v43))
+    if (CMTimeCompare(&time1, &v44))
     {
       goto LABEL_26;
     }
 
     if (self)
     {
-      [(FigCaptureIrisSinkConfiguration *)self irisMovieVideoFrameDuration];
+      objc_msgSend_irisMovieVideoFrameDuration(self);
     }
 
     else
@@ -648,15 +648,15 @@ uint64_t __50__FigCaptureIrisSinkConfiguration_copyXPCEncoding__block_invoke(uin
 
     if (equal)
     {
-      [equal irisMovieVideoFrameDuration];
+      objc_msgSend_irisMovieVideoFrameDuration(equal);
     }
 
     else
     {
-      memset(&v43, 0, sizeof(v43));
+      memset(&v44, 0, sizeof(v44));
     }
 
-    if (CMTimeCompare(&time1, &v43))
+    if (CMTimeCompare(&time1, &v44))
     {
       goto LABEL_26;
     }
@@ -670,14 +670,14 @@ uint64_t __50__FigCaptureIrisSinkConfiguration_copyXPCEncoding__block_invoke(uin
     irisPreparedSettings = [(FigCaptureIrisSinkConfiguration *)self irisPreparedSettings];
     if (irisPreparedSettings != [equal irisPreparedSettings])
     {
-      v5 = -[FigCaptureIrisPreparedSettings isEqual:](-[FigCaptureIrisSinkConfiguration irisPreparedSettings](self, "irisPreparedSettings"), "isEqual:", [equal irisPreparedSettings]);
-      if (!v5)
+      isEqualToString = -[FigCaptureIrisPreparedSettings isEqual:](-[FigCaptureIrisSinkConfiguration irisPreparedSettings](self, "irisPreparedSettings"), "isEqual:", [equal irisPreparedSettings]);
+      if (!isEqualToString)
       {
-        return v5;
+        return isEqualToString;
       }
     }
 
-    v11 = [(FigCaptureIrisSinkConfiguration *)self optimizesImagesForOfflineVideoStabilization:v43.value];
+    v11 = [(FigCaptureIrisSinkConfiguration *)self optimizesImagesForOfflineVideoStabilization:v44.value];
     if (v11 != [equal optimizesImagesForOfflineVideoStabilization])
     {
       goto LABEL_26;
@@ -696,10 +696,10 @@ uint64_t __50__FigCaptureIrisSinkConfiguration_copyXPCEncoding__block_invoke(uin
     }
 
     v14 = [MEMORY[0x1E695DFD8] setWithArray:{-[FigCaptureIrisSinkConfiguration enabledSemanticSegmentationMatteURNs](self, "enabledSemanticSegmentationMatteURNs")}];
-    v5 = [v14 isEqual:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithArray:", objc_msgSend(equal, "enabledSemanticSegmentationMatteURNs"))}];
-    if (!v5)
+    isEqualToString = [v14 isEqual:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithArray:", objc_msgSend(equal, "enabledSemanticSegmentationMatteURNs"))}];
+    if (!isEqualToString)
     {
-      return v5;
+      return isEqualToString;
     }
 
     filterRenderingEnabled = [(FigCaptureIrisSinkConfiguration *)self filterRenderingEnabled];
@@ -730,19 +730,19 @@ uint64_t __50__FigCaptureIrisSinkConfiguration_copyXPCEncoding__block_invoke(uin
       || (v39 = -[FigCaptureIrisSinkConfiguration multiCamClientCompositingEnabled](self, "multiCamClientCompositingEnabled"), v39 != [equal multiCamClientCompositingEnabled]))
     {
 LABEL_26:
-      LOBYTE(v5) = 0;
-      return v5;
+      LOBYTE(isEqualToString) = 0;
+      return isEqualToString;
     }
 
     multiCamClientCompositingPrimaryConnectionID = [(FigCaptureIrisSinkConfiguration *)self multiCamClientCompositingPrimaryConnectionID];
-    if (multiCamClientCompositingPrimaryConnectionID == [equal multiCamClientCompositingPrimaryConnectionID] || (v5 = -[NSString isEqualToString:](-[FigCaptureIrisSinkConfiguration multiCamClientCompositingPrimaryConnectionID](self, "multiCamClientCompositingPrimaryConnectionID"), "isEqualToString:", objc_msgSend(equal, "multiCamClientCompositingPrimaryConnectionID"))) != 0)
+    if (multiCamClientCompositingPrimaryConnectionID == [equal multiCamClientCompositingPrimaryConnectionID] || (v41 = -[FigCaptureIrisSinkConfiguration multiCamClientCompositingPrimaryConnectionID](self, "multiCamClientCompositingPrimaryConnectionID"), objc_msgSend(equal, "multiCamClientCompositingPrimaryConnectionID"), (isEqualToString = objc_msgSend_isEqualToString_(v41)) != 0))
     {
       cameraSensorOrientationCompensationEnabled = [(FigCaptureIrisSinkConfiguration *)self cameraSensorOrientationCompensationEnabled];
-      LOBYTE(v5) = cameraSensorOrientationCompensationEnabled ^ [equal cameraSensorOrientationCompensationEnabled] ^ 1;
+      LOBYTE(isEqualToString) = cameraSensorOrientationCompensationEnabled ^ [equal cameraSensorOrientationCompensationEnabled] ^ 1;
     }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)setIrisMovieDuration:(id *)duration

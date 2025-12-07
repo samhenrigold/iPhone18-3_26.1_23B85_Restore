@@ -6,7 +6,7 @@
 
 + (id)provideComputeBackendWithModelFile:(id)file separateWeight:(id)weight error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   weightCopy = weight;
   if ([fileCopy hasSuffix:@"bnns.mil"])
@@ -16,17 +16,17 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v28 = "+[CSFModelComputeBackendFactory provideComputeBackendWithModelFile:separateWeight:error:]";
-      v29 = 2112;
-      v30 = v9;
-      v31 = 2112;
-      v32 = fileCopy;
+      v27 = "+[CSFModelComputeBackendFactory provideComputeBackendWithModelFile:separateWeight:error:]";
+      v28 = 2112;
+      v29 = v9;
+      v30 = 2112;
+      v31 = fileCopy;
       _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s obtained lookup bnnsIrPath : %@ for mil path: %@", buf, 0x20u);
     }
 
-    v24 = 0;
-    v11 = [[CSFMil2bnnsComputeBackend alloc] initWithModelFile:fileCopy bnnsIrPath:v9 errOut:&v24];
-    v12 = v24;
+    v23 = 0;
+    v11 = [[CSFMil2bnnsComputeBackend alloc] initWithModelFile:fileCopy bnnsIrPath:v9 errOut:&v23];
+    v12 = v23;
 
     if (!v11)
     {
@@ -46,9 +46,9 @@ LABEL_11:
 
   if ([fileCopy hasSuffix:@"bnnsir"])
   {
-    v23 = 0;
-    v11 = [[CSFMil2bnnsComputeBackend alloc] initWithBnnsIrFile:fileCopy weightPath:weightCopy errOut:&v23];
-    v13 = v23;
+    v22 = 0;
+    v11 = [[CSFMil2bnnsComputeBackend alloc] initWithBnnsIrFile:fileCopy weightPath:weightCopy errOut:&v22];
+    v13 = v22;
   }
 
   else
@@ -56,19 +56,19 @@ LABEL_11:
     if (![fileCopy hasSuffix:@"mlmodelc"])
     {
       v15 = MEMORY[0x1E696ABC0];
-      v25 = *MEMORY[0x1E696A578];
+      v24 = *MEMORY[0x1E696A578];
       v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Backend not supported"];
-      v26 = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v25 = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       v12 = [v15 errorWithDomain:@"com.apple.corespeech" code:2457 userInfo:v17];
 
       v11 = 0;
       goto LABEL_14;
     }
 
-    v22 = 0;
-    v11 = [[CSFCoreMLComputeBackend alloc] initWithModelFile:fileCopy error:&v22];
-    v13 = v22;
+    v21 = 0;
+    v11 = [[CSFCoreMLComputeBackend alloc] initWithModelFile:fileCopy error:&v21];
+    v13 = v21;
   }
 
   v12 = v13;
@@ -82,11 +82,11 @@ LABEL_14:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v28 = "+[CSFModelComputeBackendFactory provideComputeBackendWithModelFile:separateWeight:error:]";
-    v29 = 2112;
-    v30 = fileCopy;
-    v31 = 2112;
-    v32 = v12;
+    v27 = "+[CSFModelComputeBackendFactory provideComputeBackendWithModelFile:separateWeight:error:]";
+    v28 = 2112;
+    v29 = fileCopy;
+    v30 = 2112;
+    v31 = v12;
     _os_log_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_DEFAULT, "%s model: %@ init with error: %@", buf, 0x20u);
   }
 
@@ -103,8 +103,6 @@ LABEL_14:
   }
 
 LABEL_19:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

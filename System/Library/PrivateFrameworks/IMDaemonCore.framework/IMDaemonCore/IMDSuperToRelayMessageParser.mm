@@ -203,7 +203,7 @@ LABEL_13:
 
 - (void)parser:(id)parser foundAttributes:(id)attributes inRange:(_NSRange)range fileTransferGUID:(id)d filename:(id)filename bookmark:(id)bookmark width:(id)width height:(id)self0 isAnimoji:(id)self1
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   parserCopy = parser;
   attributesCopy = attributes;
   dCopy = d;
@@ -259,7 +259,7 @@ LABEL_57:
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v63 = lastPathComponent;
+          v62 = lastPathComponent;
           _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "Filename from transferred file name: %@", buf, 0xCu);
         }
       }
@@ -292,7 +292,7 @@ LABEL_56:
         if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v63 = lastPathComponent2;
+          v62 = lastPathComponent2;
           _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Filename from local path: %@", buf, 0xCu);
         }
       }
@@ -311,7 +311,7 @@ LABEL_56:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v63 = filenameCopy;
+        v62 = filenameCopy;
         _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Filename from last path component: %@", buf, 0xCu);
       }
     }
@@ -319,15 +319,15 @@ LABEL_56:
     if (filenameCopy)
     {
       defaultHFSFileManager = [MEMORY[0x277D19250] defaultHFSFileManager];
-      v52 = IMCreateEscapedAttributeValueFromString();
+      v51 = IMCreateEscapedAttributeValueFromString();
       userInfo = [v23 userInfo];
       defaultHFSFileManager2 = [MEMORY[0x277D19250] defaultHFSFileManager];
       localPath2 = [v23 localPath];
-      v61 = 0;
-      v51 = [defaultHFSFileManager2 attributesOfItemAtPath:localPath2 error:&v61];
-      v50 = v61;
+      v60 = 0;
+      v50 = [defaultHFSFileManager2 attributesOfItemAtPath:localPath2 error:&v60];
+      v49 = v60;
 
-      -[NSMutableString appendFormat:](self->_outHTML, "appendFormat:", @"<FILE name=%@ width=%ld height=%ld datasize=%llu", v52, [v20 integerValue], objc_msgSend(v21, "integerValue"), objc_msgSend(v51, "fileSize"));
+      -[NSMutableString appendFormat:](self->_outHTML, "appendFormat:", @"<FILE name=%@ width=%ld height=%ld datasize=%llu", v51, [v20 integerValue], objc_msgSend(v21, "integerValue"), objc_msgSend(v50, "fileSize"));
       if (animojiCopy)
       {
         v35 = IMCreateEscapedAttributeValueFromString();
@@ -340,8 +340,8 @@ LABEL_56:
         }
       }
 
-      v55 = [defaultHFSFileManager MIMETypeOfPath:filenameCopy];
-      if ([v55 length])
+      v54 = [defaultHFSFileManager MIMETypeOfPath:filenameCopy];
+      if ([v54 length])
       {
         v38 = IMCreateEscapedAttributeValueFromString();
         v39 = IMCreateEscapedAttributeValueFromString();
@@ -352,8 +352,8 @@ LABEL_56:
         }
       }
 
-      v54 = [defaultHFSFileManager UTITypeOfPath:filenameCopy];
-      if ([v54 length])
+      v53 = [defaultHFSFileManager UTITypeOfPath:filenameCopy];
+      if ([v53 length])
       {
         v41 = IMCreateEscapedAttributeValueFromString();
         v42 = IMCreateEscapedAttributeValueFromString();
@@ -386,12 +386,12 @@ LABEL_56:
         sub_22B7D6F00();
       }
 
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = sub_22B6299C8;
-      v60[3] = &unk_278706958;
-      v60[4] = self;
-      [userInfo enumerateKeysAndObjectsUsingBlock:v60];
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = sub_22B6299C8;
+      v59[3] = &unk_278706958;
+      v59[4] = self;
+      [userInfo enumerateKeysAndObjectsUsingBlock:v59];
       [(NSMutableString *)self->_outHTML appendString:@"/>"];
       if (IMOSLoggingEnabled())
       {
@@ -399,9 +399,9 @@ LABEL_56:
         if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v63 = v23;
-          v64 = 2112;
-          v65 = userInfo;
+          v62 = v23;
+          v63 = 2112;
+          v64 = userInfo;
           _os_log_impl(&dword_22B4CC000, v48, OS_LOG_TYPE_INFO, "Parsed file transfer: %@    user info: %@", buf, 0x16u);
         }
       }
@@ -411,66 +411,63 @@ LABEL_56:
   }
 
 LABEL_58:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (id)parser:(id)parser preprocessedAttributesForAttributes:(id)attributes range:(_NSRange)range
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   v6 = *MEMORY[0x277D190E8];
-  v31 = [attributesCopy objectForKey:*MEMORY[0x277D190E8]];
+  v29 = [attributesCopy objectForKey:*MEMORY[0x277D190E8]];
 
   v7 = *MEMORY[0x277D19170];
-  v30 = [attributesCopy objectForKey:*MEMORY[0x277D19170]];
+  v28 = [attributesCopy objectForKey:*MEMORY[0x277D19170]];
 
   v8 = *MEMORY[0x277D191C0];
-  v29 = [attributesCopy objectForKey:*MEMORY[0x277D191C0]];
+  v27 = [attributesCopy objectForKey:*MEMORY[0x277D191C0]];
 
   v9 = *MEMORY[0x277D191D0];
-  v28 = [attributesCopy objectForKey:*MEMORY[0x277D191D0]];
+  v26 = [attributesCopy objectForKey:*MEMORY[0x277D191D0]];
 
   v10 = *MEMORY[0x277D191C8];
-  v27 = [attributesCopy objectForKey:*MEMORY[0x277D191C8]];
+  v25 = [attributesCopy objectForKey:*MEMORY[0x277D191C8]];
 
   v11 = *MEMORY[0x277D191E8];
-  v26 = [attributesCopy objectForKey:*MEMORY[0x277D191E8]];
+  v24 = [attributesCopy objectForKey:*MEMORY[0x277D191E8]];
 
-  v12 = *MEMORY[0x277D19130];
-  v22 = v9;
-  v23 = v8;
-  v24 = v6;
+  v20 = v9;
+  v21 = v8;
+  v22 = v6;
   [MEMORY[0x277CBEA60] arrayWithObjects:{*MEMORY[0x277D19110], *MEMORY[0x277D19118], *MEMORY[0x277D19138], *MEMORY[0x277D190B8], *MEMORY[0x277D191E0], *MEMORY[0x277D191D8], *MEMORY[0x277D19140], *MEMORY[0x277D19180], *MEMORY[0x277D19120], *MEMORY[0x277D190A8], *MEMORY[0x277D19150], *MEMORY[0x277D19158], *MEMORY[0x277D190B0], v11, v10, v7, v6, v8, v7, *MEMORY[0x277D19128], *MEMORY[0x277D19130], *MEMORY[0x277D191B0], v9, *MEMORY[0x277D19188], *MEMORY[0x277D19100], *MEMORY[0x277D190F8], *MEMORY[0x277D19108], 0}];
+  v30 = 0u;
+  v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v13 = v35 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v14)
+  v12 = v33 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v13)
   {
-    v15 = v14;
-    v16 = *v33;
+    v14 = v13;
+    v15 = *v31;
     while (2)
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v33 != v16)
+        if (*v31 != v15)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v12);
         }
 
-        v18 = [attributesCopy objectForKey:*(*(&v32 + 1) + 8 * i)];
+        v17 = [attributesCopy objectForKey:*(*(&v30 + 1) + 8 * i)];
 
-        if (v18)
+        if (v17)
         {
           self->_isSimpleString = 0;
           goto LABEL_11;
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
-      if (v15)
+      v14 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      if (v14)
       {
         continue;
       }
@@ -481,21 +478,19 @@ LABEL_58:
 
 LABEL_11:
 
-  if (v31 || v30 || v29 || v28 || v27 || (v19 = attributesCopy, v26))
+  if (v29 || v28 || v27 || v26 || v25 || (v18 = attributesCopy, v24))
   {
-    v19 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:attributesCopy];
+    v18 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:attributesCopy];
 
-    [v19 removeObjectForKey:v24];
-    [v19 removeObjectForKey:v7];
-    [v19 removeObjectForKey:v23];
-    [v19 removeObjectForKey:v22];
-    [v19 removeObjectForKey:v10];
-    [v19 removeObjectForKey:v11];
+    [v18 removeObjectForKey:v22];
+    [v18 removeObjectForKey:v7];
+    [v18 removeObjectForKey:v21];
+    [v18 removeObjectForKey:v20];
+    [v18 removeObjectForKey:v10];
+    [v18 removeObjectForKey:v11];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v18;
 }
 
 @end

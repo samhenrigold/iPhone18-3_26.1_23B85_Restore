@@ -77,37 +77,35 @@ LABEL_6:
 
 - (NSSet)objects
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_objects allValues];
-  v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [v3 unionSet:*(*(&v11 + 1) + 8 * i)];
+        [v3 unionSet:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -141,38 +139,36 @@ LABEL_6:
 
 - (void)_addCorrelatedObjects:(id)objects
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [objectsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [objectsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(objectsCopy);
         }
 
-        [(HKCorrelation *)self _addCorrelatedObject:*(*(&v10 + 1) + 8 * v8++)];
+        [(HKCorrelation *)self _addCorrelatedObject:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [objectsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [objectsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)objectsForType:(HKObjectType *)objectType
@@ -204,38 +200,38 @@ LABEL_6:
 
 void __62__HKCorrelation__filterCorrelatedObjectsWithFilterDictionary___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E695DFA8] set];
   v8 = [*(a1 + 32) objectForKeyedSubscript:v5];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
-        if ([_HKFilter filter:v8 acceptsDataObject:v14, v16])
+        v14 = *(*(&v15 + 1) + 8 * i);
+        if ([_HKFilter filter:v8 acceptsDataObject:v14, v15])
         {
           [v7 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
@@ -245,8 +241,6 @@ void __62__HKCorrelation__filterCorrelatedObjectsWithFilterDictionary___block_in
   {
     [*(a1 + 40) setObject:v7 forKeyedSubscript:v5];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_correlatedObjectsMatchFilterDictionary:(id)dictionary
@@ -286,29 +280,29 @@ void __62__HKCorrelation__filterCorrelatedObjectsWithFilterDictionary___block_in
 
 void __57__HKCorrelation__correlatedObjectsMatchFilterDictionary___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = [*(a1 + 32) objectForKeyedSubscript:a2];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        if (![_HKFilter filter:v8 acceptsDataObject:*(*(&v15 + 1) + 8 * i), v15])
+        if (![_HKFilter filter:v8 acceptsDataObject:*(*(&v14 + 1) + 8 * i), v14])
         {
           *(*(*(a1 + 40) + 8) + 24) = 0;
           *a4 = 1;
@@ -316,7 +310,7 @@ void __57__HKCorrelation__correlatedObjectsMatchFilterDictionary___block_invoke(
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v11)
       {
         continue;
@@ -327,8 +321,6 @@ void __57__HKCorrelation__correlatedObjectsMatchFilterDictionary___block_invoke(
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_containsObjects
@@ -349,7 +341,7 @@ LABEL_11:
   return v3;
 }
 
-uint64_t __33__HKCorrelation__containsObjects__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__33__HKCorrelation__containsObjects__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 count];
   if (result)
@@ -373,10 +365,10 @@ uint64_t __33__HKCorrelation__containsObjects__block_invoke(uint64_t a1, uint64_
 - (id)_validateWithConfiguration:(HKObjectValidationConfiguration)configuration
 {
   var0 = configuration.var0;
-  v76 = *MEMORY[0x1E69E9840];
-  v73.receiver = self;
-  v73.super_class = HKCorrelation;
-  v6 = [(HKSample *)&v73 _validateWithConfiguration:configuration.var0, configuration.var1];
+  v83 = *MEMORY[0x1E69E9840];
+  v80.receiver = self;
+  v80.super_class = HKCorrelation;
+  v6 = [(HKSample *)&v80 _validateWithConfiguration:configuration.var0, configuration.var1];
   v7 = v6;
   if (v6)
   {
@@ -392,59 +384,59 @@ LABEL_3:
 
   if ((isKindOfClass & 1) == 0)
   {
-    v36 = MEMORY[0x1E696ABC0];
-    v37 = objc_opt_class();
+    v40 = MEMORY[0x1E696ABC0];
+    v41 = objc_opt_class();
     correlationType2 = [(HKCorrelation *)self correlationType];
-    v9 = [v36 hk_errorForInvalidArgument:@"@" class:v37 selector:a2 format:{@"Data type %@ must be of type %@", correlationType2, objc_opt_class()}];
+    v9 = [v40 hk_errorForInvalidArgument:@"@" class:v41 selector:a2 format:{@"Data type %@ must be of type %@", correlationType2, objc_opt_class()}];
 
     goto LABEL_43;
   }
 
   if (([objc_opt_class() _allowEmptyCorrelations] & 1) == 0 && !-[HKCorrelation _containsObjects](self, "_containsObjects"))
   {
-    v39 = MEMORY[0x1E696ABC0];
-    v40 = objc_opt_class();
-    v8 = [v39 hk_errorForInvalidArgument:@"@" class:v40 selector:a2 format:{@"%@: Objects must contain one or more HKSample", objc_opt_class()}];
+    v43 = MEMORY[0x1E696ABC0];
+    v44 = objc_opt_class();
+    v8 = [v43 hk_errorForInvalidArgument:@"@" class:v44 selector:a2 format:{@"%@: Objects must contain one or more HKSample", objc_opt_class()}];
     goto LABEL_3;
   }
 
-  v62 = a2;
+  v69 = a2;
   [(HKCorrelation *)self objects];
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v12 = v72 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v69 objects:v75 count:16];
-  v63 = v12;
+  v76 = 0u;
+  v77 = 0u;
+  v78 = 0u;
+  v12 = v79 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v76 objects:v82 count:16];
+  v70 = v12;
   if (!v13)
   {
     goto LABEL_19;
   }
 
   v14 = v13;
-  v64 = *v70;
+  v71 = *v77;
   while (2)
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v70 != v64)
+      if (*v77 != v71)
       {
         objc_enumerationMutation(v12);
       }
 
-      v16 = *(*(&v69 + 1) + 8 * i);
+      v16 = *(*(&v76 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v41 = MEMORY[0x1E696ABC0];
-        v42 = objc_opt_class();
-        v43 = objc_opt_class();
-        v60 = objc_opt_class();
-        v61 = v16;
-        v44 = @"%@: All objects must be of class %@, received %@";
-        v59 = v43;
+        v45 = MEMORY[0x1E696ABC0];
+        v46 = objc_opt_class();
+        v47 = objc_opt_class();
+        v67 = objc_opt_class();
+        v68 = v16;
+        v48 = @"%@: All objects must be of class %@, received %@";
+        v66 = v47;
 LABEL_39:
-        [v41 hk_errorForInvalidArgument:@"@" class:v42 selector:a2 format:{v44, v59, v60, v61}];
+        [v45 hk_errorForInvalidArgument:@"@" class:v46 selector:a2 format:{v48, v66, v67, v68}];
         v9 = LABEL_40:;
 
         goto LABEL_41;
@@ -453,23 +445,23 @@ LABEL_39:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v41 = MEMORY[0x1E696ABC0];
-        v42 = objc_opt_class();
-        v45 = objc_opt_class();
-        v44 = @"%@: Correlations cannot contain other correlations. Received %@";
+        v45 = MEMORY[0x1E696ABC0];
+        v46 = objc_opt_class();
+        v49 = objc_opt_class();
+        v48 = @"%@: Correlations cannot contain other correlations. Received %@";
 LABEL_38:
-        v59 = v45;
-        v60 = v16;
+        v66 = v49;
+        v67 = v16;
         goto LABEL_39;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v41 = MEMORY[0x1E696ABC0];
-        v42 = objc_opt_class();
-        v45 = objc_opt_class();
-        v44 = @"%@: Correlations cannot contain workouts. Received %@";
+        v45 = MEMORY[0x1E696ABC0];
+        v46 = objc_opt_class();
+        v49 = objc_opt_class();
+        v48 = @"%@: Correlations cannot contain workouts. Received %@";
         goto LABEL_38;
       }
 
@@ -481,18 +473,18 @@ LABEL_38:
         v20 = +[HKSource defaultSource];
         v21 = [_source2 isEqual:v20];
 
-        v12 = v63;
+        v12 = v70;
         if ((v21 & 1) == 0)
         {
-          v48 = MEMORY[0x1E696ABC0];
-          v49 = objc_opt_class();
-          [v48 hk_errorForInvalidArgument:@"@" class:v49 selector:a2 format:{@"%@: Correlations cannot contain objects that were saved by other sources. Received %@", objc_opt_class(), v16, v61}];
+          v51 = MEMORY[0x1E696ABC0];
+          v52 = objc_opt_class();
+          [v51 hk_errorForInvalidArgument:@"@" class:v52 selector:a2 format:{@"%@: Correlations cannot contain objects that were saved by other sources. Received %@", objc_opt_class(), v16, v68}];
           goto LABEL_40;
         }
       }
     }
 
-    v14 = [v12 countByEnumeratingWithState:&v69 objects:v75 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v76 objects:v82 count:16];
     if (v14)
     {
       continue;
@@ -523,48 +515,49 @@ LABEL_41:
       goto LABEL_31;
     }
 
-    if ([v12 count] == 2)
+    v25 = [v12 count];
+    if (v25 == 2)
     {
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
-      v66 = 0u;
-      v25 = v12;
-      v26 = [v25 countByEnumeratingWithState:&v65 objects:v74 count:16];
-      if (v26)
+      v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v27 = v12;
+      v28 = [v27 countByEnumeratingWithState:&v72 objects:v81 count:16];
+      if (v28)
       {
-        v27 = v26;
-        v28 = 0;
-        v29 = 0;
-        v30 = *v66;
+        v29 = v28;
+        v30 = 0;
+        v31 = 0;
+        v32 = *v73;
         do
         {
-          for (j = 0; j != v27; ++j)
+          for (j = 0; j != v29; ++j)
           {
-            if (*v66 != v30)
+            if (*v73 != v32)
             {
-              objc_enumerationMutation(v25);
+              objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v65 + 1) + 8 * j);
-            sampleType = [v32 sampleType];
-            v34 = [sampleType code] == 17;
+            v34 = *(*(&v72 + 1) + 8 * j);
+            sampleType = [v34 sampleType];
+            v36 = [sampleType code] == 17;
 
-            v28 |= v34;
-            sampleType2 = [v32 sampleType];
+            v30 |= v36;
+            sampleType2 = [v34 sampleType];
             LODWORD(sampleType) = [sampleType2 code] == 16;
 
-            v29 |= sampleType;
+            v31 |= sampleType;
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v65 objects:v74 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v72 objects:v81 count:16];
         }
 
-        while (v27);
+        while (v29);
 
         v7 = 0;
-        v12 = v63;
-        if (v29 & v28)
+        v12 = v70;
+        if (v31 & v30)
         {
 LABEL_31:
           v9 = 0;
@@ -575,51 +568,51 @@ LABEL_31:
       else
       {
 
-        LOBYTE(v29) = 0;
-        LOBYTE(v28) = 0;
+        LOBYTE(v31) = 0;
+        LOBYTE(v30) = 0;
       }
 
-      _HKInitializeLogging();
-      v53 = HKLogDefaultCategory();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
+      _HKInitializeLogging(v38, v39);
+      v60 = HKLogDefaultCategory(v58, v59);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
       {
-        [HKCorrelation _validateWithConfiguration:v53];
+        [HKCorrelation _validateWithConfiguration:v60];
       }
 
-      v54 = MEMORY[0x1E696ABC0];
-      v55 = objc_opt_class();
-      v56 = objc_opt_class();
-      v57 = @"NO";
-      if (v29)
+      v61 = MEMORY[0x1E696ABC0];
+      v62 = objc_opt_class();
+      v63 = objc_opt_class();
+      v64 = @"NO";
+      if (v31)
       {
-        v58 = @"YES";
+        v65 = @"YES";
       }
 
       else
       {
-        v58 = @"NO";
+        v65 = @"NO";
       }
 
-      if (v28)
+      if (v30)
       {
-        v57 = @"YES";
+        v64 = @"YES";
       }
 
-      [v54 hk_errorForInvalidArgument:@"@" class:v55 selector:v62 format:{@"%@: Blood pressure correlations must have a systolic and diastolic quantity type. hasSystolic = %@, hasDiastolic = %@", v56, v58, v57}];
+      [v61 hk_errorForInvalidArgument:@"@" class:v62 selector:v69 format:{@"%@: Blood pressure correlations must have a systolic and diastolic quantity type. hasSystolic = %@, hasDiastolic = %@", v63, v65, v64}];
     }
 
     else
     {
-      _HKInitializeLogging();
-      v50 = HKLogDefaultCategory();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+      _HKInitializeLogging(v25, v26);
+      v55 = HKLogDefaultCategory(v53, v54);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
       {
-        [(HKCorrelation *)v12 _validateWithConfiguration:v50];
+        [(HKCorrelation *)v12 _validateWithConfiguration:v55];
       }
 
-      v51 = MEMORY[0x1E696ABC0];
-      v52 = objc_opt_class();
-      [v51 hk_errorForInvalidArgument:@"@" class:v52 selector:a2 format:{@"%@: Blood pressure correlations must have 2 objects, one systolic BP and one diastolic BP. Received %ld objects.", objc_opt_class(), objc_msgSend(v12, "count"), v61}];
+      v56 = MEMORY[0x1E696ABC0];
+      v57 = objc_opt_class();
+      [v56 hk_errorForInvalidArgument:@"@" class:v57 selector:a2 format:{@"%@: Blood pressure correlations must have 2 objects, one systolic BP and one diastolic BP. Received %ld objects.", objc_opt_class(), objc_msgSend(v12, "count"), v68}];
     }
     v9 = ;
   }
@@ -627,7 +620,6 @@ LABEL_31:
 LABEL_42:
 
 LABEL_43:
-  v46 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -664,11 +656,10 @@ LABEL_43:
 
 - (void)_validateWithConfiguration:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_fault_impl(&dword_19197B000, a2, OS_LOG_TYPE_FAULT, "Blood pressure correlations must have 2 objects, one systolic BP and one diastolic BP. Received %ld objects.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_fault_impl(&dword_19197B000, a2, OS_LOG_TYPE_FAULT, "Blood pressure correlations must have 2 objects, one systolic BP and one diastolic BP. Received %ld objects.", &v3, 0xCu);
 }
 
 @end

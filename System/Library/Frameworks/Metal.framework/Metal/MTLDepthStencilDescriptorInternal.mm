@@ -136,27 +136,27 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v17[12] = *MEMORY[0x1E69E9840];
+  v16[12] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
-  v17[0] = [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
-  v17[1] = @"stencilCompareFunction        = MTLCompareFunctionAlways";
-  v17[2] = v17[0];
-  v17[3] = @"stencilFailOperation          = MTLStencilOperationKeep";
-  v17[4] = v17[0];
-  v17[5] = @"stencilPassDepthFailOperation = MTLStencilOperationKeep";
-  v17[6] = v17[0];
-  v17[7] = @"stencilPassDepthPassOperation = MTLStencilOperationKeep";
-  v17[8] = v17[0];
-  v17[9] = @"stencilReadMask               = 0xffffffff";
-  v17[10] = v17[0];
-  v17[11] = @"stencilWriteMask              = 0xffffffff";
-  v6 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:{12), "componentsJoinedByString:", @" "}];
+  v16[0] = [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
+  v16[1] = @"stencilCompareFunction        = MTLCompareFunctionAlways";
+  v16[2] = v16[0];
+  v16[3] = @"stencilFailOperation          = MTLStencilOperationKeep";
+  v16[4] = v16[0];
+  v16[5] = @"stencilPassDepthFailOperation = MTLStencilOperationKeep";
+  v16[6] = v16[0];
+  v16[7] = @"stencilPassDepthPassOperation = MTLStencilOperationKeep";
+  v16[8] = v16[0];
+  v16[9] = @"stencilReadMask               = 0xffffffff";
+  v16[10] = v16[0];
+  v16[11] = @"stencilWriteMask              = 0xffffffff";
+  v6 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:{12), "componentsJoinedByString:", @" "}];
   v7 = MEMORY[0x1E696AEC0];
-  v15.receiver = self;
-  v15.super_class = MTLDepthStencilDescriptorInternal;
-  v8 = [(MTLDepthStencilDescriptorInternal *)&v15 description];
-  v16[0] = v5;
-  v16[1] = @"label =";
+  v14.receiver = self;
+  v14.super_class = MTLDepthStencilDescriptorInternal;
+  v8 = [(MTLDepthStencilDescriptorInternal *)&v14 description];
+  v15[0] = v5;
+  v15[1] = @"label =";
   p_private = &self->_private;
   label = p_private->label;
   if (!label)
@@ -164,37 +164,35 @@
     label = @"<none>";
   }
 
-  v16[2] = label;
-  v16[3] = v5;
-  v16[4] = @"depthCompareFunction =";
-  v16[5] = MTLCompareFunctionString(p_private->depthCompareFunction);
-  v16[6] = v5;
-  v16[7] = @"depthWriteEnabled =";
-  v16[8] = [MEMORY[0x1E696AD98] numberWithBool:p_private->depthWriteEnabled];
-  v16[9] = v5;
-  v16[10] = @"frontFace:";
+  v15[2] = label;
+  v15[3] = v5;
+  v15[4] = @"depthCompareFunction =";
+  v15[5] = MTLCompareFunctionString(p_private->depthCompareFunction);
+  v15[6] = v5;
+  v15[7] = @"depthWriteEnabled =";
+  v15[8] = [MEMORY[0x1E696AD98] numberWithBool:p_private->depthWriteEnabled];
+  v15[9] = v5;
+  v15[10] = @"frontFace:";
   v11 = v6;
   if (p_private->frontFaceStencil)
   {
     v11 = [(MTLStencilDescriptorInternal *)p_private->frontFaceStencil formattedDescription:description + 4];
   }
 
-  v16[11] = v11;
-  v16[12] = v5;
-  v16[13] = @"backFace:";
+  v15[11] = v11;
+  v15[12] = v5;
+  v15[13] = @"backFace:";
   backFaceStencil = p_private->backFaceStencil;
   if (backFaceStencil)
   {
     v6 = [(MTLStencilDescriptorInternal *)backFaceStencil formattedDescription:description + 4];
   }
 
-  v16[14] = v6;
-  v16[15] = v5;
-  v16[16] = @"resourceIndex =";
-  v16[17] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:p_private->resourceIndex];
-  result = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v16, 18), "componentsJoinedByString:", @" "];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v15[14] = v6;
+  v15[15] = v5;
+  v15[16] = @"resourceIndex =";
+  v15[17] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:p_private->resourceIndex];
+  return [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 18), "componentsJoinedByString:", @" "];
 }
 
 - (void)setFrontFaceStencil:(id)stencil

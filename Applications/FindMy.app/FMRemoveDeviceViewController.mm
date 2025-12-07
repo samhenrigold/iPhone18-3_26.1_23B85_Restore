@@ -15,7 +15,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FMRemoveDeviceViewController();
+  v3.super_class = type metadata accessor for FMRemoveDeviceViewController(0);
   v2 = v3.receiver;
   [(FMRemoveDeviceViewController *)&v3 viewDidLoad];
   sub_100504DA0();
@@ -28,7 +28,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FMRemoveDeviceViewController();
+  v7.super_class = type metadata accessor for FMRemoveDeviceViewController(0);
   v4 = v7.receiver;
   [(FMRemoveDeviceViewController *)&v7 viewWillAppear:appearCopy];
   v5 = *(*&v4[OBJC_IVAR____TtC6FindMy28FMRemoveDeviceViewController_mediator] + 56);

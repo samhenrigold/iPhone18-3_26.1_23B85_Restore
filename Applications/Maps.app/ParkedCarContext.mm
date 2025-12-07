@@ -53,13 +53,13 @@
 
 - (id)desiredCards
 {
-  sub_1000CE6B8(&qword_101908400);
+  sub_1000CE6B8(&qword_101908400, &qword_1011E2ED0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1011E47B0;
   v4 = *(self + OBJC_IVAR____TtC4Maps16ParkedCarContext_viewController);
   *(v3 + 32) = v4;
   v5 = v4;
-  sub_1000CE6B8(&unk_10190B260);
+  sub_1000CE6B8(&unk_10190B260, &unk_1011EB2D0);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;

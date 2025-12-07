@@ -196,7 +196,7 @@ LABEL_31:
 
       if (v14)
       {
-        [v6 extent];
+        objc_msgSend_extent(v6);
         v16 = v15;
         v18 = v17;
         v19 = [v7 objectForKeyedSubscript:@"locationX"];
@@ -415,7 +415,7 @@ LABEL_27:
 
     if (isKindOfClass)
     {
-      [v9 extent];
+      objc_msgSend_extent(v9);
       v77 = v32;
       v70 = v33;
       v34 = objc_opt_new();
@@ -675,7 +675,7 @@ LABEL_45:
 
     [v18 setValue:v13 forKey:*MEMORY[0x1E695FAB0]];
     v19 = MEMORY[0x1E695F688];
-    [v13 extent];
+    objc_msgSend_extent(v13);
     v20 = [v19 vectorWithCGRect:?];
     [v18 setValue:v20 forKey:@"inputExtent"];
 

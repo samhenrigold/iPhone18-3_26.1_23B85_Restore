@@ -1,12 +1,16 @@
 @interface ASDTCustomProperty
 + (id)consolidatePList:(id)list;
 + (id)customPropertyForConfig:(id)config;
+- (ASDTCustomProperty)initWithConfig:(id)config propertyDataType:(unsigned int)type qualifierDataType:(unsigned int)dataType;
 - (BOOL)checkAndSetPropertyValue:(id)value;
+- (BOOL)getPropertyWithQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
+- (BOOL)setPropertyWithQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client;
 - (NSData)dataNoCopy;
 - (NSString)name;
 - (id)propertyName;
 - (id)propertyValue;
 - (int)checkPropertyValue:(id)value;
+- (unsigned)dataSizeWithQualifierSize:(unsigned int)size andQualifierData:(const void *)data;
 - (void)cachePropertyValue:(id)value;
 - (void)doCachePropertyValue:(id)value;
 - (void)releasePropertyValueCache;
@@ -19,23 +23,53 @@
 {
   configCopy = config;
   asdtSubclass = [configCopy asdtSubclass];
-  if ([(objc_class *)asdtSubclass isSubclassOfClass:objc_opt_class()]&& ([(objc_class *)asdtSubclass conformsToProtocol:&unk_2853557D8]& 1) != 0)
+  v5 = [asdtSubclass isSubclassOfClass:objc_opt_class()];
+  if (v5 && (v5 = [asdtSubclass conformsToProtocol:&unk_2853557D8], (v5 & 1) != 0))
   {
-    v5 = [[asdtSubclass alloc] initWithConfig:configCopy];
+    v7 = [[asdtSubclass alloc] initWithConfig:configCopy];
   }
 
   else
   {
-    v6 = ASDTBaseLogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = ASDTBaseLogType(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ASDTCustomProperty customPropertyForConfig:configCopy];
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  return v5;
+  return v7;
+}
+
+- (ASDTCustomProperty)initWithConfig:(id)config propertyDataType:(unsigned int)type qualifierDataType:(unsigned int)dataType
+{
+  v5 = *&dataType;
+  v6 = *&type;
+  configCopy = config;
+  asdtPropertyAddress = [configCopy asdtPropertyAddress];
+  if (asdtPropertyAddress)
+  {
+    v13.receiver = self;
+    v13.super_class = ASDTCustomProperty;
+    v10 = [(ASDCustomProperty *)&v13 initWithAddress:asdtPropertyAddress propertyDataType:v6 qualifierDataType:v5];
+    if (v10)
+    {
+      -[ASDCustomProperty setSettable:](v10, "setSettable:", [configCopy asdtIsSettable]);
+      -[ASDTCustomProperty setCacheMode:](v10, "setCacheMode:", [configCopy asdtPropertyCacheMode]);
+    }
+
+    self = v10;
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (id)propertyName
@@ -101,6 +135,191 @@
   }
 
   return name;
+}
+
+- (unsigned)dataSizeWithQualifierSize:(unsigned int)size andQualifierData:(const void *)data
+{
+  v5 = [(ASDCustomProperty *)self propertyDataType:*&size];
+  result = 8;
+  if (v5 != 1667658612 && v5 != 1886155636)
+  {
+    if (v5 == 1918990199)
+    {
+
+      return [(ASDTCustomProperty *)self propertyValueSize];
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+- (BOOL)getPropertyWithQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client
+{
+  v11 = [(ASDCustomProperty *)self propertyDataType:*&size];
+  propertyValue = [(ASDTCustomProperty *)self propertyValue];
+  v14 = propertyValue;
+  if (!propertyValue)
+  {
+    goto LABEL_10;
+  }
+
+  switch(v11)
+  {
+    case 0x63667374u:
+      goto LABEL_5;
+    case 0x72617777u:
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
+      {
+        v20 = ASDTBaseLogType(isKindOfClass, v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          [ASDTCustomProperty getPropertyWithQualifierSize:qualifierData:dataSize:andData:forClient:];
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          [ASDTCustomProperty getPropertyWithQualifierSize:a2 qualifierData:self dataSize:? andData:? forClient:?];
+        }
+      }
+
+      v21 = v14;
+      v22 = [v21 length];
+      if (dataSize && *dataSize >= v22)
+      {
+        if (v22)
+        {
+          *dataSize = v22;
+          memcpy(andData, [v21 bytes], v22);
+          v16 = 1;
+          goto LABEL_23;
+        }
+      }
+
+      else
+      {
+        v24 = ASDTBaseLogType(v22, v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        {
+          [ASDTCustomProperty getPropertyWithQualifierSize:qualifierData:dataSize:andData:forClient:];
+        }
+      }
+
+      v16 = 0;
+LABEL_23:
+
+      goto LABEL_11;
+    case 0x706C7374u:
+LABEL_5:
+      if (dataSize && *dataSize > 7)
+      {
+        *andData = CFRetain(propertyValue);
+        *dataSize = 8;
+        v16 = 1;
+        goto LABEL_11;
+      }
+
+      v15 = ASDTBaseLogType(propertyValue, v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        [ASDTCustomProperty getPropertyWithQualifierSize:qualifierData:dataSize:andData:forClient:];
+      }
+
+      break;
+  }
+
+LABEL_10:
+  v16 = 0;
+LABEL_11:
+
+  return v16;
+}
+
+- (BOOL)setPropertyWithQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client
+{
+  v10 = [(ASDCustomProperty *)self propertyDataType:*&size];
+  isSettable = [(ASDCustomProperty *)self isSettable];
+  if ((isSettable & 1) == 0)
+  {
+    DeepCopy = ASDTBaseLogType(isSettable, v12);
+    if (os_log_type_enabled(DeepCopy, OS_LOG_TYPE_ERROR))
+    {
+      [ASDTCustomProperty setPropertyWithQualifierSize:? qualifierData:? dataSize:? andData:? forClient:?];
+    }
+
+    goto LABEL_13;
+  }
+
+  switch(v10)
+  {
+    case 0x63667374u:
+      goto LABEL_5;
+    case 0x72617777u:
+      DeepCopy = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:andData length:dataSize freeWhenDone:0];
+      [(ASDTCustomProperty *)self setDataNoCopy:DeepCopy];
+      goto LABEL_21;
+    case 0x706C7374u:
+LABEL_5:
+      if (dataSize != 8)
+      {
+        DeepCopy = ASDTBaseLogType(isSettable, v12);
+        if (os_log_type_enabled(DeepCopy, OS_LOG_TYPE_ERROR))
+        {
+          [ASDTCustomProperty setPropertyWithQualifierSize:? qualifierData:? dataSize:? andData:? forClient:?];
+        }
+
+        goto LABEL_13;
+      }
+
+      v13 = *andData;
+      if (!*andData)
+      {
+        DeepCopy = ASDTBaseLogType(isSettable, v12);
+        if (os_log_type_enabled(DeepCopy, OS_LOG_TYPE_ERROR))
+        {
+          [ASDTCustomProperty setPropertyWithQualifierSize:? qualifierData:? dataSize:? andData:? forClient:?];
+        }
+
+        goto LABEL_13;
+      }
+
+      if ([(ASDTCustomProperty *)self plistDeepCopyOnSet])
+      {
+        DeepCopy = CFPropertyListCreateDeepCopy(*MEMORY[0x277CBECE8], *andData, 0);
+        if (!DeepCopy)
+        {
+          DeepCopy = ASDTBaseLogType(0, v14);
+          if (os_log_type_enabled(DeepCopy, OS_LOG_TYPE_ERROR))
+          {
+            [ASDTCustomProperty setPropertyWithQualifierSize:? qualifierData:? dataSize:? andData:? forClient:?];
+          }
+
+LABEL_13:
+          v16 = 0;
+LABEL_22:
+
+          return v16;
+        }
+      }
+
+      else
+      {
+        DeepCopy = v13;
+      }
+
+LABEL_21:
+      v16 = [(ASDTCustomProperty *)self checkAndSetPropertyValue:DeepCopy];
+      goto LABEL_22;
+  }
+
+  return 0;
 }
 
 - (int)checkPropertyValue:(id)value
@@ -187,8 +406,8 @@ LABEL_18:
 
         if (!v6)
         {
-          v7 = ASDTBaseLogType();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v9 = ASDTBaseLogType(v7, v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             [ASDTCustomProperty cachePropertyValue:?];
           }
@@ -225,8 +444,8 @@ LABEL_18:
 
   if (v5 == 3)
   {
-    v6 = ASDTBaseLogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ASDTBaseLogType(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ASDTCustomProperty checkAndSetPropertyValue:];
     }
@@ -236,26 +455,26 @@ LABEL_18:
 
   if (v5 != 2)
   {
-    v8 = NSStringFromSelector(sel_value);
-    [(ASDTCustomProperty *)self willChangeValueForKey:v8];
-
-    v9 = NSStringFromSelector(sel_propertyValue);
+    v9 = NSStringFromSelector(sel_value);
     [(ASDTCustomProperty *)self willChangeValueForKey:v9];
 
-    LODWORD(v9) = [(ASDTCustomProperty *)self storePropertyValue:valueCopy];
-    v10 = NSStringFromSelector(sel_value);
-    [(ASDTCustomProperty *)self didChangeValueForKey:v10];
+    v10 = NSStringFromSelector(sel_propertyValue);
+    [(ASDTCustomProperty *)self willChangeValueForKey:v10];
 
-    v11 = NSStringFromSelector(sel_propertyValue);
+    LODWORD(v10) = [(ASDTCustomProperty *)self storePropertyValue:valueCopy];
+    v11 = NSStringFromSelector(sel_value);
     [(ASDTCustomProperty *)self didChangeValueForKey:v11];
 
-    if (!v9)
+    v12 = NSStringFromSelector(sel_propertyValue);
+    [(ASDTCustomProperty *)self didChangeValueForKey:v12];
+
+    if (!v10)
     {
       goto LABEL_9;
     }
 
     propertyChangeBlock = [(ASDTCustomProperty *)self propertyChangeBlock];
-    v13 = propertyChangeBlock;
+    v14 = propertyChangeBlock;
     if (propertyChangeBlock)
     {
       (*(propertyChangeBlock + 16))(propertyChangeBlock, valueCopy);
@@ -264,12 +483,12 @@ LABEL_18:
     [(ASDCustomProperty *)self sendPropertyChangeNotification];
 
 LABEL_14:
-    v7 = 1;
+    v8 = 1;
     goto LABEL_15;
   }
 
-  v6 = ASDTBaseLogType();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = ASDTBaseLogType(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [ASDTCustomProperty checkAndSetPropertyValue:];
   }
@@ -277,10 +496,10 @@ LABEL_14:
 LABEL_8:
 
 LABEL_9:
-  v7 = 0;
+  v8 = 0;
 LABEL_15:
 
-  return v7;
+  return v8;
 }
 
 - (id)propertyValue
@@ -338,7 +557,7 @@ LABEL_9:
 
 + (id)consolidatePList:(id)list
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   listCopy = list;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -346,57 +565,58 @@ LABEL_9:
     listCopy = listCopy;
     if ([listCopy count])
     {
-      v4 = [listCopy objectAtIndexedSubscript:0];
+      v5 = [listCopy objectAtIndexedSubscript:0];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v5 = v4;
-        v6 = [MEMORY[0x277CBEB28] dataWithCapacity:{-[NSObject count](listCopy, "count") * -[NSObject length](v5, "length")}];
-        v54 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        v57 = 0u;
-        v7 = listCopy;
-        v8 = [v7 countByEnumeratingWithState:&v54 objects:v61 count:16];
-        if (v8)
+        v6 = v5;
+        v7 = [MEMORY[0x277CBEB28] dataWithCapacity:{-[NSObject count](listCopy, "count") * -[NSObject length](v6, "length")}];
+        v63 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v66 = 0u;
+        v8 = listCopy;
+        v9 = [v8 countByEnumeratingWithState:&v63 objects:v70 count:16];
+        if (v9)
         {
-          v9 = v8;
-          v10 = v4;
-          v11 = *v55;
+          v10 = v9;
+          v11 = v5;
+          v12 = *v64;
           while (2)
           {
-            v12 = 0;
-            v13 = v5;
+            v13 = 0;
+            v14 = v6;
             do
             {
-              if (*v55 != v11)
+              if (*v64 != v12)
               {
-                objc_enumerationMutation(v7);
+                objc_enumerationMutation(v8);
               }
 
-              v5 = *(*(&v54 + 1) + 8 * v12);
+              v6 = *(*(&v63 + 1) + 8 * v13);
 
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              isKindOfClass = objc_opt_isKindOfClass();
+              if ((isKindOfClass & 1) == 0)
               {
-                v27 = ASDTBaseLogType();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v36 = ASDTBaseLogType(isKindOfClass, v16);
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
                   +[ASDTCustomProperty consolidatePList:];
                 }
 
-                v4 = v10;
+                v5 = v11;
                 goto LABEL_61;
               }
 
-              [v6 appendData:v5];
-              ++v12;
-              v13 = v5;
+              [v7 appendData:v6];
+              ++v13;
+              v14 = v6;
             }
 
-            while (v9 != v12);
-            v9 = [v7 countByEnumeratingWithState:&v54 objects:v61 count:16];
-            if (v9)
+            while (v10 != v13);
+            v10 = [v8 countByEnumeratingWithState:&v63 objects:v70 count:16];
+            if (v10)
             {
               continue;
             }
@@ -404,13 +624,13 @@ LABEL_9:
             break;
           }
 
-          v14 = v5;
-          v4 = v10;
+          v17 = v6;
+          v5 = v11;
         }
 
         else
         {
-          v14 = v5;
+          v17 = v6;
         }
       }
 
@@ -419,31 +639,31 @@ LABEL_9:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
-          v43 = 0u;
-          v5 = listCopy;
-          v28 = [v5 countByEnumeratingWithState:&v42 objects:v58 count:16];
-          if (v28)
+          v53 = 0u;
+          v54 = 0u;
+          v51 = 0u;
+          v52 = 0u;
+          v6 = listCopy;
+          v37 = [v6 countByEnumeratingWithState:&v51 objects:v67 count:16];
+          if (v37)
           {
-            v29 = v28;
-            v30 = *v43;
+            v38 = v37;
+            v39 = *v52;
             while (2)
             {
-              for (i = 0; i != v29; ++i)
+              for (i = 0; i != v38; ++i)
               {
-                if (*v43 != v30)
+                if (*v52 != v39)
                 {
-                  objc_enumerationMutation(v5);
+                  objc_enumerationMutation(v6);
                 }
 
-                v32 = *(*(&v42 + 1) + 8 * i);
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0)
+                v41 = objc_opt_isKindOfClass();
+                if ((v41 & 1) == 0)
                 {
-                  v6 = ASDTBaseLogType();
-                  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+                  v7 = ASDTBaseLogType(v41, v42);
+                  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
                   {
                     +[ASDTCustomProperty consolidatePList:];
                   }
@@ -454,8 +674,8 @@ LABEL_61:
                 }
               }
 
-              v29 = [v5 countByEnumeratingWithState:&v42 objects:v58 count:16];
-              if (v29)
+              v38 = [v6 countByEnumeratingWithState:&v51 objects:v67 count:16];
+              if (v38)
               {
                 continue;
               }
@@ -467,40 +687,41 @@ LABEL_61:
           goto LABEL_53;
         }
 
-        v14 = v4;
-        v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSObject count](listCopy, "count") * -[NSObject count](v14, "count")}];
-        v50 = 0u;
-        v51 = 0u;
-        v52 = 0u;
-        v53 = 0u;
-        v17 = listCopy;
-        v18 = [v17 countByEnumeratingWithState:&v50 objects:v60 count:16];
-        if (v18)
+        v17 = v5;
+        v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSObject count](listCopy, "count") * -[NSObject count](v17, "count")}];
+        v59 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v22 = listCopy;
+        v23 = [v22 countByEnumeratingWithState:&v59 objects:v69 count:16];
+        if (v23)
         {
-          v19 = v18;
-          v20 = *v51;
-          v40 = v17;
-          v41 = v4;
-          v37 = *v51;
+          v24 = v23;
+          v25 = *v60;
+          v49 = v22;
+          v50 = v5;
+          v46 = *v60;
           while (2)
           {
-            v21 = 0;
-            v38 = v19;
+            v26 = 0;
+            v47 = v24;
             do
             {
-              if (*v51 != v20)
+              if (*v60 != v25)
               {
-                objc_enumerationMutation(v17);
+                objc_enumerationMutation(v22);
               }
 
-              v39 = v21;
-              v5 = *(*(&v50 + 1) + 8 * v21);
+              v48 = v26;
+              v6 = *(*(&v59 + 1) + 8 * v26);
 
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              v27 = objc_opt_isKindOfClass();
+              if ((v27 & 1) == 0)
               {
-                v14 = ASDTBaseLogType();
-                if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+                v17 = ASDTBaseLogType(v27, v28);
+                if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
                 {
                   +[ASDTCustomProperty consolidatePList:];
                 }
@@ -510,45 +731,46 @@ LABEL_60:
                 goto LABEL_61;
               }
 
-              v48 = 0u;
-              v49 = 0u;
-              v46 = 0u;
-              v47 = 0u;
-              v14 = v5;
-              v22 = [v14 countByEnumeratingWithState:&v46 objects:v59 count:16];
-              if (v22)
+              v57 = 0u;
+              v58 = 0u;
+              v55 = 0u;
+              v56 = 0u;
+              v17 = v6;
+              v29 = [v17 countByEnumeratingWithState:&v55 objects:v68 count:16];
+              if (v29)
               {
-                v23 = v22;
-                v24 = *v47;
+                v30 = v29;
+                v31 = *v56;
                 while (2)
                 {
-                  for (j = 0; j != v23; ++j)
+                  for (j = 0; j != v30; ++j)
                   {
-                    if (*v47 != v24)
+                    if (*v56 != v31)
                     {
-                      objc_enumerationMutation(v14);
+                      objc_enumerationMutation(v17);
                     }
 
-                    v26 = *(*(&v46 + 1) + 8 * j);
+                    v33 = *(*(&v55 + 1) + 8 * j);
                     objc_opt_class();
-                    if ((objc_opt_isKindOfClass() & 1) == 0)
+                    v34 = objc_opt_isKindOfClass();
+                    if ((v34 & 1) == 0)
                     {
-                      v34 = ASDTBaseLogType();
-                      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+                      v44 = ASDTBaseLogType(v34, v35);
+                      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                       {
                         +[ASDTCustomProperty consolidatePList:];
                       }
 
-                      v17 = v40;
-                      v4 = v41;
+                      v22 = v49;
+                      v5 = v50;
                       goto LABEL_60;
                     }
 
-                    [v6 addObject:v26];
+                    [v7 addObject:v33];
                   }
 
-                  v23 = [v14 countByEnumeratingWithState:&v46 objects:v59 count:16];
-                  if (v23)
+                  v30 = [v17 countByEnumeratingWithState:&v55 objects:v68 count:16];
+                  if (v30)
                   {
                     continue;
                   }
@@ -557,15 +779,15 @@ LABEL_60:
                 }
               }
 
-              v21 = v39 + 1;
-              v17 = v40;
-              v4 = v41;
-              v20 = v37;
+              v26 = v48 + 1;
+              v22 = v49;
+              v5 = v50;
+              v25 = v46;
             }
 
-            while (v39 + 1 != v38);
-            v19 = [v40 countByEnumeratingWithState:&v50 objects:v60 count:16];
-            if (v19)
+            while (v48 + 1 != v47);
+            v24 = [v49 countByEnumeratingWithState:&v59 objects:v69 count:16];
+            if (v24)
             {
               continue;
             }
@@ -575,18 +797,18 @@ LABEL_60:
         }
       }
 
-      v5 = v6;
+      v6 = v7;
 LABEL_53:
 
-      listCopy = v5;
+      listCopy = v6;
 LABEL_54:
       listCopy = listCopy;
-      v33 = listCopy;
+      v43 = listCopy;
       goto LABEL_64;
     }
 
-    v16 = ASDTBaseLogType();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v21 = ASDTBaseLogType(0, v4);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       +[ASDTCustomProperty consolidatePList:];
     }
@@ -603,24 +825,23 @@ LABEL_62:
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v18 = objc_opt_isKindOfClass();
+    if (v18)
     {
       goto LABEL_54;
     }
 
-    v15 = ASDTBaseLogType();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v20 = ASDTBaseLogType(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      +[ASDTCustomProperty consolidatePList:];
+      [ASDTCustomProperty consolidatePList:listCopy];
     }
   }
 
-  v33 = 0;
+  v43 = 0;
 LABEL_64:
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v43;
 }
 
 - (NSData)dataNoCopy
@@ -632,12 +853,9 @@ LABEL_64:
 
 + (void)customPropertyForConfig:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 objectForKeyedSubscript:@"Subclass"];
+  v6 = [a1 objectForKeyedSubscript:@"Subclass"];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPropertyWithQualifierSize:(uint64_t)a1 qualifierData:(uint64_t)a2 dataSize:andData:forClient:.cold.2(uint64_t a1, uint64_t a2)
@@ -649,105 +867,77 @@ LABEL_64:
 - (void)getPropertyWithQualifierSize:qualifierData:dataSize:andData:forClient:.cold.3()
 {
   OUTLINED_FUNCTION_6_0();
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = [v1 name];
-  v3 = *v0;
+  v1 = [v0 name];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 - (void)setPropertyWithQualifierSize:(void *)a1 qualifierData:dataSize:andData:forClient:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPropertyWithQualifierSize:(void *)a1 qualifierData:dataSize:andData:forClient:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPropertyWithQualifierSize:(void *)a1 qualifierData:dataSize:andData:forClient:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPropertyWithQualifierSize:(void *)a1 qualifierData:dataSize:andData:forClient:.cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cachePropertyValue:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkAndSetPropertyValue:.cold.1()
 {
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 name];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkAndSetPropertyValue:.cold.2()
 {
   OUTLINED_FUNCTION_6_0();
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [v0 name];
+  v7 = [v0 name];
   v1 = objc_opt_class();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-+ (void)consolidatePList:.cold.1()
++ (void)consolidatePList:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 @end

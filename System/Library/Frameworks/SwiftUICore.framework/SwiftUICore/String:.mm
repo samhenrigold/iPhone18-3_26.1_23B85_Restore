@@ -2,8 +2,6 @@
 - (uint64_t)AccessibilityCustomAttributes.Value;
 - (uint64_t)Any;
 - (uint64_t)CGFloat;
-- (unint64_t)AccessibilityCustomAttributes.Value;
-- (unint64_t)String;
 - (void)AccessibilityCustomAttributes.Value;
 - (void)Any;
 - (void)CGFloat;
@@ -19,12 +17,12 @@
   {
   }
 
-  return result;
+  return v3;
 }
 
 - (uint64_t)CGFloat
 {
-  type metadata accessor for (String, [String : CGFloat])();
+  type metadata accessor for (String, [String : CGFloat])(0);
   (*(*(v2 - 8) + 8))(self, v2);
   return self;
 }
@@ -48,11 +46,11 @@
   {
     type metadata accessor for CFStringRef(255);
     type metadata accessor for [String : Any]();
-    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
-    v0 = type metadata accessor for _DictionaryStorage();
-    if (!v1)
+    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, protocol conformance descriptor for CFStringRef);
+    v1 = type metadata accessor for _DictionaryStorage();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _DictionaryStorage<CFStringRef, [String : Any]>);
+      atomic_store(v1, &lazy cache variable for type metadata for _DictionaryStorage<CFStringRef, [String : Any]>);
     }
   }
 }
@@ -61,33 +59,20 @@
 {
   if (!lazy cache variable for type metadata for JSONCodable<[String : Double]>)
   {
-    type metadata accessor for [Int : CGFloat](255, &lazy cache variable for type metadata for [String : Double]);
-    v0 = type metadata accessor for JSONCodable();
-    if (!v1)
+    type metadata accessor for [Int : CGFloat](255, &lazy cache variable for type metadata for [String : Double], MEMORY[0x1E69E6158], MEMORY[0x1E69E63B0], MEMORY[0x1E69E6168]);
+    v5 = type metadata accessor for JSONCodable(self, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for JSONCodable<[String : Double]>);
+      atomic_store(v5, &lazy cache variable for type metadata for JSONCodable<[String : Double]>);
     }
   }
-}
-
-- (unint64_t)AccessibilityCustomAttributes.Value
-{
-  result = lazy protocol witness table cache variable for type [String : AccessibilityCustomAttributes.Value].Index and conformance [A : B].Index;
-  if (!lazy protocol witness table cache variable for type [String : AccessibilityCustomAttributes.Value].Index and conformance [A : B].Index)
-  {
-    type metadata accessor for [String : AccessibilityCustomAttributes.Value](255, &lazy cache variable for type metadata for [String : AccessibilityCustomAttributes.Value].Index, MEMORY[0x1E69E5DC0]);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type [String : AccessibilityCustomAttributes.Value].Index and conformance [A : B].Index);
-  }
-
-  return result;
 }
 
 - (void)AccessibilityCustomAttributes.Value
 {
   if (!*a2)
   {
-    v6 = type metadata accessor for AccessibilityCustomAttributes.Value();
+    v6 = type metadata accessor for AccessibilityCustomAttributes.Value(255);
     v7 = a3(self, MEMORY[0x1E69E6158], v6, MEMORY[0x1E69E6168]);
     if (!v8)
     {
@@ -105,27 +90,16 @@
 
 - (void)String
 {
-  if (!lazy cache variable for type metadata for [String : String])
-  {
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : String]);
-    }
-  }
-}
-
-- (unint64_t)String
-{
-  result = lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B];
   if (!lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B])
   {
+    v4[2] = v0;
+    v4[3] = v1;
     type metadata accessor for [String : String]();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B]);
+    v4[0] = MEMORY[0x1E69E6160];
+    v4[1] = MEMORY[0x1E69E6160];
+    swift_getWitnessTable(MEMORY[0x1E69E5E38], v2, v4);
+    atomic_store(v3, &lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B]);
   }
-
-  return result;
 }
 
 @end

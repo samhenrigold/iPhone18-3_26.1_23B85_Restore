@@ -127,7 +127,7 @@
     v24 = __37__POAuthenticationContext_resumeData__block_invoke(v27);
   }
 
-  v25 = PO_LOG_POAuthenticationContext();
+  v25 = PO_LOG_POAuthenticationContext(v22);
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     [(POAuthenticationContext *)v19 resumeData];
@@ -139,7 +139,7 @@
 id __37__POAuthenticationContext_resumeData__block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error compressing resume data"];
-  v2 = PO_LOG_POAuthenticationContext();
+  v2 = PO_LOG_POAuthenticationContext(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke_cold_1(v1, v2);
@@ -212,7 +212,7 @@ id __37__POAuthenticationContext_resumeData__block_invoke(uint64_t a1)
 id __43__POAuthenticationContext_applyResumeData___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error compressing resume data"];
-  v2 = PO_LOG_POAuthenticationContext();
+  v2 = PO_LOG_POAuthenticationContext(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke_cold_1(v1, v2);
@@ -253,16 +253,14 @@ id __43__POAuthenticationContext_applyResumeData___block_invoke(uint64_t a1)
 
 - (void)resumeData
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "length")}];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a2, "length")}];
-  v8 = 138543618;
-  v9 = v5;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_debug_impl(&dword_25E8B1000, a3, OS_LOG_TYPE_DEBUG, "Resume data compression: %{public}@, %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = v5;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_debug_impl(&dword_25E8B1000, a3, OS_LOG_TYPE_DEBUG, "Resume data compression: %{public}@, %{public}@", &v7, 0x16u);
 }
 
 @end

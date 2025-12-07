@@ -19,12 +19,12 @@
   managerCopy = manager;
   errorCopy = error;
   selfCopy = self;
-  sub_10002903C();
+  sub_10002903C(errorCopy);
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  sub_100012904(0, &qword_100130A48);
+  sub_100012904(0, &qword_100130A48, CLLocation_ptr);
   v6 = sub_1000E9A94();
   managerCopy = manager;
   selfCopy = self;

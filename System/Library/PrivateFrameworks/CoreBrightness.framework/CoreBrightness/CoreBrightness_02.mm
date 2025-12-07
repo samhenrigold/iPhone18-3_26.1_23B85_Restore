@@ -1,50 +1,3 @@
-float **std::valarray<float>::operator=<std::_BinaryOp<std::divides<float>,std::valarray<float>,std::__scalar_expr<float>>>(float **a1, uint64_t a2)
-{
-  v6 = std::__val_expr<std::_BinaryOp<std::divides<float>,std::valarray<float>,std::__scalar_expr<float>>>::size[abi:de200100](a2);
-  if (std::valarray<float>::size[abi:de200100](a1) != v6)
-  {
-    std::valarray<float>::resize(a1, v6, 0.0);
-  }
-
-  v5 = *a1;
-  for (i = 0; i != v6; ++i)
-  {
-    *v5++ = std::__val_expr<std::_BinaryOp<std::divides<float>,std::valarray<float>,std::__scalar_expr<float>>>::operator[][abi:de200100](a2, i);
-  }
-
-  return a1;
-}
-
-void *std::valarray<float>::valarray(void *a1, _DWORD *a2, unint64_t a3)
-{
-  v10 = a1;
-  v9 = a2;
-  v8 = a3;
-  v11 = a1;
-  *a1 = 0;
-  a1[1] = 0;
-  if (v8)
-  {
-    std::allocator<float>::allocator[abi:de200100](&v7);
-    v3 = std::allocator<float>::allocate[abi:de200100](&v7, v8);
-    a1[1] = v3;
-    *a1 = v3;
-    for (i = v8; i; --i)
-    {
-      *a1[1] = *v9;
-      a1[1] += 4;
-      ++v9;
-    }
-  }
-
-  return v11;
-}
-
-{
-  std::valarray<float>::valarray(a1, a2, a3);
-  return a1;
-}
-
 uint64_t __os_log_helper_16_0_12_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   *result = 0;
@@ -146,7 +99,7 @@ double __DisplayFastEDRUpdateFade(double a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void *std::valarray<float>::~valarray(void *a1)
+void **std::valarray<float>::~valarray(void **a1)
 {
   std::valarray<float>::~valarray(a1);
   return a1;
@@ -158,21 +111,21 @@ void *std::valarray<float>::~valarray(void *a1)
   return a1;
 }
 
-void std::valarray<float>::__clear(uint64_t a1, uint64_t a2)
+void std::valarray<float>::__clear(void **result, uint64_t a2)
 {
-  v5 = a1;
+  v5 = result;
   v4 = a2;
-  if (*a1)
+  if (*result)
   {
-    while (*(a1 + 8) != *a1)
+    while (result[1] != *result)
     {
-      *(a1 + 8) -= 4;
+      result[1] = result[1] - 4;
     }
 
     std::allocator<float>::allocator[abi:de200100](&v3);
-    std::allocator<float>::deallocate[abi:de200100](&v3, *a1, v4);
-    *(a1 + 8) = 0;
-    *a1 = 0;
+    std::allocator<float>::deallocate[abi:de200100](&v3, *result, v4);
+    result[1] = 0;
+    *result = 0;
   }
 }
 
@@ -246,7 +199,7 @@ uint64_t ___ZN4AABC14enumerateALSesEU13block_pointerFvP20__IOHIDServiceClientPNS
   return result;
 }
 
-void __DisplayFadeUpdateFade(double a1, uint64_t a2, uint64_t a3)
+double __DisplayFadeUpdateFade(double a1, uint64_t a2, uint64_t a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = a1 - *(a3 + 8);
@@ -286,16 +239,18 @@ void __DisplayFadeUpdateFade(double a1, uint64_t a2, uint64_t a3)
       (*(a3 + 32))(*(a3 + 40));
     }
 
+    result = 0.0;
     *a3 = 0;
   }
 
   else
   {
-    v3 = fmin(1.0, *(a3 + 24) + (*(a3 + 16) - *(a3 + 24)) * v7);
-    *(a3 + 20) = v3;
+    result = fmin(1.0, *(a3 + 24) + (*(a3 + 16) - *(a3 + 24)) * v7);
+    *&result = result;
+    *(a3 + 20) = LODWORD(result);
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 uint64_t AABC::HandleDigitizerEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3)
@@ -314,18 +269,18 @@ uint64_t AABC::HandleDigitizerEvent(AABC *this, __IOHIDServiceClient *a2, __IOHI
   return AABC::enumerateALSes(this, &v4);
 }
 
-void ___ZN4AABC20HandleDigitizerEventEP20__IOHIDServiceClientP12__IOHIDEvent_block_invoke(void *a1, uint64_t a2, id *a3)
+void ___ZN4AABC20HandleDigitizerEventEP20__IOHIDServiceClientP12__IOHIDEvent_block_invoke(void *result, uint64_t a2, id *a3)
 {
-  v15 = a1;
+  v15 = result;
   v14 = a2;
   v13 = a3;
-  v12 = a1;
-  v7 = a1[4];
+  v12 = result;
+  v7 = result[4];
   if (a3)
   {
     if (v13[3])
     {
-      v11 = [[CBHIDEvent alloc] initWithHIDEvent:a1[5] andService:a1[6]];
+      v11 = [[CBHIDEvent alloc] initWithHIDEvent:result[5] andService:result[6]];
       [v13[3] filterEvent:v11];
       MEMORY[0x1E69E5920](v11);
       if ((AABC::ALS::isTouchObstructed(v13) & 1) != 0 && v13 == *(v7 + 56))
@@ -371,7 +326,7 @@ void ___ZN4AABC20HandleDigitizerEventEP20__IOHIDServiceClientP12__IOHIDEvent_blo
   }
 }
 
-void AABC::registerService(AABC *this, __IOHIDServiceClient *a2)
+void AABC::registerService(CFMutableDictionaryRef *this, __IOHIDServiceClient *a2)
 {
   v36 = *MEMORY[0x1E69E9840];
   v32 = this;
@@ -452,7 +407,7 @@ void AABC::registerService(AABC *this, __IOHIDServiceClient *a2)
 
                 if (v23 == 1)
                 {
-                  *(this + 59) = v31;
+                  this[59] = v31;
                   if (_logHandle)
                   {
                     v5 = _logHandle;
@@ -476,7 +431,7 @@ void AABC::registerService(AABC *this, __IOHIDServiceClient *a2)
 
               if (IOHIDServiceClientConformsTo(v31, 0xDu, 4u) || IOHIDServiceClientConformsTo(v31, 0xDu, 0xCu))
               {
-                *(this + 58) = v31;
+                this[58] = v31;
                 v26 = 1;
                 if (_logHandle)
                 {
@@ -502,7 +457,7 @@ void AABC::registerService(AABC *this, __IOHIDServiceClient *a2)
                 v18 = OS_LOG_TYPE_DEBUG;
                 if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
                 {
-                  __os_log_helper_16_2_2_4_0_8_64(v33, 32, *(this + 58));
+                  __os_log_helper_16_2_2_4_0_8_64(v33, 32, this[58]);
                   _os_log_debug_impl(&dword_1DE8E5000, v19, v18, "[%x]: _digitizer=%@", v33, 0x12u);
                 }
               }
@@ -530,8 +485,6 @@ void AABC::registerService(AABC *this, __IOHIDServiceClient *a2)
       CFRelease(v28);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 CBDigitizerFilter *___ZN4AABC15registerServiceEP20__IOHIDServiceClient_block_invoke(CBDigitizerFilter *result, uint64_t a2, const AABC::ALS *a3)
@@ -770,8 +723,6 @@ void AABC::RampDoneCallback(AABC *this)
     AABC::BeginFastRampMode(this, *(this + 855), 0.2);
     *(this + 719) = 0;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __DisplaySetAAPFactorWithFade(uint64_t a1, void (*a2)(uint64_t), uint64_t a3, float a4, float a5)
@@ -839,8 +790,6 @@ void __DisplaySetAAPFactorWithFade(uint64_t a1, void (*a2)(uint64_t), uint64_t a
     __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_8_0(v14, "AAP", COERCE__INT64(*(a1 + 12424)), COERCE__INT64(*(a1 + 12416)), *(a1 + 12400), 0);
     _os_log_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_INFO, "[BRT update: %s]: %f -> %f t: %f interval: %0.2f", v14, 0x34u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::UpdateALSState(CFDictionaryRef *this, int a2)
@@ -874,16 +823,16 @@ void AABC::UpdateALSStateFunction(__IOHIDServiceClient *a1, AABC::ALS *a2, uint6
 
 void AABC::UpdateALSStateFunctionInternalNoAutoRate(uint64_t a1, __IOHIDServiceClient *a2, AABC::ALS *a3, float *a4)
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v36 = a1;
-  v35 = a2;
-  v34 = a3;
-  v33 = a4;
-  if (a4 && *v33 && *(*v33 + 364))
+  v41 = *MEMORY[0x1E69E9840];
+  v35 = a1;
+  v34 = a2;
+  v33 = a3;
+  v32 = a4;
+  if (a4 && *v32 && *(*v32 + 364))
   {
     if (_logHandle)
     {
-      v15 = _logHandle;
+      v14 = _logHandle;
     }
 
     else
@@ -898,98 +847,98 @@ void AABC::UpdateALSStateFunctionInternalNoAutoRate(uint64_t a1, __IOHIDServiceC
         inited = init_default_corebrightness_log();
       }
 
-      v15 = inited;
+      v14 = inited;
     }
 
-    v32 = v15;
-    v31 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v31 = v14;
+    v30 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_0_3_4_0_4_0_4_0(v41, 16, *(v33 + 12), *(a1 + 480));
-      _os_log_debug_impl(&dword_1DE8E5000, v32, v31, "[%x]: function=%x _displayState=%d", v41, 0x14u);
+      __os_log_helper_16_0_3_4_0_4_0_4_0(v40, 16, *(v32 + 12), *(a1 + 480));
+      _os_log_debug_impl(&dword_1DE8E5000, v31, v30, "[%x]: function=%x _displayState=%d", v40, 0x14u);
     }
 
     if (*(a1 + 437))
     {
-      AABC::lazyLoadIntegrationTimes(a1, v35, v34);
+      AABC::lazyLoadIntegrationTimes(a1, v34, v33);
     }
 
-    v30 = 0;
-    if (v33[12])
+    v29 = 0;
+    if (v32[12])
     {
       if (*(a1 + 644) != 1)
       {
         *(a1 + 644) = 1;
-        v29 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, (a1 + 644));
-        if (v29)
+        v28 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, (a1 + 644));
+        if (v28)
         {
-          IOHIDServiceClientSetProperty(v35, @"IOHIDALSContinuousMode", v29);
-          CFRelease(v29);
+          IOHIDServiceClientSetProperty(v34, @"IOHIDALSContinuousMode", v28);
+          CFRelease(v28);
         }
       }
 
-      if (v33[2] != *(v34 + 40))
+      if (v32[2] != *(v33 + 40))
       {
-        *(v34 + 40) = v33[2];
-        v28 = "";
-        v27 = 0;
-        if (*(v34 + 40) == *(v34 + 12))
+        *(v33 + 40) = v32[2];
+        v27 = "";
+        v26 = 0;
+        if (*(v33 + 40) == *(v33 + 12))
         {
-          v28 = "(super-fast mode)";
+          v27 = "(super-fast mode)";
         }
 
-        else if (*(v34 + 40) == *(v34 + 13))
+        else if (*(v33 + 40) == *(v33 + 13))
         {
-          v28 = "(fast mode)";
-          v27 = 2;
+          v27 = "(fast mode)";
+          v26 = 2;
         }
 
-        else if (*(v34 + 40) == *(v34 + 14))
+        else if (*(v33 + 40) == *(v33 + 14))
         {
-          v28 = "(slow mode)";
+          v27 = "(slow mode)";
         }
 
         if (_logHandle)
         {
-          v13 = _logHandle;
+          v12 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v11 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v12 = init_default_corebrightness_log();
+            v11 = init_default_corebrightness_log();
           }
 
-          v13 = v12;
+          v12 = v11;
         }
 
-        v26 = v13;
-        v25 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v25 = v12;
+        v24 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_2_2_8_0_8_34(v40, COERCE__INT64(*(v34 + 40)), v28);
-          _os_log_impl(&dword_1DE8E5000, v26, v25, "setting report interval: %fs %{public}s", v40, 0x16u);
+          __os_log_helper_16_2_2_8_0_8_34(v39, COERCE__INT64(*(v33 + 40)), v27);
+          _os_log_impl(&dword_1DE8E5000, v25, v24, "setting report interval: %fs %{public}s", v39, 0x16u);
         }
 
         valuePtr = 0;
-        valuePtr = (*(v34 + 40) * 1000000.0);
-        v30 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
-        if (v30)
+        valuePtr = (*(v33 + 40) * 1000000.0);
+        v29 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
+        if (v29)
         {
-          IOHIDServiceClientSetProperty(v35, @"ReportInterval", v30);
-          CFRelease(v30);
+          IOHIDServiceClientSetProperty(v34, @"ReportInterval", v29);
+          CFRelease(v29);
         }
 
-        if (*(v34 + 40) <= 0.0)
+        if (*(v33 + 40) <= 0.0)
         {
           *(a1 + 3780) = 0;
-          *(v34 + 22) = 0;
+          *(v33 + 22) = 0;
           *(a1 + 600) = 0;
           *(a1 + 540) = -1.0;
           *(a1 + 544) = -1.0;
@@ -997,7 +946,7 @@ void AABC::UpdateALSStateFunctionInternalNoAutoRate(uint64_t a1, __IOHIDServiceC
           *(a1 + 552) = 0;
           *(a1 + 548) = -1.0;
           AABC::_UpdateSemanticAmbientLightLevel(a1, 0);
-          *(v34 + 41) = 0;
+          *(v33 + 41) = 0;
           *(a1 + 624) = 0;
           *(a1 + 3788) = 0;
         }
@@ -1005,14 +954,14 @@ void AABC::UpdateALSStateFunctionInternalNoAutoRate(uint64_t a1, __IOHIDServiceC
         else
         {
           *(a1 + 3780) = (7.0 / *(a1 + 632));
-          if (v27 <= 0)
+          if (v26 <= 0)
           {
-            *(v34 + 22) = (*(a1 + 3452) / *(a1 + 632));
+            *(v33 + 22) = (*(a1 + 3452) / *(a1 + 632));
           }
 
           else
           {
-            *(v34 + 22) = v27;
+            *(v33 + 22) = v26;
           }
 
           *(a1 + 3788) = (4.0 / *(a1 + 632));
@@ -1020,56 +969,52 @@ void AABC::UpdateALSStateFunctionInternalNoAutoRate(uint64_t a1, __IOHIDServiceC
 
         if (_logHandle)
         {
-          v11 = _logHandle;
+          v10 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v10 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v9 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v10 = init_default_corebrightness_log();
+            v9 = init_default_corebrightness_log();
           }
 
-          v11 = v10;
+          v10 = v9;
         }
 
-        v23 = v11;
-        v22 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v22 = v10;
+        v21 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_0_4_4_0_8_0_4_0_4_0(v39, 16, COERCE__INT64(*(v34 + 40)), *(a1 + 3780), *(v34 + 22));
-          _os_log_debug_impl(&dword_1DE8E5000, v23, v22, "[%x]: als->_alsCurrentInterval=%f, _Lhistory_max=%u als->_Ehistory_max=%u", v39, 0x1Eu);
+          __os_log_helper_16_0_4_4_0_8_0_4_0_4_0(v38, 16, COERCE__INT64(*(v33 + 40)), *(a1 + 3780), *(v33 + 22));
+          _os_log_debug_impl(&dword_1DE8E5000, v22, v21, "[%x]: als->_alsCurrentInterval=%f, _Lhistory_max=%u als->_Ehistory_max=%u", v38, 0x1Eu);
         }
 
         if (*(a1 + 3792))
         {
-          v9 = *(a1 + 3792);
-          if (v9)
+          v8 = *(a1 + 3792);
+          if (v8)
           {
-            MEMORY[0x1E12C4020](v9, 0x1000C4052888210);
+            MEMORY[0x1E12C4020](v8, 0x1000C4052888210);
           }
 
           *(a1 + 3792) = 0;
         }
 
-        std::vector<float>::resize(v34 + 12, 0);
-        *(v34 + 20) = 0;
-        *(v34 + 21) = 0;
-        std::vector<float>::resize(v34 + 12, *(v34 + 22));
+        std::vector<float>::resize(v33 + 12, 0);
+        *(v33 + 20) = 0;
+        *(v33 + 21) = 0;
+        std::vector<float>::resize(v33 + 12, *(v33 + 22));
         *(a1 + 3772) = 0;
         *(a1 + 3776) = 0;
         if (*(a1 + 3780))
         {
-          if (is_mul_ok(*(a1 + 3780), 4uLL))
-          {
-            v4 = 4 * *(a1 + 3780);
-          }
-
+          is_mul_ok(*(a1 + 3780), 4uLL);
           operator new[]();
         }
 
@@ -1077,111 +1022,111 @@ void AABC::UpdateALSStateFunctionInternalNoAutoRate(uint64_t a1, __IOHIDServiceC
       }
     }
 
-    if ((v33[12] & 4) != 0)
+    if ((v32[12] & 4) != 0)
     {
-      v30 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v33 + 4);
-      if (v30)
+      v29 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v32 + 4);
+      if (v29)
       {
         if (_logHandle)
         {
-          v8 = _logHandle;
+          v7 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v7 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v6 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v7 = init_default_corebrightness_log();
+            v6 = init_default_corebrightness_log();
           }
 
-          v8 = v7;
+          v7 = v6;
         }
 
-        oslog = v8;
-        v20 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        oslog = v7;
+        v19 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_0_2_4_0_4_0(v38, 16, *(v33 + 4));
-          _os_log_debug_impl(&dword_1DE8E5000, oslog, v20, "[%x]: setting IOHIDALSTestMode %d", v38, 0xEu);
+          __os_log_helper_16_0_2_4_0_4_0(v37, 16, *(v32 + 4));
+          _os_log_debug_impl(&dword_1DE8E5000, oslog, v19, "[%x]: setting IOHIDALSTestMode %d", v37, 0xEu);
         }
 
-        IOHIDServiceClientSetProperty(v35, @"IOHIDALSTestMode", v30);
-        CFRelease(v30);
+        IOHIDServiceClientSetProperty(v34, @"IOHIDALSTestMode", v29);
+        CFRelease(v29);
       }
 
-      if (*(v33 + 4))
+      if (*(v32 + 4))
       {
-        if (*(*v33 + 484) > 0.0 && *(v34 + 40) < 0.05)
+        if (*(*v32 + 484) > 0.0 && *(v33 + 40) < 0.05)
         {
-          *(v34 + 40) = 1045220557;
-          v19 = 0;
-          v19 = (*(v34 + 40) * 1000000.0);
-          v30 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v19);
-          if (v30)
+          *(v33 + 40) = 1045220557;
+          v18 = 0;
+          v18 = (*(v33 + 40) * 1000000.0);
+          v29 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v18);
+          if (v29)
           {
-            IOHIDServiceClientSetProperty(v35, @"ReportInterval", v30);
-            CFRelease(v30);
+            IOHIDServiceClientSetProperty(v34, @"ReportInterval", v29);
+            CFRelease(v29);
           }
         }
       }
     }
 
-    if ((v33[12] & 0x10) != 0)
+    if ((v32[12] & 0x10) != 0)
     {
-      v18 = 0;
-      v18 = *(a1 + 668);
-      v30 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v18);
-      if (v30)
+      v17 = 0;
+      v17 = *(a1 + 668);
+      v29 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v17);
+      if (v29)
       {
-        IOHIDServiceClientSetProperty(v35, @"ALSIntegrationMode", v30);
-        CFRelease(v30);
+        IOHIDServiceClientSetProperty(v34, @"ALSIntegrationMode", v29);
+        CFRelease(v29);
       }
     }
 
-    if ((v33[12] & 8) != 0)
+    if ((v32[12] & 8) != 0)
     {
-      v17 = (*(a1 + 620) * 65536.0);
-      v30 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v17);
-      if (v30)
+      v16 = (*(a1 + 620) * 65536.0);
+      v29 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v16);
+      if (v29)
       {
         if (_logHandle)
         {
-          v6 = _logHandle;
+          v5 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v5 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v4 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v5 = init_default_corebrightness_log();
+            v4 = init_default_corebrightness_log();
           }
 
-          v6 = v5;
+          v5 = v4;
         }
 
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_0_2_4_0_4_0(v37, 16, *(v33 + 3));
-          _os_log_debug_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEBUG, "[%x]: setting kIOHIDBacklightLevel %d", v37, 0xEu);
+          __os_log_helper_16_0_2_4_0_4_0(v36, 16, *(v32 + 3));
+          _os_log_debug_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEBUG, "[%x]: setting kIOHIDBacklightLevel %d", v36, 0xEu);
         }
 
-        IOHIDServiceClientSetProperty(v35, @"IOHIDBacklightLevel", v30);
-        CFRelease(v30);
+        IOHIDServiceClientSetProperty(v34, @"IOHIDBacklightLevel", v29);
+        CFRelease(v29);
       }
     }
   }
 
-  else if (v33 && *v33 && !*(*v33 + 364) && v33[2] <= 0.0)
+  else if (v32 && *v32 && !*(*v32 + 364) && v32[2] <= 0.0)
   {
     *(a1 + 3780) = 0;
     *(a1 + 600) = 0;
@@ -1193,8 +1138,6 @@ void AABC::UpdateALSStateFunctionInternalNoAutoRate(uint64_t a1, __IOHIDServiceC
     *(a1 + 624) = 0;
     *(a1 + 3788) = 0;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_2_3_8_32_8_0_8_0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1213,14 +1156,14 @@ uint64_t __os_log_helper_16_2_3_8_32_8_0_8_0(uint64_t result, uint64_t a2, uint6
   return result;
 }
 
-void SetBLDriverNitsValueIfNotInLPM(uint64_t a1, int a2)
+void SetBLDriverNitsValueIfNotInLPM(uint64_t result, int a2)
 {
-  if ((*(a1 + 1504) & 1) == 0)
+  if ((*(result + 1504) & 1) == 0)
   {
-    SetBLDriverNitsValue(a1, a2);
+    SetBLDriverNitsValue(result, a2);
   }
 
-  *(a1 + 1508) = a2;
+  *(result + 1508) = a2;
 }
 
 void SetBLDriverNitsValue(float *a1, int a2)
@@ -1368,8 +1311,6 @@ void SetBLDriverNitsValue(float *a1, int a2)
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void SetIOMFBBrightness(_BYTE *a1, int a2, char a3)
@@ -1751,8 +1692,6 @@ void AABC::HandleKeyboardEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEven
     *(this + 167) = 1;
     AABC::UpdateALSState(this, 17);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t std::vector<float>::emplace_back<float const&>(void *a1, float *a2)
@@ -2010,8 +1949,6 @@ void AABC::SetAutoBrightnessStatus(AABC *this, int a2, float a3)
 
     *(this + 125) = v34;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void ___ZN4AABC25scheduleWithDispatchQueueEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke(uint64_t a1)
@@ -2055,8 +1992,6 @@ void ___ZN4AABC25scheduleWithDispatchQueueEPU28objcproto17OS_dispatch_queue8NSOb
 
     *(v3 + 950) = 0;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::HandleProxEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3)
@@ -2211,8 +2146,6 @@ void AABC::HandleProxEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a
       *(this + 941) = v3;
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 BOOL AABC::ignoreProxEventsInAOD(uint64_t a1, uint64_t a2)
@@ -2240,22 +2173,22 @@ uint64_t __os_log_helper_16_2_1_8_66(uint64_t result, uint64_t a2)
   return result;
 }
 
-void __DisplayFadeUpdateRestrictionFactorFade(double a1, uint64_t a2, uint64_t a3)
+double __DisplayFadeUpdateRestrictionFactorFade(double a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = a1 - *(a3 + 8);
-  v8 = v10 / *a3;
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = a1 - *(a3 + 8);
+  v9 = v11 / *a3;
   if (*(a3 + 20) == *(a3 + 16))
   {
-    v8 = 1.0;
+    v9 = 1.0;
   }
 
-  if (v8 >= 1.0)
+  if (v9 >= 1.0)
   {
     *(a3 + 20) = *(a3 + 16);
     if (_logHandle)
     {
-      v5 = _logHandle;
+      v6 = _logHandle;
     }
 
     else
@@ -2270,13 +2203,13 @@ void __DisplayFadeUpdateRestrictionFactorFade(double a1, uint64_t a2, uint64_t a
         inited = init_default_corebrightness_log();
       }
 
-      v5 = inited;
+      v6 = inited;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_0_6_8_0_8_0_8_0_8_0_8_0_8_0(v13, *&a1, *&v10, *a3, *&v8, COERCE__INT64(*(a3 + 24)), COERCE__INT64(*(a3 + 16)));
-      _os_log_debug_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEBUG, "now=%f delta=%f fade->period=%f portion=%f fade->Fstart=%f fade->Ftarget=%f [finished]\n", v13, 0x3Eu);
+      __os_log_helper_16_0_6_8_0_8_0_8_0_8_0_8_0_8_0(v14, *&a1, *&v11, *a3, *&v9, COERCE__INT64(*(a3 + 24)), COERCE__INT64(*(a3 + 16)));
+      _os_log_debug_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEBUG, "now=%f delta=%f fade->period=%f portion=%f fade->Fstart=%f fade->Ftarget=%f [finished]\n", v14, 0x3Eu);
     }
 
     if (*(a3 + 40))
@@ -2284,6 +2217,7 @@ void __DisplayFadeUpdateRestrictionFactorFade(double a1, uint64_t a2, uint64_t a
       (*(a3 + 40))(*(a3 + 48));
     }
 
+    result = 0.0;
     *a3 = 0;
   }
 
@@ -2291,44 +2225,44 @@ void __DisplayFadeUpdateRestrictionFactorFade(double a1, uint64_t a2, uint64_t a
   {
     if (*(a3 + 24) >= *(a3 + 16))
     {
-      v9 = 1.0 - (1.0 - v8) * (1.0 - v8) * (1.0 - v8);
+      v10 = 1.0 - (1.0 - v9) * (1.0 - v9) * (1.0 - v9);
     }
 
     else
     {
-      v9 = v8 * v8 * v8;
+      v10 = v9 * v9 * v9;
     }
 
-    v3 = *(a3 + 24) + (*(a3 + 16) - *(a3 + 24)) * v9;
+    v3 = *(a3 + 24) + (*(a3 + 16) - *(a3 + 24)) * v10;
     *(a3 + 20) = v3;
     if (_logHandle)
     {
-      v7 = _logHandle;
+      v8 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v7 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v6 = init_default_corebrightness_log();
+        v7 = init_default_corebrightness_log();
       }
 
-      v7 = v6;
+      v8 = v7;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_0_7_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v14, *&a1, *&v10, *a3, *&v9, COERCE__INT64(*(a3 + 24)), COERCE__INT64(*(a3 + 16)), COERCE__INT64(*(a3 + 20)));
-      _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "now=%f delta=%f fade->period=%f portion=%f fade->Fstart=%f fade->Ftarget=%f Factor=%f\n", v14, 0x48u);
+      __os_log_helper_16_0_7_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v15, *&a1, *&v11, *a3, *&v10, COERCE__INT64(*(a3 + 24)), COERCE__INT64(*(a3 + 16)), COERCE__INT64(*(a3 + 20)));
+      _os_log_debug_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEBUG, "now=%f delta=%f fade->period=%f portion=%f fade->Fstart=%f fade->Ftarget=%f Factor=%f\n", v15, 0x48u);
     }
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 uint64_t __os_log_helper_16_0_4_8_0_4_0_4_0_4_0(uint64_t result, uint64_t a2, int a3, int a4, int a5)
@@ -2468,13 +2402,13 @@ uint64_t __os_log_helper_16_2_3_8_66_4_0_8_0(uint64_t result, uint64_t a2, int a
 
 void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
 {
-  v72 = *MEMORY[0x1E69E9840];
-  v64 = this;
-  v63 = a2;
-  v62 = a3;
+  v71 = *MEMORY[0x1E69E9840];
+  v63 = this;
+  v62 = a2;
+  v61 = a3;
   if (_logHandle)
   {
-    v27 = _logHandle;
+    v26 = _logHandle;
   }
 
   else
@@ -2489,45 +2423,45 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
       inited = init_default_corebrightness_log();
     }
 
-    v27 = inited;
+    v26 = inited;
   }
 
-  v61 = v27;
+  v60 = v26;
   type = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_0_2_8_0_4_0(v71, COERCE__INT64(v63), v62 & 1);
-    _os_log_impl(&dword_1DE8E5000, v61, type, "Factor=%0.4f reasonActivateALS=%d", v71, 0x12u);
+    __os_log_helper_16_0_2_8_0_4_0(v70, COERCE__INT64(v62), v61 & 1);
+    _os_log_impl(&dword_1DE8E5000, v60, type, "Factor=%0.4f reasonActivateALS=%d", v70, 0x12u);
   }
 
-  v59 = *(this + 122);
-  if (v62)
+  v58 = *(this + 122);
+  if (v61)
   {
-    if (*(this + 122) > 0.0 || v63 == *(this + 121))
+    if (*(this + 122) > 0.0 || v62 == *(this + 121))
     {
-      goto LABEL_151;
+      return;
     }
   }
 
   else
   {
-    *(this + 122) = v63;
+    *(this + 122) = v62;
   }
 
-  if (v63 != *(this + 121) || v63 != v59)
+  if (v62 != *(this + 121) || v62 != v58)
   {
-    v58 = *(this + 121);
-    *(this + 121) = v63;
+    v57 = *(this + 121);
+    *(this + 121) = v62;
     *(this + 120) = *(this + 121) > 0.0;
-    if ((v58 == 0.0 || v59 == 0.0) && *(this + 121) > 0.0)
+    if ((v57 == 0.0 || v58 == 0.0) && *(this + 121) > 0.0)
     {
       *(this + 140) = 0;
       *(this + 152) = 0;
       *(this + 153) = 0;
       if (*(this + 500) && (*(this + 78) == 6 || *(this + 78) == 1))
       {
-        v57 = 0;
-        [*(this + 500) sendCommand:233 inputBuffer:&v57 inputBufferSize:1];
+        v56 = 0;
+        [*(this + 500) sendCommand:233 inputBuffer:&v56 inputBufferSize:1];
       }
 
       if ((*(this + 3376) & 1) != 0 && *(this + 834) && *(this + 834) < *(this + 845))
@@ -2551,8 +2485,8 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
 
       if (*(this + 3409))
       {
-        v55 = CFAbsoluteTimeGetCurrent();
-        if (v55 - *(this + 415) >= *(this + 153))
+        v54 = CFAbsoluteTimeGetCurrent();
+        if (v54 - *(this + 415) >= *(this + 153))
         {
           AABC::revertToGoodCurve(this, 1);
         }
@@ -2560,91 +2494,91 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
 
       if (_logHandle)
       {
-        v25 = _logHandle;
+        v24 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v24 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v23 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v24 = init_default_corebrightness_log();
+          v23 = init_default_corebrightness_log();
         }
 
-        v25 = v24;
+        v24 = v23;
       }
 
-      v54 = v25;
-      v53 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v53 = v24;
+      v52 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v70, COERCE__INT64(*(this + 268)), COERCE__INT64(*(this + 270)), COERCE__INT64(*(this + 269)), COERCE__INT64(*(this + 271)));
-        _os_log_debug_impl(&dword_1DE8E5000, v54, v53, "curve E1: %0.2f L1: %0.4f E2: %0.2f L2: %0.4f", v70, 0x2Au);
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v69, COERCE__INT64(*(this + 268)), COERCE__INT64(*(this + 270)), COERCE__INT64(*(this + 269)), COERCE__INT64(*(this + 271)));
+        _os_log_debug_impl(&dword_1DE8E5000, v53, v52, "curve E1: %0.2f L1: %0.4f E2: %0.2f L2: %0.4f", v69, 0x2Au);
       }
 
       if (_logHandle)
       {
-        v23 = _logHandle;
+        v22 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v22 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v21 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v22 = init_default_corebrightness_log();
+          v21 = init_default_corebrightness_log();
         }
 
-        v23 = v22;
+        v22 = v21;
       }
 
-      v52 = v23;
-      v51 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v51 = v22;
+      v50 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v69, COERCE__INT64(*(this + 264)), COERCE__INT64(*(this + 265)), COERCE__INT64(*(this + 266)), COERCE__INT64(*(this + 267)));
-        _os_log_debug_impl(&dword_1DE8E5000, v52, v51, "dark curve E0a: %0.2f L0a: %0.4f E0b: %0.2f L0b: %0.4f", v69, 0x2Au);
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v68, COERCE__INT64(*(this + 264)), COERCE__INT64(*(this + 265)), COERCE__INT64(*(this + 266)), COERCE__INT64(*(this + 267)));
+        _os_log_debug_impl(&dword_1DE8E5000, v51, v50, "dark curve E0a: %0.2f L0a: %0.4f E0b: %0.2f L0b: %0.4f", v68, 0x2Au);
       }
 
       if (_logHandle)
       {
-        v21 = _logHandle;
+        v20 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v20 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v19 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v20 = init_default_corebrightness_log();
+          v19 = init_default_corebrightness_log();
         }
 
-        v21 = v20;
+        v20 = v19;
       }
 
-      v50 = v21;
-      v49 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v49 = v20;
+      v48 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        v19 = 0;
+        v18 = 0;
         if (*(this + 59))
         {
-          v19 = *(this + 3757);
+          v18 = *(this + 3757);
         }
 
-        if (v19)
+        if (v18)
         {
           v3 = "yes";
         }
@@ -2654,8 +2588,8 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
           v3 = "no";
         }
 
-        __os_log_helper_16_2_2_8_32_8_32(v68, v3, (&kDimPolicyStr)[*(this + 861)]);
-        _os_log_debug_impl(&dword_1DE8E5000, v50, v49, "prox mitigation: %s dimPolicy: %s", v68, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_32(v67, v3, (&kDimPolicyStr)[*(this + 861)]);
+        _os_log_debug_impl(&dword_1DE8E5000, v49, v48, "prox mitigation: %s dimPolicy: %s", v67, 0x16u);
       }
 
       *(this + 950) = 0;
@@ -2668,19 +2602,19 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
       AABC::BeginFastRampMode(this, *(this + 855), 0.2);
       if (*(this + 150))
       {
-        v48 = AABC::IlluminanceToLuminance(this, this + 264, *(this + 135), *(this + 138));
+        v47 = AABC::IlluminanceToLuminance(this, this + 264, *(this + 135), *(this + 138));
         if (*(this + 3425))
         {
-          v47 = AABC::IlluminanceToLuminance(this, this + 804, *(this + 135), *(this + 138));
-          v48 = fminf(v48, v47);
+          v46 = AABC::IlluminanceToLuminance(this, this + 804, *(this + 135), *(this + 138));
+          v47 = fminf(v47, v46);
           if ((*(this + 3426) & 1) == 0)
           {
-            v48 = fminf(*(this + 857), v47);
+            v47 = fminf(*(this + 857), v46);
           }
         }
 
-        v48 = fminf(fmaxf(v48, *(this + 180)), *(this + 182));
-        AABC::UpdateDisplayBrightness_Block6(this, 0, 2, 0, v48);
+        v47 = fminf(fmaxf(v47, *(this + 180)), *(this + 182));
+        AABC::UpdateDisplayBrightness_Block6(this, 0, 2, 0, v47);
       }
 
       else
@@ -2688,60 +2622,60 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
         if ((*(this + 144) & 1) != 0 && *(this + 56) && *(*(this + 56) + 40))
         {
           LODWORD(v4) = 0.5;
-          v46 = [*(*(this + 56) + 40) copyALSEventWithinTimeout:v4];
-          if (v46)
+          v45 = [*(*(this + 56) + 40) copyALSEventWithinTimeout:v4];
+          if (v45)
           {
             if (_logHandle)
             {
-              v18 = _logHandle;
+              v17 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v17 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v16 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v17 = init_default_corebrightness_log();
+                v16 = init_default_corebrightness_log();
               }
 
-              v18 = v17;
+              v17 = v16;
             }
 
-            v45 = v18;
-            v44 = OS_LOG_TYPE_DEFAULT;
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v44 = v17;
+            v43 = OS_LOG_TYPE_DEFAULT;
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
-              __os_log_helper_16_2_1_8_66(v67, v46);
-              _os_log_impl(&dword_1DE8E5000, v45, v44, "Use copied event: %{public}@", v67, 0xCu);
+              __os_log_helper_16_2_1_8_66(v66, v45);
+              _os_log_impl(&dword_1DE8E5000, v44, v43, "Use copied event: %{public}@", v66, 0xCu);
             }
 
-            AABC::HandleALSEvent(this, *(this + 40), [v46 event]);
-            MEMORY[0x1E69E5920](v46);
+            AABC::HandleALSEvent(this, *(this + 40), [v45 event]);
+            MEMORY[0x1E69E5920](v45);
           }
 
           if (!*(this + 150) && (*(this + 436) & 1) != 0)
           {
             if (_logHandle)
             {
-              v16 = _logHandle;
+              v15 = _logHandle;
             }
 
             else
             {
-              v15 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-              v16 = v15;
+              v14 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+              v15 = v14;
             }
 
-            oslog = v16;
-            v42 = OS_LOG_TYPE_ERROR;
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            oslog = v15;
+            v41 = OS_LOG_TYPE_ERROR;
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              __os_log_helper_16_0_1_8_0(v66, COERCE__INT64(*(this + 854)));
-              _os_log_error_impl(&dword_1DE8E5000, oslog, v42, "Copy event failed => arm first ALS sample TIMEOUT routine (timeout=%f)", v66, 0xCu);
+              __os_log_helper_16_0_1_8_0(v65, COERCE__INT64(*(this + 854)));
+              _os_log_error_impl(&dword_1DE8E5000, oslog, v41, "Copy event failed => arm first ALS sample TIMEOUT routine (timeout=%f)", v65, 0xCu);
             }
           }
         }
@@ -2752,9 +2686,9 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
         }
       }
 
-      v41[0] = std::bitset<3ul>::operator[][abi:de200100](this + 296, 1uLL);
-      v41[1] = v5;
-      std::__bit_reference<std::__bitset<1ul,3ul>,true>::operator=[abi:de200100](v41, 0);
+      v40[0] = std::bitset<3ul>::operator[][abi:de200100](this + 296, 1uLL);
+      v40[1] = v5;
+      std::__bit_reference<std::__bitset<1ul,3ul>,true>::operator=[abi:de200100](v40, 0);
       AABC::evaluateAABRearConditions(this);
     }
 
@@ -2764,102 +2698,97 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
       *(this + 151) = 0;
       *(this + 152) = 0;
       *(this + 153) = 0;
-      v40 = AABC::IlluminanceToLuminance(this, this + 264, *(this + 135), *(this + 138));
+      v39 = AABC::IlluminanceToLuminance(this, this + 264, *(this + 135), *(this + 138));
       if (*(this + 3425))
       {
-        v39 = AABC::IlluminanceToLuminance(this, this + 804, *(this + 135), *(this + 138));
-        v40 = fminf(v40, v39);
+        v38 = AABC::IlluminanceToLuminance(this, this + 804, *(this + 135), *(this + 138));
+        v39 = fminf(v39, v38);
         if ((*(this + 3426) & 1) == 0)
         {
-          v40 = fminf(*(this + 857), v39);
+          v39 = fminf(*(this + 857), v38);
         }
       }
 
-      v40 = fminf(fmaxf(v40, *(this + 180)), *(this + 182));
+      v39 = fminf(fmaxf(v39, *(this + 180)), *(this + 182));
       if (_logHandle)
       {
-        v14 = _logHandle;
+        v13 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v13 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v12 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v13 = init_default_corebrightness_log();
+          v12 = init_default_corebrightness_log();
         }
 
-        v14 = v13;
+        v13 = v12;
       }
 
-      v38 = v14;
-      v37 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v37 = v13;
+      v36 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_0_2_4_0_8_0(v65, 2, COERCE__INT64(v40));
-        _os_log_debug_impl(&dword_1DE8E5000, v38, v37, "[%x]: L=%f", v65, 0x12u);
+        __os_log_helper_16_0_2_4_0_8_0(v64, 2, COERCE__INT64(v39));
+        _os_log_debug_impl(&dword_1DE8E5000, v37, v36, "[%x]: L=%f", v64, 0x12u);
       }
 
       if (*(this + 126) && *(this + 125))
       {
-        AABC::UpdateDisplayBrightness_Block6(this, 0, 2, 0, v40);
+        AABC::UpdateDisplayBrightness_Block6(this, 0, 2, 0, v39);
       }
     }
 
     else if (*(this + 121) == 0.0)
     {
-      v36[0] = std::bitset<3ul>::operator[][abi:de200100](this + 296, 1uLL);
-      v36[1] = v6;
-      std::__bit_reference<std::__bitset<1ul,3ul>,true>::operator=[abi:de200100](v36, 1);
+      v35[0] = std::bitset<3ul>::operator[][abi:de200100](this + 296, 1uLL);
+      v35[1] = v6;
+      std::__bit_reference<std::__bitset<1ul,3ul>,true>::operator=[abi:de200100](v35, 1);
       AABC::evaluateAABRearConditions(this);
       AABC::CancelFirstSampleTimeout(this);
       if (*(this + 78) == 6 && *(this + 719) == 1 && *(this + 40))
       {
-        v35 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:0];
-        v34 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v35, @"AOTState", 0}];
-        AABC::setAlwaysOnProperty(this, &cfstr_Aotstate.isa, v34);
+        v34 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:0];
+        v33 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v34, @"AOTState", 0}];
+        AABC::setAlwaysOnProperty(this, &cfstr_Aotstate.isa, v33);
         IOHIDServiceClientSetProperty(*(this + 40), @"AODALSMode", *MEMORY[0x1E695E4C0]);
+        MEMORY[0x1E69E5920](v33);
         MEMORY[0x1E69E5920](v34);
-        MEMORY[0x1E69E5920](v35);
       }
 
       AABC::UpdateState(this, 0);
       [*(this + 464) updateStatsDisplayOff];
-      v33 = mach_absolute_time();
-      v7 = v33 * *&AABC::_sMachTimebaseFactor;
+      v32 = mach_absolute_time();
+      v7 = v32 * *&AABC::_sMachTimebaseFactor;
       *(this + 168) = v7;
-      if (*(this + 126))
-      {
-        v8 = *(this + 125);
-      }
-
       *(this + 85) = 0;
       if (*(this + 3409) & 1) != 0 && (*(this + 3328))
       {
         *(this + 415) = CFAbsoluteTimeGetCurrent();
         if (_logHandle)
         {
-          v12 = _logHandle;
+          v11 = _logHandle;
         }
 
         else
         {
-          v11 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-          v12 = v11;
+          v10 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+          v11 = v10;
         }
 
-        v32 = v12;
-        v31 = OS_LOG_TYPE_INFO;
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v31 = v11;
+        v30 = OS_LOG_TYPE_INFO;
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v9 = v32;
-          v10 = v31;
-          __os_log_helper_16_0_0(v30);
-          _os_log_impl(&dword_1DE8E5000, v9, v10, "User interacted in the session. Resetting counter for AAB cap\n", v30, 2u);
+          v8 = v31;
+          v9 = v30;
+          __os_log_helper_16_0_0(v29);
+          _os_log_impl(&dword_1DE8E5000, v8, v9, "User interacted in the session. Resetting counter for AAB cap\n", v29, 2u);
         }
       }
 
@@ -2889,8 +2818,8 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
       AABC::_UpdateNitsRestrictions(this, -1.0, 0.2, 1);
       if (*(this + 500) && (*(this + 78) == 6 || *(this + 78) == 1) && ![+[CBSILState isSILActive] sharedInstance]
       {
-        v29 = 0;
-        [*(this + 500) sendCommand:234 inputBuffer:&v29 inputBufferSize:1];
+        v28 = 0;
+        [*(this + 500) sendCommand:234 inputBuffer:&v28 inputBufferSize:1];
         DisplaySetDCPPowerAssertionForAOT(*(this + 50), 0);
         *(this + 4008) = 0;
       }
@@ -2912,9 +2841,6 @@ void AABC::SetDisplayFactor(AABC *this, float a2, char a3)
       }
     }
   }
-
-LABEL_151:
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_0_2_8_0_4_0(uint64_t result, uint64_t a2, int a3)
@@ -3178,8 +3104,6 @@ void AABC::UpdateState(uint64_t a1, int a2)
       _os_log_debug_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_DEBUG, "[%x]: _als.interval=%f _Pthreshold_brighten=%f _Pthreshold_dim=%f", v28, 0x26u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 float AABC::BeginFastRampMode(CFAbsoluteTime *this, float a2, float a3)
@@ -3216,7 +3140,6 @@ float AABC::BeginFastRampMode(CFAbsoluteTime *this, float a2, float a3)
   *(this + 169) = 1;
   result = a3;
   *(this + 174) = a3;
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3249,12 +3172,13 @@ void AABC::SetBrightness(AABC *this, float a2, float a3, int a4, void (*a5)(void
     _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "[%x]: L=%f duration=%f", v14, 0x1Cu);
   }
 
-  if (*(this + 126) && *(this + 125))
+  if (*(this + 126))
   {
-    DisplaySetVirtualBrightnessWithFade(*(this + 50), a4, a5, a6, a2, a3);
+    if (*(this + 125))
+    {
+      DisplaySetVirtualBrightnessWithFade(*(this + 50), a4, a5, a6, a2, a3);
+    }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void DisplaySetVirtualBrightnessWithFade(uint64_t a1, int a2, uint64_t a3, uint64_t a4, float a5, float a6)
@@ -3378,26 +3302,24 @@ void _DisplaySetLogicalBrightnessWithFade(uint64_t a1, int a2, void (*a3)(uint64
     v6 = *(a1 + 1336);
     __DisplaySetLogicalBrightnessWithFadeInternal(a1, a2, a3, a4, *(a1 + 1252), v6);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __DisplaySetLogicalBrightnessWithFadeInternal(uint64_t a1, int a2, uint64_t a3, uint64_t a4, float a5, float a6)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (*(a1 + 380))
   {
     a6 = *(a1 + 376);
   }
 
-  v14 = 0.0;
+  v15 = 0.0;
   if (a6 == 0.0)
   {
-    v13 = _DisplayLuminanceToPerceptualLuminanceInternal(a1, *(a1 + 1256));
+    v14 = _DisplayLuminanceToPerceptualLuminanceInternal(a1, *(a1 + 1256));
     *(a1 + 1336) = 0;
-    *(a1 + 1356) = v13;
-    *(a1 + 1360) = v13;
-    *(a1 + 1352) = v13;
+    *(a1 + 1356) = v14;
+    *(a1 + 1360) = v14;
+    *(a1 + 1352) = v14;
     __DisplaySetLogicalBrightnessInternal(a1, a2 | 0x1000, a5);
   }
 
@@ -3410,7 +3332,7 @@ void __DisplaySetLogicalBrightnessWithFadeInternal(uint64_t a1, int a2, uint64_t
     *(a1 + 1336) = a6;
     if (_logHandle)
     {
-      v11 = _logHandle;
+      v12 = _logHandle;
     }
 
     else
@@ -3425,44 +3347,44 @@ void __DisplaySetLogicalBrightnessWithFadeInternal(uint64_t a1, int a2, uint64_t
         inited = init_default_corebrightness_log();
       }
 
-      v11 = inited;
+      v12 = inited;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_0_3_8_0_8_0_8_0(v21, *(a1 + 1336), *(a1 + 1344), *(a1 + 12480));
-      _os_log_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEFAULT, "fadePeriod=%f startTime=%f display->fade.timer=%p\n", v21, 0x20u);
+      __os_log_helper_16_0_3_8_0_8_0_8_0(v22, *(a1 + 1336), *(a1 + 1344), *(a1 + 12480));
+      _os_log_impl(&dword_1DE8E5000, v12, OS_LOG_TYPE_DEFAULT, "fadePeriod=%f startTime=%f display->fade.timer=%p\n", v22, 0x20u);
     }
 
-    v14 = (a5 - *(a1 + 1256)) / a6;
-    UpdateFrequency = __DisplayGetUpdateFrequency(a1, v14);
+    v15 = (a5 - *(a1 + 1256)) / a6;
+    UpdateFrequency = __DisplayGetUpdateFrequency(a1, v15);
     *(a1 + 1356) = _DisplayLuminanceToPerceptualLuminanceInternal(a1, *(a1 + 1256));
     *(a1 + 1360) = *(a1 + 1356);
     *(a1 + 1352) = _DisplayLuminanceToPerceptualLuminanceInternal(a1, a5);
     if (_logHandle)
     {
-      v9 = _logHandle;
+      v10 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v8 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v9 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v8 = init_default_corebrightness_log();
+        v9 = init_default_corebrightness_log();
       }
 
-      v9 = v8;
+      v10 = v9;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_0_7_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v20, COERCE__INT64(*(a1 + 1256)), COERCE__INT64(a5), COERCE__INT64(*(a1 + 1360)), COERCE__INT64(*(a1 + 1352)), COERCE__INT64(a6), COERCE__INT64(v14), COERCE__INT64(UpdateFrequency));
-      _os_log_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEFAULT, "Begin ramping logical brightness: begin ramping L: %0.2f -> L: %0.2f Brightness: %f -> %f t: %f rate: %0.2f nits/s %0.2fhz", v20, 0x48u);
+      __os_log_helper_16_0_7_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v21, COERCE__INT64(*(a1 + 1256)), COERCE__INT64(a5), COERCE__INT64(*(a1 + 1360)), COERCE__INT64(*(a1 + 1352)), COERCE__INT64(a6), COERCE__INT64(v15), COERCE__INT64(UpdateFrequency));
+      _os_log_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_DEFAULT, "Begin ramping logical brightness: begin ramping L: %0.2f -> L: %0.2f Brightness: %f -> %f t: %f rate: %0.2f nits/s %0.2fhz", v21, 0x48u);
     }
 
     if ((a2 & 0x80) != 0)
@@ -3470,36 +3392,35 @@ void __DisplaySetLogicalBrightnessWithFadeInternal(uint64_t a1, int a2, uint64_t
       UpdateFrequency = 120.0;
     }
 
-    __DisplayStartFadeWithType(a1, 3, 1.0 / UpdateFrequency);
+    *&v6 = 1.0 / UpdateFrequency;
+    __DisplayStartFadeWithType(a1, 3, v6);
   }
 
   if (_logHandle)
   {
-    v7 = _logHandle;
+    v8 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v7 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v6 = init_default_corebrightness_log();
+      v7 = init_default_corebrightness_log();
     }
 
-    v7 = v6;
+    v8 = v7;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_8_0(v19, "Logical Brightness", COERCE__INT64(*(a1 + 1360)), COERCE__INT64(*(a1 + 1352)), *(a1 + 1336), COERCE__INT64(v14));
-    _os_log_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_INFO, "[BRT update: %s]: %f -> %f t: %f rate: %0.2f nits/s", v19, 0x34u);
+    __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_8_0(v20, "Logical Brightness", COERCE__INT64(*(a1 + 1360)), COERCE__INT64(*(a1 + 1352)), *(a1 + 1336), COERCE__INT64(v15));
+    _os_log_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_INFO, "[BRT update: %s]: %f -> %f t: %f rate: %0.2f nits/s", v20, 0x34u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 float _DisplayGetBrightnessMaxPhysical(uint64_t a1)
@@ -3619,8 +3540,6 @@ void AABC::evaluateAABRearConditions(id *this)
       _os_log_impl(&dword_1DE8E5000, log, type, "Grimaldi; { aod_forbidden: %d, factor_forbidden: %d, property_forbidden: %d, isStarted: %d, state_change: %@ }", v24, 0x24u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_2_5_4_0_4_0_4_0_4_0_8_64(uint64_t result, int a2, int a3, int a4, int a5, uint64_t a6)
@@ -3645,49 +3564,52 @@ uint64_t __os_log_helper_16_2_5_4_0_4_0_4_0_4_0_8_64(uint64_t result, int a2, in
   return result;
 }
 
-void AABC::NotifyCPMSWhenDisplayChangeState(AABC *this, char a2)
+double AABC::NotifyCPMSWhenDisplayChangeState(AABC *this, char a2)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   if ([MEMORY[0x1E6991F30] isCPMSSupported] == 1)
   {
     if (a2)
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 995)];
-      v6 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 997)];
-      v5 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 993)];
+      v8 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 995)];
+      v7 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 997)];
+      v6 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 993)];
     }
 
     else
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:?];
+      v8 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:?];
+      v7 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:0];
       v6 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:0];
-      v5 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:0];
     }
 
     if (*(this + 495) && *(this + 494))
     {
-      v2 = *(this + 495);
-      v9[0] = *MEMORY[0x1E6991F50];
-      v10[0] = v7;
-      v9[1] = *MEMORY[0x1E6991F40];
-      v10[1] = v5;
-      v9[2] = *MEMORY[0x1E6991F48];
-      v10[2] = v6;
-      v4 = [v2 copyPowerBudgetForRequest:objc_msgSend(MEMORY[0x1E695DF20] forClient:"dictionaryWithObjects:forKeys:count:" error:{v10, v9, 3), objc_msgSend(*(this + 494), "clientId"), 0}];
-      if (v4 && (a2 & 1) != 0)
+      v3 = *(this + 495);
+      v10[0] = *MEMORY[0x1E6991F50];
+      v11[0] = v8;
+      v10[1] = *MEMORY[0x1E6991F40];
+      v11[1] = v6;
+      v10[2] = *MEMORY[0x1E6991F48];
+      v11[2] = v7;
+      v5 = [v3 copyPowerBudgetForRequest:objc_msgSend(MEMORY[0x1E695DF20] forClient:"dictionaryWithObjects:forKeys:count:" error:{v11, v10, 3), objc_msgSend(*(this + 494), "clientId"), 0}];
+      if (v5)
       {
-        AABC::ProcessCPMSBudget(this, v4);
+        if (a2)
+        {
+          AABC::ProcessCPMSBudget(this, v5);
+        }
       }
 
-      MEMORY[0x1E69E5920](v4);
+      MEMORY[0x1E69E5920](v5);
     }
 
-    MEMORY[0x1E69E5920](v7);
-    MEMORY[0x1E69E5920](v5);
+    MEMORY[0x1E69E5920](v8);
     MEMORY[0x1E69E5920](v6);
+    *&result = MEMORY[0x1E69E5920](v7).n128_u64[0];
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void _DisplayUpdateWeakCapOnFactorChange(uint64_t a1, float a2)
@@ -3790,8 +3712,6 @@ void _DisplayUpdateWeakCapOnFactorChange(uint64_t a1, float a2)
       *(v26 + 608) = v12;
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void _DisplaySetFactorWithFade(uint64_t a1, float a2, float a3)
@@ -3919,18 +3839,16 @@ void _DisplaySetFactorWithFade(uint64_t a1, float a2, float a3)
       _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: %f -> %f t: %f", v15, 0x2Au);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-double CFXClearReport(uint64_t a1)
+double CFXClearReport(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    return _CFXClearReport(a1);
+    return _CFXClearReport(result);
   }
 
-  return result;
+  return v1;
 }
 
 double _CFXClearReport(uint64_t a1)
@@ -4358,9 +4276,9 @@ uint64_t __os_log_helper_16_2_2_8_32_4_0(uint64_t result, uint64_t a2, int a3)
   return result;
 }
 
-void *std::valarray<float>::valarray(void *a1, float *a2, unint64_t a3)
+void **std::valarray<float>::valarray(void **a1, float *a2, unint64_t a3, double a4)
 {
-  std::valarray<float>::valarray(a1, a2, a3);
+  std::valarray<float>::valarray(a1, a2, a3, a4);
   return a1;
 }
 
@@ -4371,7 +4289,7 @@ void *std::valarray<float>::valarray(void *a1, float *a2, unint64_t a3)
   return a1;
 }
 
-uint64_t std::valarray<float>::operator[][abi:de200100](void *a1, unint64_t a2)
+unint64_t std::valarray<float>::operator[][abi:de200100](void *a1, unint64_t a2)
 {
   if (a2 >= std::valarray<float>::size[abi:de200100](a1))
   {
@@ -4390,30 +4308,26 @@ uint64_t std::valarray<float>::operator[][abi:de200100](void *a1, unint64_t a2)
   return *a1 + 4 * a2;
 }
 
-uint64_t std::operator/[abi:de200100]<std::valarray<float>,0>@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t std::operator/[abi:de200100]<std::valarray<float>,0>@<X0>(void *a1@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>)
 {
   v13 = *MEMORY[0x1E69E9840];
   v11 = a1;
-  v10 = a2;
+  v10 = a3;
   v3 = std::valarray<float>::size[abi:de200100](a1);
-  std::__scalar_expr<float>::__scalar_expr[abi:de200100](&v8, a2, v3);
+  std::__scalar_expr<float>::__scalar_expr[abi:de200100](&v8, a3, v3);
   std::_BinaryOp<std::divides<float>,std::valarray<float>,std::__scalar_expr<float>>::_BinaryOp[abi:de200100](v12, &v9, a1, &v8);
-  result = std::__val_expr<std::_BinaryOp<std::divides<float>,std::valarray<float>,std::__scalar_expr<float>>>::__val_expr[abi:de200100](a3, v12);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return std::__val_expr<std::_BinaryOp<std::divides<float>,std::valarray<float>,std::__scalar_expr<float>>>::__val_expr[abi:de200100](a2, v12);
 }
 
-void *std::operator/[abi:de200100]<std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>,0>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void *std::operator/[abi:de200100]<std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>,0>@<X0>(uint64_t a1@<X0>, void *a2@<X8>, uint64_t a3@<X1>)
 {
   v13 = *MEMORY[0x1E69E9840];
   v11 = a1;
-  v10 = a2;
+  v10 = a3;
   v3 = std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>::size[abi:de200100](a1);
-  std::__scalar_expr<float>::__scalar_expr[abi:de200100](&v8, a2, v3);
+  std::__scalar_expr<float>::__scalar_expr[abi:de200100](&v8, a3, v3);
   std::_BinaryOp<std::divides<float>,std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>,std::__scalar_expr<float>>::_BinaryOp[abi:de200100](v12, &v9, a1, &v8);
-  result = std::__val_expr<std::_BinaryOp<std::divides<float>,std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>,std::__scalar_expr<float>>>::__val_expr[abi:de200100](a3, v12);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return std::__val_expr<std::_BinaryOp<std::divides<float>,std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>,std::__scalar_expr<float>>>::__val_expr[abi:de200100](a2, v12);
 }
 
 __n128 *std::operator-[abi:de200100]<std::valarray<float>,std::valarray<float>,0>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __n128 *a3@<X8>)
@@ -4421,10 +4335,8 @@ __n128 *std::operator-[abi:de200100]<std::valarray<float>,std::valarray<float>,0
   v9 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v6 = a2;
-  std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>::_BinaryOp[abi:de200100](&v8, &v5, a1, a2);
-  result = std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>::__val_expr[abi:de200100](a3, &v8);
-  *MEMORY[0x1E69E9840];
-  return result;
+  std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>::_BinaryOp[abi:de200100](v8, &v5, a1, a2);
+  return std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>::__val_expr[abi:de200100](a3, v8);
 }
 
 __n128 *std::operator>[abi:de200100]<std::valarray<float>,std::valarray<float>,0>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __n128 *a3@<X8>)
@@ -4432,10 +4344,8 @@ __n128 *std::operator>[abi:de200100]<std::valarray<float>,std::valarray<float>,0
   v9 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v6 = a2;
-  std::_BinaryOp<std::greater<float>,std::valarray<float>,std::valarray<float>>::_BinaryOp[abi:de200100](&v8, &v5, a1, a2);
-  result = std::__val_expr<std::_BinaryOp<std::greater<float>,std::valarray<float>,std::valarray<float>>>::__val_expr[abi:de200100](a3, &v8);
-  *MEMORY[0x1E69E9840];
-  return result;
+  std::_BinaryOp<std::greater<float>,std::valarray<float>,std::valarray<float>>::_BinaryOp[abi:de200100](v8, &v5, a1, a2);
+  return std::__val_expr<std::_BinaryOp<std::greater<float>,std::valarray<float>,std::valarray<float>>>::__val_expr[abi:de200100](a3, v8);
 }
 
 BOOL std::__val_expr<std::_BinaryOp<std::greater<float>,std::valarray<float>,std::valarray<float>>>::max[abi:de200100](uint64_t a1)
@@ -4512,7 +4422,7 @@ double CoreBrightness::MitigationState::MitigationState(CoreBrightness::Mitigati
   return result;
 }
 
-void std::valarray<float>::resize(void *a1, unint64_t a2, float a3)
+void std::valarray<float>::resize(void **a1, unint64_t a2, float a3)
 {
   v10 = a1;
   v9 = a2;
@@ -4528,7 +4438,7 @@ void std::valarray<float>::resize(void *a1, unint64_t a2, float a3)
     for (i = v9; i; --i)
     {
       *a1[1] = v8;
-      a1[1] += 4;
+      a1[1] = a1[1] + 4;
     }
   }
 }
@@ -4605,7 +4515,7 @@ void *std::__libcpp_allocate[abi:de200100]<float>(uint64_t a1, std::align_val_t 
   v3 = 4 * a1;
   if (!std::__is_overaligned_for_new[abi:de200100](a2))
   {
-    std::__libcpp_operator_new[abi:de200100]<float>();
+    std::__libcpp_operator_new[abi:de200100]<float>(v3);
   }
 
   return std::__libcpp_operator_new[abi:de200100]<float,unsigned long,std::align_val_t>(v3, a2);
@@ -4754,7 +4664,7 @@ uint64_t std::__copy_move_unwrap_iters[abi:de200100]<std::__copy_impl,float cons
   v13 = std::__unwrap_range[abi:de200100]<float const*,float const*>(a1, a2);
   v14 = v3;
   v7 = v3;
-  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>();
+  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>(v15);
   v11 = std::__copy_impl::operator()[abi:de200100]<float const,float,0>(&v10, v13, v7, v4);
   v12 = v5;
   v9 = std::__rewrap_range[abi:de200100]<float const*,float const*,float const*>(v17, v11);
@@ -4764,14 +4674,14 @@ uint64_t std::__copy_move_unwrap_iters[abi:de200100]<std::__copy_impl,float cons
 
 uint64_t std::__unwrap_range_impl<float const*,float const*>::__unwrap[abi:de200100](uint64_t a1, uint64_t a2)
 {
-  v6[2] = a1;
-  v6[1] = a2;
-  std::__unwrap_iter[abi:de200100]<float const*,std::__unwrap_iter_impl<float const*,true>,0>();
-  v6[0] = v2;
-  std::__unwrap_iter[abi:de200100]<float const*,std::__unwrap_iter_impl<float const*,true>,0>();
+  v8 = a1;
+  v7 = a2;
+  std::__unwrap_iter[abi:de200100]<float const*,std::__unwrap_iter_impl<float const*,true>,0>(a1);
+  v6 = v2;
+  std::__unwrap_iter[abi:de200100]<float const*,std::__unwrap_iter_impl<float const*,true>,0>(v7);
   v5 = v3;
-  std::pair<float const*,float const*>::pair[abi:de200100]<float const*,float const*,0>(&v7, v6, &v5);
-  return v7;
+  std::pair<float const*,float const*>::pair[abi:de200100]<float const*,float const*,0>(&v9, &v6, &v5);
+  return v9;
 }
 
 void *std::pair<float const*,float const*>::pair[abi:de200100]<float const*,float const*,0>(void *result, void *a2, void *a3)
@@ -4917,7 +4827,7 @@ uint64_t __getMLFeatureValueClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLFeatureValue");
   }
 
   getMLFeatureValueClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -4930,7 +4840,7 @@ uint64_t CoreMLLibrary()
   v1 = CoreMLLibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -4962,11 +4872,8 @@ uint64_t CoreMLLibraryCore(uint64_t a1)
 
 uint64_t __CoreMLLibraryCore_block_invoke(uint64_t a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary = result;
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4978,7 +4885,7 @@ uint64_t __getMLModelClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLModel");
   }
 
   getMLModelClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -4993,7 +4900,7 @@ uint64_t __getMLPredictionOptionsClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLPredictionOptions");
   }
 
   getMLPredictionOptionsClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -5008,7 +4915,7 @@ uint64_t __getMLArrayBatchProviderClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLArrayBatchProvider");
   }
 
   getMLArrayBatchProviderClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -5507,7 +5414,7 @@ uint64_t __os_log_helper_16_2_7_4_0_8_0_8_32_8_32_8_0_8_0_8_0(uint64_t result, i
   return result;
 }
 
-uint64_t std::vector<float>::operator[][abi:de200100](void *a1, unint64_t a2)
+unint64_t std::vector<float>::operator[][abi:de200100](void *a1, unint64_t a2)
 {
   if (a2 >= std::vector<float>::size[abi:de200100](a1))
   {
@@ -5654,16 +5561,14 @@ void **std::__split_buffer<float>::__split_buffer(void **a1, unint64_t a2, uint6
 void std::vector<float>::__swap_out_circular_buffer(uint64_t *a1, uint64_t *a2)
 {
   std::vector<float>::__annotate_delete[abi:de200100]();
-  v9 = a2[1] + 4 * ((a1[1] - *a1) / -4);
-  v2 = *a1;
+  v7 = a2[1] + 4 * ((a1[1] - *a1) / -4);
   std::__to_address[abi:de200100]<float>();
-  v6 = v3;
-  v4 = a1[1];
+  v4 = v2;
   std::__to_address[abi:de200100]<float>();
-  v7 = v5;
+  v5 = v3;
   std::__to_address[abi:de200100]<float>();
-  std::__uninitialized_allocator_relocate[abi:de200100]<std::allocator<float>,float *>(a1, v6, v7);
-  a2[1] = v9;
+  std::__uninitialized_allocator_relocate[abi:de200100]<std::allocator<float>,float *>(a1, v4, v5);
+  a2[1] = v7;
   a1[1] = *a1;
   std::swap[abi:de200100]<float *>(a1, a2 + 1);
   std::swap[abi:de200100]<float *>(a1 + 1, a2 + 2);
@@ -5771,16 +5676,12 @@ uint64_t *std::swap[abi:de200100]<float *>(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-void std::__split_buffer<float>::__destruct_at_end[abi:de200100](uint64_t a1, uint64_t a2)
+void std::__split_buffer<float>::__destruct_at_end[abi:de200100](uint64_t result, uint64_t a2)
 {
-  std::__split_buffer<float>::__destruct_at_end[abi:de200100](a1, a2);
-}
-
-{
-  while (a2 != *(a1 + 16))
+  while (a2 != *(result + 16))
   {
-    v3 = *(a1 + 32);
-    *(a1 + 16) -= 4;
+    v3 = *(result + 32);
+    *(result + 16) -= 4;
     std::__to_address[abi:de200100]<float>();
     std::allocator_traits<std::allocator<float>>::destroy[abi:de200100]<float,void,0>(v3, v2);
   }
@@ -5794,17 +5695,16 @@ void std::__destroy_at[abi:de200100]<float,0>(uint64_t a1)
   }
 }
 
-void std::vector<float>::__destroy_vector::operator()[abi:de200100](uint64_t **a1)
+void std::vector<float>::__destroy_vector::operator()[abi:de200100](uint64_t **result)
 {
-  if (**a1)
+  if (**result)
   {
-    std::vector<float>::clear[abi:de200100](*a1);
-    v1 = *a1;
+    std::vector<float>::clear[abi:de200100](*result);
     std::vector<float>::__annotate_delete[abi:de200100]();
-    v4 = *a1;
-    v3 = **a1;
-    v2 = std::vector<float>::capacity[abi:de200100](*a1);
-    std::allocator_traits<std::allocator<float>>::deallocate[abi:de200100](v4, v3, v2);
+    v3 = *result;
+    v2 = **result;
+    v1 = std::vector<float>::capacity[abi:de200100](*result);
+    std::allocator_traits<std::allocator<float>>::deallocate[abi:de200100](v3, v2, v1);
   }
 }
 
@@ -5815,15 +5715,15 @@ void std::vector<float>::clear[abi:de200100](uint64_t *a1)
   std::vector<float>::__annotate_shrink[abi:de200100]();
 }
 
-void std::vector<float>::__base_destruct_at_end[abi:de200100](uint64_t a1, uint64_t a2)
+void std::vector<float>::__base_destruct_at_end[abi:de200100](uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); a2 != i; i -= 4)
+  for (i = *(result + 8); a2 != i; i -= 4)
   {
     std::__to_address[abi:de200100]<float>();
-    std::allocator_traits<std::allocator<float>>::destroy[abi:de200100]<float,void,0>(a1, v2);
+    std::allocator_traits<std::allocator<float>>::destroy[abi:de200100]<float,void,0>(result, v2);
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 uint64_t findBin(float *a1, void *a2)
@@ -5847,30 +5747,26 @@ uint64_t findBin(float *a1, void *a2)
   return std::vector<CBBOLTS::Bin>::front[abi:de200100](v7);
 }
 
-uint64_t std::vector<CBBOLTS::Bin>::begin[abi:de200100](uint64_t *a1)
+uint64_t std::vector<CBBOLTS::Bin>::begin[abi:de200100](void *a1)
 {
-  v1 = *a1;
   std::vector<CBBOLTS::Bin>::__add_alignment_assumption[abi:de200100]<CBBOLTS::Bin*,0>();
-  return std::vector<CBBOLTS::Bin>::__make_iter[abi:de200100](a1, v2);
+  return std::vector<CBBOLTS::Bin>::__make_iter[abi:de200100](a1, v1);
 }
 
 {
-  v1 = *a1;
   std::vector<CBBOLTS::Bin>::__add_alignment_assumption[abi:de200100]<CBBOLTS::Bin*,0>();
-  return std::vector<CBBOLTS::Bin>::__make_iter[abi:de200100](a1, v2);
+  return std::vector<CBBOLTS::Bin>::__make_iter[abi:de200100](a1, v1);
 }
 
 uint64_t std::vector<CBBOLTS::Bin>::end[abi:de200100](uint64_t a1)
 {
-  v1 = *(a1 + 8);
   std::vector<CBBOLTS::Bin>::__add_alignment_assumption[abi:de200100]<CBBOLTS::Bin*,0>();
-  return std::vector<CBBOLTS::Bin>::__make_iter[abi:de200100](a1, v2);
+  return std::vector<CBBOLTS::Bin>::__make_iter[abi:de200100](a1, v1);
 }
 
 {
-  v1 = *(a1 + 8);
   std::vector<CBBOLTS::Bin>::__add_alignment_assumption[abi:de200100]<CBBOLTS::Bin*,0>();
-  return std::vector<CBBOLTS::Bin>::__make_iter[abi:de200100](a1, v2);
+  return std::vector<CBBOLTS::Bin>::__make_iter[abi:de200100](a1, v1);
 }
 
 BOOL CBBOLTS::Bin::curveUpdateSatisfiesCondition(uint64_t a1, float *a2)
@@ -5913,93 +5809,94 @@ void std::list<AAB::CurveUpdate>::pop_front(uint64_t a1)
     std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/list:1319: assertion !empty() failed: list::pop_front() called with empty list\n");
   }
 
-  std::__list_imp<AAB::CurveUpdate>::__unlink_nodes(*(a1 + 8), *(a1 + 8));
+  v3 = *(a1 + 8);
+  std::__list_imp<AAB::CurveUpdate>::__unlink_nodes(v3, v3);
   --*(a1 + 16);
-  std::__list_node_base<AAB::CurveUpdate,void *>::__as_node[abi:de200100]();
+  std::__list_node_base<AAB::CurveUpdate,void *>::__as_node[abi:de200100](v3);
   std::__list_imp<AAB::CurveUpdate>::__delete_node[abi:de200100](a1, v1);
 }
 
 uint64_t std::list<AAB::CurveUpdate>::push_back(void *a1, __n128 *a2)
 {
-  std::__list_imp<AAB::CurveUpdate>::__create_node[abi:de200100]<AAB::CurveUpdate>(a1, 0, 0, a2);
-  std::__list_node<AAB::CurveUpdate,void *>::__as_link[abi:de200100]();
+  v5 = std::__list_imp<AAB::CurveUpdate>::__create_node[abi:de200100]<AAB::CurveUpdate>(a1, 0, 0, a2);
+  std::__list_node<AAB::CurveUpdate,void *>::__as_link[abi:de200100](v5);
   result = std::list<AAB::CurveUpdate>::__link_nodes_at_back(a1, v2, v2);
   ++a1[2];
   return result;
 }
 
 {
-  std::__list_imp<AAB::CurveUpdate>::__create_node[abi:de200100]<AAB::CurveUpdate const&>(a1, 0, 0, a2);
-  std::__list_node<AAB::CurveUpdate,void *>::__as_link[abi:de200100]();
+  v5 = std::__list_imp<AAB::CurveUpdate>::__create_node[abi:de200100]<AAB::CurveUpdate const&>(a1, 0, 0, a2);
+  std::__list_node<AAB::CurveUpdate,void *>::__as_link[abi:de200100](v5);
   result = std::list<AAB::CurveUpdate>::__link_nodes_at_back(a1, v2, v2);
   ++a1[2];
   return result;
 }
 
-uint64_t *CBBOLTS::serializeBins@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t *CBBOLTS::serializeBins@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v29 = a2;
-  v28 = a1;
-  v27 = 0;
+  v30 = a2;
+  v29 = a1;
+  v28 = 0;
   std::vector<AAB::CurveUpdate>::vector[abi:de200100](a2);
-  v26[1] = v28;
-  v26[0] = std::vector<CBBOLTS::Bin>::begin[abi:de200100](v28);
-  v25 = std::vector<CBBOLTS::Bin>::end[abi:de200100](v28);
-  while (!std::operator==[abi:de200100]<CBBOLTS::Bin const*>(v26, &v25))
+  v27[1] = v29;
+  v27[0] = std::vector<CBBOLTS::Bin>::begin[abi:de200100](v29);
+  v26 = std::vector<CBBOLTS::Bin>::end[abi:de200100](v29);
+  while (!std::operator==[abi:de200100]<CBBOLTS::Bin const*>(v27, &v26))
   {
-    v24 = std::__wrap_iter<CBBOLTS::Bin const*>::operator*[abi:de200100](v26);
-    CBBOLTS::Bin::updates(v24, v22);
-    v4 = std::list<AAB::CurveUpdate>::size[abi:de200100](v22);
-    std::list<AAB::CurveUpdate>::~list(v22);
+    v25 = std::__wrap_iter<CBBOLTS::Bin const*>::operator*[abi:de200100](v27);
+    CBBOLTS::Bin::updates(v25, v23);
+    v4 = std::list<AAB::CurveUpdate>::size[abi:de200100](v23);
+    std::list<AAB::CurveUpdate>::~list(v23);
     for (i = v4; ; ++i)
     {
       v3 = i;
-      if (v3 >= *(CBBOLTS::Bin::configuration(v24) + 16))
+      if (v3 >= *(CBBOLTS::Bin::configuration(v25) + 16))
       {
         break;
       }
 
-      v21.n128_u64[0] = *(CBBOLTS::Bin::configuration(v24) + 8);
-      v21.n128_u64[1] = -1;
-      std::vector<AAB::CurveUpdate>::push_back[abi:de200100](a2, &v21);
+      v22.n128_u64[0] = *(CBBOLTS::Bin::configuration(v25) + 8);
+      v22.n128_u64[1] = -1;
+      std::vector<AAB::CurveUpdate>::push_back[abi:de200100](a2, &v22);
     }
 
-    std::__wrap_iter<CBBOLTS::Bin const*>::operator++[abi:de200100](v26);
+    std::__wrap_iter<CBBOLTS::Bin const*>::operator++[abi:de200100](v27);
   }
 
-  std::vector<AAB::CurveUpdate>::vector[abi:de200100](v20);
-  v19 = v28;
-  v18 = std::vector<CBBOLTS::Bin>::begin[abi:de200100](v28);
-  v17 = std::vector<CBBOLTS::Bin>::end[abi:de200100](v19);
-  while (!std::operator==[abi:de200100]<CBBOLTS::Bin const*>(&v18, &v17))
+  std::vector<AAB::CurveUpdate>::vector[abi:de200100](v21);
+  v20 = v29;
+  v19 = std::vector<CBBOLTS::Bin>::begin[abi:de200100](v29);
+  v18 = std::vector<CBBOLTS::Bin>::end[abi:de200100](v20);
+  while (!std::operator==[abi:de200100]<CBBOLTS::Bin const*>(&v19, &v18))
   {
-    v16 = std::__wrap_iter<CBBOLTS::Bin const*>::operator*[abi:de200100](&v18);
-    CBBOLTS::Bin::updates(v16, v15);
-    v15[3] = v15;
+    v17 = std::__wrap_iter<CBBOLTS::Bin const*>::operator*[abi:de200100](&v19);
+    CBBOLTS::Bin::updates(v17, v15);
+    v16 = v15;
     v14 = std::list<AAB::CurveUpdate>::begin[abi:de200100](v15);
-    v13 = std::list<AAB::CurveUpdate>::end[abi:de200100]();
+    v13 = std::list<AAB::CurveUpdate>::end[abi:de200100](v16);
     while (std::operator!=[abi:de200100](&v14, &v13))
     {
       v12 = std::__list_const_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](&v14);
-      std::vector<AAB::CurveUpdate>::push_back[abi:de200100](v20, v12);
+      std::vector<AAB::CurveUpdate>::push_back[abi:de200100](v21, v12);
       std::__list_const_iterator<AAB::CurveUpdate,void *>::operator++[abi:de200100](&v14);
     }
 
     std::list<AAB::CurveUpdate>::~list(v15);
-    std::__wrap_iter<CBBOLTS::Bin const*>::operator++[abi:de200100](&v18);
+    std::__wrap_iter<CBBOLTS::Bin const*>::operator++[abi:de200100](&v19);
   }
 
-  v11 = std::vector<AAB::CurveUpdate>::begin[abi:de200100](v20);
-  v10 = std::vector<AAB::CurveUpdate>::end[abi:de200100](v20);
+  v11 = std::vector<AAB::CurveUpdate>::begin[abi:de200100](v21);
+  v10 = std::vector<AAB::CurveUpdate>::end[abi:de200100](v21);
   std::sort[abi:de200100]<std::__wrap_iter<AAB::CurveUpdate *>,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0>(v11, v10);
   v8 = std::vector<AAB::CurveUpdate>::end[abi:de200100](a2);
   std::__wrap_iter<AAB::CurveUpdate const*>::__wrap_iter[abi:de200100]<AAB::CurveUpdate*,0>(&v9, &v8);
-  v7 = std::vector<AAB::CurveUpdate>::begin[abi:de200100](v20);
-  v6 = std::vector<AAB::CurveUpdate>::end[abi:de200100](v20);
+  v7 = std::vector<AAB::CurveUpdate>::begin[abi:de200100](v21);
+  v6 = std::vector<AAB::CurveUpdate>::end[abi:de200100](v21);
   std::vector<AAB::CurveUpdate>::insert[abi:de200100]<std::__wrap_iter<AAB::CurveUpdate*>,0>(a2, v9, v7, v6);
-  v27 = 1;
-  result = std::vector<AAB::CurveUpdate>::~vector[abi:de200100](v20);
-  if ((v27 & 1) == 0)
+  v28 = 1;
+  result = std::vector<AAB::CurveUpdate>::~vector[abi:de200100](v21);
+  if ((v28 & 1) == 0)
   {
     return std::vector<AAB::CurveUpdate>::~vector[abi:de200100](a2);
   }
@@ -6050,13 +5947,13 @@ uint64_t std::list<AAB::CurveUpdate>::begin[abi:de200100](uint64_t a1)
   return std::__list_imp<AAB::CurveUpdate>::begin[abi:de200100](a1);
 }
 
-uint64_t std::list<AAB::CurveUpdate>::end[abi:de200100]()
+uint64_t std::list<AAB::CurveUpdate>::end[abi:de200100](uint64_t a1)
 {
-  return std::__list_imp<AAB::CurveUpdate>::end[abi:de200100]();
+  return std::__list_imp<AAB::CurveUpdate>::end[abi:de200100](a1);
 }
 
 {
-  return std::__list_imp<AAB::CurveUpdate>::end[abi:de200100]();
+  return std::__list_imp<AAB::CurveUpdate>::end[abi:de200100](a1);
 }
 
 BOOL std::operator!=[abi:de200100](void *a1, void *a2)
@@ -6076,32 +5973,11 @@ BOOL std::operator!=[abi:de200100](void *a1, void *a2)
   return !std::operator==[abi:de200100](a1, a2);
 }
 
-uint64_t std::__list_const_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](uint64_t *a1)
-{
-  v1 = *a1;
-  std::__list_node_base<AAB::CurveUpdate,void *>::__as_node[abi:de200100]();
-  return std::__list_node<AAB::CurveUpdate,void *>::__get_value[abi:de200100](v2);
-}
-
 void std::sort[abi:de200100]<std::__wrap_iter<AAB::CurveUpdate *>,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0>(uint64_t a1, uint64_t a2)
 {
   v4 = a1;
   v3 = a2;
   std::__sort_impl[abi:de200100]<std::_ClassicAlgPolicy,std::__wrap_iter<AAB::CurveUpdate *>,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0>(a1, a2, &v2);
-}
-
-uint64_t std::vector<AAB::CurveUpdate>::begin[abi:de200100](uint64_t *a1)
-{
-  v1 = *a1;
-  std::vector<AAB::CurveUpdate>::__add_alignment_assumption[abi:de200100]<AAB::CurveUpdate*,0>();
-  return std::vector<AAB::CurveUpdate>::__make_iter[abi:de200100](a1, v2);
-}
-
-uint64_t std::vector<AAB::CurveUpdate>::end[abi:de200100](uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  std::vector<AAB::CurveUpdate>::__add_alignment_assumption[abi:de200100]<AAB::CurveUpdate*,0>();
-  return std::vector<AAB::CurveUpdate>::__make_iter[abi:de200100](a1, v2);
 }
 
 uint64_t *std::vector<AAB::CurveUpdate>::~vector[abi:de200100](uint64_t *a1)
@@ -6165,9 +6041,8 @@ uint64_t std::list<AAB::CurveUpdate>::back[abi:de200100](uint64_t *a1)
     std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/list:786: assertion !empty() failed: list::back called on empty list\n");
   }
 
-  v1 = *a1;
-  std::__list_node_base<AAB::CurveUpdate,void *>::__as_node[abi:de200100]();
-  return std::__list_node<AAB::CurveUpdate,void *>::__get_value[abi:de200100](v2);
+  std::__list_node_base<AAB::CurveUpdate,void *>::__as_node[abi:de200100](*a1);
+  return std::__list_node<AAB::CurveUpdate,void *>::__get_value[abi:de200100](v1);
 }
 
 void ___ZN7CBBOLTS22addCurveUpdateToBufferEN3AAB11CurveUpdateE_block_invoke(uint64_t a1)
@@ -6178,7 +6053,7 @@ void ___ZN7CBBOLTS22addCurveUpdateToBufferEN3AAB11CurveUpdateE_block_invoke(uint
   *(v1 + 24) = 0;
 }
 
-BOOL CBBOLTS::binUpdates@<W0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+BOOL CBBOLTS::binUpdates@<W0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
 {
   v17 = a3;
   v16 = a1;
@@ -6197,22 +6072,21 @@ BOOL CBBOLTS::binUpdates@<W0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>
     std::__wrap_iter<CBBOLTS::BinConfiguration const*>::operator++[abi:de200100](v13);
   }
 
-  v10[1] = v16;
-  v10[0] = std::list<AAB::CurveUpdate>::begin[abi:de200100](v16);
-  v9 = std::list<AAB::CurveUpdate>::end[abi:de200100]();
+  v10 = v16;
+  v9 = std::list<AAB::CurveUpdate>::begin[abi:de200100](v16);
+  v8 = std::list<AAB::CurveUpdate>::end[abi:de200100](v10);
   while (1)
   {
-    result = std::operator!=[abi:de200100](v10, &v9);
+    result = std::operator!=[abi:de200100](&v9, &v8);
     if (!result)
     {
       break;
     }
 
-    v8 = std::__list_const_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](v10);
-    Bin = findBin(v8, a3);
-    v7 = *v8;
-    CBBOLTS::Bin::push(Bin, *v8, *(v8 + 8));
-    std::__list_const_iterator<AAB::CurveUpdate,void *>::operator++[abi:de200100](v10);
+    v7 = std::__list_const_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](&v9);
+    Bin = findBin(v7, a3);
+    CBBOLTS::Bin::push(Bin, *v7, *(v7 + 8));
+    std::__list_const_iterator<AAB::CurveUpdate,void *>::operator++[abi:de200100](&v9);
   }
 
   return result;
@@ -6251,20 +6125,6 @@ void **std::vector<CBBOLTS::Bin>::reserve(void *a1, unint64_t a2)
   }
 
   return result;
-}
-
-uint64_t std::vector<CBBOLTS::BinConfiguration>::begin[abi:de200100](uint64_t *a1)
-{
-  v1 = *a1;
-  std::vector<CBBOLTS::BinConfiguration>::__add_alignment_assumption[abi:de200100]<CBBOLTS::BinConfiguration*,0>();
-  return std::vector<CBBOLTS::BinConfiguration>::__make_iter[abi:de200100](a1, v2);
-}
-
-uint64_t std::vector<CBBOLTS::BinConfiguration>::end[abi:de200100](uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  std::vector<CBBOLTS::BinConfiguration>::__add_alignment_assumption[abi:de200100]<CBBOLTS::BinConfiguration*,0>();
-  return std::vector<CBBOLTS::BinConfiguration>::__make_iter[abi:de200100](a1, v2);
 }
 
 uint64_t std::vector<CBBOLTS::Bin>::emplace_back<CBBOLTS::BinConfiguration const&>(void *a1, __n128 *a2)
@@ -6493,7 +6353,7 @@ AAB::PreferenceUpdateCurveStrategy *AAB::PreferenceUpdateCurveStrategy::Preferen
   return this;
 }
 
-void *std::list<AAB::CurveUpdate>::list[abi:de200100](void *a1)
+uint64_t *std::list<AAB::CurveUpdate>::list[abi:de200100](uint64_t *a1)
 {
   std::list<AAB::CurveUpdate>::list[abi:de200100](a1);
   return a1;
@@ -6531,14 +6391,14 @@ void AAB::PreferenceUpdateCurveStrategy::~PreferenceUpdateCurveStrategy(AAB::Pre
   MEMORY[0x1E12C4020](this, 0x81C40B8603338);
 }
 
-void CBBOLTS::~CBBOLTS(CBBOLTS *this)
+void CBBOLTS::~CBBOLTS(NSObject **this)
 {
   v9 = this;
   v10 = this;
   *this = &unk_1F599B9F8;
-  if (*(this + 2))
+  if (this[2])
   {
-    v1 = *(this + 2);
+    v1 = this[2];
     block = MEMORY[0x1E69E9820];
     v4 = -1073741824;
     v5 = 0;
@@ -6546,31 +6406,31 @@ void CBBOLTS::~CBBOLTS(CBBOLTS *this)
     v7 = &__block_descriptor_40_e5_v8__0l;
     v8 = this;
     dispatch_sync(v1, &block);
-    dispatch_release(*(this + 2));
-    *(this + 2) = 0;
+    dispatch_release(this[2]);
+    this[2] = 0;
   }
 
   else
   {
-    if (*(this + 3))
+    if (this[3])
     {
-      dispatch_source_cancel(*(this + 3));
-      dispatch_release(*(this + 3));
-      *(this + 3) = 0;
+      dispatch_source_cancel(this[3]);
+      dispatch_release(this[3]);
+      this[3] = 0;
     }
 
-    if (*(this + 4))
+    if (this[4])
     {
-      dispatch_source_cancel(*(this + 4));
-      dispatch_release(*(this + 4));
-      *(this + 4) = 0;
+      dispatch_source_cancel(this[4]);
+      dispatch_release(this[4]);
+      this[4] = 0;
     }
 
-    MEMORY[0x1E69E5920](*(this + 5));
-    MEMORY[0x1E69E5920](*(this + 6));
+    MEMORY[0x1E69E5920](this[5]);
+    MEMORY[0x1E69E5920](this[6]);
   }
 
-  std::list<AAB::CurveUpdate>::~list(this + 88);
+  std::list<AAB::CurveUpdate>::~list((this + 11));
   std::vector<CBBOLTS::BinConfiguration>::~vector[abi:de200100](this + 7);
   AAB::PreferenceUpdateCurveStrategy::~PreferenceUpdateCurveStrategy(this);
 }
@@ -6606,17 +6466,17 @@ double ___ZN7CBBOLTSD2Ev_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1DE968764(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, __int16 a16, char a17, char a18, int a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1DE968764(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _Unwind_Exception *exception_object, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, __int16 a16, char a17, char a18, int a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
 {
   if (a18)
   {
-    MEMORY[0x1E12C4020](a15, a14);
+    MEMORY[0x1E12C4020](a15, a14, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
 }
 
-void *std::vector<CBBOLTS::BinConfiguration>::vector[abi:de200100](void *a1, uint64_t a2, uint64_t a3)
+uint64_t *std::vector<CBBOLTS::BinConfiguration>::vector[abi:de200100](uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   std::vector<CBBOLTS::BinConfiguration>::vector[abi:de200100](a1, a2, a3);
   return a1;
@@ -6764,11 +6624,10 @@ uint64_t CBBOLTS::loadModel(CBBOLTS *this)
     v31 = 0;
   }
 
-  *MEMORY[0x1E69E9840];
   return v31 & 1;
 }
 
-uint64_t CBBOLTS::initializeMLABModelFromURL(CBBOLTS *this, NSURL *a2)
+MLAB *CBBOLTS::initializeMLABModelFromURL(CBBOLTS *this, NSURL *a2)
 {
   v11 = *MEMORY[0x1E69E9840];
   v8 = this;
@@ -6780,33 +6639,27 @@ uint64_t CBBOLTS::initializeMLABModelFromURL(CBBOLTS *this, NSURL *a2)
   MEMORY[0x1E69E5920](v6);
   if (v5 && !v7)
   {
-    v9 = v5;
+    return v5;
+  }
+
+  if (_COREBRIGHTNESS_LOG_DEFAULT)
+  {
+    inited = _COREBRIGHTNESS_LOG_DEFAULT;
   }
 
   else
   {
-    if (_COREBRIGHTNESS_LOG_DEFAULT)
-    {
-      inited = _COREBRIGHTNESS_LOG_DEFAULT;
-    }
-
-    else
-    {
-      inited = init_default_corebrightness_log();
-    }
-
-    if (os_log_type_enabled(inited, OS_LOG_TYPE_ERROR))
-    {
-      __os_log_helper_16_2_1_8_64(v10, v7);
-      _os_log_error_impl(&dword_1DE8E5000, inited, OS_LOG_TYPE_ERROR, "Error during model initialisation: %@", v10, 0xCu);
-    }
-
-    MEMORY[0x1E69E5920](v5);
-    v9 = 0;
+    inited = init_default_corebrightness_log();
   }
 
-  *MEMORY[0x1E69E9840];
-  return v9;
+  if (os_log_type_enabled(inited, OS_LOG_TYPE_ERROR))
+  {
+    __os_log_helper_16_2_1_8_64(v10, v7);
+    _os_log_error_impl(&dword_1DE8E5000, inited, OS_LOG_TYPE_ERROR, "Error during model initialisation: %@", v10, 0xCu);
+  }
+
+  MEMORY[0x1E69E5920](v5);
+  return 0;
 }
 
 void CBBOLTS::unloadModel(dispatch_source_t *this, float a2)
@@ -6963,10 +6816,9 @@ uint64_t CBBOLTS::compileModel(CBBOLTS *this, NSString *a2)
       _os_log_error_impl(&dword_1DE8E5000, log, type, "Failed to create model compilation semaphore", v24, 2u);
     }
 
-    v29 = 0;
+    return 0;
   }
 
-  *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -7025,7 +6877,7 @@ void CBBOLTS::createFromUncompiledModelPath(CBBOLTS *this, NSString *a2)
   CBBOLTS::createUsingModelURL(v4, v2);
 }
 
-uint64_t CBBOLTS::makePrediction(uint64_t a1, uint64_t *a2, float a3)
+uint64_t CBBOLTS::makePrediction(uint64_t a1, void *a2, float a3)
 {
   v83 = *MEMORY[0x1E69E9840];
   v71 = a1;
@@ -7313,7 +7165,6 @@ uint64_t CBBOLTS::makePrediction(uint64_t a1, uint64_t *a2, float a3)
   v42 = 1;
 LABEL_71:
   std::vector<AAB::CurveUpdate>::~vector[abi:de200100](v68);
-  *MEMORY[0x1E69E9840];
   return v72;
 }
 
@@ -7342,7 +7193,7 @@ uint64_t getMLMultiArrayClass(void)
   return v1;
 }
 
-uint64_t std::vector<AAB::CurveUpdate>::operator[][abi:de200100](void *a1, unint64_t a2)
+unint64_t std::vector<AAB::CurveUpdate>::operator[][abi:de200100](void *a1, unint64_t a2)
 {
   if (a2 >= std::vector<AAB::CurveUpdate>::size[abi:de200100](a1))
   {
@@ -7354,12 +7205,12 @@ uint64_t std::vector<AAB::CurveUpdate>::operator[][abi:de200100](void *a1, unint
 
 uint64_t *CBBOLTS::UpdateCurveAndCappedCurve(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v46 = a1;
-  v45 = a2;
-  v44 = a3;
-  v43 = a4;
-  CBBOLTS::binUpdates(a2, (a1 + 56), v42);
+  v50 = *MEMORY[0x1E69E9840];
+  v47 = a1;
+  v46 = a2;
+  v45 = a3;
+  v44 = a4;
+  CBBOLTS::binUpdates(a2, (a1 + 56), v43);
   if (*(a1 + 8))
   {
     v23 = *(a1 + 8);
@@ -7380,14 +7231,14 @@ uint64_t *CBBOLTS::UpdateCurveAndCappedCurve(uint64_t a1, uint64_t a2, uint64_t 
     v23 = inited;
   }
 
-  v41 = v23;
-  v40 = 1;
+  v42 = v23;
+  v41 = 1;
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
-    log = v41;
-    type = v40;
-    __os_log_helper_16_0_0(v39);
-    _os_log_impl(&dword_1DE8E5000, log, type, "----- Binning -----", v39, 2u);
+    log = v42;
+    type = v41;
+    __os_log_helper_16_0_0(v40);
+    _os_log_impl(&dword_1DE8E5000, log, type, "----- Binning -----", v40, 2u);
   }
 
   if (*(a1 + 8))
@@ -7410,29 +7261,29 @@ uint64_t *CBBOLTS::UpdateCurveAndCappedCurve(uint64_t a1, uint64_t a2, uint64_t 
     v19 = v18;
   }
 
-  v38 = v19;
-  v37 = OS_LOG_TYPE_INFO;
+  v39 = v19;
+  v38 = OS_LOG_TYPE_INFO;
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
-    v16 = v38;
-    v17 = v37;
-    __os_log_helper_16_0_0(v36);
-    _os_log_impl(&dword_1DE8E5000, v16, v17, "Bin Lux Nits Timestamp", v36, 2u);
+    v16 = v39;
+    v17 = v38;
+    __os_log_helper_16_0_0(v37);
+    _os_log_impl(&dword_1DE8E5000, v16, v17, "Bin Lux Nits Timestamp", v37, 2u);
   }
 
   for (i = 0; ; ++i)
   {
     v15 = i;
-    if (v15 >= std::vector<CBBOLTS::Bin>::size[abi:de200100](v42))
+    if (v15 >= std::vector<CBBOLTS::Bin>::size[abi:de200100](v43))
     {
       break;
     }
 
-    v4 = std::vector<CBBOLTS::Bin>::operator[][abi:de200100](v42, i);
+    v4 = std::vector<CBBOLTS::Bin>::operator[][abi:de200100](v43, i);
     CBBOLTS::Bin::updates(v4, v34);
-    v34[3] = v34;
+    v35 = v34;
     v33 = std::list<AAB::CurveUpdate>::begin[abi:de200100](v34);
-    v32 = std::list<AAB::CurveUpdate>::end[abi:de200100]();
+    v32 = std::list<AAB::CurveUpdate>::end[abi:de200100](v35);
     while (std::operator!=[abi:de200100](&v33, &v32))
     {
       v31 = std::__list_const_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](&v33);
@@ -7460,8 +7311,8 @@ uint64_t *CBBOLTS::UpdateCurveAndCappedCurve(uint64_t a1, uint64_t a2, uint64_t 
       v29 = OS_LOG_TYPE_INFO;
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v48, i, COERCE__INT64(*v31), COERCE__INT64(*(v31 + 4)), *(v31 + 8));
-        _os_log_impl(&dword_1DE8E5000, oslog, v29, "%lu %f %f %lld", v48, 0x2Au);
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v49, i, COERCE__INT64(*v31), COERCE__INT64(*(v31 + 4)), *(v31 + 8));
+        _os_log_impl(&dword_1DE8E5000, oslog, v29, "%lu %f %f %lld", v49, 0x2Au);
       }
 
       std::__list_const_iterator<AAB::CurveUpdate,void *>::operator++[abi:de200100](&v33);
@@ -7500,10 +7351,10 @@ uint64_t *CBBOLTS::UpdateCurveAndCappedCurve(uint64_t a1, uint64_t a2, uint64_t 
     _os_log_impl(&dword_1DE8E5000, v9, v10, "-------------------", v26, 2u);
   }
 
-  v43[24] = 3;
-  memcpy((a1 + 224), v43, 0x68uLL);
+  v44[24] = 3;
+  memcpy((a1 + 224), v44, 0x68uLL);
   context = objc_autoreleasePoolPush();
-  Prediction = CBBOLTS::makePrediction(a1, v42, 5.0);
+  Prediction = CBBOLTS::makePrediction(a1, v43, 5.0);
   if (Prediction)
   {
     CBBOLTS::setCurveBasedOnModelPrediction(a1 + 224, [Prediction LTM_output_E], objc_msgSend(Prediction, "LTM_output_L"));
@@ -7521,18 +7372,16 @@ uint64_t *CBBOLTS::UpdateCurveAndCappedCurve(uint64_t a1, uint64_t a2, uint64_t 
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_0_9_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v47, COERCE__INT64(*(a1 + 224)), COERCE__INT64(*(a1 + 232)), COERCE__INT64(*(a1 + 240)), COERCE__INT64(*(a1 + 244)), COERCE__INT64(*(a1 + 228)), COERCE__INT64(*(a1 + 236)), COERCE__INT64(*(a1 + 248)), COERCE__INT64(*(a1 + 252)), COERCE__INT64(*(a1 + 308)));
-      _os_log_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEFAULT, "User adjustment -> predict LTM curve: E0a %f, E0b %f, E1 %f, E2 %f, L0a %f, L0b %f, L1 %f, L2 %f, thirdSlope %f", v47, 0x5Cu);
+      __os_log_helper_16_0_9_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v48, COERCE__INT64(*(a1 + 224)), COERCE__INT64(*(a1 + 232)), COERCE__INT64(*(a1 + 240)), COERCE__INT64(*(a1 + 244)), COERCE__INT64(*(a1 + 228)), COERCE__INT64(*(a1 + 236)), COERCE__INT64(*(a1 + 248)), COERCE__INT64(*(a1 + 252)), COERCE__INT64(*(a1 + 308)));
+      _os_log_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEFAULT, "User adjustment -> predict LTM curve: E0a %f, E0b %f, E1 %f, E2 %f, L0a %f, L0b %f, L1 %f, L2 %f, thirdSlope %f", v48, 0x5Cu);
     }
   }
 
   objc_autoreleasePoolPop(context);
-  result = std::vector<CBBOLTS::Bin>::~vector[abi:de200100](v42);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return std::vector<CBBOLTS::Bin>::~vector[abi:de200100](v43);
 }
 
-uint64_t std::vector<CBBOLTS::Bin>::operator[][abi:de200100](void *a1, unint64_t a2)
+unint64_t std::vector<CBBOLTS::Bin>::operator[][abi:de200100](void *a1, unint64_t a2)
 {
   if (a2 >= std::vector<CBBOLTS::Bin>::size[abi:de200100](a1))
   {
@@ -7544,10 +7393,10 @@ uint64_t std::vector<CBBOLTS::Bin>::operator[][abi:de200100](void *a1, unint64_t
 
 uint64_t *CBBOLTS::UpdateCurveWithPrediction(uint64_t a1, uint64_t a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v40[4] = a1;
-  v40[3] = a2;
-  CBBOLTS::binUpdates(a2, (a1 + 56), v40);
+  v44 = *MEMORY[0x1E69E9840];
+  v41[4] = a1;
+  v41[3] = a2;
+  CBBOLTS::binUpdates(a2, (a1 + 56), v41);
   if (*(a1 + 8))
   {
     v21 = *(a1 + 8);
@@ -7568,14 +7417,14 @@ uint64_t *CBBOLTS::UpdateCurveWithPrediction(uint64_t a1, uint64_t a2)
     v21 = inited;
   }
 
-  v39 = v21;
-  v38 = 1;
+  v40 = v21;
+  v39 = 1;
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    log = v39;
-    type = v38;
-    __os_log_helper_16_0_0(v37);
-    _os_log_impl(&dword_1DE8E5000, log, type, "----- Binning -----", v37, 2u);
+    log = v40;
+    type = v39;
+    __os_log_helper_16_0_0(v38);
+    _os_log_impl(&dword_1DE8E5000, log, type, "----- Binning -----", v38, 2u);
   }
 
   if (*(a1 + 8))
@@ -7598,29 +7447,29 @@ uint64_t *CBBOLTS::UpdateCurveWithPrediction(uint64_t a1, uint64_t a2)
     v17 = v16;
   }
 
-  v36 = v17;
-  v35 = 1;
+  v37 = v17;
+  v36 = 1;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v14 = v36;
-    v15 = v35;
-    __os_log_helper_16_0_0(v34);
-    _os_log_impl(&dword_1DE8E5000, v14, v15, "Bin Lux Nits Timestamp", v34, 2u);
+    v14 = v37;
+    v15 = v36;
+    __os_log_helper_16_0_0(v35);
+    _os_log_impl(&dword_1DE8E5000, v14, v15, "Bin Lux Nits Timestamp", v35, 2u);
   }
 
   for (i = 0; ; ++i)
   {
     v13 = i;
-    if (v13 >= std::vector<CBBOLTS::Bin>::size[abi:de200100](v40))
+    if (v13 >= std::vector<CBBOLTS::Bin>::size[abi:de200100](v41))
     {
       break;
     }
 
-    v2 = std::vector<CBBOLTS::Bin>::operator[][abi:de200100](v40, i);
+    v2 = std::vector<CBBOLTS::Bin>::operator[][abi:de200100](v41, i);
     CBBOLTS::Bin::updates(v2, v32);
-    v32[3] = v32;
+    v33 = v32;
     v31 = std::list<AAB::CurveUpdate>::begin[abi:de200100](v32);
-    v30 = std::list<AAB::CurveUpdate>::end[abi:de200100]();
+    v30 = std::list<AAB::CurveUpdate>::end[abi:de200100](v33);
     while (std::operator!=[abi:de200100](&v31, &v30))
     {
       v29 = std::__list_const_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](&v31);
@@ -7648,8 +7497,8 @@ uint64_t *CBBOLTS::UpdateCurveWithPrediction(uint64_t a1, uint64_t a2)
       v27 = OS_LOG_TYPE_INFO;
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v42, i, COERCE__INT64(*v29), COERCE__INT64(*(v29 + 4)), *(v29 + 8));
-        _os_log_impl(&dword_1DE8E5000, oslog, v27, "%lu %f %f %lld", v42, 0x2Au);
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v43, i, COERCE__INT64(*v29), COERCE__INT64(*(v29 + 4)), *(v29 + 8));
+        _os_log_impl(&dword_1DE8E5000, oslog, v27, "%lu %f %f %lld", v43, 0x2Au);
       }
 
       std::__list_const_iterator<AAB::CurveUpdate,void *>::operator++[abi:de200100](&v31);
@@ -7689,7 +7538,7 @@ uint64_t *CBBOLTS::UpdateCurveWithPrediction(uint64_t a1, uint64_t a2)
   }
 
   context = objc_autoreleasePoolPush();
-  Prediction = CBBOLTS::makePrediction(a1, v40, 2.0);
+  Prediction = CBBOLTS::makePrediction(a1, v41, 2.0);
   if (Prediction)
   {
     CBBOLTS::setCurveBasedOnModelPrediction(a1 + 224, [Prediction LTM_output_E], objc_msgSend(Prediction, "LTM_output_L"));
@@ -7707,15 +7556,13 @@ uint64_t *CBBOLTS::UpdateCurveWithPrediction(uint64_t a1, uint64_t a2)
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_0_9_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v41, COERCE__INT64(*(a1 + 224)), COERCE__INT64(*(a1 + 232)), COERCE__INT64(*(a1 + 240)), COERCE__INT64(*(a1 + 244)), COERCE__INT64(*(a1 + 228)), COERCE__INT64(*(a1 + 236)), COERCE__INT64(*(a1 + 248)), COERCE__INT64(*(a1 + 252)), COERCE__INT64(*(a1 + 308)));
-      _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "Restore from user updates sequence -> predict LTM curve: E0a %f, E0b %f, E1 %f, E2 %f, L0a %f, L0b %f, L1 %f, L2 %f, thirdSlope %f", v41, 0x5Cu);
+      __os_log_helper_16_0_9_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v42, COERCE__INT64(*(a1 + 224)), COERCE__INT64(*(a1 + 232)), COERCE__INT64(*(a1 + 240)), COERCE__INT64(*(a1 + 244)), COERCE__INT64(*(a1 + 228)), COERCE__INT64(*(a1 + 236)), COERCE__INT64(*(a1 + 248)), COERCE__INT64(*(a1 + 252)), COERCE__INT64(*(a1 + 308)));
+      _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "Restore from user updates sequence -> predict LTM curve: E0a %f, E0b %f, E1 %f, E2 %f, L0a %f, L0b %f, L1 %f, L2 %f, thirdSlope %f", v42, 0x5Cu);
     }
   }
 
   objc_autoreleasePoolPop(context);
-  result = std::vector<CBBOLTS::Bin>::~vector[abi:de200100](v40);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return std::vector<CBBOLTS::Bin>::~vector[abi:de200100](v41);
 }
 
 void CBBOLTS::UpdateCurves_Internal(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7786,7 +7633,7 @@ void CBBOLTS::UpdateCurves_Internal(uint64_t a1, uint64_t a2, uint64_t a3)
 
   v34[1] = a1 + 88;
   v34[0] = std::list<AAB::CurveUpdate>::begin[abi:de200100](a1 + 88);
-  v33 = std::list<AAB::CurveUpdate>::end[abi:de200100]();
+  v33 = std::list<AAB::CurveUpdate>::end[abi:de200100](a1 + 88);
   while (std::operator!=[abi:de200100](v34, &v33))
   {
     v32 = std::__list_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](v34);
@@ -7861,14 +7708,6 @@ void CBBOLTS::UpdateCurves_Internal(uint64_t a1, uint64_t a2, uint64_t a3)
   v25 = v42;
   v26 = v41;
   dispatch_async(v3, &block);
-  *MEMORY[0x1E69E9840];
-}
-
-uint64_t std::__list_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](uint64_t *a1)
-{
-  v1 = *a1;
-  std::__list_node_base<AAB::CurveUpdate,void *>::__as_node[abi:de200100]();
-  return std::__list_node<AAB::CurveUpdate,void *>::__get_value[abi:de200100](v2);
 }
 
 void CBBOLTS::UpdateCurve(uint64_t a1, uint64_t a2, uint64_t a3, float a4, float a5, float a6)
@@ -7981,19 +7820,19 @@ void ___ZN7CBBOLTS25UpdateCurveAndCappedCurveEP3AABNS0_21CurveUpdateParametersER
     LODWORD(v1) = v3;
     AAB::PreferenceUpdateCurveStrategy::UpdateCurveAndCappedCurve(v5, *(a1 + 40), *(a1 + 48), *(a1 + 64), *(a1 + 56), v1, *(&v3 + 1), *(a1 + 80));
     *(*(a1 + 56) + 96) = 3;
-    memcpy(v5 + 224, *(a1 + 56), 0x68uLL);
-    memcpy(v5 + 112, v5 + 224, 0x68uLL);
+    memcpy(v5 + 28, *(a1 + 56), 0x68uLL);
+    memcpy(v5 + 14, v5 + 28, 0x68uLL);
   }
 
   CBBOLTS::saveBufferToPreferences(v5);
 }
 
-BOOL CBBOLTS::useBOLTS(CBBOLTS *this)
+BOOL CBBOLTS::useBOLTS(NSObject **this)
 {
   v21 = *MEMORY[0x1E69E9840];
   v19 = this;
-  v18 = std::list<AAB::CurveUpdate>::size[abi:de200100](this + 88) > 5;
-  CBBOLTS::binUpdates(this + 88, this + 7, v17);
+  v18 = std::list<AAB::CurveUpdate>::size[abi:de200100]((this + 11)) > 5;
+  CBBOLTS::binUpdates((this + 11), this + 7, v17);
   v16 = 0;
   v15[1] = v17;
   v15[0] = std::vector<CBBOLTS::Bin>::begin[abi:de200100](v17);
@@ -8013,9 +7852,9 @@ BOOL CBBOLTS::useBOLTS(CBBOLTS *this)
   }
 
   v11 = v16 > 2;
-  if (*(this + 1))
+  if (this[1])
   {
-    v8 = *(this + 1);
+    v8 = this[1];
   }
 
   else
@@ -8048,7 +7887,7 @@ BOOL CBBOLTS::useBOLTS(CBBOLTS *this)
     }
 
     v5 = v1;
-    v2 = std::list<AAB::CurveUpdate>::size[abi:de200100](this + 88);
+    v2 = std::list<AAB::CurveUpdate>::size[abi:de200100]((this + 11));
     __os_log_helper_16_2_3_8_32_4_0_4_0(v20, v5, v2, v16);
     _os_log_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEFAULT, "%s the BOLTS curve update strategy. Num of adjustments = %d; Num of updated Bins = %d", v20, 0x18u);
   }
@@ -8060,11 +7899,10 @@ BOOL CBBOLTS::useBOLTS(CBBOLTS *this)
   }
 
   std::vector<CBBOLTS::Bin>::~vector[abi:de200100](v17);
-  *MEMORY[0x1E69E9840];
   return v4;
 }
 
-void *std::list<AAB::CurveUpdate>::list(void *a1, uint64_t a2)
+uint64_t *std::list<AAB::CurveUpdate>::list(uint64_t *a1, uint64_t a2)
 {
   std::list<AAB::CurveUpdate>::list(a1, a2);
   return a1;
@@ -8077,7 +7915,7 @@ void *std::list<AAB::CurveUpdate>::list(void *a1, uint64_t a2)
   std::allocator_traits<std::allocator<std::__list_node<AAB::CurveUpdate,void *>>>::select_on_container_copy_construction[abi:de200100]<std::allocator<std::__list_node<AAB::CurveUpdate,void *>>,void,0>();
   std::__list_imp<AAB::CurveUpdate>::__list_imp(a1);
   v6 = std::list<AAB::CurveUpdate>::begin[abi:de200100](v7);
-  v5 = std::list<AAB::CurveUpdate>::end[abi:de200100]();
+  v5 = std::list<AAB::CurveUpdate>::end[abi:de200100](v7);
   while (std::operator!=[abi:de200100](&v6, &v5))
   {
     v3 = std::__list_const_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](&v6);
@@ -8112,9 +7950,9 @@ uint64_t std::list<AAB::CurveUpdate>::operator=(uint64_t a1, uint64_t a2)
 {
   if (a1 != a2)
   {
-    std::__list_imp<AAB::CurveUpdate>::__copy_assign_alloc[abi:de200100]();
+    std::__list_imp<AAB::CurveUpdate>::__copy_assign_alloc[abi:de200100](a1, a2);
     v5 = std::list<AAB::CurveUpdate>::begin[abi:de200100](a2);
-    v4 = std::list<AAB::CurveUpdate>::end[abi:de200100]();
+    v4 = std::list<AAB::CurveUpdate>::end[abi:de200100](a2);
     std::list<AAB::CurveUpdate>::assign<std::__list_const_iterator<AAB::CurveUpdate,void *>,0>(a1, v5, v4);
   }
 
@@ -8224,8 +8062,6 @@ void ___ZN7CBBOLTS14setCappedCurveERN3AAB5CurveE_block_invoke(uint64_t a1)
     __os_log_helper_16_0_9_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v4, COERCE__INT64(*(v3 + 112)), COERCE__INT64(*(v3 + 120)), COERCE__INT64(*(v3 + 128)), COERCE__INT64(*(v3 + 132)), COERCE__INT64(*(v3 + 116)), COERCE__INT64(*(v3 + 124)), COERCE__INT64(*(v3 + 136)), COERCE__INT64(*(v3 + 140)), COERCE__INT64(*(v3 + 196)));
     _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEFAULT, "Setting capped LTM curve: E0a %f, E0b %f, E1 %f, E2 %f, L0a %f, L0b %f, L1 %f, L2 %f, thirdSlope %f", v4, 0x5Cu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void CBBOLTS::preservePreferences(NSObject **this)
@@ -8271,8 +8107,6 @@ void ___ZN7CBBOLTS19preservePreferencesEv_block_invoke(uint64_t a1)
     __os_log_helper_16_0_9_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v4, COERCE__INT64(*(v3 + 224)), COERCE__INT64(*(v3 + 232)), COERCE__INT64(*(v3 + 240)), COERCE__INT64(*(v3 + 244)), COERCE__INT64(*(v3 + 228)), COERCE__INT64(*(v3 + 236)), COERCE__INT64(*(v3 + 248)), COERCE__INT64(*(v3 + 252)), COERCE__INT64(*(v3 + 308)));
     _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEFAULT, "Preserve current LTM curve: E0a %f, E0b %f, E1 %f, E2 %f, L0a %f, L0b %f, L1 %f, L2 %f, thirdSlope %f", v4, 0x5Cu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_2_3_8_32_4_0_4_0(uint64_t result, uint64_t a2, int a3, int a4)
@@ -8446,7 +8280,7 @@ void ___ZNK7CBBOLTS23saveBufferToPreferencesEv_block_invoke(uint64_t a1)
   v11 = [MEMORY[0x1E695DF70] array];
   v10[1] = v7 + 88;
   v10[0] = std::list<AAB::CurveUpdate>::begin[abi:de200100](v7 + 88);
-  v9 = std::list<AAB::CurveUpdate>::end[abi:de200100]();
+  v9 = std::list<AAB::CurveUpdate>::end[abi:de200100](v7 + 88);
   while (std::operator!=[abi:de200100](v10, &v9))
   {
     v8 = std::__list_const_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](v10);
@@ -8468,7 +8302,6 @@ void ___ZNK7CBBOLTS23saveBufferToPreferencesEv_block_invoke(uint64_t a1)
   CFPreferencesSetValue(@"BOLTSBuffer", v11, @"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
   CFPreferencesSynchronize(@"com.apple.CoreBrightness", *v3, *v4);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 void CBBOLTS::loadBufferFromPreferences(NSObject **this)
@@ -8609,8 +8442,6 @@ void ___ZN7CBBOLTS25loadBufferFromPreferencesEv_block_invoke_2(uint64_t a1, void
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t std::vector<CBBOLTS::Bin>::__make_iter[abi:de200100](uint64_t a1, uint64_t a2)
@@ -8640,21 +8471,21 @@ void std::__list_imp<AAB::CurveUpdate>::clear(uint64_t a1)
   if (!std::__list_imp<AAB::CurveUpdate>::empty[abi:de200100](a1))
   {
     v4 = *(a1 + 8);
-    v3 = std::__list_imp<AAB::CurveUpdate>::__end_as_link[abi:de200100]();
+    v3 = std::__list_imp<AAB::CurveUpdate>::__end_as_link[abi:de200100](a1);
     std::__list_imp<AAB::CurveUpdate>::__unlink_nodes(v4, *v3);
     *(a1 + 16) = 0;
     while (v4 != v3)
     {
-      std::__list_node_base<AAB::CurveUpdate,void *>::__as_node[abi:de200100]();
+      std::__list_node_base<AAB::CurveUpdate,void *>::__as_node[abi:de200100](v4);
       v4 = *(v4 + 8);
       std::__list_imp<AAB::CurveUpdate>::__delete_node[abi:de200100](a1, v1);
     }
   }
 }
 
-uint64_t std::__list_imp<AAB::CurveUpdate>::__end_as_link[abi:de200100]()
+uint64_t std::__list_imp<AAB::CurveUpdate>::__end_as_link[abi:de200100](uint64_t a1)
 {
-  std::__list_node_base<AAB::CurveUpdate,void *>::__self[abi:de200100]();
+  std::__list_node_base<AAB::CurveUpdate,void *>::__self[abi:de200100](a1);
   std::__list_node_pointer_traits<AAB::CurveUpdate,void *>::__unsafe_link_pointer_cast[abi:de200100]();
   return result;
 }
@@ -8823,16 +8654,14 @@ void **std::__split_buffer<AAB::CurveUpdate>::__split_buffer(void **a1, unint64_
 void std::vector<AAB::CurveUpdate>::__swap_out_circular_buffer(uint64_t *a1, uint64_t *a2)
 {
   std::vector<AAB::CurveUpdate>::__annotate_delete[abi:de200100]();
-  v9 = a2[1] + 16 * ((a1[1] - *a1) / -16);
-  v2 = *a1;
+  v7 = a2[1] + 16 * ((a1[1] - *a1) / -16);
   std::__to_address[abi:de200100]<AAB::CurveUpdate>();
-  v6 = v3;
-  v4 = a1[1];
+  v4 = v2;
   std::__to_address[abi:de200100]<AAB::CurveUpdate>();
-  v7 = v5;
+  v5 = v3;
   std::__to_address[abi:de200100]<AAB::CurveUpdate>();
-  std::__uninitialized_allocator_relocate[abi:de200100]<std::allocator<AAB::CurveUpdate>,AAB::CurveUpdate*>(a1, v6, v7);
-  a2[1] = v9;
+  std::__uninitialized_allocator_relocate[abi:de200100]<std::allocator<AAB::CurveUpdate>,AAB::CurveUpdate*>(a1, v4, v5);
+  a2[1] = v7;
   a1[1] = *a1;
   std::swap[abi:de200100]<AAB::CurveUpdate *>(a1, a2 + 1);
   std::swap[abi:de200100]<AAB::CurveUpdate *>(a1 + 1, a2 + 2);
@@ -8884,7 +8713,7 @@ void *std::__libcpp_allocate[abi:de200100]<AAB::CurveUpdate>(uint64_t a1, std::a
   v3 = 16 * a1;
   if (!std::__is_overaligned_for_new[abi:de200100](a2))
   {
-    std::__libcpp_operator_new[abi:de200100]<AAB::CurveUpdate>();
+    std::__libcpp_operator_new[abi:de200100]<AAB::CurveUpdate>(v3);
   }
 
   return std::__libcpp_operator_new[abi:de200100]<AAB::CurveUpdate,unsigned long,std::align_val_t>(v3, a2);
@@ -8906,16 +8735,12 @@ uint64_t *std::swap[abi:de200100]<AAB::CurveUpdate *>(uint64_t *result, uint64_t
   return result;
 }
 
-void std::__split_buffer<AAB::CurveUpdate>::__destruct_at_end[abi:de200100](uint64_t a1, uint64_t a2)
+void std::__split_buffer<AAB::CurveUpdate>::__destruct_at_end[abi:de200100](uint64_t result, uint64_t a2)
 {
-  std::__split_buffer<AAB::CurveUpdate>::__destruct_at_end[abi:de200100](a1, a2);
-}
-
-{
-  while (a2 != *(a1 + 16))
+  while (a2 != *(result + 16))
   {
-    v3 = *(a1 + 32);
-    *(a1 + 16) -= 16;
+    v3 = *(result + 32);
+    *(result + 16) -= 16;
     std::__to_address[abi:de200100]<AAB::CurveUpdate>();
     std::allocator_traits<std::allocator<AAB::CurveUpdate>>::destroy[abi:de200100]<AAB::CurveUpdate,void,0>(v3, v2);
   }
@@ -9089,10 +8914,10 @@ uint64_t std::__log2i[abi:de200100]<long>(unint64_t a1)
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,false>(__n128 *result, __n128 *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v23 = *MEMORY[0x1E69E9840];
-  v20 = a1;
+  v20 = result;
   v19 = a2;
   v18 = a3;
   v17 = a4;
@@ -9115,16 +8940,16 @@ void std::__introsort<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:de200100]<AAB::CurveUpdate *&,AAB::CurveUpdate *&>(&v20, &v19);
         }
 
-        goto LABEL_34;
+        return;
       case 3:
-        std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v20, v20 + 1, --v19, v18);
-        goto LABEL_34;
+        std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v20, v20 + 1, v19 - 1, v18);
+        return;
       case 4:
-        std::__sort4[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v20, v20 + 1, v20 + 2, --v19, v18);
-        goto LABEL_34;
+        std::__sort4[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v20, v20 + 1, v20 + 2, v19 - 1, v18);
+        return;
       case 5:
-        std::__sort5[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v20, v20 + 1, v20 + 2, v20 + 3, --v19, v18);
-        goto LABEL_34;
+        std::__sort5[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v20, v20 + 1, v20 + 2, v20 + 3, v19 - 1, v18);
+        return;
     }
 
     if (v13 < 24)
@@ -9139,13 +8964,13 @@ void std::__introsort<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<
         std::__insertion_sort_unguarded[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *>(v20, v19, v18);
       }
 
-      break;
+      return;
     }
 
     if (!v17)
     {
       std::__partial_sort[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,AAB::CurveUpdate *>(v20, v19, v19, v18);
-      break;
+      return;
     }
 
     --v17;
@@ -9158,8 +8983,8 @@ void std::__introsort<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<
     else
     {
       std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v20, &v20[v12], v19 - 1, v18);
-      std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v20 + 1, &v20[v12 - 1], v19 - 2, v18);
-      std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v20 + 2, &v20[v12 + 1], v19 - 3, v18);
+      std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(&v20[1], &v20[v12 - 1], v19 - 2, v18);
+      std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(&v20[2], &v20[v12 + 1], v19 - 3, v18);
       std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(&v20[v12 - 1], &v20[v12], &v20[v12 + 1], v18);
       v11 = &v20[v12];
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:de200100]<AAB::CurveUpdate *&,AAB::CurveUpdate *>(&v20, &v11);
@@ -9176,11 +9001,11 @@ void std::__introsort<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<
       }
 
       v8 = std::__insertion_sort_incomplete[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *>(v20, v21, v18);
-      if (std::__insertion_sort_incomplete[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *>(v9 + 1, v19, v18))
+      if (std::__insertion_sort_incomplete[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *>(&v9[1], v19, v18))
       {
         if (v8)
         {
-          break;
+          return;
         }
 
         v19 = v9;
@@ -9208,9 +9033,6 @@ LABEL_33:
       v20 = std::__partition_with_equals_on_left[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveUpdate *,std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>>(v6, v7, v10);
     }
   }
-
-LABEL_34:
-  *MEMORY[0x1E69E9840];
 }
 
 unint64_t std::__libcpp_clz[abi:de200100](unint64_t a1)
@@ -9222,7 +9044,7 @@ unint64_t std::__libcpp_clz[abi:de200100](unint64_t a1)
   return __clz(a1);
 }
 
-uint64_t std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(__n128 *a1, __n128 *a2, __n128 *a3, uint64_t a4)
+uint64_t std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(uint64_t a1, __n128 *a2, __n128 *a3, uint64_t a4)
 {
   v8 = a1;
   v7 = a2;
@@ -9317,14 +9139,14 @@ double std::__sort5[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(
   return result;
 }
 
-uint64_t std::__insertion_sort[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *>(uint64_t result, _OWORD *a2, uint64_t a3)
+uint64_t std::__insertion_sort[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *>(uint64_t result, __int128 *a2, uint64_t a3)
 {
   v11 = result;
   v10 = a2;
   v9 = a3;
   if (result != a2)
   {
-    for (i = v11 + 1; i != v10; ++i)
+    for (i = (v11 + 16); i != v10; ++i)
     {
       v7 = i - 1;
       result = CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v9, i, (i - 1));
@@ -9363,7 +9185,7 @@ uint64_t std::__insertion_sort_unguarded[abi:de200100]<std::_ClassicAlgPolicy,CB
   v9 = a3;
   if (result != a2)
   {
-    v8 = (v11 - 16);
+    v8 = v11 - 16;
     for (i = (v11 + 16); i != v10; ++i)
     {
       v6 = i - 1;
@@ -9395,7 +9217,7 @@ uint64_t std::__insertion_sort_unguarded[abi:de200100]<std::_ClassicAlgPolicy,CB
   return result;
 }
 
-uint64_t std::__partial_sort[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,AAB::CurveUpdate *>(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 *std::__partial_sort[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,AAB::CurveUpdate *>(__n128 *a1, __n128 *a2, __n128 *a3, uint64_t a4)
 {
   v13 = a1;
   v12 = a2;
@@ -9503,87 +9325,87 @@ __n128 *std::__partition_with_equals_on_left[abi:de200100]<std::_ClassicAlgPolic
   return v11;
 }
 
-__n128 *std::__bitset_partition[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveUpdate *,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>(__n128 *a1, __n128 *a2, uint64_t a3)
+uint64_t std::__bitset_partition[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveUpdate *,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>(__n128 *a1, __n128 *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v19[0] = a1;
-  v18 = a2;
-  v17 = a3;
+  v18[5] = *MEMORY[0x1E69E9840];
+  v18[0] = a1;
+  v17 = a2;
+  v16 = a3;
   if (a2 - a1 < 3)
   {
     std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/sort.h:499: assertion __last - __first >= difference_type(3) failed: \n");
   }
 
-  v16 = v19[0];
-  v15 = v18;
-  v14 = *std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(v19);
-  if (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v17, &v14, &v18[-1]))
+  v15 = v18[0];
+  v14 = v17;
+  v13 = *std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(v18);
+  if (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v16, &v13, &v17[-1]))
   {
     do
     {
-      if (++v19[0] == v15)
+      if (++v18[0] == v14)
       {
         std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/sort.h:512: assertion __first != __end failed: Would read out of bounds, does your comparator satisfy the strict-weak ordering requirement?\n");
       }
     }
 
-    while (!CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v17, &v14, v19[0]));
+    while (!CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v16, &v13, v18[0]));
   }
 
   else
   {
     do
     {
-      ++v19[0];
-      LOBYTE(v8) = 0;
-      if (v19[0] < v18)
+      ++v18[0];
+      LOBYTE(v7) = 0;
+      if (v18[0] < v17)
       {
-        v8 = !CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v17, &v14, v19[0]);
+        v7 = !CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v16, &v13, v18[0]);
       }
     }
 
-    while (v8);
+    while (v7);
   }
 
-  if (v19[0] < v18)
+  if (v18[0] < v17)
   {
     do
     {
-      if (v18 == v16)
+      if (v17 == v15)
       {
         std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/sort.h:525: assertion __last != __begin failed: Would read out of bounds, does your comparator satisfy the strict-weak ordering requirement?\n");
       }
 
-      --v18;
+      --v17;
     }
 
-    while (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v17, &v14, v18));
+    while (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v16, &v13, v17));
   }
 
-  v13 = v19[0] >= v18;
-  if (v19[0] < v18)
+  v12 = v18[0] >= v17;
+  if (v18[0] < v17)
   {
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:de200100]<AAB::CurveUpdate *&,AAB::CurveUpdate *&>(v19, &v18);
-    ++v19[0];
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:de200100]<AAB::CurveUpdate *&,AAB::CurveUpdate *&>(v18, &v17);
+    ++v18[0];
   }
 
-  v12 = v18 - 1;
-  v11 = 0;
+  v11 = v17 - 1;
   v10 = 0;
-  while (v12 - v19[0] >= 127)
+  v9 = 0;
+  while (v11 - v18[0] >= 127)
   {
-    if (!v11)
-    {
-      std::__populate_left_bitset[abi:de200100]<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,AAB::CurveUpdate>(v19[0], v17, &v14, &v11);
-    }
-
     if (!v10)
     {
-      std::__populate_right_bitset[abi:de200100]<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,AAB::CurveUpdate>(v12, v17, &v14, &v10);
+      std::__populate_left_bitset[abi:de200100]<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,AAB::CurveUpdate>(v18[0], v16, &v13, &v10);
     }
 
-    std::__swap_bitmap_pos[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveUpdate *>(v19[0], v12, &v11, &v10);
-    if (v11)
+    if (!v9)
+    {
+      std::__populate_right_bitset[abi:de200100]<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,AAB::CurveUpdate>(v11, v16, &v13, &v9);
+    }
+
+    std::__swap_bitmap_pos[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveUpdate *>(v18[0], v11, &v10, &v9);
+    if (v10)
     {
       v3 = 0;
     }
@@ -9593,8 +9415,8 @@ __n128 *std::__bitset_partition[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveU
       v3 = 64;
     }
 
-    v19[0] += v3;
-    if (v10)
+    v18[0] += v3;
+    if (v9)
     {
       v4 = 0;
     }
@@ -9604,127 +9426,117 @@ __n128 *std::__bitset_partition[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveU
       v4 = 64;
     }
 
-    v12 -= v4;
+    v11 -= v4;
   }
 
-  std::__bitset_partition_partial_blocks[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,AAB::CurveUpdate>(v19, &v12, v17, &v14, &v11, &v10);
-  std::__swap_bitmap_pos_within[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveUpdate *>(v19, &v12, &v11, &v10);
-  v9 = v19[0] - 1;
-  if (v16 != &v19[0][-1])
+  std::__bitset_partition_partial_blocks[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,AAB::CurveUpdate>(v18, &v11, v16, &v13, &v10, &v9);
+  std::__swap_bitmap_pos_within[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveUpdate *>(v18, &v11, &v10, &v9);
+  v8 = v18[0] - 1;
+  if (v15 != &v18[0][-1])
   {
-    v5 = std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(&v9);
-    *v16 = *v5;
+    v5 = std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(&v8);
+    *v15 = *v5;
   }
 
-  *v9 = v14;
-  v21 = std::make_pair[abi:de200100]<AAB::CurveUpdate *&,BOOL &>(&v9, &v13);
-  v22 = v6;
-  v19[1] = v21;
-  LOBYTE(v20) = v6;
-  *MEMORY[0x1E69E9840];
-  return v21;
+  *v8 = v13;
+  return std::make_pair[abi:de200100]<AAB::CurveUpdate *&,BOOL &>(&v8, &v12);
 }
 
-__n128 *std::__partition_with_equals_on_right[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveUpdate *,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>(__n128 *a1, __n128 *a2, uint64_t a3)
+uint64_t std::__partition_with_equals_on_right[abi:de200100]<std::_ClassicAlgPolicy,AAB::CurveUpdate *,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>(__n128 *a1, __n128 *a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v14[0] = a1;
-  v13 = a2;
-  v12 = a3;
+  v13[5] = *MEMORY[0x1E69E9840];
+  v13[0] = a1;
+  v12 = a2;
+  v11 = a3;
   if (a2 - a1 < 3)
   {
     std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/sort.h:591: assertion __last - __first >= difference_type(3) failed: \n");
   }
 
-  v11 = v14[0];
-  v10 = v13;
-  v9 = *std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(v14);
+  v10 = v13[0];
+  v9 = v12;
+  v8 = *std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(v13);
   do
   {
-    if (++v14[0] == v10)
+    if (++v13[0] == v9)
     {
       std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/sort.h:603: assertion __first != __end failed: Would read out of bounds, does your comparator satisfy the strict-weak ordering requirement?\n");
     }
   }
 
-  while (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v12, v14[0], &v9));
-  if (v11 == &v14[0][-1])
+  while (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v11, v13[0], &v8));
+  if (v10 == &v13[0][-1])
   {
     do
     {
-      LOBYTE(v6) = 0;
-      if (v14[0] < v13)
+      LOBYTE(v5) = 0;
+      if (v13[0] < v12)
       {
-        v6 = !CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v12, --v13, &v9);
+        v5 = !CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v11, --v12, &v8);
       }
     }
 
-    while (v6);
+    while (v5);
   }
 
   else
   {
     do
     {
-      if (v13 == v11)
+      if (v12 == v10)
       {
         std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/sort.h:615: assertion __last != __begin failed: Would read out of bounds, does your comparator satisfy the strict-weak ordering requirement?\n");
       }
 
-      --v13;
+      --v12;
     }
 
-    while (!CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v12, v13, &v9));
+    while (!CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v11, v12, &v8));
   }
 
-  v8 = v14[0] >= v13;
-  while (v14[0] < v13)
+  v7 = v13[0] >= v12;
+  while (v13[0] < v12)
   {
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:de200100]<AAB::CurveUpdate *&,AAB::CurveUpdate *&>(v14, &v13);
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:de200100]<AAB::CurveUpdate *&,AAB::CurveUpdate *&>(v13, &v12);
     do
     {
-      if (++v14[0] == v10)
+      if (++v13[0] == v9)
       {
         std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/sort.h:633: assertion __first != __end failed: Would read out of bounds, does your comparator satisfy the strict-weak ordering requirement?\n");
       }
     }
 
-    while (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v12, v14[0], &v9));
+    while (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v11, v13[0], &v8));
     do
     {
-      if (v13 == v11)
+      if (v12 == v10)
       {
         std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/sort.h:638: assertion __last != __begin failed: Would read out of bounds, does your comparator satisfy the strict-weak ordering requirement?\n");
       }
 
-      --v13;
+      --v12;
     }
 
-    while (!CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v12, v13, &v9));
+    while (!CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v11, v12, &v8));
   }
 
-  v7 = v14[0] - 1;
-  if (v11 != &v14[0][-1])
+  n128_u64 = v13[0][-1].n128_u64;
+  if (v10 != &v13[0][-1])
   {
-    v3 = std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(&v7);
-    *v11 = *v3;
+    v3 = std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(&n128_u64);
+    *v10 = *v3;
   }
 
-  *v7 = v9;
-  v16 = std::make_pair[abi:de200100]<AAB::CurveUpdate *&,BOOL &>(&v7, &v8);
-  v17 = v4;
-  v14[1] = v16;
-  LOBYTE(v15) = v4;
-  *MEMORY[0x1E69E9840];
-  return v16;
+  *n128_u64 = v8;
+  return std::make_pair[abi:de200100]<AAB::CurveUpdate *&,BOOL &>(&n128_u64, &v7);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *>(__n128 *a1, __n128 *a2, uint64_t a3)
+BOOL std::__insertion_sort_incomplete[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *>(uint64_t a1, __n128 *a2, uint64_t a3)
 {
   v15 = a1;
   v14 = a2;
   v13 = a3;
-  v6 = a2 - a1;
+  v6 = (a2 - a1) / 16;
   if (v6 <= 1)
   {
     return 1;
@@ -9743,23 +9555,23 @@ BOOL std::__insertion_sort_incomplete[abi:de200100]<std::_ClassicAlgPolicy,CBBOL
         v16 = 1;
         break;
       case 3uLL:
-        std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v15, v15 + 1, v14 - 1, v13);
+        std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v15, (v15 + 16), v14 - 1, v13);
         v16 = 1;
         break;
       case 4uLL:
-        std::__sort4[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v15, v15 + 1, v15 + 2, v14 - 1, v13);
+        std::__sort4[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v15, (v15 + 16), (v15 + 32), v14 - 1, v13);
         v16 = 1;
         break;
       case 5uLL:
-        std::__sort5[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v15, v15 + 1, v15 + 2, v15 + 3, v14 - 1, v13);
+        std::__sort5[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v15, (v15 + 16), (v15 + 32), (v15 + 48), v14 - 1, v13);
         v16 = 1;
         break;
       default:
-        v12 = v15 + 2;
-        std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v15, v15 + 1, v15 + 2, v13);
+        v12 = (v15 + 32);
+        std::__sort3[abi:de200100]<std::_ClassicAlgPolicy,CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &,AAB::CurveUpdate *,0>(v15, (v15 + 16), (v15 + 32), v13);
         v11 = 8;
         v10 = 0;
-        for (i = v15 + 3; i != v14; ++i)
+        for (i = (v15 + 48); i != v14; ++i)
         {
           if (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(v13, i, v12))
           {
@@ -9845,5 +9657,154 @@ void std::__make_heap[abi:de200100]<std::_ClassicAlgPolicy,std::__debug_less<CBB
     {
       std::__sift_down[abi:de200100]<std::_ClassicAlgPolicy,std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &> &,AAB::CurveUpdate *>(v7, v5, v4, (v7 + 16 * i));
     }
+  }
+}
+
+BOOL std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  v5 = CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(*a1, a2, a3);
+  if (v5)
+  {
+    std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>::__do_compare_assert[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(a1, 0, a3, a2);
+  }
+
+  return v5;
+}
+
+double std::__sift_down[abi:de200100]<std::_ClassicAlgPolicy,std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &,AAB::CurveUpdate *>(uint64_t a1, uint64_t *a2, uint64_t a3, _OWORD *a4)
+{
+  v12 = a1;
+  v11 = a2;
+  v10 = a3;
+  v9 = a4;
+  v8 = (a4 - a1) / 16;
+  if (a3 >= 2 && (v10 - 2) / 2 >= v8)
+  {
+    v8 = 2 * v8 + 1;
+    v7 = (v12 + 16 * v8);
+    if (v8 + 1 < v10 && std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(v11, v7, (v7 + 1)))
+    {
+      ++v7;
+      ++v8;
+    }
+
+    if (!std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(v11, v7, v9))
+    {
+      v6 = *std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(&v9);
+      do
+      {
+        v5 = std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(&v7);
+        *v9 = *v5;
+        v9 = v7;
+        if ((v10 - 2) / 2 < v8)
+        {
+          break;
+        }
+
+        v8 = 2 * v8 + 1;
+        v7 = (v12 + 16 * v8);
+        if (v8 + 1 < v10 && std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(v11, v7, (v7 + 1)))
+        {
+          ++v7;
+          ++v8;
+        }
+      }
+
+      while (!std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(v11, v7, &v6));
+      result = *&v6;
+      *v9 = v6;
+    }
+  }
+
+  return result;
+}
+
+void std::__sort_heap[abi:de200100]<std::_ClassicAlgPolicy,std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &,AAB::CurveUpdate *>(_OWORD *a1, _OWORD *a2, uint64_t a3)
+{
+  v8 = a1;
+  v7 = a2;
+  v6 = a3;
+  v5 = a2;
+  std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>::__debug_less[abi:de200100](&v4, a3);
+  for (i = v7 - v8; i > 1; --i)
+  {
+    std::__pop_heap[abi:de200100]<std::_ClassicAlgPolicy,std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>,AAB::CurveUpdate *>(v8, v7--, &v4, i);
+  }
+
+  std::__check_strict_weak_ordering_sorted[abi:de200100]<AAB::CurveUpdate *,std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>>(v8, v5, &v4);
+}
+
+double std::__sift_down[abi:de200100]<std::_ClassicAlgPolicy,std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &> &,AAB::CurveUpdate *>(uint64_t a1, uint64_t **a2, uint64_t a3, _OWORD *a4)
+{
+  v12 = a1;
+  v11 = a2;
+  v10 = a3;
+  v9 = a4;
+  v8 = (a4 - a1) / 16;
+  if (a3 >= 2 && (v10 - 2) / 2 >= v8)
+  {
+    v8 = 2 * v8 + 1;
+    v7 = (v12 + 16 * v8);
+    if (v8 + 1 < v10 && std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(v11, v7, (v7 + 1)))
+    {
+      ++v7;
+      ++v8;
+    }
+
+    if (!std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(v11, v7, v9))
+    {
+      v6 = *std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(&v9);
+      do
+      {
+        v5 = std::_IterOps<std::_ClassicAlgPolicy>::__iter_move[abi:de200100]<AAB::CurveUpdate *&,0>(&v7);
+        *v9 = *v5;
+        v9 = v7;
+        if ((v10 - 2) / 2 < v8)
+        {
+          break;
+        }
+
+        v8 = 2 * v8 + 1;
+        v7 = (v12 + 16 * v8);
+        if (v8 + 1 < v10 && std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(v11, v7, (v7 + 1)))
+        {
+          ++v7;
+          ++v8;
+        }
+      }
+
+      while (!std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(v11, v7, &v6));
+      result = *&v6;
+      *v9 = v6;
+    }
+  }
+
+  return result;
+}
+
+BOOL std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(uint64_t **a1, uint64_t a2, uint64_t a3)
+{
+  v5 = std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(*a1, a2, a3);
+  if (v5)
+  {
+    std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>::__do_compare_assert[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(a1, 0, a3, a2);
+  }
+
+  return v5;
+}
+
+void std::__debug_less<std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &> &>::__do_compare_assert[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>::operator()[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(*a1, a3, a4))
+  {
+    std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/comp_ref_type.h:47: assertion !__comp_(__l, __r) failed: Comparator does not induce a strict weak ordering\n");
+  }
+}
+
+void std::__debug_less<CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0 &>::__do_compare_assert[abi:de200100]<AAB::CurveUpdate,AAB::CurveUpdate>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (CBBOLTS::serializeBins(std::vector<CBBOLTS::Bin> const&)::$_0::operator()(*a1, a3, a4))
+  {
+    std::__libcpp_verbose_abort("%s", "/AppleInternal/Library/BuildRoots/4~CACiugD83PS9O4MQmDrt24KbeUngbVajAxILYZI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/include/c++/v1/__algorithm/comp_ref_type.h:47: assertion !__comp_(__l, __r) failed: Comparator does not induce a strict weak ordering\n");
   }
 }

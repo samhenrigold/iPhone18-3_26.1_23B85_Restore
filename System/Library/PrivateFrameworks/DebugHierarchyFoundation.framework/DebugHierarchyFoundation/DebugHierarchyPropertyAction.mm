@@ -8,7 +8,11 @@
 - (void)_fetchValuesForPropertiesWithNames:(id)names onObject:(id)object inContext:(id)context;
 - (void)addPropertyNames:(id)names;
 - (void)performInContext:(id)context withObject:(id)object;
+- (void)setExactTypes:(id)types exlusive:(BOOL)exlusive;
+- (void)setObjectIdentifiers:(id)identifiers exlusive:(BOOL)exlusive;
 - (void)setOptions:(int64_t)options comparisonStyle:(int64_t)style;
+- (void)setPropertyNames:(id)names exlusive:(BOOL)exlusive;
+- (void)setTypes:(id)types exlusive:(BOOL)exlusive;
 @end
 
 @implementation DebugHierarchyPropertyAction
@@ -25,6 +29,38 @@
   }
 
   return result;
+}
+
+- (void)setObjectIdentifiers:(id)identifiers exlusive:(BOOL)exlusive
+{
+  exlusiveCopy = exlusive;
+  [(DebugHierarchyPropertyAction *)self setObjectIdentifiers:identifiers];
+
+  [(DebugHierarchyPropertyAction *)self setObjectIdentifiersAreExclusive:exlusiveCopy];
+}
+
+- (void)setTypes:(id)types exlusive:(BOOL)exlusive
+{
+  exlusiveCopy = exlusive;
+  [(DebugHierarchyPropertyAction *)self setTypes:types];
+
+  [(DebugHierarchyPropertyAction *)self setTypesAreExclusive:exlusiveCopy];
+}
+
+- (void)setExactTypes:(id)types exlusive:(BOOL)exlusive
+{
+  exlusiveCopy = exlusive;
+  [(DebugHierarchyPropertyAction *)self setExactTypes:types];
+
+  [(DebugHierarchyPropertyAction *)self setExactTypesAreExclusive:exlusiveCopy];
+}
+
+- (void)setPropertyNames:(id)names exlusive:(BOOL)exlusive
+{
+  exlusiveCopy = exlusive;
+  [(DebugHierarchyPropertyAction *)self setPropertyNames:names];
+
+  [(DebugHierarchyPropertyAction *)self setPropertyNamesAreExclusive:exlusiveCopy];
 }
 
 - (void)addPropertyNames:(id)names

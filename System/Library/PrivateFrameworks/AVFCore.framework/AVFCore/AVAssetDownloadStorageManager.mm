@@ -10,15 +10,15 @@
 
 - (AVAssetDownloadStorageManager)init
 {
-  v4.receiver = self;
-  v4.super_class = AVAssetDownloadStorageManager;
-  v2 = [(AVAssetDownloadStorageManager *)&v4 init];
-  if (v2)
+  v5.receiver = self;
+  v5.super_class = AVAssetDownloadStorageManager;
+  v3 = [(AVAssetDownloadStorageManager *)&v5 init];
+  if (v3)
   {
-    v2->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avassetdownloadstoragemanager.ivars");
+    v3->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avassetdownloadstoragemanager.ivars", v2);
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -197,7 +197,7 @@ void *__67__AVAssetDownloadStorageManager_setStorageManagementPolicy_forURL___bl
   return result;
 }
 
-uint64_t __63__AVAssetDownloadStorageManager_storageManagementPolicyForURL___block_invoke(uint64_t a1)
+void *__63__AVAssetDownloadStorageManager_storageManagementPolicyForURL___block_invoke(uint64_t a1)
 {
   result = FigAssetDownloadStorageManagementCopyExpirationDateForAssetAtURL();
   if (!result)

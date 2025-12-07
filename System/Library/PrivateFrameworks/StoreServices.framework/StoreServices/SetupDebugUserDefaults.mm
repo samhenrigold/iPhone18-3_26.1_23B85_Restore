@@ -8,7 +8,7 @@ void ____SetupDebugUserDefaults_block_invoke()
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, __DebugUserDefaultsChangedNotification, @"com.apple.itunesstored.defaultschange", 0, CFNotificationSuspensionBehaviorCoalesce);
 
-  __ReloadDebugUserDefaults();
+  __ReloadDebugUserDefaults(v1, v2);
 }
 
 @end

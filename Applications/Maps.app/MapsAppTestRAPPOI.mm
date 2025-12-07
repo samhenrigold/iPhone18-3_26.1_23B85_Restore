@@ -38,8 +38,8 @@
 
 - (void)_startCalloutRAPControllerPresentationTest
 {
-  options = [(MapsAppTest *)self options];
-  v6 = [options objectForKeyedSubscript:@"searchString"];
+  v3 = objc_msgSend_options(self, a2);
+  v6 = [v3 objectForKeyedSubscript:@"searchString"];
 
   v4 = objc_alloc_init(SearchFieldItem);
   [(SearchFieldItem *)v4 setSearchString:v6];
@@ -63,22 +63,22 @@
   [(MapsAppTestRAP *)self overrideProblemSubmissionURL];
   [(MapsAppTestRAP *)self overridePrivacyConsent];
   [(MapsAppTest *)self setupForVKTest];
-  options = [(MapsAppTest *)self options];
-  [options _mapstest_jumpPoint];
+  v4 = objc_msgSend_options(self);
+  [v4 _mapstest_jumpPoint];
   v6 = v5;
   v8 = v7;
   v10 = v9;
 
-  options2 = [(MapsAppTest *)self options];
-  [options2 _mapstest_pitch];
+  v11 = objc_msgSend_options(self);
+  [v11 _mapstest_pitch];
   v13 = v12;
 
-  options3 = [(MapsAppTest *)self options];
-  [options3 _mapstest_yaw];
+  v14 = objc_msgSend_options(self);
+  [v14 _mapstest_yaw];
   v16 = v15;
 
-  options4 = [(MapsAppTest *)self options];
-  _mapstest_mapType = [options4 _mapstest_mapType];
+  v17 = objc_msgSend_options(self);
+  _mapstest_mapType = [v17 _mapstest_mapType];
 
   [(MapsAppTest *)self switchToMapType:_mapstest_mapType];
   mainVKMapView = [(MapsAppTest *)self mainVKMapView];

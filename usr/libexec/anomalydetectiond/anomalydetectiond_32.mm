@@ -12,7 +12,6 @@ BOOL CMMsl::PDRAlgType::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::PdrMLModelOutput::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 40);
   if (*(a1 + 40))
   {
     if ((*(a2 + 40) & 1) == 0 || *(a1 + 32) != *(a2 + 32))
@@ -26,29 +25,29 @@ BOOL CMMsl::PdrMLModelOutput::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v5 = *(a2 + 8);
-  if (v3 - v4 != *(a2 + 16) - v5)
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
   {
     return 0;
   }
 
-  if (v4 == v3)
+  if (v3 == v2)
   {
     return 1;
   }
 
-  v6 = v4 + 8;
+  v5 = v3 + 8;
   do
   {
-    v7 = *v5++;
-    result = *(v6 - 8) == v7;
-    v9 = *(v6 - 8) != v7 || v6 == v3;
-    v6 += 8;
+    v6 = *v4++;
+    result = *(v5 - 8) == v6;
+    v8 = *(v5 - 8) != v6 || v5 == v2;
+    v5 += 8;
   }
 
-  while (!v9);
+  while (!v8);
   return result;
 }
 
@@ -1339,7 +1338,6 @@ BOOL CMMsl::Skeleton3DLifted::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::WatchHeartRateData::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 32);
   if ((*(a1 + 32) & 2) != 0)
   {
     if ((*(a2 + 32) & 2) == 0 || *(a1 + 16) != *(a2 + 16))
@@ -1366,12 +1364,12 @@ BOOL CMMsl::WatchHeartRateData::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v3 = *(a1 + 24);
-  v4 = *(a2 + 24);
-  result = v4 == 0;
-  if (v3)
+  v2 = *(a1 + 24);
+  v3 = *(a2 + 24);
+  result = v3 == 0;
+  if (v2)
   {
-    return v4 && CMMsl::OnsetHeartRateData::operator==(v3, v4);
+    return v3 && CMMsl::OnsetHeartRateData::operator==(v2, v3);
   }
 
   return result;
@@ -4095,7 +4093,6 @@ BOOL CMMsl::NonlinearBiasFit::operator==(uint64_t a1, uint64_t a2)
     ++v12;
   }
 
-  v13 = *(a2 + 180);
   if (*(a1 + 180))
   {
     if ((*(a2 + 180) & 1) == 0 || *(a1 + 176) != *(a2 + 176))
@@ -4109,23 +4106,23 @@ BOOL CMMsl::NonlinearBiasFit::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v14 = *(a1 + 80);
-  v15 = *(a1 + 88) - v14;
-  v16 = *(a2 + 80);
-  if (v15 != *(a2 + 88) - v16)
+  v13 = *(a1 + 80);
+  v14 = *(a1 + 88) - v13;
+  v15 = *(a2 + 80);
+  if (v14 != *(a2 + 88) - v15)
   {
     return 0;
   }
 
-  if (memcmp(v14, v16, v15))
+  if (memcmp(v13, v15, v14))
   {
     return 0;
   }
 
-  v17 = *(a1 + 8);
-  v18 = *(a1 + 16) - v17;
-  v19 = *(a2 + 8);
-  if (v18 != *(a2 + 16) - v19 || memcmp(v17, v19, v18) || !sub_1000775B0(a1 + 32, a2 + 32))
+  v16 = *(a1 + 8);
+  v17 = *(a1 + 16) - v16;
+  v18 = *(a2 + 8);
+  if (v17 != *(a2 + 16) - v18 || memcmp(v16, v18, v17) || !sub_1000775B0(a1 + 32, a2 + 32))
   {
     return 0;
   }
@@ -6345,7 +6342,6 @@ BOOL CMMsl::MovementStatsSignal::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::MovementStatsGravityProjection::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 76);
   if ((*(a1 + 76) & 2) != 0)
   {
     if ((*(a2 + 76) & 2) == 0 || *(a1 + 64) != *(a2 + 64))
@@ -6385,48 +6381,48 @@ BOOL CMMsl::MovementStatsGravityProjection::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v5 = *(a2 + 32);
-  if (v3 - v4 != *(a2 + 40) - v5)
+  v3 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  v4 = *(a2 + 32);
+  if (v2 - v3 != *(a2 + 40) - v4)
   {
     return 0;
   }
 
-  while (v4 != v3)
+  while (v3 != v2)
   {
-    if (*v4 != *v5)
+    if (*v3 != *v4)
     {
       return 0;
     }
 
+    ++v3;
     ++v4;
-    ++v5;
   }
 
-  v7 = *(a1 + 8);
-  v6 = *(a1 + 16);
-  v8 = *(a2 + 8);
-  if (v6 - v7 != *(a2 + 16) - v8)
+  v6 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  v7 = *(a2 + 8);
+  if (v5 - v6 != *(a2 + 16) - v7)
   {
     return 0;
   }
 
-  if (v7 == v6)
+  if (v6 == v5)
   {
     return 1;
   }
 
-  v9 = v7 + 4;
+  v8 = v6 + 4;
   do
   {
-    v10 = *v8++;
-    result = *(v9 - 4) == v10;
-    v12 = *(v9 - 4) != v10 || v9 == v6;
-    v9 += 4;
+    v9 = *v7++;
+    result = *(v8 - 4) == v9;
+    v11 = *(v8 - 4) != v9 || v8 == v5;
+    v8 += 4;
   }
 
-  while (!v12);
+  while (!v11);
   return result;
 }
 
@@ -8205,7 +8201,6 @@ BOOL CMMsl::JitterBufferLevel::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::PressureFiltered1HzLowPass::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 24);
   if (*(a1 + 24))
   {
     if ((*(a2 + 24) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
@@ -8219,12 +8214,12 @@ BOOL CMMsl::PressureFiltered1HzLowPass::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v3 = *(a1 + 16);
-  v4 = *(a2 + 16);
-  result = v4 == 0;
-  if (v3)
+  v2 = *(a1 + 16);
+  v3 = *(a2 + 16);
+  result = v3 == 0;
+  if (v2)
   {
-    return v4 && CMMsl::PressureFilteredNoTemperature::operator==(v3, v4);
+    return v3 && CMMsl::PressureFilteredNoTemperature::operator==(v2, v3);
   }
 
   return result;

@@ -125,27 +125,27 @@
 
 uint64_t __95__CADMockSpotlightIndex_endIndexBatchWithExpectedClientState_newClientState_completionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (((*(*(*(&v12 + 1) + 8 * i) + 16))(*(*(&v12 + 1) + 8 * i)) & 1) == 0)
+        if (((*(*(*(&v11 + 1) + 8 * i) + 16))(*(*(&v11 + 1) + 8 * i)) & 1) == 0)
         {
           v7 = [*(a1 + 32) _mockFailureError];
           v8 = *(*(a1 + 48) + 8);
@@ -156,7 +156,7 @@ uint64_t __95__CADMockSpotlightIndex_endIndexBatchWithExpectedClientState_newCli
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -171,10 +171,9 @@ LABEL_11:
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(*(*(a1 + 48) + 8) + 40));
+    return (*(result + 16))(result, *(*(*(a1 + 48) + 8) + 40));
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -239,10 +238,9 @@ uint64_t __86__CADMockSpotlightIndex_deleteSearchableItemsWithDomainIdentifiers_
   result = *(a1 + 56);
   if (result)
   {
-    v10 = *(*(*(a1 + 64) + 8) + 40);
-    v11 = *(result + 16);
+    v10 = *(result + 16);
 
-    return v11();
+    return v10();
   }
 
   return result;
@@ -380,10 +378,9 @@ uint64_t __79__CADMockSpotlightIndex_deleteAllSearchableItemsForBundleID_complet
   result = *(a1 + 56);
   if (result)
   {
-    v10 = *(*(*(a1 + 64) + 8) + 40);
-    v11 = *(result + 16);
+    v10 = *(result + 16);
 
-    return v11();
+    return v10();
   }
 
   return result;

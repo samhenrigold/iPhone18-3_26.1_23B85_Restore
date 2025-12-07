@@ -28,16 +28,17 @@
 - (int64_t)shortcutsOnboardingState;
 - (int64_t)sportsOnboardingState;
 - (int64_t)sportsSyncState;
-- (uint64_t)_modifyUserInfoWithBlock:(uint64_t)result;
 - (uint64_t)_shouldRotateAdsUserIDWithCreatedDate:(id *)date;
 - (unint64_t)progressivePersonalization;
 - (unint64_t)sportsTopicNotificationsEnabledState;
 - (void)_clearTemporaryUserIDForKey:(uint64_t)key;
 - (void)_generateTemporaryUserIDIfNeededForKey:(uint64_t)key;
+- (void)_modifyUserInfoWithBlock:(void *)result;
 - (void)_persistAdsUserID:(void *)d createdDate:;
 - (void)_persistSportsUserID:(id *)d;
 - (void)_setUserInfoValue:(void *)value forKey:;
 - (void)accessTokenDidChangeForTagID:(id)d;
+- (void)accessTokenRemovedForTagID:(id)d userInitiated:(BOOL)initiated;
 - (void)addObserver:(id)observer;
 - (void)handleSyncWithChangedRecords:(id)records deletedRecordNames:(id)names;
 - (void)handleSyncWithUserInfoRecord:(id *)record;
@@ -63,14 +64,19 @@
 - (void)setCanonicalLanguage:(id)language;
 - (void)setDateLastOpened:(id)opened;
 - (void)setEditorialArticleVersion:(id)version;
+- (void)setEndOfAudioTrackNotificationsEnabled:(BOOL)enabled;
 - (void)setFeldsparID:(id)d;
+- (void)setHasShownProgressivePersonalizationWelcomeBrick:(BOOL)brick;
 - (void)setImportSavedToRecipeVersion:(id)version;
 - (void)setLastAppLaunchUpsellInstanceID:(id)d;
+- (void)setMarketingNotificationsEnabled:(BOOL)enabled;
 - (void)setMonthlyALaCarteSubscriptionMeteredCount:(id)count;
 - (void)setMonthlyBundleSubscriptionMeteredCount:(id)count;
+- (void)setNewIssueNotificationsEnabled:(BOOL)enabled;
 - (void)setNewsletterSignupLastSeenDate:(id)date;
 - (void)setOnboardingVersionNumber:(id)number;
 - (void)setPostPurchaseOnboardingLastShownDate:(id)date;
+- (void)setPuzzleNotificationsEnabled:(BOOL)enabled userTriggered:(BOOL)triggered;
 - (void)setPuzzleStatsStartDate:(id)date;
 - (void)setReadOnlyUserInfo:(uint64_t)info;
 - (void)setShortcutsOnboardingState:(int64_t)state;
@@ -80,6 +86,7 @@
 - (void)setSportsTopicNotificationsEnabledState:(unint64_t)state;
 - (void)setSportsUserID:(id)d;
 - (void)setUpsellAppLaunchCount:(id)count;
+- (void)setUserHasCompletedFavoritesSetup:(BOOL)setup;
 - (void)setUserStartDate:(id)date;
 - (void)settingsDataDidChangeForPuzzleTypeID:(id)d;
 - (void)syncWithCompletion:(id)completion;
@@ -131,10 +138,10 @@ void __32__FCUserInfo_overrideFeldsparID__block_invoke()
 
 - (void)prepareForUse
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = FCUserInfo;
-  [(FCPrivateDataController *)&v22 prepareForUse];
+  v24 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = FCUserInfo;
+  [(FCPrivateDataController *)&v21 prepareForUse];
   notificationsUserID = [(FCUserInfo *)self notificationsUserID];
   if (!notificationsUserID || (v4 = notificationsUserID, -[FCUserInfo notificationsUserID](self, "notificationsUserID"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 length], v5, v4, !v6))
   {
@@ -146,7 +153,7 @@ void __32__FCUserInfo_overrideFeldsparID__block_invoke()
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v24 = uUIDString;
+      v23 = uUIDString;
       _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_INFO, "Generated a new notificationsUserID: %@", buf, 0xCu);
     }
   }
@@ -169,7 +176,7 @@ void __32__FCUserInfo_overrideFeldsparID__block_invoke()
       if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v24 = v12;
+        v23 = v12;
         _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_INFO, "Private data syncing is disabled, generated a new notificationsUserID: %@", buf, 0xCu);
       }
     }
@@ -196,8 +203,6 @@ void __32__FCUserInfo_overrideFeldsparID__block_invoke()
     date = [MEMORY[0x1E695DF00] date];
     [(FCUserInfo *)self _setUserInfoValue:date forKey:@"adsUserIDCreatedDate"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadLocalCachesFromStore
@@ -304,7 +309,7 @@ void __32__FCUserInfo_overrideFeldsparID__block_invoke()
 
 - (NSString)feldsparID
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = +[FCUserInfo overrideFeldsparID];
   if ([v3 length])
   {
@@ -329,24 +334,22 @@ void __32__FCUserInfo_overrideFeldsparID__block_invoke()
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
         {
-          v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSID was requested from UserInfo before a temporary one had been generated"];
-          v11 = 136315906;
-          v12 = "[FCUserInfo feldsparID]";
-          v13 = 2080;
-          v14 = "FCUserInfo.m";
-          v15 = 1024;
-          v16 = 358;
-          v17 = 2114;
-          v18 = v10;
-          _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingTemporaryFSID) : %s %s:%d %{public}@", &v11, 0x26u);
+          v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSID was requested from UserInfo before a temporary one had been generated"];
+          v10 = 136315906;
+          v11 = "[FCUserInfo feldsparID]";
+          v12 = 2080;
+          v13 = "FCUserInfo.m";
+          v14 = 1024;
+          v15 = 358;
+          v16 = 2114;
+          v17 = v9;
+          _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingTemporaryFSID) : %s %s:%d %{public}@", &v10, 0x26u);
         }
 
         v4 = 0;
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -393,7 +396,7 @@ void __32__FCUserInfo_overrideFeldsparID__block_invoke()
 
 - (NSString)sportsUserID
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = [(FCUserInfo *)&self->super.super.isa _userInfoValueForKey:?];
   v4 = v3;
   if (v3)
@@ -408,30 +411,28 @@ void __32__FCUserInfo_overrideFeldsparID__block_invoke()
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Sports user ID was requested from UserInfo before a temporary one had been generated"];
-        v9 = 136315906;
-        v10 = "[FCUserInfo sportsUserID]";
-        v11 = 2080;
-        v12 = "FCUserInfo.m";
-        v13 = 1024;
-        v14 = 409;
-        v15 = 2114;
-        v16 = v8;
-        _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingTemporarySportsUserID) : %s %s:%d %{public}@", &v9, 0x26u);
+        v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Sports user ID was requested from UserInfo before a temporary one had been generated"];
+        v8 = 136315906;
+        v9 = "[FCUserInfo sportsUserID]";
+        v10 = 2080;
+        v11 = "FCUserInfo.m";
+        v12 = 1024;
+        v13 = 409;
+        v14 = 2114;
+        v15 = v7;
+        _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingTemporarySportsUserID) : %s %s:%d %{public}@", &v8, 0x26u);
       }
 
       v5 = 0;
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (NSString)adsUserID
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = [(FCUserInfo *)&self->super.super.isa _userInfoValueForKey:?];
   v4 = v3;
   if (v3)
@@ -446,23 +447,21 @@ void __32__FCUserInfo_overrideFeldsparID__block_invoke()
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Ads user ID was requested from UserInfo before a temporary one had been generated"];
-        v9 = 136315906;
-        v10 = "[FCUserInfo adsUserID]";
-        v11 = 2080;
-        v12 = "FCUserInfo.m";
-        v13 = 1024;
-        v14 = 396;
-        v15 = 2114;
-        v16 = v8;
-        _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingTemporaryAdsUserID) : %s %s:%d %{public}@", &v9, 0x26u);
+        v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Ads user ID was requested from UserInfo before a temporary one had been generated"];
+        v8 = 136315906;
+        v9 = "[FCUserInfo adsUserID]";
+        v10 = 2080;
+        v11 = "FCUserInfo.m";
+        v12 = 1024;
+        v13 = 396;
+        v14 = 2114;
+        v15 = v7;
+        _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingTemporaryAdsUserID) : %s %s:%d %{public}@", &v8, 0x26u);
       }
 
       v5 = 0;
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -635,7 +634,7 @@ void __25__FCUserInfo_desiredKeys__block_invoke()
 
 - (void)setOnboardingVersionNumber:(id)number
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   [MEMORY[0x1E696AF00] isMainThread];
   v5 = FCDefaultLog;
@@ -644,9 +643,9 @@ void __25__FCUserInfo_desiredKeys__block_invoke()
     v6 = v5;
     v7 = NSStringFromFCOnboardingVersionNumber([numberCopy integerValue]);
     *buf = 138412546;
-    v28 = numberCopy;
-    v29 = 2112;
-    v30 = v7;
+    v27 = numberCopy;
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_INFO, "Onboarding version number being set to %@ (%@)", buf, 0x16u);
   }
 
@@ -663,29 +662,29 @@ void __25__FCUserInfo_desiredKeys__block_invoke()
   }
 
   [(FCUserInfo *)self _setUserInfoValue:numberCopy forKey:@"finishFirstLaunchVersion"];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   observers = [(FCPrivateDataController *)self observers];
   v12 = [observers copy];
 
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       v16 = 0;
       do
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * v16);
+        v17 = *(*(&v21 + 1) + 8 * v16);
         if (objc_opt_respondsToSelector())
         {
           [v17 userInfoDidChangeOnboardingStatus:self];
@@ -695,7 +694,7 @@ void __25__FCUserInfo_desiredKeys__block_invoke()
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v14);
@@ -706,7 +705,6 @@ void __25__FCUserInfo_desiredKeys__block_invoke()
   v20 = [(FCModifyUserInfoCommand *)v18 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v20];
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)asCKRecord
@@ -769,16 +767,16 @@ void __25__FCUserInfo_desiredKeys__block_invoke()
 
 void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    v25 = MEMORY[0x1E69E9820];
-    v26 = 3221225472;
-    v27 = __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_3;
-    v28 = &unk_1E7C379C8;
-    v29 = *(a1 + 40);
-    v29[2]();
-    v4 = v29;
+    v24 = MEMORY[0x1E69E9820];
+    v25 = 3221225472;
+    v26 = __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_3;
+    v27 = &unk_1E7C379C8;
+    v28 = *(a1 + 40);
+    v28[2]();
+    v4 = v28;
   }
 
   else
@@ -787,13 +785,13 @@ void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_2(uint64_t a1,
 
     if (v5)
     {
-      v20 = MEMORY[0x1E69E9820];
-      v21 = 3221225472;
-      v22 = __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_4;
-      v23 = &unk_1E7C379C8;
-      v24 = *(a1 + 40);
-      v24[2]();
-      v4 = v24;
+      v19 = MEMORY[0x1E69E9820];
+      v20 = 3221225472;
+      v21 = __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_4;
+      v22 = &unk_1E7C379C8;
+      v23 = *(a1 + 40);
+      v23[2]();
+      v4 = v23;
     }
 
     else
@@ -804,29 +802,29 @@ void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_2(uint64_t a1,
       v4 = [(FCModifyUserInfoCommand *)v6 initWithUserInfoRecord:v7];
 
       [*(a1 + 32) addCommandToCommandQueue:v4];
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v8 = [*(a1 + 32) observers];
       v9 = [v8 copy];
 
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v30 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v29 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v17;
+        v12 = *v16;
         do
         {
           v13 = 0;
           do
           {
-            if (*v17 != v12)
+            if (*v16 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v16 + 1) + 8 * v13);
+            v14 = *(*(&v15 + 1) + 8 * v13);
             if (objc_opt_respondsToSelector())
             {
               [v14 userInfoDidChangeFeldsparID:*(a1 + 32) fromCloud:0];
@@ -836,7 +834,7 @@ void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_2(uint64_t a1,
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v16 objects:v30 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v15 objects:v29 count:16];
         }
 
         while (v11);
@@ -845,8 +843,6 @@ void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_2(uint64_t a1,
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_5(uint64_t a1, void *a2)
@@ -869,7 +865,7 @@ void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_5(uint64_t a1,
   [v2 setObject:v7 forKeyedSubscript:@"feldsparID"];
 }
 
-- (uint64_t)_modifyUserInfoWithBlock:(uint64_t)result
+- (void)_modifyUserInfoWithBlock:(void *)result
 {
   if (result)
   {
@@ -894,7 +890,7 @@ void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_5(uint64_t a1,
 
 - (void)resetUserIDs
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   v3 = FCUserInfoLog;
   if (os_log_type_enabled(FCUserInfoLog, OS_LOG_TYPE_DEFAULT))
@@ -919,31 +915,31 @@ void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_5(uint64_t a1,
   asCKRecord = [(FCUserInfo *)&self->super.super.isa asCKRecord];
   v9 = [(FCModifyUserInfoCommand *)v7 initWithUserInfoRecord:asCKRecord];
 
-  v18 = v9;
+  v17 = v9;
   [(FCPrivateDataController *)self addCommandToCommandQueue:v9];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   observers = [(FCPrivateDataController *)self observers];
   v11 = [observers copy];
 
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       v15 = 0;
       do
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * v15);
+        v16 = *(*(&v18 + 1) + 8 * v15);
         if (objc_opt_respondsToSelector())
         {
           [v16 userInfoDidChangeFeldsparID:self fromCloud:0];
@@ -963,13 +959,11 @@ void __43__FCUserInfo_loadFeldsparIDWithCompletion___block_invoke_5(uint64_t a1,
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __26__FCUserInfo_resetUserIDs__block_invoke(uint64_t a1, void *a2)
@@ -1001,7 +995,7 @@ void __26__FCUserInfo_resetUserIDs__block_invoke(uint64_t a1, void *a2)
 
 - (void)resetSportsID
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   v3 = FCUserInfoLog;
   if (os_log_type_enabled(FCUserInfoLog, OS_LOG_TYPE_DEFAULT))
@@ -1017,29 +1011,29 @@ void __26__FCUserInfo_resetUserIDs__block_invoke(uint64_t a1, void *a2)
   v6 = [(FCModifyUserInfoCommand *)v4 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v6];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   observers = [(FCPrivateDataController *)self observers];
   v8 = [observers copy];
 
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
+        v13 = *(*(&v14 + 1) + 8 * v12);
         if (objc_opt_respondsToSelector())
         {
           [v13 userInfoDidChangeSportsUserID:self];
@@ -1049,13 +1043,11 @@ void __26__FCUserInfo_resetUserIDs__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
@@ -1069,7 +1061,7 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
 
 - (void)setFeldsparID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [MEMORY[0x1E696AF00] isMainThread];
   [(FCUserInfo *)self _setUserInfoValue:dCopy forKey:@"feldsparID"];
@@ -1078,29 +1070,29 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
   v7 = [(FCModifyUserInfoCommand *)v5 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v7];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   observers = [(FCPrivateDataController *)self observers];
   v9 = [observers copy];
 
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           [v14 userInfoDidChangeFeldsparID:self fromCloud:0];
@@ -1110,13 +1102,11 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (double)ageOfPlaceholderFSID
@@ -1149,7 +1139,7 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
 
 - (void)_persistAdsUserID:(void *)d createdDate:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (self)
   {
@@ -1160,29 +1150,29 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
     v8 = [(FCModifyUserInfoCommand *)v6 initWithUserInfoRecord:asCKRecord];
 
     [self addCommandToCommandQueue:v8];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     observers = [self observers];
     v10 = [observers copy];
 
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         v14 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v17 + 1) + 8 * v14);
+          v15 = *(*(&v16 + 1) + 8 * v14);
           if (objc_opt_respondsToSelector())
           {
             [v15 userInfoDidChangeAdsUserID:self fromCloud:0];
@@ -1192,14 +1182,12 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v12);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_temporaryUserIDForKey:(uint64_t)key
@@ -1229,7 +1217,7 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
 
 - (void)_persistSportsUserID:(id *)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (d)
   {
     [(FCUserInfo *)d _setUserInfoValue:a2 forKey:@"sportsUserID"];
@@ -1238,29 +1226,29 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
     v5 = [(FCModifyUserInfoCommand *)v3 initWithUserInfoRecord:asCKRecord];
 
     [d addCommandToCommandQueue:v5];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     observers = [d observers];
     v7 = [observers copy];
 
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v14 + 1) + 8 * v11);
+          v12 = *(*(&v13 + 1) + 8 * v11);
           if (objc_opt_respondsToSelector())
           {
             [v12 userInfoDidChangeSportsUserID:d];
@@ -1270,14 +1258,12 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)sportsTopicNotificationsEnabledState
@@ -1353,6 +1339,13 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
   return progressivePersonalization;
 }
 
+- (void)setHasShownProgressivePersonalizationWelcomeBrick:(BOOL)brick
+{
+  brickCopy = brick;
+  v4 = NewsCoreUserDefaults();
+  [v4 setBool:brickCopy forKey:@"has_show_personalization_brick"];
+}
+
 - (BOOL)userHasCompletedFavoritesSetup
 {
   v2 = NewsCoreUserDefaults();
@@ -1361,9 +1354,16 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
   return v3;
 }
 
+- (void)setUserHasCompletedFavoritesSetup:(BOOL)setup
+{
+  setupCopy = setup;
+  v4 = NewsCoreUserDefaults();
+  [v4 setBool:setupCopy forKey:@"user_has_completed_favorites_setup"];
+}
+
 - (void)setSportsOnboardingState:(int64_t)state
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:state];
   [(FCUserInfo *)self _setUserInfoValue:v5 forKey:@"sportsOnboardingState"];
@@ -1376,29 +1376,29 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
   v9 = [(FCModifyUserInfoCommand *)v7 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v9];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   observers = [(FCPrivateDataController *)self observers];
   v11 = [observers copy];
 
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * v15);
+        v16 = *(*(&v17 + 1) + 8 * v15);
         if (objc_opt_respondsToSelector())
         {
           [v16 userInfoDidChangeSportsOnboardingState:self];
@@ -1408,18 +1408,16 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setShortcutsOnboardingState:(int64_t)state
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:state];
   [(FCUserInfo *)self _setUserInfoValue:v5 forKey:@"shortcutsOnboardingState"];
@@ -1432,29 +1430,29 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
   v9 = [(FCModifyUserInfoCommand *)v7 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v9];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   observers = [(FCPrivateDataController *)self observers];
   v11 = [observers copy];
 
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * v15);
+        v16 = *(*(&v17 + 1) + 8 * v15);
         if (objc_opt_respondsToSelector())
         {
           [v16 userInfoDidChangeShortcutsOnboardingState:self];
@@ -1464,13 +1462,11 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)shortcutsOnboardingState
@@ -1483,7 +1479,7 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
 
 - (void)setSportsSyncState:(int64_t)state
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   v5 = [(FCUserInfo *)&self->super.super.isa _userInfoValueForKey:?];
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:state];
@@ -1501,29 +1497,29 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
   [(FCPrivateDataController *)self addCommandToCommandQueue:v11];
   if (v5 != v6)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     observers = [(FCPrivateDataController *)self observers];
     v13 = [observers copy];
 
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v20 + 1) + 8 * v17);
+          v18 = *(*(&v19 + 1) + 8 * v17);
           if (objc_opt_respondsToSelector())
           {
             [v18 userInfoDidChangeSportsSyncState:self];
@@ -1533,28 +1529,26 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v15);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSportsFavoritesLastModifiedDate:(id)date
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v5 = FCUserInfoLog;
   if (os_log_type_enabled(FCUserInfoLog, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     v7 = [dateCopy description];
-    v12 = 138412290;
-    v13 = v7;
-    _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "Setting sports favorites last modified date=%@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v7;
+    _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "Setting sports favorites last modified date=%@", &v11, 0xCu);
   }
 
   [(FCUserInfo *)self _setUserInfoValue:dateCopy forKey:@"sportsFavoritesLastModifiedDate"];
@@ -1563,7 +1557,6 @@ void __27__FCUserInfo_resetSportsID__block_invoke(uint64_t a1, void *a2)
   v10 = [(FCModifyUserInfoCommand *)v8 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v10];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDate)newsletterSignupLastSeenDate
@@ -1890,7 +1883,7 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
 
 - (void)markSavedAsViewed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   date = [MEMORY[0x1E695DF00] date];
   [(FCUserInfo *)self _setUserInfoValue:date forKey:@"lastViewedSavedDate"];
@@ -1899,27 +1892,27 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
   v6 = [(FCModifyUserInfoCommand *)v4 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v6];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   observers = [(FCPrivateDataController *)self observers];
-  v8 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(observers);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           [v12 userInfoDidChangeDateLastViewedSaved:self fromCloud:0];
@@ -1929,13 +1922,11 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
       }
 
       while (v9 != v11);
-      v9 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEditorialArticleVersion:(id)version
@@ -1976,9 +1967,207 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
   }
 }
 
+- (void)setMarketingNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v28 = *MEMORY[0x1E69E9840];
+  marketingNotificationsEnabled = [(FCUserInfo *)self marketingNotificationsEnabled];
+  if (marketingNotificationsEnabled != enabledCopy)
+  {
+    v6 = marketingNotificationsEnabled;
+    v7 = FCPushNotificationsLog;
+    if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109376;
+      v25 = v6;
+      v26 = 1024;
+      v27 = enabledCopy;
+      _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Changing the marketing notifications switch from: %d to: %d", buf, 0xEu);
+    }
+
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    [(FCUserInfo *)self _setUserInfoValue:v8 forKey:@"marketingNotificationsEnabled"];
+
+    v9 = [FCModifyUserInfoCommand alloc];
+    asCKRecord = [(FCUserInfo *)&self->super.super.isa asCKRecord];
+    v11 = [(FCModifyUserInfoCommand *)v9 initWithUserInfoRecord:asCKRecord];
+
+    [(FCPrivateDataController *)self addCommandToCommandQueue:v11];
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    observers = [(FCPrivateDataController *)self observers];
+    v13 = [observers copy];
+
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v20;
+      do
+      {
+        v17 = 0;
+        do
+        {
+          if (*v20 != v16)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          v18 = *(*(&v19 + 1) + 8 * v17);
+          if (objc_opt_respondsToSelector())
+          {
+            [v18 userInfoDidChangeMarketingNotificationsEnabled:self fromCloud:0];
+          }
+
+          ++v17;
+        }
+
+        while (v15 != v17);
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      }
+
+      while (v15);
+    }
+  }
+}
+
+- (void)setNewIssueNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v28 = *MEMORY[0x1E69E9840];
+  newIssueNotificationsEnabled = [(FCUserInfo *)self newIssueNotificationsEnabled];
+  if (newIssueNotificationsEnabled != enabledCopy)
+  {
+    v6 = newIssueNotificationsEnabled;
+    v7 = FCPushNotificationsLog;
+    if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109376;
+      v25 = v6;
+      v26 = 1024;
+      v27 = enabledCopy;
+      _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Changing the new issue notifications switch from: %d to: %d", buf, 0xEu);
+    }
+
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    [(FCUserInfo *)self _setUserInfoValue:v8 forKey:@"newIssueNotificationsEnabled"];
+
+    v9 = [FCModifyUserInfoCommand alloc];
+    asCKRecord = [(FCUserInfo *)&self->super.super.isa asCKRecord];
+    v11 = [(FCModifyUserInfoCommand *)v9 initWithUserInfoRecord:asCKRecord];
+
+    [(FCPrivateDataController *)self addCommandToCommandQueue:v11];
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    observers = [(FCPrivateDataController *)self observers];
+    v13 = [observers copy];
+
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v20;
+      do
+      {
+        v17 = 0;
+        do
+        {
+          if (*v20 != v16)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          v18 = *(*(&v19 + 1) + 8 * v17);
+          if (objc_opt_respondsToSelector())
+          {
+            [v18 userInfoDidChangeNewIssueNotificationsEnabled:self fromCloud:0];
+          }
+
+          ++v17;
+        }
+
+        while (v15 != v17);
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      }
+
+      while (v15);
+    }
+  }
+}
+
+- (void)setEndOfAudioTrackNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v28 = *MEMORY[0x1E69E9840];
+  endOfAudioTrackNotificationsEnabled = [(FCUserInfo *)self endOfAudioTrackNotificationsEnabled];
+  if (endOfAudioTrackNotificationsEnabled != enabledCopy)
+  {
+    v6 = endOfAudioTrackNotificationsEnabled;
+    v7 = FCPushNotificationsLog;
+    if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109376;
+      v25 = v6;
+      v26 = 1024;
+      v27 = enabledCopy;
+      _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Changing the end of audio track notifications switch from: %d to: %d", buf, 0xEu);
+    }
+
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    [(FCUserInfo *)self _setUserInfoValue:v8 forKey:@"endOfAudioNotificationsEnabled"];
+
+    v9 = [FCModifyUserInfoCommand alloc];
+    asCKRecord = [(FCUserInfo *)&self->super.super.isa asCKRecord];
+    v11 = [(FCModifyUserInfoCommand *)v9 initWithUserInfoRecord:asCKRecord];
+
+    [(FCPrivateDataController *)self addCommandToCommandQueue:v11];
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    observers = [(FCPrivateDataController *)self observers];
+    v13 = [observers copy];
+
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v20;
+      do
+      {
+        v17 = 0;
+        do
+        {
+          if (*v20 != v16)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          v18 = *(*(&v19 + 1) + 8 * v17);
+          if (objc_opt_respondsToSelector())
+          {
+            [v18 userInfoDidChangeEndOfAudioTrackNotificationsEnabled:self fromCloud:0];
+          }
+
+          ++v17;
+        }
+
+        while (v15 != v17);
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      }
+
+      while (v15);
+    }
+  }
+}
+
 - (void)setSportsTopicNotificationsEnabledState:(unint64_t)state
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   sportsTopicNotificationsEnabledState = [(FCUserInfo *)self sportsTopicNotificationsEnabledState];
   if (sportsTopicNotificationsEnabledState != state)
@@ -1988,8 +2177,8 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v26 = v6;
-      v27 = 2048;
+      v25 = v6;
+      v26 = 2048;
       stateCopy = state;
       _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Changing the sports topic notifications from: %ld to: %ld", buf, 0x16u);
     }
@@ -2002,29 +2191,29 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
     v11 = [(FCModifyUserInfoCommand *)v9 initWithUserInfoRecord:asCKRecord];
 
     [(FCPrivateDataController *)self addCommandToCommandQueue:v11];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     observers = [(FCPrivateDataController *)self observers];
     v13 = [observers copy];
 
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v20 + 1) + 8 * v17);
+          v18 = *(*(&v19 + 1) + 8 * v17);
           if (objc_opt_respondsToSelector())
           {
             [v18 userInfoDidChangeSportsTopicNotificationsEnabledState:self fromCloud:0];
@@ -2034,14 +2223,12 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v15);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAppReviewRequestLastShownDate:(id)date
@@ -2058,9 +2245,88 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
   [(FCPrivateDataController *)self addCommandToCommandQueue:v8];
 }
 
+- (void)setPuzzleNotificationsEnabled:(BOOL)enabled userTriggered:(BOOL)triggered
+{
+  triggeredCopy = triggered;
+  enabledCopy = enabled;
+  v30 = *MEMORY[0x1E69E9840];
+  [MEMORY[0x1E696AF00] isMainThread];
+  puzzleNotificationsEnabled = [(FCUserInfo *)self puzzleNotificationsEnabled];
+  puzzleNotificationsLastChangedDate = [(FCUserInfo *)self puzzleNotificationsLastChangedDate];
+
+  if (puzzleNotificationsEnabled != enabledCopy || (puzzleNotificationsLastChangedDate != 0) != triggeredCopy)
+  {
+    v9 = FCPushNotificationsLog;
+    if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109376;
+      *v29 = puzzleNotificationsEnabled;
+      *&v29[4] = 1024;
+      *&v29[6] = enabledCopy;
+      _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "Changing the puzzle notifications switch from: %d to: %d", buf, 0xEu);
+    }
+
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    [(FCUserInfo *)self _setUserInfoValue:v10 forKey:@"puzzleNotificationsEnabled2"];
+
+    v11 = [MEMORY[0x1E695DF00] now];
+    if (triggeredCopy)
+    {
+      v12 = FCPushNotificationsLog;
+      if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        *v29 = v11;
+        _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "Changing the puzzle notifications last changed date to: %@", buf, 0xCu);
+      }
+
+      [(FCUserInfo *)self _setUserInfoValue:v11 forKey:@"puzzleNotificationsLastChangedDate"];
+    }
+
+    v13 = [FCModifyUserInfoCommand alloc];
+    asCKRecord = [(FCUserInfo *)&self->super.super.isa asCKRecord];
+    v15 = [(FCModifyUserInfoCommand *)v13 initWithUserInfoRecord:asCKRecord];
+
+    [(FCPrivateDataController *)self addCommandToCommandQueue:v15];
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    observers = [(FCPrivateDataController *)self observers];
+    v17 = [observers copy];
+
+    v18 = [v17 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v18)
+    {
+      v19 = v18;
+      v20 = *v24;
+      do
+      {
+        for (i = 0; i != v19; ++i)
+        {
+          if (*v24 != v20)
+          {
+            objc_enumerationMutation(v17);
+          }
+
+          v22 = *(*(&v23 + 1) + 8 * i);
+          if (objc_opt_respondsToSelector())
+          {
+            [v22 userInfoDidChangePuzzleNotificationsEnabled:self fromCloud:0];
+          }
+        }
+
+        v19 = [v17 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      }
+
+      while (v19);
+    }
+  }
+}
+
 - (void)resetPuzzleNotificationsState
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   v3 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
@@ -2078,29 +2344,29 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
   v7 = [(FCModifyUserInfoCommand *)v5 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v7];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   observers = [(FCPrivateDataController *)self observers];
   v9 = [observers copy];
 
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           [v14 userInfoDidChangePuzzleNotificationsEnabled:self fromCloud:0];
@@ -2110,13 +2376,11 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetRecipeBoxInitialImport
@@ -2136,14 +2400,14 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
 
 - (void)setPuzzleStatsStartDate:(id)date
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   [MEMORY[0x1E696AF00] isMainThread];
   v5 = FCUserInfoLog;
   if (os_log_type_enabled(FCUserInfoLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = dateCopy;
+    v21 = dateCopy;
     _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Changing the puzzle stats start date to: %@", buf, 0xCu);
   }
 
@@ -2153,27 +2417,27 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
   v8 = [(FCModifyUserInfoCommand *)v6 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v8];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   observers = [(FCPrivateDataController *)self observers];
-  v10 = [observers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [observers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(observers);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           [v14 userInfoDidChangeDatePuzzleStatsStart:self fromCloud:0];
@@ -2183,26 +2447,24 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
       }
 
       while (v11 != v13);
-      v11 = [observers countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [observers countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setImportSavedToRecipeVersion:(id)version
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   [MEMORY[0x1E696AF00] isMainThread];
   v5 = FCUserInfoLog;
   if (os_log_type_enabled(FCUserInfoLog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = versionCopy;
-    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Changing the import saved to recipe version number to: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = versionCopy;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Changing the import saved to recipe version number to: %@", &v9, 0xCu);
   }
 
   [(FCUserInfo *)self _setUserInfoValue:versionCopy forKey:@"importSavedToRecipeVersion"];
@@ -2211,7 +2473,6 @@ void __43__FCUserInfo_maybeUpdateOnboardingVersion___block_invoke_2(uint64_t a1)
   v8 = [(FCModifyUserInfoCommand *)v6 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v8];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __24__FCUserInfo_asCKRecord__block_invoke(uint64_t a1)
@@ -2418,31 +2679,31 @@ void __33__FCUserInfo_syncWithCompletion___block_invoke(uint64_t a1, uint64_t a2
 
 - (void)accessTokenDidChangeForTagID:(id)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   observers = [(FCPrivateDataController *)self observers];
   v6 = [observers copy];
 
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
           v12 = [dCopy copy];
@@ -2453,42 +2714,85 @@ void __33__FCUserInfo_syncWithCompletion___block_invoke(uint64_t a1, uint64_t a2
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (void)accessTokenRemovedForTagID:(id)d userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  v20 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  observers = [(FCPrivateDataController *)self observers];
+  v8 = [observers copy];
+
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v16;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v16 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v15 + 1) + 8 * v12);
+        if (objc_opt_respondsToSelector())
+        {
+          v14 = [dCopy copy];
+          [v13 userInfo:self didRemoveAccessTokenForTagID:v14 userInitiated:initiatedCopy];
+        }
+
+        ++v12;
+      }
+
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v10);
+  }
 }
 
 - (void)settingsDataDidChangeForPuzzleTypeID:(id)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   observers = [(FCPrivateDataController *)self observers];
   v6 = [observers copy];
 
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
           v12 = [dCopy copy];
@@ -2499,40 +2803,38 @@ void __33__FCUserInfo_syncWithCompletion___block_invoke(uint64_t a1, uint64_t a2
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSyncWithChangedRecords:(id)records deletedRecordNames:(id)names
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   namesCopy = names;
   obj = recordsCopy;
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v7 = [recordsCopy countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v7 = [recordsCopy countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v50;
+    v9 = *v49;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v50 != v9)
+        if (*v49 != v9)
         {
           objc_enumerationMutation(recordsCopy);
         }
 
-        v11 = *(*(&v49 + 1) + 8 * i);
+        v11 = *(*(&v48 + 1) + 8 * i);
         recordType = [v11 recordType];
         if ([recordType isEqualToString:@"UserInfo"])
         {
@@ -2560,32 +2862,32 @@ void __33__FCUserInfo_syncWithCompletion___block_invoke(uint64_t a1, uint64_t a2
 LABEL_13:
       }
 
-      v8 = [recordsCopy countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v8 = [recordsCopy countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
     while (v8);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  v43 = namesCopy;
-  v14 = [v43 countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v42 = namesCopy;
+  v14 = [v42 countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v46;
+    v16 = *v45;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v46 != v16)
+        if (*v45 != v16)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v42);
         }
 
-        v18 = *(*(&v45 + 1) + 8 * j);
+        v18 = *(*(&v44 + 1) + 8 * j);
         if ([v18 isEqualToString:@"user_info_static_record_name"])
         {
           if (!self)
@@ -2648,67 +2950,65 @@ LABEL_13:
         }
       }
 
-      v15 = [v43 countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v15 = [v42 countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
     while (v15);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSyncWithUserInfoRecord:(id *)record
 {
-  v263 = *MEMORY[0x1E69E9840];
+  v261 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!record)
   {
     goto LABEL_222;
   }
 
-  v227 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v226 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v230 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v225 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v224 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v228 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v223 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v222 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v221 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v220 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v219 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v218 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v4 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v228 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v186 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v193 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v195 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v200 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v217 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v205 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v203 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v226 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v184 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v191 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v193 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v198 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v215 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v203 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v201 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v189 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v213 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v209 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v207 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v211 = [(FCUserInfo *)record _userInfoValueForKey:?];
-  v231 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v207 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v205 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v209 = [(FCUserInfo *)record _userInfoValueForKey:?];
+  v229 = [(FCUserInfo *)record _userInfoValueForKey:?];
   v5 = MEMORY[0x1E695DFD8];
-  v254[0] = @"lastAppLaunchUpsellInstanceID";
-  v254[1] = @"upsellAppLaunchLastSeenDate";
-  v254[2] = @"puzzleNotificationsEnabled2";
-  v254[3] = @"puzzleNotificationsLastChangedDate";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v254 count:4];
+  v252[0] = @"lastAppLaunchUpsellInstanceID";
+  v252[1] = @"upsellAppLaunchLastSeenDate";
+  v252[2] = @"puzzleNotificationsEnabled2";
+  v252[3] = @"puzzleNotificationsLastChangedDate";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v252 count:4];
   v7 = [v5 setWithArray:v6];
 
-  v246[0] = MEMORY[0x1E69E9820];
-  v246[1] = 3221225472;
-  v246[2] = __43__FCUserInfo_handleSyncWithUserInfoRecord___block_invoke;
-  v246[3] = &unk_1E7C3C220;
+  v244[0] = MEMORY[0x1E69E9820];
+  v244[1] = 3221225472;
+  v244[2] = __43__FCUserInfo_handleSyncWithUserInfoRecord___block_invoke;
+  v244[3] = &unk_1E7C3C220;
   v8 = v7;
-  v247 = v8;
-  v212 = v3;
+  v245 = v8;
+  v210 = v3;
   v9 = v3;
-  v248 = v9;
-  [(FCUserInfo *)record _modifyUserInfoWithBlock:v246];
+  v246 = v9;
+  [(FCUserInfo *)record _modifyUserInfoWithBlock:v244];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   recordCopy = record;
   [defaultCenter postNotificationName:@"FCUserInfoChangedNotificationName" object:record];
@@ -2717,9 +3017,9 @@ LABEL_13:
   v12 = v4;
   v13 = v11;
   v14 = v13;
-  v239 = v9;
-  v202 = v12;
-  v199 = v8;
+  v237 = v9;
+  v200 = v12;
+  v197 = v8;
   if (!v13 || ![v13 length])
   {
     if (!v12 || ![v12 length] || (uUIDString = v12, objc_msgSend(v12, "hasSuffix:", @"-NoSync")))
@@ -2731,7 +3031,7 @@ LABEL_13:
       if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v256 = uUIDString;
+        v254 = uUIDString;
         _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_INFO, "Syncing enabled, generated a new notificationsUserID: %@", buf, 0xCu);
       }
     }
@@ -2759,7 +3059,7 @@ LABEL_13:
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v256 = v14;
+      v254 = v14;
       v17 = "Syncing enabled, updated with remote notificationsUserID: %@";
 LABEL_17:
       _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_INFO, v17, buf, 0xCu);
@@ -2775,62 +3075,62 @@ LABEL_17:
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v256 = v14;
+      v254 = v14;
       v17 = "Syncing enabled, merged remote notificationsUserID: %@";
       goto LABEL_17;
     }
   }
 
 LABEL_18:
-  v251 = 0u;
-  v252 = 0u;
   v249 = 0u;
   v250 = 0u;
+  v247 = 0u;
+  v248 = 0u;
   observers = [record observers];
   v24 = [observers copy];
 
-  v25 = [v24 countByEnumeratingWithState:&v249 objects:buf count:16];
+  v25 = [v24 countByEnumeratingWithState:&v247 objects:buf count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v250;
+    v27 = *v248;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v250 != v27)
+        if (*v248 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v249 + 1) + 8 * i);
+        v29 = *(*(&v247 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           [v29 userInfoDidChangeNotificationsUserID:recordCopy];
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v249 objects:buf count:16];
+      v26 = [v24 countByEnumeratingWithState:&v247 objects:buf count:16];
     }
 
     while (v26);
   }
 
-  v9 = v239;
+  v9 = v237;
 LABEL_28:
 
   v30 = [v9 objectForKeyedSubscript:@"adsUserID"];
   v31 = [v9 objectForKeyedSubscript:@"adsUserIDCreatedDate"];
-  v32 = v228;
-  v229 = v186;
+  v32 = v226;
+  v227 = v184;
   v33 = v30;
   v34 = v31;
-  v219 = v32;
-  v187 = v34;
+  v217 = v32;
+  v185 = v34;
   if (!v33 || (v35 = v34, ![v33 length]))
   {
     v36 = recordCopy;
-    if (!v32 || (uUIDString2 = v32, date = v229, ![v32 length]))
+    if (!v32 || (uUIDString2 = v32, date = v227, ![v32 length]))
     {
       v41 = [(FCUserInfo *)recordCopy _temporaryUserIDForKey:?];
       v42 = v41;
@@ -2861,7 +3161,7 @@ LABEL_45:
   {
     if ([v32 isEqualToString:v33] & 1) != 0 || (-[FCUserInfo _shouldRotateAdsUserIDWithCreatedDate:](recordCopy, v35))
     {
-      date = v229;
+      date = v227;
       uUIDString2 = v32;
       if (![(FCUserInfo *)recordCopy _shouldRotateAdsUserIDWithCreatedDate:v35])
       {
@@ -2871,7 +3171,7 @@ LABEL_45:
       v39 = recordCopy;
       uUIDString2 = v32;
       v40 = v32;
-      date = v229;
+      date = v227;
       goto LABEL_45;
     }
 
@@ -2889,53 +3189,53 @@ LABEL_45:
   }
 
   [(FCUserInfo *)v44 _setUserInfoValue:v45 forKey:v46];
-  date = v229;
+  date = v227;
   uUIDString2 = v32;
 LABEL_46:
-  v251 = 0u;
-  v252 = 0u;
   v249 = 0u;
   v250 = 0u;
+  v247 = 0u;
+  v248 = 0u;
   observers2 = [v36 observers];
   v48 = [observers2 copy];
 
-  v49 = [v48 countByEnumeratingWithState:&v249 objects:buf count:16];
+  v49 = [v48 countByEnumeratingWithState:&v247 objects:buf count:16];
   if (v49)
   {
     v50 = v49;
-    v51 = *v250;
+    v51 = *v248;
     do
     {
       for (j = 0; j != v50; ++j)
       {
-        if (*v250 != v51)
+        if (*v248 != v51)
         {
           objc_enumerationMutation(v48);
         }
 
-        v53 = *(*(&v249 + 1) + 8 * j);
+        v53 = *(*(&v247 + 1) + 8 * j);
         if (objc_opt_respondsToSelector())
         {
           [v53 userInfoDidChangeAdsUserID:recordCopy fromCloud:1];
         }
       }
 
-      v50 = [v48 countByEnumeratingWithState:&v249 objects:buf count:16];
+      v50 = [v48 countByEnumeratingWithState:&v247 objects:buf count:16];
     }
 
     while (v50);
   }
 
-  v9 = v239;
+  v9 = v237;
   v36 = recordCopy;
-  v35 = v187;
+  v35 = v185;
 LABEL_56:
 
   v54 = [v9 objectForKeyedSubscript:@"sportsUserID"];
-  v55 = v200;
+  v55 = v198;
   v56 = v54;
   v57 = v56;
-  v201 = v55;
+  v199 = v55;
   if (v56 && [v56 length])
   {
     if (v55)
@@ -2976,47 +3276,47 @@ LABEL_56:
     [(FCUserInfo *)v36 _persistSportsUserID:uUIDString3];
   }
 
-  v251 = 0u;
-  v252 = 0u;
   v249 = 0u;
   v250 = 0u;
+  v247 = 0u;
+  v248 = 0u;
   observers3 = [v36 observers];
   v63 = [observers3 copy];
 
-  v64 = [v63 countByEnumeratingWithState:&v249 objects:buf count:16];
+  v64 = [v63 countByEnumeratingWithState:&v247 objects:buf count:16];
   if (v64)
   {
     v65 = v64;
-    v66 = *v250;
+    v66 = *v248;
     do
     {
       for (k = 0; k != v65; ++k)
       {
-        if (*v250 != v66)
+        if (*v248 != v66)
         {
           objc_enumerationMutation(v63);
         }
 
-        v68 = *(*(&v249 + 1) + 8 * k);
+        v68 = *(*(&v247 + 1) + 8 * k);
         if (objc_opt_respondsToSelector())
         {
           [v68 userInfoDidChangeSportsUserID:v36];
         }
       }
 
-      v65 = [v63 countByEnumeratingWithState:&v249 objects:buf count:16];
+      v65 = [v63 countByEnumeratingWithState:&v247 objects:buf count:16];
     }
 
     while (v65);
   }
 
-  v9 = v239;
+  v9 = v237;
 LABEL_80:
 
   v69 = [v9 objectForKeyedSubscript:@"upsellAppLaunchLastSeenDate"];
   v70 = [v9 objectForKeyedSubscript:@"lastAppLaunchUpsellInstanceID"];
-  v71 = v195;
-  v72 = v193;
+  v71 = v193;
+  v72 = v191;
   v73 = v69;
   v74 = v70;
   if (v73 && (!v71 || [v73 compare:v71] == 1))
@@ -3034,15 +3334,15 @@ LABEL_80:
 
   v78 = [v9 objectForKeyedSubscript:@"puzzleNotificationsEnabled2"];
   v79 = [v9 objectForKeyedSubscript:@"puzzleNotificationsLastChangedDate"];
-  v80 = v209;
-  v81 = v207;
+  v80 = v207;
+  v81 = v205;
   v82 = v78;
   v83 = v79;
   v84 = v83;
-  v194 = v72;
-  v196 = v71;
-  v208 = v81;
-  v210 = v80;
+  v192 = v72;
+  v194 = v71;
+  v206 = v81;
+  v208 = v80;
   if (v83)
   {
     if (v81 && ![v83 fc_isLaterThan:v81])
@@ -3054,9 +3354,9 @@ LABEL_80:
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v256 = v81;
-      v257 = 2112;
-      v258 = v84;
+      v254 = v81;
+      v255 = 2112;
+      v256 = v84;
       _os_log_impl(&dword_1B63EF000, v85, OS_LOG_TYPE_DEFAULT, "Changing the puzzle notifications last change date from: %@ to: %@", buf, 0x16u);
     }
 
@@ -3075,9 +3375,9 @@ LABEL_80:
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v256 = v80;
-      v257 = 2112;
-      v258 = v82;
+      v254 = v80;
+      v255 = 2112;
+      v256 = v82;
       _os_log_impl(&dword_1B63EF000, v87, OS_LOG_TYPE_DEFAULT, "Changing the puzzle notifications enabled state from: %@ to: %@", buf, 0x16u);
     }
 
@@ -3095,43 +3395,43 @@ LABEL_100:
       _os_log_impl(&dword_1B63EF000, v88, OS_LOG_TYPE_DEFAULT, "Applying changes to puzzle notification state and notifying observers.", buf, 2u);
     }
 
-    v251 = 0u;
-    v252 = 0u;
     v249 = 0u;
     v250 = 0u;
+    v247 = 0u;
+    v248 = 0u;
     observers4 = [v36 observers];
     v90 = [observers4 copy];
 
-    v91 = [v90 countByEnumeratingWithState:&v249 objects:buf count:16];
+    v91 = [v90 countByEnumeratingWithState:&v247 objects:buf count:16];
     if (v91)
     {
       v92 = v91;
-      v93 = *v250;
+      v93 = *v248;
       do
       {
         for (m = 0; m != v92; ++m)
         {
-          if (*v250 != v93)
+          if (*v248 != v93)
           {
             objc_enumerationMutation(v90);
           }
 
-          v95 = *(*(&v249 + 1) + 8 * m);
+          v95 = *(*(&v247 + 1) + 8 * m);
           if (objc_opt_respondsToSelector())
           {
             [v95 userInfoDidChangePuzzleNotificationsEnabled:v36 fromCloud:1];
           }
         }
 
-        v92 = [v90 countByEnumeratingWithState:&v249 objects:buf count:16];
+        v92 = [v90 countByEnumeratingWithState:&v247 objects:buf count:16];
       }
 
       while (v92);
     }
 
-    v9 = v239;
-    v81 = v208;
-    v80 = v210;
+    v9 = v237;
+    v81 = v206;
+    v80 = v208;
     goto LABEL_114;
   }
 
@@ -3147,8 +3447,8 @@ LABEL_114:
 
   v97 = [v9 objectForKeyedSubscript:@"sportsSyncState"];
   v98 = [v9 objectForKeyedSubscript:@"sportsSyncStateLastSavedDate"];
-  v99 = v217;
-  v100 = v205;
+  v99 = v215;
+  v100 = v203;
   v101 = v97;
   v102 = v98;
   v103 = FCUserInfoLog;
@@ -3158,18 +3458,18 @@ LABEL_114:
     v105 = [v100 description];
     v106 = [v102 description];
     *buf = 138413058;
-    v256 = v99;
+    v254 = v99;
+    v255 = 2112;
+    v256 = v105;
     v257 = 2112;
-    v258 = v105;
+    v258 = v101;
     v259 = 2112;
-    v260 = v101;
-    v261 = 2112;
-    v262 = v106;
+    v260 = v106;
     _os_log_impl(&dword_1B63EF000, v104, OS_LOG_TYPE_DEFAULT, "Sync local sports sync state, local=%@ localDate=%@, with remote=%@, remoteDate=%@", buf, 0x2Au);
   }
 
-  v206 = v99;
-  v218 = v100;
+  v204 = v99;
+  v216 = v100;
   if (v100 && ([v100 isEqualToDate:v102] & 1) == 0)
   {
     v107 = FCUserInfoLog;
@@ -3179,50 +3479,50 @@ LABEL_114:
       _os_log_impl(&dword_1B63EF000, v107, OS_LOG_TYPE_DEFAULT, "Remote date and local sports sync state has changed, firing observers", buf, 2u);
     }
 
-    v251 = 0u;
-    v252 = 0u;
     v249 = 0u;
     v250 = 0u;
+    v247 = 0u;
+    v248 = 0u;
     observers5 = [v36 observers];
     v109 = [observers5 copy];
 
-    v110 = [v109 countByEnumeratingWithState:&v249 objects:buf count:16];
+    v110 = [v109 countByEnumeratingWithState:&v247 objects:buf count:16];
     if (v110)
     {
       v111 = v110;
-      v112 = *v250;
+      v112 = *v248;
       do
       {
         for (n = 0; n != v111; ++n)
         {
-          if (*v250 != v112)
+          if (*v248 != v112)
           {
             objc_enumerationMutation(v109);
           }
 
-          v114 = *(*(&v249 + 1) + 8 * n);
+          v114 = *(*(&v247 + 1) + 8 * n);
           if (objc_opt_respondsToSelector())
           {
             [v114 userInfoDidChangeSportsSyncState:recordCopy];
           }
         }
 
-        v111 = [v109 countByEnumeratingWithState:&v249 objects:buf count:16];
+        v111 = [v109 countByEnumeratingWithState:&v247 objects:buf count:16];
       }
 
       while (v111);
     }
 
-    v9 = v239;
+    v9 = v237;
     v36 = recordCopy;
-    v99 = v206;
-    v100 = v218;
+    v99 = v204;
+    v100 = v216;
   }
 
   v115 = [v9 objectForKeyedSubscript:@"sportsOnboardingState"];
   v116 = [v9 objectForKeyedSubscript:@"sportsOnboardingCompletedDate"];
-  v117 = v203;
-  v118 = v191;
+  v117 = v201;
+  v118 = v189;
   v119 = v115;
   v120 = v116;
   v121 = FCUserInfoLog;
@@ -3232,17 +3532,17 @@ LABEL_114:
     v123 = [v118 description];
     v124 = [v120 description];
     *buf = 138413058;
-    v256 = v117;
+    v254 = v117;
+    v255 = 2112;
+    v256 = v123;
     v257 = 2112;
-    v258 = v123;
+    v258 = v119;
     v259 = 2112;
-    v260 = v119;
-    v261 = 2112;
-    v262 = v124;
+    v260 = v124;
     _os_log_impl(&dword_1B63EF000, v122, OS_LOG_TYPE_DEFAULT, "Sync local sports onboarding state, local=%@ localDate=%@, with remote=%@, remoteDate=%@", buf, 0x2Au);
   }
 
-  v204 = v117;
+  v202 = v117;
   if (v118 && ([v118 isEqualToDate:v120] & 1) == 0)
   {
     v125 = FCUserInfoLog;
@@ -3252,51 +3552,51 @@ LABEL_114:
       _os_log_impl(&dword_1B63EF000, v125, OS_LOG_TYPE_DEFAULT, "Remote date and local sports onboarding state has changed, firing observers", buf, 2u);
     }
 
-    v251 = 0u;
-    v252 = 0u;
     v249 = 0u;
     v250 = 0u;
+    v247 = 0u;
+    v248 = 0u;
     observers6 = [v36 observers];
     v127 = [observers6 copy];
 
-    v128 = [v127 countByEnumeratingWithState:&v249 objects:buf count:16];
+    v128 = [v127 countByEnumeratingWithState:&v247 objects:buf count:16];
     if (v128)
     {
       v129 = v128;
-      v130 = *v250;
+      v130 = *v248;
       do
       {
         for (ii = 0; ii != v129; ++ii)
         {
-          if (*v250 != v130)
+          if (*v248 != v130)
           {
             objc_enumerationMutation(v127);
           }
 
-          v132 = *(*(&v249 + 1) + 8 * ii);
+          v132 = *(*(&v247 + 1) + 8 * ii);
           if (objc_opt_respondsToSelector())
           {
             [v132 userInfoDidChangeSportsOnboardingState:recordCopy];
           }
         }
 
-        v129 = [v127 countByEnumeratingWithState:&v249 objects:buf count:16];
+        v129 = [v127 countByEnumeratingWithState:&v247 objects:buf count:16];
       }
 
       while (v129);
     }
 
-    v9 = v239;
+    v9 = v237;
     v36 = recordCopy;
-    v100 = v218;
-    v117 = v204;
+    v100 = v216;
+    v117 = v202;
   }
 
-  v192 = v118;
+  v190 = v118;
   v133 = [v9 objectForKeyedSubscript:@"shortcutsOnboardingState"];
   v134 = [v9 objectForKeyedSubscript:@"shortcutsOnboardingCompletedDate"];
-  v135 = v215;
-  v136 = v213;
+  v135 = v213;
+  v136 = v211;
   v137 = v133;
   v138 = v134;
   v139 = FCUserInfoLog;
@@ -3306,18 +3606,18 @@ LABEL_114:
     v141 = [v136 description];
     v142 = [v138 description];
     *buf = 138413058;
-    v256 = v135;
+    v254 = v135;
+    v255 = 2112;
+    v256 = v141;
     v257 = 2112;
-    v258 = v141;
+    v258 = v137;
     v259 = 2112;
-    v260 = v137;
-    v261 = 2112;
-    v262 = v142;
+    v260 = v142;
     _os_log_impl(&dword_1B63EF000, v140, OS_LOG_TYPE_DEFAULT, "Sync local shortcuts onboarding state, local=%@ localDate=%@, with remote=%@, remoteDate=%@", buf, 0x2Au);
   }
 
-  v214 = v136;
-  v216 = v135;
+  v212 = v136;
+  v214 = v135;
   if (v136 == v138)
   {
     if (v135 != v137)
@@ -3330,43 +3630,43 @@ LABEL_153:
         _os_log_impl(&dword_1B63EF000, v144, OS_LOG_TYPE_DEFAULT, "Remote date and local shortcuts onboarding state has changed, firing observers", buf, 2u);
       }
 
-      v251 = 0u;
-      v252 = 0u;
       v249 = 0u;
       v250 = 0u;
+      v247 = 0u;
+      v248 = 0u;
       observers7 = [v36 observers];
       v146 = [observers7 copy];
 
-      v147 = [v146 countByEnumeratingWithState:&v249 objects:buf count:16];
+      v147 = [v146 countByEnumeratingWithState:&v247 objects:buf count:16];
       if (v147)
       {
         v148 = v147;
-        v149 = *v250;
+        v149 = *v248;
         do
         {
           for (jj = 0; jj != v148; ++jj)
           {
-            if (*v250 != v149)
+            if (*v248 != v149)
             {
               objc_enumerationMutation(v146);
             }
 
-            v151 = *(*(&v249 + 1) + 8 * jj);
+            v151 = *(*(&v247 + 1) + 8 * jj);
             if (objc_opt_respondsToSelector())
             {
               [v151 userInfoDidChangeShortcutsOnboardingState:v36];
             }
           }
 
-          v148 = [v146 countByEnumeratingWithState:&v249 objects:buf count:16];
+          v148 = [v146 countByEnumeratingWithState:&v247 objects:buf count:16];
         }
 
         while (v148);
       }
 
-      v9 = v239;
-      v100 = v218;
-      v136 = v214;
+      v9 = v237;
+      v100 = v216;
+      v136 = v212;
     }
   }
 
@@ -3380,7 +3680,7 @@ LABEL_153:
   }
 
   v152 = [v9 objectForKeyedSubscript:@"importSavedToRecipeVersion"];
-  v153 = v231;
+  v153 = v229;
   v154 = v152;
   v155 = v154;
   if (v154 && (!v153 || [v154 compare:v153] == 1))
@@ -3389,122 +3689,118 @@ LABEL_153:
   }
 
   v156 = [v9 objectForKeyedSubscript:@"feldsparID"];
-  v238 = [v227 isEqualToString:v156];
+  v236 = [v225 isEqualToString:v156];
 
   v157 = [v9 objectForKeyedSubscript:@"finishFirstLaunchVersion"];
-  v237 = [v225 isEqual:v157];
+  v235 = [v223 isEqual:v157];
 
   v158 = [v9 objectForKeyedSubscript:@"lastViewedSavedDate"];
-  if (v226 == v158)
+  if (v224 == v158)
   {
-    v236 = 0;
+    v234 = 0;
   }
 
   else
   {
-    v236 = [v226 isEqualToDate:v158] ^ 1;
+    v234 = [v224 isEqualToDate:v158] ^ 1;
   }
 
   v159 = [v9 objectForKeyedSubscript:@"editorialArticleVersion"];
   v160 = v159;
-  v240 = 0;
-  v197 = v158;
-  v198 = v153;
-  if (v230 && v159)
+  v238 = 0;
+  v195 = v158;
+  v196 = v153;
+  if (v228 && v159)
   {
-    v240 = [v230 isEqualToString:v159] ^ 1;
+    v238 = [v228 isEqualToString:v159] ^ 1;
   }
 
-  v190 = v160;
-  bOOLValue2 = [v224 BOOLValue];
+  v188 = v160;
+  bOOLValue2 = [v222 BOOLValue];
   v162 = [v9 objectForKeyedSubscript:@"marketingNotificationsEnabled"];
   bOOLValue3 = [v162 BOOLValue];
 
-  bOOLValue4 = [v223 BOOLValue];
+  bOOLValue4 = [v221 BOOLValue];
   v165 = [v9 objectForKeyedSubscript:@"newIssueNotificationsEnabled"];
   bOOLValue5 = [v165 BOOLValue];
 
-  bOOLValue6 = [v222 BOOLValue];
+  bOOLValue6 = [v220 BOOLValue];
   v167 = [v9 objectForKeyedSubscript:@"endOfAudioNotificationsEnabled"];
   bOOLValue7 = [v167 BOOLValue];
 
-  integerValue = [v221 integerValue];
+  integerValue = [v219 integerValue];
   v168 = [v9 objectForKeyedSubscript:@"sportsTopicNotificationsEnabledState2"];
   integerValue2 = [v168 integerValue];
 
   v170 = [v9 objectForKeyedSubscript:@"lastViewedSharedWithYouDate"];
-  v189 = v170;
-  if (v220 == v170)
+  v187 = v170;
+  if (v218 == v170)
   {
     v171 = 0;
   }
 
   else
   {
-    v171 = [v220 isEqualToDate:v170] ^ 1;
+    v171 = [v218 isEqualToDate:v170] ^ 1;
   }
 
   v172 = bOOLValue2 ^ bOOLValue3;
   v173 = bOOLValue4 ^ bOOLValue5;
   v174 = [v9 objectForKeyedSubscript:@"puzzleStatsStartDate"];
-  v175 = v211;
-  if (v211 == v174)
+  v175 = v209;
+  if (v209 == v174)
   {
     v176 = 0;
   }
 
   else
   {
-    v176 = [v211 isEqualToDate:v174] ^ 1;
+    v176 = [v209 isEqualToDate:v174] ^ 1;
   }
 
-  v3 = v212;
-  if (((v238 & v237 ^ 1 | v236 | v240 | v172 | v173 | v171) & 1) != 0 || v176)
+  v3 = v210;
+  if (((v236 & v235 ^ 1 | v234 | v238 | v172 | v173 | v171) & 1) != 0 || v176)
   {
-    v188 = v174;
-    v244 = 0u;
-    v245 = 0u;
+    v186 = v174;
     v242 = 0u;
     v243 = 0u;
+    v240 = 0u;
+    v241 = 0u;
     observers8 = [recordCopy observers];
     v178 = [observers8 copy];
 
     obj = v178;
-    v179 = [v178 countByEnumeratingWithState:&v242 objects:v253 count:16];
+    v179 = [v178 countByEnumeratingWithState:&v240 objects:v251 count:16];
     if (v179)
     {
       v180 = v179;
-      v181 = *v243;
+      v181 = *v241;
       do
       {
         for (kk = 0; kk != v180; ++kk)
         {
-          if (*v243 != v181)
+          if (*v241 != v181)
           {
             objc_enumerationMutation(obj);
           }
 
-          v183 = *(*(&v242 + 1) + 8 * kk);
-          if ((v238 & 1) == 0)
+          v183 = *(*(&v240 + 1) + 8 * kk);
+          if (v236 & 1) == 0 && (objc_opt_respondsToSelector())
           {
-            v184 = *(*(&v242 + 1) + 8 * kk);
-            if (objc_opt_respondsToSelector())
-            {
-              [v183 userInfoDidChangeFeldsparID:recordCopy fromCloud:1];
-            }
+            [v183 userInfoDidChangeFeldsparID:recordCopy fromCloud:1];
           }
 
-          if (v237 & 1) == 0 && (objc_opt_respondsToSelector())
+          if (v235 & 1) == 0 && (objc_opt_respondsToSelector())
           {
             [v183 userInfoDidChangeOnboardingStatus:recordCopy];
           }
 
-          if (v236 && (objc_opt_respondsToSelector() & 1) != 0)
+          if (v234 && (objc_opt_respondsToSelector() & 1) != 0)
           {
             [v183 userInfoDidChangeDateLastViewedSaved:recordCopy fromCloud:1];
           }
 
-          if (v240 && (objc_opt_respondsToSelector() & 1) != 0)
+          if (v238 && (objc_opt_respondsToSelector() & 1) != 0)
           {
             [v183 userInfoDidChangeEditorialArticleVersion:recordCopy];
           }
@@ -3540,20 +3836,19 @@ LABEL_153:
           }
         }
 
-        v180 = [obj countByEnumeratingWithState:&v242 objects:v253 count:16];
+        v180 = [obj countByEnumeratingWithState:&v240 objects:v251 count:16];
       }
 
       while (v180);
     }
 
-    v175 = v211;
-    v3 = v212;
-    v100 = v218;
-    v174 = v188;
+    v175 = v209;
+    v3 = v210;
+    v100 = v216;
+    v174 = v186;
   }
 
 LABEL_222:
-  v185 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allKnownRecordNamesWithinRecordZoneWithID:(id)d
@@ -3574,47 +3869,45 @@ LABEL_222:
 
 void __43__FCUserInfo_handleSyncWithUserInfoRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = __FCCKUserInfoKeys_block_invoke();
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
-        if (([*(a1 + 32) containsObject:{v9, v12}] & 1) == 0)
+        v9 = *(*(&v11 + 1) + 8 * i);
+        if (([*(a1 + 32) containsObject:{v9, v11}] & 1) == 0)
         {
           v10 = [*(a1 + 40) objectForKeyedSubscript:v9];
           [v3 setObject:v10 forKey:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markSharedWithYouAsViewed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   date = [MEMORY[0x1E695DF00] date];
   [(FCUserInfo *)self _setUserInfoValue:date forKey:@"lastViewedSharedWithYouDate"];
@@ -3623,27 +3916,27 @@ void __43__FCUserInfo_handleSyncWithUserInfoRecord___block_invoke(uint64_t a1, v
   v6 = [(FCModifyUserInfoCommand *)v4 initWithUserInfoRecord:asCKRecord];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v6];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   observers = [(FCPrivateDataController *)self observers];
-  v8 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(observers);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           [v12 userInfoDidChangeDateLastViewedSharedWithYou:self fromCloud:0];
@@ -3653,24 +3946,20 @@ void __43__FCUserInfo_handleSyncWithUserInfoRecord___block_invoke(uint64_t a1, v
       }
 
       while (v9 != v11);
-      v9 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)backingRecordZoneIDs
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695BA90]);
   v3 = [v2 initWithZoneName:@"UserInfo" ownerName:*MEMORY[0x1E695B728]];
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }

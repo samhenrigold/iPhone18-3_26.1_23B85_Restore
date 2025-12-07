@@ -2,6 +2,7 @@
 + (id)_validEnvironmentFromEnvironment:(id)environment;
 + (id)applicationSourceDescriptionWithApplication:(id)application;
 + (id)applicationSourceDescriptionWithBundleIdentifier:(id)identifier;
++ (id)descriptionWithBundleIdentifier:(id)identifier path:(id)path allowServiceExtensionFiltering:(BOOL)filtering;
 + (id)sourceDescriptionWithBundleIdentifier:(id)identifier;
 + (id)systemSourceDescriptionWithBundleIdentifier:(id)identifier;
 + (id)systemSourceDescriptionWithBundleURL:(id)l;
@@ -19,16 +20,16 @@
 
 + (id)systemSourceDirectoryURLs
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v2 = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, 8uLL, 1);
   if (UNIsInternalInstall())
   {
     v3 = MEMORY[0x1E696AEC0];
     v4 = BSSystemRootDirectory();
-    v11[0] = v4;
-    v11[1] = @"AppleInternal";
-    v11[2] = @"Library";
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
+    v10[0] = v4;
+    v10[1] = @"AppleInternal";
+    v10[2] = @"Library";
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
     v6 = [v3 pathWithComponents:v5];
     v7 = [v2 arrayByAddingObject:v6];
 
@@ -37,25 +38,21 @@
 
   v8 = [v2 bs_map:&__block_literal_global_9];
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 id __70__UNCNotificationSourceDescription_Factory__systemSourceDirectoryURLs__block_invoke(uint64_t a1, void *a2)
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFF8];
   v3 = a2;
   v4 = BSSystemRootDirectory();
-  v9[0] = v4;
-  v9[1] = v3;
-  v9[2] = @"UserNotifications";
-  v9[3] = @"Bundles";
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
+  v8[0] = v4;
+  v8[1] = v3;
+  v8[2] = @"UserNotifications";
+  v8[3] = @"Bundles";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
   v6 = [v2 fileURLWithPathComponents:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -89,7 +86,7 @@ id __70__UNCNotificationSourceDescription_Factory__systemSourceDirectoryURLs__bl
 
 + (id)applicationSourceDescriptionWithApplication:(id)application
 {
-  v127 = *MEMORY[0x1E69E9840];
+  v119 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   v5 = applicationCopy;
   if (!applicationCopy)
@@ -104,13 +101,13 @@ id __70__UNCNotificationSourceDescription_Factory__systemSourceDirectoryURLs__bl
   dataContainerURL = [v5 dataContainerURL];
   groupContainerURLs = [v5 groupContainerURLs];
   v10 = objc_alloc_init(UNCNotificationSourceDescription);
-  v100 = bundleIdentifier;
+  v92 = bundleIdentifier;
   [(UNCNotificationSourceDescription *)v10 setBundleIdentifier:bundleIdentifier];
-  v99 = bundleURL;
+  v91 = bundleURL;
   [(UNCNotificationSourceDescription *)v10 setBundleURL:bundleURL];
-  v96 = dataContainerURL;
+  v88 = dataContainerURL;
   [(UNCNotificationSourceDescription *)v10 setDataContainerURL:dataContainerURL];
-  v95 = groupContainerURLs;
+  v87 = groupContainerURLs;
   [(UNCNotificationSourceDescription *)v10 setGroupContainerURLS:groupContainerURLs];
   appState = [v5 appState];
   -[UNCNotificationSourceDescription setRestricted:](v10, "setRestricted:", [appState isRestricted]);
@@ -118,50 +115,48 @@ id __70__UNCNotificationSourceDescription_Factory__systemSourceDirectoryURLs__bl
   mEMORY[0x1E698E730] = [MEMORY[0x1E698E730] sharedInstance];
   LODWORD(bundleURL) = [mEMORY[0x1E698E730] deviceClass];
 
-  v13 = 0x1E696A000;
-  v88 = bundleURL;
-  v101 = v11;
+  v80 = bundleURL;
+  v93 = v11;
   if (bundleURL == 4)
   {
-    v112 = 0uLL;
-    v113 = 0uLL;
-    v110 = 0uLL;
-    v111 = 0uLL;
+    v104 = 0uLL;
+    v105 = 0uLL;
+    v102 = 0uLL;
+    v103 = 0uLL;
     plugInKitPlugins = [v11 plugInKitPlugins];
-    v22 = [plugInKitPlugins countByEnumeratingWithState:&v110 objects:v126 count:16];
-    if (v22)
+    v21 = [plugInKitPlugins countByEnumeratingWithState:&v102 objects:v118 count:16];
+    if (v21)
     {
-      v23 = v22;
-      v92 = v5;
-      v24 = *v111;
+      v22 = v21;
+      v84 = v5;
+      v23 = *v103;
       while (2)
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v111 != v24)
+          if (*v103 != v23)
           {
             objc_enumerationMutation(plugInKitPlugins);
           }
 
-          v26 = *(*(&v110 + 1) + 8 * i);
-          v27 = [v26 objectForInfoDictionaryKey:@"NSExtensionPointIdentifier" ofClass:objc_opt_class() inScope:1];
-          v28 = [v27 isEqualToString:@"com.apple.watchkit"];
+          v25 = *(*(&v102 + 1) + 8 * i);
+          v26 = [v25 objectForInfoDictionaryKey:@"NSExtensionPointIdentifier" ofClass:objc_opt_class() inScope:1];
+          v27 = [v26 isEqualToString:@"com.apple.watchkit"];
 
-          if (v28)
+          if (v27)
           {
-            v29 = v26;
-            v11 = v101;
-            v30 = v101;
-            v13 = 0x1E696A000uLL;
+            v28 = v25;
+            v11 = v93;
+            v29 = v93;
 LABEL_25:
 
-            v5 = v92;
+            v5 = v84;
             goto LABEL_26;
           }
         }
 
-        v23 = [plugInKitPlugins countByEnumeratingWithState:&v110 objects:v126 count:16];
-        if (v23)
+        v22 = [plugInKitPlugins countByEnumeratingWithState:&v102 objects:v118 count:16];
+        if (v22)
         {
           continue;
         }
@@ -171,50 +166,49 @@ LABEL_25:
     }
 
 LABEL_22:
-    v29 = v11;
+    v28 = v11;
     goto LABEL_26;
   }
 
-  v108 = 0uLL;
-  v109 = 0uLL;
-  v106 = 0uLL;
-  v107 = 0uLL;
+  v100 = 0uLL;
+  v101 = 0uLL;
+  v98 = 0uLL;
+  v99 = 0uLL;
   plugInKitPlugins = [v11 plugInKitPlugins];
-  v15 = [plugInKitPlugins countByEnumeratingWithState:&v106 objects:v125 count:16];
-  if (!v15)
+  v14 = [plugInKitPlugins countByEnumeratingWithState:&v98 objects:v117 count:16];
+  if (!v14)
   {
     goto LABEL_22;
   }
 
-  v16 = v15;
-  v92 = v5;
-  v17 = *v107;
+  v15 = v14;
+  v84 = v5;
+  v16 = *v99;
   while (2)
   {
-    for (j = 0; j != v16; ++j)
+    for (j = 0; j != v15; ++j)
     {
-      if (*v107 != v17)
+      if (*v99 != v16)
       {
         objc_enumerationMutation(plugInKitPlugins);
       }
 
-      v19 = *(*(&v106 + 1) + 8 * j);
-      v20 = [v19 objectForInfoDictionaryKey:@"NSExtensionPointIdentifier" ofClass:objc_opt_class() inScope:1];
-      v21 = [v20 isEqualToString:@"com.apple.usernotifications.service"];
+      v18 = *(*(&v98 + 1) + 8 * j);
+      v19 = [v18 objectForInfoDictionaryKey:@"NSExtensionPointIdentifier" ofClass:objc_opt_class() inScope:1];
+      v20 = [v19 isEqualToString:@"com.apple.usernotifications.service"];
 
-      if (v21)
+      if (v20)
       {
-        v13 = 0x1E696A000uLL;
-        v30 = [v19 entitlementValueForKey:@"com.apple.developer.usernotifications.filtering" ofClass:objc_opt_class()];
-        -[UNCNotificationSourceDescription setAllowServiceExtensionFiltering:](v10, "setAllowServiceExtensionFiltering:", [v30 BOOLValue]);
-        v11 = v101;
-        v29 = v101;
+        v29 = [v18 entitlementValueForKey:@"com.apple.developer.usernotifications.filtering" ofClass:objc_opt_class()];
+        -[UNCNotificationSourceDescription setAllowServiceExtensionFiltering:](v10, "setAllowServiceExtensionFiltering:", [v29 BOOLValue]);
+        v11 = v93;
+        v28 = v93;
         goto LABEL_25;
       }
     }
 
-    v16 = [plugInKitPlugins countByEnumeratingWithState:&v106 objects:v125 count:16];
-    if (v16)
+    v15 = [plugInKitPlugins countByEnumeratingWithState:&v98 objects:v117 count:16];
+    if (v15)
     {
       continue;
     }
@@ -223,56 +217,55 @@ LABEL_22:
   }
 
 LABEL_21:
-  v11 = v101;
-  v29 = v101;
-  v5 = v92;
-  v13 = 0x1E696A000;
+  v11 = v93;
+  v28 = v93;
+  v5 = v84;
 LABEL_26:
 
   correspondingApplicationRecord = [v11 correspondingApplicationRecord];
-  v32 = correspondingApplicationRecord;
+  v31 = correspondingApplicationRecord;
   if (correspondingApplicationRecord)
   {
     localizedName = [correspondingApplicationRecord localizedName];
     [(UNCNotificationSourceDescription *)v10 setDisplayName:localizedName];
 
-    appClipMetadata = [v32 appClipMetadata];
+    appClipMetadata = [v31 appClipMetadata];
     [(UNCNotificationSourceDescription *)v10 setIsAppClip:appClipMetadata != 0];
 
-    appClipMetadata2 = [v32 appClipMetadata];
+    appClipMetadata2 = [v31 appClipMetadata];
     -[UNCNotificationSourceDescription setWantsEphemeralNotifications:](v10, "setWantsEphemeralNotifications:", [appClipMetadata2 wantsEphemeralNotifications]);
   }
 
-  v93 = v32;
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
-  v103 = 0u;
-  v36 = objc_opt_class();
-  v37 = [v29 entitlementValueForKey:@"com.apple.developer.icloud-services" ofClass:v36 valuesOfClass:objc_opt_class()];
-  v38 = [v37 countByEnumeratingWithState:&v102 objects:v124 count:16];
-  if (v38)
+  v85 = v31;
+  v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
+  v35 = objc_opt_class();
+  v36 = [v28 entitlementValueForKey:@"com.apple.developer.icloud-services" ofClass:v35 valuesOfClass:objc_opt_class()];
+  v37 = [v36 countByEnumeratingWithState:&v94 objects:v116 count:16];
+  if (v37)
   {
-    v39 = v38;
-    v40 = *v103;
+    v38 = v37;
+    v39 = *v95;
     while (2)
     {
-      for (k = 0; k != v39; ++k)
+      for (k = 0; k != v38; ++k)
       {
-        if (*v103 != v40)
+        if (*v95 != v39)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v36);
         }
 
-        if (![*(*(&v102 + 1) + 8 * k) caseInsensitiveCompare:@"cloudkit"])
+        if (![*(*(&v94 + 1) + 8 * k) caseInsensitiveCompare:@"cloudkit"])
         {
-          v42 = 1;
+          v41 = 1;
           goto LABEL_38;
         }
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v102 objects:v124 count:16];
-      if (v39)
+      v38 = [v36 countByEnumeratingWithState:&v94 objects:v116 count:16];
+      if (v38)
       {
         continue;
       }
@@ -280,148 +273,141 @@ LABEL_26:
       break;
     }
 
-    v42 = 0;
+    v41 = 0;
 LABEL_38:
-    v11 = v101;
+    v11 = v93;
   }
 
   else
   {
-    v42 = 0;
+    v41 = 0;
   }
 
-  [(UNCNotificationSourceDescription *)v10 setUsesCloudKit:v42];
-  v91 = [v29 entitlementValueForKey:@"aps-environment" ofClass:objc_opt_class()];
-  v90 = [selfCopy _validEnvironmentFromEnvironment:?];
+  [(UNCNotificationSourceDescription *)v10 setUsesCloudKit:v41];
+  v83 = [v28 entitlementValueForKey:@"aps-environment" ofClass:objc_opt_class()];
+  v82 = [selfCopy _validEnvironmentFromEnvironment:?];
   [(UNCNotificationSourceDescription *)v10 setPushEnvironment:?];
-  v43 = *(v13 + 3480);
-  v44 = [v29 entitlementValueForKey:@"com.apple.developer.usernotifications.critical-alerts" ofClass:objc_opt_class()];
-  v46 = v88 != 4 || v29 == v11;
-  if (!v44 && !v46)
+  v42 = [v28 entitlementValueForKey:@"com.apple.developer.usernotifications.critical-alerts" ofClass:objc_opt_class()];
+  v44 = v80 != 4 || v28 == v11;
+  if (!v42 && !v44)
   {
-    v47 = *(v13 + 3480);
-    v44 = [v11 entitlementValueForKey:@"com.apple.developer.usernotifications.critical-alerts" ofClass:objc_opt_class()];
+    v42 = [v11 entitlementValueForKey:@"com.apple.developer.usernotifications.critical-alerts" ofClass:objc_opt_class()];
   }
 
-  v89 = v44;
-  -[UNCNotificationSourceDescription setAllowCriticalAlerts:](v10, "setAllowCriticalAlerts:", [v44 BOOLValue]);
-  v48 = *(v13 + 3480);
-  v49 = [v29 entitlementValueForKey:@"com.apple.developer.usernotifications.time-sensitive" ofClass:objc_opt_class()];
-  if (v49 == 0 && !v46)
+  v81 = v42;
+  -[UNCNotificationSourceDescription setAllowCriticalAlerts:](v10, "setAllowCriticalAlerts:", [v42 BOOLValue]);
+  v45 = [v28 entitlementValueForKey:@"com.apple.developer.usernotifications.time-sensitive" ofClass:objc_opt_class()];
+  if (v45 == 0 && !v44)
   {
-    v50 = *(v13 + 3480);
-    v49 = [v11 entitlementValueForKey:@"com.apple.developer.usernotifications.time-sensitive" ofClass:objc_opt_class()];
+    v45 = [v11 entitlementValueForKey:@"com.apple.developer.usernotifications.time-sensitive" ofClass:objc_opt_class()];
   }
 
-  v87 = v49;
-  bOOLValue = [v49 BOOLValue];
+  v79 = v45;
+  bOOLValue = [v45 BOOLValue];
   [(UNCNotificationSourceDescription *)v10 setAllowTimeSensitive:?];
-  v51 = *(v13 + 3480);
-  v52 = [v29 entitlementValueForKey:@"com.apple.developer.usernotifications.communication" ofClass:objc_opt_class()];
-  if (v52 == 0 && !v46)
+  v46 = [v28 entitlementValueForKey:@"com.apple.developer.usernotifications.communication" ofClass:objc_opt_class()];
+  if (v46 == 0 && !v44)
   {
-    v53 = *(v13 + 3480);
-    v52 = [v11 entitlementValueForKey:@"com.apple.developer.usernotifications.communication" ofClass:objc_opt_class()];
+    v46 = [v11 entitlementValueForKey:@"com.apple.developer.usernotifications.communication" ofClass:objc_opt_class()];
   }
 
-  v86 = v52;
-  bOOLValue2 = [v52 BOOLValue];
-  un_isFirstPartyIdentifier = [v100 un_isFirstPartyIdentifier];
-  v55 = *MEMORY[0x1E696E6A0];
+  v78 = v46;
+  bOOLValue2 = [v46 BOOLValue];
+  un_isFirstPartyIdentifier = [v92 un_isFirstPartyIdentifier];
+  v48 = *MEMORY[0x1E696E6A0];
   CanDonateIntent = INBundleProxyCanDonateIntent();
-  v57 = *MEMORY[0x1E696E688];
-  v58 = INBundleProxyCanDonateIntent();
-  v59 = *MEMORY[0x1E696E6E8];
-  v60 = INBundleProxyCanDonateIntent();
-  v98 = [v29 entitlementValueForKey:@"application-identifier" ofClass:objc_opt_class()];
-  if ((v60 & 1) == 0 && (v58 & 1) == 0 && (CanDonateIntent & 1) == 0)
+  v50 = *MEMORY[0x1E696E688];
+  v51 = INBundleProxyCanDonateIntent();
+  v52 = *MEMORY[0x1E696E6E8];
+  v53 = INBundleProxyCanDonateIntent();
+  v90 = [v28 entitlementValueForKey:@"application-identifier" ofClass:objc_opt_class()];
+  if ((v53 & 1) == 0 && (v51 & 1) == 0 && (CanDonateIntent & 1) == 0)
   {
-    v60 = [v98 isEqualToString:@"com.apple.internal.suiautomation"] != 0;
-    v58 = v60;
-    CanDonateIntent = v60;
+    v53 = [v90 isEqualToString:@"com.apple.internal.suiautomation"] != 0;
+    v51 = v53;
+    CanDonateIntent = v53;
   }
 
-  [(UNCNotificationSourceDescription *)v10 setAllowCalls:bOOLValue2 & v60];
-  [(UNCNotificationSourceDescription *)v10 setAllowIntercom:bOOLValue2 & v58];
+  [(UNCNotificationSourceDescription *)v10 setAllowCalls:bOOLValue2 & v53];
+  [(UNCNotificationSourceDescription *)v10 setAllowIntercom:bOOLValue2 & v51];
   [(UNCNotificationSourceDescription *)v10 setAllowMessages:bOOLValue2 & CanDonateIntent];
-  if ((v60 & 1) == 0 && (v58 & 1) == 0 && (CanDonateIntent & 1) == 0 && ((bOOLValue2 ^ 1) & 1) == 0)
+  if ((v53 & 1) == 0 && (v51 & 1) == 0 && (CanDonateIntent & 1) == 0 && ((bOOLValue2 ^ 1) & 1) == 0)
   {
-    v61 = *MEMORY[0x1E6983350];
+    v54 = *MEMORY[0x1E6983350];
     if (os_log_type_enabled(*MEMORY[0x1E6983350], OS_LOG_TYPE_ERROR))
     {
       *buf = 138544386;
-      v80 = &stru_1F563BF08;
-      v115 = v100;
+      v72 = &stru_1F563BF08;
+      v107 = v92;
       if (un_isFirstPartyIdentifier)
       {
-        v80 = v57;
+        v72 = v50;
       }
 
-      v116 = 2114;
-      v117 = @"com.apple.developer.usernotifications.communication";
-      v118 = 2114;
-      v119 = v59;
-      v120 = 2114;
-      v121 = v80;
-      v122 = 2114;
-      v123 = v55;
-      _os_log_error_impl(&dword_1DA7A9000, v61, OS_LOG_TYPE_ERROR, "[%{public}@] Error: App has '%{public}@' entitlement but does not support donating [%{public}@,%{public}@,%{public}@]. Communication API features will be denied to app.", buf, 0x34u);
+      v108 = 2114;
+      v109 = @"com.apple.developer.usernotifications.communication";
+      v110 = 2114;
+      v111 = v52;
+      v112 = 2114;
+      v113 = v72;
+      v114 = 2114;
+      v115 = v48;
+      _os_log_error_impl(&dword_1DA7A9000, v54, OS_LOG_TYPE_ERROR, "[%{public}@] Error: App has '%{public}@' entitlement but does not support donating [%{public}@,%{public}@,%{public}@]. Communication API features will be denied to app.", buf, 0x34u);
     }
   }
 
-  v62 = *MEMORY[0x1E69DDBE0];
-  v63 = objc_opt_class();
-  v64 = [v29 objectForInfoDictionaryKey:v62 ofClass:v63 valuesOfClass:objc_opt_class()];
-  LOBYTE(v62) = [v64 containsObject:*MEMORY[0x1E69DDBD8]];
-  activityTypes = [v101 activityTypes];
-  v66 = [activityTypes copy];
+  v55 = *MEMORY[0x1E69DDBE0];
+  v56 = objc_opt_class();
+  v57 = [v28 objectForInfoDictionaryKey:v55 ofClass:v56 valuesOfClass:objc_opt_class()];
+  LOBYTE(v55) = [v57 containsObject:*MEMORY[0x1E69DDBD8]];
+  activityTypes = [v93 activityTypes];
+  v59 = [activityTypes copy];
 
-  [(UNCNotificationSourceDescription *)v10 setActivityTypes:v66];
-  -[UNCNotificationSourceDescription setSupportsContentAvailableRemoteNotifications:](v10, "setSupportsContentAvailableRemoteNotifications:", (v62 | ([v101 isNewsstandApp] & objc_msgSend(v64, "containsObject:", @"newsstand-content"))) & 1);
-  applicationType = [v101 applicationType];
-  v68 = [applicationType isEqualToString:@"System"];
-  if (v68)
+  [(UNCNotificationSourceDescription *)v10 setActivityTypes:v59];
+  -[UNCNotificationSourceDescription setSupportsContentAvailableRemoteNotifications:](v10, "setSupportsContentAvailableRemoteNotifications:", (v55 | ([v93 isNewsstandApp] & objc_msgSend(v57, "containsObject:", @"newsstand-content"))) & 1);
+  applicationType = [v93 applicationType];
+  v61 = [applicationType isEqualToString:@"System"];
+  if (v61)
   {
-    v69 = [v101 objectForInfoDictionaryKey:@"UNUserNotificationCenter" ofClass:objc_opt_class()];
-    if (v99)
+    v62 = [v93 objectForInfoDictionaryKey:@"UNUserNotificationCenter" ofClass:objc_opt_class()];
+    if (v91)
     {
-      v70 = [objc_alloc(MEMORY[0x1E698E640]) initWithURL:v99];
-      [(UNCNotificationSourceDescription *)v10 setSystemPropertiesFromDictionary:v69 bundle:v70];
+      v63 = [objc_alloc(MEMORY[0x1E698E640]) initWithURL:v91];
+      [(UNCNotificationSourceDescription *)v10 setSystemPropertiesFromDictionary:v62 bundle:v63];
     }
 
-    v81 = v69;
-    v84 = v29;
+    v73 = v62;
+    v76 = v28;
     if (bOOLValue)
     {
       defaultSettings = [(UNCNotificationSourceDescription *)v10 defaultSettings];
       [defaultSettings setSupportsTimeSensitive:1];
     }
 
-    [(UNCNotificationSourceDescription *)v10 setAllowPrivateProperties:1, v81];
-    v72 = [v101 objectForInfoDictionaryKey:@"SBAppUsesLocalNotifications" ofClass:0];
-    un_safeBoolValue = [v72 un_safeBoolValue];
+    [(UNCNotificationSourceDescription *)v10 setAllowPrivateProperties:1, v73];
+    v65 = [v93 objectForInfoDictionaryKey:@"SBAppUsesLocalNotifications" ofClass:0];
+    un_safeBoolValue = [v65 un_safeBoolValue];
 
-    v74 = [v101 objectForInfoDictionaryKey:@"BBDataProvider" ofClass:0];
-    un_safeBoolValue2 = [v74 un_safeBoolValue];
+    v67 = [v93 objectForInfoDictionaryKey:@"BBDataProvider" ofClass:0];
+    un_safeBoolValue2 = [v67 un_safeBoolValue];
 
-    v76 = [v101 objectForInfoDictionaryKey:@"UNUserNotificationCenter" ofClass:0];
-    LOBYTE(v74) = v76 != 0;
+    v69 = [v93 objectForInfoDictionaryKey:@"UNUserNotificationCenter" ofClass:0];
+    LOBYTE(v67) = v69 != 0;
 
-    [(UNCNotificationSourceDescription *)v10 setUseDefaultDataProvider:(v74 | un_safeBoolValue) & ~un_safeBoolValue2 & 1];
-    v77 = v99;
-    v29 = v84;
+    [(UNCNotificationSourceDescription *)v10 setUseDefaultDataProvider:(v67 | un_safeBoolValue) & ~un_safeBoolValue2 & 1];
+    v70 = v91;
+    v28 = v76;
   }
 
   else
   {
     [(UNCNotificationSourceDescription *)v10 setUseDefaultDataProvider:1];
-    v77 = v99;
+    v70 = v91;
   }
 
-  -[UNCNotificationSourceDescription setAllowAlternateLaunchBundleIdentifiers:](v10, "setAllowAlternateLaunchBundleIdentifiers:", v68 | [v93 isWebApp]);
+  -[UNCNotificationSourceDescription setAllowAlternateLaunchBundleIdentifiers:](v10, "setAllowAlternateLaunchBundleIdentifiers:", v61 | [v85 isWebApp]);
 
 LABEL_70:
-  v78 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -440,30 +426,30 @@ LABEL_70:
 
 + (id)systemSourceDescriptionWithBundleIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ([identifierCopy hasPrefix:@"com.apple."])
   {
     [self systemSourceDirectoryURLs];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v5 = v19 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = v18 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v16 + 1) + 8 * v9) URLByAppendingPathComponent:{identifierCopy, v16}];
+        v10 = [*(*(&v15 + 1) + 8 * v9) URLByAppendingPathComponent:{identifierCopy, v15}];
         systemSourcePathExtension = [self systemSourcePathExtension];
         v12 = [v10 URLByAppendingPathExtension:systemSourcePathExtension];
 
@@ -476,7 +462,7 @@ LABEL_4:
 
         if (v7 == ++v9)
         {
-          v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -498,8 +484,6 @@ LABEL_10:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -722,260 +706,244 @@ LABEL_10:
 
 UNCNotificationCategoryRecord *__82__UNCNotificationSourceDescription_Factory__setDefaultCategoriesFromArray_bundle___block_invoke(uint64_t a1, void *a2)
 {
-  v116 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = 0x1E696A000uLL;
-  v73 = [v3 bs_safeObjectForKey:@"UNCategoryIdentifier" ofType:objc_opt_class()];
-  v5 = [*(a1 + 32) localizedInfoDictionary];
-  v70 = [v3 bs_safeObjectForKey:@"UNCategoryHiddenPreviewsBodyPlaceholder" ofType:objc_opt_class()];
-  v69 = [v5 bs_safeObjectForKey:v70 ofType:objc_opt_class()];
+  v59 = [v3 bs_safeObjectForKey:@"UNCategoryIdentifier" ofType:objc_opt_class()];
+  v4 = [*(a1 + 32) localizedInfoDictionary];
+  v56 = [v3 bs_safeObjectForKey:@"UNCategoryHiddenPreviewsBodyPlaceholder" ofType:objc_opt_class()];
+  v55 = [v4 bs_safeObjectForKey:v56 ofType:objc_opt_class()];
   [v3 bs_safeObjectForKey:@"UNCategorySummaryFormat" ofType:objc_opt_class()];
-  v68 = v104 = v5;
-  v67 = [v5 bs_safeObjectForKey:v68 ofType:objc_opt_class()];
-  v66 = [v3 bs_safeObjectForKey:@"UNCategoryBackgroundStyle" ofType:objc_opt_class()];
-  v65 = [v3 bs_safeObjectForKey:@"UNCategoryListPriority" ofType:objc_opt_class()];
-  v64 = [v3 bs_safeObjectForKey:@"UNCategoryIntentIdentifiers" ofType:objc_opt_class()];
-  v71 = v3;
-  v6 = [v3 bs_safeObjectForKey:@"UNCategoryActions" ofType:objc_opt_class()];
-  v79 = [MEMORY[0x1E695DF70] array];
-  v105 = 0u;
-  v106 = 0u;
-  v107 = 0u;
-  v108 = 0u;
-  obj = v6;
-  v80 = [obj countByEnumeratingWithState:&v105 objects:v115 count:16];
-  if (v80)
+  v54 = v90 = v4;
+  v53 = [v4 bs_safeObjectForKey:v54 ofType:objc_opt_class()];
+  v52 = [v3 bs_safeObjectForKey:@"UNCategoryBackgroundStyle" ofType:objc_opt_class()];
+  v51 = [v3 bs_safeObjectForKey:@"UNCategoryListPriority" ofType:objc_opt_class()];
+  v50 = [v3 bs_safeObjectForKey:@"UNCategoryIntentIdentifiers" ofType:objc_opt_class()];
+  v57 = v3;
+  v5 = [v3 bs_safeObjectForKey:@"UNCategoryActions" ofType:objc_opt_class()];
+  v65 = [MEMORY[0x1E695DF70] array];
+  v91 = 0u;
+  v92 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  obj = v5;
+  v66 = [obj countByEnumeratingWithState:&v91 objects:v101 count:16];
+  if (v66)
   {
-    v77 = *v106;
+    v63 = *v92;
     do
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        if (*v106 != v77)
+        if (*v92 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v84 = v7;
-        v8 = *(*(&v105 + 1) + 8 * v7);
-        v9 = *(v4 + 3776);
-        v10 = [v8 bs_safeObjectForKey:@"UNActionIdentifier" ofType:objc_opt_class()];
-        v11 = *(v4 + 3776);
-        v12 = [v8 bs_safeObjectForKey:@"UNActionTitle" ofType:objc_opt_class()];
-        v13 = *(v4 + 3776);
-        v14 = [v104 bs_safeObjectForKey:v12 ofType:objc_opt_class()];
-        v99 = v14;
-        if (v12)
+        v70 = v6;
+        v7 = *(*(&v91 + 1) + 8 * v6);
+        v8 = [v7 bs_safeObjectForKey:@"UNActionIdentifier" ofType:objc_opt_class()];
+        v9 = [v7 bs_safeObjectForKey:@"UNActionTitle" ofType:objc_opt_class()];
+        v10 = [v90 bs_safeObjectForKey:v9 ofType:objc_opt_class()];
+        v86 = v10;
+        if (v9)
         {
-          v15 = v14 == 0;
+          v11 = v10 == 0;
         }
 
         else
         {
-          v15 = 0;
+          v11 = 0;
         }
 
-        if (v15)
+        if (v11)
         {
-          v16 = *MEMORY[0x1E6983348];
+          v12 = *MEMORY[0x1E6983348];
           if (os_log_type_enabled(*MEMORY[0x1E6983348], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543874;
-            v110 = v73;
-            v111 = 2114;
-            v112 = v10;
-            v113 = 2114;
-            v114 = v12;
-            _os_log_error_impl(&dword_1DA7A9000, v16, OS_LOG_TYPE_ERROR, "Error: Category (%{public}@) has an action (%{public}@) whose title key (%{public}@) is mapped to a missing localized string.", buf, 0x20u);
+            v96 = v59;
+            v97 = 2114;
+            v98 = v8;
+            v99 = 2114;
+            v100 = v9;
+            _os_log_error_impl(&dword_1DA7A9000, v12, OS_LOG_TYPE_ERROR, "Error: Category (%{public}@) has an action (%{public}@) whose title key (%{public}@) is mapped to a missing localized string.", buf, 0x20u);
           }
         }
 
-        v102 = v10;
-        v17 = *(v4 + 3776);
-        v18 = [v8 bs_safeObjectForKey:@"UNActionTextInputButtonTitle" ofType:objc_opt_class()];
-        v19 = *(v4 + 3776);
-        v97 = v18;
-        v95 = [v104 bs_safeObjectForKey:v18 ofType:objc_opt_class()];
-        v20 = *(v4 + 3776);
-        v21 = [v8 bs_safeObjectForKey:@"UNActionTextInputPlaceholder" ofType:objc_opt_class()];
-        v22 = *(v4 + 3776);
-        v92 = [v104 bs_safeObjectForKey:v21 ofType:objc_opt_class()];
-        v23 = *(v4 + 3776);
-        v90 = [v8 bs_safeObjectForKey:@"UNActionSystemIconName" ofType:objc_opt_class()];
-        v24 = *(v4 + 3776);
-        v88 = [v8 bs_safeObjectForKey:@"UNActionTemplateIconName" ofType:objc_opt_class()];
-        v25 = *(v4 + 3776);
-        v26 = [v8 bs_safeObjectForKey:@"UNActionURL" ofType:objc_opt_class()];
-        v86 = v26;
-        if (v26)
+        v84 = [v7 bs_safeObjectForKey:@"UNActionTextInputButtonTitle" ofType:objc_opt_class()];
+        v82 = [v90 bs_safeObjectForKey:v84 ofType:objc_opt_class()];
+        v80 = [v7 bs_safeObjectForKey:@"UNActionTextInputPlaceholder" ofType:objc_opt_class()];
+        v78 = [v90 bs_safeObjectForKey:v80 ofType:objc_opt_class()];
+        v76 = [v7 bs_safeObjectForKey:@"UNActionSystemIconName" ofType:objc_opt_class()];
+        v74 = [v7 bs_safeObjectForKey:@"UNActionTemplateIconName" ofType:objc_opt_class()];
+        v13 = [v7 bs_safeObjectForKey:@"UNActionURL" ofType:objc_opt_class()];
+        v72 = v13;
+        if (v13)
         {
-          v27 = [MEMORY[0x1E695DFF8] URLWithString:v26];
+          v14 = [MEMORY[0x1E695DFF8] URLWithString:v13];
         }
 
         else
         {
-          v27 = 0;
+          v14 = 0;
         }
 
-        v28 = [v8 bs_safeObjectForKey:@"UNActionAuthenticationRequired" ofType:objc_opt_class()];
-        v82 = [v28 un_safeBoolValue];
+        v15 = [v7 bs_safeObjectForKey:@"UNActionAuthenticationRequired" ofType:objc_opt_class()];
+        v68 = [v15 un_safeBoolValue];
 
-        v29 = [v8 bs_safeObjectForKey:@"UNActionDestructive" ofType:objc_opt_class()];
-        v30 = [v29 un_safeBoolValue];
+        v16 = [v7 bs_safeObjectForKey:@"UNActionDestructive" ofType:objc_opt_class()];
+        v17 = [v16 un_safeBoolValue];
 
-        v31 = [v8 objectForKey:@"UNActionForeground"];
-        if (v31)
+        v18 = [v7 objectForKey:@"UNActionForeground"];
+        if (v18)
         {
-          v32 = [v8 bs_safeObjectForKey:@"UNActionForeground" ofType:objc_opt_class()];
-          v33 = [v32 un_safeBoolValue];
+          v19 = [v7 bs_safeObjectForKey:@"UNActionForeground" ofType:objc_opt_class()];
+          v20 = [v19 un_safeBoolValue];
         }
 
         else
         {
-          v33 = v27 != 0;
+          v20 = v14 != 0;
         }
 
-        v34 = [v8 bs_safeObjectForKey:@"UNActionPreventNotificationDismissal" ofType:objc_opt_class()];
-        v35 = [v34 un_safeBoolValue];
+        v21 = [v7 bs_safeObjectForKey:@"UNActionPreventNotificationDismissal" ofType:objc_opt_class()];
+        v22 = [v21 un_safeBoolValue];
 
-        v36 = [v8 bs_safeObjectForKey:@"UNActionTextInput" ofType:objc_opt_class()];
-        LODWORD(v34) = [v36 un_safeBoolValue];
+        v23 = [v7 bs_safeObjectForKey:@"UNActionTextInput" ofType:objc_opt_class()];
+        LODWORD(v21) = [v23 un_safeBoolValue];
 
-        v37 = objc_alloc_init(UNCNotificationActionRecord);
-        [(UNCNotificationActionRecord *)v37 setIdentifier:v102];
-        [(UNCNotificationActionRecord *)v37 setTitle:v99];
-        [(UNCNotificationActionRecord *)v37 setTextInputButtonTitle:v95];
-        [(UNCNotificationActionRecord *)v37 setTextInputPlaceholder:v92];
-        [(UNCNotificationActionRecord *)v37 setUrl:v27];
-        [(UNCNotificationActionRecord *)v37 setAuthenticationRequired:v82];
-        [(UNCNotificationActionRecord *)v37 setDestructive:v30];
-        [(UNCNotificationActionRecord *)v37 setForeground:v33];
-        [(UNCNotificationActionRecord *)v37 setShouldPreventNotificationDismiss:v35];
-        if (v34)
+        v24 = objc_alloc_init(UNCNotificationActionRecord);
+        [(UNCNotificationActionRecord *)v24 setIdentifier:v8];
+        [(UNCNotificationActionRecord *)v24 setTitle:v86];
+        [(UNCNotificationActionRecord *)v24 setTextInputButtonTitle:v82];
+        [(UNCNotificationActionRecord *)v24 setTextInputPlaceholder:v78];
+        [(UNCNotificationActionRecord *)v24 setUrl:v14];
+        [(UNCNotificationActionRecord *)v24 setAuthenticationRequired:v68];
+        [(UNCNotificationActionRecord *)v24 setDestructive:v17];
+        [(UNCNotificationActionRecord *)v24 setForeground:v20];
+        [(UNCNotificationActionRecord *)v24 setShouldPreventNotificationDismiss:v22];
+        if (v21)
         {
-          v38 = @"TextInput";
+          v25 = @"TextInput";
         }
 
         else
         {
-          v38 = @"Default";
+          v25 = @"Default";
         }
 
-        [(UNCNotificationActionRecord *)v37 setActionType:v38];
-        if (v90)
+        [(UNCNotificationActionRecord *)v24 setActionType:v25];
+        if (v76)
         {
-          v39 = v90;
+          v26 = v76;
         }
 
         else
         {
-          v39 = v88;
+          v26 = v74;
         }
 
-        [(UNCNotificationActionRecord *)v37 setHasSystemIcon:v90 != 0];
-        [(UNCNotificationActionRecord *)v37 setIconImageName:v39];
-        [v79 addObject:v37];
+        [(UNCNotificationActionRecord *)v24 setHasSystemIcon:v76 != 0];
+        [(UNCNotificationActionRecord *)v24 setIconImageName:v26];
+        [v65 addObject:v24];
 
-        v7 = v84 + 1;
-        v4 = 0x1E696A000;
+        v6 = v70 + 1;
       }
 
-      while (v80 != v84 + 1);
-      v80 = [obj countByEnumeratingWithState:&v105 objects:v115 count:16];
+      while (v66 != v70 + 1);
+      v66 = [obj countByEnumeratingWithState:&v91 objects:v101 count:16];
     }
 
-    while (v80);
+    while (v66);
   }
 
-  v40 = [v71 objectForKey:@"UNCategoryAllowInCarPlay"];
-  v103 = [v40 un_safeBoolValue];
+  v27 = [v57 objectForKey:@"UNCategoryAllowInCarPlay"];
+  v89 = [v27 un_safeBoolValue];
 
-  v41 = [v71 objectForKey:@"UNCategoryCustomDismissAction"];
-  v101 = [v41 un_safeBoolValue];
+  v28 = [v57 objectForKey:@"UNCategoryCustomDismissAction"];
+  v88 = [v28 un_safeBoolValue];
 
-  v42 = [v71 objectForKey:@"UNCategoryFollowActivityAction"];
-  v100 = [v42 un_safeBoolValue];
+  v29 = [v57 objectForKey:@"UNCategoryFollowActivityAction"];
+  v87 = [v29 un_safeBoolValue];
 
-  v43 = [v71 objectForKey:@"UNCategoryCustomSilenceAction"];
-  v98 = [v43 un_safeBoolValue];
+  v30 = [v57 objectForKey:@"UNCategoryCustomSilenceAction"];
+  v85 = [v30 un_safeBoolValue];
 
-  v44 = [v71 objectForKey:@"UNCategoryHiddenPreviewsShowSubtitle"];
-  v96 = [v44 un_safeBoolValue];
+  v31 = [v57 objectForKey:@"UNCategoryHiddenPreviewsShowSubtitle"];
+  v83 = [v31 un_safeBoolValue];
 
-  v45 = [v71 objectForKey:@"UNCategoryHiddenPreviewsShowTitle"];
-  v94 = [v45 un_safeBoolValue];
+  v32 = [v57 objectForKey:@"UNCategoryHiddenPreviewsShowTitle"];
+  v81 = [v32 un_safeBoolValue];
 
-  v46 = [v71 objectForKey:@"UNCategoryPresentFullScreenAlertOverList"];
-  v93 = [v46 un_safeBoolValue];
+  v33 = [v57 objectForKey:@"UNCategoryPresentFullScreenAlertOverList"];
+  v79 = [v33 un_safeBoolValue];
 
-  v47 = [v71 objectForKey:@"UNCategoryPreventAutomaticLock"];
-  v91 = [v47 un_safeBoolValue];
+  v34 = [v57 objectForKey:@"UNCategoryPreventAutomaticLock"];
+  v77 = [v34 un_safeBoolValue];
 
-  v48 = [v71 objectForKey:@"UNCategoryPreventAutomaticRemovalFromRecents"];
-  v89 = [v48 un_safeBoolValue];
+  v35 = [v57 objectForKey:@"UNCategoryPreventAutomaticRemovalFromRecents"];
+  v75 = [v35 un_safeBoolValue];
 
-  v49 = [v71 objectForKey:@"UNCategoryPreventDismissWhenClosed"];
-  v87 = [v49 un_safeBoolValue];
+  v36 = [v57 objectForKey:@"UNCategoryPreventDismissWhenClosed"];
+  v73 = [v36 un_safeBoolValue];
 
-  v50 = [v71 objectForKey:@"UNCategoryRevealAdditionalContentWhenPresented"];
-  v85 = [v50 un_safeBoolValue];
+  v37 = [v57 objectForKey:@"UNCategoryRevealAdditionalContentWhenPresented"];
+  v71 = [v37 un_safeBoolValue];
 
-  v51 = [v71 objectForKey:@"UNCategoryAllowActionsInCarPlay"];
-  v83 = [v51 un_safeBoolValue];
+  v38 = [v57 objectForKey:@"UNCategoryAllowActionsInCarPlay"];
+  v69 = [v38 un_safeBoolValue];
 
-  v52 = [v71 objectForKey:@"UNCategoryAllowPersistentBannersInCarPlay"];
-  v81 = [v52 un_safeBoolValue];
+  v39 = [v57 objectForKey:@"UNCategoryAllowPersistentBannersInCarPlay"];
+  v67 = [v39 un_safeBoolValue];
 
-  v53 = [v71 objectForKey:@"UNCategoryPlayMediaWhenRaised"];
-  v78 = [v53 un_safeBoolValue];
+  v40 = [v57 objectForKey:@"UNCategoryPlayMediaWhenRaised"];
+  v64 = [v40 un_safeBoolValue];
 
-  v54 = [v71 objectForKey:@"UNCategoryPreventClearFromList"];
-  v76 = [v54 un_safeBoolValue];
+  v41 = [v57 objectForKey:@"UNCategoryPreventClearFromList"];
+  v62 = [v41 un_safeBoolValue];
 
-  v55 = [v71 objectForKey:@"UNCategoryAlwaysDisplayNotificationsIndicator"];
-  v75 = [v55 un_safeBoolValue];
+  v42 = [v57 objectForKey:@"UNCategoryAlwaysDisplayNotificationsIndicator"];
+  v61 = [v42 un_safeBoolValue];
 
-  v56 = [v71 objectForKey:@"UNCategorySuppressDelayForForwardedNotifications"];
-  v72 = [v56 un_safeBoolValue];
+  v43 = [v57 objectForKey:@"UNCategorySuppressDelayForForwardedNotifications"];
+  v58 = [v43 un_safeBoolValue];
 
-  v57 = [v71 objectForKey:@"UNCategorySuppressDismissActionInCarPlay"];
-  v63 = [v57 un_safeBoolValue];
+  v44 = [v57 objectForKey:@"UNCategorySuppressDismissActionInCarPlay"];
+  v49 = [v44 un_safeBoolValue];
 
-  v58 = [v71 objectForKey:@"UNCategorySuppressPresentationInAmbient"];
-  v59 = [v58 un_safeBoolValue];
+  v45 = [v57 objectForKey:@"UNCategorySuppressPresentationInAmbient"];
+  v46 = [v45 un_safeBoolValue];
 
-  v60 = objc_alloc_init(UNCNotificationCategoryRecord);
-  [(UNCNotificationCategoryRecord *)v60 setIdentifier:v73];
-  [(UNCNotificationCategoryRecord *)v60 setPrivateBody:v69];
-  [(UNCNotificationCategoryRecord *)v60 setSummaryFormat:v67];
-  [(UNCNotificationCategoryRecord *)v60 setBackgroundStyle:v66];
-  [(UNCNotificationCategoryRecord *)v60 setListPriority:v65];
-  [(UNCNotificationCategoryRecord *)v60 setActions:v79];
-  [(UNCNotificationCategoryRecord *)v60 setShouldAllowInCarPlay:v103];
-  [(UNCNotificationCategoryRecord *)v60 setHasCustomDismissAction:v101];
-  [(UNCNotificationCategoryRecord *)v60 setHasFollowActivityAction:v100];
-  [(UNCNotificationCategoryRecord *)v60 setHasCustomSilenceAction:v98];
-  [(UNCNotificationCategoryRecord *)v60 setIntentIdentifiers:v64];
-  [(UNCNotificationCategoryRecord *)v60 setPrivacyOptionShowSubtitle:v96];
-  [(UNCNotificationCategoryRecord *)v60 setPrivacyOptionShowTitle:v94];
-  [(UNCNotificationCategoryRecord *)v60 setPresentFullScreenAlertOverList:v93];
-  [(UNCNotificationCategoryRecord *)v60 setPreventAutomaticLock:v91];
-  [(UNCNotificationCategoryRecord *)v60 setPreventAutomaticRemovalFromRecent:v89];
-  [(UNCNotificationCategoryRecord *)v60 setPreventDismissWhenClosed:v87];
-  [(UNCNotificationCategoryRecord *)v60 setRevealAdditionalContentWhenPresented:v85];
-  [(UNCNotificationCategoryRecord *)v60 setShouldAllowActionsInCarPlay:v83];
-  [(UNCNotificationCategoryRecord *)v60 setShouldAllowPersistentBannersInCarPlay:v81];
-  [(UNCNotificationCategoryRecord *)v60 setPlayMediaWhenRaised:v78];
-  [(UNCNotificationCategoryRecord *)v60 setPreventClearFromList:v76];
-  [(UNCNotificationCategoryRecord *)v60 setAlwaysDisplayNotificationsIndicator:v75];
-  [(UNCNotificationCategoryRecord *)v60 setSuppressDelayForForwardedNotifications:v72];
-  [(UNCNotificationCategoryRecord *)v60 setSuppressDismissActionInCarPlay:v63];
-  [(UNCNotificationCategoryRecord *)v60 setSuppressPresentationInAmbient:v59];
+  v47 = objc_alloc_init(UNCNotificationCategoryRecord);
+  [(UNCNotificationCategoryRecord *)v47 setIdentifier:v59];
+  [(UNCNotificationCategoryRecord *)v47 setPrivateBody:v55];
+  [(UNCNotificationCategoryRecord *)v47 setSummaryFormat:v53];
+  [(UNCNotificationCategoryRecord *)v47 setBackgroundStyle:v52];
+  [(UNCNotificationCategoryRecord *)v47 setListPriority:v51];
+  [(UNCNotificationCategoryRecord *)v47 setActions:v65];
+  [(UNCNotificationCategoryRecord *)v47 setShouldAllowInCarPlay:v89];
+  [(UNCNotificationCategoryRecord *)v47 setHasCustomDismissAction:v88];
+  [(UNCNotificationCategoryRecord *)v47 setHasFollowActivityAction:v87];
+  [(UNCNotificationCategoryRecord *)v47 setHasCustomSilenceAction:v85];
+  [(UNCNotificationCategoryRecord *)v47 setIntentIdentifiers:v50];
+  [(UNCNotificationCategoryRecord *)v47 setPrivacyOptionShowSubtitle:v83];
+  [(UNCNotificationCategoryRecord *)v47 setPrivacyOptionShowTitle:v81];
+  [(UNCNotificationCategoryRecord *)v47 setPresentFullScreenAlertOverList:v79];
+  [(UNCNotificationCategoryRecord *)v47 setPreventAutomaticLock:v77];
+  [(UNCNotificationCategoryRecord *)v47 setPreventAutomaticRemovalFromRecent:v75];
+  [(UNCNotificationCategoryRecord *)v47 setPreventDismissWhenClosed:v73];
+  [(UNCNotificationCategoryRecord *)v47 setRevealAdditionalContentWhenPresented:v71];
+  [(UNCNotificationCategoryRecord *)v47 setShouldAllowActionsInCarPlay:v69];
+  [(UNCNotificationCategoryRecord *)v47 setShouldAllowPersistentBannersInCarPlay:v67];
+  [(UNCNotificationCategoryRecord *)v47 setPlayMediaWhenRaised:v64];
+  [(UNCNotificationCategoryRecord *)v47 setPreventClearFromList:v62];
+  [(UNCNotificationCategoryRecord *)v47 setAlwaysDisplayNotificationsIndicator:v61];
+  [(UNCNotificationCategoryRecord *)v47 setSuppressDelayForForwardedNotifications:v58];
+  [(UNCNotificationCategoryRecord *)v47 setSuppressDismissActionInCarPlay:v49];
+  [(UNCNotificationCategoryRecord *)v47 setSuppressPresentationInAmbient:v46];
 
-  v61 = *MEMORY[0x1E69E9840];
-
-  return v60;
+  return v47;
 }
 
 - (void)setDefaultTopicsFromArray:(id)array bundle:(id)bundle
@@ -1776,6 +1744,22 @@ UNCNotificationTopicRecord *__78__UNCNotificationSourceDescription_Factory__setD
   build = [v3 build];
 
   return build;
+}
+
++ (id)descriptionWithBundleIdentifier:(id)identifier path:(id)path allowServiceExtensionFiltering:(BOOL)filtering
+{
+  filteringCopy = filtering;
+  pathCopy = path;
+  identifierCopy = identifier;
+  v9 = objc_alloc_init(UNCNotificationSourceDescription);
+  [(UNCNotificationSourceDescription *)v9 setBundleIdentifier:identifierCopy];
+
+  v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy];
+
+  [(UNCNotificationSourceDescription *)v9 setBundleURL:v10];
+  [(UNCNotificationSourceDescription *)v9 setAllowServiceExtensionFiltering:filteringCopy];
+
+  return v9;
 }
 
 @end

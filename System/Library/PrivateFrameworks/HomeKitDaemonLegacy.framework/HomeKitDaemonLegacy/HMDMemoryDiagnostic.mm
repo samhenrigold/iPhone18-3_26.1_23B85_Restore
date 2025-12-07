@@ -46,7 +46,7 @@ void __51__HMDMemoryDiagnostic__nextLevelFromPreviousLevel___block_invoke(uint64
 
 + (id)_previousLevelForBuild:(id)build
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   buildCopy = build;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v6 = [standardUserDefaults dictionaryForKey:@"com.apple.homekit.MemoryDiagnosticLimit"];
@@ -63,13 +63,13 @@ void __51__HMDMemoryDiagnostic__nextLevelFromPreviousLevel___block_invoke(uint64
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v15 = 138543874;
-        v16 = v12;
-        v17 = 2112;
-        v18 = v7;
-        v19 = 2112;
-        v20 = v8;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Previous diagnostic memory limit for build %@ is set to %@MB", &v15, 0x20u);
+        v14 = 138543874;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v7;
+        v18 = 2112;
+        v19 = v8;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Previous diagnostic memory limit for build %@ is set to %@MB", &v14, 0x20u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -86,26 +86,23 @@ void __51__HMDMemoryDiagnostic__nextLevelFromPreviousLevel___block_invoke(uint64
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (void)_recordLevel:(id)level forBuild:(id)build
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = @"buildVersion";
-  v11[1] = @"memoryLevelMB";
-  v12[0] = build;
-  v12[1] = level;
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10[0] = @"buildVersion";
+  v10[1] = @"memoryLevelMB";
+  v11[0] = build;
+  v11[1] = level;
   v5 = MEMORY[0x277CBEAC0];
   buildCopy = build;
   levelCopy = level;
-  v8 = [v5 dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v8 = [v5 dictionaryWithObjects:v11 forKeys:v10 count:2];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
 
   [standardUserDefaults setObject:v8 forKey:@"com.apple.homekit.MemoryDiagnosticLimit"];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_configureCurrentProcessLevel:(id)level
@@ -130,7 +127,7 @@ void __51__HMDMemoryDiagnostic__nextLevelFromPreviousLevel___block_invoke(uint64
 
 + (void)configureMemoryDiagnostic
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D0F8D0] = [MEMORY[0x277D0F8D0] sharedPreferences];
   v4 = [mEMORY[0x277D0F8D0] preferenceForKey:@"MemoryDiagnosticLimitOverride"];
   numberValue = [v4 numberValue];
@@ -150,11 +147,11 @@ void __51__HMDMemoryDiagnostic__nextLevelFromPreviousLevel___block_invoke(uint64
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v33 = 138543618;
-      v34 = v11;
-      v35 = 2112;
-      v36 = v7;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to set diagnostic memory limit from preference: %@", &v33, 0x16u);
+      v32 = 138543618;
+      v33 = v11;
+      v34 = 2112;
+      v35 = v7;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to set diagnostic memory limit from preference: %@", &v32, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -185,13 +182,13 @@ void __51__HMDMemoryDiagnostic__nextLevelFromPreviousLevel___block_invoke(uint64
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v33 = 138543874;
-      v34 = v22;
-      v35 = 2112;
-      v36 = buildVersion;
-      v37 = 2112;
-      v38 = v18;
-      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Setting diagnostic memory limit for build %@ to %@MB", &v33, 0x20u);
+      v32 = 138543874;
+      v33 = v22;
+      v34 = 2112;
+      v35 = buildVersion;
+      v36 = 2112;
+      v37 = v18;
+      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Setting diagnostic memory limit for build %@ to %@MB", &v32, 0x20u);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -204,11 +201,11 @@ void __51__HMDMemoryDiagnostic__nextLevelFromPreviousLevel___block_invoke(uint64
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v27 = HMFGetLogIdentifier();
-        v33 = 138543618;
-        v34 = v27;
-        v35 = 2112;
-        v36 = v23;
-        _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to set diagnostic memory limit: %@", &v33, 0x16u);
+        v32 = 138543618;
+        v33 = v27;
+        v34 = 2112;
+        v35 = v23;
+        _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to set diagnostic memory limit: %@", &v32, 0x16u);
       }
 
       objc_autoreleasePoolPop(v24);
@@ -228,9 +225,9 @@ void __51__HMDMemoryDiagnostic__nextLevelFromPreviousLevel___block_invoke(uint64
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       v31 = HMFGetLogIdentifier();
-      v33 = 138543362;
-      v34 = v31;
-      _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to get current build version, return", &v33, 0xCu);
+      v32 = 138543362;
+      v33 = v31;
+      _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to get current build version, return", &v32, 0xCu);
     }
 
     objc_autoreleasePoolPop(v28);
@@ -238,8 +235,6 @@ void __51__HMDMemoryDiagnostic__nextLevelFromPreviousLevel___block_invoke(uint64
 
   objc_autoreleasePoolPop(v12);
 LABEL_24:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 @end

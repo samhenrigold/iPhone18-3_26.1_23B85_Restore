@@ -1,10 +1,10 @@
 @interface NSScanner(NSUIntegerParsing)
-- (uint64_t)scanUnsignedInteger:()NSUIntegerParsing;
+- (void)scanUnsignedInteger:()NSUIntegerParsing;
 @end
 
 @implementation NSScanner(NSUIntegerParsing)
 
-- (uint64_t)scanUnsignedInteger:()NSUIntegerParsing
+- (void)scanUnsignedInteger:()NSUIntegerParsing
 {
   v5 = 0;
   result = [self scanUnsignedLongLong:&v5];

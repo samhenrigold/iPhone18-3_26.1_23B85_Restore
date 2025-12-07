@@ -198,27 +198,26 @@ LABEL_6:
 
 - (void)_setupXPC
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   iDSOffGridMessenger = [MEMORY[0x1E69A5270] IDSOffGridMessenger];
   if (os_log_type_enabled(iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [(IDSOffGridMessenger *)self uuid];
     *buf = 138412290;
-    v10 = uuid;
+    v9 = uuid;
     _os_log_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT, "Setting up xpc for client %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   daemonController = self->_daemonController;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_195A258F8;
-  v7[3] = &unk_1E743F0E8;
-  objc_copyWeak(&v8, buf);
-  [(IDSXPCDaemonController *)daemonController performTask:v7];
-  objc_destroyWeak(&v8);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_195A258F8;
+  v6[3] = &unk_1E743F0E8;
+  objc_copyWeak(&v7, buf);
+  [(IDSXPCDaemonController *)daemonController performTask:v6];
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)handles
@@ -334,7 +333,7 @@ LABEL_6:
 
 - (void)sendEncryptedOffGridMessage:(id)message options:(id)options completion:(id)completion
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   optionsCopy = options;
   completionCopy = completion;
@@ -353,10 +352,10 @@ LABEL_6:
       identifier2 = [messageCopy identifier];
       dictionaryRepresentation = [messageCopy dictionaryRepresentation];
       *buf = 138412802;
-      v40 = identifier2;
-      v41 = 2112;
-      v42 = dictionaryRepresentation;
-      v43 = 2048;
+      v39 = identifier2;
+      v40 = 2112;
+      v41 = dictionaryRepresentation;
+      v42 = 2048;
       transportType = [optionsCopy transportType];
       _os_log_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT, "IDSOffGridMessenger - Sending outgoing encrypted OffGrid message - %@, Message %@, transportType %ld", buf, 0x20u);
     }
@@ -368,34 +367,34 @@ LABEL_6:
       [v24 blockUntilConnected];
 
       v25 = +[IDSInternalQueueController sharedInstance];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195A27558;
-      v27[3] = &unk_1E743F318;
-      v27[4] = self;
-      v28 = messageCopy;
-      v29 = optionsCopy;
-      v30 = completionCopy;
-      [v25 performBlock:v27 waitUntilDone:0];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195A27558;
+      v26[3] = &unk_1E743F318;
+      v26[4] = self;
+      v27 = messageCopy;
+      v28 = optionsCopy;
+      v29 = completionCopy;
+      [v25 performBlock:v26 waitUntilDone:0];
 
-      v17 = v28;
+      v17 = v27;
       goto LABEL_11;
     }
 
     if (transportType2 == 2)
     {
       daemonController = self->_daemonController;
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = sub_195A27210;
-      v31[3] = &unk_1E743F2F0;
-      v34 = completionCopy;
-      v31[4] = self;
-      v32 = messageCopy;
-      v33 = optionsCopy;
-      [(IDSXPCDaemonController *)daemonController performTask:v31];
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = sub_195A27210;
+      v30[3] = &unk_1E743F2F0;
+      v33 = completionCopy;
+      v30[4] = self;
+      v31 = messageCopy;
+      v32 = optionsCopy;
+      [(IDSXPCDaemonController *)daemonController performTask:v30];
 
-      v17 = v34;
+      v17 = v33;
 LABEL_11:
     }
   }
@@ -417,14 +416,12 @@ LABEL_11:
     block[1] = 3221225472;
     block[2] = sub_195A271F4;
     block[3] = &unk_1E743F1D8;
-    v38 = completionCopy;
-    v36 = messageCopy;
-    v37 = v21;
+    v37 = completionCopy;
+    v35 = messageCopy;
+    v36 = v21;
     v23 = v21;
     dispatch_async(queue, block);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encryptAndSendOffGridMessage:(id)message options:(id)options completion:(id)completion
@@ -598,7 +595,7 @@ LABEL_12:
 
 - (void)_handleIncomingTextMessage:(id)message fromID:(id)d context:(id)context
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   dCopy = d;
   contextCopy = context;
@@ -608,13 +605,13 @@ LABEL_12:
     originalGUID = [contextCopy originalGUID];
     originalCommand = [contextCopy originalCommand];
     *buf = 138413058;
-    v38 = originalGUID;
-    v39 = 2112;
-    v40 = messageCopy;
-    v41 = 2112;
-    v42 = dCopy;
-    v43 = 2112;
-    v44 = originalCommand;
+    v37 = originalGUID;
+    v38 = 2112;
+    v39 = messageCopy;
+    v40 = 2112;
+    v41 = dCopy;
+    v42 = 2112;
+    v43 = originalCommand;
     _os_log_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT, "IDSOffGridMessenger - Incoming text message - %@, Message %@, fromID %@, command %@", buf, 0x2Au);
   }
 
@@ -635,29 +632,27 @@ LABEL_12:
   [(IDSOffGridMessageContext *)v23 setTransportType:1];
   [(IDSOffGridMessageContext *)v23 setServiceType:[(IDSOffGridMessenger *)self serviceType]];
   queue = self->_queue;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = sub_195A28A7C;
-  v31[3] = &unk_1E743EF10;
-  v31[4] = self;
-  v32 = v14;
-  v33 = v23;
-  v34 = contextCopy;
-  v35 = messageCopy;
-  v36 = dCopy;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = sub_195A28A7C;
+  v30[3] = &unk_1E743EF10;
+  v30[4] = self;
+  v31 = v14;
+  v32 = v23;
+  v33 = contextCopy;
+  v34 = messageCopy;
+  v35 = dCopy;
   v25 = dCopy;
   v26 = messageCopy;
   v27 = contextCopy;
   v28 = v23;
   v29 = v14;
-  dispatch_async(queue, v31);
-
-  v30 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v30);
 }
 
 - (void)_handleIncomingDeliveryReceiptMessage:(id)message fromID:(id)d context:(id)context
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   dCopy = d;
   contextCopy = context;
@@ -666,11 +661,11 @@ LABEL_12:
   {
     originalGUID = [contextCopy originalGUID];
     *buf = 138412802;
-    v27 = originalGUID;
-    v28 = 2112;
-    v29 = messageCopy;
-    v30 = 2112;
-    v31 = dCopy;
+    v26 = originalGUID;
+    v27 = 2112;
+    v28 = messageCopy;
+    v29 = 2112;
+    v30 = dCopy;
     _os_log_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT, "IDSOffGridMessenger - Incoming delivery receipt - %@, Message %@, fromID %@", buf, 0x20u);
   }
 
@@ -681,25 +676,23 @@ LABEL_12:
   v16 = [v14 URIWithPrefixedURI:dCopy withServiceLoggingHint:serviceIdentifier];
 
   queue = self->_queue;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = sub_195A29078;
-  v22[3] = &unk_1E743EEE8;
-  v22[4] = self;
-  v23 = contextCopy;
-  v24 = v16;
-  v25 = v13;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = sub_195A29078;
+  v21[3] = &unk_1E743EEE8;
+  v21[4] = self;
+  v22 = contextCopy;
+  v23 = v16;
+  v24 = v13;
   v18 = v13;
   v19 = v16;
   v20 = contextCopy;
-  dispatch_async(queue, v22);
-
-  v21 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v21);
 }
 
 - (void)_handleIncomingServiceUpdateMessage:(id)message fromID:(id)d context:(id)context
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   dCopy = d;
   contextCopy = context;
@@ -708,11 +701,11 @@ LABEL_12:
   {
     originalGUID = [contextCopy originalGUID];
     *buf = 138412802;
-    v27 = originalGUID;
-    v28 = 2112;
-    v29 = messageCopy;
-    v30 = 2112;
-    v31 = dCopy;
+    v26 = originalGUID;
+    v27 = 2112;
+    v28 = messageCopy;
+    v29 = 2112;
+    v30 = dCopy;
     _os_log_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT, "IDSOffGridMessenger - Incoming service update message - %@, Message %@, fromID %@", buf, 0x20u);
   }
 
@@ -725,17 +718,15 @@ LABEL_12:
   block[2] = sub_195A29334;
   block[3] = &unk_1E743EF38;
   block[4] = self;
-  v22 = v13;
-  v23 = v14;
-  v24 = contextCopy;
-  v25 = dCopy;
+  v21 = v13;
+  v22 = v14;
+  v23 = contextCopy;
+  v24 = dCopy;
   v16 = dCopy;
   v17 = contextCopy;
   v18 = v14;
   v19 = v13;
   dispatch_async(queue, block);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate
@@ -755,7 +746,7 @@ LABEL_12:
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   dCopy = d;
   contextCopy = context;
@@ -763,13 +754,13 @@ LABEL_12:
   if (os_log_type_enabled(iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT))
   {
     originalGUID = [contextCopy originalGUID];
-    v20 = 138412802;
-    v21 = originalGUID;
-    v22 = 2112;
-    v23 = messageCopy;
-    v24 = 2112;
-    v25 = dCopy;
-    _os_log_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT, "IDSOffGridMessenger - Incoming message - %@, Message %@, fromID %@", &v20, 0x20u);
+    v19 = 138412802;
+    v20 = originalGUID;
+    v21 = 2112;
+    v22 = messageCopy;
+    v23 = 2112;
+    v24 = dCopy;
+    _os_log_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT, "IDSOffGridMessenger - Incoming message - %@, Message %@, fromID %@", &v19, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -817,13 +808,11 @@ LABEL_14:
   }
 
 LABEL_17:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)incomingOffGridMessage:(id)message messageContext:(id)context completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   contextCopy = context;
   completionCopy = completion;
@@ -832,15 +821,15 @@ LABEL_17:
   if (WeakRetained)
   {
     queue = self->_queue;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = sub_195A29A80;
-    v16[3] = &unk_1E743F318;
-    v16[4] = self;
-    v17 = messageCopy;
-    v18 = contextCopy;
-    v19 = completionCopy;
-    dispatch_async(queue, v16);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = sub_195A29A80;
+    v15[3] = &unk_1E743F318;
+    v15[4] = self;
+    v16 = messageCopy;
+    v17 = contextCopy;
+    v18 = completionCopy;
+    dispatch_async(queue, v15);
   }
 
   else
@@ -850,19 +839,17 @@ LABEL_17:
     {
       identifier = [contextCopy identifier];
       *buf = 138412546;
-      v21 = identifier;
-      v22 = 2112;
-      v23 = contextCopy;
+      v20 = identifier;
+      v21 = 2112;
+      v22 = contextCopy;
       _os_log_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT, "IDSOffGridMessenger - incoming iMessage Lite but missing delegate, dropping! {messageContext.identifier: %@, messageContext: %@}", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)incomingOffGridSummaryMessage:(id)message messageContext:(id)context completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   contextCopy = context;
   completionCopy = completion;
@@ -870,17 +857,17 @@ LABEL_17:
   if (WeakRetained && (v12 = WeakRetained, v13 = objc_loadWeakRetained(&self->_delegate), v14 = objc_opt_respondsToSelector(), v13, v12, (v14 & 1) != 0))
   {
     queue = self->_queue;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_195A29F64;
-    v19[3] = &unk_1E743F318;
-    v20 = messageCopy;
-    v21 = contextCopy;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_195A29F64;
+    v18[3] = &unk_1E743F318;
+    v19 = messageCopy;
+    v20 = contextCopy;
     selfCopy = self;
-    v23 = completionCopy;
-    dispatch_async(queue, v19);
+    v22 = completionCopy;
+    dispatch_async(queue, v18);
 
-    iDSOffGridMessenger = v20;
+    iDSOffGridMessenger = v19;
   }
 
   else
@@ -890,14 +877,12 @@ LABEL_17:
     {
       identifier = [contextCopy identifier];
       *buf = 138412546;
-      v25 = identifier;
-      v26 = 2112;
-      v27 = contextCopy;
+      v24 = identifier;
+      v25 = 2112;
+      v26 = contextCopy;
       _os_log_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEFAULT, "IDSOffGridMessenger - incoming iMessage Lite Summary but missing delegate, dropping! {messageContext.identifier: %@, messageContext: %@}", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (IDSOffGridMessengerDelegate)delegate

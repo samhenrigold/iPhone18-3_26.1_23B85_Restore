@@ -491,7 +491,7 @@ LABEL_8:
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1007E5D40();
+  sub_1007E5D40(v7);
 
   (*(v5 + 8))(v7, v4);
 }
@@ -791,7 +791,7 @@ LABEL_7:
   selfCopy = self;
   sub_1007E8608(rangeCopy);
 
-  sub_100006370(0, &qword_101A012B0);
+  sub_100006370(0, &qword_101A012B0, UITextSelectionRect_ptr);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -899,7 +899,7 @@ LABEL_7:
     selfCopy = v9;
   }
 
-  sub_10000CAAC(&v10, &unk_1019F4D00);
+  sub_10000CAAC(&v10, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (BOOL)editorWantsPlainTextDelete
@@ -959,7 +959,7 @@ LABEL_7:
 
   if (v3)
   {
-    sub_100006370(0, &qword_101A001C0);
+    sub_100006370(0, &qword_101A001C0, UIKeyCommand_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -977,7 +977,7 @@ LABEL_7:
   selfCopy = self;
   sub_1007EE160();
 
-  sub_100006370(0, &qword_101A001C0);
+  sub_100006370(0, &qword_101A001C0, UIKeyCommand_ptr);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;
@@ -996,7 +996,7 @@ LABEL_7:
   selfCopy = self;
   sub_1007EA690();
 
-  sub_100006370(0, &qword_101A001C0);
+  sub_100006370(0, &qword_101A001C0, UIKeyCommand_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -1027,7 +1027,7 @@ LABEL_7:
 
   sub_1007EAC8C(action, v16, &v17);
 
-  sub_10000CAAC(v16, &unk_1019F4D00);
+  sub_10000CAAC(v16, &unk_1019F4D00, &unk_10146E7F0);
   v8 = v18;
   if (v18)
   {
@@ -1234,7 +1234,7 @@ LABEL_4:
 LABEL_8:
   sub_1007EC004(v8, v10, v11, promptCopy, v15);
 
-  sub_10000CAAC(v15, &unk_1019F4D00);
+  sub_10000CAAC(v15, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (_TtC8Freeform21CRLTextInputResponder)init

@@ -6,6 +6,7 @@
 - (NEVPNProtocolPPP)initWithType:(int64_t)type;
 - (id)copyLegacyDictionaryComplete:(BOOL)complete;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -176,19 +177,19 @@
     v28 = [v27 objectAtIndexedSubscript:0];
     if (isa_nsstring(v28))
     {
-      if (([(NEKeychainItem *)v28 isEqualToString:@"EAP-RSA"]& 1) != 0)
+      if (objc_msgSend_isEqualToString_(v28))
       {
         v29 = 2;
       }
 
-      else if (([(NEKeychainItem *)v28 isEqualToString:@"EAP-TLS"]& 1) != 0)
+      else if (objc_msgSend_isEqualToString_(v28))
       {
         v29 = 3;
       }
 
       else
       {
-        if (![(NEKeychainItem *)v28 isEqualToString:@"EAP-KRB"])
+        if (!objc_msgSend_isEqualToString_(v28))
         {
           goto LABEL_13;
         }
@@ -222,7 +223,7 @@ LABEL_25:
 - (id)copyLegacyDictionaryComplete:(BOOL)complete
 {
   completeCopy = complete;
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   serverAddress = [(NEVPNProtocol *)self serverAddress];
 
@@ -278,8 +279,8 @@ LABEL_25:
   {
     if ([(NEVPNProtocolPPP *)self authenticationMethod]== 2)
     {
-      v28[0] = *MEMORY[0x1E6982900];
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+      v27[0] = *MEMORY[0x1E6982900];
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
       [v5 setObject:v16 forKeyedSubscript:*MEMORY[0x1E6982588]];
 
       v17 = *MEMORY[0x1E6982568];
@@ -288,8 +289,8 @@ LABEL_25:
 
     else if ([(NEVPNProtocolPPP *)self authenticationMethod]== 3)
     {
-      v27 = *MEMORY[0x1E6982900];
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+      v26 = *MEMORY[0x1E6982900];
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
       [v5 setObject:v19 forKeyedSubscript:*MEMORY[0x1E6982588]];
 
       v17 = *MEMORY[0x1E6982568];
@@ -298,8 +299,8 @@ LABEL_25:
 
     else if ([(NEVPNProtocolPPP *)self authenticationMethod]== 4)
     {
-      v26 = *MEMORY[0x1E6982900];
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+      v25 = *MEMORY[0x1E6982900];
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
       [v5 setObject:v20 forKeyedSubscript:*MEMORY[0x1E6982588]];
 
       v17 = *MEMORY[0x1E6982568];
@@ -351,8 +352,27 @@ LABEL_22:
     [v5 setObject:@"/var/log/ppp.log" forKeyedSubscript:@"Logfile"];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v13.receiver = self;
+  v13.super_class = NEVPNProtocolPPP;
+  v8 = [(NEVPNProtocol *)&v13 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  [v9 appendPrettyInt:-[NEVPNProtocolPPP authenticationMethod](self withName:"authenticationMethod") andIndent:@"authenticationMethod" options:{v5, options}];
+  [v9 appendPrettyBOOL:-[NEVPNProtocolPPP verboseLoggingEnabled](self withName:"verboseLoggingEnabled") andIndent:@"verboseLoggingEnabled" options:{v5, options}];
+  iPv4Settings = [(NEVPNProtocolPPP *)self IPv4Settings];
+  [v9 appendPrettyObject:iPv4Settings withName:@"IPv4Settings" andIndent:v5 options:options];
+
+  iPv6Settings = [(NEVPNProtocolPPP *)self IPv6Settings];
+  [v9 appendPrettyObject:iPv6Settings withName:@"IPv6Settings" andIndent:v5 options:options];
+
+  return v9;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors

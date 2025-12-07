@@ -25,7 +25,7 @@
     v11 = v10 - 1;
     if (v10 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v11 = a4 + a3 - 1;
+      v11 = &a3[a4 - 1];
     }
 
     if (v10 == a3)
@@ -50,7 +50,7 @@
 - (uint64_t)pl_indexOfLastObjectPassingTest:()Additions
 {
   v4 = a3;
-  v5 = [self pl_indexOfLastObjectInRange:0 passingTest:{objc_msgSend(self, "count"), v4}];
+  v5 = [self pl_indexOfLastObjectInRange:0 passingTest:{objc_msgSend_count(self), v4}];
 
   return v5;
 }
@@ -121,7 +121,7 @@ LABEL_8:
 - (uint64_t)pl_indexOfFirstObjectPassingTest:()Additions
 {
   v4 = a3;
-  v5 = [self pl_indexOfFirstObjectInRange:0 passingTest:{objc_msgSend(self, "count"), v4}];
+  v5 = [self pl_indexOfFirstObjectInRange:0 passingTest:{objc_msgSend_count(self), v4}];
 
   return v5;
 }
@@ -130,7 +130,7 @@ LABEL_8:
 {
   v37 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = [self count];
+  v5 = objc_msgSend_count(self);
   if (!v5)
   {
     selfCopy = [MEMORY[0x1E695DEC8] array];
@@ -140,7 +140,7 @@ LABEL_10:
   }
 
   v6 = v5;
-  v7 = [v4 count];
+  v7 = objc_msgSend_count(v4);
   if (!v7)
   {
     selfCopy = self;

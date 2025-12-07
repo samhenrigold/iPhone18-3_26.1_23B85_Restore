@@ -31,15 +31,17 @@
 
 + (CGSize)preferredSizeFitting:(CGSize)fitting inTraitEnvironment:(id)environment
 {
+  height = fitting.height;
+  width = fitting.width;
   swift_unknownObjectRetain();
-  static GKMultiplayerPickerPlayerCell.preferredSize(fitting:in:)(environment);
-  v6 = v5;
+  static GKMultiplayerPickerPlayerCell.preferredSize(fitting:in:)(environment, width, height);
   v8 = v7;
+  v10 = v9;
   swift_unknownObjectRelease();
-  v9 = v6;
-  v10 = v8;
-  result.height = v10;
-  result.width = v9;
+  v11 = v8;
+  v12 = v10;
+  result.height = v12;
+  result.width = v11;
   return result;
 }
 

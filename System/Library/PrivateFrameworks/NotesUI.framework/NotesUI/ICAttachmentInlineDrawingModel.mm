@@ -176,9 +176,10 @@ void __67__ICAttachmentInlineDrawingModel_UI__titleQuery_didUpdateWithItem___blo
 
 uint64_t __56__ICAttachmentInlineDrawingModel_UI__drawPreviewInRect___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) newDrawingFromMergeableData];
+  v2 = [*(a1 + 32) newDrawingFromMergeableData];
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 void __122__ICAttachmentInlineDrawingModel_PreviewGeneration__generateImageForAttachment_fromDrawing_fullResolution_appearanceInfo___block_invoke(uint64_t a1)
@@ -641,7 +642,7 @@ void __63__ICAttachmentInlineDrawingModel_UI__actuallyMergeWithDrawing___block_i
   v1 = [*(a1 + 32) attachment];
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v3, v4, "Merged PencilKit data changes into %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v3, v4, "Merged PencilKit data changes into %@", v5, v6, v7, v8);
 }
 
 void __63__ICAttachmentInlineDrawingModel_UI__actuallyMergeWithDrawing___block_invoke_16_cold_1(uint64_t a1)
@@ -649,14 +650,21 @@ void __63__ICAttachmentInlineDrawingModel_UI__actuallyMergeWithDrawing___block_i
   v1 = [*(a1 + 32) attachment];
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v3, v4, "No changes to PencilKit data for %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v3, v4, "No changes to PencilKit data for %@", v5, v6, v7, v8);
+}
+
+void __59__ICAttachmentInlineDrawingModel_UI__setTitleQueryEnabled___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*(*(a1 + 48) + 8) + 40);
+  OUTLINED_FUNCTION_2_0(&dword_1D4171000, a2, a3, "No drawing when enabling title query for %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __67__ICAttachmentInlineDrawingModel_UI__titleQuery_didUpdateWithItem___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v2, v3, "Title query updated title for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v2, v3, "Title query updated title for %@", v4, v5, v6, v7);
 }
 
 void __95__ICAttachmentInlineDrawingModel_PreviewGeneration__generatePreviewsForAttachment_fromDrawing___block_invoke_2_cold_1(id *a1, void *a2, NSObject *a3)

@@ -44,7 +44,7 @@
 
 - (id)description
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithCapacity:0];
   v4 = v3;
   if (self->_powerOn)
@@ -94,36 +94,36 @@
   }
 
   [v4 appendFormat:@"Scanning: %s\n", v10];
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   selfCopy = self;
   obj = self->_devices;
-  v11 = [(NSArray *)obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v11 = [(NSArray *)obj countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
     v14 = 0;
     v15 = 0;
-    v16 = *v53;
+    v16 = *v52;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v53 != v16)
+        if (*v52 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v52 + 1) + 8 * i);
+        v18 = *(*(&v51 + 1) + 8 * i);
         v13 += [v18 isPaired];
         v14 += [v18 isCloudPaired];
         v15 += [v18 isConnected];
       }
 
-      v12 = [(NSArray *)obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v12 = [(NSArray *)obj countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
     while (v12);
@@ -137,30 +137,30 @@
   }
 
   [v4 appendFormat:@"Device Count: %lu (paired=%lu cloud=%lu connected=%lu)\n\n", -[NSArray count](selfCopy->_devices, "count"), v13, v14, v15];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obja = selfCopy->_devices;
-  v19 = [(NSArray *)obja countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v19 = [(NSArray *)obja countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v19)
   {
     v20 = v19;
     v21 = @"    %s\n";
     v22 = @"    Address          : %s\n";
-    v23 = *v49;
+    v23 = *v48;
     v24 = @"    Paired           : %s\n";
-    v45 = v4;
+    v44 = v4;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v49 != v23)
+        if (*v48 != v23)
         {
           objc_enumerationMutation(obja);
         }
 
-        v26 = *(*(&v48 + 1) + 8 * j);
+        v26 = *(*(&v47 + 1) + 8 * j);
         [v4 appendFormat:v21, objc_msgSend(objc_msgSend(v26, "name"), "UTF8String")];
         [v4 appendFormat:v22, objc_msgSend(objc_msgSend(v26, "address"), "UTF8String")];
         if ([v26 isPaired])
@@ -215,8 +215,8 @@
           v6 = v32;
           v7 = v31;
           v20 = v30;
-          v4 = v45;
-          [v45 appendFormat:@"    Type             : %s\n", objc_msgSend(W5DescriptionForBluetoothDeviceType(v39, minorClass), "UTF8String")];
+          v4 = v44;
+          [v44 appendFormat:@"    Type             : %s\n", objc_msgSend(W5DescriptionForBluetoothDeviceType(v39, minorClass), "UTF8String")];
           if ([v26 isLowEnergy])
           {
             v40 = v7;
@@ -227,7 +227,7 @@
             v40 = v6;
           }
 
-          [v45 appendFormat:@"    LE               : %s\n", v40];
+          [v44 appendFormat:@"    LE               : %s\n", v40];
           if ([v26 isAppleDevice])
           {
             v41 = v7;
@@ -238,21 +238,19 @@
             v41 = v6;
           }
 
-          [v45 appendFormat:@"    Apple            : %s\n", v41];
+          [v44 appendFormat:@"    Apple            : %s\n", v41];
         }
 
         [v4 appendFormat:@"\n"];
       }
 
-      v20 = [(NSArray *)obja countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v20 = [(NSArray *)obja countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v20);
   }
 
-  result = [v4 copy];
-  v43 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v4 copy];
 }
 
 - (BOOL)conformsToProtocol:(id)protocol

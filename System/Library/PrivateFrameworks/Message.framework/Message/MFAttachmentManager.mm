@@ -135,16 +135,14 @@ void __34__MFAttachmentManager_allManagers__block_invoke()
 
 void __44__MFAttachmentManager_supportedDocumentUTIs__block_invoke()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = [*MEMORY[0x1E6982D50] identifier];
-  v5[0] = v0;
+  v4[0] = v0;
   v1 = [*MEMORY[0x1E6982E48] identifier];
-  v5[1] = v1;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[1] = v1;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v3 = sSupportedUTIs;
   sSupportedUTIs = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addProvider:(id)provider forBaseURL:(id)l
@@ -226,7 +224,7 @@ void __44__MFAttachmentManager_supportedDocumentUTIs__block_invoke()
 
 - (BOOL)_setupAttachment:(id)attachment withMimeBody:(id)body error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   attachmentCopy = attachment;
   bodyCopy = body;
   v10 = [attachmentCopy url];
@@ -282,7 +280,7 @@ LABEL_12:
         [attachmentCopy setDisposition:disposition];
 
         v27 = [v18 bodyParameterForKey:@"x-mac-preserve-fidelity"];
-        v46 = v27;
+        v45 = v27;
         if (v27)
         {
           [attachmentCopy setShouldPreserveFidelity:{objc_msgSend(v27, "caseInsensitiveCompare:", @"yes"}];
@@ -366,21 +364,20 @@ LABEL_27:
     ef_publicDescription = [attachmentCopy ef_publicDescription];
     fileName2 = [attachmentCopy fileName];
     *buf = 138543874;
-    v48 = ef_publicDescription;
-    v49 = 2112;
-    v50 = fileName2;
-    v51 = 2114;
-    v52 = partNumber;
+    v47 = ef_publicDescription;
+    v48 = 2112;
+    v49 = fileName2;
+    v50 = 2114;
+    v51 = partNumber;
     _os_log_impl(&dword_1B0389000, v41, OS_LOG_TYPE_DEFAULT, "Setup attachment %{public}@, name = %@, part number = %{public}@", buf, 0x20u);
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)_filePathForAttachment:(id)attachment
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   attachmentCopy = attachment;
   v5 = [attachmentCopy url];
   v6 = [(MFAttachmentManager *)self _dataProviderForAttachmentURL:v5 error:0];
@@ -400,13 +397,11 @@ LABEL_27:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = [attachmentCopy url];
-      [(MFAttachmentManager *)v12 _filePathForAttachment:v15, v11];
+      [(MFAttachmentManager *)v12 _filePathForAttachment:v14, v11];
     }
 
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -518,28 +513,28 @@ LABEL_6:
 
 - (id)attachmentsForURLs:(id)ls error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   lsCopy = ls;
   v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(lsCopy, "count")}];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = lsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = [(MFAttachmentManager *)self attachmentForURL:*(*(&v15 + 1) + 8 * i) error:error, v15];
+        v12 = [(MFAttachmentManager *)self attachmentForURL:*(*(&v14 + 1) + 8 * i) error:error, v14];
         if (!v12)
         {
 
@@ -550,7 +545,7 @@ LABEL_6:
         [v7 addObject:v12];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -561,8 +556,6 @@ LABEL_6:
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -600,44 +593,44 @@ LABEL_11:
 
 - (id)attachmentForContentID:(id)d preferredSchemes:(id)schemes
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   schemesCopy = schemes;
   if ([dCopy length])
   {
-    v21 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
     [(NSLock *)self->_metaDataLock lock];
     metadata = self->_metadata;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __63__MFAttachmentManager_attachmentForContentID_preferredSchemes___block_invoke;
-    v26[3] = &unk_1E7AA4DD0;
-    v27 = dCopy;
-    v9 = v21;
-    v28 = v9;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __63__MFAttachmentManager_attachmentForContentID_preferredSchemes___block_invoke;
+    v25[3] = &unk_1E7AA4DD0;
+    v26 = dCopy;
+    v9 = v20;
+    v27 = v9;
     v10 = schemesCopy;
-    v29 = v10;
-    [(NSMutableDictionary *)metadata enumerateKeysAndObjectsUsingBlock:v26];
+    v28 = v10;
+    [(NSMutableDictionary *)metadata enumerateKeysAndObjectsUsingBlock:v25];
     [(NSLock *)self->_metaDataLock unlock];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v12)
     {
-      v13 = *v23;
+      v13 = *v22;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          lowercaseString = [*(*(&v22 + 1) + 8 * i) lowercaseString];
+          lowercaseString = [*(*(&v21 + 1) + 8 * i) lowercaseString];
           firstObject = [v9 objectForKeyedSubscript:lowercaseString];
 
           if (firstObject)
@@ -647,7 +640,7 @@ LABEL_11:
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v12)
         {
           continue;
@@ -677,8 +670,6 @@ LABEL_13:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
@@ -702,37 +693,37 @@ void __63__MFAttachmentManager_attachmentForContentID_preferredSchemes___block_i
 
 - (void)insertMessageAttachmentMetadataToPersistence:(id)persistence forMessage:(id)message
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   persistenceCopy = persistence;
   messageCopy = message;
   v5 = EDAttachmentsLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v35 = persistenceCopy;
+    v34 = persistenceCopy;
     _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "Inserting message attachment metadata for attachments %{public}@ into the persistence", buf, 0xCu);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = persistenceCopy;
-  v6 = [(__CFString *)obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+  v6 = [(__CFString *)obj countByEnumeratingWithState:&v29 objects:v39 count:16];
   if (v6)
   {
-    v28 = *v31;
+    v27 = *v30;
     v7 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v31 != v28)
+        if (*v30 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
         mimePartNumber = [v9 mimePartNumber];
         v11 = mimePartNumber;
         if (mimePartNumber)
@@ -765,7 +756,7 @@ void __63__MFAttachmentManager_attachmentForContentID_preferredSchemes___block_i
         }
       }
 
-      v6 = [(__CFString *)obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+      v6 = [(__CFString *)obj countByEnumeratingWithState:&v29 objects:v39 count:16];
     }
 
     while (v6);
@@ -788,15 +779,13 @@ LABEL_20:
   {
     globalMessageID2 = [messageCopy globalMessageID];
     *buf = 138412802;
-    v35 = v21;
-    v36 = 2114;
-    v37 = obj;
-    v38 = 2048;
-    v39 = globalMessageID2;
+    v34 = v21;
+    v35 = 2114;
+    v36 = obj;
+    v37 = 2048;
+    v38 = globalMessageID2;
     _os_log_impl(&dword_1B0389000, v22, OS_LOG_TYPE_DEFAULT, "%@ at inserting message attachment metadata for attachments %{public}@ for message %lld", buf, 0x20u);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_fetchDataForAttachment:(id)attachment withProvider:(id)provider request:(id)request syncLock:(id *)lock
@@ -810,7 +799,7 @@ LABEL_20:
 
 - (id)fetchDataForAttachment:(id)attachment
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   attachmentCopy = attachment;
   [attachmentCopy updatePath];
   fileURL = [attachmentCopy fileURL];
@@ -822,9 +811,9 @@ LABEL_20:
     {
       v8 = [attachmentCopy url];
       *buf = 138412546;
-      v40 = v6;
-      v41 = 2114;
-      v42 = v8;
+      v39 = v6;
+      v40 = 2114;
+      v41 = v8;
       _os_log_impl(&dword_1B0389000, v7, OS_LOG_TYPE_DEFAULT, "Passing attachment data URL off disk for file %@ '%{public}@'.", buf, 0x16u);
     }
 
@@ -849,9 +838,9 @@ LABEL_20:
     }
 
     v14 = [attachmentCopy url];
-    v36 = 0;
-    v10 = [(MFAttachmentManager *)self _dataProviderForAttachmentURL:v14 error:&v36];
-    v6 = v36;
+    v35 = 0;
+    v10 = [(MFAttachmentManager *)self _dataProviderForAttachmentURL:v14 error:&v35];
+    v6 = v35;
 
     if (v10)
     {
@@ -860,9 +849,9 @@ LABEL_20:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         v17 = [attachmentCopy url];
-        *v37 = 138412290;
-        v38 = v17;
-        _os_log_impl(&dword_1B0389000, v16, OS_LOG_TYPE_DEFAULT, "Fetch data for attachment url: %@", v37, 0xCu);
+        *v36 = 138412290;
+        v37 = v17;
+        _os_log_impl(&dword_1B0389000, v16, OS_LOG_TYPE_DEFAULT, "Fetch data for attachment url: %@", v36, 0xCu);
       }
 
       arrayAccessQueue = self->_arrayAccessQueue;
@@ -872,22 +861,22 @@ LABEL_20:
       block[3] = &unk_1E7AA4E20;
       block[4] = self;
       v19 = attachmentCopy;
-      v30 = v19;
-      v31 = v10;
+      v29 = v19;
+      v30 = v10;
       v20 = v15;
-      v32 = v20;
+      v31 = v20;
       dispatch_async(arrayAccessQueue, block);
       v11 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:1];
       downloadProgress = [(_MFAttachmentActiveRequest *)v20 downloadProgress];
       [v11 addChild:downloadProgress withPendingUnitCount:1];
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __46__MFAttachmentManager_fetchDataForAttachment___block_invoke_2;
-      v27[3] = &unk_1E7AA26E0;
-      v27[4] = self;
-      v28 = v19;
-      [v11 setCancellationHandler:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __46__MFAttachmentManager_fetchDataForAttachment___block_invoke_2;
+      v26[3] = &unk_1E7AA26E0;
+      v26[4] = self;
+      v27 = v19;
+      [v11 setCancellationHandler:v26];
     }
 
     else
@@ -896,27 +885,25 @@ LABEL_20:
       v20 = fetchCompletionBlock2;
       if (fetchCompletionBlock2)
       {
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __46__MFAttachmentManager_fetchDataForAttachment___block_invoke;
-        v33[3] = &unk_1E7AA4DF8;
-        v35 = fetchCompletionBlock2;
-        v34 = v6;
-        dispatch_async(MEMORY[0x1E69E96A0], v33);
+        v32[0] = MEMORY[0x1E69E9820];
+        v32[1] = 3221225472;
+        v32[2] = __46__MFAttachmentManager_fetchDataForAttachment___block_invoke;
+        v32[3] = &unk_1E7AA4DF8;
+        v34 = fetchCompletionBlock2;
+        v33 = v6;
+        dispatch_async(MEMORY[0x1E69E96A0], v32);
       }
 
       v23 = EDAttachmentsLog();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         v24 = [attachmentCopy url];
-        [(MFAttachmentManager *)v24 fetchDataForAttachment:v37, v23];
+        [(MFAttachmentManager *)v24 fetchDataForAttachment:v36, v23];
       }
 
       v11 = 0;
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -1022,35 +1009,35 @@ void __59__MFAttachmentManager_fetchDataSynchronouslyForAttachment___block_invok
 
 - (void)_fetchCompletedForAttachment:(id)attachment error:(id)error
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   attachmentCopy = attachment;
   errorCopy = error;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__8;
-  v48 = __Block_byref_object_dispose__8;
-  v49 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__8;
-  v42 = __Block_byref_object_dispose__8;
   v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__8;
+  v47 = __Block_byref_object_dispose__8;
+  v48 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__8;
+  v41 = __Block_byref_object_dispose__8;
+  v42 = 0;
   [attachmentCopy updatePathIfNeeded];
   arrayAccessQueue = self->_arrayAccessQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke;
   block[3] = &unk_1E7AA4E70;
-  v36 = &v44;
+  v35 = &v43;
   block[4] = self;
   v9 = attachmentCopy;
-  v35 = v9;
-  v37 = &v38;
+  v34 = v9;
+  v36 = &v37;
   dispatch_sync(arrayAccessQueue, block);
-  v10 = [v45[5] objectForKey:@"MFAttachmentPrimaryConsumerKey"];
-  v23 = v10;
+  v10 = [v44[5] objectForKey:@"MFAttachmentPrimaryConsumerKey"];
+  v22 = v10;
   if (errorCopy)
   {
     data = 0;
@@ -1061,40 +1048,40 @@ void __59__MFAttachmentManager_fetchDataSynchronouslyForAttachment___block_invok
     data = [v10 data];
   }
 
-  v12 = [v39[5] ef_partition:&__block_literal_global_114];
+  v12 = [v38[5] ef_partition:&__block_literal_global_114];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke_2;
   aBlock[3] = &unk_1E7AA4EB8;
   v13 = errorCopy;
-  v32 = v13;
+  v31 = v13;
   v14 = data;
-  v33 = v14;
+  v32 = v14;
   v15 = _Block_copy(aBlock);
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   first = [v12 first];
-  v17 = [first countByEnumeratingWithState:&v27 objects:v50 count:16];
+  v17 = [first countByEnumeratingWithState:&v26 objects:v49 count:16];
   if (v17)
   {
-    v18 = *v28;
+    v18 = *v27;
     do
     {
       v19 = 0;
       do
       {
-        if (*v28 != v18)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(first);
         }
 
-        v15[2](v15, *(*(&v27 + 1) + 8 * v19++));
+        v15[2](v15, *(*(&v26 + 1) + 8 * v19++));
       }
 
       while (v17 != v19);
-      v17 = [first countByEnumeratingWithState:&v27 objects:v50 count:16];
+      v17 = [first countByEnumeratingWithState:&v26 objects:v49 count:16];
     }
 
     while (v17);
@@ -1105,24 +1092,22 @@ void __59__MFAttachmentManager_fetchDataSynchronouslyForAttachment___block_invok
 
   if (!v21)
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke_3;
-    v24[3] = &unk_1E7AA4EE0;
-    v25 = v12;
-    v26 = v15;
-    dispatch_async(MEMORY[0x1E69E96A0], v24);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke_3;
+    v23[3] = &unk_1E7AA4EE0;
+    v24 = v12;
+    v25 = v15;
+    dispatch_async(MEMORY[0x1E69E96A0], v23);
   }
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v44, 8);
-
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v43, 8);
 }
 
 void __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 32);
   v3 = [*(a1 + 40) url];
   v4 = [v2 objectForKey:v3];
@@ -1139,9 +1124,9 @@ void __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = *(a1 + 40);
-      v17 = 138412290;
-      v18 = v10;
-      _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_INFO, "#Attachments removing attachment %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v10;
+      _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_INFO, "#Attachments removing attachment %@", &v16, 0xCu);
     }
 
     v11 = *(*(a1 + 32) + 32);
@@ -1153,8 +1138,6 @@ void __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke
   v14 = *(*(a1 + 56) + 8);
   v15 = *(v14 + 40);
   *(v14 + 40) = v13;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke_2(uint64_t a1, void *a2)
@@ -1177,69 +1160,64 @@ void __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke
 
 void __58__MFAttachmentManager__fetchCompletedForAttachment_error___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) second];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
         (*(*(a1 + 40) + 16))();
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelFetchForAttachment:(id)attachment
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   attachmentCopy = attachment;
   v5 = +[MFAttachmentManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = attachmentCopy;
+    v11 = attachmentCopy;
     _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "Canceling download for attachment %@", buf, 0xCu);
   }
 
   arrayAccessQueue = self->_arrayAccessQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke;
-  v9[3] = &unk_1E7AA26E0;
-  v9[4] = self;
-  v10 = attachmentCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke;
+  v8[3] = &unk_1E7AA26E0;
+  v8[4] = self;
+  v9 = attachmentCopy;
   v7 = attachmentCopy;
-  dispatch_async(arrayAccessQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(arrayAccessQueue, v8);
 }
 
 void __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 32);
   v3 = [*(a1 + 40) url];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -1247,21 +1225,21 @@ void __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke(uint64_t
   if (v4)
   {
     v5 = [v4 objectForKeyedSubscript:@"MFAttachmentAttachmentKey"];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke_2;
-    v21[3] = &unk_1E7AA4F08;
-    v22 = *(a1 + 40);
-    v6 = [v5 indexesOfObjectsPassingTest:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke_2;
+    v20[3] = &unk_1E7AA4F08;
+    v21 = *(a1 + 40);
+    v6 = [v5 indexesOfObjectsPassingTest:v20];
     v7 = [v5 objectsAtIndexes:v6];
     [v5 removeObjectsAtIndexes:v6];
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke_3;
-    v19 = &unk_1E7AA25C0;
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke_3;
+    v18 = &unk_1E7AA25C0;
     v8 = v7;
-    v20 = v8;
-    dispatch_sync(MEMORY[0x1E69E96A0], &v16);
+    v19 = v8;
+    dispatch_sync(MEMORY[0x1E69E96A0], &v15);
     if (![v5 count])
     {
       v9 = [v4 objectForKeyedSubscript:@"MFAttachmentMonitorKey"];
@@ -1272,7 +1250,7 @@ void __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke(uint64_t
       {
         v11 = *(a1 + 40);
         *buf = 138412290;
-        v24 = v11;
+        v23 = v11;
         _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_INFO, "removing attachment %@", buf, 0xCu);
       }
 
@@ -1282,8 +1260,6 @@ void __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke(uint64_t
       [v13 removeObjectForKey:v14];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke_2(uint64_t a1, void *a2)
@@ -1296,41 +1272,39 @@ BOOL __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke_2(uint64
 
 void __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v2)
   {
-    v3 = *v9;
+    v3 = *v8;
     do
     {
       v4 = 0;
       do
       {
-        if (*v9 != v3)
+        if (*v8 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * v4);
-        v6 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1028 localizedDescription:@"Download Canceled." title:@"Download Canceled" userInfo:0, v8];
+        v5 = *(*(&v7 + 1) + 8 * v4);
+        v6 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1028 localizedDescription:@"Download Canceled." title:@"Download Canceled" userInfo:0, v7];
         [v5 completeWithData:0 error:v6];
 
         ++v4;
       }
 
       while (v2 != v4);
-      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v2);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)attachmentForItemProvider:(id)provider mimeType:(id)type fileName:(id)name contentID:(id)d context:(id)context
@@ -1492,12 +1466,12 @@ void __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke_3(uint64
 
 - (id)_createSynapseAttributesForAttachment:(id)attachment
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   attachmentCopy = attachment;
   v5 = [attachmentCopy url];
-  v19 = 0;
-  v6 = [(MFAttachmentManager *)self _dataProviderForAttachmentURL:v5 error:&v19];
-  v7 = v19;
+  v18 = 0;
+  v6 = [(MFAttachmentManager *)self _dataProviderForAttachmentURL:v5 error:&v18];
+  v7 = v18;
 
   if (v6)
   {
@@ -1536,8 +1510,6 @@ void __49__MFAttachmentManager__cancelFetchForAttachment___block_invoke_3(uint64
 
     v14 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

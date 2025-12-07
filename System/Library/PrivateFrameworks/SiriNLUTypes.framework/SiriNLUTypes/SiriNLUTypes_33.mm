@@ -1,99 +1,1269 @@
-unint64_t sirinluinternalembedding::EmbeddingTensorOutput::hash_value(sirinluinternalembedding::EmbeddingTensorOutput *this)
+void sub_1C8AE1840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  v2 = *(this + 3);
-  if (v2)
+  va_start(va, a13);
+  MEMORY[0x1CCA7EC50](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8AE1DA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24)
+{
+  if (__p)
   {
-    v3 = std::__string_hash<char>::operator()[abi:ne200100](v2);
+    operator delete(__p);
   }
 
-  else
+  if (a11)
   {
-    v3 = 0;
+    operator delete(a11);
   }
 
-  v4 = *(this + 2);
-  if (v4)
-  {
-    v5 = sirinluinternal::NLv4EmbeddingTensor::hash_value(v4);
-  }
+  _Unwind_Resume(exception_object);
+}
 
-  else
+BOOL SSUCategoryGroup::Verify(SSUCategoryGroup *this, apple::aiml::flatbuffers2::Verifier *a2)
+{
+  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this->var0);
+  if (result)
   {
-    v5 = 0;
-  }
-
-  v6 = *(this + 4);
-  if (v6)
-  {
-    v6 = sirinluinternal::NLv4EmbeddingTensor::hash_value(v6);
-  }
-
-  if (*(this + 44))
-  {
-    v7 = *(this + 1);
-    if ((*(this + 44) & 2) != 0)
+    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
+    if (result)
     {
-      goto LABEL_11;
+      v5 = &this[-*this->var0];
+      if (*v5->var0 >= 5u && (v6 = *v5[4].var0) != 0)
+      {
+        v7 = &this[v6 + *this[v6].var0];
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v7->var0);
+      if (result)
+      {
+        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 6u);
+        if (result)
+        {
+          v8 = *this->var0;
+          if (*this[-v8].var0 < 7u)
+          {
+            goto LABEL_18;
+          }
+
+          if (*this[-v8 + 6].var0)
+          {
+            result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this[*this[-v8 + 6].var0 + *this[*this[-v8 + 6].var0].var0].var0, 4uLL, 0);
+            if (!result)
+            {
+              return result;
+            }
+
+            v8 = *this->var0;
+            if (*this[-v8].var0 < 7u)
+            {
+              goto LABEL_18;
+            }
+          }
+
+          v9 = *this[-v8 + 6].var0;
+          if (v9 && (v10 = &this[v9 + *this[v9].var0], *v10->var0))
+          {
+            v11 = 0;
+            v12 = v10 + 4;
+            while (SSUIntent::Verify(&v12[*v12->var0], a2))
+            {
+              ++v11;
+              v12 += 4;
+              if (v11 >= *v10->var0)
+              {
+                goto LABEL_18;
+              }
+            }
+
+            return 0;
+          }
+
+          else
+          {
+LABEL_18:
+            result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 8u);
+            if (!result)
+            {
+              return result;
+            }
+
+            v13 = *this->var0;
+            if (*this[-v13].var0 < 9u)
+            {
+              goto LABEL_25;
+            }
+
+            if (*this[-v13 + 8].var0)
+            {
+              result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this[*this[-v13 + 8].var0 + *this[*this[-v13 + 8].var0].var0].var0, 4uLL, 0);
+              if (!result)
+              {
+                return result;
+              }
+
+              v13 = *this->var0;
+              if (*this[-v13].var0 < 9u)
+              {
+                goto LABEL_25;
+              }
+            }
+
+            v14 = *this[-v13 + 8].var0;
+            if (!v14)
+            {
+LABEL_25:
+              v15 = 0;
+            }
+
+            else
+            {
+              v15 = &this[v14 + *this[v14].var0];
+            }
+
+            result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<SSUExample>(a2, v15);
+            if (result)
+            {
+              --*(a2 + 4);
+              return 1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void sub_1C8AE2C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  MEMORY[0x1CCA7EC50](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8AE2FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
+{
+  if (v10)
+  {
+    operator delete(v10);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL SSUCategory::Verify(SSUCategory *this, apple::aiml::flatbuffers2::Verifier *a2)
+{
+  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this->var0);
+  if (!result)
+  {
+    return result;
+  }
+
+  v5 = *this->var0;
+  v6 = &this[-v5];
+  v7 = *this[-v5].var0;
+  if (v7 >= 5)
+  {
+    if (*v6[4].var0)
+    {
+      result = 0;
+      v8 = *(a2 + 1);
+      if (v8 < 2 || v8 - 1 < this[*v6[4].var0 - *a2].var0)
+      {
+        return result;
+      }
+    }
+  }
+
+  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 6u);
+  if (!result)
+  {
+    return result;
+  }
+
+  if (v7 < 7)
+  {
+    goto LABEL_18;
+  }
+
+  if (*v6[6].var0)
+  {
+    result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this[*v6[6].var0 + *this[*v6[6].var0].var0].var0, 4uLL, 0);
+    if (!result)
+    {
+      return result;
     }
 
-LABEL_13:
-    v8 = 0;
-    return v5 ^ v3 ^ v6 ^ v7 ^ v8;
+    v9 = *this->var0;
+    if (*this[-v9].var0 < 7u)
+    {
+      goto LABEL_18;
+    }
+
+    v10 = -v9;
   }
 
-  v7 = 0;
-  if ((*(this + 44) & 2) == 0)
+  else
   {
-    goto LABEL_13;
+    v10 = -v5;
+  }
+
+  v11 = *this[v10 + 6].var0;
+  if (!v11 || (v12 = &this[v11 + *this[v11].var0], !*v12->var0))
+  {
+LABEL_18:
+    --*(a2 + 4);
+    return 1;
+  }
+
+  v13 = 0;
+  v14 = v12 + 4;
+  while (SSUCategoryGroup::Verify(&v14[*v14->var0], a2))
+  {
+    ++v13;
+    v14 += 4;
+    if (v13 >= *v12->var0)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  return 0;
+}
+
+uint64_t sirinluexternal::RRBoundingBox::formatText(sirinluexternal::RRBoundingBox *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 40);
+  if (v5)
+  {
+    PB::TextFormatter::format(a2, "height", *(this + 1));
+    v5 = *(this + 40);
+    if ((v5 & 2) == 0)
+    {
+LABEL_3:
+      if ((v5 & 4) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_11;
+    }
+  }
+
+  else if ((*(this + 40) & 2) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  PB::TextFormatter::format(a2, "width", *(this + 2));
+  v5 = *(this + 40);
+  if ((v5 & 4) == 0)
+  {
+LABEL_4:
+    if ((v5 & 8) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
   }
 
 LABEL_11:
-  v8 = *(this + 40);
-  return v5 ^ v3 ^ v6 ^ v7 ^ v8;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingTensorOutput::makeEmbeddingTensor(uint64_t this)
-{
-  if (!*(this + 16))
+  PB::TextFormatter::format(a2, "x_coordinate", *(this + 3));
+  if ((*(this + 40) & 8) != 0)
   {
-    operator new();
+LABEL_5:
+    PB::TextFormatter::format(a2, "y_coordinate", *(this + 4));
   }
 
+LABEL_6:
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluexternal::RRBoundingBox::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 40);
+  if ((v4 & 4) != 0)
+  {
+    this = PB::Writer::write(a2, *(this + 24));
+    v4 = *(v3 + 40);
+    if ((v4 & 8) == 0)
+    {
+LABEL_3:
+      if ((v4 & 2) == 0)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_8:
+      this = PB::Writer::write(a2, *(v3 + 16));
+      if ((*(v3 + 40) & 1) == 0)
+      {
+        return this;
+      }
+
+      goto LABEL_9;
+    }
+  }
+
+  else if ((*(this + 40) & 8) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  this = PB::Writer::write(a2, *(v3 + 32));
+  v4 = *(v3 + 40);
+  if ((v4 & 2) != 0)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_4:
+  if ((v4 & 1) == 0)
+  {
+    return this;
+  }
+
+LABEL_9:
+  v5 = *(v3 + 8);
+
+  return PB::Writer::write(a2, v5);
+}
+
+uint64_t sirinluexternal::RRBoundingBox::readFrom(sirinluexternal::RRBoundingBox *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  while (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    v7 = *a2;
+    if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+    {
+      v15 = 0;
+      v16 = 0;
+      v10 = 0;
+      v17 = (v7 + v2);
+      v18 = v3 >= v2;
+      v19 = v3 - v2;
+      if (!v18)
+      {
+        v19 = 0;
+      }
+
+      v20 = v2 + 1;
+      while (v19)
+      {
+        v21 = *v17;
+        *(a2 + 1) = v20;
+        v10 |= (v21 & 0x7F) << v15;
+        if ((v21 & 0x80) == 0)
+        {
+          goto LABEL_19;
+        }
+
+        v15 += 7;
+        ++v17;
+        --v19;
+        ++v20;
+        v14 = v16++ > 8;
+        if (v14)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      v4 = 1;
+      *(a2 + 24) = 1;
+      break;
+    }
+
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    v11 = (v7 + v2);
+    v12 = v2 + 1;
+    while (1)
+    {
+      *(a2 + 1) = v12;
+      v13 = *v11++;
+      v10 |= (v13 & 0x7F) << v8;
+      if ((v13 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v8 += 7;
+      ++v12;
+      v14 = v9++ > 8;
+      if (v14)
+      {
+        goto LABEL_17;
+      }
+    }
+
+LABEL_19:
+    if ((v10 & 7) == 4)
+    {
+      v4 = 0;
+      break;
+    }
+
+    v22 = v10 >> 3;
+    if ((v10 >> 3) > 2)
+    {
+      if (v22 == 3)
+      {
+        *(this + 40) |= 2u;
+        v2 = *(a2 + 1);
+        if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
+        {
+LABEL_36:
+          *(a2 + 24) = 1;
+          goto LABEL_39;
+        }
+
+        *(this + 2) = *(*a2 + v2);
+        goto LABEL_38;
+      }
+
+      if (v22 == 4)
+      {
+        *(this + 40) |= 1u;
+        v2 = *(a2 + 1);
+        if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
+        {
+          goto LABEL_36;
+        }
+
+        *(this + 1) = *(*a2 + v2);
+        goto LABEL_38;
+      }
+    }
+
+    else
+    {
+      if (v22 == 1)
+      {
+        *(this + 40) |= 4u;
+        v2 = *(a2 + 1);
+        if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
+        {
+          goto LABEL_36;
+        }
+
+        *(this + 3) = *(*a2 + v2);
+        goto LABEL_38;
+      }
+
+      if (v22 == 2)
+      {
+        *(this + 40) |= 8u;
+        v2 = *(a2 + 1);
+        if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
+        {
+          goto LABEL_36;
+        }
+
+        *(this + 4) = *(*a2 + v2);
+LABEL_38:
+        v2 = *(a2 + 1) + 8;
+        *(a2 + 1) = v2;
+        goto LABEL_39;
+      }
+    }
+
+LABEL_17:
+    if (!PB::Reader::skip(a2))
+    {
+      v23 = 0;
+      return v23 & 1;
+    }
+
+    v2 = *(a2 + 1);
+LABEL_39:
+    v3 = *(a2 + 2);
+    v4 = *(a2 + 24);
+  }
+
+  v23 = v4 ^ 1;
+  return v23 & 1;
+}
+
+void sirinluexternal::RRBoundingBox::~RRBoundingBox(sirinluexternal::RRBoundingBox *this)
+{
+  PB::Base::~Base(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+uint64_t sirinluexternal::RRBoundingBox::RRBoundingBox(uint64_t this)
+{
+  *this = &unk_1F4876680;
+  *(this + 40) = 0;
   return this;
 }
 
-uint64_t sirinluinternalembedding::EmbeddingTensorOutput::makeSentenceEmbeddingTensor(uint64_t this)
 {
-  if (!*(this + 32))
-  {
-    operator new();
-  }
-
+  *this = &unk_1F4876680;
+  *(this + 40) = 0;
   return this;
 }
 
-uint64_t sirinluinternal::PlanOverrideValue::formatText(sirinluinternal::PlanOverrideValue *this, PB::TextFormatter *a2, const char *a3)
+double sirinluexternal::RRBoundingBox::RRBoundingBox(sirinluexternal::RRBoundingBox *this, const sirinluexternal::RRBoundingBox *a2)
+{
+  *this = &unk_1F4876680;
+  *(this + 10) = 0;
+  v2 = *(a2 + 40);
+  if ((v2 & 4) != 0)
+  {
+    result = *(a2 + 3);
+    v3 = 4;
+    *(this + 40) = 4;
+    *(this + 3) = result;
+    v2 = *(a2 + 40);
+    if ((v2 & 8) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  v3 = 0;
+  if ((*(a2 + 40) & 8) != 0)
+  {
+LABEL_5:
+    result = *(a2 + 4);
+    v3 |= 8u;
+    *(this + 40) = v3;
+    *(this + 4) = result;
+    v2 = *(a2 + 40);
+  }
+
+LABEL_6:
+  if ((v2 & 2) == 0)
+  {
+    if ((v2 & 1) == 0)
+    {
+      return result;
+    }
+
+LABEL_10:
+    result = *(a2 + 1);
+    *(this + 40) = v3 | 1;
+    *(this + 1) = result;
+    return result;
+  }
+
+  result = *(a2 + 2);
+  v3 |= 2u;
+  *(this + 40) = v3;
+  *(this + 2) = result;
+  if (*(a2 + 40))
+  {
+    goto LABEL_10;
+  }
+
+  return result;
+}
+
+uint64_t sirinluexternal::RRBoundingBox::operator=(uint64_t a1, const sirinluexternal::RRBoundingBox *a2)
+{
+  if (a1 != a2)
+  {
+    sirinluexternal::RRBoundingBox::RRBoundingBox(&v7, a2);
+    v3 = *(a1 + 40);
+    *(a1 + 40) = v10;
+    v10 = v3;
+    v4 = *(a1 + 24);
+    *(a1 + 24) = v9;
+    v9 = v4;
+    v5 = *(a1 + 8);
+    *(a1 + 8) = v8;
+    v8 = v5;
+    PB::Base::~Base(&v7);
+  }
+
+  return a1;
+}
+
+double sirinluexternal::swap(sirinluexternal *this, sirinluexternal::RRBoundingBox *a2, sirinluexternal::RRBoundingBox *a3)
+{
+  v3 = *(this + 10);
+  *(this + 10) = *(a2 + 10);
+  *(a2 + 10) = v3;
+  v4 = *(this + 3);
+  *(this + 3) = *(a2 + 3);
+  *(a2 + 3) = v4;
+  v5 = *(this + 4);
+  *(this + 4) = *(a2 + 4);
+  *(a2 + 4) = v5;
+  v6 = *(this + 2);
+  *(this + 2) = *(a2 + 2);
+  *(a2 + 2) = v6;
+  result = *(this + 1);
+  *(this + 1) = *(a2 + 1);
+  *(a2 + 1) = result;
+  return result;
+}
+
+double sirinluexternal::RRBoundingBox::RRBoundingBox(uint64_t a1, uint64_t a2)
+{
+  *a1 = &unk_1F4876680;
+  *(a1 + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 16) = *(a2 + 16);
+  result = *(a2 + 8);
+  *(a1 + 8) = result;
+  return result;
+}
+
+{
+  *a1 = &unk_1F4876680;
+  *(a1 + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 16) = *(a2 + 16);
+  result = *(a2 + 8);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sirinluexternal::RRBoundingBox::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v8 = &unk_1F4876680;
+    v3 = *(a2 + 40);
+    *(a2 + 40) = 0;
+    v11 = *(a1 + 40);
+    v10 = *(a1 + 24);
+    v4 = *(a1 + 8);
+    v5 = *(a2 + 8);
+    v6 = *(a2 + 24);
+    *(a1 + 40) = v3;
+    *(a1 + 24) = v6;
+    *(a1 + 8) = v5;
+    v9 = v4;
+    PB::Base::~Base(&v8);
+  }
+
+  return a1;
+}
+
+BOOL sirinluexternal::RRBoundingBox::operator==(uint64_t a1, uint64_t a2)
+{
+  if ((*(a1 + 40) & 4) != 0)
+  {
+    if ((*(a2 + 40) & 4) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 40) & 4) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 40) & 8) != 0)
+  {
+    if ((*(a2 + 40) & 8) == 0 || *(a1 + 32) != *(a2 + 32))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 40) & 8) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 40) & 2) != 0)
+  {
+    if ((*(a2 + 40) & 2) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 40) & 2) != 0)
+  {
+    return 0;
+  }
+
+  v2 = (*(a2 + 40) & 1) == 0;
+  if (*(a1 + 40))
+  {
+    return (*(a2 + 40) & 1) != 0 && *(a1 + 8) == *(a2 + 8);
+  }
+
+  return v2;
+}
+
+uint64_t sirinluexternal::RRBoundingBox::hash_value(sirinluexternal::RRBoundingBox *this)
+{
+  if ((*(this + 40) & 4) == 0)
+  {
+    v1 = 0.0;
+    if ((*(this + 40) & 8) != 0)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_15:
+    v2 = 0.0;
+    if ((*(this + 40) & 2) != 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_16;
+  }
+
+  v1 = *(this + 3);
+  if (v1 == 0.0)
+  {
+    v1 = 0.0;
+  }
+
+  if ((*(this + 40) & 8) == 0)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_3:
+  v2 = *(this + 4);
+  if (v2 == 0.0)
+  {
+    v2 = 0.0;
+  }
+
+  if ((*(this + 40) & 2) != 0)
+  {
+LABEL_6:
+    v3 = *(this + 2);
+    if (v3 == 0.0)
+    {
+      v3 = 0.0;
+    }
+
+    if (*(this + 40))
+    {
+      goto LABEL_9;
+    }
+
+LABEL_17:
+    v4 = 0.0;
+    return *&v2 ^ *&v1 ^ *&v3 ^ *&v4;
+  }
+
+LABEL_16:
+  v3 = 0.0;
+  if ((*(this + 40) & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_9:
+  v4 = *(this + 1);
+  if (v4 == 0.0)
+  {
+    v4 = 0.0;
+  }
+
+  return *&v2 ^ *&v1 ^ *&v3 ^ *&v4;
+}
+
+uint64_t siricommon::UInt32Value::formatText(siricommon::UInt32Value *this, PB::TextFormatter *a2, const char *a3)
 {
   PB::TextFormatter::beginObject(a2, a3);
-  if (*(this + 1))
+  if (*(this + 12))
   {
-    PB::TextFormatter::format();
+    PB::TextFormatter::format(a2, "value");
   }
 
   return MEMORY[0x1EEE30A90](a2);
 }
 
-uint64_t sirinluinternal::PlanOverrideValue::writeTo(uint64_t this, PB::Writer *a2)
+uint64_t siricommon::UInt32Value::writeTo(uint64_t this, PB::Writer *a2)
 {
-  if (*(this + 8))
+  if (*(this + 12))
   {
-    return PB::Writer::write();
+    return PB::Writer::writeVarInt(a2);
   }
 
   return this;
 }
 
-uint64_t sirinluinternal::PlanOverrideValue::readFrom(sirinluinternal::PlanOverrideValue *this, PB::Reader *a2)
+uint64_t siricommon::UInt32Value::readFrom(siricommon::UInt32Value *this, PB::Reader *a2)
+{
+  v3 = *(a2 + 1);
+  v2 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v3 < v2 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v7 = *a2;
+      if (v3 > 0xFFFFFFFFFFFFFFF5 || v3 + 10 > v2)
+      {
+        break;
+      }
+
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      v11 = (v7 + v3);
+      v12 = v3 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v12;
+        v13 = *v11++;
+        v10 |= (v13 & 0x7F) << v8;
+        if ((v13 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v8 += 7;
+        ++v12;
+        v14 = v9++ > 8;
+        if (v14)
+        {
+          goto LABEL_27;
+        }
+      }
+
+LABEL_18:
+      if ((v10 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_46;
+      }
+
+      if ((v10 >> 3) == 1)
+      {
+        *(this + 12) |= 1u;
+        v22 = *(a2 + 1);
+        v2 = *(a2 + 2);
+        v23 = *a2;
+        if (v22 > 0xFFFFFFFFFFFFFFF5 || v22 + 10 > v2)
+        {
+          v30 = 0;
+          v31 = 0;
+          v26 = 0;
+          if (v2 <= v22)
+          {
+            v3 = *(a2 + 1);
+          }
+
+          else
+          {
+            v3 = *(a2 + 2);
+          }
+
+          while (1)
+          {
+            if (v3 == v22)
+            {
+              LODWORD(v26) = 0;
+              *(a2 + 24) = 1;
+              goto LABEL_41;
+            }
+
+            v32 = v22 + 1;
+            v33 = *(v23 + v22);
+            *(a2 + 1) = v32;
+            v26 |= (v33 & 0x7F) << v30;
+            if ((v33 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v30 += 7;
+            v22 = v32;
+            v14 = v31++ > 8;
+            if (v14)
+            {
+              LODWORD(v26) = 0;
+              goto LABEL_40;
+            }
+          }
+
+          if (*(a2 + 24))
+          {
+            LODWORD(v26) = 0;
+          }
+
+LABEL_40:
+          v3 = v32;
+        }
+
+        else
+        {
+          v24 = 0;
+          v25 = 0;
+          v26 = 0;
+          v27 = (v23 + v22);
+          v28 = v22 + 1;
+          while (1)
+          {
+            v3 = v28;
+            *(a2 + 1) = v28;
+            v29 = *v27++;
+            v26 |= (v29 & 0x7F) << v24;
+            if ((v29 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v24 += 7;
+            ++v28;
+            v14 = v25++ > 8;
+            if (v14)
+            {
+              LODWORD(v26) = 0;
+              break;
+            }
+          }
+        }
+
+LABEL_41:
+        *(this + 2) = v26;
+      }
+
+      else
+      {
+LABEL_27:
+        if (!PB::Reader::skip(a2))
+        {
+          v34 = 0;
+          return v34 & 1;
+        }
+
+        v3 = *(a2 + 1);
+        v2 = *(a2 + 2);
+      }
+
+      v4 = *(a2 + 24);
+      if (v3 >= v2 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_46;
+      }
+    }
+
+    v15 = 0;
+    v16 = 0;
+    v10 = 0;
+    v17 = (v7 + v3);
+    v18 = v2 >= v3;
+    v19 = v2 - v3;
+    if (!v18)
+    {
+      v19 = 0;
+    }
+
+    v20 = v3 + 1;
+    while (v19)
+    {
+      v21 = *v17;
+      *(a2 + 1) = v20;
+      v10 |= (v21 & 0x7F) << v15;
+      if ((v21 & 0x80) == 0)
+      {
+        goto LABEL_18;
+      }
+
+      v15 += 7;
+      ++v17;
+      --v19;
+      ++v20;
+      v14 = v16++ > 8;
+      if (v14)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    v4 = 1;
+    *(a2 + 24) = 1;
+  }
+
+LABEL_46:
+  v34 = v4 ^ 1;
+  return v34 & 1;
+}
+
+void siricommon::UInt32Value::~UInt32Value(siricommon::UInt32Value *this)
+{
+  PB::Base::~Base(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+uint64_t siricommon::UInt32Value::UInt32Value(uint64_t this)
+{
+  *this = &unk_1F48766D0;
+  *(this + 12) = 0;
+  return this;
+}
+
+{
+  *this = &unk_1F48766D0;
+  *(this + 12) = 0;
+  return this;
+}
+
+uint64_t siricommon::UInt32Value::UInt32Value(uint64_t this, const siricommon::UInt32Value *a2)
+{
+  *this = &unk_1F48766D0;
+  *(this + 12) = 0;
+  if (*(a2 + 12))
+  {
+    v2 = *(a2 + 2);
+    *(this + 12) = 1;
+    *(this + 8) = v2;
+  }
+
+  return this;
+}
+
+{
+  *this = &unk_1F48766D0;
+  *(this + 12) = 0;
+  if (*(a2 + 12))
+  {
+    v2 = *(a2 + 2);
+    *(this + 12) = 1;
+    *(this + 8) = v2;
+  }
+
+  return this;
+}
+
+uint64_t siricommon::UInt32Value::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v6[0] = &unk_1F48766D0;
+    v3 = *(a2 + 12) & 1;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = *(a2 + 8);
+    *(a1 + 12) = v3;
+    v6[1] = v4;
+    PB::Base::~Base(v6);
+  }
+
+  return a1;
+}
+
+{
+  if (a1 != a2)
+  {
+    v6[0] = &unk_1F48766D0;
+    v3 = *(a2 + 8);
+    *(a2 + 12) = 0;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = v3;
+    v6[1] = v4;
+    PB::Base::~Base(v6);
+  }
+
+  return a1;
+}
+
+uint64_t siricommon::swap(uint64_t this, siricommon::UInt32Value *a2, siricommon::UInt32Value *a3)
+{
+  v3 = *(this + 12);
+  *(this + 12) = *(a2 + 3);
+  *(a2 + 3) = v3;
+  v4 = *(this + 8);
+  *(this + 8) = *(a2 + 2);
+  *(a2 + 2) = v4;
+  return this;
+}
+
+uint64_t siricommon::UInt32Value::UInt32Value(uint64_t result, uint64_t a2)
+{
+  *result = &unk_1F48766D0;
+  *(result + 12) = *(a2 + 12);
+  *(a2 + 12) = 0;
+  *(result + 8) = *(a2 + 8);
+  return result;
+}
+
+{
+  *result = &unk_1F48766D0;
+  *(result + 12) = *(a2 + 12);
+  *(a2 + 12) = 0;
+  *(result + 8) = *(a2 + 8);
+  return result;
+}
+
+BOOL siricommon::UInt32Value::operator==(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 12);
+  result = (*(a2 + 12) & 1) == 0;
+  if (v3)
+  {
+    return (*(a2 + 12) & 1) != 0 && *(a1 + 8) == *(a2 + 8);
+  }
+
+  return result;
+}
+
+uint64_t siricommon::UInt32Value::hash_value(siricommon::UInt32Value *this)
+{
+  if (*(this + 12))
+  {
+    return *(this + 2);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t SIRINLUEXTERNALCDM_PLANNERCdmPlannerRequestReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v17[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v17 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v17[0] & 0x7F) << v5;
+        if ((v17[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = PBReaderReadString();
+        v14 = *(a1 + 16);
+        *(a1 + 16) = v13;
+LABEL_23:
+
+        goto LABEL_25;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_25:
+      v15 = [a2 position];
+      if (v15 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v14 = objc_alloc_init(SIRINLUEXTERNALCDM_PLANNERCDMPlannerRequestIdentifier);
+    objc_storeStrong((a1 + 8), v14);
+    v17[0] = 0;
+    v17[1] = 0;
+    if (!PBReaderPlaceMark() || !SIRINLUEXTERNALCDM_PLANNERCDMPlannerRequestIdentifierReadFrom(v14, a2))
+    {
+
+      return 0;
+    }
+
+    PBReaderRecallMark();
+    goto LABEL_23;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::formatText(sirinluinternalsnlp_intermediate::ContextFeaturizerResponse *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 1);
+  if (v5)
+  {
+    (*(*v5 + 32))(v5, a2, "tensor");
+  }
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v2 = *(this + 8);
+  if (v2)
+  {
+    return PB::Writer::writeSubmessage(a2, v2);
+  }
+
+  return this;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::readFrom(sirinluinternalsnlp_intermediate::ContextFeaturizerResponse *this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -145,7 +1315,7 @@ LABEL_18:
       }
 
 LABEL_21:
-      if (!PB::Reader::skip(a2))
+      if ((PB::Reader::skip(a2) & 1) == 0)
       {
         v21 = 0;
         return v21 & 1;
@@ -202,43 +1372,43 @@ LABEL_26:
   return v21 & 1;
 }
 
-void sirinluinternal::PlanOverrideValue::~PlanOverrideValue(sirinluinternal::PlanOverrideValue *this)
+void sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::~ContextFeaturizerResponse(sirinluinternalsnlp_intermediate::ContextFeaturizerResponse *this)
 {
-  sirinluinternal::PlanOverrideValue::~PlanOverrideValue(this);
+  sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::~ContextFeaturizerResponse(this);
 
   JUMPOUT(0x1CCA7EC50);
 }
 
 {
   v2 = *(this + 1);
-  *this = &unk_1F4876170;
+  *this = &unk_1F4876720;
   *(this + 1) = 0;
   if (v2)
   {
-    std::default_delete<std::string>::operator()[abi:ne200100](v2);
+    (*(*v2 + 8))(v2);
   }
 
   PB::Base::~Base(this);
 }
 
-void *sirinluinternal::PlanOverrideValue::PlanOverrideValue(void *this)
+void *sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::ContextFeaturizerResponse(void *this)
 {
-  *this = &unk_1F4876170;
+  *this = &unk_1F4876720;
   this[1] = 0;
   return this;
 }
 
 {
-  *this = &unk_1F4876170;
+  *this = &unk_1F4876720;
   this[1] = 0;
   return this;
 }
 
-void *sirinluinternal::PlanOverrideValue::PlanOverrideValue(void *this, const sirinluinternal::PlanOverrideValue *a2)
+sirinluinternalsnlp_intermediate::ContextFeaturizerResponse *sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::ContextFeaturizerResponse(sirinluinternalsnlp_intermediate::ContextFeaturizerResponse *this, const sirinluinternalsnlp_intermediate::LinearizedTensor **a2)
 {
-  *this = &unk_1F4876170;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *this = &unk_1F4876720;
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -246,21 +1416,21 @@ void *sirinluinternal::PlanOverrideValue::PlanOverrideValue(void *this, const si
   return this;
 }
 
-const sirinluinternal::PlanOverrideValue *sirinluinternal::PlanOverrideValue::operator=(const sirinluinternal::PlanOverrideValue *a1, const sirinluinternal::PlanOverrideValue *a2)
+uint64_t sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::operator=(uint64_t a1, const sirinluinternalsnlp_intermediate::LinearizedTensor **a2)
 {
   if (a1 != a2)
   {
-    sirinluinternal::PlanOverrideValue::PlanOverrideValue(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::ContextFeaturizerResponse(&v5, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
-    sirinluinternal::PlanOverrideValue::~PlanOverrideValue(&v5);
+    sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::~ContextFeaturizerResponse(&v5);
   }
 
   return a1;
 }
 
-uint64_t sirinluinternal::swap(uint64_t this, sirinluinternal::PlanOverrideValue *a2, sirinluinternal::PlanOverrideValue *a3)
+uint64_t sirinluinternalsnlp_intermediate::swap(uint64_t this, sirinluinternalsnlp_intermediate::ContextFeaturizerResponse *a2, sirinluinternalsnlp_intermediate::ContextFeaturizerResponse *a3)
 {
   v3 = *(this + 8);
   *(this + 8) = *(a2 + 1);
@@ -268,9 +1438,9 @@ uint64_t sirinluinternal::swap(uint64_t this, sirinluinternal::PlanOverrideValue
   return this;
 }
 
-void *sirinluinternal::PlanOverrideValue::PlanOverrideValue(void *a1, uint64_t a2)
+void *sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::ContextFeaturizerResponse(void *a1, uint64_t a2)
 {
-  *a1 = &unk_1F4876170;
+  *a1 = &unk_1F4876720;
   a1[1] = 0;
   v3 = *(a2 + 8);
   *(a2 + 8) = 0;
@@ -278,14 +1448,14 @@ void *sirinluinternal::PlanOverrideValue::PlanOverrideValue(void *a1, uint64_t a
   a1[1] = v3;
   if (v4)
   {
-    std::default_delete<std::string>::operator()[abi:ne200100](v4);
+    (*(*v4 + 8))(v4);
   }
 
   return a1;
 }
 
 {
-  *a1 = &unk_1F4876170;
+  *a1 = &unk_1F4876720;
   a1[1] = 0;
   v3 = *(a2 + 8);
   *(a2 + 8) = 0;
@@ -293,13 +1463,13 @@ void *sirinluinternal::PlanOverrideValue::PlanOverrideValue(void *a1, uint64_t a
   a1[1] = v3;
   if (v4)
   {
-    std::default_delete<std::string>::operator()[abi:ne200100](v4);
+    (*(*v4 + 8))(v4);
   }
 
   return a1;
 }
 
-uint64_t sirinluinternal::PlanOverrideValue::operator=(uint64_t a1, uint64_t a2)
+uint64_t sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::operator=(uint64_t a1, uint64_t a2)
 {
   if (a1 != a2)
   {
@@ -307,986 +1477,70 @@ uint64_t sirinluinternal::PlanOverrideValue::operator=(uint64_t a1, uint64_t a2)
     *(a2 + 8) = 0;
     v4 = *(a1 + 8);
     *(a1 + 8) = v3;
-    v6[0] = &unk_1F4876170;
+    v6[0] = &unk_1F4876720;
     v6[1] = v4;
-    sirinluinternal::PlanOverrideValue::~PlanOverrideValue(v6);
+    sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::~ContextFeaturizerResponse(v6);
   }
 
   return a1;
 }
 
-BOOL sirinluinternal::PlanOverrideValue::operator==(uint64_t a1, uint64_t a2)
+BOOL sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::operator==(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a2 + 8);
-  result = v3 == 0;
   if (v2)
   {
-    if (!v3)
-    {
-      return 0;
-    }
-
-    v5 = *(v2 + 23);
-    if (v5 >= 0)
-    {
-      v6 = *(v2 + 23);
-    }
-
-    else
-    {
-      v6 = v2[1];
-    }
-
-    v7 = *(v3 + 23);
-    v8 = v7;
-    if ((v7 & 0x80u) != 0)
-    {
-      v7 = *(v3 + 8);
-    }
-
-    if (v6 == v7 && (v5 >= 0 ? (v9 = v2) : (v9 = *v2), v8 >= 0 ? (v10 = *(a2 + 8)) : (v10 = *v3), !memcmp(v9, v10, v6)))
-    {
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-unint64_t sirinluinternal::PlanOverrideValue::hash_value(sirinluinternal::PlanOverrideValue *this)
-{
-  result = *(this + 1);
-  if (result)
-  {
-    return std::__string_hash<char>::operator()[abi:ne200100](result);
-  }
-
-  return result;
-}
-
-void sub_1C8ABE240(_Unwind_Exception *a1)
-{
-  v5 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8ABE330(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8ABFF4C(_Unwind_Exception *a1)
-{
-  v5 = v4;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC1C18(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC1E78(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC3028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, PB::Writer *a9, char a10)
-{
-  std::unique_ptr<PB::Writer>::~unique_ptr[abi:ne200100](&a9);
-  sirinluexternal::UsoGraph::~UsoGraph(&a10);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC359C(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC3778(_Unwind_Exception *a1)
-{
-  v5 = v4;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC4098(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC429C(_Unwind_Exception *a1)
-{
-  v5 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC44A0(_Unwind_Exception *a1)
-{
-  v8 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC4618(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC53C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, std::__shared_weak_count *a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, std::__shared_weak_count *a52, uint64_t a53)
-{
-  std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&a50);
-  if (a52)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a52);
-  }
-
-  v56 = a53;
-  a53 = 0;
-  if (v56)
-  {
-    (*(*v56 + 8))(v56);
-  }
-
-  if (a11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak_count *a1)
-{
-  if (!atomic_fetch_add(&a1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (a1->__on_zero_shared)(a1);
-
-    std::__shared_weak_count::__release_weak(a1);
-  }
-}
-
-uint64_t *std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](uint64_t *a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    v3 = MEMORY[0x1CCA7E9F0]();
-    MEMORY[0x1CCA7EC50](v3, 0x10A0C403D23BABBLL);
-  }
-
-  return a1;
-}
-
-void sub_1C8AC5938(_Unwind_Exception *a1)
-{
-  v6 = v4;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC5A58(_Unwind_Exception *a1)
-{
-  v6 = v4;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC6E38(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC703C(_Unwind_Exception *a1)
-{
-  v7 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC71BC(_Unwind_Exception *a1)
-{
-  v7 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC7310(_Unwind_Exception *a1)
-{
-  v7 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC7544(_Unwind_Exception *a1)
-{
-  v8 = v6;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC7684(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC7798(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC78AC(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC79D4(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC7AE8(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC7C00(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC7D14(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC7E28(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC7F3C(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC8064(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC8178(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC8290(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC83E4(_Unwind_Exception *a1)
-{
-  v7 = v6;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC8500(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC8CDC(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AC8E30(_Unwind_Exception *a1)
-{
-  v7 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t sirinluexternal::UtteranceAlignment::formatText(sirinluexternal::UtteranceAlignment *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 40);
-  if (v5)
-  {
-    v6 = *(this + 8);
-    PB::TextFormatter::format(a2, "asr_hypothesis_index");
-    v5 = *(this + 40);
-  }
-
-  if ((v5 & 2) != 0)
-  {
-    v7 = *(this + 9);
-    PB::TextFormatter::format(a2, "node_index");
-  }
-
-  v8 = *(this + 1);
-  v9 = *(this + 2);
-  while (v8 != v9)
-  {
-    v10 = *v8++;
-    (*(*v10 + 32))(v10, a2, "spans");
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluexternal::UtteranceAlignment::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  if (*(this + 40))
-  {
-    v4 = *(this + 32);
-    this = PB::Writer::writeVarInt(a2);
-  }
-
-  v5 = *(v3 + 8);
-  v6 = *(v3 + 16);
-  while (v5 != v6)
-  {
-    v7 = *v5++;
-    this = PB::Writer::writeSubmessage(a2, v7);
-  }
-
-  if ((*(v3 + 40) & 2) != 0)
-  {
-    v8 = *(v3 + 36);
-
-    return PB::Writer::writeVarInt(a2);
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::UtteranceAlignment::readFrom(sirinluexternal::UtteranceAlignment *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v7 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
-      v11 = (v7 + v2);
-      v12 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v12;
-        v13 = *v11++;
-        v10 |= (v13 & 0x7F) << v8;
-        if ((v13 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v8 += 7;
-        ++v12;
-        v14 = v9++ > 8;
-        if (v14)
-        {
-          goto LABEL_17;
-        }
-      }
-
-LABEL_21:
-      if ((v10 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_65;
-      }
-
-      v22 = v10 >> 3;
-      if ((v10 >> 3) == 3)
-      {
-        *(this + 40) |= 2u;
-        v33 = *(a2 + 1);
-        v32 = *(a2 + 2);
-        v34 = *a2;
-        if (v33 > 0xFFFFFFFFFFFFFFF5 || v33 + 10 > v32)
-        {
-          v41 = 0;
-          v42 = 0;
-          v37 = 0;
-          v43 = (v34 + v33);
-          v18 = v32 >= v33;
-          v44 = v32 - v33;
-          if (!v18)
-          {
-            v44 = 0;
-          }
-
-          v45 = v33 + 1;
-          while (1)
-          {
-            if (!v44)
-            {
-              LODWORD(v37) = 0;
-              *(a2 + 24) = 1;
-              goto LABEL_60;
-            }
-
-            v46 = *v43;
-            *(a2 + 1) = v45;
-            v37 |= (v46 & 0x7F) << v41;
-            if ((v46 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v41 += 7;
-            ++v43;
-            --v44;
-            ++v45;
-            v14 = v42++ > 8;
-            if (v14)
-            {
-LABEL_47:
-              LODWORD(v37) = 0;
-              goto LABEL_60;
-            }
-          }
-
-          if (*(a2 + 24))
-          {
-            LODWORD(v37) = 0;
-          }
-        }
-
-        else
-        {
-          v35 = 0;
-          v36 = 0;
-          v37 = 0;
-          v38 = (v34 + v33);
-          v39 = v33 + 1;
-          while (1)
-          {
-            *(a2 + 1) = v39;
-            v40 = *v38++;
-            v37 |= (v40 & 0x7F) << v35;
-            if ((v40 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v35 += 7;
-            ++v39;
-            v14 = v36++ > 8;
-            if (v14)
-            {
-              goto LABEL_47;
-            }
-          }
-        }
-
-LABEL_60:
-        *(this + 9) = v37;
-      }
-
-      else
-      {
-        if (v22 == 2)
-        {
-          operator new();
-        }
-
-        if (v22 == 1)
-        {
-          *(this + 40) |= 1u;
-          v24 = *(a2 + 1);
-          v23 = *(a2 + 2);
-          v25 = *a2;
-          if (v24 > 0xFFFFFFFFFFFFFFF5 || v24 + 10 > v23)
-          {
-            v47 = 0;
-            v48 = 0;
-            v28 = 0;
-            v49 = (v25 + v24);
-            v18 = v23 >= v24;
-            v50 = v23 - v24;
-            if (!v18)
-            {
-              v50 = 0;
-            }
-
-            v51 = v24 + 1;
-            while (1)
-            {
-              if (!v50)
-              {
-                LODWORD(v28) = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_63;
-              }
-
-              v52 = *v49;
-              *(a2 + 1) = v51;
-              v28 |= (v52 & 0x7F) << v47;
-              if ((v52 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v47 += 7;
-              ++v49;
-              --v50;
-              ++v51;
-              v14 = v48++ > 8;
-              if (v14)
-              {
-LABEL_55:
-                LODWORD(v28) = 0;
-                goto LABEL_63;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              LODWORD(v28) = 0;
-            }
-          }
-
-          else
-          {
-            v26 = 0;
-            v27 = 0;
-            v28 = 0;
-            v29 = (v25 + v24);
-            v30 = v24 + 1;
-            while (1)
-            {
-              *(a2 + 1) = v30;
-              v31 = *v29++;
-              v28 |= (v31 & 0x7F) << v26;
-              if ((v31 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v26 += 7;
-              ++v30;
-              v14 = v27++ > 8;
-              if (v14)
-              {
-                goto LABEL_55;
-              }
-            }
-          }
-
-LABEL_63:
-          *(this + 8) = v28;
-        }
-
-        else
-        {
-LABEL_17:
-          if ((PB::Reader::skip(a2) & 1) == 0)
-          {
-            v53 = 0;
-            return v53 & 1;
-          }
-        }
-      }
-
-      v2 = *(a2 + 1);
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_65;
-      }
-    }
-
-    v15 = 0;
-    v16 = 0;
-    v10 = 0;
-    v17 = (v7 + v2);
-    v18 = v3 >= v2;
-    v19 = v3 - v2;
-    if (!v18)
-    {
-      v19 = 0;
-    }
-
-    v20 = v2 + 1;
-    while (v19)
-    {
-      v21 = *v17;
-      *(a2 + 1) = v20;
-      v10 |= (v21 & 0x7F) << v15;
-      if ((v21 & 0x80) == 0)
-      {
-        goto LABEL_21;
-      }
-
-      v15 += 7;
-      ++v17;
-      --v19;
-      ++v20;
-      v14 = v16++ > 8;
-      if (v14)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_65:
-  v53 = v4 ^ 1;
-  return v53 & 1;
-}
-
-void sirinluexternal::UtteranceAlignment::~UtteranceAlignment(sirinluexternal::UtteranceAlignment *this)
-{
-  *this = &unk_1F4876200;
-  v2 = (this + 8);
-  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v2);
-  PB::Base::~Base(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  *this = &unk_1F4876200;
-  v2 = (this + 8);
-  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v2);
-
-  PB::Base::~Base(this);
-}
-
-{
-  *this = &unk_1F4876200;
-  v2 = (this + 8);
-  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v2);
-
-  PB::Base::~Base(this);
-}
-
-uint64_t sirinluexternal::UtteranceAlignment::UtteranceAlignment(uint64_t this)
-{
-  *this = &unk_1F4876200;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 40) = 0;
-  return this;
-}
-
-{
-  *this = &unk_1F4876200;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 40) = 0;
-  return this;
-}
-
-uint64_t sirinluexternal::UtteranceAlignment::UtteranceAlignment(uint64_t this, const sirinluexternal::UtteranceAlignment *a2)
-{
-  *this = &unk_1F4876200;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 40) = 0;
-  if (*(a2 + 40))
-  {
-    v2 = *(a2 + 8);
-    *(this + 40) = 1;
-    *(this + 32) = v2;
-  }
-
-  v3 = *(a2 + 1);
-  if (v3 != *(a2 + 2))
-  {
-    v4 = *v3;
-    operator new();
-  }
-
-  if ((*(a2 + 40) & 2) != 0)
-  {
-    v5 = *(a2 + 9);
-    *(this + 40) |= 2u;
-    *(this + 36) = v5;
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::UtteranceAlignment::operator=(uint64_t a1, const sirinluexternal::UtteranceAlignment *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternal::UtteranceAlignment::UtteranceAlignment(&v7, a2);
-    v3 = *(a1 + 40);
-    *(a1 + 40) = v11;
-    v11 = v3;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v8;
-    v8 = v4;
-    v5 = *(a1 + 24);
-    *(a1 + 24) = v9;
-    v9 = v5;
-    *&v4 = *(a1 + 32);
-    *(a1 + 32) = v10;
-    v10 = v4;
-    v7 = &unk_1F4876200;
-    v12 = &v8;
-    std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v12);
-    PB::Base::~Base(&v7);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluexternal::swap(uint64_t this, sirinluexternal::UtteranceAlignment *a2, sirinluexternal::UtteranceAlignment *a3)
-{
-  v3 = *(this + 40);
-  *(this + 40) = *(a2 + 10);
-  *(a2 + 10) = v3;
-  v4 = *(this + 32);
-  *(this + 32) = *(a2 + 8);
-  *(a2 + 8) = v4;
-  v5 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
-  *(a2 + 1) = v5;
-  v6 = *(this + 16);
-  *(this + 16) = *(a2 + 2);
-  *(a2 + 2) = v6;
-  v7 = *(this + 24);
-  *(this + 24) = *(a2 + 3);
-  *(a2 + 3) = v7;
-  LODWORD(v7) = *(this + 36);
-  *(this + 36) = *(a2 + 9);
-  *(a2 + 9) = v7;
-  return this;
-}
-
-uint64_t sirinluexternal::UtteranceAlignment::UtteranceAlignment(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_1F4876200;
-  *(a1 + 8) = 0;
-  v4 = a1 + 8;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  *(a1 + 32) = *(a2 + 32);
-  if (*(a1 + 8))
-  {
-    std::vector<std::unique_ptr<siricommon::StringValue>>::clear[abi:ne200100]((a1 + 8));
-    operator delete(*v4);
-    *v4 = 0;
-    *(v4 + 8) = 0;
-    *(v4 + 16) = 0;
-  }
-
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
-  *(a1 + 36) = *(a2 + 36);
-  return a1;
-}
-
-uint64_t sirinluexternal::UtteranceAlignment::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternal::UtteranceAlignment::UtteranceAlignment(&v7, a2);
-    v3 = *(a1 + 40);
-    *(a1 + 40) = v11;
-    v11 = v3;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v8;
-    v8 = v4;
-    v5 = *(a1 + 24);
-    *(a1 + 24) = v9;
-    v9 = v5;
-    *&v4 = *(a1 + 32);
-    *(a1 + 32) = v10;
-    v10 = v4;
-    v7 = &unk_1F4876200;
-    v12 = &v8;
-    std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v12);
-    PB::Base::~Base(&v7);
-  }
-
-  return a1;
-}
-
-BOOL sirinluexternal::UtteranceAlignment::operator==(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 40);
-  v5 = *(a2 + 40);
-  if (v4)
-  {
-    if ((*(a2 + 40) & 1) == 0 || *(a1 + 32) != *(a2 + 32))
-    {
-      return 0;
-    }
-  }
-
-  else if (*(a2 + 40))
-  {
-    return 0;
-  }
-
-  v7 = *(a1 + 8);
-  v6 = *(a1 + 16);
-  v8 = *(a2 + 8);
-  if (v6 - v7 != *(a2 + 16) - v8)
-  {
-    return 0;
-  }
-
-  while (v7 != v6)
-  {
-    result = sirinluexternal::UtteranceSpan::operator==(*v7, *v8);
-    if (!result)
-    {
-      return result;
-    }
-
-    ++v7;
-    ++v8;
-  }
-
-  result = (v5 & 2) == 0;
-  if ((v4 & 2) != 0)
-  {
-    return (v5 & 2) != 0 && *(a1 + 36) == *(a2 + 36);
-  }
-
-  return result;
-}
-
-uint64_t sirinluexternal::UtteranceAlignment::hash_value(sirinluexternal::UtteranceAlignment *this)
-{
-  v2 = *(this + 40);
-  if (v2)
-  {
-    v3 = *(this + 8);
+    v4 = v3 == 0;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 1;
   }
 
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  if (v4 != v5)
+  if (v4)
   {
-    v6 = 0;
-    do
-    {
-      v7 = *v4++;
-      v6 ^= sirinluexternal::UtteranceSpan::hash_value(v7);
-    }
-
-    while (v4 != v5);
-    if ((v2 & 2) == 0)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_10:
-    v8 = *(this + 9);
-    return v6 ^ v3 ^ v8;
+    return (v2 | v3) == 0;
   }
 
-  v6 = 0;
-  if ((*(this + 40) & 2) != 0)
+  else
   {
-    goto LABEL_10;
+    return sirinluinternalsnlp_intermediate::LinearizedTensor::operator==(v2, v3);
   }
-
-LABEL_8:
-  v8 = 0;
-  return v6 ^ v3 ^ v8;
 }
 
-uint64_t SIRINLUEXTERNALUsoLabelReadFrom(uint64_t a1, void *a2)
+sirinluinternalsnlp_intermediate::LinearizedTensor *sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::hash_value(sirinluinternalsnlp_intermediate::ContextFeaturizerResponse *this)
+{
+  result = *(this + 1);
+  if (result)
+  {
+    return sirinluinternalsnlp_intermediate::LinearizedTensor::hash_value(result);
+  }
+
+  return result;
+}
+
+void *sirinluinternalsnlp_intermediate::ContextFeaturizerResponse::makeTensor(void *this)
+{
+  if (!this[1])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t SIRINLUEXTERNALNLU_ROUTEREntityMatchReadFrom(uint64_t a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
   {
-    do
+    while (1)
     {
       if ([a2 hasError])
       {
-        break;
+        return [a2 hasError] ^ 1;
       }
 
       v5 = 0;
@@ -1294,12 +1548,12 @@ uint64_t SIRINLUEXTERNALUsoLabelReadFrom(uint64_t a1, void *a2)
       v7 = 0;
       while (1)
       {
-        v17 = 0;
+        LOBYTE(v44[0]) = 0;
         v8 = [a2 position] + 1;
         if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
         {
           v10 = [a2 data];
-          [v10 getBytes:&v17 range:{objc_msgSend(a2, "position"), 1}];
+          [v10 getBytes:v44 range:{objc_msgSend(a2, "position"), 1}];
 
           [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
         }
@@ -1309,8 +1563,524 @@ uint64_t SIRINLUEXTERNALUsoLabelReadFrom(uint64_t a1, void *a2)
           [a2 _setError];
         }
 
-        v7 |= (v17 & 0x7F) << v5;
-        if ((v17 & 0x80) == 0)
+        v7 |= (v44[0] & 0x7F) << v5;
+        if ((v44[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 7)
+      {
+        break;
+      }
+
+      if (v13 > 9)
+      {
+        switch(v13)
+        {
+          case 0xA:
+            v16 = PBReaderReadString();
+            v17 = 56;
+            goto LABEL_68;
+          case 0xB:
+            v16 = PBReaderReadString();
+            v17 = 72;
+            goto LABEL_68;
+          case 0xC:
+            v16 = PBReaderReadString();
+            v17 = 32;
+LABEL_68:
+            v39 = *(a1 + v17);
+            *(a1 + v17) = v16;
+
+            goto LABEL_86;
+        }
+
+        goto LABEL_69;
+      }
+
+      if (v13 != 8)
+      {
+        if (v13 == 9)
+        {
+          v18 = 0;
+          v19 = 0;
+          v20 = 0;
+          *(a1 + 80) |= 8u;
+          while (1)
+          {
+            LOBYTE(v44[0]) = 0;
+            v21 = [a2 position] + 1;
+            if (v21 >= [a2 position] && (v22 = objc_msgSend(a2, "position") + 1, v22 <= objc_msgSend(a2, "length")))
+            {
+              v23 = [a2 data];
+              [v23 getBytes:v44 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v20 |= (v44[0] & 0x7F) << v18;
+            if ((v44[0] & 0x80) == 0)
+            {
+              break;
+            }
+
+            v18 += 7;
+            v11 = v19++ >= 9;
+            if (v11)
+            {
+              v24 = 0;
+              goto LABEL_74;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v24 = 0;
+          }
+
+          else
+          {
+            v24 = v20;
+          }
+
+LABEL_74:
+          *(a1 + 52) = v24;
+          goto LABEL_86;
+        }
+
+LABEL_69:
+        if ((PBReaderSkipValueWithTag() & 1) == 0)
+        {
+          return 0;
+        }
+
+        goto LABEL_86;
+      }
+
+      v25 = objc_alloc_init(SIRINLUEXTERNALNLU_ROUTERMatchProperties);
+      objc_storeStrong((a1 + 40), v25);
+      v44[0] = 0;
+      v44[1] = 0;
+      if (!PBReaderPlaceMark() || !SIRINLUEXTERNALNLU_ROUTERMatchPropertiesReadFrom(v25, a2))
+      {
+
+        return 0;
+      }
+
+      PBReaderRecallMark();
+
+LABEL_86:
+      v42 = [a2 position];
+      if (v42 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    if (v13 <= 3)
+    {
+      if (v13 == 1)
+      {
+        v16 = PBReaderReadString();
+        v17 = 64;
+        goto LABEL_68;
+      }
+
+      if (v13 == 3)
+      {
+        v16 = PBReaderReadString();
+        v17 = 24;
+        goto LABEL_68;
+      }
+    }
+
+    else
+    {
+      switch(v13)
+      {
+        case 4:
+          v26 = 0;
+          v27 = 0;
+          v28 = 0;
+          *(a1 + 80) |= 2u;
+          while (1)
+          {
+            LOBYTE(v44[0]) = 0;
+            v29 = [a2 position] + 1;
+            if (v29 >= [a2 position] && (v30 = objc_msgSend(a2, "position") + 1, v30 <= objc_msgSend(a2, "length")))
+            {
+              v31 = [a2 data];
+              [v31 getBytes:v44 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v28 |= (v44[0] & 0x7F) << v26;
+            if ((v44[0] & 0x80) == 0)
+            {
+              break;
+            }
+
+            v26 += 7;
+            v11 = v27++ >= 9;
+            if (v11)
+            {
+              v32 = 0;
+              goto LABEL_78;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v32 = 0;
+          }
+
+          else
+          {
+            v32 = v28;
+          }
+
+LABEL_78:
+          v40 = 16;
+          goto LABEL_83;
+        case 5:
+          v33 = 0;
+          v34 = 0;
+          v35 = 0;
+          *(a1 + 80) |= 1u;
+          while (1)
+          {
+            LOBYTE(v44[0]) = 0;
+            v36 = [a2 position] + 1;
+            if (v36 >= [a2 position] && (v37 = objc_msgSend(a2, "position") + 1, v37 <= objc_msgSend(a2, "length")))
+            {
+              v38 = [a2 data];
+              [v38 getBytes:v44 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v35 |= (v44[0] & 0x7F) << v33;
+            if ((v44[0] & 0x80) == 0)
+            {
+              break;
+            }
+
+            v33 += 7;
+            v11 = v34++ >= 9;
+            if (v11)
+            {
+              v32 = 0;
+              goto LABEL_82;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v32 = 0;
+          }
+
+          else
+          {
+            v32 = v35;
+          }
+
+LABEL_82:
+          v40 = 8;
+LABEL_83:
+          *(a1 + v40) = v32;
+          goto LABEL_86;
+        case 7:
+          *(a1 + 80) |= 4u;
+          LODWORD(v44[0]) = 0;
+          v14 = [a2 position] + 4;
+          if (v14 >= [a2 position] && (v15 = objc_msgSend(a2, "position") + 4, v15 <= objc_msgSend(a2, "length")))
+          {
+            v41 = [a2 data];
+            [v41 getBytes:v44 range:{objc_msgSend(a2, "position"), 4}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 4}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          *(a1 + 48) = v44[0];
+          goto LABEL_86;
+      }
+    }
+
+    goto LABEL_69;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t SIRINLUEXTERNALNLU_ROUTERMatchPropertiesReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v31[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v31 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v31[0] & 0x7F) << v5;
+        if ((v31[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
+        v27 = objc_alloc_init(SIRINLUEXTERNALNLU_ROUTERAliasTypes);
+        objc_storeStrong((a1 + 24), v27);
+        v31[0] = 0;
+        v31[1] = 0;
+        if (!PBReaderPlaceMark() || !SIRINLUEXTERNALNLU_ROUTERAliasTypesReadFrom(v27, a2))
+        {
+
+          return 0;
+        }
+
+        PBReaderRecallMark();
+      }
+
+      else
+      {
+        if (v13 == 2)
+        {
+          v21 = 0;
+          v22 = 0;
+          v23 = 0;
+          *(a1 + 32) |= 1u;
+          while (1)
+          {
+            LOBYTE(v31[0]) = 0;
+            v24 = [a2 position] + 1;
+            if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 1, v25 <= objc_msgSend(a2, "length")))
+            {
+              v26 = [a2 data];
+              [v26 getBytes:v31 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v23 |= (v31[0] & 0x7F) << v21;
+            if ((v31[0] & 0x80) == 0)
+            {
+              break;
+            }
+
+            v21 += 7;
+            v11 = v22++ >= 9;
+            if (v11)
+            {
+              v20 = 0;
+              goto LABEL_46;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v20 = 0;
+          }
+
+          else
+          {
+            v20 = v23;
+          }
+
+LABEL_46:
+          v28 = 8;
+          goto LABEL_51;
+        }
+
+        if (v13 == 1)
+        {
+          v14 = 0;
+          v15 = 0;
+          v16 = 0;
+          *(a1 + 32) |= 2u;
+          while (1)
+          {
+            LOBYTE(v31[0]) = 0;
+            v17 = [a2 position] + 1;
+            if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
+            {
+              v19 = [a2 data];
+              [v19 getBytes:v31 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v16 |= (v31[0] & 0x7F) << v14;
+            if ((v31[0] & 0x80) == 0)
+            {
+              break;
+            }
+
+            v14 += 7;
+            v11 = v15++ >= 9;
+            if (v11)
+            {
+              v20 = 0;
+              goto LABEL_50;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v20 = 0;
+          }
+
+          else
+          {
+            v20 = v16;
+          }
+
+LABEL_50:
+          v28 = 16;
+LABEL_51:
+          *(a1 + v28) = v20;
+          goto LABEL_52;
+        }
+
+        if ((PBReaderSkipValueWithTag() & 1) == 0)
+        {
+          return 0;
+        }
+      }
+
+LABEL_52:
+      v29 = [a2 position];
+    }
+
+    while (v29 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t SIRINLUINTERNALTOKENIZERTokenizerRequestReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v19[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v19 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v19[0] & 0x7F) << v5;
+        if ((v19[0] & 0x80) == 0)
         {
           break;
         }
@@ -1327,58 +2097,1187 @@ uint64_t SIRINLUEXTERNALUsoLabelReadFrom(uint64_t a1, void *a2)
 LABEL_15:
       if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
       {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
         break;
       }
 
-      if ((v12 >> 3) == 1)
+      if (v13 == 2)
       {
-        v13 = PBReaderReadString();
-        v14 = *(a1 + 8);
-        *(a1 + 8) = v13;
+        v14 = PBReaderReadString();
+        v15 = 16;
+LABEL_22:
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v14;
+LABEL_26:
+
+        goto LABEL_28;
       }
 
-      else
+      if (v13 == 1)
       {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
+        v14 = PBReaderReadString();
+        v15 = 24;
+        goto LABEL_22;
       }
 
-      v16 = [a2 position];
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_28:
+      v17 = [a2 position];
+      if (v17 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
     }
 
-    while (v16 < [a2 length]);
+    v16 = objc_alloc_init(SIRINLUEXTERNALUUID);
+    objc_storeStrong((a1 + 8), v16);
+    v19[0] = 0;
+    v19[1] = 0;
+    if (!PBReaderPlaceMark() || !SIRINLUEXTERNALUUIDReadFrom(v16, a2))
+    {
+
+      return 0;
+    }
+
+    PBReaderRecallMark();
+    goto LABEL_26;
   }
 
   return [a2 hasError] ^ 1;
 }
 
-uint64_t siricommon::BoolValue::formatText(siricommon::BoolValue *this, PB::TextFormatter *a2, const char *a3)
+uint64_t SIRINLUEXTERNALLanguageVariantResultReadFrom(id *a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v16) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v16 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v16 & 0x7F) << v5;
+        if ((v16 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = objc_alloc_init(SIRINLUEXTERNALMultilingualVariant);
+        [a1 addMultilingualVariant:v13];
+        v16 = 0;
+        v17 = 0;
+        if (!PBReaderPlaceMark() || !SIRINLUEXTERNALMultilingualVariantReadFrom(v13, a2))
+        {
+          goto LABEL_28;
+        }
+
+LABEL_24:
+        PBReaderRecallMark();
+
+        goto LABEL_26;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_26:
+      v14 = [a2 position];
+      if (v14 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v13 = objc_alloc_init(SIRINLUEXTERNALParser);
+    objc_storeStrong(a1 + 2, v13);
+    v16 = 0;
+    v17 = 0;
+    if (!PBReaderPlaceMark() || !SIRINLUEXTERNALParserReadFrom(v13, a2))
+    {
+LABEL_28:
+
+      return 0;
+    }
+
+    goto LABEL_24;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::formatText(sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules *this, PB::TextFormatter *a2, const char *a3)
 {
   PB::TextFormatter::beginObject(a2, a3);
-  if (*(this + 12))
+  v5 = *(this + 1);
+  if (v5)
   {
-    v5 = *(this + 8);
-    PB::TextFormatter::format(a2, "value");
+    (*(*v5 + 32))(v5, a2, "rules");
   }
 
   return MEMORY[0x1EEE30A90](a2);
 }
 
-uint64_t siricommon::BoolValue::writeTo(uint64_t this, PB::Writer *a2)
+uint64_t sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::writeTo(uint64_t this, PB::Writer *a2)
 {
-  if (*(this + 12))
+  v2 = *(this + 8);
+  if (v2)
   {
-    v2 = *(this + 8);
-    return PB::Writer::write(a2);
+    return PB::Writer::writeSubmessage(a2, v2);
   }
 
   return this;
 }
 
-uint64_t siricommon::BoolValue::readFrom(siricommon::BoolValue *this, PB::Reader *a2)
+uint64_t sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::readFrom(sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v6 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        break;
+      }
+
+      v7 = 0;
+      v8 = 0;
+      v9 = 0;
+      v10 = (v6 + v2);
+      v11 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v11;
+        v12 = *v10++;
+        v9 |= (v12 & 0x7F) << v7;
+        if ((v12 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v7 += 7;
+        ++v11;
+        v13 = v8++ > 8;
+        if (v13)
+        {
+          goto LABEL_21;
+        }
+      }
+
+LABEL_18:
+      if ((v9 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_26;
+      }
+
+      if ((v9 >> 3) == 1)
+      {
+        operator new();
+      }
+
+LABEL_21:
+      if ((PB::Reader::skip(a2) & 1) == 0)
+      {
+        v21 = 0;
+        return v21 & 1;
+      }
+
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_26;
+      }
+    }
+
+    v14 = 0;
+    v15 = 0;
+    v9 = 0;
+    v16 = (v6 + v2);
+    v17 = v3 >= v2;
+    v18 = v3 - v2;
+    if (!v17)
+    {
+      v18 = 0;
+    }
+
+    v19 = v2 + 1;
+    while (v18)
+    {
+      v20 = *v16;
+      *(a2 + 1) = v19;
+      v9 |= (v20 & 0x7F) << v14;
+      if ((v20 & 0x80) == 0)
+      {
+        goto LABEL_18;
+      }
+
+      v14 += 7;
+      ++v16;
+      --v18;
+      ++v19;
+      v13 = v15++ > 8;
+      if (v13)
+      {
+        goto LABEL_21;
+      }
+    }
+
+    v4 = 1;
+    *(a2 + 24) = 1;
+  }
+
+LABEL_26:
+  v21 = v4 ^ 1;
+  return v21 & 1;
+}
+
+void sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::~NLv4ExecutedHandcraftedRules(sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules *this)
+{
+  sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::~NLv4ExecutedHandcraftedRules(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+{
+  v2 = *(this + 1);
+  *this = &unk_1F4876770;
+  *(this + 1) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  PB::Base::~Base(this);
+}
+
+void *sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::NLv4ExecutedHandcraftedRules(void *this)
+{
+  *this = &unk_1F4876770;
+  this[1] = 0;
+  return this;
+}
+
+{
+  *this = &unk_1F4876770;
+  this[1] = 0;
+  return this;
+}
+
+sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules *sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::NLv4ExecutedHandcraftedRules(sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules *this, std::string ***a2)
+{
+  *this = &unk_1F4876770;
+  *(this + 1) = 0;
+  if (a2[1])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::operator=(uint64_t a1, std::string ***a2)
+{
+  if (a1 != a2)
+  {
+    sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::NLv4ExecutedHandcraftedRules(&v5, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
+    v6 = v3;
+    sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::~NLv4ExecutedHandcraftedRules(&v5);
+  }
+
+  return a1;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::swap(uint64_t this, sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules *a2, sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules *a3)
+{
+  v3 = *(this + 8);
+  *(this + 8) = *(a2 + 1);
+  *(a2 + 1) = v3;
+  return this;
+}
+
+void *sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::NLv4ExecutedHandcraftedRules(void *a1, uint64_t a2)
+{
+  *a1 = &unk_1F4876770;
+  a1[1] = 0;
+  v3 = *(a2 + 8);
+  *(a2 + 8) = 0;
+  v4 = a1[1];
+  a1[1] = v3;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  return a1;
+}
+
+{
+  *a1 = &unk_1F4876770;
+  a1[1] = 0;
+  v3 = *(a2 + 8);
+  *(a2 + 8) = 0;
+  v4 = a1[1];
+  a1[1] = v3;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  return a1;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v3 = *(a2 + 8);
+    *(a2 + 8) = 0;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = v3;
+    v6[0] = &unk_1F4876770;
+    v6[1] = v4;
+    sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::~NLv4ExecutedHandcraftedRules(v6);
+  }
+
+  return a1;
+}
+
+BOOL sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::operator==(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  if (v2)
+  {
+    v4 = v3 == 0;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  if (v4)
+  {
+    return (v2 | v3) == 0;
+  }
+
+  else
+  {
+    return sirinluinternalsnlp_intermediate::SNLPHandcraftedRules::operator==(v2, v3);
+  }
+}
+
+uint64_t sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::hash_value(sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules *this)
+{
+  v1 = *(this + 1);
+  if (!v1)
+  {
+    return 0;
+  }
+
+  v2 = *(v1 + 8);
+  v3 = *(v1 + 16);
+  if (v2 == v3)
+  {
+    return 0;
+  }
+
+  v4 = 0;
+  do
+  {
+    v4 ^= std::__string_hash<char>::operator()[abi:ne200100](v2);
+    v2 += 24;
+  }
+
+  while (v2 != v3);
+  return v4;
+}
+
+void *sirinluinternalsnlp_intermediate::NLv4ExecutedHandcraftedRules::makeRules(void *this)
+{
+  if (!this[1])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t SIRINLUINTERNALNLv4EmbeddingTensorReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v45[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v45 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v45[0] & 0x7F) << v5;
+        if ((v45[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 2)
+      {
+        if (v13 == 1)
+        {
+          if ((v12 & 7) == 2)
+          {
+            v45[0] = 0;
+            v45[1] = 0;
+            result = PBReaderPlaceMark();
+            if (!result)
+            {
+              return result;
+            }
+
+            while (1)
+            {
+              v36 = [a2 position];
+              if (v36 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
+              {
+                break;
+              }
+
+              v46 = 0;
+              v37 = [a2 position] + 4;
+              if (v37 >= [a2 position] && (v38 = objc_msgSend(a2, "position") + 4, v38 <= objc_msgSend(a2, "length")))
+              {
+                v39 = [a2 data];
+                [v39 getBytes:&v46 range:{objc_msgSend(a2, "position"), 4}];
+
+                [a2 setPosition:{objc_msgSend(a2, "position") + 4}];
+              }
+
+              else
+              {
+                [a2 _setError];
+              }
+
+              PBRepeatedFloatAdd();
+            }
+
+            PBReaderRecallMark();
+          }
+
+          else
+          {
+            LODWORD(v45[0]) = 0;
+            v42 = [a2 position] + 4;
+            if (v42 >= [a2 position] && (v43 = objc_msgSend(a2, "position") + 4, v43 <= objc_msgSend(a2, "length")))
+            {
+              v44 = [a2 data];
+              [v44 getBytes:v45 range:{objc_msgSend(a2, "position"), 4}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 4}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            PBRepeatedFloatAdd();
+          }
+
+          goto LABEL_75;
+        }
+
+        if (v13 == 2)
+        {
+          v16 = 0;
+          v17 = 0;
+          v18 = 0;
+          *(a1 + 64) |= 4u;
+          while (1)
+          {
+            LOBYTE(v45[0]) = 0;
+            v19 = [a2 position] + 1;
+            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+            {
+              v21 = [a2 data];
+              [v21 getBytes:v45 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v18 |= (v45[0] & 0x7F) << v16;
+            if ((v45[0] & 0x80) == 0)
+            {
+              break;
+            }
+
+            v16 += 7;
+            v11 = v17++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_73;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v18;
+          }
+
+LABEL_73:
+          v40 = 48;
+          goto LABEL_74;
+        }
+      }
+
+      else
+      {
+        switch(v13)
+        {
+          case 3:
+            v23 = 0;
+            v24 = 0;
+            v25 = 0;
+            *(a1 + 64) |= 2u;
+            while (1)
+            {
+              LOBYTE(v45[0]) = 0;
+              v26 = [a2 position] + 1;
+              if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
+              {
+                v28 = [a2 data];
+                [v28 getBytes:v45 range:{objc_msgSend(a2, "position"), 1}];
+
+                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+              }
+
+              else
+              {
+                [a2 _setError];
+              }
+
+              v25 |= (v45[0] & 0x7F) << v23;
+              if ((v45[0] & 0x80) == 0)
+              {
+                break;
+              }
+
+              v23 += 7;
+              v11 = v24++ >= 9;
+              if (v11)
+              {
+                v22 = 0;
+                goto LABEL_65;
+              }
+            }
+
+            if ([a2 hasError])
+            {
+              v22 = 0;
+            }
+
+            else
+            {
+              v22 = v25;
+            }
+
+LABEL_65:
+            v40 = 40;
+            goto LABEL_74;
+          case 4:
+            v29 = 0;
+            v30 = 0;
+            v31 = 0;
+            *(a1 + 64) |= 1u;
+            while (1)
+            {
+              LOBYTE(v45[0]) = 0;
+              v32 = [a2 position] + 1;
+              if (v32 >= [a2 position] && (v33 = objc_msgSend(a2, "position") + 1, v33 <= objc_msgSend(a2, "length")))
+              {
+                v34 = [a2 data];
+                [v34 getBytes:v45 range:{objc_msgSend(a2, "position"), 1}];
+
+                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+              }
+
+              else
+              {
+                [a2 _setError];
+              }
+
+              v31 |= (v45[0] & 0x7F) << v29;
+              if ((v45[0] & 0x80) == 0)
+              {
+                break;
+              }
+
+              v29 += 7;
+              v11 = v30++ >= 9;
+              if (v11)
+              {
+                v22 = 0;
+                goto LABEL_69;
+              }
+            }
+
+            if ([a2 hasError])
+            {
+              v22 = 0;
+            }
+
+            else
+            {
+              v22 = v31;
+            }
+
+LABEL_69:
+            v40 = 32;
+LABEL_74:
+            *(a1 + v40) = v22;
+            goto LABEL_75;
+          case 5:
+            v14 = PBReaderReadString();
+            v15 = *(a1 + 56);
+            *(a1 + 56) = v14;
+
+            goto LABEL_75;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_75:
+      v41 = [a2 position];
+    }
+
+    while (v41 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t SIRINLUEXTERNALRequestIDReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v27[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v27 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v27[0] & 0x7F) << v5;
+        if ((v27[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 3)
+      {
+        break;
+      }
+
+      if (v13 == 1)
+      {
+        v14 = PBReaderReadString();
+        v15 = 16;
+        goto LABEL_42;
+      }
+
+      if (v13 != 2)
+      {
+        if (v13 == 3)
+        {
+          v14 = PBReaderReadString();
+          v15 = 56;
+          goto LABEL_42;
+        }
+
+        goto LABEL_38;
+      }
+
+      v25 = objc_alloc_init(SIRINLUEXTERNALUUID);
+      objc_storeStrong((a1 + 32), v25);
+      v27[0] = 0;
+      v27[1] = 0;
+      if (!PBReaderPlaceMark() || !SIRINLUEXTERNALUUIDReadFrom(v25, a2))
+      {
+
+        return 0;
+      }
+
+      PBReaderRecallMark();
+
+LABEL_43:
+      v24 = [a2 position];
+      if (v24 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    if (v13 > 10)
+    {
+      if (v13 == 11)
+      {
+        v14 = PBReaderReadString();
+        v15 = 8;
+        goto LABEL_42;
+      }
+
+      if (v13 == 12)
+      {
+        v16 = 0;
+        v17 = 0;
+        v18 = 0;
+        *(a1 + 64) |= 1u;
+        while (1)
+        {
+          LOBYTE(v27[0]) = 0;
+          v19 = [a2 position] + 1;
+          if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+          {
+            v21 = [a2 data];
+            [v21 getBytes:v27 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v18 |= (v27[0] & 0x7F) << v16;
+          if ((v27[0] & 0x80) == 0)
+          {
+            break;
+          }
+
+          v16 += 7;
+          v11 = v17++ >= 9;
+          if (v11)
+          {
+            v22 = 0;
+            goto LABEL_51;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v18;
+        }
+
+LABEL_51:
+        *(a1 + 40) = v22;
+        goto LABEL_43;
+      }
+    }
+
+    else
+    {
+      if (v13 == 4)
+      {
+        v14 = PBReaderReadString();
+        v15 = 24;
+        goto LABEL_42;
+      }
+
+      if (v13 == 5)
+      {
+        v14 = PBReaderReadString();
+        v15 = 48;
+LABEL_42:
+        v23 = *(a1 + v15);
+        *(a1 + v15) = v14;
+
+        goto LABEL_43;
+      }
+    }
+
+LABEL_38:
+    if ((PBReaderSkipValueWithTag() & 1) == 0)
+    {
+      return 0;
+    }
+
+    goto LABEL_43;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t SIRINLUEXTERNALParserReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v29 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v29 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v29 & 0x7F) << v5;
+        if ((v29 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = 0;
+        v14 = 0;
+        v15 = 0;
+        *(a1 + 16) |= 1u;
+        while (1)
+        {
+          v31 = 0;
+          v16 = [a2 position] + 1;
+          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
+          {
+            v18 = [a2 data];
+            [v18 getBytes:&v31 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v15 |= (v31 & 0x7F) << v13;
+          if ((v31 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v13 += 7;
+          v19 = v14++ > 8;
+          if (v19)
+          {
+            v20 = 0;
+            v21 = &OBJC_IVAR___SIRINLUEXTERNALParser__algorithm;
+            goto LABEL_44;
+          }
+        }
+
+        v21 = &OBJC_IVAR___SIRINLUEXTERNALParser__algorithm;
+LABEL_41:
+        if ([a2 hasError])
+        {
+          v20 = 0;
+        }
+
+        else
+        {
+          v20 = v15;
+        }
+
+LABEL_44:
+        *(a1 + *v21) = v20;
+        goto LABEL_45;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_45:
+      v27 = [a2 position];
+      if (v27 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v22 = 0;
+    v23 = 0;
+    v15 = 0;
+    *(a1 + 16) |= 2u;
+    while (1)
+    {
+      v30 = 0;
+      v24 = [a2 position] + 1;
+      if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 1, v25 <= objc_msgSend(a2, "length")))
+      {
+        v26 = [a2 data];
+        [v26 getBytes:&v30 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v15 |= (v30 & 0x7F) << v22;
+      if ((v30 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v22 += 7;
+      v19 = v23++ > 8;
+      if (v19)
+      {
+        v20 = 0;
+        v21 = &OBJC_IVAR___SIRINLUEXTERNALParser__parserId;
+        goto LABEL_44;
+      }
+    }
+
+    v21 = &OBJC_IVAR___SIRINLUEXTERNALParser__parserId;
+    goto LABEL_41;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t sirinluinternalmention_detector::MentionDetectorResponse::formatText(sirinluinternalmention_detector::MentionDetectorResponse *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 1);
+  v6 = *(this + 2);
+  while (v5 != v6)
+  {
+    v7 = *v5++;
+    (*(*v7 + 32))(v7, a2, "mentions");
+  }
+
+  v8 = *(this + 4);
+  if (v8)
+  {
+    (*(*v8 + 32))(v8, a2, "request_id");
+  }
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluinternalmention_detector::MentionDetectorResponse::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 32);
+  if (v4)
+  {
+    this = PB::Writer::writeSubmessage(a2, v4);
+  }
+
+  v6 = *(v3 + 8);
+  v5 = *(v3 + 16);
+  while (v6 != v5)
+  {
+    v7 = *v6++;
+    this = PB::Writer::writeSubmessage(a2, v7);
+  }
+
+  return this;
+}
+
+uint64_t sirinluinternalmention_detector::MentionDetectorResponse::readFrom(sirinluinternalmention_detector::MentionDetectorResponse *this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -1421,47 +3320,32 @@ LABEL_18:
       if ((v10 & 7) == 4)
       {
         v4 = 0;
-        goto LABEL_30;
+        goto LABEL_29;
+      }
+
+      if ((v10 >> 3) == 2)
+      {
+        PB::PtrVector<sirinluinternal::MatchingSpan>::emplace_back<>(this + 8);
       }
 
       if ((v10 >> 3) == 1)
       {
-        *(this + 12) |= 1u;
-        v2 = *(a2 + 1);
-        v3 = *(a2 + 2);
-        if (v2 >= v3)
-        {
-          v23 = 0;
-          *(a2 + 24) = 1;
-        }
-
-        else
-        {
-          v22 = *(*a2 + v2++);
-          *(a2 + 1) = v2;
-          v23 = v22 != 0;
-        }
-
-        *(this + 8) = v23;
+        operator new();
       }
 
-      else
-      {
 LABEL_22:
-        if (!PB::Reader::skip(a2))
-        {
-          v24 = 0;
-          return v24 & 1;
-        }
-
-        v2 = *(a2 + 1);
-        v3 = *(a2 + 2);
+      if ((PB::Reader::skip(a2) & 1) == 0)
+      {
+        v23 = 0;
+        return v23 & 1;
       }
 
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
       v4 = *(a2 + 24);
       if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
       {
-        goto LABEL_30;
+        goto LABEL_29;
       }
     }
 
@@ -1502,149 +3386,1056 @@ LABEL_22:
     *(a2 + 24) = 1;
   }
 
-LABEL_30:
-  v24 = v4 ^ 1;
-  return v24 & 1;
+LABEL_29:
+  v23 = v4 ^ 1;
+  return v23 & 1;
 }
 
-void siricommon::BoolValue::~BoolValue(siricommon::BoolValue *this)
+void sirinluinternalmention_detector::MentionDetectorResponse::~MentionDetectorResponse(sirinluinternalmention_detector::MentionDetectorResponse *this)
 {
-  PB::Base::~Base(this);
+  sirinluinternalmention_detector::MentionDetectorResponse::~MentionDetectorResponse(this);
 
   JUMPOUT(0x1CCA7EC50);
 }
 
-uint64_t siricommon::BoolValue::BoolValue(uint64_t this)
 {
-  *this = &unk_1F4876250;
-  *(this + 12) = 0;
-  return this;
-}
-
-{
-  *this = &unk_1F4876250;
-  *(this + 12) = 0;
-  return this;
-}
-
-uint64_t siricommon::BoolValue::BoolValue(uint64_t this, const siricommon::BoolValue *a2)
-{
-  *this = &unk_1F4876250;
-  *(this + 12) = 0;
-  if (*(a2 + 12))
+  *this = &unk_1F48767C0;
+  v2 = *(this + 4);
+  *(this + 4) = 0;
+  if (v2)
   {
-    v2 = *(a2 + 8);
-    *(this + 12) = 1;
-    *(this + 8) = v2;
+    (*(*v2 + 8))(v2);
+  }
+
+  v3 = (this + 8);
+  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v3);
+
+  PB::Base::~Base(this);
+}
+
+double sirinluinternalmention_detector::MentionDetectorResponse::MentionDetectorResponse(sirinluinternalmention_detector::MentionDetectorResponse *this)
+{
+  *this = &unk_1F48767C0;
+  result = 0.0;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  return result;
+}
+
+{
+  *this = &unk_1F48767C0;
+  result = 0.0;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  return result;
+}
+
+sirinluinternalmention_detector::MentionDetectorResponse *sirinluinternalmention_detector::MentionDetectorResponse::MentionDetectorResponse(sirinluinternalmention_detector::MentionDetectorResponse *this, const sirinluexternal::UUID **a2)
+{
+  *this = &unk_1F48767C0;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  if (a2[4])
+  {
+    operator new();
+  }
+
+  v2 = a2[1];
+  if (v2 != a2[2])
+  {
+    PB::PtrVector<sirinluinternal::MatchingSpan>::emplace_back<sirinluinternal::MatchingSpan const&>(this + 8, *v2);
   }
 
   return this;
 }
 
-{
-  *this = &unk_1F4876250;
-  *(this + 12) = 0;
-  if (*(a2 + 12))
-  {
-    v2 = *(a2 + 8);
-    *(this + 12) = 1;
-    *(this + 8) = v2;
-  }
-
-  return this;
-}
-
-uint64_t siricommon::BoolValue::operator=(uint64_t a1, uint64_t a2)
+uint64_t sirinluinternalmention_detector::MentionDetectorResponse::operator=(uint64_t a1, const sirinluexternal::UUID **a2)
 {
   if (a1 != a2)
   {
-    v7 = &unk_1F4876250;
-    v3 = *(a2 + 8);
-    v4 = *(a1 + 12);
-    *(a1 + 12) = *(a2 + 12) & 1;
-    v9 = v4;
-    v5 = *(a1 + 8);
-    *(a1 + 8) = v3;
-    v8 = v5;
-    PB::Base::~Base(&v7);
-  }
-
-  return a1;
-}
-
-{
-  if (a1 != a2)
-  {
-    v7 = &unk_1F4876250;
-    v3 = *(a2 + 12);
-    *(a2 + 12) = 0;
-    v4 = *(a2 + 8);
-    v5 = *(a1 + 12);
-    *(a1 + 12) = v3;
+    sirinluinternalmention_detector::MentionDetectorResponse::MentionDetectorResponse(v7, a2);
+    v3 = v9;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = v8;
+    v5 = *(a1 + 24);
+    *(a1 + 24) = v3;
+    v8 = v4;
     v9 = v5;
-    LOBYTE(v3) = *(a1 + 8);
-    *(a1 + 8) = v4;
-    v8 = v3;
-    PB::Base::~Base(&v7);
+    sirinluinternalmention_detector::MentionDetectorResponse::~MentionDetectorResponse(v7);
   }
 
   return a1;
 }
 
-uint64_t siricommon::swap(uint64_t this, siricommon::BoolValue *a2, siricommon::BoolValue *a3)
+void *sirinluinternalmention_detector::swap(void *this, sirinluinternalmention_detector::MentionDetectorResponse *a2, sirinluinternalmention_detector::MentionDetectorResponse *a3)
 {
-  v3 = *(this + 12);
-  *(this + 12) = *(a2 + 3);
-  *(a2 + 3) = v3;
-  LOBYTE(v3) = *(this + 8);
-  *(this + 8) = *(a2 + 8);
-  *(a2 + 8) = v3;
+  v3 = this[4];
+  this[4] = *(a2 + 4);
+  *(a2 + 4) = v3;
+  v4 = this[1];
+  this[1] = *(a2 + 1);
+  *(a2 + 1) = v4;
+  v5 = this[2];
+  this[2] = *(a2 + 2);
+  *(a2 + 2) = v5;
+  v6 = this[3];
+  this[3] = *(a2 + 3);
+  *(a2 + 3) = v6;
   return this;
 }
 
-uint64_t siricommon::BoolValue::BoolValue(uint64_t result, uint64_t a2)
+uint64_t sirinluinternalmention_detector::MentionDetectorResponse::MentionDetectorResponse(uint64_t a1, uint64_t a2)
 {
-  *result = &unk_1F4876250;
-  *(result + 12) = *(a2 + 12);
-  *(a2 + 12) = 0;
-  *(result + 8) = *(a2 + 8);
-  return result;
-}
-
-{
-  *result = &unk_1F4876250;
-  *(result + 12) = *(a2 + 12);
-  *(a2 + 12) = 0;
-  *(result + 8) = *(a2 + 8);
-  return result;
-}
-
-BOOL siricommon::BoolValue::operator==(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 12);
-  result = (*(a2 + 12) & 1) == 0;
-  if (v3)
+  *(a1 + 8) = 0u;
+  v4 = (a1 + 8);
+  *a1 = &unk_1F48767C0;
+  *(a1 + 24) = 0u;
+  v5 = *(a2 + 32);
+  *(a2 + 32) = 0;
+  v6 = *(a1 + 32);
+  *(a1 + 32) = v5;
+  if (v6)
   {
-    return (*(a2 + 12) & 1) != 0 && *(a1 + 8) == *(a2 + 8);
+    (*(*v6 + 8))(v6);
   }
 
-  return result;
+  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__vdeallocate(v4);
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 24) = *(a2 + 24);
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  return a1;
 }
 
-uint64_t siricommon::BoolValue::hash_value(siricommon::BoolValue *this)
+uint64_t sirinluinternalmention_detector::MentionDetectorResponse::operator=(uint64_t a1, uint64_t a2)
 {
-  if (*(this + 12))
+  if (a1 != a2)
   {
-    return *(this + 8);
+    sirinluinternalmention_detector::MentionDetectorResponse::MentionDetectorResponse(v7, a2);
+    v3 = v9;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = v8;
+    v5 = *(a1 + 24);
+    *(a1 + 24) = v3;
+    v8 = v4;
+    v9 = v5;
+    sirinluinternalmention_detector::MentionDetectorResponse::~MentionDetectorResponse(v7);
+  }
+
+  return a1;
+}
+
+BOOL sirinluinternalmention_detector::MentionDetectorResponse::operator==(uint64_t a1, void *a2)
+{
+  v4 = *(a1 + 32);
+  v5 = a2[4];
+  if (!v4)
+  {
+    if (!v5)
+    {
+      goto LABEL_4;
+    }
+
+    return 0;
+  }
+
+  if (!v5 || !sirinluexternal::UUID::operator==(v4, v5))
+  {
+    return 0;
+  }
+
+LABEL_4:
+  v6 = a2[1];
+  v7 = a2[2];
+
+  return PB::PtrVector<sirinluinternal::MatchingSpan>::operator==((a1 + 8), v6, v7);
+}
+
+uint64_t sirinluinternalmention_detector::MentionDetectorResponse::hash_value(sirinluinternalmention_detector::MentionDetectorResponse *this)
+{
+  v1 = *(this + 4);
+  if (!v1)
+  {
+    v5 = 0;
+    goto LABEL_11;
+  }
+
+  if ((*(v1 + 28) & 1) == 0)
+  {
+    v2 = 0;
+    if ((*(v1 + 28) & 2) != 0)
+    {
+      goto LABEL_4;
+    }
+
+LABEL_8:
+    v3 = 0;
+    if ((*(v1 + 28) & 4) != 0)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_9:
+    v4 = 0;
+    goto LABEL_10;
+  }
+
+  v2 = *(v1 + 8);
+  if ((*(v1 + 28) & 2) == 0)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_4:
+  v3 = *(v1 + 16);
+  if ((*(v1 + 28) & 4) == 0)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_5:
+  v4 = *(v1 + 24);
+LABEL_10:
+  v5 = v3 ^ v2 ^ v4;
+LABEL_11:
+  v6 = *(this + 1);
+  v7 = *(this + 2);
+  if (v6 == v7)
+  {
+    v8 = 0;
   }
 
   else
   {
-    return 0;
+    v8 = 0;
+    do
+    {
+      v9 = *v6++;
+      v8 ^= sirinluinternal::MatchingSpan::hash_value(v9);
+    }
+
+    while (v6 != v7);
+  }
+
+  return v8 ^ v5;
+}
+
+void *sirinluinternalmention_detector::MentionDetectorResponse::makeRequestId(void *this)
+{
+  if (!this[4])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::formatText(sirinluinternalsnlp_intermediate::SpanFeaturizerResponse *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 1);
+  if (v5)
+  {
+    (*(*v5 + 32))(v5, a2, "tensor");
+  }
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v2 = *(this + 8);
+  if (v2)
+  {
+    return PB::Writer::writeSubmessage(a2, v2);
+  }
+
+  return this;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::readFrom(sirinluinternalsnlp_intermediate::SpanFeaturizerResponse *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v6 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        break;
+      }
+
+      v7 = 0;
+      v8 = 0;
+      v9 = 0;
+      v10 = (v6 + v2);
+      v11 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v11;
+        v12 = *v10++;
+        v9 |= (v12 & 0x7F) << v7;
+        if ((v12 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v7 += 7;
+        ++v11;
+        v13 = v8++ > 8;
+        if (v13)
+        {
+          goto LABEL_21;
+        }
+      }
+
+LABEL_18:
+      if ((v9 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_26;
+      }
+
+      if ((v9 >> 3) == 1)
+      {
+        operator new();
+      }
+
+LABEL_21:
+      if ((PB::Reader::skip(a2) & 1) == 0)
+      {
+        v21 = 0;
+        return v21 & 1;
+      }
+
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_26;
+      }
+    }
+
+    v14 = 0;
+    v15 = 0;
+    v9 = 0;
+    v16 = (v6 + v2);
+    v17 = v3 >= v2;
+    v18 = v3 - v2;
+    if (!v17)
+    {
+      v18 = 0;
+    }
+
+    v19 = v2 + 1;
+    while (v18)
+    {
+      v20 = *v16;
+      *(a2 + 1) = v19;
+      v9 |= (v20 & 0x7F) << v14;
+      if ((v20 & 0x80) == 0)
+      {
+        goto LABEL_18;
+      }
+
+      v14 += 7;
+      ++v16;
+      --v18;
+      ++v19;
+      v13 = v15++ > 8;
+      if (v13)
+      {
+        goto LABEL_21;
+      }
+    }
+
+    v4 = 1;
+    *(a2 + 24) = 1;
+  }
+
+LABEL_26:
+  v21 = v4 ^ 1;
+  return v21 & 1;
+}
+
+void sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::~SpanFeaturizerResponse(sirinluinternalsnlp_intermediate::SpanFeaturizerResponse *this)
+{
+  sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::~SpanFeaturizerResponse(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+{
+  v2 = *(this + 1);
+  *this = &unk_1F4876810;
+  *(this + 1) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  PB::Base::~Base(this);
+}
+
+void *sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::SpanFeaturizerResponse(void *this)
+{
+  *this = &unk_1F4876810;
+  this[1] = 0;
+  return this;
+}
+
+{
+  *this = &unk_1F4876810;
+  this[1] = 0;
+  return this;
+}
+
+sirinluinternalsnlp_intermediate::SpanFeaturizerResponse *sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::SpanFeaturizerResponse(sirinluinternalsnlp_intermediate::SpanFeaturizerResponse *this, const sirinluinternalsnlp_intermediate::LinearizedTensor **a2)
+{
+  *this = &unk_1F4876810;
+  *(this + 1) = 0;
+  if (a2[1])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::operator=(uint64_t a1, const sirinluinternalsnlp_intermediate::LinearizedTensor **a2)
+{
+  if (a1 != a2)
+  {
+    sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::SpanFeaturizerResponse(&v5, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
+    v6 = v3;
+    sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::~SpanFeaturizerResponse(&v5);
+  }
+
+  return a1;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::swap(uint64_t this, sirinluinternalsnlp_intermediate::SpanFeaturizerResponse *a2, sirinluinternalsnlp_intermediate::SpanFeaturizerResponse *a3)
+{
+  v3 = *(this + 8);
+  *(this + 8) = *(a2 + 1);
+  *(a2 + 1) = v3;
+  return this;
+}
+
+void *sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::SpanFeaturizerResponse(void *a1, uint64_t a2)
+{
+  *a1 = &unk_1F4876810;
+  a1[1] = 0;
+  v3 = *(a2 + 8);
+  *(a2 + 8) = 0;
+  v4 = a1[1];
+  a1[1] = v3;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  return a1;
+}
+
+{
+  *a1 = &unk_1F4876810;
+  a1[1] = 0;
+  v3 = *(a2 + 8);
+  *(a2 + 8) = 0;
+  v4 = a1[1];
+  a1[1] = v3;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  return a1;
+}
+
+uint64_t sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v3 = *(a2 + 8);
+    *(a2 + 8) = 0;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = v3;
+    v6[0] = &unk_1F4876810;
+    v6[1] = v4;
+    sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::~SpanFeaturizerResponse(v6);
+  }
+
+  return a1;
+}
+
+BOOL sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::operator==(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  if (v2)
+  {
+    v4 = v3 == 0;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  if (v4)
+  {
+    return (v2 | v3) == 0;
+  }
+
+  else
+  {
+    return sirinluinternalsnlp_intermediate::LinearizedTensor::operator==(v2, v3);
   }
 }
 
-uint64_t SIRINLUINTERNALSNLP_INTERMEDIATEContextFeaturizerResponseReadFrom(uint64_t a1, void *a2)
+sirinluinternalsnlp_intermediate::LinearizedTensor *sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::hash_value(sirinluinternalsnlp_intermediate::SpanFeaturizerResponse *this)
+{
+  result = *(this + 1);
+  if (result)
+  {
+    return sirinluinternalsnlp_intermediate::LinearizedTensor::hash_value(result);
+  }
+
+  return result;
+}
+
+void *sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::makeTensor(void *this)
+{
+  if (!this[1])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t sirinluexternalssu_inference::SsuInferenceRequest::formatText(sirinluexternalssu_inference::SsuInferenceRequest *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 1);
+  if (v5)
+  {
+    (*(*v5 + 32))(v5, a2, "request_id");
+  }
+
+  if (*(this + 2))
+  {
+    PB::TextFormatter::format();
+  }
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluexternalssu_inference::SsuInferenceRequest::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 8);
+  if (v4)
+  {
+    this = PB::Writer::writeSubmessage(a2, v4);
+  }
+
+  if (*(v3 + 16))
+  {
+
+    return PB::Writer::write();
+  }
+
+  return this;
+}
+
+uint64_t sirinluexternalssu_inference::SsuInferenceRequest::readFrom(sirinluexternalssu_inference::SsuInferenceRequest *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v6 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        break;
+      }
+
+      v7 = 0;
+      v8 = 0;
+      v9 = 0;
+      v10 = (v6 + v2);
+      v11 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v11;
+        v12 = *v10++;
+        v9 |= (v12 & 0x7F) << v7;
+        if ((v12 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v7 += 7;
+        ++v11;
+        v13 = v8++ > 8;
+        if (v13)
+        {
+          goto LABEL_22;
+        }
+      }
+
+LABEL_18:
+      if ((v9 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_29;
+      }
+
+      if ((v9 >> 3) == 2)
+      {
+        operator new();
+      }
+
+      if ((v9 >> 3) == 1)
+      {
+        operator new();
+      }
+
+LABEL_22:
+      if ((PB::Reader::skip(a2) & 1) == 0)
+      {
+        v22 = 0;
+        return v22 & 1;
+      }
+
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_29;
+      }
+    }
+
+    v14 = 0;
+    v15 = 0;
+    v9 = 0;
+    v16 = (v6 + v2);
+    v17 = v3 >= v2;
+    v18 = v3 - v2;
+    if (!v17)
+    {
+      v18 = 0;
+    }
+
+    v19 = v2 + 1;
+    while (v18)
+    {
+      v20 = *v16;
+      *(a2 + 1) = v19;
+      v9 |= (v20 & 0x7F) << v14;
+      if ((v20 & 0x80) == 0)
+      {
+        goto LABEL_18;
+      }
+
+      v14 += 7;
+      ++v16;
+      --v18;
+      ++v19;
+      v13 = v15++ > 8;
+      if (v13)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    v4 = 1;
+    *(a2 + 24) = 1;
+  }
+
+LABEL_29:
+  v22 = v4 ^ 1;
+  return v22 & 1;
+}
+
+void sirinluexternalssu_inference::SsuInferenceRequest::~SsuInferenceRequest(sirinluexternalssu_inference::SsuInferenceRequest *this)
+{
+  sirinluexternalssu_inference::SsuInferenceRequest::~SsuInferenceRequest(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+{
+  *this = &unk_1F4876860;
+  v2 = *(this + 2);
+  *(this + 2) = 0;
+  if (v2)
+  {
+    std::default_delete<std::string>::operator()[abi:ne200100](v2);
+  }
+
+  v3 = *(this + 1);
+  *(this + 1) = 0;
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  PB::Base::~Base(this);
+}
+
+void *sirinluexternalssu_inference::SsuInferenceRequest::SsuInferenceRequest(void *this)
+{
+  this[1] = 0;
+  this[2] = 0;
+  *this = &unk_1F4876860;
+  return this;
+}
+
+{
+  this[1] = 0;
+  this[2] = 0;
+  *this = &unk_1F4876860;
+  return this;
+}
+
+sirinluexternalssu_inference::SsuInferenceRequest *sirinluexternalssu_inference::SsuInferenceRequest::SsuInferenceRequest(sirinluexternalssu_inference::SsuInferenceRequest *this, const sirinluexternal::RequestID **a2)
+{
+  *this = &unk_1F4876860;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  if (a2[1])
+  {
+    operator new();
+  }
+
+  if (a2[2])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t sirinluexternalssu_inference::SsuInferenceRequest::operator=(uint64_t a1, const sirinluexternal::RequestID **a2)
+{
+  if (a1 != a2)
+  {
+    sirinluexternalssu_inference::SsuInferenceRequest::SsuInferenceRequest(v5, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
+    v6 = v3;
+    sirinluexternalssu_inference::SsuInferenceRequest::~SsuInferenceRequest(v5);
+  }
+
+  return a1;
+}
+
+uint64_t sirinluexternalssu_inference::swap(uint64_t this, sirinluexternalssu_inference::SsuInferenceRequest *a2, sirinluexternalssu_inference::SsuInferenceRequest *a3)
+{
+  v3 = *(this + 8);
+  *(this + 8) = *(a2 + 1);
+  *(a2 + 1) = v3;
+  v4 = *(this + 16);
+  *(this + 16) = *(a2 + 2);
+  *(a2 + 2) = v4;
+  return this;
+}
+
+void *sirinluexternalssu_inference::SsuInferenceRequest::SsuInferenceRequest(void *a1, uint64_t a2)
+{
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = &unk_1F4876860;
+  v4 = *(a2 + 8);
+  *(a2 + 8) = 0;
+  v5 = a1[1];
+  a1[1] = v4;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  v6 = *(a2 + 16);
+  *(a2 + 16) = 0;
+  v7 = a1[2];
+  a1[2] = v6;
+  if (v7)
+  {
+    std::default_delete<std::string>::operator()[abi:ne200100](v7);
+  }
+
+  return a1;
+}
+
+uint64_t sirinluexternalssu_inference::SsuInferenceRequest::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    sirinluexternalssu_inference::SsuInferenceRequest::SsuInferenceRequest(&v5, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
+    v6 = v3;
+    sirinluexternalssu_inference::SsuInferenceRequest::~SsuInferenceRequest(&v5);
+  }
+
+  return a1;
+}
+
+BOOL sirinluexternalssu_inference::SsuInferenceRequest::operator==(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 8);
+  v5 = *(a2 + 8);
+  if (v4)
+  {
+    if (!v5 || !sirinluexternal::RequestID::operator==(v4, v5))
+    {
+      return 0;
+    }
+  }
+
+  else if (v5)
+  {
+    return 0;
+  }
+
+  v6 = *(a1 + 16);
+  v7 = *(a2 + 16);
+  result = v7 == 0;
+  if (!v6)
+  {
+    return result;
+  }
+
+  if (v7)
+  {
+    v9 = *(v6 + 23);
+    if (v9 >= 0)
+    {
+      v10 = *(v6 + 23);
+    }
+
+    else
+    {
+      v10 = *(v6 + 8);
+    }
+
+    v11 = *(v7 + 23);
+    v12 = v11;
+    if ((v11 & 0x80u) != 0)
+    {
+      v11 = *(v7 + 8);
+    }
+
+    if (v10 == v11)
+    {
+      v13 = v9 >= 0 ? *(a1 + 16) : *v6;
+      v14 = v12 >= 0 ? *(a2 + 16) : *v7;
+      if (!memcmp(v13, v14, v10))
+      {
+        return 1;
+      }
+    }
+  }
+
+  return 0;
+}
+
+unint64_t sirinluexternalssu_inference::SsuInferenceRequest::hash_value(sirinluexternalssu_inference::SsuInferenceRequest *this)
+{
+  v2 = *(this + 1);
+  if (v2)
+  {
+    v3 = sirinluexternal::RequestID::hash_value(v2);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = *(this + 2);
+  if (v4)
+  {
+    v4 = std::__string_hash<char>::operator()[abi:ne200100](v4);
+  }
+
+  return v4 ^ v3;
+}
+
+void *sirinluexternalssu_inference::SsuInferenceRequest::makeRequestId(void *this)
+{
+  if (!this[1])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t SIRINLUINTERNALCONTEXTUPDATEReformedTurnInputBundleReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v24[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v24 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v24[0] & 0x7F) << v5;
+        if ((v24[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
+        v21 = objc_alloc_init(SIRINLUEXTERNALTurnInput);
+        [a1 addPreviousTurns:v21];
+      }
+
+      else
+      {
+        if (v13 != 2)
+        {
+          if (v13 == 1)
+          {
+            v14 = 0;
+            v15 = 0;
+            v16 = 0;
+            *(a1 + 28) |= 1u;
+            while (1)
+            {
+              LOBYTE(v24[0]) = 0;
+              v17 = [a2 position] + 1;
+              if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
+              {
+                v19 = [a2 data];
+                [v19 getBytes:v24 range:{objc_msgSend(a2, "position"), 1}];
+
+                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+              }
+
+              else
+              {
+                [a2 _setError];
+              }
+
+              v16 |= (v24[0] & 0x7F) << v14;
+              if ((v24[0] & 0x80) == 0)
+              {
+                break;
+              }
+
+              v14 += 7;
+              v11 = v15++ >= 9;
+              if (v11)
+              {
+                v20 = 0;
+                goto LABEL_39;
+              }
+            }
+
+            if ([a2 hasError])
+            {
+              v20 = 0;
+            }
+
+            else
+            {
+              v20 = v16;
+            }
+
+LABEL_39:
+            *(a1 + 24) = v20;
+          }
+
+          else if ((PBReaderSkipValueWithTag() & 1) == 0)
+          {
+            return 0;
+          }
+
+          goto LABEL_40;
+        }
+
+        v21 = objc_alloc_init(SIRINLUEXTERNALTurnInput);
+        objc_storeStrong((a1 + 8), v21);
+      }
+
+      v24[0] = 0;
+      v24[1] = 0;
+      if (!PBReaderPlaceMark() || !SIRINLUEXTERNALTurnInputReadFrom(v21, a2))
+      {
+
+        return 0;
+      }
+
+      PBReaderRecallMark();
+
+LABEL_40:
+      v22 = [a2 position];
+    }
+
+    while (v22 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t SIRINLUINTERNALOVERRIDESOverridesResponseReadFrom(void *a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -1699,11 +4490,11 @@ LABEL_15:
 
       if ((v12 >> 3) == 1)
       {
-        v13 = objc_alloc_init(SIRINLUINTERNALSNLP_INTERMEDIATELinearizedTensor);
-        objc_storeStrong((a1 + 8), v13);
+        v13 = objc_alloc_init(SIRINLUEXTERNALUserParse);
+        [a1 addParses:v13];
         v16[0] = 0;
         v16[1] = 0;
-        if (!PBReaderPlaceMark() || !SIRINLUINTERNALSNLP_INTERMEDIATELinearizedTensorReadFrom(v13, a2))
+        if (!PBReaderPlaceMark() || !SIRINLUEXTERNALUserParseReadFrom(v13, a2))
         {
 
           return 0;
@@ -1726,7 +4517,7 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t SIRINLUEXTERNALPayloadAttachmentInfoReadFrom(uint64_t a1, void *a2)
+uint64_t SIRICOMMONUInt32ValueReadFrom(uint64_t a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -1841,30 +4632,2200 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t sirinluexternal::SystemOffered::formatText(sirinluexternal::SystemOffered *this, PB::TextFormatter *a2, const char *a3)
+uint64_t sirinluexternal::UtteranceSpan::formatText(sirinluexternal::UtteranceSpan *this, PB::TextFormatter *a2, const char *a3)
 {
   PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 1);
+  v5 = *(this + 32);
   if (v5)
   {
-    (*(*v5 + 32))(v5, a2, "offered_act");
+    PB::TextFormatter::format(a2, "end_index");
+    v5 = *(this + 32);
+    if ((v5 & 2) == 0)
+    {
+LABEL_3:
+      if ((v5 & 4) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_13;
+    }
   }
+
+  else if ((*(this + 32) & 2) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  PB::TextFormatter::format(a2, "end_milli_seconds");
+  v5 = *(this + 32);
+  if ((v5 & 4) == 0)
+  {
+LABEL_4:
+    if ((v5 & 8) == 0)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_14;
+  }
+
+LABEL_13:
+  PB::TextFormatter::format(a2, "end_unicode_scalar_index");
+  v5 = *(this + 32);
+  if ((v5 & 8) == 0)
+  {
+LABEL_5:
+    if ((v5 & 0x10) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_15;
+  }
+
+LABEL_14:
+  PB::TextFormatter::format(a2, "start_index");
+  v5 = *(this + 32);
+  if ((v5 & 0x10) == 0)
+  {
+LABEL_6:
+    if ((v5 & 0x20) == 0)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_7;
+  }
+
+LABEL_15:
+  PB::TextFormatter::format(a2, "start_milli_seconds");
+  if ((*(this + 32) & 0x20) != 0)
+  {
+LABEL_7:
+    PB::TextFormatter::format(a2, "start_unicode_scalar_index");
+  }
+
+LABEL_8:
 
   return MEMORY[0x1EEE30A90](a2);
 }
 
-uint64_t sirinluexternal::SystemOffered::writeTo(uint64_t this, PB::Writer *a2)
+uint64_t sirinluexternal::UtteranceSpan::writeTo(uint64_t this, PB::Writer *a2)
 {
-  v2 = *(this + 8);
-  if (v2)
+  v3 = this;
+  v4 = *(this + 32);
+  if ((v4 & 8) != 0)
   {
-    return PB::Writer::writeSubmessage(a2, v2);
+    this = PB::Writer::writeVarInt(a2);
+    v4 = *(v3 + 32);
+    if ((v4 & 1) == 0)
+    {
+LABEL_3:
+      if ((v4 & 0x20) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  else if ((*(this + 32) & 1) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  this = PB::Writer::writeVarInt(a2);
+  v4 = *(v3 + 32);
+  if ((v4 & 0x20) == 0)
+  {
+LABEL_4:
+    if ((v4 & 4) == 0)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_10:
+  this = PB::Writer::writeVarInt(a2);
+  v4 = *(v3 + 32);
+  if ((v4 & 4) == 0)
+  {
+LABEL_5:
+    if ((v4 & 0x10) == 0)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_12:
+    this = PB::Writer::writeVarInt(a2);
+    if ((*(v3 + 32) & 2) == 0)
+    {
+      return this;
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_11:
+  this = PB::Writer::writeVarInt(a2);
+  v4 = *(v3 + 32);
+  if ((v4 & 0x10) != 0)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_6:
+  if ((v4 & 2) == 0)
+  {
+    return this;
+  }
+
+LABEL_13:
+
+  return PB::Writer::writeVarInt(a2);
+}
+
+uint64_t sirinluexternal::UtteranceSpan::readFrom(sirinluexternal::UtteranceSpan *this, PB::Reader *a2)
+{
+  v3 = *(a2 + 1);
+  v2 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  while (v3 < v2 && (*(a2 + 24) & 1) == 0)
+  {
+    v7 = *a2;
+    if (v3 > 0xFFFFFFFFFFFFFFF5 || v3 + 10 > v2)
+    {
+      v15 = 0;
+      v16 = 0;
+      v10 = 0;
+      v17 = (v7 + v3);
+      v18 = v2 >= v3;
+      v19 = v2 - v3;
+      if (!v18)
+      {
+        v19 = 0;
+      }
+
+      v20 = v3 + 1;
+      while (v19)
+      {
+        v21 = *v17;
+        *(a2 + 1) = v20;
+        v10 |= (v21 & 0x7F) << v15;
+        if ((v21 & 0x80) == 0)
+        {
+          goto LABEL_22;
+        }
+
+        v15 += 7;
+        ++v17;
+        --v19;
+        ++v20;
+        v14 = v16++ > 8;
+        if (v14)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      v4 = 1;
+      *(a2 + 24) = 1;
+      break;
+    }
+
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    v11 = (v7 + v3);
+    v12 = v3 + 1;
+    while (1)
+    {
+      *(a2 + 1) = v12;
+      v13 = *v11++;
+      v10 |= (v13 & 0x7F) << v8;
+      if ((v13 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v8 += 7;
+      ++v12;
+      v14 = v9++ > 8;
+      if (v14)
+      {
+        goto LABEL_17;
+      }
+    }
+
+LABEL_22:
+    if ((v10 & 7) == 4)
+    {
+      v4 = 0;
+      break;
+    }
+
+    v22 = v10 >> 3;
+    if ((v10 >> 3) > 3)
+    {
+      switch(v22)
+      {
+        case 4:
+          *(this + 32) |= 4u;
+          v47 = *(a2 + 1);
+          v2 = *(a2 + 2);
+          v48 = *a2;
+          if (v47 > 0xFFFFFFFFFFFFFFF5 || v47 + 10 > v2)
+          {
+            v75 = 0;
+            v76 = 0;
+            v51 = 0;
+            if (v2 <= v47)
+            {
+              v3 = *(a2 + 1);
+            }
+
+            else
+            {
+              v3 = *(a2 + 2);
+            }
+
+            while (1)
+            {
+              if (v3 == v47)
+              {
+                LODWORD(v51) = 0;
+                *(a2 + 24) = 1;
+                goto LABEL_133;
+              }
+
+              v77 = v47 + 1;
+              v78 = *(v48 + v47);
+              *(a2 + 1) = v77;
+              v51 |= (v78 & 0x7F) << v75;
+              if ((v78 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v75 += 7;
+              v47 = v77;
+              v14 = v76++ > 8;
+              if (v14)
+              {
+                LODWORD(v51) = 0;
+                goto LABEL_132;
+              }
+            }
+
+            if (*(a2 + 24))
+            {
+              LODWORD(v51) = 0;
+            }
+
+LABEL_132:
+            v3 = v77;
+          }
+
+          else
+          {
+            v49 = 0;
+            v50 = 0;
+            v51 = 0;
+            v52 = (v48 + v47);
+            v53 = v47 + 1;
+            while (1)
+            {
+              v3 = v53;
+              *(a2 + 1) = v53;
+              v54 = *v52++;
+              v51 |= (v54 & 0x7F) << v49;
+              if ((v54 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v49 += 7;
+              ++v53;
+              v14 = v50++ > 8;
+              if (v14)
+              {
+                LODWORD(v51) = 0;
+                break;
+              }
+            }
+          }
+
+LABEL_133:
+          *(this + 4) = v51;
+          goto LABEL_19;
+        case 5:
+          *(this + 32) |= 0x10u;
+          v63 = *(a2 + 1);
+          v2 = *(a2 + 2);
+          v64 = *a2;
+          if (v63 > 0xFFFFFFFFFFFFFFF5 || v63 + 10 > v2)
+          {
+            v91 = 0;
+            v92 = 0;
+            v67 = 0;
+            if (v2 <= v63)
+            {
+              v3 = *(a2 + 1);
+            }
+
+            else
+            {
+              v3 = *(a2 + 2);
+            }
+
+            while (1)
+            {
+              if (v3 == v63)
+              {
+                LODWORD(v67) = 0;
+                *(a2 + 24) = 1;
+                goto LABEL_149;
+              }
+
+              v93 = v63 + 1;
+              v94 = *(v64 + v63);
+              *(a2 + 1) = v93;
+              v67 |= (v94 & 0x7F) << v91;
+              if ((v94 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v91 += 7;
+              v63 = v93;
+              v14 = v92++ > 8;
+              if (v14)
+              {
+                LODWORD(v67) = 0;
+                goto LABEL_148;
+              }
+            }
+
+            if (*(a2 + 24))
+            {
+              LODWORD(v67) = 0;
+            }
+
+LABEL_148:
+            v3 = v93;
+          }
+
+          else
+          {
+            v65 = 0;
+            v66 = 0;
+            v67 = 0;
+            v68 = (v64 + v63);
+            v69 = v63 + 1;
+            while (1)
+            {
+              v3 = v69;
+              *(a2 + 1) = v69;
+              v70 = *v68++;
+              v67 |= (v70 & 0x7F) << v65;
+              if ((v70 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v65 += 7;
+              ++v69;
+              v14 = v66++ > 8;
+              if (v14)
+              {
+                LODWORD(v67) = 0;
+                break;
+              }
+            }
+          }
+
+LABEL_149:
+          *(this + 6) = v67;
+          goto LABEL_19;
+        case 6:
+          *(this + 32) |= 2u;
+          v31 = *(a2 + 1);
+          v2 = *(a2 + 2);
+          v32 = *a2;
+          if (v31 > 0xFFFFFFFFFFFFFFF5 || v31 + 10 > v2)
+          {
+            v83 = 0;
+            v84 = 0;
+            v35 = 0;
+            if (v2 <= v31)
+            {
+              v3 = *(a2 + 1);
+            }
+
+            else
+            {
+              v3 = *(a2 + 2);
+            }
+
+            while (1)
+            {
+              if (v3 == v31)
+              {
+                LODWORD(v35) = 0;
+                *(a2 + 24) = 1;
+                goto LABEL_141;
+              }
+
+              v85 = v31 + 1;
+              v86 = *(v32 + v31);
+              *(a2 + 1) = v85;
+              v35 |= (v86 & 0x7F) << v83;
+              if ((v86 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v83 += 7;
+              v31 = v85;
+              v14 = v84++ > 8;
+              if (v14)
+              {
+                LODWORD(v35) = 0;
+                goto LABEL_140;
+              }
+            }
+
+            if (*(a2 + 24))
+            {
+              LODWORD(v35) = 0;
+            }
+
+LABEL_140:
+            v3 = v85;
+          }
+
+          else
+          {
+            v33 = 0;
+            v34 = 0;
+            v35 = 0;
+            v36 = (v32 + v31);
+            v37 = v31 + 1;
+            while (1)
+            {
+              v3 = v37;
+              *(a2 + 1) = v37;
+              v38 = *v36++;
+              v35 |= (v38 & 0x7F) << v33;
+              if ((v38 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v33 += 7;
+              ++v37;
+              v14 = v34++ > 8;
+              if (v14)
+              {
+                LODWORD(v35) = 0;
+                break;
+              }
+            }
+          }
+
+LABEL_141:
+          *(this + 3) = v35;
+          goto LABEL_19;
+      }
+    }
+
+    else
+    {
+      switch(v22)
+      {
+        case 1:
+          *(this + 32) |= 8u;
+          v39 = *(a2 + 1);
+          v2 = *(a2 + 2);
+          v40 = *a2;
+          if (v39 > 0xFFFFFFFFFFFFFFF5 || v39 + 10 > v2)
+          {
+            v71 = 0;
+            v72 = 0;
+            v43 = 0;
+            if (v2 <= v39)
+            {
+              v3 = *(a2 + 1);
+            }
+
+            else
+            {
+              v3 = *(a2 + 2);
+            }
+
+            while (1)
+            {
+              if (v3 == v39)
+              {
+                LODWORD(v43) = 0;
+                *(a2 + 24) = 1;
+                goto LABEL_129;
+              }
+
+              v73 = v39 + 1;
+              v74 = *(v40 + v39);
+              *(a2 + 1) = v73;
+              v43 |= (v74 & 0x7F) << v71;
+              if ((v74 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v71 += 7;
+              v39 = v73;
+              v14 = v72++ > 8;
+              if (v14)
+              {
+                LODWORD(v43) = 0;
+                goto LABEL_128;
+              }
+            }
+
+            if (*(a2 + 24))
+            {
+              LODWORD(v43) = 0;
+            }
+
+LABEL_128:
+            v3 = v73;
+          }
+
+          else
+          {
+            v41 = 0;
+            v42 = 0;
+            v43 = 0;
+            v44 = (v40 + v39);
+            v45 = v39 + 1;
+            while (1)
+            {
+              v3 = v45;
+              *(a2 + 1) = v45;
+              v46 = *v44++;
+              v43 |= (v46 & 0x7F) << v41;
+              if ((v46 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v41 += 7;
+              ++v45;
+              v14 = v42++ > 8;
+              if (v14)
+              {
+                LODWORD(v43) = 0;
+                break;
+              }
+            }
+          }
+
+LABEL_129:
+          *(this + 5) = v43;
+          goto LABEL_19;
+        case 2:
+          *(this + 32) |= 1u;
+          v55 = *(a2 + 1);
+          v2 = *(a2 + 2);
+          v56 = *a2;
+          if (v55 > 0xFFFFFFFFFFFFFFF5 || v55 + 10 > v2)
+          {
+            v87 = 0;
+            v88 = 0;
+            v59 = 0;
+            if (v2 <= v55)
+            {
+              v3 = *(a2 + 1);
+            }
+
+            else
+            {
+              v3 = *(a2 + 2);
+            }
+
+            while (1)
+            {
+              if (v3 == v55)
+              {
+                LODWORD(v59) = 0;
+                *(a2 + 24) = 1;
+                goto LABEL_145;
+              }
+
+              v89 = v55 + 1;
+              v90 = *(v56 + v55);
+              *(a2 + 1) = v89;
+              v59 |= (v90 & 0x7F) << v87;
+              if ((v90 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v87 += 7;
+              v55 = v89;
+              v14 = v88++ > 8;
+              if (v14)
+              {
+                LODWORD(v59) = 0;
+                goto LABEL_144;
+              }
+            }
+
+            if (*(a2 + 24))
+            {
+              LODWORD(v59) = 0;
+            }
+
+LABEL_144:
+            v3 = v89;
+          }
+
+          else
+          {
+            v57 = 0;
+            v58 = 0;
+            v59 = 0;
+            v60 = (v56 + v55);
+            v61 = v55 + 1;
+            while (1)
+            {
+              v3 = v61;
+              *(a2 + 1) = v61;
+              v62 = *v60++;
+              v59 |= (v62 & 0x7F) << v57;
+              if ((v62 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v57 += 7;
+              ++v61;
+              v14 = v58++ > 8;
+              if (v14)
+              {
+                LODWORD(v59) = 0;
+                break;
+              }
+            }
+          }
+
+LABEL_145:
+          *(this + 2) = v59;
+          goto LABEL_19;
+        case 3:
+          *(this + 32) |= 0x20u;
+          v23 = *(a2 + 1);
+          v2 = *(a2 + 2);
+          v24 = *a2;
+          if (v23 > 0xFFFFFFFFFFFFFFF5 || v23 + 10 > v2)
+          {
+            v79 = 0;
+            v80 = 0;
+            v27 = 0;
+            if (v2 <= v23)
+            {
+              v3 = *(a2 + 1);
+            }
+
+            else
+            {
+              v3 = *(a2 + 2);
+            }
+
+            while (1)
+            {
+              if (v3 == v23)
+              {
+                LODWORD(v27) = 0;
+                *(a2 + 24) = 1;
+                goto LABEL_137;
+              }
+
+              v81 = v23 + 1;
+              v82 = *(v24 + v23);
+              *(a2 + 1) = v81;
+              v27 |= (v82 & 0x7F) << v79;
+              if ((v82 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v79 += 7;
+              v23 = v81;
+              v14 = v80++ > 8;
+              if (v14)
+              {
+                LODWORD(v27) = 0;
+                goto LABEL_136;
+              }
+            }
+
+            if (*(a2 + 24))
+            {
+              LODWORD(v27) = 0;
+            }
+
+LABEL_136:
+            v3 = v81;
+          }
+
+          else
+          {
+            v25 = 0;
+            v26 = 0;
+            v27 = 0;
+            v28 = (v24 + v23);
+            v29 = v23 + 1;
+            while (1)
+            {
+              v3 = v29;
+              *(a2 + 1) = v29;
+              v30 = *v28++;
+              v27 |= (v30 & 0x7F) << v25;
+              if ((v30 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v25 += 7;
+              ++v29;
+              v14 = v26++ > 8;
+              if (v14)
+              {
+                LODWORD(v27) = 0;
+                break;
+              }
+            }
+          }
+
+LABEL_137:
+          *(this + 7) = v27;
+          goto LABEL_19;
+      }
+    }
+
+LABEL_17:
+    if (!PB::Reader::skip(a2))
+    {
+      v95 = 0;
+      return v95 & 1;
+    }
+
+    v3 = *(a2 + 1);
+    v2 = *(a2 + 2);
+LABEL_19:
+    v4 = *(a2 + 24);
+  }
+
+  v95 = v4 ^ 1;
+  return v95 & 1;
+}
+
+void sirinluexternal::UtteranceSpan::~UtteranceSpan(sirinluexternal::UtteranceSpan *this)
+{
+  PB::Base::~Base(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+uint64_t sirinluexternal::UtteranceSpan::UtteranceSpan(uint64_t this)
+{
+  *this = &unk_1F48768B0;
+  *(this + 32) = 0;
+  return this;
+}
+
+{
+  *this = &unk_1F48768B0;
+  *(this + 32) = 0;
+  return this;
+}
+
+uint64_t sirinluexternal::UtteranceSpan::UtteranceSpan(uint64_t this, const sirinluexternal::UtteranceSpan *a2)
+{
+  *this = &unk_1F48768B0;
+  *(this + 32) = 0;
+  v2 = *(a2 + 32);
+  if ((v2 & 8) != 0)
+  {
+    v4 = *(a2 + 5);
+    v3 = 8;
+    *(this + 32) = 8;
+    *(this + 20) = v4;
+    v2 = *(a2 + 32);
+    if ((v2 & 1) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  v3 = 0;
+  if (*(a2 + 32))
+  {
+LABEL_5:
+    v5 = *(a2 + 2);
+    v3 |= 1u;
+    *(this + 32) = v3;
+    *(this + 8) = v5;
+    v2 = *(a2 + 32);
+  }
+
+LABEL_6:
+  if ((v2 & 0x20) != 0)
+  {
+    v6 = *(a2 + 7);
+    v3 |= 0x20u;
+    *(this + 32) = v3;
+    *(this + 28) = v6;
+    v2 = *(a2 + 32);
+    if ((v2 & 4) == 0)
+    {
+LABEL_8:
+      if ((v2 & 0x10) == 0)
+      {
+        goto LABEL_9;
+      }
+
+      goto LABEL_13;
+    }
+  }
+
+  else if ((v2 & 4) == 0)
+  {
+    goto LABEL_8;
+  }
+
+  v7 = *(a2 + 4);
+  v3 |= 4u;
+  *(this + 32) = v3;
+  *(this + 16) = v7;
+  v2 = *(a2 + 32);
+  if ((v2 & 0x10) == 0)
+  {
+LABEL_9:
+    if ((v2 & 2) == 0)
+    {
+      return this;
+    }
+
+LABEL_14:
+    v9 = *(a2 + 3);
+    *(this + 32) = v3 | 2;
+    *(this + 12) = v9;
+    return this;
+  }
+
+LABEL_13:
+  v8 = *(a2 + 6);
+  v3 |= 0x10u;
+  *(this + 32) = v3;
+  *(this + 24) = v8;
+  if ((*(a2 + 32) & 2) != 0)
+  {
+    goto LABEL_14;
   }
 
   return this;
 }
 
-uint64_t sirinluexternal::SystemOffered::readFrom(sirinluexternal::SystemOffered *this, PB::Reader *a2)
+uint64_t sirinluexternal::UtteranceSpan::operator=(uint64_t a1, const sirinluexternal::UtteranceSpan *a2)
+{
+  if (a1 != a2)
+  {
+    sirinluexternal::UtteranceSpan::UtteranceSpan(v7, a2);
+    v3 = *(a1 + 32);
+    *(a1 + 32) = v10;
+    v10 = v3;
+    v4 = *(a1 + 24);
+    *(a1 + 24) = v9;
+    v9 = v4;
+    v5 = *(a1 + 8);
+    *(a1 + 8) = v8;
+    v8 = v5;
+    PB::Base::~Base(v7);
+  }
+
+  return a1;
+}
+
+_DWORD *sirinluexternal::swap(_DWORD *this, sirinluexternal::UtteranceSpan *a2, sirinluexternal::UtteranceSpan *a3)
+{
+  v3 = this[8];
+  this[8] = *(a2 + 8);
+  *(a2 + 8) = v3;
+  v4 = this[5];
+  this[5] = *(a2 + 5);
+  *(a2 + 5) = v4;
+  v5 = this[2];
+  this[2] = *(a2 + 2);
+  *(a2 + 2) = v5;
+  v6 = this[7];
+  this[7] = *(a2 + 7);
+  *(a2 + 7) = v6;
+  v7 = this[4];
+  this[4] = *(a2 + 4);
+  *(a2 + 4) = v7;
+  v8 = this[6];
+  this[6] = *(a2 + 6);
+  *(a2 + 6) = v8;
+  v9 = this[3];
+  this[3] = *(a2 + 3);
+  *(a2 + 3) = v9;
+  return this;
+}
+
+uint64_t sirinluexternal::UtteranceSpan::UtteranceSpan(uint64_t result, _DWORD *a2)
+{
+  *result = &unk_1F48768B0;
+  *(result + 32) = a2[8];
+  a2[8] = 0;
+  *(result + 20) = a2[5];
+  *(result + 8) = a2[2];
+  *(result + 28) = a2[7];
+  *(result + 16) = a2[4];
+  *(result + 24) = a2[6];
+  *(result + 12) = a2[3];
+  return result;
+}
+
+{
+  *result = &unk_1F48768B0;
+  *(result + 32) = a2[8];
+  a2[8] = 0;
+  *(result + 20) = a2[5];
+  *(result + 8) = a2[2];
+  *(result + 28) = a2[7];
+  *(result + 16) = a2[4];
+  *(result + 24) = a2[6];
+  *(result + 12) = a2[3];
+  return result;
+}
+
+uint64_t sirinluexternal::UtteranceSpan::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v8 = &unk_1F48768B0;
+    v3 = *(a2 + 32);
+    *(a2 + 32) = 0;
+    v11 = *(a1 + 32);
+    v10 = *(a1 + 24);
+    v4 = *(a1 + 8);
+    v5 = *(a2 + 8);
+    v6 = *(a2 + 24);
+    *(a1 + 32) = v3;
+    *(a1 + 24) = v6;
+    *(a1 + 8) = v5;
+    v9 = v4;
+    PB::Base::~Base(&v8);
+  }
+
+  return a1;
+}
+
+BOOL sirinluexternal::UtteranceSpan::operator==(uint64_t a1, uint64_t a2)
+{
+  if ((*(a1 + 32) & 8) != 0)
+  {
+    if ((*(a2 + 32) & 8) == 0 || *(a1 + 20) != *(a2 + 20))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 32) & 8) != 0)
+  {
+    return 0;
+  }
+
+  if (*(a1 + 32))
+  {
+    if ((*(a2 + 32) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 32))
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 32) & 0x20) != 0)
+  {
+    if ((*(a2 + 32) & 0x20) == 0 || *(a1 + 28) != *(a2 + 28))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 32) & 0x20) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 32) & 4) != 0)
+  {
+    if ((*(a2 + 32) & 4) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 32) & 4) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 32) & 0x10) != 0)
+  {
+    if ((*(a2 + 32) & 0x10) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 32) & 0x10) != 0)
+  {
+    return 0;
+  }
+
+  v2 = (*(a2 + 32) & 2) == 0;
+  if ((*(a1 + 32) & 2) != 0)
+  {
+    return (*(a2 + 32) & 2) != 0 && *(a1 + 12) == *(a2 + 12);
+  }
+
+  return v2;
+}
+
+uint64_t sirinluexternal::UtteranceSpan::hash_value(sirinluexternal::UtteranceSpan *this)
+{
+  if ((*(this + 32) & 8) != 0)
+  {
+    v1 = *(this + 5);
+    if (*(this + 32))
+    {
+LABEL_3:
+      v2 = *(this + 2);
+      if ((*(this + 32) & 0x20) != 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v1 = 0;
+    if (*(this + 32))
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v2 = 0;
+  if ((*(this + 32) & 0x20) != 0)
+  {
+LABEL_4:
+    v3 = *(this + 7);
+    if ((*(this + 32) & 4) != 0)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_10:
+  v3 = 0;
+  if ((*(this + 32) & 4) != 0)
+  {
+LABEL_5:
+    v4 = *(this + 4);
+    if ((*(this + 32) & 0x10) != 0)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_12:
+    v5 = 0;
+    if ((*(this + 32) & 2) != 0)
+    {
+      goto LABEL_7;
+    }
+
+LABEL_13:
+    v6 = 0;
+    return v2 ^ v1 ^ v3 ^ v4 ^ v5 ^ v6;
+  }
+
+LABEL_11:
+  v4 = 0;
+  if ((*(this + 32) & 0x10) == 0)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_6:
+  v5 = *(this + 6);
+  if ((*(this + 32) & 2) == 0)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_7:
+  v6 = *(this + 3);
+  return v2 ^ v1 ^ v3 ^ v4 ^ v5 ^ v6;
+}
+
+uint64_t SIRINLUEXTERNALSUBWORD_EMBEDDINGSubwordEmbeddingRequestReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v17[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v17 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v17[0] & 0x7F) << v5;
+        if ((v17[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = PBReaderReadString();
+        v14 = *(a1 + 16);
+        *(a1 + 16) = v13;
+LABEL_23:
+
+        goto LABEL_25;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_25:
+      v15 = [a2 position];
+      if (v15 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v14 = objc_alloc_init(SIRINLUEXTERNALRequestID);
+    objc_storeStrong((a1 + 8), v14);
+    v17[0] = 0;
+    v17[1] = 0;
+    if (!PBReaderPlaceMark() || !SIRINLUEXTERNALRequestIDReadFrom(v14, a2))
+    {
+
+      return 0;
+    }
+
+    PBReaderRecallMark();
+    goto LABEL_23;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t sirinluinternalitfm::ITFMHypothesis::formatText(sirinluinternalitfm::ITFMHypothesis *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 24);
+  if (v5)
+  {
+    PB::TextFormatter::format(a2, "label");
+    v5 = *(this + 24);
+  }
+
+  if ((v5 & 2) != 0)
+  {
+    PB::TextFormatter::format(a2, "probability", *(this + 5));
+  }
+
+  if (*(this + 1))
+  {
+    PB::TextFormatter::format();
+  }
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluinternalitfm::ITFMHypothesis::readFrom(sirinluinternalitfm::ITFMHypothesis *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v7 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        break;
+      }
+
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      v11 = (v7 + v2);
+      v12 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v12;
+        v13 = *v11++;
+        v10 |= (v13 & 0x7F) << v8;
+        if ((v13 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v8 += 7;
+        ++v12;
+        v14 = v9++ > 8;
+        if (v14)
+        {
+          goto LABEL_17;
+        }
+      }
+
+LABEL_21:
+      if ((v10 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_50;
+      }
+
+      v22 = v10 >> 3;
+      if ((v10 >> 3) == 3)
+      {
+        operator new();
+      }
+
+      if (v22 == 2)
+      {
+        *(this + 24) |= 2u;
+        v32 = *(a2 + 1);
+        if (v32 <= 0xFFFFFFFFFFFFFFFBLL && v32 + 4 <= *(a2 + 2))
+        {
+          *(this + 5) = *(*a2 + v32);
+          *(a2 + 1) += 4;
+        }
+
+        else
+        {
+          *(a2 + 24) = 1;
+        }
+      }
+
+      else if (v22 == 1)
+      {
+        *(this + 24) |= 1u;
+        v24 = *(a2 + 1);
+        v23 = *(a2 + 2);
+        v25 = *a2;
+        if (v24 > 0xFFFFFFFFFFFFFFF5 || v24 + 10 > v23)
+        {
+          v33 = 0;
+          v34 = 0;
+          v28 = 0;
+          v35 = (v25 + v24);
+          v18 = v23 >= v24;
+          v36 = v23 - v24;
+          if (!v18)
+          {
+            v36 = 0;
+          }
+
+          v37 = v24 + 1;
+          while (1)
+          {
+            if (!v36)
+            {
+              LODWORD(v28) = 0;
+              *(a2 + 24) = 1;
+              goto LABEL_48;
+            }
+
+            v38 = *v35;
+            *(a2 + 1) = v37;
+            v28 |= (v38 & 0x7F) << v33;
+            if ((v38 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v33 += 7;
+            ++v35;
+            --v36;
+            ++v37;
+            v14 = v34++ > 8;
+            if (v14)
+            {
+LABEL_43:
+              LODWORD(v28) = 0;
+              goto LABEL_48;
+            }
+          }
+
+          if (*(a2 + 24))
+          {
+            LODWORD(v28) = 0;
+          }
+        }
+
+        else
+        {
+          v26 = 0;
+          v27 = 0;
+          v28 = 0;
+          v29 = (v25 + v24);
+          v30 = v24 + 1;
+          while (1)
+          {
+            *(a2 + 1) = v30;
+            v31 = *v29++;
+            v28 |= (v31 & 0x7F) << v26;
+            if ((v31 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v26 += 7;
+            ++v30;
+            v14 = v27++ > 8;
+            if (v14)
+            {
+              goto LABEL_43;
+            }
+          }
+        }
+
+LABEL_48:
+        *(this + 4) = v28;
+      }
+
+      else
+      {
+LABEL_17:
+        if (!PB::Reader::skip(a2))
+        {
+          v39 = 0;
+          return v39 & 1;
+        }
+      }
+
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_50;
+      }
+    }
+
+    v15 = 0;
+    v16 = 0;
+    v10 = 0;
+    v17 = (v7 + v2);
+    v18 = v3 >= v2;
+    v19 = v3 - v2;
+    if (!v18)
+    {
+      v19 = 0;
+    }
+
+    v20 = v2 + 1;
+    while (v19)
+    {
+      v21 = *v17;
+      *(a2 + 1) = v20;
+      v10 |= (v21 & 0x7F) << v15;
+      if ((v21 & 0x80) == 0)
+      {
+        goto LABEL_21;
+      }
+
+      v15 += 7;
+      ++v17;
+      --v19;
+      ++v20;
+      v14 = v16++ > 8;
+      if (v14)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v4 = 1;
+    *(a2 + 24) = 1;
+  }
+
+LABEL_50:
+  v39 = v4 ^ 1;
+  return v39 & 1;
+}
+
+uint64_t sirinluinternalitfm::ITFMHypothesis::operator=(uint64_t a1, const sirinluinternalitfm::ITFMHypothesis *a2)
+{
+  if (a1 != a2)
+  {
+    sirinluinternalitfm::ITFMHypothesis::ITFMHypothesis(&v8, a2);
+    v3 = *(a1 + 24);
+    *(a1 + 24) = v12;
+    v12 = v3;
+    v4 = *(a1 + 16);
+    *(a1 + 16) = v10;
+    v10 = v4;
+    v5 = *(a1 + 20);
+    *(a1 + 20) = v11;
+    v11 = v5;
+    v6 = *(a1 + 8);
+    *(a1 + 8) = v9;
+    v9 = v6;
+    sirinluinternalitfm::ITFMHypothesis::~ITFMHypothesis(&v8);
+  }
+
+  return a1;
+}
+
+float sirinluinternalitfm::swap(sirinluinternalitfm *this, sirinluinternalitfm::ITFMHypothesis *a2, sirinluinternalitfm::ITFMHypothesis *a3)
+{
+  v3 = *(this + 6);
+  *(this + 6) = *(a2 + 6);
+  *(a2 + 6) = v3;
+  v4 = *(this + 4);
+  *(this + 4) = *(a2 + 4);
+  *(a2 + 4) = v4;
+  result = *(this + 5);
+  *(this + 5) = *(a2 + 5);
+  *(a2 + 5) = result;
+  v6 = *(this + 1);
+  *(this + 1) = *(a2 + 1);
+  *(a2 + 1) = v6;
+  return result;
+}
+
+uint64_t sirinluinternalitfm::ITFMHypothesis::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    sirinluinternalitfm::ITFMHypothesis::ITFMHypothesis(&v8, a2);
+    v3 = *(a1 + 24);
+    *(a1 + 24) = v12;
+    v12 = v3;
+    v4 = *(a1 + 16);
+    *(a1 + 16) = v10;
+    v10 = v4;
+    v5 = *(a1 + 20);
+    *(a1 + 20) = v11;
+    v11 = v5;
+    v6 = *(a1 + 8);
+    *(a1 + 8) = v9;
+    v9 = v6;
+    sirinluinternalitfm::ITFMHypothesis::~ITFMHypothesis(&v8);
+  }
+
+  return a1;
+}
+
+BOOL sirinluinternalitfm::ITFMHypothesis::operator==(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 24))
+  {
+    if ((*(a2 + 24) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 24))
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 24) & 2) != 0)
+  {
+    if ((*(a2 + 24) & 2) == 0 || *(a1 + 20) != *(a2 + 20))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 24) & 2) != 0)
+  {
+    return 0;
+  }
+
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  result = v3 == 0;
+  if (!v2)
+  {
+    return result;
+  }
+
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v5 = *(v2 + 23);
+  if (v5 >= 0)
+  {
+    v6 = *(v2 + 23);
+  }
+
+  else
+  {
+    v6 = *(v2 + 8);
+  }
+
+  v7 = *(v3 + 23);
+  v8 = v7;
+  if ((v7 & 0x80u) != 0)
+  {
+    v7 = *(v3 + 8);
+  }
+
+  if (v6 != v7)
+  {
+    return 0;
+  }
+
+  v9 = v5 >= 0 ? v2 : *v2;
+  v10 = v8 >= 0 ? *(a2 + 8) : *v3;
+  return !memcmp(v9, v10, v6);
+}
+
+unint64_t sirinluinternalitfm::ITFMHypothesis::hash_value(sirinluinternalitfm::ITFMHypothesis *this)
+{
+  if ((*(this + 24) & 1) == 0)
+  {
+    v1 = 0;
+    if ((*(this + 24) & 2) != 0)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_7:
+    v3 = 0;
+    goto LABEL_8;
+  }
+
+  v1 = *(this + 4);
+  if ((*(this + 24) & 2) == 0)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_3:
+  v2 = *(this + 5);
+  if (v2 == 0.0)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = LODWORD(v2);
+  }
+
+LABEL_8:
+  v4 = *(this + 1);
+  if (v4)
+  {
+    v4 = std::__string_hash<char>::operator()[abi:ne200100](v4);
+  }
+
+  return v3 ^ v1 ^ v4;
+}
+
+uint64_t sirinluinternalplan_generation::PlanGenerationResponse::formatText(sirinluinternalplan_generation::PlanGenerationResponse *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 1);
+  v6 = *(this + 2);
+  while (v5 != v6)
+  {
+    v7 = *v5++;
+    (*(*v7 + 32))(v7, a2, "mappings");
+  }
+
+  v8 = *(this + 4);
+  for (i = *(this + 5); v8 != i; v8 += 24)
+  {
+    PB::TextFormatter::format();
+  }
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluinternalplan_generation::PlanGenerationResponse::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 32);
+  v5 = *(this + 40);
+  while (v4 != v5)
+  {
+    this = PB::Writer::write();
+    v4 += 24;
+  }
+
+  v7 = *(v3 + 8);
+  v6 = *(v3 + 16);
+  while (v7 != v6)
+  {
+    v8 = *v7++;
+    this = PB::Writer::writeSubmessage(a2, v8);
+  }
+
+  return this;
+}
+
+uint64_t sirinluinternalplan_generation::PlanGenerationResponse::readFrom(sirinluinternalplan_generation::PlanGenerationResponse *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    v7 = (this + 32);
+    while (1)
+    {
+      v8 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        break;
+      }
+
+      v9 = 0;
+      v10 = 0;
+      v11 = 0;
+      v12 = (v8 + v2);
+      v13 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v13;
+        v14 = *v12++;
+        v11 |= (v14 & 0x7F) << v9;
+        if ((v14 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v9 += 7;
+        ++v13;
+        v15 = v10++ > 8;
+        if (v15)
+        {
+          goto LABEL_24;
+        }
+      }
+
+LABEL_19:
+      if ((v11 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_41;
+      }
+
+      if ((v11 >> 3) == 2)
+      {
+        operator new();
+      }
+
+      if ((v11 >> 3) == 1)
+      {
+        v23 = *(this + 5);
+        v24 = *(this + 6);
+        if (v23 >= v24)
+        {
+          v26 = 0xAAAAAAAAAAAAAAABLL * ((v23 - *v7) >> 3);
+          v27 = v26 + 1;
+          if (v26 + 1 > 0xAAAAAAAAAAAAAAALL)
+          {
+            std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
+          }
+
+          v28 = 0xAAAAAAAAAAAAAAABLL * ((v24 - *v7) >> 3);
+          if (2 * v28 > v27)
+          {
+            v27 = 2 * v28;
+          }
+
+          if (v28 >= 0x555555555555555)
+          {
+            v29 = 0xAAAAAAAAAAAAAAALL;
+          }
+
+          else
+          {
+            v29 = v27;
+          }
+
+          v38.__end_cap_.__value_ = v7;
+          if (v29)
+          {
+            std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(v29);
+          }
+
+          v30 = 24 * v26;
+          *v30 = 0;
+          *(v30 + 8) = 0;
+          *(v30 + 16) = 0;
+          v25 = 24 * v26 + 24;
+          v31 = *(this + 4);
+          v32 = *(this + 5) - v31;
+          v33 = 24 * v26 - v32;
+          memcpy((v30 - v32), v31, v32);
+          v34 = *(this + 4);
+          *(this + 4) = v33;
+          *(this + 5) = v25;
+          v35 = *(this + 6);
+          *(this + 6) = 0;
+          v38.__end_ = v34;
+          v38.__end_cap_.__value_ = v35;
+          v38.__first_ = v34;
+          v38.__begin_ = v34;
+          std::__split_buffer<std::string>::~__split_buffer(&v38);
+        }
+
+        else
+        {
+          *v23 = 0;
+          v23[1] = 0;
+          v25 = (v23 + 3);
+          v23[2] = 0;
+        }
+
+        *(this + 5) = v25;
+        PB::Reader::read();
+      }
+
+      else
+      {
+LABEL_24:
+        if ((PB::Reader::skip(a2) & 1) == 0)
+        {
+          v37 = 0;
+          return v37 & 1;
+        }
+      }
+
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_41;
+      }
+    }
+
+    v16 = 0;
+    v17 = 0;
+    v11 = 0;
+    v18 = (v8 + v2);
+    v19 = v3 >= v2;
+    v20 = v3 - v2;
+    if (!v19)
+    {
+      v20 = 0;
+    }
+
+    v21 = v2 + 1;
+    while (v20)
+    {
+      v22 = *v18;
+      *(a2 + 1) = v21;
+      v11 |= (v22 & 0x7F) << v16;
+      if ((v22 & 0x80) == 0)
+      {
+        goto LABEL_19;
+      }
+
+      v16 += 7;
+      ++v18;
+      --v20;
+      ++v21;
+      v15 = v17++ > 8;
+      if (v15)
+      {
+        goto LABEL_24;
+      }
+    }
+
+    v4 = 1;
+    *(a2 + 24) = 1;
+  }
+
+LABEL_41:
+  v37 = v4 ^ 1;
+  return v37 & 1;
+}
+
+void sirinluinternalplan_generation::PlanGenerationResponse::~PlanGenerationResponse(sirinluinternalplan_generation::PlanGenerationResponse *this)
+{
+  sirinluinternalplan_generation::PlanGenerationResponse::~PlanGenerationResponse(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+{
+  *this = &unk_1F4876950;
+  v2 = (this + 32);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v2);
+  if (*(this + 1))
+  {
+    std::vector<std::unique_ptr<siricommon::StringValue>>::clear[abi:ne200100](this + 1);
+    operator delete(*(this + 1));
+  }
+
+  PB::Base::~Base(this);
+}
+
+double sirinluinternalplan_generation::PlanGenerationResponse::PlanGenerationResponse(sirinluinternalplan_generation::PlanGenerationResponse *this)
+{
+  *this = &unk_1F4876950;
+  result = 0.0;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  *(this + 40) = 0u;
+  return result;
+}
+
+{
+  *this = &unk_1F4876950;
+  result = 0.0;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  *(this + 40) = 0u;
+  return result;
+}
+
+std::string **sirinluinternalplan_generation::PlanGenerationResponse::PlanGenerationResponse(std::string **this, std::string **a2)
+{
+  *this = &unk_1F4876950;
+  *(this + 1) = 0u;
+  *(this + 3) = 0u;
+  *(this + 5) = 0u;
+  if (this != a2)
+  {
+    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>((this + 4), a2[4], a2[5], 0xAAAAAAAAAAAAAAABLL * ((a2[5] - a2[4]) >> 3));
+  }
+
+  if (a2[1] != a2[2])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t sirinluinternalplan_generation::PlanGenerationResponse::operator=(uint64_t a1, std::string **a2)
+{
+  if (a1 != a2)
+  {
+    sirinluinternalplan_generation::PlanGenerationResponse::PlanGenerationResponse(&v8, a2);
+    v3 = *(a1 + 40);
+    *(a1 + 40) = v11;
+    v4 = v10;
+    v5 = *(a1 + 8);
+    *(a1 + 8) = v9;
+    v9 = v5;
+    v6 = *(a1 + 24);
+    *(a1 + 24) = v4;
+    v10 = v6;
+    v11 = v3;
+    sirinluinternalplan_generation::PlanGenerationResponse::~PlanGenerationResponse(&v8);
+  }
+
+  return a1;
+}
+
+void *sirinluinternalplan_generation::swap(void *this, sirinluinternalplan_generation::PlanGenerationResponse *a2, sirinluinternalplan_generation::PlanGenerationResponse *a3)
+{
+  v3 = this[4];
+  this[4] = *(a2 + 4);
+  *(a2 + 4) = v3;
+  v4 = this[5];
+  this[5] = *(a2 + 5);
+  *(a2 + 5) = v4;
+  v5 = this[6];
+  this[6] = *(a2 + 6);
+  *(a2 + 6) = v5;
+  v6 = this[1];
+  this[1] = *(a2 + 1);
+  *(a2 + 1) = v6;
+  v7 = this[2];
+  this[2] = *(a2 + 2);
+  *(a2 + 2) = v7;
+  v8 = this[3];
+  this[3] = *(a2 + 3);
+  *(a2 + 3) = v8;
+  return this;
+}
+
+uint64_t sirinluinternalplan_generation::PlanGenerationResponse::PlanGenerationResponse(uint64_t a1, uint64_t a2)
+{
+  *a1 = &unk_1F4876950;
+  *(a1 + 8) = 0u;
+  v4 = (a1 + 8);
+  *(a1 + 24) = 0u;
+  *(a1 + 40) = 0u;
+  std::vector<std::string>::__vdeallocate((a1 + 32));
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 48) = *(a2 + 48);
+  *(a2 + 32) = 0;
+  *(a2 + 40) = 0;
+  *(a2 + 48) = 0;
+  if (*v4)
+  {
+    std::vector<std::unique_ptr<siricommon::StringValue>>::clear[abi:ne200100](v4);
+    operator delete(*v4);
+    *v4 = 0;
+    v4[1] = 0;
+    v4[2] = 0;
+  }
+
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 24) = *(a2 + 24);
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  return a1;
+}
+
+uint64_t sirinluinternalplan_generation::PlanGenerationResponse::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    sirinluinternalplan_generation::PlanGenerationResponse::PlanGenerationResponse(v8, a2);
+    v3 = *(a1 + 40);
+    *(a1 + 40) = v11;
+    v4 = v10;
+    v5 = *(a1 + 8);
+    *(a1 + 8) = v9;
+    v9 = v5;
+    v6 = *(a1 + 24);
+    *(a1 + 24) = v4;
+    v10 = v6;
+    v11 = v3;
+    sirinluinternalplan_generation::PlanGenerationResponse::~PlanGenerationResponse(v8);
+  }
+
+  return a1;
+}
+
+BOOL sirinluinternalplan_generation::PlanGenerationResponse::operator==(void *a1, void *a2)
+{
+  v2 = a1[4];
+  v3 = a1[5];
+  v4 = a2[4];
+  if (v3 - v2 != a2[5] - v4)
+  {
+    return 0;
+  }
+
+  while (v2 != v3)
+  {
+    result = std::__equal_to::operator()[abi:ne200100]<std::string,std::string>(v2, v4);
+    if (!result)
+    {
+      return result;
+    }
+
+    v2 += 24;
+    v4 += 3;
+  }
+
+  v10 = a1 + 1;
+  v8 = a1[1];
+  v9 = v10[1];
+  v12 = a2 + 1;
+  v11 = a2[1];
+  if (v9 - v8 != v12[1] - v11)
+  {
+    return 0;
+  }
+
+  if (v8 == v9)
+  {
+    return 1;
+  }
+
+  do
+  {
+    v14 = *v8++;
+    v13 = v14;
+    v15 = *v11++;
+    result = sirinluinternalplan_generation::VariableEventIdPair::operator==(v13, v15);
+  }
+
+  while (result && v8 != v9);
+  return result;
+}
+
+uint64_t sirinluinternalplan_generation::PlanGenerationResponse::hash_value(sirinluinternalplan_generation::PlanGenerationResponse *this)
+{
+  v2 = *(this + 4);
+  v3 = *(this + 5);
+  if (v2 == v3)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = 0;
+    do
+    {
+      v4 ^= std::__string_hash<char>::operator()[abi:ne200100](v2);
+      v2 += 24;
+    }
+
+    while (v2 != v3);
+  }
+
+  v6 = *(this + 1);
+  v5 = *(this + 2);
+  if (v6 == v5)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = 0;
+    do
+    {
+      v8 = *v6++;
+      v7 ^= sirinluinternalplan_generation::VariableEventIdPair::hash_value(v8);
+    }
+
+    while (v6 != v5);
+  }
+
+  return v7 ^ v4;
+}
+
+uint64_t sirinluexternal::SystemReportedFailure::formatText(sirinluexternal::SystemReportedFailure *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 1);
+  if (v5)
+  {
+    (*(*v5 + 32))(v5, a2, "reason");
+  }
+
+  v6 = *(this + 2);
+  if (v6)
+  {
+    (*(*v6 + 32))(v6, a2, "task");
+  }
+
+  v7 = *(this + 3);
+  if (v7)
+  {
+    (*(*v7 + 32))(v7, a2, "task_id");
+  }
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluexternal::SystemReportedFailure::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 24);
+  if (v4)
+  {
+    this = PB::Writer::writeSubmessage(a2, v4);
+  }
+
+  v5 = *(v3 + 8);
+  if (v5)
+  {
+    this = PB::Writer::writeSubmessage(a2, v5);
+  }
+
+  v6 = *(v3 + 16);
+  if (v6)
+  {
+
+    return PB::Writer::writeSubmessage(a2, v6);
+  }
+
+  return this;
+}
+
+uint64_t sirinluexternal::SystemReportedFailure::readFrom(sirinluexternal::SystemReportedFailure *this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -1899,27 +6860,38 @@ uint64_t sirinluexternal::SystemOffered::readFrom(sirinluexternal::SystemOffered
         v13 = v8++ > 8;
         if (v13)
         {
-          goto LABEL_21;
+          goto LABEL_17;
         }
       }
 
-LABEL_18:
+LABEL_19:
       if ((v9 & 7) == 4)
       {
         v4 = 0;
-        goto LABEL_26;
+        goto LABEL_30;
       }
 
-      if ((v9 >> 3) == 1)
+      v21 = v9 >> 3;
+      if ((v9 >> 3) == 3)
       {
         operator new();
       }
 
-LABEL_21:
+      if (v21 == 2)
+      {
+        operator new();
+      }
+
+      if (v21 == 1)
+      {
+        operator new();
+      }
+
+LABEL_17:
       if ((PB::Reader::skip(a2) & 1) == 0)
       {
-        v21 = 0;
-        return v21 & 1;
+        v23 = 0;
+        return v23 & 1;
       }
 
       v2 = *(a2 + 1);
@@ -1927,7 +6899,7 @@ LABEL_21:
       v4 = *(a2 + 24);
       if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
       {
-        goto LABEL_26;
+        goto LABEL_30;
       }
     }
 
@@ -1950,7 +6922,7 @@ LABEL_21:
       v9 |= (v20 & 0x7F) << v14;
       if ((v20 & 0x80) == 0)
       {
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
       v14 += 7;
@@ -1959,6 +6931,2211 @@ LABEL_21:
       ++v19;
       v13 = v15++ > 8;
       if (v13)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v4 = 1;
+    *(a2 + 24) = 1;
+  }
+
+LABEL_30:
+  v23 = v4 ^ 1;
+  return v23 & 1;
+}
+
+void sirinluexternal::SystemReportedFailure::~SystemReportedFailure(sirinluexternal::SystemReportedFailure *this)
+{
+  sirinluexternal::SystemReportedFailure::~SystemReportedFailure(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+{
+  *this = &unk_1F48769A0;
+  v2 = *(this + 3);
+  *(this + 3) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  v3 = *(this + 2);
+  *(this + 2) = 0;
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  v4 = *(this + 1);
+  *(this + 1) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  PB::Base::~Base(this);
+}
+
+void *sirinluexternal::SystemReportedFailure::SystemReportedFailure(void *this)
+{
+  *this = &unk_1F48769A0;
+  this[1] = 0;
+  this[2] = 0;
+  this[3] = 0;
+  return this;
+}
+
+{
+  *this = &unk_1F48769A0;
+  this[1] = 0;
+  this[2] = 0;
+  this[3] = 0;
+  return this;
+}
+
+sirinluexternal::SystemReportedFailure *sirinluexternal::SystemReportedFailure::SystemReportedFailure(sirinluexternal::SystemReportedFailure *this, const sirinluexternal::UUID **a2)
+{
+  *this = &unk_1F48769A0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  if (a2[3])
+  {
+    operator new();
+  }
+
+  if (a2[1])
+  {
+    operator new();
+  }
+
+  if (a2[2])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t sirinluexternal::SystemReportedFailure::operator=(uint64_t a1, const sirinluexternal::UUID **a2)
+{
+  if (a1 != a2)
+  {
+    sirinluexternal::SystemReportedFailure::SystemReportedFailure(&v6, a2);
+    v3 = *(a1 + 24);
+    *(a1 + 24) = v8;
+    v8 = v3;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = v7;
+    v7 = v4;
+    sirinluexternal::SystemReportedFailure::~SystemReportedFailure(&v6);
+  }
+
+  return a1;
+}
+
+void *sirinluexternal::swap(void *this, sirinluexternal::SystemReportedFailure *a2, sirinluexternal::SystemReportedFailure *a3)
+{
+  v3 = this[3];
+  this[3] = *(a2 + 3);
+  *(a2 + 3) = v3;
+  v4 = this[1];
+  this[1] = *(a2 + 1);
+  *(a2 + 1) = v4;
+  v5 = this[2];
+  this[2] = *(a2 + 2);
+  *(a2 + 2) = v5;
+  return this;
+}
+
+void *sirinluexternal::SystemReportedFailure::SystemReportedFailure(void *a1, void *a2)
+{
+  *a1 = &unk_1F48769A0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  a1[2] = 0;
+  a1[3] = 0;
+  v5 = a2[3];
+  a2[3] = 0;
+  v6 = a1[3];
+  a1[3] = v5;
+  if (v6)
+  {
+    (*(*v6 + 8))(v6);
+  }
+
+  v7 = a2[1];
+  a2[1] = 0;
+  v8 = *v4;
+  *v4 = v7;
+  if (v8)
+  {
+    (*(*v8 + 8))(v8);
+  }
+
+  v9 = a2[2];
+  a2[2] = 0;
+  v10 = a1[2];
+  a1[2] = v9;
+  if (v10)
+  {
+    (*(*v10 + 8))(v10);
+  }
+
+  return a1;
+}
+
+uint64_t sirinluexternal::SystemReportedFailure::operator=(uint64_t a1, void *a2)
+{
+  if (a1 != a2)
+  {
+    sirinluexternal::SystemReportedFailure::SystemReportedFailure(&v6, a2);
+    v3 = *(a1 + 24);
+    *(a1 + 24) = v8;
+    v8 = v3;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = v7;
+    v7 = v4;
+    sirinluexternal::SystemReportedFailure::~SystemReportedFailure(&v6);
+  }
+
+  return a1;
+}
+
+BOOL sirinluexternal::SystemReportedFailure::operator==(void *a1, void *a2)
+{
+  v4 = a1[3];
+  v5 = a2[3];
+  if (v4)
+  {
+    if (!v5 || !sirinluexternal::UUID::operator==(v4, v5))
+    {
+      return 0;
+    }
+  }
+
+  else if (v5)
+  {
+    return 0;
+  }
+
+  v6 = a1[1];
+  v7 = a2[1];
+  if (!v6)
+  {
+    if (!v7)
+    {
+      goto LABEL_9;
+    }
+
+    return 0;
+  }
+
+  if (!v7 || !sirinluexternal::UsoGraph::operator==(v6, v7))
+  {
+    return 0;
+  }
+
+LABEL_9:
+  v8 = a1[2];
+  v9 = a2[2];
+  result = (v8 | v9) == 0;
+  if (v8 && v9)
+  {
+    v11 = a1[2];
+
+    return sirinluexternal::UsoGraph::operator==(v11, v9);
+  }
+
+  return result;
+}
+
+unint64_t sirinluexternal::SystemReportedFailure::hash_value(sirinluexternal::SystemReportedFailure *this)
+{
+  v2 = *(this + 3);
+  if (!v2)
+  {
+    v6 = 0;
+    goto LABEL_11;
+  }
+
+  if ((*(v2 + 28) & 1) == 0)
+  {
+    v3 = 0;
+    if ((*(v2 + 28) & 2) != 0)
+    {
+      goto LABEL_4;
+    }
+
+LABEL_8:
+    v4 = 0;
+    if ((*(v2 + 28) & 4) != 0)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_9:
+    v5 = 0;
+    goto LABEL_10;
+  }
+
+  v3 = *(v2 + 8);
+  if ((*(v2 + 28) & 2) == 0)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_4:
+  v4 = *(v2 + 16);
+  if ((*(v2 + 28) & 4) == 0)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_5:
+  v5 = *(v2 + 24);
+LABEL_10:
+  v6 = v4 ^ v3 ^ v5;
+LABEL_11:
+  v7 = *(this + 1);
+  if (v7)
+  {
+    v8 = sirinluexternal::UsoGraph::hash_value(v7);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(this + 2);
+  if (v9)
+  {
+    v9 = sirinluexternal::UsoGraph::hash_value(v9);
+  }
+
+  return v8 ^ v6 ^ v9;
+}
+
+void *sirinluexternal::SystemReportedFailure::makeTaskId(void *this)
+{
+  if (!this[3])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+void *sirinluexternal::SystemReportedFailure::makeReason(void *this)
+{
+  if (!this[1])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+void *sirinluexternal::SystemReportedFailure::makeTask(void *this)
+{
+  if (!this[2])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t sirinluexternal::UsoEdge::formatText(sirinluexternal::UsoEdge *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  if (*(this + 24))
+  {
+    PB::TextFormatter::format(a2, "from_index");
+  }
+
+  v5 = *(this + 1);
+  if (v5)
+  {
+    (*(*v5 + 32))(v5, a2, "label");
+  }
+
+  if ((*(this + 24) & 2) != 0)
+  {
+    PB::TextFormatter::format(a2, "to_index");
+  }
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluexternal::UsoEdge::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 24);
+  if (v4)
+  {
+    this = PB::Writer::writeVarInt(a2);
+    v4 = *(v3 + 24);
+  }
+
+  if ((v4 & 2) != 0)
+  {
+    this = PB::Writer::writeVarInt(a2);
+  }
+
+  v5 = *(v3 + 8);
+  if (v5)
+  {
+
+    return PB::Writer::writeSubmessage(a2, v5);
+  }
+
+  return this;
+}
+
+uint64_t sirinluexternal::UsoEdge::readFrom(sirinluexternal::UsoEdge *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v7 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        break;
+      }
+
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      v11 = (v7 + v2);
+      v12 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v12;
+        v13 = *v11++;
+        v10 |= (v13 & 0x7F) << v8;
+        if ((v13 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v8 += 7;
+        ++v12;
+        v14 = v9++ > 8;
+        if (v14)
+        {
+          goto LABEL_17;
+        }
+      }
+
+LABEL_21:
+      if ((v10 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_65;
+      }
+
+      v22 = v10 >> 3;
+      if ((v10 >> 3) == 3)
+      {
+        operator new();
+      }
+
+      if (v22 == 2)
+      {
+        *(this + 24) |= 2u;
+        v33 = *(a2 + 1);
+        v32 = *(a2 + 2);
+        v34 = *a2;
+        if (v33 > 0xFFFFFFFFFFFFFFF5 || v33 + 10 > v32)
+        {
+          v41 = 0;
+          v42 = 0;
+          v37 = 0;
+          v43 = (v34 + v33);
+          v18 = v32 >= v33;
+          v44 = v32 - v33;
+          if (!v18)
+          {
+            v44 = 0;
+          }
+
+          v45 = v33 + 1;
+          while (1)
+          {
+            if (!v44)
+            {
+              LODWORD(v37) = 0;
+              *(a2 + 24) = 1;
+              goto LABEL_60;
+            }
+
+            v46 = *v43;
+            *(a2 + 1) = v45;
+            v37 |= (v46 & 0x7F) << v41;
+            if ((v46 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v41 += 7;
+            ++v43;
+            --v44;
+            ++v45;
+            v14 = v42++ > 8;
+            if (v14)
+            {
+LABEL_47:
+              LODWORD(v37) = 0;
+              goto LABEL_60;
+            }
+          }
+
+          if (*(a2 + 24))
+          {
+            LODWORD(v37) = 0;
+          }
+        }
+
+        else
+        {
+          v35 = 0;
+          v36 = 0;
+          v37 = 0;
+          v38 = (v34 + v33);
+          v39 = v33 + 1;
+          while (1)
+          {
+            *(a2 + 1) = v39;
+            v40 = *v38++;
+            v37 |= (v40 & 0x7F) << v35;
+            if ((v40 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v35 += 7;
+            ++v39;
+            v14 = v36++ > 8;
+            if (v14)
+            {
+              goto LABEL_47;
+            }
+          }
+        }
+
+LABEL_60:
+        *(this + 5) = v37;
+      }
+
+      else if (v22 == 1)
+      {
+        *(this + 24) |= 1u;
+        v24 = *(a2 + 1);
+        v23 = *(a2 + 2);
+        v25 = *a2;
+        if (v24 > 0xFFFFFFFFFFFFFFF5 || v24 + 10 > v23)
+        {
+          v47 = 0;
+          v48 = 0;
+          v28 = 0;
+          v49 = (v25 + v24);
+          v18 = v23 >= v24;
+          v50 = v23 - v24;
+          if (!v18)
+          {
+            v50 = 0;
+          }
+
+          v51 = v24 + 1;
+          while (1)
+          {
+            if (!v50)
+            {
+              LODWORD(v28) = 0;
+              *(a2 + 24) = 1;
+              goto LABEL_63;
+            }
+
+            v52 = *v49;
+            *(a2 + 1) = v51;
+            v28 |= (v52 & 0x7F) << v47;
+            if ((v52 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v47 += 7;
+            ++v49;
+            --v50;
+            ++v51;
+            v14 = v48++ > 8;
+            if (v14)
+            {
+LABEL_55:
+              LODWORD(v28) = 0;
+              goto LABEL_63;
+            }
+          }
+
+          if (*(a2 + 24))
+          {
+            LODWORD(v28) = 0;
+          }
+        }
+
+        else
+        {
+          v26 = 0;
+          v27 = 0;
+          v28 = 0;
+          v29 = (v25 + v24);
+          v30 = v24 + 1;
+          while (1)
+          {
+            *(a2 + 1) = v30;
+            v31 = *v29++;
+            v28 |= (v31 & 0x7F) << v26;
+            if ((v31 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v26 += 7;
+            ++v30;
+            v14 = v27++ > 8;
+            if (v14)
+            {
+              goto LABEL_55;
+            }
+          }
+        }
+
+LABEL_63:
+        *(this + 4) = v28;
+      }
+
+      else
+      {
+LABEL_17:
+        if ((PB::Reader::skip(a2) & 1) == 0)
+        {
+          v53 = 0;
+          return v53 & 1;
+        }
+      }
+
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_65;
+      }
+    }
+
+    v15 = 0;
+    v16 = 0;
+    v10 = 0;
+    v17 = (v7 + v2);
+    v18 = v3 >= v2;
+    v19 = v3 - v2;
+    if (!v18)
+    {
+      v19 = 0;
+    }
+
+    v20 = v2 + 1;
+    while (v19)
+    {
+      v21 = *v17;
+      *(a2 + 1) = v20;
+      v10 |= (v21 & 0x7F) << v15;
+      if ((v21 & 0x80) == 0)
+      {
+        goto LABEL_21;
+      }
+
+      v15 += 7;
+      ++v17;
+      --v19;
+      ++v20;
+      v14 = v16++ > 8;
+      if (v14)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v4 = 1;
+    *(a2 + 24) = 1;
+  }
+
+LABEL_65:
+  v53 = v4 ^ 1;
+  return v53 & 1;
+}
+
+void sirinluexternal::UsoEdge::~UsoEdge(sirinluexternal::UsoEdge *this)
+{
+  sirinluexternal::UsoEdge::~UsoEdge(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+{
+  v2 = *(this + 1);
+  *this = &unk_1F48769F0;
+  *(this + 1) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  PB::Base::~Base(this);
+}
+
+uint64_t sirinluexternal::UsoEdge::UsoEdge(uint64_t this)
+{
+  *(this + 8) = 0;
+  *(this + 16) = 0;
+  *this = &unk_1F48769F0;
+  *(this + 24) = 0;
+  return this;
+}
+
+{
+  *(this + 8) = 0;
+  *(this + 16) = 0;
+  *this = &unk_1F48769F0;
+  *(this + 24) = 0;
+  return this;
+}
+
+sirinluexternal::UsoEdge *sirinluexternal::UsoEdge::UsoEdge(sirinluexternal::UsoEdge *this, const sirinluexternal::UsoEdge *a2)
+{
+  *this = &unk_1F48769F0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 6) = 0;
+  if (*(a2 + 24))
+  {
+    v3 = *(a2 + 4);
+    *(this + 24) = 1;
+    *(this + 4) = v3;
+    v2 = 3;
+    if ((*(a2 + 24) & 2) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  v2 = 2;
+  if ((*(a2 + 24) & 2) != 0)
+  {
+LABEL_5:
+    v4 = *(a2 + 5);
+    *(this + 24) = v2;
+    *(this + 5) = v4;
+  }
+
+LABEL_6:
+  if (*(a2 + 1))
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t sirinluexternal::UsoEdge::operator=(uint64_t a1, const sirinluexternal::UsoEdge *a2)
+{
+  if (a1 != a2)
+  {
+    sirinluexternal::UsoEdge::UsoEdge(&v7, a2);
+    v3 = *(a1 + 24);
+    *(a1 + 24) = v10;
+    v10 = v3;
+    v4 = *(a1 + 16);
+    *(a1 + 16) = v9;
+    v9 = v4;
+    v5 = *(a1 + 8);
+    *(a1 + 8) = v8;
+    v8 = v5;
+    sirinluexternal::UsoEdge::~UsoEdge(&v7);
+  }
+
+  return a1;
+}
+
+uint64_t sirinluexternal::swap(uint64_t this, sirinluexternal::UsoEdge *a2, sirinluexternal::UsoEdge *a3)
+{
+  v3 = *(this + 24);
+  *(this + 24) = *(a2 + 6);
+  *(a2 + 6) = v3;
+  v4 = *(this + 16);
+  *(this + 16) = *(a2 + 4);
+  *(a2 + 4) = v4;
+  v5 = *(this + 20);
+  *(this + 20) = *(a2 + 5);
+  *(a2 + 5) = v5;
+  v6 = *(this + 8);
+  *(this + 8) = *(a2 + 1);
+  *(a2 + 1) = v6;
+  return this;
+}
+
+uint64_t sirinluexternal::UsoEdge::UsoEdge(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = &unk_1F48769F0;
+  *(a1 + 24) = *(a2 + 24);
+  *(a2 + 24) = 0;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 20) = *(a2 + 20);
+  v3 = *(a2 + 8);
+  *(a2 + 8) = 0;
+  v4 = *(a1 + 8);
+  *(a1 + 8) = v3;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  return a1;
+}
+
+uint64_t sirinluexternal::UsoEdge::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    sirinluexternal::UsoEdge::UsoEdge(&v7, a2);
+    v3 = *(a1 + 24);
+    *(a1 + 24) = v10;
+    v10 = v3;
+    v4 = *(a1 + 16);
+    *(a1 + 16) = v9;
+    v9 = v4;
+    v5 = *(a1 + 8);
+    *(a1 + 8) = v8;
+    v8 = v5;
+    sirinluexternal::UsoEdge::~UsoEdge(&v7);
+  }
+
+  return a1;
+}
+
+BOOL sirinluexternal::UsoEdge::operator==(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 24))
+  {
+    if ((*(a2 + 24) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 24))
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 24) & 2) != 0)
+  {
+    if ((*(a2 + 24) & 2) == 0 || *(a1 + 20) != *(a2 + 20))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 24) & 2) != 0)
+  {
+    return 0;
+  }
+
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  result = (v2 | v3) == 0;
+  if (v2)
+  {
+    if (v3)
+    {
+      return sirinluexternal::UsoEdgeLabel::operator==(v2, v3);
+    }
+  }
+
+  return result;
+}
+
+unint64_t sirinluexternal::UsoEdge::hash_value(sirinluexternal::UsoEdge *this)
+{
+  if (*(this + 24))
+  {
+    v1 = *(this + 4);
+    if ((*(this + 24) & 2) != 0)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v1 = 0;
+    if ((*(this + 24) & 2) != 0)
+    {
+LABEL_3:
+      v2 = *(this + 5);
+      goto LABEL_6;
+    }
+  }
+
+  v2 = 0;
+LABEL_6:
+  v3 = *(this + 1);
+  if (v3)
+  {
+    v3 = sirinluexternal::UsoEdgeLabel::hash_value(v3);
+  }
+
+  return v2 ^ v1 ^ v3;
+}
+
+void *sirinluexternal::UsoEdge::makeLabel(void *this)
+{
+  if (!this[1])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+void siri::ontology::setUtteranceAlignmentMessageIfExists(void *a1, void *lpsrc, int a3)
+{
+  if (v4)
+  {
+    v5 = v4;
+    if (*(v4 + 7) != *(v4 + 8))
+    {
+      v10 = &unk_1F4876200;
+      __src = 0;
+      v12 = 0;
+      v13 = 0;
+      v15 = a3;
+      v16 = 2;
+      if (*siri::ontology::UsoEntityNode::getUtteranceAlignment(v4) != -1)
+      {
+        v6 = *siri::ontology::UsoEntityNode::getUtteranceAlignment(v5);
+        LOBYTE(v16) = v16 | 1;
+        v14 = v6;
+      }
+
+      UtteranceAlignment = siri::ontology::UsoEntityNode::getUtteranceAlignment(v5);
+      siri::ontology::UsoUtteranceAlignment::getSpans(&v8, UtteranceAlignment);
+      if (v8 != v9)
+      {
+        operator new();
+      }
+
+      if (v8)
+      {
+        v9 = v8;
+        operator delete(v8);
+      }
+
+      operator new();
+    }
+  }
+}
+
+void sub_1C8AF3B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  (*(*v18 + 8))(v18, a2, a3, a4, a5, a6, a7, a8);
+  sirinluexternal::UtteranceAlignment::~UtteranceAlignment(va);
+  _Unwind_Resume(a1);
+}
+
+void siri::ontology::setIdentifierMessage(void *a1, void *lpsrc, int a3)
+{
+  if (v4)
+  {
+    siri::ontology::UsoEntityNode::getIdentifiers(&v17, v4);
+    if (v17 != v18)
+    {
+      v5 = *v17;
+      v12 = &unk_1F4877160;
+      v16 = 4;
+      v15 = 0u;
+      v13 = 0u;
+      v14 = 0u;
+      DWORD2(v15) = a3;
+      if (*(v5 + 23) < 0)
+      {
+        std::string::__init_copy_ctor_external(&__str, *v5, *(v5 + 8));
+        if (*(&v14 + 1))
+        {
+          if (*(*(&v14 + 1) + 23) < 0)
+          {
+            operator delete(**(&v14 + 1));
+          }
+
+          **(&v14 + 1) = __str;
+          if (*(v5 + 47) < 0)
+          {
+            std::string::__init_copy_ctor_external(&__str, *(v5 + 24), *(v5 + 32));
+          }
+
+          else
+          {
+            __str = *(v5 + 24);
+          }
+
+          if (!v13)
+          {
+            operator new();
+          }
+
+          if (*(v13 + 23) < 0)
+          {
+            operator delete(*v13);
+          }
+
+          *v13 = __str;
+          std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__str, (v5 + 48));
+          if (v20 == 1)
+          {
+            sirinluexternal::UsoEntityIdentifier::makeNamespaceA(&v12);
+            if ((v20 & 1) == 0)
+            {
+              std::__throw_bad_optional_access[abi:ne200100]();
+            }
+
+            v6 = *(&v13 + 1);
+            siricommon::StringValue::makeValue(*(&v13 + 1));
+            std::string::operator=(*(v6 + 8), &__str);
+            if ((v20 & 1) != 0 && SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(__str.__r_.__value_.__l.__data_);
+            }
+          }
+
+          if (*(v5 + 88))
+          {
+            v7 = *(v5 + 80);
+            sirinluexternal::UsoEntityIdentifier::makeProbability(&v12);
+            v8 = v14;
+            *(v14 + 16) |= 1u;
+            *(v8 + 8) = v7;
+          }
+
+          v9 = *(v5 + 96);
+          if ((v9 & 0x100000000) != 0)
+          {
+            LOBYTE(v16) = v16 | 8;
+            HIDWORD(v15) = v9;
+          }
+
+          v10 = *(v5 + 104);
+          if ((v10 & 0x100000000) != 0)
+          {
+            LOBYTE(v16) = v16 | 1;
+            LODWORD(v15) = v10;
+          }
+
+          v11 = *(v5 + 112);
+          if ((v11 & 0x100000000) != 0)
+          {
+            LOBYTE(v16) = v16 | 2;
+            DWORD1(v15) = v11;
+          }
+
+          operator new();
+        }
+      }
+
+      else
+      {
+        __str = *v5;
+      }
+
+      operator new();
+    }
+
+    if (v17)
+    {
+      v18 = v17;
+      operator delete(v17);
+    }
+  }
+}
+
+void sub_1C8AF4010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+{
+  (*(*v27 + 8))(v27, a2, a3, a4, a5, a6, a7, a8);
+  sirinluexternal::UsoEntityIdentifier::~UsoEntityIdentifier(&a10);
+  if (__p)
+  {
+    a19 = __p;
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+std::string *std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](std::string *this, __int128 *a2)
+{
+  this->__r_.__value_.__s.__data_[0] = 0;
+  this[1].__r_.__value_.__s.__data_[0] = 0;
+  if (*(a2 + 24) == 1)
+  {
+    if (*(a2 + 23) < 0)
+    {
+      std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
+    }
+
+    else
+    {
+      v3 = *a2;
+      this->__r_.__value_.__r.__words[2] = *(a2 + 2);
+      *&this->__r_.__value_.__l.__data_ = v3;
+    }
+
+    this[1].__r_.__value_.__s.__data_[0] = 1;
+  }
+
+  return this;
+}
+
+void sub_1C8AF411C(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 24) == 1 && *(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__throw_bad_optional_access[abi:ne200100]()
+{
+  exception = __cxa_allocate_exception(8uLL);
+  *exception = MEMORY[0x1E69E55D8] + 16;
+  __cxa_throw(exception, MEMORY[0x1E69E5418], MEMORY[0x1E69E52A0]);
+}
+
+void siricommon::StringValue::makeValue(siricommon::StringValue *this)
+{
+  if (!*(this + 1))
+  {
+    operator new();
+  }
+}
+
+void siri::ontology::setEntitySpanMessage(uint64_t a1, void *lpsrc, int a3)
+{
+  if (v3)
+  {
+    siri::ontology::UsoEntityNode::getEntitySpans(&v68, v3);
+    v4 = v68;
+    if (v68 != v69)
+    {
+      v59 = &unk_1F4876060;
+      v67 = 1;
+      v65 = 0u;
+      v66 = 0u;
+      __src = 0u;
+      v61 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      DWORD2(v66) = a3;
+      std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__str, *v68);
+      if (v71 == 1)
+      {
+        sirinluexternal::UsoEntitySpan::makeOriginAppId(&v59);
+        if ((v71 & 1) == 0)
+        {
+          std::__throw_bad_optional_access[abi:ne200100]();
+        }
+
+        v5 = v63;
+        siricommon::StringValue::makeValue(v63);
+        std::string::operator=(*(v5 + 8), &__str);
+        if ((v71 & 1) != 0 && SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__str.__r_.__value_.__l.__data_);
+        }
+      }
+
+      v6 = *v4;
+      v7 = *(*v4 + 4);
+      if ((v7 & 0x100000000) != 0)
+      {
+        LOBYTE(v67) = v67 | 2;
+        HIDWORD(v66) = v7;
+        v6 = *v4;
+      }
+
+      std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__str, (v6 + 40));
+      if (v71 == 1)
+      {
+        sirinluexternal::UsoEntitySpan::makeLabel(&v59);
+        if ((v71 & 1) == 0)
+        {
+          std::__throw_bad_optional_access[abi:ne200100]();
+        }
+
+        v8 = v62;
+        siricommon::StringValue::makeValue(v62);
+        std::string::operator=(*(v8 + 8), &__str);
+        if ((v71 & 1) != 0 && SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__str.__r_.__value_.__l.__data_);
+        }
+      }
+
+      std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__str, (*v4 + 152));
+      if (v71 == 1)
+      {
+        sirinluexternal::UsoEntitySpan::makeOriginEntityId(&v59);
+        if ((v71 & 1) == 0)
+        {
+          std::__throw_bad_optional_access[abi:ne200100]();
+        }
+
+        v9 = *(&v63 + 1);
+        siricommon::StringValue::makeValue(*(&v63 + 1));
+        std::string::operator=(*(v9 + 8), &__str);
+        if ((v71 & 1) != 0 && SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__str.__r_.__value_.__l.__data_);
+        }
+      }
+
+      v10 = *v4;
+      v11 = *(*v4 + 14);
+      if ((v11 & 0x100000000) != 0)
+      {
+        sirinluexternal::UsoEntitySpan::makeStartIndex(&v59);
+        v12 = v66;
+        *(v66 + 12) |= 1u;
+        *(v12 + 8) = v11;
+        v10 = *v4;
+      }
+
+      v13 = *(v10 + 15);
+      if ((v13 & 0x100000000) != 0)
+      {
+        sirinluexternal::UsoEntitySpan::makeEndIndex(&v59);
+        v14 = *(&v61 + 1);
+        *(*(&v61 + 1) + 12) |= 1u;
+        *(v14 + 8) = v13;
+        v10 = *v4;
+      }
+
+      v52 = v4;
+      if (*(v10 + 80) == 1)
+      {
+        v15 = *(v10 + 9);
+        sirinluexternal::UsoEntitySpan::makeMatchInfo(&v59);
+        v16 = *v15;
+        if (*v15)
+        {
+          v17 = *(&v62 + 1);
+          *(*(&v62 + 1) + 100) |= 1u;
+          *(v17 + 96) = v16;
+        }
+
+        if (v15[2])
+        {
+          v18 = v15[1];
+          sirinluexternal::MatchInfo::makeMatchScore(*(&v62 + 1));
+          v19 = *(*(&v62 + 1) + 40);
+          *(v19 + 12) |= 1u;
+          *(v19 + 8) = v18;
+        }
+
+        v20 = *(v15 + 3);
+        if ((v20 & 0x100000000) != 0)
+        {
+          sirinluexternal::MatchInfo::makeMaxTokenCount(*(&v62 + 1));
+          v21 = *(*(&v62 + 1) + 88);
+          *(v21 + 12) |= 1u;
+          *(v21 + 8) = v20;
+        }
+
+        v22 = *(v15 + 7);
+        if ((v22 & 0x100000000) != 0)
+        {
+          sirinluexternal::MatchInfo::makeMaxStopWordCount(*(&v62 + 1));
+          v23 = *(*(&v62 + 1) + 80);
+          *(v23 + 12) |= 1u;
+          *(v23 + 8) = v22;
+        }
+
+        v24 = *(v15 + 9);
+        if ((v24 & 0x100000000) != 0)
+        {
+          sirinluexternal::MatchInfo::makeMatchedStopWordCount(*(&v62 + 1));
+          v25 = *(*(&v62 + 1) + 56);
+          *(v25 + 12) |= 1u;
+          *(v25 + 8) = v24;
+        }
+
+        v26 = *(v15 + 11);
+        if ((v26 & 0x100000000) != 0)
+        {
+          sirinluexternal::MatchInfo::makeEditDistance(*(&v62 + 1));
+          v27 = *(*(&v62 + 1) + 32);
+          *(v27 + 12) |= 1u;
+          *(v27 + 8) = v26;
+        }
+
+        v28 = *(v15 + 13);
+        if ((v28 & 0x100000000) != 0)
+        {
+          sirinluexternal::MatchInfo::makeMaxAliasCount(*(&v62 + 1));
+          v29 = *(*(&v62 + 1) + 72);
+          *(v29 + 12) |= 1u;
+          *(v29 + 8) = v28;
+        }
+
+        v30 = *(v15 + 15);
+        if ((v30 & 0x100000000) != 0)
+        {
+          sirinluexternal::MatchInfo::makeMatchedAliasCount(*(&v62 + 1));
+          v31 = *(*(&v62 + 1) + 48);
+          *(v31 + 12) |= 1u;
+          *(v31 + 8) = v30;
+        }
+
+        v32 = *(v15 + 5);
+        if ((v32 & 0x100000000) != 0)
+        {
+          sirinluexternal::MatchInfo::makeMatchedTokenCount(*(&v62 + 1));
+          v33 = *(*(&v62 + 1) + 64);
+          *(v33 + 12) |= 1u;
+          *(v33 + 8) = v32;
+        }
+
+        v34 = *(v15 + 9);
+        v35 = *(v15 + 10);
+        while (v34 != v35)
+        {
+          v36 = *v34;
+          v37 = *(&v62 + 1);
+          v39 = *(*(&v62 + 1) + 16);
+          v38 = *(*(&v62 + 1) + 24);
+          if (v39 >= v38)
+          {
+            v41 = *(*(&v62 + 1) + 8);
+            v42 = v39 - v41;
+            v43 = (v39 - v41) >> 2;
+            v44 = v43 + 1;
+            if ((v43 + 1) >> 62)
+            {
+              std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
+            }
+
+            v45 = v38 - v41;
+            if (v45 >> 1 > v44)
+            {
+              v44 = v45 >> 1;
+            }
+
+            if (v45 >= 0x7FFFFFFFFFFFFFFCLL)
+            {
+              v46 = 0x3FFFFFFFFFFFFFFFLL;
+            }
+
+            else
+            {
+              v46 = v44;
+            }
+
+            if (v46)
+            {
+              std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(v46);
+            }
+
+            v47 = (v39 - v41) >> 2;
+            v48 = (4 * v43);
+            v49 = (4 * v43 - 4 * v47);
+            *v48 = v36;
+            v40 = v48 + 1;
+            memcpy(v49, v41, v42);
+            v50 = v37[1];
+            v37[1] = v49;
+            v37[2] = v40;
+            v37[3] = 0;
+            if (v50)
+            {
+              operator delete(v50);
+            }
+          }
+
+          else
+          {
+            *v39 = v36;
+            v40 = v39 + 4;
+          }
+
+          v37[2] = v40;
+          ++v34;
+        }
+      }
+
+      siri::ontology::UsoEntitySpan::getAlternatives(&v53, *v52);
+      if (v53 != v54)
+      {
+        v56 = &unk_1F4877890;
+        v57 = 0;
+        v58 = 0;
+        operator new();
+      }
+
+      if (v53)
+      {
+        *&v54 = v53;
+        operator delete(v53);
+      }
+
+      siri::ontology::UsoEntitySpan::getSpanProperties(&v56, *v52);
+      if (v56 != v57)
+      {
+        v53 = &unk_1F4877070;
+        v54 = 0u;
+        v55 = 0u;
+        operator new();
+      }
+
+      if (v56)
+      {
+        v57 = v56;
+        operator delete(v56);
+      }
+
+      operator new();
+    }
+
+    if (v68)
+    {
+      v69 = v68;
+      operator delete(v68);
+    }
+  }
+}
+
+void sub_1C8AF4BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  sirinluexternal::UsoEntitySpan::~UsoEntitySpan(va);
+  v27 = *(v25 - 168);
+  if (v27)
+  {
+    *(v25 - 160) = v27;
+    operator delete(v27);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void siri::ontology::setNodeMessage(void *a1, uint64_t a2, unint64_t *a3, int a4)
+{
+  v8 = (*(*a3 + 16))(a3);
+  if (v8 <= 2)
+  {
+    switch(v8)
+    {
+      case 0:
+        goto LABEL_5;
+      case 1:
+        if (v16)
+        {
+          v17 = v16;
+          v18 = *(v16[3] + 36);
+          *(a2 + 76) |= 1u;
+          *(a2 + 72) = v18;
+          if (!v18)
+          {
+            v19 = v16[3];
+            siricommon::StringValue::makeValue(a2);
+            std::string::operator=(*(a2 + 8), (v19 + 8));
+          }
+
+          sirinluexternal::UsoNode::makeUsoVerbElementId(a2);
+          v20 = *(v17[13] + 36);
+          v21 = *(a2 + 56);
+          *(v21 + 12) |= 1u;
+          *(v21 + 8) = v20;
+          if (!v20)
+          {
+            v22 = v17[13];
+            v23 = *(a2 + 64);
+            if (!v23)
+            {
+              operator new();
+            }
+
+            std::string::operator=(v23, (v22 + 8));
+          }
+
+          siri::ontology::setIdentifierMessage(a1, a3, a4);
+          goto LABEL_29;
+        }
+
+        goto LABEL_42;
+      case 2:
+LABEL_5:
+        if (v9)
+        {
+          v10 = *(v9[3] + 36);
+          *(a2 + 76) |= 1u;
+          *(a2 + 72) = v10;
+          if (!v10)
+          {
+            v11 = v9[3];
+            siricommon::StringValue::makeValue(a2);
+            std::string::operator=(*(a2 + 8), (v11 + 8));
+          }
+
+LABEL_28:
+          siri::ontology::setIdentifierMessage(a1, a3, a4);
+          siri::ontology::setUtteranceAlignmentMessageIfExists(a1, a3, a4);
+LABEL_29:
+
+          siri::ontology::setEntitySpanMessage(a1, a3, a4);
+          return;
+        }
+
+        goto LABEL_42;
+    }
+
+    goto LABEL_43;
+  }
+
+  switch(v8)
+  {
+    case 3:
+      if (!v29)
+      {
+        goto LABEL_42;
+      }
+
+      v30 = v29;
+      v31 = *(*(v29 + 3) + 36);
+      *(a2 + 76) |= 1u;
+      *(a2 + 72) = v31;
+      std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, (v29 + 104));
+      if (v41 == 1)
+      {
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p.__r_.__value_.__l.__data_);
+        }
+
+        sirinluexternal::UsoNode::makeStringPayload(a2);
+        v32 = *(a2 + 48);
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, (v30 + 104));
+        if ((v41 & 1) == 0)
+        {
+          std::__throw_bad_optional_access[abi:ne200100]();
+        }
+
+        siricommon::StringValue::makeValue(v32);
+        v33 = *(v32 + 1);
+        if (*(v33 + 23) < 0)
+        {
+          operator delete(*v33);
+        }
+
+        v34 = *&__p.__r_.__value_.__l.__data_;
+        *(v33 + 16) = *(&__p.__r_.__value_.__l + 2);
+        *v33 = v34;
+      }
+
+      siri::ontology::setIdentifierMessage(a1, a3, a4);
+      siri::ontology::setUtteranceAlignmentMessageIfExists(a1, a3, a4);
+      siri::ontology::setEntitySpanMessage(a1, a3, a4);
+      break;
+    case 4:
+      if (v24)
+      {
+        v25 = v24;
+        v26 = *(v24[3] + 36);
+        *(a2 + 76) |= 1u;
+        *(a2 + 72) = v26;
+        if (v24[14])
+        {
+          sirinluexternal::UsoNode::makeIntegerPayload(a2);
+          if ((v25[14] & 1) == 0)
+          {
+            std::__throw_bad_optional_access[abi:ne200100]();
+          }
+
+          v27 = v25[13];
+          v28 = *(a2 + 16);
+          *(v28 + 16) |= 1u;
+          *(v28 + 8) = v27;
+        }
+
+        goto LABEL_28;
+      }
+
+LABEL_42:
+      __cxa_bad_cast();
+    case 5:
+      if (!v12)
+      {
+        goto LABEL_42;
+      }
+
+      v13 = *(v12[3] + 36);
+      *(a2 + 76) |= 1u;
+      *(a2 + 72) = v13;
+      if (!v13)
+      {
+        v14 = v12[3];
+        siricommon::StringValue::makeValue(a2);
+        v15 = *(a2 + 8);
+
+        std::string::operator=(v15, (v14 + 8));
+      }
+
+      break;
+    default:
+LABEL_43:
+      std::string::basic_string[abi:ne200100]<0>(&__p, "UsoGraphProtoWriterException");
+      std::to_string(&v37, a3[2]);
+      v35 = std::string::insert(&v37, 0, "Unknown UsoGraphNode, vertex: ");
+      v36 = *&v35->__r_.__value_.__l.__data_;
+      v39 = v35->__r_.__value_.__r.__words[2];
+      v38 = v36;
+      v35->__r_.__value_.__l.__size_ = 0;
+      v35->__r_.__value_.__r.__words[2] = 0;
+      v35->__r_.__value_.__r.__words[0] = 0;
+      siri::ontology::throwException<siri::ontology::UsoGraphProtoWriterException,char const*,int,char const*,std::string>(&__p, &v38);
+  }
+}
+
+void sub_1C8AF52DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a15 < 0)
+  {
+    operator delete(a10);
+  }
+
+  if (a28 < 0)
+  {
+    operator delete(a23);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
+{
+  v4 = strlen(__s);
+  if (v4 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v5 = v4;
+  if (v4 >= 0x17)
+  {
+    operator new();
+  }
+
+  *(a1 + 23) = v4;
+  if (v4)
+  {
+    memmove(a1, __s, v4);
+  }
+
+  *(a1 + v5) = 0;
+  return a1;
+}
+
+void siri::ontology::throwException<siri::ontology::UsoGraphProtoWriterException,char const*,int,char const*,std::string>(uint64_t a1, uint64_t a2)
+{
+  exception = __cxa_allocate_exception(0x70uLL);
+  std::string::basic_string[abi:ne200100]<0>(v4, "/Library/Caches/com.apple.xbs/Sources/SiriNLUTypes/serializers/SiriOntology/cpp/UsoGraphProtoWriter.cpp");
+  std::string::basic_string[abi:ne200100]<0>(v3, "setNodeMessage");
+  siri::ontology::OntologyBaseException::OntologyBaseException();
+  *exception = &unk_1F4876A58;
+}
+
+void sub_1C8AF54A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a20 < 0)
+  {
+    operator delete(a15);
+    if ((v21 & 1) == 0)
+    {
+LABEL_8:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v21)
+  {
+    goto LABEL_8;
+  }
+
+  __cxa_free_exception(v20);
+  goto LABEL_8;
+}
+
+void siri::ontology::OntologyBaseException::~OntologyBaseException(std::exception *this)
+{
+  this->__vftable = &unk_1F4878870;
+  if (SHIBYTE(this[13].__vftable) < 0)
+  {
+    operator delete(this[11].__vftable);
+  }
+
+  if (SHIBYTE(this[10].__vftable) < 0)
+  {
+    operator delete(this[8].__vftable);
+  }
+
+  if (SHIBYTE(this[6].__vftable) < 0)
+  {
+    operator delete(this[4].__vftable);
+  }
+
+  if (SHIBYTE(this[3].__vftable) < 0)
+  {
+    operator delete(this[1].__vftable);
+  }
+
+  std::exception::~exception(this);
+}
+
+{
+  siri::ontology::OntologyBaseException::~OntologyBaseException(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+uint64_t siri::ontology::OntologyBaseException::what(siri::ontology::OntologyBaseException *this)
+{
+  result = this + 88;
+  if (*(this + 111) < 0)
+  {
+    return *result;
+  }
+
+  return result;
+}
+
+void siri::ontology::UsoGraphProtoWriterException::~UsoGraphProtoWriterException(std::exception *this)
+{
+  siri::ontology::OntologyBaseException::~OntologyBaseException(this);
+
+  JUMPOUT(0x1CCA7EC50);
+}
+
+void siri::ontology::UsoGraphProtoWriter::toProtobuf(siri::ontology::UsoGraphProtoWriter *this, const sirinluexternal::SemVer **a2, sirinluexternal::UsoGraph *a3)
+{
+  v41 = &unk_1F4879278;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  sirinluexternal::UsoGraph::makeVersion(&v41);
+  v5 = *(&v49 + 1);
+  v6 = *(this + 2);
+  *(*(&v49 + 1) + 20) |= 1u;
+  *(v5 + 8) = v6;
+  v7 = *(&v49 + 1);
+  v8 = *(this + 3);
+  *(*(&v49 + 1) + 20) |= 2u;
+  *(v7 + 12) = v8;
+  v9 = *(&v49 + 1);
+  v10 = *(this + 4);
+  *(*(&v49 + 1) + 20) |= 4u;
+  *(v9 + 16) = v10;
+  *__p = 0u;
+  v39 = 0u;
+  v40 = 1065353216;
+  siri::ontology::UsoGraph::getNodes(&v36, this);
+  if (v36 != v37)
+  {
+    v11 = *v36;
+    v30 = &unk_1F4878010;
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0;
+    siri::ontology::setNodeMessage(&v41, &v30, v11, 0);
+    v12 = v11[2];
+    if (__p[1])
+    {
+      v13 = vcnt_s8(__p[1]);
+      v13.i16[0] = vaddlv_u8(v13);
+      if (v13.u32[0] > 1uLL)
+      {
+        v14 = v11[2];
+        if (v12 >= __p[1])
+        {
+          v14 = v12 % __p[1];
+        }
+      }
+
+      else
+      {
+        v14 = (__p[1] - 1) & v12;
+      }
+
+      v15 = *(__p[0] + v14);
+      if (v15)
+      {
+        for (i = *v15; i; i = *i)
+        {
+          v17 = i[1];
+          if (v17 == v12)
+          {
+            if (i[2] == v12)
+            {
+              operator new();
+            }
+          }
+
+          else
+          {
+            if (v13.u32[0] > 1uLL)
+            {
+              if (v17 >= __p[1])
+              {
+                v17 %= __p[1];
+              }
+            }
+
+            else
+            {
+              v17 &= __p[1] - 1;
+            }
+
+            if (v17 != v14)
+            {
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    operator new();
+  }
+
+  if (v36)
+  {
+    v37 = v36;
+    operator delete(v36);
+  }
+
+  siri::ontology::UsoGraph::getEdges(&v36, this);
+  if (v36 != v37)
+  {
+    v18 = *v36;
+    v19 = __p[0];
+    v20 = __p[1];
+    v21 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::find<unsigned long long>(__p[0], __p[1], **v36);
+    if (v21)
+    {
+      v22 = v21;
+      v23 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::find<unsigned long long>(v19, v20, v18[1]);
+      if (v23)
+      {
+        v50 = &unk_1F48769F0;
+        LODWORD(v53) = 0;
+        v51 = 0;
+        v52 = 0;
+        v24 = v22[3];
+        LOBYTE(v53) = 1;
+        v25 = v23[3];
+        LOBYTE(v53) = 3;
+        v52 = __PAIR64__(v25, v24);
+        sirinluexternal::UsoEdge::makeLabel(&v50);
+        v26 = *(v18 + 15);
+        v27 = v51;
+        v28 = *(v18 + 4);
+        *(v51 + 24) |= 3u;
+        *(v27 + 16) = v28;
+        *(v27 + 20) = v26;
+        if (!v26)
+        {
+          sirinluexternal::UsoEdgeLabel::makeBaseEdgeLabel(v27);
+          v29 = *(*(v51 + 8) + 8);
+          if (!v29)
+          {
+            operator new();
+          }
+
+          std::string::operator=(v29, (v18 + 4));
+        }
+
+        operator new();
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(&v30, "UsoGraphProtoWriterException");
+      siri::ontology::throwException<siri::ontology::UsoGraphProtoWriterException,char const*,int,char const*,char const*>(&v30, 373, "Unknown toNode edge");
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(&v30, "UsoGraphProtoWriterException");
+    siri::ontology::throwException<siri::ontology::UsoGraphProtoWriterException,char const*,int,char const*,char const*>(&v30, 369, "Unknown fromNode edge");
+  }
+
+  if (v36)
+  {
+    v37 = v36;
+    operator delete(v36);
+  }
+
+  sirinluexternal::UsoGraph::operator=(a2, &v41);
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::~__hash_table(__p);
+  sirinluexternal::UsoGraph::~UsoGraph(&v41);
+}
+
+void sub_1C8AF5EF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+{
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::~__hash_table(&a28);
+  sirinluexternal::UsoGraph::~UsoGraph(&a34);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::~__hash_table(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    do
+    {
+      v3 = *v2;
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+
+  v4 = *a1;
+  *a1 = 0;
+  if (v4)
+  {
+    operator delete(v4);
+  }
+
+  return a1;
+}
+
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::find<unsigned long long>(uint64_t a1, unint64_t a2, unint64_t a3)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v3 = vcnt_s8(a2);
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
+  {
+    v4 = a3;
+    if (a3 >= a2)
+    {
+      v4 = a3 % a2;
+    }
+  }
+
+  else
+  {
+    v4 = (a2 - 1) & a3;
+  }
+
+  v5 = *(a1 + 8 * v4);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  for (result = *v5; result; result = *result)
+  {
+    v7 = result[1];
+    if (v7 == a3)
+    {
+      if (result[2] == a3)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= a2)
+        {
+          v7 %= a2;
+        }
+      }
+
+      else
+      {
+        v7 &= a2 - 1;
+      }
+
+      if (v7 != v4)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+void siri::ontology::throwException<siri::ontology::UsoGraphProtoWriterException,char const*,int,char const*,char const*>(uint64_t a1, uint64_t a2, char *a3)
+{
+  exception = __cxa_allocate_exception(0x70uLL);
+  std::string::basic_string[abi:ne200100]<0>(v7, "/Library/Caches/com.apple.xbs/Sources/SiriNLUTypes/serializers/SiriOntology/cpp/UsoGraphProtoWriter.cpp");
+  std::string::basic_string[abi:ne200100]<0>(v6, "toProtobuf");
+  std::string::basic_string[abi:ne200100]<0>(v5, a3);
+  siri::ontology::OntologyBaseException::OntologyBaseException();
+  *exception = &unk_1F4876A58;
+}
+
+void sub_1C8AF61B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  if (a27 < 0)
+  {
+    operator delete(a22);
+    if ((v28 & 1) == 0)
+    {
+LABEL_10:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v28)
+  {
+    goto LABEL_10;
+  }
+
+  __cxa_free_exception(v27);
+  goto LABEL_10;
+}
+
+void siri::ontology::UsoGraphProtoWriter::toProtobuf()
+{
+  operator new();
+}
+
+{
+  operator new();
+}
+
+void sub_1C8AF62C4(_Unwind_Exception *a1)
+{
+  *v1 = 0;
+  (*(*v2 + 8))(v2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8AF6394(_Unwind_Exception *a1)
+{
+  *v1 = 0;
+  (*(*v2 + 8))(v2);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8AF6F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, uint64_t a14)
+{
+  if (a9)
+  {
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&a10);
+
+  std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&a11);
+  if (a13)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a13);
+  }
+
+  v18 = a14;
+  a14 = 0;
+  if (v18)
+  {
+    (*(*v18 + 8))(v18);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sirinluexternalnlu_router::NLParseResponse::formatText(sirinluexternalnlu_router::NLParseResponse *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 1);
+  v6 = *(this + 2);
+  while (v5 != v6)
+  {
+    v7 = *v5++;
+    (*(*v7 + 32))(v7, a2, "user_parses");
+  }
+
+  return MEMORY[0x1EEE30A90](a2);
+}
+
+uint64_t sirinluexternalnlu_router::NLParseResponse::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v2 = *(this + 8);
+  for (i = *(this + 16); v2 != i; this = PB::Writer::writeSubmessage(a2, v5))
+  {
+    v5 = *v2++;
+  }
+
+  return this;
+}
+
+uint64_t sirinluexternalnlu_router::NLParseResponse::readFrom(sirinluexternalnlu_router::NLParseResponse *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v7 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        break;
+      }
+
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      v11 = (v7 + v2);
+      v12 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v12;
+        v13 = *v11++;
+        v10 |= (v13 & 0x7F) << v8;
+        if ((v13 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v8 += 7;
+        ++v12;
+        v14 = v9++ > 8;
+        if (v14)
+        {
+          goto LABEL_21;
+        }
+      }
+
+LABEL_18:
+      if ((v10 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_26;
+      }
+
+      if ((v10 >> 3) == 1)
+      {
+        PB::PtrVector<sirinluexternal::UserParse>::emplace_back<>(this + 8);
+      }
+
+LABEL_21:
+      if ((PB::Reader::skip(a2) & 1) == 0)
+      {
+        v22 = 0;
+        return v22 & 1;
+      }
+
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_26;
+      }
+    }
+
+    v15 = 0;
+    v16 = 0;
+    v10 = 0;
+    v17 = (v7 + v2);
+    v18 = v3 >= v2;
+    v19 = v3 - v2;
+    if (!v18)
+    {
+      v19 = 0;
+    }
+
+    v20 = v2 + 1;
+    while (v19)
+    {
+      v21 = *v17;
+      *(a2 + 1) = v20;
+      v10 |= (v21 & 0x7F) << v15;
+      if ((v21 & 0x80) == 0)
+      {
+        goto LABEL_18;
+      }
+
+      v15 += 7;
+      ++v17;
+      --v19;
+      ++v20;
+      v14 = v16++ > 8;
+      if (v14)
       {
         goto LABEL_21;
       }
@@ -1969,170 +9146,182 @@ LABEL_21:
   }
 
 LABEL_26:
-  v21 = v4 ^ 1;
-  return v21 & 1;
+  v22 = v4 ^ 1;
+  return v22 & 1;
 }
 
-void sirinluexternal::SystemOffered::~SystemOffered(sirinluexternal::SystemOffered *this)
+void sirinluexternalnlu_router::NLParseResponse::~NLParseResponse(sirinluexternalnlu_router::NLParseResponse *this)
 {
-  sirinluexternal::SystemOffered::~SystemOffered(this);
+  *this = &unk_1F4876A80;
+  v2 = (this + 8);
+  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v2);
+  PB::Base::~Base(this);
 
   JUMPOUT(0x1CCA7EC50);
 }
 
 {
-  v2 = *(this + 1);
-  *this = &unk_1F48762A0;
-  *(this + 1) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
+  *this = &unk_1F4876A80;
+  v2 = (this + 8);
+  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v2);
 
   PB::Base::~Base(this);
 }
 
-void *sirinluexternal::SystemOffered::SystemOffered(void *this)
 {
-  *this = &unk_1F48762A0;
+  *this = &unk_1F4876A80;
+  v2 = (this + 8);
+  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v2);
+
+  PB::Base::~Base(this);
+}
+
+void *sirinluexternalnlu_router::NLParseResponse::NLParseResponse(void *this)
+{
+  *this = &unk_1F4876A80;
   this[1] = 0;
+  this[2] = 0;
+  this[3] = 0;
   return this;
 }
 
 {
-  *this = &unk_1F48762A0;
+  *this = &unk_1F4876A80;
   this[1] = 0;
+  this[2] = 0;
+  this[3] = 0;
   return this;
 }
 
-void *sirinluexternal::SystemOffered::SystemOffered(void *this, const sirinluexternal::SystemOffered *a2)
+sirinluexternalnlu_router::NLParseResponse *sirinluexternalnlu_router::NLParseResponse::NLParseResponse(sirinluexternalnlu_router::NLParseResponse *this, const sirinluexternalnlu_router::NLParseResponse *a2)
 {
-  *this = &unk_1F48762A0;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *this = &unk_1F4876A80;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  v2 = *(a2 + 1);
+  if (v2 != *(a2 + 2))
   {
-    operator new();
+    PB::PtrVector<sirinluexternal::UserParse>::emplace_back<sirinluexternal::UserParse const&>(this + 8, *v2);
   }
 
   return this;
 }
 
-const sirinluexternal::SystemOffered *sirinluexternal::SystemOffered::operator=(const sirinluexternal::SystemOffered *a1, const sirinluexternal::SystemOffered *a2)
+uint64_t sirinluexternalnlu_router::NLParseResponse::operator=(uint64_t a1, const sirinluexternalnlu_router::NLParseResponse *a2)
 {
   if (a1 != a2)
   {
-    sirinluexternal::SystemOffered::SystemOffered(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
-    v6 = v3;
-    sirinluexternal::SystemOffered::~SystemOffered(&v5);
+    sirinluexternalnlu_router::NLParseResponse::NLParseResponse(&v6, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v7;
+    v7 = v3;
+    v4 = *(a1 + 24);
+    *(a1 + 24) = v8;
+    v8 = v4;
+    v6 = &unk_1F4876A80;
+    v9 = &v7;
+    std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v9);
+    PB::Base::~Base(&v6);
   }
 
   return a1;
 }
 
-uint64_t sirinluexternal::swap(uint64_t this, sirinluexternal::SystemOffered *a2, sirinluexternal::SystemOffered *a3)
+void *sirinluexternalnlu_router::swap(void *this, sirinluexternalnlu_router::NLParseResponse *a2, sirinluexternalnlu_router::NLParseResponse *a3)
 {
-  v3 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
+  v3 = this[1];
+  this[1] = *(a2 + 1);
   *(a2 + 1) = v3;
+  v4 = this[2];
+  this[2] = *(a2 + 2);
+  *(a2 + 2) = v4;
+  v5 = this[3];
+  this[3] = *(a2 + 3);
+  *(a2 + 3) = v5;
   return this;
 }
 
-void *sirinluexternal::SystemOffered::SystemOffered(void *a1, uint64_t a2)
+uint64_t sirinluexternalnlu_router::NLParseResponse::NLParseResponse(uint64_t a1, uint64_t a2)
 {
-  *a1 = &unk_1F48762A0;
-  a1[1] = 0;
-  v3 = *(a2 + 8);
+  *a1 = &unk_1F4876A80;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__vdeallocate((a1 + 8));
+  *v4 = *(a2 + 8);
+  *(a1 + 24) = *(a2 + 24);
   *(a2 + 8) = 0;
-  v4 = a1[1];
-  a1[1] = v3;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
   return a1;
 }
 
 {
-  *a1 = &unk_1F48762A0;
-  a1[1] = 0;
-  v3 = *(a2 + 8);
+  *a1 = &unk_1F4876A80;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__vdeallocate((a1 + 8));
+  *v4 = *(a2 + 8);
+  *(a1 + 24) = *(a2 + 24);
   *(a2 + 8) = 0;
-  v4 = a1[1];
-  a1[1] = v3;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
   return a1;
 }
 
-uint64_t sirinluexternal::SystemOffered::operator=(uint64_t a1, uint64_t a2)
+uint64_t sirinluexternalnlu_router::NLParseResponse::operator=(uint64_t a1, uint64_t a2)
 {
   if (a1 != a2)
   {
-    v3 = *(a2 + 8);
+    v9 = &unk_1F4876A80;
+    v10 = 0uLL;
+    v11 = 0;
+    std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__vdeallocate(&v10);
+    v4 = *(a2 + 24);
+    v5 = *(a2 + 8);
+    *(a2 + 16) = 0;
+    *(a2 + 24) = 0;
     *(a2 + 8) = 0;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v3;
-    v6[0] = &unk_1F48762A0;
-    v6[1] = v4;
-    sirinluexternal::SystemOffered::~SystemOffered(v6);
+    v6 = *(a1 + 8);
+    *(a1 + 8) = v5;
+    v10 = v6;
+    v7 = *(a1 + 24);
+    *(a1 + 24) = v4;
+    v11 = v7;
+    v12 = &v10;
+    v9 = &unk_1F4876A80;
+    std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v12);
+    PB::Base::~Base(&v9);
   }
 
   return a1;
 }
 
-BOOL sirinluexternal::SystemOffered::operator==(uint64_t a1, uint64_t a2)
+uint64_t sirinluexternalnlu_router::NLParseResponse::hash_value(sirinluexternalnlu_router::NLParseResponse *this)
 {
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  if (v2)
+  v1 = *(this + 1);
+  v2 = *(this + 2);
+  if (v1 == v2)
   {
-    v4 = v3 == 0;
+    return 0;
   }
 
-  else
+  v3 = 0;
+  do
   {
-    v4 = 1;
+    v4 = *v1++;
+    v3 ^= sirinluexternal::UserParse::hash_value(v4);
   }
 
-  if (v4)
-  {
-    return (v2 | v3) == 0;
-  }
-
-  else
-  {
-    return sirinluexternal::UserDialogAct::operator==(v2, v3);
-  }
+  while (v1 != v2);
+  return v3;
 }
 
-sirinluexternal::UserDialogAct *sirinluexternal::SystemOffered::hash_value(sirinluexternal::SystemOffered *this)
-{
-  result = *(this + 1);
-  if (result)
-  {
-    return sirinluexternal::UserDialogAct::hash_value(result);
-  }
-
-  return result;
-}
-
-uint64_t sirinluexternal::SystemOffered::makeOfferedAct(uint64_t this)
-{
-  if (!*(this + 8))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::UsoLabel::formatText(sirinluexternal::UsoLabel *this, PB::TextFormatter *a2, const char *a3)
+uint64_t sirinluexternalnlu_router::App::formatText(sirinluexternalnlu_router::App *this, PB::TextFormatter *a2, const char *a3)
 {
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 1))
@@ -2143,7 +9332,7 @@ uint64_t sirinluexternal::UsoLabel::formatText(sirinluexternal::UsoLabel *this, 
   return MEMORY[0x1EEE30A90](a2);
 }
 
-uint64_t sirinluexternal::UsoLabel::writeTo(uint64_t this, PB::Writer *a2)
+uint64_t sirinluexternalnlu_router::App::writeTo(uint64_t this, PB::Writer *a2)
 {
   if (*(this + 8))
   {
@@ -2153,7 +9342,7 @@ uint64_t sirinluexternal::UsoLabel::writeTo(uint64_t this, PB::Writer *a2)
   return this;
 }
 
-uint64_t sirinluexternal::UsoLabel::readFrom(sirinluexternal::UsoLabel *this, PB::Reader *a2)
+uint64_t sirinluexternalnlu_router::App::readFrom(sirinluexternalnlu_router::App *this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -2262,16 +9451,16 @@ LABEL_26:
   return v21 & 1;
 }
 
-void sirinluexternal::UsoLabel::~UsoLabel(sirinluexternal::UsoLabel *this)
+void sirinluexternalnlu_router::App::~App(sirinluexternalnlu_router::App *this)
 {
-  sirinluexternal::UsoLabel::~UsoLabel(this);
+  sirinluexternalnlu_router::App::~App(this);
 
   JUMPOUT(0x1CCA7EC50);
 }
 
 {
   v2 = *(this + 1);
-  *this = &unk_1F48762F0;
+  *this = &unk_1F4876AD0;
   *(this + 1) = 0;
   if (v2)
   {
@@ -2281,23 +9470,23 @@ void sirinluexternal::UsoLabel::~UsoLabel(sirinluexternal::UsoLabel *this)
   PB::Base::~Base(this);
 }
 
-void *sirinluexternal::UsoLabel::UsoLabel(void *this)
+void *sirinluexternalnlu_router::App::App(void *this)
 {
-  *this = &unk_1F48762F0;
+  *this = &unk_1F4876AD0;
   this[1] = 0;
   return this;
 }
 
 {
-  *this = &unk_1F48762F0;
+  *this = &unk_1F4876AD0;
   this[1] = 0;
   return this;
 }
 
-void *sirinluexternal::UsoLabel::UsoLabel(void *this, const sirinluexternal::UsoLabel *a2)
+sirinluexternalnlu_router::App *sirinluexternalnlu_router::App::App(sirinluexternalnlu_router::App *this, const sirinluexternalnlu_router::App *a2)
 {
-  *this = &unk_1F48762F0;
-  this[1] = 0;
+  *this = &unk_1F4876AD0;
+  *(this + 1) = 0;
   if (*(a2 + 1))
   {
     operator new();
@@ -2306,21 +9495,21 @@ void *sirinluexternal::UsoLabel::UsoLabel(void *this, const sirinluexternal::Uso
   return this;
 }
 
-const sirinluexternal::UsoLabel *sirinluexternal::UsoLabel::operator=(const sirinluexternal::UsoLabel *a1, const sirinluexternal::UsoLabel *a2)
+const sirinluexternalnlu_router::App *sirinluexternalnlu_router::App::operator=(const sirinluexternalnlu_router::App *a1, const sirinluexternalnlu_router::App *a2)
 {
   if (a1 != a2)
   {
-    sirinluexternal::UsoLabel::UsoLabel(&v5, a2);
+    sirinluexternalnlu_router::App::App(&v5, a2);
     v3 = *(a1 + 1);
     *(a1 + 1) = v6;
     v6 = v3;
-    sirinluexternal::UsoLabel::~UsoLabel(&v5);
+    sirinluexternalnlu_router::App::~App(&v5);
   }
 
   return a1;
 }
 
-uint64_t sirinluexternal::swap(uint64_t this, sirinluexternal::UsoLabel *a2, sirinluexternal::UsoLabel *a3)
+uint64_t sirinluexternalnlu_router::swap(uint64_t this, sirinluexternalnlu_router::App *a2, sirinluexternalnlu_router::App *a3)
 {
   v3 = *(this + 8);
   *(this + 8) = *(a2 + 1);
@@ -2328,9 +9517,9 @@ uint64_t sirinluexternal::swap(uint64_t this, sirinluexternal::UsoLabel *a2, sir
   return this;
 }
 
-void *sirinluexternal::UsoLabel::UsoLabel(void *a1, uint64_t a2)
+void *sirinluexternalnlu_router::App::App(void *a1, uint64_t a2)
 {
-  *a1 = &unk_1F48762F0;
+  *a1 = &unk_1F4876AD0;
   a1[1] = 0;
   v3 = *(a2 + 8);
   *(a2 + 8) = 0;
@@ -2345,7 +9534,7 @@ void *sirinluexternal::UsoLabel::UsoLabel(void *a1, uint64_t a2)
 }
 
 {
-  *a1 = &unk_1F48762F0;
+  *a1 = &unk_1F4876AD0;
   a1[1] = 0;
   v3 = *(a2 + 8);
   *(a2 + 8) = 0;
@@ -2359,7 +9548,7 @@ void *sirinluexternal::UsoLabel::UsoLabel(void *a1, uint64_t a2)
   return a1;
 }
 
-uint64_t sirinluexternal::UsoLabel::operator=(uint64_t a1, uint64_t a2)
+uint64_t sirinluexternalnlu_router::App::operator=(uint64_t a1, uint64_t a2)
 {
   if (a1 != a2)
   {
@@ -2367,15 +9556,15 @@ uint64_t sirinluexternal::UsoLabel::operator=(uint64_t a1, uint64_t a2)
     *(a2 + 8) = 0;
     v4 = *(a1 + 8);
     *(a1 + 8) = v3;
-    v6[0] = &unk_1F48762F0;
+    v6[0] = &unk_1F4876AD0;
     v6[1] = v4;
-    sirinluexternal::UsoLabel::~UsoLabel(v6);
+    sirinluexternalnlu_router::App::~App(v6);
   }
 
   return a1;
 }
 
-BOOL sirinluexternal::UsoLabel::operator==(uint64_t a1, uint64_t a2)
+BOOL sirinluexternalnlu_router::App::operator==(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a2 + 8);
@@ -2419,7 +9608,7 @@ BOOL sirinluexternal::UsoLabel::operator==(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unint64_t sirinluexternal::UsoLabel::hash_value(sirinluexternal::UsoLabel *this)
+unint64_t sirinluexternalnlu_router::App::hash_value(sirinluexternalnlu_router::App *this)
 {
   result = *(this + 1);
   if (result)
@@ -2430,6126 +9619,29 @@ unint64_t sirinluexternal::UsoLabel::hash_value(sirinluexternal::UsoLabel *this)
   return result;
 }
 
-uint64_t SIRINLUEXTERNALSystemReportedSuccessReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v16) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v16 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v16 & 0x7F) << v5;
-        if ((v16 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = objc_alloc_init(SIRINLUEXTERNALUUID);
-        objc_storeStrong((a1 + 16), v13);
-        v16 = 0;
-        v17 = 0;
-        if (!PBReaderPlaceMark() || !SIRINLUEXTERNALUUIDReadFrom(v13, a2))
-        {
-          goto LABEL_28;
-        }
-
-LABEL_24:
-        PBReaderRecallMark();
-
-        goto LABEL_26;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_26:
-      v14 = [a2 position];
-      if (v14 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v13 = objc_alloc_init(SIRINLUEXTERNALUsoGraph);
-    objc_storeStrong((a1 + 8), v13);
-    v16 = 0;
-    v17 = 0;
-    if (!PBReaderPlaceMark() || !SIRINLUEXTERNALUsoGraphReadFrom(&v13->super.super.isa, a2))
-    {
-LABEL_28:
-
-      return 0;
-    }
-
-    goto LABEL_24;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t SIRINLUINTERNALMENTION_RESOLVERMentionResolverRequestReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 >= [a2 length])
-  {
-    return [a2 hasError] ^ 1;
-  }
-
-  while (2)
-  {
-    if ([a2 hasError])
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
-    while (1)
-    {
-      LOBYTE(v34) = 0;
-      v8 = [a2 position] + 1;
-      if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-      {
-        v10 = [a2 data];
-        [v10 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      v7 |= (v34 & 0x7F) << v5;
-      if ((v34 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v5 += 7;
-      v11 = v6++ >= 9;
-      if (v11)
-      {
-        v12 = 0;
-        goto LABEL_15;
-      }
-    }
-
-    v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-    if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    switch((v12 >> 3))
-    {
-      case 1u:
-        v13 = objc_alloc_init(SIRINLUEXTERNALUUID);
-        v14 = 80;
-        goto LABEL_35;
-      case 2u:
-        v13 = objc_alloc_init(SIRINLUEXTERNALUUID);
-        v14 = 72;
-LABEL_35:
-        objc_storeStrong((a1 + v14), v13);
-        v34 = 0;
-        v35 = 0;
-        if (!PBReaderPlaceMark() || !SIRINLUEXTERNALUUIDReadFrom(v13, a2))
-        {
-          goto LABEL_76;
-        }
-
-        goto LABEL_45;
-      case 3u:
-        v15 = PBReaderReadString();
-        v16 = 88;
-        goto LABEL_29;
-      case 4u:
-        v15 = PBReaderReadString();
-        v16 = 104;
-LABEL_29:
-        v17 = *(a1 + v16);
-        *(a1 + v16) = v15;
-
-        goto LABEL_46;
-      case 5u:
-        v13 = objc_alloc_init(SIRINLUINTERNALTokenChain);
-        objc_storeStrong((a1 + 96), v13);
-        v34 = 0;
-        v35 = 0;
-        if (!PBReaderPlaceMark() || !SIRINLUINTERNALTokenChainReadFrom(v13, a2))
-        {
-          goto LABEL_76;
-        }
-
-        goto LABEL_45;
-      case 6u:
-        v13 = objc_alloc_init(SIRINLUINTERNALNLv4EmbeddingTensor);
-        objc_storeStrong((a1 + 48), v13);
-        v34 = 0;
-        v35 = 0;
-        if (!PBReaderPlaceMark() || !SIRINLUINTERNALNLv4EmbeddingTensorReadFrom(v13, a2))
-        {
-          goto LABEL_76;
-        }
-
-        goto LABEL_45;
-      case 7u:
-        v13 = objc_alloc_init(SIRINLUEXTERNALEntityCandidate);
-        [a1 addEntityCandidates:v13];
-        v34 = 0;
-        v35 = 0;
-        if (PBReaderPlaceMark() && SIRINLUEXTERNALEntityCandidateReadFrom(&v13->super.super.isa, a2))
-        {
-          goto LABEL_45;
-        }
-
-        goto LABEL_76;
-      case 8u:
-        v13 = objc_alloc_init(SIRINLUINTERNALMatchingSpan);
-        [a1 addDetectedMentions:v13];
-        goto LABEL_31;
-      case 9u:
-        v26 = 0;
-        v27 = 0;
-        v28 = 0;
-        *(a1 + 112) |= 1u;
-        while (1)
-        {
-          LOBYTE(v34) = 0;
-          v29 = [a2 position] + 1;
-          if (v29 >= [a2 position] && (v30 = objc_msgSend(a2, "position") + 1, v30 <= objc_msgSend(a2, "length")))
-          {
-            v31 = [a2 data];
-            [v31 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v28 |= (v34 & 0x7F) << v26;
-          if ((v34 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v26 += 7;
-          v11 = v27++ >= 9;
-          if (v11)
-          {
-            v25 = 0;
-            goto LABEL_73;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v25 = 0;
-        }
-
-        else
-        {
-          v25 = v28;
-        }
-
-LABEL_73:
-        v32 = 8;
-        goto LABEL_74;
-      case 0xAu:
-        v13 = objc_alloc_init(SIRINLUINTERNALMatchingSpan);
-        [a1 addMatchingSpans:v13];
-        goto LABEL_31;
-      case 0xBu:
-        v19 = 0;
-        v20 = 0;
-        v21 = 0;
-        *(a1 + 112) |= 2u;
-        while (1)
-        {
-          LOBYTE(v34) = 0;
-          v22 = [a2 position] + 1;
-          if (v22 >= [a2 position] && (v23 = objc_msgSend(a2, "position") + 1, v23 <= objc_msgSend(a2, "length")))
-          {
-            v24 = [a2 data];
-            [v24 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v21 |= (v34 & 0x7F) << v19;
-          if ((v34 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v19 += 7;
-          v11 = v20++ >= 9;
-          if (v11)
-          {
-            v25 = 0;
-            goto LABEL_69;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v25 = 0;
-        }
-
-        else
-        {
-          v25 = v21;
-        }
-
-LABEL_69:
-        v32 = 16;
-LABEL_74:
-        *(a1 + v32) = v25;
-        goto LABEL_46;
-      case 0xCu:
-        v13 = objc_alloc_init(SIRINLUEXTERNALRequestID);
-        objc_storeStrong((a1 + 24), v13);
-        v34 = 0;
-        v35 = 0;
-        if (!PBReaderPlaceMark() || !SIRINLUEXTERNALRequestIDReadFrom(v13, a2))
-        {
-          goto LABEL_76;
-        }
-
-        goto LABEL_45;
-      case 0xDu:
-        v13 = objc_alloc_init(SIRINLUINTERNALMatchingSpan);
-        [a1 addContextualSpans:v13];
-LABEL_31:
-        v34 = 0;
-        v35 = 0;
-        if (PBReaderPlaceMark() && SIRINLUINTERNALMatchingSpanReadFrom(v13, a2))
-        {
-LABEL_45:
-          PBReaderRecallMark();
-
-LABEL_46:
-          v18 = [a2 position];
-          if (v18 >= [a2 length])
-          {
-            return [a2 hasError] ^ 1;
-          }
-
-          continue;
-        }
-
-LABEL_76:
-
-        return 0;
-      default:
-        if ((PBReaderSkipValueWithTag() & 1) == 0)
-        {
-          return 0;
-        }
-
-        goto LABEL_46;
-    }
-  }
-}
-
-uint64_t sirinluinternalplan_generation::VariableEventIdPair::formatText(sirinluinternalplan_generation::VariableEventIdPair *this, PB::TextFormatter *a2, const char *a3)
+uint64_t sirinluexternalnlu_router::RetrievedContext::formatText(sirinluexternalnlu_router::RetrievedContext *this, PB::TextFormatter *a2, const char *a3)
 {
   PB::TextFormatter::beginObject(a2, a3);
-  if (*(this + 1))
+  if (*(this + 20))
   {
-    PB::TextFormatter::format();
+    PB::TextFormatter::format(a2, "type");
   }
 
-  if (*(this + 2))
-  {
-    PB::TextFormatter::format();
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluinternalplan_generation::VariableEventIdPair::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v2 = this;
-  if (*(this + 16))
-  {
-    this = PB::Writer::write();
-  }
-
-  if (*(v2 + 8))
-  {
-
-    return PB::Writer::write();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalplan_generation::VariableEventIdPair::readFrom(sirinluinternalplan_generation::VariableEventIdPair *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v6 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = (v6 + v2);
-      v11 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v11;
-        v12 = *v10++;
-        v9 |= (v12 & 0x7F) << v7;
-        if ((v12 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v7 += 7;
-        ++v11;
-        v13 = v8++ > 8;
-        if (v13)
-        {
-          goto LABEL_22;
-        }
-      }
-
-LABEL_18:
-      if ((v9 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_28;
-      }
-
-      if ((v9 >> 3) == 2)
-      {
-        operator new();
-      }
-
-      if ((v9 >> 3) == 1)
-      {
-        operator new();
-      }
-
-LABEL_22:
-      if ((PB::Reader::skip(a2) & 1) == 0)
-      {
-        v21 = 0;
-        return v21 & 1;
-      }
-
-      v2 = *(a2 + 1);
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_28;
-      }
-    }
-
-    v14 = 0;
-    v15 = 0;
-    v9 = 0;
-    v16 = (v6 + v2);
-    v17 = v3 >= v2;
-    v18 = v3 - v2;
-    if (!v17)
-    {
-      v18 = 0;
-    }
-
-    v19 = v2 + 1;
-    while (v18)
-    {
-      v20 = *v16;
-      *(a2 + 1) = v19;
-      v9 |= (v20 & 0x7F) << v14;
-      if ((v20 & 0x80) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      v14 += 7;
-      ++v16;
-      --v18;
-      ++v19;
-      v13 = v15++ > 8;
-      if (v13)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_28:
-  v21 = v4 ^ 1;
-  return v21 & 1;
-}
-
-void sirinluinternalplan_generation::VariableEventIdPair::~VariableEventIdPair(sirinluinternalplan_generation::VariableEventIdPair *this)
-{
-  sirinluinternalplan_generation::VariableEventIdPair::~VariableEventIdPair(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  *this = &unk_1F4876340;
-  v2 = *(this + 2);
-  *(this + 2) = 0;
-  if (v2)
-  {
-    std::default_delete<std::string>::operator()[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 1);
-  *(this + 1) = 0;
-  if (v3)
-  {
-    std::default_delete<std::string>::operator()[abi:ne200100](v3);
-  }
-
-  PB::Base::~Base(this);
-}
-
-void *sirinluinternalplan_generation::VariableEventIdPair::VariableEventIdPair(void *this)
-{
-  this[1] = 0;
-  this[2] = 0;
-  *this = &unk_1F4876340;
-  return this;
-}
-
-{
-  this[1] = 0;
-  this[2] = 0;
-  *this = &unk_1F4876340;
-  return this;
-}
-
-void *sirinluinternalplan_generation::VariableEventIdPair::VariableEventIdPair(void *this, const sirinluinternalplan_generation::VariableEventIdPair *a2)
-{
-  *this = &unk_1F4876340;
-  this[1] = 0;
-  this[2] = 0;
-  if (*(a2 + 2))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalplan_generation::VariableEventIdPair::operator=(uint64_t a1, const sirinluinternalplan_generation::VariableEventIdPair *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluinternalplan_generation::VariableEventIdPair::VariableEventIdPair(&v5, a2);
-    v3 = *(a1 + 8);
-    *(a1 + 8) = v6;
-    v6 = v3;
-    sirinluinternalplan_generation::VariableEventIdPair::~VariableEventIdPair(&v5);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluinternalplan_generation::swap(uint64_t this, sirinluinternalplan_generation::VariableEventIdPair *a2, sirinluinternalplan_generation::VariableEventIdPair *a3)
-{
-  v3 = *(this + 16);
-  *(this + 16) = *(a2 + 2);
-  *(a2 + 2) = v3;
-  v4 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
-  *(a2 + 1) = v4;
-  return this;
-}
-
-void *sirinluinternalplan_generation::VariableEventIdPair::VariableEventIdPair(void *a1, uint64_t a2)
-{
-  a1[1] = 0;
-  v4 = a1 + 1;
-  *a1 = &unk_1F4876340;
-  a1[2] = 0;
-  v5 = *(a2 + 16);
-  *(a2 + 16) = 0;
-  v6 = a1[2];
-  a1[2] = v5;
-  if (v6)
-  {
-    std::default_delete<std::string>::operator()[abi:ne200100](v6);
-  }
-
-  v7 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v8 = *v4;
-  *v4 = v7;
-  if (v8)
-  {
-    std::default_delete<std::string>::operator()[abi:ne200100](v8);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluinternalplan_generation::VariableEventIdPair::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    sirinluinternalplan_generation::VariableEventIdPair::VariableEventIdPair(&v5, a2);
-    v3 = *(a1 + 8);
-    *(a1 + 8) = v6;
-    v6 = v3;
-    sirinluinternalplan_generation::VariableEventIdPair::~VariableEventIdPair(&v5);
-  }
-
-  return a1;
-}
-
-BOOL sirinluinternalplan_generation::VariableEventIdPair::operator==(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 16);
-  v5 = *(a2 + 16);
-  if (!v4)
-  {
-    if (!v5)
-    {
-      goto LABEL_20;
-    }
-
-    return 0;
-  }
-
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v6 = *(v4 + 23);
-  if (v6 >= 0)
-  {
-    v7 = *(v4 + 23);
-  }
-
-  else
-  {
-    v7 = *(v4 + 8);
-  }
-
-  v8 = *(v5 + 23);
-  v9 = v8;
-  if ((v8 & 0x80u) != 0)
-  {
-    v8 = *(v5 + 8);
-  }
-
-  if (v7 != v8)
-  {
-    return 0;
-  }
-
-  v10 = v6 >= 0 ? *(a1 + 16) : *v4;
-  v11 = v9 >= 0 ? *(a2 + 16) : *v5;
-  if (memcmp(v10, v11, v7))
-  {
-    return 0;
-  }
-
-LABEL_20:
-  v13 = *(a1 + 8);
-  v14 = *(a2 + 8);
-  result = v14 == 0;
-  if (v13)
-  {
-    if (v14)
-    {
-      v15 = *(v13 + 23);
-      if (v15 >= 0)
-      {
-        v16 = *(v13 + 23);
-      }
-
-      else
-      {
-        v16 = *(v13 + 8);
-      }
-
-      v17 = *(v14 + 23);
-      v18 = v17;
-      if ((v17 & 0x80u) != 0)
-      {
-        v17 = *(v14 + 8);
-      }
-
-      if (v16 == v17)
-      {
-        v19 = v15 >= 0 ? *(a1 + 8) : *v13;
-        v20 = v18 >= 0 ? *(a2 + 8) : *v14;
-        if (!memcmp(v19, v20, v16))
-        {
-          return 1;
-        }
-      }
-    }
-
-    return 0;
-  }
-
-  return result;
-}
-
-unint64_t sirinluinternalplan_generation::VariableEventIdPair::hash_value(sirinluinternalplan_generation::VariableEventIdPair *this)
-{
-  v2 = *(this + 2);
-  if (v2)
-  {
-    v3 = std::__string_hash<char>::operator()[abi:ne200100](v2);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = *(this + 1);
-  if (v4)
-  {
-    v4 = std::__string_hash<char>::operator()[abi:ne200100](v4);
-  }
-
-  return v4 ^ v3;
-}
-
-uint64_t SIRINLUINTERNALQUERYREWRITEQRHypothesisReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v29[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v29 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v29[0] & 0x7F) << v5;
-        if ((v29[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 2)
-      {
-        break;
-      }
-
-      if (v13 != 1)
-      {
-        if (v13 == 2)
-        {
-          v14 = PBReaderReadString();
-          v15 = *(a1 + 32);
-          *(a1 + 32) = v14;
-
-          goto LABEL_46;
-        }
-
-        goto LABEL_32;
-      }
-
-      v23 = objc_alloc_init(SIRINLUEXTERNALUUID);
-      objc_storeStrong((a1 + 16), v23);
-      v29[0] = 0;
-      v29[1] = 0;
-      if (!PBReaderPlaceMark() || !SIRINLUEXTERNALUUIDReadFrom(v23, a2))
-      {
-
-        return 0;
-      }
-
-      PBReaderRecallMark();
-
-LABEL_46:
-      v27 = [a2 position];
-      if (v27 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    if (v13 == 3)
-    {
-      *(a1 + 40) |= 1u;
-      v29[0] = 0;
-      v24 = [a2 position] + 8;
-      if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 8, v25 <= objc_msgSend(a2, "length")))
-      {
-        v26 = [a2 data];
-        [v26 getBytes:v29 range:{objc_msgSend(a2, "position"), 8}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      *(a1 + 8) = v29[0];
-      goto LABEL_46;
-    }
-
-    if (v13 == 4)
-    {
-      v16 = 0;
-      v17 = 0;
-      v18 = 0;
-      *(a1 + 40) |= 2u;
-      while (1)
-      {
-        LOBYTE(v29[0]) = 0;
-        v19 = [a2 position] + 1;
-        if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
-        {
-          v21 = [a2 data];
-          [v21 getBytes:v29 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v18 |= (v29[0] & 0x7F) << v16;
-        if ((v29[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v16 += 7;
-        v11 = v17++ >= 9;
-        if (v11)
-        {
-          v22 = 0;
-          goto LABEL_43;
-        }
-      }
-
-      if ([a2 hasError])
-      {
-        v22 = 0;
-      }
-
-      else
-      {
-        v22 = v18;
-      }
-
-LABEL_43:
-      *(a1 + 24) = v22;
-      goto LABEL_46;
-    }
-
-LABEL_32:
-    if ((PBReaderSkipValueWithTag() & 1) == 0)
-    {
-      return 0;
-    }
-
-    goto LABEL_46;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_1C8AD0D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  MEMORY[0x1CCA7EC50](v7, 0x1030C40E9F947FBLL);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::Finish(apple::aiml::flatbuffers2::FlatBufferBuilder *this, unsigned int a2, const char *a3)
-{
-  apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested(this);
-  *(this + 7) = *(this + 5);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::PreAlign(this, 4, *(this + 9));
-  v5 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(this, a2);
-  result = apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<unsigned int>(this, v5);
-  *(this + 71) = 1;
-  return result;
-}
-
-double apple::aiml::flatbuffers2::FlatBufferBuilder::Release(apple::aiml::flatbuffers2::FlatBufferBuilder *this, uint64_t a2)
-{
-  if ((*(a2 + 71) & 1) == 0)
-  {
-    __assert_rtn("Finished", "flatbuffers.h", 1319, "finished");
-  }
-
-  v2 = *(a2 + 32);
-  v3 = *(a2 + 8);
-  v4 = *(a2 + 40);
-  v5 = *(a2 + 48);
-  *this = *a2;
-  *(this + 8) = v3;
-  *(this + 2) = v4;
-  *(this + 3) = v2;
-  *(this + 4) = v5;
-  *(this + 5) = (v2 + v4 - v5);
-  if (v3 == 1)
-  {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  result = 0.0;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  return result;
-}
-
-void apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(apple::aiml::flatbuffers2::FlatBufferBuilder *this)
-{
-  v2 = *(this + 11);
-  if (v2)
-  {
-    std::__tree<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>,apple::aiml::flatbuffers2::FlatBufferBuilder::StringOffsetCompare,std::allocator<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>>::destroy(*(v2 + 8));
-    MEMORY[0x1CCA7EC50](v2, 0x1060C40C2B13FB5);
-  }
-
-  v3 = *(this + 5);
-  if (v3)
-  {
-    if (*this)
-    {
-      v4 = *(this + 4);
-      (*(**this + 24))(*this);
-    }
-
-    else
-    {
-      MEMORY[0x1CCA7EC30](v3, 0x1000C8077774924);
-    }
-  }
-
-  *(this + 5) = 0;
-  if (*(this + 8) == 1 && *this)
-  {
-    (*(**this + 8))(*this);
-  }
-
-  *this = 0;
-  *(this + 8) = 0;
-}
-
-void std::__tree<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>,apple::aiml::flatbuffers2::FlatBufferBuilder::StringOffsetCompare,std::allocator<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>>::destroy(void *a1)
-{
-  if (a1)
-  {
-    std::__tree<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>,apple::aiml::flatbuffers2::FlatBufferBuilder::StringOffsetCompare,std::allocator<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>>::destroy(*a1);
-    std::__tree<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>,apple::aiml::flatbuffers2::FlatBufferBuilder::StringOffsetCompare,std::allocator<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>>::destroy(a1[1]);
-
-    operator delete(a1);
-  }
-}
-
-char *apple::aiml::flatbuffers2::Allocator::reallocate_downward(apple::aiml::flatbuffers2::Allocator *this, unsigned __int8 *a2, unint64_t a3, unint64_t a4, size_t a5, size_t a6)
-{
-  if (a4 <= a3)
-  {
-    __assert_rtn("reallocate_downward", "flatbuffers.h", 687, "new_size > old_size");
-  }
-
-  v12 = (*(*this + 16))(this, a4);
-  memcpy(&v12[a4 - a5], &a2[a3 - a5], a5);
-  memcpy(v12, a2, a6);
-  (*(*this + 24))(this, a2, a3);
-  return v12;
-}
-
-void apple::aiml::flatbuffers2::DefaultAllocator::deallocate(apple::aiml::flatbuffers2::DefaultAllocator *this, unsigned __int8 *a2)
-{
-  if (a2)
-  {
-    JUMPOUT(0x1CCA7EC30);
-  }
-}
-
-void apple::aiml::flatbuffers2::DetachedBuffer::~DetachedBuffer(apple::aiml::flatbuffers2::DetachedBuffer *this)
-{
-  v3 = (this + 16);
-  v2 = *(this + 2);
-  if (v2)
-  {
-    v4 = *this;
-    if (*this)
-    {
-      v5 = *(this + 3);
-      (*(*v4 + 24))(v4);
-    }
-
-    else
-    {
-      MEMORY[0x1CCA7EC30](v2, 0x1000C8077774924);
-    }
-  }
-
-  if (*(this + 8) == 1 && *this)
-  {
-    (*(**this + 8))(*this);
-  }
-
-  *this = 0;
-  *(this + 8) = 0;
-  *v3 = 0u;
-  v3[1] = 0u;
-}
-
-uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested(uint64_t this)
-{
-  if (*(this + 70) == 1)
-  {
-    __assert_rtn("NotNested", "flatbuffers.h", 1432, "!nested");
-  }
-
-  if (*(this + 64))
-  {
-    __assert_rtn("NotNested", "flatbuffers.h", 1434, "!num_field_loc");
-  }
-
-  return this;
-}
-
-unint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::PreAlign(apple::aiml::flatbuffers2::FlatBufferBuilder *this, uint64_t a2, unint64_t a3)
-{
-  if (*(this + 9) < a3)
-  {
-    *(this + 9) = a3;
-  }
-
-  return apple::aiml::flatbuffers2::vector_downward::fill(this, (a3 - 1) & (-a2 - (*(this + 8) - *(this + 12) + *(this + 10))));
-}
-
-unint64_t apple::aiml::flatbuffers2::vector_downward::ensure_space(apple::aiml::flatbuffers2::vector_downward *this, unint64_t a2)
-{
-  v2 = *(this + 6);
-  v3 = *(this + 7);
-  if (v2 < v3 || (v6 = *(this + 5), v7 = v3 - v6, v3 < v6))
-  {
-    __assert_rtn("ensure_space", "flatbuffers.h", 988, "cur_ >= scratch_ && scratch_ >= buf_");
-  }
-
-  v8 = *(this + 4);
-  if (&v2[-v3] < a2)
-  {
-    v9 = v8 - v2 + v6;
-    if (v8)
-    {
-      v10 = v8 >> 1;
-    }
-
-    else
-    {
-      v10 = *(this + 2);
-    }
-
-    if (v10 <= a2)
-    {
-      v10 = a2;
-    }
-
-    v11 = (*(this + 3) + v8 + v10 - 1) & -*(this + 3);
-    *(this + 4) = v11;
-    v12 = *this;
-    if (v6)
-    {
-      if (v12)
-      {
-        v13 = (*(*v12 + 32))(v12);
-      }
-
-      else
-      {
-        v15 = &unk_1F4878AC8;
-        v13 = apple::aiml::flatbuffers2::Allocator::reallocate_downward(&v15, v6, v8, v11, v9, v7);
-      }
-    }
-
-    else
-    {
-      if (!v12)
-      {
-        v15 = &unk_1F4878AC8;
-        operator new[]();
-      }
-
-      v13 = (*(*v12 + 16))(v12, v11);
-    }
-
-    LODWORD(v6) = v13;
-    v8 = *(this + 4);
-    v2 = &v13[v8 - v9];
-    *(this + 5) = v13;
-    *(this + 6) = v2;
-    *(this + 7) = &v13[v7];
-  }
-
-  if ((v8 - v2 + v6) >= 0x7FFFFFFF)
-  {
-    __assert_rtn("ensure_space", "flatbuffers.h", 992, "size() < FLATBUFFERS_MAX_BUFFER_SIZE");
-  }
-
-  return a2;
-}
-
-uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(apple::aiml::flatbuffers2::FlatBufferBuilder *this, unsigned int a2)
-{
-  apple::aiml::flatbuffers2::FlatBufferBuilder::Align(this, 4uLL);
-  if (!a2 || (v4 = *(this + 8) - *(this + 12) + *(this + 10), v5 = v4 >= a2, v6 = v4 - a2, !v5))
-  {
-    __assert_rtn("ReferTo", "flatbuffers.h", 1419, "off && off <= GetSize()");
-  }
-
-  return v6 + 4;
-}
-
-uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<unsigned int>(uint64_t a1, int a2)
-{
-  apple::aiml::flatbuffers2::FlatBufferBuilder::Align(a1, 4uLL);
-  apple::aiml::flatbuffers2::vector_downward::ensure_space(a1, 4uLL);
-  v4 = *(a1 + 48);
-  *(v4 - 4) = a2;
-  v4 -= 4;
-  *(a1 + 48) = v4;
-  return (*(a1 + 32) - v4 + *(a1 + 40));
-}
-
-unint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::Align(apple::aiml::flatbuffers2::FlatBufferBuilder *this, unint64_t a2)
-{
-  if (*(this + 9) < a2)
-  {
-    *(this + 9) = a2;
-  }
-
-  return apple::aiml::flatbuffers2::vector_downward::fill(this, (a2 - 1) & -(*(this + 8) - *(this + 12) + *(this + 10)));
-}
-
-unint64_t apple::aiml::flatbuffers2::vector_downward::fill(apple::aiml::flatbuffers2::vector_downward *this, unint64_t a2)
-{
-  result = apple::aiml::flatbuffers2::vector_downward::ensure_space(this, a2);
-  *(this + 6) -= a2;
-  if (a2)
-  {
-    v5 = 0;
-    do
-    {
-      *(*(this + 6) + v5++) = 0;
-    }
-
-    while (a2 != v5);
-  }
-
-  return result;
-}
-
-uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(apple::aiml::flatbuffers2::FlatBufferBuilder *this, const char *a2, unint64_t a3)
-{
-  apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested(this);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::PreAlign(this, a3 + 1, 4uLL);
-  apple::aiml::flatbuffers2::vector_downward::ensure_space(this, 1uLL);
-  v6 = (*(this + 6) - 1);
-  *(this + 6) = v6;
-  *v6 = 0;
-  if (a3)
-  {
-    apple::aiml::flatbuffers2::vector_downward::ensure_space(this, a3);
-    v7 = (*(this + 6) - a3);
-    *(this + 6) = v7;
-    memcpy(v7, a2, a3);
-  }
-
-  apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<unsigned int>(this, a3);
-  return (*(this + 8) - *(this + 12) + *(this + 10));
-}
-
-apple::aiml::flatbuffers2::FlatBufferBuilder *apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(apple::aiml::flatbuffers2::FlatBufferBuilder *result, uint64_t a2, uint64_t a3)
-{
-  if (a3)
-  {
-    v4 = result;
-    v5 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(result, a3);
-
-    return apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(v4, a2, v5, 0);
-  }
-
-  return result;
-}
-
-uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(apple::aiml::flatbuffers2::FlatBufferBuilder *this, int a2)
-{
-  if ((*(this + 70) & 1) == 0)
-  {
-    __assert_rtn("EndTable", "flatbuffers.h", 1450, "nested");
-  }
-
-  apple::aiml::flatbuffers2::FlatBufferBuilder::Align(this, 4uLL);
-  apple::aiml::flatbuffers2::vector_downward::ensure_space(this, 4uLL);
-  v4 = *(this + 6);
-  *(v4 - 4) = 0;
-  v4 -= 4;
-  *(this + 6) = v4;
-  v5 = *(this + 4) - v4 + *(this + 5);
-  if ((*(this + 34) + 2) <= 4u)
-  {
-    v6 = 4;
-  }
-
-  else
-  {
-    v6 = (*(this + 34) + 2);
-  }
-
-  *(this + 34) = v6;
-  apple::aiml::flatbuffers2::vector_downward::ensure_space(this, v6);
-  v7 = (*(this + 6) - v6);
-  *(this + 6) = v7;
-  bzero(v7, v6);
-  v8 = v5 - a2;
-  if ((v5 - a2) >= 0x10000)
-  {
-    __assert_rtn("EndTable", "flatbuffers.h", 1465, "table_object_size < 0x10000");
-  }
-
-  v9 = *(this + 6);
-  if (!v9)
-  {
-    __assert_rtn("data", "flatbuffers.h", 1016, "cur_");
-  }
-
-  v9[1] = v8;
-  *v9 = *(this + 34);
-  v10 = *(this + 7);
-  if (!v10)
-  {
-    __assert_rtn("scratch_end", "flatbuffers.h", 1026, "scratch_");
-  }
-
-  v11 = *(this + 16);
-  v12 = v10 - 8 * v11;
-  if (v11)
-  {
-    v13 = (v10 - 8 * v11);
-    do
-    {
-      v14 = *(v13 + 2);
-      if (*(v9 + v14))
-      {
-        __assert_rtn("EndTable", "flatbuffers.h", 1476, "!ReadScalar<voffset_t>(buf_.data() + field_location->id)");
-      }
-
-      v15 = *v13;
-      v13 += 2;
-      *(v9 + v14) = v5 - v15;
-    }
-
-    while (v13 < v10);
-  }
-
-  *(this + 7) = v12;
-  *(this + 16) = 0;
-  *(this + 34) = 0;
-  v17 = *(this + 4);
-  v16 = *(this + 5);
-  LODWORD(v18) = v17 - v9 + v16;
-  if (*(this + 81))
-  {
-    if (!v16)
-    {
-      __assert_rtn("scratch_data", "flatbuffers.h", 1021, "buf_");
-    }
-
-    if (v16 < v12)
-    {
-      v19 = *v9;
-      v20 = v16 + v17;
-      v21 = *(this + 5);
-      while (1)
-      {
-        v18 = *v21;
-        if (v19 == *(v20 - v18) && !memcmp((v20 - v18), v9, v19))
-        {
-          break;
-        }
-
-        if (++v21 >= v12)
-        {
-          LODWORD(v18) = v17 - v9 + v16;
-          goto LABEL_21;
-        }
-      }
-
-      v9 = (v9 + (v17 - v9 + v16 - v5));
-      *(this + 6) = v9;
-    }
-  }
-
-LABEL_21:
-  if (v18 == v17 + v16 - v9)
-  {
-    apple::aiml::flatbuffers2::vector_downward::ensure_space(this, 4uLL);
-    v22 = *(this + 7);
-    *v22 = v18;
-    *(this + 7) = v22 + 1;
-    v17 = *(this + 4);
-    v16 = *(this + 5);
-  }
-
-  *(v16 + v17 - v5) = v18 - v5;
-  *(this + 70) = 0;
-  return v5;
-}
-
-unint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(unint64_t result, uint64_t a2, int a3, int a4)
-{
-  v5 = result;
-  if (a3 != a4 || *(result + 80) == 1)
-  {
-    v6 = apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<unsigned int>(result, a3);
-    result = apple::aiml::flatbuffers2::vector_downward::ensure_space(v5, 8uLL);
-    **(v5 + 56) = v6 | (a2 << 32);
-    *(v5 + 56) += 8;
-    ++*(v5 + 64);
-    v7 = *(v5 + 68);
-    if (v7 <= a2)
-    {
-      LOWORD(v7) = a2;
-    }
-
-    *(v5 + 68) = v7;
-  }
-
-  return result;
-}
-
-BOOL SSUIntentParameter::Verify(SSUIntentParameter *this, apple::aiml::flatbuffers2::Verifier *a2)
-{
-  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this->var0);
-  if (result)
-  {
-    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
-    if (result)
-    {
-      v5 = &this[-*this->var0];
-      if (*v5->var0 >= 5u && (v6 = *v5[4].var0) != 0)
-      {
-        v7 = &this[v6 + *this[v6].var0];
-      }
-
-      else
-      {
-        v7 = 0;
-      }
-
-      result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v7->var0);
-      if (result)
-      {
-        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 6u);
-        if (result)
-        {
-          v8 = &this[-*this->var0];
-          if (*v8->var0 >= 7u && (v9 = *v8[6].var0) != 0)
-          {
-            v10 = &this[v9 + *this[v9].var0];
-          }
-
-          else
-          {
-            v10 = 0;
-          }
-
-          result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v10->var0);
-          if (result)
-          {
-            --*(a2 + 4);
-            return 1;
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL apple::aiml::flatbuffers2::Verifier::VerifyTableStart(apple::aiml::flatbuffers2::Verifier *this, const unsigned __int8 *a2)
-{
-  v2 = *this;
-  v3 = &a2[-*this];
-  if (v3 & 3) != 0 && (*(this + 40))
-  {
-    return 0;
-  }
-
-  v4 = *(this + 1);
-  v5 = v4 >= 5 && v4 - 4 >= v3;
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v6 = *a2;
-  v7 = *(this + 5);
-  v8 = *(this + 4) + 1;
-  *(this + 4) = v8;
-  v9 = *(this + 6) + 1;
-  *(this + 6) = v9;
-  if (v8 > v7 || v9 > *(this + 7))
-  {
-    return 0;
-  }
-
-  v12 = v3 - v6;
-  if (v12)
-  {
-    v10 = 0;
-    if ((*(this + 40) & 1) != 0 || v4 - 2 < v12)
-    {
-      return v10;
-    }
-  }
-
-  else if (v4 - 2 < v12)
-  {
-    return 0;
-  }
-
-  v13 = *(v2 + v12);
-  if (v13 & 1) != 0 && (*(this + 40))
-  {
-    return 0;
-  }
-
-  v5 = v4 >= v13;
-  v14 = v4 - v13;
-  return v14 != 0 && v5 && v14 >= v12;
-}
-
-BOOL apple::aiml::flatbuffers2::Table::VerifyOffset(apple::aiml::flatbuffers2::Table *this, const apple::aiml::flatbuffers2::Verifier *a2, unsigned int a3)
-{
-  v3 = (this - *this);
-  if (*v3 <= a3)
-  {
-    return 1;
-  }
-
-  v4 = *(v3 + a3);
-  if (!v4)
-  {
-    return 1;
-  }
-
-  v5 = this + v4 - *a2;
-  if (v5 & 3) != 0 && (*(a2 + 40))
-  {
-    return 0;
-  }
-
-  result = 0;
-  v7 = *(a2 + 1);
-  if (v7 >= 5 && v7 - 4 >= v5)
-  {
-    v8 = *(*a2 + v5);
-    if (v8 >= 1)
-    {
-      return v7 - 1 >= v5 + v8;
-    }
-
-    return 0;
-  }
-
-  return result;
-}
-
-BOOL apple::aiml::flatbuffers2::Verifier::VerifyString(apple::aiml::flatbuffers2::Verifier *a1, const unsigned __int8 *a2)
-{
-  if (!a2)
-  {
-    return 1;
-  }
-
-  v6 = 0;
-  result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a1, a2, 1uLL, &v6);
-  if (result)
-  {
-    v4 = *(a1 + 1);
-    return v4 >= 2 && v4 - 1 >= v6 && *(*a1 + v6) == 0;
-  }
-
-  return result;
-}
-
-BOOL apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(apple::aiml::flatbuffers2::Verifier *this, const unsigned __int8 *a2, unint64_t a3, unint64_t *a4)
-{
-  v4 = &a2[-*this];
-  if (v4 & 3) != 0 && (*(this + 40))
-  {
-    return 0;
-  }
-
-  v5 = *(this + 1);
-  if (v5 < 5 || v5 - 4 < v4)
-  {
-    return 0;
-  }
-
-  v7 = *a2;
-  if (0x7FFFFFFF / a3 <= v7)
-  {
-    return 0;
-  }
-
-  v8 = v7 * a3 + 4;
-  if (a4)
-  {
-    *a4 = v8 + v4;
-    v5 = *(this + 1);
-  }
-
-  v9 = v5 > v8;
-  v10 = v5 - v8;
-  return v9 && v10 >= v4;
-}
-
-void sub_1C8AD2224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  MEMORY[0x1CCA7EC50](v7, 0x1030C40E9F947FBLL);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-BOOL SSUExampleUtterance::Verify(SSUExampleUtterance *this, apple::aiml::flatbuffers2::Verifier *a2)
-{
-  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this->var0);
-  if (result)
-  {
-    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
-    if (result)
-    {
-      v5 = &this[-*this->var0];
-      if (*v5->var0 >= 5u && (v6 = *v5[4].var0) != 0)
-      {
-        v7 = &this[v6 + *this[v6].var0];
-      }
-
-      else
-      {
-        v7 = 0;
-      }
-
-      result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v7->var0);
-      if (result)
-      {
-        --*(a2 + 4);
-        return 1;
-      }
-    }
-  }
-
-  return result;
-}
-
-void sub_1C8AD2780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  MEMORY[0x1CCA7EC50](v7, 0x1030C40E9F947FBLL);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AD2ABC(_Unwind_Exception *a1)
-{
-  if (v1)
-  {
-    operator delete(v1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-unint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(apple::aiml::flatbuffers2::FlatBufferBuilder *this, uint64_t a2, unint64_t a3)
-{
-  apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested(this);
-  *(this + 70) = 1;
-  v6 = a3 * a2;
-  apple::aiml::flatbuffers2::FlatBufferBuilder::PreAlign(this, v6, 4uLL);
-
-  return apple::aiml::flatbuffers2::FlatBufferBuilder::PreAlign(this, v6, a3);
-}
-
-uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(apple::aiml::flatbuffers2::FlatBufferBuilder *this, int a2)
-{
-  if ((*(this + 70) & 1) == 0)
-  {
-    __assert_rtn("EndVector", "flatbuffers.h", 1672, "nested");
-  }
-
-  *(this + 70) = 0;
-
-  return apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<unsigned int>(this, a2);
-}
-
-BOOL SSUExampleEncodedVector::Verify(SSUExampleEncodedVector *this, apple::aiml::flatbuffers2::Verifier *a2)
-{
-  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this->var0);
-  if (result)
-  {
-    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
-    if (result)
-    {
-      v5 = &this[-*this->var0];
-      if (*v5->var0 < 5u || (v6 = *v5[4].var0) == 0 || (result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this[v6 + *this[v6].var0].var0, 4uLL, 0)))
-      {
-        --*(a2 + 4);
-        return 1;
-      }
-    }
-  }
-
-  return result;
-}
-
-void sub_1C8AD3354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  MEMORY[0x1CCA7EC50](v7, 0x1030C40E9F947FBLL);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-apple::aiml::flatbuffers2::FlatBufferBuilder *apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<void>(apple::aiml::flatbuffers2::FlatBufferBuilder *result, uint64_t a2)
-{
-  if (a2)
-  {
-    v2 = result;
-    v3 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(result, a2);
-
-    return apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(v2, 6, v3, 0);
-  }
-
-  return result;
-}
-
-BOOL SSUExample::Verify(SSUExample *this, apple::aiml::flatbuffers2::Verifier *a2)
-{
-  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this->var0);
-  if (!result)
-  {
-    return result;
-  }
-
-  v5 = &this[-*this->var0];
-  v6 = *v5->var0;
-  if (v6 >= 5)
-  {
-    if (*v5[4].var0)
-    {
-      result = 0;
-      v7 = *(a2 + 1);
-      if (v7 < 2 || v7 - 1 < this[*v5[4].var0 - *a2].var0)
-      {
-        return result;
-      }
-    }
-  }
-
-  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 6u);
-  if (!result)
-  {
-    return result;
-  }
-
-  if (v6 < 7)
-  {
-    if (v6 < 5)
-    {
-      goto LABEL_22;
-    }
-
-    goto LABEL_11;
-  }
-
-  if (!*v5[6].var0)
-  {
-LABEL_11:
-    v8 = 0;
-    goto LABEL_12;
-  }
-
-  v8 = &this[*v5[6].var0 + *this[*v5[6].var0].var0];
-LABEL_12:
-  if (!*v5[4].var0)
-  {
-    goto LABEL_22;
-  }
-
-  v9 = this[*v5[4].var0].var0[0];
-  if (v9 != 2)
-  {
-    v10 = v9 != 1 || v8 == 0;
-    if (!v10 && !SSUExampleUtterance::Verify(v8, a2))
-    {
-      return 0;
-    }
-
-    goto LABEL_22;
-  }
-
-  if (!v8 || (result = SSUExampleEncodedVector::Verify(v8, a2)))
-  {
-LABEL_22:
-    --*(a2 + 4);
-    return 1;
-  }
-
-  return result;
-}
-
-void sub_1C8AD3D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  MEMORY[0x1CCA7EC50](v7, 0x1030C40E9F947FBLL);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8AD42CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a11)
-  {
-    operator delete(a11);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::vector<apple::aiml::flatbuffers2::Offset<SSUExample>>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 2)
-  {
-    if (!(a2 >> 62))
-    {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a2);
-    }
-
-    std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
-  }
-
-  return result;
-}
-
-uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<SSUExample>(apple::aiml::flatbuffers2::FlatBufferBuilder *a1, uint64_t a2, uint64_t a3)
-{
-  apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(a1, a3, 4uLL);
-  if (a3)
-  {
-    v6 = a2 - 4;
-    v7 = a3;
-    do
-    {
-      v8 = v7 - 1;
-      v9 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(a1, *(v6 + 4 * v7));
-      apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<unsigned int>(a1, v9);
-      v7 = v8;
-    }
-
-    while (v8);
-  }
-
-  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(a1, a3);
-}
-
-apple::aiml::flatbuffers2::FlatBufferBuilder *apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<apple::aiml::flatbuffers2::Offset<SSUExample>>>(apple::aiml::flatbuffers2::FlatBufferBuilder *result, uint64_t a2)
-{
-  if (a2)
-  {
-    v2 = result;
-    v3 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(result, a2);
-
-    return apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(v2, 8, v3, 0);
-  }
-
-  return result;
-}
-
-BOOL SSUIntent::Verify(SSUIntent *this, apple::aiml::flatbuffers2::Verifier *a2)
-{
-  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this->var0);
-  if (result)
-  {
-    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
-    if (result)
-    {
-      v5 = &this[-*this->var0];
-      if (*v5->var0 >= 5u && (v6 = *v5[4].var0) != 0)
-      {
-        v7 = &this[v6 + *this[v6].var0];
-      }
-
-      else
-      {
-        v7 = 0;
-      }
-
-      result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v7->var0);
-      if (result)
-      {
-        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 6u);
-        if (result)
-        {
-          v8 = *this->var0;
-          if (*this[-v8].var0 < 7u)
-          {
-            goto LABEL_18;
-          }
-
-          if (*this[-v8 + 6].var0)
-          {
-            result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this[*this[-v8 + 6].var0 + *this[*this[-v8 + 6].var0].var0].var0, 4uLL, 0);
-            if (!result)
-            {
-              return result;
-            }
-
-            v8 = *this->var0;
-            if (*this[-v8].var0 < 7u)
-            {
-              goto LABEL_18;
-            }
-          }
-
-          v9 = *this[-v8 + 6].var0;
-          if (v9 && (v10 = &this[v9 + *this[v9].var0], *v10->var0))
-          {
-            v11 = 0;
-            v12 = v10 + 4;
-            while (SSUIntentParameter::Verify(&v12[*v12->var0], a2))
-            {
-              ++v11;
-              v12 += 4;
-              if (v11 >= *v10->var0)
-              {
-                goto LABEL_18;
-              }
-            }
-
-            return 0;
-          }
-
-          else
-          {
-LABEL_18:
-            result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 8u);
-            if (!result)
-            {
-              return result;
-            }
-
-            v13 = *this->var0;
-            if (*this[-v13].var0 < 9u)
-            {
-              goto LABEL_25;
-            }
-
-            if (*this[-v13 + 8].var0)
-            {
-              result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this[*this[-v13 + 8].var0 + *this[*this[-v13 + 8].var0].var0].var0, 4uLL, 0);
-              if (!result)
-              {
-                return result;
-              }
-
-              v13 = *this->var0;
-              if (*this[-v13].var0 < 9u)
-              {
-                goto LABEL_25;
-              }
-            }
-
-            v14 = *this[-v13 + 8].var0;
-            if (!v14)
-            {
-LABEL_25:
-              v15 = 0;
-            }
-
-            else
-            {
-              v15 = &this[v14 + *this[v14].var0];
-            }
-
-            result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<SSUExample>(a2, v15);
-            if (result)
-            {
-              --*(a2 + 4);
-              return 1;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<SSUExample>(apple::aiml::flatbuffers2::Verifier *a1, SSUExample *a2)
-{
-  if (!a2)
-  {
-    return 1;
-  }
-
-  if (!*a2->var0)
-  {
-    return 1;
-  }
-
-  v4 = 0;
-  v5 = a2 + 4;
-  do
-  {
-    result = SSUExample::Verify(&v5[*v5->var0], a1);
-    if (!result)
-    {
-      break;
-    }
-
-    ++v4;
-    v5 += 4;
-  }
-
-  while (v4 < *a2->var0);
-  return result;
-}
-
-uint64_t sirinluexternal::RRAnnotation::formatText(sirinluexternal::RRAnnotation *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
   v5 = *(this + 1);
   if (v5)
   {
-    (*(*v5 + 32))(v5, a2, "key");
-  }
-
-  v6 = *(this + 2);
-  if (v6)
-  {
-    (*(*v6 + 32))(v6, a2, "value");
+    (*(*v5 + 32))(v5, a2, "typed_value");
   }
 
   return MEMORY[0x1EEE30A90](a2);
 }
 
-uint64_t sirinluexternal::RRAnnotation::writeTo(uint64_t this, PB::Writer *a2)
+uint64_t sirinluexternalnlu_router::RetrievedContext::writeTo(uint64_t this, PB::Writer *a2)
 {
   v3 = this;
-  v4 = *(this + 8);
-  if (v4)
+  if (*(this + 20))
   {
-    this = PB::Writer::writeSubmessage(a2, v4);
-  }
-
-  v5 = *(v3 + 16);
-  if (v5)
-  {
-
-    return PB::Writer::writeSubmessage(a2, v5);
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::RRAnnotation::readFrom(sirinluexternal::RRAnnotation *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v6 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = (v6 + v2);
-      v11 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v11;
-        v12 = *v10++;
-        v9 |= (v12 & 0x7F) << v7;
-        if ((v12 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v7 += 7;
-        ++v11;
-        v13 = v8++ > 8;
-        if (v13)
-        {
-          goto LABEL_22;
-        }
-      }
-
-LABEL_18:
-      if ((v9 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_29;
-      }
-
-      if ((v9 >> 3) == 2)
-      {
-        operator new();
-      }
-
-      if ((v9 >> 3) == 1)
-      {
-        operator new();
-      }
-
-LABEL_22:
-      if ((PB::Reader::skip(a2) & 1) == 0)
-      {
-        v22 = 0;
-        return v22 & 1;
-      }
-
-      v2 = *(a2 + 1);
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_29;
-      }
-    }
-
-    v14 = 0;
-    v15 = 0;
-    v9 = 0;
-    v16 = (v6 + v2);
-    v17 = v3 >= v2;
-    v18 = v3 - v2;
-    if (!v17)
-    {
-      v18 = 0;
-    }
-
-    v19 = v2 + 1;
-    while (v18)
-    {
-      v20 = *v16;
-      *(a2 + 1) = v19;
-      v9 |= (v20 & 0x7F) << v14;
-      if ((v20 & 0x80) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      v14 += 7;
-      ++v16;
-      --v18;
-      ++v19;
-      v13 = v15++ > 8;
-      if (v13)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_29:
-  v22 = v4 ^ 1;
-  return v22 & 1;
-}
-
-void sirinluexternal::RRAnnotation::~RRAnnotation(sirinluexternal::RRAnnotation *this)
-{
-  sirinluexternal::RRAnnotation::~RRAnnotation(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  *this = &unk_1F48763B0;
-  v2 = *(this + 2);
-  *(this + 2) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  v3 = *(this + 1);
-  *(this + 1) = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  PB::Base::~Base(this);
-}
-
-void *sirinluexternal::RRAnnotation::RRAnnotation(void *this)
-{
-  this[1] = 0;
-  this[2] = 0;
-  *this = &unk_1F48763B0;
-  return this;
-}
-
-{
-  this[1] = 0;
-  this[2] = 0;
-  *this = &unk_1F48763B0;
-  return this;
-}
-
-void *sirinluexternal::RRAnnotation::RRAnnotation(void *this, const sirinluexternal::RRAnnotation *a2)
-{
-  *this = &unk_1F48763B0;
-  this[1] = 0;
-  this[2] = 0;
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 2))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::RRAnnotation::operator=(uint64_t a1, const sirinluexternal::RRAnnotation *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternal::RRAnnotation::RRAnnotation(&v5, a2);
-    v3 = *(a1 + 8);
-    *(a1 + 8) = v6;
-    v6 = v3;
-    sirinluexternal::RRAnnotation::~RRAnnotation(&v5);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluexternal::swap(uint64_t this, sirinluexternal::RRAnnotation *a2, sirinluexternal::RRAnnotation *a3)
-{
-  v3 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
-  *(a2 + 1) = v3;
-  v4 = *(this + 16);
-  *(this + 16) = *(a2 + 2);
-  *(a2 + 2) = v4;
-  return this;
-}
-
-void *sirinluexternal::RRAnnotation::RRAnnotation(void *a1, uint64_t a2)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = &unk_1F48763B0;
-  v4 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v5 = a1[1];
-  a1[1] = v4;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  v6 = *(a2 + 16);
-  *(a2 + 16) = 0;
-  v7 = a1[2];
-  a1[2] = v6;
-  if (v7)
-  {
-    (*(*v7 + 8))(v7);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluexternal::RRAnnotation::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternal::RRAnnotation::RRAnnotation(&v5, a2);
-    v3 = *(a1 + 8);
-    *(a1 + 8) = v6;
-    v6 = v3;
-    sirinluexternal::RRAnnotation::~RRAnnotation(&v5);
-  }
-
-  return a1;
-}
-
-BOOL sirinluexternal::RRAnnotation::operator==(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 8);
-  v5 = *(a2 + 8);
-  if (v4)
-  {
-    if (v5 && siricommon::StringValue::operator==(v4, v5))
-    {
-      goto LABEL_4;
-    }
-
-    return 0;
-  }
-
-  if (v5)
-  {
-    return 0;
-  }
-
-LABEL_4:
-  v6 = *(a1 + 16);
-  v7 = *(a2 + 16);
-  result = (v6 | v7) == 0;
-  if (v6)
-  {
-    v9 = v7 == 0;
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  if (!v9)
-  {
-    v10 = *(a1 + 16);
-
-    return siricommon::StringValue::operator==(v10, v7);
-  }
-
-  return result;
-}
-
-unint64_t sirinluexternal::RRAnnotation::hash_value(sirinluexternal::RRAnnotation *this)
-{
-  v2 = *(this + 1);
-  if (v2 && (v3 = *(v2 + 8)) != 0)
-  {
-    v4 = std::__string_hash<char>::operator()[abi:ne200100](v3);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = *(this + 2);
-  if (v5)
-  {
-    v6 = *(v5 + 8);
-    if (v6)
-    {
-      v6 = std::__string_hash<char>::operator()[abi:ne200100](v6);
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  return v6 ^ v4;
-}
-
-uint64_t sirinluexternal::RRAnnotation::makeKey(uint64_t this)
-{
-  if (!*(this + 8))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::RRAnnotation::makeValue(uint64_t this)
-{
-  if (!*(this + 16))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::formatText(sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 1);
-  if (v5)
-  {
-    (*(*v5 + 32))(v5, a2, "response");
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v2 = *(this + 8);
-  if (v2)
-  {
-    return PB::Writer::writeSubmessage(a2, v2);
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::readFrom(sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v6 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = (v6 + v2);
-      v11 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v11;
-        v12 = *v10++;
-        v9 |= (v12 & 0x7F) << v7;
-        if ((v12 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v7 += 7;
-        ++v11;
-        v13 = v8++ > 8;
-        if (v13)
-        {
-          goto LABEL_21;
-        }
-      }
-
-LABEL_18:
-      if ((v9 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_26;
-      }
-
-      if ((v9 >> 3) == 1)
-      {
-        operator new();
-      }
-
-LABEL_21:
-      if ((PB::Reader::skip(a2) & 1) == 0)
-      {
-        v21 = 0;
-        return v21 & 1;
-      }
-
-      v2 = *(a2 + 1);
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_26;
-      }
-    }
-
-    v14 = 0;
-    v15 = 0;
-    v9 = 0;
-    v16 = (v6 + v2);
-    v17 = v3 >= v2;
-    v18 = v3 - v2;
-    if (!v17)
-    {
-      v18 = 0;
-    }
-
-    v19 = v2 + 1;
-    while (v18)
-    {
-      v20 = *v16;
-      *(a2 + 1) = v19;
-      v9 |= (v20 & 0x7F) << v14;
-      if ((v20 & 0x80) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      v14 += 7;
-      ++v16;
-      --v18;
-      ++v19;
-      v13 = v15++ > 8;
-      if (v13)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_26:
-  v21 = v4 ^ 1;
-  return v21 & 1;
-}
-
-void sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::~NLv4SpanFeaturizerResponse(sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *this)
-{
-  sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::~NLv4SpanFeaturizerResponse(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  v2 = *(this + 1);
-  *this = &unk_1F4876400;
-  *(this + 1) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  PB::Base::~Base(this);
-}
-
-void *sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::NLv4SpanFeaturizerResponse(void *this)
-{
-  *this = &unk_1F4876400;
-  this[1] = 0;
-  return this;
-}
-
-{
-  *this = &unk_1F4876400;
-  this[1] = 0;
-  return this;
-}
-
-void *sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::NLv4SpanFeaturizerResponse(void *this, const sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *a2)
-{
-  *this = &unk_1F4876400;
-  this[1] = 0;
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-const sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::operator=(const sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *a1, const sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::NLv4SpanFeaturizerResponse(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
-    v6 = v3;
-    sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::~NLv4SpanFeaturizerResponse(&v5);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluinternalsnlp_intermediate::swap(uint64_t this, sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *a2, sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *a3)
-{
-  v3 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
-  *(a2 + 1) = v3;
-  return this;
-}
-
-void *sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::NLv4SpanFeaturizerResponse(void *a1, uint64_t a2)
-{
-  *a1 = &unk_1F4876400;
-  a1[1] = 0;
-  v3 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v4 = a1[1];
-  a1[1] = v3;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  return a1;
-}
-
-{
-  *a1 = &unk_1F4876400;
-  a1[1] = 0;
-  v3 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v4 = a1[1];
-  a1[1] = v3;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v3 = *(a2 + 8);
-    *(a2 + 8) = 0;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v3;
-    v6[0] = &unk_1F4876400;
-    v6[1] = v4;
-    sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::~NLv4SpanFeaturizerResponse(v6);
-  }
-
-  return a1;
-}
-
-BOOL sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  if (v2)
-  {
-    v4 = v3 == 0;
-  }
-
-  else
-  {
-    v4 = 1;
-  }
-
-  if (v4)
-  {
-    return (v2 | v3) == 0;
-  }
-
-  else
-  {
-    return sirinluinternalsnlp_intermediate::SpanFeaturizerResponse::operator==(v2, v3);
-  }
-}
-
-uint64_t sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::hash_value(sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *this)
-{
-  v1 = *(this + 1);
-  if (v1 && (v2 = *(v1 + 8)) != 0)
-  {
-    return sirinluinternalsnlp_intermediate::LinearizedTensor::hash_value(v2);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::makeResponse(uint64_t this)
-{
-  if (!*(this + 8))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::formatText(sirinluinternalembedding::EmbeddingResponse *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  if (*(this + 120))
-  {
-    v5 = *(this + 1);
-    PB::TextFormatter::format(a2, "embedding_dim");
-  }
-
-  v6 = *(this + 2);
-  if (v6)
-  {
-    (*(*v6 + 32))(v6, a2, "embedding_tensor");
-  }
-
-  v7 = *(this + 3);
-  v8 = *(this + 4);
-  while (v7 != v8)
-  {
-    v9 = *v7++;
-    (*(*v9 + 32))(v9, a2, "embedding_tensor_outputs");
-  }
-
-  v10 = *(this + 120);
-  if ((v10 & 2) != 0)
-  {
-    v18 = *(this + 6);
-    PB::TextFormatter::format(a2, "num_layer");
-    v10 = *(this + 120);
-    if ((v10 & 4) == 0)
-    {
-LABEL_9:
-      if ((v10 & 8) == 0)
-      {
-        goto LABEL_11;
-      }
-
-      goto LABEL_10;
-    }
-  }
-
-  else if ((*(this + 120) & 4) == 0)
-  {
-    goto LABEL_9;
-  }
-
-  v19 = *(this + 7);
-  PB::TextFormatter::format(a2, "num_subword_token");
-  if ((*(this + 120) & 8) != 0)
-  {
-LABEL_10:
-    v11 = *(this + 8);
-    PB::TextFormatter::format(a2, "num_token");
-  }
-
-LABEL_11:
-  v12 = *(this + 9);
-  if (v12)
-  {
-    (*(*v12 + 32))(v12, a2, "sentence_embedding_tensor");
-  }
-
-  v13 = *(this + 10);
-  v14 = *(this + 11);
-  while (v13 != v14)
-  {
-    v15 = *v13++;
-    (*(*v15 + 32))(v15, a2, "subword_embedding_tensor_outputs");
-  }
-
-  v16 = *(this + 13);
-  if (v16)
-  {
-    (*(*v16 + 32))(v16, a2, "subword_token_chain");
-  }
-
-  v17 = *(this + 14);
-  if (v17)
-  {
-    (*(*v17 + 32))(v17, a2, "token_chain");
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  v4 = *(this + 16);
-  if (v4)
-  {
-    this = PB::Writer::writeSubmessage(a2, v4);
-  }
-
-  v5 = *(v3 + 112);
-  if (v5)
-  {
-    this = PB::Writer::writeSubmessage(a2, v5);
-  }
-
-  v6 = *(v3 + 120);
-  if ((v6 & 8) != 0)
-  {
-    v17 = *(v3 + 64);
     this = PB::Writer::writeVarInt(a2);
-    v6 = *(v3 + 120);
-    if ((v6 & 2) == 0)
-    {
-LABEL_7:
-      if ((v6 & 1) == 0)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_8;
-    }
-  }
-
-  else if ((*(v3 + 120) & 2) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  v18 = *(v3 + 48);
-  this = PB::Writer::writeVarInt(a2);
-  if (*(v3 + 120))
-  {
-LABEL_8:
-    v7 = *(v3 + 8);
-    this = PB::Writer::writeVarInt(a2);
-  }
-
-LABEL_9:
-  v8 = *(v3 + 72);
-  if (v8)
-  {
-    this = PB::Writer::writeSubmessage(a2, v8);
-  }
-
-  v9 = *(v3 + 24);
-  v10 = *(v3 + 32);
-  while (v9 != v10)
-  {
-    v11 = *v9++;
-    this = PB::Writer::writeSubmessage(a2, v11);
-  }
-
-  v12 = *(v3 + 104);
-  if (v12)
-  {
-    this = PB::Writer::writeSubmessage(a2, v12);
-  }
-
-  if ((*(v3 + 120) & 4) != 0)
-  {
-    v13 = *(v3 + 56);
-    this = PB::Writer::writeVarInt(a2);
-  }
-
-  v15 = *(v3 + 80);
-  v14 = *(v3 + 88);
-  while (v15 != v14)
-  {
-    v16 = *v15++;
-    this = PB::Writer::writeSubmessage(a2, v16);
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::readFrom(sirinluinternalembedding::EmbeddingResponse *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  while (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    v7 = *a2;
-    if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-    {
-      v15 = 0;
-      v16 = 0;
-      v10 = 0;
-      v17 = (v7 + v2);
-      v18 = v3 >= v2;
-      v19 = v3 - v2;
-      if (!v18)
-      {
-        v19 = 0;
-      }
-
-      v20 = v2 + 1;
-      while (v19)
-      {
-        v21 = *v17;
-        *(a2 + 1) = v20;
-        v10 |= (v21 & 0x7F) << v15;
-        if ((v21 & 0x80) == 0)
-        {
-          goto LABEL_19;
-        }
-
-        v15 += 7;
-        ++v17;
-        --v19;
-        ++v20;
-        v14 = v16++ > 8;
-        if (v14)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      v4 = 1;
-      *(a2 + 24) = 1;
-      break;
-    }
-
-    v8 = 0;
-    v9 = 0;
-    v10 = 0;
-    v11 = (v7 + v2);
-    v12 = v2 + 1;
-    while (1)
-    {
-      *(a2 + 1) = v12;
-      v13 = *v11++;
-      v10 |= (v13 & 0x7F) << v8;
-      if ((v13 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v8 += 7;
-      ++v12;
-      v14 = v9++ > 8;
-      if (v14)
-      {
-        goto LABEL_17;
-      }
-    }
-
-LABEL_19:
-    if ((v10 & 7) == 4)
-    {
-      v4 = 0;
-      break;
-    }
-
-    v22 = v10 >> 3;
-    if ((v10 >> 3) > 5)
-    {
-      if (v22 <= 7)
-      {
-        if (v22 == 6)
-        {
-          operator new();
-        }
-
-        if (v22 == 7)
-        {
-          PB::PtrVector<sirinluinternalembedding::EmbeddingTensorOutput>::emplace_back<>();
-        }
-      }
-
-      else
-      {
-        switch(v22)
-        {
-          case 8:
-            operator new();
-          case 9:
-            *(this + 120) |= 4u;
-            v51 = *(a2 + 1);
-            v50 = *(a2 + 2);
-            v52 = *a2;
-            if (v51 > 0xFFFFFFFFFFFFFFF5 || v51 + 10 > v50)
-            {
-              v77 = 0;
-              v78 = 0;
-              v55 = 0;
-              v79 = (v52 + v51);
-              v18 = v50 >= v51;
-              v80 = v50 - v51;
-              if (!v18)
-              {
-                v80 = 0;
-              }
-
-              v81 = v51 + 1;
-              while (1)
-              {
-                if (!v80)
-                {
-                  v55 = 0;
-                  *(a2 + 24) = 1;
-                  goto LABEL_117;
-                }
-
-                v82 = *v79;
-                *(a2 + 1) = v81;
-                v55 |= (v82 & 0x7F) << v77;
-                if ((v82 & 0x80) == 0)
-                {
-                  break;
-                }
-
-                v77 += 7;
-                ++v79;
-                --v80;
-                ++v81;
-                v14 = v78++ > 8;
-                if (v14)
-                {
-LABEL_101:
-                  v55 = 0;
-                  goto LABEL_117;
-                }
-              }
-
-              if (*(a2 + 24))
-              {
-                v55 = 0;
-              }
-            }
-
-            else
-            {
-              v53 = 0;
-              v54 = 0;
-              v55 = 0;
-              v56 = (v52 + v51);
-              v57 = v51 + 1;
-              while (1)
-              {
-                *(a2 + 1) = v57;
-                v58 = *v56++;
-                v55 |= (v58 & 0x7F) << v53;
-                if ((v58 & 0x80) == 0)
-                {
-                  break;
-                }
-
-                v53 += 7;
-                ++v57;
-                v14 = v54++ > 8;
-                if (v14)
-                {
-                  goto LABEL_101;
-                }
-              }
-            }
-
-LABEL_117:
-            *(this + 7) = v55;
-            goto LABEL_53;
-          case 0xA:
-            PB::PtrVector<sirinluinternalembedding::EmbeddingTensorOutput>::emplace_back<>();
-        }
-      }
-    }
-
-    else if (v22 <= 2)
-    {
-      if (v22 == 1)
-      {
-        operator new();
-      }
-
-      if (v22 == 2)
-      {
-        operator new();
-      }
-    }
-
-    else
-    {
-      switch(v22)
-      {
-        case 3:
-          *(this + 120) |= 8u;
-          v33 = *(a2 + 1);
-          v32 = *(a2 + 2);
-          v34 = *a2;
-          if (v33 > 0xFFFFFFFFFFFFFFF5 || v33 + 10 > v32)
-          {
-            v59 = 0;
-            v60 = 0;
-            v37 = 0;
-            v61 = (v34 + v33);
-            v18 = v32 >= v33;
-            v62 = v32 - v33;
-            if (!v18)
-            {
-              v62 = 0;
-            }
-
-            v63 = v33 + 1;
-            while (1)
-            {
-              if (!v62)
-              {
-                v37 = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_108;
-              }
-
-              v64 = *v61;
-              *(a2 + 1) = v63;
-              v37 |= (v64 & 0x7F) << v59;
-              if ((v64 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v59 += 7;
-              ++v61;
-              --v62;
-              ++v63;
-              v14 = v60++ > 8;
-              if (v14)
-              {
-LABEL_77:
-                v37 = 0;
-                goto LABEL_108;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              v37 = 0;
-            }
-          }
-
-          else
-          {
-            v35 = 0;
-            v36 = 0;
-            v37 = 0;
-            v38 = (v34 + v33);
-            v39 = v33 + 1;
-            while (1)
-            {
-              *(a2 + 1) = v39;
-              v40 = *v38++;
-              v37 |= (v40 & 0x7F) << v35;
-              if ((v40 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v35 += 7;
-              ++v39;
-              v14 = v36++ > 8;
-              if (v14)
-              {
-                goto LABEL_77;
-              }
-            }
-          }
-
-LABEL_108:
-          *(this + 8) = v37;
-          goto LABEL_53;
-        case 4:
-          *(this + 120) |= 2u;
-          v42 = *(a2 + 1);
-          v41 = *(a2 + 2);
-          v43 = *a2;
-          if (v42 > 0xFFFFFFFFFFFFFFF5 || v42 + 10 > v41)
-          {
-            v71 = 0;
-            v72 = 0;
-            v46 = 0;
-            v73 = (v43 + v42);
-            v18 = v41 >= v42;
-            v74 = v41 - v42;
-            if (!v18)
-            {
-              v74 = 0;
-            }
-
-            v75 = v42 + 1;
-            while (1)
-            {
-              if (!v74)
-              {
-                v46 = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_114;
-              }
-
-              v76 = *v73;
-              *(a2 + 1) = v75;
-              v46 |= (v76 & 0x7F) << v71;
-              if ((v76 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v71 += 7;
-              ++v73;
-              --v74;
-              ++v75;
-              v14 = v72++ > 8;
-              if (v14)
-              {
-LABEL_93:
-                v46 = 0;
-                goto LABEL_114;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              v46 = 0;
-            }
-          }
-
-          else
-          {
-            v44 = 0;
-            v45 = 0;
-            v46 = 0;
-            v47 = (v43 + v42);
-            v48 = v42 + 1;
-            while (1)
-            {
-              *(a2 + 1) = v48;
-              v49 = *v47++;
-              v46 |= (v49 & 0x7F) << v44;
-              if ((v49 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v44 += 7;
-              ++v48;
-              v14 = v45++ > 8;
-              if (v14)
-              {
-                goto LABEL_93;
-              }
-            }
-          }
-
-LABEL_114:
-          *(this + 6) = v46;
-          goto LABEL_53;
-        case 5:
-          *(this + 120) |= 1u;
-          v24 = *(a2 + 1);
-          v23 = *(a2 + 2);
-          v25 = *a2;
-          if (v24 > 0xFFFFFFFFFFFFFFF5 || v24 + 10 > v23)
-          {
-            v65 = 0;
-            v66 = 0;
-            v28 = 0;
-            v67 = (v25 + v24);
-            v18 = v23 >= v24;
-            v68 = v23 - v24;
-            if (!v18)
-            {
-              v68 = 0;
-            }
-
-            v69 = v24 + 1;
-            while (1)
-            {
-              if (!v68)
-              {
-                v28 = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_111;
-              }
-
-              v70 = *v67;
-              *(a2 + 1) = v69;
-              v28 |= (v70 & 0x7F) << v65;
-              if ((v70 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v65 += 7;
-              ++v67;
-              --v68;
-              ++v69;
-              v14 = v66++ > 8;
-              if (v14)
-              {
-LABEL_85:
-                v28 = 0;
-                goto LABEL_111;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              v28 = 0;
-            }
-          }
-
-          else
-          {
-            v26 = 0;
-            v27 = 0;
-            v28 = 0;
-            v29 = (v25 + v24);
-            v30 = v24 + 1;
-            while (1)
-            {
-              *(a2 + 1) = v30;
-              v31 = *v29++;
-              v28 |= (v31 & 0x7F) << v26;
-              if ((v31 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v26 += 7;
-              ++v30;
-              v14 = v27++ > 8;
-              if (v14)
-              {
-                goto LABEL_85;
-              }
-            }
-          }
-
-LABEL_111:
-          *(this + 1) = v28;
-          goto LABEL_53;
-      }
-    }
-
-LABEL_17:
-    if ((PB::Reader::skip(a2) & 1) == 0)
-    {
-      v84 = 0;
-      return v84 & 1;
-    }
-
-LABEL_53:
-    v2 = *(a2 + 1);
-    v3 = *(a2 + 2);
-    v4 = *(a2 + 24);
-  }
-
-  v84 = v4 ^ 1;
-  return v84 & 1;
-}
-
-void sirinluinternalembedding::EmbeddingResponse::~EmbeddingResponse(sirinluinternalembedding::EmbeddingResponse *this)
-{
-  sirinluinternalembedding::EmbeddingResponse::~EmbeddingResponse(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  *this = &unk_1F4876450;
-  v2 = *(this + 14);
-  *(this + 14) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  v3 = *(this + 13);
-  *(this + 13) = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  v6 = (this + 80);
-  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v6);
-  v4 = *(this + 9);
-  *(this + 9) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v6 = (this + 24);
-  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v6);
-  v5 = *(this + 2);
-  *(this + 2) = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  PB::Base::~Base(this);
-}
-
-double sirinluinternalembedding::EmbeddingResponse::EmbeddingResponse(sirinluinternalembedding::EmbeddingResponse *this)
-{
-  *this = &unk_1F4876450;
-  result = 0.0;
-  *(this + 1) = 0u;
-  *(this + 2) = 0u;
-  *(this + 72) = 0u;
-  *(this + 88) = 0u;
-  *(this + 104) = 0u;
-  *(this + 30) = 0;
-  return result;
-}
-
-{
-  *this = &unk_1F4876450;
-  result = 0.0;
-  *(this + 1) = 0u;
-  *(this + 2) = 0u;
-  *(this + 72) = 0u;
-  *(this + 88) = 0u;
-  *(this + 104) = 0u;
-  *(this + 30) = 0;
-  return result;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::EmbeddingResponse(uint64_t this, const sirinluinternalembedding::EmbeddingResponse *a2)
-{
-  *(this + 16) = 0u;
-  *(this + 72) = 0u;
-  *this = &unk_1F4876450;
-  *(this + 32) = 0u;
-  *(this + 88) = 0u;
-  *(this + 104) = 0u;
-  *(this + 120) = 0;
-  if (*(a2 + 2))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 14))
-  {
-    operator new();
-  }
-
-  v2 = *(a2 + 120);
-  if ((v2 & 8) != 0)
-  {
-    v9 = *(a2 + 8);
-    *(this + 120) |= 8u;
-    *(this + 64) = v9;
-    v2 = *(a2 + 120);
-    if ((v2 & 2) == 0)
-    {
-LABEL_7:
-      if ((v2 & 1) == 0)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_8;
-    }
-  }
-
-  else if ((*(a2 + 120) & 2) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  v10 = *(a2 + 6);
-  *(this + 120) |= 2u;
-  *(this + 48) = v10;
-  if (*(a2 + 120))
-  {
-LABEL_8:
-    v3 = *(a2 + 1);
-    *(this + 120) |= 1u;
-    *(this + 8) = v3;
-  }
-
-LABEL_9:
-  if (*(a2 + 9))
-  {
-    operator new();
-  }
-
-  v4 = *(a2 + 3);
-  if (v4 != *(a2 + 4))
-  {
-    v5 = *v4;
-    PB::PtrVector<sirinluinternalembedding::EmbeddingTensorOutput>::emplace_back<sirinluinternalembedding::EmbeddingTensorOutput const&>();
-  }
-
-  if (*(a2 + 13))
-  {
-    operator new();
-  }
-
-  if ((*(a2 + 120) & 4) != 0)
-  {
-    v6 = *(a2 + 7);
-    *(this + 120) |= 4u;
-    *(this + 56) = v6;
-  }
-
-  v7 = *(a2 + 10);
-  if (v7 != *(a2 + 11))
-  {
-    v8 = *v7;
-    PB::PtrVector<sirinluinternalembedding::EmbeddingTensorOutput>::emplace_back<sirinluinternalembedding::EmbeddingTensorOutput const&>();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::operator=(uint64_t a1, const sirinluinternalembedding::EmbeddingResponse *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluinternalembedding::EmbeddingResponse::EmbeddingResponse(v5, a2);
-    sirinluinternalembedding::swap(a1, v5, v3);
-    sirinluinternalembedding::EmbeddingResponse::~EmbeddingResponse(v5);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluinternalembedding::swap(uint64_t this, sirinluinternalembedding::EmbeddingResponse *a2, sirinluinternalembedding::EmbeddingResponse *a3)
-{
-  v3 = *(this + 120);
-  *(this + 120) = *(a2 + 30);
-  *(a2 + 30) = v3;
-  v4 = *(this + 64);
-  *(this + 64) = *(a2 + 8);
-  *(a2 + 8) = v4;
-  v5 = *(this + 48);
-  *(this + 48) = *(a2 + 6);
-  *(a2 + 6) = v5;
-  v7 = *(this + 8);
-  v6 = *(this + 16);
-  v8 = *(a2 + 2);
-  *(this + 8) = *(a2 + 1);
-  *(this + 16) = v8;
-  *(a2 + 2) = v6;
-  v9 = *(this + 112);
-  *(this + 112) = *(a2 + 14);
-  *(a2 + 14) = v9;
-  *(a2 + 1) = v7;
-  v10 = *(this + 72);
-  *(this + 72) = *(a2 + 9);
-  *(a2 + 9) = v10;
-  v11 = *(this + 24);
-  *(this + 24) = *(a2 + 3);
-  *(a2 + 3) = v11;
-  v12 = *(this + 32);
-  *(this + 32) = *(a2 + 4);
-  *(a2 + 4) = v12;
-  v13 = *(this + 40);
-  *(this + 40) = *(a2 + 5);
-  *(a2 + 5) = v13;
-  v14 = *(this + 104);
-  *(this + 104) = *(a2 + 13);
-  *(a2 + 13) = v14;
-  v15 = *(this + 56);
-  *(this + 56) = *(a2 + 7);
-  *(a2 + 7) = v15;
-  v16 = *(this + 80);
-  *(this + 80) = *(a2 + 10);
-  *(a2 + 10) = v16;
-  v17 = *(this + 88);
-  *(this + 88) = *(a2 + 11);
-  *(a2 + 11) = v17;
-  v18 = *(this + 96);
-  *(this + 96) = *(a2 + 12);
-  *(a2 + 12) = v18;
-  return this;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::EmbeddingResponse(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_1F4876450;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 72) = 0u;
-  *(a1 + 88) = 0u;
-  *(a1 + 104) = 0u;
-  *(a1 + 120) = *(a2 + 120);
-  *(a2 + 120) = 0;
-  v4 = *(a2 + 16);
-  *(a2 + 16) = 0;
-  v5 = *(a1 + 16);
-  *(a1 + 16) = v4;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  v6 = *(a2 + 112);
-  *(a2 + 112) = 0;
-  v7 = *(a1 + 112);
-  *(a1 + 112) = v6;
-  if (v7)
-  {
-    (*(*v7 + 8))(v7);
-  }
-
-  v8 = *(a2 + 64);
-  v9 = *(a2 + 72);
-  *(a2 + 72) = 0;
-  v10 = *(a1 + 72);
-  *(a1 + 64) = v8;
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 72) = v9;
-  if (v10)
-  {
-    (*(*v10 + 8))(v10);
-  }
-
-  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__vdeallocate((a1 + 24));
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 40) = *(a2 + 40);
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
-  v11 = *(a2 + 104);
-  *(a2 + 104) = 0;
-  v12 = *(a1 + 104);
-  *(a1 + 104) = v11;
-  if (v12)
-  {
-    (*(*v12 + 8))(v12);
-  }
-
-  *(a1 + 56) = *(a2 + 56);
-  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__vdeallocate((a1 + 80));
-  *(a1 + 80) = *(a2 + 80);
-  *(a1 + 96) = *(a2 + 96);
-  *(a2 + 80) = 0;
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  return a1;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    sirinluinternalembedding::EmbeddingResponse::EmbeddingResponse(v5, a2);
-    sirinluinternalembedding::swap(a1, v5, v3);
-    sirinluinternalembedding::EmbeddingResponse::~EmbeddingResponse(v5);
-  }
-
-  return a1;
-}
-
-BOOL sirinluinternalembedding::EmbeddingResponse::operator==(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 16);
-  v5 = *(a2 + 16);
-  if (v4)
-  {
-    if (!v5 || !sirinluinternal::NLv4EmbeddingTensor::operator==(v4, v5))
-    {
-      return 0;
-    }
-  }
-
-  else if (v5)
-  {
-    return 0;
-  }
-
-  v6 = *(a1 + 112);
-  v7 = *(a2 + 112);
-  if (v6)
-  {
-    if (!v7 || !sirinluinternal::TokenChain::operator==(v6, v7))
-    {
-      return 0;
-    }
-  }
-
-  else if (v7)
-  {
-    return 0;
-  }
-
-  v8 = *(a1 + 120);
-  v9 = *(a2 + 120);
-  if ((v8 & 8) != 0)
-  {
-    if ((*(a2 + 120) & 8) == 0 || *(a1 + 64) != *(a2 + 64))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 120) & 8) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 120) & 2) != 0)
-  {
-    if ((*(a2 + 120) & 2) == 0 || *(a1 + 48) != *(a2 + 48))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 120) & 2) != 0)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 120))
-  {
-    if ((*(a2 + 120) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
-    {
-      return 0;
-    }
-  }
-
-  else if (*(a2 + 120))
-  {
-    return 0;
-  }
-
-  v10 = *(a1 + 72);
-  v11 = *(a2 + 72);
-  if (v10)
-  {
-    if (!v11 || !sirinluinternal::NLv4EmbeddingTensor::operator==(v10, v11))
-    {
-      return 0;
-    }
-  }
-
-  else if (v11)
-  {
-    return 0;
-  }
-
-  if (!PB::PtrVector<sirinluinternalembedding::EmbeddingTensorOutput>::operator==(*(a1 + 24), *(a1 + 32), *(a2 + 24), *(a2 + 32)))
-  {
-    return 0;
-  }
-
-  v12 = *(a1 + 104);
-  v13 = *(a2 + 104);
-  if (!v12)
-  {
-    if (!v13)
-    {
-      goto LABEL_37;
-    }
-
-    return 0;
-  }
-
-  if (!v13 || !sirinluinternal::SubwordTokenChain::operator==(v12, v13))
-  {
-    return 0;
-  }
-
-LABEL_37:
-  if ((v8 & 4) != 0)
-  {
-    if ((v9 & 4) == 0 || *(a1 + 56) != *(a2 + 56))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v9 & 4) != 0)
-  {
-    return 0;
-  }
-
-  v14 = *(a1 + 80);
-  v15 = *(a1 + 88);
-  v16 = *(a2 + 80);
-  v17 = *(a2 + 88);
-
-  return PB::PtrVector<sirinluinternalembedding::EmbeddingTensorOutput>::operator==(v14, v15, v16, v17);
-}
-
-BOOL PB::PtrVector<sirinluinternalembedding::EmbeddingTensorOutput>::operator==(char *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
-{
-  if (a2 - a1 != a4 - a3)
-  {
-    return 0;
-  }
-
-  v5 = a1;
-  if (a1 == a2)
-  {
-    return 1;
-  }
-
-  v6 = a3;
-  do
-  {
-    v8 = *v5++;
-    v7 = v8;
-    v9 = *v6++;
-    result = sirinluinternalembedding::EmbeddingTensorOutput::operator==(v7, v9);
-  }
-
-  while (result && v5 != a2);
-  return result;
-}
-
-unint64_t sirinluinternalembedding::EmbeddingResponse::hash_value(sirinluinternalembedding::EmbeddingResponse *this)
-{
-  v2 = *(this + 2);
-  if (v2)
-  {
-    v3 = sirinluinternal::NLv4EmbeddingTensor::hash_value(v2);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = *(this + 14);
-  if (v4)
-  {
-    v5 = sirinluinternal::TokenChain::hash_value(v4);
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if ((*(this + 120) & 8) == 0)
-  {
-    v22 = 0;
-    if ((*(this + 120) & 2) != 0)
-    {
-      goto LABEL_9;
-    }
-
-LABEL_12:
-    v21 = 0;
-    if (*(this + 120))
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_13;
-  }
-
-  v22 = *(this + 8);
-  if ((*(this + 120) & 2) == 0)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_9:
-  v21 = *(this + 6);
-  if (*(this + 120))
-  {
-LABEL_10:
-    v6 = *(this + 1);
-    goto LABEL_14;
-  }
-
-LABEL_13:
-  v6 = 0;
-LABEL_14:
-  v7 = *(this + 9);
-  if (v7)
-  {
-    v8 = sirinluinternal::NLv4EmbeddingTensor::hash_value(v7);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v10 = *(this + 3);
-  v9 = *(this + 4);
-  if (v10 == v9)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v11 = 0;
-    do
-    {
-      v12 = *v10++;
-      v11 ^= sirinluinternalembedding::EmbeddingTensorOutput::hash_value(v12);
-    }
-
-    while (v10 != v9);
-  }
-
-  v13 = *(this + 13);
-  if (v13)
-  {
-    v14 = sirinluinternal::SubwordTokenChain::hash_value(v13);
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  if ((*(this + 120) & 4) != 0)
-  {
-    v15 = *(this + 7);
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  v16 = *(this + 10);
-  v17 = *(this + 11);
-  if (v16 == v17)
-  {
-    v18 = 0;
-  }
-
-  else
-  {
-    v18 = 0;
-    do
-    {
-      v19 = *v16++;
-      v18 ^= sirinluinternalembedding::EmbeddingTensorOutput::hash_value(v19);
-    }
-
-    while (v16 != v17);
-  }
-
-  return v5 ^ v3 ^ v22 ^ v21 ^ v6 ^ v8 ^ v11 ^ v14 ^ v15 ^ v18;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::makeEmbeddingTensor(uint64_t this)
-{
-  if (!*(this + 16))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::makeTokenChain(uint64_t this)
-{
-  if (!*(this + 112))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::makeSentenceEmbeddingTensor(uint64_t this)
-{
-  if (!*(this + 72))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternalembedding::EmbeddingResponse::makeSubwordTokenChain(uint64_t this)
-{
-  if (!*(this + 104))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t SIRINLUINTERNALMDSUaaPParseOverrideReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v16[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v16 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v16[0] & 0x7F) << v5;
-        if ((v16[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = objc_alloc_init(SIRINLUINTERNALParseOverride);
-        objc_storeStrong((a1 + 8), v13);
-        v16[0] = 0;
-        v16[1] = 0;
-        if (!PBReaderPlaceMark() || !SIRINLUINTERNALParseOverrideReadFrom(v13, a2))
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v14 = [a2 position];
-    }
-
-    while (v14 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t SIRINLUINTERNALUAAP_PARSERUaaPParserRequestReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v24) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v24 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v24 & 0x7F) << v5;
-        if ((v24 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 3)
-      {
-        switch(v13)
-        {
-          case 4:
-            v14 = objc_alloc_init(SIRINLUINTERNALMatchingSpan);
-            [a1 addMatchingSpans:v14];
-            v24 = 0;
-            v25 = 0;
-            if (!PBReaderPlaceMark() || !SIRINLUINTERNALMatchingSpanReadFrom(v14, a2))
-            {
-LABEL_57:
-
-              return 0;
-            }
-
-            goto LABEL_49;
-          case 5:
-            v14 = objc_alloc_init(SIRINLUEXTERNALTurnInput);
-            objc_storeStrong((a1 + 48), v14);
-            v24 = 0;
-            v25 = 0;
-            if (!PBReaderPlaceMark() || !SIRINLUEXTERNALTurnInputReadFrom(v14, a2))
-            {
-              goto LABEL_57;
-            }
-
-            goto LABEL_49;
-          case 6:
-            v15 = 0;
-            v16 = 0;
-            v17 = 0;
-            *(a1 + 56) |= 1u;
-            while (1)
-            {
-              LOBYTE(v24) = 0;
-              v18 = [a2 position] + 1;
-              if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 1, v19 <= objc_msgSend(a2, "length")))
-              {
-                v20 = [a2 data];
-                [v20 getBytes:&v24 range:{objc_msgSend(a2, "position"), 1}];
-
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v17 |= (v24 & 0x7F) << v15;
-              if ((v24 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v15 += 7;
-              v11 = v16++ >= 9;
-              if (v11)
-              {
-                v21 = 0;
-                goto LABEL_55;
-              }
-            }
-
-            if ([a2 hasError])
-            {
-              v21 = 0;
-            }
-
-            else
-            {
-              v21 = v17;
-            }
-
-LABEL_55:
-            *(a1 + 8) = v21;
-            goto LABEL_50;
-        }
-      }
-
-      else
-      {
-        switch(v13)
-        {
-          case 1:
-            v14 = objc_alloc_init(SIRINLUEXTERNALUUID);
-            objc_storeStrong((a1 + 32), v14);
-            v24 = 0;
-            v25 = 0;
-            if (!PBReaderPlaceMark() || !SIRINLUEXTERNALUUIDReadFrom(v14, a2))
-            {
-              goto LABEL_57;
-            }
-
-            goto LABEL_49;
-          case 2:
-            v14 = objc_alloc_init(SIRINLUINTERNALTokenChain);
-            objc_storeStrong((a1 + 40), v14);
-            v24 = 0;
-            v25 = 0;
-            if (!PBReaderPlaceMark() || !SIRINLUINTERNALTokenChainReadFrom(v14, a2))
-            {
-              goto LABEL_57;
-            }
-
-            goto LABEL_49;
-          case 3:
-            v14 = objc_alloc_init(SIRINLUINTERNALNLv4EmbeddingTensor);
-            objc_storeStrong((a1 + 16), v14);
-            v24 = 0;
-            v25 = 0;
-            if (!PBReaderPlaceMark() || !SIRINLUINTERNALNLv4EmbeddingTensorReadFrom(v14, a2))
-            {
-              goto LABEL_57;
-            }
-
-LABEL_49:
-            PBReaderRecallMark();
-
-            goto LABEL_50;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_50:
-      v22 = [a2 position];
-    }
-
-    while (v22 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t SIRINLUINTERNALQUERYREWRITEQRResponseReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v24) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v24 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v24 & 0x7F) << v5;
-        if ((v24 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 2)
-      {
-        if (v13 == 3)
-        {
-          v15 = 0;
-          v16 = 0;
-          v17 = 0;
-          *(a1 + 40) |= 1u;
-          while (1)
-          {
-            LOBYTE(v24) = 0;
-            v18 = [a2 position] + 1;
-            if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 1, v19 <= objc_msgSend(a2, "length")))
-            {
-              v20 = [a2 data];
-              [v20 getBytes:&v24 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v17 |= (v24 & 0x7F) << v15;
-            if ((v24 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v15 += 7;
-            v11 = v16++ >= 9;
-            if (v11)
-            {
-              v21 = 0;
-              goto LABEL_45;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v21 = 0;
-          }
-
-          else
-          {
-            v21 = v17;
-          }
-
-LABEL_45:
-          *(a1 + 16) = v21;
-          goto LABEL_46;
-        }
-
-        if (v13 == 4)
-        {
-          v14 = objc_alloc_init(SIRINLUINTERNALRewriteHypothesis);
-          [a1 addRewriteHypotheses:v14];
-          v24 = 0;
-          v25 = 0;
-          if (!PBReaderPlaceMark() || !SIRINLUINTERNALRewriteHypothesisReadFrom(v14, a2))
-          {
-LABEL_48:
-
-            return 0;
-          }
-
-          goto LABEL_32;
-        }
-      }
-
-      else
-      {
-        if (v13 == 1)
-        {
-          v14 = objc_alloc_init(SIRINLUEXTERNALUUID);
-          objc_storeStrong((a1 + 24), v14);
-          v24 = 0;
-          v25 = 0;
-          if (!PBReaderPlaceMark() || !SIRINLUEXTERNALUUIDReadFrom(v14, a2))
-          {
-            goto LABEL_48;
-          }
-
-          goto LABEL_32;
-        }
-
-        if (v13 == 2)
-        {
-          v14 = objc_alloc_init(SIRINLUINTERNALQUERYREWRITEQRHypothesis);
-          [a1 addQrHypotheses:v14];
-          v24 = 0;
-          v25 = 0;
-          if (!PBReaderPlaceMark() || !SIRINLUINTERNALQUERYREWRITEQRHypothesisReadFrom(v14, a2))
-          {
-            goto LABEL_48;
-          }
-
-LABEL_32:
-          PBReaderRecallMark();
-
-          goto LABEL_46;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_46:
-      v22 = [a2 position];
-    }
-
-    while (v22 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::formatText(sirinluinternal::PreprocessingWrapper *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 1);
-  if (v5)
-  {
-    (*(*v5 + 32))(v5, a2, "embedding_response");
-  }
-
-  v6 = *(this + 2);
-  if (v6)
-  {
-    (*(*v6 + 32))(v6, a2, "mention_resolver_response");
-  }
-
-  v7 = *(this + 3);
-  if (v7)
-  {
-    (*(*v7 + 32))(v7, a2, "span_match_response");
-  }
-
-  v8 = *(this + 4);
-  if (v8)
-  {
-    (*(*v8 + 32))(v8, a2, "tokenizer_response");
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  v4 = *(this + 32);
-  if (v4)
-  {
-    this = PB::Writer::writeSubmessage(a2, v4);
-  }
-
-  v5 = v3[3];
-  if (v5)
-  {
-    this = PB::Writer::writeSubmessage(a2, v5);
-  }
-
-  v6 = v3[1];
-  if (v6)
-  {
-    this = PB::Writer::writeSubmessage(a2, v6);
-  }
-
-  v7 = v3[2];
-  if (v7)
-  {
-
-    return PB::Writer::writeSubmessage(a2, v7);
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::readFrom(sirinluinternal::PreprocessingWrapper *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v6 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = (v6 + v2);
-      v11 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v11;
-        v12 = *v10++;
-        v9 |= (v12 & 0x7F) << v7;
-        if ((v12 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v7 += 7;
-        ++v11;
-        v13 = v8++ > 8;
-        if (v13)
-        {
-          goto LABEL_17;
-        }
-      }
-
-LABEL_19:
-      if ((v9 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_33;
-      }
-
-      v21 = v9 >> 3;
-      if ((v9 >> 3) > 2)
-      {
-        if (v21 == 3)
-        {
-          operator new();
-        }
-
-        if (v21 == 4)
-        {
-          operator new();
-        }
-      }
-
-      else
-      {
-        if (v21 == 1)
-        {
-          operator new();
-        }
-
-        if (v21 == 2)
-        {
-          operator new();
-        }
-      }
-
-LABEL_17:
-      if ((PB::Reader::skip(a2) & 1) == 0)
-      {
-        v23 = 0;
-        return v23 & 1;
-      }
-
-      v2 = *(a2 + 1);
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_33;
-      }
-    }
-
-    v14 = 0;
-    v15 = 0;
-    v9 = 0;
-    v16 = (v6 + v2);
-    v17 = v3 >= v2;
-    v18 = v3 - v2;
-    if (!v17)
-    {
-      v18 = 0;
-    }
-
-    v19 = v2 + 1;
-    while (v18)
-    {
-      v20 = *v16;
-      *(a2 + 1) = v19;
-      v9 |= (v20 & 0x7F) << v14;
-      if ((v20 & 0x80) == 0)
-      {
-        goto LABEL_19;
-      }
-
-      v14 += 7;
-      ++v16;
-      --v18;
-      ++v19;
-      v13 = v15++ > 8;
-      if (v13)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_33:
-  v23 = v4 ^ 1;
-  return v23 & 1;
-}
-
-void sirinluinternal::PreprocessingWrapper::~PreprocessingWrapper(sirinluinternal::PreprocessingWrapper *this)
-{
-  sirinluinternal::PreprocessingWrapper::~PreprocessingWrapper(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  *this = &unk_1F48764A0;
-  v2 = *(this + 4);
-  *(this + 4) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  v3 = *(this + 3);
-  *(this + 3) = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  v4 = *(this + 2);
-  *(this + 2) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *(this + 1);
-  *(this + 1) = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  PB::Base::~Base(this);
-}
-
-double sirinluinternal::PreprocessingWrapper::PreprocessingWrapper(sirinluinternal::PreprocessingWrapper *this)
-{
-  *this = &unk_1F48764A0;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  return result;
-}
-
-{
-  *this = &unk_1F48764A0;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  return result;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::PreprocessingWrapper(uint64_t this, const sirinluinternal::PreprocessingWrapper *a2)
-{
-  *this = &unk_1F48764A0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  if (*(a2 + 4))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 3))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 2))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::operator=(uint64_t a1, const sirinluinternal::PreprocessingWrapper *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluinternal::PreprocessingWrapper::PreprocessingWrapper(v7, a2);
-    v3 = v8;
-    v4 = *(a1 + 24);
-    *(a1 + 24) = v9;
-    v5 = *(a1 + 8);
-    *(a1 + 8) = v3;
-    v8 = v5;
-    v9 = v4;
-    sirinluinternal::PreprocessingWrapper::~PreprocessingWrapper(v7);
-  }
-
-  return a1;
-}
-
-void *sirinluinternal::swap(void *this, sirinluinternal::PreprocessingWrapper *a2, sirinluinternal::PreprocessingWrapper *a3)
-{
-  v3 = this[4];
-  this[4] = *(a2 + 4);
-  *(a2 + 4) = v3;
-  v4 = this[3];
-  this[3] = *(a2 + 3);
-  *(a2 + 3) = v4;
-  v5 = this[1];
-  this[1] = *(a2 + 1);
-  *(a2 + 1) = v5;
-  v6 = this[2];
-  this[2] = *(a2 + 2);
-  *(a2 + 2) = v6;
-  return this;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::PreprocessingWrapper(uint64_t a1, void *a2)
-{
-  *(a1 + 8) = 0u;
-  v4 = (a1 + 8);
-  *a1 = &unk_1F48764A0;
-  *(a1 + 24) = 0u;
-  v5 = a2[4];
-  a2[4] = 0;
-  v6 = *(a1 + 32);
-  *(a1 + 32) = v5;
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  v7 = a2[3];
-  a2[3] = 0;
-  v8 = *(a1 + 24);
-  *(a1 + 24) = v7;
-  if (v8)
-  {
-    (*(*v8 + 8))(v8);
-  }
-
-  v9 = a2[1];
-  a2[1] = 0;
-  v10 = *v4;
-  *v4 = v9;
-  if (v10)
-  {
-    (*(*v10 + 8))(v10);
-  }
-
-  v11 = a2[2];
-  a2[2] = 0;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v11;
-  if (v12)
-  {
-    (*(*v12 + 8))(v12);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::operator=(uint64_t a1, void *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluinternal::PreprocessingWrapper::PreprocessingWrapper(v7, a2);
-    v3 = v8;
-    v4 = *(a1 + 24);
-    *(a1 + 24) = v9;
-    v5 = *(a1 + 8);
-    *(a1 + 8) = v3;
-    v8 = v5;
-    v9 = v4;
-    sirinluinternal::PreprocessingWrapper::~PreprocessingWrapper(v7);
-  }
-
-  return a1;
-}
-
-BOOL sirinluinternal::PreprocessingWrapper::operator==(void *a1, void *a2)
-{
-  v4 = a1[4];
-  v5 = a2[4];
-  if (v4)
-  {
-    if (!v5 || !sirinluinternaltokenizer::TokenizerResponse::operator==(v4, v5))
-    {
-      return 0;
-    }
-  }
-
-  else if (v5)
-  {
-    return 0;
-  }
-
-  v6 = a1[3];
-  v7 = a2[3];
-  if (v6)
-  {
-    if (!v7 || !PB::PtrVector<sirinluinternal::MatchingSpan>::operator==((v6 + 8), *(v7 + 8), *(v7 + 16)))
-    {
-      return 0;
-    }
-  }
-
-  else if (v7)
-  {
-    return 0;
-  }
-
-  v8 = a1[1];
-  v9 = a2[1];
-  if (!v8)
-  {
-    if (!v9)
-    {
-      goto LABEL_14;
-    }
-
-    return 0;
-  }
-
-  if (!v9 || !sirinluinternalembedding::EmbeddingResponse::operator==(v8, v9))
-  {
-    return 0;
-  }
-
-LABEL_14:
-  v10 = a1[2];
-  v11 = a2[2];
-  result = (v10 | v11) == 0;
-  if (v10 && v11)
-  {
-    v13 = a1[2];
-
-    return sirinluinternalmention_resolver::MentionResolverResponse::operator==(v13, v11);
-  }
-
-  return result;
-}
-
-unint64_t sirinluinternal::PreprocessingWrapper::hash_value(sirinluinternal::PreprocessingWrapper *this)
-{
-  v2 = *(this + 4);
-  if (v2)
-  {
-    v3 = sirinluinternaltokenizer::TokenizerResponse::hash_value(v2);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = *(this + 3);
-  if (!v4 || (v5 = *(v4 + 8), v6 = *(v4 + 16), v5 == v6))
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = 0;
-    do
-    {
-      v8 = *v5++;
-      v7 ^= sirinluinternal::MatchingSpan::hash_value(v8);
-    }
-
-    while (v5 != v6);
-  }
-
-  v9 = *(this + 1);
-  if (v9)
-  {
-    v10 = sirinluinternalembedding::EmbeddingResponse::hash_value(v9);
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = *(this + 2);
-  if (v11)
-  {
-    v11 = sirinluinternalmention_resolver::MentionResolverResponse::hash_value(v11);
-  }
-
-  return v7 ^ v3 ^ v10 ^ v11;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::makeTokenizerResponse(uint64_t this)
-{
-  if (!*(this + 32))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::makeSpanMatchResponse(uint64_t this)
-{
-  if (!*(this + 24))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::makeEmbeddingResponse(uint64_t this)
-{
-  if (!*(this + 8))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternal::PreprocessingWrapper::makeMentionResolverResponse(uint64_t this)
-{
-  if (!*(this + 16))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::Parser::formatText(sirinluexternal::Parser *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 16);
-  if (v5)
-  {
-    v6 = *(this + 2);
-    PB::TextFormatter::format(a2, "algorithm");
-    v5 = *(this + 16);
-  }
-
-  if ((v5 & 2) != 0)
-  {
-    v7 = *(this + 3);
-    PB::TextFormatter::format(a2, "parser_id");
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluexternal::Parser::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  v4 = *(this + 16);
-  if (v4)
-  {
-    v5 = *(this + 8);
-    this = PB::Writer::writeVarInt(a2);
-    v4 = *(v3 + 16);
-  }
-
-  if ((v4 & 2) != 0)
-  {
-    v6 = *(v3 + 12);
-
-    return PB::Writer::writeVarInt(a2);
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::Parser::readFrom(sirinluexternal::Parser *this, PB::Reader *a2)
-{
-  v3 = *(a2 + 1);
-  v2 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v3 < v2 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v7 = *a2;
-      if (v3 > 0xFFFFFFFFFFFFFFF5 || v3 + 10 > v2)
-      {
-        break;
-      }
-
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
-      v11 = (v7 + v3);
-      v12 = v3 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v12;
-        v13 = *v11++;
-        v10 |= (v13 & 0x7F) << v8;
-        if ((v13 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v8 += 7;
-        ++v12;
-        v14 = v9++ > 8;
-        if (v14)
-        {
-          goto LABEL_28;
-        }
-      }
-
-LABEL_18:
-      if ((v10 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_67;
-      }
-
-      if ((v10 >> 3) == 2)
-      {
-        *(this + 16) |= 2u;
-        v30 = *(a2 + 1);
-        v2 = *(a2 + 2);
-        v31 = *a2;
-        if (v30 > 0xFFFFFFFFFFFFFFF5 || v30 + 10 > v2)
-        {
-          v42 = 0;
-          v43 = 0;
-          v34 = 0;
-          if (v2 <= v30)
-          {
-            v3 = *(a2 + 1);
-          }
-
-          else
-          {
-            v3 = *(a2 + 2);
-          }
-
-          while (1)
-          {
-            if (v3 == v30)
-            {
-              LODWORD(v34) = 0;
-              *(a2 + 24) = 1;
-              goto LABEL_62;
-            }
-
-            v44 = v30 + 1;
-            v45 = *(v31 + v30);
-            *(a2 + 1) = v44;
-            v34 |= (v45 & 0x7F) << v42;
-            if ((v45 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v42 += 7;
-            v30 = v44;
-            v14 = v43++ > 8;
-            if (v14)
-            {
-              LODWORD(v34) = 0;
-              goto LABEL_61;
-            }
-          }
-
-          if (*(a2 + 24))
-          {
-            LODWORD(v34) = 0;
-          }
-
-LABEL_61:
-          v3 = v44;
-        }
-
-        else
-        {
-          v32 = 0;
-          v33 = 0;
-          v34 = 0;
-          v35 = (v31 + v30);
-          v36 = v30 + 1;
-          while (1)
-          {
-            v3 = v36;
-            *(a2 + 1) = v36;
-            v37 = *v35++;
-            v34 |= (v37 & 0x7F) << v32;
-            if ((v37 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v32 += 7;
-            ++v36;
-            v14 = v33++ > 8;
-            if (v14)
-            {
-              LODWORD(v34) = 0;
-              break;
-            }
-          }
-        }
-
-LABEL_62:
-        *(this + 3) = v34;
-      }
-
-      else if ((v10 >> 3) == 1)
-      {
-        *(this + 16) |= 1u;
-        v22 = *(a2 + 1);
-        v2 = *(a2 + 2);
-        v23 = *a2;
-        if (v22 > 0xFFFFFFFFFFFFFFF5 || v22 + 10 > v2)
-        {
-          v38 = 0;
-          v39 = 0;
-          v26 = 0;
-          if (v2 <= v22)
-          {
-            v3 = *(a2 + 1);
-          }
-
-          else
-          {
-            v3 = *(a2 + 2);
-          }
-
-          while (1)
-          {
-            if (v3 == v22)
-            {
-              LODWORD(v26) = 0;
-              *(a2 + 24) = 1;
-              goto LABEL_58;
-            }
-
-            v40 = v22 + 1;
-            v41 = *(v23 + v22);
-            *(a2 + 1) = v40;
-            v26 |= (v41 & 0x7F) << v38;
-            if ((v41 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v38 += 7;
-            v22 = v40;
-            v14 = v39++ > 8;
-            if (v14)
-            {
-              LODWORD(v26) = 0;
-              goto LABEL_57;
-            }
-          }
-
-          if (*(a2 + 24))
-          {
-            LODWORD(v26) = 0;
-          }
-
-LABEL_57:
-          v3 = v40;
-        }
-
-        else
-        {
-          v24 = 0;
-          v25 = 0;
-          v26 = 0;
-          v27 = (v23 + v22);
-          v28 = v22 + 1;
-          while (1)
-          {
-            v3 = v28;
-            *(a2 + 1) = v28;
-            v29 = *v27++;
-            v26 |= (v29 & 0x7F) << v24;
-            if ((v29 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v24 += 7;
-            ++v28;
-            v14 = v25++ > 8;
-            if (v14)
-            {
-              LODWORD(v26) = 0;
-              break;
-            }
-          }
-        }
-
-LABEL_58:
-        *(this + 2) = v26;
-      }
-
-      else
-      {
-LABEL_28:
-        if (!PB::Reader::skip(a2))
-        {
-          v46 = 0;
-          return v46 & 1;
-        }
-
-        v3 = *(a2 + 1);
-        v2 = *(a2 + 2);
-      }
-
-      v4 = *(a2 + 24);
-      if (v3 >= v2 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_67;
-      }
-    }
-
-    v15 = 0;
-    v16 = 0;
-    v10 = 0;
-    v17 = (v7 + v3);
-    v18 = v2 >= v3;
-    v19 = v2 - v3;
-    if (!v18)
-    {
-      v19 = 0;
-    }
-
-    v20 = v3 + 1;
-    while (v19)
-    {
-      v21 = *v17;
-      *(a2 + 1) = v20;
-      v10 |= (v21 & 0x7F) << v15;
-      if ((v21 & 0x80) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      v15 += 7;
-      ++v17;
-      --v19;
-      ++v20;
-      v14 = v16++ > 8;
-      if (v14)
-      {
-        goto LABEL_28;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_67:
-  v46 = v4 ^ 1;
-  return v46 & 1;
-}
-
-void sirinluexternal::Parser::~Parser(sirinluexternal::Parser *this)
-{
-  PB::Base::~Base(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-uint64_t sirinluexternal::Parser::Parser(uint64_t this)
-{
-  *this = &unk_1F48764F0;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  return this;
-}
-
-{
-  *this = &unk_1F48764F0;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  return this;
-}
-
-uint64_t sirinluexternal::Parser::Parser(uint64_t this, const sirinluexternal::Parser *a2)
-{
-  *this = &unk_1F48764F0;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  if (*(a2 + 16))
-  {
-    v3 = *(a2 + 2);
-    *(this + 16) = 1;
-    *(this + 8) = v3;
-    v2 = 3;
-    if ((*(a2 + 16) & 2) == 0)
-    {
-      return this;
-    }
-
-    goto LABEL_5;
-  }
-
-  v2 = 2;
-  if ((*(a2 + 16) & 2) != 0)
-  {
-LABEL_5:
-    v4 = *(a2 + 3);
-    *(this + 16) = v2;
-    *(this + 12) = v4;
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::Parser::operator=(uint64_t a1, const sirinluexternal::Parser *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternal::Parser::Parser(v6, a2);
-    v3 = *(a1 + 16);
-    *(a1 + 16) = v8;
-    v8 = v3;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v7;
-    v7 = v4;
-    PB::Base::~Base(v6);
-  }
-
-  return a1;
-}
-
-double sirinluexternal::swap(sirinluexternal *this, sirinluexternal::Parser *a2, sirinluexternal::Parser *a3)
-{
-  v3 = *(this + 4);
-  *(this + 4) = *(a2 + 4);
-  *(a2 + 4) = v3;
-  result = *(a2 + 1);
-  v5 = *(this + 1);
-  *(this + 1) = result;
-  *(a2 + 1) = v5;
-  return result;
-}
-
-double sirinluexternal::Parser::Parser(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_1F48764F0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = *(a2 + 16);
-  *(a2 + 16) = 0;
-  result = *(a2 + 8);
-  *(a1 + 8) = result;
-  return result;
-}
-
-{
-  *a1 = &unk_1F48764F0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = *(a2 + 16);
-  *(a2 + 16) = 0;
-  result = *(a2 + 8);
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t sirinluexternal::Parser::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v7[0] = &unk_1F48764F0;
-    v3 = *(a2 + 16);
-    *(a2 + 16) = 0;
-    v8 = *(a1 + 16);
-    v4 = *(a1 + 8);
-    v5 = *(a2 + 8);
-    *(a1 + 16) = v3;
-    *(a1 + 8) = v5;
-    v7[1] = v4;
-    PB::Base::~Base(v7);
-  }
-
-  return a1;
-}
-
-BOOL sirinluexternal::Parser::operator==(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 16))
-  {
-    if ((*(a2 + 16) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
-    {
-      return 0;
-    }
-  }
-
-  else if (*(a2 + 16))
-  {
-    return 0;
-  }
-
-  v2 = (*(a2 + 16) & 2) == 0;
-  if ((*(a1 + 16) & 2) != 0)
-  {
-    return (*(a2 + 16) & 2) != 0 && *(a1 + 12) == *(a2 + 12);
-  }
-
-  return v2;
-}
-
-uint64_t sirinluexternal::Parser::hash_value(sirinluexternal::Parser *this)
-{
-  if (*(this + 16))
-  {
-    v1 = *(this + 2);
-    if ((*(this + 16) & 2) != 0)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_5:
-    v2 = 0;
-    return v2 ^ v1;
-  }
-
-  v1 = 0;
-  if ((*(this + 16) & 2) == 0)
-  {
-    goto LABEL_5;
-  }
-
-LABEL_3:
-  v2 = *(this + 3);
-  return v2 ^ v1;
-}
-
-uint64_t SIRICOMMONBoolValueReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v22 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v22 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v22 & 0x7F) << v5;
-        if ((v22 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = 0;
-        v14 = 0;
-        v15 = 0;
-        *(a1 + 12) |= 1u;
-        while (1)
-        {
-          v23 = 0;
-          v16 = [a2 position] + 1;
-          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
-          {
-            v18 = [a2 data];
-            [v18 getBytes:&v23 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v15 |= (v23 & 0x7F) << v13;
-          if ((v23 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v13 += 7;
-          v11 = v14++ >= 9;
-          if (v11)
-          {
-            LOBYTE(v19) = 0;
-            goto LABEL_30;
-          }
-        }
-
-        v19 = (v15 != 0) & ~[a2 hasError];
-LABEL_30:
-        *(a1 + 8) = v19;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v21 = [a2 position];
-    }
-
-    while (v21 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t SIRINLUINTERNALSPANMATCHSpanMatchResponseReadFrom(void *a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v16[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v16 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v16[0] & 0x7F) << v5;
-        if ((v16[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = objc_alloc_init(SIRINLUINTERNALMatchingSpan);
-        [a1 addMatchingSpans:v13];
-        v16[0] = 0;
-        v16[1] = 0;
-        if (!PBReaderPlaceMark() || !SIRINLUINTERNALMatchingSpanReadFrom(v13, a2))
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v14 = [a2 position];
-    }
-
-    while (v14 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_1C8ADD774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  MEMORY[0x1CCA7EC50](v7, 0x1030C40E9F947FBLL);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8ADDAFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
-{
-  if (v10)
-  {
-    operator delete(v10);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-BOOL CDMCATISwiftBloomFilter::Verify(CDMCATISwiftBloomFilter *this, apple::aiml::flatbuffers2::Verifier *a2)
-{
-  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this->var0);
-  if (result)
-  {
-    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
-    if (result)
-    {
-      v5 = *this->var0;
-      v6 = *this[-v5].var0;
-      if (v6 < 5)
-      {
-        goto LABEL_28;
-      }
-
-      if (*this[-v5 + 4].var0)
-      {
-        result = CDMCATISwiftBitVector::Verify(&this[*this[-v5 + 4].var0 + *this[*this[-v5 + 4].var0].var0], a2);
-        if (!result)
-        {
-          return result;
-        }
-
-        v5 = *this->var0;
-        v7 = -v5;
-        v6 = *this[-v5].var0;
-      }
-
-      else
-      {
-        v7 = -v5;
-      }
-
-      if (v6 < 7)
-      {
-        goto LABEL_28;
-      }
-
-      v8 = &this[v7];
-      if (!*v8[6].var0 || (result = 0, v9 = *(a2 + 1), v9 >= 9) && v9 - 8 >= this[*v8[6].var0 - *a2].var0)
-      {
-        if (v6 < 9)
-        {
-          goto LABEL_28;
-        }
-
-        if (!*v8[8].var0 || (result = 0, v10 = *(a2 + 1), v10 >= 9) && v10 - 8 >= this[*v8[8].var0 - *a2].var0)
-        {
-          if (v6 < 0xB || (!*v8[10].var0 || (result = 0, v11 = *(a2 + 1), v11 >= 9) && v11 - 8 >= this[*v8[10].var0 - *a2].var0) && (v6 < 0xD || (!*v8[12].var0 || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this[*v8[12].var0 - *a2].var0) && (v6 < 0xF || (v13 = *v8[14].var0, !*v8[14].var0) || (result = 0, v14 = *(a2 + 1), v14 >= 9) && v14 - 8 >= this[v13 - *a2].var0)))
-          {
-LABEL_28:
-            result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x10u);
-            if (result)
-            {
-              v15 = &this[-v5];
-              if (*v15->var0 >= 0x11u && (v16 = *v15[16].var0) != 0)
-              {
-                v17 = &this[v16 + *this[v16].var0];
-              }
-
-              else
-              {
-                v17 = 0;
-              }
-
-              result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v17->var0);
-              if (result)
-              {
-                v18 = &this[-*this->var0];
-                v19 = *v18->var0;
-                if (v19 < 0x13 || (!*v18[18].var0 || (result = 0, v20 = *(a2 + 1), v20 >= 5) && v20 - 4 >= this[*v18[18].var0 - *a2].var0) && (v19 < 0x15 || (v21 = *v18[20].var0) == 0 || (result = 0, v22 = *(a2 + 1), v22 >= 5) && v22 - 4 >= this[v21 - *a2].var0))
-                {
-                  --*(a2 + 4);
-                  return 1;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL CDMCATISwiftBitVector::Verify(CDMCATISwiftBitVector *this, apple::aiml::flatbuffers2::Verifier *a2)
-{
-  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this->var0);
-  if (result)
-  {
-    v5 = &this[-*this->var0];
-    v6 = *v5->var0;
-    if (v6 < 5)
-    {
-      goto LABEL_18;
-    }
-
-    if (!*v5[4].var0 || (result = 0, v7 = *(a2 + 1), v7 >= 9) && v7 - 8 >= this[*v5[4].var0 - *a2].var0)
-    {
-      if (v6 < 7 || (!*v5[6].var0 || (result = 0, v8 = *(a2 + 1), v8 >= 9) && v8 - 8 >= this[*v5[6].var0 - *a2].var0) && (v6 < 9 || (!*v5[8].var0 || (result = 0, v9 = *(a2 + 1), v9 >= 9) && v9 - 8 >= this[*v5[8].var0 - *a2].var0) && (v6 < 0xB || !*v5[10].var0 || (result = 0, v10 = *(a2 + 1), v10 >= 9) && v10 - 8 >= this[*v5[10].var0 - *a2].var0)))
-      {
-LABEL_18:
-        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xCu);
-        if (result && (v6 < 0xD || !*v5[12].var0 || (result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this[*v5[12].var0 + *this[*v5[12].var0].var0].var0, 1uLL, 0))))
-        {
-          --*(a2 + 4);
-          return 1;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sirinluinternal::CCQROverrideTemplate::formatText(sirinluinternal::CCQROverrideTemplate *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 1);
-  if (v5)
-  {
-    (*(*v5 + 32))(v5, a2, "rewrite_message");
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluinternal::CCQROverrideTemplate::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v2 = *(this + 8);
-  if (v2)
-  {
-    return PB::Writer::writeSubmessage(a2, v2);
-  }
-
-  return this;
-}
-
-uint64_t sirinluinternal::CCQROverrideTemplate::readFrom(sirinluinternal::CCQROverrideTemplate *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v6 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = (v6 + v2);
-      v11 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v11;
-        v12 = *v10++;
-        v9 |= (v12 & 0x7F) << v7;
-        if ((v12 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v7 += 7;
-        ++v11;
-        v13 = v8++ > 8;
-        if (v13)
-        {
-          goto LABEL_21;
-        }
-      }
-
-LABEL_18:
-      if ((v9 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_26;
-      }
-
-      if ((v9 >> 3) == 1)
-      {
-        operator new();
-      }
-
-LABEL_21:
-      if ((PB::Reader::skip(a2) & 1) == 0)
-      {
-        v21 = 0;
-        return v21 & 1;
-      }
-
-      v2 = *(a2 + 1);
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_26;
-      }
-    }
-
-    v14 = 0;
-    v15 = 0;
-    v9 = 0;
-    v16 = (v6 + v2);
-    v17 = v3 >= v2;
-    v18 = v3 - v2;
-    if (!v17)
-    {
-      v18 = 0;
-    }
-
-    v19 = v2 + 1;
-    while (v18)
-    {
-      v20 = *v16;
-      *(a2 + 1) = v19;
-      v9 |= (v20 & 0x7F) << v14;
-      if ((v20 & 0x80) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      v14 += 7;
-      ++v16;
-      --v18;
-      ++v19;
-      v13 = v15++ > 8;
-      if (v13)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_26:
-  v21 = v4 ^ 1;
-  return v21 & 1;
-}
-
-void sirinluinternal::CCQROverrideTemplate::~CCQROverrideTemplate(sirinluinternal::CCQROverrideTemplate *this)
-{
-  sirinluinternal::CCQROverrideTemplate::~CCQROverrideTemplate(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  v2 = *(this + 1);
-  *this = &unk_1F4876540;
-  *(this + 1) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  PB::Base::~Base(this);
-}
-
-void *sirinluinternal::CCQROverrideTemplate::CCQROverrideTemplate(void *this)
-{
-  *this = &unk_1F4876540;
-  this[1] = 0;
-  return this;
-}
-
-{
-  *this = &unk_1F4876540;
-  this[1] = 0;
-  return this;
-}
-
-void *sirinluinternal::CCQROverrideTemplate::CCQROverrideTemplate(void *this, const sirinluinternal::CCQROverrideTemplate *a2)
-{
-  *this = &unk_1F4876540;
-  this[1] = 0;
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-const sirinluinternal::CCQROverrideTemplate *sirinluinternal::CCQROverrideTemplate::operator=(const sirinluinternal::CCQROverrideTemplate *a1, const sirinluinternal::CCQROverrideTemplate *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluinternal::CCQROverrideTemplate::CCQROverrideTemplate(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
-    v6 = v3;
-    sirinluinternal::CCQROverrideTemplate::~CCQROverrideTemplate(&v5);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluinternal::swap(uint64_t this, sirinluinternal::CCQROverrideTemplate *a2, sirinluinternal::CCQROverrideTemplate *a3)
-{
-  v3 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
-  *(a2 + 1) = v3;
-  return this;
-}
-
-void *sirinluinternal::CCQROverrideTemplate::CCQROverrideTemplate(void *a1, uint64_t a2)
-{
-  *a1 = &unk_1F4876540;
-  a1[1] = 0;
-  v3 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v4 = a1[1];
-  a1[1] = v3;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  return a1;
-}
-
-{
-  *a1 = &unk_1F4876540;
-  a1[1] = 0;
-  v3 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v4 = a1[1];
-  a1[1] = v3;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluinternal::CCQROverrideTemplate::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v3 = *(a2 + 8);
-    *(a2 + 8) = 0;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v3;
-    v6[0] = &unk_1F4876540;
-    v6[1] = v4;
-    sirinluinternal::CCQROverrideTemplate::~CCQROverrideTemplate(v6);
-  }
-
-  return a1;
-}
-
-BOOL sirinluinternal::CCQROverrideTemplate::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  if (v2)
-  {
-    v4 = v3 == 0;
-  }
-
-  else
-  {
-    v4 = 1;
-  }
-
-  if (v4)
-  {
-    return (v2 | v3) == 0;
-  }
-
-  else
-  {
-    return sirinluexternal::RewriteMessage::operator==(v2, v3);
-  }
-}
-
-unint64_t sirinluinternal::CCQROverrideTemplate::hash_value(sirinluinternal::CCQROverrideTemplate *this)
-{
-  v1 = *(this + 1);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  if (*(v1 + 20))
-  {
-    v2 = *(v1 + 16);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v4 = *(v1 + 8);
-  if (v4)
-  {
-    v4 = std::__string_hash<char>::operator()[abi:ne200100](v4);
-  }
-
-  return v4 ^ v2;
-}
-
-uint64_t sirinluinternal::CCQROverrideTemplate::makeRewriteMessage(uint64_t this)
-{
-  if (!*(this + 8))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternalsubword_embedding::SubwordEmbeddingRequest::formatText(sirinluexternalsubword_embedding::SubwordEmbeddingRequest *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 1);
-  if (v5)
-  {
-    (*(*v5 + 32))(v5, a2, "request_id");
-  }
-
-  if (*(this + 2))
-  {
-    PB::TextFormatter::format();
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluexternalsubword_embedding::SubwordEmbeddingRequest::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  if (*(this + 16))
-  {
-    this = PB::Writer::write();
   }
 
   v4 = *(v3 + 8);
@@ -8562,482 +9654,7 @@ uint64_t sirinluexternalsubword_embedding::SubwordEmbeddingRequest::writeTo(uint
   return this;
 }
 
-uint64_t sirinluexternalsubword_embedding::SubwordEmbeddingRequest::readFrom(sirinluexternalsubword_embedding::SubwordEmbeddingRequest *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v6 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = (v6 + v2);
-      v11 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v11;
-        v12 = *v10++;
-        v9 |= (v12 & 0x7F) << v7;
-        if ((v12 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v7 += 7;
-        ++v11;
-        v13 = v8++ > 8;
-        if (v13)
-        {
-          goto LABEL_22;
-        }
-      }
-
-LABEL_18:
-      if ((v9 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_28;
-      }
-
-      if ((v9 >> 3) == 2)
-      {
-        operator new();
-      }
-
-      if ((v9 >> 3) == 1)
-      {
-        operator new();
-      }
-
-LABEL_22:
-      if ((PB::Reader::skip(a2) & 1) == 0)
-      {
-        v21 = 0;
-        return v21 & 1;
-      }
-
-      v2 = *(a2 + 1);
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_28;
-      }
-    }
-
-    v14 = 0;
-    v15 = 0;
-    v9 = 0;
-    v16 = (v6 + v2);
-    v17 = v3 >= v2;
-    v18 = v3 - v2;
-    if (!v17)
-    {
-      v18 = 0;
-    }
-
-    v19 = v2 + 1;
-    while (v18)
-    {
-      v20 = *v16;
-      *(a2 + 1) = v19;
-      v9 |= (v20 & 0x7F) << v14;
-      if ((v20 & 0x80) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      v14 += 7;
-      ++v16;
-      --v18;
-      ++v19;
-      v13 = v15++ > 8;
-      if (v13)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_28:
-  v21 = v4 ^ 1;
-  return v21 & 1;
-}
-
-void sirinluexternalsubword_embedding::SubwordEmbeddingRequest::~SubwordEmbeddingRequest(sirinluexternalsubword_embedding::SubwordEmbeddingRequest *this)
-{
-  sirinluexternalsubword_embedding::SubwordEmbeddingRequest::~SubwordEmbeddingRequest(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  *this = &unk_1F4876590;
-  v2 = *(this + 2);
-  *(this + 2) = 0;
-  if (v2)
-  {
-    std::default_delete<std::string>::operator()[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 1);
-  *(this + 1) = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  PB::Base::~Base(this);
-}
-
-void *sirinluexternalsubword_embedding::SubwordEmbeddingRequest::SubwordEmbeddingRequest(void *this)
-{
-  this[1] = 0;
-  this[2] = 0;
-  *this = &unk_1F4876590;
-  return this;
-}
-
-{
-  this[1] = 0;
-  this[2] = 0;
-  *this = &unk_1F4876590;
-  return this;
-}
-
-void *sirinluexternalsubword_embedding::SubwordEmbeddingRequest::SubwordEmbeddingRequest(void *this, const sirinluexternalsubword_embedding::SubwordEmbeddingRequest *a2)
-{
-  *this = &unk_1F4876590;
-  this[1] = 0;
-  this[2] = 0;
-  if (*(a2 + 2))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternalsubword_embedding::SubwordEmbeddingRequest::operator=(uint64_t a1, const sirinluexternalsubword_embedding::SubwordEmbeddingRequest *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternalsubword_embedding::SubwordEmbeddingRequest::SubwordEmbeddingRequest(&v5, a2);
-    v3 = *(a1 + 8);
-    *(a1 + 8) = v6;
-    v6 = v3;
-    sirinluexternalsubword_embedding::SubwordEmbeddingRequest::~SubwordEmbeddingRequest(&v5);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluexternalsubword_embedding::swap(uint64_t this, sirinluexternalsubword_embedding::SubwordEmbeddingRequest *a2, sirinluexternalsubword_embedding::SubwordEmbeddingRequest *a3)
-{
-  v3 = *(this + 16);
-  *(this + 16) = *(a2 + 2);
-  *(a2 + 2) = v3;
-  v4 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
-  *(a2 + 1) = v4;
-  return this;
-}
-
-void *sirinluexternalsubword_embedding::SubwordEmbeddingRequest::SubwordEmbeddingRequest(void *a1, uint64_t a2)
-{
-  a1[1] = 0;
-  v4 = a1 + 1;
-  *a1 = &unk_1F4876590;
-  a1[2] = 0;
-  v5 = *(a2 + 16);
-  *(a2 + 16) = 0;
-  v6 = a1[2];
-  a1[2] = v5;
-  if (v6)
-  {
-    std::default_delete<std::string>::operator()[abi:ne200100](v6);
-  }
-
-  v7 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v8 = *v4;
-  *v4 = v7;
-  if (v8)
-  {
-    (*(*v8 + 8))(v8);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluexternalsubword_embedding::SubwordEmbeddingRequest::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternalsubword_embedding::SubwordEmbeddingRequest::SubwordEmbeddingRequest(&v5, a2);
-    v3 = *(a1 + 8);
-    *(a1 + 8) = v6;
-    v6 = v3;
-    sirinluexternalsubword_embedding::SubwordEmbeddingRequest::~SubwordEmbeddingRequest(&v5);
-  }
-
-  return a1;
-}
-
-BOOL sirinluexternalsubword_embedding::SubwordEmbeddingRequest::operator==(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 16);
-  v5 = *(a2 + 16);
-  if (v4)
-  {
-    if (v5)
-    {
-      v6 = *(v4 + 23);
-      if (v6 >= 0)
-      {
-        v7 = *(v4 + 23);
-      }
-
-      else
-      {
-        v7 = *(v4 + 8);
-      }
-
-      v8 = *(v5 + 23);
-      v9 = v8;
-      if ((v8 & 0x80u) != 0)
-      {
-        v8 = *(v5 + 8);
-      }
-
-      if (v7 == v8)
-      {
-        v10 = v6 >= 0 ? *(a1 + 16) : *v4;
-        v11 = v9 >= 0 ? *(a2 + 16) : *v5;
-        if (!memcmp(v10, v11, v7))
-        {
-          goto LABEL_16;
-        }
-      }
-    }
-
-    return 0;
-  }
-
-  if (v5)
-  {
-    return 0;
-  }
-
-LABEL_16:
-  v12 = *(a1 + 8);
-  v13 = *(a2 + 8);
-  result = (v12 | v13) == 0;
-  if (v12)
-  {
-    v15 = v13 == 0;
-  }
-
-  else
-  {
-    v15 = 1;
-  }
-
-  if (!v15)
-  {
-    v16 = *(a1 + 8);
-
-    return sirinluexternal::RequestID::operator==(v16, v13);
-  }
-
-  return result;
-}
-
-unint64_t sirinluexternalsubword_embedding::SubwordEmbeddingRequest::hash_value(sirinluexternalsubword_embedding::SubwordEmbeddingRequest *this)
-{
-  v2 = *(this + 2);
-  if (v2)
-  {
-    v3 = std::__string_hash<char>::operator()[abi:ne200100](v2);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = *(this + 1);
-  if (v4)
-  {
-    v4 = sirinluexternal::RequestID::hash_value(v4);
-  }
-
-  return v4 ^ v3;
-}
-
-uint64_t sirinluexternalsubword_embedding::SubwordEmbeddingRequest::makeRequestId(uint64_t this)
-{
-  if (!*(this + 8))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t SIRINLUEXTERNALRRSurroundingTextReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v17[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v17 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v17[0] & 0x7F) << v5;
-        if ((v17[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = PBReaderReadString();
-        v14 = *(a1 + 16);
-        *(a1 + 16) = v13;
-LABEL_23:
-
-        goto LABEL_25;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_25:
-      v15 = [a2 position];
-      if (v15 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v14 = objc_alloc_init(SIRINLUEXTERNALRRBoundingBox);
-    objc_storeStrong((a1 + 8), v14);
-    v17[0] = 0;
-    v17[1] = 0;
-    if (!PBReaderPlaceMark() || !SIRINLUEXTERNALRRBoundingBoxReadFrom(v14, a2))
-    {
-
-      return 0;
-    }
-
-    PBReaderRecallMark();
-    goto LABEL_23;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t sirinluexternal::RRGroupIdentifier::formatText(sirinluexternal::RRGroupIdentifier *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 1);
-  if (v5)
-  {
-    (*(*v5 + 32))(v5, a2, "group_id");
-  }
-
-  if (*(this + 20))
-  {
-    v6 = *(this + 4);
-    PB::TextFormatter::format(a2, "seq");
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluexternal::RRGroupIdentifier::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  v4 = *(this + 8);
-  if (v4)
-  {
-    this = PB::Writer::writeSubmessage(a2, v4);
-  }
-
-  if (*(v3 + 20))
-  {
-    v5 = *(v3 + 16);
-
-    return PB::Writer::writeVarInt(a2);
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternal::RRGroupIdentifier::readFrom(sirinluexternal::RRGroupIdentifier *this, PB::Reader *a2)
+uint64_t sirinluexternalnlu_router::RetrievedContext::readFrom(sirinluexternalnlu_router::RetrievedContext *this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -9072,7 +9689,7 @@ uint64_t sirinluexternal::RRGroupIdentifier::readFrom(sirinluexternal::RRGroupId
         v14 = v9++ > 8;
         if (v14)
         {
-          goto LABEL_22;
+          goto LABEL_28;
         }
       }
 
@@ -9083,7 +9700,12 @@ LABEL_18:
         goto LABEL_47;
       }
 
-      if ((v10 >> 3) == 2)
+      if ((v10 >> 3) == 5)
+      {
+        operator new();
+      }
+
+      if ((v10 >> 3) == 3)
       {
         *(this + 20) |= 1u;
         v23 = *(a2 + 1);
@@ -9172,12 +9794,7 @@ LABEL_42:
 
       else
       {
-        if ((v10 >> 3) == 1)
-        {
-          operator new();
-        }
-
-LABEL_22:
+LABEL_28:
         if ((PB::Reader::skip(a2) & 1) == 0)
         {
           v38 = 0;
@@ -9223,7 +9840,7 @@ LABEL_22:
       v14 = v16++ > 8;
       if (v14)
       {
-        goto LABEL_22;
+        goto LABEL_28;
       }
     }
 
@@ -9234,571 +9851,4 @@ LABEL_22:
 LABEL_47:
   v38 = v4 ^ 1;
   return v38 & 1;
-}
-
-void sirinluexternal::RRGroupIdentifier::~RRGroupIdentifier(sirinluexternal::RRGroupIdentifier *this)
-{
-  sirinluexternal::RRGroupIdentifier::~RRGroupIdentifier(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  v2 = *(this + 1);
-  *this = &unk_1F48765E0;
-  *(this + 1) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  PB::Base::~Base(this);
-}
-
-uint64_t sirinluexternal::RRGroupIdentifier::RRGroupIdentifier(uint64_t this)
-{
-  *this = &unk_1F48765E0;
-  *(this + 8) = 0;
-  *(this + 20) = 0;
-  return this;
-}
-
-{
-  *this = &unk_1F48765E0;
-  *(this + 8) = 0;
-  *(this + 20) = 0;
-  return this;
-}
-
-uint64_t sirinluexternal::RRGroupIdentifier::RRGroupIdentifier(uint64_t this, const sirinluexternal::RRGroupIdentifier *a2)
-{
-  *this = &unk_1F48765E0;
-  *(this + 8) = 0;
-  *(this + 20) = 0;
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 20))
-  {
-    v2 = *(a2 + 4);
-    *(this + 20) |= 1u;
-    *(this + 16) = v2;
-  }
-
-  return this;
-}
-
-const sirinluexternal::RRGroupIdentifier *sirinluexternal::RRGroupIdentifier::operator=(const sirinluexternal::RRGroupIdentifier *a1, const sirinluexternal::RRGroupIdentifier *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternal::RRGroupIdentifier::RRGroupIdentifier(v6, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v7;
-    v7 = v3;
-    v4 = *(a1 + 2);
-    *(a1 + 2) = v8;
-    v8 = v4;
-    sirinluexternal::RRGroupIdentifier::~RRGroupIdentifier(v6);
-  }
-
-  return a1;
-}
-
-uint64_t sirinluexternal::swap(uint64_t this, sirinluexternal::RRGroupIdentifier *a2, sirinluexternal::RRGroupIdentifier *a3)
-{
-  v3 = *(this + 20);
-  *(this + 20) = *(a2 + 5);
-  *(a2 + 5) = v3;
-  v4 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
-  *(a2 + 1) = v4;
-  LODWORD(v4) = *(this + 16);
-  *(this + 16) = *(a2 + 4);
-  *(a2 + 4) = v4;
-  return this;
-}
-
-uint64_t sirinluexternal::RRGroupIdentifier::RRGroupIdentifier(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_1F48765E0;
-  *(a1 + 8) = 0;
-  *(a1 + 20) = *(a2 + 20);
-  *(a2 + 20) = 0;
-  v4 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v5 = *(a1 + 8);
-  *(a1 + 8) = v4;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  *(a1 + 16) = *(a2 + 16);
-  return a1;
-}
-
-uint64_t sirinluexternal::RRGroupIdentifier::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternal::RRGroupIdentifier::RRGroupIdentifier(v6, a2);
-    v3 = *(a1 + 8);
-    *(a1 + 8) = v7;
-    v7 = v3;
-    v4 = *(a1 + 16);
-    *(a1 + 16) = v8;
-    v8 = v4;
-    sirinluexternal::RRGroupIdentifier::~RRGroupIdentifier(v6);
-  }
-
-  return a1;
-}
-
-BOOL sirinluexternal::RRGroupIdentifier::operator==(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 8);
-  v5 = *(a2 + 8);
-  if (v4)
-  {
-    if (!v5 || !siricommon::StringValue::operator==(v4, v5))
-    {
-      return 0;
-    }
-  }
-
-  else if (v5)
-  {
-    return 0;
-  }
-
-  result = (*(a2 + 20) & 1) == 0;
-  if ((*(a1 + 20) & 1) == 0)
-  {
-    return result;
-  }
-
-  return (*(a2 + 20) & 1) != 0 && *(a1 + 16) == *(a2 + 16);
-}
-
-unint64_t sirinluexternal::RRGroupIdentifier::hash_value(sirinluexternal::RRGroupIdentifier *this)
-{
-  v2 = *(this + 1);
-  if (v2)
-  {
-    v3 = *(v2 + 8);
-    if (v3)
-    {
-      v3 = std::__string_hash<char>::operator()[abi:ne200100](v3);
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  if (*(this + 20))
-  {
-    v4 = *(this + 4);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  return v4 ^ v3;
-}
-
-uint64_t sirinluexternal::RRGroupIdentifier::makeGroupId(uint64_t this)
-{
-  if (!*(this + 8))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternalcdm::NluRequest::formatText(sirinluexternalcdm::NluRequest *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 1);
-  if (v5)
-  {
-    (*(*v5 + 32))(v5, a2, "current_turn_input");
-  }
-
-  v6 = *(this + 2);
-  v7 = *(this + 3);
-  while (v6 != v7)
-  {
-    v8 = *v6++;
-    (*(*v8 + 32))(v8, a2, "previous_turn_inputs");
-  }
-
-  v9 = *(this + 5);
-  if (v9)
-  {
-    (*(*v9 + 32))(v9, a2, "request_id");
-  }
-
-  return MEMORY[0x1EEE30A90](a2);
-}
-
-uint64_t sirinluexternalcdm::NluRequest::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  v4 = *(this + 40);
-  if (v4)
-  {
-    this = PB::Writer::writeSubmessage(a2, v4);
-  }
-
-  v5 = v3[1];
-  if (v5)
-  {
-    this = PB::Writer::writeSubmessage(a2, v5);
-  }
-
-  v7 = v3[2];
-  v6 = v3[3];
-  while (v7 != v6)
-  {
-    v8 = *v7++;
-    this = PB::Writer::writeSubmessage(a2, v8);
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternalcdm::NluRequest::readFrom(sirinluexternalcdm::NluRequest *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v6 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v10 = (v6 + v2);
-      v11 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v11;
-        v12 = *v10++;
-        v9 |= (v12 & 0x7F) << v7;
-        if ((v12 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v7 += 7;
-        ++v11;
-        v13 = v8++ > 8;
-        if (v13)
-        {
-          goto LABEL_17;
-        }
-      }
-
-LABEL_19:
-      if ((v9 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_30;
-      }
-
-      v21 = v9 >> 3;
-      if ((v9 >> 3) == 3)
-      {
-        PB::PtrVector<sirinluexternal::TurnInput>::emplace_back<>();
-      }
-
-      if (v21 == 2)
-      {
-        operator new();
-      }
-
-      if (v21 == 1)
-      {
-        operator new();
-      }
-
-LABEL_17:
-      if ((PB::Reader::skip(a2) & 1) == 0)
-      {
-        v23 = 0;
-        return v23 & 1;
-      }
-
-      v2 = *(a2 + 1);
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_30;
-      }
-    }
-
-    v14 = 0;
-    v15 = 0;
-    v9 = 0;
-    v16 = (v6 + v2);
-    v17 = v3 >= v2;
-    v18 = v3 - v2;
-    if (!v17)
-    {
-      v18 = 0;
-    }
-
-    v19 = v2 + 1;
-    while (v18)
-    {
-      v20 = *v16;
-      *(a2 + 1) = v19;
-      v9 |= (v20 & 0x7F) << v14;
-      if ((v20 & 0x80) == 0)
-      {
-        goto LABEL_19;
-      }
-
-      v14 += 7;
-      ++v16;
-      --v18;
-      ++v19;
-      v13 = v15++ > 8;
-      if (v13)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_30:
-  v23 = v4 ^ 1;
-  return v23 & 1;
-}
-
-void sirinluexternalcdm::NluRequest::~NluRequest(sirinluexternalcdm::NluRequest *this)
-{
-  sirinluexternalcdm::NluRequest::~NluRequest(this);
-
-  JUMPOUT(0x1CCA7EC50);
-}
-
-{
-  *this = &unk_1F4876630;
-  v2 = *(this + 5);
-  *(this + 5) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  v4 = (this + 16);
-  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__destroy_vector::operator()[abi:ne200100](&v4);
-  v3 = *(this + 1);
-  *(this + 1) = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  PB::Base::~Base(this);
-}
-
-double sirinluexternalcdm::NluRequest::NluRequest(sirinluexternalcdm::NluRequest *this)
-{
-  *this = &unk_1F4876630;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 5) = 0;
-  return result;
-}
-
-{
-  *this = &unk_1F4876630;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 5) = 0;
-  return result;
-}
-
-uint64_t sirinluexternalcdm::NluRequest::NluRequest(uint64_t this, const sirinluexternalcdm::NluRequest *a2)
-{
-  *this = &unk_1F4876630;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0;
-  if (*(a2 + 5))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  v2 = *(a2 + 2);
-  if (v2 != *(a2 + 3))
-  {
-    v3 = *v2;
-    PB::PtrVector<sirinluexternal::TurnInput>::emplace_back<sirinluexternal::TurnInput const&>();
-  }
-
-  return this;
-}
-
-uint64_t sirinluexternalcdm::NluRequest::operator=(uint64_t a1, const sirinluexternalcdm::NluRequest *a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternalcdm::NluRequest::NluRequest(&v7, a2);
-    v3 = *(a1 + 40);
-    *(a1 + 40) = v10;
-    v10 = v3;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v8;
-    v8 = v4;
-    v5 = *(a1 + 24);
-    *(a1 + 24) = v9;
-    v9 = v5;
-    sirinluexternalcdm::NluRequest::~NluRequest(&v7);
-  }
-
-  return a1;
-}
-
-void *sirinluexternalcdm::swap(void *this, sirinluexternalcdm::NluRequest *a2, sirinluexternalcdm::NluRequest *a3)
-{
-  v3 = this[5];
-  this[5] = *(a2 + 5);
-  *(a2 + 5) = v3;
-  v4 = this[1];
-  this[1] = *(a2 + 1);
-  *(a2 + 1) = v4;
-  v5 = this[2];
-  this[2] = *(a2 + 2);
-  *(a2 + 2) = v5;
-  v6 = this[3];
-  this[3] = *(a2 + 3);
-  *(a2 + 3) = v6;
-  v7 = this[4];
-  this[4] = *(a2 + 4);
-  *(a2 + 4) = v7;
-  return this;
-}
-
-uint64_t sirinluexternalcdm::NluRequest::NluRequest(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_1F4876630;
-  *(a1 + 8) = 0u;
-  v4 = (a1 + 8);
-  *(a1 + 24) = 0u;
-  *(a1 + 40) = 0;
-  v5 = *(a2 + 40);
-  *(a2 + 40) = 0;
-  v6 = *(a1 + 40);
-  *(a1 + 40) = v5;
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  v7 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v8 = *v4;
-  *v4 = v7;
-  if (v8)
-  {
-    (*(*v8 + 8))(v8);
-  }
-
-  std::vector<std::unique_ptr<sirinluexternal::UserParse>>::__vdeallocate((a1 + 16));
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 32) = *(a2 + 32);
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  return a1;
-}
-
-uint64_t sirinluexternalcdm::NluRequest::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    sirinluexternalcdm::NluRequest::NluRequest(&v7, a2);
-    v3 = *(a1 + 40);
-    *(a1 + 40) = v10;
-    v10 = v3;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v8;
-    v8 = v4;
-    v5 = *(a1 + 24);
-    *(a1 + 24) = v9;
-    v9 = v5;
-    sirinluexternalcdm::NluRequest::~NluRequest(&v7);
-  }
-
-  return a1;
-}
-
-BOOL sirinluexternalcdm::NluRequest::operator==(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 40);
-  v5 = a2[5];
-  if (v4)
-  {
-    if (!v5 || !sirinluexternal::RequestID::operator==(v4, v5))
-    {
-      return 0;
-    }
-  }
-
-  else if (v5)
-  {
-    return 0;
-  }
-
-  v6 = *(a1 + 8);
-  v7 = a2[1];
-  if (!v6)
-  {
-    if (!v7)
-    {
-      goto LABEL_9;
-    }
-
-    return 0;
-  }
-
-  if (!v7 || !sirinluexternal::TurnInput::operator==(v6, v7))
-  {
-    return 0;
-  }
-
-LABEL_9:
-  v8 = a2[2];
-  v9 = a2[3];
-
-  return PB::PtrVector<sirinluexternal::TurnInput>::operator==((a1 + 16), v8, v9);
 }

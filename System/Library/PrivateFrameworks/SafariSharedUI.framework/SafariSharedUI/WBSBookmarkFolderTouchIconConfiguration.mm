@@ -72,15 +72,15 @@
   if (initFor2x2Layout)
   {
     initFor2x2Layout[8] = 1;
-    v4 = tertiaryGroupedBackgroundColor();
+    v4 = tertiaryGroupedBackgroundColor(initFor2x2Layout);
     v5 = v3[9];
     v3[9] = v4;
 
-    v6 = tertiaryGroupedBackgroundColor();
-    v7 = v3[10];
-    v3[10] = v6;
+    v7 = tertiaryGroupedBackgroundColor(v6);
+    v8 = v3[10];
+    v3[10] = v7;
 
-    v8 = v3;
+    v9 = v3;
   }
 
   return v3;

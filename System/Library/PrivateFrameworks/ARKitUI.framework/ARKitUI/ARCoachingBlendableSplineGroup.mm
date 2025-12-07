@@ -35,37 +35,37 @@
 
 - (ARCoachingBlendableSplineGroup)initWithSplineGroups:(id)groups
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
-  v42.receiver = self;
-  v42.super_class = ARCoachingBlendableSplineGroup;
-  v4 = [(ARCoachingBlendableSplineGroup *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = ARCoachingBlendableSplineGroup;
+  v4 = [(ARCoachingBlendableSplineGroup *)&v41 init];
   if (v4)
   {
     array = [MEMORY[0x277CBEB18] array];
     controlPoints = v4->_controlPoints;
     v4->_controlPoints = array;
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v7 = groupsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v8)
     {
-      v9 = *v39;
+      v9 = *v38;
       do
       {
         v10 = 0;
         do
         {
-          if (*v39 != v9)
+          if (*v38 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v38 + 1) + 8 * v10);
+          v11 = *(*(&v37 + 1) + 8 * v10);
           v12 = [v7 objectAtIndexedSubscript:0];
           numControlPoints = [v12 numControlPoints];
           if (numControlPoints != [v11 numControlPoints])
@@ -91,15 +91,15 @@
           for (i = 0; i < [v11 patchDataLength]; ++i)
           {
             v20 = [v7 objectAtIndexedSubscript:0];
-            v36 = COERCE_FLOAT(*([v20 patchData] + v18));
-            if (v36 != COERCE_FLOAT(*([v11 patchData] + v18)))
+            v35 = COERCE_FLOAT(*([v20 patchData] + v18));
+            if (v35 != COERCE_FLOAT(*([v11 patchData] + v18)))
             {
               __assert_rtn("[ARCoachingBlendableSplineGroup initWithSplineGroups:]", "ARCoachingSpline.mm", 452, "splineGroups[0].patchData[i].factorScale.x == splineGroup.patchData[i].factorScale.x");
             }
 
             v21 = [v7 objectAtIndexedSubscript:0];
-            LODWORD(v37) = HIDWORD(*([v21 patchData] + v18));
-            if (v37 != *([v11 patchData] + v18 + 4))
+            LODWORD(v36) = HIDWORD(*([v21 patchData] + v18));
+            if (v36 != *([v11 patchData] + v18 + 4))
             {
               __assert_rtn("[ARCoachingBlendableSplineGroup initWithSplineGroups:]", "ARCoachingSpline.mm", 453, "splineGroups[0].patchData[i].factorScale.y == splineGroup.patchData[i].factorScale.y");
             }
@@ -114,7 +114,7 @@
         }
 
         while (v10 != v8);
-        v8 = [v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v8);
@@ -155,7 +155,6 @@
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

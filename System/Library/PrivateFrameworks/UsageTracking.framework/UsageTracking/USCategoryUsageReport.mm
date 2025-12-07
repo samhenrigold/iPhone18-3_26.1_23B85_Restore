@@ -40,7 +40,7 @@
 
 - (USCategoryUsageReport)initWithCoder:(id)coder
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CategoryIdentifier"];
   v6 = objc_alloc(MEMORY[0x277CBEB98]);
@@ -60,9 +60,9 @@
   v15 = v14;
   if (v5 && v9 && v13 && v14)
   {
-    v25.receiver = self;
-    v25.super_class = USCategoryUsageReport;
-    v16 = [(USCategoryUsageReport *)&v25 init];
+    v24.receiver = self;
+    v24.super_class = USCategoryUsageReport;
+    v16 = [(USCategoryUsageReport *)&v24 init];
     [coderCopy decodeDoubleForKey:@"TotalUsageTime"];
     v18 = v17;
     v19 = [v5 copy];
@@ -79,13 +79,13 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138544130;
-      v27 = v5;
-      v28 = 2114;
-      v29 = v9;
-      v30 = 2114;
-      v31 = v13;
-      v32 = 1026;
-      v33 = v15;
+      v26 = v5;
+      v27 = 2114;
+      v28 = v9;
+      v29 = 2114;
+      v30 = v13;
+      v31 = 1026;
+      v32 = v15;
       _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to decode USCategoryUsageReport with categoryIdentifier: %{public}@, applicationUsage: %{public}@, webUsage: %{public}@, hasTotalUsageTime: %{public}d", buf, 0x26u);
     }
 
@@ -95,7 +95,6 @@
     selfCopy = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

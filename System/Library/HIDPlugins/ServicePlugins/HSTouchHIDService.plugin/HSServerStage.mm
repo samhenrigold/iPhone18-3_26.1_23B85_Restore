@@ -80,7 +80,7 @@ LABEL_5:
     }
   }
 
-  [v11 openService:serviceCopy config:v13];
+  objc_msgSend_openService_config_(v11);
 LABEL_8:
   if (var1)
   {

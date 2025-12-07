@@ -67,8 +67,9 @@
   [_directActionSource activateWithContext:contextCopy completion:&__block_literal_global_54];
 }
 
-void __43__CKStarkManager__activateSiriWithContext___block_invoke(uint64_t a1, int a2)
+void __43__CKStarkManager__activateSiriWithContext___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v7 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -76,7 +77,7 @@ void __43__CKStarkManager__activateSiriWithContext___block_invoke(uint64_t a1, i
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = @"Unsuccessfully";
-      if (a2)
+      if (v2)
       {
         v4 = @"Successfully";
       }

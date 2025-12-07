@@ -9,10 +9,10 @@
 
 - (ARGPUWarper)init
 {
-  v55 = *MEMORY[0x1E69E9840];
-  v48.receiver = self;
-  v48.super_class = ARGPUWarper;
-  v2 = [(ARGPUWarper *)&v48 init];
+  v56 = *MEMORY[0x1E69E9840];
+  v49.receiver = self;
+  v49.super_class = ARGPUWarper;
+  v2 = [(ARGPUWarper *)&v49 init];
   v3 = +[ARSharedGPUDevice sharedInstance];
   device = [v3 device];
   device = v2->_device;
@@ -22,9 +22,8 @@
   commandQueue = v2->_commandQueue;
   v2->_commandQueue = newCommandQueue;
 
-  [(MTLCommandQueue *)v2->_commandQueue setLabel:@"com.apple.arkit.gpuwarper.queue"];
-  v46 = ARKitCoreBundle();
-  v8 = [v46 URLForResource:@"default" withExtension:@"metallib"];
+  v47 = ARKitCoreBundle([(MTLCommandQueue *)v2->_commandQueue setLabel:@"com.apple.arkit.gpuwarper.queue"]);
+  v8 = [v47 URLForResource:@"default" withExtension:@"metallib"];
   if (!v8)
   {
     __assert_rtn("[ARGPUWarper init]", "ARGPUWarper.mm", 47, "url != nil");
@@ -80,9 +79,9 @@
   [v33 setPixelFormat:81];
 
   v34 = v2->_device;
-  v47 = 0;
-  v35 = [(MTLDevice *)v34 newRenderPipelineStateWithDescriptor:v31 error:&v47];
-  v36 = v47;
+  v48 = 0;
+  v35 = [(MTLDevice *)v34 newRenderPipelineStateWithDescriptor:v31 error:&v48];
+  v36 = v48;
   homographyPipelineState = v2->_homographyPipelineState;
   v2->_homographyPipelineState = v35;
 
@@ -93,36 +92,36 @@
       [ARGPUWarper init];
     }
 
-    v38 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v39 = _ARLogGeneral();
-    v40 = v39;
-    if (v38 == 1)
+    v39 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v40 = _ARLogGeneral(v38);
+    v41 = v40;
+    if (v39 == 1)
     {
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        v41 = objc_opt_class();
-        v42 = NSStringFromClass(v41);
+        v42 = objc_opt_class();
+        v43 = NSStringFromClass(v42);
         *buf = 138543874;
-        v50 = v42;
-        v51 = 2048;
-        v52 = v2;
-        v53 = 2112;
-        v54 = v36;
-        _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create homography pipeline state, error %@", buf, 0x20u);
+        v51 = v43;
+        v52 = 2048;
+        v53 = v2;
+        v54 = 2112;
+        v55 = v36;
+        _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create homography pipeline state, error %@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
-      v43 = objc_opt_class();
-      v44 = NSStringFromClass(v43);
+      v44 = objc_opt_class();
+      v45 = NSStringFromClass(v44);
       *buf = 138543874;
-      v50 = v44;
-      v51 = 2048;
-      v52 = v2;
-      v53 = 2112;
-      v54 = v36;
-      _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create homography pipeline state, error %@", buf, 0x20u);
+      v51 = v45;
+      v52 = 2048;
+      v53 = v2;
+      v54 = 2112;
+      v55 = v36;
+      _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create homography pipeline state, error %@", buf, 0x20u);
     }
 
     if (!v2->_homographyPipelineState)
@@ -136,14 +135,14 @@
 
 - (void)warpCameraImage:(simd_float3)image withExposureOffset:(simd_float3)offset withCameraIntrinsics:(simd_float3)intrinsics withCameraTransform:(simd_float4)transform toPlane:(simd_float4)plane withLoadAction:(simd_float4)action synchronous:(simd_float4)synchronous
 {
-  v59.columns[2] = action;
-  v59.columns[3] = synchronous;
-  v59.columns[0] = transform;
-  v59.columns[1] = plane;
-  v81[8] = *MEMORY[0x1E69E9840];
-  v78.columns[0] = image;
-  v78.columns[1] = offset;
-  v78.columns[2] = intrinsics;
+  v63.columns[2] = action;
+  v63.columns[3] = synchronous;
+  v63.columns[0] = transform;
+  v63.columns[1] = plane;
+  v85[8] = *MEMORY[0x1E69E9840];
+  v82.columns[0] = image;
+  v82.columns[1] = offset;
+  v82.columns[2] = intrinsics;
   kdebug_trace();
   renderPassDescriptor = [MEMORY[0x1E6974128] renderPassDescriptor];
   colorAttachments = [renderPassDescriptor colorAttachments];
@@ -169,12 +168,12 @@
   commandBuffer = [*(self + 16) commandBuffer];
   [commandBuffer setLabel:@"com.apple.arkit.gpuwarper.cameratoplanecommandbuffer"];
   v34 = CVBufferRetain(a11);
-  v77[0] = MEMORY[0x1E69E9820];
-  v77[1] = 3221225472;
-  v77[2] = __126__ARGPUWarper_warpCameraImage_withExposureOffset_withCameraIntrinsics_withCameraTransform_toPlane_withLoadAction_synchronous___block_invoke;
-  v77[3] = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
-  v77[4] = v34;
-  [commandBuffer addCompletedHandler:v77];
+  v81[0] = MEMORY[0x1E69E9820];
+  v81[1] = 3221225472;
+  v81[2] = __126__ARGPUWarper_warpCameraImage_withExposureOffset_withCameraIntrinsics_withCameraTransform_toPlane_withLoadAction_synchronous___block_invoke;
+  v81[3] = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
+  v81[4] = v34;
+  [commandBuffer addCompletedHandler:v81];
   v35 = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
   [v35 setLabel:@"com.apple.arkit.gpuwarper.cameratoplanerenderencoder"];
   [v35 setCullMode:0];
@@ -182,127 +181,127 @@
   v36 = CVPixelBufferGetWidth(a11);
   Height = CVPixelBufferGetHeight(a11);
   *&v38 = v36;
-  v81[0] = 0;
-  v81[1] = 0x3F80000000000000;
-  v81[2] = COERCE_UNSIGNED_INT(v36);
+  v85[0] = 0;
+  v85[1] = 0x3F80000000000000;
+  v85[2] = COERCE_UNSIGNED_INT(v36);
   __asm { FMOV            V2.2S, #1.0 }
 
   LODWORD(v44) = 0;
   *(&v44 + 1) = Height;
-  v81[3] = _D2;
-  v81[4] = v44;
-  v81[5] = 0;
+  v85[3] = _D2;
+  v85[4] = v44;
+  v85[5] = 0;
   *(&v38 + 1) = Height;
-  v81[6] = v38;
-  v81[7] = 1065353216;
-  [v35 setVertexBytes:v81 length:64 atIndex:1];
-  v75 = __invert_f4(v59);
-  convert(&v75, v76);
-  convert((a12 + 32), v75.columns);
-  v74[0] = xmmword_1C25C93F0;
-  v74[1] = xmmword_1C25C9400;
-  v74[2] = xmmword_1C25C9410;
+  v85[6] = v38;
+  v85[7] = 1065353216;
+  [v35 setVertexBytes:v85 length:64 atIndex:1];
+  v79 = __invert_f4(v63);
+  convert(&v79, v80);
+  convert((a12 + 32), v79.columns);
+  v78[0] = xmmword_1C25C93F0;
+  v78[1] = xmmword_1C25C9400;
+  v78[2] = xmmword_1C25C9410;
   v46 = *(a12 + 96);
   v45 = *(a12 + 112);
-  v70[0] = v45;
-  v70[2] = DWORD2(v46);
-  v70[1] = 0;
-  v70[3] = 1065353216;
-  v71[0] = v46;
-  v71[2] = DWORD2(v46);
-  v71[1] = 0;
-  v71[3] = 1065353216;
-  v72[0] = v46;
-  v72[2] = DWORD2(v45);
-  v72[1] = 0;
-  v72[3] = 1065353216;
-  v73[0] = v45;
-  v73[2] = DWORD2(v45);
-  v73[1] = 0;
-  v73[3] = 1065353216;
-  convert(&v78, v69);
+  v74[0] = v45;
+  v74[2] = DWORD2(v46);
+  v74[1] = 0;
+  v74[3] = 1065353216;
+  v75[0] = v46;
+  v75[2] = DWORD2(v46);
+  v75[1] = 0;
+  v75[3] = 1065353216;
+  v76[0] = v46;
+  v76[2] = DWORD2(v45);
+  v76[1] = 0;
+  v76[3] = 1065353216;
+  v77[0] = v45;
+  v77[2] = DWORD2(v45);
+  v77[1] = 0;
+  v77[3] = 1065353216;
+  convert(&v82, v73);
   for (i = 24; i != 36; i += 4)
   {
-    *&v69[i] = -*&v69[i];
+    *&v73[i] = -*&v73[i];
   }
 
-  v68 = 0u;
+  v72 = 0u;
+  memset(v71, 0, sizeof(v71));
+  v83 = v80;
+  v84 = &v79;
+  *&v67[0] = &v83;
+  *(&v67[0] + 1) = v74;
+  v64 = 0uLL;
+  v48 = cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(&v64, v67);
+  *&v49 = dehomogenize(&v64, &v83, v48);
+  *&v67[0] = v73;
+  *(&v67[0] + 1) = &v83;
+  v69 = 0;
+  v70 = 0;
+  cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v69, v67, v49);
+  *&v71[0] = v69;
+  DWORD2(v71[0]) = v70;
+  v83 = v80;
+  v84 = &v79;
+  *&v67[0] = &v83;
+  *(&v67[0] + 1) = v75;
+  v64 = 0uLL;
+  v50 = cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(&v64, v67);
+  *&v51 = dehomogenize(&v64, &v83, v50);
+  *&v67[0] = v73;
+  *(&v67[0] + 1) = &v83;
+  v69 = 0;
+  v70 = 0;
+  cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v69, v67, v51);
+  *(v71 + 12) = v69;
+  DWORD1(v71[1]) = v70;
+  v83 = v80;
+  v84 = &v79;
+  *&v67[0] = &v83;
+  *(&v67[0] + 1) = v76;
+  v64 = 0uLL;
+  v52 = cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(&v64, v67);
+  *&v53 = dehomogenize(&v64, &v83, v52);
+  *&v67[0] = v73;
+  *(&v67[0] + 1) = &v83;
+  v69 = 0;
+  v70 = 0;
+  cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v69, v67, v53);
+  *(&v71[1] + 1) = v69;
+  LODWORD(v72) = v70;
+  v83 = v80;
+  v84 = &v79;
+  *&v67[0] = &v83;
+  *(&v67[0] + 1) = v77;
+  v64 = 0uLL;
+  v54 = cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(&v64, v67);
+  *&v55 = dehomogenize(&v64, &v83, v54);
+  *&v67[0] = v73;
+  *(&v67[0] + 1) = &v83;
+  v69 = 0;
+  v70 = 0;
+  cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v69, v67, v55);
+  *(&v72 + 4) = v69;
+  HIDWORD(v72) = v70;
+  v68 = 0;
   memset(v67, 0, sizeof(v67));
-  v79 = v76;
-  v80 = &v75;
-  *&v63[0] = &v79;
-  *(&v63[0] + 1) = v70;
-  v60 = 0uLL;
-  v48 = cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(&v60, v63);
-  dehomogenize(&v60, &v79, v48);
-  *&v63[0] = v69;
-  *(&v63[0] + 1) = &v79;
-  v65 = 0;
-  v66 = 0;
-  cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v65, v63);
-  *&v67[0] = v65;
-  DWORD2(v67[0]) = v66;
-  v79 = v76;
-  v80 = &v75;
-  *&v63[0] = &v79;
-  *(&v63[0] + 1) = v71;
-  v60 = 0uLL;
-  v49 = cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(&v60, v63);
-  dehomogenize(&v60, &v79, v49);
-  *&v63[0] = v69;
-  *(&v63[0] + 1) = &v79;
-  v65 = 0;
-  v66 = 0;
-  cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v65, v63);
-  *(v67 + 12) = v65;
-  DWORD1(v67[1]) = v66;
-  v79 = v76;
-  v80 = &v75;
-  *&v63[0] = &v79;
-  *(&v63[0] + 1) = v72;
-  v60 = 0uLL;
-  v50 = cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(&v60, v63);
-  dehomogenize(&v60, &v79, v50);
-  *&v63[0] = v69;
-  *(&v63[0] + 1) = &v79;
-  v65 = 0;
-  v66 = 0;
-  cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v65, v63);
-  *(&v67[1] + 1) = v65;
-  LODWORD(v68) = v66;
-  v79 = v76;
-  v80 = &v75;
-  *&v63[0] = &v79;
-  *(&v63[0] + 1) = v73;
-  v60 = 0uLL;
-  v51 = cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>,cva::Matrix<float,4u,1u,false>>(&v60, v63);
-  dehomogenize(&v60, &v79, v51);
-  *&v63[0] = v69;
-  *(&v63[0] + 1) = &v79;
-  v65 = 0;
-  v66 = 0;
-  cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v65, v63);
-  *(&v68 + 4) = v65;
-  HIDWORD(v68) = v66;
-  v64 = 0;
-  memset(v63, 0, sizeof(v63));
-  computeHomography(v67, v74, v63);
-  v61 = 0u;
-  v62 = 0u;
-  v60 = 0u;
-  v52 = convert(v63);
-  v60.i32[2] = v53;
-  DWORD2(v61) = v54;
-  *v60.i64 = v52;
-  *&v61 = v55;
-  DWORD2(v62) = v56;
-  *&v62 = v57;
-  [v35 setVertexBytes:&v60 length:48 atIndex:0];
-  LOBYTE(v65) = 1;
-  [v35 setFragmentBytes:&v65 length:1 atIndex:0];
-  v58 = 1.0 / exp2(a2);
-  *&v79 = v58;
-  [v35 setFragmentBytes:&v79 length:4 atIndex:2];
+  computeHomography(v71, v78, v67);
+  v65 = 0u;
+  v66 = 0u;
+  v64 = 0u;
+  v56 = convert(v67);
+  v64.i32[2] = v57;
+  DWORD2(v65) = v58;
+  *v64.i64 = v56;
+  *&v65 = v59;
+  DWORD2(v66) = v60;
+  *&v66 = v61;
+  [v35 setVertexBytes:&v64 length:48 atIndex:0];
+  LOBYTE(v69) = 1;
+  [v35 setFragmentBytes:&v69 length:1 atIndex:0];
+  v62 = 1.0 / exp2(a2);
+  *&v83 = v62;
+  [v35 setFragmentBytes:&v83 length:4 atIndex:2];
   [v35 setFragmentTexture:v32 atIndex:0];
   [v35 drawPrimitives:4 vertexStart:0 vertexCount:4];
   [v35 endEncoding];

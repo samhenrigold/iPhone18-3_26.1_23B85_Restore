@@ -31,6 +31,8 @@
 - (void)satisfyPathResult:(id)result;
 - (void)sendConfigurationChangeHandledNotification;
 - (void)setLastDisconnectError:(id)error;
+- (void)setLastStopReason:(int)reason;
+- (void)setStatus:(int)status;
 - (void)setUID:(id)d;
 - (void)setupFromAuxiliaryData;
 - (void)startWithCommand:(id)command isOnDemand:(BOOL)demand;
@@ -221,7 +223,7 @@
   self->_status = 0;
   server = self->_server;
   self->_server = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, server);
 }
 
 - (void)stopIfNecessaryWithReason:(int)reason withCompletionHandler:(id)handler
@@ -493,6 +495,32 @@ LABEL_12:
   return v3;
 }
 
+- (void)setLastStopReason:(int)reason
+{
+  v3 = *&reason;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if ((v3 & 0xFFFFFFDF) == 0 || !selfCopy->_lastStopReason)
+  {
+    v5 = ne_log_obj();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v7[0] = 67109120;
+      v7[1] = v3;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Setting last stop reason to %d", v7, 8u);
+    }
+
+    selfCopy->_lastStopReason = v3;
+    if (v3 != 3)
+    {
+      v6 = [NEVPNConnection createDisconnectErrorWithDomain:@"NEVPNConnectionErrorDomainPlugin" code:v3];
+      [(NESMSession *)selfCopy setLastDisconnectError:v6];
+    }
+  }
+
+  objc_sync_exit(selfCopy);
+}
+
 - (int)lastStopReason
 {
   selfCopy = self;
@@ -519,6 +547,339 @@ LABEL_12:
 
   uid = self->_uid;
   self->_uid = v5;
+}
+
+- (void)setStatus:(int)status
+{
+  v3 = *&status;
+  status = self->_status;
+  v6 = [(NESMSession *)self shouldBeIdleForStatus:status];
+  v7 = [(NESMSession *)self shouldBeIdleForStatus:v3];
+  v8 = self->_status;
+  self->_status = v3;
+  if (status != v3)
+  {
+    v9 = v7;
+    v10 = xpc_dictionary_create(0, 0, 0);
+    objc_opt_class();
+    v11 = (objc_opt_isKindOfClass() & 1) != 0 && [(NESMSession *)self parentType]== 2;
+    if (!(v9 & 1 | ((v6 & 1) == 0)) && !v11)
+    {
+      v12 = ne_log_obj();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        *&buf[4] = self;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%@ is no longer idle, beginning transaction", buf, 0xCu);
+      }
+
+      v13 = [NSString alloc];
+      configuration = [(NESMSession *)self configuration];
+      identifier = [configuration identifier];
+      v16 = [v13 initWithFormat:@"com.apple.nesessionmanager.activeSession.%@", identifier];
+
+      [v16 UTF8String];
+      v17 = os_transaction_create();
+      objc_setProperty_atomic(self, v18, v17, 56);
+
+      server = [(NESMSession *)self server];
+      sub_10005A048(server, 1);
+    }
+
+    if (!(v6 & 1 | ((v9 & 1) == 0) | v11))
+    {
+      v20 = ne_log_obj();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        *&buf[4] = self;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%@ is now idle, ending transaction", buf, 0xCu);
+      }
+
+      objc_setProperty_atomic(self, v21, 0, 56);
+      server2 = [(NESMSession *)self server];
+      sub_10005A048(server2, -1);
+    }
+
+    if (objc_msgSend_type(self) == 2 && (v3 - 5) <= 0xFFFFFFFD && v8 == 2)
+    {
+      v23 = ne_log_obj();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        *&buf[4] = self;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "%@ Per-app VPN failed to connect, pausing VPN On Demand", buf, 0xCu);
+      }
+
+      sub_10008FE40(self, 2);
+    }
+
+    if (v3 != 1)
+    {
+      if (v3 == 3)
+      {
+        kdebug_trace();
+        [(NESMSession *)self setConnectedCount:[(NESMSession *)self connectedCount]+ 1];
+        [(NESMSession *)self setFailedConnectCountWithinInterval:0];
+        [(NESMSession *)self setFirstFailedConnectTime:0];
+      }
+
+      else if (v3 == 2)
+      {
+        [(NESMSession *)self setConnectCount:[(NESMSession *)self connectCount]+ 1];
+      }
+
+LABEL_32:
+      if (qword_1000FD5F0 != -1)
+      {
+        dispatch_once(&qword_1000FD5F0, &stru_1000EB270);
+      }
+
+      v32 = self->_status;
+      if (v32 == 1)
+      {
+        [(NESMSession *)self setLastConnectedDuration:0];
+        if ([(NESMSession *)self connectTime])
+        {
+          v33 = (*&qword_1000FD5E8 * mach_absolute_time());
+          v34 = v33 - [(NESMSession *)self connectTime];
+          if ([(NESMSession *)self maxConnectTime]< v34)
+          {
+            [(NESMSession *)self setMaxConnectTime:v34];
+          }
+
+          [(NESMSession *)self setLastConnectedDuration:v34];
+        }
+
+        [(NESMSession *)self setConnectTime:0];
+        v35 = [(NESMSession *)self lastStopReason]== 32;
+        server3 = [(NESMSession *)self server];
+        v70[0] = _NSConcreteStackBlock;
+        v70[1] = 3221225472;
+        v70[2] = sub_1000B1980;
+        v70[3] = &unk_1000EB298;
+        v71 = v35;
+        v70[4] = self;
+        sub_10005B410(server3, self, v70);
+      }
+
+      else
+      {
+        if (v32 != 3)
+        {
+          goto LABEL_43;
+        }
+
+        [(NESMSession *)self setConnectTime:(*&qword_1000FD5E8 * mach_absolute_time())];
+        [(NESMSession *)self setLastStopReason:0];
+      }
+
+      v32 = self->_status;
+LABEL_43:
+      v37 = ne_log_obj();
+      v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+      if (v32 > 1)
+      {
+        if (!v38)
+        {
+          goto LABEL_49;
+        }
+
+        v44 = ne_session_status_to_string();
+        *buf = 138412546;
+        *&buf[4] = self;
+        *&buf[12] = 2080;
+        *&buf[14] = v44;
+        v41 = "%@: status changed to %s";
+        v42 = v37;
+        v43 = 22;
+      }
+
+      else
+      {
+        if (!v38)
+        {
+          goto LABEL_49;
+        }
+
+        v39 = ne_session_status_to_string();
+        [(NESMSession *)self lastStopReason];
+        v40 = ne_session_stop_reason_to_string();
+        *buf = 138412802;
+        *&buf[4] = self;
+        *&buf[12] = 2080;
+        *&buf[14] = v39;
+        *&buf[22] = 2080;
+        v74 = v40;
+        v41 = "%@: status changed to %s, last stop reason %s";
+        v42 = v37;
+        v43 = 32;
+      }
+
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, v41, buf, v43);
+LABEL_49:
+
+      v45 = objc_alloc_init(NSDate);
+      [(NESMSession *)self setLastStatusChangeTime:v45];
+
+      xpc_dictionary_set_int64(v10, "SessionNotificationType", 1);
+      v68 = 0u;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v47 = objc_getProperty(self, v46, 48, 1);
+      v48 = [v47 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      if (v48)
+      {
+        v50 = v48;
+        v51 = *v67;
+        do
+        {
+          for (i = 0; i != v50; i = i + 1)
+          {
+            if (*v67 != v51)
+            {
+              objc_enumerationMutation(v47);
+            }
+
+            Property = *(*(&v66 + 1) + 8 * i);
+            if (Property)
+            {
+              Property = objc_getProperty(Property, v49, 16, 1);
+            }
+
+            xpc_connection_send_message(Property, v10);
+          }
+
+          v50 = [v47 countByEnumeratingWithState:&v66 objects:v72 count:16];
+        }
+
+        while (v50);
+
+        if (!self)
+        {
+          goto LABEL_78;
+        }
+      }
+
+      else
+      {
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        selfCopy = self;
+        if ((objc_msgSend_type(selfCopy) == 1 || objc_msgSend_type(selfCopy) == 2 || objc_msgSend_type(selfCopy) == 3) && [(NESMSession *)selfCopy status])
+        {
+          if (qword_1000FD5E0 != -1)
+          {
+            dispatch_once(&qword_1000FD5E0, &stru_1000EB250);
+          }
+
+          v55 = objc_alloc_init(NSMutableDictionary);
+          configuration2 = [(NESMSession *)selfCopy configuration];
+          identifier2 = [configuration2 identifier];
+          [v55 setObject:identifier2 forKeyedSubscript:@"identifier"];
+
+          v58 = [NSNumber numberWithInt:[(NESMSession *)selfCopy status]];
+          [v55 setObject:v58 forKeyedSubscript:@"status"];
+
+          [v55 setObject:&stru_1000EBA68 forKeyedSubscript:@"tunnel-intf"];
+          [v55 setObject:&stru_1000EBA68 forKeyedSubscript:@"delegate-intf"];
+          [v55 setObject:&stru_1000EBA68 forKeyedSubscript:@"delegate-intf-type"];
+          [v55 setObject:&off_1000EE4C8 forKeyedSubscript:@"duration"];
+          copyTunnelInterfaceName = [(NESMSession *)selfCopy copyTunnelInterfaceName];
+          if (copyTunnelInterfaceName)
+          {
+            [v55 setObject:copyTunnelInterfaceName forKeyedSubscript:@"tunnel-intf"];
+            [(NESMSession *)selfCopy virtualInterface];
+            v60 = NEVirtualInterfaceCopyDelegateInterfaceName();
+            if (v60)
+            {
+              [v55 setObject:v60 forKeyedSubscript:@"delegate-intf"];
+              [(NESMSession *)selfCopy virtualInterface];
+              v61 = [NSNumber numberWithUnsignedInt:NEVirtualInterfaceGetDelegateInterfaceFunctionalType()];
+              [v55 setObject:v61 forKeyedSubscript:@"delegate-intf-type"];
+            }
+          }
+
+          if ([(NESMSession *)selfCopy status]== 1)
+          {
+            v62 = [NSNumber numberWithUnsignedLongLong:[(NESMSession *)selfCopy lastConnectedDuration]];
+            [v55 setObject:v62 forKeyedSubscript:@"duration"];
+          }
+
+          v63 = ne_log_obj();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+          {
+            *v77 = 138412546;
+            v78 = selfCopy;
+            v79 = 2112;
+            v80 = v55;
+            _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_INFO, "%@: submitting event dictionary to powerlog %@", v77, 0x16u);
+          }
+
+          v64 = qword_1000FD5D8;
+          *buf = _NSConcreteStackBlock;
+          *&buf[8] = 3221225472;
+          *&buf[16] = sub_1000B1998;
+          v74 = &unk_1000EB198;
+          v75 = @"VPN status change";
+          v76 = v55;
+          v65 = v55;
+          dispatch_async(v64, buf);
+        }
+      }
+
+LABEL_78:
+
+      goto LABEL_79;
+    }
+
+    [(NESMSession *)self setDisconnectedCount:[(NESMSession *)self disconnectedCount]+ 1];
+    if (!sub_10008AA94(self))
+    {
+      goto LABEL_32;
+    }
+
+    if ([(NESMSession *)self failedConnectCountWithinInterval])
+    {
+      firstFailedConnectTime = [(NESMSession *)self firstFailedConnectTime];
+      if (!firstFailedConnectTime)
+      {
+        goto LABEL_32;
+      }
+
+      v25 = firstFailedConnectTime;
+      firstFailedConnectTime2 = [(NESMSession *)self firstFailedConnectTime];
+      [firstFailedConnectTime2 timeIntervalSinceNow];
+      v28 = v27 + 1.0;
+
+      if (v28 < 0.0)
+      {
+        goto LABEL_32;
+      }
+
+      v29 = [(NESMSession *)self failedConnectCountWithinInterval]+ 1;
+      selfCopy3 = self;
+    }
+
+    else
+    {
+      v31 = +[NSDate date];
+      [(NESMSession *)self setFirstFailedConnectTime:v31];
+
+      selfCopy3 = self;
+      v29 = 1;
+    }
+
+    [(NESMSession *)selfCopy3 setFailedConnectCountWithinInterval:v29];
+    goto LABEL_32;
+  }
+
+LABEL_79:
+  sub_10008C510(self);
 }
 
 - (void)notifyChangedExtendedStatus
@@ -752,7 +1113,7 @@ LABEL_11:
   [(NESMSession *)self setLastStopReason:?];
   if (reason != 36)
   {
-    if (reason == 1 && [(NESMSession *)self type]== 1)
+    if (reason == 1 && objc_msgSend_type(self) == 1)
     {
       sub_10008FE40(self, 1);
     }
@@ -822,7 +1183,7 @@ LABEL_11:
   [(NESMSession *)self setGid:v12];
 
   self->_lastStopReason = 0;
-  if ([(NESMSession *)self type]== 1)
+  if (objc_msgSend_type(self) == 1)
   {
     sub_10008FE40(self, 0);
   }
@@ -1084,7 +1445,7 @@ LABEL_11:
 
       else
       {
-        if ([(NESMSession *)self failedConnectCountWithinInterval]>= 4 && [(NESMSession *)self status]== 1 && sub_1000B34FC(self, commandCopy) && (!self || [(NESMSession *)self onDemandPauseLevelInternal]!= 2))
+        if ([(NESMSession *)self failedConnectCountWithinInterval:*v41]>= 4 && [(NESMSession *)self status]== 1 && sub_1000B34FC(self, commandCopy) && (!self || [(NESMSession *)self onDemandPauseLevelInternal]!= 2))
         {
           v31 = ne_log_obj();
           if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
@@ -1473,9 +1834,9 @@ LABEL_90:
 
           v25 = [configurationCopy VPN];
           protocol = [v25 protocol];
-          type = [protocol type];
+          v27 = objc_msgSend_type(protocol);
 
-          if ((type - 1) < 2)
+          if ((v27 - 1) < 2)
           {
             v50 = [NESMLegacySession alloc];
             protocol3 = [configurationCopy VPN];
@@ -1488,7 +1849,7 @@ LABEL_90:
             goto LABEL_68;
           }
 
-          if (type == 4)
+          if (v27 == 4)
           {
             v58 = [configurationCopy VPN];
             protocol3 = [v58 protocol];
@@ -1513,7 +1874,7 @@ LABEL_90:
             goto LABEL_79;
           }
 
-          if (type != 5)
+          if (v27 != 5)
           {
             goto LABEL_66;
           }
@@ -1564,13 +1925,13 @@ LABEL_83:
 
           appVPN2 = [configurationCopy appVPN];
           protocol6 = [appVPN2 protocol];
-          type2 = [protocol6 type];
+          v41 = objc_msgSend_type(protocol6);
 
-          if (type2 != 5)
+          if (v41 != 5)
           {
-            if (type2 != 4)
+            if (v41 != 4)
             {
-              if (type2 == 1)
+              if (v41 == 1)
               {
                 v42 = [NESMLegacySession alloc];
                 protocol3 = [configurationCopy appVPN];

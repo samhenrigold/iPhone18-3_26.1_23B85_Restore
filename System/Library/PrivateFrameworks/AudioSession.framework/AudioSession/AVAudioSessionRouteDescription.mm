@@ -12,6 +12,7 @@
 - (unint64_t)hash;
 - (unint64_t)siriInputSource;
 - (void)dealloc;
+- (void)updateOutputPortsWithSpatialAudioStatus:(BOOL)status;
 @end
 
 @implementation AVAudioSessionRouteDescription
@@ -163,6 +164,40 @@
   }
 
   return 0;
+}
+
+- (void)updateOutputPortsWithSpatialAudioStatus:(BOOL)status
+{
+  statusCopy = status;
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v4 = [(AVAudioSessionRouteDescription *)self privateGetImplementation][8];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v5)
+  {
+    v6 = *v9;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v9 != v6)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        [*(*(&v8 + 1) + 8 * v7++) setSupportsSpatialAudio:{statusCopy, v8}];
+      }
+
+      while (v5 != v7);
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
+    }
+
+    while (v5);
+  }
 }
 
 - (BOOL)supportsDoAP

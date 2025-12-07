@@ -135,16 +135,14 @@
       v6 = [(NSMutableArray *)self->_operations count];
       v7 = self->_index;
       *buf = 134218240;
-      v12 = v6;
-      v13 = 2048;
-      v14 = v7;
+      v10 = v6;
+      v11 = 2048;
+      v12 = v7;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "MBDriveScript had (%ld) operations, and performed (%ld)", buf, 0x16u);
-      v9 = [(NSMutableArray *)self->_operations count];
-      v10 = self->_index;
-      _MBLog();
+      _MBLog(@"E ", "MBDriveScript had (%ld) operations, and performed (%ld)", [(NSMutableArray *)self->_operations count], self->_index);
     }
 
-    [(NSMutableArray *)self->_operations mb_enumerateFirstAndLastNObjects:5 fromIndex:self->_index block:&stru_1003C1218, v9, v10];
+    [(NSMutableArray *)self->_operations mb_enumerateFirstAndLastNObjects:5 fromIndex:self->_index block:&stru_1003C1218];
   }
 
   if (self->_state != 1)

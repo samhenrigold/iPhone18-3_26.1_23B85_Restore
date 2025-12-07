@@ -70,10 +70,10 @@
 
 - (VCVideoStreamSendGroup)initWithConfig:(id)config
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = VCVideoStreamSendGroup;
-  v4 = [(VCMediaStreamSendGroup *)&v24 initWithConfig:?];
+  v37 = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = VCVideoStreamSendGroup;
+  v4 = [(VCMediaStreamSendGroup *)&v26 initWithConfig:?];
   v5 = v4;
   if (!v4)
   {
@@ -127,67 +127,67 @@ LABEL_38:
     goto LABEL_38;
   }
 
+  v35 = 0u;
+  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
   obj = v5->super.super._mediaStreamInfoArray;
-  v22 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v30 count:16];
-  if (v22)
+  v24 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v32 count:16];
+  if (v24)
   {
-    v21 = *v32;
+    v23 = *v34;
     do
     {
       v10 = 0;
       do
       {
-        if (*v32 != v21)
+        if (*v34 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = v10;
-        v11 = *(*(&v31 + 1) + 8 * v10);
-        v26 = 0u;
-        v27 = 0u;
+        v25 = v10;
+        v11 = *(*(&v33 + 1) + 8 * v10);
         v28 = 0u;
         v29 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         streamConfigs = [v11 streamConfigs];
-        v13 = [streamConfigs countByEnumeratingWithState:&v26 objects:v25 count:16];
+        v13 = [streamConfigs countByEnumeratingWithState:&v28 objects:v27 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v27;
+          v15 = *v29;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v27 != v15)
+              if (*v29 != v15)
               {
                 objc_enumerationMutation(streamConfigs);
               }
 
-              multiwayConfig = [*(*(&v26 + 1) + 8 * i) multiwayConfig];
+              multiwayConfig = [*(*(&v28 + 1) + 8 * i) multiwayConfig];
               if ([multiwayConfig isTemporalStream])
               {
                 -[NSMutableArray addObject:](v5->_temporalStreamsIDs, "addObject:", [MEMORY[0x1E696AD98] numberWithUnsignedShort:{objc_msgSend(multiwayConfig, "idsStreamID")}]);
               }
             }
 
-            v14 = [streamConfigs countByEnumeratingWithState:&v26 objects:v25 count:16];
+            v14 = [streamConfigs countByEnumeratingWithState:&v28 objects:v27 count:16];
           }
 
           while (v14);
         }
 
-        v10 = v23 + 1;
+        v10 = v25 + 1;
       }
 
-      while (v23 + 1 != v22);
-      v22 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v30 count:16];
+      while (v25 + 1 != v24);
+      v24 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v32 count:16];
     }
 
-    while (v22);
+    while (v24);
   }
 
   [(VCVideoStreamSendGroup *)v5 setupPayloadTypes];
@@ -222,12 +222,13 @@ LABEL_27:
   }
 
 LABEL_28:
-  if ([(VCMediaStreamGroup *)v5 streamGroupID]== 1935897189)
+  streamGroupID2 = [(VCMediaStreamGroup *)v5 streamGroupID];
+  if (streamGroupID2 == 1935897189)
   {
-    [(VCVideoStreamSendGroup *)v5 registerConfigForScreenShare];
+    streamGroupID2 = [(VCVideoStreamSendGroup *)v5 registerConfigForScreenShare];
   }
 
-  v5->_initTime = micro() != 0.0;
+  v5->_initTime = micro(streamGroupID2, v19) != 0.0;
   v5->_totalNumFramesProcessed = 0;
   return v5;
 }
@@ -1656,7 +1657,7 @@ LABEL_11:
   dispatch_sync(stateQueue, block);
 }
 
-uint64_t __44__VCVideoStreamSendGroup_setMediaQueueSize___block_invoke(uint64_t a1)
+void *__44__VCVideoStreamSendGroup_setMediaQueueSize___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 884) = *(a1 + 40);
@@ -1681,7 +1682,8 @@ uint64_t __44__VCVideoStreamSendGroup_setMediaQueueSize___block_invoke(uint64_t 
           objc_enumerationMutation(v3);
         }
 
-        VCVideoStream_SetMediaQueueSize(*(*(&v9 + 1) + 8 * v7++), *(a1 + 40));
+        VCVideoStream_SetMediaQueueSize(*(*(&v9 + 1) + 8 * v7), *(a1 + 40));
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -2443,15 +2445,15 @@ LABEL_22:
   -[VCMediaStreamSendGroup calculateUplinkTotalBitrateForMediaStreams:](self, "calculateUplinkTotalBitrateForMediaStreams:", [streams allValues]);
 }
 
-uint64_t __65__VCVideoStreamSendGroup_controller_didChangeActiveVideoStreams___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__65__VCVideoStreamSendGroup_controller_didChangeActiveVideoStreams___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v23 = *MEMORY[0x1E69E9840];
   if (!*(*(a1 + 32) + 480))
   {
-    [a2 setStreamIDs:? repairStreamIDs:?];
+    [a2 setStreamIDs:a3 repairStreamIDs:a4];
   }
 
-  [a2 setIsServerBasedBandwidthProbingEnabled:a5];
+  [a2 setIsServerBasedBandwidthProbingEnabled:{a5, a4}];
   result = [a2 isCompoundStreamIDsIncreased];
   if (result)
   {
@@ -2460,14 +2462,14 @@ uint64_t __65__VCVideoStreamSendGroup_controller_didChangeActiveVideoStreams___b
     {
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
-        return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[16], v20, v21, v22, v23), 0}];
+        return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[8], v20, v21, v22, v23), 0}];
       }
 
       v11 = VRTraceErrorLogLevelToCSTR();
       v12 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[16], v20, v21, v22, v23), 0}];
+        return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[8], v20, v21, v22, v23), 0}];
       }
 
       *v19 = 136315906;
@@ -2497,14 +2499,14 @@ uint64_t __65__VCVideoStreamSendGroup_controller_didChangeActiveVideoStreams___b
 
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
-        return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[16], v20, v21, v22, v23), 0}];
+        return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[8], v20, v21, v22, v23), 0}];
       }
 
       v16 = VRTraceErrorLogLevelToCSTR();
       v17 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[16], v20, v21, v22, v23), 0}];
+        return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[8], v20, v21, v22, v23), 0}];
       }
 
       v18 = *(a1 + 32);
@@ -2526,7 +2528,7 @@ uint64_t __65__VCVideoStreamSendGroup_controller_didChangeActiveVideoStreams___b
     }
 
     _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, v13, v19, v15);
-    return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[16], v20, v21, v22, v23), 0}];
+    return [*(*(a1 + 32) + 792) generateKeyFrameWithStreamID:objc_msgSend(MEMORY[0x1E696AD98] firType:{"numberWithUnsignedShort:", v9, *v19, *&v19[8], v20, v21, v22, v23), 0}];
   }
 
   return result;
@@ -2723,7 +2725,7 @@ LABEL_11:
 
 - (void)thermalLevelDidChange:(int)change
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -2733,13 +2735,13 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v17 = v6;
-        v18 = 2080;
-        v19 = "[VCVideoStreamSendGroup thermalLevelDidChange:]";
-        v20 = 1024;
-        v21 = 1016;
+        v19 = v6;
+        v20 = 2080;
+        v21 = "[VCVideoStreamSendGroup thermalLevelDidChange:]";
         v22 = 1024;
-        LODWORD(v23) = change;
+        v23 = 1016;
+        v24 = 1024;
+        LODWORD(v25) = change;
         v8 = " [%s] %s:%d thermalLevelDidChange %u";
         v9 = v7;
         v10 = 34;
@@ -2768,16 +2770,16 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316418;
-        v17 = v11;
-        v18 = 2080;
-        v19 = "[VCVideoStreamSendGroup thermalLevelDidChange:]";
-        v20 = 1024;
-        v21 = 1016;
-        v22 = 2112;
-        v23 = v5;
-        v24 = 2048;
+        v19 = v11;
+        v20 = 2080;
+        v21 = "[VCVideoStreamSendGroup thermalLevelDidChange:]";
+        v22 = 1024;
+        v23 = 1016;
+        v24 = 2112;
+        v25 = v5;
+        v26 = 2048;
         selfCopy = self;
-        v26 = 1024;
+        v28 = 1024;
         changeCopy = change;
         v8 = " [%s] %s:%d %@(%p) thermalLevelDidChange %u";
         v9 = v12;
@@ -2788,19 +2790,19 @@ LABEL_11:
   }
 
   stateQueue = self->super.super._stateQueue;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __48__VCVideoStreamSendGroup_thermalLevelDidChange___block_invoke;
-  v14[3] = &unk_1E85F38B8;
-  v14[4] = self;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __48__VCVideoStreamSendGroup_thermalLevelDidChange___block_invoke;
+  v16[3] = &unk_1E85F38B8;
+  v16[4] = self;
   changeCopy2 = change;
-  dispatch_async(stateQueue, v14);
-  [(VCObject *)self reportingAgent];
-  micro();
+  dispatch_async(stateQueue, v16);
+  reportingAgent = [(VCObject *)self reportingAgent];
+  micro(reportingAgent, v15);
   reportingThermal();
 }
 
-uint64_t __48__VCVideoStreamSendGroup_thermalLevelDidChange___block_invoke(uint64_t a1)
+void *__48__VCVideoStreamSendGroup_thermalLevelDidChange___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -2823,7 +2825,8 @@ uint64_t __48__VCVideoStreamSendGroup_thermalLevelDidChange___block_invoke(uint6
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) thermalLevelDidChange:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6) thermalLevelDidChange:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -4234,8 +4237,8 @@ LABEL_17:
       v22 = BYTE2(self->_captureSource);
       dynamicVideoPriorityEnabled2 = [(VCSessionUplinkVideoStreamController *)v7 dynamicVideoPriorityEnabled];
       [(VCSessionUplinkVideoStreamController *)v7 captureFrameRate];
-      LODWORD(v33) = 136316930;
-      *(&v33 + 4) = v20;
+      *v33 = 136316930;
+      *&v33[4] = v20;
       OUTLINED_FUNCTION_0();
       v34 = 312;
       v35 = 2112;
@@ -4253,9 +4256,9 @@ LABEL_17:
       v19 = 66;
     }
 
-    _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, v17, &v33, v19);
+    _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, v17, v33, v19);
 LABEL_22:
-    [v6 setUplinkVideoStreamController:{v7, v33}];
+    [v6 setUplinkVideoStreamController:{v7, *v33, *&v33[8]}];
   }
 
   return [v6 uplinkVideoStreamController];
@@ -4512,7 +4515,7 @@ LABEL_17:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to setup redundancy settings", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to setup redundancy settings", v2, v3, v4, v5);
     }
   }
 }
@@ -4526,7 +4529,7 @@ LABEL_17:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate temporal streamIDs", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate temporal streamIDs", v2, v3, v4, v5);
     }
   }
 }
@@ -4540,7 +4543,7 @@ LABEL_17:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to setup the stream controller", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to setup the stream controller", v2, v3, v4, v5);
     }
   }
 }
@@ -4554,7 +4557,7 @@ LABEL_17:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate pending uplink streams dictionary", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate pending uplink streams dictionary", v2, v3, v4, v5);
     }
   }
 }
@@ -4568,7 +4571,7 @@ LABEL_17:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate payload types set", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate payload types set", v2, v3, v4, v5);
     }
   }
 }

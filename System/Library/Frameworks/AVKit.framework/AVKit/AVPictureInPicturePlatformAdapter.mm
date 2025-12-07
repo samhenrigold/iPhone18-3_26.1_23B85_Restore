@@ -554,11 +554,11 @@ LABEL_57:
 LABEL_54:
 }
 
-uint64_t __85__AVPictureInPicturePlatformAdapter_pictureInPictureProxy_didReceivePlaybackCommand___block_invoke(uint64_t result, char a2)
+id *__85__AVPictureInPicturePlatformAdapter_pictureInPictureProxy_didReceivePlaybackCommand___block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) stopPictureInPictureAndRestoreUserInterface:0];
+    return [result[4] stopPictureInPictureAndRestoreUserInterface:0];
   }
 
   return result;
@@ -1749,9 +1749,11 @@ void __62__AVPictureInPicturePlatformAdapter__updateProxyPlaybackState__block_in
   if (activitySessionIdentifier != identifierCopy)
   {
     v9 = identifierCopy;
-    if (![(NSString *)activitySessionIdentifier isEqualToString:identifierCopy])
+    activitySessionIdentifier = [activitySessionIdentifier isEqualToString:identifierCopy];
+    identifierCopy = v9;
+    if ((activitySessionIdentifier & 1) == 0)
     {
-      v6 = [(NSString *)v9 copy];
+      v6 = [v9 copy];
       v7 = self->_activitySessionIdentifier;
       self->_activitySessionIdentifier = v6;
 
@@ -1760,11 +1762,12 @@ void __62__AVPictureInPicturePlatformAdapter__updateProxyPlaybackState__block_in
       [pegasusProxy setClientSessionIdentifier:v9];
 
       [(AVPictureInPicturePlatformAdapter *)self _updateProxyPlaybackState];
-      [(AVPictureInPicturePlatformAdapter *)self _updatePictureInPictureShouldStartWhenEnteringBackground];
+      activitySessionIdentifier = [(AVPictureInPicturePlatformAdapter *)self _updatePictureInPictureShouldStartWhenEnteringBackground];
+      identifierCopy = v9;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](activitySessionIdentifier, identifierCopy);
 }
 
 - (void)setPlayerController:(id)controller

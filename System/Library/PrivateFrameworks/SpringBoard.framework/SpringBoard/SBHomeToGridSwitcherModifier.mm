@@ -142,7 +142,7 @@ void __46__SBHomeToGridSwitcherModifier_frameForIndex___block_invoke(uint64_t a1
   return result;
 }
 
-uint64_t __74__SBHomeToGridSwitcherModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
+void *__74__SBHomeToGridSwitcherModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) frameForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40) withBounds:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   v3 = *(*(a1 + 48) + 8);
@@ -175,7 +175,7 @@ uint64_t __74__SBHomeToGridSwitcherModifier_frameForLayoutRole_inAppLayout_withB
   return v7;
 }
 
-uint64_t __46__SBHomeToGridSwitcherModifier_scaleForIndex___block_invoke(uint64_t a1)
+void *__46__SBHomeToGridSwitcherModifier_scaleForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) scaleForIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -207,7 +207,7 @@ uint64_t __46__SBHomeToGridSwitcherModifier_scaleForIndex___block_invoke(uint64_
   return v10;
 }
 
-uint64_t __63__SBHomeToGridSwitcherModifier_scaleForLayoutRole_inAppLayout___block_invoke(uint64_t a1)
+void *__63__SBHomeToGridSwitcherModifier_scaleForLayoutRole_inAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) scaleForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = v3;
@@ -279,7 +279,7 @@ void __49__SBHomeToGridSwitcherModifier_visibleAppLayouts__block_invoke(uint64_t
   layoutCopy = layout;
   visibleAppLayouts = [(SBHomeToGridSwitcherModifier *)self visibleAppLayouts];
   v10 = 0.0;
-  if ([visibleAppLayouts containsObject:layoutCopy])
+  if (objc_msgSend_containsObject_(visibleAppLayouts))
   {
     v19 = 0;
     v20 = &v19;
@@ -349,7 +349,7 @@ void __73__SBHomeToGridSwitcherModifier_opacityForLayoutRole_inAppLayout_atIndex
   return result;
 }
 
-uint64_t __52__SBHomeToGridSwitcherModifier_cornerRadiiForIndex___block_invoke(uint64_t a1)
+void *__52__SBHomeToGridSwitcherModifier_cornerRadiiForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cornerRadiiForIndex:*(a1 + 48)];
   v3 = *(*(a1 + 40) + 8);
@@ -382,7 +382,7 @@ uint64_t __52__SBHomeToGridSwitcherModifier_cornerRadiiForIndex___block_invoke(u
   return v7;
 }
 
-uint64_t __60__SBHomeToGridSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(uint64_t a1)
+void *__60__SBHomeToGridSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) titleAndIconOpacityForIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -411,7 +411,7 @@ uint64_t __60__SBHomeToGridSwitcherModifier_titleAndIconOpacityForIndex___block_
   return v7;
 }
 
-uint64_t __53__SBHomeToGridSwitcherModifier_titleOpacityForIndex___block_invoke(uint64_t a1)
+void *__53__SBHomeToGridSwitcherModifier_titleOpacityForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) titleOpacityForIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -441,7 +441,7 @@ uint64_t __53__SBHomeToGridSwitcherModifier_titleOpacityForIndex___block_invoke(
   return v9;
 }
 
-uint64_t __67__SBHomeToGridSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(uint64_t a1)
+void *__67__SBHomeToGridSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shadowOpacityForLayoutRole:*(a1 + 48) atIndex:*(a1 + 56)];
   *(*(*(a1 + 40) + 8) + 24) = v3;

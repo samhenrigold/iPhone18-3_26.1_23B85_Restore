@@ -116,20 +116,20 @@
   p_isa = &equalCopy->super.isa;
   if (self == equalCopy)
   {
-    v6 = 1;
+    isEqual = 1;
   }
 
   else if (equalCopy && [(UIBarButtonItemAppearance *)equalCopy isMemberOfClass:objc_opt_class()])
   {
-    v6 = [p_isa[2] isEqual:self->_data];
+    isEqual = objc_msgSend_isEqual_(p_isa[2]);
   }
 
   else
   {
-    v6 = 0;
+    isEqual = 0;
   }
 
-  return v6;
+  return isEqual;
 }
 
 - (void)_updateDataTo:(id)to signal:(BOOL)signal

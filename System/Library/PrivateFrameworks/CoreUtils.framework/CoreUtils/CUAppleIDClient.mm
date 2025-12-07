@@ -30,12 +30,12 @@
       dispatch_once(&AppleAccountLibrary_sOnce, &__block_literal_global_155);
     }
 
-    v4 = objc_alloc_init(getACAccountStoreClass[0]());
+    v4 = objc_alloc_init(getACAccountStoreClass());
     aa_primaryAppleAccount = [v4 aa_primaryAppleAccount];
     v6 = [aa_primaryAppleAccount accountPropertyForKey:@"altDSID"];
     if (v6)
     {
-      sharedInstance = [getAKAccountManagerClass[0]() sharedInstance];
+      sharedInstance = [(objc_class *)getAKAccountManagerClass() sharedInstance];
       v8 = [sharedInstance authKitAccountWithAltDSID:v6 error:0];
       if (v8)
       {
@@ -179,8 +179,8 @@ LABEL_22:
     }
 
     v32 = 0;
-    v9 = getkAppleIDValidatedItemsRecordDataCertificateType[0]();
-    v16 = (softLink_AppleIDAuthenticationCopyCertificateInfo[0])(v8, v9, 0, &v32);
+    v9 = getkAppleIDValidatedItemsRecordDataCertificateType();
+    v16 = softLink_AppleIDAuthenticationCopyCertificateInfo(v8, v9, 0, &v32);
     v17 = v32;
     if (v16)
     {
@@ -358,7 +358,7 @@ LABEL_21:
         if (v15)
         {
           v28 = 0;
-          v17 = (softLink_AppleIDCopySecIdentityForAppleIDAccount[0])(v15, 0, &v28);
+          v17 = softLink_AppleIDCopySecIdentityForAppleIDAccount(v15, 0, &v28);
           self->_myIdentity = v17;
           v24 = v28;
           if (error && !v17)
@@ -520,7 +520,7 @@ LABEL_21:
         dispatch_once(&AppleAccountLibrary_sOnce, &__block_literal_global_155);
       }
 
-      v8 = objc_alloc_init(getACAccountStoreClass[0]());
+      v8 = objc_alloc_init(getACAccountStoreClass());
       aa_primaryAppleAccount = [v8 aa_primaryAppleAccount];
       username = [aa_primaryAppleAccount username];
       v11 = self->_myAppleID;
@@ -545,7 +545,7 @@ LABEL_21:
   v41 = *MEMORY[0x1E69E9840];
   if (gLogCategory_CUAppleIDClient <= 30 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient verifyBytes:verifyLength:signatureBytes:signatureLength:error:]", 0x1Eu, "Verify signature (%zu bytes data, %zu bytes signature)\n", signatureBytes, signatureLength, error, v7, length);
+    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient verifyBytes:verifyLength:signatureBytes:signatureLength:error:]", 30, "Verify signature (%zu bytes data, %zu bytes signature)\n", signatureBytes, signatureLength, error, v7, length);
   }
 
   v14 = [(CUAppleIDClient *)self _getPeerPublicKeyAndReturnError:error];
@@ -641,7 +641,7 @@ LABEL_21:
         v16 = [objc_alloc(*(v7 + 3824)) initWithBytes:md length:32];
         if (gLogCategory_CUAppleIDClient <= 30 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 0x1Eu, "Validating peer hash: %@\n", v12, v13, v14, v15, v16);
+          LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 30, "Validating peer hash: %@\n", v12, v13, v14, v15, v16);
         }
 
         TypeID = CFArrayGetTypeID();
@@ -672,7 +672,7 @@ LABEL_21:
                 v29 = NSDataWithHex([v24 UTF8String], -1, 22, 0, 0);
                 if (gLogCategory_CUAppleIDClient <= 30 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x1Eu)))
                 {
-                  LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 0x1Eu, "Attempting match against: %@\n", v25, v26, v27, v28, v29);
+                  LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 30, "Attempting match against: %@\n", v25, v26, v27, v28, v29);
                 }
 
                 v30 = [v29 isEqual:v16];
@@ -718,7 +718,7 @@ LABEL_70:
 
             if (gLogCategory_CUAppleIDClient <= 30 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x1Eu)))
             {
-              LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 0x1Eu, "Validating normalized peer hash: %@\n", v36, v37, v38, v39, v35);
+              LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 30, "Validating normalized peer hash: %@\n", v36, v37, v38, v39, v35);
             }
 
             v90 = 0u;
@@ -747,7 +747,7 @@ LABEL_70:
                     v50 = NSDataWithHex([v45 UTF8String], -1, 22, 0, 0);
                     if (gLogCategory_CUAppleIDClient <= 30 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x1Eu)))
                     {
-                      LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 0x1Eu, "Attempting match against: %@\n", v46, v47, v48, v49, v50);
+                      LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 30, "Attempting match against: %@\n", v46, v47, v48, v49, v50);
                     }
 
                     v51 = [v50 isEqual:v35];
@@ -798,7 +798,7 @@ LABEL_70:
 
           if (gLogCategory_CUAppleIDClient <= 30 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x1Eu)))
           {
-            LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 0x1Eu, "Validating peer phone hash: %@\n", v56, v57, v58, v59, v55);
+            LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 30, "Validating peer phone hash: %@\n", v56, v57, v58, v59, v55);
           }
 
           v86 = 0u;
@@ -828,7 +828,7 @@ LABEL_70:
                   v71 = NSDataWithHex([v66 UTF8String], -1, 22, 0, 0);
                   if (gLogCategory_CUAppleIDClient <= 30 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x1Eu)))
                   {
-                    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 0x1Eu, "Attempting match against: %@\n", v67, v68, v69, v70, v71);
+                    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient _validatePeerHashes:]", 30, "Attempting match against: %@\n", v67, v68, v69, v70, v71);
                   }
 
                   v72 = [v71 isEqual:v55];
@@ -889,7 +889,7 @@ LABEL_72:
   flagsCopy = flags;
   if (gLogCategory_CUAppleIDClient <= 30 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient validatePeerWithFlags:error:]", 0x1Eu, "Validate peer\n", v4, v5, v6, v7, v64);
+    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient validatePeerWithFlags:error:]", 30, "Validate peer\n", v4, v5, v6, v7, v64);
   }
 
   if (self->_peerValidated)
@@ -936,7 +936,7 @@ LABEL_72:
     v68 = &v69;
     v21 = v20;
     v66 = v21;
-    (softLinkSFAppleIDParseValidationRecordData[0])(v18, v19, v65);
+    softLinkSFAppleIDParseValidationRecordData(v18, v19, v65);
     v22 = dispatch_time(0, 30000000000);
     if (dispatch_semaphore_wait(v21, v22))
     {
@@ -1086,7 +1086,7 @@ void __47__CUAppleIDClient_validatePeerWithFlags_error___block_invoke(uint64_t a
   v68 = *MEMORY[0x1E69E9840];
   if (gLogCategory_CUAppleIDClient <= 30 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient signBytes:length:error:]", 0x1Eu, "Sign %zu bytes\n", error, v5, v6, v7, length);
+    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient signBytes:length:error:]", 30, "Sign %zu bytes\n", error, v5, v6, v7, length);
   }
 
   v51 = 0;
@@ -1191,7 +1191,7 @@ LABEL_23:
 LABEL_24:
   if (v18 && gLogCategory_CUAppleIDClient <= 60 && (gLogCategory_CUAppleIDClient != -1 || _LogCategory_Initialize(&gLogCategory_CUAppleIDClient, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient signBytes:length:error:]", 0x3Cu, "### Sign failed (%zu bytes): %{error}\n", v14, v15, v16, v17, length);
+    LogPrintF(&gLogCategory_CUAppleIDClient, "[CUAppleIDClient signBytes:length:error:]", 60, "### Sign failed (%zu bytes): %{error}\n", v14, v15, v16, v17, length);
   }
 
   if (error)

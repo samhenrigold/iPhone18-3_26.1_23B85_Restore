@@ -431,7 +431,7 @@ void __46__CEKSubjectIndicatorView_setHidden_animated___block_invoke_2(uint64_t 
   }
 }
 
-uint64_t __46__CEKSubjectIndicatorView_setHidden_animated___block_invoke_3(uint64_t a1)
+void *__46__CEKSubjectIndicatorView_setHidden_animated___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) setAlpha:1.0];
   if (*(a1 + 48) == 1)
@@ -551,7 +551,7 @@ LABEL_7:
     v32 = 0u;
     if (v10)
     {
-      [v10 transform];
+      objc_msgSend_transform(v10);
     }
 
     v11 = [MEMORY[0x1E6979318] animationWithKeyPath:@"transform"];

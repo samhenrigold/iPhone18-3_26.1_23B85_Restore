@@ -1,7 +1,9 @@
 @interface DRSCloudChannelConfig
 + (id)_iOSSliceCountDict;
 + (id)_smallPopulationCountDict;
++ (id)channelNameForPlatform:(unsigned __int8)platform type:(unsigned __int8)type sliceNum:(id)num;
 + (id)currentDeviceDefaultCloudChannelConfig;
++ (id)sliceCountForPlatform:(unsigned __int8)platform channelType:(unsigned __int8)type;
 + (id)staticSnapshotDeviceDefaultCloudChannelConfig;
 + (id)stringForChannelType:(unsigned __int8)type;
 + (id)stringForEnvironment:(unsigned __int8)environment;
@@ -9,6 +11,7 @@
 + (unsigned)populationSliceForDevice:(unsigned __int16)device;
 - (BOOL)isEqual:(id)equal;
 - (DRSCloudChannelConfig)initWithMO:(id)o;
+- (DRSCloudChannelConfig)initWithValidPlatform:(unsigned __int8)platform channelType:(unsigned __int8)type environment:(unsigned __int8)environment populationSliceNumber:(id)number overridesDeviceDefault:(BOOL)default;
 - (NSString)channelID;
 - (NSString)channelName;
 - (id)debugDescription;
@@ -79,6 +82,75 @@
   }
 
   return v7;
+}
+
+- (DRSCloudChannelConfig)initWithValidPlatform:(unsigned __int8)platform channelType:(unsigned __int8)type environment:(unsigned __int8)environment populationSliceNumber:(id)number overridesDeviceDefault:(BOOL)default
+{
+  defaultCopy = default;
+  environmentCopy = environment;
+  typeCopy = type;
+  platformCopy = platform;
+  v27 = *MEMORY[0x277D85DE8];
+  numberCopy = number;
+  v13 = numberCopy;
+  selfCopy = 0;
+  if (platformCopy)
+  {
+    if (platformCopy != 5)
+    {
+      selfCopy = 0;
+      if ((typeCopy - 1) <= 3u && (environmentCopy - 1) <= 1u)
+      {
+        if (numberCopy)
+        {
+          unsignedLongLongValue = [numberCopy unsignedLongLongValue];
+          v16 = [objc_opt_class() sliceCountForPlatform:platformCopy channelType:typeCopy];
+          if (v16)
+          {
+            v17 = v16;
+            unsignedLongLongValue2 = [v16 unsignedLongLongValue];
+            if (unsignedLongLongValue < unsignedLongLongValue2)
+            {
+
+              goto LABEL_9;
+            }
+
+            v20 = unsignedLongLongValue2;
+            v21 = DPLogHandle_ConfigPersistedStoreError(unsignedLongLongValue2);
+            if (os_signpost_enabled(v21))
+            {
+              v23 = 134218240;
+              v24 = unsignedLongLongValue;
+              v25 = 2048;
+              v26 = v20;
+              _os_signpost_emit_with_name_impl(&dword_232906000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidSlice", "Slice %llu is >= %llu (the slice count for the population)", &v23, 0x16u);
+            }
+          }
+
+          else
+          {
+            v19 = DPLogHandle_ConfigPersistedStoreError(0);
+            if (os_signpost_enabled(v19))
+            {
+              LOWORD(v23) = 0;
+              _os_signpost_emit_with_name_impl(&dword_232906000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnexpectedPopulationSliceNumber", "Tried to specify population slice for a platform/channelType that does not support it", &v23, 2u);
+            }
+          }
+
+          selfCopy = 0;
+          goto LABEL_17;
+        }
+
+LABEL_9:
+        self = [(DRSCloudChannelConfig *)self initNoChecksWithPlatform:platformCopy channelType:typeCopy environment:environmentCopy populationSliceNumber:v13 overridesDeviceDefault:defaultCopy];
+        selfCopy = self;
+      }
+    }
+  }
+
+LABEL_17:
+
+  return selfCopy;
 }
 
 - (id)initNoChecksWithPlatform:(unsigned __int8)platform channelType:(unsigned __int8)type environment:(unsigned __int8)environment populationSliceNumber:(id)number overridesDeviceDefault:(BOOL)default
@@ -234,16 +306,16 @@ LABEL_24:
 
 - (id)jsonDictionaryRepresentation
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   isNoSubscriptionConfig = [(DRSCloudChannelConfig *)self isNoSubscriptionConfig];
   v6 = isNoSubscriptionConfig;
-  v22 = @"platform";
+  v21 = @"platform";
   if (isNoSubscriptionConfig)
   {
+    v29 = @"(None)";
     v30 = @"(None)";
-    v31 = @"(None)";
-    v23 = @"channelType";
-    v24 = @"environment";
+    v22 = @"channelType";
+    v23 = @"environment";
     v7 = MEMORY[0x277CBEC28];
     v8 = @"(None)";
   }
@@ -251,19 +323,19 @@ LABEL_24:
   else
   {
     v2 = DRSSystemProfilePlatformStringForPlatform([(DRSCloudChannelConfig *)self platform]);
-    v30 = v2;
-    v23 = @"channelType";
+    v29 = v2;
+    v22 = @"channelType";
     v3 = [objc_opt_class() stringForChannelType:{-[DRSCloudChannelConfig type](self, "type")}];
-    v31 = v3;
-    v24 = @"environment";
+    v30 = v3;
+    v23 = @"environment";
     v8 = [objc_opt_class() stringForEnvironment:{-[DRSCloudChannelConfig environment](self, "environment")}];
     v7 = MEMORY[0x277CBEC38];
   }
 
-  v32 = v8;
-  v33 = v7;
-  v25 = @"isSubscribed";
-  v26 = @"populationSliceNumber";
+  v31 = v8;
+  v32 = v7;
+  v24 = @"isSubscribed";
+  v25 = @"populationSliceNumber";
   populationSliceNumber = [(DRSCloudChannelConfig *)self populationSliceNumber];
   v10 = populationSliceNumber;
   if (populationSliceNumber)
@@ -276,11 +348,11 @@ LABEL_24:
     v11 = @"(None)";
   }
 
-  v34 = v11;
-  v27 = @"overridesDeviceDefault";
+  v33 = v11;
+  v26 = @"overridesDeviceDefault";
   v12 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSCloudChannelConfig overridesDeviceDefault](self, "overridesDeviceDefault")}];
-  v35 = v12;
-  v28 = @"channelName";
+  v34 = v12;
+  v27 = @"channelName";
   channelName = [(DRSCloudChannelConfig *)self channelName];
   v14 = channelName;
   if (channelName)
@@ -293,8 +365,8 @@ LABEL_24:
     v15 = @"(None)";
   }
 
-  v36 = v15;
-  v29 = @"channelID";
+  v35 = v15;
+  v28 = @"channelID";
   channelID = [(DRSCloudChannelConfig *)self channelID];
   v17 = channelID;
   if (channelID)
@@ -307,16 +379,45 @@ LABEL_24:
     v18 = @"(None)";
   }
 
-  v37 = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v22 count:8];
+  v36 = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v21 count:8];
 
   if (!v6)
   {
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
+}
+
++ (id)channelNameForPlatform:(unsigned __int8)platform type:(unsigned __int8)type sliceNum:(id)num
+{
+  typeCopy = type;
+  platformCopy = platform;
+  numCopy = num;
+  if (platformCopy - 1 < 4 || platformCopy == 6)
+  {
+    v8 = MEMORY[0x277CCACA8];
+    v9 = DRSSystemProfilePlatformStringForPlatform(platformCopy);
+    v10 = [DRSCloudChannelConfig stringForChannelType:typeCopy];
+    v11 = v10;
+    if (numCopy)
+    {
+      [v8 stringWithFormat:@"%@_%@_%@", v9, v10, numCopy];
+    }
+
+    else
+    {
+      [v8 stringWithFormat:@"%@_%@", v9, v10, v14];
+    }
+    v12 = ;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (NSString)channelName
@@ -444,20 +545,18 @@ void __70__DRSCloudChannelConfig_staticSnapshotDeviceDefaultCloudChannelConfig__
 
 void __50__DRSCloudChannelConfig__smallPopulationCountDict__block_invoke()
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_2847FF780;
-  v3[1] = &unk_2847FF7B0;
-  v4[0] = &unk_2847FF798;
-  v4[1] = &unk_2847FF798;
-  v3[2] = &unk_2847FF7C8;
-  v3[3] = &unk_2847FF7F8;
-  v4[2] = &unk_2847FF7E0;
-  v4[3] = &unk_2847FF7E0;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:4];
+  v3[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_2847FF780;
+  v2[1] = &unk_2847FF7B0;
+  v3[0] = &unk_2847FF798;
+  v3[1] = &unk_2847FF798;
+  v2[2] = &unk_2847FF7C8;
+  v2[3] = &unk_2847FF7F8;
+  v3[2] = &unk_2847FF7E0;
+  v3[3] = &unk_2847FF7E0;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:4];
   v1 = _smallPopulationCountDict_kCountDict;
   _smallPopulationCountDict_kCountDict = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_iOSSliceCountDict
@@ -474,20 +573,69 @@ void __50__DRSCloudChannelConfig__smallPopulationCountDict__block_invoke()
 
 void __43__DRSCloudChannelConfig__iOSSliceCountDict__block_invoke()
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_2847FF780;
-  v3[1] = &unk_2847FF7B0;
-  v4[0] = &unk_2847FF798;
-  v4[1] = &unk_2847FF798;
-  v3[2] = &unk_2847FF7C8;
-  v3[3] = &unk_2847FF7F8;
-  v4[2] = &unk_2847FF7E0;
-  v4[3] = &unk_2847FF810;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:4];
+  v3[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_2847FF780;
+  v2[1] = &unk_2847FF7B0;
+  v3[0] = &unk_2847FF798;
+  v3[1] = &unk_2847FF798;
+  v2[2] = &unk_2847FF7C8;
+  v2[3] = &unk_2847FF7F8;
+  v3[2] = &unk_2847FF7E0;
+  v3[3] = &unk_2847FF810;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:4];
   v1 = _iOSSliceCountDict_kCountDict;
   _iOSSliceCountDict_kCountDict = v0;
+}
 
-  v2 = *MEMORY[0x277D85DE8];
++ (id)sliceCountForPlatform:(unsigned __int8)platform channelType:(unsigned __int8)type
+{
+  if (!type)
+  {
+    v7 = 0;
+    goto LABEL_16;
+  }
+
+  platformCopy = platform;
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:type];
+  v7 = 0;
+  if (platformCopy <= 2)
+  {
+    if (platformCopy == 1)
+    {
+      _macOSSliceCountDict = [self _macOSSliceCountDict];
+      goto LABEL_14;
+    }
+
+    if (platformCopy == 2)
+    {
+      _macOSSliceCountDict = [self _iOSSliceCountDict];
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+    switch(platformCopy)
+    {
+      case 3:
+        _macOSSliceCountDict = [self _watchOSSliceCountDict];
+        goto LABEL_14;
+      case 4:
+        _macOSSliceCountDict = [self _tvOSSliceCountDict];
+        goto LABEL_14;
+      case 6:
+        _macOSSliceCountDict = [self _smallPopulationCountDict];
+LABEL_14:
+        v9 = _macOSSliceCountDict;
+        v7 = [_macOSSliceCountDict objectForKeyedSubscript:v6];
+
+        break;
+    }
+  }
+
+LABEL_16:
+
+  return v7;
 }
 
 @end

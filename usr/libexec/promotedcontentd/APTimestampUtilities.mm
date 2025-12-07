@@ -11,7 +11,7 @@
   v4 = v3;
   if (v3)
   {
-    [v3 decimalValue];
+    objc_msgSend_decimalValue(v3);
   }
 
   else

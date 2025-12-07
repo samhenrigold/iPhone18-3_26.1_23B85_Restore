@@ -47,14 +47,14 @@
 
 - (id)heuristicResultWithEnvironment:(id)environment
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   ATXTripDuetEventClass = getATXTripDuetEventClass();
   v5 = objc_opt_new();
   v6 = v5;
   if (!ATXTripDuetEventClass)
   {
-    v13 = v5;
+    v14 = v5;
     goto LABEL_34;
   }
 
@@ -64,13 +64,13 @@
   getCurrentLocation = [locationManager getCurrentLocation];
   if (!getCurrentLocation)
   {
-    v14 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_context_heuristic(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ATXHeuristicCommuteToWork heuristicResultWithEnvironment:];
     }
 
-    v13 = v6;
+    v14 = v6;
     goto LABEL_33;
   }
 
@@ -78,8 +78,8 @@
   v11 = locationOfInterestAtCurrentLocation;
   if (!locationOfInterestAtCurrentLocation)
   {
-    v12 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_context_heuristic(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXHeuristicCommuteToWork heuristicResultWithEnvironment:];
     }
@@ -87,112 +87,112 @@
     goto LABEL_13;
   }
 
-  if (![locationOfInterestAtCurrentLocation type])
+  type = [locationOfInterestAtCurrentLocation type];
+  if (!type)
   {
-    v15 = objc_alloc(MEMORY[0x277CE41F8]);
+    v16 = objc_alloc(MEMORY[0x277CE41F8]);
     [v11 coordinate];
-    v17 = v16;
+    v18 = v17;
     [v11 coordinate];
-    v18 = [v15 initWithLatitude:v17 longitude:?];
-    [getCurrentLocation distanceFromLocation:v18];
-    v20 = v19;
-    if (v19 >= 500.0)
+    v19 = [v16 initWithLatitude:v18 longitude:?];
+    v20 = [getCurrentLocation distanceFromLocation:v19];
+    v22 = v21;
+    if (v21 >= 500.0)
     {
-      v30 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v33 = __atxlog_handle_context_heuristic(v20);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v39 = v20 / 1000.0;
-        _os_log_impl(&dword_23E3EA000, v30, OS_LOG_TYPE_DEFAULT, "ATXHeuristicCommuteToWork: No longer at cached loi. Distance is %.2f km", buf, 0xCu);
+        v41 = v22 / 1000.0;
+        _os_log_impl(&dword_23E3EA000, v33, OS_LOG_TYPE_DEFAULT, "ATXHeuristicCommuteToWork: No longer at cached loi. Distance is %.2f km", buf, 0xCu);
       }
 
-      v13 = v6;
+      v14 = v6;
       goto LABEL_31;
     }
 
-    v21 = [[ATXTripDuetEventClass alloc] initWithCurrentContextStoreValuesWithOriginLOI:v11 ignoreBeforeDate:0];
-    v22 = v21;
-    if (v21)
+    v23 = [[ATXTripDuetEventClass alloc] initWithCurrentContextStoreValuesWithOriginLOI:v11 ignoreBeforeDate:0];
+    v24 = v23;
+    if (v23)
     {
-      if ([v21 origin] == 1 || objc_msgSend(v22, "destination") == 2)
+      origin = [v23 origin];
+      if (origin == 1 || (origin = [v24 destination], origin == 2))
       {
-        v37 = v18;
-        v23 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v39 = v19;
+        v26 = __atxlog_handle_context_heuristic(origin);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          [v22 startDate];
-          v24 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          [v24 startDate];
+          v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
           *buf = 138412290;
-          v39 = v24;
-          _os_log_impl(&dword_23E3EA000, v23, OS_LOG_TYPE_DEFAULT, "ATXHeuristicCommuteToWork: Creating suggestion for expected trip at %@", buf, 0xCu);
+          v41 = v27;
+          _os_log_impl(&dword_23E3EA000, v26, OS_LOG_TYPE_DEFAULT, "ATXHeuristicCommuteToWork: Creating suggestion for expected trip at %@", buf, 0xCu);
         }
 
-        startDate = [v22 startDate];
-        v26 = [startDate dateByAddingTimeInterval:-3600.0];
+        startDate = [v24 startDate];
+        v29 = [startDate dateByAddingTimeInterval:-3600.0];
 
-        startDate2 = [v22 startDate];
-        v28 = [startDate2 dateByAddingTimeInterval:1800.0];
+        startDate2 = [v24 startDate];
+        v31 = [startDate2 dateByAddingTimeInterval:1800.0];
 
         heuristicDevice2 = [environmentCopy heuristicDevice];
-        v13 = [ATXHeuristicCommuteWorkUtilities heuristicResultToWorkWithValidStartDate:v26 validEndDate:v28 heuristicDevice:heuristicDevice2];
+        v14 = [ATXHeuristicCommuteWorkUtilities heuristicResultToWorkWithValidStartDate:v29 validEndDate:v31 heuristicDevice:heuristicDevice2];
 
-        v18 = v37;
+        v19 = v39;
         goto LABEL_30;
       }
 
-      v31 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v34 = __atxlog_handle_context_heuristic(origin);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        *&v39 = [v22 origin];
-        v40 = 2048;
-        destination = [v22 destination];
-        v32 = "ATXHeuristicCommuteToWork: Trip not from home to work, %lu -> %lu";
-        v33 = v31;
-        v34 = 22;
+        *&v41 = [v24 origin];
+        v42 = 2048;
+        destination = [v24 destination];
+        v35 = "ATXHeuristicCommuteToWork: Trip not from home to work, %lu -> %lu";
+        v36 = v34;
+        v37 = 22;
         goto LABEL_28;
       }
     }
 
     else
     {
-      v31 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v34 = __atxlog_handle_context_heuristic(0);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v32 = "ATXHeuristicCommuteToWork: No upcoming trip";
-        v33 = v31;
-        v34 = 2;
+        v35 = "ATXHeuristicCommuteToWork: No upcoming trip";
+        v36 = v34;
+        v37 = 2;
 LABEL_28:
-        _os_log_impl(&dword_23E3EA000, v33, OS_LOG_TYPE_DEFAULT, v32, buf, v34);
+        _os_log_impl(&dword_23E3EA000, v36, OS_LOG_TYPE_DEFAULT, v35, buf, v37);
       }
     }
 
-    v13 = v6;
+    v14 = v6;
 LABEL_30:
 
 LABEL_31:
     goto LABEL_32;
   }
 
-  v12 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = __atxlog_handle_context_heuristic(type);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "ATXHeuristicCommuteToWork: Current loi is not type Home", buf, 2u);
+    _os_log_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_DEFAULT, "ATXHeuristicCommuteToWork: Current loi is not type Home", buf, 2u);
   }
 
 LABEL_13:
 
-  v13 = v6;
+  v14 = v6;
 LABEL_32:
 
 LABEL_33:
 LABEL_34:
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 @end

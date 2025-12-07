@@ -413,35 +413,35 @@ LABEL_12:
       do
       {
         v9 = sqlite3_column_name(self->_handle, v8);
-        WTF::String::fromUTF8(&v22, v9, v10);
-        v11 = [MEMORY[0x1E696AD98] numberWithInt:v8];
-        v12 = v22;
-        if (v22)
+        WTF::String::fromUTF8(v9);
+        v10 = [MEMORY[0x1E696AD98] numberWithInt:v8];
+        v11 = v21;
+        if (v21)
         {
-          atomic_fetch_add_explicit(v22, 2u, memory_order_relaxed);
-          MEMORY[0x19EB00B70](&v21, v12);
-          if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          atomic_fetch_add_explicit(v21, 2u, memory_order_relaxed);
+          MEMORY[0x19EB00B70](&v20, v11);
+          if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v12, v13);
+            WTF::StringImpl::destroy(v11, v12);
           }
         }
 
         else
         {
-          v21 = &stru_1F1147748;
+          v20 = &stru_1F1147748;
         }
 
-        v14 = v21;
-        [(NSDictionary *)v7 setObject:v11 forKeyedSubscript:v14];
+        v13 = v20;
+        [(NSDictionary *)v7 setObject:v10 forKeyedSubscript:v13];
 
-        v15 = v21;
+        v14 = v20;
+        v20 = 0;
+
+        v16 = v21;
         v21 = 0;
-
-        v17 = v22;
-        v22 = 0;
-        if (v17 && atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v17, v16);
+          WTF::StringImpl::destroy(v16, v15);
         }
 
         v8 = (v8 + 1);
@@ -450,9 +450,9 @@ LABEL_12:
       while (v6 != v8);
     }
 
-    v18 = self->_columnNamesToIndexes;
+    v17 = self->_columnNamesToIndexes;
     self->_columnNamesToIndexes = v7;
-    v19 = v7;
+    v18 = v7;
 
     v5 = self->_columnNamesToIndexes;
   }
@@ -480,41 +480,40 @@ LABEL_12:
       for (i = 0; i != v6; ++i)
       {
         v9 = sqlite3_column_name(self->_handle, i);
-        WTF::String::fromUTF8(&v20, v9, v10);
-        v11 = v20;
-        if (v20)
+        WTF::String::fromUTF8(v9);
+        if (v18)
         {
-          atomic_fetch_add_explicit(v20, 2u, memory_order_relaxed);
-          MEMORY[0x19EB00B70](&v21, v11);
-          if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          atomic_fetch_add_explicit(v18, 2u, memory_order_relaxed);
+          MEMORY[0x19EB00B70](&v19, v18);
+          if (atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v11, v12);
+            WTF::StringImpl::destroy(v18, v10);
           }
         }
 
         else
         {
-          v21 = &stru_1F1147748;
+          v19 = &stru_1F1147748;
         }
 
-        v13 = v21;
-        [(NSArray *)v7 addObject:v13];
+        v11 = v19;
+        [(NSArray *)v7 addObject:v11];
 
-        v14 = v21;
-        v21 = 0;
+        v12 = v19;
+        v19 = 0;
 
-        v16 = v20;
-        v20 = 0;
-        if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v14 = v18;
+        v18 = 0;
+        if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v16, v15);
+          WTF::StringImpl::destroy(v14, v13);
         }
       }
     }
 
-    v17 = self->_columnNames;
+    v15 = self->_columnNames;
     self->_columnNames = v7;
-    v18 = v7;
+    v16 = v7;
 
     v5 = self->_columnNames;
   }

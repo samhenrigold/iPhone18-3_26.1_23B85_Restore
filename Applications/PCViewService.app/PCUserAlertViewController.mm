@@ -26,7 +26,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_1000826A8(context, v6, v7);
-  sub_10000B17C(v6);
+  sub_10000B17C(v6, v7);
 }
 
 - (void)handleButtonActions:(id)actions

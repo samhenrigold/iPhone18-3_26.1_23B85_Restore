@@ -11,19 +11,20 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  if (![JavaLangReflectTypeVariable_class_() isInstance:equal])
+  v5 = [JavaLangReflectTypeVariable_class_(self a2)];
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = JavaLangReflectTypeVariable_class_();
+  v7 = JavaLangReflectTypeVariable_class_(v5, v6);
   if (!equal)
   {
     [(LibcoreReflectTypeVariableImpl *)self getName];
     JreThrowNullPointerException();
   }
 
-  if (([v5 isInstance:equal] & 1) == 0)
+  if (([v7 isInstance:equal] & 1) == 0)
   {
     JreThrowClassCastException();
   }
@@ -46,10 +47,10 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v8 = getGenericDeclaration;
+  v10 = getGenericDeclaration;
   getGenericDeclaration2 = [equal getGenericDeclaration];
 
-  return [v8 isEqual:getGenericDeclaration2];
+  return [v10 isEqual:getGenericDeclaration2];
 }
 
 - (unint64_t)hash

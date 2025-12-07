@@ -199,7 +199,7 @@ LABEL_12:
 
 - (void)socket:(id)socket didReadData:(id)data withTag:(int64_t)tag
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   socketCopy = socket;
   httpMessage = self->_httpMessage;
   dataCopy = data;
@@ -233,9 +233,9 @@ LABEL_11:
       }
 
       v23 = MEMORY[0x277CCA9B8];
-      v31 = *MEMORY[0x277CCA450];
-      v32[0] = @"Not found.";
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      v30 = *MEMORY[0x277CCA450];
+      v31[0] = @"Not found.";
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
       v25 = v23;
       v26 = 404;
     }
@@ -255,9 +255,9 @@ LABEL_12:
 
       v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"This server does not handle %@ requests.", v13];
       v27 = MEMORY[0x277CCA9B8];
-      v29 = *MEMORY[0x277CCA450];
-      v30 = v14;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v28 = *MEMORY[0x277CCA450];
+      v29 = v14;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
       v25 = v27;
       v26 = 500;
     }
@@ -270,8 +270,6 @@ LABEL_12:
 
   [socketCopy readDataWithTimeout:0 tag:600.0];
 LABEL_13:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)socketDidDisconnect:(id)disconnect withError:(id)error

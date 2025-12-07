@@ -115,35 +115,36 @@
   [v7 setPredicate:predicateCopy];
 
   [v7 setResultType:2];
-  v15[0] = @"objectID";
-  v15[1] = @"seriesAdamId";
-  v8 = [NSArray arrayWithObjects:v15 count:2];
+  v16[0] = @"objectID";
+  v16[1] = @"seriesAdamId";
+  v8 = [NSArray arrayWithObjects:v16 count:2];
   [v7 setPropertiesToFetch:v8];
 
   [v7 setReturnsObjectsAsFaults:0];
   [v7 setReturnsDistinctResults:1];
   [v7 setFetchBatchSize:128];
-  v14 = 0;
-  v9 = [contextCopy executeFetchRequest:v7 error:&v14];
+  v15 = 0;
+  v9 = [contextCopy executeFetchRequest:v7 error:&v15];
 
-  v10 = v14;
+  v10 = v15;
+  v11 = v10;
   if (v9)
   {
-    v11 = [v9 valueForKey:@"seriesAdamId"];
+    v12 = [v9 valueForKey:@"seriesAdamId"];
   }
 
   else
   {
-    v12 = BCSeriesManagerLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = BCSeriesManagerLog(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1EDAEC();
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)seriesItemAdamIdsMatchingPredicate:(id)predicate inManagedObjectContext:(id)context
@@ -154,35 +155,36 @@
   [v7 setPredicate:predicateCopy];
 
   [v7 setResultType:2];
-  v15[0] = @"objectID";
-  v15[1] = @"adamId";
-  v8 = [NSArray arrayWithObjects:v15 count:2];
+  v16[0] = @"objectID";
+  v16[1] = @"adamId";
+  v8 = [NSArray arrayWithObjects:v16 count:2];
   [v7 setPropertiesToFetch:v8];
 
   [v7 setReturnsObjectsAsFaults:0];
   [v7 setReturnsDistinctResults:1];
   [v7 setFetchBatchSize:128];
-  v14 = 0;
-  v9 = [contextCopy executeFetchRequest:v7 error:&v14];
+  v15 = 0;
+  v9 = [contextCopy executeFetchRequest:v7 error:&v15];
 
-  v10 = v14;
+  v10 = v15;
+  v11 = v10;
   if (v9)
   {
-    v11 = [v9 valueForKey:@"adamId"];
+    v12 = [v9 valueForKey:@"adamId"];
   }
 
   else
   {
-    v12 = BCSeriesManagerLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = BCSeriesManagerLog(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1EDAEC();
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)allSeriesContainerIds
@@ -333,14 +335,15 @@
   [v8 setReturnsObjectsAsFaults:0];
   [v8 setReturnsDistinctResults:1];
   [v8 setFetchLimit:1];
-  v17 = 0;
-  v10 = [contextCopy executeFetchRequest:v8 error:&v17];
+  v18 = 0;
+  v10 = [contextCopy executeFetchRequest:v8 error:&v18];
 
-  v11 = v17;
+  v11 = v18;
+  v12 = v11;
   if (!v10)
   {
-    v14 = BCSeriesManagerLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = BCSeriesManagerLog(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1EDB5C();
     }
@@ -359,15 +362,15 @@ LABEL_8:
   if (!lastObject)
   {
 LABEL_9:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_10;
   }
 
-  v13 = [BKSeriesInfo seriesInfoWithDictionary:lastObject];
+  v14 = [BKSeriesInfo seriesInfoWithDictionary:lastObject];
 LABEL_10:
-  v15 = v13;
+  v16 = v14;
 
-  return v13;
+  return v14;
 }
 
 - (id)seriesItemsWithAdamIds:(id)ids
@@ -406,14 +409,15 @@ LABEL_10:
   [v8 setReturnsObjectsAsFaults:0];
   [v8 setReturnsDistinctResults:1];
   [v8 setFetchLimit:1];
-  v17 = 0;
-  v10 = [contextCopy executeFetchRequest:v8 error:&v17];
+  v18 = 0;
+  v10 = [contextCopy executeFetchRequest:v8 error:&v18];
 
-  v11 = v17;
+  v11 = v18;
+  v12 = v11;
   if (!v10)
   {
-    v14 = BCSeriesManagerLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = BCSeriesManagerLog(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1EDB5C();
     }
@@ -432,15 +436,15 @@ LABEL_8:
   if (!lastObject)
   {
 LABEL_9:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_10;
   }
 
-  v13 = [BKSeriesInfo seriesInfoWithDictionary:lastObject];
+  v14 = [BKSeriesInfo seriesInfoWithDictionary:lastObject];
 LABEL_10:
-  v15 = v13;
+  v16 = v14;
 
-  return v13;
+  return v14;
 }
 
 - (void)fetchBuyParametersForSeriesWithAdamID:(id)d isAudiobook:(BOOL)audiobook completionHandler:(id)handler
@@ -480,40 +484,41 @@ LABEL_10:
 {
   typesCopy = types;
   completionCopy = completion;
-  v10 = BCSeriesManagerLog();
+  v10 = BCSeriesManagerLog(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_1EDBD0();
   }
 
-  if ([typesCopy hasSeriesTypes])
+  hasSeriesTypes = [typesCopy hasSeriesTypes];
+  if (hasSeriesTypes)
   {
-    v11 = BCSeriesManagerLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = BCSeriesManagerLog(hasSeriesTypes);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Begin Updating Series Adam IDs", buf, 2u);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "Begin Updating Series Adam IDs", buf, 2u);
     }
 
     queue = [(BKSeriesManager *)self queue];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_18A354;
-    v15[3] = &unk_2CC630;
-    v15[4] = self;
-    v16 = typesCopy;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_18A354;
+    v16[3] = &unk_2CC630;
+    v16[4] = self;
+    v17 = typesCopy;
     checkCopy = check;
-    v17 = completionCopy;
-    dispatch_async(queue, v15);
+    v18 = completionCopy;
+    dispatch_async(queue, v16);
   }
 
   else
   {
-    v13 = objc_retainBlock(completionCopy);
-    v14 = v13;
-    if (v13)
+    v14 = objc_retainBlock(completionCopy);
+    v15 = v14;
+    if (v14)
     {
-      (*(v13 + 2))(v13);
+      (*(v14 + 2))(v14);
     }
   }
 }
@@ -522,7 +527,7 @@ LABEL_10:
 {
   typesCopy = types;
   completionCopy = completion;
-  v10 = BCSeriesManagerLog();
+  v10 = BCSeriesManagerLog(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
@@ -586,15 +591,16 @@ LABEL_10:
     v8 = *v24;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      v9 = 0;
+      do
       {
         if (*v24 != v8)
         {
           objc_enumerationMutation(typesCopy);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
-        v11 = BCSeriesManagerLog();
+        v10 = *(*(&v23 + 1) + 8 * v9);
+        v11 = BCSeriesManagerLog(v6);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           v12 = [typesCopy objectForKeyedSubscript:v10];
@@ -609,12 +615,16 @@ LABEL_10:
           v32 = bu_prettyDescription;
           _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Begin updating store cloud assets type=%{public}@, %lu adamIds=%@", buf, 0x20u);
         }
+
+        v9 = v9 + 1;
       }
 
-      v7 = [typesCopy countByEnumeratingWithState:&v23 objects:v33 count:16];
+      while (v7 != v9);
+      v6 = [typesCopy countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v7 = v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
   if ([typesCopy count])

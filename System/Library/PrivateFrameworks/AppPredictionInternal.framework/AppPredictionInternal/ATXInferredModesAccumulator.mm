@@ -53,7 +53,7 @@
   v8 = [v7 sinkWithCompletion:v13 receiveInput:v12];
   if (*(v15[0] + 40))
   {
-    v9 = __atxlog_handle_usage_insights();
+    v9 = __atxlog_handle_usage_insights(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(ATXInferredModesAccumulator *)v15 usageInsightsInferredATXModeEvents];
@@ -92,36 +92,36 @@ void __65__ATXInferredModesAccumulator_usageInsightsInferredATXModeEvents__block
 
 - (void)recordInferredModeEndEvent:(id)event
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = [(NSMutableArray *)self->_inferredModeStartingEvents copy];
   v6 = MEMORY[0x277CBEB98];
   v7 = allModesForTraining();
-  v33 = [v6 setWithArray:v7];
+  v32 = [v6 setWithArray:v7];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v36;
+    v11 = *v35;
     v12 = 0x277CCA000uLL;
     do
     {
       v13 = 0;
-      v34 = v10;
+      v33 = v10;
       do
       {
-        if (*v36 != v11)
+        if (*v35 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * v13);
+        v14 = *(*(&v34 + 1) + 8 * v13);
         modeType = [eventCopy modeType];
         if (modeType == [v14 modeType])
         {
@@ -138,7 +138,7 @@ void __65__ATXInferredModesAccumulator_usageInsightsInferredATXModeEvents__block
             BMUserFocusInferredModeTypeToActivity();
             v22 = ATXModeFromActivityType();
             v23 = [*(v12 + 2992) numberWithUnsignedInteger:v22];
-            v24 = [v33 containsObject:v23];
+            v24 = [v32 containsObject:v23];
 
             if (v24)
             {
@@ -159,7 +159,7 @@ void __65__ATXInferredModesAccumulator_usageInsightsInferredATXModeEvents__block
             }
 
             [(NSMutableArray *)self->_inferredModeStartingEvents removeObject:v14];
-            v10 = v34;
+            v10 = v33;
           }
         }
 
@@ -167,25 +167,22 @@ void __65__ATXInferredModesAccumulator_usageInsightsInferredATXModeEvents__block
       }
 
       while (v10 != v13);
-      v10 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v10);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)usageInsightsInferredATXModeEvents
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 136315394;
-  v5 = "[ATXInferredModesAccumulator usageInsightsInferredATXModeEvents]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading inferred mode stream: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[ATXInferredModesAccumulator usageInsightsInferredATXModeEvents]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading inferred mode stream: %@", &v3, 0x16u);
 }
 
 @end

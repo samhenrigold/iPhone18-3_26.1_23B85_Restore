@@ -23,7 +23,7 @@
   return v2;
 }
 
-uint64_t __37__JFXCameraFPSThermalPolicy_priority__block_invoke(uint64_t a1, uint64_t a2)
+void *__37__JFXCameraFPSThermalPolicy_priority__block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = 0;
   result = [*(a1 + 32) cameraFPSForThermalLevel:a2 deviceType:0 minRate:&v4 + 4 maxRate:&v4];

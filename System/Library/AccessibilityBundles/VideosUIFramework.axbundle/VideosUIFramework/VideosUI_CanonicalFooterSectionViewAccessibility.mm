@@ -17,36 +17,36 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v22 = *MEMORY[0x29EDCA608];
-  v20.receiver = self;
-  v20.super_class = VideosUI_CanonicalFooterSectionViewAccessibility;
-  [(VideosUI_CanonicalFooterSectionViewAccessibility *)&v20 _accessibilityLoadAccessibilityInformation];
+  v21 = *MEMORY[0x29EDCA608];
+  v19.receiver = self;
+  v19.super_class = VideosUI_CanonicalFooterSectionViewAccessibility;
+  [(VideosUI_CanonicalFooterSectionViewAccessibility *)&v19 _accessibilityLoadAccessibilityInformation];
   _axHeaderView = [(VideosUI_CanonicalFooterSectionViewAccessibility *)self _axHeaderView];
   [_axHeaderView setAccessibilityTraits:*MEMORY[0x29EDC7F80]];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   objc_opt_class();
   v4 = __UIAccessibilityCastAsClass();
   subviews = [v4 subviews];
 
-  v6 = [subviews countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v6 = [subviews countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         MEMORY[0x29ED3FF70](@"VUIImageView");
         if (objc_opt_isKindOfClass())
         {
@@ -59,13 +59,11 @@
         }
       }
 
-      v7 = [subviews countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v7 = [subviews countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 - (id)accessibilityHeaderElements

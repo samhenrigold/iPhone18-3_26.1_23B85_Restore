@@ -108,7 +108,7 @@
 
 void __58__HMDAppleAccountManager__registerForRapportNotifications__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -118,9 +118,9 @@ void __58__HMDAppleAccountManager__registerForRapportNotifications__block_invoke
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification that rapport identity changed, update current device", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification that rapport identity changed, update current device", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -130,8 +130,6 @@ void __58__HMDAppleAccountManager__registerForRapportNotifications__block_invoke
       __updateCurrentDevice(v3, v6);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isServiceActive
@@ -144,7 +142,7 @@ void __58__HMDAppleAccountManager__registerForRapportNotifications__block_invoke
 
 - (void)accountChangeObserver:(id)observer observedDeletedAccount:(id)account
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   accountCopy = account;
   v8 = objc_autoreleasePoolPush();
@@ -154,24 +152,22 @@ void __58__HMDAppleAccountManager__registerForRapportNotifications__block_invoke
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v18 = v11;
-    v19 = 2112;
-    v20 = accountCopy;
+    v17 = v11;
+    v18 = 2112;
+    v19 = accountCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received notification of removed account %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   queue = selfCopy->_queue;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount___block_invoke;
-  v15[3] = &unk_27868A750;
-  v15[4] = selfCopy;
-  v16 = accountCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount___block_invoke;
+  v14[3] = &unk_27868A750;
+  v14[4] = selfCopy;
+  v15 = accountCopy;
   v13 = accountCopy;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v14);
 }
 
 void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount___block_invoke(uint64_t a1)
@@ -188,7 +184,7 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
 
 void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -196,9 +192,9 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Resolving current device settled promise due to sign out", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Resolving current device settled promise due to sign out", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -212,20 +208,19 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
   {
     v12 = HMFGetLogIdentifier();
     v13 = *(a1 + 40);
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2112;
-    v18 = v13;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Completed handling of removed account %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2112;
+    v17 = v13;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Completed handling of removed account %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountChangeObserver:(id)observer observedModifiedAccount:(id)account
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   accountCopy = account;
   v8 = objc_autoreleasePoolPush();
@@ -235,9 +230,9 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v16 = v11;
-    v17 = 2112;
-    v18 = accountCopy;
+    v15 = v11;
+    v16 = 2112;
+    v17 = accountCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received notification of modified account %@", buf, 0x16u);
   }
 
@@ -249,13 +244,11 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
   block[3] = &unk_27868A728;
   block[4] = selfCopy;
   dispatch_async(queue, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountChangeObserver:(id)observer observedAddedAccount:(id)account
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   accountCopy = account;
   v8 = objc_autoreleasePoolPush();
@@ -265,9 +258,9 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v16 = v11;
-    v17 = 2112;
-    v18 = accountCopy;
+    v15 = v11;
+    v16 = 2112;
+    v17 = accountCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received notification of added account %@", buf, 0x16u);
   }
 
@@ -279,13 +272,11 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
   block[3] = &unk_27868A728;
   block[4] = selfCopy;
   dispatch_async(queue, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service devicesChanged:(id)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   changedCopy = changed;
   service = [(HMDAppleAccountManager *)self service];
@@ -299,22 +290,20 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Received notification that devices changed on the current account", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Received notification that devices changed on the current account", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     devicesChangeBackoffTimer = [(HMDAppleAccountManager *)selfCopy devicesChangeBackoffTimer];
     [devicesChangeBackoffTimer resume];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service activeAccountsChanged:(id)changed
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   changedCopy = changed;
   service = [(HMDAppleAccountManager *)self service];
@@ -329,36 +318,36 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v13;
+      v28 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Received notification that the current account changed", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     accounts = [serviceCopy accounts];
-    v15 = [accounts countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v15 = [accounts countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v24;
+      v17 = *v23;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v24 != v17)
+          if (*v23 != v17)
           {
             objc_enumerationMutation(accounts);
           }
 
-          v19 = *(*(&v23 + 1) + 8 * i);
+          v19 = *(*(&v22 + 1) + 8 * i);
           [v19 addDelegate:selfCopy queue:selfCopy->_queue];
           [v19 addRegistrationDelegate:selfCopy queue:selfCopy->_queue];
         }
 
-        v16 = [accounts countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v16 = [accounts countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v16);
@@ -370,13 +359,11 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
     accountChangeBackoffTimer2 = [(HMDAppleAccountManager *)selfCopy accountChangeBackoffTimer];
     [accountChangeBackoffTimer2 reset];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)account:(id)account aliasesChanged:(id)changed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   changedCopy = changed;
   v8 = objc_autoreleasePoolPush();
@@ -385,9 +372,9 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v11;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received notification that aliases changed", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v11;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received notification that aliases changed", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -396,13 +383,11 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
 
   accountChangeBackoffTimer2 = [(HMDAppleAccountManager *)selfCopy accountChangeBackoffTimer];
   [accountChangeBackoffTimer2 reset];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)account:(id)account isActiveChanged:(BOOL)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   service = [(HMDAppleAccountManager *)self service];
   accounts = [service accounts];
@@ -416,9 +401,9 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received notification that account is active changed", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received notification that account is active changed", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -428,8 +413,6 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
     accountChangeBackoffTimer2 = [(HMDAppleAccountManager *)selfCopy accountChangeBackoffTimer];
     [accountChangeBackoffTimer2 reset];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
@@ -473,7 +456,7 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   v8 = objc_autoreleasePoolPush();
@@ -485,29 +468,27 @@ void __71__HMDAppleAccountManager_accountChangeObserver_observedDeletedAccount__
     defaultFormatter = [MEMORY[0x277D0F8D8] defaultFormatter];
     v13 = [defaultFormatter privateStringForObjectValue:tokenCopy];
     *buf = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v13;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v13;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Received push token: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   queue = selfCopy->_queue;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __59__HMDAppleAccountManager_connection_didReceivePublicToken___block_invoke;
-  v17[3] = &unk_27868A750;
-  v17[4] = selfCopy;
-  v18 = tokenCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __59__HMDAppleAccountManager_connection_didReceivePublicToken___block_invoke;
+  v16[3] = &unk_27868A750;
+  v16[4] = selfCopy;
+  v17 = tokenCopy;
   v15 = tokenCopy;
-  dispatch_async(queue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v16);
 }
 
 uint64_t __59__HMDAppleAccountManager_connection_didReceivePublicToken___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isMonitoring];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -518,13 +499,13 @@ uint64_t __59__HMDAppleAccountManager_connection_didReceivePublicToken___block_i
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification that the push token changed", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification that the push token changed", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
-    result = [*(a1 + 32) _updatePushToken:*(a1 + 40)];
+    return [*(a1 + 32) _updatePushToken:*(a1 + 40)];
   }
 
   else
@@ -533,24 +514,21 @@ uint64_t __59__HMDAppleAccountManager_connection_didReceivePublicToken___block_i
     {
       v9 = HMFGetLogIdentifier();
       v10 = [*(a1 + 40) length];
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2048;
-      v15 = v10;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@We got the push token before the apple account manager is started. Will process this token once it starts up. token length: %lu", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2048;
+      v14 = v10;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@We got the push token before the apple account manager is started. Will process this token once it starts up. token length: %lu", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
-    result = [*(a1 + 32) setPendingPushToken:*(a1 + 40)];
+    return [*(a1 + 32) setPendingPushToken:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)processAccountModelRemove:(id)remove message:(id)message
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   messageCopy = message;
   account = [(HMDAppleAccountManager *)self account];
@@ -564,7 +542,7 @@ uint64_t __59__HMDAppleAccountManager_connection_didReceivePublicToken___block_i
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v35 = v20;
+      v34 = v20;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unexpected object model received", buf, 0xCu);
 LABEL_9:
     }
@@ -582,21 +560,21 @@ LABEL_10:
 
   if ((v12 & 1) == 0)
   {
-    v27 = objc_autoreleasePoolPush();
+    v26 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v29 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
-      v30 = HMFGetLogIdentifier();
+      v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v35 = v30;
-      _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Account update does not match current account identifier", buf, 0xCu);
+      v34 = v29;
+      _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Account update does not match current account identifier", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v27);
-    v31 = [[HMDAssertionLogEvent alloc] initWithReason:@"Account update does not match current account identifier"];
-    v32 = +[HMDMetricsManager sharedLogEventSubmitter];
-    [v32 submitLogEvent:v31];
+    objc_autoreleasePoolPop(v26);
+    v30 = [[HMDAssertionLogEvent alloc] initWithReason:@"Account update does not match current account identifier"];
+    v31 = +[HMDMetricsManager sharedLogEventSubmitter];
+    [v31 submitLogEvent:v30];
   }
 
   uuid2 = [removeCopy uuid];
@@ -617,16 +595,16 @@ LABEL_10:
       uUIDString = [modelIdentifier3 UUIDString];
       uuid3 = [removeCopy uuid];
       [uuid3 UUIDString];
-      v25 = v33 = v17;
+      v25 = v32 = v17;
       *buf = 138543874;
-      v35 = v20;
-      v36 = 2112;
-      v37 = uUIDString;
-      v38 = 2112;
-      v39 = v25;
+      v34 = v20;
+      v35 = 2112;
+      v36 = uUIDString;
+      v37 = 2112;
+      v38 = v25;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Account update does not match current account identifier -- current identifier: %@, received identifier: %@", buf, 0x20u);
 
-      v17 = v33;
+      v17 = v32;
       goto LABEL_9;
     }
 
@@ -635,13 +613,11 @@ LABEL_10:
 
   __setAccount(self, 0, 1);
 LABEL_11:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAccountModel:(id)model message:(id)message
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   account = [(HMDAppleAccountManager *)self account];
@@ -655,21 +631,21 @@ LABEL_11:
 
     if ((v12 & 1) == 0)
     {
-      v29 = objc_autoreleasePoolPush();
+      v28 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v31 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+      v30 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
       {
-        v32 = HMFGetLogIdentifier();
+        v31 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v37 = v32;
-        _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Account update does not match current account identifier", buf, 0xCu);
+        v36 = v31;
+        _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Account update does not match current account identifier", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v29);
-      v33 = [[HMDAssertionLogEvent alloc] initWithReason:@"Account update does not match current account identifier"];
-      v34 = +[HMDMetricsManager sharedLogEventSubmitter];
-      [v34 submitLogEvent:v33];
+      objc_autoreleasePoolPop(v28);
+      v32 = [[HMDAssertionLogEvent alloc] initWithReason:@"Account update does not match current account identifier"];
+      v33 = +[HMDMetricsManager sharedLogEventSubmitter];
+      [v33 submitLogEvent:v32];
     }
 
     uuid2 = [modelCopy uuid];
@@ -696,16 +672,16 @@ LABEL_11:
         uUIDString = [modelIdentifier3 UUIDString];
         uuid3 = [modelCopy uuid];
         [uuid3 UUIDString];
-        v27 = v35 = v19;
+        v27 = v34 = v19;
         *buf = 138543874;
-        v37 = v22;
-        v38 = 2112;
-        v39 = uUIDString;
-        v40 = 2112;
-        v41 = v27;
+        v36 = v22;
+        v37 = 2112;
+        v38 = uUIDString;
+        v39 = 2112;
+        v40 = v27;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Account update does not match current account identifier -- current identifier: %@, received identifier: %@", buf, 0x20u);
 
-        v19 = v35;
+        v19 = v34;
       }
 
       objc_autoreleasePoolPop(v19);
@@ -720,8 +696,6 @@ LABEL_11:
       __setAccount(self, v18, 1);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isModelCurrentAccount:(id)account
@@ -806,7 +780,7 @@ LABEL_11:
 
 - (BOOL)shouldDevice:(id)device processModel:(id)model actions:(id)actions
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   modelCopy = model;
   actionsCopy = actions;
@@ -863,8 +837,8 @@ LABEL_27:
       }
 
       v21 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v21;
+      v30 = 138543362;
+      v31 = v21;
       v22 = "%{public}@The cloud updated our current device, dropping change.";
     }
 
@@ -885,12 +859,12 @@ LABEL_27:
       }
 
       v21 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v21;
+      v30 = 138543362;
+      v31 = v21;
       v22 = "%{public}@This device is tracked by a cloud model, dropping change.";
     }
 
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, v22, &v31, 0xCu);
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, v22, &v30, 0xCu);
 
     goto LABEL_24;
   }
@@ -901,22 +875,21 @@ LABEL_27:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     v26 = HMFGetLogIdentifier();
-    v31 = 138543362;
-    v32 = v26;
-    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Manager cannot confirm account model process due to nil parameter.", &v31, 0xCu);
+    v30 = 138543362;
+    v31 = v26;
+    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Manager cannot confirm account model process due to nil parameter.", &v30, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
   v27 = 0;
 LABEL_28:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (BOOL)shouldAccount:(id)account pushbackModel:(id)model actions:(id)actions
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   modelCopy = model;
   actionsCopy = actions;
@@ -937,7 +910,7 @@ LABEL_28:
         v13 = 0;
       }
 
-      v51 = v13;
+      v50 = v13;
 
       v14 = v11;
       objc_opt_class();
@@ -952,7 +925,7 @@ LABEL_28:
         v16 = 0;
       }
 
-      v50 = v16;
+      v49 = v16;
 
       if (isKindOfClass)
       {
@@ -965,7 +938,7 @@ LABEL_28:
           {
             v38 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v62 = v38;
+            v61 = v38;
             _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_DEBUG, "%{public}@Not pushing back account handles while inactive", buf, 0xCu);
           }
 
@@ -980,28 +953,28 @@ LABEL_53:
           goto LABEL_54;
         }
 
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
         v57 = 0u;
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
         obj = [accountCopy handles];
-        v17 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+        v17 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
         if (v17)
         {
-          v46 = actionsCopy;
-          v18 = *v57;
+          v45 = actionsCopy;
+          v18 = *v56;
           while (2)
           {
             for (i = 0; i != v17; i = i + 1)
             {
-              if (*v57 != v18)
+              if (*v56 != v18)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v20 = *(*(&v56 + 1) + 8 * i);
+              v20 = *(*(&v55 + 1) + 8 * i);
               modelIdentifier = [v20 modelIdentifier];
-              uuid = [v51 uuid];
+              uuid = [v50 uuid];
               v23 = [modelIdentifier hmf_isEqualToUUID:uuid];
 
               if (v23)
@@ -1011,7 +984,7 @@ LABEL_53:
               }
             }
 
-            v17 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+            v17 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
             if (v17)
             {
               continue;
@@ -1021,7 +994,7 @@ LABEL_53:
           }
 
 LABEL_41:
-          actionsCopy = v46;
+          actionsCopy = v45;
         }
 
         if ([v17 isLocallyTracked])
@@ -1033,9 +1006,9 @@ LABEL_41:
           {
             v42 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v62 = v42;
-            v63 = 2112;
-            v64 = v17;
+            v61 = v42;
+            v62 = 2112;
+            v63 = v17;
             v43 = "%{public}@This handle is locally tracked, pushing back -- accountHandle: %@";
 LABEL_50:
             _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, v43, buf, 0x16u);
@@ -1054,28 +1027,28 @@ LABEL_50:
           goto LABEL_53;
         }
 
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
         v53 = 0u;
+        v54 = 0u;
+        v51 = 0u;
+        v52 = 0u;
         obja = [accountCopy devices];
-        v17 = [obja countByEnumeratingWithState:&v52 objects:v60 count:16];
+        v17 = [obja countByEnumeratingWithState:&v51 objects:v59 count:16];
         if (v17)
         {
-          v47 = actionsCopy;
-          v29 = *v53;
+          v46 = actionsCopy;
+          v29 = *v52;
           while (2)
           {
             for (j = 0; j != v17; j = j + 1)
             {
-              if (*v53 != v29)
+              if (*v52 != v29)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v31 = *(*(&v52 + 1) + 8 * j);
+              v31 = *(*(&v51 + 1) + 8 * j);
               modelIdentifier2 = [v31 modelIdentifier];
-              uuid2 = [v50 uuid];
+              uuid2 = [v49 uuid];
               v34 = [modelIdentifier2 hmf_isEqualToUUID:uuid2];
 
               if (v34)
@@ -1085,7 +1058,7 @@ LABEL_50:
               }
             }
 
-            v17 = [obja countByEnumeratingWithState:&v52 objects:v60 count:16];
+            v17 = [obja countByEnumeratingWithState:&v51 objects:v59 count:16];
             if (v17)
             {
               continue;
@@ -1095,7 +1068,7 @@ LABEL_50:
           }
 
 LABEL_46:
-          actionsCopy = v47;
+          actionsCopy = v46;
         }
 
         if ([v17 isCurrentDevice])
@@ -1107,9 +1080,9 @@ LABEL_46:
           {
             v42 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v62 = v42;
-            v63 = 2112;
-            v64 = v17;
+            v61 = v42;
+            v62 = 2112;
+            v63 = v17;
             v43 = "%{public}@This is our current device, pushing back -- device: %@";
             goto LABEL_50;
           }
@@ -1137,7 +1110,7 @@ LABEL_54:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v62 = v27;
+      v61 = v27;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Manager cannot confirm account model process due to nil parameter.", buf, 0xCu);
     }
 
@@ -1147,7 +1120,6 @@ LABEL_54:
   v28 = 0;
 LABEL_55:
 
-  v44 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -1212,28 +1184,28 @@ uint64_t __52__HMDAppleAccountManager_idsDeviceForIDSIdentifier___block_invoke(u
 
 - (HMDDevice)device
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   account = [(HMDAppleAccountManager *)self account];
   devices = [account devices];
 
-  v4 = [devices countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [devices countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(devices);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 isCurrentDevice])
         {
           v4 = v7;
@@ -1241,7 +1213,7 @@ uint64_t __52__HMDAppleAccountManager_idsDeviceForIDSIdentifier___block_invoke(u
         }
       }
 
-      v4 = [devices countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [devices countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -1252,8 +1224,6 @@ uint64_t __52__HMDAppleAccountManager_idsDeviceForIDSIdentifier___block_invoke(u
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1363,7 +1333,7 @@ void __56__HMDAppleAccountManager___deviceAddedToCurrentAccount___block_invoke(u
 
 - (void)updateSenderCorrelationIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   account = [(HMDAppleAccountManager *)self account];
   v6 = account;
@@ -1380,7 +1350,7 @@ void __56__HMDAppleAccountManager___deviceAddedToCurrentAccount___block_invoke(u
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v25 = v12;
+        v24 = v12;
         _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@MergeID is the same, not updating", buf, 0xCu);
       }
 
@@ -1397,9 +1367,9 @@ void __56__HMDAppleAccountManager___deviceAddedToCurrentAccount___block_invoke(u
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v16;
-        v26 = 2112;
-        v27 = v6;
+        v24 = v16;
+        v25 = 2112;
+        v26 = v6;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Updated mergeID for currentAccount : %@. Also going to ask IDS about the mergeID.", buf, 0x16u);
       }
 
@@ -1423,19 +1393,17 @@ void __56__HMDAppleAccountManager___deviceAddedToCurrentAccount___block_invoke(u
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v21;
+      v24 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Current account went away, not updating", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__updateMergeIDOnAccount
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   account = [(HMDAppleAccountManager *)self account];
   handles = [account handles];
   firstObject = [handles firstObject];
@@ -1451,9 +1419,9 @@ void __56__HMDAppleAccountManager___deviceAddedToCurrentAccount___block_invoke(u
       v10 = HMFGetLogIdentifier();
       shortDescription = [account shortDescription];
       *buf = 138543618;
-      v32 = v10;
-      v33 = 2112;
-      v34 = shortDescription;
+      v31 = v10;
+      v32 = 2112;
+      v33 = shortDescription;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Trying to update mergeID on currentAccount: %@", buf, 0x16u);
     }
 
@@ -1479,19 +1447,19 @@ void __56__HMDAppleAccountManager___deviceAddedToCurrentAccount___block_invoke(u
     if (v15)
     {
       mEMORY[0x277D18728] = [MEMORY[0x277D18728] sharedInstance];
-      v30 = v15;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+      v29 = v15;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
       v18 = +[HMDIDSServiceManager sharedIDSServiceName];
       stringGUID = [MEMORY[0x277CCACA8] stringGUID];
       queue = selfCopy->_queue;
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __50__HMDAppleAccountManager___updateMergeIDOnAccount__block_invoke;
-      v27[3] = &unk_27867C568;
-      v27[4] = selfCopy;
-      v28 = v15;
-      v29 = account;
-      [mEMORY[0x277D18728] currentRemoteDevicesForDestinations:v17 service:v18 listenerID:stringGUID queue:queue completionBlock:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __50__HMDAppleAccountManager___updateMergeIDOnAccount__block_invoke;
+      v26[3] = &unk_27867C568;
+      v26[4] = selfCopy;
+      v27 = v15;
+      v28 = account;
+      [mEMORY[0x277D18728] currentRemoteDevicesForDestinations:v17 service:v18 listenerID:stringGUID queue:queue completionBlock:v26];
     }
 
     else
@@ -1504,11 +1472,11 @@ void __56__HMDAppleAccountManager___deviceAddedToCurrentAccount___block_invoke(u
         v24 = HMFGetLogIdentifier();
         value2 = [firstObject value];
         *buf = 138543874;
-        v32 = v24;
-        v33 = 2112;
-        v34 = value2;
-        v35 = 2112;
-        v36 = firstObject;
+        v31 = v24;
+        v32 = 2112;
+        v33 = value2;
+        v34 = 2112;
+        v35 = firstObject;
         _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot determine destination with handle value: %@, account handle: %@", buf, 0x20u);
       }
 
@@ -1522,16 +1490,14 @@ void __56__HMDAppleAccountManager___deviceAddedToCurrentAccount___block_invoke(u
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v14;
-      v33 = 2112;
-      v34 = account;
+      v31 = v14;
+      v32 = 2112;
+      v33 = account;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Account is missing a handle so cannot update mergeID: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDAppleAccountManager___updateMergeIDOnAccount__block_invoke(uint64_t a1, void *a2)
@@ -1563,7 +1529,7 @@ void __50__HMDAppleAccountManager___updateMergeIDOnAccount__block_invoke_2(uint6
 
 void __50__HMDAppleAccountManager___updateMergeIDOnAccount__block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [v6 senderCorrelationIdentifier];
   if (v7)
@@ -1579,15 +1545,15 @@ void __50__HMDAppleAccountManager___updateMergeIDOnAccount__block_invoke_3(uint6
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 40);
       v14 = [*(a1 + 48) identifier];
-      v21 = 138544130;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v7;
-      v25 = 2112;
-      v26 = v13;
-      v27 = 2112;
-      v28 = v14;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Found mergeID %@ for destination %@, new attribute %@", &v21, 0x2Au);
+      v20 = 138544130;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v7;
+      v24 = 2112;
+      v25 = v13;
+      v26 = 2112;
+      v27 = v14;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Found mergeID %@ for destination %@, new attribute %@", &v20, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -1604,17 +1570,15 @@ void __50__HMDAppleAccountManager___updateMergeIDOnAccount__block_invoke_3(uint6
     {
       v18 = HMFGetLogIdentifier();
       v19 = [*(a1 + 32) account];
-      v21 = 138543618;
-      v22 = v18;
-      v23 = 2112;
-      v24 = v19;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Did not get the mergeID after querying IDS: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v18;
+      v22 = 2112;
+      v23 = v19;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Did not get the mergeID after querying IDS: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAppleAccountContext)accountContext
@@ -1639,7 +1603,7 @@ void __50__HMDAppleAccountManager___updateMergeIDOnAccount__block_invoke_3(uint6
 
 void __51__HMDAppleAccountManager___handleMigrationUpdated___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D0F910] systemInfo];
   v3 = [v2 isMigrating];
 
@@ -1651,9 +1615,9 @@ void __51__HMDAppleAccountManager___handleMigrationUpdated___block_invoke(uint64
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received notification that migration completed", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received notification that migration completed", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1666,8 +1630,6 @@ void __51__HMDAppleAccountManager___handleMigrationUpdated___block_invoke(uint64
     v10 = [*(a1 + 32) devicesChangeBackoffTimer];
     [v10 resume];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__handleUpdatedName:(id)name
@@ -1703,16 +1665,15 @@ void __51__HMDAppleAccountManager___handleMigrationUpdated___block_invoke(uint64
 
 void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) device];
   v3 = v2;
   if (v2)
   {
-    v4 = *(a1 + 40);
-    v5 = [v2 name];
-    LOBYTE(v4) = HMFEqualObjects();
+    v4 = [v2 name];
+    v5 = HMFEqualObjects();
 
-    if ((v4 & 1) == 0)
+    if ((v5 & 1) == 0)
     {
       v6 = objc_autoreleasePoolPush();
       v7 = *(a1 + 32);
@@ -1721,11 +1682,11 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
       {
         v9 = HMFGetLogIdentifier();
         v10 = *(a1 + 40);
-        v19 = 138543618;
-        v20 = v9;
-        v21 = 2112;
-        v22 = v10;
-        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Updating name: %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v9;
+        v20 = 2112;
+        v21 = v10;
+        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Updating name: %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -1743,13 +1704,11 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
       [v13 run];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__handleRemovedAccountWithCompletion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
   isMonitoring = [(HMDAppleAccountManager *)self isMonitoring];
@@ -1762,9 +1721,9 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v39 = 138543362;
-      v40 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification account was removed", &v39, 0xCu);
+      v38 = 138543362;
+      v39 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification account was removed", &v38, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1779,9 +1738,9 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
       if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         v16 = HMFGetLogIdentifier();
-        v39 = 138543362;
-        v40 = v16;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_FAULT, "%{public}@Got primary iCloud account removed notification even though user is still signed in", &v39, 0xCu);
+        v38 = 138543362;
+        v39 = v16;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_FAULT, "%{public}@Got primary iCloud account removed notification even though user is still signed in", &v38, 0xCu);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -1791,9 +1750,9 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v39 = 138543362;
-        v40 = v20;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Got primary iCloud account removed notification even though user is still signed in", &v39, 0xCu);
+        v38 = 138543362;
+        v39 = v20;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Got primary iCloud account removed notification even though user is still signed in", &v38, 0xCu);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -1812,11 +1771,11 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
       {
         v27 = HMFGetLogIdentifier();
         account = v25->_account;
-        v39 = 138543618;
-        v40 = v27;
-        v41 = 2112;
-        v42 = account;
-        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Current account: %@", &v39, 0x16u);
+        v38 = 138543618;
+        v39 = v27;
+        v40 = 2112;
+        v41 = account;
+        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Current account: %@", &v38, 0x16u);
       }
 
       objc_autoreleasePoolPop(v24);
@@ -1836,9 +1795,9 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         v34 = HMFGetLogIdentifier();
-        v39 = 138543362;
-        v40 = v34;
-        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Primary apple account is removed & logged out", &v39, 0xCu);
+        v38 = 138543362;
+        v39 = v34;
+        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Primary apple account is removed & logged out", &v38, 0xCu);
       }
 
       objc_autoreleasePoolPop(v31);
@@ -1862,23 +1821,21 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v39 = 138543362;
-      v40 = v22;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring account notification", &v39, 0xCu);
+      v38 = 138543362;
+      v39 = v22;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring account notification", &v38, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v23 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     completionCopy[2](completionCopy, v23);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__handleAccountAddedOrModified:(BOOL)modified
 {
   modifiedCopy = modified;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   isMonitoring = [(HMDAppleAccountManager *)self isMonitoring];
   v6 = objc_autoreleasePoolPush();
@@ -1890,9 +1847,9 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification account was modified", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification account was modified", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1920,9 +1877,9 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             v18 = HMFGetLogIdentifier();
-            v21 = 138543362;
-            v22 = v18;
-            _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to create account", &v21, 0xCu);
+            v20 = 138543362;
+            v21 = v18;
+            _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to create account", &v20, 0xCu);
           }
 
           objc_autoreleasePoolPop(v15);
@@ -1941,15 +1898,13 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v14;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring account notification", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v14;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring account notification", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__localDataReset:(id)reset
@@ -1965,7 +1920,7 @@ void __46__HMDAppleAccountManager___handleUpdatedName___block_invoke(uint64_t a1
 
 void __43__HMDAppleAccountManager___localDataReset___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isMonitoring])
   {
     v2 = objc_autoreleasePoolPush();
@@ -1974,9 +1929,9 @@ void __43__HMDAppleAccountManager___localDataReset___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v5;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Repushing account transactions", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Repushing account transactions", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -1991,7 +1946,7 @@ void __43__HMDAppleAccountManager___localDataReset___block_invoke(uint64_t a1)
         __addAccount(*(a1 + 32), v7);
 LABEL_14:
 
-        goto LABEL_15;
+        return;
       }
     }
 
@@ -2003,9 +1958,9 @@ LABEL_14:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v12;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to re-create account", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v12;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to re-create account", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -2018,17 +1973,14 @@ LABEL_14:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Cannot add account after local reset", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Cannot add account after local reset", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
     goto LABEL_14;
   }
-
-LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -2044,7 +1996,7 @@ LABEL_15:
 
 void __30__HMDAppleAccountManager_stop__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isMonitoring])
   {
     v2 = objc_autoreleasePoolPush();
@@ -2054,7 +2006,7 @@ void __30__HMDAppleAccountManager_stop__block_invoke(uint64_t a1)
     {
       v5 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v5;
+      v20 = v5;
       _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping", buf, 0xCu);
     }
 
@@ -2064,40 +2016,38 @@ void __30__HMDAppleAccountManager_stop__block_invoke(uint64_t a1)
     v6 = [*(a1 + 32) service];
     [v6 removeDelegate:*(a1 + 32)];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = [*(a1 + 32) service];
     v8 = [v7 accounts];
 
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v15 + 1) + 8 * i);
+          v13 = *(*(&v14 + 1) + 8 * i);
           [v13 removeDelegate:*(a1 + 32)];
           [v13 removeRegistrationDelegate:*(a1 + 32)];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -2115,7 +2065,7 @@ void __30__HMDAppleAccountManager_stop__block_invoke(uint64_t a1)
 
 void __31__HMDAppleAccountManager_start__block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isMonitoring] & 1) == 0)
   {
     v2 = objc_autoreleasePoolPush();
@@ -2125,7 +2075,7 @@ void __31__HMDAppleAccountManager_start__block_invoke(uint64_t a1)
     {
       v5 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v51 = v5;
+      v50 = v5;
       _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Starting", buf, 0xCu);
     }
 
@@ -2162,33 +2112,33 @@ void __31__HMDAppleAccountManager_start__block_invoke(uint64_t a1)
     v17 = [*(a1 + 32) activityBroadcaster];
     [v17 configureWithQueue:*(*(a1 + 32) + 16)];
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v18 = [*(a1 + 32) service];
     v19 = [v18 accounts];
 
-    v20 = [v19 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v46;
+      v22 = *v45;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v46 != v22)
+          if (*v45 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v45 + 1) + 8 * i);
+          v24 = *(*(&v44 + 1) + 8 * i);
           [v24 addDelegate:*(a1 + 32) queue:*(*(a1 + 32) + 16)];
           [v24 addRegistrationDelegate:*(a1 + 32) queue:*(*(a1 + 32) + 16)];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
       while (v21);
@@ -2224,7 +2174,7 @@ void __31__HMDAppleAccountManager_start__block_invoke(uint64_t a1)
           {
             v32 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v51 = v32;
+            v50 = v32;
             _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to create account", buf, 0xCu);
           }
 
@@ -2249,7 +2199,7 @@ void __31__HMDAppleAccountManager_start__block_invoke(uint64_t a1)
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v51 = v37;
+        v50 = v37;
         _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@We might have a missed the didReceivePublicToken earlier. Let's set the token first.", buf, 0xCu);
       }
 
@@ -2273,8 +2223,6 @@ void __31__HMDAppleAccountManager_start__block_invoke(uint64_t a1)
     v43 = [v42 accountChangeObserver];
     [v43 setDelegate:v42];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccountRegistry:(id)registry
@@ -2303,36 +2251,36 @@ LABEL_7:
 
 - (void)configureWithAccountRegistry:(id)registry
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   registryCopy = registry;
   [(HMDAppleAccountManager *)self setAccountRegistry:registryCopy];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__164124;
-  v22 = __Block_byref_object_dispose__164125;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__164124;
+  v21 = __Block_byref_object_dispose__164125;
+  v22 = 0;
   v5 = [registryCopy fetchAccountsWithLocalFlag:1];
   if ([v5 count] < 2)
   {
     firstObject = [v5 firstObject];
-    v7 = v19[5];
-    v19[5] = firstObject;
+    v7 = v18[5];
+    v18[5] = firstObject;
   }
 
   else
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __55__HMDAppleAccountManager_configureWithAccountRegistry___block_invoke;
-    v15[3] = &unk_27867C4F0;
-    v17 = &v18;
-    v15[4] = self;
-    v16 = registryCopy;
-    [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __55__HMDAppleAccountManager_configureWithAccountRegistry___block_invoke;
+    v14[3] = &unk_27867C4F0;
+    v16 = &v17;
+    v14[4] = self;
+    v15 = registryCopy;
+    [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v14];
   }
 
-  if (v19[5])
+  if (v18[5])
   {
     v8 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -2340,11 +2288,11 @@ LABEL_7:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = HMFGetLogIdentifier();
-      v12 = v19[5];
+      v12 = v18[5];
       *buf = 138543618;
-      v25 = v11;
-      v26 = 2112;
-      v27 = v12;
+      v24 = v11;
+      v25 = 2112;
+      v26 = v12;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Using local account %@ fetched from the database.", buf, 0x16u);
     }
 
@@ -2352,16 +2300,15 @@ LABEL_7:
     deviceAccountSettledPromise = [(HMDAppleAccountManager *)selfCopy deviceAccountSettledPromise];
     [deviceAccountSettledPromise fulfillWithNoValue];
 
-    __setAccount(selfCopy, v19[5], 0);
+    __setAccount(selfCopy, v18[5], 0);
   }
 
-  _Block_object_dispose(&v18, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 }
 
 void __55__HMDAppleAccountManager_configureWithAccountRegistry___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = *(*(a1 + 48) + 8);
   v7 = *(v5 + 40);
@@ -2374,11 +2321,11 @@ void __55__HMDAppleAccountManager_configureWithAccountRegistry___block_invoke(ui
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@More than one account found. Removing %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@More than one account found. Removing %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -2389,8 +2336,6 @@ void __55__HMDAppleAccountManager_configureWithAccountRegistry___block_invoke(ui
   {
     objc_storeStrong(v6, a2);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDBackingStore)backingStore
@@ -2469,17 +2414,17 @@ LABEL_7:
 
 - (void)_registerForRapportNotifications
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (![(HMDAppleAccountManager *)self isRapportIdentitiesChangedNotificationTokenValid])
   {
     objc_initWeak(&location, self);
     queue = self->_queue;
-    v10 = MEMORY[0x277D85DD0];
-    v11 = 3221225472;
-    v12 = __58__HMDAppleAccountManager__registerForRapportNotifications__block_invoke;
-    v13 = &unk_278682DC8;
-    objc_copyWeak(&v14, &location);
-    v4 = notify_register_dispatch("com.apple.rapport.identitiesChanged", &self->_rapportIdentitiesChangedNotificationToken, queue, &v10);
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __58__HMDAppleAccountManager__registerForRapportNotifications__block_invoke;
+    v12 = &unk_278682DC8;
+    objc_copyWeak(&v13, &location);
+    v4 = notify_register_dispatch("com.apple.rapport.identitiesChanged", &self->_rapportIdentitiesChangedNotificationToken, queue, &v9);
     if (v4)
     {
       v5 = objc_autoreleasePoolPush();
@@ -2489,11 +2434,11 @@ LABEL_7:
       {
         v8 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v17 = v8;
-        v18 = 2080;
-        v19 = "com.apple.rapport.identitiesChanged";
-        v20 = 1024;
-        v21 = v4;
+        v16 = v8;
+        v17 = 2080;
+        v18 = "com.apple.rapport.identitiesChanged";
+        v19 = 1024;
+        v20 = v4;
         _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for %s: %d", buf, 0x1Cu);
       }
 
@@ -2502,20 +2447,18 @@ LABEL_7:
 
     else
     {
-      [(HMDAppleAccountManager *)self setRapportIdentitiesChangedNotificationTokenValid:1, v10, v11, v12, v13];
+      [(HMDAppleAccountManager *)self setRapportIdentitiesChangedNotificationTokenValid:1, v9, v10, v11, v12];
     }
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)maybeSkipUpdatesOfType:(unint64_t)type whileMigrating:(BOOL)migrating
 {
   migratingCopy = migrating;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = @"devices";
   if (type != 1)
   {
@@ -2541,55 +2484,49 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v7;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Skipping update of %{public}@ while the service is inactive, will try again later", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v7;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Skipping update of %{public}@ while the service is inactive, will try again later", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
 
-  if (migratingCopy)
+  if (!migratingCopy)
   {
-    v13 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-    {
-      v16 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v16;
-      v21 = 2114;
-      v22 = v7;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping update of %{public}@ during migration, will try again later", &v19, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v13);
-    result = 1;
+    return !isServiceActive;
   }
 
-  else
+  v13 = objc_autoreleasePoolPush();
+  selfCopy2 = self;
+  v15 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    result = !isServiceActive;
+    v16 = HMFGetLogIdentifier();
+    v18 = 138543618;
+    v19 = v16;
+    v20 = 2114;
+    v21 = v7;
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping update of %{public}@ during migration, will try again later", &v18, 0x16u);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  objc_autoreleasePoolPop(v13);
+  return 1;
 }
 
 - (HMDAppleAccountManager)initWithIDSService:(id)service activityBroadcaster:(id)broadcaster dataSource:(id)source
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   broadcasterCopy = broadcaster;
   sourceCopy = source;
   if (serviceCopy)
   {
-    v51.receiver = self;
-    v51.super_class = HMDAppleAccountManager;
-    v12 = [(HMDAppleAccountManager *)&v51 init];
+    v50.receiver = self;
+    v50.super_class = HMDAppleAccountManager;
+    v12 = [(HMDAppleAccountManager *)&v50 init];
     if (v12)
     {
       v13 = HMFGetOSLogHandle();
@@ -2660,18 +2597,18 @@ LABEL_7:
       v12->_deviceAccountSettled = v36;
 
       objc_storeStrong(&v12->_deviceAccountSettledPromise, *obj);
-      v50 = 0;
-      v38 = [MEMORY[0x277D0F7C0] futureWithPromise:&v50];
+      v49 = 0;
+      v38 = [MEMORY[0x277D0F7C0] futureWithPromise:&v49];
       currentDeviceSettled = v12->_currentDeviceSettled;
       v12->_currentDeviceSettled = v38;
 
-      objc_storeStrong(&v12->_currentDeviceSettledPromise, v50);
-      v49 = 0;
-      v40 = [MEMORY[0x277D0F7C0] futureWithPromise:&v49];
+      objc_storeStrong(&v12->_currentDeviceSettledPromise, v49);
+      v48 = 0;
+      v40 = [MEMORY[0x277D0F7C0] futureWithPromise:&v48];
       idsDevicesUpdated = v12->_idsDevicesUpdated;
       v12->_idsDevicesUpdated = v40;
 
-      objc_storeStrong(&v12->_idsDevicesUpdatedPromise, v49);
+      objc_storeStrong(&v12->_idsDevicesUpdatedPromise, v48);
       __updateAccountContext(v12);
     }
 
@@ -2696,13 +2633,12 @@ LABEL_7:
     v43 = 0;
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return v43;
 }
 
 - (HMDAppleAccountManager)initWithIDSServiceManager:(id)manager
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2710,9 +2646,9 @@ LABEL_7:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v20 = 138543362;
-    v21 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Creating an HMDAppleAccountManager", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Creating an HMDAppleAccountManager", &v19, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -2734,7 +2670,6 @@ LABEL_7:
   v16 = [[HMDAppleAccountManagerDefaultDataSource alloc] initWithQueue:v12];
   v17 = [(HMDAppleAccountManager *)selfCopy initWithIDSService:service activityBroadcaster:activityBroadcaster dataSource:v16];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -2753,10 +2688,9 @@ LABEL_7:
 
 void __37__HMDAppleAccountManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v106;
-  logCategory__hmf_once_v106 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v106;
+  logCategory__hmf_once_v106 = v0;
 }
 
 @end

@@ -3,14 +3,15 @@
 - (BOOL)isEqual:(id)equal;
 - (__CFString)eventTypeAsString:(__CFString *)string;
 - (double)date;
+- (id)clearSuggestionIds;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)suggestionIdsAtIndex:(id *)index;
+- (id)suggestionIdsCount;
 - (uint64_t)StringAsEventType:(uint64_t)type;
 - (uint64_t)addSuggestionIds:(uint64_t)ids;
 - (uint64_t)blendingCacheId;
-- (uint64_t)clearSuggestionIds;
 - (uint64_t)eventType;
 - (uint64_t)hasDate;
 - (uint64_t)hasEventType;
@@ -19,7 +20,6 @@
 - (uint64_t)setHasDate:(uint64_t)result;
 - (uint64_t)setHasEventType:(uint64_t)result;
 - (uint64_t)suggestionIds;
-- (uint64_t)suggestionIdsCount;
 - (unint64_t)hash;
 - (void)copyTo:(uint64_t)to;
 - (void)mergeFrom:(uint64_t)from;
@@ -458,11 +458,11 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearSuggestionIds
+- (id)clearSuggestionIds
 {
   if (result)
   {
-    return [*(result + 32) removeAllObjects];
+    return [result[4] removeAllObjects];
   }
 
   return result;
@@ -492,11 +492,11 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)suggestionIdsCount
+- (id)suggestionIdsCount
 {
   if (result)
   {
-    return [*(result + 32) count];
+    return [result[4] count];
   }
 
   return result;

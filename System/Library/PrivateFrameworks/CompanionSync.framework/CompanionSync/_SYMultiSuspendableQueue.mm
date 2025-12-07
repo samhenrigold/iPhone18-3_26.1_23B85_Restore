@@ -103,12 +103,11 @@
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(self + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1DF835000, a2, 0x90u, "Queue %{public}@ deallocated while suspended", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1DF835000, a2, 0x90u, "Queue %{public}@ deallocated while suspended", &v3, 0xCu);
 }
 
 - (NSString)name
@@ -121,7 +120,7 @@
 
 - (void)suspend
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (atomic_fetch_add(&self->_resumeCount, 0xFFFFFFFF) == 1)
   {
     if (_sync_log_facilities_pred != -1)
@@ -133,9 +132,9 @@
     if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
     {
       logDescriptor = self->_logDescriptor;
-      v11 = 138543362;
-      v12 = logDescriptor;
-      _os_log_impl(&dword_1DF835000, v3, OS_LOG_TYPE_DEFAULT, "Suspending %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = logDescriptor;
+      _os_log_impl(&dword_1DF835000, v3, OS_LOG_TYPE_DEFAULT, "Suspending %{public}@", &v10, 0xCu);
     }
 
     dispatch_suspend(self->_queue);
@@ -151,11 +150,11 @@
   {
     v6 = self->_logDescriptor;
     v7 = atomic_load(&self->_resumeCount);
-    v11 = 138543618;
-    v12 = v6;
-    v13 = 1024;
-    v14 = v7;
-    _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_INFO, "%{public}@ resume count: %d", &v11, 0x12u);
+    v10 = 138543618;
+    v11 = v6;
+    v12 = 1024;
+    v13 = v7;
+    _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_INFO, "%{public}@ resume count: %d", &v10, 0x12u);
   }
 
   callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
@@ -168,30 +167,26 @@
   }
 
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resume
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_1DF835000, a2, 0x90u, "Over-resume detected for queue %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF835000, a2, 0x90u, "Over-resume detected for queue %{public}@", &v2, 0xCu);
 }
 
 - (void)initWithName:(os_log_t)log qosClass:serial:target:.cold.2(uint64_t *a1, unsigned int *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = atomic_load(a2);
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_debug_impl(&dword_1DF835000, log, OS_LOG_TYPE_DEBUG, "%{public}@ resume count: %d", &v6, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = v3;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_debug_impl(&dword_1DF835000, log, OS_LOG_TYPE_DEBUG, "%{public}@ resume count: %d", &v5, 0x12u);
 }
 
 @end

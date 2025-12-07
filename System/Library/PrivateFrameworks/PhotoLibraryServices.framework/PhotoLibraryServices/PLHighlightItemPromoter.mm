@@ -7,32 +7,32 @@
 
 - (void)processHighlightItemsInHighlightItemList:(id)list currentlyPromotedHighlightItems:(id)items withSharingConsideration:(int64_t)consideration resultBlock:(id)block
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   blockCopy = block;
   sortedChildHighlightItems = [list sortedChildHighlightItems];
   v11 = [MEMORY[0x1E695DFA8] set];
-  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
   v12 = sortedChildHighlightItems;
-  v13 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v36;
+    v15 = *v37;
     do
     {
       v16 = 0;
       do
       {
-        if (*v36 != v15)
+        if (*v37 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v35 + 1) + 8 * v16);
+        v17 = *(*(&v36 + 1) + 8 * v16);
         rule = [(PLHighlightItemPromoter *)self rule];
         v19 = [rule highlightItemHasMinimumRequirementToBePromoted:v17 withSharingConsideration:consideration];
 
@@ -45,7 +45,7 @@
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v14);
@@ -55,11 +55,11 @@
   maximumNumberOfHighlightItemsToPromote = [rule2 maximumNumberOfHighlightItemsToPromote];
 
   v22 = [MEMORY[0x1E695DFD8] set];
-  if ([v11 count] <= maximumNumberOfHighlightItemsToPromote)
+  if (objc_msgSend_count(v11) <= maximumNumberOfHighlightItemsToPromote)
   {
     v28 = blockCopy;
     v27 = itemsCopy;
-    if ([v11 count])
+    if (objc_msgSend_count(v11))
     {
       v25 = v22;
       v22 = v11;
@@ -96,7 +96,8 @@
 
   v32 = [MEMORY[0x1E695DFA8] setWithSet:v27];
   [v32 minusSet:v22];
-  (v28)[2](v28, v22, v32, [v22 count] != 0);
+  v33 = objc_msgSend_count(v22) != 0;
+  (v28)[2](v28, v22, v32, v33);
 }
 
 - (PLHighlightItemPromoter)initWithRule:(id)rule

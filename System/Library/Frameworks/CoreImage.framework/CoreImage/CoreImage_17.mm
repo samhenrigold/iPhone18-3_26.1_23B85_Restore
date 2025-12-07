@@ -1,4 +1,491 @@
-uint64_t CI::StitchableFunctionDAGDescriptor::get_argument_type()
+uint64_t ___ZNK2CI17SerialStringArray5printEP7__sFILE_block_invoke(uint64_t result, FILE *a2)
+{
+  v2 = *(result + 32);
+  if (*v2 >= 1)
+  {
+    v4 = 0;
+    do
+    {
+      result = fprintf(a2, "[%i] = %s\n", v4, *(*(v2 + 4) + 8 * v4));
+      ++v4;
+    }
+
+    while (v4 < *v2);
+  }
+
+  return result;
+}
+
+uint64_t ___ZNK2CI14SerialValArrayIiE5printEP7__sFILEU13block_pointerFPKciE_block_invoke(uint64_t result, FILE *a2)
+{
+  v2 = *(result + 40);
+  if (*v2 >= 1)
+  {
+    v4 = result;
+    v5 = 0;
+    v6 = -40;
+    do
+    {
+      v7 = (*(*(v4 + 32) + 16))();
+      result = fprintf(a2, "[%d] = %s\n", v5++, v7);
+      v6 += 4;
+    }
+
+    while (v5 < *v2);
+  }
+
+  return result;
+}
+
+uint64_t CI::ColorKernel::ColorKernel(uint64_t a1, const char *a2, char *a3, char *a4, uint64_t a5, void **a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10, char a11, char a12)
+{
+  v14 = CI::Kernel::Kernel(a1, a2, a3, a4, a5, a6, a7, a8, a9, SHIDWORD(a9), *a10, a10[1]);
+  *v14 = off_1F1030080;
+  *(v14 + 164) = 0;
+  *(v14 + 168) = 0;
+  *(v14 + 172) = a11;
+  if (a12)
+  {
+    CI::SerialValArray<int>::append(a6, 30);
+  }
+
+  return a1;
+}
+
+{
+  return CI::ColorKernel::ColorKernel(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
+}
+
+uint64_t CI::GeneralKernel::GeneralKernel(uint64_t a1, const char *a2, char *a3, char *a4, uint64_t a5, void **a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10, char a11)
+{
+  *CI::Kernel::Kernel(a1, a2, a3, a4, a5, a6, a7, a8, a9, SHIDWORD(a9), *a10, a10[1]) = off_1F1030148;
+  if (a11)
+  {
+    CI::SerialValArray<int>::append(a6, 30);
+  }
+
+  return a1;
+}
+
+{
+  return CI::GeneralKernel::GeneralKernel(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+}
+
+void sub_19CE8D100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void ___ZL23newMTLLibraryWithSourcePU19objcproto9MTLDevice11objc_objectP8NSStringPP7NSError_block_invoke()
+{
+  size = 0;
+  v0 = getsectdatafromFramework("CoreImage", "__TEXT", "__runtimeheader", &size);
+  if (v0)
+  {
+    v2 = v0;
+    v3 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v4 = [v3 initWithBytesNoCopy:v2 length:size encoding:1 freeWhenDone:0];
+    newMTLLibraryWithSource(objc_object  {objcproto9MTLDevice}*,NSString *,NSError **)::_runtime_header = v4;
+    if (v4)
+    {
+      return;
+    }
+
+    goto LABEL_7;
+  }
+
+  v6 = ci_logger_compile(0, v1);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19CC36000, v6, OS_LOG_TYPE_INFO, "Could not initialize header file", buf, 2u);
+  }
+
+  v4 = newMTLLibraryWithSource(objc_object  {objcproto9MTLDevice}*,NSString *,NSError **)::_runtime_header;
+  if (!newMTLLibraryWithSource(objc_object  {objcproto9MTLDevice}*,NSString *,NSError **)::_runtime_header)
+  {
+LABEL_7:
+    v7 = ci_logger_compile(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      *v8 = 0;
+      _os_log_impl(&dword_19CC36000, v7, OS_LOG_TYPE_INFO, "Could not create the runtime headers string", v8, 2u);
+    }
+  }
+}
+
+void *___ZL26isHarvestingForThisProcessv_block_invoke(uint64_t a1)
+{
+  v1 = [MEMORY[0x1E696AEC0] stringWithCString:*(a1 + 32) encoding:1];
+  result = [MEMORY[0x1E696AE30] processInfo];
+  if (result)
+  {
+    result = [v1 containsString:{objc_msgSend(result, "processName")}];
+  }
+
+  isHarvestingForThisProcess(void)::isListed = result;
+  return result;
+}
+
+void ___ZL37addSpecializedFunctionToBinaryArchiveP21MTLFunctionDescriptorPU21objcproto10MTLLibrary11objc_object_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v7 = 0;
+  v3 = objc_opt_new();
+  [v3 setSpecializedName:{objc_msgSend(*(a1 + 32), "specializedName")}];
+  [v3 setName:{objc_msgSend(*(a1 + 32), "name")}];
+  [v3 setConstantValues:{objc_msgSend(*(a1 + 32), "constantValues")}];
+  v4 = [*(a1 + 40) addFunctionWithDescriptor:v3 library:*(a1 + 48) error:&v7];
+  if ((v4 & 1) == 0)
+  {
+    v6 = ci_logger_compile(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      ___ZL37addSpecializedFunctionToBinaryArchiveP21MTLFunctionDescriptorPU21objcproto10MTLLibrary11objc_object_block_invoke_cold_1(&v7);
+    }
+  }
+}
+
+uint64_t CI::MainProgram::MainProgram(uint64_t a1, const char *a2, const char *a3, uint64_t a4, uint64_t a5)
+{
+  *(a1 + 8) = 1;
+  *(a1 + 56) = 0;
+  v8 = (a1 + 56);
+  *a1 = &unk_1F1038100;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0;
+  *(a1 + 64) = 0;
+  CI::KernelArguments::KernelArguments((a1 + 72), a4, a5);
+  *(a1 + 88) = vdupq_n_s64(1uLL);
+  if (a2)
+  {
+    *v8 = strdup(a2);
+  }
+
+  if (a3)
+  {
+    *(a1 + 64) = strdup(a3);
+  }
+
+  return a1;
+}
+
+void CI::MainProgram::~MainProgram(CI::MainProgram *this)
+{
+  *this = &unk_1F1038100;
+  v2 = *(this + 7);
+  if (v2)
+  {
+    free(v2);
+  }
+
+  *(this + 7) = 0;
+  v3 = *(this + 8);
+  if (v3)
+  {
+    free(v3);
+  }
+
+  *(this + 8) = 0;
+  CI::KernelArguments::~KernelArguments((this + 72));
+}
+
+uint64_t CI::MainProgram::vector_arguments_size(CI::MainProgram *this, const CI::Context *a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v4 = CI::KernelArguments::count((this + 72));
+  if (v4 < 1)
+  {
+    return 0;
+  }
+
+  v5 = v4;
+  v6 = 0;
+  v7 = 0;
+  do
+  {
+    v8 = (*(*this + 40))(this, v7);
+    if (!CI::KernelArguments::is_texture(v8))
+    {
+      v6 = v6 + (*(*a2 + 528))(a2, v8);
+    }
+
+    v7 = (v7 + 1);
+  }
+
+  while (v5 != v7);
+  return v6;
+}
+
+void CI::LegacyDAGDescriptor::ArgumentInfo::add(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+{
+  if (a2 > 5)
+  {
+    if (a2 > 8)
+    {
+      if (a2 == 9)
+      {
+        v4 = 6;
+        goto LABEL_20;
+      }
+
+      if (a2 != 10)
+      {
+        goto LABEL_22;
+      }
+
+      v4 = 7;
+    }
+
+    else
+    {
+      if ((a2 - 7) >= 2)
+      {
+        if (a2 == 6)
+        {
+          v4 = 4;
+          goto LABEL_20;
+        }
+
+        goto LABEL_22;
+      }
+
+      v4 = 5;
+    }
+
+    goto LABEL_20;
+  }
+
+  if (a2 > 2)
+  {
+    if ((a2 - 4) >= 2)
+    {
+      if (a2 == 3)
+      {
+        v4 = 2;
+        goto LABEL_20;
+      }
+
+      goto LABEL_22;
+    }
+
+    v4 = 3;
+LABEL_20:
+    *&v5 = v4;
+    goto LABEL_21;
+  }
+
+  if (a2 >= 2)
+  {
+    if (a2 == 2)
+    {
+      v4 = 1;
+      goto LABEL_20;
+    }
+
+LABEL_22:
+    abort();
+  }
+
+  *&v5 = 0;
+LABEL_21:
+  *(&v5 + 1) = a3;
+  v6 = a4;
+  std::vector<LineCostProxy>::push_back[abi:nn200100](a1 + 16, &v5);
+}
+
+void CI::StitchableFunctionDAGDescriptor::print(id *this, __sFILE *a2)
+{
+  v4 = 0;
+  v31 = *MEMORY[0x1E69E9840];
+  v28[0] = 0;
+  v28[1] = 0;
+  v27 = v28;
+  while (v4 < [this[13] count])
+  {
+    v26 = [this[13] objectAtIndexedSubscript:v4];
+    v29 = &v26;
+    *(std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v27, &v26, &std::piecewise_construct, &v29) + 10) = v4++;
+  }
+
+  fwrite("// Stitched DAG Functions\n", 0x1AuLL, 1uLL, a2);
+  for (i = 0; i < [this[13] count]; ++i)
+  {
+    fprintf(a2, "#%zu = ", i);
+    v6 = [this[13] objectAtIndexedSubscript:i];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v7 = "EarlyReturnNode(#0)\n";
+      v8 = 20;
+    }
+
+    else
+    {
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0)
+      {
+        continue;
+      }
+
+      v9 = 0;
+      v10 = 1;
+      while (v9 < [objc_msgSend(v6 "arguments")])
+      {
+        v10 &= CI::StitchableFunctionDAGDescriptor::get_argument_type(this, [objc_msgSend(v6 "arguments")]) == 7;
+      }
+
+      fputs([objc_msgSend(v6 "name")], a2);
+      if ([objc_msgSend(v6 "arguments")])
+      {
+        v11 = 0;
+        if (v10)
+        {
+          while (v11 < [objc_msgSend(v6 "arguments")])
+          {
+            if (v11)
+            {
+              v12 = 44;
+            }
+
+            else
+            {
+              v12 = 40;
+            }
+
+            v26 = [objc_msgSend(v6 "arguments")];
+            v29 = &v26;
+            v13 = std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v27, &v26, &std::piecewise_construct, &v29);
+            fprintf(a2, "%c #%zu", v12, *(v13 + 10));
+            ++v11;
+          }
+
+LABEL_34:
+          v7 = ")\n";
+          v8 = 2;
+          goto LABEL_36;
+        }
+
+        while (2)
+        {
+          if (v11 >= [objc_msgSend(v6 "arguments")])
+          {
+            goto LABEL_34;
+          }
+
+          if (v11)
+          {
+            v14 = 44;
+          }
+
+          else
+          {
+            v14 = 40;
+          }
+
+          fprintf(a2, "%c ", v14);
+          argument_type = CI::StitchableFunctionDAGDescriptor::get_argument_type(this, [objc_msgSend(v6 "arguments")]);
+          if (argument_type > 3)
+          {
+            if (argument_type == 4)
+            {
+              v17 = [objc_msgSend(v6 "arguments")];
+              [v17 bindIndex];
+              [v17 byteOffset];
+              fprintf(a2, "Buffer%zu+%zu");
+              goto LABEL_33;
+            }
+
+            if (argument_type == 7)
+            {
+              v26 = [objc_msgSend(v6 "arguments")];
+              v29 = &v26;
+              std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v27, &v26, &std::piecewise_construct, &v29);
+              fprintf(a2, "#%zu");
+              goto LABEL_33;
+            }
+          }
+
+          else
+          {
+            if (!argument_type)
+            {
+              [objc_msgSend(objc_msgSend(v6 "arguments")];
+              fprintf(a2, "Texture%zu");
+              goto LABEL_33;
+            }
+
+            if (argument_type == 3)
+            {
+              [objc_msgSend(objc_msgSend(v6 "arguments")];
+              fprintf(a2, "Sampler%zu");
+LABEL_33:
+              ++v11;
+              continue;
+            }
+          }
+
+          break;
+        }
+
+        fputs(v16, a2);
+        goto LABEL_33;
+      }
+
+      v7 = "()\n";
+      v8 = 3;
+    }
+
+LABEL_36:
+    fwrite(v7, v8, 1uLL, a2);
+  }
+
+  if (this[2])
+  {
+    v18 = [this[2] performSelector:NSSelectorFromString(&cfstr_Newnamedconsta.isa)];
+    if ([v18 count])
+    {
+      fputc(10, a2);
+      fwrite("// Function Constants\n", 0x16uLL, 1uLL, a2);
+      v22 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      v19 = [v18 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      if (v19)
+      {
+        v20 = *v23;
+        do
+        {
+          for (j = 0; j != v19; ++j)
+          {
+            if (*v23 != v20)
+            {
+              objc_enumerationMutation(v18);
+            }
+
+            fprintf(a2, "%s\n", [objc_msgSend(*(*(&v22 + 1) + 8 * j) "description")]);
+          }
+
+          v19 = [v18 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        }
+
+        while (v19);
+      }
+    }
+  }
+
+  fputc(10, a2);
+  std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v27, v28[0]);
+}
+
+uint64_t CI::StitchableFunctionDAGDescriptor::get_argument_type(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -48,8 +535,9 @@ uint64_t CI::StitchableFunctionDAGDescriptor::get_argument_type()
   }
 }
 
-void CI::StitchableFunctionDAGDescriptor::ArgumentInfo::add(uint64_t a1, int a2, unint64_t a3, uint64_t a4)
+void CI::StitchableFunctionDAGDescriptor::ArgumentInfo::add(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
+  v5 = a2;
   v17 = a3;
   if (a2 <= 5)
   {
@@ -59,7 +547,7 @@ void CI::StitchableFunctionDAGDescriptor::ArgumentInfo::add(uint64_t a1, int a2,
       {
         v14 = objc_opt_new();
         [v14 setByteOffset:a4];
-        [v14 setDereference:a2 == 4];
+        [v14 setDereference:v5 == 4];
         v11 = v14;
 LABEL_19:
         [v11 setBindIndex:{a3, v14}];
@@ -84,7 +572,7 @@ LABEL_18:
     {
       if (a2 < 2)
       {
-        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(*(a1 + 48), &v17);
+        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(*(a1 + 48), &v17, &v17);
         v7 = objc_opt_new();
         [v7 setBindIndex:v17];
         [*(a1 + 16) addObject:v7];
@@ -128,17 +616,16 @@ LABEL_21:
   }
 
   v8 = *(a1 + 16);
-  v9 = [*(a1 + 24) objectAtIndexedSubscript:*(**(a1 + 32) + 4 * a3)];
+  v9 = [*(a1 + 24) objectAtIndexedSubscript:{*(**(a1 + 32) + 4 * a3), a4}];
 
   [v8 addObject:v9];
 }
 
 void *CI::MetalDAGProgram::MetalDAGProgram(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  LODWORD(v15) = 0;
-  v11 = CI::MetalMainProgram::MetalMainProgram(a1, a3, a2, 0, a5, 0, a6, a7, v15, a8);
+  v11 = CI::MetalMainProgram::MetalMainProgram(a1, a3, a2, 0, a5, 0, a6, a7, 0, a8);
   v11[22] = &unk_1F1038760;
-  atomic_fetch_add(&dword_1ED7C47BC[74], 1u);
+  atomic_fetch_add(&dword_1ED7C47D8[67], 1u);
   *v11 = &unk_1F1038168;
   v11[13] = &unk_1F10381D8;
   v12 = *a4;
@@ -191,7 +678,7 @@ void CI::MetalDAGProgram::~MetalDAGProgram(CI::MetalDAGProgram *this)
   }
 
   *(this + 22) = &unk_1F1038760;
-  atomic_fetch_add(&dword_1ED7C47BC[74], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[67], 0xFFFFFFFF);
   CI::MetalMainProgram::~MetalMainProgram(this);
 }
 
@@ -270,8 +757,8 @@ uint64_t CI::LegacyDAGDescriptor::print(id *this, __sFILE *__stream)
 LABEL_10:
       fprintf(__stream, "%s ", [objc_msgSend(v5 "name")]);
       v11 = this[5] + 24 * v4;
-      v13 = *(v11 + 8);
-      v12 = *(v11 + 16);
+      v13 = *(v11 + 1);
+      v12 = *(v11 + 2);
       fputc(40, __stream);
       if (v13)
       {
@@ -400,73 +887,75 @@ const char *CI::get_data_type_name(unint64_t this, MTLDataType a2)
   }
 }
 
-void CI::MetalDAGProgram::compile(uint64_t a1, int a2)
+void CI::MetalDAGProgram::compile(uint64_t a1, unsigned int a2)
 {
   dispatch_assert_queue_V2(*(a1 + 136));
-  if (CI_VERBOSE_SIGNPOSTS())
+  v4 = CI_VERBOSE_SIGNPOSTS();
+  if (v4)
   {
-    v4 = ci_signpost_log_compile();
-    v5 = a2 | (*(a1 + 48) << 32);
+    v6 = ci_signpost_log_compile(v4, v5);
+    v7 = a2 | (*(a1 + 48) << 32);
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v8 = v6;
+      if (os_signpost_enabled(v6))
+      {
+        LOWORD(v17[0]) = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v7, "compile_metal_dag", &unk_19CFBCBAE, v17, 2u);
+      }
+    }
+  }
+
+  TimerBase::TimerBase(v17, *(a1 + 48), a2, "compile_metal_dag", 0x1Au);
+  v9.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+  v10 = *(a1 + 16);
+  if (CI_HARVEST_BIN_ARCHIVE_PROGRAM_TYPE() == 1 && *(*(a1 + 184) + 8) != 1 || CI_HARVEST_BIN_ARCHIVE_PROGRAM_TYPE() == 2 && (*(*(a1 + 184) + 8) & 1) != 0 || CI_HARVEST_BIN_ARCHIVE_PROGRAM_TYPE() == 3 && *(*(a1 + 184) + 9) != 1 || CI_HARVEST_BIN_ARCHIVE_PROGRAM_TYPE() == 4 && *(*(a1 + 184) + 9) == 1)
+  {
+    v10 = 0;
+  }
+
+  v11 = *(a1 + 184);
+  v12 = *(a1 + 144);
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 200);
+  v15 = *(a1 + 160);
+  if (*(a1 + 152) == 1)
+  {
+    v16 = (*(*v11 + 80))(v11, v12, v13, v14, v15, v10, *(a1 + 156));
+  }
+
+  else
+  {
+    v16 = (*(*v11 + 88))(v11, v12, v13, v14, v15, v10);
+  }
+
+  *(a1 + 168) = v16;
+  atomic_store(COERCE_UNSIGNED_INT64((std::chrono::steady_clock::now().__d_.__rep_ - v9.__d_.__rep_) / 1000000000.0), (a1 + 24));
+  CI::MetalDAGProgram::compile(CI::NodeIndex)::SignpostTimer::~SignpostTimer(v17);
+}
+
+void CI::MetalDAGProgram::compile(CI::NodeIndex)::SignpostTimer::~SignpostTimer(TimerBase *a1)
+{
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
+  {
+    v4 = ci_signpost_log_compile(v2, v3);
+    v5 = *(a1 + 1);
     if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
       v6 = v4;
       if (os_signpost_enabled(v4))
       {
-        *v15 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v5, "compile_metal_dag", &unk_19CFBCBAE, v15, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "compile_metal_dag", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::TimerBase(v15, *(a1 + 48), a2, "compile_metal_dag", 26);
-  v7.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-  v8 = *(a1 + 16);
-  if (CI_HARVEST_BIN_ARCHIVE_PROGRAM_TYPE() == 1 && *(*(a1 + 184) + 8) != 1 || CI_HARVEST_BIN_ARCHIVE_PROGRAM_TYPE() == 2 && (*(*(a1 + 184) + 8) & 1) != 0 || CI_HARVEST_BIN_ARCHIVE_PROGRAM_TYPE() == 3 && *(*(a1 + 184) + 9) != 1 || CI_HARVEST_BIN_ARCHIVE_PROGRAM_TYPE() == 4 && *(*(a1 + 184) + 9) == 1)
-  {
-    v8 = 0;
-  }
-
-  v9 = *(a1 + 184);
-  v10 = *(a1 + 144);
-  v11 = *(a1 + 56);
-  v12 = *(a1 + 200);
-  v13 = *(a1 + 160);
-  if (*(a1 + 152) == 1)
-  {
-    v14 = (*(*v9 + 80))(v9, v10, v11, v12, v13, v8, *(a1 + 156));
-  }
-
-  else
-  {
-    v14 = (*(*v9 + 88))(v9, v10, v11, v12, v13, v8);
-  }
-
-  *(a1 + 168) = v14;
-  atomic_store(COERCE_UNSIGNED_INT64((std::chrono::steady_clock::now().__d_.__rep_ - v7.__d_.__rep_) / 1000000000.0), (a1 + 24));
-  CI::MetalDAGProgram::compile(CI::NodeIndex)::SignpostTimer::~SignpostTimer(v15);
+  TimerBase::~TimerBase(a1, v3);
 }
 
-void CI::MetalDAGProgram::compile(CI::NodeIndex)::SignpostTimer::~SignpostTimer(TimerBase *a1)
-{
-  if (CI_VERBOSE_SIGNPOSTS())
-  {
-    v2 = ci_signpost_log_compile();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
-      {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "compile_metal_dag", &unk_19CFBCBAE, v5, 2u);
-      }
-    }
-  }
-
-  TimerBase::~TimerBase(a1);
-}
-
-uint64_t CI::MetalDAGHelper::get_precompiled_kernel(uint64_t a1, uint64_t a2, unsigned int a3)
+void *CI::MetalDAGHelper::get_precompiled_kernel(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v3 = *(a1 + 32);
   switch(v3)
@@ -485,7 +974,7 @@ uint64_t CI::MetalDAGHelper::get_precompiled_kernel(uint64_t a1, uint64_t a2, un
   return 0;
 }
 
-uint64_t CI::PrecompiledKernels::new_specialzied_function(uint64_t a1, uint64_t a2, unsigned int a3)
+void *CI::PrecompiledKernels::new_specialzied_function(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v16 = *MEMORY[0x1E69E9840];
   dispatch_sync(*(a1 + 48), &__block_literal_global_159);
@@ -531,7 +1020,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t CI::PrecompiledKernels::new_function(uint64_t a1, uint64_t a2, unsigned int a3)
+void *CI::PrecompiledKernels::new_function(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v16 = *MEMORY[0x1E69E9840];
   dispatch_sync(*(a1 + 48), &__block_literal_global_161);
@@ -577,7 +1066,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t CI::MetalDAGHelper::new_function_with_name(CI::MetalDAGHelper *this, const char *a2, unsigned __int8 *a3)
+void *CI::MetalDAGHelper::new_function_with_name(CI::MetalDAGHelper *this, const char *a2, unsigned __int8 *a3)
 {
   if (*(*(this + 3) + 43) == 1)
   {
@@ -724,11 +1213,11 @@ unint64_t CI::MetalDAGHelper::add_argument_type_and_offset(uint64_t a1, int a2, 
   return next_offset;
 }
 
-void CI::MetalDAGHelper::add_arguments_for_image_node(uint64_t a1@<X0>, void *a2@<X8>)
+void CI::MetalDAGHelper::add_arguments_for_image_node(uint64_t a1@<X0>, void *a6@<X8>)
 {
-  v3 = *(a1 + 80);
-  *(a1 + 80) = v3 + 1;
-  *a2 = v3;
+  v7 = *(a1 + 80);
+  *(a1 + 80) = v7 + 1;
+  *a6 = v7;
   operator new();
 }
 
@@ -901,7 +1390,7 @@ uint64_t CI::MetalDAGHelper::add_group_write_function_info(uint64_t this, uint64
 uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, uint64_t a2, CI::ColorKernelNode *a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7)
 {
   v12 = *(a3 + 6);
-  if ((*(*v12 + 16))(v12) != 70)
+  if ((*(*v12 + 16))(v12, a2) != 70)
   {
     (*(*v12 + 16))(v12);
   }
@@ -1105,7 +1594,7 @@ LABEL_50:
   return v26();
 }
 
-uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::SerialStringArray **a2, const CI::Kernel **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char *a8, unsigned __int8 a9, void *a10, char a11)
+uint64_t CI::MetalDAGHelper::add_function_info(uint64_t **a1, CI::SerialStringArray **a2, const CI::Kernel **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char *a8, unsigned __int8 a9, void *a10, char a11)
 {
   v15 = a3;
   v18 = a3[6];
@@ -1125,7 +1614,7 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::SerialStringArra
   }
 
   v20 = v19;
-  if (*(a1 + 32) == 1)
+  if (*(a1 + 8) == 1)
   {
     for (i = 0; ; ++i)
     {
@@ -1143,9 +1632,9 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::SerialStringArra
   }
 
   v89 = a2;
-  if (*(a1 + 64) && *(a1 + 72))
+  if (a1[8] && a1[9])
   {
-    v23 = (*(**(a1 + 8) + 8))(*(a1 + 8), v20);
+    v23 = (*(*a1[1] + 8))(a1[1], v20);
   }
 
   else
@@ -1156,7 +1645,7 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::SerialStringArra
   v24 = 0;
   v93 = 0;
   v90 = a6 + 1;
-  v91 = (a1 + 136);
+  v91 = a1 + 17;
   v86 = a1;
   v87 = &a8[a6];
   v83 = &a8[a6 + 3];
@@ -1193,7 +1682,7 @@ LABEL_35:
               CI::Node::rois_count(v33);
               __p[0] = CI::hash_image_node_id(v33, 0);
               v97.__r_.__value_.__r.__words[0] = __p;
-              v34 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 176, __p);
+              v34 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 22), __p, &std::piecewise_construct, &v97);
               if (v23)
               {
                 (**v23)(v23, 0, v34[5], 0);
@@ -1251,7 +1740,7 @@ LABEL_178:
 
             v96 = v47;
             __p[0] = &v96;
-            v56 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 19), &v96);
+            v56 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 19), &v96, &std::piecewise_construct, __p, v100);
             v57 = v56;
             if (*(v56 + 63) < 0)
             {
@@ -1312,23 +1801,23 @@ LABEL_150:
               v71 = (*a10)++;
               v96 = v47;
               __p[0] = &v96;
-              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96) + 20) = v71;
+              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96, &std::piecewise_construct, __p) + 20) = v71;
               if (v99 == 1)
               {
                 CI::MetalDAGHelper::add_function_with_name(v86, "_ci_srgb_to_linear", 0);
                 v96 = v47;
                 __p[0] = &v96;
-                std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96);
+                std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96, &std::piecewise_construct, __p);
                 CI::MetalDAGHelper::add_colour_inout_function_info(v86);
                 v72 = (*a10)++;
                 v96 = v47;
                 __p[0] = &v96;
-                *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96) + 20) = v72;
+                *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96, &std::piecewise_construct, __p) + 20) = v72;
               }
 
               v96 = v47;
               __p[0] = &v96;
-              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96) + 24) = 0;
+              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96, &std::piecewise_construct, __p) + 24) = 0;
 LABEL_164:
               __p[0] = v47;
               std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__erase_unique<unsigned long long>(v86 + 19, __p);
@@ -1348,50 +1837,50 @@ LABEL_168:
               {
                 __p[0] = v47;
                 v97.__r_.__value_.__r.__words[0] = __p;
-                if (!*(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p) + a9 + 24))
+                if (!*(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97) + a9 + 24))
                 {
                   CI::MetalDAGHelper::add_function_with_name(v86, "_ci_float_to_half", 0);
                   __p[0] = v47;
                   v97.__r_.__value_.__r.__words[0] = __p;
-                  std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p);
+                  std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97);
                   CI::MetalDAGHelper::add_colour_inout_function_info(v86);
                   v80 = (*a10)++;
                   __p[0] = v47;
                   v97.__r_.__value_.__r.__words[0] = __p;
-                  *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p) + a9 + 24) = v80;
+                  *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97) + a9 + 24) = v80;
                   __p[0] = v47;
                   v97.__r_.__value_.__r.__words[0] = __p;
-                  *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p) + a9 + 20) = 0;
+                  *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97) + a9 + 20) = 0;
                 }
 
                 __p[0] = v47;
                 v97.__r_.__value_.__r.__words[0] = __p;
-                v79 = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p) + a9 + 24);
+                v79 = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97) + a9 + 24);
               }
 
               else
               {
                 __p[0] = v47;
                 v97.__r_.__value_.__r.__words[0] = __p;
-                if (!*(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p) + a9 + 20))
+                if (!*(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97) + a9 + 20))
                 {
                   CI::MetalDAGHelper::add_function_with_name(v86, "_ci_half_to_float", 0);
                   __p[0] = v47;
                   v97.__r_.__value_.__r.__words[0] = __p;
-                  std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p);
+                  std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97);
                   CI::MetalDAGHelper::add_colour_inout_function_info(v86);
                   v78 = (*a10)++;
                   __p[0] = v47;
                   v97.__r_.__value_.__r.__words[0] = __p;
-                  *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p) + a9 + 20) = v78;
+                  *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97) + a9 + 20) = v78;
                   __p[0] = v47;
                   v97.__r_.__value_.__r.__words[0] = __p;
-                  *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p) + a9 + 24) = 0;
+                  *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97) + a9 + 24) = 0;
                 }
 
                 __p[0] = v47;
                 v97.__r_.__value_.__r.__words[0] = __p;
-                v79 = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p) + a9 + 20);
+                v79 = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), __p, &std::piecewise_construct, &v97) + a9 + 20);
               }
 
               a5 = v84;
@@ -1493,23 +1982,23 @@ LABEL_160:
             v76 = (*a10)++;
             v96 = v47;
             __p[0] = &v96;
-            *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96) + 24) = v76;
+            *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96, &std::piecewise_construct, __p) + 24) = v76;
             if (v99 == 1)
             {
               CI::MetalDAGHelper::add_function_with_name(v86, "_ci_srgb_to_linear_h", 0);
               v96 = v47;
               __p[0] = &v96;
-              std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96);
+              std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96, &std::piecewise_construct, __p);
               CI::MetalDAGHelper::add_colour_inout_function_info(v86);
               v77 = (*a10)++;
               v96 = v47;
               __p[0] = &v96;
-              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96) + 24) = v77;
+              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96, &std::piecewise_construct, __p) + 24) = v77;
             }
 
             v96 = v47;
             __p[0] = &v96;
-            *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96) + 20) = 0;
+            *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v86 + 16), &v96, &std::piecewise_construct, __p) + 20) = 0;
             goto LABEL_164;
         }
 
@@ -1537,9 +2026,9 @@ LABEL_96:
         goto LABEL_98;
       }
 
-      if ((*(a1 + 32) & 0xFFFFFFFE) == 2)
+      if ((a1[4] & 0xFFFFFFFE) == 2)
       {
-        if (*(a1 + 64) && *(a1 + 72) && (v35 = (*(**(a1 + 8) + 8))(*(a1 + 8), 6)) != 0)
+        if (a1[8] && a1[9] && (v35 = (*(*a1[1] + 8))(a1[1], 6)) != 0)
         {
           v36 = v35;
           (**v35)(v35, 8, a5, 0);
@@ -1558,12 +2047,12 @@ LABEL_106:
 
             if (*(v18 + 159) == 1)
             {
-              v60 = *(a1 + 80);
-              *(a1 + 80) = v60 + 1;
+              v60 = a1[10];
+              a1[10] = (v60 + 1);
               if (v38)
               {
 LABEL_113:
-                v43 = (*(**(a1 + 8) + 32))(*(a1 + 8), v36, v27 == 32);
+                v43 = (*(*a1[1] + 32))(a1[1], v36, v27 == 32);
                 if (!v23)
                 {
                   goto LABEL_60;
@@ -1637,7 +2126,7 @@ LABEL_88:
     {
       if ((v26 - 33) < 2)
       {
-        if (*(a1 + 64) && *(a1 + 72) && (v39 = (*(**(a1 + 8) + 8))(*(a1 + 8), 5)) != 0)
+        if (a1[8] && a1[9] && (v39 = (*(*a1[1] + 8))(a1[1], 5)) != 0)
         {
           v40 = v39;
           (**v39)(v39, 7, a5, 0);
@@ -1654,7 +2143,7 @@ LABEL_56:
               (**v40)(v40, 2, 0, 0);
             }
 
-            v43 = (*(**(a1 + 8) + 40))(*(a1 + 8), v40, v27 == 34);
+            v43 = (*(*a1[1] + 40))(a1[1], v40, v27 == 34);
             if (!v23)
             {
               goto LABEL_60;
@@ -1813,8 +2302,8 @@ LABEL_95:
       goto LABEL_96;
     }
 
-    v44 = *(a1 + 80);
-    *(a1 + 80) = v44 + 1;
+    v44 = a1[10];
+    a1[10] = (v44 + 1);
     if (v23)
     {
       goto LABEL_95;
@@ -1825,10 +2314,10 @@ LABEL_179:
   }
 
   CI::MetalDAGHelper::add_function_for_kernel(a1, v18);
-  return (*(**(a1 + 8) + 48))(*(a1 + 8), v23);
+  return (*(*a1[1] + 48))(a1[1], v23);
 }
 
-uint64_t CI::MetalDAGHelper::add_function_info(CI::MetalDAGHelper *this, const CI::ProgramNode *a2, const CI::GeneralKernelNode *a3, CI::Object **a4, uint64_t a5, unint64_t a6)
+uint64_t CI::MetalDAGHelper::add_function_info(CI::MetalDAGHelper *this, const CI::ProgramNode *a2, const CI::GeneralKernelNode *a3, CI::Object **a4, uint64_t a5, size_t a6)
 {
   v10 = *(a3 + 6);
   (*(*v10 + 16))(v10);
@@ -2272,7 +2761,7 @@ LABEL_55:
   return (*(**(this + 1) + 48))(*(this + 1), v17);
 }
 
-uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::ProgramNode *a2, CI::ColorKernelNode *a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, unsigned __int8 a9, void *a10, char a11)
+uint64_t CI::MetalDAGHelper::add_function_info(uint64_t **a1, CI::ProgramNode *a2, CI::ColorKernelNode *a3, uint64_t a4, uint64_t a5, size_t a6, uint64_t a7, char *a8, unsigned __int8 a9, void *a10, char a11)
 {
   v12 = a3;
   v15 = *(a3 + 6);
@@ -2293,7 +2782,7 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::ProgramNode *a2,
   }
 
   v17 = v16;
-  if (*(a1 + 32) == 1)
+  if (*(a1 + 8) == 1)
   {
     for (i = 0; ; ++i)
     {
@@ -2309,7 +2798,7 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::ProgramNode *a2,
       }
     }
 
-    if (*(a1 + 32) == 1)
+    if (*(a1 + 8) == 1)
     {
       v20 = v17 + CI::Kernel::num_sampler_arguments(v15);
       v21 = v20 + CI::Kernel::num_sampler_arguments(v15);
@@ -2317,12 +2806,12 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::ProgramNode *a2,
     }
   }
 
-  if (*(a1 + 64) && *(a1 + 72))
+  if (a1[8] && a1[9])
   {
-    v22 = (*(**(a1 + 8) + 8))(*(a1 + 8), v17);
-    if (*(a1 + 64) && *(a1 + 72))
+    v22 = (*(*a1[1] + 8))(a1[1], v17);
+    if (a1[8] && a1[9])
     {
-      (*(**(a1 + 8) + 8))(*(a1 + 8), v17);
+      (*(*a1[1] + 8))(a1[1], v17);
     }
   }
 
@@ -2335,7 +2824,7 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::ProgramNode *a2,
   *v106 = 0;
   v100 = v12;
   v101 = a6 + 1;
-  v102 = (a1 + 136);
+  v102 = a1 + 17;
   v97 = a1;
   while (1)
   {
@@ -2367,8 +2856,9 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::ProgramNode *a2,
             }
 
             v64 = *v45;
+            *&v110[8] = 0;
             *&v110[16] = 0;
-            *v110 = 0x3FF0000000000000uLL;
+            *v110 = 0x3FF0000000000000;
             *&v110[24] = 0x3FF0000000000000;
             v111 = 0uLL;
             v65 = CI::ProgramNode::child_depth(v104, v106[0]);
@@ -2412,7 +2902,7 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::ProgramNode *a2,
             if (*(*v73 + 16))(v73) == 60 && (*(v73 + 144))
             {
               v74 = *(v73 + 140);
-              if (CI_INTERMEDIATE_SRGB_TEXTURES() && (*(**(a1 + 24) + 592))(*(a1 + 24), v74, 1))
+              if (CI_INTERMEDIATE_SRGB_TEXTURES() && (*(*a1[3] + 592))(a1[3], v74, 1))
               {
                 *(v73 + 144) |= 4u;
               }
@@ -2451,7 +2941,7 @@ uint64_t CI::MetalDAGHelper::add_function_info(uint64_t a1, CI::ProgramNode *a2,
           CI::Node::rois_count(v46);
           __p[0] = CI::hash_image_node_id(v46, 0);
           *v110 = __p;
-          v47 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 176, __p);
+          v47 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 22), __p, &std::piecewise_construct, v110);
           if (v22)
           {
             (**v22)(v22, 0, v47[5], 0);
@@ -2508,7 +2998,7 @@ LABEL_207:
 
         v109 = v49;
         __p[0] = &v109;
-        v58 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 19), &v109);
+        v58 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 19), &v109, &std::piecewise_construct, __p, v113);
         v59 = v58;
         if (*(v58 + 63) < 0)
         {
@@ -2570,23 +3060,23 @@ LABEL_179:
           v86 = (*a10)++;
           v109 = v49;
           __p[0] = &v109;
-          *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109) + 20) = v86;
+          *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109, &std::piecewise_construct, __p) + 20) = v86;
           if (v112 == 1)
           {
             CI::MetalDAGHelper::add_function_with_name(v97, "_ci_srgb_to_linear", 0);
             v109 = v49;
             __p[0] = &v109;
-            std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109);
+            std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109, &std::piecewise_construct, __p);
             CI::MetalDAGHelper::add_colour_inout_function_info(v97);
             v87 = (*a10)++;
             v109 = v49;
             __p[0] = &v109;
-            *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109) + 20) = v87;
+            *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109, &std::piecewise_construct, __p) + 20) = v87;
           }
 
           v109 = v49;
           __p[0] = &v109;
-          *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109) + 24) = 0;
+          *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109, &std::piecewise_construct, __p) + 24) = 0;
 LABEL_193:
           __p[0] = v49;
           std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__erase_unique<unsigned long long>(v97 + 19, __p);
@@ -2606,50 +3096,50 @@ LABEL_197:
           {
             __p[0] = v49;
             *v110 = __p;
-            if (!*(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p) + a9 + 24))
+            if (!*(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110) + a9 + 24))
             {
               CI::MetalDAGHelper::add_function_with_name(v97, "_ci_float_to_half", 0);
               __p[0] = v49;
               *v110 = __p;
-              std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p);
+              std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110);
               CI::MetalDAGHelper::add_colour_inout_function_info(v97);
               v95 = (*a10)++;
               __p[0] = v49;
               *v110 = __p;
-              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p) + a9 + 24) = v95;
+              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110) + a9 + 24) = v95;
               __p[0] = v49;
               *v110 = __p;
-              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p) + a9 + 20) = 0;
+              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110) + a9 + 20) = 0;
             }
 
             __p[0] = v49;
             *v110 = __p;
-            v94 = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p) + a9 + 24);
+            v94 = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110) + a9 + 24);
           }
 
           else
           {
             __p[0] = v49;
             *v110 = __p;
-            if (!*(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p) + a9 + 20))
+            if (!*(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110) + a9 + 20))
             {
               CI::MetalDAGHelper::add_function_with_name(v97, "_ci_half_to_float", 0);
               __p[0] = v49;
               *v110 = __p;
-              std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p);
+              std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110);
               CI::MetalDAGHelper::add_colour_inout_function_info(v97);
               v93 = (*a10)++;
               __p[0] = v49;
               *v110 = __p;
-              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p) + a9 + 20) = v93;
+              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110) + a9 + 20) = v93;
               __p[0] = v49;
               *v110 = __p;
-              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p) + a9 + 24) = 0;
+              *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110) + a9 + 24) = 0;
             }
 
             __p[0] = v49;
             *v110 = __p;
-            v94 = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p) + a9 + 20);
+            v94 = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), __p, &std::piecewise_construct, v110) + a9 + 20);
           }
 
           v12 = v100;
@@ -2749,23 +3239,23 @@ LABEL_189:
         v91 = (*a10)++;
         v109 = v49;
         __p[0] = &v109;
-        *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109) + 24) = v91;
+        *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109, &std::piecewise_construct, __p) + 24) = v91;
         if (v112 == 1)
         {
           CI::MetalDAGHelper::add_function_with_name(v97, "_ci_srgb_to_linear_h", 0);
           v109 = v49;
           __p[0] = &v109;
-          std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109);
+          std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109, &std::piecewise_construct, __p);
           CI::MetalDAGHelper::add_colour_inout_function_info(v97);
           v92 = (*a10)++;
           v109 = v49;
           __p[0] = &v109;
-          *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109) + 24) = v92;
+          *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109, &std::piecewise_construct, __p) + 24) = v92;
         }
 
         v109 = v49;
         __p[0] = &v109;
-        *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109) + 20) = 0;
+        *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v97 + 16), &v109, &std::piecewise_construct, __p) + 20) = 0;
         goto LABEL_193;
       }
 
@@ -2788,9 +3278,9 @@ LABEL_189:
         goto LABEL_95;
       }
 
-      if ((*(a1 + 32) & 0xFFFFFFFE) == 2)
+      if ((a1[4] & 0xFFFFFFFE) == 2)
       {
-        if (*(a1 + 64) && *(a1 + 72) && (v33 = (*(**(a1 + 8) + 8))(*(a1 + 8), 6)) != 0)
+        if (a1[8] && a1[9] && (v33 = (*(*a1[1] + 8))(a1[1], 6)) != 0)
         {
           v34 = v33;
           (**v33)(v33, 8, a5, 0);
@@ -2820,12 +3310,12 @@ LABEL_189:
 
         if (*(v15 + 159) == 1)
         {
-          v63 = *(a1 + 80);
-          *(a1 + 80) = v63 + 1;
+          v63 = a1[10];
+          a1[10] = (v63 + 1);
           if (v36)
           {
 LABEL_118:
-            v41 = (*(**(a1 + 8) + 32))(*(a1 + 8), v34, v27 == 32);
+            v41 = (*(*a1[1] + 32))(a1[1], v34, v27 == 32);
             if (!v22)
             {
               goto LABEL_208;
@@ -2894,8 +3384,8 @@ LABEL_143:
         goto LABEL_208;
       }
 
-      v42 = *(a1 + 80);
-      *(a1 + 80) = v42 + 1;
+      v42 = a1[10];
+      a1[10] = (v42 + 1);
       if (v22)
       {
         goto LABEL_141;
@@ -3020,7 +3510,7 @@ LABEL_73:
       goto LABEL_142;
     }
 
-    if (*(a1 + 64) && *(a1 + 72) && (v37 = (*(**(a1 + 8) + 8))(*(a1 + 8), 5)) != 0)
+    if (a1[8] && a1[9] && (v37 = (*(*a1[1] + 8))(a1[1], 5)) != 0)
     {
       v38 = v37;
       (**v37)(v37, 7, a5, 0);
@@ -3048,7 +3538,7 @@ LABEL_73:
       (**v38)(v38, 2, 0, 0);
     }
 
-    v41 = (*(**(a1 + 8) + 40))(*(a1 + 8), v38, v27 == 34);
+    v41 = (*(*a1[1] + 40))(a1[1], v38, v27 == 34);
     if (v22)
     {
       goto LABEL_119;
@@ -3059,7 +3549,7 @@ LABEL_208:
   }
 
   CI::MetalDAGHelper::add_function_for_kernel(a1, v15);
-  return (*(**(a1 + 8) + 48))(*(a1 + 8), v22);
+  return (*(*a1[1] + 48))(a1[1], v22);
 }
 
 uint64_t CI::MetalDAGHelper::color_output_for_kernel(CI::MetalDAGHelper *this, const CI::Kernel *a2, unsigned int a3, unint64_t *a4)
@@ -3130,137 +3620,138 @@ uint64_t CI::MetalDAGHelper::color_output_for_kernel(CI::MetalDAGHelper *this, c
 
 uint64_t CI::MetalDAGHelper::build_dag(CI::MetalDAGHelper *this, const CI::Node *a2, const CI::ProgramNode *a3, CI::SerialObjectPtrArray *a4, uint64_t a5)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v10 = CI_VERBOSE_SIGNPOSTS();
+  if (v10)
   {
-    v10 = ci_signpost_log_render();
-    v11 = *(a3 + 9) | ((*(**(this + 3) + 280))(*(this + 3)) << 32);
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v12 = ci_signpost_log_render(v10, v11);
+    v13 = *(a3 + 9) | ((*(**(this + 3) + 280))(*(this + 3)) << 32);
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "build_dag", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v13, "build_dag", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  v12 = (*(**(this + 3) + 280))(*(this + 3));
-  TimerBase::TimerBase(v46, v12, *(a3 + 9), "build_dag", 5);
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = a5 + 1;
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke;
-  v41[3] = &unk_1E75C15A8;
-  v41[6] = a5;
-  v41[7] = a3;
-  v41[8] = a4;
-  v41[4] = &v42;
-  v41[5] = this;
-  CI::ProgramNode::traverse_dag_preorder(a3, a2, v41, &__block_literal_global_90);
+  v14 = (*(**(this + 3) + 280))(*(this + 3));
+  TimerBase::TimerBase(v48, v14, *(a3 + 9), "build_dag", 5u);
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = a5 + 1;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke;
+  v43[3] = &unk_1E75C15A8;
+  v43[6] = a5;
+  v43[7] = a3;
+  v43[8] = a4;
+  v43[4] = &v44;
+  v43[5] = this;
+  CI::ProgramNode::traverse_dag_preorder(a3, a2, v43, &__block_literal_global_90);
   *buf = 0;
-  v34 = buf;
-  v35 = 0x4012000000;
-  v36 = __Block_byref_object_copy__24;
-  v37 = __Block_byref_object_dispose__24;
-  v38 = &unk_19D0E11CF;
-  v39 = 0;
-  v40 = 0;
+  v36 = buf;
+  v37 = 0x4012000000;
+  v38 = __Block_byref_object_copy__24;
+  v39 = __Block_byref_object_dispose__24;
+  v40 = &unk_19D0E11CF;
+  v41 = 0;
+  v42 = 0;
   if (*(a3 + 136) == 1)
   {
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_46;
-    v32[3] = &unk_1E75C15F0;
-    v32[6] = this;
-    v32[7] = a5;
-    v32[8] = a3;
-    v32[9] = a4;
-    v32[4] = &v42;
-    v32[5] = buf;
-    CI::ProgramNode::traverse_dag_preorder(a3, a2, v32, 0);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_46;
+    v34[3] = &unk_1E75C15F0;
+    v34[6] = this;
+    v34[7] = a5;
+    v34[8] = a3;
+    v34[9] = a4;
+    v34[4] = &v44;
+    v34[5] = buf;
+    CI::ProgramNode::traverse_dag_preorder(a3, a2, v34, 0);
   }
 
   else
   {
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_2_47;
-    v31[3] = &__block_descriptor_56_e33_v60__0_v8r_v16i24i28_v32Q40_48i56l;
-    v31[4] = this;
-    v31[5] = a3;
-    v31[6] = a4;
-    CI::ProgramNode::traverse_dag_preorder(a3, a2, v31, &__block_literal_global_50);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_4;
-    v30[3] = &__block_descriptor_48_e33_v60__0_v8r_v16i24i28_v32Q40_48i56l;
-    v30[4] = this;
-    v30[5] = a5;
-    CI::ProgramNode::traverse_dag_preorder(a3, a2, v30, &__block_literal_global_56_1);
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_2_47;
+    v33[3] = &__block_descriptor_56_e33_v60__0_v8r_v16i24i28_v32Q40_48i56l;
+    v33[4] = this;
+    v33[5] = a3;
+    v33[6] = a4;
+    CI::ProgramNode::traverse_dag_preorder(a3, a2, v33, &__block_literal_global_50);
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_4;
+    v32[3] = &__block_descriptor_48_e33_v60__0_v8r_v16i24i28_v32Q40_48i56l;
+    v32[4] = this;
+    v32[5] = a5;
+    CI::ProgramNode::traverse_dag_preorder(a3, a2, v32, &__block_literal_global_56_1);
   }
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_6;
-  v29[3] = &unk_1E75C15F0;
-  v29[6] = this;
-  v29[7] = a5;
-  v29[8] = a3;
-  v29[9] = a4;
-  v29[4] = &v42;
-  v29[5] = buf;
-  CI::ProgramNode::traverse_dag(a3, a2, v29, &__block_literal_global_58_2);
-  v13 = v34;
-  if (!*(v34 + 24) && !*(v34 + 28) && *(this + 21))
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_6;
+  v31[3] = &unk_1E75C15F0;
+  v31[6] = this;
+  v31[7] = a5;
+  v31[8] = a3;
+  v31[9] = a4;
+  v31[4] = &v44;
+  v31[5] = buf;
+  CI::ProgramNode::traverse_dag(a3, a2, v31, &__block_literal_global_58_2);
+  v15 = v36;
+  if (!*(v36 + 24) && !*(v36 + 28) && *(this + 21))
   {
-    v14 = *(this + 19);
-    v28 = *(v14 + 32);
-    if (*(v14 + 63) < 0)
+    v16 = *(this + 19);
+    v30 = *(v16 + 32);
+    if (*(v16 + 63) < 0)
     {
-      std::string::__init_copy_ctor_external(&v25, *(v14 + 40), *(v14 + 48));
+      std::string::__init_copy_ctor_external(&v27, *(v16 + 40), *(v16 + 48));
     }
 
     else
     {
-      v25 = *(v14 + 40);
+      v27 = *(v16 + 40);
     }
 
-    std::vector<unsigned long>::vector[abi:nn200100](__p, (v14 + 64));
-    v27 = *(v14 + 88);
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::vector<unsigned long>::vector[abi:nn200100](__p, (v16 + 64));
+    v29 = *(v16 + 88);
+    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v15 = &v25;
+      v17 = &v27;
     }
 
     else
     {
-      v15 = v25.__r_.__value_.__r.__words[0];
+      v17 = v27.__r_.__value_.__r.__words[0];
     }
 
-    CI::MetalDAGHelper::add_function_with_name(this, v15, 0);
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+    CI::MetalDAGHelper::add_function_with_name(this, v17, 0);
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      if (v25.__r_.__value_.__l.__size_ != 14)
+      if (v27.__r_.__value_.__l.__size_ != 14)
       {
         goto LABEL_26;
       }
 
-      v16 = v25.__r_.__value_.__r.__words[0];
+      v18 = v27.__r_.__value_.__r.__words[0];
     }
 
     else
     {
-      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) != 14)
+      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) != 14)
       {
         goto LABEL_26;
       }
 
-      v16 = &v25;
+      v18 = &v27;
     }
 
-    v17 = v16->__r_.__value_.__r.__words[0];
-    v18 = *(v16->__r_.__value_.__r.__words + 6);
-    if (v17 == 0x646165725F69635FLL && v18 == 0x6C657869705F6461)
+    v19 = v18->__r_.__value_.__r.__words[0];
+    v20 = *(v18->__r_.__value_.__r.__words + 6);
+    if (v19 == 0x646165725F69635FLL && v20 == 0x6C657869705F6461)
     {
       CI::MetalDAGHelper::add_read_pixel_function_info(this, *__p[0], *(__p[0] + 1), *(__p[0] + 2), *(__p[0] + 3));
       goto LABEL_27;
@@ -3269,45 +3760,45 @@ uint64_t CI::MetalDAGHelper::build_dag(CI::MetalDAGHelper *this, const CI::Node 
 LABEL_26:
     CI::MetalDAGHelper::add_read_pixel_420_function_info(this, *__p[0], *(__p[0] + 1), *(__p[0] + 2), *(__p[0] + 3), *(__p[0] + 4), *(__p[0] + 5), *(__p[0] + 6));
 LABEL_27:
-    v20 = v43[3];
-    v43[3] = v20 + 1;
-    v47 = &v28;
-    *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 128, &v28) + 20) = v20;
-    if (v27 == 1)
+    v22 = v45[3];
+    v45[3] = v22 + 1;
+    v49 = &v30;
+    *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 128, &v30, &std::piecewise_construct, &v49) + 20) = v22;
+    if (v29 == 1)
     {
       CI::MetalDAGHelper::add_function_with_name(this, "_ci_srgb_to_linear", 0);
-      v47 = &v28;
-      std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 128, &v28);
+      v49 = &v30;
+      std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 128, &v30, &std::piecewise_construct, &v49);
       CI::MetalDAGHelper::add_colour_inout_function_info(this);
-      v21 = v43[3];
-      v43[3] = v21 + 1;
-      v47 = &v28;
-      *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 128, &v28) + 20) = v21;
+      v23 = v45[3];
+      v45[3] = v23 + 1;
+      v49 = &v30;
+      *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 128, &v30, &std::piecewise_construct, &v49) + 20) = v23;
     }
 
-    std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__erase_unique<unsigned long long>(this + 19, &v28);
-    v47 = &v28;
-    v22 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 128, &v28);
-    *(v34 + 3) = *(v22 + 5);
+    std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__erase_unique<unsigned long long>(this + 19, &v30);
+    v49 = &v30;
+    v24 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 128, &v30, &std::piecewise_construct, &v49);
+    *(v36 + 3) = *(v24 + 5);
     if (__p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v25.__r_.__value_.__l.__data_);
+      operator delete(v27.__r_.__value_.__l.__data_);
     }
 
-    v13 = v34;
+    v15 = v36;
   }
 
-  v23 = *(v13 + 6);
+  v25 = *(v15 + 6);
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v42, 8);
-  CI::MetalDAGHelper::build_dag(CI::Node const*,CI::ProgramNode const*,CI::SerialObjectPtrArray *,unsigned long)::SignpostTimer::~SignpostTimer(v46);
-  return v23;
+  _Block_object_dispose(&v44, 8);
+  CI::MetalDAGHelper::build_dag(CI::Node const*,CI::ProgramNode const*,CI::SerialObjectPtrArray *,unsigned long)::SignpostTimer::~SignpostTimer(v48);
+  return v25;
 }
 
 void sub_19CE952F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
@@ -3318,7 +3809,7 @@ void sub_19CE952F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke(void *a1, CI::Object *this, int a3, int a4, int a5, unint64_t a6, uint64_t a7, char *a8, int a9)
+void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke(void *a1, CI::Object *this, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, int a9)
 {
   if (a9 == -1)
   {
@@ -3330,7 +3821,7 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       CI::Object::ref(this);
     }
 
-    v15 = (*(*this + 336))(this, *(v14 + 3));
+    v15 = (*(*this + 336))(this, *(v14 + 3), a3, a4, a5);
     v28 = v15;
     if (v15)
     {
@@ -3349,7 +3840,7 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       {
         v26 = CI::hash_dag_node_id(a6, a7, 0);
         v29 = &v26;
-        v18 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 104, &v26) + 5;
+        v18 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 104, &v26, &std::piecewise_construct, &v29) + 5;
       }
 
       else
@@ -3367,16 +3858,16 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       *(v24 + 24) = v25 + 1;
       v26 = v23;
       v29 = &v26;
-      std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 104, &v26)[5] = v25;
+      std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 104, &v26, &std::piecewise_construct, &v29)[5] = v25;
     }
 
     CI::ConvertedNodeRAII::~ConvertedNodeRAII(&v27);
   }
 }
 
-void sub_19CE95514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19CE95514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CI::ConvertedNodeRAII::~ConvertedNodeRAII(va);
   _Unwind_Resume(a1);
 }
@@ -3401,7 +3892,7 @@ __n128 ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Se
       {
         v26 = CI::hash_dag_node_id(a6, a7, 0);
         v27 = &v26;
-        v19 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 104, &v26) + 5;
+        v19 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 104, &v26, &std::piecewise_construct, &v27) + 5;
       }
 
       else
@@ -3416,12 +3907,12 @@ __n128 ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Se
       v24 = v23;
       v26 = v17;
       v27 = &v26;
-      v25 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 128, &v26);
+      v25 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 128, &v26, &std::piecewise_construct, &v27);
       v25[5] = v22;
       v25[6] = v24;
       v26 = v17;
       v27 = &v26;
-      result = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 128, &v26) + 5);
+      result = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 128, &v26, &std::piecewise_construct, &v27) + 5);
       *(*(*(a1 + 40) + 8) + 48) = result;
     }
   }
@@ -3429,12 +3920,12 @@ __n128 ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Se
   return result;
 }
 
-unint64_t ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_2_47(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+double ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_2_47(uint64_t a1, CI *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   if (a9 != -1)
   {
-    v12 = *(result + 32);
-    (*(**(result + 40) + 48))(*(result + 40), a9);
+    v12 = *(a1 + 32);
+    (*(**(a1 + 40) + 48))(*(a1 + 40), a9, a3, a4, a5, a6, a7, a8);
     if (a3 && !(*(*a3 + 200))(a3, a5))
     {
       v13 = 0;
@@ -3445,42 +3936,42 @@ unint64_t ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_2
       v13 = a9;
     }
 
-    result = CI::hash_image_node_id(a2, v13);
-    v20 = result;
-    v14 = *(v12 + 184);
-    if (!v14)
+    v14 = CI::hash_image_node_id(a2, v13);
+    v22 = v14;
+    v16 = *(v12 + 184);
+    if (!v16)
     {
       goto LABEL_14;
     }
 
-    v15 = v12 + 184;
+    v17 = v12 + 184;
     do
     {
-      v16 = *(v14 + 32);
-      v17 = v16 >= result;
-      v18 = v16 < result;
-      if (v17)
+      v18 = *(v16 + 32);
+      v19 = v18 >= v14;
+      v20 = v18 < v14;
+      if (v19)
       {
-        v15 = v14;
+        v17 = v16;
       }
 
-      v14 = *(v14 + 8 * v18);
+      v16 = *(v16 + 8 * v20);
     }
 
-    while (v14);
-    if (v15 == v12 + 184 || result < *(v15 + 32))
+    while (v16);
+    if (v17 == v12 + 184 || v14 < *(v17 + 32))
     {
 LABEL_14:
-      CI::MetalDAGHelper::add_arguments_for_image_node(v12, &v19);
+      CI::MetalDAGHelper::add_arguments_for_image_node(v12, &v21);
     }
   }
 
   return result;
 }
 
-unint64_t ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_4(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, int a9)
+unint64_t ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_4(unint64_t result, CI **a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, int a9)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (a9 != -1)
   {
     v13 = result;
@@ -3513,19 +4004,19 @@ unint64_t ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_2
       if (v17 == v14 + 136 || result < *(v17 + 32))
       {
 LABEL_12:
-        v21 = (*(*a2 + 16))(a2);
+        v21 = (*(*a2 + 2))(a2);
         v22 = *a2;
         if (v21 == 54)
         {
-          v23 = (*(v22 + 216))(a2);
-          v24 = (*(*a2 + 320))(a2);
-          v38 = (*(*a2 + 424))(a2);
-          v26 = CI::format_from_IOSurface(*(a2 + 56), v25);
+          v23 = v22[27](a2);
+          v24 = (*(*a2 + 40))(a2);
+          v38 = (*(*a2 + 53))(a2);
+          v26 = CI::format_from_IOSurface(a2[7], v25);
         }
 
         else
         {
-          if ((*(v22 + 16))(a2) != 52)
+          if (v22[2](a2) != 52)
           {
             is_ycc_biplanar = 0;
             v38 = 0;
@@ -3533,8 +4024,8 @@ LABEL_12:
             v27 = 0;
 LABEL_18:
             v46 = CI::hash_image_node_id(a2, a9);
-            v48.__r_.__value_.__r.__words[0] = &v46;
-            v30 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v14 + 176, &v46);
+            v49.__r_.__value_.__r.__words[0] = &v46;
+            v30 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v14 + 176, &v46, &std::piecewise_construct, &v49);
             v31 = v30[5];
             v32 = v30[6];
             v41 = *(v30 + 7);
@@ -3543,30 +4034,30 @@ LABEL_18:
             if (a6)
             {
               v45[0] = CI::hash_dag_node_id(a6, a7, 0);
-              v48.__r_.__value_.__r.__words[0] = v45;
-              v13 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 104, v45);
+              v49.__r_.__value_.__r.__words[0] = v45;
+              v13 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 104, v45, &std::piecewise_construct, &v49);
             }
 
             v33 = v13[5];
             if ((v27 != 2) | is_ycc_biplanar & 1 && v27 >= 2)
             {
-              v48.__r_.__value_.__r.__words[0] = v31;
-              v48.__r_.__value_.__l.__size_ = v32;
-              v48.__r_.__value_.__r.__words[2] = v33;
+              v49.__r_.__value_.__r.__words[0] = v31;
+              v49.__r_.__value_.__l.__size_ = v32;
+              v49.__r_.__value_.__r.__words[2] = v33;
               *__p = v41;
-              v50 = v39;
-              std::vector<unsigned long>::vector[abi:nn200100](v45, &v48, 7uLL);
+              v51 = v39;
+              std::vector<unsigned long>::vector[abi:nn200100](v45, &v49, 7uLL);
               if (v28)
               {
                 if (v38 && (*(*(v14 + 24) + 456) & 1) == 0)
                 {
                   std::string::basic_string[abi:nn200100]<0>(v43, "_ci_read_pixel_420_packed");
-                  CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(&v48, v43, v45);
+                  CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(&v49, v43, v45);
                   v42 = v15;
-                  v47 = &v42;
-                  v37 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, &v42);
-                  CI::DAGHelper::TextureReadFunction::operator=((v37 + 5), &v48);
-                  CI::DAGHelper::TextureReadFunction::~TextureReadFunction(&v48);
+                  v48 = &v42;
+                  v37 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, &v42, &std::piecewise_construct, &v48, &v47);
+                  CI::DAGHelper::TextureReadFunction::operator=((v37 + 5), &v49);
+                  CI::DAGHelper::TextureReadFunction::~TextureReadFunction(&v49);
 LABEL_33:
                   if (v44 < 0)
                   {
@@ -3580,44 +4071,44 @@ LABEL_33:
                   }
 
                   v45[0] = v15;
-                  v48.__r_.__value_.__r.__words[0] = v45;
-                  result = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, v45);
+                  v49.__r_.__value_.__r.__words[0] = v45;
+                  result = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, v45, &std::piecewise_construct, &v49, v43);
                   *(result + 88) = v40 & 1;
                   return result;
                 }
 
                 std::string::basic_string[abi:nn200100]<0>(v43, "_ci_read_pixel_420_r_rg");
-                CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(&v48, v43, v45);
+                CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(&v49, v43, v45);
                 v42 = v15;
-                v47 = &v42;
-                v34 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, &v42);
-                CI::DAGHelper::TextureReadFunction::operator=((v34 + 5), &v48);
+                v48 = &v42;
+                v34 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, &v42, &std::piecewise_construct, &v48, &v47);
+                CI::DAGHelper::TextureReadFunction::operator=((v34 + 5), &v49);
               }
 
               else
               {
                 std::string::basic_string[abi:nn200100]<0>(v43, "_ci_read_pixel_420");
-                CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(&v48, v43, v45);
+                CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(&v49, v43, v45);
                 v42 = v15;
-                v47 = &v42;
-                v36 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, &v42);
-                CI::DAGHelper::TextureReadFunction::operator=((v36 + 5), &v48);
+                v48 = &v42;
+                v36 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, &v42, &std::piecewise_construct, &v48, &v47);
+                CI::DAGHelper::TextureReadFunction::operator=((v36 + 5), &v49);
               }
             }
 
             else
             {
-              v48.__r_.__value_.__r.__words[0] = v31;
-              v48.__r_.__value_.__l.__size_ = v32;
-              v48.__r_.__value_.__r.__words[2] = v33;
+              v49.__r_.__value_.__r.__words[0] = v31;
+              v49.__r_.__value_.__l.__size_ = v32;
+              v49.__r_.__value_.__r.__words[2] = v33;
               __p[0] = v41;
-              std::vector<unsigned long>::vector[abi:nn200100](v45, &v48, 4uLL);
+              std::vector<unsigned long>::vector[abi:nn200100](v45, &v49, 4uLL);
               std::string::basic_string[abi:nn200100]<0>(v43, "_ci_read_pixel");
-              CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(&v48, v43, v45);
+              CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(&v49, v43, v45);
               v42 = v15;
-              v47 = &v42;
-              v35 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, &v42);
-              CI::DAGHelper::TextureReadFunction::operator=((v35 + 5), &v48);
+              v48 = &v42;
+              v35 = std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 152, &v42, &std::piecewise_construct, &v48, &v47);
+              CI::DAGHelper::TextureReadFunction::operator=((v35 + 5), &v49);
             }
 
             if (__p[0])
@@ -3626,18 +4117,18 @@ LABEL_33:
               operator delete(__p[0]);
             }
 
-            if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v48.__r_.__value_.__l.__data_);
+              operator delete(v49.__r_.__value_.__l.__data_);
             }
 
             goto LABEL_33;
           }
 
-          v23 = (*(*a2 + 216))(a2);
-          v24 = (*(*a2 + 320))(a2);
-          v38 = (*(*a2 + 424))(a2);
-          v26 = *(a2 + 152);
+          v23 = (*(*a2 + 27))(a2);
+          v24 = (*(*a2 + 40))(a2);
+          v38 = (*(*a2 + 53))(a2);
+          v26 = *(a2 + 38);
         }
 
         v27 = v23;
@@ -3666,10 +4157,11 @@ void sub_19CE95F64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_6(uint64_t a1, CI::Object *this, int a3, int a4, int a5, unint64_t a6, uint64_t a7, char *a8, int a9)
+void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_6(uint64_t a1, CI::Object *this, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, int a9)
 {
   if (a9 == -1)
   {
+    v12 = a4;
     v15 = *(a1 + 48);
     v63 = this;
     v64 = 0;
@@ -3678,7 +4170,7 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       CI::Object::ref(this);
     }
 
-    v16 = (*(*this + 336))(this, *(v15 + 3));
+    v16 = (*(*this + 336))(this, *(v15 + 24), a3, a4, a5);
     v64 = v16;
     if (!v16)
     {
@@ -3694,7 +4186,7 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       {
         v62 = CI::hash_dag_node_id(a6, a7, 0);
         v65 = &v62;
-        v18 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 104, &v62) + 5;
+        v18 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 104, &v62, &std::piecewise_construct, &v65) + 5;
       }
 
       else
@@ -3715,7 +4207,7 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       }
 
       v59 = CI::hash_dag_node_id(this, a7, a8);
-      CI::MetalDAGHelper::add_function_info(v15, *(a1 + 64), v61, *(a1 + 72), v21, a4, a7, a8, 0, (*(*(a1 + 32) + 8) + 24), v22);
+      CI::MetalDAGHelper::add_function_info(v15, *(a1 + 64), v61, *(a1 + 72), v21, v12, a7, a8, 0, (*(*(a1 + 32) + 8) + 24), v22);
       v23 = a7;
       v24 = CI::MetalDAGHelper::color_output_for_kernel(v15, v17, v22, (*(*(a1 + 32) + 8) + 24));
       v56 = v25;
@@ -3724,7 +4216,7 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       v28 = a8;
       v62 = v59;
       v65 = &v62;
-      v29 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 128, &v62);
+      v29 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 128, &v62, &std::piecewise_construct, &v65);
       v30 = 0;
       v29[5] = v26;
       v29[6] = v56;
@@ -3753,10 +4245,10 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
         v33 = *(*(a1 + 40) + 8) + 2 * v30;
         if (*(v33 + 50) || *(v33 + 58))
         {
-          CI::MetalDAGHelper::add_function_info(v60, *(a1 + 64), v61, *(a1 + 72), v21, a4, v23, v28, v30 + 1, (*(*(a1 + 32) + 8) + 24), v27);
+          CI::MetalDAGHelper::add_function_info(v60, *(a1 + 64), v61, *(a1 + 72), v21, v12, v23, v28, v30 + 1, (*(*(a1 + 32) + 8) + 24), v27);
           v62 = v59;
           v65 = &v62;
-          v34 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v60 + 128, &v62);
+          v34 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v60 + 16), &v62, &std::piecewise_construct, &v65);
           v35 = *(*(a1 + 32) + 8);
           v36 = *(v35 + 24);
           *(v35 + 24) = v36 + 1;
@@ -3782,7 +4274,7 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       {
         v62 = CI::hash_dag_node_id(a6, a7, 0);
         v65 = &v62;
-        v20 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 104, &v62) + 5;
+        v20 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 104, &v62, &std::piecewise_construct, &v65) + 5;
       }
 
       else
@@ -3803,7 +4295,7 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       }
 
       v59 = CI::hash_dag_node_id(this, a7, a8);
-      CI::MetalDAGHelper::add_function_info(v15, *(a1 + 64), v61, *(a1 + 72), v37, a4, a7, a8, 0, (*(*(a1 + 32) + 8) + 24), v39);
+      CI::MetalDAGHelper::add_function_info(v15, *(a1 + 64), v61, *(a1 + 72), v37, v12, a7, a8, 0, (*(*(a1 + 32) + 8) + 24), v39);
       v40 = v39;
       v41 = a7;
       v42 = v40;
@@ -3813,7 +4305,7 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
       v46 = a8;
       v62 = v59;
       v65 = &v62;
-      v47 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 128, &v62);
+      v47 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 128, &v62, &std::piecewise_construct, &v65);
       v48 = 0;
       v47[5] = v45;
       v47[6] = v58;
@@ -3843,10 +4335,10 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
         v52 = *(*(a1 + 40) + 8) + 2 * v48;
         if (*(v52 + 50) || *(v52 + 58))
         {
-          CI::MetalDAGHelper::add_function_info(v60, *(a1 + 64), v61, *(a1 + 72), v37, a4, v41, v46, v48 + 1, (*(*(a1 + 32) + 8) + 24), v42);
+          CI::MetalDAGHelper::add_function_info(v60, *(a1 + 64), v61, *(a1 + 72), v37, v12, v41, v46, v48 + 1, (*(*(a1 + 32) + 8) + 24), v42);
           v62 = v59;
           v65 = &v62;
-          v53 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v60 + 128, &v62);
+          v53 = std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v60 + 16), &v62, &std::piecewise_construct, &v65);
           v54 = *(*(a1 + 32) + 8);
           v55 = *(v54 + 24);
           *(v54 + 24) = v55 + 1;
@@ -3862,37 +4354,38 @@ void ___ZN2CI14MetalDAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seri
 
     v62 = v59;
     v65 = &v62;
-    *(*(*(a1 + 40) + 8) + 48) = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v60 + 128, &v62) + 5);
+    *(*(*(a1 + 40) + 8) + 48) = *(std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v60 + 16), &v62, &std::piecewise_construct, &v65) + 5);
 LABEL_28:
     CI::ConvertedNodeRAII::~ConvertedNodeRAII(&v63);
   }
 }
 
-void sub_19CE965D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19CE965D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   CI::ConvertedNodeRAII::~ConvertedNodeRAII(va);
   _Unwind_Resume(a1);
 }
 
 void CI::MetalDAGHelper::build_dag(CI::Node const*,CI::ProgramNode const*,CI::SerialObjectPtrArray *,unsigned long)::SignpostTimer::~SignpostTimer(TimerBase *a1)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "build_dag", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "build_dag", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 uint64_t ___ZN2CI14MetalDAGHelper15build_constantsEPKNS_11ProgramNodeE_block_invoke(uint64_t a1, CI *this, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
@@ -4007,24 +4500,24 @@ BOOL CI::is_kernel_metalfosl_linkable(_BOOL8 this, const CI::Kernel *a2)
 
 uint64_t CI::create_metal_dag(CI *this, const CI::MetalContext *a2, const CI::MetalContext *a3, const CI::Node *a4, const CI::ProgramNode *a5, CI::SerialObjectPtrArray *a6)
 {
-  CI::MetalDAGHelper::MetalDAGHelper(v13, a2);
-  v10 = CI::MetalContext::device(a2);
-  v11 = CI::MetalDAGHelper::process_kernels(v13, v10, this, a3, a4);
-  CI::MetalDAGHelper::~MetalDAGHelper(v13);
-  return v11;
+  CI::MetalDAGHelper::MetalDAGHelper(v14, a2);
+  v11 = CI::MetalContext::device(a2);
+  v12 = CI::MetalDAGHelper::process_kernels(v14, v11, this, a3, a4, a5);
+  CI::MetalDAGHelper::~MetalDAGHelper(v14);
+  return v12;
 }
 
-uint64_t CI::MetalDAGHelper::process_kernels(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t CI::MetalDAGHelper::process_kernels(uint64_t a1, void *a2, uint64_t a3, const CI::Node *a4, uint64_t a5, CI::SerialObjectPtrArray *a6)
 {
   CI::MetalDAGHelper::analyze_kernels(a1, a5, a2);
   if (*(a1 + 32))
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = ___ZN2CI14MetalDAGHelper15build_constantsEPKNS_11ProgramNodeE_block_invoke;
-    v8[3] = &__block_descriptor_40_e23_B36__0_v8r_v16i24i28i32l;
-    v8[4] = a1;
-    CI::ProgramNode::traverse_graph_preorder_stoppable(a5, v8);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = ___ZN2CI14MetalDAGHelper15build_constantsEPKNS_11ProgramNodeE_block_invoke;
+    v9[3] = &__block_descriptor_40_e23_B36__0_v8r_v16i24i28i32l;
+    v9[4] = a1;
+    CI::ProgramNode::traverse_graph_preorder_stoppable(a5, v9);
     CI::MetalContext::use_imageblocks_for_format(*(a1 + 24), *(a5 + 140));
     operator new();
   }
@@ -4145,17 +4638,18 @@ void CI::MetalDAGHelper::analyze_kernels(uint64_t a1, _BYTE *a2, void *a3)
   }
 }
 
-void sub_19CE973A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_19CE973A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
 {
+  va_start(va, a41);
   _Block_object_dispose(&a26, 8);
   _Block_object_dispose(&a30, 8);
   _Block_object_dispose(&a38, 8);
-  _Block_object_dispose(&a42, 8);
-  _Block_object_dispose((v42 - 248), 8);
-  _Block_object_dispose((v42 - 216), 8);
-  _Block_object_dispose((v42 - 184), 8);
-  _Block_object_dispose((v42 - 152), 8);
-  _Block_object_dispose((v42 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v41 - 248), 8);
+  _Block_object_dispose((v41 - 216), 8);
+  _Block_object_dispose((v41 - 184), 8);
+  _Block_object_dispose((v41 - 152), 8);
+  _Block_object_dispose((v41 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4171,15 +4665,15 @@ uint64_t ___ZN2CI14MetalDAGHelper15analyze_kernelsEPKNS_11ProgramNodeEPU19objcpr
   if (a6 == -1)
   {
     v10 = *(a1 + 104);
-    v28 = this;
-    v29 = 0;
+    v32 = this;
+    v33 = 0;
     if (this)
     {
       CI::Object::ref(this);
     }
 
-    v11 = (*(*this + 336))(this, *(v10 + 24));
-    v29 = v11;
+    v11 = (*(*this + 336))(this, *(v10 + 24), a3, a4, a5);
+    v33 = v11;
     if (v11)
     {
       v13 = v11;
@@ -4187,7 +4681,7 @@ uint64_t ___ZN2CI14MetalDAGHelper15analyze_kernelsEPKNS_11ProgramNodeEPU19objcpr
 
     else
     {
-      v13 = v28;
+      v13 = v32;
     }
 
     if (!a3 && (*(*this + 16))(this) == 59)
@@ -4221,45 +4715,47 @@ uint64_t ___ZN2CI14MetalDAGHelper15analyze_kernelsEPKNS_11ProgramNodeEPU19objcpr
         *(*(*(a1 + 72) + 8) + 24) = 1;
       }
 
-      if ((*(*v17 + 72))(v17))
+      v19 = (*(*v17 + 72))(v17);
+      if (v19)
       {
         *(*(*(a1 + 80) + 8) + 24) = 0;
-        if (CI_HARVESTING_SPECIFIC_LIBRARY_LIST())
+        v21 = CI_HARVESTING_SPECIFIC_LIBRARY_LIST(v19, v20);
+        if (v21)
         {
-          v19 = [MEMORY[0x1E696AEC0] stringWithCString:CI_HARVESTING_SPECIFIC_LIBRARY_LIST() encoding:1];
-          v20 = (*(*v17 + 72))(v17);
-          if (CI::MetalKernel::isFromLibrary(v20, v19))
+          v23 = [MEMORY[0x1E696AEC0] stringWithCString:CI_HARVESTING_SPECIFIC_LIBRARY_LIST(v21 encoding:{v22), 1}];
+          v24 = (*(*v17 + 72))(v17);
+          if (CI::MetalKernel::isFromLibrary(v24, v23))
           {
             *(*(*(a1 + 88) + 8) + 24) = 1;
           }
         }
       }
 
-      v21 = *(*(a1 + 96) + 8);
-      v22 = *(v21 + 48);
-      v23 = *(v17 + 128);
-      if (v22 <= *(v17 + 120))
+      v25 = *(*(a1 + 96) + 8);
+      v26 = *(v25 + 48);
+      v27 = *(v17 + 128);
+      if (v26 <= *(v17 + 120))
       {
-        v22 = *(v17 + 120);
+        v26 = *(v17 + 120);
       }
 
-      *(v21 + 48) = v22;
-      v24 = *(*(a1 + 96) + 8);
-      v25 = *(v24 + 56);
-      if (v25 <= v23)
+      *(v25 + 48) = v26;
+      v28 = *(*(a1 + 96) + 8);
+      v29 = *(v28 + 56);
+      if (v29 <= v27)
       {
-        v25 = v23;
+        v29 = v27;
       }
 
-      *(v24 + 56) = v25;
+      *(v28 + 56) = v29;
     }
 
-    CI::ConvertedNodeRAII::~ConvertedNodeRAII(&v28);
+    CI::ConvertedNodeRAII::~ConvertedNodeRAII(&v32);
   }
 
   else
   {
-    v7 = (*(**(a1 + 112) + 48))(*(a1 + 112), a6);
+    v7 = (*(**(a1 + 112) + 48))(*(a1 + 112), a6, a3, a4, a5);
     if (*(*v7 + 16))(v7) == 60 && (v7[144])
     {
       *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -4268,20 +4764,20 @@ uint64_t ___ZN2CI14MetalDAGHelper15analyze_kernelsEPKNS_11ProgramNodeEPU19objcpr
 
   if (*(*(*(a1 + 48) + 8) + 24))
   {
-    v26 = 0;
+    v30 = 0;
   }
 
   else
   {
-    v26 = *(*(*(a1 + 56) + 8) + 24) ^ 1;
+    v30 = *(*(*(a1 + 56) + 8) + 24) ^ 1;
   }
 
-  return v26 & 1;
+  return v30 & 1;
 }
 
-uint64_t CI::MetalDAGHelper::build_dag_object(uint64_t this)
+void CI::MetalDAGHelper::build_dag_object(CI::MetalDAGHelper *this)
 {
-  v1 = *(this + 32);
+  v1 = *(this + 8);
   if (v1 <= 1)
   {
     if (v1 == 1)
@@ -4307,8 +4803,6 @@ uint64_t CI::MetalDAGHelper::build_dag_object(uint64_t this)
       std::allocate_shared[abi:nn200100]<CI::UberDAGDescriptor,std::allocator<CI::UberDAGDescriptor>,CI::MetalContext const*&,0>();
     }
   }
-
-  return this;
 }
 
 void sub_19CE979C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -4330,7 +4824,7 @@ void CI::create_metal_args(CI *this, const CI::MetalContext *a2, const CI::Node 
   CI::MetalDAGHelper::~MetalDAGHelper(v10);
 }
 
-uint64_t CI::new_uber_functions(id *this, const CI::MetalContext *a2)
+CI::PrecompiledUberFunctions *CI::new_uber_functions(id *this, const CI::MetalContext *a2)
 {
   if (CI_ENABLE_UBER_SHADER())
   {
@@ -4396,14 +4890,14 @@ void CI::add_to_kernel_archive(NSObject **a1, uint64_t a2)
   }
 }
 
-void sub_19CE97E48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_19CE97E48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x19EAF5590](v11, v12);
+  MEMORY[0x19EAF5590](v11, v12, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4419,29 +4913,29 @@ dispatch_object_t *CI::release_kernel_archive(dispatch_object_t *this, CI::Kerne
   return this;
 }
 
-void CI::LegacyDAGDescriptor::create_function_info(uint64_t a1, uint64_t a2)
+void CI::LegacyDAGDescriptor::create_function_info(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     LOBYTE(v4) = 0;
     *(&v4 + 1) = (*(*a2 + 16))(a2);
     v5 = (*(*a2 + 24))(a2);
-    std::vector<MTLImageFilterFunctionInfoSPI>::push_back[abi:nn200100](a1 + 40, &v4);
+    std::vector<MTLImageFilterFunctionInfoSPI>::push_back[abi:nn200100](result + 40, &v4);
   }
 }
 
-void CI::LegacyDAGDescriptor::create_early_out_function_info(uint64_t a1, uint64_t a2)
+void CI::LegacyDAGDescriptor::create_early_out_function_info(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     LOBYTE(v4) = 1;
     *(&v4 + 1) = (*(*a2 + 16))(a2);
     v5 = (*(*a2 + 24))(a2);
-    std::vector<MTLImageFilterFunctionInfoSPI>::push_back[abi:nn200100](a1 + 40, &v4);
+    std::vector<MTLImageFilterFunctionInfoSPI>::push_back[abi:nn200100](result + 40, &v4);
   }
 }
 
-uint64_t CI::ConcatenatedDAGDescriptor::add_function_from_kernel(_BYTE *a1, void *a2)
+void *CI::ConcatenatedDAGDescriptor::add_function_from_kernel(_BYTE *a1, void *a2)
 {
   v14 = *MEMORY[0x1E69E9840];
   (*(*a1 + 112))(a1);
@@ -4473,7 +4967,7 @@ uint64_t CI::ConcatenatedDAGDescriptor::add_function_from_kernel(_BYTE *a1, void
             a1[24] = 1;
           }
 
-          ++v8;
+          v8 = v8 + 1;
         }
 
         while (v6 != v8);
@@ -4697,7 +5191,7 @@ void CI::StitchableFunctionDAGDescriptor::create_early_out_function_info(uint64_
   }
 }
 
-uint64_t CI::StitchableFunctionDAGDescriptor::compile(uint64_t a1, uint64_t a2, char *a3, CI::CoreImageDylib *a4, void *a5, uint64_t a6, unsigned int a7)
+void *CI::StitchableFunctionDAGDescriptor::compile(uint64_t a1, uint64_t a2, char *a3, CI::CoreImageDylib *a4, void *a5, uint64_t a6, unsigned int a7)
 {
   dag_descriptor = CI::StitchableFunctionDAGDescriptor::create_dag_descriptor(a1, a3);
   if (*(a1 + 24) == 1)
@@ -4777,7 +5271,7 @@ uint64_t CI::StitchableFunctionDAGDescriptor::compile(uint64_t a1, uint64_t a2, 
   return v17;
 }
 
-uint64_t CI::StitchableFunctionDAGDescriptor::add_function(uint64_t a1, void *a2)
+void *CI::StitchableFunctionDAGDescriptor::add_function(uint64_t a1, void *a2)
 {
   v4 = [a2 name];
   result = [*(a1 + 152) member:v4];
@@ -4865,7 +5359,7 @@ unint64_t CI::mtl_func_hash(void *a1)
   return XXH64_digest(v4);
 }
 
-uint64_t std::string::basic_string[abi:nn200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:nn200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4877,11 +5371,11 @@ uint64_t std::string::basic_string[abi:nn200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 std::string *CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(std::string *this, __int128 *a2, void *a3)
@@ -4898,7 +5392,7 @@ std::string *CI::MetalDAGHelper::TextureReadFunction::TextureReadFunction(std::s
     *&this->__r_.__value_.__l.__data_ = v5;
   }
 
-  std::vector<unsigned long>::vector[abi:nn200100](this[1].__r_.__value_.__r.__words, a3);
+  std::vector<unsigned long>::vector[abi:nn200100](&this[1], a3);
   this[2].__r_.__value_.__s.__data_[0] = 0;
   return this;
 }
@@ -4993,7 +5487,7 @@ void sub_19CE99378(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__shared_ptr_emplace<CI::LegacyDAGDescriptor>::__shared_ptr_emplace[abi:nn200100]<BOOL &,BOOL &,std::allocator<CI::LegacyDAGDescriptor>,0>(void *a1, char *a2, char *a3)
+void *std::__shared_ptr_emplace<CI::LegacyDAGDescriptor>::__shared_ptr_emplace[abi:nn200100]<BOOL &,BOOL &,std::allocator<CI::LegacyDAGDescriptor>,0>(void *a1, BOOL *a2, BOOL *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -5010,7 +5504,7 @@ void std::__shared_ptr_emplace<CI::LegacyDAGDescriptor>::~__shared_ptr_emplace(s
   JUMPOUT(0x19EAF5590);
 }
 
-CI::LegacyDAGDescriptor *CI::LegacyDAGDescriptor::LegacyDAGDescriptor(CI::LegacyDAGDescriptor *this, char a2, char a3)
+CI::LegacyDAGDescriptor *CI::LegacyDAGDescriptor::LegacyDAGDescriptor(CI::LegacyDAGDescriptor *this, uint64_t a2, char a3)
 {
   *this = &unk_1F1038530;
   *(this + 8) = a2;
@@ -5047,7 +5541,7 @@ void sub_19CE995E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__shared_ptr_emplace<CI::StitchableFunctionDAGDescriptor>::__shared_ptr_emplace[abi:nn200100]<BOOL &,BOOL &,std::allocator<CI::StitchableFunctionDAGDescriptor>,0>(void *a1, char *a2, char *a3)
+void *std::__shared_ptr_emplace<CI::StitchableFunctionDAGDescriptor>::__shared_ptr_emplace[abi:nn200100]<BOOL &,BOOL &,std::allocator<CI::StitchableFunctionDAGDescriptor>,0>(void *a1, BOOL *a2, BOOL *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -5064,7 +5558,7 @@ void std::__shared_ptr_emplace<CI::StitchableFunctionDAGDescriptor>::~__shared_p
   JUMPOUT(0x19EAF5590);
 }
 
-CI::StitchableFunctionDAGDescriptor *CI::StitchableFunctionDAGDescriptor::StitchableFunctionDAGDescriptor(CI::StitchableFunctionDAGDescriptor *this, char a2, char a3)
+CI::StitchableFunctionDAGDescriptor *CI::StitchableFunctionDAGDescriptor::StitchableFunctionDAGDescriptor(CI::StitchableFunctionDAGDescriptor *this, uint64_t a2, char a3)
 {
   *this = &unk_1F1038530;
   *(this + 8) = a2;
@@ -5127,7 +5621,7 @@ void std::__shared_ptr_emplace<CI::UberDAGDescriptor>::~__shared_ptr_emplace(std
 
 CI::UberDAGDescriptor *CI::UberDAGDescriptor::UberDAGDescriptor(CI::UberDAGDescriptor *this, const CI::MetalContext *a2)
 {
-  v4 = CI::StitchableFunctionDAGDescriptor::StitchableFunctionDAGDescriptor(this);
+  v4 = CI::StitchableFunctionDAGDescriptor::StitchableFunctionDAGDescriptor(this, a2);
   *v4 = &unk_1F1038640;
   *(v4 + 27) = 0;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -5164,7 +5658,7 @@ void sub_19CE99AD0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-CI::StitchableFunctionDAGDescriptor *CI::StitchableFunctionDAGDescriptor::StitchableFunctionDAGDescriptor(CI::StitchableFunctionDAGDescriptor *this)
+CI::StitchableFunctionDAGDescriptor *CI::StitchableFunctionDAGDescriptor::StitchableFunctionDAGDescriptor(CI::StitchableFunctionDAGDescriptor *this, uint64_t a2)
 {
   *this = &unk_1F1038530;
   *(this + 4) = 1;
@@ -5179,9 +5673,9 @@ CI::StitchableFunctionDAGDescriptor *CI::StitchableFunctionDAGDescriptor::Stitch
   *(this + 10) = 0;
   *(this + 11) = 0;
   *(this + 12) = 0;
-  v2 = objc_opt_new();
+  v3 = objc_opt_new();
   *(this + 120) = 0u;
-  *(this + 13) = v2;
+  *(this + 13) = v3;
   *(this + 28) = 0;
   *(this + 136) = 0u;
   *(this + 19) = objc_opt_new();
@@ -5405,39 +5899,39 @@ void CI::UberDAGDescriptor::create_pipeline(CI::UberDAGDescriptor *this)
 {
   v2 = 0;
   v3 = 0;
-  v175 = *MEMORY[0x1E69E9840];
-  v172 = 0;
-  v173 = 0;
-  v170[1] = 0;
-  v171 = &v172;
-  v169 = v170;
-  v170[0] = 0;
+  v179 = *MEMORY[0x1E69E9840];
+  v176 = 0;
+  v177 = 0;
+  v174[1] = 0;
+  v175 = &v176;
+  v173 = v174;
+  v174[0] = 0;
   while (v2 < [*(this + 13) count])
   {
-    v168 = [*(this + 13) objectAtIndexedSubscript:v2];
-    if (CI::StitchableFunctionDAGDescriptor::is_builder_function(this, [v168 name]) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v172 = [*(this + 13) objectAtIndexedSubscript:v2];
+    if (CI::StitchableFunctionDAGDescriptor::is_builder_function(this, [v172 name]) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      std::__tree<MTLFunctionStitchingFunctionNode *>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,MTLFunctionStitchingFunctionNode * const&>(&v169, &v168);
+      std::__tree<MTLFunctionStitchingFunctionNode *>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,MTLFunctionStitchingFunctionNode * const&>(&v173, &v172, &v172);
     }
 
     else
     {
-      *buf = &v168;
-      *(std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v171, &v168) + 10) = v3++;
+      *buf = &v172;
+      *(std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v175, &v172, &std::piecewise_construct, buf) + 10) = v3++;
     }
 
     ++v2;
   }
 
-  v4 = v173;
-  *(this + 30) = v173;
+  v4 = v177;
+  *(this + 30) = v177;
   if (v4 > 0x40)
   {
     goto LABEL_9;
   }
 
-  *buf = v4;
-  v165 = (this + 272);
+  buf[0] = v4;
+  v169 = (this + 272);
   std::vector<CI::KernelArgumentType>::push_back[abi:nn200100](this + 34, buf);
   v5 = 0;
   v6 = (this + 248);
@@ -5449,19 +5943,18 @@ void CI::UberDAGDescriptor::create_pipeline(CI::UberDAGDescriptor *this)
     if ((objc_opt_isKindOfClass() & 1) == 0 && !CI::StitchableFunctionDAGDescriptor::is_builder_function(this, [v8 name]))
     {
       v9 = 0;
-      v166 = v7 - 1;
+      v170 = v7 - 1;
       while (1)
       {
         if (v9 >= [objc_msgSend(v8 "arguments")])
         {
-          *buf = -1431655765 * ((*(this + 32) - *(this + 31)) >> 2);
-          std::vector<CI::KernelArgumentType>::push_back[abi:nn200100](v165, buf);
+          buf[0] = -1431655765 * ((*(this + 32) - *(this + 31)) >> 2);
+          std::vector<CI::KernelArgumentType>::push_back[abi:nn200100](v169, buf);
           [*(this + 28) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithString:", objc_msgSend(v8, "name"))}];
           goto LABEL_200;
         }
 
-        [objc_msgSend(v8 "arguments")];
-        argument_type = CI::StitchableFunctionDAGDescriptor::get_argument_type();
+        argument_type = CI::StitchableFunctionDAGDescriptor::get_argument_type(this, [objc_msgSend(v8 "arguments")]);
         if (argument_type <= 3)
         {
           break;
@@ -5536,14 +6029,14 @@ void CI::UberDAGDescriptor::create_pipeline(CI::UberDAGDescriptor *this)
           }
 
           v13 = [objc_msgSend(v8 "arguments")];
-          v168 = v13;
-          v14 = v170[0];
-          if (!v170[0])
+          v172 = v13;
+          v14 = v174[0];
+          if (!v174[0])
           {
             goto LABEL_31;
           }
 
-          v15 = v170;
+          v15 = v174;
           do
           {
             v16 = v14[4];
@@ -5558,11 +6051,11 @@ void CI::UberDAGDescriptor::create_pipeline(CI::UberDAGDescriptor *this)
           }
 
           while (v14);
-          if (v15 == v170 || v13 < v15[4])
+          if (v15 == v174 || v13 < v15[4])
           {
 LABEL_31:
-            *buf = &v168;
-            v19 = std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v171, &v168);
+            *buf = &v172;
+            v19 = std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v175, &v172, &std::piecewise_construct, buf);
             v20 = *(this + 32);
             v21 = *(this + 33);
             if (v20 >= v21)
@@ -5606,7 +6099,7 @@ LABEL_138:
 
           if ([objc_msgSend(v13 "name")])
           {
-            v53 = [objc_msgSend(objc_msgSend(v168 "arguments")] - 1;
+            v53 = [objc_msgSend(objc_msgSend(v172 "arguments")] - 1;
             v54 = *(this + 32);
             v55 = *(this + 33);
             if (v54 >= v55)
@@ -5661,7 +6154,7 @@ LABEL_138:
             }
 
             *(this + 32) = v56;
-            v74 = [objc_msgSend(objc_msgSend(v168 "arguments")];
+            v74 = [objc_msgSend(objc_msgSend(v172 "arguments")];
             v75 = *(this + 32);
             v76 = *(this + 33);
             if (v75 >= v76)
@@ -5716,7 +6209,7 @@ LABEL_138:
             }
 
             *(this + 32) = v77;
-            v85 = [objc_msgSend(v168 "arguments")];
+            v85 = [objc_msgSend(v172 "arguments")];
             v86 = [v85 bindIndex];
             v87 = [v85 byteOffset];
             v88 = *(this + 32);
@@ -5773,9 +6266,9 @@ LABEL_138:
             }
 
             *(this + 32) = v90;
-            v167 = [objc_msgSend(v168 "arguments")];
-            *buf = &v167;
-            v19 = std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v171, &v167);
+            v171 = [objc_msgSend(v172 "arguments")];
+            *buf = &v171;
+            v19 = std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v175, &v171, &std::piecewise_construct, buf);
             v20 = *(this + 32);
             v98 = *(this + 33);
             if (v20 >= v98)
@@ -5817,14 +6310,14 @@ LABEL_42:
             goto LABEL_197;
           }
 
-          if (![objc_msgSend(v168 "name")])
+          if (![objc_msgSend(v172 "name")])
           {
             goto LABEL_198;
           }
 
-          v167 = [objc_msgSend(v168 "arguments")];
-          *buf = &v167;
-          v59 = std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v171, &v167);
+          v171 = [objc_msgSend(v172 "arguments")];
+          *buf = &v171;
+          v59 = std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(&v175, &v171, &std::piecewise_construct, buf);
           v60 = *(this + 32);
           v61 = *(this + 33);
           if (v60 >= v61)
@@ -5929,7 +6422,7 @@ LABEL_42:
           }
 
           *(this + 32) = v105;
-          v112 = [objc_msgSend(v168 "arguments")];
+          v112 = [objc_msgSend(v172 "arguments")];
           v113 = [v112 bindIndex];
           v114 = [v112 byteOffset];
           v115 = *(this + 32);
@@ -5986,7 +6479,7 @@ LABEL_42:
           }
 
           *(this + 32) = v117;
-          v125 = [objc_msgSend(v168 "arguments")];
+          v125 = [objc_msgSend(v172 "arguments")];
           v126 = [v125 bindIndex];
           v127 = [v125 byteOffset];
           v128 = *(this + 32);
@@ -6043,7 +6536,7 @@ LABEL_42:
           }
 
           *(this + 32) = v130;
-          v138 = [objc_msgSend(objc_msgSend(v168 "arguments")];
+          v138 = [objc_msgSend(objc_msgSend(v172 "arguments")];
           v139 = *(this + 32);
           v140 = *(this + 33);
           if (v139 >= v140)
@@ -6098,7 +6591,7 @@ LABEL_42:
           }
 
           *(this + 32) = v141;
-          v12 = [objc_msgSend(objc_msgSend(v168 "arguments")];
+          v12 = [objc_msgSend(objc_msgSend(v172 "arguments")];
           v20 = *(this + 32);
           v149 = *(this + 33);
           if (v20 >= v149)
@@ -6208,7 +6701,7 @@ LABEL_198:
       if (argument_type < 3)
       {
         v11 = [objc_msgSend(v8 "arguments")];
-        if (v5 == v166)
+        if (v5 == v170)
         {
           v12 = [v11 bindIndex];
         }
@@ -6305,17 +6798,17 @@ LABEL_200:
   }
 
   UberShaderName = CI::PrecompiledUberFunctions::getUberShaderName(*(this + 29), *(this + 28), *(this + 5), *(this + 30));
-  v154 = UberShaderName;
+  v155 = UberShaderName;
   if (UberShaderName)
   {
     std::string::__assign_external((this + 304), [UberShaderName UTF8String]);
-    UberShader = CI::PrecompiledUberFunctions::getUberShader(*(this + 29), *(this + 28), v154);
+    UberShader = CI::PrecompiledUberFunctions::getUberShader(*(this + 29), *(this + 28), v155);
     if (UberShader)
     {
-      v156 = objc_opt_new();
-      [v156 setFunctionCount:{objc_msgSend(*(this + 28), "count")}];
-      v157 = [UberShader newVisibleFunctionTableWithDescriptor:v156];
-      if (v157)
+      v158 = objc_opt_new();
+      [v158 setFunctionCount:{objc_msgSend(*(this + 28), "count")}];
+      v160 = [UberShader newVisibleFunctionTableWithDescriptor:v158];
+      if (v160)
       {
         FunctionArray = CI::PrecompiledUberFunctions::getFunctionArray(*(this + 29), *(this + 28));
         for (i = 0; ; ++i)
@@ -6326,26 +6819,26 @@ LABEL_200:
             operator new();
           }
 
-          v160 = [UberShader functionHandleWithFunction:{objc_msgSend(FunctionArray, "objectAtIndexedSubscript:", i)}];
-          if (!v160)
+          v164 = [UberShader functionHandleWithFunction:{objc_msgSend(FunctionArray, "objectAtIndexedSubscript:", i)}];
+          if (!v164)
           {
             break;
           }
 
-          [v157 setFunction:v160 atIndex:i];
+          [v160 setFunction:v164 atIndex:i];
         }
 
-        v164 = ci_logger_compile();
-        if (os_log_type_enabled(v164, OS_LOG_TYPE_ERROR))
+        v168 = ci_logger_compile(0, v163);
+        if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
         {
-          CI::UberDAGDescriptor::create_pipeline([objc_msgSend(FunctionArray objectAtIndexedSubscript:{i), "name"}], buf, v164);
+          CI::UberDAGDescriptor::create_pipeline([objc_msgSend(FunctionArray objectAtIndexedSubscript:{i), "name"}], buf, v168);
         }
       }
 
       else
       {
-        v163 = ci_logger_compile();
-        if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
+        v167 = ci_logger_compile(0, v159);
+        if (os_log_type_enabled(v167, OS_LOG_TYPE_ERROR))
         {
           CI::UberDAGDescriptor::create_pipeline();
         }
@@ -6354,8 +6847,8 @@ LABEL_200:
 
     else
     {
-      v162 = ci_logger_compile();
-      if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+      v166 = ci_logger_compile(0, v156);
+      if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
       {
         CI::UberDAGDescriptor::create_pipeline();
       }
@@ -6364,19 +6857,19 @@ LABEL_200:
 
   else
   {
-    v161 = ci_logger_compile();
-    if (os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
+    v165 = ci_logger_compile(0, v154);
+    if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
     {
       CI::UberDAGDescriptor::create_pipeline();
     }
   }
 
 LABEL_9:
-  std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v169, v170[0]);
-  std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v171, v172);
+  std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v173, v174[0]);
+  std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v175, v176);
 }
 
-void sub_19CE9B350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, void *a15, uint64_t a16, char a17, void *a18)
+void sub_19CE9B350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18)
 {
   std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&a14, a15);
   std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&a17, a18);
@@ -6501,7 +6994,7 @@ uint64_t CI::PrecompiledUberFunctions::getUberShaderName(uint64_t a1, void *a2, 
 
   else
   {
-    v4 = ci_logger_compile();
+    v4 = ci_logger_compile(a1, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       CI::PrecompiledUberFunctions::getUberShaderName();
@@ -6589,35 +7082,35 @@ uint64_t CI::PrecompiledUberFunctions::getUberShader(uint64_t a1, void *a2, uint
   return v11;
 }
 
-void sub_19CE9B9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_19CE9B9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id CI::PrecompiledUberFunctions::getFunctionArray(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v22 = 0u;
-  v23 = 0u;
+  v30 = *MEMORY[0x1E69E9840];
+  v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v24 = 0u;
   v25 = 0u;
-  v3 = [a2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v26 = 0u;
+  v27 = 0u;
+  v3 = [a2 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v3)
   {
-    v4 = *v23;
+    v4 = *v25;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v23 != v4)
+        if (*v25 != v4)
         {
           objc_enumerationMutation(a2);
         }
 
-        v6 = *(*(&v22 + 1) + 8 * i);
+        v6 = *(*(&v24 + 1) + 8 * i);
         v7 = objc_opt_new();
         v8 = v6;
         [v7 setName:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"_uber%@", v6)}];
@@ -6625,41 +7118,41 @@ id CI::PrecompiledUberFunctions::getFunctionArray(uint64_t a1, void *a2)
         if (v9)
         {
           v10 = v9;
-          v26 = *(a1 + 16);
-          [v7 setBinaryArchives:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v26, 1)}];
+          v28 = *(a1 + 16);
+          [v7 setBinaryArchives:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v28, 1)}];
         }
 
-        v16 = 0;
-        v17 = &v16;
-        v18 = 0x3052000000;
-        v19 = __Block_byref_object_copy__288;
-        v20 = __Block_byref_object_dispose__289;
-        v21 = 0;
+        v18 = 0;
+        v19 = &v18;
+        v20 = 0x3052000000;
+        v21 = __Block_byref_object_copy__288;
+        v22 = __Block_byref_object_dispose__289;
+        v23 = 0;
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = ___ZNK2CI24PrecompiledUberFunctions16getFunctionArrayEP7NSArrayIP8NSStringE_block_invoke;
         block[3] = &unk_1E75C2FF0;
-        block[5] = &v16;
+        block[5] = &v18;
         block[6] = a1;
         block[4] = v7;
         dispatch_sync(*(a1 + 80), block);
-        if (!v17[5])
+        if (!v19[5])
         {
-          v11 = ci_logger_compile();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v13 = ci_logger_compile(v11, v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             CI::PrecompiledUberFunctions::getFunctionArray();
           }
 
-          _Block_object_dispose(&v16, 8);
+          _Block_object_dispose(&v18, 8);
           return 0;
         }
 
-        [v14 addObject:v17[5]];
-        _Block_object_dispose(&v16, 8);
+        [v16 addObject:v19[5]];
+        _Block_object_dispose(&v18, 8);
       }
 
-      v3 = [a2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v3 = [a2 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v3)
       {
         continue;
@@ -6669,92 +7162,92 @@ id CI::PrecompiledUberFunctions::getFunctionArray(uint64_t a1, void *a2)
     }
   }
 
-  return v14;
+  return v16;
 }
 
-void sub_19CE9BCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19CE9BCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::__map_value_compare<MTLFunctionStitchingFunctionNode *,std::__value_type<MTLFunctionStitchingFunctionNode *,int>,std::less<MTLFunctionStitchingFunctionNode *>,true>,std::allocator<std::__value_type<MTLFunctionStitchingFunctionNode *,int>>>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,std::piecewise_construct_t const&,std::tuple<MTLFunctionStitchingFunctionNode * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::__tree<MTLFunctionStitchingFunctionNode *>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,MTLFunctionStitchingFunctionNode * const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<MTLFunctionStitchingFunctionNode *>::__emplace_unique_key_args<MTLFunctionStitchingFunctionNode *,MTLFunctionStitchingFunctionNode * const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6829,84 +7322,84 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
 
 id CI::PrecompiledUberFunctions::getFunctionArrayNoDuplicates(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v32 = *MEMORY[0x1E69E9840];
+  v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v4 = objc_opt_new();
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3052000000;
-  v27[3] = __Block_byref_object_copy__288;
-  v27[4] = __Block_byref_object_dispose__289;
-  v27[5] = 0;
-  v23 = 0u;
-  v24 = 0u;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x3052000000;
+  v29[3] = __Block_byref_object_copy__288;
+  v29[4] = __Block_byref_object_dispose__289;
+  v29[5] = 0;
   v25 = 0u;
   v26 = 0u;
-  v5 = [a2 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v27 = 0u;
+  v28 = 0u;
+  v5 = [a2 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v5)
   {
-    v6 = *v24;
-    v15 = v22;
+    v6 = *v26;
+    v17 = v24;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(a2);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         if (([v4 containsObject:v8] & 1) == 0)
         {
           v9 = v8;
           [v4 addObject:v8];
           v10 = objc_opt_new();
-          [v10 setName:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"_uber%@", v8, v15)}];
+          [v10 setName:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"_uber%@", v8, v17)}];
           v11 = *(a1 + 16);
           if (v11)
           {
             v12 = v11;
-            v28 = *(a1 + 16);
-            [v10 setBinaryArchives:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v28, 1)}];
+            v30 = *(a1 + 16);
+            [v10 setBinaryArchives:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v30, 1)}];
           }
 
           [v10 setOptions:1];
-          v18 = 0;
-          v19 = &v18;
-          v20 = 0x3052000000;
-          v21 = __Block_byref_object_copy__288;
-          v22[0] = __Block_byref_object_dispose__289;
-          v22[1] = 0;
+          v20 = 0;
+          v21 = &v20;
+          v22 = 0x3052000000;
+          v23 = __Block_byref_object_copy__288;
+          v24[0] = __Block_byref_object_dispose__289;
+          v24[1] = 0;
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = ___ZNK2CI24PrecompiledUberFunctions28getFunctionArrayNoDuplicatesEP7NSArrayIP8NSStringE_block_invoke;
           block[3] = &unk_1E75C62A0;
           block[4] = v10;
-          block[5] = &v18;
-          block[6] = v27;
+          block[5] = &v20;
+          block[6] = v29;
           block[7] = a1;
           dispatch_sync(*(a1 + 80), block);
-          if (!v19[5])
+          if (!v21[5])
           {
-            v13 = ci_logger_compile();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v15 = ci_logger_compile(v13, v14);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               CI::PrecompiledUberFunctions::getFunctionArrayNoDuplicates();
             }
 
-            _Block_object_dispose(&v18, 8);
-            v16 = 0;
+            _Block_object_dispose(&v20, 8);
+            v18 = 0;
             goto LABEL_17;
           }
 
-          [v16 addObject:?];
+          [v18 addObject:?];
 
-          _Block_object_dispose(&v18, 8);
+          _Block_object_dispose(&v20, 8);
         }
       }
 
-      v5 = [a2 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v5 = [a2 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v5)
       {
         continue;
@@ -6917,25 +7410,25 @@ id CI::PrecompiledUberFunctions::getFunctionArrayNoDuplicates(uint64_t a1, void 
   }
 
 LABEL_17:
-  _Block_object_dispose(v27, 8);
-  return v16;
+  _Block_object_dispose(v29, 8);
+  return v18;
 }
 
-uint64_t ___ZNK2CI24PrecompiledUberFunctions13getUberShaderEP7NSArrayIP8NSStringES3__block_invoke(uint64_t a1)
+void *___ZNK2CI24PrecompiledUberFunctions13getUberShaderEP7NSArrayIP8NSStringES3__block_invoke(uint64_t a1)
 {
   result = CreateUberComputePipelineState(*(*(a1 + 64) + 32), *(a1 + 32), *(a1 + 40), *(a1 + 48));
   *(*(*(a1 + 56) + 8) + 40) = result;
   return result;
 }
 
-uint64_t ___ZNK2CI24PrecompiledUberFunctions28getFunctionArrayNoDuplicatesEP7NSArrayIP8NSStringE_block_invoke(void *a1)
+void *___ZNK2CI24PrecompiledUberFunctions28getFunctionArrayNoDuplicatesEP7NSArrayIP8NSStringE_block_invoke(void *a1)
 {
   result = [*(a1[7] + 8) newFunctionWithDescriptor:a1[4] error:*(a1[6] + 8) + 40];
   *(*(a1[5] + 8) + 40) = result;
   return result;
 }
 
-uint64_t ___ZNK2CI24PrecompiledUberFunctions16getFunctionArrayEP7NSArrayIP8NSStringE_block_invoke(void *a1)
+void *___ZNK2CI24PrecompiledUberFunctions16getFunctionArrayEP7NSArrayIP8NSStringE_block_invoke(void *a1)
 {
   result = [*(a1[6] + 8) newFunctionWithDescriptor:a1[4] error:0];
   *(*(a1[5] + 8) + 40) = result;
@@ -7121,7 +7614,7 @@ dispatch_queue_t *CI::StitchableKernels::StitchableKernels(dispatch_queue_t *thi
   return this;
 }
 
-uint64_t ___ZN2CI17StitchableKernelsC2EPKNS_12MetalContextE_block_invoke(uint64_t a1)
+void *___ZN2CI17StitchableKernelsC2EPKNS_12MetalContextE_block_invoke(uint64_t a1)
 {
   v28 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
@@ -7208,7 +7701,7 @@ uint64_t ___ZN2CI17StitchableKernelsC2EPKNS_12MetalContextE_block_invoke(uint64_
           v20 = *(*(&v23 + 1) + 8 * v19);
           [v20 setLabel:*(a1 + 32)];
           [*(v12 + 8 * v11) addObjectsFromArray:{objc_msgSend(v20, "functionNames")}];
-          ++v19;
+          v19 = v19 + 1;
         }
 
         while (v17 != v19);
@@ -7273,28 +7766,28 @@ void CI::CoreImageDylib::~CoreImageDylib(id *this)
   }
 }
 
-uint64_t ___ZN2CI13KernelArchive10addArchiveEPKv_block_invoke(uint64_t result)
+void *___ZN2CI13KernelArchive10addArchiveEPKv_block_invoke(void *result)
 {
-  if (*(result + 40))
+  if (result[5])
   {
-    return [*(*(result + 32) + 8) addObject:?];
+    return [*(result[4] + 8) addObject:?];
   }
 
   return result;
 }
 
-void *std::vector<void const*>::vector[abi:nn200100](void *result, void *a2)
+void *std::vector<void const*>::vector[abi:nn200100](void *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<void const*>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<void const*>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
 NSObject **CI::KernelArchive::KernelArchive(NSObject **a1, uint64_t **a2)
@@ -7528,52 +8021,52 @@ void *___ZN2CI14CoreImageDylib3getEv_block_invoke(void *result)
 void *CI::InstanceCounted<(CI::Type)76>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1038760;
-  atomic_fetch_add(&dword_1ED7C47BC[74], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[67], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)76>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1038760;
-  atomic_fetch_add(&dword_1ED7C47BC[74], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[67], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
-void *std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::MetalDAGHelper::TextureReadFunction>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v7 = v5;
+      v8 = v5[4];
+      if (v6 >= v8)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v8 >= v6)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
@@ -7598,41 +8091,41 @@ void sub_19CE9D878(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -7641,9 +8134,9 @@ LABEL_8:
 
 CI::MetalKernel *CI::MetalKernel::MetalKernel(CI::MetalKernel *this, const char *__s1, CIKernelLibrary *a3, NSDictionary *a4, NSDictionary *a5, char a6, char a7)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   *this = &unk_1F1038788;
-  v32 = __s1;
+  v36 = __s1;
   *(this + 1) = strdup(__s1);
   *(this + 1) = 0u;
   *(this + 2) = 0u;
@@ -7652,7 +8145,7 @@ CI::MetalKernel *CI::MetalKernel::MetalKernel(CI::MetalKernel *this, const char 
   *(this + 64) = a7;
   *(this + 9) = 0;
   *(this + 2) = a3;
-  v34 = this;
+  v38 = this;
   *(this + 7) = objc_opt_new();
   if (a4)
   {
@@ -7666,47 +8159,47 @@ CI::MetalKernel *CI::MetalKernel::MetalKernel(CI::MetalKernel *this, const char 
 
   *(this + 9) = v13;
   *(this + 3) = a5;
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = ___ZN2CI11MetalKernelC2EPKcP15CIKernelLibraryP12NSDictionaryS6_bb_block_invoke;
-  v41[3] = &__block_descriptor_40_e26_v32__0r_v8Q16__NSString_24l;
-  v41[4] = this;
-  CI::MetalKernel::iterateOverFunctionConstants(this, v41);
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = ___ZN2CI11MetalKernelC2EPKcP15CIKernelLibraryP12NSDictionaryS6_bb_block_invoke;
+  v45[3] = &__block_descriptor_40_e26_v32__0r_v8Q16__NSString_24l;
+  v45[4] = this;
+  CI::MetalKernel::iterateOverFunctionConstants(this, v45);
   v14 = CI::MetalKernel::function(this);
   v15 = [v14 bitCodeHash];
   v16 = v15[1];
   __src[0] = *v15;
   __src[1] = v16;
-  XXH64_reset(v40, 0);
-  XXH64_update(v40, __src, 0x20uLL);
-  *(this + 5) = XXH64_digest(v40);
+  XXH64_reset(v44, 0);
+  XXH64_update(v44, __src, 0x20uLL);
+  *(this + 5) = XXH64_digest(v44);
 
-  XXH64_reset(v39, 0);
+  XXH64_reset(v43, 0);
   v17 = [(NSArray *)[(NSDictionary *)a4 allKeys] sortedArrayUsingSelector:sel_compare_];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v35 objects:v50 count:16];
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v39 objects:v54 count:16];
   if (v18)
   {
-    v19 = *v36;
+    v19 = *v40;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v36 != v19)
+        if (*v40 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v35 + 1) + 8 * i);
-        CI::XXHashHelper::add(v39, v21);
+        v21 = *(*(&v39 + 1) + 8 * i);
+        CI::XXHashHelper::add(v43, v21);
         v22 = [(NSDictionary *)a4 valueForKey:v21];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          CI::XXHashHelper::add(v39, v22);
+          CI::XXHashHelper::add(v43, v22);
         }
 
         else
@@ -7714,63 +8207,65 @@ CI::MetalKernel *CI::MetalKernel::MetalKernel(CI::MetalKernel *this, const char 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            CI::XXHashHelper::add(v39, v22);
+            CI::XXHashHelper::add(v43, v22);
           }
         }
 
-        v23 = [(NSDictionary *)a5 valueForKey:v21, v32];
+        v23 = [(NSDictionary *)a5 valueForKey:v21, v36];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          CI::XXHashHelper::add(v39, v23);
+          CI::XXHashHelper::add(v43, v23);
         }
       }
 
-      v18 = [(NSArray *)v17 countByEnumeratingWithState:&v35 objects:v50 count:16];
+      v18 = [(NSArray *)v17 countByEnumeratingWithState:&v39 objects:v54 count:16];
     }
 
     while (v18);
   }
 
-  *(v34 + 4) = XXH64_digest(v39);
-  if (CI_LOG_METAL_FUNCTION_HASH())
+  *(v38 + 4) = XXH64_digest(v43);
+  v24 = CI_LOG_METAL_FUNCTION_HASH();
+  if (v24)
   {
-    v24 = ci_logger_compile();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v26 = ci_logger_compile(v24, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v25 = *(v34 + 4);
-      v26 = *(v34 + 5);
-      v27 = [(NSArray *)v17 count];
+      v27 = *(v38 + 4);
+      v28 = *(v38 + 5);
+      v29 = [(NSArray *)v17 count];
       *buf = 136446978;
-      v43 = v32;
-      v44 = 2050;
-      v45 = v26;
-      v46 = 2050;
-      v47 = v25;
+      v47 = v36;
       v48 = 2050;
-      v49 = v27;
-      _os_log_impl(&dword_19CC36000, v24, OS_LOG_TYPE_INFO, "MTLFunction %{public}s bitcode digest %{public}llx constants digest %{public}llx constants key size %{public}lu", buf, 0x2Au);
+      v49 = v28;
+      v50 = 2050;
+      v51 = v27;
+      v52 = 2050;
+      v53 = v29;
+      _os_log_impl(&dword_19CC36000, v26, OS_LOG_TYPE_INFO, "MTLFunction %{public}s bitcode digest %{public}llx constants digest %{public}llx constants key size %{public}lu", buf, 0x2Au);
     }
 
-    if ([(NSArray *)v17 count])
+    v30 = [(NSArray *)v17 count];
+    if (v30)
     {
-      v28 = ci_logger_compile();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v32 = ci_logger_compile(v30, v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
-        v29 = [(NSArray *)v17 objectAtIndexedSubscript:0];
-        v30 = [(NSDictionary *)a4 valueForKey:[(NSArray *)v17 objectAtIndexedSubscript:0]];
+        v33 = [(NSArray *)v17 objectAtIndexedSubscript:0];
+        v34 = [(NSDictionary *)a4 valueForKey:[(NSArray *)v17 objectAtIndexedSubscript:0]];
         *buf = 136446722;
-        v43 = v33;
-        v44 = 2114;
-        v45 = v29;
-        v46 = 2114;
-        v47 = v30;
-        _os_log_impl(&dword_19CC36000, v28, OS_LOG_TYPE_INFO, "MTLFunction %{public}s : %{public}@ : %{public}@", buf, 0x20u);
+        v47 = v37;
+        v48 = 2114;
+        v49 = v33;
+        v50 = 2114;
+        v51 = v34;
+        _os_log_impl(&dword_19CC36000, v32, OS_LOG_TYPE_INFO, "MTLFunction %{public}s : %{public}@ : %{public}@", buf, 0x20u);
       }
     }
   }
 
-  return v34;
+  return v38;
 }
 
 void CI::MetalKernel::iterateOverFunctionConstants(uint64_t a1, uint64_t a2)
@@ -8010,7 +8505,7 @@ uint64_t CI::MetalKernel::function(CI::MetalKernel *this)
   }
 }
 
-uint64_t CI::MetalKernel::isFromLibrary(id *this, NSString *a2)
+void *CI::MetalKernel::isFromLibrary(id *this, NSString *a2)
 {
   result = [this[2] url];
   if (result)
@@ -8023,7 +8518,7 @@ uint64_t CI::MetalKernel::isFromLibrary(id *this, NSString *a2)
   return result;
 }
 
-uint64_t CI::packSingleValue(CI *this, NSNumber *a2, uint64_t a3, MTLDataType a4, void *a5)
+void *CI::packSingleValue(CI *this, NSNumber *a2, uint64_t a3, MTLDataType a4, void *a5)
 {
   v6 = a2;
   if (a3 <= 36)
@@ -8283,7 +8778,7 @@ void non-virtual thunk toCI::PrecompiledWarpKernel::~PrecompiledWarpKernel(CI::P
   JUMPOUT(0x19EAF5590);
 }
 
-uint64_t CI::WarpKernel::WarpKernel(uint64_t a1, const char *a2, char *a3, char *a4, char a5, void **a6, uint64_t a7, __int16 a8, int a9, char a10)
+CI::Kernel *CI::WarpKernel::WarpKernel(CI::Kernel *a1, const char *a2, char *a3, char *a4, uint64_t a5, void **a6, uint64_t a7, uint64_t a8, int a9, char a10)
 {
   *CI::Kernel::Kernel(a1, a2, a3, a4, a5, a6, a7, a8, a9, 0, 1, 1) = off_1F10303E0;
   if (a10)
@@ -8410,7 +8905,7 @@ _BYTE *CI::Kernel::set_attributes(_BYTE *this, __int16 a2)
   return this;
 }
 
-uint64_t *CI::Kernel::set_argument_type(uint64_t *a1, int a2, int a3)
+uint64_t *CI::Kernel::set_argument_type(uint64_t *a1, unsigned int a2, int a3)
 {
   v5 = a1 + 17;
   (*(*a1 + 72))(a1);
@@ -8592,17 +9087,18 @@ uint64_t CI::Kernel::set_output_size(uint64_t this, uint64_t a2, uint64_t a3)
   return this;
 }
 
-void (***CI::Kernel::builtin(int a1))(CI::ColorKernel *__hidden this)
+void (***CI::Kernel::builtin(uint64_t a1, uint64_t a2))(CI::ColorKernel *__hidden this)
 {
   if ((a1 - 1) < 0x5A)
   {
-    return off_1E75C64D0[a1 - 1];
+    return off_1E75C64D0[(a1 - 1)];
   }
 
-  v3 = ci_logger_render();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v3 = a1;
+  v4 = ci_logger_render(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    CI::Kernel::builtin(a1, v3);
+    CI::Kernel::builtin(v3, v4);
   }
 
   return 0;
@@ -9311,504 +9807,5 @@ double CI::sw_ci_to_rg16_as_bgra8(uint64_t a1, uint64_t a2, uint64_t a3)
   v11.f32[2] = v9;
   v11.f32[3] = (v10 - v11.f32[0]) * 0.0039062;
   *&result = vdivq_f32(v11, vdupq_n_s32(0x437F0000u)).u64[0];
-  return result;
-}
-
-double CI::sw_ci_to_la16_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v8 = vmulq_f32(*v7, xmmword_19CF23D60);
-  *v8.i32 = vaddv_f32(vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL))) * 65535.0;
-  v9.f32[0] = *v8.i32 + (floorf(*v8.i32 * 0.0039062) * -256.0);
-  v10 = vmuls_lane_f32(65535.0, *v7, 3);
-  v9.f32[1] = (*v8.i32 - v9.f32[0]) * 0.0039062;
-  v9.f32[2] = v10 + (floorf(v10 * 0.0039062) * -256.0);
-  v9.f32[3] = (v10 - v9.f32[2]) * 0.0039062;
-  *&result = vdivq_f32(v9, vdupq_n_s32(0x437F0000u)).u64[0];
-  return result;
-}
-
-double CI::sw_ci_to_la16_as_bgra8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v8 = vmulq_f32(*v7, xmmword_19CF23D60);
-  *v8.i32 = vaddv_f32(vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL))) * 65535.0;
-  v9 = *v8.i32 + (floorf(*v8.i32 * 0.0039062) * -256.0);
-  v10 = vmuls_lane_f32(65535.0, *v7, 3);
-  v11.f32[0] = v10 + (floorf(v10 * 0.0039062) * -256.0);
-  v11.f32[1] = (*v8.i32 - v9) * 0.0039062;
-  v11.f32[2] = v9;
-  v11.f32[3] = (v10 - v11.f32[0]) * 0.0039062;
-  *&result = vdivq_f32(v11, vdupq_n_s32(0x437F0000u)).u64[0];
-  return result;
-}
-
-uint64_t CI::sw_ci_to_rgb_as_r(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = a3 + 16 * v5;
-  v7 = a2 + (v5 << 6);
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  return *v7;
-}
-
-double CI::sw_ci_to_rgb10_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  __asm { FMOV            V1.4S, #1.0 }
-
-  v13 = vmulq_f32(vminnmq_f32(vmaxnmq_f32(*v7, 0), _Q1), vdupq_n_s32(0x447FC000u));
-  _Q1.i64[0] = 0x3F0000003F000000;
-  _Q1.i64[1] = 0x3F0000003F000000;
-  v14 = vaddq_f32(v13, _Q1);
-  *v14.i8 = vshl_u32(vcvt_s32_f32(*v14.i8), 0xA00000014);
-  v15 = vorr_s8(vdup_lane_s32(*v14.i8, 1), *v14.i8).u32[0] | *&v14.i32[2];
-  v16.i32[0] = *&v14.i32[2];
-  v16.i32[1] = v15 >> 8;
-  v16.u64[1] = vshl_u32(vdup_n_s32(v15), 0xFFFFFFE8FFFFFFF0);
-  v14.i64[0] = 0xFF000000FFLL;
-  v14.i64[1] = 0xFF000000FFLL;
-  v17 = vandq_s8(v16, v14);
-  v17.i32[3] = (v16.i64[1] | 0xC0000000C0uLL) >> 32;
-  *&result = vdivq_f32(vcvtq_f32_u32(v17), vdupq_n_s32(0x437F0000u)).u64[0];
-  return result;
-}
-
-double CI::sw_ci_to_a2bgr10_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  __asm { FMOV            V1.4S, #1.0 }
-
-  v13 = vmulq_f32(vminnmq_f32(vmaxnmq_f32(*v7, 0), _Q1), xmmword_19CF226C0);
-  _Q1.i64[0] = 0x3F0000003F000000;
-  _Q1.i64[1] = 0x3F0000003F000000;
-  v14 = vaddq_f32(v13, _Q1);
-  v15 = *v14.i32;
-  v16 = *v14.i32 | (*&v14.i32[1] << 10);
-  v17 = vextq_s8(v14, v14, 8uLL);
-  *v17.i8 = vshl_u32(vcvt_s32_f32(*v17.i8), 0x1E00000014);
-  v18 = vorr_s8(*v17.i8, vdup_lane_s32(*v17.i8, 1)).u32[0] | v16;
-  v17.i32[0] = v15;
-  v17.i32[1] = v16 >> 8;
-  v17.i32[2] = HIWORD(v18);
-  _Q1.i64[0] = 0xFF000000FFLL;
-  _Q1.i64[1] = 0xFF000000FFLL;
-  v19 = vandq_s8(v17, _Q1);
-  v17.i32[3] = v18;
-  v19.i32[3] = vshrq_n_u32(*&v17, 0x18uLL).i32[3];
-  *&result = vdivq_f32(vcvtq_f32_u32(v19), vdupq_n_s32(0x437F0000u)).u64[0];
-  return result;
-}
-
-double CI::sw_ci_to_a2rgb10_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  __asm { FMOV            V1.4S, #1.0 }
-
-  v13 = vmulq_f32(vminnmq_f32(vmaxnmq_f32(*v7, 0), _Q1), xmmword_19CF226C0);
-  _Q1.i64[0] = 0x3F0000003F000000;
-  _Q1.i64[1] = 0x3F0000003F000000;
-  v14 = vaddq_f32(v13, _Q1);
-  v15 = *&v14.i32[2] | (*&v14.i32[1] << 10);
-  v14.i32[1] = vextq_s8(v14, v14, 8uLL).i32[1];
-  *v14.i8 = vshl_u32(vcvt_s32_f32(*v14.i8), 0x1E00000014);
-  v16 = vorr_s8(*v14.i8, vdup_lane_s32(*v14.i8, 1)).u32[0] | v15;
-  v14.i32[0] = *&v14.i32[2];
-  v14.i32[1] = v15 >> 8;
-  v14.i32[2] = HIWORD(v16);
-  _Q1.i64[0] = 0xFF000000FFLL;
-  _Q1.i64[1] = 0xFF000000FFLL;
-  v17 = vandq_s8(v14, _Q1);
-  v14.i32[3] = v16;
-  v17.i32[3] = vshrq_n_u32(*&v14, 0x18uLL).i32[3];
-  *&result = vdivq_f32(vcvtq_f32_u32(v17), vdupq_n_s32(0x437F0000u)).u64[0];
-  return result;
-}
-
-double CI::sw_ci_to_rgb10wide_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v8 = vabsq_f32(*v7);
-  v22 = vcgtq_f32(vdupq_n_s32(0x3B4D2E1Cu), v8);
-  v9.i64[0] = 0x8000000080000000;
-  v9.i64[1] = 0x8000000080000000;
-  __asm { FMOV            V3.4S, #1.0 }
-
-  v23 = _Q3;
-  v8.i32[3] = 0;
-  v15 = vaddq_f32(vmulq_f32(vbslq_s8(v22, vmulq_f32(*v7, vdupq_n_s32(0x414EB852u)), vmulq_f32(vmlaq_f32(vdupq_n_s32(0xBD6147AE), vdupq_n_s32(0x3F870A3Du), _simd_pow_f4(v8, xmmword_19CF22D80)), vbslq_s8(vorrq_s8(vcltzq_f32(*v7), vcgtzq_f32(*v7)), vorrq_s8(vandq_s8(*v7, v9), _Q3), 0))), vdupq_n_s32(0x3EFF3FD0u)), vdupq_n_s32(0x3EC0300Cu));
-  v15.i32[3] = 1.0;
-  v16.i64[0] = 0x3F0000003F000000;
-  v16.i64[1] = 0x3F0000003F000000;
-  v17 = vaddq_f32(vmulq_f32(vminnmq_f32(vmaxnmq_f32(v15, 0), v23), xmmword_19CF226C0), v16);
-  v18 = *&v17.i32[2] | (*&v17.i32[1] << 10);
-  v17.i32[1] = vextq_s8(v17, v17, 8uLL).i32[1];
-  *v17.i8 = vshl_u32(vcvt_s32_f32(*v17.i8), 0x1E00000014);
-  v19 = vorr_s8(*v17.i8, vdup_lane_s32(*v17.i8, 1)).u32[0] | v18;
-  v17.i32[0] = *&v17.i32[2];
-  v17.i32[1] = v18 >> 8;
-  v17.i32[2] = HIWORD(v19);
-  v16.i64[0] = 0xFF000000FFLL;
-  v16.i64[1] = 0xFF000000FFLL;
-  v20 = vandq_s8(v17, v16);
-  v17.i32[3] = v19;
-  v20.i32[3] = vshrq_n_u32(*&v17, 0x18uLL).i32[3];
-  *&result = vdivq_f32(vcvtq_f32_u32(v20), vdupq_n_s32(0x437F0000u)).u64[0];
-  return result;
-}
-
-double CI::sw_ci_to_rgb10widelinear_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v8 = vaddq_f32(vmulq_f32(*v7, vdupq_n_s32(0x3EFF3FD0u)), vdupq_n_s32(0x3EC0300Cu));
-  v8.i32[3] = 1.0;
-  __asm { FMOV            V1.4S, #1.0 }
-
-  v14 = vmulq_f32(vminnmq_f32(vmaxnmq_f32(v8, 0), _Q1), xmmword_19CF226C0);
-  _Q1.i64[0] = 0x3F0000003F000000;
-  _Q1.i64[1] = 0x3F0000003F000000;
-  v15 = vaddq_f32(v14, _Q1);
-  v16 = *&v15.i32[2] | (*&v15.i32[1] << 10);
-  v15.i32[1] = vextq_s8(v15, v15, 8uLL).i32[1];
-  *v15.i8 = vshl_u32(vcvt_s32_f32(*v15.i8), 0x1E00000014);
-  v17 = vorr_s8(*v15.i8, vdup_lane_s32(*v15.i8, 1)).u32[0] | v16;
-  v15.i32[0] = *&v15.i32[2];
-  v15.i32[1] = v16 >> 8;
-  v15.i32[2] = HIWORD(v17);
-  _Q1.i64[0] = 0xFF000000FFLL;
-  _Q1.i64[1] = 0xFF000000FFLL;
-  v18 = vandq_s8(v15, _Q1);
-  v15.i32[3] = v17;
-  v18.i32[3] = vshrq_n_u32(*&v15, 0x18uLL).i32[3];
-  *&result = vdivq_f32(vcvtq_f32_u32(v18), vdupq_n_s32(0x437F0000u)).u64[0];
-  return result;
-}
-
-double CI::sw_ci_to_argb10wide_as_rgba16(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v20 = *v7;
-  v8 = vrev64q_s32(*v7);
-  v9 = vextq_s8(v8, v8, 0xCuLL);
-  v10 = vabsq_f32(v9);
-  v19 = vcgtq_f32(vdupq_n_s32(0x3B4D2E1Cu), v10);
-  v11.i64[0] = 0x8000000080000000;
-  v11.i64[1] = 0x8000000080000000;
-  __asm { FMOV            V3.4S, #1.0 }
-
-  v10.i32[3] = 0;
-  v17 = vbslq_s8(v19, vmulq_f32(v9, vdupq_n_s32(0x414EB852u)), vmulq_f32(vmlaq_f32(vdupq_n_s32(0xBD6147AE), vdupq_n_s32(0x3F870A3Du), _simd_pow_f4(v10, xmmword_19CF22D80)), vbslq_s8(vorrq_s8(vcltzq_f32(v9), vcgtzq_f32(v9)), vorrq_s8(vandq_s8(v9, v11), _Q3), 0)));
-  v17.i32[3] = v20.i32[3];
-  *&result = vdivq_f32(vmulq_f32(vminnmq_f32(vmaxnmq_f32(vaddq_f32(vmulq_f32(v17, vdupq_n_s32(0x43FF0000u)), vdupq_n_s32(0x43C00000u)), 0), vdupq_n_s32(0x447FC000u)), vdupq_n_s32(0x42800000u)), vdupq_n_s32(0x477FFF00u)).u64[0];
-  return result;
-}
-
-double CI::sw_ci_to_argb10widelinear_as_rgba16(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v8 = vrev64q_s32(vdivq_f32(vmulq_f32(vminnmq_f32(vmaxnmq_f32(vaddq_f32(vmulq_f32(*v7, vdupq_n_s32(0x43FF0000u)), vdupq_n_s32(0x43C00000u)), 0), vdupq_n_s32(0x447FC000u)), vdupq_n_s32(0x42800000u)), vdupq_n_s32(0x477FFF00u)));
-  *&result = vextq_s8(v8, v8, 0xCuLL).u64[0];
-  return result;
-}
-
-double CI::sw_ci_argb10wide(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v8 = vrev64q_s32(vdivq_f32(vaddq_f32(vmulq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FFF00u)), vdupq_n_s32(0x3C800000u)), vdupq_n_s32(0xC3C00000)), vdupq_n_s32(0x43FF0000u)));
-  v9 = vextq_s8(v8, v8, 0xCuLL);
-  v10 = vabsq_f32(v9);
-  v20 = vmulq_f32(v9, vdupq_n_s32(0x3D9E8391u));
-  v11.i64[0] = 0x8000000080000000;
-  v11.i64[1] = 0x8000000080000000;
-  __asm { FMOV            V3.4S, #1.0 }
-
-  v19 = vbslq_s8(vorrq_s8(vcltzq_f32(v9), vcgtzq_f32(v9)), vorrq_s8(vandq_s8(v9, v11), _Q3), 0);
-  v17 = vmlaq_f32(vdupq_n_s32(0x3D558919u), vdupq_n_s32(0x3F72A76Eu), v10);
-  v17.i32[3] = 0;
-  *&result = vbslq_s8(vcgtq_f32(vdupq_n_s32(0x3D25AEE6u), v10), v20, vmulq_f32(_simd_pow_f4(v17, xmmword_19CF226D0), v19)).u64[0];
-  return result;
-}
-
-double CI::sw_ci_argb10widelinear(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v8 = vrev64q_s32(vdivq_f32(vaddq_f32(vmulq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FFF00u)), vdupq_n_s32(0x3C800000u)), vdupq_n_s32(0xC3C00000)), vdupq_n_s32(0x43FF0000u)));
-  *&result = vextq_s8(v8, v8, 0xCuLL).u64[0];
-  return result;
-}
-
-double CI::sw_ci_10of16(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  __asm { FMOV            V1.4S, #1.0 }
-
-  *&result = vminnmq_f32(vmaxnmq_f32(vdivq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FFF00u)), vdupq_n_s32(0x477FC000u)), 0), _Q1).u64[0];
-  return result;
-}
-
-uint64_t CI::sw_ci_l10(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  __asm { FMOV            V1.4S, #1.0 }
-
-  _Q1.i32[0] = vminnmq_f32(vmaxnmq_f32(vdivq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FFF00u)), vdupq_n_s32(0x477FC000u)), 0), _Q1).u32[0];
-  _Q1.i32[1] = _Q1.i32[0];
-  return _Q1.i64[0];
-}
-
-double CI::sw_ci_to_10of16(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  __asm { FMOV            V1.4S, #1.0 }
-
-  *&result = vminnmq_f32(vmaxnmq_f32(vdivq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FC000u)), vdupq_n_s32(0x477FFF00u)), 0), _Q1).u64[0];
-  return result;
-}
-
-double CI::sw_ci_to_l10_as_r16(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v8 = vmulq_f32(*v7, xmmword_19CF23D60);
-  *v8.i64 = vaddv_f32(vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL))) * 65472.0 / 65535.0;
-  *v8.i32 = *v8.i64;
-  v9 = vdupq_laneq_s32(*v7, 3);
-  *&result = vextq_s8(vextq_s8(v9, v8, 4uLL), v9, 0xCuLL).u64[0];
-  return result;
-}
-
-uint64_t CI::sw_ci_combine_420(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = a3 + 16 * v5;
-  v7 = a2 + (v5 << 6);
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  return *v7;
-}
-
-uint64_t CI::sw_ci_combine_422(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = a3 + 16 * v5;
-  v7 = a2 + (v5 << 6);
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  return *v7;
-}
-
-uint64_t CI::sw_ci_combine_444(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = a3 + 16 * v5;
-  v7 = a2 + (v5 << 6);
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  return *v7;
-}
-
-uint64_t CI::sw_ci_swizzle_to_4XX(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = a3 + 16 * v5;
-  v7 = a2 + (v5 << 6);
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  return *v7;
-}
-
-double CI::sw_ci_ycc_to_rgb(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  *&result = vuzp2q_s32(vextq_s8(*v7, *v7, 4uLL), *v7).u64[0];
-  return result;
-}
-
-double CI::sw_ci_swizzle_to_laaa(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v8 = vmulq_f32(*v7, xmmword_19CF23D60);
-  *v8.i8 = vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL));
-  *v8.i8 = vadd_f32(*v8.i8, vdup_lane_s32(*v8.i8, 1));
-  v9 = vdupq_laneq_s32(*v7, 3);
-  *&result = vextq_s8(vextq_s8(v9, v8, 4uLL), v9, 0xCuLL).u64[0];
   return result;
 }

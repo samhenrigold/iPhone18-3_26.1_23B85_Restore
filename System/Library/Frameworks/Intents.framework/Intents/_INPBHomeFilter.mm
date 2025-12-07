@@ -2,7 +2,12 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBHomeFilter)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deviceTypeAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)entityTypeAsString:(int)string;
+- (id)outerDeviceTypeAsString:(int)string;
+- (id)serviceTypeAsString:(int)string;
+- (id)subServiceTypeAsString:(int)string;
 - (int)StringAsDeviceType:(id)type;
 - (int)StringAsEntityType:(id)type;
 - (int)StringAsOuterDeviceType:(id)type;
@@ -745,7 +750,7 @@ LABEL_81:
 
 - (void)writeTo:(id)to
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   toCopy = to;
   accessory = [(_INPBHomeFilter *)self accessory];
 
@@ -757,40 +762,38 @@ LABEL_81:
 
   if ([(_INPBHomeFilter *)self hasDeviceType])
   {
-    deviceType = self->_deviceType;
     PBDataWriterWriteInt32Field();
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v8 = self->_entityIdentifiers;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v37 objects:v41 count:16];
-  if (v9)
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v7 = self->_entityIdentifiers;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v38;
+    v9 = v8;
+    v10 = *v29;
     do
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v38 != v11)
+        if (*v29 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v37 + 1) + 8 * v12);
         PBDataWriterWriteStringField();
-        ++v12;
+        ++v11;
       }
 
-      while (v10 != v12);
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
   entityName = [(_INPBHomeFilter *)self entityName];
@@ -803,7 +806,6 @@ LABEL_81:
 
   if ([(_INPBHomeFilter *)self hasEntityType])
   {
-    entityType = self->_entityType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -817,7 +819,6 @@ LABEL_81:
 
   if ([(_INPBHomeFilter *)self hasHasAllQuantifier])
   {
-    hasAllQuantifier = self->_hasAllQuantifier;
     PBDataWriterWriteBOOLField();
   }
 
@@ -831,7 +832,6 @@ LABEL_81:
 
   if ([(_INPBHomeFilter *)self hasIsExcludeFilter])
   {
-    isExcludeFilter = self->_isExcludeFilter;
     PBDataWriterWriteBOOLField();
   }
 
@@ -845,7 +845,6 @@ LABEL_81:
 
   if ([(_INPBHomeFilter *)self hasOuterDeviceType])
   {
-    outerDeviceType = self->_outerDeviceType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -875,25 +874,21 @@ LABEL_81:
 
   if ([(_INPBHomeFilter *)self hasServiceType])
   {
-    serviceType = self->_serviceType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBHomeFilter *)self hasSubServiceType])
   {
-    subServiceType = self->_subServiceType;
     PBDataWriterWriteInt32Field();
   }
 
-  v34 = [(_INPBHomeFilter *)self zone];
+  v26 = [(_INPBHomeFilter *)self zone];
 
-  if (v34)
+  if (v26)
   {
-    v35 = [(_INPBHomeFilter *)self zone];
+    v27 = [(_INPBHomeFilter *)self zone];
     PBDataWriterWriteSubmessage();
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsSubServiceType:(id)type
@@ -922,6 +917,21 @@ LABEL_81:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)subServiceTypeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727DD18[string - 1];
   }
 
   return v4;
@@ -1158,6 +1168,21 @@ LABEL_81:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)serviceTypeAsString:(int)string
+{
+  if (string >= 0x27)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727DBE0[string];
   }
 
   return v4;
@@ -1429,6 +1454,21 @@ LABEL_81:
   return v4;
 }
 
+- (id)outerDeviceTypeAsString:(int)string
+{
+  if (string < 0x32 && ((0x3FFFFF79FFEEFuLL >> string) & 1) != 0)
+  {
+    v4 = off_1E727DA50[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)setHasOuterDeviceType:(BOOL)type
 {
   if (type)
@@ -1530,6 +1570,21 @@ LABEL_81:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)entityTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727DA18[string];
   }
 
   return v4;
@@ -1823,6 +1878,21 @@ LABEL_81:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)deviceTypeAsString:(int)string
+{
+  if (string < 0x32 && ((0x3FFFFF79FFEEFuLL >> string) & 1) != 0)
+  {
+    v4 = off_1E727DA50[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

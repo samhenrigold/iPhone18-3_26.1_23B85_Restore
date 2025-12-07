@@ -54,7 +54,7 @@
   return sharedInstance__sharedObject_1;
 }
 
-uint64_t __28__CBSILState_sharedInstance__block_invoke(uint64_t a1)
+void *__28__CBSILState_sharedInstance__block_invoke(uint64_t a1)
 {
   v4 = a1;
   v3 = a1;

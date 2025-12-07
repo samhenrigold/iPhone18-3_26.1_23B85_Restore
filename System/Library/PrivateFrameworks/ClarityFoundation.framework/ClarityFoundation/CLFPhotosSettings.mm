@@ -18,16 +18,16 @@
 
 - (void)_migrateSelectedSharedAlbumNamesIfNecessary
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = [(AXBaseSettings *)self objectValueForPreferenceKey:@"SelectedSharedAlbums" ofClass:objc_opt_class() defaultValue:0];
   if ([v3 count])
   {
     v4 = +[CLFLog commonLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
-      v8 = [v3 count];
-      _os_log_impl(&dword_1E115B000, v4, OS_LOG_TYPE_DEFAULT, "Migrating %lu shared photo album name(s).", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = [v3 count];
+      _os_log_impl(&dword_1E115B000, v4, OS_LOG_TYPE_DEFAULT, "Migrating %lu shared photo album name(s).", &v6, 0xCu);
     }
 
     [(CLFPhotosSettings *)self _saveSelectedSharedAlbumCloudIdentifiersForNames:v3];
@@ -41,70 +41,68 @@ LABEL_9:
     v5 = +[CLFLog commonLog];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&dword_1E115B000, v5, OS_LOG_TYPE_DEFAULT, "Removing empty shared photo album names.", &v7, 2u);
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_1E115B000, v5, OS_LOG_TYPE_DEFAULT, "Removing empty shared photo album names.", &v6, 2u);
     }
 
     goto LABEL_9;
   }
 
 LABEL_10:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveSelectedSharedAlbumCloudIdentifiersForNames:(id)names
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2050000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2050000000;
   v5 = getPHAssetCollectionClass_softClass;
-  v47 = getPHAssetCollectionClass_softClass;
+  v46 = getPHAssetCollectionClass_softClass;
   if (!getPHAssetCollectionClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getPHAssetCollectionClass_block_invoke;
-    v51 = &unk_1E8704E78;
-    v52 = &v44;
+    v50 = &unk_1E8704E78;
+    v51 = &v43;
     __getPHAssetCollectionClass_block_invoke(buf);
-    v5 = v45[3];
+    v5 = v44[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v43, 8);
   v7 = [v5 fetchAssetCollectionsWithType:1 subtype:101 options:0];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __81__CLFPhotosSettings_Migration___saveSelectedSharedAlbumCloudIdentifiersForNames___block_invoke;
-  v42[3] = &unk_1E8704E50;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __81__CLFPhotosSettings_Migration___saveSelectedSharedAlbumCloudIdentifiersForNames___block_invoke;
+  v41[3] = &unk_1E8704E50;
   v8 = dictionary;
-  v43 = v8;
-  [v7 enumerateObjectsUsingBlock:v42];
+  v42 = v8;
+  [v7 enumerateObjectsUsingBlock:v41];
 
   array = [MEMORY[0x1E695DF70] array];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obj = namesCopy;
-  v9 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
+  v9 = [obj countByEnumeratingWithState:&v37 objects:v48 count:16];
   if (v9)
   {
-    v10 = *v39;
+    v10 = *v38;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v39 != v10)
+        if (*v38 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * i);
+        v12 = *(*(&v37 + 1) + 8 * i);
         v13 = [v8 objectForKeyedSubscript:v12];
         if ([v13 length])
         {
@@ -123,7 +121,7 @@ LABEL_10:
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
+      v9 = [obj countByEnumeratingWithState:&v37 objects:v48 count:16];
     }
 
     while (v9);
@@ -132,46 +130,46 @@ LABEL_10:
   array2 = [MEMORY[0x1E695DF70] array];
   if ([array count])
   {
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2050000000;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2050000000;
     v15 = getPHPhotoLibraryClass_softClass;
-    v47 = getPHPhotoLibraryClass_softClass;
+    v46 = getPHPhotoLibraryClass_softClass;
     if (!getPHPhotoLibraryClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getPHPhotoLibraryClass_block_invoke;
-      v51 = &unk_1E8704E78;
-      v52 = &v44;
+      v50 = &unk_1E8704E78;
+      v51 = &v43;
       __getPHPhotoLibraryClass_block_invoke(buf);
-      v15 = v45[3];
+      v15 = v44[3];
     }
 
     v16 = v15;
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v43, 8);
     sharedPhotoLibrary = [v15 sharedPhotoLibrary];
     v18 = [sharedPhotoLibrary cloudIdentifierMappingsForLocalIdentifiers:array];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v19 = v18;
-    v20 = [v19 countByEnumeratingWithState:&v34 objects:v48 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v33 objects:v47 count:16];
     if (v20)
     {
-      v21 = *v35;
+      v21 = *v34;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v35 != v21)
+          if (*v34 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          v23 = *(*(&v34 + 1) + 8 * j);
+          v23 = *(*(&v33 + 1) + 8 * j);
           v24 = [v19 objectForKeyedSubscript:v23];
           cloudIdentifier = [v24 cloudIdentifier];
           stringValue = [cloudIdentifier stringValue];
@@ -196,7 +194,7 @@ LABEL_10:
           }
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v34 objects:v48 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v33 objects:v47 count:16];
       }
 
       while (v20);
@@ -204,8 +202,6 @@ LABEL_10:
   }
 
   [(CLFPhotosSettings_GeneratedCode *)self setSelectedSharedAlbumCloudIdentifiers:array2];
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __81__CLFPhotosSettings_Migration___saveSelectedSharedAlbumCloudIdentifiersForNames___block_invoke(uint64_t a1, void *a2)

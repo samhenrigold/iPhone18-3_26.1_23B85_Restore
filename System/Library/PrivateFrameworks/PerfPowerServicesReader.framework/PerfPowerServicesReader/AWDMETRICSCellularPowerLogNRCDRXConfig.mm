@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)frAsString:(int)string;
 - (int)StringAsFr:(id)fr;
 - (int)fr;
 - (unint64_t)hash;
@@ -280,6 +281,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFB | v3);
+}
+
+- (id)frAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10E38[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsFr:(id)fr
@@ -604,7 +620,6 @@ LABEL_39:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x8000) == 0)
@@ -624,7 +639,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  cdrxEnable = self->_cdrxEnable;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -639,7 +653,6 @@ LABEL_4:
   }
 
 LABEL_24:
-  harqRttTimerDl = self->_harqRttTimerDl;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -654,7 +667,6 @@ LABEL_5:
   }
 
 LABEL_25:
-  harqRttTimerUl = self->_harqRttTimerUl;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -669,7 +681,6 @@ LABEL_6:
   }
 
 LABEL_26:
-  drxSlotOffset = self->_drxSlotOffset;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -684,7 +695,6 @@ LABEL_7:
   }
 
 LABEL_27:
-  shortCycleEnable = self->_shortCycleEnable;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -699,7 +709,6 @@ LABEL_8:
   }
 
 LABEL_28:
-  retransmissionTimerDl = self->_retransmissionTimerDl;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -714,7 +723,6 @@ LABEL_9:
   }
 
 LABEL_29:
-  retransmissionTimerUl = self->_retransmissionTimerUl;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -729,7 +737,6 @@ LABEL_10:
   }
 
 LABEL_30:
-  onDurationTimerFraction = self->_onDurationTimerFraction;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -744,7 +751,6 @@ LABEL_11:
   }
 
 LABEL_31:
-  onDurationTimerMs = self->_onDurationTimerMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -759,7 +765,6 @@ LABEL_12:
   }
 
 LABEL_32:
-  inactivityTimerMs = self->_inactivityTimerMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -774,7 +779,6 @@ LABEL_13:
   }
 
 LABEL_33:
-  longCycle = self->_longCycle;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -789,7 +793,6 @@ LABEL_14:
   }
 
 LABEL_34:
-  longCycleOffset = self->_longCycleOffset;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -804,7 +807,6 @@ LABEL_15:
   }
 
 LABEL_35:
-  shortCycle = self->_shortCycle;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -819,7 +821,6 @@ LABEL_16:
   }
 
 LABEL_36:
-  shortCycleTimer = self->_shortCycleTimer;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -834,12 +835,10 @@ LABEL_17:
   }
 
 LABEL_37:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_18:
-    fr = self->_fr;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1373,7 +1372,6 @@ LABEL_18:
       goto LABEL_93;
     }
 
-    v7 = *(equalCopy + 72);
     if (self->_cdrxEnable)
     {
       if ((*(equalCopy + 72) & 1) == 0)
@@ -1440,7 +1438,7 @@ LABEL_18:
     }
 
 LABEL_93:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_94;
   }
 
@@ -1449,7 +1447,6 @@ LABEL_93:
     goto LABEL_93;
   }
 
-  v8 = *(equalCopy + 73);
   if (self->_shortCycleEnable)
   {
     if ((*(equalCopy + 73) & 1) == 0)
@@ -1601,17 +1598,17 @@ LABEL_32:
       goto LABEL_93;
     }
 
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = (*(equalCopy + 19) & 4) == 0;
+    v7 = (*(equalCopy + 19) & 4) == 0;
   }
 
 LABEL_94:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

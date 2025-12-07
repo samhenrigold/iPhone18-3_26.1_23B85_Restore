@@ -89,7 +89,7 @@
 {
   v9 = v8;
   v10 = v7;
-  v52 = v6;
+  v57 = v6;
   v11 = *&count;
   v12 = v5;
   MTTapDragManager_::updateLastState(&self->_dragManagerEventQueue);
@@ -97,7 +97,7 @@
   v16 = ChordTableForHand;
   cycle_state = self->_dragManagerEventQueue._cycle_state;
   hasTriggeredFluidDock = cycle_state > 2;
-  v53 = v10;
+  v58 = v10;
   if (cycle_state <= 2)
   {
     if (ChordTableForHand)
@@ -161,23 +161,23 @@ LABEL_9:
   contactCopy = contact;
   contactCopy2 = contact;
   v31 = v12;
-  v32 = MTPathStates_::unpackContactFrame(self->_pathStates.__ptr_, contactCopy2, v12, v11);
-  v33 = self->_forceManagement.__ptr_;
-  if (v33 && *(v33 + 606) == 1)
+  v33 = MTPathStates_::unpackContactFrame(self->_pathStates.__ptr_, contactCopy2, v12, v11);
+  v34 = self->_forceManagement.__ptr_;
+  if (v34 && *(v34 + 606) == 1)
   {
-    MTForceManagement_::analyzeAndManageStrongestForces(v33, p_pathStates->__ptr_);
+    MTForceManagement_::analyzeAndManageStrongestForces(v34, p_pathStates->__ptr_);
   }
 
-  v34 = MTLoggingPlugin();
-  if (os_signpost_enabled(v34))
+  v35 = MTLoggingPlugin(v34, v32);
+  if (os_signpost_enabled(v35))
   {
     *buf = 134349056;
-    v55 = v29;
-    _os_signpost_emit_with_name_impl(&dword_0, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MTTrackpadAlg-Path+Force", "%{public, signpost.description:begin_time}llu", buf, 0xCu);
+    v60 = v29;
+    _os_signpost_emit_with_name_impl(&dword_0, v35, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MTTrackpadAlg-Path+Force", "%{public, signpost.description:begin_time}llu", buf, 0xCu);
   }
 
-  v35 = mach_continuous_time();
-  if (MTHandStatistics_::processHandState(self->_mtHandStats.__ptr_, self->_pathStates.__ptr_, v32 & v9, hasTriggeredFluidDock))
+  v36 = mach_continuous_time();
+  if (MTHandStatistics_::processHandState(self->_mtHandStats.__ptr_, self->_pathStates.__ptr_, v33 & v9, hasTriggeredFluidDock))
   {
     if (v23)
     {
@@ -189,63 +189,64 @@ LABEL_9:
       ActiveDegreesOfFreedomMask = MTChordIntegrating_::getActiveDegreesOfFreedomMask((v16 + 408), self->_mtHandStats.__ptr_, v16);
     }
 
-    v37 = v31;
-    v38 = self->_mtHandStats.__ptr_;
-    v39 = *(v38 + 191);
-    if ((*(v38 + 168) & 0x20) != 0)
+    v38 = v31;
+    v39 = self->_mtHandStats.__ptr_;
+    v40 = *(v39 + 191);
+    if ((*(v39 + 168) & 0x20) != 0)
     {
-      v39 += *(v38 + 193);
-      v40 = *(v38 + 188) + *(v38 + 186);
-      v41 = *(v38 + 189) + *(v38 + 187);
+      v40 += *(v39 + 193);
+      v41 = *(v39 + 188) + *(v39 + 186);
+      v42 = *(v39 + 189) + *(v39 + 187);
     }
 
     else
     {
-      v40 = *(v38 + 186);
-      v41 = *(v38 + 187);
+      v41 = *(v39 + 186);
+      v42 = *(v39 + 187);
     }
 
-    v42 = v11 - *(v38 + 7);
-    MTHandMotion_::processHandMotion(self->_mtHandMotion.__ptr_, self->_pathStates.__ptr_, v39, v40, v41, v42, ActiveDegreesOfFreedomMask, *(v38 + 148));
-    *v52 = [(MTTrackpadUberAlg *)self createHIDCollectionEvents:(*(self->_mtHandMotion.__ptr_ + 35) | *(self->_mtHandStats.__ptr_ + 43)) timestamp:v11];
-    v43 = MTLoggingPlugin();
-    if (os_signpost_enabled(v43))
+    v43 = v11 - *(v39 + 7);
+    MTHandMotion_::processHandMotion(self->_mtHandMotion.__ptr_, self->_pathStates.__ptr_, v40, v41, v42, v43, ActiveDegreesOfFreedomMask, *(v39 + 148));
+    v44 = [(MTTrackpadUberAlg *)self createHIDCollectionEvents:(*(self->_mtHandMotion.__ptr_ + 35) | *(self->_mtHandStats.__ptr_ + 43)) timestamp:v11];
+    *v57 = v44;
+    v46 = MTLoggingPlugin(v44, v45);
+    if (os_signpost_enabled(v46))
     {
       *buf = 134349056;
-      v55 = v35;
-      _os_signpost_emit_with_name_impl(&dword_0, v43, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MTTrackpadAlg-HSHMHID", "%{public, signpost.description:begin_time}llu", buf, 0xCu);
+      v60 = v36;
+      _os_signpost_emit_with_name_impl(&dword_0, v46, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MTTrackpadAlg-HSHMHID", "%{public, signpost.description:begin_time}llu", buf, 0xCu);
     }
 
-    if (!*v52)
+    if (!*v57)
     {
       goto LABEL_42;
     }
 
-    v44 = self->_forceManagement.__ptr_;
-    if (v44)
+    v47 = self->_forceManagement.__ptr_;
+    if (v47)
     {
-      v45 = v31 < 1 ? v9 : 0;
-      if (MTForceManagement_::actuateForceAndHIDEvents(v44, p_pathStates->__ptr_, *v52, v45))
+      v48 = v31 < 1 ? v9 : 0;
+      if (MTForceManagement_::actuateForceAndHIDEvents(v47, p_pathStates->__ptr_, *v57, v48))
       {
         [(MTTrackpadUberAlg *)self setDivingButtonState:MTForceManagement_::isForceButtonActivated(self->_forceManagement.__ptr_)];
-        MTDragManagerEventQueue_::forceButtonChange(&self->_dragManagerEventQueue, *v52);
+        MTDragManagerEventQueue_::forceButtonChange(&self->_dragManagerEventQueue, *v57);
       }
     }
 
-    v46 = mach_continuous_time();
-    (*(*v16 + 32))(v16, self->_mtHandStats.__ptr_, self->_mtHandMotion.__ptr_, *v52);
-    v47 = MTLoggingPlugin();
-    if (os_signpost_enabled(v47))
+    v49 = mach_continuous_time();
+    v50 = (*(*v16 + 32))(v16, self->_mtHandStats.__ptr_, self->_mtHandMotion.__ptr_, *v57);
+    v52 = MTLoggingPlugin(v50, v51);
+    if (os_signpost_enabled(v52))
     {
       *buf = 134349056;
-      v55 = v46;
-      _os_signpost_emit_with_name_impl(&dword_0, v47, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MTTrackpadAlg-Gesture", "%{public, signpost.description:begin_time}llu", buf, 0xCu);
+      v60 = v49;
+      _os_signpost_emit_with_name_impl(&dword_0, v52, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MTTrackpadAlg-Gesture", "%{public, signpost.description:begin_time}llu", buf, 0xCu);
     }
 
-    [(MTTrackpadUberAlg *)self updateFingerStats:*v52];
-    if (MTTapDragManager_::hasPhysicalDraggingEnded(&self->_dragManagerEventQueue, contactCopy, v37))
+    [(MTTrackpadUberAlg *)self updateFingerStats:*v57];
+    if (MTTapDragManager_::hasPhysicalDraggingEnded(&self->_dragManagerEventQueue, contactCopy, v38))
     {
-      [(MTTrackpadUberAlg *)self appendInjectedPointerEventToBaseEvent:v52];
+      [(MTTrackpadUberAlg *)self appendInjectedPointerEventToBaseEvent:v57];
     }
 
     if (self->_dragManagerEventQueue._cycle_state >= 1 && *(self->_mtHandStats.__ptr_ + 211) + *(self->_mtHandStats.__ptr_ + 186) <= self->_dragManagerEventQueue._resting_finger_count)
@@ -254,33 +255,33 @@ LABEL_9:
     }
   }
 
-  if (*v52)
+  if (*v57)
   {
     goto LABEL_44;
   }
 
 LABEL_42:
-  v48 = self->_mtHandStats.__ptr_;
-  if (!*(v48 + 186) || *(v48 + 211) + *(v48 + 186) <= self->_dragManagerEventQueue._resting_finger_count)
+  v53 = self->_mtHandStats.__ptr_;
+  if (!*(v53 + 186) || *(v53 + 211) + *(v53 + 186) <= self->_dragManagerEventQueue._resting_finger_count)
   {
 LABEL_46:
-    v50 = v53;
-    if (!v53)
+    v55 = v58;
+    if (!v58)
     {
       return;
     }
 
-    [(MTTrackpadUberAlg *)self autoReleaseTapAndAHalfDrag:v52 eventRef:v11];
+    [(MTTrackpadUberAlg *)self autoReleaseTapAndAHalfDrag:v57 eventRef:v11];
     goto LABEL_48;
   }
 
 LABEL_44:
-  v49 = 0;
-  v50 = v53;
-  if (v53)
+  v54 = 0;
+  v55 = v58;
+  if (v58)
   {
 LABEL_48:
-    *v50 = v49;
+    *v55 = v54;
   }
 }
 
@@ -821,7 +822,7 @@ LABEL_47:
   if (v8)
   {
     *(v8 + 608) = 1;
-    MTForceBehavior_Configuration::clearBehaviors((v8 + 272));
+    MTForceBehavior_Configuration::clearBehaviors(v8 + 272);
     if ([settingsCopy forceSuppressed])
     {
       v9 = 1;
@@ -854,7 +855,7 @@ LABEL_47:
       v12 = objc_opt_class();
       if (v12)
       {
-        [v12 forceBehaviorFromForceConfig:v10 mask:{34, *&v18.var0, *&v18.var4}];
+        objc_msgSend_forceBehaviorFromForceConfig_mask_(v12, *&v18.var0, *&v18.var4);
       }
 
       else
@@ -915,7 +916,7 @@ LABEL_47:
         v16 = objc_opt_class();
         if (v16)
         {
-          [v16 forceBehaviorFromForceConfig:v14 mask:v13];
+          objc_msgSend_forceBehaviorFromForceConfig_mask_(v16);
         }
 
         else
@@ -1091,44 +1092,44 @@ LABEL_47:
 {
   configurationCopy = configuration;
   valueCopy = value;
-  v32 = valueCopy;
+  v31 = valueCopy;
   if (valueCopy && (v7 = self->_forceManagement.__ptr_) != 0 && (*(v7 + 607) & 1) == 0 && (v8 = valueCopy, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v9 = v8;
-    v30 = v9;
+    v29 = v9;
     v10 = [v9 objectForKey:@"Version"];
-    v31 = v10;
+    v30 = v10;
     if (v10 && [v10 isEqualToNumber:&off_112488])
     {
       v11 = [v9 objectForKey:@"Behaviors"];
-      v29 = v11;
+      v28 = v11;
       if (v11)
       {
         if ([configurationCopy isEqualToString:@"MTGestureConfiguration"])
         {
-          MTForceBehavior_Configuration::clearNonDefaultBehaviors((self->_forceManagement.__ptr_ + 272));
+          MTForceBehavior_Configuration::clearNonDefaultBehaviors(self->_forceManagement.__ptr_ + 272);
         }
 
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
         v12 = v11;
         v13 = 0;
-        v14 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (v14)
         {
-          v15 = *v36;
+          v15 = *v35;
           do
           {
             for (i = 0; i != v14; i = i + 1)
             {
-              if (*v36 != v15)
+              if (*v35 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v17 = *(*(&v35 + 1) + 8 * i);
+              v17 = *(*(&v34 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -1141,71 +1142,70 @@ LABEL_47:
                   v22 = [objc_opt_class() getForceSourceForBehavior:intValue secondaryClickEnabled:self->_secondaryClick == 1];
                   if (v21)
                   {
-                    v23 = v22;
                     if (v22)
                     {
-                      *&v24 = 0xAAAAAAAAAAAAAAAALL;
-                      *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                      *&v34.var8.__cap_ = v24;
-                      *&v34.var9.__end_ = v24;
-                      *&v34.var7.__end_ = v24;
-                      *&v34.var8.__begin_ = v24;
-                      *&v34.var6.__begin_ = v24;
-                      *&v34.var6.__cap_ = v24;
-                      *&v34.var4 = v24;
-                      *&v34.var5.var1 = v24;
-                      *&v34.var0 = v24;
-                      v25 = objc_opt_class();
+                      *&v23 = 0xAAAAAAAAAAAAAAAALL;
+                      *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
+                      *&v33.var8.__cap_ = v23;
+                      *&v33.var9.__end_ = v23;
+                      *&v33.var7.__end_ = v23;
+                      *&v33.var8.__begin_ = v23;
+                      *&v33.var6.__begin_ = v23;
+                      *&v33.var6.__cap_ = v23;
+                      *&v33.var4 = v23;
+                      *&v33.var5.var1 = v23;
+                      *&v33.var0 = v23;
+                      v24 = objc_opt_class();
+                      if (v24)
+                      {
+                        objc_msgSend_forceBehaviorFromForceConfig_mask_(v24);
+                      }
+
+                      else
+                      {
+                        memset(&v33, 0, sizeof(v33));
+                      }
+
+                      v25 = [configurationCopy isEqualToString:@"MTGestureConfiguration"];
+                      ptr = self->_forceManagement.__ptr_;
                       if (v25)
                       {
-                        [v25 forceBehaviorFromForceConfig:v21 mask:v23];
+                        MTForceBehavior_Configuration::pushBehavior((ptr + 272), &v33);
                       }
 
                       else
                       {
-                        memset(&v34, 0, sizeof(v34));
+                        MTForceManagement_::setOverrideBehavior(ptr, &v33);
                       }
 
-                      v26 = [configurationCopy isEqualToString:@"MTGestureConfiguration"];
-                      ptr = self->_forceManagement.__ptr_;
-                      if (v26)
+                      if (v33.var9.__begin_)
                       {
-                        MTForceBehavior_Configuration::pushBehavior((ptr + 272), &v34);
+                        v33.var9.__end_ = v33.var9.__begin_;
+                        operator delete(v33.var9.__begin_);
                       }
 
-                      else
+                      if (v33.var8.__begin_)
                       {
-                        MTForceManagement_::setOverrideBehavior(ptr, &v34);
+                        v33.var8.__end_ = v33.var8.__begin_;
+                        operator delete(v33.var8.__begin_);
                       }
 
-                      if (v34.var9.__begin_)
+                      if (v33.var7.__begin_)
                       {
-                        v34.var9.__end_ = v34.var9.__begin_;
-                        operator delete(v34.var9.__begin_);
+                        v33.var7.__end_ = v33.var7.__begin_;
+                        operator delete(v33.var7.__begin_);
                       }
 
-                      if (v34.var8.__begin_)
+                      if (v33.var6.__begin_)
                       {
-                        v34.var8.__end_ = v34.var8.__begin_;
-                        operator delete(v34.var8.__begin_);
+                        v33.var6.__end_ = v33.var6.__begin_;
+                        operator delete(v33.var6.__begin_);
                       }
 
-                      if (v34.var7.__begin_)
+                      if (v33.var5.var0)
                       {
-                        v34.var7.__end_ = v34.var7.__begin_;
-                        operator delete(v34.var7.__begin_);
-                      }
-
-                      if (v34.var6.__begin_)
-                      {
-                        v34.var6.__end_ = v34.var6.__begin_;
-                        operator delete(v34.var6.__begin_);
-                      }
-
-                      if (v34.var5.var0)
-                      {
-                        v34.var5.var1 = v34.var5.var0;
-                        operator delete(v34.var5.var0);
+                        v33.var5.var1 = v33.var5.var0;
+                        operator delete(v33.var5.var0);
                       }
 
                       v13 = 1;
@@ -1217,7 +1217,7 @@ LABEL_47:
               }
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
           }
 
           while (v14);
@@ -1359,7 +1359,7 @@ LABEL_11:
   v11 = v5;
   v12 = v5;
   v10 = v5;
-  HSUtil::Decoder::decodeMap(decode, &v10);
+  HSUtil::Decoder::decodeMap(&v10, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));
@@ -1490,44 +1490,50 @@ LABEL_21:
 
 - (void)hsDecode:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.4()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.5()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.6()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

@@ -31,7 +31,7 @@
 
 - (id)dataSourceProfileFields
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDSiriEndpointProfileMetricsDispatcher *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -48,7 +48,7 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get profile fields due to no data source", buf, 0xCu);
     }
 
@@ -58,14 +58,12 @@
 
   v10 = v5;
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)dataSourceCompositeSettingsControllerManager
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDSiriEndpointProfileMetricsDispatcher *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -84,11 +82,11 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v17 = 138543618;
-        v18 = v14;
-        v19 = 2112;
-        v20 = v4;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get composite settings controller manager from data source: %@", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v14;
+        v18 = 2112;
+        v19 = v4;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get composite settings controller manager from data source: %@", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -104,23 +102,21 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to get accessory category type due to no data source", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to get accessory category type due to no data source", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     v6 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)dataSourceAccessoryCategoryType
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDSiriEndpointProfileMetricsDispatcher *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -136,23 +132,21 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get accessory category type due to no data source", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get accessory category type due to no data source", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = @"NoDataSource";
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (BOOL)dataSourceShouldSubmitRoutineConfigurationEvent
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDSiriEndpointProfileMetricsDispatcher *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -168,16 +162,15 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get should submit routine configuration event due to no data source", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get should submit routine configuration event due to no data source", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -214,33 +207,33 @@
 
 void __70__HMDSiriEndpointProfileMetricsDispatcher_fetchAccessorySettingFields__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v43 = a3;
-  v42 = a4;
-  v49 = objc_alloc_init(HMDSiriEndpointProfileAccessorySettingFields);
+  v42 = a3;
+  v41 = a4;
+  v48 = objc_alloc_init(HMDSiriEndpointProfileAccessorySettingFields);
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v8 = v7;
-  v50 = [v8 countByEnumeratingWithState:&v51 objects:v61 count:16];
-  if (v50)
+  v49 = [v8 countByEnumeratingWithState:&v50 objects:v60 count:16];
+  if (v49)
   {
-    v9 = *v52;
-    v44 = a1;
-    v48 = *v52;
-    v47 = v8;
+    v9 = *v51;
+    v43 = a1;
+    v47 = *v51;
+    v46 = v8;
     do
     {
-      for (i = 0; i != v50; ++i)
+      for (i = 0; i != v49; ++i)
       {
-        if (*v52 != v9)
+        if (*v51 != v9)
         {
           objc_enumerationMutation(v8);
         }
 
-        v11 = *(*(&v51 + 1) + 8 * i);
+        v11 = *(*(&v50 + 1) + 8 * i);
         v12 = [v11 setting];
         if (v12)
         {
@@ -261,7 +254,7 @@ void __70__HMDSiriEndpointProfileMetricsDispatcher_fetchAccessorySettingFields__
           {
             v16 = [v12 BOOLValue];
             v17 = [v11 keyPath];
-            [(HMDSiriEndpointProfileAccessorySettingFields *)v49 setBoolValue:v16 forKeyPath:v17];
+            [(HMDSiriEndpointProfileAccessorySettingFields *)v48 setBoolValue:v16 forKeyPath:v17];
           }
 
           else
@@ -285,7 +278,7 @@ void __70__HMDSiriEndpointProfileMetricsDispatcher_fetchAccessorySettingFields__
             {
               v27 = [v24 numberValue];
               v28 = [v11 keyPath];
-              [(HMDSiriEndpointProfileAccessorySettingFields *)v49 setNumberValue:v27 forKeyPath:v28];
+              [(HMDSiriEndpointProfileAccessorySettingFields *)v48 setNumberValue:v27 forKeyPath:v28];
             }
 
             else
@@ -307,16 +300,16 @@ void __70__HMDSiriEndpointProfileMetricsDispatcher_fetchAccessorySettingFields__
 
               if (v30)
               {
-                v46 = objc_alloc(MEMORY[0x277CD1DC0]);
-                v45 = [v29 inputLanguageCode];
+                v45 = objc_alloc(MEMORY[0x277CD1DC0]);
+                v44 = [v29 inputLanguageCode];
                 v32 = [v29 outputVoiceLanguageCode];
                 v33 = [v29 outputVoiceGenderCode];
                 v34 = [v29 voiceName];
-                v35 = [v46 initWithInputLanguageCode:v45 outputVoiceLanguageCode:v32 outputVoiceGenderCode:v33 voiceName:v34];
+                v35 = [v45 initWithInputLanguageCode:v44 outputVoiceLanguageCode:v32 outputVoiceGenderCode:v33 voiceName:v34];
 
-                a1 = v44;
+                a1 = v43;
                 v36 = [v11 keyPath];
-                [(HMDSiriEndpointProfileAccessorySettingFields *)v49 setLanguageValue:v35 forKeyPath:v36];
+                [(HMDSiriEndpointProfileAccessorySettingFields *)v48 setLanguageValue:v35 forKeyPath:v36];
               }
 
               else
@@ -328,21 +321,21 @@ void __70__HMDSiriEndpointProfileMetricsDispatcher_fetchAccessorySettingFields__
                 {
                   v40 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v56 = v40;
-                  v57 = 2112;
-                  v58 = v11;
+                  v55 = v40;
+                  v56 = 2112;
+                  v57 = v11;
                   _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_ERROR, "%{public}@Failed to set setting from result: %@", buf, 0x16u);
 
-                  a1 = v44;
+                  a1 = v43;
                 }
 
                 objc_autoreleasePoolPop(v37);
               }
 
-              v8 = v47;
+              v8 = v46;
             }
 
-            v9 = v48;
+            v9 = v47;
           }
         }
 
@@ -357,28 +350,27 @@ void __70__HMDSiriEndpointProfileMetricsDispatcher_fetchAccessorySettingFields__
             v22 = [v11 keyPath];
             v23 = [v11 error];
             *buf = 138543874;
-            v56 = v21;
-            v57 = 2112;
-            v58 = v22;
-            v59 = 2112;
-            v60 = v23;
+            v55 = v21;
+            v56 = 2112;
+            v57 = v22;
+            v58 = 2112;
+            v59 = v23;
             _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to local fetch setting for key path: %@ error: %@", buf, 0x20u);
 
-            v9 = v48;
+            v9 = v47;
           }
 
           objc_autoreleasePoolPop(v18);
         }
       }
 
-      v50 = [v8 countByEnumeratingWithState:&v51 objects:v61 count:16];
+      v49 = [v8 countByEnumeratingWithState:&v50 objects:v60 count:16];
     }
 
-    while (v50);
+    while (v49);
   }
 
-  [*(a1 + 40) finishWithResult:v49];
-  v41 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) finishWithResult:v48];
 }
 
 - (void)submitRoutineConfigurationEventWithAccessorySettingFields:(id)fields
@@ -394,7 +386,7 @@ void __70__HMDSiriEndpointProfileMetricsDispatcher_fetchAccessorySettingFields__
 
 - (void)submitRoutineConfigurationEvent
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(HMDSiriEndpointProfileMetricsDispatcher *)self dataSourceShouldSubmitRoutineConfigurationEvent])
   {
     v3 = objc_autoreleasePoolPush();
@@ -404,32 +396,30 @@ void __70__HMDSiriEndpointProfileMetricsDispatcher_fetchAccessorySettingFields__
     {
       v6 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Submitting routine configuration event", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     fetchAccessorySettingFields = [(HMDSiriEndpointProfileMetricsDispatcher *)selfCopy fetchAccessorySettingFields];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __74__HMDSiriEndpointProfileMetricsDispatcher_submitRoutineConfigurationEvent__block_invoke;
-    v12[3] = &unk_2797359D8;
-    v12[4] = selfCopy;
-    v8 = [fetchAccessorySettingFields addFailureBlock:v12];
     v11[0] = MEMORY[0x277D85DD0];
     v11[1] = 3221225472;
-    v11[2] = __74__HMDSiriEndpointProfileMetricsDispatcher_submitRoutineConfigurationEvent__block_invoke_5;
-    v11[3] = &unk_279729F40;
+    v11[2] = __74__HMDSiriEndpointProfileMetricsDispatcher_submitRoutineConfigurationEvent__block_invoke;
+    v11[3] = &unk_2797359D8;
     v11[4] = selfCopy;
-    v9 = [fetchAccessorySettingFields addSuccessBlock:v11];
+    v8 = [fetchAccessorySettingFields addFailureBlock:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __74__HMDSiriEndpointProfileMetricsDispatcher_submitRoutineConfigurationEvent__block_invoke_5;
+    v10[3] = &unk_279729F40;
+    v10[4] = selfCopy;
+    v9 = [fetchAccessorySettingFields addSuccessBlock:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDSiriEndpointProfileMetricsDispatcher_submitRoutineConfigurationEvent__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -437,16 +427,14 @@ void __74__HMDSiriEndpointProfileMetricsDispatcher_submitRoutineConfigurationEve
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Fetch accessory setting fields failed", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Fetch accessory setting fields failed", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = objc_alloc_init(HMDSiriEndpointProfileAccessorySettingFields);
   [*(a1 + 32) submitRoutineConfigurationEventWithAccessorySettingFields:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSiriEndpointProfileMetricsDispatcher)initWithAccessoryUUID:(id)d homeUUID:(id)iD logEventSubmitter:(id)submitter
@@ -496,12 +484,11 @@ LABEL_7:
 
 uint64_t __54__HMDSiriEndpointProfileMetricsDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13_93539;
-  logCategory__hmf_once_v13_93539 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13_93539;
+  logCategory__hmf_once_v13_93539 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

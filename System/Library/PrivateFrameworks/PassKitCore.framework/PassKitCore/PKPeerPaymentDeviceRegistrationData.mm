@@ -154,42 +154,38 @@
     }
   }
 
-  else
+  else if (([(NSString *)signedAuthToken isEqual:?]& 1) == 0)
   {
-    v8 = [(NSString *)signedAuthToken isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_30;
-    }
+    goto LABEL_30;
   }
 
-  v9 = dataCopy[2];
-  v10 = self->_authorizationHeader;
-  v11 = v9;
-  v12 = v11;
-  if (v10 == v11)
+  v8 = dataCopy[2];
+  v9 = self->_authorizationHeader;
+  v10 = v8;
+  v11 = v10;
+  if (v9 == v10)
   {
   }
 
   else
   {
-    if (!v10 || !v11)
+    if (!v9 || !v10)
     {
 
       goto LABEL_30;
     }
 
-    v13 = [(NSString *)v10 isEqualToString:v11];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if (!v13)
+    if (!isEqualToString)
     {
       goto LABEL_30;
     }
   }
 
   enrollmentData = self->_enrollmentData;
-  v15 = dataCopy[4];
-  if (enrollmentData && v15)
+  v14 = dataCopy[4];
+  if (enrollmentData && v14)
   {
     if (([(NSDictionary *)enrollmentData isEqual:?]& 1) == 0)
     {
@@ -197,22 +193,22 @@
     }
   }
 
-  else if (enrollmentData != v15)
+  else if (enrollmentData != v14)
   {
     goto LABEL_30;
   }
 
   signedEnrollmentDataSignature = self->_signedEnrollmentDataSignature;
-  v17 = dataCopy[5];
-  if (!signedEnrollmentDataSignature || !v17)
+  v16 = dataCopy[5];
+  if (!signedEnrollmentDataSignature || !v16)
   {
-    if (signedEnrollmentDataSignature == v17)
+    if (signedEnrollmentDataSignature == v16)
     {
       goto LABEL_26;
     }
 
 LABEL_30:
-    v20 = 0;
+    v19 = 0;
     goto LABEL_31;
   }
 
@@ -228,20 +224,20 @@ LABEL_26:
   }
 
   companionSerialNumber = self->_companionSerialNumber;
-  v19 = dataCopy[6];
-  if (companionSerialNumber && v19)
+  v18 = dataCopy[6];
+  if (companionSerialNumber && v18)
   {
-    v20 = [(NSString *)companionSerialNumber isEqual:?];
+    v19 = [(NSString *)companionSerialNumber isEqual:?];
   }
 
   else
   {
-    v20 = companionSerialNumber == v19;
+    v19 = companionSerialNumber == v18;
   }
 
 LABEL_31:
 
-  return v20;
+  return v19;
 }
 
 @end

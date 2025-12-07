@@ -161,23 +161,27 @@
 
 - (JUMeasurements)measurementsWithFitting:(CGSize)fitting in:(id)in
 {
+  height = fitting.height;
+  width = fitting.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  DynamicLabel.measurements(fitting:in:)(in);
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
+  v9.n128_f64[0] = width;
+  v10.n128_f64[0] = height;
+  DynamicLabel.measurements(fitting:in:)(in, v11, v9, v10);
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
   swift_unknownObjectRelease();
 
-  v15 = v8;
-  v16 = v10;
-  v17 = v12;
-  v18 = v14;
-  result.var3 = v18;
-  result.var2 = v17;
-  result.var1 = v16;
-  result.var0 = v15;
+  v20 = v13;
+  v21 = v15;
+  v22 = v17;
+  v23 = v19;
+  result.var3 = v23;
+  result.var2 = v22;
+  result.var1 = v21;
+  result.var0 = v20;
   return result;
 }
 

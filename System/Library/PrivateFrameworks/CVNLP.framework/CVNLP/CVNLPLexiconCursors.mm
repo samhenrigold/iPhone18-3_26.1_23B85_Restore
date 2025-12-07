@@ -135,25 +135,24 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   __p = 0;
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
   begin = self->_sortedCursors.__begin_;
   end = self->_sortedCursors.__end_;
   if (begin != end)
   {
-    v5 = *begin;
     LXCursorCreateByAdvancing();
     operator new();
   }
 
-  v6 = [CVNLPLexiconCursors alloc];
-  result = objc_msgSend_initWithSortedCursors_(v6, v7, &__p, v8);
+  v5 = [CVNLPLexiconCursors alloc];
+  result = objc_msgSend_initWithSortedCursors_(v5, v6, &__p, v7);
   if (__p)
   {
-    v12 = __p;
-    v10 = result;
+    v11 = __p;
+    v9 = result;
     operator delete(__p);
-    return v10;
+    return v9;
   }
 
   return result;

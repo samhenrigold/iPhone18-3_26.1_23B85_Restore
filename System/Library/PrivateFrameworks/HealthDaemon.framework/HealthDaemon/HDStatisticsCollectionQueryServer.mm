@@ -2,14 +2,16 @@
 + (BOOL)validateConfiguration:(id)configuration client:(id)client error:(id *)error;
 - (HDStatisticsCollectionQueryServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate;
 - (id)_newCachingSessionWithProfile:(id)profile cachingIdentifier:(id)identifier sourceEntity:(id)entity queryDescriptor:(id)descriptor cachedClass:(Class)class queryInterval:(id)interval anchorDate:(id)date intervalComponents:(id)self0 timeIntervalToBucketIndex:(id)self1;
-- (uint64_t)_queue_accumulateUpdatedStatistics:(void *)statistics accumulatedStatistics:(void *)accumulatedStatistics sendHandler:;
+- (id)_queue_accumulateUpdatedStatistics:(void *)statistics accumulatedStatistics:(void *)accumulatedStatistics sendHandler:;
+- (id)transactionalQuantityInsertHandlerForProfile:(id)profile journaled:(BOOL)journaled count:(int64_t)count;
 - (void)_queue_deliverUpdatedStatistics:(void *)statistics error:;
 - (void)_queue_fetchAndDeliverAllStatistics;
 - (void)_queue_scheduleUpdate;
-- (void)_queue_sendAccumulatedStatistics:(void *)statistics cachedStatistics:(uint64_t)cachedStatistics isFinal:(void *)final statisticsCount:(_BYTE *)count shouldResetStatistics:;
+- (void)_queue_sendAccumulatedStatistics:(void *)statistics cachedStatistics:(uint64_t)cachedStatistics isFinal:(char *)final statisticsCount:(_BYTE *)count shouldResetStatistics:;
 - (void)_queue_start;
 - (void)_queue_updateStatistics;
 - (void)_queue_useCachedStatistics;
+- (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available;
 - (void)profile:(id)profile didDiscardSeriesOfType:(id)type;
 @end
 
@@ -120,7 +122,7 @@ LABEL_10:
     if (supportsCachedStatisticsCollectionQueries)
     {
       cacheSettings = [configurationCopy cacheSettings];
-      v46 = [cacheSettings copy];
+      v46 = objc_msgSend_copy(cacheSettings);
       cacheSettings = v11->_cacheSettings;
       v11->_cacheSettings = v46;
     }
@@ -224,7 +226,7 @@ LABEL_17:
 
 - (void)_queue_fetchAndDeliverAllStatistics
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   if (self)
   {
     queryQueue = [self queryQueue];
@@ -233,10 +235,10 @@ LABEL_17:
     if (([self _shouldStopProcessingQuery] & 1) == 0)
     {
       clientProxy = [self clientProxy];
-      v110[0] = 0;
-      v110[1] = v110;
-      v110[2] = 0x2020000000;
-      v111 = 1;
+      v109[0] = 0;
+      v109[1] = v109;
+      v109[2] = 0x2020000000;
+      v110 = 1;
       v3 = *(self + 240);
       *(self + 240) = 0;
 
@@ -254,9 +256,9 @@ LABEL_17:
       }
 
       sampleType2 = [self sampleType];
-      v109 = 0;
-      v11 = [self authorizationStatusRecordForType:sampleType2 error:&v109];
-      v89 = v109;
+      v108 = 0;
+      v11 = [self authorizationStatusRecordForType:sampleType2 error:&v108];
+      v88 = v108;
 
       if (!v11)
       {
@@ -265,7 +267,7 @@ LABEL_17:
         if (os_log_type_enabled(queryUUID, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v89;
+          *&buf[4] = v88;
           _os_log_error_impl(&dword_228986000, queryUUID, OS_LOG_TYPE_ERROR, "Failed to retrieve authorization status; skipping statistics fetch: %{public}@", buf, 0xCu);
         }
 
@@ -293,9 +295,9 @@ LABEL_17:
           [clientProxy2 client_deliverError:v15 forQuery:queryUUID2];
 
 LABEL_40:
-          _Block_object_dispose(v110, 8);
+          _Block_object_dispose(v109, 8);
 
-          goto LABEL_41;
+          return;
         }
       }
 
@@ -309,9 +311,9 @@ LABEL_40:
       v19 = [v17 compoundPredicateWithPredicate:v14 otherPredicate:authorizationPredicate];
 
       restrictedSourceEntities = [v11 restrictedSourceEntities];
-      v87 = v19;
+      v86 = v19;
       v21 = restrictedSourceEntities;
-      v84 = queryUUID;
+      v83 = queryUUID;
       v22 = *(self + 312);
       if ((_HKStatisticsOptionBaselineRelativeQuantities() & v22) != 0)
       {
@@ -321,43 +323,22 @@ LABEL_40:
         quantityType3 = [self quantityType];
         v27 = HKRollingBaselineConfigurationForQuantityType();
         date = [MEMORY[0x277CBEAA8] date];
-        v29 = [(HDStatisticsCollectionCalculatorRelativeDataSource *)v23 initForProfile:profile3 quantityType:quantityType2 predicate:v87 restrictedSourceEntities:v21 configuration:v27 currentDate:date];
+        v29 = [(HDStatisticsCollectionCalculatorRelativeDataSource *)v23 initForProfile:profile3 quantityType:quantityType2 predicate:v86 restrictedSourceEntities:v21 configuration:v27 currentDate:date];
       }
 
       else
       {
         v30 = *(self + 312);
-        if ((_HKStatisticsOptionAttenuateSamples() & v30) == 0)
+        if ((_HKStatisticsOptionAttenuateSamples() & v30) == 0 || ([self quantityType], v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCD830], "quantityTypeForIdentifier:", *MEMORY[0x277CCCB58]), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v31, "isEqual:", v32), v32, v31, !v33) || (objc_msgSend(MEMORY[0x277CCD830], "_quantityTypeWithCode:", 272), v34 = objc_claimAutoreleasedReturnValue(), v35 = [HDStatisticsCollectionCalculatorAttenuatedDataSource alloc], objc_msgSend(self, "profile"), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "quantityType"), v37 = objc_claimAutoreleasedReturnValue(), v29 = -[HDStatisticsCollectionCalculatorAttenuatedDataSource initForProfile:quantityType:predicate:restrictedSourceEntities:attenuationType:](v35, "initForProfile:quantityType:predicate:restrictedSourceEntities:attenuationType:", v36, v37, v86, v21, v34), v37, v36, v34, !v29))
         {
-          goto LABEL_19;
-        }
-
-        quantityType4 = [self quantityType];
-        v32 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB58]];
-        v33 = [quantityType4 isEqual:v32];
-
-        if (!v33)
-        {
-          goto LABEL_19;
-        }
-
-        v34 = [MEMORY[0x277CCD830] _quantityTypeWithCode:272];
-        v35 = [HDStatisticsCollectionCalculatorAttenuatedDataSource alloc];
-        profile4 = [self profile];
-        quantityType5 = [self quantityType];
-        v29 = [(HDStatisticsCollectionCalculatorAttenuatedDataSource *)v35 initForProfile:profile4 quantityType:quantityType5 predicate:v87 restrictedSourceEntities:v21 attenuationType:v34];
-
-        if (!v29)
-        {
-LABEL_19:
           v38 = [HDStatisticsCollectionCalculatorDefaultDataSource alloc];
-          profile5 = [self profile];
-          quantityType6 = [self quantityType];
-          v29 = [(HDStatisticsCollectionCalculatorDefaultDataSource *)v38 initForProfile:profile5 quantityType:quantityType6 predicate:v87 restrictedSourceEntities:v21];
+          profile4 = [self profile];
+          quantityType4 = [self quantityType];
+          v29 = [(HDStatisticsCollectionCalculatorDefaultDataSource *)v38 initForProfile:profile4 quantityType:quantityType4 predicate:v86 restrictedSourceEntities:v21];
         }
 
         [v29 setIncludeUnfrozenSeries:1];
-        [v29 setFilter:v84];
+        [v29 setFilter:v83];
         [v29 setShouldContinueFrequency:1];
       }
 
@@ -367,42 +348,42 @@ LABEL_19:
       [*(self + 232) setDataSource:*(self + 216)];
       [*(self + 232) reset];
       objc_initWeak(&location, self);
-      v107[0] = 0;
-      v107[1] = v107;
-      v107[2] = 0x2020000000;
-      v107[3] = 0;
+      v106[0] = 0;
+      v106[1] = v106;
+      v106[2] = 0x2020000000;
+      v106[3] = 0;
       v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 3221225472;
       aBlock[2] = __72__HDStatisticsCollectionQueryServer__queue_fetchAndDeliverAllStatistics__block_invoke;
       aBlock[3] = &unk_278627830;
-      objc_copyWeak(&v106, &location);
+      objc_copyWeak(&v105, &location);
       v43 = v42;
-      v103 = v43;
-      v104 = v107;
-      v105 = v110;
+      v102 = v43;
+      v103 = v106;
+      v104 = v109;
       v44 = _Block_copy(aBlock);
-      v98[0] = MEMORY[0x277D85DD0];
-      v98[1] = 3221225472;
-      v98[2] = __72__HDStatisticsCollectionQueryServer__queue_fetchAndDeliverAllStatistics__block_invoke_2;
-      v98[3] = &unk_278627858;
-      objc_copyWeak(&v101, &location);
-      v82 = v43;
+      v97[0] = MEMORY[0x277D85DD0];
+      v97[1] = 3221225472;
+      v97[2] = __72__HDStatisticsCollectionQueryServer__queue_fetchAndDeliverAllStatistics__block_invoke_2;
+      v97[3] = &unk_278627858;
+      objc_copyWeak(&v100, &location);
+      v81 = v43;
+      v98 = v81;
+      v82 = v44;
       v99 = v82;
-      v83 = v44;
-      v100 = v83;
-      [*(self + 232) setStatisticsHandler:v98];
-      v96[0] = 0;
-      v96[1] = v96;
-      v96[2] = 0x2020000000;
-      v97 = 0;
-      v94[0] = MEMORY[0x277D85DD0];
-      v94[1] = 3221225472;
-      v94[2] = __72__HDStatisticsCollectionQueryServer__queue_fetchAndDeliverAllStatistics__block_invoke_3;
-      v94[3] = &unk_278627880;
-      objc_copyWeak(&v95, &location);
-      v94[4] = v96;
-      [*(self + 216) setShouldContinueHandler:v94];
+      [*(self + 232) setStatisticsHandler:v97];
+      v95[0] = 0;
+      v95[1] = v95;
+      v95[2] = 0x2020000000;
+      v96 = 0;
+      v93[0] = MEMORY[0x277D85DD0];
+      v93[1] = 3221225472;
+      v93[2] = __72__HDStatisticsCollectionQueryServer__queue_fetchAndDeliverAllStatistics__block_invoke_3;
+      v93[3] = &unk_278627880;
+      objc_copyWeak(&v94, &location);
+      v93[4] = v95;
+      [*(self + 216) setShouldContinueHandler:v93];
       [self setDataCount:0];
       if (*(self + 280))
       {
@@ -423,43 +404,43 @@ LABEL_19:
         }
 
         restrictedSourceEntities2 = [v11 restrictedSourceEntities];
-        v93 = v89;
-        v85 = restrictedSourceEntities2;
-        v48 = v87;
+        v92 = v88;
+        v84 = restrictedSourceEntities2;
+        v48 = v86;
         queryQueue2 = [self queryQueue];
         dispatch_assert_queue_V2(queryQueue2);
 
         v50 = [HDQueryDescriptor alloc];
         v51 = MEMORY[0x277CBEB98];
-        quantityType7 = [self quantityType];
-        v53 = [v51 setWithObject:quantityType7];
-        v81 = [(HDQueryDescriptor *)v50 initWithSampleTypes:v53 encodingOptions:0 restrictedSourceEntities:v85 authorizationFilter:0 samplePredicate:v48];
+        quantityType5 = [self quantityType];
+        v53 = [v51 setWithObject:quantityType5];
+        v80 = [(HDQueryDescriptor *)v50 initWithSampleTypes:v53 encodingOptions:0 restrictedSourceEntities:v84 authorizationFilter:0 samplePredicate:v48];
 
-        profile6 = [self profile];
-        sourceManager = [profile6 sourceManager];
-        v56 = [sourceManager localDeviceSourceWithError:&v93];
+        profile5 = [self profile];
+        sourceManager = [profile5 sourceManager];
+        v56 = [sourceManager localDeviceSourceWithError:&v92];
 
         if (v56)
         {
           intervalComponents = [*(self + 208) intervalComponents];
-          v58 = [intervalComponents copy];
+          v58 = objc_msgSend_copy(intervalComponents);
 
-          profile7 = [self profile];
+          profile6 = [self profile];
           identifier2 = [*(self + 280) identifier];
-          v80 = objc_opt_class();
+          v79 = objc_opt_class();
           v61 = *(self + 264);
           v62 = queryUUID;
           v63 = *(self + 304);
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __103__HDStatisticsCollectionQueryServer__queue_cachingSessionWithPredicate_restrictedSourceEntities_error___block_invoke;
-          v113 = &unk_2786163E8;
-          v114 = v58;
+          v112 = &unk_2786163E8;
+          v113 = v58;
           v64 = v58;
-          v79 = v63;
+          v78 = v63;
           queryUUID = v62;
-          v65 = profile7;
-          v66 = [self _newCachingSessionWithProfile:profile7 cachingIdentifier:identifier2 sourceEntity:v56 queryDescriptor:v81 cachedClass:v80 queryInterval:v61 anchorDate:v79 intervalComponents:v64 timeIntervalToBucketIndex:buf];
+          v65 = profile6;
+          v66 = [self _newCachingSessionWithProfile:profile6 cachingIdentifier:identifier2 sourceEntity:v56 queryDescriptor:v80 cachedClass:v79 queryInterval:v61 anchorDate:v78 intervalComponents:v64 timeIntervalToBucketIndex:buf];
         }
 
         else
@@ -467,7 +448,7 @@ LABEL_19:
           v66 = 0;
         }
 
-        v67 = v93;
+        v67 = v92;
         v68 = *(self + 288);
         *(self + 288) = v66;
 
@@ -477,13 +458,13 @@ LABEL_19:
           queryUUID3 = [self queryUUID];
           [clientProxy client_deliverError:v67 forQuery:queryUUID3];
 
-          v89 = v67;
+          v88 = v67;
           goto LABEL_39;
         }
 
-        v92 = v67;
-        v70 = [v69 cachesExistWithError:&v92];
-        v89 = v92;
+        v91 = v67;
+        v70 = [v69 cachesExistWithError:&v91];
+        v88 = v91;
 
         if (v70 == 1)
         {
@@ -494,56 +475,53 @@ LABEL_19:
         if (!v70)
         {
           queryUUID4 = [self queryUUID];
-          [clientProxy client_deliverError:v89 forQuery:queryUUID4];
+          [clientProxy client_deliverError:v88 forQuery:queryUUID4];
 
 LABEL_39:
-          objc_destroyWeak(&v95);
-          _Block_object_dispose(v96, 8);
+          objc_destroyWeak(&v94);
+          _Block_object_dispose(v95, 8);
 
-          objc_destroyWeak(&v101);
-          objc_destroyWeak(&v106);
+          objc_destroyWeak(&v100);
+          objc_destroyWeak(&v105);
 
-          _Block_object_dispose(v107, 8);
+          _Block_object_dispose(v106, 8);
           objc_destroyWeak(&location);
 
           goto LABEL_40;
         }
       }
 
-      profile8 = [self profile];
-      database = [profile8 database];
-      v90[4] = self;
-      v91 = 0;
-      v90[0] = MEMORY[0x277D85DD0];
-      v90[1] = 3221225472;
-      v90[2] = __72__HDStatisticsCollectionQueryServer__queue_fetchAndDeliverAllStatistics__block_invoke_395;
-      v90[3] = &unk_278616048;
-      v74 = [(HDHealthEntity *)HDQuantitySampleEntity performReadTransactionWithHealthDatabase:database error:&v91 block:v90];
-      v89 = v91;
+      profile7 = [self profile];
+      database = [profile7 database];
+      v89[4] = self;
+      v90 = 0;
+      v89[0] = MEMORY[0x277D85DD0];
+      v89[1] = 3221225472;
+      v89[2] = __72__HDStatisticsCollectionQueryServer__queue_fetchAndDeliverAllStatistics__block_invoke_395;
+      v89[3] = &unk_278616048;
+      v74 = [(HDHealthEntity *)HDQuantitySampleEntity performReadTransactionWithHealthDatabase:database error:&v90 block:v89];
+      v88 = v90;
 
       if (v74)
       {
         *(self + 249) = 0;
-        (*(v83 + 2))(v83, 1);
+        (*(v82 + 2))(v82, 1);
       }
 
-      else if (([v89 hk_isHealthKitErrorWithCode:128] & 1) == 0)
+      else if (([v88 hk_isHealthKitErrorWithCode:128] & 1) == 0)
       {
         queryUUID5 = [self queryUUID];
-        [clientProxy client_deliverError:v89 forQuery:queryUUID5];
+        [clientProxy client_deliverError:v88 forQuery:queryUUID5];
       }
 
       goto LABEL_39;
     }
   }
-
-LABEL_41:
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateStatistics
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (self)
   {
     queryQueue = [self queryQueue];
@@ -560,9 +538,9 @@ LABEL_41:
       }
 
       sampleType = [self sampleType];
-      v34 = 0;
-      v6 = [self authorizationStatusRecordForType:sampleType error:&v34];
-      v7 = v34;
+      v33 = 0;
+      v6 = [self authorizationStatusRecordForType:sampleType error:&v33];
+      v7 = v33;
 
       if (v6)
       {
@@ -572,25 +550,25 @@ LABEL_41:
           [*(self + 216) setRestrictedSourceEntities:restrictedSourceEntities];
 
           objc_initWeak(&location, self);
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __60__HDStatisticsCollectionQueryServer__queue_updateStatistics__block_invoke;
-          v31[3] = &unk_278627808;
-          objc_copyWeak(&v32, &location);
-          [*(self + 232) setStatisticsHandler:v31];
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __60__HDStatisticsCollectionQueryServer__queue_updateStatistics__block_invoke;
+          v30[3] = &unk_278627808;
+          objc_copyWeak(&v31, &location);
+          [*(self + 232) setStatisticsHandler:v30];
 
-          v30 = 0;
+          v29 = 0;
           v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
           client = [self client];
           authorizationOracle = [client authorizationOracle];
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __75__HDStatisticsCollectionQueryServer__queue_filteredPendingSeriesWithError___block_invoke;
-          v36 = &unk_2786277E0;
+          v35 = &unk_2786277E0;
           selfCopy = self;
-          v38 = v9;
+          v37 = v9;
           v12 = v9;
-          LODWORD(v9) = [authorizationOracle performReadAuthorizationTransactionWithError:&v30 handler:buf];
+          LODWORD(v9) = [authorizationOracle performReadAuthorizationTransactionWithError:&v29 handler:buf];
 
           if (v9)
           {
@@ -604,7 +582,7 @@ LABEL_41:
 
           v14 = v13;
 
-          v7 = v30;
+          v7 = v29;
           if (v14)
           {
             if ([v14 count])
@@ -613,17 +591,17 @@ LABEL_41:
               canonicalUnit = [quantityType canonicalUnit];
 
               v17 = *(self + 232);
-              v26[0] = MEMORY[0x277D85DD0];
-              v26[1] = 3221225472;
-              v26[2] = __60__HDStatisticsCollectionQueryServer__queue_updateStatistics__block_invoke_378;
-              v26[3] = &unk_27861A028;
-              v27 = v14;
+              v25[0] = MEMORY[0x277D85DD0];
+              v25[1] = 3221225472;
+              v25[2] = __60__HDStatisticsCollectionQueryServer__queue_updateStatistics__block_invoke_378;
+              v25[3] = &unk_27861A028;
+              v26 = v14;
               selfCopy2 = self;
               v18 = canonicalUnit;
-              v29 = v18;
-              v25 = 0;
-              LOBYTE(quantityType) = [v17 performAddSampleTransaction:v26 error:&v25];
-              v7 = v25;
+              v28 = v18;
+              v24 = 0;
+              LOBYTE(quantityType) = [v17 performAddSampleTransaction:v25 error:&v24];
+              v7 = v24;
               [*(self + 232) setStatisticsHandler:0];
               if ((quantityType & 1) == 0)
               {
@@ -674,7 +652,7 @@ LABEL_41:
             }
           }
 
-          objc_destroyWeak(&v32);
+          objc_destroyWeak(&v31);
           objc_destroyWeak(&location);
         }
       }
@@ -692,8 +670,6 @@ LABEL_41:
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_scheduleUpdate
@@ -734,6 +710,36 @@ void __58__HDStatisticsCollectionQueryServer__queue_scheduleUpdate__block_invoke
   }
 }
 
+- (id)transactionalQuantityInsertHandlerForProfile:(id)profile journaled:(BOOL)journaled count:(int64_t)count
+{
+  v7 = [(HDQueryServer *)self queryQueue:profile];
+  dispatch_assert_queue_V2(v7);
+
+  if (journaled)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    if (!self->_pendingQuantitiesBySeries)
+    {
+      v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      pendingQuantitiesBySeries = self->_pendingQuantitiesBySeries;
+      self->_pendingQuantitiesBySeries = v9;
+    }
+
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __98__HDStatisticsCollectionQueryServer_transactionalQuantityInsertHandlerForProfile_journaled_count___block_invoke;
+    aBlock[3] = &unk_278620D30;
+    aBlock[4] = self;
+    v8 = _Block_copy(aBlock);
+  }
+
+  return v8;
+}
+
 void __98__HDStatisticsCollectionQueryServer_transactionalQuantityInsertHandlerForProfile_journaled_count___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, int a7)
 {
   v64 = a2;
@@ -764,118 +770,88 @@ void __98__HDStatisticsCollectionQueryServer_transactionalQuantityInsertHandlerF
       {
         v21 = [v18 filter];
         v59 = v21;
-        if (!v21)
+        if (!v21 || (v22 = [v21 acceptsDataObject:v63], v23 = v59, v22) && (v54 = MEMORY[0x277CCDDB8], objc_msgSend(v62, "startDate"), v55 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v55, "timeIntervalSinceReferenceDate"), v25 = v24, objc_msgSend(v62, "startDate"), v53 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v53, "timeIntervalSinceReferenceDate"), v27 = v26, objc_msgSend(v62, "duration"), v29 = v27 + v28, objc_msgSend(v61, "canonicalUnit"), v57 = a7, v30 = v19, v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "doubleValueForUnit:", v31), v33 = objc_msgSend(v54, "filter:acceptsDataObjectWithStartTimestamp:endTimestamp:valueInCanonicalUnit:", v59, v25, v29, v32), v31, v19 = v30, a7 = v57, v53, v55, v23 = v59, v33))
         {
-          goto LABEL_30;
-        }
-
-        v22 = [v21 acceptsDataObject:v63];
-        v23 = v59;
-        if (v22)
-        {
-          v54 = MEMORY[0x277CCDDB8];
-          v55 = [v62 startDate];
-          [v55 timeIntervalSinceReferenceDate];
-          v25 = v24;
-          v53 = [v62 startDate];
-          [v53 timeIntervalSinceReferenceDate];
-          v27 = v26;
-          [v62 duration];
-          v29 = v27 + v28;
-          [v61 canonicalUnit];
-          v57 = a7;
-          v31 = v30 = v19;
-          [v30 doubleValueForUnit:v31];
-          v33 = [v54 filter:v59 acceptsDataObjectWithStartTimestamp:v25 endTimestamp:v29 valueInCanonicalUnit:v32];
-
-          v19 = v30;
-          a7 = v57;
-
-          v23 = v59;
-          if (v33)
+          if ([v18 _shouldSuspendQuery])
           {
-LABEL_30:
-            if ([v18 _shouldSuspendQuery])
+            *(v18 + 249) = 1;
+          }
+
+          else
+          {
+            v58 = a7;
+            v56 = v19;
+            v34 = [*(v18 + 240) objectForKeyedSubscript:v63];
+            if (v34)
             {
-              *(v18 + 249) = 1;
+              goto LABEL_15;
+            }
+
+            v35 = [_HDStatisticsCollectionQueryPendingSeries alloc];
+            v36 = v63;
+            v37 = v60;
+            if (v35)
+            {
+              v65.receiver = v35;
+              v65.super_class = _HDStatisticsCollectionQueryPendingSeries;
+              v38 = objc_msgSendSuper2(&v65, sel_init);
+              v35 = v38;
+              if (v38)
+              {
+                objc_storeStrong(&v38->_series, a5);
+                v39 = objc_msgSend_copy(v37);
+                anchor = v35->_anchor;
+                v35->_anchor = v39;
+
+                v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                quantities = v35->_quantities;
+                v35->_quantities = v41;
+              }
+            }
+
+            [*(v18 + 240) setObject:v35 forKeyedSubscript:v36];
+            v34 = v35;
+            if (v35)
+            {
+LABEL_15:
+              v43 = v62;
+              v44 = v56;
+              v45 = [_HDStatisticsCollectionQueryPendingQuantity alloc];
+              v46 = v44;
+              v47 = v43;
+              if (v45)
+              {
+                v65.receiver = v45;
+                v65.super_class = _HDStatisticsCollectionQueryPendingQuantity;
+                v45 = objc_msgSendSuper2(&v65, sel_init);
+                if (v45)
+                {
+                  v48 = objc_msgSend_copy(v46);
+                  quantity = v45->_quantity;
+                  v45->_quantity = v48;
+
+                  v50 = objc_msgSend_copy(v47);
+                  dateInterval = v45->_dateInterval;
+                  v45->_dateInterval = v50;
+                }
+              }
+
+              v19 = v56;
+
+              v52 = v34;
+              [*(v34 + 24) addObject:v45];
             }
 
             else
             {
-              v58 = a7;
-              v56 = v19;
-              v34 = [*(v18 + 240) objectForKeyedSubscript:v63];
-              if (v34)
-              {
-                goto LABEL_15;
-              }
-
-              v35 = [_HDStatisticsCollectionQueryPendingSeries alloc];
-              v36 = v63;
-              v37 = v60;
-              if (v35)
-              {
-                v65.receiver = v35;
-                v65.super_class = _HDStatisticsCollectionQueryPendingSeries;
-                v38 = objc_msgSendSuper2(&v65, sel_init);
-                v35 = v38;
-                if (v38)
-                {
-                  objc_storeStrong(&v38->_series, a5);
-                  v39 = [v37 copy];
-                  anchor = v35->_anchor;
-                  v35->_anchor = v39;
-
-                  v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                  quantities = v35->_quantities;
-                  v35->_quantities = v41;
-                }
-              }
-
-              [*(v18 + 240) setObject:v35 forKeyedSubscript:v36];
-              v34 = v35;
-              if (v35)
-              {
-LABEL_15:
-                v43 = v62;
-                v44 = v56;
-                v45 = [_HDStatisticsCollectionQueryPendingQuantity alloc];
-                v46 = v44;
-                v47 = v43;
-                if (v45)
-                {
-                  v65.receiver = v45;
-                  v65.super_class = _HDStatisticsCollectionQueryPendingQuantity;
-                  v45 = objc_msgSendSuper2(&v65, sel_init);
-                  if (v45)
-                  {
-                    v48 = [v46 copy];
-                    quantity = v45->_quantity;
-                    v45->_quantity = v48;
-
-                    v50 = [v47 copy];
-                    dateInterval = v45->_dateInterval;
-                    v45->_dateInterval = v50;
-                  }
-                }
-
-                v19 = v56;
-
-                v52 = v34;
-                [*(v34 + 24) addObject:v45];
-              }
-
-              else
-              {
-                v52 = 0;
-                v19 = v56;
-              }
-
-              a7 = v58;
+              v52 = 0;
+              v19 = v56;
             }
 
-            v23 = v59;
+            a7 = v58;
           }
+
+          v23 = v59;
         }
       }
     }
@@ -897,33 +873,50 @@ LABEL_15:
   [(HDStatisticsCollectionQueryServer *)self _queue_scheduleUpdate];
 }
 
+- (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
+{
+  availableCopy = available;
+  databaseCopy = database;
+  queryQueue = [(HDQueryServer *)self queryQueue];
+  dispatch_assert_queue_V2(queryQueue);
+
+  v8.receiver = self;
+  v8.super_class = HDStatisticsCollectionQueryServer;
+  [(HDQueryServer *)&v8 database:databaseCopy protectedDataDidBecomeAvailable:availableCopy];
+
+  if (availableCopy && ![(HDQueryServer *)self _shouldStopProcessingQuery]&& self->_addedSamplesRequireProtectedData)
+  {
+    [(HDStatisticsCollectionQueryServer *)self _queue_scheduleUpdate];
+  }
+}
+
 uint64_t __75__HDStatisticsCollectionQueryServer__queue_filteredPendingSeriesWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v23 = a1;
+  v22 = a1;
   obj = [*(*(a1 + 32) + 240) allValues];
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v22 = a3;
-    v8 = *v27;
+    v21 = a3;
+    v8 = *v26;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * v9);
+        v10 = *(*(&v25 + 1) + 8 * v9);
         if (v10)
         {
           v11 = *(v10 + 8);
@@ -936,23 +929,23 @@ uint64_t __75__HDStatisticsCollectionQueryServer__queue_filteredPendingSeriesWit
           v12 = 0;
         }
 
-        v25 = 0;
+        v24 = 0;
         v13 = v5[2];
         v14 = v12;
-        v15 = v13(v5, v11, v14, &v25);
-        v16 = v25;
+        v15 = v13(v5, v11, v14, &v24);
+        v16 = v24;
 
         if (v15)
         {
-          [*(v23 + 40) addObject:v10];
+          [*(v22 + 40) addObject:v10];
         }
 
         else if (v16)
         {
-          if (v22)
+          if (v21)
           {
             v19 = v16;
-            *v22 = v16;
+            *v21 = v16;
           }
 
           else
@@ -968,7 +961,7 @@ uint64_t __75__HDStatisticsCollectionQueryServer__queue_filteredPendingSeriesWit
       }
 
       while (v7 != v9);
-      v17 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v17 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       v7 = v17;
       if (v17)
       {
@@ -982,7 +975,6 @@ uint64_t __75__HDStatisticsCollectionQueryServer__queue_filteredPendingSeriesWit
   v18 = 1;
 LABEL_20:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -1031,35 +1023,35 @@ LABEL_8:
 uint64_t __60__HDStatisticsCollectionQueryServer__queue_updateStatistics__block_invoke_378(uint64_t a1, uint64_t a2)
 {
   v2 = a1;
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v3 = *(a1 + 32);
-  v36 = [v3 countByEnumeratingWithState:&v50 objects:v55 count:16];
-  if (v36)
+  v35 = [v3 countByEnumeratingWithState:&v49 objects:v54 count:16];
+  if (v35)
   {
-    v4 = *v51;
-    v38 = v3;
-    v40 = v2;
-    v35 = *v51;
+    v4 = *v50;
+    v37 = v3;
+    v39 = v2;
+    v34 = *v50;
     do
     {
       v5 = 0;
       do
       {
-        if (*v51 != v4)
+        if (*v50 != v4)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 = *(*(&v50 + 1) + 8 * v5);
+        v6 = *(*(&v49 + 1) + 8 * v5);
+        v45 = 0u;
         v46 = 0u;
         v47 = 0u;
         v48 = 0u;
-        v49 = 0u;
-        v37 = v5;
+        v36 = v5;
         if (v6)
         {
           v7 = *(v6 + 24);
@@ -1071,22 +1063,22 @@ uint64_t __60__HDStatisticsCollectionQueryServer__queue_updateStatistics__block_
         }
 
         obj = v7;
-        v44 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
-        if (v44)
+        v43 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+        if (v43)
         {
-          v41 = v6;
-          v42 = *v47;
+          v40 = v6;
+          v41 = *v46;
           do
           {
             v8 = 0;
             do
             {
-              if (*v47 != v42)
+              if (*v46 != v41)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v9 = *(*(&v46 + 1) + 8 * v8);
+              v9 = *(*(&v45 + 1) + 8 * v8);
               v10 = *(*(v2 + 40) + 232);
               if (v9)
               {
@@ -1098,8 +1090,8 @@ uint64_t __60__HDStatisticsCollectionQueryServer__queue_updateStatistics__block_
                 v11 = 0;
               }
 
-              v45 = v11;
-              [v45 doubleValueForUnit:*(v2 + 48)];
+              v44 = v11;
+              [v44 doubleValueForUnit:*(v2 + 48)];
               v13 = v12;
               if (v9)
               {
@@ -1149,32 +1141,32 @@ uint64_t __60__HDStatisticsCollectionQueryServer__queue_updateStatistics__block_
               {
 
                 v32 = 0;
-                v3 = v38;
+                v3 = v37;
                 goto LABEL_36;
               }
 
               ++v8;
-              v2 = v40;
-              v6 = v41;
+              v2 = v39;
+              v6 = v40;
             }
 
-            while (v44 != v8);
-            v30 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
-            v44 = v30;
+            while (v43 != v8);
+            v30 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+            v43 = v30;
           }
 
           while (v30);
         }
 
-        v5 = v37 + 1;
-        v3 = v38;
-        v4 = v35;
+        v5 = v36 + 1;
+        v3 = v37;
+        v4 = v34;
       }
 
-      while (v37 + 1 != v36);
-      v31 = [v38 countByEnumeratingWithState:&v50 objects:v55 count:16];
+      while (v36 + 1 != v35);
+      v31 = [v37 countByEnumeratingWithState:&v49 objects:v54 count:16];
       v32 = 1;
-      v36 = v31;
+      v35 = v31;
     }
 
     while (v31);
@@ -1187,13 +1179,12 @@ uint64_t __60__HDStatisticsCollectionQueryServer__queue_updateStatistics__block_
 
 LABEL_36:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
-- (void)_queue_sendAccumulatedStatistics:(void *)statistics cachedStatistics:(uint64_t)cachedStatistics isFinal:(void *)final statisticsCount:(_BYTE *)count shouldResetStatistics:
+- (void)_queue_sendAccumulatedStatistics:(void *)statistics cachedStatistics:(uint64_t)cachedStatistics isFinal:(char *)final statisticsCount:(_BYTE *)count shouldResetStatistics:
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v10 = a2;
   statisticsCopy = statistics;
   if (self)
@@ -1208,20 +1199,20 @@ LABEL_36:
       v15 = *MEMORY[0x277CCC308];
       if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEBUG))
       {
-        v33 = v15;
+        v32 = v15;
         *buf = 138543874;
         *&buf[4] = self;
         *&buf[12] = 2048;
         *&buf[14] = [statisticsCopy count];
         *&buf[22] = 2112;
-        v42 = identifier;
-        _os_log_debug_impl(&dword_228986000, v33, OS_LOG_TYPE_DEBUG, "%{public}@ Updating %lu cached statistics for %@.", buf, 0x20u);
+        v41 = identifier;
+        _os_log_debug_impl(&dword_228986000, v32, OS_LOG_TYPE_DEBUG, "%{public}@ Updating %lu cached statistics for %@.", buf, 0x20u);
       }
 
       v16 = statisticsCopy;
       v17 = identifier;
       maxRowID = [*(self + 216) maxRowID];
-      v34 = v16;
+      v33 = v16;
       v19 = v16;
       v20 = maxRowID;
       queryQueue = [self queryQueue];
@@ -1233,7 +1224,7 @@ LABEL_36:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __67__HDStatisticsCollectionQueryServer__queue_cacheStatistics_anchor___block_invoke;
-        v42 = &unk_2786130B0;
+        v41 = &unk_2786130B0;
         selfCopy = self;
         [v22 insertCaches:v19 anchor:v20 completion:buf];
       }
@@ -1254,26 +1245,26 @@ LABEL_36:
 
         v24 = *(self + 296);
         v25 = *(self + 288);
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __133__HDStatisticsCollectionQueryServer__queue_sendAccumulatedStatistics_cachedStatistics_isFinal_statisticsCount_shouldResetStatistics___block_invoke;
-        v37[3] = &unk_278620658;
-        v37[4] = self;
-        v38 = v17;
-        v39 = clientProxy;
-        v40 = v24;
-        [v25 finishWithCompletion:v37];
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __133__HDStatisticsCollectionQueryServer__queue_sendAccumulatedStatistics_cachedStatistics_isFinal_statisticsCount_shouldResetStatistics___block_invoke;
+        v36[3] = &unk_278620658;
+        v36[4] = self;
+        v37 = v17;
+        v38 = clientProxy;
+        v39 = v24;
+        [v25 finishWithCompletion:v36];
       }
 
-      statisticsCopy = v34;
+      statisticsCopy = v33;
     }
 
     if ((cachedStatistics & 1) != 0 || [v10 count])
     {
-      v26 = [v10 copy];
+      v26 = objc_msgSend_copy(v10);
       [v10 removeAllObjects];
       v27 = *final;
-      v28 = [v26 count] + v27;
+      v28 = &v27[[v26 count]];
       v29 = *(self + 320);
       if (v29)
       {
@@ -1288,13 +1279,11 @@ LABEL_36:
       *final = v28;
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __133__HDStatisticsCollectionQueryServer__queue_sendAccumulatedStatistics_cachedStatistics_isFinal_statisticsCount_shouldResetStatistics___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1302,24 +1291,22 @@ void __133__HDStatisticsCollectionQueryServer__queue_sendAccumulatedStatistics_c
     v6 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@ encountered error when finishing caching session for %@: %@", &v10, 0x20u);
+      v7 = *(a1 + 32);
+      v8 = *(a1 + 40);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@ encountered error when finishing caching session for %@: %@", &v9, 0x20u);
     }
   }
 
   [*(a1 + 48) client_finishedCachingStatisticsWithCacheHits:*(a1 + 56) error:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_queue_accumulateUpdatedStatistics:(void *)statistics accumulatedStatistics:(void *)accumulatedStatistics sendHandler:
+- (id)_queue_accumulateUpdatedStatistics:(void *)statistics accumulatedStatistics:(void *)accumulatedStatistics sendHandler:
 {
   v7 = a2;
   statisticsCopy = statistics;
@@ -1435,28 +1422,28 @@ LABEL_14:
 
 - (void)_queue_useCachedStatistics
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   queryQueue = [self queryQueue];
   dispatch_assert_queue_V2(queryQueue);
 
   v3 = *(self + 288);
-  v83 = 0;
-  v47 = [v3 persistentAnchorDateWithError:&v83];
-  v46 = v83;
-  if (v47)
+  v82 = 0;
+  v46 = [v3 persistentAnchorDateWithError:&v82];
+  v45 = v82;
+  if (v46)
   {
     v4 = objc_alloc(MEMORY[0x277CCDD78]);
     intervalComponents = [*(self + 208) intervalComponents];
-    v6 = [v4 initWithAnchorDate:v47 intervalComponents:intervalComponents];
+    v6 = [v4 initWithAnchorDate:v46 intervalComponents:intervalComponents];
 
     v7 = HKIsResumableQueriesTTREnabled();
     v8 = v7;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v93 = 0x3032000000;
-    v94 = __Block_byref_object_copy__150;
-    v95 = __Block_byref_object_dispose__150;
-    v96 = 0;
+    v92 = 0x3032000000;
+    v93 = __Block_byref_object_copy__150;
+    v94 = __Block_byref_object_dispose__150;
+    v95 = 0;
     if (v7)
     {
       v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -1469,73 +1456,73 @@ LABEL_14:
     v13 = objc_alloc_init(MEMORY[0x277CCAB58]);
     v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
     objc_initWeak(&location, self);
-    v81[0] = 0;
-    v81[1] = v81;
-    v81[2] = 0x2020000000;
-    v81[3] = 0;
-    v79[0] = 0;
-    v79[1] = v79;
-    v79[2] = 0x2020000000;
-    v80 = 1;
+    v80[0] = 0;
+    v80[1] = v80;
+    v80[2] = 0x2020000000;
+    v80[3] = 0;
+    v78[0] = 0;
+    v78[1] = v78;
+    v78[2] = 0x2020000000;
+    v79 = 1;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __63__HDStatisticsCollectionQueryServer__queue_useCachedStatistics__block_invoke;
     aBlock[3] = &unk_2786278A8;
-    v78 = v8;
+    v77 = v8;
     v15 = v11;
-    v72 = v15;
+    v71 = v15;
     p_buf = &buf;
-    objc_copyWeak(&v77, &location);
+    objc_copyWeak(&v76, &location);
     v16 = v13;
-    v73 = v16;
-    v75 = v81;
-    v76 = v79;
+    v72 = v16;
+    v74 = v80;
+    v75 = v78;
     v17 = _Block_copy(aBlock);
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __63__HDStatisticsCollectionQueryServer__queue_useCachedStatistics__block_invoke_2;
-    v63[3] = &unk_2786278D0;
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __63__HDStatisticsCollectionQueryServer__queue_useCachedStatistics__block_invoke_2;
+    v62[3] = &unk_2786278D0;
     v18 = v12;
-    v64 = v18;
-    objc_copyWeak(&v70, &location);
+    v63 = v18;
+    objc_copyWeak(&v69, &location);
     v19 = v15;
-    v65 = v19;
+    v64 = v19;
     v20 = v17;
-    v69 = v20;
-    v45 = v16;
-    v66 = v45;
+    v68 = v20;
+    v44 = v16;
+    v65 = v44;
     v21 = v14;
-    v67 = v21;
+    v66 = v21;
     v22 = v6;
-    v68 = v22;
-    [*(self + 232) setStatisticsHandler:v63];
+    v67 = v22;
+    [*(self + 232) setStatisticsHandler:v62];
     *(self + 296) = 0;
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x2020000000;
-    v62 = 0;
+    v58 = 0;
+    v59 = &v58;
+    v60 = 0x2020000000;
+    v61 = 0;
     v23 = *(self + 232);
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __63__HDStatisticsCollectionQueryServer__queue_useCachedStatistics__block_invoke_3;
-    v50[3] = &unk_278627920;
-    v58 = v8;
-    v50[4] = self;
-    v56 = &buf;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __63__HDStatisticsCollectionQueryServer__queue_useCachedStatistics__block_invoke_3;
+    v49[3] = &unk_278627920;
+    v57 = v8;
+    v49[4] = self;
+    v55 = &buf;
     clientProxy2 = v22;
-    v51 = clientProxy2;
+    v50 = clientProxy2;
     v25 = v21;
-    v52 = v25;
-    v57 = &v59;
+    v51 = v25;
+    v56 = &v58;
     v26 = v19;
-    v53 = v26;
+    v52 = v26;
     v27 = v20;
-    v55 = v27;
+    v54 = v27;
     v28 = v18;
-    v54 = v28;
-    v49 = 0;
-    v29 = [v23 performAddSampleTransaction:v50 error:&v49];
-    v30 = v49;
+    v53 = v28;
+    v48 = 0;
+    v29 = [v23 performAddSampleTransaction:v49 error:&v48];
+    v30 = v48;
     _HKInitializeLogging();
     v31 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEBUG))
@@ -1544,17 +1531,17 @@ LABEL_14:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         identifier = [*(self + 280) identifier];
-        v43 = *(self + 296);
-        v44 = v60[3];
-        *v84 = 138544130;
+        v42 = *(self + 296);
+        v43 = v59[3];
+        *v83 = 138544130;
         selfCopy = self;
-        v86 = 2112;
-        v87 = identifier;
-        v88 = 2048;
-        v89 = v43;
-        v90 = 2048;
-        v91 = v44;
-        _os_log_debug_impl(&dword_228986000, v32, OS_LOG_TYPE_DEBUG, "%{public}@ Finished fetching statistics for %@ with %ld cache hits and %ld cache misses.", v84, 0x2Au);
+        v85 = 2112;
+        v86 = identifier;
+        v87 = 2048;
+        v88 = v42;
+        v89 = 2048;
+        v90 = v43;
+        _os_log_debug_impl(&dword_228986000, v32, OS_LOG_TYPE_DEBUG, "%{public}@ Finished fetching statistics for %@ with %ld cache hits and %ld cache misses.", v83, 0x2Au);
       }
     }
 
@@ -1562,12 +1549,12 @@ LABEL_14:
     {
       *(self + 249) = 0;
       v33 = *(self + 288);
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __63__HDStatisticsCollectionQueryServer__queue_useCachedStatistics__block_invoke_408;
-      v48[3] = &unk_2786130B0;
-      v48[4] = self;
-      [v33 deleteCachesForIntervals:v25 completion:v48];
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __63__HDStatisticsCollectionQueryServer__queue_useCachedStatistics__block_invoke_408;
+      v47[3] = &unk_2786130B0;
+      v47[4] = self;
+      [v33 deleteCachesForIntervals:v25 completion:v47];
       (*(v27 + 2))(v27, 1);
     }
 
@@ -1578,12 +1565,12 @@ LABEL_14:
       [clientProxy client_deliverError:v30 forQuery:queryUUID];
     }
 
-    _Block_object_dispose(&v59, 8);
-    objc_destroyWeak(&v70);
+    _Block_object_dispose(&v58, 8);
+    objc_destroyWeak(&v69);
 
-    objc_destroyWeak(&v77);
-    _Block_object_dispose(v79, 8);
-    _Block_object_dispose(v81, 8);
+    objc_destroyWeak(&v76);
+    _Block_object_dispose(v78, 8);
+    _Block_object_dispose(v80, 8);
     objc_destroyWeak(&location);
 
     _Block_object_dispose(&buf, 8);
@@ -1595,20 +1582,18 @@ LABEL_14:
     v34 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
     {
-      v39 = *(self + 280);
-      v40 = v34;
-      identifier2 = [v39 identifier];
+      v38 = *(self + 280);
+      v39 = v34;
+      identifier2 = [v38 identifier];
       LODWORD(buf) = 138412290;
       *(&buf + 4) = identifier2;
-      _os_log_error_impl(&dword_228986000, v40, OS_LOG_TYPE_ERROR, "Failed to fetch persisted anchor date for cached query %@", &buf, 0xCu);
+      _os_log_error_impl(&dword_228986000, v39, OS_LOG_TYPE_ERROR, "Failed to fetch persisted anchor date for cached query %@", &buf, 0xCu);
     }
 
     clientProxy2 = [self clientProxy];
     queryUUID2 = [self queryUUID];
-    [clientProxy2 client_deliverError:v46 forQuery:queryUUID2];
+    [clientProxy2 client_deliverError:v45 forQuery:queryUUID2];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __72__HDStatisticsCollectionQueryServer__queue_fetchAndDeliverAllStatistics__block_invoke_395(uint64_t a1, uint64_t a2, uint64_t a3)

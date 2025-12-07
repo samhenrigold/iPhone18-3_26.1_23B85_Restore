@@ -72,38 +72,36 @@
 
 - (NSString)unicode
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_brailleChars;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        unicode = [*(*(&v12 + 1) + 8 * i) unicode];
+        unicode = [*(*(&v11 + 1) + 8 * i) unicode];
         [string appendString:unicode];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return string;
 }
@@ -174,7 +172,7 @@
 
 + (id)unicodeToDin:(id)din
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dinCopy = din;
   v4 = dinCopy;
   for (i = 0; i != 256; ++i)
@@ -198,7 +196,7 @@
       while (v8);
     }
 
-    v16[v6] = i;
+    v15[v6] = i;
   }
 
   if ([dinCopy length])
@@ -208,7 +206,7 @@
     do
     {
       v11 = [v4 characterAtIndex:v9];
-      v12 = [MEMORY[0x277CCACA8] stringWithCharacters:&v16[(v11 - 10240)] length:1];
+      v12 = [MEMORY[0x277CCACA8] stringWithCharacters:&v15[(v11 - 10240)] length:1];
       v13 = [(__CFString *)v10 stringByAppendingString:v12];
 
       ++v9;
@@ -222,8 +220,6 @@
   {
     v13 = &stru_2853FD1A8;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

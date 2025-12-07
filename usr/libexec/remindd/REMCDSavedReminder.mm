@@ -46,11 +46,12 @@
 
 + (id)keyPathsForValuesAffectingEffectiveMinimumSupportedVersion
 {
-  sub_1001A5660(&off_1008E2A58);
+  v2 = sub_1001A5660(&off_1008E2A58);
   sub_100034610(&unk_1008E2A78);
-  v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v3.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v2, v4, v5, v6, v7, v8, v9, v10;
 
-  return v2.super.isa;
+  return v3.super.isa;
 }
 
 - (BOOL)isConnectedToAccountObject:(id)object
@@ -85,6 +86,8 @@
   contextCopy = context;
   v12 = static REMCDSavedReminder.existingCloudObject(for:accountID:managedObjectContext:)(dCopy, v7, v9, contextCopy);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
+
   return v12;
 }
 
@@ -115,6 +118,8 @@
   v11._countAndFlagsBits = v6;
   v11._object = v8;
   REMCDSavedReminder.mergeData(from:accountID:)(recordCopy, v11);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (id)newlyCreatedRecord
@@ -163,19 +168,20 @@
   {
     v4 = attachments;
     type metadata accessor for REMCDSavedAttachment();
-    sub_1003B37A8(&unk_10093F780, type metadata accessor for REMCDSavedAttachment);
+    sub_1003B37A8(&unk_10093F780, type metadata accessor for REMCDSavedAttachment, &protocol conformance descriptor for NSObject);
     v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
     v6 = sub_100278AE4(v5);
+    v5, v7, v8, v9, v10, v11, v12, v13;
+    v14 = sub_100271294(v6);
 
-    v7 = sub_100271294(v6);
-
-    sub_100271468(v7);
+    sub_100271468(v14);
   }
 
-  v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v15.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  &_swiftEmptyArrayStorage, v16, v17, v18, v19, v20, v21, v22;
 
-  return v8.super.isa;
+  return v15.super.isa;
 }
 
 @end

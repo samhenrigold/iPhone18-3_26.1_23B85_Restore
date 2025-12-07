@@ -19,9 +19,11 @@
 
 uint64_t __66__ASDEventServiceExtensionContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  qword_1ED90D468 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F303B900];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F303B900];
+  v1 = qword_1ED90D468;
+  qword_1ED90D468 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -38,9 +40,11 @@ uint64_t __66__ASDEventServiceExtensionContext__extensionAuxiliaryHostProtocol__
 
 uint64_t __68__ASDEventServiceExtensionContext__extensionAuxiliaryVendorProtocol__block_invoke()
 {
-  qword_1ED90D478 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F30373F8];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F30373F8];
+  v1 = qword_1ED90D478;
+  qword_1ED90D478 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

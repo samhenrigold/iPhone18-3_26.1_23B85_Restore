@@ -7,7 +7,7 @@
 
 - (id)eventPayload
 {
-  v25[3] = *MEMORY[0x1E69E9840];
+  v24[3] = *MEMORY[0x1E69E9840];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
@@ -43,20 +43,18 @@
   }
 
   name = [(HMCoreAnalyticsFieldData *)v10 name];
-  v24[0] = name;
+  v23[0] = name;
   value = [(HMCoreAnalyticsFieldData *)v10 value];
-  v25[0] = value;
+  v24[0] = value;
   name2 = [(HMCoreAnalyticsFieldData *)v13 name];
-  v24[1] = name2;
+  v23[1] = name2;
   value2 = [(HMCoreAnalyticsFieldData *)v13 value];
-  v25[1] = value2;
+  v24[1] = value2;
   name3 = [(HMCoreAnalyticsFieldData *)v9 name];
-  v24[2] = name3;
+  v23[2] = name3;
   value3 = [(HMCoreAnalyticsFieldData *)v9 value];
-  v25[2] = value3;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
-
-  v21 = *MEMORY[0x1E69E9840];
+  v24[2] = value3;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
 
   return v20;
 }

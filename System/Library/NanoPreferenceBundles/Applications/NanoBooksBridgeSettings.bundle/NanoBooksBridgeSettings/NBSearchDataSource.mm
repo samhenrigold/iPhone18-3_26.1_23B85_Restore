@@ -65,20 +65,20 @@
   jaliscoSearchOperation = self->_jaliscoSearchOperation;
   self->_jaliscoSearchOperation = 0;
 
-  v10 = NBDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = NBDefaultLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v33 = stringCopy;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Starting search for term '%@'", buf, 0xCu);
+    v34 = stringCopy;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Starting search for term '%@'", buf, 0xCu);
   }
 
   results = self->_results;
   self->_results = 0;
 
-  v12 = [stringCopy copy];
+  v13 = [stringCopy copy];
   searchString = self->_searchString;
-  self->_searchString = v12;
+  self->_searchString = v13;
 
   if ([(NSString *)self->_searchString length])
   {
@@ -90,53 +90,53 @@
     }
 
     [searchQuery setCollectionPropertiesToFetch:0];
-    v16 = self->_searchString;
-    v17 = [NSSet setWithObjects:MPMediaItemPropertyArtist, MPMediaItemPropertyTitle, 0];
-    v18 = [_MPMediaSearchStringPredicate predicateWithSearchString:v16 forProperties:v17];
+    v17 = self->_searchString;
+    v18 = [NSSet setWithObjects:MPMediaItemPropertyArtist, MPMediaItemPropertyTitle, 0];
+    v19 = [_MPMediaSearchStringPredicate predicateWithSearchString:v17 forProperties:v18];
 
-    [searchQuery addFilterPredicate:v18];
-    v19 = objc_opt_new();
-    v20 = [[_NBMediaSearchOperation alloc] initWithSearchDataSource:self searchString:stringCopy];
-    v21 = self->_mediaSearchOperation;
-    self->_mediaSearchOperation = v20;
+    [searchQuery addFilterPredicate:v19];
+    v20 = objc_opt_new();
+    v21 = [[_NBMediaSearchOperation alloc] initWithSearchDataSource:self searchString:stringCopy];
+    v22 = self->_mediaSearchOperation;
+    self->_mediaSearchOperation = v21;
 
-    [v19 addObject:self->_mediaSearchOperation];
+    [v20 addObject:self->_mediaSearchOperation];
     familyDSIDs = [(NBSearchDataSource *)self familyDSIDs];
-    v23 = [familyDSIDs count] == 0;
+    v24 = [familyDSIDs count] == 0;
 
-    if (!v23)
+    if (!v24)
     {
-      v24 = [[_NBJaliscoSearchOperation alloc] initWithSearchDataSource:self searchString:stringCopy];
-      v25 = self->_jaliscoSearchOperation;
-      self->_jaliscoSearchOperation = v24;
+      v25 = [[_NBJaliscoSearchOperation alloc] initWithSearchDataSource:self searchString:stringCopy];
+      v26 = self->_jaliscoSearchOperation;
+      self->_jaliscoSearchOperation = v25;
 
-      [v19 addObject:self->_jaliscoSearchOperation];
+      [v20 addObject:self->_jaliscoSearchOperation];
     }
 
-    [(NSOperationQueue *)self->_operationQueue addOperations:v19 waitUntilFinished:0];
+    [(NSOperationQueue *)self->_operationQueue addOperations:v20 waitUntilFinished:0];
     objc_initWeak(buf, self);
     operationQueue = self->_operationQueue;
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_E358;
-    v28[3] = &unk_20C00;
-    objc_copyWeak(&v31, buf);
-    v30 = completionCopy;
-    v29 = stringCopy;
-    [(NSOperationQueue *)operationQueue addBarrierBlock:v28];
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_E358;
+    v29[3] = &unk_20C00;
+    objc_copyWeak(&v32, buf);
+    v31 = completionCopy;
+    v30 = stringCopy;
+    [(NSOperationQueue *)operationQueue addBarrierBlock:v29];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(buf);
   }
 
   else if (completionCopy)
   {
-    v27 = NBDefaultLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v28 = NBDefaultLog(0);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v33 = stringCopy;
-      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "Completed search for term '%@'", buf, 0xCu);
+      v34 = stringCopy;
+      _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "Completed search for term '%@'", buf, 0xCu);
     }
 
     completionCopy[2](completionCopy);
@@ -175,27 +175,27 @@
       selfCopy = self;
       results = [(_NBMediaSearchOperation *)self->_mediaSearchOperation results];
       v6 = +[NSMutableSet set];
-      v65 = 0u;
-      v66 = 0u;
-      v67 = 0u;
       v68 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v71 = 0u;
       v7 = results;
-      v8 = [v7 countByEnumeratingWithState:&v65 objects:v75 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v68 objects:v78 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v66;
+        v10 = *v69;
         v11 = MPMediaItemPropertyStoreID;
         do
         {
           for (i = 0; i != v9; i = i + 1)
           {
-            if (*v66 != v10)
+            if (*v69 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v13 = *(*(&v65 + 1) + 8 * i);
+            v13 = *(*(&v68 + 1) + 8 * i);
             objc_opt_class();
             v14 = [v13 valueForProperty:v11];
             v15 = BUDynamicCast();
@@ -206,7 +206,7 @@
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v65 objects:v75 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v68 objects:v78 count:16];
         }
 
         while (v9);
@@ -216,118 +216,106 @@
       results2 = [(_NBJaliscoSearchOperation *)selfCopy->_jaliscoSearchOperation results];
       if ([v7 count] && !objc_msgSend(results2, "count"))
       {
-        v45 = NBDefaultLog();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+        v47 = NBDefaultLog(0);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
         {
-          v46 = [v7 count];
+          v48 = [v7 count];
           searchString = [(NBSearchDataSource *)selfCopy searchString];
           *buf = 134218242;
-          v70 = v46;
+          v73 = v48;
           v16 = selfCopy;
-          v71 = 2112;
-          v72 = searchString;
-          _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "Only media items(%lu) found for search: %@", buf, 0x16u);
+          v74 = 2112;
+          v75 = searchString;
+          _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "Only media items(%lu) found for search: %@", buf, 0x16u);
         }
 
-        v48 = v7;
+        v50 = v7;
       }
 
       else
       {
         if (![results2 count] || objc_msgSend(v7, "count"))
         {
-          if ([v7 count] && objc_msgSend(results2, "count"))
+          v18 = [v7 count];
+          if (v18 && (v18 = [results2 count]) != 0)
           {
-            v18 = NBDefaultLog();
-            v62 = results2;
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+            v19 = NBDefaultLog(v18);
+            v65 = results2;
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
-              v19 = [results2 count];
-              v20 = [v7 count];
+              v20 = [results2 count];
+              v21 = [v7 count];
               searchString2 = [(NBSearchDataSource *)selfCopy searchString];
               *buf = 134218498;
-              v70 = v19;
-              v71 = 2048;
-              v72 = v20;
-              v73 = 2112;
-              v74 = searchString2;
-              _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Combining jalisco items (%lu) and media items (%lu) for search: %@", buf, 0x20u);
+              v73 = v20;
+              v74 = 2048;
+              v75 = v21;
+              v76 = 2112;
+              v77 = searchString2;
+              _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "Combining jalisco items (%lu) and media items (%lu) for search: %@", buf, 0x20u);
 
-              results2 = v62;
+              results2 = v65;
             }
 
-            v22 = objc_opt_new();
+            v23 = objc_opt_new();
             objectEnumerator = [v7 objectEnumerator];
             objectEnumerator2 = [results2 objectEnumerator];
-            v63 = objectEnumerator;
+            v66 = objectEnumerator;
             nextObject = [objectEnumerator nextObject];
             nextObject2 = [objectEnumerator2 nextObject];
-            v28 = nextObject2;
+            v29 = nextObject2;
             if (nextObject)
             {
-              v29 = selfCopy;
+              v30 = selfCopy;
               if (nextObject2)
               {
-                *&v27 = 138412290;
-                v60 = v27;
+                *&v28 = 138412290;
+                v63 = v28;
                 while (1)
                 {
-                  if ([(NBSearchDataSource *)v29 _isSearchCancelled])
+                  if ([(NBSearchDataSource *)v30 _isSearchCancelled])
                   {
                     goto LABEL_49;
                   }
 
-                  storeID = [v28 storeID];
-                  v31 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [storeID integerValue]);
-                  v32 = [v6 containsObject:v31];
+                  storeID = [v29 storeID];
+                  v32 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [storeID integerValue]);
+                  v33 = [v6 containsObject:v32];
 
-                  if (v32)
+                  if (v33)
                   {
                     break;
                   }
 
-                  title = [v28 title];
-                  if (!title)
+                  title = [v29 title];
+                  if (!title || (v37 = title, [nextObject title], v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "title"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v38, "localizedCaseInsensitiveCompare:", v39), v39, v38, v37, v41 = v40 + 1 == 0, v30 = selfCopy, !v41))
                   {
-                    goto LABEL_32;
-                  }
-
-                  v35 = title;
-                  title2 = [nextObject title];
-                  title3 = [v28 title];
-                  v38 = [title2 localizedCaseInsensitiveCompare:title3];
-
-                  v39 = v38 + 1 == 0;
-                  v29 = selfCopy;
-                  if (!v39)
-                  {
-LABEL_32:
-                    [v22 addObject:v28];
+                    [v23 addObject:v29];
 LABEL_33:
                     nextObject3 = [objectEnumerator2 nextObject];
-                    v41 = v28;
-                    v28 = nextObject3;
+                    v43 = v29;
+                    v29 = nextObject3;
                     goto LABEL_34;
                   }
 
-                  [v22 addObject:nextObject];
-                  nextObject4 = [v63 nextObject];
-                  v41 = nextObject;
+                  [v23 addObject:nextObject];
+                  nextObject4 = [v66 nextObject];
+                  v43 = nextObject;
                   nextObject = nextObject4;
 LABEL_34:
 
-                  if (!nextObject || !v28)
+                  if (!nextObject || !v29)
                   {
                     goto LABEL_48;
                   }
                 }
 
-                v33 = NBDefaultLog();
-                if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+                v35 = NBDefaultLog(v34);
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
                 {
-                  *buf = v60;
-                  v70 = v28;
-                  _os_log_debug_impl(&dword_0, v33, OS_LOG_TYPE_DEBUG, "Skipping jalisco item %@", buf, 0xCu);
+                  *buf = v63;
+                  v73 = v29;
+                  _os_log_debug_impl(&dword_0, v35, OS_LOG_TYPE_DEBUG, "Skipping jalisco item %@", buf, 0xCu);
                 }
 
                 goto LABEL_33;
@@ -340,8 +328,8 @@ LABEL_48:
               do
               {
 LABEL_49:
-                [v22 addObject:nextObject];
-                nextObject5 = [v63 nextObject];
+                [v23 addObject:nextObject];
+                nextObject5 = [v66 nextObject];
 
                 nextObject = nextObject5;
               }
@@ -349,80 +337,80 @@ LABEL_49:
               while (nextObject5);
             }
 
-            if (v28)
+            if (v29)
             {
-              *&v27 = 138412290;
-              v61 = v27;
+              *&v28 = 138412290;
+              v64 = v28;
               do
               {
-                storeID2 = [v28 storeID];
-                v54 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [storeID2 integerValue]);
-                v55 = [v6 containsObject:v54];
+                storeID2 = [v29 storeID];
+                v56 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [storeID2 integerValue]);
+                v57 = [v6 containsObject:v56];
 
-                if ((v55 & 1) == 0)
+                if ((v57 & 1) == 0)
                 {
-                  v56 = NBDefaultLog();
-                  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+                  v59 = NBDefaultLog(v58);
+                  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
                   {
-                    *buf = v61;
-                    v70 = v28;
-                    _os_log_debug_impl(&dword_0, v56, OS_LOG_TYPE_DEBUG, "Skipping jalisco item %@", buf, 0xCu);
+                    *buf = v64;
+                    v73 = v29;
+                    _os_log_debug_impl(&dword_0, v59, OS_LOG_TYPE_DEBUG, "Skipping jalisco item %@", buf, 0xCu);
                   }
 
-                  [v22 addObject:v28];
+                  [v23 addObject:v29];
                 }
 
                 nextObject6 = [objectEnumerator2 nextObject];
 
-                v28 = nextObject6;
+                v29 = nextObject6;
               }
 
               while (nextObject6);
             }
 
-            v58 = [v22 copy];
+            v61 = [v23 copy];
             results = selfCopy->_results;
-            selfCopy->_results = v58;
+            selfCopy->_results = v61;
 
-            results2 = v62;
+            results2 = v65;
           }
 
           else
           {
-            v43 = NBDefaultLog();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+            v45 = NBDefaultLog(v18);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
             {
               searchString3 = [(NBSearchDataSource *)selfCopy searchString];
               *buf = 138412290;
-              v70 = searchString3;
-              _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "No jalisco or media items found for search:%@", buf, 0xCu);
+              v73 = searchString3;
+              _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "No jalisco or media items found for search:%@", buf, 0xCu);
             }
 
-            v22 = selfCopy->_results;
+            v23 = selfCopy->_results;
             selfCopy->_results = &__NSArray0__struct;
           }
 
           goto LABEL_58;
         }
 
-        v49 = NBDefaultLog();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+        v51 = NBDefaultLog(0);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
         {
-          v50 = [results2 count];
+          v52 = [results2 count];
           searchString4 = [(NBSearchDataSource *)selfCopy searchString];
           *buf = 134218242;
-          v70 = v50;
+          v73 = v52;
           v16 = selfCopy;
-          v71 = 2112;
-          v72 = searchString4;
-          _os_log_impl(&dword_0, v49, OS_LOG_TYPE_INFO, "Only jalisco items(%lu) found for search: %@", buf, 0x16u);
+          v74 = 2112;
+          v75 = searchString4;
+          _os_log_impl(&dword_0, v51, OS_LOG_TYPE_INFO, "Only jalisco items(%lu) found for search: %@", buf, 0x16u);
         }
 
-        v48 = results2;
+        v50 = results2;
       }
 
-      v22 = v16->_results;
-      v16->_results = v48;
+      v23 = v16->_results;
+      v16->_results = v50;
 LABEL_58:
     }
   }

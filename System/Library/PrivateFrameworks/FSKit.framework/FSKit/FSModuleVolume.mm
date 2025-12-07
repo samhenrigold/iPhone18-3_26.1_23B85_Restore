@@ -19,12 +19,12 @@
 
 - (FSModuleVolume)initWithVolume:(id)volume resource:(id)resource
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   resourceCopy = resource;
-  v33.receiver = self;
-  v33.super_class = FSModuleVolume;
-  v9 = [(FSModuleVolume *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = FSModuleVolume;
+  v9 = [(FSModuleVolume *)&v32 init];
   if (v9)
   {
     anonymousListener = [MEMORY[0x277CCAE98] anonymousListener];
@@ -32,13 +32,12 @@
     v9->_listener = anonymousListener;
 
     [(NSXPCListener *)v9->_listener setDelegate:v9];
-    [(NSXPCListener *)v9->_listener resume];
-    v12 = fskit_std_log();
+    v12 = fskit_std_log([(NSXPCListener *)v9->_listener resume]);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = v9->_listener;
       *buf = 138412290;
-      v35 = v13;
+      v34 = v13;
       _os_log_impl(&dword_24A929000, v12, OS_LOG_TYPE_DEFAULT, "Built listener %@", buf, 0xCu);
     }
 
@@ -194,7 +193,6 @@
     v9->_useMetaDataIO = v30;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -328,7 +326,7 @@ uint64_t __55__FSModuleVolume_Project__updateRootItem_replyHandler___block_invok
   v30 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = fskit_std_log();
+  v8 = fskit_std_log(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -337,30 +335,30 @@ uint64_t __55__FSModuleVolume_Project__updateRootItem_replyHandler___block_invok
   }
 
   v9 = [(FSModuleVolume *)self newConnectionID:connectionCopy];
+  v10 = v9;
   if (v9)
   {
-    v10 = +[FSKitConstants FSVolumeXPCProtocol];
-    [connectionCopy setExportedInterface:v10];
+    v11 = +[FSKitConstants FSVolumeXPCProtocol];
+    [connectionCopy setExportedInterface:v11];
 
-    v11 = [FSVolumeConnector volumeConnectorModuleVolume:self connection:connectionCopy];
-    [connectionCopy setExportedObject:v11];
+    v12 = [FSVolumeConnector volumeConnectorModuleVolume:self connection:connectionCopy];
+    [connectionCopy setExportedObject:v12];
     objc_initWeak(&location, self);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __62__FSModuleVolume_Project__listener_shouldAcceptNewConnection___block_invoke;
     aBlock[3] = &unk_278FED708;
     objc_copyWeak(&v25, &location);
-    v26 = v9;
-    v12 = _Block_copy(aBlock);
-    [connectionCopy setInvalidationHandler:v12];
-    [connectionCopy setInterruptionHandler:v12];
-    [connectionCopy resume];
-    v13 = fskit_std_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v26 = v10;
+    v13 = _Block_copy(aBlock);
+    [connectionCopy setInvalidationHandler:v13];
+    [connectionCopy setInterruptionHandler:v13];
+    v14 = fskit_std_log([connectionCopy resume]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v29 = "[FSModuleVolume(Project) listener:shouldAcceptNewConnection:]";
-      _os_log_impl(&dword_24A929000, v13, OS_LOG_TYPE_DEFAULT, "%s:accepted", buf, 0xCu);
+      _os_log_impl(&dword_24A929000, v14, OS_LOG_TYPE_DEFAULT, "%s:accepted", buf, 0xCu);
     }
 
     objc_destroyWeak(&v25);
@@ -369,17 +367,16 @@ uint64_t __55__FSModuleVolume_Project__updateRootItem_replyHandler___block_invok
 
   else
   {
-    v14 = fskit_std_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = fskit_std_log(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [(FSModuleVolume(Project) *)v14 listener:v15 shouldAcceptNewConnection:v16, v17, v18, v19, v20, v21];
+      [(FSModuleVolume(Project) *)v15 listener:v16 shouldAcceptNewConnection:v17, v18, v19, v20, v21, v22];
     }
 
     [connectionCopy invalidate];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v9 != 0;
+  return v10 != 0;
 }
 
 void __62__FSModuleVolume_Project__listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
@@ -500,7 +497,7 @@ void __45__FSModuleVolume_Project__removeFromFHCache___block_invoke(uint64_t a1)
 
   else
   {
-    v8 = fskit_std_log();
+    v8 = fskit_std_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [FSModuleVolume(Project) getAndRemoveItemForFH:];
@@ -527,57 +524,63 @@ uint64_t __49__FSModuleVolume_Project__getAndRemoveItemForFH___block_invoke(void
 
 - (int64_t)getMaxFileSizeInBits
 {
+  v3 = objc_opt_respondsToSelector();
   volume = self->_volume;
-  v4 = objc_opt_respondsToSelector();
-  v5 = self->_volume;
-  if (v4)
+  if (v3)
   {
 
-    return [(FSVolumeOperations *)v5 maximumFileSizeInBits];
-  }
-
-  else if (objc_opt_respondsToSelector())
-  {
-    return (ceil(log2(([(FSVolumeOperations *)self->_volume maximumFileSize]+ 1))) + 1.0);
+    return [(FSVolumeOperations *)volume maximumFileSizeInBits];
   }
 
   else
   {
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = objc_opt_respondsToSelector();
+    if (v6)
     {
-      [FSModuleVolume(Project) getMaxFileSizeInBits];
+      return (ceil(log2(([(FSVolumeOperations *)self->_volume maximumFileSize]+ 1))) + 1.0);
     }
 
-    return 0;
+    else
+    {
+      v7 = fskit_std_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        [FSModuleVolume(Project) getMaxFileSizeInBits];
+      }
+
+      return 0;
+    }
   }
 }
 
 - (int64_t)getMaxXattrSizeInBits
 {
+  v3 = objc_opt_respondsToSelector();
   volume = self->_volume;
-  v4 = objc_opt_respondsToSelector();
-  v5 = self->_volume;
-  if (v4)
+  if (v3)
   {
 
-    return [(FSVolumeOperations *)v5 maximumXattrSizeInBits];
-  }
-
-  else if (objc_opt_respondsToSelector())
-  {
-    return (ceil(log2(([(FSVolumeOperations *)self->_volume maximumXattrSize]+ 1))) + 1.0);
+    return [(FSVolumeOperations *)volume maximumXattrSizeInBits];
   }
 
   else
   {
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = objc_opt_respondsToSelector();
+    if (v6)
     {
-      [FSModuleVolume(Project) getMaxXattrSizeInBits];
+      return (ceil(log2(([(FSVolumeOperations *)self->_volume maximumXattrSize]+ 1))) + 1.0);
     }
 
-    return 0;
+    else
+    {
+      v7 = fskit_std_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        [FSModuleVolume(Project) getMaxXattrSizeInBits];
+      }
+
+      return 0;
+    }
   }
 }
 
@@ -602,12 +605,13 @@ void __63__FSModuleVolume_Project__fetchAndSetTypeForItem_replyHandler___block_i
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = fskit_std_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __63__FSModuleVolume_Project__fetchAndSetTypeForItem_replyHandler___block_invoke_cold_1(v6);
+      __63__FSModuleVolume_Project__fetchAndSetTypeForItem_replyHandler___block_invoke_cold_1(v7);
     }
 
     goto LABEL_7;
@@ -621,34 +625,32 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v8 = fskit_std_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+  v9 = fskit_std_log(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
-    __63__FSModuleVolume_Project__fetchAndSetTypeForItem_replyHandler___block_invoke_cold_2(v8, v9, v10, v11, v12, v13, v14, v15);
+    __63__FSModuleVolume_Project__fetchAndSetTypeForItem_replyHandler___block_invoke_cold_2(v9, v10, v11, v12, v13, v14, v15, v16);
   }
 
-  v16 = *(a1 + 40);
-  v17 = fs_errorForPOSIXError(43);
-  (*(v16 + 16))(v16, v17);
+  v17 = *(a1 + 40);
+  v18 = fs_errorForPOSIXError(43);
+  (*(v17 + 16))(v17, v18);
 
 LABEL_8:
 }
 
 void __63__FSModuleVolume_Project__fetchAndSetTypeForItem_replyHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __63__FSModuleVolume_Project__fetchAndSetTypeForItem_replyHandler___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil attributes", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSModuleVolume(Project) fetchAndSetTypeForItem:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil attributes", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

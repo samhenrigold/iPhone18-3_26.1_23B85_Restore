@@ -225,8 +225,6 @@ LABEL_27:
 
 LABEL_21:
   ++self->_frameIndexInVideo;
-  v18 = *v17;
-  v19 = *(v17 + 1182);
   [(MitigationGPU *)self->_mitigationGpu roiClusterCnt];
   kdebug_trace();
   v17 = 0;
@@ -399,101 +397,93 @@ LABEL_22:
     v34.super_class = VideoMitigation;
     v13 = [(VideoMitigation *)&v34 init];
     self = v13;
-    if (!v13)
+    if (v13)
     {
-      goto LABEL_16;
-    }
+      v14 = *&config->var0.var0;
+      v15 = *&config->var0.var7;
+      v16 = *&config->var1.var4;
+      *(v13 + 296) = *&config->var1.var0;
+      *(v13 + 312) = v16;
+      *(v13 + 264) = v14;
+      *(v13 + 280) = v15;
+      objc_storeStrong(v13 + 1, context);
+      objc_storeStrong(&self->_metalToolbox, box);
+      v17 = [[MitigationGPU alloc] initWithMetalToolBox:self->_metalToolbox metalContext:contextCopy imageDimensions:dimensions];
+      mitigationGpu = self->_mitigationGpu;
+      self->_mitigationGpu = v17;
 
-    v14 = *&config->var0.var0;
-    v15 = *&config->var0.var7;
-    v16 = *&config->var1.var4;
-    *(v13 + 296) = *&config->var1.var0;
-    *(v13 + 312) = v16;
-    *(v13 + 264) = v14;
-    *(v13 + 280) = v15;
-    objc_storeStrong(v13 + 1, context);
-    objc_storeStrong(&self->_metalToolbox, box);
-    v17 = [[MitigationGPU alloc] initWithMetalToolBox:self->_metalToolbox metalContext:contextCopy imageDimensions:dimensions];
-    mitigationGpu = self->_mitigationGpu;
-    self->_mitigationGpu = v17;
-
-    if (!self->_mitigationGpu)
-    {
-      goto LABEL_16;
-    }
-
-    v19 = [[MitigationCPU alloc] initWithMetalToolBox:self->_metalToolbox mitigationGPU:self->_mitigationGpu];
-    mitigationCpu = self->_mitigationCpu;
-    self->_mitigationCpu = v19;
-
-    if (!self->_mitigationCpu)
-    {
-      goto LABEL_16;
-    }
-
-    v21 = [[CalcHomography alloc] initWithMetalToolBox:self->_metalToolbox];
-    calcTransform = self->_calcTransform;
-    self->_calcTransform = v21;
-
-    if (!self->_calcTransform)
-    {
-      goto LABEL_16;
-    }
-
-    [(VideoMitigation *)self _resetIntermediateVariables];
-    v23 = 0;
-    while (1)
-    {
-      device = [(FigMetalContext *)self->_metalContext device];
-      v25 = [device newBufferWithLength:9544 options:0];
-      v26 = self->_inputMetaQueue[v23];
-      self->_inputMetaQueue[v23] = v25;
-
-      if (!self->_inputMetaQueue[v23])
+      if (self->_mitigationGpu)
       {
-        break;
-      }
+        v19 = [[MitigationCPU alloc] initWithMetalToolBox:self->_metalToolbox mitigationGPU:self->_mitigationGpu];
+        mitigationCpu = self->_mitigationCpu;
+        self->_mitigationCpu = v19;
 
-      PixelBuffer = CreatePixelBuffer();
-      self->_trRefQueue[v23] = PixelBuffer;
-      if (!PixelBuffer)
-      {
-        break;
-      }
+        if (self->_mitigationCpu)
+        {
+          v21 = [[CalcHomography alloc] initWithMetalToolBox:self->_metalToolbox];
+          calcTransform = self->_calcTransform;
+          self->_calcTransform = v21;
 
-      v28 = sub_C6CC(PixelBuffer, self->_metalContext, 0, 0);
-      v29 = self->_trRefTexQueue[v23];
-      self->_trRefTexQueue[v23] = v28;
+          if (self->_calcTransform)
+          {
+            [(VideoMitigation *)self _resetIntermediateVariables];
+            v23 = 0;
+            while (1)
+            {
+              device = [(FigMetalContext *)self->_metalContext device];
+              v25 = [device newBufferWithLength:9544 options:0];
+              v26 = self->_inputMetaQueue[v23];
+              self->_inputMetaQueue[v23] = v25;
 
-      if (!self->_trRefTexQueue[v23])
-      {
-        break;
-      }
+              if (!self->_inputMetaQueue[v23])
+              {
+                break;
+              }
 
-      if (++v23 == 4)
-      {
-        v30 = [NSMutableData dataWithLength:9544];
-        dummyMetaContainer = self->_dummyMetaContainer;
-        self->_dummyMetaContainer = v30;
+              PixelBuffer = CreatePixelBuffer();
+              self->_trRefQueue[v23] = PixelBuffer;
+              if (!PixelBuffer)
+              {
+                break;
+              }
 
-        self = self;
-        selfCopy = self;
-        goto LABEL_13;
+              v28 = sub_C6CC(PixelBuffer, self->_metalContext, 0, 0);
+              v29 = self->_trRefTexQueue[v23];
+              self->_trRefTexQueue[v23] = v28;
+
+              if (!self->_trRefTexQueue[v23])
+              {
+                break;
+              }
+
+              if (++v23 == 4)
+              {
+                v30 = [NSMutableData dataWithLength:9544];
+                dummyMetaContainer = self->_dummyMetaContainer;
+                self->_dummyMetaContainer = v30;
+
+                self = self;
+                selfCopy = self;
+                goto LABEL_13;
+              }
+            }
+
+            fig_log_get_emitter();
+            sub_B550();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+          }
+        }
       }
     }
-
-    fig_log_get_emitter();
-    sub_B550();
   }
 
   else
   {
     fig_log_get_emitter();
     sub_B550();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
-  FigDebugAssert3();
-LABEL_16:
   selfCopy = 0;
 LABEL_13:
 

@@ -44,18 +44,17 @@
 {
   if ([(PlayerTimeControlAccessibility *)self _axIsLiveContent])
   {
-    v3 = *MEMORY[0x29EDC7378];
-    v4 = [(PlayerTimeControlAccessibility *)self safeValueForKey:@"accessibilityLiveLabel"];
-    accessibilityLabel = [v4 accessibilityLabel];
-    v6 = AXAttributedStringForBetterPronuciation();
+    v3 = [(PlayerTimeControlAccessibility *)self safeValueForKey:@"accessibilityLiveLabel"];
+    accessibilityLabel = [v3 accessibilityLabel];
+    v5 = AXAttributedStringForBetterPronuciation();
   }
 
   else
   {
-    v6 = accessibilityLocalizedString(@"track.position.label");
+    v5 = accessibilityLocalizedString(@"track.position.label");
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)accessibilityValue

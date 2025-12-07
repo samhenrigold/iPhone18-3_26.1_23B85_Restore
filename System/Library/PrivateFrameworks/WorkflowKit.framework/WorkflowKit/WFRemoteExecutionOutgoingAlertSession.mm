@@ -33,7 +33,7 @@
 
 - (void)handleIncomingProtobuf:(id)protobuf
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   [(WFRemoteExecutionSession *)self setState:102];
   v5 = objc_alloc(MEMORY[0x1E69C65B8]);
@@ -41,17 +41,17 @@
 
   v7 = [v5 initWithData:data];
   v8 = objc_alloc_init(WFRemoteExecutionAlertRequestResponse);
-  v27 = 0;
-  v9 = [(WFRemoteExecutionRequest *)v8 readFrom:v7 error:&v27];
-  v10 = v27;
+  v26 = 0;
+  v9 = [(WFRemoteExecutionRequest *)v8 readFrom:v7 error:&v26];
+  v10 = v26;
   if (v9)
   {
     requestIdentifier = [(WFRemoteExecutionAlertRequestResponse *)v8 requestIdentifier];
     request = [(WFRemoteExecutionSession *)self request];
     identifier = [request identifier];
-    v14 = [requestIdentifier isEqualToString:identifier];
+    isEqualToString = objc_msgSend_isEqualToString_(requestIdentifier);
 
-    if (v14)
+    if (isEqualToString)
     {
       v15 = getWFRemoteExecutionLogObject();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
@@ -59,11 +59,11 @@
         identifier2 = [(WFRemoteExecutionRequest *)v8 identifier];
         requestIdentifier2 = [(WFRemoteExecutionAlertRequestResponse *)v8 requestIdentifier];
         *buf = 136315650;
-        v29 = "[WFRemoteExecutionOutgoingAlertSession handleIncomingProtobuf:]";
-        v30 = 2114;
-        v31 = identifier2;
-        v32 = 2114;
-        v33 = requestIdentifier2;
+        v28 = "[WFRemoteExecutionOutgoingAlertSession handleIncomingProtobuf:]";
+        v29 = 2114;
+        v30 = identifier2;
+        v31 = 2114;
+        v32 = requestIdentifier2;
         _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_INFO, "%s <%{public}@> Received response for alert: %{public}@", buf, 0x20u);
       }
 
@@ -72,9 +72,9 @@
       error = [(WFRemoteExecutionAlertRequestResponse *)v8 error];
       (completion)[2](completion, selectedButton, error);
 
-      v26.receiver = self;
-      v26.super_class = WFRemoteExecutionOutgoingAlertSession;
-      [(WFRemoteExecutionSession *)&v26 finish];
+      v25.receiver = self;
+      v25.super_class = WFRemoteExecutionOutgoingAlertSession;
+      [(WFRemoteExecutionSession *)&v25 finish];
     }
 
     else
@@ -93,7 +93,7 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v29 = "[WFRemoteExecutionOutgoingAlertSession handleIncomingProtobuf:]";
+        v28 = "[WFRemoteExecutionOutgoingAlertSession handleIncomingProtobuf:]";
         _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_ERROR, "%s Encountered unsupported version of alert request response", buf, 0xCu);
       }
 
@@ -105,9 +105,9 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v29 = "[WFRemoteExecutionOutgoingAlertSession handleIncomingProtobuf:]";
-        v30 = 2114;
-        v31 = v10;
+        v28 = "[WFRemoteExecutionOutgoingAlertSession handleIncomingProtobuf:]";
+        v29 = 2114;
+        v30 = v10;
         _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_FAULT, "%s failed to read response protobuf: %{public}@", buf, 0x16u);
       }
 
@@ -117,18 +117,16 @@
     [(WFRemoteExecutionSession *)self setState:v24];
     [(WFRemoteExecutionOutgoingAlertSession *)self finishWithError:v10];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendToDestinations:(id)destinations options:(id)options
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   optionsCopy = options;
-  v32.receiver = self;
-  v32.super_class = WFRemoteExecutionOutgoingAlertSession;
-  [(WFRemoteExecutionSession *)&v32 sendToDestinations:destinationsCopy options:optionsCopy];
+  v31.receiver = self;
+  v31.super_class = WFRemoteExecutionOutgoingAlertSession;
+  [(WFRemoteExecutionSession *)&v31 sendToDestinations:destinationsCopy options:optionsCopy];
   [(WFRemoteExecutionSession *)self setState:100];
   v8 = getWFRemoteExecutionLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
@@ -136,17 +134,17 @@
     request = [(WFRemoteExecutionSession *)self request];
     identifier = [request identifier];
     *buf = 136315394;
-    v34 = "[WFRemoteExecutionOutgoingAlertSession sendToDestinations:options:]";
-    v35 = 2114;
-    v36 = identifier;
+    v33 = "[WFRemoteExecutionOutgoingAlertSession sendToDestinations:options:]";
+    v34 = 2114;
+    v35 = identifier;
     _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_INFO, "%s <%{public}@> Sending alert", buf, 0x16u);
   }
 
   v11 = objc_alloc_init(MEMORY[0x1E69C65C0]);
   request2 = [(WFRemoteExecutionSession *)self request];
-  v31 = 0;
-  v13 = [request2 writeTo:v11 error:&v31];
-  v14 = v31;
+  v30 = 0;
+  v13 = [request2 writeTo:v11 error:&v30];
+  v14 = v30;
 
   if (v13)
   {
@@ -156,11 +154,11 @@
 
     [(WFRemoteExecutionSession *)self restartTimeout];
     service = [(WFRemoteExecutionSession *)self service];
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v19 = [service sendProtobuf:v17 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v30 error:&v29];
-    v20 = v30;
-    v21 = v29;
+    v19 = [service sendProtobuf:v17 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v29 error:&v28];
+    v20 = v29;
+    v21 = v28;
 
     if (v19)
     {
@@ -176,11 +174,11 @@
         request3 = [(WFRemoteExecutionSession *)self request];
         identifier2 = [request3 identifier];
         *buf = 136315650;
-        v34 = "[WFRemoteExecutionOutgoingAlertSession sendToDestinations:options:]";
-        v35 = 2114;
-        v36 = identifier2;
-        v37 = 2114;
-        v38 = v21;
+        v33 = "[WFRemoteExecutionOutgoingAlertSession sendToDestinations:options:]";
+        v34 = 2114;
+        v35 = identifier2;
+        v36 = 2114;
+        v37 = v21;
         _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_FAULT, "%s <%{public}@> failed to write protobuf with error: %{public}@", buf, 0x20u);
       }
 
@@ -197,19 +195,17 @@
       request4 = [(WFRemoteExecutionSession *)self request];
       identifier3 = [request4 identifier];
       *buf = 136315650;
-      v34 = "[WFRemoteExecutionOutgoingAlertSession sendToDestinations:options:]";
-      v35 = 2114;
-      v36 = identifier3;
-      v37 = 2114;
-      v38 = v14;
+      v33 = "[WFRemoteExecutionOutgoingAlertSession sendToDestinations:options:]";
+      v34 = 2114;
+      v35 = identifier3;
+      v36 = 2114;
+      v37 = v14;
       _os_log_impl(&dword_1CA256000, v22, OS_LOG_TYPE_FAULT, "%s <%{public}@> failed to write protobuf with error: %{public}@", buf, 0x20u);
     }
 
     [(WFRemoteExecutionSession *)self setState:1];
     [(WFRemoteExecutionOutgoingAlertSession *)self finishWithError:v14];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (WFRemoteExecutionOutgoingAlertSession)initWithService:(id)service request:(id)request completion:(id)completion

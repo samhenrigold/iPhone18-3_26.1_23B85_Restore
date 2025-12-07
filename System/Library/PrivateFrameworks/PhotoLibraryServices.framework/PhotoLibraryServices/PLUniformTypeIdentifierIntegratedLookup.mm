@@ -71,7 +71,7 @@ LABEL_13:
 {
   v18 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
-  v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(identifiersCopy)];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
@@ -170,9 +170,9 @@ LABEL_13:
   {
     v7 = *MEMORY[0x1E6982E30];
     identifier = [*MEMORY[0x1E6982E30] identifier];
-    v9 = [identifierCopy isEqualToString:identifier];
+    isEqualToString = objc_msgSend_isEqualToString_(identifierCopy);
 
-    if (v9)
+    if (isEqualToString)
     {
       v5 = 1;
     }

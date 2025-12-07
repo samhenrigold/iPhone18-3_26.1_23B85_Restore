@@ -8,33 +8,33 @@
 
 - (id)calibrateParserResults:(id)results withCalibrationScores:(id)scores error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   scoresCopy = scores;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v9 = resultsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v25;
+    v13 = *v24;
     *&v11 = 138412290;
-    v23 = v11;
+    v22 = v11;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
-        v16 = [v9 objectForKey:{v15, v23, v24}];
+        v15 = *(*(&v23 + 1) + 8 * i);
+        v16 = [v9 objectForKey:{v15, v22, v23}];
         v17 = [scoresCopy objectForKey:v15];
         v18 = v17;
         if (v17)
@@ -49,8 +49,8 @@
           v20 = SNLPOSLoggerForCategory(3);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v23;
-            v29 = v15;
+            *buf = v22;
+            v28 = v15;
             _os_log_impl(&dword_22284A000, v20, OS_LOG_TYPE_DEBUG, "No calibration score found for parser result with bundle modelIdentifier: %@", buf, 0xCu);
           }
 
@@ -58,13 +58,11 @@
         }
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v12);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

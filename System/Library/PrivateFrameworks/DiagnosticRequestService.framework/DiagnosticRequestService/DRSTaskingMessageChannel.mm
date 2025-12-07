@@ -23,46 +23,46 @@
 
 - (DRSTaskingMessageChannel)initWithCloudChannelConfig:(id)config payloadProcessingBlock:(id)block
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   configCopy = config;
   blockCopy = block;
   v9 = blockCopy;
   if (!configCopy)
   {
-    v20 = DPLogHandle_TaskingMessageChannelError();
-    if (!os_signpost_enabled(v20))
+    v21 = DPLogHandle_TaskingMessageChannelError(blockCopy);
+    if (!os_signpost_enabled(v21))
     {
       goto LABEL_14;
     }
 
     *buf = 0;
-    v21 = "InvalidChannelConfiguration";
-    v22 = "Channel config cannot be nil";
+    v22 = "InvalidChannelConfiguration";
+    v23 = "Channel config cannot be nil";
     goto LABEL_12;
   }
 
   if (!blockCopy)
   {
-    v20 = DPLogHandle_TaskingMessageChannelError();
-    if (!os_signpost_enabled(v20))
+    v21 = DPLogHandle_TaskingMessageChannelError(0);
+    if (!os_signpost_enabled(v21))
     {
       goto LABEL_14;
     }
 
     *buf = 0;
-    v21 = "MissingProcessingBlock";
-    v22 = "Payload processing block is required.";
+    v22 = "MissingProcessingBlock";
+    v23 = "Payload processing block is required.";
 LABEL_12:
-    v23 = v20;
-    v24 = 2;
+    v24 = v21;
+    v25 = 2;
 LABEL_13:
-    _os_signpost_emit_with_name_impl(&dword_232906000, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v21, v22, buf, v24);
+    _os_signpost_emit_with_name_impl(&dword_232906000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v22, v23, buf, v25);
     goto LABEL_14;
   }
 
-  v44.receiver = self;
-  v44.super_class = DRSTaskingMessageChannel;
-  v10 = [(DRSTaskingMessageChannel *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = DRSTaskingMessageChannel;
+  v10 = [(DRSTaskingMessageChannel *)&v43 init];
   self = v10;
   if (!v10)
   {
@@ -88,13 +88,13 @@ LABEL_22:
   if (isNoSubscriptionConfig)
   {
 LABEL_19:
-    v35 = DPLogHandle_TaskingMessageChannel();
+    v35 = DPLogHandle_TaskingMessageChannel(v18);
     if (os_signpost_enabled(v35))
     {
       config2 = [(DRSTaskingMessageChannel *)self config];
       v37 = [config2 debugDescription];
       *buf = 138543362;
-      v46 = v37;
+      v45 = v37;
       _os_signpost_emit_with_name_impl(&dword_232906000, v35, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NewChannelInstance", "New channel instance: %{public}@", buf, 0xCu);
     }
 
@@ -104,7 +104,7 @@ LABEL_19:
   environment = [configCopy environment];
   if (environment == 1)
   {
-    v19 = MEMORY[0x277CEE9E8];
+    v20 = MEMORY[0x277CEE9E8];
   }
 
   else
@@ -112,32 +112,32 @@ LABEL_19:
     if (environment != 2)
     {
 LABEL_24:
-      v20 = DPLogHandle_TaskingMessageChannelError();
-      if (!os_signpost_enabled(v20))
+      v21 = DPLogHandle_TaskingMessageChannelError(environment);
+      if (!os_signpost_enabled(v21))
       {
         goto LABEL_14;
       }
 
       environment2 = [configCopy environment];
       *buf = 67109120;
-      LODWORD(v46) = environment2;
-      v21 = "InvalidEnvironmentEnum";
-      v22 = "Invalid environment enum %hhu";
-      v23 = v20;
-      v24 = 8;
+      LODWORD(v45) = environment2;
+      v22 = "InvalidEnvironmentEnum";
+      v23 = "Invalid environment enum %hhu";
+      v24 = v21;
+      v25 = 8;
       goto LABEL_13;
     }
 
-    v19 = MEMORY[0x277CEE9F0];
+    v20 = MEMORY[0x277CEE9F0];
   }
 
-  v26 = *v19;
-  if (!v26)
+  environment = *v20;
+  if (!environment)
   {
     goto LABEL_24;
   }
 
-  v20 = v26;
+  v21 = environment;
   channelName = [configCopy channelName];
   if (channelName)
   {
@@ -150,28 +150,27 @@ LABEL_24:
     self->_pubSubChannel = v32;
 
     apsEnvironmentString = self->_apsEnvironmentString;
-    self->_apsEnvironmentString = &v20->isa;
+    self->_apsEnvironmentString = &v21->isa;
 
     goto LABEL_19;
   }
 
-  v41 = DPLogHandle_TaskingMessageChannelError();
-  if (os_signpost_enabled(v41))
+  v40 = DPLogHandle_TaskingMessageChannelError(0);
+  if (os_signpost_enabled(v40))
   {
-    v42 = DRSSystemProfilePlatformStringForPlatform([configCopy platform]);
-    v43 = +[DRSCloudChannelConfig stringForChannelType:](DRSCloudChannelConfig, "stringForChannelType:", [configCopy type]);
+    v41 = DRSSystemProfilePlatformStringForPlatform([configCopy platform]);
+    v42 = +[DRSCloudChannelConfig stringForChannelType:](DRSCloudChannelConfig, "stringForChannelType:", [configCopy type]);
     *buf = 138543618;
-    v46 = v42;
-    v47 = 2114;
-    v48 = v43;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v41, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidChannelConfiguration", "Failed to produce a channel name for %{public}@ %{public}@", buf, 0x16u);
+    v45 = v41;
+    v46 = 2114;
+    v47 = v42;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v40, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidChannelConfiguration", "Failed to produce a channel name for %{public}@ %{public}@", buf, 0x16u);
   }
 
 LABEL_14:
   selfCopy = 0;
 LABEL_23:
 
-  v38 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -198,20 +197,20 @@ LABEL_23:
 
 void __38__DRSTaskingMessageChannel_subscribe___block_invoke(uint64_t a1)
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) config];
   v3 = [v2 isNoSubscriptionConfig];
 
   if (v3)
   {
-    v4 = DPLogHandle_TaskingMessageChannelError();
-    if (os_signpost_enabled(v4))
+    v5 = DPLogHandle_TaskingMessageChannelError(v4);
+    if (os_signpost_enabled(v5))
     {
-      v5 = [*(a1 + 32) config];
-      v6 = [v5 debugDescription];
+      v6 = [*(a1 + 32) config];
+      v7 = [v6 debugDescription];
       *buf = 138543362;
-      v54 = v6;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SubscriptionIsNoOp", "Not subscribing due to config %{public}@", buf, 0xCu);
+      v59 = v7;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SubscriptionIsNoOp", "Not subscribing due to config %{public}@", buf, 0xCu);
 
 LABEL_4:
       goto LABEL_5;
@@ -220,123 +219,123 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v7 = [*(a1 + 32) apsConnection];
+  v8 = [*(a1 + 32) apsConnection];
 
-  if (!v7)
+  if (!v8)
   {
-    v8 = objc_alloc(MEMORY[0x277CEEA10]);
-    v9 = [*(a1 + 32) apsEnvironmentString];
-    v10 = [*(a1 + 32) workQueue];
-    v11 = [v8 initWithEnvironmentName:v9 namedDelegatePort:@"com.apple.aps.diagnosticpipeline.tasking" queue:v10];
-    [*(a1 + 32) setApsConnection:v11];
+    v9 = objc_alloc(MEMORY[0x277CEEA10]);
+    v10 = [*(a1 + 32) apsEnvironmentString];
+    v11 = [*(a1 + 32) workQueue];
+    v12 = [v9 initWithEnvironmentName:v10 namedDelegatePort:@"com.apple.aps.diagnosticpipeline.tasking" queue:v11];
+    [*(a1 + 32) setApsConnection:v12];
 
-    v12 = [*(a1 + 32) apsConnection];
+    v13 = [*(a1 + 32) apsConnection];
 
-    if (!v12)
+    if (!v13)
     {
-      v38 = DPLogHandle_TaskingMessageChannelError();
-      if (os_signpost_enabled(v38))
+      v43 = DPLogHandle_TaskingMessageChannelError(v14);
+      if (os_signpost_enabled(v43))
       {
-        v39 = [*(a1 + 32) debugDescription];
+        v44 = [*(a1 + 32) debugDescription];
         *buf = 138543362;
-        v54 = v39;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v38, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "APSConnectionInitFailure", "Failed to create connection for %{public}@", buf, 0xCu);
+        v59 = v44;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v43, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "APSConnectionInitFailure", "Failed to create connection for %{public}@", buf, 0xCu);
       }
 
       if (*(a1 + 48))
       {
-        v40 = MEMORY[0x277CCA9B8];
-        v58 = *MEMORY[0x277CCA450];
-        v59[0] = @"APSConnection could not be initialized";
-        v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
-        **(a1 + 48) = [v40 errorWithDomain:@"DiagnosticRequestCloudChannelError" code:0 userInfo:v41];
+        v45 = MEMORY[0x277CCA9B8];
+        v63 = *MEMORY[0x277CCA450];
+        v64[0] = @"APSConnection could not be initialized";
+        v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:&v63 count:1];
+        **(a1 + 48) = [v45 errorWithDomain:@"DiagnosticRequestCloudChannelError" code:0 userInfo:v46];
       }
 
       *(*(*(a1 + 40) + 8) + 24) = 0;
-      goto LABEL_36;
+      return;
     }
 
-    v13 = *(a1 + 32);
-    v14 = [v13 apsConnection];
-    [v14 setDelegate:v13];
+    v15 = *(a1 + 32);
+    v16 = [v15 apsConnection];
+    [v16 setDelegate:v15];
 
-    v15 = [*(a1 + 32) apsConnection];
-    v57 = @"com.apple.symptomsd-diag";
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
-    [v15 setEnabledTopics:v16 ignoredTopics:0];
+    v17 = [*(a1 + 32) apsConnection];
+    v62 = @"com.apple.symptomsd-diag";
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+    [v17 setEnabledTopics:v18 ignoredTopics:0];
   }
 
-  v17 = [*(a1 + 32) apsConnection];
-  v51 = 0;
-  v18 = [v17 registeredChannelsForTopic:@"com.apple.symptomsd-diag" error:&v51];
-  v19 = v51;
+  v19 = [*(a1 + 32) apsConnection];
+  v56 = 0;
+  v20 = [v19 registeredChannelsForTopic:@"com.apple.symptomsd-diag" error:&v56];
+  v21 = v56;
 
-  if (!v19)
+  if (!v21)
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v23 = v18;
-    v24 = [v23 countByEnumeratingWithState:&v47 objects:v52 count:16];
-    if (v24)
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v26 = v20;
+    v27 = [v26 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    if (v27)
     {
-      v26 = v24;
-      v46 = 0;
-      v27 = *v48;
-      *&v25 = 138543362;
-      v45 = v25;
+      v29 = v27;
+      v51 = 0;
+      v30 = *v53;
+      *&v28 = 138543362;
+      v50 = v28;
       do
       {
-        for (i = 0; i != v26; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v48 != v27)
+          if (*v53 != v30)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v26);
           }
 
-          v29 = *(*(&v47 + 1) + 8 * i);
-          v30 = [v29 channelID];
-          v31 = [*(a1 + 32) pubSubChannel];
-          v32 = [v31 channelID];
-          v33 = [v30 isEqualToString:v32];
+          v32 = *(*(&v52 + 1) + 8 * i);
+          v33 = [v32 channelID];
+          v34 = [*(a1 + 32) pubSubChannel];
+          v35 = [v34 channelID];
+          v36 = [v33 isEqualToString:v35];
 
-          if (v33)
+          if (v36)
           {
-            v34 = DPLogHandle_TaskingMessageChannel();
-            if (os_signpost_enabled(v34))
+            v38 = DPLogHandle_TaskingMessageChannel(v37);
+            if (os_signpost_enabled(v38))
             {
-              v35 = [*(a1 + 32) debugDescription];
-              *buf = v45;
-              v54 = v35;
-              _os_signpost_emit_with_name_impl(&dword_232906000, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AlreadySubscribedToChannel", "Already subscribed to %{public}@", buf, 0xCu);
+              v39 = [*(a1 + 32) debugDescription];
+              *buf = v50;
+              v59 = v39;
+              _os_signpost_emit_with_name_impl(&dword_232906000, v38, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AlreadySubscribedToChannel", "Already subscribed to %{public}@", buf, 0xCu);
             }
 
-            v46 = 1;
+            v51 = 1;
           }
 
           else
           {
-            v36 = [*(a1 + 32) apsConnection];
-            [v36 unsubscribeFromChannel:v29 forTopic:@"com.apple.symptomsd-diag"];
+            v40 = [*(a1 + 32) apsConnection];
+            [v40 unsubscribeFromChannel:v32 forTopic:@"com.apple.symptomsd-diag"];
 
-            v34 = DPLogHandle_TaskingMessageChannelError();
-            if (os_signpost_enabled(v34))
+            v38 = DPLogHandle_TaskingMessageChannelError(v41);
+            if (os_signpost_enabled(v38))
             {
-              v37 = [v29 channelID];
-              *buf = v45;
-              v54 = v37;
-              _os_signpost_emit_with_name_impl(&dword_232906000, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SubscribedToUnexpectedChannel", "Subscribed to unexpected channel %{public}@. Unsubscribing", buf, 0xCu);
+              v42 = [v32 channelID];
+              *buf = v50;
+              v59 = v42;
+              _os_signpost_emit_with_name_impl(&dword_232906000, v38, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SubscribedToUnexpectedChannel", "Subscribed to unexpected channel %{public}@. Unsubscribing", buf, 0xCu);
             }
           }
         }
 
-        v26 = [v23 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v29 = [v26 countByEnumeratingWithState:&v52 objects:v57 count:16];
       }
 
-      while (v26);
+      while (v29);
 
-      if (v46)
+      if (v51)
       {
         goto LABEL_6;
       }
@@ -346,17 +345,17 @@ LABEL_4:
     {
     }
 
-    v43 = [*(a1 + 32) apsConnection];
-    v44 = [*(a1 + 32) pubSubChannel];
-    [v43 subscribeToChannel:v44 forTopic:@"com.apple.symptomsd-diag"];
+    v47 = [*(a1 + 32) apsConnection];
+    v48 = [*(a1 + 32) pubSubChannel];
+    [v47 subscribeToChannel:v48 forTopic:@"com.apple.symptomsd-diag"];
 
-    v4 = DPLogHandle_TaskingMessageChannel();
-    if (os_signpost_enabled(v4))
+    v5 = DPLogHandle_TaskingMessageChannel(v49);
+    if (os_signpost_enabled(v5))
     {
-      v5 = [*(a1 + 32) debugDescription];
+      v6 = [*(a1 + 32) debugDescription];
       *buf = 138543362;
-      v54 = v5;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ChannelSubscribe", "Subscribing to channel %{public}@", buf, 0xCu);
+      v59 = v6;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ChannelSubscribe", "Subscribing to channel %{public}@", buf, 0xCu);
       goto LABEL_4;
     }
 
@@ -364,30 +363,27 @@ LABEL_5:
 
 LABEL_6:
     *(*(*(a1 + 40) + 8) + 24) = 1;
-    goto LABEL_36;
+    return;
   }
 
-  v20 = DPLogHandle_TaskingMessageChannelError();
-  if (os_signpost_enabled(v20))
+  v23 = DPLogHandle_TaskingMessageChannelError(v22);
+  if (os_signpost_enabled(v23))
   {
-    v21 = [*(a1 + 32) debugDescription];
+    v24 = [*(a1 + 32) debugDescription];
     *buf = 138543618;
-    v54 = v21;
-    v55 = 2114;
-    v56 = v19;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SubscribedChannelCheckFailure", "Failed to check for subscribed channel for %{public}@ due to error: %{public}@", buf, 0x16u);
+    v59 = v24;
+    v60 = 2114;
+    v61 = v21;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SubscribedChannelCheckFailure", "Failed to check for subscribed channel for %{public}@ due to error: %{public}@", buf, 0x16u);
   }
 
   if (*(a1 + 48))
   {
-    v22 = v19;
-    **(a1 + 48) = v19;
+    v25 = v21;
+    **(a1 + 48) = v21;
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 0;
-
-LABEL_36:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)unsubscribe:(id *)unsubscribe
@@ -413,67 +409,66 @@ LABEL_36:
 
 void __40__DRSTaskingMessageChannel_unsubscribe___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) config];
   v3 = [v2 isNoSubscriptionConfig];
 
   if (!v3)
   {
-    v7 = [*(a1 + 32) apsConnection];
+    v8 = [*(a1 + 32) apsConnection];
 
-    if (v7)
+    if (v8)
     {
-      v8 = [*(a1 + 32) apsConnection];
-      v9 = [*(a1 + 32) pubSubChannel];
-      [v8 unsubscribeFromChannel:v9 forTopic:@"com.apple.symptomsd-diag"];
-
       v10 = [*(a1 + 32) apsConnection];
-      [v10 shutdown];
+      v11 = [*(a1 + 32) pubSubChannel];
+      [v10 unsubscribeFromChannel:v11 forTopic:@"com.apple.symptomsd-diag"];
 
-      v11 = [*(a1 + 32) apsConnection];
-      [v11 setDelegate:0];
+      v12 = [*(a1 + 32) apsConnection];
+      [v12 shutdown];
 
-      [*(a1 + 32) setApsConnection:0];
-      v4 = DPLogHandle_TaskingMessageChannel();
-      if (!os_signpost_enabled(v4))
+      v13 = [*(a1 + 32) apsConnection];
+      [v13 setDelegate:0];
+
+      v5 = DPLogHandle_TaskingMessageChannel([*(a1 + 32) setApsConnection:0]);
+      if (!os_signpost_enabled(v5))
       {
         goto LABEL_11;
       }
 
-      v5 = [*(a1 + 32) debugDescription];
-      v15 = 138543362;
-      v16 = v5;
-      v12 = "ChannelUnsubscribe";
-      v13 = "Unsubscribing from channel %{public}@";
+      v6 = [*(a1 + 32) debugDescription];
+      v16 = 138543362;
+      v17 = v6;
+      v14 = "ChannelUnsubscribe";
+      v15 = "Unsubscribing from channel %{public}@";
     }
 
     else
     {
-      v4 = DPLogHandle_TaskingMessageChannel();
-      if (!os_signpost_enabled(v4))
+      v5 = DPLogHandle_TaskingMessageChannel(v9);
+      if (!os_signpost_enabled(v5))
       {
         goto LABEL_11;
       }
 
-      v5 = [*(a1 + 32) debugDescription];
-      v15 = 138543362;
-      v16 = v5;
-      v12 = "RedundantUnsubscribe";
-      v13 = "No APS connection for %{public}@";
+      v6 = [*(a1 + 32) debugDescription];
+      v16 = 138543362;
+      v17 = v6;
+      v14 = "RedundantUnsubscribe";
+      v15 = "No APS connection for %{public}@";
     }
 
-    _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v12, v13, &v15, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v14, v15, &v16, 0xCu);
     goto LABEL_10;
   }
 
-  v4 = DPLogHandle_TaskingMessageChannelError();
-  if (os_signpost_enabled(v4))
+  v5 = DPLogHandle_TaskingMessageChannelError(v4);
+  if (os_signpost_enabled(v5))
   {
-    v5 = [*(a1 + 32) config];
-    v6 = [v5 debugDescription];
-    v15 = 138543362;
-    v16 = v6;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnsubscribeIsNoOp", "Not subscribed due to config:\n%{public}@", &v15, 0xCu);
+    v6 = [*(a1 + 32) config];
+    v7 = [v6 debugDescription];
+    v16 = 138543362;
+    v17 = v7;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnsubscribeIsNoOp", "Not subscribed due to config:\n%{public}@", &v16, 0xCu);
 
 LABEL_10:
   }
@@ -481,58 +476,53 @@ LABEL_10:
 LABEL_11:
 
   *(*(*(a1 + 40) + 8) + 24) = 1;
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
-  v6 = DPLogHandle_TaskingMessageChannel();
+  v6 = DPLogHandle_TaskingMessageChannel(tokenCopy);
   if (os_signpost_enabled(v6))
   {
     config = [(DRSTaskingMessageChannel *)self config];
     channelName = [config channelName];
-    v10 = 138543618;
-    v11 = tokenCopy;
-    v12 = 2114;
-    v13 = channelName;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReceivedPublicDeviceToken", "Received public token %{public}@ for channel name %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = tokenCopy;
+    v11 = 2114;
+    v12 = channelName;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReceivedPublicDeviceToken", "Received public token %{public}@ for channel name %{public}@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveToken:(id)token forTopic:(id)topic identifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   topicCopy = topic;
   identifierCopy = identifier;
-  v12 = DPLogHandle_TaskingMessageChannel();
+  v12 = DPLogHandle_TaskingMessageChannel(identifierCopy);
   if (os_signpost_enabled(v12))
   {
     config = [(DRSTaskingMessageChannel *)self config];
     channelName = [config channelName];
-    v16 = 138544130;
-    v17 = tokenCopy;
-    v18 = 2114;
-    v19 = topicCopy;
-    v20 = 2114;
-    v21 = identifierCopy;
-    v22 = 2114;
-    v23 = channelName;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReceivedAPNSToken", "Received APNS token %{public}@ for topic: %{public}@ identifier: %{public}@ channel name: %{public}@", &v16, 0x2Au);
+    v15 = 138544130;
+    v16 = tokenCopy;
+    v17 = 2114;
+    v18 = topicCopy;
+    v19 = 2114;
+    v20 = identifierCopy;
+    v21 = 2114;
+    v22 = channelName;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReceivedAPNSToken", "Received APNS token %{public}@ for topic: %{public}@ identifier: %{public}@ channel name: %{public}@", &v15, 0x2Au);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
   v23 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v6 = DPLogHandle_TaskingMessageChannel();
+  v6 = DPLogHandle_TaskingMessageChannel(messageCopy);
   if (os_signpost_enabled(v6))
   {
     v7 = [(DRSTaskingMessageChannel *)self debugDescription];
@@ -549,60 +539,59 @@ LABEL_11:
 
   if (!v10)
   {
-    v11 = DPLogHandle_TaskingMessageChannelError();
-    if (os_signpost_enabled(v11))
+    v12 = DPLogHandle_TaskingMessageChannelError(v11);
+    if (os_signpost_enabled(v12))
     {
-      v12 = [(DRSTaskingMessageChannel *)self debugDescription];
+      v13 = [(DRSTaskingMessageChannel *)self debugDescription];
       userInfo3 = [messageCopy userInfo];
       v17 = 138543874;
-      v18 = v12;
+      v18 = v13;
       v19 = 2114;
       v20 = @"tasking_payload";
       v21 = 2114;
       v22 = userInfo3;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MessageMissingPayload", "Message on %{public}@ missing %{public}@ key\n%{public}@", &v17, 0x20u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MessageMissingPayload", "Message on %{public}@ missing %{public}@ key\n%{public}@", &v17, 0x20u);
     }
   }
 
   processingBlock = [(DRSTaskingMessageChannel *)self processingBlock];
   config = [(DRSTaskingMessageChannel *)self config];
   (processingBlock)[2](processingBlock, v10, config);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection channelSubscriptionsFailedWithFailures:(id)failures
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   failuresCopy = failures;
-  v5 = DPLogHandle_TaskingMessageChannelError();
+  v5 = DPLogHandle_TaskingMessageChannelError(failuresCopy);
   if (os_signpost_enabled(v5))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ChannelSubscriptionFailed", &unk_232980861, buf, 2u);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = failuresCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v10 = 0;
+      do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = DPLogHandle_TaskingMessageChannelError();
+        v11 = *(*(&v15 + 1) + 8 * v10);
+        v12 = DPLogHandle_TaskingMessageChannelError(v7);
         if (os_signpost_enabled(v12))
         {
           failureReason = [v11 failureReason];
@@ -613,18 +602,20 @@ LABEL_11:
           }
 
           *buf = 138543362;
-          v21 = v14;
+          v20 = v14;
           _os_signpost_emit_with_name_impl(&dword_232906000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ChannelSubscriptionFailure", "Failure: %{public}@", buf, 0xCu);
         }
+
+        ++v10;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      while (v8 != v10);
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

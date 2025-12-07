@@ -9,7 +9,7 @@
 
 - (id)assetCacheRootDirectory
 {
-  v2 = AssetManagerDirectoryPath();
+  v2 = AssetManagerDirectoryPath(self);
   v6[0] = v2;
   v6[1] = @"assetcache";
   v6[2] = @"mobileasset";

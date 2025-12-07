@@ -231,10 +231,11 @@
 
 - (void)_debugLogBytes:(const void *)bytes size:(unint64_t)size
 {
-  if (PTSerializationDebugIsEnabled())
+  IsEnabled = PTSerializationDebugIsEnabled(self, a2);
+  if (IsEnabled)
   {
-    v6 = _PTLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _PTLogSystem(IsEnabled);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [PTAtomWriter _debugLogBytes:bytes size:size];
     }
@@ -243,18 +244,19 @@
 
 - (void)_debugLogBytes:(const void *)bytes size:(unint64_t)size offset:(unint64_t)offset
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (PTSerializationDebugIsEnabled())
+  v15 = *MEMORY[0x277D85DE8];
+  IsEnabled = PTSerializationDebugIsEnabled(self, a2);
+  if (IsEnabled)
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _PTLogSystem(IsEnabled);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = NSStringFromBytes(bytes, size);
-      v10 = 134218242;
+      v10 = NSStringFromBytes(bytes, size);
+      v11 = 134218242;
       offsetCopy = offset;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_debug_impl(&dword_2243FB000, v8, OS_LOG_TYPE_DEBUG, "w[%zd]: %@", &v10, 0x16u);
+      v13 = 2112;
+      v14 = v10;
+      _os_log_debug_impl(&dword_2243FB000, v9, OS_LOG_TYPE_DEBUG, "w[%zd]: %@", &v11, 0x16u);
     }
   }
 }
@@ -262,7 +264,9 @@
 - (void)_debugLogAtomWriterState
 {
   v1 = [self debugDescription];
-  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v2, v3, "%@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v2, v3, "%@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (uint64_t)beginAtomOfType:(unsigned int)a1 .cold.1(unsigned int a1, uint64_t a2)
@@ -303,7 +307,7 @@
 
   else
   {
-    v5 = [a2 _errorForVersion:a1];
+    v5 = [a2 _errorForVersion:{a1, a4}];
     [a2 setError:v5];
   }
 
@@ -329,7 +333,9 @@
 - (void)_debugLogBytes:(unsigned __int8 *)a1 size:(uint64_t)a2 .cold.1(unsigned __int8 *a1, uint64_t a2)
 {
   v2 = NSStringFromBytes(a1, a2);
-  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v3, v4, "w[+]: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v3, v4, "w[+]: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

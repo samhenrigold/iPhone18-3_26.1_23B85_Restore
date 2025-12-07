@@ -114,27 +114,27 @@ LABEL_9:
 
 + (uint64_t)isChangeTokenExpiredError:(uint64_t)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_opt_self();
   if ([(_DKCKError *)v3 isPartialError:v2])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     domain = [(_DKCKError *)v3 _allPartialErrorsFromError:v2];
-    v5 = [domain countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [domain countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(domain);
           }
@@ -149,7 +149,7 @@ LABEL_9:
         }
 
         while (v6 != v8);
-        v6 = [domain countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [domain countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v6)
         {
           continue;
@@ -172,7 +172,6 @@ LABEL_15:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -208,28 +207,28 @@ LABEL_15:
 
 + (uint64_t)isUnrecoverableDecryptionError:(uint64_t)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_opt_self();
   code = [v2 code];
   if ([(_DKCKError *)v3 isPartialError:v2])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = [(_DKCKError *)v3 _allPartialErrorsFromError:v2];
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
@@ -244,7 +243,7 @@ LABEL_15:
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -271,7 +270,6 @@ LABEL_15:
   v12 = 0;
 LABEL_16:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -287,46 +285,46 @@ LABEL_16:
 
 + (void)_populateZoneIDs:(void *)ds fromUnrecoverableDecryptionError:(void *)error itemID:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v6 = a2;
   dsCopy = ds;
   errorCopy = error;
   v9 = objc_opt_self();
   if ([(_DKCKError *)v9 isPartialError:dsCopy])
   {
-    v25 = errorCopy;
+    v24 = errorCopy;
     userInfo = [dsCopy userInfo];
     v11 = [userInfo objectForKey:*MEMORY[0x1E695B798]];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v38 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v37 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
+      v14 = *v26;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v26 + 1) + 8 * i);
+          v16 = *(*(&v25 + 1) + 8 * i);
           v17 = [v11 objectForKeyedSubscript:v16];
           [(_DKCKError *)v9 _populateZoneIDs:v6 fromUnrecoverableDecryptionError:v17 itemID:v16];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v25 objects:v37 count:16];
       }
 
       while (v13);
     }
 
-    errorCopy = v25;
+    errorCopy = v24;
   }
 
   else if ([dsCopy code] == 112)
@@ -369,13 +367,13 @@ LABEL_16:
           v22 = [objc_opt_class() description];
           domain2 = [dsCopy domain];
           *buf = 138544130;
-          v31 = v22;
-          v32 = 2114;
-          v33 = domain2;
-          v34 = 2048;
+          v30 = v22;
+          v31 = 2114;
+          v32 = domain2;
+          v33 = 2048;
           code = [dsCopy code];
-          v36 = 2112;
-          v37 = dsCopy;
+          v35 = 2112;
+          v36 = dsCopy;
           _os_log_impl(&dword_191750000, v21, OS_LOG_TYPE_INFO, "%{public}@: Missing zone id for Manatee identity failure: %{public}@:%lld (%@)", buf, 0x2Au);
         }
       }
@@ -383,41 +381,39 @@ LABEL_16:
   }
 
 LABEL_22:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (id)errorMinusUnrecoverableDecryptionErrorsFromPartialError:(uint64_t)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_opt_self();
   if ([(_DKCKError *)v3 isPartialError:v2])
   {
     userInfo = [v2 userInfo];
-    v21 = *MEMORY[0x1E695B798];
+    v20 = *MEMORY[0x1E695B798];
     v5 = [userInfo objectForKeyedSubscript:?];
     v6 = objc_opt_new();
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           v13 = [v7 objectForKeyedSubscript:v12];
           if (([(_DKCKError *)v3 isUnrecoverableDecryptionError:v13]& 1) == 0)
           {
@@ -425,7 +421,7 @@ LABEL_22:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
@@ -435,7 +431,7 @@ LABEL_22:
     {
       v14 = [userInfo mutableCopy];
       v15 = [v6 copy];
-      [v14 setObject:v15 forKeyedSubscript:v21];
+      [v14 setObject:v15 forKeyedSubscript:v20];
 
       v16 = MEMORY[0x1E696ABC0];
       domain = [v2 domain];
@@ -453,27 +449,23 @@ LABEL_22:
     v18 = v2;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 + (void)_populateZoneIDs:(uint64_t)a1 fromUnrecoverableDecryptionError:(void *)a2 itemID:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = [objc_opt_class() description];
   v6 = [a2 domain];
-  v8 = 138544130;
-  v9 = v5;
-  v10 = 2114;
-  v11 = v6;
-  v12 = 2048;
-  v13 = [a2 code];
-  v14 = 2112;
-  v15 = a2;
-  _os_log_error_impl(&dword_191750000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Unexpected error itemID key: %{public}@:%lld (%@)", &v8, 0x2Au);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138544130;
+  v8 = v5;
+  v9 = 2114;
+  v10 = v6;
+  v11 = 2048;
+  v12 = [a2 code];
+  v13 = 2112;
+  v14 = a2;
+  _os_log_error_impl(&dword_191750000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Unexpected error itemID key: %{public}@:%lld (%@)", &v7, 0x2Au);
 }
 
 @end

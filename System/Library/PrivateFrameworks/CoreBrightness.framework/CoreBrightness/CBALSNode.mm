@@ -145,7 +145,6 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v11 != 0;
 }
 
@@ -779,27 +778,92 @@
     }
 
     self->_currentALSEvent = MEMORY[0x1E69E5928](event);
-    v6 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v6 & 1;
+  return v6;
 }
 
 - (__IOHIDEvent)copyEvent
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   cf = 0;
-  if (!self->_colorSupport || (memset(&v11[15], 0, 0xA9uLL), mach_absolute_time(), (cf = IOHIDEventCreateVendorDefinedEvent()) != 0))
+  if (self->_colorSupport)
   {
-    alsService = self->_alsService;
-    v7 = IOHIDServiceClientCopyEvent();
-    if (cf)
+    memset(&v10[15], 0, 0xA9uLL);
+    mach_absolute_time();
+    cf = IOHIDEventCreateVendorDefinedEvent();
+    if (!cf)
     {
-      CFRelease(cf);
+      return 0;
+    }
+  }
+
+  v6 = IOHIDServiceClientCopyEvent();
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  v5 = [[CBALSEvent alloc] initWithHIDEvent:v6 andNode:self];
+  if (self->_logHandle)
+  {
+    logHandle = self->_logHandle;
+  }
+
+  else
+  {
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
-    v6 = [[CBALSEvent alloc] initWithHIDEvent:v7 andNode:self];
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    logHandle = inited;
+  }
+
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
+  {
+    __os_log_helper_16_2_1_8_66(v10, v5);
+    _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_INFO, "Copied ALS: %{public}@", v10, 0xCu);
+  }
+
+  MEMORY[0x1E69E5920](v5);
+  return v6;
+}
+
+- (id)copyALSEvent
+{
+  cf = [(CBALSNode *)self copyEvent];
+  if (!cf)
+  {
+    return 0;
+  }
+
+  v3 = [[CBALSEvent alloc] initWithHIDEvent:cf andNode:self];
+  CFRelease(cf);
+  return v3;
+}
+
+- (id)copyALSEventWithinTimeout:(float)timeout
+{
+  v15 = *MEMORY[0x1E69E9840];
+  copyEvent = [(CBALSNode *)self copyEvent];
+  if (!copyEvent)
+  {
+    return 0;
+  }
+
+  v9 = [[CBALSEvent alloc] initWithHIDEvent:copyEvent andNode:self];
+  CFRelease(copyEvent);
+  v8 = mach_time_now_in_seconds();
+  [(CBHIDEvent *)v9 timestamp];
+  if (fabs((v3 - v8)) >= timeout)
+  {
     if (self->_logHandle)
     {
       logHandle = self->_logHandle;
@@ -820,91 +884,18 @@
       logHandle = inited;
     }
 
-    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_66(v11, v6);
-      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_INFO, "Copied ALS: %{public}@", v11, 0xCu);
+      [(CBHIDEvent *)v9 timestamp];
+      __os_log_helper_16_0_1_8_0(v14, COERCE__INT64(fabs((v4 - v8))));
+      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Copied ALS event is stale (%f secs).", v14, 0xCu);
     }
 
-    MEMORY[0x1E69E5920](v6);
-    v10 = v7;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  *MEMORY[0x1E69E9840];
-  return v10;
-}
-
-- (id)copyALSEvent
-{
-  cf = [(CBALSNode *)self copyEvent];
-  if (!cf)
-  {
+    MEMORY[0x1E69E5920](v9);
     return 0;
   }
 
-  v3 = [[CBALSEvent alloc] initWithHIDEvent:cf andNode:self];
-  CFRelease(cf);
-  return v3;
-}
-
-- (id)copyALSEventWithinTimeout:(float)timeout
-{
-  v15 = *MEMORY[0x1E69E9840];
-  copyEvent = [(CBALSNode *)self copyEvent];
-  if (copyEvent)
-  {
-    v9 = [[CBALSEvent alloc] initWithHIDEvent:copyEvent andNode:self];
-    CFRelease(copyEvent);
-    v8 = mach_time_now_in_seconds();
-    [(CBHIDEvent *)v9 timestamp];
-    if (fabs((v3 - v8)) >= timeout)
-    {
-      if (self->_logHandle)
-      {
-        logHandle = self->_logHandle;
-      }
-
-      else
-      {
-        if (_COREBRIGHTNESS_LOG_DEFAULT)
-        {
-          inited = _COREBRIGHTNESS_LOG_DEFAULT;
-        }
-
-        else
-        {
-          inited = init_default_corebrightness_log();
-        }
-
-        logHandle = inited;
-      }
-
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        [(CBHIDEvent *)v9 timestamp];
-        __os_log_helper_16_0_1_8_0(v14, COERCE__INT64(fabs((v4 - v8))));
-        _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Copied ALS event is stale (%f secs).", v14, 0xCu);
-      }
-
-      MEMORY[0x1E69E5920](v9);
-      v9 = 0;
-    }
-
-    v13 = v9;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  *MEMORY[0x1E69E9840];
-  return v13;
+  return v9;
 }
 
 - (void)setReportInterval:(int)interval
@@ -945,8 +936,6 @@
     IOHIDServiceClientSetProperty(selfCopy->_alsService, @"ReportInterval", property);
     CFRelease(property);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (int)getReportInterval

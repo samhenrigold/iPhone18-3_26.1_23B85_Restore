@@ -14,7 +14,7 @@
 
 + (id)mergeWithGroupMetadata:(id)metadata group:(id)group
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   groupCopy = group;
   v6 = objc_autoreleasePoolPush();
@@ -24,7 +24,7 @@
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v124 = v9;
+    v123 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Merging with metadata", buf, 0xCu);
   }
 
@@ -34,57 +34,57 @@
   settings = [metadataCopy settings];
   v12 = [v10 dictionaryWithCapacity:{objc_msgSend(settings, "count")}];
 
-  v117 = 0u;
-  v118 = 0u;
-  v115 = 0u;
   v116 = 0u;
+  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
   settings2 = [metadataCopy settings];
-  v14 = [settings2 countByEnumeratingWithState:&v115 objects:v128 count:16];
+  v14 = [settings2 countByEnumeratingWithState:&v114 objects:v127 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v116;
+    v16 = *v115;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v116 != v16)
+        if (*v115 != v16)
         {
           objc_enumerationMutation(settings2);
         }
 
-        v18 = *(*(&v115 + 1) + 8 * i);
+        v18 = *(*(&v114 + 1) + 8 * i);
         name = [v18 name];
         [v12 setObject:v18 forKey:name];
       }
 
-      v15 = [settings2 countByEnumeratingWithState:&v115 objects:v128 count:16];
+      v15 = [settings2 countByEnumeratingWithState:&v114 objects:v127 count:16];
     }
 
     while (v15);
   }
 
-  v113 = 0u;
-  v114 = 0u;
-  v111 = 0u;
   v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
   settings3 = [groupCopy settings];
-  v21 = [settings3 countByEnumeratingWithState:&v111 objects:v127 count:16];
-  v92 = selfCopy;
+  v21 = [settings3 countByEnumeratingWithState:&v110 objects:v126 count:16];
+  v91 = selfCopy;
   if (v21)
   {
     v22 = v21;
-    v23 = *v112;
+    v23 = *v111;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v112 != v23)
+        if (*v111 != v23)
         {
           objc_enumerationMutation(settings3);
         }
 
-        v25 = *(*(&v111 + 1) + 8 * j);
+        v25 = *(*(&v110 + 1) + 8 * j);
         allKeys = [v12 allKeys];
         name2 = [v25 name];
         v28 = [allKeys containsObject:name2];
@@ -98,15 +98,15 @@
         else
         {
           v30 = objc_autoreleasePoolPush();
-          v31 = v92;
+          v31 = v91;
           v32 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             v33 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v124 = v33;
-            v125 = 2112;
-            v126 = v25;
+            v123 = v33;
+            v124 = 2112;
+            v125 = v25;
             _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Removing setting: %@", buf, 0x16u);
           }
 
@@ -119,33 +119,33 @@
         }
       }
 
-      v22 = [settings3 countByEnumeratingWithState:&v111 objects:v127 count:16];
-      selfCopy = v92;
+      v22 = [settings3 countByEnumeratingWithState:&v110 objects:v126 count:16];
+      selfCopy = v91;
     }
 
     while (v22);
   }
 
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
   v108 = 0u;
+  v109 = 0u;
+  v106 = 0u;
+  v107 = 0u;
   allValues = [v12 allValues];
-  v38 = [allValues countByEnumeratingWithState:&v107 objects:v122 count:16];
+  v38 = [allValues countByEnumeratingWithState:&v106 objects:v121 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v108;
+    v40 = *v107;
     do
     {
       for (k = 0; k != v39; ++k)
       {
-        if (*v108 != v40)
+        if (*v107 != v40)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v42 = *(*(&v107 + 1) + 8 * k);
+        v42 = *(*(&v106 + 1) + 8 * k);
         v43 = objc_autoreleasePoolPush();
         v44 = selfCopy;
         v45 = HMFGetOSLogHandle();
@@ -153,12 +153,12 @@
         {
           v46 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v124 = v46;
-          v125 = 2112;
-          v126 = v42;
+          v123 = v46;
+          v124 = 2112;
+          v125 = v42;
           _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@Adding setting: %@", buf, 0x16u);
 
-          selfCopy = v92;
+          selfCopy = v91;
         }
 
         objc_autoreleasePoolPop(v43);
@@ -167,7 +167,7 @@
         [array addObjectsFromArray:v48];
       }
 
-      v39 = [allValues countByEnumeratingWithState:&v107 objects:v122 count:16];
+      v39 = [allValues countByEnumeratingWithState:&v106 objects:v121 count:16];
     }
 
     while (v39);
@@ -177,56 +177,56 @@
   groups = [metadataCopy groups];
   v51 = [v49 dictionaryWithCapacity:{objc_msgSend(groups, "count")}];
 
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
   v104 = 0u;
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   groups2 = [metadataCopy groups];
-  v53 = [groups2 countByEnumeratingWithState:&v103 objects:v121 count:16];
+  v53 = [groups2 countByEnumeratingWithState:&v102 objects:v120 count:16];
   if (v53)
   {
     v54 = v53;
-    v55 = *v104;
+    v55 = *v103;
     do
     {
       for (m = 0; m != v54; ++m)
       {
-        if (*v104 != v55)
+        if (*v103 != v55)
         {
           objc_enumerationMutation(groups2);
         }
 
-        v57 = *(*(&v103 + 1) + 8 * m);
+        v57 = *(*(&v102 + 1) + 8 * m);
         name4 = [v57 name];
         [v51 setObject:v57 forKey:name4];
       }
 
-      v54 = [groups2 countByEnumeratingWithState:&v103 objects:v121 count:16];
+      v54 = [groups2 countByEnumeratingWithState:&v102 objects:v120 count:16];
     }
 
     while (v54);
   }
 
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
   v100 = 0u;
+  v101 = 0u;
+  v98 = 0u;
+  v99 = 0u;
   obj = [groupCopy groups];
-  v59 = [obj countByEnumeratingWithState:&v99 objects:v120 count:16];
+  v59 = [obj countByEnumeratingWithState:&v98 objects:v119 count:16];
   if (v59)
   {
     v60 = v59;
-    v61 = *v100;
+    v61 = *v99;
     do
     {
       for (n = 0; n != v60; ++n)
       {
-        if (*v100 != v61)
+        if (*v99 != v61)
         {
           objc_enumerationMutation(obj);
         }
 
-        v63 = *(*(&v99 + 1) + 8 * n);
+        v63 = *(*(&v98 + 1) + 8 * n);
         name5 = [v63 name];
         v65 = [v51 objectForKey:name5];
 
@@ -248,9 +248,9 @@
           {
             v71 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v124 = v71;
-            v125 = 2112;
-            v126 = v63;
+            v123 = v71;
+            v124 = 2112;
+            v125 = v63;
             _os_log_impl(&dword_229538000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@Removing group: %@", buf, 0x16u);
           }
 
@@ -261,36 +261,36 @@
           v74 = [(HMDBackingStoreModelObject *)v72 initWithObjectChangeType:3 uuid:identifier2 parentUUID:parentIdentifier2];
           [array addObject:v74];
 
-          selfCopy = v92;
+          selfCopy = v91;
         }
       }
 
-      v60 = [obj countByEnumeratingWithState:&v99 objects:v120 count:16];
+      v60 = [obj countByEnumeratingWithState:&v98 objects:v119 count:16];
     }
 
     while (v60);
   }
 
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
   v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
   allValues2 = [v51 allValues];
-  v76 = [allValues2 countByEnumeratingWithState:&v95 objects:v119 count:16];
+  v76 = [allValues2 countByEnumeratingWithState:&v94 objects:v118 count:16];
   if (v76)
   {
     v77 = v76;
-    v78 = *v96;
+    v78 = *v95;
     do
     {
       for (ii = 0; ii != v77; ++ii)
       {
-        if (*v96 != v78)
+        if (*v95 != v78)
         {
           objc_enumerationMutation(allValues2);
         }
 
-        v80 = *(*(&v95 + 1) + 8 * ii);
+        v80 = *(*(&v94 + 1) + 8 * ii);
         v81 = objc_autoreleasePoolPush();
         v82 = selfCopy;
         v83 = HMFGetOSLogHandle();
@@ -298,12 +298,12 @@
         {
           v84 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v124 = v84;
-          v125 = 2112;
-          v126 = v80;
+          v123 = v84;
+          v124 = 2112;
+          v125 = v80;
           _os_log_impl(&dword_229538000, v83, OS_LOG_TYPE_DEFAULT, "%{public}@Adding group: %@", buf, 0x16u);
 
-          selfCopy = v92;
+          selfCopy = v91;
         }
 
         objc_autoreleasePoolPop(v81);
@@ -312,21 +312,20 @@
         [array addObjectsFromArray:v86];
       }
 
-      v77 = [allValues2 countByEnumeratingWithState:&v95 objects:v119 count:16];
+      v77 = [allValues2 countByEnumeratingWithState:&v94 objects:v118 count:16];
     }
 
     while (v77);
   }
 
-  v87 = [array copy];
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = objc_msgSend_copy(array);
 
   return v87;
 }
 
 + (id)modelsForChangedConstraints:(id)constraints fromSetting:(id)setting
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   constraintsCopy = constraints;
   settingCopy = setting;
   v8 = MEMORY[0x277CBEB98];
@@ -354,16 +353,14 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     v17 = HMFGetLogIdentifier();
-    v20 = 138543362;
-    v21 = v17;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Constraints are not matching with media system", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = v17;
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Constraints are not matching with media system", &v19, 0xCu);
   }
 
   objc_autoreleasePoolPop(v14);
   v13 = [settingCopy modelsForConstraintsUpdate:constraintsCopy];
 LABEL_8:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -409,7 +406,7 @@ LABEL_8:
 
 + (id)modelsForSetting:(id)setting
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   constraints = [settingCopy constraints];
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(constraints, "count") + 1}];
@@ -417,26 +414,26 @@ LABEL_8:
   [v7 setObjectChangeType:1];
   [v6 addObject:v7];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = constraints;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         identifier = [settingCopy identifier];
         v15 = [v13 modelWithParentIdentifier:identifier];
 
@@ -444,14 +441,13 @@ LABEL_8:
         [v6 addObject:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
-  v16 = [v6 copy];
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = objc_msgSend_copy(v6);
 
   return v16;
 }
@@ -473,7 +469,7 @@ LABEL_8:
 
 + (id)modelsForSettingDiff:(id)diff fromSetting:(id)setting
 {
-  v120 = *MEMORY[0x277D85DE8];
+  v119 = *MEMORY[0x277D85DE8];
   diffCopy = diff;
   settingCopy = setting;
   array = [MEMORY[0x277CBEB18] array];
@@ -495,26 +491,26 @@ LABEL_8:
     v92 = [v90 setWithArray:constraints2];
     v93 = [v89 na_setByRemovingObjectsFromSet:v92];
 
-    v109 = 0u;
-    v110 = 0u;
-    v107 = 0u;
     v108 = 0u;
+    v109 = 0u;
+    v106 = 0u;
+    v107 = 0u;
     v85 = v93;
-    v94 = [v85 countByEnumeratingWithState:&v107 objects:v111 count:16];
+    v94 = [v85 countByEnumeratingWithState:&v106 objects:v110 count:16];
     if (v94)
     {
       v95 = v94;
-      v96 = *v108;
+      v96 = *v107;
       do
       {
         for (i = 0; i != v95; ++i)
         {
-          if (*v108 != v96)
+          if (*v107 != v96)
           {
             objc_enumerationMutation(v85);
           }
 
-          v98 = *(*(&v107 + 1) + 8 * i);
+          v98 = *(*(&v106 + 1) + 8 * i);
           identifier = [diffCopy identifier];
           v100 = [v98 modelWithParentIdentifier:identifier];
 
@@ -522,7 +518,7 @@ LABEL_8:
           [array addObject:v100];
         }
 
-        v95 = [v85 countByEnumeratingWithState:&v107 objects:v111 count:16];
+        v95 = [v85 countByEnumeratingWithState:&v106 objects:v110 count:16];
       }
 
       while (v95);
@@ -535,11 +531,11 @@ LABEL_8:
     {
       v104 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v113 = v104;
-      v114 = 2112;
-      v115 = v85;
-      v116 = 2112;
-      v117 = diffCopy;
+      v112 = v104;
+      v113 = 2112;
+      v114 = v85;
+      v115 = 2112;
+      v116 = diffCopy;
       _os_log_impl(&dword_229538000, v103, OS_LOG_TYPE_INFO, "%{public}@Adding missing selection constraints %@ to setting %@", buf, 0x20u);
     }
 
@@ -572,13 +568,13 @@ LABEL_8:
       {
         v21 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v113 = v21;
-        v114 = 2112;
-        v115 = v14;
-        v116 = 2112;
-        v117 = v12;
-        v118 = 2112;
-        v119 = diffCopy;
+        v112 = v21;
+        v113 = 2112;
+        v114 = v14;
+        v115 = 2112;
+        v116 = v12;
+        v117 = 2112;
+        v118 = diffCopy;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Min constraint %@ does not match %@ for %@ changing", buf, 0x2Au);
       }
 
@@ -628,13 +624,13 @@ LABEL_8:
       {
         v44 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v113 = v44;
-        v114 = 2112;
-        v115 = v37;
-        v116 = 2112;
-        v117 = v35;
-        v118 = 2112;
-        v119 = diffCopy;
+        v112 = v44;
+        v113 = 2112;
+        v114 = v37;
+        v115 = 2112;
+        v116 = v35;
+        v117 = 2112;
+        v118 = diffCopy;
         _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Max constraint %@ does not match %@ for %@ changing", buf, 0x2Au);
       }
 
@@ -684,13 +680,13 @@ LABEL_8:
       {
         v67 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v113 = v67;
-        v114 = 2112;
-        v115 = v60;
-        v116 = 2112;
-        v117 = v58;
-        v118 = 2112;
-        v119 = diffCopy;
+        v112 = v67;
+        v113 = 2112;
+        v114 = v60;
+        v115 = 2112;
+        v116 = v58;
+        v117 = 2112;
+        v118 = diffCopy;
         _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_INFO, "%{public}@Step constraint %@ does not match %@ for %@ changing", buf, 0x2Au);
       }
 
@@ -742,14 +738,12 @@ LABEL_36:
   v86 = array;
 LABEL_37:
 
-  v105 = *MEMORY[0x277D85DE8];
-
   return v86;
 }
 
 + (id)modelsForGroupDiff:(id)diff fromGroup:(id)group
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   diffCopy = diff;
   groupCopy = group;
   if (!diffCopy)
@@ -760,36 +754,36 @@ LABEL_37:
 
   selfCopy = self;
   array = [MEMORY[0x277CBEB18] array];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = [groupCopy groups];
-  v9 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v9 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (!v9)
   {
     goto LABEL_14;
   }
 
   v10 = v9;
-  v11 = *v39;
+  v11 = *v38;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v39 != v11)
+      if (*v38 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v38 + 1) + 8 * i);
+      v13 = *(*(&v37 + 1) + 8 * i);
       groups = [diffCopy groups];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __61__HMDAccessorySettingTransform_modelsForGroupDiff_fromGroup___block_invoke;
-      v37[3] = &unk_278683FF0;
-      v37[4] = v13;
-      v15 = [groups na_firstObjectPassingTest:v37];
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __61__HMDAccessorySettingTransform_modelsForGroupDiff_fromGroup___block_invoke;
+      v36[3] = &unk_278683FF0;
+      v36[4] = v13;
+      v15 = [groups na_firstObjectPassingTest:v36];
 
       if (v15)
       {
@@ -812,39 +806,39 @@ LABEL_37:
 LABEL_12:
     }
 
-    v10 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v10 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
   }
 
   while (v10);
 LABEL_14:
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obja = [groupCopy settings];
-  v18 = [obja countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v18 = [obja countByEnumeratingWithState:&v32 objects:v41 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v34;
+    v20 = *v33;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v34 != v20)
+        if (*v33 != v20)
         {
           objc_enumerationMutation(obja);
         }
 
-        v22 = *(*(&v33 + 1) + 8 * j);
+        v22 = *(*(&v32 + 1) + 8 * j);
         settings = [diffCopy settings];
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __61__HMDAccessorySettingTransform_modelsForGroupDiff_fromGroup___block_invoke_2;
-        v32[3] = &unk_278683FC8;
-        v32[4] = v22;
-        v24 = [settings na_firstObjectPassingTest:v32];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __61__HMDAccessorySettingTransform_modelsForGroupDiff_fromGroup___block_invoke_2;
+        v31[3] = &unk_278683FC8;
+        v31[4] = v22;
+        v24 = [settings na_firstObjectPassingTest:v31];
 
         if (v24)
         {
@@ -859,16 +853,14 @@ LABEL_14:
         [array addObjectsFromArray:v25];
       }
 
-      v19 = [obja countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v19 = [obja countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
     while (v19);
   }
 
-  v26 = [array copy];
+  v26 = objc_msgSend_copy(array);
 LABEL_26:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -893,70 +885,68 @@ uint64_t __61__HMDAccessorySettingTransform_modelsForGroupDiff_fromGroup___block
 
 + (id)modelsForGroup:(id)group
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   array = [MEMORY[0x277CBEB18] array];
   v6 = [self modelForGroup:groupCopy];
   [array addObject:v6];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   settings = [groupCopy settings];
-  v8 = [settings countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v8 = [settings countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(settings);
         }
 
-        v12 = [self modelsForSetting:*(*(&v25 + 1) + 8 * i)];
+        v12 = [self modelsForSetting:*(*(&v24 + 1) + 8 * i)];
         [array addObjectsFromArray:v12];
       }
 
-      v9 = [settings countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v9 = [settings countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v9);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   groups = [groupCopy groups];
-  v14 = [groups countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v14 = [groups countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(groups);
         }
 
-        v18 = [self modelsForGroup:*(*(&v21 + 1) + 8 * j)];
+        v18 = [self modelsForGroup:*(*(&v20 + 1) + 8 * j)];
         [array addObjectsFromArray:v18];
       }
 
-      v15 = [groups countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [groups countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return array;
 }

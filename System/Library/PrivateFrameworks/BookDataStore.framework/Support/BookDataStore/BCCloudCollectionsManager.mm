@@ -5,11 +5,14 @@
 - (NSManagedObjectModel)objectModel;
 - (id)collectionDetailManagerInstance;
 - (id)collectionMemberManagerInstance;
+- (id)diagnosticEntityInfos:(BOOL)infos;
 - (id)initService;
 - (void)dataSource:(id)source storeDidReset:(id)reset;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
 - (void)hasSaltChangedWithCompletion:(id)completion;
 - (void)saltUpdatedWithSaltVersionIdentifier:(id)identifier;
+- (void)setEnableCloudSync:(BOOL)sync;
+- (void)setEnableCloudSync:(BOOL)sync completion:(id)completion;
 @end
 
 @implementation BCCloudCollectionsManager
@@ -35,48 +38,49 @@
 
 - (id)initService
 {
-  v22.receiver = self;
-  v22.super_class = BCCloudCollectionsManager;
-  v2 = [(BCCloudCollectionsManager *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = BCCloudCollectionsManager;
+  v2 = [(BCCloudCollectionsManager *)&v23 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100002660();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = sub_100002660(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Initializing BCCloudCollectionsManager - Service mode", v21, 2u);
+      v22[0] = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Initializing BCCloudCollectionsManager - Service mode", v22, 2u);
     }
 
-    v4 = +[BCCloudKitController sharedInstance];
-    v5 = [BCCloudDataSource alloc];
-    objectModel = [(BCCloudCollectionsManager *)v2 objectModel];
-    v7 = [(BCCloudDataSource *)v5 initWithManagedObjectModel:objectModel nameOnDisk:@"BCCloudCollections" delegate:v2];
-    collectionDataSource = v2->_collectionDataSource;
-    v2->_collectionDataSource = v7;
+    v5 = +[BCCloudKitController sharedInstance];
+    v6 = [BCCloudDataSource alloc];
+    objectModel = [(BCCloudCollectionsManager *)v3 objectModel];
+    v8 = [(BCCloudDataSource *)v6 initWithManagedObjectModel:objectModel nameOnDisk:@"BCCloudCollections" delegate:v3];
+    collectionDataSource = v3->_collectionDataSource;
+    v3->_collectionDataSource = v8;
 
-    v9 = [[BCCloudCollectionDetailManager alloc] initWithCloudDataSource:v2->_collectionDataSource cloudKitController:v4];
-    collectionDetailManager = v2->_collectionDetailManager;
-    v2->_collectionDetailManager = v9;
+    v10 = [[BCCloudCollectionDetailManager alloc] initWithCloudDataSource:v3->_collectionDataSource cloudKitController:v5];
+    collectionDetailManager = v3->_collectionDetailManager;
+    v3->_collectionDetailManager = v10;
 
-    v11 = [[BCCloudCollectionMemberManager alloc] initWithCloudDataSource:v2->_collectionDataSource cloudKitController:v4];
-    collectionMemberManager = v2->_collectionMemberManager;
-    v2->_collectionMemberManager = v11;
+    v12 = [[BCCloudCollectionMemberManager alloc] initWithCloudDataSource:v3->_collectionDataSource cloudKitController:v5];
+    collectionMemberManager = v3->_collectionMemberManager;
+    v3->_collectionMemberManager = v12;
 
-    v13 = [BCCloudChangeTokenController alloc];
-    managedObjectContext = [(BCCloudDataSource *)v2->_collectionDataSource managedObjectContext];
-    v15 = [(BCCloudChangeTokenController *)v13 initWithMOC:managedObjectContext zoneName:@"CollectionZone" cloudKitController:v4];
-    changeTokenController = v2->_changeTokenController;
-    v2->_changeTokenController = v15;
+    v14 = [BCCloudChangeTokenController alloc];
+    managedObjectContext = [(BCCloudDataSource *)v3->_collectionDataSource managedObjectContext];
+    v16 = [(BCCloudChangeTokenController *)v14 initWithMOC:managedObjectContext zoneName:@"CollectionZone" cloudKitController:v5];
+    changeTokenController = v3->_changeTokenController;
+    v3->_changeTokenController = v16;
 
-    v17 = [[BDSSaltVersionIdentifierManager alloc] initWithZoneDataManager:v2 tokenController:v2->_changeTokenController databaseController:0];
-    saltVersionIdentifierManager = v2->_saltVersionIdentifierManager;
-    v2->_saltVersionIdentifierManager = v17;
+    v18 = [[BDSSaltVersionIdentifierManager alloc] initWithZoneDataManager:v3 tokenController:v3->_changeTokenController databaseController:0];
+    saltVersionIdentifierManager = v3->_saltVersionIdentifierManager;
+    v3->_saltVersionIdentifierManager = v18;
 
-    v19 = +[_TtC14bookdatastored13BDSSyncEngine shared];
-    [v19 addSaltChangeObserver:v2];
+    v20 = +[_TtC14bookdatastored13BDSSyncEngine shared];
+    [v20 addSaltChangeObserver:v3];
   }
 
-  return v2;
+  return v3;
 }
 
 - (NSManagedObjectModel)objectModel
@@ -119,7 +123,7 @@
 - (void)dataSource:(id)source storeDidReset:(id)reset
 {
   resetCopy = reset;
-  v5 = sub_100002660();
+  v5 = sub_100002660(resetCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543362;
@@ -130,6 +134,92 @@
   v6 = [[CKRecordZoneID alloc] initWithZoneName:@"CollectionZone" ownerName:CKCurrentUserDefaultName];
   v7 = +[_TtC14bookdatastored13BDSSyncEngine shared];
   [v7 resetChangeToken:v6];
+}
+
+- (void)setEnableCloudSync:(BOOL)sync completion:(id)completion
+{
+  syncCopy = sync;
+  completionCopy = completion;
+  v7 = sub_100002660(completionCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"NO";
+    if (syncCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *buf = 138412290;
+    v27 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BCCloudCollectionsManager SERVICE #enableCloudSync setEnableCloudSync:completion %@", buf, 0xCu);
+  }
+
+  v9 = [[CKRecordZoneID alloc] initWithZoneName:@"CollectionZone" ownerName:CKCurrentUserDefaultName];
+  v10 = +[_TtC14bookdatastored13BDSSyncEngine shared];
+  [v10 setCloudKitZone:v9 enabled:syncCopy];
+
+  v11 = dispatch_group_create();
+  dispatch_group_enter(v11);
+  dispatch_group_enter(v11);
+  collectionDetailManagerInstance = [(BCCloudCollectionsManager *)self collectionDetailManagerInstance];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_10007B42C;
+  v23[3] = &unk_10023FAC0;
+  v25 = syncCopy;
+  v13 = v11;
+  v24 = v13;
+  [collectionDetailManagerInstance setEnableCloudSync:syncCopy completion:v23];
+
+  collectionMemberManagerInstance = [(BCCloudCollectionsManager *)self collectionMemberManagerInstance];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10007B480;
+  v20[3] = &unk_10023FAC0;
+  v22 = syncCopy;
+  v21 = v13;
+  v15 = v13;
+  [collectionMemberManagerInstance setEnableCloudSync:syncCopy completion:v20];
+
+  [(BCCloudChangeTokenController *)self->_changeTokenController setEnableCloudSync:syncCopy];
+  v16 = dispatch_get_global_queue(2, 0);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10007B4D4;
+  block[3] = &unk_1002402E0;
+  v19 = completionCopy;
+  v17 = completionCopy;
+  dispatch_group_notify(v15, v16, block);
+}
+
+- (void)setEnableCloudSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v5 = sub_100002660(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (syncCopy)
+    {
+      v6 = @"YES";
+    }
+
+    v11 = 138412290;
+    v12 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BCCloudCollectionsManager #enableCloudSync setEnableCloudSync %@", &v11, 0xCu);
+  }
+
+  v7 = [[CKRecordZoneID alloc] initWithZoneName:@"CollectionZone" ownerName:CKCurrentUserDefaultName];
+  v8 = +[_TtC14bookdatastored13BDSSyncEngine shared];
+  [v8 setCloudKitZone:v7 enabled:syncCopy];
+
+  collectionDetailManagerInstance = [(BCCloudCollectionsManager *)self collectionDetailManagerInstance];
+  [collectionDetailManagerInstance setEnableCloudSync:syncCopy];
+
+  collectionMemberManagerInstance = [(BCCloudCollectionsManager *)self collectionMemberManagerInstance];
+  [collectionMemberManagerInstance setEnableCloudSync:syncCopy];
+
+  [(BCCloudChangeTokenController *)self->_changeTokenController setEnableCloudSync:syncCopy];
 }
 
 - (void)saltUpdatedWithSaltVersionIdentifier:(id)identifier
@@ -149,12 +239,12 @@
   collectionMemberManagerInstance = [(BCCloudCollectionsManager *)self collectionMemberManagerInstance];
   [v5 bds_addObjectIfNotNil:collectionMemberManagerInstance];
 
-  v8 = sub_10000DC08();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_10000DC08(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "BCCloudCollectionsManager hasSaltChangedWithCompletion %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "BCCloudCollectionsManager hasSaltChangedWithCompletion %@", &v10, 0xCu);
   }
 
   [v5 bds_chainUntilNoErrorCompletionSelectorCallsForSelector:"hasSaltChangedWithCompletion:" completion:completionCopy];
@@ -163,7 +253,7 @@
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10000DC08();
+  v5 = sub_10000DC08(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -188,15 +278,30 @@
 
   if (verboseLoggingEnabled)
   {
-    v6 = sub_10000DB80();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10000DB80(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "\\BCCloudCollectionsManager deleteCloudDataWithCompletion:\\"", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudCollectionsManager deleteCloudDataWithCompletion:\", v8, 2u);
     }
   }
 
   [BCCloudDataSource deleteCloudDataWithCompletion:completionCopy];
+}
+
+- (id)diagnosticEntityInfos:(BOOL)infos
+{
+  infosCopy = infos;
+  v5 = objc_alloc_init(NSMutableArray);
+  collectionDetailManagerInstance = [(BCCloudCollectionsManager *)self collectionDetailManagerInstance];
+  v7 = [collectionDetailManagerInstance diagnosticEntityInfos:infosCopy];
+  [v5 addObjectsFromArray:v7];
+
+  collectionMemberManagerInstance = [(BCCloudCollectionsManager *)self collectionMemberManagerInstance];
+  v9 = [collectionMemberManagerInstance diagnosticEntityInfos:infosCopy];
+  [v5 addObjectsFromArray:v9];
+
+  return v5;
 }
 
 @end

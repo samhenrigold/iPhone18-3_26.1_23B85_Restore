@@ -11,31 +11,31 @@
 
 - (REUIUpNextDataSource)initWithRelevanceEngine:(id)engine
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   configuration = [engineCopy configuration];
   sectionDescriptors = [configuration sectionDescriptors];
 
-  v8 = [sectionDescriptors countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [sectionDescriptors countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(sectionDescriptors);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         historicSectionDescriptor = [v12 historicSectionDescriptor];
         v14 = historicSectionDescriptor;
         if (historicSectionDescriptor)
@@ -48,7 +48,7 @@
         [array addObject:name2];
       }
 
-      v9 = [sectionDescriptors countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [sectionDescriptors countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -57,7 +57,6 @@
   v17 = [array copy];
   v18 = [(REUIUpNextDataSource *)self initWithRelevanceEngine:engineCopy sectionOrder:v17];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

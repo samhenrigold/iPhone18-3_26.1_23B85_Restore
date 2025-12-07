@@ -47,31 +47,31 @@
 
 - (void)updateAccounts
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   manager = [(VMNavigationController *)self manager];
   accounts = [manager accounts];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = accounts;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if ([v11 isProvisioned])
         {
           manager2 = [(VMNavigationController *)self manager];
@@ -85,14 +85,13 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   [(VMPasscodeChangeViewController *)self setAccounts:array];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateView
@@ -112,13 +111,13 @@
       [(VMPasscodeChangeViewController *)self setSelectedAccount:firstObject];
       v7 = [(VMPasscodeChangeViewController *)self passcodeViewControllerForAccount:firstObject];
       v12 = v7;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-      [(VMPasscodeChangeViewController *)self setViewControllers:v9];
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+      [(VMPasscodeChangeViewController *)self setViewControllers:v10];
     }
 
     else
     {
-      v7 = PHDefaultLog();
+      v7 = PHDefaultLog(v9);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *v11 = 0;
@@ -134,8 +133,6 @@
     v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     [(VMPasscodeChangeViewController *)self setViewControllers:v7];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (VMAccountsViewController)accountsViewController
@@ -243,7 +240,7 @@
 
 - (void)accountsView:(id)view buttonTappedForRowWithIndex:(unint64_t)index
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = [(VMPasscodeChangeViewController *)self accountAtIndex:index];
   if (v6)
   {
@@ -254,16 +251,14 @@
 
   else
   {
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134217984;
+      v9 = 134217984;
       indexCopy = index;
-      _os_log_impl(&dword_23C144000, v8, OS_LOG_TYPE_DEFAULT, "Could not retrieve account at index %lu", &v10, 0xCu);
+      _os_log_impl(&dword_23C144000, v8, OS_LOG_TYPE_DEFAULT, "Could not retrieve account at index %lu", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPINViewControllerFinished:(id)finished success:(BOOL)success oldPIN:(id)n newPIN:(id)iN
@@ -349,43 +344,42 @@ void __85__VMPasscodeChangeViewController_setPINViewControllerFinished_success_o
 {
   if (*(a1 + 56) == 1)
   {
-    v2 = *(a1 + 48);
-    v3 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = *(a1 + 32);
-    if (v4)
+    v3 = *(a1 + 32);
+    if (v3)
     {
+      v10 = 0;
       v11 = 0;
-      v12 = 0;
-      [v4 displayedErrorTitle:&v12 message:&v11];
-      v5 = v12;
-      v6 = v11;
+      [v3 displayedErrorTitle:&v11 message:&v10];
+      v4 = v11;
+      v5 = v10;
     }
 
     else
     {
-      v6 = 0;
       v5 = 0;
+      v4 = 0;
     }
 
-    if (![v5 length] && !objc_msgSend(v6, "length"))
+    if (![v4 length] && !objc_msgSend(v5, "length"))
     {
-      v7 = [MEMORY[0x277CCA8D8] mainBundle];
-      v8 = [v7 localizedStringForKey:@"VOICEMAIL_ERROR_TITLE_ERROR" value:&stru_284EEA450 table:@"Voicemail"];
+      v6 = [MEMORY[0x277CCA8D8] mainBundle];
+      v7 = [v6 localizedStringForKey:@"VOICEMAIL_ERROR_TITLE_ERROR" value:&stru_284EEA450 table:@"Voicemail"];
 
-      v9 = [MEMORY[0x277CCA8D8] mainBundle];
-      v10 = [v9 localizedStringForKey:@"VOICEMAIL_ERROR_MSG_TRY_AGAIN_LATER" value:&stru_284EEA450 table:@"Voicemail"];
+      v8 = [MEMORY[0x277CCA8D8] mainBundle];
+      v9 = [v8 localizedStringForKey:@"VOICEMAIL_ERROR_MSG_TRY_AGAIN_LATER" value:&stru_284EEA450 table:@"Voicemail"];
 
-      v6 = v10;
-      v5 = v8;
+      v5 = v9;
+      v4 = v7;
     }
 
-    [*(a1 + 40) resetWithErrorPrompt:v6 title:v5];
+    [*(a1 + 40) resetWithErrorPrompt:v5 title:v4];
   }
 }
 

@@ -81,8 +81,9 @@ void __64___GCDefaultDeviceManager_acceptDriverConnection_forHIDService___block_
 {
   v2 = [*(*(a1 + 32) + 40) objectForKey:*(a1 + 40)];
   v3 = objc_opt_respondsToSelector();
-  isInternalBuild = gc_isInternalBuild();
-  if (v3)
+  v4 = v3;
+  isInternalBuild = gc_isInternalBuild(v3, v5);
+  if (v4)
   {
     if (isInternalBuild)
     {
@@ -107,8 +108,9 @@ void __64___GCDefaultDeviceManager_acceptFilterConnection_forHIDService___block_
 {
   v2 = [*(*(a1 + 32) + 40) objectForKey:*(a1 + 40)];
   v3 = objc_opt_respondsToSelector();
-  isInternalBuild = gc_isInternalBuild();
-  if (v3)
+  v4 = v3;
+  isInternalBuild = gc_isInternalBuild(v3, v5);
+  if (v4)
   {
     if (isInternalBuild)
     {
@@ -138,49 +140,37 @@ void __43___GCDefaultDeviceManager_claimHIDService___block_invoke_cold_1(uint64_
 void __64___GCDefaultDeviceManager_acceptDriverConnection_forHIDService___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
+  v1 = getGCLogger(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    v8 = *(v0 + 48);
     OUTLINED_FUNCTION_1_10();
     OUTLINED_FUNCTION_1();
     _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __64___GCDefaultDeviceManager_acceptDriverConnection_forHIDService___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_4();
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v2 = getGCLogger(v1);
   if (OUTLINED_FUNCTION_9(v2))
   {
-    v9 = *(v1 + 48);
     OUTLINED_FUNCTION_1_10();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+    _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __64___GCDefaultDeviceManager_acceptFilterConnection_forHIDService___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_4();
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v2 = getGCLogger(v1);
   if (OUTLINED_FUNCTION_9(v2))
   {
-    v9 = *(v1 + 48);
     OUTLINED_FUNCTION_1_10();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+    _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

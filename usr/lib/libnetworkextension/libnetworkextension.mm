@@ -1,6 +1,6 @@
 void ne_url_filter_check(const char *a1, char *a2, uint64_t a3, NSObject *a4, int a5, void *a6)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   if ((get_current_config_state() & 0x10000000000000) == 0)
   {
     if (g_bloom_filter_ready == 1)
@@ -16,7 +16,6 @@ void ne_url_filter_check(const char *a1, char *a2, uint64_t a3, NSObject *a4, in
     }
 
     v12 = a6[2];
-    v13 = *MEMORY[0x1E69E9840];
 
     v12(a6, 1);
     return;
@@ -24,217 +23,216 @@ void ne_url_filter_check(const char *a1, char *a2, uint64_t a3, NSObject *a4, in
 
   if (a3)
   {
-    v14 = *(a3 + 20);
+    v13 = *(a3 + 20);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v15 = ne_log_obj();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+  v14 = ne_log_obj();
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
   if (a5)
   {
-    if (!v16)
+    if (!v15)
     {
       goto LABEL_28;
     }
 
     if (a1)
     {
-      v17 = strlen(a1);
-      v18 = a1;
+      v16 = strlen(a1);
+      v17 = a1;
     }
 
     else
     {
-      v17 = 0;
-      v18 = "<nil url>";
+      v16 = 0;
+      v17 = "<nil url>";
     }
 
-    v21 = "<nil>";
+    v20 = "<nil>";
     *buf = 136316419;
     *&buf[4] = "ne_url_filter_check";
     *&buf[12] = 2160;
     if (a2)
     {
-      v21 = a2;
+      v20 = a2;
     }
 
     *&buf[14] = 1752392040;
     *&buf[22] = 1040;
-    *&buf[24] = v17;
+    *&buf[24] = v16;
     *&buf[28] = 2101;
-    *&buf[30] = v18;
+    *&buf[30] = v17;
     *&buf[38] = 2080;
-    *&buf[40] = v21;
-    LOWORD(v60) = 1024;
-    *(&v60 + 2) = v14;
-    v22 = "%s: URLCHECK: CHECKING URL - %{sensitive, mask.hash, networkextension:string}.*P (app bundleid <%s> pid <%d>)";
-    v23 = v15;
-    v24 = 54;
+    *&buf[40] = v20;
+    LOWORD(v58) = 1024;
+    *(&v58 + 2) = v13;
+    v21 = "%s: URLCHECK: CHECKING URL - %{sensitive, mask.hash, networkextension:string}.*P (app bundleid <%s> pid <%d>)";
+    v22 = v14;
+    v23 = 54;
   }
 
   else
   {
-    if (!v16)
+    if (!v15)
     {
       goto LABEL_28;
     }
 
     if (a1)
     {
-      v19 = strlen(a1);
-      v20 = a1;
+      v18 = strlen(a1);
+      v19 = a1;
     }
 
     else
     {
-      v19 = 0;
-      v20 = "<nil url>";
+      v18 = 0;
+      v19 = "<nil url>";
     }
 
-    v25 = "<nil>";
+    v24 = "<nil>";
     *buf = 136316163;
     *&buf[4] = "ne_url_filter_check";
     *&buf[12] = 1024;
     if (a2)
     {
-      v25 = a2;
+      v24 = a2;
     }
 
-    *&buf[14] = v19;
+    *&buf[14] = v18;
     *&buf[18] = 2081;
-    *&buf[20] = v20;
+    *&buf[20] = v19;
     *&buf[28] = 2080;
-    *&buf[30] = v25;
+    *&buf[30] = v24;
     *&buf[38] = 1024;
-    *&buf[40] = v14;
-    v22 = "%s: URLCHECK: CHECKING URL - <%d : %{private}s> (app bundleid <%s> pid <%d>)";
-    v23 = v15;
-    v24 = 44;
+    *&buf[40] = v13;
+    v21 = "%s: URLCHECK: CHECKING URL - <%d : %{private}s> (app bundleid <%s> pid <%d>)";
+    v22 = v14;
+    v23 = 44;
   }
 
-  _os_log_impl(&dword_1C0DA5000, v23, OS_LOG_TYPE_INFO, v22, buf, v24);
+  _os_log_impl(&dword_1C0DA5000, v22, OS_LOG_TYPE_INFO, v21, buf, v23);
 LABEL_28:
-  v55[0] = 0;
-  v55[1] = v55;
-  v55[2] = 0x2000000000;
-  v55[3] = xpc_string_create(a1);
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2000000000;
-  v54 = 0;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x2000000000;
+  v53[3] = xpc_string_create(a1);
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2000000000;
+  v52 = 0;
   if (a2)
   {
-    v26 = a2;
+    v25 = a2;
   }
 
   else
   {
-    v27 = getpid();
-    v28 = ne_copy_signing_identifier_for_pid_with_audit_token(v27, 0);
-    v52[3] = v28;
-    if (v28 && MEMORY[0x1C68E6D80]() == MEMORY[0x1E69E9F10])
+    v26 = getpid();
+    v27 = ne_copy_signing_identifier_for_pid_with_audit_token(v26, 0);
+    v50[3] = v27;
+    if (v27 && MEMORY[0x1C68E6D80]() == MEMORY[0x1E69E9F10])
     {
       goto LABEL_34;
     }
 
-    v63 = 0;
-    v61 = 0u;
-    v62 = 0u;
+    v61 = 0;
+    v59 = 0u;
     v60 = 0u;
+    v58 = 0u;
     memset(buf, 0, sizeof(buf));
-    v29 = getpid();
-    snprintf(buf, 0x64uLL, "%d", v29);
-    v26 = buf;
+    v28 = getpid();
+    snprintf(buf, 0x64uLL, "%d", v28);
+    v25 = buf;
   }
 
-  v30 = xpc_string_create(v26);
-  v52[3] = v30;
+  v29 = xpc_string_create(v25);
+  v50[3] = v29;
 LABEL_34:
   dispatch_retain(a4);
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x2000000000;
-  v50[3] = a4;
-  v49[0] = 0;
-  v49[1] = v49;
-  v49[2] = 0x3002000000;
-  v49[3] = __Block_byref_object_copy__505;
-  v49[4] = __Block_byref_object_dispose__506;
-  v49[5] = _Block_copy(a6);
+  v48[0] = 0;
+  v48[1] = v48;
+  v48[2] = 0x2000000000;
+  v48[3] = a4;
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x3002000000;
+  v47[3] = __Block_byref_object_copy__505;
+  v47[4] = __Block_byref_object_dispose__506;
+  v47[5] = _Block_copy(a6);
   if (ne_url_filter_globals_onceToken != -1)
   {
     dispatch_once(&ne_url_filter_globals_onceToken, &__block_literal_global_57);
   }
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 0x40000000;
-  v37 = __ne_url_filter_check_block_invoke;
-  v38 = &unk_1E812BBA0;
-  v39 = v55;
-  v40 = &v51;
-  v47 = v14;
-  v43 = &ne_url_filter_globals_globals;
-  v44 = 0;
-  v48 = a5;
-  v41 = v50;
-  v42 = v49;
-  v45 = a1;
-  v46 = a2;
-  v57[0] = 0;
-  v57[1] = v57;
-  v57[2] = 0x2000000000;
-  v58 = 1;
-  v31 = dispatch_group_create();
-  v32 = ne_url_filter_copy_connection(&ne_url_filter_globals_globals, 0);
-  if (v32)
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 0x40000000;
+  v35 = __ne_url_filter_check_block_invoke;
+  v36 = &unk_1E812BBA0;
+  v37 = v53;
+  v38 = &v49;
+  v45 = v13;
+  v41 = &ne_url_filter_globals_globals;
+  v42 = 0;
+  v46 = a5;
+  v39 = v48;
+  v40 = v47;
+  v43 = a1;
+  v44 = a2;
+  v55[0] = 0;
+  v55[1] = v55;
+  v55[2] = 0x2000000000;
+  v56 = 1;
+  v30 = dispatch_group_create();
+  v31 = ne_url_filter_copy_connection(&ne_url_filter_globals_globals, 0);
+  if (v31)
   {
-    xpc_release(v32);
+    xpc_release(v31);
   }
 
   else
   {
     g_waitingForXPCConnections = 1;
-    dispatch_group_enter(v31);
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 0x40000000;
-    v56[2] = __ne_url_filter_request_connections_block_invoke;
-    v56[3] = &unk_1E812BC70;
-    v56[4] = v57;
-    v56[5] = v31;
-    ne_url_filter_request_connection(&ne_url_filter_globals_globals, 0, v56);
+    dispatch_group_enter(v30);
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 0x40000000;
+    v54[2] = __ne_url_filter_request_connections_block_invoke;
+    v54[3] = &unk_1E812BC70;
+    v54[4] = v55;
+    v54[5] = v30;
+    ne_url_filter_request_connection(&ne_url_filter_globals_globals, 0, v54);
   }
 
   if (g_waitingForXPCConnections)
   {
-    v33 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v34 = dispatch_queue_create("URL Filter establish connections queue", v33);
+    v32 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v33 = dispatch_queue_create("URL Filter establish connections queue", v32);
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 0x40000000;
     *&buf[16] = __ne_url_filter_request_connections_block_invoke_2;
     *&buf[24] = &unk_1E812BC98;
-    *&buf[32] = v36;
-    *&buf[40] = v57;
-    *&v60 = v34;
-    *(&v60 + 1) = v31;
-    dispatch_group_notify(v31, v34, buf);
+    *&buf[32] = v34;
+    *&buf[40] = v55;
+    *&v58 = v33;
+    *(&v58 + 1) = v30;
+    dispatch_group_notify(v30, v33, buf);
   }
 
   else
   {
-    dispatch_release(v31);
-    v37(v36, 1);
+    dispatch_release(v30);
+    v35(v34, 1);
   }
 
-  _Block_object_dispose(v57, 8);
-  _Block_object_dispose(v49, 8);
-  _Block_object_dispose(v50, 8);
-  _Block_object_dispose(&v51, 8);
   _Block_object_dispose(v55, 8);
-  v35 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v47, 8);
+  _Block_object_dispose(v48, 8);
+  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(v53, 8);
 }
 
 uint64_t get_current_config_state()
@@ -266,9 +264,9 @@ uint64_t get_current_config_state()
   return get_current_config_state_current_state;
 }
 
-uint64_t NEHelperIsHostnameDesignatedTracker(uint64_t result)
+__CFBundle *NEHelperIsHostnameDesignatedTracker(__CFBundle *result)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -282,8 +280,7 @@ uint64_t NEHelperIsHostnameDesignatedTracker(uint64_t result)
         Count = CFArrayGetCount(result);
         if (Count < 1)
         {
-LABEL_26:
-          result = 0;
+          return 0;
         }
 
         else
@@ -294,14 +291,14 @@ LABEL_26:
           while (1)
           {
             ValueAtIndex = CFArrayGetValueAtIndex(v2, v5);
-            memset(v20, 0, 255);
-            CFStringGetCString(ValueAtIndex, v20, 255, 0x8000100u);
+            memset(v19, 0, 255);
+            CFStringGetCString(ValueAtIndex, v19, 255, 0x8000100u);
             v8 = strlen(v1);
             v9 = v8 ? v8 - (v6[v8] == 46) : 0;
-            v10 = strlen(v20);
+            v10 = strlen(v19);
             if (v10)
             {
-              v11 = *(&v20[-1] + v10 + 15) == 46;
+              v11 = *(&v19[-1] + v10 + 15) == 46;
               v12 = v10 - v11;
               v13 = v10 == v11 || v9 == 0;
               if (!v13 && v9 >= v12)
@@ -321,7 +318,7 @@ LABEL_26:
                   }
 
                   v17 = v6[v9];
-                  v18 = *(v20 + v12 - 1);
+                  v18 = *(v19 + v12 - 1);
                   --v9;
                   --v12;
                   if (v17 != v18)
@@ -337,7 +334,7 @@ LABEL_26:
 
                 if (v9 == v12 || v9 >= 1 && v1[v15] == 46)
                 {
-                  break;
+                  return 1;
                 }
               }
             }
@@ -345,17 +342,14 @@ LABEL_26:
 LABEL_25:
             if (++v5 == v4)
             {
-              goto LABEL_26;
+              return 0;
             }
           }
-
-          result = 1;
         }
       }
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -393,7 +387,7 @@ BOOL NEHelperTrackerAppInfoSetAuditToken(uint64_t a1, __int128 *a2, __int128 *a3
   return a1 != 0;
 }
 
-uint64_t NEHelperTrackerGetDispositionRedactLogs(uint64_t a1, CFArrayRef theArray, void *a3, CFIndex *a4, int a5)
+uint64_t NEHelperTrackerGetDispositionRedactLogs(uint64_t a1, CFArrayRef theArray, void *a3, CFIndex *a4, uint64_t a5)
 {
   if (theArray)
   {
@@ -483,15 +477,15 @@ char *NETrackerGenerateTCCCacheKey(char *result, char *__dst, size_t __size)
 
 uint64_t NETrackerCheckTCCCache(char *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v16 = *MEMORY[0x1E69E9840];
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  *key = 0u;
+  v13 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  *key = 0u;
+  v9 = 0u;
   NETrackerGenerateTCCCacheKey(a1, key, 0x80uLL);
   os_unfair_lock_lock(&g_tcc_cache_lock);
   if (g_tcc_cache && MEMORY[0x1C68E6D80]() == MEMORY[0x1E69E9E80])
@@ -508,28 +502,25 @@ uint64_t NETrackerCheckTCCCache(char *a1)
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 134218242;
-    v6 = int64;
-    v7 = 2080;
-    v8 = key;
-    _os_log_debug_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_DEBUG, "NETrackerCheckTCCCache(): (%lld) for bundle: (%s)", &v5, 0x16u);
+    v4 = 134218242;
+    v5 = int64;
+    v6 = 2080;
+    v7 = key;
+    _os_log_debug_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_DEBUG, "NETrackerCheckTCCCache(): (%lld) for bundle: (%s)", &v4, 0x16u);
   }
 
   if ((int64 - 1) >= 2)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = int64;
+    return int64;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-uint64_t NEHelperIsTCCTrackingAllowed(uint64_t a1)
+BOOL NEHelperIsTCCTrackingAllowed(uint64_t a1)
 {
   v2 = NETrackerCheckTCCCache(a1);
   if (v2 == 1)
@@ -544,42 +535,38 @@ uint64_t NEHelperIsTCCTrackingAllowed(uint64_t a1)
 
   if (a1)
   {
-    v4 = *(a1 + 8);
-    if (!v4)
+    if (!*(a1 + 8))
     {
       NETrackerInsertTCCCache(a1, 0);
       return 0;
     }
 
-    v5 = *MEMORY[0x1E69D5600];
-    v9 = *v4;
-    v10 = v4[1];
-    v6 = TCCAccessPreflightWithAuditToken();
+    v4 = TCCAccessPreflightWithAuditToken();
   }
 
   else
   {
-    v7 = *MEMORY[0x1E69D5600];
-    v6 = TCCAccessPreflight();
+    v4 = TCCAccessPreflight();
   }
 
-  v3 = v6 == 0;
-  if (v6 != 2)
+  v3 = v4 == 0;
+  if (v4 != 2)
   {
-    NETrackerInsertTCCCache(a1, v6 == 0);
+    NETrackerInsertTCCCache(a1, v4 == 0);
   }
 
   return v3;
 }
 
-BOOL NEHelperTrackerMatchDomain(_DWORD *a1, char *__s, uint64_t a3, void *a4, _BYTE *a5, int a6)
+BOOL NEHelperTrackerMatchDomain(_DWORD *a1, char *__s, uint64_t a3, void *a4, _BYTE *a5, uint64_t a6)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (!__s)
   {
-    goto LABEL_65;
+    return 0;
   }
 
+  v6 = a6;
   v11 = strlen(__s);
   v12 = v11;
   if (!v11)
@@ -588,7 +575,7 @@ BOOL NEHelperTrackerMatchDomain(_DWORD *a1, char *__s, uint64_t a3, void *a4, _B
     result = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
     if (!result)
     {
-      goto LABEL_66;
+      return result;
     }
 
     if (a1)
@@ -613,7 +600,15 @@ BOOL NEHelperTrackerMatchDomain(_DWORD *a1, char *__s, uint64_t a3, void *a4, _B
       v21 = 0;
     }
 
-    goto LABEL_64;
+LABEL_64:
+    *buf = 136315650;
+    v39 = "NEHelperTrackerMatchDomain";
+    v40 = 1024;
+    *v41 = a1;
+    *&v41[4] = 1024;
+    *&v41[6] = v21;
+    _os_log_debug_impl(&dword_1C0DA5000, v19, OS_LOG_TYPE_DEBUG, "%s: Invalid lookup for zero-length domain (app info ref %X pid %d)", buf, 0x18u);
+    return 0;
   }
 
   if (__s[v11 - 1] == 46)
@@ -625,7 +620,7 @@ BOOL NEHelperTrackerMatchDomain(_DWORD *a1, char *__s, uint64_t a3, void *a4, _B
       result = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
       if (!result)
       {
-        goto LABEL_66;
+        return result;
       }
 
       if (a1)
@@ -650,17 +645,7 @@ BOOL NEHelperTrackerMatchDomain(_DWORD *a1, char *__s, uint64_t a3, void *a4, _B
         v21 = 0;
       }
 
-LABEL_64:
-      *buf = 136315650;
-      v40 = "NEHelperTrackerMatchDomain";
-      v41 = 1024;
-      *v42 = a1;
-      *&v42[4] = 1024;
-      *&v42[6] = v21;
-      _os_log_debug_impl(&dword_1C0DA5000, v19, OS_LOG_TYPE_DEBUG, "%s: Invalid lookup for zero-length domain (app info ref %X pid %d)", buf, 0x18u);
-LABEL_65:
-      result = 0;
-      goto LABEL_66;
+      goto LABEL_64;
     }
   }
 
@@ -681,7 +666,7 @@ LABEL_65:
   __s[v12] = 0;
   v15 = ne_log_obj();
   v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
-  if (a6)
+  if (v6)
   {
     if (!v16)
     {
@@ -717,23 +702,23 @@ LABEL_65:
     }
 
     *buf = 136317187;
-    v40 = "NEHelperTrackerMatchDomain";
-    v41 = 2160;
-    *v42 = 1752392040;
-    *&v42[8] = 1040;
-    *&v42[10] = v12;
-    v43 = 2101;
-    *v44 = __s;
-    *&v44[8] = 1024;
-    *&v44[10] = a1;
-    *&v44[14] = 1024;
-    *&v44[16] = v18;
-    *v45 = 2080;
-    *&v45[2] = "n/a";
-    *&v45[10] = 2080;
-    *&v45[12] = "n/a";
-    *&v45[20] = 2080;
-    *&v45[22] = v17;
+    v39 = "NEHelperTrackerMatchDomain";
+    v40 = 2160;
+    *v41 = 1752392040;
+    *&v41[8] = 1040;
+    *&v41[10] = v12;
+    v42 = 2101;
+    *v43 = __s;
+    *&v43[8] = 1024;
+    *&v43[10] = a1;
+    *&v43[14] = 1024;
+    *&v43[16] = v18;
+    *v44 = 2080;
+    *&v44[2] = "n/a";
+    *&v44[10] = 2080;
+    *&v44[12] = "n/a";
+    *&v44[20] = 2080;
+    *&v44[22] = v17;
     v28 = "%s domain lookup for%{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d for %s) %s - %s";
     v29 = v15;
     v30 = 80;
@@ -775,21 +760,21 @@ LABEL_65:
     }
 
     *buf = 136316931;
-    v40 = "NEHelperTrackerMatchDomain";
-    v41 = 1024;
-    *v42 = v12;
-    *&v42[4] = 2081;
-    *&v42[6] = __s;
-    v43 = 1024;
-    *v44 = a1;
-    *&v44[4] = 1024;
-    *&v44[6] = v26;
+    v39 = "NEHelperTrackerMatchDomain";
+    v40 = 1024;
+    *v41 = v12;
+    *&v41[4] = 2081;
+    *&v41[6] = __s;
+    v42 = 1024;
+    *v43 = a1;
+    *&v43[4] = 1024;
+    *&v43[6] = v26;
+    *&v43[10] = 2080;
+    *&v43[12] = "n/a";
+    *v44 = 2080;
+    *&v44[2] = "n/a";
     *&v44[10] = 2080;
-    *&v44[12] = "n/a";
-    *v45 = 2080;
-    *&v45[2] = "n/a";
-    *&v45[10] = 2080;
-    *&v45[12] = v25;
+    *&v44[12] = v25;
     v28 = "%s: domain lookup for<%d : %{private}s> (app info ref %X pid %d for %s) %s - %s";
     v29 = v15;
     v30 = 70;
@@ -799,74 +784,74 @@ LABEL_65:
 LABEL_16:
   if (ne_trie_search() == 0xFFFF)
   {
-    goto LABEL_65;
+    return 0;
   }
 
   v22 = ne_log_obj();
   v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
-  if (a6)
+  if (v6)
   {
     if (v23)
     {
       v24 = strlen(__s);
-      v37 = "App";
+      v36 = "App";
       if (a1)
       {
-        v38 = a1[14];
-        if (!v38)
+        v37 = a1[14];
+        if (!v37)
         {
-          v38 = a1[7];
-          if (!v38)
+          v37 = a1[7];
+          if (!v37)
           {
-            v38 = a1[30];
-            if (!v38)
+            v37 = a1[30];
+            if (!v37)
             {
-              v38 = a1[23];
+              v37 = a1[23];
             }
           }
         }
 
         if (a1[31])
         {
-          v37 = "Web";
+          v36 = "Web";
         }
       }
 
       else
       {
-        v38 = 0;
+        v37 = 0;
       }
 
       *buf = 136318723;
-      v40 = "NEHelperTrackerMatchDomain";
-      v41 = 2160;
-      *v42 = 1752392040;
-      *&v42[8] = 1040;
-      *&v42[10] = v24;
-      v43 = 2101;
-      *v44 = __s;
-      *&v44[8] = 2160;
-      *&v44[10] = 1752392040;
-      *&v44[18] = 1040;
-      *v45 = 4;
-      *&v45[4] = 2101;
-      *&v45[6] = "null";
-      *&v45[14] = 2160;
-      *&v45[16] = 1752392040;
-      *&v45[24] = 1040;
-      *&v45[26] = 4;
-      *&v45[30] = 2101;
-      *v46 = "null";
-      *&v46[8] = 1024;
-      *v47 = a1;
-      *&v47[4] = 1024;
-      *&v47[6] = v38;
-      v48 = 2080;
-      v49 = "n/a";
-      v50 = 2080;
-      v51 = "n/a";
-      v52 = 2080;
-      v53 = v37;
+      v39 = "NEHelperTrackerMatchDomain";
+      v40 = 2160;
+      *v41 = 1752392040;
+      *&v41[8] = 1040;
+      *&v41[10] = v24;
+      v42 = 2101;
+      *v43 = __s;
+      *&v43[8] = 2160;
+      *&v43[10] = 1752392040;
+      *&v43[18] = 1040;
+      *v44 = 4;
+      *&v44[4] = 2101;
+      *&v44[6] = "null";
+      *&v44[14] = 2160;
+      *&v44[16] = 1752392040;
+      *&v44[24] = 1040;
+      *&v44[26] = 4;
+      *&v44[30] = 2101;
+      *v45 = "null";
+      *&v45[8] = 1024;
+      *v46 = a1;
+      *&v46[4] = 1024;
+      *&v46[6] = v37;
+      v47 = 2080;
+      v48 = "n/a";
+      v49 = 2080;
+      v50 = "n/a";
+      v51 = 2080;
+      v52 = v36;
       v33 = "%s: domain lookup result for%{sensitive, mask.hash, networkextension:string}.*P --> metadata %{sensitive, mask.hash, networkextension:string}.*P %{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d %s) %s - %s";
       v34 = v22;
       v35 = 132;
@@ -907,45 +892,42 @@ LABEL_76:
     }
 
     *buf = 136317955;
-    v40 = "NEHelperTrackerMatchDomain";
-    v41 = 1024;
-    *v42 = v27;
-    *&v42[4] = 2081;
-    *&v42[6] = __s;
-    v43 = 1024;
-    *v44 = 4;
-    *&v44[4] = 2081;
-    *&v44[6] = "null";
-    *&v44[14] = 1024;
-    *&v44[16] = 4;
-    *v45 = 2081;
-    *&v45[2] = "null";
-    *&v45[10] = 1024;
-    *&v45[12] = a1;
-    *&v45[16] = 1024;
-    *&v45[18] = v32;
-    *&v45[22] = 2080;
-    *&v45[24] = "n/a";
+    v39 = "NEHelperTrackerMatchDomain";
+    v40 = 1024;
+    *v41 = v27;
+    *&v41[4] = 2081;
+    *&v41[6] = __s;
+    v42 = 1024;
+    *v43 = 4;
+    *&v43[4] = 2081;
+    *&v43[6] = "null";
+    *&v43[14] = 1024;
+    *&v43[16] = 4;
+    *v44 = 2081;
+    *&v44[2] = "null";
+    *&v44[10] = 1024;
+    *&v44[12] = a1;
+    *&v44[16] = 1024;
+    *&v44[18] = v32;
+    *&v44[22] = 2080;
+    *&v44[24] = "n/a";
+    *v45 = 2080;
+    *&v45[2] = "n/a";
     *v46 = 2080;
-    *&v46[2] = "n/a";
-    *v47 = 2080;
-    *&v47[2] = v31;
+    *&v46[2] = v31;
     v33 = "%s: domain lookup result for<%d : %{private}s> --> metadata <%d : %{private}s> <%d : %{private}s> (app info ref %X pid %d %s) %s - %s";
     v34 = v22;
     v35 = 102;
     goto LABEL_76;
   }
 
-  NEHelperTrackerProcessMatch(__s, 0, a1, a5, a6);
+  NEHelperTrackerProcessMatch(__s, 0, a1, a5, v6);
   if (a4)
   {
     *a4 = 0;
   }
 
-  result = 1;
-LABEL_66:
-  v36 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 void NEHelperTrackerFreeAppInfo(void *a1)
@@ -970,10 +952,10 @@ BOOL NEHelperTrackerAppInfoSetUUID(uint64_t a1, const unsigned __int8 *a2, const
 uint64_t NEHelperIsHostnameDesignatedTrackerExternal(const char *a1, uint64_t a2)
 {
   v2 = 0;
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   if (!a1 || !a2)
   {
-    goto LABEL_108;
+    return v2;
   }
 
   if (NEHelperIsHostnameDesignatedTrackerExternal_onceToken != -1)
@@ -994,10 +976,10 @@ LABEL_8:
       v9 = 2;
 LABEL_115:
       _os_log_debug_impl(&dword_1C0DA5000, v8, OS_LOG_TYPE_DEBUG, v6, v7, v9);
-      goto LABEL_107;
+      return 0;
     }
 
-    goto LABEL_107;
+    return 0;
   }
 
   memset(buffer, 0, sizeof(buffer));
@@ -1016,9 +998,7 @@ LABEL_115:
         goto LABEL_8;
       }
 
-LABEL_107:
-      v2 = 0;
-      goto LABEL_108;
+      return 0;
     }
 
     v12 = v11;
@@ -1061,8 +1041,8 @@ LABEL_107:
     if (AppTrackerDomains)
     {
       v38 = AppTrackerDomains;
-      v73 = v17;
-      v74 = v10;
+      v72 = v17;
+      v73 = v10;
       count = xpc_array_get_count(AppTrackerDomains);
       if (count)
       {
@@ -1162,7 +1142,7 @@ LABEL_66:
               if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
               {
                 *__s = 136315138;
-                *&__s[4] = v74;
+                *&__s[4] = v73;
                 _os_log_debug_impl(&dword_1C0DA5000, v59, OS_LOG_TYPE_DEBUG, "NEHelperIsHostnameDesignatedTrackerExternal(): unable to cache domain for bundle (%s)", __s, 0xCu);
               }
             }
@@ -1188,8 +1168,8 @@ LABEL_66:
       v36 = 0;
 LABEL_80:
       xpc_release(v38);
-      v17 = v73;
-      v10 = v74;
+      v17 = v72;
+      v10 = v73;
     }
 
     else
@@ -1216,19 +1196,19 @@ LABEL_80:
     while (1)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(v19, v22);
-      v93 = 0u;
-      memset(v94, 0, sizeof(v94));
-      v91 = 0u;
       v92 = 0u;
-      v89 = 0u;
+      memset(v93, 0, sizeof(v93));
       v90 = 0u;
-      v87 = 0u;
+      v91 = 0u;
       v88 = 0u;
-      v85 = 0u;
+      v89 = 0u;
       v86 = 0u;
-      v83 = 0u;
+      v87 = 0u;
       v84 = 0u;
+      v85 = 0u;
       v82 = 0u;
+      v83 = 0u;
+      v81 = 0u;
       memset(__s, 0, sizeof(__s));
       CFStringGetCString(ValueAtIndex, __s, 253, 0x8000100u);
       v25 = strlen(a1);
@@ -1289,9 +1269,9 @@ LABEL_42:
     if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136380931;
-      v77 = a1;
-      v78 = 2081;
-      v79 = __s;
+      v76 = a1;
+      v77 = 2081;
+      v78 = __s;
       _os_log_debug_impl(&dword_1C0DA5000, v61, OS_LOG_TYPE_DEBUG, "NEHelperIsHostnameDesignatedTrackerExternal(): found subdomain in cache. (%{private}s) is a subdomain of tracker domain (%{private}s)", buf, 0x16u);
     }
 
@@ -1310,7 +1290,7 @@ LABEL_85:
       _os_log_debug_impl(&dword_1C0DA5000, v64, OS_LOG_TYPE_DEBUG, "NEHelperIsHostnameDesignatedTrackerExternal(): previous_tcc_check_result is ne_tcc_result_denied", __s, 2u);
     }
 
-    IsTCCTrackingAllowed = 0;
+    v63 = 0;
     goto LABEL_100;
   }
 
@@ -1318,16 +1298,7 @@ LABEL_85:
   {
     if (*(a2 + 8))
     {
-      if (v36)
-      {
-        IsTCCTrackingAllowed = NEHelperIsTCCTrackingAllowed(a2);
-      }
-
-      else
-      {
-        IsTCCTrackingAllowed = 1;
-      }
-
+      v63 = (v36 & 1) == 0 || NEHelperIsTCCTrackingAllowed(a2);
       v66 = ne_log_obj();
       if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
       {
@@ -1352,7 +1323,7 @@ LABEL_94:
     }
   }
 
-  IsTCCTrackingAllowed = 1;
+  v63 = 1;
 LABEL_100:
   v67 = ne_log_obj();
   if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
@@ -1360,7 +1331,7 @@ LABEL_100:
     *__s = 67109376;
     *&__s[4] = v36 & 1;
     *&__s[8] = 1024;
-    *&__s[10] = IsTCCTrackingAllowed;
+    *&__s[10] = v63;
     _os_log_debug_impl(&dword_1C0DA5000, v67, OS_LOG_TYPE_DEBUG, "NEHelperIsHostnameDesignatedTrackerExternal(): is_hostname_found: (%d), is_tcc_allowed: (%d)", __s, 0xEu);
   }
 
@@ -1379,10 +1350,10 @@ LABEL_100:
       goto LABEL_115;
     }
 
-    goto LABEL_107;
+    return 0;
   }
 
-  if (IsTCCTrackingAllowed)
+  if (v63)
   {
     v2 = 2;
     if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
@@ -1397,24 +1368,22 @@ LABEL_100:
   {
     if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
     {
-      v72 = buffer;
+      v71 = buffer;
       if (!LOBYTE(buffer[0]))
       {
-        v72 = v10;
+        v71 = v10;
       }
 
       *__s = 136315394;
       *&__s[4] = a1;
       *&__s[12] = 2080;
-      *&__s[14] = v72;
+      *&__s[14] = v71;
       _os_log_impl(&dword_1C0DA5000, v69, OS_LOG_TYPE_DEFAULT, "Denied access to %s because it matches a domain in the NSTrackingDomains of %s, which does not have permission to track.", __s, 0x16u);
     }
 
-    v2 = 1;
+    return 1;
   }
 
-LABEL_108:
-  v70 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -1469,7 +1438,7 @@ uint64_t NEHelperTrackerCacheGet(uint64_t a1, const void *a2)
 
 CFMutableDictionaryRef __NEHelperIsHostnameDesignatedTrackerExternal_block_invoke()
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v0 = getpid();
   v1 = ne_copy_signing_identifier_for_pid_with_audit_token(v0, 0);
   if (v1 && (v2 = v1, MEMORY[0x1C68E6D80]() == MEMORY[0x1E69E9F10]))
@@ -1485,8 +1454,8 @@ CFMutableDictionaryRef __NEHelperIsHostnameDesignatedTrackerExternal_block_invok
       v5 = ne_log_obj();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_error_impl(&dword_1C0DA5000, v5, OS_LOG_TYPE_ERROR, "Failed to get a string pointer from the current signing identifier", v8, 2u);
+        LOWORD(v7[0]) = 0;
+        _os_log_error_impl(&dword_1C0DA5000, v5, OS_LOG_TYPE_ERROR, "Failed to get a string pointer from the current signing identifier", v7, 2u);
       }
     }
 
@@ -1498,9 +1467,9 @@ CFMutableDictionaryRef __NEHelperIsHostnameDesignatedTrackerExternal_block_invok
     v3 = ne_log_obj();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v8[0] = 67109120;
-      v8[1] = getpid();
-      _os_log_error_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_ERROR, "Failed to get the signing identifier for %d", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = getpid();
+      _os_log_error_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_ERROR, "Failed to get the signing identifier for %d", v7, 8u);
     }
   }
 
@@ -1510,16 +1479,16 @@ CFMutableDictionaryRef __NEHelperIsHostnameDesignatedTrackerExternal_block_invok
   unk_1ED4D4748 = result;
   unk_1ED4D4750 = 0;
   qword_1ED4D4760 = &qword_1ED4D4758;
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-xpc_object_t ne_copy_signing_identifier_for_pid_with_audit_token(int a1, uint64_t a2)
+xpc_object_t ne_copy_signing_identifier_for_pid_with_audit_token(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  bzero(v18, 0x400uLL);
+  v3 = a1;
+  v18 = *MEMORY[0x1E69E9840];
+  bzero(v17, 0x400uLL);
   v4 = 1023;
-  v5 = v18;
+  v5 = v17;
   while (a2)
   {
     if (!csops_audittoken())
@@ -1529,18 +1498,18 @@ xpc_object_t ne_copy_signing_identifier_for_pid_with_audit_token(int a1, uint64_
 
 LABEL_6:
     v6 = __error();
-    if (v5 != v18 || *v6 != 34)
+    if (v5 != v17 || *v6 != 34)
     {
       v9 = ne_log_obj();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = __error();
         v11 = strerror(*v10);
-        v16 = 67109378;
-        LODWORD(v17[0]) = a1;
-        WORD2(v17[0]) = 2080;
-        *(v17 + 6) = v11;
-        _os_log_error_impl(&dword_1C0DA5000, v9, OS_LOG_TYPE_ERROR, "Failed to get the signing identifier for %d: %s", &v16, 0x12u);
+        v15 = 67109378;
+        LODWORD(v16[0]) = v3;
+        WORD2(v16[0]) = 2080;
+        *(v16 + 6) = v11;
+        _os_log_error_impl(&dword_1C0DA5000, v9, OS_LOG_TYPE_ERROR, "Failed to get the signing identifier for %d: %s", &v15, 0x12u);
       }
 
       goto LABEL_18;
@@ -1552,9 +1521,9 @@ LABEL_6:
       v12 = ne_log_obj();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v16 = 134217984;
-        v17[0] = v4;
-        _os_log_error_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_ERROR, "signing identifier length is invalid: %lu", &v16, 0xCu);
+        v15 = 134217984;
+        v16[0] = v4;
+        _os_log_error_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_ERROR, "signing identifier length is invalid: %lu", &v15, 0xCu);
       }
 
       v5 = 0;
@@ -1591,12 +1560,11 @@ LABEL_11:
 
   v13 = 1;
 LABEL_21:
-  if (v13 && v5 != v18)
+  if (v13 && v5 != v17)
   {
     free(v5);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1703,43 +1671,43 @@ void NEHelperTrackerCachePut(uint64_t a1, const void *a2, uint64_t a3)
 
 uint64_t NEHelperTrackerGetDispositionWrapper(uint64_t a1, char *__s, char **a3, unint64_t a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v18 = 0u;
-  memset(v17, 0, sizeof(v17));
+  v18 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
+  memset(v16, 0, sizeof(v16));
   if (*a1)
   {
-    *&v17[0] = *a1;
+    *&v16[0] = *a1;
   }
 
   v8 = *(a1 + 8);
   if (v8)
   {
     v9 = *v8;
-    *(&v17[1] + 8) = v8[1];
-    *(v17 + 8) = v9;
-    *(&v17[4] + 8) = 0u;
-    *(&v17[5] + 8) = 0u;
+    *(&v16[1] + 8) = v8[1];
+    *(v16 + 8) = v9;
+    *(&v16[4] + 8) = 0u;
+    *(&v16[5] + 8) = 0u;
   }
 
   v10 = *(a1 + 16);
   if (v10)
   {
-    uuid_copy(&v17[2] + 8, v10);
-    uuid_copy(&v17[6] + 8, UUID_NULL);
+    uuid_copy(&v16[2] + 8, v10);
+    uuid_copy(&v16[6] + 8, UUID_NULL);
   }
 
   if (*(a1 + 32) == 1)
   {
-    HIDWORD(v18) |= 1u;
+    HIDWORD(v17) |= 1u;
   }
 
-  v15 = 0;
-  DispositionForDomain = NEHelperTrackerGetDispositionForDomain(v17, __s, &v15, 1);
-  if (a3 | a4 && v15)
+  v14 = 0;
+  DispositionForDomain = NEHelperTrackerGetDispositionForDomain(v16, __s, &v14, 1);
+  if (a3 | a4 && v14)
   {
     if (a3)
     {
-      v12 = NEHelperTrackerContextCopyDomainOwner(v15, v16, 254, 0);
+      v12 = NEHelperTrackerContextCopyDomainOwner(v14, v15, 254, 0);
       if (v12)
       {
         *a3 = strndup(v12, 0xFDuLL);
@@ -1748,19 +1716,17 @@ uint64_t NEHelperTrackerGetDispositionWrapper(uint64_t a1, char *__s, char **a3,
 
     if (a4)
     {
-      *a4 = NEHelperTrackerContextCanBlockRequest(v15);
+      *a4 = NEHelperTrackerContextCanBlockRequest(v14);
     }
   }
 
-  result = dword_1C0DDA9F0[DispositionForDomain];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return dword_1C0DDA9F0[DispositionForDomain];
 }
 
-uint64_t NEHelperTrackerGetDispositionForDomain(_DWORD *a1, char *__s, void *a3, int a4)
+uint64_t NEHelperTrackerGetDispositionForDomain(_DWORD *a1, char *__s, void *a3, uint64_t a4)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v40 = 0;
+  v53 = *MEMORY[0x1E69E9840];
+  v39 = 0;
   if (__s)
   {
     v8 = strlen(__s);
@@ -1768,323 +1734,58 @@ uint64_t NEHelperTrackerGetDispositionForDomain(_DWORD *a1, char *__s, void *a3,
     {
       goto LABEL_3;
     }
-  }
 
-  else
-  {
-    v8 = 0;
-    if (a1)
+LABEL_18:
+    v17 = ne_log_obj();
+    result = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+    if (a4)
     {
-LABEL_3:
-      v9 = ne_log_obj();
-      result = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
-      if (v8 - 254 <= 0xFFFFFFFFFFFFFF02)
+      if (!result)
       {
-        if (a4)
-        {
-          if (result)
-          {
-            if (__s)
-            {
-              v11 = __s;
-            }
-
-            else
-            {
-              v11 = "n/a";
-            }
-
-            v12 = a1[14];
-            if (!v12)
-            {
-              v12 = a1[7];
-              if (!v12)
-              {
-                v12 = a1[30];
-                if (!v12)
-                {
-                  v12 = a1[23];
-                }
-              }
-            }
-
-            v13 = a1[31];
-            v42 = "NEHelperTrackerGetDispositionForDomain";
-            *buf = 136317187;
-            v43 = 2160;
-            if (v13)
-            {
-              v14 = "Web";
-            }
-
-            else
-            {
-              v14 = "App";
-            }
-
-            *v44 = 1752392040;
-            *&v44[8] = 1040;
-            *&v44[10] = v8;
-            v45 = 2101;
-            *v46 = v11;
-            *&v46[8] = 1024;
-            *v47 = a1;
-            *&v47[4] = 1024;
-            *&v47[6] = v12;
-            v48 = 2080;
-            v49 = "n/a";
-            v50 = 2080;
-            v51 = "n/a";
-            v52 = 2080;
-            v53 = v14;
-            v15 = "%s Invalid domain length%{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d for %s) %s - %s";
-            v16 = v9;
-            goto LABEL_24;
-          }
-
-          goto LABEL_69;
-        }
-
-        if (!result)
-        {
-          goto LABEL_69;
-        }
-
-        if (__s)
-        {
-          v28 = __s;
-        }
-
-        else
-        {
-          v28 = "n/a";
-        }
-
-        v29 = a1[14];
-        if (!v29)
-        {
-          v29 = a1[7];
-          if (!v29)
-          {
-            v29 = a1[30];
-            if (!v29)
-            {
-              v29 = a1[23];
-            }
-          }
-        }
-
-        v30 = "Web";
-        v31 = a1[31];
-        v42 = "NEHelperTrackerGetDispositionForDomain";
-        *buf = 136316931;
-        v43 = 1024;
-        if ((v31 & 1) == 0)
-        {
-          v30 = "App";
-        }
-
-        *v44 = v8;
-        *&v44[4] = 2081;
-        *&v44[6] = v28;
-        v45 = 1024;
-        *v46 = a1;
-        *&v46[4] = 1024;
-        *&v46[6] = v29;
-        *v47 = 2080;
-        *&v47[2] = "n/a";
-        v48 = 2080;
-        v49 = "n/a";
-        v50 = 2080;
-        v51 = v30;
-        v15 = "%s: Invalid domain length<%d : %{private}s> (app info ref %X pid %d for %s) %s - %s";
-        v16 = v9;
-LABEL_54:
-        v19 = 70;
-        goto LABEL_55;
+        return result;
       }
 
-      if (a4)
+      *buf = 136317187;
+      v41 = "NEHelperTrackerGetDispositionForDomain";
+      v42 = 2160;
+      if (__s)
       {
-        if (result)
-        {
-          if (__s)
-          {
-            v20 = __s;
-          }
-
-          else
-          {
-            v20 = "n/a";
-          }
-
-          v21 = a1[14];
-          if (!v21)
-          {
-            v21 = a1[7];
-            if (!v21)
-            {
-              v21 = a1[30];
-              if (!v21)
-              {
-                v21 = a1[23];
-              }
-            }
-          }
-
-          v22 = a1[31];
-          v42 = "NEHelperTrackerGetDispositionForDomain";
-          *buf = 136317187;
-          v43 = 2160;
-          if (v22)
-          {
-            v23 = "Web";
-          }
-
-          else
-          {
-            v23 = "App";
-          }
-
-          *v44 = 1752392040;
-          *&v44[8] = 1040;
-          *&v44[10] = v8;
-          v45 = 2101;
-          *v46 = v20;
-          *&v46[8] = 1024;
-          *v47 = a1;
-          *&v47[4] = 1024;
-          *&v47[6] = v21;
-          v48 = 2080;
-          v49 = "n/a";
-          v50 = 2080;
-          v51 = "n/a";
-          v52 = 2080;
-          v53 = v23;
-          v24 = "%s domain lookup for%{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d for %s) %s - %s";
-          v25 = v9;
-          v26 = 80;
-LABEL_80:
-          _os_log_debug_impl(&dword_1C0DA5000, v25, OS_LOG_TYPE_DEBUG, v24, buf, v26);
-        }
-      }
-
-      else if (result)
-      {
-        if (__s)
-        {
-          v36 = __s;
-        }
-
-        else
-        {
-          v36 = "n/a";
-        }
-
-        v37 = a1[14];
-        if (!v37)
-        {
-          v37 = a1[7];
-          if (!v37)
-          {
-            v37 = a1[30];
-            if (!v37)
-            {
-              v37 = a1[23];
-            }
-          }
-        }
-
-        v38 = "Web";
-        v39 = a1[31];
-        v42 = "NEHelperTrackerGetDispositionForDomain";
-        *buf = 136316931;
-        v43 = 1024;
-        if ((v39 & 1) == 0)
-        {
-          v38 = "App";
-        }
-
-        *v44 = v8;
-        *&v44[4] = 2081;
-        *&v44[6] = v36;
-        v45 = 1024;
-        *v46 = a1;
-        *&v46[4] = 1024;
-        *&v46[6] = v37;
-        *v47 = 2080;
-        *&v47[2] = "n/a";
-        v48 = 2080;
-        v49 = "n/a";
-        v50 = 2080;
-        v51 = v38;
-        v24 = "%s: domain lookup for<%d : %{private}s> (app info ref %X pid %d for %s) %s - %s";
-        v25 = v9;
-        v26 = 70;
-        goto LABEL_80;
-      }
-
-      if (a1[31])
-      {
-        v32 = NEHelperTrackerCheckMetadataForWeb;
+        v18 = __s;
       }
 
       else
       {
-        v32 = NEHelperTrackerCheckMetadataForApp;
+        v18 = "n/a";
       }
 
-      os_unfair_lock_lock(&ne_helper_tracker_lock);
-      buf[0] = 0;
-      v33 = ne_tracker_build_cache();
-      if (buf[0] == 1)
-      {
-        [NEDiagnosticReport logInternalError:@"Tracker" subType:@"FailedtoReadMMAPFile" context:0];
-      }
-
-      if ((v33 & 1) == 0)
-      {
-        os_unfair_lock_unlock(&ne_helper_tracker_lock);
-        goto LABEL_68;
-      }
-
-      strncpy(NEHelperTrackerGetDispositionForDomain_buffer, __s, 0xFDuLL);
-      NEHelperTrackerGetDispositionForDomain_buffer[v8] = 0;
-      matched = NEHelperTrackerMatchDomain(a1, NEHelperTrackerGetDispositionForDomain_buffer, v32, a3, &v40, a4);
-      os_unfair_lock_unlock(&ne_helper_tracker_lock);
-      if (!matched)
-      {
-LABEL_68:
-        result = 0;
-        goto LABEL_69;
-      }
-
-      if (v40)
-      {
-        result = 1;
-      }
-
-      else
-      {
-        result = 3;
-      }
-
-      goto LABEL_69;
+      *v43 = 1752392040;
+      *&v43[8] = 1040;
+      *&v43[10] = v8;
+      v44 = 2101;
+      *v45 = v18;
+      *&v45[8] = 1024;
+      *v46 = 0;
+      *&v46[4] = 1024;
+      *&v46[6] = 0;
+      v47 = 2080;
+      v48 = "n/a";
+      v49 = 2080;
+      v50 = "n/a";
+      v51 = 2080;
+      v52 = "App";
+      v15 = "%s Invalid app info for domain%{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d for %s) %s - %s";
+      v16 = v17;
+      goto LABEL_24;
     }
-  }
 
-  v17 = ne_log_obj();
-  result = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
-  if (!a4)
-  {
     if (!result)
     {
-      goto LABEL_69;
+      return result;
     }
 
     *buf = 136316931;
-    v42 = "NEHelperTrackerGetDispositionForDomain";
-    v43 = 1024;
+    v41 = "NEHelperTrackerGetDispositionForDomain";
+    v42 = 1024;
     if (__s)
     {
       v27 = __s;
@@ -2095,66 +1796,331 @@ LABEL_68:
       v27 = "n/a";
     }
 
-    *v44 = v8;
-    *&v44[4] = 2081;
-    *&v44[6] = v27;
-    v45 = 1024;
-    *v46 = 0;
-    *&v46[4] = 1024;
-    *&v46[6] = 0;
-    *v47 = 2080;
-    *&v47[2] = "n/a";
-    v48 = 2080;
-    v49 = "n/a";
-    v50 = 2080;
-    v51 = "App";
+    *v43 = v8;
+    *&v43[4] = 2081;
+    *&v43[6] = v27;
+    v44 = 1024;
+    *v45 = 0;
+    *&v45[4] = 1024;
+    *&v45[6] = 0;
+    *v46 = 2080;
+    *&v46[2] = "n/a";
+    v47 = 2080;
+    v48 = "n/a";
+    v49 = 2080;
+    v50 = "App";
     v15 = "%s: Invalid app info for domain<%d : %{private}s> (app info ref %X pid %d for %s) %s - %s";
     v16 = v17;
-    goto LABEL_54;
+LABEL_54:
+    v19 = 70;
+    goto LABEL_55;
   }
 
-  if (result)
+  v8 = 0;
+  if (!a1)
   {
-    *buf = 136317187;
-    v42 = "NEHelperTrackerGetDispositionForDomain";
-    v43 = 2160;
+    goto LABEL_18;
+  }
+
+LABEL_3:
+  v9 = ne_log_obj();
+  result = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+  if (v8 - 254 <= 0xFFFFFFFFFFFFFF02)
+  {
+    if (a4)
+    {
+      if (!result)
+      {
+        return result;
+      }
+
+      if (__s)
+      {
+        v11 = __s;
+      }
+
+      else
+      {
+        v11 = "n/a";
+      }
+
+      v12 = a1[14];
+      if (!v12)
+      {
+        v12 = a1[7];
+        if (!v12)
+        {
+          v12 = a1[30];
+          if (!v12)
+          {
+            v12 = a1[23];
+          }
+        }
+      }
+
+      v13 = a1[31];
+      v41 = "NEHelperTrackerGetDispositionForDomain";
+      *buf = 136317187;
+      v42 = 2160;
+      if (v13)
+      {
+        v14 = "Web";
+      }
+
+      else
+      {
+        v14 = "App";
+      }
+
+      *v43 = 1752392040;
+      *&v43[8] = 1040;
+      *&v43[10] = v8;
+      v44 = 2101;
+      *v45 = v11;
+      *&v45[8] = 1024;
+      *v46 = a1;
+      *&v46[4] = 1024;
+      *&v46[6] = v12;
+      v47 = 2080;
+      v48 = "n/a";
+      v49 = 2080;
+      v50 = "n/a";
+      v51 = 2080;
+      v52 = v14;
+      v15 = "%s Invalid domain length%{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d for %s) %s - %s";
+      v16 = v9;
+LABEL_24:
+      v19 = 80;
+LABEL_55:
+      _os_log_debug_impl(&dword_1C0DA5000, v16, OS_LOG_TYPE_DEBUG, v15, buf, v19);
+      return 0;
+    }
+
+    if (!result)
+    {
+      return result;
+    }
+
     if (__s)
     {
-      v18 = __s;
+      v28 = __s;
     }
 
     else
     {
-      v18 = "n/a";
+      v28 = "n/a";
     }
 
-    *v44 = 1752392040;
-    *&v44[8] = 1040;
-    *&v44[10] = v8;
-    v45 = 2101;
-    *v46 = v18;
-    *&v46[8] = 1024;
-    *v47 = 0;
-    *&v47[4] = 1024;
-    *&v47[6] = 0;
-    v48 = 2080;
-    v49 = "n/a";
-    v50 = 2080;
-    v51 = "n/a";
-    v52 = 2080;
-    v53 = "App";
-    v15 = "%s Invalid app info for domain%{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d for %s) %s - %s";
-    v16 = v17;
-LABEL_24:
-    v19 = 80;
-LABEL_55:
-    _os_log_debug_impl(&dword_1C0DA5000, v16, OS_LOG_TYPE_DEBUG, v15, buf, v19);
-    goto LABEL_68;
+    v29 = a1[14];
+    if (!v29)
+    {
+      v29 = a1[7];
+      if (!v29)
+      {
+        v29 = a1[30];
+        if (!v29)
+        {
+          v29 = a1[23];
+        }
+      }
+    }
+
+    v30 = "Web";
+    v31 = a1[31];
+    v41 = "NEHelperTrackerGetDispositionForDomain";
+    *buf = 136316931;
+    v42 = 1024;
+    if ((v31 & 1) == 0)
+    {
+      v30 = "App";
+    }
+
+    *v43 = v8;
+    *&v43[4] = 2081;
+    *&v43[6] = v28;
+    v44 = 1024;
+    *v45 = a1;
+    *&v45[4] = 1024;
+    *&v45[6] = v29;
+    *v46 = 2080;
+    *&v46[2] = "n/a";
+    v47 = 2080;
+    v48 = "n/a";
+    v49 = 2080;
+    v50 = v30;
+    v15 = "%s: Invalid domain length<%d : %{private}s> (app info ref %X pid %d for %s) %s - %s";
+    v16 = v9;
+    goto LABEL_54;
   }
 
-LABEL_69:
-  v35 = *MEMORY[0x1E69E9840];
-  return result;
+  if (a4)
+  {
+    if (!result)
+    {
+      goto LABEL_57;
+    }
+
+    if (__s)
+    {
+      v20 = __s;
+    }
+
+    else
+    {
+      v20 = "n/a";
+    }
+
+    v21 = a1[14];
+    if (!v21)
+    {
+      v21 = a1[7];
+      if (!v21)
+      {
+        v21 = a1[30];
+        if (!v21)
+        {
+          v21 = a1[23];
+        }
+      }
+    }
+
+    v22 = a1[31];
+    v41 = "NEHelperTrackerGetDispositionForDomain";
+    *buf = 136317187;
+    v42 = 2160;
+    if (v22)
+    {
+      v23 = "Web";
+    }
+
+    else
+    {
+      v23 = "App";
+    }
+
+    *v43 = 1752392040;
+    *&v43[8] = 1040;
+    *&v43[10] = v8;
+    v44 = 2101;
+    *v45 = v20;
+    *&v45[8] = 1024;
+    *v46 = a1;
+    *&v46[4] = 1024;
+    *&v46[6] = v21;
+    v47 = 2080;
+    v48 = "n/a";
+    v49 = 2080;
+    v50 = "n/a";
+    v51 = 2080;
+    v52 = v23;
+    v24 = "%s domain lookup for%{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d for %s) %s - %s";
+    v25 = v9;
+    v26 = 80;
+  }
+
+  else
+  {
+    if (!result)
+    {
+      goto LABEL_57;
+    }
+
+    if (__s)
+    {
+      v35 = __s;
+    }
+
+    else
+    {
+      v35 = "n/a";
+    }
+
+    v36 = a1[14];
+    if (!v36)
+    {
+      v36 = a1[7];
+      if (!v36)
+      {
+        v36 = a1[30];
+        if (!v36)
+        {
+          v36 = a1[23];
+        }
+      }
+    }
+
+    v37 = "Web";
+    v38 = a1[31];
+    v41 = "NEHelperTrackerGetDispositionForDomain";
+    *buf = 136316931;
+    v42 = 1024;
+    if ((v38 & 1) == 0)
+    {
+      v37 = "App";
+    }
+
+    *v43 = v8;
+    *&v43[4] = 2081;
+    *&v43[6] = v35;
+    v44 = 1024;
+    *v45 = a1;
+    *&v45[4] = 1024;
+    *&v45[6] = v36;
+    *v46 = 2080;
+    *&v46[2] = "n/a";
+    v47 = 2080;
+    v48 = "n/a";
+    v49 = 2080;
+    v50 = v37;
+    v24 = "%s: domain lookup for<%d : %{private}s> (app info ref %X pid %d for %s) %s - %s";
+    v25 = v9;
+    v26 = 70;
+  }
+
+  _os_log_debug_impl(&dword_1C0DA5000, v25, OS_LOG_TYPE_DEBUG, v24, buf, v26);
+LABEL_57:
+  if (a1[31])
+  {
+    v32 = NEHelperTrackerCheckMetadataForWeb;
+  }
+
+  else
+  {
+    v32 = NEHelperTrackerCheckMetadataForApp;
+  }
+
+  os_unfair_lock_lock(&ne_helper_tracker_lock);
+  buf[0] = 0;
+  v33 = ne_tracker_build_cache();
+  if (buf[0] == 1)
+  {
+    [NEDiagnosticReport logInternalError:@"Tracker" subType:@"FailedtoReadMMAPFile" context:0];
+  }
+
+  if ((v33 & 1) == 0)
+  {
+    os_unfair_lock_unlock(&ne_helper_tracker_lock);
+    return 0;
+  }
+
+  strncpy(NEHelperTrackerGetDispositionForDomain_buffer, __s, 0xFDuLL);
+  NEHelperTrackerGetDispositionForDomain_buffer[v8] = 0;
+  matched = NEHelperTrackerMatchDomain(a1, NEHelperTrackerGetDispositionForDomain_buffer, v32, a3, &v39, a4);
+  os_unfair_lock_unlock(&ne_helper_tracker_lock);
+  if (!matched)
+  {
+    return 0;
+  }
+
+  if (v39)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return 3;
+  }
 }
 
 uint64_t NEHelperPidFromAuditToken(_OWORD *a1)
@@ -2184,8 +2150,8 @@ uint64_t __NEFlowGetTypeID_block_invoke()
 
 CFStringRef __NEFlowCopyDescription(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  *v21 = *"<none>";
+  v22 = *MEMORY[0x1E69E9840];
+  *v20 = *"<none>";
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -2227,7 +2193,7 @@ CFStringRef __NEFlowCopyDescription(uint64_t a1)
   v11 = *(a1 + 400);
   if (v11)
   {
-    if_indextoname(v11, v21);
+    if_indextoname(v11, v20);
   }
 
   v12 = "unknown";
@@ -2270,7 +2236,7 @@ CFStringRef __NEFlowCopyDescription(uint64_t a1)
     v16 = "(bound)";
   }
 
-  v18 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"NEFlow type = %s, app = %@, name = %@, %@ <-> %@, filter_id = %s, interface = %s%s", v12, v14, v15, v7, v4, v17, v21, v16);
+  v18 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"NEFlow type = %s, app = %@, name = %@, %@ <-> %@, filter_id = %s, interface = %s%s", v12, v14, v15, v7, v4, v17, v20, v16);
   if (v4)
   {
     CFRelease(v4);
@@ -2281,13 +2247,12 @@ CFStringRef __NEFlowCopyDescription(uint64_t a1)
     CFRelease(v7);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
-void __NEFlowDeallocate(uint64_t a1)
+void __NEFlowDeallocate(CFIndex a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -2296,17 +2261,17 @@ void __NEFlowDeallocate(uint64_t a1)
     v5 = *(a1 + 256);
     v6 = *(a1 + 232);
     v7 = *(a1 + 240);
-    v31[0] = 67110144;
-    v31[1] = v3;
-    v32 = 2048;
-    v33 = v4;
-    v34 = 2048;
-    v35 = v5;
-    v36 = 2048;
-    v37 = v6;
-    v38 = 2048;
-    v39 = v7;
-    _os_log_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_DEFAULT, "(%u): Destroying, client tx %llu, client rx %llu, kernel rx %llu, kernel tx %llu", v31, 0x30u);
+    v30[0] = 67110144;
+    v30[1] = v3;
+    v31 = 2048;
+    v32 = v4;
+    v33 = 2048;
+    v34 = v5;
+    v35 = 2048;
+    v36 = v6;
+    v37 = 2048;
+    v38 = v7;
+    _os_log_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_DEFAULT, "(%u): Destroying, client tx %llu, client rx %llu, kernel rx %llu, kernel tx %llu", v30, 0x30u);
   }
 
   flow_cancel_bridged_connection(a1, 0);
@@ -2441,11 +2406,9 @@ void __NEFlowDeallocate(uint64_t a1)
   {
     CFRelease(v29);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
-void flow_cancel_bridged_connection(uint64_t a1, CFTypeRef cf)
+void flow_cancel_bridged_connection(CFIndex a1, CFTypeRef cf)
 {
   if (cf)
   {
@@ -2521,7 +2484,7 @@ void flow_clear_datagram_queue(void *ptr, void *a2)
 
 void flow_handle_pending_write_requests(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 304);
   if (!v3)
   {
@@ -2578,12 +2541,12 @@ LABEL_12:
       v12 = ne_log_obj();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v17 = *(a1 + 24);
-        v18[0] = 67109378;
-        v18[1] = v17;
-        v19 = 2080;
-        v20 = "All data written to the kernel, sending close";
-        _os_log_debug_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_DEBUG, "(%u): %s", v18, 0x12u);
+        v16 = *(a1 + 24);
+        v17[0] = 67109378;
+        v17[1] = v16;
+        v18 = 2080;
+        v19 = "All data written to the kernel, sending close";
+        _os_log_debug_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_DEBUG, "(%u): %s", v17, 0x12u);
       }
 
       *(a1 + 320) = 0;
@@ -2597,8 +2560,6 @@ LABEL_12:
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 CFIndex flow_error_to_errno(CFIndex result)
@@ -2665,7 +2626,7 @@ void flow_drop_director(void *a1)
 
 void __flow_drop_director_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((*(a1 + 32) + 120));
   v2 = *(a1 + 32);
   if (*(v2 + 40))
@@ -2673,12 +2634,12 @@ void __flow_drop_director_block_invoke(uint64_t a1)
     v3 = ne_log_obj();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v6 = *(*(a1 + 32) + 24);
-      v7[0] = 67109378;
-      v7[1] = v6;
-      v8 = 2080;
-      v9 = "Dropping the director";
-      _os_log_debug_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_DEBUG, "(%u): %s", v7, 0x12u);
+      v5 = *(*(a1 + 32) + 24);
+      v6[0] = 67109378;
+      v6[1] = v5;
+      v7 = 2080;
+      v8 = "Dropping the director";
+      _os_log_debug_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_DEBUG, "(%u): %s", v6, 0x12u);
     }
 
     *(*(a1 + 32) + 40) = 0;
@@ -2696,22 +2657,21 @@ void __flow_drop_director_block_invoke(uint64_t a1)
 
   os_unfair_lock_unlock((v2 + 120));
   CFRelease(*(a1 + 32));
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void flow_director_msg_send(uint64_t a1, uint64_t a2, unint64_t a3, int a4)
+void flow_director_msg_send(uint64_t result, uint64_t a2, unint64_t a3, int a4)
 {
-  if (a1)
+  if (result)
   {
-    if (a4 || (v6 = *(a1 + 40)) == 0)
+    if (a4 || (v6 = *(result + 40)) == 0)
     {
-      v5 = *(a1 + 24);
+      v5 = *(result + 24);
       v6 = v5;
     }
 
     else
     {
-      v5 = *(a1 + 24);
+      v5 = *(result + 24);
     }
 
     if (v6 == v5)
@@ -2727,23 +2687,23 @@ void flow_director_msg_send(uint64_t a1, uint64_t a2, unint64_t a3, int a4)
     if (flow_director_ctl_write(v6, a2, a3, 0, 0, v7))
     {
 
-      flow_director_abort(a1, 0);
+      flow_director_abort(result, 0);
     }
   }
 }
 
 uint64_t flow_director_ctl_write(NSObject *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v29[4] = *MEMORY[0x1E69E9840];
+  v28[4] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_10;
+    return 0;
   }
 
-  v29[0] = a2;
-  v29[1] = a3;
-  v29[2] = a4;
-  v29[3] = a5;
+  v28[0] = a2;
+  v28[1] = a3;
+  v28[2] = a4;
+  v28[3] = a5;
   if (a4)
   {
     v8 = 2;
@@ -2754,12 +2714,12 @@ uint64_t flow_director_ctl_write(NSObject *a1, uint64_t a2, unint64_t a3, uint64
     v8 = 1;
   }
 
-  *&v20.msg_control = 0u;
-  *&v20.msg_name = 0u;
-  v20.msg_iov = v29;
-  *&v20.msg_iovlen = v8;
+  *&v19.msg_control = 0u;
+  *&v19.msg_name = 0u;
+  v19.msg_iov = v28;
+  *&v19.msg_iovlen = v8;
   handle = dispatch_source_get_handle(a1);
-  v10 = sendmsg(handle, &v20, 0);
+  v10 = sendmsg(handle, &v19, 0);
   if ((v10 & 0x8000000000000000) == 0)
   {
     v11 = v10;
@@ -2769,68 +2729,63 @@ uint64_t flow_director_ctl_write(NSObject *a1, uint64_t a2, unint64_t a3, uint64
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109890;
-        v22 = dword_1EBE73118;
-        v23 = 2080;
-        v24 = a6;
-        v25 = 2048;
-        v26 = v11;
-        v27 = 2048;
-        v28 = a3;
+        v21 = dword_1EBE73118;
+        v22 = 2080;
+        v23 = a6;
+        v24 = 2048;
+        v25 = v11;
+        v26 = 2048;
+        v27 = a3;
         _os_log_error_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_ERROR, "(%u): %s: failed to write an entire message (%zd < %zu)", buf, 0x26u);
       }
 
-      v13 = 40;
-      goto LABEL_11;
+      return 40;
     }
 
-LABEL_10:
-    v13 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   v13 = *__error();
-  v16 = ne_log_obj();
-  v17 = v16;
+  v15 = ne_log_obj();
+  v16 = v15;
   if (v13 == 55)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      v22 = dword_1EBE73118;
-      v23 = 2080;
-      v24 = a6;
-      _os_log_impl(&dword_1C0DA5000, v17, OS_LOG_TYPE_DEFAULT, "(%u): %s: failed to write a message: no buffer space available", buf, 0x12u);
+      v21 = dword_1EBE73118;
+      v22 = 2080;
+      v23 = a6;
+      _os_log_impl(&dword_1C0DA5000, v16, OS_LOG_TYPE_DEFAULT, "(%u): %s: failed to write a message: no buffer space available", buf, 0x12u);
     }
 
-    v13 = 55;
+    return 55;
   }
 
-  else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v18 = dword_1EBE73118;
-    v19 = strerror(v13);
+    v17 = dword_1EBE73118;
+    v18 = strerror(v13);
     *buf = 67109634;
-    v22 = v18;
-    v23 = 2080;
-    v24 = a6;
-    v25 = 2080;
-    v26 = v19;
-    _os_log_error_impl(&dword_1C0DA5000, v17, OS_LOG_TYPE_ERROR, "(%u): %s: write error: %s", buf, 0x1Cu);
+    v21 = v17;
+    v22 = 2080;
+    v23 = a6;
+    v24 = 2080;
+    v25 = v18;
+    _os_log_error_impl(&dword_1C0DA5000, v16, OS_LOG_TYPE_ERROR, "(%u): %s: write error: %s", buf, 0x1Cu);
   }
 
-LABEL_11:
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 void flow_director_abort(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v9 = dword_1EBE73118;
+    v8 = dword_1EBE73118;
     _os_log_impl(&dword_1C0DA5000, v4, OS_LOG_TYPE_DEFAULT, "(%u): Aborting the director", buf, 8u);
   }
 
@@ -2852,8 +2807,6 @@ void flow_director_abort(uint64_t a1, uint64_t a2)
   {
     (*(a2 + 16))(a2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __flow_director_abort_block_invoke(void *a1)
@@ -2924,26 +2877,26 @@ void __flow_director_abort_block_invoke(void *a1)
   dispatch_release(v10);
 }
 
-void flow_read_close(uint64_t a1, int a2)
+void flow_read_close(CFIndex a1, int a2)
 {
-  *&v27[5] = *MEMORY[0x1E69E9840];
+  *&v26[5] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v25 = ne_log_obj();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v24 = ne_log_obj();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
-      v26 = 136315138;
-      *v27 = "flow_read_close";
-      _os_log_fault_impl(&dword_1C0DA5000, v25, OS_LOG_TYPE_FAULT, "%s called with null flow", &v26, 0xCu);
+      v25 = 136315138;
+      *v26 = "flow_read_close";
+      _os_log_fault_impl(&dword_1C0DA5000, v24, OS_LOG_TYPE_FAULT, "%s called with null flow", &v25, 0xCu);
     }
 
-    goto LABEL_32;
+    return;
   }
 
   v3 = *(a1 + 100);
   if ((v3 & 2) != 0)
   {
-    goto LABEL_32;
+    return;
   }
 
   *(a1 + 100) = v3 | 2;
@@ -2953,9 +2906,9 @@ void flow_read_close(uint64_t a1, int a2)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 24);
-      v26 = 67109120;
-      v27[0] = v12;
-      _os_log_impl(&dword_1C0DA5000, v11, OS_LOG_TYPE_DEFAULT, "(%u): Closing reads, not closed by plugin", &v26, 8u);
+      v25 = 67109120;
+      v26[0] = v12;
+      _os_log_impl(&dword_1C0DA5000, v11, OS_LOG_TYPE_DEFAULT, "(%u): Closing reads, not closed by plugin", &v25, 8u);
     }
 
     v13 = *(a1 + 32);
@@ -2987,7 +2940,7 @@ void flow_read_close(uint64_t a1, int a2)
       flow_call_stream_read_handler(a1, Code);
     }
 
-    goto LABEL_32;
+    return;
   }
 
   v4 = *(a1 + 16);
@@ -2997,11 +2950,11 @@ void flow_read_close(uint64_t a1, int a2)
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = *(a1 + 24);
-      v26 = 67109120;
-      v27[0] = v16;
+      v25 = 67109120;
+      v26[0] = v16;
       v17 = "(%u): Closing reads (other), closed by plugin";
 LABEL_17:
-      _os_log_impl(&dword_1C0DA5000, v15, OS_LOG_TYPE_DEFAULT, v17, &v26, 8u);
+      _os_log_impl(&dword_1C0DA5000, v15, OS_LOG_TYPE_DEFAULT, v17, &v25, 8u);
     }
   }
 
@@ -3014,11 +2967,11 @@ LABEL_17:
       {
         v6 = *(a1 + 24);
         v7 = flow_error_to_errno(*(a1 + 32));
-        v26 = 67109376;
-        v27[0] = v6;
-        LOWORD(v27[1]) = 1024;
-        *(&v27[1] + 2) = v7;
-        _os_log_impl(&dword_1C0DA5000, v5, OS_LOG_TYPE_DEFAULT, "(%u): Closing reads (sending SHUT_WR), closed by plugin (flow error: %d)", &v26, 0xEu);
+        v25 = 67109376;
+        v26[0] = v6;
+        LOWORD(v26[1]) = 1024;
+        *(&v26[1] + 2) = v7;
+        _os_log_impl(&dword_1C0DA5000, v5, OS_LOG_TYPE_DEFAULT, "(%u): Closing reads (sending SHUT_WR), closed by plugin (flow error: %d)", &v25, 0xEu);
       }
 
       v8 = *(a1 + 24);
@@ -3031,9 +2984,9 @@ LABEL_17:
     v15 = ne_log_obj();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = *(a1 + 24);
-      v26 = 67109120;
-      v27[0] = v24;
+      v23 = *(a1 + 24);
+      v25 = 67109120;
+      v26[0] = v23;
       v17 = "(%u): Closing reads (suppressing SHUT_WR), closed by plugin";
       goto LABEL_17;
     }
@@ -3046,7 +2999,7 @@ LABEL_18:
     v19 = *(a1 + 328);
     if (!v19)
     {
-      goto LABEL_32;
+      return;
     }
 
     _Block_release(v19);
@@ -3063,14 +3016,11 @@ LABEL_18:
       *(a1 + 336) = 0;
     }
   }
-
-LABEL_32:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void flow_write_close(uint64_t a1, int a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v3 = *(a1 + 100);
@@ -3078,7 +3028,7 @@ void flow_write_close(uint64_t a1, int a2)
     {
       if (a2)
       {
-        goto LABEL_20;
+        return;
       }
 
       Code = 2;
@@ -3096,7 +3046,7 @@ void flow_write_close(uint64_t a1, int a2)
           {
             v13 = *(a1 + 24);
             *buf = 67109120;
-            LODWORD(v22) = v13;
+            LODWORD(v21) = v13;
             _os_log_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_DEFAULT, "(%u): Closing writes (other), sending close", buf, 8u);
           }
         }
@@ -3112,7 +3062,7 @@ void flow_write_close(uint64_t a1, int a2)
             {
               v7 = *(a1 + 24);
               *buf = 67109120;
-              LODWORD(v22) = v7;
+              LODWORD(v21) = v7;
               _os_log_impl(&dword_1C0DA5000, v5, OS_LOG_TYPE_DEFAULT, "(%u): writes are still pending, delaying sending close until all data is sent to the kernel", buf, 8u);
             }
 
@@ -3123,20 +3073,20 @@ void flow_write_close(uint64_t a1, int a2)
           {
             if (v6)
             {
-              v15 = *(a1 + 24);
+              v14 = *(a1 + 24);
               *buf = 67109120;
-              LODWORD(v22) = v15;
+              LODWORD(v21) = v14;
               _os_log_impl(&dword_1C0DA5000, v5, OS_LOG_TYPE_DEFAULT, "(%u): Closing writes, sending SHUT_RD", buf, 8u);
             }
 
-            v16 = *(a1 + 24);
-            v17 = *(a1 + 40);
-            v18 = flow_error_to_errno(*(a1 + 32));
-            flow_director_send_close(v17, v16, v18, 0, *(a1 + 100) & 4);
+            v15 = *(a1 + 24);
+            v16 = *(a1 + 40);
+            v17 = flow_error_to_errno(*(a1 + 32));
+            flow_director_send_close(v16, v15, v17, 0, *(a1 + 100) & 4);
           }
         }
 
-        goto LABEL_20;
+        return;
       }
 
       v9 = ne_log_obj();
@@ -3144,7 +3094,7 @@ void flow_write_close(uint64_t a1, int a2)
       {
         v10 = *(a1 + 24);
         *buf = 67109120;
-        LODWORD(v22) = v10;
+        LODWORD(v21) = v10;
         _os_log_impl(&dword_1C0DA5000, v9, OS_LOG_TYPE_DEFAULT, "(%u): Closing writes, not sending close", buf, 8u);
       }
 
@@ -3163,42 +3113,39 @@ void flow_write_close(uint64_t a1, int a2)
     }
 
     *(a1 + 320) = 0;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 0x40000000;
-    v20[2] = __flow_write_close_block_invoke;
-    v20[3] = &__block_descriptor_tmp_133;
-    v20[4] = a1;
-    v20[5] = Code;
-    flow_handle_pending_write_requests(a1, v20);
-    goto LABEL_20;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 0x40000000;
+    v19[2] = __flow_write_close_block_invoke;
+    v19[3] = &__block_descriptor_tmp_133;
+    v19[4] = a1;
+    v19[5] = Code;
+    flow_handle_pending_write_requests(a1, v19);
+    return;
   }
 
-  v19 = ne_log_obj();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+  v18 = ne_log_obj();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v22 = "flow_write_close";
-    _os_log_fault_impl(&dword_1C0DA5000, v19, OS_LOG_TYPE_FAULT, "%s called with null flow", buf, 0xCu);
+    v21 = "flow_write_close";
+    _os_log_fault_impl(&dword_1C0DA5000, v18, OS_LOG_TYPE_FAULT, "%s called with null flow", buf, 0xCu);
   }
-
-LABEL_20:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void flow_notify_client_of_closure(uint64_t a1)
+void flow_notify_client_of_closure(os_unfair_lock *a1)
 {
-  os_unfair_lock_assert_owner((a1 + 120));
-  v2 = *(a1 + 100);
-  if ((v2 & 2) != 0 && !flow_has_bytes(a1))
+  os_unfair_lock_assert_owner(a1 + 30);
+  os_unfair_lock_opaque = a1[25]._os_unfair_lock_opaque;
+  if ((os_unfair_lock_opaque & 2) != 0 && !flow_has_bytes(a1))
   {
     flow_notify_client(a1, 2);
-    if ((*(a1 + 100) & 1) == 0)
+    if ((a1[25]._os_unfair_lock_opaque & 1) == 0)
     {
       return;
     }
   }
 
-  else if ((v2 & 1) == 0)
+  else if ((os_unfair_lock_opaque & 1) == 0)
   {
     return;
   }
@@ -3235,11 +3182,10 @@ void flow_call_write_completion(uint64_t a1, uint64_t a2, void *aBlock)
 
 void __flow_call_write_completion_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  _Block_release(v3);
+  _Block_release(v2);
 }
 
 BOOL flow_has_bytes(uint64_t a1)
@@ -3315,7 +3261,7 @@ LABEL_8:
 
 void __flow_notify_client_block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *MEMORY[0x1E695E480];
   while (1)
@@ -3349,9 +3295,9 @@ void __flow_notify_client_block_invoke(uint64_t a1)
 
           v12 = *(v2 + 24);
           *buf = 67109378;
-          v15 = v12;
-          v16 = 2080;
-          v17 = v11;
+          v14 = v12;
+          v15 = 2080;
+          v16 = v11;
           _os_log_debug_impl(&dword_1C0DA5000, v10, OS_LOG_TYPE_DEBUG, "(%u): invoking %s event handler", buf, 0x12u);
         }
 
@@ -3380,12 +3326,11 @@ void __flow_notify_client_block_invoke(uint64_t a1)
   os_unfair_lock_unlock((v2 + 120));
 LABEL_15:
   CFRelease(*(a1 + 32));
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void flow_call_stream_read_handler(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner((a1 + 120));
   if (*(a1 + 136))
   {
@@ -3423,11 +3368,11 @@ void flow_call_stream_read_handler(uint64_t a1, uint64_t a2)
         v9 = ne_log_obj();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v12 = *(a1 + 24);
+          v11 = *(a1 + 24);
           *buf = 67109376;
-          v15 = v12;
-          v16 = 2048;
-          v17 = size;
+          v14 = v11;
+          v15 = 2048;
+          v16 = size;
           _os_log_debug_impl(&dword_1C0DA5000, v9, OS_LOG_TYPE_DEBUG, "(%u): plugin read %lu bytes", buf, 0x12u);
         }
 
@@ -3441,13 +3386,11 @@ void flow_call_stream_read_handler(uint64_t a1, uint64_t a2)
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void flow_call_dgram_read_handler(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner((a1 + 120));
   if (*(a1 + 136))
   {
@@ -3455,15 +3398,15 @@ void flow_call_dgram_read_handler(uint64_t a1, uint64_t a2)
     if (v4)
     {
       v5 = _Block_copy(v4);
-      v12 = *(a1 + 264);
+      v11 = *(a1 + 264);
       v6 = *(a1 + 136);
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 0x40000000;
-      v11[2] = __flow_call_dgram_read_handler_block_invoke;
-      v11[3] = &unk_1E812A800;
-      v11[4] = v5;
-      v13 = a2;
-      dispatch_async(v6, v11);
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 0x40000000;
+      v10[2] = __flow_call_dgram_read_handler_block_invoke;
+      v10[3] = &unk_1E812A800;
+      v10[4] = v5;
+      v12 = a2;
+      dispatch_async(v6, v10);
       _Block_release(*(a1 + 336));
       *(a1 + 336) = 0;
       flow_director_send_read_notification(*(a1 + 40), *(a1 + 24), *(a1 + 280));
@@ -3471,12 +3414,12 @@ void flow_call_dgram_read_handler(uint64_t a1, uint64_t a2)
       v7 = ne_log_obj();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v9 = *(a1 + 24);
-        v10 = *(a1 + 280);
+        v8 = *(a1 + 24);
+        v9 = *(a1 + 280);
         *buf = 67109376;
-        v15 = v9;
-        v16 = 1024;
-        v17 = v10;
+        v14 = v8;
+        v15 = 1024;
+        v16 = v9;
         _os_log_debug_impl(&dword_1C0DA5000, v7, OS_LOG_TYPE_DEBUG, "(%u): plugin read %u bytes", buf, 0xEu);
       }
 
@@ -3485,21 +3428,16 @@ void flow_call_dgram_read_handler(uint64_t a1, uint64_t a2)
       *(a1 + 280) = 0;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __flow_call_dgram_read_handler_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
   (*(*(a1 + 32) + 16))();
   _Block_release(*(a1 + 32));
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
+  v2 = *(a1 + 40);
+  v3 = *(a1 + 48);
 
-  flow_clear_datagram_queue(v5, v6);
+  flow_clear_datagram_queue(v2, v3);
 }
 
 void flow_director_send_read_notification(uint64_t a1, unsigned int a2, unsigned int a3)
@@ -3519,37 +3457,33 @@ void flow_director_send_read_notification(uint64_t a1, unsigned int a2, unsigned
 
 void __flow_call_stream_read_handler_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
   (*(*(a1 + 32) + 16))();
   _Block_release(*(a1 + 32));
-  v4 = *(a1 + 40);
-  if (v4)
+  v2 = *(a1 + 40);
+  if (v2)
   {
 
-    dispatch_release(v4);
+    dispatch_release(v2);
   }
 }
 
 void flow_cancel_connection_waiting_timer(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (*(a1 + 424))
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v4 = *(a1 + 24);
-      v5[0] = 67109120;
-      v5[1] = v4;
-      _os_log_debug_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_DEBUG, "(%u): Cancelling waiting timer", v5, 8u);
+      v3 = *(a1 + 24);
+      v4[0] = 67109120;
+      v4[1] = v3;
+      _os_log_debug_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_DEBUG, "(%u): Cancelling waiting timer", v4, 8u);
     }
 
     dispatch_source_cancel(*(a1 + 424));
     *(a1 + 424) = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t NEFlowGetFlowType(void *cf)
@@ -3613,7 +3547,7 @@ uint64_t NEFlowOpen(os_unfair_lock_s *cf)
 
 uint64_t flow_open(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner((a1 + 120));
   v2 = *(a1 + 100);
   if ((v2 & 4) != 0)
@@ -3629,18 +3563,17 @@ uint64_t flow_open(uint64_t a1)
     v5 = 2;
 LABEL_9:
     __NEFlowSetError(v4, v5);
-    result = 0;
-    goto LABEL_27;
+    return 0;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  *bytes = 0u;
+  v23 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  *bytes = 0u;
+  v19 = 0u;
   v7 = *(a1 + 400);
   v8 = *(a1 + 56);
   if (!v8 || (CFDataGetBytePtr(v8), CFDataGetLength(*(a1 + 56)), __memcpy_chk(), CFRelease(*(a1 + 56)), bytes[1] != 30) && bytes[1] != 2 || !*&bytes[2])
@@ -3659,7 +3592,7 @@ LABEL_9:
     if (bytes[1] == 30)
     {
       *&bytes[8] = 0;
-      *&v20 = 0;
+      *&v19 = 0;
     }
 
     else if (bytes[1] == 2)
@@ -3675,21 +3608,18 @@ LABEL_9:
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(a1 + 24);
+      v13 = *(a1 + 24);
       *buf = 67109378;
-      v16 = v14;
-      v17 = 2080;
-      v18 = "Open, sending successful connect result";
+      v15 = v13;
+      v16 = 2080;
+      v17 = "Open, sending successful connect result";
       _os_log_debug_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_DEBUG, "(%u): %s", buf, 0x12u);
     }
 
     flow_director_send_connect_result(*(a1 + 40), *(a1 + 24), 0, 0x40000u, *(*(a1 + 40) + 48), bytes, BytePtr, v7, *(a1 + 352));
   }
 
-  result = 1;
-LABEL_27:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 CFErrorRef __NEFlowSetError(uint64_t a1, CFIndex code)
@@ -4172,12 +4102,12 @@ uint64_t NEFlowAsyncDatagramsCopyNext(os_unfair_lock_s *cf, const void *a2)
 
 uint64_t NEFlowWrite(os_unfair_lock_s *cf, const void *a2, unsigned __int8 *a3, void *a4)
 {
-  *&v43[7] = *MEMORY[0x1E69E9840];
+  *&v42[7] = *MEMORY[0x1E69E9840];
   if (runtime_inited == -1)
   {
     if (!cf)
     {
-      goto LABEL_14;
+      return 4;
     }
   }
 
@@ -4186,14 +4116,14 @@ uint64_t NEFlowWrite(os_unfair_lock_s *cf, const void *a2, unsigned __int8 *a3, 
     dispatch_once(&runtime_inited, &__block_literal_global_16);
     if (!cf)
     {
-      goto LABEL_14;
+      return 4;
     }
   }
 
   v8 = __kNEFlowTypeID;
   if (CFGetTypeID(cf) != v8)
   {
-    goto LABEL_14;
+    return 4;
   }
 
   TypeID = CFDataGetTypeID();
@@ -4203,36 +4133,34 @@ uint64_t NEFlowWrite(os_unfair_lock_s *cf, const void *a2, unsigned __int8 *a3, 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       os_unfair_lock_opaque = cf[6]._os_unfair_lock_opaque;
-      v40 = 67109378;
-      v41 = os_unfair_lock_opaque;
-      v42 = 2080;
-      *v43 = "invalid data object";
-      _os_log_debug_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_DEBUG, "(%u): %s", &v40, 0x12u);
+      v39 = 67109378;
+      v40 = os_unfair_lock_opaque;
+      v41 = 2080;
+      *v42 = "invalid data object";
+      _os_log_debug_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_DEBUG, "(%u): %s", &v39, 0x12u);
     }
 
-    goto LABEL_14;
+    return 4;
   }
 
   if (CFDataGetLength(a2) <= 0)
   {
-    v16 = ne_log_obj();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = ne_log_obj();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = cf[6]._os_unfair_lock_opaque;
-      v40 = 67109376;
-      v41 = v17;
-      v42 = 2048;
-      *v43 = CFDataGetLength(a2);
-      v18 = "(%u): data length %ld <= 0";
-      v19 = v16;
-      v20 = 18;
+      v16 = cf[6]._os_unfair_lock_opaque;
+      v39 = 67109376;
+      v40 = v16;
+      v41 = 2048;
+      *v42 = CFDataGetLength(a2);
+      v17 = "(%u): data length %ld <= 0";
+      v18 = v15;
+      v19 = 18;
 LABEL_30:
-      _os_log_error_impl(&dword_1C0DA5000, v19, OS_LOG_TYPE_ERROR, v18, &v40, v20);
+      _os_log_error_impl(&dword_1C0DA5000, v18, OS_LOG_TYPE_ERROR, v17, &v39, v19);
     }
 
-LABEL_14:
-    v13 = 4;
-    goto LABEL_15;
+    return 4;
   }
 
   if (a3)
@@ -4251,22 +4179,22 @@ LABEL_14:
     {
       if (v10 != 30)
       {
-        v29 = ne_log_obj();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v28 = ne_log_obj();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v30 = cf[6]._os_unfair_lock_opaque;
-          v31 = a3[1];
-          v40 = 67109376;
-          v41 = v30;
-          v42 = 1024;
-          *v43 = v31;
-          v18 = "(%u): address has an invalid family %d";
-          v19 = v29;
-          v20 = 14;
+          v29 = cf[6]._os_unfair_lock_opaque;
+          v30 = a3[1];
+          v39 = 67109376;
+          v40 = v29;
+          v41 = 1024;
+          *v42 = v30;
+          v17 = "(%u): address has an invalid family %d";
+          v18 = v28;
+          v19 = 14;
           goto LABEL_30;
         }
 
-        goto LABEL_14;
+        return 4;
       }
 
       v11 = *a3;
@@ -4279,145 +4207,139 @@ LABEL_14:
     if (v11 >= 0x1D)
     {
 LABEL_20:
-      v21 = ne_log_obj();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = ne_log_obj();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v22 = cf[6]._os_unfair_lock_opaque;
-        v23 = a3[1];
-        v24 = *a3;
-        v40 = 67109632;
-        v41 = v22;
-        v42 = 1024;
-        *v43 = v23;
-        v43[2] = 1024;
-        *&v43[3] = v24;
-        v18 = "(%u): address with family %d has an invalid length %d";
-        v19 = v21;
-        v20 = 20;
+        v21 = cf[6]._os_unfair_lock_opaque;
+        v22 = a3[1];
+        v23 = *a3;
+        v39 = 67109632;
+        v40 = v21;
+        v41 = 1024;
+        *v42 = v22;
+        v42[2] = 1024;
+        *&v42[3] = v23;
+        v17 = "(%u): address with family %d has an invalid length %d";
+        v18 = v20;
+        v19 = 20;
         goto LABEL_30;
       }
 
-      goto LABEL_14;
+      return 4;
     }
   }
 
   if (*&cf[4]._os_unfair_lock_opaque == 2 && cf[72]._os_unfair_lock_opaque < CFDataGetLength(a2))
   {
-    v13 = 100;
+    return 100;
+  }
+
+  os_unfair_lock_lock(cf + 30);
+  if (cf[25]._os_unfair_lock_opaque)
+  {
+    v32 = ne_log_obj();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    {
+      v37 = cf[6]._os_unfair_lock_opaque;
+      v39 = 67109376;
+      v40 = v37;
+      v41 = 2048;
+      *v42 = CFDataGetLength(a2);
+      _os_log_error_impl(&dword_1C0DA5000, v32, OS_LOG_TYPE_ERROR, "(%u): flow is closed for writes, cannot write %ld bytes of data", &v39, 0x12u);
+    }
+
+    v13 = 1;
   }
 
   else
   {
-    os_unfair_lock_lock(cf + 30);
-    if (cf[25]._os_unfair_lock_opaque)
+    Length = CFDataGetLength(a2);
+    v25 = Length;
+    if (*&cf[76]._os_unfair_lock_opaque)
     {
-      v33 = ne_log_obj();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-      {
-        v38 = cf[6]._os_unfair_lock_opaque;
-        v40 = 67109376;
-        v41 = v38;
-        v42 = 2048;
-        *v43 = CFDataGetLength(a2);
-        _os_log_error_impl(&dword_1C0DA5000, v33, OS_LOG_TYPE_ERROR, "(%u): flow is closed for writes, cannot write %ld bytes of data", &v40, 0x12u);
-      }
-
-      v13 = 1;
+      v26 = 0;
+      v27 = Length;
     }
 
     else
     {
-      Length = CFDataGetLength(a2);
-      v26 = Length;
-      if (*&cf[76]._os_unfair_lock_opaque)
-      {
-        v27 = 0;
-        v28 = Length;
-      }
-
-      else
-      {
-        v27 = flow_write_range_of_cfdata(cf, a2, 0, Length, a3);
-        v28 = v34;
-      }
-
-      if (v28 < 1)
-      {
-        if (a4)
-        {
-          flow_call_write_completion(cf, 0, a4);
-        }
-      }
-
-      else
-      {
-        v35 = MEMORY[0x1C68E54B0](*MEMORY[0x1E695E480], 168, 0x10E0040EBE7E073, 0);
-        v36 = v35;
-        *v35 = 0u;
-        *(v35 + 1) = 0u;
-        *(v35 + 2) = 0u;
-        *(v35 + 3) = 0u;
-        *(v35 + 4) = 0u;
-        *(v35 + 5) = 0u;
-        *(v35 + 6) = 0u;
-        *(v35 + 7) = 0u;
-        *(v35 + 8) = 0u;
-        *(v35 + 9) = 0u;
-        v35[20] = 0;
-        if (a3)
-        {
-          memcpy(v35, a3, *a3);
-        }
-
-        v36[16] = CFRetain(a2);
-        v36[17] = v27;
-        v36[18] = v28;
-        if (a4)
-        {
-          v36[19] = _Block_copy(a4);
-        }
-
-        v36[20] = 0;
-        **&cf[78]._os_unfair_lock_opaque = v36;
-        *&cf[78]._os_unfair_lock_opaque = v36 + 20;
-      }
-
-      v37 = ne_log_obj();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
-      {
-        v39 = cf[6]._os_unfair_lock_opaque;
-        v40 = 67109376;
-        v41 = v39;
-        v42 = 2048;
-        *v43 = v26;
-        _os_log_debug_impl(&dword_1C0DA5000, v37, OS_LOG_TYPE_DEBUG, "(%u): plugin wrote %ld bytes", &v40, 0x12u);
-      }
-
-      v13 = 0;
-      *&cf[62]._os_unfair_lock_opaque += v26;
+      v26 = flow_write_range_of_cfdata(cf, a2, 0, Length, a3);
+      v27 = v33;
     }
 
-    os_unfair_lock_unlock(cf + 30);
+    if (v27 < 1)
+    {
+      if (a4)
+      {
+        flow_call_write_completion(cf, 0, a4);
+      }
+    }
+
+    else
+    {
+      v34 = MEMORY[0x1C68E54B0](*MEMORY[0x1E695E480], 168, 0x10E0040EBE7E073, 0);
+      v35 = v34;
+      *v34 = 0u;
+      *(v34 + 1) = 0u;
+      *(v34 + 2) = 0u;
+      *(v34 + 3) = 0u;
+      *(v34 + 4) = 0u;
+      *(v34 + 5) = 0u;
+      *(v34 + 6) = 0u;
+      *(v34 + 7) = 0u;
+      *(v34 + 8) = 0u;
+      *(v34 + 9) = 0u;
+      v34[20] = 0;
+      if (a3)
+      {
+        memcpy(v34, a3, *a3);
+      }
+
+      v35[16] = CFRetain(a2);
+      v35[17] = v26;
+      v35[18] = v27;
+      if (a4)
+      {
+        v35[19] = _Block_copy(a4);
+      }
+
+      v35[20] = 0;
+      **&cf[78]._os_unfair_lock_opaque = v35;
+      *&cf[78]._os_unfair_lock_opaque = v35 + 20;
+    }
+
+    v36 = ne_log_obj();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    {
+      v38 = cf[6]._os_unfair_lock_opaque;
+      v39 = 67109376;
+      v40 = v38;
+      v41 = 2048;
+      *v42 = v25;
+      _os_log_debug_impl(&dword_1C0DA5000, v36, OS_LOG_TYPE_DEBUG, "(%u): plugin wrote %ld bytes", &v39, 0x12u);
+    }
+
+    v13 = 0;
+    *&cf[62]._os_unfair_lock_opaque += v25;
   }
 
-LABEL_15:
-  v14 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_unlock(cf + 30);
   return v13;
 }
 
 uint64_t flow_write_range_of_cfdata(uint64_t a1, const __CFData *a2, uint64_t a3, uint64_t a4, unsigned __int8 *__src)
 {
   v5 = a4;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    goto LABEL_25;
+    return a3;
   }
 
   v8 = *(a1 + 104);
   if (!*(a1 + 104) || a4 < 1)
   {
-    goto LABEL_25;
+    return a3;
   }
 
   while (*(a1 + 16) == 2)
@@ -4437,11 +4359,11 @@ LABEL_15:
       v16 = *(a1 + 24);
       v17 = *(a1 + 240);
       *buf = 67109632;
-      v26 = v16;
-      v27 = 2048;
-      v28 = v13;
-      v29 = 2048;
-      v30 = v17;
+      v25 = v16;
+      v26 = 2048;
+      v27 = v13;
+      v28 = 2048;
+      v29 = v17;
       _os_log_debug_impl(&dword_1C0DA5000, v15, OS_LOG_TYPE_DEBUG, "(%u): Wrote %ld bytes to the kernel (total bytes written = %llu)", buf, 0x1Cu);
     }
 
@@ -4450,7 +4372,7 @@ LABEL_15:
     v8 = *(a1 + 104);
     if (!v8 || v5 <= 0)
     {
-      goto LABEL_25;
+      return a3;
     }
   }
 
@@ -4484,9 +4406,9 @@ LABEL_20:
     {
       v19 = *(a1 + 24);
       *buf = 67109376;
-      v26 = v19;
-      v27 = 2048;
-      v28 = v13;
+      v25 = v19;
+      v26 = 2048;
+      v27 = v13;
       _os_log_impl(&dword_1C0DA5000, v18, OS_LOG_TYPE_DEFAULT, "(%u): app receive buffer is full, queueing %lu bytes", buf, 0x12u);
     }
   }
@@ -4496,26 +4418,24 @@ LABEL_20:
     v20 = ne_log_obj();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(a1 + 24);
-      v24 = strerror(v12);
+      v22 = *(a1 + 24);
+      v23 = strerror(v12);
       *buf = 67109634;
-      v26 = v23;
-      v27 = 2048;
-      v28 = v13;
-      v29 = 2080;
-      v30 = v24;
+      v25 = v22;
+      v26 = 2048;
+      v27 = v13;
+      v28 = 2080;
+      v29 = v23;
       _os_log_error_impl(&dword_1C0DA5000, v20, OS_LOG_TYPE_ERROR, "(%u): Got an error when sending %lu bytes to the kernel: %s", buf, 0x1Cu);
     }
   }
 
-LABEL_25:
-  v21 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
 uint64_t flow_director_send_cfdata(uint64_t a1, unsigned int a2, const __CFData *a3, uint64_t a4, uint64_t a5, unsigned __int8 *__src)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v10 = *(a1 + 40);
@@ -4524,10 +4444,10 @@ uint64_t flow_director_send_cfdata(uint64_t a1, unsigned int a2, const __CFData 
       v10 = *(a1 + 24);
     }
 
-    v20 = 0;
-    memset(v19, 0, sizeof(v19));
-    LOBYTE(v19[0]) = 3;
-    DWORD1(v19[0]) = bswap32(a2);
+    v19 = 0;
+    memset(v18, 0, sizeof(v18));
+    LOBYTE(v18[0]) = 3;
+    DWORD1(v18[0]) = bswap32(a2);
     if (__src)
     {
       v11 = *__src;
@@ -4536,9 +4456,9 @@ uint64_t flow_director_send_cfdata(uint64_t a1, unsigned int a2, const __CFData 
         __assert_rtn("NEFlowTLVAdd", "NEFlow.c", 1839, "tlv_iter->remaining >= add_size");
       }
 
-      BYTE8(v19[0]) = 12;
-      *(v19 + 9) = v11 << 24;
-      memcpy((v19 | 0xD), __src, v11);
+      BYTE8(v18[0]) = 12;
+      *(v18 + 9) = v11 << 24;
+      memcpy((v18 | 0xD), __src, v11);
       v12 = v11 + 13;
     }
 
@@ -4548,7 +4468,7 @@ uint64_t flow_director_send_cfdata(uint64_t a1, unsigned int a2, const __CFData 
     }
 
     BytePtr = CFDataGetBytePtr(a3);
-    v16 = flow_director_ctl_write(v10, v19, v12, &BytePtr[a4], a5, "data");
+    v16 = flow_director_ctl_write(v10, v18, v12, &BytePtr[a4], a5, "data");
     v14 = v16;
     if (v16 && v16 != 55)
     {
@@ -4561,15 +4481,14 @@ uint64_t flow_director_send_cfdata(uint64_t a1, unsigned int a2, const __CFData 
     v13 = ne_log_obj();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v19[0]) = 67109120;
-      DWORD1(v19[0]) = dword_1EBE73118;
-      _os_log_impl(&dword_1C0DA5000, v13, OS_LOG_TYPE_DEFAULT, "(%u): Director is NULL, dropping data", v19, 8u);
+      LODWORD(v18[0]) = 67109120;
+      DWORD1(v18[0]) = dword_1EBE73118;
+      _os_log_impl(&dword_1C0DA5000, v13, OS_LOG_TYPE_DEFAULT, "(%u): Director is NULL, dropping data", v18, 8u);
     }
 
-    v14 = 22;
+    return 22;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -4766,16 +4685,14 @@ LABEL_35:
   return v9;
 }
 
-uint64_t NEFlowSetProperty(uint64_t cf, const void *a2, const __CFData *a3)
+uint64_t NEFlowSetProperty(os_unfair_lock_s *cf, const void *a2, const __CFData *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (runtime_inited == -1)
   {
     if (!cf)
     {
-LABEL_31:
-      v17 = 0;
-      goto LABEL_32;
+      return 0;
     }
   }
 
@@ -4784,17 +4701,17 @@ LABEL_31:
     dispatch_once(&runtime_inited, &__block_literal_global_16);
     if (!cf)
     {
-      goto LABEL_31;
+      return 0;
     }
   }
 
   v6 = __kNEFlowTypeID;
   if (CFGetTypeID(cf) != v6)
   {
-    goto LABEL_31;
+    return 0;
   }
 
-  os_unfair_lock_lock((cf + 120));
+  os_unfair_lock_lock(cf + 30);
   if (!CFEqual(a2, @"LocalEndpoint"))
   {
     if (CFEqual(a2, @"AppData"))
@@ -4805,27 +4722,27 @@ LABEL_31:
         v12 = ne_log_obj();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v18 = *(cf + 24);
+          os_unfair_lock_opaque = cf[6]._os_unfair_lock_opaque;
           *buf = 67109378;
-          v25 = v18;
-          v26 = 2080;
-          v27 = "Sending a properties update with app data";
+          v24 = os_unfair_lock_opaque;
+          v25 = 2080;
+          v26 = "Sending a properties update with app data";
           _os_log_debug_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_DEBUG, "(%u): %s", buf, 0x12u);
         }
 
-        if ((*(cf + 100) & 4) != 0)
+        if ((cf[25]._os_unfair_lock_opaque & 4) != 0)
         {
-          flow_director_send_properties_update(*(cf + 40), *(cf + 24), 0, a3);
+          flow_director_send_properties_update(*&cf[10]._os_unfair_lock_opaque, cf[6]._os_unfair_lock_opaque, 0, a3);
         }
 
-        v13 = *(cf + 352);
+        v13 = *&cf[88]._os_unfair_lock_opaque;
         if (v13)
         {
           CFRelease(v13);
-          *(cf + 352) = 0;
+          *&cf[88]._os_unfair_lock_opaque = 0;
         }
 
-        *(cf + 352) = CFDataCreateCopy(*MEMORY[0x1E695E480], a3);
+        *&cf[88]._os_unfair_lock_opaque = CFDataCreateCopy(*MEMORY[0x1E695E480], a3);
         goto LABEL_25;
       }
     }
@@ -4845,21 +4762,21 @@ LABEL_28:
         valuePtr = 0;
         CFNumberGetValue(a3, kCFNumberIntType, &valuePtr);
         v15 = valuePtr;
-        *(cf + 400) = valuePtr;
-        *v23 = *"<none>";
-        if_indextoname(v15, v23);
+        cf[100]._os_unfair_lock_opaque = valuePtr;
+        *v22 = *"<none>";
+        if_indextoname(v15, v22);
         v16 = ne_log_obj();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v19 = *(cf + 24);
+          v19 = cf[6]._os_unfair_lock_opaque;
           *buf = 67109378;
-          v25 = v19;
-          v26 = 2080;
-          v27 = v23;
+          v24 = v19;
+          v25 = 2080;
+          v26 = v22;
           _os_log_debug_impl(&dword_1C0DA5000, v16, OS_LOG_TYPE_DEBUG, "(%u): Setting outbound interface to %s", buf, 0x12u);
         }
 
-        flow_director_send_properties_update(*(cf + 40), *(cf + 24), valuePtr, 0);
+        flow_director_send_properties_update(*&cf[10]._os_unfair_lock_opaque, cf[6]._os_unfair_lock_opaque, valuePtr, 0);
         goto LABEL_25;
       }
     }
@@ -4889,19 +4806,17 @@ LABEL_27:
 LABEL_25:
   v17 = 1;
 LABEL_29:
-  os_unfair_lock_unlock((cf + 120));
-LABEL_32:
-  v20 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_unlock(cf + 30);
   return v17;
 }
 
 uint64_t NEFlowResetLocalEndpoint(uint64_t a1, CFDataRef theData)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   BytePtr = CFDataGetBytePtr(theData);
   length = 0;
-  v32 = 0uLL;
-  v33 = 0;
+  v31 = 0uLL;
+  v32 = 0;
   v5 = *(a1 + 400);
   v6 = NECreateAddressString(BytePtr);
   if (v6)
@@ -4918,11 +4833,11 @@ uint64_t NEFlowResetLocalEndpoint(uint64_t a1, CFDataRef theData)
       v9 = ne_log_obj();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v30 = *(a1 + 24);
+        v29 = *(a1 + 24);
         *buf = 67109378;
-        v35 = v30;
-        v36 = 2112;
-        v37 = v7;
+        v34 = v29;
+        v35 = 2112;
+        v36 = v7;
         _os_log_error_impl(&dword_1C0DA5000, v9, OS_LOG_TYPE_ERROR, "(%u): No interface found for %@, not re-setting the interface", buf, 0x12u);
       }
     }
@@ -4954,7 +4869,7 @@ LABEL_7:
         v14 = v11[1];
         if (v14 == 30)
         {
-          v32 = *(v11 + 8);
+          v31 = *(v11 + 8);
         }
       }
 
@@ -4964,11 +4879,11 @@ LABEL_7:
         v20 = ne_log_obj();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          v29 = *(a1 + 24);
+          v28 = *(a1 + 24);
           *buf = 67109378;
-          v35 = v29;
-          v36 = 2080;
-          v37 = "New local address is unspecified or has a different address family, only re-setting the local port";
+          v34 = v28;
+          v35 = 2080;
+          v36 = "New local address is unspecified or has a different address family, only re-setting the local port";
           _os_log_debug_impl(&dword_1C0DA5000, v20, OS_LOG_TYPE_DEBUG, "(%u): %s", buf, 0x12u);
         }
 
@@ -4976,7 +4891,7 @@ LABEL_7:
         v21 = CFDataCreate(*MEMORY[0x1E695E480], &length, length);
         result = 0;
         *(a1 + 56) = v21;
-        goto LABEL_35;
+        return result;
       }
 
       if (v13 == 30)
@@ -4987,7 +4902,7 @@ LABEL_7:
         if (*(v12 + 1) != v22 || *(v12 + 2) != v23)
         {
           *(a1 + 100) |= 0x40u;
-          v32 = *v24;
+          v31 = *v24;
         }
       }
 
@@ -5010,24 +4925,21 @@ LABEL_7:
     result = 0;
     *(a1 + 56) = v26;
     *(a1 + 400) = v8;
-    goto LABEL_35;
+    return result;
   }
 
   v15 = ne_log_obj();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v28 = *(a1 + 24);
+    v27 = *(a1 + 24);
     *buf = 67109378;
-    v35 = v28;
-    v36 = 2080;
-    v37 = "Cannot reset the local endpoint, given address is invalid";
+    v34 = v27;
+    v35 = 2080;
+    v36 = "Cannot reset the local endpoint, given address is invalid";
     _os_log_error_impl(&dword_1C0DA5000, v15, OS_LOG_TYPE_ERROR, "(%u): %s", buf, 0x12u);
   }
 
-  result = 4;
-LABEL_35:
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  return 4;
 }
 
 void flow_director_send_properties_update(uint64_t a1, unsigned int a2, int a3, const __CFData *a4)
@@ -5084,26 +4996,26 @@ LABEL_10:
 
 CFDictionaryRef NEFlowCopyStateDictionary(uint64_t a1, uint64_t a2)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  *v44 = xmmword_1E812A520;
-  v45 = *&off_1E812A530;
-  v46 = xmmword_1E812A540;
-  v47 = *&off_1E812A550;
-  v42 = 0u;
-  v43 = 0u;
+  v47 = *MEMORY[0x1E69E9840];
+  *v43 = xmmword_1E812A520;
+  v44 = *&off_1E812A530;
+  v45 = xmmword_1E812A540;
+  v46 = *&off_1E812A550;
   v41 = 0u;
+  v42 = 0u;
+  v40 = 0u;
   *keys = xmmword_1E812A560;
-  v38 = *&off_1E812A570;
-  v39 = xmmword_1E812A580;
+  v37 = *&off_1E812A570;
+  v38 = xmmword_1E812A580;
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   *values = 0u;
-  *v31 = xmmword_1E812A590;
-  v32 = *off_1E812A5A0;
-  v33 = @"SendBufferSize";
-  v30 = 0;
-  *v28 = 0u;
-  v29 = 0u;
+  *v30 = xmmword_1E812A590;
+  v31 = *off_1E812A5A0;
+  v32 = @"SendBufferSize";
+  v29 = 0;
+  *v27 = 0u;
+  v28 = 0u;
   v4 = *(a1 + 48);
   if (v4)
   {
@@ -5136,8 +5048,8 @@ CFDictionaryRef NEFlowCopyStateDictionary(uint64_t a1, uint64_t a2)
     v12 = @"UDP";
   }
 
-  v40[0] = v11;
-  v40[1] = v12;
+  v39[0] = v11;
+  v39[1] = v12;
   v13 = *(a1 + 80);
   if (v13)
   {
@@ -5149,9 +5061,9 @@ CFDictionaryRef NEFlowCopyStateDictionary(uint64_t a1, uint64_t a2)
     v14 = @"<unknown>";
   }
 
-  *&v41 = v14;
-  *(&v41 + 1) = v6;
-  *&v42 = v9;
+  *&v40 = v14;
+  *(&v40 + 1) = v6;
+  *&v41 = v9;
   v15 = *(a1 + 64);
   if (v15)
   {
@@ -5163,7 +5075,7 @@ CFDictionaryRef NEFlowCopyStateDictionary(uint64_t a1, uint64_t a2)
     v16 = @"<unknown>";
   }
 
-  *(&v42 + 1) = v16;
+  *(&v41 + 1) = v16;
   v17 = *(a1 + 16);
   v18 = 328;
   if (v17 == 2)
@@ -5186,41 +5098,40 @@ CFDictionaryRef NEFlowCopyStateDictionary(uint64_t a1, uint64_t a2)
     }
   }
 
-  v26 = size;
-  values[0] = CFNumberCreate(v10, kCFNumberLongType, &v26);
+  v25 = size;
+  values[0] = CFNumberCreate(v10, kCFNumberLongType, &v25);
   values[1] = CFNumberCreate(v10, kCFNumberIntType, &valuePtr);
-  *&v35 = CFNumberCreate(v10, kCFNumberLongLongType, (a1 + 232));
-  *(&v35 + 1) = CFNumberCreate(v10, kCFNumberLongLongType, (a1 + 240));
-  *&v36 = CFNumberCreate(v10, kCFNumberLongLongType, (a1 + 248));
-  *(&v36 + 1) = CFNumberCreate(v10, kCFNumberLongLongType, (a1 + 256));
+  *&v34 = CFNumberCreate(v10, kCFNumberLongLongType, (a1 + 232));
+  *(&v34 + 1) = CFNumberCreate(v10, kCFNumberLongLongType, (a1 + 240));
+  *&v35 = CFNumberCreate(v10, kCFNumberLongLongType, (a1 + 248));
+  *(&v35 + 1) = CFNumberCreate(v10, kCFNumberLongLongType, (a1 + 256));
   v20 = 0;
-  *&v43 = CFDictionaryCreate(v10, keys, values, 6, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  *&v42 = CFDictionaryCreate(v10, keys, values, 6, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   do
   {
     CFRelease(values[v20++]);
   }
 
   while (v20 != 6);
-  v28[0] = CFNumberCreate(v10, kCFNumberLongLongType, (a2 + 8));
-  v28[1] = CFNumberCreate(v10, kCFNumberLongLongType, (a2 + 16));
-  *&v29 = CFNumberCreate(v10, kCFNumberLongLongType, (a2 + 24));
-  *(&v29 + 1) = CFNumberCreate(v10, kCFNumberIntType, (a2 + 32));
-  v30 = CFNumberCreate(v10, kCFNumberIntType, (a2 + 36));
+  v27[0] = CFNumberCreate(v10, kCFNumberLongLongType, (a2 + 8));
+  v27[1] = CFNumberCreate(v10, kCFNumberLongLongType, (a2 + 16));
+  *&v28 = CFNumberCreate(v10, kCFNumberLongLongType, (a2 + 24));
+  *(&v28 + 1) = CFNumberCreate(v10, kCFNumberIntType, (a2 + 32));
+  v29 = CFNumberCreate(v10, kCFNumberIntType, (a2 + 36));
   v21 = 0;
-  *(&v43 + 1) = CFDictionaryCreate(v10, v31, v28, 5, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  *(&v42 + 1) = CFDictionaryCreate(v10, v30, v27, 5, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   do
   {
-    CFRelease(v28[v21++]);
+    CFRelease(v27[v21++]);
   }
 
   while (v21 != 5);
-  v22 = CFDictionaryCreate(v10, v44, v40, 8, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v22 = CFDictionaryCreate(v10, v43, v39, 8, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   for (i = 0; i != 8; ++i)
   {
-    CFRelease(v40[i]);
+    CFRelease(v39[i]);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -5276,38 +5187,36 @@ uint64_t NEFlowTLVMsgCreate(unsigned int a1, char a2, uint64_t a3, uint64_t a4, 
   return result;
 }
 
-uint64_t NEFlowDirectorCreateInternal(int a1, NSObject *a2, unint64_t a3)
+uint64_t NEFlowDirectorCreateInternal(uint64_t a1, NSObject *a2, unint64_t a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if (a1 < 0)
+  v19 = *MEMORY[0x1E69E9840];
+  if ((a1 & 0x80000000) != 0)
   {
-    v16 = ne_log_obj();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = ne_log_obj();
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-LABEL_18:
-      v7 = 0;
-      goto LABEL_14;
+      return 0;
     }
 
     *&buf[0].sa_len = 136315138;
     *&buf[0].sa_data[2] = "NEFlowDirectorCreateInternal";
-    v17 = "%s called with null (control_socket >= 0)";
+    v16 = "%s called with null (control_socket >= 0)";
 LABEL_20:
-    _os_log_fault_impl(&dword_1C0DA5000, v16, OS_LOG_TYPE_FAULT, v17, &buf[0].sa_len, 0xCu);
-    goto LABEL_18;
+    _os_log_fault_impl(&dword_1C0DA5000, v15, OS_LOG_TYPE_FAULT, v16, &buf[0].sa_len, 0xCu);
+    return 0;
   }
 
   if (!(a2 | a3))
   {
-    v16 = ne_log_obj();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = ne_log_obj();
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_18;
+      return 0;
     }
 
     *&buf[0].sa_len = 136315138;
     *&buf[0].sa_data[2] = "NEFlowDirectorCreateInternal";
-    v17 = "%s called with null (callback_queue != ((void*)0) || bridge_context != ((void*)0))";
+    v16 = "%s called with null (callback_queue != ((void*)0) || bridge_context != ((void*)0))";
     goto LABEL_20;
   }
 
@@ -5363,9 +5272,9 @@ LABEL_20:
   dispatch_set_finalizer_f(*(v7 + 16), flow_director_deallocate);
   dispatch_activate(*(v7 + 16));
   *(v7 + 24) = flow_director_create_io_handler(v7, a1);
-  v18 = 32;
+  v17 = 32;
   memset(buf, 0, sizeof(buf));
-  v12 = getpeername(a1, buf, &v18);
+  v12 = getpeername(a1, buf, &v17);
   v13 = *&buf[0].sa_data[6];
   if (v12)
   {
@@ -5376,14 +5285,13 @@ LABEL_20:
   flow_director_reset_default_interface_info(v7, "lo0");
   NEFlowDirectorSetMaxSendSize(v7, 0x100000uLL);
   NEFlowDirectorSetMaxReceiveSize(v7, 0x200000uLL);
-LABEL_14:
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
-NSObject *flow_director_create_io_handler(uint64_t a1, int a2)
+NSObject *flow_director_create_io_handler(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v22 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 16);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 0x40000000;
@@ -5391,8 +5299,8 @@ NSObject *flow_director_create_io_handler(uint64_t a1, int a2)
   aBlock[3] = &__block_descriptor_tmp_157;
   aBlock[4] = a1;
   v4 = _Block_copy(aBlock);
-  v5 = dispatch_source_create(MEMORY[0x1E69E96F8], a2, 0, v3);
-  v6 = fcntl(a2, 3);
+  v5 = dispatch_source_create(MEMORY[0x1E69E96F8], v2, 0, v3);
+  v6 = fcntl(v2, 3);
   LODWORD(v7) = v6 | 4;
   if (v6 >= 0)
   {
@@ -5404,8 +5312,8 @@ NSObject *flow_director_create_io_handler(uint64_t a1, int a2)
     v7 = 4;
   }
 
-  fcntl(a2, 4, v7);
-  v15 = v3 | 0xBAACCAAB00000000;
+  fcntl(v2, 4, v7);
+  v14 = v3 | 0xBAACCAAB00000000;
   v8 = change_fdguard_np();
   if (v8)
   {
@@ -5414,29 +5322,28 @@ NSObject *flow_director_create_io_handler(uint64_t a1, int a2)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       LODWORD(handler) = 67109376;
-      HIDWORD(handler) = a2;
-      LOWORD(v17) = 1024;
-      *(&v17 + 2) = v9;
+      HIDWORD(handler) = v2;
+      LOWORD(v16) = 1024;
+      *(&v16 + 2) = v9;
       _os_log_error_impl(&dword_1C0DA5000, v10, OS_LOG_TYPE_ERROR, "Unable to guard control socket fd %d (%d)", &handler, 0xEu);
     }
   }
 
   dispatch_set_context(v5, v4);
   handler = MEMORY[0x1E69E9820];
-  v17 = 0x40000000;
-  v18 = __flow_director_create_ctl_source_block_invoke;
-  v19 = &__block_descriptor_tmp_158;
-  v22 = a2;
-  v20 = v5;
-  v21 = v15;
+  v16 = 0x40000000;
+  v17 = __flow_director_create_ctl_source_block_invoke;
+  v18 = &__block_descriptor_tmp_158;
+  v21 = v2;
+  v19 = v5;
+  v20 = v14;
   dispatch_source_set_cancel_handler(v5, &handler);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 0x40000000;
-  v14[2] = __flow_director_create_ctl_source_block_invoke_2;
-  v14[3] = &__block_descriptor_tmp_159;
-  v14[4] = v5;
-  dispatch_source_set_event_handler(v5, v14);
-  v11 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 0x40000000;
+  v13[2] = __flow_director_create_ctl_source_block_invoke_2;
+  v13[3] = &__block_descriptor_tmp_159;
+  v13[4] = v5;
+  dispatch_source_set_event_handler(v5, v13);
   return v5;
 }
 
@@ -5479,180 +5386,172 @@ uint64_t flow_director_reset_default_interface_info(uint64_t a1, const char *a2)
 
 void NEFlowDirectorSetMaxSendSize(uint64_t a1, unint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19 = a2;
+  v25 = *MEMORY[0x1E69E9840];
+  v18 = a2;
   v3 = a2 - 8;
-  if (a2 > 8)
-  {
-    handle = dispatch_source_get_handle(*(a1 + 24));
-    v10 = handle;
-    if (handle <= 0)
-    {
-      v17 = ne_log_obj();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 67109376;
-        v21 = dword_1EBE73118;
-        v22 = 1024;
-        LODWORD(v23) = v10;
-        v5 = "(%u): Did not get a valid control socket from the dispatch source: %d";
-        v6 = v17;
-        v7 = 14;
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      v11 = setsockopt(handle, 0xFFFF, 4097, &v19, 4u);
-      v12 = ne_log_obj();
-      v13 = v12;
-      if (v11)
-      {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-        {
-          v14 = dword_1EBE73118;
-          v15 = __error();
-          v16 = strerror(*v15);
-          *buf = 67109378;
-          v21 = v14;
-          v22 = 2080;
-          v23 = v16;
-          v5 = "(%u): Failed to set SO_SNDBUF on the control socket: %s";
-          v6 = v13;
-          v7 = 18;
-          goto LABEL_10;
-        }
-      }
-
-      else
-      {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109376;
-          v21 = dword_1EBE73118;
-          v22 = 2048;
-          v23 = a2;
-          _os_log_impl(&dword_1C0DA5000, v13, OS_LOG_TYPE_DEFAULT, "(%u): Set SO_SNDBUF on the control socket to %lu", buf, 0x12u);
-        }
-
-        *(a1 + 184) = v3;
-      }
-    }
-  }
-
-  else
+  if (a2 <= 8)
   {
     v4 = ne_log_obj();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      *buf = 67109632;
-      v21 = dword_1EBE73118;
-      v22 = 2048;
-      v23 = a2;
-      v24 = 2048;
-      v25 = 8;
-      v5 = "(%u): Cannot set the maximum send size (%lu) to less than %lu";
-      v6 = v4;
-      v7 = 28;
-LABEL_10:
-      _os_log_error_impl(&dword_1C0DA5000, v6, OS_LOG_TYPE_ERROR, v5, buf, v7);
+      return;
     }
+
+    *buf = 67109632;
+    v20 = dword_1EBE73118;
+    v21 = 2048;
+    v22 = a2;
+    v23 = 2048;
+    v24 = 8;
+    v5 = "(%u): Cannot set the maximum send size (%lu) to less than %lu";
+    v6 = v4;
+    v7 = 28;
+LABEL_10:
+    _os_log_error_impl(&dword_1C0DA5000, v6, OS_LOG_TYPE_ERROR, v5, buf, v7);
+    return;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
+  handle = dispatch_source_get_handle(*(a1 + 24));
+  v10 = handle;
+  if (handle <= 0)
+  {
+    v17 = ne_log_obj();
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    *buf = 67109376;
+    v20 = dword_1EBE73118;
+    v21 = 1024;
+    LODWORD(v22) = v10;
+    v5 = "(%u): Did not get a valid control socket from the dispatch source: %d";
+    v6 = v17;
+    v7 = 14;
+    goto LABEL_10;
+  }
+
+  v11 = setsockopt(handle, 0xFFFF, 4097, &v18, 4u);
+  v12 = ne_log_obj();
+  v13 = v12;
+  if (v11)
+  {
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    v14 = dword_1EBE73118;
+    v15 = __error();
+    v16 = strerror(*v15);
+    *buf = 67109378;
+    v20 = v14;
+    v21 = 2080;
+    v22 = v16;
+    v5 = "(%u): Failed to set SO_SNDBUF on the control socket: %s";
+    v6 = v13;
+    v7 = 18;
+    goto LABEL_10;
+  }
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109376;
+    v20 = dword_1EBE73118;
+    v21 = 2048;
+    v22 = a2;
+    _os_log_impl(&dword_1C0DA5000, v13, OS_LOG_TYPE_DEFAULT, "(%u): Set SO_SNDBUF on the control socket to %lu", buf, 0x12u);
+  }
+
+  *(a1 + 184) = v3;
 }
 
 void NEFlowDirectorSetMaxReceiveSize(uint64_t a1, unint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19 = a2;
+  v25 = *MEMORY[0x1E69E9840];
+  v18 = a2;
   v3 = a2 - 8;
-  if (a2 > 8)
-  {
-    handle = dispatch_source_get_handle(*(a1 + 24));
-    v10 = handle;
-    if (handle <= 0)
-    {
-      v17 = ne_log_obj();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 67109376;
-        v21 = dword_1EBE73118;
-        v22 = 1024;
-        LODWORD(v23) = v10;
-        v5 = "(%u): Did not get a valid control socket from the dispatch source: %d";
-        v6 = v17;
-        v7 = 14;
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      v11 = setsockopt(handle, 0xFFFF, 4098, &v19, 4u);
-      v12 = ne_log_obj();
-      v13 = v12;
-      if (v11)
-      {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-        {
-          v14 = dword_1EBE73118;
-          v15 = __error();
-          v16 = strerror(*v15);
-          *buf = 67109378;
-          v21 = v14;
-          v22 = 2080;
-          v23 = v16;
-          v5 = "(%u): Failed to set SO_RCVBUF on the control socket: %s";
-          v6 = v13;
-          v7 = 18;
-          goto LABEL_10;
-        }
-      }
-
-      else
-      {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109376;
-          v21 = dword_1EBE73118;
-          v22 = 2048;
-          v23 = a2;
-          _os_log_impl(&dword_1C0DA5000, v13, OS_LOG_TYPE_DEFAULT, "(%u): Set SO_RCVBUF on the control socket to %lu", buf, 0x12u);
-        }
-
-        *(a1 + 192) = v3;
-      }
-    }
-  }
-
-  else
+  if (a2 <= 8)
   {
     v4 = ne_log_obj();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      *buf = 67109632;
-      v21 = dword_1EBE73118;
-      v22 = 2048;
-      v23 = a2;
-      v24 = 2048;
-      v25 = 8;
-      v5 = "(%u): Cannot set the maximum receive size (%lu) to less than %lu";
-      v6 = v4;
-      v7 = 28;
-LABEL_10:
-      _os_log_error_impl(&dword_1C0DA5000, v6, OS_LOG_TYPE_ERROR, v5, buf, v7);
+      return;
     }
+
+    *buf = 67109632;
+    v20 = dword_1EBE73118;
+    v21 = 2048;
+    v22 = a2;
+    v23 = 2048;
+    v24 = 8;
+    v5 = "(%u): Cannot set the maximum receive size (%lu) to less than %lu";
+    v6 = v4;
+    v7 = 28;
+LABEL_10:
+    _os_log_error_impl(&dword_1C0DA5000, v6, OS_LOG_TYPE_ERROR, v5, buf, v7);
+    return;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
+  handle = dispatch_source_get_handle(*(a1 + 24));
+  v10 = handle;
+  if (handle <= 0)
+  {
+    v17 = ne_log_obj();
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    *buf = 67109376;
+    v20 = dword_1EBE73118;
+    v21 = 1024;
+    LODWORD(v22) = v10;
+    v5 = "(%u): Did not get a valid control socket from the dispatch source: %d";
+    v6 = v17;
+    v7 = 14;
+    goto LABEL_10;
+  }
+
+  v11 = setsockopt(handle, 0xFFFF, 4098, &v18, 4u);
+  v12 = ne_log_obj();
+  v13 = v12;
+  if (v11)
+  {
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    v14 = dword_1EBE73118;
+    v15 = __error();
+    v16 = strerror(*v15);
+    *buf = 67109378;
+    v20 = v14;
+    v21 = 2080;
+    v22 = v16;
+    v5 = "(%u): Failed to set SO_RCVBUF on the control socket: %s";
+    v6 = v13;
+    v7 = 18;
+    goto LABEL_10;
+  }
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109376;
+    v20 = dword_1EBE73118;
+    v21 = 2048;
+    v22 = a2;
+    _os_log_impl(&dword_1C0DA5000, v13, OS_LOG_TYPE_DEFAULT, "(%u): Set SO_RCVBUF on the control socket to %lu", buf, 0x12u);
+  }
+
+  *(a1 + 192) = v3;
 }
 
 void __flow_director_create_io_handler_block_invoke(uint64_t a1, uint64_t a2, int a3, unsigned __int8 *a4, unint64_t a5)
 {
-  v139 = *MEMORY[0x1E69E9840];
-  v116 = 0;
+  v138 = *MEMORY[0x1E69E9840];
+  v115 = 0;
   v6 = *(a1 + 32);
   if (*(v6 + 40) == a2)
   {
@@ -5681,7 +5580,7 @@ void __flow_director_create_io_handler_block_invoke(uint64_t a1, uint64_t a2, in
 
 LABEL_10:
     flow_director_abort(*(a1 + 32), 0);
-    goto LABEL_11;
+    return;
   }
 
   if (a3)
@@ -5708,10 +5607,10 @@ LABEL_26:
 
   if (a5 <= 7)
   {
-    v16 = ne_log_obj();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = ne_log_obj();
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_11;
+      return;
     }
 
     *buf = 67109634;
@@ -5720,199 +5619,201 @@ LABEL_26:
     *&buf[10] = v7;
     *&buf[18] = 2048;
     *&buf[20] = a5;
-    v17 = "(%u): %s: received a message that is too short (%zu)";
-    v18 = v16;
-    v19 = 28;
+    v16 = "(%u): %s: received a message that is too short (%zu)";
+    v17 = v15;
+    v18 = 28;
     goto LABEL_15;
   }
 
-  v116 = bswap32(*(a4 + 1));
+  v115 = bswap32(*(a4 + 1));
   if (*a4 == 11)
   {
-    v21 = *(v6 + 152);
+    v20 = *(v6 + 152);
     *(v6 + 152) = 0;
-    if (!v21)
+    if (v20)
     {
-      v31 = ne_log_obj();
-      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v21 = a5 - 8;
+      Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
+      if (v21 < 5)
       {
-        goto LABEL_11;
+LABEL_19:
+        v23 = *(v6 + 8);
+        *buf = MEMORY[0x1E69E9820];
+        *&buf[8] = 0x40000000;
+        *&buf[16] = __flow_director_handle_flow_states_block_invoke;
+        *&buf[24] = &unk_1E812A8B0;
+        *&buf[32] = v20;
+        *&buf[40] = Mutable;
+        dispatch_async(v23, buf);
+        return;
       }
 
-      *buf = 67109120;
-      *&buf[4] = dword_1EBE73118;
-      v17 = "(%u): Got flow states, but no callback is available";
-      v18 = v31;
-      v19 = 8;
-      goto LABEL_15;
-    }
-
-    v22 = a5 - 8;
-    Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-    if (v22 < 5)
-    {
-LABEL_19:
-      v24 = *(v6 + 8);
-      *buf = MEMORY[0x1E69E9820];
-      *&buf[8] = 0x40000000;
-      *&buf[16] = __flow_director_handle_flow_states_block_invoke;
-      *&buf[24] = &unk_1E812A8B0;
-      *&buf[32] = v21;
-      *&buf[40] = Mutable;
-      dispatch_async(v24, buf);
-      goto LABEL_11;
-    }
-
-    v32 = a4 + 8;
-    while (1)
-    {
-      v33 = *v32;
-      v34 = *(v32 + 1);
-      v35 = bswap32(v34);
-      if (v34)
+      v31 = a4 + 8;
+      while (1)
       {
-        v36 = v35 + 5;
-        if (v35 + 5 > v22)
+        v32 = *v31;
+        v33 = *(v31 + 1);
+        v34 = bswap32(v33);
+        if (v33)
+        {
+          v35 = v34 + 5;
+          if (v34 + 5 > v21)
+          {
+            goto LABEL_19;
+          }
+
+          v36 = v31 + 5;
+        }
+
+        else
+        {
+          v36 = 0;
+          v35 = 5;
+        }
+
+        if (v32 == 39)
+        {
+          memset(buf, 0, 40);
+          if (v34 > 0x27)
+          {
+            v42 = *(v36 + 1);
+            *buf = *v36;
+            *&buf[16] = v42;
+            *&buf[32] = *(v36 + 4);
+            node = rb_tree_find_node((v6 + 56), buf);
+            if (node)
+            {
+              v44 = NEFlowCopyStateDictionary(node, buf);
+              CFArrayAppendValue(Mutable, v44);
+              CFRelease(v44);
+              goto LABEL_49;
+            }
+
+            v45 = ne_log_obj();
+            if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_49;
+            }
+
+            *bytes = 67109376;
+            *&bytes[4] = dword_1EBE73118;
+            *&bytes[8] = 1024;
+            *&bytes[10] = *buf;
+            v38 = bytes;
+            v39 = v45;
+            v40 = "(%u): Cannot find flow with ID from flow state (%u)";
+            goto LABEL_45;
+          }
+
+          v37 = ne_log_obj();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          {
+            *bytes = 67109376;
+            *&bytes[4] = dword_1EBE73118;
+            *&bytes[8] = 1024;
+            *&bytes[10] = v34;
+            v38 = bytes;
+            v39 = v37;
+            v40 = "(%u): Got a flow state TLV with an invalid length: %u";
+LABEL_45:
+            _os_log_error_impl(&dword_1C0DA5000, v39, OS_LOG_TYPE_ERROR, v40, v38, 0xEu);
+          }
+        }
+
+        else
+        {
+          v41 = ne_log_obj();
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 67109376;
+            *&buf[4] = dword_1EBE73118;
+            *&buf[8] = 1024;
+            *&buf[10] = v32;
+            v38 = buf;
+            v39 = v41;
+            v40 = "(%u): Got a non-state TLV: %u";
+            goto LABEL_45;
+          }
+        }
+
+LABEL_49:
+        v31 += v35;
+        v21 -= v35;
+        if (v21 <= 4)
         {
           goto LABEL_19;
         }
-
-        v37 = v32 + 5;
-      }
-
-      else
-      {
-        v37 = 0;
-        v36 = 5;
-      }
-
-      if (v33 == 39)
-      {
-        memset(buf, 0, 40);
-        if (v35 > 0x27)
-        {
-          v43 = *(v37 + 1);
-          *buf = *v37;
-          *&buf[16] = v43;
-          *&buf[32] = *(v37 + 4);
-          node = rb_tree_find_node((v6 + 56), buf);
-          if (node)
-          {
-            v45 = NEFlowCopyStateDictionary(node, buf);
-            CFArrayAppendValue(Mutable, v45);
-            CFRelease(v45);
-            goto LABEL_49;
-          }
-
-          v46 = ne_log_obj();
-          if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_49;
-          }
-
-          *bytes = 67109376;
-          *&bytes[4] = dword_1EBE73118;
-          *&bytes[8] = 1024;
-          *&bytes[10] = *buf;
-          v39 = bytes;
-          v40 = v46;
-          v41 = "(%u): Cannot find flow with ID from flow state (%u)";
-          goto LABEL_45;
-        }
-
-        v38 = ne_log_obj();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
-        {
-          *bytes = 67109376;
-          *&bytes[4] = dword_1EBE73118;
-          *&bytes[8] = 1024;
-          *&bytes[10] = v35;
-          v39 = bytes;
-          v40 = v38;
-          v41 = "(%u): Got a flow state TLV with an invalid length: %u";
-LABEL_45:
-          _os_log_error_impl(&dword_1C0DA5000, v40, OS_LOG_TYPE_ERROR, v41, v39, 0xEu);
-        }
-      }
-
-      else
-      {
-        v42 = ne_log_obj();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 67109376;
-          *&buf[4] = dword_1EBE73118;
-          *&buf[8] = 1024;
-          *&buf[10] = v33;
-          v39 = buf;
-          v40 = v42;
-          v41 = "(%u): Got a non-state TLV: %u";
-          goto LABEL_45;
-        }
-      }
-
-LABEL_49:
-      v32 += v36;
-      v22 -= v36;
-      if (v22 <= 4)
-      {
-        goto LABEL_19;
       }
     }
+
+    v30 = ne_log_obj();
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    *buf = 67109120;
+    *&buf[4] = dword_1EBE73118;
+    v16 = "(%u): Got flow states, but no callback is available";
+    v17 = v30;
+    v18 = 8;
+LABEL_15:
+    _os_log_error_impl(&dword_1C0DA5000, v17, OS_LOG_TYPE_ERROR, v16, buf, v18);
+    return;
   }
 
-  v25 = rb_tree_find_node((v6 + 56), &v116);
-  v26 = v25;
-  v27 = *a4;
-  if (v27 != 1)
+  v24 = rb_tree_find_node((v6 + 56), &v115);
+  v25 = v24;
+  v26 = *a4;
+  if (v26 != 1)
   {
-    if (v25)
+    if (v24)
     {
       if (*a4 > 3u)
       {
-        if (v27 == 4)
+        if (v26 == 4)
         {
-          flow_director_handle_close(v25, a5 - 8, a4 + 8);
+          flow_director_handle_close(v24, a5 - 8, a4 + 8);
         }
 
-        else if (v27 == 5)
+        else if (v26 == 5)
         {
-          flow_director_handle_read_notification(v25);
+          flow_director_handle_read_notification(v24);
         }
       }
 
-      else if (v27 == 2)
+      else if (v26 == 2)
       {
-        flow_director_handle_connect_result(*(a1 + 32), v25, a5 - 8, a4 + 8);
+        flow_director_handle_connect_result(*(a1 + 32), v24, a5 - 8, a4 + 8);
       }
 
-      else if (v27 == 3)
+      else if (v26 == 3)
       {
-        flow_director_handle_data(*(a1 + 32), v25, a5 - 8, a4 + 8);
+        flow_director_handle_data(*(a1 + 32), v24, a5 - 8, a4 + 8);
       }
 
-      goto LABEL_11;
+      return;
     }
 
-    if ((v27 & 0xFE) != 2)
+    if ((v26 & 0xFE) != 2)
     {
-      goto LABEL_11;
+      return;
     }
 
-    v56 = ne_log_obj();
-    if (!os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v55 = ne_log_obj();
+    if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_11;
+      return;
     }
 
     if (*a4 - 1 > 6)
     {
-      v57 = "unknwon";
+      v56 = "unknwon";
     }
 
     else
     {
-      v57 = off_1E812AB88[(*a4 - 1)];
+      v56 = off_1E812AB88[(*a4 - 1)];
     }
 
     *buf = 67109890;
@@ -5920,164 +5821,162 @@ LABEL_49:
     *&buf[8] = 2080;
     *&buf[10] = v7;
     *&buf[18] = 2080;
-    *&buf[20] = v57;
+    *&buf[20] = v56;
     *&buf[28] = 1024;
-    *&buf[30] = v116;
-    v17 = "(%u): %s: Recevied a %s message for flow %u, but the flow cannot be found";
-    v18 = v56;
-    v19 = 34;
-LABEL_15:
-    _os_log_error_impl(&dword_1C0DA5000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
-    goto LABEL_11;
+    *&buf[30] = v115;
+    v16 = "(%u): %s: Recevied a %s message for flow %u, but the flow cannot be found";
+    v17 = v55;
+    v18 = 34;
+    goto LABEL_15;
   }
 
-  v28 = *(a1 + 32);
-  v29 = v116;
-  v137 = 0u;
-  v138 = 0u;
-  v135 = 0u;
+  v27 = *(a1 + 32);
+  v28 = v115;
   v136 = 0u;
+  v137 = 0u;
   v134 = 0u;
+  v135 = 0u;
+  v133 = 0u;
   memset(buf, 0, sizeof(buf));
-  v117 = 0;
-  v131 = 0u;
-  v132 = 0u;
+  v116 = 0;
   v130 = 0u;
-  v128 = 0u;
+  v131 = 0u;
   v129 = 0u;
   v127 = 0u;
+  v128 = 0u;
+  v126 = 0u;
   memset(bytes, 0, sizeof(bytes));
-  if (v25)
+  if (v24)
   {
-    v30 = ne_log_obj();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = ne_log_obj();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      os_unfair_lock_opaque = v26[6]._os_unfair_lock_opaque;
-      v80 = strerror(37);
+      os_unfair_lock_opaque = v25[6]._os_unfair_lock_opaque;
+      v79 = strerror(37);
       *dst = 67109378;
       *&dst[4] = os_unfair_lock_opaque;
-      *v119 = 2080;
-      *&v119[2] = v80;
-      _os_log_error_impl(&dword_1C0DA5000, v30, OS_LOG_TYPE_ERROR, "(%u): Sending error connect result: %s", dst, 0x12u);
+      *v118 = 2080;
+      *&v118[2] = v79;
+      _os_log_error_impl(&dword_1C0DA5000, v29, OS_LOG_TYPE_ERROR, "(%u): Sending error connect result: %s", dst, 0x12u);
     }
 
-    flow_director_send_connect_result(v28, v29, 0x25u, 0, 0, 0, 0, 0, 0);
-    goto LABEL_11;
+    flow_director_send_connect_result(v27, v28, 0x25u, 0, 0, 0, 0, 0, 0);
+    return;
   }
 
-  v47 = a5 - 8;
-  v137 = 0uLL;
-  v138 = 0uLL;
-  v135 = 0uLL;
+  v46 = a5 - 8;
   v136 = 0uLL;
+  v137 = 0uLL;
   v134 = 0uLL;
+  v135 = 0uLL;
+  v133 = 0uLL;
   memset(buf, 0, sizeof(buf));
   bytes[1] = 0;
-  v48 = ne_log_obj();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v47 = ne_log_obj();
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *dst = 67109376;
     *&dst[4] = dword_1EBE73118;
-    *v119 = 1024;
-    *&v119[2] = v29;
-    _os_log_impl(&dword_1C0DA5000, v48, OS_LOG_TYPE_DEFAULT, "(%u): Flow %u is connecting", dst, 0xEu);
+    *v118 = 1024;
+    *&v118[2] = v28;
+    _os_log_impl(&dword_1C0DA5000, v47, OS_LOG_TYPE_DEFAULT, "(%u): Flow %u is connecting", dst, 0xEu);
   }
 
-  v49 = *MEMORY[0x1E695E480];
-  if (v47 < 5)
+  v48 = *MEMORY[0x1E695E480];
+  if (v46 < 5)
   {
+    v49 = 0;
     v50 = 0;
-    v51 = 0;
-    v100 = 0;
+    v99 = 0;
+    v111 = 0;
     v112 = 0;
-    v113 = 0;
+    v51 = 0;
     v52 = 0;
     v53 = 0;
+    v110 = 0;
+    v101 = 0;
     v54 = 0;
-    v111 = 0;
-    v102 = 0;
-    v55 = 0;
-    v99 = 5;
-    v101 = 1;
+    v98 = 5;
+    v100 = 1;
     goto LABEL_139;
   }
 
   cf = 0;
-  v109 = v28;
-  v113 = 0;
-  v114 = 0;
-  v50 = 0;
-  v51 = 0;
-  v100 = 0;
-  v111 = 0;
+  v108 = v27;
   v112 = 0;
-  v103 = 0;
-  v105 = 0;
+  v113 = 0;
+  v49 = 0;
+  v50 = 0;
+  v99 = 0;
+  v110 = 0;
+  v111 = 0;
   v102 = 0;
-  v97 = 0;
-  v58 = a4 + 8;
-  v99 = 5;
-  v101 = 1;
+  v104 = 0;
+  v101 = 0;
+  v96 = 0;
+  v57 = a4 + 8;
+  v98 = 5;
+  v100 = 1;
   do
   {
-    v59 = *v58;
-    v60 = *(v58 + 1);
-    v61 = bswap32(v60);
-    if (v60)
+    v58 = *v57;
+    v59 = *(v57 + 1);
+    v60 = bswap32(v59);
+    if (v59)
     {
-      v62 = v61 + 5;
-      if (v61 + 5 > v47)
+      v61 = v60 + 5;
+      if (v60 + 5 > v46)
       {
         break;
       }
 
-      v63 = v58 + 5;
+      v62 = v57 + 5;
     }
 
     else
     {
-      v63 = 0;
-      v62 = 5;
+      v62 = 0;
+      v61 = 5;
     }
 
-    v64 = v59 == 21 && v51 == 0;
-    if (v64)
+    v63 = v58 == 21 && v50 == 0;
+    if (v63)
     {
-      v51 = CFStringCreateWithBytes(v49, v63, v61, 0x8000100u, 0);
+      v50 = CFStringCreateWithBytes(v48, v62, v60, 0x8000100u, 0);
       goto LABEL_78;
     }
 
-    if (v59 == 11 || v59 == 23 || v59 == 22)
+    if (v58 == 11 || v58 == 23 || v58 == 22)
     {
       __memcpy_chk();
       goto LABEL_78;
     }
 
-    if (v59 == 24 && !v114)
+    if (v58 == 24 && !v113)
     {
-      v114 = CFDataCreate(v49, v63, v61);
+      v113 = CFDataCreate(v48, v62, v60);
       goto LABEL_78;
     }
 
-    if (v59 == 25 && !v50)
+    if (v58 == 25 && !v49)
     {
-      v50 = CFStringCreateWithBytes(v49, v63, v61, 0x8000100u, 0);
+      v49 = CFStringCreateWithBytes(v48, v62, v60, 0x8000100u, 0);
       goto LABEL_78;
     }
 
-    if (*v58 > 0x1Du)
+    if (*v57 > 0x1Du)
     {
-      switch(v59)
+      switch(v58)
       {
         case 30:
-          if (v60 != 0x4000000)
+          if (v59 != 0x4000000)
           {
             break;
           }
 
           *dst = 0;
           __memcpy_chk();
-          v65 = *dst;
+          v64 = *dst;
           if (*dst != 1)
           {
             if (*dst != 3)
@@ -6085,18 +5984,18 @@ LABEL_15:
               break;
             }
 
-            v65 = 2;
+            v64 = 2;
           }
 
-          v101 = v65;
+          v100 = v64;
           break;
         case 31:
-          if (v113)
+          if (v112)
           {
-            CFRelease(v113);
+            CFRelease(v112);
           }
 
-          v113 = CFDataCreate(v49, v63, v61);
+          v112 = CFDataCreate(v48, v62, v60);
           break;
         case 32:
           if (cf)
@@ -6104,21 +6003,21 @@ LABEL_15:
             CFRelease(cf);
           }
 
-          if (v60 == 0x20000000)
+          if (v59 == 0x20000000)
           {
-            cf = CFDataCreate(v49, v63, 32);
+            cf = CFDataCreate(v48, v62, 32);
           }
 
           else
           {
-            v66 = ne_log_obj();
-            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+            v65 = ne_log_obj();
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
             {
               *dst = 67109376;
               *&dst[4] = MEMORY[0x18];
-              *v119 = 1024;
-              *&v119[2] = v61;
-              _os_log_error_impl(&dword_1C0DA5000, v66, OS_LOG_TYPE_ERROR, "(%u): Invalid App audit token tlv length: %d", dst, 0xEu);
+              *v118 = 1024;
+              *&v118[2] = v60;
+              _os_log_error_impl(&dword_1C0DA5000, v65, OS_LOG_TYPE_ERROR, "(%u): Invalid App audit token tlv length: %d", dst, 0xEu);
             }
           }
 
@@ -6130,101 +6029,101 @@ LABEL_15:
 
     else
     {
-      switch(v59)
+      switch(v58)
       {
         case 14:
-          if (v60 == 0x2000000)
+          if (v59 == 0x2000000)
           {
-            v97 = *v63;
+            v96 = *v62;
           }
 
           break;
         case 20:
-          if (v60 == 0x1000000)
+          if (v59 == 0x1000000)
           {
-            v99 = *v63;
+            v98 = *v62;
           }
 
           break;
         case 29:
-          if (v60 == 0x4000000)
+          if (v59 == 0x4000000)
           {
             *dst = 0;
             __memcpy_chk();
-            v100 |= *dst;
+            v99 |= *dst;
           }
 
           break;
         default:
 LABEL_106:
-          if (v59 != 33 || v103)
+          if (v58 != 33 || v102)
           {
-            if (v59 != 34 || v105)
+            if (v58 != 34 || v104)
             {
-              if (v59 != 35 || v112)
+              if (v58 != 35 || v111)
               {
-                if (v59 != 36 || v111)
+                if (v58 != 36 || v110)
                 {
-                  if (v59 == 13 && !v102 && v60 == 0x4000000)
+                  if (v58 == 13 && !v101 && v59 == 0x4000000)
                   {
-                    v102 = *v63;
+                    v101 = *v62;
                   }
                 }
 
-                else if (v61 > 0x10)
+                else if (v60 > 0x10)
                 {
-                  v111 = 0;
+                  v110 = 0;
                 }
 
                 else
                 {
                   *dst = 0;
-                  *v119 = 0;
-                  if (v60 == 0x10000000)
+                  *v118 = 0;
+                  if (v59 == 0x10000000)
                   {
-                    uuid_copy(dst, v63);
+                    uuid_copy(dst, v62);
                   }
 
                   else
                   {
                     uuid_copy(dst, g_cfil_flow_uuid_template);
-                    memcpy(&dst[-v61 + 16], v63, v61);
+                    memcpy(&dst[-v60 + 16], v62, v60);
                   }
 
-                  v111 = CFDataCreate(v49, dst, 16);
+                  v110 = CFDataCreate(v48, dst, 16);
                 }
               }
 
-              else if (v60 == 0x20000000)
+              else if (v59 == 0x20000000)
               {
-                v112 = CFDataCreate(v49, v63, 32);
+                v111 = CFDataCreate(v48, v62, 32);
               }
 
               else
               {
-                v67 = ne_log_obj();
-                if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+                v66 = ne_log_obj();
+                if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                 {
                   *dst = 67109376;
                   *&dst[4] = MEMORY[0x18];
-                  *v119 = 1024;
-                  *&v119[2] = v61;
-                  _os_log_error_impl(&dword_1C0DA5000, v67, OS_LOG_TYPE_ERROR, "(%u): Invalid real audit token tlv length: %d", dst, 0xEu);
+                  *v118 = 1024;
+                  *&v118[2] = v60;
+                  _os_log_error_impl(&dword_1C0DA5000, v66, OS_LOG_TYPE_ERROR, "(%u): Invalid real audit token tlv length: %d", dst, 0xEu);
                 }
 
-                v112 = 0;
+                v111 = 0;
               }
             }
 
             else
             {
-              v105 = CFDataCreate(v49, v63, v61);
+              v104 = CFDataCreate(v48, v62, v60);
             }
           }
 
           else
           {
-            v103 = CFStringCreateWithBytes(v49, v63, v61, 0x8000100u, 0);
+            v102 = CFStringCreateWithBytes(v48, v62, v60, 0x8000100u, 0);
           }
 
           break;
@@ -6232,73 +6131,73 @@ LABEL_106:
     }
 
 LABEL_78:
-    v58 += v62;
-    v47 -= v62;
+    v57 += v61;
+    v46 -= v61;
   }
 
-  while (v47 > 4);
-  v55 = v97;
-  v52 = cf;
-  v28 = v109;
-  v53 = v103;
-  v54 = v105;
-  v68 = v114;
-  if (!v114)
+  while (v46 > 4);
+  v54 = v96;
+  v51 = cf;
+  v27 = v108;
+  v52 = v102;
+  v53 = v104;
+  v67 = v113;
+  if (!v113)
   {
 LABEL_139:
-    v68 = CFDataCreate(v49, 0, 0);
+    v67 = CFDataCreate(v48, 0, 0);
   }
 
-  v115 = v68;
-  if (!v50)
+  v114 = v67;
+  if (!v49)
   {
-    v50 = &stru_1F403BB50;
+    v49 = &stru_1F403BB50;
   }
 
-  if (!v117 || ((TypeID = CFStringGetTypeID(), !v51) ? (v70 = 1) : (v70 = CFGetTypeID(v51) != TypeID), v70 && !buf[1] || (v71 = CFStringGetTypeID(), CFGetTypeID(v50) != v71)))
+  if (!v116 || ((TypeID = CFStringGetTypeID(), !v50) ? (v69 = 1) : (v69 = CFGetTypeID(v50) != TypeID), v69 && !buf[1] || (v70 = CFStringGetTypeID(), CFGetTypeID(v49) != v70)))
   {
-    v77 = ne_log_obj();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+    v76 = ne_log_obj();
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
     {
       *dst = 67110402;
       *&dst[4] = dword_1EBE73118;
-      *v119 = 1024;
-      *&v119[2] = v29;
-      *&v119[6] = 1024;
-      *&v119[8] = v117;
-      v120 = 2112;
-      v121 = v51;
-      v122 = 1024;
-      v123 = buf[1];
-      v124 = 2112;
-      v125 = v50;
-      _os_log_error_impl(&dword_1C0DA5000, v77, OS_LOG_TYPE_ERROR, "(%u): Flow properties are incomplete for flow %u, port = %d, dest_name = %@, target_addr family = %d, app_signing_id = %@", dst, 0x2Eu);
+      *v118 = 1024;
+      *&v118[2] = v28;
+      *&v118[6] = 1024;
+      *&v118[8] = v116;
+      v119 = 2112;
+      v120 = v50;
+      v121 = 1024;
+      v122 = buf[1];
+      v123 = 2112;
+      v124 = v49;
+      _os_log_error_impl(&dword_1C0DA5000, v76, OS_LOG_TYPE_ERROR, "(%u): Flow properties are incomplete for flow %u, port = %d, dest_name = %@, target_addr family = %d, app_signing_id = %@", dst, 0x2Eu);
     }
 
-    flow_director_send_connect_result(v28, v29, 0x16u, 0, 0, 0, 0, 0, 0);
-    v78 = v113;
+    flow_director_send_connect_result(v27, v28, 0x16u, 0, 0, 0, 0, 0, 0);
+    v77 = v112;
     goto LABEL_167;
   }
 
-  v106 = v54;
-  cfa = v52;
-  v104 = v53;
-  v110 = v28;
+  v105 = v53;
+  cfa = v51;
+  v103 = v52;
+  v109 = v27;
   if (!buf[1])
   {
     buf[1] = 2;
-    v72 = v117;
-    v75 = v117 == 53 && v101 == 2 && *(v28 + 122) != 0;
+    v71 = v116;
+    v74 = v116 == 53 && v100 == 2 && *(v27 + 122) != 0;
 LABEL_192:
-    *&buf[2] = bswap32(v72) >> 16;
-    v76 = 16;
+    *&buf[2] = bswap32(v71) >> 16;
+    v75 = 16;
 LABEL_193:
-    buf[0] = v76;
+    buf[0] = v75;
     goto LABEL_195;
   }
 
-  v72 = v117;
-  v75 = v117 == 53 && v101 == 2 && *(v28 + 122) != 0;
+  v71 = v116;
+  v74 = v116 == 53 && v100 == 2 && *(v27 + 122) != 0;
   if (buf[1] == 2)
   {
     goto LABEL_192;
@@ -6306,104 +6205,104 @@ LABEL_193:
 
   if (buf[1] == 30)
   {
-    *&buf[2] = bswap32(v117) >> 16;
-    v76 = 28;
+    *&buf[2] = bswap32(v116) >> 16;
+    v75 = 28;
     goto LABEL_193;
   }
 
-  v76 = buf[0];
+  v75 = buf[0];
 LABEL_195:
-  v83 = CFDataCreate(v49, buf, v76);
-  v84 = bytes[1];
+  v82 = CFDataCreate(v48, buf, v75);
+  v83 = bytes[1];
   if (!bytes[1])
   {
-    v84 = buf[1];
+    v83 = buf[1];
     bytes[1] = buf[1];
     bytes[0] = buf[0];
   }
 
-  v85 = NEIsWildcardAddress(bytes);
-  v86 = 16;
-  if (!v85)
+  v84 = NEIsWildcardAddress(bytes);
+  v85 = 16;
+  if (!v84)
   {
-    if (v84)
+    if (v83)
     {
 LABEL_205:
-      v87 = v106;
+      v86 = v105;
       goto LABEL_206;
     }
 
 LABEL_207:
-    v98 = 16;
-    v89 = 0;
-    v87 = v106;
+    v97 = 16;
+    v88 = 0;
+    v86 = v105;
     goto LABEL_208;
   }
 
-  if (!v84)
+  if (!v83)
   {
     goto LABEL_207;
   }
 
-  if (v84 == 30)
+  if (v83 == 30)
   {
-    v96 = *(v28 + 168);
-    if (v96)
+    v95 = *(v27 + 168);
+    if (v95)
     {
-      *&bytes[8] = *(v96 + 8);
-      v86 = 80;
+      *&bytes[8] = *(v95 + 8);
+      v85 = 80;
     }
 
     else
     {
-      v86 = 16;
+      v85 = 16;
     }
 
     goto LABEL_205;
   }
 
-  v64 = v84 == 2;
-  v87 = v106;
-  if (v64)
+  v63 = v83 == 2;
+  v86 = v105;
+  if (v63)
   {
-    v88 = *(v28 + 160);
-    if (v88)
+    v87 = *(v27 + 160);
+    if (v87)
     {
-      *&bytes[4] = *(v88 + 4);
-      v86 = 80;
+      *&bytes[4] = *(v87 + 4);
+      v85 = 80;
     }
 
     else
     {
-      v86 = 16;
+      v85 = 16;
     }
   }
 
 LABEL_206:
-  v98 = v86;
-  v89 = CFDataCreate(v49, bytes, bytes[0]);
+  v97 = v85;
+  v88 = CFDataCreate(v48, bytes, bytes[0]);
 LABEL_208:
-  if (v102)
+  if (v101)
   {
-    v90 = v75;
-    v91 = ne_log_obj();
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+    v89 = v74;
+    v90 = ne_log_obj();
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
     {
       *dst = 67109632;
       *&dst[4] = dword_1EBE73118;
-      *v119 = 1024;
-      *&v119[2] = v29;
-      *&v119[6] = 1024;
-      *&v119[8] = v102;
-      _os_log_debug_impl(&dword_1C0DA5000, v91, OS_LOG_TYPE_DEBUG, "(%u): Kernel set interface index for flow %u to %u", dst, 0x14u);
+      *v118 = 1024;
+      *&v118[2] = v28;
+      *&v118[6] = 1024;
+      *&v118[8] = v101;
+      _os_log_debug_impl(&dword_1C0DA5000, v90, OS_LOG_TYPE_DEBUG, "(%u): Kernel set interface index for flow %u to %u", dst, 0x14u);
     }
 
-    v75 = v90;
+    v74 = v89;
   }
 
   else
   {
-    v102 = *(v28 + 176);
+    v101 = *(v27 + 176);
   }
 
   if (runtime_inited != -1)
@@ -6412,146 +6311,151 @@ LABEL_208:
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v93 = Instance;
+  v92 = Instance;
   if (Instance)
   {
-    *(Instance + 16) = v101;
-    *(Instance + 24) = v29;
-    *(Instance + 40) = v110;
-    *(Instance + 48) = v83;
-    if (v83)
+    *(Instance + 16) = v100;
+    *(Instance + 24) = v28;
+    *(Instance + 40) = v109;
+    *(Instance + 48) = v82;
+    if (v82)
     {
-      CFRetain(v83);
+      CFRetain(v82);
     }
 
-    *(v93 + 64) = v51;
-    if (v51)
+    *(v92 + 64) = v50;
+    if (v50)
     {
-      CFRetain(v51);
+      CFRetain(v50);
     }
 
-    *(v93 + 56) = v89;
-    if (v89)
+    *(v92 + 56) = v88;
+    if (v88)
     {
-      CFRetain(v89);
+      CFRetain(v88);
     }
 
-    *(v93 + 280) = 0x4000000000000;
-    *(v93 + 32) = 0;
-    *(v93 + 100) = 0;
-    *(v93 + 104) = 0;
-    *(v93 + 112) = MEMORY[0x1E69E9668];
-    *(v93 + 120) = 0;
-    *(v93 + 80) = v50;
-    CFRetain(v50);
-    *(v93 + 88) = v115;
-    if (v115)
+    *(v92 + 280) = 0x4000000000000;
+    *(v92 + 32) = 0;
+    *(v92 + 100) = 0;
+    *(v92 + 104) = 0;
+    *(v92 + 112) = MEMORY[0x1E69E9668];
+    *(v92 + 120) = 0;
+    *(v92 + 80) = v49;
+    CFRetain(v49);
+    *(v92 + 88) = v114;
+    if (v114)
     {
-      CFRetain(v115);
+      CFRetain(v114);
     }
 
-    *(v93 + 176) = 0u;
-    *(v93 + 192) = 0u;
-    *(v93 + 144) = 0u;
-    *(v93 + 160) = 0u;
-    *(v93 + 96) = v55;
-    *(v93 + 108) = v99;
-    *(v93 + 320) = 0;
-    *(v93 + 264) = 0;
-    *(v93 + 272) = v93 + 264;
-    *(v93 + 304) = 0;
-    *(v93 + 312) = v93 + 304;
-    *(v93 + 344) = v100;
-    *(v93 + 352) = v113;
-    if (v113)
-    {
-      CFRetain(v113);
-    }
-
-    *(v93 + 360) = cfa;
-    if (cfa)
-    {
-      CFRetain(cfa);
-    }
-
-    *(v93 + 368) = v104;
-    if (v104)
-    {
-      CFRetain(v104);
-    }
-
-    *(v93 + 376) = v87;
-    if (v87)
-    {
-      CFRetain(v87);
-    }
-
-    *(v93 + 384) = v112;
+    *(v92 + 176) = 0u;
+    *(v92 + 192) = 0u;
+    *(v92 + 144) = 0u;
+    *(v92 + 160) = 0u;
+    *(v92 + 96) = v54;
+    *(v92 + 108) = v98;
+    *(v92 + 320) = 0;
+    *(v92 + 264) = 0;
+    *(v92 + 272) = v92 + 264;
+    *(v92 + 304) = 0;
+    *(v92 + 312) = v92 + 304;
+    *(v92 + 344) = v99;
+    *(v92 + 352) = v112;
     if (v112)
     {
       CFRetain(v112);
     }
 
-    *(v93 + 392) = v111;
+    *(v92 + 360) = cfa;
+    if (cfa)
+    {
+      CFRetain(cfa);
+    }
+
+    *(v92 + 368) = v103;
+    if (v103)
+    {
+      CFRetain(v103);
+    }
+
+    *(v92 + 376) = v86;
+    if (v86)
+    {
+      CFRetain(v86);
+    }
+
+    *(v92 + 384) = v111;
     if (v111)
     {
       CFRetain(v111);
     }
 
-    *(v93 + 400) = v102;
-    *(v93 + 432) = v75;
+    *(v92 + 392) = v110;
+    if (v110)
+    {
+      CFRetain(v110);
+    }
+
+    *(v92 + 400) = v101;
+    *(v92 + 432) = v74;
   }
 
-  CFRelease(v83);
-  if (v89)
+  CFRelease(v82);
+  if (v88)
   {
-    CFRelease(v89);
+    CFRelease(v88);
   }
 
-  v78 = v113;
-  if (!v93)
+  v77 = v112;
+  if (!v92)
   {
     __assert_rtn("flow_director_handle_connect", "NEFlow.c", 3021, "new_flow != NULL");
   }
 
-  v53 = v104;
-  v52 = cfa;
-  if (rb_tree_insert_node((v110 + 56), v93) != v93)
+  v52 = v103;
+  v51 = cfa;
+  if (rb_tree_insert_node((v109 + 56), v92) != v92)
   {
     __assert_rtn("flow_director_handle_connect", "NEFlow.c", 3022, "rb_tree_insert_node(&director->flow_tree, new_flow) == new_flow");
   }
 
-  *(v93 + 100) = v98;
-  v94 = ne_log_obj();
-  if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
+  *(v92 + 100) = v97;
+  v93 = ne_log_obj();
+  if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
   {
-    v95 = *(v93 + 24);
+    v94 = *(v92 + 24);
     *dst = 67109378;
-    *&dst[4] = v95;
-    *v119 = 2112;
-    *&v119[2] = v93;
-    _os_log_impl(&dword_1C0DA5000, v94, OS_LOG_TYPE_DEFAULT, "(%u): New flow: %@", dst, 0x12u);
+    *&dst[4] = v94;
+    *v118 = 2112;
+    *&v118[2] = v92;
+    _os_log_impl(&dword_1C0DA5000, v93, OS_LOG_TYPE_DEFAULT, "(%u): New flow: %@", dst, 0x12u);
   }
 
-  os_unfair_lock_lock((v93 + 120));
-  flow_startup(v93, v110, 0);
-  os_unfair_lock_unlock((v93 + 120));
-  v54 = v106;
+  os_unfair_lock_lock((v92 + 120));
+  flow_startup(v92, v109, 0);
+  os_unfair_lock_unlock((v92 + 120));
+  v53 = v105;
 LABEL_167:
+  if (v50)
+  {
+    CFRelease(v50);
+  }
+
+  if (v114)
+  {
+    CFRelease(v114);
+  }
+
+  CFRelease(v49);
+  if (v77)
+  {
+    CFRelease(v77);
+  }
+
   if (v51)
   {
     CFRelease(v51);
-  }
-
-  if (v115)
-  {
-    CFRelease(v115);
-  }
-
-  CFRelease(v50);
-  if (v78)
-  {
-    CFRelease(v78);
   }
 
   if (v52)
@@ -6564,23 +6468,15 @@ LABEL_167:
     CFRelease(v53);
   }
 
-  if (v54)
-  {
-    CFRelease(v54);
-  }
-
-  if (v112)
-  {
-    CFRelease(v112);
-  }
-
   if (v111)
   {
     CFRelease(v111);
   }
 
-LABEL_11:
-  v15 = *MEMORY[0x1E69E9840];
+  if (v110)
+  {
+    CFRelease(v110);
+  }
 }
 
 void __flow_director_create_ctl_source_block_invoke(uint64_t a1)
@@ -6592,16 +6488,15 @@ void __flow_director_create_ctl_source_block_invoke(uint64_t a1)
     dispatch_set_context(*(a1 + 32), 0);
   }
 
-  v3 = *(a1 + 48);
   guarded_close_np();
-  v4 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  dispatch_release(v4);
+  dispatch_release(v3);
 }
 
-int *flow_director_ctl_source_do_read()
+int *flow_director_ctl_source_do_read(uint64_t a1)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
+  v1 = MEMORY[0x1EEE9AC00](a1);
   v16 = *MEMORY[0x1E69E9840];
   v14[0] = v15;
   v14[1] = 66624;
@@ -6609,36 +6504,36 @@ int *flow_director_ctl_source_do_read()
   *&v9.msg_name = 0u;
   v9.msg_iov = v14;
   *&v9.msg_iovlen = 1;
-  handle = dispatch_source_get_handle(v0);
-  context = dispatch_get_context(v0);
+  handle = dispatch_source_get_handle(v1);
+  context = dispatch_get_context(v1);
   if (!context)
   {
     __assert_rtn("flow_director_ctl_source_do_read", "NEFlow.c", 3445, "saved_handler != NULL");
   }
 
-  for (i = context; ; (*(i + 2))(i, v0, 0, v15, v4))
+  for (i = context; ; (*(i + 2))(i, v1, 0, v15, v5))
   {
     bzero(v15, 0x10440uLL);
-    v4 = recvmsg(handle, &v9, 0);
-    if (!v4)
+    v5 = recvmsg(handle, &v9, 0);
+    if (!v5)
     {
-      v5 = 0;
-      goto LABEL_15;
+      v6 = 0;
+      return (*(i + 2))(i, v1, v6, 0, 0);
     }
 
-    if (v4 < 0)
+    if (v5 < 0)
     {
       break;
     }
 
     if ((v9.msg_flags & 8) == 0)
     {
-      v7 = ne_log_obj();
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = ne_log_obj();
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
 LABEL_14:
-        v5 = 22;
-        goto LABEL_15;
+        v6 = 22;
+        return (*(i + 2))(i, v1, v6, 0, 0);
       }
 
       *buf = 67109378;
@@ -6646,14 +6541,14 @@ LABEL_14:
       v12 = 2080;
       v13 = "Failed to read an entire packet";
 LABEL_18:
-      _os_log_error_impl(&dword_1C0DA5000, v7, OS_LOG_TYPE_ERROR, "(%u): %s", buf, 0x12u);
+      _os_log_error_impl(&dword_1C0DA5000, v8, OS_LOG_TYPE_ERROR, "(%u): %s", buf, 0x12u);
       goto LABEL_14;
     }
 
     if ((v9.msg_flags & 0x10) != 0)
     {
-      v7 = ne_log_obj();
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = ne_log_obj();
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_14;
       }
@@ -6669,30 +6564,25 @@ LABEL_18:
   result = __error();
   if (*result == 35)
   {
-    goto LABEL_16;
+    return result;
   }
 
-  v5 = *__error();
-LABEL_15:
-  result = (*(i + 2))(i, v0, v5, 0, 0);
-LABEL_16:
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = *__error();
+  return (*(i + 2))(i, v1, v6, 0, 0);
 }
 
 void __flow_director_handle_flow_states_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
   CFRelease(*(a1 + 40));
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  _Block_release(v3);
+  _Block_release(v2);
 }
 
 void flow_startup(uint64_t a1, uint64_t a2, int a3)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner((a1 + 120));
   if (a3)
   {
@@ -6705,48 +6595,53 @@ void flow_startup(uint64_t a1, uint64_t a2, int a3)
     {
       CFRetain(a1);
       dispatch_retain(*(a2 + 16));
-      v21 = *(a2 + 8);
+      v20 = *(a2 + 8);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 0x40000000;
       block[2] = __flow_startup_block_invoke_191;
       block[3] = &__block_descriptor_tmp_198;
       block[4] = a2;
       block[5] = a1;
-      v22 = block;
+      v21 = block;
     }
 
     else
     {
-      v15 = *(a1 + 80);
-      v16 = *(a1 + 360);
-      if (!v15)
+      v14 = *(a1 + 80);
+      v15 = *(a1 + 360);
+      if (!v14)
       {
-        v35 = ne_log_obj();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v34 = ne_log_obj();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
           *state_changed_handler = 134218240;
           *&state_changed_handler[4] = 0;
           *&state_changed_handler[12] = 2048;
-          *&state_changed_handler[14] = v16;
-          v34 = "Signing identifier (%p) and/or audit token (%p) not available, rejecting flow";
+          *&state_changed_handler[14] = v15;
+          v33 = "Signing identifier (%p) and/or audit token (%p) not available, rejecting flow";
           p_receive_handler = state_changed_handler;
-          v37 = v35;
-          v38 = 22;
+          v36 = v34;
+          v37 = 22;
 LABEL_62:
-          _os_log_error_impl(&dword_1C0DA5000, v37, OS_LOG_TYPE_ERROR, v34, p_receive_handler, v38);
+          _os_log_error_impl(&dword_1C0DA5000, v36, OS_LOG_TYPE_ERROR, v33, p_receive_handler, v37);
           goto LABEL_2;
         }
 
         goto LABEL_2;
       }
 
-      v17 = *(a1 + 24);
-      v18 = *(a1 + 368);
-      v19 = *(a1 + 384);
+      v16 = *(a1 + 24);
+      v17 = *(a1 + 368);
+      v18 = *(a1 + 384);
       CFRetain(*(a1 + 80));
-      if (v16)
+      if (v15)
       {
-        CFRetain(v16);
+        CFRetain(v15);
+      }
+
+      if (v17)
+      {
+        CFRetain(v17);
       }
 
       if (v18)
@@ -6754,39 +6649,34 @@ LABEL_62:
         CFRetain(v18);
       }
 
-      if (v19)
+      v19 = ne_log_obj();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        CFRetain(v19);
-      }
-
-      v20 = ne_log_obj();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-      {
-        v45 = *(a1 + 24);
+        v44 = *(a1 + 24);
         *state_changed_handler = 67109378;
-        *&state_changed_handler[4] = v45;
+        *&state_changed_handler[4] = v44;
         *&state_changed_handler[8] = 2112;
-        *&state_changed_handler[10] = v15;
-        _os_log_debug_impl(&dword_1C0DA5000, v20, OS_LOG_TYPE_DEBUG, "(%u): Requesting rule matching for %@", state_changed_handler, 0x12u);
+        *&state_changed_handler[10] = v14;
+        _os_log_debug_impl(&dword_1C0DA5000, v19, OS_LOG_TYPE_DEBUG, "(%u): Requesting rule matching for %@", state_changed_handler, 0x12u);
       }
 
       dispatch_retain(*(a2 + 16));
-      v21 = *(a2 + 8);
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 0x40000000;
-      v47[2] = __flow_startup_block_invoke;
-      v47[3] = &__block_descriptor_tmp_190;
-      v48 = v17;
-      v47[4] = a2;
-      v47[5] = v16;
-      v47[6] = v15;
-      v47[7] = v18;
-      v47[8] = v19;
-      v22 = v47;
+      v20 = *(a2 + 8);
+      v46[0] = MEMORY[0x1E69E9820];
+      v46[1] = 0x40000000;
+      v46[2] = __flow_startup_block_invoke;
+      v46[3] = &__block_descriptor_tmp_190;
+      v47 = v16;
+      v46[4] = a2;
+      v46[5] = v15;
+      v46[6] = v14;
+      v46[7] = v17;
+      v46[8] = v18;
+      v21 = v46;
     }
 
-    dispatch_async(v21, v22);
-    goto LABEL_3;
+    dispatch_async(v20, v21);
+    return;
   }
 
   if (*(a1 + 16) != 2)
@@ -6795,8 +6685,8 @@ LABEL_62:
   }
 
   os_unfair_lock_assert_owner((a1 + 120));
-  v7 = *(a1 + 48);
-  if (!v7)
+  v6 = *(a1 + 48);
+  if (!v6)
   {
     goto LABEL_36;
   }
@@ -6806,74 +6696,74 @@ LABEL_62:
     goto LABEL_8;
   }
 
-  BytePtr = CFDataGetBytePtr(v7);
+  BytePtr = CFDataGetBytePtr(v6);
   if (!BytePtr)
   {
 LABEL_36:
     os_unfair_lock_assert_owner((a1 + 120));
-    v25 = *a2;
-    v26 = *(a2 + 121);
+    v24 = *a2;
+    v25 = *(a2 + 121);
     os_unfair_lock_assert_owner((a1 + 120));
-    bridged_parameters = flow_create_bridged_parameters(a1, v25, v26);
+    bridged_parameters = flow_create_bridged_parameters(a1, v24, v25);
     if (bridged_parameters)
     {
-      v28 = bridged_parameters;
-      v29 = nw_connection_group_create_with_parameters();
-      nw_release(v28);
-      if (v29)
+      v27 = bridged_parameters;
+      v28 = nw_connection_group_create_with_parameters();
+      nw_release(v27);
+      if (v28)
       {
-        *(a1 + 416) = v29;
+        *(a1 + 416) = v28;
         if (!*(a1 + 136))
         {
-          v30 = *(a2 + 16);
-          *(a1 + 136) = v30;
-          dispatch_retain(v30);
+          v29 = *(a2 + 16);
+          *(a1 + 136) = v29;
+          dispatch_retain(v29);
         }
 
-        nw_connection_group_set_queue(v29, *(a2 + 16));
-        v49[0] = 0;
-        v49[1] = v49;
-        v49[2] = 0x2000000000;
-        v49[3] = CFRetain(a1);
+        nw_connection_group_set_queue(v28, *(a2 + 16));
+        v48[0] = 0;
+        v48[1] = v48;
+        v48[2] = 0x2000000000;
+        v48[3] = CFRetain(a1);
         *state_changed_handler = MEMORY[0x1E69E9820];
         *&state_changed_handler[8] = 0x40000000;
         *&state_changed_handler[16] = __flow_setup_bridged_connection_group_block_invoke;
-        v57 = &unk_1E812AA40;
-        v58 = v49;
-        v59 = a1;
-        v60 = a2;
-        nw_connection_group_set_state_changed_handler(v29, state_changed_handler);
+        v56 = &unk_1E812AA40;
+        v57 = v48;
+        v58 = a1;
+        v59 = a2;
+        nw_connection_group_set_state_changed_handler(v28, state_changed_handler);
         os_unfair_lock_assert_owner((a1 + 120));
         if ((*(a1 + 100) & 1) == 0)
         {
-          v31 = *(a1 + 416);
-          if (v31)
+          v30 = *(a1 + 416);
+          if (v30)
           {
             receive_handler = MEMORY[0x1E69E9820];
-            v51 = 0x40000000;
-            v52 = __flow_bridge_read_data_from_connection_group_block_invoke;
-            v53 = &__block_descriptor_tmp_207;
-            v54 = a1;
-            v55 = v31;
-            nw_connection_group_set_receive_handler(v31, 0xFFFFFFFF, 0, &receive_handler);
+            v50 = 0x40000000;
+            v51 = __flow_bridge_read_data_from_connection_group_block_invoke;
+            v52 = &__block_descriptor_tmp_207;
+            v53 = a1;
+            v54 = v30;
+            nw_connection_group_set_receive_handler(v30, 0xFFFFFFFF, 0, &receive_handler);
           }
         }
 
-        nw_connection_group_start(v29);
-        v32 = v49;
+        nw_connection_group_start(v28);
+        v31 = v48;
         goto LABEL_56;
       }
     }
 
-    v33 = ne_log_obj();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = ne_log_obj();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       LOWORD(receive_handler) = 0;
-      v34 = "Failed to create bridged connection group, rejecting flow";
+      v33 = "Failed to create bridged connection group, rejecting flow";
 LABEL_61:
       p_receive_handler = &receive_handler;
-      v37 = v33;
-      v38 = 2;
+      v36 = v32;
+      v37 = 2;
       goto LABEL_62;
     }
 
@@ -6881,11 +6771,11 @@ LABEL_2:
     flow_director_send_connect_result(a2, *(a1 + 24), 0x3Du, 0, 0, 0, 0, 0, 0);
     flow_drop_director(a1);
     flow_cancel_bridged_connection(a1, 0);
-    goto LABEL_3;
+    return;
   }
 
-  v24 = BytePtr[1];
-  if (v24 == 30)
+  v23 = BytePtr[1];
+  if (v23 == 30)
   {
     if (*(BytePtr + 2) || *(BytePtr + 3) || *(BytePtr + 4) || *(BytePtr + 5))
     {
@@ -6895,57 +6785,57 @@ LABEL_2:
     goto LABEL_36;
   }
 
-  if (v24 != 2 || !*(BytePtr + 1))
+  if (v23 != 2 || !*(BytePtr + 1))
   {
     goto LABEL_36;
   }
 
 LABEL_8:
   os_unfair_lock_assert_owner((a1 + 120));
-  v8 = *a2;
-  v9 = *(a2 + 121);
+  v7 = *a2;
+  v8 = *(a2 + 121);
   os_unfair_lock_assert_owner((a1 + 120));
-  v10 = flow_create_bridged_parameters(a1, v8, v9);
-  if (!v10)
+  v9 = flow_create_bridged_parameters(a1, v7, v8);
+  if (!v9)
   {
     goto LABEL_59;
   }
 
-  v11 = v10;
+  v10 = v9;
   os_unfair_lock_assert_owner((a1 + 120));
-  v12 = *(a1 + 48);
+  v11 = *(a1 + 48);
+  if (!v11)
+  {
+    goto LABEL_50;
+  }
+
+  v12 = CFDataGetBytePtr(v11);
   if (!v12)
   {
     goto LABEL_50;
   }
 
-  v13 = CFDataGetBytePtr(v12);
-  if (!v13)
+  v13 = v12[1];
+  if (v13 != 30 && v13 != 2)
   {
     goto LABEL_50;
   }
 
-  v14 = v13[1];
-  if (v14 != 30 && v14 != 2)
+  if (*(a1 + 64) && (*(a1 + 16) != 2 || *(v12 + 1) != 13568))
   {
-    goto LABEL_50;
-  }
-
-  if (*(a1 + 64) && (*(a1 + 16) != 2 || *(v13 + 1) != 13568))
-  {
-    v39 = NECreateCStringFromCFString(*(a1 + 64));
-    if (v39)
+    v38 = NECreateCStringFromCFString(*(a1 + 64));
+    if (v38)
     {
-      v40 = v39;
+      v39 = v38;
       host_with_numeric_port = nw_endpoint_create_host_with_numeric_port();
-      free(v40);
+      free(v39);
       goto LABEL_65;
     }
 
 LABEL_50:
     host_with_numeric_port = 0;
 LABEL_51:
-    v42 = 0;
+    v41 = 0;
     goto LABEL_52;
   }
 
@@ -6956,7 +6846,7 @@ LABEL_51:
 
   else
   {
-    address = nw_endpoint_create_address(v13);
+    address = nw_endpoint_create_address(v12);
   }
 
   host_with_numeric_port = address;
@@ -6966,62 +6856,62 @@ LABEL_65:
     goto LABEL_51;
   }
 
-  v42 = nw_connection_create(host_with_numeric_port, v11);
+  v41 = nw_connection_create(host_with_numeric_port, v10);
 LABEL_52:
   nw_release(host_with_numeric_port);
-  nw_release(v11);
-  if (!v42)
+  nw_release(v10);
+  if (!v41)
   {
 LABEL_59:
-    v33 = ne_log_obj();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = ne_log_obj();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       LOWORD(receive_handler) = 0;
-      v34 = "Failed to create bridged connection, rejecting flow";
+      v33 = "Failed to create bridged connection, rejecting flow";
       goto LABEL_61;
     }
 
     goto LABEL_2;
   }
 
-  *(a1 + 408) = v42;
+  *(a1 + 408) = v41;
   if (!*(a1 + 136))
   {
-    v43 = *(a2 + 16);
-    *(a1 + 136) = v43;
-    dispatch_retain(v43);
+    v42 = *(a2 + 16);
+    *(a1 + 136) = v42;
+    dispatch_retain(v42);
   }
 
-  nw_connection_set_queue(v42, *(a2 + 16));
+  nw_connection_set_queue(v41, *(a2 + 16));
   receive_handler = 0;
-  v51 = &receive_handler;
-  v52 = 0x2000000000;
-  v53 = CFRetain(a1);
+  v50 = &receive_handler;
+  v51 = 0x2000000000;
+  v52 = CFRetain(a1);
   *state_changed_handler = MEMORY[0x1E69E9820];
   *&state_changed_handler[8] = 0x40000000;
   *&state_changed_handler[16] = __flow_setup_bridged_connection_block_invoke;
-  v57 = &unk_1E812AAF0;
-  v58 = &receive_handler;
-  v59 = a1;
-  v60 = a2;
-  nw_connection_set_state_changed_handler(v42, state_changed_handler);
-  nw_connection_start(v42);
-  v32 = &receive_handler;
+  v56 = &unk_1E812AAF0;
+  v57 = &receive_handler;
+  v58 = a1;
+  v59 = a2;
+  nw_connection_set_state_changed_handler(v41, state_changed_handler);
+  nw_connection_start(v41);
+  v31 = &receive_handler;
 LABEL_56:
-  _Block_object_dispose(v32, 8);
-  if (*(a2 + 121) && !*(a1 + 128))
+  _Block_object_dispose(v31, 8);
+  if (*(a2 + 121))
   {
-    *(a1 + 128) = os_transaction_create();
+    if (!*(a1 + 128))
+    {
+      *(a1 + 128) = os_transaction_create();
+    }
   }
-
-LABEL_3:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void flow_director_handle_connect_result(uint64_t a1, uint64_t a2, unint64_t a3, unsigned __int8 *a4)
+void flow_director_handle_connect_result(uint64_t a1, CFIndex a2, unint64_t a3, unsigned __int8 *a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v24 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v23 = 0;
   memset(length, 0, sizeof(length));
   if (a3 >= 5)
   {
@@ -7047,7 +6937,7 @@ void flow_director_handle_connect_result(uint64_t a1, uint64_t a2, unint64_t a3,
       if (v8 == 9)
       {
         __memcpy_chk();
-        HIDWORD(v24) = bswap32(HIDWORD(v24));
+        HIDWORD(v23) = bswap32(HIDWORD(v23));
       }
 
       else if (v8 == 11 && v10 <= 0x1C)
@@ -7063,11 +6953,11 @@ void flow_director_handle_connect_result(uint64_t a1, uint64_t a2, unint64_t a3,
   v13 = ne_log_obj();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v22 = *(a2 + 24);
+    v21 = *(a2 + 24);
     *buf = 67109376;
-    v26 = v22;
-    v27 = 1024;
-    LODWORD(v28) = HIDWORD(v24);
+    v25 = v21;
+    v26 = 1024;
+    LODWORD(v27) = HIDWORD(v23);
     _os_log_debug_impl(&dword_1C0DA5000, v13, OS_LOG_TYPE_DEBUG, "(%u): Got a connect result with window size %u", buf, 0xEu);
   }
 
@@ -7078,9 +6968,9 @@ void flow_director_handle_connect_result(uint64_t a1, uint64_t a2, unint64_t a3,
     {
       v15 = *(a2 + 24);
       *buf = 67109378;
-      v26 = v15;
-      v27 = 2080;
-      v28 = "Flow is closed, sending close while handling connect result";
+      v25 = v15;
+      v26 = 2080;
+      v27 = "Flow is closed, sending close while handling connect result";
       _os_log_impl(&dword_1C0DA5000, v14, OS_LOG_TYPE_DEFAULT, "(%u): %s", buf, 0x12u);
     }
 
@@ -7094,11 +6984,11 @@ void flow_director_handle_connect_result(uint64_t a1, uint64_t a2, unint64_t a3,
   {
 LABEL_22:
     os_unfair_lock_unlock((a2 + 120));
-    goto LABEL_23;
+    return;
   }
 
-  v19 = HIDWORD(v24);
-  if (!HIDWORD(v24))
+  v18 = HIDWORD(v23);
+  if (!HIDWORD(v23))
   {
     flow_read_close(a2, 0);
     flow_write_close(a2, 0);
@@ -7106,30 +6996,28 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  *(a2 + 104) = HIDWORD(v24);
-  *(a2 + 288) = v19;
+  *(a2 + 104) = HIDWORD(v23);
+  *(a2 + 288) = v18;
   if (BYTE1(length[0]))
   {
-    v20 = CFDataCreate(*MEMORY[0x1E695E480], length, LOBYTE(length[0]));
-    v21 = *(a2 + 56);
-    if (v21)
+    v19 = CFDataCreate(*MEMORY[0x1E695E480], length, LOBYTE(length[0]));
+    v20 = *(a2 + 56);
+    if (v20)
     {
-      CFRelease(v21);
+      CFRelease(v20);
     }
 
-    *(a2 + 56) = v20;
+    *(a2 + 56) = v19;
   }
 
   flow_notify_client(a2, 5);
   os_unfair_lock_unlock((a2 + 120));
   flow_director_handle_read_notification(a2);
-LABEL_23:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void flow_director_handle_data(uint64_t a1, uint64_t a2, size_t a3, unsigned __int8 *a4)
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((a2 + 120));
   if ((*(a2 + 100) & 2) != 0)
   {
@@ -7157,9 +7045,9 @@ void flow_director_handle_data(uint64_t a1, uint64_t a2, size_t a3, unsigned __i
       v10 = ne_log_obj();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v60 = *(a2 + 24);
+        v59 = *(a2 + 24);
         *buf = 67109376;
-        *&buf[4] = v60;
+        *&buf[4] = v59;
         *&buf[8] = 2048;
         *&buf[10] = dispatch_data_get_size(v9);
         _os_log_debug_impl(&dword_1C0DA5000, v10, OS_LOG_TYPE_DEBUG, "(%u): received %zu tcp bytes from app", buf, 0x12u);
@@ -7206,15 +7094,15 @@ void flow_director_handle_data(uint64_t a1, uint64_t a2, size_t a3, unsigned __i
   }
 
   v19 = 0;
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
-  v78 = 0u;
+  v82 = 0u;
   v79 = 0u;
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   memset(buf, 0, sizeof(buf));
-  v67 = 0;
   v66 = 0;
+  v65 = 0;
   buf[1] = 0;
   if (a3 < 5)
   {
@@ -7306,16 +7194,16 @@ LABEL_15:
   v21 = ne_log_obj();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v61 = *(a2 + 24);
-    *v69 = 67109888;
-    v70 = v61;
-    v71 = 2048;
-    v72 = v20;
-    v73 = 2048;
-    v74 = v67;
-    v75 = 1024;
-    v76 = v66;
-    _os_log_debug_impl(&dword_1C0DA5000, v21, OS_LOG_TYPE_DEBUG, "(%u): received %zu datagram bytes from app, total_size = %lu, is_fragment = %d", v69, 0x22u);
+    v60 = *(a2 + 24);
+    *v68 = 67109888;
+    v69 = v60;
+    v70 = 2048;
+    v71 = v20;
+    v72 = 2048;
+    v73 = v66;
+    v74 = 1024;
+    v75 = v65;
+    _os_log_debug_impl(&dword_1C0DA5000, v21, OS_LOG_TYPE_DEBUG, "(%u): received %zu datagram bytes from app, total_size = %lu, is_fragment = %d", v68, 0x22u);
   }
 
   v22 = *MEMORY[0x1E695E480];
@@ -7335,15 +7223,15 @@ LABEL_15:
   {
     v25 = *buf;
     v26 = *&buf[16];
-    v27 = v79;
-    *(v23 + 32) = v78;
+    v27 = v78;
+    *(v23 + 32) = v77;
     *(v23 + 48) = v27;
     *v23 = v25;
     *(v23 + 16) = v26;
-    v28 = v80;
-    v29 = v81;
-    v30 = v83;
-    *(v23 + 96) = v82;
+    v28 = v79;
+    v29 = v80;
+    v30 = v82;
+    *(v23 + 96) = v81;
     *(v23 + 112) = v30;
     *(v23 + 64) = v28;
     *(v23 + 80) = v29;
@@ -7360,8 +7248,8 @@ LABEL_15:
     }
   }
 
-  v40 = v67;
-  if (v67)
+  v40 = v66;
+  if (v66)
   {
     *(v24 + 128) = MEMORY[0x1E69E9668];
     *(v24 + 136) = v40;
@@ -7370,13 +7258,13 @@ LABEL_15:
       v41 = ne_log_obj();
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        v63 = *(a2 + 24);
-        v64 = *(*(a2 + 296) + 136);
-        *v69 = 67109376;
-        v70 = v63;
-        v71 = 2048;
-        v72 = v64;
-        _os_log_error_impl(&dword_1C0DA5000, v41, OS_LOG_TYPE_ERROR, "(%u): previous fragmented datagram was never completed (%lu bytes remaining), dropping it", v69, 0x12u);
+        v62 = *(a2 + 24);
+        v63 = *(*(a2 + 296) + 136);
+        *v68 = 67109376;
+        v69 = v62;
+        v70 = 2048;
+        v71 = v63;
+        _os_log_error_impl(&dword_1C0DA5000, v41, OS_LOG_TYPE_ERROR, "(%u): previous fragmented datagram was never completed (%lu bytes remaining), dropping it", v68, 0x12u);
       }
 
       dispatch_release(*(*(a2 + 296) + 128));
@@ -7395,7 +7283,7 @@ LABEL_15:
     *(a2 + 280) += dispatch_data_get_size(*(v24 + 128));
   }
 
-  if (v66)
+  if (v65)
   {
     v42 = *(a2 + 296);
     if (v42 && *(v42 + 128))
@@ -7426,12 +7314,12 @@ LABEL_15:
         {
           v44 = *(a2 + 24);
           v45 = *(v42 + 136);
-          *v69 = 67109632;
-          v70 = v44;
-          v71 = 2048;
-          v72 = v20;
-          v73 = 2048;
-          v74 = v45;
+          *v68 = 67109632;
+          v69 = v44;
+          v70 = 2048;
+          v71 = v20;
+          v72 = 2048;
+          v73 = v45;
           v46 = "(%u): Received a datagram fragment with more data than expected (%lu vs. %lu)";
           v47 = v43;
           v48 = 28;
@@ -7445,16 +7333,16 @@ LABEL_15:
       v49 = ne_log_obj();
       if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        v62 = *(a2 + 24);
-        *v69 = 67109378;
-        v70 = v62;
-        v71 = 2080;
-        v72 = "Received a datagram fragment but no previous datagram was found";
+        v61 = *(a2 + 24);
+        *v68 = 67109378;
+        v69 = v61;
+        v70 = 2080;
+        v71 = "Received a datagram fragment but no previous datagram was found";
         v46 = "(%u): %s";
         v47 = v49;
         v48 = 18;
 LABEL_72:
-        _os_log_error_impl(&dword_1C0DA5000, v47, OS_LOG_TYPE_ERROR, v46, v69, v48);
+        _os_log_error_impl(&dword_1C0DA5000, v47, OS_LOG_TYPE_ERROR, v46, v68, v48);
       }
     }
   }
@@ -7465,12 +7353,12 @@ LABEL_72:
     v51 = *(a2 + 408);
     if (v51)
     {
-      v65[0] = MEMORY[0x1E69E9820];
-      v65[1] = 0x40000000;
-      v65[2] = __flow_director_handle_data_block_invoke_170;
-      v65[3] = &__block_descriptor_tmp_172;
-      v65[4] = a2;
-      nw_connection_batch(v51, v65);
+      v64[0] = MEMORY[0x1E69E9820];
+      v64[1] = 0x40000000;
+      v64[2] = __flow_director_handle_data_block_invoke_170;
+      v64[3] = &__block_descriptor_tmp_172;
+      v64[4] = a2;
+      nw_connection_batch(v51, v64);
     }
 
     else if (*(a2 + 416))
@@ -7506,7 +7394,6 @@ LABEL_72:
 
 LABEL_70:
   os_unfair_lock_unlock((a2 + 120));
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 void flow_director_handle_close(uint64_t a1, unint64_t a2, unsigned __int8 *a3)
@@ -7562,28 +7449,27 @@ void flow_director_handle_close(uint64_t a1, unint64_t a2, unsigned __int8 *a3)
 
 void flow_director_handle_read_notification(os_unfair_lock_s *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(a1 + 30);
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     os_unfair_lock_opaque = a1[6]._os_unfair_lock_opaque;
     *buf = 67109120;
-    v7 = os_unfair_lock_opaque;
+    v6 = os_unfair_lock_opaque;
     _os_log_debug_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_DEBUG, "(%u): Received a read notification", buf, 8u);
   }
 
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 0x40000000;
-  v5[2] = __flow_director_handle_read_notification_block_invoke;
-  v5[3] = &__block_descriptor_tmp_177;
-  v5[4] = a1;
-  flow_handle_pending_write_requests(a1, v5);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 0x40000000;
+  v4[2] = __flow_director_handle_read_notification_block_invoke;
+  v4[3] = &__block_descriptor_tmp_177;
+  v4[4] = a1;
+  flow_handle_pending_write_requests(a1, v4);
   os_unfair_lock_unlock(a1 + 30);
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __flow_director_handle_read_notification_block_invoke(uint64_t a1, void *__src)
+uint64_t __flow_director_handle_read_notification_block_invoke(uint64_t a1, unsigned __int8 *__src)
 {
   v4 = flow_write_range_of_cfdata(*(a1 + 32), *(__src + 16), *(__src + 17), *(__src + 18), __src);
   if (v5 < 1)
@@ -7744,10 +7630,10 @@ NSObject *flow_create_bridged_parameters(uint64_t a1, uint64_t a2, int a3)
 
 void __flow_setup_bridged_connection_group_block_invoke(void *a1, int a2, NSObject *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!*(*(a1[4] + 8) + 24))
   {
-    goto LABEL_26;
+    return;
   }
 
   os_unfair_lock_lock((a1[5] + 120));
@@ -7755,35 +7641,35 @@ void __flow_setup_bridged_connection_group_block_invoke(void *a1, int a2, NSObje
   if (!*(v6 + 416))
   {
     os_unfair_lock_unlock((v6 + 120));
-LABEL_15:
-    v16 = *(a1[4] + 8);
-    v17 = *(v16 + 24);
-    if (v17)
-    {
-      CFRelease(v17);
-      *(v16 + 24) = 0;
-    }
-
-    goto LABEL_26;
+    goto LABEL_15;
   }
 
   if ((a2 - 3) < 2)
   {
-    v15 = nw_error_copy_cf_error(a3);
-    flow_cancel_bridged_connection(a1[5], v15);
-    if (v15)
+    v14 = nw_error_copy_cf_error(a3);
+    flow_cancel_bridged_connection(a1[5], v14);
+    if (v14)
     {
-      CFRelease(v15);
+      CFRelease(v14);
     }
 
     flow_cancel_connection_waiting_timer(a1[5]);
     os_unfair_lock_unlock((a1[5] + 120));
     if (a2 != 4)
     {
-      goto LABEL_26;
+      return;
     }
 
-    goto LABEL_15;
+LABEL_15:
+    v15 = *(a1[4] + 8);
+    v16 = *(v15 + 24);
+    if (v16)
+    {
+      CFRelease(v16);
+      *(v15 + 24) = 0;
+    }
+
+    return;
   }
 
   if (a2 != 1)
@@ -7793,59 +7679,56 @@ LABEL_15:
 LABEL_25:
       flow_cancel_connection_waiting_timer(v6);
       os_unfair_lock_unlock((a1[5] + 120));
-LABEL_26:
-      v22 = *MEMORY[0x1E69E9840];
       return;
     }
 
-    v7 = *(v6 + 416);
     port = nw_connection_group_get_port();
-    v9 = a1[5];
-    os_unfair_lock_assert_owner((v9 + 120));
-    v10 = *(v9 + 48);
-    if (v10)
+    v8 = a1[5];
+    os_unfair_lock_assert_owner((v8 + 120));
+    v9 = *(v8 + 48);
+    if (v9)
     {
-      BytePtr = CFDataGetBytePtr(v10);
+      BytePtr = CFDataGetBytePtr(v9);
       if (BytePtr)
       {
-        v12 = BytePtr[1];
-        if (v12 == 30)
+        v11 = BytePtr[1];
+        if (v11 == 30)
         {
-          v25 = 0;
-          v26 = 0;
-          v27 = 0;
+          v22 = 0;
+          v23 = 0;
+          v24 = 0;
           *bytes = 7708;
-          v24 = __rev16(port);
-          v13 = *MEMORY[0x1E695E480];
-          v14 = 28;
+          v21 = __rev16(port);
+          v12 = *MEMORY[0x1E695E480];
+          v13 = 28;
 LABEL_21:
-          v20 = CFDataCreate(v13, bytes, v14);
-          NEFlowResetLocalEndpoint(a1[5], v20);
-          if (v20)
+          v18 = CFDataCreate(v12, bytes, v13);
+          NEFlowResetLocalEndpoint(a1[5], v18);
+          if (v18)
           {
-            CFRelease(v20);
+            CFRelease(v18);
           }
 
           goto LABEL_23;
         }
 
-        if (v12 == 2)
+        if (v11 == 2)
         {
-          LODWORD(v26) = 0;
-          v25 = 0;
+          LODWORD(v23) = 0;
+          v22 = 0;
           *bytes = 528;
-          v24 = __rev16(port);
-          v13 = *MEMORY[0x1E695E480];
-          v14 = 16;
+          v21 = __rev16(port);
+          v12 = *MEMORY[0x1E695E480];
+          v13 = 16;
           goto LABEL_21;
         }
       }
     }
 
 LABEL_23:
-    v21 = flow_open(a1[5]);
+    v19 = flow_open(a1[5]);
     v6 = a1[5];
-    if (!v21)
+    if (!v19)
     {
       flow_cancel_bridged_connection(v6, 0);
       v6 = a1[5];
@@ -7855,10 +7738,9 @@ LABEL_23:
   }
 
   flow_start_connection_waiting_timer(v6, *(a1[6] + 16));
-  v18 = *MEMORY[0x1E69E9840];
-  v19 = (a1[5] + 120);
+  v17 = (a1[5] + 120);
 
-  os_unfair_lock_unlock(v19);
+  os_unfair_lock_unlock(v17);
 }
 
 void __flow_bridge_read_data_from_connection_group_block_invoke(uint64_t a1, const void *a2, NSObject *a3)
@@ -7921,12 +7803,12 @@ void __flow_setup_bridged_connection_block_invoke(void *a1, int a2, NSObject *a3
   {
     os_unfair_lock_unlock((v6 + 120));
 LABEL_21:
-    v20 = *(a1[4] + 8);
-    v21 = *(v20 + 24);
-    if (v21)
+    v18 = *(a1[4] + 8);
+    v19 = *(v18 + 24);
+    if (v19)
     {
-      CFRelease(v21);
-      *(v20 + 24) = 0;
+      CFRelease(v19);
+      *(v18 + 24) = 0;
     }
 
     return;
@@ -7943,68 +7825,66 @@ LABEL_21:
     {
       if (a2 == 3)
       {
-        v7 = *(v6 + 408);
-        v8 = nw_connection_copy_connected_local_endpoint();
-        if (v8)
+        v7 = nw_connection_copy_connected_local_endpoint();
+        if (v7)
         {
-          v9 = v8;
-          if (nw_endpoint_get_type(v8) == nw_endpoint_type_address)
+          v8 = v7;
+          if (nw_endpoint_get_type(v7) == nw_endpoint_type_address)
           {
-            address = nw_endpoint_get_address(v9);
-            v11 = CFDataCreate(*MEMORY[0x1E695E480], &address->sa_len, address->sa_len);
-            NEFlowResetLocalEndpoint(a1[5], v11);
-            if (v11)
+            address = nw_endpoint_get_address(v8);
+            v10 = CFDataCreate(*MEMORY[0x1E695E480], &address->sa_len, address->sa_len);
+            NEFlowResetLocalEndpoint(a1[5], v10);
+            if (v10)
             {
-              CFRelease(v11);
+              CFRelease(v10);
             }
           }
 
-          nw_release(v9);
+          nw_release(v8);
         }
 
-        v12 = *(a1[5] + 408);
-        v13 = nw_connection_copy_connected_path();
-        if (v13)
+        v11 = nw_connection_copy_connected_path();
+        if (v11)
         {
-          v14 = v13;
+          v12 = v11;
           interface_index = nw_path_get_interface_index();
           if (interface_index)
           {
-            v16 = a1[5];
-            *(v16 + 400) = interface_index;
-            flow_director_send_properties_update(*(v16 + 40), *(v16 + 24), interface_index, 0);
+            v14 = a1[5];
+            *(v14 + 400) = interface_index;
+            flow_director_send_properties_update(*(v14 + 40), *(v14 + 24), interface_index, 0);
           }
 
-          nw_release(v14);
+          nw_release(v12);
         }
 
-        v17 = flow_open(a1[5]);
-        v18 = a1[5];
-        if (v17)
+        v15 = flow_open(a1[5]);
+        v16 = a1[5];
+        if (v15)
         {
-          flow_bridge_read_data_from_connection(v18);
+          flow_bridge_read_data_from_connection(v16);
         }
 
         else
         {
-          flow_cancel_bridged_connection(v18, 0);
+          flow_cancel_bridged_connection(v16, 0);
         }
       }
 
       flow_cancel_connection_waiting_timer(a1[5]);
     }
 
-    v22 = (a1[5] + 120);
+    v20 = (a1[5] + 120);
 
-    os_unfair_lock_unlock(v22);
+    os_unfair_lock_unlock(v20);
     return;
   }
 
-  v19 = nw_error_copy_cf_error(a3);
-  flow_cancel_bridged_connection(a1[5], v19);
-  if (v19)
+  v17 = nw_error_copy_cf_error(a3);
+  flow_cancel_bridged_connection(a1[5], v17);
+  if (v17)
   {
-    CFRelease(v19);
+    CFRelease(v17);
   }
 
   flow_cancel_connection_waiting_timer(a1[5]);
@@ -8017,7 +7897,7 @@ LABEL_21:
 
 void __flow_startup_block_invoke_191(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 144);
   v3 = ne_log_obj();
   v4 = v3;
@@ -8025,35 +7905,35 @@ void __flow_startup_block_invoke_191(uint64_t a1)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v12 = *(*(a1 + 40) + 24);
+      v11 = *(*(a1 + 40) + 24);
       *buf = 67109378;
-      v16 = v12;
-      v17 = 2080;
-      v18 = "Delivering to client";
+      v15 = v11;
+      v16 = 2080;
+      v17 = "Delivering to client";
       _os_log_debug_impl(&dword_1C0DA5000, v4, OS_LOG_TYPE_DEBUG, "(%u): %s", buf, 0x12u);
     }
 
     v9 = *(a1 + 32);
     v8 = *(a1 + 40);
     v10 = *(v9 + 144);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 0x40000000;
-    v14[2] = __flow_startup_block_invoke_193;
-    v14[3] = &__block_descriptor_tmp_196;
-    v14[4] = v9;
-    v14[5] = v8;
-    (*(v10 + 16))(v10, v8, v14, v5, v6, v7);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 0x40000000;
+    v13[2] = __flow_startup_block_invoke_193;
+    v13[3] = &__block_descriptor_tmp_196;
+    v13[4] = v9;
+    v13[5] = v8;
+    (*(v10 + 16))(v10, v8, v13, v5, v6, v7);
   }
 
   else
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(*(a1 + 40) + 24);
+      v12 = *(*(a1 + 40) + 24);
       *buf = 67109378;
-      v16 = v13;
-      v17 = 2080;
-      v18 = "No new flow callback registered, dropping the flow";
+      v15 = v12;
+      v16 = 2080;
+      v17 = "No new flow callback registered, dropping the flow";
       _os_log_error_impl(&dword_1C0DA5000, v4, OS_LOG_TYPE_ERROR, "(%u): %s", buf, 0x12u);
     }
 
@@ -8063,8 +7943,6 @@ void __flow_startup_block_invoke_191(uint64_t a1)
     CFRelease(*(a1 + 40));
     dispatch_release(*(*(a1 + 32) + 16));
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __flow_startup_block_invoke(uint64_t a1)
@@ -8113,103 +7991,98 @@ void __flow_startup_block_invoke(uint64_t a1)
 
 void __NEFlowDirectorHandleMatchRulesResult_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   node = rb_tree_find_node((*(a1 + 32) + 56), (a1 + 48));
-  if (!node)
+  if (node)
   {
-    goto LABEL_24;
-  }
-
-  v3 = node;
-  os_unfair_lock_lock(node + 30);
-  v4 = *(a1 + 40);
-  if (!v4)
-  {
-    v10 = ne_log_obj();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v3 = node;
+    os_unfair_lock_lock(node + 30);
+    v4 = *(a1 + 40);
+    if (!v4)
     {
-      os_unfair_lock_opaque = v3[6]._os_unfair_lock_opaque;
-      v17[0] = 67109378;
-      v17[1] = os_unfair_lock_opaque;
-      v18 = 2080;
-      v19 = "Failed validation, aborting";
-      _os_log_error_impl(&dword_1C0DA5000, v10, OS_LOG_TYPE_ERROR, "(%u): %s", v17, 0x12u);
-    }
-
-    goto LABEL_22;
-  }
-
-  *&v3[18]._os_unfair_lock_opaque = CFRetain(v4);
-  v5 = *&v3[92]._os_unfair_lock_opaque;
-  if (v5)
-  {
-    if (CFStringCompare(v5, *(a1 + 40), 0) == kCFCompareEqualTo)
-    {
-      v12 = *&v3[20]._os_unfair_lock_opaque;
-      if (v12)
+      v10 = ne_log_obj();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        CFRelease(v12);
+        v11 = *(v3 + 24);
+        v16[0] = 67109378;
+        v16[1] = v11;
+        v17 = 2080;
+        v18 = "Failed validation, aborting";
+        _os_log_error_impl(&dword_1C0DA5000, v10, OS_LOG_TYPE_ERROR, "(%u): %s", v16, 0x12u);
       }
 
-      *&v3[20]._os_unfair_lock_opaque = *&v3[92]._os_unfair_lock_opaque;
-      *&v3[92]._os_unfair_lock_opaque = 0;
-      v13 = *&v3[22]._os_unfair_lock_opaque;
-      if (v13)
-      {
-        CFRelease(v13);
-      }
-
-      *&v3[22]._os_unfair_lock_opaque = *&v3[94]._os_unfair_lock_opaque;
-      *&v3[94]._os_unfair_lock_opaque = 0;
-      v14 = *&v3[90]._os_unfair_lock_opaque;
-      if (v14)
-      {
-        CFRelease(v14);
-      }
-
-      v9 = v3 + 96;
-      *&v3[90]._os_unfair_lock_opaque = *&v3[96]._os_unfair_lock_opaque;
-      goto LABEL_20;
+      goto LABEL_22;
     }
 
-    v6 = *&v3[92]._os_unfair_lock_opaque;
-    if (v6)
+    *(v3 + 72) = CFRetain(v4);
+    v5 = *(v3 + 368);
+    if (v5)
     {
-      CFRelease(v6);
-      *&v3[92]._os_unfair_lock_opaque = 0;
+      if (CFStringCompare(v5, *(a1 + 40), 0) == kCFCompareEqualTo)
+      {
+        v12 = *(v3 + 80);
+        if (v12)
+        {
+          CFRelease(v12);
+        }
+
+        *(v3 + 80) = *(v3 + 368);
+        *(v3 + 368) = 0;
+        v13 = *(v3 + 88);
+        if (v13)
+        {
+          CFRelease(v13);
+        }
+
+        *(v3 + 88) = *(v3 + 376);
+        *(v3 + 376) = 0;
+        v14 = *(v3 + 360);
+        if (v14)
+        {
+          CFRelease(v14);
+        }
+
+        v9 = (v3 + 384);
+        *(v3 + 360) = *(v3 + 384);
+        goto LABEL_20;
+      }
+
+      v6 = *(v3 + 368);
+      if (v6)
+      {
+        CFRelease(v6);
+        *(v3 + 368) = 0;
+      }
     }
-  }
 
-  v7 = *&v3[94]._os_unfair_lock_opaque;
-  if (v7)
-  {
-    CFRelease(v7);
-    *&v3[94]._os_unfair_lock_opaque = 0;
-  }
+    v7 = *(v3 + 376);
+    if (v7)
+    {
+      CFRelease(v7);
+      *(v3 + 376) = 0;
+    }
 
-  v8 = *&v3[96]._os_unfair_lock_opaque;
-  if (!v8)
-  {
-    goto LABEL_21;
-  }
+    v8 = *(v3 + 384);
+    if (!v8)
+    {
+      goto LABEL_21;
+    }
 
-  v9 = v3 + 96;
-  CFRelease(v8);
+    v9 = (v3 + 384);
+    CFRelease(v8);
 LABEL_20:
-  *&v9->_os_unfair_lock_opaque = 0;
+    *v9 = 0;
 LABEL_21:
-  v3[25]._os_unfair_lock_opaque |= 0x20u;
+    *(v3 + 100) |= 0x20u;
 LABEL_22:
-  flow_startup(v3, *(a1 + 32), (v3[25]._os_unfair_lock_opaque & 0x20) == 0);
-  os_unfair_lock_unlock(v3 + 30);
-  v15 = *(a1 + 40);
-  if (v15)
-  {
-    CFRelease(v15);
+    flow_startup(v3, *(a1 + 32), (*(v3 + 100) & 0x20) == 0);
+    os_unfair_lock_unlock((v3 + 120));
+    v15 = *(a1 + 40);
+    if (v15)
+    {
+      CFRelease(v15);
+    }
   }
-
-LABEL_24:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __flow_startup_block_invoke_193(int8x16_t *a1, char a2)
@@ -8242,7 +8115,7 @@ void __flow_startup_block_invoke_2(uint64_t a1)
 
 void flow_bridge_read_data_from_connection(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     os_unfair_lock_assert_owner((a1 + 120));
@@ -8252,34 +8125,32 @@ void flow_bridge_read_data_from_connection(uint64_t a1)
       if (v2)
       {
         v3 = CFRetain(a1);
-        v6[0] = MEMORY[0x1E69E9820];
-        v6[1] = 0x40000000;
-        v6[2] = __flow_bridge_read_data_from_connection_block_invoke;
-        v6[3] = &__block_descriptor_tmp_213;
-        v6[4] = a1;
-        v6[5] = v3;
-        nw_connection_receive(v2, 0, 0xFFFFFFFF, v6);
+        v5[0] = MEMORY[0x1E69E9820];
+        v5[1] = 0x40000000;
+        v5[2] = __flow_bridge_read_data_from_connection_block_invoke;
+        v5[3] = &__block_descriptor_tmp_213;
+        v5[4] = a1;
+        v5[5] = v3;
+        nw_connection_receive(v2, 0, 0xFFFFFFFF, v5);
       }
     }
   }
 
   else
   {
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v8 = "flow_bridge_read_data_from_connection";
-      _os_log_fault_impl(&dword_1C0DA5000, v5, OS_LOG_TYPE_FAULT, "%s called with null flow", buf, 0xCu);
+      v7 = "flow_bridge_read_data_from_connection";
+      _os_log_fault_impl(&dword_1C0DA5000, v4, OS_LOG_TYPE_FAULT, "%s called with null flow", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void flow_start_connection_waiting_timer(uint64_t a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner((a1 + 120));
   if (!*(a1 + 424) && (*(a1 + 408) || *(a1 + 416)))
   {
@@ -8292,36 +8163,34 @@ void flow_start_connection_waiting_timer(uint64_t a1, NSObject *a2)
     handler[3] = &__block_descriptor_tmp_201;
     handler[4] = a1;
     dispatch_source_set_event_handler(v4, handler);
-    v10[0] = 0;
-    v10[1] = v10;
-    v10[2] = 0x2000000000;
-    v10[3] = CFRetain(a1);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 0x40000000;
-    v9[2] = __flow_start_connection_waiting_timer_block_invoke_202;
-    v9[3] = &unk_1E812AA88;
-    v9[4] = v10;
-    dispatch_source_set_cancel_handler(v4, v9);
+    v9[0] = 0;
+    v9[1] = v9;
+    v9[2] = 0x2000000000;
+    v9[3] = CFRetain(a1);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 0x40000000;
+    v8[2] = __flow_start_connection_waiting_timer_block_invoke_202;
+    v8[3] = &unk_1E812AA88;
+    v8[4] = v9;
+    dispatch_source_set_cancel_handler(v4, v8);
     dispatch_activate(v4);
     *(a1 + 424) = v4;
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 24);
+      v7 = *(a1 + 24);
       *buf = 67109120;
-      v13 = v8;
+      v12 = v7;
       _os_log_debug_impl(&dword_1C0DA5000, v6, OS_LOG_TYPE_DEBUG, "(%u): Starting waiting timer", buf, 8u);
     }
 
-    _Block_object_dispose(v10, 8);
+    _Block_object_dispose(v9, 8);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __flow_start_connection_waiting_timer_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((*(a1 + 32) + 120));
   v2 = *(*(a1 + 32) + 424);
   v3 = ne_log_obj();
@@ -8330,10 +8199,10 @@ void __flow_start_connection_waiting_timer_block_invoke(uint64_t a1)
   {
     if (v4)
     {
-      v6 = *(*(a1 + 32) + 24);
-      v8 = 67109120;
-      v9 = v6;
-      _os_log_debug_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_DEBUG, "(%u): Waiting timer fired, cancelling flow", &v8, 8u);
+      v5 = *(*(a1 + 32) + 24);
+      v7 = 67109120;
+      v8 = v5;
+      _os_log_debug_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_DEBUG, "(%u): Waiting timer fired, cancelling flow", &v7, 8u);
     }
 
     flow_cancel_bridged_connection(*(a1 + 32), 0);
@@ -8341,14 +8210,13 @@ void __flow_start_connection_waiting_timer_block_invoke(uint64_t a1)
 
   else if (v4)
   {
-    v7 = *(*(a1 + 32) + 24);
-    v8 = 67109120;
-    v9 = v7;
-    _os_log_debug_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_DEBUG, "(%u): Waiting timer fired, ignoring stale event", &v8, 8u);
+    v6 = *(*(a1 + 32) + 24);
+    v7 = 67109120;
+    v8 = v6;
+    _os_log_debug_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_DEBUG, "(%u): Waiting timer fired, ignoring stale event", &v7, 8u);
   }
 
   os_unfair_lock_unlock((*(a1 + 32) + 120));
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __flow_start_connection_waiting_timer_block_invoke_202(uint64_t a1)
@@ -8471,19 +8339,18 @@ void __flow_bridge_read_data_from_connection_group_block_invoke_2(uint64_t a1, u
 
 void flow_director_deallocate(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4[0] = 67109378;
-    v4[1] = dword_1EBE73118;
-    v5 = 2080;
-    v6 = "Deallocated flow director";
-    _os_log_debug_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_DEBUG, "(%u): %s", v4, 0x12u);
+    v3[0] = 67109378;
+    v3[1] = dword_1EBE73118;
+    v4 = 2080;
+    v5 = "Deallocated flow director";
+    _os_log_debug_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_DEBUG, "(%u): %s", v3, 0x12u);
   }
 
   CFAllocatorDeallocate(*MEMORY[0x1E695E480], a1);
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t flow_divert_compare_id(uint64_t a1, uint64_t a2, unsigned int *a3)
@@ -8541,11 +8408,12 @@ double __NEFlowDirectorCreateInternal_block_invoke()
   return result;
 }
 
-uint64_t NEFlowDirectorCreateBridge(int a1, unint64_t a2)
+uint64_t NEFlowDirectorCreateBridge(uint64_t a1, unint64_t a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (a2)
   {
+    v2 = a1;
     Internal = NEFlowDirectorCreateInternal(a1, 0, a2);
     if (Internal)
     {
@@ -8599,18 +8467,18 @@ uint64_t NEFlowDirectorCreateBridge(int a1, unint64_t a2)
       v6[274] = v4;
       v6[275] = 29;
       *(v6 + 276) = 0x104000000;
-      v19 = send(a1, v6, 0x11CuLL, 0);
+      v19 = send(v2, v6, 0x11CuLL, 0);
       CFAllocatorDeallocate(v5, v6);
       if (v19 < 0)
       {
         v20 = ne_log_obj();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          v23 = __error();
-          v24 = strerror(*v23);
-          v26 = 136315138;
-          v27 = v24;
-          _os_log_error_impl(&dword_1C0DA5000, v20, OS_LOG_TYPE_ERROR, "Failed to send the FLOW_DIVERT_PKT_GROUP_INIT message: %s", &v26, 0xCu);
+          v22 = __error();
+          v23 = strerror(*v22);
+          v25 = 136315138;
+          v26 = v23;
+          _os_log_error_impl(&dword_1C0DA5000, v20, OS_LOG_TYPE_ERROR, "Failed to send the FLOW_DIVERT_PKT_GROUP_INIT message: %s", &v25, 0xCu);
         }
       }
     }
@@ -8618,27 +8486,46 @@ uint64_t NEFlowDirectorCreateBridge(int a1, unint64_t a2)
 
   else
   {
-    v25 = ne_log_obj();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v24 = ne_log_obj();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       LODWORD(__buf[0]) = 136315138;
       *(__buf + 4) = "NEFlowDirectorCreateBridge";
-      _os_log_fault_impl(&dword_1C0DA5000, v25, OS_LOG_TYPE_FAULT, "%s called with null context", __buf, 0xCu);
+      _os_log_fault_impl(&dword_1C0DA5000, v24, OS_LOG_TYPE_FAULT, "%s called with null context", __buf, 0xCu);
     }
 
-    Internal = 0;
+    return 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return Internal;
 }
 
 void NEFlowDirectorAllowProcessDelegation(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     *(a1 + 121) = 1;
+  }
+
+  else
+  {
+    v1 = ne_log_obj();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
+    {
+      v2 = 136315138;
+      v3 = "NEFlowDirectorAllowProcessDelegation";
+      _os_log_fault_impl(&dword_1C0DA5000, v1, OS_LOG_TYPE_FAULT, "%s called with null director", &v2, 0xCu);
+    }
+  }
+}
+
+void NEFlowDirectorRedirectDNSToLoopback(uint64_t a1, char a2)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    *(a1 + 122) = a2;
   }
 
   else
@@ -8647,34 +8534,10 @@ void NEFlowDirectorAllowProcessDelegation(uint64_t a1)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
     {
       v3 = 136315138;
-      v4 = "NEFlowDirectorAllowProcessDelegation";
+      v4 = "NEFlowDirectorRedirectDNSToLoopback";
       _os_log_fault_impl(&dword_1C0DA5000, v2, OS_LOG_TYPE_FAULT, "%s called with null director", &v3, 0xCu);
     }
   }
-
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void NEFlowDirectorRedirectDNSToLoopback(uint64_t a1, char a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    *(a1 + 122) = a2;
-  }
-
-  else
-  {
-    v3 = ne_log_obj();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
-    {
-      v4 = 136315138;
-      v5 = "NEFlowDirectorRedirectDNSToLoopback";
-      _os_log_fault_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_FAULT, "%s called with null director", &v4, 0xCu);
-    }
-  }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void NEFlowDirectorStart(uint64_t a1)
@@ -8693,36 +8556,36 @@ void NEFlowDirectorStart(uint64_t a1)
 
 void __NEFlowDirectorStart_block_invoke(uint64_t a1)
 {
-  if (*(*(a1 + 32) + 24))
+  v2 = *(*(a1 + 32) + 24);
+  if (v2)
   {
-    flow_director_ctl_source_do_read();
-    v2 = *(*(a1 + 32) + 24);
+    flow_director_ctl_source_do_read(v2);
+    v3 = *(*(a1 + 32) + 24);
 
-    dispatch_resume(v2);
+    dispatch_resume(v3);
   }
 }
 
 void NEFlowDirectorDestroy(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109378;
-    v8 = dword_1EBE73118;
-    v9 = 2080;
-    v10 = "Destroying flow director";
+    v7 = dword_1EBE73118;
+    v8 = 2080;
+    v9 = "Destroying flow director";
     _os_log_debug_impl(&dword_1C0DA5000, v4, OS_LOG_TYPE_DEBUG, "(%u): %s", buf, 0x12u);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 0x40000000;
-  v6[2] = __NEFlowDirectorDestroy_block_invoke;
-  v6[3] = &unk_1E812A650;
-  v6[4] = a2;
-  v6[5] = a1;
-  flow_director_abort(a1, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 0x40000000;
+  v5[2] = __NEFlowDirectorDestroy_block_invoke;
+  v5[3] = &unk_1E812A650;
+  v5[4] = a2;
+  v5[5] = a1;
+  flow_director_abort(a1, v5);
 }
 
 void __NEFlowDirectorDestroy_block_invoke(uint64_t a1)
@@ -8780,7 +8643,6 @@ void __NEFlowDirectorDestroy_block_invoke(uint64_t a1)
 
   if (*v7)
   {
-    v11 = *(a1 + 32);
     nw_queue_context_async_if_needed();
     v7 = *(a1 + 40);
 LABEL_14:
@@ -8830,7 +8692,7 @@ void NEFlowDirectorHandleNewControlSocket(uint64_t a1, int a2)
 
 os_unfair_lock_s *__NEFlowDirectorHandleNewControlSocket_block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (*(v1 + 40))
   {
@@ -8840,8 +8702,8 @@ os_unfair_lock_s *__NEFlowDirectorHandleNewControlSocket_block_invoke(uint64_t a
   v3 = *(a1 + 40);
   if ((v3 & 0x80000000) == 0)
   {
-    v21 = 0x100000;
-    if (setsockopt(v3, 0xFFFF, 4097, &v21, 4u))
+    v20 = 0x100000;
+    if (setsockopt(v3, 0xFFFF, 4097, &v20, 4u))
     {
       v4 = ne_log_obj();
       if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -8849,37 +8711,37 @@ os_unfair_lock_s *__NEFlowDirectorHandleNewControlSocket_block_invoke(uint64_t a
         goto LABEL_5;
       }
 
-      v18 = dword_1EBE73118;
-      v19 = __error();
-      v20 = strerror(*v19);
-      *&v23[0].sa_len = 67109378;
-      *&v23[0].sa_data[2] = v18;
-      *&v23[0].sa_data[6] = 2080;
-      *&v23[0].sa_data[8] = v20;
-      v17 = "(%u): Failed to set SO_SNDBUF on the data control socket: %s";
+      v17 = dword_1EBE73118;
+      v18 = __error();
+      v19 = strerror(*v18);
+      *&v22[0].sa_len = 67109378;
+      *&v22[0].sa_data[2] = v17;
+      *&v22[0].sa_data[6] = 2080;
+      *&v22[0].sa_data[8] = v19;
+      v16 = "(%u): Failed to set SO_SNDBUF on the data control socket: %s";
     }
 
     else
     {
-      v9 = *(a1 + 40);
-      v22 = 32;
-      memset(v23, 0, sizeof(v23));
-      v10 = getpeername(v9, v23, &v22);
-      v11 = *&v23[0].sa_data[6];
-      if (v10)
+      v8 = *(a1 + 40);
+      v21 = 32;
+      memset(v22, 0, sizeof(v22));
+      v9 = getpeername(v8, v22, &v21);
+      v10 = *&v22[0].sa_data[6];
+      if (v9)
       {
-        v11 = 0;
+        v10 = 0;
       }
 
-      v12 = *(a1 + 32);
-      *(v12 + 48) = v11;
-      if (v11)
+      v11 = *(a1 + 32);
+      *(v11 + 48) = v10;
+      if (v10)
       {
-        *(*(a1 + 32) + 40) = flow_director_create_io_handler(v12, *(a1 + 40));
-        v13 = *(*(a1 + 32) + 40);
-        if (v13)
+        *(*(a1 + 32) + 40) = flow_director_create_io_handler(v11, *(a1 + 40));
+        v12 = *(*(a1 + 32) + 40);
+        if (v12)
         {
-          dispatch_resume(v13);
+          dispatch_resume(v12);
         }
 
         goto LABEL_6;
@@ -8895,17 +8757,17 @@ LABEL_6:
         goto LABEL_7;
       }
 
-      v14 = dword_1EBE73118;
-      v15 = __error();
-      v16 = strerror(*v15);
-      *&v23[0].sa_len = 67109378;
-      *&v23[0].sa_data[2] = v14;
-      *&v23[0].sa_data[6] = 2080;
-      *&v23[0].sa_data[8] = v16;
-      v17 = "(%u): getpeername failed on the data control socket: %s";
+      v13 = dword_1EBE73118;
+      v14 = __error();
+      v15 = strerror(*v14);
+      *&v22[0].sa_len = 67109378;
+      *&v22[0].sa_data[2] = v13;
+      *&v22[0].sa_data[6] = 2080;
+      *&v22[0].sa_data[8] = v15;
+      v16 = "(%u): getpeername failed on the data control socket: %s";
     }
 
-    _os_log_error_impl(&dword_1C0DA5000, v4, OS_LOG_TYPE_ERROR, v17, &v23[0].sa_len, 0x12u);
+    _os_log_error_impl(&dword_1C0DA5000, v4, OS_LOG_TYPE_ERROR, v16, &v22[0].sa_len, 0x12u);
     goto LABEL_5;
   }
 
@@ -8932,7 +8794,6 @@ LABEL_7:
     while (result);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8966,16 +8827,15 @@ void NEFlowDirectorSetDelegateInterface(uint64_t a1, int a2)
   dispatch_async(v2, v3);
 }
 
-uint64_t __NEFlowDirectorSetDelegateInterface_block_invoke(uint64_t a1)
+char *__NEFlowDirectorSetDelegateInterface_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  result = if_indextoname(*(a1 + 40), v4);
+  v4 = *MEMORY[0x1E69E9840];
+  result = if_indextoname(*(a1 + 40), v3);
   if (result)
   {
-    result = flow_director_reset_default_interface_info(*(a1 + 32), v4);
+    return flow_director_reset_default_interface_info(*(a1 + 32), v3);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9126,11 +8986,11 @@ void __NEFlowDirectorFetchFlowStates_block_invoke(uint64_t a1)
 
 uint64_t NEPunyCodeString(const char *a1, int32_t a2, char *a3, int32_t a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pErrorCode = U_ZERO_ERROR;
-  v14 = xmmword_1C0DDA9E0;
+  v13 = xmmword_1C0DDA9E0;
   v8 = MEMORY[0x1C68E69D0](34, &pErrorCode);
-  v9 = uidna_nameToASCII_UTF8(v8, a1, a2, a3, a4, &v14, &pErrorCode);
+  v9 = uidna_nameToASCII_UTF8(v8, a1, a2, a3, a4, &v13, &pErrorCode);
   uidna_close(v8);
   if (pErrorCode)
   {
@@ -9138,36 +8998,34 @@ uint64_t NEPunyCodeString(const char *a1, int32_t a2, char *a3, int32_t a4)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = a1;
-      v18 = 1024;
+      v16 = a1;
+      v17 = 1024;
       errors = pErrorCode;
       v11 = "Failed to punycode label - uidna_nameToASCII_UTF8(%s) failed errorCode %d";
 LABEL_9:
       _os_log_error_impl(&dword_1C0DA5000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0x12u);
-      goto LABEL_6;
+      return 0;
     }
 
-    goto LABEL_6;
+    return 0;
   }
 
-  if (v14.errors)
+  if (v13.errors)
   {
     v10 = ne_log_obj();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = a1;
-      v18 = 1024;
-      errors = v14.errors;
+      v16 = a1;
+      v17 = 1024;
+      errors = v13.errors;
       v11 = "Failed to punycode label - uidna_nameToASCII_UTF8(%s) failed info.errors 0x%08X";
       goto LABEL_9;
     }
 
-LABEL_6:
-    v9 = 0;
+    return 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -9215,99 +9073,72 @@ uint64_t NEHelperTrackerAppInfoIsBrowser(uint64_t result)
 
 uint64_t NEHelperTrackerGetAppUUID(uint64_t result, unsigned __int8 *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
-    if (!uuid_is_null((result + 40)))
+    if (uuid_is_null((result + 40)))
+    {
+      v4 = *(v3 + 56);
+      if (!v4 || (v11 = 0, v9 = 0u, v10 = 0u, v8 = 0u, proc_pidinfo(v4, 17, 1uLL, &v8, 56) != 56))
+      {
+        v5 = *(v3 + 28);
+        if (!v5 || (v11 = 0, v9 = 0u, v10 = 0u, v8 = 0u, proc_pidinfo(v5, 17, 1uLL, &v8, 56) != 56))
+        {
+          if (!uuid_is_null((v3 + 104)))
+          {
+            v7 = (v3 + 104);
+            goto LABEL_15;
+          }
+
+          v6 = *(v3 + 120);
+          if (!v6 || (v11 = 0, v9 = 0u, v10 = 0u, v8 = 0u, proc_pidinfo(v6, 17, 1uLL, &v8, 56) != 56))
+          {
+            result = *(v3 + 92);
+            if (!result)
+            {
+              return result;
+            }
+
+            v11 = 0;
+            v9 = 0u;
+            v10 = 0u;
+            v8 = 0u;
+            if (proc_pidinfo(result, 17, 1uLL, &v8, 56) != 56)
+            {
+              return 0;
+            }
+          }
+        }
+      }
+
+      v7 = &v8;
+    }
+
+    else
     {
       v7 = (v3 + 40);
-      goto LABEL_15;
     }
 
-    v4 = *(v3 + 56);
-    if (v4)
-    {
-      v12 = 0;
-      v10 = 0u;
-      v11 = 0u;
-      v9 = 0u;
-      if (proc_pidinfo(v4, 17, 1uLL, &v9, 56) == 56)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    v5 = *(v3 + 28);
-    if (v5)
-    {
-      v12 = 0;
-      v10 = 0u;
-      v11 = 0u;
-      v9 = 0u;
-      if (proc_pidinfo(v5, 17, 1uLL, &v9, 56) == 56)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    if (!uuid_is_null((v3 + 104)))
-    {
-      v7 = (v3 + 104);
-      goto LABEL_15;
-    }
-
-    v6 = *(v3 + 120);
-    if (v6)
-    {
-      v12 = 0;
-      v10 = 0u;
-      v11 = 0u;
-      v9 = 0u;
-      if (proc_pidinfo(v6, 17, 1uLL, &v9, 56) == 56)
-      {
-LABEL_12:
-        v7 = &v9;
 LABEL_15:
-        uuid_copy(a2, v7);
-        result = 1;
-        goto LABEL_16;
-      }
-    }
-
-    result = *(v3 + 92);
-    if (result)
-    {
-      v12 = 0;
-      v10 = 0u;
-      v11 = 0u;
-      v9 = 0u;
-      if (proc_pidinfo(result, 17, 1uLL, &v9, 56) != 56)
-      {
-        result = 0;
-        goto LABEL_16;
-      }
-
-      goto LABEL_12;
-    }
+    uuid_copy(a2, v7);
+    return 1;
   }
 
-LABEL_16:
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void NETrackerInsertTCCCache(char *a1, int a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v17 = *MEMORY[0x1E69E9840];
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  *key = 0u;
+  v14 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  *key = 0u;
+  v10 = 0u;
   NETrackerGenerateTCCCacheKey(a1, key, 0x80uLL);
   if (a2)
   {
@@ -9348,14 +9179,12 @@ LABEL_12:
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7[0] = 67109378;
-    v7[1] = v3;
-    v8 = 2080;
-    v9 = key;
-    _os_log_debug_impl(&dword_1C0DA5000, v5, OS_LOG_TYPE_DEBUG, "NETrackerInsertTCCCache(): (%d) for bundle: (%s)", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = v3;
+    v7 = 2080;
+    v8 = key;
+    _os_log_debug_impl(&dword_1C0DA5000, v5, OS_LOG_TYPE_DEBUG, "NETrackerInsertTCCCache(): (%d) for bundle: (%s)", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 unsigned int *NEHelperTrackerAppInfoGetPID(unsigned int *result)
@@ -9450,7 +9279,7 @@ unint64_t NEHelperTrackerContextCanBlockRequest(unint64_t a1)
   return can_block_request;
 }
 
-unint64_t NEHelperTrackerContextCopyDomain(unint64_t a1, char *a2, uint64_t a3, unint64_t *a4)
+char *NEHelperTrackerContextCopyDomain(char *a1, char *a2, uint64_t a3, unint64_t *a4)
 {
   v4 = a1;
   if (a1)
@@ -9487,7 +9316,7 @@ unint64_t NEHelperTrackerContextCopyDomain(unint64_t a1, char *a2, uint64_t a3, 
   return v4;
 }
 
-unint64_t NEHelperTrackerContextCopyDomainOwner(unint64_t a1, char *a2, uint64_t a3, unint64_t *a4)
+char *NEHelperTrackerContextCopyDomainOwner(char *a1, char *a2, uint64_t a3, unint64_t *a4)
 {
   v4 = a1;
   if (a1)
@@ -9570,27 +9399,27 @@ CFStringRef NEHelperTrackerContextDupDomainOwner(const __CFString *a1)
   return v1;
 }
 
-void NEHelperTrackerProcessMatch(const char *a1, uint64_t a2, uint64_t a3, _BYTE *a4, int a5)
+void NEHelperTrackerProcessMatch(const char *is_null, uint64_t a2, uint64_t a3, _BYTE *a4, int a5)
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
-    v72 = 0u;
+    v76 = 0u;
     v73 = 0u;
-    v70 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
-    buffer = 0u;
+    v66 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    buffer = 0u;
+    v62 = 0u;
     if (*a4)
     {
       v10 = 0;
@@ -9604,44 +9433,44 @@ void NEHelperTrackerProcessMatch(const char *a1, uint64_t a2, uint64_t a3, _BYTE
   v10 = *(a3 + 56);
   if (v10 || (v10 = *(a3 + 28)) != 0 || (v10 = *(a3 + 120)) != 0)
   {
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
-    v72 = 0u;
+    v76 = 0u;
     v73 = 0u;
-    v70 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
-    buffer = 0u;
+    v66 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    buffer = 0u;
+    v62 = 0u;
 LABEL_6:
     proc_name(v10, &buffer, 0x100u);
     goto LABEL_7;
   }
 
   v10 = *(a3 + 92);
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
-  v72 = 0u;
+  v76 = 0u;
   v73 = 0u;
-  v70 = 0u;
+  v74 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
-  v66 = 0u;
+  v70 = 0u;
   v67 = 0u;
-  v64 = 0u;
+  v68 = 0u;
   v65 = 0u;
-  buffer = 0u;
+  v66 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  buffer = 0u;
+  v62 = 0u;
   if (v10)
   {
     goto LABEL_6;
@@ -9679,7 +9508,7 @@ LABEL_7:
     else
     {
       *uu = 0;
-      v79 = 0;
+      v78 = 0;
       NEHelperTrackerGetAppUUID(a3, uu);
       if (uuid_is_null(uu))
       {
@@ -9748,17 +9577,17 @@ LABEL_7:
   }
 
   *uu = 0;
-  v79 = uu;
-  v80 = 0x2000000000;
-  v81 = 0;
+  v78 = uu;
+  v79 = 0x2000000000;
+  v80 = 0;
   *applier = MEMORY[0x1E69E9820];
   *&applier[8] = 0x40000000;
   *&applier[16] = __NEHelperTrackerDomainIsApproved_block_invoke;
   *&applier[24] = &unk_1E812ABE8;
   *&applier[32] = uu;
-  *&applier[40] = a1;
+  *&applier[40] = is_null;
   xpc_array_apply(v13, applier);
-  v15 = v79[24];
+  v15 = v78[24];
   _Block_object_dispose(uu, 8);
   if ((v15 & 1) == 0)
   {
@@ -9801,7 +9630,7 @@ LABEL_43:
   {
     if (v25)
     {
-      v26 = strlen(a1);
+      v26 = strlen(is_null);
       if (a2)
       {
         domain = ne_tracker_context_get_domain();
@@ -9822,51 +9651,51 @@ LABEL_43:
 
       if (a3)
       {
-        v39 = *(a3 + 56);
-        if (!v39)
+        v38 = *(a3 + 56);
+        if (!v38)
         {
-          v39 = *(a3 + 28);
-          if (!v39)
+          v38 = *(a3 + 28);
+          if (!v38)
           {
-            v39 = *(a3 + 120);
-            if (!v39)
+            v38 = *(a3 + 120);
+            if (!v38)
             {
-              v39 = *(a3 + 92);
+              v38 = *(a3 + 92);
             }
           }
         }
 
-        v40 = ", approved domain";
+        v39 = ", approved domain";
         if (*a4)
         {
-          v40 = "";
+          v39 = "";
         }
 
         if (*(a3 + 124))
         {
-          v41 = "Web";
+          v40 = "Web";
         }
 
         else
         {
-          v41 = "App";
+          v40 = "App";
         }
       }
 
       else
       {
-        v39 = 0;
+        v38 = 0;
         if (*a4)
         {
-          v40 = "";
+          v39 = "";
         }
 
         else
         {
-          v40 = ", approved domain";
+          v39 = ", approved domain";
         }
 
-        v41 = "App";
+        v40 = "App";
       }
 
       *applier = 136318723;
@@ -9876,136 +9705,134 @@ LABEL_43:
       *&applier[22] = 1040;
       *&applier[24] = v26;
       *&applier[28] = 2101;
-      *&applier[30] = a1;
+      *&applier[30] = is_null;
       *&applier[38] = 2160;
       *&applier[40] = 1752392040;
       *&applier[48] = 1040;
-      LODWORD(v51) = v29;
-      WORD2(v51) = 2101;
-      *(&v51 + 6) = v27;
-      HIWORD(v51) = 2160;
-      v52 = 1752392040;
-      LOWORD(v53) = 1040;
-      *(&v53 + 2) = v28;
-      HIWORD(v53) = 2101;
-      *v54 = v30;
-      *&v54[8] = 1024;
-      *v55 = a3;
-      *&v55[4] = 1024;
-      *&v55[6] = v39;
-      v56 = 2080;
+      LODWORD(v50) = v29;
+      WORD2(v50) = 2101;
+      *(&v50 + 6) = v27;
+      HIWORD(v50) = 2160;
+      v51 = 1752392040;
+      LOWORD(v52) = 1040;
+      *(&v52 + 2) = v28;
+      HIWORD(v52) = 2101;
+      *v53 = v30;
+      *&v53[8] = 1024;
+      *v54 = a3;
+      *&v54[4] = 1024;
+      *&v54[6] = v38;
+      v55 = 2080;
       p_buffer = &buffer;
-      v58 = 2080;
-      v59 = v40;
-      v60 = 2080;
-      v61 = v41;
-      v47 = "%s: domain lookup - found match for tracker%{sensitive, mask.hash, networkextension:string}.*P --> metadata %{sensitive, mask.hash, networkextension:string}.*P %{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d %s) %s - %s";
-      v48 = v24;
-      v49 = 132;
+      v57 = 2080;
+      v58 = v39;
+      v59 = 2080;
+      v60 = v40;
+      v46 = "%s: domain lookup - found match for tracker%{sensitive, mask.hash, networkextension:string}.*P --> metadata %{sensitive, mask.hash, networkextension:string}.*P %{sensitive, mask.hash, networkextension:string}.*P (app info ref %X pid %d %s) %s - %s";
+      v47 = v24;
+      v48 = 132;
 LABEL_90:
-      _os_log_debug_impl(&dword_1C0DA5000, v48, OS_LOG_TYPE_DEBUG, v47, applier, v49);
+      _os_log_debug_impl(&dword_1C0DA5000, v47, OS_LOG_TYPE_DEBUG, v46, applier, v48);
     }
   }
 
   else if (v25)
   {
-    v32 = strlen(a1);
+    v31 = strlen(is_null);
     if (a2)
     {
-      v42 = ne_tracker_context_get_domain();
-      v35 = strlen(v42);
-      v33 = ne_tracker_context_get_domain();
-      v43 = ne_tracker_context_get_domain_owner();
-      v34 = strlen(v43);
-      v36 = ne_tracker_context_get_domain_owner();
+      v41 = ne_tracker_context_get_domain();
+      v34 = strlen(v41);
+      v32 = ne_tracker_context_get_domain();
+      v42 = ne_tracker_context_get_domain_owner();
+      v33 = strlen(v42);
+      v35 = ne_tracker_context_get_domain_owner();
     }
 
     else
     {
-      v33 = "null";
+      v32 = "null";
+      v33 = 4;
       v34 = 4;
-      v35 = 4;
-      v36 = "null";
+      v35 = "null";
     }
 
     if (a3)
     {
-      v44 = *(a3 + 56);
-      if (!v44)
+      v43 = *(a3 + 56);
+      if (!v43)
       {
-        v44 = *(a3 + 28);
-        if (!v44)
+        v43 = *(a3 + 28);
+        if (!v43)
         {
-          v44 = *(a3 + 120);
-          if (!v44)
+          v43 = *(a3 + 120);
+          if (!v43)
           {
-            v44 = *(a3 + 92);
+            v43 = *(a3 + 92);
           }
         }
       }
 
-      v45 = ", approved domain";
+      v44 = ", approved domain";
       if (*a4)
       {
-        v45 = "";
+        v44 = "";
       }
 
       if (*(a3 + 124))
       {
-        v46 = "Web";
+        v45 = "Web";
       }
 
       else
       {
-        v46 = "App";
+        v45 = "App";
       }
     }
 
     else
     {
-      v44 = 0;
+      v43 = 0;
       if (*a4)
       {
-        v45 = "";
+        v44 = "";
       }
 
       else
       {
-        v45 = ", approved domain";
+        v44 = ", approved domain";
       }
 
-      v46 = "App";
+      v45 = "App";
     }
 
     *applier = 136317955;
     *&applier[4] = "NEHelperTrackerProcessMatch";
     *&applier[12] = 1024;
-    *&applier[14] = v32;
+    *&applier[14] = v31;
     *&applier[18] = 2081;
-    *&applier[20] = a1;
+    *&applier[20] = is_null;
     *&applier[28] = 1024;
-    *&applier[30] = v35;
+    *&applier[30] = v34;
     *&applier[34] = 2081;
-    *&applier[36] = v33;
+    *&applier[36] = v32;
     *&applier[44] = 1024;
-    *&applier[46] = v34;
-    LOWORD(v51) = 2081;
-    *(&v51 + 2) = v36;
-    WORD5(v51) = 1024;
-    HIDWORD(v51) = a3;
-    LOWORD(v52) = 1024;
-    *(&v52 + 2) = v44;
-    HIWORD(v52) = 2080;
-    v53 = &buffer;
+    *&applier[46] = v33;
+    LOWORD(v50) = 2081;
+    *(&v50 + 2) = v35;
+    WORD5(v50) = 1024;
+    HIDWORD(v50) = a3;
+    LOWORD(v51) = 1024;
+    *(&v51 + 2) = v43;
+    HIWORD(v51) = 2080;
+    v52 = &buffer;
+    *v53 = 2080;
+    *&v53[2] = v44;
     *v54 = 2080;
     *&v54[2] = v45;
-    *v55 = 2080;
-    *&v55[2] = v46;
-    v47 = "%s: domain lookup - found match for tracker<%d : %{private}s> --> metadata <%d : %{private}s> <%d : %{private}s> (app info ref %X pid %d %s) %s - %s";
-    v48 = v24;
-    v49 = 102;
+    v46 = "%s: domain lookup - found match for tracker<%d : %{private}s> --> metadata <%d : %{private}s> <%d : %{private}s> (app info ref %X pid %d %s) %s - %s";
+    v47 = v24;
+    v48 = 102;
     goto LABEL_90;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }

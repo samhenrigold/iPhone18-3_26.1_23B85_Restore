@@ -224,21 +224,21 @@
 {
   v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_270253000, MEMORY[0x277D86220], v3, "Failed to load image %@ with error %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_270253000, MEMORY[0x277D86220], v3, "Failed to load image %@ with error %@", v4, v5, v6, v7);
 }
 
 - (void)identifyElements:(uint64_t)a1 elements:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
   v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_270253000, MEMORY[0x277D86220], v3, "Failed to identify elements on image %@ with error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_270253000, MEMORY[0x277D86220], v3, "Failed to identify elements on image %@ with error: %@", v4, v5, v6, v7);
 }
 
 - (void)addElementsForScreen:(uint64_t)a1 candidates:(void *)a2 screenGroupID:.cold.1(uint64_t a1, void *a2)
 {
   v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_270253000, MEMORY[0x277D86220], v3, "Failed to add elements for screenshot %@ with error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_270253000, MEMORY[0x277D86220], v3, "Failed to add elements for screenshot %@ with error: %@", v4, v5, v6, v7);
 }
 
 @end

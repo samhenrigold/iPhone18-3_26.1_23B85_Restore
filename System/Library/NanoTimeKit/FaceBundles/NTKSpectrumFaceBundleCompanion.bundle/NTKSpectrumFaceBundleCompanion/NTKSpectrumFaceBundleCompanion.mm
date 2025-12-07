@@ -1,44 +1,35 @@
 uint64_t _NTKSpectrumGetOverlayGradientColor(double a1)
 {
-  v1 = a1;
-  v2 = fminf(fmaxf(v1, 0.0), 1.0);
-  OverlayGradientTable = NTKSpectrumGetOverlayGradientTable();
-  v4 = (v2 * 6.0);
-  v5 = (v4 + 1) % 6;
-  v6 = *(OverlayGradientTable + 4 * v4);
+  NTKSpectrumGetOverlayGradientTable();
   CLKUIConvertToRGBfFromSRGB8_fast();
-  v7 = *(OverlayGradientTable + 4 * v5);
   CLKUIConvertToRGBfFromSRGB8_fast();
 
   return CLKUIConvertToUIColorFromRGBf_fast();
 }
 
-id sub_1170(uint64_t a1, void *a2, void *a3)
+void sub_1170(uint64_t a1, void *a2, void *a3)
 {
   CLKUIConvertToRGBfFromUIColor_fast();
-  result = CLKUIConvertRGBtoLAB();
+  CLKUIConvertRGBtoLAB();
   __asm { FMOV            V2.4S, #1.0 }
 
   if (a2)
   {
     CLKUIConvertLABtoRGB();
-    result = CLKUIConvertToUIColorFromRGBf_fast();
-    *a2 = result;
+    *a2 = CLKUIConvertToUIColorFromRGBf_fast();
     if (!a3)
     {
-      return result;
+      return;
     }
   }
 
   else if (!a3)
   {
-    return result;
+    return;
   }
 
   CLKUIConvertLABtoRGB();
-  result = CLKUIConvertToUIColorFromRGBf_fast();
-  *a3 = result;
-  return result;
+  *a3 = CLKUIConvertToUIColorFromRGBf_fast();
 }
 
 void sub_1264(void *a1, void *a2, void *a3)
@@ -102,13 +93,12 @@ void sub_2160(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v9 = a2;
+  v8 = a2;
   [v5 _tickOpactiyAtIndex:a3 bezelTextWidthInRadius:v6 invisibleTicksAlpha:0.0];
   [*(a1 + 32) _tickOpactiyAtIndex:a3 bezelTextWidthInRadius:*(a1 + 48) invisibleTicksAlpha:0.0];
-  v7 = *(a1 + 56);
   CLKInterpolateBetweenFloatsClipped();
-  *&v8 = v8;
-  [v9 setOpacity:v8];
+  *&v7 = v7;
+  [v8 setOpacity:v7];
 }
 
 void sub_2288(double *a1, void *a2, uint64_t a3)

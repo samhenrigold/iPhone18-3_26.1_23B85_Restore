@@ -48,41 +48,41 @@
 
 - (id)processResourcesForReferenceExtractionRequest:(id)request error:(id *)error
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v6 = objc_alloc_init(HDReferenceExtractionProcessingContext);
-  v95 = objc_alloc_init(HKHealthRecordsExtractionRouter);
+  v94 = objc_alloc_init(HKHealthRecordsExtractionRouter);
   resources = [requestCopy resources];
   if (resources)
   {
     v8 = objc_alloc(MEMORY[0x277CBEB58]);
     resources2 = [requestCopy resources];
-    v92 = [v8 initWithArray:resources2];
+    v91 = [v8 initWithArray:resources2];
   }
 
   else
   {
-    v92 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v91 = objc_alloc_init(MEMORY[0x277CBEB58]);
   }
 
-  v96 = v6;
+  v95 = v6;
   selfCopy = self;
 
-  v94 = objc_alloc_init(MEMORY[0x277CBEAA8]);
+  v93 = objc_alloc_init(MEMORY[0x277CBEAA8]);
   [requestCopy serverBaseURL];
-  v91 = v90 = requestCopy;
+  v90 = v89 = requestCopy;
   [requestCopy FHIRResourceData];
+  v108 = 0u;
   v109 = 0u;
   v110 = 0u;
-  v111 = 0u;
-  v10 = v112 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v109 objects:v122 count:16];
-  v93 = v10;
+  v10 = v111 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v108 objects:v121 count:16];
+  v92 = v10;
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v110;
+    v14 = *v109;
     v15 = 0x277D12000uLL;
     while (1)
     {
@@ -90,16 +90,16 @@
       obj = v12;
       do
       {
-        if (*v110 != v14)
+        if (*v109 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v109 + 1) + 8 * v16);
+        v17 = *(*(&v108 + 1) + 8 * v16);
         v18 = *(v15 + 880);
-        v108 = 0;
-        v19 = [v18 objectWithResourceData:v17 error:&v108];
-        incompleteResources = v108;
+        v107 = 0;
+        v19 = [v18 objectWithResourceData:v17 error:&v107];
+        incompleteResources = v107;
         if (!v19)
         {
           v41 = v13;
@@ -107,22 +107,22 @@
           v42 = *MEMORY[0x277CCC2C0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
           {
-            v86 = v42;
-            v87 = [(HDHealthRecordFindReferencesTask *)selfCopy debugDescription];
-            v88 = [v17 debugDescription];
+            v85 = v42;
+            v86 = [(HDHealthRecordFindReferencesTask *)selfCopy debugDescription];
+            v87 = [v17 debugDescription];
             *buf = 138543874;
-            v117 = v87;
-            v118 = 2114;
-            v119 = v88;
-            v120 = 2114;
-            v121 = incompleteResources;
-            _os_log_error_impl(&dword_251CC8000, v86, OS_LOG_TYPE_ERROR, "%{public}@: failed to parse JSON data %{public}@: %{public}@", buf, 0x20u);
+            v116 = v86;
+            v117 = 2114;
+            v118 = v87;
+            v119 = 2114;
+            v120 = incompleteResources;
+            _os_log_error_impl(&dword_251CC8000, v85, OS_LOG_TYPE_ERROR, "%{public}@: failed to parse JSON data %{public}@: %{public}@", buf, 0x20u);
           }
 
           v43 = [MEMORY[0x277CCA9B8] hrs_resourceParsingErrorWithUnderlyingError:incompleteResources];
           nextPageURL = v43;
-          v45 = v90;
-          v46 = v96;
+          v45 = v89;
+          v46 = v95;
           if (v43)
           {
             if (error)
@@ -132,8 +132,8 @@
               *error = nextPageURL;
 LABEL_59:
               unresolvableReferences = nextPageURL;
-              v83 = v93;
-              completeResources = v93;
+              v83 = v92;
+              completeResources = v92;
               goto LABEL_60;
             }
 
@@ -155,29 +155,29 @@ LABEL_59:
           jSONObject = [v19 JSONObject];
           sourceURL = [v19 sourceURL];
           fHIRVersion = [v19 FHIRVersion];
-          v106 = incompleteResources;
-          v31 = [v27 resourceObjectWithJSONObject:jSONObject sourceURL:sourceURL FHIRVersion:fHIRVersion receivedDate:v94 extractionHints:0 error:&v106];
-          v24 = v106;
+          v105 = incompleteResources;
+          v31 = [v27 resourceObjectWithJSONObject:jSONObject sourceURL:sourceURL FHIRVersion:fHIRVersion receivedDate:v93 extractionHints:0 error:&v105];
+          v24 = v105;
 
           if (v31)
           {
-            [v92 addObject:v31];
-            v10 = v93;
+            [v91 addObject:v31];
+            v10 = v92;
             goto LABEL_17;
           }
 
           _HKInitializeLogging();
           v34 = *MEMORY[0x277CCC2C0];
-          v10 = v93;
+          v10 = v92;
           v13 = v26;
           if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
           {
             v36 = v34;
             v37 = [(HDHealthRecordFindReferencesTask *)selfCopy debugDescription];
             *buf = 138543618;
-            v117 = v37;
-            v118 = 2114;
-            v119 = v24;
+            v116 = v37;
+            v117 = 2114;
+            v118 = v24;
             _os_log_error_impl(&dword_251CC8000, v36, OS_LOG_TYPE_ERROR, "%{public}@: invalid resourceObject error: %{public}@", buf, 0x16u);
 
 LABEL_17:
@@ -196,7 +196,7 @@ LABEL_17:
           v23 = *MEMORY[0x277CCC2C0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
           {
-            [(HDHealthRecordFindReferencesTask *)v114 processResourcesForReferenceExtractionRequest:v23 error:selfCopy, &v115];
+            [(HDHealthRecordFindReferencesTask *)v113 processResourcesForReferenceExtractionRequest:v23 error:selfCopy, &v114];
           }
 
           v24 = incompleteResources;
@@ -204,16 +204,16 @@ LABEL_17:
 
         else
         {
-          v107 = incompleteResources;
-          v13 = [HDFHIRResourceSearchSet searchSetWithFHIRJSONObject:v19 serverBaseURL:v91 error:&v107];
-          v24 = v107;
+          v106 = incompleteResources;
+          v13 = [HDFHIRResourceSearchSet searchSetWithFHIRJSONObject:v19 serverBaseURL:v90 error:&v106];
+          v24 = v106;
 
           if (v13)
           {
             entries = [v13 entries];
             v33 = [(HDHealthRecordFindReferencesTask *)selfCopy _filterResources:entries];
 
-            [v92 addObjectsFromArray:v33];
+            [v91 addObjectsFromArray:v33];
           }
 
           else
@@ -225,9 +225,9 @@ LABEL_17:
               v38 = v35;
               v39 = [(HDHealthRecordFindReferencesTask *)selfCopy debugDescription];
               *buf = 138543618;
-              v117 = v39;
-              v118 = 2114;
-              v119 = v24;
+              v116 = v39;
+              v117 = 2114;
+              v118 = v24;
               _os_log_error_impl(&dword_251CC8000, v38, OS_LOG_TYPE_ERROR, "%{public}@: invalid bundle error: %{public}@", buf, 0x16u);
             }
 
@@ -241,7 +241,7 @@ LABEL_22:
       }
 
       while (v12 != v16);
-      v40 = [v10 countByEnumeratingWithState:&v109 objects:v122 count:16];
+      v40 = [v10 countByEnumeratingWithState:&v108 objects:v121 count:16];
       v12 = v40;
       if (!v40)
       {
@@ -252,32 +252,32 @@ LABEL_22:
 
   v13 = 0;
 LABEL_36:
-  v89 = v13;
+  v88 = v13;
 
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
   v103 = 0u;
-  obja = v92;
-  v49 = [obja countByEnumeratingWithState:&v102 objects:v113 count:16];
-  v46 = v96;
+  v104 = 0u;
+  v101 = 0u;
+  v102 = 0u;
+  obja = v91;
+  v49 = [obja countByEnumeratingWithState:&v101 objects:v112 count:16];
+  v46 = v95;
   p_isa = &selfCopy->super.isa;
   if (v49)
   {
     v51 = v49;
-    v52 = *v103;
+    v52 = *v102;
     do
     {
       v53 = 0;
-      v99 = v51;
+      v98 = v51;
       do
       {
-        if (*v103 != v52)
+        if (*v102 != v52)
         {
           objc_enumerationMutation(obja);
         }
 
-        v54 = *(*(&v102 + 1) + 8 * v53);
+        v54 = *(*(&v101 + 1) + 8 * v53);
         if ([p_isa _canProcessResource:v54])
         {
           v55 = [p_isa[1] rulesetForFHIRResourceObject:v54];
@@ -293,7 +293,7 @@ LABEL_36:
           {
             releaseSupport = [p_isa[1] releaseSupport];
             fHIRRelease = [releaseSupport FHIRRelease];
-            v63 = [(HKHealthRecordsExtractionRouter *)v95 supportedResourceTypesForRelease:fHIRRelease];
+            v63 = [(HKHealthRecordsExtractionRouter *)v94 supportedResourceTypesForRelease:fHIRRelease];
             identifier = [v54 identifier];
             resourceType = [identifier resourceType];
             v66 = [v63 containsObject:resourceType];
@@ -310,14 +310,14 @@ LABEL_36:
                 identifier2 = [v54 identifier];
                 resourceType2 = [identifier2 resourceType];
                 *buf = 138543618;
-                v117 = v73;
-                v118 = 2114;
-                v119 = resourceType2;
+                v116 = v73;
+                v117 = 2114;
+                v118 = resourceType2;
                 _os_log_debug_impl(&dword_251CC8000, v72, OS_LOG_TYPE_DEBUG, "%{public}@ processResourcesForReferenceExtractionRequest: resource type %{public}@. Skipping Reference extraction.", buf, 0x16u);
               }
 
-              v46 = v96;
-              [(HDReferenceExtractionProcessingContext *)v96 recordProcessedResource:v54];
+              v46 = v95;
+              [(HDReferenceExtractionProcessingContext *)v95 recordProcessedResource:v54];
             }
 
             else
@@ -326,7 +326,7 @@ LABEL_36:
               resourceType3 = [identifier3 resourceType];
               v70 = [resourceType3 isEqualToString:@"Medication"];
 
-              v46 = v96;
+              v46 = v95;
               p_isa = &selfCopy->super.isa;
               if ((v70 & 1) == 0)
               {
@@ -339,16 +339,16 @@ LABEL_36:
                   identifier4 = [v54 identifier];
                   resourceType4 = [identifier4 resourceType];
                   *buf = 138543618;
-                  v117 = v77;
-                  v118 = 2114;
-                  v119 = resourceType4;
+                  v116 = v77;
+                  v117 = 2114;
+                  v118 = resourceType4;
                   _os_log_error_impl(&dword_251CC8000, v76, OS_LOG_TYPE_ERROR, "%{public}@ processResourcesForReferenceExtractionRequest: no extraction rules for resource type %{public}@", buf, 0x16u);
                 }
               }
             }
           }
 
-          v51 = v99;
+          v51 = v98;
         }
 
         else
@@ -360,9 +360,9 @@ LABEL_36:
             v59 = v58;
             v60 = [p_isa debugDescription];
             *buf = 138543618;
-            v117 = v60;
-            v118 = 2114;
-            v119 = v54;
+            v116 = v60;
+            v117 = 2114;
+            v118 = v54;
             _os_log_error_impl(&dword_251CC8000, v59, OS_LOG_TYPE_ERROR, "%{public}@ processResourcesForReferenceExtractionRequest: cannot process resource: %{public}@", buf, 0x16u);
           }
         }
@@ -371,7 +371,7 @@ LABEL_36:
       }
 
       while (v51 != v53);
-      v51 = [obja countByEnumeratingWithState:&v102 objects:v113 count:16];
+      v51 = [obja countByEnumeratingWithState:&v101 objects:v112 count:16];
     }
 
     while (v51);
@@ -381,21 +381,19 @@ LABEL_36:
   completeResources = [(HDReferenceExtractionProcessingContext *)v46 completeResources];
   incompleteResources = [(HDReferenceExtractionProcessingContext *)v46 incompleteResources];
   unresolvableReferences = [(HDReferenceExtractionProcessingContext *)v46 unresolvableReferences];
-  v41 = v89;
-  nextPageURL = [v89 nextPageURL];
+  v41 = v88;
+  nextPageURL = [v88 nextPageURL];
   v48 = [v80 initWithCompleteResources:completeResources incompleteResources:incompleteResources unresolvableReferences:unresolvableReferences nextSearchResultURL:nextPageURL];
-  v45 = v90;
-  v83 = v93;
+  v45 = v89;
+  v83 = v92;
 LABEL_60:
-
-  v84 = *MEMORY[0x277D85DE8];
 
   return v48;
 }
 
 - (id)_processedContainReferencesResourceWithResource:(id)resource processingContext:(id)context rule:(id)rule allResources:(id)resources
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   resourceCopy = resource;
   contextCopy = context;
   ruleCopy = rule;
@@ -408,61 +406,61 @@ LABEL_60:
   v16 = contextCopy;
   v17 = serverBaseURL;
   v18 = v15;
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
-  v48 = ruleCopy;
+  v47 = ruleCopy;
   obj = [ruleCopy containReferences];
-  v49 = v18;
-  v53 = [obj countByEnumeratingWithState:&v71 objects:v86 count:16];
-  if (v53)
+  v48 = v18;
+  v52 = [obj countByEnumeratingWithState:&v70 objects:v85 count:16];
+  if (v52)
   {
-    v52 = *v72;
-    v63 = v16;
-    v61 = serverBaseURL;
+    v51 = *v71;
+    v62 = v16;
+    v60 = serverBaseURL;
     do
     {
-      for (i = 0; i != v53; ++i)
+      for (i = 0; i != v52; ++i)
       {
-        if (*v72 != v52)
+        if (*v71 != v51)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v71 + 1) + 8 * i);
+        v20 = *(*(&v70 + 1) + 8 * i);
         jSONObject = [v18 JSONObject];
-        v70 = 0;
-        v22 = [HDFHIRReferenceProcessor referencesAtKeyPath:v20 resourceDictionary:jSONObject error:&v70];
-        v23 = v70;
+        v69 = 0;
+        v22 = [HDFHIRReferenceProcessor referencesAtKeyPath:v20 resourceDictionary:jSONObject error:&v69];
+        v23 = v69;
 
         if (v22)
         {
-          v54 = v23;
-          v55 = v22;
-          v56 = i;
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
+          v53 = v23;
+          v54 = v22;
+          v55 = i;
           v67 = 0u;
-          v64 = v22;
-          v24 = [v64 countByEnumeratingWithState:&v66 objects:v85 count:16];
-          v17 = v61;
+          v68 = 0u;
+          v65 = 0u;
+          v66 = 0u;
+          v63 = v22;
+          v24 = [v63 countByEnumeratingWithState:&v65 objects:v84 count:16];
+          v17 = v60;
           v25 = MEMORY[0x277CCC2C0];
           if (v24)
           {
             v26 = v24;
-            v27 = *v67;
+            v27 = *v66;
             do
             {
               for (j = 0; j != v26; ++j)
               {
-                if (*v67 != v27)
+                if (*v66 != v27)
                 {
-                  objc_enumerationMutation(v64);
+                  objc_enumerationMutation(v63);
                 }
 
-                v29 = *(*(&v66 + 1) + 8 * j);
+                v29 = *(*(&v65 + 1) + 8 * j);
                 if ([(HDHealthRecordFindReferencesTask *)self _isIrretrievableReference:v29 serverBaseURL:v17])
                 {
                   [v16 recordUnresolvableReference:v29 forResource:v18 hint:1];
@@ -474,7 +472,7 @@ LABEL_60:
                   v30 = *v25;
                   if (os_log_type_enabled(*v25, OS_LOG_TYPE_DEBUG))
                   {
-                    [HDHealthRecordFindReferencesTask _processedContainReferencesResourceWithResource:v75 processingContext:v30 rule:self allResources:&v76];
+                    [HDHealthRecordFindReferencesTask _processedContainReferencesResourceWithResource:v74 processingContext:v30 rule:self allResources:&v75];
                   }
                 }
 
@@ -489,9 +487,9 @@ LABEL_60:
                       v39 = v37;
                       v40 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
                       *buf = 138543618;
-                      v78 = v40;
-                      v79 = 2114;
-                      v80 = v29;
+                      v77 = v40;
+                      v78 = 2114;
+                      v79 = v29;
                       _os_log_debug_impl(&dword_251CC8000, v39, OS_LOG_TYPE_DEBUG, "%{public}@ containReferences: referenced resource not present, marking unresolved: %{public}@", buf, 0x16u);
                     }
 
@@ -508,22 +506,22 @@ LABEL_60:
                       v41 = v33;
                       v42 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
                       *buf = 138543618;
-                      v78 = v42;
-                      v79 = 2114;
-                      v80 = v32;
+                      v77 = v42;
+                      v78 = 2114;
+                      v79 = v32;
                       _os_log_debug_impl(&dword_251CC8000, v41, OS_LOG_TYPE_DEBUG, "%{public}@ containReferences: found resource %{public}@, containing", buf, 0x16u);
 
                       v25 = MEMORY[0x277CCC2C0];
                     }
 
-                    v65 = 0;
-                    v34 = [HDFHIRReferenceProcessor newResourceFromResource:v18 containingResource:v32 reference:v29 error:&v65];
-                    v35 = v65;
+                    v64 = 0;
+                    v34 = [HDFHIRReferenceProcessor newResourceFromResource:v18 containingResource:v32 reference:v29 error:&v64];
+                    v35 = v64;
                     if (v34)
                     {
                       v36 = v34;
 
-                      [v63 recordContainedResource:v32];
+                      [v62 recordContainedResource:v32];
                       v18 = v36;
                     }
 
@@ -534,80 +532,78 @@ LABEL_60:
                       if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
                       {
                         log = v38;
-                        v58 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
+                        v57 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
                         identifier2 = [v32 identifier];
                         resourceType2 = [identifier2 resourceType];
                         *buf = 138544130;
-                        v78 = v58;
-                        v79 = 2114;
-                        v80 = resourceType2;
-                        v81 = 2114;
-                        v82 = resourceType;
-                        v83 = 2114;
-                        v84 = v35;
+                        v77 = v57;
+                        v78 = 2114;
+                        v79 = resourceType2;
+                        v80 = 2114;
+                        v81 = resourceType;
+                        v82 = 2114;
+                        v83 = v35;
                         _os_log_error_impl(&dword_251CC8000, log, OS_LOG_TYPE_ERROR, "%{public}@ containReferences: failed to contain resource %{public}@ in resource %{public}@: %{public}@", buf, 0x2Au);
                       }
 
-                      [v63 recordUnresolvedReference:v29 forResource:v18];
+                      [v62 recordUnresolvedReference:v29 forResource:v18];
                     }
 
-                    v16 = v63;
-                    v17 = v61;
+                    v16 = v62;
+                    v17 = v60;
                   }
 
                   v25 = MEMORY[0x277CCC2C0];
                 }
               }
 
-              v26 = [v64 countByEnumeratingWithState:&v66 objects:v85 count:16];
+              v26 = [v63 countByEnumeratingWithState:&v65 objects:v84 count:16];
             }
 
             while (v26);
           }
 
-          v22 = v55;
-          i = v56;
-          v23 = v54;
+          v22 = v54;
+          i = v55;
+          v23 = v53;
         }
 
         else
         {
           _HKInitializeLogging();
           v43 = *MEMORY[0x277CCC2C0];
-          v17 = v61;
+          v17 = v60;
           if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
           {
             v44 = v43;
             v45 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
             *buf = 138543874;
-            v78 = v45;
-            v79 = 2114;
-            v80 = resourceType;
-            v81 = 2114;
-            v82 = v23;
+            v77 = v45;
+            v78 = 2114;
+            v79 = resourceType;
+            v80 = 2114;
+            v81 = v23;
             _os_log_error_impl(&dword_251CC8000, v44, OS_LOG_TYPE_ERROR, "%{public}@ containReferences: invalid reference on %{public}@ resource: %{public}@", buf, 0x20u);
 
-            v17 = v61;
+            v17 = v60;
           }
 
           [v16 recordUnresolvableReference:v20 forResource:v18 hint:2];
         }
       }
 
-      v53 = [obj countByEnumeratingWithState:&v71 objects:v86 count:16];
+      v52 = [obj countByEnumeratingWithState:&v70 objects:v85 count:16];
     }
 
-    while (v53);
+    while (v52);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (id)_processedRetrieveReferencesResourceWithResource:(id)resource processingContext:(id)context rule:(id)rule allResources:(id)resources
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   resourceCopy = resource;
   contextCopy = context;
   ruleCopy = rule;
@@ -618,28 +614,28 @@ LABEL_60:
   resourceType = [identifier resourceType];
 
   serverBaseURL = [resourceCopy serverBaseURL];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
-  v51 = v13;
+  v50 = v13;
   obj = [v13 retrieveReferences];
-  v55 = [obj countByEnumeratingWithState:&v71 objects:v84 count:16];
-  if (v55)
+  v54 = [obj countByEnumeratingWithState:&v70 objects:v83 count:16];
+  if (v54)
   {
-    v54 = *v72;
-    v63 = resourceCopy;
+    v53 = *v71;
+    v62 = resourceCopy;
     do
     {
       v16 = 0;
       do
       {
-        if (*v72 != v54)
+        if (*v71 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v71 + 1) + 8 * v16);
+        v17 = *(*(&v70 + 1) + 8 * v16);
         _HKInitializeLogging();
         v18 = *MEMORY[0x277CCC2C0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_DEBUG))
@@ -647,19 +643,19 @@ LABEL_60:
           v46 = v18;
           v47 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
           *buf = 138543874;
-          v77 = v47;
-          v78 = 2114;
-          v79 = v17;
-          v80 = 2114;
-          v81 = v63;
+          v76 = v47;
+          v77 = 2114;
+          v78 = v17;
+          v79 = 2114;
+          v80 = v62;
           _os_log_debug_impl(&dword_251CC8000, v46, OS_LOG_TYPE_DEBUG, "%{public}@ retrieveReferences: attempting to retrieve %{public}@ in %{public}@", buf, 0x20u);
         }
 
-        v57 = v16;
-        jSONObject = [v63 JSONObject];
-        v70 = 0;
-        v20 = [HDFHIRReferenceProcessor referencesAtKeyPath:v17 resourceDictionary:jSONObject error:&v70];
-        v21 = v70;
+        v56 = v16;
+        jSONObject = [v62 JSONObject];
+        v69 = 0;
+        v20 = [HDFHIRReferenceProcessor referencesAtKeyPath:v17 resourceDictionary:jSONObject error:&v69];
+        v21 = v69;
 
         if (!v20)
         {
@@ -673,20 +669,20 @@ LABEL_60:
           v23 = v28;
           v24 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
           *buf = 138544130;
-          v77 = v24;
-          v78 = 2114;
-          v79 = v17;
-          v80 = 2114;
-          v81 = resourceType;
-          v82 = 2114;
-          v83 = v21;
+          v76 = v24;
+          v77 = 2114;
+          v78 = v17;
+          v79 = 2114;
+          v80 = resourceType;
+          v81 = 2114;
+          v82 = v21;
           v25 = v23;
           v26 = "%{public}@ retrieveReferences: invalid reference at %{public}@ on %{public}@ resource: %{public}@";
           v27 = 42;
           goto LABEL_40;
         }
 
-        v12 = v63;
+        v12 = v62;
         if (![v20 count])
         {
           _HKInitializeLogging();
@@ -694,19 +690,19 @@ LABEL_60:
           if (!os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
           {
 LABEL_13:
-            v12 = v63;
-            [contextCopy recordUnresolvableReference:v17 forResource:v63 hint:2];
+            v12 = v62;
+            [contextCopy recordUnresolvableReference:v17 forResource:v62 hint:2];
             goto LABEL_14;
           }
 
           v23 = v22;
           v24 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
           *buf = 138543874;
-          v77 = v24;
-          v78 = 2114;
-          v79 = v17;
-          v80 = 2114;
-          v81 = resourceType;
+          v76 = v24;
+          v77 = 2114;
+          v78 = v17;
+          v79 = 2114;
+          v80 = resourceType;
           v25 = v23;
           v26 = "%{public}@ retrieveReferences: reference %{public}@ on %{public}@ not present";
           v27 = 32;
@@ -717,30 +713,30 @@ LABEL_40:
         }
 
 LABEL_14:
-        v56 = v21;
-        v68 = 0u;
-        v69 = 0u;
-        v66 = 0u;
+        v55 = v21;
         v67 = 0u;
+        v68 = 0u;
+        v65 = 0u;
+        v66 = 0u;
         v29 = v20;
-        v30 = [v29 countByEnumeratingWithState:&v66 objects:v75 count:16];
+        v30 = [v29 countByEnumeratingWithState:&v65 objects:v74 count:16];
         if (!v30)
         {
           goto LABEL_37;
         }
 
         v31 = v30;
-        v32 = *v67;
+        v32 = *v66;
         do
         {
           for (i = 0; i != v31; ++i)
           {
-            if (*v67 != v32)
+            if (*v66 != v32)
             {
               objc_enumerationMutation(v29);
             }
 
-            v34 = *(*(&v66 + 1) + 8 * i);
+            v34 = *(*(&v65 + 1) + 8 * i);
             if ([(HDHealthRecordFindReferencesTask *)self _isIrretrievableReference:v34 serverBaseURL:serverBaseURL])
             {
               [contextCopy recordUnresolvableReference:v34 forResource:v12 hint:1];
@@ -748,9 +744,9 @@ LABEL_14:
             }
 
             v35 = serverBaseURL;
-            v65 = 0;
-            v36 = [(HDHealthRecordFindReferencesTask *)self _resourceForReference:v34 containedInResource:v12 error:&v65];
-            v37 = v65;
+            v64 = 0;
+            v36 = [(HDHealthRecordFindReferencesTask *)self _resourceForReference:v34 containedInResource:v12 error:&v64];
+            v37 = v64;
             if (v36)
             {
               _HKInitializeLogging();
@@ -760,9 +756,9 @@ LABEL_14:
                 v43 = v38;
                 v44 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
                 *buf = 138543618;
-                v77 = v44;
-                v78 = 2114;
-                v79 = v36;
+                v76 = v44;
+                v77 = 2114;
+                v78 = v36;
                 _os_log_debug_impl(&dword_251CC8000, v43, OS_LOG_TYPE_DEBUG, "%{public}@ retrieveReferences: resource %{public}@ was contained", buf, 0x16u);
               }
 
@@ -778,17 +774,17 @@ LABEL_14:
                 if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_DEBUG))
                 {
                   loga = v42;
-                  v58 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
-                  v59 = HKSensitiveLogItem();
+                  v57 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
+                  v58 = HKSensitiveLogItem();
                   *buf = 138543618;
-                  v77 = v58;
-                  v78 = 2114;
-                  v79 = v59;
+                  v76 = v57;
+                  v77 = 2114;
+                  v78 = v58;
                   _os_log_debug_impl(&dword_251CC8000, loga, OS_LOG_TYPE_DEBUG, "%{public}@ retrieveReferences: referenced resource not present, marking unresolved: %{public}@", buf, 0x16u);
                 }
 
-                v12 = v63;
-                [contextCopy recordUnresolvedReference:v34 forResource:v63];
+                v12 = v62;
+                [contextCopy recordUnresolvedReference:v34 forResource:v62];
                 goto LABEL_34;
               }
 
@@ -800,70 +796,68 @@ LABEL_14:
                 v45 = v41;
                 log = [(HDHealthRecordFindReferencesTask *)self debugDescription];
                 *buf = 138543618;
-                v77 = log;
-                v78 = 2114;
-                v79 = v40;
+                v76 = log;
+                v77 = 2114;
+                v78 = v40;
                 _os_log_debug_impl(&dword_251CC8000, v45, OS_LOG_TYPE_DEBUG, "%{public}@ retrieveReferences: found resource %{public}@", buf, 0x16u);
               }
 
               [contextCopy recordProcessedResource:v40];
             }
 
-            v12 = v63;
+            v12 = v62;
 LABEL_34:
 
             serverBaseURL = v35;
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v66 objects:v75 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v65 objects:v74 count:16];
         }
 
         while (v31);
 LABEL_37:
 
-        v16 = v57 + 1;
+        v16 = v56 + 1;
       }
 
-      while (v57 + 1 != v55);
-      v48 = [obj countByEnumeratingWithState:&v71 objects:v84 count:16];
-      v55 = v48;
+      while (v56 + 1 != v54);
+      v48 = [obj countByEnumeratingWithState:&v70 objects:v83 count:16];
+      v54 = v48;
     }
 
     while (v48);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (BOOL)processContainedResourcesInProcessingContext:(id)context error:(id *)error
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   [contextCopy resources];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
-  v5 = v72 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v69 objects:v83 count:16];
+  v5 = v71 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v68 objects:v82 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v70;
+    v8 = *v69;
     v9 = 0x2796E1000uLL;
     selfCopy = self;
-    v47 = *v70;
+    v46 = *v69;
     while (1)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v70 != v8)
+        if (*v69 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v69 + 1) + 8 * i);
+        v11 = *(*(&v68 + 1) + 8 * i);
         if ([(HDHealthRecordFindReferencesTask *)self _canProcessResource:v11])
         {
           v12 = [(HDHealthRecordRuleset *)self->_ruleset rulesetForFHIRResourceObject:v11];
@@ -873,29 +867,29 @@ LABEL_37:
           }
 
           v13 = v12;
-          v68 = 0u;
-          v66 = 0u;
           v67 = 0u;
           v65 = 0u;
+          v66 = 0u;
+          v64 = 0u;
           obj = [v12 retrieveReferences];
-          v52 = [obj countByEnumeratingWithState:&v65 objects:v82 count:16];
-          if (v52)
+          v51 = [obj countByEnumeratingWithState:&v64 objects:v81 count:16];
+          if (v51)
           {
-            v54 = *v66;
-            v48 = i;
-            v49 = v5;
-            v46 = v7;
-            v50 = v13;
+            v53 = *v65;
+            v47 = i;
+            v48 = v5;
+            v45 = v7;
+            v49 = v13;
             do
             {
-              for (j = 0; j != v52; ++j)
+              for (j = 0; j != v51; ++j)
               {
-                if (*v66 != v54)
+                if (*v65 != v53)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v15 = *(*(&v65 + 1) + 8 * j);
+                v15 = *(*(&v64 + 1) + 8 * j);
                 _HKInitializeLogging();
                 v16 = *MEMORY[0x277CCC2C0];
                 if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_DEBUG))
@@ -903,47 +897,47 @@ LABEL_37:
                   v35 = v16;
                   v36 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
                   *buf = 138543874;
-                  v75 = v36;
-                  v76 = 2114;
-                  v77 = v15;
-                  v78 = 2114;
-                  v79 = v11;
+                  v74 = v36;
+                  v75 = 2114;
+                  v76 = v15;
+                  v77 = 2114;
+                  v78 = v11;
                   _os_log_debug_impl(&dword_251CC8000, v35, OS_LOG_TYPE_DEBUG, "%{public}@ processContainedResources: looking at %{public}@ in %{public}@", buf, 0x20u);
                 }
 
                 v17 = *(v9 + 3552);
                 jSONObject = [v11 JSONObject];
-                v64 = 0;
-                v19 = [v17 referencesAtKeyPath:v15 resourceDictionary:jSONObject error:&v64];
-                v20 = v64;
+                v63 = 0;
+                v19 = [v17 referencesAtKeyPath:v15 resourceDictionary:jSONObject error:&v63];
+                v20 = v63;
 
                 if (v19)
                 {
-                  v53 = v20;
-                  v51 = j;
-                  v62 = 0u;
-                  v63 = 0u;
-                  v60 = 0u;
+                  v52 = v20;
+                  v50 = j;
                   v61 = 0u;
+                  v62 = 0u;
+                  v59 = 0u;
+                  v60 = 0u;
                   v21 = v19;
-                  v22 = [v21 countByEnumeratingWithState:&v60 objects:v73 count:16];
+                  v22 = [v21 countByEnumeratingWithState:&v59 objects:v72 count:16];
                   if (v22)
                   {
                     v23 = v22;
-                    v24 = *v61;
+                    v24 = *v60;
                     while (2)
                     {
                       for (k = 0; k != v23; ++k)
                       {
-                        if (*v61 != v24)
+                        if (*v60 != v24)
                         {
                           objc_enumerationMutation(v21);
                         }
 
-                        v26 = *(*(&v60 + 1) + 8 * k);
-                        v59 = 0;
-                        v27 = [(HDHealthRecordFindReferencesTask *)self _resourceForReference:v26 containedInResource:v11 error:&v59];
-                        v28 = v59;
+                        v26 = *(*(&v59 + 1) + 8 * k);
+                        v58 = 0;
+                        v27 = [(HDHealthRecordFindReferencesTask *)self _resourceForReference:v26 containedInResource:v11 error:&v58];
+                        v28 = v58;
                         if (v27)
                         {
                           v29 = [v27 copyWithOriginDataFrom:v11];
@@ -954,9 +948,9 @@ LABEL_37:
                             v32 = v30;
                             v33 = [(HDHealthRecordFindReferencesTask *)selfCopy debugDescription];
                             *buf = 138543618;
-                            v75 = v33;
-                            v76 = 2114;
-                            v77 = v29;
+                            v74 = v33;
+                            v75 = 2114;
+                            v76 = v29;
                             _os_log_debug_impl(&dword_251CC8000, v32, OS_LOG_TYPE_DEBUG, "%{public}@ processContainedResources: found contained resource %{public}@", buf, 0x16u);
                           }
 
@@ -967,13 +961,13 @@ LABEL_37:
                           {
 
                             v43 = 0;
-                            v5 = v49;
+                            v5 = v48;
                             goto LABEL_41;
                           }
                         }
                       }
 
-                      v23 = [v21 countByEnumeratingWithState:&v60 objects:v73 count:16];
+                      v23 = [v21 countByEnumeratingWithState:&v59 objects:v72 count:16];
                       if (v23)
                       {
                         continue;
@@ -984,9 +978,9 @@ LABEL_37:
                   }
 
                   v9 = 0x2796E1000;
-                  i = v48;
-                  j = v51;
-                  v20 = v53;
+                  i = v47;
+                  j = v50;
+                  v20 = v52;
                 }
 
                 else
@@ -997,15 +991,15 @@ LABEL_37:
                   {
                     v37 = v34;
                     v38 = [(HDHealthRecordFindReferencesTask *)self debugDescription];
-                    resourceName = [v50 resourceName];
+                    resourceName = [v49 resourceName];
                     *buf = 138544130;
-                    v75 = v38;
-                    v76 = 2114;
-                    v77 = v15;
-                    v78 = 2114;
-                    v79 = resourceName;
-                    v80 = 2114;
-                    v81 = v20;
+                    v74 = v38;
+                    v75 = 2114;
+                    v76 = v15;
+                    v77 = 2114;
+                    v78 = resourceName;
+                    v79 = 2114;
+                    v80 = v20;
                     _os_log_error_impl(&dword_251CC8000, v37, OS_LOG_TYPE_ERROR, "%{public}@ processContainedResources: invalid reference at %{public}@ on %{public}@ resource: %{public}@", buf, 0x2Au);
 
                     self = selfCopy;
@@ -1013,14 +1007,14 @@ LABEL_37:
                 }
               }
 
-              v5 = v49;
-              v13 = v50;
-              v8 = v47;
-              v7 = v46;
-              v52 = [obj countByEnumeratingWithState:&v65 objects:v82 count:16];
+              v5 = v48;
+              v13 = v49;
+              v8 = v46;
+              v7 = v45;
+              v51 = [obj countByEnumeratingWithState:&v64 objects:v81 count:16];
             }
 
-            while (v52);
+            while (v51);
           }
         }
 
@@ -1037,17 +1031,17 @@ LABEL_37:
           [(HDHealthRecordFindReferencesTask *)self debugDescription];
           v42 = v41 = v7;
           *buf = 138543618;
-          v75 = v42;
-          v76 = 2114;
-          v77 = v11;
+          v74 = v42;
+          v75 = 2114;
+          v76 = v11;
           _os_log_error_impl(&dword_251CC8000, v13, OS_LOG_TYPE_ERROR, "%{public}@ processContainedResources: cannot process resource: %{public}@", buf, 0x16u);
 
           v7 = v41;
-          v8 = v47;
+          v8 = v46;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v69 objects:v83 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v68 objects:v82 count:16];
       v43 = 1;
       if (!v7)
       {
@@ -1059,7 +1053,6 @@ LABEL_37:
   v43 = 1;
 LABEL_41:
 
-  v44 = *MEMORY[0x277D85DE8];
   return v43;
 }
 
@@ -1116,7 +1109,7 @@ uint64_t __53__HDHealthRecordFindReferencesTask__filterResources___block_invoke(
       v10 = *MEMORY[0x277CCC2C0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
       {
-        [HDHealthRecordFindReferencesTask _isIrretrievableReference:v10 serverBaseURL:self];
+        [(HDHealthRecordFindReferencesTask *)v10 _isIrretrievableReference:referenceCopy serverBaseURL:?];
       }
     }
   }
@@ -1151,7 +1144,7 @@ uint64_t __53__HDHealthRecordFindReferencesTask__filterResources___block_invoke(
     v9 = *MEMORY[0x277CCC2C0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
     {
-      [HDHealthRecordFindReferencesTask _resourceReference:v9 containedInResource:self];
+      [(HDHealthRecordFindReferencesTask *)v9 _resourceReference:v7 containedInResource:?];
     }
   }
 
@@ -1160,27 +1153,27 @@ uint64_t __53__HDHealthRecordFindReferencesTask__filterResources___block_invoke(
 
 - (id)_resourceReference:(id)reference presentInResources:(id)resources
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   referenceCopy = reference;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   resourcesCopy = resources;
-  v7 = [resourcesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [resourcesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(resourcesCopy);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         identifier = [v10 identifier];
         v13 = [HDFHIRReferenceProcessor reference:referenceCopy matchesIdentifier:identifier];
@@ -1195,7 +1188,7 @@ uint64_t __53__HDHealthRecordFindReferencesTask__filterResources___block_invoke(
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [resourcesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [resourcesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -1206,8 +1199,6 @@ uint64_t __53__HDHealthRecordFindReferencesTask__filterResources___block_invoke(
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

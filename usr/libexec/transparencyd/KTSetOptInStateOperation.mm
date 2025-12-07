@@ -2,12 +2,16 @@
 - (KTSetOptInStateOperation)initWithDependenics:(id)dependenics intendedState:(id)state errorState:(id)errorState optinStates:(id)states;
 - (id)notificationKey;
 - (id)optInKey;
+- (id)verifyResponse:(id)response uri:(id)uri expectedState:(BOOL)state;
+- (unint64_t)decodeAndVerifyOptInOutResponse:(id)response optInOutState:(BOOL)state optInOutTime:(id *)time error:(id *)error;
+- (unint64_t)decodeAndVerifySMT:(id)t optInOutState:(BOOL)state optInOutTime:(id *)time error:(id *)error;
 - (void)clearCoreFollowUp;
 - (void)clearFailureEvents;
 - (void)clearOptInStateAndPushToCloud;
 - (void)groupStart;
 - (void)notifyOptInStatusChanged;
 - (void)processResponse:(id)response watcher:(id)watcher finishOp:(id)op;
+- (void)setKVSSMTTime:(id)time forState:(BOOL)state;
 @end
 
 @implementation KTSetOptInStateOperation
@@ -33,6 +37,40 @@
   }
 
   return v15;
+}
+
+- (id)verifyResponse:(id)response uri:(id)uri expectedState:(BOOL)state
+{
+  stateCopy = state;
+  v16 = 0;
+  v17 = 0;
+  uriCopy = uri;
+  v9 = [(KTSetOptInStateOperation *)self decodeAndVerifyOptInOutResponse:response optInOutState:stateCopy optInOutTime:&v17 error:&v16];
+  v10 = v17;
+  v11 = v16;
+  v12 = objc_alloc_init(KTSetOptInResult);
+  [(KTSetOptInResult *)v12 setSuccess:v9 == 1];
+  [(KTSetOptInResult *)v12 setUri:uriCopy];
+
+  v13 = [NSNumber numberWithBool:stateCopy];
+  [(KTSetOptInResult *)v12 setOptInStatus:v13];
+
+  [(KTSetOptInResult *)v12 setOptInDate:v10];
+  [(KTSetOptInResult *)v12 setError:v11];
+  if (qword_10038BCD0 != -1)
+  {
+    sub_100248F20();
+  }
+
+  v14 = qword_10038BCD8;
+  if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v19 = v12;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "verified response returned: %@", buf, 0xCu);
+  }
+
+  return v12;
 }
 
 - (void)groupStart
@@ -601,6 +639,68 @@ LABEL_80:
   [cloudKitOutgoingNFS2 trigger];
 }
 
+- (void)setKVSSMTTime:(id)time forState:(BOOL)state
+{
+  stateCopy = state;
+  timeCopy = time;
+  applicationId = [(KTSetOptInStateOperation *)self applicationId];
+  deps = [(KTSetOptInStateOperation *)self deps];
+  v9 = [deps kvs];
+  v28 = 0;
+  v10 = [KTOptInManagerServer getOptInHistory:applicationId store:v9 error:&v28];
+  v11 = v28;
+
+  if (v11)
+  {
+    deps2 = [(KTSetOptInStateOperation *)self deps];
+    logger = [deps2 logger];
+    [logger logResultForEvent:@"optInHistory" hardFailure:1 result:v11];
+
+    if (qword_10038BCD0 != -1)
+    {
+      sub_1002490B0();
+    }
+
+    v14 = qword_10038BCD8;
+    if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v31 = v11;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "getOptInHistory failed with %@", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    v15 = dispatch_semaphore_create(0);
+    v16 = [NSMutableArray arrayWithArray:v10];
+    v29[0] = timeCopy;
+    v17 = [NSNumber numberWithBool:stateCopy];
+    v29[1] = v17;
+    v18 = [NSArray arrayWithObjects:v29 count:2];
+    [v16 addObject:v18];
+
+    deps3 = [(KTSetOptInStateOperation *)self deps];
+    v20 = [deps3 kvs];
+    optInKey = [(KTSetOptInStateOperation *)self optInKey];
+    [v20 setObject:v16 forKey:optInKey];
+
+    deps4 = [(KTSetOptInStateOperation *)self deps];
+    v23 = [deps4 kvs];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_10003D338;
+    v26[3] = &unk_100317648;
+    v26[4] = self;
+    v27 = v15;
+    v24 = v15;
+    [v23 forceSync:v26];
+
+    v25 = dispatch_time(0, 30000000000);
+    dispatch_semaphore_wait(v24, v25);
+  }
+}
+
 - (void)clearFailureEvents
 {
   deps = [(KTSetOptInStateOperation *)self deps];
@@ -657,6 +757,372 @@ LABEL_80:
   v4 = +[NSDistributedNotificationCenter defaultCenter];
   notificationKey = [(KTSetOptInStateOperation *)self notificationKey];
   [v4 postNotificationName:notificationKey object:0 userInfo:0 deliverImmediately:1];
+}
+
+- (unint64_t)decodeAndVerifyOptInOutResponse:(id)response optInOutState:(BOOL)state optInOutTime:(id *)time error:(id *)error
+{
+  stateCopy = state;
+  v29 = 0;
+  v10 = [(TransparencyGPBMessage *)OptInOutResponse parseFromData:response error:&v29];
+  v11 = v29;
+  if (v10)
+  {
+    if ([v10 status] == 1 || objc_msgSend(v10, "status") == 3)
+    {
+      v12 = [v10 smt];
+      v28 = 0;
+      v13 = [(KTSetOptInStateOperation *)self decodeAndVerifySMT:v12 optInOutState:stateCopy optInOutTime:time error:&v28];
+      v14 = v28;
+
+      if (v13 != 1)
+      {
+        if (qword_10038BCD0 != -1)
+        {
+          sub_100249150();
+        }
+
+        v15 = qword_10038BCD8;
+        if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_ERROR))
+        {
+          v16 = v15;
+          serverEventInfo = [v10 serverEventInfo];
+          *buf = 138412546;
+          *v31 = serverEventInfo;
+          *&v31[8] = 2112;
+          *&v31[10] = v14;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "SMT verification failed for OptInOutResponse with %@: %@", buf, 0x16u);
+        }
+
+        if (error && v14)
+        {
+          v18 = v14;
+          *error = v14;
+        }
+      }
+
+      v19 = 0;
+      goto LABEL_26;
+    }
+
+    if (qword_10038BCD0 != -1)
+    {
+      sub_100249128();
+    }
+
+    v22 = qword_10038BCD8;
+    if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_ERROR))
+    {
+      v23 = v22;
+      status = [v10 status];
+      serverEventInfo2 = [v10 serverEventInfo];
+      *buf = 67109378;
+      *v31 = status;
+      *&v31[4] = 2112;
+      *&v31[6] = serverEventInfo2;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "optInOutResponse status failure: %d. ServerHint: %@", buf, 0x12u);
+    }
+
+    v21 = +[TransparencyError errorWithDomain:code:description:](TransparencyError, "errorWithDomain:code:description:", kTransparencyErrorServer, [v10 status], @"optInOutResponse status failure: %d", objc_msgSend(v10, "status"));
+  }
+
+  else
+  {
+    if (qword_10038BCD0 != -1)
+    {
+      sub_100249178();
+    }
+
+    v20 = qword_10038BCD8;
+    if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      *v31 = v11;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "failed to parse optInOutResponse from directory server: %@", buf, 0xCu);
+    }
+
+    v21 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-318 underlyingError:v11 description:@"failed to parse optInOutResponse from directory server"];
+  }
+
+  v19 = v21;
+  v13 = 0;
+  if (error && v21)
+  {
+    v26 = v21;
+    v13 = 0;
+    *error = v19;
+  }
+
+LABEL_26:
+
+  return v13;
+}
+
+- (unint64_t)decodeAndVerifySMT:(id)t optInOutState:(BOOL)state optInOutTime:(id *)time error:(id *)error
+{
+  stateCopy = state;
+  tCopy = t;
+  deps = [(KTSetOptInStateOperation *)self deps];
+  publicKeyStore = [deps publicKeyStore];
+  applicationId = [(KTSetOptInStateOperation *)self applicationId];
+  v14 = [publicKeyStore applicationPublicKeyStore:applicationId];
+
+  if (v14)
+  {
+    appSmtKeyStore = [v14 appSmtKeyStore];
+    signatureVerifier = [appSmtKeyStore signatureVerifier];
+
+    deps2 = [(KTSetOptInStateOperation *)self deps];
+    dataStore = [deps2 dataStore];
+    v19 = signatureVerifier;
+    v20 = [SignedMutationTimestamp signedTypeWithObject:tCopy verifier:signatureVerifier dataStore:dataStore];
+
+    v67 = 0;
+    v21 = [v20 verifyWithError:&v67];
+    v22 = v67;
+    if (v21 != 1)
+    {
+      if (qword_10038BCD0 != -1)
+      {
+        sub_1002491A0();
+      }
+
+      v34 = qword_10038BCD8;
+      if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v71 = v22;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "failed to verify optInOut SMT from directory server: %@", buf, 0xCu);
+      }
+
+      v35 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-316 underlyingError:v22 description:@"failed to verify optInOut SMT from directory server"];
+      v36 = v35;
+      v24 = 0;
+      if (error && v35)
+      {
+        v37 = v35;
+        v24 = 0;
+        *error = v36;
+      }
+
+      goto LABEL_59;
+    }
+
+    v66 = 0;
+    v23 = [v20 parsedMutationWithError:&v66];
+    v24 = v66;
+    v65 = v23;
+    if (!v23)
+    {
+      if (qword_10038BCD0 != -1)
+      {
+        sub_100249268();
+      }
+
+      v38 = qword_10038BCD8;
+      if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v71 = v24;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "failed to parse mutation from SMT from directory server: %@", buf, 0xCu);
+      }
+
+      v39 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-316 underlyingError:v24 description:@"failed to parse mutation from SMT from directory server"];
+      v36 = v39;
+      v21 = 0;
+      if (error && v39)
+      {
+        v40 = v39;
+        v21 = 0;
+        *error = v36;
+      }
+
+      goto LABEL_58;
+    }
+
+    mutationType = [v23 mutationType];
+    if (mutationType == 6)
+    {
+      v63 = v19;
+      if (qword_10038BCD0 != -1)
+      {
+        sub_1002491C8();
+      }
+
+      v62 = v24;
+      v41 = qword_10038BCD8;
+      if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_DEBUG))
+      {
+        v42 = v41;
+        optInOutMutation = [v23 optInOutMutation];
+        v44 = [optInOutMutation description];
+        *buf = 138412290;
+        v71 = v44;
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "decodeAndVerifySMT OptInOut_Sync: %@", buf, 0xCu);
+
+        v23 = v65;
+      }
+
+      [v23 optInOutMutation];
+      v46 = v45 = v23;
+      v64 = +[NSDate dateWithTimeIntervalSince1970:](NSDate, "dateWithTimeIntervalSince1970:", ([v46 timestampMs] / 0x3E8));
+
+      optInOutMutation2 = [v45 optInOutMutation];
+    }
+
+    else
+    {
+      if (mutationType != 3)
+      {
+        if (qword_10038BCD0 != -1)
+        {
+          sub_100249240();
+        }
+
+        v57 = qword_10038BCD8;
+        if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "mutation from directory server not optInOut", buf, 2u);
+        }
+
+        v52 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-314 description:@"mutation from directory server not optInOut"];
+
+        v55 = 0;
+        if (error && v52)
+        {
+          v58 = v52;
+          v55 = 0;
+          v21 = 0;
+          *error = v52;
+        }
+
+        else
+        {
+          v21 = 0;
+        }
+
+        goto LABEL_57;
+      }
+
+      v63 = v19;
+      if (qword_10038BCD0 != -1)
+      {
+        sub_1002491F0();
+      }
+
+      v60 = v24;
+      v26 = qword_10038BCD8;
+      if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_DEBUG))
+      {
+        v27 = v26;
+        optInOut = [v23 optInOut];
+        v29 = [optInOut description];
+        *buf = 138412290;
+        v71 = v29;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "decodeAndVerifySMT OptInOutMutation: %@", buf, 0xCu);
+
+        v23 = v65;
+      }
+
+      [v23 optInOut];
+      v31 = v30 = v23;
+      v64 = +[NSDate dateWithTimeIntervalSince1970:](NSDate, "dateWithTimeIntervalSince1970:", ([v31 timestampMs] / 0x3E8));
+
+      optInOutMutation2 = [v30 optInOut];
+    }
+
+    v47 = optInOutMutation2;
+    optIn = [optInOutMutation2 optIn];
+
+    v24 = v61;
+    if (optIn == stateCopy)
+    {
+      v21 = 1;
+      if (time)
+      {
+        v19 = v63;
+        v55 = v64;
+        if (v64)
+        {
+          v56 = v64;
+          v55 = v64;
+          *time = v64;
+          v21 = 1;
+        }
+
+        v52 = v22;
+      }
+
+      else
+      {
+        v52 = v22;
+        v19 = v63;
+        v55 = v64;
+      }
+    }
+
+    else
+    {
+      v68[0] = @"mutation";
+      v49 = [NSNumber numberWithBool:optIn];
+      v68[1] = @"expected";
+      v69[0] = v49;
+      v50 = [NSNumber numberWithBool:stateCopy];
+      v69[1] = v50;
+      v51 = [NSDictionary dictionaryWithObjects:v69 forKeys:v68 count:2];
+
+      v52 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-315 underlyingError:0 userinfo:v51 description:@"mutation from directory server has wrong optInOut state"];
+
+      if (qword_10038BCD0 != -1)
+      {
+        sub_100249218();
+      }
+
+      v53 = qword_10038BCD8;
+      v19 = v63;
+      if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v71 = v52;
+        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "mutation from directory server has wrong optInOut %@", buf, 0xCu);
+      }
+
+      if (error && v52)
+      {
+        v54 = v52;
+        *error = v52;
+      }
+
+      v21 = 0;
+      v55 = v64;
+    }
+
+LABEL_57:
+
+    v36 = 0;
+    v22 = v52;
+LABEL_58:
+
+LABEL_59:
+    goto LABEL_60;
+  }
+
+  if (qword_10038BCD0 != -1)
+  {
+    sub_100249290();
+  }
+
+  v33 = qword_10038BCD8;
+  if (os_log_type_enabled(qword_10038BCD8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "could not get KTApplicationPublicKeyStore", buf, 2u);
+  }
+
+  v21 = 0;
+LABEL_60:
+
+  return v21;
 }
 
 @end

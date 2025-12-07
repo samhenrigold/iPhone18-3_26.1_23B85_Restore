@@ -101,7 +101,6 @@
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 96);
   if (*&self->_has)
   {
     if ((*(equalCopy + 96) & 1) == 0 || self->_columnLength != *(equalCopy + 10))
@@ -122,7 +121,6 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v6 = *(equalCopy + 96);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 96) & 2) == 0 || self->_rowLength != *(equalCopy + 11))
@@ -225,15 +223,14 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v14 = toCopy;
+  v9 = toCopy;
   if (self->_columnIndices.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_columnIndices.list[v5];
       PBDataWriterWriteUint64Field();
-      toCopy = v14;
+      toCopy = v9;
       ++v5;
     }
 
@@ -242,45 +239,41 @@ LABEL_16:
 
   if (*&self->_has)
   {
-    columnLength = self->_columnLength;
     PBDataWriterWriteUint64Field();
-    toCopy = v14;
+    toCopy = v9;
   }
 
   if (self->_rowIndices.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_rowIndices.list[v8];
       PBDataWriterWriteUint64Field();
-      toCopy = v14;
-      ++v8;
+      toCopy = v9;
+      ++v6;
     }
 
-    while (v8 < self->_rowIndices.count);
+    while (v6 < self->_rowIndices.count);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    rowLength = self->_rowLength;
     PBDataWriterWriteUint64Field();
-    toCopy = v14;
+    toCopy = v9;
   }
 
   p_values = &self->_values;
   if (p_values->count)
   {
-    v12 = 0;
+    v8 = 0;
     do
     {
-      v13 = p_values->list[v12];
       PBDataWriterWriteFloatField();
-      toCopy = v14;
-      ++v12;
+      toCopy = v9;
+      ++v8;
     }
 
-    while (v12 < p_values->count);
+    while (v8 < p_values->count);
   }
 }
 

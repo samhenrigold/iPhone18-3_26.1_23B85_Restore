@@ -35,11 +35,12 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension20PlatformSelectorView_didSelectHandler);
   if (v2)
   {
+    v3 = *&self->descriptionWithBadgesAsHeadingLabel[OBJC_IVAR____TtC22SubscribePageExtension20PlatformSelectorView_didSelectHandler];
     selfCopy = self;
-    v4 = sub_10001B5AC(v2);
-    v2(v4);
+    v5 = sub_10001B5AC(v2, v3);
+    v2(v5);
 
-    sub_1000164A8(v2);
+    sub_1000164A8(v2, v3);
   }
 }
 
@@ -52,9 +53,9 @@
 - (_TtC11AppStoreKit16DynamicTypeLabel)accessibilityDescriptionLabel
 {
   selfCopy = self;
-  v3 = sub_1003FCE68();
+  v4 = sub_1003FCE68(v3);
 
-  return v3;
+  return v4;
 }
 
 @end

@@ -379,8 +379,8 @@ LABEL_54:
   v6 = *&d->m23;
   v8[2] = *&d->m21;
   v8[3] = v6;
-  [(UISTransform3DGrader *)self _gradeTransform3D:v8];
-  return v9;
+  objc_msgSend__gradeTransform3D_(self, a2, v8);
+  return v9[0];
 }
 
 - (unint64_t)gradeStartTransform3D:(CATransform3D *)d endTransform3D:(CATransform3D *)transform3D
@@ -400,7 +400,7 @@ LABEL_54:
   v9 = *&d->m23;
   v19 = *&d->m21;
   v20 = v9;
-  [(UISTransform3DGrader *)self _gradeTransform3D:&v17];
+  objc_msgSend__gradeTransform3D_(self, a2, &v17);
   v10 = *&transform3D->m33;
   v21 = *&transform3D->m31;
   v22 = v10;
@@ -413,7 +413,7 @@ LABEL_54:
   v13 = *&transform3D->m23;
   v19 = *&transform3D->m21;
   v20 = v13;
-  [(UISTransform3DGrader *)self _gradeTransform3D:&v17];
+  objc_msgSend__gradeTransform3D_(self);
   allowedShift = self->_allowedShift;
   v15 = hypot(v26 - 0.0, v27 - 0.0);
   return v25 | ((allowedShift < v15) << 7);

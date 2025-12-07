@@ -16,8 +16,8 @@
   v5 = RCJSONStringValue(dictionaryCopy, @"message", 0);
   v6 = RCJSONStringValue(dictionaryCopy, @"stacktrace", 0);
 
-  v7 = RCSharedLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = RCSharedLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138543874;
     v12 = v4;
@@ -25,13 +25,12 @@
     v14 = v5;
     v15 = 2112;
     v16 = v6;
-    _os_log_impl(&dword_2179FC000, v7, OS_LOG_TYPE_DEFAULT, "creating endpoint error with code: %{public}@ message: %{public}@ stacktrace: %@", &v11, 0x20u);
+    _os_log_impl(&dword_2179FC000, v8, OS_LOG_TYPE_DEFAULT, "creating endpoint error with code: %{public}@ message: %{public}@ stacktrace: %@", &v11, 0x20u);
   }
 
-  v8 = [[RCEndpointError alloc] initWithErrorCode:v4 message:v5 stacktrace:v6];
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = [[RCEndpointError alloc] initWithErrorCode:v4 message:v5 stacktrace:v6];
 
-  return v8;
+  return v9;
 }
 
 - (RCEndpointError)initWithErrorCode:(id)code message:(id)message stacktrace:(id)stacktrace

@@ -113,7 +113,7 @@
 
 - (HMIncomingHomeInvitationData)initWithInviterUserID:(id)d invitationIdentifier:(id)identifier inviterName:(id)name invitationState:(int64_t)state homeName:(id)homeName homeUUID:(id)iD expiryDate:(id)date
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   dCopy = d;
   identifierCopy = identifier;
   nameCopy = name;
@@ -136,9 +136,9 @@
         {
           v37 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v59 = v37;
-          v60 = 2112;
-          v61 = dateCopy;
+          v58 = v37;
+          v59 = 2112;
+          v60 = dateCopy;
           _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_INFO, "%{public}@Setting home invitation expiry date to %@", buf, 0x16u);
         }
 
@@ -152,9 +152,9 @@
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v59 = v35;
-          v60 = 2112;
-          v61 = dateCopy;
+          v58 = v35;
+          v59 = 2112;
+          v60 = dateCopy;
           _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_INFO, "%{public}@Home invitation expiry date is already in the past, expiryDate: %@", buf, 0x16u);
         }
 
@@ -174,11 +174,11 @@
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v59 = v24;
-        v60 = 2048;
-        v61 = 0x40C5180000000000;
-        v62 = 2112;
-        v63 = dateCopy;
+        v58 = v24;
+        v59 = 2048;
+        v60 = 0x40C5180000000000;
+        v61 = 2112;
+        v62 = dateCopy;
         _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@Capping home invitation expiry duration to %g seconds from now, original expiry date: %@", buf, 0x20u);
       }
 
@@ -198,16 +198,16 @@
     if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v54 = identifierCopy;
+      v53 = identifierCopy;
       v31 = v30 = iDCopy;
       *buf = 138543618;
-      v59 = v31;
-      v60 = 2112;
-      v61 = v25;
+      v58 = v31;
+      v59 = 2112;
+      v60 = v25;
       _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_INFO, "%{public}@Setting home invitation expiry date to maximum allowed: %@", buf, 0x16u);
 
       iDCopy = v30;
-      identifierCopy = v54;
+      identifierCopy = v53;
     }
 
     objc_autoreleasePoolPop(v28);
@@ -215,9 +215,9 @@
     self = selfCopy;
   }
 
-  v57.receiver = self;
-  v57.super_class = HMIncomingHomeInvitationData;
-  v38 = [(HMHomeInvitationData *)&v57 initWithInvitationState:state invitationIdentifier:identifierCopy endDate:v25];
+  v56.receiver = self;
+  v56.super_class = HMIncomingHomeInvitationData;
+  v38 = [(HMHomeInvitationData *)&v56 initWithInvitationState:state invitationIdentifier:identifierCopy endDate:v25];
   if (v38)
   {
     v39 = [dCopy copy];
@@ -245,7 +245,6 @@
     v38->_lock._os_unfair_lock_opaque = 0;
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return v38;
 }
 

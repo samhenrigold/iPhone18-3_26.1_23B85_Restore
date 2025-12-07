@@ -9,52 +9,52 @@
 - (id)addChainObserver:(id)observer
 {
   observerCopy = observer;
-  v5 = +[BKSHIDEventObserver sharedInstance];
-  v6 = [v5 addObservingClient:observerCopy forChainObserver:self];
+  v4 = +[BKSHIDEventObserver sharedInstance];
+  v5 = [v4 addObservingClient:? forChainObserver:?];
 
-  return v6;
+  return v5;
 }
 
 - (BKSHIDEventDeliveryChainObserver)initWithDisplay:(id)display environment:(id)environment
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   displayCopy = display;
   environmentCopy = environment;
-  v51.receiver = self;
-  v51.super_class = BKSHIDEventDeliveryChainObserver;
-  v10 = [(BKSHIDEventDeliveryChainObserver *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = BKSHIDEventDeliveryChainObserver;
+  v10 = [(BKSHIDEventDeliveryChainObserver *)&v50 init];
   if (v10)
   {
     v11 = displayCopy;
     if (!v11)
     {
-      v19 = MEMORY[0x1E696AEC0];
+      v18 = MEMORY[0x1E696AEC0];
       objc_opt_class();
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = [v19 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"display", v21];
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v21 = [v18 stringWithFormat:@"display", v20];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v23 = NSStringFromSelector(a2);
-        v24 = objc_opt_class();
-        v25 = NSStringFromClass(v24);
+        v22 = NSStringFromSelector(a2);
+        v23 = objc_opt_class();
+        v24 = NSStringFromClass(v23);
         *buf = 138544642;
-        v53 = v23;
-        v54 = 2114;
-        v55 = v25;
-        v56 = 2048;
-        v57 = v10;
-        v58 = 2114;
-        v59 = @"BKSHIDEventDeliveryChainObserver.m";
-        v60 = 1024;
-        v61 = 30;
-        v62 = 2114;
-        v63 = v22;
+        v52 = v22;
+        v53 = 2114;
+        v54 = v24;
+        v55 = 2048;
+        v56 = v10;
+        v57 = 2114;
+        v58 = @"BKSHIDEventDeliveryChainObserver.m";
+        v59 = 1024;
+        v60 = 30;
+        v61 = 2114;
+        v62 = v21;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v22 UTF8String];
+      [v21 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18635A9DCLL);
@@ -65,40 +65,40 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v26 = MEMORY[0x1E696AEC0];
+      v25 = MEMORY[0x1E696AEC0];
       classForCoder = [v12 classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v28 = NSStringFromClass(classForCoder);
+      v27 = NSStringFromClass(classForCoder);
       objc_opt_class();
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
-      v31 = [v26 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"display", v28, v30];
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
+      v30 = [v25 stringWithFormat:@"display", v27, v29];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v32 = NSStringFromSelector(a2);
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
+        v31 = NSStringFromSelector(a2);
+        v32 = objc_opt_class();
+        v33 = NSStringFromClass(v32);
         *buf = 138544642;
-        v53 = v32;
-        v54 = 2114;
-        v55 = v34;
-        v56 = 2048;
-        v57 = v10;
-        v58 = 2114;
-        v59 = @"BKSHIDEventDeliveryChainObserver.m";
-        v60 = 1024;
-        v61 = 30;
-        v62 = 2114;
-        v63 = v31;
+        v52 = v31;
+        v53 = 2114;
+        v54 = v33;
+        v55 = 2048;
+        v56 = v10;
+        v57 = 2114;
+        v58 = @"BKSHIDEventDeliveryChainObserver.m";
+        v59 = 1024;
+        v60 = 30;
+        v61 = 2114;
+        v62 = v30;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v31 UTF8String];
+      [v30 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18635AB1CLL);
@@ -107,33 +107,33 @@
     v13 = environmentCopy;
     if (!v13)
     {
-      v35 = MEMORY[0x1E696AEC0];
+      v34 = MEMORY[0x1E696AEC0];
       objc_opt_class();
-      v36 = objc_opt_class();
-      v37 = NSStringFromClass(v36);
-      v38 = [v35 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"deferringEnvironment", v37];
+      v35 = objc_opt_class();
+      v36 = NSStringFromClass(v35);
+      v37 = [v34 stringWithFormat:@"deferringEnvironment", v36];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v39 = NSStringFromSelector(a2);
-        v40 = objc_opt_class();
-        v41 = NSStringFromClass(v40);
+        v38 = NSStringFromSelector(a2);
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
         *buf = 138544642;
-        v53 = v39;
-        v54 = 2114;
-        v55 = v41;
-        v56 = 2048;
-        v57 = v10;
-        v58 = 2114;
-        v59 = @"BKSHIDEventDeliveryChainObserver.m";
-        v60 = 1024;
-        v61 = 31;
-        v62 = 2114;
-        v63 = v38;
+        v52 = v38;
+        v53 = 2114;
+        v54 = v40;
+        v55 = 2048;
+        v56 = v10;
+        v57 = 2114;
+        v58 = @"BKSHIDEventDeliveryChainObserver.m";
+        v59 = 1024;
+        v60 = 31;
+        v61 = 2114;
+        v62 = v37;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v38 UTF8String];
+      [v37 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18635AC38);
@@ -144,40 +144,40 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v42 = MEMORY[0x1E696AEC0];
+      v41 = MEMORY[0x1E696AEC0];
       classForCoder2 = [v14 classForCoder];
       if (!classForCoder2)
       {
         classForCoder2 = objc_opt_class();
       }
 
-      v44 = NSStringFromClass(classForCoder2);
+      v43 = NSStringFromClass(classForCoder2);
       objc_opt_class();
-      v45 = objc_opt_class();
-      v46 = NSStringFromClass(v45);
-      v47 = [v42 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"deferringEnvironment", v44, v46];
+      v44 = objc_opt_class();
+      v45 = NSStringFromClass(v44);
+      v46 = [v41 stringWithFormat:@"deferringEnvironment", v43, v45];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v48 = NSStringFromSelector(a2);
-        v49 = objc_opt_class();
-        v50 = NSStringFromClass(v49);
+        v47 = NSStringFromSelector(a2);
+        v48 = objc_opt_class();
+        v49 = NSStringFromClass(v48);
         *buf = 138544642;
-        v53 = v48;
-        v54 = 2114;
-        v55 = v50;
-        v56 = 2048;
-        v57 = v10;
-        v58 = 2114;
-        v59 = @"BKSHIDEventDeliveryChainObserver.m";
-        v60 = 1024;
-        v61 = 31;
-        v62 = 2114;
-        v63 = v47;
+        v52 = v47;
+        v53 = 2114;
+        v54 = v49;
+        v55 = 2048;
+        v56 = v10;
+        v57 = 2114;
+        v58 = @"BKSHIDEventDeliveryChainObserver.m";
+        v59 = 1024;
+        v60 = 31;
+        v61 = 2114;
+        v62 = v46;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v47 UTF8String];
+      [v46 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18635AD78);
@@ -185,12 +185,11 @@
 
     objc_storeStrong(&v10->_display, display);
     objc_storeStrong(&v10->_deferringEnvironment, environment);
-    v15 = [[BKSEventDeferringChainIdentity alloc] initWithDisplay:v10->_display environment:v10->_deferringEnvironment];
+    v15 = [BKSEventDeferringChainIdentity initWithDisplay:"initWithDisplay:environment:" environment:?];
     chainIdentity = v10->_chainIdentity;
     v10->_chainIdentity = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -198,7 +197,7 @@
 {
   v3 = +[BKSHIDEventDisplay nullDisplay];
   v4 = +[BKSHIDEventDeferringEnvironment keyboardFocusEnvironment];
-  v5 = [(BKSHIDEventDeliveryChainObserver *)self initWithDisplay:v3 environment:v4];
+  v5 = [BKSHIDEventDeliveryChainObserver initWithDisplay:"initWithDisplay:environment:" environment:?];
 
   return v5;
 }

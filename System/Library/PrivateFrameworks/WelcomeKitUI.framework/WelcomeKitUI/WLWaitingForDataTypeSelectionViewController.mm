@@ -3,6 +3,7 @@
 - (void)cancel;
 - (void)showActivityIndicatorView;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WLWaitingForDataTypeSelectionViewController
@@ -82,6 +83,25 @@ void __53__WLWaitingForDataTypeSelectionViewController_cancel__block_invoke(uint
   v3 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v5];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
   [navigationItem setLeftBarButtonItem:v3];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = WLWaitingForDataTypeSelectionViewController;
+  [(OBBaseWelcomeController *)&v8 viewWillDisappear:disappear];
+  navigationController = [(WLWaitingForDataTypeSelectionViewController *)self navigationController];
+  transitionCoordinator = [navigationController transitionCoordinator];
+  v6 = [transitionCoordinator viewControllerForKey:*MEMORY[0x277D77230]];
+
+  if (v6 == self && (([(WLWaitingForDataTypeSelectionViewController *)self isMovingFromParentViewController]& 1) != 0 || [(WLWaitingForDataTypeSelectionViewController *)self isBeingDismissed]))
+  {
+    viewWillDismissBlock = self->_viewWillDismissBlock;
+    if (viewWillDismissBlock)
+    {
+      viewWillDismissBlock[2]();
+    }
+  }
 }
 
 @end

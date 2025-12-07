@@ -1,8 +1,18 @@
 @interface MLCANEDeviceOps
++ (id)deviceOpsWithType:(int)type params:(id)params;
 - (MLCANEDeviceOps)initWithType:(int)type params:(id)params;
 @end
 
 @implementation MLCANEDeviceOps
+
++ (id)deviceOpsWithType:(int)type params:(id)params
+{
+  v4 = *&type;
+  paramsCopy = params;
+  v7 = [[self alloc] initWithType:v4 params:paramsCopy];
+
+  return v7;
+}
 
 - (MLCANEDeviceOps)initWithType:(int)type params:(id)params
 {

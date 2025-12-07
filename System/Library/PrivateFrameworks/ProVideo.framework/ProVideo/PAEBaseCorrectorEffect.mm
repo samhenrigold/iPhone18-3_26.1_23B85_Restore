@@ -61,7 +61,7 @@
   return [PAEBaseCorrectorEffect properties]::properties;
 }
 
-uint64_t __36__PAEBaseCorrectorEffect_properties__block_invoke()
+void *__36__PAEBaseCorrectorEffect_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:67584];
@@ -151,7 +151,7 @@ uint64_t __36__PAEBaseCorrectorEffect_properties__block_invoke()
   }
 }
 
-uint64_t __55__PAEBaseCorrectorEffect__resyncOnceAtTime_apiManager___block_invoke(uint64_t a1)
+void *__55__PAEBaseCorrectorEffect__resyncOnceAtTime_apiManager___block_invoke(uint64_t a1)
 {
   v2 = pthread_self();
   result = pthread_mach_thread_np(v2);
@@ -209,7 +209,7 @@ uint64_t __55__PAEBaseCorrectorEffect__resyncOnceAtTime_apiManager___block_invok
 {
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input, a2);
   }
 
   else

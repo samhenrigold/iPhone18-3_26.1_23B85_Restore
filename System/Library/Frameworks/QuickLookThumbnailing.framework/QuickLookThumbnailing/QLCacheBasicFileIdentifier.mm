@@ -34,12 +34,12 @@
 
 - (QLCacheBasicFileIdentifier)initWithFileURL:(id)l error:(id *)p_isa
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
-  memset(&v14, 0, sizeof(v14));
-  if (!stat([lCopy fileSystemRepresentation], &v14))
+  memset(&v13, 0, sizeof(v13));
+  if (!stat([lCopy fileSystemRepresentation], &v13))
   {
-    self = [(QLCacheBasicFileIdentifier *)self initWithFileId:v14.st_ino fsid:v14.st_dev];
+    self = [(QLCacheBasicFileIdentifier *)self initWithFileId:v13.st_ino fsid:v13.st_dev];
     p_isa = &self->super.super.isa;
     goto LABEL_8;
   }
@@ -68,9 +68,9 @@
 LABEL_6:
     v9 = MEMORY[0x1E696ABC0];
     v10 = *MEMORY[0x1E696A798];
-    v15 = *MEMORY[0x1E696A998];
-    v16[0] = lCopy;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:{1, *&v14.st_dev}];
+    v14 = *MEMORY[0x1E696A998];
+    v15[0] = lCopy;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:{1, *&v13.st_dev}];
     *p_isa = [v9 errorWithDomain:v10 code:v7 userInfo:v11];
 
     p_isa = 0;
@@ -78,7 +78,6 @@ LABEL_6:
 
 LABEL_8:
 
-  v12 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -123,17 +122,15 @@ LABEL_8:
 
 - (void)initWithFileURL:(int)a3 error:.cold.1(void *a1, uint64_t a2, int a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a1;
-  v6 = 138412802;
-  v7 = objc_opt_class();
-  v8 = 1024;
-  v9 = a3;
-  v10 = 2080;
-  v11 = strerror(a3);
-  _os_log_error_impl(&dword_1CA1E7000, v4, OS_LOG_TYPE_ERROR, "could not init %@: error %d (%s)", &v6, 0x1Cu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412802;
+  v6 = objc_opt_class();
+  v7 = 1024;
+  v8 = a3;
+  v9 = 2080;
+  v10 = strerror(a3);
+  _os_log_error_impl(&dword_1CA1E7000, v4, OS_LOG_TYPE_ERROR, "could not init %@: error %d (%s)", &v5, 0x1Cu);
 }
 
 @end

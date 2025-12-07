@@ -1,119 +1,15 @@
-void geom::cut_directions_hierarchy<float>::init(uint64_t a1, int a2)
+void **geom::acd<float>::impl::merge_clusters_automatically(uint64_t a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v4 = (a1 + 24);
-  *(a1 + 32) = *(a1 + 24);
-  v5 = a1 + 48;
-  v6 = *(a1 + 48);
-    ;
-  }
-
-  *(a1 + 56) = v6;
-  v8 = *a1;
-  *(a1 + 8) = *a1;
-  v20 = 0;
-  v21 = 0uLL;
-  v17 = 0;
-  v18 = 0;
-  v19 = 0;
-  memset(v15, 0, sizeof(v15));
-  v16 = 1065353216;
-  if (a2)
-  {
-    v9 = 0;
-    do
-    {
-      if (v9)
-      {
-        geom::subdivide_triangle_mesh<float>(&v20, &v17, v15);
-      }
-
-      else
-      {
-        v24 = xmmword_2500C7050;
-        v25[0] = unk_2500C7060;
-        v25[1] = xmmword_2500C7070;
-        __src = xmmword_2500C7030;
-        v23 = unk_2500C7040;
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPKS1_S7_EEvT_T0_l(&v20, &__src, v26, 5uLL);
-        __src = xmmword_2500C7220;
-        v23 = unk_2500C7230;
-        v24 = xmmword_2500C7240;
-        std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>(&v17, &__src, v25, 0xCuLL);
-      }
-
-      LODWORD(__src) = (v21 - v20) >> 4;
-      std::vector<unsigned int>::push_back[abi:nn200100](v4, &__src);
-      geom::triangle_mesh_connectivity::make(((v21 - v20) >> 4), (v18 - v17) >> 2, &__src);
-      std::vector<geom::triangle_mesh_connectivity>::push_back[abi:nn200100](v5, &__src);
-      if (v30 == 1)
-      {
-        if (v29 == 1 && __p)
-        {
-          v28 = __p;
-          operator delete(__p);
-        }
-
-        geom::triangle_mesh_connectivity::~triangle_mesh_connectivity(&__src);
-      }
-
-      ++v9;
-    }
-
-    while (a2 != v9);
-    v8 = *a1;
-  }
-
-  if (v8)
-  {
-    *(a1 + 8) = v8;
-    operator delete(v8);
-  }
-
-  v10 = v20;
-  *a1 = v20;
-  v11 = v21;
-  *(a1 + 8) = v21;
-  v21 = 0uLL;
-  v20 = 0;
-  while (v10 != v11)
-  {
-    v12 = vmulq_f32(*v10, *v10);
-    *&v13 = v12.f32[2] + vaddv_f32(*v12.f32);
-    *v12.f32 = vrsqrte_f32(v13);
-    *v12.f32 = vmul_f32(*v12.f32, vrsqrts_f32(v13, vmul_f32(*v12.f32, *v12.f32)));
-    *v10 = vmulq_n_f32(*v10, vmul_f32(*v12.f32, vrsqrts_f32(v13, vmul_f32(*v12.f32, *v12.f32))).f32[0]);
-    ++v10;
-  }
-
-  std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(v15);
-  if (v17)
-  {
-    v18 = v17;
-    operator delete(v17);
-  }
-
-  if (v20)
-  {
-    *&v21 = v20;
-    operator delete(v20);
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t geom::acd<float>::impl::merge_clusters_automatically(uint64_t a1, uint64_t a2)
-{
-  v25 = 0u;
   v24 = 0u;
-  v26 = 1065353216;
-  geom::cluster_parallel_merger<float>::init(v23, a1 + 112, a1 + 224, *(a1 + 328), *(a1 + 332));
+  v23 = 0u;
+  v25 = 1065353216;
+  geom::cluster_parallel_merger<float>::init(v22, a1 + 112, a1 + 224, *(a1 + 328), *(a1 + 332));
   if (*(a1 + 136) >= 2uLL)
   {
     do
     {
-      v5 = v25;
-      if (v25)
+      v5 = v24;
+      if (v24)
       {
         v6 = INFINITY;
         do
@@ -161,7 +57,6 @@ uint64_t geom::acd<float>::impl::merge_clusters_automatically(uint64_t a1, uint6
             if (v19 > 0.00000011921)
             {
               v20 = ((v19 - v14) - v18) / v19;
-              v21 = *(v5 + 2);
               if (v20 < v6)
               {
                 v6 = v20;
@@ -186,17 +81,17 @@ uint64_t geom::acd<float>::impl::merge_clusters_automatically(uint64_t a1, uint6
         break;
       }
 
-      geom::cluster_parallel_merger<float>::perform_merge(v23, v2);
+      geom::cluster_parallel_merger<float>::perform_merge(v22, v2);
     }
 
     while (*(a1 + 136) > 1uLL);
   }
 
-  geom::cluster_parallel_merger<float>::deinit(v23);
-  return std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::~__hash_table(&v24);
+  geom::cluster_parallel_merger<float>::deinit(v22);
+  return std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::~__hash_table(&v23);
 }
 
-void geom::acd<float>::impl::get_hull_of_cluster(float32x4_t *a1, unsigned int a2, void *a3, std::vector<unsigned int> *a4)
+void geom::acd<float>::impl::get_hull_of_cluster(float32x4_t *a1, int a2, void *a3, std::vector<unsigned int> *a4)
 {
   v22 = a2;
   v17 = a1[1];
@@ -253,64 +148,64 @@ void geom::acd<float>::impl::get_hull_of_cluster(float32x4_t *a1, unsigned int a
   }
 }
 
-void geom::acd<float>::impl::split_cluster_with_plane(float32x4_t *a1, unsigned int a2, float32x4_t *a3)
+void geom::acd<float>::impl::split_cluster_with_plane(float32x4_t *a1, int a2, float32x4_t *a3, __int32 *a4)
 {
-  v19 = a2;
-  v5 = a1[1];
-  v4 = a1[2];
-  v6 = vsubq_f32(v4, v5);
-  v7 = vaddq_f32(v4, v5);
-  v5.i32[0] = a3[1].i32[0];
-  v8.i64[0] = 0x3F0000003F000000;
-  v8.i64[1] = 0x3F0000003F000000;
-  v9 = vmulq_f32(*a3, vmulq_f32(v7, v8));
-  v17 = *a3;
-  v18 = (v5.f32[0] + (v9.f32[2] + vaddv_f32(*v9.f32))) / (fmaxf(fmaxf(v6.f32[0], v6.f32[2]), v6.f32[1]) * 0.5);
-  v10 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>(a1[7].i64, &v19);
-  if (v10)
+  v20 = a2;
+  v6 = a1[1];
+  v5 = a1[2];
+  v7 = vsubq_f32(v5, v6);
+  v8 = vaddq_f32(v5, v6);
+  v6.i32[0] = a3[1].i32[0];
+  v9.i64[0] = 0x3F0000003F000000;
+  v9.i64[1] = 0x3F0000003F000000;
+  v10 = vmulq_f32(*a3, vmulq_f32(v8, v9));
+  v18 = *a3;
+  v19 = (v6.f32[0] + (v10.f32[2] + vaddv_f32(*v10.f32))) / (fmaxf(fmaxf(v7.f32[0], v7.f32[2]), v7.f32[1]) * 0.5);
+  v11 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>(a1[7].i64, &v20);
+  if (v11)
   {
-    v13 = 0;
-    memset(v12, 0, sizeof(v12));
-    geom::cluster_parallel_clipper<float>::init(v12, v10[3], &a1[14], &v17, 1);
-    v11 = ((v16 + ((v14[12] - v14[11]) >> 3) - 1) / v16 + (v15 + ((v14[15] - v14[14]) >> 4) - 1) / v15) * v13;
+    v14 = 0;
+    memset(v13, 0, sizeof(v13));
+    geom::cluster_parallel_clipper<float>::init(v13, v11[3], &a1[14], &v18, 1);
+    v12 = ((v17 + ((v15[12] - v15[11]) >> 3) - 1) / v17 + (v16 + ((v15[15] - v15[14]) >> 4) - 1) / v16) * v14;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = ___ZN4geom14dispatch_applyIZNS_24cluster_parallel_clipperIfE24compute_clipped_clustersEvEUlmE_Lb1EEEvmP16dispatch_queue_sT__block_invoke;
     block[3] = &__block_descriptor_tmp_1;
-    block[4] = v12;
-    dispatch_apply(v11, 0, block);
+    block[4] = v13;
+    dispatch_apply(v12, 0, block);
     operator new();
   }
 
   abort();
 }
 
-uint64_t *geom::acd<float>::impl::merge_clusters(uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t *geom::acd<float>::impl::merge_clusters(uint64_t a1, int a2, int a3, float a4)
 {
-  v12 = a2;
-  v11 = a3;
-  v4 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 112), &v11);
-  if (!v4 || (v5 = v4, (v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 112), &v12)) == 0))
+  v13 = a2;
+  v12 = a3;
+  v5 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 112), &v12);
+  if (!v5 || (v6 = v5, (v7 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 112), &v13)) == 0))
   {
     abort();
   }
 
-  v7 = v6[3];
-  v8 = v5[3];
-  v10 = 0uLL;
-  geom::cluster<float>::merge_into(v7, v8, &v10, a1 + 224);
-  if (*(&v10 + 1))
+  v8 = v7[3];
+  v9 = v6[3];
+  v11 = 0uLL;
+  geom::cluster<float>::merge_into(v8, v9, &v11, a1 + 224);
+  if (*(&v11 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v10 + 1));
+    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v11 + 1));
   }
 
-  return std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::__erase_unique<unsigned int>((a1 + 112), &v11);
+  return std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::__erase_unique<unsigned int>((a1 + 112), &v12);
 }
 
-void geom::acd<double>::impl::init(uint64_t a1, float64x2_t *a2, unint64_t a3, _DWORD *a4, std::vector<unsigned int>::size_type a5, unsigned int a6, int a7, double a8, double a9, double a10, float64x2_t a11, float64x2_t a12)
+void geom::acd<double>::impl::init(uint64_t a1, float64x2_t *a2, unint64_t a3, int *a4, std::vector<unsigned int>::size_type a5, unsigned int a6, int a7, double a8, double a9, double a10, float64x2_t a11, float64x2_t a12)
 {
   v16 = a2;
-  v51 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v18 = 32 * a3;
   if (a3)
   {
@@ -344,14 +239,14 @@ void geom::acd<double>::impl::init(uint64_t a1, float64x2_t *a2, unint64_t a3, _
   }
 
   v25 = (a1 + 272);
-  v44 = v19;
-  v45 = a12;
+  v42 = v19;
+  v43 = a12;
   *(a1 + 16) = v19;
   *(a1 + 32) = a12;
-  v43 = v20;
+  v41 = v20;
   *(a1 + 48) = v20;
   *(a1 + 64) = a11;
-  v46 = a11;
+  v44 = a11;
   *(a1 + 408) = a7;
   *(a1 + 416) = a8;
   _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm((a1 + 80), a3);
@@ -359,24 +254,24 @@ void geom::acd<double>::impl::init(uint64_t a1, float64x2_t *a2, unint64_t a3, _
   {
     __asm { FMOV            V2.2D, #0.5 }
 
-    v48 = vmulq_f64(vaddq_f64(v45, v46), _Q2);
-    v49 = vmulq_f64(vaddq_f64(v44, v43), _Q2);
-    v32 = vmulq_f64(vsubq_f64(v43, v44), _Q2);
-    v33 = fmax(fmax(v32.f64[0], vmulq_f64(vsubq_f64(v46, v45), _Q2).f64[0]), v32.f64[1]);
+    v46 = vmulq_f64(vaddq_f64(v43, v44), _Q2);
+    v47 = vmulq_f64(vaddq_f64(v42, v41), _Q2);
+    v32 = vmulq_f64(vsubq_f64(v41, v42), _Q2);
+    v33 = fmax(fmax(v32.f64[0], vmulq_f64(vsubq_f64(v44, v43), _Q2).f64[0]), v32.f64[1]);
     if (v33 <= 2.22044605e-16)
     {
       v33 = 1.0;
     }
 
-    v47 = vdupq_lane_s64(*&v33, 0);
+    v45 = vdupq_lane_s64(*&v33, 0);
     do
     {
       v34 = *v16;
       v35 = v16[1];
       v16 += 2;
-      v50[0] = vdivq_f64(vsubq_f64(v34, v49), v47);
-      v50[1] = vdivq_f64(vsubq_f64(v35, v48), v47);
-      _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1 + 80, v50);
+      v48[0] = vdivq_f64(vsubq_f64(v34, v47), v45);
+      v48[1] = vdivq_f64(vsubq_f64(v35, v46), v45);
+      _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1 + 80, v48);
       v18 -= 32;
     }
 
@@ -422,14 +317,12 @@ void geom::acd<double>::impl::init(uint64_t a1, float64x2_t *a2, unint64_t a3, _
   }
 
   geom::cut_directions_hierarchy<double>::init(a1 + 336, 5);
-  v41 = (*(a1 + 88) - *(a1 + 80)) >> 5;
-  v42 = (((*(a1 + 112) - *(a1 + 104)) >> 2) * 0xAAAAAAAAAAAAAAABLL) >> 64;
-  geom::create_approximate_winding_number_3<double>();
+  geom::create_approximate_winding_number_3<double>((*(a1 + 88) - *(a1 + 80)) >> 5, *(a1 + 80), ((*(a1 + 112) - *(a1 + 104)) >> 2) / 3uLL, *(a1 + 104));
 }
 
 void geom::cut_directions_hierarchy<double>::init(uint64_t a1, int a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = (a1 + 24);
   *(a1 + 32) = *(a1 + 24);
   v5 = a1 + 48;
@@ -441,12 +334,12 @@ void geom::cut_directions_hierarchy<double>::init(uint64_t a1, int a2)
   v8 = *a1;
   *(a1 + 8) = *a1;
   j = 0;
-  v21 = 0uLL;
+  v20 = 0uLL;
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
-  memset(v15, 0, sizeof(v15));
-  v16 = 1065353216;
+  memset(v14, 0, sizeof(v14));
+  v15 = 1065353216;
   if (a2)
   {
     v9 = 0;
@@ -454,36 +347,36 @@ void geom::cut_directions_hierarchy<double>::init(uint64_t a1, int a2)
     {
       if (v9)
       {
-        geom::subdivide_triangle_mesh<double>(&j, &v17, v15);
+        geom::subdivide_triangle_mesh<double>(&j, &v16, v14);
       }
 
       else
       {
-        v25[3] = xmmword_2500C71E0;
-        v25[4] = unk_2500C71F0;
-        v25[5] = xmmword_2500C7200;
-        v25[6] = unk_2500C7210;
-        v24 = xmmword_2500C71A0;
-        memset(v25, 0, 32);
-        v25[2] = unk_2500C71D0;
+        v24[3] = xmmword_2500C71E0;
+        v24[4] = unk_2500C71F0;
+        v24[5] = xmmword_2500C7200;
+        v24[6] = unk_2500C7210;
+        v23 = xmmword_2500C71A0;
+        memset(v24, 0, 32);
+        v24[2] = unk_2500C71D0;
         __src = xmmword_2500C7180;
-        v23 = *algn_2500C7190;
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPKS1_S7_EEvT_T0_l(&j, &__src, v26, 5uLL);
+        v22 = *algn_2500C7190;
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPKS1_S7_EEvT_T0_l(&j, &__src, v25, 5uLL);
         __src = xmmword_2500C7220;
-        v23 = unk_2500C7230;
-        v24 = xmmword_2500C7240;
-        std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>(&v17, &__src, v25, 0xCuLL);
+        v22 = unk_2500C7230;
+        v23 = xmmword_2500C7240;
+        std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>(&v16, &__src, v24, 0xCuLL);
       }
 
-      LODWORD(__src) = (v21 - j) >> 5;
+      LODWORD(__src) = (v20 - j) >> 5;
       std::vector<unsigned int>::push_back[abi:nn200100](v4, &__src);
-      geom::triangle_mesh_connectivity::make(((v21 - j) >> 5), (v18 - v17) >> 2, &__src);
+      geom::triangle_mesh_connectivity::make(((v20 - j) >> 5), (v17 - v16) >> 2, &__src);
       std::vector<geom::triangle_mesh_connectivity>::push_back[abi:nn200100](v5, &__src);
-      if (v30 == 1)
+      if (v29 == 1)
       {
-        if (v29 == 1 && __p)
+        if (v28 == 1 && __p)
         {
-          v28 = __p;
+          v27 = __p;
           operator delete(__p);
         }
 
@@ -505,9 +398,9 @@ void geom::cut_directions_hierarchy<double>::init(uint64_t a1, int a2)
 
   v10 = j;
   *a1 = j;
-  v11 = v21;
-  *(a1 + 8) = v21;
-  v21 = 0uLL;
+  v11 = v20;
+  *(a1 + 8) = v20;
+  v20 = 0uLL;
   for (j = 0; v10 != v11; v10 += 2)
   {
     v12 = v10[1];
@@ -516,34 +409,32 @@ void geom::cut_directions_hierarchy<double>::init(uint64_t a1, int a2)
     v10[1] = vmulq_n_f64(v12, v13);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(v15);
-  if (v17)
+  std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(v14);
+  if (v16)
   {
-    v18 = v17;
-    operator delete(v17);
+    v17 = v16;
+    operator delete(v16);
   }
 
   if (j)
   {
-    *&v21 = j;
+    *&v20 = j;
     operator delete(j);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t geom::acd<double>::impl::merge_clusters_automatically(uint64_t a1, uint64_t a2)
+void **geom::acd<double>::impl::merge_clusters_automatically(uint64_t a1, uint64_t a2)
 {
-  v25 = 0u;
   v24 = 0u;
-  v26 = 1065353216;
-  geom::cluster_parallel_merger<double>::init(v23, a1 + 144, a1 + 304, *(a1 + 408), *(a1 + 416));
+  v23 = 0u;
+  v25 = 1065353216;
+  geom::cluster_parallel_merger<double>::init(v22, a1 + 144, a1 + 304, *(a1 + 408), *(a1 + 416));
   if (*(a1 + 168) >= 2uLL)
   {
     do
     {
-      v5 = v25;
-      if (v25)
+      v5 = v24;
+      if (v24)
       {
         v6 = INFINITY;
         do
@@ -591,7 +482,6 @@ uint64_t geom::acd<double>::impl::merge_clusters_automatically(uint64_t a1, uint
             if (v19 > 2.22044605e-16)
             {
               v20 = (v19 - v14 - v18) / v19;
-              v21 = *(v5 + 2);
               if (v20 < v6)
               {
                 v6 = v20;
@@ -616,24 +506,24 @@ uint64_t geom::acd<double>::impl::merge_clusters_automatically(uint64_t a1, uint
         break;
       }
 
-      geom::cluster_parallel_merger<double>::perform_merge(v23, v2);
+      geom::cluster_parallel_merger<double>::perform_merge(v22, v2);
     }
 
     while (*(a1 + 168) > 1uLL);
   }
 
-  geom::cluster_parallel_merger<double>::deinit(v23);
-  return std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::~__hash_table(&v24);
+  geom::cluster_parallel_merger<double>::deinit(v22);
+  return std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::~__hash_table(&v23);
 }
 
-void geom::acd<double>::impl::get_hull_of_cluster(uint64_t a1, unsigned int a2, void *a3, std::vector<unsigned int> *a4)
+void geom::acd<double>::impl::get_hull_of_cluster(float64x2_t *a1, int a2, void *a3, std::vector<unsigned int> *a4)
 {
   v33 = a2;
-  v28 = *(a1 + 64);
-  v30 = *(a1 + 48);
-  v25 = *(a1 + 32);
-  v26 = *(a1 + 16);
-  v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 144), &v33);
+  v28 = a1[4];
+  v30 = a1[3];
+  v25 = a1[2];
+  v26 = a1[1];
+  v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>(a1[9].f64, &v33);
   if (!v6)
   {
     abort();
@@ -690,67 +580,67 @@ void geom::acd<double>::impl::get_hull_of_cluster(uint64_t a1, unsigned int a2, 
   }
 }
 
-void geom::acd<double>::impl::split_cluster_with_plane(uint64_t a1, unsigned int a2, float64x2_t *a3)
+void geom::acd<double>::impl::split_cluster_with_plane(uint64_t a1, int a2, float64x2_t *a3, _DWORD *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v27 = a2;
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 64);
-  v6 = *(a1 + 16);
-  v7 = *(a1 + 32);
-  v8 = vsubq_f64(v4, v6);
-  v9 = fmax(fmax(v8.f64[0], vsubq_f64(v5, v7).f64[0]), v8.f64[1]) * 0.5;
-  v10 = a3[1];
+  v32 = *MEMORY[0x277D85DE8];
+  v28 = a2;
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 64);
+  v7 = *(a1 + 16);
+  v8 = *(a1 + 32);
+  v9 = vsubq_f64(v5, v7);
+  v10 = fmax(fmax(v9.f64[0], vsubq_f64(v6, v8).f64[0]), v9.f64[1]) * 0.5;
+  v11 = a3[1];
   __asm { FMOV            V6.2D, #0.5 }
 
-  v4.f64[0] = (a3[2].f64[0] + vmulq_f64(v10, vmulq_f64(vaddq_f64(v5, v7), _Q6)).f64[0] + vaddvq_f64(vmulq_f64(*a3, vmulq_f64(vaddq_f64(v4, v6), _Q6)))) / v9;
-  v29[0] = *a3;
-  v29[1] = v10;
-  v30 = v4.f64[0];
-  v16 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 144), &v27);
-  if (v16)
+  v5.f64[0] = (a3[2].f64[0] + vmulq_f64(v11, vmulq_f64(vaddq_f64(v6, v8), _Q6)).f64[0] + vaddvq_f64(vmulq_f64(*a3, vmulq_f64(vaddq_f64(v5, v7), _Q6)))) / v10;
+  v30[0] = *a3;
+  v30[1] = v11;
+  v31 = v5.f64[0];
+  v17 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 144), &v28);
+  if (v17)
   {
-    v23 = 0;
-    memset(v22, 0, sizeof(v22));
-    geom::cluster_parallel_clipper<double>::init(v22, v16[3], a1 + 304, v29, 1, 0.0, v17, v18, v19, v20);
-    v21 = ((v26 + ((v24[19] - v24[18]) >> 3) - 1) / v26 + (v25 + ((v24[22] - v24[21]) >> 4) - 1) / v25) * v23;
+    v24 = 0;
+    memset(v23, 0, sizeof(v23));
+    geom::cluster_parallel_clipper<double>::init(v23, v17[3], a1 + 304, v30, 1uLL, 0.0, v18, v19, v20, v21);
+    v22 = ((v27 + ((v25[19] - v25[18]) >> 3) - 1) / v27 + (v26 + ((v25[22] - v25[21]) >> 4) - 1) / v26) * v24;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = ___ZN4geom14dispatch_applyIZNS_24cluster_parallel_clipperIdE24compute_clipped_clustersEvEUlmE_Lb1EEEvmP16dispatch_queue_sT__block_invoke;
     block[3] = &__block_descriptor_tmp_19;
-    block[4] = v22;
-    dispatch_apply(v21, 0, block);
+    block[4] = v23;
+    dispatch_apply(v22, 0, block);
     operator new();
   }
 
   abort();
 }
 
-uint64_t *geom::acd<double>::impl::merge_clusters(uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t *geom::acd<double>::impl::merge_clusters(uint64_t a1, int a2, int a3, float a4)
 {
-  v12 = a2;
-  v11 = a3;
-  v4 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 144), &v11);
-  if (!v4 || (v5 = v4, (v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 144), &v12)) == 0))
+  v13 = a2;
+  v12 = a3;
+  v5 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 144), &v12);
+  if (!v5 || (v6 = v5, (v7 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>((a1 + 144), &v13)) == 0))
   {
     abort();
   }
 
-  v7 = v6[3];
-  v8 = v5[3];
-  v10 = 0uLL;
-  geom::cluster<double>::merge_into(v7, v8, &v10, a1 + 304);
-  if (*(&v10 + 1))
+  v8 = v7[3];
+  v9 = v6[3];
+  v11 = 0uLL;
+  geom::cluster<double>::merge_into(v8, v9, &v11, a1 + 304);
+  if (*(&v11 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v10 + 1));
+    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v11 + 1));
   }
 
-  return std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>>>::__erase_unique<unsigned int>((a1 + 144), &v11);
+  return std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>>>::__erase_unique<unsigned int>((a1 + 144), &v12);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -879,83 +769,80 @@ void std::vector<geom::cluster_parallel_clipper<double>::clipping_context,std::a
 
 void geom::subdivide_triangle_mesh<float>(uint64_t *a1, const void **a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::clear(a3);
-  v21 = (((a2[1] - *a2) >> 2) / 3uLL);
+  v19 = (((a2[1] - *a2) >> 2) / 3uLL);
   if ((((a2[1] - *a2) >> 2) / 3uLL))
   {
     v6 = 0;
     do
     {
       v7 = 0;
-      v24 = v6;
+      v22 = v6;
       v8 = 3 * v6;
       v9 = *a2;
-      v31 = *(*a2 + v8);
-      v23 = v8 + 1;
-      v32 = v9[v8 + 1];
-      v22 = v8 + 2;
-      v33 = v9[v8 + 2];
+      v29 = *(*a2 + v8);
+      v21 = v8 + 1;
+      v30 = *&v9[4 * v8 + 4];
+      v20 = v8 + 2;
+      v31 = *&v9[4 * v8 + 8];
       do
       {
-        v10 = *(&v31 + v7);
         if (v7 == 2)
         {
-          v11 = 0;
+          v10 = 0;
         }
 
         else
         {
-          v11 = v7 + 1;
+          v10 = v7 + 1;
         }
 
-        v12 = *(&v31 + v11);
-        v26 = *(&v31 + v7);
-        v27 = v12;
-        v13 = std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::find<geom::edge>(a3, &v26);
-        if (v13)
+        v11 = *(&v29 + v10);
+        v24 = *(&v29 + v7);
+        v25 = v11;
+        v12 = std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::find<geom::edge>(a3, &v24);
+        if (v12)
         {
-          *(&v28 + v7) = *(v13 + 6);
+          *(&v26 + v7) = *(v12 + 6);
         }
 
         else
         {
-          v14 = v26;
-          v15 = v27;
-          v16 = *a1;
-          v17 = (a1[1] - *a1) >> 4;
-          *(&v28 + v7) = v17;
-          v25.i64[0] = &v26;
-          *(std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>(a3, &v26) + 6) = v17;
-          v18.i64[0] = 0x3F0000003F000000;
-          v18.i64[1] = 0x3F0000003F000000;
-          v25 = vmulq_f32(vaddq_f32(*(v16 + 16 * v14), *(v16 + 16 * v15)), v18);
-          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v25);
+          v13 = v24;
+          v14 = v25;
+          v15 = *a1;
+          v16 = (a1[1] - *a1) >> 4;
+          *(&v26 + v7) = v16;
+          v23.i64[0] = &v24;
+          *(std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>(a3, &v24, &std::piecewise_construct, &v23) + 6) = v16;
+          v17.i64[0] = 0x3F0000003F000000;
+          v17.i64[1] = 0x3F0000003F000000;
+          v23 = vmulq_f32(vaddq_f32(*(v15 + 16 * v13), *(v15 + 16 * v14)), v17);
+          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v23);
         }
 
         ++v7;
       }
 
       while (v7 != 3);
-      v19 = *a2;
-      *(*a2 + v23) = v28;
-      v19[v22] = v30;
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v28);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v32);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v29);
+      v18 = *a2;
+      *(*a2 + v21) = v26;
+      *&v18[4 * v20] = v28;
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v26);
       std::vector<unsigned int>::push_back[abi:nn200100](a2, &v30);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v29);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v33);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v27);
       std::vector<unsigned int>::push_back[abi:nn200100](a2, &v28);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v29);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v30);
-      v6 = v24 + 1;
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v27);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v31);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v26);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v27);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v28);
+      v6 = v22 + 1;
     }
 
-    while (v24 + 1 != v21);
+    while (v22 + 1 != v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::vector<geom::triangle_mesh_connectivity>::push_back[abi:nn200100](uint64_t a1, uint64_t a2)
@@ -976,7 +863,7 @@ uint64_t std::vector<geom::triangle_mesh_connectivity>::push_back[abi:nn200100](
   return result;
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPKS1_S7_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+void **_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPKS1_S7_EEvT_T0_l(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1048,8 +935,7 @@ void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IP
       {
         v16 = *v13;
         v13 += 16;
-        *v15 = v16;
-        v15 += 16;
+        *v15++ = v16;
         v14 += 16;
       }
 
@@ -1063,7 +949,7 @@ void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IP
   return result;
 }
 
-void *std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1135,8 +1021,7 @@ void *std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int c
       {
         v16 = *v13;
         v13 += 4;
-        *v15 = v16;
-        v15 += 4;
+        *v15++ = v16;
         v14 += 4;
       }
 
@@ -1313,149 +1198,149 @@ uint64_t *std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std:
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3 >= v2)
+  v4 = *a2;
+  v5 = a2[1];
+  if (v5 >= v4)
   {
-    v4 = *a2;
+    v6 = *a2;
   }
 
   else
   {
-    v4 = a2[1];
+    v6 = a2[1];
   }
 
-  if (v2 <= v3)
+  if (v4 <= v5)
   {
-    v5 = a2[1];
+    v7 = a2[1];
   }
 
   else
   {
-    v5 = *a2;
+    v7 = *a2;
   }
 
-  v6 = (v5 + (v4 << 6) + (v4 >> 2) - 0x61C8864680B583E9) ^ v4;
-  v7 = a1[1];
-  if (!*&v7)
+  v8 = (v7 + (v6 << 6) + (v6 >> 2) - 0x61C8864680B583E9) ^ v6;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_38;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  if (v8.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = (v5 + (v4 << 6) + (v4 >> 2) - 0x61C8864680B583E9) ^ v4;
-    if (v6 >= *&v7)
+    v11 = (v7 + (v6 << 6) + (v6 >> 2) - 0x61C8864680B583E9) ^ v6;
+    if (v8 >= *&v9)
     {
-      v9 = v6 % *&v7;
+      v11 = v8 % *&v9;
     }
   }
 
   else
   {
-    v9 = v6 & (*&v7 - 1);
+    v11 = v8 & (*&v9 - 1);
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_38:
     operator new();
   }
 
-  if (v3 >= v2)
+  if (v5 >= v4)
   {
-    v12 = *a2;
+    v14 = *a2;
   }
 
   else
   {
-    v12 = a2[1];
+    v14 = a2[1];
   }
 
-  if (v2 <= v3)
+  if (v4 <= v5)
   {
-    LODWORD(v2) = a2[1];
+    LODWORD(v4) = a2[1];
   }
 
   while (1)
   {
-    v13 = v11[1];
-    if (v13 == v6)
+    v15 = v13[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8.u32[0] > 1uLL)
+    if (v10.u32[0] > 1uLL)
     {
-      if (v13 >= *&v7)
+      if (v15 >= *&v9)
       {
-        v13 %= *&v7;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v13 != v9)
+    if (v15 != v11)
     {
       goto LABEL_38;
     }
 
 LABEL_37:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_38;
     }
   }
 
-  v15 = *(v11 + 4);
-  v14 = *(v11 + 5);
-  if (v14 >= v15)
+  v17 = *(v13 + 4);
+  v16 = *(v13 + 5);
+  if (v16 >= v17)
   {
-    v16 = *(v11 + 4);
+    v18 = *(v13 + 4);
   }
 
   else
   {
-    v16 = *(v11 + 5);
+    v18 = *(v13 + 5);
   }
 
-  if (v15 > v14)
+  if (v17 > v16)
   {
-    v14 = *(v11 + 4);
+    v16 = *(v13 + 4);
   }
 
-  if (v16 != v12 || v14 != v2)
+  if (v18 != v14 || v16 != v4)
   {
     goto LABEL_37;
   }
 
-  return v11;
+  return v13;
 }
 
-uint64_t std::vector<geom::triangle_mesh_connectivity>::__emplace_back_slow_path<geom::triangle_mesh_connectivity>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<geom::triangle_mesh_connectivity>::__emplace_back_slow_path<geom::triangle_mesh_connectivity>(geom::triangle_mesh_connectivity **a1, uint64_t a2)
 {
-  v2 = 0x4EC4EC4EC4EC4EC5 * ((*(a1 + 8) - *a1) >> 4);
+  v2 = 0x4EC4EC4EC4EC4EC5 * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x13B13B13B13B13BLL)
   {
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
 
-  if (0x9D89D89D89D89D8ALL * ((*(a1 + 16) - *a1) >> 4) > v3)
+  if (0x9D89D89D89D89D8ALL * ((a1[2] - *a1) >> 4) > v3)
   {
-    v3 = 0x9D89D89D89D89D8ALL * ((*(a1 + 16) - *a1) >> 4);
+    v3 = 0x9D89D89D89D89D8ALL * ((a1[2] - *a1) >> 4);
   }
 
-  if ((0x4EC4EC4EC4EC4EC5 * ((*(a1 + 16) - *a1) >> 4)) >= 0x9D89D89D89D89DLL)
+  if ((0x4EC4EC4EC4EC4EC5 * ((a1[2] - *a1) >> 4)) >= 0x9D89D89D89D89DLL)
   {
     v6 = 0x13B13B13B13B13BLL;
   }
@@ -1474,14 +1359,14 @@ uint64_t std::vector<geom::triangle_mesh_connectivity>::__emplace_back_slow_path
   v7 = 208 * v2;
   std::allocator_traits<std::allocator<geom::triangle_mesh_connectivity>>::construct[abi:nn200100]<geom::triangle_mesh_connectivity,geom::triangle_mesh_connectivity,0>(a1, v7, a2);
   v8 = v7 + 208;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v7 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<geom::triangle_mesh_connectivity>,geom::triangle_mesh_connectivity*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = 0;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = 0;
   v14[2] = v11;
   v14[3] = v12;
   v14[0] = v11;
@@ -1585,7 +1470,7 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<geom::
     do
     {
       std::allocator_traits<std::allocator<geom::triangle_mesh_connectivity>>::construct[abi:nn200100]<geom::triangle_mesh_connectivity,geom::triangle_mesh_connectivity,0>(a1, a4, v8);
-      v8 += 208;
+      v8 = (v8 + 208);
       a4 += 208;
     }
 
@@ -1724,33 +1609,33 @@ uint64_t *std::unique_ptr<geom::cluster<float>>::reset[abi:nn200100](uint64_t *r
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1758,44 +1643,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,void *>>>>::~unique_ptr[abi:nn200100](uint64_t a1)
@@ -2050,86 +1935,83 @@ LABEL_19:
 
 void geom::subdivide_triangle_mesh<double>(void *a1, const void **a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::clear(a3);
-  v24 = (((a2[1] - *a2) >> 2) / 3uLL);
+  v22 = (((a2[1] - *a2) >> 2) / 3uLL);
   if ((((a2[1] - *a2) >> 2) / 3uLL))
   {
     v6 = 0;
     __asm { FMOV            V0.2D, #0.5 }
 
-    v27 = _Q0;
+    v25 = _Q0;
     do
     {
       v12 = 0;
       v13 = *a2;
-      v34 = *(*a2 + (3 * v6));
-      v26 = 3 * v6 + 1;
-      v35 = v13[v26];
-      v25 = 3 * v6 + 2;
-      v36 = v13[v25];
+      v32 = *(*a2 + (3 * v6));
+      v24 = 3 * v6 + 1;
+      v33 = *&v13[4 * v24];
+      v23 = 3 * v6 + 2;
+      v34 = *&v13[4 * v23];
       do
       {
-        v14 = *(&v34 + v12);
         if (v12 == 2)
         {
-          v15 = 0;
+          v14 = 0;
         }
 
         else
         {
-          v15 = v12 + 1;
+          v14 = v12 + 1;
         }
 
-        v16 = *(&v34 + v15);
-        v29 = *(&v34 + v12);
-        v30 = v16;
-        v17 = std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::find<geom::edge>(a3, &v29);
-        if (v17)
+        v15 = *(&v32 + v14);
+        v27 = *(&v32 + v12);
+        v28 = v15;
+        v16 = std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::find<geom::edge>(a3, &v27);
+        if (v16)
         {
-          *(&v31 + v12) = *(v17 + 6);
+          *(&v29 + v12) = *(v16 + 6);
         }
 
         else
         {
-          v18 = (*a1 + 32 * v29);
-          v19 = (*a1 + 32 * v30);
-          v20 = (a1[1] - *a1) >> 5;
-          *(&v31 + v12) = v20;
-          *&v28[0] = &v29;
-          *(std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>(a3, &v29) + 6) = v20;
-          v21 = vmulq_f64(vaddq_f64(v18[1], v19[1]), v27);
-          v28[0] = vmulq_f64(vaddq_f64(*v18, *v19), v27);
-          v28[1] = v21;
-          _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, v28);
+          v17 = (*a1 + 32 * v27);
+          v18 = (*a1 + 32 * v28);
+          v19 = (a1[1] - *a1) >> 5;
+          *(&v29 + v12) = v19;
+          *&v26[0] = &v27;
+          *(std::__hash_table<std::__hash_value_type<geom::edge,unsigned int>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,unsigned int>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,unsigned int>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>(a3, &v27, &std::piecewise_construct, v26) + 6) = v19;
+          v20 = vmulq_f64(vaddq_f64(v17[1], v18[1]), v25);
+          v26[0] = vmulq_f64(vaddq_f64(*v17, *v18), v25);
+          v26[1] = v20;
+          _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, v26);
         }
 
         ++v12;
       }
 
       while (v12 != 3);
-      v22 = *a2;
-      *(*a2 + v26) = v31;
-      v22[v25] = v33;
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v31);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v35);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v32);
+      v21 = *a2;
+      *(*a2 + v24) = v29;
+      *&v21[4 * v23] = v31;
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v29);
       std::vector<unsigned int>::push_back[abi:nn200100](a2, &v33);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v32);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v36);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v30);
       std::vector<unsigned int>::push_back[abi:nn200100](a2, &v31);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v32);
-      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v33);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v30);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v34);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v29);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v30);
+      std::vector<unsigned int>::push_back[abi:nn200100](a2, &v31);
       ++v6;
     }
 
-    while (v6 != v24);
+    while (v6 != v22);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void *_ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPKS1_S7_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+void **_ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPKS1_S7_EEvT_T0_l(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2203,8 +2085,8 @@ void *_ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IP
         v17 = *(v13 + 1);
         v13 += 32;
         *v15 = v16;
-        *(v15 + 1) = v17;
-        v15 += 32;
+        v15[1] = v17;
+        v15 += 2;
         v14 += 32;
       }
 
@@ -2327,33 +2209,33 @@ uint64_t *std::unique_ptr<geom::cluster<double>>::reset[abi:nn200100](uint64_t *
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2361,44 +2243,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<double>>>,void *>>>>::~unique_ptr[abi:nn200100](uint64_t a1)
@@ -2653,14 +2535,6 @@ LABEL_45:
   }
 
   return v6;
-}
-
-uint64_t geom::bvh<float,(unsigned char)2>::primitives_for_node(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 12);
-  result = *(a1 + 32) + 4 * v2;
-  v4 = (*(a2 + 16) + v2) - v2;
-  return result;
 }
 
 void _ZNKSt3__18functionIFDv2_fjS1_EEclEjS1_(uint64_t a1, int a2, double a3)
@@ -3164,34 +3038,34 @@ LABEL_45:
   }
 }
 
-void *_ZNSt3__16vectorIZNK4geom3bvhIdLh2EE13closest_pointINS_8functionIFDv2_djS6_EEEEES6_T_S6_RdRjE5stateNS_9allocatorISC_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIZNK4geom3bvhIdLh2EE13closest_pointINS_8functionIFDv2_djS6_EEEEES6_T_S6_RdRjE5stateNS_9allocatorISC_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:nn200100]<std::allocator<geom::indexed_priority_queue<unsigned int,double>::key>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<geom::indexed_priority_queue<unsigned int,double>::key>>(a1, a2);
     }
 
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
-
-  return result;
 }
 
-uint64_t _ZNKSt3__18functionIFDv2_djS1_EEclEjS1_(uint64_t a1, int a2, __n128 a3)
+void _ZNKSt3__18functionIFDv2_djS1_EEclEjS1_(uint64_t a1, int a2, __n128 a3)
 {
   v7 = a2;
   v6 = a3;
   v3 = *(a1 + 24);
   if (v3)
   {
-    return (*(*v3 + 48))(v3, &v7, &v6);
+    (*(*v3 + 48))(v3, &v7, &v6);
   }
 
-  v5 = std::__throw_bad_function_call[abi:nn200100]();
-  return _ZNSt3__16vectorIZNK4geom3bvhIdLh2EE13closest_pointINS_8functionIFDv2_djS6_EEEEES6_T_S6_RdRjE5stateNS_9allocatorISC_EEE9push_backB8nn200100EOSC_(v5);
+  else
+  {
+    v4 = std::__throw_bad_function_call[abi:nn200100]();
+    _ZNSt3__16vectorIZNK4geom3bvhIdLh2EE13closest_pointINS_8functionIFDv2_djS6_EEEEES6_T_S6_RdRjE5stateNS_9allocatorISC_EEE9push_backB8nn200100EOSC_(v4, v5);
+  }
 }
 
 void _ZNSt3__16vectorIZNK4geom3bvhIdLh2EE13closest_pointINS_8functionIFDv2_djS6_EEEEES6_T_S6_RdRjE5stateNS_9allocatorISC_EEE9push_backB8nn200100EOSC_(uint64_t a1, _OWORD *a2)
@@ -3471,8 +3345,9 @@ LABEL_50:
   a6[1] = v7;
 }
 
-uint64_t geom::bvh<float,(unsigned char)2>::bvh(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t geom::bvh<float,(unsigned char)2>::bvh(uint64_t a1, const void *a2, const void *a3, const void *a4, const void *a5, uint64_t a6)
 {
+  v6 = a6;
   v10[0] = a2;
   v10[1] = a3;
   v9[0] = a4;
@@ -3482,11 +3357,11 @@ uint64_t geom::bvh<float,(unsigned char)2>::bvh(uint64_t a1, uint64_t a2, uint64
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0u;
   _ZN4geom19make_external_arrayINS_5sliceIDv2_fEEEENSt3__19enable_ifIXaa21collection_has_size_vIT_E21collection_has_data_vIS6_EENS_14external_arrayINS6_10value_typeEEEE4typeERKS6_b(v10, a6, a1 + 56);
-  geom::make_external_array<geom::slice<geom::bbox<float,(unsigned char)2>>>(v9, a6, a1 + 80);
+  geom::make_external_array<geom::slice<geom::bbox<float,(unsigned char)2>>>(v9, v6, a1 + 80);
   return a1;
 }
 
-void *geom::make_external_array<geom::slice<geom::bbox<float,(unsigned char)2>>>@<X0>(void *result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+const void **geom::make_external_array<geom::slice<geom::bbox<float,(unsigned char)2>>>@<X0>(const void **result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   v3 = result[1];
   if (v3)
@@ -3539,7 +3414,7 @@ double geom::bvh<float,(unsigned char)2>::bvh(uint64_t a1, uint64_t a2, uint64_t
   return result;
 }
 
-void *geom::bvh<float,(unsigned char)2>::reset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+const void **geom::bvh<float,(unsigned char)2>::reset(uint64_t a1, void *a2, unint64_t a3, const void *a4, const void *a5, int a6)
 {
   v15[0] = a4;
   v15[1] = a5;
@@ -3633,15 +3508,6 @@ uint64_t geom::bvh<float,(unsigned char)2>::iterator::iterator(uint64_t result, 
   return result;
 }
 
-uint64_t geom::bvh<float,(unsigned char)2>::iterator::primitives(unsigned int *a1)
-{
-  v1 = *(*a1 + 8) + 40 * a1[2];
-  v2 = *(v1 + 12);
-  result = *(*a1 + 32) + 4 * v2;
-  v4 = (*(v1 + 16) + v2) - v2;
-  return result;
-}
-
 unsigned int *geom::bvh<float,(unsigned char)2>::iterator::operator++(unsigned int *result)
 {
   v1 = result[2];
@@ -3677,16 +3543,14 @@ uint64_t geom::bvh<float,(unsigned char)2>::iterator::operator++(void *a1)
 
 uint64_t geom::bvh<float,(unsigned char)2>::build_middle_split(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v6, a2);
-  v5[0] = &unk_286291818;
-  v5[1] = a1;
-  v5[3] = v5;
-  geom::bvh<float,(unsigned char)2>::build_top_down(a1, v6, v5);
-  std::__function::__value_func<unsigned int ()(geom::bvh_node<float,(unsigned char)2> const&,geom::bbox<float,(unsigned char)2> &,geom::bbox<float,(unsigned char)2> &)>::~__value_func[abi:nn200100](v5);
-  result = std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::~__value_func[abi:nn200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v5, a2);
+  v4[0] = &unk_286291818;
+  v4[1] = a1;
+  v4[3] = v4;
+  geom::bvh<float,(unsigned char)2>::build_top_down(a1, v5, v4);
+  std::__function::__value_func<unsigned int ()(geom::bvh_node<float,(unsigned char)2> const&,geom::bbox<float,(unsigned char)2> &,geom::bbox<float,(unsigned char)2> &)>::~__value_func[abi:nn200100](v4);
+  return std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::~__value_func[abi:nn200100](v5);
 }
 
 void geom::bvh<float,(unsigned char)2>::build_top_down(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3932,29 +3796,27 @@ LABEL_43:
 
 uint64_t geom::bvh<float,(unsigned char)2>::build_median(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v6, a2);
-  v5[0] = &unk_2862918A8;
-  v5[1] = a1;
-  v5[3] = v5;
-  geom::bvh<float,(unsigned char)2>::build_top_down(a1, v6, v5);
-  std::__function::__value_func<unsigned int ()(geom::bvh_node<float,(unsigned char)2> const&,geom::bbox<float,(unsigned char)2> &,geom::bbox<float,(unsigned char)2> &)>::~__value_func[abi:nn200100](v5);
-  result = std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::~__value_func[abi:nn200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v5, a2);
+  v4[0] = &unk_2862918A8;
+  v4[1] = a1;
+  v4[3] = v4;
+  geom::bvh<float,(unsigned char)2>::build_top_down(a1, v5, v4);
+  std::__function::__value_func<unsigned int ()(geom::bvh_node<float,(unsigned char)2> const&,geom::bbox<float,(unsigned char)2> &,geom::bbox<float,(unsigned char)2> &)>::~__value_func[abi:nn200100](v4);
+  return std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::~__value_func[abi:nn200100](v5);
 }
 
 void geom::bvh<float,(unsigned char)2>::build_surface_area_heuristic(uint64_t a1, uint64_t a2)
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)2>>(a1, v3);
+  geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)2>>(a1, v3, 8);
 }
 
-void geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)2>>(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)2>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -3962,13 +3824,13 @@ void geom::bvh<float,(unsigned char)2>::build_volume_heuristic(uint64_t a1, uint
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::volume_heuristic_functor<float,(unsigned char)2>>(a1, v3);
+  geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::volume_heuristic_functor<float,(unsigned char)2>>(a1, v3, 8);
 }
 
-void geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::volume_heuristic_functor<float,(unsigned char)2>>(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::volume_heuristic_functor<float,(unsigned char)2>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -3976,17 +3838,17 @@ void geom::bvh<float,(unsigned char)2>::build_intersection_volume_heuristic(uint
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<float,(unsigned char)2>>(a1, v3);
+  geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<float,(unsigned char)2>>(a1, v3, 8);
 }
 
-void geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<float,(unsigned char)2>>(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<float,(unsigned char)2>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
-uint64_t geom::bvh<float,(unsigned char)2>::raycast(void *a1, uint64_t a2, float *a3, unsigned int *a4, double a5, double a6)
+uint64_t geom::bvh<float,(unsigned char)2>::raycast(void *a1, uint64_t a2, float *a3, unsigned int *a4, __n128 a5, double a6)
 {
   *a3 = INFINITY;
   *a4 = -1;
@@ -4026,7 +3888,7 @@ uint64_t geom::bvh<float,(unsigned char)2>::raycast(void *a1, uint64_t a2, float
   v19 = v7[4];
   if (*v86.i32 == INFINITY)
   {
-    if (vcgt_f32(v18, *&a5).u8[0] & 1) != 0 || (vcgt_f32(*&a5, v19).u8[0])
+    if (vcgt_f32(v18, a5.n128_u64[0]).u8[0] & 1) != 0 || (vcgt_f32(a5.n128_u64[0], v19).u8[0])
     {
       goto LABEL_141;
     }
@@ -4038,8 +3900,8 @@ uint64_t geom::bvh<float,(unsigned char)2>::raycast(void *a1, uint64_t a2, float
 
   else
   {
-    v22 = vmul_f32(v86, vsub_f32(v18, *&a5));
-    v24 = vmul_f32(v86, vsub_f32(v19, *&a5));
+    v22 = vmul_f32(v86, vsub_f32(v18, a5.n128_u64[0]));
+    v24 = vmul_f32(v86, vsub_f32(v19, a5.n128_u64[0]));
     v25 = vcgt_f32(v22, v24).u8[0];
     v26 = (v25 & 1) == 0;
     if (v25)
@@ -4073,10 +3935,10 @@ uint64_t geom::bvh<float,(unsigned char)2>::raycast(void *a1, uint64_t a2, float
     v20 = vzip2_s32(v18, v86);
   }
 
-  v28 = *(&a5 + 1);
+  v28 = a5.n128_f32[1];
   if (*&v20.i32[1] == INFINITY)
   {
-    if (*(&a5 + 1) < *v20.i32 || *(&a5 + 1) > v19.f32[1])
+    if (a5.n128_f32[1] < *v20.i32 || a5.n128_f32[1] > v19.f32[1])
     {
       goto LABEL_141;
     }
@@ -4084,8 +3946,8 @@ uint64_t geom::bvh<float,(unsigned char)2>::raycast(void *a1, uint64_t a2, float
     goto LABEL_28;
   }
 
-  *v20.i32 = *&v20.i32[1] * (*v20.i32 - *(&a5 + 1));
-  v80 = *&v20.i32[1] * (v19.f32[1] - *(&a5 + 1));
+  *v20.i32 = *&v20.i32[1] * (*v20.i32 - a5.n128_f32[1]);
+  v80 = *&v20.i32[1] * (v19.f32[1] - a5.n128_f32[1]);
   if (v80 >= *v20.i32)
   {
     v81 = *v20.i32;
@@ -4093,12 +3955,12 @@ uint64_t geom::bvh<float,(unsigned char)2>::raycast(void *a1, uint64_t a2, float
 
   else
   {
-    v81 = *&v20.i32[1] * (v19.f32[1] - *(&a5 + 1));
+    v81 = *&v20.i32[1] * (v19.f32[1] - a5.n128_f32[1]);
   }
 
   if (v80 >= *v20.i32)
   {
-    *v20.i32 = *&v20.i32[1] * (v19.f32[1] - *(&a5 + 1));
+    *v20.i32 = *&v20.i32[1] * (v19.f32[1] - a5.n128_f32[1]);
   }
 
   if (v81 >= v21)
@@ -4117,6 +3979,7 @@ uint64_t geom::bvh<float,(unsigned char)2>::raycast(void *a1, uint64_t a2, float
   {
 LABEL_28:
     v83 = v86;
+    v84 = a5.n128_f64[0];
     std::deque<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state,std::allocator<void geom::kd_tree<float,(unsigned char)2>::build<(geom_kd_tree_build_strategy)1>(void)::state>>::push_back(v89, v88);
     v30 = *(&v90 + 1);
     if (!*(&v90 + 1))
@@ -4156,7 +4019,7 @@ LABEL_28:
           {
             v53 = *v51;
             *v88 = 0;
-            if (std::function<BOOL ()(unsigned int,geom::ray<float,(unsigned char)2>,float &)>::operator()(a2, v53, v88, a5, a6))
+            if (std::function<BOOL ()(unsigned int,geom::ray<float,(unsigned char)2>,float &)>::operator()(a2, v53, v88, v84, a6))
             {
               if (*v88 < *a3 || (*v88 == *a3 ? (v54 = v53 >= *a4) : (v54 = 1), !v54))
               {
@@ -4186,7 +4049,7 @@ LABEL_28:
       v46 = (v37 + 40 * v39 + 24);
       if (v83.f32[0] == INFINITY)
       {
-        if (vcgt_f32(v45, *&a5).u8[0] & 1) != 0 || (vcgt_f32(*&a5, v44).u8[0])
+        if (vcgt_f32(v45, *&v84).u8[0] & 1) != 0 || (vcgt_f32(*&v84, v44).u8[0])
         {
           v61 = 0;
           *v87 = v39;
@@ -4202,8 +4065,8 @@ LABEL_28:
 
       else
       {
-        v48 = vmul_f32(v83, vsub_f32(v45, *&a5));
-        v55 = vmul_f32(v83, vsub_f32(v44, *&a5));
+        v48 = vmul_f32(v83, vsub_f32(v45, *&v84));
+        v55 = vmul_f32(v83, vsub_f32(v44, *&v84));
         v56 = vcgt_f32(v48, v55).u8[0];
         v57 = (v56 & 1) == 0;
         if (v56)
@@ -4240,11 +4103,11 @@ LABEL_28:
           *&v87[4] = 0x7F80000000000000;
           v62 = *(v46 + 1);
 LABEL_89:
-          v68 = v83.f32[0] * (COERCE_FLOAT(*v46) - *&a5);
-          v69 = v83.f32[0] * (*&v62 - *&a5);
+          v68 = v83.f32[0] * (COERCE_FLOAT(*v46) - *&v84);
+          v69 = v83.f32[0] * (*&v62 - *&v84);
           if (v69 >= v68)
           {
-            v70 = v83.f32[0] * (COERCE_FLOAT(*v46) - *&a5);
+            v70 = v83.f32[0] * (COERCE_FLOAT(*v46) - *&v84);
           }
 
           else
@@ -4337,7 +4200,7 @@ LABEL_82:
       }
 
 LABEL_83:
-      if (*&a5 < COERCE_FLOAT(*v46) || *&a5 > *&v62)
+      if (*&v84 < COERCE_FLOAT(*v46) || *&v84 > *&v62)
       {
         goto LABEL_123;
       }
@@ -4464,20 +4327,20 @@ uint64_t geom::bvh<float,(unsigned char)2>::find_all_intersections(uint64_t resu
   if (*(result + 16) != *(result + 8))
   {
     v7 = result;
-    v21 = 0u;
-    memset(v20, 0, sizeof(v20));
-    v19 = 0;
-    std::deque<unsigned int>::push_back(v20, &v19);
-    v8 = *(&v21 + 1);
-    if (*(&v21 + 1))
+    v23 = 0u;
+    memset(v22, 0, sizeof(v22));
+    v21 = 0;
+    std::deque<unsigned int>::push_back(v22, &v21);
+    v8 = *(&v23 + 1);
+    if (*(&v23 + 1))
     {
       while (1)
       {
         v9 = v8 - 1;
-        v10 = *(*(*(&v20[0] + 1) + (((v21 + v9) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v21 + v9) & 0x3FF));
+        v10 = *(*(*(&v22[0] + 1) + (((v23 + v9) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v23 + v9) & 0x3FF));
         v11 = *(v7 + 8);
-        *(&v21 + 1) = v9;
-        std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v20, 1);
+        *(&v23 + 1) = v9;
+        std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v22, 1);
         v12 = *(a3 + 24);
         if (!v12)
         {
@@ -4497,10 +4360,10 @@ uint64_t geom::bvh<float,(unsigned char)2>::find_all_intersections(uint64_t resu
               v17 = 4 * (v14 + v15) - 4 * v15;
               do
               {
-                v19 = *v16;
-                if (std::function<BOOL ()>::operator()(a2, v19))
+                v21 = *v16;
+                if (std::function<BOOL ()>::operator()(a2, v21))
                 {
-                  std::vector<unsigned int>::push_back[abi:nn200100](a4, &v19);
+                  std::vector<unsigned int>::push_back[abi:nn200100](a4, &v21);
                 }
 
                 ++v16;
@@ -4513,25 +4376,25 @@ uint64_t geom::bvh<float,(unsigned char)2>::find_all_intersections(uint64_t resu
 
           else
           {
-            std::deque<unsigned int>::push_back(v20, v13 + 1);
-            std::deque<unsigned int>::push_back(v20, v13 + 2);
+            std::deque<unsigned int>::push_back(v22, v13 + 1);
+            std::deque<unsigned int>::push_back(v22, v13 + 2);
           }
         }
 
-        v8 = *(&v21 + 1);
-        if (!*(&v21 + 1))
+        v8 = *(&v23 + 1);
+        if (!*(&v23 + 1))
         {
-          return std::deque<unsigned int>::~deque[abi:nn200100](v20);
+          return std::deque<unsigned int>::~deque[abi:nn200100](v22);
         }
       }
 
       v18 = std::__throw_bad_function_call[abi:nn200100]();
-      return geom::bvh<float,(unsigned char)2>::tree_statistics(v18);
+      return geom::bvh<float,(unsigned char)2>::tree_statistics(v18, v19, v20);
     }
 
     else
     {
-      return std::deque<unsigned int>::~deque[abi:nn200100](v20);
+      return std::deque<unsigned int>::~deque[abi:nn200100](v22);
     }
   }
 
@@ -4596,15 +4459,6 @@ uint64_t geom::bvh<float,(unsigned char)2>::tree_statistics(uint64_t a1, unsigne
   }
 
   return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v17);
-}
-
-uint64_t geom::bvh<float,(unsigned char)2>::primitives_for_node_index(uint64_t a1, unsigned int a2)
-{
-  v2 = *(a1 + 8) + 40 * a2;
-  v3 = *(v2 + 12);
-  result = *(a1 + 32) + 4 * v3;
-  v5 = (*(v2 + 16) + v3) - v3;
-  return result;
 }
 
 void std::vector<geom::bvh_node<float,(unsigned char)2>>::push_back[abi:nn200100](uint64_t a1, __int128 *a2)
@@ -4674,7 +4528,7 @@ void std::vector<geom::bvh_node<float,(unsigned char)2>>::push_back[abi:nn200100
   *(a1 + 8) = v8;
 }
 
-void geom::bvh<float,(unsigned char)2>::partition_node_median(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)2>::partition_node_median(uint64_t a1, float32x2_t *a2, float32x2_t *a3, float32x2_t *a4)
 {
   v6[4] = *MEMORY[0x277D85DE8];
   v6[0] = &unk_286291AA8;
@@ -4684,8 +4538,6 @@ void geom::bvh<float,(unsigned char)2>::partition_node_median(uint64_t a1, uint6
   v5[1] = a1;
   v5[2] = v6;
   v5[3] = v5;
-  v4 = *(a2 + 24);
-  v3 = *(a2 + 32);
   std::function<void ()(geom::bvh_node<float,(unsigned char)2> const&,int,float &,unsigned int &)>::operator()(v5, a2, 0);
   std::function<void ()(geom::bvh_node<float,(unsigned char)2> const&,int,float &,unsigned int &)>::operator()(v5, a2, 1);
   operator new();
@@ -4784,8 +4636,9 @@ uint64_t geom::bvh<float,(unsigned char)2>::partition_node_middle(uint64_t a1, f
   return result;
 }
 
-uint64_t geom::bvh<double,(unsigned char)2>::bvh(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t geom::bvh<double,(unsigned char)2>::bvh(uint64_t a1, const void *a2, const void *a3, const void *a4, const void *a5, uint64_t a6)
 {
+  v6 = a6;
   v10[0] = a2;
   v10[1] = a3;
   v9[0] = a4;
@@ -4795,11 +4648,11 @@ uint64_t geom::bvh<double,(unsigned char)2>::bvh(uint64_t a1, uint64_t a2, uint6
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0u;
   _ZN4geom19make_external_arrayINS_5sliceIDv2_dEEEENSt3__19enable_ifIXaa21collection_has_size_vIT_E21collection_has_data_vIS6_EENS_14external_arrayINS6_10value_typeEEEE4typeERKS6_b(v10, a6, a1 + 56);
-  geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)2>>>(v9, a6, a1 + 80);
+  geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)2>>>(v9, v6, a1 + 80);
   return a1;
 }
 
-void *geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)2>>>@<X0>(void *result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+const void **geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)2>>>@<X0>(const void **result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   v3 = result[1];
   if (v3)
@@ -4823,7 +4676,7 @@ void *geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)2>>
   return result;
 }
 
-void *geom::bvh<double,(unsigned char)2>::reset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+const void **geom::bvh<double,(unsigned char)2>::reset(uint64_t a1, void *a2, unint64_t a3, const void *a4, const void *a5, int a6)
 {
   v15[0] = a4;
   v15[1] = a5;
@@ -4910,15 +4763,6 @@ uint64_t geom::bvh<double,(unsigned char)2>::reset(uint64_t result, uint64_t a2,
   return result;
 }
 
-uint64_t geom::bvh<double,(unsigned char)2>::iterator::primitives(unsigned int *a1)
-{
-  v1 = *(*a1 + 8) + (a1[2] << 6);
-  v2 = *(v1 + 12);
-  result = *(*a1 + 32) + 4 * v2;
-  v4 = (*(v1 + 16) + v2) - v2;
-  return result;
-}
-
 unsigned int *geom::bvh<double,(unsigned char)2>::iterator::operator++(unsigned int *result)
 {
   v1 = result[2];
@@ -4954,21 +4798,19 @@ uint64_t geom::bvh<double,(unsigned char)2>::iterator::operator++(void *a1)
 
 uint64_t geom::bvh<double,(unsigned char)2>::build_middle_split(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v6, a2);
-  v5[0] = &unk_286291CD8;
-  v5[1] = a1;
-  v5[3] = v5;
-  geom::bvh<double,(unsigned char)2>::build_top_down(a1, v6, v5);
-  std::__function::__value_func<unsigned int ()(geom::bvh_node<double,(unsigned char)2> const&,geom::bbox<double,(unsigned char)2> &,geom::bbox<double,(unsigned char)2> &)>::~__value_func[abi:nn200100](v5);
-  result = std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::~__value_func[abi:nn200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v5, a2);
+  v4[0] = &unk_286291CD8;
+  v4[1] = a1;
+  v4[3] = v4;
+  geom::bvh<double,(unsigned char)2>::build_top_down(a1, v5, v4);
+  std::__function::__value_func<unsigned int ()(geom::bvh_node<double,(unsigned char)2> const&,geom::bbox<double,(unsigned char)2> &,geom::bbox<double,(unsigned char)2> &)>::~__value_func[abi:nn200100](v4);
+  return std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::~__value_func[abi:nn200100](v5);
 }
 
 void geom::bvh<double,(unsigned char)2>::build_top_down(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   if ((*a1 & 1) == 0)
   {
     *(a1 + 16) = *(a1 + 8);
@@ -4987,7 +4829,7 @@ void geom::bvh<double,(unsigned char)2>::build_top_down(uint64_t a1, uint64_t a2
 
 LABEL_18:
     *a1 = 1;
-    goto LABEL_44;
+    return;
   }
 
   v8 = 0;
@@ -5084,8 +4926,8 @@ LABEL_20:
     v29 = v25 << 6;
     *v29 = xmmword_2500C7370;
     *(v29 + 16) = v20;
-    *(v29 + 20) = v69;
-    *(v29 + 28) = DWORD2(v69);
+    *(v29 + 20) = v68;
+    *(v29 + 28) = DWORD2(v68);
     *(v29 + 32) = v15;
     *(v29 + 48) = v16;
     v23 = (v25 << 6) + 64;
@@ -5107,33 +4949,33 @@ LABEL_20:
   {
     *v21 = xmmword_2500C7370;
     *(v21 + 16) = v20;
-    *(v21 + 20) = v69;
-    *(v21 + 28) = DWORD2(v69);
+    *(v21 + 20) = v68;
+    *(v21 + 28) = DWORD2(v68);
     *(v21 + 32) = v15;
     *(v21 + 48) = v16;
     v23 = v21 + 64;
   }
 
   *(a1 + 16) = v23;
-  v68 = 0u;
-  memset(v67, 0, sizeof(v67));
-  LODWORD(v69) = 0;
-  std::deque<unsigned int>::push_back(v67, &v69);
-  v34 = *(&v68 + 1);
-  if (*(&v68 + 1))
+  v67 = 0u;
+  memset(v66, 0, sizeof(v66));
+  LODWORD(v68) = 0;
+  std::deque<unsigned int>::push_back(v66, &v68);
+  v34 = *(&v67 + 1);
+  if (*(&v67 + 1))
   {
-    v53 = vdupq_n_s64(0xFFF0000000000000);
-    v54 = vdupq_n_s64(0x7FF0000000000000uLL);
+    v52 = vdupq_n_s64(0xFFF0000000000000);
+    v53 = vdupq_n_s64(0x7FF0000000000000uLL);
     do
     {
       v35 = v34 - 1;
-      v36 = *(*(*(&v67[0] + 1) + (((v68 + v35) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v68 + v35) & 0x3FF));
-      *(&v68 + 1) = v35;
-      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v67, 1);
+      v36 = *(*(*(&v66[0] + 1) + (((v67 + v35) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v67 + v35) & 0x3FF));
+      *(&v67 + 1) = v35;
+      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v66, 1);
       v37 = *(a2 + 24);
       if (!v37)
       {
-LABEL_45:
+LABEL_44:
         std::__throw_bad_function_call[abi:nn200100]();
       }
 
@@ -5143,24 +4985,24 @@ LABEL_45:
         v39 = v38[3];
         v41 = *v38;
         v40 = v38[1];
-        v71 = v38[2];
-        v72 = v39;
-        v69 = v41;
-        v70 = v40;
-        v65 = v54;
-        v66 = v53;
-        v63 = v54;
+        v70 = v38[2];
+        v71 = v39;
+        v68 = v41;
+        v69 = v40;
         v64 = v53;
+        v65 = v52;
+        v62 = v53;
+        v63 = v52;
         v42 = *(a3 + 24);
         if (!v42)
         {
-          goto LABEL_45;
+          goto LABEL_44;
         }
 
-        v43 = (*(*v42 + 48))(v42, &v69, &v65, &v63);
+        v43 = (*(*v42 + 48))(v42, &v68, &v64, &v62);
         if (v43)
         {
-          v44 = v70 == v43;
+          v44 = v69 == v43;
         }
 
         else
@@ -5171,72 +5013,68 @@ LABEL_45:
         if (!v44)
         {
           v45 = v43;
-          v46 = HIDWORD(v69) + v43;
-          v47 = v70 - v43;
+          v46 = HIDWORD(v68) + v43;
+          v47 = v69 - v43;
           v48 = *(a1 + 8);
           v49 = (*(a1 + 16) - v48) >> 6;
           *(v48 + (v36 << 6) + 4) = v49;
-          LODWORD(v59) = v49;
-          std::deque<unsigned int>::push_back(v67, &v59);
-          LODWORD(v59) = (*(a1 + 16) - *(a1 + 8)) >> 6;
-          *(&v59 + 4) = -1;
-          HIDWORD(v59) = HIDWORD(v69);
-          v60 = v45;
+          LODWORD(v58) = v49;
+          std::deque<unsigned int>::push_back(v66, &v58);
+          LODWORD(v58) = (*(a1 + 16) - *(a1 + 8)) >> 6;
+          *(&v58 + 4) = -1;
+          HIDWORD(v58) = HIDWORD(v68);
+          v59 = v45;
+          v60 = v64;
           v61 = v65;
-          v62 = v66;
-          std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn200100](a1 + 8, &v59);
+          std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn200100](a1 + 8, &v58);
           v50 = *(a1 + 8);
           v51 = (*(a1 + 16) - v50) >> 6;
           *(v50 + (v36 << 6) + 8) = v51;
-          LODWORD(v55) = v51;
-          std::deque<unsigned int>::push_back(v67, &v55);
-          LODWORD(v55) = (*(a1 + 16) - *(a1 + 8)) >> 6;
-          *(&v55 + 4) = -1;
-          HIDWORD(v55) = v46;
-          v56 = v47;
+          LODWORD(v54) = v51;
+          std::deque<unsigned int>::push_back(v66, &v54);
+          LODWORD(v54) = (*(a1 + 16) - *(a1 + 8)) >> 6;
+          *(&v54 + 4) = -1;
+          HIDWORD(v54) = v46;
+          v55 = v47;
+          v56 = v62;
           v57 = v63;
-          v58 = v64;
-          std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn200100](a1 + 8, &v55);
+          std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn200100](a1 + 8, &v54);
         }
       }
 
-      v34 = *(&v68 + 1);
+      v34 = *(&v67 + 1);
     }
 
-    while (*(&v68 + 1));
+    while (*(&v67 + 1));
   }
 
   *a1 = 1;
-  std::deque<unsigned int>::~deque[abi:nn200100](v67);
-LABEL_44:
-  v52 = *MEMORY[0x277D85DE8];
+  std::deque<unsigned int>::~deque[abi:nn200100](v66);
 }
 
 uint64_t geom::bvh<double,(unsigned char)2>::build_median(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v6, a2);
-  v5[0] = &unk_286291D68;
-  v5[1] = a1;
-  v5[3] = v5;
-  geom::bvh<double,(unsigned char)2>::build_top_down(a1, v6, v5);
-  std::__function::__value_func<unsigned int ()(geom::bvh_node<double,(unsigned char)2> const&,geom::bbox<double,(unsigned char)2> &,geom::bbox<double,(unsigned char)2> &)>::~__value_func[abi:nn200100](v5);
-  result = std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::~__value_func[abi:nn200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v5, a2);
+  v4[0] = &unk_286291D68;
+  v4[1] = a1;
+  v4[3] = v4;
+  geom::bvh<double,(unsigned char)2>::build_top_down(a1, v5, v4);
+  std::__function::__value_func<unsigned int ()(geom::bvh_node<double,(unsigned char)2> const&,geom::bbox<double,(unsigned char)2> &,geom::bbox<double,(unsigned char)2> &)>::~__value_func[abi:nn200100](v4);
+  return std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::~__value_func[abi:nn200100](v5);
 }
 
 void geom::bvh<double,(unsigned char)2>::build_surface_area_heuristic(uint64_t a1, uint64_t a2)
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<double,(unsigned char)2>>(a1, v3);
+  geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<double,(unsigned char)2>>(a1, v3, 8);
 }
 
-void geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<double,(unsigned char)2>>(uint64_t a1, uint64_t a2)
+void geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<double,(unsigned char)2>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -5244,13 +5082,13 @@ void geom::bvh<double,(unsigned char)2>::build_volume_heuristic(uint64_t a1, uin
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::volume_heuristic_functor<double,(unsigned char)2>>(a1, v3);
+  geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::volume_heuristic_functor<double,(unsigned char)2>>(a1, v3, 8);
 }
 
-void geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::volume_heuristic_functor<double,(unsigned char)2>>(uint64_t a1, uint64_t a2)
+void geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::volume_heuristic_functor<double,(unsigned char)2>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -5258,17 +5096,17 @@ void geom::bvh<double,(unsigned char)2>::build_intersection_volume_heuristic(uin
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<double,(unsigned char)2>>(a1, v3);
+  geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<double,(unsigned char)2>>(a1, v3, 8);
 }
 
-void geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<double,(unsigned char)2>>(uint64_t a1, uint64_t a2)
+void geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<double,(unsigned char)2>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
-uint64_t geom::bvh<double,(unsigned char)2>::raycast(void *a1, uint64_t a2, double *a3, unsigned int *a4, float64x2_t a5, __n128 a6)
+uint64_t geom::bvh<double,(unsigned char)2>::raycast(void *a1, uint64_t a2, float64_t *a3, unsigned int *a4, float64x2_t a5, __n128 a6)
 {
   *a3 = INFINITY;
   *a4 = -1;
@@ -5759,21 +5597,21 @@ uint64_t geom::bvh<double,(unsigned char)2>::find_all_intersections(uint64_t res
   if (*(result + 16) != *(result + 8))
   {
     v7 = result;
-    v19 = 0u;
-    memset(v18, 0, sizeof(v18));
-    v17 = 0;
-    std::deque<unsigned int>::push_back(v18, &v17);
+    v21 = 0u;
+    memset(v20, 0, sizeof(v20));
+    v19 = 0;
+    std::deque<unsigned int>::push_back(v20, &v19);
     while (1)
     {
-      if (!*(&v19 + 1))
+      if (!*(&v21 + 1))
       {
-        return std::deque<unsigned int>::~deque[abi:nn200100](v18);
+        return std::deque<unsigned int>::~deque[abi:nn200100](v20);
       }
 
-      v8 = *(*(*(&v18[0] + 1) + (((v19 + *(&v19 + 1) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v19 + *(&v19 + 1) - 1) & 0x3FF));
+      v8 = *(*(*(&v20[0] + 1) + (((v21 + *(&v21 + 1) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v21 + *(&v21 + 1) - 1) & 0x3FF));
       v9 = *(v7 + 8);
-      --*(&v19 + 1);
-      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v18, 1);
+      --*(&v21 + 1);
+      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v20, 1);
       v10 = *(a3 + 24);
       if (!v10)
       {
@@ -5793,10 +5631,10 @@ uint64_t geom::bvh<double,(unsigned char)2>::find_all_intersections(uint64_t res
             v15 = 4 * (v12 + v13) - 4 * v13;
             do
             {
-              v17 = *v14;
-              if (std::function<BOOL ()>::operator()(a2, v17))
+              v19 = *v14;
+              if (std::function<BOOL ()>::operator()(a2, v19))
               {
-                std::vector<unsigned int>::push_back[abi:nn200100](a4, &v17);
+                std::vector<unsigned int>::push_back[abi:nn200100](a4, &v19);
               }
 
               ++v14;
@@ -5809,14 +5647,14 @@ uint64_t geom::bvh<double,(unsigned char)2>::find_all_intersections(uint64_t res
 
         else
         {
-          std::deque<unsigned int>::push_back(v18, v11 + 1);
-          std::deque<unsigned int>::push_back(v18, v11 + 2);
+          std::deque<unsigned int>::push_back(v20, v11 + 1);
+          std::deque<unsigned int>::push_back(v20, v11 + 2);
         }
       }
     }
 
     v16 = std::__throw_bad_function_call[abi:nn200100]();
-    return geom::bvh<double,(unsigned char)2>::tree_statistics(v16);
+    return geom::bvh<double,(unsigned char)2>::tree_statistics(v16, v17, v18);
   }
 
   return result;
@@ -5880,15 +5718,6 @@ uint64_t geom::bvh<double,(unsigned char)2>::tree_statistics(uint64_t a1, unsign
   }
 
   return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v17);
-}
-
-uint64_t geom::bvh<double,(unsigned char)2>::primitives_for_node_index(uint64_t a1, unsigned int a2)
-{
-  v2 = *(a1 + 8) + (a2 << 6);
-  v3 = *(v2 + 12);
-  result = *(a1 + 32) + 4 * v3;
-  v5 = (*(v2 + 16) + v3) - v3;
-  return result;
 }
 
 void std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn200100](uint64_t a1, __int128 *a2)
@@ -5962,7 +5791,7 @@ void std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn20010
   *(a1 + 8) = v9;
 }
 
-void geom::bvh<double,(unsigned char)2>::partition_node_median(uint64_t a1, uint64_t a2)
+void geom::bvh<double,(unsigned char)2>::partition_node_median(uint64_t a1, uint64_t a2, float64x2_t *a3, float64x2_t *a4)
 {
   v6[4] = *MEMORY[0x277D85DE8];
   v6[0] = &unk_286291F68;
@@ -5972,8 +5801,6 @@ void geom::bvh<double,(unsigned char)2>::partition_node_median(uint64_t a1, uint
   v5[1] = a1;
   v5[2] = v6;
   v5[3] = v5;
-  v3 = *(a2 + 32);
-  v4 = *(a2 + 48);
   std::function<void ()(geom::bvh_node<double,(unsigned char)2> const&,int,double &,unsigned int &)>::operator()(v5, a2, 0);
   std::function<void ()(geom::bvh_node<double,(unsigned char)2> const&,int,double &,unsigned int &)>::operator()(v5, a2, 1);
   operator new();
@@ -6074,8 +5901,9 @@ uint64_t geom::bvh<double,(unsigned char)2>::partition_node_middle(uint64_t a1, 
   return result;
 }
 
-uint64_t geom::bvh<float,(unsigned char)3>::bvh(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t geom::bvh<float,(unsigned char)3>::bvh(uint64_t a1, const void *a2, const void *a3, const void *a4, const void *a5, uint64_t a6)
 {
+  v6 = a6;
   v10[0] = a2;
   v10[1] = a3;
   v9[0] = a4;
@@ -6085,11 +5913,11 @@ uint64_t geom::bvh<float,(unsigned char)3>::bvh(uint64_t a1, uint64_t a2, uint64
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0u;
   _ZN4geom19make_external_arrayINS_5sliceIDv2_dEEEENSt3__19enable_ifIXaa21collection_has_size_vIT_E21collection_has_data_vIS6_EENS_14external_arrayINS6_10value_typeEEEE4typeERKS6_b(v10, a6, a1 + 56);
-  geom::make_external_array<geom::slice<geom::bbox<float,(unsigned char)3>>>(v9, a6, a1 + 80);
+  geom::make_external_array<geom::slice<geom::bbox<float,(unsigned char)3>>>(v9, v6, a1 + 80);
   return a1;
 }
 
-void *geom::make_external_array<geom::slice<geom::bbox<float,(unsigned char)3>>>@<X0>(void *result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+const void **geom::make_external_array<geom::slice<geom::bbox<float,(unsigned char)3>>>@<X0>(const void **result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   v3 = result[1];
   if (v3)
@@ -6113,7 +5941,7 @@ void *geom::make_external_array<geom::slice<geom::bbox<float,(unsigned char)3>>>
   return result;
 }
 
-void *geom::bvh<float,(unsigned char)3>::reset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+const void **geom::bvh<float,(unsigned char)3>::reset(uint64_t a1, void *a2, unint64_t a3, const void *a4, const void *a5, int a6)
 {
   v15[0] = a4;
   v15[1] = a5;
@@ -6161,21 +5989,19 @@ void *geom::bvh<float,(unsigned char)3>::reset(uint64_t a1, uint64_t a2, uint64_
 
 uint64_t geom::bvh<float,(unsigned char)3>::build_middle_split(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v6, a2);
-  v5[0] = &unk_286292178;
-  v5[1] = a1;
-  v5[3] = v5;
-  geom::bvh<float,(unsigned char)3>::build_top_down(a1, v6, v5);
-  std::__function::__value_func<unsigned int ()(geom::bvh_node<float,(unsigned char)3> const&,geom::bbox<float,(unsigned char)3> &,geom::bbox<float,(unsigned char)3> &)>::~__value_func[abi:nn200100](v5);
-  result = std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::~__value_func[abi:nn200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v5, a2);
+  v4[0] = &unk_286292178;
+  v4[1] = a1;
+  v4[3] = v4;
+  geom::bvh<float,(unsigned char)3>::build_top_down(a1, v5, v4);
+  std::__function::__value_func<unsigned int ()(geom::bvh_node<float,(unsigned char)3> const&,geom::bbox<float,(unsigned char)3> &,geom::bbox<float,(unsigned char)3> &)>::~__value_func[abi:nn200100](v4);
+  return std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::~__value_func[abi:nn200100](v5);
 }
 
 void geom::bvh<float,(unsigned char)3>::build_top_down(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   if ((*a1 & 1) == 0)
   {
     *(a1 + 16) = *(a1 + 8);
@@ -6194,7 +6020,7 @@ void geom::bvh<float,(unsigned char)3>::build_top_down(uint64_t a1, uint64_t a2,
 
 LABEL_21:
     *a1 = 1;
-    goto LABEL_44;
+    return;
   }
 
   v8 = 0;
@@ -6305,8 +6131,8 @@ LABEL_19:
     v35 = v31 << 6;
     *v35 = xmmword_2500C7370;
     *(v35 + 16) = v26;
-    *(v35 + 20) = v76;
-    *(v35 + 28) = DWORD2(v76);
+    *(v35 + 20) = v75;
+    *(v35 + 28) = DWORD2(v75);
     *(v35 + 32) = v24.i64[0];
     *(v35 + 40) = v24.i32[2];
     *(v35 + 56) = v25.i32[2];
@@ -6330,8 +6156,8 @@ LABEL_19:
   {
     *v27 = xmmword_2500C7370;
     *(v27 + 16) = v26;
-    *(v27 + 20) = v76;
-    *(v27 + 28) = DWORD2(v76);
+    *(v27 + 20) = v75;
+    *(v27 + 28) = DWORD2(v75);
     *(v27 + 40) = v24.i32[2];
     *(v27 + 32) = v24.i64[0];
     *(v27 + 56) = v25.i32[2];
@@ -6340,26 +6166,26 @@ LABEL_19:
   }
 
   *(a1 + 16) = v29;
-  v75 = 0u;
-  memset(v74, 0, sizeof(v74));
-  LODWORD(v76) = 0;
-  std::deque<unsigned int>::push_back(v74, &v76);
-  v40 = *(&v75 + 1);
-  if (*(&v75 + 1))
+  v74 = 0u;
+  memset(v73, 0, sizeof(v73));
+  LODWORD(v75) = 0;
+  std::deque<unsigned int>::push_back(v73, &v75);
+  v40 = *(&v74 + 1);
+  if (*(&v74 + 1))
   {
     v41.i64[0] = 0x7F0000007FLL;
     v41.i64[1] = 0x7F0000007FLL;
-    v61 = vnegq_f32(v41);
+    v60 = vnegq_f32(v41);
     do
     {
       v42 = v40 - 1;
-      v43 = *(*(*(&v74[0] + 1) + (((v75 + v42) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v75 + v42) & 0x3FF));
-      *(&v75 + 1) = v42;
-      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v74, 1);
+      v43 = *(*(*(&v73[0] + 1) + (((v74 + v42) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v74 + v42) & 0x3FF));
+      *(&v74 + 1) = v42;
+      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v73, 1);
       v44 = *(a2 + 24);
       if (!v44)
       {
-LABEL_45:
+LABEL_44:
         std::__throw_bad_function_call[abi:nn200100]();
       }
 
@@ -6369,26 +6195,26 @@ LABEL_45:
         v46 = v45[3];
         v48 = *v45;
         v47 = v45[1];
-        v78 = v45[2];
-        v79 = v46;
-        v76 = v48;
-        v77 = v47;
+        v77 = v45[2];
+        v78 = v46;
+        v75 = v48;
+        v76 = v47;
         *&v49 = 0x7F0000007FLL;
         *(&v49 + 1) = 0x7F0000007FLL;
-        v72 = v61;
-        v73 = v49;
-        v70 = v61;
-        v71 = v49;
+        v71 = v60;
+        v72 = v49;
+        v69 = v60;
+        v70 = v49;
         v50 = *(a3 + 24);
         if (!v50)
         {
-          goto LABEL_45;
+          goto LABEL_44;
         }
 
-        v51 = (*(*v50 + 48))(v50, &v76, &v72, &v70);
+        v51 = (*(*v50 + 48))(v50, &v75, &v71, &v69);
         if (v51)
         {
-          v52 = v77 == v51;
+          v52 = v76 == v51;
         }
 
         else
@@ -6399,72 +6225,68 @@ LABEL_45:
         if (!v52)
         {
           v53 = v51;
-          v54 = HIDWORD(v76) + v51;
-          v55 = v77 - v51;
+          v54 = HIDWORD(v75) + v51;
+          v55 = v76 - v51;
           v56 = *(a1 + 8);
           v57 = (*(a1 + 16) - v56) >> 6;
           *(v56 + (v43 << 6) + 4) = v57;
-          LODWORD(v66) = v57;
-          std::deque<unsigned int>::push_back(v74, &v66);
-          LODWORD(v66) = (*(a1 + 16) - *(a1 + 8)) >> 6;
-          *(&v66 + 4) = -1;
-          HIDWORD(v66) = HIDWORD(v76);
-          v67 = v53;
+          LODWORD(v65) = v57;
+          std::deque<unsigned int>::push_back(v73, &v65);
+          LODWORD(v65) = (*(a1 + 16) - *(a1 + 8)) >> 6;
+          *(&v65 + 4) = -1;
+          HIDWORD(v65) = HIDWORD(v75);
+          v66 = v53;
+          v67 = v71;
           v68 = v72;
-          v69 = v73;
-          std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn200100](a1 + 8, &v66);
+          std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn200100](a1 + 8, &v65);
           v58 = *(a1 + 8);
           v59 = (*(a1 + 16) - v58) >> 6;
           *(v58 + (v43 << 6) + 8) = v59;
-          LODWORD(v62) = v59;
-          std::deque<unsigned int>::push_back(v74, &v62);
-          LODWORD(v62) = (*(a1 + 16) - *(a1 + 8)) >> 6;
-          *(&v62 + 4) = -1;
-          HIDWORD(v62) = v54;
-          v63 = v55;
+          LODWORD(v61) = v59;
+          std::deque<unsigned int>::push_back(v73, &v61);
+          LODWORD(v61) = (*(a1 + 16) - *(a1 + 8)) >> 6;
+          *(&v61 + 4) = -1;
+          HIDWORD(v61) = v54;
+          v62 = v55;
+          v63 = v69;
           v64 = v70;
-          v65 = v71;
-          std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn200100](a1 + 8, &v62);
+          std::vector<geom::bvh_node<double,(unsigned char)2>>::push_back[abi:nn200100](a1 + 8, &v61);
         }
       }
 
-      v40 = *(&v75 + 1);
+      v40 = *(&v74 + 1);
     }
 
-    while (*(&v75 + 1));
+    while (*(&v74 + 1));
   }
 
   *a1 = 1;
-  std::deque<unsigned int>::~deque[abi:nn200100](v74);
-LABEL_44:
-  v60 = *MEMORY[0x277D85DE8];
+  std::deque<unsigned int>::~deque[abi:nn200100](v73);
 }
 
 uint64_t geom::bvh<float,(unsigned char)3>::build_median(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v6, a2);
-  v5[0] = &unk_286292208;
-  v5[1] = a1;
-  v5[3] = v5;
-  geom::bvh<float,(unsigned char)3>::build_top_down(a1, v6, v5);
-  std::__function::__value_func<unsigned int ()(geom::bvh_node<float,(unsigned char)3> const&,geom::bbox<float,(unsigned char)3> &,geom::bbox<float,(unsigned char)3> &)>::~__value_func[abi:nn200100](v5);
-  result = std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::~__value_func[abi:nn200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v5, a2);
+  v4[0] = &unk_286292208;
+  v4[1] = a1;
+  v4[3] = v4;
+  geom::bvh<float,(unsigned char)3>::build_top_down(a1, v5, v4);
+  std::__function::__value_func<unsigned int ()(geom::bvh_node<float,(unsigned char)3> const&,geom::bbox<float,(unsigned char)3> &,geom::bbox<float,(unsigned char)3> &)>::~__value_func[abi:nn200100](v4);
+  return std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::~__value_func[abi:nn200100](v5);
 }
 
 void geom::bvh<float,(unsigned char)3>::build_surface_area_heuristic(uint64_t a1, uint64_t a2)
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)3>>(a1, v3);
+  geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)3>>(a1, v3, 8);
 }
 
-void geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)3>>(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)3>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -6472,13 +6294,13 @@ void geom::bvh<float,(unsigned char)3>::build_volume_heuristic(uint64_t a1, uint
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::volume_heuristic_functor<float,(unsigned char)3>>(a1, v3);
+  geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::volume_heuristic_functor<float,(unsigned char)3>>(a1, v3, 8);
 }
 
-void geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::volume_heuristic_functor<float,(unsigned char)3>>(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::volume_heuristic_functor<float,(unsigned char)3>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -6486,13 +6308,13 @@ void geom::bvh<float,(unsigned char)3>::build_intersection_volume_heuristic(uint
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<float,(unsigned char)3>>(a1, v3);
+  geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<float,(unsigned char)3>>(a1, v3, 8);
 }
 
-void geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<float,(unsigned char)3>>(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<float,(unsigned char)3>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -7123,21 +6945,21 @@ uint64_t geom::bvh<float,(unsigned char)3>::find_all_intersections(uint64_t resu
   if (*(result + 16) != *(result + 8))
   {
     v7 = result;
-    v20 = 0u;
-    memset(v19, 0, sizeof(v19));
-    v18 = 0;
-    std::deque<unsigned int>::push_back(v19, &v18);
-    while (*(&v20 + 1))
+    v22 = 0u;
+    memset(v21, 0, sizeof(v21));
+    v20 = 0;
+    std::deque<unsigned int>::push_back(v21, &v20);
+    while (*(&v22 + 1))
     {
-      v8 = *(*(*(&v19[0] + 1) + (((v20 + *(&v20 + 1) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v20 + *(&v20 + 1) - 1) & 0x3FF));
+      v8 = *(*(*(&v21[0] + 1) + (((v22 + *(&v22 + 1) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v22 + *(&v22 + 1) - 1) & 0x3FF));
       v9 = *(v7 + 8);
-      --*(&v20 + 1);
-      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v19, 1);
+      --*(&v22 + 1);
+      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v21, 1);
       v10 = *(a3 + 24);
       if (!v10)
       {
         v16 = std::__throw_bad_function_call[abi:nn200100]();
-        geom::bvh<float,(unsigned char)3>::partition_node_median(v16, v17);
+        geom::bvh<float,(unsigned char)3>::partition_node_median(v16, v17, v18, v19);
       }
 
       v11 = (v9 + (v8 << 6));
@@ -7153,10 +6975,10 @@ uint64_t geom::bvh<float,(unsigned char)3>::find_all_intersections(uint64_t resu
             v15 = 4 * (v12 + v13) - 4 * v13;
             do
             {
-              v18 = *v14;
-              if (std::function<BOOL ()>::operator()(a2, v18))
+              v20 = *v14;
+              if (std::function<BOOL ()>::operator()(a2, v20))
               {
-                std::vector<unsigned int>::push_back[abi:nn200100](a4, &v18);
+                std::vector<unsigned int>::push_back[abi:nn200100](a4, &v20);
               }
 
               ++v14;
@@ -7169,50 +6991,50 @@ uint64_t geom::bvh<float,(unsigned char)3>::find_all_intersections(uint64_t resu
 
         else
         {
-          std::deque<unsigned int>::push_back(v19, v11 + 1);
-          std::deque<unsigned int>::push_back(v19, v11 + 2);
+          std::deque<unsigned int>::push_back(v21, v11 + 1);
+          std::deque<unsigned int>::push_back(v21, v11 + 2);
         }
       }
     }
 
-    return std::deque<unsigned int>::~deque[abi:nn200100](v19);
+    return std::deque<unsigned int>::~deque[abi:nn200100](v21);
   }
 
   return result;
 }
 
-void geom::bvh<float,(unsigned char)3>::partition_node_median(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)3>::partition_node_median(uint64_t a1, float32x4_t *a2, uint64_t a3, uint64_t a4)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
-  v12[0] = &unk_286292408;
-  v12[1] = a1;
-  v12[3] = v12;
-  v11[0] = &unk_286292508;
-  v11[1] = a1;
-  v11[2] = v12;
-  v11[3] = v11;
-  v4 = *(a2 + 32);
-  v5 = *(a2 + 48);
-  v9 = 0;
-  std::function<void ()(geom::bvh_node<float,(unsigned char)3> const&,int,float &,unsigned int &)>::operator()(v11, a2, 0);
-  v6 = vsubq_f32(v5, v4);
+  v14[4] = *MEMORY[0x277D85DE8];
+  v14[0] = &unk_286292408;
+  v14[1] = a1;
+  v14[3] = v14;
+  v13[0] = &unk_286292508;
+  v13[1] = a1;
+  v13[2] = v14;
+  v13[3] = v13;
+  v6 = a2[2];
+  v7 = a2[3];
+  v11 = 0;
+  std::function<void ()(geom::bvh_node<float,(unsigned char)3> const&,int,float &,unsigned int &)>::operator()(v13, a2, 0);
+  v8 = vsubq_f32(v7, v6);
+  v12 = 0;
   v10 = 0;
-  v8 = 0;
-  std::function<void ()(geom::bvh_node<float,(unsigned char)3> const&,int,float &,unsigned int &)>::operator()(v11, a2, 1);
-  v3 = 0;
-  if (v6.f32[1] > v6.f32[0])
+  std::function<void ()(geom::bvh_node<float,(unsigned char)3> const&,int,float &,unsigned int &)>::operator()(v13, a2, 1);
+  v5 = 0;
+  if (v8.f32[1] > v8.f32[0])
   {
-    v9 = v10 | 0x100000000;
-    v3 = 1;
+    v11 = v12 | 0x100000000;
+    v5 = 1;
   }
 
+  v12 = 0;
   v10 = 0;
-  v8 = 0;
-  std::function<void ()(geom::bvh_node<float,(unsigned char)3> const&,int,float &,unsigned int &)>::operator()(v11, a2, 2);
-  v7 = v6;
-  if (v6.f32[2] > *(&v7 | (4 * v3)))
+  std::function<void ()(geom::bvh_node<float,(unsigned char)3> const&,int,float &,unsigned int &)>::operator()(v13, a2, 2);
+  v9 = v8;
+  if (v8.f32[2] > *(&v9 | (4 * v5)))
   {
-    v9 = v10 | 0x200000000;
+    v11 = v12 | 0x200000000;
   }
 
   operator new();
@@ -7398,8 +7220,9 @@ LABEL_15:
   return v25;
 }
 
-uint64_t geom::bvh<double,(unsigned char)3>::bvh(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t geom::bvh<double,(unsigned char)3>::bvh(uint64_t a1, const void *a2, const void *a3, const void *a4, const void *a5, uint64_t a6)
 {
+  v6 = a6;
   v10[0] = a2;
   v10[1] = a3;
   v9[0] = a4;
@@ -7409,11 +7232,11 @@ uint64_t geom::bvh<double,(unsigned char)3>::bvh(uint64_t a1, uint64_t a2, uint6
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0u;
   _ZN4geom19make_external_arrayINS_5sliceIDv3_dEEEENSt3__19enable_ifIXaa21collection_has_size_vIT_E21collection_has_data_vIS6_EENS_14external_arrayINS6_10value_typeEEEE4typeERKS6_b(v10, a6, a1 + 56);
-  geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)3>>>(v9, a6, a1 + 80);
+  geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)3>>>(v9, v6, a1 + 80);
   return a1;
 }
 
-void *geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)3>>>@<X0>(void *result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+const void **geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)3>>>@<X0>(const void **result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   v3 = result[1];
   if (v3)
@@ -7437,7 +7260,7 @@ void *geom::make_external_array<geom::slice<geom::bbox<double,(unsigned char)3>>
   return result;
 }
 
-void *geom::bvh<double,(unsigned char)3>::reset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+const void **geom::bvh<double,(unsigned char)3>::reset(uint64_t a1, void *a2, unint64_t a3, const void *a4, const void *a5, int a6)
 {
   v15[0] = a4;
   v15[1] = a5;
@@ -7524,15 +7347,6 @@ uint64_t geom::bvh<double,(unsigned char)3>::reset(uint64_t result, uint64_t a2,
   return result;
 }
 
-uint64_t geom::bvh<double,(unsigned char)3>::iterator::primitives(unsigned int *a1)
-{
-  v1 = *(*a1 + 8) + 96 * a1[2];
-  v2 = *(v1 + 12);
-  result = *(*a1 + 32) + 4 * v2;
-  v4 = (*(v1 + 16) + v2) - v2;
-  return result;
-}
-
 unsigned int *geom::bvh<double,(unsigned char)3>::iterator::operator++(unsigned int *result)
 {
   v1 = result[2];
@@ -7568,21 +7382,19 @@ uint64_t geom::bvh<double,(unsigned char)3>::iterator::operator++(void *a1)
 
 uint64_t geom::bvh<double,(unsigned char)3>::build_middle_split(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v6, a2);
-  v5[0] = &unk_286292618;
-  v5[1] = a1;
-  v5[3] = v5;
-  geom::bvh<double,(unsigned char)3>::build_top_down(a1, v6, v5);
-  std::__function::__value_func<unsigned int ()(geom::bvh_node<double,(unsigned char)3> const&,geom::bbox<double,(unsigned char)3> &,geom::bbox<double,(unsigned char)3> &)>::~__value_func[abi:nn200100](v5);
-  result = std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::~__value_func[abi:nn200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v5, a2);
+  v4[0] = &unk_286292618;
+  v4[1] = a1;
+  v4[3] = v4;
+  geom::bvh<double,(unsigned char)3>::build_top_down(a1, v5, v4);
+  std::__function::__value_func<unsigned int ()(geom::bvh_node<double,(unsigned char)3> const&,geom::bbox<double,(unsigned char)3> &,geom::bbox<double,(unsigned char)3> &)>::~__value_func[abi:nn200100](v4);
+  return std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::~__value_func[abi:nn200100](v5);
 }
 
 void geom::bvh<double,(unsigned char)3>::build_top_down(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   if ((*a1 & 1) == 0)
   {
     *(a1 + 16) = *(a1 + 8);
@@ -7654,7 +7466,7 @@ void geom::bvh<double,(unsigned char)3>::build_top_down(uint64_t a1, uint64_t a2
 
 LABEL_21:
     *a1 = 1;
-    goto LABEL_42;
+    return;
   }
 
   if (!*(a1 + 88))
@@ -7704,8 +7516,8 @@ LABEL_19:
     v31 = 96 * v27;
     *v31 = xmmword_2500C7370;
     *(v31 + 16) = v22;
-    *(v31 + 20) = v82;
-    *(v31 + 28) = DWORD2(v82);
+    *(v31 + 20) = v81;
+    *(v31 + 28) = DWORD2(v81);
     *(v31 + 32) = v17;
     *(v31 + 48) = v6;
     *(v31 + 64) = v18;
@@ -7729,8 +7541,8 @@ LABEL_19:
   {
     *v23 = xmmword_2500C7370;
     *(v23 + 16) = v22;
-    *(v23 + 20) = v82;
-    *(v23 + 28) = DWORD2(v82);
+    *(v23 + 20) = v81;
+    *(v23 + 28) = DWORD2(v81);
     *(v23 + 32) = v17;
     *(v23 + 48) = v6;
     *(v23 + 64) = v18;
@@ -7739,25 +7551,25 @@ LABEL_19:
   }
 
   *(a1 + 16) = v25;
-  v81 = 0u;
-  memset(v80, 0, sizeof(v80));
-  LODWORD(v82) = 0;
-  std::deque<unsigned int>::push_back(v80, &v82);
-  v36 = *(&v81 + 1);
-  if (*(&v81 + 1))
+  v80 = 0u;
+  memset(v79, 0, sizeof(v79));
+  LODWORD(v81) = 0;
+  std::deque<unsigned int>::push_back(v79, &v81);
+  v36 = *(&v80 + 1);
+  if (*(&v80 + 1))
   {
-    v58 = vdupq_n_s64(0xFFF0000000000000);
-    v59 = vdupq_n_s64(0x7FF0000000000000uLL);
+    v57 = vdupq_n_s64(0xFFF0000000000000);
+    v58 = vdupq_n_s64(0x7FF0000000000000uLL);
     do
     {
       v37 = v36 - 1;
-      v38 = *(*(*(&v80[0] + 1) + (((v81 + v37) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v81 + v37) & 0x3FF));
-      *(&v81 + 1) = v37;
-      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v80, 1);
+      v38 = *(*(*(&v79[0] + 1) + (((v80 + v37) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v80 + v37) & 0x3FF));
+      *(&v80 + 1) = v37;
+      std::deque<unsigned int>::__maybe_remove_back_spare[abi:nn200100](v79, 1);
       v39 = *(a2 + 24);
       if (!v39)
       {
-LABEL_43:
+LABEL_42:
         std::__throw_bad_function_call[abi:nn200100]();
       }
 
@@ -7765,114 +7577,110 @@ LABEL_43:
       {
         v40 = (*(a1 + 8) + 96 * v38);
         v41 = v40[1];
-        v82 = *v40;
-        v83 = v41;
+        v81 = *v40;
+        v82 = v41;
         v42 = v40[5];
         v44 = v40[2];
         v43 = v40[3];
-        v86 = v40[4];
-        *(&v41 + 1) = *(&v86 + 1);
-        v87 = v42;
-        v84 = v44;
-        v85 = v43;
+        v85 = v40[4];
+        *(&v41 + 1) = *(&v85 + 1);
+        v86 = v42;
+        v83 = v44;
+        v84 = v43;
         *&v41 = 0x7FF0000000000000;
-        v76 = v59;
-        v77 = v41;
+        v75 = v58;
+        v76 = v41;
         *&v42 = 0xFFF0000000000000;
-        v78 = v58;
-        v79 = v42;
-        v72 = v59;
-        v73 = v41;
-        v74 = v58;
-        v75 = v42;
+        v77 = v57;
+        v78 = v42;
+        v71 = v58;
+        v72 = v41;
+        v73 = v57;
+        v74 = v42;
         v45 = *(a3 + 24);
         if (!v45)
         {
-          goto LABEL_43;
+          goto LABEL_42;
         }
 
-        v46 = (*(*v45 + 48))(v45, &v82, &v76, &v72);
+        v46 = (*(*v45 + 48))(v45, &v81, &v75, &v71);
         if (v46)
         {
           v47 = v46;
-          if (v83 != v46)
+          if (v82 != v46)
           {
             v48 = a2;
             v49 = a3;
-            v50 = HIDWORD(v82) + v46;
-            v51 = v83 - v46;
+            v50 = HIDWORD(v81) + v46;
+            v51 = v82 - v46;
             v52 = *(a1 + 8);
             v53 = -1431655765 * ((*(a1 + 16) - v52) >> 5);
             v54 = 3 * v38;
             *(v52 + 32 * v54 + 4) = v53;
-            LODWORD(v66) = v53;
-            std::deque<unsigned int>::push_back(v80, &v66);
-            LODWORD(v66) = -1431655765 * ((*(a1 + 16) - *(a1 + 8)) >> 5);
-            *(&v66 + 4) = -1;
-            HIDWORD(v66) = HIDWORD(v82);
-            v67 = v47;
+            LODWORD(v65) = v53;
+            std::deque<unsigned int>::push_back(v79, &v65);
+            LODWORD(v65) = -1431655765 * ((*(a1 + 16) - *(a1 + 8)) >> 5);
+            *(&v65 + 4) = -1;
+            HIDWORD(v65) = HIDWORD(v81);
+            v66 = v47;
+            v67 = v75;
             v68 = v76;
             v69 = v77;
             v70 = v78;
-            v71 = v79;
-            std::vector<geom::bvh_node<double,(unsigned char)3>>::push_back[abi:nn200100](a1 + 8, &v66);
+            std::vector<geom::bvh_node<double,(unsigned char)3>>::push_back[abi:nn200100](a1 + 8, &v65);
             v55 = *(a1 + 8);
             v56 = -1431655765 * ((*(a1 + 16) - v55) >> 5);
             *(v55 + 32 * v54 + 8) = v56;
-            LODWORD(v60) = v56;
-            std::deque<unsigned int>::push_back(v80, &v60);
-            LODWORD(v60) = -1431655765 * ((*(a1 + 16) - *(a1 + 8)) >> 5);
-            *(&v60 + 4) = -1;
-            HIDWORD(v60) = v50;
-            v61 = v51;
+            LODWORD(v59) = v56;
+            std::deque<unsigned int>::push_back(v79, &v59);
+            LODWORD(v59) = -1431655765 * ((*(a1 + 16) - *(a1 + 8)) >> 5);
+            *(&v59 + 4) = -1;
+            HIDWORD(v59) = v50;
+            v60 = v51;
             a3 = v49;
             a2 = v48;
+            v61 = v71;
             v62 = v72;
             v63 = v73;
             v64 = v74;
-            v65 = v75;
-            std::vector<geom::bvh_node<double,(unsigned char)3>>::push_back[abi:nn200100](a1 + 8, &v60);
+            std::vector<geom::bvh_node<double,(unsigned char)3>>::push_back[abi:nn200100](a1 + 8, &v59);
           }
         }
       }
 
-      v36 = *(&v81 + 1);
+      v36 = *(&v80 + 1);
     }
 
-    while (*(&v81 + 1));
+    while (*(&v80 + 1));
   }
 
   *a1 = 1;
-  std::deque<unsigned int>::~deque[abi:nn200100](v80);
-LABEL_42:
-  v57 = *MEMORY[0x277D85DE8];
+  std::deque<unsigned int>::~deque[abi:nn200100](v79);
 }
 
 uint64_t geom::bvh<double,(unsigned char)3>::build_median(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v6, a2);
-  v5[0] = &unk_2862926A8;
-  v5[1] = a1;
-  v5[3] = v5;
-  geom::bvh<double,(unsigned char)3>::build_top_down(a1, v6, v5);
-  std::__function::__value_func<unsigned int ()(geom::bvh_node<double,(unsigned char)3> const&,geom::bbox<double,(unsigned char)3> &,geom::bbox<double,(unsigned char)3> &)>::~__value_func[abi:nn200100](v5);
-  result = std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::~__value_func[abi:nn200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v5, a2);
+  v4[0] = &unk_2862926A8;
+  v4[1] = a1;
+  v4[3] = v4;
+  geom::bvh<double,(unsigned char)3>::build_top_down(a1, v5, v4);
+  std::__function::__value_func<unsigned int ()(geom::bvh_node<double,(unsigned char)3> const&,geom::bbox<double,(unsigned char)3> &,geom::bbox<double,(unsigned char)3> &)>::~__value_func[abi:nn200100](v4);
+  return std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::~__value_func[abi:nn200100](v5);
 }
 
 void geom::bvh<double,(unsigned char)3>::build_surface_area_heuristic(uint64_t a1, uint64_t a2)
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<double,(unsigned char)3>>(a1, v3);
+  geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<double,(unsigned char)3>>(a1, v3, 8);
 }
 
-void geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<double,(unsigned char)3>>(uint64_t a1, uint64_t a2)
+void geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::surface_area_heuristic_functor<double,(unsigned char)3>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -7880,13 +7688,13 @@ void geom::bvh<double,(unsigned char)3>::build_volume_heuristic(uint64_t a1, uin
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::volume_heuristic_functor<double,(unsigned char)3>>(a1, v3);
+  geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::volume_heuristic_functor<double,(unsigned char)3>>(a1, v3, 8);
 }
 
-void geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::volume_heuristic_functor<double,(unsigned char)3>>(uint64_t a1, uint64_t a2)
+void geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::volume_heuristic_functor<double,(unsigned char)3>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -7894,13 +7702,13 @@ void geom::bvh<double,(unsigned char)3>::build_intersection_volume_heuristic(uin
 {
   v4 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
-  geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<double,(unsigned char)3>>(a1, v3);
+  geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<double,(unsigned char)3>>(a1, v3, 8);
 }
 
-void geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<double,(unsigned char)3>>(uint64_t a1, uint64_t a2)
+void geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<geom::intersection_volume_heuristic_functor<double,(unsigned char)3>>(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v2, a2);
+  v4 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v3, a2);
   operator new();
 }
 
@@ -8689,15 +8497,6 @@ uint64_t geom::bvh<double,(unsigned char)3>::tree_statistics(uint64_t a1, unsign
   return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v17);
 }
 
-uint64_t geom::bvh<double,(unsigned char)3>::primitives_for_node_index(uint64_t a1, unsigned int a2)
-{
-  v2 = *(a1 + 8) + 96 * a2;
-  v3 = *(v2 + 12);
-  result = *(a1 + 32) + 4 * v3;
-  v5 = (*(v2 + 16) + v3) - v3;
-  return result;
-}
-
 void std::vector<geom::bvh_node<double,(unsigned char)3>>::push_back[abi:nn200100](uint64_t a1, _OWORD *a2)
 {
   v4 = *(a1 + 8);
@@ -8775,46 +8574,46 @@ void std::vector<geom::bvh_node<double,(unsigned char)3>>::push_back[abi:nn20010
   *(a1 + 8) = v10;
 }
 
-void geom::bvh<double,(unsigned char)3>::partition_node_median(uint64_t a1, float64x2_t *a2)
+void geom::bvh<double,(unsigned char)3>::partition_node_median(uint64_t a1, float64x2_t *a2, float64x2_t *a3, float64x2_t *a4)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  v17[0] = &unk_2862928A8;
-  v17[1] = a1;
-  v17[3] = v17;
-  v16[0] = &unk_2862929A8;
-  v16[1] = a1;
-  v16[2] = v17;
-  v16[3] = v16;
-  v5 = a2[3];
-  v6 = a2[5];
-  v7 = a2[2];
-  v8 = a2[4];
-  v14 = 0;
-  v13 = 0;
-  std::function<void ()(geom::bvh_node<double,(unsigned char)3> const&,int,double &,unsigned int &)>::operator()(v16, a2, 0);
-  v9 = vsubq_f64(v8, v7);
+  v19[4] = *MEMORY[0x277D85DE8];
+  v19[0] = &unk_2862928A8;
+  v19[1] = a1;
+  v19[3] = v19;
+  v18[0] = &unk_2862929A8;
+  v18[1] = a1;
+  v18[2] = v19;
+  v18[3] = v18;
+  v7 = a2[3];
+  v8 = a2[5];
+  v9 = a2[2];
+  v10 = a2[4];
+  v16 = 0;
   v15 = 0;
-  v12 = 0;
-  std::function<void ()(geom::bvh_node<double,(unsigned char)3> const&,int,double &,unsigned int &)>::operator()(v16, a2, 1);
-  v3 = 0;
-  if (v9.f64[1] > v9.f64[0])
+  std::function<void ()(geom::bvh_node<double,(unsigned char)3> const&,int,double &,unsigned int &)>::operator()(v18, a2, 0);
+  v11 = vsubq_f64(v10, v9);
+  v17 = 0;
+  v14 = 0;
+  std::function<void ()(geom::bvh_node<double,(unsigned char)3> const&,int,double &,unsigned int &)>::operator()(v18, a2, 1);
+  v5 = 0;
+  if (v11.f64[1] > v11.f64[0])
   {
-    v14 = 1;
-    v13 = v15;
-    v3 = 1;
+    v16 = 1;
+    v15 = v17;
+    v5 = 1;
   }
 
-  v15 = 0;
-  v12 = 0;
-  std::function<void ()(geom::bvh_node<double,(unsigned char)3> const&,int,double &,unsigned int &)>::operator()(v16, a2, 2);
-  v4 = v9;
-  v4.i64[1] = vextq_s8(v4, v4, 8uLL).u64[0];
-  v10 = v4;
-  v11 = vsubq_f64(v6, v5);
-  if (v11.f64[0] > *(&v10 | (8 * v3)))
+  v17 = 0;
+  v14 = 0;
+  std::function<void ()(geom::bvh_node<double,(unsigned char)3> const&,int,double &,unsigned int &)>::operator()(v18, a2, 2);
+  v6 = v11;
+  v6.i64[1] = vextq_s8(v6, v6, 8uLL).u64[0];
+  v12 = v6;
+  v13 = vsubq_f64(v8, v7);
+  if (v13.f64[0] > *(&v12 | (8 * v5)))
   {
-    v14 = 2;
-    v13 = v15;
+    v16 = 2;
+    v15 = v17;
   }
 
   operator new();
@@ -9008,31 +8807,31 @@ LABEL_14:
   return v27;
 }
 
-void geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<std::function<float ()(unsigned int,geom::bbox<float,(unsigned char)2> const&,unsigned int,geom::bbox<float,(unsigned char)2> const&)>>(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)2>::build_from_custom_heuristic<std::function<float ()(unsigned int,geom::bbox<float,(unsigned char)2> const&,unsigned int,geom::bbox<float,(unsigned char)2> const&)>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v2, a2);
+  v5 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)2> &)>::__value_func[abi:nn200100](v4, a2);
   operator new();
 }
 
-void geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<std::function<double ()(unsigned int,geom::bbox<double,(unsigned char)2> const&,unsigned int,geom::bbox<double,(unsigned char)2> const&)>>(uint64_t a1, uint64_t a2)
+void geom::bvh<double,(unsigned char)2>::build_from_custom_heuristic<std::function<double ()(unsigned int,geom::bbox<double,(unsigned char)2> const&,unsigned int,geom::bbox<double,(unsigned char)2> const&)>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v2, a2);
+  v5 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)2> &)>::__value_func[abi:nn200100](v4, a2);
   operator new();
 }
 
-void geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<std::function<float ()(unsigned int,geom::bbox<float,(unsigned char)3> const&,unsigned int,geom::bbox<float,(unsigned char)3> const&)>>(uint64_t a1, uint64_t a2)
+void geom::bvh<float,(unsigned char)3>::build_from_custom_heuristic<std::function<float ()(unsigned int,geom::bbox<float,(unsigned char)3> const&,unsigned int,geom::bbox<float,(unsigned char)3> const&)>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v2, a2);
+  v5 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<float,(unsigned char)3> &)>::__value_func[abi:nn200100](v4, a2);
   operator new();
 }
 
-void geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<std::function<double ()(unsigned int,geom::bbox<double,(unsigned char)3> const&,unsigned int,geom::bbox<double,(unsigned char)3> const&)>>(uint64_t a1, uint64_t a2)
+void geom::bvh<double,(unsigned char)3>::build_from_custom_heuristic<std::function<double ()(unsigned int,geom::bbox<double,(unsigned char)3> const&,unsigned int,geom::bbox<double,(unsigned char)3> const&)>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v2, a2);
+  v5 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned char)3> &)>::__value_func[abi:nn200100](v4, a2);
   operator new();
 }
 
@@ -9603,20 +9402,20 @@ uint64_t geom::bvh<float,(unsigned char)2>::partition_node_heuristic<geom::surfa
   return v25;
 }
 
-void std::vector<geom::bbox<float,(unsigned char)2>>::resize(void *a1, unint64_t a2)
+void std::vector<geom::bbox<float,(unsigned char)2>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<geom::bbox<float,(unsigned char)2>>::__append(a1, a2 - v2);
+    std::vector<geom::bbox<float,(unsigned char)2>>::__append(result, a2 - v2);
   }
 }
 
@@ -9702,7 +9501,7 @@ void std::vector<geom::bbox<float,(unsigned char)2>>::__append(uint64_t a1, unin
   }
 }
 
-_DWORD *std::__partition_impl[abi:nn200100]<unsigned int geom::bvh<float,(unsigned char)2>::partition_node_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)2>>(geom::surface_area_heuristic_functor<float,(unsigned char)2>,unsigned int,geom::bvh_node<float,(unsigned char)2> const&,geom::bbox<float,(unsigned char)2> &,geom::bbox<float,(unsigned char)2> &)::{lambda(unsigned int)#1} &,std::_ClassicAlgPolicy,std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(_DWORD *result, _DWORD *a2, _DWORD *a3)
+unsigned int *std::__partition_impl[abi:nn200100]<unsigned int geom::bvh<float,(unsigned char)2>::partition_node_heuristic<geom::surface_area_heuristic_functor<float,(unsigned char)2>>(geom::surface_area_heuristic_functor<float,(unsigned char)2>,unsigned int,geom::bvh_node<float,(unsigned char)2> const&,geom::bbox<float,(unsigned char)2> &,geom::bbox<float,(unsigned char)2> &)::{lambda(unsigned int)#1} &,std::_ClassicAlgPolicy,std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(unsigned int *result, unsigned int *a2, _DWORD *a3)
 {
   if (result != a2)
   {

@@ -1,6 +1,7 @@
 @interface _INPBStartVideoCallIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBStartVideoCallIntent)initWithCoder:(id)coder;
+- (id)audioRouteAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAudioRoute:(id)route;
@@ -18,7 +19,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBStartVideoCallIntent *)self hasAudioRoute])
   {
@@ -43,30 +44,30 @@
   if ([(NSArray *)self->_contacts count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v9 = self->_contacts;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v31;
+      v12 = *v30;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v31 != v12)
+          if (*v30 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation2 = [*(*(&v30 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v29 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v11);
@@ -82,30 +83,30 @@
   if ([(NSArray *)self->_targetContacts count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v18 = self->_targetContacts;
-    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v27;
+      v21 = *v26;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v27 != v21)
+          if (*v26 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          dictionaryRepresentation4 = [*(*(&v26 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v25 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation4];
         }
 
-        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v20);
@@ -113,8 +114,6 @@
 
     [dictionary setObject:array2 forKeyedSubscript:@"targetContacts"];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -323,11 +322,10 @@ LABEL_27:
 
 - (void)writeTo:(id)to
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBStartVideoCallIntent *)self hasAudioRoute])
   {
-    audioRoute = self->_audioRoute;
     PBDataWriterWriteInt32Field();
   }
 
@@ -339,36 +337,35 @@ LABEL_27:
     PBDataWriterWriteSubmessage();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v8 = self->_contacts;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v9)
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v7 = self->_contacts;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v28;
+    v9 = v8;
+    v10 = *v24;
     do
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v28 != v11)
+        if (*v24 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
-        ++v12;
+        ++v11;
       }
 
-      while (v10 != v12);
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
   intentMetadata = [(_INPBStartVideoCallIntent *)self intentMetadata];
@@ -379,39 +376,36 @@ LABEL_27:
     PBDataWriterWriteSubmessage();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v16 = self->_targetContacts;
-  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v17)
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v14 = self->_targetContacts;
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  if (v15)
   {
-    v18 = v17;
-    v19 = *v24;
+    v16 = v15;
+    v17 = *v20;
     do
     {
-      v20 = 0;
+      v18 = 0;
       do
       {
-        if (*v24 != v19)
+        if (*v20 != v17)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v14);
         }
 
-        v21 = *(*(&v23 + 1) + 8 * v20);
         PBDataWriterWriteSubmessage();
-        ++v20;
+        ++v18;
       }
 
-      while (v18 != v20);
-      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      while (v16 != v18);
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
-    while (v18);
+    while (v16);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTargetContacts:(id)contacts
@@ -489,6 +483,21 @@ LABEL_27:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)audioRouteAsString:(int)string
+{
+  if ((string - 2) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F7F0[string - 2];
   }
 
   return v4;

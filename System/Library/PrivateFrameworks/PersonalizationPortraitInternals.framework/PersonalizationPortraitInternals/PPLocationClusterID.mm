@@ -16,11 +16,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = *&self->_name;
-  v5 = [v3 initWithFormat:@"%@:%@:%@:%@:%@:%@", self->_name, self->_subThoroughfare, self->_thoroughfare, self->_subLocality, self->_locality, self->_administrativeArea];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@:%@:%@:%@:%@:%@", self->_name, self->_subThoroughfare, self->_thoroughfare, self->_subLocality, self->_locality, self->_administrativeArea];
 
-  return v5;
+  return v2;
 }
 
 - (unint64_t)hash
@@ -331,32 +329,32 @@ LABEL_39:
 
 void __48__PPLocationClusterID_latLongTableWithClusters___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
   obj = v6;
   if (v7)
   {
     v8 = v7;
-    v28 = a1;
-    v29 = v5;
+    v27 = a1;
+    v28 = v5;
     v6 = 0;
-    v9 = *v32;
+    v9 = *v31;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * i);
+        v11 = *(*(&v30 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = [v11 location];
         v14 = [v13 placemark];
@@ -369,7 +367,7 @@ void __48__PPLocationClusterID_latLongTableWithClusters___block_invoke(uint64_t 
         {
           v19 = v18;
           [v15 coordinate];
-          v20 = CLLocationCoordinate2DIsValid(v37);
+          v20 = CLLocationCoordinate2DIsValid(v36);
 
           if (v20)
           {
@@ -382,7 +380,7 @@ void __48__PPLocationClusterID_latLongTableWithClusters___block_invoke(uint64_t 
               {
 
                 objc_autoreleasePoolPop(v12);
-                v5 = v29;
+                v5 = v28;
                 v6 = obj;
                 goto LABEL_19;
               }
@@ -402,7 +400,7 @@ void __48__PPLocationClusterID_latLongTableWithClusters___block_invoke(uint64_t 
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v8)
       {
         continue;
@@ -411,10 +409,10 @@ void __48__PPLocationClusterID_latLongTableWithClusters___block_invoke(uint64_t 
       break;
     }
 
-    v5 = v29;
+    v5 = v28;
     if (v6)
     {
-      [*(v28 + 32) setObject:v6 forKeyedSubscript:v29];
+      [*(v27 + 32) setObject:v6 forKeyedSubscript:v28];
       goto LABEL_19;
     }
   }
@@ -423,8 +421,6 @@ void __48__PPLocationClusterID_latLongTableWithClusters___block_invoke(uint64_t 
   {
 LABEL_19:
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 + (id)lookupTableWithRecords:(id)records
@@ -438,7 +434,7 @@ LABEL_19:
 
 + (void)aggregateRecords:(void *)records toClusters:(void *)clusters withLookupTable:
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v6 = a2;
   recordsCopy = records;
   clustersCopy = clusters;
@@ -448,28 +444,28 @@ LABEL_19:
     clustersCopy = objc_opt_new();
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v8 = v6;
-  v55 = v8;
-  v56 = [v8 countByEnumeratingWithState:&v66 objects:v71 count:16];
-  if (v56)
+  v54 = v8;
+  v55 = [v8 countByEnumeratingWithState:&v65 objects:v70 count:16];
+  if (v55)
   {
-    obj = *v67;
+    obj = *v66;
     do
     {
       v9 = 0;
       do
       {
-        if (*v67 != obj)
+        if (*v66 != obj)
         {
           objc_enumerationMutation(v8);
         }
 
-        v60 = v9;
-        v10 = *(*(&v66 + 1) + 8 * v9);
+        v59 = v9;
+        v10 = *(*(&v65 + 1) + 8 * v9);
         context = objc_autoreleasePoolPush();
         v11 = [PPLocationClusterID alloc];
         location = [v10 location];
@@ -518,49 +514,49 @@ LABEL_19:
 
         while (v27);
         objc_autoreleasePoolPop(context);
-        v9 = v60 + 1;
-        v8 = v55;
+        v9 = v59 + 1;
+        v8 = v54;
       }
 
-      while (v60 + 1 != v56);
-      v56 = [v55 countByEnumeratingWithState:&v66 objects:v71 count:16];
+      while (v59 + 1 != v55);
+      v55 = [v54 countByEnumeratingWithState:&v65 objects:v70 count:16];
     }
 
-    while (v56);
+    while (v55);
   }
 
   v28 = recordsCopy;
   if (recordsCopy)
   {
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     obja = v8;
-    v29 = [obja countByEnumeratingWithState:&v62 objects:v70 count:16];
+    v29 = [obja countByEnumeratingWithState:&v61 objects:v69 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v63;
+      v31 = *v62;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v63 != v31)
+          if (*v62 != v31)
           {
             objc_enumerationMutation(obja);
           }
 
-          v33 = *(*(&v62 + 1) + 8 * i);
+          v33 = *(*(&v61 + 1) + 8 * i);
           v34 = objc_autoreleasePoolPush();
           v35 = [PPLocationClusterID alloc];
-          v61 = v33;
+          v60 = v33;
           location6 = [v33 location];
           placemark6 = [location6 placemark];
           v38 = [(PPLocationClusterID *)v35 initWithPlacemark:placemark6];
 
           v39 = [clustersCopy objectForKeyedSubscript:v38];
-          v57 = v39;
+          v56 = v39;
           contexta = v38;
           if ([v39 isAmbiguous])
           {
@@ -592,22 +588,20 @@ LABEL_19:
           }
 
           v50 = [v47 objectForKeyedSubscript:v40];
-          [v50 addObject:v61];
+          [v50 addObject:v60];
 
           objc_autoreleasePoolPop(v34);
         }
 
-        v30 = [obja countByEnumeratingWithState:&v62 objects:v70 count:16];
+        v30 = [obja countByEnumeratingWithState:&v61 objects:v69 count:16];
       }
 
       while (v30);
     }
 
     v28 = recordsCopy;
-    v8 = v55;
+    v8 = v54;
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 + (id)clustersWithRecords:(id)records
@@ -679,45 +673,8 @@ LABEL_19:
   name2 = [locality name];
   v15 = [name2 length];
 
-  if (v15)
+  if (v15 || ([locality setName:0], objc_msgSend(locality, "subThoroughfare"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "length"), v16, v17) || (objc_msgSend(locality, "setSubThoroughfare:", 0), objc_msgSend(locality, "thoroughfare"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "length"), v18, v19) || (objc_msgSend(locality, "setThoroughfare:", 0), objc_msgSend(locality, "subLocality"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "length"), v20, v21) || (objc_msgSend(locality, "setSubLocality:", 0), objc_msgSend(locality, "locality"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "length"), v22, v23) || (objc_msgSend(locality, "setLocality:", 0), objc_msgSend(locality, "administrativeArea"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "length"), v24, v25))
   {
-    goto LABEL_13;
-  }
-
-  [locality setName:0];
-  subThoroughfare3 = [locality subThoroughfare];
-  v17 = [subThoroughfare3 length];
-
-  if (v17)
-  {
-    goto LABEL_13;
-  }
-
-  [locality setSubThoroughfare:0];
-  thoroughfare3 = [locality thoroughfare];
-  v19 = [thoroughfare3 length];
-
-  if (v19)
-  {
-    goto LABEL_13;
-  }
-
-  [locality setThoroughfare:0];
-  subLocality3 = [locality subLocality];
-  v21 = [subLocality3 length];
-
-  if (v21)
-  {
-    goto LABEL_13;
-  }
-
-  [locality setSubLocality:0];
-  v4Locality = [locality locality];
-  v23 = [v4Locality length];
-
-  if (v23 || ([locality setLocality:0], objc_msgSend(locality, "administrativeArea"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "length"), v24, v25))
-  {
-LABEL_13:
     v26 = locality;
   }
 

@@ -2363,12 +2363,15 @@ void __39__HKObjectType__allDataTypeIdentifiers__block_invoke(uint64_t a1, uint6
 uint64_t __33__HKObjectType__allTypesOfClass___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 40) _dataTypeWithCode:a2 expectedClass:*(a1 + 48)];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 32) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 32) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 + (id)_allBinarySampleTypes
@@ -2427,29 +2430,29 @@ void __41__HKObjectType__allScoredAssessmentTypes__block_invoke(uint64_t a1, voi
 
 + (id)_typesIncludingParentTypes:(id)types
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   v4 = [MEMORY[0x1E695DFA8] setWithSet:typesCopy];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = typesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         parentType = [v10 parentType];
 
         if (parentType)
@@ -2459,13 +2462,11 @@ void __41__HKObjectType__allScoredAssessmentTypes__block_invoke(uint64_t a1, voi
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -2636,13 +2637,13 @@ void __41__HKObjectType__allScoredAssessmentTypes__block_invoke(uint64_t a1, voi
   v4 = HKDataTypeCodeFromTypeIdentifier(identifierCopy);
   if (v4 || ([&unk_1F0686308 objectForKeyedSubscript:identifierCopy], (v4 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v5 = v4;
+    v6 = v4;
     unsignedIntValue = [v4 unsignedIntValue];
   }
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(0, v5);
     v9 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
     {
@@ -2654,7 +2655,6 @@ void __41__HKObjectType__allScoredAssessmentTypes__block_invoke(uint64_t a1, voi
     unsignedIntValue = -1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return unsignedIntValue;
 }
 
@@ -2676,7 +2676,7 @@ void __41__HKObjectType__allScoredAssessmentTypes__block_invoke(uint64_t a1, voi
 
 + (id)_objectTypesFromIdentifierArray:(id)array error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2684,26 +2684,26 @@ void __41__HKObjectType__allScoredAssessmentTypes__block_invoke(uint64_t a1, voi
     errorCopy = error;
     v6 = arrayCopy;
     v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v26;
+      v11 = *v25;
 LABEL_4:
       v12 = 0;
       while (1)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * v12);
+        v13 = *(*(&v24 + 1) + 8 * v12);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -2724,7 +2724,7 @@ LABEL_4:
 
         if (v10 == ++v12)
         {
-          v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
           if (v10)
           {
             goto LABEL_4;
@@ -2756,8 +2756,6 @@ LABEL_16:
     [v18 hk_assignError:error code:3 format:{@"Invalid type identifier array (expected %@, found %@)", v19, objc_opt_class()}];
     v17 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -2859,30 +2857,30 @@ LABEL_16:
 + (BOOL)_allowAuthorizationForSharing:(BOOL)sharing types:(id)types entitlements:(id)entitlements disallowedTypes:(id)disallowedTypes
 {
   sharingCopy = sharing;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   entitlementsCopy = entitlements;
   disallowedTypesCopy = disallowedTypes;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v12 = [typesCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [typesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     v15 = 1;
     while (1)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(typesCopy);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
+        v17 = *(*(&v20 + 1) + 8 * i);
         if (sharingCopy)
         {
           if ([v17 sharingAuthorizationAllowed] && (HKAllowShareAuthorizationForTypeWithEntitlements(objc_msgSend(v17, "code"), entitlementsCopy) & 1) != 0)
@@ -2904,7 +2902,7 @@ LABEL_14:
         v15 &= v18;
       }
 
-      v13 = [typesCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [typesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (!v13)
       {
         goto LABEL_18;
@@ -2915,7 +2913,6 @@ LABEL_14:
   v15 = 1;
 LABEL_18:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

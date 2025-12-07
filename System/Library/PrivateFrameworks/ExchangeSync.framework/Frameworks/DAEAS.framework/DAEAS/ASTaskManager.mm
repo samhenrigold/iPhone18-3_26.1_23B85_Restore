@@ -16,6 +16,7 @@
 - (void)_populateVersionDescriptions;
 - (void)cancelAllTasks;
 - (void)cancelTask:(id)task;
+- (void)cancelTaskWithID:(int)d;
 - (void)dealloc;
 - (void)getOptionsTask:(id)task completedWithStatus:(int64_t)status supportedCommands:(id)commands supportedVersions:(id)versions error:(id)error;
 - (void)policyManagerFailedToUpdatePolicy:(id)policy;
@@ -35,12 +36,12 @@
 
 - (ASTaskManager)initWithAccount:(id)account policyManager:(id)manager
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   managerCopy = manager;
-  v16.receiver = self;
-  v16.super_class = ASTaskManager;
-  v8 = [(DATaskManager *)&v16 initWithAccount:accountCopy];
+  v15.receiver = self;
+  v15.super_class = ASTaskManager;
+  v8 = [(DATaskManager *)&v15 initWithAccount:accountCopy];
   if (v8)
   {
     v9 = DALoggingwithCategory();
@@ -48,9 +49,9 @@
     if (os_log_type_enabled(v9, v10))
     {
       *buf = 138412546;
-      v18 = v8;
-      v19 = 2112;
-      v20 = accountCopy;
+      v17 = v8;
+      v18 = 2112;
+      v19 = accountCopy;
       _os_log_impl(&dword_24A0AC000, v9, v10, "ASTaskManager %@ created with account %@", buf, 0x16u);
     }
 
@@ -69,7 +70,6 @@
     objc_sync_exit(v11);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -115,7 +115,7 @@
 
 - (NSString)deviceID
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   account = [(DATaskManager *)self account];
   v4 = [account objectForKeyedSubscript:*MEMORY[0x277D07B08]];
 
@@ -127,11 +127,11 @@
     {
       account2 = [(DATaskManager *)self account];
       accountID = [account2 accountID];
-      v12 = 138412546;
-      v13 = v4;
-      v14 = 2112;
-      v15 = accountID;
-      _os_log_impl(&dword_24A0AC000, v5, v6, "Using per account device ID %@ for account %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v4;
+      v13 = 2112;
+      v14 = accountID;
+      _os_log_impl(&dword_24A0AC000, v5, v6, "Using per account device ID %@ for account %@", &v11, 0x16u);
     }
   }
 
@@ -141,8 +141,6 @@
 
     v4 = v9;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -180,16 +178,16 @@
 
 - (void)requestEASVersionWithDelegateTask:(id)task
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v5 = DALoggingwithCategory();
   v6 = MEMORY[0x277D03988];
   v7 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v5, v7))
   {
-    v25 = 138412290;
-    v26 = taskCopy;
-    _os_log_impl(&dword_24A0AC000, v5, v7, "Task %@ requesting EAS version.", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = taskCopy;
+    _os_log_impl(&dword_24A0AC000, v5, v7, "Task %@ requesting EAS version.", &v24, 0xCu);
   }
 
   activeModalTask = [(DATaskManager *)self activeModalTask];
@@ -235,25 +233,23 @@
     v20 = objc_opt_class();
     v21 = NSStringFromClass(v20);
     getOptionsTask4 = [(ASTaskManager *)selfCopy getOptionsTask];
-    v25 = 138543874;
-    v26 = v21;
-    v27 = 2048;
-    v28 = taskCopy;
-    v29 = 2048;
-    v30 = getOptionsTask4;
-    _os_log_impl(&dword_24A0AC000, v18, v19, "%{public}@ %p created GetOptionsTask %p for requesting EAS version", &v25, 0x20u);
+    v24 = 138543874;
+    v25 = v21;
+    v26 = 2048;
+    v27 = taskCopy;
+    v28 = 2048;
+    v29 = getOptionsTask4;
+    _os_log_impl(&dword_24A0AC000, v18, v19, "%{public}@ %p created GetOptionsTask %p for requesting EAS version", &v24, 0x20u);
   }
 
   objc_sync_exit(selfCopy);
   getOptionsTask5 = [(ASTaskManager *)selfCopy getOptionsTask];
   [getOptionsTask5 performTask];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getOptionsTask:(id)task completedWithStatus:(int64_t)status supportedCommands:(id)commands supportedVersions:(id)versions error:(id)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   commandsCopy = commands;
   versionsCopy = versions;
@@ -275,15 +271,15 @@
       v23 = objc_opt_class();
       v24 = NSStringFromClass(v23);
       *buf = 138543618;
-      v33 = v24;
-      v34 = 2048;
-      v35 = WeakRetained;
+      v32 = v24;
+      v33 = 2048;
+      v34 = WeakRetained;
       _os_log_impl(&dword_24A0AC000, v21, v22, "%{public}@ %p failed to get version string", buf, 0x16u);
     }
 
-    v31.receiver = selfCopy;
-    v31.super_class = ASTaskManager;
-    [(DATaskManager *)&v31 cancelTask:WeakRetained withUnderlyingError:v16];
+    v30.receiver = selfCopy;
+    v30.super_class = ASTaskManager;
+    [(DATaskManager *)&v30 cancelTask:WeakRetained withUnderlyingError:v16];
   }
 
   else
@@ -294,7 +290,7 @@
     if (os_log_type_enabled(v18, v19))
     {
       *buf = 138412290;
-      v33 = WeakRetained;
+      v32 = WeakRetained;
       _os_log_impl(&dword_24A0AC000, v18, v19, "ASTaskManager setting protocol version: %@", buf, 0xCu);
     }
 
@@ -316,31 +312,29 @@
       v28 = objc_opt_class();
       v29 = NSStringFromClass(v28);
       *buf = 138543874;
-      v33 = v29;
-      v34 = 2048;
-      v35 = modalGetOptionsTask;
-      v36 = 2112;
-      v37 = WeakRetained;
+      v32 = v29;
+      v33 = 2048;
+      v34 = modalGetOptionsTask;
+      v35 = 2112;
+      v36 = WeakRetained;
       _os_log_impl(&dword_24A0AC000, v27, v19, "%{public}@ %p got version string %@", buf, 0x20u);
     }
 
     [modalGetOptionsTask taskManagerDidFindEASVersion];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePolicyKeyWithDelegateTask:(id)task
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v6, v7))
   {
-    v16 = 138412290;
-    v17 = taskCopy;
-    _os_log_impl(&dword_24A0AC000, v6, v7, "Task %@ requesting update of policy key.", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = taskCopy;
+    _os_log_impl(&dword_24A0AC000, v6, v7, "Task %@ requesting update of policy key.", &v15, 0xCu);
   }
 
   activeModalTask = [(DATaskManager *)self activeModalTask];
@@ -374,22 +368,20 @@ LABEL_7:
 
   policyManager = [(ASTaskManager *)selfCopy policyManager];
   [policyManager requestPolicyUpdate];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)policyManagerUpdatedPolicy:(id)policy
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v5, v6))
   {
     policyKey = [(ASTaskManager *)self policyKey];
-    v12 = 138412290;
-    v13 = policyKey;
-    _os_log_impl(&dword_24A0AC000, v5, v6, "New policy key received: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = policyKey;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "New policy key received: %@", &v11, 0xCu);
   }
 
   modalPolicyKeyUpdateTask = [(ASTaskManager *)self modalPolicyKeyUpdateTask];
@@ -404,8 +396,6 @@ LABEL_7:
 
     [modalPolicyKeyUpdateTask2 taskManagerDidUpdatePolicyKey];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)policyManagerFailedToUpdatePolicy:(id)policy
@@ -446,41 +436,39 @@ LABEL_7:
 
 - (void)_finishAllTasksWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   allTasks = [(DATaskManager *)self allTasks];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [allTasks countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [allTasks countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(allTasks);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         if (([v10 isInCallOutToDelegate] & 1) == 0)
         {
           [(ASTaskManager *)self finishTask:v10 withError:errorCopy];
         }
       }
 
-      v7 = [allTasks countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [allTasks countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stateString
@@ -533,16 +521,52 @@ LABEL_7:
   objc_sync_exit(selfCopy);
 }
 
+- (void)cancelTaskWithID:(int)d
+{
+  v3 = *&d;
+  v21 = *MEMORY[0x277D85DE8];
+  taskIDToTask = [(ASTaskManager *)self taskIDToTask];
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  v7 = [taskIDToTask objectForKeyedSubscript:v6];
+
+  if (v7)
+  {
+    [(ASTaskManager *)self cancelTask:v7];
+  }
+
+  else
+  {
+    v8 = DALoggingwithCategory();
+    v9 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v8, v9))
+    {
+      taskIDToTask2 = [(ASTaskManager *)self taskIDToTask];
+      account = [(DATaskManager *)self account];
+      account2 = [(DATaskManager *)self account];
+      accountID = [account2 accountID];
+      v14[0] = 67109890;
+      v14[1] = v3;
+      v15 = 2112;
+      v16 = taskIDToTask2;
+      v17 = 2112;
+      v18 = account;
+      v19 = 2112;
+      v20 = accountID;
+      _os_log_impl(&dword_24A0AC000, v8, v9, "Trying to cancel task with id %d but can't find it.  _taskIDToTask is %@.  Account is %@ with id %@", v14, 0x26u);
+    }
+  }
+}
+
 - (void)shutdown
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v3, v4))
   {
     account = [(DATaskManager *)self account];
     *buf = 134217984;
-    v11 = account;
+    v10 = account;
     _os_log_impl(&dword_24A0AC000, v3, v4, "Tearing down task manager with account at %p", buf, 0xCu);
   }
 
@@ -557,10 +581,9 @@ LABEL_7:
   [(ASTaskManager *)selfCopy setGetOptionsTask:0];
   objc_sync_exit(selfCopy);
 
-  v9.receiver = selfCopy;
-  v9.super_class = ASTaskManager;
-  [(DATaskManager *)&v9 shutdown];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = selfCopy;
+  v8.super_class = ASTaskManager;
+  [(DATaskManager *)&v8 shutdown];
 }
 
 - (BOOL)taskIsModal:(id)modal
@@ -593,7 +616,7 @@ LABEL_7:
 
 - (void)cancelTask:(id)task
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   if ([(ASTaskManager *)self taskIsModal:taskCopy])
   {
@@ -602,7 +625,7 @@ LABEL_7:
     if (os_log_type_enabled(v5, v6))
     {
       *buf = 138412290;
-      v10 = taskCopy;
+      v9 = taskCopy;
       _os_log_impl(&dword_24A0AC000, v5, v6, "Task %@ wants to be cancelled, but it's currently holding our modal lock.  We can't let it die just yet", buf, 0xCu);
     }
 
@@ -611,12 +634,10 @@ LABEL_7:
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = ASTaskManager;
-    [(DATaskManager *)&v8 cancelTask:taskCopy];
+    v7.receiver = self;
+    v7.super_class = ASTaskManager;
+    [(DATaskManager *)&v7 cancelTask:taskCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)taskDidFinish:(id)finish
@@ -671,26 +692,24 @@ LABEL_7:
 
 - (BOOL)_hasTasksIndicatingARunningSync
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  allTasks = [(DATaskManager *)self allTasks];
-  v3 = [allTasks countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [(DATaskManager *)self allTasks:0];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v8 != v4)
         {
-          objc_enumerationMutation(allTasks);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -699,7 +718,7 @@ LABEL_7:
         }
       }
 
-      v3 = [allTasks countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -711,7 +730,6 @@ LABEL_7:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

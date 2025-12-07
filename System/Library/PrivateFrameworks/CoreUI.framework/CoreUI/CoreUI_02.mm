@@ -1,8 +1,8 @@
-CFDataRef CUIUncompressHEVCInfoData(uint64_t a1, void *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFDataRef CUIUncompressHEVCInfoData(uint64_t a1, void *a2, size_t a3, uint64_t a4)
 {
   if (a1 && a2)
   {
-    v9 = a4;
+    v5 = a4;
     if (a4 == 1095911234 || a4 == 1195456544)
     {
       result = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, (a1 + 8), *(a1 + 4), kCFAllocatorNull);
@@ -11,65 +11,65 @@ CFDataRef CUIUncompressHEVCInfoData(uint64_t a1, void *a2, size_t a3, uint64_t a
         return result;
       }
 
-      v12 = result;
-      v13 = CGImageSourceCreateWithData(result, 0);
-      if (v13)
+      v8 = result;
+      v9 = CGImageSourceCreateWithData(result, 0);
+      if (v9)
       {
-        v20 = v13;
-        ImageAtIndex = CGImageSourceCreateImageAtIndex(v13, 0, 0);
+        v10 = v9;
+        ImageAtIndex = CGImageSourceCreateImageAtIndex(v9, 0, 0);
         if (ImageAtIndex)
         {
-          v28 = ImageAtIndex;
+          v12 = ImageAtIndex;
           Width = CGImageGetWidth(ImageAtIndex);
-          Height = CGImageGetHeight(v28);
-          BytesPerRow = CGImageGetBytesPerRow(v28);
-          BitsPerComponent = CGImageGetBitsPerComponent(v28);
-          BitsPerPixel = CGImageGetBitsPerPixel(v28);
-          ColorSpace = CGImageGetColorSpace(v28);
-          v61 = ColorSpace;
-          if (v9 == 1195456544 || CGColorSpaceGetModel(ColorSpace) == kCGColorSpaceModelMonochrome)
+          Height = CGImageGetHeight(v12);
+          BytesPerRow = CGImageGetBytesPerRow(v12);
+          BitsPerComponent = CGImageGetBitsPerComponent(v12);
+          BitsPerPixel = CGImageGetBitsPerPixel(v12);
+          ColorSpace = CGImageGetColorSpace(v12);
+          v26 = ColorSpace;
+          if (v5 == 1195456544 || CGColorSpaceGetModel(ColorSpace) == kCGColorSpaceModelMonochrome)
           {
-            v32 = Height;
-            v36 = malloc_type_malloc(BytesPerRow * Height, 0xC3DD1445uLL);
-            BitmapInfo = CGImageGetBitmapInfo(v28);
+            v16 = Height;
+            v20 = malloc_type_malloc(BytesPerRow * Height, 0xC3DD1445uLL);
+            BitmapInfo = CGImageGetBitmapInfo(v12);
             __CFSetLastAllocationEventName();
-            v35 = v36;
-            v33 = 1;
-            if (!v35)
+            v19 = v20;
+            v17 = 1;
+            if (!v19)
             {
-              v58 = 0;
+              v23 = 0;
               goto LABEL_34;
             }
           }
 
           else
           {
-            v32 = Height;
-            v33 = 0;
+            v16 = Height;
+            v17 = 0;
             BitmapInfo = 8196;
             BytesPerRow = a3;
-            v35 = a2;
+            v19 = a2;
           }
 
-          v58 = v35;
-          srcs.data = v35;
-          srcs.height = v32;
+          v23 = v19;
+          srcs.data = v19;
+          srcs.height = v16;
           srcs.width = Width;
           srcs.rowBytes = BytesPerRow;
           srcFormat.bitsPerComponent = BitsPerComponent;
           srcFormat.bitsPerPixel = BitsPerPixel;
-          srcFormat.colorSpace = v61;
+          srcFormat.colorSpace = v26;
           srcFormat.bitmapInfo = BitmapInfo;
           memset(&srcFormat.version, 0, 20);
-          if (MEMORY[0x193AC74A0](&srcs, &srcFormat, 0, v28, 768))
+          if (MEMORY[0x193AC74A0](&srcs, &srcFormat, 0, v12, 768))
           {
-            _CUILog(4, "CoreUI: Failed to get buffer from HEVC CGImage.", v37, v38, v39, v40, v41, v42, v57);
+            _CUILog(4, "CoreUI: Failed to get buffer from HEVC CGImage.");
             goto LABEL_34;
           }
 
-          if (v33)
+          if (v17)
           {
-            if (v9 != 1195456544 && CGColorSpaceGetModel(v61))
+            if (v5 != 1195456544 && CGColorSpaceGetModel(v26))
             {
               CUIUncompressHEVCInfoData_cold_1();
             }
@@ -80,73 +80,73 @@ CFDataRef CUIUncompressHEVCInfoData(uint64_t a1, void *a2, size_t a3, uint64_t a
             destFormat.bitmapInfo = 4100;
             memset(&destFormat.version, 0, 20);
             dests.data = a2;
-            dests.height = v32;
+            dests.height = v16;
             dests.width = Width;
             dests.rowBytes = a3;
-            v43 = vImageConverter_CreateWithCGImageFormat(&srcFormat, &destFormat, 0, 0x110u, &error);
-            if (!v43 || error)
+            v21 = vImageConverter_CreateWithCGImageFormat(&srcFormat, &destFormat, 0, 0x110u, &error);
+            if (!v21 || error)
             {
-              _CUILog(4, "CoreUI: Failed to create image format converter (at %s:%lu)", v44, v45, v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/CoreUI/CoreTheme/ImageUtils/CUIHEVCCompression.m");
+              _CUILog(4, "CoreUI: Failed to create image format converter (at %s:%lu)");
               goto LABEL_33;
             }
 
-            v50 = v43;
-            error = vImageConvert_AnyToAny(v43, &srcs, &dests, 0, 0x110u);
-            vImageConverter_Release(v50);
+            v22 = v21;
+            error = vImageConvert_AnyToAny(v21, &srcs, &dests, 0, 0x110u);
+            vImageConverter_Release(v22);
             if (error)
             {
-              _CUILog(4, "CoreUI: Failed to convert to destination image format (at %s:%lu)", v51, v52, v53, v54, v55, v56, "/Library/Caches/com.apple.xbs/Sources/CoreUI/CoreTheme/ImageUtils/CUIHEVCCompression.m");
+              _CUILog(4, "CoreUI: Failed to convert to destination image format (at %s:%lu)");
 LABEL_33:
-              v33 = 1;
+              v17 = 1;
 LABEL_34:
-              CFRelease(v28);
-              CFRelease(v20);
               CFRelease(v12);
-              if (v33)
+              CFRelease(v10);
+              CFRelease(v8);
+              if (v17)
               {
-                free(v58);
+                free(v23);
               }
 
               return 0;
             }
 
-            CFRelease(v28);
-            CFRelease(v20);
             CFRelease(v12);
-            free(v58);
+            CFRelease(v10);
+            CFRelease(v8);
+            free(v23);
           }
 
           else
           {
-            CFRelease(v28);
-            CFRelease(v20);
             CFRelease(v12);
+            CFRelease(v10);
+            CFRelease(v8);
           }
 
           return 1;
         }
 
-        _CUILog(4, "CoreUI: Failed to instantiate CGImage from HEVC data.", v22, v23, v24, v25, v26, v27, v57);
-        CFRelease(v20);
+        _CUILog(4, "CoreUI: Failed to instantiate CGImage from HEVC data.");
+        CFRelease(v10);
       }
 
       else
       {
-        _CUILog(4, "CoreUI: Failed to instantiate CGSourceRef from HEVC data.", v14, v15, v16, v17, v18, v19, v57);
+        _CUILog(4, "CoreUI: Failed to instantiate CGSourceRef from HEVC data.");
       }
 
-      CFRelease(v12);
+      CFRelease(v8);
     }
 
     else
     {
-      _CUILog(4, "CoreUI: Unsupported pixel format: %u (at %s:%lu).", a3, a4, a5, a6, a7, a8, a4);
+      _CUILog(4, "CoreUI: Unsupported pixel format: %u (at %s:%lu).", a3, a4);
     }
   }
 
   else
   {
-    _CUILog(4, "CoreUI: Invalid input to %s.", a3, a4, a5, a6, a7, a8, "Boolean CUIUncompressHEVCInfoData(const u_int8_t *, u_int8_t *, size_t, u_int32_t)");
+    _CUILog(4, "CoreUI: Invalid input to %s.", a3);
   }
 
   return 0;
@@ -340,7 +340,7 @@ uint64_t CUIMinScaleForTargetPlatform(uint64_t a1)
   }
 }
 
-double CUIPointSizeForDimensionForVectorGlyph(uint64_t a1, int a2)
+double CUIPointSizeForDimensionForVectorGlyph(uint64_t a1, unsigned int a2)
 {
   if (a1)
   {
@@ -377,14 +377,14 @@ uint64_t CUIMaxDimensionForVectorGlyph(uint64_t a1)
   }
 }
 
-uint64_t CUIPreferredVectorGlyphConfigurationsForPlatform(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CUIPreferredVectorGlyphConfigurationsForPlatform(unint64_t a1)
 {
   if (a1 < 6)
   {
     return *(&off_1E724A168 + a1);
   }
 
-  _CUILog(4, "CoreUI: CUIPreferredVectorGlyphConfigurationsForPlatform() called with an unknown platform '%d'", a3, a4, a5, a6, a7, a8, a1);
+  _CUILog(4, "CoreUI: CUIPreferredVectorGlyphConfigurationsForPlatform() called with an unknown platform '%d'", a1);
   return 0;
 }
 
@@ -971,14 +971,14 @@ LABEL_20:
   Width = CGImageGetWidth(v9);
   *bytes = 0;
   length = 0;
-  v55 = 0;
+  v49 = 0;
   if (AlphaInfo > kCGImageAlphaNoneSkipFirst)
   {
-    _CUILog(4, "CoreUI: need to do something here", v17, v18, v19, v20, v21, v22, v48.data);
-    v24 = 0;
+    _CUILog(4, "CoreUI: need to do something here");
+    v18 = 0;
 LABEL_31:
-    v25 = 32;
-    v26 = 1;
+    v19 = 32;
+    v20 = 1;
     AlphaInfo = kCGImageAlphaNoneSkipLast;
     goto LABEL_32;
   }
@@ -987,12 +987,12 @@ LABEL_31:
   {
     if ((BitmapInfo & 0x7000) == 0x2000)
     {
-      v24 = 0;
+      v18 = 0;
     }
 
     else
     {
-      v24 = 3;
+      v18 = 3;
     }
 
     goto LABEL_31;
@@ -1002,318 +1002,320 @@ LABEL_31:
   {
     if ((BitmapInfo & 0x7000) == 0x2000)
     {
-      v24 = 3;
+      v18 = 3;
     }
 
     else
     {
-      v24 = 0;
+      v18 = 0;
     }
 
-    v25 = 32;
-    v26 = 1;
+    v19 = 32;
+    v20 = 1;
     AlphaInfo = kCGImageAlphaNoneSkipFirst;
   }
 
   else
   {
-    v26 = 0;
-    v24 = AlphaInfo;
-    v25 = 24;
+    v20 = 0;
+    v18 = AlphaInfo;
+    v19 = 24;
   }
 
 LABEL_32:
   memset(&src, 0, sizeof(src));
-  memset(&v48, 0, sizeof(v48));
+  memset(&v42, 0, sizeof(v42));
   LODWORD(space[0]) = 8;
-  HIDWORD(space[0]) = v25;
+  HIDWORD(space[0]) = v19;
   space[1] = CGImageGetColorSpace(v9);
-  v27 = CGImageGetAlphaInfo(v9);
-  v28 = CGImageGetBitmapInfo(v9);
-  v29 = v28 | v27;
-  v50 = v28 | v27;
+  v21 = CGImageGetAlphaInfo(v9);
+  v22 = CGImageGetBitmapInfo(v9);
+  v23 = v22 | v21;
+  v44 = v22 | v21;
   RenderingIntent = CGImageGetRenderingIntent(v9);
-  v30 = MEMORY[0x193AC74A0](&src, space, 0, v9, 256);
+  v24 = MEMORY[0x193AC74A0](&src, space, 0, v9, 256);
   if (BitsPerComponent >= 9)
   {
     CGImageRelease(v9);
   }
 
-  if (v30)
+  if (v24)
   {
     return 0;
   }
 
-  LODWORD(v50) = v50 & ~(v29 & 0x1F) | AlphaInfo;
-  v33 = MEMORY[0x193AC7550](&src, space, 0, 0, 0, 0);
-  if (!v33)
+  LODWORD(v44) = v44 & ~(v23 & 0x1F) | AlphaInfo;
+  v27 = MEMORY[0x193AC7550](&src, space, 0, 0, 0, 0);
+  if (!v27)
   {
     return 0;
   }
 
-  v34 = v33;
+  v28 = v27;
   if (a4)
   {
-    *a4 = CGImageGetBytesPerRow(v33);
+    *a4 = CGImageGetBytesPerRow(v27);
   }
 
-  v35 = a5;
-  v36 = CGImageGetColorSpace(v34);
-  if (v36 != space[1])
+  v29 = a5;
+  v30 = CGImageGetColorSpace(v28);
+  if (v30 != space[1])
   {
-    CopyWithColorSpace = CGImageCreateCopyWithColorSpace(v34, space[1]);
-    CGImageRelease(v34);
-    v34 = CopyWithColorSpace;
+    CopyWithColorSpace = CGImageCreateCopyWithColorSpace(v28, space[1]);
+    CGImageRelease(v28);
+    v28 = CopyWithColorSpace;
   }
 
   space[1] = 0;
   Mutable = CFDataCreateMutable(kCFAllocatorDefault, 0);
-  v58[0] = kCGImageMetadataShouldExcludeXMP;
-  v58[1] = @"kCGImageMetadataShouldExcludeGPS";
-  v59[0] = &unk_1F00F7C28;
-  v59[1] = &unk_1F00F7C28;
-  v39 = CGImageDestinationCreateWithData(Mutable, @"public.jpeg", 1uLL, [NSDictionary dictionaryWithObjects:v59 forKeys:v58 count:2, v48.data, v48.height, *&v48.width, space[0]]);
-  v56[0] = kCGImageDestinationLossyCompressionQuality;
-  LODWORD(v40) = *"fff?";
+  v52[0] = kCGImageMetadataShouldExcludeXMP;
+  v52[1] = @"kCGImageMetadataShouldExcludeGPS";
+  v53[0] = &unk_1F00F7C28;
+  v53[1] = &unk_1F00F7C28;
+  v33 = CGImageDestinationCreateWithData(Mutable, @"public.jpeg", 1uLL, [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:2, v42.data, v42.height, *&v42.width, space[0]]);
+  v50[0] = kCGImageDestinationLossyCompressionQuality;
+  LODWORD(v34) = *"fff?";
   if (!v10)
   {
-    *&v40 = v35;
+    *&v34 = v29;
   }
 
-  v57[0] = [NSNumber numberWithFloat:v40];
-  v57[1] = &unk_1F00F7C28;
-  v56[1] = @"kCGImageDestinationChromaSubSamplingX";
-  v56[2] = @"kCGImageDestinationChromaSubSamplingY";
-  v57[2] = &unk_1F00F7C28;
-  CGImageDestinationAddImage(v39, v34, [NSDictionary dictionaryWithObjects:v57 forKeys:v56 count:3]);
-  CGImageDestinationFinalize(v39);
-  CFRelease(v34);
+  v51[0] = [NSNumber numberWithFloat:v34];
+  v51[1] = &unk_1F00F7C28;
+  v50[1] = @"kCGImageDestinationChromaSubSamplingX";
+  v50[2] = @"kCGImageDestinationChromaSubSamplingY";
+  v51[2] = &unk_1F00F7C28;
+  CGImageDestinationAddImage(v33, v28, [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:3]);
+  CGImageDestinationFinalize(v33);
+  CFRelease(v28);
   *bytes = 0;
-  v41 = CFDataGetLength(Mutable);
+  v35 = CFDataGetLength(Mutable);
   HIDWORD(length) = Width;
-  v55 = v41;
-  v42 = Width;
-  v43 = malloc_type_malloc(src.height * Width, 0x2E0F525AuLL);
+  v49 = v35;
+  v36 = Width;
+  v37 = malloc_type_malloc(src.height * Width, 0x2E0F525AuLL);
   __CFSetLastAllocationEventName();
-  v44 = 0;
+  v38 = 0;
   LODWORD(length) = 0;
-  if (!v26)
+  if (!v20)
   {
     goto LABEL_50;
   }
 
-  v48.height = src.height;
-  v48.width = src.width;
-  v48.rowBytes = src.width;
-  v48.data = malloc_type_malloc(src.width * src.height, 0x7F9564AuLL);
+  v42.height = src.height;
+  v42.width = src.width;
+  v42.rowBytes = src.width;
+  v42.data = malloc_type_malloc(src.width * src.height, 0x7F9564AuLL);
   __CFSetLastAllocationEventName();
-  if (!vImageExtractChannel_ARGB8888(&src, &v48, v24, 0x100u))
+  if (!vImageExtractChannel_ARGB8888(&src, &v42, v18, 0x100u))
   {
-    v44 = compression_encode_buffer(v43, src.height * v42, v48.data, v48.rowBytes * v48.height, 0, COMPRESSION_LZFSE);
-    LODWORD(length) = v44;
-    free(v48.data);
-    if (!v44)
+    v38 = compression_encode_buffer(v37, src.height * v36, v42.data, v42.rowBytes * v42.height, 0, COMPRESSION_LZFSE);
+    LODWORD(length) = v38;
+    free(v42.data);
+    if (!v38)
     {
       goto LABEL_47;
     }
 
 LABEL_50:
-    v31 = CFDataCreateMutable(kCFAllocatorDefault, v41 + v44 + 20);
-    CFDataAppendBytes(v31, bytes, 20);
-    CFDataAppendBytes(v31, v43, length);
+    v25 = CFDataCreateMutable(kCFAllocatorDefault, v35 + v38 + 20);
+    CFDataAppendBytes(v25, bytes, 20);
+    CFDataAppendBytes(v25, v37, length);
     BytePtr = CFDataGetBytePtr(Mutable);
-    v46 = CFDataGetLength(Mutable);
-    CFDataAppendBytes(v31, BytePtr, v46);
+    v40 = CFDataGetLength(Mutable);
+    CFDataAppendBytes(v25, BytePtr, v40);
     goto LABEL_51;
   }
 
-  free(v48.data);
+  free(v42.data);
 LABEL_47:
-  v31 = 0;
+  v25 = 0;
 LABEL_51:
   free(src.data);
-  free(v43);
-  CFRelease(v39);
+  free(v37);
+  CFRelease(v33);
   CFRelease(Mutable);
-  if (v31)
+  if (v25)
   {
-    v47 = CFDataGetLength(v31);
-    if (v47 > (src.height * HIDWORD(length)))
+    v41 = CFDataGetLength(v25);
+    if (v41 > (src.height * HIDWORD(length)))
     {
-      CFRelease(v31);
+      CFRelease(v25);
       return 0;
     }
   }
 
-  return v31;
+  return v25;
 }
 
-BOOL CUIUncompressJPEGandLZFSEInfoData(const UInt8 *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL CUIUncompressJPEGandLZFSEInfoData(const UInt8 *a1, void *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (*(a1 + 1))
   {
-    _CUILog(4, "CoreUI: not expecting to a JPEG-LZFSE image with a chunk count != 0", a3, a4, a5, a6, a7, a8, v46);
+    _CUILog(4, "CoreUI: not expecting to a JPEG-LZFSE image with a chunk count != 0", a3, a4, a5, a6);
     return 0;
   }
 
   else
   {
-    v9 = a6;
-    v10 = a5;
-    v11 = a4;
-    v15 = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, &a1[*(a1 + 2) + 20], *(a1 + 4), kCFAllocatorNull);
-    v16 = CGImageSourceCreateWithData(v15, 0);
-    if (v16)
+    v7 = a6;
+    v8 = a5;
+    v9 = a4;
+    v13 = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, &a1[*(a1 + 2) + 20], *(a1 + 4), kCFAllocatorNull);
+    v14 = CGImageSourceCreateWithData(v13, 0);
+    if (v14)
     {
-      v17 = v16;
-      ImageAtIndex = CGImageSourceCreateImageAtIndex(v16, 0, 0);
-      v8 = ImageAtIndex;
+      v15 = v14;
+      ImageAtIndex = CGImageSourceCreateImageAtIndex(v14, 0, 0);
+      v6 = ImageAtIndex;
       if (ImageAtIndex)
       {
-        v80 = 0;
-        v81 = &v80;
-        v82 = 0x2020000000;
-        v83 = 0;
-        v74 = 0;
-        v75 = &v74;
-        v76 = 0x4010000000;
-        v77 = "";
-        v78 = 0u;
-        v79 = 0u;
-        v64 = 0;
-        v65 = &v64;
-        v66 = 0x4810000000;
-        v67 = "";
-        v70 = 0;
-        v73 = 0u;
-        memset(&newSrc, 0, sizeof(newSrc));
-        v59 = 0;
-        v60 = &v59;
-        v61 = 0x2020000000;
-        v62 = 0;
-        v55 = 0;
-        v56 = &v55;
-        v57 = 0x2020000000;
-        v58 = 0;
-        v51 = 0;
-        v52 = &v51;
-        v53 = 0x2020000000;
+        v60 = 0;
+        v61 = &v60;
+        v62 = 0x2020000000;
+        v63 = 0;
         v54 = 0;
-        v68 = v11;
-        v69 = v10;
-        v71 = v9;
-        v72 = 0;
-        *&v73 = 0;
+        v55 = &v54;
+        v56 = 0x4010000000;
+        v57 = "";
+        v58 = 0u;
+        v59 = 0u;
+        v44 = 0;
+        v45 = &v44;
+        v46 = 0x4810000000;
+        v47 = "";
+        v50 = 0;
+        v53 = 0u;
+        memset(&newSrc, 0, sizeof(newSrc));
+        v39 = 0;
+        v40 = &v39;
+        v41 = 0x2020000000;
+        v42 = 0;
+        v35 = 0;
+        v36 = &v35;
+        v37 = 0x2020000000;
+        v38 = 0;
+        v31 = 0;
+        v32 = &v31;
+        v33 = 0x2020000000;
+        v34 = 0;
+        v48 = v9;
+        v49 = v8;
+        v51 = v7;
+        v52 = 0;
+        *&v53 = 0;
         ColorSpace = CGImageGetColorSpace(ImageAtIndex);
-        v26 = v65;
-        v65[5] = ColorSpace;
-        *(v26 + 16) = 0;
-        v27 = v75;
-        v75[1].rowBytes = a3;
-        v27[1].data = a2;
-        v50[0] = _NSConcreteStackBlock;
-        v50[1] = 3221225472;
-        v50[2] = __CUIUncompressJPEGandLZFSEInfoData_block_invoke;
-        v50[3] = &unk_1E724A280;
-        v50[4] = &v80;
-        v50[5] = &v74;
-        v50[6] = &v64;
-        v50[7] = v8;
-        v48[0] = _NSConcreteStackBlock;
-        v48[1] = 3221225472;
-        v48[2] = __CUIUncompressJPEGandLZFSEInfoData_block_invoke_2;
-        v48[3] = &unk_1E724A2A8;
-        v49 = v9;
-        v48[4] = &v51;
-        v48[5] = &v55;
-        v48[8] = v8;
-        v48[9] = a1;
-        v48[6] = &v59;
-        v48[7] = a1;
-        v28 = objc_alloc_init(NSMutableArray);
-        [v28 addObject:v50];
-        [v28 addObject:v48];
+        v18 = v45;
+        v45[5] = ColorSpace;
+        *(v18 + 16) = 0;
+        v19 = v55;
+        v55[1].rowBytes = a3;
+        v19[1].data = a2;
+        v30[0] = _NSConcreteStackBlock;
+        v30[1] = 3221225472;
+        v30[2] = __CUIUncompressJPEGandLZFSEInfoData_block_invoke;
+        v30[3] = &unk_1E724A280;
+        v30[4] = &v60;
+        v30[5] = &v54;
+        v30[6] = &v44;
+        v30[7] = v6;
+        v28[0] = _NSConcreteStackBlock;
+        v28[1] = 3221225472;
+        v28[2] = __CUIUncompressJPEGandLZFSEInfoData_block_invoke_2;
+        v28[3] = &unk_1E724A2A8;
+        v29 = v7;
+        v28[4] = &v31;
+        v28[5] = &v35;
+        v28[8] = v6;
+        v28[9] = a1;
+        v28[6] = &v39;
+        v28[7] = a1;
+        v20 = objc_alloc_init(NSMutableArray);
+        [v20 addObject:v30];
+        [v20 addObject:v28];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = __CUIUncompressJPEGandLZFSEInfoData_block_invoke_3;
         block[3] = &unk_1E724A2D0;
-        block[4] = v28;
-        dispatch_apply([v28 count], 0, block);
+        block[4] = v20;
+        dispatch_apply([v20 count], 0, block);
 
-        if (!v60[3] || v81[3])
+        v21 = v61[3];
+        if (!v40[3] || v21)
         {
-          _CUILog(4, "CoreUI: Couldn't decompress the alpha channel or decode JPEG of a JPEG-LZFSE image %zu:%zd", v29, v30, v31, v32, v33, v34, v60[3]);
+          _CUILog(4, "CoreUI: Couldn't decompress the alpha channel or decode JPEG of a JPEG-LZFSE image %zu:%zd", v40[3], v21);
         }
 
         else
         {
-          newSrc.data = v56[3];
-          newSrc.height = CGImageGetHeight(v8);
-          Width = CGImageGetWidth(v8);
-          v36 = *(a1 + 3);
+          newSrc.data = v36[3];
+          newSrc.height = CGImageGetHeight(v6);
+          Width = CGImageGetWidth(v6);
+          v23 = *(a1 + 3);
           newSrc.width = Width;
-          newSrc.rowBytes = v36;
-          v37 = vImageOverwriteChannels_ARGB8888(&newSrc, v75 + 1, v75 + 1, *(v52 + 24), 0x10u);
-          v81[3] = v37;
-          if (v37)
+          newSrc.rowBytes = v23;
+          v24 = vImageOverwriteChannels_ARGB8888(&newSrc, v55 + 1, v55 + 1, *(v32 + 24), 0x10u);
+          v61[3] = v24;
+          if (v24)
           {
-            _CUILog(4, "CoreUI: Couldn't clip to alpha of a JPEG-LZFSE image %zd", v38, v39, v40, v41, v42, v43, v37);
+            _CUILog(4, "CoreUI: Couldn't clip to alpha of a JPEG-LZFSE image %zd", v24);
           }
 
           else
           {
-            v44 = vImageClipToAlpha_RGBA8888(v75 + 1, v75 + 1, 0x10u);
-            v81[3] = v44;
+            v25 = vImageClipToAlpha_RGBA8888(v55 + 1, v55 + 1, 0x10u);
+            v61[3] = v25;
           }
         }
 
-        free(v56[3]);
-        CFRelease(v8);
-        if (v60[3])
+        free(v36[3]);
+        CFRelease(v6);
+        if (v40[3])
         {
-          v8 = v81[3] == 0;
+          v6 = v61[3] == 0;
         }
 
         else
         {
-          v8 = 0;
+          v6 = 0;
         }
 
-        _Block_object_dispose(&v51, 8);
-        _Block_object_dispose(&v55, 8);
-        _Block_object_dispose(&v59, 8);
-        _Block_object_dispose(&v64, 8);
-        _Block_object_dispose(&v74, 8);
-        _Block_object_dispose(&v80, 8);
+        _Block_object_dispose(&v31, 8);
+        _Block_object_dispose(&v35, 8);
+        _Block_object_dispose(&v39, 8);
+        _Block_object_dispose(&v44, 8);
+        _Block_object_dispose(&v54, 8);
+        _Block_object_dispose(&v60, 8);
       }
 
       else
       {
-        _CUILog(4, "CoreUI: Couldn't get the jpeg CGImageFrom from the data of a JPEG-LZFSE image", v19, v20, v21, v22, v23, v24, v46);
+        _CUILog(4, "CoreUI: Couldn't get the jpeg CGImageFrom from the data of a JPEG-LZFSE image");
       }
 
-      CFRelease(v17);
+      CFRelease(v15);
     }
 
     else
     {
-      v8 = 0;
+      v6 = 0;
     }
 
-    CFRelease(v15);
+    CFRelease(v13);
   }
 
-  return v8;
+  return v6;
 }
 
-void sub_18DF7798C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+void sub_18DF7798C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
 {
+  va_start(va, a51);
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a39, 8);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a52, 8);
-  _Block_object_dispose((v52 - 208), 8);
-  _Block_object_dispose((v52 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v51 - 208), 8);
+  _Block_object_dispose((v51 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1324,53 +1326,53 @@ uint64_t __CUIUncompressJPEGandLZFSEInfoData_block_invoke(void *a1)
   return result;
 }
 
-void __CUIUncompressJPEGandLZFSEInfoData_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void __CUIUncompressJPEGandLZFSEInfoData_block_invoke_2(uint64_t a1)
 {
-  v10 = *(a1 + 80);
-  if ((v10 & 0x1Fu) <= 6)
+  v2 = *(a1 + 80);
+  if ((v2 & 0x1Fu) <= 6)
   {
-    v12 = 1 << (v10 & 0x1F);
-    if ((v12 & 0x2A) != 0)
+    v4 = 1 << (v2 & 0x1F);
+    if ((v4 & 0x2A) != 0)
     {
-      v16 = v10 & 0x7000;
-      v14 = *(*(a1 + 32) + 8);
-      if (v16 == 0x2000)
+      v8 = v2 & 0x7000;
+      v6 = *(*(a1 + 32) + 8);
+      if (v8 == 0x2000)
       {
 LABEL_5:
-        v15 = 8;
+        v7 = 8;
 LABEL_8:
-        *(v14 + 24) = v15;
-        v17 = *(a1 + 56);
+        *(v6 + 24) = v7;
+        v9 = *(a1 + 56);
         Height = CGImageGetHeight(*(a1 + 64));
         *(*(*(a1 + 40) + 8) + 24) = malloc_type_malloc(Height * *(*(a1 + 72) + 12), 0xD631887FuLL);
         __CFSetLastAllocationEventName();
-        v19 = *(*(*(a1 + 40) + 8) + 24);
-        v20 = CGImageGetHeight(*(a1 + 64));
-        *(*(*(a1 + 48) + 8) + 24) = compression_decode_buffer(v19, v20 * *(*(a1 + 72) + 12), (v17 + 20), *(*(a1 + 72) + 8), 0, COMPRESSION_LZFSE);
+        v11 = *(*(*(a1 + 40) + 8) + 24);
+        v12 = CGImageGetHeight(*(a1 + 64));
+        *(*(*(a1 + 48) + 8) + 24) = compression_decode_buffer(v11, v12 * *(*(a1 + 72) + 12), (v9 + 20), *(*(a1 + 72) + 8), 0, COMPRESSION_LZFSE);
         return;
       }
     }
 
     else
     {
-      if ((v12 & 0x54) == 0)
+      if ((v4 & 0x54) == 0)
       {
         return;
       }
 
-      v13 = v10 & 0x7000;
-      v14 = *(*(a1 + 32) + 8);
-      if (v13 != 0x2000)
+      v5 = v2 & 0x7000;
+      v6 = *(*(a1 + 32) + 8);
+      if (v5 != 0x2000)
       {
         goto LABEL_5;
       }
     }
 
-    v15 = 1;
+    v7 = 1;
     goto LABEL_8;
   }
 
-  _CUILog(4, "CoreUI: not expecting to get an AlphaOnly image don't know how to handle this", a3, a4, a5, a6, a7, a8, a9);
+  _CUILog(4, "CoreUI: not expecting to get an AlphaOnly image don't know how to handle this");
 }
 
 uint64_t __CUIUncompressJPEGandLZFSEInfoData_block_invoke_3(uint64_t a1, uint64_t a2)
@@ -1403,56 +1405,54 @@ void drawPatternBitmap(CGImageRef image, CGContextRef c)
   CGContextDrawImage(c, v2, image);
 }
 
-__CFData *__CUIImageCompressedWithDeepmap2(uint64_t a1, int a2, uint64_t a3, int a4)
+__CFData *__CUIImageCompressedWithDeepmap2(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v21 = a3;
-  v22 = a4;
-  v20 = 0;
+  v4 = a2;
+  v13 = a3;
+  v14 = a4;
+  v12 = 0;
   Buffer = vImageDeepmap2EncodeCreateBuffer();
   if (!Buffer)
   {
-    v14 = "CoreUI: vImageDeepmap2EncodeCreateBuffer() returned 0.";
-LABEL_7:
-    _CUILog(4, v14, v6, v7, v8, v9, v10, v11, v16);
+    _CUILog(4, "CoreUI: vImageDeepmap2EncodeCreateBuffer() returned 0.");
     return 0;
   }
 
-  v12 = Buffer;
+  v6 = Buffer;
   __CUIImageCompressedWithDeepmap2_cold_1();
-  if ((v21 - 1) >= 4)
+  if ((v13 - 1) >= 4)
   {
-    v16 = v21;
-    v14 = "CoreUI: vImageDeepmap2EncodeCreateBuffer() returned unrecognized compression method: %lu [%s]";
-    goto LABEL_7;
+    _CUILog(4, "CoreUI: vImageDeepmap2EncodeCreateBuffer() returned unrecognized compression method: %lu [%s]");
+    return 0;
   }
 
   *bytes = 1;
-  v18 = a2;
-  v19 = v12;
-  Mutable = CFDataCreateMutable(kCFAllocatorDefault, v12 + 16);
+  v10 = v4;
+  v11 = v6;
+  Mutable = CFDataCreateMutable(kCFAllocatorDefault, v6 + 16);
   CFDataAppendBytes(Mutable, bytes, 16);
-  CFDataAppendBytes(Mutable, v20, v12);
-  free(v20);
+  CFDataAppendBytes(Mutable, v12, v6);
+  free(v12);
   return Mutable;
 }
 
-id CUIImageCompressedWithDeepmap2(unsigned int *a1, void *a2, uint64_t a3, _DWORD *a4, __int16 *a5, uint64_t *a6, _DWORD *a7, uint64_t a8)
+id CUIImageCompressedWithDeepmap2(uint64_t a1, void *a2, uint64_t a3, int *a4, __int16 *a5, uint64_t *a6, _DWORD *a7)
 {
   if (!*a2 || !a2[3] || !a2[2] || !a2[1])
   {
-    _CUILog(4, "CoreUI: invalid input image buffer in %s", a3, a4, a5, a6, a7, a8, "NSArray<NSData *> *CUIImageCompressedWithDeepmap2(vImage_CGImageFormat, vImage_Buffer, u_int32_t, u_int32_t *, short *, size_t *, u_int32_t *)");
+    _CUILog(4, "CoreUI: invalid input image buffer in %s", a3);
     return 0;
   }
 
   if (*a1 != 8 && *a1 != 16)
   {
-    _CUILog(4, "CoreUI: unsupported bpc for Deepmap 2.0 compression: %d [%s].", a3, a4, a5, a6, a7, a8, *a1);
+    _CUILog(4, "CoreUI: unsupported bpc for Deepmap 2.0 compression: %d [%s].", a3, a4, a5, a6, a7);
     return 0;
   }
 
-  if (!*(a1 + 1))
+  if (!*(a1 + 8))
   {
-    _CUILog(4, "CoreUI: Missing image color space to perform Deemap 2.0 compression [%s].", a3, a4, a5, a6, a7, a8, "NSArray<NSData *> *CUIImageCompressedWithDeepmap2(vImage_CGImageFormat, vImage_Buffer, u_int32_t, u_int32_t *, short *, size_t *, u_int32_t *)");
+    _CUILog(4, "CoreUI: Missing image color space to perform Deemap 2.0 compression [%s].", a3);
     return 0;
   }
 
@@ -1460,27 +1460,27 @@ id CUIImageCompressedWithDeepmap2(unsigned int *a1, void *a2, uint64_t a3, _DWOR
   {
     if (a3 == 1195456544)
     {
-      v11 = 2;
       v10 = 2;
+      v9 = 2;
       goto LABEL_23;
     }
 
     if (a3 == 1380401751)
     {
-      v10 = 20;
-      v11 = 4;
+      v9 = 20;
+      v10 = 4;
       goto LABEL_23;
     }
 
 LABEL_20:
-    _CUILog(4, "CoreUI: Unrecognized input pixel format: %d [%s]", a3, a4, a5, a6, a7, a8, a3);
+    _CUILog(4, "CoreUI: Unrecognized input pixel format: %d [%s]", a3, a4, a5, a6, a7);
     return 0;
   }
 
   if (a3 == 1095911234)
   {
-    v10 = 4;
-    v11 = 1;
+    v9 = 4;
+    v10 = 1;
     goto LABEL_23;
   }
 
@@ -1489,78 +1489,82 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v10 = 18;
-  v11 = 6;
+  v9 = 18;
+  v10 = 6;
 LABEL_23:
   *a4 = a3;
-  *a5 = v11;
+  *a5 = v10;
   *a6 = CGBitmapGetAlignedBytesPerRow();
-  v12 = objc_alloc_init(NSMutableArray);
-  v15 = a2[1];
-  v14 = a2[2];
-  if (v15 * v14 < 0x100000)
+  v11 = objc_alloc_init(NSMutableArray);
+  v14 = a2[1];
+  v13 = a2[2];
+  if (v14 * v13 < 0x100000)
   {
-    v17 = *(a2 + 1);
-    v31 = *a2;
-    v32 = v17;
-    v18 = __CUIImageCompressedWithDeepmap2(&v31, v10, 0x100000000, 10);
-    if (v18)
+    v16 = *(a2 + 1);
+    v25 = *a2;
+    v26 = v16;
+    v17 = __CUIImageCompressedWithDeepmap2(&v25, v9, 0x100000000, 10);
+    if (v17)
     {
-      v25 = v18;
-      [v12 addObject:v18];
-      CFRelease(v25);
+      v18 = v17;
+      [v11 addObject:v17];
+      CFRelease(v18);
       *a7 = a2[1];
-      return v12;
+      return v11;
     }
+
+    v24 = 328;
   }
 
   else
   {
-    if (v14 <= 0x100000)
+    if (v13 <= 0x100000)
     {
-      v16 = 0x100000 / v14;
+      v15 = 0x100000 / v13;
     }
 
     else
     {
-      v16 = 1;
+      v15 = 1;
     }
 
-    if (!v15)
+    if (!v14)
     {
 LABEL_36:
-      *a7 = v16;
-      return v12;
+      *a7 = v15;
+      return v11;
     }
 
-    v26 = *a2;
+    v19 = *a2;
     while (1)
     {
-      v27 = v15 >= v16 ? v16 : v15;
-      *a2 = v26;
-      a2[1] = v27;
-      v28 = *(a2 + 1);
-      v31 = *a2;
-      v32 = v28;
-      v29 = __CUIImageCompressedWithDeepmap2(&v31, v10, 0x100000000, 10);
-      if (!v29)
+      v20 = v14 >= v15 ? v15 : v14;
+      *a2 = v19;
+      a2[1] = v20;
+      v21 = *(a2 + 1);
+      v25 = *a2;
+      v26 = v21;
+      v22 = __CUIImageCompressedWithDeepmap2(&v25, v9, 0x100000000, 10);
+      if (!v22)
       {
         break;
       }
 
-      v30 = v29;
-      [v12 addObject:v29];
-      CFRelease(v30);
-      v26 += a2[3] * v27;
-      v15 -= v27;
-      if (!v15)
+      v23 = v22;
+      [v11 addObject:v22];
+      CFRelease(v23);
+      v19 += a2[3] * v20;
+      v14 -= v20;
+      if (!v14)
       {
         goto LABEL_36;
       }
     }
+
+    v24 = 309;
   }
 
-  _CUILog(4, "CoreUI: Deepmap 2.0 compressed failed in %s [%s:%lu]", v19, v20, v21, v22, v23, v24, "NSArray<NSData *> *CUIImageCompressedWithDeepmap2(vImage_CGImageFormat, vImage_Buffer, u_int32_t, u_int32_t *, short *, size_t *, u_int32_t *)");
+  _CUILog(4, "CoreUI: Deepmap 2.0 compressed failed in %s [%s:%lu]", "NSArray<NSData *> *CUIImageCompressedWithDeepmap2(vImage_CGImageFormat, vImage_Buffer, u_int32_t, u_int32_t *, short *, size_t *, u_int32_t *)", "/Library/Caches/com.apple.xbs/Sources/CoreUI/CoreTheme/ImageUtils/CUIDeepmap2Compression.m", v24);
 
   return 0;
 }
@@ -1572,7 +1576,7 @@ uint64_t __CUIUncompressDeepmap2ImageData_block_invoke_2(uint64_t a1, uint64_t a
   return v2();
 }
 
-uint64_t _CUIColorSpaceGetGenericRGB()
+uint64_t _CUIColorSpaceGetGenericRGB(uint64_t a1, uint64_t a2)
 {
   if (_CUIColorSpaceGetGenericRGB___once != -1)
   {
@@ -1582,7 +1586,7 @@ uint64_t _CUIColorSpaceGetGenericRGB()
   return _CUIColorSpaceGetGenericRGB_sGenericRGBColorSpace;
 }
 
-uint64_t _CUIColorSpaceGetExtendedRangeSRGB()
+uint64_t _CUIColorSpaceGetExtendedRangeSRGB(uint64_t a1, uint64_t a2)
 {
   if (_CUIColorSpaceGetExtendedRangeSRGB___once != -1)
   {
@@ -1592,7 +1596,7 @@ uint64_t _CUIColorSpaceGetExtendedRangeSRGB()
   return _CUIColorSpaceGetExtendedRangeSRGB_sExtendedRangeSRGBColorSpace;
 }
 
-uint64_t _CUIColorSpaceGetExtendedGray()
+uint64_t _CUIColorSpaceGetExtendedGray(uint64_t a1, uint64_t a2)
 {
   if (_CUIColorSpaceGetExtendedGray___once != -1)
   {
@@ -1602,7 +1606,7 @@ uint64_t _CUIColorSpaceGetExtendedGray()
   return _CUIColorSpaceGetExtendedGray_sExtendedGrayColorSpace;
 }
 
-uint64_t _CUIColorSpaceGetExtendedLinearSRGB()
+uint64_t _CUIColorSpaceGetExtendedLinearSRGB(uint64_t a1, uint64_t a2)
 {
   if (_CUIColorSpaceGetExtendedLinearSRGB___once != -1)
   {
@@ -1612,7 +1616,7 @@ uint64_t _CUIColorSpaceGetExtendedLinearSRGB()
   return _CUIColorSpaceGetExtendedLinearSRGB_sExtendedLinearSRGBColorSpace;
 }
 
-uint64_t _CUIColorSpaceGetGenericLab()
+uint64_t _CUIColorSpaceGetGenericLab(uint64_t a1, uint64_t a2)
 {
   if (_CUIColorSpaceGetGenericLab___once != -1)
   {
@@ -1691,20 +1695,20 @@ uint64_t __sliceSort(void *a1, void *a2)
   }
 }
 
-id OUTLINED_FUNCTION_20_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+id OUTLINED_FUNCTION_20_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a8);
+  va_start(va, a8);
   v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
 
-  return [v4 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v8 countByEnumeratingWithState:va objects:va1 count:16];
 }
 
 uint64_t OUTLINED_FUNCTION_23(char *buffer)
@@ -1786,7 +1790,7 @@ const char *CUIConvertPixelFormatToString(int a1)
   return "(Unknown)";
 }
 
-uint64_t CUILogHandle()
+uint64_t CUILogHandle(uint64_t a1, uint64_t a2)
 {
   if (__onceToken != -1)
   {
@@ -1796,9 +1800,9 @@ uint64_t CUILogHandle()
   return __handle;
 }
 
-void sub_18DF7BE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18DF7BE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1813,7 +1817,7 @@ Class initMDLMaterial()
     initMDLMaterial_cold_1();
   }
 
-  getMDLMaterialClass[0] = MDLMaterialFunction;
+  getMDLMaterialClass = MDLMaterialFunction;
   return result;
 }
 
@@ -1900,7 +1904,7 @@ Class initMDLTexture()
     initMDLTexture_cold_1();
   }
 
-  getMDLTextureClass[0] = MDLTextureFunction;
+  getMDLTextureClass = MDLTextureFunction;
   return result;
 }
 
@@ -1914,7 +1918,7 @@ Class initMDLTextureSampler()
     initMDLTextureSampler_cold_1();
   }
 
-  getMDLTextureSamplerClass[0] = MDLTextureSamplerFunction;
+  getMDLTextureSamplerClass = MDLTextureSamplerFunction;
   return result;
 }
 
@@ -1928,7 +1932,7 @@ Class initMDLMaterialProperty()
     initMDLMaterialProperty_cold_1();
   }
 
-  getMDLMaterialPropertyClass[0] = MDLMaterialPropertyFunction;
+  getMDLMaterialPropertyClass = MDLMaterialPropertyFunction;
   return result;
 }
 
@@ -1942,19 +1946,18 @@ Class initMDLSubmesh()
     initMDLSubmesh_cold_1();
   }
 
-  getMDLSubmeshClass[0] = MDLSubmeshFunction;
+  getMDLSubmeshClass = MDLSubmeshFunction;
   return result;
 }
 
-BOOL CUIExpandATECompressedDataIntoBuffer(uint64_t a1, int a2, void *a3, uint64_t a4, size_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL CUIExpandATECompressedDataIntoBuffer(uint64_t a1, int a2, void *a3, int a4, size_t a5)
 {
-  v9 = a4;
   if (*a1)
   {
-    v13 = malloc_default_zone();
-    v14 = malloc_type_zone_memalign(v13, 0x40uLL, *(a1 + 8), 0x44BCE2C9uLL);
+    v10 = malloc_default_zone();
+    v11 = malloc_type_zone_memalign(v10, 0x40uLL, *(a1 + 8), 0x44BCE2C9uLL);
     __CFSetLastAllocationEventName();
-    if (!compression_decode_buffer(v14, *(a1 + 8), (a1 + 12), *(a1 + 4), 0, COMPRESSION_LZFSE))
+    if (!compression_decode_buffer(v11, *(a1 + 8), (a1 + 12), *(a1 + 4), 0, COMPRESSION_LZFSE))
     {
       goto LABEL_41;
     }
@@ -1962,45 +1965,45 @@ BOOL CUIExpandATECompressedDataIntoBuffer(uint64_t a1, int a2, void *a3, uint64_
     goto LABEL_6;
   }
 
-  v15 = (a1 + 12);
+  v12 = (a1 + 12);
   if (((a1 + 12) & 0x3F) != 0)
   {
-    v16 = malloc_default_zone();
-    v14 = malloc_type_zone_memalign(v16, 0x40uLL, *(a1 + 8), 0x2F31DC04uLL);
+    v13 = malloc_default_zone();
+    v11 = malloc_type_zone_memalign(v13, 0x40uLL, *(a1 + 8), 0x2F31DC04uLL);
     __CFSetLastAllocationEventName();
-    memcpy(v14, (a1 + 12), *(a1 + 8));
+    memcpy(v11, (a1 + 12), *(a1 + 8));
 LABEL_6:
-    v15 = v14;
+    v12 = v11;
     goto LABEL_7;
   }
 
-  v14 = 0;
+  v11 = 0;
 LABEL_7:
-  v17 = at_texel_format_bgra8_unorm;
-  if (v9 > 1195456543)
+  v14 = at_texel_format_bgra8_unorm;
+  if (a4 > 1195456543)
   {
-    if (v9 == 1380401751)
+    if (a4 == 1380401751)
     {
       goto LABEL_16;
     }
 
-    v18 = 14368;
+    v15 = 14368;
   }
 
   else
   {
-    if (v9 == 1095911234)
+    if (a4 == 1095911234)
     {
       goto LABEL_16;
     }
 
-    v18 = 12598;
+    v15 = 12598;
   }
 
-  if (v9 != (v18 | 0x47410000))
+  if (a4 != (v15 | 0x47410000))
   {
-    _CUILog(4, "CoreUI: %s got a pixelFormat that it doesn't understand", a3, a4, a5, a6, a7, a8, "_Bool CUIExpandATECompressedDataIntoBuffer(const u_int8_t *, _Bool, u_int8_t *, enum CSIPixelFormat, size_t)");
-    if (!v14)
+    _CUILog(4, "CoreUI: %s got a pixelFormat that it doesn't understand", "_Bool CUIExpandATECompressedDataIntoBuffer(const u_int8_t *, _Bool, u_int8_t *, enum CSIPixelFormat, size_t)");
+    if (!v11)
     {
       return 0;
     }
@@ -2010,221 +2013,232 @@ LABEL_7:
 
   if (a2)
   {
-    v17 = at_texel_format_l8_unorm;
+    v14 = at_texel_format_l8_unorm;
   }
 
   else
   {
-    v17 = at_texel_format_la8_unorm;
+    v14 = at_texel_format_la8_unorm;
   }
 
 LABEL_16:
   memset(&src, 0, sizeof(src));
   *&dest.validSize.z = 0;
-  v19 = *v15;
-  v20 = v15[1];
-  if (v19 != 65)
+  v16 = *v12;
+  v17 = v12[1];
+  if (v16 != 65)
   {
-    if (v19 == 19 && v20 == 171 && v15[2] == 161 && v15[3] == 92)
+    if (__PAIR64__(v17, v16) == 0xAB00000013)
     {
-      v21 = (16 * (v15[4] & 0xF)) | v15[5];
-      if (v21 > 135)
+      if (v12[2] == 161 && v12[3] == 92)
       {
-        if (v21 > 167)
+        v18 = (16 * (v12[4] & 0xF)) | v12[5];
+        if (v18 > 135)
         {
-          v22 = 13;
-          v28 = 14;
-          if (v21 != 204)
+          if (v18 > 167)
           {
-            v28 = 0;
+            v19 = 13;
+            v25 = 14;
+            if (v18 != 204)
+            {
+              v25 = 0;
+            }
+
+            if (v18 != 202)
+            {
+              v19 = v25;
+            }
+
+            v21 = 11;
+            v26 = 12;
+            if (v18 != 170)
+            {
+              v26 = 0;
+            }
+
+            if (v18 != 168)
+            {
+              v21 = v26;
+            }
+
+            v23 = v18 <= 201;
+            goto LABEL_53;
           }
 
-          if (v21 != 202)
+          v30 = 8;
+          v31 = 9;
+          v34 = 10;
+          if (v18 != 166)
           {
-            v22 = v28;
+            v34 = 0;
           }
 
-          v24 = 11;
-          v29 = 12;
-          if (v21 != 170)
+          if (v18 != 165)
           {
-            v29 = 0;
+            v31 = v34;
           }
 
-          if (v21 != 168)
-          {
-            v24 = v29;
-          }
-
-          v26 = v21 <= 201;
-          goto LABEL_53;
+          v33 = v18 == 136;
         }
 
-        v33 = 8;
-        v34 = 9;
-        v37 = 10;
-        if (v21 != 166)
+        else
         {
-          v37 = 0;
-        }
-
-        if (v21 != 165)
-        {
-          v34 = v37;
-        }
-
-        v36 = v21 == 136;
-      }
-
-      else
-      {
-        if (v21 > 100)
-        {
-          v22 = 6;
-          v23 = 7;
-          if (v21 != 134)
+          if (v18 > 100)
           {
-            v23 = 0;
-          }
+            v19 = 6;
+            v20 = 7;
+            if (v18 != 134)
+            {
+              v20 = 0;
+            }
 
-          if (v21 != 133)
-          {
-            v22 = v23;
-          }
+            if (v18 != 133)
+            {
+              v19 = v20;
+            }
 
-          v24 = 4;
-          v25 = 5;
-          if (v21 != 102)
-          {
-            v25 = 0;
-          }
+            v21 = 4;
+            v22 = 5;
+            if (v18 != 102)
+            {
+              v22 = 0;
+            }
 
-          if (v21 != 101)
-          {
-            v24 = v25;
-          }
+            if (v18 != 101)
+            {
+              v21 = v22;
+            }
 
-          v26 = v21 <= 132;
+            v23 = v18 <= 132;
 LABEL_53:
-          if (v26)
-          {
-            v30 = v24;
-          }
+            if (v23)
+            {
+              v27 = v21;
+            }
 
-          else
-          {
-            v30 = v22;
-          }
+            else
+            {
+              v27 = v19;
+            }
 
-          v31 = 0;
+            v28 = 0;
 LABEL_72:
-          v32 = v15;
-          goto LABEL_73;
+            v29 = v12;
+            goto LABEL_73;
+          }
+
+          v30 = 1;
+          v31 = 2;
+          v32 = 3;
+          if (v18 != 85)
+          {
+            v32 = 0;
+          }
+
+          if (v18 != 84)
+          {
+            v31 = v32;
+          }
+
+          v33 = v18 == 68;
         }
 
-        v33 = 1;
-        v34 = 2;
-        v35 = 3;
-        if (v21 != 85)
+        if (v33)
         {
-          v35 = 0;
+          v27 = v30;
         }
 
-        if (v21 != 84)
+        else
         {
-          v34 = v35;
+          v27 = v31;
         }
 
-        v36 = v21 == 68;
+        v28 = 0;
+        goto LABEL_72;
       }
 
-      if (v36)
-      {
-        v30 = v33;
-      }
-
-      else
-      {
-        v30 = v34;
-      }
-
-      v31 = 0;
-      goto LABEL_72;
+      v17 = 171;
     }
 
 LABEL_40:
-    _CUILog(4, "CoreUI: %s got data that is not ASTC or DXTC encoded %c%c%c%c", a3, a4, a5, a6, a7, a8, "_Bool CUIExpandATECompressedDataIntoBuffer(const u_int8_t *, _Bool, u_int8_t *, enum CSIPixelFormat, size_t)");
+    _CUILog(4, "CoreUI: %s got data that is not ASTC or DXTC encoded %c%c%c%c", "_Bool CUIExpandATECompressedDataIntoBuffer(const u_int8_t *, _Bool, u_int8_t *, enum CSIPixelFormat, size_t)", v16, v17, v12[2], v12[3]);
 LABEL_41:
-    free(v14);
+    free(v11);
     return 0;
   }
 
-  if (v20 != 84 || v15[2] != 69 || v15[3] != 67 || v15[6])
+  if (v17 != 84)
   {
     goto LABEL_40;
   }
 
-  v32 = 0;
-  v30 = *(v15 + 13) | (v15[15] << 16);
-  v31 = v15;
+  if (v12[2] != 69 || v12[3] != 67 || v12[6])
+  {
+    v17 = 84;
+    goto LABEL_40;
+  }
+
+  v29 = 0;
+  v27 = *(v12 + 13) | (v12[15] << 16);
+  v28 = v12;
 LABEL_73:
-  v38 = *(v15 + 7) | (v15[9] << 16);
-  v39 = *(v15 + 5) | (v15[12] << 16);
+  v35 = *(v12 + 7) | (v12[9] << 16);
+  v36 = *(v12 + 5) | (v12[12] << 16);
   if (a2)
   {
-    v40 = at_alpha_not_premultiplied;
-    v41 = at_alpha_not_premultiplied;
+    v37 = at_alpha_not_premultiplied;
+    v38 = at_alpha_not_premultiplied;
   }
 
   else
   {
-    v40 = at_alpha_premultiplied;
-    v41 = at_alpha_premultiplied;
+    v37 = at_alpha_premultiplied;
+    v38 = at_alpha_premultiplied;
   }
 
-  v42 = at_encoder_create(v17, v40, v30, v41, 0);
+  v39 = at_encoder_create(v14, v37, v27, v38, 0);
   dest.texels = a3;
-  *&dest.validSize.x = __PAIR64__(v39, v38);
+  *&dest.validSize.x = __PAIR64__(v36, v35);
   dest.validSize.z = 1;
   dest.rowBytes = a5;
   dest.sliceBytes = 0;
-  *&v52.x = __PAIR64__(v39, v38);
-  v52.z = 1;
-  block_counts = at_encoder_get_block_counts(v42, v52);
-  v44 = block_counts;
-  v45 = HIDWORD(block_counts);
-  v46 = at_encoder_get_block_size(v42) * block_counts;
-  block_size = at_encoder_get_block_size(v42);
-  if (v32)
+  *&v49.x = __PAIR64__(v36, v35);
+  v49.z = 1;
+  block_counts = at_encoder_get_block_counts(v39, v49);
+  v41 = block_counts;
+  v42 = HIDWORD(block_counts);
+  v43 = at_encoder_get_block_size(v39) * block_counts;
+  block_size = at_encoder_get_block_size(v39);
+  if (v29)
   {
-    v48 = v32;
+    v45 = v29;
   }
 
   else
   {
-    v48 = v31;
+    v45 = v28;
   }
 
-  src.blocks = v48 + 16;
-  src.rowBytes = v46;
-  src.sliceBytes = v45 * v44 * block_size;
-  v49 = at_encoder_decompress_texels(v42, &src, &dest, at_flags_default);
-  if (v14)
+  src.blocks = v45 + 16;
+  src.rowBytes = v43;
+  src.sliceBytes = v42 * v41 * block_size;
+  v46 = at_encoder_decompress_texels(v39, &src, &dest, at_flags_default);
+  if (v11)
   {
-    free(v14);
+    free(v11);
   }
 
-  return v49 >= at_error_success;
+  return v46 >= at_error_success;
 }
 
-void CUIUpdatePixelFormatForATECompressedData(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CUIUpdatePixelFormatForATECompressedData(int *a1)
 {
-  v8 = *a1;
+  v1 = *a1;
   if (*a1 <= 1195456543)
   {
-    if (v8 != 1095911234)
+    if (v1 != 1095911234)
     {
-      if (v8 != 1195454774)
+      if (v1 != 1195454774)
       {
         goto LABEL_10;
       }
@@ -2235,27 +2249,27 @@ void CUIUpdatePixelFormatForATECompressedData(int *a1, uint64_t a2, uint64_t a3,
     goto LABEL_7;
   }
 
-  if (v8 == 1195456544)
+  if (v1 == 1195456544)
   {
 LABEL_8:
-    v9 = 1195456544;
+    v2 = 1195456544;
     goto LABEL_9;
   }
 
-  if (v8 == 1380401751)
+  if (v1 == 1380401751)
   {
 LABEL_7:
-    v9 = 1095911234;
+    v2 = 1095911234;
 LABEL_9:
-    *a1 = v9;
+    *a1 = v2;
     return;
   }
 
 LABEL_10:
-  _CUILog(4, "CoreUI: %s got a pixelFormat that it doesn't understand", a3, a4, a5, a6, a7, a8, "void CUIUpdatePixelFormatForATECompressedData(enum CSIPixelFormat *)");
+  _CUILog(4, "CoreUI: %s got a pixelFormat that it doesn't understand", "void CUIUpdatePixelFormatForATECompressedData(enum CSIPixelFormat *)");
 }
 
-uint64_t __ATEBlockFormatToGLInternalFormat(at_block_format_t blockFormat, _DWORD *a2, int *a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t __ATEBlockFormatToGLInternalFormat(at_block_format_t blockFormat, _DWORD *a2, int *a3, _DWORD *a4)
 {
   if (blockFormat > at_block_format_bc4s)
   {
@@ -2264,12 +2278,12 @@ uint64_t __ATEBlockFormatToGLInternalFormat(at_block_format_t blockFormat, _DWOR
       *a4 = 2;
       if (blockFormat == at_block_format_bc5)
       {
-        v10 = 36285;
+        v6 = 36285;
       }
 
       else
       {
-        v10 = 36286;
+        v6 = 36286;
       }
 
       goto LABEL_22;
@@ -2279,22 +2293,22 @@ uint64_t __ATEBlockFormatToGLInternalFormat(at_block_format_t blockFormat, _DWOR
     {
       case at_block_format_bc6:
         *a4 = 16;
-        v10 = 36494;
+        v6 = 36494;
         goto LABEL_22;
       case at_block_format_bc6u:
         *a4 = 16;
-        v10 = 36495;
+        v6 = 36495;
         goto LABEL_22;
       case at_block_format_bc7:
         *a4 = 16;
-        v10 = 36492;
+        v6 = 36492;
 LABEL_22:
-        *a3 = v10;
+        *a3 = v6;
         goto LABEL_23;
     }
 
 LABEL_24:
-    _CUILog(4, "CoreUI: %s got a blockFormat doesn't understand", a3, a4, a5, a6, a7, a8, "void __ATEBlockFormatToGLInternalFormat(at_block_format_t, uint32_t *, uint32_t *, uint32_t *)");
+    _CUILog(4, "CoreUI: %s got a blockFormat doesn't understand", "void __ATEBlockFormatToGLInternalFormat(at_block_format_t, uint32_t *, uint32_t *, uint32_t *)");
     goto LABEL_23;
   }
 
@@ -2303,19 +2317,19 @@ LABEL_24:
     if (blockFormat == at_block_format_bc3)
     {
       *a4 = 16;
-      v10 = 33779;
+      v6 = 33779;
     }
 
     else if (blockFormat == at_block_format_bc4)
     {
       *a4 = 16;
-      v10 = 36283;
+      v6 = 36283;
     }
 
     else
     {
       *a4 = 2;
-      v10 = 36284;
+      v6 = 36284;
     }
 
     goto LABEL_22;
@@ -2326,7 +2340,7 @@ LABEL_24:
     if (blockFormat == at_block_format_bc2)
     {
       *a4 = 16;
-      v10 = 33778;
+      v6 = 33778;
       goto LABEL_22;
     }
 
@@ -2341,7 +2355,7 @@ LABEL_23:
   return result;
 }
 
-uint64_t __CUISubtypeFromIndex(uint64_t a1, unsigned int a2)
+uint64_t __CUISubtypeFromIndex(uint64_t a1, uint64_t a2)
 {
   if (a1 == -1)
   {
@@ -2373,14 +2387,14 @@ uint64_t __CUISubtypeFromIndex(uint64_t a1, unsigned int a2)
       if (a1 == 4)
       {
         v2 = a2 - 8;
-        if (a2 - 8 < 0x18 && ((0xF18063u >> v2) & 1) != 0)
+        if (a2 - 8) < 0x18 && ((0xF18063u >> v2))
         {
           v3 = &unk_18E021438;
           return v3[v2];
         }
 
 LABEL_35:
-        __CUISubtypeFromIndex_cold_1(a1);
+        __CUISubtypeFromIndex_cold_1(a1, a2);
       }
 
 LABEL_18:
@@ -2397,7 +2411,7 @@ LABEL_18:
       if (a1 == 3)
       {
         v2 = a2 - 5;
-        if (a2 - 5 < 3)
+        if ((a2 - 5) < 3)
         {
           v3 = &unk_18E021498;
           return v3[v2];
@@ -2766,7 +2780,7 @@ CPSDString *NewCPSDStringFromNSString(NSString *a1)
 void CPSDString::CPSDString(CPSDString *this, const unsigned __int16 *a2, unsigned int a3)
 {
   *(this + 1) = 0;
-  CPSDString::AllocateCharData(this, 1);
+  CPSDString::AllocateCharData(this, 1u);
   **(this + 1) = 0;
   CPSDString::Init(this, a2, a3, 1);
 }
@@ -2783,9 +2797,9 @@ void sub_18DF88C84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_18DF88D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18DF88D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2889,7 +2903,7 @@ LABEL_7:
   return memcpy(v9, a2, v10);
 }
 
-uint64_t CPSDString::AllocateCharData(CPSDString *this, int a2)
+uint64_t CPSDString::AllocateCharData(CPSDString *this, unsigned int a2)
 {
   v4 = *(this + 1);
   if (v4)
@@ -2904,18 +2918,18 @@ uint64_t CPSDString::AllocateCharData(CPSDString *this, int a2)
   return result;
 }
 
-void sub_18DF8F7CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_18DF8F7CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t encodeRadiosity(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9)
+uint64_t encodeRadiosity(uint64_t a1, uint64_t a2, unint64_t a3, char *a4, void *a5, size_t *a6, float a7)
 {
-  v10 = a1 - 0x10000;
+  v8 = a1 - 0x10000;
   result = 0xFFFFFFFFLL;
-  if (v10 < 0xFFFFFFFFFFFF0001)
+  if (v8 < 0xFFFFFFFFFFFF0001)
   {
     return result;
   }
@@ -2925,185 +2939,184 @@ uint64_t encodeRadiosity(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, ui
     return result;
   }
 
-  v12 = 4 * a1;
+  v10 = 4 * a1;
   if (4 * a1 > a3)
   {
     return result;
   }
 
-  v13 = a4;
-  if (a9 == 20.0)
+  if (a7 == 20.0)
   {
-    v51 = a5;
-    v52 = a6;
-    v55 = a3;
-    v14 = 4;
-    v15 = 1060696910;
-    v16 = -0.3324;
-    v17 = 0.4574;
+    v49 = a5;
+    v50 = a6;
+    v53 = a3;
+    v12 = 4;
+    v13 = 1060696910;
+    v14 = -0.3324;
+    v15 = 0.4574;
   }
 
   else
   {
-    if (a9 != 40.0)
+    if (a7 != 40.0)
     {
-      _CUILog(4, "Invalid sigma=%.2f\n", a3, a4, a5, a6, a7, a8, COERCE__INT64(a9));
+      _CUILog(4, "Invalid sigma=%.2f\n", a7);
       return 0xFFFFFFFFLL;
     }
 
-    v51 = a5;
-    v52 = a6;
-    v55 = a3;
-    v14 = 5;
-    v15 = 1060748727;
-    v16 = -0.16248;
-    v17 = 0.22498;
+    v49 = a5;
+    v50 = a6;
+    v53 = a3;
+    v12 = 5;
+    v13 = 1060748727;
+    v14 = -0.16248;
+    v15 = 0.22498;
   }
 
-  v18 = (1 << v14);
-  v19 = (a1 + v18 - 1) >> v14;
-  v20 = (a2 + v18 - 1) >> v14;
-  v21 = 4 * v19 * v20;
-  v22 = 8 * v19 * v20 + 12;
-  v49 = v19;
-  v23 = malloc_type_malloc(16 * a1, 0x100004052888210uLL);
-  v50 = v20;
-  v24 = malloc_type_calloc(v20 * v12, 4uLL, 0x100004052888210uLL);
-  v48 = v21;
-  v53 = malloc_type_calloc(v21, 4uLL, 0x100004052888210uLL);
-  v25 = malloc_type_malloc(v22, 0x100004077774924uLL);
-  v26 = v24;
-  if (!v23 || !v24 || (v53 ? (v27 = v25 == 0) : (v27 = 1), v27))
+  v16 = (1 << v12);
+  v17 = (a1 + v16 - 1) >> v12;
+  v18 = (a2 + v16 - 1) >> v12;
+  v19 = 4 * v17 * v18;
+  v20 = 8 * v17 * v18 + 12;
+  v47 = v17;
+  v21 = malloc_type_malloc(16 * a1, 0x100004052888210uLL);
+  v48 = v18;
+  v22 = malloc_type_calloc(v18 * v10, 4uLL, 0x100004052888210uLL);
+  v46 = v19;
+  v51 = malloc_type_calloc(v19, 4uLL, 0x100004052888210uLL);
+  v23 = malloc_type_malloc(v20, 0x100004077774924uLL);
+  v24 = v22;
+  if (!v21 || !v22 || (v51 ? (v25 = v23 == 0) : (v25 = 1), v25))
   {
-    free(v24);
-    free(v53);
+    free(v22);
+    free(v51);
+    free(v21);
     free(v23);
-    free(v25);
     return 0xFFFFFFFFLL;
   }
 
-  v28 = v18 >> 2;
-  v29 = v14;
-  v54 = v26;
-  v47 = v22;
-  bzero(v25, v22);
-  v30 = 0;
-  *v25 = a1;
-  v25[1] = a2;
-  v25[2] = v18;
-  *(v25 + 2) = v15;
-  v31 = v18 - 1;
-  v32 = 3 * (v18 >> 2);
+  v26 = v16 >> 2;
+  v27 = v12;
+  v52 = v24;
+  v45 = v20;
+  bzero(v23, v20);
+  v28 = 0;
+  *v23 = a1;
+  v23[1] = a2;
+  v23[2] = v16;
+  *(v23 + 2) = v13;
+  v29 = v16 - 1;
+  v30 = 3 * (v16 >> 2);
   do
   {
-    if ((v31 & v30) >= v32 || (v31 & v30) < v28)
+    if ((v29 & v28) >= v30 || (v29 & v28) < v26)
     {
-      v34 = v16;
+      v32 = v14;
     }
 
     else
     {
-      v34 = v17;
+      v32 = v15;
     }
 
-    v59[0] = v34;
-    src.data = v13;
+    v57[0] = v32;
+    src.data = a4;
     src.height = 1;
     src.width = 4 * a1;
     src.rowBytes = 4 * a1;
-    dest.data = v23;
+    dest.data = v21;
     dest.height = 1;
     dest.width = 4 * a1;
     dest.rowBytes = 4 * a1;
     vImageConvert_Planar8toPlanarF(&src, &dest, 255.0, 0.0, 0);
-    MEMORY[0x193AC7420](v23, 1, v59, &v54[4 * (v30 >> v29) * v12], 1, &v54[4 * (v30 >> v29) * v12], 1, 4 * a1);
-    ++v30;
-    v13 += v55;
+    MEMORY[0x193AC7420](v21, 1, v57, &v52[4 * (v28 >> v27) * v10], 1, &v52[4 * (v28 >> v27) * v10], 1, 4 * a1);
+    ++v28;
+    a4 += v53;
   }
 
-  while (a2 != v30);
-  v35 = v25 + 6;
-  if (v50)
+  while (a2 != v28);
+  v33 = v23 + 6;
+  if (v48)
   {
-    v36 = 0;
-    v37 = v54;
-    v38 = v53;
+    v34 = 0;
+    v35 = v52;
+    v36 = v51;
     do
     {
       if (a1)
       {
-        v39 = 0;
-        v40 = v37;
+        v37 = 0;
+        v38 = v35;
         do
         {
-          v41 = 0;
-          if ((v31 & v39) >= v32 || (v31 & v39) < v28)
+          v39 = 0;
+          if ((v29 & v37) >= v30 || (v29 & v37) < v26)
           {
-            v43 = v16;
+            v41 = v14;
           }
 
           else
           {
-            v43 = v17;
+            v41 = v15;
           }
 
           do
           {
-            *&v38[16 * (v39 >> v29) + v41] = *&v38[16 * (v39 >> v29) + v41] + (v43 * *&v40[v41]);
-            v41 += 4;
+            *&v36[16 * (v37 >> v27) + v39] = *&v36[16 * (v37 >> v27) + v39] + (v41 * *&v38[v39]);
+            v39 += 4;
           }
 
-          while (v41 != 16);
-          ++v39;
-          v40 += 16;
+          while (v39 != 16);
+          ++v37;
+          v38 += 16;
         }
 
-        while (v39 != a1);
+        while (v37 != a1);
       }
 
-      ++v36;
-      v38 += 16 * v49;
-      v37 += 16 * a1;
+      ++v34;
+      v36 += 16 * v47;
+      v35 += 16 * a1;
     }
 
-    while (v36 != v50);
-    if (v49)
+    while (v34 != v48);
+    if (v47)
     {
-      v44 = v48;
-      if (v48 <= 1)
+      v42 = v46;
+      if (v46 <= 1)
       {
-        v44 = 1;
+        v42 = 1;
       }
 
-      v45 = v53;
+      v43 = v51;
       do
       {
-        v46 = *v45++;
-        *v35++ = vcvts_n_s32_f32(v46, 6uLL);
-        --v44;
+        v44 = *v43++;
+        *v33++ = vcvts_n_s32_f32(v44, 6uLL);
+        --v42;
       }
 
-      while (v44);
+      while (v42);
     }
   }
 
-  free(v54);
-  free(v53);
-  free(v23);
+  free(v52);
+  free(v51);
+  free(v21);
   result = 0;
-  *v51 = v25;
-  *v52 = v47;
+  *v49 = v23;
+  *v50 = v45;
   return result;
 }
 
-uint64_t decodeRadiosity(unsigned __int16 *a1, unint64_t a2, uint64_t a3, char *a4)
+uint64_t decodeRadiosity(float *a1, unint64_t a2, uint64_t a3, char *a4)
 {
   if (a2 < 0xC)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v7 = a1[2];
+  v7 = *(a1 + 2);
   v8 = -1;
   do
   {
@@ -3113,7 +3126,7 @@ uint64_t decodeRadiosity(unsigned __int16 *a1, unint64_t a2, uint64_t a3, char *
   while (1 << v8 < v7);
   v9 = *a1;
   v10 = (v7 - 1 + v9) >> v8;
-  v65 = a1[1];
+  v65 = *(a1 + 1);
   v11 = (v7 - 1 + v65) >> v8;
   v12 = malloc_type_calloc(3 * v7, 4uLL, 0x100004052888210uLL);
   v13 = 4 * v9;
@@ -3149,7 +3162,7 @@ uint64_t decodeRadiosity(unsigned __int16 *a1, unint64_t a2, uint64_t a3, char *
       {
         v24 = (v21 + 0.5 - v22) / v22;
         v25 = v24 * (v24 * -2.0);
-        v26 = *(a1 + 2);
+        v26 = a1[2];
         v27 = (v25 + v24 * (v24 * 3.0) * v24 + v24 * -5.0 + 4.0) * 0.125 + (v24 + v24 * v24 + -(v24 * v24) * v24 + -1.0) * 0.5 * v26;
         v28 = v24 * v24 * 0.5 + (1.0 - v24 * v24) * v26;
         *(v23 - 2) = v27;
@@ -3165,7 +3178,7 @@ uint64_t decodeRadiosity(unsigned __int16 *a1, unint64_t a2, uint64_t a3, char *
 
     if (v14)
     {
-      v29 = (a1 + 6);
+      v29 = (a1 + 3);
       v30 = v15;
       do
       {
@@ -3633,7 +3646,7 @@ CFDataRef CUIConvertImageToPixelFormat(CGImage *a1, int a2, int a3, uint64_t a4,
 {
   v13 = CUIConvertToTXRPixelFormat(a5);
   v14 = objc_alloc_init(TXRDefaultBufferAllocator);
-  v49 = 0;
+  v31 = 0;
   v15 = objc_alloc_init(TXROptions);
   v16 = v15;
   v17 = 16;
@@ -3666,36 +3679,36 @@ CFDataRef CUIConvertImageToPixelFormat(CGImage *a1, int a2, int a3, uint64_t a4,
     v18 = 0;
   }
 
-  v19 = [[TXRImageIndependent alloc] initWithCGImage:a1 bufferAllocator:v14 options:v16 error:&v49];
+  v19 = [[TXRImageIndependent alloc] initWithCGImage:a1 bufferAllocator:v14 options:v16 error:&v31];
 
   if (!v19)
   {
-    _CUILog(4, "CoreUI: %s got error '%@' converting image", v20, v21, v22, v23, v24, v25, "CFDataRef CUIConvertImageToPixelFormat(CGImageRef, BOOL, int32_t, _CUIThemeTextureInterpretation, CGSize, _CUIThemeTexturePixelFormat, size_t *)");
+    _CUILog(4, "CoreUI: %s got error '%@' converting image", "CFDataRef CUIConvertImageToPixelFormat(CGImageRef, BOOL, int32_t, _CUIThemeTextureInterpretation, CGSize, _CUIThemeTexturePixelFormat, size_t *)", v31);
 LABEL_21:
-    v44 = 0;
+    v26 = 0;
     goto LABEL_22;
   }
 
   Width = CGImageGetWidth(a1);
-  v27.f64[0] = a7;
-  if (a7 != Width || (Height = CGImageGetHeight(a1), v27.f64[0] = a7, a8 != Height))
+  v21.f64[0] = a7;
+  if (a7 != Width || (Height = CGImageGetHeight(a1), v21.f64[0] = a7, a8 != Height))
   {
-    v27.f64[1] = a8;
-    v48 = COERCE_DOUBLE(vmovn_s64(vcvtq_u64_f64(v27)));
-    v35 = [TXRDataScaler newImageFromSourceImage:v19 scaledDimensions:v14 bufferAllocattor:1 filter:&v49 error:?];
-    if (v35)
+    v21.f64[1] = a8;
+    v30 = COERCE_DOUBLE(vmovn_s64(vcvtq_u64_f64(v21)));
+    v23 = [TXRDataScaler newImageFromSourceImage:v19 scaledDimensions:v14 bufferAllocattor:1 filter:&v31 error:?];
+    if (v23)
     {
-      v36 = [[TXRImageIndependent alloc] initWithImage:v35 dimensions:objc_msgSend(v19 pixelFormat:"pixelFormat"), v48];
-      v37 = [TXRDataConverter newImageFromSourceImage:v36 newPixelFormat:v13 bufferAllocator:v14 gammaDegamma:v18 error:&v49];
+      v24 = [[TXRImageIndependent alloc] initWithImage:v23 dimensions:objc_msgSend(v19 pixelFormat:"pixelFormat"), v30];
+      v25 = [TXRDataConverter newImageFromSourceImage:v24 newPixelFormat:v13 bufferAllocator:v14 gammaDegamma:v18 error:&v31];
     }
 
     else
     {
-      _CUILog(4, "CoreUI: %s got error '%@' scaling image", v29, v30, v31, v32, v33, v34, "CFDataRef CUIConvertImageToPixelFormat(CGImageRef, BOOL, int32_t, _CUIThemeTextureInterpretation, CGSize, _CUIThemeTexturePixelFormat, size_t *)");
-      v37 = 0;
+      _CUILog(4, "CoreUI: %s got error '%@' scaling image", "CFDataRef CUIConvertImageToPixelFormat(CGImageRef, BOOL, int32_t, _CUIThemeTextureInterpretation, CGSize, _CUIThemeTexturePixelFormat, size_t *)", v31);
+      v25 = 0;
     }
 
-    if (v37)
+    if (v25)
     {
       goto LABEL_18;
     }
@@ -3703,20 +3716,20 @@ LABEL_21:
     goto LABEL_20;
   }
 
-  v37 = [TXRDataConverter newImageFromSourceImage:v19 newPixelFormat:v13 bufferAllocator:v14 gammaDegamma:v18 error:&v49, Height, a7, a8];
-  if (!v37)
+  v25 = [TXRDataConverter newImageFromSourceImage:v19 newPixelFormat:v13 bufferAllocator:v14 gammaDegamma:v18 error:&v31, Height, a7, a8];
+  if (!v25)
   {
 LABEL_20:
-    _CUILog(4, "CoreUI: %s got error '%@' converting scaled image", v38, v39, v40, v41, v42, v43, "CFDataRef CUIConvertImageToPixelFormat(CGImageRef, BOOL, int32_t, _CUIThemeTextureInterpretation, CGSize, _CUIThemeTexturePixelFormat, size_t *)");
+    _CUILog(4, "CoreUI: %s got error '%@' converting scaled image", "CFDataRef CUIConvertImageToPixelFormat(CGImageRef, BOOL, int32_t, _CUIThemeTextureInterpretation, CGSize, _CUIThemeTexturePixelFormat, size_t *)", v31);
     goto LABEL_21;
   }
 
 LABEL_18:
-  *a6 = [v37 bytesPerRow];
-  v44 = CFDataCreate(kCFAllocatorDefault, [objc_msgSend(objc_msgSend(v37 "buffer")], objc_msgSend(v37, "bytesPerImage"));
+  *a6 = [v25 bytesPerRow];
+  v26 = CFDataCreate(kCFAllocatorDefault, [objc_msgSend(objc_msgSend(v25 "buffer")], objc_msgSend(v25, "bytesPerImage"));
 
 LABEL_22:
-  return v44;
+  return v26;
 }
 
 uint64_t CUIGetFormatForFeatureSetAndPixelFormat(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -4202,7 +4215,7 @@ LABEL_4:
     CStdException::CStdException(exception, 3238789123);
   }
 
-  std::vector<CPSDString>::push_back[abi:ne200100](v9 + 6, a2);
+  std::vector<CPSDString>::push_back[abi:ne200100](v9 + 48, a2);
 
   return CPSDImageResources::UpdateResourceSize(this, v9);
 }
@@ -4227,7 +4240,7 @@ void CPSDFile::AddLayerCore(CPSDFile *this, CPSDLayerRecord *a2, const UniChar *
   v8 = *(this + 35);
   if (v8 >= *(this + 36))
   {
-    v9 = std::vector<CPSDLayerRecord>::__emplace_back_slow_path<CPSDLayerRecord>(this + 272, a2);
+    v9 = std::vector<CPSDLayerRecord>::__emplace_back_slow_path<CPSDLayerRecord>(this + 34, a2);
   }
 
   else
@@ -4247,14 +4260,14 @@ void CPSDFile::AddLayerCore(CPSDFile *this, CPSDLayerRecord *a2, const UniChar *
   File::~File(v12);
 }
 
-void sub_18DF91880(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DF91880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   File::~File(va);
   _Unwind_Resume(a1);
 }
 
-void *CPSDLayerBlendingRanges::Init(CPSDLayerBlendingRanges *this, unsigned int a2)
+uint64_t *CPSDLayerBlendingRanges::Init(CPSDLayerBlendingRanges *this, unsigned int a2)
 {
   v4 = (this + 32);
   v5 = *(this + 4);
@@ -4318,9 +4331,9 @@ uint64_t CPSDBaseComponent::ComputeSize(CPSDBaseComponent *this)
   return v2;
 }
 
-void sub_18DF91ADC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DF91ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   File::~File(va);
   _Unwind_Resume(a1);
 }
@@ -4429,12 +4442,12 @@ void CPSDFile::AddLayer(CPSDFile *this, unsigned __int8 **a2, int a3, const UniC
 
 void sub_18DF9206C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  MEMORY[0x193AC64C0](v9, 0x10A1C401A1F3E30);
+  MEMORY[0x193AC64C0](v9, 0x10A1C401A1F3E30, a3, a4, a5, a6, a7, a8);
   CPSDLayerRecord::~CPSDLayerRecord(&a9);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<CPSDChannelLengthInfo>::resize(void *result, unint64_t a2)
+unint64_t *std::vector<CPSDChannelLengthInfo>::resize(unint64_t *result, unint64_t a2)
 {
   v2 = result;
   v3 = result[1];
@@ -4474,20 +4487,20 @@ void *std::vector<CPSDChannelLengthInfo>::resize(void *result, unint64_t a2)
   return result;
 }
 
-void std::vector<CPSDLayerChannelGroup *>::resize(void *a1, unint64_t a2)
+void std::vector<CPSDLayerChannelGroup *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<CPSDLayerChannelGroup *>::__append(a1, a2 - v2);
+    std::vector<CPSDLayerChannelGroup *>::__append(result, a2 - v2);
   }
 }
 
@@ -4514,7 +4527,7 @@ uint64_t CPSDLayerChannelGroup::Init(uint64_t this, unsigned __int8 **a2, int a3
   return this;
 }
 
-uint64_t CPSDLayerChannelGroup::ComputeSizeForChannel(CPSDLayerChannelGroup *this, unsigned int a2)
+uint64_t CPSDLayerChannelGroup::ComputeSizeForChannel(CPSDLayerChannelGroup *this, uint64_t a2)
 {
   if (*(this + 6) <= a2)
   {
@@ -4526,7 +4539,7 @@ uint64_t CPSDLayerChannelGroup::ComputeSizeForChannel(CPSDLayerChannelGroup *thi
   return CPSDBaseComponent::ComputeSize(v3);
 }
 
-void CPSDFile::AddLayer(uint64_t a1, uint64_t a2, const UniChar **a3, char a4, int a5)
+void CPSDFile::AddLayer(uint64_t a1, double *a2, CPSDString *a3, char a4, int a5)
 {
   v32 = *(a1 + 268);
   CPSDLayerRecord::CPSDLayerRecord(v35);
@@ -4549,22 +4562,22 @@ void CPSDFile::AddLayer(uint64_t a1, uint64_t a2, const UniChar **a3, char a4, i
     v33[v11] = v13;
     if (v11 == 2)
     {
-      v14 = (a2 + 64);
+      v14 = a2 + 8;
     }
 
     else
     {
-      v14 = (a2 + 72);
+      v14 = a2 + 9;
     }
 
     if (v11)
     {
-      v15 = (a2 + 56);
+      v15 = a2 + 7;
     }
 
     else
     {
-      v15 = (a2 + 80);
+      v15 = a2 + 10;
     }
 
     if (v11 <= 1)
@@ -4642,15 +4655,15 @@ void CPSDFile::AddLayer(uint64_t a1, uint64_t a2, const UniChar **a3, char a4, i
   CPSDLayerRecord::~CPSDLayerRecord(v35);
 }
 
-void sub_18DF92510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_18DF92510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  MEMORY[0x193AC64C0](v10, 0x10B1C4032540B95);
+  va_start(va, a17);
+  MEMORY[0x193AC64C0](v17, 0x10B1C4032540B95, a3, a4, a5, a6, a7, a8);
   CPSDLayerRecord::~CPSDLayerRecord(va);
   _Unwind_Resume(a1);
 }
 
-void CPSDObjectEffectsLayerInfo::InitWithGradient(uint64_t a1, uint64_t a2)
+void CPSDObjectEffectsLayerInfo::InitWithGradient(uint64_t a1, uint64_t *a2)
 {
   *(a1 + 40) = 0x6C6678323842494DLL;
   *(a1 + 120) = 0x1000000000;
@@ -4680,12 +4693,11 @@ void CPSDObjectEffectsLayerInfo::InitWithGradient(uint64_t a1, uint64_t a2)
   CPSDActionKeyedItem::~CPSDActionKeyedItem(v10);
 }
 
-void sub_18DF926F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DF926F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
@@ -4695,9 +4707,10 @@ void sub_18DF926F0(_Unwind_Exception *a1, uint64_t a2, ...)
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(va);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(va1);
-  CPSDActionKeyedItem::~CPSDActionKeyedItem((v2 - 120));
+  CPSDActionKeyedItem::~CPSDActionKeyedItem((v3 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -4793,9 +4806,9 @@ void CPSDFile::AddSectionDivider(CPSDFile *this, int a2, const UniChar **a3, cha
   CPSDLayerRecord::~CPSDLayerRecord(v23);
 }
 
-void sub_18DF929DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_18DF929DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   CPSDLayerRecord::~CPSDLayerRecord(va);
   _Unwind_Resume(a1);
 }
@@ -4803,7 +4816,7 @@ void sub_18DF929DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 _WORD *CPSDFile::AddLayerGroupStart(CPSDFile *this)
 {
   v4 = 0;
-  CPSDString::AllocateCharData(&v3, 1);
+  CPSDString::AllocateCharData(&v3, 1u);
   *v4 = 0;
   CPSDFile::AddSectionDivider(this, 3, &v3, 255, 1885434739);
   result = v4;
@@ -4815,11 +4828,11 @@ _WORD *CPSDFile::AddLayerGroupStart(CPSDFile *this)
   return result;
 }
 
-void sub_18DF92A98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_18DF92A98(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x193AC64A0](a10, 0x1000C80BDFB0063);
+    MEMORY[0x193AC64A0](a10, 0x1000C80BDFB0063, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4883,7 +4896,7 @@ LABEL_4:
   return CPSDImageResources::UpdateResourceSize(this, v15);
 }
 
-CPSDBaseComponent *CPSDImageResources::UpdateSliceNameAtIndex(CPSDImageResources *this, const unsigned __int16 *a2, int a3, unsigned int a4)
+CPSDBaseComponent *CPSDImageResources::UpdateSliceNameAtIndex(CPSDImageResources *this, const unsigned __int16 *a2, unsigned int a3, unsigned int a4)
 {
   v8 = CPSDImageResources::LookupResourceWithResID(this, 1050);
   CPSDSlicesResourceItem::UpdateSliceNameAtIndex(v8, a2, a3, a4);
@@ -4952,8 +4965,9 @@ uint64_t CPSDFile::Load(CPSDFile *this, uint64_t a2)
   return CPSDFile::LoadImageData(this, a2, 0);
 }
 
-uint64_t CPSDHeader::Load(CPSDHeader *this, int a2)
+uint64_t CPSDHeader::Load(CPSDHeader *this, uint64_t a2)
 {
+  v2 = a2;
   v13 = 0;
   CPSDBaseComponent::ReadFile(a2, this + 16, 4uLL, &v13);
   v4 = *(this + 4);
@@ -4963,7 +4977,7 @@ uint64_t CPSDHeader::Load(CPSDHeader *this, int a2)
     goto LABEL_9;
   }
 
-  CPSDBaseComponent::ReadFile(a2, this + 20, 2uLL, &v13);
+  CPSDBaseComponent::ReadFile(v2, this + 20, 2uLL, &v13);
   v5 = *(this + 10);
   *(this + 10) = __rev16(v5);
   if (v5 != 256)
@@ -4971,8 +4985,8 @@ uint64_t CPSDHeader::Load(CPSDHeader *this, int a2)
     goto LABEL_9;
   }
 
-  CPSDBaseComponent::ReadFile(a2, this + 22, 6uLL, &v13);
-  CPSDBaseComponent::ReadFile(a2, this + 28, 2uLL, &v13);
+  CPSDBaseComponent::ReadFile(v2, this + 22, 6uLL, &v13);
+  CPSDBaseComponent::ReadFile(v2, this + 28, 2uLL, &v13);
   v6 = bswap32(*(this + 14)) >> 16;
   *(this + 14) = v6;
   if ((v6 - 25) < 0xFFE8u)
@@ -4980,7 +4994,7 @@ uint64_t CPSDHeader::Load(CPSDHeader *this, int a2)
     goto LABEL_9;
   }
 
-  CPSDBaseComponent::ReadFile(a2, this + 32, 4uLL, &v13);
+  CPSDBaseComponent::ReadFile(v2, this + 32, 4uLL, &v13);
   v7 = bswap32(*(this + 8));
   *(this + 8) = v7;
   if (v7 - 30001 < 0xFFFF8AD0)
@@ -4988,7 +5002,7 @@ uint64_t CPSDHeader::Load(CPSDHeader *this, int a2)
     goto LABEL_9;
   }
 
-  CPSDBaseComponent::ReadFile(a2, this + 36, 4uLL, &v13);
+  CPSDBaseComponent::ReadFile(v2, this + 36, 4uLL, &v13);
   v8 = bswap32(*(this + 9));
   *(this + 9) = v8;
   if (v8 - 30001 < 0xFFFF8AD0)
@@ -4996,13 +5010,13 @@ uint64_t CPSDHeader::Load(CPSDHeader *this, int a2)
     goto LABEL_9;
   }
 
-  CPSDBaseComponent::ReadFile(a2, this + 40, 2uLL, &v13);
+  CPSDBaseComponent::ReadFile(v2, this + 40, 2uLL, &v13);
   LOBYTE(v9) = 0;
   v10 = bswap32(*(this + 20)) >> 16;
   *(this + 20) = v10;
   if (v10 <= 0x10 && ((1 << v10) & 0x10102) != 0)
   {
-    CPSDBaseComponent::ReadFile(a2, this + 42, 2uLL, &v13);
+    CPSDBaseComponent::ReadFile(v2, this + 42, 2uLL, &v13);
     v11 = bswap32(*(this + 21)) >> 16;
     *(this + 21) = v11;
     if (v11 > 9)
@@ -5026,8 +5040,9 @@ LABEL_9:
   return v9;
 }
 
-uint64_t CPSDColorModeData::Load(CPSDColorModeData *this, int a2)
+uint64_t CPSDColorModeData::Load(CPSDColorModeData *this, uint64_t a2)
 {
+  v2 = a2;
   v12 = 0;
   v4 = *(*(this + 1) + 154);
   CPSDBaseComponent::ReadFile(a2, this + 16, 4uLL, &v12);
@@ -5041,7 +5056,7 @@ uint64_t CPSDColorModeData::Load(CPSDColorModeData *this, int a2)
 
   if (v4 != 2 || v5 != 196608)
   {
-    return SetFilePointer(a2, v6, 0, 1) != -1;
+    return SetFilePointer(v2, v6, 0, 1) != -1;
   }
 
   v7 = *(this + 3);
@@ -5066,7 +5081,7 @@ uint64_t CPSDColorModeData::Load(CPSDColorModeData *this, int a2)
       v11 = 0;
       do
       {
-        CPSDBaseComponent::ReadFile(a2, (*(this + 3) + v11), v10, &v12);
+        CPSDBaseComponent::ReadFile(v2, (*(this + 3) + v11), v10, &v12);
         v11 += v12;
         v10 -= v12;
       }
@@ -5186,13 +5201,14 @@ uint64_t CPSDLayerAndMaskInfo::Load(CPSDLayerAndMaskInfo *this, uint64_t a2)
   return v4;
 }
 
-uint64_t CPSDFile::LoadImageData(CPSDFile *this, int a2, int a3)
+uint64_t CPSDFile::LoadImageData(CPSDFile *this, uint64_t a2, int a3)
 {
   if (!*(this + 32))
   {
     return 0;
   }
 
+  v4 = a2;
   v14 = 0;
   CPSDBaseComponent::ReadFile(a2, this + 88, 2uLL, &v14);
   *(this + 44) = bswap32(*(this + 44)) >> 16;
@@ -5210,8 +5226,8 @@ uint64_t CPSDFile::LoadImageData(CPSDFile *this, int a2, int a3)
       v9 = v8 >> 3;
     }
 
-    v10 = SetFilePointer(a2, 0, 0, 1);
-    v11 = SetFilePointer(a2, 0, 0, 2) - v10;
+    v10 = SetFilePointer(v4, 0, 0, 1);
+    v11 = SetFilePointer(v4, 0, 0, 2) - v10;
     *(this + 3) = v11;
     v12 = *(this + 2);
     if (v12)
@@ -5227,8 +5243,8 @@ uint64_t CPSDFile::LoadImageData(CPSDFile *this, int a2, int a3)
       CPSDFile::LoadImageData();
     }
 
-    SetFilePointer(a2, v10, 0, 0);
-    CPSDBaseComponent::ReadFile(a2, *(this + 2), *(this + 6), &v14);
+    SetFilePointer(v4, v10, 0, 0);
+    CPSDBaseComponent::ReadFile(v4, *(this + 2), *(this + 6), &v14);
     CPSDImageLoad::AllocateChannelBuffers(this, v9);
     if (a3)
     {
@@ -5242,7 +5258,7 @@ uint64_t CPSDFile::LoadImageData(CPSDFile *this, int a2, int a3)
 
     CPSDImageLoad::CreatePlanarBitmap(this);
     CPSDImageLoad::DeAllocateChannelBuffers(this);
-    SetFilePointer(a2, *(this + 7) + v10, 0, 0);
+    SetFilePointer(v4, *(this + 7) + v10, 0, 0);
     return 1;
   }
 
@@ -5368,7 +5384,7 @@ uint64_t CPSDLayerAndMaskInfo::LoadLayer(CPSDLayerAndMaskInfo *this, uint64_t a2
   return v4;
 }
 
-uint64_t CPSDFile::GetImageInfo(CPSDFile *this, int a2, unsigned int *a3, unsigned int *a4, unsigned __int16 *a5, unsigned __int16 *a6, unsigned __int16 *a7)
+uint64_t CPSDFile::GetImageInfo(CPSDFile *this, uint64_t a2, unsigned int *a3, unsigned int *a4, unsigned __int16 *a5, unsigned __int16 *a6, unsigned __int16 *a7)
 {
   v14 = SetFilePointer(a2, 0, 0, 1);
   SetFilePointer(a2, 0, 0, 0);
@@ -7322,7 +7338,7 @@ uint64_t CPSDSlicesResourceItem::AddOrUpdateSlices(CPSDSlicesResourceItem *this,
   return CPSDSlicesResourceItem::SortSlices(this);
 }
 
-void *CPSDSlicesResourceItem::UpdateSliceNameAtIndex(CPSDSlicesResourceItem *this, const unsigned __int16 *a2, int a3, unsigned int a4)
+void *CPSDSlicesResourceItem::UpdateSliceNameAtIndex(CPSDSlicesResourceItem *this, const unsigned __int16 *a2, unsigned int a3, unsigned int a4)
 {
   if (*(this + 22) <= a4)
   {
@@ -7710,10 +7726,10 @@ uint64_t CPSDUnicodeChannelNames::Load(CPSDUnicodeChannelNames *this, int a2)
     do
     {
       v8 = 0;
-      CPSDString::AllocateCharData(&v7, 1);
+      CPSDString::AllocateCharData(&v7, 1u);
       *v8 = 0;
       CPSDString::Load(&v7, a2, &v9);
-      std::vector<CPSDString>::push_back[abi:ne200100](this + 6, &v7);
+      std::vector<CPSDString>::push_back[abi:ne200100](this + 48, &v7);
       v5 = v9;
       if (v8)
       {
@@ -7729,11 +7745,11 @@ uint64_t CPSDUnicodeChannelNames::Load(CPSDUnicodeChannelNames *this, int a2)
   return 1;
 }
 
-void sub_18DF9714C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_18DF9714C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x193AC64A0](a11, v11);
+    MEMORY[0x193AC64A0](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7788,10 +7804,10 @@ uint64_t CPSDString::Load(char **this, int a2, unsigned int *a3)
   return 1;
 }
 
-uint64_t std::vector<CPSDString>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<CPSDString>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = std::vector<CPSDString>::__emplace_back_slow_path<CPSDString const&>(a1, a2);
   }
@@ -7802,7 +7818,7 @@ uint64_t std::vector<CPSDString>::push_back[abi:ne200100](uint64_t *a1, uint64_t
     result = v3 + 16;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
@@ -8774,17 +8790,17 @@ uint64_t CPSDAdditionalLayerInfo::Load(CPSDAdditionalLayerInfo *this, uint64_t a
     v9 = v5 + v6;
     do
     {
-      v23 = 0;
-      v24 = 0;
-      CPSDBaseComponent::ReadFile(a2, &v24, 4uLL, &v24 + 1);
-      LODWORD(v24) = bswap32(v24);
-      CPSDBaseComponent::ReadFile(a2, &v23 + 4, 4uLL, &v24 + 1);
-      HIDWORD(v23) = bswap32(HIDWORD(v23));
-      CPSDBaseComponent::ReadFile(a2, &v23, 4uLL, &v24 + 1);
-      LODWORD(v23) = bswap32(v23);
-      if (SHIDWORD(v23) <= 1818654769)
+      v17 = 0;
+      v18 = 0;
+      CPSDBaseComponent::ReadFile(a2, &v18, 4uLL, &v18 + 1);
+      LODWORD(v18) = bswap32(v18);
+      CPSDBaseComponent::ReadFile(a2, &v17 + 4, 4uLL, &v18 + 1);
+      HIDWORD(v17) = bswap32(HIDWORD(v17));
+      CPSDBaseComponent::ReadFile(a2, &v17, 4uLL, &v18 + 1);
+      LODWORD(v17) = bswap32(v17);
+      if (SHIDWORD(v17) <= 1818654769)
       {
-        if (HIDWORD(v23) == 1197753964)
+        if (HIDWORD(v17) == 1197753964)
         {
           v10 = operator new();
           CPSDActionDescriptor::CPSDActionDescriptor(v10);
@@ -8794,9 +8810,9 @@ uint64_t CPSDAdditionalLayerInfo::Load(CPSDAdditionalLayerInfo *this, uint64_t a
           goto LABEL_23;
         }
 
-        if (HIDWORD(v23) != 1399800687)
+        if (HIDWORD(v17) != 1399800687)
         {
-          if (HIDWORD(v23) == 1766813793)
+          if (HIDWORD(v17) == 1766813793)
           {
             v10 = operator new();
             *(v10 + 16) = 0;
@@ -8816,11 +8832,11 @@ uint64_t CPSDAdditionalLayerInfo::Load(CPSDAdditionalLayerInfo *this, uint64_t a
         *(v10 + 120) = 0;
       }
 
-      else if (SHIDWORD(v23) > 1819635304)
+      else if (SHIDWORD(v17) > 1819635304)
       {
-        if (HIDWORD(v23) != 1986884459)
+        if (HIDWORD(v17) != 1986884459)
         {
-          if (HIDWORD(v23) == 1819635305)
+          if (HIDWORD(v17) == 1819635305)
           {
             v10 = operator new();
             *(v10 + 16) = 0;
@@ -8848,9 +8864,9 @@ uint64_t CPSDAdditionalLayerInfo::Load(CPSDAdditionalLayerInfo *this, uint64_t a
 
       else
       {
-        if (HIDWORD(v23) != 1818654770)
+        if (HIDWORD(v17) != 1818654770)
         {
-          if (HIDWORD(v23) == 1819501428)
+          if (HIDWORD(v17) == 1819501428)
           {
             v10 = operator new();
             *(v10 + 16) = 0;
@@ -8880,9 +8896,9 @@ LABEL_19:
       }
 
 LABEL_23:
-      v11 = HIDWORD(v23);
-      *(v10 + 16) = v23;
-      *(v10 + 40) = v24;
+      v11 = HIDWORD(v17);
+      *(v10 + 16) = v17;
+      *(v10 + 40) = v18;
       *(v10 + 44) = v11;
       CPSDResourceItem::LoadItem(v10, a2);
       v12 = *v8;
@@ -8903,13 +8919,13 @@ LABEL_23:
       v15 = SetFilePointer(a2, 0, 0, 1);
       if (v15 > v9)
       {
-        _CUILog(1, "Additional Layer Info Size is Recorded Incorrectly in File: recorded size = %d, bytes read = %d.\n", v16, v17, v18, v19, v20, v21, *(this + 4));
+        _CUILog(1, "Additional Layer Info Size is Recorded Incorrectly in File: recorded size = %d, bytes read = %d.\n", *(this + 4), v15 - v6);
         return 0;
       }
 
-      if ((v23 & 3) != 0)
+      if ((v17 & 3) != 0)
       {
-        v15 = SetFilePointer(a2, 4 - (v23 & 3), 0, 1);
+        v15 = SetFilePointer(a2, 4 - (v17 & 3), 0, 1);
       }
     }
 
@@ -9522,7 +9538,7 @@ uint64_t CPSDChannelData::Save(CPSDChannelData *this, File *a2)
   return v5(this, a2);
 }
 
-uint64_t CPSDChannelData::LoadChannelData(uint64_t this, int a2, int a3)
+uint64_t CPSDChannelData::LoadChannelData(uint64_t this, int a2, unsigned int a3)
 {
   v3 = this;
   *(this + 48) = a3;
@@ -9814,26 +9830,4 @@ uint64_t CPSDLayerInfo::SaveLayerInfo(CPSDLayerInfo *this, File *a2)
   }
 
   return result;
-}
-
-void CPSDLayerInfo::CreateImageAtLayer(CPSDLayerInfo *this, unsigned int a2)
-{
-  if (*(this + 10) >= a2)
-  {
-    if (CPSDFile::IsTaggedWithICCProfile(*(this + 1)))
-    {
-      v4 = CPSDImageResources::LookupResourceWithResID((*(this + 1) + 192), 1039);
-      v5 = (*(*v4 + 56))(v4);
-      v6 = (*(*v4 + 48))(v4);
-    }
-
-    else
-    {
-      v5 = 0;
-      v6 = 0;
-    }
-
-    v7 = operator new();
-    CPSDLayerImage::CPSDLayerImage(v7, (*(this + 3) + 488 * a2), *(*(this + 6) + 8 * a2), *(*(this + 1) + 154), *(*(this + 1) + 152), v6, v5);
-  }
 }

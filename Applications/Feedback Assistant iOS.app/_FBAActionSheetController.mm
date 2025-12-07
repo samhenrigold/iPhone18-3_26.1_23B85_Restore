@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10006A714();
+  sub_10006A714(selfCopy, v2);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -29,8 +29,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10006A8D4(appear);
+  sub_10006A8D4(appearCopy, selfCopy);
 }
 
 - (void)addActionWithTitle:(id)title image:(id)image actionHandler:(id)handler
@@ -40,25 +41,25 @@
   v10 = v9;
   v11 = swift_allocObject();
   *(v11 + 16) = v7;
-  v12 = type metadata accessor for FBAActionControllerAction();
-  v13 = objc_allocWithZone(v12);
-  v14 = OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_image;
-  *&v13[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_image] = 0;
-  v13[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_destructive] = 0;
-  v15 = &v13[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_title];
-  *v15 = v8;
-  v15[1] = v10;
-  *&v13[v14] = image;
-  v16 = &v13[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_actionHandler];
-  *v16 = sub_10006894C;
-  v16[1] = v11;
-  v20.receiver = v13;
-  v20.super_class = v12;
+  v13 = type metadata accessor for FBAActionControllerAction(v11, v12);
+  v14 = objc_allocWithZone(v13);
+  v15 = OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_image;
+  *&v14[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_image] = 0;
+  v14[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_destructive] = 0;
+  v16 = &v14[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_title];
+  *v16 = v8;
+  v16[1] = v10;
+  *&v14[v15] = image;
+  v17 = &v14[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_actionHandler];
+  *v17 = sub_10006894C;
+  v17[1] = v11;
+  v21.receiver = v14;
+  v21.super_class = v13;
   imageCopy = image;
   selfCopy = self;
 
-  v19 = [(_FBAActionSheetController *)&v20 init];
-  sub_10006ADBC(v19);
+  v20 = [(_FBAActionSheetController *)&v21 init];
+  sub_10006ADBC(v20);
 }
 
 - (void)addAction:(id)action
@@ -73,17 +74,15 @@
   v4 = OBJC_IVAR____TtC18Feedback_Assistant25_FBAActionSheetController_actions;
   swift_beginAccess();
   v5 = *(&self->super.super.super.super.isa + v4);
-  if (!(v5 >> 62))
+  if (v5 >> 62)
+  {
+    return _CocoaArrayWrapper.endIndex.getter();
+  }
+
+  else
   {
     return *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
-
-  if (v5 < 0)
-  {
-    v7 = *(&self->super.super.super.super.isa + v4);
-  }
-
-  return _CocoaArrayWrapper.endIndex.getter();
 }
 
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section
@@ -101,32 +100,30 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
   sub_10006BDB4();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_10006B118(viewCopy);
+  v12 = sub_10006B118(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (_TtC18Feedback_Assistant25_FBAActionSheetController)initWithStyle:(int64_t)style
@@ -140,7 +137,7 @@
   v5[1] = 0;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant25_FBAActionSheetController_dismissesOnAction) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for _FBAActionSheetController();
+  v7.super_class = type metadata accessor for _FBAActionSheetController(self, a2);
   return [(_FBAActionSheetController *)&v7 initWithStyle:style];
 }
 

@@ -37,54 +37,55 @@ void sub_10006CCB8(uint64_t a1, void *a2)
   v3 = a2;
   if (!v3)
   {
-    v7 = sub_100015C10();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100015C10(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[COSScreenTimeSetPasscodeViewController suggestedButtonPressed:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: step complete", &v12, 0xCu);
+      v13 = 136315138;
+      v14 = "[COSScreenTimeSetPasscodeViewController suggestedButtonPressed:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: step complete", &v13, 0xCu);
     }
 
-    v6 = [*(a1 + 32) miniFlowDelegate];
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = v6;
-    v11 = v8;
+    v7 = [*(a1 + 32) miniFlowDelegate];
+    v9 = *(a1 + 32);
+    v10 = objc_opt_class();
+    v11 = v7;
+    v12 = v9;
     goto LABEL_11;
   }
 
   v4 = [*(a1 + 32) _errorIsUserCanceledSettingPIN:v3];
-  v5 = sub_100015C10();
-  v6 = v5;
-  if ((v4 & 1) == 0)
+  v5 = v4;
+  v6 = sub_100015C10(v4);
+  v7 = v6;
+  if ((v5 & 1) == 0)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100187F3C();
     }
 
-    v10 = [*(a1 + 32) miniFlowDelegate];
-    v6 = v10;
-    v11 = *(a1 + 32);
-    v9 = 0;
+    v11 = [*(a1 + 32) miniFlowDelegate];
+    v7 = v11;
+    v12 = *(a1 + 32);
+    v10 = 0;
 LABEL_11:
-    [v10 miniFlowStepComplete:v11 nextControllerClass:v9];
+    [v11 miniFlowStepComplete:v12 nextControllerClass:v10];
     goto LABEL_12;
   }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[COSScreenTimeSetPasscodeViewController suggestedButtonPressed:]_block_invoke";
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: user canceled setting Screen Time passcode", &v12, 0xCu);
+    v13 = 136315138;
+    v14 = "[COSScreenTimeSetPasscodeViewController suggestedButtonPressed:]_block_invoke";
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: user canceled setting Screen Time passcode", &v13, 0xCu);
   }
 
 LABEL_12:
 }
 
-void sub_10006D3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10006D3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -93,7 +94,7 @@ void sub_10006D410(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100015C10();
+  v7 = sub_100015C10(v6);
   v8 = v7;
   if (v6)
   {
@@ -119,7 +120,7 @@ void sub_10006D410(uint64_t a1, void *a2, void *a3)
     v18 = 0;
     v10 = [v9 applyUpdatedConfiguration:v8 error:&v18];
     v6 = v18;
-    v11 = sub_100015C10();
+    v11 = sub_100015C10(v6);
     v12 = v11;
     if (v6)
     {
@@ -186,7 +187,7 @@ void sub_10006D78C()
   v0 = v1[0];
   if (!qword_1002BD450)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -197,14 +198,14 @@ LABEL_7:
   }
 }
 
-uint64_t sub_10006D888()
+uint64_t sub_10006D888(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1002BD450 = result;
   return result;
 }
 
-void sub_10006D8FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10006D8FC(uint64_t a1)
 {
   sub_10006D78C();
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("STUserID");
@@ -215,15 +216,16 @@ void sub_10006D8FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   else
   {
-    v10 = sub_100186340();
-    sub_10006D954(v10, v11, v12, v13, v14, v15, v16, v17, a9);
+    sub_100186340();
+    sub_10006D954(v2, v3, v4, v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10006D954(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10006D954(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_10006D970(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -701,9 +703,9 @@ void sub_100073E48(uint64_t a1)
   [qword_1002BD470 addObject:v4];
 }
 
-void sub_1000742C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000742C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1606,9 +1608,9 @@ void sub_100078B90(uint64_t a1)
   [v1 setActive:0];
 }
 
-void sub_100079248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100079248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1706,23 +1708,23 @@ void *sub_10007A2B0(uint64_t a1)
   return result;
 }
 
-uint64_t sub_10007A300()
+uint64_t sub_10007A300(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1002BD488 = result;
   return result;
 }
 
-id sub_10007A374()
+id sub_10007A374(uint64_t a1)
 {
   if (qword_1002BD4A0 != -1)
   {
     sub_100188310();
   }
 
-  v1 = qword_1002BD498;
+  v2 = qword_1002BD498;
 
-  return v1;
+  return v2;
 }
 
 void sub_10007A3B8(id a1)
@@ -1764,7 +1766,7 @@ Class sub_10007A490(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1782,7 +1784,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_10007A5D4()
+uint64_t sub_10007A5D4(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1002BD4B0 = result;
@@ -1951,9 +1953,9 @@ void sub_1000809F4(uint64_t a1)
   *(v1 + 64) = 0;
 }
 
-void sub_100080C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100080C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4089,7 +4091,7 @@ LABEL_3:
     }
 
     v5 = [WeakRetained buddyControllers];
-    [v5 removeObject:v6];
+    objc_msgSend_removeObject_(v5);
   }
 
 LABEL_12:
@@ -4146,7 +4148,7 @@ LABEL_15:
       goto LABEL_24;
     }
 
-    [v13 removeObject:{v19, v20}];
+    objc_msgSend_removeObject_(v13, v20);
     [v13 addObject:v3];
     [*(a1 + 40) setViewControllers:v13 animated:1];
   }
@@ -4588,7 +4590,7 @@ void sub_1000958BC(uint64_t a1)
 
       else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_100188BD0(a1 + 32, v3);
+        sub_100188BD0((a1 + 32), v3);
       }
     }
 
@@ -5118,7 +5120,7 @@ LABEL_3:
                                         v6 = pbb_setupflow_log();
                                         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
                                         {
-                                          sub_100188F34();
+                                          sub_100188F34(v1);
                                         }
 
                                         v2 = 1;
@@ -5187,8 +5189,9 @@ void sub_100098B98(id a1, NSError *a2)
   }
 }
 
-void sub_100099188(uint64_t a1, int a2)
+void sub_100099188(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = pbb_accountsignin_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -5196,7 +5199,7 @@ void sub_100099188(uint64_t a1, int a2)
     v6 = 138412546;
     v7 = v5;
     v8 = 1024;
-    v9 = a2;
+    v9 = v2;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Saved combined iTunesStore account (%@) with success: (%{BOOL}d)", &v6, 0x12u);
   }
 }
@@ -5318,17 +5321,18 @@ void sub_10009A198(uint64_t a1)
   [v2 updateWatchBuddyStage:v3 forPairingID:v5];
 }
 
-uint64_t sub_10009A880()
+uint64_t sub_10009A880(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1002BD4F8 = result;
   return result;
 }
 
-void sub_10009A8F4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10009A8F4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id sub_10009ACCC(uint64_t a1)
@@ -5506,9 +5510,9 @@ id sub_10009C1DC()
   return v2;
 }
 
-void sub_10009C618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009C618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5761,7 +5765,7 @@ uint64_t sub_10009F5A0()
   v1 = v3[0];
   if (!qword_1002BD508)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -5774,7 +5778,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t sub_10009F6A0()
+uint64_t sub_10009F6A0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1002BD508 = result;
@@ -5793,7 +5797,7 @@ Class sub_10009F714(uint64_t a1)
 
   else
   {
-    v3 = sub_100187BB4();
+    sub_100187BB4();
     return sub_10009F76C(v3);
   }
 
@@ -5909,7 +5913,7 @@ void sub_1000A0B10(uint64_t a1, void *a2)
   {
     sub_10002E500(*(a1 + 48));
     v9 = [*(a1 + 56) bundleUsages];
-    [v9 removeObject:*(a1 + 40)];
+    objc_msgSend_removeObject_(v9);
 
     v10 = *(a1 + 56);
     v11 = [*(a1 + 32) specifier];
@@ -8077,9 +8081,9 @@ void sub_1000B3074(id a1, UIAlertAction *a2)
   }
 }
 
-void sub_1000B31C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B31C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8660,7 +8664,7 @@ Class sub_1000B887C(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -8678,7 +8682,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_1000B89C0()
+uint64_t sub_1000B89C0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1002BD558 = result;

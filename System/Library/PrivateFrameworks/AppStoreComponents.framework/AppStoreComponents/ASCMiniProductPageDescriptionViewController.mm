@@ -15,19 +15,19 @@
   {
     objc_storeStrong(&v6->_text, text);
     v8 = MEMORY[0x277D750C8];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __60__ASCMiniProductPageDescriptionViewController_initWithText___block_invoke;
-    v16[3] = &unk_2781CC7F0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __60__ASCMiniProductPageDescriptionViewController_initWithText___block_invoke;
+    v15[3] = &unk_2781CC7F0;
     v9 = v7;
-    v17 = v9;
-    v10 = [v8 actionWithHandler:v16];
+    v16 = v9;
+    v10 = [v8 actionWithHandler:v15];
     v11 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:24 primaryAction:v10];
     navigationItem = [(ASCMiniProductPageDescriptionViewController *)v9 navigationItem];
     [navigationItem setRightBarButtonItem:v11];
 
-    v14 = ASCLocalizedString(@"MINI_PRODUCT_PAGE_DESCRIPTION_SHEET_TITLE", v13);
-    [(ASCMiniProductPageDescriptionViewController *)v9 setTitle:v14];
+    v13 = ASCLocalizedString(@"MINI_PRODUCT_PAGE_DESCRIPTION_SHEET_TITLE");
+    [(ASCMiniProductPageDescriptionViewController *)v9 setTitle:v13];
   }
 
   return v7;

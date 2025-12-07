@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10007CA44();
+  sub_10007CA44(selfCopy, v2, v3);
 }
 
 - (_TtC8Business31IMBJITAppKitErrorViewController)initWithNibName:(id)name bundle:(id)bundle

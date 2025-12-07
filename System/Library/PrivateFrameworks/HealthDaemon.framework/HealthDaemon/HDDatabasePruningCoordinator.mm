@@ -78,7 +78,7 @@
 
 - (void)performPeriodicActivity:(id)activity completion:(id)completion
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   completionCopy = completion;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -89,67 +89,67 @@
 
   else
   {
-    v33 = standardUserDefaults;
+    v32 = standardUserDefaults;
     v9 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:self activityName:@"pruneDatabase"];
     WeakRetained = objc_loadWeakRetained(&self->_daemon);
     profileManager = [WeakRetained profileManager];
     allProfileIdentifiers = [profileManager allProfileIdentifiers];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __67__HDDatabasePruningCoordinator_performPeriodicActivity_completion___block_invoke;
-    v44[3] = &unk_27862BE28;
-    v35 = activityCopy;
-    v45 = activityCopy;
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __67__HDDatabasePruningCoordinator_performPeriodicActivity_completion___block_invoke_2;
-    v41[3] = &unk_27862BE50;
-    v42 = v9;
-    v34 = completionCopy;
-    v43 = completionCopy;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __67__HDDatabasePruningCoordinator_performPeriodicActivity_completion___block_invoke;
+    v43[3] = &unk_27862BE28;
+    v34 = activityCopy;
+    v44 = activityCopy;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __67__HDDatabasePruningCoordinator_performPeriodicActivity_completion___block_invoke_2;
+    v40[3] = &unk_27862BE50;
+    v41 = v9;
+    v33 = completionCopy;
+    v42 = completionCopy;
     v11 = v9;
     v12 = allProfileIdentifiers;
-    v38 = v44;
-    v13 = v41;
+    v37 = v43;
+    v13 = v40;
     if (self)
     {
-      v30 = v11;
+      v29 = v11;
       v14 = objc_alloc_init(MEMORY[0x277D10BB0]);
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __112__HDDatabasePruningCoordinator__pruneProfilesWithIdentifiers_takeAccessibilityAssertion_shouldDefer_completion___block_invoke;
-      v52[3] = &unk_278619568;
-      v52[4] = self;
-      v28 = v13;
-      v53 = v13;
-      [v14 setDidFinish:v52];
-      v37 = v14;
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __112__HDDatabasePruningCoordinator__pruneProfilesWithIdentifiers_takeAccessibilityAssertion_shouldDefer_completion___block_invoke;
+      v51[3] = &unk_278619568;
+      v51[4] = self;
+      v27 = v13;
+      v52 = v13;
+      [v14 setDidFinish:v51];
+      v36 = v14;
       [v14 beginTask];
       v15 = objc_loadWeakRetained(&self->_daemon);
       profileManager2 = [v15 profileManager];
 
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
-      v29 = v12;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v28 = v12;
       obj = v12;
-      v16 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v16 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
       if (v16)
       {
         v17 = v16;
-        v39 = *v49;
+        v38 = *v48;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v49 != v39)
+            if (*v48 != v38)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v48 + 1) + 8 * i);
-            v20 = [profileManager2 profileForIdentifier:{v19, v28}];
+            v19 = *(*(&v47 + 1) + 8 * i);
+            v20 = [profileManager2 profileForIdentifier:{v19, v27}];
             if (v20)
             {
               _HKInitializeLogging();
@@ -157,46 +157,44 @@
               if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v55 = v19;
+                v54 = v19;
                 _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "Pruning database for profile %{public}@", buf, 0xCu);
               }
 
               attachmentManager = [v20 attachmentManager];
               [attachmentManager runMaintenanceOperationIfNeeded];
 
-              [v37 beginTask];
+              [v36 beginTask];
               v23 = [[HDDatabasePruningTask alloc] initWithProfile:v20];
               v24 = objc_loadWeakRetained(&self->_daemon);
               maintenanceWorkCoordinator = [v24 maintenanceWorkCoordinator];
               date = [MEMORY[0x277CBEAA8] date];
-              v46[0] = MEMORY[0x277D85DD0];
-              v46[1] = 3221225472;
-              v46[2] = __112__HDDatabasePruningCoordinator__pruneProfilesWithIdentifiers_takeAccessibilityAssertion_shouldDefer_completion___block_invoke_316;
-              v46[3] = &unk_27862BE98;
-              v46[4] = v19;
-              v47 = v37;
-              [(HDDatabasePruningTask *)v23 enqueueMaintenanceOperationOnCoordinator:maintenanceWorkCoordinator takeAccessibilityAssertion:1 nowDate:date shouldDefer:v38 completion:v46];
+              v45[0] = MEMORY[0x277D85DD0];
+              v45[1] = 3221225472;
+              v45[2] = __112__HDDatabasePruningCoordinator__pruneProfilesWithIdentifiers_takeAccessibilityAssertion_shouldDefer_completion___block_invoke_316;
+              v45[3] = &unk_27862BE98;
+              v45[4] = v19;
+              v46 = v36;
+              [(HDDatabasePruningTask *)v23 enqueueMaintenanceOperationOnCoordinator:maintenanceWorkCoordinator takeAccessibilityAssertion:1 nowDate:date shouldDefer:v37 completion:v45];
             }
           }
 
-          v17 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+          v17 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
         }
 
         while (v17);
       }
 
-      [v37 finishTask];
-      v12 = v29;
-      v11 = v30;
-      v13 = v28;
+      [v36 finishTask];
+      v12 = v28;
+      v11 = v29;
+      v13 = v27;
     }
 
-    completionCopy = v34;
-    activityCopy = v35;
-    standardUserDefaults = v33;
+    completionCopy = v33;
+    activityCopy = v34;
+    standardUserDefaults = v32;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HDDatabasePruningCoordinator_performPeriodicActivity_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -291,16 +289,16 @@ void *__112__HDDatabasePruningCoordinator__pruneProfilesWithIdentifiers_takeAcce
 
 void __112__HDDatabasePruningCoordinator__pruneProfilesWithIdentifiers_takeAccessibilityAssertion_shouldDefer_completion___block_invoke_316(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "Finished pruning database for profile %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "Finished pruning database for profile %{public}@", &v10, 0xCu);
   }
 
   switch(a2)
@@ -318,8 +316,6 @@ void __112__HDDatabasePruningCoordinator__pruneProfilesWithIdentifiers_takeAcces
       [*(a1 + 40) finishTask];
       break;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)diagnosticDescription

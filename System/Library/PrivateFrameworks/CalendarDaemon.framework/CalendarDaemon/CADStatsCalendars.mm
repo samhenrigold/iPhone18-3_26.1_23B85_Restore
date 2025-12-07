@@ -18,38 +18,38 @@
 
 - (void)processCalendars:(id)calendars inStore:(void *)store
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   calendarsCopy = calendars;
   CalGetDatabaseForRecord();
   v6 = CalDatabaseGetPreferences();
   preferences = [v6 preferences];
 
   v8 = objc_alloc(MEMORY[0x277CBEB98]);
-  v24 = preferences;
+  v23 = preferences;
   v9 = [preferences getValueForPreference:@"LastDeselectedCalendars" expectedClass:objc_opt_class()];
   v10 = [v8 initWithArray:v9];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = calendarsCopy;
-  v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v27;
+    v13 = *v26;
     do
     {
       v14 = 0;
       do
       {
-        if (*v27 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * v14);
+        v15 = *(*(&v25 + 1) + 8 * v14);
         v16 = objc_opt_new();
         [(NSMutableArray *)self->_calendarInfos addObject:v16];
         v17 = CalCalendarCopyUUID();
@@ -104,13 +104,11 @@
       }
 
       while (v14 != v12);
-      v12 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v12 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v12);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)calendarUsesAuthentication:(void *)authentication
@@ -167,96 +165,94 @@ LABEL_6:
 
 - (id)eventDictionaries
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v17 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_calendarInfos, "count")}];
+  v36 = *MEMORY[0x277D85DE8];
+  v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_calendarInfos, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = self->_calendarInfos;
-  v18 = [(NSMutableArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
-  if (v18)
+  v17 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v17)
   {
-    v16 = *v31;
+    v15 = *v30;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v31 != v16)
+        if (*v30 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v30 + 1) + 8 * i);
-        v35[0] = &unk_2837C7180;
-        v34[0] = @"instance";
-        v34[1] = @"isSelected";
-        v29 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 8)];
-        v35[1] = v29;
-        v34[2] = @"isHoliday";
-        v28 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 9)];
-        v35[2] = v28;
-        v34[3] = @"isSubscribed";
-        v27 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 10)];
-        v35[3] = v27;
-        v34[4] = @"isCalDAV";
-        v26 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 11)];
-        v35[4] = v26;
-        v34[5] = @"isAuthenticated";
-        v25 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 12)];
-        v35[5] = v25;
-        v34[6] = @"isShared";
-        v24 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 13)];
-        v35[6] = v24;
-        v34[7] = @"allowsEvents";
-        v23 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 14)];
-        v35[7] = v23;
-        v34[8] = @"isHidden";
-        v22 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 15)];
-        v35[8] = v22;
-        v34[9] = @"isBirthday";
-        v21 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 16)];
-        v35[9] = v21;
-        v34[10] = @"isFacebookBirthday";
-        v20 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 17)];
-        v35[10] = v20;
-        v34[11] = @"isFamily";
-        v19 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 18)];
-        v35[11] = v19;
-        v34[12] = @"isFoundInMail";
+        v4 = *(*(&v29 + 1) + 8 * i);
+        v34[0] = &unk_2837C7180;
+        v33[0] = @"instance";
+        v33[1] = @"isSelected";
+        v28 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 8)];
+        v34[1] = v28;
+        v33[2] = @"isHoliday";
+        v27 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 9)];
+        v34[2] = v27;
+        v33[3] = @"isSubscribed";
+        v26 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 10)];
+        v34[3] = v26;
+        v33[4] = @"isCalDAV";
+        v25 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 11)];
+        v34[4] = v25;
+        v33[5] = @"isAuthenticated";
+        v24 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 12)];
+        v34[5] = v24;
+        v33[6] = @"isShared";
+        v23 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 13)];
+        v34[6] = v23;
+        v33[7] = @"allowsEvents";
+        v22 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 14)];
+        v34[7] = v22;
+        v33[8] = @"isHidden";
+        v21 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 15)];
+        v34[8] = v21;
+        v33[9] = @"isBirthday";
+        v20 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 16)];
+        v34[9] = v20;
+        v33[10] = @"isFacebookBirthday";
+        v19 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 17)];
+        v34[10] = v19;
+        v33[11] = @"isFamily";
+        v18 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 18)];
+        v34[11] = v18;
+        v33[12] = @"isFoundInMail";
         v5 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 19)];
-        v35[12] = v5;
-        v34[13] = @"isNaturalLanguageSuggestedEvents";
+        v34[12] = v5;
+        v33[13] = @"isNaturalLanguageSuggestedEvents";
         v6 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 20)];
-        v35[13] = v6;
-        v34[14] = @"isSharedByMe";
+        v34[13] = v6;
+        v33[14] = @"isSharedByMe";
         v7 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 21)];
-        v35[14] = v7;
-        v34[15] = @"isSyncedHolidayCalendar";
+        v34[14] = v7;
+        v33[15] = @"isSyncedHolidayCalendar";
         v8 = [MEMORY[0x277CCABB0] numberWithBool:*(v4 + 22)];
-        v35[15] = v8;
-        v34[16] = @"numSharees";
+        v34[15] = v8;
+        v33[16] = @"numSharees";
         v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v4 + 24)];
-        v35[16] = v9;
-        v34[17] = @"readOnlySharees";
+        v34[16] = v9;
+        v33[17] = @"readOnlySharees";
         v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v4 + 32)];
-        v35[17] = v10;
-        v34[18] = @"readWriteSharees";
+        v34[17] = v10;
+        v33[18] = @"readWriteSharees";
         v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v4 + 40)];
-        v35[18] = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:19];
-        [v17 addObject:v12];
+        v34[18] = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:19];
+        [v16 addObject:v12];
       }
 
-      v18 = [(NSMutableArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v17 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v16;
 }
 
 @end

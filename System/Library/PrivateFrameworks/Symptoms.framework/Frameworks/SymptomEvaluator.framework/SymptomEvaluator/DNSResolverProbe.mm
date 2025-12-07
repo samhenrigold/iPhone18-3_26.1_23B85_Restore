@@ -25,7 +25,7 @@
 - (void)startDNSResolveFor:(id)for includeAWDL:(BOOL)l
 {
   lCopy = l;
-  v28 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   forCopy = for;
   objc_storeStrong(&self->_serviceDict, for);
   self->_includeAWDL = lCopy;
@@ -60,45 +60,41 @@
       v14 = v13;
       v15 = [forCopy objectForKeyedSubscript:@"name"];
       *buf = 138412546;
-      v25 = v15;
-      v26 = 1024;
-      v27 = v12;
+      v22 = v15;
+      v23 = 1024;
+      v24 = v12;
       _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "Starting Resolve for %@ failed %d", buf, 0x12u);
     }
 
-    errorDelegate = self->_errorDelegate;
     if (objc_opt_respondsToSelector())
     {
-      v17 = self->_errorDelegate;
+      errorDelegate = self->_errorDelegate;
       selfCopy2 = self;
-      v19 = v12;
+      v18 = v12;
 LABEL_14:
-      [(DNSResolverProbeErrorDelegate *)v17 dnsResolver:selfCopy2 encounteredDNSError:v19];
+      [(DNSResolverProbeErrorDelegate *)errorDelegate dnsResolver:selfCopy2 encounteredDNSError:v18];
     }
   }
 
   else
   {
-    v20 = debuggabilityLogHandle;
+    v19 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "The shared DNS Ref for DNSServiceResolve() is NULL. We're probably in the middle of tearing everything down.", buf, 2u);
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "The shared DNS Ref for DNSServiceResolve() is NULL. We're probably in the middle of tearing everything down.", buf, 2u);
     }
 
-    v21 = self->_errorDelegate;
     if (objc_opt_respondsToSelector())
     {
-      v17 = self->_errorDelegate;
+      errorDelegate = self->_errorDelegate;
       selfCopy2 = self;
-      v19 = 4294901756;
+      v18 = 4294901756;
       goto LABEL_14;
     }
   }
 
 LABEL_16:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTest

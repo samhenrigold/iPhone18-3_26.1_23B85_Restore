@@ -443,9 +443,9 @@ PKProvisioningPaymentApplication *__50__PKPaymentRemoteCredential_updateWithDict
           goto LABEL_10;
         }
 
-        v12 = [(NSString *)v7 isEqualToString:v8];
+        isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-        if (!v12)
+        if (!isEqualToString)
         {
           goto LABEL_20;
         }
@@ -480,7 +480,7 @@ LABEL_29:
 
       if (v7 && v17)
       {
-        v18 = [(NSString *)v7 isEqualToString:v17];
+        v18 = objc_msgSend_isEqualToString_(v7);
 
         if (v18)
         {

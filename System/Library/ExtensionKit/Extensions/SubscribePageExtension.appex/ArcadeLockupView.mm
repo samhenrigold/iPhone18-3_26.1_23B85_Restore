@@ -61,11 +61,12 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension16ArcadeLockupView_offerButtonTapHandler);
   if (v2)
   {
-    v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension16ArcadeLockupView_offerButton);
+    v3 = *&self->wordmarkView[OBJC_IVAR____TtC22SubscribePageExtension16ArcadeLockupView_offerButtonTapHandler];
+    v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension16ArcadeLockupView_offerButton);
     selfCopy = self;
-    sub_10001B5AC(v2);
-    v2(v3);
-    sub_1000164A8(v2);
+    sub_10001B5AC(v2, v3);
+    v2(v4);
+    sub_1000164A8(v2, v3);
   }
 }
 
@@ -101,7 +102,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ArcadeLockupView();
+  v7.super_class = type metadata accessor for ArcadeLockupView(0);
   [(ArcadeLockupView *)&v7 setAccessibilityIdentifier:v5];
 }
 

@@ -228,14 +228,14 @@ void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_i
   *(v3 + 40) = v2;
 }
 
-void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_invoke_12(uint64_t a1)
+void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_invoke_12(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v5 = ICCheckedDynamicCast();
-  v2 = [v5 localAccount];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v6 = ICCheckedDynamicCast();
+  v3 = [v6 localAccount];
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_invoke_14(uint64_t a1)
@@ -259,14 +259,14 @@ void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_i
   }
 }
 
-void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_invoke_15(uint64_t a1)
+void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_invoke_15(void *a1, uint64_t a2)
 {
   objc_opt_class();
-  v5 = ICCheckedDynamicCast();
-  v2 = [v5 accountForAccountId:*(*(*(a1 + 48) + 8) + 40)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v6 = ICCheckedDynamicCast();
+  v3 = [v6 accountForAccountId:*(*(a1[6] + 8) + 40)];
+  v4 = *(a1[5] + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_invoke_2(uint64_t a1)
@@ -321,69 +321,69 @@ void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_i
   *(v3 + 40) = v2;
 }
 
-void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_invoke_119(uint64_t a1)
+void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_invoke_119(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   objc_opt_class();
-  v2 = ICCheckedDynamicCast();
-  v3 = [v2 accountUtilities];
-  v4 = [v3 accountsEnabledForNotes];
-  v5 = [v4 lastObject];
+  v3 = ICCheckedDynamicCast();
+  v4 = [v3 accountUtilities];
+  v5 = [v4 accountsEnabledForNotes];
+  v6 = [v5 lastObject];
 
-  if (v5)
+  if (v6)
   {
     objc_opt_class();
-    v6 = ICCheckedDynamicCast();
-    v7 = [v5 identifier];
-    v8 = [v6 accountForAccountId:v7];
-    v9 = *(*(a1 + 40) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v7 = ICCheckedDynamicCast();
+    v8 = [v6 identifier];
+    v9 = [v7 accountForAccountId:v8];
+    v10 = *(*(a1 + 40) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
     if (!*(*(*(a1 + 40) + 8) + 40))
     {
-      v34 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v31 = v5;
-      v11 = [v5 childAccounts];
-      v12 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
-      if (v12)
+      v34 = 0u;
+      v32 = v6;
+      v12 = [v6 childAccounts];
+      v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v33;
-        v15 = *MEMORY[0x277CB89F8];
+        v14 = v13;
+        v15 = *v34;
+        v16 = *MEMORY[0x277CB89F8];
         while (2)
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v33 != v14)
+            if (*v34 != v15)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v32 + 1) + 8 * i);
-            v18 = [v17 accountType];
-            v19 = [v18 syncableDataclasses];
-            v20 = [v19 containsObject:v15];
+            v18 = *(*(&v33 + 1) + 8 * i);
+            v19 = [v18 accountType];
+            v20 = [v19 syncableDataclasses];
+            v21 = [v20 containsObject:v16];
 
-            if (v20)
+            if (v21)
             {
               objc_opt_class();
-              v21 = ICCheckedDynamicCast();
-              v22 = [v17 identifier];
-              v23 = [v21 accountForAccountId:v22];
-              v24 = *(*(a1 + 40) + 8);
-              v25 = *(v24 + 40);
-              *(v24 + 40) = v23;
+              v22 = ICCheckedDynamicCast();
+              v23 = [v18 identifier];
+              v24 = [v22 accountForAccountId:v23];
+              v25 = *(*(a1 + 40) + 8);
+              v26 = *(v25 + 40);
+              *(v25 + 40) = v24;
 
               goto LABEL_13;
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
-          if (v13)
+          v14 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          if (v14)
           {
             continue;
           }
@@ -394,24 +394,24 @@ void __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_i
 
 LABEL_13:
 
-      v5 = v31;
+      v6 = v32;
     }
   }
 
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    v26 = os_log_create("com.apple.notes", "Accounts");
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v27 = os_log_create("com.apple.notes", "Accounts");
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       __63__ICDefaultAccountUtilities_defaultAccountWithHTMLNoteContext___block_invoke_119_cold_1();
     }
 
     objc_opt_class();
-    v27 = ICCheckedDynamicCast();
-    v28 = [v27 localAccount];
-    v29 = *(*(a1 + 40) + 8);
-    v30 = *(v29 + 40);
-    *(v29 + 40) = v28;
+    v28 = ICCheckedDynamicCast();
+    v29 = [v28 localAccount];
+    v30 = *(*(a1 + 40) + 8);
+    v31 = *(v30 + 40);
+    *(v30 + 40) = v29;
   }
 }
 
@@ -495,25 +495,25 @@ LABEL_6:
   return v12;
 }
 
-void __62__ICDefaultAccountUtilities_defaultFolderWithHTMLNoteContext___block_invoke(uint64_t a1)
+void __62__ICDefaultAccountUtilities_defaultFolderWithHTMLNoteContext___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v5 = ICCheckedDynamicCast();
-  v2 = [v5 defaultFolder];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
-}
-
-void __62__ICDefaultAccountUtilities_defaultFolderWithHTMLNoteContext___block_invoke_2(uint64_t a1)
-{
-  objc_opt_class();
-  v6 = ICCheckedProtocolCast();
-  v2 = [v6 defaultFolder];
-  v3 = ICCheckedDynamicCast();
+  v6 = ICCheckedDynamicCast();
+  v3 = [v6 defaultFolder];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
+}
+
+void __62__ICDefaultAccountUtilities_defaultFolderWithHTMLNoteContext___block_invoke_2(uint64_t a1, uint64_t a2)
+{
+  objc_opt_class();
+  v7 = ICCheckedProtocolCast();
+  v3 = [v7 defaultFolder];
+  v4 = ICCheckedDynamicCast();
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 + (id)accountToAddNewNoteWithTagSelection:(id)selection modernContext:(id)context
@@ -662,19 +662,25 @@ void __62__ICDefaultAccountUtilities_defaultFolderWithHTMLNoteContext___block_in
 + (void)accountToAddSmartFolderWithModernContext:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 ic_loggingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Can add smart folder to default modern account: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Can add smart folder to default modern account: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)accountToAddSmartFolderWithModernContext:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 ic_loggingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Can add smart folder to CloudKit account: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Can add smart folder to CloudKit account: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)accountToAddSmartFolderWithModernContext:.cold.3()
 {
   v0 = [0 ic_loggingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v1, v2, "Can add smart folder to local account: %@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v1, v2, "Can add smart folder to local account: %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

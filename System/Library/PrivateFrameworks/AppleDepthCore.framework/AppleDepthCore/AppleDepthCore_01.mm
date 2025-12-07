@@ -20,9 +20,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<half,1751411059u>(__CVB
         memset(&v1573, 0, sizeof(v1573));
         v1155 = MEMORY[0x277CBF3A0];
         v1299 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+        PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v1155, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v1155);
         v1157 = BytesPerRow >> 1;
         data = buf.data;
         if (v1157 * v1152)
@@ -470,9 +470,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<half,1751411059u>(__CVB
             CVPixelBufferLockBaseAddress(pixelBuffer, 0);
             memset(&v1573, 0, sizeof(v1573));
             v140 = MEMORY[0x277CBF3A0];
-            PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+            PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
             memset(&buf, 0, sizeof(buf));
-            PixelBufferUtils::asVImageBuffer(pixelBuffer, *v140, &buf);
+            PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v140);
             v142 = buf.data;
             v141 = buf.height;
             bzero(buf.data, buf.height * buf.rowBytes);
@@ -719,9 +719,9 @@ LABEL_220:
         memset(&v1573, 0, sizeof(v1573));
         v858 = MEMORY[0x277CBF3A0];
         v859 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+        PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v858, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v858);
         v864 = v857 >> 2;
         v865 = buf.data;
         if (v864 * v855)
@@ -1042,9 +1042,9 @@ LABEL_220:
           CVPixelBufferLockBaseAddress(pixelBuffer, 0);
           memset(&v1573, 0, sizeof(v1573));
           v620 = MEMORY[0x277CBF3A0];
-          PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+          PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
           memset(&buf, 0, sizeof(buf));
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, *v620, &buf);
+          PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v620);
           v622 = buf.data;
           v621 = buf.height;
           bzero(buf.data, buf.height * buf.rowBytes);
@@ -1299,9 +1299,9 @@ LABEL_391:
     memset(&v1573, 0, sizeof(v1573));
     v733 = MEMORY[0x277CBF3A0];
     v734 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+    PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v733, &buf);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v733);
     v736 = v732 >> 1;
     v737 = buf.data;
     if (v736 * v730)
@@ -1612,10 +1612,10 @@ LABEL_391:
       CVPixelBufferLockBaseAddress(a2, 0);
       memset(&v1573, 0, sizeof(v1573));
       v993 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+      PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
       memset(&buf, 0, sizeof(buf));
-      PixelBufferUtils::asVImageBuffer(pixelBuffer, *v993, &buf);
-      PixelBufferUtils::asVImageBuffer(v1353, *v993, &v1572);
+      PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v993);
+      PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v993);
       v995 = v992 >> 1;
       v1332 = v1572.data;
       v1329 = v1572.rowBytes;
@@ -2098,10 +2098,10 @@ LABEL_391:
         memset(&v1573, 0, sizeof(v1573));
         v26 = MEMORY[0x277CBF3A0];
         v27 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+        PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v26, &buf);
-        PixelBufferUtils::asVImageBuffer(v1353, *v26, &v1572);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v26);
+        PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v26);
         v28 = v1572.data;
         v29 = v1572.rowBytes;
         v31 = buf.data;
@@ -2362,10 +2362,10 @@ LABEL_124:
     memset(&v1573, 0, sizeof(v1573));
     v489 = MEMORY[0x277CBF3A0];
     v490 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+    PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v489, &buf);
-    PixelBufferUtils::asVImageBuffer(v1353, *v489, &v1572);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v489);
+    PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v489);
     v492 = v488 >> 2;
     v493 = v1572.data;
     v494 = v1572.rowBytes;
@@ -2695,10 +2695,10 @@ LABEL_88:
     memset(&v1573, 0, sizeof(v1573));
     v356 = MEMORY[0x277CBF3A0];
     v357 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+    PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v356, &buf);
-    PixelBufferUtils::asVImageBuffer(v1353, *v356, &v1572);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v356);
+    PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v356);
     v360 = v355 >> 1;
     v361 = v1572.data;
     v362 = v1572.rowBytes;
@@ -3047,10 +3047,10 @@ LABEL_88:
     memset(&v1573, 0, sizeof(v1573));
     v254 = MEMORY[0x277CBF3A0];
     v27 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+    PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v254, &buf);
-    PixelBufferUtils::asVImageBuffer(v1353, *v254, &v1572);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v254);
+    PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v254);
     v255 = v1572.data;
     v256 = v1572.rowBytes;
     v258 = buf.data;
@@ -3300,7 +3300,7 @@ LABEL_322:
   {
 LABEL_393:
     v1297 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-    PixelBufferUtils::pixelFormatAsString(v1297, &v1573);
+    PixelBufferUtils::pixelFormatAsString(&v1573.data, v1297);
     if ((v1573.width & 0x8000000000000000) == 0)
     {
       v1298 = &v1573;
@@ -3345,9 +3345,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<unsigned short,82543774
         memset(&v1595, 0, sizeof(v1595));
         v1166 = MEMORY[0x277CBF3A0];
         v1329 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+        PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v1166, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v1166);
         v1171 = BytesPerRow >> 1;
         data = buf.data;
         if (v1171 * v1163)
@@ -3824,9 +3824,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<unsigned short,82543774
             CVPixelBufferLockBaseAddress(pixelBuffer, 0);
             memset(&v1595, 0, sizeof(v1595));
             v137 = MEMORY[0x277CBF3A0];
-            PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+            PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
             memset(&buf, 0, sizeof(buf));
-            PixelBufferUtils::asVImageBuffer(pixelBuffer, *v137, &buf);
+            PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v137);
             v139 = buf.data;
             v138 = buf.height;
             bzero(buf.data, buf.height * buf.rowBytes);
@@ -4068,9 +4068,9 @@ LABEL_222:
         memset(&v1595, 0, sizeof(v1595));
         v867 = MEMORY[0x277CBF3A0];
         v868 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+        PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v867, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v867);
         v870 = v866 >> 2;
         v871 = buf.data;
         if (v870 * v864)
@@ -4391,9 +4391,9 @@ LABEL_222:
           CVPixelBufferLockBaseAddress(pixelBuffer, 0);
           memset(&v1595, 0, sizeof(v1595));
           v618 = MEMORY[0x277CBF3A0];
-          PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+          PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
           memset(&buf, 0, sizeof(buf));
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, *v618, &buf);
+          PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v618);
           v620 = buf.data;
           v619 = buf.height;
           bzero(buf.data, buf.height * buf.rowBytes);
@@ -4660,9 +4660,9 @@ LABEL_394:
     memset(&v1595, 0, sizeof(v1595));
     v744 = MEMORY[0x277CBF3A0];
     v745 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+    PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v744, &buf);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v744);
     v748 = v743 >> 1;
     v749 = buf.data;
     if (v748 * v741)
@@ -4973,10 +4973,10 @@ LABEL_394:
       memset(&v1595, 0, sizeof(v1595));
       v1002 = MEMORY[0x277CBF3A0];
       v1328 = a1;
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+      PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
       memset(&buf, 0, sizeof(buf));
-      PixelBufferUtils::asVImageBuffer(pixelBuffer, *v1002, &buf);
-      PixelBufferUtils::asVImageBuffer(v1384, *v1002, &v1594);
+      PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v1002);
+      PixelBufferUtils::asVImageBuffer(&v1594, v1384, *v1002);
       v1005 = v1001 >> 1;
       v1364 = v1594.data;
       v1360 = v1594.rowBytes;
@@ -5472,10 +5472,10 @@ LABEL_394:
         memset(&v1595, 0, sizeof(v1595));
         v26 = MEMORY[0x277CBF3A0];
         v27 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+        PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v26, &buf);
-        PixelBufferUtils::asVImageBuffer(v1384, *v26, &v1594);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v26);
+        PixelBufferUtils::asVImageBuffer(&v1594, v1384, *v26);
         v28 = v1594.data;
         v29 = v1594.rowBytes;
         v31 = buf.data;
@@ -5754,10 +5754,10 @@ LABEL_126:
     memset(&v1595, 0, sizeof(v1595));
     v492 = MEMORY[0x277CBF3A0];
     v493 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+    PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v492, &buf);
-    PixelBufferUtils::asVImageBuffer(v1384, *v492, &v1594);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v492);
+    PixelBufferUtils::asVImageBuffer(&v1594, v1384, *v492);
     v495 = v491 >> 2;
     v496 = v1594.data;
     v497 = v1594.rowBytes;
@@ -6087,10 +6087,10 @@ LABEL_90:
     memset(&v1595, 0, sizeof(v1595));
     v355 = MEMORY[0x277CBF3A0];
     v356 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+    PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v355, &buf);
-    PixelBufferUtils::asVImageBuffer(v1384, *v355, &v1594);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v355);
+    PixelBufferUtils::asVImageBuffer(&v1594, v1384, *v355);
     v359 = v354 >> 1;
     v360 = v1594.data;
     v361 = v1594.rowBytes;
@@ -6444,10 +6444,10 @@ LABEL_90:
     memset(&v1595, 0, sizeof(v1595));
     v242 = MEMORY[0x277CBF3A0];
     v27 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1595);
+    PixelBufferUtils::asVImageBuffer(&v1595, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v242, &buf);
-    PixelBufferUtils::asVImageBuffer(v1384, *v242, &v1594);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v242);
+    PixelBufferUtils::asVImageBuffer(&v1594, v1384, *v242);
     v243 = v1594.data;
     v244 = v1594.rowBytes;
     v246 = buf.data;
@@ -6725,7 +6725,7 @@ LABEL_325:
   {
 LABEL_396:
     v1326 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-    PixelBufferUtils::pixelFormatAsString(v1326, &v1595);
+    PixelBufferUtils::pixelFormatAsString(&v1595.data, v1326);
     if ((v1595.width & 0x8000000000000000) == 0)
     {
       v1327 = &v1595;
@@ -6763,7 +6763,7 @@ void std::__tree<std::__value_type<std::string,std::multiset<Element *,Element::
   }
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6777,25 +6777,25 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::__map_value_compare<std::string,std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::__map_value_compare<std::string,std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2, _OWORD **a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::__map_value_compare<std::string,std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::__map_value_compare<std::string,std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::__map_value_compare<std::string,std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>>>::__find_equal<std::string>(uint64_t a1, void *a2, const void **a3)
@@ -6913,7 +6913,7 @@ LABEL_28:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::__map_value_compare<std::string,std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::__map_value_compare<std::string,std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::multiset<Element *,Element::ElementCompare,std::allocator<Element *>> *>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6939,12 +6939,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -6958,22 +6958,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7007,13 +7007,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7108,24 +7108,23 @@ void Node::~Node(Node *this)
   }
 }
 
-void *std::__split_buffer<Node **>::emplace_back<Node **&>(void *result, void *a2)
+void std::__split_buffer<Node **>::emplace_back<Node **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<Node **>>(v11);
@@ -7137,18 +7136,17 @@ void *std::__split_buffer<Node **>::emplace_back<Node **&>(void *result, void *a
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<Node **>>(unint64_t a1)
@@ -7178,12 +7176,12 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<Element *>>(unint64_t
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(void *a1)
+void std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(void *a1, uint64_t a2)
 {
   if (a1)
   {
-    std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(*a1);
-    std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(a1[1]);
+    std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(*a1, a2);
+    std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(a1[1], v3);
 
     operator delete(a1);
   }
@@ -7251,7 +7249,7 @@ BOOL isPropertyDerivedFromClass(objc_property *a1, objc_class *a2)
   return v7;
 }
 
-uint64_t propertyTypeMatch(uint64_t a1, uint64_t a2)
+BOOL propertyTypeMatch(uint64_t a1, uint64_t a2)
 {
   v2 = (a1 - 5) <= 2 && (a2 - 5) < 3;
   if ((a1 & 0xFFFFFFFFFFFFFFFDLL) == 0)
@@ -7482,7 +7480,7 @@ LABEL_40:
   }
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7492,7 +7490,7 @@ uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,s
   return result;
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7502,7 +7500,7 @@ void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<Element *>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7691,38 +7689,30 @@ uint64_t setProperty(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
     v45 = 0;
     v46 = 0;
     std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&__dst, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 3));
-    v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v45 - __dst) >> 3)];
-    p_data = &__dst->__r_.__value_.__l.__data_;
-    v29 = &v45->__r_.__value_.__l.__data_;
-    if (__dst != v45)
+    v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:0xAAAAAAAAAAAAAAABLL * (v45 - __dst)];
+    v28 = __dst;
+    for (i = v45; v28 != i; v28 += 3)
     {
-      do
+      if (*(v28 + 23) < 0)
       {
-        if (*(p_data + 23) < 0)
-        {
-          std::string::__init_copy_ctor_external(&__idx, *p_data, p_data[1]);
-        }
-
-        else
-        {
-          v30 = *p_data;
-          __idx.__r_.__value_.__r.__words[2] = p_data[2];
-          *&__idx.__r_.__value_.__l.__data_ = v30;
-        }
-
-        *&v31 = std::stof(&__idx, 0);
-        v32 = [MEMORY[0x277CCABB0] numberWithFloat:v31];
-        [v18 addObject:v32];
-
-        if (SHIBYTE(__idx.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__idx.__r_.__value_.__l.__data_);
-        }
-
-        p_data += 3;
+        std::string::__init_copy_ctor_external(&__idx, *v28, v28[1]);
       }
 
-      while (p_data != v29);
+      else
+      {
+        v30 = *v28;
+        __idx.__r_.__value_.__r.__words[2] = v28[2];
+        *&__idx.__r_.__value_.__l.__data_ = v30;
+      }
+
+      *&v31 = std::stof(&__idx, 0);
+      v32 = [MEMORY[0x277CCABB0] numberWithFloat:v31];
+      [v18 addObject:v32];
+
+      if (SHIBYTE(__idx.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__idx.__r_.__value_.__l.__data_);
+      }
     }
 
     __idx.__r_.__value_.__r.__words[0] = &__dst;
@@ -7811,47 +7801,39 @@ LABEL_83:
     v45 = 0;
     v46 = 0;
     std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&__dst, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((v40.__r_.__value_.__l.__size_ - v40.__r_.__value_.__r.__words[0]) >> 3));
-    v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v45 - __dst) >> 3)];
-    v33 = &__dst->__r_.__value_.__l.__data_;
-    v34 = &v45->__r_.__value_.__l.__data_;
-    if (__dst != v45)
+    v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:0xAAAAAAAAAAAAAAABLL * (v45 - __dst)];
+    v33 = __dst;
+    for (j = v45; v33 != j; v33 += 3)
     {
-      do
+      if (*(v33 + 23) < 0)
       {
-        if (*(v33 + 23) < 0)
-        {
-          std::string::__init_copy_ctor_external(&__idx, *v33, v33[1]);
-        }
-
-        else
-        {
-          v35 = *v33;
-          __idx.__r_.__value_.__r.__words[2] = v33[2];
-          *&__idx.__r_.__value_.__l.__data_ = v35;
-        }
-
-        if ((__idx.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          p_idx = &__idx;
-        }
-
-        else
-        {
-          p_idx = __idx.__r_.__value_.__r.__words[0];
-        }
-
-        v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:p_idx];
-        [v18 addObject:v37];
-
-        if (SHIBYTE(__idx.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__idx.__r_.__value_.__l.__data_);
-        }
-
-        v33 += 3;
+        std::string::__init_copy_ctor_external(&__idx, *v33, v33[1]);
       }
 
-      while (v33 != v34);
+      else
+      {
+        v35 = *v33;
+        __idx.__r_.__value_.__r.__words[2] = v33[2];
+        *&__idx.__r_.__value_.__l.__data_ = v35;
+      }
+
+      if ((__idx.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        p_idx = &__idx;
+      }
+
+      else
+      {
+        p_idx = __idx.__r_.__value_.__r.__words[0];
+      }
+
+      v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:p_idx];
+      [v18 addObject:v37];
+
+      if (SHIBYTE(__idx.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__idx.__r_.__value_.__l.__data_);
+      }
     }
 
     __idx.__r_.__value_.__r.__words[0] = &__dst;
@@ -7938,7 +7920,7 @@ void docopt::value::~value(void **this)
 {
   if (*this == 4)
   {
-    v1 = this + 1;
+    v1 = (this + 1);
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
   }
 
@@ -7948,7 +7930,7 @@ void docopt::value::~value(void **this)
   }
 }
 
-void *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *__dst, void *a2)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *__dst, const void ***a2)
 {
   v2 = *(a2 + 23);
   if (v2 >= 0)
@@ -8083,7 +8065,7 @@ void sub_240485438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ADJasperPerformanceOverride::initFromCsv(uint64_t *a1, uint64_t *a2)
+void ADJasperPerformanceOverride::initFromCsv(uint64_t *a1, std::string::size_type a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v4 = *a1;
@@ -8189,7 +8171,7 @@ void sub_2404869C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<float>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](uint64_t a1, int *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -8268,11 +8250,11 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(unint64_t a1)
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-float compareRawBuffers<float,float>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, char a7, char a8, float a9)
+float compareRawBuffers<float,float>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, float a9)
 {
   if (a9 <= 0.0 || a9 > 1.0)
   {
-    NSLog(&cfstr_CannotCompareW.isa, a9);
+    NSLog(&cfstr_CannotCompareW.isa, a2, a3, a4, a5, a6, a7, a8, a9);
     return 1.0e17;
   }
 
@@ -8281,6 +8263,8 @@ float compareRawBuffers<float,float>(uint64_t a1, uint64_t a2, uint64_t a3, uint
   v36 = 0;
   if (a6)
   {
+    v13 = a8;
+    v14 = a7;
     LODWORD(v18) = 0;
     while (!a5)
     {
@@ -8299,7 +8283,7 @@ LABEL_18:
     {
       v20 = *(a1 + a2 * v18 + 4 * v19);
       v21 = *(a3 + a4 * v18 + 4 * v19);
-      if (v20 == 0.0 && (a7 & 1) != 0)
+      if (v20 == 0.0 && (v14 & 1) != 0)
       {
         goto LABEL_17;
       }
@@ -8309,7 +8293,7 @@ LABEL_18:
         break;
       }
 
-      if ((a8 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
         v22 = v20 / 0.0001;
         goto LABEL_16;
@@ -8382,11 +8366,11 @@ void sub_24048763C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float compareRawBuffers<half,half>(float a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, char a8, char a9)
+float compareRawBuffers<half,half>(float a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a1 <= 0.0 || a1 > 1.0)
   {
-    NSLog(&cfstr_CannotCompareW.isa, a1);
+    NSLog(&cfstr_CannotCompareW.isa, a3, a4, a5, a6, a7, a8, a9, a1);
     return 1.0e17;
   }
 
@@ -8395,6 +8379,8 @@ float compareRawBuffers<half,half>(float a1, uint64_t a2, uint64_t a3, uint64_t 
   v39 = 0;
   if (a7)
   {
+    v13 = a9;
+    v14 = a8;
     LODWORD(v16) = 0;
     while (!a6)
     {
@@ -8413,7 +8399,7 @@ LABEL_19:
     {
       __asm { FCMP            H0, #0 }
 
-      if (_ZF && (a8 & 1) != 0)
+      if (_ZF && (v14 & 1) != 0)
       {
         goto LABEL_18;
       }
@@ -8425,7 +8411,7 @@ LABEL_19:
         break;
       }
 
-      if ((a9 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
         __asm { FCVT            D0, H0 }
 
@@ -8541,11 +8527,11 @@ LABEL_8:
   return result;
 }
 
-float compareRawBuffers<half,float>(float a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, char a8, char a9)
+float compareRawBuffers<half,float>(float a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a1 <= 0.0 || a1 > 1.0)
   {
-    NSLog(&cfstr_CannotCompareW.isa, a1);
+    NSLog(&cfstr_CannotCompareW.isa, a3, a4, a5, a6, a7, a8, a9, a1);
     return 1.0e17;
   }
 
@@ -8554,6 +8540,8 @@ float compareRawBuffers<half,float>(float a1, uint64_t a2, uint64_t a3, uint64_t
   v40 = 0;
   if (a7)
   {
+    v13 = a9;
+    v14 = a8;
     LODWORD(v16) = 0;
     while (!a6)
     {
@@ -8573,7 +8561,7 @@ LABEL_19:
       v18 = *(a4 + a5 * v16 + 4 * v17);
       __asm { FCMP            H0, #0 }
 
-      if (_ZF && (a8 & 1) != 0)
+      if (_ZF && (v14 & 1) != 0)
       {
         goto LABEL_18;
       }
@@ -8583,7 +8571,7 @@ LABEL_19:
         break;
       }
 
-      if ((a9 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
         __asm { FCVT            D0, H0 }
 
@@ -8660,11 +8648,11 @@ void sub_240488998(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float compareRawBuffers<unsigned char,unsigned char>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, char a7, char a8, float a9)
+float compareRawBuffers<unsigned char,unsigned char>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, float a9)
 {
   if (a9 <= 0.0 || a9 > 1.0)
   {
-    NSLog(&cfstr_CannotCompareW.isa, a9);
+    NSLog(&cfstr_CannotCompareW.isa, a2, a3, a4, a5, a6, a7, a8, a9);
     return 1.0e17;
   }
 
@@ -8673,6 +8661,8 @@ float compareRawBuffers<unsigned char,unsigned char>(uint64_t a1, uint64_t a2, u
   v37 = 0;
   if (a6)
   {
+    v13 = a8;
+    v14 = a7;
     LODWORD(v18) = 0;
     while (!a5)
     {
@@ -8692,7 +8682,7 @@ LABEL_18:
     {
       v22 = *(v20 + v19);
       v21 = a3 + a4 * v18;
-      if (!*(v20 + v19) && (a7 & 1) != 0)
+      if (!*(v20 + v19) && (v14 & 1) != 0)
       {
         goto LABEL_17;
       }
@@ -8702,7 +8692,7 @@ LABEL_18:
         break;
       }
 
-      if ((a8 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
         v23 = v22 / 0.0001;
         goto LABEL_16;
@@ -8775,11 +8765,11 @@ void sub_240488BF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float compareRawBuffers<unsigned short,unsigned short>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, char a7, char a8, float a9)
+float compareRawBuffers<unsigned short,unsigned short>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, float a9)
 {
   if (a9 <= 0.0 || a9 > 1.0)
   {
-    NSLog(&cfstr_CannotCompareW.isa, a9);
+    NSLog(&cfstr_CannotCompareW.isa, a2, a3, a4, a5, a6, a7, a8, a9);
     return 1.0e17;
   }
 
@@ -8788,6 +8778,8 @@ float compareRawBuffers<unsigned short,unsigned short>(uint64_t a1, uint64_t a2,
   v37 = 0;
   if (a6)
   {
+    v13 = a8;
+    v14 = a7;
     LODWORD(v18) = 0;
     while (!a5)
     {
@@ -8807,7 +8799,7 @@ LABEL_18:
     {
       v22 = *(v20 + 2 * v19);
       v21 = a3 + a4 * v18;
-      if (!*(v20 + 2 * v19) && (a7 & 1) != 0)
+      if (!*(v20 + 2 * v19) && (v14 & 1) != 0)
       {
         goto LABEL_17;
       }
@@ -8817,7 +8809,7 @@ LABEL_18:
         break;
       }
 
-      if ((a8 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
         v23 = v22 / 0.0001;
         goto LABEL_16;
@@ -8890,20 +8882,20 @@ void sub_240488E44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_24048916C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_24048916C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   docopt::value::~value(va);
 
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::string,docopt::value>::map[abi:ne200100](void *a1, void *a2)
+uint64_t **std::map<std::string,docopt::value>::map[abi:ne200100](uint64_t **a1, void *a2)
 {
   a1[1] = 0;
-  v3 = a1 + 1;
+  v3 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   v4 = a2 + 1;
   v5 = *a2;
   if (*a2 != a2 + 1)
@@ -8985,8 +8977,8 @@ LABEL_34:
           while (1)
           {
             v14 = v6;
-            v16 = (v6 + 32);
-            v15 = *(v6 + 32);
+            v16 = v6 + 4;
+            v15 = v6[4];
             v17 = *(v6 + 55);
             if (v17 >= 0)
             {
@@ -8995,7 +8987,7 @@ LABEL_34:
 
             else
             {
-              v18 = *(v6 + 40);
+              v18 = v6[5];
             }
 
             if (v17 >= 0)
@@ -9210,7 +9202,7 @@ BOOL std::__map_value_compare<std::string,std::__value_type<std::string,docopt::
 
 void sub_24048AD1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12)
 {
-  std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(a12);
+  std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(a12, v15);
 
   _Unwind_Resume(a1);
 }
@@ -9251,7 +9243,7 @@ CFDictionaryRef PixelBufferUtils::copyAttachments(PixelBufferUtils *this, __CVBu
   return v4;
 }
 
-_BYTE *PixelBufferUtils::pixelFormatAsString@<X0>(PixelBufferUtils *this@<X0>, char *a2@<X8>)
+void *PixelBufferUtils::pixelFormatAsString@<X0>(void **__return_ptr a1@<X8>, PixelBufferUtils *this@<X0>)
 {
   if (this == 32)
   {
@@ -9264,7 +9256,7 @@ _BYTE *PixelBufferUtils::pixelFormatAsString@<X0>(PixelBufferUtils *this@<X0>, c
     v4 = "24RG";
 LABEL_5:
 
-    return std::string::basic_string[abi:ne200100]<0>(a2, v4);
+    return std::string::basic_string[abi:ne200100]<0>(a1, v4);
   }
 
   __s[0] = BYTE3(this);
@@ -9272,15 +9264,15 @@ LABEL_5:
   __s[2] = BYTE1(this);
   __s[3] = this;
   __s[4] = 0;
-  result = std::string::basic_string[abi:ne200100]<0>(a2, __s);
-  if (a2[23] >= 0)
+  result = std::string::basic_string[abi:ne200100]<0>(a1, __s);
+  if (*(a1 + 23) >= 0)
   {
-    v6 = a2;
+    v6 = a1;
   }
 
   else
   {
-    v6 = *a2;
+    v6 = *a1;
   }
 
   if (*v6 <= 31)
@@ -9429,13 +9421,13 @@ LABEL_40:
     *(&v36 + *(v36 - 24) + 8) = *(&v36 + *(v36 - 24) + 8) & 0xFFFFFFB5 | 8;
     MEMORY[0x245CC0FB0](&v36, this);
     std::stringbuf::str();
-    if (a2[23] < 0)
+    if (*(a1 + 23) < 0)
     {
-      operator delete(*a2);
+      operator delete(*a1);
     }
 
-    *a2 = v32;
-    *(a2 + 2) = v33;
+    *a1 = v32;
+    a1[2] = v33;
     *__s = *v9;
     v30 = v9[9];
     *&__s[*(*__s - 24)] = v9[8];
@@ -9455,14 +9447,14 @@ LABEL_40:
   return result;
 }
 
-void sub_24048BB2C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_24048BB2C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   if (*(v21 - 89) < 0)
   {
     operator delete(*(v21 - 112));
   }
 
-  MEMORY[0x245CC0FA0](&a15);
+  MEMORY[0x245CC0FA0](&a15, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v20 + *(a20 - 24)));
   __cxa_end_catch();
@@ -9516,9 +9508,9 @@ uint64_t PixelBufferUtils::pixelFormatFromString(PixelBufferUtils *this, const c
   return bswap32(*this);
 }
 
-_BYTE *PixelBufferUtils::pixelFormatAsFileExtension@<X0>(PixelBufferUtils *this@<X0>, uint64_t a2@<X8>)
+void *PixelBufferUtils::pixelFormatAsFileExtension@<X0>(PixelBufferUtils *this@<X0>, uint64_t a2@<X8>)
 {
-  result = PixelBufferUtils::pixelFormatAsString(this, a2);
+  result = PixelBufferUtils::pixelFormatAsString(a2, this);
   v4 = *(a2 + 23);
   v5 = v4;
   v6 = *a2;
@@ -9830,7 +9822,7 @@ LABEL_41:
   else
   {
 
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v16 >= 0)
     {
       v14 = __p;
@@ -9861,4 +9853,151 @@ void sub_24048C480(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+uint64_t PixelBufferUtils::planeCountForPixelFormat(PixelBufferUtils *this)
+{
+  if (this > 1380401728)
+  {
+    if (this > 1717856626)
+    {
+      if (this <= 1751411058)
+      {
+        if (this == 1717856627)
+        {
+          return 0;
+        }
+
+        v2 = 1751410032;
+      }
+
+      else
+      {
+        if (this == 1751411059)
+        {
+          return 0;
+        }
+
+        if (this == 1919365990)
+        {
+          return 3;
+        }
+
+        v2 = 1932996149;
+      }
+    }
+
+    else if (this <= 1380411456)
+    {
+      if (this == 1380401729)
+      {
+        return 0;
+      }
+
+      v2 = 1380410945;
+    }
+
+    else
+    {
+      if (this == 1380411457 || this == 1647392359)
+      {
+        return 0;
+      }
+
+      v2 = 1717855600;
+    }
+
+LABEL_29:
+    if (this != v2)
+    {
+      goto LABEL_34;
+    }
+
+    return 0;
+  }
+
+  if (this > 875704437)
+  {
+    if (this <= 1111970368)
+    {
+      if (this == 875704438)
+      {
+        return 2;
+      }
+
+      v2 = 1094862674;
+    }
+
+    else
+    {
+      if (this == 1111970369 || this == 1278226488)
+      {
+        return 0;
+      }
+
+      v2 = 1278226536;
+    }
+
+    goto LABEL_29;
+  }
+
+  if (this <= 825437746)
+  {
+    if (this == 32)
+    {
+      return 0;
+    }
+
+    v2 = 825306677;
+    goto LABEL_29;
+  }
+
+  if (this == 825437747 || this == 843264104)
+  {
+    return 0;
+  }
+
+  if (this == 875704422)
+  {
+    return 2;
+  }
+
+LABEL_34:
+  v5 = CVPixelFormatDescriptionGetDescriptionWithPixelFormatType();
+  if (!v5)
+  {
+    PixelBufferUtils::pixelFormatAsString(__p, this);
+    if (v11 >= 0)
+    {
+      v9 = __p;
+    }
+
+    else
+    {
+      v9 = __p[0];
+    }
+
+    NSLog(&cfstr_SDErrorPixelFo.isa, "planeCountForPixelFormat", 659, this, v9);
+    if (v11 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = [v5 objectForKeyedSubscript:*MEMORY[0x277CC4F70]];
+  v8 = v7;
+  if (v7)
+  {
+    v3 = [v7 count];
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
 }

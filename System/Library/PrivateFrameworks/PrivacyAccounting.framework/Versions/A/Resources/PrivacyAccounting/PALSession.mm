@@ -199,7 +199,7 @@ LABEL_14:
     v26 = v25;
     if (v25)
     {
-      [v25 auditToken];
+      objc_msgSend_auditToken(v25);
     }
 
     else
@@ -379,7 +379,7 @@ LABEL_35:
     v9 = v8;
     if (v8)
     {
-      [v8 auditToken];
+      objc_msgSend_auditToken(v8);
     }
 
     else

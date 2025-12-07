@@ -654,14 +654,14 @@ void __86__ASFriendListSectionManager_initWithModel_activitySharingClient_workou
   dispatch_async(readWriteQueue, block);
 }
 
-uint64_t __43__ASFriendListSectionManager__startQueries__block_invoke(uint64_t a1)
+uint64_t __43__ASFriendListSectionManager__startQueries__block_invoke(uint64_t a1, uint64_t a2)
 {
   ASLoggingInitialize();
-  v2 = *MEMORY[0x277CE8FF0];
+  v3 = *MEMORY[0x277CE8FF0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF0], OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_23E69E000, v2, OS_LOG_TYPE_DEFAULT, "Application is active, starting me and friend queries if needed.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_23E69E000, v3, OS_LOG_TYPE_DEFAULT, "Application is active, starting me and friend queries if needed.", v5, 2u);
   }
 
   *(*(a1 + 32) + 80) = 0;
@@ -1241,13 +1241,13 @@ void __81__ASFriendListSectionManager__isWheelchairUserDisplayModeValidForFriend
   dispatch_after(v8, readWriteQueue, v11);
 }
 
-uint64_t __75__ASFriendListSectionManager__queue_restartQueryAfterErrorCount_withBlock___block_invoke(uint64_t a1)
+uint64_t __75__ASFriendListSectionManager__queue_restartQueryAfterErrorCount_withBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
   ASLoggingInitialize();
-  v2 = *MEMORY[0x277CE8FF0];
+  v3 = *MEMORY[0x277CE8FF0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF0], OS_LOG_TYPE_ERROR))
   {
-    __75__ASFriendListSectionManager__queue_restartQueryAfterErrorCount_withBlock___block_invoke_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
+    __75__ASFriendListSectionManager__queue_restartQueryAfterErrorCount_withBlock___block_invoke_cold_1(a1, v3, v4, v5, v6, v7, v8, v9);
   }
 
   return (*(*(a1 + 40) + 16))();
@@ -2521,6 +2521,13 @@ LABEL_39:
 LABEL_41:
 
   return v29;
+}
+
+void __75__ASFriendListSectionManager__queue_restartQueryAfterErrorCount_withBlock___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *(*(a1 + 32) + 80);
+  OUTLINED_FUNCTION_0(&dword_23E69E000, a2, a3, "Restarting HKActivitySummaryQuery (me) query. Retry attempt: %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -1557,10 +1557,10 @@ LABEL_97:
   hintCopy = hint;
   v10 = objc_opt_new();
   v11 = [languageCopy length];
-  v136 = +[NSCharacterSet whitespaceAndNewlineCharacterSet];
-  v129 = +[NSMutableCharacterSet punctuationCharacterSet];
-  v125 = +[NSCharacterSet decimalDigitCharacterSet];
-  v131 = [NSCharacterSet characterSetWithCharactersInString:@"ー"];
+  v139 = +[NSCharacterSet whitespaceAndNewlineCharacterSet];
+  v132 = +[NSMutableCharacterSet punctuationCharacterSet];
+  v128 = +[NSCharacterSet decimalDigitCharacterSet];
+  v134 = [NSCharacterSet characterSetWithCharactersInString:@"ー"];
   if (v8)
   {
     v12 = +[AXLanguageManager sharedInstance];
@@ -1599,217 +1599,221 @@ LABEL_97:
     }
   }
 
-  v130 = +[AXLanguageManager sharedInstance];
-  v145 = currentLanguageMap;
+  v133 = +[AXLanguageManager sharedInstance];
+  v148 = currentLanguageMap;
   specificLanguageID = [currentLanguageMap specificLanguageID];
-  v128 = sub_1000379BC(specificLanguageID);
-  v126 = sub_100037A14();
-  v123 = specificLanguageID;
+  v131 = sub_1000379BC(specificLanguageID);
+  v129 = sub_100037A14();
+  v126 = specificLanguageID;
   if ([specificLanguageID hasPrefix:@"he"])
   {
-    [v129 removeCharactersInString:@"-"];
+    [v132 removeCharactersInString:@"-"];
   }
 
-  v127 = v10;
-  v124 = v8;
-  v135 = objc_alloc_init(AXIndexMap);
+  v130 = v10;
+  v127 = v8;
+  v138 = objc_alloc_init(AXIndexMap);
   if (v11 >= 1)
   {
-    v149 = 0;
-    v137 = languageCopy;
-    v138 = 0;
-    BYTE4(v134) = 0;
+    v152 = 0;
+    v140 = languageCopy;
+    v141 = 0;
+    BYTE4(v137) = 0;
     v20 = 0;
     v21 = 0;
     v22 = currentLanguageMap;
-    v132 = v11;
+    v135 = v11;
     while (1)
     {
-      v146 = v20;
+      v149 = v20;
       v23 = [languageCopy rangeOfComposedCharacterSequenceAtIndex:v21];
       v20 = [languageCopy substringWithRange:{v23, v24}];
       v25 = [v20 characterAtIndex:0];
-      if ([v20 length] == 1)
+      v26 = [v20 length];
+      if (v26 == 1)
       {
-        if ([v136 characterIsMember:v25])
+        if ([v139 characterIsMember:v25])
         {
-          BYTE4(v134) &= v128 ^ 1;
+          BYTE4(v137) &= v131 ^ 1;
 LABEL_18:
-          v26 = v20;
-          v27 = v146;
+          v27 = v20;
+          v28 = v149;
           goto LABEL_170;
         }
 
-        if ([v129 characterIsMember:v25])
+        v26 = [v132 characterIsMember:v25];
+        if (v26)
         {
           goto LABEL_18;
         }
       }
 
-      v150 = v21;
-      v28 = sub_100037AA8();
-      v29 = [v28 characterIsMember:v25];
+      v153 = v21;
+      v29 = sub_100037AA8(v26);
+      v30 = [v29 characterIsMember:v25];
 
-      v30 = sub_100037A1C();
-      v151 = v25;
-      v31 = [v30 characterIsMember:v25];
+      v32 = sub_100037A1C(v31);
+      v154 = v25;
+      v33 = [v32 characterIsMember:v25];
 
-      v139 = v20;
-      if ((sub_1000511D4(v22, systemSpokenLanguage, v20) & 1) != 0 || (v29 & 1) != 0 || v31)
+      v142 = v20;
+      if ((sub_1000511D4(v22, systemSpokenLanguage, v20) & 1) != 0 || (v30 & 1) != 0 || v33)
       {
-        if ((v128 & v29 & 1) != 0 || v126 && v31)
+        if ((v131 & v30 & 1) != 0 || v129 && v33)
         {
-          if ((v134 & 0x100000000) != 0)
+          if ((v137 & 0x100000000) != 0)
           {
-            LODWORD(v134) = 0;
+            LODWORD(v137) = 0;
             goto LABEL_61;
           }
 
-          v33 = [v146 characterAtIndex:0];
-          v34 = v25;
-          if (v146)
+          v35 = [v149 characterAtIndex:0];
+          v36 = v25;
+          if (v149)
           {
-            v35 = v33;
-            if (([v136 characterIsMember:v33] & 1) == 0 && (objc_msgSend(v129, "characterIsMember:", v35) & 1) == 0 && v35 != 8207 && (objc_msgSend(v125, "characterIsMember:", v25) & 1) == 0 && !objc_msgSend(v129, "characterIsMember:", v25))
+            v37 = v35;
+            if (([v139 characterIsMember:v35] & 1) == 0 && (objc_msgSend(v132, "characterIsMember:", v37) & 1) == 0 && v37 != 8207 && (objc_msgSend(v128, "characterIsMember:", v25) & 1) == 0 && !objc_msgSend(v132, "characterIsMember:", v25))
             {
-              v134 = 0;
-              v140 = 0;
-              v32 = 1;
+              v137 = 0;
+              v143 = 0;
+              v34 = 1;
               goto LABEL_76;
             }
           }
 
-          v36 = +[NSMutableString string];
-          v37 = v150;
-          if (v150 >= v11)
+          v38 = +[NSMutableString string];
+          v39 = v153;
+          if (v153 >= v11)
           {
-            v38 = 0;
+            v40 = 0;
           }
 
           else
           {
-            v38 = 0;
+            v40 = 0;
             while (1)
             {
-              v39 = [languageCopy characterAtIndex:v37];
-              v40 = [v136 characterIsMember:v39];
-              if (v40)
+              v41 = [languageCopy characterAtIndex:v39];
+              v42 = [v139 characterIsMember:v41];
+              v43 = v42;
+              if (v42)
               {
-                if (v38)
+                if (v40)
                 {
                   break;
                 }
 
-                v38 = [v36 mutableCopy];
+                v42 = [v38 mutableCopy];
+                v40 = v42;
               }
 
-              v41 = sub_100037AA8();
-              v42 = v40 | [v41 characterIsMember:v39];
+              v44 = sub_100037AA8(v42);
+              v45 = v43 | [v44 characterIsMember:v41];
 
-              if (v42 != 1)
+              if (v45 != 1)
               {
                 break;
               }
 
-              if (v38)
+              if (v40)
               {
-                [(__CFString *)v38 appendFormat:@"%C", v39];
+                [(__CFString *)v40 appendFormat:@"%C", v41];
               }
 
               else
               {
-                [v36 appendFormat:@"%C", v39];
+                [v38 appendFormat:@"%C", v41];
               }
 
-              if (v11 == ++v37)
+              if (v11 == ++v39)
               {
-                v37 = v11;
+                v39 = v11;
                 break;
               }
             }
           }
 
-          v43 = +[AXLanguageManager doNotTranslateWords];
-          if (([v43 containsObject:v36] & 1) != 0 || objc_msgSend(v43, "containsObject:", v38))
+          v46 = +[AXLanguageManager doNotTranslateWords];
+          if (([v46 containsObject:v38] & 1) != 0 || objc_msgSend(v46, "containsObject:", v40))
           {
-            if ([v36 isEqualToString:@"VoiceOver"])
+            if ([v38 isEqualToString:@"VoiceOver"])
             {
-              v140 = 0;
-              v134 = 1;
-              v32 = 1;
-              v22 = v145;
+              v143 = 0;
+              v137 = 1;
+              v34 = 1;
+              v22 = v148;
               goto LABEL_74;
             }
 
-            if (v150 >= 1)
+            if (v153 >= 1)
             {
-              v141 = [languageCopy substringWithRange:{v138, v150 - v138}];
-              v181[0] = @"string";
-              v181[1] = @"language";
-              v182[0] = v141;
-              v44 = v149;
-              if (!v149)
+              v144 = [languageCopy substringWithRange:{v141, v153 - v141}];
+              v184[0] = @"string";
+              v184[1] = @"language";
+              v185[0] = v144;
+              v47 = v152;
+              if (!v152)
               {
-                v121 = +[NSNull null];
-                v44 = v121;
+                v124 = +[NSNull null];
+                v47 = v124;
               }
 
-              v182[1] = v44;
-              v45 = [NSDictionary dictionaryWithObjects:v182 forKeys:v181 count:2];
-              [v127 addObject:v45];
+              v185[1] = v47;
+              v48 = [NSDictionary dictionaryWithObjects:v185 forKeys:v184 count:2];
+              [v130 addObject:v48];
 
-              if (!v149)
+              if (!v152)
               {
               }
             }
 
-            v138 = v150;
-            LODWORD(v134) = 1;
-            v149 = @"en-US";
-            v150 = v37 - 1;
+            v141 = v153;
+            LODWORD(v137) = 1;
+            v152 = @"en-US";
+            v153 = v39 - 1;
           }
 
           else
           {
-            LODWORD(v134) = 0;
+            LODWORD(v137) = 0;
           }
 
-          v22 = v145;
+          v22 = v148;
 LABEL_61:
           languageRotorItems = [VOTSharedWorkspace languageRotorItems];
-          v165 = 0u;
-          v166 = 0u;
-          v167 = 0u;
           v168 = 0u;
-          v36 = languageRotorItems;
-          v47 = [v36 countByEnumeratingWithState:&v165 objects:v180 count:16];
-          if (v47)
+          v169 = 0u;
+          v170 = 0u;
+          v171 = 0u;
+          v38 = languageRotorItems;
+          v50 = [v38 countByEnumeratingWithState:&v168 objects:v183 count:16];
+          if (v50)
           {
-            v48 = v47;
-            v49 = *v166;
+            v51 = v50;
+            v52 = *v169;
             while (2)
             {
-              for (i = 0; i != v48; i = i + 1)
+              for (i = 0; i != v51; i = i + 1)
               {
-                if (*v166 != v49)
+                if (*v169 != v52)
                 {
-                  objc_enumerationMutation(v36);
+                  objc_enumerationMutation(v38);
                 }
 
-                v51 = *(*(&v165 + 1) + 8 * i);
-                v52 = [v51 objectForKeyedSubscript:@"RotorItem"];
-                v53 = AXLanguageCanonicalFormToGeneralLanguage();
-                v54 = [v53 hasPrefix:@"en"];
+                v54 = *(*(&v168 + 1) + 8 * i);
+                v55 = [v54 objectForKeyedSubscript:@"RotorItem"];
+                v56 = AXLanguageCanonicalFormToGeneralLanguage();
+                v57 = [v56 hasPrefix:@"en"];
 
-                if (v54)
+                if (v57)
                 {
-                  v38 = [v51 objectForKeyedSubscript:@"RotorItem"];
+                  v40 = [v54 objectForKeyedSubscript:@"RotorItem"];
                   goto LABEL_71;
                 }
               }
 
-              v48 = [v36 countByEnumeratingWithState:&v165 objects:v180 count:16];
-              if (v48)
+              v51 = [v38 countByEnumeratingWithState:&v168 objects:v183 count:16];
+              if (v51)
               {
                 continue;
               }
@@ -1817,151 +1821,151 @@ LABEL_61:
               break;
             }
 
-            v38 = @"en-US";
+            v40 = @"en-US";
 LABEL_71:
-            languageCopy = v137;
-            v22 = v145;
-            v11 = v132;
+            languageCopy = v140;
+            v22 = v148;
+            v11 = v135;
           }
 
           else
           {
-            v38 = @"en-US";
+            v40 = @"en-US";
           }
 
-          v43 = +[AXLanguageManager sharedInstance];
-          v140 = [v43 dialectForLanguageID:v38];
-          v32 = 0;
-          BYTE4(v134) = 1;
+          v46 = +[AXLanguageManager sharedInstance];
+          v143 = [v46 dialectForLanguageID:v40];
+          v34 = 0;
+          BYTE4(v137) = 1;
 LABEL_74:
 
-          v20 = v139;
+          v20 = v142;
           goto LABEL_75;
         }
 
-        LODWORD(v134) = 0;
-        v140 = 0;
-        v32 = 1;
+        LODWORD(v137) = 0;
+        v143 = 0;
+        v34 = 1;
       }
 
       else
       {
-        LODWORD(v134) = 0;
-        v32 = 0;
-        v140 = 0;
+        LODWORD(v137) = 0;
+        v34 = 0;
+        v143 = 0;
       }
 
 LABEL_75:
-      v34 = v151;
+      v36 = v154;
 LABEL_76:
-      if (sub_100051298(v34) && !sub_100051288(v34))
+      if (sub_100051298(v36) && !sub_100051288(v36))
       {
-        v56 = +[VOTOutputManager outputManager];
-        v55 = [v56 replacesCharacterAsPunctuation:v34];
+        v59 = +[VOTOutputManager outputManager];
+        v58 = [v59 replacesCharacterAsPunctuation:v36];
       }
 
       else
       {
-        v55 = 0;
+        v58 = 0;
       }
 
-      v57 = [NSNumber numberWithBool:(v32 ^ 1) & v55];
-      [v135 setObject:v57 forIndex:v150];
+      v60 = [NSNumber numberWithBool:(v34 ^ 1) & v58];
+      [v138 setObject:v60 forIndex:v153];
 
-      v58 = v20;
-      if ((v32 | v55) & 1) == 0 && (AXLanguageIsSpeakableEmojiString() & 1) == 0 && !sub_100051A24(v150, languageCopy) || ([v131 characterIsMember:v151])
+      v61 = v20;
+      if ((v34 | v58) & 1) == 0 && (AXLanguageIsSpeakableEmojiString() & 1) == 0 && !sub_100051A24(v153, languageCopy) || ([v134 characterIsMember:v154])
       {
-        v59 = +[NSMutableArray array];
+        v62 = +[NSMutableArray array];
         languageRotorItems2 = [VOTSharedWorkspace languageRotorItems];
-        v161 = 0u;
-        v162 = 0u;
-        v163 = 0u;
         v164 = 0u;
-        v61 = languageRotorItems2;
-        v62 = [v61 countByEnumeratingWithState:&v161 objects:v175 count:16];
-        if (v62)
+        v165 = 0u;
+        v166 = 0u;
+        v167 = 0u;
+        v64 = languageRotorItems2;
+        v65 = [v64 countByEnumeratingWithState:&v164 objects:v178 count:16];
+        if (v65)
         {
-          v63 = v62;
-          v64 = *v162;
+          v66 = v65;
+          v67 = *v165;
           do
           {
-            for (j = 0; j != v63; j = j + 1)
+            for (j = 0; j != v66; j = j + 1)
             {
-              if (*v162 != v64)
+              if (*v165 != v67)
               {
-                objc_enumerationMutation(v61);
+                objc_enumerationMutation(v64);
               }
 
-              v66 = *(*(&v161 + 1) + 8 * j);
-              v67 = [v66 objectForKeyedSubscript:@"Enabled"];
-              bOOLValue = [v67 BOOLValue];
+              v69 = *(*(&v164 + 1) + 8 * j);
+              v70 = [v69 objectForKeyedSubscript:@"Enabled"];
+              bOOLValue = [v70 BOOLValue];
 
               if (bOOLValue)
               {
-                v69 = [v66 objectForKeyedSubscript:@"RotorItem"];
-                if (v69)
+                v72 = [v69 objectForKeyedSubscript:@"RotorItem"];
+                if (v72)
                 {
-                  [v59 addObject:v69];
+                  [v62 addObject:v72];
                 }
               }
             }
 
-            v63 = [v61 countByEnumeratingWithState:&v161 objects:v175 count:16];
+            v66 = [v64 countByEnumeratingWithState:&v164 objects:v178 count:16];
           }
 
-          while (v63);
+          while (v66);
         }
 
-        firstObject = v140;
+        firstObject = v143;
 
-        if (!(hintCopy | v140))
+        if (!(hintCopy | v143))
         {
-          v71 = v151;
-          v72 = [v130 dialectsThatCanSpeakCharacter:v151 overridePreferredLanguages:v59];
-          v157 = 0u;
-          v158 = 0u;
-          v159 = 0u;
+          v74 = v154;
+          v75 = [v133 dialectsThatCanSpeakCharacter:v154 overridePreferredLanguages:v62];
           v160 = 0u;
-          v73 = v72;
-          v74 = [v73 countByEnumeratingWithState:&v157 objects:v174 count:16];
-          if (v74)
+          v161 = 0u;
+          v162 = 0u;
+          v163 = 0u;
+          v76 = v75;
+          v77 = [v76 countByEnumeratingWithState:&v160 objects:v177 count:16];
+          if (v77)
           {
-            v75 = v74;
-            v76 = *v158;
+            v78 = v77;
+            v79 = *v161;
             do
             {
-              v77 = 0;
-              v142 = v75;
+              v80 = 0;
+              v145 = v78;
               do
               {
-                if (*v158 != v76)
+                if (*v161 != v79)
                 {
-                  objc_enumerationMutation(v73);
+                  objc_enumerationMutation(v76);
                 }
 
-                v78 = *(*(&v157 + 1) + 8 * v77);
-                if (([v78 isDialectSecondaryForCharacter:v71] & 1) == 0)
+                v81 = *(*(&v160 + 1) + 8 * v80);
+                if (([v81 isDialectSecondaryForCharacter:v74] & 1) == 0)
                 {
-                  langMap = [v78 langMap];
+                  langMap = [v81 langMap];
                   if (![langMap isWestern])
                   {
                     goto LABEL_131;
                   }
 
-                  v80 = v73;
-                  langMap2 = [v145 langMap];
-                  if (![langMap2 isWestern] || v150 <= 0)
+                  v83 = v76;
+                  langMap2 = [v148 langMap];
+                  if (![langMap2 isWestern] || v153 <= 0)
                   {
 
-                    v73 = v80;
+                    v76 = v83;
 LABEL_131:
 
 LABEL_132:
-                    firstObject = v78;
+                    firstObject = v81;
 LABEL_133:
 
 LABEL_134:
-                    v22 = v145;
+                    v22 = v148;
 
                     if (!firstObject)
                     {
@@ -1970,120 +1974,120 @@ LABEL_134:
 
 LABEL_135:
                     specificLanguageID2 = [firstObject specificLanguageID];
-                    if ([v149 isEqualToString:specificLanguageID2])
+                    if ([v152 isEqualToString:specificLanguageID2])
                     {
-                      v21 = v138;
+                      v21 = v141;
                       goto LABEL_163;
                     }
 
-                    if (v149)
+                    if (v152)
                     {
                     }
 
                     else
                     {
-                      v97 = [v22 isEqual:firstObject];
+                      v100 = [v22 isEqual:firstObject];
 
-                      if (v97)
+                      if (v100)
                       {
                         goto LABEL_164;
                       }
                     }
 
-                    v21 = v150;
-                    if (v150 < 1)
+                    v21 = v153;
+                    if (v153 < 1)
                     {
-                      v138 = v150;
+                      v141 = v153;
                       goto LABEL_165;
                     }
 
-                    v98 = v138;
-                    v144 = firstObject;
-                    if (v150 <= v138)
+                    v101 = v141;
+                    v147 = firstObject;
+                    if (v153 <= v141)
                     {
                       goto LABEL_156;
                     }
 
-                    v99 = v150;
-                    v100 = v150;
+                    v102 = v153;
+                    v103 = v153;
                     while (1)
                     {
-                      v101 = [v135 objectForIndex:--v100];
-                      bOOLValue2 = [v101 BOOLValue];
+                      v104 = [v138 objectForIndex:--v103];
+                      bOOLValue2 = [v104 BOOLValue];
 
                       if (!bOOLValue2)
                       {
-                        v21 = v99;
-                        v98 = v138;
+                        v21 = v102;
+                        v101 = v141;
                         goto LABEL_156;
                       }
 
-                      v152 = [v137 rangeOfComposedCharacterSequenceAtIndex:v100];
-                      v103 = [v137 substringWithRange:?];
-                      v104 = [v103 characterAtIndex:0];
+                      v155 = [v140 rangeOfComposedCharacterSequenceAtIndex:v103];
+                      v106 = [v140 substringWithRange:?];
+                      v107 = [v106 characterAtIndex:0];
                       [firstObject speakableCharacters];
-                      v106 = v105 = firstObject;
-                      if (v106 && ([v105 canSpeakCharacter:v104] & 1) == 0)
+                      v109 = v108 = firstObject;
+                      if (v109 && ([v108 canSpeakCharacter:v107] & 1) == 0)
                       {
-                        v107 = [v105 canSpeakString:v103];
+                        v110 = [v108 canSpeakString:v106];
 
-                        if ((v107 & 1) == 0)
+                        if ((v110 & 1) == 0)
                         {
 
-                          v21 = v99;
-                          v98 = v138;
-                          firstObject = v144;
+                          v21 = v102;
+                          v101 = v141;
+                          firstObject = v147;
 LABEL_156:
-                          if (v21 == v98)
+                          if (v21 == v101)
                           {
-                            v22 = v145;
+                            v22 = v148;
                             goto LABEL_164;
                           }
 
-                          specificLanguageID2 = [v137 substringWithRange:?];
-                          v172[0] = specificLanguageID2;
-                          v171[0] = @"string";
-                          v171[1] = @"language";
-                          v108 = v149;
-                          v22 = v145;
-                          if (!v149)
+                          specificLanguageID2 = [v140 substringWithRange:?];
+                          v175[0] = specificLanguageID2;
+                          v174[0] = @"string";
+                          v174[1] = @"language";
+                          v111 = v152;
+                          v22 = v148;
+                          if (!v152)
                           {
-                            v122 = +[NSNull null];
-                            v108 = v122;
+                            v125 = +[NSNull null];
+                            v111 = v125;
                           }
 
-                          v172[1] = v108;
-                          v109 = [NSDictionary dictionaryWithObjects:v172 forKeys:v171 count:2];
-                          [v127 addObject:v109];
+                          v175[1] = v111;
+                          v112 = [NSDictionary dictionaryWithObjects:v175 forKeys:v174 count:2];
+                          [v130 addObject:v112];
 
-                          if (!v149)
+                          if (!v152)
                           {
                           }
 
-                          firstObject = v144;
+                          firstObject = v147;
 LABEL_163:
 
-                          v138 = v21;
+                          v141 = v21;
 LABEL_164:
-                          v21 = v150;
+                          v21 = v153;
 LABEL_165:
                           if (([firstObject isEqual:v22] & 1) == 0)
                           {
                             specificLanguageID3 = [firstObject specificLanguageID];
 
-                            v149 = specificLanguageID3;
+                            v152 = specificLanguageID3;
 LABEL_167:
-                            v21 = v150;
+                            v21 = v153;
                           }
 
 LABEL_168:
 
-                          v20 = v139;
+                          v20 = v142;
 LABEL_169:
 
-                          v27 = firstObject;
-                          languageCopy = v137;
-                          v11 = v132;
+                          v28 = firstObject;
+                          languageCopy = v140;
+                          v11 = v135;
                           goto LABEL_170;
                         }
                       }
@@ -2092,84 +2096,84 @@ LABEL_169:
                       {
                       }
 
-                      v21 = v152;
-                      v99 = v152;
-                      v98 = v138;
-                      firstObject = v144;
-                      if (v100 <= v138)
+                      v21 = v155;
+                      v102 = v155;
+                      v101 = v141;
+                      firstObject = v147;
+                      if (v103 <= v141)
                       {
                         goto LABEL_156;
                       }
                     }
                   }
 
-                  [v78 specificLanguageID];
-                  v83 = v82 = v76;
-                  v147 = [v149 isEqual:v83];
+                  [v81 specificLanguageID];
+                  v86 = v85 = v79;
+                  v150 = [v152 isEqual:v86];
 
-                  v76 = v82;
-                  v73 = v80;
-                  v75 = v142;
-                  if (v147)
+                  v79 = v85;
+                  v76 = v83;
+                  v78 = v145;
+                  if (v150)
                   {
                     goto LABEL_132;
                   }
                 }
 
-                v77 = v77 + 1;
-                v71 = v151;
+                v80 = v80 + 1;
+                v74 = v154;
               }
 
-              while (v75 != v77);
-              v75 = [v73 countByEnumeratingWithState:&v157 objects:v174 count:16];
+              while (v78 != v80);
+              v78 = [v76 countByEnumeratingWithState:&v160 objects:v177 count:16];
             }
 
-            while (v75);
+            while (v78);
           }
 
           firstObject = 0;
           goto LABEL_133;
         }
 
-        v22 = v145;
-        v85 = v151;
-        if (v140)
+        v22 = v148;
+        v88 = v154;
+        if (v143)
         {
           goto LABEL_135;
         }
 
-        v86 = [v130 dialectsThatCanSpeakCharacter:v151 overridePreferredLanguages:v59];
-        v153 = 0u;
-        v154 = 0u;
-        v155 = 0u;
+        v89 = [v133 dialectsThatCanSpeakCharacter:v154 overridePreferredLanguages:v62];
         v156 = 0u;
-        v73 = v86;
-        v148 = [v73 countByEnumeratingWithState:&v153 objects:v173 count:16];
-        if (v148)
+        v157 = 0u;
+        v158 = 0u;
+        v159 = 0u;
+        v76 = v89;
+        v151 = [v76 countByEnumeratingWithState:&v156 objects:v176 count:16];
+        if (v151)
         {
-          v87 = *v154;
-          v143 = *v154;
+          v90 = *v157;
+          v146 = *v157;
           do
           {
-            for (k = 0; k != v148; k = k + 1)
+            for (k = 0; k != v151; k = k + 1)
             {
-              if (*v154 != v87)
+              if (*v157 != v90)
               {
-                objc_enumerationMutation(v73);
+                objc_enumerationMutation(v76);
               }
 
-              v89 = *(*(&v153 + 1) + 8 * k);
-              if (([v89 isDialectSecondaryForCharacter:v85] & 1) == 0)
+              v92 = *(*(&v156 + 1) + 8 * k);
+              if (([v92 isDialectSecondaryForCharacter:v88] & 1) == 0)
               {
-                v90 = v73;
-                langMap3 = [v89 langMap];
+                v93 = v76;
+                langMap3 = [v92 langMap];
                 generalLanguageID = [langMap3 generalLanguageID];
                 if ([generalLanguageID isEqual:hintCopy])
                 {
 
-                  v73 = v90;
+                  v76 = v93;
 LABEL_152:
-                  firstObject = v89;
+                  firstObject = v92;
 
                   if (firstObject)
                   {
@@ -2177,76 +2181,76 @@ LABEL_152:
                   }
 
 LABEL_153:
-                  firstObject = [v73 firstObject];
+                  firstObject = [v76 firstObject];
                   goto LABEL_134;
                 }
 
-                specificLanguageID4 = [v89 specificLanguageID];
-                v94 = [specificLanguageID4 isEqualToString:hintCopy];
+                specificLanguageID4 = [v92 specificLanguageID];
+                v97 = [specificLanguageID4 isEqualToString:hintCopy];
 
-                v85 = v151;
-                v73 = v90;
-                v87 = v143;
-                if (v94)
+                v88 = v154;
+                v76 = v93;
+                v90 = v146;
+                if (v97)
                 {
                   goto LABEL_152;
                 }
               }
             }
 
-            v148 = [v73 countByEnumeratingWithState:&v153 objects:v173 count:16];
+            v151 = [v76 countByEnumeratingWithState:&v156 objects:v176 count:16];
           }
 
-          while (v148);
+          while (v151);
         }
 
         goto LABEL_153;
       }
 
-      if (v149)
+      if (v152)
       {
-        v84 = [v130 dialectForLanguageID:?];
-        v59 = v84;
-        firstObject = v140;
-        if (((v32 ^ 1) & v55) == 0 || ([v84 canSpeakCharacter:v151] & 1) == 0 && (objc_msgSend(v59, "canSpeakString:", v58) & 1) == 0)
+        v87 = [v133 dialectForLanguageID:?];
+        v62 = v87;
+        firstObject = v143;
+        if (((v34 ^ 1) & v58) == 0 || ([v87 canSpeakCharacter:v154] & 1) == 0 && (objc_msgSend(v62, "canSpeakString:", v61) & 1) == 0)
         {
-          v61 = [v137 substringWithRange:{v138, v150 - v138}];
-          v178[0] = @"string";
-          v178[1] = @"language";
-          v179[0] = v61;
-          v179[1] = v149;
-          v95 = [NSDictionary dictionaryWithObjects:v179 forKeys:v178 count:2];
-          [v127 addObject:v95];
+          v64 = [v140 substringWithRange:{v141, v153 - v141}];
+          v181[0] = @"string";
+          v181[1] = @"language";
+          v182[0] = v64;
+          v182[1] = v152;
+          v98 = [NSDictionary dictionaryWithObjects:v182 forKeys:v181 count:2];
+          [v130 addObject:v98];
 
-          v21 = v150;
-          v149 = 0;
-          v138 = v150;
+          v21 = v153;
+          v152 = 0;
+          v141 = v153;
           goto LABEL_168;
         }
 
-        v21 = v150;
+        v21 = v153;
         goto LABEL_169;
       }
 
-      if (v134)
+      if (v137)
       {
-        v21 = v150;
-        v59 = [languageCopy substringWithRange:{v138, v150 - v138}];
-        v176[0] = @"string";
-        v176[1] = @"skipsUnpronounceable";
-        v177[0] = v59;
-        v177[1] = &__kCFBooleanTrue;
-        v61 = [NSDictionary dictionaryWithObjects:v177 forKeys:v176 count:2];
-        [v127 addObject:v61];
-        v149 = 0;
-        v138 = v150;
-        firstObject = v140;
+        v21 = v153;
+        v62 = [languageCopy substringWithRange:{v141, v153 - v141}];
+        v179[0] = @"string";
+        v179[1] = @"skipsUnpronounceable";
+        v180[0] = v62;
+        v180[1] = &__kCFBooleanTrue;
+        v64 = [NSDictionary dictionaryWithObjects:v180 forKeys:v179 count:2];
+        [v130 addObject:v64];
+        v152 = 0;
+        v141 = v153;
+        firstObject = v143;
         goto LABEL_168;
       }
 
-      v149 = 0;
-      v27 = v140;
-      v21 = v150;
+      v152 = 0;
+      v28 = v143;
+      v21 = v153;
 LABEL_170:
 
       if (++v21 >= v11)
@@ -2257,64 +2261,64 @@ LABEL_170:
   }
 
   v20 = 0;
-  v138 = 0;
-  v149 = 0;
+  v141 = 0;
+  v152 = 0;
 LABEL_173:
-  if (v149 | v127)
+  if (v152 | v130)
   {
-    v111 = v124;
-    v112 = hintCopy;
+    v114 = v127;
+    v115 = hintCopy;
     if (v11 == 1)
     {
-      v113 = sub_100051298([languageCopy characterAtIndex:0]);
-      if (!hintCopy && v113)
+      v116 = sub_100051298([languageCopy characterAtIndex:0]);
+      if (!hintCopy && v116)
       {
 
-        v149 = 0;
+        v152 = 0;
       }
     }
 
-    if (v11 == v138)
+    if (v11 == v141)
     {
-      v114 = v123;
+      v117 = v126;
     }
 
     else
     {
-      v116 = [languageCopy substringWithRange:{v138, v11 - v138}];
-      v169[0] = @"string";
-      v169[1] = @"language";
-      v170[0] = v116;
-      v117 = v149;
-      v114 = v123;
-      if (!v149)
+      v119 = [languageCopy substringWithRange:{v141, v11 - v141}];
+      v172[0] = @"string";
+      v172[1] = @"language";
+      v173[0] = v119;
+      v120 = v152;
+      v117 = v126;
+      if (!v152)
       {
-        v117 = +[NSNull null];
+        v120 = +[NSNull null];
       }
 
-      v170[1] = v117;
-      v118 = [NSDictionary dictionaryWithObjects:v170 forKeys:v169 count:2];
-      [v127 addObject:v118];
+      v173[1] = v120;
+      v121 = [NSDictionary dictionaryWithObjects:v173 forKeys:v172 count:2];
+      [v130 addObject:v121];
 
-      if (!v149)
+      if (!v152)
       {
       }
     }
 
-    v115 = v149;
+    v118 = v152;
   }
 
   else
   {
-    v115 = 0;
-    v114 = v123;
-    v111 = v124;
-    v112 = hintCopy;
+    v118 = 0;
+    v117 = v126;
+    v114 = v127;
+    v115 = hintCopy;
   }
 
-  v119 = v127;
+  v122 = v130;
 
-  return v127;
+  return v130;
 }
 
 - (void)addPause:(float)pause
@@ -2690,7 +2694,9 @@ LABEL_43:
   {
     if (maskCopy && ([elementCopy aspectMask] & 1) == 0 || (v9 = [AXAttributedString alloc], objc_msgSend(elementCopy, "label"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "initWithString:", v10), v10, v12 = AXUIAccessibilitySpeechAttributePitch, objc_msgSend(v11, "setAttribute:forKey:", &off_1001D9980, AXUIAccessibilitySpeechAttributePitch), objc_msgSend(elementCopy, "language"), v13 = objc_claimAutoreleasedReturnValue(), v14 = -[VOTOutputRequest addAttributedString:withLanguage:](self, "addAttributedString:withLanguage:", v11, v13), v13, v11, maskCopy))
     {
-      if (([elementCopy aspectMask] & 2) == 0)
+      aspectMask = [elementCopy aspectMask];
+      v16 = elementCopy;
+      if ((aspectMask & 2) == 0)
       {
         goto LABEL_11;
       }
@@ -2698,29 +2704,38 @@ LABEL_43:
       v12 = AXUIAccessibilitySpeechAttributePitch;
     }
 
-    v15 = [AXAttributedString alloc];
+    v17 = [AXAttributedString alloc];
     value = [elementCopy value];
-    label = [v15 initWithString:value];
+    label = [v17 initWithString:value];
 
     [label setAttribute:&off_1001D9980 forKey:v12];
     language = [elementCopy language];
-    v19 = [(VOTOutputRequest *)self addAttributedString:label withLanguage:language];
+    v21 = [(VOTOutputRequest *)self addAttributedString:label withLanguage:language];
   }
 
   else
   {
     if (maskCopy)
     {
-      v20 = 17827842;
+      v22 = 17827842;
     }
 
     else
     {
-      v20 = 16779266;
+      v22 = 16779266;
     }
 
-    [elementCopy addTextualInformationToRequest:self options:v20 dataPackage:0];
-    if (![elementCopy doesHaveTraits:kAXKeyboardKeyTrait] || !objc_msgSend(elementCopy, "aspectMask"))
+    [elementCopy addTextualInformationToRequest:self options:v22 dataPackage:0];
+    aspectMask = [elementCopy doesHaveTraits:kAXKeyboardKeyTrait];
+    v16 = elementCopy;
+    if (!aspectMask)
+    {
+      goto LABEL_11;
+    }
+
+    aspectMask = [elementCopy aspectMask];
+    v16 = elementCopy;
+    if (!aspectMask)
     {
       goto LABEL_11;
     }
@@ -2734,16 +2749,17 @@ LABEL_43:
     language = sub_100052450(label, 0, 0);
     if ([language length])
     {
-      LODWORD(v21) = 0.75;
-      [(VOTOutputRequest *)self addPause:v21];
-      v22 = [(VOTOutputRequest *)self addString:language];
+      LODWORD(v23) = 0.75;
+      [(VOTOutputRequest *)self addPause:v23];
+      v24 = [(VOTOutputRequest *)self addString:language];
     }
   }
 
 LABEL_10:
+  v16 = elementCopy;
 LABEL_11:
 
-  _objc_release_x1();
+  _objc_release_x1(aspectMask, v16);
 }
 
 @end

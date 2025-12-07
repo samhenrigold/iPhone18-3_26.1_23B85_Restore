@@ -1295,7 +1295,7 @@ LABEL_50:
   v32 = parent;
   if (parent)
   {
-    [parent transformInRoot];
+    objc_msgSend_transformInRoot(parent);
   }
 
   else
@@ -2029,7 +2029,7 @@ LABEL_50:
       v38 = pureGeometry;
       if (pureGeometry)
       {
-        [pureGeometry fullTransform];
+        objc_msgSend_fullTransform(pureGeometry);
       }
 
       else

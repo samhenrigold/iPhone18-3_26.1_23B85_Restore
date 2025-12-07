@@ -821,34 +821,8 @@ LABEL_15:
 {
   activityCopy = activity;
   schedulingPriority = [activityCopy schedulingPriority];
-  if (schedulingPriority > _DASSchedulingPriorityDefault)
+  if (schedulingPriority > _DASSchedulingPriorityDefault || ([activityCopy userRequestedBackupTask] & 1) != 0 || (objc_msgSend(activityCopy, "groupName"), (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v7 = v6, objc_msgSend(activityCopy, "groupName"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", @"NSURLSessionBackgroundPoolName"), v8, v7, (v9 & 1) != 0) || (objc_msgSend(activityCopy, "name"), v10 = objc_claimAutoreleasedReturnValue(), v10, !v10) || -[_DASRuntimeLimiter containsFullRuntimeOverridesForActivity:](self, "containsFullRuntimeOverridesForActivity:", activityCopy))
   {
-    goto LABEL_7;
-  }
-
-  if ([activityCopy userRequestedBackupTask])
-  {
-    goto LABEL_7;
-  }
-
-  groupName = [activityCopy groupName];
-  if (groupName)
-  {
-    v7 = groupName;
-    groupName2 = [activityCopy groupName];
-    v9 = [groupName2 isEqualToString:@"NSURLSessionBackgroundPoolName"];
-
-    if (v9)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  name = [activityCopy name];
-
-  if (!name || [(_DASRuntimeLimiter *)self containsFullRuntimeOverridesForActivity:activityCopy])
-  {
-LABEL_7:
     LOBYTE(v11) = 0;
   }
 
@@ -870,7 +844,7 @@ LABEL_7:
     if (featureCodes)
     {
       featureCodes2 = [activityCopy featureCodes];
-      v7 = [featureCodes2 count] != 0;
+      v7 = objc_msgSend_count(featureCodes2) != 0;
     }
 
     else
@@ -895,7 +869,7 @@ LABEL_7:
   {
     v6 = featureCodes;
     featureCodes2 = [activityCopy featureCodes];
-    v8 = [featureCodes2 count];
+    v8 = objc_msgSend_count(featureCodes2);
 
     if (v8)
     {
@@ -982,7 +956,7 @@ LABEL_7:
 {
   activityCopy = activity;
   featureCodes = [activityCopy featureCodes];
-  if (featureCodes && (v6 = featureCodes, [activityCopy featureCodes], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, v6, v8))
+  if (featureCodes && (v6 = featureCodes, [activityCopy featureCodes], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend_count(v7), v7, v6, v8))
   {
     v9 = +[NSMutableSet set];
     v18 = 0u;
@@ -1017,7 +991,7 @@ LABEL_7:
       while (v12);
     }
 
-    if ([v9 count])
+    if (objc_msgSend_count(v9))
     {
       v16 = [v9 copy];
     }
@@ -1457,16 +1431,8 @@ LABEL_9:
   }
 
   identifier = [activityCopy identifier];
-  if (!identifier)
+  if (!identifier || (-[NSMutableDictionary objectForKeyedSubscript:](self->_testingOverride, "objectForKeyedSubscript:", identifier), v14 = objc_claimAutoreleasedReturnValue(), v14, !v14) || (-[_DASRuntimeLimiter testingOverride](self, "testingOverride"), v15 = objc_claimAutoreleasedReturnValue(), [v15 objectForKeyedSubscript:identifier], v16 = objc_claimAutoreleasedReturnValue(), v15, v11 = objc_msgSend(v16, "intValue"), v16, v11))
   {
-    goto LABEL_20;
-  }
-
-  v14 = [(NSMutableDictionary *)self->_testingOverride objectForKeyedSubscript:identifier];
-
-  if (!v14 || (-[_DASRuntimeLimiter testingOverride](self, "testingOverride"), v15 = objc_claimAutoreleasedReturnValue(), [v15 objectForKeyedSubscript:identifier], v16 = objc_claimAutoreleasedReturnValue(), v15, v11 = objc_msgSend(v16, "intValue"), v16, v11))
-  {
-LABEL_20:
     if ([_DASLimiterResponse queryActivityDecision:3 fromResponses:responsesCopy])
     {
       [_DASLimiterResponse updateActivity:activityCopy withLimitResponse:responsesCopy];

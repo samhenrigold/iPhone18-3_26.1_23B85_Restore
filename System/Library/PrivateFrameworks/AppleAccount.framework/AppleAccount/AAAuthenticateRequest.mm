@@ -90,13 +90,13 @@
 
 - (id)urlRequest
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = AAAuthenticateRequest;
-  urlRequest = [(AARequest *)&v15 urlRequest];
+  v19 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = AAAuthenticateRequest;
+  urlRequest = [(AARequest *)&v16 urlRequest];
   v4 = [urlRequest mutableCopy];
 
-  [v4 setHTTPMethod:@"POST"];
+  v5 = [v4 setHTTPMethod:@"POST"];
   if (self->_account)
   {
     account = [(AAAuthenticateRequest *)self account];
@@ -106,16 +106,16 @@
   else if (self->_username && (password = self->_password) != 0)
   {
     account = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", self->_username, password];
-    v12 = [account dataUsingEncoding:4];
-    v13 = [v12 base64EncodedStringWithOptions:0];
+    v13 = [account dataUsingEncoding:4];
+    v14 = [v13 base64EncodedStringWithOptions:0];
 
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v13];
-    [v4 setValue:v14 forHTTPHeaderField:@"Authorization"];
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v14];
+    [v4 setValue:v15 forHTTPHeaderField:@"Authorization"];
   }
 
   else
   {
-    account = _AALogSystem();
+    account = _AALogSystem(v5);
     if (os_log_type_enabled(account, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -124,24 +124,21 @@
   }
 
   [v4 aa_addMultiUserDeviceHeaderIfEnabled];
-  [v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"];
-  v6 = _AALogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _AALogSystem([v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"]);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [v4 description];
+    v8 = [v4 description];
     *buf = 138412290;
-    v17 = v7;
-    _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+    v18 = v8;
+    _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
-  v8 = _AALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = _AALogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Authorization: *redacted*", buf, 2u);
+    _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Authorization: *redacted*", buf, 2u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

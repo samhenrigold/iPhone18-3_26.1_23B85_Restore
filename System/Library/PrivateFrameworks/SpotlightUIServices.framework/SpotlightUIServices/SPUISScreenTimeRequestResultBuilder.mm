@@ -105,21 +105,19 @@
 
 - (id)buildInlineCardSections
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   buildInlineCardSection = [(SPUISScreenTimeRequestResultBuilder *)self buildInlineCardSection];
   v3 = buildInlineCardSection;
   if (buildInlineCardSection)
   {
-    v7[0] = buildInlineCardSection;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = buildInlineCardSection;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -134,7 +132,7 @@
 
 - (id)buildDescriptions
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   requestedItemDescription = [(SPUISScreenTimeRequestResultBuilder *)self requestedItemDescription];
 
@@ -147,16 +145,14 @@
   if ([v3 length])
   {
     v6 = [MEMORY[0x277D4C598] textWithString:v3];
-    v10[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   else
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -250,7 +246,7 @@
 
 - (id)buildButtonItems
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if ([(SPUISScreenTimeRequestResultBuilder *)self requestStatus]== 3 || [(SPUISScreenTimeRequestResultBuilder *)self requestStatus]== 2)
   {
     v3 = 0;
@@ -260,16 +256,14 @@
   {
     v4 = objc_opt_new();
     v5 = [SPUISUtilities localizedStringForKey:@"VIEW"];
-    [v4 setTitle:v5];
+    objc_msgSend_setTitle_(v4);
 
     buildCommand = [(SPUISScreenTimeRequestResultBuilder *)self buildCommand];
     [v4 setCommand:buildCommand];
 
-    v9[0] = v4;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -21,8 +21,7 @@
 
   else
   {
-    v5 = *MEMORY[0x1E69D5560];
-    v6 = v4;
+    v5 = v4;
     TCCAccessRequest();
   }
 }
@@ -50,18 +49,15 @@ uint64_t __65__INFocusStatusCenter_requestAuthorizationWithCompletionHandler___b
 
 - (INFocusStatusAuthorizationStatus)authorizationStatus
 {
-  v2 = MEMORY[0x1E69D5560];
-  v3 = *MEMORY[0x1E69D5560];
   if (TCCAccessRestricted())
   {
     return 1;
   }
 
-  v5 = *v2;
-  v6 = TCCAccessPreflight();
-  if (v6)
+  v3 = TCCAccessPreflight();
+  if (v3)
   {
-    return 2 * (v6 == 1);
+    return 2 * (v3 == 1);
   }
 
   else
@@ -72,13 +68,13 @@ uint64_t __65__INFocusStatusCenter_requestAuthorizationWithCompletionHandler___b
 
 - (INFocusStatus)focusStatus
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([(INFocusStatusCenter *)self authorizationStatus]== INFocusStatusAuthorizationStatusAuthorized)
   {
     service = [(INFocusStatusCenter *)self service];
-    v13 = 0;
-    v4 = [service isLocalUserAvailableReturningError:&v13];
-    v5 = v13;
+    v12 = 0;
+    v4 = [service isLocalUserAvailableReturningError:&v12];
+    v5 = v12;
 
     if (v5)
     {
@@ -86,9 +82,9 @@ uint64_t __65__INFocusStatusCenter_requestAuthorizationWithCompletionHandler___b
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v15 = "[INFocusStatusCenter focusStatus]";
-        v16 = 2114;
-        v17 = v5;
+        v14 = "[INFocusStatusCenter focusStatus]";
+        v15 = 2114;
+        v16 = v5;
         _os_log_error_impl(&dword_18E991000, v6, OS_LOG_TYPE_ERROR, "%s Unable to get local user availability: %{public}@", buf, 0x16u);
       }
     }
@@ -103,8 +99,6 @@ uint64_t __65__INFocusStatusCenter_requestAuthorizationWithCompletionHandler___b
     v10 = [INFocusStatus alloc];
     v9 = [(INFocusStatus *)v10 initWithIsFocused:MEMORY[0x1E695E110]];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

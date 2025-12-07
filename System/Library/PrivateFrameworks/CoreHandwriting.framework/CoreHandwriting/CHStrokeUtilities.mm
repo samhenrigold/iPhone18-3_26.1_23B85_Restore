@@ -1922,10 +1922,11 @@ LABEL_3:
           __asm { FMLA            D2, D3, V5.D[1] }
 
           *&_D2 = _D2 / v47;
-          v53 = vmlaq_n_f64(v20, _Q1, *&_D2);
+          v20 = vmlaq_n_f64(v20, _Q1, *&_D2);
+          v53 = v20;
         }
 
-        sub_1836973A4(retstr, &v53);
+        sub_1836973A4(retstr, &v53, v20);
         ++v18;
         v20 = v52;
       }
@@ -3006,15 +3007,15 @@ LABEL_9:
     do
     {
       v30 = f64 - 4;
-      v57 = vld2q_f64(v30);
-      v58 = vld2q_f64(f64);
-      v31 = vsubq_f64(v57.val[0], v26);
-      v32 = vsubq_f64(v58.val[0], v26);
-      v57.val[0] = vmulq_f64(v31, vsubq_f64(v57.val[1], v27));
-      v57.val[1] = vmulq_f64(v32, vsubq_f64(v58.val[1], v27));
+      v58 = vld2q_f64(v30);
+      v59 = vld2q_f64(f64);
+      v31 = vsubq_f64(v58.val[0], v26);
+      v32 = vsubq_f64(v59.val[0], v26);
+      v58.val[0] = vmulq_f64(v31, vsubq_f64(v58.val[1], v27));
+      v58.val[1] = vmulq_f64(v32, vsubq_f64(v59.val[1], v27));
       v33 = vmulq_f64(v31, v31);
       v34 = vmulq_f64(v32, v32);
-      v24 = v24 + v57.val[0].f64[0] + v57.val[0].f64[1] + v57.val[1].f64[0] + v57.val[1].f64[1];
+      v24 = v24 + v58.val[0].f64[0] + v58.val[0].f64[1] + v58.val[1].f64[0] + v58.val[1].f64[1];
       v25 = v25 + v33.f64[0] + v33.f64[1] + v34.f64[0] + v34.f64[1];
       f64 += 8;
       v29 -= 4;
@@ -3077,8 +3078,9 @@ LABEL_20:
         v47 = v43 + v42 * *v45;
         v48 = v47 - v46;
         v49 = vabdd_f64(v47, v46);
-        v56 = 0uLL;
+        v57 = 0uLL;
         v51 = *v45;
+        v50 = v45[1];
         if (v48 < 0.0)
         {
           gammaCopy = -gamma;
@@ -3089,13 +3091,13 @@ LABEL_20:
           gammaCopy = gamma;
         }
 
-        v50 = v45[1];
-        v53 = v50 + gammaCopy * pow(v49, error);
-        *&v56 = v51;
-        *(&v56 + 1) = v53;
-        v54 = v45[1];
-        sub_1836973A4(retstr, &v56);
-        v44 = v44 + (v54 - v53) * (v54 - v53);
+        v53.n128_f64[0] = pow(v49, error);
+        v54 = v50 + gammaCopy * v53.n128_f64[0];
+        *&v57 = v51;
+        *(&v57 + 1) = v54;
+        v55 = v45[1];
+        sub_1836973A4(retstr, &v57, v53);
+        v44 = v44 + (v55 - v54) * (v55 - v54);
         ++v41;
         v11 = *a4;
         v13 = (*(a4 + 1) - *a4) >> 4;

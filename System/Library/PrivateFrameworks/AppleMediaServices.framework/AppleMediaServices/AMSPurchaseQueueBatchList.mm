@@ -45,7 +45,7 @@
   return v3;
 }
 
-uint64_t __34__AMSPurchaseQueueBatchList_count__block_invoke(uint64_t a1, void *a2)
+void *__34__AMSPurchaseQueueBatchList_count__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result;

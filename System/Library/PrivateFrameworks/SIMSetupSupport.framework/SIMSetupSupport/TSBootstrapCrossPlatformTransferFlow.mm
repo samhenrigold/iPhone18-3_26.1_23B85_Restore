@@ -53,18 +53,18 @@
 
 void __72__TSBootstrapCrossPlatformTransferFlow_initWithRetainedObject_isSource___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
   if (!WeakRetained)
   {
-    v8 = _TSLogDomain();
+    v8 = _TSLogDomain(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = "[TSBootstrapCrossPlatformTransferFlow initWithRetainedObject:isSource:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "unable to get strong self @%s", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[TSBootstrapCrossPlatformTransferFlow initWithRetainedObject:isSource:]_block_invoke";
+      _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "unable to get strong self @%s", &v10, 0xCu);
     }
 
     goto LABEL_10;
@@ -89,26 +89,24 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v6 = _TSLogDomain();
+  v6 = _TSLogDomain(WeakRetained);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [v3 localizedDescription];
-    v11 = 138412546;
-    v12 = v7;
-    v13 = 2080;
-    v14 = "[TSBootstrapCrossPlatformTransferFlow initWithRetainedObject:isSource:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "bootstrapping CT failed with: %@ @%s", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v7;
+    v12 = 2080;
+    v13 = "[TSBootstrapCrossPlatformTransferFlow initWithRetainedObject:isSource:]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "bootstrapping CT failed with: %@ @%s", &v10, 0x16u);
   }
 
   *(v5 + 121) = 0;
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)firstViewController
 {
-  v2 = _TSLogDomain();
+  v2 = _TSLogDomain(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [(TSBootstrapCrossPlatformTransferFlow *)v2 firstViewController];
@@ -156,7 +154,7 @@ LABEL_11:
 
   else
   {
-    v8 = _TSLogDomain();
+    v8 = _TSLogDomain(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [TSBootstrapCrossPlatformTransferFlow firstViewController:v8];
@@ -166,39 +164,38 @@ LABEL_11:
 
 void __60__TSBootstrapCrossPlatformTransferFlow_firstViewController___block_invoke(uint64_t a1)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v2 = [TSSubFlowViewController alloc];
-  v15[0] = &unk_287583DD8;
-  v14[0] = @"FlowTypeKey";
-  v14[1] = @"IsSourceKey";
+  v14[0] = &unk_287583DD8;
+  v13[0] = @"FlowTypeKey";
+  v13[1] = @"IsSourceKey";
   v3 = MEMORY[0x277CCABB0];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = [v3 numberWithBool:{objc_msgSend(WeakRetained, "isSource")}];
-  v15[1] = v5;
-  v14[2] = @"IsFromDataTransferSession";
-  v15[2] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[1] = v5;
+  v13[2] = @"IsFromDataTransferSession";
+  v14[2] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
   v7 = objc_loadWeakRetained((a1 + 40));
   v8 = [(TSSubFlowViewController *)v2 initWithOptions:v6 navigationController:0 delegate:v7];
 
   v9 = objc_loadWeakRetained((a1 + 40));
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __60__TSBootstrapCrossPlatformTransferFlow_firstViewController___block_invoke_27;
-  v11[3] = &unk_279B458D0;
-  v12 = *(a1 + 32);
-  objc_copyWeak(&v13, (a1 + 40));
-  [v9 maybePrepareNextDisplayViewController:v8 completion:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __60__TSBootstrapCrossPlatformTransferFlow_firstViewController___block_invoke_27;
+  v10[3] = &unk_279B458D0;
+  v11 = *(a1 + 32);
+  objc_copyWeak(&v12, (a1 + 40));
+  [v9 maybePrepareNextDisplayViewController:v8 completion:v10];
 
-  objc_destroyWeak(&v13);
-  v10 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v12);
 }
 
 void __60__TSBootstrapCrossPlatformTransferFlow_firstViewController___block_invoke_27(uint64_t a1, void *a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _TSLogDomain();
+  v4 = _TSLogDomain(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 134218242;
@@ -212,22 +209,21 @@ void __60__TSBootstrapCrossPlatformTransferFlow_firstViewController___block_invo
   if (!v3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
+    v6 = WeakRetained;
     if (WeakRetained)
     {
-      v6 = _TSLogDomain();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _TSLogDomain(WeakRetained);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v9 = 136315138;
         v10 = "[TSBootstrapCrossPlatformTransferFlow firstViewController:]_block_invoke";
-        _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "release retaind mk object @%s", &v9, 0xCu);
+        _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "release retaind mk object @%s", &v9, 0xCu);
       }
 
-      v7 = WeakRetained[13];
-      WeakRetained[13] = 0;
+      v8 = v6[13];
+      v6[13] = 0;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextViewControllerFrom:(id)from
@@ -251,39 +247,35 @@ void __60__TSBootstrapCrossPlatformTransferFlow_firstViewController___block_invo
   v13 = *MEMORY[0x277D85DE8];
   v8.receiver = self;
   v8.super_class = TSBootstrapCrossPlatformTransferFlow;
-  [(TSSIMSetupFlow *)&v8 flowCompleted:?];
-  v5 = _TSLogDomain();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = [(TSSIMSetupFlow *)&v8 flowCompleted:?];
+  v6 = _TSLogDomain(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     completedCopy = completed;
     v11 = 2080;
     v12 = "[TSBootstrapCrossPlatformTransferFlow flowCompleted:]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "FlowCompleted: %lu release retained mk object @%s", buf, 0x16u);
+    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "FlowCompleted: %lu release retained mk object @%s", buf, 0x16u);
   }
 
   retainedObject = self->_retainedObject;
   self->_retainedObject = 0;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)firstViewController
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSBootstrapCrossPlatformTransferFlow firstViewController]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]unimplemented - please use async version @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSBootstrapCrossPlatformTransferFlow firstViewController]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]unimplemented - please use async version @%s", &v1, 0xCu);
 }
 
 - (void)firstViewController:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSBootstrapCrossPlatformTransferFlow firstViewController:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]missing completion @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSBootstrapCrossPlatformTransferFlow firstViewController:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]missing completion @%s", &v1, 0xCu);
 }
 
 @end

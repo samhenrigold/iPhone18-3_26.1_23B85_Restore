@@ -3,7 +3,7 @@
 
 @implementation InjectModifiers
 
-uint64_t ____InjectModifiers_block_invoke(uint64_t a1, void *a2)
+void *____InjectModifiers_block_invoke(uint64_t a1, void *a2)
 {
   result = __DefineForShaderModifierStandardUniformPerNode(a2);
   if (result)

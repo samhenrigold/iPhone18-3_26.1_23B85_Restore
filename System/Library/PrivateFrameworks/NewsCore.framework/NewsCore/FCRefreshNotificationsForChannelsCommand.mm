@@ -79,7 +79,7 @@
 
 - (void)executeWithContext:(id)context delegate:(id)delegate qualityOfService:(int64_t)service
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   delegateCopy = delegate;
   v8 = FCPushNotificationsLog;
@@ -89,9 +89,9 @@
     channelIDs = [(FCRefreshNotificationsForChannelsCommand *)self channelIDs];
     paidChannelIDs = [(FCRefreshNotificationsForChannelsCommand *)self paidChannelIDs];
     *buf = 138543618;
-    v28 = channelIDs;
-    v29 = 2114;
-    v30 = paidChannelIDs;
+    v27 = channelIDs;
+    v28 = 2114;
+    v29 = paidChannelIDs;
     _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "refreshNotificationsCommand: executing command channelIDs: %{public}@ paidChannelIDs: %{public}@", buf, 0x16u);
   }
 
@@ -103,30 +103,28 @@
   storefrontID = [(FCRefreshNotificationsForChannelsCommand *)self storefrontID];
   deviceDigestMode = [(FCRefreshNotificationsForChannelsCommand *)self deviceDigestMode];
   dispatch_get_global_queue(-2, 0);
-  v19 = v22 = contextCopy;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __89__FCRefreshNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
-  v24[3] = &unk_1E7C38080;
-  v25 = delegateCopy;
+  v19 = v21 = contextCopy;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __89__FCRefreshNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
+  v23[3] = &unk_1E7C38080;
+  v24 = delegateCopy;
   selfCopy = self;
   v20 = delegateCopy;
-  [notificationsEndpointConnection refreshNotificationsForChannelIDs:channelIDs2 paidChannelIDs:paidChannelIDs2 userID:userID deviceToken:deviceToken storefrontID:storefrontID deviceDigestMode:deviceDigestMode callbackQueue:v19 completion:v24];
-
-  v21 = *MEMORY[0x1E69E9840];
+  [notificationsEndpointConnection refreshNotificationsForChannelIDs:channelIDs2 paidChannelIDs:paidChannelIDs2 userID:userID deviceToken:deviceToken storefrontID:storefrontID deviceDigestMode:deviceDigestMode callbackQueue:v19 completion:v23];
 }
 
 void __89__FCRefreshNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = FCPushNotificationsLog;
   if (a2)
   {
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "refreshNotificationsCommand: succeeded refreshing channels", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "refreshNotificationsCommand: succeeded refreshing channels", &v11, 2u);
     }
 
     v7 = *(a1 + 32);
@@ -138,9 +136,9 @@ void __89__FCRefreshNotificationsForChannelsCommand_executeWithContext_delegate_
   {
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "refreshNotificationsCommand: failed to refresh notifications with error: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "refreshNotificationsCommand: failed to refresh notifications with error: %{public}@", &v11, 0xCu);
     }
 
     if ([v5 fc_isNetworkUnavailableError])
@@ -168,8 +166,6 @@ void __89__FCRefreshNotificationsForChannelsCommand_executeWithContext_delegate_
   }
 
   [v7 command:v8 didFinishWithStatus:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

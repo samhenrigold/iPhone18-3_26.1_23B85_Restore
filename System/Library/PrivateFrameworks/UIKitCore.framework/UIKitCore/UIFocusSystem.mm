@@ -2325,7 +2325,7 @@ void __69__UIFocusSystem__focusEnvironmentWillDisappear_remainingInHierarchy___b
       v9 = v8;
       if (v8 && v8 != v7)
       {
-        if (!_UIFocusItemIsViewOrRespondsToSelector(appearCopy))
+        if (!_UIFocusItemIsViewOrRespondsToSelector(appearCopy, sel_frame))
         {
           goto LABEL_18;
         }
@@ -2664,7 +2664,7 @@ LABEL_23:
     {
       _nextFocusedGroupIdentifier = [contextCopy _nextFocusedGroupIdentifier];
       v32 = _nextFocusedGroupIdentifier;
-      if (!_nextFocusedGroupIdentifier || ([_nextFocusedGroupIdentifier isEqualToString:v30] & 1) == 0)
+      if (!_nextFocusedGroupIdentifier || (objc_msgSend_isEqualToString_(_nextFocusedGroupIdentifier) & 1) == 0)
       {
         _focusGroupHistory = [(UIFocusSystem *)self _focusGroupHistory];
         [_focusGroupHistory setLastFocusedItem:v28 forGroupIdentifier:v30];
@@ -2997,21 +2997,21 @@ LABEL_27:
   return v14;
 }
 
-uint64_t __104__UIFocusSystem__updateFocusImmediatelyToEnvironment_startDeferringOnLostFocus_suppressLostFocusUpdate___block_invoke(uint64_t result)
+id *__104__UIFocusSystem__updateFocusImmediatelyToEnvironment_startDeferringOnLostFocus_suppressLostFocusUpdate___block_invoke(id *result)
 {
   v1 = result;
   if (*(result + 40) == 1)
   {
-    result = [*(result + 32) _effectiveFocusDeferralBehavior];
+    result = [result[4] _effectiveFocusDeferralBehavior];
     if (result)
     {
-      result = [*(v1 + 32) _resetFocusDeferral];
+      result = [v1[4] _resetFocusDeferral];
     }
   }
 
   if ((*(v1 + 41) & 1) == 0)
   {
-    v2 = *(v1 + 32);
+    v2 = v1[4];
 
     return [v2 requestFocusUpdateToEnvironment:v2];
   }
@@ -3655,13 +3655,13 @@ void __43__UIFocusSystem__updateFocusUpdateThrottle__block_invoke(uint64_t a1)
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"UIFocusSystem+UIKitAdditions.m" lineNumber:30 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
 
 LABEL_3:
-  if ([(NSString *)v7 isEqual:@"UIFocusSoundIdentifierDefault"])
+  if (objc_msgSend_isEqual_(v7))
   {
     currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"UIFocusSystem+UIKitAdditions.m" lineNumber:31 description:@"UIFocusSoundIdentifierDefault is reserved for system use."];
   }
 
-  if ([(NSString *)v7 isEqual:@"UIFocusSoundIdentifierNone"])
+  if (objc_msgSend_isEqual_(v7))
   {
     currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler4 handleFailureInMethod:a2 object:self file:@"UIFocusSystem+UIKitAdditions.m" lineNumber:32 description:@"UIFocusSoundIdentifierNone is reserved for system use."];
@@ -3843,7 +3843,7 @@ LABEL_14:
 
   else
   {
-    if (_UIFocusItemIsViewOrRespondsToSelector(_focusedItemOrDeferralTarget) && [v8 _wantsKeyCommandsWhenDeferred])
+    if (_UIFocusItemIsViewOrRespondsToSelector(_focusedItemOrDeferralTarget, sel__wantsKeyCommandsWhenDeferred) && [v8 _wantsKeyCommandsWhenDeferred])
     {
       focusedItem = v8;
       goto LABEL_14;

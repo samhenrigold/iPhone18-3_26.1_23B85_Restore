@@ -79,28 +79,25 @@ void __48___DKNotificationTimeZoneChangeMonitor_activate__block_invoke(uint64_t 
 
 void __48___DKNotificationTimeZoneChangeMonitor_activate__block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() log];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v5 = [objc_opt_class() log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [v4 eventBody];
+    v6 = [v4 eventBody];
     [v4 timestamp];
-    v10 = 138412546;
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2048;
     v11 = v7;
-    v12 = 2048;
-    v13 = v8;
-    _os_log_impl(&dword_22595A000, v6, OS_LOG_TYPE_DEFAULT, "Loaded last timezone event %@ at %f", &v10, 0x16u);
+    _os_log_impl(&dword_22595A000, v5, OS_LOG_TYPE_DEFAULT, "Loaded last timezone event %@ at %f", &v8, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __61___DKNotificationTimeZoneChangeMonitor_enqueueTimeZoneUpdate__block_invoke(uint64_t result)
+double *__61___DKNotificationTimeZoneChangeMonitor_enqueueTimeZoneUpdate__block_invoke(double *result)
 {
-  if ((*(*(result + 32) + 154) & 1) == 0)
+  if ((*(*(result + 4) + 154) & 1) == 0)
   {
     v1 = result;
     Current = CFAbsoluteTimeGetCurrent();

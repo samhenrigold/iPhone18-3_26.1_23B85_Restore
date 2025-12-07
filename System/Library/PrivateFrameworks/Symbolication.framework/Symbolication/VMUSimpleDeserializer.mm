@@ -63,53 +63,48 @@
 
 - (id)copyDeserializedStringWithID:(unsigned int)d error:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (d == -1)
   {
-LABEL_11:
-    v21 = 0;
-LABEL_12:
-    v22 = *MEMORY[0x1E69E9840];
-    return v21;
+    return 0;
   }
 
   v6 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(&self->_stringCache.__table_.__bucket_list_.__ptr_, &dCopy);
   if (dCopy >= self->super._stringRegCapacity)
   {
-    v10 = serializerLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = serializerLogHandle(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      _nextField(v10, v11, v12, v13, v14, v15, v16, v17);
+      _nextField(v9, v10, v11, v12, v13, v14, v15, v16);
     }
 
     if (error)
     {
-      v18 = MEMORY[0x1E696ABC0];
-      v19 = OOBDOMAIN;
-      v28 = *MEMORY[0x1E696A578];
-      v29[0] = @"Out-of-bound access.";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-      *error = [v18 errorWithDomain:v19 code:1 userInfo:v20];
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = OOBDOMAIN;
+      v26 = *MEMORY[0x1E696A578];
+      v27[0] = @"Out-of-bound access.";
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      *error = [v17 errorWithDomain:v18 code:1 userInfo:v19];
     }
 
-    goto LABEL_11;
+    return 0;
   }
 
   if (!v6)
   {
-    v23 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v24 = [v23 initWithUTF8String:&self->super._stringRegion[dCopy]];
-    v25 = dCopy;
-    v21 = v24;
-    v26 = v21;
-    std::__hash_table<std::__hash_value_type<unsigned int,NSString * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,NSString * {__strong}>>(&self->_stringCache.__table_.__bucket_list_.__ptr_, &v25);
+    v21 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v22 = [v21 initWithUTF8String:&self->super._stringRegion[dCopy]];
+    v23 = dCopy;
+    v20 = v22;
+    v24 = v20;
+    std::__hash_table<std::__hash_value_type<unsigned int,NSString * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,NSString * {__strong}>>(&self->_stringCache.__table_.__bucket_list_.__ptr_, &v23, &v23);
 
-    goto LABEL_12;
+    return v20;
   }
 
   v7 = v6[3];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -168,7 +163,7 @@ LABEL_9:
 
 - (unsigned)_deserializeValues:(unsigned int)values error:(id *)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   cursor = self->super._cursor;
   v5 = cursor + 4 * values;
   if (v5 <= self->super._intRegCapacity)
@@ -179,7 +174,7 @@ LABEL_9:
 
   else
   {
-    v7 = serializerLogHandle();
+    v7 = serializerLogHandle(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       _nextField(v7, v8, v9, v10, v11, v12, v13, v14);
@@ -189,16 +184,15 @@ LABEL_9:
     {
       v15 = MEMORY[0x1E696ABC0];
       v16 = OOBDOMAIN;
-      v21 = *MEMORY[0x1E696A578];
-      v22[0] = @"Out-of-bound access.";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x1E696A578];
+      v21[0] = @"Out-of-bound access.";
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       *error = [v15 errorWithDomain:v16 code:1 userInfo:v17];
     }
 
-    v18 = 0;
+    return 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

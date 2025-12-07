@@ -37,31 +37,31 @@
 
 + (id)_viewNameWithStreamIdentifier:(id)identifier indexName:(id)name
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   context = objc_autoreleasePoolPush();
   v7 = objc_opt_new();
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v8 = [identifierCopy componentsSeparatedByString:@"."];
-  v9 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v33;
+    v11 = *v32;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v33 != v11)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * i);
+        v13 = *(*(&v31 + 1) + 8 * i);
         if ([v13 length])
         {
           v14 = [v13 substringToIndex:1];
@@ -69,32 +69,32 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v10);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v15 = [nameCopy componentsSeparatedByString:@"_"];
-  v16 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v29;
+    v18 = *v28;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v29 != v18)
+        if (*v28 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v28 + 1) + 8 * j);
+        v20 = *(*(&v27 + 1) + 8 * j);
         v21 = [v20 substringToIndex:1];
         uppercaseString = [v21 uppercaseString];
         [v7 appendString:uppercaseString];
@@ -103,7 +103,7 @@
         [v7 appendString:v23];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v17);
@@ -113,38 +113,37 @@
   v24 = [v7 copy];
 
   objc_autoreleasePoolPop(context);
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
 
 + (id)_indexTableSchemaWithName:(id)name fields:(id)fields
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   fieldsCopy = fields;
   context = objc_autoreleasePoolPush();
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v7 = fieldsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v28;
+    v10 = *v27;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
+        v12 = *(*(&v26 + 1) + 8 * i);
         name = [v12 name];
         v14 = BMEventTimestampSQLColumn();
         name2 = [v14 name];
@@ -159,7 +158,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v9);
@@ -174,37 +173,35 @@
   v22 = [[BMSQLSchema alloc] initWithTableName:nameCopy columns:v6];
   objc_autoreleasePoolPop(context);
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 - (id)createViewSQL
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   v3 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   selfCopy = self;
   v4 = self->_fields;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v42;
+    v7 = *v41;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v42 != v7)
+        if (*v41 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v41 + 1) + 8 * i);
+        v9 = *(*(&v40 + 1) + 8 * i);
         name = [v9 name];
         v11 = BMEventTimestampSQLColumn();
         name2 = [v11 name];
@@ -218,32 +215,32 @@
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v6);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v16 = BMEventBookmarkSQLColumns();
-  v17 = [v16 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v38;
+    v19 = *v37;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v38 != v19)
+        if (*v37 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v37 + 1) + 8 * j);
+        v21 = *(*(&v36 + 1) + 8 * j);
         v22 = objc_alloc(MEMORY[0x1E696AEC0]);
         name3 = [v21 name];
         lowercaseString2 = [name3 lowercaseString];
@@ -251,7 +248,7 @@
         [v3 addObject:v25];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v18);
@@ -268,40 +265,39 @@
   v32 = [v29 stringWithFormat:@"CREATE MATERIALIZED VIEW %@ AS SELECT %@ FROM %@", lowercaseString4, v31, selfCopy->_streamIdentifier];
 
   objc_autoreleasePoolPop(context);
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
 
 - (id)createTableSQL
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = self->_fields;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        name = [*(*(&v21 + 1) + 8 * i) name];
+        name = [*(*(&v20 + 1) + 8 * i) name];
         [v4 addObject:name];
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
@@ -318,7 +314,6 @@
   v18 = [v16 stringWithFormat:@"%@\n%@;", createTableSQL, v15];;
 
   objc_autoreleasePoolPop(v3);
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -326,13 +321,10 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v5 = objc_opt_class();
-  name = self->_name;
-  v7 = [v4 initWithFormat:@"<%@ %p> name: %@; fields: %@", v5, self, name, self->_fields];
+  v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<%@ %p> name: %@; fields: %@", objc_opt_class(), self, self->_name, self->_fields];
   objc_autoreleasePoolPop(v3);
 
-  return v7;
+  return v4;
 }
 
 @end

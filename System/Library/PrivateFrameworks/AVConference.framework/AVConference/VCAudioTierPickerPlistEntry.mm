@@ -121,7 +121,7 @@ LABEL_18:
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_29();
-  OUTLINED_FUNCTION_3_18(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3_18(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing %@", v2, v3, v4, v5);
 }
 
 - (void)configure:.cold.2()
@@ -129,7 +129,7 @@ LABEL_18:
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_29();
-  OUTLINED_FUNCTION_3_18(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3_18(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing %@", v2, v3, v4, v5);
 }
 
 - (void)configure:.cold.3()
@@ -137,7 +137,7 @@ LABEL_18:
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_29();
-  OUTLINED_FUNCTION_3_18(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3_18(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing %@", v2, v3, v4, v5);
 }
 
 - (void)configure:.cold.4()
@@ -145,7 +145,7 @@ LABEL_18:
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_29();
-  OUTLINED_FUNCTION_3_18(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3_18(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing %@", v2, v3, v4, v5);
 }
 
 @end

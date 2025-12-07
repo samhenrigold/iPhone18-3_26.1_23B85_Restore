@@ -40,7 +40,7 @@
 
 - (void)_databaseWillBeOpened
 {
-  v2 = sub_100001B78();
+  v2 = sub_100001B78(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_1000986DC();
@@ -50,76 +50,76 @@
 - (id)_loadDevices
 {
   _database = [(CloudKitSQLiteStore *)self _database];
-  v20 = sub_100002034(_database, @"SELECT device_uuid, system_fields, device_name, has_duplicate_device_name, is_ephemeral_device, last_modified, device_type_identifier FROM cloud_tab_devices");
+  v22 = sub_100002034(_database, @"SELECT device_uuid, system_fields, device_name, has_duplicate_device_name, is_ephemeral_device, last_modified, device_type_identifier FROM cloud_tab_devices");
 
-  v21 = +[NSMutableArray array];
+  v23 = +[NSMutableArray array];
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v4 = v20;
-  v5 = [v4 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = v22;
+  v5 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v5)
   {
-    v6 = *v27;
+    v6 = *v29;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v27 != v6)
+        if (*v29 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
-        v9 = [v8 stringAtIndex:{0, v20}];
+        v8 = *(*(&v28 + 1) + 8 * i);
+        v9 = [v8 stringAtIndex:{0, v22}];
         if ([v9 length])
         {
-          v10 = [v8 uncopiedDataAtIndex:1];
-          if ([v10 length])
+          v11 = [v8 uncopiedDataAtIndex:1];
+          if ([v11 length])
           {
-            v11 = objc_alloc_init(CloudTabDeviceParameters);
-            [(CloudTabDeviceParameters *)v11 setDeviceUUIDString:v9];
-            v12 = [v8 stringAtIndex:2];
-            [(CloudTabDeviceParameters *)v11 setDeviceName:v12];
+            v13 = objc_alloc_init(CloudTabDeviceParameters);
+            [(CloudTabDeviceParameters *)v13 setDeviceUUIDString:v9];
+            v14 = [v8 stringAtIndex:2];
+            [(CloudTabDeviceParameters *)v13 setDeviceName:v14];
 
-            -[CloudTabDeviceParameters setHasDuplicateName:](v11, "setHasDuplicateName:", [v8 BOOLAtIndex:3]);
-            -[CloudTabDeviceParameters setEphemeralDevice:](v11, "setEphemeralDevice:", [v8 BOOLAtIndex:4]);
+            -[CloudTabDeviceParameters setHasDuplicateName:](v13, "setHasDuplicateName:", [v8 BOOLAtIndex:3]);
+            -[CloudTabDeviceParameters setEphemeralDevice:](v13, "setEphemeralDevice:", [v8 BOOLAtIndex:4]);
             [v8 doubleAtIndex:5];
-            v13 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
-            [(CloudTabDeviceParameters *)v11 setLastModified:v13];
+            v15 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+            [(CloudTabDeviceParameters *)v13 setLastModified:v15];
 
-            v14 = [v8 stringAtIndex:6];
-            [(CloudTabDeviceParameters *)v11 setDeviceTypeIdentifier:v14];
+            v16 = [v8 stringAtIndex:6];
+            [(CloudTabDeviceParameters *)v13 setDeviceTypeIdentifier:v16];
 
-            v15 = [CloudTabDevice cloudTabDeviceWithParameters:v11 encodedSystemFieldsData:v10 cloudTabsRecordZoneID:self->_cloudTabsRecordZoneID isManateeContainer:self->_usesManateeContainer];
-            if (v15)
+            v17 = [CloudTabDevice cloudTabDeviceWithParameters:v13 encodedSystemFieldsData:v11 cloudTabsRecordZoneID:self->_cloudTabsRecordZoneID isManateeContainer:self->_usesManateeContainer];
+            if (v17)
             {
-              [v21 addObject:v15];
+              [v23 addObject:v17];
             }
           }
 
           else
           {
-            v17 = sub_100001B78();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v19 = sub_100001B78(0, v12);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
-              sub_100098954(&v22, v23);
+              sub_100098954(&v24, v25);
             }
           }
         }
 
         else
         {
-          v16 = sub_100001B78();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v18 = sub_100001B78(0, v10);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            sub_100098980(&v24, v25);
+            sub_100098980(&v26, v27);
           }
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v5);
@@ -128,116 +128,116 @@
   statement = [v4 statement];
   [statement invalidate];
 
-  return v21;
+  return v23;
 }
 
 - (id)_loadCloseRequests
 {
   _database = [(CloudKitSQLiteStore *)self _database];
-  v21 = sub_100002034(_database, @"SELECT close_request_uuid, system_fields, destination_device_uuid, url, tab_uuid FROM cloud_tab_close_requests");
+  v27 = sub_100002034(_database, @"SELECT close_request_uuid, system_fields, destination_device_uuid, url, tab_uuid FROM cloud_tab_close_requests");
 
-  v22 = +[NSMutableArray array];
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  obj = v21;
-  v3 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v28 = +[NSMutableArray array];
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  obj = v27;
+  v3 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v3)
   {
-    v4 = *v38;
+    v4 = *v44;
     do
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v38 != v4)
+        if (*v44 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v37 + 1) + 8 * i);
-        v7 = [v6 stringAtIndex:{0, v21}];
+        v6 = *(*(&v43 + 1) + 8 * i);
+        v7 = [v6 stringAtIndex:{0, v27}];
         if ([v7 length])
         {
-          v8 = [v6 uncopiedDataAtIndex:1];
-          if ([v8 length])
+          v9 = [v6 uncopiedDataAtIndex:1];
+          if ([v9 length])
           {
-            v9 = [v6 stringAtIndex:2];
-            if ([v9 length])
+            v11 = [v6 stringAtIndex:2];
+            if ([v11 length])
             {
-              v10 = [v6 stringAtIndex:3];
-              if ([v10 length])
+              v13 = [v6 stringAtIndex:3];
+              if ([v13 length])
               {
-                v11 = [v6 stringAtIndex:4];
-                if ([v11 length])
+                v15 = [v6 stringAtIndex:4];
+                if ([v15 length])
                 {
-                  v12 = [CloudTabCloseRequest cloudTabCloseRequestWithTabUUIDString:v11 tabURLString:v10 destinationDeviceUUIDString:v9 closeRequestUUIDString:v7 encodedSystemFieldsData:v8 cloudTabsRecordZoneID:self->_cloudTabsRecordZoneID];
-                  if (v12)
+                  v18 = [CloudTabCloseRequest cloudTabCloseRequestWithTabUUIDString:v15 tabURLString:v13 destinationDeviceUUIDString:v11 closeRequestUUIDString:v7 encodedSystemFieldsData:v9 cloudTabsRecordZoneID:self->_cloudTabsRecordZoneID];
+                  if (v18)
                   {
-                    [v22 addObject:v12];
+                    [v28 addObject:v18];
                   }
 
                   else
                   {
-                    v18 = sub_100001B78();
-                    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+                    v24 = sub_100001B78(0, v17);
+                    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                     {
-                      sub_100098AB0(&v25, v26);
+                      sub_100098AB0(&v31, v32);
                     }
                   }
                 }
 
                 else
                 {
-                  v17 = sub_100001B78();
-                  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                  v23 = sub_100001B78(0, v16);
+                  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
                   {
-                    sub_100098ADC(&v27, v28);
+                    sub_100098ADC(&v33, v34);
                   }
                 }
               }
 
               else
               {
-                v16 = sub_100001B78();
-                if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+                v22 = sub_100001B78(0, v14);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
                 {
-                  sub_100098B08(&v29, v30);
+                  sub_100098B08(&v35, v36);
                 }
               }
             }
 
             else
             {
-              v15 = sub_100001B78();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              v21 = sub_100001B78(0, v12);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
-                sub_100098B34(&v31, v32);
+                sub_100098B34(&v37, v38);
               }
             }
           }
 
           else
           {
-            v14 = sub_100001B78();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v20 = sub_100001B78(0, v10);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              sub_100098B60(&v33, v34);
+              sub_100098B60(&v39, v40);
             }
           }
         }
 
         else
         {
-          v13 = sub_100001B78();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v19 = sub_100001B78(0, v8);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            sub_100098B8C(&v35, v36);
+            sub_100098B8C(&v41, v42);
           }
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v3 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v3);
@@ -246,12 +246,12 @@
   statement = [obj statement];
   [statement invalidate];
 
-  return v22;
+  return v28;
 }
 
 - (void)_databaseWillBeClosed
 {
-  v2 = sub_100001B78();
+  v2 = sub_100001B78(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_1000988BC();
@@ -405,37 +405,37 @@
 
   if (v4 != 101)
   {
-    v10 = sub_100001B78();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v20 = sub_100001B78(v5, v6);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       _database2 = [(CloudKitSQLiteStore *)self _database];
       lastErrorMessage = [_database2 lastErrorMessage];
-      v22 = 138543618;
-      v23 = lastErrorMessage;
-      v24 = 1024;
-      v25 = v4;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to create the cloud_tab_devices table: %{public}@ (%d)", &v22, 0x12u);
+      v32 = 138543618;
+      v33 = lastErrorMessage;
+      v34 = 1024;
+      v35 = v4;
+      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to create the cloud_tab_devices table: %{public}@ (%d)", &v32, 0x12u);
     }
 
     goto LABEL_16;
   }
 
   _database3 = [(CloudKitSQLiteStore *)self _database];
-  v6 = [NSString stringWithFormat:@"CREATE TABLE cloud_tabs (tab_uuid TEXT PRIMARY KEY NOT NULL, system_fields BLOB NOT NULL, device_uuid TEXT NOT NULL, position BLOB NOT NULL, title TEXT, url TEXT NOT NULL, is_showing_reader BOOLEAN DEFAULT 0, is_pinned BOOLEAN DEFAULT 0, reader_scroll_position_page_index INTEGER, scene_id TEXT, last_viewed_time REAL DEFAULT 0, FOREIGN KEY(device_uuid) REFERENCES cloud_tab_devices(device_uuid) ON DELETE CASCADE)"];
-  v4 = sub_100001E04(_database3, 0, v6);
+  v8 = [NSString stringWithFormat:@"CREATE TABLE cloud_tabs (tab_uuid TEXT PRIMARY KEY NOT NULL, system_fields BLOB NOT NULL, device_uuid TEXT NOT NULL, position BLOB NOT NULL, title TEXT, url TEXT NOT NULL, is_showing_reader BOOLEAN DEFAULT 0, is_pinned BOOLEAN DEFAULT 0, reader_scroll_position_page_index INTEGER, scene_id TEXT, last_viewed_time REAL DEFAULT 0, FOREIGN KEY(device_uuid) REFERENCES cloud_tab_devices(device_uuid) ON DELETE CASCADE)"];
+  v4 = sub_100001E04(_database3, 0, v8);
 
   if (v4 != 101)
   {
-    v10 = sub_100001B78();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v20 = sub_100001B78(v9, v10);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       _database4 = [(CloudKitSQLiteStore *)self _database];
       lastErrorMessage2 = [_database4 lastErrorMessage];
-      v22 = 138543618;
-      v23 = lastErrorMessage2;
-      v24 = 1024;
-      v25 = v4;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to create the cloud_tabs table: %{public}@ (%d)", &v22, 0x12u);
+      v32 = 138543618;
+      v33 = lastErrorMessage2;
+      v34 = 1024;
+      v35 = v4;
+      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to create the cloud_tabs table: %{public}@ (%d)", &v32, 0x12u);
     }
 
     goto LABEL_16;
@@ -446,16 +446,16 @@
 
   if (v4 != 101)
   {
-    v10 = sub_100001B78();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v20 = sub_100001B78(v12, v13);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       _database6 = [(CloudKitSQLiteStore *)self _database];
       lastErrorMessage3 = [_database6 lastErrorMessage];
-      v22 = 138543618;
-      v23 = lastErrorMessage3;
-      v24 = 1024;
-      v25 = v4;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to create the index for cloud_tabs table: %{public}@ (%d)", &v22, 0x12u);
+      v32 = 138543618;
+      v33 = lastErrorMessage3;
+      v34 = 1024;
+      v35 = v4;
+      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to create the index for cloud_tabs table: %{public}@ (%d)", &v32, 0x12u);
     }
 
     goto LABEL_16;
@@ -466,16 +466,16 @@
 
   if (v4 != 101)
   {
-    v10 = sub_100001B78();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v20 = sub_100001B78(v15, v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       _database8 = [(CloudKitSQLiteStore *)self _database];
       lastErrorMessage4 = [_database8 lastErrorMessage];
-      v22 = 138543618;
-      v23 = lastErrorMessage4;
-      v24 = 1024;
-      v25 = v4;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to create the cloud_tab_close_requests table: %{public}@ (%d)", &v22, 0x12u);
+      v32 = 138543618;
+      v33 = lastErrorMessage4;
+      v34 = 1024;
+      v35 = v4;
+      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to create the cloud_tab_close_requests table: %{public}@ (%d)", &v32, 0x12u);
     }
 
     goto LABEL_16;
@@ -486,16 +486,16 @@
 
   if (v4 != 101)
   {
-    v10 = sub_100001B78();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v20 = sub_100001B78(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       _database10 = [(CloudKitSQLiteStore *)self _database];
       lastErrorMessage5 = [_database10 lastErrorMessage];
-      v22 = 138543618;
-      v23 = lastErrorMessage5;
-      v24 = 1024;
-      v25 = v4;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to create the metadata table: %{public}@ (%d)", &v22, 0x12u);
+      v32 = 138543618;
+      v33 = lastErrorMessage5;
+      v34 = 1024;
+      v35 = v4;
+      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to create the metadata table: %{public}@ (%d)", &v32, 0x12u);
     }
 
 LABEL_16:
@@ -506,40 +506,40 @@ LABEL_16:
 
 - (int)_resetDatabaseSchema
 {
-  v13 = 0u;
-  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v3 = [&off_10013CB90 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v17 = 0u;
+  v18 = 0u;
+  v3 = [&off_10013CB90 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v3)
   {
-    v4 = *v14;
+    v4 = *v16;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v14 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(&off_10013CB90);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * v5);
+        v6 = *(*(&v15 + 1) + 8 * v5);
         _database = [(CloudKitSQLiteStore *)self _database];
         v8 = sub_100001E04(_database, 0, v6);
 
         if (v8 != 101)
         {
-          v9 = sub_100001B78();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v11 = sub_100001B78(v9, v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             _database2 = [(CloudKitSQLiteStore *)self _database];
             lastErrorMessage = [_database2 lastErrorMessage];
             *buf = 138543618;
-            v18 = lastErrorMessage;
-            v19 = 1024;
-            v20 = v8;
-            _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to execute query when resetting database schema: %{public}@ (%d)", buf, 0x12u);
+            v20 = lastErrorMessage;
+            v21 = 1024;
+            v22 = v8;
+            _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to execute query when resetting database schema: %{public}@ (%d)", buf, 0x12u);
           }
 
           return v8;
@@ -549,7 +549,7 @@ LABEL_16:
       }
 
       while (v3 != v5);
-      v3 = [&off_10013CB90 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v3 = [&off_10013CB90 countByEnumeratingWithState:&v15 objects:v23 count:16];
       if (v3)
       {
         continue;
@@ -568,39 +568,39 @@ LABEL_16:
 {
   lCopy = l;
   errorCopy = error;
-  v7 = sub_100001B78();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = sub_100001B78(errorCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     safari_privacyPreservingDescription = [errorCopy safari_privacyPreservingDescription];
-    sub_10009871C(lCopy, safari_privacyPreservingDescription, &v9);
+    sub_10009871C(lCopy, safari_privacyPreservingDescription, &v10);
   }
 }
 
 - (void)_failedToExcludeDatabaseFromBackupWithError:(id)error
 {
   errorCopy = error;
-  v4 = sub_100001B78();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = sub_100001B78(errorCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     safari_privacyPreservingDescription = [errorCopy safari_privacyPreservingDescription];
-    sub_100098774(safari_privacyPreservingDescription, v6, v4);
+    sub_100098774(safari_privacyPreservingDescription, v7, v5);
   }
 }
 
 - (void)_failedToEnableWALWithError:(id)error
 {
   errorCopy = error;
-  v4 = sub_100001B78();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = sub_100001B78(errorCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     safari_privacyPreservingDescription = [errorCopy safari_privacyPreservingDescription];
-    sub_1000987CC(safari_privacyPreservingDescription, v6, v4);
+    sub_1000987CC(safari_privacyPreservingDescription, v7, v5);
   }
 }
 
 - (void)_failedToEnableForeignKeysWithError:(int)error
 {
-  v5 = sub_100001B78();
+  v5 = sub_100001B78(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     _database = [(CloudKitSQLiteStore *)self _database];
@@ -615,7 +615,7 @@ LABEL_16:
 
 - (void)_failedToEnableSecureDeleteWithError:(int)error
 {
-  v5 = sub_100001B78();
+  v5 = sub_100001B78(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     _database = [(CloudKitSQLiteStore *)self _database];
@@ -631,16 +631,16 @@ LABEL_16:
 - (void)_databaseAtURL:(id)l hasIncorrectSchemaVersion:(int)version
 {
   lCopy = l;
-  v6 = sub_100001B78();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = sub_100001B78(lCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_100098824(lCopy, version, v6);
+    sub_100098824(lCopy, version, v7);
   }
 }
 
 - (void)_databaseWillBeDeleted
 {
-  v2 = sub_100001B78();
+  v2 = sub_100001B78(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -652,17 +652,17 @@ LABEL_16:
 {
   lCopy = l;
   errorCopy = error;
-  v7 = sub_100001B78();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = sub_100001B78(errorCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     safari_privacyPreservingDescription = [errorCopy safari_privacyPreservingDescription];
-    sub_1000988FC(lCopy, safari_privacyPreservingDescription, &v9);
+    sub_1000988FC(lCopy, safari_privacyPreservingDescription, &v10);
   }
 }
 
 - (void)_databaseWillBeRecreated
 {
-  v2 = sub_100001B78();
+  v2 = sub_100001B78(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -672,7 +672,7 @@ LABEL_16:
 
 - (void)_failedToSetSchemaVersion:(int)version withError:(int)error
 {
-  v7 = sub_100001B78();
+  v7 = sub_100001B78(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     _database = [(CloudKitSQLiteStore *)self _database];
@@ -690,60 +690,60 @@ LABEL_16:
 - (void)_failedToUpdateMetadataValueWithKey:(id)key error:(int)error
 {
   keyCopy = key;
-  v7 = sub_100001B78();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = sub_100001B78(keyCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     _database = [(CloudKitSQLiteStore *)self _database];
     lastErrorMessage = [_database lastErrorMessage];
-    v10 = 138543874;
-    v11 = keyCopy;
-    v12 = 2114;
-    v13 = lastErrorMessage;
-    v14 = 1024;
+    v11 = 138543874;
+    v12 = keyCopy;
+    v13 = 2114;
+    v14 = lastErrorMessage;
+    v15 = 1024;
     errorCopy = error;
-    _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to update metadata value %{public}@: %{public}@ (%d)", &v10, 0x1Cu);
+    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to update metadata value %{public}@: %{public}@ (%d)", &v11, 0x1Cu);
   }
 }
 
 - (void)_failedToInsertMetadataValueWithKey:(id)key error:(int)error
 {
   keyCopy = key;
-  v7 = sub_100001B78();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = sub_100001B78(keyCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     _database = [(CloudKitSQLiteStore *)self _database];
     lastErrorMessage = [_database lastErrorMessage];
-    v10 = 138543874;
-    v11 = keyCopy;
-    v12 = 2114;
-    v13 = lastErrorMessage;
-    v14 = 1024;
+    v11 = 138543874;
+    v12 = keyCopy;
+    v13 = 2114;
+    v14 = lastErrorMessage;
+    v15 = 1024;
     errorCopy = error;
-    _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to insert metadata value %{public}@: %{public}@ (%d)", &v10, 0x1Cu);
+    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to insert metadata value %{public}@: %{public}@ (%d)", &v11, 0x1Cu);
   }
 }
 
 - (void)_failedToDeleteMetadataValueWithKey:(id)key error:(int)error
 {
   keyCopy = key;
-  v7 = sub_100001B78();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = sub_100001B78(keyCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     _database = [(CloudKitSQLiteStore *)self _database];
     lastErrorMessage = [_database lastErrorMessage];
-    v10 = 138543874;
-    v11 = keyCopy;
-    v12 = 2114;
-    v13 = lastErrorMessage;
-    v14 = 1024;
+    v11 = 138543874;
+    v12 = keyCopy;
+    v13 = 2114;
+    v14 = lastErrorMessage;
+    v15 = 1024;
     errorCopy = error;
-    _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to delete metadata value for key %{public}@: %{public}@ (%d)", &v10, 0x1Cu);
+    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to delete metadata value for key %{public}@: %{public}@ (%d)", &v11, 0x1Cu);
   }
 }
 
 - (void)_vacuumFailedWithError:(int)error
 {
-  v5 = sub_100001B78();
+  v5 = sub_100001B78(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     _database = [(CloudKitSQLiteStore *)self _database];
@@ -771,35 +771,35 @@ LABEL_16:
     {
       statement2 = objc_alloc_init(CloudTabDeviceParameters);
       [(CloudTabDeviceParameters *)statement2 setDeviceUUIDString:stringCopy];
-      v10 = [v7 stringAtIndex:1];
-      [(CloudTabDeviceParameters *)statement2 setDeviceName:v10];
+      v11 = [v7 stringAtIndex:1];
+      [(CloudTabDeviceParameters *)statement2 setDeviceName:v11];
 
       -[CloudTabDeviceParameters setHasDuplicateName:](statement2, "setHasDuplicateName:", [v7 BOOLAtIndex:2]);
       -[CloudTabDeviceParameters setEphemeralDevice:](statement2, "setEphemeralDevice:", [v7 BOOLAtIndex:3]);
       [v7 doubleAtIndex:4];
-      v11 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
-      [(CloudTabDeviceParameters *)statement2 setLastModified:v11];
+      v12 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+      [(CloudTabDeviceParameters *)statement2 setLastModified:v12];
 
-      v12 = [v7 stringAtIndex:5];
-      [(CloudTabDeviceParameters *)statement2 setDeviceTypeIdentifier:v12];
+      v13 = [v7 stringAtIndex:5];
+      [(CloudTabDeviceParameters *)statement2 setDeviceTypeIdentifier:v13];
 
       statement = [v5 statement];
       [statement invalidate];
 
-      v14 = [CloudTabDevice cloudTabDeviceWithParameters:statement2 encodedSystemFieldsData:statement3 cloudTabsRecordZoneID:self->_cloudTabsRecordZoneID isManateeContainer:self->_usesManateeContainer];
+      v15 = [CloudTabDevice cloudTabDeviceWithParameters:statement2 encodedSystemFieldsData:statement3 cloudTabsRecordZoneID:self->_cloudTabsRecordZoneID isManateeContainer:self->_usesManateeContainer];
     }
 
     else
     {
-      v15 = sub_100001B78();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_100001B78(0, v9);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10008C214();
       }
 
       statement2 = [v5 statement];
       [(CloudTabDeviceParameters *)statement2 invalidate];
-      v14 = 0;
+      v15 = 0;
     }
   }
 
@@ -807,10 +807,10 @@ LABEL_16:
   {
     statement3 = [v5 statement];
     [statement3 invalidate];
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (int)_saveDevice:(id)device
@@ -833,19 +833,19 @@ LABEL_16:
   sub_100097AA4(v7, &deviceUUIDString, &safari_encodedSystemFieldsData, &deviceName, &hasDuplicateName, &isEphemeralDevice, buf, &deviceTypeIdentifier);
 
   execute = [v7 execute];
-  [v7 reset];
+  reset = [v7 reset];
   if (execute != 101)
   {
-    v12 = sub_100001B78();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = sub_100001B78(reset, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       _database2 = [(CloudKitSQLiteStore *)self _database];
       lastErrorMessage = [_database2 lastErrorMessage];
       *buf = 138543618;
       *&buf[4] = lastErrorMessage;
-      v23 = 1024;
-      v24 = execute;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to insert or replace device: %{public}@ (%d)", buf, 0x12u);
+      v25 = 1024;
+      v26 = execute;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to insert or replace device: %{public}@ (%d)", buf, 0x12u);
     }
   }
 
@@ -930,112 +930,112 @@ LABEL_14:
   v8 = [rowCopy stringAtIndex:0];
   if ([v8 length])
   {
-    v9 = [rowCopy dataAtIndex:1];
-    if ([v9 length])
+    v10 = [rowCopy dataAtIndex:1];
+    if ([v10 length])
     {
-      v10 = +[CloudBookmarkCompressedJSONValueTransformer jsonDictionaryTransformer];
-      v11 = [rowCopy dataAtIndex:2];
-      v12 = [v10 reverseTransformedValue:v11];
+      v12 = +[CloudBookmarkCompressedJSONValueTransformer jsonDictionaryTransformer];
+      v13 = [rowCopy dataAtIndex:2];
+      v14 = [v12 reverseTransformedValue:v13];
 
-      if (v12)
+      if (v14)
       {
-        v13 = [[WBSCRDTPosition alloc] initWithDictionaryRepresentation:v12];
-        if (v13)
+        v18 = [[WBSCRDTPosition alloc] initWithDictionaryRepresentation:v14];
+        if (v18)
         {
-          v30 = [rowCopy stringAtIndex:3];
-          v29 = [rowCopy stringAtIndex:4];
-          if ([v29 length])
+          v36 = [rowCopy stringAtIndex:3];
+          v35 = [rowCopy stringAtIndex:4];
+          if ([v35 length])
           {
-            v27 = [rowCopy BOOLAtIndex:5];
-            v14 = [rowCopy BOOLAtIndex:6];
-            v15 = [rowCopy intAtIndex:7];
-            v28 = [rowCopy stringAtIndex:8];
+            v33 = [rowCopy BOOLAtIndex:5];
+            v20 = [rowCopy BOOLAtIndex:6];
+            v21 = [rowCopy intAtIndex:7];
+            v34 = [rowCopy stringAtIndex:8];
             [rowCopy doubleAtIndex:9];
-            v17 = v16;
-            v18 = [[CloudTabParameters alloc] initWithTabUUIDString:v8 owningDeviceUUIDString:stringCopy owningSceneID:v28 urlString:v29];
-            [(CloudTabParameters *)v18 setTitle:v30];
-            [(CloudTabParameters *)v18 setPinned:v27];
-            [(CloudTabParameters *)v18 setShowingReader:v14];
-            if (v15)
+            v23 = v22;
+            v24 = [[CloudTabParameters alloc] initWithTabUUIDString:v8 owningDeviceUUIDString:stringCopy owningSceneID:v34 urlString:v35];
+            [(CloudTabParameters *)v24 setTitle:v36];
+            [(CloudTabParameters *)v24 setPinned:v33];
+            [(CloudTabParameters *)v24 setShowingReader:v20];
+            if (v21)
             {
-              v19 = [NSNumber numberWithInteger:v15];
+              v25 = [NSNumber numberWithInteger:v21];
             }
 
             else
             {
-              v19 = 0;
+              v25 = 0;
             }
 
-            [(CloudTabParameters *)v18 setReaderScrollPositionPageIndex:v19];
-            if (v15)
+            [(CloudTabParameters *)v24 setReaderScrollPositionPageIndex:v25];
+            if (v21)
             {
             }
 
-            [(CloudTabParameters *)v18 setLastViewedTime:v17];
-            [(CloudTabParameters *)v18 setPosition:v13];
-            v21 = [CloudTab cloudTabWithParameters:v18 encodedSystemFieldsData:v9 cloudTabsRecordZoneID:self->_cloudTabsRecordZoneID isManateeContainer:self->_usesManateeContainer];
+            [(CloudTabParameters *)v24 setLastViewedTime:v23];
+            [(CloudTabParameters *)v24 setPosition:v18];
+            v27 = [CloudTab cloudTabWithParameters:v24 encodedSystemFieldsData:v10 cloudTabsRecordZoneID:self->_cloudTabsRecordZoneID isManateeContainer:self->_usesManateeContainer];
           }
 
           else
           {
-            v25 = sub_100001B78();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v31 = sub_100001B78(0, v19);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               sub_1000989AC();
             }
 
-            v21 = 0;
+            v27 = 0;
           }
         }
 
         else
         {
-          v24 = sub_100001B78();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v30 = sub_100001B78(0, v17);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             sub_1000989E0();
           }
 
-          v21 = 0;
+          v27 = 0;
         }
       }
 
       else
       {
-        v23 = sub_100001B78();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v29 = sub_100001B78(v15, v16);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           sub_100098A14();
         }
 
-        v21 = 0;
+        v27 = 0;
       }
     }
 
     else
     {
-      v22 = sub_100001B78();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v28 = sub_100001B78(0, v11);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         sub_100098A48();
       }
 
-      v21 = 0;
+      v27 = 0;
     }
   }
 
   else
   {
-    v20 = sub_100001B78();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v26 = sub_100001B78(0, v9);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_100098A7C();
     }
 
-    v21 = 0;
+    v27 = 0;
   }
 
-  return v21;
+  return v27;
 }
 
 - (int)_saveTab:(id)tab
@@ -1049,7 +1049,7 @@ LABEL_14:
   v9 = +[CloudBookmarkCompressedJSONValueTransformer jsonDictionaryTransformer];
   position = [tabCopy position];
   dictionaryRepresentation = [position dictionaryRepresentation];
-  v29 = [v9 transformedValue:dictionaryRepresentation];
+  v31 = [v9 transformedValue:dictionaryRepresentation];
 
   tabUUIDString = [tabCopy tabUUIDString];
   record = [tabCopy record];
@@ -1063,23 +1063,23 @@ LABEL_14:
   *buf = [readerScrollPositionPageIndex integerValue];
   owningSceneID = [tabCopy owningSceneID];
   [tabCopy lastViewedTime];
-  v20 = v14;
-  sub_100097E20(v8, &tabUUIDString, &safari_encodedSystemFieldsData, &owningDeviceUUIDString, &v29, &title, &urlString, &isShowingReader, &isPinned, buf, &owningSceneID, &v20);
+  v22 = v14;
+  sub_100097E20(v8, &tabUUIDString, &safari_encodedSystemFieldsData, &owningDeviceUUIDString, &v31, &title, &urlString, &isShowingReader, &isPinned, buf, &owningSceneID, &v22);
 
   execute = [v8 execute];
-  [v8 reset];
+  reset = [v8 reset];
   if (execute != 101)
   {
-    v16 = sub_100001B78();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = sub_100001B78(reset, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       _database2 = [(CloudKitSQLiteStore *)self _database];
       lastErrorMessage = [_database2 lastErrorMessage];
       *buf = 138543618;
       *&buf[4] = lastErrorMessage;
-      v31 = 1024;
-      v32 = execute;
-      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to insert or replace tab: %{public}@ (%d)", buf, 0x12u);
+      v33 = 1024;
+      v34 = execute;
+      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to insert or replace tab: %{public}@ (%d)", buf, 0x12u);
     }
   }
 
@@ -1102,19 +1102,19 @@ LABEL_14:
   sub_1000984B8(v7, &requestUUIDString, &safari_encodedSystemFieldsData, &destinationDeviceUUIDString, &tabURLString, &tabUUIDString);
 
   execute = [v7 execute];
-  [v7 invalidate];
+  invalidate = [v7 invalidate];
   if (execute != 101)
   {
-    v10 = sub_100001B78();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100001B78(invalidate, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       _database2 = [(CloudKitSQLiteStore *)self _database];
       lastErrorMessage = [_database2 lastErrorMessage];
       *buf = 138543618;
-      v20 = lastErrorMessage;
-      v21 = 1024;
-      v22 = execute;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to insert or replace close request: %{public}@ (%d)", buf, 0x12u);
+      v22 = lastErrorMessage;
+      v23 = 1024;
+      v24 = execute;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to insert or replace close request: %{public}@ (%d)", buf, 0x12u);
     }
   }
 

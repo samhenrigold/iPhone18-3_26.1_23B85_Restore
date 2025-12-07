@@ -90,7 +90,7 @@ LABEL_11:
 
 - (id)localizedPastTenseDescription
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   currentDevice = [MEMORY[0x1E69E0A90] currentDevice];
   name = [currentDevice name];
 
@@ -119,27 +119,25 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v11 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+  v10 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v13 = "[WFPlugInTrigger localizedPastTenseDescription]";
-    v14 = 2114;
+    v12 = "[WFPlugInTrigger localizedPastTenseDescription]";
+    v13 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
 
   v8 = &stru_1F4A1C408;
 LABEL_9:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)localizedDescriptionWithConfigurationSummary
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   currentDevice = [MEMORY[0x1E69E0A90] currentDevice];
   name = [currentDevice name];
 
@@ -168,20 +166,18 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v11 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+  v10 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v13 = "[WFPlugInTrigger localizedDescriptionWithConfigurationSummary]";
-    v14 = 2114;
+    v12 = "[WFPlugInTrigger localizedDescriptionWithConfigurationSummary]";
+    v13 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
 
   v8 = &stru_1F4A1C408;
 LABEL_9:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -213,31 +209,27 @@ LABEL_9:
 
 + (id)pluggedInHierarchicalColors
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69E09E0] colorWithSystemColor:1];
   batteryOutlineColor = [MEMORY[0x1E69E09E0] batteryOutlineColor];
-  v8[1] = batteryOutlineColor;
+  v7[1] = batteryOutlineColor;
   v4 = [MEMORY[0x1E69E09E0] colorWithRed:0.298039228 green:0.843137264 blue:0.392156869 alpha:1.0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)offIcon
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69E0B58];
   v3 = [MEMORY[0x1E69E09E0] colorWithSystemColor:1];
-  v9[0] = v3;
+  v8[0] = v3;
   batteryOutlineColor = [MEMORY[0x1E69E09E0] batteryOutlineColor];
-  v9[1] = batteryOutlineColor;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = batteryOutlineColor;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v2 triggerConfigurationSymbolNamed:@"battery.100" hierarchicalColors:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

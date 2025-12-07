@@ -1,6 +1,5 @@
 @interface BWColorLookupCache
 - (BWColorLookupCache)init;
-- (BWColorLookupCacheEntry)_colorLookupTablesForColorCubeFilter:(BWColorLookupCacheEntry *)result;
 - (BWColorLookupCacheEntry)_colorLookupTablesForColorCubesWithMaskFilter:(BWColorLookupCacheEntry *)result;
 - (id)blackColorLookupTable;
 - (id)colorLookupTablesForFilter:(id)filter;
@@ -221,7 +220,7 @@ LABEL_18:
   return identityColorLookupTable_identityColorLookupTable;
 }
 
-uint64_t __46__BWColorLookupCache_identityColorLookupTable__block_invoke()
+void *__46__BWColorLookupCache_identityColorLookupTable__block_invoke()
 {
   v0 = malloc_type_malloc(0x20000uLL, 0x100004077774924uLL);
   v1 = 0;
@@ -312,7 +311,7 @@ uint64_t __46__BWColorLookupCache_identityColorLookupTable__block_invoke()
   return blackColorLookupTable_identityColorLookupTable;
 }
 
-uint64_t __43__BWColorLookupCache_blackColorLookupTable__block_invoke()
+void *__43__BWColorLookupCache_blackColorLookupTable__block_invoke()
 {
   v0 = malloc_type_malloc(0x20000uLL, 0x100004077774924uLL);
   v1 = 0;
@@ -359,7 +358,7 @@ uint64_t __43__BWColorLookupCache_blackColorLookupTable__block_invoke()
   return whiteColorLookupTable_identityColorLookupTable;
 }
 
-uint64_t __43__BWColorLookupCache_whiteColorLookupTable__block_invoke()
+void *__43__BWColorLookupCache_whiteColorLookupTable__block_invoke()
 {
   v0 = malloc_type_malloc(0x20000uLL, 0x100004077774924uLL);
   memset(v0, 255, 0x20000uLL);
@@ -377,30 +376,10 @@ uint64_t __43__BWColorLookupCache_whiteColorLookupTable__block_invoke()
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
     }
 
     v4 = -[BWColorLookupCacheEntry initWithForegroundColorLookupTable:backgroundColorLookupTable:]([BWColorLookupCacheEntry alloc], "initWithForegroundColorLookupTable:backgroundColorLookupTable:", [a2 cube0Data], objc_msgSend(a2, "cube1Data"));
-
-    return v4;
-  }
-
-  return result;
-}
-
-- (BWColorLookupCacheEntry)_colorLookupTablesForColorCubeFilter:(BWColorLookupCacheEntry *)result
-{
-  if (result)
-  {
-    [a2 cubeDimension];
-    if (v3 != 32.0)
-    {
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
-    }
-
-    v4 = -[BWColorLookupCacheEntry initWithForegroundColorLookupTable:backgroundColorLookupTable:]([BWColorLookupCacheEntry alloc], "initWithForegroundColorLookupTable:backgroundColorLookupTable:", [a2 cubeData], 0);
 
     return v4;
   }
@@ -420,7 +399,7 @@ uint64_t __43__BWColorLookupCache_whiteColorLookupTable__block_invoke()
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v29, v30, v31, v32, v33, v34, v35);
     return 0;
   }
 

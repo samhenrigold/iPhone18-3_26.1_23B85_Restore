@@ -14,10 +14,10 @@
 
 - (void)dealloc
 {
-  objc_msgSend_stop(self, a2, v2, v3);
-  v5.receiver = self;
-  v5.super_class = VFXARKitGazeTracker;
-  [(VFXARKitGazeTracker *)&v5 dealloc];
+  objc_msgSend_stop(self, a2, v2);
+  v4.receiver = self;
+  v4.super_class = VFXARKitGazeTracker;
+  [(VFXARKitGazeTracker *)&v4 dealloc];
 }
 
 @end

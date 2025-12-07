@@ -12,8 +12,11 @@
 - (void)resetFirstResponder;
 - (void)textFieldDidBeginEditing:(id)editing;
 - (void)textFieldDidEndEditing:(id)editing;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CrossPlatformManualDetailsViewController
@@ -107,6 +110,27 @@
   [(OBTableWelcomeController *)&v4 viewDidLayoutSubviews];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = CrossPlatformManualDetailsViewController;
+  [(OBTableWelcomeController *)&v6 viewWillAppear:appear];
+  self->_keyboardSize = *MEMORY[0x277CBF3A8];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel_keyboardWasShown_ name:*MEMORY[0x277D76BA8] object:0];
+
+  defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter2 addObserver:self selector:sel_keyboardWillBeHidden_ name:*MEMORY[0x277D76C50] object:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CrossPlatformManualDetailsViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  [(CrossPlatformManualDetailsViewController *)self resetFirstResponder];
+}
+
 - (void)resetFirstResponder
 {
   v6 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:0];
@@ -115,6 +139,21 @@
 
   editableTextField = [v4 editableTextField];
   [editableTextField becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = CrossPlatformManualDetailsViewController;
+  [(OBBaseWelcomeController *)&v7 viewWillDisappear:disappear];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained receivedResponse];
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277D76BA8] object:0];
+
+  defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter2 removeObserver:self name:*MEMORY[0x277D76C50] object:0];
 }
 
 - (void)keyboardWasShown:(id)shown
@@ -135,7 +174,7 @@
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v7 = [view dequeueReusableCellWithIdentifier:@"SSManualEntryCell" forIndexPath:pathCopy];
   [v7 setupWithDelegate:self indexPath:pathCopy];
@@ -164,14 +203,14 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  editableTextField2 = _TSLogDomain();
+  editableTextField2 = _TSLogDomain(v8);
   if (os_log_type_enabled(editableTextField2, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = pathCopy;
-    v23 = 2080;
-    v24 = "[CrossPlatformManualDetailsViewController tableView:cellForRowAtIndexPath:]";
-    _os_log_impl(&dword_262AA8000, editableTextField2, OS_LOG_TYPE_DEFAULT, "Error no defined cell for index: %@ @%s", &v21, 0x16u);
+    v20 = 138412546;
+    v21 = pathCopy;
+    v22 = 2080;
+    v23 = "[CrossPlatformManualDetailsViewController tableView:cellForRowAtIndexPath:]";
+    _os_log_impl(&dword_262AA8000, editableTextField2, OS_LOG_TYPE_DEFAULT, "Error no defined cell for index: %@ @%s", &v20, 0x16u);
   }
 
 LABEL_6:
@@ -190,8 +229,6 @@ LABEL_6:
       [editableTextField4 setText:v17];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -295,25 +332,23 @@ void __66__CrossPlatformManualDetailsViewController_textFieldShouldReturn___bloc
   v2 = [*(a1 + 32) editableTextField];
   [v2 becomeFirstResponder];
 
-  v3 = _TSLogDomain();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _TSLogDomain(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [*(a1 + 32) editableTextField];
-    v5 = [v4 isFirstResponder];
-    v6 = @"NO";
-    if (v5)
+    v5 = [*(a1 + 32) editableTextField];
+    v6 = [v5 isFirstResponder];
+    v7 = @"NO";
+    if (v6)
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
     v8 = 138412546;
-    v9 = v6;
+    v9 = v7;
     v10 = 2080;
     v11 = "[CrossPlatformManualDetailsViewController textFieldShouldReturn:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Next field is first responder: %@ @%s", &v8, 0x16u);
+    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "Next field is first responder: %@ @%s", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)textFieldDidBeginEditing:(id)editing
@@ -364,9 +399,9 @@ void __66__CrossPlatformManualDetailsViewController_textFieldShouldReturn___bloc
 
 - (void)_doneButtonTapped
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]invalid DCTCodeDelegate delegate @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CrossPlatformManualDetailsViewController _doneButtonTapped]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]invalid DCTCodeDelegate delegate @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_invoke(uint64_t a1, char a2)
@@ -384,7 +419,7 @@ void __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_inv
 
     else
     {
-      v16 = _TSLogDomain();
+      v16 = _TSLogDomain(WeakRetained);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_invoke_cold_1(v16, v17, v18, v19, v20, v21, v22, v23);
@@ -399,7 +434,7 @@ void __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_inv
 
   else
   {
-    v8 = _TSLogDomain();
+    v8 = _TSLogDomain(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_invoke_cold_2(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -409,7 +444,7 @@ void __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_inv
 
 - (id)_constructDCTUrl:(id)url withPasscode:(id)passcode
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCACE0];
   passcodeCopy = passcode;
   urlCopy = url;
@@ -422,19 +457,17 @@ void __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_inv
   v10 = objc_alloc_init(MEMORY[0x277CCACE0]);
   v11 = [MEMORY[0x277CCAD18] queryItemWithName:@"s" value:urlCopy];
 
-  v19[0] = v11;
+  v18[0] = v11;
   v12 = [MEMORY[0x277CCAD18] queryItemWithName:@"p" value:passcodeCopy];
 
-  v19[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   [v10 setQueryItems:v13];
 
   percentEncodedQuery = [v10 percentEncodedQuery];
   [v8 setFragment:percentEncodedQuery];
   v15 = [v8 URL];
   absoluteString = [v15 absoluteString];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return absoluteString;
 }
@@ -455,16 +488,16 @@ void __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_inv
 
 void __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Invalid DCT Code! @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CrossPlatformManualDetailsViewController _doneButtonTapped]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Invalid DCT Code! @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __61__CrossPlatformManualDetailsViewController__doneButtonTapped__block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]strong self gone @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CrossPlatformManualDetailsViewController _doneButtonTapped]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]strong self gone @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

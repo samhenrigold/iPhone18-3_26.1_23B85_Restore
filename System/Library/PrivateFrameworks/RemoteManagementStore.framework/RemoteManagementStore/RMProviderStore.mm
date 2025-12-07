@@ -1,5 +1,6 @@
 @interface RMProviderStore
 + (RMProviderStore)storeWithIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler;
++ (void)createStoreWithType:(int64_t)type scope:(int64_t)scope defaultToInteractive:(BOOL)interactive dataSeparated:(BOOL)separated options:(id)options completionHandler:(id)handler;
 + (void)removeStoreWithIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler;
 + (void)storesWithScope:(int64_t)scope completionHandler:(id)handler;
 - (BOOL)isEqual:(id)equal;
@@ -12,6 +13,33 @@
 @end
 
 @implementation RMProviderStore
+
++ (void)createStoreWithType:(int64_t)type scope:(int64_t)scope defaultToInteractive:(BOOL)interactive dataSeparated:(BOOL)separated options:(id)options completionHandler:(id)handler
+{
+  separatedCopy = separated;
+  interactiveCopy = interactive;
+  handlerCopy = handler;
+  optionsCopy = options;
+  v15 = [RMStoreXPCProxy newConnectionWithScope:scope];
+  [v15 resume];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __106__RMProviderStore_createStoreWithType_scope_defaultToInteractive_dataSeparated_options_completionHandler___block_invoke;
+  v24[3] = &unk_279B05310;
+  v16 = handlerCopy;
+  v25 = v16;
+  v17 = [v15 remoteObjectProxyWithErrorHandler:v24];
+  v18 = [RMStoreXPCConnection storeXPCConnection:v15];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __106__RMProviderStore_createStoreWithType_scope_defaultToInteractive_dataSeparated_options_completionHandler___block_invoke_18;
+  v21[3] = &unk_279B05BF0;
+  v22 = v18;
+  v23 = v16;
+  v19 = v18;
+  v20 = v16;
+  [v17 createStoreWithType:type defaultToInteractive:interactiveCopy dataSeparated:separatedCopy options:optionsCopy completionHandler:v21];
+}
 
 void __106__RMProviderStore_createStoreWithType_scope_defaultToInteractive_dataSeparated_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
@@ -220,7 +248,7 @@ void __53__RMProviderStore_storesWithScope_completionHandler___block_invoke(uint
 
 void __53__RMProviderStore_storesWithScope_completionHandler___block_invoke_22(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -241,29 +269,29 @@ void __53__RMProviderStore_storesWithScope_completionHandler___block_invoke_22(u
       _os_log_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched stores", buf, 2u);
     }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v14 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v14}];
+          [*(*(&v13 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v13}];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v10);
@@ -273,8 +301,6 @@ void __53__RMProviderStore_storesWithScope_completionHandler___block_invoke_22(u
   }
 
   v7();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyChangesWithCompletionHandler:(id)handler
@@ -539,20 +565,20 @@ void __84__RMProviderStore_linkStoreToProfileIdentifier_accountIdentifier_comple
   keyCopy = key;
   xpcConnection = [(RMBaseStore *)self xpcConnection];
   connection = [xpcConnection connection];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __49__RMProviderStore_setMetadataValue_forKey_error___block_invoke;
-  v22[3] = &unk_279B05448;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __49__RMProviderStore_setMetadataValue_forKey_error___block_invoke;
+  v25[3] = &unk_279B05448;
   v12 = keyCopy;
-  v23 = v12;
-  v13 = [connection synchronousRemoteObjectProxyWithErrorHandler:v22];
+  v26 = v12;
+  v13 = [connection synchronousRemoteObjectProxyWithErrorHandler:v25];
 
   v19 = 0;
-  v20[0] = &v19;
-  v20[1] = 0x3032000000;
-  v20[2] = __Block_byref_object_copy__3;
-  v20[3] = __Block_byref_object_dispose__3;
-  v21 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__3;
+  v23 = __Block_byref_object_dispose__3;
+  v24 = 0;
   identifier = [(RMBaseStore *)self identifier];
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
@@ -561,12 +587,12 @@ void __84__RMProviderStore_linkStoreToProfileIdentifier_accountIdentifier_comple
   v18[4] = &v19;
   [v13 setMetadataValue:valueCopy forKey:v12 storeIdentifier:identifier completionHandler:v18];
 
-  v15 = *(v20[0] + 40);
+  v15 = v20[5];
   if (v15)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      [RMProviderStore setMetadataValue:v12 forKey:v20 error:?];
+      [RMProviderStore setMetadataValue:forKey:error:];
       if (!error)
       {
         goto LABEL_8;
@@ -578,7 +604,7 @@ void __84__RMProviderStore_linkStoreToProfileIdentifier_accountIdentifier_comple
       goto LABEL_8;
     }
 
-    v16 = *(v20[0] + 40);
+    v16 = v20[5];
     if (v16)
     {
       *error = v16;
@@ -628,125 +654,33 @@ void __49__RMProviderStore_setMetadataValue_forKey_error___block_invoke(uint64_t
   return [(RMBaseStore *)&v4 isEqualToStore:store];
 }
 
-void __106__RMProviderStore_createStoreWithType_scope_defaultToInteractive_dataSeparated_options_completionHandler___block_invoke_cold_1()
+- (void)setMetadataValue:forKey:error:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while creating store: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __106__RMProviderStore_createStoreWithType_scope_defaultToInteractive_dataSeparated_options_completionHandler___block_invoke_18_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to create store: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __69__RMProviderStore_removeStoreWithIdentifier_scope_completionHandler___block_invoke_20_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to remove store: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __53__RMProviderStore_applyChangesWithCompletionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while applying changes for store: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __53__RMProviderStore_applyChangesWithCompletionHandler___block_invoke_24_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to apply changes for store: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __69__RMProviderStore_deleteDeclarationWithIdentifier_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while deleting declaration: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __69__RMProviderStore_deleteDeclarationWithIdentifier_completionHandler___block_invoke_25_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to delete declaration: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __53__RMProviderStore_saveDeclaration_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while saving declaration: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __53__RMProviderStore_saveDeclaration_completionHandler___block_invoke_26_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to save declaration: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __84__RMProviderStore_linkStoreToProfileIdentifier_accountIdentifier_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while linking store: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __84__RMProviderStore_linkStoreToProfileIdentifier_accountIdentifier_completionHandler___block_invoke_27_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to link store: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setMetadataValue:(uint64_t)a1 forKey:(uint64_t)a2 error:.cold.1(uint64_t a1, uint64_t a2)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_5();
-  v6 = 2114;
-  v7 = v3;
-  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to set metadata key %{public}@: %{public}@", v5, 0x16u);
   v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5();
+  v2 = 2114;
+  v3 = v0;
+  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to set metadata key %{public}@: %{public}@", v1, 0x16u);
 }
 
 - (void)setMetadataValue:forKey:error:.cold.2()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
-  v3 = 2114;
-  v4 = v0;
-  _os_log_debug_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Set metadata key %{public}@: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 2114;
+  v3 = v0;
+  _os_log_debug_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Set metadata key %{public}@: %{public}@", v1, 0x16u);
 }
 
 void __49__RMProviderStore_setMetadataValue_forKey_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138543618;
-  v5 = v2;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed XPC connection while setting metadata key %{public}@: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = v2;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed XPC connection while setting metadata key %{public}@: %{public}@", &v3, 0x16u);
 }
 
 @end

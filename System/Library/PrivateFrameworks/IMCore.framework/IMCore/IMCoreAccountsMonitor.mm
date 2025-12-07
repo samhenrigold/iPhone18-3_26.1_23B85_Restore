@@ -10,19 +10,19 @@
 
 - (IMCoreAccountsMonitor)init
 {
-  v12.receiver = self;
-  v12.super_class = IMCoreAccountsMonitor;
-  v2 = [(IMCoreAccountsMonitor *)&v12 init];
+  v9.receiver = self;
+  v9.super_class = IMCoreAccountsMonitor;
+  v2 = [(IMCoreAccountsMonitor *)&v9 init];
   if (v2)
   {
     v3 = dispatch_queue_create("IMCoreAccountsMonitor", 0);
     queue = v2->_queue;
     v2->_queue = v3;
 
-    v7 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v5, v6);
-    v8 = *MEMORY[0x1E6959968];
-    v9 = sub_1A8394BB0();
-    objc_msgSend_addObserver_selector_name_object_(v7, v10, v2, sel_accountStoreDidChange_, v8, v9);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    v6 = *MEMORY[0x1E6959968];
+    v7 = sub_1A8394BB0(defaultCenter);
+    [defaultCenter addObserver:v2 selector:sel_accountStoreDidChange_ name:v6 object:v7];
   }
 
   return v2;
@@ -42,10 +42,10 @@
 
 - (BOOL)isSignedIntoiCloud
 {
-  v3 = objc_msgSend__cachedPrimaryAppleAccount(self, a2, v2);
-  v4 = v3 != 0;
+  _cachedPrimaryAppleAccount = [(IMCoreAccountsMonitor *)self _cachedPrimaryAppleAccount];
+  v3 = _cachedPrimaryAppleAccount != 0;
 
-  return v4;
+  return v3;
 }
 
 - (id)_cachedPrimaryAppleAccount
@@ -72,11 +72,11 @@
 
 - (void)accountStoreDidChange:(id)change
 {
-  v4 = objc_msgSend_userInfo(change, a2, change);
-  v6 = objc_msgSend_objectForKeyedSubscript_(v4, v5, *MEMORY[0x1E69598B8]);
-  isEqualToString = objc_msgSend_isEqualToString_(v6, v7, *MEMORY[0x1E69597F8]);
+  userInfo = [change userInfo];
+  v5 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69598B8]];
+  v6 = [v5 isEqualToString:*MEMORY[0x1E69597F8]];
 
-  if (isEqualToString)
+  if (v6)
   {
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];

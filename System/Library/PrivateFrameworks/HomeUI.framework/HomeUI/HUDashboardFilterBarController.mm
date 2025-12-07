@@ -186,8 +186,8 @@
 
 - (void)diffableDataItemManager:(id)manager willUpdateItems:(id)items addItems:(id)addItems removeItems:(id)removeItems isInitialLoad:(BOOL)load
 {
-  sub_20CECF940(0, &qword_281120AC0);
-  sub_20CEF7F74(&qword_281120AB0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
+  sub_20CEF7F74(&qword_281120AB0, &qword_281120AC0, 0x277D14748);
   v10 = sub_20D567D08();
   v11 = sub_20D567D08();
   v12 = sub_20D567D08();
@@ -224,7 +224,7 @@
 
 - (BOOL)canReorderItemAtIndexPath:(id)path
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D5C0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D5C0, &qword_20D5BF6D0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v13 - v6;
   if (path)
@@ -243,7 +243,7 @@
   selfCopy = self;
   v11 = sub_20D09F0B0();
 
-  sub_20CEF928C(v7, &qword_27C81D5C0);
+  sub_20CEF928C(v7, &qword_27C81D5C0, &qword_20D5BF6D0);
   return v11 & 1;
 }
 

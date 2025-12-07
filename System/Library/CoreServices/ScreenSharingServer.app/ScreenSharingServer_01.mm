@@ -1,3 +1,188 @@
+uint64_t sub_1000398E4(uint64_t a1, int a2, dispatch_semaphore_t *a3)
+{
+  if (!a1)
+  {
+    v5 = sub_1000423E0();
+    if (v5)
+    {
+      v6 = sub_100042E68(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        v12 = 136315394;
+        v13 = "RDCreateSemaphore";
+        v14 = 1024;
+        v15 = 17;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "[%s:%d] RDCreateSemaphore requires maximumValue > 0", &v12, 0x12u);
+      }
+    }
+
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/common/RDSemaphore.c", 87, 17, "RDCreateSemaphore", 3, 0, "RDCreateSemaphore requires maximumValue > 0");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (a2)
+  {
+    v3 = sub_1000423E0();
+    if (v3)
+    {
+      v4 = sub_100042E68(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      {
+        v12 = 136315394;
+        v13 = "RDCreateSemaphore";
+        v14 = 1024;
+        v15 = 21;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "[%s:%d] RDCreateSemaphore requires initialValue == 0", &v12, 0x12u);
+      }
+    }
+
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/common/RDSemaphore.c", 87, 21, "RDCreateSemaphore", 3, 0, "RDCreateSemaphore requires initialValue == 0");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (!a3)
+  {
+    v10 = sub_1000423E0();
+    if (v10)
+    {
+      v11 = sub_100042E68(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        v12 = 136315394;
+        v13 = "RDCreateSemaphore";
+        v14 = 1024;
+        v15 = 25;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "[%s:%d] RDCreateSemaphore requires semaphore != NULL", &v12, 0x12u);
+      }
+    }
+
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/common/RDSemaphore.c", 87, 25, "RDCreateSemaphore", 3, 0, "RDCreateSemaphore requires semaphore != NULL");
+    return 0xFFFFFFFFLL;
+  }
+
+  v9 = dispatch_semaphore_create((a1 - 1));
+  *a3 = v9;
+  if (v9)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return 0xFFFFFFFFLL;
+  }
+}
+
+uint64_t sub_100039B0C(NSObject *a1)
+{
+  if (a1)
+  {
+    dispatch_semaphore_signal(a1);
+    dispatch_release(a1);
+  }
+
+  else
+  {
+    v2 = sub_1000423E0();
+    if (v2)
+    {
+      v3 = sub_100042E68(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      {
+        v5 = 136315394;
+        v6 = "RDDeleteSemaphore";
+        v7 = 1024;
+        v8 = 41;
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[%s:%d] RDDeleteSemaphore called with NULL semaphore", &v5, 0x12u);
+      }
+    }
+
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/common/RDSemaphore.c", 87, 41, "RDDeleteSemaphore", 7, 0, "RDDeleteSemaphore called with NULL semaphore");
+  }
+
+  return 0;
+}
+
+uint64_t sub_100039C0C(NSObject *a1)
+{
+  if (a1)
+  {
+    dispatch_semaphore_signal(a1);
+  }
+
+  else
+  {
+    v1 = sub_1000423E0();
+    if (v1)
+    {
+      v2 = sub_100042E68(v1);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      {
+        v4 = 136315394;
+        v5 = "RDSignalSemaphore";
+        v6 = 1024;
+        v7 = 57;
+        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[%s:%d] RDSignalSemaphore called with NULL semaphore", &v4, 0x12u);
+      }
+    }
+
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/common/RDSemaphore.c", 87, 57, "RDSignalSemaphore", 7, 0, "RDSignalSemaphore called with NULL semaphore");
+  }
+
+  return 0;
+}
+
+intptr_t sub_100039D00(NSObject *a1, unsigned int a2)
+{
+  if (a2)
+  {
+    v3 = dispatch_time(0, 1000000 * a2);
+  }
+
+  else
+  {
+    v3 = -1;
+  }
+
+  return dispatch_semaphore_wait(a1, v3);
+}
+
+uint64_t sub_100039D58(size_t size, dispatch_semaphore_t **a2)
+{
+  v3 = size;
+  *a2 = 0;
+  v4 = malloc_type_malloc(size, 0xBB82CD9BuLL);
+  if (!v4)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v5 = v4;
+  v6 = malloc_type_calloc(1uLL, 0x38uLL, 0x10B00406AF97CF0uLL);
+  if (!v6)
+  {
+    free(v5);
+    return 0xFFFFFFFFLL;
+  }
+
+  v7 = v6;
+  *v6 = 1851946342;
+  v6[2] = v5;
+  v8 = sub_100005668();
+  *(v7 + 5) = v8;
+  if (!v8 || (result = sub_1000398E4(1, 0, v7 + 4), result))
+  {
+    sub_100039E1C(v7);
+    return 0xFFFFFFFFLL;
+  }
+
+  *(v7 + 1) = 0;
+  *(v7 + 2) = 0;
+  *(v7 + 6) = v3;
+  *a2 = v7;
+  return result;
+}
+
 uint64_t sub_100039E1C(void *a1)
 {
   if (!a1)
@@ -41,85 +226,87 @@ uint64_t sub_100039EA8(uint64_t a1, unsigned int a2, char *a3)
   if (v6)
   {
     v7 = v6;
-    if (sub_1000423E0())
+    v8 = sub_1000423E0();
+    if (v8)
     {
-      v8 = sub_100042E68();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100042E68(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v22 = "NetBufferRemoveData";
-        v23 = 1024;
-        v24 = 129;
-        v25 = 1024;
-        v26 = v7;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v26 = "NetBufferRemoveData";
+        v27 = 1024;
+        v28 = 129;
+        v29 = 1024;
+        v30 = v7;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
     sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 129, "NetBufferRemoveData", 7, 0, "*****net buff enter cr err %d", v7);
   }
 
-  v10 = *(a1 + 4);
-  v9 = *(a1 + 8);
-  if (v10 >= v9)
+  v11 = *(a1 + 4);
+  v10 = *(a1 + 8);
+  if (v11 >= v10)
   {
-    if (v10 - v9 >= a2)
+    if (v11 - v10 >= a2)
     {
-      memcpy(a3, (*(a1 + 16) + v9), a2);
-      v13 = *(a1 + 8) + a2;
+      memcpy(a3, (*(a1 + 16) + v10), a2);
+      v14 = *(a1 + 8) + a2;
       goto LABEL_28;
     }
   }
 
   else
   {
-    v11 = *(a1 + 24) - v9;
-    if (v11 + v10 >= a2)
+    v12 = *(a1 + 24) - v10;
+    if (v12 + v11 >= a2)
     {
-      v12 = *(a1 + 16);
-      v13 = a2 - v11;
-      if (a2 <= v11)
+      v13 = *(a1 + 16);
+      v14 = a2 - v12;
+      if (a2 <= v12)
       {
-        memcpy(a3, (v12 + v9), a2);
+        memcpy(a3, (v13 + v10), a2);
         if (*(a1 + 8) + a2 == *(a1 + 24))
         {
-          v13 = 0;
+          v14 = 0;
         }
 
         else
         {
-          v13 = *(a1 + 8) + a2;
+          v14 = *(a1 + 8) + a2;
         }
       }
 
       else
       {
-        memcpy(a3, (v12 + v9), (*(a1 + 24) - v9));
-        memcpy(&a3[v11], *(a1 + 16), a2 - v11);
+        memcpy(a3, (v13 + v10), (*(a1 + 24) - v10));
+        memcpy(&a3[v12], *(a1 + 16), a2 - v12);
       }
 
 LABEL_28:
-      *(a1 + 8) = v13;
+      *(a1 + 8) = v14;
       result = [*(a1 + 40) unlock];
       if (result)
       {
-        v19 = result;
-        if (sub_1000423E0())
+        v22 = result;
+        v23 = sub_1000423E0();
+        if (v23)
         {
-          v20 = sub_100042E68();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v24 = sub_100042E68(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v22 = "NetBufferRemoveData";
-            v23 = 1024;
-            v24 = 170;
-            v25 = 1024;
-            v26 = v19;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+            v26 = "NetBufferRemoveData";
+            v27 = 1024;
+            v28 = 170;
+            v29 = 1024;
+            v30 = v22;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
           }
         }
 
-        sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 170, "NetBufferRemoveData", 7, 0, "*****net buff enter cr err %d", v19);
+        sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 170, "NetBufferRemoveData", 7, 0, "*****net buff enter cr err %d", v22);
         return 0;
       }
 
@@ -127,40 +314,42 @@ LABEL_28:
     }
   }
 
-  if (sub_1000423E0())
+  v16 = sub_1000423E0();
+  if (v16)
   {
-    v15 = sub_100042E68();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100042E68(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v22 = "NetBufferRemoveData";
-      v23 = 1024;
-      v24 = 177;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[%s:%d] bail NetBufferRemoveData", buf, 0x12u);
+      v26 = "NetBufferRemoveData";
+      v27 = 1024;
+      v28 = 177;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[%s:%d] bail NetBufferRemoveData", buf, 0x12u);
     }
   }
 
   sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 177, "NetBufferRemoveData", 7, 0, "bail NetBufferRemoveData");
-  v16 = [*(a1 + 40) unlock];
-  if (v16)
+  v18 = [*(a1 + 40) unlock];
+  if (v18)
   {
-    v17 = v16;
-    if (sub_1000423E0())
+    v19 = v18;
+    v20 = sub_1000423E0();
+    if (v20)
     {
-      v18 = sub_100042E68();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_100042E68(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v22 = "NetBufferRemoveData";
-        v23 = 1024;
-        v24 = 180;
-        v25 = 1024;
-        v26 = v17;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v26 = "NetBufferRemoveData";
+        v27 = 1024;
+        v28 = 180;
+        v29 = 1024;
+        v30 = v19;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
-    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 180, "NetBufferRemoveData", 7, 0, "*****net buff enter cr err %d", v17);
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 180, "NetBufferRemoveData", 7, 0, "*****net buff enter cr err %d", v19);
   }
 
   return 4294967294;
@@ -177,53 +366,55 @@ uint64_t sub_10003A284(uint64_t a1, unsigned int a2)
   if (v4)
   {
     v5 = v4;
-    if (sub_1000423E0())
+    v6 = sub_1000423E0();
+    if (v6)
     {
-      v6 = sub_100042E68();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_100042E68(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v19 = "NetBufferSkipData";
-        v20 = 1024;
-        v21 = 210;
-        v22 = 1024;
-        v23 = v5;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v22 = "NetBufferSkipData";
+        v23 = 1024;
+        v24 = 210;
+        v25 = 1024;
+        v26 = v5;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
     sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 210, "NetBufferSkipData", 7, 0, "*****net buff enter cr err %d", v5);
   }
 
-  v8 = *(a1 + 4);
-  v7 = *(a1 + 8);
-  if (v8 >= v7)
+  v9 = *(a1 + 4);
+  v8 = *(a1 + 8);
+  if (v9 >= v8)
   {
-    if (v8 - v7 >= a2)
+    if (v9 - v8 >= a2)
     {
-      v11 = v7 + a2;
+      v12 = v8 + a2;
 LABEL_25:
-      *(a1 + 8) = v11;
+      *(a1 + 8) = v12;
       result = [*(a1 + 40) unlock];
       if (result)
       {
-        v16 = result;
-        if (sub_1000423E0())
+        v18 = result;
+        v19 = sub_1000423E0();
+        if (v19)
         {
-          v17 = sub_100042E68();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v20 = sub_100042E68(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v19 = "NetBufferSkipData";
-            v20 = 1024;
-            v21 = 242;
-            v22 = 1024;
-            v23 = v16;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+            v22 = "NetBufferSkipData";
+            v23 = 1024;
+            v24 = 242;
+            v25 = 1024;
+            v26 = v18;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
           }
         }
 
-        sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 242, "NetBufferSkipData", 7, 0, "*****net buff enter cr err %d", v16);
+        sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 242, "NetBufferSkipData", 7, 0, "*****net buff enter cr err %d", v18);
         return 0;
       }
 
@@ -233,45 +424,46 @@ LABEL_25:
 
   else
   {
-    v9 = *(a1 + 24);
-    v10 = v9 - v7;
-    if (v9 - v7 + v8 >= a2)
+    v10 = *(a1 + 24);
+    v11 = v10 - v8;
+    if (v10 - v8 + v9 >= a2)
     {
-      v11 = v7 + a2;
-      if (v11 == v9)
+      v12 = v8 + a2;
+      if (v12 == v10)
       {
-        v11 = 0;
+        v12 = 0;
       }
 
-      if (a2 > v10)
+      if (a2 > v11)
       {
-        v11 = a2 - v10;
+        v12 = a2 - v11;
       }
 
       goto LABEL_25;
     }
   }
 
-  v13 = [*(a1 + 40) unlock];
-  if (v13)
+  v14 = [*(a1 + 40) unlock];
+  if (v14)
   {
-    v14 = v13;
-    if (sub_1000423E0())
+    v15 = v14;
+    v16 = sub_1000423E0();
+    if (v16)
     {
-      v15 = sub_100042E68();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100042E68(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v19 = "NetBufferSkipData";
-        v20 = 1024;
-        v21 = 248;
-        v22 = 1024;
-        v23 = v14;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v22 = "NetBufferSkipData";
+        v23 = 1024;
+        v24 = 248;
+        v25 = 1024;
+        v26 = v15;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
-    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 248, "NetBufferSkipData", 7, 0, "*****net buff enter cr err %d", v14);
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 248, "NetBufferSkipData", 7, 0, "*****net buff enter cr err %d", v15);
   }
 
   return 4294967294;
@@ -288,76 +480,78 @@ uint64_t sub_10003A56C(uint64_t a1, unsigned int a2, char *a3)
   if (v6)
   {
     v7 = v6;
-    if (sub_1000423E0())
+    v8 = sub_1000423E0();
+    if (v8)
     {
-      v8 = sub_100042E68();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100042E68(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v23 = "NetBufferViewData";
-        v24 = 1024;
-        v25 = 277;
-        v26 = 1024;
-        v27 = v7;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v26 = "NetBufferViewData";
+        v27 = 1024;
+        v28 = 277;
+        v29 = 1024;
+        v30 = v7;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
     sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 277, "NetBufferViewData", 7, 0, "*****net buff enter cr err %d", v7);
   }
 
-  v10 = *(a1 + 4);
-  v9 = *(a1 + 8);
-  if (v10 >= v9)
+  v11 = *(a1 + 4);
+  v10 = *(a1 + 8);
+  if (v11 >= v10)
   {
-    if (v10 - v9 >= a2)
+    if (v11 - v10 >= a2)
     {
-      v12 = *(a1 + 16);
+      v13 = *(a1 + 16);
       goto LABEL_22;
     }
   }
 
   else
   {
-    v11 = *(a1 + 24) - v9;
-    if (v11 + v10 >= a2)
+    v12 = *(a1 + 24) - v10;
+    if (v12 + v11 >= a2)
     {
-      v12 = *(a1 + 16);
-      if (a2 > v11)
+      v13 = *(a1 + 16);
+      if (a2 > v12)
       {
-        memcpy(a3, (v12 + v9), (*(a1 + 24) - v9));
-        v13 = &a3[v11];
-        v14 = *(a1 + 16);
-        v15 = a2 - v11;
+        memcpy(a3, (v13 + v10), (*(a1 + 24) - v10));
+        v14 = &a3[v12];
+        v15 = *(a1 + 16);
+        v16 = a2 - v12;
         goto LABEL_23;
       }
 
 LABEL_22:
-      v15 = a2;
-      v14 = (v12 + v9);
-      v13 = a3;
+      v16 = a2;
+      v15 = (v13 + v10);
+      v14 = a3;
 LABEL_23:
-      memcpy(v13, v14, v15);
+      memcpy(v14, v15, v16);
       result = [*(a1 + 40) unlock];
       if (result)
       {
-        v20 = result;
-        if (sub_1000423E0())
+        v22 = result;
+        v23 = sub_1000423E0();
+        if (v23)
         {
-          v21 = sub_100042E68();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v24 = sub_100042E68(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v23 = "NetBufferViewData";
-            v24 = 1024;
-            v25 = 308;
-            v26 = 1024;
-            v27 = v20;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+            v26 = "NetBufferViewData";
+            v27 = 1024;
+            v28 = 308;
+            v29 = 1024;
+            v30 = v22;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
           }
         }
 
-        sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 308, "NetBufferViewData", 7, 0, "*****net buff enter cr err %d", v20);
+        sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 308, "NetBufferViewData", 7, 0, "*****net buff enter cr err %d", v22);
         return 0;
       }
 
@@ -365,26 +559,27 @@ LABEL_23:
     }
   }
 
-  v17 = [*(a1 + 40) unlock];
-  if (v17)
+  v18 = [*(a1 + 40) unlock];
+  if (v18)
   {
-    v18 = v17;
-    if (sub_1000423E0())
+    v19 = v18;
+    v20 = sub_1000423E0();
+    if (v20)
     {
-      v19 = sub_100042E68();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_100042E68(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v23 = "NetBufferViewData";
-        v24 = 1024;
-        v25 = 314;
-        v26 = 1024;
-        v27 = v18;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v26 = "NetBufferViewData";
+        v27 = 1024;
+        v28 = 314;
+        v29 = 1024;
+        v30 = v19;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
-    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 314, "NetBufferViewData", 7, 0, "*****net buff enter cr err %d", v18);
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 314, "NetBufferViewData", 7, 0, "*****net buff enter cr err %d", v19);
   }
 
   return 4294967294;
@@ -401,75 +596,77 @@ uint64_t sub_10003A880(uint64_t a1, unsigned int a2, char *a3)
   if (v6)
   {
     v7 = v6;
-    if (sub_1000423E0())
+    v8 = sub_1000423E0();
+    if (v8)
     {
-      v8 = sub_100042E68();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100042E68(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v21 = "NetBufferAddData";
-        v22 = 1024;
-        v23 = 346;
-        v24 = 1024;
-        v25 = v7;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v24 = "NetBufferAddData";
+        v25 = 1024;
+        v26 = 346;
+        v27 = 1024;
+        v28 = v7;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
     sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 346, "NetBufferAddData", 7, 0, "*****net buff enter cr err %d", v7);
   }
 
-  v9 = *(a1 + 4);
-  v10 = *(a1 + 8);
-  if (v10 <= v9)
+  v10 = *(a1 + 4);
+  v11 = *(a1 + 8);
+  if (v11 <= v10)
   {
-    v13 = *(a1 + 24) - v9;
-    if (v13 + v10 > a2)
+    v14 = *(a1 + 24) - v10;
+    if (v14 + v11 > a2)
     {
-      v14 = *(a1 + 16);
-      v11 = a2 - v13;
-      if (a2 <= v13)
+      v15 = *(a1 + 16);
+      v12 = a2 - v14;
+      if (a2 <= v14)
       {
-        memcpy((v14 + v9), a3, a2);
+        memcpy((v15 + v10), a3, a2);
         if (*(a1 + 4) + a2 == *(a1 + 24))
         {
-          v11 = 0;
+          v12 = 0;
         }
 
         else
         {
-          v11 = *(a1 + 4) + a2;
+          v12 = *(a1 + 4) + a2;
         }
       }
 
       else
       {
-        memcpy((v14 + v9), a3, (*(a1 + 24) - v9));
-        memcpy(*(a1 + 16), &a3[v13], a2 - v13);
+        memcpy((v15 + v10), a3, (*(a1 + 24) - v10));
+        memcpy(*(a1 + 16), &a3[v14], a2 - v14);
       }
 
 LABEL_25:
-      *(a1 + 4) = v11;
+      *(a1 + 4) = v12;
       result = [*(a1 + 40) unlock];
       if (result)
       {
-        v18 = result;
-        if (sub_1000423E0())
+        v20 = result;
+        v21 = sub_1000423E0();
+        if (v21)
         {
-          v19 = sub_100042E68();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v22 = sub_100042E68(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v21 = "NetBufferAddData";
-            v22 = 1024;
-            v23 = 385;
-            v24 = 1024;
-            v25 = v18;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+            v24 = "NetBufferAddData";
+            v25 = 1024;
+            v26 = 385;
+            v27 = 1024;
+            v28 = v20;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
           }
         }
 
-        sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 385, "NetBufferAddData", 7, 0, "*****net buff enter cr err %d", v18);
+        sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 385, "NetBufferAddData", 7, 0, "*****net buff enter cr err %d", v20);
         return 0;
       }
 
@@ -477,33 +674,34 @@ LABEL_25:
     }
   }
 
-  else if (v10 - v9 > a2)
+  else if (v11 - v10 > a2)
   {
-    memcpy((*(a1 + 16) + v9), a3, a2);
-    v11 = *(a1 + 4) + a2;
+    memcpy((*(a1 + 16) + v10), a3, a2);
+    v12 = *(a1 + 4) + a2;
     goto LABEL_25;
   }
 
-  v15 = [*(a1 + 40) unlock];
-  if (v15)
+  v16 = [*(a1 + 40) unlock];
+  if (v16)
   {
-    v16 = v15;
-    if (sub_1000423E0())
+    v17 = v16;
+    v18 = sub_1000423E0();
+    if (v18)
     {
-      v17 = sub_100042E68();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100042E68(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v21 = "NetBufferAddData";
-        v22 = 1024;
-        v23 = 392;
-        v24 = 1024;
-        v25 = v16;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v24 = "NetBufferAddData";
+        v25 = 1024;
+        v26 = 392;
+        v27 = 1024;
+        v28 = v17;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
-    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 392, "NetBufferAddData", 7, 0, "*****net buff enter cr err %d", v16);
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 392, "NetBufferAddData", 7, 0, "*****net buff enter cr err %d", v17);
   }
 
   return 4294967294;
@@ -520,55 +718,57 @@ uint64_t sub_10003ABCC(uint64_t a1)
   if (v2)
   {
     v3 = v2;
-    if (sub_1000423E0())
+    v4 = sub_1000423E0();
+    if (v4)
     {
-      v4 = sub_100042E68();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = sub_100042E68(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v13 = "NetBufferAvailableData";
-        v14 = 1024;
-        v15 = 491;
+        v15 = "NetBufferAvailableData";
         v16 = 1024;
-        v17 = v3;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v17 = 491;
+        v18 = 1024;
+        v19 = v3;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
     sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 491, "NetBufferAvailableData", 7, 0, "*****net buff enter cr err %d", v3);
   }
 
-  v5 = *(a1 + 4);
-  v6 = *(a1 + 8);
-  v7 = v5 - v6;
-  if (v5 < v6)
+  v6 = *(a1 + 4);
+  v7 = *(a1 + 8);
+  v8 = v6 - v7;
+  if (v6 < v7)
   {
-    v7 = (v7 + *(a1 + 24));
+    v8 = (v8 + *(a1 + 24));
   }
 
-  v8 = [*(a1 + 40) unlock];
-  if (v8)
+  v9 = [*(a1 + 40) unlock];
+  if (v9)
   {
-    v9 = v8;
-    if (sub_1000423E0())
+    v10 = v9;
+    v11 = sub_1000423E0();
+    if (v11)
     {
-      v10 = sub_100042E68();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100042E68(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v13 = "NetBufferAvailableData";
-        v14 = 1024;
-        v15 = 500;
+        v15 = "NetBufferAvailableData";
         v16 = 1024;
-        v17 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
+        v17 = 500;
+        v18 = 1024;
+        v19 = v10;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%s:%d] *****net buff enter cr err %d", buf, 0x18u);
       }
     }
 
-    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 500, "NetBufferAvailableData", 7, 0, "*****net buff enter cr err %d", v9);
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NetBuffer.c", 88, 500, "NetBufferAvailableData", 7, 0, "*****net buff enter cr err %d", v10);
   }
 
-  return v7;
+  return v8;
 }
 
 _DWORD *sub_10003ADC0(_DWORD *result)
@@ -590,6 +790,13 @@ _DWORD *sub_10003ADC0(_DWORD *result)
   return result;
 }
 
+void sub_10003FE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_10003FF18(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -599,18 +806,19 @@ void sub_10003FF18(uint64_t a1, void *a2, void *a3)
     v7 = [a3 description];
     v8 = [v7 UTF8String];
 
-    if (sub_1000423E0())
+    v9 = sub_1000423E0();
+    if (v9)
     {
-      v9 = sub_100042E68();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100042E68(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v15 = "MailUseCellularData_block_invoke";
-        v16 = 1024;
-        v17 = 813;
-        v18 = 2080;
-        v19 = v8;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%s:%d] Failed to get the policy for Mail %s", buf, 0x1Cu);
+        v16 = "MailUseCellularData_block_invoke";
+        v17 = 1024;
+        v18 = 813;
+        v19 = 2080;
+        v20 = v8;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%s:%d] Failed to get the policy for Mail %s", buf, 0x1Cu);
       }
     }
 
@@ -619,14 +827,14 @@ void sub_10003FF18(uint64_t a1, void *a2, void *a3)
 
   else if ([v5 count])
   {
-    v10 = [v6 allObjects];
-    v11 = [v10 objectAtIndexedSubscript:0];
+    v11 = [v6 allObjects];
+    v12 = [v11 objectAtIndexedSubscript:0];
 
-    v12 = off_100070718;
-    v13 = [v11 bundleId];
-    LODWORD(v12) = [(__CFString *)v12 isEqualToString:v13];
+    v13 = off_100070718;
+    v14 = [v12 bundleId];
+    LODWORD(v13) = [(__CFString *)v13 isEqualToString:v14];
 
-    if (v12 && ![v11 cellular])
+    if (v13 && ![v12 cellular])
     {
       *(*(*(a1 + 40) + 8) + 24) = 0;
     }
@@ -642,18 +850,19 @@ void sub_1000400E4(uint64_t a1, uint64_t a2, void *a3)
     v4 = [a3 description];
     v5 = [v4 UTF8String];
 
-    if (sub_1000423E0())
+    v6 = sub_1000423E0();
+    if (v6)
     {
-      v6 = sub_100042E68();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_100042E68(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v8 = "FindMyDeviceEnabled_block_invoke";
-        v9 = 1024;
-        v10 = 782;
-        v11 = 2080;
-        v12 = v5;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%s:%d] Failed to get the FMD state error = %s", buf, 0x1Cu);
+        v9 = "FindMyDeviceEnabled_block_invoke";
+        v10 = 1024;
+        v11 = 782;
+        v12 = 2080;
+        v13 = v5;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%s:%d] Failed to get the FMD state error = %s", buf, 0x1Cu);
       }
     }
 
@@ -697,26 +906,28 @@ uint64_t sub_1000402B4(uint64_t *a1)
   return result;
 }
 
-uint64_t sub_100040350(int a1)
+uint64_t sub_100040350(uint64_t a1)
 {
-  if (sub_1000423E0())
+  v1 = a1;
+  v2 = sub_1000423E0();
+  if (v2)
   {
-    v2 = sub_100042E68();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100042E68(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v5 = "Pause_SetFlag";
-      v6 = 1024;
-      v7 = 17;
-      v8 = 1024;
-      v9 = a1;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[%s:%d] set pause flag to %d", buf, 0x18u);
+      v6 = "Pause_SetFlag";
+      v7 = 1024;
+      v8 = 17;
+      v9 = 1024;
+      v10 = v1;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[%s:%d] set pause flag to %d", buf, 0x18u);
     }
   }
 
-  sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/Pause.c", 74, 17, "Pause_SetFlag", 7, 0, "set pause flag to %d", a1);
+  sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/Pause.c", 74, 17, "Pause_SetFlag", 7, 0, "set pause flag to %d", v1);
   _os_nospin_lock_lock();
-  byte_100070AB0 = a1;
+  byte_100070AB0 = v1;
   return _os_nospin_lock_unlock();
 }
 
@@ -760,9 +971,9 @@ void sub_100040AB4(id a1, NSDictionary *a2, NSError *a3)
   }
 }
 
-void sub_100041620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100041620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -807,9 +1018,9 @@ void sub_100041668(uint64_t a1, void *a2, void *a3)
   atomic_compare_exchange_strong((*(a1 + 32) + 8), &v9, 0);
 }
 
-void sub_1000417B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000417B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -831,25 +1042,25 @@ uint64_t sub_100042348(unsigned int a1)
 {
   if (!qword_100070AC8)
   {
-    v2 = _os_nospin_lock_lock();
+    _os_nospin_lock_lock();
     if (!qword_100070AC8)
     {
-      sub_100042EF0(v2);
+      sub_100042EF0();
     }
 
     _os_nospin_lock_unlock();
   }
 
   pthread_mutex_lock(&stru_100070780);
-  v3 = qword_100070AC8;
+  v2 = qword_100070AC8;
   if (qword_100070AC8)
   {
-    v4 = a1 >= 7 ? 7 : a1;
-    *(qword_100070AC8 + 8) = v4;
-    v5 = *(v3 + 16);
-    if (v5)
+    v3 = a1 >= 7 ? 7 : a1;
+    *(qword_100070AC8 + 8) = v3;
+    v4 = *(v2 + 16);
+    if (v4)
     {
-      sub_1000435E4(v5, v4);
+      sub_1000435E4(v4, v3);
     }
   }
 
@@ -880,10 +1091,10 @@ uint64_t sub_100042414(uint64_t result)
     goto LABEL_5;
   }
 
-  v3 = _os_nospin_lock_lock();
+  _os_nospin_lock_lock();
   if (!qword_100070AC8)
   {
-    sub_100042EF0(v3);
+    sub_100042EF0();
   }
 
   result = _os_nospin_lock_unlock();
@@ -930,15 +1141,15 @@ __CFBundle *sub_10004254C()
     {
       v1 = result;
       value = 0;
+      v14 = 0;
+      v11 = 0;
       v12 = 0;
-      v9 = 0;
-      v10 = 0;
       CFDictionaryGetValueIfPresent(result, @"CFBundleVersion", &value);
-      CFDictionaryGetValueIfPresent(v1, @"CFBundleShortVersionString", &v12);
-      sub_100042470(&v10, &v9);
-      v2 = v9;
-      v3 = v10;
-      v4 = CFStringCreateWithFormat(0, 0, @"START LOGGING: OSVersion=%@ OSBuildVersion=%@ CFBundleVersion=%@ CFBundleShortVersionString=%@", v10, v9, value, v12);
+      CFDictionaryGetValueIfPresent(v1, @"CFBundleShortVersionString", &v14);
+      sub_100042470(&v12, &v11);
+      v2 = v11;
+      v3 = v12;
+      v4 = CFStringCreateWithFormat(0, 0, @"START LOGGING: OSVersion=%@ OSBuildVersion=%@ CFBundleVersion=%@ CFBundleShortVersionString=%@", v12, v11, value, v14);
       CStringPtr = CFStringGetCStringPtr(v4, 0x8000100u);
       if (qword_100070AC8)
       {
@@ -950,33 +1161,43 @@ __CFBundle *sub_10004254C()
         v6 = 5;
       }
 
-      sub_100042348(6u);
+      v7 = sub_100042348(6u);
       if (!qword_100070AC8 || *(qword_100070AC8 + 12) != 1 || (byte_100070B10 & 1) == 0)
       {
-        v7 = sub_100042E68();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = sub_100042E68(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
           if (CStringPtr)
           {
-            v8 = CStringPtr;
+            v9 = CStringPtr;
           }
 
           else
           {
-            v8 = "START LOGGING: (error, no log string)";
+            v9 = "START LOGGING: (error, no log string)";
           }
 
-          v14 = "ardlog_log_version_info";
-          v15 = 1024;
-          v16 = 278;
-          v17 = 2080;
-          v18 = v8;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%s:%d] %s", buf, 0x1Cu);
+          v16 = "ardlog_log_version_info";
+          v17 = 1024;
+          v18 = 278;
+          v19 = 2080;
+          v20 = v9;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%s:%d] %s", buf, 0x1Cu);
         }
       }
 
-      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/common/Log.m", 79, 278, "ardlog_log_version_info", 6, 0, "%s");
+      if (CStringPtr)
+      {
+        v10 = CStringPtr;
+      }
+
+      else
+      {
+        v10 = "START LOGGING: (error, no log string)";
+      }
+
+      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/common/Log.m", 79, 278, "ardlog_log_version_info", 6, 0, "%s", v10);
       if (v4)
       {
         CFRelease(v4);
@@ -999,7 +1220,7 @@ __CFBundle *sub_10004254C()
   return result;
 }
 
-void sub_100042760(unint64_t a1, int a2, int a3, const char *a4, char a5, const char *a6, char *a7, ...)
+void sub_100042760(unint64_t a1, int a2, uint64_t a3, const char *a4, char a5, const char *a6, char *a7, ...)
 {
   va_start(va, a7);
   v14 = qword_100070AC8;
@@ -1032,10 +1253,10 @@ __CFBundle *sub_100042824(const char *a1)
 {
   if (!qword_100070AC8)
   {
-    v2 = _os_nospin_lock_lock();
+    _os_nospin_lock_lock();
     if (!qword_100070AC8)
     {
-      sub_100042EF0(v2);
+      sub_100042EF0();
     }
 
     _os_nospin_lock_unlock();
@@ -1044,12 +1265,12 @@ __CFBundle *sub_100042824(const char *a1)
   pthread_mutex_lock(&stru_100070780);
   if (qword_100070AC8 && !*(qword_100070AC8 + 16))
   {
-    v3 = sub_1000434BC(a1);
-    v4 = qword_100070AC8;
-    *(qword_100070AC8 + 16) = v3;
-    if (v3)
+    v2 = sub_1000434BC(a1);
+    v3 = qword_100070AC8;
+    *(qword_100070AC8 + 16) = v2;
+    if (v2)
     {
-      sub_1000435E4(v3, *(v4 + 8));
+      sub_1000435E4(v2, *(v3 + 8));
       *(qword_100070AC8 + 24) = strdup(a1);
     }
 
@@ -1064,7 +1285,7 @@ __CFBundle *sub_100042824(const char *a1)
   return sub_10004254C();
 }
 
-void sub_1000428F8(unint64_t a1, int a2, int a3, const char *a4, int a5, char *a6, ...)
+void sub_1000428F8(unint64_t a1, int a2, uint64_t a3, const char *a4, int a5, char *a6, ...)
 {
   va_start(va, a6);
   if (!qword_100070AC8)
@@ -1091,8 +1312,10 @@ void sub_1000428F8(unint64_t a1, int a2, int a3, const char *a4, int a5, char *a
   sub_1000429D4(qword_100070AC8, a5 & 7, a1, a2, a3, 1, a4, v12, a6, va);
 }
 
-void sub_1000429D4(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, int a5, int a6, const char *a7, const char *a8, char *a9, va_list ap)
+void sub_1000429D4(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, const char *a8, char *a9, va_list ap)
 {
+  v11 = a6;
+  v12 = a2;
   v13 = a1;
   if (a1 || (v13 = qword_100070AC8) != 0)
   {
@@ -1123,14 +1346,14 @@ void sub_1000429D4(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, int 
           asprintf(&v24, "%-14s %s", a8, v26);
           if (v24)
           {
-            sub_1000435EC(*(v13 + 16), a2, v24, v25);
+            sub_1000435EC(*(v13 + 16), v12, v24, v25);
             free(v24);
           }
         }
 
         else
         {
-          sub_1000435EC(*(v13 + 16), a2, a9, v25);
+          sub_1000435EC(*(v13 + 16), v12, a9, v25);
         }
       }
 
@@ -1150,7 +1373,7 @@ void sub_1000429D4(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, int 
         }
       }
 
-      if (a2 <= 5 && a6)
+      if (v12 <= 5 && v11)
       {
         if (pthread_mutex_lock(&stru_100070780))
         {
@@ -1160,7 +1383,7 @@ void sub_1000429D4(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, int 
             v21 = a9;
           }
 
-          vsyslog(a2, v21, ap);
+          vsyslog(v12, v21, ap);
         }
 
         else
@@ -1173,7 +1396,7 @@ void sub_1000429D4(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, int 
             v23 = a9;
           }
 
-          asl_vlog(*v13, v22, a2, v23, ap);
+          asl_vlog(*v13, v22, v12, v23, ap);
           pthread_mutex_unlock(&stru_100070780);
           asl_free(v22);
         }
@@ -1188,15 +1411,15 @@ void sub_1000429D4(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, int 
 
   else
   {
-    syslog(3, "ardlog - ardlog_initialize needs to be called");
-    vsyslog(a2, a9, ap);
+    syslog(3, "ardlog - ardlog_initialize needs to be called", a3, a4, a5, a6, a7);
+    vsyslog(v12, a9, ap);
   }
 }
 
-void sub_100042C68(uint64_t a1, int a2, int a3, const char *a4, int a5, const char *a6, unsigned __int8 *a7, unint64_t a8)
+void sub_100042C68(uint64_t result, int a2, unsigned int a3, const char *a4, int a5, const char *a6, unsigned __int8 *a7, unint64_t a8)
 {
   v20 = a7;
-  *v21 = a1;
+  *v21 = result;
   v24 = a4;
   v25 = a6;
   v26 = a5;
@@ -1290,16 +1513,16 @@ LABEL_22:
   }
 }
 
-id sub_100042E68()
+id sub_100042E68(uint64_t a1)
 {
   if (qword_100070AD8 != -1)
   {
     sub_100043A74();
   }
 
-  v1 = qword_100070AD0;
+  v2 = qword_100070AD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100042EAC(id a1)
@@ -1326,7 +1549,7 @@ void sub_100042EF0()
   {
     if (!qword_100070AC8 || *(qword_100070AC8 + 12) != 1 || (byte_100070B10 & 1) == 0)
     {
-      v2 = sub_100042E68();
+      v2 = sub_100042E68(0);
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         v6 = 136315394;
@@ -1378,7 +1601,7 @@ id sub_1000430F0(uint64_t a1, unsigned __int8 *a2, double a3, double a4)
   {
     if (v8)
     {
-      v9 = sub_100042E68();
+      v9 = sub_100042E68(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v17 = 136315394;
@@ -1401,7 +1624,7 @@ id sub_1000430F0(uint64_t a1, unsigned __int8 *a2, double a3, double a4)
   {
     if (v8)
     {
-      v15 = sub_100042E68();
+      v15 = sub_100042E68(v8);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         v17 = 136315394;
@@ -1425,36 +1648,38 @@ id sub_1000430F0(uint64_t a1, unsigned __int8 *a2, double a3, double a4)
 
 void sub_1000432F8(id a1)
 {
-  if (sub_1000423E0())
+  v1 = sub_1000423E0();
+  if (v1)
   {
-    v1 = sub_100042E68();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v2 = sub_100042E68(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v6 = "ProcessAssistCursorMessage_block_invoke";
-      v7 = 1024;
-      v8 = 18;
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "[%s:%d] going to init ssAnnotationRenderer", buf, 0x12u);
+      v8 = "ProcessAssistCursorMessage_block_invoke";
+      v9 = 1024;
+      v10 = 18;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[%s:%d] going to init ssAnnotationRenderer", buf, 0x12u);
     }
   }
 
   sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/SSAssistanceHelper.m", 111, 18, "ProcessAssistCursorMessage_block_invoke", 7, 0, "going to init ssAnnotationRenderer");
-  v2 = +[SSAnnotationRenderer sharedRenderer];
-  v3 = qword_100070AE8;
-  qword_100070AE8 = v2;
+  v3 = +[SSAnnotationRenderer sharedRenderer];
+  v4 = qword_100070AE8;
+  qword_100070AE8 = v3;
 
-  if (sub_1000423E0())
+  v5 = sub_1000423E0();
+  if (v5)
   {
-    v4 = sub_100042E68();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100042E68(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v6 = "ProcessAssistCursorMessage_block_invoke";
-      v7 = 1024;
-      v8 = 21;
-      v9 = 2048;
-      v10 = qword_100070AE8;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[%s:%d] ssAnnotationRenderer inited %p", buf, 0x1Cu);
+      v8 = "ProcessAssistCursorMessage_block_invoke";
+      v9 = 1024;
+      v10 = 21;
+      v11 = 2048;
+      v12 = qword_100070AE8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%s:%d] ssAnnotationRenderer inited %p", buf, 0x1Cu);
     }
   }
 
@@ -1502,7 +1727,7 @@ char *sub_1000434BC(const char *a1)
   return v9;
 }
 
-uint64_t sub_1000435EC(uint64_t result, unsigned int a2, const char *a3, va_list a4)
+uint64_t sub_1000435EC(uint64_t result, signed int a2, const char *a3, va_list a4)
 {
   if (*(result + 80) >= a2)
   {

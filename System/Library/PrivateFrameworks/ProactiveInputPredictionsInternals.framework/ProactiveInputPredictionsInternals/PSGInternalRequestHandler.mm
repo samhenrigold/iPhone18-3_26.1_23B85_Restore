@@ -10,41 +10,41 @@
 
 - (void)sysdiagnoseInformationWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v17 = objc_opt_new();
+  v16 = objc_opt_new();
   v4 = objc_opt_new();
   [(PSGInternalRequestHandler *)self _getPreferredLanguages];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  obj = v25 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+  obj = v24 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
-        v26[0] = @"WB";
-        v10 = [(PSGInternalRequestHandler *)self _getWordBoundaryExperimentInfo:v9, v17];
-        v26[1] = @"ZKW";
-        v27[0] = v10;
+        v9 = *(*(&v21 + 1) + 8 * i);
+        v25[0] = @"WB";
+        v10 = [(PSGInternalRequestHandler *)self _getWordBoundaryExperimentInfo:v9, v16];
+        v25[1] = @"ZKW";
+        v26[0] = v10;
         v11 = [(PSGInternalRequestHandler *)self _getZKWExperimentInfo:v9];
-        v27[1] = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+        v26[1] = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
         [v4 setObject:v12 forKeyedSubscript:v9];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v6 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v6);
@@ -55,11 +55,11 @@
     [v4 setObject:@"No preferredLanguages" forKeyedSubscript:@"Error"];
   }
 
-  [v18 setObject:v4 forKeyedSubscript:@"ExperimentInfo"];
+  [v17 setObject:v4 forKeyedSubscript:@"ExperimentInfo"];
 
-  v21 = 0;
-  v13 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v18 options:3 error:&v21];
-  v14 = v21;
+  v20 = 0;
+  v13 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v17 options:3 error:&v20];
+  v14 = v20;
   if (v13)
   {
     v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v13 encoding:4];
@@ -70,26 +70,24 @@
   {
     completionCopy[2](completionCopy, 0, v14);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getWordBoundaryExperimentInfo:(id)info
 {
-  v23[6] = *MEMORY[0x277D85DE8];
+  v22[6] = *MEMORY[0x277D85DE8];
   v3 = [(PSGExperimentResolver *)self->_experimentResolver getWordBoundarySuggestionsExperimentConfig:info shouldDownloadAssets:0];
-  v22[0] = @"treatment";
+  v21[0] = @"treatment";
   treatmentName = [v3 treatmentName];
-  v23[0] = treatmentName;
-  v22[1] = @"experiment-id";
+  v22[0] = treatmentName;
+  v21[1] = @"experiment-id";
   experimentIdentifiers = [v3 experimentIdentifiers];
   experimentId = [experimentIdentifiers experimentId];
-  v23[1] = experimentId;
-  v22[2] = @"treatment-id";
+  v22[1] = experimentId;
+  v21[2] = @"treatment-id";
   experimentIdentifiers2 = [v3 experimentIdentifiers];
   treatmentId = [experimentIdentifiers2 treatmentId];
-  v23[2] = treatmentId;
-  v22[3] = @"ml-enabled";
+  v22[2] = treatmentId;
+  v21[3] = @"ml-enabled";
   isMLModelEnabled = [v3 isMLModelEnabled];
   v9 = @"NO";
   if (isMLModelEnabled)
@@ -97,8 +95,8 @@
     v9 = @"YES";
   }
 
-  v23[3] = v9;
-  v22[4] = @"model-config";
+  v22[3] = v9;
+  v21[4] = @"model-config";
   inferenceModelConfigPath = [v3 inferenceModelConfigPath];
   lastPathComponent = [inferenceModelConfigPath lastPathComponent];
   v12 = lastPathComponent;
@@ -112,8 +110,8 @@
     v13 = @"nil";
   }
 
-  v23[4] = v13;
-  v22[5] = @"model-file";
+  v22[4] = v13;
+  v21[5] = @"model-file";
   espressoBinFilePath = [v3 espressoBinFilePath];
   lastPathComponent2 = [espressoBinFilePath lastPathComponent];
   v16 = lastPathComponent2;
@@ -127,30 +125,28 @@
     v17 = @"nil";
   }
 
-  v23[5] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v22[5] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
 
   return v18;
 }
 
 - (id)_getZKWExperimentInfo:(id)info
 {
-  v23[6] = *MEMORY[0x277D85DE8];
+  v22[6] = *MEMORY[0x277D85DE8];
   v3 = [(PSGExperimentResolver *)self->_experimentResolver getResponseSuggestionsExperimentConfig:info shouldDownloadAssets:0];
-  v22[0] = @"treatment";
+  v21[0] = @"treatment";
   treatmentName = [v3 treatmentName];
-  v23[0] = treatmentName;
-  v22[1] = @"experiment-id";
+  v22[0] = treatmentName;
+  v21[1] = @"experiment-id";
   experimentIdentifiers = [v3 experimentIdentifiers];
   experimentId = [experimentIdentifiers experimentId];
-  v23[1] = experimentId;
-  v22[2] = @"treatment-id";
+  v22[1] = experimentId;
+  v21[2] = @"treatment-id";
   experimentIdentifiers2 = [v3 experimentIdentifiers];
   treatmentId = [experimentIdentifiers2 treatmentId];
-  v23[2] = treatmentId;
-  v22[3] = @"ml-enabled";
+  v22[2] = treatmentId;
+  v21[3] = @"ml-enabled";
   isMLModelEnabled = [v3 isMLModelEnabled];
   v9 = @"NO";
   if (isMLModelEnabled)
@@ -158,8 +154,8 @@
     v9 = @"YES";
   }
 
-  v23[3] = v9;
-  v22[4] = @"model-config";
+  v22[3] = v9;
+  v21[4] = @"model-config";
   inferenceModelConfigPath = [v3 inferenceModelConfigPath];
   lastPathComponent = [inferenceModelConfigPath lastPathComponent];
   v12 = lastPathComponent;
@@ -173,8 +169,8 @@
     v13 = @"nil";
   }
 
-  v23[4] = v13;
-  v22[5] = @"model-file";
+  v22[4] = v13;
+  v21[5] = @"model-file";
   espressoBinFilePath = [v3 espressoBinFilePath];
   lastPathComponent2 = [espressoBinFilePath lastPathComponent];
   v16 = lastPathComponent2;
@@ -188,10 +184,8 @@
     v17 = @"nil";
   }
 
-  v23[5] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v22[5] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
 
   return v18;
 }

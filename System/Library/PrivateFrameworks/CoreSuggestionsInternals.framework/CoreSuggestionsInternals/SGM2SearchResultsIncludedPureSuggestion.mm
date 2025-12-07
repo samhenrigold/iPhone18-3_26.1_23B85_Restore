@@ -1,6 +1,7 @@
 @interface SGM2SearchResultsIncludedPureSuggestion
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
+- (id)appAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -118,18 +119,17 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    app = self->_app;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -240,6 +240,21 @@ LABEL_9:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)appAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894B340[string];
   }
 
   return v4;

@@ -1,4757 +1,4052 @@
-void re::StencilPtInjectionNode::~StencilPtInjectionNode(id *this)
+double re::FramePhysicsStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  re::DynamicArray<re::DynamicString>::deinit((this + 34));
-
-  re::RenderGraphNode::~RenderGraphNode(this);
-}
-
-{
-  re::DynamicArray<re::DynamicString>::deinit((this + 34));
-  re::RenderGraphNode::~RenderGraphNode(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t *re::DynamicInlineArray<re::Matrix4x4<float>,2ul>::operator=(uint64_t *a1, uint64_t *a2)
-{
-  if (a1 != a2)
+  info.numer = 0;
+  v5 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, &info);
+  v6 = v5;
+  if (v5[1])
   {
-    v3 = *a2;
-    v4 = *a1;
-    v5 = *a2 - *a1;
-    if (*a2 >= *a1)
-    {
-      v6 = (a2 + 2);
-      v7 = &v6[64 * v4];
-      v8 = a1 + 2;
-      if (v4)
-      {
-        memmove(a1 + 2, v6, v4 << 6);
-      }
-
-      memcpy(&v8[8 * v4], v7, v5 << 6);
-    }
-
-    else if (v3)
-    {
-      memmove(a1 + 2, a2 + 2, v3 << 6);
-    }
-
-    *a1 = v3;
-    ++*(a1 + 2);
-  }
-
-  return a1;
-}
-
-double re::internal::Callable<re::StencilPtInjectionNode::executeForPortal(re::StencilPortal const&,re::RenderGraphContext &,char const*,char const*,char const*,re::PortalRenderContext const&)::$_0::operator() const(void)::{lambda(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)#1},void ()(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v4 = *(*(a1 + 8) + 27);
-  if ((*(a2 + 145) & 1) == 0)
-  {
-    *(a2 + 145) = 1;
-  }
-
-  *(a2 + 146) = v4;
-  v5 = re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(**(a1 + 16) + 192, (a2 + 88));
-  if (v5)
-  {
-    v7 = v5;
-    v8 = re::BucketArray<re::Matrix4x4<float>,128ul>::operator[](**(a1 + 24) + 56, *(a2 + 84));
-    v9 = 0;
-    LODWORD(v10) = 0;
-    HIDWORD(v10) = 0;
-    *(&v10 + 4) = v7->u32[1];
-    *&v11 = 0;
-    *(&v11 + 1) = v7->u32[2];
-    v12 = vnegq_f32(v7[1]);
-    v12.i32[3] = 1.0;
-    v13 = *v8;
-    v14 = v8[1];
-    v15 = v8[2];
-    v16 = v8[3];
-    v20[0] = v7->u32[0];
-    v20[1] = v10;
-    v20[2] = v11;
-    v20[3] = v12;
-    do
-    {
-      v21[v9] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v13, COERCE_FLOAT(v20[v9])), v14, *&v20[v9], 1), v15, v20[v9], 2), v16, v20[v9], 3);
-      ++v9;
-    }
-
-    while (v9 != 4);
-    result = *v21;
-    v17 = v21[1];
-    v18 = v21[2];
-    v19 = v21[3];
-    *v8 = v21[0];
-    v8[1] = v17;
-    v8[2] = v18;
-    v8[3] = v19;
-  }
-
-  return result;
-}
-
-uint64_t re::internal::Callable<re::StencilPtInjectionNode::executeForPortal(re::StencilPortal const&,re::RenderGraphContext &,char const*,char const*,char const*,re::PortalRenderContext const&)::$_0::operator() const(void)::{lambda(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)#1},void ()(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)>::cloneInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5D14BB8;
-  v2 = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = v2;
-  return a2;
-}
-
-uint64_t re::internal::Callable<re::StencilPtInjectionNode::executeForPortal(re::StencilPortal const&,re::RenderGraphContext &,char const*,char const*,char const*,re::PortalRenderContext const&)::$_0::operator() const(void)::{lambda(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)#1},void ()(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)>::moveInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5D14BB8;
-  v2 = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = v2;
-  return a2;
-}
-
-uint64_t re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshRenderPassGroups>>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re27RenderGraphDataStoreWrapperINS_20MeshRenderPassGroupsEEE";
-  if (("N2re27RenderGraphDataStoreWrapperINS_20MeshRenderPassGroupsEEE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re27RenderGraphDataStoreWrapperINS_20MeshRenderPassGroupsEEE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
-    {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
-    }
-
-    while (v5);
-  }
-
-  if (!*(a1 + 64))
-  {
-    return 0;
-  }
-
-  v6 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-  v7 = *(*(a1 + 72) + 4 * (v6 % *(a1 + 88)));
-  if (v7 == 0x7FFFFFFF)
-  {
-    return 0;
-  }
-
-  v8 = *(a1 + 80);
-  while (*(v8 + 24 * v7 + 8) != v6)
-  {
-    v7 = *(v8 + 24 * v7) & 0x7FFFFFFF;
-    if (v7 == 0x7FFFFFFF)
-    {
-      return 0;
-    }
-  }
-
-  return *(v8 + 24 * v7 + 16);
-}
-
-uint64_t re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::BucketArray<re::DynamicArray<re::VFXScene>,4ul>>>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re27RenderGraphDataStoreWrapperINS_11BucketArrayINS_12DynamicArrayINS_8VFXSceneEEELm4EEEEE";
-  if (("N2re27RenderGraphDataStoreWrapperINS_11BucketArrayINS_12DynamicArrayINS_8VFXSceneEEELm4EEEEE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re27RenderGraphDataStoreWrapperINS_11BucketArrayINS_12DynamicArrayINS_8VFXSceneEEELm4EEEEE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
-    {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
-    }
-
-    while (v5);
-  }
-
-  if (!*(a1 + 16))
-  {
-    return 0;
-  }
-
-  v6 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-  v7 = *(*(a1 + 24) + 4 * (v6 % *(a1 + 40)));
-  if (v7 == 0x7FFFFFFF)
-  {
-    return 0;
-  }
-
-  v8 = *(a1 + 32);
-  while (*(v8 + 24 * v7 + 8) != v6)
-  {
-    v7 = *(v8 + 24 * v7) & 0x7FFFFFFF;
-    if (v7 == 0x7FFFFFFF)
-    {
-      return 0;
-    }
-  }
-
-  return *(v8 + 24 * v7 + 16);
-}
-
-uint64_t re::RenderGraphDataStore::tryGet<re::MeshPassInfoData>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re16MeshPassInfoDataE";
-  if (("N2re16MeshPassInfoDataE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re16MeshPassInfoDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
-    {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
-    }
-
-    while (v5);
-  }
-
-  if (!*(a1 + 64))
-  {
-    return 0;
-  }
-
-  v6 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-  v7 = *(*(a1 + 72) + 4 * (v6 % *(a1 + 88)));
-  if (v7 == 0x7FFFFFFF)
-  {
-    return 0;
-  }
-
-  v8 = *(a1 + 80);
-  while (*(v8 + 24 * v7 + 8) != v6)
-  {
-    v7 = *(v8 + 24 * v7) & 0x7FFFFFFF;
-    if (v7 == 0x7FFFFFFF)
-    {
-      return 0;
-    }
-  }
-
-  return *(v8 + 24 * v7 + 16);
-}
-
-uint64_t re::DynamicInlineArray<re::FilteredMeshPass,7ul>::add(uint64_t a1, uint64_t a2)
-{
-  result = re::DynamicInlineArray<re::FilteredMeshPass,7ul>::ensureCapacity(a1, a2);
-  if (result)
-  {
-    v5 = a1 + 24 * *a1;
-    *(v5 + 16) = *a2;
-    v6 = v5 + 16;
-    v7 = *(a2 + 8);
-    *(v6 + 8) = v7;
-    if (v7 == 1)
-    {
-      v8 = *(a2 + 9);
-      *(v6 + 13) = *(a2 + 13);
-      *(v6 + 9) = v8;
-    }
-
-    v9 = *(a2 + 14);
-    *(v6 + 18) = *(a2 + 18);
-    *(v6 + 14) = v9;
-    ++*a1;
-    ++*(a1 + 8);
-  }
-
-  return result;
-}
-
-uint64_t re::DynamicInlineArray<re::FilteredMeshPass,7ul>::ensureCapacity(void *a1, uint64_t a2)
-{
-  if (*a1 <= 6uLL)
-  {
-    return 1;
-  }
-
-  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Capacity limit reached. DynamicInlineArray<T,N> cannot be resized.", "false", "ensureCapacity", 277, v2, v3);
-  result = _os_crash();
-  __break(1u);
-  return result;
-}
-
-uint64_t re::DynamicInlineArray<re::FilteredMeshPass,8ul>::add(uint64_t a1, uint64_t a2)
-{
-  result = re::DynamicInlineArray<unsigned long long,8ul>::ensureCapacity(a1, a2);
-  if (result)
-  {
-    v5 = a1 + 24 * *a1;
-    *(v5 + 16) = *a2;
-    v6 = v5 + 16;
-    v7 = *(a2 + 8);
-    *(v6 + 8) = v7;
-    if (v7 == 1)
-    {
-      v8 = *(a2 + 9);
-      *(v6 + 13) = *(a2 + 13);
-      *(v6 + 9) = v8;
-    }
-
-    v9 = *(a2 + 14);
-    *(v6 + 18) = *(a2 + 18);
-    *(v6 + 14) = v9;
-    ++*a1;
-    ++*(a1 + 8);
-  }
-
-  return result;
-}
-
-void re::UIShadowRenderGraphNode::execute(const char **this, uint64_t a2)
-{
-  v198 = *MEMORY[0x1E69E9840];
-  if ((atomic_load_explicit(&qword_1EE1C0BD8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0BD8))
-  {
-    _MergedGlobals_533 = re::hashString("UIShadowCaster", v114);
-    __cxa_guard_release(&qword_1EE1C0BD8);
-  }
-
-  v4 = re::RenderGraphDataStore::tryGet<re::UIShadowRenderData>(*(a2 + 1168), "UIShadowRenderData", "RenderFrame");
-  if (!v4)
-  {
-    return;
-  }
-
-  v5 = v4;
-  if ((atomic_load_explicit(&qword_1EE1C0BE8, memory_order_acquire) & 1) == 0)
-  {
-    v115 = __cxa_guard_acquire(&qword_1EE1C0BE8);
-    if (v115)
-    {
-      qword_1EE1C0BE0 = re::getCombinedScopeHash(v115, v116, v117);
-      __cxa_guard_release(&qword_1EE1C0BE8);
-    }
-  }
-
-  v6 = re::RenderGraphDataStore::tryGet<re::SceneArrayData>(*(a2 + 1168), qword_1EE1C0BE0);
-  if (!v6)
-  {
-    v65 = *re::graphicsLogObjects(0);
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_1E1C61000, v65, OS_LOG_TYPE_ERROR, "UIShadowRenderGraphNode::execute: Missing SceneArrayData. Skipping node execution.", buf, 2u);
-    }
-
-    return;
-  }
-
-  v7 = v6;
-  v126 = v5;
-  v8 = &v153;
-  if (*(a2 + 1352))
-  {
-    goto LABEL_117;
-  }
-
-  v125 = 0;
-LABEL_7:
-  v9 = *(*a2 + 32);
-  v155 = 0;
-  v153 = 0u;
-  v154 = 0u;
-  *(v8 + 36) = 0x7FFFFFFFLL;
-  v10 = *(v7 + 24);
-  v127 = a2;
-  if (!v10)
-  {
-LABEL_52:
-    v66 = v126;
-    v130 = *(v126 + 32);
-    if (!v130)
-    {
-      goto LABEL_60;
-    }
-
-    v67 = 0;
-    v68 = *(v126 + 16);
-    while (1)
-    {
-      v69 = *v68;
-      v68 += 56;
-      if (v69 < 0)
-      {
-        goto LABEL_61;
-      }
-
-      if (v130 == ++v67)
-      {
-        LODWORD(v67) = *(v126 + 32);
-        goto LABEL_61;
-      }
-    }
-  }
-
-  v11 = *(v7 + 40);
-  v118 = &v11[v10];
-  v12 = &qword_1EE1C0000;
-  LODWORD(v130) = 1065353216;
-  __asm { FMOV            V9.2S, #1.0 }
-
-  while (1)
-  {
-    v120 = v11;
-    v18 = *v11;
-    if ((atomic_load_explicit(&qword_1EE1C0BF8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0BF8))
-    {
-      qword_1EE1C0BF0 = re::hashString("MeshScenes", v64);
-      __cxa_guard_release(&qword_1EE1C0BF8);
-    }
-
-    v19 = v12[382];
-    v20 = strlen(v18);
-    v21 = 0x9E3779B97F4A7C17;
-    if (v20)
-    {
-      MurmurHash3_x64_128(v18, v20, 0, buf);
-      v21 = ((*&buf[8] - 0x61C8864680B583E9 + (*buf << 6) + (*buf >> 2)) ^ *buf) - 0x61C8864680B583E9;
-    }
-
-    v22 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshSceneArrays>>(*(a2 + 1168), ((v19 >> 2) + (v19 << 6) + v21) ^ v19);
-    v23 = v22 ? v22 + 8 : 0;
-    v121 = *(v23 + 40);
-    if (v121)
-    {
-      break;
-    }
-
-LABEL_46:
-    v11 = v120 + 1;
-    a2 = v127;
-    v12 = &qword_1EE1C0000;
-    if (v120 + 1 == v118)
-    {
-      goto LABEL_52;
-    }
-  }
-
-  v24 = 0;
-  v119 = v23;
-  while (1)
-  {
-    v122 = v24;
-    v25 = re::BucketArray<re::MeshSceneCollection,16ul>::operator[](v23, v24);
-    v27 = *(v25 + 16);
-    if (v27)
-    {
-      break;
-    }
-
-LABEL_45:
-    v24 = v122 + 1;
-    v23 = v119;
-    if (v122 + 1 == v121)
-    {
-      goto LABEL_46;
-    }
-  }
-
-  v28 = 0;
-  v123 = v25;
-  while (1)
-  {
-    v29 = *(v25 + 32) + 736 * v28;
-    if (*(v29 + 717) == 1 && *(v29 + 472) != 0.0)
-    {
-      break;
-    }
-
-LABEL_44:
-    if (++v28 >= v27)
-    {
-      goto LABEL_45;
-    }
-  }
-
-  v124 = v28;
-  *&v179 = *(v25 + 32) + 736 * v28;
-  *(&v179 + 1) = **(v29 + 112);
-  *&v180 = *(*(v29 + 112) + 8);
-  v30 = *(v29 + 8);
-  *&v181 = 0;
-  *(&v181 + 1) = v30;
-  v182 = xmmword_1E3047670;
-  v183 = xmmword_1E3047680;
-  v184 = xmmword_1E30476A0;
-  v185 = xmmword_1E30474D0;
-  v186 = 0uLL;
-  if (*(v29 + 56))
-  {
-    v187 = *(v29 + 48);
-    v128 = *(&v187 + 1);
-    if (*(&v187 + 1))
-    {
-      goto LABEL_25;
-    }
-
-LABEL_43:
-    v25 = v123;
-    v27 = *(v123 + 16);
-    v28 = v124;
-    goto LABEL_44;
-  }
-
-  *&v187 = &v181;
-  *(&v187 + 1) = 1;
-  v128 = 1;
-LABEL_25:
-  v31 = 0;
-  while (1)
-  {
-    *&v193 = &v179;
-    *(&v193 + 1) = v31;
-    v129 = v31;
-    v32 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::renderGroupInstance(&v193, v26);
-    v34 = 0;
-    v35 = *(v29 + 128);
-    v36 = *(v29 + 144);
-    v37 = *(v29 + 160);
-    v38 = *(v29 + 176);
-    v39 = v32[2];
-    v40 = v32[3];
-    v41 = v32[4];
-    v150[0] = v32[1];
-    v150[1] = v39;
-    v150[2] = v40;
-    v150[3] = v41;
-    do
-    {
-      *&buf[v34 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v35, COERCE_FLOAT(v150[v34])), v36, *&v150[v34], 1), v37, v150[v34], 2), v38, v150[v34], 3);
-      ++v34;
-    }
-
-    while (v34 != 4);
-    v133 = v158;
-    v136 = *buf;
-    v131 = v160;
-    v132 = v159;
-    v42 = *v193;
-    v43 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::renderGroupInstance(&v193, v33);
-    v44 = re::Slice<re::internal::BindPointImplBase const*>::range(v42, *v43, v43[1]);
-    if (v26)
-    {
-      break;
-    }
-
-LABEL_42:
-    v31 = v129 + 1;
-    if (v129 + 1 == v128)
-    {
-      goto LABEL_43;
-    }
-  }
-
-  v45 = v44;
-  v46 = v26;
-  v47 = 0;
-  while (2)
-  {
-    v48 = *(v45 + v47);
-    re::globalAllocators(v44);
-    v49 = (*(*v9 + 32))(v9, 336, 16);
-    *v49 = 0u;
-    *(v49 + 16) = 0u;
-    *(v49 + 32) = 0u;
-    *(v49 + 48) = 0;
-    *(v49 + 56) = 0u;
-    *(v49 + 72) = 0u;
-    *(v49 + 88) = 0u;
-    *(v49 + 104) = 0u;
-    *(v49 + 120) = 0;
-    *(v49 + 192) = 0;
-    *(v49 + 200) = 0;
-    *(v49 + 208) = 0;
-    *(v49 + 224) = 0;
-    *(v49 + 128) = 0u;
-    *(v49 + 144) = 0u;
-    *(v49 + 160) = 0u;
-    *(v49 + 176) = 0;
-    *(v49 + 184) = v9;
-    *(v49 + 232) = xmmword_1E304F3C0;
-    *(v49 + 248) = 0;
-    *(v49 + 252) = 10854;
-    *(v49 + 256) = _D9;
-    *(v49 + 264) = 0;
-    *(v49 + 272) = 0;
-    *(v49 + 320) = 0;
-    *(&v158 + 1) = re::globalAllocators(v49)[2];
-    *buf = &unk_1F5D14CB8;
-    *&v159 = buf;
-    v50 = (*(*v9 + 16))(v9, v49, buf);
-    re::FunctionBase<24ul,void ()(void *)>::destroyCallable(buf);
-    if (*(v29 + 200))
-    {
-      *(v50 + 7) = **(v29 + 192);
-      if (!*(v29 + 304))
-      {
-        goto LABEL_58;
-      }
-
-      *(v50 + 8) = **(v29 + 296);
-      v52 = re::MaterialParameterTableLayers::resolveTechniqueIndices(v50, _MergedGlobals_533);
-      if (!v53)
-      {
-        goto LABEL_59;
-      }
-
-      v54 = *v52;
-      v55 = *(v29 + 512);
-      *&buf[8] = 0;
-      *&v158 = 0;
-      *buf = v55;
-      *(&v158 + 1) = v48;
-      *&v159 = 0;
-      *(&v159 + 1) = v50;
-      *&v160 = 0;
-      DWORD2(v160) = -65280;
-      HIDWORD(v160) = v54;
-      LODWORD(v161) = 0;
-      v162 = v136;
-      v163 = v133;
-      v164 = v132;
-      v165 = v131;
-      v171 = 0;
-      v170 = 0;
-      v172 = 0;
-      v173 = 0;
-      v166 = 0;
-      v167 = 0;
-      v169 = 0;
-      v168 = 0;
-      v174 = 25172350;
-      v175 = 0x7FFFFFFFLL;
-      v176 = 0xFFFFFFFFLL;
-      v177 = 0;
-      v178 = 0;
-      v56 = *(v29 + 512);
-      v57 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v56 ^ (v56 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v56 ^ (v56 >> 30))) >> 27));
-      v58 = v57 ^ (v57 >> 31);
-      if (v153)
-      {
-        v59 = v58 % DWORD2(v154);
-        v60 = *(*(&v153 + 1) + 4 * v59);
-        if (v60 != 0x7FFFFFFF)
-        {
-          while (*(v154 + (v60 << 6) + 8) != v56)
-          {
-            v60 = *(v154 + (v60 << 6)) & 0x7FFFFFFF;
-            if (v60 == 0x7FFFFFFF)
-            {
-              goto LABEL_39;
-            }
-          }
-
-          v63 = v154 + (v60 << 6) + 16;
-LABEL_41:
-          re::DynamicArray<re::MeshPartDrawContext>::add(v63, buf);
-          if (++v47 == v46)
-          {
-            goto LABEL_42;
-          }
-
-          continue;
-        }
-      }
-
-      else
-      {
-        LODWORD(v59) = 0;
-      }
-
-LABEL_39:
-      v61 = re::HashTable<unsigned long long,re::DynamicArray<re::ecs2::MeshSortingComponent *>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(&v153, v59, v58);
-      v62 = *(v29 + 512);
-      *(v61 + 16) = 0;
-      v63 = v61 + 16;
-      *(v63 - 8) = v62;
-      *(v63 + 32) = 0;
-      *(v63 + 8) = 0;
-      *(v63 + 16) = 0;
-      *(v63 + 24) = 1;
-      ++v156;
-      goto LABEL_41;
-    }
-
-    break;
-  }
-
-  re::internal::assertLog(6, v51, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
-  _os_crash();
-  __break(1u);
-LABEL_58:
-  re::internal::assertLog(6, v51, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
-  _os_crash();
-  __break(1u);
-LABEL_59:
-  re::internal::assertLog(6, v53, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
-  _os_crash();
-  __break(1u);
-LABEL_60:
-  LODWORD(v67) = 0;
-LABEL_61:
-  if (v67 != v130)
-  {
-    a2 = 24;
-    do
-    {
-      v70 = *(v66 + 16) + 224 * v67;
-      v71 = v70 + 16;
-      v72 = (*(*v9 + 32))(v9, 328, 8);
-      re::DrawTable::DrawTable(v72, v9);
-      v73 = *(v70 + 192);
-      if (v73)
-      {
-        v74 = 0;
-        v75 = (*(v70 + 176) + 8);
-        v76 = 0uLL;
-        while (1)
-        {
-          v77 = *v75;
-          v75 += 6;
-          if (v77 < 0)
-          {
-            break;
-          }
-
-          if (v73 == ++v74)
-          {
-            LODWORD(v74) = *(v70 + 192);
-            break;
-          }
-        }
-      }
-
-      else
-      {
-        LODWORD(v74) = 0;
-        v76 = 0uLL;
-      }
-
-      if (v74 != v73)
-      {
-        v78 = DWORD2(v154);
-        v80 = *(&v153 + 1);
-        v79 = v153;
-        v81 = *(v70 + 192);
-        v82 = v154;
-        v137 = v73;
-        v134 = DWORD2(v154);
-        v83 = v153;
-        do
-        {
-          if (v79)
-          {
-            v84 = *(*(v71 + 160) + 24 * v74 + 16);
-            v85 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v84 ^ (v84 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v84 ^ (v84 >> 30))) >> 27));
-            v86 = *(v80 + 4 * ((v85 ^ (v85 >> 31)) % v78));
-            if (v86 != 0x7FFFFFFF)
-            {
-              v87 = v86;
-              while (*(v82 + (v87 << 6) + 8) != v84)
-              {
-                v87 = *(v82 + (v87 << 6)) & 0x7FFFFFFF;
-                if (v87 == 0x7FFFFFFF)
-                {
-                  goto LABEL_84;
-                }
-              }
-
-              while (*(v82 + (v86 << 6) + 8) != v84)
-              {
-                v86 = *(v82 + (v86 << 6)) & 0x7FFFFFFF;
-                if (v86 == 0x7FFFFFFF)
-                {
-                  v86 = 0x7FFFFFFFLL;
-                  break;
-                }
-              }
-
-              v88 = v82 + (v86 << 6);
-              v89 = *(v88 + 32);
-              if (v89)
-              {
-                v90 = *(v88 + 48);
-                v91 = 240 * v89;
-                do
-                {
-                  v92 = *v127;
-                  v151[0] = v76;
-                  v151[1] = v76;
-                  v152 = 0;
-                  re::addDrawCall(v72, v90, v92, 1u, v151);
-                  v76 = 0uLL;
-                  v90 += 240;
-                  v91 -= 240;
-                }
-
-                while (v91);
-                v81 = *(v71 + 176);
-                LODWORD(v73) = v137;
-                v78 = v134;
-                v80 = v83 >> 64;
-                v79 = v83;
-              }
-            }
-          }
-
-LABEL_84:
-          if (v81 <= v74 + 1)
-          {
-            v93 = v74 + 1;
-          }
-
-          else
-          {
-            v93 = v81;
-          }
-
-          while (v93 - 1 != v74)
-          {
-            LODWORD(v74) = v74 + 1;
-            if ((*(*(v71 + 160) + 24 * v74 + 8) & 0x80000000) != 0)
-            {
-              goto LABEL_91;
-            }
-          }
-
-          LODWORD(v74) = v93;
-LABEL_91:
-          ;
-        }
-
-        while (v74 != v73);
-      }
-
-      if (*(v72 + 5))
-      {
-        v94 = *v71;
-        v95 = *(v71 + 16);
-        v96 = *(v71 + 48);
-        v159 = *(v71 + 32);
-        v160 = v96;
-        *buf = v94;
-        v158 = v95;
-        v161 = xmmword_1E3047670;
-        v162 = xmmword_1E3047680;
-        v163 = xmmword_1E30476A0;
-        v164 = xmmword_1E30474D0;
-        v97 = *(v71 + 64);
-        v98 = *(v71 + 80);
-        v99 = *(v71 + 112);
-        v181 = *(v71 + 96);
-        v182 = v99;
-        v179 = v97;
-        v180 = v98;
-        v183 = xmmword_1E3047670;
-        v184 = xmmword_1E3047680;
-        v185 = xmmword_1E30476A0;
-        v186 = xmmword_1E30474D0;
-        re::DrawTableSlice::DrawTableSlice(v150, v72);
-        v100 = [objc_msgSend(MEMORY[0x1E6974128] alloc)];
-        v101 = [objc_msgSend(v100 colorAttachments)];
-        v7 = v71 + 136;
-        [v101 setTexture_];
-        [v101 setLoadAction_];
-        [v101 setClearColor_];
-        v102 = [v101 setStoreAction_];
-        v147 = 0;
-        HIBYTE(v148) = 0;
-        this = v142;
-        v143 = 0u;
-        v144 = 0u;
-        v145 = 0u;
-        v149 = -1;
-        if (!v145)
-        {
-          v139 = 0;
-          v196 = 0u;
-          v197 = 0u;
-          v194 = 0u;
-          v195 = 0u;
-          v193 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v188 = 136315906;
-          *&v188[4] = "operator[]";
-          *&v188[12] = 1024;
-          *&v188[14] = 468;
-          v189 = 2048;
-          v190 = 0;
-          v191 = 2048;
-          v192 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_115:
-          v139 = 0;
-          v196 = 0u;
-          v197 = 0u;
-          v194 = 0u;
-          v195 = 0u;
-          v193 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v188 = 136315906;
-          *&v188[4] = "operator[]";
-          *&v188[12] = 1024;
-          *&v188[14] = 468;
-          v189 = 2048;
-          v190 = 0;
-          v191 = 2048;
-          v192 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_116:
-          v139 = 0;
-          v196 = 0u;
-          v197 = 0u;
-          v194 = 0u;
-          v195 = 0u;
-          v193 = 0u;
-          v8 = MEMORY[0x1E69E9C10];
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v188 = 136315906;
-          *&v188[4] = "operator[]";
-          *&v188[12] = 1024;
-          *&v188[14] = 468;
-          v189 = 2048;
-          v190 = 0;
-          v191 = 2048;
-          v192 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_117:
-          v125 = re::DrawCallRecorder::allocateDrawCallRecorderGroup((a2 + 1352), this[2], 0);
-          goto LABEL_7;
-        }
-
-        **(&v145 + 1) = xmmword_1E3063230;
-        if (!v145)
-        {
-          goto LABEL_115;
-        }
-
-        if (!*(&v143 + 1))
-        {
-          goto LABEL_116;
-        }
-
-        v104 = v144;
-        *v105.f32 = vcvt_f32_u32(*(v71 + 128));
-        v105.i64[1] = v105.i64[0];
-        *v144 = vrndaq_f32(vmulq_f32(**(&v145 + 1), v105));
-        *(v104 + 16) = 0x3F80000000000000;
-        v146 = 2;
-        v142[0] = 0;
-        v148 = 0;
-        v106 = re::RenderFrameBox::get((*(*(v127 + 1) + 112) + 328), *(*v127 + 40));
-        v138 = *(re::RenderFrame::currentCommandBuffer(v106) + 2);
-        v141 = v138;
-        re::mtl::CommandBuffer::makeRenderCommandEncoder(&v141, v100, &v139);
-        re::ns::String::String(&v193, "UIShadow");
-        re::mtl::RenderCommandEncoder::setLabel(&v139, &v193);
-
-        (v140[20])(*v140, sel_pushDebugGroup_, [MEMORY[0x1E696AEC0] stringWithCString:"UIShadow" encoding:4]);
-        re::RenderGraphContext::rtInfo(v127, *(v127 + 5), &v193);
-        *&v193 = 0x4600000001;
-        v108 = *v127;
-        v107 = *(v127 + 1);
-        v109 = *(v127 + 3);
-        *v188 = 134217472;
-        *&v188[8] = 134217472;
-        v188[16] = 0;
-        v110 = *(v127 + 5);
-        v135 = *(v110 + 16);
-        v111 = *(v110 + 32);
-        v112 = re::RenderGraphContext::rtResolution(v127);
-        re::encodeDrawCalls(&v139, v150, v108, v107, v109, &v193, v188, "UIShadowCaster", v135, *(&v135 + 1), v111, buf, &v179, v142, v112, v125, 0, 0, 0, 0, 0);
-        (v140[21])(*v140, sel_popDebugGroup);
-        (v140[33])(*v140, sel_endEncoding);
-        re::mtl::mps::ImageGaussianBlur::ImageGaussianBlur(v188, (*(v127 + 1) + 208), 4.0);
-        re::mtl::mps::UnaryImageKernel::encodeToCommandBuffer(v188, &v141, v7);
-
-        re::mtl::RenderCommandEncoder::~RenderCommandEncoder(&v139);
-        if (*(&v144 + 1))
-        {
-          if (v145)
-          {
-            (*(**(&v144 + 1) + 40))();
-            v145 = 0uLL;
-          }
-
-          *(&v144 + 1) = 0;
-        }
-
-        if (v143 && *(&v143 + 1))
-        {
-          (*(*v143 + 40))();
-        }
-
-        if (v100)
-        {
-        }
-      }
-
-      v66 = v126;
-      v113 = *(v126 + 32);
-      if (v113 <= v67 + 1)
-      {
-        v113 = v67 + 1;
-      }
-
-      while (v113 - 1 != v67)
-      {
-        LODWORD(v67) = v67 + 1;
-        if ((*(*(v126 + 16) + 224 * v67) & 0x80000000) != 0)
-        {
-          goto LABEL_111;
-        }
-      }
-
-      LODWORD(v67) = v113;
-LABEL_111:
-      ;
-    }
-
-    while (v67 != v130);
-  }
-
-  re::HashTable<unsigned long long,re::DynamicArray<re::ecs2::MeshSortingComponent *>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(&v153);
-}
-
-void re::UIShadowRenderGraphNode::~UIShadowRenderGraphNode(id *this)
-{
-  re::RenderGraphNode::~RenderGraphNode(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *re::internal::Callable<re::UIShadowRenderGraphNode::execute(re::RenderGraphContext &)::$_0,void ()(void *)>::cloneInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D14CB8;
-  return result;
-}
-
-void *re::internal::Callable<re::UIShadowRenderGraphNode::execute(re::RenderGraphContext &)::$_0,void ()(void *)>::moveInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D14CB8;
-  return result;
-}
-
-uint64_t re::UploadMultiSceneConstantsNode::execute(const char **this, re::RenderGraphContext *a2)
-{
-  v166 = *MEMORY[0x1E69E9840];
-  v4 = re::RenderGraphDataStore::tryGet<re::ProbeContext>(*(a2 + 146), "ProbeContext", "RenderFrame");
-  v5 = re::RenderGraphDataStore::tryGet<re::Slice<re::UberClippingParametersEntry>>(*(a2 + 146), "Clipping", "RenderFrame");
-  v133 = re::RenderGraphDataStore::tryGet<re::Slice<unsigned short>>(*(a2 + 146), "Clipping", "RenderFrame");
-  v6 = &_MergedGlobals_534;
-  if ((atomic_load_explicit(&qword_1EE1C0C08, memory_order_acquire) & 1) == 0)
-  {
-LABEL_136:
-    if (__cxa_guard_acquire(&qword_1EE1C0C08))
-    {
-      *v6 = re::hashString("SceneArray", v130);
-      __cxa_guard_release((v6 + 8));
-    }
-  }
-
-  v7 = strlen(this[4]);
-  v8 = 0x9E3779B97F4A7C17;
-  if (v7)
-  {
-    MurmurHash3_x64_128(this[4], v7, 0, &v155);
-    v8 = ((*(&v155 + 1) - 0x61C8864680B583E9 + (v155 << 6) + (v155 >> 2)) ^ v155) - 0x61C8864680B583E9;
-  }
-
-  v132 = this;
-  v9 = re::RenderGraphDataStore::get<re::SceneArrayData>(*(a2 + 146), (v8 + (*v6 << 6) + (*v6 >> 2)) ^ *v6);
-  re::MaterialManager::resizeScenes(*(*(a2 + 1) + 24), *(v9 + 24));
-  if ((atomic_load_explicit((v6 + 0x18), memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0C18))
-  {
-    qword_1EE1C0C10 = re::hashString("ProjectiveMeshShadow", v131);
-    __cxa_guard_release(&qword_1EE1C0C18);
-  }
-
-  v10 = qword_1EE1C0C10;
-  MurmurHash3_x64_128("RenderFrame", 0xBuLL, 0, &v155);
-  v138 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshShadowRenderingData>>(*(a2 + 146), ((v10 << 6) - 0x61C8864680B583E9 + (v10 >> 2) + ((*(&v155 + 1) - 0x61C8864680B583E9 + (v155 << 6) + (v155 >> 2)) ^ v155)) ^ v10);
-  if (*(v9 + 24))
-  {
-    v11 = 0;
-    v12 = 0;
-    v139 = v4;
-    v136 = v9;
-    v137 = v8;
-    do
-    {
-      v145 = v12;
-      v13 = *(*(v9 + 40) + 8 * v11);
-      v14 = strlen(v13);
-      if (v14)
-      {
-        MurmurHash3_x64_128(v13, v14, 0, &v155);
-        v15 = (*(&v155 + 1) - 0x61C8864680B583E9 + (v155 << 6) + (v155 >> 2)) ^ v155;
-      }
-
-      else
-      {
-        v15 = 0;
-      }
-
-      if ((atomic_load_explicit(&qword_1EE1C0C28, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0C28))
-      {
-        qword_1EE1C0C20 = re::hashString("LightContext", v110);
-        __cxa_guard_release(&qword_1EE1C0C28);
-      }
-
-      v16 = v15 - 0x61C8864680B583E9;
-      v141 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::LightContexts>>(*(a2 + 146), (v15 - 0x61C8864680B583E9 + (qword_1EE1C0C20 << 6) + (qword_1EE1C0C20 >> 2)) ^ qword_1EE1C0C20);
-      if ((atomic_load_explicit(&qword_1EE1C0C38, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0C38))
-      {
-        qword_1EE1C0C30 = re::hashString("IBLContextOverride", v111);
-        __cxa_guard_release(&qword_1EE1C0C38);
-      }
-
-      v17 = *(a2 + 146);
-      v18 = "N2re23IBLContextOverrideScopeE";
-      if (("N2re23IBLContextOverrideScopeE" & 0x8000000000000000) != 0)
-      {
-        v19 = 5381;
-        v20 = ("N2re23IBLContextOverrideScopeE" & 0x7FFFFFFFFFFFFFFFLL);
-        do
-        {
-          v18 = v19;
-          v21 = *v20++;
-          v19 = (33 * v19) ^ v21;
-        }
-
-        while (v21);
-      }
-
-      if (!*(v17 + 64) || (v22 = (((v16 + (qword_1EE1C0C30 << 6) + (qword_1EE1C0C30 >> 2)) ^ qword_1EE1C0C30) - 0x61C8864680B583E9 + (v18 << 6) + (v18 >> 2)) ^ v18, v23 = *(*(v17 + 72) + 4 * (v22 % *(v17 + 88))), v23 == 0x7FFFFFFF))
-      {
-LABEL_20:
-        v25 = 0;
-      }
-
-      else
-      {
-        v24 = *(v17 + 80);
-        while (*(v24 + 24 * v23 + 8) != v22)
-        {
-          v23 = *(v24 + 24 * v23) & 0x7FFFFFFF;
-          if (v23 == 0x7FFFFFFF)
-          {
-            goto LABEL_20;
-          }
-        }
-
-        v25 = *(v24 + 24 * v23 + 16);
-      }
-
-      if ((atomic_load_explicit(&qword_1EE1C0C48, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0C48))
-      {
-        qword_1EE1C0C40 = re::hashString("RenderGraphDataPipeData", v112);
-        __cxa_guard_release(&qword_1EE1C0C48);
-      }
-
-      v26 = re::RenderGraphDataStore::tryGet<re::SceneCRWSReferencePosition>(*(a2 + 146), (v8 + (qword_1EE1C0C40 << 6) + (qword_1EE1C0C40 >> 2)) ^ qword_1EE1C0C40);
-      if (v13 && !v26)
-      {
-        v26 = re::RenderGraphDataStore::tryGet<re::SceneCRWSReferencePosition>(*(a2 + 146), (v16 + (qword_1EE1C0C40 << 6) + (qword_1EE1C0C40 >> 2)) ^ qword_1EE1C0C40);
-      }
-
-      if (v26)
-      {
-        v153 = *v26;
-      }
-
-      else
-      {
-        v153 = 0uLL;
-      }
-
-      v27 = re::MaterialManager::sceneConstants(*(*(a2 + 1) + 24), v11);
-      *v27 = v153;
-      v28 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshShadowPerSceneRenderingData>>(*(a2 + 146), (v8 + (qword_1EE1C0C10 << 6) + (qword_1EE1C0C10 >> 2)) ^ qword_1EE1C0C10);
-      v140 = v15;
-      if (v13 && !v28)
-      {
-        v28 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshShadowPerSceneRenderingData>>(*(a2 + 146), (v16 + (qword_1EE1C0C10 << 6) + (qword_1EE1C0C10 >> 2)) ^ qword_1EE1C0C10);
-      }
-
-      v143 = v28;
-      v29 = re::MaterialManager::sceneBuffers(*(*(a2 + 1) + 24), v11);
-      re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((*a2 + 16), 0x20000uLL, 0x100uLL, &v155);
-      v30 = *(&v155 + 1);
-      v4 = v156;
-      if (v5)
-      {
-        v31 = v5[1];
-        if (v31)
-        {
-          v135 = v25;
-          v134 = *(&v155 + 1);
-          v32 = v155;
-          this = DWORD2(v155);
-          v33 = v155 + DWORD2(v155);
-          if (v31 >= 0x400)
-          {
-            v6 = 1024;
-          }
-
-          else
-          {
-            v6 = v5[1];
-          }
-
-          bzero((v155 + DWORD2(v155)), 0x10000uLL);
-          bzero((v33 + 98304), 0x8000uLL);
-          v35 = 0;
-          v36 = v153;
-          v37 = v32 + 98304;
-          v38 = 64;
-          do
-          {
-            v39 = v5[1];
-            if (v39 <= v35)
-            {
-              re::internal::assertLog(6, v34, *v36.i64, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v35, v39);
-              _os_crash();
-              __break(1u);
-              goto LABEL_136;
-            }
-
-            v40 = (this + v37);
-            v41 = (this + v32);
-            v42 = (*v5 + v38);
-            v43 = v42[1];
-            *v40 = *v42;
-            v40[1] = v43;
-            v45 = v42[-2];
-            v44 = v42[-1];
-            v46 = v42[-3];
-            *v41 = v42[-4];
-            v41[1] = v46;
-            v41[2] = v45;
-            v41[3] = v44;
-            v44.i32[0] = *(this + v32 + 12);
-            v47 = (this + v32 + 28);
-            v48 = (this + v32 + 44);
-            v44.i32[1] = *v47;
-            v44.i32[2] = *v48;
-            v49 = vsubq_f32(v44, v36);
-            v41->i32[3] = v49.i32[0];
-            *v47 = v49.i32[1];
-            *v48 = v49.i32[2];
-            ++v35;
-            v41[3] = vcvt_hight_f16_f32(vcvt_f16_f32(vmaxnmq_f32(vcvtq_f32_f16(*(this + v32 + 48)), 0)), vmaxnmq_f32(vcvtq_f32_f16(*(this + v32 + 56)), 0));
-            v37 += 32;
-            v38 += 96;
-            v32 += 64;
-          }
-
-          while (v6 != v35);
-          v25 = v135;
-          v30 = v134;
-          if (v133)
-          {
-            v50 = *(v133 + 8);
-            if (v50)
-            {
-              if (v50 >= 0x4000)
-              {
-                v51 = 0x4000;
-              }
-
-              else
-              {
-                v51 = *(v133 + 8);
-              }
-
-              bzero((v33 + 0x10000), 0x8000uLL);
-              v52 = 2 * v51;
-              v25 = v135;
-              memcpy((v33 + 0x10000), *v133, v52);
-              v30 = v134;
-            }
-          }
-        }
-      }
-
-      v150 = v4;
-      v151 = 0;
-      v152 = v30;
-      *&v155 = 0x29136C0FCC2;
-      v53 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(v29, &v155);
-      re::BufferTable::setBuffer(v29, *(*(v29 + 1) + 16 * v53 + 8), &v150);
-      v54 = re::MaterialManager::lightBuffers(*(*(a2 + 1) + 24), v11);
-      if (v141)
-      {
-        re::LightContexts::createConstantBuffer(v141 + 8, *a2, &v153, v54);
-      }
-
-      if ((atomic_load_explicit(&qword_1EE1C0C58, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0C58))
-      {
-        qword_1EE1C0C50 = re::hashString("RenderGraphDataPipeData", v113);
-        __cxa_guard_release(&qword_1EE1C0C58);
-      }
-
-      v55 = qword_1EE1C0C50;
-      if (v25)
-      {
-        v56 = *(v25 + 8);
-        v57 = strlen(v56);
-        v58 = 0x9E3779B97F4A7C17;
-        if (v57)
-        {
-          MurmurHash3_x64_128(v56, v57, 0, &v155);
-          v58 = ((*(&v155 + 1) - 0x61C8864680B583E9 + (v155 << 6) + (v155 >> 2)) ^ v155) - 0x61C8864680B583E9;
-        }
-
-        v59 = (v55 >> 2) + (v55 << 6) + v58;
-      }
-
-      else
-      {
-        v59 = v16 + (qword_1EE1C0C50 << 6) + (qword_1EE1C0C50 >> 2);
-      }
-
-      v60 = re::RenderGraphDataStore::tryGet<re::IBLContext>(*(a2 + 146), v59 ^ v55);
-      v61 = re::MaterialManager::sceneTextures(*(*(a2 + 1) + 24), v11);
-      if (v60)
-      {
-        re::ColorManager::computeWPCMatrix((*(*(a2 + 1) + 120) + 2048), *(*(a2 + 1) + 96), &v155);
-        re::IBLContext::createConstantBuffer(v60, *a2, v54, &v155);
-        re::IBLContext::updateSceneTextures(v60, v61);
-      }
-
-      else
-      {
-        v155 = 0uLL;
-        v157 = 0;
-        v156 = 0;
-        v158 = 0;
-        v159 = 0;
-        LODWORD(v160) = 0;
-        v62 = *a2;
-        v147 = xmmword_1E3047670;
-        v148 = xmmword_1E3047680;
-        v149 = xmmword_1E30476A0;
-        re::IBLContext::createConstantBuffer(&v155, v62, v54, &v147);
-        re::IBLContext::updateSceneTextures(&v155, v61);
-        if (v159)
-        {
-
-          v159 = 0;
-        }
-
-        re::DynamicArray<re::IBL>::deinit(&v155);
-      }
-
-      if ((atomic_load_explicit(&qword_1EE1C0C68, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0C68))
-      {
-        qword_1EE1C0C60 = re::hashString("VirtualEnvironmentProbeContextOverride", v114);
-        __cxa_guard_release(&qword_1EE1C0C68);
-      }
-
-      v63 = *(a2 + 146);
-      v64 = re::RenderGraphDataStore::tryGet<re::VirtualEnvironmentProbeContextOverride>(v63, (v16 + (qword_1EE1C0C60 << 6) + (qword_1EE1C0C60 >> 2)) ^ qword_1EE1C0C60);
-      v65 = qword_1EE1C0C50;
-      if (v64)
-      {
-        v66 = v64;
-        v67 = *(v64 + 8);
-        v68 = strlen(v67);
-        v69 = 0x9E3779B97F4A7C17;
-        if (v68)
-        {
-          MurmurHash3_x64_128(v67, v68, 0, &v155);
-          v69 = ((*(&v155 + 1) - 0x61C8864680B583E9 + (v155 << 6) + (v155 >> 2)) ^ v155) - 0x61C8864680B583E9;
-          v63 = *(a2 + 146);
-        }
-
-        v70 = re::RenderGraphDataStore::tryGet<re::VirtualEnvironmentProbeContext>(v63, ((v65 >> 2) + (v65 << 6) + v69) ^ v65);
-        v71 = *(v66 + 16) * *(v66 + 20);
-      }
-
-      else
-      {
-        v70 = re::RenderGraphDataStore::tryGet<re::VirtualEnvironmentProbeContext>(v63, (v16 + (qword_1EE1C0C50 << 6) + (qword_1EE1C0C50 >> 2)) ^ qword_1EE1C0C50);
-        v71 = 1.0;
-      }
-
-      v73 = v139;
-      v74 = 0x9E3779B97F4A7C17;
-      if ([**a2 supportsFamily:5001])
-      {
-        v75 = 0;
-        if (!v70)
-        {
-          goto LABEL_76;
-        }
-      }
-
-      else
-      {
-        v75 = re::mtl::Device::supportsArgumentBuffers(*a2, v72) ^ 1;
-        if (!v70)
-        {
-          goto LABEL_76;
-        }
-      }
-
-      if ((v75 & 1) == 0)
-      {
-        v76 = re::MaterialManager::sceneTextures(*(*(a2 + 1) + 24), v11);
-        v77 = v76;
-        v78 = 1.0;
-        if (*(v70 + 96) == 1)
-        {
-          v142 = v76;
-          v79 = strlen(*(v70 + 112));
-          if (v79)
-          {
-            MurmurHash3_x64_128(*(v70 + 112), v79, 0, &v155);
-            v74 = ((*(&v155 + 1) - 0x61C8864680B583E9 + (v155 << 6) + (v155 >> 2)) ^ v155) - 0x61C8864680B583E9;
-          }
-
-          v80 = *(a2 + 146);
-          v81 = re::RenderGraphDataStore::tryGet<re::VirtualEnvironmentProbeContextOverride>(v80, (v74 + (qword_1EE1C0C60 << 6) + (qword_1EE1C0C60 >> 2)) ^ qword_1EE1C0C60);
-          v82 = qword_1EE1C0C50;
-          if (v81)
-          {
-            v83 = v81;
-            v84 = *(v81 + 8);
-            v85 = strlen(v84);
-            v86 = 0x9E3779B97F4A7C17;
-            if (v85)
-            {
-              MurmurHash3_x64_128(v84, v85, 0, &v155);
-              v86 = ((*(&v155 + 1) - 0x61C8864680B583E9 + (v155 << 6) + (v155 >> 2)) ^ v155) - 0x61C8864680B583E9;
-              v80 = *(a2 + 146);
-            }
-
-            v87 = re::RenderGraphDataStore::tryGet<re::VirtualEnvironmentProbeContext>(v80, ((v82 >> 2) + (v82 << 6) + v86) ^ v82);
-            v78 = *(v83 + 16) * *(v83 + 20);
-          }
-
-          else
-          {
-            v87 = re::RenderGraphDataStore::tryGet<re::VirtualEnvironmentProbeContext>(v80, (v74 + (qword_1EE1C0C50 << 6) + (qword_1EE1C0C50 >> 2)) ^ qword_1EE1C0C50);
-          }
-
-          v73 = v139;
-          v77 = v142;
-        }
-
-        else
-        {
-          v87 = 0;
-        }
-
-        re::VirtualEnvironmentProbeContext::createConstantBuffer(v70, *a2, v54, v87, v71, v78);
-        re::VirtualEnvironmentProbeContext::createTextureBuffer(v70, *a2, v54, v87);
-        re::VirtualEnvironmentProbeContext::updateSceneTextures(v70, v77, v87);
-        v89 = v138;
-        if (!v73)
-        {
-          goto LABEL_98;
-        }
-
-        goto LABEL_88;
-      }
-
-LABEL_76:
-      v158 = 0;
-      v156 = 0;
-      v155 = 0uLL;
-      v157 = 0;
-      v160 = xmmword_1E3047670;
-      v161 = xmmword_1E3047680;
-      v162 = xmmword_1E30476A0;
-      v163 = 0;
-      re::VirtualEnvironmentProbeContext::createConstantBuffer(&v155, *a2, v54, 0, v71, 1.0);
-      TextureBuffer = re::VirtualEnvironmentProbeContext::createTextureBuffer(&v155, *a2, v54, 0);
-      v89 = v138;
-      if (v163 == 1)
-      {
-        if (v164)
-        {
-          if (v164)
-          {
-          }
-        }
-
-        v164 = 0;
-        v165 = &str_67;
-      }
-
-      re::DynamicArray<re::VirtualEnvironmentProbeSource>::deinit(&v155);
-      if (!v139)
-      {
-        goto LABEL_98;
-      }
-
-LABEL_88:
-      v90 = re::MaterialManager::sceneTextures(*(*(a2 + 1) + 24), v11);
-      v91 = [*v73 textureType];
-      if (v91 == 3)
-      {
-        *&v155 = 0x1AA47CB53A9AC861;
-        v93 = &v155;
-        v95 = v90;
-        v94 = v73;
-      }
-
-      else
-      {
-        if (v91 == 5)
-        {
-          *&v155 = 0x24E8D221D19BF998;
-          re::TextureTable::setTexture(v90, &v155, v73);
-          *&v155 = 0;
-          v92 = 0x319D4D8796A12B1FLL;
-        }
-
-        else
-        {
-          if (v91 != 6)
-          {
-            goto LABEL_96;
-          }
-
-          *&v155 = 0x3F800981E521C7A1;
-          re::TextureTable::setTexture(v90, &v155, v73);
-          *&v155 = 0;
-          v92 = 0x150A18CBFF11727ALL;
-        }
-
-        *&v147 = v92;
-        v93 = &v147;
-        v94 = v73 + 1;
-        v95 = v90;
-      }
-
-      re::TextureTable::setTexture(v95, v93, v94);
-LABEL_96:
-      *&v147 = 0x7831721862C9B2CBLL;
-      *&v155 = v73[2];
-      v157 = 0;
-      LODWORD(v158) = 0;
-      HIDWORD(v158) = [v73[2] length];
-      re::BufferTable::setBuffer(v29, &v147, &v155);
-      if (v157 != -1)
-      {
-        (off_1F5D14E50[v157])(&v154, &v155);
-      }
-
-LABEL_98:
-      *&v147 = 0;
-      *&v148 = 0;
-      DWORD2(v147) = 0;
-      if (v89)
-      {
-        if (v143)
-        {
-          re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((*a2 + 16), 8uLL, 4uLL, &v155);
-          if (v155)
-          {
-            v96 = *(&v155 + 1);
-            v97 = v156;
-            v98 = *(v143 + 24);
-            if (v98)
-            {
-              v99 = (*(v143 + 40) + 64);
-              v100 = 72 * v98;
-              while (*v99 != v140)
-              {
-                v99 += 9;
-                v100 -= 72;
-                if (!v100)
-                {
-                  goto LABEL_107;
-                }
-              }
-
-              *(v155 + DWORD2(v155)) = *(v99 - 8);
-            }
-
-LABEL_107:
-            *&v147 = v97;
-            DWORD2(v147) = 0;
-            *&v148 = v96;
-          }
-        }
-      }
-
-      if ((re::BufferView::isValid(&v147) & 1) == 0)
-      {
-        v101 = *(*(*(a2 + 1) + 24) + 760);
-        v102 = [v101 length];
-        *&v147 = v101;
-        DWORD2(v147) = 0;
-        LODWORD(v148) = 0;
-        DWORD1(v148) = v102;
-        if (v101)
-        {
-        }
-      }
-
-      *&v155 = 0x441AC0ECAF42AD04;
-      v103 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(v29, &v155);
-      re::BufferTable::setBuffer(v29, *(*(v29 + 1) + 16 * v103 + 8), &v147);
-      *&v147 = 0;
-      *&v148 = 0;
-      DWORD2(v147) = 0;
-      if (v89 && (v104 = *(v89 + 20), v104))
-      {
-        v105 = 96 * v104;
-        re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((*a2 + 16), 96 * v104, 0x10uLL, &v155);
-        v106 = v156;
-        v144 = *(&v155 + 1);
-        memcpy((v155 + DWORD2(v155)), *(v89 + 48), v105);
-        *&v147 = v106;
-        DWORD2(v147) = 0;
-        *&v148 = v144;
-      }
-
-      else
-      {
-        v107 = *(*(*(a2 + 1) + 24) + 856);
-        v108 = [v107 length];
-        *&v147 = v107;
-        DWORD2(v147) = 0;
-        LODWORD(v148) = 0;
-        DWORD1(v148) = v108;
-        if (v107)
-        {
-        }
-      }
-
-      *&v155 = 0xDFC20BDF4EDA5B3;
-      v109 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(v29, &v155);
-      re::BufferTable::setBuffer(v29, *(*(v29 + 1) + 16 * v109 + 8), &v147);
-      v11 = (v145 + 1);
-      v9 = v136;
-      v8 = v137;
-      v12 = v145 + 1;
-    }
-
-    while (*(v136 + 24) > v11);
-  }
-
-  v115 = re::RenderGraphDataStore::tryGet<re::AnchorTransformData>(*(a2 + 146), "AnchorTransformData", v132[4]);
-  if (v115)
-  {
-    v116 = v115;
-    re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((*a2 + 16), *(v115 + 16) << 8, 0x100uLL, &v155);
-    v117 = *(&v155 + 1);
-    v118 = v156;
-    if (*(v116 + 16))
-    {
-      v119 = 0;
-      v120 = 0;
-      v146 = *(&v155 + 1);
-      v121 = DWORD2(v155) + v155 + 104;
-      do
-      {
-        v122 = (*(v116 + 32) + v119);
-        v124 = v122[2];
-        v123 = v122[3];
-        v125 = v122[1];
-        *(v121 - 40) = *v122;
-        *(v121 - 24) = v125;
-        *(v121 - 8) = v124;
-        *(v121 + 8) = v123;
-        v167 = __invert_f4(*(v121 - 40));
-        *(v121 - 104) = v167;
-        *(v121 + 80) = v167.columns[2].i32[0];
-        *(v121 + 72) = vzip1q_s32(v167.columns[0], v167.columns[1]).u64[0];
-        *(v121 + 96) = v167.columns[2].i32[1];
-        *(v121 + 88) = vtrn2q_s32(v167.columns[0], v167.columns[1]).u64[0];
-        *(v121 + 112) = v167.columns[2].i32[2];
-        *(v121 + 104) = vzip1q_s32(vdupq_laneq_s32(v167.columns[0], 2), vdupq_laneq_s32(v167.columns[1], 2)).u64[0];
-        v167.columns[0].i64[0] = *(v121 - 40);
-        v167.columns[1].i32[0] = *(v121 - 32);
-        v167.columns[2].i64[0] = *(v121 - 24);
-        v167.columns[3].i64[0] = *(v121 - 8);
-        v126 = *v121;
-        v167.columns[1].i32[1] = *(v121 - 16);
-        *(v121 + 32) = v167.columns[3].i32[0];
-        *(v121 + 24) = vzip1_s32(*v167.columns[0].f32, *v167.columns[2].f32);
-        *(v121 + 48) = v167.columns[3].i32[1];
-        *(v121 + 40) = vzip2_s32(*v167.columns[0].f32, *v167.columns[2].f32);
-        *(v121 + 64) = v126;
-        *(v121 + 56) = v167.columns[1].i64[0];
-        ++v120;
-        v119 += 64;
-        v121 += 256;
-      }
-
-      while (v120 < *(v116 + 16));
-      v117 = v146;
-    }
+    v5[1] = 1;
+    v7 = v5[2];
   }
 
   else
   {
-    re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((*a2 + 16), 0x100uLL, 0x100uLL, &v155);
-    v117 = *(&v155 + 1);
-    v118 = v156;
-    v127 = (v155 + DWORD2(v155));
-    *v127 = xmmword_1E3047670;
-    v127[1] = xmmword_1E3047680;
-    v127[2] = xmmword_1E30476A0;
-    v127[3] = xmmword_1E30474D0;
-    v127[4] = xmmword_1E3047670;
-    v127[5] = xmmword_1E3047680;
-    v127[6] = xmmword_1E30476A0;
-    v127[7] = xmmword_1E30474D0;
-    v127[8] = xmmword_1E3047670;
-    v127[9] = xmmword_1E3047680;
-    v127[10] = xmmword_1E30476A0;
-    v127[11] = xmmword_1E3047670;
-    v127[12] = xmmword_1E3047680;
-    v127[13] = xmmword_1E30476A0;
+    *(v5 + 8) = 0;
+    v7 = v5 + 9;
   }
 
-  v128 = *(*(*(a2 + 1) + 24) + 720);
-  *&v147 = 0x478674A22C6B2A1ALL;
-  *&v155 = v118;
-  DWORD2(v155) = 0;
-  v156 = v117;
-  return re::BufferTable::setBuffer(v128, &v147, &v155);
-}
-
-void re::UploadTonemapConstantsNode::execute(re::UploadTonemapConstantsNode *this, re::RenderGraphContext *a2)
-{
-  if ((atomic_load_explicit(&qword_1EE1C0C78, memory_order_acquire) & 1) == 0)
+  *v7 = 0;
+  re::DynamicString::appendf(v5, "Physics Stats\n");
+  v8 = 0x7FFFFFFFLL;
+  if (*a3)
   {
-    v22 = __cxa_guard_acquire(&qword_1EE1C0C78);
-    if (v22)
+    v9 = *(*(a3 + 8) + 4 * (0xE34A1ED09841F857 % *(a3 + 24)));
+    if (v9 != 0x7FFFFFFF)
     {
-      qword_1EE1C0C70 = re::getCombinedScopeHash(v22, v23, v24);
-      __cxa_guard_release(&qword_1EE1C0C78);
-    }
-  }
-
-  v4 = re::RenderGraphDataStore::tryGet<re::TonemapParametersData>(*(a2 + 146), qword_1EE1C0C70);
-  v5 = re::RenderGraphContext::metalBuffer(a2, this + 264);
-  v7 = [*re::BufferSlice::buffer(v5 v6)];
-  *v7 = *(v4 + 8);
-  v8 = *(v4 + 40);
-  v9 = *(v4 + 72);
-  v10 = *(v4 + 24);
-  v7[3] = *(v4 + 56);
-  v7[4] = v9;
-  v7[1] = v10;
-  v7[2] = v8;
-  v11 = *(v4 + 104);
-  v12 = *(v4 + 120);
-  v13 = *(v4 + 88);
-  *(v7 + 32) = *(v4 + 136);
-  v7[6] = v11;
-  v7[7] = v12;
-  v7[5] = v13;
-  v14 = *(*(*(a2 + 1) + 24) + 720);
-  v29 = 0x1C6D7B14F4E32CD0;
-  re::BufferTable::setBuffer(v14, &v29, v5);
-  v15 = *(*(*(a2 + 1) + 24) + 656);
-  v27[0] = *(this + 35);
-  v27[1] = *(this + 36);
-  v16 = *(v4 + 152);
-  if (v16)
-  {
-    v17 = *(v4 + 160);
-    re::RenderGraphContext::metalTexture(a2, v27, 0, 0, &v28);
-    v29 = 0;
-    v30 = 0;
-    v31 = 0;
-    v32 = v16;
-    v33 = vdupq_n_s64(1uLL);
-    [v28 replaceRegion:&v29 mipmapLevel:0 withBytes:v17 bytesPerRow:4 * v16];
-    v29 = 0xB3E5B3C154101;
-    re::TextureTable::setTexture(v15, &v29, &v28);
-    v29 = 0;
-    if (v28)
-    {
-    }
-  }
-
-  v26[0] = *(this + 37);
-  v26[1] = *(this + 38);
-  v18 = *(v4 + 176);
-  if (v18)
-  {
-    v19 = *(v4 + 184);
-    re::RenderGraphContext::metalTexture(a2, v26, 0, 0, &v28);
-    v29 = 0;
-    v30 = 0;
-    v31 = 0;
-    v32 = v18;
-    v33 = vdupq_n_s64(1uLL);
-    [v28 replaceRegion:&v29 mipmapLevel:0 withBytes:v19 bytesPerRow:4 * v18];
-    v29 = 0x645EADD8982CBD05;
-    re::TextureTable::setTexture(v15, &v29, &v28);
-    v29 = 0;
-    if (v28)
-    {
-    }
-  }
-
-  v25[0] = *(this + 39);
-  v25[1] = *(this + 40);
-  v20 = *(v4 + 200);
-  if (v20)
-  {
-    v21 = *(v4 + 208);
-    re::RenderGraphContext::metalTexture(a2, v25, 0, 0, &v28);
-    v29 = 0;
-    v30 = 0;
-    v31 = 0;
-    v32 = v20;
-    v33 = vdupq_n_s64(1uLL);
-    [v28 replaceRegion:&v29 mipmapLevel:0 withBytes:v21 bytesPerRow:4 * v20];
-    v29 = 0x259D0C231F804627;
-    re::TextureTable::setTexture(v15, &v29, &v28);
-    v29 = 0;
-    if (v28)
-    {
-    }
-  }
-}
-
-void re::UploadMultiSceneConstantsNode::~UploadMultiSceneConstantsNode(id *this)
-{
-  re::RenderGraphNode::~RenderGraphNode(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::UploadTonemapConstantsNode::~UploadTonemapConstantsNode(id *this)
-{
-  re::RenderGraphNode::~RenderGraphNode(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t re::RenderGraphDataStore::get<re::SceneArrayData>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re14SceneArrayDataE";
-  if (("N2re14SceneArrayDataE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re14SceneArrayDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
-    {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
-    }
-
-    while (v5);
-  }
-
-  v6 = 0x7FFFFFFFLL;
-  if (*(a1 + 64))
-  {
-    v7 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-    v8 = *(*(a1 + 72) + 4 * (v7 % *(a1 + 88)));
-    if (v8 != 0x7FFFFFFF)
-    {
-      v9 = *(a1 + 80);
-      v6 = 0x7FFFFFFFLL;
-      while (*(v9 + 24 * v8 + 8) != v7)
+      v10 = *(a3 + 16);
+      v8 = 0x7FFFFFFFLL;
+      while (*(v10 + 80 * v9 + 4) != 19)
       {
-        v8 = *(v9 + 24 * v8) & 0x7FFFFFFF;
-        if (v8 == 0x7FFFFFFF)
-        {
-          return *(*(a1 + 80) + 24 * v6 + 16);
-        }
-      }
-
-      v6 = v8;
-    }
-  }
-
-  return *(*(a1 + 80) + 24 * v6 + 16);
-}
-
-uint64_t re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::LightContexts>>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re27RenderGraphDataStoreWrapperINS_13LightContextsEEE";
-  if (("N2re27RenderGraphDataStoreWrapperINS_13LightContextsEEE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re27RenderGraphDataStoreWrapperINS_13LightContextsEEE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
-    {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
-    }
-
-    while (v5);
-  }
-
-  if (!*(a1 + 16))
-  {
-    return 0;
-  }
-
-  v6 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-  v7 = *(*(a1 + 24) + 4 * (v6 % *(a1 + 40)));
-  if (v7 == 0x7FFFFFFF)
-  {
-    return 0;
-  }
-
-  v8 = *(a1 + 32);
-  while (*(v8 + 24 * v7 + 8) != v6)
-  {
-    v7 = *(v8 + 24 * v7) & 0x7FFFFFFF;
-    if (v7 == 0x7FFFFFFF)
-    {
-      return 0;
-    }
-  }
-
-  return *(v8 + 24 * v7 + 16);
-}
-
-uint64_t re::RenderGraphDataStore::tryGet<re::VirtualEnvironmentProbeContextOverride>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re38VirtualEnvironmentProbeContextOverrideE";
-  if (("N2re38VirtualEnvironmentProbeContextOverrideE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re38VirtualEnvironmentProbeContextOverrideE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
-    {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
-    }
-
-    while (v5);
-  }
-
-  if (!*(a1 + 64))
-  {
-    return 0;
-  }
-
-  v6 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-  v7 = *(*(a1 + 72) + 4 * (v6 % *(a1 + 88)));
-  if (v7 == 0x7FFFFFFF)
-  {
-    return 0;
-  }
-
-  v8 = *(a1 + 80);
-  while (*(v8 + 24 * v7 + 8) != v6)
-  {
-    v7 = *(v8 + 24 * v7) & 0x7FFFFFFF;
-    if (v7 == 0x7FFFFFFF)
-    {
-      return 0;
-    }
-  }
-
-  return *(v8 + 24 * v7 + 16);
-}
-
-uint64_t re::HashTable<float,unsigned char,re::Hash<float>,re::EqualTo<float>,true,false>::add(uint64_t a1, _DWORD *a2, _BYTE *a3)
-{
-  v6 = *a2;
-  v7 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) >> 27));
-  v8 = v7 ^ (v7 >> 31);
-  if (*a1)
-  {
-    v9 = v8 % *(a1 + 24);
-    v10 = *(*(a1 + 8) + 4 * v9);
-    if (v10 != 0x7FFFFFFF)
-    {
-      v11 = *&v6;
-      v12 = *(a1 + 16);
-      if (*(v12 + 24 * v10 + 4) == v11)
-      {
-        return v12 + 24 * v10 + 8;
-      }
-
-      while (1)
-      {
-        LODWORD(v10) = *(v12 + 24 * v10) & 0x7FFFFFFF;
-        if (v10 == 0x7FFFFFFF)
-        {
-          break;
-        }
-
-        if (*(v12 + 24 * v10 + 4) == v11)
-        {
-          return v12 + 24 * v10 + 8;
-        }
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v9) = 0;
-  }
-
-  v14 = re::HashTable<float,unsigned char,re::Hash<float>,re::EqualTo<float>,true,false>::allocEntry(a1, v9, v8);
-  *(v14 + 4) = *a2;
-  *(v14 + 8) = *a3;
-  result = v14 + 8;
-  ++*(a1 + 40);
-  return result;
-}
-
-void re::RenderGraphCameraSetupNode::setupDrawCallsForCamera(uint64_t *a1, double a2, double a3, float32x4_t a4, double a5, float32x4_t a6)
-{
-  v6 = a1;
-  v268 = *MEMORY[0x1E69E9840];
-  v8 = *a1;
-  v7 = a1[1];
-  v189 = a1[5];
-  v190 = a1[4];
-  v191 = a1[6];
-  v192 = a1[3];
-  v258 = 0;
-  v259 = 0;
-  v261 = 0;
-  v262 = 0;
-  v264 = 0;
-  v209 = 0;
-  v9 = *(*(v8 + 8) + 96);
-  if (v9)
-  {
-    v213.i64[0] = 0x7FA75CCDD0CC4AC6;
-    v213.i64[1] = "overrides:disablefrustumculling";
-    v10 = re::DebugSettingsManager::getWithErrorCode<BOOL>(v9, &v213, &v209);
-    if (v213.i8[0])
-    {
-      if (v213.i8[0])
-      {
-      }
-    }
-  }
-
-  if (*(v6 + 64) == 1 && *(v7 + 872) == 1 && (v209 & 1) == 0)
-  {
-    LOWORD(v203) = 256;
-    re::buildCullingFrustum(v7 + 64, (v7 + 144), *(v7 + 890), &v203, &v213, a4, a6);
-    re::DynamicInlineArray<re::DynamicInlineArray<re::PlaneF,6ul>,2ul>::move(&v258, &v213);
-    ++v259;
-    re::DynamicInlineArray<re::DynamicInlineArray<re::Vector4<float>,8ul>,2ul>::move(&v261, v230);
-    ++v262;
-    v264 = v257;
-    if (v230[0])
-    {
-      v11 = &v230[18 * v230[0] + 2];
-      v12 = &v230[2];
-      do
-      {
-        *v12 = 0;
-        ++*(v12 + 2);
-        v12 += 18;
-      }
-
-      while (v12 != v11);
-    }
-
-    if (v213.i64[0])
-    {
-      v13 = &v213 + 7 * v213.i64[0] + 1;
-      v14 = v214;
-      do
-      {
-        v14->i64[0] = 0;
-        ++v14->i32[2];
-        v14 += 7;
-      }
-
-      while (v14 != v13);
-    }
-  }
-
-  v15 = *(*v8 + 32);
-  v206 = 0;
-  v204 = 0u;
-  v205 = 0u;
-  v203 = 0u;
-  v207 = 0x7FFFFFFFLL;
-  v188 = v15;
-  re::HashTable<re::StringID,re::TimelineEventParameterDescription,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(&v204, v15, 3);
-  v208 = 0;
-  v16 = *(v6 + 8);
-  v17 = *(v6 + 16);
-  v18 = *(v6 + 24);
-  v19 = *(v6 + 56);
-  v194 = *v6;
-  v187 = *(**v6 + 32);
-  if ((atomic_load_explicit(&qword_1EE1C0C90, memory_order_acquire) & 1) == 0)
-  {
-    goto LABEL_213;
-  }
-
-  while (1)
-  {
-    v193 = v8;
-    if (*(v18 + 16))
-    {
-      v20 = *(v18 + 24);
-    }
-
-    else
-    {
-      v20 = (v18 + 17);
-    }
-
-    v21 = qword_1EE1C0C88;
-    v22 = strlen(v20);
-    v23 = 0x9E3779B97F4A7C17;
-    if (v22)
-    {
-      MurmurHash3_x64_128(v20, v22, 0, &v213);
-      v23 = ((v213.i64[1] - 0x61C8864680B583E9 + (v213.i64[0] << 6) + (v213.i64[0] >> 2)) ^ v213.i64[0]) - 0x61C8864680B583E9;
-    }
-
-    v24 = re::RenderGraphDataStore::tryGet<re::DepthMitigationRenderData>(*(*v6 + 1168), ((v21 >> 2) + (v21 << 6) + v23) ^ v21);
-    if (v24)
-    {
-      v25 = *(v24 + 132) > 0;
-    }
-
-    else
-    {
-      v25 = 0;
-    }
-
-    v208 = v25;
-    if ((atomic_load_explicit(&qword_1EE1C0CA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0CA0))
-    {
-      qword_1EE1C0C98 = re::hashString("RenderGraphDataPipeData", v178);
-      __cxa_guard_release(&qword_1EE1C0CA0);
-    }
-
-    if (*(v18 + 16))
-    {
-      v26 = *(v18 + 24);
-    }
-
-    else
-    {
-      v26 = (v18 + 17);
-    }
-
-    v18 = qword_1EE1C0C98;
-    v27 = strlen(v26);
-    v28 = 0x9E3779B97F4A7C17;
-    if (v27)
-    {
-      MurmurHash3_x64_128(v26, v27, 0, &v213);
-      v28 = ((v213.i64[1] - 0x61C8864680B583E9 + (v213.i64[0] << 6) + (v213.i64[0] >> 2)) ^ v213.i64[0]) - 0x61C8864680B583E9;
-    }
-
-    v29 = re::RenderGraphDataStore::tryGet<re::MeshSortingCollection>(v194[146], ((v18 >> 2) + (v18 << 6) + v28) ^ v18);
-    if (!v29)
-    {
-      goto LABEL_135;
-    }
-
-    v8 = v29;
-    *&v203 = v29;
-    if (!v16[6])
-    {
-      re::internal::assertLog(6, v30, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 0, 0);
-      _os_crash();
-      __break(1u);
-LABEL_211:
-      v212 = 0;
-      v215 = 0u;
-      v216 = 0u;
-      memset(v214, 0, sizeof(v214));
-      v213 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v266 = 136315906;
-      *&v266[4] = "operator[]";
-      *&v266[12] = 1024;
-      *&v266[14] = 797;
-      *&v266[18] = 2048;
-      *&v266[20] = 0;
-      *&v266[28] = 2048;
-      *&v266[30] = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_212;
-    }
-
-    re::RenderCamera::computeLocalTransform((v16 + 8), &v213);
-    v31 = vmulq_f32(v214[1], v214[1]);
-    *&v32 = v31.f32[2] + vaddv_f32(*v31.f32);
-    *v31.f32 = vrsqrte_f32(v32);
-    *v31.f32 = vmul_f32(*v31.f32, vrsqrts_f32(v32, vmul_f32(*v31.f32, *v31.f32)));
-    v265 = vmulq_n_f32(vnegq_f32(v214[1]), vmul_f32(*v31.f32, vrsqrts_f32(v32, vmul_f32(*v31.f32, *v31.f32))).f32[0]);
-    v33 = v16[9];
-    v211.i64[0] = v16[8];
-    v211.i64[1] = v33;
-    if (!v17[8])
-    {
-      goto LABEL_211;
-    }
-
-    if (v17[3])
-    {
-      break;
-    }
-
-LABEL_212:
-    v212 = 0;
-    v215 = 0u;
-    v216 = 0u;
-    memset(v214, 0, sizeof(v214));
-    v213 = 0u;
-    v6 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v266 = 136315906;
-    *&v266[4] = "operator[]";
-    *&v266[12] = 1024;
-    *&v266[14] = 797;
-    *&v266[18] = 2048;
-    *&v266[20] = 0;
-    *&v266[28] = 2048;
-    *&v266[30] = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_213:
-    if (__cxa_guard_acquire(&qword_1EE1C0C90))
-    {
-      qword_1EE1C0C88 = re::hashString("RenderGraphDataPipeData", v177);
-      __cxa_guard_release(&qword_1EE1C0C90);
-    }
-  }
-
-  v34 = 0;
-  v35 = v17[10];
-  v36 = v17[5];
-  v37 = *v35;
-  v38 = v35[1];
-  v39 = v35[2];
-  v40 = v35[3];
-  v41 = v36[1];
-  v42 = v36[2];
-  v43 = v36[3];
-  *v266 = *v36;
-  *&v266[16] = v41;
-  *&v266[32] = v42;
-  v267 = v43;
-  do
-  {
-    *(&v213 + v34) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v37, COERCE_FLOAT(*&v266[v34])), v38, *&v266[v34], 1), v39, *&v266[v34], 2), v40, *&v266[v34], 3);
-    v34 += 16;
-  }
-
-  while (v34 != 64);
-  v197 = v214[0];
-  v198 = v213;
-  v195 = v215;
-  v196 = v214[1];
-  memset(v266, 0, 36);
-  *&v266[36] = 0x7FFFFFFFLL;
-  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::init(v266, v187, 3);
-  v46 = *(v8 + 128);
-  if (v46)
-  {
-    v47 = 0;
-    v48 = *(v8 + 112);
-    while (1)
-    {
-      v49 = *v48;
-      v48 += 32;
-      if (v49 < 0)
-      {
-        break;
-      }
-
-      if (v46 == ++v47)
-      {
-        LODWORD(v47) = *(v8 + 128);
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v47) = 0;
-  }
-
-  while (v47 != v46)
-  {
-    v62 = *(v8 + 112);
-    v213 = xmmword_1E3047670;
-    v214[0] = xmmword_1E3047680;
-    v63 = v62 + (v47 << 7);
-    v214[1] = xmmword_1E30476A0;
-    v215 = xmmword_1E30474D0;
-    LOBYTE(v212) = 0;
-    v64 = re::RenderGraphMeshNodeBase::computeSortDistance(v63 + 16, &v213, (v63 + 48), (v63 + 64), &v211, &v265, 0, &v212, 0.0, COERCE_DOUBLE(1065353216), 0.0078125, 0.0, v44, v45);
-    *&v212 = v64;
-    v213.i8[0] = 0;
-    v65 = re::HashTable<float,unsigned char,re::Hash<float>,re::EqualTo<float>,true,false>::add(v266, &v212, &v213);
-    v66 = (*v65)++;
-    v213 = 0uLL;
-    *&v214[0] = 0;
-    v67 = 0xBF58476D1CE4E5B9 * (*(v63 + 8) ^ (*(v63 + 8) >> 30));
-    re::HashTable<unsigned long long,re::FrameAnalysisManager::RenderState,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(&v204, (v63 + 8), (0x94D049BB133111EBLL * (v67 ^ (v67 >> 27))) ^ ((0x94D049BB133111EBLL * (v67 ^ (v67 >> 27))) >> 31), &v213);
-    if (v213.i32[3] == 0x7FFFFFFF)
-    {
-      v68 = re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(&v204, v213.u32[2], v213.u64[0]);
-      v69 = *(v63 + 8);
-      *(v68 + 16) = 0;
-      v70 = v68 + 16;
-      *(v68 + 8) = v69;
-      *(v68 + 24) = 0;
-      ++HIDWORD(v207);
-    }
-
-    else
-    {
-      v70 = v205 + 40 * v213.u32[3] + 16;
-    }
-
-    *v70 = v64;
-    *(v70 + 8) = v66;
-    *(v70 + 9) = *(v63 + 97);
-    if (*(v63 + 96) == 1)
-    {
-      v71 = *(v63 + 16);
-      v72 = *(v63 + 32);
-      v73 = vcgtq_f32(v71, v72);
-      v73.i32[3] = v73.i32[2];
-      v74 = vmaxvq_u32(v73);
-      v75.i64[0] = 0x3F0000003F000000;
-      v75.i64[1] = 0x3F0000003F000000;
-      v76 = vmulq_f32(vaddq_f32(v71, v72), v75);
-      v77 = v74 < 0;
-      if (v74 >= 0)
-      {
-        v78 = v76.i64[1];
-      }
-
-      else
-      {
-        v78 = 0;
-      }
-
-      if (v77)
-      {
-        v79 = 0;
-      }
-
-      else
-      {
-        v79 = v76.i64[0];
-      }
-
-      v86.i64[0] = v79;
-      v86.i64[1] = v78;
-      v80 = vsubq_f32(v211, v86);
-      v81 = vmulq_f32(v80, v80);
-      *&v82 = v81.f32[2] + vaddv_f32(*v81.f32);
-      *v81.f32 = vrsqrte_f32(v82);
-      *v81.f32 = vmul_f32(*v81.f32, vrsqrts_f32(v82, vmul_f32(*v81.f32, *v81.f32)));
-      v83 = vsubq_f32(v72, v71);
-      v83.i32[3] = 0;
-      v84 = vmaxnmq_f32(v83, 0);
-      v85 = vmulq_f32(v84, v84);
-      v86.f32[3] = sqrtf(v85.f32[2] + vaddv_f32(*v85.f32)) * 0.5;
-      v199 = vmulq_n_f32(v80, vmul_f32(*v81.f32, vrsqrts_f32(v82, vmul_f32(*v81.f32, *v81.f32))).f32[0]);
-      v87 = vaddq_f32(v86, vmulq_n_f32(v199, v86.f32[3]));
-      v88 = *(v63 + 80);
-      v89 = vmulq_f32(v88, v88);
-      if (fabsf(v89.f32[2] + vaddv_f32(*v89.f32)) >= 1.0e-10)
-      {
-        v90 = v265;
-        if ((atomic_load_explicit(&qword_1EE1C0D38, memory_order_acquire) & 1) == 0)
-        {
-          v185 = v87;
-          v186 = v86;
-          v183 = v90;
-          v184 = v88;
-          v99 = __cxa_guard_acquire(&qword_1EE1C0D38);
-          v90 = v183;
-          v88 = v184;
-          v87 = v185;
-          v86 = v186;
-          if (v99)
-          {
-            re::Defaults::floatValue("depthBiasGroupNormalAngleCosine", v100, &v213);
-            v101 = v213.f32[1];
-            if (!v213.i8[0])
-            {
-              v101 = 0.5;
-            }
-
-            _MergedGlobals_535 = LODWORD(v101);
-            __cxa_guard_release(&qword_1EE1C0D38);
-            v90 = v183;
-            v88 = v184;
-            v87 = v185;
-            v86 = v186;
-          }
-        }
-
-        v91 = vmulq_f32(v88, vnegq_f32(v90));
-        if ((v91.f32[2] + vaddv_f32(*v91.f32)) > *&_MergedGlobals_535)
-        {
-          v87 = v86;
-        }
-      }
-
-      v92 = vaddq_f32(v195, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v198, v87.f32[0]), v197, *v87.f32, 1), v196, v87, 2));
-      v93 = 1.0;
-      if (v92.f32[3] > 0.0)
-      {
-        v92.f32[0] = v92.f32[2] / v92.f32[3];
-        if ((v92.f32[2] / v92.f32[3]) > 0.9999)
-        {
-          v92.f32[0] = 0.9999;
-        }
-
-        if (v92.f32[0] >= 0.0)
-        {
-          v93 = v92.f32[0];
-        }
-
-        else
-        {
-          v93 = 0.0;
-        }
-      }
-
-      v94 = nextafterf(v93, 10.0);
-      v95 = vmulq_f32(v199, *(v63 + 80));
-      v96 = v94 - v93;
-      if ((v95.f32[2] + vaddv_f32(*v95.f32)) <= 0.0)
-      {
-        v97 = -256.0;
-      }
-
-      else
-      {
-        v97 = 256.0;
-      }
-
-      *(v70 + 4) = v96 * v97;
-    }
-
-    else
-    {
-      *(v70 + 4) = 0;
-    }
-
-    v98 = *(v8 + 128);
-    if (v98 <= v47 + 1)
-    {
-      v98 = v47 + 1;
-    }
-
-    while (v98 - 1 != v47)
-    {
-      LODWORD(v47) = v47 + 1;
-      if ((*(*(v8 + 112) + (v47 << 7)) & 0x80000000) != 0)
-      {
-        goto LABEL_90;
-      }
-    }
-
-    LODWORD(v47) = v98;
-LABEL_90:
-    ;
-  }
-
-  if (HIDWORD(v205) && !re::RenderGraphDataStore::tryGet<re::MeshSortGroupCameraData>(v194[146], *(v194[5] + 48)))
-  {
-    v102 = v194[146];
-    v103 = "N2re23MeshSortGroupCameraDataE";
-    if (("N2re23MeshSortGroupCameraDataE" & 0x8000000000000000) != 0)
-    {
-      v104 = ("N2re23MeshSortGroupCameraDataE" & 0x7FFFFFFFFFFFFFFFLL);
-      v105 = 5381;
-      do
-      {
-        v103 = v105;
-        v106 = *v104++;
-        v105 = (33 * v105) ^ v106;
-      }
-
-      while (v106);
-    }
-
-    v213.i64[0] = (*(v194[5] + 48) - 0x61C8864680B583E9 + (v103 << 6) + (v103 >> 2)) ^ v103;
-    v107 = (*(**(v102 + 8) + 32))(*(v102 + 8), 56, 8);
-    *v107 = &unk_1F5D15018;
-    *(v107 + 24) = 0u;
-    *(v107 + 40) = 0;
-    *(v107 + 8) = 0u;
-    *(v107 + 44) = 0x7FFFFFFFLL;
-    re::HashTable<re::StringID,re::TimelineEventParameterDescription,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v107 + 8, v187, 3);
-    v212 = v107;
-    v108 = re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(v102 + 64, &v213, &v212);
-    v109 = *v108;
-    v110 = (*v108 + 8);
-    if (v110 != &v204)
-    {
-      if (*v110)
-      {
-        if (*(v109 + 36))
-        {
-          v111 = *(v109 + 32);
-          if (v111)
-          {
-            memset_pattern16(*(v109 + 16), &unk_1E304C660, 4 * v111);
-          }
-
-          v112 = *(v109 + 40);
-          if (v112)
-          {
-            v113 = *(v109 + 24);
-            do
-            {
-              if ((*v113 & 0x80000000) != 0)
-              {
-                *v113 &= ~0x80000000;
-              }
-
-              v113 += 10;
-              --v112;
-            }
-
-            while (v112);
-          }
-
-          *(v109 + 36) = 0;
-          *(v109 + 40) = 0;
-          v114 = *(v109 + 48) + 1;
-          *(v109 + 44) = 0x7FFFFFFF;
-          *(v109 + 48) = v114;
-        }
-
-        if (v204)
-        {
-          if (*(v109 + 32) < HIDWORD(v205))
-          {
-            re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::setCapacity(v110, HIDWORD(v205));
-          }
-
-          re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::copy(v110, &v204);
-          ++*(v109 + 48);
-        }
-      }
-
-      else if (v204)
-      {
-        if (HIDWORD(v205) <= 3)
-        {
-          v176 = 3;
-        }
-
-        else
-        {
-          v176 = HIDWORD(v205);
-        }
-
-        re::HashTable<re::StringID,re::TimelineEventParameterDescription,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(*v108 + 8, v204, v176);
-        re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::copy(v110, &v204);
-      }
-    }
-  }
-
-  v50 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshRenderPassGroups>>(v194[146], *(v194[5] + 48));
-  if (v50)
-  {
-    v51 = v19 == 0;
-  }
-
-  else
-  {
-    v51 = 0;
-  }
-
-  if (v51)
-  {
-    v19 = v50 + 8;
-  }
-
-  else
-  {
-    if (!v19)
-    {
-      v52 = v194[146];
-      v53 = "N2re27RenderGraphDataStoreWrapperINS_20MeshRenderPassGroupsEEE";
-      if (("N2re27RenderGraphDataStoreWrapperINS_20MeshRenderPassGroupsEEE" & 0x8000000000000000) != 0)
-      {
-        v54 = ("N2re27RenderGraphDataStoreWrapperINS_20MeshRenderPassGroupsEEE" & 0x7FFFFFFFFFFFFFFFLL);
-        v55 = 5381;
-        do
-        {
-          v53 = v55;
-          v56 = *v54++;
-          v55 = (33 * v55) ^ v56;
-        }
-
-        while (v56);
-      }
-
-      v212 = (*(v194[5] + 48) - 0x61C8864680B583E9 + (v53 << 6) + (v53 >> 2)) ^ v53;
-      v57 = (*(**(v52 + 8) + 32))(*(v52 + 8), 56, 8);
-      v213 = 0u;
-      memset(v214, 0, 20);
-      *(&v214[1] + 4) = 0x7FFFFFFFLL;
-      re::HashTable<unsigned long long,re::ecs2::CARESortingManagerV2::SorterCollection,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::init(&v213, v187, 3);
-      *v57 = &unk_1F5D14FD8;
-      *(v57 + 8) = v213;
-      v213 = 0uLL;
-      *(v57 + 24) = *&v214[0];
-      *&v214[0] = 0;
-      *(v57 + 32) = *(&v214[0] + 1);
-      *(v57 + 40) = *&v214[1];
-      *(v214 + 8) = xmmword_1E3058120;
-      *(v57 + 48) = 1;
-      re::HashTable<unsigned long long,re::MeshShadowPlaneData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(&v213);
-      v213.i64[0] = v57;
-      v19 = *re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(v52 + 64, &v212, &v213) + 8;
-    }
-
-    v58 = *(v8 + 176);
-    if (v58)
-    {
-      v59 = 0;
-      v60 = *(v8 + 160);
-      while (1)
-      {
-        v61 = *v60;
-        v60 += 44;
-        if (v61 < 0)
-        {
-          break;
-        }
-
-        if (v58 == ++v59)
-        {
-          LODWORD(v59) = *(v8 + 176);
-          break;
-        }
-      }
-    }
-
-    else
-    {
-      LODWORD(v59) = 0;
-    }
-
-    if (v59 != v58)
-    {
-      while (2)
-      {
-        v115 = *(v8 + 160) + 176 * v59;
-        v213 = 0uLL;
-        *&v214[0] = 0;
-        v117 = *(v115 + 8);
-        v116 = (v115 + 8);
-        v118 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v117 ^ (v117 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v117 ^ (v117 >> 30))) >> 27));
-        re::HashTable<unsigned long long,re::PeerTransferReport,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v19, v116, v118 ^ (v118 >> 31), &v213);
-        if (v213.i32[3] == 0x7FFFFFFF)
-        {
-          v121 = re::HashTable<unsigned long long,re::MeshRenderPassGroups::RenderPassGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(v19, v213.u32[2], v213.u64[0]);
-          v122 = *v116;
-          *(v121 + 16) = 0u;
-          v123 = v121 + 16;
-          *(v121 + 8) = v122;
-          *(v121 + 80) = 0u;
-          *(v121 + 96) = 0u;
-          *(v121 + 48) = 0u;
-          *(v121 + 64) = 0u;
-          *(v121 + 32) = 0u;
-          *(v121 + 96) = 1;
-          ++*(v19 + 40);
-        }
-
-        else
-        {
-          v123 = *(v19 + 16) + (v213.u32[3] << 7) + 16;
-        }
-
-        v124 = (v116 + 1);
-        *(v123 + 5) = *(v124 + 32);
-        *(v123 + 6) = *(v124 + 33);
-        if (*(v123 + 16))
-        {
-          if (*(v124 + 80))
-          {
-            v125 = *(v124 + 96);
-            v126 = *(v124 + 112);
-            *(v123 + 64) = *(v124 + 128);
-            goto LABEL_125;
-          }
-
-          *(v123 + 16) = 0;
-        }
-
-        else if (*(v124 + 80))
-        {
-          *(v123 + 16) = 1;
-          v125 = *(v124 + 96);
-          v126 = *(v124 + 112);
-          *(v123 + 64) = *(v124 + 128);
-LABEL_125:
-          *(v123 + 32) = v125;
-          *(v123 + 48) = v126;
-        }
-
-        v213 = xmmword_1E3047670;
-        v214[0] = xmmword_1E3047680;
-        v214[1] = xmmword_1E30476A0;
-        v215 = xmmword_1E30474D0;
-        v210 = 5;
-        LOBYTE(v212) = 0;
-        v127 = re::RenderGraphMeshNodeBase::computeSortDistance(v124, &v213, &v210, (v124 + 48), &v211, &v265, 0, &v212, 0.0, COERCE_DOUBLE(1065353216), 0.0078125, 0.0, v119, v120);
-        v213.f32[0] = v127;
-        LOBYTE(v212) = 0;
-        v128 = re::HashTable<float,unsigned char,re::Hash<float>,re::EqualTo<float>,true,false>::add(v266, &v213, &v212);
-        v129 = (*v128)++;
-        *v123 = v127;
-        *(v123 + 4) = v129;
-        *(v123 + 9) = *(v124 + 66);
-        v130 = *(v8 + 176);
-        if (v130 <= v59 + 1)
-        {
-          v130 = v59 + 1;
-        }
-
-        while (v130 - 1 != v59)
-        {
-          LODWORD(v59) = v59 + 1;
-          if ((*(*(v8 + 160) + 176 * v59) & 0x80000000) != 0)
-          {
-            goto LABEL_133;
-          }
-        }
-
-        LODWORD(v59) = v130;
-LABEL_133:
-        if (v59 == v58)
-        {
-          break;
-        }
-
-        continue;
-      }
-    }
-  }
-
-  *(&v203 + 1) = v19;
-  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v266);
-LABEL_135:
-  if (*(v194 + 338))
-  {
-    re::DrawCallRecorder::saveSortingDebugInformation((v194 + 169), &v203);
-  }
-
-  memset(v266, 0, 36);
-  *&v266[36] = 0x7FFFFFFFLL;
-  re::HashTable<unsigned long,re::DrawTable,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::init(v266, v188, 3);
-  if (*(v192 + 16))
-  {
-    v131 = *(v192 + 24);
-  }
-
-  else
-  {
-    v131 = (v192 + 17);
-  }
-
-  v132 = strlen(v131);
-  v133 = 0x9E3779B97F4A7C17;
-  if (v132)
-  {
-    MurmurHash3_x64_128(v131, v132, 0, &v213);
-    v133 = ((v213.i64[1] - 0x61C8864680B583E9 + (v213.i64[0] << 6) + (v213.i64[0] >> 2)) ^ v213.i64[0]) - 0x61C8864680B583E9;
-  }
-
-  if ((atomic_load_explicit(&qword_1EE1C0CB0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0CB0))
-  {
-    qword_1EE1C0CA8 = re::hashString("DynamicFunctionConstants", v179);
-    __cxa_guard_release(&qword_1EE1C0CB0);
-  }
-
-  v134 = re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(*(v193 + 1168), (v133 + (qword_1EE1C0CA8 << 6) + (qword_1EE1C0CA8 >> 2)) ^ qword_1EE1C0CA8);
-  if (v134)
-  {
-    v135 = v134 + 8;
-  }
-
-  else
-  {
-    v135 = 0;
-  }
-
-  if ((atomic_load_explicit(&qword_1EE1C0CC0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0CC0))
-  {
-    qword_1EE1C0CB8 = re::hashString("LightContext", v180);
-    __cxa_guard_release(&qword_1EE1C0CC0);
-  }
-
-  v136 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::LightContexts>>(*(v193 + 1168), (v133 + (qword_1EE1C0CB8 << 6) + (qword_1EE1C0CB8 >> 2)) ^ qword_1EE1C0CB8);
-  v137 = *(v189 + 8);
-  v200 = v136;
-  v138 = *(v190 + 8);
-  if (v136)
-  {
-    v139 = v136 + 8;
-  }
-
-  else
-  {
-    v139 = 0;
-  }
-
-  v140 = *(v6 + 80);
-  v141 = *(v6 + 66);
-  v142 = *(v7 + 865);
-  v213.i64[0] = v193;
-  *(&v214[0] + 1) = &v203;
-  v214[1] = 0u;
-  v215 = 0u;
-  v216 = 0u;
-  v217 = 0u;
-  v218 = 0;
-  v219 = 0u;
-  v220 = 0u;
-  v221 = 0u;
-  v222 = 0u;
-  v223 = 0u;
-  v224 = 0u;
-  v225 = v191 + 16;
-  v226 = &v258;
-  v228 = 0;
-  v227 = 0;
-  v229 = 0;
-  memset(&v230[1], 0, 32);
-  LODWORD(v230[0]) = 0;
-  v231 = 0;
-  v232 = 0;
-  v233 = 0xFFFF0100FFFF0100;
-  v234 = 0;
-  v235 = v141;
-  *&v214[0] = &unk_1F5D08FC8;
-  v236 = 0;
-  v237 = 0;
-  v238 = 0;
-  v239 = 0;
-  v240 = 0;
-  v241 = xmmword_1E304F3C0;
-  v242 = 0;
-  strcpy(v243, "f*");
-  v243[3] = v142;
-  v244 = 1065353216;
-  v245 = 1065353216;
-  v247 = 0;
-  v246 = 0;
-  v248 = 0;
-  v249 = -1;
-  v250 = 0;
-  v251 = 0;
-  v252 = 1;
-  v253 = v138;
-  v254 = v137;
-  v255 = v140;
-  v256 = v135;
-  v201 = *(v7 + 840);
-  if (v201)
-  {
-    if (v136)
-    {
-      v143 = *(v136 + 297);
-    }
-
-    else
-    {
-      v143 = 0;
-    }
-
-    if ((atomic_load_explicit(&qword_1EE1C0D48, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0D48))
-    {
-      qword_1EE1C0D40 = re::hashString("RenderGraphDataPipeData", v181);
-      __cxa_guard_release(&qword_1EE1C0D48);
-    }
-
-    v144 = qword_1EE1C0D40;
-    if (*(v192 + 16))
-    {
-      v145 = *(v192 + 24);
-    }
-
-    else
-    {
-      v145 = (v192 + 17);
-    }
-
-    v146 = strlen(v145);
-    v147 = 0x9E3779B97F4A7C17;
-    if (v146)
-    {
-      MurmurHash3_x64_128(v145, v146, 0, &v265);
-      v147 = ((v265.i64[1] - 0x61C8864680B583E9 + (v265.i64[0] << 6) + (v265.i64[0] >> 2)) ^ v265.i64[0]) - 0x61C8864680B583E9;
-    }
-
-    v148 = re::RenderGraphDataStore::tryGet<re::DepthMitigationRenderData>(*(v193 + 1168), ((v144 >> 2) + (v144 << 6) + v147) ^ v144);
-    v149 = *(v201 + 40);
-    if (v149)
-    {
-      v150 = v148;
-      for (i = 0; i != v149; ++i)
-      {
-        v152 = re::BucketArray<re::MeshSceneCollection,16ul>::operator[](v201, i);
-        v153 = *(v152 + 16);
-        if (v153)
-        {
-          v154 = *(v152 + 32);
-          v155 = 736 * v153;
-          do
-          {
-            v265.i32[0] = 0;
-            {
-              v156 = !re::mesh_traversal::traverseMeshScene(v214, v154, v265.u32[0]) || v150 == 0;
-              if (!v156 && (*(v7 + 864) & 1) != 0)
-              {
-                *(v150 + 136) |= (v154[33].i8[4] & 2) != 0;
-              }
-            }
-
-            v154 += 46;
-            v155 -= 736;
-          }
-
-          while (v155);
-        }
-      }
-    }
-  }
-
-  v202 = *(v7 + 848);
-  if (v202)
-  {
-    if (v200)
-    {
-      v157 = *(v200 + 297);
-    }
-
-    else
-    {
-      v157 = 0;
-    }
-
-    v158 = 0x9E3779B97F4A7C17;
-    if ((atomic_load_explicit(&qword_1EE1C0D58, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0D58))
-    {
-      qword_1EE1C0D50 = re::hashString("RenderGraphDataPipeData", v182);
-      __cxa_guard_release(&qword_1EE1C0D58);
-    }
-
-    v159 = qword_1EE1C0D50;
-    if (*(v192 + 16))
-    {
-      v160 = *(v192 + 24);
-    }
-
-    else
-    {
-      v160 = (v192 + 17);
-    }
-
-    v161 = strlen(v160);
-    if (v161)
-    {
-      MurmurHash3_x64_128(v160, v161, 0, &v265);
-      v158 = ((v265.i64[1] - 0x61C8864680B583E9 + (v265.i64[0] << 6) + (v265.i64[0] >> 2)) ^ v265.i64[0]) - 0x61C8864680B583E9;
-    }
-
-    v162 = re::RenderGraphDataStore::tryGet<re::DepthMitigationRenderData>(*(v193 + 1168), ((v159 >> 2) + (v159 << 6) + v158) ^ v159);
-    v163 = *(v202 + 40);
-    if (v163)
-    {
-      v164 = v162;
-      for (j = 0; j != v163; ++j)
-      {
-        v166 = re::BucketArray<re::DynamicArray<re::CameraView>,4ul>::operator[](v202, j);
-        v167 = *(v166 + 16);
-        if (v167)
-        {
-          v168 = *(v166 + 32);
-          v169 = v167 << 10;
-          do
-          {
-            v265.i32[0] = 0;
-            {
-              v170 = !re::mesh_traversal::traverseVFXScene(v214, v168, v213.i64[0], v265.i32[0]) || v164 == 0;
-              if (!v170 && (*(v7 + 864) & 1) != 0)
-              {
-                *(v164 + 136) |= (*(v168 + 532) & 2) != 0;
-              }
-            }
-
-            v168 += 1024;
-            v169 -= 1024;
-          }
-
-          while (v169);
-        }
-      }
-    }
-  }
-
-  *&v214[0] = &unk_1F5D034D8;
-  for (k = 256; k != 176; k -= 40)
-  {
-    re::DynamicArray<unsigned long>::deinit(&v213 + k);
-  }
-
-  re::HashTable<unsigned long,re::DrawTable,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::deinit(v266);
-  re::HashTable<unsigned long long,re::internal::MemoryAttributionTaskAndPeerID,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(&v204);
-  if (v261)
-  {
-    v172 = &v263[9 * v261];
-    v173 = v263;
-    do
-    {
-      *v173 = 0;
-      ++*(v173 + 2);
-      v173 += 9;
-    }
-
-    while (v173 != v172);
-  }
-
-  if (v258)
-  {
-    v174 = &v260[7 * v258];
-    v175 = v260;
-    do
-    {
-      *v175 = 0;
-      ++*(v175 + 2);
-      v175 += 7;
-    }
-
-    while (v175 != v174);
-  }
-}
-
-void re::RenderGraphCameraSetupNode::execute(const char **this, float32x4_t *a2)
-{
-  v75 = *MEMORY[0x1E69E9840];
-  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v63, 5034, 0);
-  v4 = re::RenderGraphDataStore::get<re::CameraData>(a2[73].i64[0], *(a2[2].i64[1] + 48));
-  v5 = &qword_1EE1C0CC8;
-  if ((atomic_load_explicit(&qword_1EE1C0CD0, memory_order_acquire) & 1) == 0)
-  {
-    goto LABEL_49;
-  }
-
-  while (1)
-  {
-    v6 = re::RenderGraphDataStore::get<re::RendererGlobals>(a2[73].i64[0], *v5);
-    v7 = re::RenderGraphDataStore::get<re::SceneScope>(a2[73].i64[0], *(a2[2].i64[1] + 48));
-    if ((atomic_load_explicit(v5 + 24, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0CE0))
-    {
-      qword_1EE1C0CD8 = re::hashString("DynamicFunctionConstants", v61);
-      __cxa_guard_release(&qword_1EE1C0CE0);
-    }
-
-    v8 = qword_1EE1C0CD8;
-    v9 = strlen(this[4]);
-    if (v9)
-    {
-      MurmurHash3_x64_128(this[4], v9, 0, &v66);
-      v10 = ((*(&v66 + 1) - 0x61C8864680B583E9 + (v66 << 6) + (v66 >> 2)) ^ v66) - 0x61C8864680B583E9;
-    }
-
-    else
-    {
-      v10 = 0x9E3779B97F4A7C17;
-    }
-
-    v11 = re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(a2[73].i64[0], ((v8 >> 2) + (v8 << 6) + v10) ^ v8);
-    if (v11)
-    {
-      v12 = (v11 + 8);
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    v13 = *(*(v6 + 8) + 32);
-    v14 = this[37];
-    if (v14)
-    {
-      v15 = (this + 34);
-    }
-
-    else
-    {
-      v15 = v12;
-    }
-
-    if (v14)
-    {
-      if (v11)
-      {
-        v15 = (this + 34);
-        *&v66 = v11 + 8;
-        v16 = *(v11 + 24);
-        if (v16 >= 0x10)
-        {
-          v17 = 0;
-          v18 = *(v11 + 8);
-          v19 = v16 >> 4;
-          while (1)
-          {
-            v20 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v18), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
-            *(&v66 + 1) = v20 ^ 0xFFFFLL;
-            if (v20 != 0xFFFFLL)
-            {
-              break;
-            }
-
-            v17 -= 16;
-            ++v18;
-            if (!--v19)
-            {
-              goto LABEL_23;
-            }
-          }
-
-          v21 = __clz(__rbit64(v20 ^ 0xFFFFLL));
-          v22 = v21 - v17;
-          *&v67 = v21 - v17;
-          if (v21 + 1 != v17)
-          {
-            do
-            {
-              v23 = *(v66 + 8) + 16 * v22;
-              if (re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(this + 34, v23) == -1)
-              {
-                re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::internalAdd((this + 34), v23, (v23 + 8));
-              }
-
-              re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(&v66);
-              v22 = v67;
-            }
-
-            while (v67 != -1);
-          }
-        }
-      }
-    }
-
-LABEL_23:
-    if (re::RenderGraphDataStore::tryGet<re::CameraMatrices>(a2[73].i64[0], *(a2[2].i64[1] + 48)))
-    {
-      break;
-    }
-
-    v24 = a2[73].i64[0];
-    v25 = *(a2[2].i64[1] + 48);
-    v65 = 0;
-    {
-      re::introspect<re::CameraMatrices>(BOOL)::info = re::introspect_CameraMatrices(0);
-    }
-
-    v64 = re::introspect<re::CameraMatrices>(BOOL)::info;
-    v26 = strlen(*(re::introspect<re::CameraMatrices>(BOOL)::info + 6));
-    v62 = v7;
-    if (v26)
-    {
-      MurmurHash3_x64_128(*(re::introspect<re::CameraMatrices>(BOOL)::info + 6), v26, 0, &v66);
-      v27 = (*(&v66 + 1) - 0x61C8864680B583E9 + (v66 << 6) + (v66 >> 2)) ^ v66;
-    }
-
-    else
-    {
-      v27 = 0;
-    }
-
-    v65 = v27;
-    re::HashTable<unsigned long,re::IntrospectionStructure const*,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addOrReplace(v24 + 176, &v65, &v64);
-    *&v66 = (v25 - 0x61C8864680B583E9 + (v65 << 6) + (v65 >> 2)) ^ v65;
-    v28 = (*(**(v24 + 8) + 32))(*(v24 + 8), 176, 16);
-    v64 = re::CameraMatrices::CameraMatrices(v28, v13, *(v4 + 890));
-    v29 = re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(v24 + 64, &v66, &v64);
-    if (!*(v4 + 890))
-    {
-LABEL_37:
-      v42.i64[0] = 0x7F0000007FLL;
-      v42.i64[1] = 0x7F0000007FLL;
-      a2[4] = vnegq_f32(v42);
-      a2[5] = v42;
-      v7 = v62;
-      break;
-    }
-
-    v5 = 0;
-    v31 = *v29;
-    v32 = v4 + 144;
-    v33 = (v4 + 64);
-    while (1)
-    {
-      v34 = *(v4 + 128);
-      if (v34 <= v5)
-      {
-        break;
-      }
-
-      if (*(v32 + 80) == 1)
-      {
-        v35 = *(v32 + 96);
-        v36 = *(v32 + 112);
-        v37 = *(v32 + 144);
-        v68 = *(v32 + 128);
-        v69 = v37;
-        v66 = v35;
-        v67 = v36;
-      }
-
-      else
-      {
-        re::Projection::cullingProjectionMatrix(v32, &v66);
-      }
-
-      re::DynamicArray<re::Matrix4x4<float>>::add((v31 + 48), &v66);
-      v39 = *(v4 + 128);
-      if (v39 <= v5)
-      {
-        goto LABEL_47;
-      }
-
-      re::Projection::cullingProjectionMatrix(v32, &v66);
-      re::DynamicArray<re::Matrix4x4<float>>::add((v31 + 88), &v66);
-      v41 = *(v4 + 48);
-      if (v41 <= v5)
-      {
-        goto LABEL_48;
-      }
-
-      re::RenderCamera::computeInverseTransform(v33, &v66);
-      re::DynamicArray<re::Matrix4x4<float>>::add((v31 + 8), &v66);
-      v5 = (v5 + 1);
-      v33 += 2;
-      v32 += 240;
-      if (v5 >= *(v4 + 890))
-      {
-        goto LABEL_37;
-      }
-    }
-
-    re::internal::assertLog(6, v30, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v5, v34);
-    _os_crash();
-    __break(1u);
-LABEL_47:
-    re::internal::assertLog(6, v38, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v5, v39);
-    _os_crash();
-    __break(1u);
-LABEL_48:
-    re::internal::assertLog(6, v40, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v5, v41);
-    _os_crash();
-    __break(1u);
-LABEL_49:
-    v58 = __cxa_guard_acquire(&qword_1EE1C0CD0);
-    if (v58)
-    {
-      *v5 = re::getCombinedScopeHash(v58, v59, v60);
-      __cxa_guard_release(v5 + 1);
-    }
-  }
-
-  if (!re::RenderGraphDataStore::tryGet<re::MeshPassInfoData>(a2[73].i64[0], *(a2[2].i64[1] + 48)))
-  {
-    v43 = re::RenderGraphDataStore::get<re::MeshLodSelectInputData>(a2[73].i64[0], *(a2[2].i64[1] + 48));
-    v44 = a2[73].i64[0];
-    v45 = "N2re16MeshPassInfoDataE";
-    if (("N2re16MeshPassInfoDataE" & 0x8000000000000000) != 0)
-    {
-      v46 = ("N2re16MeshPassInfoDataE" & 0x7FFFFFFFFFFFFFFFLL);
-      v47 = 5381;
-      do
-      {
-        v45 = v47;
-        v48 = *v46++;
-        v47 = (33 * v47) ^ v48;
-      }
-
-      while (v48);
-    }
-
-    *&v66 = (*(a2[2].i64[1] + 48) - 0x61C8864680B583E9 + (v45 << 6) + (v45 >> 2)) ^ v45;
-    v49 = (*(**(v44 + 8) + 32))(*(v44 + 8), 16, 8);
-    *v49 = &unk_1F5D10F80;
-    v49[1] = 0;
-    v65 = v49;
-    v50 = *re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(v44 + 64, &v66, &v65);
-    v51 = (*(*v13 + 32))(v13, 48, 8);
-    *v51 = 0u;
-    *(v51 + 16) = 0u;
-    *(v51 + 32) = 0;
-    *(v51 + 36) = 0x7FFFFFFFLL;
-    re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::init(v51, v13, 3);
-    *(v50 + 8) = v51;
-    v52 = re::RenderGraphDataStore::get<re::CameraMatrices>(a2[73].i64[0], *(a2[2].i64[1] + 48));
-    *&v66 = a2;
-    *(&v66 + 1) = v4;
-    *&v67 = v52;
-    *(&v67 + 1) = v7;
-    *&v68 = v6;
-    *(&v68 + 1) = v50;
-    v69 = v43;
-    v70 = *(this + 132);
-    v71 = 0;
-    v72 = *(v4 + 876);
-    if (v72 == 1)
-    {
-      v73 = *(v4 + 880);
-    }
-
-    v74 = v15;
-    re::RenderGraphCameraSetupNode::setupDrawCallsForCamera(&v66, v53, v54, v55, v56, v57);
-  }
-
-  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v63);
-}
-
-void re::RenderGraphMultiViewCameraSetupNode::execute(const char **this, re::RenderGraphContext *a2)
-{
-  v131 = *MEMORY[0x1E69E9840];
-  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v105, 5034, 0);
-  v3 = re::RenderGraphDataStore::get<re::CameraArrayData>(*(a2 + 146), *(*(a2 + 5) + 48));
-  v101 = a2;
-  v4 = *(a2 + 146);
-  v5 = "N2re27MeshLodSelectInputArrayDataE";
-  if (("N2re27MeshLodSelectInputArrayDataE" & 0x8000000000000000) != 0)
-  {
-    v6 = ("N2re27MeshLodSelectInputArrayDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v7 = 5381;
-    do
-    {
-      v5 = v7;
-      v8 = *v6++;
-      v7 = (33 * v7) ^ v8;
-    }
-
-    while (v8);
-  }
-
-  v9 = 0x9E3779B97F4A7C17;
-  v10 = 0x7FFFFFFFLL;
-  if (*(v4 + 64))
-  {
-    v11 = (*(*(a2 + 5) + 48) + (v5 << 6) + (v5 >> 2) - 0x61C8864680B583E9) ^ v5;
-    v12 = *(*(v4 + 72) + 4 * (v11 % *(v4 + 88)));
-    if (v12 != 0x7FFFFFFF)
-    {
-      v13 = *(v4 + 80);
-      v10 = 0x7FFFFFFFLL;
-      while (*(v13 + 24 * v12 + 8) != v11)
-      {
-        v12 = *(v13 + 24 * v12) & 0x7FFFFFFF;
-        if (v12 == 0x7FFFFFFF)
+        v9 = *(v10 + 80 * v9) & 0x7FFFFFFF;
+        if (v9 == 0x7FFFFFFF)
         {
           goto LABEL_11;
         }
       }
 
-      v10 = v12;
+      v8 = v9;
     }
   }
 
 LABEL_11:
-  v102 = *(*(v4 + 80) + 24 * v10 + 16);
-  v14 = &qword_1EE1C0CE8;
-  if ((atomic_load_explicit(&qword_1EE1C0CF0, memory_order_acquire) & 1) == 0)
+  v11 = *(*(a3 + 16) + 80 * v8 + 40);
+  v12 = *(a1 + 8);
+  v13 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
   {
-    goto LABEL_95;
-  }
-
-  while (1)
-  {
-    v99 = re::RenderGraphDataStore::get<re::RendererGlobals>(*(v101 + 146), *v14);
-    v98 = re::RenderGraphDataStore::get<re::SceneScope>(*(v101 + 146), *(*(v101 + 5) + 48));
-    if ((atomic_load_explicit(v14 + 24, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0D00))
+    if (mach_timebase_info(&info))
     {
-      qword_1EE1C0CF8 = re::hashString("DynamicFunctionConstants", v95);
-      __cxa_guard_release(&qword_1EE1C0D00);
+      v16 = NAN;
+      goto LABEL_16;
     }
 
-    v15 = qword_1EE1C0CF8;
-    v16 = strlen(this[4]);
-    if (v16)
+    LODWORD(v14) = info.numer;
+    LODWORD(v15) = info.denom;
+    v13 = v14 / v15;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v13;
+  }
+
+  v16 = v13 * (v11 / v12);
+LABEL_16:
+  re::DynamicString::appendf(v6, "PhysX Update Time (ms) : %.2f\n", v16 / 1000000.0);
+  if (!*a3)
+  {
+    v17 = *(a3 + 16);
+    goto LABEL_22;
+  }
+
+  v17 = *(a3 + 16);
+  v18 = *(*(a3 + 8) + 4 * (0x8BC946409C88CB8FLL % *(a3 + 24)));
+  if (v18 == 0x7FFFFFFF)
+  {
+LABEL_22:
+    v18 = 0x7FFFFFFFLL;
+    goto LABEL_23;
+  }
+
+  while (*(v17 + 80 * v18 + 4) != 121)
+  {
+    v18 = *(v17 + 80 * v18) & 0x7FFFFFFF;
+    if (v18 == 0x7FFFFFFF)
     {
-      MurmurHash3_x64_128(this[4], v16, 0, &v107);
-      v17 = ((*(&v107 + 1) + v9 + (v107 << 6) + (v107 >> 2)) ^ v107) + v9;
+      goto LABEL_22;
+    }
+  }
+
+LABEL_23:
+  v19 = *(v17 + 80 * v18 + 40);
+  v20 = *(a1 + 8);
+  v21 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v24 = NAN;
+      goto LABEL_28;
+    }
+
+    LODWORD(v22) = info.numer;
+    LODWORD(v23) = info.denom;
+    v21 = v22 / v23;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v21;
+  }
+
+  v24 = v21 * (v19 / v20);
+LABEL_28:
+  re::DynamicString::appendf(v6, "Physics ECS Work (ms) : %.2f\n", v24 / 1000000.0);
+  if (!*a3)
+  {
+    v26 = *(a3 + 16);
+    v30 = *(a1 + 8);
+    v31 = *(v26 + 0x27FFFFFFD8) / v30;
+LABEL_41:
+    v33 = 0x7FFFFFFFLL;
+    goto LABEL_42;
+  }
+
+  v25 = *(a3 + 24);
+  v27 = *(a3 + 8);
+  v26 = *(a3 + 16);
+  v28 = *(v27 + 4 * (0xA46B02245B9F3AF4 % v25));
+  if (v28 == 0x7FFFFFFF)
+  {
+    v29 = (v26 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v32 = 0x7FFFFFFFLL;
+    while (*(v26 + 80 * v28 + 4) != 67)
+    {
+      v28 = *(v26 + 80 * v28) & 0x7FFFFFFF;
+      if (v28 == 0x7FFFFFFF)
+      {
+        goto LABEL_37;
+      }
+    }
+
+    v32 = v28;
+LABEL_37:
+    v29 = (v26 + 80 * v32 + 40);
+  }
+
+  v30 = *(a1 + 8);
+  v31 = *v29 / v30;
+  v33 = *(v27 + 4 * (0xCF4A7B3C48D45C4FLL % v25));
+  if (v33 == 0x7FFFFFFF)
+  {
+    goto LABEL_41;
+  }
+
+  while (*(v26 + 80 * v33 + 4) != 66)
+  {
+    v33 = *(v26 + 80 * v33) & 0x7FFFFFFF;
+    if (v33 == 0x7FFFFFFF)
+    {
+      goto LABEL_41;
+    }
+  }
+
+LABEL_42:
+  re::DynamicString::appendf(v6, "Active Rigid Bodies : %.0f    Rigid Bodies : %.0f\n", v31, (*(v26 + 80 * v33 + 40) / v30));
+  if (!*a3)
+  {
+    v35 = *(a3 + 16);
+    v39 = *(a1 + 8);
+    v40 = *(v35 + 0x27FFFFFFD8) / v39;
+LABEL_55:
+    v42 = 0x7FFFFFFFLL;
+    goto LABEL_56;
+  }
+
+  v34 = *(a3 + 24);
+  v36 = *(a3 + 8);
+  v35 = *(a3 + 16);
+  v37 = *(v36 + 4 * (0x21C2DD3F1FDB3325 % v34));
+  if (v37 == 0x7FFFFFFF)
+  {
+    v38 = (v35 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v41 = 0x7FFFFFFFLL;
+    while (*(v35 + 80 * v37 + 4) != 68)
+    {
+      v37 = *(v35 + 80 * v37) & 0x7FFFFFFF;
+      if (v37 == 0x7FFFFFFF)
+      {
+        goto LABEL_51;
+      }
+    }
+
+    v41 = v37;
+LABEL_51:
+    v38 = (v35 + 80 * v41 + 40);
+  }
+
+  v39 = *(a1 + 8);
+  v40 = *v38 / v39;
+  v42 = *(v36 + 4 * (0x41956A36DBC51080 % v34));
+  if (v42 == 0x7FFFFFFF)
+  {
+    goto LABEL_55;
+  }
+
+  while (*(v35 + 80 * v42 + 4) != 69)
+  {
+    v42 = *(v35 + 80 * v42) & 0x7FFFFFFF;
+    if (v42 == 0x7FFFFFFF)
+    {
+      goto LABEL_55;
+    }
+  }
+
+LABEL_56:
+  re::DynamicString::appendf(v6, "Collision Objects : %.0f    Contacts : %.0f\n", v40, (*(v35 + 80 * v42 + 40) / v39));
+  if (!*a3)
+  {
+    v44 = *(a3 + 16);
+    v48 = *(a1 + 8);
+    v49 = *(v44 + 0x27FFFFFFD8) / v48;
+LABEL_69:
+    v51 = 0x7FFFFFFFLL;
+    goto LABEL_70;
+  }
+
+  v43 = *(a3 + 24);
+  v45 = *(a3 + 8);
+  v44 = *(a3 + 16);
+  v46 = *(v45 + 4 * (0x4BEE618685B05729 % v43));
+  if (v46 == 0x7FFFFFFF)
+  {
+    v47 = (v44 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v50 = 0x7FFFFFFFLL;
+    while (*(v44 + 80 * v46 + 4) != 71)
+    {
+      v46 = *(v44 + 80 * v46) & 0x7FFFFFFF;
+      if (v46 == 0x7FFFFFFF)
+      {
+        goto LABEL_65;
+      }
+    }
+
+    v50 = v46;
+LABEL_65:
+    v47 = (v44 + 80 * v50 + 40);
+  }
+
+  v48 = *(a1 + 8);
+  v49 = *v47 / v48;
+  v51 = *(v45 + 4 * (0x87CF9DF80D80457CLL % v43));
+  if (v51 == 0x7FFFFFFF)
+  {
+    goto LABEL_69;
+  }
+
+  while (*(v44 + 80 * v51 + 4) != 70)
+  {
+    v51 = *(v44 + 80 * v51) & 0x7FFFFFFF;
+    if (v51 == 0x7FFFFFFF)
+    {
+      goto LABEL_69;
+    }
+  }
+
+LABEL_70:
+  re::DynamicString::appendf(v6, "Force Effects : %.0f    Active Constraints : %.0f\n", v49, (*(v44 + 80 * v51 + 40) / v48));
+  re::DynamicString::appendf(v6, "Physics Shapes\n");
+  if (!*a3)
+  {
+    v53 = *(a3 + 16);
+    v57 = *(v53 + 0x27FFFFFFD8);
+    v58 = *(a1 + 8);
+    v59 = v57 / v58;
+LABEL_91:
+    v65 = 0x7FFFFFFFLL;
+    goto LABEL_92;
+  }
+
+  v52 = *(a3 + 24);
+  v54 = *(a3 + 8);
+  v53 = *(a3 + 16);
+  v55 = *(v54 + 4 * (0x654FAFC0EE6F9A84 % v52));
+  if (v55 == 0x7FFFFFFF)
+  {
+    v56 = (v53 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v60 = 0x7FFFFFFFLL;
+    while (*(v53 + 80 * v55 + 4) != 72)
+    {
+      v55 = *(v53 + 80 * v55) & 0x7FFFFFFF;
+      if (v55 == 0x7FFFFFFF)
+      {
+        goto LABEL_79;
+      }
+    }
+
+    v60 = v55;
+LABEL_79:
+    v56 = (v53 + 80 * v60 + 40);
+  }
+
+  v61 = *v56;
+  v58 = *(a1 + 8);
+  v62 = *(v54 + 4 * (0xA7941FA8506D86F0 % v52));
+  if (v62 == 0x7FFFFFFF)
+  {
+    v63 = (v53 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v64 = 0x7FFFFFFFLL;
+    while (*(v53 + 80 * v62 + 4) != 73)
+    {
+      v62 = *(v53 + 80 * v62) & 0x7FFFFFFF;
+      if (v62 == 0x7FFFFFFF)
+      {
+        goto LABEL_87;
+      }
+    }
+
+    v64 = v62;
+LABEL_87:
+    v63 = (v53 + 80 * v64 + 40);
+  }
+
+  v59 = v61 / v58;
+  v57 = *v63;
+  v65 = *(v54 + 4 * (0xC1EBF56D881F3523 % v52));
+  if (v65 == 0x7FFFFFFF)
+  {
+    goto LABEL_91;
+  }
+
+  while (*(v53 + 80 * v65 + 4) != 74)
+  {
+    v65 = *(v53 + 80 * v65) & 0x7FFFFFFF;
+    if (v65 == 0x7FFFFFFF)
+    {
+      goto LABEL_91;
+    }
+  }
+
+LABEL_92:
+  re::DynamicString::appendf(v6, "Spheres : %.0f, Planes : %.0f, Capsules : %.0f\n", v59, (v57 / v58), (*(v53 + 80 * v65 + 40) / v58));
+  if (*a3)
+  {
+    v66 = *(a3 + 24);
+    v68 = *(a3 + 8);
+    v67 = *(a3 + 16);
+    v69 = *(v68 + 4 * (0xCFCA9D2880B2128DLL % v66));
+    if (v69 == 0x7FFFFFFF)
+    {
+      v70 = (v67 + 0x27FFFFFFD8);
     }
 
     else
     {
-      v17 = v9;
-    }
-
-    v18 = re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(*(v101 + 146), ((v15 >> 2) + (v15 << 6) + v17) ^ v15);
-    v19 = v18 + 8;
-    if (!v18)
-    {
-      v19 = 0;
-    }
-
-    v97 = v19;
-    v104 = *(*(v99 + 8) + 32);
-    v20 = *(v101 + 146);
-    v21 = "N2re19CameraMatricesArrayE";
-    v22 = "N2re19CameraMatricesArrayE";
-    if (("N2re19CameraMatricesArrayE" & 0x8000000000000000) != 0)
-    {
-      v23 = ("N2re19CameraMatricesArrayE" & 0x7FFFFFFFFFFFFFFFLL);
-      v24 = 5381;
-      do
+      v75 = 0x7FFFFFFFLL;
+      while (*(v67 + 80 * v69 + 4) != 75)
       {
-        v22 = v24;
-        v25 = *v23++;
-        v24 = (33 * v24) ^ v25;
+        v69 = *(v67 + 80 * v69) & 0x7FFFFFFF;
+        if (v69 == 0x7FFFFFFF)
+        {
+          goto LABEL_101;
+        }
       }
 
-      while (v25);
+      v75 = v69;
+LABEL_101:
+      v70 = (v67 + 80 * v75 + 40);
     }
 
-    v26 = *(*(v101 + 5) + 48) + v9;
-    v27 = v20 + 64;
-    v103 = v3;
-    if (!*(v20 + 64))
+    v71 = *(a1 + 8);
+    v76 = *(v68 + 4 * (0xB6C90EBACC2B26DDLL % v66));
+    if (v76 == 0x7FFFFFFF)
     {
+      v77 = (v67 + 0x27FFFFFFD8);
+    }
+
+    else
+    {
+      v78 = 0x7FFFFFFFLL;
+      while (*(v67 + 80 * v76 + 4) != 76)
+      {
+        v76 = *(v67 + 80 * v76) & 0x7FFFFFFF;
+        if (v76 == 0x7FFFFFFF)
+        {
+          goto LABEL_109;
+        }
+      }
+
+      v78 = v76;
+LABEL_109:
+      v77 = (v67 + 80 * v78 + 40);
+    }
+
+    v72 = *v70;
+    v74 = *v77;
+    v73 = *(v68 + 4 * (0x2CFA56B4A2AF9298 % v66));
+    if (v73 == 0x7FFFFFFF)
+    {
+LABEL_113:
+      v73 = 0x7FFFFFFFLL;
+    }
+
+    else
+    {
+      while (*(v67 + 80 * v73 + 4) != 77)
+      {
+        v73 = *(v67 + 80 * v73) & 0x7FFFFFFF;
+        if (v73 == 0x7FFFFFFF)
+        {
+          goto LABEL_113;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v71 = *(a1 + 8);
+    v67 = *(a3 + 16);
+    v72 = *(v67 + 0x27FFFFFFD8);
+    v73 = 0x7FFFFFFFLL;
+    v74 = v72;
+  }
+
+  re::DynamicString::appendf(v6, "Boxes : %.0f, Triangles : %.0f, Convexes : %.0f\n", (v72 / v71), (v74 / v71), (*(v67 + 80 * v73 + 40) / v71));
+  *&result = 0x320000000ALL;
+  *(v6 + 4) = 0x320000000ALL;
+  *(v6 + 10) = 128;
+  return result;
+}
+
+double re::FrameRenderingStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  info[0].numer = 0;
+  v6 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, info);
+  v7 = v6;
+  if (*(v6 + 8))
+  {
+    *(v6 + 8) = 1;
+    v8 = *(v6 + 16);
+  }
+
+  else
+  {
+    *(v6 + 8) = 0;
+    v8 = (v6 + 9);
+  }
+
+  *v8 = 0;
+  v9 = 0x7FFFFFFFLL;
+  if (*a3)
+  {
+    v10 = *(*(a3 + 8) + 4 * (0x5692161D100B05E5uLL % *(a3 + 24)));
+    if (v10 != 0x7FFFFFFF)
+    {
+      v11 = *(a3 + 16);
+      v9 = 0x7FFFFFFFLL;
+      while (*(v11 + 80 * v10 + 4) != 1)
+      {
+        v10 = *(v11 + 80 * v10) & 0x7FFFFFFF;
+        if (v10 == 0x7FFFFFFF)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      v9 = v10;
+    }
+  }
+
+LABEL_11:
+  v12 = *(*(a3 + 16) + 80 * v9 + 40);
+  v13 = *(a1 + 8);
+  v14 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v263 = NAN;
+      goto LABEL_16;
+    }
+
+    LODWORD(v15) = info[0].numer;
+    LODWORD(v16) = info[0].denom;
+    v14 = v15 / v16;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v14;
+  }
+
+  v263 = v14 * (v12 / v13);
+LABEL_16:
+  if (!*a3)
+  {
+    v17 = *(a3 + 16);
+    goto LABEL_22;
+  }
+
+  v17 = *(a3 + 16);
+  v18 = *(*(a3 + 8) + 4 * (0x826C6ABF7FDD5AD7 % *(a3 + 24)));
+  if (v18 == 0x7FFFFFFF)
+  {
+LABEL_22:
+    v18 = 0x7FFFFFFFLL;
+    goto LABEL_23;
+  }
+
+  while (*(v17 + 80 * v18 + 4) != 9)
+  {
+    v18 = *(v17 + 80 * v18) & 0x7FFFFFFF;
+    if (v18 == 0x7FFFFFFF)
+    {
+      goto LABEL_22;
+    }
+  }
+
+LABEL_23:
+  v19 = *(v17 + 80 * v18 + 40);
+  v20 = *(a1 + 8);
+  v21 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v24 = NAN;
       goto LABEL_28;
     }
 
-    v28 = (v26 + (v22 << 6) + (v22 >> 2)) ^ v22;
-    v29 = *(*(v20 + 72) + 4 * (v28 % *(v20 + 88)));
-    if (v29 == 0x7FFFFFFF)
-    {
-      goto LABEL_28;
-    }
+    LODWORD(v22) = info[0].numer;
+    LODWORD(v23) = info[0].denom;
+    v21 = v22 / v23;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v21;
+  }
 
-    v30 = *(v20 + 80);
-    while (*(v30 + 24 * v29 + 8) != v28)
-    {
-      v29 = *(v30 + 24 * v29) & 0x7FFFFFFF;
-      if (v29 == 0x7FFFFFFF)
-      {
-        goto LABEL_28;
-      }
-    }
-
-    if (!*(v30 + 24 * v29 + 16))
-    {
+  v24 = v21 * (v19 / v20);
 LABEL_28:
-      v31 = *(v3 + 16);
-      if (("N2re19CameraMatricesArrayE" & 0x8000000000000000) != 0)
-      {
-        v32 = ("N2re19CameraMatricesArrayE" & 0x7FFFFFFFFFFFFFFFLL);
-        v33 = 5381;
-        do
-        {
-          v21 = v33;
-          v34 = *v32++;
-          v33 = (33 * v33) ^ v34;
-        }
+  if (!*a3)
+  {
+    v25 = *(a3 + 16);
+    goto LABEL_34;
+  }
 
-        while (v34);
+  v25 = *(a3 + 16);
+  v26 = *(*(a3 + 8) + 4 * (0x75C8519A9320579uLL % *(a3 + 24)));
+  if (v26 == 0x7FFFFFFF)
+  {
+LABEL_34:
+    v26 = 0x7FFFFFFFLL;
+    goto LABEL_35;
+  }
+
+  while (*(v25 + 80 * v26 + 4) != 10)
+  {
+    v26 = *(v25 + 80 * v26) & 0x7FFFFFFF;
+    if (v26 == 0x7FFFFFFF)
+    {
+      goto LABEL_34;
+    }
+  }
+
+LABEL_35:
+  v27 = *(v25 + 80 * v26 + 40);
+  v28 = *(a1 + 8);
+  v29 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v32 = NAN;
+      goto LABEL_40;
+    }
+
+    LODWORD(v30) = info[0].numer;
+    LODWORD(v31) = info[0].denom;
+    v29 = v30 / v31;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v29;
+  }
+
+  v32 = v29 * (v27 / v28);
+LABEL_40:
+  if (!*a3)
+  {
+    v33 = *(a3 + 16);
+    goto LABEL_46;
+  }
+
+  v33 = *(a3 + 16);
+  v34 = *(*(a3 + 8) + 4 * (0xD56B1FBB9CEBA9E8 % *(a3 + 24)));
+  if (v34 == 0x7FFFFFFF)
+  {
+LABEL_46:
+    v34 = 0x7FFFFFFFLL;
+    goto LABEL_47;
+  }
+
+  while (*(v33 + 80 * v34 + 4) != 8)
+  {
+    v34 = *(v33 + 80 * v34) & 0x7FFFFFFF;
+    if (v34 == 0x7FFFFFFF)
+    {
+      goto LABEL_46;
+    }
+  }
+
+LABEL_47:
+  v35 = *(v33 + 80 * v34 + 40);
+  v36 = *(a1 + 8);
+  v37 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v40 = NAN;
+      goto LABEL_52;
+    }
+
+    LODWORD(v38) = info[0].numer;
+    LODWORD(v39) = info[0].denom;
+    v37 = v38 / v39;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v37;
+  }
+
+  v40 = v37 * (v35 / v36);
+LABEL_52:
+  if (!*a3)
+  {
+    v41 = *(a3 + 16);
+    goto LABEL_58;
+  }
+
+  v41 = *(a3 + 16);
+  v42 = *(*(a3 + 8) + 4 * (0x3462D848F53ABB6DuLL % *(a3 + 24)));
+  if (v42 == 0x7FFFFFFF)
+  {
+LABEL_58:
+    v42 = 0x7FFFFFFFLL;
+    goto LABEL_59;
+  }
+
+  while (*(v41 + 80 * v42 + 4) != 11)
+  {
+    v42 = *(v41 + 80 * v42) & 0x7FFFFFFF;
+    if (v42 == 0x7FFFFFFF)
+    {
+      goto LABEL_58;
+    }
+  }
+
+LABEL_59:
+  v43 = *(v41 + 80 * v42 + 40);
+  v44 = *(a1 + 8);
+  v45 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v268 = NAN;
+      goto LABEL_64;
+    }
+
+    LODWORD(v46) = info[0].numer;
+    LODWORD(v47) = info[0].denom;
+    v45 = v46 / v47;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v45;
+  }
+
+  v268 = v45 * (v43 / v44);
+LABEL_64:
+  if (!*a3)
+  {
+    v48 = *(a3 + 16);
+    goto LABEL_70;
+  }
+
+  v48 = *(a3 + 16);
+  v49 = *(*(a3 + 8) + 4 * (0x37BE58E8D7213BBCuLL % *(a3 + 24)));
+  if (v49 == 0x7FFFFFFF)
+  {
+LABEL_70:
+    v49 = 0x7FFFFFFFLL;
+    goto LABEL_71;
+  }
+
+  while (*(v48 + 80 * v49 + 4) != 12)
+  {
+    v49 = *(v48 + 80 * v49) & 0x7FFFFFFF;
+    if (v49 == 0x7FFFFFFF)
+    {
+      goto LABEL_70;
+    }
+  }
+
+LABEL_71:
+  v50 = *(v48 + 80 * v49 + 40);
+  v51 = *(a1 + 8);
+  v52 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v266 = NAN;
+      goto LABEL_76;
+    }
+
+    LODWORD(v53) = info[0].numer;
+    LODWORD(v54) = info[0].denom;
+    v52 = v53 / v54;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v52;
+  }
+
+  v266 = v52 * (v50 / v51);
+LABEL_76:
+  if (!*a3)
+  {
+    v55 = *(a3 + 16);
+    goto LABEL_82;
+  }
+
+  v55 = *(a3 + 16);
+  v56 = *(*(a3 + 8) + 4 * (0x378A5760BE593CA5uLL % *(a3 + 24)));
+  if (v56 == 0x7FFFFFFF)
+  {
+LABEL_82:
+    v56 = 0x7FFFFFFFLL;
+    goto LABEL_83;
+  }
+
+  while (*(v55 + 80 * v56 + 4) != 23)
+  {
+    v56 = *(v55 + 80 * v56) & 0x7FFFFFFF;
+    if (v56 == 0x7FFFFFFF)
+    {
+      goto LABEL_82;
+    }
+  }
+
+LABEL_83:
+  v57 = *(v55 + 80 * v56 + 40);
+  v58 = *(a1 + 8);
+  v59 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v62 = NAN;
+      goto LABEL_88;
+    }
+
+    LODWORD(v60) = info[0].numer;
+    LODWORD(v61) = info[0].denom;
+    v59 = v60 / v61;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v59;
+  }
+
+  v62 = v59 * (v57 / v58);
+LABEL_88:
+  if (!*a3)
+  {
+    v63 = *(a3 + 16);
+    goto LABEL_94;
+  }
+
+  v63 = *(a3 + 16);
+  v64 = *(*(a3 + 8) + 4 * (0xCFF0446243756E89 % *(a3 + 24)));
+  if (v64 == 0x7FFFFFFF)
+  {
+LABEL_94:
+    v64 = 0x7FFFFFFFLL;
+    goto LABEL_95;
+  }
+
+  while (*(v63 + 80 * v64 + 4) != 79)
+  {
+    v64 = *(v63 + 80 * v64) & 0x7FFFFFFF;
+    if (v64 == 0x7FFFFFFF)
+    {
+      goto LABEL_94;
+    }
+  }
+
+LABEL_95:
+  v65 = *(v63 + 80 * v64 + 40);
+  v66 = *(a1 + 8);
+  v67 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v261 = NAN;
+      goto LABEL_100;
+    }
+
+    LODWORD(v68) = info[0].numer;
+    LODWORD(v69) = info[0].denom;
+    v67 = v68 / v69;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v67;
+  }
+
+  v261 = v67 * (v65 / v66);
+LABEL_100:
+  if (!*a3)
+  {
+    v70 = *(a3 + 16);
+    goto LABEL_106;
+  }
+
+  v70 = *(a3 + 16);
+  v71 = *(*(a3 + 8) + 4 * (0x8AEB093D93E71BBFLL % *(a3 + 24)));
+  if (v71 == 0x7FFFFFFF)
+  {
+LABEL_106:
+    v71 = 0x7FFFFFFFLL;
+    goto LABEL_107;
+  }
+
+  while (*(v70 + 80 * v71 + 4) != 122)
+  {
+    v71 = *(v70 + 80 * v71) & 0x7FFFFFFF;
+    if (v71 == 0x7FFFFFFF)
+    {
+      goto LABEL_106;
+    }
+  }
+
+LABEL_107:
+  v72 = *(v70 + 80 * v71 + 40);
+  v73 = *(a1 + 8);
+  v74 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v260 = NAN;
+      goto LABEL_112;
+    }
+
+    LODWORD(v75) = info[0].numer;
+    LODWORD(v76) = info[0].denom;
+    v74 = v75 / v76;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v74;
+  }
+
+  v260 = v74 * (v72 / v73);
+LABEL_112:
+  v262 = v7;
+  if (!*a3)
+  {
+    v77 = *(a3 + 16);
+    goto LABEL_118;
+  }
+
+  v77 = *(a3 + 16);
+  v78 = *(*(a3 + 8) + 4 * (0x968A5BA23473FAFFLL % *(a3 + 24)));
+  if (v78 == 0x7FFFFFFF)
+  {
+LABEL_118:
+    v78 = 0x7FFFFFFFLL;
+    goto LABEL_119;
+  }
+
+  while (*(v77 + 80 * v78 + 4) != 91)
+  {
+    v78 = *(v77 + 80 * v78) & 0x7FFFFFFF;
+    if (v78 == 0x7FFFFFFF)
+    {
+      goto LABEL_118;
+    }
+  }
+
+LABEL_119:
+  v79 = *(v77 + 80 * v78 + 40);
+  v80 = *(a1 + 8);
+  v81 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v84 = NAN;
+      goto LABEL_124;
+    }
+
+    LODWORD(v82) = info[0].numer;
+    LODWORD(v83) = info[0].denom;
+    v81 = v82 / v83;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v81;
+  }
+
+  v84 = v81 * (v79 / v80);
+LABEL_124:
+  if (!*a3)
+  {
+    v85 = *(a3 + 16);
+    goto LABEL_130;
+  }
+
+  v85 = *(a3 + 16);
+  v86 = *(*(a3 + 8) + 4 * (0xDE295D82F964F296 % *(a3 + 24)));
+  if (v86 == 0x7FFFFFFF)
+  {
+LABEL_130:
+    v86 = 0x7FFFFFFFLL;
+    goto LABEL_131;
+  }
+
+  while (*(v85 + 80 * v86 + 4) != 92)
+  {
+    v86 = *(v85 + 80 * v86) & 0x7FFFFFFF;
+    if (v86 == 0x7FFFFFFF)
+    {
+      goto LABEL_130;
+    }
+  }
+
+LABEL_131:
+  v87 = v24 / 1000000.0;
+  v88 = *(v85 + 80 * v86 + 40);
+  v89 = *(a1 + 8);
+  v90 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  v91 = v32 / 1000000.0;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v94 = NAN;
+      goto LABEL_136;
+    }
+
+    LODWORD(v92) = info[0].numer;
+    LODWORD(v93) = info[0].denom;
+    v90 = v92 / v93;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v90;
+  }
+
+  v94 = v90 * (v88 / v89);
+LABEL_136:
+  v96 = v91;
+  v97 = v94 / 1000000.0;
+  if (!*a3)
+  {
+    v98 = *(a3 + 16);
+    goto LABEL_142;
+  }
+
+  v98 = *(a3 + 16);
+  v99 = *(*(a3 + 8) + 4 * (0xFEBD6A4FBD0A7802 % *(a3 + 24)));
+  if (v99 == 0x7FFFFFFF)
+  {
+LABEL_142:
+    v99 = 0x7FFFFFFFLL;
+    goto LABEL_143;
+  }
+
+  while (*(v98 + 80 * v99 + 4) != 93)
+  {
+    v99 = *(v98 + 80 * v99) & 0x7FFFFFFF;
+    if (v99 == 0x7FFFFFFF)
+    {
+      goto LABEL_142;
+    }
+  }
+
+LABEL_143:
+  v100 = v40 / 1000000.0;
+  v265 = v100;
+  v101 = v268 / 1000000.0;
+  v269 = v101;
+  v102 = v266 / 1000000.0;
+  v103 = v62 / 1000000.0;
+  v267 = v103;
+  v259 = v96;
+  v95 = v87;
+  v104 = v95 - v96;
+  v105 = v84 / 1000000.0;
+  v106 = v97;
+  v107 = *(v98 + 80 * v99 + 40);
+  v108 = *(a1 + 8);
+  v109 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v112 = NAN;
+      goto LABEL_148;
+    }
+
+    LODWORD(v110) = info[0].numer;
+    LODWORD(v111) = info[0].denom;
+    v109 = v110 / v111;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v109;
+  }
+
+  v112 = v109 * (v107 / v108);
+LABEL_148:
+  v113 = v263 / 1000000.0;
+  v114 = v112 / 1000000.0;
+  v115 = v104 + ((v105 + v106) + v114);
+  v116 = v102;
+  if (v265 <= 0.0)
+  {
+    v117 = v115 - ((v269 + v102) + v267);
+  }
+
+  else
+  {
+    v117 = v115;
+  }
+
+  if (!*a3)
+  {
+    v118 = *(a3 + 16);
+    goto LABEL_157;
+  }
+
+  v118 = *(a3 + 16);
+  v119 = *(*(a3 + 8) + 4 * (0xD59EEF30DB86CAB8 % *(a3 + 24)));
+  if (v119 == 0x7FFFFFFF)
+  {
+LABEL_157:
+    v119 = 0x7FFFFFFFLL;
+    goto LABEL_158;
+  }
+
+  while (*(v118 + 80 * v119 + 4) != 24)
+  {
+    v119 = *(v118 + 80 * v119) & 0x7FFFFFFF;
+    if (v119 == 0x7FFFFFFF)
+    {
+      goto LABEL_157;
+    }
+  }
+
+LABEL_158:
+  v120 = *(a1 + 8);
+  v121 = 0.0;
+  if (v113 > 0.0)
+  {
+    v121 = (1000.0 / v113);
+  }
+
+  v122 = (*(v118 + 80 * v119 + 40) / v120) / 1000000.0;
+  if (*a3)
+  {
+    v123 = *(a3 + 24);
+    v124 = *(a3 + 8);
+    v125 = *(v124 + 4 * (0x4F7ABB7627B74F52 % v123));
+    if (v125 == 0x7FFFFFFF)
+    {
+      v126 = (v118 + 0x27FFFFFFD8);
+    }
+
+    else
+    {
+      v133 = 0x7FFFFFFFLL;
+      while (*(v118 + 80 * v125 + 4) != 29)
+      {
+        v125 = *(v118 + 80 * v125) & 0x7FFFFFFF;
+        if (v125 == 0x7FFFFFFF)
+        {
+          goto LABEL_169;
+        }
       }
 
-      *&v107 = (v26 + (v21 << 6) + (v21 >> 2)) ^ v21;
-      v35 = (*(**(v20 + 8) + 32))(*(v20 + 8), 48, 8);
-      *v35 = &unk_1F5D15058;
-      *(v35 + 40) = 0;
-      *(v35 + 16) = 0;
-      *(v35 + 24) = 0;
-      *(v35 + 32) = 0;
-      *(v35 + 8) = v104;
-      re::DynamicArray<re::CameraMatrices>::setCapacity((v35 + 8), v31);
-      ++*(v35 + 32);
-      *&v128[0] = v35;
-      v36 = re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(v27, &v107, v128);
-      v3 = v103;
-      if (*(v103 + 16))
+      v133 = v125;
+LABEL_169:
+      v126 = (v118 + 80 * v133 + 40);
+    }
+
+    v134 = *(v124 + 4 * (0x724EA9269D42A72 % v123));
+    if (v134 == 0x7FFFFFFF)
+    {
+      v135 = (v118 + 0x27FFFFFFD8);
+    }
+
+    else
+    {
+      v136 = 0x7FFFFFFFLL;
+      while (*(v118 + 80 * v134 + 4) != 30)
       {
-        v37 = 0;
-        v38 = *v36;
-        v39 = 64;
-        v40 = 144;
-        while (1)
+        v134 = *(v118 + 80 * v134) & 0x7FFFFFFF;
+        if (v134 == 0x7FFFFFFF)
         {
-          v41 = *(v3 + 24);
-          v42 = v41 + 960 * v37;
-          v43 = re::CameraMatrices::CameraMatrices(&v107, v104, *(v42 + 890));
-          if (*(v42 + 890))
+          goto LABEL_177;
+        }
+      }
+
+      v136 = v134;
+LABEL_177:
+      v135 = (v118 + 80 * v136 + 40);
+    }
+
+    v137 = *(v124 + 4 * (0x540F172E046EF165 % v123));
+    if (v137 == 0x7FFFFFFF)
+    {
+      v138 = (v118 + 0x27FFFFFFD8);
+    }
+
+    else
+    {
+      v139 = 0x7FFFFFFFLL;
+      while (*(v118 + 80 * v137 + 4) != 31)
+      {
+        v137 = *(v118 + 80 * v137) & 0x7FFFFFFF;
+        if (v137 == 0x7FFFFFFF)
+        {
+          goto LABEL_185;
+        }
+      }
+
+      v139 = v137;
+LABEL_185:
+      v138 = (v118 + 80 * v139 + 40);
+    }
+
+    v127 = a1;
+    v131 = *v126;
+    v132 = *v135;
+    v129 = *v138;
+    v130 = *(v124 + 4 * (0xADFB1EBB497FAD45 % v123));
+    if (v130 == 0x7FFFFFFF)
+    {
+LABEL_189:
+      v128 = a2;
+      v130 = 0x7FFFFFFFLL;
+    }
+
+    else
+    {
+      while (*(v118 + 80 * v130 + 4) != 32)
+      {
+        v130 = *(v118 + 80 * v130) & 0x7FFFFFFF;
+        if (v130 == 0x7FFFFFFF)
+        {
+          goto LABEL_189;
+        }
+      }
+
+      v128 = a2;
+    }
+  }
+
+  else
+  {
+    v127 = a1;
+    v128 = a2;
+    v129 = *(v118 + 0x27FFFFFFD8);
+    v130 = 0x7FFFFFFFLL;
+    v131 = v129;
+    v132 = v129;
+  }
+
+  v140 = v261 / 1000000.0;
+  v141 = ((v132 / v120) / 1000000.0);
+  v142 = ((v131 / v120) / 1000000.0);
+  v143 = ((v129 / v120) / 1000000.0);
+  v144 = ((*(v118 + 80 * v130 + 40) / v120) / 1000000.0);
+  re::DynamicString::appendf(v262, "Frame Render GPU Times (ms)\n");
+  re::DynamicString::appendf(v262, "FPS : %.2f    GPU : %.2f\n", v121, v122);
+  re::DynamicString::appendf(v262, "Vtx : %.2f    Frg : %.2f\nRenderGraph compute : %0.2f\nDeformer compute : %0.2f\n", v142 / 1000000.0, v141 / 1000000.0, v143 / 1000000.0, v144 / 1000000.0);
+  re::DynamicString::appendf(v262, "Frame Render CPU Times (ms)\n");
+  if (v265 <= 0.0)
+  {
+    v145 = v127;
+    if (*a3)
+    {
+      v150 = *(a3 + 16);
+      v151 = *(*(a3 + 8) + 4 * (0x8AEB093D93E71BBFLL % *(a3 + 24)));
+      if (v151 != 0x7FFFFFFF)
+      {
+        v148 = v128;
+        v159 = &unk_1EE186000;
+        while (*(v150 + 80 * v151 + 4) != 122)
+        {
+          v151 = *(v150 + 80 * v151) & 0x7FFFFFFF;
+          if (v151 == 0x7FFFFFFF)
           {
-            break;
-          }
-
-LABEL_42:
-          v54 = *(v38 + 16);
-          v55 = *(v38 + 24);
-          v3 = v103;
-          if (v55 >= v54)
-          {
-            v56 = v55 + 1;
-            if (v54 < v55 + 1)
-            {
-              if (*(v38 + 8))
-              {
-                v57 = 2 * v54;
-                v58 = v54 == 0;
-                v59 = 8;
-                if (!v58)
-                {
-                  v59 = v57;
-                }
-
-                if (v59 <= v56)
-                {
-                  v60 = v56;
-                }
-
-                else
-                {
-                  v60 = v59;
-                }
-
-                re::DynamicArray<re::CameraMatrices>::setCapacity((v38 + 8), v60);
-              }
-
-              else
-              {
-                re::DynamicArray<re::CameraMatrices>::setCapacity((v38 + 8), v56);
-                ++*(v38 + 32);
-              }
-            }
-
-            v55 = *(v38 + 24);
-          }
-
-          v61 = *(v38 + 40) + 176 * v55;
-          *(v61 + 40) = 0;
-          *v61 = &unk_1F5D03790;
-          *(v61 + 8) = 0;
-          *(v61 + 16) = 0;
-          *(v61 + 24) = 0;
-          *(v61 + 32) = 0;
-          *(v61 + 8) = *(&v107 + 1);
-          *(&v107 + 1) = 0;
-          *(v61 + 16) = v108;
-          *&v108 = 0;
-          v62 = *(v61 + 24);
-          *(v61 + 24) = *(&v108 + 1);
-          *(&v108 + 1) = v62;
-          v63 = *(v61 + 40);
-          *(v61 + 40) = *(&v109 + 1);
-          *(&v109 + 1) = v63;
-          LODWORD(v109) = v109 + 1;
-          ++*(v61 + 32);
-          *(v61 + 80) = 0;
-          *(v61 + 56) = 0;
-          *(v61 + 64) = 0;
-          *(v61 + 48) = 0;
-          *(v61 + 72) = 0;
-          *(v61 + 48) = v110;
-          *&v110 = 0;
-          *(v61 + 56) = *(&v110 + 1);
-          *(&v110 + 1) = 0;
-          v64 = *(v61 + 64);
-          *(v61 + 64) = v111;
-          *&v111 = v64;
-          v65 = *(v61 + 80);
-          *(v61 + 80) = v112;
-          v112 = v65;
-          ++DWORD2(v111);
-          ++*(v61 + 72);
-          *(v61 + 120) = 0;
-          *(v61 + 96) = 0;
-          *(v61 + 104) = 0;
-          *(v61 + 88) = 0;
-          *(v61 + 112) = 0;
-          *(v61 + 88) = v113;
-          v113 = 0;
-          *(v61 + 96) = v114;
-          v114 = 0;
-          v66 = *(v61 + 104);
-          *(v61 + 104) = v115;
-          v115 = v66;
-          v67 = *(v61 + 120);
-          *(v61 + 120) = v117;
-          v117 = v67;
-          ++v116;
-          ++*(v61 + 112);
-          LODWORD(v67) = v118;
-          *(v61 + 128) = v118;
-          if (v67 == 1)
-          {
-            *(v61 + 144) = v119;
-          }
-
-          *(v61 + 160) = v120;
-          ++*(v38 + 24);
-          ++*(v38 + 32);
-          if (v113)
-          {
-            if (v117)
-            {
-              (*(*v113 + 40))();
-            }
-
-            v117 = 0;
-            v114 = 0;
-            v115 = 0;
-            v113 = 0;
-            ++v116;
-          }
-
-          if (v110)
-          {
-            if (v112)
-            {
-              (*(*v110 + 40))();
-            }
-
-            v112 = 0;
-            *&v111 = 0;
-            v110 = 0uLL;
-            ++DWORD2(v111);
-          }
-
-          if (*(&v107 + 1) && *(&v109 + 1))
-          {
-            (*(**(&v107 + 1) + 40))();
-          }
-
-          ++v37;
-          v39 += 960;
-          v40 += 960;
-          if (*(v103 + 16) <= v37)
-          {
-            goto LABEL_67;
+            v152 = v260 / 1000000.0;
+            v151 = 0x7FFFFFFFLL;
+            goto LABEL_208;
           }
         }
 
-        v9 = 0;
-        v45 = (v41 + v39);
-        v3 = v41 + v40;
-        while (1)
+        v152 = v260 / 1000000.0;
+LABEL_208:
+        v160 = *(v150 + 80 * v151 + 40);
+        v161 = *(v127 + 8);
+        v162 = v159[46];
+        if (v162 < 0.0)
         {
-          v46 = *(v42 + 128);
-          if (v46 <= v9)
+          if (mach_timebase_info(info))
           {
-            break;
+            v165 = NAN;
+            goto LABEL_229;
           }
 
-          if (*(v3 + 80) == 1)
+          LODWORD(v163) = info[0].numer;
+          LODWORD(v164) = info[0].denom;
+          v162 = v163 / v164;
+          v159[46] = v162;
+        }
+
+        v165 = v162 * (v160 / v161);
+LABEL_229:
+        if (*a3)
+        {
+          v176 = *(a3 + 16);
+          v177 = *(*(a3 + 8) + 4 * (0x89607B27DA843F55 % *(a3 + 24)));
+          if (v177 != 0x7FFFFFFF)
           {
-            v47 = *(v3 + 96);
-            v48 = *(v3 + 112);
-            v49 = *(v3 + 144);
-            v128[2] = *(v3 + 128);
-            v129 = v49;
-            v128[0] = v47;
-            v128[1] = v48;
+            while (*(v176 + 80 * v177 + 4) != 129)
+            {
+              v177 = *(v176 + 80 * v177) & 0x7FFFFFFF;
+              if (v177 == 0x7FFFFFFF)
+              {
+                goto LABEL_235;
+              }
+            }
+
+LABEL_236:
+            v178 = v117;
+            v179 = *(v176 + 80 * v177 + 40);
+            v180 = *(v127 + 8);
+            v181 = v159[46];
+            v182 = v165 / 1000000.0;
+            if (v181 < 0.0)
+            {
+              if (mach_timebase_info(info))
+              {
+                v185 = NAN;
+                goto LABEL_253;
+              }
+
+              LODWORD(v183) = info[0].numer;
+              LODWORD(v184) = info[0].denom;
+              v181 = v183 / v184;
+              v159[46] = v181;
+            }
+
+            v185 = v181 * (v179 / v180);
+LABEL_253:
+            v196 = v185 / 1000000.0;
+            if (*a3)
+            {
+              v197 = *(a3 + 16);
+              v198 = *(*(a3 + 8) + 4 * (0xAF26563F2EC4C8E6 % *(a3 + 24)));
+              if (v198 != 0x7FFFFFFF)
+              {
+                while (*(v197 + 80 * v198 + 4) != 128)
+                {
+                  v198 = *(v197 + 80 * v198) & 0x7FFFFFFF;
+                  if (v198 == 0x7FFFFFFF)
+                  {
+                    goto LABEL_259;
+                  }
+                }
+
+LABEL_260:
+                v199 = v182 + v178 + v196;
+                v200 = *(v197 + 80 * v198 + 40);
+                v201 = *(v127 + 8);
+                v202 = v159[46];
+                if (v202 < 0.0)
+                {
+                  if (mach_timebase_info(info))
+                  {
+                    v205 = NAN;
+LABEL_268:
+                    re::DynamicString::appendf(v262, "MainThread Render : %.2f\n", v199 + v205 / 1000000.0);
+                    re::DynamicString::appendf(v262, "EncodeDrawCalls : %.2f    ECS Render : %.2f\n", v140, v152);
+                    v206 = re::DynamicString::appendf(v262, "Drawables Wait : %.2f    GPU Wait : %.2f\n", v269, v116);
+                    v207 = 10;
+                    goto LABEL_269;
+                  }
+
+                  LODWORD(v203) = info[0].numer;
+                  LODWORD(v204) = info[0].denom;
+                  v202 = v203 / v204;
+                  v159[46] = v202;
+                }
+
+                v205 = v202 * (v200 / v201);
+                goto LABEL_268;
+              }
+            }
+
+            else
+            {
+              v197 = *(a3 + 16);
+            }
+
+LABEL_259:
+            v198 = 0x7FFFFFFFLL;
+            goto LABEL_260;
+          }
+        }
+
+        else
+        {
+          v176 = *(a3 + 16);
+        }
+
+LABEL_235:
+        v177 = 0x7FFFFFFFLL;
+        goto LABEL_236;
+      }
+
+      v152 = v260 / 1000000.0;
+    }
+
+    else
+    {
+      v152 = v260 / 1000000.0;
+      v150 = *(a3 + 16);
+    }
+
+    v151 = 0x7FFFFFFFLL;
+    v148 = v128;
+    v159 = &unk_1EE186000;
+    goto LABEL_208;
+  }
+
+  v145 = v127;
+  if (!*a3)
+  {
+    v146 = *(a3 + 16);
+    goto LABEL_202;
+  }
+
+  v146 = *(a3 + 16);
+  v147 = *(*(a3 + 8) + 4 * (0x8AEB093D93E71BBFLL % *(a3 + 24)));
+  if (v147 == 0x7FFFFFFF)
+  {
+LABEL_202:
+    v147 = 0x7FFFFFFFLL;
+    v148 = v128;
+    v149 = &unk_1EE186000;
+    goto LABEL_203;
+  }
+
+  v148 = v128;
+  v149 = &unk_1EE186000;
+  while (*(v146 + 80 * v147 + 4) != 122)
+  {
+    v147 = *(v146 + 80 * v147) & 0x7FFFFFFF;
+    if (v147 == 0x7FFFFFFF)
+    {
+      v147 = 0x7FFFFFFFLL;
+      break;
+    }
+  }
+
+LABEL_203:
+  v153 = *(v146 + 80 * v147 + 40);
+  v154 = *(v127 + 8);
+  v155 = v149[46];
+  if (v155 < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v158 = NAN;
+      goto LABEL_217;
+    }
+
+    LODWORD(v156) = info[0].numer;
+    LODWORD(v157) = info[0].denom;
+    v155 = v156 / v157;
+    v149[46] = v155;
+  }
+
+  v158 = v155 * (v153 / v154);
+LABEL_217:
+  if (!*a3)
+  {
+    v166 = *(a3 + 16);
+    goto LABEL_223;
+  }
+
+  v166 = *(a3 + 16);
+  v167 = *(*(a3 + 8) + 4 * (0x89607B27DA843F55 % *(a3 + 24)));
+  if (v167 == 0x7FFFFFFF)
+  {
+LABEL_223:
+    v167 = 0x7FFFFFFFLL;
+    goto LABEL_224;
+  }
+
+  while (*(v166 + 80 * v167 + 4) != 129)
+  {
+    v167 = *(v166 + 80 * v167) & 0x7FFFFFFF;
+    if (v167 == 0x7FFFFFFF)
+    {
+      goto LABEL_223;
+    }
+  }
+
+LABEL_224:
+  v168 = v117;
+  v169 = *(v166 + 80 * v167 + 40);
+  v170 = *(v127 + 8);
+  v171 = v149[46];
+  v172 = v158 / 1000000.0;
+  if (v171 < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v175 = NAN;
+      goto LABEL_241;
+    }
+
+    LODWORD(v173) = info[0].numer;
+    LODWORD(v174) = info[0].denom;
+    v171 = v173 / v174;
+    v149[46] = v171;
+  }
+
+  v175 = v171 * (v169 / v170);
+LABEL_241:
+  v186 = v175 / 1000000.0;
+  if (!*a3)
+  {
+    v187 = *(a3 + 16);
+    goto LABEL_247;
+  }
+
+  v187 = *(a3 + 16);
+  v188 = *(*(a3 + 8) + 4 * (0xAF26563F2EC4C8E6 % *(a3 + 24)));
+  if (v188 == 0x7FFFFFFF)
+  {
+LABEL_247:
+    v188 = 0x7FFFFFFFLL;
+    goto LABEL_248;
+  }
+
+  while (*(v187 + 80 * v188 + 4) != 128)
+  {
+    v188 = *(v187 + 80 * v188) & 0x7FFFFFFF;
+    if (v188 == 0x7FFFFFFF)
+    {
+      goto LABEL_247;
+    }
+  }
+
+LABEL_248:
+  v189 = v172 + v168 + v186;
+  v190 = *(v187 + 80 * v188 + 40);
+  v191 = *(v127 + 8);
+  v192 = v149[46];
+  if (v192 >= 0.0)
+  {
+LABEL_264:
+    v195 = v192 * (v190 / v191);
+    goto LABEL_265;
+  }
+
+  if (!mach_timebase_info(info))
+  {
+    LODWORD(v193) = info[0].numer;
+    LODWORD(v194) = info[0].denom;
+    v192 = v193 / v194;
+    v149[46] = v192;
+    goto LABEL_264;
+  }
+
+  v195 = NAN;
+LABEL_265:
+  re::DynamicString::appendf(v262, "RenderThread : %.2f    MainThread Render : %.2f\n", (((v265 - v269) - v116) - v267), v189 + v195 / 1000000.0);
+  v264 = v260 / 1000000.0;
+  re::DynamicString::appendf(v262, "EncodeDrawCalls : %.2f    ECS Render : %.2f\n", v140, v264);
+  re::DynamicString::appendf(v262, "Drawables Wait : %.2f    GPU Wait : %.2f\n", v269, v116);
+  v206 = re::DynamicString::appendf(v262, "Render Thread Sync Latency: %.2f\n", v259);
+  v207 = 11;
+LABEL_269:
+  *(v262 + 8) = v207;
+  *(v262 + 36) = 0x10000000032;
+  if (!*v148 || (v208 = *(*(v148 + 8) + 4 * (0x5692161D100B05E5uLL % *(v148 + 24))), v208 == 0x7FFFFFFF))
+  {
+LABEL_274:
+    *&info[0].numer = 0u;
+    v272 = 0u;
+    re::DynamicString::setCapacity(info, 0);
+    v273 = 0x2800000006;
+    v274 = 1;
+    v270 = 1;
+    re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::add(v148, &v270, info);
+    if (*info && (info[1].numer & 1) != 0)
+    {
+      (*(**info + 40))();
+    }
+  }
+
+  else
+  {
+    v209 = *(v148 + 16);
+    while (*(v209 + (v208 << 6) + 4) != 1)
+    {
+      v208 = *(v209 + (v208 << 6)) & 0x7FFFFFFF;
+      if (v208 == 0x7FFFFFFF)
+      {
+        goto LABEL_274;
+      }
+    }
+  }
+
+  info[0].numer = 1;
+  v210 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](v148, info);
+  v211 = v210;
+  if (v210[1])
+  {
+    v210[1] = 1;
+    v212 = v210[2];
+  }
+
+  else
+  {
+    *(v210 + 8) = 0;
+    v212 = v210 + 9;
+  }
+
+  *v212 = 0;
+  re::DynamicString::appendf(v210, "Metal Heap Allocation Stats Per Frame [MB]\n");
+  if (!*a3)
+  {
+    v214 = *(a3 + 16);
+    v218 = *(v145 + 8);
+    v219 = *(v214 + 0x27FFFFFFD8) / v218;
+LABEL_293:
+    v221 = 0x7FFFFFFFLL;
+    goto LABEL_294;
+  }
+
+  v213 = *(a3 + 24);
+  v215 = *(a3 + 8);
+  v214 = *(a3 + 16);
+  v216 = *(v215 + 4 * (0x87D70AD2CA29B0ALL % v213));
+  if (v216 == 0x7FFFFFFF)
+  {
+    v217 = (v214 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v220 = 0x7FFFFFFFLL;
+    while (*(v214 + 80 * v216 + 4) != 80)
+    {
+      v216 = *(v214 + 80 * v216) & 0x7FFFFFFF;
+      if (v216 == 0x7FFFFFFF)
+      {
+        goto LABEL_289;
+      }
+    }
+
+    v220 = v216;
+LABEL_289:
+    v217 = (v214 + 80 * v220 + 40);
+  }
+
+  v218 = *(v145 + 8);
+  v219 = *v217 / v218;
+  v221 = *(v215 + 4 * (0x8B37E5E0A757936CLL % v213));
+  if (v221 == 0x7FFFFFFF)
+  {
+    goto LABEL_293;
+  }
+
+  while (*(v214 + 80 * v221 + 4) != 81)
+  {
+    v221 = *(v214 + 80 * v221) & 0x7FFFFFFF;
+    if (v221 == 0x7FFFFFFF)
+    {
+      goto LABEL_293;
+    }
+  }
+
+LABEL_294:
+  re::DynamicString::appendf(v211, "Heaps : %.0f, Heap Memory [MB]: %.2f\n", v219, (((*(v214 + 80 * v221 + 40) / v218) * 0.00097656) * 0.00097656));
+  if (!*a3)
+  {
+    v223 = *(a3 + 16);
+    v227 = *(v145 + 8);
+    v228 = *(v223 + 0x27FFFFFFD8) / v227;
+LABEL_307:
+    v230 = 0x7FFFFFFFLL;
+    goto LABEL_308;
+  }
+
+  v222 = *(a3 + 24);
+  v224 = *(a3 + 8);
+  v223 = *(a3 + 16);
+  v225 = *(v224 + 4 * (0x33C617428BBAA70BLL % v222));
+  if (v225 == 0x7FFFFFFF)
+  {
+    v226 = (v223 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v229 = 0x7FFFFFFFLL;
+    while (*(v223 + 80 * v225 + 4) != 82)
+    {
+      v225 = *(v223 + 80 * v225) & 0x7FFFFFFF;
+      if (v225 == 0x7FFFFFFF)
+      {
+        goto LABEL_303;
+      }
+    }
+
+    v229 = v225;
+LABEL_303:
+    v226 = (v223 + 80 * v229 + 40);
+  }
+
+  v227 = *(v145 + 8);
+  v228 = *v226 / v227;
+  v230 = *(v224 + 4 * (0x45F79258E41B3AE0 % v222));
+  if (v230 == 0x7FFFFFFF)
+  {
+    goto LABEL_307;
+  }
+
+  while (*(v223 + 80 * v230 + 4) != 83)
+  {
+    v230 = *(v223 + 80 * v230) & 0x7FFFFFFF;
+    if (v230 == 0x7FFFFFFF)
+    {
+      goto LABEL_307;
+    }
+  }
+
+LABEL_308:
+  re::DynamicString::appendf(v211, "Protected Heaps : %.0f, Heap Memory [MB]: %.2f\n", v228, (((*(v223 + 80 * v230 + 40) / v227) * 0.00097656) * 0.00097656));
+  if (!*a3)
+  {
+    v231 = *(a3 + 16);
+    goto LABEL_314;
+  }
+
+  v231 = *(a3 + 16);
+  v232 = *(*(a3 + 8) + 4 * (0xAA2D7708F2A6F456 % *(a3 + 24)));
+  if (v232 == 0x7FFFFFFF)
+  {
+LABEL_314:
+    v232 = 0x7FFFFFFFLL;
+    goto LABEL_315;
+  }
+
+  while (*(v231 + 80 * v232 + 4) != 90)
+  {
+    v232 = *(v231 + 80 * v232) & 0x7FFFFFFF;
+    if (v232 == 0x7FFFFFFF)
+    {
+      goto LABEL_314;
+    }
+  }
+
+LABEL_315:
+  re::DynamicString::appendf(v211, "Peak Frame Memory : %.2f\n", (((*(v231 + 80 * v232 + 40) / *(v145 + 8)) * 0.00097656) * 0.00097656));
+  if (!*a3)
+  {
+    v233 = *(a3 + 16);
+    goto LABEL_321;
+  }
+
+  v233 = *(a3 + 16);
+  v234 = *(*(a3 + 8) + 4 * (0xAA2D7708F2A6F456 % *(a3 + 24)));
+  if (v234 == 0x7FFFFFFF)
+  {
+LABEL_321:
+    v234 = 0x7FFFFFFFLL;
+    goto LABEL_322;
+  }
+
+  while (*(v233 + 80 * v234 + 4) != 90)
+  {
+    v234 = *(v233 + 80 * v234) & 0x7FFFFFFF;
+    if (v234 == 0x7FFFFFFF)
+    {
+      goto LABEL_321;
+    }
+  }
+
+LABEL_322:
+  re::DynamicString::appendf(v211, "Max of all Peaks : %.2f\n", ((*(v233 + 80 * v234 + 56) * 0.00097656) * 0.00097656));
+  if (!*a3)
+  {
+    v236 = *(a3 + 16);
+    v240 = *(v145 + 8);
+    v241 = *(v236 + 0x27FFFFFFD8) / v240;
+LABEL_335:
+    v243 = 0x7FFFFFFFLL;
+    goto LABEL_336;
+  }
+
+  v235 = *(a3 + 24);
+  v237 = *(a3 + 8);
+  v236 = *(a3 + 16);
+  v238 = *(v237 + 4 * (0xE3841E098FBC6AD9 % v235));
+  if (v238 == 0x7FFFFFFF)
+  {
+    v239 = (v236 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v242 = 0x7FFFFFFFLL;
+    while (*(v236 + 80 * v238 + 4) != 84)
+    {
+      v238 = *(v236 + 80 * v238) & 0x7FFFFFFF;
+      if (v238 == 0x7FFFFFFF)
+      {
+        goto LABEL_331;
+      }
+    }
+
+    v242 = v238;
+LABEL_331:
+    v239 = (v236 + 80 * v242 + 40);
+  }
+
+  v240 = *(v145 + 8);
+  v241 = *v239 / v240;
+  v243 = *(v237 + 4 * (0x8505BE27DEF25DA7 % v235));
+  if (v243 == 0x7FFFFFFF)
+  {
+    goto LABEL_335;
+  }
+
+  while (*(v236 + 80 * v243 + 4) != 85)
+  {
+    v243 = *(v236 + 80 * v243) & 0x7FFFFFFF;
+    if (v243 == 0x7FFFFFFF)
+    {
+      goto LABEL_335;
+    }
+  }
+
+LABEL_336:
+  re::DynamicString::appendf(v211, "Textures: %.0f, Memoryless Textures: %.0f\n", v241, (*(v236 + 80 * v243 + 40) / v240));
+  if (!*a3)
+  {
+    v244 = *(a3 + 16);
+    goto LABEL_342;
+  }
+
+  v244 = *(a3 + 16);
+  v245 = *(*(a3 + 8) + 4 * (0xCF15A836B33FD539 % *(a3 + 24)));
+  if (v245 == 0x7FFFFFFF)
+  {
+LABEL_342:
+    v245 = 0x7FFFFFFFLL;
+    goto LABEL_343;
+  }
+
+  while (*(v244 + 80 * v245 + 4) != 87)
+  {
+    v245 = *(v244 + 80 * v245) & 0x7FFFFFFF;
+    if (v245 == 0x7FFFFFFF)
+    {
+      goto LABEL_342;
+    }
+  }
+
+LABEL_343:
+  v246 = (((*(v244 + 80 * v245 + 40) / *(v145 + 8)) * 0.00097656) * 0.00097656);
+  v247 = 0x7FFFFFFFLL;
+  if (*a3)
+  {
+    v248 = *(*(a3 + 8) + 4 * (0x2505F58C05E6526FuLL % *(a3 + 24)));
+    if (v248 != 0x7FFFFFFF)
+    {
+      v247 = 0x7FFFFFFFLL;
+      while (*(v244 + 80 * v248 + 4) != 88)
+      {
+        v248 = *(v244 + 80 * v248) & 0x7FFFFFFF;
+        if (v248 == 0x7FFFFFFF)
+        {
+          goto LABEL_350;
+        }
+      }
+
+      v247 = v248;
+    }
+  }
+
+LABEL_350:
+  re::DynamicString::appendf(v211, "Texture Memory: %.2f, Largest Texture: %.2f\n", v246, ((*(v244 + 80 * v247 + 36) * 0.00097656) * 0.00097656));
+  if (!*a3)
+  {
+    v250 = *(a3 + 16);
+    v254 = *(v250 + 0x27FFFFFFD8);
+    v255 = *(v145 + 8);
+LABEL_363:
+    v257 = 0x7FFFFFFFLL;
+    goto LABEL_364;
+  }
+
+  v249 = *(a3 + 24);
+  v251 = *(a3 + 8);
+  v250 = *(a3 + 16);
+  v252 = *(v251 + 4 * (0x9E14C3B38F31B195 % v249));
+  if (v252 == 0x7FFFFFFF)
+  {
+    v253 = (v250 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v256 = 0x7FFFFFFFLL;
+    while (*(v250 + 80 * v252 + 4) != 86)
+    {
+      v252 = *(v250 + 80 * v252) & 0x7FFFFFFF;
+      if (v252 == 0x7FFFFFFF)
+      {
+        goto LABEL_359;
+      }
+    }
+
+    v256 = v252;
+LABEL_359:
+    v253 = (v250 + 80 * v256 + 40);
+  }
+
+  v254 = *v253;
+  v255 = *(v145 + 8);
+  v257 = *(v251 + 4 * (0x1D3169FBB198C267 % v249));
+  if (v257 == 0x7FFFFFFF)
+  {
+    goto LABEL_363;
+  }
+
+  while (*(v250 + 80 * v257 + 4) != 89)
+  {
+    v257 = *(v250 + 80 * v257) & 0x7FFFFFFF;
+    if (v257 == 0x7FFFFFFF)
+    {
+      goto LABEL_363;
+    }
+  }
+
+LABEL_364:
+  re::DynamicString::appendf(v211, "Buffers : %.0f, Total Buffer Memory : %.2f\n", (v254 / v255), (((*(v250 + 80 * v257 + 40) / v255) * 0.00097656) * 0.00097656));
+  *&result = 0x3200000007;
+  *(v211 + 4) = 0x3200000007;
+  *(v211 + 10) = 256;
+  return result;
+}
+
+re::FrameMemoryStats *re::FrameMemoryStats::FrameMemoryStats(re::FrameMemoryStats *this)
+{
+  *(this + 2) = 10;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *(this + 12) = 0;
+  *(this + 52) = 0x7FFFFFFFLL;
+  *(this + 64) = 0;
+  *this = &unk_1F5D0E010;
+  *(this + 9) = 0;
+  getpid();
+  memorystatus_control();
+  *(this + 9) = 0;
+  return this;
+}
+
+uint64_t re::FrameMemoryStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2)
+{
+  task_info_out[0] = 0;
+  v3 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, task_info_out);
+  v4 = v3;
+  if (v3[1])
+  {
+    v3[1] = 1;
+    v5 = v3[2];
+  }
+
+  else
+  {
+    *(v3 + 8) = 0;
+    v5 = v3 + 9;
+  }
+
+  *v5 = 0;
+  re::DynamicString::append(v3, "Process Memory Usage [MB]\n", 0x1AuLL);
+  task_info_outCnt = 93;
+  task_info(*MEMORY[0x1E69E9A60], 0x16u, task_info_out, &task_info_outCnt);
+  re::DynamicString::appendf(v4, "Dirty Memory Footprint : %.2f\n", (vcvts_n_f32_u64(v9, 0xAuLL) * 0.00097656));
+  re::DynamicString::appendf(v4, "Peak Dirty Memory Footprint : %.2f\n", (vcvts_n_f32_s64(v10, 0xAuLL) * 0.00097656));
+  result = re::DynamicString::appendf(v4, "Memory Limit : %.2f\n", (vcvts_n_f32_u64(*(a1 + 72), 0xAuLL) * 0.00097656));
+  *(v4 + 10) = 512;
+  return result;
+}
+
+uint64_t re::FrameThermalStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2)
+{
+  info.numer = 0;
+  v3 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, &info);
+  v4 = v3;
+  if (v3[1])
+  {
+    v3[1] = 1;
+    v5 = v3[2];
+  }
+
+  else
+  {
+    *(v3 + 8) = 0;
+    v5 = v3 + 9;
+  }
+
+  *v5 = 0;
+  re::DynamicString::append(v3, "App Thermal Info\n", 0x11uLL);
+  v6 = [MEMORY[0x1E696AE30] processInfo];
+  v7 = [v6 thermalState];
+
+  switch(v7)
+  {
+    case 2:
+      re::DynamicString::appendf(v4, "Thermal State : Serious\n");
+      if (*(a1 + 90) > 2u)
+      {
+LABEL_30:
+        v29 = 3;
+        goto LABEL_39;
+      }
+
+      v18 = mach_absolute_time();
+      v19 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+      {
+        if (mach_timebase_info(&info))
+        {
+          v22 = NAN;
+LABEL_29:
+          v30 = v22 / 1000000.0;
+          *(a1 + 76) = v30;
+          ++*(a1 + 88);
+          goto LABEL_30;
+        }
+
+        LODWORD(v20) = info.numer;
+        LODWORD(v21) = info.denom;
+        v19 = v20 / v21;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v19;
+      }
+
+      v22 = v19 * v18;
+      goto LABEL_29;
+    case 1:
+      re::DynamicString::appendf(v4, "Thermal State : Fair\n");
+      if (*(a1 + 90) < 3u)
+      {
+LABEL_26:
+        v29 = 2;
+        goto LABEL_39;
+      }
+
+      v13 = mach_absolute_time();
+      v14 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+      {
+        if (mach_timebase_info(&info))
+        {
+          v17 = NAN;
+LABEL_25:
+          v28 = v17 / 1000000.0;
+          *(a1 + 80) = v28;
+          goto LABEL_26;
+        }
+
+        LODWORD(v15) = info.numer;
+        LODWORD(v16) = info.denom;
+        v14 = v15 / v16;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v14;
+      }
+
+      v17 = v14 * v13;
+      goto LABEL_25;
+    case 0:
+      re::DynamicString::appendf(v4, "Thermal State : Nominal\n");
+      if (*(a1 + 90) < 3u)
+      {
+LABEL_34:
+        v29 = 1;
+        goto LABEL_39;
+      }
+
+      v8 = mach_absolute_time();
+      v9 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+      {
+        if (mach_timebase_info(&info))
+        {
+          v12 = NAN;
+LABEL_33:
+          v31 = v12 / 1000000.0;
+          *(a1 + 80) = v31;
+          goto LABEL_34;
+        }
+
+        LODWORD(v10) = info.numer;
+        LODWORD(v11) = info.denom;
+        v9 = v10 / v11;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v9;
+      }
+
+      v12 = v9 * v8;
+      goto LABEL_33;
+  }
+
+  re::DynamicString::appendf(v4, "Thermal State : Critical\n");
+  if (*(a1 + 90) <= 2u)
+  {
+    v23 = mach_absolute_time();
+    v24 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      if (mach_timebase_info(&info))
+      {
+        v27 = NAN;
+LABEL_37:
+        v32 = v27 / 1000000.0;
+        *(a1 + 76) = v32;
+        ++*(a1 + 88);
+        goto LABEL_38;
+      }
+
+      LODWORD(v25) = info.numer;
+      LODWORD(v26) = info.denom;
+      v24 = v25 / v26;
+      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v24;
+    }
+
+    v27 = v24 * v23;
+    goto LABEL_37;
+  }
+
+LABEL_38:
+  v29 = 4;
+LABEL_39:
+  *(a1 + 90) = v29;
+  v33 = mach_absolute_time();
+  v34 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v37 = NAN;
+      goto LABEL_44;
+    }
+
+    LODWORD(v35) = info.numer;
+    LODWORD(v36) = info.denom;
+    v34 = v35 / v36;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v34;
+  }
+
+  v37 = v34 * v33;
+LABEL_44:
+  v38 = v37 / 1000000.0 - *(a1 + 84);
+  *(a1 + 68) = v38;
+  re::DynamicString::appendf(v4, "Time Since App Launch : %.2f sec\n", (v38 / 1000.0));
+  if (*(a1 + 90) > 2u)
+  {
+    result = re::DynamicString::appendf(v4, "Thermally Throttled in %.2f sec\n");
+  }
+
+  else
+  {
+    result = re::DynamicString::appendf(v4, "Not Thermally Throttled\n");
+  }
+
+  *(v4 + 10) = 1024;
+  return result;
+}
+
+double re::FrameSceneUnderstandingStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  info[0].numer = 0;
+  v6 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, info);
+  v7 = v6;
+  if (v6[1])
+  {
+    v6[1] = 1;
+    v8 = v6[2];
+  }
+
+  else
+  {
+    *(v6 + 8) = 0;
+    v8 = v6 + 9;
+  }
+
+  *v8 = 0;
+  re::DynamicString::appendf(v6, "Scene Understanding Metrics (Profiler Pass)\n");
+  v9 = 0x7FFFFFFFLL;
+  if (*a3)
+  {
+    v10 = *(*(a3 + 8) + 4 * (0xAF26563F2EC4C8E6 % *(a3 + 24)));
+    if (v10 != 0x7FFFFFFF)
+    {
+      v11 = *(a3 + 16);
+      v9 = 0x7FFFFFFFLL;
+      while (*(v11 + 80 * v10 + 4) != 128)
+      {
+        v10 = *(v11 + 80 * v10) & 0x7FFFFFFF;
+        if (v10 == 0x7FFFFFFF)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      v9 = v10;
+    }
+  }
+
+LABEL_11:
+  v12 = *(*(a3 + 16) + 80 * v9 + 40);
+  v13 = *(a1 + 8);
+  v14 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v17 = NAN;
+      goto LABEL_16;
+    }
+
+    LODWORD(v15) = info[0].numer;
+    LODWORD(v16) = info[0].denom;
+    v14 = v15 / v16;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v14;
+  }
+
+  v17 = v14 * (v12 / v13);
+LABEL_16:
+  re::DynamicString::appendf(v7, "SUProcessingSystem Update (ms): %.2f\n", v17 / 1000000.0);
+  if (!*a3)
+  {
+    v18 = *(a3 + 16);
+    goto LABEL_22;
+  }
+
+  v18 = *(a3 + 16);
+  v19 = *(*(a3 + 8) + 4 * (0x89607B27DA843F55 % *(a3 + 24)));
+  if (v19 == 0x7FFFFFFF)
+  {
+LABEL_22:
+    v19 = 0x7FFFFFFFLL;
+    goto LABEL_23;
+  }
+
+  while (*(v18 + 80 * v19 + 4) != 129)
+  {
+    v19 = *(v18 + 80 * v19) & 0x7FFFFFFF;
+    if (v19 == 0x7FFFFFFF)
+    {
+      goto LABEL_22;
+    }
+  }
+
+LABEL_23:
+  v20 = *(v18 + 80 * v19 + 40);
+  v21 = *(a1 + 8);
+  v22 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v25 = NAN;
+      goto LABEL_28;
+    }
+
+    LODWORD(v23) = info[0].numer;
+    LODWORD(v24) = info[0].denom;
+    v22 = v23 / v24;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v22;
+  }
+
+  v25 = v22 * (v20 / v21);
+LABEL_28:
+  re::DynamicString::appendf(v7, "SUMeshSystem Update (ms): %.2f\n", v25 / 1000000.0);
+  re::DynamicString::appendf(v7, "Physics Chunk Creation (ms)\n");
+  if (!*a3)
+  {
+    v26 = *(a3 + 16);
+    goto LABEL_34;
+  }
+
+  v26 = *(a3 + 16);
+  v27 = *(*(a3 + 8) + 4 * (0x629BE6C3EEC6E119uLL % *(a3 + 24)));
+  if (v27 == 0x7FFFFFFF)
+  {
+LABEL_34:
+    v27 = 0x7FFFFFFFLL;
+    goto LABEL_35;
+  }
+
+  while (*(v26 + 80 * v27 + 4) != 133)
+  {
+    v27 = *(v26 + 80 * v27) & 0x7FFFFFFF;
+    if (v27 == 0x7FFFFFFF)
+    {
+      goto LABEL_34;
+    }
+  }
+
+LABEL_35:
+  v28 = *(v26 + 80 * v27 + 48);
+  v29 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v32 = NAN;
+      goto LABEL_40;
+    }
+
+    LODWORD(v30) = info[0].numer;
+    LODWORD(v31) = info[0].denom;
+    v29 = v30 / v31;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v29;
+  }
+
+  v32 = v29 * v28;
+LABEL_40:
+  if (!*a3)
+  {
+    v33 = *(a3 + 16);
+    goto LABEL_46;
+  }
+
+  v33 = *(a3 + 16);
+  v34 = *(*(a3 + 8) + 4 * (0x629BE6C3EEC6E119uLL % *(a3 + 24)));
+  if (v34 == 0x7FFFFFFF)
+  {
+LABEL_46:
+    v34 = 0x7FFFFFFFLL;
+    goto LABEL_47;
+  }
+
+  while (*(v33 + 80 * v34 + 4) != 133)
+  {
+    v34 = *(v33 + 80 * v34) & 0x7FFFFFFF;
+    if (v34 == 0x7FFFFFFF)
+    {
+      goto LABEL_46;
+    }
+  }
+
+LABEL_47:
+  v35 = *(v33 + 80 * v34 + 36);
+  v36 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  v37 = v32 / 1000000.0;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v40 = NAN;
+      goto LABEL_52;
+    }
+
+    LODWORD(v38) = info[0].numer;
+    LODWORD(v39) = info[0].denom;
+    v36 = v38 / v39;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v36;
+  }
+
+  v40 = v36 * v35;
+LABEL_52:
+  re::DynamicString::appendf(v7, "Avg : %.3f, Max : %.3f\n", v37, v40 / 1000000.0);
+  re::DynamicString::appendf(v7, "Physics Chunk Update (ms)\n");
+  if (!*a3)
+  {
+    v41 = *(a3 + 16);
+    goto LABEL_58;
+  }
+
+  v41 = *(a3 + 16);
+  v42 = *(*(a3 + 8) + 4 * (0xDDA64E04828F136DLL % *(a3 + 24)));
+  if (v42 == 0x7FFFFFFF)
+  {
+LABEL_58:
+    v42 = 0x7FFFFFFFLL;
+    goto LABEL_59;
+  }
+
+  while (*(v41 + 80 * v42 + 4) != 134)
+  {
+    v42 = *(v41 + 80 * v42) & 0x7FFFFFFF;
+    if (v42 == 0x7FFFFFFF)
+    {
+      goto LABEL_58;
+    }
+  }
+
+LABEL_59:
+  v43 = *(v41 + 80 * v42 + 48);
+  v44 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v47 = NAN;
+      goto LABEL_64;
+    }
+
+    LODWORD(v45) = info[0].numer;
+    LODWORD(v46) = info[0].denom;
+    v44 = v45 / v46;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v44;
+  }
+
+  v47 = v44 * v43;
+LABEL_64:
+  if (!*a3)
+  {
+    v48 = *(a3 + 16);
+    goto LABEL_70;
+  }
+
+  v48 = *(a3 + 16);
+  v49 = *(*(a3 + 8) + 4 * (0xDDA64E04828F136DLL % *(a3 + 24)));
+  if (v49 == 0x7FFFFFFF)
+  {
+LABEL_70:
+    v49 = 0x7FFFFFFFLL;
+    goto LABEL_71;
+  }
+
+  while (*(v48 + 80 * v49 + 4) != 134)
+  {
+    v49 = *(v48 + 80 * v49) & 0x7FFFFFFF;
+    if (v49 == 0x7FFFFFFF)
+    {
+      goto LABEL_70;
+    }
+  }
+
+LABEL_71:
+  v50 = *(v48 + 80 * v49 + 36);
+  v51 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  v52 = v47 / 1000000.0;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v55 = NAN;
+      goto LABEL_76;
+    }
+
+    LODWORD(v53) = info[0].numer;
+    LODWORD(v54) = info[0].denom;
+    v51 = v53 / v54;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v51;
+  }
+
+  v55 = v51 * v50;
+LABEL_76:
+  re::DynamicString::appendf(v7, "Avg : %.3f, Max : %.3f\n", v52, v55 / 1000000.0);
+  if (!*a3)
+  {
+    v57 = *(a3 + 16);
+    v61 = *(v57 + 0x27FFFFFFD8);
+    v62 = v61 - v61;
+LABEL_105:
+    v72 = 0x7FFFFFFFLL;
+    goto LABEL_106;
+  }
+
+  v56 = *(a3 + 24);
+  v58 = *(a3 + 8);
+  v57 = *(a3 + 16);
+  v59 = *(v58 + 4 * (0x3E784199B71EA792 % v56));
+  if (v59 == 0x7FFFFFFF)
+  {
+    v60 = (v57 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v63 = 0x7FFFFFFFLL;
+    while (*(v57 + 80 * v59 + 4) != 136)
+    {
+      v59 = *(v57 + 80 * v59) & 0x7FFFFFFF;
+      if (v59 == 0x7FFFFFFF)
+      {
+        goto LABEL_85;
+      }
+    }
+
+    v63 = v59;
+LABEL_85:
+    v60 = (v57 + 80 * v63 + 40);
+  }
+
+  v64 = *(v58 + 4 * (0x1D08970C8BCEA7C1 % v56));
+  if (v64 == 0x7FFFFFFF)
+  {
+    v65 = (v57 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v66 = 0x7FFFFFFFLL;
+    while (*(v57 + 80 * v64 + 4) != 138)
+    {
+      v64 = *(v57 + 80 * v64) & 0x7FFFFFFF;
+      if (v64 == 0x7FFFFFFF)
+      {
+        goto LABEL_93;
+      }
+    }
+
+    v66 = v64;
+LABEL_93:
+    v65 = (v57 + 80 * v66 + 40);
+  }
+
+  v67 = *v60;
+  v68 = *v65;
+  v69 = *(v58 + 4 * (0x72025A4FB5A542DBLL % v56));
+  if (v69 == 0x7FFFFFFF)
+  {
+    v70 = (v57 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v71 = 0x7FFFFFFFLL;
+    while (*(v57 + 80 * v69 + 4) != 137)
+    {
+      v69 = *(v57 + 80 * v69) & 0x7FFFFFFF;
+      if (v69 == 0x7FFFFFFF)
+      {
+        goto LABEL_101;
+      }
+    }
+
+    v71 = v69;
+LABEL_101:
+    v70 = (v57 + 80 * v71 + 40);
+  }
+
+  v62 = v67 - v68;
+  v61 = *v70;
+  v72 = *(v58 + 4 * (0x5CB85FD265949FD2 % v56));
+  if (v72 == 0x7FFFFFFF)
+  {
+    goto LABEL_105;
+  }
+
+  while (*(v57 + 80 * v72 + 4) != 139)
+  {
+    v72 = *(v57 + 80 * v72) & 0x7FFFFFFF;
+    if (v72 == 0x7FFFFFFF)
+    {
+      goto LABEL_105;
+    }
+  }
+
+LABEL_106:
+  v73 = v61 - *(v57 + 80 * v72 + 40);
+  v74 = v62;
+  if (v74 < 0.0)
+  {
+    v74 = 0.0;
+  }
+
+  v75 = v73;
+  if (v75 < 0.0)
+  {
+    v75 = 0.0;
+  }
+
+  v76 = re::DynamicString::appendf(v7, "SU Vertices: %.2f, SU Triangles: %.2f\n", v74, v75);
+  *(v7 + 10) = 2048;
+  *(v7 + 4) = 0x2D00000008;
+  if (!*a2 || (v77 = *(*(a2 + 8) + 4 * (0x5692161D100B05E5uLL % *(a2 + 24))), v77 == 0x7FFFFFFF))
+  {
+LABEL_115:
+    *&info[0].numer = 0u;
+    v161 = 0u;
+    re::DynamicString::setCapacity(info, 0);
+    v162 = 0x2800000006;
+    v163 = 1;
+    v159 = 1;
+    re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::add(a2, &v159, info);
+    if (*info && (info[1].numer & 1) != 0)
+    {
+      (*(**info + 40))();
+    }
+  }
+
+  else
+  {
+    v78 = *(a2 + 16);
+    while (*(v78 + (v77 << 6) + 4) != 1)
+    {
+      v77 = *(v78 + (v77 << 6)) & 0x7FFFFFFF;
+      if (v77 == 0x7FFFFFFF)
+      {
+        goto LABEL_115;
+      }
+    }
+  }
+
+  info[0].numer = 1;
+  v79 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, info);
+  v80 = v79;
+  if (v79[1])
+  {
+    v79[1] = 1;
+    v81 = v79[2];
+  }
+
+  else
+  {
+    *(v79 + 8) = 0;
+    v81 = v79 + 9;
+  }
+
+  *v81 = 0;
+  re::DynamicString::appendf(v79, "Scene Understanding Metrics (App Lifetime)\n");
+  re::DynamicString::appendf(v80, "SUProcessingSystem Update (s)\n");
+  if (!*a3)
+  {
+    v82 = *(a3 + 16);
+    goto LABEL_127;
+  }
+
+  v82 = *(a3 + 16);
+  v83 = *(*(a3 + 8) + 4 * (0xAF26563F2EC4C8E6 % *(a3 + 24)));
+  if (v83 == 0x7FFFFFFF)
+  {
+LABEL_127:
+    v83 = 0x7FFFFFFFLL;
+    goto LABEL_128;
+  }
+
+  while (*(v82 + 80 * v83 + 4) != 128)
+  {
+    v83 = *(v82 + 80 * v83) & 0x7FFFFFFF;
+    if (v83 == 0x7FFFFFFF)
+    {
+      goto LABEL_127;
+    }
+  }
+
+LABEL_128:
+  v84 = *(v82 + 80 * v83 + 68);
+  v85 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v88 = NAN;
+      goto LABEL_133;
+    }
+
+    LODWORD(v86) = info[0].numer;
+    LODWORD(v87) = info[0].denom;
+    v85 = v86 / v87;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v85;
+  }
+
+  v88 = v85 * (v84 / 1000.0);
+LABEL_133:
+  if (!*a3)
+  {
+    v89 = *(a3 + 16);
+    goto LABEL_139;
+  }
+
+  v89 = *(a3 + 16);
+  v90 = *(*(a3 + 8) + 4 * (0xAF26563F2EC4C8E6 % *(a3 + 24)));
+  if (v90 == 0x7FFFFFFF)
+  {
+LABEL_139:
+    v90 = 0x7FFFFFFFLL;
+    goto LABEL_140;
+  }
+
+  while (*(v89 + 80 * v90 + 4) != 128)
+  {
+    v90 = *(v89 + 80 * v90) & 0x7FFFFFFF;
+    if (v90 == 0x7FFFFFFF)
+    {
+      goto LABEL_139;
+    }
+  }
+
+LABEL_140:
+  v91 = *(v89 + 80 * v90 + 56);
+  v92 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  v93 = v88 / 1000000.0;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v96 = NAN;
+      goto LABEL_145;
+    }
+
+    LODWORD(v94) = info[0].numer;
+    LODWORD(v95) = info[0].denom;
+    v92 = v94 / v95;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v92;
+  }
+
+  v96 = v92 * (v91 / 1000.0);
+LABEL_145:
+  re::DynamicString::appendf(v80, "Avg : %.3f, Max : %.3f\n", v93, v96 / 1000000.0);
+  re::DynamicString::appendf(v80, "SUMeshSystem Update (s)\n");
+  if (!*a3)
+  {
+    v97 = *(a3 + 16);
+    goto LABEL_151;
+  }
+
+  v97 = *(a3 + 16);
+  v98 = *(*(a3 + 8) + 4 * (0x89607B27DA843F55 % *(a3 + 24)));
+  if (v98 == 0x7FFFFFFF)
+  {
+LABEL_151:
+    v98 = 0x7FFFFFFFLL;
+    goto LABEL_152;
+  }
+
+  while (*(v97 + 80 * v98 + 4) != 129)
+  {
+    v98 = *(v97 + 80 * v98) & 0x7FFFFFFF;
+    if (v98 == 0x7FFFFFFF)
+    {
+      goto LABEL_151;
+    }
+  }
+
+LABEL_152:
+  v99 = *(v97 + 80 * v98 + 68);
+  v100 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v103 = NAN;
+      goto LABEL_157;
+    }
+
+    LODWORD(v101) = info[0].numer;
+    LODWORD(v102) = info[0].denom;
+    v100 = v101 / v102;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v100;
+  }
+
+  v103 = v100 * (v99 / 1000.0);
+LABEL_157:
+  if (!*a3)
+  {
+    v104 = *(a3 + 16);
+    goto LABEL_163;
+  }
+
+  v104 = *(a3 + 16);
+  v105 = *(*(a3 + 8) + 4 * (0x89607B27DA843F55 % *(a3 + 24)));
+  if (v105 == 0x7FFFFFFF)
+  {
+LABEL_163:
+    v105 = 0x7FFFFFFFLL;
+    goto LABEL_164;
+  }
+
+  while (*(v104 + 80 * v105 + 4) != 129)
+  {
+    v105 = *(v104 + 80 * v105) & 0x7FFFFFFF;
+    if (v105 == 0x7FFFFFFF)
+    {
+      goto LABEL_163;
+    }
+  }
+
+LABEL_164:
+  v106 = *(v104 + 80 * v105 + 56);
+  v107 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  v108 = v103 / 1000000.0;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v111 = NAN;
+      goto LABEL_169;
+    }
+
+    LODWORD(v109) = info[0].numer;
+    LODWORD(v110) = info[0].denom;
+    v107 = v109 / v110;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v107;
+  }
+
+  v111 = v107 * (v106 / 1000.0);
+LABEL_169:
+  re::DynamicString::appendf(v80, "Avg : %.3f, Max : %.3f\n", v108, v111 / 1000000.0);
+  re::DynamicString::appendf(v80, "Physics Chunk Creation (s)\n");
+  if (!*a3)
+  {
+    v112 = *(a3 + 16);
+    goto LABEL_175;
+  }
+
+  v112 = *(a3 + 16);
+  v113 = *(*(a3 + 8) + 4 * (0x629BE6C3EEC6E119uLL % *(a3 + 24)));
+  if (v113 == 0x7FFFFFFF)
+  {
+LABEL_175:
+    v113 = 0x7FFFFFFFLL;
+    goto LABEL_176;
+  }
+
+  while (*(v112 + 80 * v113 + 4) != 133)
+  {
+    v113 = *(v112 + 80 * v113) & 0x7FFFFFFF;
+    if (v113 == 0x7FFFFFFF)
+    {
+      goto LABEL_175;
+    }
+  }
+
+LABEL_176:
+  v114 = *(v112 + 80 * v113 + 68);
+  v115 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v118 = NAN;
+      goto LABEL_181;
+    }
+
+    LODWORD(v116) = info[0].numer;
+    LODWORD(v117) = info[0].denom;
+    v115 = v116 / v117;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v115;
+  }
+
+  v118 = v115 * (v114 / 1000.0);
+LABEL_181:
+  if (!*a3)
+  {
+    v119 = *(a3 + 16);
+    goto LABEL_187;
+  }
+
+  v119 = *(a3 + 16);
+  v120 = *(*(a3 + 8) + 4 * (0x629BE6C3EEC6E119uLL % *(a3 + 24)));
+  if (v120 == 0x7FFFFFFF)
+  {
+LABEL_187:
+    v120 = 0x7FFFFFFFLL;
+    goto LABEL_188;
+  }
+
+  while (*(v119 + 80 * v120 + 4) != 133)
+  {
+    v120 = *(v119 + 80 * v120) & 0x7FFFFFFF;
+    if (v120 == 0x7FFFFFFF)
+    {
+      goto LABEL_187;
+    }
+  }
+
+LABEL_188:
+  v121 = *(v119 + 80 * v120 + 56);
+  v122 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  v123 = v118 / 1000000.0;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v126 = NAN;
+      goto LABEL_193;
+    }
+
+    LODWORD(v124) = info[0].numer;
+    LODWORD(v125) = info[0].denom;
+    v122 = v124 / v125;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v122;
+  }
+
+  v126 = v122 * (v121 / 1000.0);
+LABEL_193:
+  re::DynamicString::appendf(v80, "Avg : %.3f, Max : %.3f\n", v123, v126 / 1000000.0);
+  re::DynamicString::appendf(v80, "Physics Chunk Update (s)\n");
+  if (!*a3)
+  {
+    v127 = *(a3 + 16);
+    goto LABEL_199;
+  }
+
+  v127 = *(a3 + 16);
+  v128 = *(*(a3 + 8) + 4 * (0xDDA64E04828F136DLL % *(a3 + 24)));
+  if (v128 == 0x7FFFFFFF)
+  {
+LABEL_199:
+    v128 = 0x7FFFFFFFLL;
+    goto LABEL_200;
+  }
+
+  while (*(v127 + 80 * v128 + 4) != 134)
+  {
+    v128 = *(v127 + 80 * v128) & 0x7FFFFFFF;
+    if (v128 == 0x7FFFFFFF)
+    {
+      goto LABEL_199;
+    }
+  }
+
+LABEL_200:
+  v129 = *(v127 + 80 * v128 + 68);
+  v130 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v133 = NAN;
+      goto LABEL_205;
+    }
+
+    LODWORD(v131) = info[0].numer;
+    LODWORD(v132) = info[0].denom;
+    v130 = v131 / v132;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v130;
+  }
+
+  v133 = v130 * (v129 / 1000.0);
+LABEL_205:
+  if (!*a3)
+  {
+    v134 = *(a3 + 16);
+    goto LABEL_211;
+  }
+
+  v134 = *(a3 + 16);
+  v135 = *(*(a3 + 8) + 4 * (0xDDA64E04828F136DLL % *(a3 + 24)));
+  if (v135 == 0x7FFFFFFF)
+  {
+LABEL_211:
+    v135 = 0x7FFFFFFFLL;
+    goto LABEL_212;
+  }
+
+  while (*(v134 + 80 * v135 + 4) != 134)
+  {
+    v135 = *(v134 + 80 * v135) & 0x7FFFFFFF;
+    if (v135 == 0x7FFFFFFF)
+    {
+      goto LABEL_211;
+    }
+  }
+
+LABEL_212:
+  v136 = *(v134 + 80 * v135 + 56);
+  v137 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  v138 = v133 / 1000000.0;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(info))
+    {
+      v141 = NAN;
+      goto LABEL_217;
+    }
+
+    LODWORD(v139) = info[0].numer;
+    LODWORD(v140) = info[0].denom;
+    v137 = v139 / v140;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v137;
+  }
+
+  v141 = v137 * (v136 / 1000.0);
+LABEL_217:
+  re::DynamicString::appendf(v80, "Avg : %.3f, Max : %.3f\n", v138, v141 / 1000000.0);
+  if (!*a3)
+  {
+    v143 = *(a3 + 16);
+    v147 = *(v143 + 0x27FFFFFFECLL);
+    v148 = v147 - v147;
+LABEL_246:
+    v157 = 0x7FFFFFFFLL;
+    goto LABEL_247;
+  }
+
+  v142 = *(a3 + 24);
+  v144 = *(a3 + 8);
+  v143 = *(a3 + 16);
+  v145 = *(v144 + 4 * (0x3E784199B71EA792 % v142));
+  if (v145 == 0x7FFFFFFF)
+  {
+    v146 = (v143 + 0x27FFFFFFECLL);
+  }
+
+  else
+  {
+    v149 = 0x7FFFFFFFLL;
+    while (*(v143 + 80 * v145 + 4) != 136)
+    {
+      v145 = *(v143 + 80 * v145) & 0x7FFFFFFF;
+      if (v145 == 0x7FFFFFFF)
+      {
+        goto LABEL_226;
+      }
+    }
+
+    v149 = v145;
+LABEL_226:
+    v146 = (v143 + 80 * v149 + 60);
+  }
+
+  v150 = *(v144 + 4 * (0x1D08970C8BCEA7C1 % v142));
+  if (v150 == 0x7FFFFFFF)
+  {
+    v151 = (v143 + 0x27FFFFFFECLL);
+  }
+
+  else
+  {
+    v152 = 0x7FFFFFFFLL;
+    while (*(v143 + 80 * v150 + 4) != 138)
+    {
+      v150 = *(v143 + 80 * v150) & 0x7FFFFFFF;
+      if (v150 == 0x7FFFFFFF)
+      {
+        goto LABEL_234;
+      }
+    }
+
+    v152 = v150;
+LABEL_234:
+    v151 = (v143 + 80 * v152 + 60);
+  }
+
+  v153 = *v146;
+  v154 = *(v144 + 4 * (0x72025A4FB5A542DBLL % v142));
+  if (v154 == 0x7FFFFFFF)
+  {
+    v155 = (v143 + 0x27FFFFFFECLL);
+  }
+
+  else
+  {
+    v156 = 0x7FFFFFFFLL;
+    while (*(v143 + 80 * v154 + 4) != 137)
+    {
+      v154 = *(v143 + 80 * v154) & 0x7FFFFFFF;
+      if (v154 == 0x7FFFFFFF)
+      {
+        goto LABEL_242;
+      }
+    }
+
+    v156 = v154;
+LABEL_242:
+    v155 = (v143 + 80 * v156 + 60);
+  }
+
+  v148 = v153 - *v151;
+  v147 = *v155;
+  v157 = *(v144 + 4 * (0x5CB85FD265949FD2 % v142));
+  if (v157 == 0x7FFFFFFF)
+  {
+    goto LABEL_246;
+  }
+
+  while (*(v143 + 80 * v157 + 4) != 139)
+  {
+    v157 = *(v143 + 80 * v157) & 0x7FFFFFFF;
+    if (v157 == 0x7FFFFFFF)
+    {
+      goto LABEL_246;
+    }
+  }
+
+LABEL_247:
+  re::DynamicString::appendf(v80, "SU Vertices : %.2f, SU Triangles: %.2f\n", v148, (v147 - *(v143 + 80 * v157 + 60)));
+  *(v80 + 10) = 2048;
+  *&result = 0x2D0000000ALL;
+  *(v80 + 4) = 0x2D0000000ALL;
+  return result;
+}
+
+re::FrameCustomStats *re::FrameCustomStats::FrameCustomStats(re::FrameCustomStats *this)
+{
+  *(this + 2) = 10;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *(this + 12) = 0;
+  *(this + 52) = 0x7FFFFFFFLL;
+  *(this + 64) = 0;
+  *this = &unk_1F5D0E040;
+  *(this + 88) = 0u;
+  *(this + 26) = 0;
+  *(this + 72) = 0u;
+  v2 = this + 72;
+  *(this + 108) = 0x7FFFFFFFLL;
+  *(this + 19) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  *(this + 36) = 0;
+  *(this + 15) = 0;
+  v3 = this + 120;
+  *(this + 160) = 1;
+  LODWORD(v8[0]) = 0;
+  v6 = 0u;
+  v7 = 0u;
+  *(v8 + 4) = 0x7FFFFFFFLL;
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator=(v2, &v6);
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(&v6);
+  v8[0] = 0;
+  *(&v6 + 1) = 0;
+  *&v7 = 0;
+  DWORD2(v7) = 0;
+  re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(&v6, 0xFuLL);
+  ++DWORD2(v7);
+  re::DynamicArray<re::DataArray<re::RigGraphNode>::ElementBlock>::operator=(v3, &v6);
+  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(&v6);
+  return this;
+}
+
+void re::FrameCustomStats::~FrameCustomStats(re::FrameCustomStats *this)
+{
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 9);
+  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(this + 120);
+  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(this + 120);
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 9);
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  re::FrameCustomStats::~FrameCustomStats(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::FrameCustomStats::addOrGetStat(re::FrameCustomStats *this, char *a2)
+{
+  v4 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet(this + 72, &v7);
+  v5 = v7;
+  if (v7 && (v8 & 1) != 0)
+  {
+    v5 = (*(*v7 + 40))();
+  }
+
+  if (v4)
+  {
+    return *v4;
+  }
+
+  v9 = 257;
+  v10 = 0xFF7FFFFF7F7FFFFFLL;
+  v12 = 0;
+  v11 = 0;
+  v13 = xmmword_1E3100EC0;
+  v14 = xmmword_1E3100ED0;
+  v15 = 0;
+  v16 = 0;
+  re::DynamicArray<re::CustomStatsLineInfo>::add((this + 120), &v7);
+  if (v7)
+  {
+    if (v8)
+    {
+      (*(*v7 + 40))();
+    }
+  }
+
+  v7 = *(this + 17) - 1;
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(this + 72, a2, &v7);
+  return *(this + 17) - 1;
+}
+
+void re::DynamicArray<re::CustomStatsLineInfo>::add(_anonymous_namespace_ *this, uint64_t a2)
+{
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
+  {
+    re::DynamicArray<re::CustomStatsLineInfo>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
+  }
+
+  v5 = *(this + 4) + 104 * v4;
+  *v5 = 0u;
+  *(v5 + 16) = 0u;
+  *(v5 + 24) = *(a2 + 24);
+  v6 = *(a2 + 8);
+  *v5 = *a2;
+  *a2 = 0;
+  v7 = *(a2 + 16);
+  *(a2 + 24) = 0;
+  v9 = *(v5 + 8);
+  v8 = *(v5 + 16);
+  *(v5 + 8) = v6;
+  *(v5 + 16) = v7;
+  *(a2 + 8) = v9;
+  *(a2 + 16) = v8;
+  *(v5 + 32) = *(a2 + 32);
+  re::FrameStats::CollectedStatistics::CollectedStatistics((v5 + 36), (a2 + 36));
+  ++*(this + 2);
+  ++*(this + 6);
+}
+
+uint64_t re::FrameCustomStats::addOrGetLine(re::FrameCustomStats *this, char *a2)
+{
+  v4 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet(this + 72, &v7);
+  v5 = v7;
+  if (v7 && (v8 & 1) != 0)
+  {
+    v5 = (*(*v7 + 40))();
+  }
+
+  if (v4)
+  {
+    return *v4;
+  }
+
+  v9 = 1;
+  v10 = 0xFF7FFFFF7F7FFFFFLL;
+  v12 = 0;
+  v11 = 0;
+  v13 = xmmword_1E3100EC0;
+  v14 = xmmword_1E3100ED0;
+  v15 = 0;
+  v16 = 0;
+  re::DynamicArray<re::CustomStatsLineInfo>::add((this + 120), &v7);
+  if (v7)
+  {
+    if (v8)
+    {
+      (*(*v7 + 40))();
+    }
+  }
+
+  v7 = *(this + 17) - 1;
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(this + 72, a2, &v7);
+  return *(this + 17) - 1;
+}
+
+_anonymous_namespace_ *re::FrameCustomStats::updateText(_anonymous_namespace_ *this, unint64_t a2, const char *a3)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  if (*(this + 17) > a2)
+  {
+    v5 = this;
+    v6 = *(v5 + 17);
+    if (v6 <= a2)
+    {
+      v13 = 0;
+      memset(v22, 0, sizeof(v22));
+      v7 = MEMORY[0x1E69E9C10];
+      v8 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v14 = 136315906;
+      v15 = "operator[]";
+      v16 = 1024;
+      if (v8)
+      {
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v17 = 789;
+      v18 = 2048;
+      v19 = a2;
+      v20 = 2048;
+      v21 = v6;
+      _os_log_send_and_compose_impl(v9, &v13, v22, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v14, 38, v10, v11);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    re::DynamicString::operator=((*(v5 + 19) + 104 * a2), &v11);
+    this = v11;
+    if (v11)
+    {
+      if (v12)
+      {
+        return (*(*v11 + 40))();
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t re::FrameCustomStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2)
+{
+  v12 = 0;
+  result = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, &v12);
+  v4 = result;
+  if (*(result + 8))
+  {
+    *(result + 8) = 1;
+    v5 = *(result + 16);
+  }
+
+  else
+  {
+    *(result + 8) = 0;
+    v5 = (result + 9);
+  }
+
+  *v5 = 0;
+  v6 = *(a1 + 136);
+  if (v6)
+  {
+    v7 = 0;
+    v8 = *(a1 + 152);
+    do
+    {
+      v9 = v8 + v7;
+      *(v9 + 60) = *(v8 + v7 + 36);
+      *(v9 + 76) = *(v8 + v7 + 52);
+      *(v9 + 36) = xmmword_1E3100EE0;
+      *(v9 + 52) = 0;
+      if (*(v8 + v7 + 32) == 1)
+      {
+        if (*(v9 + 33) == 1)
+        {
+          if (*(v9 + 8))
+          {
+            v10 = *(v8 + v7 + 16);
           }
 
           else
           {
-            re::Projection::cullingProjectionMatrix(v3, v128);
+            v10 = (v8 + v7 + 9);
           }
 
-          re::DynamicArray<re::Matrix4x4<float>>::add(&v110, v128);
-          v51 = *(v42 + 128);
-          if (v51 <= v9)
+          result = re::DynamicString::appendf(v4, "\n%.15s: ", v10);
+          if (*(v9 + 72) != 0.0)
           {
-            goto LABEL_88;
+            result = re::DynamicString::appendf(v4, "%.2f, Min/Max[%.2f-%.2f],", *(v9 + 76), *(v9 + 60), *(v9 + 64));
           }
 
-          re::Projection::cullingProjectionMatrix(v3, v128);
-          re::DynamicArray<re::Matrix4x4<float>>::add(&v113, v128);
-          v53 = *(v42 + 48);
-          if (v53 <= v9)
+          if (*(v8 + v7 + 92) != 0.0)
           {
-            goto LABEL_89;
+            result = re::DynamicString::appendf(v4, "LT Min/Max[%.2f-%.2f]");
           }
-
-          re::RenderCamera::computeInverseTransform(v45, v128);
-          re::DynamicArray<re::Matrix4x4<float>>::add((&v107 + 8), v128);
-          ++v9;
-          v45 += 2;
-          v3 += 240;
-          if (v9 >= *(v42 + 890))
-          {
-            goto LABEL_42;
-          }
-        }
-
-        re::internal::assertLog(6, v44, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v9, v46);
-        _os_crash();
-        __break(1u);
-LABEL_88:
-        re::internal::assertLog(6, v50, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v9, v51);
-        _os_crash();
-        __break(1u);
-LABEL_89:
-        re::internal::assertLog(6, v52, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v9, v53);
-        _os_crash();
-        __break(1u);
-        goto LABEL_90;
-      }
-    }
-
-LABEL_67:
-    if (re::RenderGraphDataStore::tryGet<re::MeshPassInfoArrayData>(*(v101 + 146), *(*(v101 + 5) + 48)))
-    {
-      goto LABEL_86;
-    }
-
-    v9 = *(v3 + 16);
-    v14 = *(v101 + 146);
-    v68 = "N2re21MeshPassInfoArrayDataE";
-    if (("N2re21MeshPassInfoArrayDataE" & 0x8000000000000000) != 0)
-    {
-      v69 = ("N2re21MeshPassInfoArrayDataE" & 0x7FFFFFFFFFFFFFFFLL);
-      v70 = 5381;
-      do
-      {
-        v68 = v70;
-        v71 = *v69++;
-        v70 = (33 * v70) ^ v71;
-      }
-
-      while (v71);
-    }
-
-    *&v107 = (*(*(v101 + 5) + 48) - 0x61C8864680B583E9 + (v68 << 6) + (v68 >> 2)) ^ v68;
-    v73 = (*(*v14[1] + 32))(v14[1], 32, 8);
-    *v73 = &unk_1F5D15098;
-    v73[1] = v104;
-    v73[2] = v9;
-    v73[3] = 0;
-    if (!v9)
-    {
-      goto LABEL_78;
-    }
-
-    if (v9 >> 60)
-    {
-      goto LABEL_93;
-    }
-
-    v74 = (*(*v104 + 32))(v104, 16 * v9, 8);
-    v73[3] = v74;
-    if (v74)
-    {
-      break;
-    }
-
-LABEL_94:
-    re::internal::assertLog(4, v75, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-    _os_crash();
-    __break(1u);
-LABEL_95:
-    v92 = __cxa_guard_acquire(&qword_1EE1C0CF0);
-    if (v92)
-    {
-      *v14 = re::getCombinedScopeHash(v92, v93, v94);
-      __cxa_guard_release(v14 + 1);
-    }
-  }
-
-  v76 = v9 - 1;
-  if (v9 != 1)
-  {
-    v77 = v74;
-    do
-    {
-      *v74 = &unk_1F5D10F80;
-      v74[1] = 0;
-      v74 += 2;
-      v77 += 2;
-      --v76;
-    }
-
-    while (v76);
-  }
-
-  *v74 = &unk_1F5D10F80;
-  v74[1] = 0;
-LABEL_78:
-  *&v128[0] = v73;
-  v78 = re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew((v14 + 8), &v107, v128);
-  if (*(v3 + 16))
-  {
-    v79 = 0;
-    v80 = 0;
-    v38 = 0;
-    v81 = *v78;
-    v82 = 880;
-    v96 = *v78;
-    while (1)
-    {
-      v9 = *(v102 + 16);
-      if (v9 <= v38)
-      {
-        break;
-      }
-
-      v9 = *(v81 + 16);
-      if (v9 <= v38)
-      {
-        goto LABEL_91;
-      }
-
-      v9 = *(v3 + 24);
-      v83 = *(v102 + 24);
-      v84 = *(v81 + 24) + v80;
-      v3 = v104;
-      v85 = (*(*v104 + 32))(v104, 48, 8);
-      *v85 = 0u;
-      *(v85 + 16) = 0u;
-      *(v85 + 32) = 0;
-      *(v85 + 36) = 0x7FFFFFFFLL;
-      re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::init(v85, v104, 3);
-      *(v84 + 8) = v85;
-      v86 = re::RenderGraphDataStore::get<re::CameraMatricesArray>(*(v101 + 146), *(*(v101 + 5) + 48));
-      *&v107 = v101;
-      *(&v107 + 1) = v9 + v82 - 880;
-      if (!*(v86 + 24))
-      {
-        goto LABEL_92;
-      }
-
-      *&v108 = *(v86 + 40);
-      *(&v108 + 1) = v98;
-      *&v109 = v99;
-      *(&v109 + 1) = v84;
-      v110 = (v83 + v79);
-      LOWORD(v111) = *(this + 132);
-      BYTE2(v111) = 0;
-      BYTE4(v111) = *(v9 + v82 - 4);
-      if (BYTE4(v111) == 1)
-      {
-        DWORD2(v111) = *(v9 + v82);
-      }
-
-      v112 = v97;
-      re::RenderGraphCameraSetupNode::setupDrawCallsForCamera(&v107, v87, v88, v89, v90, v91);
-      ++v38;
-      v3 = v103;
-      v80 += 16;
-      v79 += 320;
-      v82 += 960;
-      v81 = v96;
-      if (*(v103 + 16) <= v38)
-      {
-        goto LABEL_86;
-      }
-    }
-
-LABEL_90:
-    *v121 = 0;
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    v107 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v128[0]) = 136315906;
-    *(v128 + 4) = "operator[]";
-    WORD6(v128[0]) = 1024;
-    *(v128 + 14) = 476;
-    WORD1(v128[1]) = 2048;
-    *(&v128[1] + 4) = v38;
-    WORD6(v128[1]) = 2048;
-    *(&v128[1] + 14) = v9;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_91:
-    *v121 = 0;
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    v107 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v128[0]) = 136315906;
-    *(v128 + 4) = "operator[]";
-    WORD6(v128[0]) = 1024;
-    *(v128 + 14) = 468;
-    WORD1(v128[1]) = 2048;
-    *(&v128[1] + 4) = v38;
-    WORD6(v128[1]) = 2048;
-    *(&v128[1] + 14) = v9;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_92:
-    v106 = 0;
-    v129 = 0u;
-    v130 = 0u;
-    memset(v128, 0, sizeof(v128));
-    v14 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v121 = 136315906;
-    *&v121[4] = "operator[]";
-    v122 = 1024;
-    v123 = 797;
-    v124 = 2048;
-    v125 = 0;
-    v126 = 2048;
-    v127 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_93:
-    re::internal::assertLog(6, v72, "assertion failure: '%s' (%s:line %i) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", "!overflow", "init", 324, 16, v9);
-    _os_crash();
-    __break(1u);
-    goto LABEL_94;
-  }
-
-LABEL_86:
-  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v105);
-}
-
-void *re::allocInfo_RenderGraphCameraSetupNode(re *this)
-{
-  if ((atomic_load_explicit(&qword_1EE1C0D08, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0D08))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C0D78, "RenderGraphCameraSetupNode");
-    __cxa_guard_release(&qword_1EE1C0D08);
-  }
-
-  return &unk_1EE1C0D78;
-}
-
-void re::initInfo_RenderGraphCameraSetupNode(re *this, re::IntrospectionBase *a2)
-{
-  v18[0] = 0xC7B124D2A1079044;
-  v18[1] = "RenderGraphCameraSetupNode";
-  if (v18[0])
-  {
-    if (v18[0])
-    {
-    }
-  }
-
-  *(this + 2) = v19;
-  if ((atomic_load_explicit(&qword_1EE1C0D10, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C0D10);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_RenderGraphNode(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "RenderGraphNode";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 0;
-      *(v8 + 40) = 3;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1C0D60 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v11 = re::introspect_BOOL(1, v10);
-      v12 = (*(*v9 + 32))(v9, 72, 8);
-      *v12 = 1;
-      *(v12 + 8) = "frustumCulling";
-      *(v12 + 16) = v11;
-      *(v12 + 24) = 0;
-      *(v12 + 32) = 0x10800000002;
-      *(v12 + 40) = 0;
-      *(v12 + 48) = 0;
-      *(v12 + 56) = 0;
-      *(v12 + 64) = 0;
-      qword_1EE1C0D68 = v12;
-      v13 = re::introspectionAllocator(v12);
-      v15 = re::introspect_BOOL(1, v14);
-      v16 = (*(*v13 + 32))(v13, 72, 8);
-      *v16 = 1;
-      *(v16 + 8) = "isForShadowMap";
-      *(v16 + 16) = v15;
-      *(v16 + 24) = 0;
-      *(v16 + 32) = 0x10900000004;
-      *(v16 + 40) = 0;
-      *(v16 + 48) = 0;
-      *(v16 + 56) = 0;
-      *(v16 + 64) = 0;
-      qword_1EE1C0D70 = v16;
-      __cxa_guard_release(&qword_1EE1C0D10);
-    }
-  }
-
-  *(this + 2) = 0x16000000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 3;
-  *(this + 8) = &qword_1EE1C0D60;
-  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphCameraSetupNode>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphCameraSetupNode>;
-  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphCameraSetupNode>;
-  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphCameraSetupNode>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v17 = v19;
-}
-
-double re::internal::defaultConstruct<re::RenderGraphCameraSetupNode>(int a1, int a2, re::RenderGraphNode *this)
-{
-  v3 = re::RenderGraphNode::RenderGraphNode(this);
-  *v3 = &unk_1F5D14E70;
-  *(v3 + 132) = 0;
-  *(v3 + 17) = 0u;
-  *(v3 + 18) = 0u;
-  *(v3 + 19) = 0u;
-  *(v3 + 20) = 0u;
-  *(v3 + 42) = 0;
-  result = NAN;
-  *(v3 + 43) = -1;
-  return result;
-}
-
-double re::internal::defaultConstructV2<re::RenderGraphCameraSetupNode>(re::RenderGraphNode *a1)
-{
-  v1 = re::RenderGraphNode::RenderGraphNode(a1);
-  *v1 = &unk_1F5D14E70;
-  *(v1 + 132) = 0;
-  *(v1 + 17) = 0u;
-  *(v1 + 18) = 0u;
-  *(v1 + 19) = 0u;
-  *(v1 + 20) = 0u;
-  *(v1 + 42) = 0;
-  result = NAN;
-  *(v1 + 43) = -1;
-  return result;
-}
-
-void *re::allocInfo_RenderGraphMultiViewCameraSetupNode(re *this)
-{
-  if ((atomic_load_explicit(&qword_1EE1C0D20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0D20))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C0E08, "RenderGraphMultiViewCameraSetupNode");
-    __cxa_guard_release(&qword_1EE1C0D20);
-  }
-
-  return &unk_1EE1C0E08;
-}
-
-void re::initInfo_RenderGraphMultiViewCameraSetupNode(re *this, re::IntrospectionBase *a2)
-{
-  v12[0] = 0xAEB515AB82B4F4E8;
-  v12[1] = "RenderGraphMultiViewCameraSetupNode";
-  if (v12[0])
-  {
-    if (v12[0])
-    {
-    }
-  }
-
-  *(this + 2) = v13;
-  if ((atomic_load_explicit(&qword_1EE1C0D30, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C0D30);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = v6;
-      v8 = qword_1EE1C0D18;
-      if (!qword_1EE1C0D18)
-      {
-        v8 = re::allocInfo_RenderGraphCameraSetupNode(v6);
-        qword_1EE1C0D18 = v8;
-        re::initInfo_RenderGraphCameraSetupNode(v8, v9);
-      }
-
-      v10 = (*(*v7 + 32))(v7, 72, 8);
-      *v10 = 1;
-      *(v10 + 8) = "RenderGraphCameraSetupNode";
-      *(v10 + 16) = v8;
-      *(v10 + 24) = 0;
-      *(v10 + 32) = 0;
-      *(v10 + 40) = 3;
-      *(v10 + 48) = 0;
-      *(v10 + 56) = 0;
-      *(v10 + 64) = 0;
-      qword_1EE1C0D28 = v10;
-      __cxa_guard_release(&qword_1EE1C0D30);
-    }
-  }
-
-  *(this + 2) = 0x16000000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 1;
-  *(this + 8) = &qword_1EE1C0D28;
-  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphMultiViewCameraSetupNode>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphMultiViewCameraSetupNode>;
-  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphMultiViewCameraSetupNode>;
-  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphMultiViewCameraSetupNode>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v11 = v13;
-}
-
-double re::internal::defaultConstruct<re::RenderGraphMultiViewCameraSetupNode>(int a1, int a2, re::RenderGraphNode *this)
-{
-  v3 = re::RenderGraphNode::RenderGraphNode(this);
-  *(v3 + 132) = 0;
-  *(v3 + 17) = 0u;
-  *(v3 + 18) = 0u;
-  *(v3 + 19) = 0u;
-  *(v3 + 20) = 0u;
-  *(v3 + 42) = 0;
-  result = NAN;
-  *(v3 + 43) = -1;
-  *v3 = &unk_1F5D14F00;
-  return result;
-}
-
-void re::internal::defaultDestruct<re::RenderGraphMultiViewCameraSetupNode>(uint64_t a1, uint64_t a2, id *a3)
-{
-  *a3 = &unk_1F5D14E70;
-  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit((a3 + 34));
-
-  re::RenderGraphNode::~RenderGraphNode(a3);
-}
-
-double re::internal::defaultConstructV2<re::RenderGraphMultiViewCameraSetupNode>(re::RenderGraphNode *a1)
-{
-  v1 = re::RenderGraphNode::RenderGraphNode(a1);
-  *(v1 + 132) = 0;
-  *(v1 + 17) = 0u;
-  *(v1 + 18) = 0u;
-  *(v1 + 19) = 0u;
-  *(v1 + 20) = 0u;
-  *(v1 + 42) = 0;
-  result = NAN;
-  *(v1 + 43) = -1;
-  *v1 = &unk_1F5D14F00;
-  return result;
-}
-
-void re::internal::defaultDestructV2<re::RenderGraphMultiViewCameraSetupNode>(id *a1)
-{
-  *a1 = &unk_1F5D14E70;
-  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit((a1 + 34));
-
-  re::RenderGraphNode::~RenderGraphNode(a1);
-}
-
-void re::RenderGraphCameraSetupNode::~RenderGraphCameraSetupNode(id *this)
-{
-  *this = &unk_1F5D14E70;
-  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit((this + 34));
-
-  re::RenderGraphNode::~RenderGraphNode(this);
-}
-
-{
-  *this = &unk_1F5D14E70;
-  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit((this + 34));
-  re::RenderGraphNode::~RenderGraphNode(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::RenderGraphMultiViewCameraSetupNode::~RenderGraphMultiViewCameraSetupNode(id *this)
-{
-  *this = &unk_1F5D14E70;
-  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit((this + 34));
-
-  re::RenderGraphNode::~RenderGraphNode(this);
-}
-
-{
-  *this = &unk_1F5D14E70;
-  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit((this + 34));
-  re::RenderGraphNode::~RenderGraphNode(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *re::RenderGraphDataStoreWrapper<re::MeshRenderPassGroups>::~RenderGraphDataStoreWrapper(void *a1)
-{
-  *a1 = &unk_1F5D14FD8;
-  re::HashTable<unsigned long long,re::MeshShadowPlaneData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(a1 + 1);
-  return a1;
-}
-
-void re::RenderGraphDataStoreWrapper<re::MeshRenderPassGroups>::~RenderGraphDataStoreWrapper(void *a1)
-{
-  *a1 = &unk_1F5D14FD8;
-  re::HashTable<unsigned long long,re::MeshShadowPlaneData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(a1 + 1);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t re::HashTable<float,unsigned char,re::Hash<float>,re::EqualTo<float>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
-{
-  v5 = *(a1 + 36);
-  if (v5 == 0x7FFFFFFF)
-  {
-    v5 = *(a1 + 32);
-    v6 = v5;
-    if (v5 == *(a1 + 24))
-    {
-      v7 = *(a1 + 28);
-      v8 = 2 * v7;
-      v9 = *a1;
-      if (*a1)
-      {
-        if (v8)
-        {
-          v10 = v5 == v8;
         }
 
         else
         {
-          v10 = 1;
-        }
-
-        if (!v10 && (v7 & 0x80000000) == 0)
-        {
-          memset(v25, 0, 36);
-          *&v25[36] = 0x7FFFFFFFLL;
-          re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::init(v25, v9, v8);
-          v11 = *v25;
-          *v25 = *a1;
-          *a1 = v11;
-          v12 = *&v25[16];
-          v13 = *(a1 + 16);
-          *&v25[16] = v13;
-          *(a1 + 16) = v12;
-          v15 = *&v25[24];
-          *&v25[24] = *(a1 + 24);
-          v14 = *&v25[32];
-          *(a1 + 24) = v15;
-          ++*&v25[40];
-          v16 = v14;
-          if (v14)
-          {
-            v17 = v13 + 8;
-            do
-            {
-              if ((*(v17 - 8) & 0x80000000) != 0)
-              {
-                v18 = re::HashTable<float,unsigned char,re::Hash<float>,re::EqualTo<float>,true,false>::allocEntry(a1, *(v17 + 8) % *(a1 + 24));
-                *(v18 + 4) = *(v17 - 4);
-                *(v18 + 8) = *v17;
-              }
-
-              v17 += 24;
-              --v16;
-            }
-
-            while (v16);
-          }
-
-          re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v25);
+          result = re::DynamicString::appendf(v4, "\n%.70s");
         }
       }
 
-      else
-      {
-        if (v8)
-        {
-          v21 = 2 * v7;
-        }
-
-        else
-        {
-          v21 = 3;
-        }
-      }
-
-      a2 = a3 % *(a1 + 24);
-      v6 = *(a1 + 32);
+      v7 += 104;
     }
 
-    *(a1 + 32) = v6 + 1;
-    v19 = *(a1 + 16);
-    v20 = *(v19 + 24 * v5);
+    while (104 * v6 != v7);
+  }
+
+  *(v4 + 36) = 0x20000000003CLL;
+  if (v6 <= 0xB)
+  {
+    v11 = 11;
   }
 
   else
   {
-    v19 = *(a1 + 16);
-    v20 = *(v19 + 24 * v5);
-    *(a1 + 36) = v20 & 0x7FFFFFFF;
+    v11 = v6;
   }
 
-  v22 = v19 + 24 * v5;
-  *v22 = v20 | 0x80000000;
-  v23 = *(a1 + 8);
-  *v22 = *(v23 + 4 * a2) | 0x80000000;
-  *(v23 + 4 * a2) = v5;
-  *(v22 + 16) = a3;
-  ++*(a1 + 28);
-  return v19 + 24 * v5;
-}
-
-uint64_t re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
-{
-  v5 = *(a1 + 36);
-  if (v5 == 0x7FFFFFFF)
-  {
-    v5 = *(a1 + 32);
-    v6 = v5;
-    if (v5 == *(a1 + 24))
-    {
-      re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::setCapacity(a1, 2 * *(a1 + 28));
-      a2 = a3 % *(a1 + 24);
-      v6 = *(a1 + 32);
-    }
-
-    *(a1 + 32) = v6 + 1;
-    v7 = *(a1 + 16);
-    v8 = *(v7 + 40 * v5);
-  }
-
-  else
-  {
-    v7 = *(a1 + 16);
-    v8 = *(v7 + 40 * v5);
-    *(a1 + 36) = v8 & 0x7FFFFFFF;
-  }
-
-  v9 = v7 + 40 * v5;
-  *v9 = v8 | 0x80000000;
-  v10 = *(a1 + 8);
-  *v9 = *(v10 + 4 * a2) | 0x80000000;
-  *(v10 + 4 * a2) = v5;
-  *(v9 + 32) = a3;
-  ++*(a1 + 28);
-  return v7 + 40 * v5;
-}
-
-void re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
-{
-  v4 = *a1;
-  if (*a1)
-  {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
-    {
-      memset(v15, 0, 36);
-      *&v15[36] = 0x7FFFFFFFLL;
-      re::HashTable<re::StringID,re::TimelineEventParameterDescription,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v15, v4, a2);
-      v5 = *v15;
-      *v15 = *a1;
-      *a1 = v5;
-      v6 = *&v15[16];
-      v7 = *(a1 + 16);
-      *&v15[16] = v7;
-      *(a1 + 16) = v6;
-      v9 = *&v15[24];
-      *&v15[24] = *(a1 + 24);
-      v8 = *&v15[32];
-      *(a1 + 24) = v9;
-      ++*&v15[40];
-      v10 = v8;
-      if (v8)
-      {
-        v11 = (v7 + 16);
-        do
-        {
-          if ((*(v11 - 2) & 0x80000000) != 0)
-          {
-            v12 = re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(a1, v11[2] % *(a1 + 24));
-            *(v12 + 8) = *(v11 - 1);
-            v13 = *v11;
-            *(v12 + 24) = *(v11 + 2);
-            *(v12 + 16) = v13;
-          }
-
-          v11 += 5;
-          --v10;
-        }
-
-        while (v10);
-      }
-
-      re::HashTable<unsigned long long,re::internal::MemoryAttributionTaskAndPeerID,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(v15);
-    }
-  }
-
-  else
-  {
-    if (a2)
-    {
-      v14 = a2;
-    }
-
-    else
-    {
-      v14 = 3;
-    }
-  }
-}
-
-uint64_t re::RenderGraphDataStore::tryGet<re::MeshSortGroupCameraData>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re23MeshSortGroupCameraDataE";
-  if (("N2re23MeshSortGroupCameraDataE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re23MeshSortGroupCameraDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
-    {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
-    }
-
-    while (v5);
-  }
-
-  if (!*(a1 + 64))
-  {
-    return 0;
-  }
-
-  v6 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-  v7 = *(*(a1 + 72) + 4 * (v6 % *(a1 + 88)));
-  if (v7 == 0x7FFFFFFF)
-  {
-    return 0;
-  }
-
-  v8 = *(a1 + 80);
-  while (*(v8 + 24 * v7 + 8) != v6)
-  {
-    v7 = *(v8 + 24 * v7) & 0x7FFFFFFF;
-    if (v7 == 0x7FFFFFFF)
-    {
-      return 0;
-    }
-  }
-
-  return *(v8 + 24 * v7 + 16);
-}
-
-void re::MeshSortGroupCameraData::~MeshSortGroupCameraData(re::MeshSortGroupCameraData *this)
-{
-  *this = &unk_1F5D15018;
-  re::HashTable<unsigned long long,re::internal::MemoryAttributionTaskAndPeerID,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(this + 1);
-}
-
-{
-  *this = &unk_1F5D15018;
-  re::HashTable<unsigned long long,re::internal::MemoryAttributionTaskAndPeerID,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(this + 1);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::copy(uint64_t result, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  if (v2)
-  {
-    v4 = result;
-    v5 = 0;
-    for (i = 0; i < v2; ++i)
-    {
-      v7 = *(a2 + 16);
-      if ((*(v7 + v5) & 0x80000000) != 0)
-      {
-        result = re::HashTable<unsigned long long,re::MeshSortingContext::MeshSortGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(v4, *(v7 + v5 + 32) % *(v4 + 24), *(v7 + v5 + 32));
-        v8 = *(a2 + 16) + v5;
-        *(result + 8) = *(v8 + 8);
-        v9 = *(v8 + 16);
-        *(result + 24) = *(v8 + 24);
-        *(result + 16) = v9;
-        v2 = *(a2 + 32);
-      }
-
-      v5 += 40;
-    }
-  }
-
+  *(v4 + 32) = v11;
   return result;
 }
 
-uint64_t re::HashTable<unsigned long long,re::MeshRenderPassGroups::RenderPassGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+uint64_t re::FrameAttributionStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a1 + 36);
-  if (v5 == 0x7FFFFFFF)
+  info.numer = 0;
+  v6 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, &info);
+  v7 = v6;
+  if (v6[1])
   {
-    v5 = *(a1 + 32);
-    v6 = v5;
-    if (v5 == *(a1 + 24))
-    {
-      v7 = *(a1 + 28);
-      v8 = 2 * v7;
-      v9 = *a1;
-      if (*a1)
-      {
-        if (v8)
-        {
-          v10 = v5 == v8;
-        }
-
-        else
-        {
-          v10 = 1;
-        }
-
-        if (!v10 && (v7 & 0x80000000) == 0)
-        {
-          memset(v31, 0, 36);
-          *&v31[36] = 0x7FFFFFFFLL;
-          re::HashTable<unsigned long long,re::ecs2::CARESortingManagerV2::SorterCollection,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::init(v31, v9, v8);
-          v11 = *v31;
-          *v31 = *a1;
-          *a1 = v11;
-          v12 = *&v31[16];
-          v13 = *(a1 + 16);
-          *&v31[16] = v13;
-          *(a1 + 16) = v12;
-          v15 = *&v31[24];
-          *&v31[24] = *(a1 + 24);
-          v14 = *&v31[32];
-          *(a1 + 24) = v15;
-          ++*&v31[40];
-          v16 = v14;
-          if (v14)
-          {
-            v17 = 0;
-            v18 = 0;
-            do
-            {
-              if ((*(v13 + v17) & 0x80000000) != 0)
-              {
-                v19 = re::HashTable<unsigned long long,re::MeshRenderPassGroups::RenderPassGroupSortData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(a1, *(v13 + v17 + 112) % *(a1 + 24));
-                v13 = *&v31[16];
-                v20 = *&v31[16] + v17;
-                *(v19 + 8) = *(*&v31[16] + v17 + 8);
-                v21 = *(v20 + 23);
-                *(v19 + 16) = *(v20 + 16);
-                *(v19 + 23) = v21;
-                v22 = *(v20 + 32);
-                *(v19 + 32) = v22;
-                if (v22 == 1)
-                {
-                  v23 = *(v20 + 48);
-                  v24 = *(v20 + 80);
-                  *(v19 + 64) = *(v20 + 64);
-                  *(v19 + 80) = v24;
-                  *(v19 + 48) = v23;
-                }
-
-                *(v19 + 96) = *(v20 + 96);
-                v16 = *&v31[32];
-              }
-
-              ++v18;
-              v17 += 128;
-            }
-
-            while (v18 < v16);
-          }
-
-          re::HashTable<unsigned long long,re::MeshShadowPlaneData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(v31);
-        }
-      }
-
-      else
-      {
-        if (v8)
-        {
-          v27 = 2 * v7;
-        }
-
-        else
-        {
-          v27 = 3;
-        }
-      }
-
-      a2 = a3 % *(a1 + 24);
-      v6 = *(a1 + 32);
-    }
-
-    *(a1 + 32) = v6 + 1;
-    v25 = *(a1 + 16);
-    v26 = *(v25 + (v5 << 7));
+    v6[1] = 1;
+    v8 = v6[2];
   }
 
   else
   {
-    v25 = *(a1 + 16);
-    v26 = *(v25 + (v5 << 7));
-    *(a1 + 36) = v26 & 0x7FFFFFFF;
+    *(v6 + 8) = 0;
+    v8 = v6 + 9;
   }
 
-  v28 = v25 + (v5 << 7);
-  *v28 = v26 | 0x80000000;
+  *v8 = 0;
+  re::DynamicString::appendf(v6, "Attribution Statistics\n");
+  v9 = 0x7FFFFFFFLL;
+  if (*a4)
+  {
+    v10 = *(*(a4 + 8) + 4 * (0x8AEB093D93E71BBFLL % *(a4 + 24)));
+    if (v10 != 0x7FFFFFFF)
+    {
+      v11 = *(a4 + 16);
+      v9 = 0x7FFFFFFFLL;
+      while (*(v11 + 80 * v10 + 4) != 122)
+      {
+        v10 = *(v11 + 80 * v10) & 0x7FFFFFFF;
+        if (v10 == 0x7FFFFFFF)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      v9 = v10;
+    }
+  }
+
+LABEL_11:
+  v12 = *(*(a4 + 16) + 80 * v9 + 40);
+  v13 = *(a1 + 8);
+  v14 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v17 = NAN;
+      goto LABEL_16;
+    }
+
+    LODWORD(v15) = info.numer;
+    LODWORD(v16) = info.denom;
+    v14 = v15 / v16;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v14;
+  }
+
+  v17 = v14 * (v12 / v13);
+LABEL_16:
+  if (!*a4)
+  {
+    v18 = *(a4 + 16);
+    goto LABEL_22;
+  }
+
+  v18 = *(a4 + 16);
+  v19 = *(*(a4 + 8) + 4 * (0x178631649EA56D8AuLL % *(a4 + 24)));
+  if (v19 == 0x7FFFFFFF)
+  {
+LABEL_22:
+    v19 = 0x7FFFFFFFLL;
+    goto LABEL_23;
+  }
+
+  while (*(v18 + 80 * v19 + 4) != 120)
+  {
+    v19 = *(v18 + 80 * v19) & 0x7FFFFFFF;
+    if (v19 == 0x7FFFFFFF)
+    {
+      goto LABEL_22;
+    }
+  }
+
+LABEL_23:
+  v20 = *(v18 + 80 * v19 + 40);
+  v21 = *(a1 + 8);
+  v22 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v25 = NAN;
+      goto LABEL_28;
+    }
+
+    LODWORD(v23) = info.numer;
+    LODWORD(v24) = info.denom;
+    v22 = v23 / v24;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v22;
+  }
+
+  v25 = v22 * (v20 / v21);
+LABEL_28:
+  if (!*a4)
+  {
+    v26 = *(a4 + 16);
+    goto LABEL_34;
+  }
+
+  v26 = *(a4 + 16);
+  v27 = *(*(a4 + 8) + 4 * (0x2D2898CE1F8CEF8EuLL % *(a4 + 24)));
+  if (v27 == 0x7FFFFFFF)
+  {
+LABEL_34:
+    v27 = 0x7FFFFFFFLL;
+    goto LABEL_35;
+  }
+
+  while (*(v26 + 80 * v27 + 4) != 125)
+  {
+    v27 = *(v26 + 80 * v27) & 0x7FFFFFFF;
+    if (v27 == 0x7FFFFFFF)
+    {
+      goto LABEL_34;
+    }
+  }
+
+LABEL_35:
+  v28 = *(v26 + 80 * v27 + 40);
   v29 = *(a1 + 8);
-  *v28 = *(v29 + 4 * a2) | 0x80000000;
-  *(v28 + 112) = a3;
-  *(v29 + 4 * a2) = v5;
-  ++*(a1 + 28);
-  return v25 + (v5 << 7);
-}
-
-BOOL re::anonymous namespace::shouldDrawMeshForCamera(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, int a5)
-{
-  v5 = *(a1 + 8);
-  if ((*(a2 + 524) & *(v5 + 904)) == 0 || *(a1 + 65) == 1 && *(v5 + 873) == 1 && *(a2 + 689) != 1)
+  v30 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
   {
-    return 0;
+    if (mach_timebase_info(&info))
+    {
+      v33 = NAN;
+      goto LABEL_40;
+    }
+
+    LODWORD(v31) = info.numer;
+    LODWORD(v32) = info.denom;
+    v30 = v31 / v32;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v30;
   }
 
-  if (a5)
+  v33 = v30 * (v28 / v29);
+LABEL_40:
+  if (!*a4)
   {
-    v10 = *(a2 + 520);
+    v34 = *(a4 + 16);
+    goto LABEL_46;
+  }
+
+  v34 = *(a4 + 16);
+  v35 = *(*(a4 + 8) + 4 * (0x8BC946409C88CB8FLL % *(a4 + 24)));
+  if (v35 == 0x7FFFFFFF)
+  {
+LABEL_46:
+    v35 = 0x7FFFFFFFLL;
+    goto LABEL_47;
+  }
+
+  while (*(v34 + 80 * v35 + 4) != 121)
+  {
+    v35 = *(v34 + 80 * v35) & 0x7FFFFFFF;
+    if (v35 == 0x7FFFFFFF)
+    {
+      goto LABEL_46;
+    }
+  }
+
+LABEL_47:
+  v36 = *(v34 + 80 * v35 + 40);
+  v37 = *(a1 + 8);
+  v38 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v41 = NAN;
+      goto LABEL_52;
+    }
+
+    LODWORD(v39) = info.numer;
+    LODWORD(v40) = info.denom;
+    v38 = v39 / v40;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v38;
+  }
+
+  v41 = v38 * (v36 / v37);
+LABEL_52:
+  if (!*a4)
+  {
+    v42 = *(a4 + 16);
+    goto LABEL_58;
+  }
+
+  v42 = *(a4 + 16);
+  v43 = *(*(a4 + 8) + 4 * (0xEAD39EBF60CC176uLL % *(a4 + 24)));
+  if (v43 == 0x7FFFFFFF)
+  {
+LABEL_58:
+    v43 = 0x7FFFFFFFLL;
+    goto LABEL_59;
+  }
+
+  while (*(v42 + 80 * v43 + 4) != 124)
+  {
+    v43 = *(v42 + 80 * v43) & 0x7FFFFFFF;
+    if (v43 == 0x7FFFFFFF)
+    {
+      goto LABEL_58;
+    }
+  }
+
+LABEL_59:
+  v44 = *(v42 + 80 * v43 + 40);
+  v45 = *(a1 + 8);
+  v46 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v49 = NAN;
+      goto LABEL_64;
+    }
+
+    LODWORD(v47) = info.numer;
+    LODWORD(v48) = info.denom;
+    v46 = v47 / v48;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v46;
+  }
+
+  v49 = v46 * (v44 / v45);
+LABEL_64:
+  if (!*a4)
+  {
+    v50 = *(a4 + 16);
+    goto LABEL_70;
+  }
+
+  v50 = *(a4 + 16);
+  v51 = *(*(a4 + 8) + 4 * (0xE2E7890052504D85 % *(a4 + 24)));
+  if (v51 == 0x7FFFFFFF)
+  {
+LABEL_70:
+    v51 = 0x7FFFFFFFLL;
+    goto LABEL_71;
+  }
+
+  while (*(v50 + 80 * v51 + 4) != 131)
+  {
+    v51 = *(v50 + 80 * v51) & 0x7FFFFFFF;
+    if (v51 == 0x7FFFFFFF)
+    {
+      goto LABEL_70;
+    }
+  }
+
+LABEL_71:
+  v52 = *(v50 + 80 * v51 + 40);
+  v53 = *(a1 + 8);
+  v54 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale >= 0.0)
+  {
+LABEL_75:
+    v57 = v54 * (v52 / v53);
+    goto LABEL_76;
+  }
+
+  if (!mach_timebase_info(&info))
+  {
+    LODWORD(v55) = info.numer;
+    LODWORD(v56) = info.denom;
+    v54 = v55 / v56;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v54;
+    goto LABEL_75;
+  }
+
+  v57 = NAN;
+LABEL_76:
+  v58 = v49 / 1000000.0;
+  v59 = v41 / 1000000.0;
+  v60 = v33 / 1000000.0;
+  v61 = v25 / 1000000.0;
+  v62 = v17 / 1000000.0;
+  v63 = v57 / 1000000.0;
+  re::DynamicString::appendf(v7, "CPU Time %.2f\n", (((((v62 + v61) + v60) + v59) + v58) + v63));
+  re::DynamicString::appendf(v7, "Animation %.2f\n", v60);
+  re::DynamicString::appendf(v7, "Audio %.2f\n", v61);
+  re::DynamicString::appendf(v7, "Rendering %.2f\n", v62);
+  re::DynamicString::appendf(v7, "Network %.2f\n", v58);
+  re::DynamicString::appendf(v7, "Physics %.2f\n", v59);
+  result = re::DynamicString::appendf(v7, "Misc %.2f\n", v63);
+  *(v7 + 8) = 8;
+  return result;
+}
+
+double re::FrameVFXStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  info.numer = 0;
+  v5 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, &info);
+  v6 = v5;
+  if (v5[1])
+  {
+    v5[1] = 1;
+    v7 = v5[2];
   }
 
   else
   {
-    if (!a3)
+    *(v5 + 8) = 0;
+    v7 = v5 + 9;
+  }
+
+  *v7 = 0;
+  re::DynamicString::append(v5, "VFX Stats\n", 0xAuLL);
+  v8 = 0x7FFFFFFFLL;
+  if (*a3)
+  {
+    v9 = *(*(a3 + 8) + 4 * (0xD12374540570B1A6 % *(a3 + 24)));
+    if (v9 != 0x7FFFFFFF)
     {
-      return (*(a1 + 68) != 1 || *(a1 + 72) == *(a2 + 520)) && (*(a1 + 65) != 1 || (*(v5 + 873) & 1) != 0 || *(a2 + 715) == 1);
+      v10 = *(a3 + 16);
+      v8 = 0x7FFFFFFFLL;
+      while (*(v10 + 80 * v9 + 4) != 130)
+      {
+        v9 = *(v10 + 80 * v9) & 0x7FFFFFFF;
+        if (v9 == 0x7FFFFFFF)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      v8 = v9;
+    }
+  }
+
+LABEL_11:
+  v11 = *(*(a3 + 16) + 80 * v8 + 40);
+  v12 = *(a1 + 8);
+  v13 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v16 = NAN;
+      goto LABEL_16;
     }
 
-    v11 = *(a2 + 512);
-    v19 = *(a2 + 520);
-    v18 = v11;
-    v12 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * v19) ^ ((0xBF58476D1CE4E5B9 * v19) >> 27));
-    re::HashTable<unsigned short,re::LightContexts::LightContextContents,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::findEntry<unsigned short>(a3 + 56, &v19, v12 ^ (v12 >> 31), v20);
+    LODWORD(v14) = info.numer;
+    LODWORD(v15) = info.denom;
+    v13 = v14 / v15;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v13;
+  }
+
+  v16 = v13 * (v11 / v12);
+LABEL_16:
+  v17 = v16 / 1000000.0;
+  if (!*a3)
+  {
+    v18 = *(a3 + 16);
+    goto LABEL_22;
+  }
+
+  v18 = *(a3 + 16);
+  v19 = *(*(a3 + 8) + 4 * (0xD732B4173198B1FuLL % *(a3 + 24)));
+  if (v19 == 0x7FFFFFFF)
+  {
+LABEL_22:
+    v19 = 0x7FFFFFFFLL;
+    goto LABEL_23;
+  }
+
+  while (*(v18 + 80 * v19 + 4) != 149)
+  {
+    v19 = *(v18 + 80 * v19) & 0x7FFFFFFF;
+    if (v19 == 0x7FFFFFFF)
+    {
+      goto LABEL_22;
+    }
+  }
+
+LABEL_23:
+  re::DynamicString::appendf(v6, "VFX ECS (ms): %.2f    VFX Scene Components: %.0f\n", v17, (*(v18 + 80 * v19 + 40) / *(a1 + 8)));
+  if (!*a3)
+  {
+    v20 = *(a3 + 16);
+    goto LABEL_29;
+  }
+
+  v20 = *(a3 + 16);
+  v21 = *(*(a3 + 8) + 4 * (0x3465840D39B46BB3uLL % *(a3 + 24)));
+  if (v21 == 0x7FFFFFFF)
+  {
+LABEL_29:
+    v21 = 0x7FFFFFFFLL;
+    goto LABEL_30;
+  }
+
+  while (*(v20 + 80 * v21 + 4) != 150)
+  {
+    v21 = *(v20 + 80 * v21) & 0x7FFFFFFF;
     if (v21 == 0x7FFFFFFF)
     {
-      v10 = 0;
-    }
-
-    else
-    {
-      v13 = *(a3 + 72) + 72 * v21;
-      v14 = v13 + 8;
-      v15 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) >> 27));
-      re::HashTable<unsigned long long,re::PeerAttributionContext *,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v13 + 16, &v18, v15 ^ (v15 >> 31), v20);
-      if (v21 == 0x7FFFFFFF)
-      {
-        v16 = 0;
-      }
-
-      else
-      {
-        v16 = (*(v14 + 24) + 32 * v21 + 16);
-      }
-
-      if (!v16)
-      {
-        v16 = v14;
-      }
-
-      v10 = *v16;
+      goto LABEL_29;
     }
   }
 
-  *a4 = v10;
-  return (*(a1 + 68) != 1 || *(a1 + 72) == *(a2 + 520)) && (*(a1 + 65) != 1 || (*(v5 + 873) & 1) != 0 || *(a2 + 715) == 1);
-}
-
-uint64_t re::RenderGraphDataStore::get<re::CameraArrayData>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re15CameraArrayDataE";
-  if (("N2re15CameraArrayDataE" & 0x8000000000000000) != 0)
+LABEL_30:
+  v22 = *(v20 + 80 * v21 + 40);
+  v23 = *(a1 + 8);
+  v24 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
   {
-    v3 = ("N2re15CameraArrayDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
+    if (mach_timebase_info(&info))
     {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
+      v27 = NAN;
+      goto LABEL_35;
     }
 
-    while (v5);
+    LODWORD(v25) = info.numer;
+    LODWORD(v26) = info.denom;
+    v24 = v25 / v26;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v24;
   }
 
-  v6 = 0x7FFFFFFFLL;
-  if (*(a1 + 64))
+  v27 = v24 * (v22 / v23);
+LABEL_35:
+  v28 = v27 / 1000000.0;
+  if (!*a3)
   {
-    v7 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-    v8 = *(*(a1 + 72) + 4 * (v7 % *(a1 + 88)));
-    if (v8 != 0x7FFFFFFF)
-    {
-      v9 = *(a1 + 80);
-      v6 = 0x7FFFFFFFLL;
-      while (*(v9 + 24 * v8 + 8) != v7)
-      {
-        v8 = *(v9 + 24 * v8) & 0x7FFFFFFF;
-        if (v8 == 0x7FFFFFFF)
-        {
-          return *(*(a1 + 80) + 24 * v6 + 16);
-        }
-      }
+    v29 = *(a3 + 16);
+    goto LABEL_41;
+  }
 
-      v6 = v8;
+  v29 = *(a3 + 16);
+  v30 = *(*(a3 + 8) + 4 * (0xB3CC71E5DDF6EBC3 % *(a3 + 24)));
+  if (v30 == 0x7FFFFFFF)
+  {
+LABEL_41:
+    v30 = 0x7FFFFFFFLL;
+    goto LABEL_42;
+  }
+
+  while (*(v29 + 80 * v30 + 4) != 151)
+  {
+    v30 = *(v29 + 80 * v30) & 0x7FFFFFFF;
+    if (v30 == 0x7FFFFFFF)
+    {
+      goto LABEL_41;
     }
   }
 
-  return *(*(a1 + 80) + 24 * v6 + 16);
+LABEL_42:
+  re::DynamicString::appendf(v6, "VFX Render Node (ms): %.2f    VFX Draw Calls : %.0f\n", v28, (*(v29 + 80 * v30 + 40) / *(a1 + 8)));
+  if (!*a3)
+  {
+    v32 = *(a3 + 16);
+    v36 = *(v32 + 0x27FFFFFFD8);
+    v37 = *(a1 + 8);
+LABEL_55:
+    v39 = 0x7FFFFFFFLL;
+    goto LABEL_56;
+  }
+
+  v31 = *(a3 + 24);
+  v33 = *(a3 + 8);
+  v32 = *(a3 + 16);
+  v34 = *(v33 + 4 * (0x76FE0174DADB77ALL % v31));
+  if (v34 == 0x7FFFFFFF)
+  {
+    v35 = (v32 + 0x27FFFFFFD8);
+  }
+
+  else
+  {
+    v38 = 0x7FFFFFFFLL;
+    while (*(v32 + 80 * v34 + 4) != 152)
+    {
+      v34 = *(v32 + 80 * v34) & 0x7FFFFFFF;
+      if (v34 == 0x7FFFFFFF)
+      {
+        goto LABEL_51;
+      }
+    }
+
+    v38 = v34;
+LABEL_51:
+    v35 = (v32 + 80 * v38 + 40);
+  }
+
+  v36 = *v35;
+  v37 = *(a1 + 8);
+  v39 = *(v33 + 4 * (0x4B73DAB7CD5C5CDDLL % v31));
+  if (v39 == 0x7FFFFFFF)
+  {
+    goto LABEL_55;
+  }
+
+  while (*(v32 + 80 * v39 + 4) != 153)
+  {
+    v39 = *(v32 + 80 * v39) & 0x7FFFFFFF;
+    if (v39 == 0x7FFFFFFF)
+    {
+      goto LABEL_55;
+    }
+  }
+
+LABEL_56:
+  re::DynamicString::appendf(v6, "VFX Vert Count: %.0f    VFX Tri Count : %.0f\n", (v36 / v37), (*(v32 + 80 * v39 + 40) / v37));
+  *&result = 0x2000000000032;
+  *(v6 + 36) = 0x2000000000032;
+  return result;
 }
 
-void re::CameraMatricesArray::~CameraMatricesArray(re::CameraMatricesArray *this)
+void re::FrameTimeStats::~FrameTimeStats(re::FrameTimeStats *this)
 {
-  re::DynamicArray<re::CameraMatrices>::deinit(this + 8);
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
 }
 
 {
-  re::DynamicArray<re::CameraMatrices>::deinit(this + 8);
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
 
   JUMPOUT(0x1E6906520);
 }
 
-void *re::DynamicArray<re::CameraMatrices>::setCapacity(void *result, unint64_t a2)
+void re::FrameAnimationStats::~FrameAnimationStats(re::FrameAnimationStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameAssetStats::~FrameAssetStats(re::FrameAssetStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameAudioStats::~FrameAudioStats(re::FrameAudioStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameECSStats::~FrameECSStats(re::FrameECSStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameMeshStats::~FrameMeshStats(re::FrameMeshStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameNetworkStats::~FrameNetworkStats(re::FrameNetworkStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FramePhysicsStats::~FramePhysicsStats(re::FramePhysicsStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameRenderingStats::~FrameRenderingStats(re::FrameRenderingStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameMemoryStats::~FrameMemoryStats(re::FrameMemoryStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameThermalStats::~FrameThermalStats(re::FrameThermalStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameSceneUnderstandingStats::~FrameSceneUnderstandingStats(re::FrameSceneUnderstandingStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameAttributionStats::~FrameAttributionStats(re::FrameAttributionStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::FrameVFXStats::~FrameVFXStats(re::FrameVFXStats *this)
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+}
+
+{
+  *this = &unk_1F5D0DFE0;
+  *(this + 64) = 0;
+  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::clear(uint64_t a1)
+{
+  if (*(a1 + 28))
+  {
+    v2 = *(a1 + 24);
+    if (v2)
+    {
+      memset_pattern16(*(a1 + 8), &memset_pattern_165_0, 4 * v2);
+    }
+
+    v3 = *(a1 + 32);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = *(a1 + 16);
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::DynamicString::deinit((v6 + v4 + 8));
+          v3 = *(a1 + 32);
+        }
+
+        v4 += 64;
+      }
+    }
+
+    *(a1 + 28) = 0;
+    *(a1 + 32) = 0;
+    v8 = *(a1 + 40) + 1;
+    *(a1 + 36) = 0x7FFFFFFF;
+    *(a1 + 40) = v8;
+  }
+}
+
+void *re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(void *result, unint64_t a2)
 {
   v3 = result[1];
   if (v3 != a2)
@@ -4762,17 +4057,17 @@ void *re::DynamicArray<re::CameraMatrices>::setCapacity(void *result, unint64_t 
       result = *result;
       if (!*v5)
       {
-        result = re::DynamicArray<re::CameraMatrices>::setCapacity(v5, a2);
+        result = re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(v5, a2);
         ++*(v5 + 6);
         return result;
       }
 
       if (a2)
       {
-        if (is_mul_ok(a2, 0xB0uLL))
+        if (is_mul_ok(a2, 0x68uLL))
         {
-          v2 = 176 * a2;
-          result = (*(*result + 32))(result, 176 * a2, 16);
+          v2 = 104 * a2;
+          result = (*(*result + 32))(result, 104 * a2, 8);
           if (result)
           {
             v7 = result;
@@ -4787,13 +4082,13 @@ void *re::DynamicArray<re::CameraMatrices>::setCapacity(void *result, unint64_t 
 
         else
         {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 176, a2);
-          _os_crash();
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 104, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v16, v18);
           __break(1u);
         }
 
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v17, v19);
         __break(1u);
         return result;
       }
@@ -4812,20 +4107,32 @@ LABEL_11:
       v9 = v5[2];
       if (v9)
       {
-        v10 = 176 * v9;
-        v11 = v7;
+        v10 = (v8 + 104 * v9);
+        v11 = (v7 + 36);
+        v12 = (v8 + 36);
         do
         {
-          re::CameraMatrices::CameraMatrices(v11, v8);
-          re::DynamicArray<unsigned long>::deinit(v8 + 88);
-          re::DynamicArray<unsigned long>::deinit(v8 + 48);
-          re::DynamicArray<unsigned long>::deinit(v8 + 8);
-          v8 += 176;
-          v11 += 176;
-          v10 -= 176;
+          *(v11 - 20) = 0u;
+          *(v11 - 36) = 0u;
+          *(v11 - 36) = *(v12 - 36);
+          *(v12 - 36) = 0;
+          v13 = *(v11 - 20);
+          *(v11 - 20) = *(v12 - 20);
+          *(v12 - 20) = v13;
+          *(v11 - 12) = *(v12 - 12);
+          *(v12 - 12) = 0;
+          v14 = *(v11 - 28);
+          *(v11 - 28) = *(v12 - 28);
+          *(v12 - 28) = v14;
+          *(v11 - 2) = *(v12 - 2);
+          re::FrameStats::CollectedStatistics::CollectedStatistics(v11, v12);
+          re::DynamicString::deinit((v12 - 36));
+          v11 = (v11 + 104);
+          v15 = v12 + 68;
+          v12 = (v12 + 104);
         }
 
-        while (v10);
+        while (v15 != v10);
         v8 = v5[4];
       }
 
@@ -4837,5007 +4144,8446 @@ LABEL_11:
   return result;
 }
 
-uint64_t re::CameraMatrices::CameraMatrices(uint64_t result, uint64_t a2)
+_anonymous_namespace_ *re::DynamicArray<re::CustomStatsLineInfo>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
 {
-  *(result + 40) = 0;
-  *result = &unk_1F5D03790;
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *(result + 24) = 0;
-  *(result + 32) = 0;
-  v2 = *(a2 + 16);
-  *(result + 8) = *(a2 + 8);
-  *(result + 16) = v2;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v3 = *(result + 24);
-  *(result + 24) = *(a2 + 24);
-  *(a2 + 24) = v3;
-  v4 = *(result + 40);
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = v4;
-  ++*(a2 + 32);
-  ++*(result + 32);
-  *(result + 80) = 0;
-  *(result + 56) = 0;
-  *(result + 64) = 0;
-  *(result + 48) = 0;
-  *(result + 72) = 0;
-  v5 = *(a2 + 56);
-  *(result + 48) = *(a2 + 48);
-  *(result + 56) = v5;
-  *(a2 + 48) = 0;
-  *(a2 + 56) = 0;
-  v6 = *(result + 64);
-  *(result + 64) = *(a2 + 64);
-  *(a2 + 64) = v6;
-  v7 = *(result + 80);
-  *(result + 80) = *(a2 + 80);
-  *(a2 + 80) = v7;
-  ++*(a2 + 72);
-  ++*(result + 72);
-  *(result + 120) = 0;
-  *(result + 96) = 0;
-  *(result + 104) = 0;
-  *(result + 88) = 0;
-  *(result + 112) = 0;
-  v8 = *(a2 + 96);
-  *(result + 88) = *(a2 + 88);
-  *(result + 96) = v8;
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  v9 = *(result + 104);
-  *(result + 104) = *(a2 + 104);
-  *(a2 + 104) = v9;
-  v10 = *(result + 120);
-  *(result + 120) = *(a2 + 120);
-  *(a2 + 120) = v10;
-  ++*(a2 + 112);
-  ++*(result + 112);
-  LODWORD(v10) = *(a2 + 128);
-  *(result + 128) = v10;
-  if (v10 == 1)
+  v2 = *(this + 1);
+  if (v2 < a2)
   {
-    *(result + 144) = *(a2 + 144);
-  }
-
-  *(result + 160) = *(a2 + 160);
-  return result;
-}
-
-uint64_t re::DynamicArray<re::CameraMatrices>::deinit(uint64_t a1)
-{
-  result = *a1;
-  if (result)
-  {
-    v3 = *(a1 + 32);
-    if (v3)
+    v3 = a2;
+    v4 = this;
+    if (*this)
     {
-      v4 = *(a1 + 16);
-      if (v4)
+      v5 = 2 * v2;
+      v6 = v2 == 0;
+      v7 = 8;
+      if (!v6)
       {
-        v5 = 176 * v4;
-        v6 = v3 + 88;
-        do
-        {
-          re::DynamicArray<unsigned long>::deinit(v6);
-          re::DynamicArray<unsigned long>::deinit(v6 - 40);
-          re::DynamicArray<unsigned long>::deinit(v6 - 80);
-          v6 += 176;
-          v5 -= 176;
-        }
-
-        while (v5);
-        result = *a1;
-        v3 = *(a1 + 32);
+        v7 = v5;
       }
 
-      result = (*(*result + 40))(result, v3);
-    }
-
-    *(a1 + 32) = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    *a1 = 0;
-    ++*(a1 + 24);
-  }
-
-  return result;
-}
-
-uint64_t re::RenderGraphDataStore::tryGet<re::MeshPassInfoArrayData>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re21MeshPassInfoArrayDataE";
-  if (("N2re21MeshPassInfoArrayDataE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re21MeshPassInfoArrayDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
-    {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
-    }
-
-    while (v5);
-  }
-
-  if (!*(a1 + 64))
-  {
-    return 0;
-  }
-
-  v6 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-  v7 = *(*(a1 + 72) + 4 * (v6 % *(a1 + 88)));
-  if (v7 == 0x7FFFFFFF)
-  {
-    return 0;
-  }
-
-  v8 = *(a1 + 80);
-  while (*(v8 + 24 * v7 + 8) != v6)
-  {
-    v7 = *(v8 + 24 * v7) & 0x7FFFFFFF;
-    if (v7 == 0x7FFFFFFF)
-    {
-      return 0;
-    }
-  }
-
-  return *(v8 + 24 * v7 + 16);
-}
-
-void re::MeshPassInfoArrayData::~MeshPassInfoArrayData(re::MeshPassInfoArrayData *this)
-{
-  re::FixedArray<CoreIKTransform>::deinit(this + 1);
-}
-
-{
-  re::FixedArray<CoreIKTransform>::deinit(this + 1);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t re::RenderGraphDataStore::get<re::CameraMatricesArray>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re19CameraMatricesArrayE";
-  if (("N2re19CameraMatricesArrayE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re19CameraMatricesArrayE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
-    do
-    {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
-    }
-
-    while (v5);
-  }
-
-  v6 = 0x7FFFFFFFLL;
-  if (*(a1 + 64))
-  {
-    v7 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-    v8 = *(*(a1 + 72) + 4 * (v7 % *(a1 + 88)));
-    if (v8 != 0x7FFFFFFF)
-    {
-      v9 = *(a1 + 80);
-      v6 = 0x7FFFFFFFLL;
-      while (*(v9 + 24 * v8 + 8) != v7)
+      if (v7 > a2)
       {
-        v8 = *(v9 + 24 * v8) & 0x7FFFFFFF;
-        if (v8 == 0x7FFFFFFF)
-        {
-          return *(*(a1 + 80) + 24 * v6 + 16);
-        }
+        a2 = v7;
       }
 
-      v6 = v8;
+      return re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(this, a2);
     }
-  }
 
-  return *(*(a1 + 80) + 24 * v6 + 16);
-}
-
-void re::RenderGraphEmitterRegistry::~RenderGraphEmitterRegistry(re::RenderGraphEmitterRegistry *this)
-{
-  v1 = this;
-  {
-    if (this)
+    else
     {
-      re::introspect<re::RenderGraphEmitterBase>(BOOL)::info = re::introspect_RenderGraphEmitterBase(0);
+      this = re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(v4, v3);
+      ++*(v4 + 6);
     }
   }
 
-  v2 = *(re::introspect<re::RenderGraphEmitterBase>(BOOL)::info + 8);
-  v3 = *v2;
-  if (**v2 != 2)
-  {
-    v4 = (v2 + 1);
-    do
-    {
-      v5 = *v4++;
-      v3 = v5;
-    }
-
-    while (*v5 != 2);
-  }
-
-  *(v3 + 1) = 0;
-  v6 = *(v1 + 2);
-  if (v6)
-  {
-    v7 = *(v1 + 4);
-    v8 = 40 * v6;
-    do
-    {
-      v9 = *v7;
-      if (*v7)
-      {
-        v10 = re::globalAllocators(this);
-        this = (*(*v10[2] + 40))(v10[2], v9);
-      }
-
-      *v7 = 0;
-      v7 += 5;
-      v8 -= 40;
-    }
-
-    while (v8);
-  }
-
-  re::DynamicArray<re::IntrospectionPolymorphicType>::deinit(v1);
-  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(v1 + 5);
-  re::DynamicArray<re::IntrospectionPolymorphicType>::deinit(v1);
-}
-
-uint64_t re::RenderGraphEmitterRegistry::init(re::RenderGraphEmitterRegistry *this)
-{
-  v1 = re::globalAllocators(this);
-  v2 = (*(*v1[2] + 32))(v1[2], 112, 8);
-  result = re::RenderGraphEmitterRegistry::RenderGraphEmitterRegistry(v2);
-  re::RenderGraphEmitterRegistry::m_instance = result;
-  return result;
-}
-
-re *re::internal::destroyPersistent<re::RenderGraphEmitterRegistry>(re *result, uint64_t a2, re::RenderGraphEmitterRegistry *a3)
-{
-  if (a3)
-  {
-    v4 = re::globalAllocators(result)[2];
-    re::RenderGraphEmitterRegistry::~RenderGraphEmitterRegistry(a3);
-    v5 = *(*v4 + 40);
-
-    return v5(v4, a3);
-  }
-
-  return result;
-}
-
-void re::RenderGraphEmitterRegistry::registerEmitter(uint64_t a1, uint64_t a2)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  v23 = re::introspectionSharedMutex(a1);
-  v24 = 0;
-  lock = (a1 + 104);
-  v22 = 0;
-  std::lock[abi:nn200100]<std::unique_lock<std::shared_mutex>,std::unique_lock<re::UnfairLock>>(&v23, &lock);
-  v4 = (**a2)(a2, 1);
-  v5 = (*(*a2 + 8))(a2);
-  v6 = (*(*a2 + 16))(a2);
-  v7 = strlen(v6);
-  v8 = re::globalAllocators(v7);
-  v9 = (*(*v8[2] + 32))(v8[2], v7 + 1, 0);
-  memcpy(v9, v6, v7 + 1);
-  v10 = strlen(v9);
-  if (v10)
-  {
-    MurmurHash3_x64_128(v9, v10, 0, &v25);
-    v11 = &v25.var1[64 * *&v25.var0 - 0x61C8864680B583E9 + (*&v25.var0 >> 2)] ^ *&v25.var0;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v20 = v11;
-  *&v25.var0 = v9;
-  v25.var1 = v4;
-  v26 = 0;
-  v27 = v11;
-  v28 = v5;
-  re::DynamicArray<re::IntrospectionPolymorphicType>::add(a1, &v25);
-  re::SerializedReference<re::IntrospectionBase const*>::reset(&v25.var1);
-  *(a1 + 88) = *(a1 + 16);
-  *(a1 + 96) = *(a1 + 32);
-  v19 = *(v4 + 32);
-  if (v6)
-  {
-    v12 = *v6;
-    if (*v6)
-    {
-      v13 = v6[1];
-      if (v13)
-      {
-        v14 = (v6 + 2);
-        do
-        {
-          v12 = 31 * v12 + v13;
-          v15 = *v14++;
-          v13 = v15;
-        }
-
-        while (v15);
-      }
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  *&v25.var0 = 2 * v12;
-  v25.var1 = v6;
-  if (*&v25.var0)
-  {
-    if (*&v25.var0)
-    {
-    }
-  }
-
-  *&v25.var0 = 0;
-  v25.var1 = 0;
-  v26 = 0;
-  v17 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) >> 27));
-  re::HashTable<unsigned long long,re::PeerAttributionContext *,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(a1 + 40, &v20, v17 ^ (v17 >> 31), &v25);
-  if (HIDWORD(v25.var1) == 0x7FFFFFFF)
-  {
-    v18 = re::HashTable<unsigned long long,re::ecs2::Scene const*,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(a1 + 40, v25.var1, *&v25.var0);
-    *(v18 + 8) = v20;
-    *(v18 + 16) = a2;
-    ++*(a1 + 80);
-  }
-
-  if (v22 == 1)
-  {
-    os_unfair_lock_unlock(lock);
-  }
-
-  if (v24 == 1)
-  {
-    std::__shared_mutex_base::unlock(v23);
-  }
-}
-
-void re::RenderGraphEmitterRegistry::registryItem(os_unfair_lock_s *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v7 = a2;
-  os_unfair_lock_lock(this + 26);
-  v5 = re::HashTable<unsigned long,unsigned long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::tryGet(&this[10], &v7);
-  if (v5)
-  {
-    *(a3 + 8) = *v5;
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  *a3 = v6;
-  os_unfair_lock_unlock(this + 26);
-}
-
-uint64_t re::RenderGraphEmitterRegistry::RenderGraphEmitterRegistry(uint64_t this)
-{
-  *this = 0;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
-  *(this + 16) = 0;
-  *(this + 32) = 0u;
-  *(this + 48) = 0u;
-  *(this + 60) = 0u;
-  *(this + 76) = 0x7FFFFFFFLL;
-  *(this + 88) = 0;
-  v1 = this + 88;
-  *(this + 96) = 0;
-  *(this + 104) = 0;
-  v2 = &unk_1EE187000;
-  {
-    v9 = this + 88;
-    v10 = this;
-    v2 = &unk_1EE187000;
-    v8 = v7;
-    v1 = v9;
-    this = v10;
-    if (v8)
-    {
-      re::introspect<re::RenderGraphEmitterBase>(BOOL)::info = re::introspect_RenderGraphEmitterBase(0);
-      v2 = &unk_1EE187000;
-      v1 = v9;
-      this = v10;
-    }
-  }
-
-  v3 = *(v2[192] + 64);
-  v4 = *v3;
-  if (**v3 != 2)
-  {
-    v5 = (v3 + 1);
-    do
-    {
-      v6 = *v5++;
-      v4 = v6;
-    }
-
-    while (*v6 != 2);
-  }
-
-  *(v4 + 1) = v1;
   return this;
 }
 
-void re::DepthPatchNode::configure(re::DepthPatchNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
+uint64_t re::profilerThreadContext(re *this)
 {
-  if (*(this + 35))
+  if ((*v2 & 1) == 0)
   {
-    re::AssetHandle::loadAsync((this + 272));
+    re::ProfilerThreadContext::ProfilerThreadContext(v2);
+    v4 = re::profilerThreadContext(void)::context(&re::profilerThreadContext(void)::context);
+    _tlv_atexit(re::ProfilerThreadContext::~ProfilerThreadContext, v4);
+  }
+
+  return re::profilerThreadContext(void)::context(&re::profilerThreadContext(void)::context);
+}
+
+void re::ProfilerThreadContext::~ProfilerThreadContext(re::ProfilerThreadContext *this)
+{
+  v2 = *(this + 15);
+  if (v2)
+  {
+    *(this + 16) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(this + 12);
+  if (v3)
+  {
+    *(this + 13) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(this + 9);
+  if (v4)
+  {
+    *(this + 10) = v4;
+    operator delete(v4);
   }
 }
 
-void re::DepthPatchNode::execute(const char **this, re::RenderGraphContext *a2)
+void re::ProfilerThreadContext::ProfilerThreadContext(re::ProfilerThreadContext *this)
 {
-  v112 = *MEMORY[0x1E69E9840];
-  if (re::GraphicsFeatureFlags::enableDepthPatch(void)::onceToken != -1)
+  v1 = re::profilerThreadContext(void)::context;
+  v2 = re::profilerThreadContext(void)::context(&re::profilerThreadContext(void)::context);
+  *v2 = 0;
+  *(v2 + 64) = atomic_fetch_add(&re::ProfilerThreadContext::s_threadId, 1uLL);
+  *(v2 + 72) = 0u;
+  *(v2 + 88) = 0u;
+  *(v2 + 104) = 0u;
+  *(v2 + 120) = 0u;
+  *(v2 + 136) = 0u;
+  *(v2 + 152) = 0u;
+  *(v2 + 168) = 0u;
+  *(v2 + 184) = 0;
+  v3 = pthread_self();
+  if (pthread_getname_np(v3, v2, 0x40uLL))
   {
-    goto LABEL_36;
+    v4 = 0;
   }
 
-  while (1)
+  else
   {
-    if (re::GraphicsFeatureFlags::enableDepthPatch(void)::gEnableDepthPatch != 1)
+    v4 = *v2 == 0;
+  }
+
+  if (v4)
+  {
+    v7 = pthread_self();
+    v5 = v1(&re::profilerThreadContext(void)::context);
+    snprintf(v5, 0x40uLL, "Thread %p", v7);
+  }
+
+  v6 = v1(&re::profilerThreadContext(void)::context);
+  *(v6 + 176) = 0;
+  *(v6 + 144) = 0u;
+  *(v6 + 160) = 0u;
+  if (*(v6 + 112) - *(v6 + 96) <= 0x1FuLL)
+  {
+    v1(&re::profilerThreadContext(void)::context);
+    operator new();
+  }
+}
+
+void re::ProfilerThreadContext::begin(re::ProfilerThreadContext *this, re::ProfilerManager *a2, uint64_t a3, int a4)
+{
+  *(this + 184) = 1;
+  v8 = re::ProfilerManager::acquireEventStream(a2, a4);
+  v9 = re::ProfilerManager::acquireStatistics(a2, a4);
+  v10 = re::ProfilerManager::acquireAttributions(a2, a4);
+  v11 = re::ProfilerManager::acquireVisualizer(a2);
+  v12 = re::ProfilerManager::acquireMemoryStatistics(a2, a4);
+  v13 = v12;
+  v14 = *(this + 10);
+  v15 = *(this + 11);
+  if (v14 >= v15)
+  {
+    v25 = a3;
+    v17 = *(this + 9);
+    v18 = v14 - v17;
+    v19 = 0x6DB6DB6DB6DB6DB7 * ((v14 - v17) >> 3);
+    v20 = v19 + 1;
+    if ((v19 + 1) > 0x492492492492492)
     {
-      return;
+      std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v4 = re::RenderGraphDataStore::tryGet<re::DepthPatchData>(*(a2 + 146), *(*(a2 + 5) + 48));
-    if (!v4)
+    v21 = 0x6DB6DB6DB6DB6DB7 * ((v15 - v17) >> 3);
+    if (2 * v21 > v20)
     {
-      return;
+      v20 = 2 * v21;
     }
 
-    v5 = v4;
-    if (!*(v4 + 24))
+    if (v21 >= 0x249249249249249)
     {
-      return;
+      v22 = 0x492492492492492;
     }
 
-    v6 = re::AssetHandle::loadedAsset<re::MaterialAsset>((this + 34));
-    if (!v6)
+    else
     {
-      return;
+      v22 = v20;
     }
 
-    v7 = *(v6 + 222);
-    if (*(v5 + 88) == 1)
+    if (v22)
     {
-      if ((atomic_load_explicit(&qword_1EE1C0EA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0EA0))
+      if (v22 <= 0x492492492492492)
       {
-        _MergedGlobals_536 = re::hashString("DepthPatchStencilMask", v58);
-        __cxa_guard_release(&qword_1EE1C0EA0);
+        operator new();
       }
 
-      re::RenderGraphContext::makeFullscreenDrawCall(a2, v7, "FullscreenDrawCall", 0, 0, 0, 0, 0, &v86);
-      v8 = re::MaterialParameterTableLayers::resolveTechniqueIndices(v95, _MergedGlobals_536);
-      if (v9)
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v23 = 56 * v19;
+    *v23 = v25;
+    *(v23 + 8) = a2;
+    *(v23 + 16) = v8;
+    *(v23 + 24) = v9;
+    *(v23 + 32) = v10;
+    *(v23 + 40) = v11;
+    *(v23 + 48) = v12;
+    v16 = 56 * v19 + 56;
+    v24 = (56 * v19 - v18);
+    memcpy(v24, v17, v18);
+    *(this + 9) = v24;
+    *(this + 10) = v16;
+    *(this + 11) = 0;
+    if (v17)
+    {
+      operator delete(v17);
+    }
+
+    a3 = v25;
+  }
+
+  else
+  {
+    *v14 = a3;
+    *(v14 + 1) = a2;
+    *(v14 + 2) = v8;
+    *(v14 + 3) = v9;
+    *(v14 + 4) = v10;
+    *(v14 + 5) = v11;
+    v16 = (v14 + 56);
+    *(v14 + 6) = v12;
+  }
+
+  *(this + 10) = v16;
+  *(this + 18) = v8;
+  *(this + 19) = v9;
+  *(this + 20) = v10;
+  *(this + 21) = v11;
+  *(this + 22) = v13;
+  if (v9)
+  {
+    *(v9 + 8) = a3;
+  }
+
+  *(this + 184) = 0;
+}
+
+void re::ProfilerThreadContext::end(re::ProfilerThreadContext *this)
+{
+  *(this + 184) = 1;
+  v2 = *(this + 10);
+  if (*(this + 9) == v2)
+  {
+    v10 = *re::foundationProfilingLogObjects(this);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *v11 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Unbalanced calls to ProfilerThreadContext begin and end.", v11, 2u);
+    }
+
+    goto LABEL_16;
+  }
+
+  v3 = *(v2 - 40);
+  if (v3)
+  {
+    re::ProfilerManager::submit(*(v2 - 48), v3);
+  }
+
+  v4 = *(v2 - 32);
+  if (v4)
+  {
+    re::ProfilerManager::submit(*(v2 - 48), v4);
+  }
+
+  v5 = *(v2 - 24);
+  if (v5)
+  {
+    re::ProfilerManager::submit(*(v2 - 48), v5);
+  }
+
+  v6 = *(v2 - 16);
+  if (v6)
+  {
+    re::ProfilerManager::submit(*(v2 - 48), v6);
+  }
+
+  v7 = *(v2 - 8);
+  if (v7)
+  {
+    re::ProfilerManager::submit(*(v2 - 48), v7);
+  }
+
+  v9 = *(this + 9);
+  v8 = *(this + 10);
+  *(this + 10) = v8 - 56;
+  if (v9 == v8 - 56)
+  {
+LABEL_16:
+    *(this + 22) = 0;
+    *(this + 9) = 0u;
+    *(this + 10) = 0u;
+    goto LABEL_17;
+  }
+
+  *(this + 9) = *(v8 - 96);
+  *(this + 10) = *(v8 - 80);
+  *(this + 22) = *(v8 - 64);
+LABEL_17:
+  *(this + 184) = 0;
+}
+
+uint64_t re::ProfilerConfig::isStatisticCollectionEnabled(re::ProfilerConfig *this)
+{
+  v3 = &re::introspect_BOOL(BOOL)::info;
+  {
+    v9 = v1;
+    v10 = v2;
+    v3 = &re::introspect_BOOL(BOOL)::info;
+    if (v5)
+    {
+      re::Defaults::BOOLValue(v8, "profiler.statisticcollection.enable", v6);
+      v7 = v8[1];
+      if (!v8[0])
       {
-        HIDWORD(v90) = *v8;
-        if (!*(a2 + 338))
-        {
-          v10 = 0;
-LABEL_11:
-          v78 = 1;
-          v79 = __const__ZN2re20FeatureStencilStates17getDepthPatchInfoENS0_15DepthPatchUsageE_kWriteStInfo;
-          v80 = 0x80;
-          re::encodeFullscreenDrawCall(&v86, "DepthPatchStencilMask", a2, v10, 0, &v78, 0);
-          goto LABEL_12;
-        }
+        v7 = 1;
+      }
+
+      re::ProfilerConfig::isStatisticCollectionEnabled(void)::enabled = v7;
+      v3 = &re::introspect_BOOL(BOOL)::info;
+    }
+  }
+
+  return v3[208];
+}
+
+uint64_t re::internal::PerfStats::beginStatisticsCollection(integer_t *this)
+{
+  if (*(this + 929) == 1)
+  {
+
+    return puts("Starting perf stats already collected");
+  }
+
+  else
+  {
+    v11 = v1;
+    v12 = v2;
+    re::internal::enableMemoryStatsCollection(this);
+    v5 = getpid();
+    this[233] = proc_pid_rusage(v5, 4, this) == 0;
+    v6 = this[237];
+    if (v6 == 31 || v6 == 4)
+    {
+      host_info64_outCnt = 40;
+      v8 = MEMORY[0x1E69071F0]();
+      if (host_statistics64(v8, 4, this + 148, &host_info64_outCnt))
+      {
+        printf("failed to get statistics. error %d", 1);
+        v9 = 0;
       }
 
       else
       {
-        re::internal::assertLog(6, 0, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
-        _os_crash();
-        __break(1u);
+        v9 = 1;
       }
 
-      v10 = re::DrawCallRecorder::allocateDrawCallRecorderGroup(a2 + 169, this[2], "DepthPatchStencilMask");
+      this[235] = v9;
+    }
+
+    result = mach_absolute_time();
+    *(this + 114) = result;
+    *(this + 929) = 1;
+  }
+
+  return result;
+}
+
+void re::internal::PerfStats::endStatisticsCollection(re::internal::PerfStats *this, int a2)
+{
+  if (*(this + 930) == 1)
+  {
+
+    puts("Ending perf stats already collected");
+  }
+
+  else
+  {
+    v23 = v2;
+    v24 = v3;
+    *(this + 115) = mach_absolute_time();
+    v6 = getpid();
+    v7 = proc_pid_rusage(v6, 4, this + 37);
+    *(this + 234) = v7 == 0;
+    v8 = *(this + 237);
+    if (v8 == 31 || v8 == 4)
+    {
+      host_info64_outCnt = 40;
+      v10 = MEMORY[0x1E69071F0]();
+      v7 = host_statistics64(v10, 4, this + 188, &host_info64_outCnt);
+      if (v7)
+      {
+        v7 = printf("failed to get statistics. error %d", 1);
+        v11 = 0;
+      }
+
+      else
+      {
+        v11 = 1;
+      }
+
+      *(this + 236) = v11;
+    }
+
+    re::internal::disableMemoryStatsCollection(v7);
+    *(this + 122) = v12;
+    *(this + 123) = v13;
+    *(this + 124) = v14;
+    *(this + 125) = v15;
+    *(this + 126) = v16;
+    *(this + 127) = v17;
+    *(this + 128) = v18;
+    *(this + 129) = v19;
+    *(this + 130) = v20;
+    *(this + 131) = v21;
+    *(this + 930) = 1;
+    if (*(this + 233) && *(this + 234))
+    {
+      if (a2)
+      {
+        re::internal::PerfStats::printStatistics(this, *(this + 237));
+      }
+
+      if (*(this + 928) == 1)
+      {
+        re::internal::PerfStats::dumpToJson(this, *(this + 237));
+      }
+    }
+  }
+}
+
+re::internal::PerfStats *re::internal::PerfStats::printStatistics(re::internal::PerfStats *this, int a2)
+{
+  v2 = this;
+  if (a2 <= 3)
+  {
+    if (a2 == 1)
+    {
+
+      return re::internal::PerfStats::printCPUStatistics(this);
+    }
+
+    else
+    {
+      if (a2 != 2)
+      {
+        if (a2 != 3)
+        {
+          return this;
+        }
+
+        re::internal::PerfStats::printCPUStatistics(this);
+      }
+
+      return re::internal::PerfStats::printMemoryStatistics(v2);
+    }
+  }
+
+  else if (a2 > 15)
+  {
+    if (a2 != 16)
+    {
+      if (a2 != 31)
+      {
+        return this;
+      }
+
+      re::internal::PerfStats::printCPUStatistics(this);
+      re::internal::PerfStats::printQoSStatistics(v2);
+      re::internal::PerfStats::printMemoryStatistics(v2);
+      re::internal::PerfStats::printVMPagingStatistics(v2);
+    }
+
+    return re::internal::PerfStats::printDiskStatistics(v2);
+  }
+
+  else if (a2 == 4)
+  {
+
+    return re::internal::PerfStats::printVMPagingStatistics(this);
+  }
+
+  else if (a2 == 8)
+  {
+
+    return re::internal::PerfStats::printQoSStatistics(this);
+  }
+
+  return this;
+}
+
+uint64_t re::internal::PerfStats::dumpToJson(uint64_t a1, int a2)
+{
+  v28[19] = *MEMORY[0x1E69E9840];
+  v28[6] = 0;
+  v4 = MEMORY[0x1E69E5530] + 24;
+  v5 = MEMORY[0x1E69E5530] + 64;
+  v28[0] = MEMORY[0x1E69E5530] + 64;
+  v6 = MEMORY[0x1E69E54D0];
+  v7 = *(MEMORY[0x1E69E54D0] + 16);
+  v26 = *(MEMORY[0x1E69E54D0] + 8);
+  *(&v27[-1] + *(v26 - 24)) = v7;
+  v8 = (&v27[-1] + *(v26 - 24));
+  std::ios_base::init(v8, v27);
+  v8[1].__vftable = 0;
+  v8[1].__fmtflags_ = -1;
+  v26 = v4;
+  v28[0] = v5;
+  MEMORY[0x1E6906010](v27);
+  if (!std::filebuf::open())
+  {
+    std::ios_base::clear((&v27[-1] + *(v26 - 24)), *(&v27[3] + *(v26 - 24)) | 4);
+  }
+
+  if (!v27[15])
+  {
+    puts("\nError in opening results file....");
+    goto LABEL_28;
+  }
+
+  puts("\nResults file opened....");
+  v25[6] = 0;
+  v9 = MEMORY[0x1E69E5528] + 24;
+  v10 = MEMORY[0x1E69E5528] + 64;
+  v25[0] = MEMORY[0x1E69E5528] + 64;
+  v11 = *(MEMORY[0x1E69E54C8] + 16);
+  v23[0] = *(MEMORY[0x1E69E54C8] + 8);
+  *(v23 + *(v23[0] - 24)) = v11;
+  v23[1] = 0;
+  v12 = (v23 + *(v23[0] - 24));
+  std::ios_base::init(v12, v24);
+  v12[1].__vftable = 0;
+  v12[1].__fmtflags_ = -1;
+  v23[0] = v9;
+  v25[0] = v10;
+  MEMORY[0x1E6906010](v24);
+  if (!std::filebuf::open())
+  {
+    std::ios_base::clear((v23 + *(v23[0] - 24)), *&v24[*(v23[0] - 24) + 16] | 4);
+  }
+
+  std::istream::get();
+  if ((*&v24[*(v23[0] - 24) + 16] & 2) != 0)
+  {
+    v13 = "[\n";
+  }
+
+  else
+  {
+    v13 = ",\n";
+  }
+
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, v13, 2);
+  if (!std::filebuf::close())
+  {
+    std::ios_base::clear((v23 + *(v23[0] - 24)), *&v24[*(v23[0] - 24) + 16] | 4);
+  }
+
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, "{\n", 2);
+  v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, "\tModuleName : ", 17);
+  v15 = strlen(*(a1 + 952));
+  v16 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v14, *(a1 + 952), v15);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, ",\n", 3);
+  v17 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, "\tTestName : ", 15);
+  v18 = strlen(*(a1 + 960));
+  v19 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, *(a1 + 960), v18);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ",\n", 3);
+  if (a2 > 7)
+  {
+    if (a2 == 8)
+    {
+      re::internal::PerfStats::addQoSStatisticsToJson(a1, &v26);
+      goto LABEL_25;
+    }
+
+    if (a2 != 16)
+    {
+      if (a2 != 31)
+      {
+        goto LABEL_25;
+      }
+
+      re::internal::PerfStats::addCPUStatisticsToJson(a1, &v26);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, ",\n", 2);
+      re::internal::PerfStats::addMemoryStatisticsToJson(a1, &v26);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, ",\n", 2);
+      re::internal::PerfStats::addQoSStatisticsToJson(a1, &v26);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, ",\n", 2);
+    }
+
+    re::internal::PerfStats::addDiskStatisticsToJson(a1, &v26);
+    goto LABEL_25;
+  }
+
+  switch(a2)
+  {
+    case 1:
+      re::internal::PerfStats::addCPUStatisticsToJson(a1, &v26);
+      break;
+    case 2:
+      goto LABEL_16;
+    case 3:
+      re::internal::PerfStats::addCPUStatisticsToJson(a1, &v26);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, ",\n", 2);
+LABEL_16:
+      re::internal::PerfStats::addMemoryStatisticsToJson(a1, &v26);
+      break;
+  }
+
+LABEL_25:
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, "\n}", 2);
+  v20 = getcwd(v22, 0x400uLL);
+  printf("\nTrace file output in current working dir: %s\n", v20);
+  if (!std::filebuf::close())
+  {
+    std::ios_base::clear((&v27[-1] + *(v26 - 24)), *(&v27[3] + *(v26 - 24)) | 4);
+  }
+
+  v23[0] = *MEMORY[0x1E69E54C8];
+  *(v23 + *(v23[0] - 24)) = *(MEMORY[0x1E69E54C8] + 24);
+  MEMORY[0x1E6906020](v24);
+  std::istream::~istream();
+  MEMORY[0x1E6906460](v25);
+LABEL_28:
+  v26 = *v6;
+  *(&v27[-1] + *(v26 - 24)) = v6[3];
+  MEMORY[0x1E6906020](v27);
+  std::ostream::~ostream();
+  return MEMORY[0x1E6906460](v28);
+}
+
+uint64_t re::internal::PerfStats::printCPUStatistics(re::internal::PerfStats *this)
+{
+  v2 = *(this + 39);
+  v3 = *(this + 40);
+  v4 = *(this + 2);
+  v5 = *(this + 3);
+  v6 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v6 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      v9 = NAN;
+      goto LABEL_6;
+    }
+
+    LODWORD(v7) = info.numer;
+    LODWORD(v8) = info.denom;
+    v6 = v7 / v8;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v6;
+  }
+
+  v9 = v6 * (v3 + v2 - (v4 + v5));
+LABEL_6:
+  v10 = *(this + 115);
+  v11 = *(this + 114);
+  if (v6 < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v14 = NAN;
       goto LABEL_11;
     }
 
-LABEL_12:
-    v11 = *(*a2 + 32);
-    re::globalAllocators(v6);
-    v12 = (*(*v11 + 32))(v11, 336, 16);
-    *v12 = 0u;
-    *(v12 + 16) = 0u;
-    *(v12 + 32) = 0u;
-    *(v12 + 48) = 0;
-    *(v12 + 56) = 0u;
-    *(v12 + 72) = 0u;
-    *(v12 + 88) = 0u;
-    *(v12 + 104) = 0u;
-    *(v12 + 120) = 0;
-    *(v12 + 192) = 0;
-    *(v12 + 200) = 0;
-    *(v12 + 208) = 0;
-    *(v12 + 224) = 0;
-    *(v12 + 128) = 0u;
-    *(v12 + 144) = 0u;
-    *(v12 + 160) = 0u;
-    *(v12 + 176) = 0;
-    *(v12 + 184) = v11;
-    *(v12 + 232) = xmmword_1E304F3C0;
-    *(v12 + 248) = 0;
-    *(v12 + 252) = 10854;
-    __asm { FMOV            V0.2S, #1.0 }
+    LODWORD(v12) = info.numer;
+    LODWORD(v13) = info.denom;
+    v6 = v12 / v13;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v6;
+  }
 
-    *(v12 + 256) = _D0;
-    *(v12 + 264) = 0;
-    *(v12 + 272) = 0;
-    *(v12 + 320) = 0;
-    v18 = re::globalAllocators(v12)[2];
-    v86.n128_u64[0] = &unk_1F5D15168;
-    v88 = v18;
-    v89 = &v86;
-    v19 = (*(*v11 + 16))(v11, v12, &v86);
-    re::FunctionBase<24ul,void ()(void *)>::destroyCallable(&v86);
-    *(v19 + 7) = v7;
-    if ((atomic_load_explicit(&qword_1EE1C0EB0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0EB0))
+  v14 = v6 * (v10 - v11);
+LABEL_11:
+  v15 = v9 / 1000000.0;
+  v16 = v14 / 1000000.0;
+  {
+  }
+
+  else
+  {
+    v17 = 100.0;
+  }
+
+  printf("\n-------------------\nModule : %s\n%s CPU Perf Stats\n-------------------\n", *(this + 119), *(this + 120));
+  return puts("-------------------");
+}
+
+uint64_t re::internal::PerfStats::printQoSStatistics(const char **this)
+{
+  printf("\n-------------------\nModule : %s\n%s QoS Perf Stats\n-------------------\n", this[119], this[120]);
+  v2 = this[57];
+  v3 = this[20];
+  v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
     {
-      qword_1EE1C0EA8 = re::hashString("DepthPatch", v57);
-      __cxa_guard_release(&qword_1EE1C0EB0);
+      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      v7 = NAN;
+      goto LABEL_6;
     }
 
-    v20 = re::MaterialParameterTableLayers::resolveTechniqueIndices(v19, qword_1EE1C0EA8);
-    if (!v21)
+    LODWORD(v5) = info.numer;
+    LODWORD(v6) = info.denom;
+    v4 = v5 / v6;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+  }
+
+  v7 = v4 * (v2 - v3);
+LABEL_6:
+  v8 = this[58];
+  v9 = this[21];
+  if (v4 < 0.0)
+  {
+    if (mach_timebase_info(&info))
     {
-      re::internal::assertLog(6, 0, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
-      _os_crash();
-      __break(1u);
-      goto LABEL_38;
+      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      v12 = NAN;
+      goto LABEL_11;
     }
 
-    v22 = *v20;
-    v86 = 0uLL;
-    v23 = *(a2 + 193);
-    v87 = 0;
-    v88 = v23;
-    v89 = 0;
-    v90 = v19;
-    v91 = 0;
-    v92 = -65280;
-    v93 = v22;
-    v94 = 0;
-    v102 = 0;
-    v101 = 0;
-    v103 = 0;
-    v104 = 0;
-    v96 = 0u;
-    v97 = 0u;
-    v98 = 0u;
-    v99 = 0u;
-    memset(v100, 0, sizeof(v100));
-    v105 = 25172350;
-    v106 = 0x7FFFFFFFLL;
-    v107 = 0xFFFFFFFFLL;
-    v109 = 0;
-    v108 = 0;
-    v24 = (*(*v11 + 32))(v11, 328, 8);
-    re::DrawTable::DrawTable(v24, v11);
-    v25 = re::RenderGraphDataStore::get<re::CameraMatrices>(*(a2 + 146), *(*(a2 + 5) + 48));
-    v26 = *a2;
-    v27 = *(v25 + 160);
-    v28 = *(v5 + 24);
-    v75[0] = 0;
-    v76 = 0;
-    v77 = 0;
-    re::addInstancedDrawCall(v24, &v86, v26, v27, v28, v75);
-    if (!*(v5 + 24))
+    LODWORD(v10) = info.numer;
+    LODWORD(v11) = info.denom;
+    v4 = v10 / v11;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+  }
+
+  v12 = v4 * (v8 - v9);
+LABEL_11:
+  v13 = this[59];
+  v14 = this[22];
+  if (v4 < 0.0)
+  {
+    if (mach_timebase_info(&info))
     {
-      break;
+      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      v17 = NAN;
+      goto LABEL_16;
     }
 
-    v29 = 0;
-    v30 = 0;
-    while (1)
+    LODWORD(v15) = info.numer;
+    LODWORD(v16) = info.denom;
+    v4 = v15 / v16;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+  }
+
+  v17 = v4 * (v13 - v14);
+LABEL_16:
+  v18 = this[60];
+  v19 = this[23];
+  if (v4 < 0.0)
+  {
+    if (mach_timebase_info(&info))
     {
-      v31 = *(v5 + 64);
-      if (v31 <= v29)
-      {
-        break;
-      }
-
-      v32 = 0;
-      v33 = *(v5 + 40) + 32 * v29;
-      v34 = *v33;
-      v35 = *(v33 + 16);
-      v36 = vcgtq_f32(*v33, v35);
-      v36.i32[3] = v36.i32[2];
-      LODWORD(v33) = vmaxvq_u32(v36);
-      v37.i64[0] = 0x3F0000003F000000;
-      v37.i64[1] = 0x3F0000003F000000;
-      v38 = vmulq_f32(vaddq_f32(v34, v35), v37);
-      v39 = v38.i32[2];
-      _NF = v33 < 0;
-      v40 = v38.i64[0];
-      if (_NF)
-      {
-        v39 = 0;
-        v40 = 0;
-      }
-
-      *&v41 = v40;
-      *(&v41 + 1) = __PAIR64__(1.0, v39);
-      v42 = vsubq_f32(v35, v34);
-      v42.i32[3] = 0;
-      v43 = vmulq_f32(vmaxnmq_f32(v42, 0), v37);
-      *&v44 = 0;
-      *(&v44 + 1) = v43.u32[2];
-      LODWORD(v45) = 0;
-      HIDWORD(v45) = v43.i32[1];
-      v46 = v43.i32[0];
-      v47 = (*(v5 + 80) + (v29 << 6));
-      v48 = *v47;
-      v49 = v47[1];
-      v50 = v47[2];
-      v51 = v47[3];
-      *v110 = v46;
-      *&v110[16] = v45;
-      *&v110[32] = v44;
-      v111 = v41;
-      do
-      {
-        *(&v81 + v32) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v48, COERCE_FLOAT(*&v110[v32])), v49, *&v110[v32], 1), v50, *&v110[v32], 2), v51, *&v110[v32], 3);
-        v32 += 16;
-      }
-
-      while (v32 != 64);
-      v61 = v82;
-      v62 = v81;
-      v59 = v84;
-      v60 = v83;
-      v52 = re::BucketArray<re::Matrix4x4<float>,128ul>::operator[](v24 + 56, v29);
-      *v52 = v62;
-      v52[1] = v61;
-      v52[2] = v60;
-      v52[3] = v59;
-      v29 = ++v30;
-      if (*(v5 + 24) <= v30)
-      {
-        goto LABEL_22;
-      }
+      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      v22 = NAN;
+      goto LABEL_21;
     }
 
-    v63[0] = 0;
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v81 = 0u;
-    a2 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v110 = 136315906;
-    *&v110[4] = "operator[]";
-    *&v110[12] = 1024;
-    *&v110[14] = 797;
-    *&v110[18] = 2048;
-    *&v110[20] = v29;
-    *&v110[28] = 2048;
-    *&v110[30] = v31;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    LODWORD(v20) = info.numer;
+    LODWORD(v21) = info.denom;
+    v4 = v20 / v21;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+  }
+
+  v22 = v4 * (v18 - v19);
+LABEL_21:
+  v23 = this[61];
+  v24 = this[24];
+  if (v4 < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      v27 = NAN;
+      goto LABEL_26;
+    }
+
+    LODWORD(v25) = info.numer;
+    LODWORD(v26) = info.denom;
+    v4 = v25 / v26;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+  }
+
+  v27 = v4 * (v23 - v24);
+LABEL_26:
+  v28 = this[62];
+  v29 = this[25];
+  if (v4 < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      v32 = NAN;
+      goto LABEL_31;
+    }
+
+    LODWORD(v30) = info.numer;
+    LODWORD(v31) = info.denom;
+    v4 = v30 / v31;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+  }
+
+  v32 = v4 * (v28 - v29);
+LABEL_31:
+  v33 = this[63];
+  v34 = this[26];
+  if (v4 >= 0.0)
+  {
+LABEL_35:
+    v37 = v4 * (v33 - v34);
+    goto LABEL_36;
+  }
+
+  if (!mach_timebase_info(&info))
+  {
+    LODWORD(v35) = info.numer;
+    LODWORD(v36) = info.denom;
+    v4 = v35 / v36;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+    goto LABEL_35;
+  }
+
+  v37 = NAN;
 LABEL_36:
-    dispatch_once(&re::GraphicsFeatureFlags::enableDepthPatch(void)::onceToken, &__block_literal_global_10_3);
-  }
-
-LABEL_22:
-  if (*(v5 + 88))
-  {
-    if (*(this + 269))
-    {
-      v53 = &__const__ZN2re20FeatureStencilStates17getDepthPatchInfoENS0_15DepthPatchUsageE_kReadForImmersiveEnvironmentStInfo;
-    }
-
-    else
-    {
-      v53 = &__const__ZN2re20FeatureStencilStates17getDepthPatchInfoENS0_15DepthPatchUsageE_kReadStInfo;
-    }
-
-    v73 = *v53;
-    v74 = *(v53 + 16);
-    v54 = 1;
-  }
-
-  else
-  {
-    v54 = 0;
-  }
-
-  if (*(v24 + 5))
-  {
-    re::DrawTableSlice::DrawTableSlice(&v81, v24);
-    v63[0] = "DepthPatchPass";
-    v63[1] = &v81;
-    v55 = *(v25 + 80);
-    v63[2] = *(v25 + 40);
-    v63[3] = v55;
-    v63[4] = 0;
-    v64 = *(v25 + 160);
-    v65 = 0;
-    v66 = 0;
-    v67 = v54;
-    if (v54)
-    {
-      v68 = v73;
-      v69 = v74;
-    }
-
-    v70 = 0;
-    if (*(a2 + 338))
-    {
-LABEL_38:
-      v56 = re::DrawCallRecorder::allocateDrawCallRecorderGroup(a2 + 169, this[2], "DepthPatchPass");
-    }
-
-    else
-    {
-      v56 = 0;
-    }
-
-    v71 = v56;
-    v72 = 0;
-    re::RenderGraphContext::getDefaultEncodeDrawCallDataStoreArgs(a2, v110);
-    re::RenderGraphContext::encodeDrawCalls(a2, v110, v63);
-  }
+  printf("QoS Threads CPU Scheduled Time\nDefault QoS Time [ms] : %f\nMaintenance QoS Time [ms] : %f\nBackground QoS Time [ms] : %f\nUtility QoS Time [ms] : %f\nLegacy QoS Time [ms] : %f\nUser Initiated QoS Time [ms] : %f\nUser Interactive QoS Time [ms] : %f\n", v7 / 1000000.0, v12 / 1000000.0, v17 / 1000000.0, v22 / 1000000.0, v27 / 1000000.0, v32 / 1000000.0, v37 / 1000000.0);
+  return puts("-------------------");
 }
 
-void *re::allocInfo_DepthPatchNode(re *this)
+uint64_t re::internal::PerfStats::printMemoryStatistics(re::internal::PerfStats *this)
 {
-  if ((atomic_load_explicit(&qword_1EE1C0EB8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C0EB8))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C0EE0, "DepthPatchNode");
-    __cxa_guard_release(&qword_1EE1C0EB8);
-  }
-
-  return &unk_1EE1C0EE0;
-}
-
-void re::initInfo_DepthPatchNode(re *this, re::IntrospectionBase *a2)
-{
-  v18[0] = 0xF6EF85110940D60ELL;
-  v18[1] = "DepthPatchNode";
-  if (v18[0])
-  {
-    if (v18[0])
-    {
-    }
-  }
-
-  *(this + 2) = v19;
-  if ((atomic_load_explicit(&qword_1EE1C0EC0, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C0EC0);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_RenderGraphNode(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "RenderGraphNode";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 0;
-      *(v8 + 40) = 3;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1C0EC8 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v11 = re::introspect_BOOL(1, v10);
-      v12 = (*(*v9 + 32))(v9, 72, 8);
-      *v12 = 1;
-      *(v12 + 8) = "renderToSeparateTarget";
-      *(v12 + 16) = v11;
-      *(v12 + 24) = 0;
-      *(v12 + 32) = 0x10D00000001;
-      *(v12 + 40) = 0;
-      *(v12 + 48) = 0;
-      *(v12 + 56) = 0;
-      *(v12 + 64) = 0;
-      qword_1EE1C0ED0 = v12;
-      v13 = re::introspectionAllocator(v12);
-      v15 = re::introspect_AssetHandle(1, v14);
-      v16 = (*(*v13 + 32))(v13, 72, 8);
-      *v16 = 1;
-      *(v16 + 8) = "depthPatchMaterial";
-      *(v16 + 16) = v15;
-      *(v16 + 24) = 0;
-      *(v16 + 32) = 0x11000000002;
-      *(v16 + 40) = 0;
-      *(v16 + 48) = 0;
-      *(v16 + 56) = 0;
-      *(v16 + 64) = 0;
-      qword_1EE1C0ED8 = v16;
-      __cxa_guard_release(&qword_1EE1C0EC0);
-    }
-  }
-
-  *(this + 2) = 0x12800000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 3;
-  *(this + 8) = &qword_1EE1C0EC8;
-  *(this + 9) = re::internal::defaultConstruct<re::DepthPatchNode>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::DepthPatchNode>;
-  *(this + 13) = re::internal::defaultConstructV2<re::DepthPatchNode>;
-  *(this + 14) = re::internal::defaultDestructV2<re::DepthPatchNode>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v17 = v19;
-}
-
-re::RenderGraphNode *re::internal::defaultConstruct<re::DepthPatchNode>(int a1, int a2, re::RenderGraphNode *this)
-{
-  result = re::RenderGraphNode::RenderGraphNode(this);
-  *(result + 66) = 1;
-  *(result + 134) = 0;
-  *result = &unk_1F5D150C0;
-  *(result + 35) = 0;
-  *(result + 36) = 0;
-  *(result + 34) = 0;
-  return result;
-}
-
-re::RenderGraphNode *re::internal::defaultConstructV2<re::DepthPatchNode>(re::RenderGraphNode *a1)
-{
-  result = re::RenderGraphNode::RenderGraphNode(a1);
-  *(result + 66) = 1;
-  *(result + 134) = 0;
-  *result = &unk_1F5D150C0;
-  *(result + 35) = 0;
-  *(result + 36) = 0;
-  *(result + 34) = 0;
-  return result;
-}
-
-void re::DepthPatchNode::~DepthPatchNode(id *this)
-{
-  *this = &unk_1F5D150C0;
-  re::AssetHandle::~AssetHandle((this + 34));
-
-  re::RenderGraphNode::~RenderGraphNode(this);
-}
-
-{
-  *this = &unk_1F5D150C0;
-  re::AssetHandle::~AssetHandle((this + 34));
-  re::RenderGraphNode::~RenderGraphNode(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *re::internal::Callable<re::DepthPatchNode::execute(re::RenderGraphContext &)::$_0,void ()(void *)>::cloneInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D15168;
-  return result;
-}
-
-void *re::internal::Callable<re::DepthPatchNode::execute(re::RenderGraphContext &)::$_0,void ()(void *)>::moveInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D15168;
-  return result;
-}
-
-__n128 re::RenderGraphEmitterBase::initRuntimeSettings@<Q0>(re::RenderGraphEmitterBase *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  re::RenderGraphEmitterRegistry::registryItem(re::RenderGraphEmitterRegistry::m_instance, a2, v10);
-  if (v10[0])
-  {
-    v6 = (**v11)(v11, 0);
-    re::makeBindNode(v6, this, &v12);
-    if ((this + 16) != &v12)
-    {
-      re::BindNode::move((this + 16), &v12);
-    }
-
-    result.n128_f64[0] = re::BindNode::deinit(&v12);
-    *a3 = 1;
-  }
-
-  else
-  {
-    re::DynamicString::format("Unregistered RenderGraphEmitter with typeHash %lu.", &v12, a2);
-    result = v12;
-    v8 = v13;
-    v9 = v14;
-    *a3 = 0;
-    *(a3 + 8) = result;
-    *(a3 + 24) = v8;
-    *(a3 + 32) = v9;
-  }
-
-  return result;
-}
-
-void re::RenderGraphEmitterBase::execute(re::RenderGraphEmitterBase *this, re::RenderManager *a2)
-{
-  v3 = this;
-  v4 = *(a2 + 14);
-  if (v4)
-  {
-    this = re::RenderFrameBox::get((v4 + 328), 0xFFFFFFFFFFFFFFFuLL);
-    v5 = this;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v6 = *(v5 + 524);
-  if (v6 >= 2)
-  {
-    v7 = *re::graphicsLogObjects(this);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      *v8 = 0;
-      _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "Only one workload per frame is currently supported. Only the last workload will be executed.", v8, 2u);
-    }
-
-    v6 = *(v5 + 524);
-  }
-
-  if (v6)
-  {
-    (*(*v3 + 48))(v3, a2, *(*(v5 + 526) + 8 * v6 - 8));
-  }
-}
-
-uint64_t re::RenderGraphEmitterBase::execute(re::RenderGraphEmitterBase *this, re::RenderManager *a2, re::RenderFrameWorkload *a3)
-{
-  v5 = *(a2 + 14);
+  v2 = *(this + 46);
+  v3 = *(this + 9);
+  v4 = v3 - v2;
+  v5 = v2 >= v3;
+  v6 = v2 - v3;
   if (v5)
   {
-    v6 = re::RenderFrameBox::get((v5 + 328), *(a3 + 19));
+    v7 = "Increase";
   }
 
   else
   {
+    v7 = "Decrease";
+  }
+
+  if (!v5)
+  {
+    v6 = v4;
+  }
+
+  v8 = vcvtd_n_f64_u64(v6, 0xAuLL);
+  v9 = vcvtd_n_f64_u64(*(this + 45) - *(this + 8), 0xAuLL);
+  v10 = vcvtd_n_f64_u64(*(this + 44) - *(this + 7), 0xAuLL);
+  printf("\n-------------------\nModule : %s\n%s Memory Perf Stats\n-------------------\n", *(this + 119), *(this + 120));
+  printf("%s in Current Dirty Memory Footprint [kb] : %f\nPeak Dirty Memory Footprint [kb] : %f\n", v7, v8, *(this + 67) * 0.0009765625);
+  printf("Increase in Current Resident Memory Footprint [kb] : %f\nIncrease in Current Wired Memory Footprint [kb] : %f\n", v9, v10);
+  puts("\n-------- Malloc Allocation Stats --------");
+  printf("Total Heap Allocations [kb] : %f\nTotal Heap Deallocations [kb] : %f\nPeak Heap Allocations [kb] : %f\n", *(this + 125) * 0.0009765625, *(this + 126) * 0.0009765625, *(this + 127) * 0.0009765625);
+  printf("Total Heap Node Allocations: %llu\nTotal Heap Node Deallocations: %llu\n", *(this + 122), *(this + 123));
+  printf("Total VM Allocations [kb] : %f\nTotal VM Deallocations [kb] : %f\nPeak VM Allocations [kb] : %f\n", *(this + 129) * 0.0009765625, *(this + 130) * 0.0009765625, *(this + 131) * 0.0009765625);
+
+  return puts("-------------------");
+}
+
+uint64_t re::internal::PerfStats::printVMPagingStatistics(const char **this)
+{
+  printf("\n-------------------\nModule : %s\n%s Mach Virtual Memory Paging Stats : (page size of %llu bytes)\n-------------------\n", this[119], this[120], *MEMORY[0x1E69E9AB0]);
+  printf("-----\nPages free at start : %u\nPages free at end : %u\nChange in free pages : %u\n-----\n", *(this + 148) - *(this + 171), *(this + 188) - *(this + 211), *(this + 171) - *(this + 211));
+  printf("-----\nPages active at start : %u\nPages active at end : %u\nChange in active pages : %u\n-----\n", *(this + 149), *(this + 189), *(this + 189) - *(this + 149));
+  printf("-----\nPages inactive at start : %u\nPages inactive at end : %u\nChange in inactive page s: %u\n-----\n", *(this + 150), *(this + 190), *(this + 190) - *(this + 150));
+  printf("-----\nPages speculative at start : %u\nPages speculative at end : %u\nChange in speculative pages : %u\n-----\n", *(this + 171), *(this + 211), *(this + 211) - *(this + 171));
+  printf("-----\nPages uncompressed in compressor at start : %llu\nPages uncompressed in compressor  at end : %llu\nChange in uncompressed pages in compressor  : %llu\n-----\n", this[92], this[112], this[112] - this[92]);
+  printf("-----\nPages compressed in compressor at start : %u\nPages compressed in compressor at end : %u\nChange in compressed pages in compressor : %u\n-----\n", *(this + 180), *(this + 220), *(this + 220) - *(this + 180));
+  printf("-----\nPages file backed at start : %u\nPages file backed at end : %u\nChange in pages file backed : %u\n-----\n", *(this + 182), *(this + 222), *(this + 222) - *(this + 182));
+  printf("-----\nPages anonymous at start : %u\nPages anonymous at end : %u\nChange in anonymous pages : %u\n-----\n", *(this + 183), *(this + 223), *(this + 223) - *(this + 183));
+  printf("-----\nPages throttled at start : %u\nPages throttled at end : %u\nChange in throttled pages : %u\n-----\n", *(this + 181), *(this + 221), *(this + 221) - *(this + 181));
+  printf("-----\nPages wired down at start : %u\nPages wired down at end : %u\nChange in wired down pages : %u\n-----\n", *(this + 151), *(this + 191), *(this + 191) - *(this + 151));
+  printf("-----\nPages purgeable at start : %u\nPages purgeable at end : %u\nChange in purgeable pages : %u\n-----\n", *(this + 170), *(this + 210), *(this + 210) - *(this + 170));
+  printf("-----\nPage Faults : %llu\n-----\n", this[100] - this[80]);
+  printf("-----\nPage CoW faults : %llu\n-----\n", this[101] - this[81]);
+  printf("-----\nPages Zero Filled: %llu\n-----\n", this[96] - this[76]);
+  printf("-----\nPages Reactivated : %llu\n-----\n", this[97] - this[77]);
+  printf("-----\nPages Purged : %llu\n-----\n", this[104] - this[84]);
+  printf("-----\nPages Decompressed : %llu\n-----\n", this[106] - this[86]);
+  printf("-----\nPages Compressed : %llu\n-----\n", this[107] - this[87]);
+  printf("-----\nPage Ins : %llu\n-----\n", this[98] - this[78]);
+  printf("-----\nPage Outs : %llu\n-----\n", this[99] - this[79]);
+  printf("-----\nPage Swap Ins : %llu\n-----\n", this[108] - this[88]);
+  printf("-----\nPage Swap Outs : %llu\n-----\n", this[109] - this[89]);
+
+  return puts("-------------------");
+}
+
+uint64_t re::internal::PerfStats::printDiskStatistics(const char **this)
+{
+  printf("\n-------------------\nModule : %s\n%s Disk Perf Stats\n-------------------\n", this[119], this[120]);
+  printf("Total Bytes Read From Disk : %llu\nTotal Bytes Written To Disk : %llu\n", this[55] - this[18], this[56] - this[19]);
+
+  return puts("-------------------");
+}
+
+uint64_t re::internal::PerfStats::addCPUStatisticsToJson(void *a1, void *a2)
+{
+  v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    }
+
+    else
+    {
+      LODWORD(v5) = info.numer;
+      LODWORD(v6) = info.denom;
+      v4 = v5 / v6;
+      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+    }
+  }
+
+  if (v4 < 0.0 && !mach_timebase_info(&info))
+  {
+    LODWORD(v7) = info.numer;
+    LODWORD(v8) = info.denom;
+    *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v7 / v8;
+  }
+
+  v9 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalCPUCoresAvailable : ", 28);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v10, ",\n", 2);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tCPUUtil[%] : ", 16);
+  v11 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v11, ",\n", 2);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalAbsoluteTime[ms] : ", 27);
+  v12 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v12, ",\n", 2);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalCPUScheduledTime[ms] : ", 31);
+  v13 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v13, ",\n", 2);
+  v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalCPUInstructions : ", 26);
+  v15 = MEMORY[0x1E6906120](v14, a1[68] - a1[31]);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, ",\n", 2);
+  v16 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalCPUCycles : ", 20);
+  return MEMORY[0x1E6906120](v16, a1[69] - a1[32]);
+}
+
+void re::internal::PerfStats::addMemoryStatisticsToJson(void *a1, void *a2)
+{
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tPeakDirtyMemoryFootprint[kb] : ", 34);
+  v4 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v4, ",\n", 2);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tDirtyMemoryIncrease[kb] : ", 29);
+  v5 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, ",\n", 2);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tResidentMemoryIncrease[kb] : ", 32);
+  v6 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v6, ",\n", 2);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tWiredMemoryIncrease[kb] : ", 29);
+  v7 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v7, ",\n", 2);
+  v8 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalHeapAllocations[kb] : ", 30);
+  v9 = MEMORY[0x1E69060B0](v8, a1[125] * 0.0009765625);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v9, ",\n", 2);
+  v10 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalHeapDeallocations[kb] : ", 32);
+  v11 = MEMORY[0x1E69060B0](v10, a1[126] * 0.0009765625);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v11, ",\n", 2);
+  v12 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tPeakHeapAllocations[kb] : ", 29);
+  v13 = MEMORY[0x1E69060B0](v12, a1[127] * 0.0009765625);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v13, ",\n", 2);
+  v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalHeapNodeAllocations : ", 30);
+  v15 = MEMORY[0x1E6906110](v14, a1[122]);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, ",\n", 2);
+  v16 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalHeapNodeDeallocations : ", 32);
+  v17 = MEMORY[0x1E6906110](v16, a1[123]);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ",\n", 2);
+  v18 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalVMAllocations[kb] : ", 28);
+  v19 = MEMORY[0x1E69060B0](v18, a1[129] * 0.0009765625);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ",\n", 2);
+  v20 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalVMDeallocations[kb] : ", 30);
+  v21 = MEMORY[0x1E69060B0](v20, a1[130] * 0.0009765625);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v21, ",\n", 2);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tPeakVMAllocations[kb] : ", 27);
+
+  JUMPOUT(0x1E69060B0);
+}
+
+uint64_t re::internal::PerfStats::addQoSStatisticsToJson(void *a1, void *a2)
+{
+  v4 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-UserInitiated-CPUTime[ms] : ", 35);
+  v5 = a1[62];
+  v6 = a1[25];
+  v7 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v10 = NAN;
+      goto LABEL_6;
+    }
+
+    LODWORD(v8) = info.numer;
+    LODWORD(v9) = info.denom;
+    v7 = v8 / v9;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v7;
+  }
+
+  v10 = v7 * (v5 - v6);
+LABEL_6:
+  v11 = MEMORY[0x1E69060B0](v4, v10 / 1000000.0);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v11, ",\n", 2);
+  v12 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-UserInteractive-CPUTime[ms] : ", 37);
+  v13 = a1[63];
+  v14 = a1[26];
+  v15 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v18 = NAN;
+      goto LABEL_11;
+    }
+
+    LODWORD(v16) = info.numer;
+    LODWORD(v17) = info.denom;
+    v15 = v16 / v17;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v15;
+  }
+
+  v18 = v15 * (v13 - v14);
+LABEL_11:
+  v19 = MEMORY[0x1E69060B0](v12, v18 / 1000000.0);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ",\n", 2);
+  v20 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Default-CPUTime[ms] : ", 29);
+  v21 = a1[57];
+  v22 = a1[20];
+  v23 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v26 = NAN;
+      goto LABEL_16;
+    }
+
+    LODWORD(v24) = info.numer;
+    LODWORD(v25) = info.denom;
+    v23 = v24 / v25;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v23;
+  }
+
+  v26 = v23 * (v21 - v22);
+LABEL_16:
+  v27 = MEMORY[0x1E69060B0](v20, v26 / 1000000.0);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v27, ",\n", 2);
+  v28 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Background-CPUTime[ms] : ", 32);
+  v29 = a1[59];
+  v30 = a1[22];
+  v31 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v34 = NAN;
+      goto LABEL_21;
+    }
+
+    LODWORD(v32) = info.numer;
+    LODWORD(v33) = info.denom;
+    v31 = v32 / v33;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v31;
+  }
+
+  v34 = v31 * (v29 - v30);
+LABEL_21:
+  v35 = MEMORY[0x1E69060B0](v28, v34 / 1000000.0);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v35, ",\n", 2);
+  v36 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Utility-CPUTime[ms] : ", 29);
+  v37 = a1[60];
+  v38 = a1[23];
+  v39 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v42 = NAN;
+      goto LABEL_26;
+    }
+
+    LODWORD(v40) = info.numer;
+    LODWORD(v41) = info.denom;
+    v39 = v40 / v41;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v39;
+  }
+
+  v42 = v39 * (v37 - v38);
+LABEL_26:
+  v43 = MEMORY[0x1E69060B0](v36, v42 / 1000000.0);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v43, ",\n", 2);
+  v44 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Maintenance-CPUTime[ms] : ", 33);
+  v45 = a1[58];
+  v46 = a1[21];
+  v47 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    if (mach_timebase_info(&info))
+    {
+      v50 = NAN;
+      goto LABEL_31;
+    }
+
+    LODWORD(v48) = info.numer;
+    LODWORD(v49) = info.denom;
+    v47 = v48 / v49;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v47;
+  }
+
+  v50 = v47 * (v45 - v46);
+LABEL_31:
+  v51 = MEMORY[0x1E69060B0](v44, v50 / 1000000.0);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v51, ",\n", 2);
+  v52 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Legacy-CPUTime[ms] : ", 28);
+  v53 = a1[61];
+  v54 = a1[24];
+  v55 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale >= 0.0)
+  {
+LABEL_35:
+    v58 = v55 * (v53 - v54);
+    return MEMORY[0x1E69060B0](v52, v58 / 1000000.0);
+  }
+
+  if (!mach_timebase_info(&info))
+  {
+    LODWORD(v56) = info.numer;
+    LODWORD(v57) = info.denom;
+    v55 = v56 / v57;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v55;
+    goto LABEL_35;
+  }
+
+  v58 = NAN;
+  return MEMORY[0x1E69060B0](v52, v58 / 1000000.0);
+}
+
+void re::internal::PerfStats::addDiskStatisticsToJson(uint64_t a1, void *a2)
+{
+  v4 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalBytesReadFromDisk[kb] : ", 32);
+  v5 = MEMORY[0x1E6906120](v4, *(a1 + 440) - *(a1 + 144));
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, ",\n", 2);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalBytesWrittenToDisk[kb] : ", 33);
+
+  JUMPOUT(0x1E6906120);
+}
+
+void re::ProfilerManager::~ProfilerManager(_BOOL8 this)
+{
+  v1 = this;
+  if (*(this + 136) != *(this + 144))
+  {
+    v2 = *re::foundationProfilingLogObjects(this);
+    this = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+    if (this)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_DEFAULT, "ProfilerEventStreams submitted but never processed.", buf, 2u);
+    }
+  }
+
+  if (v1[28] != v1[29])
+  {
+    v3 = *re::foundationProfilingLogObjects(this);
+    this = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    if (this)
+    {
+      *v54 = 0;
+      _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerStatistics submitted but never processed.", v54, 2u);
+    }
+  }
+
+  if (v1[39] != v1[40])
+  {
+    v4 = *re::foundationProfilingLogObjects(this);
+    this = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    if (this)
+    {
+      *v53 = 0;
+      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "ProfilerAttributions submitted but never processed.", v53, 2u);
+    }
+  }
+
+  if (v1[48] != v1[49])
+  {
+    v5 = *re::foundationProfilingLogObjects(this);
+    this = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    if (this)
+    {
+      *v52 = 0;
+      _os_log_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEFAULT, "ProfilerVisualizers submitted but never processed.", v52, 2u);
+    }
+  }
+
+  if (v1[57] != v1[58])
+  {
+    v6 = *re::foundationProfilingLogObjects(this);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v51 = 0;
+      _os_log_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEFAULT, "ProfilerMemoryStatistics submitted but never processed.", v51, 2u);
+    }
+  }
+
+  for (i = v1[11]; i; i = *i)
+  {
+    v8 = i[2];
+    if (v8)
+    {
+      v9 = v8[9];
+      if (v9)
+      {
+        v8[10] = v9;
+        MEMORY[0x1E6906510]();
+      }
+
+      v10 = v8[5];
+      v11 = v8[6];
+      if (v10 != v11)
+      {
+        do
+        {
+          if (*v10)
+          {
+            MEMORY[0x1E6906510](*v10, 128);
+          }
+
+          ++v10;
+        }
+
+        while (v10 != v11);
+        v10 = v8[5];
+      }
+
+      if (v10)
+      {
+        v8[6] = v10;
+        operator delete(v10);
+      }
+
+      v12 = v8[1];
+      v13 = v8[2];
+      if (v12 != v13)
+      {
+        do
+        {
+          if (*v12)
+          {
+            MEMORY[0x1E6906510](*v12, 128);
+          }
+
+          ++v12;
+        }
+
+        while (v12 != v13);
+        v12 = v8[1];
+      }
+
+      if (v12)
+      {
+        v8[2] = v12;
+        operator delete(v12);
+      }
+
+      MEMORY[0x1E6906520](v8, 0x10A0C40A52C3342);
+    }
+  }
+
+  for (j = v1[22]; j; j = *j)
+  {
+    v15 = j[2];
+    if (v15)
+    {
+      MEMORY[0x1E6906510](v15, 128);
+    }
+  }
+
+  for (k = v1[33]; k; k = *k)
+  {
+    v17 = k[2];
+    if (v17)
+    {
+      re::ProfilerAttributions::~ProfilerAttributions(v17);
+      MEMORY[0x1E6906510]();
+    }
+  }
+
+  v18 = v1[42];
+  for (m = v1[43]; v18 != m; ++v18)
+  {
+    v20 = *v18;
+    if (*v18)
+    {
+      v21 = *(v20 + 8);
+      v22 = *(v20 + 16);
+      if (v21 != v22)
+      {
+        do
+        {
+          if (*v21)
+          {
+            MEMORY[0x1E6906520](*v21, 0x1000C40CABF92ADLL);
+          }
+
+          ++v21;
+        }
+
+        while (v21 != v22);
+        v21 = *(v20 + 8);
+      }
+
+      if (v21)
+      {
+        *(v20 + 16) = v21;
+        operator delete(v21);
+      }
+
+      MEMORY[0x1E6906520](v20, 0x1080C401FB89069);
+    }
+  }
+
+  v23 = v1[51];
+  v24 = v1[52];
+  while (v23 != v24)
+  {
+    if (*v23)
+    {
+      MEMORY[0x1E6906510](*v23, 128);
+    }
+
+    ++v23;
+  }
+
+  v25 = v1[62];
+  if (v25)
+  {
+    do
+    {
+      v26 = v25[3];
+      if (v26)
+      {
+        (*(*v26 + 8))(v26);
+      }
+
+      v25 = *v25;
+    }
+
+    while (v25);
+    v27 = v1[62];
+    if (v27)
+    {
+      do
+      {
+        v28 = *v27;
+        operator delete(v27);
+        v27 = v28;
+      }
+
+      while (v28);
+    }
+  }
+
+  v29 = v1[60];
+  v1[60] = 0;
+  if (v29)
+  {
+    operator delete(v29);
+  }
+
+  v30 = v1[57];
+  if (v30)
+  {
+    v1[58] = v30;
+    operator delete(v30);
+  }
+
+  v31 = v1[54];
+  if (v31)
+  {
+    v1[55] = v31;
+    operator delete(v31);
+  }
+
+  v32 = v1[51];
+  if (v32)
+  {
+    v1[52] = v32;
+    operator delete(v32);
+  }
+
+  v33 = v1[48];
+  if (v33)
+  {
+    v1[49] = v33;
+    operator delete(v33);
+  }
+
+  v34 = v1[45];
+  if (v34)
+  {
+    v1[46] = v34;
+    operator delete(v34);
+  }
+
+  v35 = v1[42];
+  if (v35)
+  {
+    v1[43] = v35;
+    operator delete(v35);
+  }
+
+  v36 = v1[39];
+  if (v36)
+  {
+    v1[40] = v36;
+    operator delete(v36);
+  }
+
+  v37 = v1[36];
+  if (v37)
+  {
+    v1[37] = v37;
+    operator delete(v37);
+  }
+
+  v38 = v1[33];
+  if (v38)
+  {
+    do
+    {
+      v39 = *v38;
+      operator delete(v38);
+      v38 = v39;
+    }
+
+    while (v39);
+  }
+
+  v40 = v1[31];
+  v1[31] = 0;
+  if (v40)
+  {
+    operator delete(v40);
+  }
+
+  v41 = v1[28];
+  if (v41)
+  {
+    v1[29] = v41;
+    operator delete(v41);
+  }
+
+  v42 = v1[25];
+  if (v42)
+  {
+    v1[26] = v42;
+    operator delete(v42);
+  }
+
+  v43 = v1[22];
+  if (v43)
+  {
+    do
+    {
+      v44 = *v43;
+      operator delete(v43);
+      v43 = v44;
+    }
+
+    while (v44);
+  }
+
+  v45 = v1[20];
+  v1[20] = 0;
+  if (v45)
+  {
+    operator delete(v45);
+  }
+
+  v46 = v1[17];
+  if (v46)
+  {
+    v1[18] = v46;
+    operator delete(v46);
+  }
+
+  v47 = v1[14];
+  if (v47)
+  {
+    v1[15] = v47;
+    operator delete(v47);
+  }
+
+  v48 = v1[11];
+  if (v48)
+  {
+    do
+    {
+      v49 = *v48;
+      operator delete(v48);
+      v48 = v49;
+    }
+
+    while (v49);
+  }
+
+  v50 = v1[9];
+  v1[9] = 0;
+  if (v50)
+  {
+    operator delete(v50);
+  }
+}
+
+uint64_t re::ProfilerManager::acquireEventStream(re::ProfilerManager *this, int a2)
+{
+  os_unfair_lock_lock(this + 4);
+  v4 = *(this + 532);
+  os_unfair_lock_unlock(this + 4);
+  if (v4 != 1)
+  {
+    return 0;
+  }
+
+  if (a2)
+  {
+    os_unfair_lock_lock(this + 3);
+    v5 = *(this + 18);
+    if (*(this + 17) == v5)
+    {
+      os_unfair_lock_unlock(this + 3);
+    }
+
+    else
+    {
+      v6 = *(v5 - 8);
+      *(this + 18) = v5 - 8;
+      os_unfair_lock_unlock(this + 3);
+      if (v6)
+      {
+        return v6;
+      }
+    }
+  }
+
+  os_unfair_lock_lock(this + 2);
+  v7 = *(this + 15);
+  if (*(this + 14) == v7)
+  {
+    if (*(this + 12) < *(this + 3))
+    {
+      operator new();
+    }
+
+    if (atomic_load_explicit(this + 4, memory_order_acquire) != -1)
+    {
+      v11[0] = &v9;
+      v11[1] = this;
+      v11[2] = this + 24;
+      v10 = v11;
+      std::__call_once(this + 4, &v10, std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireEventStream(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>);
+    }
+
     v6 = 0;
   }
 
-  re::RenderFrameWorkload::beforeEmit(a3);
-  v7 = *(*this + 56);
+  else
+  {
+    v6 = *(v7 - 8);
+    *(this + 15) = v7 - 8;
+  }
 
-  return v7(this, v6);
+  os_unfair_lock_unlock(this + 2);
+  return v6;
 }
 
-uint64_t re::RenderGraphEmitterBase::setRuntimeSetting(re::BindNode **this, const re::IntrospectionBase *a2, const char *a3, char *a4)
+unint64_t re::ProfilerManager::acquireStatistics(re::ProfilerManager *this, int a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v23 = &str_67;
-  v8 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v22 >> 31) ^ (v22 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v22 >> 31) ^ (v22 >> 1))) >> 27));
-  re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>((this + 11), &v22, v8 ^ (v8 >> 31), v31);
-  if (*&v31[12] == 0x7FFFFFFF)
+  os_unfair_lock_lock(this + 4);
+  v4 = *(this + 533);
+  os_unfair_lock_unlock(this + 4);
+  if (v4 != 1)
   {
-    *&v31[8] = 0;
-    v32 = 0uLL;
-    LODWORD(v33) = 0;
-    *(&v33 + 1) = 0;
-    *&v34[0] = 0;
-    *(&v34[0] + 1) = &str_67;
-    v21[0] = a3;
-    v21[1] = strlen(a3);
-    re::BindNode::bindPoint(this + 2, a2, v21, buf);
-    *v31 = *buf;
-    re::DynamicArray<re::RigDataValue>::operator=(&v31[8], &buf[8]);
-    re::DynamicArray<re::BindPoint::BindPointData>::deinit(&buf[8]);
-    v9 = re::DynamicArray<re::BindPoint::BindPointData>::deinit(&buf[8]);
-    v10 = *(&v32 + 1);
-    if (*(&v32 + 1))
+    return 0;
+  }
+
+  if (a2)
+  {
+    os_unfair_lock_lock(this + 3);
+    v5 = *(this + 29);
+    if (*(this + 28) == v5)
     {
-      re::StringID::operator=(v34, &v22);
-      re::DynamicArray<re::BindPointAndPath>::add(this + 6, v31);
-      *buf = *(this + 16) - 1;
-      v11 = re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add((this + 11), &v22, buf);
-      v12 = v11;
+      os_unfair_lock_unlock(this + 3);
     }
 
     else
     {
-      v13 = *re::graphicsLogObjects(v9);
-      v11 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      if (v11)
+      v6 = *(v5 - 8);
+      *(this + 29) = v5 - 8;
+      os_unfair_lock_unlock(this + 3);
+      if (v6)
       {
-        *buf = 136315138;
-        *&buf[4] = a3;
-        _os_log_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_DEFAULT, "Failed to find binding path [%s].", buf, 0xCu);
-      }
-
-      v12 = 0;
-    }
-
-    if (v34[0])
-    {
-      if (v34[0])
-      {
+        return v6;
       }
     }
+  }
 
-    *&v34[0] = 0;
-    *(&v34[0] + 1) = &str_67;
-    re::DynamicArray<re::BindPoint::BindPointData>::deinit(&v31[8]);
-    v14 = re::DynamicArray<re::BindPoint::BindPointData>::deinit(&v31[8]);
-    if (!v10)
+  os_unfair_lock_lock(this + 2);
+  v7 = *(this + 26);
+  if (*(this + 25) == v7)
+  {
+    if (*(this + 23) < *(this + 3))
     {
-      goto LABEL_17;
-    }
-  }
-
-  else
-  {
-    v12 = (this[13] + 32 * *&v31[12] + 24);
-  }
-
-  v15 = *v12;
-  v16 = this[8];
-  if (v16 <= v15)
-  {
-    v21[0] = 0;
-    memset(v34, 0, sizeof(v34));
-    v32 = 0u;
-    v33 = 0u;
-    *v31 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *buf = 136315906;
-    *&buf[4] = "operator[]";
-    v25 = 1024;
-    v26 = 789;
-    v27 = 2048;
-    v28 = v15;
-    v29 = 2048;
-    v30 = v16;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v17 = re::BindPoint::valueUntyped((this[10] + 64 * v15));
-  *&v31[8] = 0;
-  *&v32 = 0;
-  if ((v14 & 1) == 0)
-  {
-    v19 = *re::graphicsLogObjects(v14);
-    v14 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-    if (v14)
-    {
-      *v31 = 136315138;
-      *&v31[4] = a3;
-      _os_log_impl(&dword_1E1C61000, v19, OS_LOG_TYPE_DEFAULT, "Failed to perform deep copy into binding path [%s].", v31, 0xCu);
-    }
-
-LABEL_17:
-    v18 = 0;
-    goto LABEL_18;
-  }
-
-  v18 = 1;
-LABEL_18:
-  if (v22)
-  {
-    if (v22)
-    {
-    }
-  }
-
-  return v18;
-}
-
-void *re::allocInfo_RenderGraphEmitterBase(re *this)
-{
-  if ((atomic_load_explicit(&_MergedGlobals_537, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_537))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C0F88, "RenderGraphEmitterBase");
-    __cxa_guard_release(&_MergedGlobals_537);
-  }
-
-  return &unk_1EE1C0F88;
-}
-
-void re::initInfo_RenderGraphEmitterBase(re *this, re::IntrospectionBase *a2)
-{
-  v9[0] = 0xB2BF4B7174817E0ELL;
-  v9[1] = "RenderGraphEmitterBase";
-  if (v9[0])
-  {
-    if (v9[0])
-    {
-    }
-  }
-
-  *(this + 2) = v10;
-  if ((atomic_load_explicit(&qword_1EE1C0F80, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C0F80);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = (*(*v6 + 32))(v6, 16, 8);
-      *v7 = 2;
-      *(v7 + 8) = 0;
-      qword_1EE1C0F78 = v7;
-      __cxa_guard_release(&qword_1EE1C0F80);
-    }
-  }
-
-  *(this + 2) = 0x8800000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 14) = 1;
-  *(this + 8) = &qword_1EE1C0F78;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  *(this + 15) = 0;
-  re::internal::prepare(this, v4);
-  v8 = v10;
-}
-
-void re::guided_filter_occlusion::encodeGuidedFilterOcclusionCommands(uint64_t a1)
-{
-  re::SyncMechanism::sync(*(a1 + 16));
-  re::mtl::CommandBuffer::makeComputeCommandEncoder((a1 + 8), &v103);
-  v2 = *(a1 + 48);
-  [v103 setTexture:*v2 atIndex:0];
-  [v103 setTexture:*(v2 + 8) atIndex:1];
-  [v103 setTexture:*(v2 + 32) atIndex:2];
-  v3 = *(*(a1 + 56) + 88);
-  v4 = v103;
-  [v4 setComputePipelineState:v3];
-
-  v5 = [*(v2 + 32) width];
-  v6 = [*(v2 + 32) height];
-  v7.i64[0] = v5;
-  v7.i64[1] = v6;
-  v8 = vdupq_n_s64(0x3FB0000000000000uLL);
-  v107 = vcvtq_u64_f64(vrndpq_f64(vmulq_f64(vcvtq_f64_u64(v7), v8)));
-  v108 = 1;
-  v98 = v8;
-  v105 = re::guided_filter_occlusion::kDefaulThreadsPerGroup;
-  v106 = 1;
-  [v103 dispatchThreadgroups:&v107 threadsPerThreadgroup:&v105];
-  v9 = *(a1 + 48);
-  [v103 setTexture:*(v9 + 16) atIndex:0];
-  [v103 setTexture:*(v9 + 48) atIndex:1];
-  LODWORD(v110[0]) = *(*(re::RenderGraphDataStore::get<re::CameraMatrices>(*(*a1 + 1168), *(*(*a1 + 40) + 48)) + 80) + 56);
-  [v103 setBytes:v110 length:4 atIndex:2];
-  v10 = *(*(a1 + 56) + 104);
-  v11 = v103;
-  [v11 setComputePipelineState:v10];
-
-  v12 = [*(v9 + 56) width];
-  v13 = [*(v9 + 56) height];
-  v14.i64[0] = v12;
-  v14.i64[1] = v13;
-  v107 = vcvtq_u64_f64(vrndpq_f64(vmulq_f64(vcvtq_f64_u64(v14), v98)));
-  v108 = 1;
-  v105 = re::guided_filter_occlusion::kDefaulThreadsPerGroup;
-  v106 = 1;
-  [v103 dispatchThreadgroups:&v107 threadsPerThreadgroup:&v105];
-  [v103 endEncoding];
-  re::SyncMechanism::sync(*(a1 + 16));
-  v15 = *(*(a1 + 32) + 16);
-  v16 = *(a1 + 8);
-  v17 = *(v9 + 56);
-  v18 = *(v9 + 48);
-  v19 = v16;
-  v20 = v15;
-  [v20 encodeToCommandBuffer:v19 sourceTexture:v18 destinationTexture:v17];
-
-  v22 = *(a1 + 40);
-  v21 = *(a1 + 48);
-  re::mtl::CommandBuffer::makeComputeCommandEncoder((a1 + 8), v110);
-  [v110[0] setTexture:*(*(a1 + 24) + 16) atIndex:0];
-  [v110[0] setTexture:*(*(a1 + 24) + 24) atIndex:1];
-  [v110[0] setTexture:*(v21 + 88) atIndex:2];
-  [v110[0] setBytes:*(a1 + 24) + 48 length:64 atIndex:3];
-  v23 = *(*(a1 + 56) + 80);
-  v24 = v110[0];
-  [v24 setComputePipelineState:v23];
-
-  v25 = *(*(a1 + 24) + 160);
-  v26.i64[0] = v25;
-  v26.i64[1] = HIDWORD(v25);
-  v107 = vcvtq_u64_f64(vrndpq_f64(vmulq_f64(vcvtq_f64_u64(v26), v98)));
-  v108 = 1;
-  v105 = re::guided_filter_occlusion::kDefaulThreadsPerGroup;
-  v106 = 1;
-  [v110[0] dispatchThreadgroups:&v107 threadsPerThreadgroup:&v105];
-  [v110[0] endEncoding];
-  re::SyncMechanism::sync(*(a1 + 16));
-  v27 = *(a1 + 8);
-  v28 = *(v21 + 80);
-  v29 = *(*(a1 + 32) + 24);
-  v30 = *(v21 + 88);
-  v31 = v27;
-  v32 = v29;
-  [v32 encodeToCommandBuffer:v31 sourceTexture:v30 destinationTexture:v28];
-
-  re::SyncMechanism::sync(*(a1 + 16));
-  v33 = *(*(a1 + 32) + 40);
-  v34 = *(a1 + 8);
-  v35 = *(v22 + 24);
-  v36 = *(v21 + 80);
-  v37 = v34;
-  v38 = v33;
-  [v38 encodeToCommandBuffer:v37 sourceTexture:v36 destinationTexture:v35];
-
-  re::SyncMechanism::sync(*(a1 + 16));
-  v39 = *(a1 + 48);
-  v40 = objc_alloc(MEMORY[0x1E6974568]);
-  v41 = *(*(a1 + 24) + 112);
-  v42 = [v40 initWithDevice:*(*(*a1 + 8) + 208) kernelWidth:v41 kernelHeight:v41];
-  v43 = *(a1 + 8);
-  v44 = *(v39 + 32);
-  v45 = *(v39 + 40);
-  v46 = v44;
-  v47 = v43;
-  [v42 encodeToCommandBuffer:v47 sourceTexture:v46 destinationTexture:v45];
-
-  re::SyncMechanism::sync(*(a1 + 16));
-  v48 = *(a1 + 48);
-  re::mtl::CommandBuffer::makeComputeCommandEncoder((a1 + 8), v110);
-  [v110[0] setTexture:*(v48 + 32) atIndex:0];
-  [v110[0] setTexture:*(v48 + 40) atIndex:1];
-  [v110[0] setTexture:*(v48 + 16) atIndex:2];
-  [v110[0] setTexture:*(v48 + 24) atIndex:3];
-  [v110[0] setTexture:*(v48 + 56) atIndex:4];
-  LODWORD(v102) = *(*(re::RenderGraphDataStore::get<re::CameraMatrices>(*(*a1 + 1168), *(*(*a1 + 40) + 48)) + 80) + 56);
-  [v110[0] setBytes:&v102 length:4 atIndex:0];
-  [v110[0] setTexture:*(v48 + 64) atIndex:5];
-  v49 = *(*(a1 + 56) + 96);
-  v50 = v110[0];
-  [v50 setComputePipelineState:v49];
-
-  v51 = [*(v48 + 64) width];
-  v52 = [*(v48 + 64) height];
-  v53.i64[0] = v51;
-  v53.i64[1] = v52;
-  v107 = vcvtq_u64_f64(vrndpq_f64(vmulq_f64(vcvtq_f64_u64(v53), v98)));
-  v108 = 1;
-  v105 = re::guided_filter_occlusion::kDefaulThreadsPerGroup;
-  v106 = 1;
-  [v110[0] dispatchThreadgroups:&v107 threadsPerThreadgroup:&v105];
-  [v110[0] endEncoding];
-
-  re::SyncMechanism::sync(*(a1 + 16));
-  v102 = *(*(a1 + 40) + 8);
-  v101 = *(*(a1 + 40) + 32);
-  if ((*(a1 + 65) & 1) != 0 || *(a1 + 64) == 1)
-  {
-    NS::SharedPtr<MTL::Buffer>::operator=(&v102, *(a1 + 40));
-    NS::SharedPtr<MTL::Buffer>::operator=(&v101, (*(a1 + 40) + 24));
-  }
-
-  re::mtl::CommandBuffer::makeComputeCommandEncoder((a1 + 8), &v100);
-  v54 = *(a1 + 48);
-  v55 = *(*(a1 + 24) + 176);
-  [v100 setTexture:*(v54 + 64) atIndex:0];
-  [v100 setTexture:*(v54 + 96) atIndex:1];
-  v56 = *(a1 + 24);
-  LOWORD(v110[0]) = *(v56 + 128);
-  HIDWORD(v110[0]) = *(v56 + 152);
-  [v100 setBytes:v110 length:8 atIndex:0];
-  v57 = *(*(a1 + 56) + 64);
-  v58 = v100;
-  [v58 setComputePipelineState:v57];
-
-  v59.i64[0] = v55;
-  v59.i64[1] = HIDWORD(v55);
-  v99 = vdupq_n_s64(0x3FB0000000000000uLL);
-  v107 = vcvtq_u64_f64(vrndpq_f64(vmulq_f64(vcvtq_f64_u64(v59), v99)));
-  v108 = 1;
-  v105 = re::guided_filter_occlusion::kDefaulThreadsPerGroup;
-  v106 = 1;
-  [v100 dispatchThreadgroups:&v107 threadsPerThreadgroup:&v105];
-  v60 = *(a1 + 48);
-  v61 = *(*(a1 + 24) + 176);
-  [v100 setTexture:*(v60 + 64) atIndex:0];
-  [v100 setTexture:*(v60 + 104) atIndex:1];
-  v62 = *(*(a1 + 56) + 72);
-  v63 = v100;
-  [v63 setComputePipelineState:v62];
-
-  v59.i64[0] = v61;
-  v59.i64[1] = HIDWORD(v61);
-  v107 = vcvtq_u64_f64(vrndpq_f64(vmulq_f64(vcvtq_f64_u64(v59), v99)));
-  v108 = 1;
-  v105 = re::guided_filter_occlusion::kDefaulThreadsPerGroup;
-  v106 = 1;
-  [v100 dispatchThreadgroups:&v107 threadsPerThreadgroup:&v105];
-  [v100 endEncoding];
-  re::SyncMechanism::sync(*(a1 + 16));
-  v64 = *(a1 + 40);
-  v65 = *(a1 + 8);
-  v66 = v64[3];
-  v67 = *(*(a1 + 48) + 104);
-  v68 = *v64;
-  v69 = **(a1 + 32);
-  v70 = *(*(a1 + 48) + 96);
-  v71 = v66;
-  v72 = v67;
-  v73 = v65;
-  v74 = v69;
-  [v74 encodeRegressionToCommandBuffer:v73 sourceTexture:v72 guidanceTexture:v71 weightsTexture:v70 destinationCoefficientsTexture:v68];
-
-  re::SyncMechanism::sync(*(a1 + 16));
-  v75 = *(a1 + 40);
-  v76 = *(a1 + 24);
-  v77 = *(v76 + 136);
-  LODWORD(v61) = *(v76 + 140);
-  re::mtl::CommandBuffer::makeComputeCommandEncoder((a1 + 8), v110);
-  [v110[0] setTexture:*(v75 + 24) atIndex:0];
-  [v110[0] setTexture:v101 atIndex:1];
-  [v110[0] setTexture:*v75 atIndex:2];
-  [v110[0] setTexture:v102 atIndex:3];
-  [v110[0] setTexture:*(v75 + 16) atIndex:6];
-  v109 = v77;
-  [v110[0] setBytes:&v109 length:4 atIndex:7];
-  v104 = v61;
-  [v110[0] setBytes:&v104 length:4 atIndex:8];
-  v78 = *(*(a1 + 56) + 56);
-  v79 = v110[0];
-  [v79 setComputePipelineState:v78];
-
-  v80 = [*(v75 + 16) width];
-  v81 = [*(v75 + 16) height];
-  v82.i64[0] = v80;
-  v82.i64[1] = v81;
-  v107 = vcvtq_u64_f64(vrndpq_f64(vmulq_f64(vcvtq_f64_u64(v82), v99)));
-  v108 = 1;
-  v105 = re::guided_filter_occlusion::kDefaulThreadsPerGroup;
-  v106 = 1;
-  [v110[0] dispatchThreadgroups:&v107 threadsPerThreadgroup:&v105];
-  [v110[0] endEncoding];
-
-  re::SyncMechanism::sync(*(a1 + 16));
-  v83 = *(a1 + 48);
-  v84 = *(a1 + 8);
-  v85 = *(v83 + 80);
-  v86 = *(v83 + 112);
-  v87 = **(a1 + 32);
-  v88 = *(*(a1 + 40) + 16);
-  v89 = v85;
-  v90 = v84;
-  v91 = v87;
-  [v91 encodeReconstructionToCommandBuffer:v90 guidanceTexture:v89 coefficientsTexture:v88 destinationTexture:v86];
-
-  re::SyncMechanism::sync(*(a1 + 16));
-  v92 = *(a1 + 48);
-  re::mtl::CommandBuffer::makeComputeCommandEncoder((a1 + 8), v110);
-  [v110[0] setTexture:*(v92 + 112) atIndex:0];
-  [v110[0] setTexture:*(v92 + 120) atIndex:1];
-  v109 = (*(*(a1 + 24) + 156) * 5.0) + 1.0;
-  [v110[0] setBytes:&v109 length:4 atIndex:2];
-  v93 = *(*(a1 + 56) + 48);
-  v94 = v110[0];
-  [v94 setComputePipelineState:v93];
-
-  v95 = [*(v92 + 120) width];
-  v96 = [*(v92 + 120) height];
-  v97.i64[0] = v95;
-  v97.i64[1] = v96;
-  v107 = vcvtq_u64_f64(vrndpq_f64(vmulq_f64(vcvtq_f64_u64(v97), v99)));
-  v108 = 1;
-  v105 = re::guided_filter_occlusion::kDefaulThreadsPerGroup;
-  v106 = 1;
-  [v110[0] dispatchThreadgroups:&v107 threadsPerThreadgroup:&v105];
-  [v110[0] endEncoding];
-
-  re::SyncMechanism::sync(*(a1 + 16));
-  if (v101)
-  {
-  }
-
-  if (v102)
-  {
-  }
-}
-
-void re::RenderGraphTonemapNode::execute(re::RenderGraphTonemapNode *this, re::RenderGraphContext *a2)
-{
-  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v38, 5060, 0);
-  if ((*(this + 532) & 1) == 0)
-  {
-    re::TonemapUserParameters::computeRenderParameters((this + 472), buf);
-    re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((*a2 + 16), 0x84uLL, 4uLL, &v39);
-    v19 = v41;
-    v20 = v40;
-    v21 = v39 + v40;
-    *(v21 + 80) = v34;
-    *(v21 + 96) = v35;
-    *(v21 + 112) = v36;
-    *(v21 + 128) = v37;
-    *(v21 + 16) = v30;
-    *(v21 + 32) = v31;
-    *(v21 + 48) = v32;
-    *(v21 + 64) = v33;
-    *v21 = *buf;
-    v22 = *a2;
-    v28 = 0x1C6D7B14F4E32CD0;
-    v39 = v19;
-    LODWORD(v40) = 0;
-    v41 = v20;
-    v16 = (v22 + 480);
-    v17 = &v28;
-    v18 = &v39;
-    goto LABEL_6;
-  }
-
-  if ((atomic_load_explicit(&qword_1EE1C1020, memory_order_acquire) & 1) == 0)
-  {
-    v25 = __cxa_guard_acquire(&qword_1EE1C1020);
-    if (v25)
-    {
-      _MergedGlobals_538 = re::getCombinedScopeHash(v25, v26, v27);
-      __cxa_guard_release(&qword_1EE1C1020);
-    }
-  }
-
-  v4 = re::RenderGraphDataStore::tryGet<re::TonemapParametersData>(*(a2 + 146), _MergedGlobals_538);
-  if (v4)
-  {
-    v5 = v4;
-    re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((*a2 + 16), 0x84uLL, 4uLL, buf);
-    v6 = v30;
-    v7 = *&buf[8];
-    v8 = *buf + *&buf[8];
-    *v8 = *(v5 + 8);
-    v9 = *(v5 + 24);
-    v10 = *(v5 + 40);
-    v11 = *(v5 + 72);
-    *(v8 + 48) = *(v5 + 56);
-    *(v8 + 64) = v11;
-    *(v8 + 16) = v9;
-    *(v8 + 32) = v10;
-    v12 = *(v5 + 88);
-    v13 = *(v5 + 104);
-    v14 = *(v5 + 120);
-    *(v8 + 128) = *(v5 + 136);
-    *(v8 + 96) = v13;
-    *(v8 + 112) = v14;
-    *(v8 + 80) = v12;
-    v15 = *a2;
-    v39 = 0x1C6D7B14F4E32CD0;
-    *buf = v6;
-    *&buf[8] = 0;
-    *&v30 = v7;
-    v16 = (v15 + 480);
-    v17 = &v39;
-    v18 = buf;
-LABEL_6:
-    re::BufferTable::setBuffer(v16, v17, v18);
-    re::RenderGraphFullscreenNode::executeInternal(this, a2, (this + 272));
-    v23 = *a2;
-    *buf = 0x1C6D7B14F4E32CD0;
-    re::BufferTable::removeBuffer((v23 + 480), buf);
-    goto LABEL_7;
-  }
-
-  v24 = *re::graphicsLogObjects(0);
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1E1C61000, v24, OS_LOG_TYPE_DEFAULT, "RenderGraphTonemapNode expects TonemapParametersData from the render graph data store but there isn't any. Will skip the execution.", buf, 2u);
-  }
-
-LABEL_7:
-  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v38);
-}
-
-void *re::allocInfo_RenderGraphTonemapNode(re *this)
-{
-  if ((atomic_load_explicit(&qword_1EE1C1028, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1028))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C1050, "RenderGraphTonemapNode");
-    __cxa_guard_release(&qword_1EE1C1028);
-  }
-
-  return &unk_1EE1C1050;
-}
-
-void re::initInfo_RenderGraphTonemapNode(re *this, re::IntrospectionBase *a2)
-{
-  v17[0] = 0xB3170E0D645236E8;
-  v17[1] = "RenderGraphTonemapNode";
-  if (v17[0])
-  {
-    if (v17[0])
-    {
-    }
-  }
-
-  *(this + 2) = v18;
-  if ((atomic_load_explicit(&qword_1EE1C1030, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C1030);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_RenderGraphFullscreenNode(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "RenderGraphFullscreenNode";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 0;
-      *(v8 + 40) = 3;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1C1038 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v10 = re::introspect_TonemapUserParameters(1);
-      v11 = (*(*v9 + 32))(v9, 72, 8);
-      *v11 = 1;
-      *(v11 + 8) = "tonemapUserParameters";
-      *(v11 + 16) = v10;
-      *(v11 + 24) = 0;
-      *(v11 + 32) = 0x1D800000001;
-      *(v11 + 40) = 0;
-      *(v11 + 48) = 0;
-      *(v11 + 56) = 0;
-      *(v11 + 64) = 0;
-      qword_1EE1C1040 = v11;
-      v12 = re::introspectionAllocator(v11);
-      v14 = re::introspect_BOOL(1, v13);
-      v15 = (*(*v12 + 32))(v12, 72, 8);
-      *v15 = 1;
-      *(v15 + 8) = "tonemappingSharedParamsEnabled";
-      *(v15 + 16) = v14;
-      *(v15 + 24) = 0;
-      *(v15 + 32) = 0x21400000002;
-      *(v15 + 40) = 0;
-      *(v15 + 48) = 0;
-      *(v15 + 56) = 0;
-      *(v15 + 64) = 0;
-      qword_1EE1C1048 = v15;
-      __cxa_guard_release(&qword_1EE1C1030);
-    }
-  }
-
-  *(this + 2) = 0x21800000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 3;
-  *(this + 8) = &qword_1EE1C1038;
-  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphTonemapNode>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphTonemapNode>;
-  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphTonemapNode>;
-  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphTonemapNode>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v16 = v18;
-}
-
-void re::RenderGraphTonemapNode::~RenderGraphTonemapNode(id *this)
-{
-  re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-double re::RenderGraphTonemapNode::RenderGraphTonemapNode(re::RenderGraphTonemapNode *this)
-{
-  *(this + 58) = 0;
-  v1 = (this + 472);
-  *(this + 27) = 0u;
-  *(this + 28) = 0u;
-  *(this + 25) = 0u;
-  *(this + 26) = 0u;
-  *(this + 23) = 0u;
-  *(this + 24) = 0u;
-  *(this + 21) = 0u;
-  *(this + 22) = 0u;
-  *(this + 19) = 0u;
-  *(this + 20) = 0u;
-  *(this + 17) = 0u;
-  *(this + 18) = 0u;
-  *(this + 15) = 0u;
-  *(this + 16) = 0u;
-  *(this + 13) = 0u;
-  *(this + 14) = 0u;
-  *(this + 11) = 0u;
-  *(this + 12) = 0u;
-  *(this + 9) = 0u;
-  *(this + 10) = 0u;
-  *(this + 7) = 0u;
-  *(this + 8) = 0u;
-  *(this + 5) = 0u;
-  *(this + 6) = 0u;
-  *(this + 3) = 0u;
-  *(this + 4) = 0u;
-  *(this + 1) = 0u;
-  *(this + 2) = 0u;
-  *this = 0u;
-  v2 = re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(this);
-  *v2 = &unk_1F5D15220;
-  result = 0.00000175476111;
-  *v1 = xmmword_1E3054790;
-  v1[1] = xmmword_1E304F3C0;
-  *(v2 + 504) = 0;
-  *(v2 + 508) = 0x3F8000003F800000;
-  *(v2 + 516) = 0;
-  *(v2 + 65) = 0x3F80000000000000;
-  *(v2 + 528) = 0;
-  *(v2 + 532) = 0;
-  return result;
-}
-
-uint64_t re::encodeMeshPassForPortal(uint64_t a1, uint64_t a2)
-{
-  v4 = *(**(a2 + 64) + 32);
-  v5 = (*(*v4 + 32))(v4, 328, 8);
-  re::DrawTable::DrawTable(v5, *(**(a2 + 64) + 32));
-  v6 = *(a2 + 64);
-  v7 = *(a2 + 8);
-  if (*(v7 + 16))
-  {
-    v8 = *(v7 + 24);
-  }
-
-  else
-  {
-    v8 = (v7 + 17);
-  }
-
-  if (*(v6 + 1352))
-  {
-    v9 = re::DrawCallRecorder::allocateDrawCallRecorderGroup((v6 + 1352), v8, "encodeMeshPassForPortal");
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  result = re::makePortalSurfaceDrawcall(a2, v5, v9, 0);
-  if (*(v5 + 5))
-  {
-    v11 = re::RenderGraphDataStore::get<re::CameraMatrices>(*(*(a2 + 64) + 1168), *(*(*(a2 + 64) + 40) + 48));
-    re::DrawTableSlice::DrawTableSlice(v22, v5);
-    v13[0] = *(a2 + 24);
-    v13[1] = v22;
-    v12 = *(v11 + 80);
-    v13[2] = *(v11 + 40);
-    v13[3] = v12;
-    v13[4] = 0;
-    v14 = *(v11 + 160);
-    v15 = 2;
-    v16 = 256;
-    v17 = *(a2 + 40);
-    v18 = *(a2 + 56);
-    v19 = 0;
-    v20 = v9;
-    v21 = 0;
-    return re::RenderGraphContext::encodeDrawCalls(*(a2 + 64), a1, v13);
-  }
-
-  return result;
-}
-
-uint64_t re::makePortalSurfaceDrawcall(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
-{
-  LODWORD(v4) = a4;
-  v5 = a1;
-  v142 = *MEMORY[0x1E69E9840];
-  v6 = a1[1];
-  if (*(v6 + 16))
-  {
-    v7 = *(v6 + 24);
-  }
-
-  else
-  {
-    v7 = (v6 + 17);
-  }
-
-  v8 = *a1;
-  v9 = v111;
-  v10 = 0x9E3779B97F4A7C17;
-  v11 = strlen(v7);
-  v12 = 0x9E3779B97F4A7C17;
-  if (v11)
-  {
-    MurmurHash3_x64_128(v7, v11, 0, &v121);
-    v12 = (((*(&v121 + 1) - 0x61C8864680B583E9 + (v121 << 6) + (v121 >> 2)) ^ v121) - 0x61C8864680B583E9);
-  }
-
-  if ((atomic_load_explicit(&qword_1EE1C10F0, memory_order_acquire) & 1) == 0)
-  {
-    goto LABEL_87;
-  }
-
-  while (1)
-  {
-    v13 = *(v5 + 64);
-    v14 = qword_1EE1C10E8;
-    v15 = strlen(*(v5 + 16));
-    if (v15)
-    {
-      MurmurHash3_x64_128(*(v5 + 16), v15, 0, &v121);
-      v10 += (*(v9 + 232) + v10 + (*(v9 + 224) << 6) + (*(v9 + 224) >> 2)) ^ *(v9 + 224);
-    }
-
-    v16 = re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(*(v13 + 1168), ((v14 >> 2) + (v14 << 6) + v10) ^ v14);
-    v17 = v16 + 8;
-    if (!v16)
-    {
-      v17 = 0;
-    }
-
-    v93 = v17;
-    if ((atomic_load_explicit(&qword_1EE1C1100, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1100))
-    {
-      qword_1EE1C10F8 = re::hashString("RenderGraphDataPipeData", v81);
-      __cxa_guard_release(&qword_1EE1C1100);
-    }
-
-    v94 = re::RenderGraphDataStore::tryGet<re::MeshSortingCollection>(*(*(v5 + 64) + 1168), (&v12[4 * qword_1EE1C10F8] + (qword_1EE1C10F8 >> 2)) ^ qword_1EE1C10F8);
-    v84 = re::RenderGraphDataStore::tryGet<re::MeshSortGroupCameraData>(*(*(v5 + 64) + 1168), *(*(*(v5 + 64) + 40) + 48));
-    result = re::RenderGraphDataStore::get<re::CameraData>(*(*(v5 + 64) + 1168), *(*(*(v5 + 64) + 40) + 48));
-    v102 = result;
-    v111[0] = v8 + 32;
-    v20 = *(v8 + 144);
-    v111[1] = *v20;
-    v21 = *(v8 + 40);
-    v111[2] = v20[1];
-    v112[0] = 0;
-    v112[1] = v21;
-    v113 = xmmword_1E3047670;
-    v114 = xmmword_1E3047680;
-    *(v9 + 80) = xmmword_1E30476A0;
-    *(v9 + 96) = xmmword_1E30474D0;
-    *(v9 + 112) = 0;
-    *(v9 + 120) = 0;
-    if (*(v8 + 88))
-    {
-      break;
-    }
-
-    *(v9 + 128) = v112;
-    *(v9 + 136) = 1;
-    v82 = 1;
-LABEL_16:
-    v22 = 0;
-    v97 = (v8 + 544);
-    v12 = &v121;
-    if (v4)
-    {
-      v23 = 2;
-    }
-
-    else
-    {
-      v23 = 1;
-    }
-
-    v85 = v23;
-    __asm { FMOV            V9.2S, #1.0 }
-
-    v92 = v5;
-    while (1)
-    {
-      v110[0] = v111;
-      v110[1] = v22;
-      v83 = v22;
-      v29 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::renderGroupInstance(v110, v19);
-      v31 = 0;
-      v32 = *(v8 + 160);
-      v33 = *(v8 + 176);
-      v34 = *(v8 + 192);
-      v35 = *(v8 + 208);
-      v36 = v29[2];
-      v37 = v29[3];
-      v38 = v29[4];
-      *(v9 + 144) = v29[1];
-      *(v9 + 160) = v36;
-      *(v9 + 176) = v37;
-      *(v9 + 192) = v38;
+      v8 = operator new(0x4F00uLL, 0x80uLL);
+      v6 = v8;
+      *v8 = *this;
+      *(v8 + 8) = -1;
+      v9 = -20096;
       do
       {
-        *&v122[v31 * 8 - 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v32, COERCE_FLOAT(*&v117[v31 - 1])), v33, v117[v31 - 1], 1), v34, *&v117[v31 - 1], 2), v35, *&v117[v31 - 1], 3);
-        v31 += 2;
+        v10 = (v8 + v9);
+        v10[2528] = -1;
+        v10[2529] = 0;
+        v10[2531] = 0;
+        v10[2530] = 0;
+        v9 += 128;
       }
 
-      while (v31 != 8);
-      v90 = *(v9 + 240);
-      v91 = *(v9 + 224);
-      v88 = *(v9 + 272);
-      v89 = *(v9 + 256);
-      v39 = *v110[0];
-      v40 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::renderGroupInstance(v110, v30);
-      result = re::Slice<re::internal::BindPointImplBase const*>::range(v39, *v40, v40[1]);
-      v95 = v19;
-      v96 = result;
-      if (v19)
+      while (v9);
+      v11 = 0x9DDFEA08EB382D69 * (((((v8 >> 7) & 0x3FFFFF) << 10) | 8) ^ HIDWORD(v8));
+      v12 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (HIDWORD(v8) ^ (v11 >> 47) ^ v11)) ^ ((0x9DDFEA08EB382D69 * (HIDWORD(v8) ^ (v11 >> 47) ^ v11)) >> 47));
+      v13 = *(this + 168);
+      if (v13)
       {
-        break;
-      }
-
-LABEL_83:
-      v22 = v83 + 1;
-      if (v83 + 1 == v82)
-      {
-        return result;
-      }
-    }
-
-    v41 = 0;
-    v4 = 0;
-    while (1)
-    {
-      v42 = *(v96 + 8 * v4);
-      v43 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::materialIndexForPart(v110, v4);
-      v44 = v43;
-      if (v4 >= *(v8 + 56))
-      {
-        v100 = 0;
-      }
-
-      else
-      {
-        v100 = *(*(v8 + 48) + 4 * v4);
-      }
-
-      if (v4 >= *(v8 + 72))
-      {
-        v99 = 0;
-      }
-
-      else
-      {
-        v99 = *(*(v8 + 64) + 8 * v4);
-      }
-
-      re::globalAllocators(v43);
-      v45 = *(**(v5 + 64) + 32);
-      v10 = (*(*v45 + 32))(v45, 336, 16);
-      v46 = *(**(v5 + 64) + 32);
-      *v10 = 0u;
-      *(v10 + 16) = 0u;
-      *(v10 + 32) = 0u;
-      *(v10 + 48) = 0;
-      *(v10 + 120) = 0;
-      *(v10 + 104) = 0u;
-      *(v10 + 88) = 0u;
-      *(v10 + 72) = 0u;
-      *(v10 + 56) = 0u;
-      *(v10 + 192) = 0;
-      *(v10 + 200) = 0;
-      *(v10 + 208) = 0;
-      *(v10 + 224) = 0;
-      *(v10 + 176) = 0;
-      *(v10 + 184) = v46;
-      *(v10 + 144) = 0u;
-      *(v10 + 160) = 0u;
-      *(v10 + 128) = 0u;
-      *(v10 + 232) = xmmword_1E304F3C0;
-      *(v10 + 248) = 0;
-      *(v10 + 252) = 10854;
-      *(v10 + 256) = _D9;
-      *(v10 + 264) = 0;
-      *(v10 + 272) = 0;
-      *(v10 + 320) = 0;
-      *(v9 + 248) = re::globalAllocators(v10)[2];
-      *(v9 + 256) = &v121;
-      *(v9 + 224) = &unk_1F5D152C8;
-      v47 = (*(*v45 + 16))(v45, v10, &v121);
-      re::FunctionBase<24ul,void ()(void *)>::destroyCallable(&v121);
-      if (*(v8 + 232) > v44)
-      {
-        *(v47 + 56) = *(*(v8 + 224) + 8 * v44);
-      }
-
-      if (*(v8 + 336) > v44)
-      {
-        *(v47 + 64) = *(*(v8 + 328) + 8 * v44);
-      }
-
-      if (*(v8 + 320) > v44)
-      {
-        *(v47 + 72) = *(*(v8 + 312) + 8 * v44);
-      }
-
-      if (*(v8 + 368) > v44)
-      {
-        *(v47 + 80) = *(*(v8 + 360) + 8 * v44);
-      }
-
-      *(v47 + 88) = *(v8 + 376);
-      *(v47 + 200) = *(v8 + 448);
-      *(v47 + 256) = *(v8 + 508);
-      v49 = 0;
-      if (v94 && (v50 = re::HashTable<unsigned long long,re::PeerTransferReport,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(v94, v97)) != 0)
-      {
-        v48 = v50;
-        v51 = *(v50 + 8);
-        if (v84)
+        v14 = vcnt_s8(v13);
+        v14.i16[0] = vaddlv_u8(v14);
+        if (v14.u32[0] > 1uLL)
         {
-          v10 = v42;
-          v52 = 0xBF58476D1CE4E5B9 * (*v50 ^ (*v50 >> 30));
-          re::HashTable<unsigned long long,re::FrameAnalysisManager::RenderState,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v84 + 8, v50, (0x94D049BB133111EBLL * (v52 ^ (v52 >> 27))) ^ ((0x94D049BB133111EBLL * (v52 ^ (v52 >> 27))) >> 31), &v121);
-          if (HIDWORD(v121) != 0x7FFFFFFF)
+          v15 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (HIDWORD(v8) ^ (v11 >> 47) ^ v11)) ^ ((0x9DDFEA08EB382D69 * (HIDWORD(v8) ^ (v11 >> 47) ^ v11)) >> 47));
+          if (v12 >= *&v13)
           {
-            v49 = *(*(v84 + 24) + 40 * HIDWORD(v121) + 20);
+            v15 = v12 % *&v13;
           }
-        }
-      }
-
-      else
-      {
-        v51 = 0;
-      }
-
-      v53 = *(v8 + 504);
-      *&v54 = v53;
-      DWORD1(v54) = *(v8 + 728);
-      *(&v54 + 1) = *(v8 + 732);
-      *(v47 + 232) = v54;
-      *(v47 + 248) = *(v8 + 740);
-      *(v47 + 252) = *(v8 + 744);
-      v98 = v51;
-      if ((*(v47 + 272) & 1) == 0)
-      {
-        v55 = 0uLL;
-        if ((*(v8 + 576) & 1) == 0)
-        {
-          goto LABEL_52;
-        }
-
-        *(v47 + 272) = 1;
-LABEL_50:
-        v56 = *(v8 + 608);
-        *(v47 + 288) = *(v8 + 592);
-        *(v47 + 304) = v56;
-        goto LABEL_51;
-      }
-
-      if (*(v8 + 576))
-      {
-        goto LABEL_50;
-      }
-
-      *(v47 + 272) = 0;
-LABEL_51:
-      v55 = 0uLL;
-LABEL_52:
-      *(v47 + 320) = *(v8 + 624);
-      v5 = *(v8 + 450) != 0;
-      v9 = v53 != 1.0 || *(v8 + 450) != 0;
-      v57 = (*(v42 + 528) ^ *(*(v47 + 56) + 296)) & ~*(*(v47 + 56) + 300) | *(*(v47 + 56) + 300) & *(*(v47 + 56) + 296);
-      v58 = *(v8 + 528);
-      v101 = v42;
-      if (v58)
-      {
-        if (v58 <= v4)
-        {
-          goto LABEL_86;
-        }
-
-        v59 = re::MaterialRenderFlags::flattenToOverrideFlags((*(v8 + 520) + v41));
-        v55 = 0uLL;
-        v57 = (v57 ^ v59) & ~HIDWORD(v59) | HIDWORD(v59) & v59;
-      }
-
-      v10 = *(v8 + 540);
-      v60 = *(v8 + 536);
-      if ((atomic_load_explicit(&qword_1EE1C1108, memory_order_acquire) & 1) == 0)
-      {
-        v77 = __cxa_guard_acquire(&qword_1EE1C1108);
-        v55 = 0uLL;
-        if (v77)
-        {
-          re::Defaults::BOOLValue("enableDitherForStencilPortals", v78, &v121);
-          if (v121)
-          {
-            v79 = BYTE1(v121);
-          }
-
-          else
-          {
-            v79 = 1;
-          }
-
-          _MergedGlobals_539 = v79;
-          __cxa_guard_release(&qword_1EE1C1108);
-          v55 = 0uLL;
-        }
-      }
-
-      v61 = (2 * v5) | _MergedGlobals_539 & v9 & 1;
-      v5 = v92;
-      if (*(v102 + 865) == 1)
-      {
-        v62 = *(v47 + 248);
-        v63 = v62 <= 0.0;
-        if (v62 > 1.0)
-        {
-          v63 = 1;
-        }
-
-        if ((v63 | *(v92 + 72)))
-        {
-          v64 = 128;
         }
 
         else
         {
-          v64 = 192;
+          v15 = (*&v13 - 1) & v12;
         }
 
-        v61 |= v64;
-      }
-
-      if (*(v8 + 408))
-      {
-        v65 = v8 + 384;
-      }
-
-      else
-      {
-        v65 = 0;
-      }
-
-      v9 = v111;
-      *&v121 = v65;
-      *(&v121 + 1) = v93;
-      *v122 = v55;
-      *&v122[16] = v55;
-      *&v122[32] = v55;
-      *&v122[48] = v55;
-      *&v123 = 0;
-      WORD4(v123) = v61;
-      *(v47 + 120) = v55;
-      *(v47 + 104) = v121;
-      if ((v47 + 104) != &v121)
-      {
-        v66 = *(v47 + 144);
-        *&v122[8] = *(v47 + 128);
-        v67 = *(v47 + 184);
-        *&v122[56] = *(v47 + 176);
-        *&v123 = v67;
-        *(v47 + 128) = v55;
-        *(v47 + 144) = v55;
-        *&v122[24] = v66;
-        v68 = *(v47 + 160);
-        *(v47 + 160) = v55;
-        *(v47 + 176) = v55;
-        *&v122[40] = v68;
-      }
-
-      *(v47 + 192) = v61;
-      re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(&v122[8]);
-      result = re::MaterialParameterTableLayers::resolveTechniqueIndices(v47, v92[4]);
-      if (!v19)
-      {
-        break;
-      }
-
-      v69 = *result;
-      if (*result != -1)
-      {
-        v70 = 0;
-        v121 = *v97;
-        *v122 = v99;
-        *&v122[8] = v101;
-        *&v122[16] = v101 + 416;
-        *&v122[24] = v47;
-        *&v122[36] = 0xFFFF010000000000;
-        *&v122[32] = v100;
-        *&v122[44] = v69;
-        v123 = v91;
-        v124 = v90;
-        v125 = v89;
-        v126 = v88;
-        v132 = 0;
-        *&v122[48] = 0;
-        v131 = 0;
-        v133 = 0;
-        v134 = 0;
-        v127 = 0;
-        v128 = 0;
-        v130 = 0;
-        v129 = 0;
-        v135 = (v60 ^ v57) & ~v10 | v60 & v10;
-        v136 = v98;
-        v137 = 0x7FFFFFFF;
-        v138 = v49;
-        v139 = 0xFFFFFFFFLL;
-        v140 = 0;
-        v141 = 0;
-        if (a3)
+        v16 = *(*(this + 20) + 8 * v15);
+        if (v16)
         {
-          v73 = *(a3 + 64);
-          v119 = 0;
-          v117[1] = 0;
-          v117[2] = 0;
-          v118 = 0;
-          v116 = v73;
-          v117[0] = v73;
-          re::DynamicArray<re::DrawCallMeshPartsDetails::PerMeshPartDetails>::setCapacity(v117, 0);
-          ++v118;
-          v74 = *v97;
-          v75 = *(v101 + 496);
-          v109[0] = 0;
-          re::DrawCallMeshPartsDetails::appendPerMeshPartDetails(&v116, v74, v75, v109);
-          v76 = re::DrawCallRecorderGroup::recordDrawCallMeshPartsDetails(re::DrawCallMeshPartsDetails const&)::nextIndex++;
-          v120 = v76;
-          re::HashTable<unsigned int,re::DrawCallMeshPartsDetails,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::add(a3 + 112, &v120, &v116);
-          v70 = v120;
-          re::DynamicArray<re::DrawCallMeshPartsDetails::PerMeshPartDetails>::deinit(v117);
+          for (i = *v16; i; i = *i)
+          {
+            v18 = i[1];
+            if (v18 == v12)
+            {
+              if (i[2] == v8)
+              {
+                goto LABEL_34;
+              }
+            }
+
+            else
+            {
+              if (v14.u32[0] > 1uLL)
+              {
+                if (v18 >= *&v13)
+                {
+                  v18 %= *&v13;
+                }
+              }
+
+              else
+              {
+                v18 &= *&v13 - 1;
+              }
+
+              if (v18 != v15)
+              {
+                break;
+              }
+            }
+          }
         }
-
-        v71 = *v92[8];
-        v72 = *(v102 + 890);
-        v103[0] = 1;
-        v104 = v70;
-        v105 = 256;
-        v106 = *(v92 + 5);
-        v107 = *(v92 + 56);
-        v108 = 0;
-        result = re::addDrawCall(a2, &v121, v71, v72, v103);
-        *(result + 144) = v85;
-        v9 = v111;
       }
 
-      ++v4;
-      v41 += 20;
-      if (v95 == v4)
-      {
-        goto LABEL_83;
-      }
+      operator new();
     }
 
-    re::internal::assertLog(6, 0, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
-    _os_crash();
-    __break(1u);
-LABEL_86:
-    re::internal::assertLog(6, v48, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v4, v58);
-    _os_crash();
-    __break(1u);
-LABEL_87:
-    if (__cxa_guard_acquire(&qword_1EE1C10F0))
+    if (atomic_load_explicit(this + 5, memory_order_acquire) != -1)
     {
-      qword_1EE1C10E8 = re::hashString("DynamicFunctionConstants", v80);
-      __cxa_guard_release(&qword_1EE1C10F0);
-    }
-  }
-
-  v115 = *(v8 + 80);
-  v82 = *(v9 + 136);
-  if (v82)
-  {
-    goto LABEL_16;
-  }
-
-  return result;
-}
-
-uint64_t re::encodeMaterialPassForPortalScene(uint64_t result)
-{
-  if (*(result + 32))
-  {
-    v1 = result;
-    v2 = *(result + 72);
-    if (*(v2 + 338))
-    {
-      v3 = re::DrawCallRecorder::allocateDrawCallRecorderGroup(v2 + 169, *(result + 8), *(result + 16));
-      v2 = *(v1 + 72);
+      v22[0] = &v20;
+      v22[1] = this;
+      v22[2] = this + 24;
+      v21 = v22;
+      std::__call_once(this + 5, &v21, std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireStatistics(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>);
     }
 
-    else
-    {
-      v3 = 0;
-    }
-
-    v4 = (*(**(*v2 + 4) + 32))(*(*v2 + 4), 328, 8);
-    re::DrawTable::DrawTable(v4, *(**(v1 + 72) + 32), 8uLL);
-    re::makePortalSceneDrawcalls(v1, v4, v3);
-    *(*(v1 + 72) + 1553) = 4;
-    re::DrawTableSlice::DrawTableSlice(v16, v4);
-    v7[0] = *(v1 + 16);
-    v7[1] = v16;
-    v5 = *(v1 + 56);
-    v6 = *(v5 + 80);
-    v7[2] = *(v5 + 40);
-    v7[3] = v6;
-    v7[4] = 0;
-    v8 = *(v5 + 160);
-    v9 = *(v1 + 68);
-    v10 = 0;
-    v11 = *(v1 + 69);
-    v12 = 0;
-    v13 = 0;
-    v14 = v3;
-    v15 = 0;
-    result = re::RenderGraphContext::encodeDrawCalls(*(v1 + 72), *v1, v7);
-    *(*(v1 + 72) + 1553) = 0;
-  }
-
-  return result;
-}
-
-uint64_t re::addPortalDrawcallByEntityId(uint64_t a1, uint64_t a2, re::Allocator **a3, char *a4, uint64_t a5, int a6, unsigned int a7, unsigned int a8, __int128 a9)
-{
-  v139 = __PAIR64__(a8, a7);
-  *(&v141 + 1) = a5;
-  v138 = a4;
-  *(&v142 + 1) = a2;
-  v241[6] = *MEMORY[0x1E69E9840];
-  *(&v150 + 1) = a1;
-  v10 = re::RenderGraphDataStore::tryGet<re::SceneScope>(a3[146], *(a3[5] + 6));
-  v11 = re::RenderGraphDataStore::get<re::CameraData>(a3[146], *(a3[5] + 6));
-  WORD3(v150) = 256;
-  result = re::buildCullingFrustum(v11 + 64, (v11 + 144), *(v11 + 890), &v150 + 6, v198, v12, v13);
-  if (v10)
-  {
-    if (*(v10 + 16))
-    {
-      v15 = *(v10 + 24);
-    }
-
-    else
-    {
-      v15 = (v10 + 17);
-    }
-
-    v16 = strlen(v15);
-    if (v16)
-    {
-      MurmurHash3_x64_128(v15, v16, 0, &v223);
-      v16 = ((v224 - 0x61C8864680B583E9 + (v223 << 6) + (v223 >> 2)) ^ v223);
-    }
-
-    result = re::RenderGraphContext::tryGetRenderGraphDataPipe(a3, v16);
-    if (result)
-    {
-      result = (*(*result + 832))(result);
-      v18 = *(result + 40);
-      if (v18)
-      {
-        v19 = result;
-        v20 = 0;
-        *&v140 = a9;
-        v133 = &v239;
-        v134 = v236;
-        v126 = &v228;
-        v127 = &v231;
-        v137 = a3 + 169;
-        *&v142 = &v151 + 9;
-        v122 = &v152;
-        v123 = &v193;
-        *&v17 = 16842752;
-        *v132 = v17;
-        *&v17 = 134217472;
-        *v131 = v17;
-        *&v17 = 50364417;
-        *v124 = v17;
-        v129 = result;
-        v130 = v11;
-        v128 = *(result + 40);
-        do
-        {
-          result = re::BucketArray<re::SmallHashTable<unsigned long long,re::StencilPortal,8ul,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false>,4ul>::operator[](v19, v20);
-          v21 = result;
-          if (*(result + 6972))
-          {
-            v22 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*(&v150 + 1) ^ (*(&v150 + 1) >> 30))) ^ ((0xBF58476D1CE4E5B9 * (*(&v150 + 1) ^ (*(&v150 + 1) >> 30))) >> 27));
-            result = re::HashTable<unsigned long long,re::StencilPortal,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::findEntry<unsigned long long>(result + 6944, &v150 + 1, v22 ^ (v22 >> 31), &v223);
-            if (HIDWORD(v224) == 0x7FFFFFFF)
-            {
-              goto LABEL_155;
-            }
-
-            v23 = *(v21 + 6960) + 864 * HIDWORD(v224) + 16;
-          }
-
-          else
-          {
-            v32 = *(result + 16);
-            if (!v32)
-            {
-              goto LABEL_155;
-            }
-
-            v33 = 864 * v32;
-            v23 = result + 48;
-            while (*(v23 - 16) != *(&v150 + 1))
-            {
-              v23 += 864;
-              v33 -= 864;
-              if (!v33)
-              {
-                goto LABEL_155;
-              }
-            }
-          }
-
-          if ((*(v23 + 556) & *(v11 + 904)) != 0)
-          {
-            LOBYTE(v143) = 1;
-            BYTE1(v143) = BYTE4(v139);
-            *(&v143 + 2) = v132[0];
-            BYTE6(v143) = 0;
-            HIBYTE(v143) = v139;
-            v144 = 0;
-            v145 = 0;
-            v146 = *v140;
-            if (v146 == 1)
-            {
-              v147 = *(v140 + 1);
-            }
-
-            v148 = 0;
-            re::CameraData::CameraData(&v223, *(*a3 + 4));
-            v24 = *(v23 + 8);
-            v25 = *(*a3 + 4);
-            *(&v140 + 1) = &unk_1F5D06A20;
-            v172 = &unk_1F5D06A20;
-            re::DynamicString::DynamicString(&v173, v24, v25);
-            v169 = &unk_1F5D03570;
-            *&v170 = LODWORD(v131[0]);
-            *(&v170 + 1) = LODWORD(v131[0]);
-            v26 = strlen(*(v23 + 8));
-            v27 = 0x9E3779B97F4A7C17;
-            if (v26)
-            {
-              MurmurHash3_x64_128(*(v23 + 8), v26, 0, v202);
-              v27 = ((*&v202[8] - 0x61C8864680B583E9 + (*v202 << 6) + (*v202 >> 2)) ^ *v202) - 0x61C8864680B583E9;
-            }
-
-            *&v141 = v27;
-            v28 = re::RenderGraphDataStore::get<re::CameraData>(a3[146], *(a3[5] + 6));
-            re::DynamicString::operator=(&v224, (v28 + 8));
-            re::DynamicInlineArray<re::RenderCamera,2ul>::operator=(&v226, (v28 + 48));
-            if (&v223 != v28)
-            {
-              re::DynamicInlineArray<re::Projection,2ul>::copy(&v229, (v28 + 128));
-              ++v230;
-            }
-
-            re::DynamicInlineArray<re::Matrix4x4<float>,2ul>::operator=(&v232, (v28 + 624));
-            re::DynamicInlineArray<re::Vector4<float>,2ul>::operator=(&v234, (v28 + 768));
-            v30 = *(v28 + 832);
-            v29 = *(v28 + 848);
-            v31 = *(v28 + 816);
-            *(v134 + 42) = *(v28 + 858);
-            v134[1] = v30;
-            v134[2] = v29;
-            *v134 = v31;
-            if (v237)
-            {
-              if ((*(v28 + 876) & 1) == 0)
-              {
-                v237 = 0;
-                goto LABEL_31;
-              }
-
-LABEL_30:
-              v238 = *(v28 + 880);
-            }
-
-            else if (*(v28 + 876))
-            {
-              v237 = 1;
-              goto LABEL_30;
-            }
-
-LABEL_31:
-            v34 = *(v28 + 884);
-            *(v133 + 13) = *(v28 + 897);
-            *v133 = v34;
-            re::FunctionBase<24ul,void ()(re::mtl::CommandBuffer const&)>::operator=<24ul>(v241, v28 + 920);
-            v35 = strlen(*(&v141 + 1));
-            *v202 = *(&v141 + 1);
-            *&v202[8] = v35;
-            re::DynamicString::operator=(&v224, v202);
-            if ((atomic_load_explicit(&qword_1EE1C1118, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1118))
-            {
-              qword_1EE1C1110 = re::hashString("MeshScenes", v99);
-              __cxa_guard_release(&qword_1EE1C1118);
-            }
-
-            v36 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshSceneArrays>>(a3[146], (v141 + (qword_1EE1C1110 << 6) + (qword_1EE1C1110 >> 2)) ^ qword_1EE1C1110);
-            v37 = v36 + 8;
-            if (!v36)
-            {
-              v37 = 0;
-            }
-
-            v236[3] = v37;
-            MurmurHash3_x64_128("VFXScenes", 9uLL, 0, v202);
-            v38 = (*&v202[8] - 0x61C8864680B583E9 + (*v202 << 6) + (*v202 >> 2)) ^ *v202;
-            v39 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::BucketArray<re::DynamicArray<re::VFXScene>,4ul>>>(a3[146], (v141 + (v38 << 6) + (v38 >> 2)) ^ v38);
-            v40 = v39 + 8;
-            if (!v39)
-            {
-              v40 = 0;
-            }
-
-            v236[4] = v40;
-            if (BYTE4(v143) == 1)
-            {
-              *&v170 = LODWORD(v124[0]);
-              *(&v170 + 1) = LODWORD(v124[0]);
-              v171 = 0x80;
-            }
-
-            else
-            {
-              v171 = 0;
-              v170 = xmmword_1E3108696;
-            }
-
-            v218 = &unk_1F5D12920;
-            v219 = 0;
-            if (*(v23 + 784) == 1)
-            {
-              v219 = 1;
-              v41 = *(v23 + 816);
-              v220 = *(v23 + 800);
-              v221 = v41;
-            }
-
-            v222 = *(v23 + 832);
-            if ((atomic_load_explicit(&qword_1EE1C1128, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1128))
-            {
-              qword_1EE1C1120 = re::hashString("SceneIndex", v100);
-              __cxa_guard_release(&qword_1EE1C1128);
-            }
-
-            v168[0] = re::RenderGraphContext::tryGetPipelineCompilationData(a3, *(a3[5] + 6));
-            v168[1] = &v172;
-            v168[2] = re::RenderGraphDataStore::tryGet<re::SceneIndexData>(a3[146], (v141 + (qword_1EE1C1120 << 6) + (qword_1EE1C1120 >> 2)) ^ qword_1EE1C1120);
-            v168[3] = &v169;
-            v168[4] = re::RenderGraphDataStore::tryGet<re::ViewportData>(a3[146], *(a3[5] + 6));
-            v168[5] = re::RenderGraphDataStore::tryGet<re::ViewportPercentData>(a3[146], *(a3[5] + 6));
-            v168[6] = re::RenderGraphDataStore::tryGet<re::TintContextData>(a3[146], *(a3[5] + 6));
-            v168[7] = re::RenderGraphDataStore::tryGet<re::VRRData>(a3[146], *(a3[5] + 6));
-            v168[8] = re::RenderGraphDataStore::tryGet<re::TriangleFillModeData>(a3[146], *(a3[5] + 6));
-            v168[9] = &v218;
-            v166 = &unk_1F5D10F80;
-            v167 = 0;
-            re::CameraMatrices::CameraMatrices(v207, *(*a3 + 4), v240);
-            if ((atomic_load_explicit(&qword_1EE1C1138, memory_order_acquire) & 1) == 0)
-            {
-              v101 = __cxa_guard_acquire(&qword_1EE1C1138);
-              if (v101)
-              {
-                qword_1EE1C1130 = re::getCombinedScopeHash(v101, v102, v103);
-                __cxa_guard_release(&qword_1EE1C1138);
-              }
-            }
-
-            v42 = re::RenderGraphDataStore::get<re::RendererGlobals>(a3[146], qword_1EE1C1130);
-            if ((atomic_load_explicit(&qword_1EE1C1148, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1148))
-            {
-              qword_1EE1C1140 = re::hashString("DynamicFunctionConstants", v104);
-              __cxa_guard_release(&qword_1EE1C1148);
-            }
-
-            v43 = qword_1EE1C1140;
-            v44 = strlen(*(&v141 + 1));
-            v45 = 0x9E3779B97F4A7C17;
-            if (v44)
-            {
-              MurmurHash3_x64_128(*(&v141 + 1), v44, 0, v202);
-              v45 = ((*&v202[8] - 0x61C8864680B583E9 + (*v202 << 6) + (*v202 >> 2)) ^ *v202) - 0x61C8864680B583E9;
-            }
-
-            v46 = re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(a3[146], ((v43 >> 2) + (v43 << 6) + v45) ^ v43);
-            if (v46)
-            {
-              v47 = v46 + 8;
-            }
-
-            else
-            {
-              v47 = 0;
-            }
-
-            v48 = re::RenderGraphDataStore::get<re::MeshLodSelectInputData>(a3[146], *(a3[5] + 6));
-            v49 = (*(**(*a3 + 4) + 32))(*(*a3 + 4), 48, 8);
-            v50 = *(*a3 + 4);
-            *(v49 + 32) = 0;
-            *v49 = 0u;
-            *(v49 + 16) = 0u;
-            *(v49 + 36) = 0x7FFFFFFFLL;
-            re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::init(v49, v50, 3);
-            v167 = v49;
-            if (v240)
-            {
-              v52 = 0;
-              v54 = v126;
-              v53 = v127;
-              do
-              {
-                if (v229 <= v52)
-                {
-                  re::internal::assertLog(6, v51, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 381, v52, v229);
-                  _os_crash();
-                  __break(1u);
-LABEL_197:
-                  re::internal::assertLog(6, v57, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 381, v52, v58);
-                  _os_crash();
-                  __break(1u);
-LABEL_198:
-                  re::internal::assertLog(6, v59, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 381, v52, v60);
-                  _os_crash();
-                  __break(1u);
-                }
-
-                if (*(v53 + 80) == 1)
-                {
-                  v55 = *(v53 + 7);
-                  *v202 = *(v53 + 6);
-                  *&v202[16] = v55;
-                  v56 = *(v53 + 9);
-                  *&v202[32] = *(v53 + 8);
-                  *&v202[48] = v56;
-                }
-
-                else
-                {
-                  re::Projection::cullingProjectionMatrix(v53, v202);
-                }
-
-                re::DynamicArray<re::Matrix4x4<float>>::add(v210, v202);
-                v58 = v229;
-                if (v229 <= v52)
-                {
-                  goto LABEL_197;
-                }
-
-                re::Projection::cullingProjectionMatrix(v53, v202);
-                re::DynamicArray<re::Matrix4x4<float>>::add(v214, v202);
-                v60 = v226;
-                if (v226 <= v52)
-                {
-                  goto LABEL_198;
-                }
-
-                re::RenderCamera::computeInverseTransform(v54, v202);
-                re::DynamicArray<re::Matrix4x4<float>>::add(v208, v202);
-                ++v52;
-                v54 += 2;
-                v53 += 30;
-              }
-
-              while (v52 < v240);
-            }
-
-            v61 = *(*a3 + 4);
-            v151 = 0u;
-            v152 = 0u;
-            LODWORD(v153) = 0;
-            *(&v153 + 4) = 0x7FFFFFFFLL;
-            re::HashTable<unsigned long long,re::ecs2::CARESortingManagerV2::SorterCollection,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::init(&v151, v61, 3);
-            *v202 = a3;
-            *&v202[8] = &v223;
-            *&v202[16] = v207;
-            *&v202[24] = &v172;
-            *&v202[32] = v42;
-            *&v202[40] = &v166;
-            *&v202[48] = v48;
-            *&v202[56] = &v151;
-            v202[64] = v143;
-            *&v202[65] = 0;
-            v202[68] = 0;
-            v204 = v47;
-            re::RenderGraphCameraSetupNode::setupDrawCallsForCamera(v202, v62, v63, v64, v65, v66);
-            re::HashTable<unsigned long long,re::MeshShadowPlaneData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(&v151);
-            if ((atomic_load_explicit(&qword_1EE1C1150, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1150))
-            {
-              qword_1EE1C11D0 = 0x2476C06B76;
-              qword_1EE1C11D8 = "VCABlur";
-              unk_1EE1C11E0 = 5231452;
-              qword_1EE1C11E8 = "True";
-              __cxa_guard_release(&qword_1EE1C1150);
-            }
-
-            if ((atomic_load_explicit(&qword_1EE1C1158, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1158))
-            {
-              qword_1EE1C11F0 = 0x4CB6D3AA6EABE92CLL;
-              qword_1EE1C11F8 = "Transparent_BackCompat";
-              unk_1EE1C1200 = 5231452;
-              qword_1EE1C1208 = "True";
-              __cxa_guard_release(&qword_1EE1C1158);
-            }
-
-            if ((atomic_load_explicit(&qword_1EE1C1160, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1160))
-            {
-              re::StringID::StringID(v202, &qword_1EE1C11D0);
-              re::StringID::StringID(&v202[16], &unk_1EE1C11E0);
-              qword_1EE1C1210 = *v202;
-              unk_1EE1C1218 = *&v202[8];
-              *&v202[8] = &str_67;
-              *v202 = 0;
-              qword_1EE1C1228 = *&v202[24];
-              *&v202[24] = &str_67;
-              *&v202[16] = 0;
-              re::StringID::destroyString(&v202[16]);
-              re::StringID::destroyString(v202);
-              __cxa_guard_release(&qword_1EE1C1160);
-            }
-
-            if ((atomic_load_explicit(&qword_1EE1C1168, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1168))
-            {
-              re::StringID::StringID(v202, &qword_1EE1C11F0);
-              re::StringID::StringID(&v202[16], &unk_1EE1C1200);
-              re::StringID::StringID(&v202[32], &qword_1EE1C11D0);
-              re::StringID::StringID(&v202[48], &unk_1EE1C11E0);
-              qword_1EE1C1240 = *&v202[16];
-              xmmword_1EE1C1230 = *v202;
-              *&v202[8] = &str_67;
-              *v202 = 0;
-              unk_1EE1C1248 = *&v202[24];
-              *&v202[24] = &str_67;
-              *&v202[16] = 0;
-              unk_1EE1C1258 = *&v202[40];
-              *&v202[40] = &str_67;
-              *&v202[32] = 0;
-              qword_1EE1C1268 = *&v202[56];
-              v105 = 64;
-              *&v202[56] = &str_67;
-              *&v202[48] = 0;
-              do
-              {
-                re::StringID::destroyString(&v201[v105 + 288]);
-                re::StringID::destroyString(&v201[v105 + 272]);
-                v105 -= 32;
-              }
-
-              while (v105);
-              __cxa_guard_release(&qword_1EE1C1168);
-            }
-
-            if (BYTE5(v143) == 1)
-            {
-              *v202 = &xmmword_1EE1C1230;
-              *&v202[8] = 2;
-              v67 = re::Slice<re::TechniqueTagFilter>::range(v202, 0, 1uLL);
-              *&v135 = v68;
-              *(&v135 + 1) = v67;
-              v69 = 0;
-              v70 = 0;
-            }
-
-            else
-            {
-              v70 = &qword_1EE1C1210;
-              v69 = 1;
-              *&v135 = 2;
-              *(&v135 + 1) = &xmmword_1EE1C1230;
-            }
-
-            if ((v143 & 0x100) == 0 && BYTE6(v143) == 1)
-            {
-              if ((atomic_load_explicit(&qword_1EE1C11C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C11C8))
-              {
-                qword_1EE1C11C0 = re::hashString("PlattersOnly", v107);
-                __cxa_guard_release(&qword_1EE1C11C8);
-              }
-
-              MeshPartBucket = re::MeshPassInfoData::getMeshPartBucket(&v166, qword_1EE1C11C0);
-              v72 = *(*a3 + 4);
-              v197 = 0;
-              v195 = 0;
-              v194[0] = 0;
-              v194[1] = 0;
-              v196 = 0;
-              v191 = 0;
-              v192 = 0;
-              if (MeshPartBucket)
-              {
-                *v202 = MeshPartBucket;
-                v202[8] = 0;
-                *&v202[14] = 65280;
-                v202[18] = 0;
-                MeshPartBucket = re::DynamicInlineArray<re::FilteredMeshPass,2ul>::add(&v191, v202);
-                v73 = v191;
-              }
-
-              else
-              {
-                v73 = 0;
-              }
-
-              v190[0] = v123;
-              v190[1] = v73;
-              if (*v137)
-              {
-                MeshPartBucket = re::DrawCallRecorder::allocateDrawCallRecorderGroup(v137, v144, "BlurPlatterMeshDraw");
-                v74 = MeshPartBucket;
-              }
-
-              else
-              {
-                v74 = 0;
-              }
-
-              *v202 = 0;
-              *&v202[8] = v70;
-              *&v202[16] = v69;
-              memset(&v202[24], 0, 48);
-              v203 = re::globalAllocators(MeshPartBucket)[2];
-              v204 = 0;
-              LOWORD(v205) = 1;
-              BYTE4(v205) = 0;
-              v206 = 0;
-              re::RenderGraphMeshNodeBase::sortMeshParts(0, v123, v73, a3, v74, v202, v72, &v176, v116, v117, SHIDWORD(v117), v118, v119, v120, v121, v122, v123, v124[0], v124[1], v125, v126, v127, v128, v129, v130, v131[0], v131[1], v132[0], v132[1], v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, SBYTE4(v145), SBYTE5(v145), SBYTE6(v145), SHIBYTE(v145), v146, v149, v150, v151, v152, v153, v154, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165);
-              re::DynamicArray<re::DataArray<re::RigGraphNode>::ElementBlock>::operator=(v194, &v176);
-              if (v176)
-              {
-                if (v179)
-                {
-                  (*(*v176 + 40))();
-                }
-
-                v179 = 0;
-                v176 = 0;
-                v177 = 0uLL;
-                LODWORD(v178) = v178 + 1;
-              }
-
-              re::FunctionBase<32ul,BOOL ()(re::MeshPartDrawContext const&)>::destroyCallable(&v202[40]);
-              if (v195)
-              {
-                v75 = (*(*v72 + 32))(v72, 328, 8);
-                v189 = re::DrawTable::DrawTable(v75, v72, (v195 + 127) >> 7);
-                v188 = re::RenderGraphDataStore::tryGet<re::VCARenderData>(a3[146], *(a3[5] + 6));
-                if (*(v75 + 320) != 1)
-                {
-                  (**(v75 + 280))(v75 + 280);
-                }
-
-                *(v75 + 280) = &unk_1F5D15320;
-                *(v75 + 288) = &v143;
-                *(v75 + 296) = &v188;
-                *(v75 + 304) = &v189;
-                *(v75 + 320) = 0;
-                LOBYTE(v151) = 0;
-                BYTE4(v152) = 0;
-                v155 = 0;
-                LOBYTE(v157) = 0;
-                v153 = 0uLL;
-                LOBYTE(v154) = 0;
-                v116 = v74;
-                v117 = &v151;
-                re::RenderGraphMeshNodeBase::makeDrawCallsFromMeshParts(v190, v197, v195, a3, v75, v211, v207, 0);
-                if (*(v189 + 5))
-                {
-                  re::DrawTableSlice::DrawTableSlice(v202, v189);
-                  v76 = 0;
-                  v176 = "StencilBlurSetStencil";
-                  *&v177 = v202;
-                  *(&v177 + 1) = v209;
-                  v178 = v213;
-                  v179 = 0;
-                  v180 = v217;
-                  v181 = 2;
-                  v182 = 256;
-                  v183 = __const__ZN2re20FeatureStencilStates18getStencilBlurInfoENS0_16StencilBlurUsageE_kWriteStInfo;
-                  v184 = 0;
-                  v185 = 0;
-                  if (*v137)
-                  {
-                    v76 = re::DrawCallRecorder::allocateDrawCallRecorderGroup(v137, v144, "StencilBlurSetStencil");
-                  }
-
-                  v186 = v76;
-                  v187 = 0;
-                  re::RenderGraphContext::getDefaultEncodeDrawCallDataStoreArgs(a3, v175);
-                  re::RenderGraphContext::encodeDrawCalls(a3, v175, &v176);
-                }
-              }
-
-              else
-              {
-                re::RenderGraphContext::acquireManagedRenderCommandEncoder(v202, a3, 0);
-                re::mtl::RenderCommandEncoder::~RenderCommandEncoder(v202);
-              }
-
-              if (v194[0] && v197)
-              {
-                (*(*v194[0] + 40))();
-              }
-            }
-
-            if (*v137)
-            {
-              v77 = re::DrawCallRecorder::allocateDrawCallRecorderGroup(v137, "Portal", "makePortalDrawcalls");
-            }
-
-            else
-            {
-              v77 = 0;
-            }
-
-            v78 = strlen(v138);
-            if (v78)
-            {
-              MurmurHash3_x64_128(v138, v78, 0, v202);
-              v79 = (*&v202[8] - 0x61C8864680B583E9 + (*v202 << 6) + (*v202 >> 2)) ^ *v202;
-            }
-
-            else
-            {
-              v79 = 0;
-            }
-
-            v80 = strlen(*(&v141 + 1));
-            v81 = 0x9E3779B97F4A7C17;
-            if (v80)
-            {
-              MurmurHash3_x64_128(*(&v141 + 1), v80, 0, v202);
-              v81 = ((*&v202[8] - 0x61C8864680B583E9 + (*v202 << 6) + (*v202 >> 2)) ^ *v202) - 0x61C8864680B583E9;
-            }
-
-            v82 = re::RenderGraphDataStore::get<re::SceneScope>(a3[146], ((v79 >> 2) + (v79 << 6) + v81) ^ v79);
-            if (BYTE4(v143) == 1)
-            {
-              if ((atomic_load_explicit(&qword_1EE1C1178, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1178))
-              {
-                qword_1EE1C1170 = re::hashString("StencilIncrement", v106);
-                __cxa_guard_release(&qword_1EE1C1178);
-              }
-
-              *v202 = v23;
-              *&v202[8] = v82;
-              *&v202[16] = *(&v141 + 1);
-              *&v202[24] = "StencilIncrement";
-              *&v202[32] = qword_1EE1C1170;
-              *&v202[40] = __const__ZN2re20FeatureStencilStates13getPortalInfoENS0_11PortalUsageEhh_kIncrementStInfo;
-              v202[56] = HIBYTE(v148) | 0x80;
-              v202[41] = v148;
-              v202[49] = v148;
-              *&v202[64] = a3;
-              LOBYTE(v203) = HIBYTE(v143);
-              re::makePortalSurfaceDrawcall(v202, *(&v142 + 1), v77, 0);
-              if ((v143 & 0x100000000) != 0 && (v143 & 0x100) == 0)
-              {
-                if ((atomic_load_explicit(&qword_1EE1C1188, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1188))
-                {
-                  qword_1EE1C1180 = re::hashString("DepthBufferClear", v110);
-                  __cxa_guard_release(&qword_1EE1C1188);
-                }
-
-                if ((atomic_load_explicit(&qword_1EE1C1198, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1198))
-                {
-                  qword_1EE1C1190 = re::hashString("DepthBufferClearNoColor", v111);
-                  __cxa_guard_release(&qword_1EE1C1198);
-                }
-
-                v83 = &qword_1EE1C1190;
-                if (!BYTE3(v143))
-                {
-                  v83 = &qword_1EE1C1180;
-                }
-
-                v84 = *v83;
-                v85 = "DepthBufferClear";
-                if (BYTE3(v143))
-                {
-                  v85 = "DepthBufferClearNoColor";
-                }
-
-                *v202 = v23;
-                *&v202[8] = v82;
-                *&v202[16] = *(&v141 + 1);
-                *&v202[24] = v85;
-                *&v202[32] = v84;
-                *&v202[40] = __const__ZN2re20FeatureStencilStates13getPortalInfoENS0_11PortalUsageEhh_kDepthClearStInfo;
-                v202[56] = 0x80;
-                v202[41] = 0x80;
-                v202[49] = 0x80;
-                *&v202[64] = a3;
-                LOBYTE(v203) = HIBYTE(v143);
-                re::makePortalSurfaceDrawcall(v202, *(&v142 + 1), v77, 0);
-              }
-            }
-
-            v136 = v82;
-            v86 = re::RenderGraphDataStore::tryGet<re::SceneIndexData>(a3[146], (v141 + (qword_1EE1C1120 << 6) + (qword_1EE1C1120 >> 2)) ^ qword_1EE1C1120);
-            if ((v143 & 0x100) == 0)
-            {
-              v87 = v86;
-              v88 = v145;
-              if (v145)
-              {
-                if (*(v145 + 16))
-                {
-                  v89 = 0;
-                  v90 = 0;
-                  do
-                  {
-                    v91 = *(v88 + 32) + v89;
-                    if (*(v91 + 8))
-                    {
-                      v92 = *(v91 + 16);
-                    }
-
-                    else
-                    {
-                      v92 = (v91 + 9);
-                    }
-
-                    re::DynamicString::operator+(v202, v92, &v151);
-                    if (*v202 && (v202[8] & 1) != 0)
-                    {
-                      (*(**v202 + 40))();
-                    }
-
-                    v93 = strlen(v92);
-                    if (v93)
-                    {
-                      MurmurHash3_x64_128(v92, v93, 0, v202);
-                      v93 = (*&v202[8] - 0x61C8864680B583E9 + (*v202 << 6) + (*v202 >> 2)) ^ *v202;
-                    }
-
-                    v94 = re::MeshPassInfoData::getMeshPartBucket(&v166, v93);
-                    if (v94)
-                    {
-                      v176 = v94;
-                      LOBYTE(v177) = 0;
-                      *(&v177 + 6) = 65280;
-                      BYTE10(v177) = 1;
-                      *v202 = v168;
-                      *&v202[8] = "Portal";
-                      v95 = v142;
-                      if (BYTE8(v151))
-                      {
-                        v95 = v152;
-                      }
-
-                      *&v202[16] = v95;
-                      *&v202[24] = &v176;
-                      *&v202[48] = 0;
-                      *&v202[32] = 1uLL;
-                      *&v202[56] = v207;
-                      *&v202[64] = 2;
-                      *&v202[68] = 2;
-                      v203 = a3;
-                      LOBYTE(v204) = 1;
-                      v205 = v87;
-                      re::makePortalSceneDrawcalls(v202, *(&v142 + 1), v77);
-                    }
-
-                    v86 = v151;
-                    if (v151 && (BYTE8(v151) & 1) != 0)
-                    {
-                      v86 = (*(*v151 + 40))();
-                    }
-
-                    ++v90;
-                    v88 = v145;
-                    v89 += 32;
-                  }
-
-                  while (*(v145 + 16) > v90);
-                }
-              }
-
-              else
-              {
-                *&v151 = 0;
-                DWORD2(v151) = 0;
-                re::rendergraph_helper::getOcclusionMeshPasses(v202);
-                re::rendergraph_helper::populateMeshPassArray<1ul,re::FixedInlineArray<re::rendergraph_helper::RenderPass,1ul>>(&v166, &v151, v202);
-                *v202 = v168;
-                *&v202[8] = "Portal";
-                *&v202[16] = "Portal_Occlusion";
-                *&v202[24] = v122;
-                *&v202[48] = 0;
-                *&v202[32] = v151;
-                *&v202[56] = v207;
-                *&v202[64] = 1;
-                *&v202[68] = 0;
-                v203 = a3;
-                LOBYTE(v204) = 1;
-                v205 = v87;
-                re::makePortalSceneDrawcalls(v202, *(&v142 + 1), v77);
-                *&v151 = 0;
-                DWORD2(v151) = 0;
-                re::rendergraph_helper::getOpaqueMeshPasses(v202);
-                re::rendergraph_helper::populateMeshPassArray<1ul,re::FixedInlineArray<re::rendergraph_helper::RenderPass,1ul>>(&v166, &v151, v202);
-                *v202 = v168;
-                *&v202[8] = "Portal";
-                *&v202[16] = "Portal_Opaque";
-                *&v202[24] = v122;
-                *&v202[48] = 0;
-                *&v202[32] = v151;
-                *&v202[56] = v207;
-                *&v202[64] = 1;
-                *&v202[68] = 2;
-                v203 = a3;
-                LOBYTE(v204) = 1;
-                v205 = v87;
-                re::makePortalSceneDrawcalls(v202, *(&v142 + 1), v77);
-                *&v151 = 0;
-                DWORD2(v151) = 0;
-                re::rendergraph_helper::getSkyboxMeshPasses(v202);
-                re::rendergraph_helper::populateMeshPassArray<1ul,re::FixedInlineArray<re::rendergraph_helper::RenderPass,1ul>>(&v166, &v151, v202);
-                *v202 = v168;
-                *&v202[8] = "Portal";
-                *&v202[16] = "Portal_Skybox";
-                *&v202[24] = v122;
-                *&v202[48] = 0;
-                *&v202[32] = v151;
-                *&v202[56] = v207;
-                *&v202[64] = 1;
-                *&v202[68] = 2;
-                v203 = a3;
-                LOBYTE(v204) = 1;
-                v205 = v87;
-                re::makePortalSceneDrawcalls(v202, *(&v142 + 1), v77);
-                *&v151 = 0;
-                DWORD2(v151) = 0;
-                re::rendergraph_helper::getTransparentMeshPasses(v202);
-                re::rendergraph_helper::populateMeshPassArray<7ul,re::FixedInlineArray<re::rendergraph_helper::RenderPass,7ul>>(&v166, &v151, v202);
-                *v202 = v168;
-                *&v202[8] = "Portal";
-                *&v202[16] = "Portal_Transparent";
-                *&v202[24] = v122;
-                *&v202[32] = v151;
-                *&v202[40] = *(&v135 + 1);
-                *&v202[48] = v135;
-                *&v202[56] = v207;
-                *&v202[64] = 2;
-                *&v202[68] = 2;
-                v203 = a3;
-                LOBYTE(v204) = 1;
-                v205 = v87;
-                re::makePortalSceneDrawcalls(v202, *(&v142 + 1), v77);
-                *&v151 = 0;
-                DWORD2(v151) = 0;
-                re::rendergraph_helper::getRenderOnTopMeshPasses(v202);
-                re::rendergraph_helper::populateMeshPassArray<8ul,re::FixedInlineArray<re::rendergraph_helper::RenderPass,8ul>>(&v166, &v151, v202);
-                *v202 = v168;
-                *&v202[8] = "Portal";
-                *&v202[16] = "Portal_RenderOnTop";
-                *&v202[24] = v122;
-                *&v202[32] = v151;
-                *&v202[40] = *(&v135 + 1);
-                *&v202[48] = v135;
-                *&v202[56] = v207;
-                *&v202[64] = 2;
-                *&v202[68] = 2;
-                v203 = a3;
-                LOBYTE(v204) = 1;
-                v205 = v87;
-                re::makePortalSceneDrawcalls(v202, *(&v142 + 1), v77);
-              }
-            }
-
-            v18 = v128;
-            v19 = v129;
-            if (BYTE4(v143) == 1 && (v143 & 0x100) == 0)
-            {
-              if ((atomic_load_explicit(&qword_1EE1C11A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C11A8))
-              {
-                qword_1EE1C11A0 = re::hashString("DepthBufferPatchAndStencilDecrement", v108);
-                __cxa_guard_release(&qword_1EE1C11A8);
-              }
-
-              if ((atomic_load_explicit(&qword_1EE1C11B8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C11B8))
-              {
-                qword_1EE1C11B0 = re::hashString("DepthBufferPatchAndStencilDecrementNoFragmentFunction", v109);
-                __cxa_guard_release(&qword_1EE1C11B8);
-              }
-
-              v96 = &qword_1EE1C11B0;
-              if (!BYTE2(v143))
-              {
-                v96 = &qword_1EE1C11A0;
-              }
-
-              v97 = *v96;
-              v98 = "DepthBufferPatchAndStencilDecrement";
-              if (BYTE2(v143))
-              {
-                v98 = "DepthBufferPatchAndStencilDecrementNoFragmentFunction";
-              }
-
-              *v202 = v23;
-              *&v202[8] = v136;
-              *&v202[16] = *(&v141 + 1);
-              *&v202[24] = v98;
-              *&v202[32] = v97;
-              *&v202[40] = __const__ZN2re20FeatureStencilStates13getPortalInfoENS0_11PortalUsageEhh_kDecrementStInfo;
-              v202[56] = 0x80;
-              v202[41] = 0x80;
-              v202[49] = 0x80;
-              *&v202[64] = a3;
-              LOBYTE(v203) = HIBYTE(v143);
-              re::makePortalSurfaceDrawcall(v202, *(&v142 + 1), v77, 1);
-            }
-
-            v11 = v130;
-            if (v214[0])
-            {
-              if (v216)
-              {
-                (*(*v214[0] + 40))();
-              }
-
-              v216 = 0;
-              memset(v214, 0, sizeof(v214));
-              ++v215;
-            }
-
-            if (v210[0])
-            {
-              if (v213)
-              {
-                (*(*v210[0] + 40))();
-              }
-
-              v213 = 0;
-              v210[1] = 0;
-              v211 = 0;
-              v210[0] = 0;
-              ++v212;
-            }
-
-            if (v208[0] && v209)
-            {
-              (*(*v208[0] + 40))();
-            }
-
-            v172 = *(&v140 + 1);
-            if (v173 && (v174 & 1) != 0)
-            {
-              (*(*v173 + 40))();
-            }
-
-            re::FunctionBase<24ul,void ()(re::mtl::CommandBuffer const&)>::destroyCallable(v241);
-            ++v235;
-            ++v233;
-            ++v230;
-            v234 = 0;
-            v232 = 0;
-            v229 = 0;
-            v226 = 0;
-            ++v227;
-            result = v224;
-            if (v224 && (v225 & 1) != 0)
-            {
-              result = (*(*v224 + 40))();
-            }
-          }
-
-LABEL_155:
-          ++v20;
-        }
-
-        while (v20 != v18);
-      }
-    }
-  }
-
-  if (v200[0])
-  {
-    v112 = &v200[18 * v200[0] + 2];
-    v113 = v201;
-    do
-    {
-      *v113 = 0;
-      ++*(v113 + 2);
-      v113 += 144;
-    }
-
-    while (v113 != v112);
-  }
-
-  if (v198[0])
-  {
-    v114 = &v198[14 * v198[0] + 2];
-    v115 = &v199;
-    do
-    {
-      *v115 = 0;
-      ++*(v115 + 2);
-      v115 += 14;
-    }
-
-    while (v115 != v114);
-  }
-
-  return result;
-}
-
-void *re::internal::Callable<re::makePortalSurfaceDrawcall(re::EncodeMeshPassForPortalArgs const&,re::DrawTable *,re::DrawCallRecorderGroup *,re::PortalRenderContext const&,BOOL)::$_0,void ()(void *)>::cloneInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D152C8;
-  return result;
-}
-
-void *re::internal::Callable<re::makePortalSurfaceDrawcall(re::EncodeMeshPassForPortalArgs const&,re::DrawTable *,re::DrawCallRecorderGroup *,re::PortalRenderContext const&,BOOL)::$_0,void ()(void *)>::moveInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D152C8;
-  return result;
-}
-
-double re::internal::Callable<re::makePortalDrawcalls(re::DrawTable *,re::StencilPortal const&,re::RenderGraphContext &,char const*,char const*,char const*,re::PortalRenderContext const&)::$_0::operator() const(void)::{lambda(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)#1},void ()(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v4 = *(*(a1 + 8) + 27);
-  if ((*(a2 + 145) & 1) == 0)
-  {
-    *(a2 + 145) = 1;
-  }
-
-  *(a2 + 146) = v4;
-  v5 = re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(**(a1 + 16) + 192, (a2 + 88));
-  if (v5)
-  {
-    v7 = v5;
-    v8 = re::BucketArray<re::Matrix4x4<float>,128ul>::operator[](**(a1 + 24) + 56, *(a2 + 84));
-    v9 = 0;
-    LODWORD(v10) = 0;
-    HIDWORD(v10) = 0;
-    *(&v10 + 4) = v7->u32[1];
-    *&v11 = 0;
-    *(&v11 + 1) = v7->u32[2];
-    v12 = vnegq_f32(v7[1]);
-    v12.i32[3] = 1.0;
-    v13 = *v8;
-    v14 = v8[1];
-    v15 = v8[2];
-    v16 = v8[3];
-    v20[0] = v7->u32[0];
-    v20[1] = v10;
-    v20[2] = v11;
-    v20[3] = v12;
-    do
-    {
-      v21[v9] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v13, COERCE_FLOAT(v20[v9])), v14, *&v20[v9], 1), v15, v20[v9], 2), v16, v20[v9], 3);
-      ++v9;
-    }
-
-    while (v9 != 4);
-    result = *v21;
-    v17 = v21[1];
-    v18 = v21[2];
-    v19 = v21[3];
-    *v8 = v21[0];
-    v8[1] = v17;
-    v8[2] = v18;
-    v8[3] = v19;
-  }
-
-  return result;
-}
-
-uint64_t re::internal::Callable<re::makePortalDrawcalls(re::DrawTable *,re::StencilPortal const&,re::RenderGraphContext &,char const*,char const*,char const*,re::PortalRenderContext const&)::$_0::operator() const(void)::{lambda(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)#1},void ()(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)>::cloneInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5D15320;
-  v2 = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = v2;
-  return a2;
-}
-
-uint64_t re::internal::Callable<re::makePortalDrawcalls(re::DrawTable *,re::StencilPortal const&,re::RenderGraphContext &,char const*,char const*,char const*,re::PortalRenderContext const&)::$_0::operator() const(void)::{lambda(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)#1},void ()(re::DrawCall &,re::MeshPartDrawContext const&,unsigned char)>::moveInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5D15320;
-  v2 = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = v2;
-  return a2;
-}
-
-uint64_t re::RenderGraphMPSNodeBase::getCommandBufferWithProtectionOptions@<X0>(re::RenderGraphMPSNodeBase *this@<X0>, re::RenderGraphContext *a2@<X1>, void *a3@<X8>)
-{
-  v6 = re::RenderFrameBox::get((*(*(a2 + 1) + 112) + 328), *(*a2 + 40));
-  v7 = *(re::RenderFrame::currentCommandBuffer(v6) + 2);
-  *a3 = v7;
-  v8 = *(this + 30);
-  v9 = 0;
-  if (v8)
-  {
-    v10 = *(this + 32);
-    v11 = v8 << 6;
-    do
-    {
-      re::RenderGraphContext::metalTexture(a2, v10, 0, 0, &v19);
-      v12 = [v19 protectionOptions];
-      if (v19)
-      {
-      }
-
-      v9 |= v12;
-      v10 += 64;
-      v11 -= 64;
-    }
-
-    while (v11);
-  }
-
-  v13 = *(this + 20);
-  if (v13)
-  {
-    v14 = *(this + 22);
-    v15 = v13 << 6;
-    do
-    {
-      v16 = re::RenderGraphContext::metalBuffer(a2, v14);
-      v9 |= [*re::BufferSlice::buffer(v16 v17)];
-      v14 += 64;
-      v15 -= 64;
-    }
-
-    while (v15);
-  }
-
-  result = [v7 protectionOptions];
-  if (result != v9)
-  {
-    return [v7 setProtectionOptions:v9];
-  }
-
-  return result;
-}
-
-uint64_t re::RenderGraphMPSNodeBase::getViewports@<X0>(re::RenderGraphContext *a1@<X1>, const unint64_t *a2@<X2>, const unint64_t *a3@<X3>, void *a4@<X8>)
-{
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
-  v9 = *(*a1 + 32);
-  v19 = 0;
-  v20 = 0;
-  v21 = 0;
-  v10 = re::RenderGraphDataStore::tryGet<re::ViewportPercentData>(*(a1 + 146), *(*(a1 + 5) + 48));
-  if (v10)
-  {
-    v11 = *(v10 + 64);
+    v6 = 0;
   }
 
   else
   {
-    v11 = 1;
+    v6 = *(v7 - 8);
+    *(this + 26) = v7 - 8;
   }
 
-  re::FixedArray<re::mtl::Viewport>::init<>(a4, v9, v11);
-  re::FixedArray<re::Vector4<float>>::init<>(&v19, v9, v11);
-  v12 = re::RenderGraphDataStore::tryGet<re::ViewportData>(*(a1 + 146), *(*(a1 + 5) + 48));
-  re::RenderGraphContext::selectViewport(a1, v12, a4, &v19, 0);
-  v13 = a4[1];
-  if (v13)
-  {
-    v14 = *a2;
-    v15 = *a3;
-    v16 = (a4[2] + 12);
-    do
-    {
-      if (*(v16 - 1) == 0.0 && *v16 == 0.0)
-      {
-        *(v16 - 1) = v14;
-        *v16 = v15;
-      }
-
-      v16 += 6;
-      --v13;
-    }
-
-    while (v13);
-  }
-
-  result = v19;
-  if (v19)
-  {
-    v18 = v20 == 0;
-  }
-
-  else
-  {
-    v18 = 1;
-  }
-
-  if (!v18)
-  {
-    return (*(*v19 + 40))();
-  }
-
-  return result;
+LABEL_34:
+  os_unfair_lock_unlock(this + 2);
+  return v6;
 }
 
-void *re::allocInfo_DefaultDepthFormatData(re *this)
+re::ProfilerAttributions *re::ProfilerManager::acquireAttributions(re::ProfilerManager *this, int a2)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_540, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_540))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C12D0, "DefaultDepthFormatData");
-    __cxa_guard_release(&_MergedGlobals_540);
-  }
-
-  return &unk_1EE1C12D0;
-}
-
-void re::initInfo_DefaultDepthFormatData(re *this, re::IntrospectionBase *a2)
-{
-  v14[0] = 0xDE1393FAFE3F606;
-  v14[1] = "DefaultDepthFormatData";
-  if (v14[0])
-  {
-    if (v14[0])
-    {
-    }
-  }
-
-  *(this + 2) = v15;
-  if ((atomic_load_explicit(&qword_1EE1C1278, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C1278);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_RenderGraphData(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "RenderGraphData";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 0;
-      *(v8 + 40) = 3;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1C12A0 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v11 = re::mtl::introspect_PixelFormat(1, v10);
-      v12 = (*(*v9 + 32))(v9, 72, 8);
-      *v12 = 1;
-      *(v12 + 8) = "format";
-      *(v12 + 16) = v11;
-      *(v12 + 24) = 0;
-      *(v12 + 32) = 0x800000001;
-      *(v12 + 40) = 0;
-      *(v12 + 48) = 0;
-      *(v12 + 56) = 0;
-      *(v12 + 64) = 0;
-      qword_1EE1C12A8 = v12;
-      __cxa_guard_release(&qword_1EE1C1278);
-    }
-  }
-
-  *(this + 4) = 8;
-  *(this + 20) = 0x800000010;
-  *(this + 14) = 0;
-  *(this + 14) = 2;
-  *(this + 8) = &qword_1EE1C12A0;
-  *(this + 9) = re::internal::defaultConstruct<re::DefaultDepthFormatData>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::DefaultDepthFormatData>;
-  *(this + 13) = re::internal::defaultConstructV2<re::DefaultDepthFormatData>;
-  *(this + 14) = re::internal::defaultDestructV2<re::DefaultDepthFormatData>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v13 = v15;
-}
-
-void *re::allocInfo_DefaultStencilFormatData(re *this)
-{
-  if ((atomic_load_explicit(&qword_1EE1C1280, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1280))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C1360, "DefaultStencilFormatData");
-    __cxa_guard_release(&qword_1EE1C1280);
-  }
-
-  return &unk_1EE1C1360;
-}
-
-void re::initInfo_DefaultStencilFormatData(re *this, re::IntrospectionBase *a2)
-{
-  v14[0] = 0x5D8C4433CA9F5DF8;
-  v14[1] = "DefaultStencilFormatData";
-  if (v14[0])
-  {
-    if (v14[0])
-    {
-    }
-  }
-
-  *(this + 2) = v15;
-  if ((atomic_load_explicit(&qword_1EE1C1288, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C1288);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_RenderGraphData(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "RenderGraphData";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 0;
-      *(v8 + 40) = 3;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1C12B0 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v11 = re::mtl::introspect_PixelFormat(1, v10);
-      v12 = (*(*v9 + 32))(v9, 72, 8);
-      *v12 = 1;
-      *(v12 + 8) = "format";
-      *(v12 + 16) = v11;
-      *(v12 + 24) = 0;
-      *(v12 + 32) = 0x800000001;
-      *(v12 + 40) = 0;
-      *(v12 + 48) = 0;
-      *(v12 + 56) = 0;
-      *(v12 + 64) = 0;
-      qword_1EE1C12B8 = v12;
-      __cxa_guard_release(&qword_1EE1C1288);
-    }
-  }
-
-  *(this + 2) = 0x1000000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 2;
-  *(this + 8) = &qword_1EE1C12B0;
-  *(this + 9) = re::internal::defaultConstruct<re::DefaultStencilFormatData>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::DefaultStencilFormatData>;
-  *(this + 13) = re::internal::defaultConstructV2<re::DefaultStencilFormatData>;
-  *(this + 14) = re::internal::defaultDestructV2<re::DefaultStencilFormatData>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v13 = v15;
-}
-
-void *re::allocInfo_ForceClearData(re *this)
-{
-  if ((atomic_load_explicit(&qword_1EE1C1290, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1290))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C13F0, "ForceClearData");
-    __cxa_guard_release(&qword_1EE1C1290);
-  }
-
-  return &unk_1EE1C13F0;
-}
-
-void re::initInfo_ForceClearData(re *this, re::IntrospectionBase *a2)
-{
-  v14[0] = 0x1E05F5F3774B4A18;
-  v14[1] = "ForceClearData";
-  if (v14[0])
-  {
-    if (v14[0])
-    {
-    }
-  }
-
-  *(this + 2) = v15;
-  if ((atomic_load_explicit(&qword_1EE1C1298, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C1298);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_RenderGraphData(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "RenderGraphData";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 0;
-      *(v8 + 40) = 3;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1C12C0 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v11 = re::introspect_BOOL(1, v10);
-      v12 = (*(*v9 + 32))(v9, 72, 8);
-      *v12 = 1;
-      *(v12 + 8) = "forceClear";
-      *(v12 + 16) = v11;
-      *(v12 + 24) = 0;
-      *(v12 + 32) = 0x800000001;
-      *(v12 + 40) = 0;
-      *(v12 + 48) = 0;
-      *(v12 + 56) = 0;
-      *(v12 + 64) = 0;
-      qword_1EE1C12C8 = v12;
-      __cxa_guard_release(&qword_1EE1C1298);
-    }
-  }
-
-  *(this + 2) = 0x1000000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 2;
-  *(this + 8) = &qword_1EE1C12C0;
-  *(this + 9) = re::internal::defaultConstruct<re::ForceClearData>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::ForceClearData>;
-  *(this + 13) = re::internal::defaultConstructV2<re::ForceClearData>;
-  *(this + 14) = re::internal::defaultDestructV2<re::ForceClearData>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v13 = v15;
-}
-
-double re::getScopeRenderTargetDesc(re *this, const char *__s, const char *a3, re::RenderFrame *a4)
-{
-  v27 = *MEMORY[0x1E69E9840];
-  v8 = 0x9E3779B97F4A7C17;
-  v9 = strlen(__s);
-  if (v9)
-  {
-    MurmurHash3_x64_128(__s, v9, 0, &v25);
-    v10 = (v26 - 0x61C8864680B583E9 + (v25 << 6) + (v25 >> 2)) ^ v25;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = strlen(a3);
-  if (v11)
-  {
-    MurmurHash3_x64_128(a3, v11, 0, &v25);
-    v8 = ((v26 - 0x61C8864680B583E9 + (v25 << 6) + (v25 >> 2)) ^ v25) - 0x61C8864680B583E9;
-  }
-
-  v12 = (v10 >> 2) + (v10 << 6) + v8;
-  v13 = re::RenderGraphDataStore::tryGet<re::CameraData>(a4 + 32, v12 ^ v10);
-  v14 = re::RenderGraphDataStore::get<re::MXIFrameData>(a4 + 32, v12 ^ v10);
-  __asm { FMOV            V0.2S, #1.0 }
-
-  *(this + 44) = _D0;
-  *(this + 52) = xmmword_1E30A3B60;
-  *(this + 76) = -1;
-  *(this + 21) = -1;
-  v20 = v14[3].i32[0];
-  *this = 0;
-  *(this + 1) = v20;
-  v21 = *(v13 + 890);
-  if (v21 <= 1)
-  {
-    v22 = 2;
-  }
-
-  else
-  {
-    v22 = 3;
-  }
-
-  *(this + 2) = v22;
-  v23 = *(*&v14[1] + 64);
-  *(this + 104) = 0;
-  *&result = *&vadd_s32(vcvt_u32_f32(vmaxnm_f32(vmul_n_f32(vcvt_f32_s32(v14[2]), v23), 0x4000000040000000)), 0xF0000000FLL) & 0xFFFFFFF0FFFFFFF0;
-  *(this + 12) = result;
-  *(this + 5) = 1;
-  *(this + 6) = v21;
-  *(this + 40) = 1;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 7) = 1;
-  *(this + 8) = -1;
-  *(this + 9) = 2;
-  *(this + 17) = 5;
-  *(this + 18) = 32;
-  return result;
-}
-
-uint64_t re::MXIProvider::initProxyMeshPart(uint64_t this, id *a2, unsigned int a3, unsigned int a4)
-{
-  v51 = *MEMORY[0x1E69E9840];
-  if (*(this + 96))
-  {
-    return this;
-  }
-
-  v5 = this;
-  v39 = 0;
-  if (a3 <= 2)
-  {
-    v6 = 2;
-  }
-
-  else
-  {
-    v6 = a3;
-  }
-
-  v36[1] = 0;
-  v37 = 0;
-  if (a4 <= 2)
-  {
-    v7 = 2;
-  }
-
-  else
-  {
-    v7 = a4;
-  }
-
-  v36[0] = 0;
-  v38 = 0;
-  re::DynamicArray<re::NamedVertexBuffer>::setCapacity(v36, 2uLL);
-  v8 = v7 - 1;
-  v35 = 0;
-  v32[1] = 0;
-  v33 = 0;
-  v9 = (v7 - 1) * (v6 - 1);
-  v32[0] = 0;
-  v34 = 0;
-  re::DynamicArray<unsigned long>::resize(v32, v7 * v6);
-  v10 = 0;
-  v11 = 0;
-  do
-  {
-    for (i = 0; i != v6; ++i)
-    {
-      v13 = v10 + i;
-      v14 = v33;
-      if (v33 <= v13)
-      {
-        *v50 = 0;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v44 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v41 = 136315906;
-        *&v41[4] = "operator[]";
-        *&v41[12] = 1024;
-        *&v41[14] = 789;
-        *&v41[18] = 2048;
-        *&v41[20] = v13;
-        v42 = 2048;
-        *v43 = v14;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_49:
-        v40 = 0;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v44 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v50 = 136315906;
-        *&v50[4] = "operator[]";
-        *&v50[12] = 1024;
-        *&v50[14] = 789;
-        *&v50[18] = 2048;
-        *&v50[20] = v13;
-        *&v50[28] = 2048;
-        *&v50[30] = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_50:
-        v40 = 0;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v44 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v50 = 136315906;
-        *&v50[4] = "operator[]";
-        *&v50[12] = 1024;
-        *&v50[14] = 789;
-        *&v50[18] = 2048;
-        *&v50[20] = v13;
-        *&v50[28] = 2048;
-        *&v50[30] = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_51:
-        v40 = 0;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v44 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v50 = 136315906;
-        *&v50[4] = "operator[]";
-        *&v50[12] = 1024;
-        *&v50[14] = 789;
-        *&v50[18] = 2048;
-        *&v50[20] = v13;
-        *&v50[28] = 2048;
-        *&v50[30] = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_52:
-        v40 = 0;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v44 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v50 = 136315906;
-        *&v50[4] = "operator[]";
-        *&v50[12] = 1024;
-        *&v50[14] = 789;
-        *&v50[18] = 2048;
-        *&v50[20] = v13;
-        *&v50[28] = 2048;
-        *&v50[30] = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_53:
-        v40 = 0;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v44 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v50 = 136315906;
-        *&v50[4] = "operator[]";
-        *&v50[12] = 1024;
-        *&v50[14] = 789;
-        *&v50[18] = 2048;
-        *&v50[20] = v13;
-        *&v50[28] = 2048;
-        *&v50[30] = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_54:
-        v40 = 0;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v44 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v50 = 136315906;
-        *&v50[4] = "operator[]";
-        *&v50[12] = 1024;
-        *&v50[14] = 789;
-        *&v50[18] = 2048;
-        *&v50[20] = v13;
-        *&v50[28] = 2048;
-        *&v50[30] = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_55:
-        re::internal::assertLog(4, v17, "assertion failure: '%s' (%s:line %i) only support up to 2^16 - 1 indices", "numQuads * 6 < 0xFFFF", "initProxyMeshPart", 186);
-        _os_crash();
-        __break(1u);
-      }
-
-      *&v15 = ((i / (v6 - 1)) * 2.4) + -1.2;
-      *(&v15 + 1) = ((v11 / (v7 - 1)) * 2.4) + -1.2;
-      *(v35 + 8 * v13) = v15;
-    }
-
-    ++v11;
-    v10 += v6;
-  }
-
-  while (v11 != v7);
-  v16 = [a2[26] newBufferWithBytes:v35 length:8 * v33 options:0];
-  LOWORD(v46) = 285;
-  *(&v46 + 1) = v16;
-  LODWORD(v48) = 0;
-  DWORD2(v48) = 0;
-  HIDWORD(v48) = [(_anonymous_namespace_ *)v16 length];
-  v49 = 0xFFFFFFFF00000000;
-  re::DynamicArray<re::NamedVertexBuffer>::add(v36, &v44);
-  if (v48 != -1)
-  {
-    (off_1F5D153C8[v48])(v41, &v46 + 8);
-  }
-
-  LODWORD(v48) = -1;
-  if (v44 && (BYTE8(v44) & 1) != 0)
-  {
-    (*(*v44 + 40))();
-  }
-
-  if (v16)
-  {
-  }
-
-  *&v43[2] = 0;
-  memset(v41, 0, sizeof(v41));
-  re::DynamicArray<unsigned short>::resize(v41, 6 * v9);
-  if (v9 > 10922)
-  {
-    goto LABEL_55;
-  }
-
-  v18 = 0;
-  v19 = 0;
-  v7 = *&v41[16];
-  v20 = 1;
-  do
-  {
-    v21 = 0;
-    ++v19;
-    v22 = *&v43[2];
-    v23 = v20;
-    do
-    {
-      v13 = v18 + v21;
-      if (v7 <= v13)
-      {
-        goto LABEL_49;
-      }
-
-      *(v22 + 2 * v13) = v23 - 1;
-      v13 = v18 + v21 + 1;
-      if (v7 <= v13)
-      {
-        goto LABEL_50;
-      }
-
-      *(v22 + 2 * v13) = v6 + v23 - 1;
-      v13 = v18 + v21 + 2;
-      if (v7 <= v13)
-      {
-        goto LABEL_51;
-      }
-
-      *(v22 + 2 * v13) = v6 + v23;
-      v13 = v18 + v21 + 3;
-      if (v7 <= v13)
-      {
-        goto LABEL_52;
-      }
-
-      *(v22 + 2 * v13) = v23 - 1;
-      v13 = v18 + v21 + 4;
-      if (v7 <= v13)
-      {
-        goto LABEL_53;
-      }
-
-      *(v22 + 2 * v13) = v6 + v23;
-      v13 = v18 + v21 + 5;
-      if (v7 <= v13)
-      {
-        goto LABEL_54;
-      }
-
-      *(v22 + 2 * v13) = v23;
-      v21 += 6;
-      ++v23;
-    }
-
-    while (6 * (v6 - 1) != v21);
-    v20 += v6;
-    v18 += 6 * v6 - 6;
-  }
-
-  while (v19 != v8);
-  v24 = [a2[26] newBufferWithBytes_length_options_];
-  LOWORD(v46) = 49;
-  *(&v46 + 1) = v24;
-  LODWORD(v48) = 0;
-  DWORD2(v48) = 0;
-  HIDWORD(v48) = [(_anonymous_namespace_ *)v24 length];
-  v49 = 0xFFFFFFFF00000000;
-  re::DynamicArray<re::NamedVertexBuffer>::add(v36, &v44);
-  if (v48 != -1)
-  {
-    (off_1F5D153C8[v48])(v50, &v46 + 8);
-  }
-
-  LODWORD(v48) = -1;
-  v25 = v44;
-  if (v44 && (BYTE8(v44) & 1) != 0)
-  {
-    v25 = (*(*v44 + 40))();
-  }
-
-  if (v24)
-  {
-  }
-
-  v26.i64[0] = 0x7F0000007FLL;
-  v26.i64[1] = 0x7F0000007FLL;
-  *v50 = vnegq_f32(v26);
-  *&v50[16] = v26;
-  v27 = re::globalAllocators(v25);
-  v28 = (*(*v27[2] + 32))(v27[2], 544, 16);
-  v30 = 0x9D2E0E4D76250F84;
-  v31 = "FullscreenQuad";
-  v44 = xmmword_1E3047670;
-  v45 = xmmword_1E3047680;
-  v46 = xmmword_1E30476A0;
-  v47 = xmmword_1E30474D0;
-  WORD2(v40) = 0;
-  LODWORD(v40) = 0;
-  v29 = re::MeshPart::MeshPart(v28, &v30, 0, v39, v37, *&v41[16], v33, 1, v50, 0, &v44, &v40, -1, 0);
-  *(v5 + 96) = v29;
-  if (v30)
-  {
-    if (v30)
-    {
-    }
-  }
-
-  v30 = 0;
-  v31 = &str_67;
-  if (*v41 && *&v43[2])
-  {
-    (*(**v41 + 40))();
-  }
-
-  if (v32[0])
-  {
-    if (v35)
-    {
-      (*(*v32[0] + 40))();
-    }
-  }
-
-  return re::DynamicArray<re::NamedVertexBuffer>::deinit(v36);
-}
-
-unint64_t re::MXIProvider::prepareFrame(re::MXIProvider *this, char *__s, const char *a3, re::RenderFrame *a4)
-{
-  v70 = *MEMORY[0x1E69E9840];
-  v7 = strlen(__s);
-  if (v7)
-  {
-    MurmurHash3_x64_128(__s, v7, 0, v64);
-    v8 = (*&v64[8] - 0x61C8864680B583E9 + (*v64 << 6) + (*v64 >> 2)) ^ *v64;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = strlen(a3);
-  v10 = 0x9E3779B97F4A7C17;
-  if (v9)
-  {
-    MurmurHash3_x64_128(a3, v9, 0, v64);
-    v10 = ((*&v64[8] - 0x61C8864680B583E9 + (*v64 << 6) + (*v64 >> 2)) ^ *v64) - 0x61C8864680B583E9;
-  }
-
-  v11 = ((v8 >> 2) + (v8 << 6) + v10) ^ v8;
-  v12 = re::RenderGraphDataStore::get<re::MXIFrameData>(a4 + 32, v11);
-  v13 = *(v12 + 8);
-  v14 = *(v13 + 40);
-  v15 = *(v12 + 16);
-  v16 = *(v12 + 20);
-  v17 = re::AssetHandle::loadedAsset<re::MeshAsset>((v13 + 128));
-  if (v17)
-  {
-    v18 = 32;
-    if (*(v17 + 1264))
-    {
-      v18 = 608;
-    }
-
-    v19 = 0x9E3779B97F4A7C17;
-    if (*(v17 + v18))
-    {
-      if (re::MeshAsset::partCountForModel(v17, 0) == 2)
-      {
-        v19 = 0x9E3779B97F4A7C18;
-      }
-
-      else
-      {
-        v19 = 0x9E3779B97F4A7C17;
-      }
-    }
-  }
-
-  else
-  {
-    v19 = 0x9E3779B97F4A7C17;
-  }
-
-  if (v15)
-  {
-    v20 = v16 == 0;
-  }
-
-  else
-  {
-    v20 = 1;
-  }
-
-  if (v20)
+  os_unfair_lock_lock(this + 4);
+  v4 = *(this + 534);
+  os_unfair_lock_unlock(this + 4);
+  if (v4 != 1)
   {
     return 0;
   }
 
-  re::getScopeRenderTargetDesc(v64, __s, a3, a4);
-  v45 = v19;
-  if (a3)
+  if (a2)
   {
-    v22 = *a3;
-    if (*a3)
+    os_unfair_lock_lock(this + 3);
+    v5 = *(this + 40);
+    if (*(this + 39) == v5)
     {
-      v23 = a3[1];
-      if (v23)
+      os_unfair_lock_unlock(this + 3);
+    }
+
+    else
+    {
+      v6 = *(v5 - 8);
+      *(this + 40) = v5 - 8;
+      os_unfair_lock_unlock(this + 3);
+      if (v6)
       {
-        v24 = a3 + 2;
-        do
+        return v6;
+      }
+    }
+  }
+
+  os_unfair_lock_lock(this + 2);
+  v7 = *(this + 37);
+  if (*(this + 36) == v7)
+  {
+    if (*(this + 34) < *(this + 3))
+    {
+      v6 = operator new(0x180uLL, 0x80uLL);
+      v8 = re::ProfilerAttributions::ProfilerAttributions(v6, *this);
+      v9 = 0x9DDFEA08EB382D69 * (((((v6 >> 7) & 0x3FFFFF) << 10) | 8) ^ (v8 >> 32));
+      v10 = 0x9DDFEA08EB382D69 * ((v8 >> 32) ^ (v9 >> 47) ^ v9);
+      v11 = 0x9DDFEA08EB382D69 * (v10 ^ (v10 >> 47));
+      v12 = *(this + 256);
+      if (v12)
+      {
+        v13 = vcnt_s8(v12);
+        v13.i16[0] = vaddlv_u8(v13);
+        if (v13.u32[0] > 1uLL)
         {
-          v22 = 31 * v22 + v23;
-          v25 = *v24++;
-          v23 = v25;
+          v14 = 0x9DDFEA08EB382D69 * (v10 ^ (v10 >> 47));
+          if (v11 >= *&v12)
+          {
+            v14 = v11 % *&v12;
+          }
         }
 
-        while (v25);
+        else
+        {
+          v14 = v11 & (*&v12 - 1);
+        }
+
+        v15 = *(*(this + 31) + 8 * v14);
+        if (v15)
+        {
+          for (i = *v15; i; i = *i)
+          {
+            v17 = i[1];
+            if (v17 == v11)
+            {
+              if (i[2] == v6)
+              {
+                goto LABEL_32;
+              }
+            }
+
+            else
+            {
+              if (v13.u32[0] > 1uLL)
+              {
+                if (v17 >= *&v12)
+                {
+                  v17 %= *&v12;
+                }
+              }
+
+              else
+              {
+                v17 &= *&v12 - 1;
+              }
+
+              if (v17 != v14)
+              {
+                break;
+              }
+            }
+          }
+        }
       }
 
-      v22 &= ~0x8000000000000000;
+      operator new();
+    }
+
+    if (atomic_load_explicit(this + 6, memory_order_acquire) != -1)
+    {
+      v21[0] = &v19;
+      v21[1] = this;
+      v21[2] = this + 24;
+      v20 = v21;
+      std::__call_once(this + 6, &v20, std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireAttributions(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>);
+    }
+
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = *(v7 - 8);
+    *(this + 37) = v7 - 8;
+  }
+
+LABEL_32:
+  os_unfair_lock_unlock(this + 2);
+  return v6;
+}
+
+void *re::ProfilerManager::acquireMemoryStatistics(re::ProfilerManager *this, int a2)
+{
+  os_unfair_lock_lock(this + 4);
+  v4 = *(this + 535);
+  os_unfair_lock_unlock(this + 4);
+  if (v4 != 1)
+  {
+    return 0;
+  }
+
+  if (a2)
+  {
+    os_unfair_lock_lock(this + 3);
+    v5 = *(this + 58);
+    if (*(this + 57) == v5)
+    {
+      os_unfair_lock_unlock(this + 3);
+    }
+
+    else
+    {
+      v6 = *(v5 - 8);
+      *(this + 58) = v5 - 8;
+      os_unfair_lock_unlock(this + 3);
+      if (v6)
+      {
+        return v6;
+      }
+    }
+  }
+
+  os_unfair_lock_lock(this + 2);
+  v7 = *(this + 55);
+  if (*(this + 54) == v7)
+  {
+    v9 = *(this + 51);
+    v8 = *(this + 52);
+    v10 = (v8 - v9) >> 3;
+    if (v10 >= *(this + 3))
+    {
+      if (atomic_load_explicit(this + 8, memory_order_acquire) != -1)
+      {
+        v26[0] = &v24;
+        v26[1] = this;
+        v26[2] = this + 24;
+        v25 = v26;
+        std::__call_once(this + 8, &v25, std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireMemoryStatistics(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>);
+      }
+
+      v6 = 0;
+    }
+
+    else
+    {
+      v11 = operator new(0xB00uLL, 0x80uLL);
+      v6 = v11;
+      v12 = 0;
+      *v11 = *this;
+      do
+      {
+        v13 = &v11[v12];
+        v13[16] = -1;
+        *(v13 + 17) = 0uLL;
+        *(v13 + 19) = 0uLL;
+        *(v13 + 21) = 0uLL;
+        v12 += 16;
+      }
+
+      while (v12 != 320);
+      v11[336] = 0;
+      v14 = *(this + 53);
+      if (v8 >= v14)
+      {
+        v16 = v10 + 1;
+        if ((v10 + 1) >> 61)
+        {
+          std::string::__throw_length_error[abi:nn200100]();
+        }
+
+        v17 = v14 - v9;
+        if (v17 >> 2 > v16)
+        {
+          v16 = v17 >> 2;
+        }
+
+        if (v17 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v18 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v18 = v16;
+        }
+
+        if (v18)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(this + 408, v18);
+        }
+
+        *(8 * v10) = v11;
+        v15 = 8 * v10 + 8;
+        v19 = *(this + 51);
+        v20 = *(this + 52) - v19;
+        v21 = (8 * v10 - v20);
+        memcpy(v21, v19, v20);
+        v22 = *(this + 51);
+        *(this + 51) = v21;
+        *(this + 52) = v15;
+        *(this + 53) = 0;
+        if (v22)
+        {
+          operator delete(v22);
+        }
+      }
+
+      else
+      {
+        *v8 = v11;
+        v15 = (v8 + 1);
+      }
+
+      *(this + 52) = v15;
     }
   }
 
   else
   {
-    v22 = 0x7FFFFFFFFFFFFFFFLL;
+    v6 = *(v7 - 8);
+    *(this + 55) = v7 - 8;
   }
 
-  v44 = v11;
-  v62 = v22;
-  v61 = 0;
-  v26 = *(*a4 + 296);
-  v27 = *&v64[4];
-  if (*&v64[4] == 542)
+  os_unfair_lock_unlock(this + 2);
+  return v6;
+}
+
+void re::ProfilerManager::submit(uint64_t a1, void *a2)
+{
+  os_unfair_lock_lock((a1 + 12));
+  if (!a2)
   {
-    *&v64[4] = 81;
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "stream", "submit", 308);
+    _os_crash("assertion failure: (stream) ");
+    __break(1u);
+    goto LABEL_19;
   }
 
-  v28 = 16 * v14;
-  *v55 = re::kMXIOffscreenColorIDs[2 * v14] & 0x7FFFFFFFFFFFFFFFLL;
-  v49 = 0x640458D72993A5BCLL;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v26, &v62, v55, &v49, a4, v64, &v61);
-  *&v64[4] = v27;
-  v29 = v61;
-  if (*(this + 40) == 1)
+  if (*a2 != *a1)
   {
-    *v55 = *v64;
-    *&v55[16] = *&v64[16];
-    v58 = v67;
-    v59 = v68;
-    v60 = v69;
-    v56 = v65;
-    v57 = v66;
-    *&v55[12] = vshr_n_u32(vadd_s32(*&v64[12], 0xF0000000FLL), 4uLL);
-    DWORD1(v58) = 3;
-    *&v55[4] = 115;
-    v49 = *(&re::kMXIOffscreenDepthIDs + v28) & 0x7FFFFFFFFFFFFFFFLL;
-    v63 = 0x640458D7299D411CLL;
-    re::RenderGraphPersistentResourceManager::registerPersistentTexture(v26, &v62, &v49, &v63, a4, v55, &v61);
-    v54 = xmmword_1E3062D70;
-    v30 = *(v12 + 8);
-    v31 = *(v30 + 96);
-    v32 = *(v30 + 100);
-    v29 |= v61;
-    v52 = 0x203F800000;
-    v53 = -1;
-    v50 = ((v31 * 8.0) * v32);
-    LODWORD(v49) = 2;
-    v51 = 1;
-    v63 = 0x27D6D33797FE5053;
-    v47 = 0x27D6D33797FE5053;
-    re::RenderGraphPersistentResourceManager::registerPersistentBuffer(v26, &v62, &v63, &v47, a4, &v49, &v48, 0);
-    v50 = ((*(*(v12 + 8) + 96) * 4.0) * *(*(v12 + 8) + 100));
-    v63 = 0x530399EAB9EE03DCLL;
-    v47 = 0x530399EAB9EE03DCLL;
-    re::RenderGraphPersistentResourceManager::registerPersistentBuffer(v26, &v62, &v63, &v47, a4, &v49, &v48, 0);
+LABEL_19:
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "stream->ownerId() == m_identifier", "submit", 309);
+    _os_crash("assertion failure: (stream->ownerId() == m_identifier) ");
+    __break(1u);
+    goto LABEL_20;
   }
 
-  if (*(this + 45) == 1)
+  v6 = *(a1 + 144);
+  v5 = *(a1 + 152);
+  if (v6 < v5)
   {
-    *v55 = *v64;
-    *&v55[16] = *&v64[16];
-    v58 = v67;
-    v59 = v68;
-    v60 = v69;
-    v56 = v65;
-    v57 = v66;
-    *&v55[12] = 0x20000000200;
-    DWORD1(v58) = 7;
-    v49 = *(&re::kMXIOffscreenLowResBlurIDs + v28) & 0x7FFFFFFFFFFFFFFFLL;
-    v63 = 0x181C60D9AA2CF47ALL;
-    re::RenderGraphPersistentResourceManager::registerPersistentTexture(v26, &v62, &v49, &v63, a4, v55, &v61);
-    v33 = v61;
-    *&v55[4] = 25;
-    v49 = *(&re::kMXIOffscreenLowResAlphaIDs + v28) & 0x7FFFFFFFFFFFFFFFLL;
-    v63 = 0x6B6FBA5B9B636FABLL;
-    re::RenderGraphPersistentResourceManager::registerPersistentTexture(v26, &v62, &v49, &v63, a4, v55, &v61);
-    v34 = (v33 || v61) | v29 & 1;
-    v49 = *(&re::kMXIOffscreenLowResDilateAlphaIDs + v28) & 0x7FFFFFFFFFFFFFFFLL;
-    v63 = 0x1137AD08C56C3000;
-    re::RenderGraphPersistentResourceManager::registerPersistentTexture(v26, &v62, &v49, &v63, a4, v55, &v61);
-    v29 = (v34 | v61) != 0;
+    *v6 = a2;
+    v7 = (v6 + 1);
+    goto LABEL_15;
   }
 
-  *v55 = &unk_1F5D153E8;
-  v55[8] = v29 & 1;
-  v55[9] = v29 & 1;
-  v35 = "N2re20MXIReprojectionStateE";
-  if (("N2re20MXIReprojectionStateE" & 0x8000000000000000) != 0)
+  v8 = *(a1 + 136);
+  v9 = (v6 - v8) >> 3;
+  if ((v9 + 1) >> 61)
   {
-    v36 = ("N2re20MXIReprojectionStateE" & 0x7FFFFFFFFFFFFFFFLL);
-    v37 = 5381;
+LABEL_20:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v10 = v5 - v8;
+  v11 = v10 >> 2;
+  if (v10 >> 2 <= (v9 + 1))
+  {
+    v11 = v9 + 1;
+  }
+
+  if (v10 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    v12 = 0x1FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  if (v12)
+  {
+    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 136, v12);
+  }
+
+  v13 = (8 * v9);
+  *v13 = a2;
+  v7 = 8 * v9 + 8;
+  v14 = *(a1 + 136);
+  v15 = *(a1 + 144) - v14;
+  v16 = v13 - v15;
+  memcpy(v13 - v15, v14, v15);
+  v17 = *(a1 + 136);
+  *(a1 + 136) = v16;
+  *(a1 + 144) = v7;
+  *(a1 + 152) = 0;
+  if (v17)
+  {
+    operator delete(v17);
+  }
+
+LABEL_15:
+  *(a1 + 144) = v7;
+
+  os_unfair_lock_unlock((a1 + 12));
+}
+
+{
+  os_unfair_lock_lock((a1 + 12));
+  if (!a2)
+  {
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "statistics", "submit", 317);
+    _os_crash("assertion failure: (statistics) ");
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  if (*a2 != *a1)
+  {
+LABEL_19:
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "statistics->ownerId() == m_identifier", "submit", 318);
+    _os_crash("assertion failure: (statistics->ownerId() == m_identifier) ");
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v6 = *(a1 + 232);
+  v5 = *(a1 + 240);
+  if (v6 < v5)
+  {
+    *v6 = a2;
+    v7 = (v6 + 1);
+    goto LABEL_15;
+  }
+
+  v8 = *(a1 + 224);
+  v9 = (v6 - v8) >> 3;
+  if ((v9 + 1) >> 61)
+  {
+LABEL_20:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v10 = v5 - v8;
+  v11 = v10 >> 2;
+  if (v10 >> 2 <= (v9 + 1))
+  {
+    v11 = v9 + 1;
+  }
+
+  if (v10 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    v12 = 0x1FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  if (v12)
+  {
+    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 224, v12);
+  }
+
+  v13 = (8 * v9);
+  *v13 = a2;
+  v7 = 8 * v9 + 8;
+  v14 = *(a1 + 224);
+  v15 = *(a1 + 232) - v14;
+  v16 = v13 - v15;
+  memcpy(v13 - v15, v14, v15);
+  v17 = *(a1 + 224);
+  *(a1 + 224) = v16;
+  *(a1 + 232) = v7;
+  *(a1 + 240) = 0;
+  if (v17)
+  {
+    operator delete(v17);
+  }
+
+LABEL_15:
+  *(a1 + 232) = v7;
+
+  os_unfair_lock_unlock((a1 + 12));
+}
+
+{
+  os_unfair_lock_lock((a1 + 12));
+  if (!a2)
+  {
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "memoryStatistics", "submit", 335);
+    _os_crash("assertion failure: (memoryStatistics) ");
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  if (*a2 != *a1)
+  {
+LABEL_19:
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "memoryStatistics->ownerId() == m_identifier", "submit", 336);
+    _os_crash("assertion failure: (memoryStatistics->ownerId() == m_identifier) ");
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v6 = *(a1 + 464);
+  v5 = *(a1 + 472);
+  if (v6 < v5)
+  {
+    *v6 = a2;
+    v7 = (v6 + 1);
+    goto LABEL_15;
+  }
+
+  v8 = *(a1 + 456);
+  v9 = (v6 - v8) >> 3;
+  if ((v9 + 1) >> 61)
+  {
+LABEL_20:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v10 = v5 - v8;
+  v11 = v10 >> 2;
+  if (v10 >> 2 <= (v9 + 1))
+  {
+    v11 = v9 + 1;
+  }
+
+  if (v10 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    v12 = 0x1FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  if (v12)
+  {
+    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 456, v12);
+  }
+
+  v13 = (8 * v9);
+  *v13 = a2;
+  v7 = 8 * v9 + 8;
+  v14 = *(a1 + 456);
+  v15 = *(a1 + 464) - v14;
+  v16 = v13 - v15;
+  memcpy(v13 - v15, v14, v15);
+  v17 = *(a1 + 456);
+  *(a1 + 456) = v16;
+  *(a1 + 464) = v7;
+  *(a1 + 472) = 0;
+  if (v17)
+  {
+    operator delete(v17);
+  }
+
+LABEL_15:
+  *(a1 + 464) = v7;
+
+  os_unfair_lock_unlock((a1 + 12));
+}
+
+{
+  os_unfair_lock_lock((a1 + 12));
+  if (!a2)
+  {
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "renderer", "submit", 344);
+    _os_crash("assertion failure: (renderer) ");
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  if (*a2 != *a1)
+  {
+LABEL_19:
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "renderer->ownerId() == m_identifier", "submit", 345);
+    _os_crash("assertion failure: (renderer->ownerId() == m_identifier) ");
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v6 = *(a1 + 392);
+  v5 = *(a1 + 400);
+  if (v6 < v5)
+  {
+    *v6 = a2;
+    v7 = (v6 + 1);
+    goto LABEL_15;
+  }
+
+  v8 = *(a1 + 384);
+  v9 = (v6 - v8) >> 3;
+  if ((v9 + 1) >> 61)
+  {
+LABEL_20:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v10 = v5 - v8;
+  v11 = v10 >> 2;
+  if (v10 >> 2 <= (v9 + 1))
+  {
+    v11 = v9 + 1;
+  }
+
+  if (v10 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    v12 = 0x1FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  if (v12)
+  {
+    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 384, v12);
+  }
+
+  v13 = (8 * v9);
+  *v13 = a2;
+  v7 = 8 * v9 + 8;
+  v14 = *(a1 + 384);
+  v15 = *(a1 + 392) - v14;
+  v16 = v13 - v15;
+  memcpy(v13 - v15, v14, v15);
+  v17 = *(a1 + 384);
+  *(a1 + 384) = v16;
+  *(a1 + 392) = v7;
+  *(a1 + 400) = 0;
+  if (v17)
+  {
+    operator delete(v17);
+  }
+
+LABEL_15:
+  *(a1 + 392) = v7;
+
+  os_unfair_lock_unlock((a1 + 12));
+}
+
+void re::ProfilerManager::submit(os_unfair_lock_s *this, re::ProfilerAttributions *a2)
+{
+  os_unfair_lock_lock(this + 3);
+  if (!a2)
+  {
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "attributions", "submit", 326);
+    _os_crash("assertion failure: (attributions) ");
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  if (*(a2 + 32) != *&this->_os_unfair_lock_opaque)
+  {
+LABEL_19:
+    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "attributions->ownerId() == m_identifier", "submit", 327);
+    _os_crash("assertion failure: (attributions->ownerId() == m_identifier) ");
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v6 = *&this[80]._os_unfair_lock_opaque;
+  v5 = *&this[82]._os_unfair_lock_opaque;
+  if (v6 < v5)
+  {
+    *v6 = a2;
+    v7 = (v6 + 1);
+    goto LABEL_15;
+  }
+
+  v8 = *&this[78]._os_unfair_lock_opaque;
+  v9 = (v6 - v8) >> 3;
+  if ((v9 + 1) >> 61)
+  {
+LABEL_20:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v10 = v5 - v8;
+  v11 = v10 >> 2;
+  if (v10 >> 2 <= (v9 + 1))
+  {
+    v11 = v9 + 1;
+  }
+
+  if (v10 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    v12 = 0x1FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  if (v12)
+  {
+    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&this[78], v12);
+  }
+
+  v13 = (8 * v9);
+  *v13 = a2;
+  v7 = 8 * v9 + 8;
+  v14 = *&this[78]._os_unfair_lock_opaque;
+  v15 = *&this[80]._os_unfair_lock_opaque - v14;
+  v16 = v13 - v15;
+  memcpy(v13 - v15, v14, v15);
+  v17 = *&this[78]._os_unfair_lock_opaque;
+  *&this[78]._os_unfair_lock_opaque = v16;
+  *&this[80]._os_unfair_lock_opaque = v7;
+  *&this[82]._os_unfair_lock_opaque = 0;
+  if (v17)
+  {
+    operator delete(v17);
+  }
+
+LABEL_15:
+  *&this[80]._os_unfair_lock_opaque = v7;
+
+  os_unfair_lock_unlock(this + 3);
+}
+
+void re::ProfilerManager::process(uint64_t a1, void *a2)
+{
+  os_unfair_lock_lock((a1 + 12));
+  v106 = 0;
+  v107 = 0;
+  v108 = 0;
+  v5 = *(a1 + 136);
+  v4 = *(a1 + 144);
+  v6 = v4 - v5;
+  if (v4 != v5)
+  {
+    if (!((v6 >> 3) >> 61))
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&v106, v6 >> 3);
+    }
+
+LABEL_106:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v103 = 0;
+  v104 = 0;
+  v105 = 0;
+  v8 = *(a1 + 224);
+  v7 = *(a1 + 232);
+  v9 = v7 - v8;
+  if (v7 != v8)
+  {
+    if (!((v9 >> 3) >> 61))
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&v103, v9 >> 3);
+    }
+
+LABEL_107:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v100 = 0;
+  v101 = 0;
+  v102 = 0;
+  v11 = *(a1 + 312);
+  v10 = *(a1 + 320);
+  v12 = v10 - v11;
+  if (v10 != v11)
+  {
+    if (!((v12 >> 3) >> 61))
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&v100, v12 >> 3);
+    }
+
+LABEL_108:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  __p = 0;
+  v98 = 0;
+  v99 = 0;
+  v14 = *(a1 + 456);
+  v13 = *(a1 + 464);
+  v15 = v13 - v14;
+  if (v13 != v14)
+  {
+    if (!((v15 >> 3) >> 61))
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&__p, v15 >> 3);
+    }
+
+LABEL_109:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  *(a1 + 144) = *(a1 + 136);
+  *(a1 + 232) = *(a1 + 224);
+  *(a1 + 320) = *(a1 + 312);
+  *(a1 + 464) = v14;
+  os_unfair_lock_unlock((a1 + 12));
+  if (a2[3])
+  {
+    for (i = v100; i != v101; ++i)
+    {
+      v17 = *i;
+      re::ProfilerAttributions::resolveDeferred(v17, a2);
+    }
+  }
+
+  os_unfair_lock_lock((a1 + 16));
+  ++*(a1 + 528);
+  for (j = *(a1 + 496); j; j = *j)
+  {
+    v19 = j[3];
+    if (v19[8] == 1)
+    {
+      v20 = *(a1 + 528);
+      if (!(v20 % (*(*v19 + 56))(j[3])))
+      {
+        (*(*v19 + 16))(v19, *(a1 + 520), &v106, &v103, &v100, &__p);
+      }
+    }
+  }
+
+  os_unfair_lock_unlock((a1 + 16));
+  v21 = v106;
+  v22 = v107;
+  while (v21 != v22)
+  {
+    v23 = *v21++;
+    *(v23 + 32) = 0;
+    *(v23 + 64) = 0;
+    *(v23 + 80) = *(v23 + 72);
+  }
+
+  v24 = v103;
+  v25 = v104;
+  if (v103 != v104)
+  {
     do
     {
-      v35 = v37;
-      v38 = *v36++;
-      v37 = (33 * v37) ^ v38;
+      v26 = (*v24 + 128);
+      v27 = -157;
+      do
+      {
+        *v26 = re::kProfilerCounterEmpty;
+        v26[1] = *algn_1E3101110;
+        v26 += 8;
+      }
+
+      while (!__CFADD__(v27++, 1));
+      ++v24;
     }
 
-    while (v38);
+    while (v24 != v25);
   }
 
-  v49 = (v44 - 0x61C8864680B583E9 + (v35 << 6) + (v35 >> 2)) ^ v35;
-  v39 = (*(**(a4 + 5) + 32))(*(a4 + 5), 16, 8);
-  *v39 = &unk_1F5D153E8;
-  *(v39 + 8) = *&v55[8];
-  v63 = v39;
-  re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a4 + 96, &v49, &v63);
-  v49 = 0xE8B64BD28AB80FLL;
-  v50 = "MXIProvider";
-  ScopeHash = re::RenderGraphProviderBase::generateScopeHash(&v49, __s, a3);
-  v41 = ((ScopeHash << 6) - 0x61C8864680B583E9 + (ScopeHash >> 2) + *&v64[24]) ^ ScopeHash;
-  v42 = (*&v64[12] - 0x61C8864680B583E9 + (v41 << 6) + (v41 >> 2)) ^ v41;
-  v43 = (*&v64[16] - 0x61C8864680B583E9 + (v42 << 6) + (v42 >> 2)) ^ v42;
-  return (v45 + (v43 << 6) + (v43 >> 2)) ^ v43;
-}
-
-uint64_t re::MXIProvider::provide(re::MXIProvider *this, char *__s, const char *a3, re::RenderFrame *a4)
-{
-  v121 = *MEMORY[0x1E69E9840];
-  v7 = 0x9E3779B97F4A7C17;
-  v8 = strlen(__s);
-  if (v8)
+  v29 = v100;
+  v30 = v101;
+  while (v29 != v30)
   {
-    MurmurHash3_x64_128(__s, v8, 0, v108);
-    v9 = (*&v108[8] - 0x61C8864680B583E9 + (*v108 << 6) + (*v108 >> 2)) ^ *v108;
+    v31 = *v29++;
+    re::ProfilerAttributions::clear(v31);
   }
 
-  else
+  v32 = __p;
+  v33 = v98;
+  if (__p != v98)
   {
-    v9 = 0;
-  }
-
-  v10 = strlen(a3);
-  v11 = 0x9E3779B97F4A7C17;
-  if (v10)
-  {
-    MurmurHash3_x64_128(a3, v10, 0, v108);
-    v11 = ((*&v108[8] - 0x61C8864680B583E9 + (*v108 << 6) + (*v108 >> 2)) ^ *v108) - 0x61C8864680B583E9;
-  }
-
-  v77 = re::RenderGraphDataStore::get<re::MXIFrameData>(a4 + 32, ((v9 >> 2) + (v9 << 6) + v11) ^ v9);
-  v12 = *(*(v77 + 8) + 40);
-  if (a3)
-  {
-    v13 = *a3;
-    if (*a3)
+    do
     {
-      v14 = a3[1];
-      if (v14)
+      v34 = *v32;
+      for (k = 128; k != 2688; k += 128)
       {
-        v15 = a3 + 2;
-        do
+        v36 = v34 + k;
+        *v36 = re::kProfilerMemoryCounterEmpty;
+        *(v36 + 16) = *algn_1E3101190;
+        *(v36 + 32) = xmmword_1E31011A0;
+        *(v36 + 48) = 0;
+      }
+
+      *(v34 + 2688) = 0;
+      ++v32;
+    }
+
+    while (v32 != v33);
+  }
+
+  os_unfair_lock_lock((a1 + 8));
+  v37 = v106;
+  v38 = v107;
+  if (v106 != v107)
+  {
+    v39 = *(a1 + 120);
+    do
+    {
+      v40 = *v37;
+      v41 = *(a1 + 128);
+      if (v39 >= v41)
+      {
+        v42 = *(a1 + 112);
+        v43 = (v39 - v42) >> 3;
+        if ((v43 + 1) >> 61)
         {
-          v13 = 31 * v13 + v14;
-          v16 = *v15++;
-          v14 = v16;
+          goto LABEL_106;
         }
 
-        while (v16);
+        v44 = v41 - v42;
+        v45 = v44 >> 2;
+        if (v44 >> 2 <= (v43 + 1))
+        {
+          v45 = v43 + 1;
+        }
+
+        if (v44 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v46 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v46 = v45;
+        }
+
+        if (v46)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 112, v46);
+        }
+
+        v47 = (8 * v43);
+        *v47 = v40;
+        v39 = (8 * v43 + 8);
+        v48 = *(a1 + 112);
+        v49 = *(a1 + 120) - v48;
+        v50 = v47 - v49;
+        memcpy(v47 - v49, v48, v49);
+        v51 = *(a1 + 112);
+        *(a1 + 112) = v50;
+        *(a1 + 120) = v39;
+        *(a1 + 128) = 0;
+        if (v51)
+        {
+          operator delete(v51);
+        }
       }
 
-      v7 = (v13 & 0x7FFFFFFFFFFFFFFFLL) - 0x61C8864680B583E9;
-    }
-  }
-
-  else
-  {
-    v7 = 0x1E3779B97F4A7C16;
-  }
-
-  *&v108[4] = 0x200000000;
-  *&v108[12] = -1;
-  v109 = -1;
-  v110 = -1;
-  v112 = 0;
-  __asm { FMOV            V0.2S, #1.0 }
-
-  v113 = _D0;
-  v114 = xmmword_1E30A3B60;
-  v115 = 0x2000000000;
-  v116 = -1;
-  v117 = -1;
-  v118 = -1;
-  v120 = 0;
-  v111 = 0;
-  *v108 = 2;
-  v22 = &re::kMXIOffscreenColorIDs[2 * v12];
-  v23 = v22[1];
-  v119 = (v7 + (*v22 << 6) + ((*v22 & 0x7FFFFFFFFFFFFFFFuLL) >> 2)) ^ *v22 & 0x7FFFFFFFFFFFFFFFLL;
-  re::RenderFrame::createTarget(a4, v108, v23, &v89);
-  if (*(this + 40) == 1)
-  {
-    v24 = (&re::kMXIOffscreenDepthIDs + 16 * v12);
-    v25 = v24[1];
-    v119 = (v7 + (*v24 << 6) + ((*v24 & 0x7FFFFFFFFFFFFFFFuLL) >> 2)) ^ *v24 & 0x7FFFFFFFFFFFFFFFLL;
-    re::RenderFrame::createTarget(a4, v108, v25, v100);
-    v80 = *v100;
-    v81 = *&v100[12];
-    v78 = *&v100[8];
-    re::getScopeRenderTargetDesc(v100, __s, a3, a4);
-    *&v100[4] = 25;
-    *&v101[12] = 3;
-    v103 = 48;
-    re::RenderFrame::createTarget(a4, v100, "depthAsColor[1]", v97);
-    v73 = *v97;
-    *&v97[20] = 1065353216;
-    v71 = *&v97[12];
-    v72 = *&v97[8];
-    *&v97[8] = -1;
-    v97[16] = 0;
-    *&v97[24] = 0xFFFFFFFF00000020;
-    *v97 = 2;
-    v98 = -1;
-    v99 = (v7 - 0x557D4C1A6C572CLL) ^ 0x27D6D33797FE5053;
-    re::RenderFrame::createBuffer(a4, v97, "mxiAlphaBuff", v96);
-    v76 = *&v96[0];
-    v74 = HIDWORD(v96[0]);
-    v75 = DWORD2(v96[0]);
-    *v97 = 2;
-    v99 = (v7 - 0x2A589ED6D6038809) ^ 0x530399EAB9EE03DCLL;
-    re::RenderFrame::createBuffer(a4, v97, "mxiAtomicBuff", v96);
-    v66 = *&v96[0];
-    v64 = HIDWORD(v96[0]);
-    v65 = DWORD2(v96[0]);
-  }
-
-  else
-  {
-    v66 = 0;
-    v76 = 0;
-    v73 = 0;
-    v80 = 0;
-    v64 = -1;
-    v65 = -1;
-    v74 = -1;
-    v75 = -1;
-    v71 = -1;
-    v72 = -1;
-    v78 = -1;
-    v81 = -1;
-  }
-
-  if (*(this + 45) == 1)
-  {
-    v26 = (&re::kMXIOffscreenLowResBlurIDs + 16 * v12);
-    v27 = v26[1];
-    v119 = (v7 + (*v26 << 6) + ((*v26 & 0x7FFFFFFFFFFFFFFFuLL) >> 2)) ^ *v26 & 0x7FFFFFFFFFFFFFFFLL;
-    re::RenderFrame::createTarget(a4, v108, v27, v100);
-    v70 = *v100;
-    v69 = *&v100[8];
-    v28 = (&re::kMXIOffscreenLowResAlphaIDs + 16 * v12);
-    v29 = v28[1];
-    v119 = (v7 + (*v28 << 6) + ((*v28 & 0x7FFFFFFFFFFFFFFFuLL) >> 2)) ^ *v28 & 0x7FFFFFFFFFFFFFFFLL;
-    re::RenderFrame::createTarget(a4, v108, v29, v100);
-    v68 = *v100;
-    v67 = *&v100[8];
-    v30 = (&re::kMXIOffscreenLowResDilateAlphaIDs + 16 * v12);
-    v31 = v30[1];
-    v119 = (v7 + (*v30 << 6) + ((*v30 & 0x7FFFFFFFFFFFFFFFuLL) >> 2)) ^ *v30 & 0x7FFFFFFFFFFFFFFFLL;
-    re::RenderFrame::createTarget(a4, v108, v31, v100);
-    if (*(this + 42) == 1)
-    {
-      re::getScopeRenderTargetDesc(v100, __s, a3, a4);
-      *&v100[12] = 0x20000000200;
-      *&v100[4] = 253;
-      *&v101[12] = 3;
-      v103 = 48;
-      *&v101[36] = 2;
-      re::RenderFrame::createTarget(a4, v100, "LowResStencil", v97);
-    }
-  }
-
-  else
-  {
-    v68 = 0;
-    v70 = 0;
-    v67 = -1;
-    v69 = -1;
-  }
-
-  v32 = re::AssetHandle::loadedAsset<re::MeshAsset>((*(v77 + 8) + 128));
-  if (!v32)
-  {
-    goto LABEL_26;
-  }
-
-  v33 = 32;
-  if (*(v32 + 1264))
-  {
-    v33 = 608;
-  }
-
-  if (*(v32 + v33))
-  {
-    v87 = 0;
-    v88 = -1;
-    if (re::MeshAsset::partCountForModel(v32, 0) == 2)
-    {
-      re::getScopeRenderTargetDesc(v100, __s, a3, a4);
-      *&v100[4] = 252;
-      *&v101[12] = 3;
-      v103 = 48;
-      *&v101[36] = 2;
-      re::RenderFrame::createTarget(a4, v100, "Depth", &v87);
-      v82 = 1;
-    }
-
-    else
-    {
-      v82 = 0;
-    }
-  }
-
-  else
-  {
-LABEL_26:
-    v82 = 0;
-    v87 = 0;
-    v88 = -1;
-  }
-
-  v85 = 0;
-  v86 = -1;
-  if (*(this + 42) == 1)
-  {
-    re::getScopeRenderTargetDesc(v100, __s, a3, a4);
-    *&v100[4] = 253;
-    *&v101[12] = 3;
-    v103 = 48;
-    *&v101[36] = 2;
-    re::RenderFrame::createTarget(a4, v100, "Stencil", &v85);
-  }
-
-  RenderGraph = re::RenderFrame::makeRenderGraph(a4, a3, 0);
-  v35 = RenderGraph;
-  memset(&v97[8], 0, 18);
-  memset(v96 + 8, 0, 18);
-  v79 = RenderGraph;
-  if (*(this + 42) == 1)
-  {
-    v36 = re::RenderGraph::addNode<re::MXIOffscreenMeshNode>(RenderGraph, "MXIOffscreenStencil");
-    *v100 = "MXIStencil";
-    *&v100[8] = 10;
-    re::DynamicString::operator=((v36 + 272), v100);
-    *(v36 + 304) = 2;
-    v37 = re::RenderFrame::tryGetData<re::VRRData>(a4, __s, a3);
-    if (v37 && *(v37 + 12) == 1)
-    {
-      *(v36 + 67) = 1;
-    }
-
-    *v100 = v89;
-    *&v100[16] = 0x100000000;
-    *v101 = *v97;
-    *&v101[10] = *&v97[10];
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v36 + 224), v100);
-    *v100 = v85;
-    *&v100[8] = v86;
-    *&v100[16] = 0x300000000;
-    *&v101[8] = 0;
-    *&v101[24] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v36 + 224), v100);
-    if (v82)
-    {
-      *v100 = v87;
-      *&v100[8] = v88;
-      *&v100[16] = 0x200000000;
-      *&v101[8] = xmmword_1E30474D0;
-      *&v101[24] = 0;
-      *&v101[32] = 0;
-      *&v101[28] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v36 + 224), v100);
-    }
-
-    if ((*(v36 + 308) & 1) == 0)
-    {
-      *(v36 + 308) = 1;
-    }
-
-    *(v36 + 309) = xmmword_1E3108860;
-    *(v36 + 325) = 1 << v12;
-    re::RenderGraphNode::configure(v36, __s, a3, a4);
-    v35 = v79;
-  }
-
-  if (v82)
-  {
-    v38 = re::RenderGraph::addNode<re::MXIOffscreenMeshNode>(v35, "MXIOffscreenOpaque");
-    *v100 = v89;
-    *&v100[16] = 0x100000000;
-    *v101 = *v97;
-    *&v101[10] = *&v97[10];
-    *&v101[32] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v38 + 224), v100);
-    if (*(this + 42) == 1)
-    {
-      *v100 = v85;
-      *&v100[8] = v86;
-      *&v100[16] = 0x300000000;
-      *&v101[12] = v94;
-      *&v101[8] = 0;
-      *&v101[20] = v95;
-      *&v101[24] = 0;
-      *&v101[32] = 0;
-      *&v101[28] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v38 + 224), v100);
-      if ((*(v38 + 308) & 1) == 0)
+      else
       {
-        *(v38 + 308) = 1;
+        *v39++ = v40;
       }
 
-      *(v38 + 309) = 33619713;
-      *(v38 + 317) = 33619713;
-      *(v38 + 325) = 1 << v12;
+      *(a1 + 120) = v39;
+      ++v37;
     }
 
-    if (*(this + 40) == 1)
-    {
-      *v100 = v73;
-      *&v100[8] = __PAIR64__(v71, v72);
-      *&v100[16] = 0x100000001;
-      *v101 = v96[0];
-      *&v101[10] = *(v96 + 10);
-      *&v101[28] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v38 + 224), v100);
-      *v100 = v80;
-      *&v100[8] = __PAIR64__(v81, v78);
-      *&v100[16] = 0x500000002;
-      *&v101[8] = xmmword_1E30474D0;
-      *&v101[24] = 0;
-      *&v101[28] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v38 + 224), v100);
-    }
-
-    *v100 = v87;
-    *&v100[8] = v88;
-    *&v100[16] = 0x200000000;
-    *&v101[8] = xmmword_1E30474D0;
-    *&v101[24] = 0;
-    *&v101[32] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v38 + 224), v100);
-    v39 = re::RenderFrame::tryGetData<re::VRRData>(a4, __s, a3);
-    if (v39 && *(v39 + 12) == 1)
-    {
-      *(v38 + 67) = 1;
-    }
-
-    if (*(this + 43))
-    {
-      v40 = "MXIEdgeProximityOpaque";
-    }
-
-    else
-    {
-      v40 = "MXIOffscreenOpaque";
-    }
-
-    v41 = 18;
-    if (*(this + 43))
-    {
-      v41 = 22;
-    }
-
-    *v100 = v40;
-    *&v100[8] = v41;
-    re::DynamicString::operator=((v38 + 272), v100);
-    re::RenderGraphNode::configure(v38, __s, a3, a4);
-    v35 = v79;
+    while (v37 != v38);
   }
 
-  v42 = re::RenderGraph::addNode<re::MXIOffscreenMeshNode>(v35, "MXIOffscreen");
-  *v100 = v89;
-  *&v100[16] = 0x100000000;
-  *v101 = *v97;
-  *&v101[10] = *&v97[10];
-  *&v101[32] = 0;
-  *&v101[28] = 0;
-  re::DynamicArray<re::TargetWrite>::add((v42 + 224), v100);
-  if (*(this + 42) == 1)
+  v52 = v103;
+  v53 = v104;
+  if (v103 != v104)
   {
-    *v100 = v85;
-    *&v100[8] = v86;
-    *&v100[16] = 0x300000000;
-    *&v101[12] = v94;
-    *&v101[8] = 0;
-    *&v101[20] = v95;
-    *&v101[24] = 0;
-    *&v101[32] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v42 + 224), v100);
-    if ((*(v42 + 308) & 1) == 0)
+    v54 = *(a1 + 208);
+    do
     {
-      *(v42 + 308) = 1;
-    }
-
-    *(v42 + 309) = 33619713;
-    *(v42 + 317) = 33619713;
-    *(v42 + 325) = 1 << v12;
-    v35 = v79;
-  }
-
-  if (*(this + 40) == 1)
-  {
-    *v100 = v73;
-    *&v100[8] = __PAIR64__(v71, v72);
-    *&v100[16] = 0x100000001;
-    *v101 = v96[0];
-    *&v101[10] = *(v96 + 10);
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v42 + 224), v100);
-    *v100 = v80;
-    *&v100[8] = __PAIR64__(v81, v78);
-    *&v100[16] = 0x500000002;
-    *&v101[8] = xmmword_1E30474D0;
-    *&v101[24] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v42 + 224), v100);
-  }
-
-  if (v82)
-  {
-    *v100 = v87;
-    *&v100[8] = v88;
-    *&v100[16] = 0x200000000;
-    *&v101[8] = xmmword_1E30474D0;
-    *&v101[24] = 0;
-    *&v101[32] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v42 + 224), v100);
-  }
-
-  v43 = re::RenderFrame::tryGetData<re::VRRData>(a4, __s, a3);
-  v44 = v43;
-  if (v43 && *(v43 + 12) == 1)
-  {
-    *(v42 + 67) = 1;
-  }
-
-  if (*(this + 43))
-  {
-    v45 = "MXIEdgeProximity";
-  }
-
-  else
-  {
-    v45 = "MXIOffscreen";
-  }
-
-  v46 = 12;
-  if (*(this + 43))
-  {
-    v46 = 16;
-  }
-
-  *v100 = v45;
-  *&v100[8] = v46;
-  re::DynamicString::operator=((v42 + 272), v100);
-  *(v42 + 304) = 0;
-  re::RenderGraphNode::configure(v42, __s, a3, a4);
-  if (*(this + 40) == 1)
-  {
-    v48 = re::globalAllocators(v47);
-    v49 = (*(*v48[2] + 32))(v48[2], 448, 16);
-    v50 = re::RenderGraphMRCNode::RenderGraphMRCNode(v49, "MXIDepthResolve");
-    *v50 = &unk_1F5D16698;
-    *v100 = v50;
-    re::DynamicArray<re::TransitionCondition *>::add(v35, v100);
-    *(v49 + 24) = *(v35 + 10);
-    *(v49 + 32) = *(v35 + 12);
-    *(v49 + 48) = *(v35 + 13);
-    re::AssetHandle::operator=(v49 + 264, this + 6);
-    *v100 = "kernelDepthFilter16FitPlane";
-    *&v100[8] = 27;
-    re::DynamicString::operator=((v49 + 288), v100);
-    *v100 = v89;
-    *v101 = 0xA00000002;
-    re::DynamicArray<re::TargetRead>::add((v49 + 184), v100);
-    *v100 = v73;
-    *&v100[8] = __PAIR64__(v71, v72);
-    *&v100[16] = 1;
-    *&v100[20] = 0;
-    v100[22] = 0;
-    *v101 = 0xA00000002;
-    re::DynamicArray<re::TargetRead>::add((v49 + 184), v100);
-    *v100 = v89;
-    *&v100[16] = 0x100000000;
-    *v101 = *v97;
-    *&v101[10] = *&v97[10];
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v49 + 224), v100);
-    *v100 = v73;
-    *&v100[8] = __PAIR64__(v71, v72);
-    *&v100[16] = 0x100000001;
-    *v101 = v96[0];
-    *&v101[10] = *(v96 + 10);
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v49 + 224), v100);
-    if (v82)
-    {
-      *v100 = v87;
-      *&v100[8] = v88;
-      *&v100[16] = 0x200000000;
-      *&v101[8] = xmmword_1E30474D0;
-      *&v101[24] = 0;
-      *&v101[32] = 0;
-      *&v101[28] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v49 + 224), v100);
-    }
-
-    *v100 = v80;
-    *&v100[8] = __PAIR64__(v81, v78);
-    *&v100[16] = 0x500000002;
-    *&v101[8] = xmmword_1E30474D0;
-    *&v101[24] = 0;
-    *&v101[32] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v49 + 224), v100);
-    if (v44 && *(v44 + 12) == 1)
-    {
-      *(v49 + 67) = 1;
-    }
-
-    *(v49 + 336) = 0x1000000010;
-    *(v49 + 344) = 0;
-    *v100 = 0x40000000000;
-    re::DynamicArray<re::RenderGraphResourceAllocationManager::TextureIndexAndStage>::add((v49 + 352), v100);
-    re::AssetHandle::loadNow(*(v49 + 272), 0);
-    re::RenderGraphNode::configure(v49, __s, a3, a4);
-    v51 = re::RenderGraph::addNode<re::MXIAlphaComputeNode>(v35, "MXIZeroAlphaBuffer");
-    re::AssetHandle::operator=(v51 + 264, this + 6);
-    *v100 = "kernelComputeVertexDepthAndZeroEdgeValue";
-    *&v100[8] = 40;
-    re::DynamicString::operator=((v51 + 288), v100);
-    v52 = *(v77 + 8);
-    *(v51 + 109) = *(v52 + 96);
-    *(v51 + 55) = 0x100000008;
-    *(v51 + 106) = 1;
-    *(v51 + 107) = ((*(v52 + 100) + 7.0) * 0.125);
-    *(v51 + 108) = 1;
-    *v100 = v80;
-    *&v100[8] = __PAIR64__(v81, v78);
-    *v101 = 2;
-    re::DynamicArray<re::TargetRead>::add((v51 + 184), v100);
-    *v100 = v76;
-    *&v100[8] = __PAIR64__(v74, v75);
-    *&v100[16] = 0x500000001;
-    *&v101[8] = xmmword_1E30474D0;
-    *&v101[24] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v51 + 144), v100);
-    *v100 = v66;
-    *&v100[8] = __PAIR64__(v64, v65);
-    *&v100[16] = 0x500000004;
-    *&v101[8] = xmmword_1E30474D0;
-    *&v101[24] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v51 + 144), v100);
-    re::RenderGraphComputeNodeBase::configure(v51, __s, a3, a4);
-    v53 = re::RenderGraph::addNode<re::MXIAlphaComputeNode>(v79, "MXIPopulateAlphaBuffer");
-    re::AssetHandle::operator=(v53 + 264, this + 6);
-    *v100 = "kernelComputeEdgeValue";
-    *&v100[8] = 22;
-    re::DynamicString::operator=((v53 + 288), v100);
-    v54 = *(v77 + 8);
-    *(v53 + 109) = (*(v54 + 96) + -1.0);
-    *(v53 + 55) = 0x100000008;
-    *(v53 + 106) = 1;
-    *(v53 + 107) = (((*(v54 + 100) + -1.0) + 7.0) * 0.125);
-    *(v53 + 108) = 1;
-    *v100 = v80;
-    v35 = v79;
-    *&v100[8] = __PAIR64__(v81, v78);
-    *v101 = 2;
-    re::DynamicArray<re::TargetRead>::add((v53 + 184), v100);
-    *v100 = v66;
-    *&v100[8] = __PAIR64__(v64, v65);
-    *&v100[16] = 0x500000001;
-    *&v101[8] = xmmword_1E30474D0;
-    *&v101[24] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v53 + 144), v100);
-    re::RenderGraphComputeNodeBase::configure(v53, __s, a3, a4);
-    v55 = re::RenderGraph::addNode<re::MXIAlphaComputeNode>(v79, "MXIDilateAlphaBuffer");
-    re::AssetHandle::operator=(v55 + 264, this + 6);
-    *v100 = "kernelDilateEdgeValues";
-    *&v100[8] = 22;
-    re::DynamicString::operator=((v55 + 288), v100);
-    v56 = *(v77 + 8);
-    *(v55 + 109) = *(v56 + 96);
-    *(v55 + 55) = 0x100000008;
-    *(v55 + 106) = 1;
-    *(v55 + 107) = ((*(v56 + 100) + 7.0) * 0.125);
-    *(v55 + 108) = 1;
-    *v100 = v66;
-    *&v100[8] = __PAIR64__(v64, v65);
-    *v101 = 2;
-    re::DynamicArray<re::TargetRead>::add((v55 + 104), v100);
-    *v100 = v76;
-    *&v100[8] = __PAIR64__(v74, v75);
-    *&v100[16] = 0x500000001;
-    *&v101[8] = xmmword_1E30474D0;
-    *&v101[24] = 0;
-    *&v101[28] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v55 + 144), v100);
-    v47 = re::RenderGraphComputeNodeBase::configure(v55, __s, a3, a4);
-  }
-
-  if (*(this + 44) == 1)
-  {
-    v57 = re::RenderGraph::addNode<re::MXIOffscreenMeshNode>(v35, "MXIOffscreenTreatments");
-    v84 = 0uLL;
-    v100[0] = 0;
-    re::RenderGraphMeshNodeBase::setColorAttachment(v57, 0, &v89, &v84, 0, v100);
-    if (v82)
-    {
-      v100[0] = 0;
-      re::RenderGraphMeshNodeBase::setDepthOnlyAttachment(v57, &v87, 0, v100, 0.0);
-    }
-
-    *v100 = "MXITreatments";
-    *&v100[8] = 13;
-    re::DynamicString::operator=((v57 + 272), v100);
-    *(v57 + 304) = 2;
-    if (v44 && *(v44 + 12) == 1)
-    {
-      *(v57 + 67) = 1;
-    }
-
-    if (*(this + 42) == 1)
-    {
-      v100[0] = 0;
-      re::RenderGraphMeshNodeBase::setStencilOnlyAttachment(v57, &v85, 0, 0, v100);
-      if ((*(v57 + 308) & 1) == 0)
+      v55 = *v52;
+      v56 = *(a1 + 216);
+      if (v54 >= v56)
       {
-        *(v57 + 308) = 1;
+        v57 = *(a1 + 200);
+        v58 = (v54 - v57) >> 3;
+        if ((v58 + 1) >> 61)
+        {
+          goto LABEL_107;
+        }
+
+        v59 = v56 - v57;
+        v60 = v59 >> 2;
+        if (v59 >> 2 <= (v58 + 1))
+        {
+          v60 = v58 + 1;
+        }
+
+        if (v59 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v61 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v61 = v60;
+        }
+
+        if (v61)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 200, v61);
+        }
+
+        v62 = (8 * v58);
+        *v62 = v55;
+        v54 = (8 * v58 + 8);
+        v63 = *(a1 + 200);
+        v64 = *(a1 + 208) - v63;
+        v65 = v62 - v64;
+        memcpy(v62 - v64, v63, v64);
+        v66 = *(a1 + 200);
+        *(a1 + 200) = v65;
+        *(a1 + 208) = v54;
+        *(a1 + 216) = 0;
+        if (v66)
+        {
+          operator delete(v66);
+        }
       }
 
-      *(v57 + 309) = 33619713;
-      *(v57 + 317) = 33619713;
-      *(v57 + 325) = 1 << v12;
-      v35 = v79;
+      else
+      {
+        *v54++ = v55;
+      }
+
+      *(a1 + 208) = v54;
+      ++v52;
     }
 
-    re::RenderGraphNode::configure(v57, __s, a3, a4);
+    while (v52 != v53);
   }
 
-  v58 = re::globalAllocators(v47);
-  v59 = v58[2];
-  v93[0] = &unk_1F5D15428;
-  v93[3] = v59;
-  v93[4] = v93;
-  *v100 = v12;
-  *&v100[8] = v89;
-  *v101 = this;
-  *&v101[8] = v70;
-  *&v101[16] = v69;
-  *&v101[24] = v68;
-  *&v101[32] = v67;
-  v102 = v80;
-  v103 = v78;
-  v104 = v81;
-  v105 = v76;
-  v106 = v75;
-  v107 = v74;
-  v60 = re::globalAllocators(v58)[2];
-  v91 = v60;
-  if (v60)
+  v67 = v100;
+  v68 = v101;
+  if (v100 != v101)
   {
-    v60 = (*(*v60 + 32))(v60, 104, 0);
+    v69 = *(a1 + 296);
+    do
+    {
+      v70 = *v67;
+      v71 = *(a1 + 304);
+      if (v69 >= v71)
+      {
+        v72 = *(a1 + 288);
+        v73 = (v69 - v72) >> 3;
+        if ((v73 + 1) >> 61)
+        {
+          goto LABEL_108;
+        }
+
+        v74 = v71 - v72;
+        v75 = v74 >> 2;
+        if (v74 >> 2 <= (v73 + 1))
+        {
+          v75 = v73 + 1;
+        }
+
+        if (v74 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v76 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v76 = v75;
+        }
+
+        if (v76)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 288, v76);
+        }
+
+        v77 = (8 * v73);
+        *v77 = v70;
+        v69 = (8 * v73 + 8);
+        v78 = *(a1 + 288);
+        v79 = *(a1 + 296) - v78;
+        v80 = v77 - v79;
+        memcpy(v77 - v79, v78, v79);
+        v81 = *(a1 + 288);
+        *(a1 + 288) = v80;
+        *(a1 + 296) = v69;
+        *(a1 + 304) = 0;
+        if (v81)
+        {
+          operator delete(v81);
+        }
+      }
+
+      else
+      {
+        *v69++ = v70;
+      }
+
+      *(a1 + 296) = v69;
+      ++v67;
+    }
+
+    while (v67 != v68);
   }
 
-  re::internal::Callable<re::MXIProvider::provide(char const*,char const*,re::RenderFrame &)::$_1,void ()(re::RenderGraphContext &)>::Callable(v60, v100);
-  v92 = v61;
-  v62 = re::RenderGraph::addNode(v35, "MXIProvideTextures", v93, v90);
-  re::FunctionBase<24ul,void ()(re::RenderGraphContext &)>::destroyCallable(v90);
-  re::FunctionBase<24ul,void ()(re::RenderGraphBuilder &,re::RenderGraphDataStore &)>::destroyCallable(v93);
-  return (*(*v62 + 80))(v62, __s, a3, a4);
+  v82 = __p;
+  v83 = v98;
+  if (__p != v98)
+  {
+    v84 = *(a1 + 440);
+    do
+    {
+      v85 = *v82;
+      v86 = *(a1 + 448);
+      if (v84 >= v86)
+      {
+        v87 = *(a1 + 432);
+        v88 = (v84 - v87) >> 3;
+        if ((v88 + 1) >> 61)
+        {
+          goto LABEL_109;
+        }
+
+        v89 = v86 - v87;
+        v90 = v89 >> 2;
+        if (v89 >> 2 <= (v88 + 1))
+        {
+          v90 = v88 + 1;
+        }
+
+        if (v89 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v91 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v91 = v90;
+        }
+
+        if (v91)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 432, v91);
+        }
+
+        v92 = (8 * v88);
+        *v92 = v85;
+        v84 = (8 * v88 + 8);
+        v93 = *(a1 + 432);
+        v94 = *(a1 + 440) - v93;
+        v95 = v92 - v94;
+        memcpy(v92 - v94, v93, v94);
+        v96 = *(a1 + 432);
+        *(a1 + 432) = v95;
+        *(a1 + 440) = v84;
+        *(a1 + 448) = 0;
+        if (v96)
+        {
+          operator delete(v96);
+        }
+      }
+
+      else
+      {
+        *v84++ = v85;
+      }
+
+      *(a1 + 440) = v84;
+      ++v82;
+    }
+
+    while (v82 != v83);
+  }
+
+  os_unfair_lock_unlock((a1 + 8));
+  if (__p)
+  {
+    v98 = __p;
+    operator delete(__p);
+  }
+
+  if (v100)
+  {
+    v101 = v100;
+    operator delete(v100);
+  }
+
+  if (v103)
+  {
+    v104 = v103;
+    operator delete(v103);
+  }
+
+  if (v106)
+  {
+    v107 = v106;
+    operator delete(v106);
+  }
 }
 
-uint64_t re::RenderFrame::tryGetData<re::VRRData>(uint64_t a1, char *__s, const char *a3)
+void *re::allocInfo_ProfilerManager(re *this)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v6 = 0x9E3779B97F4A7C17;
-  v7 = strlen(__s);
-  if (v7)
+  if ((atomic_load_explicit(&_MergedGlobals_498, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_498))
   {
-    MurmurHash3_x64_128(__s, v7, 0, &v11);
-    v8 = (v12 - 0x61C8864680B583E9 + (v11 << 6) + (v11 >> 2)) ^ v11;
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BD6F0, "ProfilerManager");
+    __cxa_guard_release(&_MergedGlobals_498);
+  }
+
+  return &unk_1EE1BD6F0;
+}
+
+void re::initInfo_ProfilerManager(re *this, re::IntrospectionBase *a2)
+{
+  v6[0] = 0x2B0128137FA56C8;
+  v6[1] = "ProfilerManager";
+  if (v6[0])
+  {
+    if (v6[0])
+    {
+    }
+  }
+
+  *(this + 2) = v7;
+  *(this + 2) = 0x21800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 0;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 8) = &re::initInfo_ProfilerManager(re::IntrospectionBase *)::structureAttributes;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  *(this + 15) = 0;
+  re::internal::prepare(this, v4);
+  v5 = v7;
+}
+
+void std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireEventStream(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>(re *a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v1 = **(*a1 + 8);
+  v2 = **(*a1 + 16);
+  v3 = *re::foundationProfilingLogObjects(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 134218240;
+    v5 = v2;
+    v6 = 2048;
+    v7 = v1;
+    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerEventStream limit of %lu for ProfilerManager %llu reached. Consider increasing this value.", &v4, 0x16u);
+  }
+}
+
+void std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireStatistics(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>(re *a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v1 = **(*a1 + 8);
+  v2 = **(*a1 + 16);
+  v3 = *re::foundationProfilingLogObjects(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 134218240;
+    v5 = v2;
+    v6 = 2048;
+    v7 = v1;
+    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerStatistics limit of %lu for ProfilerManager %llu reached. Consider increasing this value.", &v4, 0x16u);
+  }
+}
+
+void std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireAttributions(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>(re *a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v1 = **(*a1 + 8);
+  v2 = **(*a1 + 16);
+  v3 = *re::foundationProfilingLogObjects(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 134218240;
+    v5 = v2;
+    v6 = 2048;
+    v7 = v1;
+    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerAttributions limit of %lu for ProfilerManager %llu reached. Consider increasing this value.", &v4, 0x16u);
+  }
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    operator new();
+  }
+
+  std::string::__throw_length_error[abi:nn200100]();
+}
+
+void std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireMemoryStatistics(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>(re *a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v1 = **(*a1 + 8);
+  v2 = **(*a1 + 16);
+  v3 = *re::foundationProfilingLogObjects(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 134218240;
+    v5 = v2;
+    v6 = 2048;
+    v7 = v1;
+    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerMemoryStatistics limit of %lu for ProfilerManager %llu reached. Consider increasing this value.", &v4, 0x16u);
+  }
+}
+
+void re::ProfilerFrameStatisticsProcessor::process(uint64_t result, uint64_t a2, uint64_t a3, int64x2_t ***a4)
+{
+  v4 = *a4;
+  v5 = a4[1];
+  if (*a4 != v5)
+  {
+    v6 = result + 128;
+    v7 = result + 256;
+    do
+    {
+      v8 = *v4;
+      v9 = (*v4)->i64[1];
+      if (v9 != -1)
+      {
+        v10 = (v6 + 20224 * ((*v4)->i64[1] & 0x3F));
+        if (v10->i64[1] != v9)
+        {
+          v11 = (v7 + 20224 * ((*v4)->i64[1] & 0x3F));
+          v12 = -157;
+          do
+          {
+            *v11 = re::kProfilerCounterEmpty;
+            v11[1] = *algn_1E3101290;
+            v11 += 8;
+          }
+
+          while (!__CFADD__(v12++, 1));
+          v10->i64[1] = v9;
+        }
+
+        re::ProfilerStatistics::operator+=(v10, v8);
+      }
+
+      ++v4;
+    }
+
+    while (v4 != v5);
+  }
+}
+
+int64x2_t re::ProfilerStatistics::operator+=(int64x2_t *a1, int64x2_t *a2)
+{
+  v2 = a1 + 9;
+  v3 = a2 + 9;
+  v4 = 157;
+  do
+  {
+    v5 = v3[-1].u64[0];
+    v6 = v2[-1].u64[1];
+    if (v5 >= v2[-1].i64[0])
+    {
+      v5 = v2[-1].u64[0];
+    }
+
+    v2[-1].i64[0] = v5;
+    v7 = v3[-1].u64[1];
+    if (v6 > v7)
+    {
+      v7 = v6;
+    }
+
+    v2[-1].i64[1] = v7;
+    v8 = *v3;
+    v3 += 8;
+    result = vaddq_s64(*v2, v8);
+    *v2 = result;
+    v2 += 8;
+    --v4;
+  }
+
+  while (v4);
+  return result;
+}
+
+uint64_t re::ProfilerFrameStatisticsProcessor::cpuActiveFrameTime(uint64_t this, uint64_t a2)
+{
+  if (*(this + 20224 * (a2 & 0x3F) + 136) == a2)
+  {
+    v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v3) = info.numer;
+        LODWORD(v4) = info.denom;
+        v2 = v3 / v4;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v5) = info.numer;
+        LODWORD(v6) = info.denom;
+        v2 = v5 / v6;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v7) = info.numer;
+        LODWORD(v8) = info.denom;
+        v2 = v7 / v8;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v9) = info.numer;
+        LODWORD(v10) = info.denom;
+        v2 = v9 / v10;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v11) = info.numer;
+        LODWORD(v12) = info.denom;
+        v2 = v11 / v12;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v13) = info.numer;
+        LODWORD(v14) = info.denom;
+        v2 = v13 / v14;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v15) = info.numer;
+        LODWORD(v16) = info.denom;
+        v2 = v15 / v16;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v17) = info.numer;
+        LODWORD(v18) = info.denom;
+        v2 = v17 / v18;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v19) = info.numer;
+        LODWORD(v20) = info.denom;
+        v2 = v19 / v20;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v21) = info.numer;
+        LODWORD(v22) = info.denom;
+        v2 = v21 / v22;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v23) = info.numer;
+        LODWORD(v24) = info.denom;
+        v2 = v23 / v24;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (!this)
+      {
+        LODWORD(v25) = info.numer;
+        LODWORD(v26) = info.denom;
+        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v25 / v26;
+      }
+    }
   }
 
   else
   {
-    v8 = 0;
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "cpuActiveFrameTime", 39);
+    this = _os_crash("assertion failure: (!Unreachable code) Attempting to get statistics for a frame older than the allowed number of frames in flight");
+    __break(1u);
   }
 
-  v9 = strlen(a3);
-  if (v9)
+  return this;
+}
+
+uint64_t re::ProfilerFrameStatisticsProcessor::cpuRenderThreadActiveFrameTime(uint64_t this, uint64_t a2)
+{
+  if (*(this + 20224 * (a2 & 0x3F) + 136) == a2)
   {
-    MurmurHash3_x64_128(a3, v9, 0, &v11);
-    v6 = ((v12 - 0x61C8864680B583E9 + (v11 << 6) + (v11 >> 2)) ^ v11) - 0x61C8864680B583E9;
+    v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v3) = info.numer;
+        LODWORD(v4) = info.denom;
+        v2 = v3 / v4;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v5) = info.numer;
+        LODWORD(v6) = info.denom;
+        v2 = v5 / v6;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
+      }
+    }
+
+    if (v2 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (!this)
+      {
+        LODWORD(v7) = info.numer;
+        LODWORD(v8) = info.denom;
+        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v7 / v8;
+      }
+    }
   }
 
-  return re::RenderGraphDataStore::tryGet<re::VRRData>(a1 + 32, ((v8 >> 2) + (v8 << 6) + v6) ^ v8);
+  else
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "cpuRenderThreadActiveFrameTime", 74);
+    this = _os_crash("assertion failure: (!Unreachable code) Attempting to get statistics for a frame older than the allowed number of frames in flight");
+    __break(1u);
+  }
+
+  return this;
+}
+
+uint64_t re::ProfilerFrameStatisticsProcessor::cpuMainThreadLatency(uint64_t this, uint64_t a2)
+{
+  v2 = this + 20224 * (a2 & 0x3F);
+  if (*(v2 + 136) != a2)
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "cpuMainThreadLatency", 94);
+    this = _os_crash("assertion failure: (!Unreachable code) Attempting to get statistics for a frame older than the allowed number of frames in flight");
+    __break(1u);
+    return this;
+  }
+
+  v3 = *(v2 + 1552);
+  v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    this = mach_timebase_info(&info);
+    if (this)
+    {
+      v7 = NAN;
+      goto LABEL_7;
+    }
+
+    LODWORD(v5) = info.numer;
+    LODWORD(v6) = info.denom;
+    v4 = v5 / v6;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+  }
+
+  v7 = v4 * v3;
+LABEL_7:
+  if (v7 / 1000000.0 <= 0.0)
+  {
+    v8 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v8 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v9) = info.numer;
+        LODWORD(v10) = info.denom;
+        v8 = v9 / v10;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v8;
+      }
+    }
+
+    if (v8 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (!this)
+      {
+        LODWORD(v11) = info.numer;
+        LODWORD(v12) = info.denom;
+        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v11 / v12;
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t re::ProfilerFrameStatisticsProcessor::cpuRenderThreadLatency(uint64_t this, uint64_t a2)
+{
+  v2 = this + 20224 * (a2 & 0x3F);
+  if (*(v2 + 136) != a2)
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "cpuRenderThreadLatency", 112);
+    this = _os_crash("assertion failure: (!Unreachable code) Attempting to get statistics for a frame older than the allowed number of frames in flight");
+    __break(1u);
+    return this;
+  }
+
+  v3 = *(v2 + 1552);
+  v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  {
+    this = mach_timebase_info(&info);
+    if (this)
+    {
+      v7 = NAN;
+      goto LABEL_7;
+    }
+
+    LODWORD(v5) = info.numer;
+    LODWORD(v6) = info.denom;
+    v4 = v5 / v6;
+    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
+  }
+
+  v7 = v4 * v3;
+LABEL_7:
+  if (v7 / 1000000.0 > 0.0)
+  {
+    v8 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (this)
+      {
+        v8 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      }
+
+      else
+      {
+        LODWORD(v9) = info.numer;
+        LODWORD(v10) = info.denom;
+        v8 = v9 / v10;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v8;
+      }
+    }
+
+    if (v8 < 0.0)
+    {
+      this = mach_timebase_info(&info);
+      if (!this)
+      {
+        LODWORD(v11) = info.numer;
+        LODWORD(v12) = info.denom;
+        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v11 / v12;
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t re::ProfilerFrameStatisticsProcessor::durationStatistic(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (*(result + 20224 * (a3 & 0x3F) + 136) == a3)
+  {
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      result = mach_timebase_info(&info);
+      if (!result)
+      {
+        LODWORD(v3) = info.numer;
+        LODWORD(v4) = info.denom;
+        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v3 / v4;
+      }
+    }
+  }
+
+  else
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "durationStatistic", 130);
+    result = _os_crash("assertion failure: (!Unreachable code) Attempting to get statistics for a frame older than the allowed number of frames in flight");
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t re::ProfilerFrameStatisticsProcessor::counterStatistic(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = a1 + 20224 * (a3 & 0x3F);
+  if (*(v5 + 136) == a3)
+  {
+    return *(v5 + 128 + (a2 << 7) + 144);
+  }
+
+  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "counterStatistic", 141, v3, v4);
+  result = _os_crash("assertion failure: (!Unreachable code) Attempting to get statistics for a frame older than the allowed number of frames in flight");
+  __break(1u);
+  return result;
+}
+
+re::ProfilerAttributions *re::ProfilerAttributions::ProfilerAttributions(re::ProfilerAttributions *this, uint64_t a2)
+{
+  *(this + 264) = 0u;
+  *(this + 280) = 0u;
+  *(this + 74) = 1065353216;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  *(this + 40) = 0u;
+  *(this + 56) = 0u;
+  *(this + 72) = 0u;
+  *(this + 88) = 0u;
+  *(this + 104) = 0u;
+  *(this + 120) = 0u;
+  *(this + 136) = 0u;
+  *(this + 152) = 0u;
+  *(this + 168) = 0u;
+  *(this + 184) = 0u;
+  *(this + 200) = 0u;
+  *(this + 216) = 0u;
+  *(this + 232) = 0u;
+  *(this + 31) = 0;
+  *(this + 32) = a2;
+  *(this + 38) = 0;
+  *(this + 39) = 0;
+  *(this + 327) = 0;
+  *(this + 40) = 0;
+  v4 = operator new(0x4F00uLL, 0x80uLL);
+  *v4 = a2;
+  v4[1] = -1;
+  v5 = 0x1FFFFFFFFFFFF630;
+  do
+  {
+    v6 = &v4[v5];
+    v6[2528] = -1;
+    v6[2529] = 0;
+    v6[2531] = 0;
+    v6[2530] = 0;
+    v5 += 16;
+  }
+
+  while (v5 * 8);
+  *this = v4;
+  return this;
+}
+
+void re::ProfilerAttributions::~ProfilerAttributions(re::ProfilerAttributions *this)
+{
+  for (i = 0; i != 256; i += 8)
+  {
+    v3 = *(this + i);
+    if (v3)
+    {
+      MEMORY[0x1E6906510](v3, 128);
+    }
+  }
+
+  v4 = *(this + 38);
+  if (v4)
+  {
+    *(this + 39) = v4;
+    MEMORY[0x1E6906510]();
+  }
+
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::~__hash_table(this + 33);
+}
+
+void re::ProfilerAttributions::clear(re::ProfilerAttributions *this)
+{
+  for (i = 0; i != 256; i += 8)
+  {
+    v3 = *(this + i);
+    if (v3)
+    {
+      v4 = (v3 + 128);
+      v5 = -157;
+      do
+      {
+        *v4 = re::kProfilerCounterEmpty;
+        v4[1] = *algn_1E3101310;
+        v4 += 8;
+      }
+
+      while (!__CFADD__(v5++, 1));
+    }
+  }
+
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::clear(this + 264);
+  *(this + 39) = *(this + 38);
+  *(this + 164) = 0;
+  *(this + 330) = 0;
+}
+
+void re::ProfilerAttributions::resolveDeferred(re::ProfilerAttributions *a1, void *a2)
+{
+  v3 = *(a1 + 35);
+  if (v3)
+  {
+    v17 = vdupq_n_s64(1uLL);
+    do
+    {
+      v5 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(a2, v3 + 2);
+      if (v5)
+      {
+        if (*(v5 + 12) >= 0x20u)
+        {
+          v6 = 0;
+        }
+
+        else
+        {
+          v6 = *(v5 + 12);
+        }
+      }
+
+      else
+      {
+        v6 = 0;
+      }
+
+      Statistics = *(a1 + v6);
+      v8 = v17.i64[1];
+      if (!Statistics)
+      {
+        Statistics = re::ProfilerAttributions::createStatistics(a1, v6);
+        v8 = v17.i64[1];
+      }
+
+      v9 = v3[3];
+      for (i = v3[4]; v9 != i; v13[1] = vaddq_s64(v13[1], v16))
+      {
+        v11 = *(v9 + 1);
+        v12 = *v9;
+        v9 += 16;
+        v13 = &Statistics[16 * v12 + 16];
+        v14 = v13->i64[0];
+        v15 = v13->u64[1];
+        if (v13->i64[0] >= v11)
+        {
+          v14 = v11;
+        }
+
+        if (v15 <= v11)
+        {
+          v15 = v11;
+        }
+
+        v13->i64[0] = v14;
+        v13->i64[1] = v15;
+        v16.i64[1] = v8;
+        v16.i64[0] = v11;
+      }
+
+      v3 = *v3;
+    }
+
+    while (v3);
+  }
+
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::clear(a1 + 264);
+}
+
+void *re::ProfilerAttributions::createStatistics(re::ProfilerAttributions *this, unsigned int a2)
+{
+  result = operator new(0x4F00uLL, 0x80uLL);
+  *result = *(this + 32);
+  result[1] = -1;
+  v5 = 0x1FFFFFFFFFFFF630;
+  do
+  {
+    v6 = &result[v5];
+    v6[2528] = -1;
+    v6[2529] = 0;
+    v6[2531] = 0;
+    v6[2530] = 0;
+    v5 += 16;
+  }
+
+  while (v5 * 8);
+  *(this + a2) = result;
+  return result;
+}
+
+void **std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::~__hash_table(void **a1)
+{
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::__deallocate_node(a1, a1[2]);
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::__deallocate_node(int a1, void *__p)
+{
+  if (__p)
+  {
+    v2 = __p;
+    do
+    {
+      v3 = *v2;
+      v4 = v2[3];
+      if (v4)
+      {
+        v2[4] = v4;
+        operator delete(v4);
+      }
+
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+void std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::clear(uint64_t a1)
+{
+  if (*(a1 + 24))
+  {
+    std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::__deallocate_node(a1, *(a1 + 16));
+    *(a1 + 16) = 0;
+    v2 = *(a1 + 8);
+    if (v2)
+    {
+      for (i = 0; i != v2; ++i)
+      {
+        *(*a1 + 8 * i) = 0;
+      }
+    }
+
+    *(a1 + 24) = 0;
+  }
+}
+
+uint64_t *re::foundationProfilingLogObjects(re *this)
+{
+  {
+    re::foundationProfilingLogObjects(void)::logObjects = os_log_create("com.apple.re", "Foundation.Profiling");
+  }
+
+  return &re::foundationProfilingLogObjects(void)::logObjects;
+}
+
+void re::internal::enableMemoryStatsCollection(re::internal *this)
+{
+  if (_MergedGlobals_499 == 1)
+  {
+    v1 = *re::foundationProfilingLogObjects(this);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    {
+      *v4 = 0;
+      _os_log_impl(&dword_1E1C61000, v1, OS_LOG_TYPE_DEFAULT, "Malloc allocation statistics already being collected", v4, 2u);
+    }
+  }
+
+  else
+  {
+    v2 = MEMORY[0x1E69E99E8];
+    v3 = *MEMORY[0x1E69E99E8];
+    off_1EE1BD788 = *MEMORY[0x1E69E9B48];
+    unk_1EE1BD790 = v3;
+    *MEMORY[0x1E69E9B48] = _objectalloc_logger;
+    *v2 = _objectalloc_logger;
+    _MergedGlobals_499 = 1;
+  }
+}
+
+int64_t _objectalloc_logger(int64_t result, uint64_t a2, char *ptr, unint64_t a4, uint64_t a5, int a6)
+{
+  v10 = result;
+  if (off_1EE1BD788)
+  {
+    result = off_1EE1BD788(result, a2, ptr, a4, a5, (a6 + 1));
+  }
+
+  if ((~v10 & 6) != 0)
+  {
+    if ((v10 & 2) != 0)
+    {
+      if (a5)
+      {
+        do
+        {
+          if (v18 <= v19)
+          {
+            break;
+          }
+
+          v20 = v19;
+        }
+
+        while (v20 != v19);
+      }
+    }
+
+    else if ((v10 & 4) != 0)
+    {
+      if (ptr)
+      {
+        result = malloc_size(ptr);
+        do
+        {
+          if (v21 <= v22)
+          {
+            break;
+          }
+
+          v23 = v22;
+        }
+
+        while (v23 != v22);
+      }
+    }
+
+    else if ((v10 & 0x10) != 0)
+    {
+      if (a5 && *MEMORY[0x1E69E9A60] == a2)
+      {
+        v24 = ~*MEMORY[0x1E69E9AB8] & &ptr[*MEMORY[0x1E69E9AB8]];
+        do
+        {
+          if (v25 <= v26)
+          {
+            break;
+          }
+
+          v27 = v26;
+        }
+
+        while (v27 != v26);
+      }
+    }
+
+    else if ((v10 & 0x20) != 0 && ptr && *MEMORY[0x1E69E9A60] == a2)
+    {
+      v14 = ~*MEMORY[0x1E69E9AB8] & (*MEMORY[0x1E69E9AB8] + a4);
+      do
+      {
+        if (v15 <= v16)
+        {
+          break;
+        }
+
+        v17 = v16;
+      }
+
+      while (v17 != v16);
+    }
+  }
+
+  else if (a5)
+  {
+    result = malloc_size(ptr);
+    do
+    {
+      if (v11 <= v12)
+      {
+        break;
+      }
+
+      v13 = v12;
+    }
+
+    while (v13 != v12);
+  }
+
+  return result;
+}
+
+void re::internal::disableMemoryStatsCollection(re::internal *this)
+{
+  if (_MergedGlobals_499)
+  {
+    v3 = unk_1EE1BD790;
+    *MEMORY[0x1E69E9B48] = off_1EE1BD788;
+    *MEMORY[0x1E69E99E8] = v3;
+    _MergedGlobals_499 = 0;
+  }
+
+  else
+  {
+    v6 = v1;
+    v7 = v2;
+    v4 = *re::foundationProfilingLogObjects(this);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *v5 = 0;
+      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "Malloc allocation statistics already disabled", v5, 2u);
+    }
+  }
+}
+
+re::ProfilerFlameChartProcessor *re::ProfilerFlameChartProcessor::ProfilerFlameChartProcessor(re::ProfilerFlameChartProcessor *this)
+{
+  *(this + 8) = 0;
+  *this = &unk_1F5D0E4C8;
+  *(this + 28) = 0u;
+  *(this + 44) = 0u;
+  *(this + 60) = 0u;
+  *(this + 76) = 0u;
+  *(this + 92) = 0u;
+  *(this + 108) = 0u;
+  *(this + 124) = 0u;
+  *(this + 140) = 0u;
+  *(this + 156) = 0u;
+  *(this + 172) = 0u;
+  *(this + 188) = 0u;
+  *(this + 204) = 0u;
+  *(this + 220) = 0u;
+  *(this + 236) = 0u;
+  *(this + 252) = 0u;
+  *(this + 95) = 0;
+  *(this + 12) = 0u;
+  *(this + 268) = 0u;
+  *(this + 284) = 0u;
+  *(this + 300) = 0u;
+  *(this + 316) = 0u;
+  *(this + 332) = 0u;
+  *(this + 348) = 0u;
+  *(this + 364) = 0u;
+  *(this + 48) = 0x10000001ELL;
+  *(this + 98) = 1;
+  *(this + 25) = xmmword_1E3062D70;
+  *(this + 416) = 1;
+  std::vector<re::ProfilerFlameChartBlock>::resize(this + 2, 0x80uLL);
+  std::vector<re::ProfilerFlameChartBlock>::resize(this + 5, 0x80uLL);
+  re::ProfilerFlameChartProcessor::mapColorsToCategories(this);
+  return this;
+}
+
+void std::vector<re::ProfilerFlameChartBlock>::resize(void *result, unint64_t a2)
+{
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 7);
+  v3 = a2 >= v2;
+  v4 = a2 - v2;
+  if (v4 != 0 && v3)
+  {
+    std::vector<re::ProfilerFlameChartBlock>::__append(result, v4);
+  }
+
+  else if (!v3)
+  {
+    result[1] = *result + 384 * a2;
+  }
+}
+
+double re::ProfilerFlameChartProcessor::mapColorsToCategories(re::ProfilerFlameChartProcessor *this)
+{
+  for (i = 64; i != 384; i += 64)
+  {
+    v2 = (this + i);
+    v2[2] = xmmword_1E3101390;
+    v2[3] = xmmword_1E3101390;
+    *v2 = xmmword_1E3101390;
+    v2[1] = xmmword_1E3101390;
+  }
+
+  *(this + 5) = xmmword_1E31013A0;
+  *(this + 6) = xmmword_1E31013D0;
+  *(this + 21) = xmmword_1E31013F0;
+  *(this + 22) = xmmword_1E31013B0;
+  *(this + 7) = xmmword_1E31013C0;
+  *(this + 8) = xmmword_1E3101400;
+  *(this + 9) = xmmword_1E3101410;
+  *(this + 10) = xmmword_1E3101420;
+  *(this + 11) = xmmword_1E3101400;
+  *(this + 12) = xmmword_1E3101430;
+  *(this + 15) = xmmword_1E3101440;
+  *(this + 16) = xmmword_1E3101400;
+  *(this + 13) = xmmword_1E3101450;
+  *(this + 14) = xmmword_1E31013C0;
+  *(this + 17) = xmmword_1E3101460;
+  *(this + 18) = xmmword_1E3101470;
+  *(this + 19) = xmmword_1E3101480;
+  *(this + 20) = xmmword_1E31013E0;
+  result = 0.0065870108;
+  *(this + 23) = xmmword_1E3101490;
+  return result;
+}
+
+char *re::ProfilerFlameChartProcessor::ProcessBlock(char *result, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double d1_0, double d2_0, double d3_0, double d4_0, double d5_0, double d6_0, double d7_0, char __dst, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, double a27, double a28, __int128 a29, uint64_t a30, double a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, __int128 a40, __int128 a41, __int128 a42, __int128 a43, __int128 a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55)
+{
+  a73 = *MEMORY[0x1E69E9840];
+  if (a3)
+  {
+    v66 = result;
+    v67 = 0;
+    v95 = result + 64;
+    v68 = a3;
+    do
+    {
+      v69 = a2 + (v67 << 7);
+      a31 = 0.0;
+      a40 = 0u;
+      a41 = 0u;
+      a42 = 0u;
+      a43 = 0u;
+      a44 = 0u;
+      a45 = 0;
+      a27 = 0.0;
+      a28 = 0.0;
+      a26 = *v69;
+      v70 = *&v95[16 * *(v69 + 16)];
+      LOWORD(a29) = *(v69 + 18);
+      *(&a29 + 4) = v70;
+      v72 = *(v69 + 24);
+      v71 = *(v69 + 32);
+      v73 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+      if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+      {
+        if (mach_timebase_info(&info))
+        {
+          v76 = NAN;
+          goto LABEL_8;
+        }
+
+        LODWORD(v75) = HIDWORD(info.__r_.__value_.__r.__words[0]);
+        LODWORD(v74) = info.__r_.__value_.__l.__data_;
+        v73 = v74 / v75;
+        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v73;
+      }
+
+      v76 = v73 * (v71 - v72);
+LABEL_8:
+      v77 = v76 / 1000000.0;
+      a31 = v76 / 1000000.0;
+      v78 = *(v69 + 24);
+      if (*(v66 + 400) > v78 && *(v66 + 392) == 1)
+      {
+        *(v66 + 400) = v78;
+      }
+
+      v79 = *(v69 + 32);
+      if (*(v66 + 408) < v79)
+      {
+        *(v66 + 408) = v79;
+      }
+
+      v80 = 0;
+      a27 = v78;
+      a28 = v79;
+      v81 = *(v69 + 8);
+LABEL_14:
+      v82 = 0;
+      v83 = v81 + v80;
+      while (1)
+      {
+        v84 = *(v83 + v82);
+        if (!*(v83 + v82))
+        {
+          break;
+        }
+
+        if (v84 == 32)
+        {
+          v80 += v82 + 1;
+          goto LABEL_14;
+        }
+
+        if (v84 == 40)
+        {
+          break;
+        }
+
+        ++v82;
+      }
+
+      memset(&info, 0, sizeof(info));
+      std::string::reserve(&info, 0x78uLL);
+      std::string::append(&info, "(");
+      std::to_string(&v96, v77);
+      if ((v96.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v85 = &v96;
+      }
+
+      else
+      {
+        v85 = v96.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v96.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        size = HIBYTE(v96.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        size = v96.__r_.__value_.__l.__size_;
+      }
+
+      std::string::append(&info, v85, size);
+      if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v96.__r_.__value_.__l.__data_);
+      }
+
+      v87 = (v77 * 100.0) - 100 * v77;
+      if (v87 >= 10)
+      {
+        v88 = ".";
+      }
+
+      else
+      {
+        v88 = ".0";
+      }
+
+      std::string::append(&info, v88);
+      std::to_string(&v96, v87);
+      if ((v96.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v89 = &v96;
+      }
+
+      else
+      {
+        v89 = v96.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v96.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v90 = HIBYTE(v96.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v90 = v96.__r_.__value_.__l.__size_;
+      }
+
+      std::string::append(&info, v89, v90);
+      if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v96.__r_.__value_.__l.__data_);
+      }
+
+      std::string::append(&info, ")");
+      if (v82 >= 0x78)
+      {
+        v91 = 120;
+      }
+
+      else
+      {
+        v91 = v82;
+      }
+
+      strncpy(&__dst, (v81 + v80), v91);
+      if (SHIBYTE(info.__r_.__value_.__r.__words[2]) < 0)
+      {
+        v93 = info.__r_.__value_.__r.__words[0];
+        v94 = 127 - info.__r_.__value_.__l.__size_;
+        if (127 - info.__r_.__value_.__l.__size_ >= v91)
+        {
+          v94 = v91;
+        }
+
+        strncpy(&__dst + v94, info.__r_.__value_.__l.__data_, info.__r_.__value_.__l.__size_ + 1);
+        operator delete(v93);
+      }
+
+      else
+      {
+        v92 = HIBYTE(info.__r_.__value_.__r.__words[2]) ^ 0x7FLL;
+        if (v91 < v92)
+        {
+          v92 = v91;
+        }
+
+        strncpy(&__dst + v92, &info, (*(&info.__r_.__value_.__s + 23) + 1));
+      }
+
+      result = std::vector<re::ProfilerFlameChartBlock>::push_back[abi:nn200100](v66 + 16, &__dst);
+      ++v67;
+    }
+
+    while (v67 != v68);
+  }
+
+  return result;
+}
+
+void *std::vector<re::ProfilerFlameChartBlock>::push_back[abi:nn200100](uint64_t a1, void *__src)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (v5 >= v4)
+  {
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 7);
+    if (v8 + 1 > 0xAAAAAAAAAAAAAALL)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 7);
+    v10 = 2 * v9;
+    if (2 * v9 <= v8 + 1)
+    {
+      v10 = v8 + 1;
+    }
+
+    if (v9 >= 0x55555555555555)
+    {
+      v11 = 0xAAAAAAAAAAAAAALL;
+    }
+
+    else
+    {
+      v11 = v10;
+    }
+
+    if (v11)
+    {
+      v12 = std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerFlameChartBlock>>(a1, v11);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = &v12[384 * v8];
+    v14 = &v12[384 * v11];
+    memcpy(v13, __src, 0x180uLL);
+    v7 = v13 + 384;
+    v15 = *(a1 + 8) - *a1;
+    v16 = &v13[-v15];
+    memcpy(&v13[-v15], *a1, v15);
+    result = *a1;
+    *a1 = v16;
+    *(a1 + 8) = v13 + 384;
+    *(a1 + 16) = v14;
+    if (result)
+    {
+      result = MEMORY[0x1E6906510](result, 128);
+    }
+  }
+
+  else
+  {
+    result = memcpy(*(a1 + 8), __src, 0x180uLL);
+    v7 = (v5 + 384);
+  }
+
+  *(a1 + 8) = v7;
+  return result;
+}
+
+const void **std::vector<re::ProfilerFlameChartBlock>::reserve(const void **result, unint64_t a2)
+{
+  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 7) < a2)
+  {
+    if (a2 >= 0xAAAAAAAAAAAAABLL)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v2 = result;
+    v3 = result[1] - *result;
+    v4 = std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerFlameChartBlock>>(result, a2);
+    v5 = &v4[v3];
+    v7 = &v4[384 * v6];
+    v8 = v2[1] - *v2;
+    v9 = &v4[v3 - v8];
+    memcpy(v9, *v2, v8);
+    result = *v2;
+    *v2 = v9;
+    v2[1] = v5;
+    v2[2] = v7;
+    if (result)
+    {
+
+      JUMPOUT(0x1E6906510);
+    }
+  }
+
+  return result;
+}
+
+void re::ProfilerFlameChartProcessor::~ProfilerFlameChartProcessor(re::ProfilerFlameChartProcessor *this)
+{
+  *this = &unk_1F5D0E4C8;
+  v2 = *(this + 5);
+  if (v2)
+  {
+    *(this + 6) = v2;
+    MEMORY[0x1E6906510]();
+  }
+
+  v3 = *(this + 2);
+  if (v3)
+  {
+    *(this + 3) = v3;
+    MEMORY[0x1E6906510]();
+  }
+}
+
+{
+  *this = &unk_1F5D0E4C8;
+  v2 = *(this + 5);
+  if (v2)
+  {
+    *(this + 6) = v2;
+    MEMORY[0x1E6906510]();
+  }
+
+  v3 = *(this + 2);
+  if (v3)
+  {
+    *(this + 3) = v3;
+    MEMORY[0x1E6906510]();
+  }
+
+  JUMPOUT(0x1E6906520);
+}
+
+void *std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerFlameChartBlock>>(uint64_t a1, unint64_t a2)
+{
+  if (a2 >= 0xAAAAAAAAAAAAABLL)
+  {
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  return operator new(384 * a2, 0x80uLL);
+}
+
+void std::vector<re::ProfilerFlameChartBlock>::__append(uint64_t a1, unint64_t a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (0xAAAAAAAAAAAAAAABLL * ((v4 - v5) >> 7) >= a2)
+  {
+    if (a2)
+    {
+      v11 = 384 * ((384 * a2 - 384) / 0x180) + 384;
+      bzero(*(a1 + 8), v11);
+      v5 += v11;
+    }
+
+    *(a1 + 8) = v5;
+  }
+
+  else
+  {
+    v6 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 7);
+    v7 = v6 + a2;
+    if (v6 + a2 > 0xAAAAAAAAAAAAAALL)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 7);
+    if (2 * v8 > v7)
+    {
+      v7 = 2 * v8;
+    }
+
+    if (v8 >= 0x55555555555555)
+    {
+      v9 = 0xAAAAAAAAAAAAAALL;
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    if (v9)
+    {
+      v10 = std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerFlameChartBlock>>(a1, v9);
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v12 = &v10[384 * v6];
+    v13 = &v10[384 * v9];
+    v14 = 384 * ((384 * a2 - 384) / 0x180) + 384;
+    bzero(v12, v14);
+    v15 = &v12[v14];
+    v16 = *(a1 + 8) - *a1;
+    v17 = &v12[-v16];
+    memcpy(&v12[-v16], *a1, v16);
+    v18 = *a1;
+    *a1 = v17;
+    *(a1 + 8) = v15;
+    *(a1 + 16) = v13;
+    if (v18)
+    {
+
+      JUMPOUT(0x1E6906510);
+    }
+  }
+}
+
+re::ProfilerMiniHUDProcessor *re::ProfilerMiniHUDProcessor::ProfilerMiniHUDProcessor(re::ProfilerMiniHUDProcessor *this)
+{
+  *(this + 8) = 0;
+  *this = &unk_1F5D0E538;
+  *(this + 12) = 0u;
+  *(this + 28) = 0u;
+  *(this + 44) = 0u;
+  *(this + 60) = 0u;
+  *(this + 76) = 0u;
+  *(this + 88) = 0u;
+  v2 = re::DynamicString::setCapacity(this + 9, 0);
+  *(this + 120) = 0u;
+  *(this + 104) = 0u;
+  v3 = re::DynamicString::setCapacity(this + 13, 0);
+  *(this + 152) = 0u;
+  *(this + 136) = 0u;
+  v4 = re::DynamicString::setCapacity(this + 17, 0);
+  *(this + 184) = 0u;
+  *(this + 168) = 0u;
+  v5 = re::DynamicString::setCapacity(this + 21, 0);
+  *(this + 216) = 0u;
+  *(this + 200) = 0u;
+  v6 = re::DynamicString::setCapacity(this + 25, 0);
+  *(this + 248) = 0u;
+  *(this + 232) = 0u;
+  v7 = re::DynamicString::setCapacity(this + 29, 0);
+  *(this + 264) = 0u;
+  *(this + 280) = 0u;
+  v8 = re::DynamicString::setCapacity(this + 33, 0);
+  *(this + 296) = 0u;
+  *(this + 312) = 0u;
+  v9 = re::DynamicString::setCapacity(this + 37, 0);
+  *(this + 328) = 0u;
+  *(this + 344) = 0u;
+  v10 = re::DynamicString::setCapacity(this + 41, 0);
+  *(this + 360) = 0u;
+  *(this + 376) = 0u;
+  v11 = re::DynamicString::setCapacity(this + 45, 0);
+  *(this + 392) = 0u;
+  *(this + 408) = 0u;
+  v12 = re::DynamicString::setCapacity(this + 49, 0);
+  *(this + 63) = 0;
+  *(this + 472) = 0u;
+  *(this + 488) = 0u;
+  *(this + 440) = 0u;
+  *(this + 456) = 0u;
+  *(this + 424) = 0u;
+  v13 = re::DynamicString::setCapacity(this + 60, 0);
+  *(this + 32) = 0u;
+  *(this + 33) = 0u;
+  v14 = re::DynamicString::setCapacity(this + 64, 0);
+  *(this + 34) = 0u;
+  *(this + 35) = 0u;
+  v15 = re::DynamicString::setCapacity(this + 68, 0);
+  *(this + 36) = 0u;
+  *(this + 37) = 0u;
+  v16 = re::DynamicString::setCapacity(this + 72, 0);
+  *(this + 38) = 0u;
+  *(this + 39) = 0u;
+  v17 = re::DynamicString::setCapacity(this + 76, 0);
+  *(this + 40) = 0u;
+  *(this + 41) = 0u;
+  v18 = re::DynamicString::setCapacity(this + 80, 0);
+  *(this + 42) = 0u;
+  *(this + 43) = 0u;
+  v19 = re::DynamicString::setCapacity(this + 84, 0);
+  *(this + 44) = 0u;
+  *(this + 45) = 0u;
+  v20 = re::DynamicString::setCapacity(this + 88, 0);
+  *(this + 46) = 0u;
+  *(this + 47) = 0u;
+  v21 = re::DynamicString::setCapacity(this + 92, 0);
+  *(this + 48) = 0u;
+  *(this + 49) = 0u;
+  v22 = re::DynamicString::setCapacity(this + 96, 0);
+  *(this + 50) = 0u;
+  *(this + 51) = 0u;
+  re::DynamicString::setCapacity(this + 100, 0);
+  *(this + 52) = xmmword_1E31014D0;
+  *(this + 53) = xmmword_1E3060D30;
+  *(this + 54) = xmmword_1E31014E0;
+  *(this + 55) = 0u;
+  *(this + 56) = 0u;
+  getpid();
+  memorystatus_control();
+  *(this + 113) = 0;
+  return this;
+}
+
+void re::ProfilerMiniHUDProcessor::process(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+{
+  v7 = *(a1 + 840) + 1;
+  *(a1 + 840) = v7;
+  v8 = 0.0;
+  v9 = 0.0;
+  v10 = 0.0;
+  v11 = 0.0;
+  v12 = *a4;
+  v13 = *(a4 + 8);
+  v14 = 0.0;
+  v15 = 0.0;
+  v16 = 0.0;
+  v17.i32[0] = 0;
+  v18 = 0.0;
+  v19 = 0.0;
+  if (*a4 != v13)
+  {
+    v17.i32[0] = 0;
+    v20 = 0.0;
+    v21 = 0.0;
+    v22 = 0.0;
+    v23 = 0.0;
+    v24 = 0.0;
+    v25 = 0.0;
+    v26 = 0.0;
+    do
+    {
+      v27 = 0;
+      v28 = (*v12 + 152);
+      do
+      {
+        if (*v28)
+        {
+          v29 = *(v28 - 1);
+          if (v29)
+          {
+            if (v27 > 0x5Au)
+            {
+              switch(v27)
+              {
+                case '[':
+                  v24 = v24 + v29;
+                  break;
+                case '\\':
+                  v25 = v25 + v29;
+                  break;
+                case ']':
+                  v26 = v26 + v29;
+                  break;
+              }
+            }
+
+            else
+            {
+              switch(v27)
+              {
+                case 1:
+                  v17.f32[0] = v17.f32[0] + v29;
+                  break;
+                case 2:
+                  v18 = v18 + v29;
+                  break;
+                case 3:
+                  v20 = v20 + v29;
+                  break;
+                case 4:
+                  v21 = v21 + v29;
+                  break;
+                case 5:
+                  v22 = v22 + v29;
+                  break;
+                case 6:
+                  v23 = v23 + v29;
+                  break;
+                case 7:
+                  v19 = v19 + v29;
+                  break;
+                case 8:
+                  v14 = v14 + v29;
+                  break;
+                case 9:
+                  v16 = v16 + v29;
+                  break;
+                case 10:
+                  v15 = v15 + v29;
+                  break;
+                case 11:
+                  v11 = v11 + v29;
+                  break;
+                case 12:
+                  v10 = v10 + v29;
+                  break;
+                case 23:
+                  v9 = v9 + v29;
+                  break;
+                case 24:
+                  v8 = v8 + v29;
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+        }
+
+        ++v27;
+        v28 += 16;
+      }
+
+      while (v27 != 157);
+      ++v12;
+    }
+
+    while (v12 != v13);
+    v18 = v19 + (v23 + (v22 + (v21 + (v20 + v18))));
+    v19 = v26 + (v25 + v24);
+  }
+
+  v30 = ((v14 - v11) - v10) - v9;
+  v31 = (v16 - v15) + v19;
+  v32 = v18 + v19;
+  v33 = v9 + (v10 + v11);
+  v34 = v14 <= 0.0;
+  if (v14 <= 0.0)
+  {
+    v35 = v31 - v33;
+  }
+
+  else
+  {
+    v35 = v31;
+  }
+
+  if (v34)
+  {
+    v15 = v33;
+  }
+
+  v17.f32[1] = (v32 - v15) - v35;
+  v17.i64[1] = __PAIR64__(COERCE_UNSIGNED_INT(fmaxf(v30, 0.0)), LODWORD(v35));
+  *(a1 + 20) = vaddq_f32(v17, *(a1 + 20));
+  *(a1 + 36) = v8 + *(a1 + 36);
+  v36 = *a6;
+  v37 = a6[1];
+  if (*a6 == v37)
+  {
+    v43 = 0;
+    v42 = 0;
+    v41 = 0;
+    v40 = 0;
+    v39 = 0;
+    v38 = 0;
+  }
+
+  else
+  {
+    v38 = 0;
+    v39 = 0;
+    v40 = 0;
+    v41 = 0;
+    v42 = 0;
+    v43 = 0;
+    do
+    {
+      v44 = (*v36 + 176);
+      v45 = 20;
+      do
+      {
+        v43 += *(v44 - 4);
+        v42 += *(v44 - 3);
+        v41 += *(v44 - 2);
+        v40 += *(v44 - 1);
+        v46 = *v44;
+        v44 += 16;
+        v39 += v46;
+        --v45;
+      }
+
+      while (v45);
+      v38 += *(*v36 + 2688);
+      v36 += 8;
+    }
+
+    while (v36 != v37);
+  }
+
+  if (!(v7 % *(a1 + 832)))
+  {
+    os_unfair_lock_lock((a1 + 12));
+    v47 = *(a1 + 20);
+    v48 = *(a1 + 832);
+    v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      if (mach_timebase_info(&info))
+      {
+        v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+        v52 = NAN;
+        goto LABEL_50;
+      }
+
+      LODWORD(v50) = info.numer;
+      LODWORD(v51) = info.denom;
+      v49 = v50 / v51;
+      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
+    }
+
+    v52 = v49 * (v47 / v48);
+LABEL_50:
+    v53 = v52 / 1000000.0;
+    *(a1 + 428) = v53;
+    v54 = 1000.0 / v53;
+    v34 = v53 <= 0.0;
+    v55 = 0.0;
+    if (!v34)
+    {
+      v55 = v54;
+    }
+
+    *(a1 + 424) = v55;
+    v56 = *(a1 + 24);
+    v57 = *(a1 + 832);
+    if (v49 < 0.0)
+    {
+      if (mach_timebase_info(&info))
+      {
+        v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+        v60 = NAN;
+        goto LABEL_57;
+      }
+
+      LODWORD(v58) = info.numer;
+      LODWORD(v59) = info.denom;
+      v49 = v58 / v59;
+      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
+    }
+
+    v60 = v49 * (v56 / v57);
+LABEL_57:
+    v61 = v60 / 1000000.0;
+    *(a1 + 432) = v61;
+    v62 = *(a1 + 28);
+    v63 = *(a1 + 832);
+    if (v49 < 0.0)
+    {
+      if (mach_timebase_info(&info))
+      {
+        v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+        v66 = NAN;
+        goto LABEL_62;
+      }
+
+      LODWORD(v64) = info.numer;
+      LODWORD(v65) = info.denom;
+      v49 = v64 / v65;
+      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
+    }
+
+    v66 = v49 * (v62 / v63);
+LABEL_62:
+    v67 = v66 / 1000000.0;
+    *(a1 + 436) = v67;
+    v68 = *(a1 + 32);
+    v69 = *(a1 + 832);
+    if (v49 < 0.0)
+    {
+      if (mach_timebase_info(&info))
+      {
+        v72 = NAN;
+        goto LABEL_67;
+      }
+
+      LODWORD(v70) = info.numer;
+      LODWORD(v71) = info.denom;
+      v49 = v70 / v71;
+      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
+    }
+
+    v72 = v49 * (v68 / v69);
+LABEL_67:
+    v73 = v72 / 1000000.0;
+    *(a1 + 440) = v73;
+    *(a1 + 444) = *(a1 + 36) / *(a1 + 832);
+    *(a1 + 64) = 0;
+    *(a1 + 48) = 0;
+    *(a1 + 16) = 0u;
+    *(a1 + 32) = 0u;
+    v74 = qword_1ECF19148;
+    task_info_outCnt = 93;
+    task_info(*MEMORY[0x1E69E9A60], 0x16u, re::ProfilerMiniHUDProcessor::process(unsigned long long,std::vector<re::ProfilerEventStream *> const&,std::vector<re::ProfilerStatistics *> const&,std::vector<re::ProfilerAttributions *> const&,std::vector<re::ProfilerMemoryStatistics *> const&)::vmInfo, &task_info_outCnt);
+    v75 = qword_1ECF19148;
+    *(a1 + 448) = qword_1ECF19148;
+    *(a1 + 456) = v75 - v74;
+    *(a1 + 472) = *(a1 + 904);
+    if (*(a1 + 488))
+    {
+      *(a1 + 488) = 1;
+      v76 = *(a1 + 496);
+    }
+
+    else
+    {
+      *(a1 + 488) = 0;
+      v76 = (a1 + 489);
+    }
+
+    *v76 = 0;
+    if (*(a1 + 520))
+    {
+      *(a1 + 520) = 1;
+      v77 = *(a1 + 528);
+    }
+
+    else
+    {
+      *(a1 + 520) = 0;
+      v77 = (a1 + 521);
+    }
+
+    *v77 = 0;
+    if (*(a1 + 552))
+    {
+      *(a1 + 552) = 1;
+      v78 = *(a1 + 560);
+    }
+
+    else
+    {
+      *(a1 + 552) = 0;
+      v78 = (a1 + 553);
+    }
+
+    *v78 = 0;
+    if (*(a1 + 584))
+    {
+      *(a1 + 584) = 1;
+      v79 = *(a1 + 592);
+    }
+
+    else
+    {
+      *(a1 + 584) = 0;
+      v79 = (a1 + 585);
+    }
+
+    *v79 = 0;
+    if (*(a1 + 616))
+    {
+      *(a1 + 616) = 1;
+      v80 = *(a1 + 624);
+    }
+
+    else
+    {
+      *(a1 + 616) = 0;
+      v80 = (a1 + 617);
+    }
+
+    *v80 = 0;
+    if (*(a1 + 648))
+    {
+      *(a1 + 648) = 1;
+      v81 = *(a1 + 656);
+    }
+
+    else
+    {
+      *(a1 + 648) = 0;
+      v81 = (a1 + 649);
+    }
+
+    *v81 = 0;
+    if (*(a1 + 680))
+    {
+      *(a1 + 680) = 1;
+      v82 = *(a1 + 688);
+    }
+
+    else
+    {
+      *(a1 + 680) = 0;
+      v82 = (a1 + 681);
+    }
+
+    *v82 = 0;
+    if (*(a1 + 712))
+    {
+      *(a1 + 712) = 1;
+      v83 = *(a1 + 720);
+    }
+
+    else
+    {
+      *(a1 + 712) = 0;
+      v83 = (a1 + 713);
+    }
+
+    *v83 = 0;
+    if (*(a1 + 744))
+    {
+      *(a1 + 744) = 1;
+      v84 = *(a1 + 752);
+    }
+
+    else
+    {
+      *(a1 + 744) = 0;
+      v84 = (a1 + 745);
+    }
+
+    *v84 = 0;
+    if (*(a1 + 776))
+    {
+      *(a1 + 776) = 1;
+      v85 = *(a1 + 784);
+    }
+
+    else
+    {
+      *(a1 + 776) = 0;
+      v85 = (a1 + 777);
+    }
+
+    v86 = (a1 + 436);
+    *v85 = 0;
+    v87 = *(a1 + 432);
+    if (*(a1 + 440) > 0.0)
+    {
+      v88 = *v86;
+      v86 = (a1 + 440);
+      v87 = v87 + v88;
+    }
+
+    re::DynamicString::appendf((a1 + 480), "Sim: %.2f", v87);
+    re::DynamicString::appendf((a1 + 512), "Ren: %.2f", *v86);
+    if (*(a1 + 444) == 0.0)
+    {
+      re::DynamicString::appendf((a1 + 544), "GPU: Off");
+    }
+
+    else
+    {
+      re::DynamicString::appendf((a1 + 544), "GPU: %.2f");
+    }
+
+    re::DynamicString::appendf((a1 + 576), "FPS: %2.2f", *(a1 + 424));
+    re::DynamicString::appendf((a1 + 608), "Mem [MB]: %.2f", *(a1 + 448) * 0.0009765625 * 0.0009765625);
+    if (!(v42 | v38))
+    {
+      goto LABEL_115;
+    }
+
+    re::DynamicString::appendf((a1 + 640), "Allocs: +%llu/-%llu", v42, v38);
+    *(a1 + 880) += v42 - v38;
+    v89 = mach_absolute_time();
+    v90 = v89;
+    v91 = *(a1 + 896);
+    if (!v91)
+    {
+      *(a1 + 896) = v89;
+      v91 = v89;
+    }
+
+    v92 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      if (mach_timebase_info(&info))
+      {
+        v95 = NAN;
+        goto LABEL_110;
+      }
+
+      LODWORD(v93) = info.numer;
+      LODWORD(v94) = info.denom;
+      v92 = v93 / v94;
+      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v92;
+    }
+
+    v95 = v92 * (v90 - v91);
+LABEL_110:
+    if (v95 / 1000000000.0 >= 1.0)
+    {
+      if (*(a1 + 808))
+      {
+        *(a1 + 808) = 1;
+        v96 = *(a1 + 816);
+      }
+
+      else
+      {
+        *(a1 + 808) = 0;
+        v96 = (a1 + 809);
+      }
+
+      *v96 = 0;
+      *(a1 + 896) = v90;
+      v97 = *(a1 + 880);
+      *(a1 + 888) = v97;
+      *(a1 + 880) = 0;
+      *(a1 + 464) = v97;
+      re::DynamicString::appendf((a1 + 800), "%+lld allocs/sec", v97);
+    }
+
+LABEL_115:
+    if (v41)
+    {
+      re::DynamicString::appendf((a1 + 704), "   (S): %llu", v41);
+    }
+
+    if (v40)
+    {
+      re::DynamicString::appendf((a1 + 736), "   (M): %llu", v40);
+    }
+
+    if (v39)
+    {
+      re::DynamicString::appendf((a1 + 768), "   (L): %llu", v39);
+    }
+
+    if (v43)
+    {
+      v98 = vcvtd_n_f64_u64(v43, 0xAuLL);
+      re::DynamicString::appendf((a1 + 672), "  Size: %.2fKB", v98);
+    }
+
+    os_unfair_lock_unlock((a1 + 12));
+  }
+}
+
+void re::ProfilerMiniHUDProcessor::~ProfilerMiniHUDProcessor(re::ProfilerMiniHUDProcessor *this)
+{
+  re::ProfilerMiniHUDProcessor::~ProfilerMiniHUDProcessor(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+{
+  *this = &unk_1F5D0E538;
+  v2 = (this + 72);
+  re::DynamicString::deinit((this + 800));
+  re::DynamicString::deinit((this + 768));
+  re::DynamicString::deinit((this + 736));
+  re::DynamicString::deinit((this + 704));
+  re::DynamicString::deinit((this + 672));
+  re::DynamicString::deinit((this + 640));
+  re::DynamicString::deinit((this + 608));
+  re::DynamicString::deinit((this + 576));
+  re::DynamicString::deinit((this + 544));
+  re::DynamicString::deinit((this + 512));
+  re::DynamicString::deinit((this + 480));
+  re::DynamicString::deinit((this + 392));
+  re::DynamicString::deinit((this + 360));
+  re::DynamicString::deinit((this + 328));
+  re::DynamicString::deinit((this + 296));
+  re::DynamicString::deinit((this + 264));
+  re::DynamicString::deinit((this + 232));
+  re::DynamicString::deinit((this + 200));
+  re::DynamicString::deinit((this + 168));
+  re::DynamicString::deinit((this + 136));
+  re::DynamicString::deinit((this + 104));
+  re::DynamicString::deinit(v2);
+}
+
+float ___ZN2re13ProfilerUtils8timeBaseEv_block_invoke()
+{
+  mach_timebase_info(&info);
+  *&v0 = info.numer;
+  *(&v0 + 1) = info.denom;
+  result = *&info.numer;
+  re::ProfilerUtils::s_timeBase = v0;
+  return result;
+}
+
+re::ProfilerDetailedHUDProcessor *re::ProfilerDetailedHUDProcessor::ProfilerDetailedHUDProcessor(re::ProfilerDetailedHUDProcessor *this)
+{
+  *(this + 8) = 0;
+  *this = &unk_1F5D0E5C8;
+  *(this + 12) = 0u;
+  *(this + 28) = 0u;
+  *(this + 44) = 0;
+  *(this + 52) = 0x7FFFFFFFLL;
+  *(this + 5) = 0u;
+  *(this + 4) = 0u;
+  v2 = (this + 64);
+  v3 = re::DynamicString::setCapacity(v2, 0);
+  *(this + 7) = 0u;
+  *(this + 6) = 0u;
+  v4 = re::DynamicString::setCapacity(this + 12, 0);
+  *(this + 9) = 0u;
+  *(this + 8) = 0u;
+  v5 = re::DynamicString::setCapacity(this + 16, 0);
+  *(this + 11) = 0u;
+  *(this + 10) = 0u;
+  v6 = re::DynamicString::setCapacity(this + 20, 0);
+  *(this + 13) = 0u;
+  *(this + 12) = 0u;
+  v7 = re::DynamicString::setCapacity(this + 24, 0);
+  *(this + 15) = 0u;
+  *(this + 14) = 0u;
+  re::DynamicString::setCapacity(this + 28, 0);
+  *(this + 33) = 0;
+  *(this + 34) = 0;
+  *(this + 32) = 5;
+  *(this + 280) = 0;
+  getpid();
+  memorystatus_control();
+  *(this + 34) = 0;
+  return this;
+}
+
+void re::ProfilerDetailedHUDProcessor::process(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  ++*(a1 + 264);
+  if ((*(a1 + 280) & 1) == 0)
+  {
+    *&info[0].numer = 0u;
+    memset(v612, 0, 20);
+    *&v612[20] = 0x7FFFFFFFLL;
+    re::HashTable<re::ProfilerStatistic,re::FrameStats::CollectedStatistics,re::Hash<re::ProfilerStatistic>,re::EqualTo<re::ProfilerStatistic>,true,false>::operator=(a1 + 16, info);
+    re::HashTable<unsigned long long,re::ecs2::RenderPassGroupBoundsInfo,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(info);
+    v6 = 0;
+    do
+    {
+      v614 = v6;
+      info[0] = 0xFF7FFFFF7F7FFFFFLL;
+      info[1] = 0;
+      *v612 = 0;
+      *&v612[8] = xmmword_1E3100EC0;
+      *&v612[24] = xmmword_1E3100ED0;
+      v613 = 0;
+      re::HashTable<re::ProfilerStatistic,re::FrameStats::CollectedStatistics,re::Hash<re::ProfilerStatistic>,re::EqualTo<re::ProfilerStatistic>,true,false>::addNew(a1 + 16, &v614, info);
+    }
+
+    while (v6++ < 0x9C);
+    *(a1 + 280) = 1;
+  }
+
+  v9 = *a4;
+  for (i = *(a4 + 8); v9 != i; ++v9)
+  {
+    v10 = 0;
+    v11 = *v9 + 128;
+    do
+    {
+      v12 = (v11 + (v10 << 7));
+      v13 = v12[3];
+      if (v13)
+      {
+        v14 = v12[2];
+        if (v14)
+        {
+          if (*(a1 + 16))
+          {
+            v15 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * v10) ^ ((0xBF58476D1CE4E5B9 * v10) >> 27));
+            v16 = (v15 ^ (v15 >> 31)) % *(a1 + 40);
+            v17 = *(a1 + 32);
+            v18 = *(*(a1 + 24) + 4 * v16);
+            if (v18 != 0x7FFFFFFF)
+            {
+              while (v10 != *(v17 + 80 * v18 + 4))
+              {
+                v18 = *(v17 + 80 * v18) & 0x7FFFFFFF;
+                if (v18 == 0x7FFFFFFF)
+                {
+                  goto LABEL_16;
+                }
+              }
+
+              goto LABEL_17;
+            }
+          }
+
+          else
+          {
+            v17 = *(a1 + 32);
+          }
+
+LABEL_16:
+          v18 = 0x7FFFFFFFLL;
+LABEL_17:
+          re::FrameStats::CollectedStatistics::addGroupValues((v17 + 80 * v18 + 8), v14, v13, *v12, v12[1]);
+        }
+      }
+
+      ++v10;
+    }
+
+    while (v10 != 157);
+  }
+
+  if (!(*(a1 + 264) % *(a1 + 256)))
+  {
+    os_unfair_lock_lock((a1 + 12));
+    v19 = *(a1 + 48);
+    if (v19)
+    {
+      v20 = 0;
+      v21 = *(a1 + 32);
+      while (1)
+      {
+        v22 = *v21;
+        v21 += 20;
+        if (v22 < 0)
+        {
+          break;
+        }
+
+        if (v19 == ++v20)
+        {
+          LODWORD(v20) = *(a1 + 48);
+          break;
+        }
+      }
+    }
+
+    else
+    {
+      LODWORD(v20) = 0;
+    }
+
+    if (v20 != v19)
+    {
+      v23 = *(a1 + 32);
+      do
+      {
+        v24 = v23 + 80 * v20;
+        *(v24 + 32) = *(v24 + 8);
+        *(v24 + 48) = *(v24 + 24);
+        *(v24 + 8) = xmmword_1E3100EE0;
+        *(v24 + 24) = 0;
+        if (v19 <= v20 + 1)
+        {
+          v25 = v20 + 1;
+        }
+
+        else
+        {
+          v25 = v19;
+        }
+
+        while (v25 - 1 != v20)
+        {
+          LODWORD(v20) = v20 + 1;
+          if ((*(v23 + 80 * v20) & 0x80000000) != 0)
+          {
+            goto LABEL_36;
+          }
+        }
+
+        LODWORD(v20) = v25;
+LABEL_36:
+        ;
+      }
+
+      while (v20 != v19);
+    }
+
+    if (*(a1 + 72))
+    {
+      *(a1 + 72) = 1;
+      v26 = *(a1 + 80);
+    }
+
+    else
+    {
+      *(a1 + 72) = 0;
+      v26 = (a1 + 73);
+    }
+
+    *v26 = 0;
+    if (*(a1 + 104))
+    {
+      *(a1 + 104) = 1;
+      v27 = *(a1 + 112);
+    }
+
+    else
+    {
+      *(a1 + 104) = 0;
+      v27 = (a1 + 105);
+    }
+
+    *v27 = 0;
+    v28 = 0x7FFFFFFFLL;
+    if (*(a1 + 16))
+    {
+      v29 = *(*(a1 + 24) + 4 * (0x5692161D100B05E5uLL % *(a1 + 40)));
+      if (v29 != 0x7FFFFFFF)
+      {
+        v30 = *(a1 + 32);
+        v28 = 0x7FFFFFFFLL;
+        while (*(v30 + 80 * v29 + 4) != 1)
+        {
+          v29 = *(v30 + 80 * v29) & 0x7FFFFFFF;
+          if (v29 == 0x7FFFFFFF)
+          {
+            goto LABEL_50;
+          }
+        }
+
+        v28 = v29;
+      }
+    }
+
+LABEL_50:
+    v31 = *(*(a1 + 32) + 80 * v28 + 40);
+    v32 = *(a1 + 256);
+    v33 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      if (mach_timebase_info(info))
+      {
+        v36 = NAN;
+        goto LABEL_55;
+      }
+
+      LODWORD(v34) = info[0].numer;
+      LODWORD(v35) = info[0].denom;
+      v33 = v34 / v35;
+      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v33;
+    }
+
+    v36 = v33 * (v31 / v32);
+LABEL_55:
+    v599 = v36;
+    if (*(a1 + 16))
+    {
+      v37 = *(a1 + 32);
+      v38 = *(*(a1 + 24) + 4 * (0xDBD238973A2B148ALL % *(a1 + 40)));
+      if (v38 != 0x7FFFFFFF)
+      {
+        while (*(v37 + 80 * v38 + 4) != 2)
+        {
+          v38 = *(v37 + 80 * v38) & 0x7FFFFFFF;
+          if (v38 == 0x7FFFFFFF)
+          {
+            goto LABEL_61;
+          }
+        }
+
+LABEL_62:
+        v39 = *(v37 + 80 * v38 + 40);
+        v40 = *(a1 + 256);
+        v41 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+        {
+          if (mach_timebase_info(info))
+          {
+            v44 = NAN;
+            goto LABEL_67;
+          }
+
+          LODWORD(v42) = info[0].numer;
+          LODWORD(v43) = info[0].denom;
+          v41 = v42 / v43;
+          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v41;
+        }
+
+        v44 = v41 * (v39 / v40);
+LABEL_67:
+        if (*(a1 + 16))
+        {
+          v45 = *(a1 + 32);
+          v46 = *(*(a1 + 24) + 4 * (0x1E535EEDE31428F0uLL % *(a1 + 40)));
+          if (v46 != 0x7FFFFFFF)
+          {
+            while (*(v45 + 80 * v46 + 4) != 3)
+            {
+              v46 = *(v45 + 80 * v46) & 0x7FFFFFFF;
+              if (v46 == 0x7FFFFFFF)
+              {
+                goto LABEL_73;
+              }
+            }
+
+LABEL_74:
+            v47 = *(v45 + 80 * v46 + 40);
+            v48 = *(a1 + 256);
+            v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+            {
+              if (mach_timebase_info(info))
+              {
+                v52 = NAN;
+                goto LABEL_79;
+              }
+
+              LODWORD(v50) = info[0].numer;
+              LODWORD(v51) = info[0].denom;
+              v49 = v50 / v51;
+              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
+            }
+
+            v52 = v49 * (v47 / v48);
+LABEL_79:
+            if (*(a1 + 16))
+            {
+              v53 = *(a1 + 32);
+              v54 = *(*(a1 + 24) + 4 * (0xB7A4712C74562914 % *(a1 + 40)));
+              if (v54 != 0x7FFFFFFF)
+              {
+                while (*(v53 + 80 * v54 + 4) != 4)
+                {
+                  v54 = *(v53 + 80 * v54) & 0x7FFFFFFF;
+                  if (v54 == 0x7FFFFFFF)
+                  {
+                    goto LABEL_85;
+                  }
+                }
+
+LABEL_86:
+                v55 = *(v53 + 80 * v54 + 40);
+                v56 = *(a1 + 256);
+                v57 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                {
+                  if (mach_timebase_info(info))
+                  {
+                    v60 = NAN;
+                    goto LABEL_91;
+                  }
+
+                  LODWORD(v58) = info[0].numer;
+                  LODWORD(v59) = info[0].denom;
+                  v57 = v58 / v59;
+                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v57;
+                }
+
+                v60 = v57 * (v55 / v56);
+LABEL_91:
+                if (*(a1 + 16))
+                {
+                  v61 = *(a1 + 32);
+                  v62 = *(*(a1 + 24) + 4 * (0xB6BF613DBEBB45DCLL % *(a1 + 40)));
+                  if (v62 != 0x7FFFFFFF)
+                  {
+                    while (*(v61 + 80 * v62 + 4) != 5)
+                    {
+                      v62 = *(v61 + 80 * v62) & 0x7FFFFFFF;
+                      if (v62 == 0x7FFFFFFF)
+                      {
+                        goto LABEL_97;
+                      }
+                    }
+
+LABEL_98:
+                    v63 = *(v61 + 80 * v62 + 40);
+                    v64 = *(a1 + 256);
+                    v65 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                    {
+                      if (mach_timebase_info(info))
+                      {
+                        v68 = NAN;
+                        goto LABEL_103;
+                      }
+
+                      LODWORD(v66) = info[0].numer;
+                      LODWORD(v67) = info[0].denom;
+                      v65 = v66 / v67;
+                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v65;
+                    }
+
+                    v68 = v65 * (v63 / v64);
+LABEL_103:
+                    v609 = v68;
+                    if (*(a1 + 16))
+                    {
+                      v69 = *(a1 + 32);
+                      v70 = *(*(a1 + 24) + 4 * (0xD17707977078336CLL % *(a1 + 40)));
+                      if (v70 != 0x7FFFFFFF)
+                      {
+                        while (*(v69 + 80 * v70 + 4) != 6)
+                        {
+                          v70 = *(v69 + 80 * v70) & 0x7FFFFFFF;
+                          if (v70 == 0x7FFFFFFF)
+                          {
+                            goto LABEL_109;
+                          }
+                        }
+
+LABEL_110:
+                        v71 = *(v69 + 80 * v70 + 40);
+                        v72 = *(a1 + 256);
+                        v73 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                        {
+                          if (mach_timebase_info(info))
+                          {
+                            v76 = NAN;
+                            goto LABEL_115;
+                          }
+
+                          LODWORD(v74) = info[0].numer;
+                          LODWORD(v75) = info[0].denom;
+                          v73 = v74 / v75;
+                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v73;
+                        }
+
+                        v76 = v73 * (v71 / v72);
+LABEL_115:
+                        if (*(a1 + 16))
+                        {
+                          v77 = *(a1 + 32);
+                          v78 = *(*(a1 + 24) + 4 * (0x12AE30237B17DF14uLL % *(a1 + 40)));
+                          if (v78 != 0x7FFFFFFF)
+                          {
+                            while (*(v77 + 80 * v78 + 4) != 7)
+                            {
+                              v78 = *(v77 + 80 * v78) & 0x7FFFFFFF;
+                              if (v78 == 0x7FFFFFFF)
+                              {
+                                goto LABEL_121;
+                              }
+                            }
+
+LABEL_122:
+                            v79 = *(v77 + 80 * v78 + 40);
+                            v80 = *(a1 + 256);
+                            v81 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                            {
+                              if (mach_timebase_info(info))
+                              {
+                                v84 = NAN;
+                                goto LABEL_127;
+                              }
+
+                              LODWORD(v82) = info[0].numer;
+                              LODWORD(v83) = info[0].denom;
+                              v81 = v82 / v83;
+                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v81;
+                            }
+
+                            v84 = v81 * (v79 / v80);
+LABEL_127:
+                            v592 = v84;
+                            if (*(a1 + 16))
+                            {
+                              v85 = *(a1 + 32);
+                              v86 = *(*(a1 + 24) + 4 * (0x826C6ABF7FDD5AD7 % *(a1 + 40)));
+                              if (v86 != 0x7FFFFFFF)
+                              {
+                                while (*(v85 + 80 * v86 + 4) != 9)
+                                {
+                                  v86 = *(v85 + 80 * v86) & 0x7FFFFFFF;
+                                  if (v86 == 0x7FFFFFFF)
+                                  {
+                                    goto LABEL_133;
+                                  }
+                                }
+
+LABEL_134:
+                                v87 = *(v85 + 80 * v86 + 40);
+                                v88 = *(a1 + 256);
+                                v89 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                {
+                                  if (mach_timebase_info(info))
+                                  {
+                                    v92 = NAN;
+                                    goto LABEL_139;
+                                  }
+
+                                  LODWORD(v90) = info[0].numer;
+                                  LODWORD(v91) = info[0].denom;
+                                  v89 = v90 / v91;
+                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v89;
+                                }
+
+                                v92 = v89 * (v87 / v88);
+LABEL_139:
+                                v594 = v76;
+                                if (*(a1 + 16))
+                                {
+                                  v93 = *(a1 + 32);
+                                  v94 = *(*(a1 + 24) + 4 * (0x75C8519A9320579uLL % *(a1 + 40)));
+                                  if (v94 != 0x7FFFFFFF)
+                                  {
+                                    while (*(v93 + 80 * v94 + 4) != 10)
+                                    {
+                                      v94 = *(v93 + 80 * v94) & 0x7FFFFFFF;
+                                      if (v94 == 0x7FFFFFFF)
+                                      {
+                                        goto LABEL_145;
+                                      }
+                                    }
+
+LABEL_146:
+                                    v95 = *(v93 + 80 * v94 + 40);
+                                    v96 = *(a1 + 256);
+                                    v97 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                    {
+                                      if (mach_timebase_info(info))
+                                      {
+                                        v100 = NAN;
+                                        goto LABEL_151;
+                                      }
+
+                                      LODWORD(v98) = info[0].numer;
+                                      LODWORD(v99) = info[0].denom;
+                                      v97 = v98 / v99;
+                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v97;
+                                    }
+
+                                    v100 = v97 * (v95 / v96);
+LABEL_151:
+                                    v607 = v100;
+                                    if (*(a1 + 16))
+                                    {
+                                      v101 = *(a1 + 32);
+                                      v102 = *(*(a1 + 24) + 4 * (0xD56B1FBB9CEBA9E8 % *(a1 + 40)));
+                                      if (v102 != 0x7FFFFFFF)
+                                      {
+                                        while (*(v101 + 80 * v102 + 4) != 8)
+                                        {
+                                          v102 = *(v101 + 80 * v102) & 0x7FFFFFFF;
+                                          if (v102 == 0x7FFFFFFF)
+                                          {
+                                            goto LABEL_157;
+                                          }
+                                        }
+
+LABEL_158:
+                                        v103 = *(v101 + 80 * v102 + 40);
+                                        v104 = *(a1 + 256);
+                                        v105 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                        {
+                                          if (mach_timebase_info(info))
+                                          {
+                                            v108 = NAN;
+                                            goto LABEL_163;
+                                          }
+
+                                          LODWORD(v106) = info[0].numer;
+                                          LODWORD(v107) = info[0].denom;
+                                          v105 = v106 / v107;
+                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v105;
+                                        }
+
+                                        v108 = v105 * (v103 / v104);
+LABEL_163:
+                                        v604 = v108;
+                                        if (*(a1 + 16))
+                                        {
+                                          v109 = *(a1 + 32);
+                                          v110 = *(*(a1 + 24) + 4 * (0x3462D848F53ABB6DuLL % *(a1 + 40)));
+                                          if (v110 != 0x7FFFFFFF)
+                                          {
+                                            while (*(v109 + 80 * v110 + 4) != 11)
+                                            {
+                                              v110 = *(v109 + 80 * v110) & 0x7FFFFFFF;
+                                              if (v110 == 0x7FFFFFFF)
+                                              {
+                                                goto LABEL_169;
+                                              }
+                                            }
+
+LABEL_170:
+                                            v111 = *(v109 + 80 * v110 + 40);
+                                            v112 = *(a1 + 256);
+                                            v113 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                            {
+                                              if (mach_timebase_info(info))
+                                              {
+                                                v116 = NAN;
+                                                goto LABEL_175;
+                                              }
+
+                                              LODWORD(v114) = info[0].numer;
+                                              LODWORD(v115) = info[0].denom;
+                                              v113 = v114 / v115;
+                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v113;
+                                            }
+
+                                            v116 = v113 * (v111 / v112);
+LABEL_175:
+                                            v596 = v116;
+                                            if (*(a1 + 16))
+                                            {
+                                              v117 = *(a1 + 32);
+                                              v118 = *(*(a1 + 24) + 4 * (0x37BE58E8D7213BBCuLL % *(a1 + 40)));
+                                              if (v118 != 0x7FFFFFFF)
+                                              {
+                                                while (*(v117 + 80 * v118 + 4) != 12)
+                                                {
+                                                  v118 = *(v117 + 80 * v118) & 0x7FFFFFFF;
+                                                  if (v118 == 0x7FFFFFFF)
+                                                  {
+                                                    goto LABEL_181;
+                                                  }
+                                                }
+
+LABEL_182:
+                                                v119 = *(v117 + 80 * v118 + 40);
+                                                v120 = *(a1 + 256);
+                                                v121 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                {
+                                                  if (mach_timebase_info(info))
+                                                  {
+                                                    v124 = NAN;
+                                                    goto LABEL_187;
+                                                  }
+
+                                                  LODWORD(v122) = info[0].numer;
+                                                  LODWORD(v123) = info[0].denom;
+                                                  v121 = v122 / v123;
+                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v121;
+                                                }
+
+                                                v124 = v121 * (v119 / v120);
+LABEL_187:
+                                                v584 = v124;
+                                                if (*(a1 + 16))
+                                                {
+                                                  v125 = *(a1 + 32);
+                                                  v126 = *(*(a1 + 24) + 4 * (0xDCFA9555B5F881D1 % *(a1 + 40)));
+                                                  if (v126 != 0x7FFFFFFF)
+                                                  {
+                                                    while (*(v125 + 80 * v126 + 4) != 13)
+                                                    {
+                                                      v126 = *(v125 + 80 * v126) & 0x7FFFFFFF;
+                                                      if (v126 == 0x7FFFFFFF)
+                                                      {
+                                                        goto LABEL_193;
+                                                      }
+                                                    }
+
+LABEL_194:
+                                                    v127 = *(v125 + 80 * v126 + 40);
+                                                    v128 = *(a1 + 256);
+                                                    v129 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                    {
+                                                      if (mach_timebase_info(info))
+                                                      {
+                                                        v132 = NAN;
+                                                        goto LABEL_199;
+                                                      }
+
+                                                      LODWORD(v130) = info[0].numer;
+                                                      LODWORD(v131) = info[0].denom;
+                                                      v129 = v130 / v131;
+                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v129;
+                                                    }
+
+                                                    v132 = v129 * (v127 / v128);
+LABEL_199:
+                                                    if (*(a1 + 16))
+                                                    {
+                                                      v133 = *(a1 + 32);
+                                                      v134 = *(*(a1 + 24) + 4 * (0x255C6046F62FBE29uLL % *(a1 + 40)));
+                                                      if (v134 != 0x7FFFFFFF)
+                                                      {
+                                                        while (*(v133 + 80 * v134 + 4) != 14)
+                                                        {
+                                                          v134 = *(v133 + 80 * v134) & 0x7FFFFFFF;
+                                                          if (v134 == 0x7FFFFFFF)
+                                                          {
+                                                            goto LABEL_205;
+                                                          }
+                                                        }
+
+LABEL_206:
+                                                        v135 = *(v133 + 80 * v134 + 40);
+                                                        v136 = *(a1 + 256);
+                                                        v137 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                        {
+                                                          if (mach_timebase_info(info))
+                                                          {
+                                                            v140 = NAN;
+                                                            goto LABEL_211;
+                                                          }
+
+                                                          LODWORD(v138) = info[0].numer;
+                                                          LODWORD(v139) = info[0].denom;
+                                                          v137 = v138 / v139;
+                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v137;
+                                                        }
+
+                                                        v140 = v137 * (v135 / v136);
+LABEL_211:
+                                                        v602 = v140;
+                                                        if (*(a1 + 16))
+                                                        {
+                                                          v141 = *(a1 + 32);
+                                                          v142 = *(*(a1 + 24) + 4 * (0x392754934EA1539uLL % *(a1 + 40)));
+                                                          if (v142 != 0x7FFFFFFF)
+                                                          {
+                                                            while (*(v141 + 80 * v142 + 4) != 15)
+                                                            {
+                                                              v142 = *(v141 + 80 * v142) & 0x7FFFFFFF;
+                                                              if (v142 == 0x7FFFFFFF)
+                                                              {
+                                                                goto LABEL_217;
+                                                              }
+                                                            }
+
+LABEL_218:
+                                                            v143 = *(v141 + 80 * v142 + 40);
+                                                            v144 = *(a1 + 256);
+                                                            v145 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                            {
+                                                              if (mach_timebase_info(info))
+                                                              {
+                                                                v148 = NAN;
+                                                                goto LABEL_223;
+                                                              }
+
+                                                              LODWORD(v146) = info[0].numer;
+                                                              LODWORD(v147) = info[0].denom;
+                                                              v145 = v146 / v147;
+                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v145;
+                                                            }
+
+                                                            v148 = v145 * (v143 / v144);
+LABEL_223:
+                                                            v601 = v148;
+                                                            if (*(a1 + 16))
+                                                            {
+                                                              v149 = *(a1 + 32);
+                                                              v150 = *(*(a1 + 24) + 4 * (0xD9844BCECCA4A8BDLL % *(a1 + 40)));
+                                                              if (v150 != 0x7FFFFFFF)
+                                                              {
+                                                                while (*(v149 + 80 * v150 + 4) != 16)
+                                                                {
+                                                                  v150 = *(v149 + 80 * v150) & 0x7FFFFFFF;
+                                                                  if (v150 == 0x7FFFFFFF)
+                                                                  {
+                                                                    goto LABEL_229;
+                                                                  }
+                                                                }
+
+LABEL_230:
+                                                                v151 = *(v149 + 80 * v150 + 40);
+                                                                v152 = *(a1 + 256);
+                                                                v153 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                {
+                                                                  if (mach_timebase_info(info))
+                                                                  {
+                                                                    v156 = NAN;
+                                                                    goto LABEL_235;
+                                                                  }
+
+                                                                  LODWORD(v154) = info[0].numer;
+                                                                  LODWORD(v155) = info[0].denom;
+                                                                  v153 = v154 / v155;
+                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v153;
+                                                                }
+
+                                                                v156 = v153 * (v151 / v152);
+LABEL_235:
+                                                                v589 = v156;
+                                                                if (*(a1 + 16))
+                                                                {
+                                                                  v157 = *(a1 + 32);
+                                                                  v158 = *(*(a1 + 24) + 4 * (0x302B8631721C51BEuLL % *(a1 + 40)));
+                                                                  if (v158 != 0x7FFFFFFF)
+                                                                  {
+                                                                    while (*(v157 + 80 * v158 + 4) != 17)
+                                                                    {
+                                                                      v158 = *(v157 + 80 * v158) & 0x7FFFFFFF;
+                                                                      if (v158 == 0x7FFFFFFF)
+                                                                      {
+                                                                        goto LABEL_241;
+                                                                      }
+                                                                    }
+
+LABEL_242:
+                                                                    v159 = *(v157 + 80 * v158 + 40);
+                                                                    v160 = *(a1 + 256);
+                                                                    v161 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                    {
+                                                                      if (mach_timebase_info(info))
+                                                                      {
+                                                                        v164 = NAN;
+                                                                        goto LABEL_247;
+                                                                      }
+
+                                                                      LODWORD(v162) = info[0].numer;
+                                                                      LODWORD(v163) = info[0].denom;
+                                                                      v161 = v162 / v163;
+                                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v161;
+                                                                    }
+
+                                                                    v164 = v161 * (v159 / v160);
+LABEL_247:
+                                                                    v590 = v164;
+                                                                    if (*(a1 + 16))
+                                                                    {
+                                                                      v165 = *(a1 + 32);
+                                                                      v166 = *(*(a1 + 24) + 4 * (0xE34A1ED09841F857 % *(a1 + 40)));
+                                                                      if (v166 != 0x7FFFFFFF)
+                                                                      {
+                                                                        while (*(v165 + 80 * v166 + 4) != 19)
+                                                                        {
+                                                                          v166 = *(v165 + 80 * v166) & 0x7FFFFFFF;
+                                                                          if (v166 == 0x7FFFFFFF)
+                                                                          {
+                                                                            goto LABEL_253;
+                                                                          }
+                                                                        }
+
+LABEL_254:
+                                                                        v167 = *(v165 + 80 * v166 + 40);
+                                                                        v168 = *(a1 + 256);
+                                                                        v169 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                        {
+                                                                          if (mach_timebase_info(info))
+                                                                          {
+                                                                            v172 = NAN;
+                                                                            goto LABEL_259;
+                                                                          }
+
+                                                                          LODWORD(v170) = info[0].numer;
+                                                                          LODWORD(v171) = info[0].denom;
+                                                                          v169 = v170 / v171;
+                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v169;
+                                                                        }
+
+                                                                        v172 = v169 * (v167 / v168);
+LABEL_259:
+                                                                        v591 = v172;
+                                                                        if (*(a1 + 16))
+                                                                        {
+                                                                          v173 = *(a1 + 32);
+                                                                          v174 = *(*(a1 + 24) + 4 * (0xEB90A3352640AF2uLL % *(a1 + 40)));
+                                                                          if (v174 != 0x7FFFFFFF)
+                                                                          {
+                                                                            while (*(v173 + 80 * v174 + 4) != 20)
+                                                                            {
+                                                                              v174 = *(v173 + 80 * v174) & 0x7FFFFFFF;
+                                                                              if (v174 == 0x7FFFFFFF)
+                                                                              {
+                                                                                goto LABEL_265;
+                                                                              }
+                                                                            }
+
+LABEL_266:
+                                                                            v175 = *(v173 + 80 * v174 + 40);
+                                                                            v176 = *(a1 + 256);
+                                                                            v177 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                            {
+                                                                              if (mach_timebase_info(info))
+                                                                              {
+                                                                                v180 = NAN;
+                                                                                goto LABEL_271;
+                                                                              }
+
+                                                                              LODWORD(v178) = info[0].numer;
+                                                                              LODWORD(v179) = info[0].denom;
+                                                                              v177 = v178 / v179;
+                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v177;
+                                                                            }
+
+                                                                            v180 = v177 * (v175 / v176);
+LABEL_271:
+                                                                            v587 = v180;
+                                                                            if (*(a1 + 16))
+                                                                            {
+                                                                              v181 = *(a1 + 32);
+                                                                              v182 = *(*(a1 + 24) + 4 * (0xD633B1846FAF2B49 % *(a1 + 40)));
+                                                                              if (v182 != 0x7FFFFFFF)
+                                                                              {
+                                                                                while (*(v181 + 80 * v182 + 4) != 21)
+                                                                                {
+                                                                                  v182 = *(v181 + 80 * v182) & 0x7FFFFFFF;
+                                                                                  if (v182 == 0x7FFFFFFF)
+                                                                                  {
+                                                                                    goto LABEL_277;
+                                                                                  }
+                                                                                }
+
+LABEL_278:
+                                                                                v183 = *(v181 + 80 * v182 + 40);
+                                                                                v184 = *(a1 + 256);
+                                                                                v185 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                {
+                                                                                  if (mach_timebase_info(info))
+                                                                                  {
+                                                                                    v188 = NAN;
+                                                                                    goto LABEL_283;
+                                                                                  }
+
+                                                                                  LODWORD(v186) = info[0].numer;
+                                                                                  LODWORD(v187) = info[0].denom;
+                                                                                  v185 = v186 / v187;
+                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v185;
+                                                                                }
+
+                                                                                v188 = v185 * (v183 / v184);
+LABEL_283:
+                                                                                v598 = v188;
+                                                                                if (*(a1 + 16))
+                                                                                {
+                                                                                  v189 = *(a1 + 32);
+                                                                                  v190 = *(*(a1 + 24) + 4 * (0x378A5760BE593CA5uLL % *(a1 + 40)));
+                                                                                  if (v190 != 0x7FFFFFFF)
+                                                                                  {
+                                                                                    while (*(v189 + 80 * v190 + 4) != 23)
+                                                                                    {
+                                                                                      v190 = *(v189 + 80 * v190) & 0x7FFFFFFF;
+                                                                                      if (v190 == 0x7FFFFFFF)
+                                                                                      {
+                                                                                        goto LABEL_289;
+                                                                                      }
+                                                                                    }
+
+LABEL_290:
+                                                                                    v191 = *(v189 + 80 * v190 + 40);
+                                                                                    v192 = *(a1 + 256);
+                                                                                    v193 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                    {
+                                                                                      if (mach_timebase_info(info))
+                                                                                      {
+                                                                                        v196 = NAN;
+                                                                                        goto LABEL_295;
+                                                                                      }
+
+                                                                                      LODWORD(v194) = info[0].numer;
+                                                                                      LODWORD(v195) = info[0].denom;
+                                                                                      v193 = v194 / v195;
+                                                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v193;
+                                                                                    }
+
+                                                                                    v196 = v193 * (v191 / v192);
+LABEL_295:
+                                                                                    v583 = v196;
+                                                                                    if (*(a1 + 16))
+                                                                                    {
+                                                                                      v197 = *(a1 + 32);
+                                                                                      v198 = *(*(a1 + 24) + 4 * (0xFD95FA4DB404DD7BLL % *(a1 + 40)));
+                                                                                      if (v198 != 0x7FFFFFFF)
+                                                                                      {
+                                                                                        while (*(v197 + 80 * v198 + 4) != 22)
+                                                                                        {
+                                                                                          v198 = *(v197 + 80 * v198) & 0x7FFFFFFF;
+                                                                                          if (v198 == 0x7FFFFFFF)
+                                                                                          {
+                                                                                            goto LABEL_301;
+                                                                                          }
+                                                                                        }
+
+LABEL_302:
+                                                                                        v199 = *(v197 + 80 * v198 + 40);
+                                                                                        v200 = *(a1 + 256);
+                                                                                        v201 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                        {
+                                                                                          if (mach_timebase_info(info))
+                                                                                          {
+                                                                                            v204 = NAN;
+                                                                                            goto LABEL_307;
+                                                                                          }
+
+                                                                                          LODWORD(v202) = info[0].numer;
+                                                                                          LODWORD(v203) = info[0].denom;
+                                                                                          v201 = v202 / v203;
+                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v201;
+                                                                                        }
+
+                                                                                        v204 = v201 * (v199 / v200);
+LABEL_307:
+                                                                                        v588 = v204;
+                                                                                        if (*(a1 + 16))
+                                                                                        {
+                                                                                          v205 = *(a1 + 32);
+                                                                                          v206 = *(*(a1 + 24) + 4 * (0x968A5BA23473FAFFLL % *(a1 + 40)));
+                                                                                          if (v206 != 0x7FFFFFFF)
+                                                                                          {
+                                                                                            while (*(v205 + 80 * v206 + 4) != 91)
+                                                                                            {
+                                                                                              v206 = *(v205 + 80 * v206) & 0x7FFFFFFF;
+                                                                                              if (v206 == 0x7FFFFFFF)
+                                                                                              {
+                                                                                                goto LABEL_313;
+                                                                                              }
+                                                                                            }
+
+LABEL_314:
+                                                                                            v207 = *(v205 + 80 * v206 + 40);
+                                                                                            v208 = *(a1 + 256);
+                                                                                            v209 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                            {
+                                                                                              if (mach_timebase_info(info))
+                                                                                              {
+                                                                                                v212 = NAN;
+                                                                                                goto LABEL_319;
+                                                                                              }
+
+                                                                                              LODWORD(v210) = info[0].numer;
+                                                                                              LODWORD(v211) = info[0].denom;
+                                                                                              v209 = v210 / v211;
+                                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v209;
+                                                                                            }
+
+                                                                                            v212 = v209 * (v207 / v208);
+LABEL_319:
+                                                                                            v603 = v132;
+                                                                                            if (*(a1 + 16))
+                                                                                            {
+                                                                                              v213 = *(a1 + 32);
+                                                                                              v214 = *(*(a1 + 24) + 4 * (0xDE295D82F964F296 % *(a1 + 40)));
+                                                                                              if (v214 != 0x7FFFFFFF)
+                                                                                              {
+                                                                                                while (*(v213 + 80 * v214 + 4) != 92)
+                                                                                                {
+                                                                                                  v214 = *(v213 + 80 * v214) & 0x7FFFFFFF;
+                                                                                                  if (v214 == 0x7FFFFFFF)
+                                                                                                  {
+                                                                                                    goto LABEL_325;
+                                                                                                  }
+                                                                                                }
+
+LABEL_326:
+                                                                                                v215 = v60 / 1000000.0;
+                                                                                                v216 = v44 / 1000000.0;
+                                                                                                v217 = v52 / 1000000.0;
+                                                                                                v218 = v92 / 1000000.0;
+                                                                                                v219 = *(v213 + 80 * v214 + 40);
+                                                                                                v220 = *(a1 + 256);
+                                                                                                v221 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                {
+                                                                                                  if (mach_timebase_info(info))
+                                                                                                  {
+                                                                                                    v224 = NAN;
+                                                                                                    goto LABEL_331;
+                                                                                                  }
+
+                                                                                                  LODWORD(v222) = info[0].numer;
+                                                                                                  LODWORD(v223) = info[0].denom;
+                                                                                                  v221 = v222 / v223;
+                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v221;
+                                                                                                }
+
+                                                                                                v224 = v221 * (v219 / v220);
+LABEL_331:
+                                                                                                v226 = v218;
+                                                                                                v227 = v607 / 1000000.0;
+                                                                                                v228 = v212 / 1000000.0;
+                                                                                                v229 = v224 / 1000000.0;
+                                                                                                if (*(a1 + 16))
+                                                                                                {
+                                                                                                  v230 = *(a1 + 32);
+                                                                                                  v231 = *(*(a1 + 24) + 4 * (0xFEBD6A4FBD0A7802 % *(a1 + 40)));
+                                                                                                  v232 = v594;
+                                                                                                  if (v231 == 0x7FFFFFFF)
+                                                                                                  {
+LABEL_335:
+                                                                                                    v231 = 0x7FFFFFFFLL;
+                                                                                                  }
+
+                                                                                                  else
+                                                                                                  {
+                                                                                                    while (*(v230 + 80 * v231 + 4) != 93)
+                                                                                                    {
+                                                                                                      v231 = *(v230 + 80 * v231) & 0x7FFFFFFF;
+                                                                                                      if (v231 == 0x7FFFFFFF)
+                                                                                                      {
+                                                                                                        goto LABEL_335;
+                                                                                                      }
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v230 = *(a1 + 32);
+                                                                                                  v231 = 0x7FFFFFFFLL;
+                                                                                                  v232 = v594;
+                                                                                                }
+
+                                                                                                v233 = v609 / 1000000.0;
+                                                                                                v225 = v215;
+                                                                                                v234 = (v216 + v217) + v225;
+                                                                                                v235 = v604 / 1000000.0;
+                                                                                                v610 = v235;
+                                                                                                v236 = v596 / 1000000.0;
+                                                                                                v605 = v236;
+                                                                                                v237 = v584 / 1000000.0;
+                                                                                                v238 = v583 / 1000000.0;
+                                                                                                v608 = v238;
+                                                                                                v597 = v226;
+                                                                                                v239 = v226 - v227;
+                                                                                                v240 = v228;
+                                                                                                v241 = v229;
+                                                                                                v242 = *(v230 + 80 * v231 + 40);
+                                                                                                v243 = *(a1 + 256);
+                                                                                                v244 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                v245 = v232 / 1000000.0;
+                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                {
+                                                                                                  v585 = v227;
+                                                                                                  v246 = v237;
+                                                                                                  if (mach_timebase_info(info))
+                                                                                                  {
+                                                                                                    v249 = NAN;
+                                                                                                    v237 = v246;
+                                                                                                    v227 = v585;
+                                                                                                    goto LABEL_342;
+                                                                                                  }
+
+                                                                                                  LODWORD(v247) = info[0].numer;
+                                                                                                  LODWORD(v248) = info[0].denom;
+                                                                                                  v244 = v247 / v248;
+                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v244;
+                                                                                                  v237 = v246;
+                                                                                                  v227 = v585;
+                                                                                                }
+
+                                                                                                v249 = v244 * (v242 / v243);
+LABEL_342:
+                                                                                                v251 = v592 / 1000000.0;
+                                                                                                v252 = v234 + v233;
+                                                                                                v253 = v249 / 1000000.0;
+                                                                                                v254 = (v240 + v241) + v253;
+                                                                                                v586 = v237;
+                                                                                                if (v610 <= 0.0)
+                                                                                                {
+                                                                                                  v255 = (v605 + v237) + v608;
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v255 = v227;
+                                                                                                }
+
+                                                                                                if (v610 <= 0.0)
+                                                                                                {
+                                                                                                  v256 = (v239 + v254) - ((v605 + v237) + v608);
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v256 = v239 + v254;
+                                                                                                }
+
+                                                                                                v593 = v256;
+                                                                                                if (*(a1 + 16))
+                                                                                                {
+                                                                                                  v257 = *(a1 + 32);
+                                                                                                  v258 = *(*(a1 + 24) + 4 * (0xFFCB5C99F6AA8871 % *(a1 + 40)));
+                                                                                                  v259 = v599;
+                                                                                                  if (v258 == 0x7FFFFFFF)
+                                                                                                  {
+LABEL_352:
+                                                                                                    v258 = 0x7FFFFFFFLL;
+                                                                                                  }
+
+                                                                                                  else
+                                                                                                  {
+                                                                                                    while (*(v257 + 80 * v258 + 4) != 18)
+                                                                                                    {
+                                                                                                      v258 = *(v257 + 80 * v258) & 0x7FFFFFFF;
+                                                                                                      if (v258 == 0x7FFFFFFF)
+                                                                                                      {
+                                                                                                        goto LABEL_352;
+                                                                                                      }
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v257 = *(a1 + 32);
+                                                                                                  v258 = 0x7FFFFFFFLL;
+                                                                                                  v259 = v599;
+                                                                                                }
+
+                                                                                                v260 = v251;
+                                                                                                v250 = v245;
+                                                                                                v261 = v252 + v250;
+                                                                                                v262 = *(v257 + 80 * v258 + 40);
+                                                                                                v263 = *(a1 + 256);
+                                                                                                v264 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                v265 = v259 / 1000000.0;
+                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                {
+                                                                                                  if (mach_timebase_info(info))
+                                                                                                  {
+                                                                                                    v268 = NAN;
+                                                                                                    goto LABEL_359;
+                                                                                                  }
+
+                                                                                                  LODWORD(v266) = info[0].numer;
+                                                                                                  LODWORD(v267) = info[0].denom;
+                                                                                                  v264 = v266 / v267;
+                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v264;
+                                                                                                }
+
+                                                                                                v268 = v264 * (v262 / v263);
+LABEL_359:
+                                                                                                v269 = v265;
+                                                                                                v270 = *(a1 + 16);
+                                                                                                v595 = v268;
+                                                                                                if (v270)
+                                                                                                {
+                                                                                                  v271 = *(a1 + 32);
+                                                                                                  v272 = *(*(a1 + 24) + 4 * (0xD59EEF30DB86CAB8 % *(a1 + 40)));
+                                                                                                  if (v272 != 0x7FFFFFFF)
+                                                                                                  {
+                                                                                                    while (*(v271 + 80 * v272 + 4) != 24)
+                                                                                                    {
+                                                                                                      v272 = *(v271 + 80 * v272) & 0x7FFFFFFF;
+                                                                                                      if (v272 == 0x7FFFFFFF)
+                                                                                                      {
+                                                                                                        goto LABEL_365;
+                                                                                                      }
+                                                                                                    }
+
+LABEL_366:
+                                                                                                    v273 = (v261 + v260) + v254;
+                                                                                                    v274 = v271 + 80 * v272;
+                                                                                                    v275 = 0.0;
+                                                                                                    if (v269 > 0.0)
+                                                                                                    {
+                                                                                                      v275 = (1000.0 / v269);
+                                                                                                    }
+
+                                                                                                    v276 = v273 - v255;
+                                                                                                    v277 = *(v274 + 40);
+                                                                                                    v278 = *(a1 + 256);
+                                                                                                    v600 = v261 + v260;
+                                                                                                    if (v270)
+                                                                                                    {
+                                                                                                      v279 = *(a1 + 40);
+                                                                                                      v280 = *(a1 + 24);
+                                                                                                      v281 = *(v280 + 4 * (0x4F7ABB7627B74F52 % v279));
+                                                                                                      if (v281 == 0x7FFFFFFF)
+                                                                                                      {
+                                                                                                        v282 = (v271 + 0x27FFFFFFD8);
+                                                                                                      }
+
+                                                                                                      else
+                                                                                                      {
+                                                                                                        v287 = 0x7FFFFFFFLL;
+                                                                                                        while (*(v271 + 80 * v281 + 4) != 29)
+                                                                                                        {
+                                                                                                          v281 = *(v271 + 80 * v281) & 0x7FFFFFFF;
+                                                                                                          if (v281 == 0x7FFFFFFF)
+                                                                                                          {
+                                                                                                            goto LABEL_377;
+                                                                                                          }
+                                                                                                        }
+
+                                                                                                        v287 = v281;
+LABEL_377:
+                                                                                                        v282 = (v271 + 80 * v287 + 40);
+                                                                                                      }
+
+                                                                                                      v288 = *(v280 + 4 * (0x724EA9269D42A72 % v279));
+                                                                                                      if (v288 == 0x7FFFFFFF)
+                                                                                                      {
+                                                                                                        v289 = (v271 + 0x27FFFFFFD8);
+                                                                                                      }
+
+                                                                                                      else
+                                                                                                      {
+                                                                                                        v290 = 0x7FFFFFFFLL;
+                                                                                                        while (*(v271 + 80 * v288 + 4) != 30)
+                                                                                                        {
+                                                                                                          v288 = *(v271 + 80 * v288) & 0x7FFFFFFF;
+                                                                                                          if (v288 == 0x7FFFFFFF)
+                                                                                                          {
+                                                                                                            goto LABEL_385;
+                                                                                                          }
+                                                                                                        }
+
+                                                                                                        v290 = v288;
+LABEL_385:
+                                                                                                        v289 = (v271 + 80 * v290 + 40);
+                                                                                                      }
+
+                                                                                                      v291 = *(v280 + 4 * (0x540F172E046EF165 % v279));
+                                                                                                      if (v291 == 0x7FFFFFFF)
+                                                                                                      {
+                                                                                                        v292 = (v271 + 0x27FFFFFFD8);
+                                                                                                      }
+
+                                                                                                      else
+                                                                                                      {
+                                                                                                        v293 = 0x7FFFFFFFLL;
+                                                                                                        while (*(v271 + 80 * v291 + 4) != 31)
+                                                                                                        {
+                                                                                                          v291 = *(v271 + 80 * v291) & 0x7FFFFFFF;
+                                                                                                          if (v291 == 0x7FFFFFFF)
+                                                                                                          {
+                                                                                                            goto LABEL_393;
+                                                                                                          }
+                                                                                                        }
+
+                                                                                                        v293 = v291;
+LABEL_393:
+                                                                                                        v292 = (v271 + 80 * v293 + 40);
+                                                                                                      }
+
+                                                                                                      v285 = *v282;
+                                                                                                      v286 = *v289;
+                                                                                                      v283 = *v292;
+                                                                                                      v284 = *(v280 + 4 * (0xADFB1EBB497FAD45 % v279));
+                                                                                                      if (v284 == 0x7FFFFFFF)
+                                                                                                      {
+LABEL_397:
+                                                                                                        v284 = 0x7FFFFFFFLL;
+                                                                                                      }
+
+                                                                                                      else
+                                                                                                      {
+                                                                                                        while (*(v271 + 80 * v284 + 4) != 32)
+                                                                                                        {
+                                                                                                          v284 = *(v271 + 80 * v284) & 0x7FFFFFFF;
+                                                                                                          if (v284 == 0x7FFFFFFF)
+                                                                                                          {
+                                                                                                            goto LABEL_397;
+                                                                                                          }
+                                                                                                        }
+                                                                                                      }
+                                                                                                    }
+
+                                                                                                    else
+                                                                                                    {
+                                                                                                      v283 = *(v271 + 0x27FFFFFFD8);
+                                                                                                      v284 = 0x7FFFFFFFLL;
+                                                                                                      v285 = v283;
+                                                                                                      v286 = v283;
+                                                                                                    }
+
+                                                                                                    v294 = *(v271 + 80 * v284 + 40);
+                                                                                                    re::DynamicString::appendf((a1 + 64), "Frame Times (ms)\n");
+                                                                                                    re::DynamicString::appendf((a1 + 64), "FPS: %.2f    Main Thread: %.2f\n", v275, v276);
+                                                                                                    if (v610 > 0.0)
+                                                                                                    {
+                                                                                                      re::DynamicString::appendf((a1 + 64), "Render Thread: %.2f\n", (((v610 - v605) - v586) - v608));
+                                                                                                    }
+
+                                                                                                    re::DynamicString::appendf((a1 + 64), "GPU: %.2f\n", ((v277 / v278) / 1000000.0));
+                                                                                                    re::DynamicString::appendf((a1 + 64), "Vtx: %.2f    Frg: %.2f\nRender Compute: %0.2f\nDeformer Compute: %0.2f\n", ((v285 / v278) / 1000000.0) / 1000000.0, ((v286 / v278) / 1000000.0) / 1000000.0, ((v283 / v278) / 1000000.0) / 1000000.0, ((v294 / v278) / 1000000.0) / 1000000.0);
+                                                                                                    re::DynamicString::appendf((a1 + 96), "Engine CPU Breakdown (ms)\n");
+                                                                                                    if (*(a1 + 16))
+                                                                                                    {
+                                                                                                      v295 = *(a1 + 32);
+                                                                                                      v296 = *(*(a1 + 24) + 4 * (0x8AEB093D93E71BBFLL % *(a1 + 40)));
+                                                                                                      if (v296 != 0x7FFFFFFF)
+                                                                                                      {
+                                                                                                        while (*(v295 + 80 * v296 + 4) != 122)
+                                                                                                        {
+                                                                                                          v296 = *(v295 + 80 * v296) & 0x7FFFFFFF;
+                                                                                                          if (v296 == 0x7FFFFFFF)
+                                                                                                          {
+                                                                                                            goto LABEL_406;
+                                                                                                          }
+                                                                                                        }
+
+LABEL_407:
+                                                                                                        v297 = *(v295 + 80 * v296 + 40);
+                                                                                                        v298 = *(a1 + 256);
+                                                                                                        v299 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                        {
+                                                                                                          if (mach_timebase_info(info))
+                                                                                                          {
+                                                                                                            v302 = NAN;
+                                                                                                            goto LABEL_412;
+                                                                                                          }
+
+                                                                                                          LODWORD(v300) = info[0].numer;
+                                                                                                          LODWORD(v301) = info[0].denom;
+                                                                                                          v299 = v300 / v301;
+                                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v299;
+                                                                                                        }
+
+                                                                                                        v302 = v299 * (v297 / v298);
+LABEL_412:
+                                                                                                        re::DynamicString::appendf((a1 + 96), "RenderGraph: %.2f    Render ECS: %.2f\n", (v593 + v610), v302 / 1000000.0);
+                                                                                                        if (*(a1 + 16))
+                                                                                                        {
+                                                                                                          v303 = *(a1 + 32);
+                                                                                                          v304 = *(*(a1 + 24) + 4 * (0x786DD0AB972D849AuLL % *(a1 + 40)));
+                                                                                                          if (v304 != 0x7FFFFFFF)
+                                                                                                          {
+                                                                                                            while (*(v303 + 80 * v304 + 4) != 115)
+                                                                                                            {
+                                                                                                              v304 = *(v303 + 80 * v304) & 0x7FFFFFFF;
+                                                                                                              if (v304 == 0x7FFFFFFF)
+                                                                                                              {
+                                                                                                                goto LABEL_418;
+                                                                                                              }
+                                                                                                            }
+
+LABEL_419:
+                                                                                                            v305 = *(v303 + 80 * v304 + 40);
+                                                                                                            v306 = *(a1 + 256);
+                                                                                                            v307 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                            {
+                                                                                                              if (mach_timebase_info(info))
+                                                                                                              {
+                                                                                                                v310 = NAN;
+                                                                                                                goto LABEL_424;
+                                                                                                              }
+
+                                                                                                              LODWORD(v308) = info[0].numer;
+                                                                                                              LODWORD(v309) = info[0].denom;
+                                                                                                              v307 = v308 / v309;
+                                                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v307;
+                                                                                                            }
+
+                                                                                                            v310 = v307 * (v305 / v306);
+LABEL_424:
+                                                                                                            re::DynamicString::appendf((a1 + 96), "Deformations: %.2f\n", v310 / 1000000.0);
+                                                                                                            if (*(a1 + 16))
+                                                                                                            {
+                                                                                                              v311 = *(a1 + 32);
+                                                                                                              v312 = *(*(a1 + 24) + 4 * (0x3465840D39B46BB3uLL % *(a1 + 40)));
+                                                                                                              if (v312 != 0x7FFFFFFF)
+                                                                                                              {
+                                                                                                                while (*(v311 + 80 * v312 + 4) != 150)
+                                                                                                                {
+                                                                                                                  v312 = *(v311 + 80 * v312) & 0x7FFFFFFF;
+                                                                                                                  if (v312 == 0x7FFFFFFF)
+                                                                                                                  {
+                                                                                                                    goto LABEL_430;
+                                                                                                                  }
+                                                                                                                }
+
+LABEL_431:
+                                                                                                                v313 = *(v311 + 80 * v312 + 40);
+                                                                                                                v314 = *(a1 + 256);
+                                                                                                                v315 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                {
+                                                                                                                  if (mach_timebase_info(info))
+                                                                                                                  {
+                                                                                                                    v318 = NAN;
+                                                                                                                    goto LABEL_436;
+                                                                                                                  }
+
+                                                                                                                  LODWORD(v316) = info[0].numer;
+                                                                                                                  LODWORD(v317) = info[0].denom;
+                                                                                                                  v315 = v316 / v317;
+                                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v315;
+                                                                                                                }
+
+                                                                                                                v318 = v315 * (v313 / v314);
+LABEL_436:
+                                                                                                                if (*(a1 + 16))
+                                                                                                                {
+                                                                                                                  v319 = *(a1 + 32);
+                                                                                                                  v320 = *(*(a1 + 24) + 4 * (0xD12374540570B1A6 % *(a1 + 40)));
+                                                                                                                  if (v320 != 0x7FFFFFFF)
+                                                                                                                  {
+                                                                                                                    while (*(v319 + 80 * v320 + 4) != 130)
+                                                                                                                    {
+                                                                                                                      v320 = *(v319 + 80 * v320) & 0x7FFFFFFF;
+                                                                                                                      if (v320 == 0x7FFFFFFF)
+                                                                                                                      {
+                                                                                                                        goto LABEL_442;
+                                                                                                                      }
+                                                                                                                    }
+
+LABEL_443:
+                                                                                                                    v322 = *(v319 + 80 * v320 + 40);
+                                                                                                                    v323 = *(a1 + 256);
+                                                                                                                    v324 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                    v325 = v318 / 1000000.0;
+                                                                                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                    {
+                                                                                                                      if (mach_timebase_info(info))
+                                                                                                                      {
+                                                                                                                        v328 = NAN;
+                                                                                                                        goto LABEL_448;
+                                                                                                                      }
+
+                                                                                                                      LODWORD(v326) = info[0].numer;
+                                                                                                                      LODWORD(v327) = info[0].denom;
+                                                                                                                      v324 = v326 / v327;
+                                                                                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v324;
+                                                                                                                    }
+
+                                                                                                                    v328 = v324 * (v322 / v323);
+LABEL_448:
+                                                                                                                    v321 = v589 / 1000000.0;
+                                                                                                                    v329 = v321;
+                                                                                                                    re::DynamicString::appendf((a1 + 96), "VFX RenderNode: %.2f    VFX ECS: %.2f\n", v325, v328 / 1000000.0);
+                                                                                                                    if (*(a1 + 16))
+                                                                                                                    {
+                                                                                                                      v331 = *(a1 + 32);
+                                                                                                                      v332 = *(*(a1 + 24) + 4 * (0x2D2898CE1F8CEF8EuLL % *(a1 + 40)));
+                                                                                                                      if (v332 != 0x7FFFFFFF)
+                                                                                                                      {
+                                                                                                                        while (*(v331 + 80 * v332 + 4) != 125)
+                                                                                                                        {
+                                                                                                                          v332 = *(v331 + 80 * v332) & 0x7FFFFFFF;
+                                                                                                                          if (v332 == 0x7FFFFFFF)
+                                                                                                                          {
+                                                                                                                            goto LABEL_454;
+                                                                                                                          }
+                                                                                                                        }
+
+LABEL_455:
+                                                                                                                        v333 = *(v331 + 80 * v332 + 40);
+                                                                                                                        v334 = *(a1 + 256);
+                                                                                                                        v335 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                        {
+                                                                                                                          if (mach_timebase_info(info))
+                                                                                                                          {
+                                                                                                                            v338 = NAN;
+                                                                                                                            goto LABEL_460;
+                                                                                                                          }
+
+                                                                                                                          LODWORD(v336) = info[0].numer;
+                                                                                                                          LODWORD(v337) = info[0].denom;
+                                                                                                                          v335 = v336 / v337;
+                                                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v335;
+                                                                                                                        }
+
+                                                                                                                        v338 = v335 * (v333 / v334);
+LABEL_460:
+                                                                                                                        v339 = v590 / 1000000.0 + v329;
+                                                                                                                        v330 = v587 / 1000000.0;
+                                                                                                                        re::DynamicString::appendf((a1 + 96), "Animation Update: %.2f    Animation ECS: %.2f\n", v330, v338 / 1000000.0);
+                                                                                                                        if (*(a1 + 16))
+                                                                                                                        {
+                                                                                                                          v340 = *(a1 + 32);
+                                                                                                                          v341 = *(*(a1 + 24) + 4 * (0xD94FA4A9067DC0C4 % *(a1 + 40)));
+                                                                                                                          v342 = v591;
+                                                                                                                          if (v341 == 0x7FFFFFFF)
+                                                                                                                          {
+LABEL_464:
+                                                                                                                            v341 = 0x7FFFFFFFLL;
+                                                                                                                          }
+
+                                                                                                                          else
+                                                                                                                          {
+                                                                                                                            while (*(v340 + 80 * v341 + 4) != 123)
+                                                                                                                            {
+                                                                                                                              v341 = *(v340 + 80 * v341) & 0x7FFFFFFF;
+                                                                                                                              if (v341 == 0x7FFFFFFF)
+                                                                                                                              {
+                                                                                                                                goto LABEL_464;
+                                                                                                                              }
+                                                                                                                            }
+                                                                                                                          }
+                                                                                                                        }
+
+                                                                                                                        else
+                                                                                                                        {
+                                                                                                                          v340 = *(a1 + 32);
+                                                                                                                          v341 = 0x7FFFFFFFLL;
+                                                                                                                          v342 = v591;
+                                                                                                                        }
+
+                                                                                                                        v343 = *(v340 + 80 * v341 + 40);
+                                                                                                                        v344 = *(a1 + 256);
+                                                                                                                        v345 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                        v346 = v342 / 1000000.0;
+                                                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                        {
+                                                                                                                          if (mach_timebase_info(info))
+                                                                                                                          {
+                                                                                                                            v349 = NAN;
+                                                                                                                            goto LABEL_471;
+                                                                                                                          }
+
+                                                                                                                          LODWORD(v347) = info[0].numer;
+                                                                                                                          LODWORD(v348) = info[0].denom;
+                                                                                                                          v345 = v347 / v348;
+                                                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v345;
+                                                                                                                        }
+
+                                                                                                                        v349 = v345 * (v343 / v344);
+LABEL_471:
+                                                                                                                        v350 = v346;
+                                                                                                                        re::DynamicString::appendf((a1 + 96), "Network Update: %.2f    Network ECS: %.2f\n", v339, v349 / 1000000.0);
+                                                                                                                        if (*(a1 + 16))
+                                                                                                                        {
+                                                                                                                          v351 = *(a1 + 32);
+                                                                                                                          v352 = *(*(a1 + 24) + 4 * (0x8BC946409C88CB8FLL % *(a1 + 40)));
+                                                                                                                          v353 = v588;
+                                                                                                                          if (v352 == 0x7FFFFFFF)
+                                                                                                                          {
+LABEL_475:
+                                                                                                                            v352 = 0x7FFFFFFFLL;
+                                                                                                                          }
+
+                                                                                                                          else
+                                                                                                                          {
+                                                                                                                            while (*(v351 + 80 * v352 + 4) != 121)
+                                                                                                                            {
+                                                                                                                              v352 = *(v351 + 80 * v352) & 0x7FFFFFFF;
+                                                                                                                              if (v352 == 0x7FFFFFFF)
+                                                                                                                              {
+                                                                                                                                goto LABEL_475;
+                                                                                                                              }
+                                                                                                                            }
+                                                                                                                          }
+                                                                                                                        }
+
+                                                                                                                        else
+                                                                                                                        {
+                                                                                                                          v351 = *(a1 + 32);
+                                                                                                                          v352 = 0x7FFFFFFFLL;
+                                                                                                                          v353 = v588;
+                                                                                                                        }
+
+                                                                                                                        v354 = *(v351 + 80 * v352 + 40);
+                                                                                                                        v355 = *(a1 + 256);
+                                                                                                                        v356 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                        v357 = v353 / 1000000.0;
+                                                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                        {
+                                                                                                                          if (mach_timebase_info(info))
+                                                                                                                          {
+                                                                                                                            v360 = NAN;
+                                                                                                                            goto LABEL_482;
+                                                                                                                          }
+
+                                                                                                                          LODWORD(v358) = info[0].numer;
+                                                                                                                          LODWORD(v359) = info[0].denom;
+                                                                                                                          v356 = v358 / v359;
+                                                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v356;
+                                                                                                                        }
+
+                                                                                                                        v360 = v356 * (v354 / v355);
+LABEL_482:
+                                                                                                                        v361 = v357;
+                                                                                                                        re::DynamicString::appendf((a1 + 96), "Physics Engine: %.2f    Physics ECS: %.2f\n", v350, v360 / 1000000.0);
+                                                                                                                        if (*(a1 + 16))
+                                                                                                                        {
+                                                                                                                          v362 = *(a1 + 32);
+                                                                                                                          v363 = *(*(a1 + 24) + 4 * (0x178631649EA56D8AuLL % *(a1 + 40)));
+                                                                                                                          if (v363 != 0x7FFFFFFF)
+                                                                                                                          {
+                                                                                                                            while (*(v362 + 80 * v363 + 4) != 120)
+                                                                                                                            {
+                                                                                                                              v363 = *(v362 + 80 * v363) & 0x7FFFFFFF;
+                                                                                                                              if (v363 == 0x7FFFFFFF)
+                                                                                                                              {
+                                                                                                                                goto LABEL_488;
+                                                                                                                              }
+                                                                                                                            }
+
+LABEL_489:
+                                                                                                                            v364 = *(v362 + 80 * v363 + 40);
+                                                                                                                            v365 = *(a1 + 256);
+                                                                                                                            v366 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                            {
+                                                                                                                              if (mach_timebase_info(info))
+                                                                                                                              {
+                                                                                                                                v369 = NAN;
+                                                                                                                                goto LABEL_494;
+                                                                                                                              }
+
+                                                                                                                              LODWORD(v367) = info[0].numer;
+                                                                                                                              LODWORD(v368) = info[0].denom;
+                                                                                                                              v366 = v367 / v368;
+                                                                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v366;
+                                                                                                                            }
+
+                                                                                                                            v369 = v366 * (v364 / v365);
+LABEL_494:
+                                                                                                                            re::DynamicString::appendf((a1 + 96), "Audio Update: %.2f    Audio ECS: %.2f\n", v361, v369 / 1000000.0);
+                                                                                                                            if (*(a1 + 16))
+                                                                                                                            {
+                                                                                                                              v370 = *(a1 + 32);
+                                                                                                                              v371 = *(*(a1 + 24) + 4 * (0x89607B27DA843F55 % *(a1 + 40)));
+                                                                                                                              v372 = v598;
+                                                                                                                              if (v371 == 0x7FFFFFFF)
+                                                                                                                              {
+LABEL_498:
+                                                                                                                                v371 = 0x7FFFFFFFLL;
+                                                                                                                              }
+
+                                                                                                                              else
+                                                                                                                              {
+                                                                                                                                while (*(v370 + 80 * v371 + 4) != 129)
+                                                                                                                                {
+                                                                                                                                  v371 = *(v370 + 80 * v371) & 0x7FFFFFFF;
+                                                                                                                                  if (v371 == 0x7FFFFFFF)
+                                                                                                                                  {
+                                                                                                                                    goto LABEL_498;
+                                                                                                                                  }
+                                                                                                                                }
+                                                                                                                              }
+                                                                                                                            }
+
+                                                                                                                            else
+                                                                                                                            {
+                                                                                                                              v370 = *(a1 + 32);
+                                                                                                                              v371 = 0x7FFFFFFFLL;
+                                                                                                                              v372 = v598;
+                                                                                                                            }
+
+                                                                                                                            v373 = *(v370 + 80 * v371 + 40);
+                                                                                                                            v374 = *(a1 + 256);
+                                                                                                                            v375 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                            v376 = v372 / 1000000.0;
+                                                                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                            {
+                                                                                                                              if (mach_timebase_info(info))
+                                                                                                                              {
+                                                                                                                                v379 = NAN;
+                                                                                                                                goto LABEL_505;
+                                                                                                                              }
+
+                                                                                                                              LODWORD(v377) = info[0].numer;
+                                                                                                                              LODWORD(v378) = info[0].denom;
+                                                                                                                              v375 = v377 / v378;
+                                                                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v375;
+                                                                                                                            }
+
+                                                                                                                            v379 = v375 * (v373 / v374);
+LABEL_505:
+                                                                                                                            v380 = v376;
+                                                                                                                            if (*(a1 + 16))
+                                                                                                                            {
+                                                                                                                              v381 = *(a1 + 32);
+                                                                                                                              v382 = *(*(a1 + 24) + 4 * (0xAF26563F2EC4C8E6 % *(a1 + 40)));
+                                                                                                                              if (v382 != 0x7FFFFFFF)
+                                                                                                                              {
+                                                                                                                                while (*(v381 + 80 * v382 + 4) != 128)
+                                                                                                                                {
+                                                                                                                                  v382 = *(v381 + 80 * v382) & 0x7FFFFFFF;
+                                                                                                                                  if (v382 == 0x7FFFFFFF)
+                                                                                                                                  {
+                                                                                                                                    goto LABEL_511;
+                                                                                                                                  }
+                                                                                                                                }
+
+LABEL_512:
+                                                                                                                                v383 = *(v381 + 80 * v382 + 40);
+                                                                                                                                v384 = *(a1 + 256);
+                                                                                                                                v385 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                                v386 = v379 / 1000000.0;
+                                                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                                {
+                                                                                                                                  if (mach_timebase_info(info))
+                                                                                                                                  {
+                                                                                                                                    v389 = NAN;
+                                                                                                                                    goto LABEL_517;
+                                                                                                                                  }
+
+                                                                                                                                  LODWORD(v387) = info[0].numer;
+                                                                                                                                  LODWORD(v388) = info[0].denom;
+                                                                                                                                  v385 = v387 / v388;
+                                                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v385;
+                                                                                                                                }
+
+                                                                                                                                v389 = v385 * (v383 / v384);
+LABEL_517:
+                                                                                                                                re::DynamicString::appendf((a1 + 96), "Asset Update: %.2f    SU ECS: %.2f\n", v380, v386 + v389 / 1000000.0);
+                                                                                                                                if (*(a1 + 16))
+                                                                                                                                {
+                                                                                                                                  v390 = *(a1 + 32);
+                                                                                                                                  v391 = *(*(a1 + 24) + 4 * (0x584592B4271786AAuLL % *(a1 + 40)));
+                                                                                                                                  v392 = v603;
+                                                                                                                                  if (v391 == 0x7FFFFFFF)
+                                                                                                                                  {
+LABEL_521:
+                                                                                                                                    v391 = 0x7FFFFFFFLL;
+                                                                                                                                  }
+
+                                                                                                                                  else
+                                                                                                                                  {
+                                                                                                                                    while (*(v390 + 80 * v391 + 4) != 126)
+                                                                                                                                    {
+                                                                                                                                      v391 = *(v390 + 80 * v391) & 0x7FFFFFFF;
+                                                                                                                                      if (v391 == 0x7FFFFFFF)
+                                                                                                                                      {
+                                                                                                                                        goto LABEL_521;
+                                                                                                                                      }
+                                                                                                                                    }
+                                                                                                                                  }
+                                                                                                                                }
+
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                  v390 = *(a1 + 32);
+                                                                                                                                  v391 = 0x7FFFFFFFLL;
+                                                                                                                                  v392 = v603;
+                                                                                                                                }
+
+                                                                                                                                v393 = *(v390 + 80 * v391 + 40);
+                                                                                                                                v394 = *(a1 + 256);
+                                                                                                                                v395 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                                {
+                                                                                                                                  if (mach_timebase_info(info))
+                                                                                                                                  {
+                                                                                                                                    v398 = NAN;
+                                                                                                                                    goto LABEL_528;
+                                                                                                                                  }
+
+                                                                                                                                  LODWORD(v396) = info[0].numer;
+                                                                                                                                  LODWORD(v397) = info[0].denom;
+                                                                                                                                  v395 = v396 / v397;
+                                                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v395;
+                                                                                                                                }
+
+                                                                                                                                v398 = v395 * (v393 / v394);
+LABEL_528:
+                                                                                                                                if (*(a1 + 16))
+                                                                                                                                {
+                                                                                                                                  v399 = *(a1 + 32);
+                                                                                                                                  v400 = *(*(a1 + 24) + 4 * (0xA09D66D4686AD125 % *(a1 + 40)));
+                                                                                                                                  if (v400 != 0x7FFFFFFF)
+                                                                                                                                  {
+                                                                                                                                    while (*(v399 + 80 * v400 + 4) != 127)
+                                                                                                                                    {
+                                                                                                                                      v400 = *(v399 + 80 * v400) & 0x7FFFFFFF;
+                                                                                                                                      if (v400 == 0x7FFFFFFF)
+                                                                                                                                      {
+                                                                                                                                        goto LABEL_534;
+                                                                                                                                      }
+                                                                                                                                    }
+
+LABEL_535:
+                                                                                                                                    v401 = *(v399 + 80 * v400 + 40);
+                                                                                                                                    v402 = *(a1 + 256);
+                                                                                                                                    v403 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+                                                                                                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                                                                                                                                    {
+                                                                                                                                      if (mach_timebase_info(info))
+                                                                                                                                      {
+                                                                                                                                        v406 = NAN;
+                                                                                                                                        goto LABEL_540;
+                                                                                                                                      }
+
+                                                                                                                                      LODWORD(v404) = info[0].numer;
+                                                                                                                                      LODWORD(v405) = info[0].denom;
+                                                                                                                                      v403 = v404 / v405;
+                                                                                                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v403;
+                                                                                                                                    }
+
+                                                                                                                                    v406 = v403 * (v401 / v402);
+LABEL_540:
+                                                                                                                                    v408 = v392 / 1000000.0;
+                                                                                                                                    v409 = v602 / 1000000.0;
+                                                                                                                                    v410 = v408 + v409;
+                                                                                                                                    v411 = v601 / 1000000.0;
+                                                                                                                                    v606 = v587 / 1000000.0;
+                                                                                                                                    v412 = ((((((v600 - (v410 + v411)) - v339) - v350) - v606) - v380) - v361) - v597;
+                                                                                                                                    if (v610 <= 0.0)
+                                                                                                                                    {
+                                                                                                                                      v413 = v412 - v608;
+                                                                                                                                    }
+
+                                                                                                                                    else
+                                                                                                                                    {
+                                                                                                                                      v413 = v412;
+                                                                                                                                    }
+
+                                                                                                                                    re::DynamicString::appendf((a1 + 96), "Custom ECS: %.2f    Callback ECS: %.2f\n", v398 / 1000000.0, v406 / 1000000.0);
+                                                                                                                                    v407 = v595 / 1000000.0;
+                                                                                                                                    re::DynamicString::appendf((a1 + 96), "Update Callback: %.2f    Others: %.2f\n", v407, (v413 - v407));
+                                                                                                                                    if (*(a1 + 136))
+                                                                                                                                    {
+                                                                                                                                      *(a1 + 136) = 1;
+                                                                                                                                      v414 = *(a1 + 144);
+                                                                                                                                    }
+
+                                                                                                                                    else
+                                                                                                                                    {
+                                                                                                                                      *(a1 + 136) = 0;
+                                                                                                                                      v414 = (a1 + 137);
+                                                                                                                                    }
+
+                                                                                                                                    *v414 = 0;
+                                                                                                                                    if (*(a1 + 168))
+                                                                                                                                    {
+                                                                                                                                      *(a1 + 168) = 1;
+                                                                                                                                      v415 = *(a1 + 176);
+                                                                                                                                    }
+
+                                                                                                                                    else
+                                                                                                                                    {
+                                                                                                                                      *(a1 + 168) = 0;
+                                                                                                                                      v415 = (a1 + 169);
+                                                                                                                                    }
+
+                                                                                                                                    *v415 = 0;
+                                                                                                                                    re::DynamicString::appendf((a1 + 128), "Scene Draw Stats\n");
+                                                                                                                                    if (*(a1 + 16))
+                                                                                                                                    {
+                                                                                                                                      v416 = *(a1 + 32);
+                                                                                                                                      v417 = *(*(a1 + 24) + 4 * (0xC67949C3A864283CLL % *(a1 + 40)));
+                                                                                                                                      if (v417 == 0x7FFFFFFF)
+                                                                                                                                      {
+                                                                                                                                        v418 = (v416 + 0x27FFFFFFD8);
+                                                                                                                                      }
+
+                                                                                                                                      else
+                                                                                                                                      {
+                                                                                                                                        v421 = 0x7FFFFFFFLL;
+                                                                                                                                        while (*(v416 + 80 * v417 + 4) != 34)
+                                                                                                                                        {
+                                                                                                                                          v417 = *(v416 + 80 * v417) & 0x7FFFFFFF;
+                                                                                                                                          if (v417 == 0x7FFFFFFF)
+                                                                                                                                          {
+                                                                                                                                            goto LABEL_558;
+                                                                                                                                          }
+                                                                                                                                        }
+
+                                                                                                                                        v421 = v417;
+LABEL_558:
+                                                                                                                                        v418 = (v416 + 80 * v421 + 40);
+                                                                                                                                      }
+
+                                                                                                                                      v419 = *(a1 + 256);
+                                                                                                                                      v420 = *v418 / v419;
+                                                                                                                                      v422 = *(*(a1 + 24) + 4 * (0x43E7CEFC06C022BEuLL % *(a1 + 40)));
+                                                                                                                                      if (v422 != 0x7FFFFFFF)
+                                                                                                                                      {
+                                                                                                                                        while (*(v416 + 80 * v422 + 4) != 35)
+                                                                                                                                        {
+                                                                                                                                          v422 = *(v416 + 80 * v422) & 0x7FFFFFFF;
+                                                                                                                                          if (v422 == 0x7FFFFFFF)
+                                                                                                                                          {
+                                                                                                                                            goto LABEL_562;
+                                                                                                                                          }
+                                                                                                                                        }
+
+LABEL_563:
+                                                                                                                                        re::DynamicString::appendf((a1 + 128), "Meshes: %.0f    Draw Calls: %.0f\n", v420, (*(v416 + 80 * v422 + 40) / v419));
+                                                                                                                                        if (*(a1 + 16))
+                                                                                                                                        {
+                                                                                                                                          v423 = *(a1 + 32);
+                                                                                                                                          v424 = *(*(a1 + 24) + 4 * (0xFF96B931ED5510E2 % *(a1 + 40)));
+                                                                                                                                          if (v424 != 0x7FFFFFFF)
+                                                                                                                                          {
+                                                                                                                                            while (*(v423 + 80 * v424 + 4) != 36)
+                                                                                                                                            {
+                                                                                                                                              v424 = *(v423 + 80 * v424) & 0x7FFFFFFF;
+                                                                                                                                              if (v424 == 0x7FFFFFFF)
+                                                                                                                                              {
+                                                                                                                                                goto LABEL_569;
+                                                                                                                                              }
+                                                                                                                                            }
+
+LABEL_570:
+                                                                                                                                            re::DynamicString::appendf((a1 + 128), "Triangles Submitted: %.0f\n", (*(v423 + 80 * v424 + 40) / *(a1 + 256)));
+                                                                                                                                            if (*(a1 + 16))
+                                                                                                                                            {
+                                                                                                                                              v425 = *(a1 + 32);
+                                                                                                                                              v426 = *(*(a1 + 24) + 4 * (0x499EF488EF760E18uLL % *(a1 + 40)));
+                                                                                                                                              if (v426 != 0x7FFFFFFF)
+                                                                                                                                              {
+                                                                                                                                                while (*(v425 + 80 * v426 + 4) != 37)
+                                                                                                                                                {
+                                                                                                                                                  v426 = *(v425 + 80 * v426) & 0x7FFFFFFF;
+                                                                                                                                                  if (v426 == 0x7FFFFFFF)
+                                                                                                                                                  {
+                                                                                                                                                    goto LABEL_576;
+                                                                                                                                                  }
+                                                                                                                                                }
+
+LABEL_577:
+                                                                                                                                                re::DynamicString::appendf((a1 + 128), "Vertices Submitted: %.0f\n", (*(v425 + 80 * v426 + 40) / *(a1 + 256)));
+                                                                                                                                                re::DynamicString::appendf((a1 + 128), "Lighting Stats \n");
+                                                                                                                                                if (*(a1 + 16))
+                                                                                                                                                {
+                                                                                                                                                  v427 = *(a1 + 40);
+                                                                                                                                                  v429 = *(a1 + 24);
+                                                                                                                                                  v428 = *(a1 + 32);
+                                                                                                                                                  v430 = *(v429 + 4 * (0xD1F31274AB1CEA5ALL % v427));
+                                                                                                                                                  if (v430 == 0x7FFFFFFF)
+                                                                                                                                                  {
+                                                                                                                                                    v431 = (v428 + 0x27FFFFFFD8);
+                                                                                                                                                  }
+
+                                                                                                                                                  else
+                                                                                                                                                  {
+                                                                                                                                                    v434 = 0x7FFFFFFFLL;
+                                                                                                                                                    while (*(v428 + 80 * v430 + 4) != 95)
+                                                                                                                                                    {
+                                                                                                                                                      v430 = *(v428 + 80 * v430) & 0x7FFFFFFF;
+                                                                                                                                                      if (v430 == 0x7FFFFFFF)
+                                                                                                                                                      {
+                                                                                                                                                        goto LABEL_586;
+                                                                                                                                                      }
+                                                                                                                                                    }
+
+                                                                                                                                                    v434 = v430;
+LABEL_586:
+                                                                                                                                                    v431 = (v428 + 80 * v434 + 40);
+                                                                                                                                                  }
+
+                                                                                                                                                  v432 = *(a1 + 256);
+                                                                                                                                                  v433 = *v431 / v432;
+                                                                                                                                                  v435 = *(v429 + 4 * (0xB283085A8C486789 % v427));
+                                                                                                                                                  if (v435 != 0x7FFFFFFF)
+                                                                                                                                                  {
+                                                                                                                                                    while (*(v428 + 80 * v435 + 4) != 96)
+                                                                                                                                                    {
+                                                                                                                                                      v435 = *(v428 + 80 * v435) & 0x7FFFFFFF;
+                                                                                                                                                      if (v435 == 0x7FFFFFFF)
+                                                                                                                                                      {
+                                                                                                                                                        goto LABEL_590;
+                                                                                                                                                      }
+                                                                                                                                                    }
+
+LABEL_591:
+                                                                                                                                                    re::DynamicString::appendf((a1 + 128), "Total : %.0f (culled %.0f)\n", v433, (*(v428 + 80 * v435 + 40) / v432));
+                                                                                                                                                    if (*(a1 + 16))
+                                                                                                                                                    {
+                                                                                                                                                      v436 = *(a1 + 40);
+                                                                                                                                                      v438 = *(a1 + 24);
+                                                                                                                                                      v437 = *(a1 + 32);
+                                                                                                                                                      v439 = *(v438 + 4 * (0xAEFF7D4B5B72EC99 % v436));
+                                                                                                                                                      if (v439 == 0x7FFFFFFF)
+                                                                                                                                                      {
+                                                                                                                                                        v440 = (v437 + 0x27FFFFFFD8);
+                                                                                                                                                      }
+
+                                                                                                                                                      else
+                                                                                                                                                      {
+                                                                                                                                                        v444 = 0x7FFFFFFFLL;
+                                                                                                                                                        while (*(v437 + 80 * v439 + 4) != 97)
+                                                                                                                                                        {
+                                                                                                                                                          v439 = *(v437 + 80 * v439) & 0x7FFFFFFF;
+                                                                                                                                                          if (v439 == 0x7FFFFFFF)
+                                                                                                                                                          {
+                                                                                                                                                            goto LABEL_600;
+                                                                                                                                                          }
+                                                                                                                                                        }
+
+                                                                                                                                                        v444 = v439;
+LABEL_600:
+                                                                                                                                                        v440 = (v437 + 80 * v444 + 40);
+                                                                                                                                                      }
+
+                                                                                                                                                      v445 = *v440;
+                                                                                                                                                      v442 = *(a1 + 256);
+                                                                                                                                                      v446 = *(v438 + 4 * (0x51B6E610EB969D89 % v436));
+                                                                                                                                                      if (v446 == 0x7FFFFFFF)
+                                                                                                                                                      {
+                                                                                                                                                        v447 = (v437 + 0x27FFFFFFD8);
+                                                                                                                                                      }
+
+                                                                                                                                                      else
+                                                                                                                                                      {
+                                                                                                                                                        v448 = 0x7FFFFFFFLL;
+                                                                                                                                                        while (*(v437 + 80 * v446 + 4) != 103)
+                                                                                                                                                        {
+                                                                                                                                                          v446 = *(v437 + 80 * v446) & 0x7FFFFFFF;
+                                                                                                                                                          if (v446 == 0x7FFFFFFF)
+                                                                                                                                                          {
+                                                                                                                                                            goto LABEL_608;
+                                                                                                                                                          }
+                                                                                                                                                        }
+
+                                                                                                                                                        v448 = v446;
+LABEL_608:
+                                                                                                                                                        v447 = (v437 + 80 * v448 + 40);
+                                                                                                                                                      }
+
+                                                                                                                                                      v443 = v445 / v442;
+                                                                                                                                                      v441 = *v447;
+                                                                                                                                                      v449 = *(v438 + 4 * (0xFADB7BDC13722E8ELL % v436));
+                                                                                                                                                      if (v449 != 0x7FFFFFFF)
+                                                                                                                                                      {
+                                                                                                                                                        while (*(v437 + 80 * v449 + 4) != 104)
+                                                                                                                                                        {
+                                                                                                                                                          v449 = *(v437 + 80 * v449) & 0x7FFFFFFF;
+                                                                                                                                                          if (v449 == 0x7FFFFFFF)
+                                                                                                                                                          {
+                                                                                                                                                            goto LABEL_612;
+                                                                                                                                                          }
+                                                                                                                                                        }
+
+LABEL_613:
+                                                                                                                                                        re::DynamicString::appendf((a1 + 128), "Ambient : %.0f, Proxy : %.0f (culled %.0f)\n", v443, (v441 / v442), (*(v437 + 80 * v449 + 40) / v442));
+                                                                                                                                                        if (*(a1 + 16))
+                                                                                                                                                        {
+                                                                                                                                                          v450 = *(a1 + 40);
+                                                                                                                                                          v452 = *(a1 + 24);
+                                                                                                                                                          v451 = *(a1 + 32);
+                                                                                                                                                          v453 = *(v452 + 4 * (0x79CE5DC97509C089 % v450));
+                                                                                                                                                          if (v453 == 0x7FFFFFFF)
+                                                                                                                                                          {
+                                                                                                                                                            v454 = (v451 + 0x27FFFFFFD8);
+                                                                                                                                                          }
+
+                                                                                                                                                          else
+                                                                                                                                                          {
+                                                                                                                                                            v458 = 0x7FFFFFFFLL;
+                                                                                                                                                            while (*(v451 + 80 * v453 + 4) != 99)
+                                                                                                                                                            {
+                                                                                                                                                              v453 = *(v451 + 80 * v453) & 0x7FFFFFFF;
+                                                                                                                                                              if (v453 == 0x7FFFFFFF)
+                                                                                                                                                              {
+                                                                                                                                                                goto LABEL_622;
+                                                                                                                                                              }
+                                                                                                                                                            }
+
+                                                                                                                                                            v458 = v453;
+LABEL_622:
+                                                                                                                                                            v454 = (v451 + 80 * v458 + 40);
+                                                                                                                                                          }
+
+                                                                                                                                                          v459 = *v454;
+                                                                                                                                                          v456 = *(a1 + 256);
+                                                                                                                                                          v460 = *(v452 + 4 * (0x2731D9FDF756B334 % v450));
+                                                                                                                                                          if (v460 == 0x7FFFFFFF)
+                                                                                                                                                          {
+                                                                                                                                                            v461 = (v451 + 0x27FFFFFFD8);
+                                                                                                                                                          }
+
+                                                                                                                                                          else
+                                                                                                                                                          {
+                                                                                                                                                            v462 = 0x7FFFFFFFLL;
+                                                                                                                                                            while (*(v451 + 80 * v460 + 4) != 100)
+                                                                                                                                                            {
+                                                                                                                                                              v460 = *(v451 + 80 * v460) & 0x7FFFFFFF;
+                                                                                                                                                              if (v460 == 0x7FFFFFFF)
+                                                                                                                                                              {
+                                                                                                                                                                goto LABEL_630;
+                                                                                                                                                              }
+                                                                                                                                                            }
+
+                                                                                                                                                            v462 = v460;
+LABEL_630:
+                                                                                                                                                            v461 = (v451 + 80 * v462 + 40);
+                                                                                                                                                          }
+
+                                                                                                                                                          v457 = v459 / v456;
+                                                                                                                                                          v455 = *v461;
+                                                                                                                                                          v463 = *(v452 + 4 * (0xF2F8EDE6FA70BF5FLL % v450));
+                                                                                                                                                          if (v463 != 0x7FFFFFFF)
+                                                                                                                                                          {
+                                                                                                                                                            while (*(v451 + 80 * v463 + 4) != 98)
+                                                                                                                                                            {
+                                                                                                                                                              v463 = *(v451 + 80 * v463) & 0x7FFFFFFF;
+                                                                                                                                                              if (v463 == 0x7FFFFFFF)
+                                                                                                                                                              {
+                                                                                                                                                                goto LABEL_634;
+                                                                                                                                                              }
+                                                                                                                                                            }
+
+LABEL_635:
+                                                                                                                                                            re::DynamicString::appendf((a1 + 128), "Point : %.0f (culled %.0f), Directional : %.0f\n", v457, (v455 / v456), (*(v451 + 80 * v463 + 40) / v456));
+                                                                                                                                                            if (*(a1 + 16))
+                                                                                                                                                            {
+                                                                                                                                                              v464 = *(a1 + 40);
+                                                                                                                                                              v466 = *(a1 + 24);
+                                                                                                                                                              v465 = *(a1 + 32);
+                                                                                                                                                              v467 = *(v466 + 4 * (0xA7D485D747130317 % v464));
+                                                                                                                                                              if (v467 == 0x7FFFFFFF)
+                                                                                                                                                              {
+                                                                                                                                                                v468 = (v465 + 0x27FFFFFFD8);
+                                                                                                                                                              }
+
+                                                                                                                                                              else
+                                                                                                                                                              {
+                                                                                                                                                                v472 = 0x7FFFFFFFLL;
+                                                                                                                                                                while (*(v465 + 80 * v467 + 4) != 101)
+                                                                                                                                                                {
+                                                                                                                                                                  v467 = *(v465 + 80 * v467) & 0x7FFFFFFF;
+                                                                                                                                                                  if (v467 == 0x7FFFFFFF)
+                                                                                                                                                                  {
+                                                                                                                                                                    goto LABEL_644;
+                                                                                                                                                                  }
+                                                                                                                                                                }
+
+                                                                                                                                                                v472 = v467;
+LABEL_644:
+                                                                                                                                                                v468 = (v465 + 80 * v472 + 40);
+                                                                                                                                                              }
+
+                                                                                                                                                              v473 = *v468;
+                                                                                                                                                              v470 = *(a1 + 256);
+                                                                                                                                                              v474 = *(v466 + 4 * (0x973D7F79FC81E7F3 % v464));
+                                                                                                                                                              if (v474 == 0x7FFFFFFF)
+                                                                                                                                                              {
+                                                                                                                                                                v475 = (v465 + 0x27FFFFFFD8);
+                                                                                                                                                              }
+
+                                                                                                                                                              else
+                                                                                                                                                              {
+                                                                                                                                                                v476 = 0x7FFFFFFFLL;
+                                                                                                                                                                while (*(v465 + 80 * v474 + 4) != 102)
+                                                                                                                                                                {
+                                                                                                                                                                  v474 = *(v465 + 80 * v474) & 0x7FFFFFFF;
+                                                                                                                                                                  if (v474 == 0x7FFFFFFF)
+                                                                                                                                                                  {
+                                                                                                                                                                    goto LABEL_652;
+                                                                                                                                                                  }
+                                                                                                                                                                }
+
+                                                                                                                                                                v476 = v474;
+LABEL_652:
+                                                                                                                                                                v475 = (v465 + 80 * v476 + 40);
+                                                                                                                                                              }
+
+                                                                                                                                                              v471 = v473 / v470;
+                                                                                                                                                              v469 = *v475;
+                                                                                                                                                              v477 = *(v466 + 4 * (0x168B5740BA2991FFLL % v464));
+                                                                                                                                                              if (v477 != 0x7FFFFFFF)
+                                                                                                                                                              {
+                                                                                                                                                                while (*(v465 + 80 * v477 + 4) != 105)
+                                                                                                                                                                {
+                                                                                                                                                                  v477 = *(v465 + 80 * v477) & 0x7FFFFFFF;
+                                                                                                                                                                  if (v477 == 0x7FFFFFFF)
+                                                                                                                                                                  {
+                                                                                                                                                                    goto LABEL_656;
+                                                                                                                                                                  }
+                                                                                                                                                                }
+
+LABEL_657:
+                                                                                                                                                                re::DynamicString::appendf((a1 + 128), "Spot : %.0f (culled %.0f), Area : %.0f\n", v471, (v469 / v470), (*(v465 + 80 * v477 + 40) / v470));
+                                                                                                                                                                if (*(a1 + 16))
+                                                                                                                                                                {
+                                                                                                                                                                  v478 = *(a1 + 32);
+                                                                                                                                                                  v479 = *(*(a1 + 24) + 4 * (0x17B1332CD96C043DuLL % *(a1 + 40)));
+                                                                                                                                                                  if (v479 != 0x7FFFFFFF)
+                                                                                                                                                                  {
+                                                                                                                                                                    while (*(v478 + 80 * v479 + 4) != 118)
+                                                                                                                                                                    {
+                                                                                                                                                                      v479 = *(v478 + 80 * v479) & 0x7FFFFFFF;
+                                                                                                                                                                      if (v479 == 0x7FFFFFFF)
+                                                                                                                                                                      {
+                                                                                                                                                                        goto LABEL_663;
+                                                                                                                                                                      }
+                                                                                                                                                                    }
+
+LABEL_664:
+                                                                                                                                                                    re::DynamicString::appendf((a1 + 160), "Entities: %.0f\n", (*(v478 + 80 * v479 + 40) / *(a1 + 256)));
+                                                                                                                                                                    re::DynamicString::appendf((a1 + 160), "Component Counts\n");
+                                                                                                                                                                    if (*(a1 + 16))
+                                                                                                                                                                    {
+                                                                                                                                                                      v480 = *(a1 + 40);
+                                                                                                                                                                      v482 = *(a1 + 24);
+                                                                                                                                                                      v481 = *(a1 + 32);
+                                                                                                                                                                      v483 = *(v482 + 4 * (0x4A1033F1AB1B19DDLL % v480));
+                                                                                                                                                                      if (v483 == 0x7FFFFFFF)
+                                                                                                                                                                      {
+                                                                                                                                                                        v484 = (v481 + 0x27FFFFFFD8);
+                                                                                                                                                                      }
+
+                                                                                                                                                                      else
+                                                                                                                                                                      {
+                                                                                                                                                                        v487 = 0x7FFFFFFFLL;
+                                                                                                                                                                        while (*(v481 + 80 * v483 + 4) != 94)
+                                                                                                                                                                        {
+                                                                                                                                                                          v483 = *(v481 + 80 * v483) & 0x7FFFFFFF;
+                                                                                                                                                                          if (v483 == 0x7FFFFFFF)
+                                                                                                                                                                          {
+                                                                                                                                                                            goto LABEL_673;
+                                                                                                                                                                          }
+                                                                                                                                                                        }
+
+                                                                                                                                                                        v487 = v483;
+LABEL_673:
+                                                                                                                                                                        v484 = (v481 + 80 * v487 + 40);
+                                                                                                                                                                      }
+
+                                                                                                                                                                      v485 = *(a1 + 256);
+                                                                                                                                                                      v486 = *v484 / v485;
+                                                                                                                                                                      v488 = *(v482 + 4 * (0x2C81EA329AEABA69 % v480));
+                                                                                                                                                                      if (v488 != 0x7FFFFFFF)
+                                                                                                                                                                      {
+                                                                                                                                                                        while (*(v481 + 80 * v488 + 4) != 106)
+                                                                                                                                                                        {
+                                                                                                                                                                          v488 = *(v481 + 80 * v488) & 0x7FFFFFFF;
+                                                                                                                                                                          if (v488 == 0x7FFFFFFF)
+                                                                                                                                                                          {
+                                                                                                                                                                            goto LABEL_677;
+                                                                                                                                                                          }
+                                                                                                                                                                        }
+
+LABEL_678:
+                                                                                                                                                                        re::DynamicString::appendf((a1 + 160), "Meshes: %.0f, Shadows: %.0f\n", v486, (*(v481 + 80 * v488 + 40) / v485));
+                                                                                                                                                                        if (*(a1 + 16))
+                                                                                                                                                                        {
+                                                                                                                                                                          v489 = *(a1 + 32);
+                                                                                                                                                                          v490 = *(*(a1 + 24) + 4 * (0xD1F31274AB1CEA5ALL % *(a1 + 40)));
+                                                                                                                                                                          if (v490 != 0x7FFFFFFF)
+                                                                                                                                                                          {
+                                                                                                                                                                            while (*(v489 + 80 * v490 + 4) != 95)
+                                                                                                                                                                            {
+                                                                                                                                                                              v490 = *(v489 + 80 * v490) & 0x7FFFFFFF;
+                                                                                                                                                                              if (v490 == 0x7FFFFFFF)
+                                                                                                                                                                              {
+                                                                                                                                                                                goto LABEL_684;
+                                                                                                                                                                              }
+                                                                                                                                                                            }
+
+LABEL_685:
+                                                                                                                                                                            re::DynamicString::appendf((a1 + 160), "Lights: %.0f\n", (*(v489 + 80 * v490 + 40) / *(a1 + 256)));
+                                                                                                                                                                            if (*(a1 + 16))
+                                                                                                                                                                            {
+                                                                                                                                                                              v491 = *(a1 + 40);
+                                                                                                                                                                              v493 = *(a1 + 24);
+                                                                                                                                                                              v492 = *(a1 + 32);
+                                                                                                                                                                              v494 = *(v493 + 4 * (0xD732B4173198B1FLL % v491));
+                                                                                                                                                                              if (v494 == 0x7FFFFFFF)
+                                                                                                                                                                              {
+                                                                                                                                                                                v495 = (v492 + 0x27FFFFFFD8);
+                                                                                                                                                                              }
+
+                                                                                                                                                                              else
+                                                                                                                                                                              {
+                                                                                                                                                                                v498 = 0x7FFFFFFFLL;
+                                                                                                                                                                                while (*(v492 + 80 * v494 + 4) != 149)
+                                                                                                                                                                                {
+                                                                                                                                                                                  v494 = *(v492 + 80 * v494) & 0x7FFFFFFF;
+                                                                                                                                                                                  if (v494 == 0x7FFFFFFF)
+                                                                                                                                                                                  {
+                                                                                                                                                                                    goto LABEL_694;
+                                                                                                                                                                                  }
+                                                                                                                                                                                }
+
+                                                                                                                                                                                v498 = v494;
+LABEL_694:
+                                                                                                                                                                                v495 = (v492 + 80 * v498 + 40);
+                                                                                                                                                                              }
+
+                                                                                                                                                                              v496 = *(a1 + 256);
+                                                                                                                                                                              v497 = *v495 / v496;
+                                                                                                                                                                              v499 = *(v493 + 4 * (0xB3CC71E5DDF6EBC3 % v491));
+                                                                                                                                                                              if (v499 != 0x7FFFFFFF)
+                                                                                                                                                                              {
+                                                                                                                                                                                while (*(v492 + 80 * v499 + 4) != 151)
+                                                                                                                                                                                {
+                                                                                                                                                                                  v499 = *(v492 + 80 * v499) & 0x7FFFFFFF;
+                                                                                                                                                                                  if (v499 == 0x7FFFFFFF)
+                                                                                                                                                                                  {
+                                                                                                                                                                                    goto LABEL_698;
+                                                                                                                                                                                  }
+                                                                                                                                                                                }
+
+LABEL_699:
+                                                                                                                                                                                re::DynamicString::appendf((a1 + 160), "VFX Scenes: %.0f, VFX Draw Calls: %.0f\n", v497, (*(v492 + 80 * v499 + 40) / v496));
+                                                                                                                                                                                if (*(a1 + 16))
+                                                                                                                                                                                {
+                                                                                                                                                                                  v500 = *(a1 + 40);
+                                                                                                                                                                                  v502 = *(a1 + 24);
+                                                                                                                                                                                  v501 = *(a1 + 32);
+                                                                                                                                                                                  v503 = *(v502 + 4 * (0x2427CEE8D2E4A800 % v500));
+                                                                                                                                                                                  if (v503 == 0x7FFFFFFF)
+                                                                                                                                                                                  {
+                                                                                                                                                                                    v504 = (v501 + 0x27FFFFFFD8);
+                                                                                                                                                                                  }
+
+                                                                                                                                                                                  else
+                                                                                                                                                                                  {
+                                                                                                                                                                                    v507 = 0x7FFFFFFFLL;
+                                                                                                                                                                                    while (*(v501 + 80 * v503 + 4) != 143)
+                                                                                                                                                                                    {
+                                                                                                                                                                                      v503 = *(v501 + 80 * v503) & 0x7FFFFFFF;
+                                                                                                                                                                                      if (v503 == 0x7FFFFFFF)
+                                                                                                                                                                                      {
+                                                                                                                                                                                        goto LABEL_708;
+                                                                                                                                                                                      }
+                                                                                                                                                                                    }
+
+                                                                                                                                                                                    v507 = v503;
+LABEL_708:
+                                                                                                                                                                                    v504 = (v501 + 80 * v507 + 40);
+                                                                                                                                                                                  }
+
+                                                                                                                                                                                  v505 = *(a1 + 256);
+                                                                                                                                                                                  v506 = *v504 / v505;
+                                                                                                                                                                                  v508 = *(v502 + 4 * (0xA630657CB8C7F164 % v500));
+                                                                                                                                                                                  if (v508 != 0x7FFFFFFF)
+                                                                                                                                                                                  {
+                                                                                                                                                                                    while (*(v501 + 80 * v508 + 4) != 48)
+                                                                                                                                                                                    {
+                                                                                                                                                                                      v508 = *(v501 + 80 * v508) & 0x7FFFFFFF;
+                                                                                                                                                                                      if (v508 == 0x7FFFFFFF)
+                                                                                                                                                                                      {
+                                                                                                                                                                                        goto LABEL_712;
+                                                                                                                                                                                      }
+                                                                                                                                                                                    }
+
+LABEL_713:
+                                                                                                                                                                                    re::DynamicString::appendf((a1 + 160), "AudioPlayers: %.0f, Network: %.0f\n", v506, (*(v501 + 80 * v508 + 40) / v505));
+                                                                                                                                                                                    if (*(a1 + 16))
+                                                                                                                                                                                    {
+                                                                                                                                                                                      v509 = *(a1 + 40);
+                                                                                                                                                                                      v511 = *(a1 + 24);
+                                                                                                                                                                                      v510 = *(a1 + 32);
+                                                                                                                                                                                      v512 = *(v511 + 4 * (0xCF4A7B3C48D45C4FLL % v509));
+                                                                                                                                                                                      if (v512 == 0x7FFFFFFF)
+                                                                                                                                                                                      {
+                                                                                                                                                                                        v513 = (v510 + 0x27FFFFFFD8);
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      else
+                                                                                                                                                                                      {
+                                                                                                                                                                                        v516 = 0x7FFFFFFFLL;
+                                                                                                                                                                                        while (*(v510 + 80 * v512 + 4) != 66)
+                                                                                                                                                                                        {
+                                                                                                                                                                                          v512 = *(v510 + 80 * v512) & 0x7FFFFFFF;
+                                                                                                                                                                                          if (v512 == 0x7FFFFFFF)
+                                                                                                                                                                                          {
+                                                                                                                                                                                            goto LABEL_722;
+                                                                                                                                                                                          }
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        v516 = v512;
+LABEL_722:
+                                                                                                                                                                                        v513 = (v510 + 80 * v516 + 40);
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      v514 = *(a1 + 256);
+                                                                                                                                                                                      v515 = *v513 / v514;
+                                                                                                                                                                                      v517 = *(v511 + 4 * (0xA46B02245B9F3AF4 % v509));
+                                                                                                                                                                                      if (v517 != 0x7FFFFFFF)
+                                                                                                                                                                                      {
+                                                                                                                                                                                        while (*(v510 + 80 * v517 + 4) != 67)
+                                                                                                                                                                                        {
+                                                                                                                                                                                          v517 = *(v510 + 80 * v517) & 0x7FFFFFFF;
+                                                                                                                                                                                          if (v517 == 0x7FFFFFFF)
+                                                                                                                                                                                          {
+                                                                                                                                                                                            goto LABEL_726;
+                                                                                                                                                                                          }
+                                                                                                                                                                                        }
+
+LABEL_727:
+                                                                                                                                                                                        re::DynamicString::appendf((a1 + 160), "RigidBodies: %.0f    Active: %.0f\n", v515, (*(v510 + 80 * v517 + 40) / v514));
+                                                                                                                                                                                        if (*(a1 + 16))
+                                                                                                                                                                                        {
+                                                                                                                                                                                          v518 = *(a1 + 40);
+                                                                                                                                                                                          v520 = *(a1 + 24);
+                                                                                                                                                                                          v519 = *(a1 + 32);
+                                                                                                                                                                                          v521 = *(v520 + 4 * (0x21C2DD3F1FDB3325 % v518));
+                                                                                                                                                                                          if (v521 == 0x7FFFFFFF)
+                                                                                                                                                                                          {
+                                                                                                                                                                                            v522 = (v519 + 0x27FFFFFFD8);
+                                                                                                                                                                                          }
+
+                                                                                                                                                                                          else
+                                                                                                                                                                                          {
+                                                                                                                                                                                            v525 = 0x7FFFFFFFLL;
+                                                                                                                                                                                            while (*(v519 + 80 * v521 + 4) != 68)
+                                                                                                                                                                                            {
+                                                                                                                                                                                              v521 = *(v519 + 80 * v521) & 0x7FFFFFFF;
+                                                                                                                                                                                              if (v521 == 0x7FFFFFFF)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                goto LABEL_736;
+                                                                                                                                                                                              }
+                                                                                                                                                                                            }
+
+                                                                                                                                                                                            v525 = v521;
+LABEL_736:
+                                                                                                                                                                                            v522 = (v519 + 80 * v525 + 40);
+                                                                                                                                                                                          }
+
+                                                                                                                                                                                          v523 = *(a1 + 256);
+                                                                                                                                                                                          v524 = *v522 / v523;
+                                                                                                                                                                                          v526 = *(v520 + 4 * (0x41956A36DBC51080 % v518));
+                                                                                                                                                                                          if (v526 != 0x7FFFFFFF)
+                                                                                                                                                                                          {
+                                                                                                                                                                                            while (*(v519 + 80 * v526 + 4) != 69)
+                                                                                                                                                                                            {
+                                                                                                                                                                                              v526 = *(v519 + 80 * v526) & 0x7FFFFFFF;
+                                                                                                                                                                                              if (v526 == 0x7FFFFFFF)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                goto LABEL_740;
+                                                                                                                                                                                              }
+                                                                                                                                                                                            }
+
+LABEL_741:
+                                                                                                                                                                                            re::DynamicString::appendf((a1 + 160), "Colliders: %.0f    Contacts: %.0f\n", v524, (*(v519 + 80 * v526 + 40) / v523));
+                                                                                                                                                                                            if (*(a1 + 16))
+                                                                                                                                                                                            {
+                                                                                                                                                                                              v527 = *(a1 + 40);
+                                                                                                                                                                                              v529 = *(a1 + 24);
+                                                                                                                                                                                              v528 = *(a1 + 32);
+                                                                                                                                                                                              v530 = *(v529 + 4 * (0xCA4B25A23588FF96 % v527));
+                                                                                                                                                                                              if (v530 == 0x7FFFFFFF)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                v531 = (v528 + 0x27FFFFFFD8);
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              else
+                                                                                                                                                                                              {
+                                                                                                                                                                                                v534 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                while (*(v528 + 80 * v530 + 4) != 110)
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  v530 = *(v528 + 80 * v530) & 0x7FFFFFFF;
+                                                                                                                                                                                                  if (v530 == 0x7FFFFFFF)
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    goto LABEL_750;
+                                                                                                                                                                                                  }
+                                                                                                                                                                                                }
+
+                                                                                                                                                                                                v534 = v530;
+LABEL_750:
+                                                                                                                                                                                                v531 = (v528 + 80 * v534 + 40);
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              v532 = *(a1 + 256);
+                                                                                                                                                                                              v533 = *v531 / v532;
+                                                                                                                                                                                              v535 = *(v529 + 4 * (0xF2BAED4A618B76B9 % v527));
+                                                                                                                                                                                              if (v535 != 0x7FFFFFFF)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                while (*(v528 + 80 * v535 + 4) != 108)
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  v535 = *(v528 + 80 * v535) & 0x7FFFFFFF;
+                                                                                                                                                                                                  if (v535 == 0x7FFFFFFF)
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    goto LABEL_754;
+                                                                                                                                                                                                  }
+                                                                                                                                                                                                }
+
+LABEL_755:
+                                                                                                                                                                                                re::DynamicString::appendf((a1 + 160), "MeshDeformations: %.0f, SkeletalPoses: %.0f\n", v533, (*(v528 + 80 * v535 + 40) / v532));
+                                                                                                                                                                                                if (*(a1 + 16))
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  v536 = *(a1 + 40);
+                                                                                                                                                                                                  v538 = *(a1 + 24);
+                                                                                                                                                                                                  v537 = *(a1 + 32);
+                                                                                                                                                                                                  v539 = *(v538 + 4 * (0x33CFFC116CF4F2F0 % v536));
+                                                                                                                                                                                                  if (v539 == 0x7FFFFFFF)
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    v540 = (v537 + 0x27FFFFFFD8);
+                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                  else
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    v543 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                    while (*(v537 + 80 * v539 + 4) != 116)
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      v539 = *(v537 + 80 * v539) & 0x7FFFFFFF;
+                                                                                                                                                                                                      if (v539 == 0x7FFFFFFF)
+                                                                                                                                                                                                      {
+                                                                                                                                                                                                        goto LABEL_764;
+                                                                                                                                                                                                      }
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    v543 = v539;
+LABEL_764:
+                                                                                                                                                                                                    v540 = (v537 + 80 * v543 + 40);
+                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                  v541 = *v540;
+                                                                                                                                                                                                  v542 = *(a1 + 256);
+                                                                                                                                                                                                  v544 = *(v538 + 4 * (0xEF08A61A384AADEELL % v536));
+                                                                                                                                                                                                  if (v544 != 0x7FFFFFFF)
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    while (*(v537 + 80 * v544 + 4) != 117)
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      v544 = *(v537 + 80 * v544) & 0x7FFFFFFF;
+                                                                                                                                                                                                      if (v544 == 0x7FFFFFFF)
+                                                                                                                                                                                                      {
+                                                                                                                                                                                                        goto LABEL_768;
+                                                                                                                                                                                                      }
+                                                                                                                                                                                                    }
+
+LABEL_769:
+                                                                                                                                                                                                    re::DynamicString::appendf((a1 + 160), "ActiveDeformations: %.0f, Joints: %.0f\n", (v541 / v542), (*(v537 + 80 * v544 + 40) / v542));
+                                                                                                                                                                                                    info[0].numer = 93;
+                                                                                                                                                                                                    task_info(*MEMORY[0x1E69E9A60], 0x16u, re::ProfilerDetailedHUDProcessor::setMemoryPowerStatisticsData(void)::vmInfo, info);
+                                                                                                                                                                                                    if (*(a1 + 200))
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      *(a1 + 200) = 1;
+                                                                                                                                                                                                      v545 = *(a1 + 208);
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    else
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      *(a1 + 200) = 0;
+                                                                                                                                                                                                      v545 = (a1 + 201);
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    *v545 = 0;
+                                                                                                                                                                                                    re::DynamicString::append((a1 + 192), "System Memory and Thermal Info\n", 0x1FuLL);
+                                                                                                                                                                                                    re::DynamicString::appendf((a1 + 192), "Engine Dirty Memory : %.2f\n", (vcvts_n_f32_u64(qword_1ECF192BC, 0xAuLL) * 0.00097656));
+                                                                                                                                                                                                    re::DynamicString::appendf((a1 + 192), "Engine Peak Dirty Memory : %.2f\n", (vcvts_n_f32_s64(qword_1ECF192D4, 0xAuLL) * 0.00097656));
+                                                                                                                                                                                                    re::DynamicString::appendf((a1 + 192), "Process Memory Limit : %.2f\n", (vcvts_n_f32_u64(*(a1 + 272), 0xAuLL) * 0.00097656));
+                                                                                                                                                                                                    v546 = [MEMORY[0x1E696AE30] processInfo];
+                                                                                                                                                                                                    v547 = [v546 thermalState];
+
+                                                                                                                                                                                                    if (v547 > 2)
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      re::DynamicString::appendf((a1 + 192), "Thermal State: Critical\n");
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    else
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      re::DynamicString::appendf((a1 + 192), off_1E8721778[v547]);
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    if (*(a1 + 232))
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      *(a1 + 232) = 1;
+                                                                                                                                                                                                      v548 = *(a1 + 240);
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    else
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      *(a1 + 232) = 0;
+                                                                                                                                                                                                      v548 = (a1 + 233);
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    *v548 = 0;
+                                                                                                                                                                                                    re::DynamicString::append((a1 + 224), "Network Session Stats\n", 0x16uLL);
+                                                                                                                                                                                                    re::DynamicString::append((a1 + 224), "Sent/Recevived\n", 0xFuLL);
+                                                                                                                                                                                                    v549 = *(a1 + 16);
+                                                                                                                                                                                                    if (v549)
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      v550 = *(a1 + 32);
+                                                                                                                                                                                                      v551 = *(*(a1 + 24) + 4 * (0xB74FD707F0B39325 % *(a1 + 40)));
+                                                                                                                                                                                                      if (v551 != 0x7FFFFFFF)
+                                                                                                                                                                                                      {
+                                                                                                                                                                                                        while (*(v550 + 80 * v551 + 4) != 40)
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          v551 = *(v550 + 80 * v551) & 0x7FFFFFFF;
+                                                                                                                                                                                                          if (v551 == 0x7FFFFFFF)
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            goto LABEL_784;
+                                                                                                                                                                                                          }
+                                                                                                                                                                                                        }
+
+LABEL_785:
+                                                                                                                                                                                                        v552 = *(a1 + 256);
+                                                                                                                                                                                                        v553 = (*(v550 + 80 * v551 + 40) / v552) * 0.0009765625;
+                                                                                                                                                                                                        v554 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                        if (v549)
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          v555 = *(*(a1 + 24) + 4 * (0x66D1ECF1BBB89D25uLL % *(a1 + 40)));
+                                                                                                                                                                                                          if (v555 != 0x7FFFFFFF)
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            v554 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                            while (*(v550 + 80 * v555 + 4) != 41)
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              v555 = *(v550 + 80 * v555) & 0x7FFFFFFF;
+                                                                                                                                                                                                              if (v555 == 0x7FFFFFFF)
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                goto LABEL_792;
+                                                                                                                                                                                                              }
+                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                            v554 = v555;
+                                                                                                                                                                                                          }
+                                                                                                                                                                                                        }
+
+LABEL_792:
+                                                                                                                                                                                                        re::DynamicString::appendf((a1 + 224), "Bytes [KB]: %.2f/%.2f\n", v553, (*(v550 + 80 * v554 + 40) / v552) * 0.0009765625);
+                                                                                                                                                                                                        if (*(a1 + 16))
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          v556 = *(a1 + 40);
+                                                                                                                                                                                                          v558 = *(a1 + 24);
+                                                                                                                                                                                                          v557 = *(a1 + 32);
+                                                                                                                                                                                                          v559 = *(v558 + 4 * (0xA759EA27D4727622 % v556));
+                                                                                                                                                                                                          if (v559 == 0x7FFFFFFF)
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            v560 = (v557 + 0x27FFFFFFD8);
+                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                          else
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            v563 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                            while (*(v557 + 80 * v559 + 4) != 42)
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              v559 = *(v557 + 80 * v559) & 0x7FFFFFFF;
+                                                                                                                                                                                                              if (v559 == 0x7FFFFFFF)
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                goto LABEL_801;
+                                                                                                                                                                                                              }
+                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                            v563 = v559;
+LABEL_801:
+                                                                                                                                                                                                            v560 = (v557 + 80 * v563 + 40);
+                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                          v561 = *(a1 + 256);
+                                                                                                                                                                                                          v562 = *v560 / v561;
+                                                                                                                                                                                                          v564 = *(v558 + 4 * (0x4F0A61D9C798D8CALL % v556));
+                                                                                                                                                                                                          if (v564 != 0x7FFFFFFF)
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            while (*(v557 + 80 * v564 + 4) != 43)
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              v564 = *(v557 + 80 * v564) & 0x7FFFFFFF;
+                                                                                                                                                                                                              if (v564 == 0x7FFFFFFF)
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                goto LABEL_805;
+                                                                                                                                                                                                              }
+                                                                                                                                                                                                            }
+
+LABEL_806:
+                                                                                                                                                                                                            re::DynamicString::appendf((a1 + 224), "Packets: %.0f/%.0f\n", v562, (*(v557 + 80 * v564 + 40) / v561));
+                                                                                                                                                                                                            if (*(a1 + 16))
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              v565 = *(a1 + 40);
+                                                                                                                                                                                                              v567 = *(a1 + 24);
+                                                                                                                                                                                                              v566 = *(a1 + 32);
+                                                                                                                                                                                                              v568 = *(v567 + 4 * (0xFB2BF4996809BAF7 % v565));
+                                                                                                                                                                                                              if (v568 == 0x7FFFFFFF)
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                v569 = (v566 + 0x27FFFFFFD8);
+                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                              else
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                v572 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                                while (*(v566 + 80 * v568 + 4) != 44)
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  v568 = *(v566 + 80 * v568) & 0x7FFFFFFF;
+                                                                                                                                                                                                                  if (v568 == 0x7FFFFFFF)
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    goto LABEL_815;
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                v572 = v568;
+LABEL_815:
+                                                                                                                                                                                                                v569 = (v566 + 80 * v572 + 40);
+                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                              v570 = *(a1 + 256);
+                                                                                                                                                                                                              v571 = *v569 / v570;
+                                                                                                                                                                                                              v573 = *(v567 + 4 * (0xBDBFB556329AEE83 % v565));
+                                                                                                                                                                                                              if (v573 != 0x7FFFFFFF)
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                while (*(v566 + 80 * v573 + 4) != 45)
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  v573 = *(v566 + 80 * v573) & 0x7FFFFFFF;
+                                                                                                                                                                                                                  if (v573 == 0x7FFFFFFF)
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    goto LABEL_819;
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                }
+
+LABEL_820:
+                                                                                                                                                                                                                re::DynamicString::appendf((a1 + 224), "Components: %.0f/%.0f\n", v571, (*(v566 + 80 * v573 + 40) / v570));
+                                                                                                                                                                                                                if (*(a1 + 16))
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  v574 = *(a1 + 40);
+                                                                                                                                                                                                                  v576 = *(a1 + 24);
+                                                                                                                                                                                                                  v575 = *(a1 + 32);
+                                                                                                                                                                                                                  v577 = *(v576 + 4 * (0x6F14AEC17CB2794BLL % v574));
+                                                                                                                                                                                                                  if (v577 == 0x7FFFFFFF)
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    v578 = (v575 + 0x27FFFFFFD8);
+                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                  else
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    v581 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                                    while (*(v575 + 80 * v577 + 4) != 46)
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                      v577 = *(v575 + 80 * v577) & 0x7FFFFFFF;
+                                                                                                                                                                                                                      if (v577 == 0x7FFFFFFF)
+                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                        goto LABEL_829;
+                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                    v581 = v577;
+LABEL_829:
+                                                                                                                                                                                                                    v578 = (v575 + 80 * v581 + 40);
+                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                  v579 = *v578;
+                                                                                                                                                                                                                  v580 = *(a1 + 256);
+                                                                                                                                                                                                                  v582 = *(v576 + 4 * (0x5A9FF51BA33ADC1CLL % v574));
+                                                                                                                                                                                                                  if (v582 != 0x7FFFFFFF)
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    while (*(v575 + 80 * v582 + 4) != 47)
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                      v582 = *(v575 + 80 * v582) & 0x7FFFFFFF;
+                                                                                                                                                                                                                      if (v582 == 0x7FFFFFFF)
+                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                        goto LABEL_833;
+                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                    goto LABEL_834;
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                else
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  v575 = *(a1 + 32);
+                                                                                                                                                                                                                  v579 = *(v575 + 0x27FFFFFFD8);
+                                                                                                                                                                                                                  v580 = *(a1 + 256);
+                                                                                                                                                                                                                }
+
+LABEL_833:
+                                                                                                                                                                                                                v582 = 0x7FFFFFFFLL;
+LABEL_834:
+                                                                                                                                                                                                                re::DynamicString::appendf((a1 + 224), "Entities: %.0f/%.0f\n", (v579 / v580), (*(v575 + 80 * v582 + 40) / v580));
+                                                                                                                                                                                                                os_unfair_lock_unlock((a1 + 12));
+                                                                                                                                                                                                                return;
+                                                                                                                                                                                                              }
+                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                            else
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              v566 = *(a1 + 32);
+                                                                                                                                                                                                              v570 = *(a1 + 256);
+                                                                                                                                                                                                              v571 = *(v566 + 0x27FFFFFFD8) / v570;
+                                                                                                                                                                                                            }
+
+LABEL_819:
+                                                                                                                                                                                                            v573 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                            goto LABEL_820;
+                                                                                                                                                                                                          }
+                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                        else
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          v557 = *(a1 + 32);
+                                                                                                                                                                                                          v561 = *(a1 + 256);
+                                                                                                                                                                                                          v562 = *(v557 + 0x27FFFFFFD8) / v561;
+                                                                                                                                                                                                        }
+
+LABEL_805:
+                                                                                                                                                                                                        v564 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                        goto LABEL_806;
+                                                                                                                                                                                                      }
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    else
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      v550 = *(a1 + 32);
+                                                                                                                                                                                                    }
+
+LABEL_784:
+                                                                                                                                                                                                    v551 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                    goto LABEL_785;
+                                                                                                                                                                                                  }
+                                                                                                                                                                                                }
+
+                                                                                                                                                                                                else
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  v537 = *(a1 + 32);
+                                                                                                                                                                                                  v541 = *(v537 + 0x27FFFFFFD8);
+                                                                                                                                                                                                  v542 = *(a1 + 256);
+                                                                                                                                                                                                }
+
+LABEL_768:
+                                                                                                                                                                                                v544 = 0x7FFFFFFFLL;
+                                                                                                                                                                                                goto LABEL_769;
+                                                                                                                                                                                              }
+                                                                                                                                                                                            }
+
+                                                                                                                                                                                            else
+                                                                                                                                                                                            {
+                                                                                                                                                                                              v528 = *(a1 + 32);
+                                                                                                                                                                                              v532 = *(a1 + 256);
+                                                                                                                                                                                              v533 = *(v528 + 0x27FFFFFFD8) / v532;
+                                                                                                                                                                                            }
+
+LABEL_754:
+                                                                                                                                                                                            v535 = 0x7FFFFFFFLL;
+                                                                                                                                                                                            goto LABEL_755;
+                                                                                                                                                                                          }
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        else
+                                                                                                                                                                                        {
+                                                                                                                                                                                          v519 = *(a1 + 32);
+                                                                                                                                                                                          v523 = *(a1 + 256);
+                                                                                                                                                                                          v524 = *(v519 + 0x27FFFFFFD8) / v523;
+                                                                                                                                                                                        }
+
+LABEL_740:
+                                                                                                                                                                                        v526 = 0x7FFFFFFFLL;
+                                                                                                                                                                                        goto LABEL_741;
+                                                                                                                                                                                      }
+                                                                                                                                                                                    }
+
+                                                                                                                                                                                    else
+                                                                                                                                                                                    {
+                                                                                                                                                                                      v510 = *(a1 + 32);
+                                                                                                                                                                                      v514 = *(a1 + 256);
+                                                                                                                                                                                      v515 = *(v510 + 0x27FFFFFFD8) / v514;
+                                                                                                                                                                                    }
+
+LABEL_726:
+                                                                                                                                                                                    v517 = 0x7FFFFFFFLL;
+                                                                                                                                                                                    goto LABEL_727;
+                                                                                                                                                                                  }
+                                                                                                                                                                                }
+
+                                                                                                                                                                                else
+                                                                                                                                                                                {
+                                                                                                                                                                                  v501 = *(a1 + 32);
+                                                                                                                                                                                  v505 = *(a1 + 256);
+                                                                                                                                                                                  v506 = *(v501 + 0x27FFFFFFD8) / v505;
+                                                                                                                                                                                }
+
+LABEL_712:
+                                                                                                                                                                                v508 = 0x7FFFFFFFLL;
+                                                                                                                                                                                goto LABEL_713;
+                                                                                                                                                                              }
+                                                                                                                                                                            }
+
+                                                                                                                                                                            else
+                                                                                                                                                                            {
+                                                                                                                                                                              v492 = *(a1 + 32);
+                                                                                                                                                                              v496 = *(a1 + 256);
+                                                                                                                                                                              v497 = *(v492 + 0x27FFFFFFD8) / v496;
+                                                                                                                                                                            }
+
+LABEL_698:
+                                                                                                                                                                            v499 = 0x7FFFFFFFLL;
+                                                                                                                                                                            goto LABEL_699;
+                                                                                                                                                                          }
+                                                                                                                                                                        }
+
+                                                                                                                                                                        else
+                                                                                                                                                                        {
+                                                                                                                                                                          v489 = *(a1 + 32);
+                                                                                                                                                                        }
+
+LABEL_684:
+                                                                                                                                                                        v490 = 0x7FFFFFFFLL;
+                                                                                                                                                                        goto LABEL_685;
+                                                                                                                                                                      }
+                                                                                                                                                                    }
+
+                                                                                                                                                                    else
+                                                                                                                                                                    {
+                                                                                                                                                                      v481 = *(a1 + 32);
+                                                                                                                                                                      v485 = *(a1 + 256);
+                                                                                                                                                                      v486 = *(v481 + 0x27FFFFFFD8) / v485;
+                                                                                                                                                                    }
+
+LABEL_677:
+                                                                                                                                                                    v488 = 0x7FFFFFFFLL;
+                                                                                                                                                                    goto LABEL_678;
+                                                                                                                                                                  }
+                                                                                                                                                                }
+
+                                                                                                                                                                else
+                                                                                                                                                                {
+                                                                                                                                                                  v478 = *(a1 + 32);
+                                                                                                                                                                }
+
+LABEL_663:
+                                                                                                                                                                v479 = 0x7FFFFFFFLL;
+                                                                                                                                                                goto LABEL_664;
+                                                                                                                                                              }
+                                                                                                                                                            }
+
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                              v465 = *(a1 + 32);
+                                                                                                                                                              v469 = *(v465 + 0x27FFFFFFD8);
+                                                                                                                                                              v470 = *(a1 + 256);
+                                                                                                                                                              v471 = v469 / v470;
+                                                                                                                                                            }
+
+LABEL_656:
+                                                                                                                                                            v477 = 0x7FFFFFFFLL;
+                                                                                                                                                            goto LABEL_657;
+                                                                                                                                                          }
+                                                                                                                                                        }
+
+                                                                                                                                                        else
+                                                                                                                                                        {
+                                                                                                                                                          v451 = *(a1 + 32);
+                                                                                                                                                          v455 = *(v451 + 0x27FFFFFFD8);
+                                                                                                                                                          v456 = *(a1 + 256);
+                                                                                                                                                          v457 = v455 / v456;
+                                                                                                                                                        }
+
+LABEL_634:
+                                                                                                                                                        v463 = 0x7FFFFFFFLL;
+                                                                                                                                                        goto LABEL_635;
+                                                                                                                                                      }
+                                                                                                                                                    }
+
+                                                                                                                                                    else
+                                                                                                                                                    {
+                                                                                                                                                      v437 = *(a1 + 32);
+                                                                                                                                                      v441 = *(v437 + 0x27FFFFFFD8);
+                                                                                                                                                      v442 = *(a1 + 256);
+                                                                                                                                                      v443 = v441 / v442;
+                                                                                                                                                    }
+
+LABEL_612:
+                                                                                                                                                    v449 = 0x7FFFFFFFLL;
+                                                                                                                                                    goto LABEL_613;
+                                                                                                                                                  }
+                                                                                                                                                }
+
+                                                                                                                                                else
+                                                                                                                                                {
+                                                                                                                                                  v428 = *(a1 + 32);
+                                                                                                                                                  v432 = *(a1 + 256);
+                                                                                                                                                  v433 = *(v428 + 0x27FFFFFFD8) / v432;
+                                                                                                                                                }
+
+LABEL_590:
+                                                                                                                                                v435 = 0x7FFFFFFFLL;
+                                                                                                                                                goto LABEL_591;
+                                                                                                                                              }
+                                                                                                                                            }
+
+                                                                                                                                            else
+                                                                                                                                            {
+                                                                                                                                              v425 = *(a1 + 32);
+                                                                                                                                            }
+
+LABEL_576:
+                                                                                                                                            v426 = 0x7FFFFFFFLL;
+                                                                                                                                            goto LABEL_577;
+                                                                                                                                          }
+                                                                                                                                        }
+
+                                                                                                                                        else
+                                                                                                                                        {
+                                                                                                                                          v423 = *(a1 + 32);
+                                                                                                                                        }
+
+LABEL_569:
+                                                                                                                                        v424 = 0x7FFFFFFFLL;
+                                                                                                                                        goto LABEL_570;
+                                                                                                                                      }
+                                                                                                                                    }
+
+                                                                                                                                    else
+                                                                                                                                    {
+                                                                                                                                      v416 = *(a1 + 32);
+                                                                                                                                      v419 = *(a1 + 256);
+                                                                                                                                      v420 = *(v416 + 0x27FFFFFFD8) / v419;
+                                                                                                                                    }
+
+LABEL_562:
+                                                                                                                                    v422 = 0x7FFFFFFFLL;
+                                                                                                                                    goto LABEL_563;
+                                                                                                                                  }
+                                                                                                                                }
+
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                  v399 = *(a1 + 32);
+                                                                                                                                }
+
+LABEL_534:
+                                                                                                                                v400 = 0x7FFFFFFFLL;
+                                                                                                                                goto LABEL_535;
+                                                                                                                              }
+                                                                                                                            }
+
+                                                                                                                            else
+                                                                                                                            {
+                                                                                                                              v381 = *(a1 + 32);
+                                                                                                                            }
+
+LABEL_511:
+                                                                                                                            v382 = 0x7FFFFFFFLL;
+                                                                                                                            goto LABEL_512;
+                                                                                                                          }
+                                                                                                                        }
+
+                                                                                                                        else
+                                                                                                                        {
+                                                                                                                          v362 = *(a1 + 32);
+                                                                                                                        }
+
+LABEL_488:
+                                                                                                                        v363 = 0x7FFFFFFFLL;
+                                                                                                                        goto LABEL_489;
+                                                                                                                      }
+                                                                                                                    }
+
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                      v331 = *(a1 + 32);
+                                                                                                                    }
+
+LABEL_454:
+                                                                                                                    v332 = 0x7FFFFFFFLL;
+                                                                                                                    goto LABEL_455;
+                                                                                                                  }
+                                                                                                                }
+
+                                                                                                                else
+                                                                                                                {
+                                                                                                                  v319 = *(a1 + 32);
+                                                                                                                }
+
+LABEL_442:
+                                                                                                                v320 = 0x7FFFFFFFLL;
+                                                                                                                goto LABEL_443;
+                                                                                                              }
+                                                                                                            }
+
+                                                                                                            else
+                                                                                                            {
+                                                                                                              v311 = *(a1 + 32);
+                                                                                                            }
+
+LABEL_430:
+                                                                                                            v312 = 0x7FFFFFFFLL;
+                                                                                                            goto LABEL_431;
+                                                                                                          }
+                                                                                                        }
+
+                                                                                                        else
+                                                                                                        {
+                                                                                                          v303 = *(a1 + 32);
+                                                                                                        }
+
+LABEL_418:
+                                                                                                        v304 = 0x7FFFFFFFLL;
+                                                                                                        goto LABEL_419;
+                                                                                                      }
+                                                                                                    }
+
+                                                                                                    else
+                                                                                                    {
+                                                                                                      v295 = *(a1 + 32);
+                                                                                                    }
+
+LABEL_406:
+                                                                                                    v296 = 0x7FFFFFFFLL;
+                                                                                                    goto LABEL_407;
+                                                                                                  }
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v271 = *(a1 + 32);
+                                                                                                }
+
+LABEL_365:
+                                                                                                v272 = 0x7FFFFFFFLL;
+                                                                                                goto LABEL_366;
+                                                                                              }
+                                                                                            }
+
+                                                                                            else
+                                                                                            {
+                                                                                              v213 = *(a1 + 32);
+                                                                                            }
+
+LABEL_325:
+                                                                                            v214 = 0x7FFFFFFFLL;
+                                                                                            goto LABEL_326;
+                                                                                          }
+                                                                                        }
+
+                                                                                        else
+                                                                                        {
+                                                                                          v205 = *(a1 + 32);
+                                                                                        }
+
+LABEL_313:
+                                                                                        v206 = 0x7FFFFFFFLL;
+                                                                                        goto LABEL_314;
+                                                                                      }
+                                                                                    }
+
+                                                                                    else
+                                                                                    {
+                                                                                      v197 = *(a1 + 32);
+                                                                                    }
+
+LABEL_301:
+                                                                                    v198 = 0x7FFFFFFFLL;
+                                                                                    goto LABEL_302;
+                                                                                  }
+                                                                                }
+
+                                                                                else
+                                                                                {
+                                                                                  v189 = *(a1 + 32);
+                                                                                }
+
+LABEL_289:
+                                                                                v190 = 0x7FFFFFFFLL;
+                                                                                goto LABEL_290;
+                                                                              }
+                                                                            }
+
+                                                                            else
+                                                                            {
+                                                                              v181 = *(a1 + 32);
+                                                                            }
+
+LABEL_277:
+                                                                            v182 = 0x7FFFFFFFLL;
+                                                                            goto LABEL_278;
+                                                                          }
+                                                                        }
+
+                                                                        else
+                                                                        {
+                                                                          v173 = *(a1 + 32);
+                                                                        }
+
+LABEL_265:
+                                                                        v174 = 0x7FFFFFFFLL;
+                                                                        goto LABEL_266;
+                                                                      }
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                      v165 = *(a1 + 32);
+                                                                    }
+
+LABEL_253:
+                                                                    v166 = 0x7FFFFFFFLL;
+                                                                    goto LABEL_254;
+                                                                  }
+                                                                }
+
+                                                                else
+                                                                {
+                                                                  v157 = *(a1 + 32);
+                                                                }
+
+LABEL_241:
+                                                                v158 = 0x7FFFFFFFLL;
+                                                                goto LABEL_242;
+                                                              }
+                                                            }
+
+                                                            else
+                                                            {
+                                                              v149 = *(a1 + 32);
+                                                            }
+
+LABEL_229:
+                                                            v150 = 0x7FFFFFFFLL;
+                                                            goto LABEL_230;
+                                                          }
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v141 = *(a1 + 32);
+                                                        }
+
+LABEL_217:
+                                                        v142 = 0x7FFFFFFFLL;
+                                                        goto LABEL_218;
+                                                      }
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v133 = *(a1 + 32);
+                                                    }
+
+LABEL_205:
+                                                    v134 = 0x7FFFFFFFLL;
+                                                    goto LABEL_206;
+                                                  }
+                                                }
+
+                                                else
+                                                {
+                                                  v125 = *(a1 + 32);
+                                                }
+
+LABEL_193:
+                                                v126 = 0x7FFFFFFFLL;
+                                                goto LABEL_194;
+                                              }
+                                            }
+
+                                            else
+                                            {
+                                              v117 = *(a1 + 32);
+                                            }
+
+LABEL_181:
+                                            v118 = 0x7FFFFFFFLL;
+                                            goto LABEL_182;
+                                          }
+                                        }
+
+                                        else
+                                        {
+                                          v109 = *(a1 + 32);
+                                        }
+
+LABEL_169:
+                                        v110 = 0x7FFFFFFFLL;
+                                        goto LABEL_170;
+                                      }
+                                    }
+
+                                    else
+                                    {
+                                      v101 = *(a1 + 32);
+                                    }
+
+LABEL_157:
+                                    v102 = 0x7FFFFFFFLL;
+                                    goto LABEL_158;
+                                  }
+                                }
+
+                                else
+                                {
+                                  v93 = *(a1 + 32);
+                                }
+
+LABEL_145:
+                                v94 = 0x7FFFFFFFLL;
+                                goto LABEL_146;
+                              }
+                            }
+
+                            else
+                            {
+                              v85 = *(a1 + 32);
+                            }
+
+LABEL_133:
+                            v86 = 0x7FFFFFFFLL;
+                            goto LABEL_134;
+                          }
+                        }
+
+                        else
+                        {
+                          v77 = *(a1 + 32);
+                        }
+
+LABEL_121:
+                        v78 = 0x7FFFFFFFLL;
+                        goto LABEL_122;
+                      }
+                    }
+
+                    else
+                    {
+                      v69 = *(a1 + 32);
+                    }
+
+LABEL_109:
+                    v70 = 0x7FFFFFFFLL;
+                    goto LABEL_110;
+                  }
+                }
+
+                else
+                {
+                  v61 = *(a1 + 32);
+                }
+
+LABEL_97:
+                v62 = 0x7FFFFFFFLL;
+                goto LABEL_98;
+              }
+            }
+
+            else
+            {
+              v53 = *(a1 + 32);
+            }
+
+LABEL_85:
+            v54 = 0x7FFFFFFFLL;
+            goto LABEL_86;
+          }
+        }
+
+        else
+        {
+          v45 = *(a1 + 32);
+        }
+
+LABEL_73:
+        v46 = 0x7FFFFFFFLL;
+        goto LABEL_74;
+      }
+    }
+
+    else
+    {
+      v37 = *(a1 + 32);
+    }
+
+LABEL_61:
+    v38 = 0x7FFFFFFFLL;
+    goto LABEL_62;
+  }
 }

@@ -12,8 +12,8 @@
 - (id)getDatasetWithError:(id *)error
 {
   v12 = *MEMORY[0x277D85DE8];
-  options = [(PHACurareShadowEvaluationRunner *)self options];
-  v5 = [PHACurareShadowEvaluationDataset prepareDatasetForEvaluationTaskWithRecipeOptions:options error:error];
+  v4 = objc_msgSend_options(self, a2);
+  v5 = [PHACurareShadowEvaluationDataset prepareDatasetForEvaluationTaskWithRecipeOptions:v4 error:error];
 
   if (v5)
   {
@@ -43,12 +43,12 @@
   modelCopy = model;
   dictionaryCopy = dictionary;
   v9 = [PHACurareShadowEvaluationEvaluator alloc];
-  options = [(PHACurareShadowEvaluationRunner *)self options];
-  modelInputName = [options modelInputName];
-  options2 = [(PHACurareShadowEvaluationRunner *)self options];
-  modelOutputName = [options2 modelOutputName];
-  options3 = [(PHACurareShadowEvaluationRunner *)self options];
-  lossName = [options3 lossName];
+  v10 = objc_msgSend_options(self);
+  modelInputName = [v10 modelInputName];
+  v12 = objc_msgSend_options(self);
+  modelOutputName = [v12 modelOutputName];
+  v14 = objc_msgSend_options(self);
+  lossName = [v14 lossName];
   v16 = [(PHACurareShadowEvaluationEvaluator *)v9 initWithModelInputName:modelInputName modelOutputName:modelOutputName lossName:lossName];
 
   v17 = [modelCopy objectForKeyedSubscript:@"modelPath"];
@@ -166,16 +166,16 @@
   v58[18] = @"nil";
   v58[19] = @"nil";
   v57[20] = @"trial_deplyomentID";
-  options = [(PHACurareShadowEvaluationRunner *)self options];
-  trialDeploymentID = [options trialDeploymentID];
+  v5 = objc_msgSend_options(self);
+  trialDeploymentID = [v5 trialDeploymentID];
   v58[20] = trialDeploymentID;
   v57[21] = @"trial_experimentID";
-  options2 = [(PHACurareShadowEvaluationRunner *)self options];
-  trialExperimentID = [options2 trialExperimentID];
+  v7 = objc_msgSend_options(self);
+  trialExperimentID = [v7 trialExperimentID];
   v58[21] = trialExperimentID;
   v57[22] = @"trial_treatmentID";
-  options3 = [(PHACurareShadowEvaluationRunner *)self options];
-  trialTreatmentID = [options3 trialTreatmentID];
+  v9 = objc_msgSend_options(self);
+  trialTreatmentID = [v9 trialTreatmentID];
   v58[22] = trialTreatmentID;
   v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:23];
   v12 = [v11 mutableCopy];
@@ -320,8 +320,8 @@ LABEL_24:
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    options = [(PHACurareShadowEvaluationRunner *)self options];
-    modelInfoArray = [options modelInfoArray];
+    v9 = objc_msgSend_options(self);
+    modelInfoArray = [v9 modelInfoArray];
 
     obj = modelInfoArray;
     v11 = [modelInfoArray countByEnumeratingWithState:&v28 objects:v36 count:16];

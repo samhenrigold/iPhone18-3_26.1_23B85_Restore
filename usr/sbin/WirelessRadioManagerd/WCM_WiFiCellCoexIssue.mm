@@ -1,7 +1,16 @@
 @interface WCM_WiFiCellCoexIssue
+- (BOOL)needCellTxPowerConstraintOnCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiChannel:(int)channel gpsRadioActive:(BOOL)active;
+- (BOOL)needCellTxPowerConstraintWiFiEnhOnCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiChannel:(int)channel wifiCenterFreq:(unsigned int)centerFreq wifiBandwidth:(unsigned int)bandwidth gpsRadioActive:(BOOL)self0;
+- (BOOL)needWiFiAntennaConstraintOnCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiChannel:(int)channel gpsRadioActive:(BOOL)active;
+- (BOOL)needWiFiAntennaConstraintWiFiEnhOnCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiChannel:(int)channel wifiCenterFreq:(unsigned int)centerFreq wifiBandwidth:(unsigned int)bandwidth gpsRadioActive:(BOOL)self0;
 - (BOOL)wifiBtAgcCoexModeEnabledInPolicy:(double)policy cellDlHighFreq:(double)freq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)highFreq agccoexmode:(int *)agccoexmode;
+- (BOOL)wifiBtAgcCoexModeEnabledInPolicyV2:(double)v2 cellDlHighFreq:(double)freq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)highFreq wifiChannel:(unsigned int)channel channelCenterFreqMHz:(unsigned int)hz channelBandwidthMHz:(unsigned int)mHz coexModeWifiLevel:(int64_t *)self0 coexModeBTLevel:(int64_t *)self1;
 - (WCM_WiFiCellCoexIssue)initWithCoexIssueConfig:(id *)config;
 - (id)HFBTAntBlkBandsForCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq;
+- (id)HFBTChannelsToAvoidForCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq cellDlLowFreq:(double)lowFreq cellDlHighFreq:(double)dlHighFreq btBandLowFreq:(double)bandLowFreq btBandHighFreq:(double)bandHighFreq gpsRadioActive:(BOOL)active;
+- (id)btChannelsToAvoidFor:(int)for;
+- (id)btChannelsToAvoidForCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq gpsRadioActive:(BOOL)active;
+- (id)btDiversityChannelsToAvoidForCellBTAntennaCombination:(int)combination cellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq gpsRadioActive:(BOOL)active;
 - (id)getAllBtChannelsInBandForBtHighFreq:(double)freq btLowFreq:(double)lowFreq;
 - (id)wiFiEnhChannelsAffectedByCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq;
 - (id)wiFiEnhOclChannelsAffectedByCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq;
@@ -12,6 +21,7 @@
 - (id)wifiChannelsToAvoidWiFiEnhForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq;
 - (id)wifiOclChannelsAffectedByCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq isWifi5G:(BOOL)g;
 - (id)wifiPHSChannelsToBlocklistForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifi5G:(BOOL)g wifiEssentialChannel:(int *)channel;
+- (int)btDiversityBlocklistTypeFor:(int)for;
 - (void)cellFreqRangeWithIssueForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiLowFreq:(double)wifiLowFreq wifiHighFreq:(double)wifiHighFreq cellTxIssueRange:(id *)range cellRxIssueRange:(id *)self0;
 - (void)dealloc;
 @end
@@ -237,6 +247,868 @@ LABEL_33:
   v5.receiver = self;
   v5.super_class = WCM_WiFiCellCoexIssue;
   [(WCM_WiFiCellCoexIssue *)&v5 dealloc];
+}
+
+- (int)btDiversityBlocklistTypeFor:(int)for
+{
+  if (for > 1)
+  {
+    if (for == 2)
+    {
+
+      return [(WCM_WiFiCellCoexIssue *)self btDiversityBlocklistTypeForC1B0];
+    }
+
+    else
+    {
+      if (for != 3)
+      {
+        goto LABEL_12;
+      }
+
+      return [(WCM_WiFiCellCoexIssue *)self btDiversityBlocklistTypeForC1B1];
+    }
+  }
+
+  else
+  {
+    if (for)
+    {
+      if (for == 1)
+      {
+
+        return [(WCM_WiFiCellCoexIssue *)self btDiversityBlocklistTypeForC0B1];
+      }
+
+LABEL_12:
+      [WCM_Logging logLevel:0 message:@"Invalid antennaCombinationCxBx(%d)", *&for];
+      return 0;
+    }
+
+    return [(WCM_WiFiCellCoexIssue *)self btDiversityBlocklistTypeForC0B0];
+  }
+}
+
+- (id)btChannelsToAvoidFor:(int)for
+{
+  if (for > 1)
+  {
+    if (for == 2)
+    {
+
+      return [(WCM_WiFiCellCoexIssue *)self btChannelsToAvoidForC1B0];
+    }
+
+    else
+    {
+      if (for != 3)
+      {
+        goto LABEL_12;
+      }
+
+      return [(WCM_WiFiCellCoexIssue *)self btChannelsToAvoidForC1B1];
+    }
+  }
+
+  else
+  {
+    if (for)
+    {
+      if (for == 1)
+      {
+
+        return [(WCM_WiFiCellCoexIssue *)self btChannelsToAvoidForC0B1];
+      }
+
+LABEL_12:
+      [WCM_Logging logLevel:0 message:@"Invalid antennaCombinationCxBx(%d)", *&for];
+      return 0;
+    }
+
+    return [(WCM_WiFiCellCoexIssue *)self btChannelsToAvoidForC0B0];
+  }
+}
+
+- (BOOL)needWiFiAntennaConstraintOnCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiChannel:(int)channel gpsRadioActive:(BOOL)active
+{
+  v10 = vorr_s8(*&self->_wifiUlAntennaBitmapOnCellAntBitmap000, *&vextq_s8(*&self->_wifiUlAntennaBitmapOnCellAntBitmap000, *&self->_wifiUlAntennaBitmapOnCellAntBitmap000, 8uLL));
+  if (self->_wifiUlAntennaBitmapOnCellUAT | self->_wifiUlAntennaBitmapOnCellLAT | self->_wifiDlAntennaBitmapOnCellLAT | self->_wifiDlAntennaBitmapOnCellUAT)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v11 = *&v10 | HIDWORD(*&v10) | ((*&v10 | HIDWORD(*&v10)) >> 16);
+    v12 = (v11 | BYTE1(v11)) == 0;
+  }
+
+  if (v12)
+  {
+    return 0;
+  }
+
+  activeCopy = active;
+  v14 = *&channel;
+  lowFreqCopy5 = sub_10008F3C8(*&channel);
+  issueType = self->_issueType;
+  lowFreqCopy6 = lowFreqCopy5;
+  v22 = v19;
+  v23 = ulHighFreq - lowFreq;
+  v24 = highFreq - freq;
+  switch(issueType)
+  {
+    case 0:
+      v36 = (v23 + lowFreq) * 3.0 - lowFreq * 3.0;
+      if (lowFreq * 3.0 >= lowFreqCopy6)
+      {
+        v34 = lowFreq * 3.0;
+      }
+
+      else
+      {
+        v34 = lowFreqCopy6;
+      }
+
+      v35 = lowFreq * 3.0 + v36;
+      goto LABEL_23;
+    case 1:
+    case 7:
+      lowFreqCopy6 = lowFreq;
+      goto LABEL_35;
+    case 2:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy = 1573.374;
+      v24 = 4.092;
+      lowFreqCopy3 = lowFreq;
+      goto LABEL_29;
+    case 3:
+      lowFreqCopy3 = lowFreq;
+      freqCopy = freq;
+LABEL_29:
+
+      return sub_10008E278(0, lowFreqCopy5, v19, lowFreqCopy3, v23, freqCopy, v24);
+    case 4:
+      lowFreqCopy5 = lowFreq;
+      v19 = ulHighFreq - lowFreq;
+      v23 = v22;
+LABEL_35:
+      freqCopy2 = freq;
+      goto LABEL_36;
+    case 5:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy2 = 1573.374;
+      v24 = 4.092;
+      lowFreqCopy5 = lowFreq;
+      v19 = ulHighFreq - lowFreq;
+      v23 = v22;
+      goto LABEL_36;
+    case 6:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy2 = 1573.374;
+      v24 = 4.092;
+      lowFreqCopy6 = lowFreq;
+LABEL_36:
+
+      return sub_10008E324(0, lowFreqCopy5, v19, lowFreqCopy6, v23, freqCopy2, v24);
+    case 8:
+
+      return sub_10008E404(0, lowFreq, ulHighFreq - lowFreq, lowFreqCopy5, v19, freq, v24);
+    case 9:
+      v33 = v23 + lowFreq + v23 + lowFreq - (lowFreq + lowFreq);
+      if (lowFreq + lowFreq >= lowFreqCopy5)
+      {
+        v34 = lowFreq + lowFreq;
+      }
+
+      else
+      {
+        v34 = lowFreqCopy5;
+      }
+
+      v35 = lowFreq + lowFreq + v33;
+LABEL_23:
+      if (v35 >= lowFreqCopy6 + v22)
+      {
+        v35 = lowFreqCopy6 + v22;
+      }
+
+      return v34 < v35;
+    case 10:
+      v29 = lowFreqCopy5 * 0.5;
+      v30 = (lowFreqCopy5 + v22) * 0.5;
+      goto LABEL_50;
+    case 11:
+      v29 = lowFreqCopy5 / 3.0;
+      v30 = (lowFreqCopy5 + v22) / 3.0;
+LABEL_50:
+      v42 = v30 - v29;
+      if (v29 >= freq)
+      {
+        freqCopy4 = v29;
+      }
+
+      else
+      {
+        freqCopy4 = freq;
+      }
+
+      v28 = v29 + v42;
+      goto LABEL_54;
+    case 12:
+      if (self->_cellFrequencyLimitForOOB <= lowFreq)
+      {
+        return 0;
+      }
+
+      goto LABEL_40;
+    case 13:
+      if (self->_cellFrequencyLimitForOOB >= ulHighFreq)
+      {
+        return 0;
+      }
+
+LABEL_40:
+      result = 0;
+      if (!v14 || v23 <= self->_cellBandwidthLimitForOOB)
+      {
+        return result;
+      }
+
+      wifiChannelsToDoAntennaSelectionForCellOOB = self->_wifiChannelsToDoAntennaSelectionForCellOOB;
+      if (!wifiChannelsToDoAntennaSelectionForCellOOB)
+      {
+        return 0;
+      }
+
+      v41 = [NSNumber numberWithInt:v14];
+
+      result = [(NSArray *)wifiChannelsToDoAntennaSelectionForCellOOB containsObject:v41];
+      break;
+    case 14:
+      v25 = lowFreqCopy5 + lowFreqCopy5;
+      v26 = lowFreqCopy6 + v19 + lowFreqCopy6 + v19 - (lowFreqCopy6 + lowFreqCopy6);
+      if (lowFreqCopy6 + lowFreqCopy6 >= freq)
+      {
+        freqCopy4 = lowFreqCopy6 + lowFreqCopy6;
+      }
+
+      else
+      {
+        freqCopy4 = freq;
+      }
+
+      v28 = v25 + v26;
+LABEL_54:
+      if (v28 >= v24 + freq)
+      {
+        v28 = v24 + freq;
+      }
+
+      return freqCopy4 < v28;
+    default:
+      [WCM_Logging logLevel:0 message:@"WCM_WiFiCellCoexIssue(%p) has invalid _issueType(%d)", self, issueType];
+      return 0;
+  }
+
+  return result;
+}
+
+- (BOOL)needWiFiAntennaConstraintWiFiEnhOnCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiChannel:(int)channel wifiCenterFreq:(unsigned int)centerFreq wifiBandwidth:(unsigned int)bandwidth gpsRadioActive:(BOOL)self0
+{
+  activeCopy = active;
+  v13 = *&channel;
+  [WCM_Logging logLevel:5 message:@"WiFiEnh_: AntSel Constraint Check: cellular downlink(%lf ~ %lf), cellular uplink(%lf ~ %lf), wifiChannel(%d), wifiBandwidth(%d), wifiCenterFreq(%d), gpsRadioActive(%d)", *&freq, *&highFreq, *&lowFreq, *&ulHighFreq, *&channel, *&bandwidth, *&centerFreq, active];
+  v19 = vorr_s8(*&self->_wifiUlAntennaBitmapOnCellAntBitmap000, *&vextq_s8(*&self->_wifiUlAntennaBitmapOnCellAntBitmap000, *&self->_wifiUlAntennaBitmapOnCellAntBitmap000, 8uLL));
+  if (self->_wifiUlAntennaBitmapOnCellUAT | self->_wifiUlAntennaBitmapOnCellLAT | self->_wifiDlAntennaBitmapOnCellLAT | self->_wifiDlAntennaBitmapOnCellUAT)
+  {
+    v21 = 0;
+  }
+
+  else
+  {
+    v20 = *&v19 | HIDWORD(*&v19) | ((*&v19 | HIDWORD(*&v19)) >> 16);
+    v21 = (v20 | BYTE1(v20)) == 0;
+  }
+
+  if (v21)
+  {
+    return 0;
+  }
+
+  issueType = self->_issueType;
+  v23 = ulHighFreq - lowFreq;
+  lowFreqCopy6 = (centerFreq - (bandwidth >> 1));
+  v25 = highFreq - freq;
+  v26 = centerFreq + (bandwidth >> 1);
+  v27 = v26 - lowFreqCopy6;
+  switch(issueType)
+  {
+    case 0:
+      v43 = (v23 + lowFreq) * 3.0 - lowFreq * 3.0;
+      if (lowFreq * 3.0 >= lowFreqCopy6)
+      {
+        v41 = lowFreq * 3.0;
+      }
+
+      else
+      {
+        v41 = (centerFreq - (bandwidth >> 1));
+      }
+
+      v42 = lowFreq * 3.0 + v43;
+      goto LABEL_23;
+    case 1:
+    case 7:
+      lowFreqCopy5 = (centerFreq - (bandwidth >> 1));
+      v29 = v26 - lowFreqCopy6;
+      lowFreqCopy6 = lowFreq;
+      goto LABEL_35;
+    case 2:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy = 1573.374;
+      v25 = 4.092;
+      v36 = (centerFreq - (bandwidth >> 1));
+      v37 = v26 - lowFreqCopy6;
+      lowFreqCopy3 = lowFreq;
+      goto LABEL_29;
+    case 3:
+      v36 = (centerFreq - (bandwidth >> 1));
+      v37 = v26 - lowFreqCopy6;
+      lowFreqCopy3 = lowFreq;
+      freqCopy = freq;
+LABEL_29:
+
+      return sub_10008E278(0, v36, v37, lowFreqCopy3, v23, freqCopy, v25);
+    case 4:
+      lowFreqCopy5 = lowFreq;
+      v29 = ulHighFreq - lowFreq;
+      v23 = v26 - lowFreqCopy6;
+LABEL_35:
+      freqCopy2 = freq;
+      goto LABEL_36;
+    case 5:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy2 = 1573.374;
+      v25 = 4.092;
+      lowFreqCopy5 = lowFreq;
+      v29 = ulHighFreq - lowFreq;
+      v23 = v26 - lowFreqCopy6;
+      goto LABEL_36;
+    case 6:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy2 = 1573.374;
+      v25 = 4.092;
+      lowFreqCopy5 = (centerFreq - (bandwidth >> 1));
+      v29 = v26 - lowFreqCopy6;
+      lowFreqCopy6 = lowFreq;
+LABEL_36:
+
+      return sub_10008E324(0, lowFreqCopy5, v29, lowFreqCopy6, v23, freqCopy2, v25);
+    case 8:
+
+      return sub_10008E404(0, lowFreq, ulHighFreq - lowFreq, lowFreqCopy6, v26 - lowFreqCopy6, freq, v25);
+    case 9:
+      v40 = v23 + lowFreq + v23 + lowFreq - (lowFreq + lowFreq);
+      if (lowFreq + lowFreq >= lowFreqCopy6)
+      {
+        v41 = lowFreq + lowFreq;
+      }
+
+      else
+      {
+        v41 = (centerFreq - (bandwidth >> 1));
+      }
+
+      v42 = lowFreq + lowFreq + v40;
+LABEL_23:
+      if (v42 >= v27 + lowFreqCopy6)
+      {
+        v42 = v27 + lowFreqCopy6;
+      }
+
+      return v41 < v42;
+    case 10:
+      v34 = lowFreqCopy6 * 0.5;
+      v35 = (v27 + lowFreqCopy6) * 0.5;
+      goto LABEL_50;
+    case 11:
+      v34 = lowFreqCopy6 / 3.0;
+      v35 = (v27 + lowFreqCopy6) / 3.0;
+LABEL_50:
+      v49 = v35 - v34;
+      if (v34 >= freq)
+      {
+        freqCopy4 = v34;
+      }
+
+      else
+      {
+        freqCopy4 = freq;
+      }
+
+      v33 = v34 + v49;
+      goto LABEL_54;
+    case 12:
+      if (self->_cellFrequencyLimitForOOB <= lowFreq)
+      {
+        return 0;
+      }
+
+      goto LABEL_40;
+    case 13:
+      if (self->_cellFrequencyLimitForOOB >= ulHighFreq)
+      {
+        return 0;
+      }
+
+LABEL_40:
+      result = 0;
+      if (!v13 || v23 <= self->_cellBandwidthLimitForOOB)
+      {
+        return result;
+      }
+
+      wifiChannelsToDoAntennaSelectionForCellOOB = self->_wifiChannelsToDoAntennaSelectionForCellOOB;
+      if (!wifiChannelsToDoAntennaSelectionForCellOOB)
+      {
+        return 0;
+      }
+
+      v48 = [NSNumber numberWithInt:v13];
+
+      result = [(NSArray *)wifiChannelsToDoAntennaSelectionForCellOOB containsObject:v48];
+      break;
+    case 14:
+      v30 = lowFreqCopy6 + lowFreqCopy6;
+      v31 = v27 + lowFreqCopy6 + v27 + lowFreqCopy6 - (lowFreqCopy6 + lowFreqCopy6);
+      if (lowFreqCopy6 + lowFreqCopy6 >= freq)
+      {
+        freqCopy4 = lowFreqCopy6 + lowFreqCopy6;
+      }
+
+      else
+      {
+        freqCopy4 = freq;
+      }
+
+      v33 = v30 + v31;
+LABEL_54:
+      if (v33 >= v25 + freq)
+      {
+        v33 = v25 + freq;
+      }
+
+      return freqCopy4 < v33;
+    default:
+      [WCM_Logging logLevel:0 message:@"WiFiEnh_: Antenna Selection Constraint: WCM_WiFiCellCoexIssue(%p) has invalid _issueType(%d)", self, issueType];
+      return 0;
+  }
+
+  return result;
+}
+
+- (BOOL)needCellTxPowerConstraintOnCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiChannel:(int)channel gpsRadioActive:(BOOL)active
+{
+  if (!self->_cellTxPowerLimit)
+  {
+    return 0;
+  }
+
+  activeCopy = active;
+  v9 = *&channel;
+  lowFreqCopy5 = sub_10008F3C8(*&channel);
+  issueType = self->_issueType;
+  lowFreqCopy6 = lowFreqCopy5;
+  v19 = v16;
+  v20 = ulHighFreq - lowFreq;
+  v21 = highFreq - freq;
+  switch(issueType)
+  {
+    case 0:
+      v33 = (v20 + lowFreq) * 3.0 - lowFreq * 3.0;
+      if (lowFreq * 3.0 >= lowFreqCopy6)
+      {
+        v31 = lowFreq * 3.0;
+      }
+
+      else
+      {
+        v31 = lowFreqCopy6;
+      }
+
+      v32 = lowFreq * 3.0 + v33;
+      goto LABEL_20;
+    case 1:
+    case 7:
+      lowFreqCopy6 = lowFreq;
+      goto LABEL_32;
+    case 2:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy = 1573.374;
+      v21 = 4.092;
+      lowFreqCopy3 = lowFreq;
+      goto LABEL_26;
+    case 3:
+      lowFreqCopy3 = lowFreq;
+      freqCopy = freq;
+LABEL_26:
+
+      return sub_10008E278(0, lowFreqCopy5, v16, lowFreqCopy3, v20, freqCopy, v21);
+    case 4:
+      lowFreqCopy5 = lowFreq;
+      v16 = ulHighFreq - lowFreq;
+      v20 = v19;
+LABEL_32:
+      freqCopy2 = freq;
+      goto LABEL_33;
+    case 5:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy2 = 1573.374;
+      v21 = 4.092;
+      lowFreqCopy5 = lowFreq;
+      v16 = ulHighFreq - lowFreq;
+      v20 = v19;
+      goto LABEL_33;
+    case 6:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy2 = 1573.374;
+      v21 = 4.092;
+      lowFreqCopy6 = lowFreq;
+LABEL_33:
+
+      return sub_10008E324(0, lowFreqCopy5, v16, lowFreqCopy6, v20, freqCopy2, v21);
+    case 8:
+
+      return sub_10008E404(0, lowFreq, ulHighFreq - lowFreq, lowFreqCopy5, v16, freq, v21);
+    case 9:
+      v30 = v20 + lowFreq + v20 + lowFreq - (lowFreq + lowFreq);
+      if (lowFreq + lowFreq >= lowFreqCopy5)
+      {
+        v31 = lowFreq + lowFreq;
+      }
+
+      else
+      {
+        v31 = lowFreqCopy5;
+      }
+
+      v32 = lowFreq + lowFreq + v30;
+LABEL_20:
+      if (v32 >= lowFreqCopy6 + v19)
+      {
+        v32 = lowFreqCopy6 + v19;
+      }
+
+      return v31 < v32;
+    case 10:
+      v26 = lowFreqCopy5 * 0.5;
+      v27 = (lowFreqCopy5 + v19) * 0.5;
+      goto LABEL_47;
+    case 11:
+      v26 = lowFreqCopy5 / 3.0;
+      v27 = (lowFreqCopy5 + v19) / 3.0;
+LABEL_47:
+      v39 = v27 - v26;
+      if (v26 >= freq)
+      {
+        freqCopy4 = v26;
+      }
+
+      else
+      {
+        freqCopy4 = freq;
+      }
+
+      v25 = v26 + v39;
+      goto LABEL_51;
+    case 12:
+      if (self->_cellFrequencyLimitForOOB <= lowFreq)
+      {
+        return 0;
+      }
+
+      goto LABEL_37;
+    case 13:
+      if (self->_cellFrequencyLimitForOOB >= ulHighFreq)
+      {
+        return 0;
+      }
+
+LABEL_37:
+      result = 0;
+      if (!v9 || v20 <= self->_cellBandwidthLimitForOOB)
+      {
+        return result;
+      }
+
+      wifiChannelsToAvoidForCellOOB = self->_wifiChannelsToAvoidForCellOOB;
+      if (!wifiChannelsToAvoidForCellOOB)
+      {
+        return 0;
+      }
+
+      v38 = [NSNumber numberWithInt:v9];
+
+      result = [(NSArray *)wifiChannelsToAvoidForCellOOB containsObject:v38];
+      break;
+    case 14:
+      v22 = lowFreqCopy5 + lowFreqCopy5;
+      v23 = lowFreqCopy6 + v16 + lowFreqCopy6 + v16 - (lowFreqCopy6 + lowFreqCopy6);
+      if (lowFreqCopy6 + lowFreqCopy6 >= freq)
+      {
+        freqCopy4 = lowFreqCopy6 + lowFreqCopy6;
+      }
+
+      else
+      {
+        freqCopy4 = freq;
+      }
+
+      v25 = v22 + v23;
+LABEL_51:
+      if (v25 >= v21 + freq)
+      {
+        v25 = v21 + freq;
+      }
+
+      return freqCopy4 < v25;
+    default:
+      [WCM_Logging logLevel:0 message:@"WCM_WiFiCellCoexIssue(%p) has invalid _issueType(%d)", self, issueType];
+      return 0;
+  }
+
+  return result;
+}
+
+- (BOOL)needCellTxPowerConstraintWiFiEnhOnCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiChannel:(int)channel wifiCenterFreq:(unsigned int)centerFreq wifiBandwidth:(unsigned int)bandwidth gpsRadioActive:(BOOL)self0
+{
+  activeCopy = active;
+  v13 = *&channel;
+  [WCM_Logging logLevel:5 message:@"WiFiEnh_: Cellular Tx Power Limiting Constraint Check: cellular downlink(%lf ~ %lf), cellular uplink(%lf ~ %lf), wifiChannel(%d), wifiBandwidth(%d), wifiCenterFreq(%d), gpsRadioActive(%d)", *&freq, *&highFreq, *&lowFreq, *&ulHighFreq, *&channel, *&bandwidth, *&centerFreq, active];
+  if (!self->_cellTxPowerLimit)
+  {
+    return 0;
+  }
+
+  issueType = self->_issueType;
+  v20 = ulHighFreq - lowFreq;
+  lowFreqCopy6 = (centerFreq - (bandwidth >> 1));
+  v22 = highFreq - freq;
+  v23 = centerFreq + (bandwidth >> 1);
+  v24 = v23 - lowFreqCopy6;
+  switch(issueType)
+  {
+    case 0:
+      v40 = (v20 + lowFreq) * 3.0 - lowFreq * 3.0;
+      if (lowFreq * 3.0 >= lowFreqCopy6)
+      {
+        v38 = lowFreq * 3.0;
+      }
+
+      else
+      {
+        v38 = (centerFreq - (bandwidth >> 1));
+      }
+
+      v39 = lowFreq * 3.0 + v40;
+      goto LABEL_20;
+    case 1:
+    case 7:
+      lowFreqCopy5 = (centerFreq - (bandwidth >> 1));
+      v26 = v23 - lowFreqCopy6;
+      lowFreqCopy6 = lowFreq;
+      goto LABEL_32;
+    case 2:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy = 1573.374;
+      v22 = 4.092;
+      v33 = (centerFreq - (bandwidth >> 1));
+      v34 = v23 - lowFreqCopy6;
+      lowFreqCopy3 = lowFreq;
+      goto LABEL_26;
+    case 3:
+      v33 = (centerFreq - (bandwidth >> 1));
+      v34 = v23 - lowFreqCopy6;
+      lowFreqCopy3 = lowFreq;
+      freqCopy = freq;
+LABEL_26:
+
+      return sub_10008E278(0, v33, v34, lowFreqCopy3, v20, freqCopy, v22);
+    case 4:
+      lowFreqCopy5 = lowFreq;
+      v26 = ulHighFreq - lowFreq;
+      v20 = v23 - lowFreqCopy6;
+LABEL_32:
+      freqCopy2 = freq;
+      goto LABEL_33;
+    case 5:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy2 = 1573.374;
+      v22 = 4.092;
+      lowFreqCopy5 = lowFreq;
+      v26 = ulHighFreq - lowFreq;
+      v20 = v23 - lowFreqCopy6;
+      goto LABEL_33;
+    case 6:
+      if (!activeCopy)
+      {
+        return 0;
+      }
+
+      freqCopy2 = 1573.374;
+      v22 = 4.092;
+      lowFreqCopy5 = (centerFreq - (bandwidth >> 1));
+      v26 = v23 - lowFreqCopy6;
+      lowFreqCopy6 = lowFreq;
+LABEL_33:
+
+      return sub_10008E324(0, lowFreqCopy5, v26, lowFreqCopy6, v20, freqCopy2, v22);
+    case 8:
+
+      return sub_10008E404(0, lowFreq, ulHighFreq - lowFreq, lowFreqCopy6, v23 - lowFreqCopy6, freq, v22);
+    case 9:
+      v37 = v20 + lowFreq + v20 + lowFreq - (lowFreq + lowFreq);
+      if (lowFreq + lowFreq >= lowFreqCopy6)
+      {
+        v38 = lowFreq + lowFreq;
+      }
+
+      else
+      {
+        v38 = (centerFreq - (bandwidth >> 1));
+      }
+
+      v39 = lowFreq + lowFreq + v37;
+LABEL_20:
+      if (v39 >= v24 + lowFreqCopy6)
+      {
+        v39 = v24 + lowFreqCopy6;
+      }
+
+      return v38 < v39;
+    case 10:
+      v31 = lowFreqCopy6 * 0.5;
+      v32 = (v24 + lowFreqCopy6) * 0.5;
+      goto LABEL_47;
+    case 11:
+      v31 = lowFreqCopy6 / 3.0;
+      v32 = (v24 + lowFreqCopy6) / 3.0;
+LABEL_47:
+      v46 = v32 - v31;
+      if (v31 >= freq)
+      {
+        freqCopy4 = v31;
+      }
+
+      else
+      {
+        freqCopy4 = freq;
+      }
+
+      v30 = v31 + v46;
+      goto LABEL_51;
+    case 12:
+      if (self->_cellFrequencyLimitForOOB <= lowFreq)
+      {
+        return 0;
+      }
+
+      goto LABEL_37;
+    case 13:
+      if (self->_cellFrequencyLimitForOOB >= ulHighFreq)
+      {
+        return 0;
+      }
+
+LABEL_37:
+      result = 0;
+      if (!v13 || v20 <= self->_cellBandwidthLimitForOOB)
+      {
+        return result;
+      }
+
+      wifiChannelsToAvoidForCellOOB = self->_wifiChannelsToAvoidForCellOOB;
+      if (!wifiChannelsToAvoidForCellOOB)
+      {
+        return 0;
+      }
+
+      v45 = [NSNumber numberWithInt:v13];
+
+      result = [(NSArray *)wifiChannelsToAvoidForCellOOB containsObject:v45];
+      break;
+    case 14:
+      v27 = lowFreqCopy6 + lowFreqCopy6;
+      v28 = v24 + lowFreqCopy6 + v24 + lowFreqCopy6 - (lowFreqCopy6 + lowFreqCopy6);
+      if (lowFreqCopy6 + lowFreqCopy6 >= freq)
+      {
+        freqCopy4 = lowFreqCopy6 + lowFreqCopy6;
+      }
+
+      else
+      {
+        freqCopy4 = freq;
+      }
+
+      v30 = v27 + v28;
+LABEL_51:
+      if (v30 >= v22 + freq)
+      {
+        v30 = v22 + freq;
+      }
+
+      return freqCopy4 < v30;
+    default:
+      [WCM_Logging logLevel:0 message:@"WiFiEnh_: Power Limiting Constraint: WCM_WiFiCellCoexIssue(%p) has invalid _issueType(%d)", self, issueType];
+      return 0;
+  }
+
+  return result;
 }
 
 - (id)wifiChannelsAffectedByCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq wifi5G:(BOOL)g
@@ -912,6 +1784,306 @@ LABEL_28:
   return v5;
 }
 
+- (id)HFBTChannelsToAvoidForCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq cellDlLowFreq:(double)lowFreq cellDlHighFreq:(double)dlHighFreq btBandLowFreq:(double)bandLowFreq btBandHighFreq:(double)bandHighFreq gpsRadioActive:(BOOL)active
+{
+  issueType = self->_issueType;
+  v17 = highFreq - freq;
+  v18 = dlHighFreq - lowFreq;
+  v19 = bandLowFreq + -0.5;
+  v20 = bandHighFreq + 0.5 - (bandLowFreq + -0.5);
+  cellFrequencyLimitForOOB = self->_cellFrequencyLimitForOOB;
+  switch(issueType)
+  {
+    case 0:
+      v22 = freq * 3.0;
+      v23 = (v17 + freq) * 3.0 - freq * 3.0;
+      if (freq * 3.0 >= v19)
+      {
+        v24 = freq * 3.0;
+      }
+
+      else
+      {
+        v24 = bandLowFreq + -0.5;
+      }
+
+      v25 = v19 + v20;
+      if (v22 + v23 < v25)
+      {
+        v25 = v22 + v23;
+      }
+
+      if (v24 >= v25)
+      {
+        goto LABEL_86;
+      }
+
+      [WCM_Logging logLevel:4 message:@"3 x CellTx(%lf~%lf) = BTRx(%lf~%lf)", *&freq, *&highFreq, freq * 3.0, v22 + v23, v50, v51];
+      goto LABEL_67;
+    case 1:
+      if (!sub_10008E324(0, bandLowFreq + -0.5, bandHighFreq + 0.5 - (bandLowFreq + -0.5), freq, v17, lowFreq, v18))
+      {
+        goto LABEL_86;
+      }
+
+      v32 = (freq + lowFreq) * 0.5;
+      v33 = (highFreq + dlHighFreq) * 0.5 - v32;
+      [WCM_Logging logLevel:4 message:@"2 x BTTx(%lf~%lf) - CellTx(%lf~%lf) = CellRx(%lf~%lf)", *&v32, v32 + v33, *&freq, *&highFreq, *&lowFreq, *&dlHighFreq];
+      goto LABEL_78;
+    case 2:
+      if (!active || !sub_10008E278(0, bandLowFreq + -0.5, bandHighFreq + 0.5 - (bandLowFreq + -0.5), freq, v17, 1573.374, 4.092))
+      {
+        goto LABEL_86;
+      }
+
+      v22 = freq + 1573.374;
+      v23 = highFreq + 1577.466 - (freq + 1573.374);
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) - CellTx(%lf~%lf) = GpsRx(%lf~%lf)", freq + 1573.374, freq + 1573.374 + v23, *&freq, *&highFreq, 0x4098957EF9DB22D1, 0x4098A5DD2F1A9FBFLL];
+      goto LABEL_67;
+    case 3:
+      if (!sub_10008E278(0, bandLowFreq + -0.5, bandHighFreq + 0.5 - (bandLowFreq + -0.5), freq, v17, lowFreq, v18))
+      {
+        goto LABEL_86;
+      }
+
+      v32 = freq + lowFreq;
+      v33 = highFreq + dlHighFreq - (freq + lowFreq);
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) - CellTx(%lf~%lf) = CellRx(%lf~%lf)", freq + lowFreq, freq + lowFreq + v33, *&freq, *&highFreq, *&lowFreq, *&dlHighFreq];
+      goto LABEL_78;
+    case 4:
+      if (!sub_10008E324(0, freq, v17, v19, v20, lowFreq, v18))
+      {
+        goto LABEL_86;
+      }
+
+      v32 = -(dlHighFreq - freq * 2.0);
+      v33 = -(lowFreq - highFreq * 2.0) - v32;
+      [WCM_Logging logLevel:4 message:@"2 x CellTx(%lf~%lf) - BTTx(%lf~%lf) = CellRx(%lf~%lf)", *&freq, *&highFreq, *&v32, v33 - (dlHighFreq - freq * 2.0), *&lowFreq, *&dlHighFreq];
+      goto LABEL_78;
+    case 5:
+      if (!active || !sub_10008E324(0, freq, v17, v19, v20, 1573.374, 4.092))
+      {
+        goto LABEL_86;
+      }
+
+      v22 = freq * 2.0 + -1577.466;
+      v23 = highFreq * 2.0 + -1573.374 - v22;
+      [WCM_Logging logLevel:4 message:@"2 x CellTx(%lf~%lf) - BTTx(%lf~%lf) = GpsRx(%lf~%lf)", *&freq, *&highFreq, *&v22, v22 + v23, 0x4098957EF9DB22D1, 0x4098A5DD2F1A9FBFLL];
+      goto LABEL_67;
+    case 6:
+      if (!active || !sub_10008E324(0, bandLowFreq + -0.5, bandHighFreq + 0.5 - (bandLowFreq + -0.5), freq, v17, 1573.374, 4.092))
+      {
+        goto LABEL_86;
+      }
+
+      v22 = freq * 2.0 + 1573.374;
+      v23 = highFreq * 2.0 + 1577.466 - v22;
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) - 2 x CellTx(%lf~%lf) = GpsRx(%lf~%lf)", *&v22, v22 + v23, *&freq, *&highFreq, 0x4098957EF9DB22D1, 0x4098A5DD2F1A9FBFLL];
+      goto LABEL_67;
+    case 7:
+      if (!sub_10008E324(0, bandLowFreq + -0.5, bandHighFreq + 0.5 - (bandLowFreq + -0.5), freq, v17, lowFreq, v18))
+      {
+        goto LABEL_86;
+      }
+
+      v32 = lowFreq + freq * 2.0;
+      v33 = dlHighFreq + highFreq * 2.0 - v32;
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) - 2 x CellTx(%lf~%lf) = CellRx(%lf~%lf)", *&v32, v32 + v33, *&freq, *&highFreq, *&lowFreq, *&dlHighFreq];
+      goto LABEL_78;
+    case 8:
+      if (!sub_10008E404(0, freq, v17, v19, v20, lowFreq, v18))
+      {
+        goto LABEL_86;
+      }
+
+      v32 = -(dlHighFreq - freq * 4.0);
+      v33 = -(lowFreq - highFreq * 4.0) - v32;
+      [WCM_Logging logLevel:4 message:@"4 x CellTx(%lf~%lf) - BTTx(%lf~%lf) = CellRx(%lf~%lf)", *&freq, *&highFreq, *&v32, v33 - (dlHighFreq - freq * 4.0), *&lowFreq, *&dlHighFreq];
+LABEL_78:
+      v45 = v32;
+      v46 = v33;
+      goto LABEL_79;
+    case 9:
+      v22 = freq + freq;
+      v23 = v17 + freq + v17 + freq - (freq + freq);
+      if (freq + freq >= v19)
+      {
+        v38 = freq + freq;
+      }
+
+      else
+      {
+        v38 = bandLowFreq + -0.5;
+      }
+
+      v39 = v19 + v20;
+      if (v22 + v23 < v39)
+      {
+        v39 = v22 + v23;
+      }
+
+      if (v38 >= v39)
+      {
+        goto LABEL_86;
+      }
+
+      [WCM_Logging logLevel:4 message:@"2 x CellTx(%lf~%lf) = BTRx(%lf~%lf)", *&freq, *&highFreq, freq + freq, v22 + v23, v50, v51];
+LABEL_67:
+      v45 = v22;
+      v46 = v23;
+      goto LABEL_79;
+    case 10:
+      v26 = v19 * 0.5;
+      v27 = (v19 + v20) * 0.5 - v19 * 0.5;
+      if (v19 * 0.5 >= lowFreq)
+      {
+        lowFreqCopy = v19 * 0.5;
+      }
+
+      else
+      {
+        lowFreqCopy = lowFreq;
+      }
+
+      v48 = v18 + lowFreq;
+      if (v26 + v27 < v18 + lowFreq)
+      {
+        v48 = v26 + v27;
+      }
+
+      if (lowFreqCopy >= v48)
+      {
+        goto LABEL_86;
+      }
+
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) / 2 = CellRx(%lf~%lf)", *&v26, v26 + v27, *&lowFreq, *&dlHighFreq];
+      goto LABEL_75;
+    case 11:
+      v26 = v19 / 3.0;
+      v27 = (v19 + v20) / 3.0 - v19 / 3.0;
+      if (v19 / 3.0 >= lowFreq)
+      {
+        lowFreqCopy2 = v19 / 3.0;
+      }
+
+      else
+      {
+        lowFreqCopy2 = lowFreq;
+      }
+
+      v31 = v18 + lowFreq;
+      if (v26 + v27 < v18 + lowFreq)
+      {
+        v31 = v26 + v27;
+      }
+
+      if (lowFreqCopy2 >= v31)
+      {
+        goto LABEL_86;
+      }
+
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) / 3 = CellRx(%lf~%lf)", *&v26, v26 + v27, *&lowFreq, *&dlHighFreq];
+      goto LABEL_75;
+    case 12:
+      if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager singleton])
+      {
+        cellFrequencyLimitForOOB = self->_cellFrequencyLimitForBTAFH;
+      }
+
+      v34 = cellFrequencyLimitForOOB;
+      v35 = v34;
+      [WCM_Logging logLevel:4 message:@"Cell freq range limit for HFBT Channels to avoid: %f", v34];
+      v36 = [objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+      if (v35 > freq && v36 != 0)
+      {
+        goto LABEL_60;
+      }
+
+      goto LABEL_86;
+    case 13:
+      if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager singleton])
+      {
+        cellFrequencyLimitForOOB = self->_cellFrequencyLimitForBTAFH;
+      }
+
+      v41 = cellFrequencyLimitForOOB;
+      v42 = v41;
+      [WCM_Logging logLevel:4 message:@"Cell freq range limit for HFBT Channels to avoid: %f", v41];
+      v43 = [objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+      if (v42 >= highFreq || v43 == 0)
+      {
+        goto LABEL_86;
+      }
+
+LABEL_60:
+      if (v17 <= self->_cellBandwidthLimitForOOB)
+      {
+LABEL_86:
+        result = &__NSArray0__struct;
+      }
+
+      else
+      {
+
+        result = [(WCM_WiFiCellCoexIssue *)self getAllBtChannelsInBandForBtHighFreq:bandHighFreq btLowFreq:bandLowFreq];
+      }
+
+      break;
+    case 14:
+      v26 = v19 + v19;
+      v27 = v19 + v20 + v19 + v20 - (v19 + v19);
+      if (v19 + v19 >= lowFreq)
+      {
+        lowFreqCopy3 = v19 + v19;
+      }
+
+      else
+      {
+        lowFreqCopy3 = lowFreq;
+      }
+
+      v29 = v18 + lowFreq;
+      if (v26 + v27 < v18 + lowFreq)
+      {
+        v29 = v26 + v27;
+      }
+
+      if (lowFreqCopy3 >= v29)
+      {
+        goto LABEL_86;
+      }
+
+      [WCM_Logging logLevel:4 message:@"(2 x BTTx)(i.e. %lf~%lf) = CellRx(%lf~%lf)", *&v26, v26 + v27, *&lowFreq, *&dlHighFreq];
+LABEL_75:
+      v45 = v26;
+      v46 = v27;
+LABEL_79:
+
+      result = sub_10008F600(v45, v46, bandLowFreq, bandHighFreq);
+      break;
+    default:
+      if (issueType == 999)
+      {
+        v40 = "NO_ISSUE_TYPE";
+      }
+
+      else if (issueType <= 0xE)
+      {
+        v40 = off_10023FE88[issueType];
+      }
+
+      else
+      {
+        v40 = "<ISSUE_TYPE_INVALID>";
+      }
+
+      [WCM_Logging logLevel:0 message:@"%s is not applicable for BT channel blocklisting", v40];
+      goto LABEL_86;
+  }
+
+  return result;
+}
+
 - (id)HFBTAntBlkBandsForCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq
 {
   v7 = [&off_10028D8F0 mutableCopy];
@@ -940,6 +2112,326 @@ LABEL_28:
   }
 
   return v7;
+}
+
+- (id)btChannelsToAvoidForCellUlLowFreq:(double)freq cellUlHighFreq:(double)highFreq gpsRadioActive:(BOOL)active
+{
+  v7 = highFreq - freq;
+  issueType = self->_issueType;
+  if (issueType <= 11)
+  {
+    if (!issueType)
+    {
+      v9 = freq * 3.0;
+      v10 = (v7 + freq) * 3.0 - freq * 3.0;
+      if (freq * 3.0 >= 2401.5)
+      {
+        v13 = freq * 3.0;
+      }
+
+      else
+      {
+        v13 = 2401.5;
+      }
+
+      if (v13 < fmin(v9 + v10, 2480.5))
+      {
+        [WCM_Logging logLevel:4 message:@"3 x CellTx(%lf~%lf) = BTRx(%lf~%lf)", *&freq, *&highFreq, freq * 3.0, v9 + v10, v19, v20];
+        goto LABEL_18;
+      }
+
+      return &__NSArray0__struct;
+    }
+
+    if (issueType == 2)
+    {
+      if (active && sub_10008E278(0, 2401.5, 79.0, freq, v7, 1573.374, 4.092))
+      {
+        v9 = freq + 1573.374;
+        v10 = highFreq + 1577.466 - (freq + 1573.374);
+        [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) - CellTx(%lf~%lf) = GpsRx(%lf~%lf)", freq + 1573.374, freq + 1573.374 + v10, *&freq, *&highFreq, 0x4098957EF9DB22D1, 0x4098A5DD2F1A9FBFLL];
+LABEL_18:
+
+        return sub_10008F53C(v9, v10);
+      }
+
+      return &__NSArray0__struct;
+    }
+
+LABEL_11:
+    if (issueType == 999)
+    {
+      v12 = "NO_ISSUE_TYPE";
+    }
+
+    else if (issueType <= 0xE)
+    {
+      v12 = off_10023FE88[issueType];
+    }
+
+    else
+    {
+      v12 = "<ISSUE_TYPE_INVALID>";
+    }
+
+    [WCM_Logging logLevel:0 message:@"%s is not applicable for BT channel blocklisting", v12];
+    return &__NSArray0__struct;
+  }
+
+  if (issueType == 12)
+  {
+    if (self->_cellFrequencyLimitForOOB <= freq)
+    {
+      return &__NSArray0__struct;
+    }
+  }
+
+  else
+  {
+    if (issueType != 13)
+    {
+      goto LABEL_11;
+    }
+
+    if (self->_cellFrequencyLimitForOOB >= highFreq)
+    {
+      return &__NSArray0__struct;
+    }
+  }
+
+  if (v7 <= self->_cellBandwidthLimitForOOB)
+  {
+    return &__NSArray0__struct;
+  }
+
+  wifiChannelsToAvoidForCellOOB = self->_wifiChannelsToAvoidForCellOOB;
+  if (!wifiChannelsToAvoidForCellOOB)
+  {
+    return &__NSArray0__struct;
+  }
+
+  v16 = [(NSArray *)wifiChannelsToAvoidForCellOOB count]- 1;
+  v17 = [-[NSArray objectAtIndex:](self->_wifiChannelsToAvoidForCellOOB objectAtIndex:{0), "intValue"}];
+  v18 = [-[NSArray objectAtIndex:](self->_wifiChannelsToAvoidForCellOOB objectAtIndex:{v16), "intValue"}];
+  [WCM_Logging logLevel:4 message:@"BT channels corresponding to WiFi channels %d ~ %d", v17, v18];
+
+  return sub_10008F700(v17, v18);
+}
+
+- (id)btDiversityChannelsToAvoidForCellBTAntennaCombination:(int)combination cellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq gpsRadioActive:(BOOL)active
+{
+  issueType = self->_issueType;
+  v14 = *&combination;
+  v15 = ulHighFreq - lowFreq;
+  v16 = highFreq - freq;
+  switch(issueType)
+  {
+    case 0:
+      v17 = lowFreq * 3.0;
+      v18 = (v15 + lowFreq) * 3.0 - lowFreq * 3.0;
+      if (lowFreq * 3.0 >= 2401.5)
+      {
+        v19 = lowFreq * 3.0;
+      }
+
+      else
+      {
+        v19 = 2401.5;
+      }
+
+      if (v19 >= fmin(v17 + v18, 2480.5))
+      {
+        return &__NSArray0__struct;
+      }
+
+      [WCM_Logging logLevel:4 message:@"3 x CellTx(%lf~%lf) = BTRx(%lf~%lf)", *&lowFreq, *&ulHighFreq, lowFreq * 3.0, v17 + v18, v37, v38];
+      goto LABEL_44;
+    case 1:
+      if (!sub_10008E324(0, 2401.5, 79.0, lowFreq, ulHighFreq - lowFreq, freq, v16))
+      {
+        return &__NSArray0__struct;
+      }
+
+      v24 = (freq + lowFreq) * 0.5;
+      v25 = (highFreq + ulHighFreq) * 0.5 - v24;
+      [WCM_Logging logLevel:4 message:@"2 x BTTx(%lf~%lf) - CellTx(%lf~%lf) = CellRx(%lf~%lf)", *&v24, v24 + v25, *&lowFreq, *&ulHighFreq, *&freq, *&highFreq];
+      goto LABEL_52;
+    case 2:
+      if (!active || !sub_10008E278(0, 2401.5, 79.0, lowFreq, ulHighFreq - lowFreq, 1573.374, 4.092))
+      {
+        return &__NSArray0__struct;
+      }
+
+      v17 = lowFreq + 1573.374;
+      v18 = ulHighFreq + 1577.466 - (lowFreq + 1573.374);
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) - CellTx(%lf~%lf) = GpsRx(%lf~%lf)", lowFreq + 1573.374, lowFreq + 1573.374 + v18, *&lowFreq, *&ulHighFreq, 0x4098957EF9DB22D1, 0x4098A5DD2F1A9FBFLL];
+      goto LABEL_44;
+    case 3:
+      if (!sub_10008E278(0, 2401.5, 79.0, lowFreq, ulHighFreq - lowFreq, freq, v16))
+      {
+        return &__NSArray0__struct;
+      }
+
+      v24 = freq + lowFreq;
+      v25 = highFreq + ulHighFreq - (freq + lowFreq);
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) - CellTx(%lf~%lf) = CellRx(%lf~%lf)", freq + lowFreq, freq + lowFreq + v25, *&lowFreq, *&ulHighFreq, *&freq, *&highFreq];
+      goto LABEL_52;
+    case 4:
+      if (!sub_10008E324(0, lowFreq, v15, 2401.5, 79.0, freq, v16))
+      {
+        return &__NSArray0__struct;
+      }
+
+      v24 = -(highFreq - lowFreq * 2.0);
+      v25 = -(freq - ulHighFreq * 2.0) - v24;
+      [WCM_Logging logLevel:4 message:@"2 x CellTx(%lf~%lf) - BTTx(%lf~%lf) = CellRx(%lf~%lf)", *&lowFreq, *&ulHighFreq, *&v24, v25 - (highFreq - lowFreq * 2.0), *&freq, *&highFreq];
+      goto LABEL_52;
+    case 5:
+      if (!active || !sub_10008E324(0, lowFreq, v15, 2401.5, 79.0, 1573.374, 4.092))
+      {
+        return &__NSArray0__struct;
+      }
+
+      v17 = lowFreq * 2.0 + -1577.466;
+      v18 = ulHighFreq * 2.0 + -1573.374 - v17;
+      [WCM_Logging logLevel:4 message:@"2 x CellTx(%lf~%lf) - BTTx(%lf~%lf) = GpsRx(%lf~%lf)", *&lowFreq, *&ulHighFreq, *&v17, v17 + v18, 0x4098957EF9DB22D1, 0x4098A5DD2F1A9FBFLL];
+      goto LABEL_44;
+    case 6:
+      if (!active || !sub_10008E324(0, 2401.5, 79.0, lowFreq, ulHighFreq - lowFreq, 1573.374, 4.092))
+      {
+        return &__NSArray0__struct;
+      }
+
+      v17 = lowFreq * 2.0 + 1573.374;
+      v18 = ulHighFreq * 2.0 + 1577.466 - v17;
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) - 2 x CellTx(%lf~%lf) = GpsRx(%lf~%lf)", *&v17, v17 + v18, *&lowFreq, *&ulHighFreq, 0x4098957EF9DB22D1, 0x4098A5DD2F1A9FBFLL];
+      goto LABEL_44;
+    case 7:
+      if (!sub_10008E324(0, 2401.5, 79.0, lowFreq, ulHighFreq - lowFreq, freq, v16))
+      {
+        return &__NSArray0__struct;
+      }
+
+      v24 = freq + lowFreq * 2.0;
+      v25 = highFreq + ulHighFreq * 2.0 - v24;
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) - 2 x CellTx(%lf~%lf) = CellRx(%lf~%lf)", *&v24, v24 + v25, *&lowFreq, *&ulHighFreq, *&freq, *&highFreq];
+      goto LABEL_52;
+    case 8:
+      if (!sub_10008E404(0, lowFreq, v15, 2401.5, 79.0, freq, v16))
+      {
+        return &__NSArray0__struct;
+      }
+
+      v24 = -(highFreq - lowFreq * 4.0);
+      v25 = -(freq - ulHighFreq * 4.0) - v24;
+      [WCM_Logging logLevel:4 message:@"4 x CellTx(%lf~%lf) - BTTx(%lf~%lf) = CellRx(%lf~%lf)", *&lowFreq, *&ulHighFreq, *&v24, v25 - (highFreq - lowFreq * 4.0), *&freq, *&highFreq];
+LABEL_52:
+      v33 = v24;
+      v23 = v25;
+      goto LABEL_53;
+    case 9:
+      v17 = lowFreq + lowFreq;
+      v18 = v15 + lowFreq + v15 + lowFreq - (lowFreq + lowFreq);
+      if (lowFreq + lowFreq >= 2401.5)
+      {
+        v29 = lowFreq + lowFreq;
+      }
+
+      else
+      {
+        v29 = 2401.5;
+      }
+
+      if (v29 >= fmin(v17 + v18, 2480.5))
+      {
+        return &__NSArray0__struct;
+      }
+
+      [WCM_Logging logLevel:4 message:@"2 x CellTx(%lf~%lf) = BTRx(%lf~%lf)", *&lowFreq, *&ulHighFreq, lowFreq + lowFreq, v17 + v18, v37, v38];
+LABEL_44:
+      v33 = v17;
+      v23 = v18;
+      goto LABEL_53;
+    case 10:
+      v20 = 0x4092C30000000000;
+      v34 = fmax(freq, 1200.75);
+      v35 = v16 + freq;
+      if (v16 + freq > 1240.25)
+      {
+        v35 = 1240.25;
+      }
+
+      if (v34 >= v35)
+      {
+        return &__NSArray0__struct;
+      }
+
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) / 2 = CellRx(%lf~%lf)", 0x4092C30000000000, 0x4093610000000000, *&freq, *&highFreq];
+      v23 = 39.5;
+      goto LABEL_49;
+    case 11:
+      v20 = 0x4089040000000000;
+      v21 = fmax(freq, 800.5);
+      v22 = v16 + freq;
+      if (v16 + freq > 826.833333)
+      {
+        v22 = 826.833333;
+      }
+
+      if (v21 >= v22)
+      {
+        return &__NSArray0__struct;
+      }
+
+      [WCM_Logging logLevel:4 message:@"BTTx(%lf~%lf) / 3 = CellRx(%lf~%lf)", 0x4089040000000000, 0x4089D6AAAAAAAAABLL, *&freq, *&highFreq];
+      v23 = 26.3333333;
+LABEL_49:
+      v33 = *&v20;
+LABEL_53:
+
+      return sub_10008F53C(v33, v23);
+    case 12:
+      cellFrequencyLimitForOOB = self->_cellFrequencyLimitForOOB;
+      if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager singleton])
+      {
+        cellFrequencyLimitForOOB = self->_cellFrequencyLimitForBTAFH;
+      }
+
+      v27 = cellFrequencyLimitForOOB;
+      v28 = v27;
+      [WCM_Logging logLevel:4 message:@"Cell freq range limit for BT Channels to avoid: %f", v27];
+      if (v28 <= lowFreq)
+      {
+        return &__NSArray0__struct;
+      }
+
+      goto LABEL_37;
+    case 13:
+      cellFrequencyLimitForBTAFH = self->_cellFrequencyLimitForOOB;
+      if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager singleton])
+      {
+        cellFrequencyLimitForBTAFH = self->_cellFrequencyLimitForBTAFH;
+      }
+
+      v31 = cellFrequencyLimitForBTAFH;
+      v32 = v31;
+      [WCM_Logging logLevel:4 message:@"Cell freq range limit for BT Channels to avoid: %f", v31];
+      if (v32 >= ulHighFreq)
+      {
+        return &__NSArray0__struct;
+      }
+
+LABEL_37:
+      if (v15 <= self->_cellBandwidthLimitForOOB)
+      {
+        return &__NSArray0__struct;
+      }
+
+      return [(WCM_WiFiCellCoexIssue *)self btChannelsToAvoidFor:v14];
+    default:
+      [WCM_Logging logLevel:0 message:@"WCM_WiFiCellCoexIssue(%p) has invalid _issueType(%d)", self, issueType];
+      return &__NSArray0__struct;
+  }
 }
 
 - (id)wifiChannelsToAvoidForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifi5G:(BOOL)g wifiEssentialChannel:(int *)channel
@@ -2004,6 +3496,203 @@ LABEL_12:
 
   [WCM_Logging logLevel:0 message:@"WCM_WiFiCellCoexIssue(%p) has invalid _issueType(%d) in AgcCoexMode", v9, freq, self, issueType, v7, v8];
   return 0;
+}
+
+- (BOOL)wifiBtAgcCoexModeEnabledInPolicyV2:(double)v2 cellDlHighFreq:(double)freq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)highFreq wifiChannel:(unsigned int)channel channelCenterFreqMHz:(unsigned int)hz channelBandwidthMHz:(unsigned int)mHz coexModeWifiLevel:(int64_t *)self0 coexModeBTLevel:(int64_t *)self1
+{
+  if ([(WCM_WiFiCellCoexIssue *)self issueType:*&channel]&& [(WCM_WiFiCellCoexIssue *)self issueType]!= 9 && ([(WCM_WiFiCellCoexIssue *)self issueType]& 0xFFFFFFFE) != 0xC || !self->_enableWifiChannelAvoidance)
+  {
+    return 0;
+  }
+
+  v18 = highFreq - lowFreq;
+  issueType = self->_issueType;
+  if (issueType > 11)
+  {
+    if (issueType == 12)
+    {
+      if (self->_cellFrequencyLimitForOOB > lowFreq && v18 > self->_cellBandwidthLimitForOOB)
+      {
+        [WCM_Logging logLevel:4 message:@"DLDebug_: ISSUE_TYPE_OOB_ISM_RIGHT matched for both WiFi/BT with CellTxLow(%lf~%lf) and WifiRx(%lf~%lf)", *&lowFreq, *&highFreq, 0, 0];
+        goto LABEL_60;
+      }
+    }
+
+    else
+    {
+      if (issueType != 13)
+      {
+        goto LABEL_34;
+      }
+
+      if (self->_cellFrequencyLimitForOOB < highFreq && v18 > self->_cellBandwidthLimitForOOB)
+      {
+        [WCM_Logging logLevel:4 message:@"DLDebug_: ISSUE_TYPE_OOB_ISM_LEFT matched for both WiFi/BT with CellTxLow(%lf~%lf) and WifiRx(%lf~%lf)", *&lowFreq, *&highFreq, 0, 0];
+LABEL_60:
+        *level = self->_wifiBtAgcCoexModeEnable;
+        goto LABEL_61;
+      }
+    }
+
+    return 0;
+  }
+
+  v20 = (hz - (mHz >> 1));
+  v21 = (hz + (mHz >> 1)) - v20;
+  if (issueType)
+  {
+    if (issueType == 9)
+    {
+      v22 = lowFreq + lowFreq;
+      v23 = v18 + lowFreq + v18 + lowFreq - (lowFreq + lowFreq);
+      if (lowFreq + lowFreq >= v20)
+      {
+        v24 = lowFreq + lowFreq;
+      }
+
+      else
+      {
+        v24 = (hz - (mHz >> 1));
+      }
+
+      v25 = v21 + v20;
+      if (v22 + v23 < v25)
+      {
+        v25 = v22 + v23;
+      }
+
+      v26 = 2402.0;
+      if (v22 >= 2402.0)
+      {
+        v26 = lowFreq + lowFreq;
+      }
+
+      v27 = fmin(v22 + v23, 2482.0);
+      if (v26 >= v27 && v24 >= v25)
+      {
+        return 0;
+      }
+
+      v29 = v26 < v27;
+      if (v26 >= v27)
+      {
+        v30 = 0.0;
+      }
+
+      else
+      {
+        v30 = lowFreq + lowFreq;
+      }
+
+      if (v26 >= v27)
+      {
+        v31 = 0.0;
+      }
+
+      else
+      {
+        v31 = v23;
+      }
+
+      if (v24 >= v25)
+      {
+        v23 = 0.0;
+        v22 = 0.0;
+      }
+
+      [WCM_Logging logLevel:4 message:@"DLDebug_: ISSUE_TYPE_2CELL_2FO_WIFI_VICTIM matched flag is %d, for WiFi with 2 x CellTx(%lf~%lf) = WifiRx(%lf~%lf)", v24 < v25, *&lowFreq, *&highFreq, *&v22, v22 + v23];
+      *level = self->_wifiBtAgcCoexModeEnable;
+      [WCM_Logging logLevel:4 message:@"DLDebug_: ISSUE_TYPE_2CELL_2FO_WIFI_VICTIM matched flag is %d, for BT with 2 x CellTx(%lf~%lf) = WifiRx(%lf~%lf)", v29, *&lowFreq, *&highFreq, *&v30, v31 + v30];
+      goto LABEL_61;
+    }
+
+LABEL_34:
+    if (issueType == 999)
+    {
+      v32 = "NO_ISSUE_TYPE";
+    }
+
+    else if (issueType <= 0xE)
+    {
+      v32 = off_10023FE88[issueType];
+    }
+
+    else
+    {
+      v32 = "<ISSUE_TYPE_INVALID>";
+    }
+
+    [WCM_Logging logLevel:0 message:@"%s is not considered for WiFi/BT Coex Mode, putting all zeros (assuming policy table entries are correct)", v18, v32];
+    result = 0;
+    *level = self->_wifiBtAgcCoexModeEnable;
+    goto LABEL_67;
+  }
+
+  v33 = lowFreq * 3.0;
+  v34 = (v18 + lowFreq) * 3.0 - lowFreq * 3.0;
+  if (lowFreq * 3.0 >= v20)
+  {
+    v35 = lowFreq * 3.0;
+  }
+
+  else
+  {
+    v35 = (hz - (mHz >> 1));
+  }
+
+  v36 = v21 + v20;
+  if (v33 + v34 < v36)
+  {
+    v36 = v33 + v34;
+  }
+
+  v37 = 2402.0;
+  if (v33 >= 2402.0)
+  {
+    v37 = lowFreq * 3.0;
+  }
+
+  v38 = fmin(v33 + v34, 2482.0);
+  if (v37 >= v38 && v35 >= v36)
+  {
+    return 0;
+  }
+
+  v40 = v37 < v38;
+  if (v37 >= v38)
+  {
+    v41 = 0.0;
+  }
+
+  else
+  {
+    v41 = lowFreq * 3.0;
+  }
+
+  if (v37 >= v38)
+  {
+    v42 = 0.0;
+  }
+
+  else
+  {
+    v42 = v34;
+  }
+
+  if (v35 >= v36)
+  {
+    v34 = 0.0;
+    v33 = 0.0;
+  }
+
+  [WCM_Logging logLevel:4 message:@"DLDebug_: ISSUE_TYPE_3CELL_3FO_WIFI_VICTIM matched flag = %d, for WiFi with 3 x CellTx(%lf~%lf) = WifiRx(%lf~%lf)", v35 < v36, *&lowFreq, *&highFreq, *&v33, v33 + v34];
+  *level = self->_wifiBtAgcCoexModeEnable;
+  [WCM_Logging logLevel:4 message:@"DLDebug_: ISSUE_TYPE_3CELL_3FO_WIFI_VICTIM matched flag = %d, for BT with 3 x CellTx(%lf~%lf) = WifiRx(%lf~%lf)", v40, *&lowFreq, *&highFreq, *&v41, v42 + v41];
+LABEL_61:
+  result = 1;
+LABEL_67:
+  *tLevel = self->_btAgcCoexModeEnable;
+  return result;
 }
 
 - (void)cellFreqRangeWithIssueForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq wifiLowFreq:(double)wifiLowFreq wifiHighFreq:(double)wifiHighFreq cellTxIssueRange:(id *)range cellRxIssueRange:(id *)self0

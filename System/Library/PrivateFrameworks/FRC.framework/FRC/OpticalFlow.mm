@@ -1,5 +1,6 @@
 @interface OpticalFlow
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)featureSizeForLevel:(SEL)level;
+- ($F99D9A4FB75BC57F3386B8DC8EE08D7A)flowSizeForLevel:(SEL)level;
 - (BOOL)createBaseLayer;
 - (BOOL)createModules;
 - (BOOL)switchUsageTo:(int64_t)to;
@@ -1430,6 +1431,16 @@ LABEL_6:
 
     [(OpticalFlow *)self releaseResources];
   }
+}
+
+- ($F99D9A4FB75BC57F3386B8DC8EE08D7A)flowSizeForLevel:(SEL)level
+{
+  retstr->var0 = 0;
+  retstr->var1 = 0;
+  retstr->var2 = 0;
+  result = [(FeatureExtractor *)self->_featureExtractor getOutputTensorSize:retstr level:*&a4];
+  retstr->var2 = 2;
+  return result;
 }
 
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)featureSizeForLevel:(SEL)level

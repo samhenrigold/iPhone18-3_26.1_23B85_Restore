@@ -54,36 +54,36 @@
     v9 = objc_opt_class();
     v10 = [coderCopy decodeCollectionOfClass:v9 containingClass:objc_opt_class() forKey:@"listsToRemove"];
     [(SBSFocusModesHomeScreenSettingsRequest *)v6 setListsToRemove:v10];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2050000000;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2050000000;
     v11 = getATXHomeScreenPageClass_softClass;
-    v20 = getATXHomeScreenPageClass_softClass;
+    v21 = getATXHomeScreenPageClass_softClass;
     if (!getATXHomeScreenPageClass_softClass)
     {
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __getATXHomeScreenPageClass_block_invoke;
-      v16[3] = &unk_1E735F9F8;
-      v16[4] = &v17;
-      __getATXHomeScreenPageClass_block_invoke(v16);
-      v11 = v18[3];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __getATXHomeScreenPageClass_block_invoke;
+      v17[3] = &unk_1E735F9F8;
+      v17[4] = &v18;
+      __getATXHomeScreenPageClass_block_invoke(v17);
+      v11 = v19[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v18, 8);
     if (v11)
     {
-      v13 = [coderCopy decodeCollectionOfClass:objc_opt_class() containingClass:v11 forKey:@"proactivePages"];
-      [(SBSFocusModesHomeScreenSettingsRequest *)v6 setProactivePages:v13];
+      v14 = [coderCopy decodeCollectionOfClass:objc_opt_class() containingClass:v11 forKey:@"proactivePages"];
+      [(SBSFocusModesHomeScreenSettingsRequest *)v6 setProactivePages:v14];
     }
 
     else
     {
-      v13 = SBLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v14 = SBLogCommon(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        [SBSFocusModesHomeScreenSettingsRequest initWithBSXPCCoder:v13];
+        [SBSFocusModesHomeScreenSettingsRequest initWithBSXPCCoder:v14];
       }
     }
 

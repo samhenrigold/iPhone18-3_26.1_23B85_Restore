@@ -20,11 +20,10 @@
 
 - (void)beginRequestWithExtensionContext:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 138412290;
-  v5 = objc_opt_class();
-  _os_log_error_impl(&dword_2577CB000, a2, OS_LOG_TYPE_ERROR, "Failed to get correct context with context class=%@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = objc_opt_class();
+  _os_log_error_impl(&dword_2577CB000, a2, OS_LOG_TYPE_ERROR, "Failed to get correct context with context class=%@", &v3, 0xCu);
 }
 
 @end

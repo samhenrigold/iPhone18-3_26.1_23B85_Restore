@@ -43,22 +43,18 @@
 - (void)setAssertionAttributes:(id)attributes
 {
   type metadata accessor for RBSDomainAttribute();
-  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR____EXHostConfiguration_assertionAttributes);
-  *(self + OBJC_IVAR____EXHostConfiguration_assertionAttributes) = v4;
+  *(self + OBJC_IVAR____EXHostConfiguration_assertionAttributes) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (_EXHostConfiguration)initWithExtensionIdentity:(id)identity
 {
-  v5 = objc_allocWithZone(type metadata accessor for _EXHostConfiguration());
+  v4 = objc_allocWithZone(type metadata accessor for _EXHostConfiguration(0));
   identityCopy = identity;
-  v7 = specialized _EXHostConfiguration.init(with:instanceIdentifier:)(identityCopy, 0);
+  v6 = specialized _EXHostConfiguration.init(with:instanceIdentifier:)(identityCopy, 0);
 
   swift_getObjectType();
-  v8 = *((*MEMORY[0x1E69E7D40] & *self) + 0x30);
-  v9 = *((*MEMORY[0x1E69E7D40] & *self) + 0x34);
   swift_deallocPartialClassInstance();
-  return v7;
+  return v6;
 }
 
 - (void)setExtensionIdentity:(id)identity
@@ -112,7 +108,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v8);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v8, v9);
 }
 
 - (void)setInstanceIdentifier:(id)identifier
@@ -126,17 +122,16 @@
 {
   if (*(self + OBJC_IVAR____EXHostConfiguration_preferredLanguages))
   {
-    v2 = *(self + OBJC_IVAR____EXHostConfiguration_preferredLanguages);
 
-    v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v3.super.isa = 0;
+    v2.super.isa = 0;
   }
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setPreferredLanguages:(id)languages
@@ -151,24 +146,20 @@
     v4 = 0;
   }
 
-  v5 = *(self + OBJC_IVAR____EXHostConfiguration_preferredLanguages);
   *(self + OBJC_IVAR____EXHostConfiguration_preferredLanguages) = v4;
 }
 
 - (NSDictionary)additionalEnvironmentVariables
 {
-  v2 = *(self + OBJC_IVAR____EXHostConfiguration_additionalEnvironmentVariables);
 
-  v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setAdditionalEnvironmentVariables:(id)variables
 {
-  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR____EXHostConfiguration_additionalEnvironmentVariables);
-  *(self + OBJC_IVAR____EXHostConfiguration_additionalEnvironmentVariables) = v4;
+  *(self + OBJC_IVAR____EXHostConfiguration_additionalEnvironmentVariables) = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (NSString)sandboxProfileName
@@ -177,17 +168,16 @@
   if (v2)
   {
     v3 = *(self + OBJC_IVAR____EXHostConfiguration_sandboxProfileName);
-    v4 = *(self + OBJC_IVAR____EXHostConfiguration_sandboxProfileName + 8);
 
-    v5 = MEMORY[0x1865F36D0](v3, v2);
+    v4 = MEMORY[0x1865F36D0](v3, v2);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)setSandboxProfileName:(id)name
@@ -204,19 +194,17 @@
   }
 
   v6 = (self + OBJC_IVAR____EXHostConfiguration_sandboxProfileName);
-  v7 = *(self + OBJC_IVAR____EXHostConfiguration_sandboxProfileName + 8);
   *v6 = v4;
   v6[1] = v5;
 }
 
 - (NSArray)assertionAttributes
 {
-  v2 = *(self + OBJC_IVAR____EXHostConfiguration_assertionAttributes);
   type metadata accessor for RBSDomainAttribute();
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (id)copyWithZone:(void *)zone
@@ -275,7 +263,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  _EXHostConfiguration.extensionRepresenting.setter();
+  _EXHostConfiguration.extensionRepresenting.setter(extension);
 }
 
 @end

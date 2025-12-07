@@ -46,7 +46,7 @@
 {
   labelCopy = label;
   label = [(SUUIGiftConfirmLabeledValue *)self label];
-  if (label != labelCopy && ([labelCopy isEqualToString:label] & 1) == 0)
+  if (label != labelCopy && (objc_msgSend_isEqualToString_(labelCopy) & 1) == 0)
   {
     labelLabel = self->_labelLabel;
     if (labelCopy)
@@ -93,7 +93,7 @@
 {
   labelCopy = label;
   subtitleLabel = [(SUUIGiftConfirmLabeledValue *)self subtitleLabel];
-  if (subtitleLabel != labelCopy && ([labelCopy isEqualToString:subtitleLabel] & 1) == 0)
+  if (subtitleLabel != labelCopy && (objc_msgSend_isEqualToString_(labelCopy) & 1) == 0)
   {
     subtitleLabel = self->_subtitleLabel;
     if (labelCopy)
@@ -140,7 +140,7 @@
 {
   valueCopy = value;
   label = [(SUUIGiftConfirmLabeledValue *)self label];
-  if (label != valueCopy && ([valueCopy isEqualToString:label] & 1) == 0)
+  if (label != valueCopy && (objc_msgSend_isEqualToString_(valueCopy) & 1) == 0)
   {
     valueLabel = self->_valueLabel;
     if (!valueCopy)

@@ -44,21 +44,21 @@ id sub_1000018A0(uint64_t a1)
   return [*(a1 + 32) removeProgress:*(a1 + 40)];
 }
 
-void sub_100001C6C(uint64_t a1)
+void sub_100001C6C(id *a1)
 {
-  v2 = *(*(a1 + 32) + 32);
+  v2 = *(a1[4] + 4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_100001E04(a1, v2);
   }
 
-  if ([*(a1 + 40) isEqualToString:@"fractionCompleted"])
+  if ([a1[5] isEqualToString:@"fractionCompleted"])
   {
-    v3 = *(a1 + 48);
+    v3 = a1[6];
     [v3 fractionCompleted];
     if (v4 >= 1.0)
     {
-      [*(a1 + 32) transferFinishedAnimated];
+      [a1[4] transferFinishedAnimated];
     }
 
     else
@@ -66,7 +66,7 @@ void sub_100001C6C(uint64_t a1)
       [v3 fractionCompleted];
       if (v5 >= 0.0)
       {
-        v6 = *(*(a1 + 32) + 24);
+        v6 = *(a1[4] + 3);
         [v3 fractionCompleted];
         [v6 setProgress:1 animated:?];
       }

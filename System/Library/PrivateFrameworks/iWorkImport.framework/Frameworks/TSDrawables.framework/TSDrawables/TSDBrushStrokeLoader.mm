@@ -523,7 +523,7 @@
         v121.d = d;
         v121.tx = tx;
         v121.ty = ty;
-        v89 = sub_2767B2030();
+        v89 = sub_2767B2030(v88, &v121);
         v91 = v9;
         v92 = objc_msgSend_newPathFromSVGPathString_(TSDSVGToBezierPathConverter, v90, v117);
         v121.a = a;
@@ -532,7 +532,7 @@
         v121.d = d;
         v121.tx = tx;
         v121.ty = ty;
-        v93 = sub_2767B2030();
+        v93 = sub_2767B2030(v92, &v121);
         v128.origin.x = v113;
         v128.origin.y = v67;
         v128.size.width = v115;

@@ -64,9 +64,9 @@
 
 - (void)collection:(id)collection didUpdateItems:(id)items replaceItemsByFormerID:(id)d deleteItemsWithIDs:(id)ds
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemID);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemID, 0x277CC6400);
   lazy protocol witness table accessor for type FPItemID and conformance NSObject();
   v9 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();

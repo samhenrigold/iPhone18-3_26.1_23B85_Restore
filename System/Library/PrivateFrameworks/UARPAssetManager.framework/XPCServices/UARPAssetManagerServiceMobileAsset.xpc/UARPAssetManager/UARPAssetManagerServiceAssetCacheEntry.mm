@@ -114,10 +114,9 @@
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  subscription = self->_subscription;
-  v6 = [NSString stringWithFormat:@"<%@: lastSeen=%@, subscription=%@, record=%@>", v4, self->_lastSeen, subscription, self->_cachedRecord];
+  v5 = [NSString stringWithFormat:@"<%@: lastSeen=%@, subscription=%@, record=%@>", v4, self->_lastSeen, self->_subscription, self->_cachedRecord];
 
-  return v6;
+  return v5;
 }
 
 @end

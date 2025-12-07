@@ -13,6 +13,7 @@
 + (_PHPickerSuggestionGroup)wallpaperSuggestionGroup;
 + (_PHPickerSuggestionGroup)watchWallpaperSuggestionGroup;
 + (id)_wallpaperSuggestionGroupWithDefaultSuggestionIndex:(int64_t)index allowSettlingEffectSuggestions:(BOOL)suggestions allowGyroEffectSuggestions:(BOOL)effectSuggestions;
++ (id)assetCollectionSuggestionGroup:(id)group extendedCuratedAssetsOnly:(BOOL)only shouldReverseSortOrder:(BOOL)order;
 - (BOOL)isEqual:(id)equal;
 - (_PHPickerSuggestionGroup)initWithCoder:(id)coder;
 - (id)_initWithSuggestions:(id)suggestions defaultSuggestionIndex:(int64_t)index isForWallpaper:(BOOL)wallpaper;
@@ -226,6 +227,24 @@ LABEL_13:
   return v17;
 }
 
++ (id)assetCollectionSuggestionGroup:(id)group extendedCuratedAssetsOnly:(BOOL)only shouldReverseSortOrder:(BOOL)order
+{
+  orderCopy = order;
+  onlyCopy = only;
+  v13[2] = *MEMORY[0x1E69E9840];
+  groupCopy = group;
+  v8 = objc_alloc_init(PUPickerSuggestionAll);
+  v13[0] = v8;
+  v9 = [[PUPickerAssetCollectionSuggestion alloc] initWithLocalIdentifier:groupCopy extendedCuratedAssetsOnly:onlyCopy shouldReverseSortOrder:orderCopy];
+
+  v13[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+
+  v11 = [[_PHPickerSuggestionGroup alloc] _initWithSuggestions:v10 defaultSuggestionIndex:1 isForWallpaper:0];
+
+  return v11;
+}
+
 + (_PHPickerSuggestionGroup)retailExperienceSuggestionGroup
 {
   v2 = PLIsFeaturedContentAllowed();
@@ -246,24 +265,23 @@ LABEL_13:
 
 + (_PHPickerSuggestionGroup)generativeSuggestionGroup
 {
-  v14[7] = *MEMORY[0x1E69E9840];
+  v13[7] = *MEMORY[0x1E69E9840];
   v2 = PLIsFeaturedContentAllowed();
   v3 = objc_alloc_init(PUPickerSuggestionAll);
   v4 = objc_alloc_init(PUPickerGenerativeFeaturedSuggestion);
   v5 = [[PUPickerWallpaperSuggestion alloc] initWithMode:11, v3, v4];
-  v14[2] = v5;
+  v13[2] = v5;
   v6 = [[PUPickerWallpaperSuggestion alloc] initWithMode:12];
-  v14[3] = v6;
+  v13[3] = v6;
   v7 = [[PUPickerWallpaperSuggestion alloc] initWithMode:13];
-  v14[4] = v7;
+  v13[4] = v7;
   v8 = [[PUPickerSearchBasedSuggestion alloc] initWithMode:7];
-  v14[5] = v8;
+  v13[5] = v8;
   v9 = [[PUPickerSearchBasedSuggestion alloc] initWithMode:8];
-  v14[6] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:7];
+  v13[6] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:7];
 
   v11 = [[_PHPickerSuggestionGroup alloc] _initWithSuggestions:v10 defaultSuggestionIndex:v2 isForWallpaper:0];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -290,37 +308,36 @@ LABEL_13:
 
 + (_PHPickerSuggestionGroup)watchWallpaperSuggestionGroup
 {
-  v13[6] = *MEMORY[0x1E69E9840];
+  v12[6] = *MEMORY[0x1E69E9840];
   v2 = PLIsFeaturedContentAllowed();
   v3 = objc_alloc_init(PUPickerSuggestionAll);
-  v13[0] = v3;
+  v12[0] = v3;
   v4 = [[PUPickerWallpaperSuggestion alloc] initWithMode:6];
-  v13[1] = v4;
+  v12[1] = v4;
   v5 = [[PUPickerWallpaperSuggestion alloc] initWithMode:7];
-  v13[2] = v5;
+  v12[2] = v5;
   v6 = [[PUPickerWallpaperSuggestion alloc] initWithMode:8];
-  v13[3] = v6;
+  v12[3] = v6;
   v7 = [[PUPickerWallpaperSuggestion alloc] initWithMode:9];
-  v13[4] = v7;
+  v12[4] = v7;
   v8 = [[PUPickerWallpaperSuggestion alloc] initWithMode:10];
-  v13[5] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:6];
+  v12[5] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:6];
 
   v10 = [[_PHPickerSuggestionGroup alloc] _initWithSuggestions:v9 defaultSuggestionIndex:v2 isForWallpaper:0];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (_PHPickerSuggestionGroup)stickersSuggestionGroup
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695DF70]);
   v3 = objc_alloc_init(PUPickerSuggestionAll);
-  v29[0] = v3;
+  v28[0] = v3;
   v4 = [[PUPickerSearchBasedSuggestion alloc] initWithMode:6];
-  v29[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+  v28[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
   v6 = [v2 initWithArray:v5];
 
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -376,10 +393,10 @@ LABEL_13:
   [v6 addObject:v16];
 
   v17 = [[PUPickerSearchBasedSuggestion alloc] initWithMode:0];
-  v28[0] = v17;
+  v27[0] = v17;
   v18 = [[PUPickerSearchBasedSuggestion alloc] initWithMode:5];
-  v28[1] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v27[1] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   [v6 addObjectsFromArray:v19];
 
   standardUserDefaults3 = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -392,28 +409,26 @@ LABEL_13:
   }
 
   v22 = [[PUPickerSearchBasedSuggestion alloc] initWithMode:4];
-  v27 = v22;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+  v26 = v22;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
   [v6 addObjectsFromArray:v23];
 
   v24 = [[_PHPickerSuggestionGroup alloc] _initWithSuggestions:v6 defaultSuggestionIndex:0 isForWallpaper:0];
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
 
 + (_PHPickerSuggestionGroup)deviceOwnerSuggestionGroup
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = PLIsFeaturedContentAllowed();
   v3 = objc_alloc_init(PUPickerSuggestionAll);
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [[PUPickerWallpaperSuggestion alloc] initWithMode:5];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
 
   v6 = [[_PHPickerSuggestionGroup alloc] _initWithSuggestions:v5 defaultSuggestionIndex:v2 isForWallpaper:1];
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -473,21 +488,20 @@ LABEL_13:
 
 + (_PHPickerSuggestionGroup)backdropWallpaperSuggestionGroup
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   v2 = PLIsFeaturedContentAllowed();
   v3 = objc_alloc_init(PUPickerSuggestionAll);
   v4 = [[PUPickerWallpaperSuggestion alloc] initWithMode:17, v3];
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = [[PUPickerWallpaperSuggestion alloc] initWithMode:16];
-  v12[2] = v5;
+  v11[2] = v5;
   v6 = [[PUPickerWallpaperSuggestion alloc] initWithMode:15];
-  v12[3] = v6;
+  v11[3] = v6;
   v7 = [[PUPickerWallpaperSuggestion alloc] initWithMode:14];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:5];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:5];
 
   v9 = [[_PHPickerSuggestionGroup alloc] _initWithSuggestions:v8 defaultSuggestionIndex:v2 isForWallpaper:1];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

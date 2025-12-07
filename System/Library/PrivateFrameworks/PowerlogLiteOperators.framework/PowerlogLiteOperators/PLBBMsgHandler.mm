@@ -10,15 +10,15 @@
 
 - (PLBBMsgHandler)init
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __22__PLBBMsgHandler_init__block_invoke;
-    v15 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v16 = v3;
+    v12 = 3221225472;
+    v13 = __22__PLBBMsgHandler_init__block_invoke;
+    v14 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v15 = v3;
     if (qword_2811F7D70 != -1)
     {
       dispatch_once(&qword_2811F7D70, &block);
@@ -26,7 +26,7 @@
 
     if (_MergedGlobals_103 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMsgHandler init]", block, v13, v14, v15, v16];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMsgHandler init]", block, v12, v13, v14, v15];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBMsgHandler.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -37,17 +37,16 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v18 = v4;
+        v17 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t __22__PLBBMsgHandler_init__block_invoke(uint64_t a1)
+void *__22__PLBBMsgHandler_init__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_103 = result;
@@ -56,15 +55,15 @@ uint64_t __22__PLBBMsgHandler_init__block_invoke(uint64_t a1)
 
 + (id)getMsgHandler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v2 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __31__PLBBMsgHandler_getMsgHandler__block_invoke;
-    v19 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v20 = v2;
+    v16 = 3221225472;
+    v17 = __31__PLBBMsgHandler_getMsgHandler__block_invoke;
+    v18 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v19 = v2;
     if (qword_2811F7D78 != -1)
     {
       dispatch_once(&qword_2811F7D78, &block);
@@ -72,7 +71,7 @@ uint64_t __22__PLBBMsgHandler_init__block_invoke(uint64_t a1)
 
     if (byte_2811F7D59 == 1)
     {
-      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "+[PLBBMsgHandler getMsgHandler]", block, v17, v18, v19, v20];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "+[PLBBMsgHandler getMsgHandler]", block, v16, v17, v18, v19];
       v4 = MEMORY[0x277D3F178];
       v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBMsgHandler.m"];
       lastPathComponent = [v5 lastPathComponent];
@@ -83,7 +82,7 @@ uint64_t __22__PLBBMsgHandler_init__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v22 = v3;
+        v21 = v3;
         _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -103,12 +102,10 @@ uint64_t __22__PLBBMsgHandler_init__block_invoke(uint64_t a1)
     v9 = qword_2811F7D60;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
-uint64_t __31__PLBBMsgHandler_getMsgHandler__block_invoke(uint64_t a1)
+void *__31__PLBBMsgHandler_getMsgHandler__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D59 = result;
@@ -117,17 +114,17 @@ uint64_t __31__PLBBMsgHandler_getMsgHandler__block_invoke(uint64_t a1)
 
 - (void)registerWithHandlerAs:(id)as forType:(unint64_t)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D3F180];
   asCopy = as;
   if ([v5 debugEnabled])
   {
     v7 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __48__PLBBMsgHandler_registerWithHandlerAs_forType___block_invoke;
-    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v21 = v7;
+    v17 = 3221225472;
+    v18 = __48__PLBBMsgHandler_registerWithHandlerAs_forType___block_invoke;
+    v19 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v20 = v7;
     if (qword_2811F7D80 != -1)
     {
       dispatch_once(&qword_2811F7D80, &block);
@@ -135,7 +132,7 @@ uint64_t __31__PLBBMsgHandler_getMsgHandler__block_invoke(uint64_t a1)
 
     if (byte_2811F7D5A == 1)
     {
-      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMsgHandler registerWithHandlerAs:forType:]", block, v18, v19, v20, v21];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMsgHandler registerWithHandlerAs:forType:]", block, v17, v18, v19, v20];
       v9 = MEMORY[0x277D3F178];
       v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBMsgHandler.m"];
       lastPathComponent = [v10 lastPathComponent];
@@ -146,7 +143,7 @@ uint64_t __31__PLBBMsgHandler_getMsgHandler__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = v8;
+        v22 = v8;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -155,11 +152,9 @@ uint64_t __31__PLBBMsgHandler_getMsgHandler__block_invoke(uint64_t a1)
   v14 = qword_2811F7D68;
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
   [v14 setObject:asCopy forKey:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLBBMsgHandler_registerWithHandlerAs_forType___block_invoke(uint64_t a1)
+void *__48__PLBBMsgHandler_registerWithHandlerAs_forType___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D5A = result;
@@ -168,15 +163,15 @@ uint64_t __48__PLBBMsgHandler_registerWithHandlerAs_forType___block_invoke(uint6
 
 - (void)handleMsg:(id)msg forAgent:(id)agent
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __37__PLBBMsgHandler_handleMsg_forAgent___block_invoke;
-    v19 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v20 = v5;
+    v16 = 3221225472;
+    v17 = __37__PLBBMsgHandler_handleMsg_forAgent___block_invoke;
+    v18 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v19 = v5;
     if (qword_2811F7D88 != -1)
     {
       dispatch_once(&qword_2811F7D88, &block);
@@ -184,7 +179,7 @@ uint64_t __48__PLBBMsgHandler_registerWithHandlerAs_forType___block_invoke(uint6
 
     if (byte_2811F7D5B == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMsgHandler handleMsg:forAgent:]", block, v17, v18, v19, v20];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMsgHandler handleMsg:forAgent:]", block, v16, v17, v18, v19];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBMsgHandler.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -195,7 +190,7 @@ uint64_t __48__PLBBMsgHandler_registerWithHandlerAs_forType___block_invoke(uint6
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v22 = v6;
+        v21 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -208,22 +203,21 @@ uint64_t __48__PLBBMsgHandler_registerWithHandlerAs_forType___block_invoke(uint6
   {
     case 1:
       v14 = &unk_282C11A30;
-      goto LABEL_14;
+      break;
     case 2:
       v14 = &unk_282C11A00;
-      goto LABEL_14;
+      break;
     case 4:
       v14 = &unk_282C11A18;
-LABEL_14:
-      [qword_2811F7D68 objectForKey:v14];
-
       break;
+    default:
+      return;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  [qword_2811F7D68 objectForKey:v14];
 }
 
-uint64_t __37__PLBBMsgHandler_handleMsg_forAgent___block_invoke(uint64_t a1)
+void *__37__PLBBMsgHandler_handleMsg_forAgent___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D5B = result;
@@ -232,15 +226,15 @@ uint64_t __37__PLBBMsgHandler_handleMsg_forAgent___block_invoke(uint64_t a1)
 
 - (id)decodeMsgHeader
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v2 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __33__PLBBMsgHandler_decodeMsgHeader__block_invoke;
-    v14 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v15 = v2;
+    v11 = 3221225472;
+    v12 = __33__PLBBMsgHandler_decodeMsgHeader__block_invoke;
+    v13 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v14 = v2;
     if (qword_2811F7D90 != -1)
     {
       dispatch_once(&qword_2811F7D90, &block);
@@ -248,7 +242,7 @@ uint64_t __37__PLBBMsgHandler_handleMsg_forAgent___block_invoke(uint64_t a1)
 
     if (byte_2811F7D5C == 1)
     {
-      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMsgHandler decodeMsgHeader]", block, v12, v13, v14, v15];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMsgHandler decodeMsgHeader]", block, v11, v12, v13, v14];
       v4 = MEMORY[0x277D3F178];
       v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBMsgHandler.m"];
       lastPathComponent = [v5 lastPathComponent];
@@ -259,17 +253,16 @@ uint64_t __37__PLBBMsgHandler_handleMsg_forAgent___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v17 = v3;
+        v16 = v3;
         _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return &unk_282C11A48;
 }
 
-uint64_t __33__PLBBMsgHandler_decodeMsgHeader__block_invoke(uint64_t a1)
+void *__33__PLBBMsgHandler_decodeMsgHeader__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D5C = result;

@@ -115,7 +115,7 @@
 - (NSBundle)bundle
 {
   selfCopy = self;
-  v3 = sub_1B1B40FA0();
+  v3 = sub_1B1B40FA0(selfCopy);
 
   return v3;
 }
@@ -135,28 +135,35 @@
   v9 = v8;
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v7;
     v7 = sub_1B1B20A18;
     if (v9)
     {
 LABEL_3:
-      *(swift_allocObject() + 16) = v9;
-      v10 = sub_1B1B20A10;
+      v11 = swift_allocObject();
+      *(v11 + 16) = v9;
+      v12 = sub_1B1B20A10;
       goto LABEL_6;
     }
   }
 
-  else if (v8)
+  else
   {
-    goto LABEL_3;
+    v10 = 0;
+    if (v8)
+    {
+      goto LABEL_3;
+    }
   }
 
-  v10 = 0;
+  v12 = 0;
+  v11 = 0;
 LABEL_6:
   selfCopy = self;
-  sub_1B1B413A8(selfCopy, v11, v12, v10);
-  sub_1B1A949B4(v10);
-  sub_1B1A949B4(v7);
+  sub_1B1B413A8(selfCopy, v13, v14, v12);
+  sub_1B1A949B4(v12, v11);
+  sub_1B1A949B4(v7, v10);
 }
 
 - (void)cancelDownloadingThen:(id)then
@@ -173,30 +180,33 @@ LABEL_6:
   v4 = _Block_copy(then);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1B1A95AD0;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1B1A95AD0;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_1B1B41724(v5);
-  sub_1B1A949B4(v5);
+  sub_1B1B41724(v7);
+  sub_1B1A949B4(v7, v6);
 }
 
 - (void)setPurgeCondition:(int64_t)condition
 {
   selfCopy = self;
-  sub_1B1B418C4();
+  sub_1B1B418C4(selfCopy);
 }
 
 - (int64_t)purgeCondition
 {
   selfCopy = self;
-  sub_1B1B41A0C();
+  sub_1B1B41A0C(selfCopy);
 
   return 3;
 }

@@ -9,7 +9,10 @@
 - (void)authenticationDidComplete:(id)complete completion:(id)completion;
 - (void)authenticationDidFail:(id)fail completion:(id)completion;
 - (void)dealloc;
+- (void)fetchAppsInfo:(BOOL)info completion:(id)completion;
 - (void)fetchDataPlanMetrics:(id)metrics;
+- (void)fetchPlansInfo:(BOOL)info completion:(id)completion;
+- (void)fetchUsageInfo:(BOOL)info completion:(id)completion;
 - (void)getAuthenticationContext:(id)context;
 - (void)getCapabilities:(id)capabilities;
 - (void)getUserConsentFlowInfo:(id)info;
@@ -22,6 +25,9 @@
 - (void)refreshPlansInfo:(id)info;
 - (void)refreshUsageInfo:(id)info;
 - (void)setDelegate:(id)delegate;
+- (void)setUserConsent:(BOOL)consent completion:(id)completion;
+- (void)setUserInAuthFlow:(BOOL)flow completion:(id)completion;
+- (void)userDidAcceptPlanTerms:(BOOL)terms completion:(id)completion;
 @end
 
 @implementation CTCarrierSpaceClient
@@ -111,27 +117,27 @@ void __37__CTCarrierSpaceClient__connect_sync__block_invoke(uint64_t a1)
   }
 }
 
-void __37__CTCarrierSpaceClient__connect_sync__block_invoke_2(uint64_t a1)
+void __37__CTCarrierSpaceClient__connect_sync__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = _CTCarrierSpaceLogDomain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _CTCarrierSpaceLogDomain(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_2426DB000, v2, OS_LOG_TYPE_DEFAULT, "Connection has been invalidated", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_2426DB000, v3, OS_LOG_TYPE_DEFAULT, "Connection has been invalidated", v6, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 8);
-  *(v3 + 8) = 0;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 8);
+  *(v4 + 8) = 0;
 }
 
-void __37__CTCarrierSpaceClient__connect_sync__block_invoke_59(uint64_t a1)
+void __37__CTCarrierSpaceClient__connect_sync__block_invoke_59(uint64_t a1, uint64_t a2)
 {
-  v2 = _CTCarrierSpaceLogDomain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _CTCarrierSpaceLogDomain(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2426DB000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted. Attempting to reestablish connection", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2426DB000, v3, OS_LOG_TYPE_DEFAULT, "Connection interrupted. Attempting to reestablish connection", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -141,22 +147,23 @@ void __37__CTCarrierSpaceClient__connect_sync__block_invoke_59(uint64_t a1)
 void __37__CTCarrierSpaceClient__connect_sync__block_invoke_60(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = _CTCarrierSpaceLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = _CTCarrierSpaceLogDomain(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __37__CTCarrierSpaceClient__connect_sync__block_invoke_60_cold_1(v2, v3);
+      __37__CTCarrierSpaceClient__connect_sync__block_invoke_60_cold_1(v4, v5);
     }
   }
 
   else
   {
-    v4 = _CTCarrierSpaceLogDomain();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = _CTCarrierSpaceLogDomain(0, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_2426DB000, v4, OS_LOG_TYPE_DEFAULT, "Successfully reestablished connection", v5, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_2426DB000, v6, OS_LOG_TYPE_DEFAULT, "Successfully reestablished connection", v7, 2u);
     }
   }
 }
@@ -211,16 +218,16 @@ id __47__CTCarrierSpaceClient__proxyWithErrorHandler___block_invoke(uint64_t a1)
 void __47__CTCarrierSpaceClient__proxyWithErrorHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CTCarrierSpaceLogDomain();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = _CTCarrierSpaceLogDomain(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __47__CTCarrierSpaceClient__proxyWithErrorHandler___block_invoke_2_cold_1(v3, v4);
+    __47__CTCarrierSpaceClient__proxyWithErrorHandler___block_invoke_2_cold_1(v3, v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
@@ -360,6 +367,14 @@ void __36__CTCarrierSpaceClient_setDelegate___block_invoke(uint64_t a1)
   [v4 refreshAppsInfo:infoCopy];
 }
 
+- (void)setUserInAuthFlow:(BOOL)flow completion:(id)completion
+{
+  flowCopy = flow;
+  completionCopy = completion;
+  v6 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:?];
+  [v6 setUserInAuthFlow:flowCopy completion:completionCopy];
+}
+
 - (void)authenticationDidComplete:(id)complete completion:(id)completion
 {
   completeCopy = complete;
@@ -374,6 +389,14 @@ void __36__CTCarrierSpaceClient_setDelegate___block_invoke(uint64_t a1)
   completionCopy = completion;
   v7 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:completionCopy];
   [v7 authenticationDidFail:failCopy completion:completionCopy];
+}
+
+- (void)userDidAcceptPlanTerms:(BOOL)terms completion:(id)completion
+{
+  termsCopy = terms;
+  completionCopy = completion;
+  v6 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:?];
+  [v6 userDidAcceptPlanTerms:termsCopy completion:completionCopy];
 }
 
 - (void)getAuthenticationContext:(id)context
@@ -392,18 +415,18 @@ void __36__CTCarrierSpaceClient_setDelegate___block_invoke(uint64_t a1)
 - (void)getCapabilities:(id)capabilities
 {
   capabilitiesCopy = capabilities;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __40__CTCarrierSpaceClient_getCapabilities___block_invoke;
-  v9[3] = &unk_278D646C8;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __40__CTCarrierSpaceClient_getCapabilities___block_invoke;
+  v10[3] = &unk_278D646C8;
   v5 = capabilitiesCopy;
-  v10 = v5;
-  v6 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:v9];
-  v7 = _CTCarrierSpaceLogDomain();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v11 = v5;
+  v6 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:v10];
+  v8 = _CTCarrierSpaceLogDomain(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_2426DB000, v7, OS_LOG_TYPE_INFO, "Client requesting to get capabiities", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_2426DB000, v8, OS_LOG_TYPE_INFO, "Client requesting to get capabiities", v9, 2u);
   }
 
   [v6 getCapabilities:v5];
@@ -412,35 +435,114 @@ void __36__CTCarrierSpaceClient_setDelegate___block_invoke(uint64_t a1)
 - (void)getUserConsentFlowInfo:(id)info
 {
   infoCopy = info;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __47__CTCarrierSpaceClient_getUserConsentFlowInfo___block_invoke;
-  v9[3] = &unk_278D646C8;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __47__CTCarrierSpaceClient_getUserConsentFlowInfo___block_invoke;
+  v11[3] = &unk_278D646C8;
   v5 = infoCopy;
-  v10 = v5;
-  v6 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:v9];
+  v12 = v5;
+  v6 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:v11];
+  v8 = v6;
   if (v6)
   {
-    v7 = _CTCarrierSpaceLogDomain();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = _CTCarrierSpaceLogDomain(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_2426DB000, v7, OS_LOG_TYPE_INFO, "Client requesting to get user consent flow information", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_2426DB000, v9, OS_LOG_TYPE_INFO, "Client requesting to get user consent flow information", v10, 2u);
     }
 
-    [v6 getUserConsentFlowInfo:v5];
+    [v8 getUserConsentFlowInfo:v5];
   }
+}
+
+- (void)setUserConsent:(BOOL)consent completion:(id)completion
+{
+  consentCopy = consent;
+  completionCopy = completion;
+  v7 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:completionCopy];
+  v9 = _CTCarrierSpaceLogDomain(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    *v10 = 0;
+    _os_log_impl(&dword_2426DB000, v9, OS_LOG_TYPE_INFO, "Client setting user consent", v10, 2u);
+  }
+
+  [v7 setUserConsent:consentCopy completion:completionCopy];
+}
+
+- (void)fetchUsageInfo:(BOOL)info completion:(id)completion
+{
+  infoCopy = info;
+  completionCopy = completion;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __50__CTCarrierSpaceClient_fetchUsageInfo_completion___block_invoke;
+  v12[3] = &unk_278D646C8;
+  v7 = completionCopy;
+  v13 = v7;
+  v8 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:v12];
+  v10 = _CTCarrierSpaceLogDomain(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    *v11 = 0;
+    _os_log_impl(&dword_2426DB000, v10, OS_LOG_TYPE_INFO, "Client requesting to fetch usage", v11, 2u);
+  }
+
+  [v8 fetchUsageInfo:infoCopy completion:v7];
+}
+
+- (void)fetchPlansInfo:(BOOL)info completion:(id)completion
+{
+  infoCopy = info;
+  completionCopy = completion;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __50__CTCarrierSpaceClient_fetchPlansInfo_completion___block_invoke;
+  v12[3] = &unk_278D646C8;
+  v7 = completionCopy;
+  v13 = v7;
+  v8 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:v12];
+  v10 = _CTCarrierSpaceLogDomain(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    *v11 = 0;
+    _os_log_impl(&dword_2426DB000, v10, OS_LOG_TYPE_INFO, "Client requesting to fetch plans", v11, 2u);
+  }
+
+  [v8 fetchPlansInfo:infoCopy completion:v7];
+}
+
+- (void)fetchAppsInfo:(BOOL)info completion:(id)completion
+{
+  infoCopy = info;
+  completionCopy = completion;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __49__CTCarrierSpaceClient_fetchAppsInfo_completion___block_invoke;
+  v12[3] = &unk_278D646C8;
+  v7 = completionCopy;
+  v13 = v7;
+  v8 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:v12];
+  v10 = _CTCarrierSpaceLogDomain(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    *v11 = 0;
+    _os_log_impl(&dword_2426DB000, v10, OS_LOG_TYPE_INFO, "Client requesting to fetch apps", v11, 2u);
+  }
+
+  [v8 fetchAppsInfo:infoCopy completion:v7];
 }
 
 - (void)refreshAllInfo:(id)info
 {
   infoCopy = info;
   v5 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:infoCopy];
-  v6 = _CTCarrierSpaceLogDomain();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _CTCarrierSpaceLogDomain(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_2426DB000, v6, OS_LOG_TYPE_INFO, "Client requesting to refresh all info", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_2426DB000, v7, OS_LOG_TYPE_INFO, "Client requesting to refresh all info", v8, 2u);
   }
 
   [v5 refreshAllInfo:infoCopy];
@@ -452,17 +554,15 @@ void __36__CTCarrierSpaceClient_setDelegate___block_invoke(uint64_t a1)
   planCopy = plan;
   completionCopy = completion;
   v8 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:completionCopy];
-  v9 = _CTCarrierSpaceLogDomain();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = _CTCarrierSpaceLogDomain(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = 138412290;
     v12 = planCopy;
-    _os_log_impl(&dword_2426DB000, v9, OS_LOG_TYPE_INFO, "Client requesting to purchase plan: %@", &v11, 0xCu);
+    _os_log_impl(&dword_2426DB000, v10, OS_LOG_TYPE_INFO, "Client requesting to purchase plan: %@", &v11, 0xCu);
   }
 
   [v8 purchasePlan:planCopy authInfo:0 completion:completionCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purchasePlan:(id)plan authInfo:(id)info completion:(id)completion
@@ -472,36 +572,34 @@ void __36__CTCarrierSpaceClient_setDelegate___block_invoke(uint64_t a1)
   infoCopy = info;
   completionCopy = completion;
   v11 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:completionCopy];
-  v12 = _CTCarrierSpaceLogDomain();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = _CTCarrierSpaceLogDomain(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = 138412546;
     v15 = planCopy;
     v16 = 2112;
     v17 = infoCopy;
-    _os_log_impl(&dword_2426DB000, v12, OS_LOG_TYPE_INFO, "Client requesting to purchase plan: %@, auth info: %@", &v14, 0x16u);
+    _os_log_impl(&dword_2426DB000, v13, OS_LOG_TYPE_INFO, "Client requesting to purchase plan: %@, auth info: %@", &v14, 0x16u);
   }
 
   [v11 purchasePlan:planCopy authInfo:infoCopy completion:completionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchDataPlanMetrics:(id)metrics
 {
   metricsCopy = metrics;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __45__CTCarrierSpaceClient_fetchDataPlanMetrics___block_invoke;
-  v9[3] = &unk_278D646C8;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __45__CTCarrierSpaceClient_fetchDataPlanMetrics___block_invoke;
+  v10[3] = &unk_278D646C8;
   v5 = metricsCopy;
-  v10 = v5;
-  v6 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:v9];
-  v7 = _CTCarrierSpaceLogDomain();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v11 = v5;
+  v6 = [(CTCarrierSpaceClient *)self _proxyWithErrorHandler:v10];
+  v8 = _CTCarrierSpaceLogDomain(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_2426DB000, v7, OS_LOG_TYPE_INFO, "Client is fetching data plan metrics", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_2426DB000, v8, OS_LOG_TYPE_INFO, "Client is fetching data plan metrics", v9, 2u);
   }
 
   [v6 fetchDataPlanMetrics:v5];
@@ -523,20 +621,18 @@ void __36__CTCarrierSpaceClient_setDelegate___block_invoke(uint64_t a1)
 
 void __37__CTCarrierSpaceClient__connect_sync__block_invoke_60_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2426DB000, a2, OS_LOG_TYPE_ERROR, "Failed to ping connection after interruption: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2426DB000, a2, OS_LOG_TYPE_ERROR, "Failed to ping connection after interruption: %@", &v2, 0xCu);
 }
 
 void __47__CTCarrierSpaceClient__proxyWithErrorHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2426DB000, a2, OS_LOG_TYPE_ERROR, "Failed to create remote object proxy: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2426DB000, a2, OS_LOG_TYPE_ERROR, "Failed to create remote object proxy: %@", &v2, 0xCu);
 }
 
 @end

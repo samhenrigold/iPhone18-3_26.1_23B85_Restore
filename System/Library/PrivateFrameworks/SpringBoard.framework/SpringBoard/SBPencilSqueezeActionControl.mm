@@ -18,7 +18,7 @@
   {
     if (!v4)
     {
-      [SBPencilSqueezeActionControl initWithDefaults:?];
+      [(SBPencilSqueezeActionControl *)sel_initWithDefaults_ initWithDefaults:defaults];
     }
 
     v15.receiver = defaults;
@@ -60,84 +60,87 @@ void __49__SBPencilSqueezeActionControl_initWithDefaults___block_invoke(uint64_t
 
 - (BOOL)performSqueezeActionWithTimestamp:(uint64_t)timestamp
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (timestamp)
   {
     if (!v3)
     {
-      [SBPencilSqueezeActionControl performSqueezeActionWithTimestamp:?];
+      [(SBPencilSqueezeActionControl *)sel_performSqueezeActionWithTimestamp_ performSqueezeActionWithTimestamp:timestamp];
     }
 
-    v5 = SBLogPencilSqueeze();
+    v5 = SBLogPencilSqueeze(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       timestampCopy3 = timestamp;
-      v19 = 2114;
-      v20 = v4;
+      v22 = 2114;
+      v23 = v4;
       _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@) requested to perform action with timestamp: %{public}@", buf, 0x16u);
     }
 
     v6 = *(timestamp + 16);
-    v16 = 0;
-    v7 = [(SBPencilSqueezeActionControl *)timestamp _shouldPerformAction:v6 withReason:&v16];
-    v8 = v16;
+    v19 = 0;
+    v7 = [(SBPencilSqueezeActionControl *)timestamp _shouldPerformAction:v6 withReason:&v19];
+    v8 = v19;
+    v9 = v8;
     if (v7)
     {
-      v9 = [(SBPencilSqueezeActionControl *)timestamp _runnerClientForAction:v6 timestamp:v4];
-      v11 = *(timestamp + 24);
-      if (v11)
+      v10 = [(SBPencilSqueezeActionControl *)timestamp _runnerClientForAction:v6 timestamp:v4];
+      v12 = *(timestamp + 24);
+      if (v12)
       {
-        if (([v11 containsObject:v9] & 1) == 0)
+        v13 = objc_msgSend_containsObject_(v12);
+        if ((v13 & 1) == 0)
         {
-          [*(timestamp + 24) addObject:v9];
+          v13 = [*(timestamp + 24) addObject:v10];
         }
       }
 
       else
       {
-        v12 = [MEMORY[0x277CBEB18] arrayWithObject:v9];
-        v13 = *(timestamp + 24);
-        *(timestamp + 24) = v12;
+        v14 = [MEMORY[0x277CBEB18] arrayWithObject:v10];
+        v15 = *(timestamp + 24);
+        *(timestamp + 24) = v14;
       }
 
-      v14 = SBLogPencilSqueeze();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = SBLogPencilSqueeze(v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543875;
         timestampCopy3 = timestamp;
-        v19 = 2113;
-        v20 = v6;
-        v21 = 2114;
-        v22 = v9;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "(%{public}@) performing action '%{private}@' with runner client '%{public}@'", buf, 0x20u);
+        v22 = 2113;
+        v23 = v6;
+        v24 = 2114;
+        v25 = v10;
+        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "(%{public}@) performing action '%{private}@' with runner client '%{public}@'", buf, 0x20u);
       }
 
-      [v9 startWithPreciseTimeStamp:v4];
-      if ((AnalyticsSendEventLazy() & 1) == 0)
+      [v10 startWithPreciseTimeStamp:v4];
+      v17 = AnalyticsSendEventLazy();
+      if ((v17 & 1) == 0)
       {
-        v15 = SBLogPencilSqueeze();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v18 = SBLogPencilSqueeze(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          [SBPencilSqueezeActionControl performSqueezeActionWithTimestamp:v15];
+          [SBPencilSqueezeActionControl performSqueezeActionWithTimestamp:v18];
         }
       }
     }
 
     else
     {
-      v9 = SBLogPencilSqueeze();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogPencilSqueeze(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543875;
         timestampCopy3 = timestamp;
-        v19 = 2114;
-        v20 = v8;
-        v21 = 2113;
-        v22 = v6;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@) Disallowing action (%{public}@); action: %{private}@", buf, 0x20u);
+        v22 = 2114;
+        v23 = v9;
+        v24 = 2113;
+        v25 = v6;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "(%{public}@) Disallowing action (%{public}@); action: %{private}@", buf, 0x20u);
       }
     }
   }
@@ -187,7 +190,7 @@ uint64_t __65__SBPencilSqueezeActionControl__runnerClientForAction_timestamp___b
 
 - (void)_updateSelectedAction
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self)
   {
     squeezeConfiguredActionArchive = [*(self + 8) squeezeConfiguredActionArchive];
@@ -195,37 +198,37 @@ uint64_t __65__SBPencilSqueezeActionControl__runnerClientForAction_timestamp___b
     {
       v3 = MEMORY[0x277CCAAC8];
       v4 = objc_opt_self();
-      v10 = 0;
-      v5 = [v3 unarchivedObjectOfClass:v4 fromData:squeezeConfiguredActionArchive error:&v10];
-      v6 = v10;
+      v11 = 0;
+      v5 = [v3 unarchivedObjectOfClass:v4 fromData:squeezeConfiguredActionArchive error:&v11];
+      v6 = v11;
 
-      v7 = SBLogPencilSqueeze();
-      v8 = v7;
+      v8 = SBLogPencilSqueeze(v7);
+      v9 = v8;
       if (v5)
       {
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543619;
           selfCopy3 = self;
-          v13 = 2113;
-          v14 = v5;
-          _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@) Selecting squeeze action %{private}@", buf, 0x16u);
+          v14 = 2113;
+          v15 = v5;
+          _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@) Selecting squeeze action %{private}@", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
         selfCopy3 = self;
-        v13 = 2114;
-        v14 = v6;
-        _os_log_error_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_ERROR, "(%{public}@) Error unarchiving squeeze action: %{public}@", buf, 0x16u);
+        v14 = 2114;
+        v15 = v6;
+        _os_log_error_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_ERROR, "(%{public}@) Error unarchiving squeeze action: %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v6 = SBLogPencilSqueeze();
+      v6 = SBLogPencilSqueeze(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
@@ -236,7 +239,7 @@ uint64_t __65__SBPencilSqueezeActionControl__runnerClientForAction_timestamp___b
       v5 = 0;
     }
 
-    v9 = *(self + 16);
+    v10 = *(self + 16);
     *(self + 16) = v5;
   }
 }
@@ -327,7 +330,7 @@ LABEL_13:
     if (v9)
     {
       v10 = v9;
-      v11 = SBLogPencilSqueeze();
+      v11 = SBLogPencilSqueeze(v9);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543875;
@@ -357,29 +360,30 @@ LABEL_13:
 
 - (void)_runnerClientDidFinish:(void *)finish withResult:(int)result cancelled:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a2;
   finishCopy = finish;
   if (self)
   {
-    v9 = [*(self + 24) containsObject:v7];
-    v10 = SBLogPencilSqueeze();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v9)
+    v9 = objc_msgSend_containsObject_(*(self + 24));
+    v10 = v9;
+    v11 = SBLogPencilSqueeze(v9);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v11)
+      if (v12)
       {
-        v12 = 138544386;
+        v13 = 138544386;
         selfCopy2 = self;
-        v14 = 2114;
-        v15 = v7;
-        v16 = 1024;
-        v17 = finishCopy == 0;
-        v18 = 1024;
+        v15 = 2114;
+        v16 = v7;
+        v17 = 1024;
+        v18 = finishCopy == 0;
+        v19 = 1024;
         resultCopy = result;
-        v20 = 2114;
-        v21 = finishCopy;
-        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "(%{public}@) runner '%{public}@' did finish successfully: %{BOOL}u\n    cancelled: %{BOOL}u\n    error: %{public}@", &v12, 0x2Cu);
+        v21 = 2114;
+        v22 = finishCopy;
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "(%{public}@) runner '%{public}@' did finish successfully: %{BOOL}u\n    cancelled: %{BOOL}u\n    error: %{public}@", &v13, 0x2Cu);
       }
 
       [*(self + 24) removeObject:v7];
@@ -387,38 +391,38 @@ LABEL_13:
 
     else
     {
-      if (v11)
+      if (v12)
       {
-        v12 = 138543618;
+        v13 = 138543618;
         selfCopy2 = self;
-        v14 = 2114;
-        v15 = v7;
-        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "(%{public}@) skipping finished result from no-longer-tracked runner client '%{public}@'", &v12, 0x16u);
+        v15 = 2114;
+        v16 = v7;
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "(%{public}@) skipping finished result from no-longer-tracked runner client '%{public}@'", &v13, 0x16u);
       }
     }
   }
 }
 
-- (void)initWithDefaults:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithDefaults:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"defaults != ((void *)0)"];
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"defaults != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v9 = @"SBPencilSqueezeActionControl.m";
-    v10 = 1024;
-    v11 = 66;
-    v12 = v6;
-    v13 = v2;
+    v10 = @"SBPencilSqueezeActionControl.m";
+    v11 = 1024;
+    v12 = 66;
+    v13 = v7;
+    v14 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  v7 = v2;
-  [v2 UTF8String];
+  v8 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -442,24 +446,24 @@ LABEL_13:
   v7 = v6;
 }
 
-- (void)performSqueezeActionWithTimestamp:(const char *)a1 .cold.2(const char *a1)
+- (void)performSqueezeActionWithTimestamp:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"timestamp != ((void *)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"timestamp != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBPencilSqueezeActionControl.m";
-    v9 = 1024;
-    v10 = 84;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBPencilSqueezeActionControl.m";
+    v10 = 1024;
+    v11 = 84;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

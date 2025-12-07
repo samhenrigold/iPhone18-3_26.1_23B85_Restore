@@ -26,7 +26,7 @@
 
 - (GDEntitySimilarityResult)initWithCoder:(id)coder
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_request);
@@ -51,9 +51,9 @@
     if (!error)
     {
       v15 = MEMORY[0x1E696ABC0];
-      v20 = *MEMORY[0x1E696A578];
-      v21[0] = @"GDEntitySimilarityRequest is nil";
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x1E696A578];
+      v20[0] = @"GDEntitySimilarityRequest is nil";
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v17 = [v15 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v16];
       [coderCopy failWithError:v17];
     }
@@ -61,7 +61,6 @@
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

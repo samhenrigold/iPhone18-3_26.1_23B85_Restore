@@ -5,7 +5,7 @@
 - (id)_displayNameForMediaSelectionOption:(id)option;
 - (id)_elementsForMediaSelectionOptions:(void *)options;
 - (id)_mediaSelectionMenuImage;
-- (uint64_t)_reloadAudibleOptionsMenu;
+- (id)_reloadAudibleOptionsMenu;
 - (void)_reloadAudioTrackMenuDisplayingInline:(void *)inline;
 - (void)_reloadLegibleOptionsMenu;
 - (void)_reloadMediaPresentationAudioTrackMenuDisplayingInline:(void *)inline;
@@ -358,11 +358,11 @@ void __68__AVMediaSelectionMenuController__elementsForMediaSelectionOptions___bl
     enhanceDialogueOptions = self->_enhanceDialogueOptions;
     self->_enhanceDialogueOptions = v5;
 
-    [(AVMediaSelectionMenuController *)self _reloadAudibleOptionsMenu];
+    [(AVMediaSelectionMenuController *)&self->super.isa _reloadAudibleOptionsMenu];
   }
 }
 
-- (uint64_t)_reloadAudibleOptionsMenu
+- (id)_reloadAudibleOptionsMenu
 {
   v70[16] = *MEMORY[0x1E69E9840];
   val = result;
@@ -875,7 +875,7 @@ LABEL_24:
   }
 
   v17 = objc_loadWeakRetained((a1 + 40));
-  [AVMediaSelectionMenuController _reloadMediaPresentationAudioTrackMenuDisplayingInline:];
+  [AVMediaSelectionMenuController _reloadMediaPresentationAudioTrackMenuDisplayingInline:v17];
 }
 
 void __93__AVMediaSelectionMenuController__reloadMediaPresentationSettingsOptionsMenuDisplayingInline__block_invoke(uint64_t a1, void *a2)
@@ -1174,7 +1174,7 @@ void __69__AVMediaSelectionMenuController__elementsForEnhanceDialogueOptions___b
     audibleMediaPresentationLanguages = self->_audibleMediaPresentationLanguages;
     self->_audibleMediaPresentationLanguages = v5;
 
-    [(AVMediaSelectionMenuController *)self _reloadAudibleOptionsMenu];
+    [(AVMediaSelectionMenuController *)&self->super.isa _reloadAudibleOptionsMenu];
   }
 }
 
@@ -1186,7 +1186,7 @@ void __69__AVMediaSelectionMenuController__elementsForEnhanceDialogueOptions___b
     audibleMediaPresentationSelectors = self->_audibleMediaPresentationSelectors;
     self->_audibleMediaPresentationSelectors = v5;
 
-    [(AVMediaSelectionMenuController *)self _reloadAudibleOptionsMenu];
+    [(AVMediaSelectionMenuController *)&self->super.isa _reloadAudibleOptionsMenu];
   }
 }
 
@@ -1198,7 +1198,7 @@ void __69__AVMediaSelectionMenuController__elementsForEnhanceDialogueOptions___b
     audibleOptions = self->_audibleOptions;
     self->_audibleOptions = v5;
 
-    [(AVMediaSelectionMenuController *)self _reloadAudibleOptionsMenu];
+    [(AVMediaSelectionMenuController *)&self->super.isa _reloadAudibleOptionsMenu];
   }
 }
 
@@ -1227,7 +1227,7 @@ void __69__AVMediaSelectionMenuController__elementsForEnhanceDialogueOptions___b
     v11->_currentAudibleOptionIndex = 0;
     v11->_currentEnhanceDialogueOption = 0;
     v11->_currentLegibleOptionIndex = 0;
-    [(AVMediaSelectionMenuController *)v11 _reloadAudibleOptionsMenu];
+    [(AVMediaSelectionMenuController *)&v11->super.isa _reloadAudibleOptionsMenu];
     [(AVMediaSelectionMenuController *)v11 _reloadLegibleOptionsMenu];
   }
 

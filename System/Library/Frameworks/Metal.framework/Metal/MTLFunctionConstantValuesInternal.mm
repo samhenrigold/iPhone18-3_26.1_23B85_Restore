@@ -85,7 +85,6 @@
     [(MTLFunctionConstantValuesInternal *)index setConstantValue:a2 type:value atIndex:type, index, v5, v6, v7];
   }
 
-  constantStorage = self->_constantStorage;
   _MTLConstantDataSize(type);
   operator new[]();
 }
@@ -112,7 +111,6 @@
 
   if (location < v9)
   {
-    constantStorage = self->_constantStorage;
     _MTLConstantDataSize(type);
     operator new[]();
   }
@@ -141,21 +139,20 @@
 
 - (id)description
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   newNamedConstantArray = [(MTLFunctionConstantValuesInternal *)self newNamedConstantArray];
   newIndexedConstantArray = [(MTLFunctionConstantValuesInternal *)self newIndexedConstantArray];
   v5 = MEMORY[0x1E696AEC0];
-  v11.receiver = self;
-  v11.super_class = MTLFunctionConstantValuesInternal;
-  v6 = [(MTLFunctionConstantValuesInternal *)&v11 description];
-  v12[0] = @"named constants";
+  v10.receiver = self;
+  v10.super_class = MTLFunctionConstantValuesInternal;
+  v6 = [(MTLFunctionConstantValuesInternal *)&v10 description];
+  v11[0] = @"named constants";
   v7 = arrayDescription(newNamedConstantArray);
-  v12[1] = @"index constants";
-  v13[0] = v7;
-  v13[1] = arrayDescription(newIndexedConstantArray);
-  v8 = [v5 stringWithFormat:@"%@\n%@", v6, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v13, v12, 2)];
+  v11[1] = @"index constants";
+  v12[0] = v7;
+  v12[1] = arrayDescription(newIndexedConstantArray);
+  v8 = [v5 stringWithFormat:@"%@\n%@", v6, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v12, v11, 2)];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

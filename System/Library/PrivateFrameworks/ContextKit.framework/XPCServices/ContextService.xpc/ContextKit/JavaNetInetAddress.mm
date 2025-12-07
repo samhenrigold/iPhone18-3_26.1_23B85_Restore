@@ -75,14 +75,14 @@ LABEL_8:
     JreThrowNullPointerException();
   }
 
-  sub_1001CC9CC();
+  self = sub_1001CC9CC();
   if (!array2)
   {
     goto LABEL_8;
   }
 
 LABEL_3:
-  v6 = [IOSObjectArray arrayWithLength:*(array2 + 2) type:JavaNetInetAddress_class_()];
+  v6 = [IOSObjectArray arrayWithLength:*(array2 + 2) type:JavaNetInetAddress_class_(self, a2)];
   if (*(array2 + 2) >= 1)
   {
     v7 = 0;
@@ -119,13 +119,13 @@ LABEL_3:
   p_hostName = &self->hostName_;
   if (!self->hostName_)
   {
-    v3 = sub_1001CB184(self);
+    v3 = sub_1001CB184(self, a2);
     if (!v3)
     {
       JreThrowNullPointerException();
     }
 
-    JreStrongAssign(p_hostName, v3[2]);
+    JreStrongAssign(p_hostName, v3->super.hostName_);
   }
 
   return *p_hostName;
@@ -133,13 +133,13 @@ LABEL_3:
 
 - (id)getCanonicalHostName
 {
-  v2 = sub_1001CB184(self);
+  v2 = sub_1001CB184(self, a2);
   if (!v2)
   {
     JreThrowNullPointerException();
   }
 
-  return *(v2 + 2);
+  return v2->super.hostName_;
 }
 
 - (NSString)description
@@ -222,7 +222,7 @@ LABEL_3:
   else
   {
 
-    return sub_1001CBA70(self, 0, withInt);
+    return sub_1001CBA70(self, 0, *&withInt);
   }
 }
 
@@ -318,11 +318,11 @@ LABEL_9:
     v3 = new_JavaNetInetAddress_initWithInt_withByteArray_withNSString_(0, 0, 0);
     JreStrongAssignAndConsume(&JavaNetInetAddress_UNSPECIFIED_, v3);
     v4 = +[IOSClass intClass](IOSClass, "intClass", new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"address", +[IOSClass intClass]));
-    v7[1] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"family", v4);
+    v8[1] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"family", v4);
     v5 = NSString_class_();
-    v7[2] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"hostName", v5);
-    v6 = [IOSObjectArray newArrayWithObjects:v7 count:3 type:JavaIoObjectStreamField_class_()];
-    JreStrongAssignAndConsume(&qword_100554DE8, v6);
+    v9 = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"hostName", v5);
+    v7 = [IOSObjectArray newArrayWithObjects:v8 count:3 type:JavaIoObjectStreamField_class_(v9, v6)];
+    JreStrongAssignAndConsume(&qword_100554DE8, v7);
     atomic_store(1u, JavaNetInetAddress__initialized);
   }
 }
@@ -331,22 +331,22 @@ LABEL_9:
 {
   if ((atomic_load_explicit(JavaNetInetAddress__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_1001CC9CC();
+    self = sub_1001CC9CC();
   }
 
   if ((atomic_load_explicit(JavaNetInet6Address__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_1001CC9D8();
+    self = sub_1001CC9D8();
   }
 
-  v1[0] = JavaNetInet6Address_LOOPBACK_;
+  v3[0] = JavaNetInet6Address_LOOPBACK_;
   if ((atomic_load_explicit(JavaNetInet4Address__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_1001520E0();
+    self = sub_1001520E0();
   }
 
-  v1[1] = JavaNetInet4Address_LOOPBACK_;
-  return [IOSObjectArray arrayWithObjects:v1 count:2 type:JavaNetInetAddress_class_()];
+  v3[1] = JavaNetInet4Address_LOOPBACK_;
+  return [IOSObjectArray arrayWithObjects:v3 count:2 type:JavaNetInetAddress_class_(self, a2)];
 }
 
 @end

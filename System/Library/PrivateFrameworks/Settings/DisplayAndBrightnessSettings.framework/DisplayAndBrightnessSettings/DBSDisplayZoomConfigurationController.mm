@@ -19,7 +19,7 @@
   return v3;
 }
 
-uint64_t __58__DBSDisplayZoomConfigurationController_defaultController__block_invoke()
+uint64_t __58__DBSDisplayZoomConfigurationController_defaultController__block_invoke(uint64_t a1, uint64_t a2)
 {
   defaultController__defaultController = objc_opt_new();
 
@@ -41,18 +41,18 @@ uint64_t __58__DBSDisplayZoomConfigurationController_defaultController__block_in
   return currentDisplayZoomMode__currentDisplayZoomMode;
 }
 
-void __63__DBSDisplayZoomConfigurationController_currentDisplayZoomMode__block_invoke()
+void __63__DBSDisplayZoomConfigurationController_currentDisplayZoomMode__block_invoke(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (DBSGetMobileFrameBuffer())
   {
+    v3 = 0;
     v2 = 0;
-    v1 = 0;
     IOMobileFramebufferGetCanvasSizes();
-    v0 = DBSLogForCategory(1uLL);
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = DBSLogForCategory(1uLL);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      __63__DBSDisplayZoomConfigurationController_currentDisplayZoomMode__block_invoke_cold_1(v0);
+      __63__DBSDisplayZoomConfigurationController_currentDisplayZoomMode__block_invoke_cold_1(v1);
     }
   }
 }
@@ -71,11 +71,11 @@ void __63__DBSDisplayZoomConfigurationController_currentDisplayZoomMode__block_i
 
 void __57__DBSDisplayZoomConfigurationController_displayZoomModes__block_invoke()
 {
-  v81 = MGCopyAnswer();
-  v0 = [v81 objectForKeyedSubscript:@"default"];
-  v1 = [v81 objectForKeyedSubscript:@"zoomed"];
-  v2 = [v81 objectForKeyedSubscript:@"dense"];
-  v3 = [v81 objectForKeyedSubscript:@"denser"];
+  v85 = MGCopyAnswer();
+  v0 = [v85 objectForKeyedSubscript:@"default"];
+  v1 = [v85 objectForKeyedSubscript:@"zoomed"];
+  v2 = [v85 objectForKeyedSubscript:@"dense"];
+  v3 = [v85 objectForKeyedSubscript:@"denser"];
   v4 = objc_opt_new();
   if ([v0 count] == 4)
   {
@@ -103,104 +103,106 @@ void __57__DBSDisplayZoomConfigurationController_displayZoomModes__block_invoke(
     [v4 setObject:v19 forKeyedSubscript:v20];
   }
 
-  if ([v1 count] == 4)
+  v21 = [v1 count];
+  if (v21 == 4)
   {
-    v21 = [v1 objectAtIndexedSubscript:0];
-    [v21 floatValue];
-    v23 = v22;
+    v23 = [v1 objectAtIndexedSubscript:0];
+    [v23 floatValue];
+    v25 = v24;
 
-    v24 = [v1 objectAtIndexedSubscript:1];
-    [v24 floatValue];
-    v26 = v25;
+    v26 = [v1 objectAtIndexedSubscript:1];
+    [v26 floatValue];
+    v28 = v27;
 
-    v27 = [v1 objectAtIndexedSubscript:2];
-    [v27 floatValue];
-    v29 = v28;
+    v29 = [v1 objectAtIndexedSubscript:2];
+    [v29 floatValue];
+    v31 = v30;
 
-    v30 = [v1 objectAtIndexedSubscript:3];
-    [v30 floatValue];
-    v32 = v31;
+    v32 = [v1 objectAtIndexedSubscript:3];
+    [v32 floatValue];
+    v34 = v33;
 
-    v33 = [DBSDisplayZoomMode alloc];
-    v34 = DBS_LocalizedStringForMagnify(@"ZOOMED");
-    v35 = [(DBSDisplayZoomMode *)v33 initWithDisplayZoomOption:1 localizedName:v34 size:v23 * v26, v29 * v32];
+    v35 = [DBSDisplayZoomMode alloc];
+    v36 = DBS_LocalizedStringForMagnify(@"ZOOMED");
+    v37 = [(DBSDisplayZoomMode *)v35 initWithDisplayZoomOption:1 localizedName:v36 size:v25 * v28, v31 * v34];
 
-    v36 = DBSStringForDisplayZoomOption(1);
-    [v4 setObject:v35 forKeyedSubscript:v36];
+    v38 = DBSStringForDisplayZoomOption(1);
+    [v4 setObject:v37 forKeyedSubscript:v38];
   }
 
-  if (DBSReverseZoomEnabled())
+  if (DBSReverseZoomEnabled(v21, v22))
   {
-    if ([v2 count] == 4)
+    v39 = [v2 count];
+    if (v39 == 4)
     {
-      v37 = [v2 objectAtIndexedSubscript:0];
-      [v37 floatValue];
-      v39 = v38;
+      v41 = [v2 objectAtIndexedSubscript:0];
+      [v41 floatValue];
+      v43 = v42;
 
-      v40 = [v2 objectAtIndexedSubscript:1];
-      [v40 floatValue];
-      v42 = v41;
+      v44 = [v2 objectAtIndexedSubscript:1];
+      [v44 floatValue];
+      v46 = v45;
 
-      v43 = [v2 objectAtIndexedSubscript:2];
-      [v43 floatValue];
-      v45 = v44;
+      v47 = [v2 objectAtIndexedSubscript:2];
+      [v47 floatValue];
+      v49 = v48;
 
-      v46 = [v2 objectAtIndexedSubscript:3];
-      [v46 floatValue];
-      v48 = v47;
+      v50 = [v2 objectAtIndexedSubscript:3];
+      [v50 floatValue];
+      v52 = v51;
 
-      v49 = [DBSDisplayZoomMode alloc];
-      v50 = DBS_LocalizedStringForMagnify(@"DENSE");
-      v51 = [(DBSDisplayZoomMode *)v49 initWithDisplayZoomOption:2 localizedName:v50 size:v39 * v42, v45 * v48];
+      v53 = [DBSDisplayZoomMode alloc];
+      v54 = DBS_LocalizedStringForMagnify(@"DENSE");
+      v55 = [(DBSDisplayZoomMode *)v53 initWithDisplayZoomOption:2 localizedName:v54 size:v43 * v46, v49 * v52];
 
-      v52 = DBSStringForDisplayZoomOption(2);
-      [v4 setObject:v51 forKeyedSubscript:v52];
+      v56 = DBSStringForDisplayZoomOption(2);
+      [v4 setObject:v55 forKeyedSubscript:v56];
     }
 
-    if (DBSMostDisplaySpaceEnabled() && [v3 count] == 4)
+    if (DBSMostDisplaySpaceEnabled(v39, v40) && [v3 count] == 4)
     {
-      v53 = [v3 objectAtIndexedSubscript:0];
-      [v53 floatValue];
-      v55 = v54;
+      v57 = [v3 objectAtIndexedSubscript:0];
+      [v57 floatValue];
+      v59 = v58;
 
-      v56 = [v3 objectAtIndexedSubscript:1];
-      [v56 floatValue];
-      v58 = v57;
+      v60 = [v3 objectAtIndexedSubscript:1];
+      [v60 floatValue];
+      v62 = v61;
 
-      v59 = [v3 objectAtIndexedSubscript:2];
-      [v59 floatValue];
-      v61 = v60;
+      v63 = [v3 objectAtIndexedSubscript:2];
+      [v63 floatValue];
+      v65 = v64;
 
-      v62 = [v3 objectAtIndexedSubscript:3];
-      [v62 floatValue];
-      v64 = v63;
+      v66 = [v3 objectAtIndexedSubscript:3];
+      [v66 floatValue];
+      v68 = v67;
 
-      v65 = [DBSDisplayZoomMode alloc];
-      v66 = DBS_LocalizedStringForMagnify(@"DENSER");
-      v67 = [(DBSDisplayZoomMode *)v65 initWithDisplayZoomOption:3 localizedName:v66 size:v55 * v58, v61 * v64];
+      v69 = [DBSDisplayZoomMode alloc];
+      v70 = DBS_LocalizedStringForMagnify(@"DENSER");
+      v71 = [(DBSDisplayZoomMode *)v69 initWithDisplayZoomOption:3 localizedName:v70 size:v59 * v62, v65 * v68];
 
-      v68 = DBSStringForDisplayZoomOption(3);
-      [v4 setObject:v67 forKeyedSubscript:v68];
+      v72 = DBSStringForDisplayZoomOption(3);
+      [v4 setObject:v71 forKeyedSubscript:v72];
     }
   }
 
-  v69 = DBSStringForDisplayZoomOption(1);
-  v70 = [v4 objectForKeyedSubscript:v69];
+  v73 = DBSStringForDisplayZoomOption(1);
+  v74 = [v4 objectForKeyedSubscript:v73];
 
-  v71 = DBSStringForDisplayZoomOption(2);
-  v72 = [v4 objectForKeyedSubscript:v71];
+  v75 = DBSStringForDisplayZoomOption(2);
+  v76 = [v4 objectForKeyedSubscript:v75];
 
-  [v70 size];
-  v74 = v73;
-  v76 = v75;
-  [v72 size];
-  if (v74 == v78 && v76 == v77)
+  [v74 size];
+  v78 = v77;
+  v80 = v79;
+  [v76 size];
+  if (v78 == v82 && v80 == v81)
   {
-    v79 = DBSStringForDisplayZoomOption(1);
-    [v4 removeObjectForKey:v79];
+    v83 = DBSStringForDisplayZoomOption(1);
+    [v4 removeObjectForKey:v83];
   }
 
-  v80 = displayZoomModes__displayZoomModes;
+  v84 = displayZoomModes__displayZoomModes;
   displayZoomModes__displayZoomModes = v4;
 }
 

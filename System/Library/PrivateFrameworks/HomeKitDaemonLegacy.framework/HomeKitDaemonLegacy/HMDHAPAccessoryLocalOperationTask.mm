@@ -68,30 +68,30 @@
 
 void __104__HMDHAPAccessoryLocalOperationTask__completionHandlerForAccessory_accessoryRequests_responseWaitGroup___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v29 objects:v51 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v28 objects:v50 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v30;
+    v7 = *v29;
     do
     {
       v8 = 0;
       v9 = v6;
       do
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = [*(*(&v29 + 1) + 8 * v8) error];
+        v10 = [*(*(&v28 + 1) + 8 * v8) error];
         v11 = v10;
         if (v10)
         {
@@ -117,7 +117,7 @@ void __104__HMDHAPAccessoryLocalOperationTask__completionHandlerForAccessory_acc
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v29 objects:v51 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v28 objects:v50 count:16];
     }
 
     while (v5);
@@ -135,33 +135,33 @@ void __104__HMDHAPAccessoryLocalOperationTask__completionHandlerForAccessory_acc
   {
     v17 = HMFGetLogIdentifier();
     v18 = *(a1 + 32);
-    v26 = [*(a1 + 40) name];
-    v28 = [*(a1 + 40) uuid];
-    v19 = [v28 UUIDString];
+    v25 = [*(a1 + 40) name];
+    v27 = [*(a1 + 40) uuid];
+    v19 = [v27 UUIDString];
     v20 = [*(a1 + 40) uniqueIdentifier];
-    v27 = v14;
+    v26 = v14;
     v21 = [v3 count];
-    v25 = [*(a1 + 48) count];
+    v24 = [*(a1 + 48) count];
     [*(a1 + 32) executionTimeInterval];
     *buf = 138545410;
-    v34 = v17;
-    v35 = 2114;
-    v36 = v18;
-    v37 = 2112;
-    v38 = v26;
-    v39 = 2114;
-    v40 = v19;
-    v41 = 2114;
-    v42 = v20;
-    v43 = 2048;
-    v44 = v21;
-    v14 = v27;
-    v45 = 2048;
-    v46 = v25;
-    v47 = 2048;
-    v48 = v22;
-    v49 = 2114;
-    v50 = v6;
+    v33 = v17;
+    v34 = 2114;
+    v35 = v18;
+    v36 = 2112;
+    v37 = v25;
+    v38 = 2114;
+    v39 = v19;
+    v40 = 2114;
+    v41 = v20;
+    v42 = 2048;
+    v43 = v21;
+    v14 = v26;
+    v44 = 2048;
+    v45 = v24;
+    v46 = 2048;
+    v47 = v22;
+    v48 = 2114;
+    v49 = v6;
     _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] Completed operation for accessory %@/%{public}@/%{public}@ with %ld/%ld responses. Execution Time: %.3fs. Error: %{public}@", buf, 0x5Cu);
   }
 
@@ -173,13 +173,11 @@ void __104__HMDHAPAccessoryLocalOperationTask__completionHandlerForAccessory_acc
     v23 = [*(a1 + 32) completion];
     (v23)[2](v23, v3);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)execute
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   [(HMDHAPAccessoryTask *)self setExecutionTime:date];
 
@@ -188,30 +186,30 @@ void __104__HMDHAPAccessoryLocalOperationTask__completionHandlerForAccessory_acc
   selfCopy = self;
   context = [(HMDHAPAccessoryTask *)self context];
   user = [context user];
-  v33 = array;
+  v32 = array;
   v8 = accessoryRequestMapFromRequests(requests, array, user);
 
   v9 = dispatch_group_create();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = v8;
-  v37 = [obj countByEnumeratingWithState:&v41 objects:v57 count:16];
-  if (v37)
+  v36 = [obj countByEnumeratingWithState:&v40 objects:v56 count:16];
+  if (v36)
   {
-    v36 = *v42;
-    v34 = v9;
+    v35 = *v41;
+    v33 = v9;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v42 != v36)
+        if (*v41 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v41 + 1) + 8 * i);
+        v11 = *(*(&v40 + 1) + 8 * i);
         v12 = [obj objectForKey:v11];
         activity = [(HMDHAPAccessoryTask *)selfCopy activity];
         operationName = [(HMDHAPAccessoryTask *)selfCopy operationName];
@@ -227,25 +225,25 @@ void __104__HMDHAPAccessoryLocalOperationTask__completionHandlerForAccessory_acc
           name = [v11 name];
           uuid = [v11 uuid];
           [uuid UUIDString];
-          v22 = v35 = v16;
+          v22 = v34 = v16;
           uniqueIdentifier = [v11 uniqueIdentifier];
           v24 = [v12 count];
           *buf = 138544642;
-          v46 = v19;
-          v47 = 2114;
-          v48 = selfCopy;
-          v49 = 2112;
-          v50 = name;
-          v51 = 2114;
-          v52 = v22;
-          v53 = 2114;
-          v54 = uniqueIdentifier;
-          v55 = 2048;
-          v56 = v24;
+          v45 = v19;
+          v46 = 2114;
+          v47 = selfCopy;
+          v48 = 2112;
+          v49 = name;
+          v50 = 2114;
+          v51 = v22;
+          v52 = 2114;
+          v53 = uniqueIdentifier;
+          v54 = 2048;
+          v55 = v24;
           _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] Starting for accessory %@/%{public}@/%{public}@ with %ld requests", buf, 0x3Eu);
 
-          v16 = v35;
-          v9 = v34;
+          v16 = v34;
+          v9 = v33;
         }
 
         objc_autoreleasePoolPop(v16);
@@ -266,13 +264,13 @@ void __104__HMDHAPAccessoryLocalOperationTask__completionHandlerForAccessory_acc
         [(HMDHAPAccessoryLocalOperationTask *)v17 _dispatchToAccessory:v11 requests:v12 logEvent:v29 completion:v30];
       }
 
-      v37 = [obj countByEnumeratingWithState:&v41 objects:v57 count:16];
+      v36 = [obj countByEnumeratingWithState:&v40 objects:v56 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
 
-  [(HMDHAPAccessoryTask *)selfCopy addCharacteristicResponses:v33 isRemote:0];
+  [(HMDHAPAccessoryTask *)selfCopy addCharacteristicResponses:v32 isRemote:0];
   workQueue = [(HMDHAPAccessoryTask *)selfCopy workQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -280,8 +278,6 @@ void __104__HMDHAPAccessoryLocalOperationTask__completionHandlerForAccessory_acc
   block[3] = &unk_279735D00;
   block[4] = selfCopy;
   dispatch_group_notify(v9, workQueue, block);
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDHAPAccessoryLocalOperationTask_execute__block_invoke(uint64_t a1)

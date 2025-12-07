@@ -261,7 +261,7 @@ LABEL_38:
   return this;
 }
 
-uint64_t *TSCE::ViewTractRefArchive::CopyFrom(uint64_t *this, const Message *a2)
+const Message *TSCE::ViewTractRefArchive::CopyFrom(const Message *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -274,7 +274,7 @@ uint64_t *TSCE::ViewTractRefArchive::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TSCE::ViewTractRefArchive::CopyFrom(uint64_t *this, const TSCE::ViewTractRefArchive *a2)
+const TSCE::ViewTractRefArchive *TSCE::ViewTractRefArchive::CopyFrom(const TSCE::ViewTractRefArchive *this, const TSCE::ViewTractRefArchive *a2)
 {
   if (a2 != this)
   {
@@ -430,12 +430,12 @@ uint64_t *TSCE::BooleanCellValueArchive::default_instance(TSCE::BooleanCellValue
   return TSCE::_BooleanCellValueArchive_default_instance_;
 }
 
-uint64_t *TSCE::BooleanCellValueArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCE::BooleanCellValueArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
-  if (this[2])
+  if (*(this + 16))
   {
-    this = TSK::FormatStructArchive::Clear(this[3]);
+    this = TSK::FormatStructArchive::Clear(*(this + 3));
   }
 
   v3 = *(v1 + 8);
@@ -453,15 +453,15 @@ uint64_t *TSCE::BooleanCellValueArchive::Clear(uint64_t *this)
 
 google::protobuf::internal *TSCE::BooleanCellValueArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v29 = a2;
+  v28 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v29) & 1) == 0)
+  if ((sub_221567030(a3, &v28, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v29 + 1);
-      v8 = *v29;
-      if ((*v29 & 0x80000000) == 0)
+      v7 = (v28 + 1);
+      v8 = *v28;
+      if ((*v28 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -473,15 +473,15 @@ google::protobuf::internal *TSCE::BooleanCellValueArchive::_InternalParse(uint64
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v29, (v9 - 128));
-      v29 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v28, (v9 - 128));
+      v28 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_46;
       }
 
       v7 = TagFallback;
-      v8 = v24;
+      v8 = v23;
 LABEL_7:
       v10 = v8 >> 3;
       if (v8 >> 3 == 3)
@@ -492,31 +492,31 @@ LABEL_7:
         }
 
         v5 |= 4u;
-        v18 = (v7 + 1);
-        v17 = *v7;
-        if ((v17 & 0x8000000000000000) == 0)
+        v17 = (v7 + 1);
+        v16 = *v7;
+        if ((v16 & 0x8000000000000000) == 0)
         {
           goto LABEL_32;
         }
 
-        v19 = *v18;
-        v17 = (v19 << 7) + v17 - 128;
-        if ((v19 & 0x80000000) == 0)
+        v18 = *v17;
+        v16 = (v18 << 7) + v16 - 128;
+        if ((v18 & 0x80000000) == 0)
         {
-          v18 = (v7 + 2);
+          v17 = (v7 + 2);
 LABEL_32:
-          v29 = v18;
-          *(a1 + 33) = v17 != 0;
+          v28 = v17;
+          *(a1 + 33) = v16 != 0;
           goto LABEL_37;
         }
 
-        v27 = google::protobuf::internal::VarintParseSlow64(v7, v17);
-        v29 = v27;
-        *(a1 + 33) = v28 != 0;
-        if (!v27)
+        v26 = google::protobuf::internal::VarintParseSlow64(v7, v16);
+        v28 = v26;
+        *(a1 + 33) = v27 != 0;
+        if (!v26)
         {
 LABEL_46:
-          v29 = 0;
+          v28 = 0;
           goto LABEL_2;
         }
       }
@@ -537,10 +537,9 @@ LABEL_46:
                 v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
               }
 
-              v16 = MEMORY[0x223DA02D0](v15);
-              LODWORD(v14) = v16;
-              *(a1 + 24) = v16;
-              v7 = v29;
+              v14 = MEMORY[0x223DA02D0](v15);
+              *(a1 + 24) = v14;
+              v7 = v28;
             }
 
             v13 = sub_2216FEC0C(a3, v14, v7);
@@ -573,7 +572,7 @@ LABEL_13:
             v13 = google::protobuf::internal::UnknownFieldParse();
           }
 
-          v29 = v13;
+          v28 = v13;
           if (!v13)
           {
             goto LABEL_46;
@@ -588,49 +587,49 @@ LABEL_13:
         }
 
         v5 |= 2u;
-        v21 = (v7 + 1);
-        v20 = *v7;
-        if ((v20 & 0x8000000000000000) == 0)
+        v20 = (v7 + 1);
+        v19 = *v7;
+        if ((v19 & 0x8000000000000000) == 0)
         {
           goto LABEL_36;
         }
 
-        v22 = *v21;
-        v20 = (v22 << 7) + v20 - 128;
-        if ((v22 & 0x80000000) == 0)
+        v21 = *v20;
+        v19 = (v21 << 7) + v19 - 128;
+        if ((v21 & 0x80000000) == 0)
         {
-          v21 = (v7 + 2);
+          v20 = (v7 + 2);
 LABEL_36:
-          v29 = v21;
-          *(a1 + 32) = v20 != 0;
+          v28 = v20;
+          *(a1 + 32) = v19 != 0;
           goto LABEL_37;
         }
 
-        v25 = google::protobuf::internal::VarintParseSlow64(v7, v20);
-        v29 = v25;
-        *(a1 + 32) = v26 != 0;
-        if (!v25)
+        v24 = google::protobuf::internal::VarintParseSlow64(v7, v19);
+        v28 = v24;
+        *(a1 + 32) = v25 != 0;
+        if (!v24)
         {
           goto LABEL_46;
         }
       }
 
 LABEL_37:
-      if (sub_221567030(a3, &v29))
+      if (sub_221567030(a3, &v28, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v29 + 2);
+    v7 = (v28 + 2);
 LABEL_6:
-    v29 = v7;
+    v28 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v29;
+  return v28;
 }
 
 unsigned __int8 *TSCE::BooleanCellValueArchive::_InternalSerialize(TSCE::BooleanCellValueArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -727,10 +726,10 @@ LABEL_21:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v14 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v14 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
-unint64_t TSCE::BooleanCellValueArchive::ByteSizeLong(TSK::FormatStructArchive **this)
+uint64_t TSCE::BooleanCellValueArchive::ByteSizeLong(TSK::FormatStructArchive **this)
 {
   v2 = *(this + 4);
   v3 = v2 & 2;
@@ -841,7 +840,7 @@ LABEL_7:
   return this;
 }
 
-uint64_t *TSCE::BooleanCellValueArchive::CopyFrom(uint64_t *this, const Message *a2)
+const Message *TSCE::BooleanCellValueArchive::CopyFrom(const Message *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -854,7 +853,7 @@ uint64_t *TSCE::BooleanCellValueArchive::CopyFrom(uint64_t *this, const Message 
   return this;
 }
 
-uint64_t *TSCE::BooleanCellValueArchive::CopyFrom(uint64_t *this, const TSCE::BooleanCellValueArchive *a2)
+const TSCE::BooleanCellValueArchive *TSCE::BooleanCellValueArchive::CopyFrom(const TSCE::BooleanCellValueArchive *this, const TSCE::BooleanCellValueArchive *a2)
 {
   if (a2 != this)
   {
@@ -1000,13 +999,13 @@ uint64_t *TSCE::DateCellValueArchive::default_instance(TSCE::DateCellValueArchiv
   return TSCE::_DateCellValueArchive_default_instance_;
 }
 
-uint64_t *TSCE::DateCellValueArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCE::DateCellValueArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
   if (v2)
   {
-    this = TSK::FormatStructArchive::Clear(this[3]);
+    this = TSK::FormatStructArchive::Clear(*(this + 3));
   }
 
   if ((v2 & 0xE) != 0)
@@ -1029,15 +1028,15 @@ uint64_t *TSCE::DateCellValueArchive::Clear(uint64_t *this)
 
 google::protobuf::internal *TSCE::DateCellValueArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v29 = a2;
+  v28 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v29) & 1) == 0)
+  if ((sub_221567030(a3, &v28, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v29 + 1);
-      v8 = *v29;
-      if ((*v29 & 0x80000000) == 0)
+      v7 = (v28 + 1);
+      v8 = *v28;
+      if ((*v28 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -1049,15 +1048,15 @@ google::protobuf::internal *TSCE::DateCellValueArchive::_InternalParse(uint64_t 
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v29, (v9 - 128));
-      v29 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v28, (v9 - 128));
+      v28 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_50;
       }
 
       v7 = TagFallback;
-      v8 = v24;
+      v8 = v23;
 LABEL_7:
       v10 = v8 >> 3;
       if (v8 >> 3 <= 2)
@@ -1068,22 +1067,22 @@ LABEL_7:
           {
             v5 |= 2u;
             *(a1 + 32) = *v7;
-            v29 = (v7 + 8);
+            v28 = (v7 + 8);
             goto LABEL_41;
           }
 
 LABEL_33:
           if (v8)
           {
-            v22 = (v8 & 7) == 4;
+            v21 = (v8 & 7) == 4;
           }
 
           else
           {
-            v22 = 1;
+            v21 = 1;
           }
 
-          if (v22)
+          if (v21)
           {
             *(a3 + 80) = v8 - 1;
             goto LABEL_2;
@@ -1094,7 +1093,7 @@ LABEL_33:
             sub_221567188((a1 + 8));
           }
 
-          v15 = google::protobuf::internal::UnknownFieldParse();
+          v14 = google::protobuf::internal::UnknownFieldParse();
         }
 
         else
@@ -1114,17 +1113,16 @@ LABEL_33:
               v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v14 = MEMORY[0x223DA02D0](v13);
-            LODWORD(v12) = v14;
-            *(a1 + 24) = v14;
-            v7 = v29;
+            v12 = MEMORY[0x223DA02D0](v13);
+            *(a1 + 24) = v12;
+            v7 = v28;
           }
 
-          v15 = sub_2216FEC0C(a3, v12, v7);
+          v14 = sub_2216FEC0C(a3, v12, v7);
         }
 
-        v29 = v15;
-        if (!v15)
+        v28 = v14;
+        if (!v14)
         {
           goto LABEL_50;
         }
@@ -1140,31 +1138,31 @@ LABEL_33:
         }
 
         v5 |= 4u;
-        v20 = (v7 + 1);
-        v19 = *v7;
-        if ((v19 & 0x8000000000000000) == 0)
+        v19 = (v7 + 1);
+        v18 = *v7;
+        if ((v18 & 0x8000000000000000) == 0)
         {
           goto LABEL_32;
         }
 
-        v21 = *v20;
-        v19 = (v21 << 7) + v19 - 128;
-        if ((v21 & 0x80000000) == 0)
+        v20 = *v19;
+        v18 = (v20 << 7) + v18 - 128;
+        if ((v20 & 0x80000000) == 0)
         {
-          v20 = (v7 + 2);
+          v19 = (v7 + 2);
 LABEL_32:
-          v29 = v20;
-          *(a1 + 40) = v19 != 0;
+          v28 = v19;
+          *(a1 + 40) = v18 != 0;
           goto LABEL_41;
         }
 
-        v27 = google::protobuf::internal::VarintParseSlow64(v7, v19);
-        v29 = v27;
-        *(a1 + 40) = v28 != 0;
-        if (!v27)
+        v26 = google::protobuf::internal::VarintParseSlow64(v7, v18);
+        v28 = v26;
+        *(a1 + 40) = v27 != 0;
+        if (!v26)
         {
 LABEL_50:
-          v29 = 0;
+          v28 = 0;
           goto LABEL_2;
         }
       }
@@ -1177,49 +1175,49 @@ LABEL_50:
         }
 
         v5 |= 8u;
-        v17 = (v7 + 1);
-        v16 = *v7;
-        if ((v16 & 0x8000000000000000) == 0)
+        v16 = (v7 + 1);
+        v15 = *v7;
+        if ((v15 & 0x8000000000000000) == 0)
         {
           goto LABEL_25;
         }
 
-        v18 = *v17;
-        v16 = (v18 << 7) + v16 - 128;
-        if ((v18 & 0x80000000) == 0)
+        v17 = *v16;
+        v15 = (v17 << 7) + v15 - 128;
+        if ((v17 & 0x80000000) == 0)
         {
-          v17 = (v7 + 2);
+          v16 = (v7 + 2);
 LABEL_25:
-          v29 = v17;
-          *(a1 + 41) = v16 != 0;
+          v28 = v16;
+          *(a1 + 41) = v15 != 0;
           goto LABEL_41;
         }
 
-        v25 = google::protobuf::internal::VarintParseSlow64(v7, v16);
-        v29 = v25;
-        *(a1 + 41) = v26 != 0;
-        if (!v25)
+        v24 = google::protobuf::internal::VarintParseSlow64(v7, v15);
+        v28 = v24;
+        *(a1 + 41) = v25 != 0;
+        if (!v24)
         {
           goto LABEL_50;
         }
       }
 
 LABEL_41:
-      if (sub_221567030(a3, &v29))
+      if (sub_221567030(a3, &v28, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v29 + 2);
+    v7 = (v28 + 2);
 LABEL_6:
-    v29 = v7;
+    v28 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v29;
+  return v28;
 }
 
 unsigned __int8 *TSCE::DateCellValueArchive::_InternalSerialize(TSCE::DateCellValueArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -1337,7 +1335,7 @@ LABEL_25:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v15 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v15 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCE::DateCellValueArchive::RequiredFieldsByteSizeFallback(TSCE::DateCellValueArchive *this)
@@ -1366,7 +1364,7 @@ uint64_t TSCE::DateCellValueArchive::RequiredFieldsByteSizeFallback(TSCE::DateCe
   }
 }
 
-unint64_t TSCE::DateCellValueArchive::ByteSizeLong(TSK::FormatStructArchive **this)
+uint64_t TSCE::DateCellValueArchive::ByteSizeLong(TSK::FormatStructArchive **this)
 {
   if ((~*(this + 4) & 3) != 0)
   {
@@ -1502,7 +1500,7 @@ LABEL_20:
   return this;
 }
 
-uint64_t *TSCE::DateCellValueArchive::CopyFrom(uint64_t *this, const Message *a2)
+const Message *TSCE::DateCellValueArchive::CopyFrom(const Message *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -1515,7 +1513,7 @@ uint64_t *TSCE::DateCellValueArchive::CopyFrom(uint64_t *this, const Message *a2
   return this;
 }
 
-uint64_t *TSCE::DateCellValueArchive::CopyFrom(uint64_t *this, const TSCE::DateCellValueArchive *a2)
+const TSCE::DateCellValueArchive *TSCE::DateCellValueArchive::CopyFrom(const TSCE::DateCellValueArchive *this, const TSCE::DateCellValueArchive *a2)
 {
   if (a2 != this)
   {
@@ -1658,7 +1656,7 @@ void *TSCE::NumberCellValueArchive::default_instance(TSCE::NumberCellValueArchiv
   return &TSCE::_NumberCellValueArchive_default_instance_;
 }
 
-uint64_t *TSCE::NumberCellValueArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCE::NumberCellValueArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -1669,7 +1667,7 @@ uint64_t *TSCE::NumberCellValueArchive::Clear(uint64_t *this)
       goto LABEL_5;
     }
 
-    v3 = this[3] & 0xFFFFFFFFFFFFFFFELL;
+    v3 = *(this + 3) & 0xFFFFFFFFFFFFFFFELL;
     if ((*(v3 + 23) & 0x80000000) == 0)
     {
       *v3 = 0;
@@ -1688,7 +1686,7 @@ LABEL_5:
     if ((v2 & 2) != 0)
     {
 LABEL_6:
-      this = TSK::FormatStructArchive::Clear(this[4]);
+      this = TSK::FormatStructArchive::Clear(*(this + 4));
     }
   }
 
@@ -1713,15 +1711,15 @@ LABEL_7:
 
 google::protobuf::internal *TSCE::NumberCellValueArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v44 = a2;
+  v43 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v44) & 1) == 0)
+  if ((sub_221567030(a3, &v43, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v44 + 1);
-      v8 = *v44;
-      if ((*v44 & 0x80000000) == 0)
+      v7 = (v43 + 1);
+      v8 = *v43;
+      if ((*v43 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -1733,8 +1731,8 @@ google::protobuf::internal *TSCE::NumberCellValueArchive::_InternalParse(uint64_
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v44, (v9 - 128));
-      v44 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v43, (v9 - 128));
+      v43 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_79;
@@ -1756,28 +1754,28 @@ LABEL_7:
             }
 
             v5 |= 0x40u;
-            v31 = (v7 + 1);
-            v30 = *v7;
-            if ((v30 & 0x8000000000000000) == 0)
+            v30 = (v7 + 1);
+            v29 = *v7;
+            if ((v29 & 0x8000000000000000) == 0)
             {
               goto LABEL_57;
             }
 
-            v32 = *v31;
-            v30 = (v32 << 7) + v30 - 128;
-            if ((v32 & 0x80000000) == 0)
+            v31 = *v30;
+            v29 = (v31 << 7) + v29 - 128;
+            if ((v31 & 0x80000000) == 0)
             {
-              v31 = (v7 + 2);
+              v30 = (v7 + 2);
 LABEL_57:
-              v44 = v31;
-              *(a1 + 56) = v30;
+              v43 = v30;
+              *(a1 + 56) = v29;
               goto LABEL_66;
             }
 
-            v34 = google::protobuf::internal::VarintParseSlow64(v7, v30);
-            v44 = v34;
-            *(a1 + 56) = v35;
-            if (!v34)
+            v33 = google::protobuf::internal::VarintParseSlow64(v7, v29);
+            v43 = v33;
+            *(a1 + 56) = v34;
+            if (!v33)
             {
               goto LABEL_79;
             }
@@ -1804,18 +1802,18 @@ LABEL_57:
             {
               v22 = (v7 + 2);
 LABEL_40:
-              v44 = v22;
+              v43 = v22;
               *(a1 + 64) = v21;
               goto LABEL_66;
             }
 
-            v42 = google::protobuf::internal::VarintParseSlow64(v7, v21);
-            v44 = v42;
-            *(a1 + 64) = v43;
-            if (!v42)
+            v41 = google::protobuf::internal::VarintParseSlow64(v7, v21);
+            v43 = v41;
+            *(a1 + 64) = v42;
+            if (!v41)
             {
 LABEL_79:
-              v44 = 0;
+              v43 = 0;
               goto LABEL_2;
             }
           }
@@ -1855,15 +1853,15 @@ LABEL_79:
           {
             v16 = (v7 + 2);
 LABEL_26:
-            v44 = v16;
+            v43 = v16;
             *(a1 + 53) = v15 != 0;
             goto LABEL_66;
           }
 
-          v38 = google::protobuf::internal::VarintParseSlow64(v7, v15);
-          v44 = v38;
-          *(a1 + 53) = v39 != 0;
-          if (!v38)
+          v37 = google::protobuf::internal::VarintParseSlow64(v7, v15);
+          v43 = v37;
+          *(a1 + 53) = v38 != 0;
+          if (!v37)
           {
             goto LABEL_79;
           }
@@ -1886,10 +1884,9 @@ LABEL_26:
                 v28 = *(v28 & 0xFFFFFFFFFFFFFFFELL);
               }
 
-              v29 = MEMORY[0x223DA02D0](v28);
-              LODWORD(v27) = v29;
-              *(a1 + 32) = v29;
-              v7 = v44;
+              v27 = MEMORY[0x223DA02D0](v28);
+              *(a1 + 32) = v27;
+              v7 = v43;
             }
 
             v26 = sub_2216FEC0C(a3, v27, v7);
@@ -1899,15 +1896,15 @@ LABEL_26:
 LABEL_58:
           if (v8)
           {
-            v33 = (v8 & 7) == 4;
+            v32 = (v8 & 7) == 4;
           }
 
           else
           {
-            v33 = 1;
+            v32 = 1;
           }
 
-          if (v33)
+          if (v32)
           {
             *(a3 + 80) = v8 - 1;
             goto LABEL_2;
@@ -1920,7 +1917,7 @@ LABEL_58:
 
           v26 = google::protobuf::internal::UnknownFieldParse();
 LABEL_65:
-          v44 = v26;
+          v43 = v26;
           if (!v26)
           {
             goto LABEL_79;
@@ -1948,15 +1945,15 @@ LABEL_65:
         {
           v19 = (v7 + 2);
 LABEL_33:
-          v44 = v19;
+          v43 = v19;
           *(a1 + 52) = v18 != 0;
           goto LABEL_66;
         }
 
-        v40 = google::protobuf::internal::VarintParseSlow64(v7, v18);
-        v44 = v40;
-        *(a1 + 52) = v41 != 0;
-        if (!v40)
+        v39 = google::protobuf::internal::VarintParseSlow64(v7, v18);
+        v43 = v39;
+        *(a1 + 52) = v40 != 0;
+        if (!v39)
         {
           goto LABEL_79;
         }
@@ -1970,7 +1967,7 @@ LABEL_33:
           {
             v5 |= 4u;
             *(a1 + 40) = *v7;
-            v44 = (v7 + 8);
+            v43 = (v7 + 8);
             goto LABEL_66;
           }
 
@@ -1996,36 +1993,36 @@ LABEL_33:
         {
           v13 = (v7 + 2);
 LABEL_18:
-          v44 = v13;
+          v43 = v13;
           *(a1 + 48) = v12;
           goto LABEL_66;
         }
 
-        v36 = google::protobuf::internal::VarintParseSlow64(v7, v12);
-        v44 = v36;
-        *(a1 + 48) = v37;
-        if (!v36)
+        v35 = google::protobuf::internal::VarintParseSlow64(v7, v12);
+        v43 = v35;
+        *(a1 + 48) = v36;
+        if (!v35)
         {
           goto LABEL_79;
         }
       }
 
 LABEL_66:
-      if (sub_221567030(a3, &v44))
+      if (sub_221567030(a3, &v43, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v44 + 2);
+    v7 = (v43 + 2);
 LABEL_6:
-    v44 = v7;
+    v43 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v44;
+  return v43;
 }
 
 unsigned __int8 *TSCE::NumberCellValueArchive::_InternalSerialize(TSCE::NumberCellValueArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -2331,7 +2328,7 @@ LABEL_60:
     return v4;
   }
 
-  return MEMORY[0x2821EAC40]((v28 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v28 & 0xFFFFFFFFFFFFFFFELL) + 8, v4, a3);
 }
 
 uint64_t TSCE::NumberCellValueArchive::ByteSizeLong(TSCE::NumberCellValueArchive *this)
@@ -2570,7 +2567,7 @@ LABEL_28:
   return this;
 }
 
-uint64_t *TSCE::NumberCellValueArchive::CopyFrom(uint64_t *this, const Message *a2)
+const Message *TSCE::NumberCellValueArchive::CopyFrom(const Message *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -2583,7 +2580,7 @@ uint64_t *TSCE::NumberCellValueArchive::CopyFrom(uint64_t *this, const Message *
   return this;
 }
 
-uint64_t *TSCE::NumberCellValueArchive::CopyFrom(uint64_t *this, const TSCE::NumberCellValueArchive *a2)
+const TSCE::NumberCellValueArchive *TSCE::NumberCellValueArchive::CopyFrom(const TSCE::NumberCellValueArchive *this, const TSCE::NumberCellValueArchive *a2)
 {
   if (a2 != this)
   {
@@ -2731,7 +2728,7 @@ void *TSCE::StringCellValueArchive::default_instance(TSCE::StringCellValueArchiv
   return &TSCE::_StringCellValueArchive_default_instance_;
 }
 
-uint64_t *TSCE::StringCellValueArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCE::StringCellValueArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -2742,7 +2739,7 @@ uint64_t *TSCE::StringCellValueArchive::Clear(uint64_t *this)
       goto LABEL_5;
     }
 
-    v3 = this[3] & 0xFFFFFFFFFFFFFFFELL;
+    v3 = *(this + 3) & 0xFFFFFFFFFFFFFFFELL;
     if ((*(v3 + 23) & 0x80000000) == 0)
     {
       *v3 = 0;
@@ -2761,7 +2758,7 @@ LABEL_5:
     if ((v2 & 2) != 0)
     {
 LABEL_6:
-      this = TSK::FormatStructArchive::Clear(this[4]);
+      this = TSK::FormatStructArchive::Clear(*(this + 4));
     }
   }
 
@@ -2781,15 +2778,15 @@ LABEL_7:
 
 google::protobuf::internal *TSCE::StringCellValueArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v39 = a2;
+  v38 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v39) & 1) == 0)
+  if ((sub_221567030(a3, &v38, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v39 + 1);
-      v8 = *v39;
-      if ((*v39 & 0x80000000) == 0)
+      v7 = (v38 + 1);
+      v8 = *v38;
+      if ((*v38 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -2801,15 +2798,15 @@ google::protobuf::internal *TSCE::StringCellValueArchive::_InternalParse(uint64_
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v39, (v9 - 128));
-      v39 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v38, (v9 - 128));
+      v38 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_66;
       }
 
       v7 = TagFallback;
-      v8 = v30;
+      v8 = v29;
 LABEL_7:
       v10 = v8 >> 3;
       if (v8 >> 3 > 3)
@@ -2835,15 +2832,15 @@ LABEL_7:
           {
             v20 = (v7 + 2);
 LABEL_33:
-            v39 = v20;
+            v38 = v20;
             *(a1 + 41) = v19 != 0;
             goto LABEL_53;
           }
 
-          v31 = google::protobuf::internal::VarintParseSlow64(v7, v19);
-          v39 = v31;
-          *(a1 + 41) = v32 != 0;
-          if (!v31)
+          v30 = google::protobuf::internal::VarintParseSlow64(v7, v19);
+          v38 = v30;
+          *(a1 + 41) = v31 != 0;
+          if (!v30)
           {
             goto LABEL_66;
           }
@@ -2857,31 +2854,31 @@ LABEL_33:
           }
 
           v5 |= 0x10u;
-          v26 = (v7 + 1);
-          v25 = *v7;
-          if ((v25 & 0x8000000000000000) == 0)
+          v25 = (v7 + 1);
+          v24 = *v7;
+          if ((v24 & 0x8000000000000000) == 0)
           {
             goto LABEL_44;
           }
 
-          v27 = *v26;
-          v25 = (v27 << 7) + v25 - 128;
-          if ((v27 & 0x80000000) == 0)
+          v26 = *v25;
+          v24 = (v26 << 7) + v24 - 128;
+          if ((v26 & 0x80000000) == 0)
           {
-            v26 = (v7 + 2);
+            v25 = (v7 + 2);
 LABEL_44:
-            v39 = v26;
-            *(a1 + 42) = v25 != 0;
+            v38 = v25;
+            *(a1 + 42) = v24 != 0;
             goto LABEL_53;
           }
 
-          v37 = google::protobuf::internal::VarintParseSlow64(v7, v25);
-          v39 = v37;
-          *(a1 + 42) = v38 != 0;
-          if (!v37)
+          v36 = google::protobuf::internal::VarintParseSlow64(v7, v24);
+          v38 = v36;
+          *(a1 + 42) = v37 != 0;
+          if (!v36)
           {
 LABEL_66:
-            v39 = 0;
+            v38 = 0;
             goto LABEL_2;
           }
         }
@@ -2907,15 +2904,15 @@ LABEL_66:
           {
             v16 = (v7 + 2);
 LABEL_26:
-            v39 = v16;
+            v38 = v16;
             *(a1 + 43) = v15 != 0;
             goto LABEL_53;
           }
 
-          v33 = google::protobuf::internal::VarintParseSlow64(v7, v15);
-          v39 = v33;
-          *(a1 + 43) = v34 != 0;
-          if (!v33)
+          v32 = google::protobuf::internal::VarintParseSlow64(v7, v15);
+          v38 = v32;
+          *(a1 + 43) = v33 != 0;
+          if (!v32)
           {
             goto LABEL_66;
           }
@@ -2951,10 +2948,9 @@ LABEL_26:
                 v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
               }
 
-              v24 = MEMORY[0x223DA02D0](v23);
-              LODWORD(v22) = v24;
-              *(a1 + 32) = v24;
-              v7 = v39;
+              v22 = MEMORY[0x223DA02D0](v23);
+              *(a1 + 32) = v22;
+              v7 = v38;
             }
 
             v18 = sub_2216FEC0C(a3, v22, v7);
@@ -2964,15 +2960,15 @@ LABEL_26:
 LABEL_45:
           if (v8)
           {
-            v28 = (v8 & 7) == 4;
+            v27 = (v8 & 7) == 4;
           }
 
           else
           {
-            v28 = 1;
+            v27 = 1;
           }
 
-          if (v28)
+          if (v27)
           {
             *(a3 + 80) = v8 - 1;
             goto LABEL_2;
@@ -2985,7 +2981,7 @@ LABEL_45:
 
           v18 = google::protobuf::internal::UnknownFieldParse();
 LABEL_52:
-          v39 = v18;
+          v38 = v18;
           if (!v18)
           {
             goto LABEL_66;
@@ -3013,36 +3009,36 @@ LABEL_52:
         {
           v13 = (v7 + 2);
 LABEL_18:
-          v39 = v13;
+          v38 = v13;
           *(a1 + 40) = v12 != 0;
           goto LABEL_53;
         }
 
-        v35 = google::protobuf::internal::VarintParseSlow64(v7, v12);
-        v39 = v35;
-        *(a1 + 40) = v36 != 0;
-        if (!v35)
+        v34 = google::protobuf::internal::VarintParseSlow64(v7, v12);
+        v38 = v34;
+        *(a1 + 40) = v35 != 0;
+        if (!v34)
         {
           goto LABEL_66;
         }
       }
 
 LABEL_53:
-      if (sub_221567030(a3, &v39))
+      if (sub_221567030(a3, &v38, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v39 + 2);
+    v7 = (v38 + 2);
 LABEL_6:
-    v39 = v7;
+    v38 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v39;
+  return v38;
 }
 
 unsigned __int8 *TSCE::StringCellValueArchive::_InternalSerialize(TSCE::StringCellValueArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -3195,7 +3191,7 @@ LABEL_31:
     return v4;
   }
 
-  return MEMORY[0x2821EAC40]((v17 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v17 & 0xFFFFFFFFFFFFFFFELL) + 8, v4, a3);
 }
 
 uint64_t TSCE::StringCellValueArchive::RequiredFieldsByteSizeFallback(TSCE::StringCellValueArchive *this)
@@ -3406,7 +3402,7 @@ LABEL_24:
   return this;
 }
 
-uint64_t *TSCE::StringCellValueArchive::CopyFrom(uint64_t *this, const Message *a2)
+const Message *TSCE::StringCellValueArchive::CopyFrom(const Message *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -3419,7 +3415,7 @@ uint64_t *TSCE::StringCellValueArchive::CopyFrom(uint64_t *this, const Message *
   return this;
 }
 
-uint64_t *TSCE::StringCellValueArchive::CopyFrom(uint64_t *this, const TSCE::StringCellValueArchive *a2)
+const TSCE::StringCellValueArchive *TSCE::StringCellValueArchive::CopyFrom(const TSCE::StringCellValueArchive *this, const TSCE::StringCellValueArchive *a2)
 {
   if (a2 != this)
   {
@@ -3535,7 +3531,7 @@ void *TSCE::ErrorCellValueArchive::default_instance(TSCE::ErrorCellValueArchive 
   return &TSCE::_ErrorCellValueArchive_default_instance_;
 }
 
-uint64_t *TSCE::ErrorCellValueArchive::Clear(TSCE::ErrorCellValueArchive *this)
+google::protobuf::UnknownFieldSet *TSCE::ErrorCellValueArchive::Clear(TSCE::ErrorCellValueArchive *this)
 {
   v1 = *(this + 4);
   if (v1)
@@ -3575,7 +3571,7 @@ google::protobuf::internal *TSCE::ErrorCellValueArchive::_InternalParse(uint64_t
 {
   v26 = a2;
   v5 = 0;
-  if ((sub_221567030(a3, &v26) & 1) == 0)
+  if ((sub_221567030(a3, &v26, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -3735,7 +3731,7 @@ LABEL_17:
       }
 
 LABEL_37:
-      if (sub_221567030(a3, &v26))
+      if (sub_221567030(a3, &v26, *(a3 + 92)))
       {
         goto LABEL_2;
       }
@@ -3907,7 +3903,7 @@ LABEL_32:
     return v4;
   }
 
-  return MEMORY[0x2821EAC40]((v16 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v16 & 0xFFFFFFFFFFFFFFFELL) + 8, v4, a3);
 }
 
 uint64_t TSCE::ErrorCellValueArchive::ByteSizeLong(TSCE::ErrorCellValueArchive *this)
@@ -4185,40 +4181,40 @@ void TSCE::CellValueArchive::~CellValueArchive(TSCE::CellValueArchive *this)
   JUMPOUT(0x223DA1450);
 }
 
-void *sub_22155F798(void *result)
+TSCE::ErrorCellValueArchive *sub_22155F798(TSCE::ErrorCellValueArchive *result)
 {
   if (result != &TSCE::_CellValueArchive_default_instance_)
   {
     v1 = result;
-    v2 = result[3];
+    v2 = *(result + 3);
     if (v2)
     {
       TSCE::BooleanCellValueArchive::~BooleanCellValueArchive(v2);
       MEMORY[0x223DA1450]();
     }
 
-    v3 = v1[4];
+    v3 = *(v1 + 4);
     if (v3)
     {
       TSCE::DateCellValueArchive::~DateCellValueArchive(v3);
       MEMORY[0x223DA1450]();
     }
 
-    v4 = v1[5];
+    v4 = *(v1 + 5);
     if (v4)
     {
       TSCE::NumberCellValueArchive::~NumberCellValueArchive(v4);
       MEMORY[0x223DA1450]();
     }
 
-    v5 = v1[6];
+    v5 = *(v1 + 6);
     if (v5)
     {
       TSCE::StringCellValueArchive::~StringCellValueArchive(v5);
       MEMORY[0x223DA1450]();
     }
 
-    result = v1[7];
+    result = *(v1 + 7);
     if (result)
     {
       TSCE::ErrorCellValueArchive::~ErrorCellValueArchive(result);
@@ -4242,243 +4238,229 @@ void *TSCE::CellValueArchive::default_instance(TSCE::CellValueArchive *this)
 
 google::protobuf::internal *TSCE::CellValueArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v28 = a2;
-  while ((sub_221567030(a3, &v28) & 1) == 0)
+  v29 = a2;
+  for (i = *(a3 + 92); (sub_221567030(a3, &v29, i) & 1) == 0; i = *(a3 + 92))
   {
-    v5 = (v28 + 1);
-    v6 = *v28;
-    if (*v28 < 0)
+    v6 = (v29 + 1);
+    v7 = *v29;
+    if ((*v29 & 0x80000000) == 0)
     {
-      v7 = v6 + (*v5 << 7);
-      v6 = v7 - 128;
-      if (*v5 < 0)
-      {
-        TagFallback = google::protobuf::internal::ReadTagFallback(v28, (v7 - 128));
-        v28 = TagFallback;
-        if (!TagFallback)
-        {
-          return 0;
-        }
-
-        v5 = TagFallback;
-        v6 = v26;
-        goto LABEL_7;
-      }
-
-      v5 = (v28 + 2);
+      goto LABEL_6;
     }
 
-    v28 = v5;
-LABEL_7:
-    v8 = v6 >> 3;
-    if (v6 >> 3 > 3)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      if (v8 == 4)
-      {
-        if (v6 != 34)
-        {
-          goto LABEL_54;
-        }
+      v6 = (v29 + 2);
+LABEL_6:
+      v29 = v6;
+      goto LABEL_7;
+    }
 
-        *(a1 + 16) |= 4u;
-        v18 = *(a1 + 40);
-        if (!v18)
+    TagFallback = google::protobuf::internal::ReadTagFallback(v29, (v8 - 128));
+    v29 = TagFallback;
+    if (!TagFallback)
+    {
+      return 0;
+    }
+
+    v6 = TagFallback;
+    v7 = v27;
+LABEL_7:
+    v9 = v7 >> 3;
+    if (v7 >> 3 > 3)
+    {
+      if (v9 == 4)
+      {
+        if (v7 == 34)
         {
-          v19 = *(a1 + 8);
-          if (v19)
+          *(a1 + 16) |= 4u;
+          v19 = *(a1 + 40);
+          if (!v19)
           {
-            v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
+            v20 = *(a1 + 8);
+            if (v20)
+            {
+              v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
+            }
+
+            v19 = google::protobuf::Arena::CreateMaybeMessage<TSCE::NumberCellValueArchive>(v20, 0);
+            *(a1 + 40) = v19;
+            v6 = v29;
           }
 
-          v18 = google::protobuf::Arena::CreateMaybeMessage<TSCE::NumberCellValueArchive>(v19);
-          *(a1 + 40) = v18;
-          v5 = v28;
+          v13 = sub_2216FEE7C(a3, v19, v6);
+          goto LABEL_61;
         }
-
-        v12 = sub_2216FEE7C(a3, v18, v5);
       }
 
-      else if (v8 == 5)
+      else if (v9 == 5)
       {
-        if (v6 != 42)
+        if (v7 == 42)
         {
-          goto LABEL_54;
-        }
-
-        *(a1 + 16) |= 8u;
-        v22 = *(a1 + 48);
-        if (!v22)
-        {
-          v23 = *(a1 + 8);
-          if (v23)
+          *(a1 + 16) |= 8u;
+          v23 = *(a1 + 48);
+          if (!v23)
           {
-            v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
+            v24 = *(a1 + 8);
+            if (v24)
+            {
+              v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
+            }
+
+            v23 = google::protobuf::Arena::CreateMaybeMessage<TSCE::StringCellValueArchive>(v24, 0);
+            *(a1 + 48) = v23;
+            v6 = v29;
           }
 
-          v22 = google::protobuf::Arena::CreateMaybeMessage<TSCE::StringCellValueArchive>(v23);
-          *(a1 + 48) = v22;
-          v5 = v28;
+          v13 = sub_2216FEF4C(a3, v23, v6);
+          goto LABEL_61;
         }
-
-        v12 = sub_2216FEF4C(a3, v22, v5);
       }
 
-      else
+      else if (v9 == 6 && v7 == 50)
       {
-        if (v8 != 6 || v6 != 50)
-        {
-          goto LABEL_54;
-        }
-
         *(a1 + 16) |= 0x10u;
-        v13 = *(a1 + 56);
-        if (!v13)
+        v14 = *(a1 + 56);
+        if (!v14)
         {
-          v14 = *(a1 + 8);
-          if (v14)
+          v15 = *(a1 + 8);
+          if (v15)
           {
-            v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
+            v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v13 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ErrorCellValueArchive>(v14);
-          *(a1 + 56) = v13;
-          v5 = v28;
+          v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ErrorCellValueArchive>(v15, 0);
+          *(a1 + 56) = v14;
+          v6 = v29;
         }
 
-        v12 = sub_2216FF01C(a3, v13, v5);
+        v13 = sub_2216FF01C(a3, v14, v6);
+        goto LABEL_61;
+      }
+    }
+
+    else if (v9 == 1)
+    {
+      if (v7 == 8)
+      {
+        v17 = (v6 + 1);
+        v16 = *v6;
+        if ((v16 & 0x8000000000000000) == 0)
+        {
+          goto LABEL_33;
+        }
+
+        v18 = *v17;
+        v16 = (v18 << 7) + v16 - 128;
+        if (v18 < 0)
+        {
+          v29 = google::protobuf::internal::VarintParseSlow64(v6, v16);
+          if (!v29)
+          {
+            return 0;
+          }
+        }
+
+        else
+        {
+          v17 = (v6 + 2);
+LABEL_33:
+          v29 = v17;
+        }
+
+        if ((v16 - 1) > 4)
+        {
+          sub_2216FF0EC();
+        }
+
+        else
+        {
+          *(a1 + 16) |= 0x20u;
+          *(a1 + 64) = v16;
+        }
+
+        continue;
+      }
+    }
+
+    else if (v9 == 2)
+    {
+      if (v7 == 18)
+      {
+        *(a1 + 16) |= 1u;
+        v21 = *(a1 + 24);
+        if (!v21)
+        {
+          v22 = *(a1 + 8);
+          if (v22)
+          {
+            v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v21 = google::protobuf::Arena::CreateMaybeMessage<TSCE::BooleanCellValueArchive>(v22, 0);
+          *(a1 + 24) = v21;
+          v6 = v29;
+        }
+
+        v13 = sub_2216FECDC(a3, v21, v6);
+        goto LABEL_61;
+      }
+    }
+
+    else if (v9 == 3 && v7 == 26)
+    {
+      *(a1 + 16) |= 2u;
+      v11 = *(a1 + 32);
+      if (!v11)
+      {
+        v12 = *(a1 + 8);
+        if (v12)
+        {
+          v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+        }
+
+        v11 = google::protobuf::Arena::CreateMaybeMessage<TSCE::DateCellValueArchive>(v12, 0);
+        *(a1 + 32) = v11;
+        v6 = v29;
       }
 
+      v13 = sub_2216FEDAC(a3, v11, v6);
       goto LABEL_61;
     }
 
-    if (v8 == 1)
+    if (v7)
     {
-      if (v6 != 8)
-      {
-        goto LABEL_54;
-      }
-
-      v16 = (v5 + 1);
-      v15 = *v5;
-      if ((v15 & 0x8000000000000000) == 0)
-      {
-        goto LABEL_33;
-      }
-
-      v17 = *v16;
-      v15 = (v17 << 7) + v15 - 128;
-      if ((v17 & 0x80000000) == 0)
-      {
-        v16 = (v5 + 2);
-LABEL_33:
-        v28 = v16;
-        goto LABEL_34;
-      }
-
-      v28 = google::protobuf::internal::VarintParseSlow64(v5, v15);
-      if (!v28)
-      {
-        return 0;
-      }
-
-LABEL_34:
-      if ((v15 - 1) > 4)
-      {
-        sub_2216FF0EC();
-      }
-
-      else
-      {
-        *(a1 + 16) |= 0x20u;
-        *(a1 + 64) = v15;
-      }
+      v25 = (v7 & 7) == 4;
     }
 
     else
     {
-      if (v8 == 2)
-      {
-        if (v6 != 18)
-        {
-          goto LABEL_54;
-        }
+      v25 = 1;
+    }
 
-        *(a1 + 16) |= 1u;
-        v20 = *(a1 + 24);
-        if (!v20)
-        {
-          v21 = *(a1 + 8);
-          if (v21)
-          {
-            v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
-          }
+    if (v25)
+    {
+      *(a3 + 80) = v7 - 1;
+      return v29;
+    }
 
-          v20 = google::protobuf::Arena::CreateMaybeMessage<TSCE::BooleanCellValueArchive>(v21);
-          *(a1 + 24) = v20;
-          v5 = v28;
-        }
+    if ((*(a1 + 8) & 1) == 0)
+    {
+      sub_221567188((a1 + 8));
+    }
 
-        v12 = sub_2216FECDC(a3, v20, v5);
-      }
-
-      else
-      {
-        if (v8 != 3 || v6 != 26)
-        {
-LABEL_54:
-          if (v6)
-          {
-            v24 = (v6 & 7) == 4;
-          }
-
-          else
-          {
-            v24 = 1;
-          }
-
-          if (v24)
-          {
-            *(a3 + 80) = v6 - 1;
-            return v28;
-          }
-
-          if ((*(a1 + 8) & 1) == 0)
-          {
-            sub_221567188((a1 + 8));
-          }
-
-          v12 = google::protobuf::internal::UnknownFieldParse();
-          goto LABEL_61;
-        }
-
-        *(a1 + 16) |= 2u;
-        v10 = *(a1 + 32);
-        if (!v10)
-        {
-          v11 = *(a1 + 8);
-          if (v11)
-          {
-            v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
-          }
-
-          v10 = google::protobuf::Arena::CreateMaybeMessage<TSCE::DateCellValueArchive>(v11);
-          *(a1 + 32) = v10;
-          v5 = v28;
-        }
-
-        v12 = sub_2216FEDAC(a3, v10, v5);
-      }
-
+    v13 = google::protobuf::internal::UnknownFieldParse();
 LABEL_61:
-      v28 = v12;
-      if (!v12)
-      {
-        return 0;
-      }
+    v29 = v13;
+    if (!v13)
+    {
+      return 0;
     }
   }
 
-  return v28;
+  return v29;
 }
 
 unsigned __int8 *TSCE::CellValueArchive::_InternalSerialize(TSCE::CellValueArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -4811,7 +4793,7 @@ LABEL_69:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v40 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v40 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCE::CellValueArchive::ByteSizeLong(TSCE::CellValueArchive *this)
@@ -4928,7 +4910,7 @@ uint64_t TSCE::CellValueArchive::MergeFrom(TSCE::CellValueArchive *this, const M
   }
 }
 
-uint64_t *TSCE::CellValueArchive::CopyFrom(uint64_t *this, const Message *a2)
+const Message *TSCE::CellValueArchive::CopyFrom(const Message *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -4941,7 +4923,7 @@ uint64_t *TSCE::CellValueArchive::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TSCE::CellValueArchive::CopyFrom(uint64_t *this, const TSCE::CellValueArchive *a2)
+const TSCE::CellValueArchive *TSCE::CellValueArchive::CopyFrom(const TSCE::CellValueArchive *this, const TSCE::CellValueArchive *a2)
 {
   if (a2 != this)
   {
@@ -6762,19 +6744,19 @@ TSCE::CellValueArchive *sub_221566178(google::protobuf::Arena *a1)
   return v2;
 }
 
-uint64_t sub_221567030(uint64_t a1, uint64_t *a2)
+uint64_t sub_221567030(uint64_t a1, uint64_t *a2, int a3)
 {
   if (*a2 >= *a1)
   {
-    v5 = *a2 - *(a1 + 8);
-    if (*(a1 + 28) == v5)
+    v6 = *a2 - *(a1 + 8);
+    if (*(a1 + 28) == v6)
     {
-      if (v5 >= 1 && !*(a1 + 16))
+      if (v6 >= 1 && !*(a1 + 16))
       {
         *a2 = 0;
       }
 
-      v2 = 1;
+      v3 = 1;
     }
 
     else
@@ -6785,10 +6767,10 @@ uint64_t sub_221567030(uint64_t a1, uint64_t *a2)
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2 & 1;
+  return v3 & 1;
 }
 
 void *sub_2215670A8(uint64_t a1)
@@ -6949,7 +6931,7 @@ uint64_t sub_22156734C(uint64_t *a1, uint64_t a2)
   return MEMORY[0x2821EAB30](v3, a2);
 }
 
-uint64_t *sub_221567398(uint64_t *a1)
+google::protobuf::UnknownFieldSet *sub_221567398(uint64_t *a1)
 {
   if (*a1)
   {
@@ -6961,7 +6943,7 @@ uint64_t *sub_221567398(uint64_t *a1)
     result = sub_221567188(a1);
   }
 
-  if (*result != result[1])
+  if (*result != *(result + 1))
   {
 
     return google::protobuf::UnknownFieldSet::ClearFallback(result);
@@ -7026,7 +7008,7 @@ void sub_221567450(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2215674E8(uint64_t result, TSCE::IndexSetArchive_IndexSetEntry **a2, TSCE::IndexSetArchive_IndexSetEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2215674E8(uint64_t *result, TSCE::IndexSetArchive_IndexSetEntry **a2, TSCE::IndexSetArchive_IndexSetEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7108,7 +7090,7 @@ void sub_2215675A8(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_22156762C(uint64_t result, TSCE::CellCoordSetArchive_ColumnEntry **a2, TSCE::CellCoordSetArchive_ColumnEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_22156762C(uint64_t *result, TSCE::CellCoordSetArchive_ColumnEntry **a2, TSCE::CellCoordSetArchive_ColumnEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7190,7 +7172,7 @@ void sub_2215676EC(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221567770(uint64_t result, TSCE::InternalCellRefSetArchive_OwnerEntry **a2, TSCE::InternalCellRefSetArchive_OwnerEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221567770(uint64_t *result, TSCE::InternalCellRefSetArchive_OwnerEntry **a2, TSCE::InternalCellRefSetArchive_OwnerEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7272,7 +7254,7 @@ void sub_221567830(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2215678B4(uint64_t result, TSCE::CellRefSetArchive_OwnerEntry **a2, TSCE::CellRefSetArchive_OwnerEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2215678B4(uint64_t *result, TSCE::CellRefSetArchive_OwnerEntry **a2, TSCE::CellRefSetArchive_OwnerEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7354,7 +7336,7 @@ void sub_221567974(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2215679F8(uint64_t result, TSP::UUID **a2, TSP::UUID **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2215679F8(uint64_t *result, TSP::UUID **a2, TSP::UUID **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7436,7 +7418,7 @@ void sub_221567AB8(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221567B3C(uint64_t result, TSCE::UidCoordSetArchive_ColumnEntry **a2, TSCE::UidCoordSetArchive_ColumnEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221567B3C(uint64_t *result, TSCE::UidCoordSetArchive_ColumnEntry **a2, TSCE::UidCoordSetArchive_ColumnEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7518,7 +7500,7 @@ void sub_221567BFC(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221567C80(uint64_t result, TSCE::UidCellRefSetArchive_OwnerEntry **a2, TSCE::UidCellRefSetArchive_OwnerEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221567C80(uint64_t *result, TSCE::UidCellRefSetArchive_OwnerEntry **a2, TSCE::UidCellRefSetArchive_OwnerEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7600,7 +7582,7 @@ void sub_221567D40(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221567DC4(uint64_t result, TSCE::InternalRangeReferenceArchive **a2, TSCE::InternalRangeReferenceArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221567DC4(uint64_t *result, TSCE::InternalRangeReferenceArchive **a2, TSCE::InternalRangeReferenceArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7651,7 +7633,7 @@ uint64_t sub_221567DC4(uint64_t result, TSCE::InternalRangeReferenceArchive **a2
   return result;
 }
 
-uint64_t sub_221567E84(uint64_t result, TSCE::CoordMapperArchive_BaseToViewEntry **a2, TSCE::CoordMapperArchive_BaseToViewEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221567E84(uint64_t *result, TSCE::CoordMapperArchive_BaseToViewEntry **a2, TSCE::CoordMapperArchive_BaseToViewEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7702,7 +7684,7 @@ uint64_t sub_221567E84(uint64_t result, TSCE::CoordMapperArchive_BaseToViewEntry
   return result;
 }
 
-uint64_t sub_221567F44(uint64_t result, TSCE::CoordMapperArchive_SummaryToViewEntry **a2, TSCE::CoordMapperArchive_SummaryToViewEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221567F44(uint64_t *result, TSCE::CoordMapperArchive_SummaryToViewEntry **a2, TSCE::CoordMapperArchive_SummaryToViewEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7784,7 +7766,7 @@ void sub_221568004(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221568088(uint64_t result, TSP::CFUUIDArchive **a2, TSP::CFUUIDArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221568088(uint64_t *result, TSP::CFUUIDArchive **a2, TSP::CFUUIDArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7866,7 +7848,7 @@ void sub_221568148(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2215681CC(uint64_t result, TSCE::EdgeArchive **a2, TSCE::EdgeArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2215681CC(uint64_t *result, TSCE::EdgeArchive **a2, TSCE::EdgeArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7948,7 +7930,7 @@ void sub_22156828C(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221568310(uint64_t result, TSCE::CellRecordArchive **a2, TSCE::CellRecordArchive **a3, unsigned int a4, unsigned int a5)
+char *sub_221568310(char *result, TSCE::CellRecordArchive **a2, TSCE::CellRecordArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8030,7 +8012,7 @@ void sub_2215683D0(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221568454(uint64_t result, TSCE::CellRecordExpandedArchive **a2, TSCE::CellRecordExpandedArchive **a3, unsigned int a4, unsigned int a5)
+char *sub_221568454(char *result, TSCE::CellRecordExpandedArchive **a2, TSCE::CellRecordExpandedArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8081,7 +8063,7 @@ uint64_t sub_221568454(uint64_t result, TSCE::CellRecordExpandedArchive **a2, TS
   return result;
 }
 
-uint64_t sub_221568514(uint64_t result, TSP::Reference **a2, TSP::Reference **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221568514(uint64_t *result, TSP::Reference **a2, TSP::Reference **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8195,7 +8177,7 @@ void sub_22156865C(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2215686E0(uint64_t result, TSCE::CellCoordinateArchive **a2, TSCE::CellCoordinateArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2215686E0(uint64_t *result, TSCE::CellCoordinateArchive **a2, TSCE::CellCoordinateArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8246,7 +8228,7 @@ uint64_t sub_2215686E0(uint64_t result, TSCE::CellCoordinateArchive **a2, TSCE::
   return result;
 }
 
-uint64_t sub_2215687A0(uint64_t result, TSCE::CellReferenceArchive **a2, TSCE::CellReferenceArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2215687A0(uint64_t *result, TSCE::CellReferenceArchive **a2, TSCE::CellReferenceArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8359,7 +8341,7 @@ void sub_2215688E4(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221568968(uint64_t result, TSCE::RTreeInternalNodeContentsArchive **a2, TSCE::RTreeInternalNodeContentsArchive **a3, unsigned int a4, unsigned int a5)
+char *sub_221568968(char *result, TSCE::RTreeInternalNodeContentsArchive **a2, TSCE::RTreeInternalNodeContentsArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8410,7 +8392,7 @@ uint64_t sub_221568968(uint64_t result, TSCE::RTreeInternalNodeContentsArchive *
   return result;
 }
 
-uint64_t sub_221568A28(uint64_t result, TSCE::RTreeLeafNodeContentsArchive **a2, TSCE::RTreeLeafNodeContentsArchive **a3, unsigned int a4, unsigned int a5)
+char *sub_221568A28(char *result, TSCE::RTreeLeafNodeContentsArchive **a2, TSCE::RTreeLeafNodeContentsArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8492,7 +8474,7 @@ void sub_221568AE8(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221568B6C(uint64_t result, TSCE::RangeBackDependencyArchive **a2, TSCE::RangeBackDependencyArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221568B6C(uint64_t *result, TSCE::RangeBackDependencyArchive **a2, TSCE::RangeBackDependencyArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8574,7 +8556,7 @@ void sub_221568C2C(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221568CB0(uint64_t result, TSCE::RangePrecedentsTileArchive_FromToRangeArchive **a2, TSCE::RangePrecedentsTileArchive_FromToRangeArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221568CB0(uint64_t *result, TSCE::RangePrecedentsTileArchive_FromToRangeArchive **a2, TSCE::RangePrecedentsTileArchive_FromToRangeArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8656,7 +8638,7 @@ void sub_221568D70(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221568DF4(uint64_t result, TSCE::InternalCellReferenceArchive **a2, TSCE::InternalCellReferenceArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221568DF4(uint64_t *result, TSCE::InternalCellReferenceArchive **a2, TSCE::InternalCellReferenceArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8791,7 +8773,7 @@ LABEL_5:
       if (v5 <= v8 - result)
       {
         v14 = a3[1];
-        v15 = result + v5;
+        v15 = (result + v5);
         v18 = *a3;
         v19 = v14;
         result = sub_221569120(result, v15, &v18);
@@ -8930,7 +8912,7 @@ unsigned __int8 *sub_221569120(google::protobuf::internal *this, unint64_t a2, u
   return v3;
 }
 
-uint64_t sub_221569240(uint64_t result, TSCE::SpanningDependenciesArchive_ReferringColumnToLocalCells **a2, TSCE::SpanningDependenciesArchive_ReferringColumnToLocalCells **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221569240(uint64_t *result, TSCE::SpanningDependenciesArchive_ReferringColumnToLocalCells **a2, TSCE::SpanningDependenciesArchive_ReferringColumnToLocalCells **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8981,7 +8963,7 @@ uint64_t sub_221569240(uint64_t result, TSCE::SpanningDependenciesArchive_Referr
   return result;
 }
 
-uint64_t sub_221569300(uint64_t result, TSCE::SpanningDependenciesArchive_ReferringColumnToRemoteCells **a2, TSCE::SpanningDependenciesArchive_ReferringColumnToRemoteCells **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221569300(uint64_t *result, TSCE::SpanningDependenciesArchive_ReferringColumnToRemoteCells **a2, TSCE::SpanningDependenciesArchive_ReferringColumnToRemoteCells **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9032,7 +9014,7 @@ uint64_t sub_221569300(uint64_t result, TSCE::SpanningDependenciesArchive_Referr
   return result;
 }
 
-uint64_t sub_2215693C0(uint64_t result, TSCE::SpanningDependenciesExpandedArchive_ExtentRange **a2, TSCE::SpanningDependenciesExpandedArchive_ExtentRange **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2215693C0(uint64_t *result, TSCE::SpanningDependenciesExpandedArchive_ExtentRange **a2, TSCE::SpanningDependenciesExpandedArchive_ExtentRange **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9114,7 +9096,7 @@ void sub_221569480(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221569504(uint64_t result, TSCE::SpanningDependenciesExpandedArchive_ExtentRangeWithTableWithContext **a2, TSCE::SpanningDependenciesExpandedArchive_ExtentRangeWithTableWithContext **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221569504(uint64_t *result, TSCE::SpanningDependenciesExpandedArchive_ExtentRangeWithTableWithContext **a2, TSCE::SpanningDependenciesExpandedArchive_ExtentRangeWithTableWithContext **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9196,7 +9178,7 @@ void sub_2215695C4(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221569648(uint64_t result, TSCE::SpanningDependenciesExpandedArchive_CellCoordRefersToExtents **a2, TSCE::SpanningDependenciesExpandedArchive_CellCoordRefersToExtents **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221569648(uint64_t *result, TSCE::SpanningDependenciesExpandedArchive_CellCoordRefersToExtents **a2, TSCE::SpanningDependenciesExpandedArchive_CellCoordRefersToExtents **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9278,7 +9260,7 @@ void sub_221569708(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_22156978C(uint64_t result, TSCE::ErrorArchive_ErrorDictionaryEntry **a2, TSCE::ErrorArchive_ErrorDictionaryEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_22156978C(uint64_t *result, TSCE::ErrorArchive_ErrorDictionaryEntry **a2, TSCE::ErrorArchive_ErrorDictionaryEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9360,7 +9342,7 @@ void sub_22156984C(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2215698D0(uint64_t result, TSCE::WarningArchive_WarningDictionaryEntry **a2, TSCE::WarningArchive_WarningDictionaryEntry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2215698D0(uint64_t *result, TSCE::WarningArchive_WarningDictionaryEntry **a2, TSCE::WarningArchive_WarningDictionaryEntry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9442,7 +9424,7 @@ void sub_221569990(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221569A14(uint64_t result, TSCE::WarningArchive **a2, TSCE::WarningArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221569A14(uint64_t *result, TSCE::WarningArchive **a2, TSCE::WarningArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9555,7 +9537,7 @@ void sub_221569B58(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221569BDC(uint64_t result, TSCE::CellErrorsArchive_ErrorForCell **a2, TSCE::CellErrorsArchive_ErrorForCell **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221569BDC(uint64_t *result, TSCE::CellErrorsArchive_ErrorForCell **a2, TSCE::CellErrorsArchive_ErrorForCell **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9606,7 +9588,7 @@ uint64_t sub_221569BDC(uint64_t result, TSCE::CellErrorsArchive_ErrorForCell **a
   return result;
 }
 
-uint64_t sub_221569C9C(uint64_t result, TSCE::CellErrorsArchive_EnhancedErrorForCell **a2, TSCE::CellErrorsArchive_EnhancedErrorForCell **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221569C9C(uint64_t *result, TSCE::CellErrorsArchive_EnhancedErrorForCell **a2, TSCE::CellErrorsArchive_EnhancedErrorForCell **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9688,7 +9670,7 @@ void sub_221569D5C(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221569DE0(uint64_t result, TSCE::CellSpillSizesArchive_SpillForCell **a2, TSCE::CellSpillSizesArchive_SpillForCell **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221569DE0(uint64_t *result, TSCE::CellSpillSizesArchive_SpillForCell **a2, TSCE::CellSpillSizesArchive_SpillForCell **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9770,7 +9752,7 @@ void sub_221569EA0(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_221569F24(uint64_t result, TSCE::UuidReferencesArchive_UuidRef **a2, TSCE::UuidReferencesArchive_UuidRef **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_221569F24(uint64_t *result, TSCE::UuidReferencesArchive_UuidRef **a2, TSCE::UuidReferencesArchive_UuidRef **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9883,7 +9865,7 @@ void sub_22156A068(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_22156A0EC(uint64_t result, TSCE::UuidReferencesArchive_TableRef **a2, TSCE::UuidReferencesArchive_TableRef **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_22156A0EC(uint64_t *result, TSCE::UuidReferencesArchive_TableRef **a2, TSCE::UuidReferencesArchive_TableRef **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)

@@ -1,18 +1,25 @@
 @interface PDControllerType1
++ (id)PDControllerType1WithDeviceAddress:(unsigned __int8)address userClient:(id)client;
+- (PDControllerType1)initWithAddress:(unsigned __int8)address userClient:(id)client;
 - (id)registerFormatterBusPowerWithBuffer:(void *)buffer andLength:(unint64_t)length;
 - (id)registerFormatterPDControllerType1StateWithBuffer:(void *)buffer andLength:(unint64_t)length;
+- (id)stateStringForExpanderGPIO:(unsigned int)o;
+- (id)stateStringForGPIO:(unsigned int)o;
 - (id)stateStringForGPIOFromFile:(id)file;
 - (id)stringForTitle:(id)title valueString:(id)string;
+- (int)executeIECSCommand:(unsigned int)command;
 - (int)expanderRegisterRead16:(unsigned __int16 *)read16 atOffset:(unsigned __int8)offset;
 - (int)getCCRole:(int *)role;
 - (int)getPDMode:(int *)mode;
 - (int)getPinOutRevision:(unsigned int *)revision;
+- (int)i2cRead:(void *)read ofLength:(unint64_t)length atAddress:(unsigned int)address;
 - (int)i2cRead:(void *)read ofLength:(unint64_t)length atAddress:(unsigned int)address andOutReadLength:(unint64_t *)readLength;
 - (int)i2cWrite:(void *)write ofLength:(unint64_t)length atAddress:(unsigned int)address;
 - (int)i2cWrite:(void *)write ofLength:(unint64_t)length atAddress:(unsigned int)address andRead:(void *)read ofLength:(unint64_t)ofLength andOutReadLength:(unint64_t *)readLength;
 - (int)isPDControllerType1:(BOOL *)type1;
 - (int)isPDControllerType3HPM:(BOOL *)m;
 - (int)isVCONNOn:(BOOL *)on;
+- (int)memRead:(unsigned int *)read atAddress:(unsigned int)address;
 - (int)memWrite:(unsigned int)write atAddress:(unsigned int)address;
 - (int)printAll;
 - (int)printCCRole;
@@ -31,16 +38,48 @@
 - (int)printVBUSState;
 - (int)printVCONNState;
 - (int)printVDETState;
+- (int)readDirection:(BOOL *)direction forExpanderGPIO:(unsigned int)o;
 - (int)readDirection:(BOOL *)direction forGPIO:(unsigned int)o;
+- (int)readInputLevel:(BOOL *)level forExpanderGPIO:(unsigned int)o;
+- (int)readLevel:(BOOL *)level forExpanderGPIO:(unsigned int)o;
 - (int)readLevel:(BOOL *)level forGPIO:(unsigned int)o;
+- (int)readOutputLevel:(BOOL *)level forExpanderGPIO:(unsigned int)o;
 - (int)receiveVDM:(void *)m length:(unint64_t)length outSop:(int *)sop outSequence:(char *)sequence outLength:(unint64_t *)outLength;
 - (int)receiveVDMAttention:(void *)attention length:(unint64_t)length outSop:(int *)sop outSequence:(char *)sequence outLength:(unint64_t *)outLength;
+- (int)registerRead:(void *)read ofLength:(unint64_t)length atAddress:(unsigned int)address andOutReadLength:(unint64_t *)readLength;
+- (int)registerWrite:(void *)write ofLength:(unint64_t)length atAddress:(unsigned int)address;
+- (int)sendVDM:(void *)m length:(unint64_t)length sop:(int)sop;
 - (void)dealloc;
 - (void)printGPIOWithPort:(id)port pin:(id)pin title:(id)title andState:(id)state;
 - (void)printStateWithTitle:(id)title andDescription:(id)description;
 @end
 
 @implementation PDControllerType1
+
++ (id)PDControllerType1WithDeviceAddress:(unsigned __int8)address userClient:(id)client
+{
+  addressCopy = address;
+  clientCopy = client;
+  v7 = [[self alloc] initWithAddress:addressCopy userClient:clientCopy];
+
+  return v7;
+}
+
+- (PDControllerType1)initWithAddress:(unsigned __int8)address userClient:(id)client
+{
+  addressCopy = address;
+  clientCopy = client;
+  v10.receiver = self;
+  v10.super_class = PDControllerType1;
+  v7 = [(PDController *)&v10 initWithAddress:addressCopy userClient:clientCopy];
+  if (v7)
+  {
+    v8 = [PDControllerType3 PDControllerType3MicroWithDeviceAddress:addressCopy userClient:clientCopy];
+    [(PDControllerType1 *)v7 setMicro_user_client:v8];
+  }
+
+  return v7;
+}
 
 - (void)dealloc
 {
@@ -223,6 +262,55 @@
   return result;
 }
 
+- (int)registerRead:(void *)read ofLength:(unint64_t)length atAddress:(unsigned int)address andOutReadLength:(unint64_t *)readLength
+{
+  v7 = *&address;
+  if ([(PDController *)self remote])
+  {
+    micro_user_client = [(PDControllerType1 *)self micro_user_client];
+    v12 = [micro_user_client readIECSRegister:read ofLength:length atRegister:v7 andOutReadLength:readLength];
+  }
+
+  else
+  {
+    micro_user_client = [(PDController *)self userClient];
+    v12 = [micro_user_client iecsReadCommandForDevice:-[PDController address](self withAddress:"address") buffer:v7 length:read flags:length andOutReadLength:{0, readLength}];
+  }
+
+  v13 = v12;
+
+  return v13;
+}
+
+- (int)registerWrite:(void *)write ofLength:(unint64_t)length atAddress:(unsigned int)address
+{
+  v5 = *&address;
+  if ([(PDController *)self remote])
+  {
+    micro_user_client = [(PDControllerType1 *)self micro_user_client];
+    v10 = [micro_user_client writeIECSRegister:write ofLength:length atRegister:v5];
+  }
+
+  else
+  {
+    micro_user_client = [(PDController *)self userClient];
+    v10 = [micro_user_client iecsWriteCommandForDevice:-[PDController address](self withAddress:"address") buffer:v5 length:write flags:{length, 0}];
+  }
+
+  v11 = v10;
+
+  return v11;
+}
+
+- (int)sendVDM:(void *)m length:(unint64_t)length sop:(int)sop
+{
+  v5 = *&sop;
+  userClient = [(PDController *)self userClient];
+  LODWORD(v5) = [userClient sendVDMForDevice:-[PDController address](self sop:"address") buffer:v5 length:m flags:{length, 0}];
+
+  return v5;
+}
+
 - (int)receiveVDM:(void *)m length:(unint64_t)length outSop:(int *)sop outSequence:(char *)sequence outLength:(unint64_t *)outLength
 {
   userClient = [(PDController *)self userClient];
@@ -237,6 +325,55 @@
   LODWORD(outLength) = [userClient receiveVDMAttentionForDevice:-[PDController address](self buffer:"address") length:attention flags:length outSOP:0 outSequence:sop outLength:{sequence, outLength}];
 
   return outLength;
+}
+
+- (int)executeIECSCommand:(unsigned int)command
+{
+  v3 = *&command;
+  if ([(PDController *)self remote])
+  {
+    micro_user_client = [(PDControllerType1 *)self micro_user_client];
+    v6 = [micro_user_client executeIECSCommand:v3];
+  }
+
+  else
+  {
+    micro_user_client = [(PDController *)self userClient];
+    v6 = [micro_user_client iecsCommand:v3 forDevice:-[PDController address](self flags:{"address"), 0}];
+  }
+
+  v7 = v6;
+
+  return v7;
+}
+
+- (int)memRead:(unsigned int *)read atAddress:(unsigned int)address
+{
+  if ((address & 3) != 0)
+  {
+    printf("Error: Memory address not a multiple of 4");
+    return -536870201;
+  }
+
+  else
+  {
+    result = [(PDController *)self registerWrite32:*&address atAddress:9];
+    if (!result)
+    {
+      result = [(PDControllerType1 *)self executeIECSCommand:1296387442];
+      v7 = 0;
+      if (!result)
+      {
+        result = [(PDController *)self registerRead32:&v7 atAddress:9];
+        if (!result)
+        {
+          *read = v7;
+        }
+      }
+    }
+  }
+
+  return result;
 }
 
 - (int)memWrite:(unsigned int)write atAddress:(unsigned int)address
@@ -322,6 +459,13 @@ LABEL_16:
   }
 
   return v9;
+}
+
+- (int)i2cRead:(void *)read ofLength:(unint64_t)length atAddress:(unsigned int)address
+{
+  v6 = 0;
+  [(PDControllerType1 *)self i2cRead:read ofLength:length atAddress:*&address andOutReadLength:&v6];
+  return 0;
 }
 
 - (int)i2cWrite:(void *)write ofLength:(unint64_t)length atAddress:(unsigned int)address
@@ -543,6 +687,43 @@ LABEL_19:
   }
 }
 
+- (id)stateStringForGPIO:(unsigned int)o
+{
+  v3 = *&o;
+  v9 = 0;
+  if ([(PDControllerType1 *)self readDirection:&v9 + 1 forGPIO:*&o]|| [(PDControllerType1 *)self readLevel:&v9 forGPIO:v3])
+  {
+    v5 = @"GPIO STATE ERROR";
+  }
+
+  else
+  {
+    if (HIBYTE(v9))
+    {
+      v7 = @"1";
+    }
+
+    else
+    {
+      v7 = @"0";
+    }
+
+    if (v9)
+    {
+      v8 = @"1";
+    }
+
+    else
+    {
+      v8 = @"0";
+    }
+
+    v5 = [(__CFString *)v7 stringByAppendingString:v8];
+  }
+
+  return v5;
+}
+
 - (int)expanderRegisterRead16:(unsigned __int16 *)read16 atOffset:(unsigned __int8)offset
 {
   offsetCopy = offset;
@@ -554,6 +735,119 @@ LABEL_19:
   }
 
   return result;
+}
+
+- (int)readDirection:(BOOL *)direction forExpanderGPIO:(unsigned int)o
+{
+  v4 = *&o;
+  v7 = 0;
+  result = [(PDControllerType1 *)self expanderRegisterRead16:&v7 atOffset:6];
+  if (!result)
+  {
+    *direction = ((*(&v7 | (v4 >> 4) & 1) >> (v4 & 0xF)) & 1) == 0;
+  }
+
+  return result;
+}
+
+- (int)readOutputLevel:(BOOL *)level forExpanderGPIO:(unsigned int)o
+{
+  v4 = *&o;
+  v7 = 0;
+  result = [(PDControllerType1 *)self expanderRegisterRead16:&v7 atOffset:2];
+  if (!result)
+  {
+    *level = (*(&v7 | (v4 >> 4) & 1) >> (v4 & 0xF)) & 1;
+  }
+
+  return result;
+}
+
+- (int)readInputLevel:(BOOL *)level forExpanderGPIO:(unsigned int)o
+{
+  v4 = *&o;
+  v7 = 0;
+  result = [(PDControllerType1 *)self expanderRegisterRead16:&v7 atOffset:0];
+  if (!result)
+  {
+    *level = (*(&v7 | (v4 >> 4) & 1) >> (v4 & 0xF)) & 1;
+  }
+
+  return result;
+}
+
+- (int)readLevel:(BOOL *)level forExpanderGPIO:(unsigned int)o
+{
+  v4 = *&o;
+  v8 = 0;
+  result = [(PDControllerType1 *)self readDirection:&v8 forExpanderGPIO:?];
+  if (!result)
+  {
+    if (v8 == 1)
+    {
+      return [(PDControllerType1 *)self readOutputLevel:level forExpanderGPIO:v4];
+    }
+
+    else
+    {
+      return [(PDControllerType1 *)self readInputLevel:level forExpanderGPIO:v4];
+    }
+  }
+
+  return result;
+}
+
+- (id)stateStringForExpanderGPIO:(unsigned int)o
+{
+  v3 = *&o;
+  v9 = 0;
+  if ([(PDControllerType1 *)self readDirection:&v9 + 1 forExpanderGPIO:*&o])
+  {
+    goto LABEL_4;
+  }
+
+  if (HIBYTE(v9) != 1)
+  {
+    if ([(PDControllerType1 *)self readInputLevel:&v9 forExpanderGPIO:v3])
+    {
+      goto LABEL_4;
+    }
+
+LABEL_9:
+    if (HIBYTE(v9))
+    {
+      v7 = @"1";
+    }
+
+    else
+    {
+      v7 = @"0";
+    }
+
+    if (v9)
+    {
+      v8 = @"1";
+    }
+
+    else
+    {
+      v8 = @"0";
+    }
+
+    v5 = [(__CFString *)v7 stringByAppendingString:v8];
+    goto LABEL_5;
+  }
+
+  if (![(PDControllerType1 *)self readOutputLevel:&v9 forExpanderGPIO:v3])
+  {
+    goto LABEL_9;
+  }
+
+LABEL_4:
+  v5 = @"GPIO STATE ERROR";
+LABEL_5:
+
+  return v5;
 }
 
 - (id)registerFormatterBusPowerWithBuffer:(void *)buffer andLength:(unint64_t)length

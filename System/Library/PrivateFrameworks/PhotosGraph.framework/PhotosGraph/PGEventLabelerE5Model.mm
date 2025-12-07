@@ -306,30 +306,30 @@ void __60__PGEventLabelerE5Model__areFeaturesValidForFeatures_error___block_invo
 - (PGEventLabelerE5Model)initWithFilePath:(id)path error:(id *)error
 {
   pathCopy = path;
-  v45.receiver = self;
-  v45.super_class = PGEventLabelerE5Model;
-  v6 = [(PGEventLabelerE5Model *)&v45 init];
+  v43.receiver = self;
+  v43.super_class = PGEventLabelerE5Model;
+  v6 = [(PGEventLabelerE5Model *)&v43 init];
   if (v6)
   {
-    v35 = pathCopy;
-    v36 = v6;
-    std::string::basic_string[abi:ne200100]<0>(&v46, "op");
-    std::string::basic_string[abi:ne200100]<0>(&v42, [pathCopy UTF8String]);
+    v34 = pathCopy;
+    v35 = v6;
+    std::string::basic_string[abi:ne200100]<0>(&v44, "op");
+    std::string::basic_string[abi:ne200100]<0>(&v40, [pathCopy UTF8String]);
     std::string::basic_string[abi:ne200100]<0>(&__p, "main");
     E5RT::ExecutionStreamOperation::CreatePreCompiledComputeOp();
-    if (v44)
+    if (v42)
     {
       operator new();
     }
 
-    v44 = 0;
+    v42 = 0;
     v8 = *(v6 + 2);
     *(v6 + 8) = 0u;
     if (v8)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-      v9 = v44;
-      v44 = 0;
+      v9 = v42;
+      v42 = 0;
       if (v9)
       {
         (*(*v9 + 8))(v9);
@@ -338,22 +338,22 @@ void __60__PGEventLabelerE5Model__areFeaturesValidForFeatures_error___block_invo
 
     else
     {
-      v44 = 0;
+      v42 = 0;
     }
 
-    if (v41 < 0)
+    if (v39 < 0)
     {
       operator delete(__p);
     }
 
-    if (v43 < 0)
+    if (v41 < 0)
     {
-      operator delete(v42);
+      operator delete(v40);
     }
 
-    if (SHIBYTE(v48) < 0)
+    if (SHIBYTE(v46) < 0)
     {
-      operator delete(v46);
+      operator delete(v44);
     }
 
     InputPorts = E5RT::ExecutionStreamOperation::GetInputPorts(*(v6 + 1));
@@ -376,20 +376,20 @@ void __60__PGEventLabelerE5Model__areFeaturesValidForFeatures_error___block_invo
           atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        E5RT::IOPort::GetPortDescriptor(&v46, v14);
-        E5RT::OperandDescriptor::TensorDescriptor(v46);
-        if (v47)
+        E5RT::IOPort::GetPortDescriptor(&v44, v14);
+        E5RT::OperandDescriptor::TensorDescriptor(v44);
+        if (v45)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v47);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v45);
         }
 
         E5RT::TensorDescriptor::AllocateMemory();
-        if (v46)
+        if (v44)
         {
           operator new();
         }
 
-        v37 = v13;
+        v36 = v13;
         E5RT::IOPort::BindMemoryObject();
         v15 = std::__string_hash<char>::operator()[abi:ne200100]((v11 + 2));
         v16 = v15;
@@ -462,7 +462,7 @@ LABEL_40:
           goto LABEL_40;
         }
 
-        v6 = v36;
+        v6 = v35;
         v24 = v22[6];
         v22[5] = 0;
         v22[6] = 0;
@@ -471,9 +471,9 @@ LABEL_40:
           std::__shared_weak_count::__release_shared[abi:ne200100](v24);
         }
 
-        if (v37)
+        if (v36)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v36);
         }
 
         v11 = *v11;
@@ -498,15 +498,15 @@ LABEL_40:
         atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      E5RT::IOPort::GetPortDescriptor(&v46, v28);
-      E5RT::OperandDescriptor::TensorDescriptor(v46);
-      if (v47)
+      E5RT::IOPort::GetPortDescriptor(&v44, v28);
+      E5RT::OperandDescriptor::TensorDescriptor(v44);
+      if (v45)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v47);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v45);
       }
 
       E5RT::TensorDescriptor::AllocateMemory();
-      if (v46)
+      if (v44)
       {
         operator new();
       }
@@ -519,37 +519,35 @@ LABEL_40:
       }
     }
 
-    E5RT::ExecutionStream::CreateExecutionStream(&v46, OutputPorts);
-    v29 = v46;
-    v46 = 0;
-    pathCopy = v35;
-    v7 = v36;
-    ptr = v36->_stream.__ptr_;
-    v36->_stream.__ptr_ = v29;
+    E5RT::ExecutionStream::CreateExecutionStream(&v44, OutputPorts);
+    v29 = v44;
+    v44 = 0;
+    pathCopy = v34;
+    v7 = v35;
+    ptr = v35->_stream.__ptr_;
+    v35->_stream.__ptr_ = v29;
     if (ptr)
     {
       (*(*ptr + 8))(ptr);
-      v31 = v46;
-      v46 = 0;
+      v31 = v44;
+      v44 = 0;
       if (v31)
       {
         (*(*v31 + 8))(v31);
       }
     }
 
-    cntrl = v36->_esop.__cntrl_;
-    v32 = v36->_stream.__ptr_;
-    v38 = v36->_esop.__ptr_;
-    v39 = cntrl;
+    cntrl = v35->_esop.__cntrl_;
+    v37 = cntrl;
     if (cntrl)
     {
       atomic_fetch_add_explicit(&cntrl->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     E5RT::ExecutionStream::EncodeOperation();
-    if (v39)
+    if (v37)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v37);
     }
   }
 

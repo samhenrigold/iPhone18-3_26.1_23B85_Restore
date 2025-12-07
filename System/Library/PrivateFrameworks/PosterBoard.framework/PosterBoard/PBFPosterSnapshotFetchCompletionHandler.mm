@@ -14,18 +14,18 @@
   queueCopy = queue;
   if (!handlerCopy)
   {
-    [PBFPosterSnapshotFetchCompletionHandler initWithRequest:a2 completionHandler:? queue:?];
+    [PBFPosterSnapshotFetchCompletionHandler initWithRequest:a2 completionHandler:self queue:?];
   }
 
   if (!requestCopy)
   {
-    [PBFPosterSnapshotFetchCompletionHandler initWithRequest:a2 completionHandler:? queue:?];
+    [PBFPosterSnapshotFetchCompletionHandler initWithRequest:a2 completionHandler:self queue:?];
   }
 
   v13 = queueCopy;
   if (!queueCopy)
   {
-    [PBFPosterSnapshotFetchCompletionHandler initWithRequest:a2 completionHandler:? queue:?];
+    [PBFPosterSnapshotFetchCompletionHandler initWithRequest:a2 completionHandler:self queue:?];
   }
 
   v21.receiver = self;
@@ -59,131 +59,133 @@
 
 - (void)finishWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  if ([(BSAtomicFlag *)self->_didFireCompletionHandler setFlag:1])
+  v5 = [(BSAtomicFlag *)self->_didFireCompletionHandler setFlag:1];
+  if (v5)
   {
-    v5 = _Block_copy(self->_completionHandler);
-    v6 = PBFLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v6 = _Block_copy(self->_completionHandler);
+    v7 = PBFLogCommon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       request = self->_request;
       *buf = 138543362;
-      v15 = request;
-      _os_log_impl(&dword_21B526000, v6, OS_LOG_TYPE_INFO, "Fired ERROR completion handler for %{public}@", buf, 0xCu);
+      v16 = request;
+      _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_INFO, "Fired ERROR completion handler for %{public}@", buf, 0xCu);
     }
 
     queue = self->_queue;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __59__PBFPosterSnapshotFetchCompletionHandler_finishWithError___block_invoke;
-    v11[3] = &unk_2782C6310;
-    v13 = v5;
-    v12 = errorCopy;
-    v9 = v5;
-    dispatch_async(queue, v11);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __59__PBFPosterSnapshotFetchCompletionHandler_finishWithError___block_invoke;
+    v12[3] = &unk_2782C6310;
+    v14 = v6;
+    v13 = errorCopy;
+    v10 = v6;
+    dispatch_async(queue, v12);
   }
 
   else
   {
-    v9 = PBFLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = PBFLogCommon(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = self->_request;
+      v11 = self->_request;
       *buf = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_21B526000, v9, OS_LOG_TYPE_INFO, "Already fired completion handler for %{public}@; bailing", buf, 0xCu);
+      v16 = v11;
+      _os_log_impl(&dword_21B526000, v10, OS_LOG_TYPE_INFO, "Already fired completion handler for %{public}@; bailing", buf, 0xCu);
     }
   }
 }
 
 - (void)finishWithSuccess:(id)success
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   successCopy = success;
-  if ([(BSAtomicFlag *)self->_didFireCompletionHandler setFlag:1])
+  v5 = [(BSAtomicFlag *)self->_didFireCompletionHandler setFlag:1];
+  if (v5)
   {
-    v5 = _Block_copy(self->_completionHandler);
-    v6 = PBFLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v6 = _Block_copy(self->_completionHandler);
+    v7 = PBFLogCommon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       request = self->_request;
       *buf = 138543362;
-      v15 = request;
-      _os_log_impl(&dword_21B526000, v6, OS_LOG_TYPE_INFO, "Fired SUCCESS completion handler for %{public}@", buf, 0xCu);
+      v16 = request;
+      _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_INFO, "Fired SUCCESS completion handler for %{public}@", buf, 0xCu);
     }
 
     queue = self->_queue;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __61__PBFPosterSnapshotFetchCompletionHandler_finishWithSuccess___block_invoke;
-    v11[3] = &unk_2782C6310;
-    v13 = v5;
-    v12 = successCopy;
-    v9 = v5;
-    dispatch_async(queue, v11);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __61__PBFPosterSnapshotFetchCompletionHandler_finishWithSuccess___block_invoke;
+    v12[3] = &unk_2782C6310;
+    v14 = v6;
+    v13 = successCopy;
+    v10 = v6;
+    dispatch_async(queue, v12);
   }
 
   else
   {
-    v9 = PBFLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = PBFLogCommon(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = self->_request;
+      v11 = self->_request;
       *buf = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_21B526000, v9, OS_LOG_TYPE_INFO, "Already fired completion handler for %{public}@; bailing", buf, 0xCu);
+      v16 = v11;
+      _os_log_impl(&dword_21B526000, v10, OS_LOG_TYPE_INFO, "Already fired completion handler for %{public}@; bailing", buf, 0xCu);
     }
   }
 }
 
-- (void)initWithRequest:(const char *)a1 completionHandler:queue:.cold.1(const char *a1)
+- (void)initWithRequest:(const char *)a1 completionHandler:(uint64_t)a2 queue:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"queue", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithRequest:(const char *)a1 completionHandler:queue:.cold.2(const char *a1)
+- (void)initWithRequest:(const char *)a1 completionHandler:(uint64_t)a2 queue:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"request"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"request", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithRequest:(const char *)a1 completionHandler:queue:.cold.3(const char *a1)
+- (void)initWithRequest:(const char *)a1 completionHandler:(uint64_t)a2 queue:.cold.3(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"completionHandler"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"completionHandler", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

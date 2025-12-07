@@ -9,17 +9,17 @@
 
 - (HMIVideoTimeline)initWithMaxCapacity:(int64_t)capacity
 {
-  v8.receiver = self;
-  v8.super_class = HMIVideoTimeline;
-  v4 = [(HMIVideoTimeline *)&v8 init];
-  if (v4)
+  v7.receiver = self;
+  v7.super_class = HMIVideoTimeline;
+  v3 = [(HMIVideoTimeline *)&v7 init];
+  if (v3)
   {
-    v5 = [[HMIVideoEventBuffer alloc] initWithMaxCapacity:capacity];
-    buffer = v4->_buffer;
-    v4->_buffer = v5;
+    v4 = [[HMIVideoEventBuffer alloc] initWithMaxCapacity:?];
+    buffer = v3->_buffer;
+    v3->_buffer = v4;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)addDate:(id)date atTime:(id *)time
@@ -27,20 +27,19 @@
   buffer = self->_buffer;
   dateCopy = date;
   v7 = [HMIVideoTimelineEntry alloc];
-  v9 = *time;
-  v8 = [(HMIVideoTimelineEntry *)v7 initWithTime:&v9 date:dateCopy];
+  v9 = *&time->var0;
+  v8 = [(HMIVideoTimelineEntry *)v7 initWithTime:v9 date:time->var3];
 
-  [(HMIVideoEventBuffer *)buffer addObject:v8];
+  [(HMIVideoEventBuffer *)buffer addObject:?];
 }
 
 - (id)dateAtTime:(id *)time
 {
   v5 = [HMIVideoTimelineEntry alloc];
   date = [MEMORY[0x277CBEAA8] date];
-  v12 = *time;
-  v7 = [(HMIVideoTimelineEntry *)v5 initWithTime:&v12 date:date];
+  v7 = [(HMIVideoTimelineEntry *)v5 initWithTime:*&time->var0 date:time->var3];
 
-  v8 = [(HMIVideoEventBuffer *)self->_buffer neighborsOfObject:v7];
+  v8 = [(HMIVideoEventBuffer *)self->_buffer neighborsOfObject:?];
   lastObject = [v8 lastObject];
 
   if (lastObject)
@@ -54,10 +53,9 @@
 
 - (double)timeIntervalSinceDateAtTime:(id *)time
 {
-  v8 = *time;
-  v3 = [(HMIVideoTimeline *)self dateAtTime:&v8];
+  v3 = [(HMIVideoTimeline *)self dateAtTime:*&time->var0, time->var3];
   date = [MEMORY[0x277CBEAA8] date];
-  [date timeIntervalSinceDate:v3];
+  [date timeIntervalSinceDate:?];
   v6 = v5;
 
   return v6;

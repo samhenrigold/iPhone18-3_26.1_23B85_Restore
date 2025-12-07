@@ -35,30 +35,31 @@
 
 - (PTPersonSemanticsNetwork)initWithMetalContext:(id)context sharedResources:(id)resources
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   resourcesCopy = resources;
-  v63.receiver = self;
-  v63.super_class = PTPersonSemanticsNetwork;
-  v9 = [(PTPersonSemanticsNetwork *)&v63 init];
+  v69.receiver = self;
+  v69.super_class = PTPersonSemanticsNetwork;
+  v9 = [(PTPersonSemanticsNetwork *)&v69 init];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_metalContext, context);
     kdebug_trace();
-    if ((MGGetBoolAnswer() & 1) == 0)
+    v11 = MGGetBoolAnswer();
+    if ((v11 & 1) == 0)
     {
-      v15 = _PTLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = _PTLogSystem(v11);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [PTPersonSemanticsNetwork initWithMetalContext:sharedResources:];
       }
 
-      v31 = 0;
+      v33 = 0;
       goto LABEL_54;
     }
 
-    PTKTraceInit();
+    PTKTraceInit(v11, v12);
     effectUtil = [resourcesCopy effectUtil];
     effectUtil = v10->_effectUtil;
     v10->_effectUtil = effectUtil;
@@ -66,95 +67,95 @@
     inRGBAName = v10->_inRGBAName;
     v10->_inRGBAName = @"image__Placeholder__0";
 
-    v14 = FTGetChipIdentifier();
-    v15 = [(PTPersonSemanticsNetwork *)v10 espressoFileURLFor:@"/System/Library/ImagingNetworks" prefix:@"personsemantics-preview-lowfps" chipId:v14];
-    v16 = [(PTPersonSemanticsNetwork *)v10 espressoFileURLFor:@"/System/Library/ImagingNetworks" prefix:@"personsemantics-preview" chipId:v14];
-    if (!(v15 | v16))
+    v16 = FTGetChipIdentifier();
+    v17 = [(PTPersonSemanticsNetwork *)v10 espressoFileURLFor:@"/System/Library/ImagingNetworks" prefix:@"personsemantics-preview-lowfps" chipId:v16];
+    v18 = [(PTPersonSemanticsNetwork *)v10 espressoFileURLFor:@"/System/Library/ImagingNetworks" prefix:@"personsemantics-preview" chipId:v16];
+    if (!(v17 | v18))
     {
-      v58 = v14;
-      v54 = resourcesCopy;
-      v17 = _PTLogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v64 = v16;
+      v60 = resourcesCopy;
+      v19 = _PTLogSystem(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [PTPersonSemanticsNetwork initWithMetalContext:sharedResources:];
       }
 
-      v56 = contextCopy;
+      v62 = contextCopy;
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v19 = [defaultManager contentsOfDirectoryAtPath:@"/System/Library/ImagingNetworks" error:0];
+      v21 = [defaultManager contentsOfDirectoryAtPath:@"/System/Library/ImagingNetworks" error:0];
 
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
-      v60 = 0u;
-      v20 = v19;
-      v21 = [v20 countByEnumeratingWithState:&v59 objects:v66 count:16];
-      if (!v21)
+      v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      v22 = v21;
+      v23 = [v22 countByEnumeratingWithState:&v65 objects:v72 count:16];
+      if (!v23)
       {
-        v23 = 0;
-        v24 = 0;
+        v25 = 0;
+        v26 = 0;
         goto LABEL_26;
       }
 
-      v22 = v21;
-      v23 = 0;
-      v24 = 0;
-      v25 = *v60;
+      v24 = v23;
+      v25 = 0;
+      v26 = 0;
+      v27 = *v66;
       while (1)
       {
-        for (i = 0; i != v22; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v60 != v25)
+          if (*v66 != v27)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v59 + 1) + 8 * i);
-          if ([v27 hasSuffix:@".espresso.net"])
+          v29 = *(*(&v65 + 1) + 8 * i);
+          if ([v29 hasSuffix:@".espresso.net"])
           {
-            if ([v27 containsString:@"personsemantics-preview-lowfps"])
+            if ([v29 containsString:@"personsemantics-preview-lowfps"])
             {
-              v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", @"/System/Library/ImagingNetworks", v27];
-              v29 = v24;
-              v24 = v28;
+              v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", @"/System/Library/ImagingNetworks", v29];
+              v31 = v26;
+              v26 = v30;
             }
 
             else
             {
-              if (![v27 containsString:@"personsemantics-preview"])
+              if (![v29 containsString:@"personsemantics-preview"])
               {
                 continue;
               }
 
-              v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", @"/System/Library/ImagingNetworks", v27];
-              v29 = v23;
-              v23 = v30;
+              v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", @"/System/Library/ImagingNetworks", v29];
+              v31 = v25;
+              v25 = v32;
             }
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v59 objects:v66 count:16];
-        if (!v22)
+        v24 = [v22 countByEnumeratingWithState:&v65 objects:v72 count:16];
+        if (!v24)
         {
 LABEL_26:
 
-          resourcesCopy = v54;
-          contextCopy = v56;
-          v14 = v58;
-          v15 = v24;
-          v32 = v23;
+          resourcesCopy = v60;
+          contextCopy = v62;
+          v16 = v64;
+          v17 = v26;
+          v34 = v25;
           goto LABEL_27;
         }
       }
     }
 
-    v32 = v16;
+    v34 = v18;
 LABEL_27:
-    v33 = v15;
-    if (v15 || (v33 = v32) != 0)
+    v35 = v17;
+    if (v17 || (v35 = v34) != 0)
     {
-      v34 = [MEMORY[0x277CBEBC0] fileURLWithPath:v33];
+      v36 = [MEMORY[0x277CBEBC0] fileURLWithPath:v35];
       segmentationNetwork = [resourcesCopy segmentationNetwork];
 
       if (segmentationNetwork)
@@ -166,70 +167,70 @@ LABEL_27:
 
       else
       {
-        v55 = v32;
-        v57 = v15;
+        v61 = v34;
+        v63 = v17;
         executor = +[PTInference ANEConfigForAsynchronousWork];
-        v38 = [PTEspressoGenericExecutor alloc];
+        v40 = [PTEspressoGenericExecutor alloc];
         metalContext = v10->_metalContext;
-        v65 = v10->_inRGBAName;
-        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
-        v64[0] = @"skin:0";
-        v64[1] = @"person:0";
-        v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
-        v42 = [(PTEspressoGenericExecutor *)v38 initWithMetalContext:metalContext url:v34 inputNames:v40 outputNames:v41 tensorSwapNames:0 reshapeNetworkSize:0 configuration:0 ANEConfig:executor];
-        v43 = v10->_executor;
-        v10->_executor = v42;
+        v71 = v10->_inRGBAName;
+        v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
+        v70[0] = @"skin:0";
+        v70[1] = @"person:0";
+        v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+        v44 = [(PTEspressoGenericExecutor *)v40 initWithMetalContext:metalContext url:v36 inputNames:v42 outputNames:v43 tensorSwapNames:0 reshapeNetworkSize:0 configuration:0 ANEConfig:executor];
+        v45 = v10->_executor;
+        v10->_executor = v44;
 
         if (!v10->_executor)
         {
-          v52 = _PTLogSystem();
-          v32 = v55;
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+          v58 = _PTLogSystem(v46);
+          v34 = v61;
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
           {
             [PTPersonSemanticsNetwork initWithMetalContext:sharedResources:];
           }
 
-          v31 = 0;
-          v15 = v57;
+          v33 = 0;
+          v17 = v63;
           goto LABEL_53;
         }
 
         [resourcesCopy setSegmentationNetwork:?];
-        v15 = v57;
-        v32 = v55;
+        v17 = v63;
+        v34 = v61;
       }
 
       kdebug_trace();
-      v44 = v10->_executor;
-      if (v44)
+      v47 = v10->_executor;
+      if (v47)
       {
-        v45 = [(PTEspressoGenericExecutor *)v44 getInputResourceWithName:v10->_inRGBAName];
+        v48 = [(PTEspressoGenericExecutor *)v47 getInputResourceWithName:v10->_inRGBAName];
         inRGBA = v10->_inRGBA;
-        v10->_inRGBA = v45;
+        v10->_inRGBA = v48;
 
         if (v10->_inRGBA)
         {
-          v47 = [(PTEspressoGenericExecutor *)v10->_executor getOutputResourceWithName:@"skin:0"];
+          v51 = [(PTEspressoGenericExecutor *)v10->_executor getOutputResourceWithName:@"skin:0"];
           outSkinMask = v10->_outSkinMask;
-          v10->_outSkinMask = v47;
+          v10->_outSkinMask = v51;
 
           if (v10->_outSkinMask)
           {
-            v49 = [(PTEspressoGenericExecutor *)v10->_executor getOutputResourceWithName:@"person:0"];
+            v54 = [(PTEspressoGenericExecutor *)v10->_executor getOutputResourceWithName:@"person:0"];
             outPersonMask = v10->_outPersonMask;
-            v10->_outPersonMask = v49;
+            v10->_outPersonMask = v54;
 
             if (v10->_outPersonMask)
             {
-              v31 = v10;
+              v33 = v10;
 LABEL_53:
 
 LABEL_54:
               goto LABEL_55;
             }
 
-            v51 = _PTLogSystem();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+            v57 = _PTLogSystem(v56);
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
             {
               [PTPersonSemanticsNetwork initWithMetalContext:sharedResources:];
             }
@@ -237,8 +238,8 @@ LABEL_54:
 
           else
           {
-            v51 = _PTLogSystem();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+            v57 = _PTLogSystem(v53);
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
             {
               [PTPersonSemanticsNetwork initWithMetalContext:sharedResources:];
             }
@@ -247,8 +248,8 @@ LABEL_54:
 
         else
         {
-          v51 = _PTLogSystem();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          v57 = _PTLogSystem(v50);
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             [PTPersonSemanticsNetwork initWithMetalContext:sharedResources:];
           }
@@ -257,8 +258,8 @@ LABEL_54:
 
       else
       {
-        v51 = _PTLogSystem();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v57 = _PTLogSystem(0);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
           [PTPersonSemanticsNetwork initWithMetalContext:sharedResources:];
         }
@@ -267,21 +268,21 @@ LABEL_54:
 
     else
     {
-      v34 = _PTLogSystem();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v36 = _PTLogSystem(v18);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         [PTPersonSemanticsNetwork initWithMetalContext:sharedResources:];
       }
     }
 
-    v31 = 0;
+    v33 = 0;
     goto LABEL_53;
   }
 
-  v31 = 0;
+  v33 = 0;
 LABEL_55:
 
-  return v31;
+  return v33;
 }
 
 - (unsigned)executeNetwork:(id)network

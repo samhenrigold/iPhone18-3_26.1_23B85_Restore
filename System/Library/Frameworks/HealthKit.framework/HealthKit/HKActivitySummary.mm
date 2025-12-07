@@ -3451,11 +3451,11 @@ LABEL_47:
 
 + (id)_mostSignificantCacheAmongCaches:(id)caches
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   cachesCopy = caches;
   v5 = [cachesCopy hk_filter:&__block_literal_global_101];
-  v83 = v5;
-  v84 = cachesCopy;
+  v82 = v5;
+  v83 = cachesCopy;
   if ([v5 count])
   {
     v6 = v5;
@@ -3468,27 +3468,27 @@ LABEL_47:
 
   v7 = v6;
   v8 = [self _mostRecentlyCreatedCacheAmongCaches:v7];
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v85 objects:v89 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v84 objects:v88 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v86;
+    v13 = *v85;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v86 != v13)
+        if (*v85 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v85 + 1) + 8 * i);
+        v15 = *(*(&v84 + 1) + 8 * i);
         energyBurnedGoalDate = [v15 energyBurnedGoalDate];
         [energyBurnedGoalDate timeIntervalSinceReferenceDate];
         v18 = v17;
@@ -3642,7 +3642,7 @@ LABEL_47:
         v12 |= [v15 isPaused];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v85 objects:v89 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v84 objects:v88 count:16];
     }
 
     while (v11);
@@ -3654,7 +3654,6 @@ LABEL_47:
   }
 
   [v8 _setPaused:v12 & 1];
-  v81 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -3679,31 +3678,31 @@ BOOL __54__HKActivitySummary__mostSignificantCacheAmongCaches___block_invoke(uin
 
 + (id)_mostRecentlyCreatedCacheAmongCaches:(id)caches
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   cachesCopy = caches;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v4 = [cachesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [cachesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(cachesCopy);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         if (v6)
         {
-          _creationDate = [*(*(&v19 + 1) + 8 * i) _creationDate];
+          _creationDate = [*(*(&v18 + 1) + 8 * i) _creationDate];
           [_creationDate timeIntervalSinceReferenceDate];
           v12 = v11;
           _creationDate2 = [v6 _creationDate];
@@ -3724,7 +3723,7 @@ BOOL __54__HKActivitySummary__mostSignificantCacheAmongCaches___block_invoke(uin
         }
       }
 
-      v5 = [cachesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [cachesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -3734,8 +3733,6 @@ BOOL __54__HKActivitySummary__mostSignificantCacheAmongCaches___block_invoke(uin
   {
     v6 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

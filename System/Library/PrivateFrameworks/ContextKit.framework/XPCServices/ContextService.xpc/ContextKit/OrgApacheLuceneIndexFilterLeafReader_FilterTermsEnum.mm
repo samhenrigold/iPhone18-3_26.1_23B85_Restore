@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneIndexFilterLeafReader_FilterTermsEnum
 - (id)attributes;
 - (id)next;
+- (id)postingsWithOrgApacheLuceneIndexPostingsEnum:(id)enum withInt:(int)int;
 - (id)seekCeilWithOrgApacheLuceneUtilBytesRef:(id)ref;
 - (id)term;
 - (int)docFreq;
@@ -98,6 +99,17 @@
   }
 
   return [(OrgApacheLuceneIndexTermsEnum *)in totalTermFreq];
+}
+
+- (id)postingsWithOrgApacheLuceneIndexPostingsEnum:(id)enum withInt:(int)int
+{
+  in = self->in_;
+  if (!in)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneIndexTermsEnum *)in postingsWithOrgApacheLuceneIndexPostingsEnum:enum withInt:*&int];
 }
 
 - (void)dealloc

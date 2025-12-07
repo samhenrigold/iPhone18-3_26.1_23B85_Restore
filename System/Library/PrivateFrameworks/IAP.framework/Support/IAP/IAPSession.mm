@@ -2,6 +2,7 @@
 - (BOOL)closeDataPipes;
 - (BOOL)openPipeFromApp;
 - (BOOL)openPipeToApp;
+- (IAPSession)initWithClient:(id)client connectionID:(unsigned int)d protocolID:(unsigned __int8)iD sessionID:(unsigned __int16 *)sessionID;
 - (id)description;
 - (void)_acceptSocketCB:(__CFSocket *)b acceptedSock:(int)sock;
 - (void)_registerListenSocket;
@@ -11,41 +12,141 @@
 
 @implementation IAPSession
 
+- (IAPSession)initWithClient:(id)client connectionID:(unsigned int)d protocolID:(unsigned __int8)iD sessionID:(unsigned __int16 *)sessionID
+{
+  v8 = *&d;
+  v24.receiver = self;
+  v24.super_class = IAPSession;
+  v10 = [(IAPSession *)&v24 init];
+  if (!v10)
+  {
+    return v10;
+  }
+
+  result = client;
+  if ((&v10->_client & 7) != 0)
+  {
+    goto LABEL_36;
+  }
+
+  v10->_client = result;
+  if ((&v10->_connectionID & 3) != 0)
+  {
+    goto LABEL_36;
+  }
+
+  v10->_connectionID = v8;
+  v10->_protocolID = iD;
+  v12 = dword_10012B914 + 1;
+  if (dword_10012B914 == -1)
+  {
+    goto LABEL_37;
+  }
+
+  if (HIWORD(v12))
+  {
+    v12 = 0;
+  }
+
+  dword_10012B914 = v12;
+  if (!sessionID)
+  {
+    goto LABEL_36;
+  }
+
+  if (sessionID)
+  {
+    goto LABEL_36;
+  }
+
+  *sessionID = v12;
+  if ((v10 + 30))
+  {
+    goto LABEL_36;
+  }
+
+  v10->_sessionID = v12;
+  sub_1000DDE90(3u, @"%s:%s client=%@ connID=0x%x protocolID=%d sessionID=%d", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPSession.mm", "[IAPSession initWithClient:connectionID:protocolID:sessionID:]", client, v8, v10->_protocolID, v12);
+  v13 = [+[EAManager sharedManager](EAManager "sharedManager")];
+  if ((&v10->_accessory & 7) != 0)
+  {
+    goto LABEL_36;
+  }
+
+  v10->_accessory = v13;
+  if (!v13)
+  {
+    NSLog(@"ERROR - %s:%s - %d couldn't find accessory for connectionID=0x%x", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPSession.mm", "[IAPSession initWithClient:connectionID:protocolID:sessionID:]", 126, v10->_connectionID);
+  }
+
+  increaseSessionRefCount = [(IAPEAClient *)v10->_client increaseSessionRefCount];
+  if (((v10 + 32) & 3) != 0 || (v10->_listenSock = -1, ((v10 + 40) & 7) != 0) || (v10->_listenSockRef = 0, ((v10 + 48) & 7) != 0) || (v10->_listenSockRls = 0, ((v10 + 56) & 3) != 0) || (v10->_sock = -1, ((v10 + 64) & 7) != 0) || (v10->_sockRef = 0, ((v10 + 72) & 7) != 0) || (v10->_sockRls = 0, *&v10->_openPipeToAppAfterAccept = 0, (v16 = sub_1000CC7A0(increaseSessionRefCount, v15)) == 0) || (v16 & 7) != 0 || (v17 = (*(*v16 + 96))(v16, v8)) == 0 || (v17 & 7) != 0 || (v18 = (*(*v17 + 160))(v17), v19 = [(IAPEAClient *)v10->_client bundleId], !v18) || (v18 & 7) != 0)
+  {
+LABEL_36:
+    __break(0x5516u);
+  }
+
+  [IAPDataLogger PowerlogEASession:v19 forAccessory:v10->_accessory forProtocolID:v10->_protocolID forPortType:(*(*v18 + 208))(v18) isSessionOpen:1];
+  result = (*(*v18 + 224))(v18);
+  v10->_isWirelessSession = result;
+  v20 = dword_10012B908;
+  if (result)
+  {
+    goto LABEL_28;
+  }
+
+  v20 = dword_10012B908 + 1;
+  if (dword_10012B908 != -1)
+  {
+    ++dword_10012B908;
+LABEL_28:
+    if (v20)
+    {
+      if (v20 == 1 && (byte_10012B90C & 1) == 0)
+      {
+        v25[0] = @"AssertType";
+        v25[1] = @"AssertLevel";
+        v26[0] = @"NoIdleSleepAssertion";
+        v26[1] = &off_100121590;
+        v25[2] = @"AssertName";
+        v25[3] = @"AllowsDeviceRestart";
+        v26[2] = @"com.apple.iapd.ea-session-open";
+        v26[3] = kCFBooleanTrue;
+        if (IOPMAssertionCreateWithProperties([NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:4], &dword_10012B910))
+        {
+          NSLog(@"ERROR - %s:%s - %d couldn't take sleep assertion", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPSession.mm", "[IAPSession initWithClient:connectionID:protocolID:sessionID:]", 167);
+        }
+
+        else
+        {
+          byte_10012B90C = 1;
+          sub_1000DDE90(3u, @"ea session power assertion (%u) taken", dword_10012B910, v21, v22, v23);
+        }
+      }
+    }
+
+    else
+    {
+      sub_1000DDE90(3u, @"%s:%s not taking power assertion for protocolID=%d sessionID=%d on wireless transport", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPSession.mm", "[IAPSession initWithClient:connectionID:protocolID:sessionID:]", v10->_protocolID, v10->_sessionID);
+    }
+
+    return v10;
+  }
+
+LABEL_37:
+  __break(0x5500u);
+  return result;
+}
+
 - (void)shuttingDownSession
 {
-  if (((self + 16) & 7) != 0)
+  if (((self + 16) & 7) != 0 || ([(IAPEAClient *)self->_client decreaseSessionRefCount], (&self->_connectionID & 3) != 0) || ((self + 30) & 1) != 0 || (sub_1000DDE90(3u, @"%s:%s clientID=%@ connectionID=0x%x protocolID=%d sessionID=%d", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPSession.mm", "[IAPSession shuttingDownSession]", self->_client, self->_connectionID, self->_protocolID, self->_sessionID), (v5 = sub_1000CC7A0(v3, v4)) == 0) || (v5 & 7) != 0 || ((v6 = (*(*v5 + 96))(v5, self->_connectionID)) != 0 ? (v7 = (v6 & 7) == 0) : (v7 = 0), !v7 || (v8 = (*(*v6 + 160))(v6), v9 = [(IAPEAClient *)self->_client bundleId], ((self + 8) & 7) != 0) || (v8 ? (v10 = (v8 & 7) == 0) : (v10 = 0), !v10)))
   {
-    goto LABEL_29;
-  }
-
-  [(IAPEAClient *)self->_client decreaseSessionRefCount];
-  if ((&self->_connectionID & 3) != 0)
-  {
-    goto LABEL_29;
-  }
-
-  if ((self + 30))
-  {
-    goto LABEL_29;
-  }
-
-  sub_1000DDE90(3u, @"%s:%s clientID=%@ connectionID=0x%x protocolID=%d sessionID=%d", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPSession.mm", "[IAPSession shuttingDownSession]", self->_client, self->_connectionID, self->_protocolID, self->_sessionID);
-  v3 = sub_1000CC7A0();
-  if (!v3 || (v3 & 7) != 0)
-  {
-    goto LABEL_29;
-  }
-
-  v4 = (*(*v3 + 96))(v3, self->_connectionID);
-  v5 = v4 && (v4 & 7) == 0;
-  if (!v5 || (v6 = (*(*v4 + 160))(v4), v7 = [(IAPEAClient *)self->_client bundleId], ((self + 8) & 7) != 0) || (v6 ? (v8 = (v6 & 7) == 0) : (v8 = 0), !v8))
-  {
-LABEL_29:
     __break(0x5516u);
     goto LABEL_30;
   }
 
-  [IAPDataLogger PowerlogEASession:v7 forAccessory:self->_accessory forProtocolID:self->_protocolID forPortType:(*(*v6 + 208))(v6) isSessionOpen:0];
+  [IAPDataLogger PowerlogEASession:v9 forAccessory:self->_accessory forProtocolID:self->_protocolID forPortType:(*(*v8 + 208))(v8) isSessionOpen:0];
   isWirelessSession = self->_isWirelessSession;
   if (isWirelessSession >= 2)
   {
@@ -54,10 +155,10 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v10 = dword_10012B908;
+  v12 = dword_10012B908;
   if ((isWirelessSession & 1) == 0)
   {
-    v10 = dword_10012B908 - 1;
+    v12 = dword_10012B908 - 1;
     if (!dword_10012B908)
     {
 LABEL_31:
@@ -68,7 +169,7 @@ LABEL_31:
     --dword_10012B908;
   }
 
-  if (!v10 && byte_10012B90C == 1)
+  if (!v12 && byte_10012B90C == 1)
   {
     if (IOPMAssertionRelease(dword_10012B910))
     {
@@ -274,31 +375,29 @@ LABEL_20:
     goto LABEL_11;
   }
 
-  connectionID = self->_connectionID;
-  sessionID = self->_sessionID;
   IAPAppToAppSocketPath();
-  *&v6 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *(&v14[5] + 10) = v6;
-  v14[4] = v6;
-  v14[5] = v6;
-  v14[2] = v6;
-  v14[3] = v6;
-  v14[0] = v6;
-  v14[1] = v6;
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *(&v12[5] + 10) = v4;
+  v12[4] = v4;
+  v12[5] = v4;
+  v12[2] = v4;
+  v12[3] = v4;
+  v12[0] = v4;
+  v12[1] = v4;
   unlink(__source);
-  v7 = socket(1, 1, 0);
+  v5 = socket(1, 1, 0);
   p_listenSock = &self->_listenSock;
   if ((&self->_listenSock & 3) != 0)
   {
     goto LABEL_11;
   }
 
-  *p_listenSock = v7;
-  memset(v14 + 2, 0, 104);
-  LOWORD(v14[0]) = 362;
-  strlcpy(v14 + 2, __source, 0x68uLL);
-  if (bind(*p_listenSock, v14, 0x6Au))
+  *p_listenSock = v5;
+  memset(v12 + 2, 0, 104);
+  LOWORD(v12[0]) = 362;
+  strlcpy(v12 + 2, __source, 0x68uLL);
+  if (bind(*p_listenSock, v12, 0x6Au))
   {
     NSLog(@"can't bind to ea address");
   }
@@ -311,8 +410,8 @@ LABEL_20:
   context.version = 0;
   context.info = self;
   memset(&context.retain, 0, 24);
-  v9 = CFSocketCreateWithNative(kCFAllocatorDefault, self->_listenSock, 2uLL, sub_100010FC8, &context);
-  if (((self + 40) & 7) != 0 || (self->_listenSockRef = v9, RunLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, v9, 0), p_listenSockRls = &self->_listenSockRls, (p_listenSockRls & 7) != 0))
+  v7 = CFSocketCreateWithNative(kCFAllocatorDefault, self->_listenSock, 2uLL, sub_100010FC8, &context);
+  if (((self + 40) & 7) != 0 || (self->_listenSockRef = v7, RunLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, v7, 0), p_listenSockRls = &self->_listenSockRls, (p_listenSockRls & 7) != 0))
   {
 LABEL_11:
     __break(0x5516u);
@@ -329,36 +428,8 @@ LABEL_11:
   context.version = 0;
   context.info = self;
   memset(&context.retain, 0, 24);
-  if (((self + 56) & 3) != 0)
+  if (((self + 56) & 3) != 0 || (self->_sock = sock, v6 = CFSocketCreateWithNative(0, sock, 9uLL, sub_100010FC8, &context), ((self + 64) & 7) != 0) || (self->_sockRef = v6, CFSocketDisableCallBacks(v6, 9uLL), RunLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, self->_sockRef, 0), ((self + 72) & 7) != 0) || (self->_sockRls = RunLoopSource, Main = CFRunLoopGetMain(), CFRunLoopAddSource(Main, self->_sockRls, kCFRunLoopDefaultMode), v11 = 0x20000, setsockopt(self->_sock, 0xFFFF, 4097, &v11, 4u), setsockopt(self->_sock, 0xFFFF, 4098, &v11, 4u), ioctl(sock, 0x8004667EuLL, &v12), ((self + 48) & 7) != 0) || (CFRunLoopSourceInvalidate(self->_listenSockRls), CFRelease(self->_listenSockRls), self->_listenSockRls = 0, ((self + 40) & 7) != 0) || (CFSocketInvalidate(self->_listenSockRef), CFRelease(self->_listenSockRef), self->_listenSockRef = 0, ((self + 32) & 3) != 0))
   {
-    goto LABEL_14;
-  }
-
-  self->_sock = sock;
-  v6 = CFSocketCreateWithNative(0, sock, 9uLL, sub_100010FC8, &context);
-  if (((self + 64) & 7) != 0)
-  {
-    goto LABEL_14;
-  }
-
-  self->_sockRef = v6;
-  CFSocketDisableCallBacks(v6, 9uLL);
-  RunLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, self->_sockRef, 0);
-  if (((self + 72) & 7) != 0)
-  {
-    goto LABEL_14;
-  }
-
-  self->_sockRls = RunLoopSource;
-  Main = CFRunLoopGetMain();
-  CFRunLoopAddSource(Main, self->_sockRls, kCFRunLoopDefaultMode);
-  v11 = 0x20000;
-  setsockopt(self->_sock, 0xFFFF, 4097, &v11, 4u);
-  setsockopt(self->_sock, 0xFFFF, 4098, &v11, 4u);
-  ioctl(sock, 0x8004667EuLL, &v12);
-  if (((self + 48) & 7) != 0 || (CFRunLoopSourceInvalidate(self->_listenSockRls), CFRelease(self->_listenSockRls), self->_listenSockRls = 0, ((self + 40) & 7) != 0) || (CFSocketInvalidate(self->_listenSockRef), CFRelease(self->_listenSockRef), self->_listenSockRef = 0, ((self + 32) & 3) != 0))
-  {
-LABEL_14:
     __break(0x5516u);
 LABEL_15:
     __break(0x550Au);

@@ -95,8 +95,8 @@ LABEL_8:
 
   if ((v10 & 1) == 0)
   {
-    v11 = getGCSettingsLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = getGCSettingsLogger(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       mappingKey = self->_mappingKey;
       v20 = [v7 objectForKeyedSubscript:@"elementMappingKey"];
@@ -104,15 +104,15 @@ LABEL_8:
       v22 = mappingKey;
       v23 = 2112;
       v24 = v20;
-      _os_log_error_impl(&dword_1D2CD5000, v11, OS_LOG_TYPE_ERROR, "Attempting to set dictionary representation element settings with key %@ to representation with key %@", &v21, 0x16u);
+      _os_log_error_impl(&dword_1D2CD5000, v12, OS_LOG_TYPE_ERROR, "Attempting to set dictionary representation element settings with key %@ to representation with key %@", &v21, 0x16u);
     }
 
     goto LABEL_15;
   }
 
 LABEL_9:
-  v12 = [v7 objectForKeyedSubscript:@"invertHorizontally"];
-  bOOLValue = [v12 BOOLValue];
+  v13 = [v7 objectForKeyedSubscript:@"invertHorizontally"];
+  bOOLValue = [v13 BOOLValue];
 
   if (self->_invertHorizontally != bOOLValue)
   {
@@ -121,8 +121,8 @@ LABEL_9:
     [(GCControllerElementSettings *)self didChangeValueForKey:@"invertHorizontally"];
   }
 
-  v14 = [v7 objectForKeyedSubscript:@"invertVertically"];
-  bOOLValue2 = [v14 BOOLValue];
+  v15 = [v7 objectForKeyedSubscript:@"invertVertically"];
+  bOOLValue2 = [v15 BOOLValue];
 
   if (self->_invertVertically != bOOLValue2)
   {
@@ -131,8 +131,8 @@ LABEL_9:
     [(GCControllerElementSettings *)self didChangeValueForKey:@"invertVertically"];
   }
 
-  v16 = [v7 objectForKeyedSubscript:@"swapAxes"];
-  bOOLValue3 = [v16 BOOLValue];
+  v17 = [v7 objectForKeyedSubscript:@"swapAxes"];
+  bOOLValue3 = [v17 BOOLValue];
 
   if (self->_swapAxes != bOOLValue3)
   {
@@ -142,27 +142,23 @@ LABEL_9:
   }
 
 LABEL_15:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v10[0] = self->_mappingKey;
-  v9[0] = @"elementMappingKey";
-  v9[1] = @"invertHorizontally";
+  v9[4] = *MEMORY[0x1E69E9840];
+  v9[0] = self->_mappingKey;
+  v8[0] = @"elementMappingKey";
+  v8[1] = @"invertHorizontally";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:self->_invertHorizontally];
-  v10[1] = v3;
-  v9[2] = @"invertVertically";
+  v9[1] = v3;
+  v8[2] = @"invertVertically";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:self->_invertVertically];
-  v10[2] = v4;
-  v9[3] = @"swapAxes";
+  v9[2] = v4;
+  v8[3] = @"swapAxes";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:self->_swapAxes];
-  v10[3] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[3] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }

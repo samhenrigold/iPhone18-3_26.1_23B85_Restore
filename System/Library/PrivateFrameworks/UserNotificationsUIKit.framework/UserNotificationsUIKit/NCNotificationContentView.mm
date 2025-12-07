@@ -1787,38 +1787,38 @@ LABEL_23:
     window2 = [(NCNotificationContentView *)self window];
     screen = [window2 screen];
     [screen scale];
-    v159 = v14;
+    v162 = v14;
   }
 
   else
   {
     window2 = [MEMORY[0x277D759A0] mainScreen];
     [window2 scale];
-    v159 = v15;
+    v162 = v15;
   }
 
   if (self->_lookStyle)
   {
-    v17 = *MEMORY[0x277D768C8];
-    v16 = *(MEMORY[0x277D768C8] + 8);
-    v19 = *(MEMORY[0x277D768C8] + 16);
-    v18 = *(MEMORY[0x277D768C8] + 24);
+    v18 = *MEMORY[0x277D768C8];
+    v17 = *(MEMORY[0x277D768C8] + 8);
+    v20 = *(MEMORY[0x277D768C8] + 16);
+    v19 = *(MEMORY[0x277D768C8] + 24);
   }
 
   else
   {
-    [(NCNotificationContentView *)self _shouldReverseLayoutDirection];
-    v18 = *MEMORY[0x277D3D340];
-    v17 = 0.0;
+    _shouldReverseLayoutDirection = [(NCNotificationContentView *)self _shouldReverseLayoutDirection];
     v19 = *MEMORY[0x277D3D340];
-    v16 = *MEMORY[0x277D3D340];
+    v18 = 0.0;
+    v20 = *MEMORY[0x277D3D340];
+    v17 = *MEMORY[0x277D3D340];
   }
 
-  NCRectApplyInsets();
-  v150 = v21;
-  v151 = v20;
-  v161 = v23;
-  v162 = v22;
+  v21 = NCRectApplyInsets(_shouldReverseLayoutDirection, v4, v6, v8, v10, v18, v17, v20, v19);
+  v153 = v22;
+  v154 = v21;
+  v164 = v24;
+  v165 = v23;
   thumbnail = [(NCNotificationContentView *)self thumbnail];
   if (thumbnail)
   {
@@ -1830,11 +1830,11 @@ LABEL_23:
 
     if (!accessoryView)
     {
-      v41 = 0;
-      v136 = *MEMORY[0x277CBF3A0];
+      v42 = 0;
+      v139 = *MEMORY[0x277CBF3A0];
       rect = *(MEMORY[0x277CBF3A0] + 8);
-      v149 = *(MEMORY[0x277CBF3A0] + 16);
-      v155 = *(MEMORY[0x277CBF3A0] + 24);
+      v152 = *(MEMORY[0x277CBF3A0] + 16);
+      v158 = *(MEMORY[0x277CBF3A0] + 24);
       left = self->_contentInsets.left;
       top = self->_contentInsets.top;
       right = self->_contentInsets.right;
@@ -1843,161 +1843,161 @@ LABEL_23:
     }
   }
 
-  [(NCNotificationContentView *)self _frameForThumbnailInRect:v4 withContentViewInsets:v6, v8, v10, v17, v16, v19, v18];
-  v27 = v26;
+  [(NCNotificationContentView *)self _frameForThumbnailInRect:v4 withContentViewInsets:v6, v8, v10, v18, v17, v20, v19];
   v29 = v28;
   v31 = v30;
   v33 = v32;
+  v35 = v34;
   left = self->_contentInsets.left;
   top = self->_contentInsets.top;
   right = self->_contentInsets.right;
   bottom = self->_contentInsets.bottom;
-  _shouldReverseLayoutDirection = [(NCNotificationContentView *)self _shouldReverseLayoutDirection];
+  _shouldReverseLayoutDirection2 = [(NCNotificationContentView *)self _shouldReverseLayoutDirection];
   if ([(NCNotificationContentView *)self _shouldReverseLayoutDirection])
   {
-    v37 = 50.0;
+    v39 = 50.0;
   }
 
   else
   {
-    v37 = 35.0;
+    v39 = 35.0;
   }
 
-  _shouldReverseLayoutDirection2 = [(NCNotificationContentView *)self _shouldReverseLayoutDirection];
-  v39 = 15.0;
+  _shouldReverseLayoutDirection3 = [(NCNotificationContentView *)self _shouldReverseLayoutDirection];
+  v40 = 15.0;
+  if (_shouldReverseLayoutDirection3)
+  {
+    v40 = 0.0;
+  }
+
+  v41 = v39 + v40;
+  v139 = v29;
+  v152 = v33;
+  v158 = v35;
+  rect = v31;
   if (_shouldReverseLayoutDirection2)
   {
-    v39 = 0.0;
-  }
-
-  v40 = v37 + v39;
-  v136 = v27;
-  v149 = v31;
-  v155 = v33;
-  rect = v29;
-  if (_shouldReverseLayoutDirection)
-  {
-    left = left + v40;
+    left = left + v41;
   }
 
   else
   {
-    right = right + v40;
+    right = right + v41;
   }
 
-  v41 = 1;
+  v42 = 1;
 LABEL_19:
-  v160 = left;
-  NCRectApplyInsets();
-  Width = CGRectGetWidth(v164);
-  v42 = [(NCNotificationContentView *)self _primaryTextNumberOfLinesWithMeasuredNumberOfLines:[(NCNotificationContentView *)self _primaryTextMeasuredNumberOfLinesForWidth:Width scale:v159]];
-  v154 = right;
-  [(NCNotificationContentView *)self _primaryLabelBoundsForSize:v42 withContentInsets:v162 andNumberOfLines:v161, top, left, bottom, right];
-  v44 = v43;
-  v46 = v45;
-  v48 = v47;
-  v50 = v49;
+  v163 = left;
+  v167.origin.x = NCRectApplyInsets(_shouldReverseLayoutDirection3, v154, v153, v165, v164, top, left, bottom, right);
+  Width = CGRectGetWidth(v167);
+  v43 = [(NCNotificationContentView *)self _primaryTextNumberOfLinesWithMeasuredNumberOfLines:[(NCNotificationContentView *)self _primaryTextMeasuredNumberOfLinesForWidth:Width scale:v162]];
+  v157 = right;
+  [(NCNotificationContentView *)self _primaryLabelBoundsForSize:v43 withContentInsets:v165 andNumberOfLines:v164, top, left, bottom, right];
+  v45 = v44;
+  v47 = v46;
+  v49 = v48;
+  v51 = v50;
   [(UILabel *)self->_primaryLabel setBounds:?];
   [(NCNotificationContentView *)self topMarginToPrimaryLabelForCurrentStyle];
   [(NCNotificationContentView *)self _primaryTextBaselineOffsetWithBaseValue:?];
   [(NCNotificationContentView *)self _primaryTextBaselineOffsetForCurrentStyle];
   [(NCNotificationContentView *)self _primaryTextBaselineOffsetWithBaseValue:?];
   [(UILabel *)self->_primaryLabel _firstLineBaselineOffsetFromBoundsTop];
-  v165.origin.x = v44;
-  v165.origin.y = v46;
-  v165.size.width = v48;
-  v165.size.height = v50;
-  CGRectGetWidth(v165);
-  v166.origin.x = v44;
-  v166.origin.y = v46;
-  v166.size.width = v48;
-  v51 = v160;
-  v166.size.height = v50;
-  CGRectGetHeight(v166);
+  v168.origin.x = v45;
+  v168.origin.y = v47;
+  v168.size.width = v49;
+  v168.size.height = v51;
+  CGRectGetWidth(v168);
+  v169.origin.x = v45;
+  v169.origin.y = v47;
+  v169.size.width = v49;
+  v52 = v163;
+  v169.size.height = v51;
+  CGRectGetHeight(v169);
   UIRectIntegralWithScale();
-  v147 = v53;
-  v148 = v52;
-  v145 = v55;
-  v146 = v54;
-  if (v42)
+  v150 = v54;
+  v151 = v53;
+  v148 = v56;
+  v149 = v55;
+  if (v43)
   {
-    v56 = v41;
+    v57 = v42;
   }
 
   else
   {
-    v56 = 0;
+    v57 = 0;
   }
 
-  if (v56 == 1)
+  if (v57 == 1)
   {
-    v57 = v160;
+    v58 = v163;
     font = [(UILabel *)self->_primaryLabel font];
     [font capHeight];
     UICeilToScale();
-    rect = v59;
+    rect = v60;
 
 LABEL_26:
-    v60 = v154;
+    v61 = v157;
     font2 = [(UILabel *)self->_primaryLabel font];
     primaryText = [(NCNotificationContentView *)self primaryText];
     [font2 unui_effectiveLineHeightForText:primaryText];
 
-    v51 = v57;
+    v52 = v58;
     goto LABEL_27;
   }
 
-  if (v42)
+  if (v43)
   {
-    v57 = v160;
+    v58 = v163;
     goto LABEL_26;
   }
 
-  v60 = right;
+  v61 = right;
 LABEL_27:
-  v63 = [(NCNotificationContentView *)self _primarySubtitleTextNumberOfLinesWithMeasuredNumberOfLines:[(NCNotificationContentView *)self _primarySubtitleTextMeasuredNumberOfLinesForWidth:Width scale:v159]];
-  [(NCNotificationContentView *)self _primarySubtitleLabelBoundsForSize:v63 withContentInsets:v162 andNumberOfLines:v161, top, v51, bottom, v60];
-  v65 = v64;
-  v67 = v66;
-  v69 = v68;
-  v71 = v70;
+  v64 = [(NCNotificationContentView *)self _primarySubtitleTextNumberOfLinesWithMeasuredNumberOfLines:[(NCNotificationContentView *)self _primarySubtitleTextMeasuredNumberOfLinesForWidth:Width scale:v162]];
+  [(NCNotificationContentView *)self _primarySubtitleLabelBoundsForSize:v64 withContentInsets:v165 andNumberOfLines:v164, top, v52, bottom, v61];
+  v66 = v65;
+  v68 = v67;
+  v70 = v69;
+  v72 = v71;
   [(UILabel *)self->_primarySubtitleLabel setBounds:?];
-  if (v42)
+  if (v43)
   {
     [(NCNotificationContentView *)self _primarySubtitleTextBaselineOffsetForCurrentStyle];
     [(NCNotificationContentView *)self _primaryTextBaselineOffsetWithBaseValue:?];
   }
 
   [(UILabel *)self->_primarySubtitleLabel _firstLineBaselineOffsetFromBoundsTop];
-  v167.origin.x = v65;
-  v167.origin.y = v67;
-  v167.size.width = v69;
-  v167.size.height = v71;
-  CGRectGetWidth(v167);
-  v168.origin.x = v65;
-  v168.origin.y = v67;
-  v168.size.width = v69;
-  v168.size.height = v71;
-  CGRectGetHeight(v168);
+  v170.origin.x = v66;
+  v170.origin.y = v68;
+  v170.size.width = v70;
+  v170.size.height = v72;
+  CGRectGetWidth(v170);
+  v171.origin.x = v66;
+  v171.origin.y = v68;
+  v171.size.width = v70;
+  v171.size.height = v72;
+  CGRectGetHeight(v171);
   UIRectIntegralWithScale();
-  v143 = v73;
-  v144 = v72;
-  v141 = v75;
-  v142 = v74;
-  if (v42)
+  v146 = v74;
+  v147 = v73;
+  v144 = v76;
+  v145 = v75;
+  if (v43)
   {
-    v76 = 1;
+    v77 = 1;
   }
 
   else
   {
-    v76 = v41 ^ 1;
+    v77 = v42 ^ 1;
   }
 
-  if ((v76 & 1) != 0 || !v63)
+  if ((v77 & 1) != 0 || !v64)
   {
-    v79 = v154;
-    if (!v63)
+    v80 = v157;
+    if (!v64)
     {
       goto LABEL_37;
     }
@@ -2008,10 +2008,10 @@ LABEL_27:
     font3 = [(UILabel *)self->_primarySubtitleLabel font];
     [font3 capHeight];
     UICeilToScale();
-    rect = v78;
+    rect = v79;
 
-    v56 = 1;
-    v79 = v154;
+    v57 = 1;
+    v80 = v157;
   }
 
   font4 = [(UILabel *)self->_primarySubtitleLabel font];
@@ -2019,24 +2019,24 @@ LABEL_27:
   [font4 unui_effectiveLineHeightForText:primarySubtitleText];
 
 LABEL_37:
-  v82 = [(NCNotificationContentView *)self _secondaryTextNumberOfLinesWithMeasuredNumberOfLines:[(NCNotificationContentView *)self _secondaryTextMeasuredNumberOfLinesForWidth:Width scale:v159]];
-  [(NCNotificationContentView *)self _secondaryTextViewBoundsForSize:v82 withContentInsets:v162 andNumberOfLines:v161, top, v160, bottom, v79];
-  v84 = v83;
-  v86 = v85;
-  v88 = v87;
-  v90 = v89;
+  v83 = [(NCNotificationContentView *)self _secondaryTextNumberOfLinesWithMeasuredNumberOfLines:[(NCNotificationContentView *)self _secondaryTextMeasuredNumberOfLinesForWidth:Width scale:v162]];
+  [(NCNotificationContentView *)self _secondaryTextViewBoundsForSize:v83 withContentInsets:v165 andNumberOfLines:v164, top, v163, bottom, v80];
+  v85 = v84;
+  v87 = v86;
+  v89 = v88;
+  v91 = v90;
   _secondaryTextSupportingView = [(NCNotificationContentView *)self _secondaryTextSupportingView];
-  [_secondaryTextSupportingView setBounds:{v84, v86, v88, v90}];
-  if (v42 | v63)
+  [_secondaryTextSupportingView setBounds:{v85, v87, v89, v91}];
+  if (v43 | v64)
   {
     [(NCNotificationContentView *)self _secondaryTextBaselineOffsetForCurrentStyle];
     [(NCNotificationContentView *)self _secondaryTextBaselineOffsetWithBaseValue:?];
   }
 
   secondaryTextView = self->_secondaryTextView;
-  if (secondaryTextView && ([(UITextView *)secondaryTextView textContainerInset], (v92 = self->_secondaryTextView) != 0))
+  if (secondaryTextView && ([(UITextView *)secondaryTextView textContainerInset], (v93 = self->_secondaryTextView) != 0))
   {
-    [(UITextView *)v92 unui_baselineOffsetForFirstGlyph];
+    [(UITextView *)v93 unui_baselineOffsetForFirstGlyph];
   }
 
   else
@@ -2044,48 +2044,48 @@ LABEL_37:
     [(UILabel *)self->_secondaryLabel _firstLineBaselineOffsetFromBoundsTop];
   }
 
-  v169.origin.x = v84;
-  v169.origin.y = v86;
-  v169.size.width = v88;
-  v169.size.height = v90;
-  CGRectGetWidth(v169);
-  v170.origin.x = v84;
-  v170.origin.y = v86;
-  v170.size.width = v88;
-  v170.size.height = v90;
-  CGRectGetHeight(v170);
-  v93 = v159;
-  v94 = v160;
-  UIRectIntegralWithScale();
-  v139 = v96;
-  v140 = v95;
-  v137 = v98;
-  v138 = v97;
-  if ((v56 | v41 ^ 1))
+  v172.origin.x = v85;
+  v172.origin.y = v87;
+  v172.size.width = v89;
+  v172.size.height = v91;
+  CGRectGetWidth(v172);
+  v173.origin.x = v85;
+  v173.origin.y = v87;
+  v173.size.width = v89;
+  v173.size.height = v91;
+  CGRectGetHeight(v173);
+  v94 = v162;
+  v95 = v163;
+  v96 = UIRectIntegralWithScale();
+  v142 = v99;
+  v143 = v98;
+  v140 = v101;
+  v141 = v100;
+  if ((v57 | v42 ^ 1))
   {
-    v99 = v136;
-    v100 = v149;
-    v101 = v155;
+    v102 = v139;
+    v103 = v152;
+    v104 = v158;
   }
 
   else
   {
     secondaryText = [(NCNotificationContentView *)self secondaryText];
-    v103 = [secondaryText length];
+    v106 = [secondaryText length];
 
-    v99 = v136;
-    v100 = v149;
-    v101 = v155;
-    if (v103)
+    v102 = v139;
+    v103 = v152;
+    v104 = v158;
+    if (v106)
     {
       font5 = [_secondaryTextSupportingView font];
       [font5 capHeight];
       UICeilToScale();
-      rect = v105;
+      rect = v108;
     }
   }
 
-  if (v82)
+  if (v83)
   {
     font6 = [_secondaryTextSupportingView font];
     secondaryText2 = [(NCNotificationContentView *)self secondaryText];
@@ -2093,77 +2093,77 @@ LABEL_37:
     [font6 unui_effectiveLineHeightForText:string];
   }
 
-  v109 = v63 + v42 + v82;
-  if (v41)
+  v112 = v64 + v43 + v83;
+  if (v42)
   {
-    if (v109 == 1)
+    if (v112 == 1)
     {
-      v135 = _NCMainScreenScale();
+      v138 = _NCMainScreenScale(v96, v97);
       UIRectCenteredYInRectScale();
-      v101 = v113;
-      v94 = v160;
-      v93 = v159;
+      v104 = v116;
+      v95 = v163;
+      v94 = v162;
     }
 
     else
     {
       UIRectIntegralWithScale();
-      v101 = v116;
+      v104 = v119;
     }
 
-    v114 = v110;
-    v115 = v112;
-    v117 = v101;
-    MinY = CGRectGetMinY(*&v110);
+    v117 = v113;
+    v118 = v115;
+    v120 = v104;
+    MinY = CGRectGetMinY(*&v113);
     rect = (MinY & ~(MinY >> 31));
   }
 
   else
   {
-    v114 = v99;
-    v115 = v100;
+    v117 = v102;
+    v118 = v103;
   }
 
-  [(NCNotificationContentView *)self _summaryLabelBoundsForSize:[(NCNotificationContentView *)self _summaryTextNumberOfLinesWithMeasuredNumberOfLines:[(NCNotificationContentView *)self _summaryTextMeasuredNumberOfLinesForWidth:Width scale:v93 withContentInsets:*&v135]] andNumberOfLines:v162, v161, top, v94, bottom, v154];
-  v120 = v119;
-  v122 = v121;
-  v124 = v123;
-  v126 = v125;
+  [(NCNotificationContentView *)self _summaryLabelBoundsForSize:[(NCNotificationContentView *)self _summaryTextNumberOfLinesWithMeasuredNumberOfLines:[(NCNotificationContentView *)self _summaryTextMeasuredNumberOfLinesForWidth:Width scale:v94 withContentInsets:*&v138]] andNumberOfLines:v165, v164, top, v95, bottom, v157];
+  v123 = v122;
+  v125 = v124;
+  v127 = v126;
+  v129 = v128;
   [(BSUIEmojiLabelView *)self->_summaryLabel setBounds:?];
-  if (v109 <= 1)
+  if (v112 <= 1)
   {
-    v171.origin.x = v114;
-    v171.origin.y = rect;
-    v171.size.width = v115;
-    v171.size.height = v101;
-    CGRectGetMaxY(v171);
+    v174.origin.x = v117;
+    v174.origin.y = rect;
+    v174.size.width = v118;
+    v174.size.height = v104;
+    CGRectGetMaxY(v174);
   }
 
   [(NCNotificationContentView *)self _summaryTextBaselineOffsetForCurrentStyle];
   [(NCNotificationContentView *)self _summaryTextBaselineOffsetWithBaseValue:?];
   [(BSUIEmojiLabelView *)self->_summaryLabel _firstLineBaselineOffsetFromBoundsTop];
-  v172.origin.x = v120;
-  v172.origin.y = v122;
-  v172.size.width = v124;
-  v172.size.height = v126;
-  CGRectGetWidth(v172);
-  v173.origin.x = v120;
-  v173.origin.y = v122;
-  v173.size.width = v124;
-  v173.size.height = v126;
-  CGRectGetHeight(v173);
+  v175.origin.x = v123;
+  v175.origin.y = v125;
+  v175.size.width = v127;
+  v175.size.height = v129;
+  CGRectGetWidth(v175);
+  v176.origin.x = v123;
+  v176.origin.y = v125;
+  v176.size.width = v127;
+  v176.size.height = v129;
+  CGRectGetHeight(v176);
   UIRectIntegralWithScale();
-  v128 = v127;
-  v130 = v129;
-  v132 = v131;
-  v134 = v133;
-  [(UIView *)self->_contentView setFrame:v151, v150, v162, v161];
-  [(UILabel *)self->_primaryLabel setFrame:v148, v147, v146, v145];
-  [(UILabel *)self->_primarySubtitleLabel setFrame:v144, v143, v142, v141];
-  [_secondaryTextSupportingView setFrame:{v140, v139, v138, v137}];
-  [(BSUIEmojiLabelView *)self->_summaryLabel setFrame:v128, v130, v132, v134];
-  [(UIImageView *)self->_thumbnailImageView setFrame:v114, rect, v115, v101];
-  [(UIView *)self->_accessoryView setFrame:v114, rect, v115, v101];
+  v131 = v130;
+  v133 = v132;
+  v135 = v134;
+  v137 = v136;
+  [(UIView *)self->_contentView setFrame:v154, v153, v165, v164];
+  [(UILabel *)self->_primaryLabel setFrame:v151, v150, v149, v148];
+  [(UILabel *)self->_primarySubtitleLabel setFrame:v147, v146, v145, v144];
+  [_secondaryTextSupportingView setFrame:{v143, v142, v141, v140}];
+  [(BSUIEmojiLabelView *)self->_summaryLabel setFrame:v131, v133, v135, v137];
+  [(UIImageView *)self->_thumbnailImageView setFrame:v117, rect, v118, v104];
+  [(UIView *)self->_accessoryView setFrame:v117, rect, v118, v104];
 }
 
 - (id)visualStylingProviderForCategory:(int64_t)category

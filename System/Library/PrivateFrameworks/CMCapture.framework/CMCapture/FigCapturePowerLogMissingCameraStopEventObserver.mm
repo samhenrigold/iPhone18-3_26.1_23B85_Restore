@@ -2,7 +2,7 @@
 - (uint64_t)_cameraAppIsForegroundInLayout:(uint64_t)result;
 - (void)_cancelCameraAppStreamingTimer;
 - (void)_checkCameraAppPowerEventsForAnyStreamingCameras;
-- (void)_handleLayoutUpdate:(uint64_t)update;
+- (void)_handleLayoutUpdate:(uint64_t)result;
 - (void)_showTTRPromptIfNecessary;
 - (void)_startCameraAppStreamingTimer;
 - (void)dealloc;
@@ -16,9 +16,9 @@
 
 - (void)startObserving
 {
-  if (self)
+  if (result)
   {
-    OUTLINED_FUNCTION_12_15(self);
+    OUTLINED_FUNCTION_12_15(result);
     *(v1 + 16) = 1;
     [*(v1 + 24) addLayoutObserverWithoutImmediateCallback:v1];
     currentLayout = [*(v1 + 24) currentLayout];
@@ -95,9 +95,9 @@ void __82__FigCapturePowerLogMissingCameraStopEventObserver_layoutMonitor_didUpd
 
 - (void)stopObserving
 {
-  if (self)
+  if (result)
   {
-    OUTLINED_FUNCTION_12_15(self);
+    OUTLINED_FUNCTION_12_15(result);
     *(v1 + 16) = 0;
     [*(v1 + 24) removeLayoutObserver:v1];
     *(v1 + 40) = 0;
@@ -106,11 +106,11 @@ void __82__FigCapturePowerLogMissingCameraStopEventObserver_layoutMonitor_didUpd
   }
 }
 
-- (void)_handleLayoutUpdate:(uint64_t)update
+- (void)_handleLayoutUpdate:(uint64_t)result
 {
-  if (update)
+  if (result)
   {
-    OUTLINED_FUNCTION_12_15(update);
+    OUTLINED_FUNCTION_12_15(result);
     v4 = [(FigCapturePowerLogMissingCameraStopEventObserver *)v2 _cameraAppIsForegroundInLayout:a2];
     v5 = v4;
     if (*(v2 + 40) == 1 && (v4 & 1) == 0)
@@ -143,11 +143,11 @@ void __82__FigCapturePowerLogMissingCameraStopEventObserver_layoutMonitor_didUpd
         {
           OUTLINED_FUNCTION_5();
           OUTLINED_FUNCTION_13();
-          OUTLINED_FUNCTION_18_2();
+          OUTLINED_FUNCTION_18_2(v5, v6, v7, v8, v9);
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_17_8();
+        OUTLINED_FUNCTION_17_8(v10, v11, v12, v13, v14);
         v2 = *(v1 + 32);
       }
 
@@ -174,29 +174,29 @@ void __82__FigCapturePowerLogMissingCameraStopEventObserver_layoutMonitor_didUpd
       v3 = OUTLINED_FUNCTION_8_5(v2);
       if (OUTLINED_FUNCTION_6(v3))
       {
-        v8 = 136315394;
-        v9 = "[FigCapturePowerLogMissingCameraStopEventObserver _startCameraAppStreamingTimer]";
-        v10 = 1024;
-        v11 = 30;
+        v18 = 136315394;
+        v19 = "[FigCapturePowerLogMissingCameraStopEventObserver _startCameraAppStreamingTimer]";
+        v20 = 1024;
+        v21 = 30;
         OUTLINED_FUNCTION_13();
-        OUTLINED_FUNCTION_18_2();
+        OUTLINED_FUNCTION_18_2(v4, v5, v6, v7, v8);
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_17_8();
+      OUTLINED_FUNCTION_17_8(v9, v10, v11, v12, v13);
     }
 
-    v4 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v1 + 8));
-    *(v1 + 32) = v4;
-    v5 = dispatch_time(0, 30000000000);
-    dispatch_source_set_timer(v4, v5, 0xFFFFFFFFFFFFFFFFLL, 0x29A2241AF62C0000uLL);
-    v6 = *(v1 + 32);
+    v14 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v1 + 8));
+    *(v1 + 32) = v14;
+    v15 = dispatch_time(0, 30000000000);
+    dispatch_source_set_timer(v14, v15, 0xFFFFFFFFFFFFFFFFLL, 0x29A2241AF62C0000uLL);
+    v16 = *(v1 + 32);
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __81__FigCapturePowerLogMissingCameraStopEventObserver__startCameraAppStreamingTimer__block_invoke;
     handler[3] = &unk_1E798F870;
     handler[4] = v1;
-    dispatch_source_set_event_handler(v6, handler);
+    dispatch_source_set_event_handler(v16, handler);
     dispatch_activate(*(v1 + 32));
   }
 }
@@ -211,11 +211,11 @@ void __81__FigCapturePowerLogMissingCameraStopEventObserver__startCameraAppStrea
     {
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_13();
-      OUTLINED_FUNCTION_18_2();
+      OUTLINED_FUNCTION_18_2(v4, v5, v6, v7, v8);
     }
 
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_17_8();
+    OUTLINED_FUNCTION_17_8(v9, v10, v11, v12, v13);
   }
 
   [(FigCapturePowerLogMissingCameraStopEventObserver *)*(a1 + 32) _cancelCameraAppStreamingTimer];
@@ -232,14 +232,14 @@ void __81__FigCapturePowerLogMissingCameraStopEventObserver__startCameraAppStrea
     {
       OUTLINED_FUNCTION_3_28();
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v15))
+      if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v30))
       {
-        v4 = v16;
+        v4 = v31;
       }
 
       else
       {
-        v4 = v16 & 0xFFFFFFFE;
+        v4 = v31 & 0xFFFFFFFE;
       }
 
       if (v4)
@@ -260,9 +260,9 @@ void __81__FigCapturePowerLogMissingCameraStopEventObserver__startCameraAppStrea
         if (dword_1ED844470)
         {
           OUTLINED_FUNCTION_3_28();
-          v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v14 = os_log_type_enabled(v13, v15);
-          if (OUTLINED_FUNCTION_5_2(v14))
+          v23 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v24 = os_log_type_enabled(v23, v30);
+          if (OUTLINED_FUNCTION_5_2(v24))
           {
             OUTLINED_FUNCTION_5_29();
             OUTLINED_FUNCTION_13();
@@ -270,7 +270,7 @@ void __81__FigCapturePowerLogMissingCameraStopEventObserver__startCameraAppStrea
           }
 
           OUTLINED_FUNCTION_2_4();
-          OUTLINED_FUNCTION_16_1();
+          OUTLINED_FUNCTION_16_1(v25, v26, v27, v28, v29);
         }
       }
 
@@ -294,7 +294,7 @@ void __81__FigCapturePowerLogMissingCameraStopEventObserver__startCameraAppStrea
                   objc_enumerationMutation(v5);
                 }
 
-                v15 = OS_LOG_TYPE_DEFAULT;
+                v30 = OS_LOG_TYPE_DEFAULT;
                 v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
                 os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
                 OUTLINED_FUNCTION_1_4();
@@ -310,16 +310,16 @@ void __81__FigCapturePowerLogMissingCameraStopEventObserver__startCameraAppStrea
 
           OUTLINED_FUNCTION_3_28();
           v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v12 = os_log_type_enabled(v11, v15);
+          v12 = os_log_type_enabled(v11, v30);
           if (OUTLINED_FUNCTION_6(v12))
           {
             OUTLINED_FUNCTION_5_29();
             OUTLINED_FUNCTION_13();
-            OUTLINED_FUNCTION_18_2();
+            OUTLINED_FUNCTION_18_2(v13, v14, v15, v16, v17);
           }
 
           OUTLINED_FUNCTION_1_4();
-          OUTLINED_FUNCTION_17_8();
+          OUTLINED_FUNCTION_17_8(v18, v19, v20, v21, v22);
           [(FigCapturePowerLogMissingCameraStopEventObserver *)self _showTTRPromptIfNecessary];
         }
       }
@@ -354,24 +354,29 @@ void __81__FigCapturePowerLogMissingCameraStopEventObserver__startCameraAppStrea
     dispatch_assert_queue_V2(*(self + 8));
     if (FigDebugIsInternalBuild())
     {
+      v9 = 0;
       v8 = 0;
-      v7 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       v2 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       if (OUTLINED_FUNCTION_5_2(v2))
       {
         OUTLINED_FUNCTION_5();
         OUTLINED_FUNCTION_13();
-        _os_log_send_and_compose_impl();
+        v3 = _os_log_send_and_compose_impl();
       }
 
-      OUTLINED_FUNCTION_16_1();
-      v6[0] = 0;
-      LODWORD(v5) = 2;
-      v3 = _os_log_send_and_compose_impl();
+      else
+      {
+        v3 = 0;
+      }
+
+      OUTLINED_FUNCTION_16_1(qword_1ED844468, 3, 1, v3, v3 != v7);
+      v7[0] = 0;
+      LODWORD(v6) = 2;
+      v4 = _os_log_send_and_compose_impl();
       FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
-      FigCapturePleaseFileRadar(FrameworkRadarComponent, v3, [qword_1ED844E98 description], 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Common/FigCapturePowerLogSupport.m", 701, @"LastShownDate:FigCapturePowerLogSupport.m:701", @"LastShownBuild:FigCapturePowerLogSupport.m:701", 0);
-      free(v3);
+      FigCapturePleaseFileRadar(FrameworkRadarComponent, v4, [qword_1ED844E98 description], 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Common/FigCapturePowerLogSupport.m", 701, @"LastShownDate:FigCapturePowerLogSupport.m:701", @"LastShownBuild:FigCapturePowerLogSupport.m:701", 0);
+      free(v4);
     }
   }
 }

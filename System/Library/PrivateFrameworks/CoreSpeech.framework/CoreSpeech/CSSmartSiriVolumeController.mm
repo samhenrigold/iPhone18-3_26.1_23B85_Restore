@@ -20,18 +20,18 @@
 
 - (void)didSmartSiriVolumeChangeForReason:(unint64_t)reason
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained && (v6 = WeakRetained, v7 = objc_loadWeakRetained(&self->_delegate), v8 = objc_opt_respondsToSelector(), v7, v6, (v8 & 1) != 0))
   {
     v9 = *MEMORY[0x277D01598];
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315394;
-      v14 = "[CSSmartSiriVolumeController didSmartSiriVolumeChangeForReason:]";
-      v15 = 1026;
+      v12 = 136315394;
+      v13 = "[CSSmartSiriVolumeController didSmartSiriVolumeChangeForReason:]";
+      v14 = 1026;
       reasonCopy2 = reason;
-      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Notifying SSV Client on Volume change for reason - %{public}d", &v13, 0x12u);
+      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Notifying SSV Client on Volume change for reason - %{public}d", &v12, 0x12u);
     }
 
     v10 = objc_loadWeakRetained(&self->_delegate);
@@ -43,20 +43,18 @@
     v11 = *MEMORY[0x277D01598];
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315394;
-      v14 = "[CSSmartSiriVolumeController didSmartSiriVolumeChangeForReason:]";
-      v15 = 1026;
+      v12 = 136315394;
+      v13 = "[CSSmartSiriVolumeController didSmartSiriVolumeChangeForReason:]";
+      v14 = 1026;
       reasonCopy2 = reason;
-      _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s Dropped SSV Client notification for Volume change with reason - %{public}d", &v13, 0x12u);
+      _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s Dropped SSV Client notification for Volume change with reason - %{public}d", &v12, 0x12u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createSSVClientConnectionIfNeeded
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (!self->_ssvClient)
   {
     v3 = objc_alloc_init(CSSmartSiriVolumeClient);
@@ -69,14 +67,12 @@
       v5 = *MEMORY[0x277D01598];
       if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
       {
-        v7 = 136315138;
-        v8 = "[CSSmartSiriVolumeController _createSSVClientConnectionIfNeeded]";
-        _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume not available", &v7, 0xCu);
+        v6 = 136315138;
+        v7 = "[CSSmartSiriVolumeController _createSSVClientConnectionIfNeeded]";
+        _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume not available", &v6, 0xCu);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPermanentVolumeOffsetWithDirection:(BOOL)direction
@@ -186,7 +182,7 @@ void *__60__CSSmartSiriVolumeController_setSmartSiriVolumePercentage___block_inv
 
 void __63__CSSmartSiriVolumeController_getVolumeForTTSType_withContext___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _createSSVClientConnectionIfNeeded];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
@@ -205,23 +201,21 @@ void __63__CSSmartSiriVolumeController_getVolumeForTTSType_withContext___block_i
       {
         v9 = v7;
         [v6 volumeEstimate];
-        v12 = 136315394;
-        v13 = "[CSSmartSiriVolumeController getVolumeForTTSType:withContext:]_block_invoke";
-        v14 = 2050;
-        v15 = v10;
-        _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Estimated TTS volume : %{public}f", &v12, 0x16u);
+        v11 = 136315394;
+        v12 = "[CSSmartSiriVolumeController getVolumeForTTSType:withContext:]_block_invoke";
+        v13 = 2050;
+        v14 = v10;
+        _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Estimated TTS volume : %{public}f", &v11, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[CSSmartSiriVolumeController getVolumeForTTSType:withContext:]_block_invoke";
-      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s ERR: Failed to get TTS Volume", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[CSSmartSiriVolumeController getVolumeForTTSType:withContext:]_block_invoke";
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s ERR: Failed to get TTS Volume", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (CSSmartSiriVolumeController)init

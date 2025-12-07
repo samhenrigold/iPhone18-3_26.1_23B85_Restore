@@ -113,7 +113,7 @@ uint64_t __121__INUICKPSynchronousRemoteViewControllerAllocator_performAllocatio
 
 - (void)_recursivelyConnectForInterfaceSectionQueue:(id)queue recursionDepth:(unint64_t)depth completion:(id)completion
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   completionCopy = completion;
   firstObject = [queueCopy firstObject];
@@ -123,32 +123,32 @@ uint64_t __121__INUICKPSynchronousRemoteViewControllerAllocator_performAllocatio
     parameters = [firstObject parameters];
 
     v12 = [(INUICKPSynchronousRemoteViewControllerAllocator *)self _unhandledParametersForInterfaceSection:firstObject];
-    v33 = [v12 count];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectForInterfaceSectionQueue_recursionDepth_completion___block_invoke;
-    v44[3] = &unk_2797EB988;
-    v45 = queueCopy;
+    v32 = [v12 count];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectForInterfaceSectionQueue_recursionDepth_completion___block_invoke;
+    v43[3] = &unk_2797EB988;
+    v44 = queueCopy;
     selfCopy = self;
     depthCopy = depth;
     v13 = completionCopy;
-    v47 = v13;
-    v14 = MEMORY[0x259C37D70](v44);
+    v46 = v13;
+    v14 = MEMORY[0x259C37D70](v43);
     objc_initWeak(&location, self);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectForInterfaceSectionQueue_recursionDepth_completion___block_invoke_2;
-    v36[3] = &unk_2797EB9D8;
-    objc_copyWeak(&v42, &location);
-    v34 = v12;
-    v37 = v34;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectForInterfaceSectionQueue_recursionDepth_completion___block_invoke_2;
+    v35[3] = &unk_2797EB9D8;
+    objc_copyWeak(&v41, &location);
+    v33 = v12;
+    v36 = v33;
     v15 = firstObject;
-    v38 = v15;
+    v37 = v15;
     selfCopy2 = self;
-    v35 = v14;
-    v40 = v35;
-    v41 = v13;
-    v16 = MEMORY[0x259C37D70](v36);
+    v34 = v14;
+    v39 = v34;
+    v40 = v13;
+    v16 = MEMORY[0x259C37D70](v35);
     if ([v15 isWildCardSection])
     {
       v17 = *MEMORY[0x277CF93F0];
@@ -157,7 +157,7 @@ uint64_t __121__INUICKPSynchronousRemoteViewControllerAllocator_performAllocatio
       if (v18)
       {
         *buf = 138412290;
-        v50 = v15;
+        v49 = v15;
         v20 = "Interface section %@ is a wild card section; attempting connection to RVC";
         v21 = v17;
         v22 = 12;
@@ -171,7 +171,7 @@ LABEL_17:
     {
       if (depth)
       {
-        v23 = v33 == 0;
+        v23 = v32 == 0;
       }
 
       else
@@ -184,15 +184,15 @@ LABEL_17:
       {
         v27 = *MEMORY[0x277CF93F0];
         v28 = os_log_type_enabled(v27, OS_LOG_TYPE_INFO);
-        if (!parameters || v33)
+        if (!parameters || v32)
         {
           if (v28)
           {
             parameters2 = [v15 parameters];
             *buf = 138412546;
-            v50 = parameters2;
-            v51 = 2112;
-            v52 = v15;
+            v49 = parameters2;
+            v50 = 2112;
+            v51 = v15;
             _os_log_impl(&dword_255550000, v27, OS_LOG_TYPE_INFO, "Interface section has no parameters - continuing\n    Parameters: %@\n    Interface section: %@", buf, 0x16u);
           }
         }
@@ -203,9 +203,9 @@ LABEL_17:
           {
             parameters3 = [v15 parameters];
             *buf = 138412546;
-            v50 = parameters3;
-            v51 = 2112;
-            v52 = v15;
+            v49 = parameters3;
+            v50 = 2112;
+            v51 = v15;
             _os_log_impl(&dword_255550000, v27, OS_LOG_TYPE_INFO, "All parameters are currently handled by another interface section - continuing\n    Parameters: %@\n    Interface section: %@", buf, 0x16u);
           }
 
@@ -213,7 +213,7 @@ LABEL_17:
           [mutableRedundantInterfaceSections addObject:v15];
         }
 
-        v19 = v35;
+        v19 = v34;
         goto LABEL_27;
       }
 
@@ -223,9 +223,9 @@ LABEL_17:
       if (v26)
       {
         *buf = 138412546;
-        v50 = v15;
-        v51 = 2112;
-        v52 = v34;
+        v49 = v15;
+        v50 = 2112;
+        v51 = v33;
         v20 = "Still have parameters to handle for interface section %@ - attempting to connect to RVC\n    Unhandled parameters: %@";
         v21 = v25;
         v22 = 22;
@@ -236,7 +236,7 @@ LABEL_17:
 LABEL_27:
     v19[2]();
 
-    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v41);
     objc_destroyWeak(&location);
 
     goto LABEL_28;
@@ -248,11 +248,9 @@ LABEL_27:
   }
 
 LABEL_28:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectForInterfaceSectionQueue_recursionDepth_completion___block_invoke(uint64_t *a1)
+void *__121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectForInterfaceSectionQueue_recursionDepth_completion___block_invoke(uint64_t *a1)
 {
   if ([a1[4] count])
   {
@@ -269,7 +267,7 @@ uint64_t __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConn
     result = a1[6];
     if (result)
     {
-      v7 = *(result + 16);
+      v7 = result[2];
 
       return v7();
     }
@@ -310,7 +308,7 @@ void __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectF
 
 void __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectForInterfaceSectionQueue_recursionDepth_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -332,13 +330,13 @@ void __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectF
       {
         v11 = *(a1 + 32);
         v10 = *(a1 + 40);
-        v20 = 138412802;
-        v21 = v10;
-        v22 = 2112;
-        v23 = v11;
-        v24 = 2112;
-        v25 = v5;
-        _os_log_impl(&dword_255550000, v8, OS_LOG_TYPE_DEFAULT, "Synchronous remote view controller retrieved\n    Interface section: %@\n    Parameters: %@\n    Synchronous remote view controller: %@", &v20, 0x20u);
+        v19 = 138412802;
+        v20 = v10;
+        v21 = 2112;
+        v22 = v11;
+        v23 = 2112;
+        v24 = v5;
+        _os_log_impl(&dword_255550000, v8, OS_LOG_TYPE_DEFAULT, "Synchronous remote view controller retrieved\n    Interface section: %@\n    Parameters: %@\n    Synchronous remote view controller: %@", &v19, 0x20u);
       }
 
       [v5 setInterfaceSectionOrganizer:*(a1 + 48)];
@@ -365,75 +363,73 @@ void __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectF
     else if (v9)
     {
       v18 = *(a1 + 32);
-      v20 = 138412290;
-      v21 = v18;
-      _os_log_impl(&dword_255550000, v8, OS_LOG_TYPE_DEFAULT, "No synchronous remote view controller retrieved\n    Parameters: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = v18;
+      _os_log_impl(&dword_255550000, v8, OS_LOG_TYPE_DEFAULT, "No synchronous remote view controller retrieved\n    Parameters: %@", &v19, 0xCu);
     }
   }
 
   (*(*(a1 + 56) + 16))();
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_unhandledParametersForInterfaceSection:(id)section
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
-  v20 = [MEMORY[0x277CBEB58] set];
+  v19 = [MEMORY[0x277CBEB58] set];
   v5 = self->_handledParameters;
   if (!v5)
   {
     v5 = [MEMORY[0x277CBEB98] set];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   parameters = [sectionCopy parameters];
-  v7 = [parameters countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v7 = [parameters countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(parameters);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         v12 = v5;
-        v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v22;
+          v15 = *v21;
           while (2)
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v22 != v15)
+              if (*v21 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              if ([v11 isSubParameterOf:*(*(&v21 + 1) + 8 * j)])
+              if ([v11 isSubParameterOf:*(*(&v20 + 1) + 8 * j)])
               {
 
                 goto LABEL_18;
               }
             }
 
-            v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
             if (v14)
             {
               continue;
@@ -443,20 +439,18 @@ void __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectF
           }
         }
 
-        [v20 addObject:v11];
+        [v19 addObject:v11];
 LABEL_18:
         ;
       }
 
-      v8 = [parameters countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v8 = [parameters countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v8);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 - (id)organizedInterfaceSections
@@ -484,14 +478,13 @@ LABEL_18:
 
 void __121__INUICKPSynchronousRemoteViewControllerAllocator__recursivelyConnectForInterfaceSectionQueue_recursionDepth_completion___block_invoke_3_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 32);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_255550000, log, OS_LOG_TYPE_ERROR, "Error retrieving synchronous remote view controller\n    Error: %@\n    Parameters: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_255550000, log, OS_LOG_TYPE_ERROR, "Error retrieving synchronous remote view controller\n    Error: %@\n    Parameters: %@", &v4, 0x16u);
 }
 
 @end

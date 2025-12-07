@@ -2,6 +2,7 @@
 - (_TtC19CoreServicesUIAgent33IconChangeAlertRootViewController)initWithCoder:(id)coder;
 - (_TtC19CoreServicesUIAgent33IconChangeAlertRootViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (void)loadView;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)waitForUserAcknowledgementWithCompletion:(id)completion;
 @end
 
@@ -36,7 +37,7 @@
   }
 
   v4 = self + OBJC_IVAR____TtC19CoreServicesUIAgent33IconChangeAlertRootViewController_acknowledgementStatus;
-  *v4 = &_swiftEmptyArrayStorage;
+  *v4 = _swiftEmptyArrayStorage;
   v4[8] = 0;
   *&self->acknowledgementStatus[OBJC_IVAR____TtC19CoreServicesUIAgent33IconChangeAlertRootViewController_delegate] = 0;
   swift_unknownObjectWeakInit();
@@ -59,6 +60,36 @@
   selfCopy = self;
   v4 = [v3 init];
   [(IconChangeAlertRootViewController *)selfCopy setView:v4];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  type metadata accessor for MainActor();
+  static MainActor.shared.getter();
+  dispatch thunk of Actor.unownedExecutor.getter();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for IconChangeAlertRootViewController();
+  selfCopy = self;
+  [(IconChangeAlertRootViewController *)&v9 viewDidDisappear:disappearCopy];
+  v6 = selfCopy->acknowledgementStatus[OBJC_IVAR____TtC19CoreServicesUIAgent33IconChangeAlertRootViewController_acknowledgementStatus];
+  if (v6 == 2 || v6 == 3 && !*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC19CoreServicesUIAgent33IconChangeAlertRootViewController_acknowledgementStatus))
+  {
+  }
+
+  else
+  {
+    v7 = objc_allocWithZone(NSError);
+    v8 = [v7 initWithDomain:NSPOSIXErrorDomain code:4 userInfo:{0, v9.receiver, v9.super_class}];
+    sub_10000260C(v8);
+
+    selfCopy = v8;
+  }
 }
 
 - (_TtC19CoreServicesUIAgent33IconChangeAlertRootViewController)initWithNibName:(id)name bundle:(id)bundle

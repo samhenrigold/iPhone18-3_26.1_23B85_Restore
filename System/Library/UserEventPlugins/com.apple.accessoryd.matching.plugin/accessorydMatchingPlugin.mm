@@ -12,6 +12,7 @@
 - (void)addDigitalIDClient:(unint64_t)client;
 - (void)addUserNotificationForPort:(id)port;
 - (void)dealloc;
+- (void)detachFromBTServer;
 - (void)findKnownBTDevices;
 - (void)handleUSBPortAdded;
 - (void)intrusiveUIStateDidChange:(BOOL)change forService:(id)service;
@@ -80,7 +81,7 @@
     dispatch_source_cancel(accPowerTimer);
   }
 
-  v7 = _uiQueue();
+  v7 = _uiQueue(accPowerTimer);
   dispatch_sync(v7, &__block_literal_global_241);
 
   ioAccessoryEventQueue = self->_ioAccessoryEventQueue;
@@ -1124,31 +1125,30 @@ LABEL_29:
 - (BOOL)areAttachEventsInList:(id)list
 {
   listCopy = list;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [listCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [listCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(listCopy);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         v6 |= objc_opt_isKindOfClass();
       }
 
-      v5 = [listCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [listCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -2247,7 +2247,6 @@ LABEL_10:
   }
 
   shouldPresentTRMDialog = _shouldPresentTRMDialog();
-  isLightning = self->_isLightning;
   if (shouldPresentTRMDialog)
   {
     if (self->_isLightning)
@@ -2257,76 +2256,76 @@ LABEL_10:
 
     else
     {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       allValues = [_portsPendingUserAuthorization allValues];
-      v9 = [allValues countByEnumeratingWithState:&v26 objects:v32 count:16];
-      if (v9)
+      v8 = [allValues countByEnumeratingWithState:&v25 objects:v31 count:16];
+      if (v8)
       {
-        v10 = v9;
-        v11 = *v27;
+        v9 = v8;
+        v10 = *v26;
         do
         {
-          for (i = 0; i != v10; i = i + 1)
+          for (i = 0; i != v9; i = i + 1)
           {
-            if (*v27 != v11)
+            if (*v26 != v10)
             {
               objc_enumerationMutation(allValues);
             }
 
-            [(accessorydMatchingPlugin *)self addUserNotificationForPort:*(*(&v26 + 1) + 8 * i)];
+            [(accessorydMatchingPlugin *)self addUserNotificationForPort:*(*(&v25 + 1) + 8 * i)];
           }
 
-          v10 = [allValues countByEnumeratingWithState:&v26 objects:v32 count:16];
+          v9 = [allValues countByEnumeratingWithState:&v25 objects:v31 count:16];
         }
 
-        while (v10);
+        while (v9);
       }
     }
   }
 
   else if (self->_isLightning)
   {
-    _dismissUnlockDialog();
+    _dismissUnlockDialog(shouldPresentTRMDialog);
   }
 
   else
   {
     allKeys = [_userNotificationsTRM allKeys];
-    v14 = [NSMutableSet setWithArray:allKeys];
+    v13 = [NSMutableSet setWithArray:allKeys];
 
     allKeys2 = [_portsPendingUserAuthorization allKeys];
-    v16 = [NSSet setWithArray:allKeys2];
+    v15 = [NSSet setWithArray:allKeys2];
 
-    [v14 minusSet:v16];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    [v13 minusSet:v15];
     v23 = 0u;
-    v17 = v14;
-    v18 = [v17 countByEnumeratingWithState:&v22 objects:v31 count:16];
-    if (v18)
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v16 = v13;
+    v17 = [v16 countByEnumeratingWithState:&v21 objects:v30 count:16];
+    if (v17)
     {
-      v19 = v18;
-      v20 = *v23;
+      v18 = v17;
+      v19 = *v22;
       do
       {
-        for (j = 0; j != v19; j = j + 1)
+        for (j = 0; j != v18; j = j + 1)
         {
-          if (*v23 != v20)
+          if (*v22 != v19)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v16);
           }
 
-          [(accessorydMatchingPlugin *)self removeUserNotificationForPort:*(*(&v22 + 1) + 8 * j), v22];
+          [(accessorydMatchingPlugin *)self removeUserNotificationForPort:*(*(&v21 + 1) + 8 * j), v21];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v22 objects:v31 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v21 objects:v30 count:16];
       }
 
-      while (v19);
+      while (v18);
     }
   }
 }
@@ -2369,60 +2368,49 @@ LABEL_10:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__0;
-  v25 = __Block_byref_object_dispose__0;
-  v26 = 0;
-  if (!portCopy)
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__0;
+  v27 = __Block_byref_object_dispose__0;
+  v28 = 0;
+  if (portCopy && (v8 = _userNotificationsTRM, +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [portCopy registryEntryID]), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKeyedSubscript:", v9), v10 = objc_claimAutoreleasedReturnValue(), v11 = *(*(&buf + 1) + 40), *(*(&buf + 1) + 40) = v10, v11, v9, *(*(&buf + 1) + 40)))
   {
-    goto LABEL_14;
-  }
-
-  v8 = _userNotificationsTRM;
-  v9 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [portCopy registryEntryID]);
-  v10 = [v8 objectForKeyedSubscript:v9];
-  v11 = *(*(&buf + 1) + 40);
-  *(*(&buf + 1) + 40) = v10;
-
-  if (*(*(&buf + 1) + 40))
-  {
-    v12 = _uiQueue();
+    v13 = _uiQueue(v12);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke;
     block[3] = &unk_59970;
-    v21[0] = portCopy;
-    v21[1] = &buf;
-    dispatch_async(v12, block);
+    v23[0] = portCopy;
+    v23[1] = &buf;
+    dispatch_async(v13, block);
 
-    v13 = v21;
+    v14 = v23;
   }
 
   else
   {
-LABEL_14:
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_308;
-    v18[3] = &unk_594D8;
-    v19[2] = &buf;
-    v14 = portCopy;
-    v19[0] = v14;
-    v19[1] = self;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_308;
+    v20[3] = &unk_594D8;
+    v21[2] = &buf;
+    v15 = portCopy;
+    v16 = v15;
+    v21[0] = v15;
+    v21[1] = self;
     if (addUserNotificationForPort__onceToken != -1)
     {
-      dispatch_once(&addUserNotificationForPort__onceToken, v18);
+      dispatch_once(&addUserNotificationForPort__onceToken, v20);
     }
 
-    v15 = _uiQueue();
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_320;
-    v16[3] = &unk_59250;
-    v17 = v14;
-    dispatch_async(v15, v16);
+    v17 = _uiQueue(v15);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_320;
+    v18[3] = &unk_59250;
+    v19 = v16;
+    dispatch_async(v17, v18);
 
-    v13 = v19;
+    v14 = v21;
   }
 
   _Block_object_dispose(&buf, 8);
@@ -2431,7 +2419,7 @@ LABEL_14:
 - (void)removeUserNotificationForPort:(id)port
 {
   portCopy = port;
-  v4 = _uiQueue();
+  v4 = _uiQueue(portCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __58__accessorydMatchingPlugin_removeUserNotificationForPort___block_invoke;
@@ -2508,21 +2496,25 @@ LABEL_14:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = portCopy;
+    v16 = portCopy;
     _os_log_impl(&def_3A0E8, v10, OS_LOG_TYPE_DEFAULT, "Port added: %@", buf, 0xCu);
   }
 
-  if ([portCopy authorizationRequired] && objc_msgSend(portCopy, "userAuthorizationPending"))
+  if ([portCopy authorizationRequired])
   {
-    v11 = _uiQueue();
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = __51__accessorydMatchingPlugin_portManager_didAddPort___block_invoke;
-    block[3] = &unk_59250;
-    v13 = portCopy;
-    dispatch_sync(v11, block);
+    userAuthorizationPending = [portCopy userAuthorizationPending];
+    if (userAuthorizationPending)
+    {
+      v12 = _uiQueue(userAuthorizationPending);
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = __51__accessorydMatchingPlugin_portManager_didAddPort___block_invoke;
+      block[3] = &unk_59250;
+      v14 = portCopy;
+      dispatch_sync(v12, block);
 
-    [(accessorydMatchingPlugin *)self trmStatusDidChange];
+      [(accessorydMatchingPlugin *)self trmStatusDidChange];
+    }
   }
 }
 
@@ -2559,18 +2551,18 @@ LABEL_14:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = portCopy;
+    v17 = portCopy;
     _os_log_impl(&def_3A0E8, v10, OS_LOG_TYPE_DEFAULT, "Port removed: %@", buf, 0xCu);
   }
 
-  v11 = _uiQueue();
+  v12 = _uiQueue(v11);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __54__accessorydMatchingPlugin_portManager_didRemovePort___block_invoke;
   block[3] = &unk_59250;
-  v14 = portCopy;
-  v12 = portCopy;
-  dispatch_sync(v11, block);
+  v15 = portCopy;
+  v13 = portCopy;
+  dispatch_sync(v12, block);
 
   [(accessorydMatchingPlugin *)self trmStatusDidChange];
 }
@@ -2608,18 +2600,18 @@ LABEL_14:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = portCopy;
+    v17 = portCopy;
     _os_log_impl(&def_3A0E8, v10, OS_LOG_TYPE_DEFAULT, "Port authorization state updated: %@", buf, 0xCu);
   }
 
-  v11 = _uiQueue();
+  v12 = _uiQueue(v11);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __75__accessorydMatchingPlugin_portManager_didUpdateAuthorizationStateForPort___block_invoke;
   block[3] = &unk_59250;
-  v14 = portCopy;
-  v12 = portCopy;
-  dispatch_sync(v11, block);
+  v15 = portCopy;
+  v13 = portCopy;
+  dispatch_sync(v12, block);
 
   [(accessorydMatchingPlugin *)self trmStatusDidChange];
 }
@@ -2773,7 +2765,7 @@ LABEL_14:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             OUTLINED_FUNCTION_1_1();
-            OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v165, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v166, v167, v168, v169, notifier, v176, buf[0]);
+            OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v159, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v160, v161, v162, v163, notifier, v170);
           }
 
           v4 = &_os_log_default;
@@ -2858,7 +2850,7 @@ LABEL_14:
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_1_1();
-          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v125, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v126, v127, v128, v129, notifier, v176, buf[0]);
+          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v119, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v120, v121, v122, v123, notifier, v170);
         }
 
         v41 = &_os_log_default;
@@ -2867,16 +2859,15 @@ LABEL_14:
 
       if (OUTLINED_FUNCTION_18())
       {
-        v43 = selfCopy->_digitalIDCacheDict;
         OUTLINED_FUNCTION_17();
         OUTLINED_FUNCTION_2_0();
-        _os_log_impl(v44, v45, v46, v47, v48, 0xCu);
+        _os_log_impl(v43, v44, v45, v46, v47, 0xCu);
       }
 
       OUTLINED_FUNCTION_13();
       if (v3 && v41 >= 1)
       {
-        v49 = *v3;
+        v48 = *v3;
       }
 
       else
@@ -2884,25 +2875,24 @@ LABEL_14:
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_1_1();
-          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v130, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v131, v132, v133, v134, notifier, v176, buf[0]);
+          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v124, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v125, v126, v127, v128, notifier, v170);
         }
 
+        v48 = &_os_log_default;
         v49 = &_os_log_default;
-        v50 = &_os_log_default;
       }
 
       if (OUTLINED_FUNCTION_18())
       {
-        v51 = selfCopy->_uartAccessoryDetachTimesDict;
         OUTLINED_FUNCTION_17();
         OUTLINED_FUNCTION_2_0();
-        _os_log_impl(v52, v53, v54, v55, v56, 0xCu);
+        _os_log_impl(v50, v51, v52, v53, v54, 0xCu);
       }
 
       OUTLINED_FUNCTION_13();
-      if (v3 && v49 >= 1)
+      if (v3 && v48 >= 1)
       {
-        v57 = *v3;
+        v55 = *v3;
       }
 
       else
@@ -2910,25 +2900,24 @@ LABEL_14:
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_1_1();
-          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v135, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v136, v137, v138, v139, notifier, v176, buf[0]);
+          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v129, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v130, v131, v132, v133, notifier, v170);
         }
 
-        v57 = &_os_log_default;
-        v58 = &_os_log_default;
+        v55 = &_os_log_default;
+        v56 = &_os_log_default;
       }
 
       if (OUTLINED_FUNCTION_18())
       {
-        v59 = selfCopy->_mikeyBusAccessoryDetachTimesDict;
         OUTLINED_FUNCTION_17();
         OUTLINED_FUNCTION_2_0();
-        _os_log_impl(v60, v61, v62, v63, v64, 0xCu);
+        _os_log_impl(v57, v58, v59, v60, v61, 0xCu);
       }
 
       OUTLINED_FUNCTION_13();
-      if (v3 && v57 >= 1)
+      if (v3 && v55 >= 1)
       {
-        v65 = *v3;
+        v62 = *v3;
       }
 
       else
@@ -2936,25 +2925,24 @@ LABEL_14:
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_1_1();
-          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v140, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v141, v142, v143, v144, notifier, v176, buf[0]);
+          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v134, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v135, v136, v137, v138, notifier, v170);
         }
 
-        v65 = &_os_log_default;
-        v66 = &_os_log_default;
+        v62 = &_os_log_default;
+        v63 = &_os_log_default;
       }
 
       if (OUTLINED_FUNCTION_18())
       {
-        v67 = selfCopy->_aidBulkPipeAccessoryDetachTimesDict;
         OUTLINED_FUNCTION_17();
         OUTLINED_FUNCTION_2_0();
-        _os_log_impl(v68, v69, v70, v71, v72, 0xCu);
+        _os_log_impl(v64, v65, v66, v67, v68, 0xCu);
       }
 
       OUTLINED_FUNCTION_13();
-      if (v3 && v65 >= 1)
+      if (v3 && v62 >= 1)
       {
-        v73 = *v3;
+        v69 = *v3;
       }
 
       else
@@ -2962,29 +2950,28 @@ LABEL_14:
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_1_1();
-          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v145, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v146, v147, v148, v149, notifier, v176, buf[0]);
+          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v139, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v140, v141, v142, v143, notifier, v170);
         }
 
-        v73 = &_os_log_default;
-        v74 = &_os_log_default;
+        v69 = &_os_log_default;
+        v70 = &_os_log_default;
       }
 
       if (OUTLINED_FUNCTION_18())
       {
-        v75 = selfCopy->_lastUSBAccessoryDetachTime;
         OUTLINED_FUNCTION_17();
         OUTLINED_FUNCTION_2_0();
-        _os_log_impl(v76, v77, v78, v79, v80, 0xCu);
+        _os_log_impl(v71, v72, v73, v74, v75, 0xCu);
       }
 
-      v81 = [(NSUserDefaults *)selfCopy->_pluginDefaults objectForKey:@"cachedUSBConnectType"];
+      v76 = [(NSUserDefaults *)selfCopy->_pluginDefaults objectForKey:@"cachedUSBConnectType"];
       cachedUSBConnectType = selfCopy->_cachedUSBConnectType;
-      selfCopy->_cachedUSBConnectType = v81;
+      selfCopy->_cachedUSBConnectType = v76;
 
       OUTLINED_FUNCTION_13();
-      if (v3 && v73 >= 1)
+      if (v3 && v69 >= 1)
       {
-        v83 = *v3;
+        v78 = *v3;
       }
 
       else
@@ -2992,24 +2979,23 @@ LABEL_14:
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_1_1();
-          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v150, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v151, v152, v153, v154, notifier, v176, buf[0]);
+          OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v144, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v145, v146, v147, v148, notifier, v170);
         }
 
-        v83 = &_os_log_default;
-        v84 = &_os_log_default;
+        v78 = &_os_log_default;
+        v79 = &_os_log_default;
       }
 
       if (OUTLINED_FUNCTION_18())
       {
-        v85 = selfCopy->_cachedUSBConnectType;
         OUTLINED_FUNCTION_17();
         OUTLINED_FUNCTION_2_0();
-        _os_log_impl(v86, v87, v88, v89, v90, 0xCu);
+        _os_log_impl(v80, v81, v82, v83, v84, 0xCu);
       }
 
-      v91 = dispatch_queue_create("accessorydMatchingPlugin_EventLoggerQueue", 0);
+      v85 = dispatch_queue_create("accessorydMatchingPlugin_EventLoggerQueue", 0);
       analyticsQueue = selfCopy->_analyticsQueue;
-      selfCopy->_analyticsQueue = v91;
+      selfCopy->_analyticsQueue = v85;
 
       selfCopy->_ioNotifyPortTRM = 0;
       *&selfCopy->_ioAddedIteratorTRM = 0;
@@ -3024,9 +3010,9 @@ LABEL_14:
       {
         IOObjectRelease(ServiceWithPrimaryPort);
         OUTLINED_FUNCTION_13();
-        if (v3 && v83 >= 3)
+        if (v3 && v78 >= 3)
         {
-          v95 = v3[2];
+          v89 = v3[2];
         }
 
         else
@@ -3034,31 +3020,31 @@ LABEL_14:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             OUTLINED_FUNCTION_1_1();
-            OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v155, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v156, v157, v158, v159, notifier, v176, buf[0]);
+            OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v149, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v150, v151, v152, v153, notifier, v170);
           }
 
-          v95 = &_os_log_default;
-          v97 = &_os_log_default;
+          v89 = &_os_log_default;
+          v91 = &_os_log_default;
         }
 
         if (OUTLINED_FUNCTION_18())
         {
           *buf = 0;
           OUTLINED_FUNCTION_2_0();
-          _os_log_impl(v98, v99, v100, v101, v102, 2u);
+          _os_log_impl(v92, v93, v94, v95, v96, 2u);
         }
 
-        v103 = objc_alloc_init(ueaPluginSystemSettingsMonitor);
-        v96 = selfCopy->_ueaPluginSystemSettingsMonitor;
-        selfCopy->_ueaPluginSystemSettingsMonitor = v103;
+        v97 = objc_alloc_init(ueaPluginSystemSettingsMonitor);
+        v90 = selfCopy->_ueaPluginSystemSettingsMonitor;
+        selfCopy->_ueaPluginSystemSettingsMonitor = v97;
       }
 
       else
       {
         OUTLINED_FUNCTION_13();
-        if (v3 && v83 >= 3)
+        if (v3 && v78 >= 3)
         {
-          v96 = v3[2];
+          v90 = v3[2];
         }
 
         else
@@ -3066,54 +3052,54 @@ LABEL_14:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             OUTLINED_FUNCTION_1_1();
-            OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v170, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v171, v172, v173, v174, notifier, v176, buf[0]);
+            OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v164, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v165, v166, v167, v168, notifier, v170);
           }
 
-          v96 = &_os_log_default;
-          v104 = &_os_log_default;
+          v90 = &_os_log_default;
+          v98 = &_os_log_default;
         }
 
         if (OUTLINED_FUNCTION_18())
         {
           *buf = 0;
           OUTLINED_FUNCTION_2_0();
-          _os_log_impl(v105, v106, v107, v108, v109, 2u);
+          _os_log_impl(v99, v100, v101, v102, v103, 2u);
         }
       }
 
-      v110 = 0;
+      v104 = 0;
       *buf = "/var/root/.acc_analytics_v2.db";
-      v178 = "/var/root/.acc_analytics_v2.db-shm";
-      v179 = "/var/root/.acc_analytics_v2.db-wal";
-      v180 = "/var/mobile/Library/CoreAccessories/Analytics/acc_analytics_UserEventAgent_v2.db";
-      v181 = "/var/mobile/Library/CoreAccessories/Analytics/acc_analytics_UserEventAgent_v2.db-shm";
-      v182 = "/var/mobile/Library/CoreAccessories/Analytics/acc_analytics_UserEventAgent_v2.db-wal";
+      v172 = "/var/root/.acc_analytics_v2.db-shm";
+      v173 = "/var/root/.acc_analytics_v2.db-wal";
+      v174 = "/var/mobile/Library/CoreAccessories/Analytics/acc_analytics_UserEventAgent_v2.db";
+      v175 = "/var/mobile/Library/CoreAccessories/Analytics/acc_analytics_UserEventAgent_v2.db-shm";
+      v176 = "/var/mobile/Library/CoreAccessories/Analytics/acc_analytics_UserEventAgent_v2.db-wal";
       do
       {
-        v111 = *&buf[v110];
-        v112 = +[NSFileManager defaultManager];
-        v113 = [NSString stringWithUTF8String:v111];
-        [v112 removeItemAtPath:v113 error:0];
+        v105 = *&buf[v104];
+        v106 = +[NSFileManager defaultManager];
+        v107 = [NSString stringWithUTF8String:v105];
+        [v106 removeItemAtPath:v107 error:0];
 
-        v110 += 8;
+        v104 += 8;
       }
 
-      while (v110 != 48);
-      v183[0] = NSFileOwnerAccountName;
-      v183[1] = NSFileGroupOwnerAccountName;
+      while (v104 != 48);
+      v177[0] = NSFileOwnerAccountName;
+      v177[1] = NSFileGroupOwnerAccountName;
       *buf = @"mobile";
-      v178 = @"mobile";
-      v114 = [NSDictionary dictionaryWithObjects:buf forKeys:v183 count:2];
-      v115 = +[NSFileManager defaultManager];
-      v176 = 0;
-      v116 = [v115 createDirectoryAtPath:@"/var/mobile/Library/CoreAccessories/Analytics" withIntermediateDirectories:1 attributes:v114 error:&v176];
+      v172 = @"mobile";
+      v108 = [NSDictionary dictionaryWithObjects:buf forKeys:v177 count:2];
+      v109 = +[NSFileManager defaultManager];
+      v170 = 0;
+      v110 = [v109 createDirectoryAtPath:@"/var/mobile/Library/CoreAccessories/Analytics" withIntermediateDirectories:1 attributes:v108 error:&v170];
 
-      if ((v116 & 1) == 0)
+      if ((v110 & 1) == 0)
       {
         OUTLINED_FUNCTION_13();
-        if (xpc_event_provider_create_ptr && v114 >= 1)
+        if (xpc_event_provider_create_ptr && v108 >= 1)
         {
-          v117 = xpc_event_provider_create;
+          v111 = xpc_event_provider_create;
         }
 
         else
@@ -3121,18 +3107,18 @@ LABEL_14:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             OUTLINED_FUNCTION_1_1();
-            OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v160, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v161, v162, v163, v164, notifier, v176, buf[0]);
+            OUTLINED_FUNCTION_9(&def_3A0E8, &_os_log_default, v154, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v155, v156, v157, v158, notifier, v170);
           }
 
-          v117 = &_os_log_default;
-          v118 = &_os_log_default;
+          v111 = &_os_log_default;
+          v112 = &_os_log_default;
         }
 
         if (OUTLINED_FUNCTION_18())
         {
           *buf = 0;
           OUTLINED_FUNCTION_2_0();
-          _os_log_impl(v119, v120, v121, v122, v123, 2u);
+          _os_log_impl(v113, v114, v115, v116, v117, 2u);
         }
       }
 
@@ -3174,7 +3160,7 @@ LABEL_14:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_19();
-        OUTLINED_FUNCTION_1_0(&def_3A0E8, &_os_log_default, v18, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v19, v20, v21, v22, v23);
+        OUTLINED_FUNCTION_1_0(&def_3A0E8, &_os_log_default, v18, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v19, v20, v21, v22);
       }
 
       v8 = &_os_log_default;
@@ -3191,7 +3177,7 @@ LABEL_14:
       digitalIDTokenSet2 = [(accessorydMatchingPlugin *)self digitalIDTokenSet];
       [digitalIDTokenSet2 count];
       OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_24(&def_3A0E8, v10, v11, "addDigitalIDClient digitalIDTokenSet count: %lu", v12, v13, v14, v15, v23);
+      OUTLINED_FUNCTION_24(&def_3A0E8, v10, v11, "addDigitalIDClient digitalIDTokenSet count: %lu", v12, v13, v14, v15);
     }
 
     digitalIDTokenSet3 = [(accessorydMatchingPlugin *)self digitalIDTokenSet];
@@ -3230,7 +3216,7 @@ LABEL_14:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_19();
-        OUTLINED_FUNCTION_1_0(&def_3A0E8, &_os_log_default, v18, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v19, v20, v21, v22, v23);
+        OUTLINED_FUNCTION_1_0(&def_3A0E8, &_os_log_default, v18, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v19, v20, v21, v22);
       }
 
       v8 = &_os_log_default;
@@ -3247,7 +3233,7 @@ LABEL_14:
       digitalIDTokenSet2 = [(accessorydMatchingPlugin *)self digitalIDTokenSet];
       [digitalIDTokenSet2 count];
       OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_24(&def_3A0E8, v10, v11, "removeDigitalIDClient digitalIDTokenSet count: %lu", v12, v13, v14, v15, v23);
+      OUTLINED_FUNCTION_24(&def_3A0E8, v10, v11, "removeDigitalIDClient digitalIDTokenSet count: %lu", v12, v13, v14, v15);
     }
 
     digitalIDTokenSet3 = [(accessorydMatchingPlugin *)self digitalIDTokenSet];
@@ -3327,6 +3313,13 @@ LABEL_14:
       [(accessorydMatchingPlugin *)self stopBluetoothMatching];
     }
   }
+}
+
+- (void)detachFromBTServer
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1_0(&def_3A0E8, v0, v1, "%s failed detaching from BT server, result: %d\n", v2, v3, v4, v5, v6);
 }
 
 - (void)intrusiveUIStateDidChange:forService:.cold.2()

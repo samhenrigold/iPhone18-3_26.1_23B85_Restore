@@ -4,7 +4,11 @@
 - (SKUILabelViewElement)messageLabel;
 - (SKUILabelViewElement)titleLabel;
 - (int64_t)pageComponentType;
+- (void)button;
+- (void)image;
+- (void)messageLabel;
 - (void)pageComponentType;
+- (void)titleLabel;
 @end
 
 @implementation SKUIContentUnavailableTemplateElement
@@ -139,6 +143,30 @@ void __51__SKUIContentUnavailableTemplateElement_titleLabel__block_invoke(uint64
   }
 
   return 24;
+}
+
+- (void)button
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIContentUnavailableTemplateElement button]";
+}
+
+- (void)image
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIContentUnavailableTemplateElement image]";
+}
+
+- (void)messageLabel
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIContentUnavailableTemplateElement messageLabel]";
+}
+
+- (void)titleLabel
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIContentUnavailableTemplateElement titleLabel]";
 }
 
 - (void)pageComponentType

@@ -112,37 +112,45 @@
 
 - (void)_centralManagerEnsureStarted
 {
-  if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_10001A208 <= 30)
   {
-    sub_100008A70();
+    if (dword_10001A208 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100008A70(self, a2, v2);
+    }
   }
 
-  v3 = self->_centralManager;
-  if (!v3)
+  v4 = selfCopy->_centralManager;
+  if (!v4)
   {
-    v4 = [CBCentralManager alloc];
-    dispatchQueue = self->_dispatchQueue;
-    v6 = [NSNumber numberWithBool:1];
-    v7 = [NSDictionary dictionaryWithObjectsAndKeys:v6, CBCentralManagerOptionReceiveSystemEvents, 0];
-    obj = [v4 initWithDelegate:self queue:dispatchQueue options:v7];
+    v5 = [CBCentralManager alloc];
+    dispatchQueue = selfCopy->_dispatchQueue;
+    v7 = [NSNumber numberWithBool:1];
+    v8 = [NSDictionary dictionaryWithObjectsAndKeys:v7, CBCentralManagerOptionReceiveSystemEvents, 0];
+    obj = [v5 initWithDelegate:selfCopy queue:dispatchQueue options:v8];
 
-    objc_storeStrong(&self->_centralManager, obj);
-    v3 = obj;
+    objc_storeStrong(&selfCopy->_centralManager, obj);
+    v4 = obj;
   }
 }
 
 - (void)_centralManagerEnsureStopped
 {
-  if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_10001A208 <= 30)
   {
-    sub_100008A8C();
+    if (dword_10001A208 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100008A8C(self, a2, v2);
+    }
   }
 
-  centralManager = self->_centralManager;
-  self->_centralManager = 0;
+  centralManager = selfCopy->_centralManager;
+  selfCopy->_centralManager = 0;
 
-  selectedPeripheral = self->_selectedPeripheral;
-  self->_selectedPeripheral = 0;
+  selectedPeripheral = selfCopy->_selectedPeripheral;
+  selfCopy->_selectedPeripheral = 0;
 }
 
 - (void)_connectedPeripheralsChanged
@@ -158,7 +166,7 @@
 
     if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
     {
-      sub_100008AA8();
+      sub_100008AA8(v6);
     }
 
     v7[0] = _NSConcreteStackBlock;
@@ -173,16 +181,17 @@
 - (void)_discoverAccessory
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (self->_isCentralManagerOn)
+  isCentralManagerOn = self->_isCentralManagerOn;
+  if (isCentralManagerOn)
   {
     centralManager = self->_centralManager;
     v9 = CBConnectionEventMatchingOptionServiceUUIDs;
-    v4 = [CBUUID UUIDWithString:@"1b8d9548-c066-4fbf-bc7e-cf3e5a3fabbf"];
-    v8 = v4;
-    v5 = [NSArray arrayWithObjects:&v8 count:1];
-    v10 = v5;
-    v6 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-    [(CBCentralManager *)centralManager registerForConnectionEventsWithOptions:v6];
+    v5 = [CBUUID UUIDWithString:@"1b8d9548-c066-4fbf-bc7e-cf3e5a3fabbf"];
+    v8 = v5;
+    v6 = [NSArray arrayWithObjects:&v8 count:1];
+    v10 = v6;
+    v7 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+    [(CBCentralManager *)centralManager registerForConnectionEventsWithOptions:v7];
 
     [(ASMGATTConnectionManager *)self _connectedPeripheralsChanged];
     return;
@@ -193,7 +202,7 @@
     if (dword_10001A208 != -1)
     {
 LABEL_5:
-      LogPrintF();
+      LogPrintF(&dword_10001A208, "[ASMGATTConnectionManager _discoverAccessory]", 30, "skip accessory discovery, centralManager state: %d", isCentralManagerOn);
       return;
     }
 
@@ -214,7 +223,7 @@ LABEL_5:
     v6 = state;
     if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
     {
-      sub_100008B28();
+      sub_100008B28(v6 == 5);
     }
 
     self->_isCentralManagerOn = v5;
@@ -232,7 +241,7 @@ LABEL_5:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
   {
-    sub_100008B80();
+    sub_100008B80(peripheralCopy);
   }
 
   [peripheralCopy setDelegate:self];
@@ -268,7 +277,7 @@ LABEL_5:
         v9 = *(*(&v16 + 1) + 8 * v8);
         if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
         {
-          sub_100008BC0();
+          sub_100008BC0(v9);
         }
 
         uUID = [v9 UUID];
@@ -279,7 +288,7 @@ LABEL_5:
         {
           if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
           {
-            sub_100008C00();
+            sub_100008C00(peripheralCopy);
           }
 
           [peripheralCopy discoverCharacteristics:0 forService:v9];
@@ -304,7 +313,7 @@ LABEL_5:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
   {
-    sub_100008C40(serviceCopy);
+    sub_100008C40(serviceCopy, peripheralCopy);
   }
 }
 
@@ -313,26 +322,30 @@ LABEL_5:
   peripheralCopy = peripheral;
   characteristicCopy = characteristic;
   errorCopy = error;
+  v12 = errorCopy;
   if (errorCopy)
   {
     if (dword_10001A208 <= 90 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
     {
-      sub_100008CAC(errorCopy);
+      sub_100008CAC(v12);
     }
   }
 
-  else if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
+  else if (dword_10001A208 <= 30)
   {
-    sub_100008D08();
+    if (dword_10001A208 != -1 || (errorCopy = _LogCategory_Initialize(), errorCopy))
+    {
+      sub_100008D08(errorCopy, v10, v11);
+    }
   }
 
-  v10 = objc_retainBlock(self->_completion);
+  v13 = objc_retainBlock(self->_completion);
   completion = self->_completion;
   self->_completion = 0;
 
-  if (v10)
+  if (v13)
   {
-    v10[2](v10, errorCopy);
+    v13[2](v13, v12);
   }
 }
 
@@ -345,13 +358,13 @@ LABEL_5:
   {
     if (dword_10001A208 <= 90 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
     {
-      sub_100008D24(errorCopy);
+      sub_100008D24(errorCopy, characteristicCopy);
     }
   }
 
   else if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_10001A208, "[ASMGATTConnectionManager peripheral:didWriteValueForCharacteristic:error:]", 30, "did write to peripheral: %@, characteristic: %@", peripheralCopy, characteristicCopy);
   }
 
   v10 = objc_retainBlock(self->_writeCompletion);
@@ -392,7 +405,7 @@ LABEL_5:
   completionCopy = completion;
   if (dword_10001A208 <= 30 && (dword_10001A208 != -1 || _LogCategory_Initialize()))
   {
-    sub_100008D90();
+    sub_100008D90(dataCopy);
   }
 
   v44 = 0;

@@ -1,631 +1,4 @@
-uint64_t **std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,llvm::orc::DynamicThreadPoolTaskDispatcher::dispatch(std::unique_ptr<llvm::orc::Task>)::$_0>>::~unique_ptr[abi:nn200100](uint64_t **a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    v3 = v2[2];
-    v2[2] = 0;
-    if (v3)
-    {
-      (*(*v3 + 8))(v3);
-    }
-
-    v4 = std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:nn200100](v2);
-    MEMORY[0x277C69E40](v4, 0x1020C4034AC6F07);
-  }
-
-  return a1;
-}
-
-uint64_t *std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:nn200100](uint64_t *a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    v3 = MEMORY[0x277C69BF0]();
-    MEMORY[0x277C69E40](v3, 0x20C4093837F09);
-  }
-
-  return a1;
-}
-
-llvm::Module **std::unique_ptr<llvm::Module>::~unique_ptr[abi:nn200100](llvm::Module **a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    llvm::Module::~Module(v2);
-    MEMORY[0x277C69E40]();
-  }
-
-  return a1;
-}
-
-uint64_t llvm::Expected<std::unique_ptr<llvm::Module>>::~Expected(uint64_t a1)
-{
-  if (*(a1 + 8))
-  {
-    v2 = *a1;
-    *a1 = 0;
-    if (v2)
-    {
-      (*(*v2 + 8))(v2);
-    }
-  }
-
-  else
-  {
-    std::unique_ptr<llvm::Module>::~unique_ptr[abi:nn200100](a1);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(llvm::Metadata **,unsigned int,std::function<llvm::Type * ()(unsigned int)>,std::function<unsigned int ()(unsigned int,unsigned int)>)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(llvm::Value *,unsigned int,std::function<llvm::Type * ()(unsigned int)>,std::function<unsigned int ()(unsigned int,unsigned int)>)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<std::optional<std::string> ()(llvm::StringRef,llvm::StringRef)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t llvm::jitlink::DWARFRecordSectionSplitter::operator()@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X3>, void *a4@<X8>)
-{
-  v56[8] = *MEMORY[0x277D85DE8];
-  result = llvm::jitlink::LinkGraph::findSectionByName(a2, *a1, a1[1], a3);
-  if (result)
-  {
-    v8 = result;
-    v48 = 0;
-    v49 = 0;
-    v50 = 0;
-    v9 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(result + 32);
-    v11 = *(v8 + 32) + 8 * *(v8 + 48);
-    if (v11 != v9)
-    {
-      v12 = v9;
-      v13 = v10;
-      do
-      {
-        v51[0] = *v12;
-        v55[0] = v56;
-        v55[1] = 0x800000000;
-        v14 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::FindAndConstruct(&v48, v51);
-        std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>::operator=[abi:nn200100]<llvm::SmallVector<llvm::jitlink::Symbol *,8u>,void>((v14 + 1), v55);
-        if (v55[0] != v56)
-        {
-          free(v55[0]);
-        }
-
-        do
-        {
-          ++v12;
-        }
-
-        while (v12 != v13 && (*v12 | 0x1000) == 0xFFFFFFFFFFFFF000);
-      }
-
-      while (v12 != v11);
-    }
-
-    v15 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v8 + 56);
-    v17 = *(v8 + 56) + 8 * *(v8 + 72);
-    if (v17 != v15)
-    {
-      v18 = v15;
-      v19 = v16;
-      do
-      {
-        v20 = *v18;
-        v51[0] = *(*v18 + 8);
-        v21 = v51[0];
-        v55[0] = 0;
-        v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(v48, v50, v51[0], v55);
-        v23 = v55[0];
-        if ((v22 & 1) == 0)
-        {
-          v23 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::InsertIntoBucketImpl<llvm::jitlink::Block *>(&v48, v51, v55[0]);
-          *v23 = v21;
-          *(v23 + 8) = 0;
-          *(v23 + 88) = 0;
-        }
-
-        llvm::SmallVectorTemplateBase<void *,true>::push_back(v23 + 2, v20);
-        do
-        {
-          ++v18;
-        }
-
-        while (v18 != v19 && (*v18 | 0x1000) == 0xFFFFFFFFFFFFF000);
-      }
-
-      while (v18 != v17);
-    }
-
-    v24 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v8 + 32);
-    v26 = *(v8 + 32) + 8 * *(v8 + 48);
-    if (v26 != v24)
-    {
-      v27 = v24;
-      v28 = v25;
-      do
-      {
-        v29 = *v27++;
-        v55[0] = v29;
-        v30 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::FindAndConstruct(&v48, v55);
-        v31 = *(v30 + 4);
-        v32 = 126 - 2 * __clz(v31);
-        if (v31)
-        {
-          v33 = v32;
-        }
-
-        else
-        {
-          v33 = 0;
-        }
-
-        std::__introsort<std::_ClassicAlgPolicy,llvm::jitlink::DWARFRecordSectionSplitter::operator()(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Symbol **,false>(v30[1], (v30[1] + 8 * v31), v33, 1);
-        while (v27 != v28 && (*v27 | 0x1000) == 0xFFFFFFFFFFFFF000)
-        {
-          ++v27;
-        }
-      }
-
-      while (v27 != v26);
-    }
-
-    v34 = v48;
-    v35 = v50;
-    v36 = 3 * v50;
-    if (v49)
-    {
-      v37 = v48;
-      if (v50)
-      {
-        v38 = 96 * v50;
-        v37 = v48;
-        while ((*v37 | 0x1000) == 0xFFFFFFFFFFFFF000)
-        {
-          v37 += 96;
-          v38 -= 96;
-          if (!v38)
-          {
-            goto LABEL_43;
-          }
-        }
-      }
-
-      v39 = v48 + 96 * v50;
-      if (v37 != v39)
-      {
-        v47 = v48;
-LABEL_36:
-        if (!*(*v37 + 24))
-        {
-          v54 = 1283;
-          v44 = *a1;
-          v45 = a1[1];
-          v51[0] = "Unexpected zero-fill block in ";
-          v52 = v44;
-          v53 = v45;
-          operator new();
-        }
-
-        if (*(*v37 + 32))
-        {
-          v40 = *(a2 + 188);
-          v55[0] = &unk_2883EA5B0;
-          llvm::BinaryStreamRef::BinaryStreamRef();
-        }
-
-        *a4 = 0;
-        v34 = v47;
-        while (1)
-        {
-          v37 += 96;
-          if (v37 == v39)
-          {
-            break;
-          }
-
-          if ((*v37 | 0x1000) != 0xFFFFFFFFFFFFF000)
-          {
-            if (v37 != v39)
-            {
-              goto LABEL_36;
-            }
-
-            break;
-          }
-        }
-      }
-    }
-
-LABEL_43:
-    *a4 = 0;
-    if (v35)
-    {
-      v41 = 32 * v36;
-      v42 = v34;
-      do
-      {
-        if ((*v42 | 0x1000) != 0xFFFFFFFFFFFFF000 && *(v42 + 88) == 1)
-        {
-          v43 = *(v42 + 8);
-          if ((v42 + 24) != v43)
-          {
-            free(v43);
-          }
-        }
-
-        v42 += 96;
-        v41 -= 96;
-      }
-
-      while (v41);
-    }
-
-    result = MEMORY[0x277C69E30](v34, 8);
-  }
-
-  else
-  {
-    *a4 = 0;
-  }
-
-  v46 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>::operator=[abi:nn200100]<llvm::SmallVector<llvm::jitlink::Symbol *,8u>,void>(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 80) == 1)
-  {
-    llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=(a1, a2);
-  }
-
-  else
-  {
-    *a1 = a1 + 16;
-    *(a1 + 8) = 0x800000000;
-    if (*(a2 + 8))
-    {
-      llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=(a1, a2);
-    }
-
-    *(a1 + 80) = 1;
-  }
-
-  return a1;
-}
-
-uint64_t llvm::BinaryStreamReader::readInteger<unsigned int>@<X0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, void *a3@<X8>)
-{
-  result = llvm::BinaryStreamRef::readBytes(a1 + 8, *(a1 + 56), 4, a3);
-  if (!*a3)
-  {
-    *(a1 + 56) += 4;
-    result = (*(**(a1 + 24) + 16))(*(a1 + 24));
-    v7 = MEMORY[0];
-    v8 = bswap32(MEMORY[0]);
-    if ((result - 1) >= 2)
-    {
-      v7 = v8;
-    }
-
-    *a2 = v7;
-    *a3 = 0;
-  }
-
-  return result;
-}
-
-uint64_t llvm::BinaryStreamReader::readInteger<unsigned long long>@<X0>(uint64_t a1@<X0>, unint64_t *a2@<X1>, void *a3@<X8>)
-{
-  result = llvm::BinaryStreamRef::readBytes(a1 + 8, *(a1 + 56), 8, a3);
-  if (!*a3)
-  {
-    *(a1 + 56) += 8;
-    result = (*(**(a1 + 24) + 16))(*(a1 + 24));
-    v7 = MEMORY[0];
-    v8 = bswap64(MEMORY[0]);
-    if ((result - 1) >= 2)
-    {
-      v7 = v8;
-    }
-
-    *a2 = v7;
-    *a3 = 0;
-  }
-
-  return result;
-}
-
-void *llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::FindAndConstruct(uint64_t a1, uint64_t *a2)
-{
-  v7 = 0;
-  v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(*a1, *(a1 + 16), *a2, &v7);
-  v5 = v7;
-  if ((v4 & 1) == 0)
-  {
-    v5 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::InsertIntoBucketImpl<llvm::jitlink::Block *>(a1, a2, v7);
-    *v5 = *a2;
-    *(v5 + 8) = 0;
-    *(v5 + 88) = 0;
-  }
-
-  return v5;
-}
-
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(uint64_t a1, int a2, uint64_t a3, void *a4)
-{
-  if (a2)
-  {
-    v4 = a2 - 1;
-    v5 = ((a3 >> 4) ^ (a3 >> 9)) & (a2 - 1);
-    v6 = (a1 + 96 * v5);
-    v7 = *v6;
-    if (*v6 == a3)
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-      v10 = 0;
-      v11 = 1;
-      while (v7 != -4096)
-      {
-        if (v10)
-        {
-          v12 = 0;
-        }
-
-        else
-        {
-          v12 = v7 == -8192;
-        }
-
-        if (v12)
-        {
-          v10 = v6;
-        }
-
-        v13 = v5 + v11++;
-        v5 = v13 & v4;
-        v6 = (a1 + 96 * (v13 & v4));
-        v7 = *v6;
-        v8 = 1;
-        if (*v6 == a3)
-        {
-          goto LABEL_5;
-        }
-      }
-
-      v8 = 0;
-      if (v10)
-      {
-        v6 = v10;
-      }
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-    v8 = 0;
-  }
-
-LABEL_5:
-  *a4 = v6;
-  return v8;
-}
-
-void *llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::InsertIntoBucketImpl<llvm::jitlink::Block *>(uint64_t a1, uint64_t *a2, void *a3)
-{
-  v5 = *(a1 + 8);
-  v6 = *(a1 + 16);
-  if (4 * v5 + 4 >= 3 * v6)
-  {
-    v6 *= 2;
-  }
-
-  else if (v6 + ~v5 - *(a1 + 12) > v6 >> 3)
-  {
-    goto LABEL_3;
-  }
-
-  llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::grow(a1, v6);
-  v8 = 0;
-  llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(*a1, *(a1 + 16), *a2, &v8);
-  a3 = v8;
-LABEL_3:
-  ++*(a1 + 8);
-  if (*a3 != -4096)
-  {
-    --*(a1 + 12);
-  }
-
-  return a3;
-}
-
-void *llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::grow(uint64_t a1, int a2)
-{
-  v3 = *(a1 + 16);
-  v4 = *a1;
-  v5 = (a2 - 1) | ((a2 - 1) >> 1);
-  v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
-  v7 = ((v6 | (v6 >> 8)) >> 16) | v6 | (v6 >> 8);
-  if ((v7 + 1) > 0x40)
-  {
-    v8 = v7 + 1;
-  }
-
-  else
-  {
-    v8 = 64;
-  }
-
-  *(a1 + 16) = v8;
-  result = operator new(96 * v8, 8uLL);
-  *a1 = result;
-  if (v4)
-  {
-    *(a1 + 8) = 0;
-    v10 = *(a1 + 16);
-    if (v10)
-    {
-      v11 = 0;
-      v12 = 96 * v10 - 96;
-      v13 = vdupq_n_s64(v12 / 0x60);
-      do
-      {
-        v14 = vmovn_s64(vcgeq_u64(v13, vorrq_s8(vdupq_n_s64(v11), xmmword_2750C1210)));
-        if (v14.i8[0])
-        {
-          *result = -4096;
-        }
-
-        if (v14.i8[4])
-        {
-          result[12] = -4096;
-        }
-
-        v11 += 2;
-        result += 24;
-      }
-
-      while (((v12 / 0x60 + 2) & 0x7FFFFFFFFFFFFFELL) != v11);
-    }
-
-    if (v3)
-    {
-      v15 = 96 * v3;
-      v16 = v4;
-      do
-      {
-        v17 = *v16;
-        if ((*v16 | 0x1000) != 0xFFFFFFFFFFFFF000)
-        {
-          v26 = 0;
-          llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>,llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>>>::LookupBucketFor<llvm::jitlink::Block *>(*a1, *(a1 + 16), v17, &v26);
-          v18 = v26;
-          *v26 = *v16;
-          *(v18 + 8) = 0;
-          *(v18 + 88) = 0;
-          if (*(v16 + 88) == 1)
-          {
-            v18[1] = v18 + 3;
-            v18[2] = 0x800000000;
-            if (*(v16 + 16))
-            {
-              llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=((v18 + 1), v16 + 8);
-            }
-
-            *(v18 + 88) = 1;
-            v19 = *(v16 + 88);
-            ++*(a1 + 8);
-            if (v19)
-            {
-              v20 = *(v16 + 8);
-              if ((v16 + 24) != v20)
-              {
-                free(v20);
-              }
-            }
-          }
-
-          else
-          {
-            ++*(a1 + 8);
-          }
-        }
-
-        v16 += 96;
-        v15 -= 96;
-      }
-
-      while (v15);
-    }
-
-    JUMPOUT(0x277C69E30);
-  }
-
-  *(a1 + 8) = 0;
-  v21 = *(a1 + 16);
-  if (v21)
-  {
-    v22 = 0;
-    v23 = 96 * v21 - 96;
-    v24 = vdupq_n_s64(v23 / 0x60);
-    do
-    {
-      v25 = vmovn_s64(vcgeq_u64(v24, vorrq_s8(vdupq_n_s64(v22), xmmword_2750C1210)));
-      if (v25.i8[0])
-      {
-        *result = -4096;
-      }
-
-      if (v25.i8[4])
-      {
-        result[12] = -4096;
-      }
-
-      v22 += 2;
-      result += 24;
-    }
-
-    while (((v23 / 0x60 + 2) & 0x7FFFFFFFFFFFFFELL) != v22);
-  }
-
-  return result;
-}
-
-unint64_t std::__introsort<std::_ClassicAlgPolicy,llvm::jitlink::DWARFRecordSectionSplitter::operator()(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Symbol **,false>(unint64_t result, uint64_t *a2, uint64_t a3, char a4)
+unint64_t std::__introsort<std::_ClassicAlgPolicy,llvm::jitlink::DWARFRecordSectionSplitter::operator()(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Symbol **,false>(unint64_t result, char *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -633,7 +6,7 @@ LABEL_2:
   while (1)
   {
     v7 = v8;
-    v9 = a2 - v8;
+    v9 = (a2 - v8) >> 3;
     if (v9 <= 2)
     {
       if (v9 < 2)
@@ -666,7 +39,7 @@ LABEL_2:
     {
       v80 = v8 + 1;
       v81 = v8[1];
-      v82 = v8 + 2;
+      v82 = (v8 + 2);
       v83 = v8[2];
       v84 = *v8;
       v85 = *(v81 + 16) & 0x1FFFFFFFFFFFFFFLL;
@@ -748,7 +121,7 @@ LABEL_177:
 LABEL_10:
     if (v9 <= 23)
     {
-      v89 = v8 + 1;
+      v89 = (v8 + 1);
       v91 = v8 == a2 || v89 == a2;
       if (a4)
       {
@@ -815,7 +188,7 @@ LABEL_130:
             *v89 = v130;
           }
 
-          v89 = v7 + 1;
+          v89 = (v7 + 1);
         }
 
         while (v7 + 1 != a2);
@@ -927,7 +300,8 @@ LABEL_130:
           }
 
           while (v110 <= ((v9 - 2) >> 1));
-          if (v114 == --a2)
+          a2 -= 8;
+          if (v114 == a2)
           {
             *v114 = v111;
           }
@@ -1305,7 +679,7 @@ LABEL_81:
 
       if (v48 <= (*(*(a2 - 1) + 16) & 0x1FFFFFFFFFFFFFFuLL))
       {
-        v64 = v8 + 1;
+        v64 = (v8 + 1);
         do
         {
           v8 = v64;
@@ -1314,7 +688,7 @@ LABEL_81:
             break;
           }
 
-          ++v64;
+          v64 += 8;
         }
 
         while (v48 <= (*(*v8 + 16) & 0x1FFFFFFFFFFFFFFuLL));
@@ -1777,33 +1151,32 @@ LABEL_35:
   return v32 + 1 == a2;
 }
 
-uint64_t llvm::jitlink::EHFrameEdgeFixer::operator()@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X3>, void *a4@<X8>)
+uint64_t llvm::jitlink::EHFrameEdgeFixer::operator()@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, llvm::jitlink::EHFrameEdgeFixer *a3@<X8>, unint64_t *a4@<X3>)
 {
-  v145 = *MEMORY[0x277D85DE8];
-  result = llvm::jitlink::LinkGraph::findSectionByName(a2, *a1, a1[1], a3);
+  v143 = *MEMORY[0x277D85DE8];
+  result = llvm::jitlink::LinkGraph::findSectionByName(a2, *a1, a1[1], a4);
   if (result)
   {
     v8 = *(a2 + 184);
     v9 = v8 == 4 || v8 == 8;
     if (!v9)
     {
-      v14 = *MEMORY[0x277D85DE8];
 
       llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[53]>();
     }
 
     v10 = result;
-    v107 = a1;
+    v105 = a1;
+    v114 = 0;
+    v115 = 0;
+    v113 = a2;
     v116 = 0;
-    v117 = 0;
-    v115 = a2;
-    v118 = 0;
-    v119 = v120;
-    v120[0] = 0;
-    v121[0] = 0;
-    v121[1] = 0;
-    v120[1] = 0;
-    v122 = 0;
+    v117 = v118;
+    v118[0] = 0;
+    v119[0] = 0;
+    v119[1] = 0;
+    v118[1] = 0;
+    v120 = 0;
     if (*(a2 + 208))
     {
       v11 = *(a2 + 216);
@@ -1827,149 +1200,149 @@ uint64_t llvm::jitlink::EHFrameEdgeFixer::operator()@<X0>(uint64_t *a1@<X0>, uin
         v13 = *(a2 + 200);
       }
 
-      v15 = *(a2 + 200) + 24 * v11;
-      if (v13 != v15)
+      v14 = *(a2 + 200) + 24 * v11;
+      if (v13 != v14)
       {
-        v108 = v15;
-        v110 = result;
+        v106 = v14;
+        v108 = result;
         while (1)
         {
-          v16 = v13[2];
-          v17 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v16 + 56);
-          v19 = *(v16 + 56) + 8 * *(v16 + 72);
-          if (v19 != v17)
+          v15 = v13[2];
+          v16 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v15 + 56);
+          v18 = *(v15 + 56) + 8 * *(v15 + 72);
+          if (v18 != v16)
           {
             break;
           }
 
 LABEL_52:
-          v36 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v16 + 32);
-          v38 = *(v16 + 32) + 8 * *(v16 + 48);
-          if (v36 != v38)
+          v35 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v15 + 32);
+          v37 = *(v15 + 32) + 8 * *(v15 + 48);
+          if (v35 != v37)
           {
-            v39 = v36;
+            v38 = v35;
             do
             {
-              v40 = *v39;
-              v41 = **v39;
-              if (v41)
+              v39 = *v38;
+              v40 = **v38;
+              if (v40)
               {
-                v42 = v120[0];
-                v43 = v120;
-                if (v120[0])
+                v41 = v118[0];
+                v42 = v118;
+                if (v118[0])
                 {
-                  v43 = v120;
-                  v44 = v120[0];
+                  v42 = v118;
+                  v43 = v118[0];
                   do
                   {
-                    if (v41 < v44[4])
+                    if (v40 < v43[4])
                     {
-                      v43 = v44;
+                      v42 = v43;
                     }
 
-                    v44 = v44[v41 >= v44[4]];
+                    v43 = v43[v40 >= v43[4]];
                   }
 
-                  while (v44);
-                  if (v43 != v120)
+                  while (v43);
+                  if (v42 != v118)
                   {
-                    v45 = v40[4];
-                    v46 = v43[5];
-                    v47 = *v46;
-                    if (v45 + v41 > *v46)
+                    v44 = v39[4];
+                    v45 = v42[5];
+                    v46 = *v45;
+                    if (v44 + v40 > *v45)
                     {
-                      v48 = v46[4];
+                      v47 = v45[4];
                       goto LABEL_70;
                     }
                   }
                 }
 
-                if (v43 != v119)
+                if (v42 != v117)
                 {
-                  v49 = *v43;
-                  v50 = v43;
-                  if (*v43)
+                  v48 = *v42;
+                  v49 = v42;
+                  if (*v42)
                   {
                     do
                     {
-                      v51 = v49;
-                      v49 = v49[1];
+                      v50 = v48;
+                      v48 = v48[1];
                     }
 
-                    while (v49);
+                    while (v48);
                   }
 
                   else
                   {
                     do
                     {
-                      v51 = v50[2];
-                      v9 = *v51 == v50;
-                      v50 = v51;
+                      v50 = v49[2];
+                      v9 = *v50 == v49;
+                      v49 = v50;
                     }
 
                     while (v9);
                   }
 
-                  v52 = v51[5];
-                  v47 = *v52;
-                  v48 = v52[4];
-                  if (v48 + *v52 > v41)
+                  v51 = v50[5];
+                  v46 = *v51;
+                  v47 = v51[4];
+                  if (v47 + *v51 > v40)
                   {
-                    v45 = v40[4];
+                    v44 = v39[4];
 LABEL_70:
-                    llvm::jitlink::BlockAddressMap::overlapError(a4, **v39, v45, v47, v48);
+                    llvm::jitlink::BlockAddressMap::overlapError(a3, **v38, v44, v46, v47);
                   }
                 }
 
-                if (v120 == v43 || (v53 = v43[4], v53 > v41))
+                if (v118 == v42 || (v52 = v42[4], v52 > v40))
                 {
-                  v54 = *v43;
-                  v55 = v43;
-                  if (v43 == v119)
+                  v53 = *v42;
+                  v54 = v42;
+                  if (v42 == v117)
                   {
                     goto LABEL_79;
                   }
 
-                  v56 = *v43;
-                  v57 = v43;
-                  if (v54)
+                  v55 = *v42;
+                  v56 = v42;
+                  if (v53)
                   {
                     do
                     {
-                      v55 = v56;
-                      v56 = v56[1];
+                      v54 = v55;
+                      v55 = v55[1];
                     }
 
-                    while (v56);
+                    while (v55);
                   }
 
                   else
                   {
                     do
                     {
-                      v55 = v57[2];
-                      v9 = *v55 == v57;
-                      v57 = v55;
+                      v54 = v56[2];
+                      v9 = *v54 == v56;
+                      v56 = v54;
                     }
 
                     while (v9);
                   }
 
-                  if (v55[4] < v41)
+                  if (v54[4] < v40)
                   {
 LABEL_79:
-                    if (v54)
+                    if (v53)
                     {
-                      v58 = v55 + 1;
+                      v57 = v54 + 1;
                     }
 
                     else
                     {
-                      v58 = v43;
+                      v57 = v42;
                     }
 
-                    if (!*v58)
+                    if (!*v57)
                     {
                       goto LABEL_105;
                     }
@@ -1977,7 +1350,7 @@ LABEL_79:
 
                   else
                   {
-                    if (!v120[0])
+                    if (!v118[0])
                     {
                       goto LABEL_105;
                     }
@@ -1986,27 +1359,27 @@ LABEL_79:
                     {
                       while (1)
                       {
-                        v62 = v42;
-                        v63 = v42[4];
-                        if (v63 <= v41)
+                        v61 = v41;
+                        v62 = v41[4];
+                        if (v62 <= v40)
                         {
                           break;
                         }
 
-                        v42 = *v62;
-                        if (!*v62)
+                        v41 = *v61;
+                        if (!*v61)
                         {
                           goto LABEL_105;
                         }
                       }
 
-                      if (v63 >= v41)
+                      if (v62 >= v40)
                       {
                         break;
                       }
 
-                      v42 = v62[1];
-                      if (!v42)
+                      v41 = v61[1];
+                      if (!v41)
                       {
                         goto LABEL_105;
                       }
@@ -2014,34 +1387,34 @@ LABEL_79:
                   }
                 }
 
-                else if (v53 < v41)
+                else if (v52 < v40)
                 {
-                  v59 = v43[1];
-                  if (v59)
+                  v58 = v42[1];
+                  if (v58)
                   {
                     do
                     {
+                      v59 = v58;
+                      v58 = *v58;
                       v60 = v59;
-                      v59 = *v59;
-                      v61 = v60;
                     }
 
-                    while (v59);
+                    while (v58);
                   }
 
                   else
                   {
-                    v61 = v43;
+                    v60 = v42;
                     do
                     {
-                      v64 = v61;
-                      v61 = v61[2];
+                      v63 = v60;
+                      v60 = v60[2];
                     }
 
-                    while (*v61 != v64);
+                    while (*v60 != v63);
                   }
 
-                  if (v61 == v120 || (v65 = v61[4], !v120[0]) || v65 > v41)
+                  if (v60 == v118 || (v64 = v60[4], !v118[0]) || v64 > v40)
                   {
 LABEL_105:
                     operator new();
@@ -2051,27 +1424,27 @@ LABEL_105:
                   {
                     while (1)
                     {
-                      v66 = v42;
-                      v67 = v42[4];
-                      if (v67 <= v41)
+                      v65 = v41;
+                      v66 = v41[4];
+                      if (v66 <= v40)
                       {
                         break;
                       }
 
-                      v42 = *v66;
-                      if (!*v66)
+                      v41 = *v65;
+                      if (!*v65)
                       {
                         goto LABEL_105;
                       }
                     }
 
-                    if (v67 >= v41)
+                    if (v66 >= v40)
                     {
                       break;
                     }
 
-                    v42 = v66[1];
-                    if (!v42)
+                    v41 = v65[1];
+                    if (!v41)
                     {
                       goto LABEL_105;
                     }
@@ -2079,33 +1452,33 @@ LABEL_105:
                 }
               }
 
-              *a4 = 0;
+              *a3 = 0;
               do
               {
-                ++v39;
+                ++v38;
               }
 
-              while (v39 != v37 && (*v39 | 0x1000) == 0xFFFFFFFFFFFFF000);
+              while (v38 != v36 && (*v38 | 0x1000) == 0xFFFFFFFFFFFFF000);
             }
 
-            while (v39 != v38);
+            while (v38 != v37);
           }
 
-          *a4 = 0;
+          *a3 = 0;
           v13 += 3;
-          v10 = v110;
-          if (v13 != v108)
+          v10 = v108;
+          if (v13 != v106)
           {
             while (*v13 >= 0xFFFFFFFFFFFFFFFELL)
             {
               v13 += 3;
-              if (v13 == v108)
+              if (v13 == v106)
               {
                 goto LABEL_115;
               }
             }
 
-            if (v13 != v108)
+            if (v13 != v106)
             {
               continue;
             }
@@ -2114,89 +1487,89 @@ LABEL_105:
           goto LABEL_115;
         }
 
+        v19 = v16;
         v20 = v17;
-        v21 = v18;
         while (1)
         {
-          v22 = *v20;
-          v136[0] = (*(*v20 + 16) & 0x1FFFFFFFFFFFFFFLL) + **(*v20 + 8);
-          v23 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *>>,llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *>>::FindAndConstruct(v121, v136);
-          v24 = v23[1];
-          if (!v24)
+          v21 = *v19;
+          v134[0] = (*(*v19 + 16) & 0x1FFFFFFFFFFFFFFLL) + **(*v19 + 8);
+          v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *>>,llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *>>::FindAndConstruct(v119, v134);
+          v23 = v22[1];
+          if (!v23)
           {
             goto LABEL_37;
           }
 
-          v25 = v22[2];
-          v26 = *v22;
-          v27 = *v22 - 1;
-          if (v27 <= 0xFFFFFFFFFFFFFFDFLL)
+          v24 = v21[2];
+          v25 = *v21;
+          v26 = *v21 - 1;
+          if (v26 <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v26 + 8), 1uLL);
-            v24 = v23[1];
+            atomic_fetch_add((v25 + 8), 1uLL);
+            v23 = v22[1];
           }
 
-          v28 = v24[2];
-          v29 = *v24;
-          if (v29 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+          v27 = v23[2];
+          v28 = *v23;
+          if (v28 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v29 + 8), 1uLL);
+            atomic_fetch_add((v28 + 8), 1uLL);
           }
 
-          v30 = (v25 >> 57) & 1;
-          v31 = (v28 >> 57) & 1;
-          if (v30 < v31)
+          v29 = (v24 >> 57) & 1;
+          v30 = (v27 >> 57) & 1;
+          if (v29 < v30)
           {
             break;
           }
 
-          if (v31 < v30)
+          if (v30 < v29)
           {
             goto LABEL_30;
           }
 
-          v33 = (v25 >> 58) & 3;
-          v34 = (v28 >> 58) & 3;
-          if (v33 < v34)
+          v32 = (v24 >> 58) & 3;
+          v33 = (v27 >> 58) & 3;
+          if (v32 < v33)
           {
             break;
           }
 
-          if (v34 < v33)
+          if (v33 < v32)
           {
 LABEL_30:
-            v32 = 0;
+            v31 = 0;
           }
 
           else
           {
-            if (v26 && !v29)
+            if (v25 && !v28)
             {
               break;
             }
 
-            if (v26)
+            if (v25)
             {
-              v35 = v26 >= v29;
+              v34 = v25 >= v28;
             }
 
             else
             {
-              v35 = 1;
+              v34 = 1;
             }
 
-            v32 = !v35;
+            v31 = !v34;
           }
 
 LABEL_31:
-          if (v29 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+          if (v28 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v29 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((v28 + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
 
-          if (v27 > 0xFFFFFFFFFFFFFFDFLL)
+          if (v26 > 0xFFFFFFFFFFFFFFDFLL)
           {
-            if (!v32)
+            if (!v31)
             {
               goto LABEL_38;
             }
@@ -2204,296 +1577,297 @@ LABEL_31:
 
           else
           {
-            atomic_fetch_add((v26 + 8), 0xFFFFFFFFFFFFFFFFLL);
-            if ((v32 & 1) == 0)
+            atomic_fetch_add((v25 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            if ((v31 & 1) == 0)
             {
               goto LABEL_38;
             }
           }
 
 LABEL_37:
-          v23[1] = v22;
+          v22[1] = v21;
           do
           {
 LABEL_38:
-            ++v20;
+            ++v19;
           }
 
-          while (v20 != v21 && (*v20 | 0x1000) == 0xFFFFFFFFFFFFF000);
-          if (v20 == v19)
+          while (v19 != v20 && (*v19 | 0x1000) == 0xFFFFFFFFFFFFF000);
+          if (v19 == v18)
           {
             goto LABEL_52;
           }
         }
 
-        v32 = 1;
+        v31 = 1;
         goto LABEL_31;
       }
     }
 
 LABEL_115:
     __p = 0;
-    v113 = 0;
-    v114 = 0;
-    v68 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v10 + 32);
-    v70 = *(v10 + 32) + 8 * *(v10 + 48);
-    if (v70 == v68)
+    v111 = 0;
+    v112 = 0;
+    v67 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v10 + 32);
+    v69 = *(v10 + 32) + 8 * *(v10 + 48);
+    if (v69 == v67)
     {
-      v73 = 0;
-      v81 = 0;
+      v72 = 0;
+      v80 = 0;
     }
 
     else
     {
+      v70 = v67;
       v71 = v68;
-      v72 = v69;
-      v73 = 0;
+      v72 = 0;
       do
       {
-        v74 = *v71;
-        if (v73 >= v114)
+        v73 = *v70;
+        if (v72 >= v112)
         {
-          v75 = (v73 - __p) >> 3;
-          if ((v75 + 1) >> 61)
+          v74 = (v72 - __p) >> 3;
+          if ((v74 + 1) >> 61)
           {
             std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
           }
 
-          v76 = (v114 - __p) >> 2;
-          if (v76 <= v75 + 1)
+          v75 = (v112 - __p) >> 2;
+          if (v75 <= v74 + 1)
           {
-            v76 = v75 + 1;
+            v75 = v74 + 1;
           }
 
-          if (v114 - __p >= 0x7FFFFFFFFFFFFFF8)
+          if (v112 - __p >= 0x7FFFFFFFFFFFFFF8)
           {
-            v77 = 0x1FFFFFFFFFFFFFFFLL;
+            v76 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v77 = v76;
+            v76 = v75;
           }
 
-          if (v77)
+          if (v76)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(&__p, v77);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(&__p, v76);
           }
 
-          v78 = (8 * v75);
-          *v78 = v74;
-          v73 = (8 * v75 + 8);
-          v79 = v78 - (v113 - __p);
-          memcpy(v79, __p, v113 - __p);
-          v80 = __p;
-          __p = v79;
-          v113 = v73;
-          v114 = 0;
-          if (v80)
+          v77 = (8 * v74);
+          *v77 = v73;
+          v72 = (8 * v74 + 8);
+          v78 = v77 - (v111 - __p);
+          memcpy(v78, __p, v111 - __p);
+          v79 = __p;
+          __p = v78;
+          v111 = v72;
+          v112 = 0;
+          if (v79)
           {
-            operator delete(v80);
+            operator delete(v79);
           }
         }
 
         else
         {
-          *v73++ = v74;
+          *v72++ = v73;
         }
 
-        v113 = v73;
+        v111 = v72;
         do
         {
-          ++v71;
+          ++v70;
         }
 
-        while (v71 != v72 && (*v71 | 0x1000) == 0xFFFFFFFFFFFFF000);
+        while (v70 != v71 && (*v70 | 0x1000) == 0xFFFFFFFFFFFFF000);
       }
 
-      while (v71 != v70);
-      v81 = __p;
+      while (v70 != v69);
+      v80 = __p;
     }
 
-    v82 = 126 - 2 * __clz(v73 - v81);
-    if (v73 == v81)
+    v81 = 126 - 2 * __clz(v72 - v80);
+    if (v72 == v80)
     {
-      v83 = 0;
+      v82 = 0;
     }
 
     else
     {
-      v83 = v82;
+      v82 = v81;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_1 &,llvm::jitlink::Block **,false>(v81, v73, v83, 1);
-    v84 = __p;
-    v109 = v113;
-    if (__p != v113)
+    std::__introsort<std::_ClassicAlgPolicy,llvm::orc::MachOPlatform::MachOPlatformPlugin::findUnwindSectionInfo(llvm::jitlink::LinkGraph &)::$_1 &,llvm::jitlink::Block **,false>(v80, v72, v82, 1);
+    v83 = __p;
+    v107 = v111;
+    if (__p != v111)
     {
       while (1)
       {
-        v85 = *v84;
-        if (!*(*v84 + 24))
+        v84 = *v83;
+        v85 = *(*v83 + 24);
+        if (!v85)
         {
-          LOWORD(v127[0]) = 1283;
-          v104 = *v107;
-          v105 = v107[1];
-          v123 = "Unexpected zero-fill block in ";
-          v125 = v104;
-          v126 = v105;
+          LOWORD(v125[0]) = 1283;
+          v103 = *v105;
+          v104 = v105[1];
+          v121 = "Unexpected zero-fill block in ";
+          v123 = v103;
+          v124 = v104;
           operator new();
         }
 
-        v111 = v84;
-        if (v85[4])
+        v86 = v84[4];
+        v109 = v83;
+        if (v86)
         {
           break;
         }
 
-        *a4 = 0;
-        v84 += 8;
-        if (v111 + 8 == v109)
+        *a3 = 0;
+        v83 += 8;
+        if (v109 + 8 == v107)
         {
           goto LABEL_161;
         }
       }
 
+      v127 = 0;
+      v128 = 0;
       v129 = 0;
-      v130 = 0;
-      v131 = 0;
-      v86 = v85[5];
-      v87 = v85[6];
-      if (v86 == v87)
+      v87 = v84[5];
+      v88 = v84[6];
+      if (v87 == v88)
       {
         goto LABEL_158;
       }
 
-      v88 = 0;
-      while (*(v86 + 24) < 2u)
+      v89 = 0;
+      while (*(v87 + 24) < 2u)
       {
 LABEL_152:
-        v86 += 4;
-        if (v86 == v87)
+        v87 += 4;
+        if (v87 == v88)
         {
-          v97 = v85[3];
-          v98 = v85[4];
+          v85 = v84[3];
+          v86 = v84[4];
 LABEL_158:
-          v99 = *(v115 + 188);
-          v123 = &unk_2883EA5B0;
-          llvm::BinaryStreamRef::BinaryStreamRef();
+          v98 = *(v113 + 188);
+          v121 = &unk_2883EA5B0;
+          llvm::BinaryStreamRef::BinaryStreamRef(&v122, v85, v86, v98);
         }
       }
 
-      v89 = *(v86 + 2);
-      v136[0] = 0;
-      v90 = v131;
-      if (llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>,unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::LookupBucketFor<unsigned int>(v88, v131, v89, v136))
+      v90 = *(v87 + 2);
+      v134[0] = 0;
+      v91 = v129;
+      if (llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>,unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::LookupBucketFor<unsigned int>(v89, v129, v90, v134))
       {
-        v100 = *(v86 + 2);
-        v136[0] = "{0:x16}";
-        v136[1] = 7;
-        v136[2] = &v139;
-        v136[3] = 1;
-        v137 = &unk_2883ECC68;
-        LODWORD(v138) = v100;
-        v139 = &v137;
-        v140[0] = "Multiple relocations at offset ";
-        v140[2] = v136;
-        v141 = 1539;
-        v132[0] = v140;
-        v132[2] = " in ";
-        v133 = 770;
-        v102 = *v107;
-        v101 = v107[1];
-        v134[0] = v132;
-        v134[2] = v102;
-        v134[3] = v101;
-        v135 = 1282;
-        v142 = v134;
-        v143 = " block at address ";
-        v144 = 770;
-        v103 = *v85;
-        v123 = "{0:x16}";
-        v124 = 7;
-        v125 = &v128;
-        v126 = 1;
-        v127[0] = &unk_2883EC4C0;
-        v127[1] = v103;
-        v128 = v127;
+        v99 = *(v87 + 2);
+        v134[0] = "{0:x16}";
+        v134[1] = 7;
+        v134[2] = &v137;
+        v134[3] = 1;
+        v135 = &unk_2883ECC68;
+        LODWORD(v136) = v99;
+        v137 = &v135;
+        v138[0] = "Multiple relocations at offset ";
+        v138[2] = v134;
+        v139 = 1539;
+        v130[0] = v138;
+        v130[2] = " in ";
+        v131 = 770;
+        v101 = *v105;
+        v100 = v105[1];
+        v132[0] = v130;
+        v132[2] = v101;
+        v132[3] = v100;
+        v133 = 1282;
+        v140 = v132;
+        v141 = " block at address ";
+        v142 = 770;
+        v102 = *v84;
+        v121 = "{0:x16}";
+        v122 = 7;
+        v123 = &v126;
+        v124 = 1;
+        v125[0] = &unk_2883EC4C0;
+        v125[1] = v102;
+        v126 = v125;
         operator new();
       }
 
-      v91 = *v86;
-      v92 = v86[2];
-      v93 = *(v86 + 2);
-      v136[0] = 0;
-      v94 = llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>,unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::LookupBucketFor<unsigned int>(v88, v90, v93, v136);
-      v95 = v136[0];
-      if (v94)
+      v92 = *v87;
+      v93 = v87[2];
+      v94 = *(v87 + 2);
+      v134[0] = 0;
+      v95 = llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>,unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::LookupBucketFor<unsigned int>(v89, v91, v94, v134);
+      v96 = v134[0];
+      if (v95)
       {
 LABEL_151:
-        *(v95 + 8) = v91;
-        *(v95 + 16) = v92;
+        *(v96 + 8) = v92;
+        *(v96 + 16) = v93;
         goto LABEL_152;
       }
 
-      if (4 * v130 + 4 >= 3 * v90)
+      if (4 * v128 + 4 >= 3 * v91)
       {
-        v96 = 2 * v90;
+        v97 = 2 * v91;
       }
 
       else
       {
-        if (v90 + ~v130 - HIDWORD(v130) > v90 >> 3)
+        if (v91 + ~v128 - HIDWORD(v128) > v91 >> 3)
         {
 LABEL_148:
-          LODWORD(v130) = v130 + 1;
-          if (*v95 != -1)
+          LODWORD(v128) = v128 + 1;
+          if (*v96 != -1)
           {
-            --HIDWORD(v130);
+            --HIDWORD(v128);
           }
 
-          *v95 = v93;
-          *(v95 + 8) = 0;
-          *(v95 + 16) = 0;
+          *v96 = v94;
+          *(v96 + 8) = 0;
+          *(v96 + 16) = 0;
           goto LABEL_151;
         }
 
-        v96 = v90;
+        v97 = v91;
       }
 
-      llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::grow(&v129, v96);
-      v136[0] = 0;
-      v88 = v129;
-      llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>,unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::LookupBucketFor<unsigned int>(v129, v131, v93, v136);
-      v95 = v136[0];
+      llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::grow(&v127, v97);
+      v134[0] = 0;
+      v89 = v127;
+      llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>,unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::LookupBucketFor<unsigned int>(v127, v129, v94, v134);
+      v96 = v134[0];
       goto LABEL_148;
     }
 
 LABEL_161:
-    *a4 = 0;
+    *a3 = 0;
     if (__p)
     {
-      v113 = __p;
+      v111 = __p;
       operator delete(__p);
     }
 
-    MEMORY[0x277C69E30](v121[0], 8);
-    std::__tree<std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>,std::__map_value_compare<llvm::orc::ExecutorAddr,std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>,std::less<llvm::orc::ExecutorAddr>,true>,std::allocator<std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>>>::destroy(v120[0]);
-    result = MEMORY[0x277C69E30](v116, 8);
+    MEMORY[0x277C69E30](v119[0], 8);
+    std::__tree<std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>,std::__map_value_compare<llvm::orc::ExecutorAddr,std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>,std::less<llvm::orc::ExecutorAddr>,true>,std::allocator<std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>>>::destroy(v118[0]);
+    return MEMORY[0x277C69E30](v114, 8);
   }
 
   else
   {
-    *a4 = 0;
+    *a3 = 0;
   }
 
-  v106 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t llvm::BinaryStreamReader::readInteger<unsigned char>(void *a1, uint64_t a2, _BYTE *a3)
+uint64_t llvm::BinaryStreamReader::readInteger<unsigned char>(uint64_t *a1, uint64_t a2, _BYTE *a3)
 {
-  result = llvm::BinaryStreamRef::readBytes(a2 + 8, *(a2 + 56), 1, a1);
+  result = llvm::BinaryStreamRef::readBytes(a2 + 8, a1, *(a2 + 56), 1);
   if (!*a1)
   {
     ++*(a2 + 56);
@@ -2505,86 +1879,85 @@ uint64_t llvm::BinaryStreamReader::readInteger<unsigned char>(void *a1, uint64_t
   return result;
 }
 
-uint64_t llvm::jitlink::EHFrameEdgeFixer::readPointerEncoding(uint64_t a1, uint64_t a2, uint64_t *a3, _BYTE *a4)
+void llvm::jitlink::EHFrameEdgeFixer::readPointerEncoding(uint64_t a1, uint64_t a2, uint64_t *a3, _BYTE *a4)
 {
-  v30 = 0;
-  result = llvm::BinaryStreamReader::readInteger<unsigned char>(v15, a2, &v30);
-  v8 = v15[0];
-  if (v15[0])
+  v29 = 0;
+  llvm::BinaryStreamReader::readInteger<unsigned char>(v14, a2, &v29);
+  v7 = v14[0];
+  if (v14[0])
   {
     *(a1 + 8) |= 1u;
-    *a1 = v8;
-    return result;
+    *a1 = v7;
+    return;
   }
 
-  v9 = v30;
-  if ((((v30 & 0xF) - 1) & 0xFFFFFFF6) == 0 || (v30 & 0x60u) - 96 > 0xFFFFFFBF)
+  v8 = v29;
+  if ((((v29 & 0xF) - 1) & 0xFFFFFFF6) == 0 || (v29 & 0x60u) - 96 > 0xFFFFFFBF)
   {
-    v15[0] = "{0:x2}";
-    v15[1] = 6;
-    v15[2] = &v17;
-    v15[3] = 1;
-    v16[0] = &unk_2883ECC98;
-    v16[1] = &v30;
-    v17 = v16;
-    v18[0] = "Unsupported pointer encoding ";
-    v18[2] = v15;
-    v19 = 1539;
-    *&v20 = v18;
-    *&v21 = " for ";
-    LOWORD(v22) = 770;
+    v14[0] = "{0:x2}";
+    v14[1] = 6;
+    v14[2] = &v16;
+    v14[3] = 1;
+    v15[0] = &unk_2883ECC98;
+    v15[1] = &v29;
+    v16 = v15;
+    v17[0] = "Unsupported pointer encoding ";
+    v17[2] = v14;
+    v18 = 1539;
+    *&v19 = v17;
+    *&v20 = " for ";
+    LOWORD(v21) = 770;
     if (*a4)
     {
-      v10 = &v20;
-      *&v23 = &v20;
-      *&v24 = a4;
-      LOWORD(v25) = 770;
-      v11 = 2;
-      v12 = &v23;
+      v9 = &v19;
+      *&v22 = &v19;
+      *&v23 = a4;
+      LOWORD(v24) = 770;
+      v10 = 2;
+      v11 = &v22;
     }
 
     else
     {
+      v22 = v19;
       v23 = v20;
       v24 = v21;
-      v25 = v22;
-      v11 = v22;
-      if (v22 == 1)
+      v10 = v21;
+      if (v21 == 1)
       {
-        v26 = "in CFI record at ";
-        v29 = 259;
+        v25 = "in CFI record at ";
+        v28 = 259;
 LABEL_9:
-        v13 = *a3;
-        v14[0] = &unk_2883EC4C0;
-        v14[1] = v13;
-        v14[2] = v14;
+        v12 = *a3;
+        v13[0] = &unk_2883EC4C0;
+        v13[1] = v12;
+        v13[2] = v13;
         operator new();
       }
 
-      v10 = *(&v23 + 1);
-      v12 = &v23;
-      if (BYTE1(v25) == 1)
+      v9 = *(&v22 + 1);
+      v11 = &v22;
+      if (BYTE1(v24) == 1)
       {
-        v12 = v23;
+        v11 = v22;
       }
 
       else
       {
-        v11 = 2;
+        v10 = 2;
       }
     }
 
-    v26 = v12;
-    v27 = v10;
-    v28 = "in CFI record at ";
-    LOBYTE(v29) = v11;
-    HIBYTE(v29) = 3;
+    v25 = v11;
+    v26 = v9;
+    v27 = "in CFI record at ";
+    LOBYTE(v28) = v10;
+    HIBYTE(v28) = 3;
     goto LABEL_9;
   }
 
   *(a1 + 8) &= ~1u;
-  *a1 = v9;
-  return result;
+  *a1 = v8;
 }
 
 void llvm::jitlink::EHFrameEdgeFixer::getOrCreateEncodedPointerEdge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, llvm::BinaryStreamReader *a5, llvm::BinaryStreamReader *a6, void *a7, uint64_t a8)
@@ -2769,7 +2142,7 @@ LABEL_40:
   *a1 = v31;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>,unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::find(uint64_t a1, int a2)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>,unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::find(uint64_t a1, uint64_t a2)
 {
   v4 = 0;
   if (llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>,unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget>>::LookupBucketFor<unsigned int>(*a1, *(a1 + 16), a2, &v4))
@@ -2783,40 +2156,38 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEd
   }
 }
 
-uint64_t llvm::jitlink::EHFrameEdgeFixer::ParseContext::findCIEInfo(uint64_t a1, uint64_t a2, uint64_t a3)
+void llvm::jitlink::EHFrameEdgeFixer::ParseContext::findCIEInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = a3;
-  v8[0] = 0;
-  result = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>,llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>::LookupBucketFor<llvm::orc::ExecutorAddr>(*(a2 + 8), *(a2 + 24), a3, v8);
-  if (result)
+  v10 = a3;
+  v7[0] = 0;
+  if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>,llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>::LookupBucketFor<llvm::orc::ExecutorAddr>(*(a2 + 8), *(a2 + 24), a3, v7))
   {
-    v6 = v8[0] == *(a2 + 8) + 24 * *(a2 + 24);
+    v5 = v7[0] == *(a2 + 8) + 24 * *(a2 + 24);
   }
 
   else
   {
-    v6 = 1;
+    v5 = 1;
   }
 
-  if (v6)
+  if (v5)
   {
-    v8[0] = "{0:x16}";
-    v8[1] = 7;
-    v8[2] = &v10;
-    v8[3] = 1;
-    v9[0] = &unk_2883EBA18;
-    v9[1] = &v11;
-    v10 = v9;
+    v7[0] = "{0:x16}";
+    v7[1] = 7;
+    v7[2] = &v9;
+    v7[3] = 1;
+    v8[0] = &unk_2883EBA18;
+    v8[1] = &v10;
+    v9 = v8;
     operator new();
   }
 
-  v7 = v8[0] + 8;
+  v6 = v7[0] + 8;
   *(a1 + 8) &= ~1u;
-  *a1 = v7;
-  return result;
+  *a1 = v6;
 }
 
-unint64_t llvm::jitlink::EHFrameEdgeFixer::skipEncodedPointer(llvm::jitlink::EHFrameEdgeFixer *this, uint64_t a2, llvm::BinaryStreamReader *a3, llvm::BinaryStreamReader *a4)
+std::string *llvm::jitlink::EHFrameEdgeFixer::skipEncodedPointer(llvm::jitlink::EHFrameEdgeFixer *this, uint64_t a2, llvm::BinaryStreamReader *a3, llvm::BinaryStreamReader *a4)
 {
   if ((a3 & 0xFu) <= 3)
   {
@@ -2851,9 +2222,9 @@ LABEL_8:
   return result;
 }
 
-uint64_t llvm::jitlink::EHFrameNullTerminator::operator()@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X3>, void *a4@<X8>)
+uint64_t llvm::jitlink::EHFrameNullTerminator::operator()@<X0>(uint64_t *a1@<X0>, unsigned int *a2@<X1>, void *a3@<X8>, unint64_t *a4@<X3>)
 {
-  result = llvm::jitlink::LinkGraph::findSectionByName(a2, *a1, a1[1], a3);
+  result = llvm::jitlink::LinkGraph::findSectionByName(a2, *a1, a1[1], a4);
   if (result)
   {
     v11[0] = &llvm::jitlink::EHFrameNullTerminator::NullTerminatorBlockContent;
@@ -2865,7 +2236,7 @@ uint64_t llvm::jitlink::EHFrameNullTerminator::operator()@<X0>(uint64_t *a1@<X0>
     result = llvm::jitlink::LinkGraph::addAnonymousSymbol(a2, v7, 0, 4, 0, 1);
   }
 
-  *a4 = 0;
+  *a3 = 0;
   return result;
 }
 
@@ -3016,7 +2387,7 @@ char *llvm::DenseMap<llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *,llvm::Dense
         }
 
         v11 += 2;
-        v16 += 4;
+        v16 += 32;
       }
 
       while (v14 != v11);
@@ -3074,7 +2445,7 @@ char *llvm::DenseMap<llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *,llvm::Dense
       }
 
       v24 += 2;
-      v29 += 4;
+      v29 += 32;
     }
 
     while (v27 != v24);
@@ -3083,7 +2454,7 @@ char *llvm::DenseMap<llvm::orc::ExecutorAddr,llvm::jitlink::Symbol *,llvm::Dense
   return result;
 }
 
-void llvm::jitlink::BlockAddressMap::overlapError(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void llvm::jitlink::BlockAddressMap::overlapError(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v12[0] = "{0:x16} -- {1:x16}";
   v12[1] = 18;
@@ -3225,11 +2596,11 @@ char *llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,ll
         if (vuzp1_s16(*&v13, vmovn_s64(vcgeq_u64(v13, vorrq_s8(v15, xmmword_2750C1830)))).i32[1])
         {
           *v14 = -1;
-          v14[6] = -1;
+          *(v14 + 6) = -1;
         }
 
         v11 += 4;
-        v14 += 24;
+        v14 += 96;
       }
 
       while (((v12 / 0x18 + 4) & 0x1FFFFFFFFFFFFFFCLL) != v11);
@@ -3287,11 +2658,11 @@ char *llvm::DenseMap<unsigned int,llvm::jitlink::EHFrameEdgeFixer::EdgeTarget,ll
       if (vuzp1_s16(*&v24, vmovn_s64(vcgeq_u64(v24, vorrq_s8(v26, xmmword_2750C1830)))).i32[1])
       {
         *v25 = -1;
-        v25[6] = -1;
+        *(v25 + 6) = -1;
       }
 
       v22 += 4;
-      v25 += 24;
+      v25 += 96;
     }
 
     while (((v23 / 0x18 + 4) & 0x1FFFFFFFFFFFFFFCLL) != v22);
@@ -3746,7 +3117,7 @@ void llvm::jitlink::LinkGraph::~LinkGraph(llvm::jitlink::LinkGraph *this)
 void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>, uint64_t **a3@<X8>, __n128 a4@<Q0>)
 {
   v5 = a1;
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   v6 = *a1;
   v7 = a1[1];
   v8 = **a1;
@@ -3766,7 +3137,7 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
       v13[1] = v14 & 0xFFFFFFFFFFFFFFFBLL;
       v6 = *a1;
       v7 = a1[1];
-      v16 = v11++ == ((v7 - *a1) >> 3) - 2;
+      v16 = v11++ == v7 - *a1 - 2;
     }
 
     while (!v16);
@@ -3793,8 +3164,8 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
     while (v20 != v21);
   }
 
-  LOBYTE(v95[0]) = 0;
-  v97 = 0;
+  LOBYTE(v94[0]) = 0;
+  v96 = 0;
   if (a2)
   {
     v24 = a2;
@@ -3802,17 +3173,17 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
 
   else
   {
-    v24 = v95;
+    v24 = v94;
   }
 
   if ((v24[10] & 1) == 0)
   {
-    v93[0] = v94;
-    v93[1] = 0x800000000;
-    std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>::operator=[abi:nn200100]<llvm::SmallVector<llvm::jitlink::Symbol *,8u>,void>(v24, v93);
-    if (v93[0] != v94)
+    v92[0] = v93;
+    v92[1] = 0x800000000;
+    std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>>::operator=[abi:nn200100]<llvm::SmallVector<llvm::jitlink::Symbol *,8u>,void>(v24, v92);
+    if (v92[0] != v93)
     {
-      free(v93[0]);
+      free(v92[0]);
     }
 
     v25 = *(**v5 + 16);
@@ -3840,7 +3211,7 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
       while (v29 != v28);
     }
 
-    v31 = v95;
+    v31 = v94;
     if (a2)
     {
       v31 = a2;
@@ -3868,7 +3239,7 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
 
   else
   {
-    v35 = v95;
+    v35 = v94;
   }
 
   v36 = *v5;
@@ -3942,9 +3313,9 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
     }
   }
 
-  if (v97 == 1 && v95[0] != &v96)
+  if (v96 == 1 && v94[0] != &v95)
   {
-    free(v95[0]);
+    free(v94[0]);
   }
 
   v52 = **v5;
@@ -3970,7 +3341,7 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
   {
     v61 = *(v52 + 40);
     v62 = *(v52 + 48);
-    v92 = v5;
+    v91 = v5;
     do
     {
       if (v61 == v62)
@@ -4008,15 +3379,15 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
 
         else
         {
-          v72 = *(v63 + 6);
+          v72 = *(v63 + 48);
           v71 = v68;
           do
           {
             v73 = (v61 + v69);
-            v74 = *(v63 + 7);
+            v74 = *(v63 + 56);
             if (v72 >= v74)
             {
-              v77 = *(v63 + 5);
+              v77 = *(v63 + 40);
               v78 = (v72 - v77) >> 5;
               if ((v78 + 1) >> 59)
               {
@@ -4042,7 +3413,7 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
 
               if (v81)
               {
-                std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::jitlink::Edge>>((v63 + 10), v81);
+                std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::jitlink::Edge>>(v63 + 40, v81);
               }
 
               v82 = (32 * v78);
@@ -4050,20 +3421,20 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
               *v82 = *v73;
               v82[1] = v83;
               v76 = 32 * v78 + 32;
-              v84 = *(v63 + 5);
-              v85 = *(v63 + 6) - v84;
+              v84 = *(v63 + 40);
+              v85 = *(v63 + 48) - v84;
               v86 = v82 - v85;
               memcpy(v82 - v85, v84, v85);
-              v87 = *(v63 + 5);
-              *(v63 + 5) = v86;
-              *(v63 + 6) = v76;
-              *(v63 + 7) = 0;
+              v87 = *(v63 + 40);
+              *(v63 + 40) = v86;
+              *(v63 + 48) = v76;
+              *(v63 + 56) = 0;
               if (v87)
               {
                 operator delete(v87);
               }
 
-              v5 = v92;
+              v5 = v91;
             }
 
             else
@@ -4074,10 +3445,10 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
               v76 = (v72 + 2);
             }
 
-            *(v63 + 6) = v76;
+            *(v63 + 48) = v76;
             v57 = *v5;
             v63 = (*v5)[v60];
-            v72 = *(v63 + 6);
+            v72 = *(v63 + 48);
             *(v72 - 6) -= v64;
             ++v71;
             v61 = *(v52 + 40);
@@ -4116,29 +3487,28 @@ void llvm::jitlink::LinkGraph::splitBlockImpl(uint64_t **a1@<X1>, void **a2@<X2>
   *v5 = 0;
   v5[1] = 0;
   v5[2] = 0;
-  v90 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::jitlink::markAllSymbolsLive(llvm::jitlink *this@<X0>, void *a2@<X8>)
 {
-  llvm::jitlink::LinkGraph::defined_symbols(this, v11);
-  v9[0] = v11[0];
-  v9[1] = v11[1];
-  v9[2] = v11[2];
-  v10 = v12;
+  llvm::jitlink::LinkGraph::defined_symbols(v10, this);
+  v8[0] = v10[0];
+  v8[1] = v10[1];
+  v8[2] = v10[2];
+  v9 = v11;
+  v3 = v12;
   v4 = v13;
-  v5 = v14;
-  v6 = v12;
-  if (*&v11[0] != v13 || v12 != v14)
+  v5 = v11;
+  if (*&v10[0] != v12 || v11 != v13)
   {
     do
     {
-      *(*v6 + 16) |= 0x1000000000000000uLL;
-      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(v9, &v8);
-      v6 = v10;
+      *(*v5 + 16) |= 0x1000000000000000uLL;
+      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(v8, &v7);
+      v5 = v9;
     }
 
-    while (*&v9[0] != v4 || v10 != v5);
+    while (*&v8[0] != v3 || v9 != v4);
   }
 
   *a2 = 0;
@@ -4464,128 +3834,128 @@ LABEL_62:
 
 void llvm::jitlink::makeAlignmentError(unint64_t a1, unint64_t a2, unsigned int a3, uint64_t a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v7 = v43 + 1;
+    v8 = v44 + 1;
     do
     {
-      *--v7 = llvm::hexdigit(unsigned int,BOOL)::LUT[a1 & 0xF];
-      v8 = a1 > 0xF;
+      *--v8 = llvm::hexdigit(unsigned int,BOOL)::LUT[a1 & 0xF];
+      v9 = a1 > 0xF;
       a1 >>= 4;
     }
 
-    while (v8);
+    while (v9);
   }
 
   else
   {
-    v7 = v43;
-    LOBYTE(v43[0]) = 48;
+    v8 = v44;
+    LOBYTE(v44[0]) = 48;
   }
 
-  std::string::__init_with_size[abi:nn200100]<char *,char *>(&__dst, v7, v43 + 1, v43 + 1 - v7);
-  v9 = std::string::insert(&__dst, 0, "0x");
-  v10 = v9->__r_.__value_.__r.__words[2];
-  *&v24.__r_.__value_.__l.__data_ = *&v9->__r_.__value_.__l.__data_;
-  v24.__r_.__value_.__r.__words[2] = v10;
-  v9->__r_.__value_.__l.__size_ = 0;
-  v9->__r_.__value_.__r.__words[2] = 0;
-  v9->__r_.__value_.__r.__words[0] = 0;
-  v11 = std::string::append(&v24, " improper alignment for relocation ");
-  v12 = v11->__r_.__value_.__r.__words[2];
-  *v25 = *&v11->__r_.__value_.__l.__data_;
-  v26 = v12;
-  v11->__r_.__value_.__l.__size_ = 0;
-  v11->__r_.__value_.__r.__words[2] = 0;
-  v11->__r_.__value_.__r.__words[0] = 0;
-  LOBYTE(v12) = *(a4 + 24);
-  v42[0] = "{0:d}";
-  v42[1] = 5;
-  v43[0] = &v46;
-  v43[1] = 1;
-  v44 = &unk_2883ECD40;
-  v45 = v12;
-  v46 = &v44;
-  v27[0] = v25;
-  v27[2] = v42;
-  v28 = 1540;
-  v29[0] = v27;
-  v29[2] = ": 0x";
-  v30 = 770;
+  std::string::__init_with_size[abi:nn200100]<char *,char *>(&__dst, v8, v44 + 1, v44 + 1 - v8);
+  v10 = std::string::insert(&__dst, 0, "0x");
+  v11 = v10->__r_.__value_.__r.__words[2];
+  *&v25.__r_.__value_.__l.__data_ = *&v10->__r_.__value_.__l.__data_;
+  v25.__r_.__value_.__r.__words[2] = v11;
+  v10->__r_.__value_.__l.__size_ = 0;
+  v10->__r_.__value_.__r.__words[2] = 0;
+  v10->__r_.__value_.__r.__words[0] = 0;
+  v12 = std::string::append(&v25, " improper alignment for relocation ");
+  v13 = v12->__r_.__value_.__r.__words[2];
+  *v26 = *&v12->__r_.__value_.__l.__data_;
+  v27 = v13;
+  v12->__r_.__value_.__l.__size_ = 0;
+  v12->__r_.__value_.__r.__words[2] = 0;
+  v12->__r_.__value_.__r.__words[0] = 0;
+  LOBYTE(v13) = *(a4 + 24);
+  v43[0] = "{0:d}";
+  v43[1] = 5;
+  v44[0] = &v47;
+  v44[1] = 1;
+  v45 = &unk_2883ECD40;
+  v46 = v13;
+  v47 = &v45;
+  v28[0] = v26;
+  v28[2] = v43;
+  v29 = 1540;
+  v30[0] = v28;
+  v30[2] = ": 0x";
+  v31 = 770;
   if (a2)
   {
-    v13 = v48;
+    v14 = v49;
     do
     {
-      *--v13 = llvm::hexdigit(unsigned int,BOOL)::LUT[a2 & 0xF];
-      v8 = a2 > 0xF;
+      *--v14 = llvm::hexdigit(unsigned int,BOOL)::LUT[a2 & 0xF];
+      v9 = a2 > 0xF;
       a2 >>= 4;
     }
 
-    while (v8);
+    while (v9);
   }
 
   else
   {
-    v13 = v47;
-    v47[0] = 48;
+    v14 = v48;
+    v48[0] = 48;
   }
 
-  v14 = __p;
-  std::string::__init_with_size[abi:nn200100]<char *,char *>(__p, v13, v48, v48 - v13);
-  v15 = v30;
-  if (v30 == 1)
+  v15 = __p;
+  std::string::__init_with_size[abi:nn200100]<char *,char *>(__p, v14, v49, v49 - v14);
+  v16 = v31;
+  if (v31 == 1)
   {
-    v31 = __p;
-    v33 = v22;
-    v34 = 260;
-    v35 = v20;
+    v32 = __p;
+    v34 = v23;
+    v35 = 260;
     v36 = v21;
-    v16 = 4;
-    v17 = v32;
+    v37 = v22;
+    v17 = 4;
+    v18 = v33;
   }
 
   else
   {
-    if (!v30)
+    if (!v31)
     {
-      v34 = 256;
-      v38 = 256;
-      v41 = 256;
+      v35 = 256;
+      v39 = 256;
+      v42 = 256;
       goto LABEL_19;
     }
 
-    v18 = v29[0];
-    v16 = 2;
-    if (HIBYTE(v30) != 1)
+    v19 = v30[0];
+    v17 = 2;
+    if (HIBYTE(v31) != 1)
     {
-      v15 = 2;
-      v18 = v29;
+      v16 = 2;
+      v19 = v30;
     }
 
-    v31 = v18;
-    v32 = v29[1];
-    *&v33 = __p;
-    LOBYTE(v34) = v15;
-    v17 = 4;
-    HIBYTE(v34) = 4;
-    v14 = &v31;
+    v32 = v19;
+    v33 = v30[1];
+    *&v34 = __p;
+    LOBYTE(v35) = v16;
+    v18 = 4;
+    HIBYTE(v35) = 4;
+    v15 = &v32;
   }
 
-  v37[0] = v14;
-  v37[1] = v17;
-  v37[2] = " is not aligned to ";
-  LOBYTE(v38) = v16;
-  HIBYTE(v38) = 3;
-  v39 = v37;
-  v40 = a3;
-  v41 = 2306;
+  v38[0] = v15;
+  v38[1] = v18;
+  v38[2] = " is not aligned to ";
+  LOBYTE(v39) = v17;
+  HIBYTE(v39) = 3;
+  v40 = v38;
+  v41 = a3;
+  v42 = 2306;
 LABEL_19:
   operator new();
 }
 
-void llvm::jitlink::createLinkGraphFromObject(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void llvm::jitlink::createLinkGraphFromObject(__int128 *a1@<X0>, __int128 *a2@<X1>, void *a3@<X8>)
 {
   v6 = llvm::identify_magic(*a1, *(a1 + 1));
   if (v6 != 4)
@@ -4599,7 +3969,7 @@ void llvm::jitlink::createLinkGraphFromObject(__int128 *a1@<X0>, uint64_t a2@<X1
         v14 = v7;
         v12 = *a2;
         *a2 = 0;
-        *(a2 + 8) = 0;
+        *(a2 + 1) = 0;
         llvm::jitlink::createLinkGraphFromMachOObject(&v13, &v12);
       }
 
@@ -4611,8 +3981,8 @@ void llvm::jitlink::createLinkGraphFromObject(__int128 *a1@<X0>, uint64_t a2@<X1
     v14 = v8;
     v10 = *a2;
     *a2 = 0;
-    *(a2 + 8) = 0;
-    llvm::jitlink::createLinkGraphFromCOFFObject(&v13, &v10);
+    *(a2 + 1) = 0;
+    llvm::jitlink::createLinkGraphFromCOFFObject(&v13, &v10, a3);
   }
 
   v9 = a1[1];
@@ -4620,7 +3990,7 @@ void llvm::jitlink::createLinkGraphFromObject(__int128 *a1@<X0>, uint64_t a2@<X1
   v14 = v9;
   v11 = *a2;
   *a2 = 0;
-  *(a2 + 8) = 0;
+  *(a2 + 1) = 0;
   llvm::jitlink::createLinkGraphFromELFObject(&v13, &v11, a3);
   if (*(&v11 + 1))
   {
@@ -4628,91 +3998,83 @@ void llvm::jitlink::createLinkGraphFromObject(__int128 *a1@<X0>, uint64_t a2@<X1
   }
 }
 
-void llvm::jitlink::absoluteSymbolsLinkGraph(uint64_t a1)
+void llvm::jitlink::absoluteSymbolsLinkGraph(uint64_t a1, __int128 *a2, uint64_t *a3)
 {
   v10[2] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 24);
-  if (v1 - 1 <= 0x3B)
-  {
-    v2 = dword_2750C4060[v1 - 1];
-  }
-
-  if (v1 <= 0x26 && (((1 << v1) & 0x2008000002) != 0 || ((1 << v1) & 0x4010000008) != 0))
+  v4 = *(a1 + 24);
+  if (v4 <= 0x26 && (((1 << v4) & 0x2008000002) != 0 || ((1 << v4) & 0x4010000008) != 0))
   {
     std::to_string(&v8, atomic_fetch_add_explicit(&llvm::jitlink::absoluteSymbolsLinkGraph(llvm::Triple const&,std::shared_ptr<llvm::orc::SymbolStringPool>,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>)::Counter, 1uLL, memory_order_relaxed));
-    v3 = std::string::insert(&v8, 0, "<Absolute Symbols ");
-    v4 = v3->__r_.__value_.__r.__words[2];
-    *&v9.__r_.__value_.__l.__data_ = *&v3->__r_.__value_.__l.__data_;
-    v9.__r_.__value_.__r.__words[2] = v4;
-    v3->__r_.__value_.__l.__size_ = 0;
-    v3->__r_.__value_.__r.__words[2] = 0;
-    v3->__r_.__value_.__r.__words[0] = 0;
-    v5 = std::string::append(&v9, ">");
-    v6 = v5->__r_.__value_.__r.__words[0];
-    v10[0] = v5->__r_.__value_.__l.__size_;
-    *(v10 + 7) = *(&v5->__r_.__value_.__r.__words[1] + 7);
-    v7 = HIBYTE(v5->__r_.__value_.__r.__words[2]);
+    v5 = std::string::insert(&v8, 0, "<Absolute Symbols ");
+    v6 = v5->__r_.__value_.__r.__words[2];
+    *&v9.__r_.__value_.__l.__data_ = *&v5->__r_.__value_.__l.__data_;
+    v9.__r_.__value_.__r.__words[2] = v6;
     v5->__r_.__value_.__l.__size_ = 0;
     v5->__r_.__value_.__r.__words[2] = 0;
     v5->__r_.__value_.__r.__words[0] = 0;
+    v7 = std::string::append(&v9, ">");
+    v10[0] = v7->__r_.__value_.__l.__size_;
+    *(v10 + 7) = *(&v7->__r_.__value_.__r.__words[1] + 7);
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
     operator new();
   }
 
-  llvm::report_fatal_error("unhandled target architecture", 1);
+  llvm::report_fatal_error("unhandled target architecture", 1, a3);
 }
 
-llvm::jitlink::LinkGraph **llvm::jitlink::link(uint64_t *a1, uint64_t *a2)
+llvm::jitlink::LinkGraph **llvm::jitlink::link(llvm::jitlink::LinkGraph **a1, uint64_t *a2)
 {
   v2 = *a1;
-  v3 = *(*a1 + 180);
+  v3 = *(*a1 + 45);
   switch(v3)
   {
     case 1:
       *a1 = 0;
-      v12 = v2;
+      v11 = v2;
       v8 = *a2;
       *a2 = 0;
-      v11 = v8;
-      llvm::jitlink::link_COFF(&v12, &v11);
-      if (v11)
+      v10 = v8;
+      llvm::jitlink::link_COFF(&v11, &v10);
+      if (v10)
       {
-        (*(*v11 + 8))(v11);
+        (*(*v10 + 8))(v10);
       }
 
-      v5 = &v12;
+      v5 = &v11;
       break;
     case 3:
       *a1 = 0;
-      v14 = v2;
+      v13 = v2;
       v6 = *a2;
       *a2 = 0;
-      v13 = v6;
-      llvm::jitlink::link_ELF(&v14, &v13);
-      v7 = v13;
-      v13 = 0;
+      v12 = v6;
+      llvm::jitlink::link_ELF(&v13, &v12);
+      v7 = v12;
+      v12 = 0;
       if (v7)
       {
         (*(*v7 + 8))(v7);
       }
 
-      v5 = &v14;
+      v5 = &v13;
       break;
     case 5:
       *a1 = 0;
-      v16 = v2;
+      v15 = v2;
       v4 = *a2;
       *a2 = 0;
-      v15 = v4;
-      llvm::jitlink::link_MachO(&v16, &v15);
-      if (v15)
+      v14 = v4;
+      llvm::jitlink::link_MachO(&v15, &v14);
+      if (v14)
       {
-        (*(*v15 + 8))(v15);
+        (*(*v14 + 8))(v14);
       }
 
-      v5 = &v16;
+      v5 = &v15;
       break;
     default:
-      v10 = *a2;
       operator new();
   }
 
@@ -5378,7 +4740,7 @@ LABEL_81:
 
       if (v48 <= (*(*(a2 - 1) + 16) & 0x1FFFFFFFFFFFFFFuLL) + **(*(a2 - 1) + 8))
       {
-        v64 = v8 + 1;
+        v64 = (v8 + 1);
         do
         {
           v8 = v64;
@@ -5387,7 +4749,7 @@ LABEL_81:
             break;
           }
 
-          ++v64;
+          v64 += 8;
         }
 
         while (v48 <= (*(*v8 + 16) & 0x1FFFFFFFFFFFFFFuLL) + **(*v8 + 8));
@@ -5782,7 +5144,7 @@ LABEL_36:
   return v28 + 1 == a2;
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *,false>(uint64_t a1, _OWORD *a2, uint64_t a3, char a4, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *,false>(void *a1, _OWORD *a2, uint64_t a3, char a4, __n128 result)
 {
 LABEL_1:
   v9 = a2 - 2;
@@ -5802,16 +5164,16 @@ LABEL_1:
 
       if (v13 == 2)
       {
-        if (*(a2 - 6) < *(v12 + 8))
+        if (*(a2 - 6) < *(v12 + 2))
         {
-          *v165 = *v12;
-          *&v165[16] = *(v12 + 16);
-          v76 = *(a2 - 2);
+          *v161 = *v12;
+          *&v161[16] = *(v12 + 1);
+          v75 = *(a2 - 2);
           *(v12 + 9) = *(a2 - 23);
-          *v12 = v76;
-          result = *v165;
-          *(a2 - 23) = *&v165[9];
-          *(a2 - 2) = *v165;
+          *v12 = v75;
+          result = *v161;
+          *(a2 - 23) = *&v161[9];
+          *(a2 - 2) = *v161;
         }
 
         return result;
@@ -5827,100 +5189,100 @@ LABEL_1:
 
     if (v13 == 4)
     {
-      v80 = *(v12 + 40);
-      v81 = *(v12 + 72);
-      if (v80 >= *(v12 + 8))
+      v79 = *(v12 + 10);
+      v80 = *(v12 + 18);
+      if (v79 >= *(v12 + 2))
       {
-        if (v81 < v80)
+        if (v80 < v79)
         {
-          *v172 = *(v12 + 32);
-          *&v172[16] = *(v12 + 48);
-          *(v12 + 32) = *(v12 + 64);
+          *v168 = *(v12 + 2);
+          *&v168[16] = *(v12 + 3);
+          *(v12 + 2) = *(v12 + 4);
           *(v12 + 41) = *(v12 + 73);
-          *(v12 + 64) = *v172;
-          result = *&v172[9];
-          *(v12 + 73) = *&v172[9];
-          if (*(v12 + 40) < *(v12 + 8))
+          *(v12 + 4) = *v168;
+          result = *&v168[9];
+          *(v12 + 73) = *&v168[9];
+          if (*(v12 + 10) < *(v12 + 2))
           {
-            *v173 = *v12;
-            *&v173[16] = *(v12 + 16);
-            *v12 = *(v12 + 32);
+            *v169 = *v12;
+            *&v169[16] = *(v12 + 1);
+            *v12 = *(v12 + 2);
             *(v12 + 9) = *(v12 + 41);
-            *(v12 + 32) = *v173;
-            result = *&v173[9];
-            *(v12 + 41) = *&v173[9];
+            *(v12 + 2) = *v169;
+            result = *&v169[9];
+            *(v12 + 41) = *&v169[9];
           }
         }
       }
 
       else
       {
-        if (v81 < v80)
+        if (v80 < v79)
         {
-          *v167 = *v12;
-          *&v167[16] = *(v12 + 16);
-          *v12 = *(v12 + 64);
+          *v163 = *v12;
+          *&v163[16] = *(v12 + 1);
+          *v12 = *(v12 + 4);
           *(v12 + 9) = *(v12 + 73);
-          v82 = *v167;
+          v81 = *v163;
           goto LABEL_182;
         }
 
-        *v176 = *v12;
-        *&v176[16] = *(v12 + 16);
-        *v12 = *(v12 + 32);
+        *v172 = *v12;
+        *&v172[16] = *(v12 + 1);
+        *v12 = *(v12 + 2);
         *(v12 + 9) = *(v12 + 41);
-        *(v12 + 32) = *v176;
-        result = *&v176[9];
-        *(v12 + 41) = *&v176[9];
-        if (v81 < *(v12 + 40))
+        *(v12 + 2) = *v172;
+        result = *&v172[9];
+        *(v12 + 41) = *&v172[9];
+        if (v80 < *(v12 + 10))
         {
-          v82 = *(v12 + 32);
-          *&v167[8] = *(&v82 + 1);
-          *&v167[16] = *(v12 + 48);
-          *(v12 + 32) = *(v12 + 64);
+          v81 = *(v12 + 2);
+          *&v163[8] = *(&v81 + 1);
+          *&v163[16] = *(v12 + 3);
+          *(v12 + 2) = *(v12 + 4);
           *(v12 + 41) = *(v12 + 73);
 LABEL_182:
-          *(v12 + 64) = v82;
-          result = *&v167[9];
-          *(v12 + 73) = *&v167[9];
+          *(v12 + 4) = v81;
+          result = *&v163[9];
+          *(v12 + 73) = *&v163[9];
         }
       }
 
-      if (*(a2 - 6) >= *(v12 + 72))
+      if (*(a2 - 6) >= *(v12 + 18))
       {
         return result;
       }
 
-      *v177 = *(v12 + 64);
-      result = *v177;
-      *&v177[16] = *(v12 + 80);
-      v135 = *(a2 - 23);
-      *(v12 + 64) = *v9;
-      *(v12 + 73) = v135;
-      *(a2 - 23) = *&v177[9];
-      *v9 = *v177;
-      if (*(v12 + 72) >= *(v12 + 40))
+      *v173 = *(v12 + 4);
+      result = *v173;
+      *&v173[16] = *(v12 + 5);
+      v134 = *(a2 - 23);
+      *(v12 + 4) = *v9;
+      *(v12 + 73) = v134;
+      *(a2 - 23) = *&v173[9];
+      *v9 = *v173;
+      if (*(v12 + 18) >= *(v12 + 10))
       {
         return result;
       }
 
-      *v178 = *(v12 + 32);
-      *&v178[16] = *(v12 + 48);
-      *(v12 + 32) = *(v12 + 64);
+      *v174 = *(v12 + 2);
+      *&v174[16] = *(v12 + 3);
+      *(v12 + 2) = *(v12 + 4);
       *(v12 + 41) = *(v12 + 73);
-      *(v12 + 64) = *v178;
-      result = *&v178[9];
-      *(v12 + 73) = *&v178[9];
+      *(v12 + 4) = *v174;
+      result = *&v174[9];
+      *(v12 + 73) = *&v174[9];
 LABEL_186:
-      if (*(v12 + 40) < *(v12 + 8))
+      if (*(v12 + 10) < *(v12 + 2))
       {
-        *v179 = *v12;
-        *&v179[16] = *(v12 + 16);
-        *v12 = *(v12 + 32);
+        *v175 = *v12;
+        *&v175[16] = *(v12 + 1);
+        *v12 = *(v12 + 2);
         *(v12 + 9) = *(v12 + 41);
-        *(v12 + 32) = *v179;
-        result = *&v179[9];
-        *(v12 + 41) = *&v179[9];
+        *(v12 + 2) = *v175;
+        result = *&v175[9];
+        *(v12 + 41) = *&v175[9];
       }
 
       return result;
@@ -5929,100 +5291,98 @@ LABEL_186:
     if (v13 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *,0>(v12, (v12 + 32), (v12 + 64), (v12 + 96), a2 - 2, result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *,0>(v12, v12 + 2, v12 + 4, v12 + 6, a2 - 2, result).n128_u64[0];
       return result;
     }
 
 LABEL_9:
     if (v13 <= 23)
     {
-      v83 = (v12 + 32);
-      v85 = v12 == a2 || v83 == a2;
+      v82 = v12 + 4;
+      v84 = v12 == a2 || v82 == a2;
       if (a4)
       {
-        if (!v85)
+        if (!v84)
         {
-          v86 = 0;
-          v87 = v12;
+          v85 = 0;
+          v86 = v12;
           do
           {
-            v88 = v83;
-            v89 = *(v87 + 10);
-            if (v89 < *(v87 + 2))
+            v87 = v82;
+            v88 = *(v86 + 10);
+            if (v88 < *(v86 + 2))
             {
-              v90 = *v88;
-              v168 = *(v87 + 44);
-              v180 = *(v87 + 15);
-              v91 = v86;
+              v89 = *v87;
+              v164 = *(v86 + 44);
+              v90 = v85;
               while (1)
               {
-                v92 = v12 + v91;
-                *(v92 + 32) = *(v12 + v91);
-                result = *(v12 + v91 + 9);
-                *(v92 + 41) = result;
-                if (!v91)
+                v91 = v12 + v90;
+                *(v91 + 2) = *(v12 + v90);
+                result = *(v12 + v90 + 9);
+                *(v91 + 41) = result;
+                if (!v90)
                 {
                   break;
                 }
 
-                v91 -= 32;
-                if (v89 >= *(v92 - 24))
+                v90 -= 32;
+                if (v88 >= *(v91 - 6))
                 {
-                  v93 = v12 + v91 + 32;
+                  v92 = v12 + v90 + 32;
                   goto LABEL_129;
                 }
               }
 
-              v93 = v12;
+              v92 = v12;
 LABEL_129:
-              *v93 = v90;
-              *(v93 + 8) = v89;
-              *(v93 + 12) = v168;
-              *(v93 + 17) = *(&v168 + 5);
+              *v92 = v89;
+              *(v92 + 8) = v88;
+              *(v92 + 12) = v164;
+              *(v92 + 17) = *(&v164 + 5);
             }
 
-            v83 = v88 + 4;
-            v86 += 32;
-            v87 = v88;
+            v82 = v87 + 4;
+            v85 += 32;
+            v86 = v87;
           }
 
-          while (v88 + 4 != a2);
+          while (v87 + 4 != a2);
         }
       }
 
-      else if (!v85)
+      else if (!v84)
       {
         do
         {
-          v129 = v83;
-          v130 = *(a1 + 40);
-          if (v130 < *(a1 + 8))
+          v128 = v82;
+          v129 = *(a1 + 10);
+          if (v129 < *(a1 + 2))
           {
-            v131 = *v83;
-            v174 = *(a1 + 44);
-            v182 = *(a1 + 60);
-            v132 = v129;
+            v130 = *v82;
+            v170 = *(a1 + 44);
+            v131 = v128;
             do
             {
-              *v132 = *(v132 - 2);
-              result = *(v132 - 23);
-              *(v132 + 9) = result;
-              v133 = *(v132 - 14);
-              v132 -= 4;
+              *v131 = *(v131 - 2);
+              result = *(v131 - 23);
+              *(v131 + 9) = result;
+              v132 = *(v131 - 14);
+              v131 -= 4;
             }
 
-            while (v130 < v133);
-            *v132 = v131;
-            *(v132 + 2) = v130;
-            *(v132 + 17) = *(&v174 + 5);
-            *(v132 + 12) = v174;
+            while (v129 < v132);
+            *v131 = v130;
+            *(v131 + 2) = v129;
+            *(v131 + 17) = *(&v170 + 5);
+            *(v131 + 12) = v170;
           }
 
-          v83 = v129 + 4;
-          a1 = v129;
+          v82 = v128 + 4;
+          a1 = v128;
         }
 
-        while (v129 + 4 != a2);
+        while (v128 + 4 != a2);
       }
 
       return result;
@@ -6032,202 +5392,200 @@ LABEL_129:
     {
       if (v12 != a2)
       {
-        v94 = (v13 - 2) >> 1;
-        v95 = v94;
+        v93 = (v13 - 2) >> 1;
+        v94 = v93;
         do
         {
-          v96 = v95;
-          if (v94 >= v95)
+          v95 = v94;
+          if (v93 >= v94)
           {
-            v97 = (2 * v95) | 1;
-            v98 = v12 + 32 * v97;
-            if (2 * v96 + 2 < v13)
+            v96 = (2 * v94) | 1;
+            v97 = &v12[4 * v96];
+            if (2 * v95 + 2 < v13)
             {
-              v99 = *(v98 + 8);
-              v100 = *(v98 + 40);
-              v98 += 32 * (v99 < v100);
-              if (v99 < v100)
+              v98 = *(v97 + 2);
+              v99 = *(v97 + 10);
+              v97 += 4 * (v98 < v99);
+              if (v98 < v99)
               {
-                v97 = 2 * v96 + 2;
+                v96 = 2 * v95 + 2;
               }
             }
 
-            v101 = v12 + 32 * v96;
-            v102 = *(v101 + 8);
-            if (*(v98 + 8) >= v102)
+            v100 = &v12[4 * v95];
+            v101 = *(v100 + 2);
+            if (*(v97 + 2) >= v101)
             {
-              v103 = *v101;
-              v181 = *(v101 + 28);
-              v169 = *(v101 + 12);
+              v102 = *v100;
+              v165 = *(v100 + 12);
               do
               {
-                v104 = v101;
-                v101 = v98;
-                v105 = *v98;
-                *(v104 + 9) = *(v98 + 9);
-                *v104 = v105;
-                if (v94 < v97)
+                v103 = v100;
+                v100 = v97;
+                v104 = *v97;
+                *(v103 + 9) = *(v97 + 9);
+                *v103 = v104;
+                if (v93 < v96)
                 {
                   break;
                 }
 
-                v106 = (2 * v97) | 1;
-                v98 = v12 + 32 * v106;
-                v107 = 2 * v97 + 2;
-                if (v107 < v13)
+                v105 = (2 * v96) | 1;
+                v97 = &v12[4 * v105];
+                v106 = 2 * v96 + 2;
+                if (v106 < v13)
                 {
-                  v108 = *(v98 + 8);
-                  v109 = *(v98 + 40);
-                  v98 += 32 * (v108 < v109);
-                  if (v108 < v109)
+                  v107 = *(v97 + 2);
+                  v108 = *(v97 + 10);
+                  v97 += 4 * (v107 < v108);
+                  if (v107 < v108)
                   {
-                    v106 = v107;
+                    v105 = v106;
                   }
                 }
 
-                v97 = v106;
+                v96 = v105;
               }
 
-              while (*(v98 + 8) >= v102);
-              *v101 = v103;
-              *(v101 + 8) = v102;
-              *(v101 + 12) = v169;
-              *(v101 + 17) = *(&v169 + 5);
+              while (*(v97 + 2) >= v101);
+              *v100 = v102;
+              *(v100 + 2) = v101;
+              *(v100 + 12) = v165;
+              *(v100 + 17) = *(&v165 + 5);
             }
           }
 
-          v95 = v96 - 1;
+          v94 = v95 - 1;
         }
 
-        while (v96);
+        while (v95);
         do
         {
-          v110 = 0;
-          *v170 = *v12;
-          *&v170[16] = *(v12 + 16);
-          v111 = v12;
+          v109 = 0;
+          *v166 = *v12;
+          *&v166[16] = *(v12 + 1);
+          v110 = v12;
           do
           {
-            v112 = &v111[2 * v110];
-            v113 = v112 + 2;
-            v114 = (2 * v110) | 1;
-            v110 = 2 * v110 + 2;
-            if (v110 >= v13)
+            v111 = &v110[2 * v109];
+            v112 = v111 + 2;
+            v113 = (2 * v109) | 1;
+            v109 = 2 * v109 + 2;
+            if (v109 >= v13)
             {
-              v110 = v114;
+              v109 = v113;
             }
 
             else
             {
-              v115 = *(v112 + 10);
-              v116 = *(v112 + 18);
-              v117 = v112 + 4;
-              if (v115 >= v116)
+              v114 = *(v111 + 10);
+              v115 = *(v111 + 18);
+              v116 = v111 + 4;
+              if (v114 >= v115)
               {
-                v110 = v114;
+                v109 = v113;
               }
 
               else
               {
-                v113 = v117;
+                v112 = v116;
               }
             }
 
-            v118 = *v113;
-            *(v111 + 9) = *(v113 + 9);
-            *v111 = v118;
-            v111 = v113;
+            v117 = *v112;
+            *(v110 + 9) = *(v112 + 9);
+            *v110 = v117;
+            v110 = v112;
           }
 
-          while (v110 <= ((v13 - 2) >> 1));
+          while (v109 <= ((v13 - 2) >> 1));
           a2 -= 2;
-          if (v113 == a2)
+          if (v112 == a2)
           {
-            result = *v170;
-            *(v113 + 9) = *&v170[9];
-            *v113 = *v170;
+            result = *v166;
+            *(v112 + 9) = *&v166[9];
+            *v112 = *v166;
           }
 
           else
           {
-            v119 = *a2;
-            *(v113 + 9) = *(a2 + 9);
-            *v113 = v119;
-            result = *v170;
-            *(a2 + 9) = *&v170[9];
-            *a2 = *v170;
-            v120 = (v113 - v12 + 32) >> 5;
-            v121 = v120 < 2;
-            v122 = v120 - 2;
-            if (!v121)
+            v118 = *a2;
+            *(v112 + 9) = *(a2 + 9);
+            *v112 = v118;
+            result = *v166;
+            *(a2 + 9) = *&v166[9];
+            *a2 = *v166;
+            v119 = (v112 - v12 + 32) >> 5;
+            v120 = v119 < 2;
+            v121 = v119 - 2;
+            if (!v120)
             {
-              v123 = v122 >> 1;
-              v124 = v12 + 32 * (v122 >> 1);
-              v125 = *(v113 + 2);
-              if (*(v124 + 8) < v125)
+              v122 = v121 >> 1;
+              v123 = &v12[4 * (v121 >> 1)];
+              v124 = *(v112 + 2);
+              if (*(v123 + 2) < v124)
               {
-                v126 = *v113;
-                v138 = *(v113 + 12);
-                v141 = *(v113 + 7);
+                v125 = *v112;
+                v137 = *(v112 + 12);
                 do
                 {
-                  v127 = v113;
-                  v113 = v124;
-                  result = *v124;
-                  *(v127 + 9) = *(v124 + 9);
-                  *v127 = result;
-                  if (!v123)
+                  v126 = v112;
+                  v112 = v123;
+                  result = *v123;
+                  *(v126 + 9) = *(v123 + 9);
+                  *v126 = result;
+                  if (!v122)
                   {
                     break;
                   }
 
-                  v123 = (v123 - 1) >> 1;
-                  v124 = v12 + 32 * v123;
+                  v122 = (v122 - 1) >> 1;
+                  v123 = &v12[4 * v122];
                 }
 
-                while (*(v124 + 8) < v125);
-                *v113 = v126;
-                *(v113 + 2) = v125;
-                *(v113 + 12) = v138;
-                *(v113 + 17) = *(&v138 + 5);
+                while (*(v123 + 2) < v124);
+                *v112 = v125;
+                *(v112 + 2) = v124;
+                *(v112 + 12) = v137;
+                *(v112 + 17) = *(&v137 + 5);
               }
             }
           }
 
-          v121 = v13-- <= 2;
+          v120 = v13-- <= 2;
         }
 
-        while (!v121);
+        while (!v120);
       }
 
       return result;
     }
 
-    v14 = v12 + 32 * (v13 >> 1);
+    v14 = &v12[4 * (v13 >> 1)];
     v15 = *(a2 - 6);
     if (v13 >= 0x81)
     {
-      v16 = *(v14 + 8);
-      if (v16 >= *(v12 + 8))
+      v16 = *(v14 + 2);
+      if (v16 >= *(v12 + 2))
       {
         if (v15 < v16)
         {
-          *v144 = *v14;
-          *&v144[16] = *(v14 + 16);
+          *v140 = *v14;
+          *&v140[16] = *(v14 + 1);
           v20 = *v9;
           *(v14 + 9) = *(a2 - 23);
           *v14 = v20;
-          *(a2 - 23) = *&v144[9];
-          *v9 = *v144;
-          if (*(v14 + 8) < *(v12 + 8))
+          *(a2 - 23) = *&v140[9];
+          *v9 = *v140;
+          if (*(v14 + 2) < *(v12 + 2))
           {
-            *v145 = *v12;
-            *&v145[16] = *(v12 + 16);
+            *v141 = *v12;
+            *&v141[16] = *(v12 + 1);
             v21 = *v14;
             *(v12 + 9) = *(v14 + 9);
             *v12 = v21;
-            *(v14 + 9) = *&v145[9];
-            *v14 = *v145;
+            *(v14 + 9) = *&v141[9];
+            *v14 = *v141;
           }
         }
       }
@@ -6236,57 +5594,57 @@ LABEL_129:
       {
         if (v15 < v16)
         {
-          *v142 = *v12;
-          *&v142[16] = *(v12 + 16);
+          *v138 = *v12;
+          *&v138[16] = *(v12 + 1);
           v17 = *v9;
           *(v12 + 9) = *(a2 - 23);
           *v12 = v17;
           goto LABEL_26;
         }
 
-        *v148 = *v12;
-        *&v148[16] = *(v12 + 16);
+        *v144 = *v12;
+        *&v144[16] = *(v12 + 1);
         v24 = *v14;
         *(v12 + 9) = *(v14 + 9);
         *v12 = v24;
-        *(v14 + 9) = *&v148[9];
-        *v14 = *v148;
-        if (*(a2 - 6) < *(v14 + 8))
+        *(v14 + 9) = *&v144[9];
+        *v14 = *v144;
+        if (*(a2 - 6) < *(v14 + 2))
         {
-          *v142 = *v14;
-          *&v142[16] = *(v14 + 16);
+          *v138 = *v14;
+          *&v138[16] = *(v14 + 1);
           v25 = *v9;
           *(v14 + 9) = *(a2 - 23);
           *v14 = v25;
 LABEL_26:
-          *(a2 - 23) = *&v142[9];
-          *v9 = *v142;
+          *(a2 - 23) = *&v138[9];
+          *v9 = *v138;
         }
       }
 
-      v26 = (v14 - 32);
-      v27 = *(v14 - 24);
+      v26 = v14 - 4;
+      v27 = *(v14 - 6);
       v28 = *(a2 - 14);
-      if (v27 >= *(v12 + 40))
+      if (v27 >= *(v12 + 10))
       {
         if (v28 < v27)
         {
-          *v150 = *v26;
-          *&v150[16] = *(v14 - 16);
+          *v146 = *v26;
+          *&v146[16] = *(v14 - 1);
           v31 = *v10;
           *(v14 - 23) = *(a2 - 55);
           *v26 = v31;
-          *(a2 - 55) = *&v150[9];
-          *v10 = *v150;
-          if (*(v14 - 24) < *(v12 + 40))
+          *(a2 - 55) = *&v146[9];
+          *v10 = *v146;
+          if (*(v14 - 6) < *(v12 + 10))
           {
-            *v151 = *(v12 + 32);
-            *&v151[16] = *(v12 + 48);
+            *v147 = *(v12 + 2);
+            *&v147[16] = *(v12 + 3);
             v32 = *(v14 - 23);
-            *(v12 + 32) = *v26;
+            *(v12 + 2) = *v26;
             *(v12 + 41) = v32;
-            *(v14 - 23) = *&v151[9];
-            *v26 = *v151;
+            *(v14 - 23) = *&v147[9];
+            *v26 = *v147;
           }
         }
       }
@@ -6295,58 +5653,58 @@ LABEL_26:
       {
         if (v28 < v27)
         {
-          v29 = *(v12 + 32);
-          *&v149[8] = *(&v29 + 1);
-          *&v149[16] = *(v12 + 48);
+          v29 = *(v12 + 2);
+          *&v145[8] = *(&v29 + 1);
+          *&v145[16] = *(v12 + 3);
           v30 = *(a2 - 55);
-          *(v12 + 32) = *v10;
+          *(v12 + 2) = *v10;
           *(v12 + 41) = v30;
           goto LABEL_38;
         }
 
-        *v153 = *(v12 + 32);
-        *&v153[16] = *(v12 + 48);
+        *v149 = *(v12 + 2);
+        *&v149[16] = *(v12 + 3);
         v35 = *(v14 - 23);
-        *(v12 + 32) = *v26;
+        *(v12 + 2) = *v26;
         *(v12 + 41) = v35;
-        *(v14 - 23) = *&v153[9];
-        *v26 = *v153;
-        if (*(a2 - 14) < *(v14 - 24))
+        *(v14 - 23) = *&v149[9];
+        *v26 = *v149;
+        if (*(a2 - 14) < *(v14 - 6))
         {
-          *v149 = *v26;
-          *&v149[16] = *(v14 - 16);
+          *v145 = *v26;
+          *&v145[16] = *(v14 - 1);
           v36 = *v10;
           *(v14 - 23) = *(a2 - 55);
           *v26 = v36;
-          v29 = *v149;
+          v29 = *v145;
 LABEL_38:
-          *(a2 - 55) = *&v149[9];
+          *(a2 - 55) = *&v145[9];
           *v10 = v29;
         }
       }
 
-      v37 = *(v14 + 40);
+      v37 = *(v14 + 10);
       v38 = *(a2 - 22);
-      if (v37 >= *(v12 + 72))
+      if (v37 >= *(v12 + 18))
       {
         if (v38 < v37)
         {
-          *v155 = *(v14 + 32);
-          *&v155[16] = *(v14 + 48);
+          *v151 = *(v14 + 2);
+          *&v151[16] = *(v14 + 3);
           v41 = *v11;
           *(v14 + 41) = *(a2 - 87);
-          *(v14 + 32) = v41;
-          *(a2 - 87) = *&v155[9];
-          *v11 = *v155;
-          if (*(v14 + 40) < *(v12 + 72))
+          *(v14 + 2) = v41;
+          *(a2 - 87) = *&v151[9];
+          *v11 = *v151;
+          if (*(v14 + 10) < *(v12 + 18))
           {
-            *v156 = *(v12 + 64);
-            *&v156[16] = *(v12 + 80);
+            *v152 = *(v12 + 4);
+            *&v152[16] = *(v12 + 5);
             v42 = *(v14 + 41);
-            *(v12 + 64) = *(v14 + 32);
+            *(v12 + 4) = *(v14 + 2);
             *(v12 + 73) = v42;
-            *(v14 + 41) = *&v156[9];
-            *(v14 + 32) = *v156;
+            *(v14 + 41) = *&v152[9];
+            *(v14 + 2) = *v152;
           }
         }
       }
@@ -6355,56 +5713,56 @@ LABEL_38:
       {
         if (v38 < v37)
         {
-          v39 = *(v12 + 64);
-          *&v154[8] = *(&v39 + 1);
-          *&v154[16] = *(v12 + 80);
+          v39 = *(v12 + 4);
+          *&v150[8] = *(&v39 + 1);
+          *&v150[16] = *(v12 + 5);
           v40 = *(a2 - 87);
-          *(v12 + 64) = *v11;
+          *(v12 + 4) = *v11;
           *(v12 + 73) = v40;
           goto LABEL_47;
         }
 
-        *v157 = *(v12 + 64);
-        *&v157[16] = *(v12 + 80);
+        *v153 = *(v12 + 4);
+        *&v153[16] = *(v12 + 5);
         v43 = *(v14 + 41);
-        *(v12 + 64) = *(v14 + 32);
+        *(v12 + 4) = *(v14 + 2);
         *(v12 + 73) = v43;
-        *(v14 + 41) = *&v157[9];
-        *(v14 + 32) = *v157;
-        if (*(a2 - 22) < *(v14 + 40))
+        *(v14 + 41) = *&v153[9];
+        *(v14 + 2) = *v153;
+        if (*(a2 - 22) < *(v14 + 10))
         {
-          *v154 = *(v14 + 32);
-          *&v154[16] = *(v14 + 48);
+          *v150 = *(v14 + 2);
+          *&v150[16] = *(v14 + 3);
           v44 = *v11;
           *(v14 + 41) = *(a2 - 87);
-          *(v14 + 32) = v44;
-          v39 = *v154;
+          *(v14 + 2) = v44;
+          v39 = *v150;
 LABEL_47:
-          *(a2 - 87) = *&v154[9];
+          *(a2 - 87) = *&v150[9];
           *v11 = v39;
         }
       }
 
-      v45 = *(v14 + 8);
-      v46 = *(v14 + 40);
-      if (v45 >= *(v14 - 24))
+      v45 = *(v14 + 2);
+      v46 = *(v14 + 10);
+      if (v45 >= *(v14 - 6))
       {
         if (v46 < v45)
         {
-          *v159 = *v14;
-          *&v159[16] = *(v14 + 16);
-          *v14 = *(v14 + 32);
+          *v155 = *v14;
+          *&v155[16] = *(v14 + 1);
+          *v14 = *(v14 + 2);
           *(v14 + 9) = *(v14 + 41);
-          *(v14 + 41) = *&v159[9];
-          *(v14 + 32) = *v159;
-          if (*(v14 + 8) < *(v14 - 24))
+          *(v14 + 41) = *&v155[9];
+          *(v14 + 2) = *v155;
+          if (*(v14 + 2) < *(v14 - 6))
           {
-            *v160 = *v26;
-            *&v160[16] = *(v14 - 16);
+            *v156 = *v26;
+            *&v156[16] = *(v14 - 1);
             *v26 = *v14;
             *(v14 - 23) = *(v14 + 9);
-            *(v14 + 9) = *&v160[9];
-            *v14 = *v160;
+            *(v14 + 9) = *&v156[9];
+            *v14 = *v156;
           }
         }
       }
@@ -6413,62 +5771,62 @@ LABEL_47:
       {
         if (v46 < v45)
         {
-          *v158 = *v26;
-          *&v158[16] = *(v14 - 16);
-          *v26 = *(v14 + 32);
+          *v154 = *v26;
+          *&v154[16] = *(v14 - 1);
+          *v26 = *(v14 + 2);
           *(v14 - 23) = *(v14 + 41);
           goto LABEL_56;
         }
 
-        *v161 = *v26;
-        *&v161[16] = *(v14 - 16);
+        *v157 = *v26;
+        *&v157[16] = *(v14 - 1);
         *v26 = *v14;
         *(v14 - 23) = *(v14 + 9);
-        *(v14 + 9) = *&v161[9];
-        *v14 = *v161;
-        if (*(v14 + 40) < *(v14 + 8))
+        *(v14 + 9) = *&v157[9];
+        *v14 = *v157;
+        if (*(v14 + 10) < *(v14 + 2))
         {
-          *v158 = *v14;
-          *&v158[16] = *(v14 + 16);
-          *v14 = *(v14 + 32);
+          *v154 = *v14;
+          *&v154[16] = *(v14 + 1);
+          *v14 = *(v14 + 2);
           *(v14 + 9) = *(v14 + 41);
 LABEL_56:
-          *(v14 + 41) = *&v158[9];
-          *(v14 + 32) = *v158;
+          *(v14 + 41) = *&v154[9];
+          *(v14 + 2) = *v154;
         }
       }
 
-      *v162 = *v12;
-      *&v162[16] = *(v12 + 16);
+      *v158 = *v12;
+      *&v158[16] = *(v12 + 1);
       v47 = *v14;
       *(v12 + 9) = *(v14 + 9);
       *v12 = v47;
-      *(v14 + 9) = *&v162[9];
-      *v14 = *v162;
+      *(v14 + 9) = *&v158[9];
+      *v14 = *v158;
       goto LABEL_58;
     }
 
-    v18 = *(v12 + 8);
-    if (v18 >= *(v14 + 8))
+    v18 = *(v12 + 2);
+    if (v18 >= *(v14 + 2))
     {
       if (v15 < v18)
       {
-        *v146 = *v12;
-        *&v146[16] = *(v12 + 16);
+        *v142 = *v12;
+        *&v142[16] = *(v12 + 1);
         v22 = *v9;
         *(v12 + 9) = *(a2 - 23);
         *v12 = v22;
-        *(a2 - 23) = *&v146[9];
-        *v9 = *v146;
-        if (*(v12 + 8) < *(v14 + 8))
+        *(a2 - 23) = *&v142[9];
+        *v9 = *v142;
+        if (*(v12 + 2) < *(v14 + 2))
         {
-          *v147 = *v14;
-          *&v147[16] = *(v14 + 16);
+          *v143 = *v14;
+          *&v143[16] = *(v14 + 1);
           v23 = *v12;
           *(v14 + 9) = *(v12 + 9);
           *v14 = v23;
-          *(v12 + 9) = *&v147[9];
-          *v12 = *v147;
+          *(v12 + 9) = *&v143[9];
+          *v12 = *v143;
         }
       }
 
@@ -6477,28 +5835,28 @@ LABEL_56:
 
     if (v15 < v18)
     {
-      *v143 = *v14;
-      *&v143[16] = *(v14 + 16);
+      *v139 = *v14;
+      *&v139[16] = *(v14 + 1);
       v19 = *v9;
       *(v14 + 9) = *(a2 - 23);
       *v14 = v19;
 LABEL_35:
-      *(a2 - 23) = *&v143[9];
-      *v9 = *v143;
+      *(a2 - 23) = *&v139[9];
+      *v9 = *v139;
       goto LABEL_58;
     }
 
-    *v152 = *v14;
-    *&v152[16] = *(v14 + 16);
+    *v148 = *v14;
+    *&v148[16] = *(v14 + 1);
     v33 = *v12;
     *(v14 + 9) = *(v12 + 9);
     *v14 = v33;
-    *(v12 + 9) = *&v152[9];
-    *v12 = *v152;
-    if (*(a2 - 6) < *(v12 + 8))
+    *(v12 + 9) = *&v148[9];
+    *v12 = *v148;
+    if (*(a2 - 6) < *(v12 + 2))
     {
-      *v143 = *v12;
-      *&v143[16] = *(v12 + 16);
+      *v139 = *v12;
+      *&v139[16] = *(v12 + 1);
       v34 = *v9;
       *(v12 + 9) = *(a2 - 23);
       *v12 = v34;
@@ -6509,106 +5867,105 @@ LABEL_58:
     --a3;
     if (a4)
     {
-      v48 = *(v12 + 8);
+      v48 = *(v12 + 2);
 LABEL_61:
       v49 = 0;
       v50 = *v12;
-      v51 = *(v12 + 12);
-      v136 = v51;
-      v139 = *(v12 + 28);
+      result = *(v12 + 12);
+      v135 = result;
       do
       {
-        v52 = *(v12 + v49 + 40);
-        v49 += 32;
+        v51 = v12[v49 + 5];
+        v49 += 4;
       }
 
-      while (v52 < v48);
-      v53 = v12 + v49;
-      v54 = a2;
-      if (v49 == 32)
+      while (v51 < v48);
+      v52 = &v12[v49];
+      v53 = a2;
+      if (v49 == 4)
       {
-        v57 = a2;
-        while (v53 < v57)
+        v56 = a2;
+        while (v52 < v56)
         {
-          v55 = v57 - 2;
-          v58 = *(v57 - 6);
-          v57 -= 2;
-          if (v58 < v48)
+          v54 = v56 - 2;
+          v57 = *(v56 - 6);
+          v56 -= 2;
+          if (v57 < v48)
           {
             goto LABEL_71;
           }
         }
 
-        v55 = v57;
+        v54 = v56;
       }
 
       else
       {
         do
         {
-          v55 = v54 - 2;
-          v56 = *(v54 - 6);
-          v54 -= 2;
+          v54 = v53 - 2;
+          v55 = *(v53 - 6);
+          v53 -= 2;
         }
 
-        while (v56 >= v48);
+        while (v55 >= v48);
       }
 
 LABEL_71:
-      v12 = v53;
-      if (v53 < v55)
+      v12 = v52;
+      if (v52 < v54)
       {
-        v59 = v55;
+        v58 = v54;
         do
         {
-          *v163 = *v12;
-          *&v163[16] = *(v12 + 16);
-          v60 = *v59;
-          *(v12 + 9) = *(v59 + 9);
-          *v12 = v60;
-          v51 = *v163;
-          *(v59 + 9) = *&v163[9];
-          *v59 = *v163;
+          *v159 = *v12;
+          *&v159[16] = *(v12 + 1);
+          v59 = *v58;
+          *(v12 + 9) = *(v58 + 9);
+          *v12 = v59;
+          result = *v159;
+          *(v58 + 9) = *&v159[9];
+          *v58 = *v159;
           do
           {
-            v61 = *(v12 + 40);
-            v12 += 32;
+            v60 = *(v12 + 10);
+            v12 += 4;
           }
 
-          while (v61 < v48);
+          while (v60 < v48);
           do
           {
-            v62 = *(v59 - 6);
-            v59 -= 2;
+            v61 = *(v58 - 6);
+            v58 -= 2;
           }
 
-          while (v62 >= v48);
+          while (v61 >= v48);
         }
 
-        while (v12 < v59);
+        while (v12 < v58);
       }
 
-      if (v12 - 32 != a1)
+      if (v12 - 4 != a1)
       {
-        v51 = *(v12 - 32);
+        result = *(v12 - 2);
         *(a1 + 9) = *(v12 - 23);
-        *a1 = v51;
+        *a1 = result;
       }
 
-      *(v12 - 32) = v50;
-      *(v12 - 24) = v48;
-      *(v12 - 15) = *(v136.n128_u64 + 5);
-      *(v12 - 20) = v136.n128_u64[0];
-      if (v53 < v55)
+      *(v12 - 4) = v50;
+      *(v12 - 6) = v48;
+      *(v12 - 15) = *(v135.n128_u64 + 5);
+      *(v12 - 20) = v135.n128_u64[0];
+      if (v52 < v54)
       {
         goto LABEL_82;
       }
 
-      v63 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *>(a1, v12 - 32, v51);
-      if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *>(v12, a2, v64))
+      v62 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *>(a1, v12 - 2, result);
+      if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *>(v12, a2, v63))
       {
-        a2 = (v12 - 32);
-        if (!v63)
+        a2 = v12 - 4;
+        if (!v62)
         {
           goto LABEL_1;
         }
@@ -6616,165 +5973,164 @@ LABEL_71:
         return result;
       }
 
-      if (!v63)
+      if (!v62)
       {
 LABEL_82:
-        std::__introsort<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *,false>(a1, v12 - 32, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *,false>(a1, v12 - 2, a3, a4 & 1, result);
         a4 = 0;
       }
     }
 
     else
     {
-      v48 = *(v12 + 8);
-      if (*(v12 - 24) < v48)
+      v48 = *(v12 + 2);
+      if (*(v12 - 6) < v48)
       {
         goto LABEL_61;
       }
 
-      v65 = *v12;
+      v64 = *v12;
       result = *(v12 + 12);
-      v137 = result;
-      v140 = *(v12 + 28);
+      v136 = result;
       if (v48 >= *(a2 - 6))
       {
-        v68 = v12 + 32;
+        v67 = (v12 + 4);
         do
         {
-          v12 = v68;
-          if (v68 >= a2)
+          v12 = v67;
+          if (v67 >= a2)
           {
             break;
           }
 
-          v69 = *(v68 + 8);
-          v68 += 32;
+          v68 = *(v67 + 8);
+          v67 += 32;
         }
 
-        while (v48 >= v69);
+        while (v48 >= v68);
       }
 
       else
       {
-        v66 = v12;
+        v65 = v12;
         do
         {
-          v12 = v66 + 32;
-          v67 = *(v66 + 40);
-          v66 += 32;
+          v12 = v65 + 4;
+          v66 = *(v65 + 10);
+          v65 += 4;
         }
 
-        while (v48 >= v67);
+        while (v48 >= v66);
       }
 
-      v70 = a2;
+      v69 = a2;
       if (v12 < a2)
       {
-        v71 = a2;
+        v70 = a2;
         do
         {
-          v70 = v71 - 2;
-          v72 = *(v71 - 6);
-          v71 -= 2;
-        }
-
-        while (v48 < v72);
-      }
-
-      while (v12 < v70)
-      {
-        *v164 = *v12;
-        *&v164[16] = *(v12 + 16);
-        v73 = *v70;
-        *(v12 + 9) = *(v70 + 9);
-        *v12 = v73;
-        result = *v164;
-        *(v70 + 9) = *&v164[9];
-        *v70 = *v164;
-        do
-        {
-          v74 = *(v12 + 40);
-          v12 += 32;
-        }
-
-        while (v48 >= v74);
-        do
-        {
-          v75 = *(v70 - 6);
+          v69 = v70 - 2;
+          v71 = *(v70 - 6);
           v70 -= 2;
         }
 
-        while (v48 < v75);
+        while (v48 < v71);
       }
 
-      if (v12 - 32 != a1)
+      while (v12 < v69)
       {
-        result = *(v12 - 32);
+        *v160 = *v12;
+        *&v160[16] = *(v12 + 1);
+        v72 = *v69;
+        *(v12 + 9) = *(v69 + 9);
+        *v12 = v72;
+        result = *v160;
+        *(v69 + 9) = *&v160[9];
+        *v69 = *v160;
+        do
+        {
+          v73 = *(v12 + 10);
+          v12 += 4;
+        }
+
+        while (v48 >= v73);
+        do
+        {
+          v74 = *(v69 - 6);
+          v69 -= 2;
+        }
+
+        while (v48 < v74);
+      }
+
+      if (v12 - 4 != a1)
+      {
+        result = *(v12 - 2);
         *(a1 + 9) = *(v12 - 23);
         *a1 = result;
       }
 
       a4 = 0;
-      *(v12 - 32) = v65;
-      *(v12 - 24) = v48;
-      *(v12 - 15) = *(v137.n128_u64 + 5);
-      *(v12 - 20) = v137.n128_u64[0];
+      *(v12 - 4) = v64;
+      *(v12 - 6) = v48;
+      *(v12 - 15) = *(v136.n128_u64 + 5);
+      *(v12 - 20) = v136.n128_u64[0];
     }
   }
 
-  v77 = *(v12 + 40);
-  v78 = *(a2 - 6);
-  if (v77 >= *(v12 + 8))
+  v76 = *(v12 + 10);
+  v77 = *(a2 - 6);
+  if (v76 >= *(v12 + 2))
   {
-    if (v78 >= v77)
+    if (v77 >= v76)
     {
       return result;
     }
 
-    *v171 = *(v12 + 32);
-    result = *v171;
-    *&v171[16] = *(v12 + 48);
-    v128 = *(a2 - 23);
-    *(v12 + 32) = *v9;
-    *(v12 + 41) = v128;
-    *(a2 - 23) = *&v171[9];
-    *v9 = *v171;
+    *v167 = *(v12 + 2);
+    result = *v167;
+    *&v167[16] = *(v12 + 3);
+    v127 = *(a2 - 23);
+    *(v12 + 2) = *v9;
+    *(v12 + 41) = v127;
+    *(a2 - 23) = *&v167[9];
+    *v9 = *v167;
     goto LABEL_186;
   }
 
-  if (v78 >= v77)
+  if (v77 >= v76)
   {
-    *v175 = *v12;
-    *&v175[16] = *(v12 + 16);
-    *v12 = *(v12 + 32);
+    *v171 = *v12;
+    *&v171[16] = *(v12 + 1);
+    *v12 = *(v12 + 2);
     *(v12 + 9) = *(v12 + 41);
-    *(v12 + 32) = *v175;
-    result = *&v175[9];
-    *(v12 + 41) = *&v175[9];
-    if (*(a2 - 6) >= *(v12 + 40))
+    *(v12 + 2) = *v171;
+    result = *&v171[9];
+    *(v12 + 41) = *&v171[9];
+    if (*(a2 - 6) >= *(v12 + 10))
     {
       return result;
     }
 
-    result = *(v12 + 32);
-    *&v166[8] = result.n128_u64[1];
-    *&v166[16] = *(v12 + 48);
-    v134 = *(a2 - 23);
-    *(v12 + 32) = *v9;
-    *(v12 + 41) = v134;
+    result = *(v12 + 2);
+    *&v162[8] = result.n128_u64[1];
+    *&v162[16] = *(v12 + 3);
+    v133 = *(a2 - 23);
+    *(v12 + 2) = *v9;
+    *(v12 + 41) = v133;
   }
 
   else
   {
-    *v166 = *v12;
-    *&v166[16] = *(v12 + 16);
-    v79 = *v9;
+    *v162 = *v12;
+    *&v162[16] = *(v12 + 1);
+    v78 = *v9;
     *(v12 + 9) = *(a2 - 23);
-    *v12 = v79;
-    result = *v166;
+    *v12 = v78;
+    result = *v162;
   }
 
-  *(a2 - 23) = *&v166[9];
+  *(a2 - 23) = *&v162[9];
   *v9 = result;
   return result;
 }
@@ -6939,37 +6295,37 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *>(uint64_t a1, uint64_t a2, __n128 a3)
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *>(__int128 *a1, __int128 *a2, __n128 a3)
 {
   v3 = (a2 - a1) >> 5;
   if (v3 > 2)
   {
     if (v3 == 3)
     {
-      v6 = (a2 - 32);
-      v7 = *(a1 + 40);
-      v8 = *(a2 - 24);
-      if (v7 < *(a1 + 8))
+      v6 = a2 - 2;
+      v7 = *(a1 + 10);
+      v8 = *(a2 - 6);
+      if (v7 < *(a1 + 2))
       {
         if (v8 >= v7)
         {
           *v48 = *a1;
           v23 = *a1;
-          *&v48[16] = *(a1 + 16);
-          *a1 = *(a1 + 32);
+          *&v48[16] = a1[1];
+          *a1 = a1[2];
           *(a1 + 9) = *(a1 + 41);
-          *(a1 + 32) = v23;
+          a1[2] = v23;
           *(a1 + 41) = *&v48[9];
-          if (*(a2 - 24) >= *(a1 + 40))
+          if (*(a2 - 6) >= *(a1 + 10))
           {
             return 1;
           }
 
-          v9 = *(a1 + 32);
+          v9 = a1[2];
           *&v40[8] = *(&v9 + 1);
-          *&v40[16] = *(a1 + 48);
+          *&v40[16] = a1[3];
           v24 = *(a2 - 23);
-          *(a1 + 32) = *v6;
+          a1[2] = *v6;
           *(a1 + 41) = v24;
         }
 
@@ -6977,7 +6333,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm:
         {
           v9 = *a1;
           *v40 = *a1;
-          *&v40[16] = *(a1 + 16);
+          *&v40[16] = a1[1];
           v10 = *(a2 - 23);
           *a1 = *v6;
           *(a1 + 9) = v10;
@@ -6993,22 +6349,22 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm:
         return 1;
       }
 
-      *v43 = *(a1 + 32);
-      *&v43[16] = *(a1 + 48);
+      *v43 = a1[2];
+      *&v43[16] = a1[3];
       v20 = *(a2 - 23);
-      *(a1 + 32) = *v6;
+      a1[2] = *v6;
       *(a1 + 41) = v20;
       *v6 = *v43;
       *(a2 - 23) = *&v43[9];
 LABEL_50:
-      if (*(a1 + 40) < *(a1 + 8))
+      if (*(a1 + 10) < *(a1 + 2))
       {
         *v54 = *a1;
         v37 = *a1;
-        *&v54[16] = *(a1 + 16);
-        *a1 = *(a1 + 32);
+        *&v54[16] = a1[1];
+        *a1 = a1[2];
         *(a1 + 9) = *(a1 + 41);
-        *(a1 + 32) = v37;
+        a1[2] = v37;
         *(a1 + 41) = *&v54[9];
       }
 
@@ -7022,31 +6378,31 @@ LABEL_50:
         goto LABEL_13;
       }
 
-      std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *,0>(a1, (a1 + 32), (a1 + 64), (a1 + 96), (a2 - 32), a3);
+      std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::LinkGraph::splitBlockImpl(std::vector<llvm::jitlink::Block *>,std::optional<llvm::SmallVector<llvm::jitlink::Symbol *,8u>> *)::$_2 &,llvm::jitlink::Edge *,0>(a1, a1 + 2, a1 + 4, a1 + 6, a2 - 2, a3);
       return 1;
     }
 
-    v16 = *(a1 + 40);
-    v17 = *(a1 + 8);
-    v18 = *(a1 + 72);
+    v16 = *(a1 + 10);
+    v17 = *(a1 + 2);
+    v18 = *(a1 + 18);
     if (v16 >= v17)
     {
       if (v18 < v16)
       {
-        *v46 = *(a1 + 32);
-        *&v46[16] = *(a1 + 48);
-        *(a1 + 32) = *(a1 + 64);
+        *v46 = a1[2];
+        *&v46[16] = a1[3];
+        a1[2] = a1[4];
         *(a1 + 41) = *(a1 + 73);
-        *(a1 + 64) = *v46;
+        a1[4] = *v46;
         *(a1 + 73) = *&v46[9];
-        if (*(a1 + 40) < v17)
+        if (*(a1 + 10) < v17)
         {
           *v47 = *a1;
           v22 = *a1;
-          *&v47[16] = *(a1 + 16);
-          *a1 = *(a1 + 32);
+          *&v47[16] = a1[1];
+          *a1 = a1[2];
           *(a1 + 9) = *(a1 + 41);
-          *(a1 + 32) = v22;
+          a1[2] = v22;
           *(a1 + 41) = *&v47[9];
         }
       }
@@ -7058,20 +6414,20 @@ LABEL_50:
     {
       *v51 = *a1;
       v34 = *a1;
-      *&v51[16] = *(a1 + 16);
-      *a1 = *(a1 + 32);
+      *&v51[16] = a1[1];
+      *a1 = a1[2];
       *(a1 + 9) = *(a1 + 41);
-      *(a1 + 32) = v34;
+      a1[2] = v34;
       *(a1 + 41) = *&v51[9];
-      if (v18 >= *(a1 + 40))
+      if (v18 >= *(a1 + 10))
       {
         goto LABEL_47;
       }
 
-      v19 = *(a1 + 32);
+      v19 = a1[2];
       *&v42[8] = *(&v19 + 1);
-      *&v42[16] = *(a1 + 48);
-      *(a1 + 32) = *(a1 + 64);
+      *&v42[16] = a1[3];
+      a1[2] = a1[4];
       *(a1 + 41) = *(a1 + 73);
     }
 
@@ -7079,37 +6435,37 @@ LABEL_50:
     {
       v19 = *a1;
       *v42 = *a1;
-      *&v42[16] = *(a1 + 16);
-      *a1 = *(a1 + 64);
+      *&v42[16] = a1[1];
+      *a1 = a1[4];
       *(a1 + 9) = *(a1 + 73);
     }
 
-    *(a1 + 64) = v19;
+    a1[4] = v19;
     *(a1 + 73) = *&v42[9];
 LABEL_47:
-    if (*(a2 - 24) >= *(a1 + 72))
+    if (*(a2 - 6) >= *(a1 + 18))
     {
       return 1;
     }
 
-    v35 = (a2 - 32);
-    *v52 = *(a1 + 64);
-    *&v52[16] = *(a1 + 80);
+    v35 = a2 - 2;
+    *v52 = a1[4];
+    *&v52[16] = a1[5];
     v36 = *(a2 - 23);
-    *(a1 + 64) = *(a2 - 32);
+    a1[4] = *(a2 - 2);
     *(a1 + 73) = v36;
     *v35 = *v52;
     *(v35 + 9) = *&v52[9];
-    if (*(a1 + 72) >= *(a1 + 40))
+    if (*(a1 + 18) >= *(a1 + 10))
     {
       return 1;
     }
 
-    *v53 = *(a1 + 32);
-    *&v53[16] = *(a1 + 48);
-    *(a1 + 32) = *(a1 + 64);
+    *v53 = a1[2];
+    *&v53[16] = a1[3];
+    a1[2] = a1[4];
     *(a1 + 41) = *(a1 + 73);
-    *(a1 + 64) = *v53;
+    a1[4] = *v53;
     *(a1 + 73) = *&v53[9];
     goto LABEL_50;
   }
@@ -7121,15 +6477,15 @@ LABEL_47:
 
   if (v3 == 2)
   {
-    if (*(a2 - 24) < *(a1 + 8))
+    if (*(a2 - 6) < *(a1 + 2))
     {
       *v39 = *a1;
       v4 = *a1;
-      *&v39[16] = *(a1 + 16);
+      *&v39[16] = a1[1];
       v5 = *(a2 - 23);
-      *a1 = *(a2 - 32);
+      *a1 = *(a2 - 2);
       *(a1 + 9) = v5;
-      *(a2 - 32) = v4;
+      *(a2 - 2) = v4;
       *(a2 - 23) = *&v39[9];
     }
 
@@ -7137,28 +6493,28 @@ LABEL_47:
   }
 
 LABEL_13:
-  v11 = a1 + 64;
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 8);
-  v14 = *(a1 + 72);
+  v11 = (a1 + 4);
+  v12 = *(a1 + 10);
+  v13 = *(a1 + 2);
+  v14 = *(a1 + 18);
   if (v12 >= v13)
   {
     if (v14 < v12)
     {
-      *v44 = *(a1 + 32);
-      *&v44[16] = *(a1 + 48);
-      *(a1 + 32) = *v11;
+      *v44 = a1[2];
+      *&v44[16] = a1[3];
+      a1[2] = *v11;
       *(a1 + 41) = *(a1 + 73);
       *v11 = *v44;
       *(a1 + 73) = *&v44[9];
-      if (*(a1 + 40) < v13)
+      if (*(a1 + 10) < v13)
       {
         *v45 = *a1;
         v21 = *a1;
-        *&v45[16] = *(a1 + 16);
-        *a1 = *(a1 + 32);
+        *&v45[16] = a1[1];
+        *a1 = a1[2];
         *(a1 + 9) = *(a1 + 41);
-        *(a1 + 32) = v21;
+        a1[2] = v21;
         *(a1 + 41) = *&v45[9];
       }
     }
@@ -7170,20 +6526,20 @@ LABEL_13:
     {
       *v49 = *a1;
       v25 = *a1;
-      *&v49[16] = *(a1 + 16);
-      *a1 = *(a1 + 32);
+      *&v49[16] = a1[1];
+      *a1 = a1[2];
       *(a1 + 9) = *(a1 + 41);
-      *(a1 + 32) = v25;
+      a1[2] = v25;
       *(a1 + 41) = *&v49[9];
-      if (v14 >= *(a1 + 40))
+      if (v14 >= *(a1 + 10))
       {
         goto LABEL_33;
       }
 
-      v15 = *(a1 + 32);
+      v15 = a1[2];
       *&v41[8] = *(&v15 + 1);
-      *&v41[16] = *(a1 + 48);
-      *(a1 + 32) = *v11;
+      *&v41[16] = a1[3];
+      a1[2] = *v11;
       *(a1 + 41) = *(a1 + 73);
     }
 
@@ -7191,7 +6547,7 @@ LABEL_13:
     {
       v15 = *a1;
       *v41 = *a1;
-      *&v41[16] = *(a1 + 16);
+      *&v41[16] = a1[1];
       *a1 = *v11;
       *(a1 + 9) = *(a1 + 73);
     }
@@ -7201,8 +6557,8 @@ LABEL_13:
   }
 
 LABEL_33:
-  v26 = a1 + 96;
-  if (a1 + 96 == a2)
+  v26 = (a1 + 6);
+  if (a1 + 6 == a2)
   {
     return 1;
   }
@@ -7211,12 +6567,11 @@ LABEL_33:
   v28 = 0;
   while (1)
   {
-    v29 = *(v26 + 8);
-    if (v29 < *(v11 + 8))
+    v29 = *(v26 + 2);
+    if (v29 < *(v11 + 2))
     {
       v30 = *v26;
       v50 = *(v26 + 12);
-      v55 = *(v26 + 28);
       v31 = v27;
       while (1)
       {
@@ -7244,13 +6599,13 @@ LABEL_41:
       *(v33 + 17) = *(&v50 + 5);
       if (++v28 == 8)
       {
-        return v26 + 32 == a2;
+        return v26 + 4 == a2;
       }
     }
 
     v11 = v26;
     v27 += 32;
-    v26 += 32;
+    v26 += 4;
     if (v26 == a2)
     {
       return 1;
@@ -7380,18 +6735,18 @@ void llvm::jitlink::JITLinkerBase::~JITLinkerBase(llvm::jitlink::JITLinkerBase *
   }
 }
 
-void *llvm::jitlink::JITLinkerBase::linkPhase1(uint64_t a1, uint64_t *a2)
+void *llvm::jitlink::JITLinkerBase::linkPhase1(void *a1, uint64_t *a2)
 {
-  v99 = *MEMORY[0x277D85DE8];
-  llvm::jitlink::JITLinkerBase::runPasses(&v84, a1, *(a1 + 24), *(a1 + 32));
-  if (v84)
+  v98 = *MEMORY[0x277D85DE8];
+  llvm::jitlink::JITLinkerBase::runPasses(&v83, a1, a1[3], a1[4]);
+  if (v83)
   {
-    v4 = *(a1 + 8);
-    v75 = v84;
-    *&v84 = 0;
-    (*(*v4 + 24))(v4, &v75);
-    v5 = v75;
-    if (!v75)
+    v4 = a1[1];
+    v74 = v83;
+    *&v83 = 0;
+    (*(*v4 + 24))(v4, &v74);
+    v5 = v74;
+    if (!v74)
     {
       goto LABEL_4;
     }
@@ -7399,353 +6754,353 @@ void *llvm::jitlink::JITLinkerBase::linkPhase1(uint64_t a1, uint64_t *a2)
     goto LABEL_3;
   }
 
-  v8 = *(a1 + 16);
+  v7 = a1[2];
+  v91 = 0;
   v92 = 0;
   v93 = 0;
-  v94 = 0;
-  v90[0] = 0;
-  v90[1] = 0;
-  v91 = 0;
-  llvm::jitlink::LinkGraph::defined_symbols(v8, &v84);
+  v89[0] = 0;
+  v89[1] = 0;
+  v90 = 0;
+  llvm::jitlink::LinkGraph::defined_symbols(&v83, v7);
+  v79 = v83;
   v80 = v84;
   v81 = v85;
   v82 = v86;
-  v83 = v87;
+  v8 = v87;
   v9 = v88;
-  v10 = v89;
-  v11 = v87;
-  if (v84 != v88 || v87 != v89)
+  v10 = v86;
+  if (v83 != v87 || v86 != v88)
   {
     do
     {
-      v79[0] = *v11;
-      if ((*(v79[0] + 23) & 0x10) != 0)
+      v78[0] = *v10;
+      if ((*(v78[0] + 23) & 0x10) != 0)
       {
-        std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](&v92, v79);
+        std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](&v91, v78);
       }
 
-      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(&v80, v79);
-      v11 = v83;
+      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(&v79, v78);
+      v10 = v82;
     }
 
-    while (v80 != v9 || v83 != v10);
-    for (i = v93; v92 != v93; i = v93)
+    while (v79 != v8 || v82 != v9);
+    for (i = v92; v91 != v92; i = v92)
     {
-      v14 = *(i - 1);
-      v93 = i - 8;
-      v15 = *(v14 + 8);
-      *&v84 = v15;
-      *&v80 = 0;
-      if ((llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>(v90, &v84, &v80) & 1) == 0)
+      v13 = *(i - 1);
+      v92 = i - 8;
+      v14 = *(v13 + 8);
+      *&v83 = v14;
+      *&v79 = 0;
+      if ((llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>(v89, &v83, &v79) & 1) == 0)
       {
-        *&v80 = v15;
-        llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(v90, &v80, &v84);
-        v16 = *(v14 + 8);
-        v17 = *(v16 + 40);
-        v18 = *(v16 + 48);
-        while (v17 != v18)
+        *&v79 = v14;
+        llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(v89, &v79, &v83);
+        v15 = *(v13 + 8);
+        v16 = *(v15 + 40);
+        v17 = *(v15 + 48);
+        while (v16 != v17)
         {
-          v19 = *v17;
-          if ((*(*(*v17 + 8) + 8) & 1) != 0 && (*(v19 + 23) & 0x10) == 0)
+          v18 = *v16;
+          if ((*(*(*v16 + 8) + 8) & 1) != 0 && (*(v18 + 23) & 0x10) == 0)
           {
-            v20 = v93;
-            if (v93 >= v94)
+            v19 = v92;
+            if (v92 >= v93)
             {
-              v22 = (v93 - v92) >> 3;
-              if ((v22 + 1) >> 61)
+              v21 = (v92 - v91) >> 3;
+              if ((v21 + 1) >> 61)
               {
                 std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
               }
 
-              v23 = (v94 - v92) >> 2;
-              if (v23 <= v22 + 1)
+              v22 = (v93 - v91) >> 2;
+              if (v22 <= v21 + 1)
               {
-                v23 = v22 + 1;
+                v22 = v21 + 1;
               }
 
-              if (v94 - v92 >= 0x7FFFFFFFFFFFFFF8)
+              if (v93 - v91 >= 0x7FFFFFFFFFFFFFF8)
               {
-                v24 = 0x1FFFFFFFFFFFFFFFLL;
+                v23 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v24 = v23;
+                v23 = v22;
               }
 
-              if (v24)
+              if (v23)
               {
-                std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(&v92, v24);
+                std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(&v91, v23);
               }
 
-              v25 = (8 * v22);
-              *v25 = v19;
-              v21 = 8 * v22 + 8;
-              v26 = v25 - (v93 - v92);
-              memcpy(v26, v92, v93 - v92);
-              v27 = v92;
-              v92 = v26;
-              v93 = v21;
-              v94 = 0;
-              if (v27)
+              v24 = (8 * v21);
+              *v24 = v18;
+              v20 = 8 * v21 + 8;
+              v25 = v24 - (v92 - v91);
+              memcpy(v25, v91, v92 - v91);
+              v26 = v91;
+              v91 = v25;
+              v92 = v20;
+              v93 = 0;
+              if (v26)
               {
-                operator delete(v27);
+                operator delete(v26);
               }
             }
 
             else
             {
-              *v93 = v19;
-              v21 = (v20 + 8);
+              *v92 = v18;
+              v20 = (v19 + 8);
             }
 
-            v93 = v21;
-            v19 = *v17;
+            v92 = v20;
+            v18 = *v16;
           }
 
-          *(v19 + 16) |= 0x1000000000000000uLL;
-          v17 += 4;
+          *(v18 + 16) |= 0x1000000000000000uLL;
+          v16 += 4;
         }
       }
     }
   }
 
   __p = 0;
+  v76 = 0;
   v77 = 0;
-  v78 = 0;
-  llvm::jitlink::LinkGraph::defined_symbols(v8, &v84);
+  llvm::jitlink::LinkGraph::defined_symbols(&v83, v7);
+  v79 = v83;
   v80 = v84;
   v81 = v85;
   v82 = v86;
-  v83 = v87;
+  v27 = v87;
   v28 = v88;
-  v29 = v89;
-  v30 = v87;
-  if (v84 != v88 || v87 != v89)
+  v29 = v86;
+  if (v83 != v87 || v86 != v88)
   {
     do
     {
-      v79[0] = *v30;
-      if ((*(v79[0] + 23) & 0x10) == 0)
+      v78[0] = *v29;
+      if ((*(v78[0] + 23) & 0x10) == 0)
       {
-        std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](&__p, v79);
+        std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](&__p, v78);
       }
 
-      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(&v80, v79);
-      v30 = v83;
+      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(&v79, v78);
+      v29 = v82;
     }
 
-    while (v80 != v28 || v83 != v29);
+    while (v79 != v27 || v82 != v28);
   }
 
-  v32 = __p;
-  v33 = v77;
-  if (__p != v77)
+  v31 = __p;
+  v32 = v76;
+  if (__p != v76)
   {
     do
     {
-      v35 = *(*(*v32 + 8) + 16);
-      *&v84 = *v32;
-      v34 = v84;
-      llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::erase(v35 + 56, &v84);
-      if ((*v34 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+      v34 = *(*(*v31 + 8) + 16);
+      *&v83 = *v31;
+      v33 = v83;
+      llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::erase(v34 + 56, &v83);
+      if ((*v33 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
       {
-        atomic_fetch_add((*v34 + 8), 0xFFFFFFFFFFFFFFFFLL);
+        atomic_fetch_add((*v33 + 8), 0xFFFFFFFFFFFFFFFFLL);
       }
 
-      v32 += 8;
+      v31 += 8;
     }
 
-    while (v32 != v33);
-    v32 = __p;
+    while (v31 != v32);
+    v31 = __p;
   }
 
-  if (v32)
+  if (v31)
   {
-    v77 = v32;
-    operator delete(v32);
+    v76 = v31;
+    operator delete(v31);
   }
 
   __p = 0;
+  v76 = 0;
   v77 = 0;
-  v78 = 0;
-  llvm::jitlink::LinkGraph::blocks(v8, &v84);
+  llvm::jitlink::LinkGraph::blocks(v7, &v83);
+  v79 = v83;
   v80 = v84;
   v81 = v85;
   v82 = v86;
-  v83 = v87;
+  v35 = v87;
   v36 = v88;
-  v37 = v89;
-  v38 = v87;
-  if (v84 != v88 || v87 != v89)
+  v37 = v86;
+  if (v83 != v87 || v86 != v88)
   {
     do
     {
-      v39 = *v38;
-      v79[0] = *v38;
-      v95 = 0;
-      if ((llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>(v90, v79, &v95) & 1) == 0)
+      v38 = *v37;
+      v78[0] = *v37;
+      v94 = 0;
+      if ((llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>(v89, v78, &v94) & 1) == 0)
       {
-        v40 = v77;
-        if (v77 >= v78)
+        v39 = v76;
+        if (v76 >= v77)
         {
-          v42 = (v77 - __p) >> 3;
-          if ((v42 + 1) >> 61)
+          v41 = (v76 - __p) >> 3;
+          if ((v41 + 1) >> 61)
           {
             std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
           }
 
-          v43 = (v78 - __p) >> 2;
-          if (v43 <= v42 + 1)
+          v42 = (v77 - __p) >> 2;
+          if (v42 <= v41 + 1)
           {
-            v43 = v42 + 1;
+            v42 = v41 + 1;
           }
 
-          if (v78 - __p >= 0x7FFFFFFFFFFFFFF8)
+          if (v77 - __p >= 0x7FFFFFFFFFFFFFF8)
           {
-            v44 = 0x1FFFFFFFFFFFFFFFLL;
+            v43 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v44 = v43;
+            v43 = v42;
           }
 
-          if (v44)
+          if (v43)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(&__p, v44);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(&__p, v43);
           }
 
-          v45 = (8 * v42);
-          *v45 = v39;
-          v41 = 8 * v42 + 8;
-          v46 = v45 - (v77 - __p);
-          memcpy(v46, __p, v77 - __p);
-          v47 = __p;
-          __p = v46;
-          v77 = v41;
-          v78 = 0;
-          if (v47)
+          v44 = (8 * v41);
+          *v44 = v38;
+          v40 = 8 * v41 + 8;
+          v45 = v44 - (v76 - __p);
+          memcpy(v45, __p, v76 - __p);
+          v46 = __p;
+          __p = v45;
+          v76 = v40;
+          v77 = 0;
+          if (v46)
           {
-            operator delete(v47);
+            operator delete(v46);
           }
         }
 
         else
         {
-          *v77 = v39;
-          v41 = (v40 + 8);
+          *v76 = v38;
+          v40 = (v39 + 8);
         }
 
-        v77 = v41;
+        v76 = v40;
       }
 
-      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::Iterator,llvm::jitlink::Block *,&llvm::jitlink::LinkGraph::getSectionBlocks>::operator++(&v80, v79);
-      v38 = v83;
+      llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::Iterator,llvm::jitlink::Block *,&llvm::jitlink::LinkGraph::getSectionBlocks>::operator++(&v79, v78);
+      v37 = v82;
     }
 
-    while (v80 != v36 || v83 != v37);
+    while (v79 != v35 || v82 != v36);
   }
 
-  v49 = __p;
-  v50 = v77;
-  if (__p != v77)
+  v48 = __p;
+  v49 = v76;
+  if (__p != v76)
   {
     do
     {
-      v51 = *v49;
-      v49 += 8;
-      llvm::jitlink::LinkGraph::removeBlock(v8, v51);
+      v50 = *v48;
+      v48 += 8;
+      llvm::jitlink::LinkGraph::removeBlock(v7, v50);
     }
 
-    while (v49 != v50);
-    v49 = __p;
+    while (v48 != v49);
+    v48 = __p;
   }
 
-  if (v49)
+  if (v48)
   {
-    v77 = v49;
-    operator delete(v49);
+    v76 = v48;
+    operator delete(v48);
   }
 
-  v84 = 0uLL;
-  *&v85 = 0;
-  v52 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v8 + 224);
-  v55 = *(v8 + 224) + 8 * *(v8 + 240);
-  if (v55 != v52)
+  v83 = 0uLL;
+  *&v84 = 0;
+  v51 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v7 + 224);
+  v54 = *(v7 + 224) + 8 * *(v7 + 240);
+  if (v54 != v51)
   {
+    v55 = v51;
     v56 = v52;
-    v57 = v53;
     do
     {
-      *&v80 = *v56;
-      if ((*(v80 + 23) & 0x10) == 0)
+      *&v79 = *v55;
+      if ((*(v79 + 23) & 0x10) == 0)
       {
-        std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](&v84, &v80);
+        std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](&v83, &v79);
       }
 
       do
       {
-        ++v56;
+        ++v55;
       }
 
-      while (v56 != v57 && (*v56 | 0x1000) == 0xFFFFFFFFFFFFF000);
+      while (v55 != v56 && (*v55 | 0x1000) == 0xFFFFFFFFFFFFF000);
     }
 
-    while (v56 != v55);
-    v59 = *(&v84 + 1);
-    v58 = v84;
-    if (v84 != *(&v84 + 1))
+    while (v55 != v54);
+    v58 = *(&v83 + 1);
+    v57 = v83;
+    if (v83 != *(&v83 + 1))
     {
       do
       {
-        *&v80 = *v58;
-        v60 = v80;
-        v54.n128_u64[0] = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::erase(v8 + 224, &v80);
-        if ((*v60 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+        *&v79 = *v57;
+        v59 = v79;
+        v53.n128_u64[0] = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::erase(v7 + 224, &v79);
+        if ((*v59 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
         {
-          atomic_fetch_add((*v60 + 8), 0xFFFFFFFFFFFFFFFFLL);
+          atomic_fetch_add((*v59 + 8), 0xFFFFFFFFFFFFFFFFLL);
         }
 
-        ++v58;
+        ++v57;
       }
 
-      while (v58 != v59);
-      v58 = v84;
+      while (v57 != v58);
+      v57 = v83;
     }
 
-    if (v58)
+    if (v57)
     {
-      *(&v84 + 1) = v58;
-      operator delete(v58);
+      *(&v83 + 1) = v57;
+      operator delete(v57);
     }
   }
 
-  MEMORY[0x277C69E30](v90[0], 8, v54);
-  if (v92)
+  MEMORY[0x277C69E30](v89[0], 8, v53);
+  if (v91)
   {
-    v93 = v92;
-    operator delete(v92);
+    v92 = v91;
+    operator delete(v91);
   }
 
-  llvm::jitlink::JITLinkerBase::runPasses(&v84, a1, *(a1 + 48), *(a1 + 56));
-  if (v84)
+  llvm::jitlink::JITLinkerBase::runPasses(&v83, a1, a1[6], a1[7]);
+  if (v83)
   {
-    v61 = *(a1 + 8);
-    v74 = v84;
-    *&v84 = 0;
-    (*(*v61 + 24))(v61, &v74);
-    v5 = v74;
-    if (!v74)
+    v60 = a1[1];
+    v73 = v83;
+    *&v83 = 0;
+    (*(*v60 + 24))(v60, &v73);
+    v5 = v73;
+    if (!v73)
     {
 LABEL_4:
-      result = v84;
-      if (v84)
+      result = v83;
+      if (v83)
       {
-        result = (*(*v84 + 8))(v84);
+        return (*(*v83 + 8))(v83);
       }
 
-      goto LABEL_6;
+      return result;
     }
 
 LABEL_3:
@@ -7753,35 +7108,34 @@ LABEL_3:
     goto LABEL_4;
   }
 
-  v62 = *(a1 + 16);
-  if (*(v62 + 272) != *(v62 + 280))
+  v61 = a1[2];
+  if (*(v61 + 272) != *(v61 + 280))
   {
 LABEL_100:
-    v63 = (*(**(a1 + 8) + 16))(*(a1 + 8));
-    v64 = *(a1 + 16);
-    v65 = *(*(a1 + 8) + 8);
-    v66 = *a2;
+    v62 = (*(*a1[1] + 16))(a1[1]);
+    v63 = a1[2];
+    v64 = *(a1[1] + 8);
+    v65 = *a2;
     *a2 = 0;
-    v96[0] = v66;
-    v96[3] = llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>>::CallbacksHolder<llvm::jitlink::JITLinkerBase::linkPhase1(std::unique_ptr<llvm::jitlink::JITLinkerBase>)::$_1,llvm::jitlink::JITLinkerBase::linkPhase1(std::unique_ptr<llvm::jitlink::JITLinkerBase>)::$_1,void>::Callbacks + 6;
-    (*(*v63 + 16))(v63, v65, v64, v96);
-    result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v96);
-    goto LABEL_6;
+    v95[0] = v65;
+    v95[3] = llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>>::CallbacksHolder<llvm::jitlink::JITLinkerBase::linkPhase1(std::unique_ptr<llvm::jitlink::JITLinkerBase>)::$_1,llvm::jitlink::JITLinkerBase::linkPhase1(std::unique_ptr<llvm::jitlink::JITLinkerBase>)::$_1,void>::Callbacks + 6;
+    (*(*v62 + 16))(v62, v64, v63, v95);
+    return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v95);
   }
 
-  if (*(v62 + 208))
+  if (*(v61 + 208))
   {
-    v67 = *(v62 + 200);
-    v68 = *(v62 + 216);
-    if (v68)
+    v66 = *(v61 + 200);
+    v67 = *(v61 + 216);
+    if (v67)
     {
-      v69 = 24 * v68;
-      v70 = *(v62 + 200);
-      while (*v70 >= 0xFFFFFFFFFFFFFFFELL)
+      v68 = 24 * v67;
+      v69 = *(v61 + 200);
+      while (*v69 >= 0xFFFFFFFFFFFFFFFELL)
       {
-        v70 += 3;
-        v69 -= 24;
-        if (!v69)
+        v69 += 3;
+        v68 -= 24;
+        if (!v68)
         {
           goto LABEL_106;
         }
@@ -7790,27 +7144,27 @@ LABEL_100:
 
     else
     {
-      v70 = *(v62 + 200);
+      v69 = *(v61 + 200);
     }
 
-    v72 = (v67 + 24 * v68);
+    v71 = (v66 + 24 * v67);
 LABEL_110:
-    if (v70 != v72)
+    if (v69 != v71)
     {
-      if (*(v70[2] + 20) != 2)
+      if (*(v69[2] + 20) != 2)
       {
         goto LABEL_100;
       }
 
       while (1)
       {
-        v70 += 3;
-        if (v70 == v72)
+        v69 += 3;
+        if (v69 == v71)
         {
           break;
         }
 
-        if (*v70 < 0xFFFFFFFFFFFFFFFELL)
+        if (*v69 < 0xFFFFFFFFFFFFFFFELL)
         {
           goto LABEL_110;
         }
@@ -7819,25 +7173,23 @@ LABEL_110:
   }
 
 LABEL_106:
-  v71 = *a2;
+  v70 = *a2;
   *a2 = 0;
-  v73 = v71;
-  v98 = 0;
+  v72 = v70;
   v97 = 0;
-  llvm::jitlink::JITLinkerBase::linkPhase2(a1, &v73, &v97);
-  llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>::~Expected(&v97);
-  result = v73;
-  if (v73)
+  v96 = 0;
+  llvm::jitlink::JITLinkerBase::linkPhase2(a1, &v72, &v96);
+  llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>::~Expected(&v96);
+  result = v72;
+  if (v72)
   {
-    result = (*(*v73 + 8))(v73);
+    return (*(*v72 + 8))(v72);
   }
 
-LABEL_6:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t llvm::jitlink::JITLinkerBase::runPasses(uint64_t result, uint64_t a2, void *a3, void *a4)
+void *llvm::jitlink::JITLinkerBase::runPasses(void *result, uint64_t a2, void *a3, void *a4)
 {
   v4 = result;
   if (a3 == a4)
@@ -7877,21 +7229,21 @@ LABEL_7:
 
 uint64_t *llvm::jitlink::JITLinkerBase::linkPhase2(uint64_t a1, uint64_t *a2, uint64_t **a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (a3[1])
   {
     v4 = *(a1 + 8);
     v5 = *a3;
     *a3 = 0;
-    v30 = v5;
-    (*(*v4 + 24))(v4, &v30);
-    result = v30;
-    if (!v30)
+    v26 = v5;
+    (*(*v4 + 24))(v4, &v26);
+    result = v26;
+    if (!v26)
     {
-      goto LABEL_10;
+      return result;
     }
 
-    goto LABEL_9;
+    return (*(*result + 8))(result);
   }
 
   v8 = *a3;
@@ -7903,88 +7255,80 @@ uint64_t *llvm::jitlink::JITLinkerBase::linkPhase2(uint64_t a1, uint64_t *a2, ui
     (*(*v9 + 8))(v9);
   }
 
-  llvm::jitlink::JITLinkerBase::runPasses(&v27, a1, *(a1 + 72), *(a1 + 80));
-  v10 = v27;
-  if (v27 || (v11 = *(a1 + 16), (*(**(a1 + 8) + 40))(&v27), (v10 = v27) != 0))
+  llvm::jitlink::JITLinkerBase::runPasses(&v23, a1, *(a1 + 72), *(a1 + 80));
+  v10 = v23;
+  if (v23 || ((*(**(a1 + 8) + 40))(&v23), (v10 = v23) != 0))
   {
-    v12 = *a2;
+    v11 = *a2;
     *a2 = 0;
-    *&v27 = 0;
-    v13 = *(a1 + 144);
-    v34 = v12;
-    v35 = v10;
-    v37 = off_2815A4360 + 6;
-    (*(*v13 + 16))(v13, &v34);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v34);
-    result = v27;
-    if (v27)
+    *&v23 = 0;
+    v12 = *(a1 + 144);
+    v30 = v11;
+    v31 = v10;
+    v33 = off_2815A4360 + 6;
+    (*(*v12 + 16))(v12, &v30);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v30);
+    result = v23;
+    if (!v23)
     {
-LABEL_9:
-      result = (*(*result + 8))(result);
+      return result;
     }
+
+    return (*(*result + 8))(result);
   }
 
-  else
+  v13 = *(a1 + 16);
+  v30 = 0;
+  v31 = 0;
+  v32 = 0;
+  v14 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v13 + 224);
+  v17 = *(v13 + 224) + 8 * *(v13 + 240);
+  if (v17 != v14)
   {
-    v15 = *(a1 + 16);
-    v34 = 0;
-    v35 = 0;
-    v36 = 0;
-    v16 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v15 + 224);
-    v19 = *(v15 + 224) + 8 * *(v15 + 240);
-    if (v19 != v16)
+    v18 = v14;
+    v19 = v15;
+    do
     {
-      v20 = v16;
-      v21 = v17;
-      do
+      v20 = *v18++;
+      v21 = (v20[2] >> 62) & 1;
+      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>>,llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>>::FindAndConstruct(&v30, v20)[2] = v21;
+      while (v18 != v19 && (*v18 | 0x1000) == 0xFFFFFFFFFFFFF000)
       {
-        v22 = *v20++;
-        v23 = (v22[2] >> 62) & 1;
-        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>>,llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>>::FindAndConstruct(&v34, v22)[2] = v23;
-        while (v20 != v21 && (*v20 | 0x1000) == 0xFFFFFFFFFFFFF000)
-        {
-          ++v20;
-        }
-      }
-
-      while (v20 != v19);
-      if (v35)
-      {
-        v24 = *(a1 + 8);
-        v25 = *a2;
-        *a2 = 0;
-        operator new();
+        ++v18;
       }
     }
 
-    *&v18 = 0;
-    v26 = *a2;
-    *a2 = 0;
-    v29 = v26;
-    v33 = 0;
-    v31 = v18;
-    v27 = v18;
-    v32 = 0;
-    v28 = 0;
-    llvm::jitlink::JITLinkerBase::linkPhase3(v26, &v29, &v31);
-    llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(&v31);
-    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(&v27);
-    if (v29)
+    while (v18 != v17);
+    if (v31)
     {
-      (*(*v29 + 8))(v29);
+      *a2 = 0;
+      operator new();
     }
-
-    result = llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v34);
   }
 
-LABEL_10:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  *&v16 = 0;
+  v22 = *a2;
+  *a2 = 0;
+  v25 = v22;
+  v29 = 0;
+  v27 = v16;
+  v23 = v16;
+  v28 = 0;
+  v24 = 0;
+  llvm::jitlink::JITLinkerBase::linkPhase3(v22, &v25, &v27);
+  llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(&v27);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(&v23);
+  if (v25)
+  {
+    (*(*v25 + 8))(v25);
+  }
+
+  return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v30);
 }
 
-uint64_t llvm::jitlink::JITLinkerBase::linkPhase3(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void *llvm::jitlink::JITLinkerBase::linkPhase3(uint64_t a1, char **a2, uint64_t *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (a3[3])
   {
     v6 = 0;
@@ -7997,27 +7341,27 @@ uint64_t llvm::jitlink::JITLinkerBase::linkPhase3(uint64_t a1, uint64_t *a2, uin
     }
 
     v8 = *(a1 + 144);
-    v39 = v7;
-    v40 = v6;
-    v41 = off_2815A4360 + 6;
-    (*(*v8 + 16))(v8, &v39);
-    result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v39);
+    v38 = v7;
+    v39 = v6;
+    v40 = off_2815A4360 + 6;
+    (*(*v8 + 16))(v8, &v38);
+    return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v38);
   }
 
   else
   {
+    v32 = 0;
     v33 = 0;
-    v34 = 0;
     MEMORY[0x277C69E30](0, 8);
     v10 = *(a3 + 4);
-    v35 = v10;
+    v34 = v10;
     if (v10)
     {
       v11 = operator new(24 * v10, 8uLL);
       v12 = 0;
       v13 = 0;
-      v33 = v11;
-      v34 = a3[1];
+      v32 = v11;
+      v33 = a3[1];
       do
       {
         v14 = *(*a3 + v12);
@@ -8025,8 +7369,8 @@ uint64_t llvm::jitlink::JITLinkerBase::linkPhase3(uint64_t a1, uint64_t *a2, uin
         if ((v14 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
         {
           atomic_fetch_add((v14 + 8), 1uLL);
-          v11 = v33;
-          v14 = *&v33[v12];
+          v11 = v32;
+          v14 = *&v32[v12];
         }
 
         if ((v14 | 8) != 0xFFFFFFFFFFFFFFF8)
@@ -8038,13 +7382,13 @@ uint64_t llvm::jitlink::JITLinkerBase::linkPhase3(uint64_t a1, uint64_t *a2, uin
         v12 += 24;
       }
 
-      while (v13 < v35);
+      while (v13 < v34);
     }
 
     else
     {
+      v32 = 0;
       v33 = 0;
-      v34 = 0;
     }
 
     v15 = *(a1 + 16);
@@ -8057,12 +7401,12 @@ uint64_t llvm::jitlink::JITLinkerBase::linkPhase3(uint64_t a1, uint64_t *a2, uin
       do
       {
         v21 = *v19;
-        v39 = 0;
-        v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(&v33, v21, &v39);
-        v23 = v39;
+        v38 = 0;
+        v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(&v32, v21, &v38);
+        v23 = v38;
         if (v22)
         {
-          v24 = v39 == &v33[24 * v35];
+          v24 = v38 == &v32[24 * v34];
         }
 
         else
@@ -8072,7 +7416,7 @@ uint64_t llvm::jitlink::JITLinkerBase::linkPhase3(uint64_t a1, uint64_t *a2, uin
 
         if (!v24)
         {
-          **(v21 + 8) = *(v39 + 1);
+          **(v21 + 8) = *(v38 + 1);
           v25 = *(v21 + 16) & 0xFDFFFFFFFFFFFFFFLL | (((v23[17] & 2) != 0) << 57);
           *(v21 + 16) = v25;
           *(v21 + 16) = v25 & 0xF3FFFFFFFFFFFFFFLL | ((((v23[17] >> 4) & 1) == 0) << 58);
@@ -8089,63 +7433,62 @@ uint64_t llvm::jitlink::JITLinkerBase::linkPhase3(uint64_t a1, uint64_t *a2, uin
       while (v19 != v18);
     }
 
-    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(&v33);
-    llvm::jitlink::JITLinkerBase::runPasses(&v32, a1, *(a1 + 96), *(a1 + 104));
-    v26 = v32;
-    if (v32 || ((*(*a1 + 16))(&v32, a1, *(a1 + 16)), (v26 = v32) != 0) || (llvm::jitlink::JITLinkerBase::runPasses(&v32, a1, *(a1 + 120), *(a1 + 128)), (v26 = v32) != 0))
+    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(&v32);
+    llvm::jitlink::JITLinkerBase::runPasses(&v31, a1, *(a1 + 96), *(a1 + 104));
+    v26 = v31;
+    if (v31 || ((*(*a1 + 16))(&v31, a1, *(a1 + 16)), (v26 = v31) != 0) || (llvm::jitlink::JITLinkerBase::runPasses(&v31, a1, *(a1 + 120), *(a1 + 128)), (v26 = v31) != 0))
     {
       v27 = *a2;
       *a2 = 0;
-      v32 = 0;
+      v31 = 0;
       v28 = *(a1 + 144);
-      v39 = v27;
-      v40 = v26;
-      v41 = off_2815A4360 + 6;
-      (*(*v28 + 16))(v28, &v39);
-      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v39);
-      result = v32;
-      if (v32)
+      v38 = v27;
+      v39 = v26;
+      v40 = off_2815A4360 + 6;
+      (*(*v28 + 16))(v28, &v38);
+      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v38);
+      result = v31;
+      if (v31)
       {
-        result = (*(*v32 + 8))(v32);
+        return (*(*v31 + 8))(v31);
       }
     }
 
     else
     {
-      v30 = *(a1 + 144);
-      v31 = *a2;
+      v29 = *(a1 + 144);
+      v30 = *a2;
       *a2 = 0;
-      if (v30)
+      if (v29)
       {
-        v36[0] = v31;
-        v36[3] = _MergedGlobals_7 + 6;
-        (*(*v30 + 24))(v30, v36);
-        result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v36);
+        v35[0] = v30;
+        v35[3] = _MergedGlobals_7 + 6;
+        (*(*v29 + 24))(v29, v35);
+        return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v35);
       }
 
       else
       {
-        v38 = 0;
-        v37 = -1;
-        result = llvm::jitlink::JITLinkerBase::linkPhase4(*(a1 + 8), &v37);
-        if (v38)
+        v37 = 0;
+        v36 = -1;
+        result = llvm::jitlink::JITLinkerBase::linkPhase4(*(a1 + 8), &v36);
+        if (v37)
         {
-          result = v37;
-          if (v37)
+          result = v36;
+          if (v36)
           {
-            result = (*(*v37 + 8))(v37);
+            result = (*(*v36 + 8))(v36);
           }
         }
 
-        if (v31)
+        if (v30)
         {
-          result = (*(*v31 + 8))(v31);
+          return (*(*v30 + 8))(v30);
         }
       }
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8201,27 +7544,25 @@ void std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &
 
 uint64_t *llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>>::CallImpl<llvm::jitlink::JITLinkerBase::linkPhase1(std::unique_ptr<llvm::jitlink::JITLinkerBase>)::$_1>(uint64_t *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = *(a2 + 8) & 1;
-  v2 = v9;
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = *(a2 + 8) & 1;
+  v2 = v8;
   v3 = *a2;
   *a2 = 0;
   v4 = *a1;
   *a1 = 0;
-  v7 = v4;
-  v8 = 0;
-  v11 = v2;
-  v10 = v3;
-  llvm::jitlink::JITLinkerBase::linkPhase2(v4, &v7, &v10);
-  llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>::~Expected(&v10);
-  if (v7)
+  v6 = v4;
+  v7 = 0;
+  v10 = v2;
+  v9 = v3;
+  llvm::jitlink::JITLinkerBase::linkPhase2(v4, &v6, &v9);
+  llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>::~Expected(&v9);
+  if (v6)
   {
-    (*(*v7 + 8))(v7);
+    (*(*v6 + 8))(v6);
   }
 
-  result = llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>::~Expected(&v8);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>::~Expected(&v7);
 }
 
 void *llvm::detail::UniqueFunctionBase<void,llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>>::MoveImpl<llvm::jitlink::JITLinkerBase::linkPhase1(std::unique_ptr<llvm::jitlink::JITLinkerBase>)::$_1>(void *result, uint64_t *a2)
@@ -8268,11 +7609,11 @@ void llvm::jitlink::createLookupContinuation<llvm::jitlink::JITLinkerBase::linkP
   JUMPOUT(0x277C69E40);
 }
 
-uint64_t llvm::jitlink::createLookupContinuation<llvm::jitlink::JITLinkerBase::linkPhase2(std::unique_ptr<llvm::jitlink::JITLinkerBase>,llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>)::$_0>(llvm::jitlink::JITLinkerBase::linkPhase2(std::unique_ptr<llvm::jitlink::JITLinkerBase>,llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>)::$_0)::Impl::run(uint64_t a1, uint64_t a2)
+uint64_t *llvm::jitlink::createLookupContinuation<llvm::jitlink::JITLinkerBase::linkPhase2(std::unique_ptr<llvm::jitlink::JITLinkerBase>,llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>)::$_0>(llvm::jitlink::JITLinkerBase::linkPhase2(std::unique_ptr<llvm::jitlink::JITLinkerBase>,llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>)::$_0)::Impl::run(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a2 + 24) & 1;
-  v12 = v2;
+  v11 = v2;
   v3 = *a2;
   if (v2)
   {
@@ -8288,47 +7629,44 @@ uint64_t llvm::jitlink::createLookupContinuation<llvm::jitlink::JITLinkerBase::l
     v4 = *(a1 + 8);
     v6 = *(a2 + 8);
     *(a2 + 8) = 0;
-    v13[1] = v6;
-    v10[1] = 0;
-    v14 = v5;
-    v11 = 0;
+    v12[1] = v6;
+    v9[1] = 0;
+    v13 = v5;
+    v10 = 0;
   }
 
   *(a1 + 8) = 0;
-  v9 = v4;
-  v10[0] = 0;
-  v15 = v2;
-  v13[0] = v3;
-  llvm::jitlink::JITLinkerBase::linkPhase3(v4, &v9, v13);
-  llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v13);
-  if (v9)
+  v8 = v4;
+  v9[0] = 0;
+  v14 = v2;
+  v12[0] = v3;
+  llvm::jitlink::JITLinkerBase::linkPhase3(v4, &v8, v12);
+  llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v12);
+  if (v8)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v8 + 8))(v8);
   }
 
-  result = llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v10);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v9);
 }
 
 uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::jitlink::JITLinkMemoryManager::FinalizedAlloc>>::CallImpl<llvm::jitlink::JITLinkerBase::linkPhase3(std::unique_ptr<llvm::jitlink::JITLinkerBase>,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>)::$_0>(uint64_t **a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a2 + 8) & 1;
   v3 = *a2;
   *a2 = -!v2;
   v4 = *a1;
   *a1 = 0;
-  v9 = v2;
-  v8 = v3;
-  llvm::jitlink::JITLinkerBase::linkPhase4(v4[1], &v8);
-  if ((v9 & 1) != 0 && v8)
+  v8 = v2;
+  v7 = v3;
+  llvm::jitlink::JITLinkerBase::linkPhase4(v4[1], &v7);
+  if ((v8 & 1) != 0 && v7)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v7 + 8))(v7);
   }
 
   v5 = *(*v4 + 8);
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5(v4);
 }
@@ -8413,9 +7751,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -8430,7 +7768,7 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(16 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -8440,8 +7778,8 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -8464,7 +7802,7 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::SymbolLookupFlags
       }
 
       v11 += 2;
-      v16 += 4;
+      v16 += 32;
     }
 
     while (v14 != v11);
@@ -8544,7 +7882,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitl
   return result;
 }
 
-uint64_t *llvm::detail::UniqueFunctionBase<void,llvm::Error>::CallImpl<llvm::jitlink::JITLinkerBase::abandonAllocAndBailOut(std::unique_ptr<llvm::jitlink::JITLinkerBase>,llvm::Error)::$_0>(void *a1, uint64_t **a2)
+uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Error>::CallImpl<llvm::jitlink::JITLinkerBase::abandonAllocAndBailOut(std::unique_ptr<llvm::jitlink::JITLinkerBase>,llvm::Error)::$_0>(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   *a2 = 0;
@@ -8561,7 +7899,7 @@ uint64_t *llvm::detail::UniqueFunctionBase<void,llvm::Error>::CallImpl<llvm::jit
 
   if (v8)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v8 + 1))(v8);
   }
 
   (*(*v4 + 24))(v4, &v6);
@@ -8608,10 +7946,10 @@ uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Error>::DestroyImpl<llvm::j
 llvm::jitlink::BasicLayout *llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::BasicLayout *this, llvm::jitlink::LinkGraph *a2)
 {
   v2 = this;
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   *this = a2;
   *(this + 1) = this + 24;
-  v88 = this + 8;
+  v87 = this + 8;
   *(this + 2) = 0x400000000;
   if (*(a2 + 52))
   {
@@ -8619,29 +7957,27 @@ llvm::jitlink::BasicLayout *llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlin
     if (v3)
     {
       v4 = 24 * v3;
-      v5 = *(a2 + 25);
-      while (*v5 >= 0xFFFFFFFFFFFFFFFELL)
+      for (i = *(a2 + 25); *i >= 0xFFFFFFFFFFFFFFFELL; i += 3)
       {
-        v5 += 3;
         v4 -= 24;
         if (!v4)
         {
-          goto LABEL_82;
+          return v2;
         }
       }
     }
 
     else
     {
-      v5 = *(a2 + 25);
+      i = *(a2 + 25);
     }
 
     v6 = *(a2 + 25) + 24 * v3;
-    if (v5 != v6)
+    if (i != v6)
     {
       do
       {
-        v7 = v5[2];
+        v7 = i[2];
         if ((*(v7 + 32) + 8 * *(v7 + 48)) != llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v7 + 32) && *(v7 + 20) != 2)
         {
           v8 = *(v7 + 16) | (8 * (*(v7 + 20) & 0x1F));
@@ -8681,19 +8017,19 @@ llvm::jitlink::BasicLayout *llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlin
 
           if (v11 == (v9 + 104 * v17) || *v11 != v8)
           {
-            v96 = 0;
-            memset(&v95[7], 0, 32);
-            v90 = *v95;
-            v89[0] = v8;
-            v89[8] = 0;
-            *v91 = *&v95[16];
-            *&v91[15] = 0uLL;
+            v95 = 0;
+            memset(&v94[7], 0, 32);
+            v89 = *v94;
+            v88[0] = v8;
+            v88[8] = 0;
+            *v90 = *&v94[16];
+            *&v90[15] = 0uLL;
+            v91 = 0u;
             v92 = 0u;
             v93 = 0u;
-            v94 = 0u;
             if ((v9 + 104 * v10) == v11)
             {
-              v36 = llvm::SmallVectorTemplateCommon<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,false>>(v88, v89);
+              v36 = llvm::SmallVectorTemplateCommon<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,false>>(v87, v88);
               v37 = *(this + 1) + 104 * *(this + 4);
               *v37 = *v36;
               v38 = *(v36 + 24);
@@ -8725,7 +8061,7 @@ llvm::jitlink::BasicLayout *llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlin
             else
             {
               v18 = &v11[-v9];
-              v19 = llvm::SmallVectorTemplateCommon<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,false>>(v88, v89);
+              v19 = llvm::SmallVectorTemplateCommon<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,false>>(v87, v88);
               v20 = *(this + 1);
               v21 = v20 + 104 * *(this + 4);
               v22 = *(v21 - 48);
@@ -8793,16 +8129,16 @@ llvm::jitlink::BasicLayout *llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlin
               std::vector<llvm::jitlink::Block *>::__move_assign((v11 + 80), v33 + 5);
             }
 
-            if (*(&v93 + 1))
+            if (*(&v92 + 1))
             {
-              *&v94 = *(&v93 + 1);
-              operator delete(*(&v93 + 1));
+              *&v93 = *(&v92 + 1);
+              operator delete(*(&v92 + 1));
             }
 
-            if (v92)
+            if (v91)
             {
-              *(&v92 + 1) = v92;
-              operator delete(v92);
+              *(&v91 + 1) = v91;
+              operator delete(v91);
             }
           }
 
@@ -8890,24 +8226,24 @@ llvm::jitlink::BasicLayout *llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlin
           }
         }
 
-        v5 += 3;
+        i += 3;
         v2 = this;
-        if (v5 == v6)
+        if (i == v6)
         {
           break;
         }
 
-        while (*v5 >= 0xFFFFFFFFFFFFFFFELL)
+        while (*i >= 0xFFFFFFFFFFFFFFFELL)
         {
-          v5 += 3;
-          if (v5 == v6)
+          i += 3;
+          if (i == v6)
           {
             goto LABEL_63;
           }
         }
       }
 
-      while (v5 != v6);
+      while (i != v6);
 LABEL_63:
       v60 = *(this + 4);
       if (v60)
@@ -9001,34 +8337,32 @@ LABEL_63:
     }
   }
 
-LABEL_82:
-  v85 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-uint64_t llvm::jitlink::BasicLayout::getContiguousPageBasedLayoutSizes@<X0>(uint64_t this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t *llvm::jitlink::BasicLayout::getContiguousPageBasedLayoutSizes@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, unint64_t a3@<X1>)
 {
-  v4 = *(this + 16);
+  v4 = *(this + 4);
   if (v4)
   {
     v5 = 0;
     v6 = 0;
     v7 = 104 * v4;
-    v8 = (*(this + 8) + 16);
+    v8 = (this[1] + 16);
     do
     {
-      if (!(a2 >> *(v8 - 8)))
+      if (!(a3 >> *(v8 - 8)))
       {
         getErrorErrorCat();
         llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
       }
 
-      v9 = (a2 - 1 + *v8 + v8[1]) / a2 * a2;
+      v9 = (a3 - 1 + *v8 + v8[1]) / a3 * a3;
       v10 = *(v8 - 16);
       v11 = v10 >= 8;
       if (v10 >= 8)
       {
-        v12 = (a2 - 1 + *v8 + v8[1]) / a2 * a2;
+        v12 = (a3 - 1 + *v8 + v8[1]) / a3 * a3;
       }
 
       else
@@ -9056,18 +8390,18 @@ uint64_t llvm::jitlink::BasicLayout::getContiguousPageBasedLayoutSizes@<X0>(uint
     v5 = 0;
   }
 
-  *(a3 + 16) &= ~1u;
-  *a3 = v5;
-  *(a3 + 8) = v6;
+  *(a1 + 16) &= ~1u;
+  *a1 = v5;
+  a1[1] = v6;
   return this;
 }
 
-_DWORD *llvm::jitlink::BasicLayout::apply@<X0>(_DWORD *this@<X0>, void *a2@<X8>)
+uint64_t *llvm::jitlink::BasicLayout::apply@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v3 = this[4];
+  v3 = *(this + 4);
   if (v3)
   {
-    v4 = *(this + 1);
+    v4 = this[1];
     v5 = &v4[13 * v3];
     do
     {
@@ -9126,60 +8460,60 @@ _DWORD *llvm::jitlink::BasicLayout::apply@<X0>(_DWORD *this@<X0>, void *a2@<X8>)
     while (v4 != v5);
   }
 
-  *a2 = 0;
+  *a1 = 0;
   return this;
 }
 
-uint64_t llvm::jitlink::InProcessMemoryManager::allocate(uint64_t a1, int a2, llvm::jitlink::LinkGraph *a3, void *a4)
+void **llvm::jitlink::InProcessMemoryManager::allocate(uint64_t a1, int a2, llvm::jitlink::LinkGraph *a3, void *a4)
 {
-  v38[55] = *MEMORY[0x277D85DE8];
-  llvm::jitlink::BasicLayout::BasicLayout(&v35, a3);
-  llvm::jitlink::BasicLayout::getContiguousPageBasedLayoutSizes(&v35, *(a1 + 8), v33);
-  if (v34)
+  v37[55] = *MEMORY[0x277D85DE8];
+  llvm::jitlink::BasicLayout::BasicLayout(&v34, a3);
+  llvm::jitlink::BasicLayout::getContiguousPageBasedLayoutSizes(v32, &v34, *(a1 + 8));
+  if (v33)
   {
-    v32 = -1;
-    v31 = v33[0];
+    v31 = -1;
+    v30 = v32[0];
     v6 = a4[3];
     if ((v6 & 2) == 0)
     {
       a4 = *a4;
     }
 
-    (*(v6 & 0xFFFFFFFFFFFFFFF8))(a4, &v31);
-    v7 = &v31;
+    (*(v6 & 0xFFFFFFFFFFFFFFF8))(a4, &v30);
+    v7 = &v30;
   }
 
   else
   {
-    v9 = v33[0];
-    v8 = v33[1];
-    LODWORD(v25) = 0;
-    v26 = std::system_category();
-    llvm::sys::Memory::allocateMappedMemory(v8 + v9, 0, 50331648, &v25, v38);
-    if (v25)
+    v9 = v32[0];
+    v8 = v32[1];
+    LODWORD(v24) = 0;
+    v25 = std::system_category();
+    llvm::sys::Memory::allocateMappedMemory(v8 + v9, 0, 50331648, &v24, v37);
+    if (v24)
     {
-      *&v10.__val_ = v26;
-      llvm::errorCodeToError(v25, v10, &v24);
-      v30 = -1;
-      v29 = v24;
+      *&v10.__val_ = v25;
+      llvm::errorCodeToError(v24, v10, &v23);
+      v29 = -1;
+      v28 = v23;
       v11 = a4[3];
       if ((v11 & 2) == 0)
       {
         a4 = *a4;
       }
 
-      (*(v11 & 0xFFFFFFFFFFFFFFF8))(a4, &v29);
-      v7 = &v29;
+      (*(v11 & 0xFFFFFFFFFFFFFFF8))(a4, &v28);
+      v7 = &v28;
     }
 
     else
     {
-      v12 = v38[0];
-      bzero(v38[0], v38[1]);
-      if (v37)
+      v12 = v37[0];
+      bzero(v37[0], v37[1]);
+      if (v36)
       {
-        v13 = v36;
-        v14 = &v36[13 * v37];
+        v13 = v35;
+        v14 = &v35[104 * v36];
         v15 = &v12[v9];
         v16 = v12;
         do
@@ -9195,10 +8529,10 @@ uint64_t llvm::jitlink::InProcessMemoryManager::allocate(uint64_t a1, int a2, ll
             v18 = v16;
           }
 
-          v13[4] = v18;
+          *(v13 + 4) = v18;
           v19 = *(a1 + 8);
-          v20 = v13[2] + v13[3] + v19 - 1;
-          v13[5] = v18;
+          v20 = *(v13 + 2) + *(v13 + 3) + v19 - 1;
+          *(v13 + 5) = v18;
           if (v17 >= 8)
           {
             v15 = &v18[v20 / v19 * v19];
@@ -9209,35 +8543,33 @@ uint64_t llvm::jitlink::InProcessMemoryManager::allocate(uint64_t a1, int a2, ll
             v16 = &v18[v20 / v19 * v19];
           }
 
-          v13 += 13;
+          v13 += 104;
         }
 
         while (v13 != v14);
       }
 
-      llvm::jitlink::BasicLayout::apply(&v35, v38);
-      if (!v38[0])
+      llvm::jitlink::BasicLayout::apply(v37, &v34);
+      if (!v37[0])
       {
         operator new();
       }
 
-      v28 = -1;
-      v27 = v38[0];
+      v27 = -1;
+      v26 = v37[0];
       v21 = a4[3];
       if ((v21 & 2) == 0)
       {
         a4 = *a4;
       }
 
-      (*(v21 & 0xFFFFFFFFFFFFFFF8))(a4, &v27);
-      v7 = &v27;
+      (*(v21 & 0xFFFFFFFFFFFFFFF8))(a4, &v26);
+      v7 = &v26;
     }
   }
 
   llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager::InFlightAlloc>>::~Expected(v7);
-  result = llvm::SmallVector<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,4u>::~SmallVector(&v36);
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::SmallVector<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,4u>::~SmallVector(&v35);
 }
 
 void llvm::jitlink::InProcessMemoryManager::deallocate(uint64_t a1, __int128 ***a2, void *a3)
@@ -9318,7 +8650,7 @@ void llvm::jitlink::InProcessMemoryManager::deallocate(uint64_t a1, __int128 ***
       {
         v21 = 24 * v13 + 24 * (v12 / -24);
         v22 = v8 - v7;
-        v23 = 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 3);
+        v23 = 0xAAAAAAAAAAAAAAABLL * (v8 - v7);
         v24 = v23 + 1;
         if (v23 + 1 > 0xAAAAAAAAAAAAAAALL)
         {
@@ -9395,7 +8727,7 @@ LABEL_65:
         v29 -= 3;
         while (v31 != v30)
         {
-          llvm::orc::shared::WrapperFunctionCall::runWithSPSRetErrorMerged((v30 - 56), &v44);
+          llvm::orc::shared::WrapperFunctionCall::runWithSPSRetErrorMerged(&v44, (v30 - 56));
           v32 = v44;
           if (v44)
           {
@@ -9410,13 +8742,13 @@ LABEL_65:
 
             if (v46)
             {
-              (*(*v46 + 8))(v46);
+              (*(*v46 + 1))(v46);
             }
 
             v28 = v43;
             if (v44)
             {
-              (*(*v44 + 8))(v44);
+              (*(*v44 + 1))(v44);
             }
           }
 
@@ -9428,7 +8760,7 @@ LABEL_65:
           }
 
           v30 = v33 - 56;
-          *(v8 - 2) = v33 - 56;
+          *(v8 - 2) = (v33 - 56);
           v31 = *(v8 - 3);
         }
 
@@ -9448,7 +8780,7 @@ LABEL_65:
 
           if (v46)
           {
-            (*(*v46 + 8))(v46);
+            (*(*v46 + 1))(v46);
           }
 
           v28 = v44;
@@ -9476,7 +8808,7 @@ LABEL_65:
   (*(v37 & 0xFFFFFFFFFFFFFFF8))(a3, &v41);
   if (v41)
   {
-    (*(*v41 + 8))(v41);
+    (*(*v41 + 1))(v41);
   }
 
   if (v7)
@@ -9497,14 +8829,14 @@ LABEL_65:
   }
 }
 
-void llvm::orc::shared::WrapperFunctionCall::runWithSPSRetErrorMerged(llvm::orc::shared::WrapperFunctionCall *this@<X0>, void *a2@<X8>)
+void llvm::orc::shared::WrapperFunctionCall::runWithSPSRetErrorMerged(uint64_t *__return_ptr a1@<X8>, llvm::orc::shared::WrapperFunctionCall *this@<X0>)
 {
   v5[0] = 0;
   v7 = 0;
   v8 = 0;
   v6 = 0;
-  llvm::orc::shared::WrapperFunctionCall::runWithSPSRet<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError>(this, v5, a2);
-  if (!*a2)
+  llvm::orc::shared::WrapperFunctionCall::runWithSPSRet<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError>(this, v5, a1);
+  if (!*a1)
   {
     __p = v6;
     v4 = HIBYTE(v8);
@@ -9519,7 +8851,7 @@ void llvm::orc::shared::WrapperFunctionCall::runWithSPSRetErrorMerged(llvm::orc:
       llvm::make_error<llvm::StringError,std::string,std::error_code>();
     }
 
-    *a2 = 0;
+    *a1 = 0;
     if (v4 < 0)
     {
       operator delete(__p);
@@ -9615,7 +8947,7 @@ void llvm::orc::shared::WrapperFunctionCall::runWithSPSRet<llvm::orc::shared::SP
 
   v8 = v7;
   v9 = v6;
-  if (!llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError,void>::deserialize(&v8, a2))
+  if ((llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError,void>::deserialize(&v8, a2) & 1) == 0)
   {
     getErrorErrorCat();
     llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
@@ -9659,20 +8991,20 @@ LABEL_2:
   while (1)
   {
     v7 = v9;
-    v10 = (a2 - v9) >> 3;
+    v10 = a2 - v9;
     if (v10 > 2)
     {
       switch(v10)
       {
         case 3:
 
-          return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **,0>(v9, v9 + 8, (a2 - 1));
+          return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **,0>(v9, (v9 + 1), (a2 - 1));
         case 4:
 
-          return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **,0>(v9, v9 + 8, v9 + 16, (a2 - 1));
+          return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **,0>(v9, (v9 + 1), (v9 + 2), (a2 - 1));
         case 5:
 
-          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **,0>(v9, v9 + 8, v9 + 16, v9 + 24, (a2 - 1));
+          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **,0>(v9, (v9 + 1), (v9 + 2), (v9 + 3), (a2 - 1));
       }
     }
 
@@ -9729,7 +9061,7 @@ LABEL_2:
         if (v84 >= v85)
         {
           v87 = (2 * v85) | 1;
-          v88 = (v9 + 8 * v87);
+          v88 = &v9[v87];
           if (2 * v86 + 2 < v10)
           {
             v89 = v88[1];
@@ -9754,7 +9086,7 @@ LABEL_2:
             }
           }
 
-          v93 = *(v9 + 8 * v86);
+          v93 = v9[v86];
           v94 = *v88;
           v95 = *((*v88)[2] + 24);
           v96 = *(v93[2] + 24);
@@ -9770,7 +9102,7 @@ LABEL_2:
 
           if (v97)
           {
-            *(v9 + 8 * v86) = v94;
+            v9[v86] = v94;
             while (1)
             {
               if (v84 < v87)
@@ -9781,7 +9113,7 @@ LABEL_2:
               v98 = v88;
               v99 = 2 * v87;
               v87 = (2 * v87) | 1;
-              v88 = (v9 + 8 * v87);
+              v88 = &v9[v87];
               v100 = v99 + 2;
               if (v100 < v10)
               {
@@ -9893,7 +9225,7 @@ LABEL_180:
           }
 
           v124 = v123 >> 1;
-          v125 = v9 + 8 * (v123 >> 1);
+          v125 = &v9[v123 >> 1];
           v126 = *v125;
           v110 = *v111;
           v127 = *(*(*v125 + 16) + 24);
@@ -9920,7 +9252,7 @@ LABEL_180:
             {
               v130 = v124 - 1;
               v124 = (v124 - 1) >> 1;
-              v111 = (v9 + 8 * v124);
+              v111 = &v9[v124];
               v131 = *v111;
               v132 = *(*(*v111 + 16) + 24);
               v133 = *(v110[2] + 24);
@@ -9940,7 +9272,7 @@ LABEL_180:
               }
 
               *v125 = v131;
-              v125 = v9 + 8 * v124;
+              v125 = &v9[v124];
               if (v130 <= 1)
               {
                 goto LABEL_203;
@@ -9962,7 +9294,7 @@ LABEL_204:
     }
 
     v11 = v10 >> 1;
-    v12 = (v9 + 8 * (v10 >> 1));
+    v12 = &v9[v10 >> 1];
     if (v10 < 0x81)
     {
       result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **,0>(&v7[v10 >> 1], v7, (a2 - 1));
@@ -10019,7 +9351,7 @@ LABEL_204:
         }
       }
 
-      v9 = (v7 + 1);
+      v9 = v7 + 1;
       if (v43)
       {
         while (v9 < a2)
@@ -10041,7 +9373,7 @@ LABEL_204:
             break;
           }
 
-          v9 += 8;
+          ++v9;
         }
       }
 
@@ -10066,7 +9398,7 @@ LABEL_204:
             break;
           }
 
-          v9 += 8;
+          ++v9;
         }
       }
 
@@ -10102,8 +9434,7 @@ LABEL_204:
         v54 = *i;
         do
         {
-          *v9 = v54;
-          v9 += 8;
+          *v9++ = v54;
           *i = v53;
           v55 = *(v14[2] + 24);
           while (1)
@@ -10125,7 +9456,7 @@ LABEL_204:
               break;
             }
 
-            v9 += 8;
+            ++v9;
           }
 
           do
@@ -10150,8 +9481,8 @@ LABEL_204:
         while (v9 < i);
       }
 
-      v61 = (v9 - 8);
-      if ((v9 - 8) != v7)
+      v61 = v9 - 1;
+      if (v9 - 1 != v7)
       {
         *v7 = *v61;
       }
@@ -10311,13 +9642,13 @@ LABEL_22:
 LABEL_67:
         result = std::__introsort<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **,false>(v7, v23, a3, a4 & 1);
         a4 = 0;
-        v9 = (v23 + 1);
+        v9 = v23 + 1;
       }
 
       else
       {
         v40 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **>(v7, v23);
-        v9 = (v23 + 1);
+        v9 = v23 + 1;
         result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::BasicLayout::BasicLayout(llvm::jitlink::LinkGraph &)::$_0 &,llvm::jitlink::Block **>((v23 + 1), a2);
         if (result)
         {
@@ -10338,7 +9669,7 @@ LABEL_67:
     }
   }
 
-  v67 = (v9 + 8);
+  v67 = v9 + 1;
   v69 = v9 == a2 || v67 == a2;
   if ((a4 & 1) == 0)
   {

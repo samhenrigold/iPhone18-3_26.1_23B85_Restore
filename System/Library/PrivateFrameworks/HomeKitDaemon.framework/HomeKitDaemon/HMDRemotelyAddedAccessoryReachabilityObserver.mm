@@ -12,7 +12,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   timer = [(HMDRemotelyAddedAccessoryReachabilityObserver *)self timer];
 
@@ -24,16 +24,14 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Timed out waiting for added accessory to become reachable so responding to message", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Timed out waiting for added accessory to become reachable so responding to message", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     [(HMDRemotelyAddedAccessoryReachabilityObserver *)selfCopy _respondToMessage];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -68,7 +66,7 @@
 
 - (void)start
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDRemotelyAddedAccessoryReachabilityObserver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -87,9 +85,9 @@
     v8 = HMFGetLogIdentifier();
     accessory = [(HMDRemotelyAddedAccessoryReachabilityObserver *)selfCopy accessory];
     *buf = 138543618;
-    v26 = v8;
-    v27 = 2112;
-    v28 = accessory;
+    v25 = v8;
+    v26 = 2112;
+    v27 = accessory;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting tracking for remotely added accessory: %@", buf, 0x16u);
   }
 
@@ -127,15 +125,13 @@
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v22;
+      v25 = v22;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Immediately responding to message because added accessory is already reachable", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
     [(HMDRemotelyAddedAccessoryReachabilityObserver *)v20 _respondToMessage];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDRemotelyAddedAccessoryReachabilityObserver_start__block_invoke(uint64_t a1)
@@ -151,22 +147,20 @@ void __54__HMDRemotelyAddedAccessoryReachabilityObserver_start__block_invoke(uin
 
 uint64_t __54__HMDRemotelyAddedAccessoryReachabilityObserver_start__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Pending added accessory became reachable so responding to message", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Pending added accessory became reachable so responding to message", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _respondToMessage];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _respondToMessage];
 }
 
 - (HMDRemotelyAddedAccessoryReachabilityObserver)initWithAccessory:(id)accessory message:(id)message workQueue:(id)queue timer:(id)timer notificationCenter:(id)center
@@ -224,10 +218,9 @@ uint64_t __54__HMDRemotelyAddedAccessoryReachabilityObserver_start__block_invoke
 
 void __60__HMDRemotelyAddedAccessoryReachabilityObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_193254;
-  logCategory__hmf_once_v4_193254 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_193254;
+  logCategory__hmf_once_v4_193254 = v0;
 }
 
 @end

@@ -10,47 +10,47 @@
 
 - (void)_resetNextFireTime
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->_timerSource && self->_timebase)
   {
-    memset(&v23, 0, sizeof(v23));
+    memset(&v22, 0, sizeof(v22));
     CMTimebaseGetTimeClampedAboveAnchorTime();
-    v3 = 0 >> 96 == 1 && v23.epoch == 0;
+    v3 = 0 >> 96 == 1 && v22.epoch == 0;
     v4 = MEMORY[0x277CC08F0];
-    if (!v3 || (time1 = v23, time2 = **&MEMORY[0x277CC08F0], CMTimeCompare(&time1, &time2) < 0))
+    if (!v3 || (time1 = v22, time2 = **&MEMORY[0x277CC08F0], CMTimeCompare(&time1, &time2) < 0))
     {
-      v23 = *v4;
+      v22 = *v4;
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v5 = self->_times;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v24 count:16];
+    v6 = [NSArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:?];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       while (2)
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v7; i = (i + 1))
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           memset(&time1, 0, sizeof(time1));
           if (v10)
           {
-            [v10 CMTimeValue];
+            [&time1 CMTimeValue];
           }
 
           time2 = time1;
-          v16 = v23;
-          if (CMTimeCompare(&time2, &v16) >= 1)
+          v15 = v22;
+          if (CMTimeCompare(&time2, &v15) >= 1)
           {
             v11 = *&time1.value;
             *&self->_nextFireTime.value = *&time1.value;
@@ -65,7 +65,7 @@
           }
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v24 count:16];
+        v7 = [NSArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:?];
         if (v7)
         {
           continue;
@@ -77,8 +77,6 @@
 
 LABEL_22:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reallyInvalidate
@@ -150,7 +148,7 @@ LABEL_22:
   if (v13)
   {
     *(v13 + 9) = CFRetain(timebase);
-    v14 = [timesCopy sortedArrayUsingComparator:&__block_literal_global_1366];
+    v14 = [timesCopy sortedArrayUsingComparator:?];
     v15 = *(v13 + 4);
     *(v13 + 4) = v14;
 
@@ -243,14 +241,14 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v4 CMTimeValue];
+  [&time1 CMTimeValue];
   if (!v6)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  [v6 CMTimeValue];
+  [&v9 CMTimeValue];
 LABEL_6:
   v7 = CMTimeCompare(&time1, &v9);
 

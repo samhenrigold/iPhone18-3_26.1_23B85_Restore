@@ -306,7 +306,6 @@ LABEL_36:
 
       v26 = objc_opt_class();
       v25 = NSStringFromClass(v26);
-      v27 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
 LABEL_37:
 
@@ -329,22 +328,21 @@ LABEL_38:
 LABEL_43:
   if (!*&v6[*v9])
   {
-    v31 = 1;
+    v29 = 1;
     goto LABEL_47;
   }
 
 LABEL_44:
-  v28 = objc_opt_class();
-  v10 = NSStringFromClass(v28);
-  v29 = *&v6[*v9];
-  v30 = CCInvalidBufferErrorForMessage();
+  v27 = objc_opt_class();
+  v10 = NSStringFromClass(v27);
+  v28 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_45:
-  v31 = 0;
+  v29 = 0;
 LABEL_47:
 
-  return v31;
+  return v29;
 }
 
 - (CCSiriLearnedMediaContent)initWithUserPhrasedSongName:(id)name userPhrasedArtistName:(id)artistName userPhrasedAlbumName:(id)albumName userPhrasedEntityName:(id)entityName userPhrasedVersion:(id)version suggestedAdamId:(id)id error:(id *)error
@@ -356,18 +354,16 @@ LABEL_47:
   versionCopy = version;
   idCopy = id;
   v20 = objc_opt_new();
-  v21 = 0x1E696A000uLL;
   if (!nameCopy)
   {
-    v23 = 0;
+    v22 = 0;
 LABEL_5:
     selfCopy = self;
     if (artistNameCopy)
     {
-      v24 = *(v21 + 3776);
       objc_opt_class();
       IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-      v26 = v23;
+      v24 = v22;
 
       if (!IsInstanceOfExpectedClass)
       {
@@ -375,11 +371,10 @@ LABEL_5:
       }
 
       CCPBDataWriterWriteStringField();
-      v21 = 0x1E696A000uLL;
       if (!albumNameCopy)
       {
 LABEL_8:
-        v23 = v26;
+        v22 = v24;
         if (entityNameCopy)
         {
           goto LABEL_9;
@@ -391,61 +386,56 @@ LABEL_8:
 
     else
     {
-      v26 = v23;
+      v24 = v22;
       if (!albumNameCopy)
       {
         goto LABEL_8;
       }
     }
 
-    v30 = *(v21 + 3776);
     objc_opt_class();
-    v31 = CCValidateIsInstanceOfExpectedClass();
-    v23 = v26;
+    v27 = CCValidateIsInstanceOfExpectedClass();
+    v22 = v24;
 
-    if (!v31)
+    if (!v27)
     {
       goto LABEL_24;
     }
 
     CCPBDataWriterWriteStringField();
-    v21 = 0x1E696A000uLL;
     if (entityNameCopy)
     {
 LABEL_9:
-      v27 = *(v21 + 3776);
       objc_opt_class();
-      v28 = CCValidateIsInstanceOfExpectedClass();
-      v26 = v23;
+      v25 = CCValidateIsInstanceOfExpectedClass();
+      v24 = v22;
 
-      if (v28)
+      if (v25)
       {
         CCPBDataWriterWriteStringField();
-        v21 = 0x1E696A000;
         if (!versionCopy)
         {
 LABEL_11:
-          v23 = v26;
+          v22 = v24;
 LABEL_19:
           if (!idCopy)
           {
 LABEL_22:
             immutableData = [v20 immutableData];
-            v29 = [v39 initWithData:immutableData error:error];
+            v26 = [v33 initWithData:immutableData error:error];
 
-            self = v29;
+            self = v26;
             goto LABEL_26;
           }
 
-          v34 = *(v21 + 3776);
           objc_opt_class();
-          v35 = CCValidateIsInstanceOfExpectedClass();
-          v26 = v23;
+          v29 = CCValidateIsInstanceOfExpectedClass();
+          v24 = v22;
 
-          if (v35)
+          if (v29)
           {
             CCPBDataWriterWriteStringField();
-            v23 = v26;
+            v22 = v24;
             goto LABEL_22;
           }
 
@@ -457,54 +447,51 @@ LABEL_22:
 
 LABEL_23:
       CCSetError();
-      v29 = 0;
-      v23 = v26;
+      v26 = 0;
+      v22 = v24;
 LABEL_25:
       self = selfCopy;
       goto LABEL_26;
     }
 
 LABEL_16:
-    v26 = v23;
+    v24 = v22;
     if (!versionCopy)
     {
       goto LABEL_11;
     }
 
 LABEL_17:
-    v32 = *(v21 + 3776);
     objc_opt_class();
-    v33 = CCValidateIsInstanceOfExpectedClass();
-    v23 = v26;
+    v28 = CCValidateIsInstanceOfExpectedClass();
+    v22 = v24;
 
-    if (v33)
+    if (v28)
     {
       CCPBDataWriterWriteStringField();
-      v21 = 0x1E696A000uLL;
       goto LABEL_19;
     }
 
 LABEL_24:
     CCSetError();
-    v29 = 0;
+    v26 = 0;
     goto LABEL_25;
   }
 
   objc_opt_class();
-  v22 = CCValidateIsInstanceOfExpectedClass();
-  v23 = 0;
-  if (v22)
+  v21 = CCValidateIsInstanceOfExpectedClass();
+  v22 = 0;
+  if (v21)
   {
     CCPBDataWriterWriteStringField();
-    v21 = 0x1E696A000;
     goto LABEL_5;
   }
 
   CCSetError();
-  v29 = 0;
+  v26 = 0;
 LABEL_26:
 
-  return v29;
+  return v26;
 }
 
 + (id)descriptionForTypeIdentifier:(unsigned __int16)identifier

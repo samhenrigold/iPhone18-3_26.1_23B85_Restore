@@ -64,7 +64,7 @@ void __96___UISceneOpenItemProvidersBSActionsHandler_bestUTIForAppFromProviderRe
   v5 = a2;
   v6 = *MEMORY[0x1E69636D0];
   v7 = [v5 handlerRank];
-  LODWORD(v6) = [v6 isEqualToString:v7];
+  LODWORD(v6) = objc_msgSend_isEqualToString_(v6);
 
   if (v6)
   {
@@ -135,15 +135,15 @@ void __96___UISceneOpenItemProvidersBSActionsHandler_bestUTIForAppFromProviderRe
   [v6 enumerateObjectsUsingBlock:v10];
 }
 
-void __96___UISceneOpenItemProvidersBSActionsHandler_bestUTIForAppFromProviderRegisteredTypeIdentifiers___block_invoke_6(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __96___UISceneOpenItemProvidersBSActionsHandler_bestUTIForAppFromProviderRegisteredTypeIdentifiers___block_invoke_6(uint64_t a1, void *a2, void x2_0, _BYTE *a3)
 {
-  if ([a2 isEqualToString:*(a1 + 32)])
+  if (objc_msgSend_isEqualToString_(a2, a2, *(a1 + 32)))
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), *(a1 + 32));
     v6 = *(a1 + 48);
     **(a1 + 56) = 1;
     *v6 = 1;
-    *a4 = 1;
+    *a3 = 1;
   }
 }
 
@@ -255,7 +255,7 @@ void __123___UISceneOpenItemProvidersBSActionsHandler_URLContextsFetchedFromItem
   v10 = [v9 pathExtension];
   if ([v8 length])
   {
-    if (([v10 isEqualToString:v8] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
     {
       goto LABEL_8;
     }

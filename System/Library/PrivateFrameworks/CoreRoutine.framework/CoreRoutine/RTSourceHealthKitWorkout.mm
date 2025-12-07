@@ -11,7 +11,7 @@
 
 - (RTSourceHealthKitWorkout)initWithWorkoutUUID:(id)d startDate:(id)date
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   if (!dCopy)
@@ -20,16 +20,16 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "[RTSourceHealthKitWorkout initWithWorkoutUUID:startDate:]";
-      v17 = 1024;
-      v18 = 28;
+      v15 = "[RTSourceHealthKitWorkout initWithWorkoutUUID:startDate:]";
+      v16 = 1024;
+      v17 = 28;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: workoutUUID (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v14.receiver = self;
-  v14.super_class = RTSourceHealthKitWorkout;
-  v10 = [(RTSourceHealthKitWorkout *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = RTSourceHealthKitWorkout;
+  v10 = [(RTSourceHealthKitWorkout *)&v13 init];
   v11 = v10;
   if (v10)
   {
@@ -37,7 +37,6 @@
     objc_storeStrong(&v11->_startDate, date);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

@@ -18,7 +18,7 @@
   selfCopy = self;
   sub_29D57D810();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for ConceptDeltaHighlightFeedItemView();
+  v3.super_class = type metadata accessor for ConceptDeltaHighlightFeedItemView(0);
   [(ConceptDeltaHighlightFeedItemView *)&v3 layoutSubviews];
 }
 

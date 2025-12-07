@@ -3,6 +3,7 @@
 + (id)representationForAltDSID:(id)d;
 + (id)representationForPrimaryAccount;
 - (BOOL)isBeneficiary;
+- (BOOL)isICDPEnabledByCheckingWithServer:(BOOL)server;
 - (BOOL)isSilentBurnCDPRepairEnabled;
 - (BOOL)isSilentEscrowRecordRepairEnabled;
 - (BOOL)isSilentEscrowRecordRepairEnabledV2;
@@ -65,7 +66,7 @@
 
   else
   {
-    v18 = _CDPLogSystem();
+    v18 = _CDPLogSystem(v13);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [CDPAccountRepresentation initWithAltDSID:accountStore:accountManager:];
@@ -240,17 +241,17 @@
   authKitAccount = [(CDPAccountRepresentation *)self authKitAccount];
   v5 = [accountManager isSilentEscrowRecordRepairEnabledForAccount:authKitAccount];
 
-  v6 = _CDPLogSystem();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = _CDPLogSystem(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
-    if (v7)
+    if (v8)
     {
       v11 = 138412546;
       selfCopy2 = self;
       v13 = 2112;
       v14 = v5;
-      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "%@: Returning %@ for 'isSilentEscrowRecordRepairEnabled'", &v11, 0x16u);
+      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "%@: Returning %@ for 'isSilentEscrowRecordRepairEnabled'", &v11, 0x16u);
     }
 
     bOOLValue = [v5 BOOLValue];
@@ -258,17 +259,16 @@
 
   else
   {
-    if (v7)
+    if (v8)
     {
       v11 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "%@: Assuming silent escrow record repair is disabled", &v11, 0xCu);
+      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "%@: Assuming silent escrow record repair is disabled", &v11, 0xCu);
     }
 
     bOOLValue = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
@@ -279,17 +279,17 @@
   authKitAccount = [(CDPAccountRepresentation *)self authKitAccount];
   v5 = [accountManager isSilentEscrowRecordRepairEnabledForAccountV2:authKitAccount];
 
-  v6 = _CDPLogSystem();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = _CDPLogSystem(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
-    if (v7)
+    if (v8)
     {
       v11 = 138412546;
       selfCopy2 = self;
       v13 = 2112;
       v14 = v5;
-      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "%@: Returning %@ for 'isSilentEscrowRecordRepairEnabledV2'", &v11, 0x16u);
+      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "%@: Returning %@ for 'isSilentEscrowRecordRepairEnabledV2'", &v11, 0x16u);
     }
 
     bOOLValue = [v5 BOOLValue];
@@ -297,30 +297,29 @@
 
   else
   {
-    if (v7)
+    if (v8)
     {
       v11 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "%@: Assuming silent escrow record repair V2 is disabled", &v11, 0xCu);
+      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "%@: Assuming silent escrow record repair V2 is disabled", &v11, 0xCu);
     }
 
     bOOLValue = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
 - (BOOL)isSilentBurnCDPRepairEnabled
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   accountManager = [(CDPAccountRepresentation *)self accountManager];
   v4 = objc_opt_respondsToSelector();
 
   if ((v4 & 1) == 0)
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = _CDPLogSystem(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [(CDPAccountRepresentation *)self isSilentBurnCDPRepairEnabled];
     }
@@ -330,17 +329,17 @@
 
   accountManager2 = [(CDPAccountRepresentation *)self accountManager];
   authKitAccount = [(CDPAccountRepresentation *)self authKitAccount];
-  v7 = [accountManager2 isSilentBurnCDPRepairEnabledForAccount:authKitAccount];
+  v8 = [accountManager2 isSilentBurnCDPRepairEnabledForAccount:authKitAccount];
 
-  v8 = _CDPLogSystem();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (!v7)
+  v10 = _CDPLogSystem(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (!v8)
   {
-    if (v9)
+    if (v11)
     {
-      v13 = 138412290;
+      v14 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "%@: Assuming silent burn in mini-buddy is disabled", &v13, 0xCu);
+      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "%@: Assuming silent burn in mini-buddy is disabled", &v14, 0xCu);
     }
 
 LABEL_11:
@@ -348,71 +347,71 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if (v9)
+  if (v11)
   {
-    v13 = 138412546;
+    v14 = 138412546;
     selfCopy2 = self;
-    v15 = 2112;
-    v16 = v7;
-    _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "%@: Returning %@ for 'isSilentBurnCDPRepairEnabled'", &v13, 0x16u);
+    v16 = 2112;
+    v17 = v8;
+    _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "%@: Returning %@ for 'isSilentBurnCDPRepairEnabled'", &v14, 0x16u);
   }
 
-  bOOLValue = [v7 BOOLValue];
+  bOOLValue = [v8 BOOLValue];
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
 - (BOOL)shouldPerformSilentEscrowRecordRepair
 {
   v16 = *MEMORY[0x1E69E9840];
-  if ([(CDPAccountRepresentation *)self isSilentEscrowRecordRepairEnabledV2])
+  isSilentEscrowRecordRepairEnabledV2 = [(CDPAccountRepresentation *)self isSilentEscrowRecordRepairEnabledV2];
+  if (isSilentEscrowRecordRepairEnabledV2)
   {
     generatedContext = [(CDPAccountRepresentation *)self generatedContext];
     if (generatedContext)
     {
-      v4 = [(CDPController *)[CDPStateController alloc] initWithContext:generatedContext];
+      v5 = [(CDPController *)[CDPStateController alloc] initWithContext:generatedContext];
       v11 = 0;
-      v5 = [(CDPStateController *)v4 shouldPerformSilentEscrowRecordRepairUsingCache:1 error:&v11];
-      v6 = v11;
-      v7 = _CDPLogSystem();
-      v8 = v7;
-      if (v6)
+      v6 = [(CDPStateController *)v5 shouldPerformSilentEscrowRecordRepairUsingCache:1 error:&v11];
+      v7 = v11;
+      v8 = _CDPLogSystem(v7);
+      v9 = v8;
+      if (v7)
       {
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           [CDPAccountRepresentation shouldPerformSilentEscrowRecordRepair];
         }
 
-        LOBYTE(v5) = 0;
+        LOBYTE(v6) = 0;
       }
 
-      else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         selfCopy2 = self;
         v14 = 1024;
-        v15 = v5;
-        _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "%@: Checked if escrow record repair is needed (%{BOOL}d)", buf, 0x12u);
+        v15 = v6;
+        _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "%@: Checked if escrow record repair is needed (%{BOOL}d)", buf, 0x12u);
       }
     }
 
     else
     {
-      v4 = _CDPLogSystem();
-      if (os_log_type_enabled(&v4->super.super, OS_LOG_TYPE_ERROR))
+      v5 = _CDPLogSystem(0);
+      if (os_log_type_enabled(&v5->super.super, OS_LOG_TYPE_ERROR))
       {
         [(CDPAccountRepresentation *)self shouldPerformSilentEscrowRecordRepair];
       }
 
-      LOBYTE(v5) = 0;
+      LOBYTE(v6) = 0;
     }
   }
 
   else
   {
-    generatedContext = _CDPLogSystem();
+    generatedContext = _CDPLogSystem(isSilentEscrowRecordRepairEnabledV2);
     if (os_log_type_enabled(generatedContext, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -420,16 +419,15 @@ LABEL_12:
       _os_log_impl(&dword_1DED99000, generatedContext, OS_LOG_TYPE_DEFAULT, "%@: Silent escrow record repair is disabled by server, returning NO", buf, 0xCu);
     }
 
-    LOBYTE(v5) = 0;
+    LOBYTE(v6) = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 - (CDPContext)generatedContext
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dSID = [(CDPAccountRepresentation *)self DSID];
   if (dSID)
   {
@@ -443,25 +441,24 @@ LABEL_12:
     username = [(CDPAccountRepresentation *)self username];
     [(CDPContext *)v4 setAppleID:username];
 
-    [(CDPContext *)v4 setIsBeneficiaryAccount:[(CDPAccountRepresentation *)self isBeneficiary]];
-    v8 = _CDPLogSystem();
+    v8 = _CDPLogSystem([(CDPContext *)v4 setIsBeneficiaryAccount:[(CDPAccountRepresentation *)self isBeneficiary]]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138413058;
+      v10 = 138413058;
       selfCopy = self;
-      v13 = 2112;
-      v14 = v4;
-      v15 = 2160;
-      v16 = 1752392040;
-      v17 = 2112;
-      v18 = dSID;
-      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "%@: Generated context (%@) for account with DSID (%{mask.hash}@)", &v11, 0x2Au);
+      v12 = 2112;
+      v13 = v4;
+      v14 = 2160;
+      v15 = 1752392040;
+      v16 = 2112;
+      v17 = dSID;
+      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "%@: Generated context (%@) for account with DSID (%{mask.hash}@)", &v10, 0x2Au);
     }
   }
 
   else
   {
-    v8 = _CDPLogSystem();
+    v8 = _CDPLogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(CDPAccountRepresentation *)self generatedContext];
@@ -470,25 +467,85 @@ LABEL_12:
     v4 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v4;
+}
+
+- (BOOL)isICDPEnabledByCheckingWithServer:(BOOL)server
+{
+  serverCopy = server;
+  v24 = *MEMORY[0x1E69E9840];
+  v5 = _os_activity_create(&dword_1DED99000, "cdp/enabled-status-check", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v5, &state);
+  dSID = [(CDPAccountRepresentation *)self DSID];
+  if (dSID)
+  {
+    v7 = objc_alloc_init(CDPDaemonConnection);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_invoke;
+    v17[3] = &unk_1E869D230;
+    v17[4] = self;
+    v8 = dSID;
+    v18 = v8;
+    v9 = [(CDPDaemonConnection *)v7 synchronousDaemonWithErrorHandler:v17];
+    v10 = _CDPLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138413058;
+      *&buf[4] = self;
+      *&buf[12] = 2160;
+      *&buf[14] = 1752392040;
+      *&buf[22] = 2112;
+      v21 = v8;
+      v22 = 1024;
+      v23 = serverCopy;
+      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "%@: Checking iCDP status for account with DSID (%{mask.hash}@), will check with server (%{BOOL}d)", buf, 0x26u);
+    }
+
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x2020000000;
+    LOBYTE(v21) = 0;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_invoke_57;
+    v14[3] = &unk_1E869D258;
+    v14[4] = self;
+    v15 = v8;
+    v16 = buf;
+    [v9 isICDPEnabledForDSID:v15 checkWithServer:serverCopy completion:v14];
+    connection = [(CDPDaemonConnection *)v7 connection];
+    [connection invalidate];
+
+    v12 = *(*&buf[8] + 24);
+    _Block_object_dispose(buf, 8);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  os_activity_scope_leave(&state);
+  return v12 & 1;
 }
 
 void __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _CDPLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _CDPLogSystem(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_invoke_cold_1(a1);
+    __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_invoke_cold_1();
   }
 }
 
 void __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_invoke_57(void *a1, int a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v4 = _CDPLogSystem();
+  v16 = *MEMORY[0x1E69E9840];
+  v4 = _CDPLogSystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"DISABLED";
@@ -499,24 +556,23 @@ void __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_in
       v5 = @"ENABLED";
     }
 
-    v9 = 138413058;
-    v10 = v6;
-    v11 = 2160;
-    v12 = 1752392040;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_1DED99000, v4, OS_LOG_TYPE_DEFAULT, "%@: iCDP status for account with DSID (%{mask.hash}@) is %@", &v9, 0x2Au);
+    v8 = 138413058;
+    v9 = v6;
+    v10 = 2160;
+    v11 = 1752392040;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_1DED99000, v4, OS_LOG_TYPE_DEFAULT, "%@: iCDP status for account with DSID (%{mask.hash}@) is %@", &v8, 0x2Au);
   }
 
   *(*(a1[6] + 8) + 24) = a2;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)silentEscrowRecordRepairEnabledWithCompletion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   accountManager = [(CDPAccountRepresentation *)self accountManager];
   v6 = objc_opt_respondsToSelector();
@@ -525,68 +581,69 @@ void __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_in
   {
     accountManager2 = [(CDPAccountRepresentation *)self accountManager];
     authKitAccount = [(CDPAccountRepresentation *)self authKitAccount];
-    v9 = [accountManager2 isSilentEscrowRecordRepairEnabledForAccount:authKitAccount];
+    v10 = [accountManager2 isSilentEscrowRecordRepairEnabledForAccount:authKitAccount];
 
-    v10 = _CDPLogSystem();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v9)
+    v12 = _CDPLogSystem(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v11)
+      if (v13)
       {
         authKitAccount2 = [(CDPAccountRepresentation *)self authKitAccount];
         *buf = 138412803;
         selfCopy2 = self;
-        v27 = 2112;
-        v28 = v9;
-        v29 = 2117;
-        v30 = authKitAccount2;
-        _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "%@: Returning cached 'silentEscrowRecordRepairEnabled' value (%@) from account (%{sensitive}@)", buf, 0x20u);
+        v29 = 2112;
+        v30 = v10;
+        v31 = 2117;
+        v32 = authKitAccount2;
+        _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "%@: Returning cached 'silentEscrowRecordRepairEnabled' value (%@) from account (%{sensitive}@)", buf, 0x20u);
       }
 
       if (completionCopy)
       {
-        completionCopy[2](completionCopy, [v9 BOOLValue], 0);
+        completionCopy[2](completionCopy, [v10 BOOLValue], 0);
       }
 
       goto LABEL_21;
     }
 
-    if (v11)
+    if (v13)
     {
       altDSID = [(CDPAccountRepresentation *)self altDSID];
       *buf = 138412802;
       selfCopy2 = self;
-      v27 = 2160;
-      v28 = 1752392040;
-      v29 = 2112;
-      v30 = altDSID;
-      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "%@: Calling to fetch user info for altDSID (%{mask.hash}@) for 'silentEscrowRecordRepairEnabled' value", buf, 0x20u);
+      v29 = 2160;
+      v30 = 1752392040;
+      v31 = 2112;
+      v32 = altDSID;
+      _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "%@: Calling to fetch user info for altDSID (%{mask.hash}@) for 'silentEscrowRecordRepairEnabled' value", buf, 0x20u);
     }
 
-    v15 = objc_alloc_init(MEMORY[0x1E698DCB8]);
+    v17 = objc_alloc_init(MEMORY[0x1E698DCB8]);
     altDSID2 = [(CDPAccountRepresentation *)self altDSID];
-    [v15 setAltDSID:altDSID2];
+    [v17 setAltDSID:altDSID2];
 
-    [v15 setAppProvidedContext:@"silentEscrowRecordRepair"];
-    v17 = objc_alloc_init(MEMORY[0x1E698DCC0]);
-    if (objc_opt_respondsToSelector())
+    [v17 setAppProvidedContext:@"silentEscrowRecordRepair"];
+    v19 = objc_alloc_init(MEMORY[0x1E698DCC0]);
+    v20 = objc_opt_respondsToSelector();
+    if (v20)
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __74__CDPAccountRepresentation_silentEscrowRecordRepairEnabledWithCompletion___block_invoke;
-      v21[3] = &unk_1E869D280;
-      v22 = v15;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __74__CDPAccountRepresentation_silentEscrowRecordRepairEnabledWithCompletion___block_invoke;
+      v23[3] = &unk_1E869D280;
+      v24 = v17;
       selfCopy3 = self;
-      v24 = completionCopy;
-      [v17 getUserInformationWithContext:v22 completion:v21];
+      v26 = completionCopy;
+      [v19 getUserInformationWithContext:v24 completion:v23];
 
-      v18 = v22;
+      v21 = v24;
     }
 
     else
     {
-      v19 = _CDPLogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v22 = _CDPLogSystem(v20);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         [CDPAccountRepresentation silentEscrowRecordRepairEnabledWithCompletion:];
       }
@@ -596,94 +653,92 @@ void __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_in
         goto LABEL_20;
       }
 
-      v18 = [MEMORY[0x1E696ABC0] cdp_errorWithCode:0];
-      (completionCopy)[2](completionCopy, 0, v18);
+      v21 = [MEMORY[0x1E696ABC0] cdp_errorWithCode:0];
+      (completionCopy)[2](completionCopy, 0, v21);
     }
 
 LABEL_20:
     goto LABEL_21;
   }
 
-  v13 = _CDPLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+  v15 = _CDPLogSystem(v7);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
     [CDPAccountRepresentation silentEscrowRecordRepairEnabledWithCompletion:?];
   }
 
   if (completionCopy)
   {
-    v9 = [MEMORY[0x1E696ABC0] cdp_errorWithCode:0];
-    (completionCopy)[2](completionCopy, 0, v9);
+    v10 = [MEMORY[0x1E696ABC0] cdp_errorWithCode:0];
+    (completionCopy)[2](completionCopy, 0, v10);
 LABEL_21:
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __74__CDPAccountRepresentation_silentEscrowRecordRepairEnabledWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CDPLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __74__CDPAccountRepresentation_silentEscrowRecordRepairEnabledWithCompletion___block_invoke_cold_1(a1);
     }
 
-    v8 = *(a1 + 48);
-    if (v8)
+    v9 = *(a1 + 48);
+    if (v9)
     {
-      (*(v8 + 16))(v8, 0, v6);
+      (*(v9 + 16))(v9, 0, v7);
     }
 
     goto LABEL_16;
   }
 
-  if (objc_opt_respondsToSelector())
+  v10 = objc_opt_respondsToSelector();
+  if (v10)
   {
-    v9 = [v5 silentEscrowRecordRepairEnabled];
-    v10 = _CDPLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = [v5 silentEscrowRecordRepairEnabled];
+    v12 = _CDPLogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [*(a1 + 32) altDSID];
-      v16 = 138412802;
-      v17 = v9;
-      v18 = 2160;
-      v19 = 1752392040;
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "Returning server fetched 'silentEscrowRecordRepairEnabled' value (%@) for altDSID (%{mask.hash}@)", &v16, 0x20u);
+      v13 = [*(a1 + 32) altDSID];
+      v17 = 138412802;
+      v18 = v11;
+      v19 = 2160;
+      v20 = 1752392040;
+      v21 = 2112;
+      v22 = v13;
+      _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Returning server fetched 'silentEscrowRecordRepairEnabled' value (%@) for altDSID (%{mask.hash}@)", &v17, 0x20u);
     }
 
-    v12 = *(a1 + 48);
-    if (v12)
+    v14 = *(a1 + 48);
+    if (v14)
     {
-      (*(v12 + 16))(v12, [v9 BOOLValue], 0);
+      (*(v14 + 16))(v14, [v11 BOOLValue], 0);
     }
 
     goto LABEL_15;
   }
 
-  v13 = _CDPLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+  v15 = _CDPLogSystem(v10);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    __74__CDPAccountRepresentation_silentEscrowRecordRepairEnabledWithCompletion___block_invoke_cold_2(a1);
+    __74__CDPAccountRepresentation_silentEscrowRecordRepairEnabledWithCompletion___block_invoke_cold_2();
   }
 
-  v14 = *(a1 + 48);
-  if (v14)
+  v16 = *(a1 + 48);
+  if (v16)
   {
-    v9 = [MEMORY[0x1E696ABC0] cdp_errorWithCode:0];
-    (*(v14 + 16))(v14, 0, v9);
+    v11 = [MEMORY[0x1E696ABC0] cdp_errorWithCode:0];
+    (*(v16 + 16))(v16, 0, v11);
 LABEL_15:
   }
 
 LABEL_16:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_cachedPropertyValueOfClass:(Class)class forKey:(id)key valueProducer:(id)producer
@@ -738,45 +793,44 @@ LABEL_16:
   handlerCopy = handler;
   v26 = 0;
   v18 = [(CDPAccountRepresentation *)self _cachedPropertyValueOfClass:class forKey:keyCopy staleModifiedDate:date account:accountCopy isStale:&v26];
+  v19 = v18;
   if (!v18 || v26 == 1)
   {
-    v19 = _CDPLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v20 = _CDPLogSystem(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       [CDPAccountRepresentation _cachedPropertyValueOfClass:forKey:valueProducer:staleModifiedDate:account:saveHandler:];
     }
 
-    v20 = producerCopy[2](producerCopy);
-    v21 = _CDPLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v21 = producerCopy[2](producerCopy);
+    v22 = _CDPLogSystem(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
       selfCopy = self;
       v29 = 2112;
       v30 = keyCopy;
       v31 = 2112;
-      v32 = v20;
-      _os_log_debug_impl(&dword_1DED99000, v21, OS_LOG_TYPE_DEBUG, "%@: Called value producer for key (%@) and received value (%@)", buf, 0x20u);
+      v32 = v21;
+      _os_log_debug_impl(&dword_1DED99000, v22, OS_LOG_TYPE_DEBUG, "%@: Called value producer for key (%@) and received value (%@)", buf, 0x20u);
     }
 
-    if (v20)
+    if (v21)
     {
       date = [MEMORY[0x1E695DF00] date];
-      [(CDPAccountRepresentation *)self _cachePropertyValue:v20 forKey:keyCopy lastModifiedDate:date account:accountCopy saveHandler:handlerCopy];
+      [(CDPAccountRepresentation *)self _cachePropertyValue:v21 forKey:keyCopy lastModifiedDate:date account:accountCopy saveHandler:handlerCopy];
 
-      v23 = v20;
-      v18 = v23;
+      v24 = v21;
+      v19 = v24;
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v19;
 }
 
 - (id)_cachedPropertyValueOfClass:(Class)class forKey:(id)key staleModifiedDate:(id)date account:(id)account isStale:(BOOL *)stale
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   dateCopy = date;
   accountCopy = account;
@@ -795,55 +849,56 @@ LABEL_16:
 
   if (v16)
   {
-    v30 = 0;
-    v17 = [(CDPAccountRepresentation *)self _deserializedPropertyDictionaryForData:v16 withPropertyValueOfClass:class error:&v30];
-    v18 = v30;
-    if (v17)
+    v33 = 0;
+    v18 = [(CDPAccountRepresentation *)self _deserializedPropertyDictionaryForData:v16 withPropertyValueOfClass:class error:&v33];
+    v19 = v33;
+    v20 = v19;
+    if (v18)
     {
       staleCopy = stale;
       objc_opt_class();
-      v19 = [(__CFString *)v17 objectForKeyedSubscript:@"com.apple.cdp.appleaccount.property.last-modified-date"];
+      v21 = [(__CFString *)v18 objectForKeyedSubscript:@"com.apple.cdp.appleaccount.property.last-modified-date"];
       if (objc_opt_isKindOfClass())
       {
-        v20 = v19;
+        v22 = v21;
       }
 
       else
       {
-        v20 = 0;
+        v22 = 0;
       }
 
-      if (v20)
+      if (v22)
       {
-        v22 = [(__CFString *)v17 objectForKeyedSubscript:@"com.apple.cdp.appleaccount.property"];
+        v25 = [(__CFString *)v18 objectForKeyedSubscript:@"com.apple.cdp.appleaccount.property"];
         if (objc_opt_isKindOfClass())
         {
-          v23 = v22;
+          v26 = v25;
         }
 
         else
         {
-          v23 = 0;
+          v26 = 0;
         }
 
-        if (v23)
+        if (v26)
         {
-          if (dateCopy && [v20 compare:dateCopy]== -1)
+          if (dateCopy && (v27 = [v22 compare:dateCopy], v27 == -1))
           {
-            v26 = _CDPLogSystem();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+            v30 = _CDPLogSystem(-1);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138413314;
               selfCopy5 = self;
-              v33 = 2112;
-              v34 = @"com.apple.cdp.appleaccount.property";
-              v35 = 2112;
-              v36 = keyCopy;
-              v37 = 2112;
-              v38 = v20;
-              v39 = 2112;
-              v40 = dateCopy;
-              _os_log_debug_impl(&dword_1DED99000, v26, OS_LOG_TYPE_DEBUG, "%@: Cached property value (%@) for key (%@) is stale (lastModifiedDate [%@] < staleModifiedDate [%@])", buf, 0x34u);
+              v36 = 2112;
+              v37 = @"com.apple.cdp.appleaccount.property";
+              v38 = 2112;
+              v39 = keyCopy;
+              v40 = 2112;
+              v41 = v22;
+              v42 = 2112;
+              v43 = dateCopy;
+              _os_log_debug_impl(&dword_1DED99000, v30, OS_LOG_TYPE_DEBUG, "%@: Cached property value (%@) for key (%@) is stale (lastModifiedDate [%@] < staleModifiedDate [%@])", buf, 0x34u);
             }
 
             if (staleCopy)
@@ -854,8 +909,8 @@ LABEL_16:
 
           else
           {
-            v24 = _CDPLogSystem();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+            v28 = _CDPLogSystem(v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
             {
               [CDPAccountRepresentation _cachedPropertyValueOfClass:forKey:staleModifiedDate:account:isStale:];
             }
@@ -866,86 +921,84 @@ LABEL_16:
             }
           }
 
-          v23 = v23;
-          v21 = v23;
+          v26 = v26;
+          v23 = v26;
         }
 
         else
         {
-          v25 = _CDPLogSystem();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          v29 = _CDPLogSystem(v27);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
             selfCopy5 = self;
-            v33 = 2112;
-            v34 = v17;
-            v35 = 2112;
-            v36 = keyCopy;
-            _os_log_debug_impl(&dword_1DED99000, v25, OS_LOG_TYPE_DEBUG, "%@: Found nil property value in cached property dictionary (%@) for key (%@)", buf, 0x20u);
+            v36 = 2112;
+            v37 = v18;
+            v38 = 2112;
+            v39 = keyCopy;
+            _os_log_debug_impl(&dword_1DED99000, v29, OS_LOG_TYPE_DEBUG, "%@: Found nil property value in cached property dictionary (%@) for key (%@)", buf, 0x20u);
           }
 
-          v21 = 0;
+          v23 = 0;
         }
       }
 
       else
       {
-        v23 = _CDPLogSystem();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+        v26 = _CDPLogSystem(v24);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412802;
           selfCopy5 = self;
-          v33 = 2112;
-          v34 = v17;
-          v35 = 2112;
-          v36 = keyCopy;
-          _os_log_fault_impl(&dword_1DED99000, v23, OS_LOG_TYPE_FAULT, "%@: Expected lastModifiedDate value in cached property dictionary (%@) for key (%@)", buf, 0x20u);
+          v36 = 2112;
+          v37 = v18;
+          v38 = 2112;
+          v39 = keyCopy;
+          _os_log_fault_impl(&dword_1DED99000, v26, OS_LOG_TYPE_FAULT, "%@: Expected lastModifiedDate value in cached property dictionary (%@) for key (%@)", buf, 0x20u);
         }
 
-        v21 = 0;
+        v23 = 0;
       }
     }
 
     else
     {
-      v20 = _CDPLogSystem();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v22 = _CDPLogSystem(v19);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         *buf = 138413058;
         selfCopy5 = self;
-        v33 = 2112;
-        v34 = keyCopy;
-        v35 = 2112;
-        v36 = v16;
-        v37 = 2112;
-        v38 = v18;
-        _os_log_fault_impl(&dword_1DED99000, v20, OS_LOG_TYPE_FAULT, "%@: Failed to deserialize property dictionary for key (%@) from data (%@) with error (%@)", buf, 0x2Au);
+        v36 = 2112;
+        v37 = keyCopy;
+        v38 = 2112;
+        v39 = v16;
+        v40 = 2112;
+        v41 = v20;
+        _os_log_fault_impl(&dword_1DED99000, v22, OS_LOG_TYPE_FAULT, "%@: Failed to deserialize property dictionary for key (%@) from data (%@) with error (%@)", buf, 0x2Au);
       }
 
-      v21 = 0;
+      v23 = 0;
     }
   }
 
   else
   {
-    v18 = _CDPLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v20 = _CDPLogSystem(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
       selfCopy5 = self;
-      v33 = 2112;
-      v34 = keyCopy;
-      v35 = 2112;
-      v36 = accountCopy;
-      _os_log_debug_impl(&dword_1DED99000, v18, OS_LOG_TYPE_DEBUG, "%@: No cached property for key (%@) was found on account (%@)", buf, 0x20u);
+      v36 = 2112;
+      v37 = keyCopy;
+      v38 = 2112;
+      v39 = accountCopy;
+      _os_log_debug_impl(&dword_1DED99000, v20, OS_LOG_TYPE_DEBUG, "%@: No cached property for key (%@) was found on account (%@)", buf, 0x20u);
     }
 
-    v21 = 0;
+    v23 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v23;
 }
 
 - (void)_cachePropertyValue:(id)value forKey:(id)key lastModifiedDate:(id)date account:(id)account saveHandler:(id)handler
@@ -958,6 +1011,7 @@ LABEL_16:
   v26 = 0;
   v16 = [(CDPAccountRepresentation *)self _serializedPropertyDictionaryWithValue:valueCopy lastModifiedDate:date error:&v26];
   v17 = v26;
+  v18 = v17;
   if (!valueCopy || v16)
   {
     [accountCopy setAccountProperty:v16 forKey:keyCopy];
@@ -975,46 +1029,44 @@ LABEL_16:
 
   else
   {
-    v18 = _CDPLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v19 = _CDPLogSystem(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412802;
       selfCopy = self;
       v29 = 2112;
       v30 = keyCopy;
       v31 = 2112;
-      v32 = v17;
-      _os_log_fault_impl(&dword_1DED99000, v18, OS_LOG_TYPE_FAULT, "%@: Failed to serialize property dictionary for key (%@) with error (%@)", buf, 0x20u);
+      v32 = v18;
+      _os_log_fault_impl(&dword_1DED99000, v19, OS_LOG_TYPE_FAULT, "%@: Failed to serialize property dictionary for key (%@) with error (%@)", buf, 0x20u);
     }
 
     if (handlerCopy)
     {
-      (*(handlerCopy + 2))(handlerCopy, 0, v17);
+      (*(handlerCopy + 2))(handlerCopy, 0, v18);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke(void *a1, uint64_t a2, void *a3)
+void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (a2)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke_cold_2(a1);
+      __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke_cold_2();
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke_cold_1(a1);
+    __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke_cold_1();
   }
 
-  v8 = a1[7];
+  v8 = *(a1 + 56);
   if (v8)
   {
     (*(v8 + 16))(v8, a2, v5);
@@ -1036,24 +1088,25 @@ void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_
     v18 = 0;
     v12 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v11 requiringSecureCoding:1 error:&v18];
     v13 = v18;
+    v14 = v13;
     if (v13)
     {
-      v14 = _CDPLogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = _CDPLogSystem(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         selfCopy = self;
         v21 = 2112;
         v22 = v11;
         v23 = 2112;
-        v24 = v13;
-        _os_log_error_impl(&dword_1DED99000, v14, OS_LOG_TYPE_ERROR, "%@: Failed to archive property dictionary (%@) with error (%@)", buf, 0x20u);
+        v24 = v14;
+        _os_log_error_impl(&dword_1DED99000, v15, OS_LOG_TYPE_ERROR, "%@: Failed to archive property dictionary (%@) with error (%@)", buf, 0x20u);
       }
 
       if (error)
       {
-        v15 = v13;
-        *error = v13;
+        v16 = v14;
+        *error = v14;
       }
     }
   }
@@ -1062,8 +1115,6 @@ void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_
   {
     v12 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1079,24 +1130,25 @@ void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_
     v17 = 0;
     v11 = [MEMORY[0x1E696ACD0] unarchivedDictionaryWithKeysOfClasses:v9 objectsOfClasses:v10 fromData:dataCopy error:&v17];
     v12 = v17;
+    v13 = v12;
     if (v12)
     {
-      v13 = _CDPLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _CDPLogSystem(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         selfCopy = self;
         v20 = 2112;
         v21 = dataCopy;
         v22 = 2112;
-        v23 = v12;
-        _os_log_error_impl(&dword_1DED99000, v13, OS_LOG_TYPE_ERROR, "%@: Failed to unarchive data (%@) with error (%@)", buf, 0x20u);
+        v23 = v13;
+        _os_log_error_impl(&dword_1DED99000, v14, OS_LOG_TYPE_ERROR, "%@: Failed to unarchive data (%@) with error (%@)", buf, 0x20u);
       }
 
       if (error)
       {
-        v14 = v12;
-        *error = v12;
+        v15 = v13;
+        *error = v13;
       }
     }
   }
@@ -1106,147 +1158,108 @@ void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (void)initWithAltDSID:accountStore:accountManager:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isSilentBurnCDPRepairEnabled
 {
-  v8 = *MEMORY[0x1E69E9840];
   accountManager = [self accountManager];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6(v2, v3, v4, v5, v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shouldPerformSilentEscrowRecordRepair
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "%@: Could not determine if device needs escrow repair with invalid context", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "%@: Could not determine if device needs escrow repair with invalid context", &v2, 0xCu);
 }
 
 - (void)generatedContext
 {
-  v7 = *MEMORY[0x1E69E9840];
   appleAccount = [self appleAccount];
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_invoke_cold_1(uint64_t a1)
+void __62__CDPAccountRepresentation_isICDPEnabledByCheckingWithServer___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 - (void)silentEscrowRecordRepairEnabledWithCompletion:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 accountManager];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6(v2, v3, v4, v5, v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)silentEscrowRecordRepairEnabledWithCompletion:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_6(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __74__CDPAccountRepresentation_silentEscrowRecordRepairEnabledWithCompletion___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) altDSID];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void __74__CDPAccountRepresentation_silentEscrowRecordRepairEnabledWithCompletion___block_invoke_cold_2(uint64_t a1)
+void __74__CDPAccountRepresentation_silentEscrowRecordRepairEnabledWithCompletion___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_6(v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(v0, v1, v2, v3, v4);
 }
 
 - (void)_cachedPropertyValueOfClass:forKey:valueProducer:staleModifiedDate:account:saveHandler:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cachedPropertyValueOfClass:forKey:staleModifiedDate:account:isStale:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke_cold_1(void *a1)
+void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke_cold_1()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke_cold_2(void *a1)
+void __92__CDPAccountRepresentation__cachePropertyValue_forKey_lastModifiedDate_account_saveHandler___block_invoke_cold_2()
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
+  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
-  v10 = v4;
-  v11 = v5;
-  v12 = v6;
-  _os_log_debug_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEBUG, "Successfully saved cached property value (%@) for key (%@) on account (%@)", v9, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = v0;
+  v6 = v1;
+  v7 = v2;
+  _os_log_debug_impl(&dword_1DED99000, v3, OS_LOG_TYPE_DEBUG, "Successfully saved cached property value (%@) for key (%@) on account (%@)", v4, 0x20u);
 }
 
 @end

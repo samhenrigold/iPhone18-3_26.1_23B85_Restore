@@ -34,11 +34,11 @@
 
 - (id)requestWithData:(id)data session:(id)session queue:(id)queue
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   sessionCopy = session;
   queue = queue;
-  v40 = +[ASTRequest request];
+  v39 = +[ASTRequest request];
   v8 = [dataCopy objectForKeyedSubscript:@"forceSequential"];
 
   if (v8)
@@ -56,24 +56,24 @@
   }
 
   [dataCopy objectForKeyedSubscript:@"actions"];
+  v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  obj = v50 = 0u;
-  v12 = [obj countByEnumeratingWithState:&v49 objects:v56 count:16];
+  v48 = 0u;
+  obj = v49 = 0u;
+  v12 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
   if (v12)
   {
-    v13 = *v50;
+    v13 = *v49;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v50 != v13)
+        if (*v49 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v49 + 1) + 8 * i);
+        v15 = *(*(&v48 + 1) + 8 * i);
         v16 = [v15 objectForKeyedSubscript:@"action"];
 
         if (v16)
@@ -92,7 +92,7 @@
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v49 objects:v56 count:16];
+      v12 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
     }
 
     while (v12);
@@ -109,14 +109,14 @@
       [ASTControlCommand requestWithData:v27 session:? queue:?];
     }
 
-    [v40 setClientStatus:8];
+    [v39 setClientStatus:8];
   }
 
   else
   {
-    [v40 setClientStatus:13];
+    [v39 setClientStatus:13];
     requestData = [(ASTControlCommand *)self requestData];
-    [v40 setData:requestData];
+    [v39 setData:requestData];
 
     delegate = [sessionCopy delegate];
     LOBYTE(requestData) = objc_opt_respondsToSelector();
@@ -128,7 +128,7 @@
       block[2] = __51__ASTControlCommand_requestWithData_session_queue___block_invoke;
       block[3] = &unk_278CBCF18;
       block[4] = self;
-      v48 = sessionCopy;
+      v47 = sessionCopy;
       dispatch_async(queue, block);
     }
 
@@ -140,38 +140,38 @@
         [ASTControlCommand requestWithData:v28 session:? queue:?];
       }
 
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       actionStorage4 = [(ASTControlCommand *)self actionStorage];
       allValues = [actionStorage4 allValues];
 
-      v31 = [allValues countByEnumeratingWithState:&v43 objects:v55 count:16];
+      v31 = [allValues countByEnumeratingWithState:&v42 objects:v54 count:16];
       if (v31)
       {
-        v32 = *v44;
+        v32 = *v43;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v44 != v32)
+            if (*v43 != v32)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v34 = *(*(&v43 + 1) + 8 * j);
+            v34 = *(*(&v42 + 1) + 8 * j);
             v35 = ASTLogHandleForCategory(0);
             if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
-              [(ASTControlCommand *)v53 requestWithData:v34 session:&v54 queue:v35];
+              [(ASTControlCommand *)v52 requestWithData:v34 session:&v53 queue:v35];
             }
 
             [v34 setResultCode:1];
             [v34 setFinished:1];
           }
 
-          v31 = [allValues countByEnumeratingWithState:&v43 objects:v55 count:16];
+          v31 = [allValues countByEnumeratingWithState:&v42 objects:v54 count:16];
         }
 
         while (v31);
@@ -179,9 +179,7 @@
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v40;
+  return v39;
 }
 
 void __51__ASTControlCommand_requestWithData_session_queue___block_invoke(uint64_t a1)
@@ -201,40 +199,40 @@ void __51__ASTControlCommand_requestWithData_session_queue___block_invoke(uint64
 
 - (void)performActionsWithSession:(id)session queue:(id)queue
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   queueCopy = queue;
   array = [MEMORY[0x277CBEB18] array];
   actionStorage = [(ASTControlCommand *)self actionStorage];
   objc_sync_enter(actionStorage);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   actionStorage2 = [(ASTControlCommand *)self actionStorage];
   allValues = [actionStorage2 allValues];
 
-  v12 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         if (([v15 isFinished] & 1) == 0)
         {
           [array addObject:v15];
         }
       }
 
-      v12 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
@@ -252,14 +250,12 @@ void __51__ASTControlCommand_requestWithData_session_queue___block_invoke(uint64
       block[1] = 3221225472;
       block[2] = __53__ASTControlCommand_performActionsWithSession_queue___block_invoke;
       block[3] = &unk_278CBCF40;
-      v20 = sessionCopy;
-      v21 = array;
+      v19 = sessionCopy;
+      v20 = array;
       selfCopy = self;
       dispatch_async(queueCopy, block);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __53__ASTControlCommand_performActionsWithSession_queue___block_invoke(uint64_t a1)
@@ -270,46 +266,44 @@ void __53__ASTControlCommand_performActionsWithSession_queue___block_invoke(uint
 
 - (id)requestData
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   actionStorage = [(ASTControlCommand *)self actionStorage];
   objc_sync_enter(actionStorage);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   actionStorage2 = [(ASTControlCommand *)self actionStorage];
   allValues = [actionStorage2 allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        dictionaryValue = [*(*(&v14 + 1) + 8 * i) dictionaryValue];
+        dictionaryValue = [*(*(&v13 + 1) + 8 * i) dictionaryValue];
         [array addObject:dictionaryValue];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(actionStorage);
-  v18 = @"actions";
-  v19 = array;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v17 = @"actions";
+  v18 = array;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
 
   return v11;
 }
@@ -328,37 +322,37 @@ void __53__ASTControlCommand_performActionsWithSession_queue___block_invoke(uint
 
 - (BOOL)allActionsFinished
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   actionStorage = [(ASTControlCommand *)self actionStorage];
   objc_sync_enter(actionStorage);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   actionStorage2 = [(ASTControlCommand *)self actionStorage];
   allValues = [actionStorage2 allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        if (([*(*(&v12 + 1) + 8 * i) isFinished] & 1) == 0)
+        if (([*(*(&v11 + 1) + 8 * i) isFinished] & 1) == 0)
         {
           v9 = 0;
           goto LABEL_11;
         }
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -372,37 +366,36 @@ void __53__ASTControlCommand_performActionsWithSession_queue___block_invoke(uint
 LABEL_11:
 
   objc_sync_exit(actionStorage);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)completionArray
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   actionStorage = [(ASTControlCommand *)self actionStorage];
   objc_sync_enter(actionStorage);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   actionStorage2 = [(ASTControlCommand *)self actionStorage];
   allValues = [actionStorage2 allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         completion = [v10 completion];
 
         if (completion)
@@ -413,14 +406,13 @@ LABEL_11:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(actionStorage);
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }

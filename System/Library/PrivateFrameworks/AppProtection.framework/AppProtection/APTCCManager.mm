@@ -31,19 +31,17 @@
     swift_once();
   }
 
-  v9 = off_1EA8CCF68;
   if (*(off_1EA8CCF68 + 2))
   {
-    v10 = sub_185AC9F40(v4, v6);
-    if (v11)
+    sub_185AC9F40(v4, v6);
+    if (v9)
     {
-      v12 = *(v9[7] + 8 * v10);
     }
   }
 
-  v13 = sub_185B67F5C();
+  v10 = sub_185B67F5C();
 
-  return v13;
+  return v10;
 }
 
 - (void)accessingRecordsForTCCService:(id)service completion:(id)completion

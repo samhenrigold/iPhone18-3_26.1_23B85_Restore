@@ -444,7 +444,7 @@ LABEL_4:
   observerCopy = observer;
   sub_100004A08(__p, "addObserver");
   v8 = __p;
-  v5 = sub_100014680(&self->_callCounter.__table_.__bucket_list_.__ptr_, __p);
+  v5 = sub_100014680(&self->_callCounter.__table_.__bucket_list_.__ptr_, __p, &unk_100548C50, &v8);
   v5[5] = v5[5] + 1;
   if (v7 < 0)
   {
@@ -459,7 +459,7 @@ LABEL_4:
   observerCopy = observer;
   sub_100004A08(__p, "removeObserver");
   v8 = __p;
-  v5 = sub_100014680(&self->_callCounter.__table_.__bucket_list_.__ptr_, __p);
+  v5 = sub_100014680(&self->_callCounter.__table_.__bucket_list_.__ptr_, __p, &unk_100548C50, &v8);
   v5[5] = v5[5] + 1;
   if (v7 < 0)
   {

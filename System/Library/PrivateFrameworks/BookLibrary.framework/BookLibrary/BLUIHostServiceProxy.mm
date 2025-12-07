@@ -38,31 +38,31 @@
 {
   requestCopy = request;
   replyCopy = reply;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_241D0E88C;
-  v16[3] = &unk_278D15718;
-  v16[4] = self;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_241D0E88C;
+  v15[3] = &unk_278D15718;
+  v15[4] = self;
   v8 = replyCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = requestCopy;
-  v17 = v9;
-  v13 = MEMORY[0x245CFEDE0](v16);
-  if (v13)
+  v16 = v9;
+  v12 = MEMORY[0x245CFEDE0](v15);
+  if (v12)
   {
-    if (objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v10, v11, v12))
+    if (objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v10, v11))
     {
-      v13[2](v13);
+      v12[2](v12);
     }
 
     else
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = sub_241D0EC30;
-      v14[3] = &unk_278D15740;
-      v15 = v13;
-      dispatch_async(MEMORY[0x277D85CD0], v14);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = sub_241D0EC30;
+      v13[3] = &unk_278D15740;
+      v14 = v12;
+      dispatch_async(MEMORY[0x277D85CD0], v13);
     }
   }
 }
@@ -71,31 +71,31 @@
 {
   requestCopy = request;
   replyCopy = reply;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_241D0ED94;
-  v16[3] = &unk_278D15718;
-  v16[4] = self;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_241D0ED94;
+  v15[3] = &unk_278D15718;
+  v15[4] = self;
   v8 = replyCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = requestCopy;
-  v17 = v9;
-  v13 = MEMORY[0x245CFEDE0](v16);
-  if (v13)
+  v16 = v9;
+  v12 = MEMORY[0x245CFEDE0](v15);
+  if (v12)
   {
-    if (objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v10, v11, v12))
+    if (objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v10, v11))
     {
-      v13[2](v13);
+      v12[2](v12);
     }
 
     else
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = sub_241D0F1D8;
-      v14[3] = &unk_278D15740;
-      v15 = v13;
-      dispatch_async(MEMORY[0x277D85CD0], v14);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = sub_241D0F1D8;
+      v13[3] = &unk_278D15740;
+      v14 = v12;
+      dispatch_async(MEMORY[0x277D85CD0], v13);
     }
   }
 }
@@ -104,31 +104,31 @@
 {
   requestCopy = request;
   replyCopy = reply;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_241D0F33C;
-  v16[3] = &unk_278D15718;
-  v16[4] = self;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_241D0F33C;
+  v15[3] = &unk_278D15718;
+  v15[4] = self;
   v8 = replyCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = requestCopy;
-  v17 = v9;
-  v13 = MEMORY[0x245CFEDE0](v16);
-  if (v13)
+  v16 = v9;
+  v12 = MEMORY[0x245CFEDE0](v15);
+  if (v12)
   {
-    if (objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v10, v11, v12))
+    if (objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v10, v11))
     {
-      v13[2](v13);
+      v12[2](v12);
     }
 
     else
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = sub_241D0F89C;
-      v14[3] = &unk_278D15740;
-      v15 = v13;
-      dispatch_async(MEMORY[0x277D85CD0], v14);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = sub_241D0F89C;
+      v13[3] = &unk_278D15740;
+      v14 = v12;
+      dispatch_async(MEMORY[0x277D85CD0], v13);
     }
   }
 }
@@ -139,16 +139,16 @@
   if (objc_opt_class())
   {
     v2 = sub_241D10118();
-    v6 = objc_msgSend_sharedApplication(v2, v3, v4, v5);
-    v10 = objc_msgSend_keyWindow(v6, v7, v8, v9);
+    v5 = objc_msgSend_sharedApplication(v2, v3, v4);
+    v8 = objc_msgSend_keyWindow(v5, v6, v7);
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  return v10;
+  return v8;
 }
 
 - (id)_topMostViewController

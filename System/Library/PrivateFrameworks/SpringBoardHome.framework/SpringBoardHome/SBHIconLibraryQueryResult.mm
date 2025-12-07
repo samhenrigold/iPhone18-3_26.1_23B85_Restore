@@ -600,7 +600,7 @@ LABEL_14:
 
     else
     {
-      v13 = [sectionTitles objectAtIndex:v12];
+      v13 = objc_msgSend_objectAtIndex_(sectionTitles);
       searchString2 = [(SBHIconLibraryQuery *)v7 searchString];
       v15 = [searchString2 length];
 
@@ -754,7 +754,7 @@ LABEL_4:
 
   else
   {
-    v5 = [sectionIdentifiers objectAtIndex:index];
+    v5 = objc_msgSend_objectAtIndex_(sectionIdentifiers);
   }
 
   return v5;
@@ -768,24 +768,24 @@ LABEL_4:
   {
     snapshot = [(SBHIconLibraryQueryResult *)self snapshot];
     v7 = [snapshot itemIdentifiersInSectionWithIdentifier:v5];
-    if (!v7 || (v8 = [pathCopy indexAtPosition:1], v8 == 0x7FFFFFFFFFFFFFFFLL) || (v9 = v8, v8 >= objc_msgSend(v7, "count")))
+    if (!v7 || (v8 = [pathCopy indexAtPosition:1], v8 == 0x7FFFFFFFFFFFFFFFLL) || v8 >= objc_msgSend(v7, "count"))
     {
-      v11 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v10 = [v7 objectAtIndex:v9];
-      v11 = [(SBHIconLibraryQueryResult *)self iconForItemIdentifier:v10];
+      v9 = objc_msgSend_objectAtIndex_(v7);
+      v10 = [(SBHIconLibraryQueryResult *)self iconForItemIdentifier:v9];
     }
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)titleForSectionAtIndex:(int64_t)index

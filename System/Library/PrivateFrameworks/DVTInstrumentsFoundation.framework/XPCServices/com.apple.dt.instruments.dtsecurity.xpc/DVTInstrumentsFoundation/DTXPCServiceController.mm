@@ -77,11 +77,11 @@
   handlerCopy = handler;
   if (handlerCopy)
   {
-    v106 = handlerCopy;
+    v108 = handlerCopy;
     v15 = serviceCopy;
-    v101 = sub_100007DE4();
+    v103 = sub_100007DE4();
     v16 = [optionsCopy objectForKeyedSubscript:@"KillExisting"];
-    v97 = [v16 isEqualToNumber:&__kCFBooleanFalse];
+    v99 = [v16 isEqualToNumber:&__kCFBooleanFalse];
 
     v17 = [optionsCopy objectForKeyedSubscript:@"RequestingPid"];
     intValue = [v17 intValue];
@@ -90,35 +90,35 @@
     bOOLValue = [v18 BOOLValue];
 
     v19 = [optionsCopy objectForKeyedSubscript:@"EnableExtension"];
-    v102 = [v19 isEqualToNumber:&__kCFBooleanTrue];
+    v104 = [v19 isEqualToNumber:&__kCFBooleanTrue];
 
     v20 = [optionsCopy objectForKeyedSubscript:@"DisableMemoryLimits"];
-    v96 = [v20 isEqualToNumber:&__kCFBooleanTrue];
+    v98 = [v20 isEqualToNumber:&__kCFBooleanTrue];
 
-    v105 = [optionsCopy objectForKeyedSubscript:@"AppExtensionHoldBundleID"];
-    v110 = [optionsCopy objectForKeyedSubscript:@"AppExtensionHoldURL"];
-    if (!v102)
+    v107 = [optionsCopy objectForKeyedSubscript:@"AppExtensionHoldBundleID"];
+    v112 = [optionsCopy objectForKeyedSubscript:@"AppExtensionHoldURL"];
+    if (!v104)
     {
-      v103 = 0;
+      v105 = 0;
       goto LABEL_44;
     }
 
-    if (!(v105 | v110))
+    if (!(v107 | v112))
     {
-      v103 = 0;
-      v110 = 0;
+      v105 = 0;
+      v112 = 0;
       goto LABEL_44;
     }
 
-    v98 = +[PKManager defaultManager];
-    if (v105)
+    v100 = +[PKManager defaultManager];
+    if (v107)
     {
-      v160 = 0;
-      v21 = [LSBundleRecord bundleRecordWithBundleIdentifier:v105 allowPlaceholder:0 error:&v160];
-      v22 = v160;
+      v162 = 0;
+      v21 = [LSBundleRecord bundleRecordWithBundleIdentifier:v107 allowPlaceholder:0 error:&v162];
+      v22 = v162;
       v23 = [v21 URL];
 
-      v110 = v23;
+      v112 = v23;
       if (v22)
       {
         goto LABEL_17;
@@ -130,56 +130,56 @@
       v22 = 0;
     }
 
-    if (v110)
+    if (v112)
     {
-      v93 = v22;
-      if (v101 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+      v95 = v22;
+      if (v103 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        *&buf[4] = v110;
+        *&buf[4] = v112;
         *&buf[12] = 2112;
         *&buf[14] = v15;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: ExtensionAssertion Hold Start %@:%@", buf, 0x16u);
       }
 
-      v159 = 0;
-      v103 = [v98 holdPlugInsInApplication:v110 withError:&v159];
-      v94 = v159;
-      if (((v94 != 0) & v101) == 1)
+      v161 = 0;
+      v105 = [v100 holdPlugInsInApplication:v112 withError:&v161];
+      v96 = v161;
+      if (((v96 != 0) & v103) == 1)
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *&buf[4] = v94;
+          *&buf[4] = v96;
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: ExtensionAssertion Hold Error: %@", buf, 0xCu);
         }
       }
 
       else
       {
-        v92 = [NSBundle bundleWithURL:v110];
+        v94 = [NSBundle bundleWithURL:v112];
+        v159 = 0u;
+        v160 = 0u;
         v157 = 0u;
         v158 = 0u;
-        v155 = 0u;
-        v156 = 0u;
-        builtInPlugInsURL = [v92 builtInPlugInsURL];
+        builtInPlugInsURL = [v94 builtInPlugInsURL];
         relativePath = [builtInPlugInsURL relativePath];
-        v26 = [v92 URLsForResourcesWithExtension:@"appex" subdirectory:relativePath];
+        v26 = [v94 URLsForResourcesWithExtension:@"appex" subdirectory:relativePath];
 
-        v27 = [v26 countByEnumeratingWithState:&v155 objects:v190 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v157 objects:v192 count:16];
         if (v27)
         {
-          v28 = *v156;
+          v28 = *v158;
 LABEL_24:
           v29 = 0;
           while (1)
           {
-            if (*v156 != v28)
+            if (*v158 != v28)
             {
               objc_enumerationMutation(v26);
             }
 
-            v30 = *(*(&v155 + 1) + 8 * v29);
+            v30 = *(*(&v157 + 1) + 8 * v29);
             v31 = [NSBundle bundleWithURL:v30];
             bundleIdentifier = [v31 bundleIdentifier];
             v33 = [bundleIdentifier isEqualToString:v15];
@@ -191,7 +191,7 @@ LABEL_24:
 
             if (v27 == ++v29)
             {
-              v27 = [v26 countByEnumeratingWithState:&v155 objects:v190 count:16];
+              v27 = [v26 countByEnumeratingWithState:&v157 objects:v192 count:16];
               if (v27)
               {
                 goto LABEL_24;
@@ -208,7 +208,7 @@ LABEL_24:
             goto LABEL_40;
           }
 
-          if (v101 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+          if (v103 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
             *&buf[4] = v34;
@@ -217,13 +217,13 @@ LABEL_24:
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: ExtensionAssertion Terminate %@:%@", buf, 0x16u);
           }
 
-          v154 = 0;
-          [v98 terminatePlugInAtURL:v34 withError:&v154];
-          v35 = v154;
+          v156 = 0;
+          [v100 terminatePlugInAtURL:v34 withError:&v156];
+          v35 = v156;
           if (v35 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *&buf[4] = v94;
+            *&buf[4] = v96;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "DTXPCServiceController: ExtensionAssertion Terminate Error: %@", buf, 0xCu);
           }
         }
@@ -237,16 +237,16 @@ LABEL_30:
 LABEL_40:
       }
 
-      v22 = v93;
+      v22 = v95;
       goto LABEL_43;
     }
 
 LABEL_17:
-    v94 = 0;
+    v96 = 0;
     if (v22)
     {
-      v103 = 0;
-      if (v101)
+      v105 = 0;
+      if (v103)
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
@@ -257,14 +257,14 @@ LABEL_17:
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: Error retrieving LSApplicationRecord for %@, %@", buf, 0x16u);
         }
 
-        v94 = 0;
-        v103 = 0;
+        v96 = 0;
+        v105 = 0;
       }
     }
 
     else
     {
-      v103 = 0;
+      v105 = 0;
     }
 
 LABEL_43:
@@ -278,88 +278,89 @@ LABEL_44:
     if (!v39)
     {
       firstObject = 0;
-      v45 = 0;
+      v47 = 0;
       goto LABEL_53;
     }
 
-    if ((DVTIUIsAppleInternalOSEnvironment() & 1) == 0)
+    if ((DVTIUIsAppleInternalOSEnvironment(v40, v41) & 1) == 0)
     {
-      v176 = NSLocalizedDescriptionKey;
-      v53 = [NSString stringWithFormat:@"Daemon profiling is not supported on customer installations."];
-      *buf = v53;
-      v54 = [NSDictionary dictionaryWithObjects:buf forKeys:&v176 count:1];
-      v44 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v54];
+      v178 = NSLocalizedDescriptionKey;
+      v57 = [NSString stringWithFormat:@"Daemon profiling is not supported on customer installations."];
+      *buf = v57;
+      v58 = [NSDictionary dictionaryWithObjects:buf forKeys:&v178 count:1];
+      v46 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v58];
 
 LABEL_102:
-      if (v44)
+      if (v46)
       {
-        v106[2](v106, v15, 0, 0xFFFFFFFFLL, 0xFFFFFFFFLL, v44);
+        v108[2](v108, v15, 0, 0xFFFFFFFFLL, 0xFFFFFFFFLL, v46);
         goto LABEL_104;
       }
 
       intValue = 0xFFFFFFFFLL;
-      v44 = [NSDictionary dictionaryWithContentsOfFile:v15];
-      v45 = [v44 objectForKeyedSubscript:@"Label"];
+      v46 = [NSDictionary dictionaryWithContentsOfFile:v15];
+      v47 = [v46 objectForKeyedSubscript:@"Label"];
 
-      v86 = [v44 objectForKeyedSubscript:@"Program"];
-      v87 = v86;
-      if (v86)
+      v88 = [v46 objectForKeyedSubscript:@"Program"];
+      v89 = v88;
+      if (v88)
       {
-        firstObject = v86;
+        firstObject = v88;
       }
 
       else
       {
-        v88 = [v44 objectForKeyedSubscript:@"ProgramArguments"];
-        firstObject = [v88 firstObject];
+        v90 = [v46 objectForKeyedSubscript:@"ProgramArguments"];
+        firstObject = [v90 firstObject];
       }
 
-      if (!v45)
+      if (!v47)
       {
-        v188 = NSLocalizedDescriptionKey;
-        v89 = [NSString stringWithFormat:@"Failed to load plist for launchd job with path: %@", 0];
-        v189 = v89;
-        v90 = [NSDictionary dictionaryWithObjects:&v189 forKeys:&v188 count:1];
-        v91 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v90];
-        v106[2](v106, 0, 0, 0xFFFFFFFFLL, 0xFFFFFFFFLL, v91);
+        v190 = NSLocalizedDescriptionKey;
+        v91 = [NSString stringWithFormat:@"Failed to load plist for launchd job with path: %@", 0];
+        v191 = v91;
+        v92 = [NSDictionary dictionaryWithObjects:&v191 forKeys:&v190 count:1];
+        v93 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v92];
+        v108[2](v108, 0, 0, 0xFFFFFFFFLL, 0xFFFFFFFFLL, v93);
 
         v15 = firstObject;
         goto LABEL_104;
       }
 
-      v15 = v45;
+      v15 = v47;
 LABEL_53:
-      if ([v15 hasPrefix:@"com.apple."] && (DVTIUIsAppleInternalOSEnvironment() & 1) == 0)
+      v48 = [v15 hasPrefix:@"com.apple."];
+      if (v48 && (DVTIUIsAppleInternalOSEnvironment(v48, v49) & 1) == 0)
       {
-        v186 = NSLocalizedDescriptionKey;
-        v72 = [NSString stringWithFormat:@"XPC service is restricted: %@", v15];
-        v187 = v72;
-        v73 = [NSDictionary dictionaryWithObjects:&v187 forKeys:&v186 count:1];
-        v74 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v73];
-        v106[2](v106, v15, 0, intValue, 0xFFFFFFFFLL, v74);
+        v188 = NSLocalizedDescriptionKey;
+        v74 = [NSString stringWithFormat:@"XPC service is restricted: %@", v15];
+        v189 = v74;
+        v75 = [NSDictionary dictionaryWithObjects:&v189 forKeys:&v188 count:1];
+        v76 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v75];
+        v108[2](v108, v15, 0, intValue, 0xFFFFFFFFLL, v76);
 
-        v44 = v45;
+        v46 = v47;
 LABEL_104:
 
-        handlerCopy = v106;
+        handlerCopy = v108;
         goto LABEL_105;
       }
 
       if (intValue == -1)
       {
-        v46 = 3;
+        v50 = 3;
       }
 
       else
       {
-        v46 = 1;
+        v50 = 1;
       }
 
-      v95 = optionsCopy;
+      v97 = optionsCopy;
       if (sub_100007DE4() && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
       {
         *buf = 67109634;
-        *&buf[4] = v46;
+        *&buf[4] = v50;
         *&buf[8] = 2112;
         *&buf[10] = v15;
         *&buf[18] = 1024;
@@ -370,19 +371,19 @@ LABEL_104:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v183 = sub_100009528;
-      v184 = sub_100009538;
-      v185 = 0;
-      v176 = 0;
-      v177 = &v176;
-      v178 = 0x3032000000;
-      v179 = sub_100009528;
-      v180 = sub_100009538;
-      v181 = 0;
-      v172 = 0;
-      v173 = &v172;
-      v174 = 0x2020000000;
-      v175 = 0;
+      v185 = sub_100009528;
+      v186 = sub_100009538;
+      v187 = 0;
+      v178 = 0;
+      v179 = &v178;
+      v180 = 0x3032000000;
+      v181 = sub_100009528;
+      v182 = sub_100009538;
+      v183 = 0;
+      v174 = 0;
+      v175 = &v174;
+      v176 = 0x2020000000;
+      v177 = 0;
       guard = self->_guard;
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
@@ -390,254 +391,251 @@ LABEL_104:
       block[3] = &unk_10001D410;
       block[4] = self;
       v15 = v15;
-      v141 = v15;
-      v148 = intValue;
-      v48 = clientCopy;
-      v142 = v48;
-      v145 = &v172;
-      v150 = 1;
-      v151 = v36;
-      v152 = v37;
-      v49 = v106;
-      v144 = v49;
-      v44 = v45;
-      v143 = v44;
-      v146 = buf;
-      v149 = v46;
-      v147 = &v176;
-      v153 = bOOLValue;
+      v143 = v15;
+      v150 = intValue;
+      v52 = clientCopy;
+      v144 = v52;
+      v147 = &v174;
+      v152 = 1;
+      v153 = v36;
+      v154 = v37;
+      v53 = v108;
+      v146 = v53;
+      v46 = v47;
+      v145 = v46;
+      v148 = buf;
+      v151 = v50;
+      v149 = &v178;
+      v155 = bOOLValue;
       dispatch_sync(guard, block);
-      if (*(v173 + 24) == 1)
+      if (*(v175 + 24) == 1)
       {
-        v170 = NSLocalizedDescriptionKey;
+        v172 = NSLocalizedDescriptionKey;
         [NSString stringWithFormat:@"XPC service name %@ already under observation for pid: %d", v15, intValue];
-        v50 = optionsCopy = v95;
-        v171 = v50;
-        v51 = [NSDictionary dictionaryWithObjects:&v171 forKeys:&v170 count:1];
-        v52 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v51];
-        v49[2](v49, v15, 0, intValue, 0xFFFFFFFFLL, v52);
+        v54 = optionsCopy = v97;
+        v173 = v54;
+        v55 = [NSDictionary dictionaryWithObjects:&v173 forKeys:&v172 count:1];
+        v56 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v55];
+        v53[2](v53, v15, 0, intValue, 0xFFFFFFFFLL, v56);
 
 LABEL_98:
-        _Block_object_dispose(&v172, 8);
-        _Block_object_dispose(&v176, 8);
+        _Block_object_dispose(&v174, 8);
+        _Block_object_dispose(&v178, 8);
 
         _Block_object_dispose(buf, 8);
         goto LABEL_104;
       }
 
-      optionsCopy = v95;
-      if (!*(*&buf[8] + 40) && !v177[5])
+      optionsCopy = v97;
+      if (!*(*&buf[8] + 40) && !v179[5])
       {
-        v168 = NSLocalizedDescriptionKey;
-        v50 = [NSString stringWithFormat:@"Unable to create xpc registration object."];
-        v169 = v50;
-        v51 = [NSDictionary dictionaryWithObjects:&v169 forKeys:&v168 count:1];
-        v83 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v51];
-        v49[2](v49, v15, 0, intValue, 0xFFFFFFFFLL, v83);
+        v170 = NSLocalizedDescriptionKey;
+        v54 = [NSString stringWithFormat:@"Unable to create xpc registration object."];
+        v171 = v54;
+        v55 = [NSDictionary dictionaryWithObjects:&v171 forKeys:&v170 count:1];
+        v85 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v55];
+        v53[2](v53, v15, 0, intValue, 0xFFFFFFFFLL, v85);
 
         goto LABEL_98;
       }
 
-      v50 = objc_retainBlock(v49);
+      v54 = objc_retainBlock(v53);
       if (bOOLValue)
       {
-        v135[0] = _NSConcreteStackBlock;
-        v135[1] = 3221225472;
-        v135[2] = sub_100009AA8;
-        v135[3] = &unk_10001D460;
-        v138 = v49;
-        v135[4] = self;
-        v136 = v48;
-        v137 = v15;
-        v139 = intValue;
-        v55 = objc_retainBlock(v135);
+        v137[0] = _NSConcreteStackBlock;
+        v137[1] = 3221225472;
+        v137[2] = sub_100009AA8;
+        v137[3] = &unk_10001D460;
+        v140 = v53;
+        v137[4] = self;
+        v138 = v52;
+        v139 = v15;
+        v141 = intValue;
+        v59 = objc_retainBlock(v137);
 
-        v50 = v55;
+        v54 = v59;
       }
 
       if (!*(*&buf[8] + 40))
       {
-        v162 = NSLocalizedDescriptionKey;
-        v75 = v15;
-        v51 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Unable to register for xpc-based launch: %s (parent: %d)", [v15 UTF8String], intValue);
-        v163 = v51;
-        v76 = [NSDictionary dictionaryWithObjects:&v163 forKeys:&v162 count:1];
-        v77 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v76];
-        (*(v50 + 2))(v50, v15, 0, intValue, 0xFFFFFFFFLL, v77);
+        v164 = NSLocalizedDescriptionKey;
+        v77 = v15;
+        v55 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Unable to register for xpc-based launch: %s (parent: %d)", [v15 UTF8String], intValue);
+        v165 = v55;
+        v78 = [NSDictionary dictionaryWithObjects:&v165 forKeys:&v164 count:1];
+        v79 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v78];
+        (*(v54 + 2))(v54, v15, 0, intValue, 0xFFFFFFFFLL, v79);
 
         goto LABEL_98;
       }
 
-      if (!((intValue > 0) | v97 & 1))
+      if (!((intValue > 0) | v99 & 1))
       {
-        v130[0] = _NSConcreteStackBlock;
-        v130[1] = 3221225472;
-        v131 = sub_100009B8C;
-        v132 = &unk_10001D488;
-        v133 = firstObject;
-        v134 = v15;
-        v56 = v130;
-        v161 = 0;
-        *&v191[8] = 0;
-        *v191 = 0xE00000001;
-        sysctl(v191, 3u, 0, &v161, 0, 0);
-        v161 += 50;
-        v57 = malloc_type_calloc(1uLL, v161, 0x10B2040B74D5165uLL);
-        if (!sysctl(v191, 3u, v57, &v161, 0, 0) && (v161 / 0x288) >= 1)
+        v132[0] = _NSConcreteStackBlock;
+        v132[1] = 3221225472;
+        v133 = sub_100009B8C;
+        v134 = &unk_10001D488;
+        v135 = firstObject;
+        v136 = v15;
+        v60 = v132;
+        v163 = 0;
+        *&v193[8] = 0;
+        *v193 = 0xE00000001;
+        sysctl(v193, 3u, 0, &v163, 0, 0);
+        v163 += 50;
+        v61 = malloc_type_calloc(1uLL, v163, 0x10B2040B74D5165uLL);
+        if (!sysctl(v193, 3u, v61, &v163, 0, 0) && (v163 / 0x288) >= 1)
         {
-          v58 = (v161 / 0x288) & 0x7FFFFFFF;
-          v59 = v57 + 243;
+          v62 = (v163 / 0x288) & 0x7FFFFFFF;
+          v63 = v61 + 243;
           do
           {
-            v60 = objc_autoreleasePoolPush();
-            (v131)(v56, *(v59 - 203), v59, *(v59 + 153), *(v59 + 161));
-            objc_autoreleasePoolPop(v60);
-            v59 += 648;
-            --v58;
+            v64 = objc_autoreleasePoolPush();
+            (v133)(v60, *(v63 - 203), v63, *(v63 + 153), *(v63 + 161));
+            objc_autoreleasePoolPop(v64);
+            v63 += 648;
+            --v62;
           }
 
-          while (v58);
+          while (v62);
         }
 
-        free(v57);
-
-        v61 = *(*&buf[8] + 40);
+        free(v61);
       }
 
-      v118[1] = _NSConcreteStackBlock;
-      v118[2] = 3221225472;
-      v118[3] = sub_100009D00;
-      v118[4] = &unk_10001D500;
-      v127 = v101;
-      v62 = v15;
-      v119 = v62;
-      v120 = v95;
-      v128 = v96;
-      v63 = v48;
-      v121 = v63;
+      v120[1] = _NSConcreteStackBlock;
+      v120[2] = 3221225472;
+      v120[3] = sub_100009D00;
+      v120[4] = &unk_10001D500;
+      v129 = v103;
+      v65 = v15;
+      v121 = v65;
+      v122 = v97;
+      v130 = v98;
+      v66 = v52;
+      v123 = v66;
       selfCopy = self;
-      v123 = environmentCopy;
-      v124 = argumentsCopy;
-      v50 = v50;
-      v125 = v50;
-      v126 = intValue;
-      v129 = v97 ^ 1;
+      v125 = environmentCopy;
+      v126 = argumentsCopy;
+      v54 = v54;
+      v127 = v54;
+      v128 = intValue;
+      v131 = v99 ^ 1;
       xpc_service_set_attach_handler();
-      if (v103)
+      if (v105)
       {
-        if (v101 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+        if (v103 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
-          *v191 = 138412290;
-          *&v191[4] = v62;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: ExtensionAssertion Release Start %@", v191, 0xCu);
+          *v193 = 138412290;
+          *&v193[4] = v65;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: ExtensionAssertion Release Start %@", v193, 0xCu);
         }
 
-        v64 = +[PKManager defaultManager];
-        v118[0] = 0;
-        [v64 releaseHold:v103 withError:v118];
-        v65 = v118[0];
+        v67 = +[PKManager defaultManager];
+        v120[0] = 0;
+        [v67 releaseHold:v105 withError:v120];
+        v68 = v120[0];
 
-        if (((v65 != 0) & v101) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+        if (((v68 != 0) & v103) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
-          *v191 = 138412290;
-          *&v191[4] = v65;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: ExtensionAssertion Release Error: %@", v191, 0xCu);
+          *v193 = 138412290;
+          *&v193[4] = v68;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: ExtensionAssertion Release Error: %@", v193, 0xCu);
         }
       }
 
-      if (v44)
+      if (v46)
       {
-        v66 = *(*&buf[8] + 40);
         if (!xpc_service_kickstart_with_flags())
         {
 LABEL_96:
 
-          v51 = v119;
+          v55 = v121;
           goto LABEL_98;
         }
 
-        if (v101)
+        if (v103)
         {
-          v67 = &_os_log_default;
+          v69 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            v68 = xpc_strerror();
-            *v191 = 136315138;
-            *&v191[4] = v68;
-            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "xpc_service_kickstart_with_flags error: %s", v191, 0xCu);
+            v70 = xpc_strerror();
+            *v193 = 136315138;
+            *&v193[4] = v70;
+            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "xpc_service_kickstart_with_flags error: %s", v193, 0xCu);
           }
         }
 
-        v166 = NSLocalizedDescriptionKey;
-        v69 = [NSString stringWithFormat:@"Unable to launch: %@ (parent: %d) Error: %s", v62, intValue, xpc_strerror()];
-        v167 = v69;
-        v70 = [NSDictionary dictionaryWithObjects:&v167 forKeys:&v166 count:1];
-        v71 = [NSError errorWithDomain:@"DTXPCServiceController" code:3 userInfo:v70];
-        (*(v50 + 2))(v50, v62, 0, intValue, 0xFFFFFFFFLL, v71);
+        v168 = NSLocalizedDescriptionKey;
+        v71 = [NSString stringWithFormat:@"Unable to launch: %@ (parent: %d) Error: %s", v65, intValue, xpc_strerror()];
+        v169 = v71;
+        v72 = [NSDictionary dictionaryWithObjects:&v169 forKeys:&v168 count:1];
+        v73 = [NSError errorWithDomain:@"DTXPCServiceController" code:3 userInfo:v72];
+        (*(v54 + 2))(v54, v65, 0, intValue, 0xFFFFFFFFLL, v73);
       }
 
       else
       {
-        if (![v62 length] || !v102)
+        if (![v65 length] || !v104)
         {
           goto LABEL_96;
         }
 
-        v78 = +[PKHost defaultHost];
-        v164 = PKIdentifierAttribute;
-        v165 = v62;
-        v79 = [NSDictionary dictionaryWithObjects:&v165 forKeys:&v164 count:1];
+        v80 = +[PKHost defaultHost];
+        v166 = PKIdentifierAttribute;
+        v167 = v65;
+        v81 = [NSDictionary dictionaryWithObjects:&v167 forKeys:&v166 count:1];
+        v117[0] = _NSConcreteStackBlock;
+        v117[1] = 3221225472;
+        v117[2] = sub_10000A6D8;
+        v117[3] = &unk_10001D528;
+        v82 = v65;
+        v118 = v82;
+        v119 = v104;
+        v83 = [v80 continuouslyDiscoverPlugInsForAttributes:v81 flags:512 found:v117];
+
         v115[0] = _NSConcreteStackBlock;
         v115[1] = 3221225472;
-        v115[2] = sub_10000A6D8;
-        v115[3] = &unk_10001D528;
-        v80 = v62;
-        v116 = v80;
-        v117 = v102;
-        v81 = [v78 continuouslyDiscoverPlugInsForAttributes:v79 flags:512 found:v115];
+        v115[2] = sub_10000A8A8;
+        v115[3] = &unk_10001D550;
+        v84 = v83;
+        v116 = v84;
+        [(DTXPCServiceController *)self _registryModify:1 identifier:v82 parent:intValue client:v66 block:v115];
 
-        v113[0] = _NSConcreteStackBlock;
-        v113[1] = 3221225472;
-        v113[2] = sub_10000A8A8;
-        v113[3] = &unk_10001D550;
-        v82 = v81;
-        v114 = v82;
-        [(DTXPCServiceController *)self _registryModify:1 identifier:v80 parent:intValue client:v63 block:v113];
-
-        v69 = v116;
+        v71 = v118;
       }
 
       goto LABEL_96;
     }
 
     *buf = 1024;
-    v40 = [[NSMutableData alloc] initWithLength:1024];
-    v41 = v40;
-    if (sysctlbyname("kern.bootargs", [v40 mutableBytes], buf, 0, 0))
+    v42 = [[NSMutableData alloc] initWithLength:1024];
+    v43 = v42;
+    if (sysctlbyname("kern.bootargs", [v42 mutableBytes], buf, 0, 0))
     {
       perror("sysctlbyname(kern.bootargs,...)");
-      v43 = 0;
+      v45 = 0;
     }
 
     else
     {
-      [v40 setLength:*buf];
-      v42 = [[NSString alloc] initWithData:v40 encoding:4];
-      v43 = v42;
-      if (v42 && ([v42 rangeOfString:@"amfi_unrestrict_task_for_pid=1"] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v43, "rangeOfString:", @"amfi=3") != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v43, "rangeOfString:", @"amfi_get_out_of_my_way=1") != 0x7FFFFFFFFFFFFFFFLL))
+      [v42 setLength:*buf];
+      v44 = [[NSString alloc] initWithData:v42 encoding:4];
+      v45 = v44;
+      if (v44 && ([v44 rangeOfString:@"amfi_unrestrict_task_for_pid=1"] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v45, "rangeOfString:", @"amfi=3") != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v45, "rangeOfString:", @"amfi_get_out_of_my_way=1") != 0x7FFFFFFFFFFFFFFFLL))
       {
-        v44 = 0;
+        v46 = 0;
 LABEL_101:
 
         goto LABEL_102;
       }
     }
 
-    v172 = NSLocalizedDescriptionKey;
-    v84 = [NSString stringWithFormat:@"amfi_unrestrict_task_for_pid=1 is required in your boot-args to profile daemons or agents."];
-    v176 = v84;
-    v85 = [NSDictionary dictionaryWithObjects:&v176 forKeys:&v172 count:1];
-    v44 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v85];
+    v174 = NSLocalizedDescriptionKey;
+    v86 = [NSString stringWithFormat:@"amfi_unrestrict_task_for_pid=1 is required in your boot-args to profile daemons or agents."];
+    v178 = v86;
+    v87 = [NSDictionary dictionaryWithObjects:&v178 forKeys:&v174 count:1];
+    v46 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v87];
 
     goto LABEL_101;
   }

@@ -59,36 +59,36 @@
 
 - (unint64_t)edgeCount
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = self->_outEdgesMap;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v19, v23, 16);
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v18, v22, 16);
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
-        v13 = objc_msgSend_objectForKey_(self->_outEdgesMap, v12, v10, v19);
+        v13 = objc_msgSend_objectForKey_(self->_outEdgesMap, v12, v10, v18);
         v7 += objc_msgSend_count(v13, v14, v15);
 
         objc_autoreleasePoolPop(v11);
       }
 
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v16, &v19, v23, 16);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v16, &v18, v22, 16);
     }
 
     while (v6);
@@ -99,7 +99,6 @@
     v7 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -114,14 +113,14 @@
 
 - (CLSGraphVertex)anyVertex
 {
-  v13 = *MEMORY[0x277D85DE8];
-  memset(v11, 0, sizeof(v11));
+  v12 = *MEMORY[0x277D85DE8];
+  memset(v10, 0, sizeof(v10));
   v3 = self->_verticesMap;
-  if (objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, v11, v12, 16))
+  if (objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, v10, v11, 16))
   {
-    v5 = **(&v11[0] + 1);
+    v5 = **(&v10[0] + 1);
     v6 = objc_autoreleasePoolPush();
-    v8 = objc_msgSend_objectForKey_(self->_verticesMap, v7, v5, *&v11[0]);
+    v8 = objc_msgSend_objectForKey_(self->_verticesMap, v7, v5, *&v10[0]);
     objc_autoreleasePoolPop(v6);
   }
 
@@ -129,8 +128,6 @@
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -231,32 +228,32 @@
 
 - (void)removeVertex:(id)vertex
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   vertexCopy = vertex;
   v7 = objc_msgSend_vertexID(vertexCopy, v5, v6);
   v9 = objc_msgSend_objectForKey_(self->_outEdgesMap, v8, v7);
   objc_msgSend_removeObjectForKey_(self->_outEdgesMap, v10, v7);
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v11 = v9;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v40, v45, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v39, v44, 16);
   if (v13)
   {
     v14 = v13;
-    v15 = *v41;
+    v15 = *v40;
     do
     {
       v16 = 0;
       do
       {
-        if (*v41 != v15)
+        if (*v40 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * v16);
+        v17 = *(*(&v39 + 1) + 8 * v16);
         v18 = objc_autoreleasePoolPush();
         objc_msgSend__removeEdgeFromVertexWithID_toVertexWithID_(self, v19, v7, v17);
         objc_autoreleasePoolPop(v18);
@@ -264,7 +261,7 @@
       }
 
       while (v14 != v16);
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v20, &v40, v45, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v20, &v39, v44, 16);
     }
 
     while (v14);
@@ -272,42 +269,41 @@
 
   v22 = objc_msgSend_objectForKey_(self->_inEdgesMap, v21, v7);
   objc_msgSend_removeObjectForKey_(self->_inEdgesMap, v23, v7);
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v24 = v22;
-  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v36, v44, 16);
+  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v35, v43, 16);
   if (v26)
   {
     v27 = v26;
-    v28 = *v37;
+    v28 = *v36;
     do
     {
       v29 = 0;
       do
       {
-        if (*v37 != v28)
+        if (*v36 != v28)
         {
           objc_enumerationMutation(v24);
         }
 
-        v30 = *(*(&v36 + 1) + 8 * v29);
+        v30 = *(*(&v35 + 1) + 8 * v29);
         v31 = objc_autoreleasePoolPush();
-        objc_msgSend__removeEdgeFromVertexWithID_toVertexWithID_(self, v32, v30, v7, v36);
+        objc_msgSend__removeEdgeFromVertexWithID_toVertexWithID_(self, v32, v30, v7, v35);
         objc_autoreleasePoolPop(v31);
         ++v29;
       }
 
       while (v27 != v29);
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v33, &v36, v44, 16);
+      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v33, &v35, v43, 16);
     }
 
     while (v27);
   }
 
   objc_msgSend_removeObjectForKey_(self->_verticesMap, v34, v7);
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeEdgeFromVertex:(id)vertex toVertex:(id)toVertex
@@ -333,43 +329,41 @@
 
 - (void)removeSubtreeStartingAtVertex:(id)vertex
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   vertexCopy = vertex;
   v6 = objc_msgSend_outNeighboursOfVertex_(self, v5, vertexCopy);
   objc_msgSend_removeVertex_(self, v7, vertexCopy);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v6;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v17, v21, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v16, v20, 16);
   if (v10)
   {
     v12 = v10;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * i);
-        if (!objc_msgSend_inDegree_(self, v11, v15, v17))
+        v15 = *(*(&v16 + 1) + 8 * i);
+        if (!objc_msgSend_inDegree_(self, v11, v15, v16))
         {
           objc_msgSend_removeSubtreeStartingAtVertex_(self, v11, v15);
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v17, v21, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v16, v20, 16);
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)neighboursOfVertex:(id)vertex
@@ -466,37 +460,37 @@
 
 - (void)_enumerateVerticesInEdges:(id)edges skipingEdges:(id)skipingEdges enumerationBlock:(id)block
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   edgesCopy = edges;
   skipingEdgesCopy = skipingEdges;
   blockCopy = block;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v10 = edgesCopy;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v26, v30, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v25, v29, 16);
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
+        v16 = *(*(&v25 + 1) + 8 * i);
         v17 = objc_autoreleasePoolPush();
         if ((objc_msgSend_containsObject_(skipingEdgesCopy, v18, v16) & 1) == 0)
         {
           v20 = objc_msgSend_objectForKey_(self->_verticesMap, v19, v16);
-          v25 = 0;
-          blockCopy[2](blockCopy, v20, &v25);
-          v21 = v25;
+          v24 = 0;
+          blockCopy[2](blockCopy, v20, &v24);
+          v21 = v24;
 
           if (v21 == 1)
           {
@@ -508,7 +502,7 @@
         objc_autoreleasePoolPop(v17);
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v22, &v26, v30, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v22, &v25, v29, 16);
       if (v13)
       {
         continue;
@@ -519,39 +513,37 @@
   }
 
 LABEL_12:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerate:(id)enumerate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   enumerateCopy = enumerate;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = self->_verticesMap;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v19, v23, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v18, v22, 16);
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v20 != v9)
+      if (*v19 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v19 + 1) + 8 * v10);
+      v11 = *(*(&v18 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
       v14 = objc_msgSend_objectForKey_(self->_verticesMap, v13, v11);
-      v18 = 0;
-      enumerateCopy[2](enumerateCopy, v14, &v18);
-      v15 = v18;
+      v17 = 0;
+      enumerateCopy[2](enumerateCopy, v14, &v17);
+      v15 = v17;
 
       objc_autoreleasePoolPop(v12);
       if (v15)
@@ -561,7 +553,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v16, &v19, v23, 16);
+        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v16, &v18, v22, 16);
         if (v8)
         {
           goto LABEL_3;
@@ -571,37 +563,35 @@ LABEL_3:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)traverseVerticesPassingTest:(id)test enumerationBlock:(id)block
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   testCopy = test;
   blockCopy = block;
   v8 = objc_msgSend_hashTableWithOptions_(MEMORY[0x277CCAA50], v7, 517);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v9 = self->_verticesMap;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v24, v28, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v23, v27, 16);
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       v14 = 0;
       do
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * v14);
+        v15 = *(*(&v23 + 1) + 8 * v14);
         v16 = objc_autoreleasePoolPush();
         v18 = objc_msgSend_objectForKey_(self->_verticesMap, v17, v15);
         if ((objc_msgSend_containsObject_(v8, v19, v18) & 1) == 0 && testCopy[2](testCopy, v18))
@@ -614,13 +604,11 @@ LABEL_3:
       }
 
       while (v12 != v14);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v21, &v24, v28, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v21, &v23, v27, 16);
     }
 
     while (v12);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)traverseStartingAtVertex:(id)vertex enumerationBlock:(id)block
@@ -634,38 +622,38 @@ LABEL_3:
 
 - (void)_traverseStartingAtVertex:(id)vertex previousVertex:(id)previousVertex visitedVertices:(id)vertices enumerationBlock:(id)block
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   vertexCopy = vertex;
   previousVertexCopy = previousVertex;
   verticesCopy = vertices;
   blockCopy = block;
   objc_msgSend_addObject_(verticesCopy, v14, vertexCopy);
-  v38 = 0;
-  blockCopy[2](blockCopy, vertexCopy, previousVertexCopy, &v38);
-  if ((v38 & 1) == 0)
+  v37 = 0;
+  blockCopy[2](blockCopy, vertexCopy, previousVertexCopy, &v37);
+  if ((v37 & 1) == 0)
   {
-    v33 = previousVertexCopy;
-    v32 = objc_msgSend_vertexID(vertexCopy, v15, v16);
-    objc_msgSend_objectForKey_(self->_outEdgesMap, v17, v32);
+    v32 = previousVertexCopy;
+    v31 = objc_msgSend_vertexID(vertexCopy, v15, v16);
+    objc_msgSend_objectForKey_(self->_outEdgesMap, v17, v31);
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v18 = v37 = 0u;
-    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v34, v39, 16);
+    v18 = v36 = 0u;
+    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v33, v38, 16);
     if (v20)
     {
       v21 = v20;
-      v22 = *v35;
+      v22 = *v34;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v35 != v22)
+          if (*v34 != v22)
           {
             objc_enumerationMutation(v18);
           }
 
-          v24 = *(*(&v34 + 1) + 8 * i);
+          v24 = *(*(&v33 + 1) + 8 * i);
           v25 = objc_autoreleasePoolPush();
           v27 = objc_msgSend_objectForKey_(self->_verticesMap, v26, v24);
           if ((objc_msgSend_containsObject_(verticesCopy, v28, v27) & 1) == 0)
@@ -676,16 +664,14 @@ LABEL_3:
           objc_autoreleasePoolPop(v25);
         }
 
-        v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v30, &v34, v39, 16);
+        v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v30, &v33, v38, 16);
       }
 
       while (v21);
     }
 
-    previousVertexCopy = v33;
+    previousVertexCopy = v32;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

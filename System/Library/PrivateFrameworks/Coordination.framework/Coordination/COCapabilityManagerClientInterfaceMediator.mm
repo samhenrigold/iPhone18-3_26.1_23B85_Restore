@@ -1,6 +1,7 @@
 @interface COCapabilityManagerClientInterfaceMediator
 - (COCapabilityManager)manager;
 - (COCapabilityManagerClientInterfaceMediator)initWithCapabilityManager:(id)manager;
+- (void)availabilityChanged:(BOOL)changed ofCapability:(id)capability inCluster:(id)cluster;
 @end
 
 @implementation COCapabilityManagerClientInterfaceMediator
@@ -18,6 +19,19 @@
   }
 
   return v6;
+}
+
+- (void)availabilityChanged:(BOOL)changed ofCapability:(id)capability inCluster:(id)cluster
+{
+  changedCopy = changed;
+  capabilityCopy = capability;
+  clusterCopy = cluster;
+  WeakRetained = objc_loadWeakRetained(&self->_manager);
+  v10 = WeakRetained;
+  if (WeakRetained)
+  {
+    [WeakRetained availabilityChanged:changedCopy ofCapability:capabilityCopy inCluster:clusterCopy];
+  }
 }
 
 - (COCapabilityManager)manager

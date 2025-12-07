@@ -1,192 +1,3 @@
-uint64_t INSpatialEventWithString(void *a1)
-{
-  v1 = a1;
-  if ([v1 isEqualToString:@"arrive"])
-  {
-    v2 = 1;
-  }
-
-  else if ([v1 isEqualToString:@"depart"])
-  {
-    v2 = 2;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  return v2;
-}
-
-id INSpatialEventGetLocalizedName(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (a1 == 2)
-  {
-    v4 = @"depart";
-    goto LABEL_5;
-  }
-
-  if (a1 == 1)
-  {
-    v4 = @"arrive";
-LABEL_5:
-    v5 = INLocalizedStringWithLocalizer(v4, v4, v3);
-    goto LABEL_7;
-  }
-
-  v5 = 0;
-LABEL_7:
-
-  return v5;
-}
-
-uint64_t _INPBSetMessageAttributeIntentResponseReadFrom(uint64_t a1, void *a2)
-{
-  while (1)
-  {
-    v3 = [a2 position];
-    if (v3 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
-    {
-      break;
-    }
-
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
-    while (1)
-    {
-      v13 = 0;
-      v7 = [a2 position] + 1;
-      if (v7 >= [a2 position] && (v8 = objc_msgSend(a2, "position") + 1, v8 <= objc_msgSend(a2, "length")))
-      {
-        v9 = [a2 data];
-        [v9 getBytes:&v13 range:{objc_msgSend(a2, "position"), 1}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      v6 |= (v13 & 0x7F) << v4;
-      if ((v13 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v4 += 7;
-      if (v5++ >= 9)
-      {
-        v11 = 0;
-        goto LABEL_15;
-      }
-    }
-
-    v11 = [a2 hasError] ? 0 : v6;
-LABEL_15:
-    if (([a2 hasError] & 1) != 0 || (v11 & 7) == 4)
-    {
-      break;
-    }
-
-    if ((PBReaderSkipValueWithTag() & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t _INPBPayloadNeedsDisambiguationReadFrom(void *a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v16[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v16 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v16[0] & 0x7F) << v5;
-        if ((v16[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = objc_alloc_init(_INPBSelectionItem);
-        v16[0] = 0;
-        v16[1] = 0;
-        if (!PBReaderPlaceMark() || !_INPBSelectionItemReadFrom(v13, a2))
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-        if (v13)
-        {
-          [a1 addDisambiguationItems:v13];
-        }
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v14 = [a2 position];
-    }
-
-    while (v14 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
 __CFString *INSendMessageIntentResponseCodeGetName(uint64_t a1)
 {
   if (a1 > 6)
@@ -410,38 +221,38 @@ _INPBTicketedEventReservation *INIntentSlotValueTransformToTicketedEventReservat
 
 id INIntentSlotValueTransformFromTicketedEventReservations(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformFromTicketedEventReservation(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformFromTicketedEventReservation(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -454,46 +265,44 @@ id INIntentSlotValueTransformFromTicketedEventReservations(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 id INIntentSlotValueTransformToTicketedEventReservations(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformToTicketedEventReservation(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformToTicketedEventReservation(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -506,8 +315,6 @@ id INIntentSlotValueTransformToTicketedEventReservations(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -903,6 +710,13 @@ LABEL_36:
   }
 
   return [a2 hasError] ^ 1;
+}
+
+void sub_18EB84104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__65246(uint64_t result, uint64_t a2)
@@ -1710,7 +1524,7 @@ LABEL_15:
   return v4;
 }
 
-uint64_t _INPBRideCompletionStatusReadFrom(void *a1, void *a2)
+uint64_t _INPBRideCompletionStatusReadFrom(char *a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -2249,31 +2063,31 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_18EB8EF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18EB8EF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getACXDeviceConnectionClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppConduitLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppConduitLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7282398;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppConduitLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7282398;
+    v6 = 0;
     AppConduitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppConduitLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -2281,7 +2095,7 @@ Class __getACXDeviceConnectionClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2292,21 +2106,17 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "ACXDeviceConnection");
   }
 
   getACXDeviceConnectionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppConduitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppConduitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5547,10 +5357,11 @@ LABEL_29:
   return [a2 hasError] ^ 1;
 }
 
-void sub_18EBA19A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_18EBA19A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 176), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5561,72 +5372,72 @@ uint64_t __Block_byref_object_copy__68261(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_18EBA1C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18EBA1C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18EBA1F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18EBA1F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
 id _INSchemasByIdentifierWithSchemaURLsByIdentifier(void *a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if ([v1 count])
   {
     v2 = objc_opt_new();
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v24 = v1;
+    v23 = v1;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v32 objects:v38 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v34;
+      v6 = *v33;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v34 != v6)
+          if (*v33 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v33 + 1) + 8 * i);
+          v8 = *(*(&v32 + 1) + 8 * i);
           v9 = [v3 objectForKeyedSubscript:v8];
+          v28 = 0u;
           v29 = 0u;
           v30 = 0u;
           v31 = 0u;
-          v32 = 0u;
-          v10 = [v9 countByEnumeratingWithState:&v29 objects:v38 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v28 objects:v37 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v30;
+            v12 = *v29;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v30 != v12)
+                if (*v29 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                [*(*(&v29 + 1) + 8 * j) startAccessingSecurityScopedResource];
+                [*(*(&v28 + 1) + 8 * j) startAccessingSecurityScopedResource];
               }
 
-              v11 = [v9 countByEnumeratingWithState:&v29 objects:v38 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v28 objects:v37 count:16];
             }
 
             while (v11);
@@ -5639,36 +5450,36 @@ id _INSchemasByIdentifierWithSchemaURLsByIdentifier(void *a1)
             [v2 setObject:v15 forKeyedSubscript:v8];
           }
 
-          v27 = 0u;
-          v28 = 0u;
-          v25 = 0u;
           v26 = 0u;
+          v27 = 0u;
+          v24 = 0u;
+          v25 = 0u;
           v16 = v9;
-          v17 = [v16 countByEnumeratingWithState:&v25 objects:v37 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v24 objects:v36 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v26;
+            v19 = *v25;
             do
             {
               for (k = 0; k != v18; ++k)
               {
-                if (*v26 != v19)
+                if (*v25 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                [*(*(&v25 + 1) + 8 * k) stopAccessingSecurityScopedResource];
+                [*(*(&v24 + 1) + 8 * k) stopAccessingSecurityScopedResource];
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v25 objects:v37 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v24 objects:v36 count:16];
             }
 
             while (v18);
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v33 objects:v39 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v32 objects:v38 count:16];
       }
 
       while (v5);
@@ -5684,7 +5495,7 @@ id _INSchemasByIdentifierWithSchemaURLsByIdentifier(void *a1)
       v21 = 0;
     }
 
-    v1 = v24;
+    v1 = v23;
   }
 
   else
@@ -5692,19 +5503,18 @@ id _INSchemasByIdentifierWithSchemaURLsByIdentifier(void *a1)
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
-void sub_18EBA3964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_18EBA3964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _INPBMoveFileIntentResponseReadFrom(void *a1, void *a2)
+uint64_t _INPBMoveFileIntentResponseReadFrom(char *a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -6111,38 +5921,38 @@ _INPBPaymentRecord *INIntentSlotValueTransformToPaymentRecord(void *a1)
 
 id INIntentSlotValueTransformFromPaymentRecords(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformFromPaymentRecord(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformFromPaymentRecord(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -6155,46 +5965,44 @@ id INIntentSlotValueTransformFromPaymentRecords(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 id INIntentSlotValueTransformToPaymentRecords(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformToPaymentRecord(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformToPaymentRecord(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -6207,8 +6015,6 @@ id INIntentSlotValueTransformToPaymentRecords(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -6220,7 +6026,7 @@ uint64_t __Block_byref_object_copy__69070(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t _INPBSearchCallHistoryIntentReadFrom(void *a1, void *a2)
+uint64_t _INPBSearchCallHistoryIntentReadFrom(char *a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -8370,38 +8176,38 @@ LABEL_10:
 
 id INIntentSlotValueTransformFromWellnessMetadataPairs(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformFromWellnessMetadataPair(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformFromWellnessMetadataPair(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -8414,46 +8220,44 @@ id INIntentSlotValueTransformFromWellnessMetadataPairs(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 id INIntentSlotValueTransformToWellnessMetadataPairs(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformToWellnessMetadataPair(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformToWellnessMetadataPair(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -8466,8 +8270,6 @@ id INIntentSlotValueTransformToWellnessMetadataPairs(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -8492,7 +8294,7 @@ void INCallCapabilityOptionsEnumerateBackingTypes(uint64_t a1, void *a2)
   }
 }
 
-uint64_t INCallCapabilityOptionsContainsBackingType(unint64_t a1, int a2)
+unint64_t INCallCapabilityOptionsContainsBackingType(unint64_t a1, int a2)
 {
   v2 = (a1 >> 1) & 1;
   if (a2 == 1)
@@ -8590,28 +8392,28 @@ id INCallCapabilityOptionsGetNames(uint64_t a1)
 
 uint64_t INCallCapabilityOptionsWithNames(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = a1;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         v4 |= [v7 isEqualToString:@"audioCall"];
         if ([v7 isEqualToString:@"videoCall"])
         {
@@ -8619,7 +8421,7 @@ uint64_t INCallCapabilityOptionsWithNames(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v3);
@@ -8630,7 +8432,6 @@ uint64_t INCallCapabilityOptionsWithNames(void *a1)
     v4 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -9000,58 +8801,6 @@ LABEL_17:
 
 id INIntentSlotValueTransformFromNulls(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v12;
-    while (1)
-    {
-      if (*v12 != v6)
-      {
-        objc_enumerationMutation(v3);
-      }
-
-      v7 = [MEMORY[0x1E695DFB0] null];
-      if (v7)
-      {
-        [v2 addObject:v7];
-      }
-
-      if (!--v5)
-      {
-        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-        if (!v5)
-        {
-          break;
-        }
-      }
-    }
-  }
-
-  v8 = [v2 copy];
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
-}
-
-_INPBEmpty *INIntentSlotValueTransformToNull()
-{
-  v0 = objc_alloc_init(_INPBEmpty);
-
-  return v0;
-}
-
-id INIntentSlotValueTransformToNulls(void *a1)
-{
   v15 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
@@ -9072,10 +8821,10 @@ id INIntentSlotValueTransformToNulls(void *a1)
         objc_enumerationMutation(v3);
       }
 
-      v7 = objc_alloc_init(_INPBEmpty);
+      v7 = [MEMORY[0x1E695DFB0] null];
       if (v7)
       {
-        [v2 addObject:{v7, v10}];
+        [v2 addObject:v7];
       }
 
       if (!--v5)
@@ -9089,7 +8838,56 @@ id INIntentSlotValueTransformToNulls(void *a1)
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = [v2 copy];
+
+  return v8;
+}
+
+_INPBEmpty *INIntentSlotValueTransformToNull()
+{
+  v0 = objc_alloc_init(_INPBEmpty);
+
+  return v0;
+}
+
+id INIntentSlotValueTransformToNulls(void *a1)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v3 = v1;
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v10;
+    while (1)
+    {
+      if (*v10 != v6)
+      {
+        objc_enumerationMutation(v3);
+      }
+
+      v7 = objc_alloc_init(_INPBEmpty);
+      if (v7)
+      {
+        [v2 addObject:{v7, v9}];
+      }
+
+      if (!--v5)
+      {
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        if (!v5)
+        {
+          break;
+        }
+      }
+    }
+  }
 
   return v2;
 }
@@ -9402,38 +9200,38 @@ _INPBWellnessObjectResultValue *INIntentSlotValueTransformToWellnessObjectResult
 
 id INIntentSlotValueTransformFromWellnessObjectResultValues(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformFromWellnessObjectResultValue(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformFromWellnessObjectResultValue(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -9446,46 +9244,44 @@ id INIntentSlotValueTransformFromWellnessObjectResultValues(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 id INIntentSlotValueTransformToWellnessObjectResultValues(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformToWellnessObjectResultValue(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformToWellnessObjectResultValue(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -9498,8 +9294,6 @@ id INIntentSlotValueTransformToWellnessObjectResultValues(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -9616,4 +9410,145 @@ LABEL_27:
   }
 
   return [a2 hasError] ^ 1;
+}
+
+uint64_t _INPBQueryHomeIntentResponseReadFrom(uint64_t a1, void *a2)
+{
+  while (1)
+  {
+    v3 = [a2 position];
+    if (v3 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
+    {
+      break;
+    }
+
+    v4 = 0;
+    v5 = 0;
+    v6 = 0;
+    while (1)
+    {
+      v13 = 0;
+      v7 = [a2 position] + 1;
+      if (v7 >= [a2 position] && (v8 = objc_msgSend(a2, "position") + 1, v8 <= objc_msgSend(a2, "length")))
+      {
+        v9 = [a2 data];
+        [v9 getBytes:&v13 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v6 |= (v13 & 0x7F) << v4;
+      if ((v13 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v4 += 7;
+      if (v5++ >= 9)
+      {
+        v11 = 0;
+        goto LABEL_15;
+      }
+    }
+
+    v11 = [a2 hasError] ? 0 : v6;
+LABEL_15:
+    if (([a2 hasError] & 1) != 0 || (v11 & 7) == 4)
+    {
+      break;
+    }
+
+    if ((PBReaderSkipValueWithTag() & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+id INIntentSlotValueTransformFromGEOLatLng(void *a1)
+{
+  if (a1)
+  {
+    v2 = MEMORY[0x1E6985C40];
+    v3 = a1;
+    v4 = [v2 alloc];
+    [v3 lat];
+    v6 = v5;
+    [v3 lng];
+    v8 = v7;
+
+    a1 = [v4 initWithLatitude:v6 longitude:v8];
+    v1 = vars8;
+  }
+
+  return a1;
+}
+
+id INIntentSlotValueTransformToGEOLatLng(void *a1)
+{
+  if (a1)
+  {
+    [a1 coordinate];
+    v2 = v1;
+    v4 = v3;
+    v5 = objc_alloc_init(MEMORY[0x1E69A1E50]);
+    [v5 setLat:v2];
+    [v5 setLng:v4];
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
+id INIntentSlotValueTransformFromGEOLatLngs(void *a1)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v3 = v1;
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v12;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v12 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = INIntentSlotValueTransformFromGEOLatLng(*(*(&v11 + 1) + 8 * i));
+        if (v8)
+        {
+          [v2 addObject:{v8, v11}];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v5);
+  }
+
+  v9 = [v2 copy];
+
+  return v9;
 }

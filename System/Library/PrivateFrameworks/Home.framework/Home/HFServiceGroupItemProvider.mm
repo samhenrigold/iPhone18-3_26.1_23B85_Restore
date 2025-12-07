@@ -39,8 +39,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFServiceGroupItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -54,8 +54,8 @@
   aBlock[3] = &unk_277DF5228;
   objc_copyWeak(&v13, &location);
   v3 = _Block_copy(aBlock);
-  home = [(HFServiceGroupItemProvider *)self home];
-  serviceGroups = [home serviceGroups];
+  v4 = objc_msgSend_home(self);
+  serviceGroups = [v4 serviceGroups];
   filter = [(HFServiceGroupItemProvider *)self filter];
   v7 = [(HFItemProvider *)self reloadItemsWithHomeKitObjects:serviceGroups filter:filter itemMap:v3];
   v10[0] = MEMORY[0x277D85DD0];
@@ -121,8 +121,8 @@ id __41__HFServiceGroupItemProvider_reloadItems__block_invoke_2(uint64_t a1, voi
 
   else
   {
-    home = [(HFServiceGroupItemProvider *)self home];
-    overrideValueSource2 = [home hf_characteristicValueManager];
+    v5 = objc_msgSend_home(self);
+    overrideValueSource2 = [v5 hf_characteristicValueManager];
   }
 
   return overrideValueSource2;

@@ -96,7 +96,7 @@ void __17__MTPromise_init__block_invoke(uint64_t a1)
 
 + (id)_resultOfComposition:(id)composition errors:(id)errors
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   compositionCopy = composition;
   errorsCopy = errors;
   objc_opt_class();
@@ -131,30 +131,30 @@ void __17__MTPromise_init__block_invoke(uint64_t a1)
     if (objc_opt_isKindOfClass())
     {
       v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(compositionCopy, "count")}];
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
       v15 = compositionCopy;
-      v16 = [v15 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v37 objects:v42 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v39;
+        v18 = *v38;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v39 != v18)
+            if (*v38 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = [self _resultOfComposition:*(*(&v38 + 1) + 8 * i) errors:errorsCopy];
+            v20 = [self _resultOfComposition:*(*(&v37 + 1) + 8 * i) errors:errorsCopy];
             [v14 addObject:v20];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v38 objects:v43 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v37 objects:v42 count:16];
         }
 
         while (v17);
@@ -169,40 +169,40 @@ void __17__MTPromise_init__block_invoke(uint64_t a1)
       if (objc_opt_isKindOfClass())
       {
         v22 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(compositionCopy, "count")}];
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
-        v33 = compositionCopy;
+        v32 = compositionCopy;
         v23 = compositionCopy;
-        v24 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v35;
+          v26 = *v34;
           do
           {
             for (j = 0; j != v25; ++j)
             {
-              if (*v35 != v26)
+              if (*v34 != v26)
               {
                 objc_enumerationMutation(v23);
               }
 
-              v28 = *(*(&v34 + 1) + 8 * j);
+              v28 = *(*(&v33 + 1) + 8 * j);
               v29 = [v23 objectForKeyedSubscript:v28];
               v30 = [self _resultOfComposition:v29 errors:errorsCopy];
               [v22 setObject:v30 forKeyedSubscript:v28];
             }
 
-            v25 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v25 = [v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
           }
 
           while (v25);
         }
 
         v21 = [v22 copy];
-        compositionCopy = v33;
+        compositionCopy = v32;
       }
 
       else
@@ -212,14 +212,12 @@ void __17__MTPromise_init__block_invoke(uint64_t a1)
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 + (id)_findUnfinishedPromise:(id)promise
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   promiseCopy = promise;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -241,26 +239,26 @@ void __17__MTPromise_init__block_invoke(uint64_t a1)
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v7 = promiseCopy;
-    v8 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v25;
+      v10 = *v24;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [self _findUnfinishedPromise:*(*(&v24 + 1) + 8 * i)];
+          v12 = [self _findUnfinishedPromise:*(*(&v23 + 1) + 8 * i)];
           if (v12)
           {
             v6 = v12;
@@ -268,7 +266,7 @@ void __17__MTPromise_init__block_invoke(uint64_t a1)
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v9)
         {
           continue;
@@ -286,26 +284,26 @@ LABEL_25:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v7 = promiseCopy;
-    v13 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v13 = [v7 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v21;
+      v15 = *v20;
       while (2)
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(v7);
           }
 
-          v17 = [v7 objectForKeyedSubscript:{*(*(&v20 + 1) + 8 * j), v20}];
+          v17 = [v7 objectForKeyedSubscript:{*(*(&v19 + 1) + 8 * j), v19}];
           v6 = [self _findUnfinishedPromise:v17];
 
           if (v6)
@@ -316,7 +314,7 @@ LABEL_28:
           }
         }
 
-        v14 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v14 = [v7 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v14)
         {
           continue;
@@ -332,8 +330,6 @@ LABEL_28:
 LABEL_26:
   v6 = 0;
 LABEL_29:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -373,7 +369,7 @@ LABEL_29:
 
 + (void)cancelPromisesInComposition:(id)composition
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   compositionCopy = composition;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -381,30 +377,30 @@ LABEL_29:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v4 = compositionCopy;
-      v5 = [v4 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v20;
+        v7 = *v19;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v20 != v7)
+            if (*v19 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            v9 = [v4 objectForKeyedSubscript:*(*(&v19 + 1) + 8 * i)];
+            v9 = [v4 objectForKeyedSubscript:*(*(&v18 + 1) + 8 * i)];
             [MTPromise cancelPromisesInComposition:v9];
           }
 
-          v6 = [v4 countByEnumeratingWithState:&v19 objects:v24 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
         }
 
         while (v6);
@@ -419,29 +415,29 @@ LABEL_29:
         goto LABEL_21;
       }
 
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v4 = compositionCopy;
-      v10 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v10 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v16;
+        v12 = *v15;
         do
         {
           for (j = 0; j != v11; ++j)
           {
-            if (*v16 != v12)
+            if (*v15 != v12)
             {
               objc_enumerationMutation(v4);
             }
 
-            [MTPromise cancelPromisesInComposition:*(*(&v15 + 1) + 8 * j), v15];
+            [MTPromise cancelPromisesInComposition:*(*(&v14 + 1) + 8 * j), v14];
           }
 
-          v11 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
+          v11 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
         }
 
         while (v11);
@@ -453,8 +449,6 @@ LABEL_29:
 
   [compositionCopy cancel];
 LABEL_21:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (MTPromise)promiseWithError:(id)error
@@ -745,7 +739,7 @@ void __27__MTPromise_thenWithBlock___block_invoke(uint64_t a1, void *a2, void *a
   v8 = errorCopy;
   if (resultCopy && errorCopy)
   {
-    v9 = MTMetricsKitOSLog();
+    v9 = MTMetricsKitOSLog(errorCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
@@ -767,7 +761,7 @@ LABEL_8:
       goto LABEL_10;
     }
 
-    v9 = MTMetricsKitOSLog();
+    v9 = MTMetricsKitOSLog(errorCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
@@ -803,7 +797,7 @@ LABEL_10:
         goto LABEL_16;
       }
 
-      promiseResult = MTMetricsKitOSLog();
+      promiseResult = MTMetricsKitOSLog(v24);
       if (os_log_type_enabled(promiseResult, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
@@ -838,7 +832,6 @@ LABEL_16:
   objc_destroyWeak(buf);
 LABEL_17:
 
-  v24 = *MEMORY[0x277D85DE8];
   return condition != 1;
 }
 

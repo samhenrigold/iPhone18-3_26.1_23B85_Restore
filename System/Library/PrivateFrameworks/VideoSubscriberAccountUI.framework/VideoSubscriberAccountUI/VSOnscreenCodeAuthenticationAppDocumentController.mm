@@ -67,7 +67,7 @@ LABEL_8:
 
 - (BOOL)_updateOnscreenCodeViewModel:(id)model withTemplate:(id)template
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   templateCopy = template;
   v7 = MEMORY[0x277CBE660];
@@ -76,28 +76,28 @@ LABEL_8:
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The viewModel parameter must not be nil."];
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  v42 = templateCopy;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v41 = templateCopy;
   children = [templateCopy children];
-  v9 = [children countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v9 = [children countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v46;
+    v11 = *v45;
     v12 = *v7;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v46 != v11)
+        if (*v45 != v11)
         {
           objc_enumerationMutation(children);
         }
 
-        v14 = *(*(&v45 + 1) + 8 * i);
+        v14 = *(*(&v44 + 1) + 8 * i);
         vs_elementType = [v14 vs_elementType];
         if (vs_elementType == 157)
         {
@@ -170,7 +170,7 @@ LABEL_25:
 LABEL_26:
       }
 
-      v10 = [children countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v10 = [children countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v10);
@@ -190,12 +190,12 @@ LABEL_26:
 
     v35 = objc_opt_class();
     v36 = NSStringFromClass(v35);
-    v49[0] = @"title";
-    v49[1] = @"text";
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
-    v44.receiver = self;
-    v44.super_class = VSOnscreenCodeAuthenticationAppDocumentController;
-    v38 = [(VSAppDocumentController *)&v44 _getSupportedButtonTextsforTemplate:v36 andElementKeys:v37 supportedCount:1];
+    v48[0] = @"title";
+    v48[1] = @"text";
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+    v43.receiver = self;
+    v43.super_class = VSOnscreenCodeAuthenticationAppDocumentController;
+    v38 = [(VSAppDocumentController *)&v43 _getSupportedButtonTextsforTemplate:v36 andElementKeys:v37 supportedCount:1];
     firstObject2 = [v38 firstObject];
 
     v30 = firstObject2;
@@ -204,7 +204,6 @@ LABEL_26:
   [modelCopy setButtonLockupTitle:v30];
   [modelCopy setShowButtonLockup:v32 != 0];
 
-  v40 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

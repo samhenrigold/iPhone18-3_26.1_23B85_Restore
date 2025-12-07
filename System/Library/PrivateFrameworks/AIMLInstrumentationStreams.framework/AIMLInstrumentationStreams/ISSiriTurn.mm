@@ -19,21 +19,20 @@
 {
   v3 = sub_23C870B74();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   result = EventGraph.uei.getter();
   if (result)
   {
-    v10 = sub_23C62FC3C();
+    v9 = sub_23C62FC3C();
 
     sub_23C870E24();
 
-    v11 = sub_23C870B24();
-    (*(v4 + 8))(v7, v3);
+    v10 = sub_23C870B24();
+    (*(v4 + 8))(v6, v3);
 
-    return v11;
+    return v10;
   }
 
   else
@@ -62,27 +61,26 @@
 - (NSUUID)previousTurnId
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1F92A0, &qword_23C8734E0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
   result = EventGraph.uei.getter();
   if (result)
   {
-    ComponentGroup<>.previousTurnId.getter(v6);
+    ComponentGroup<>.previousTurnId.getter(v5);
 
-    v9 = sub_23C870B74();
-    v10 = *(v9 - 8);
-    v11 = (*(v10 + 48))(v6, 1, v9);
-    v12 = 0;
-    if (v11 != 1)
+    v8 = sub_23C870B74();
+    v9 = *(v8 - 8);
+    v10 = (*(v9 + 48))(v5, 1, v8);
+    v11 = 0;
+    if (v10 != 1)
     {
-      v13 = sub_23C870B24();
-      (*(v10 + 8))(v6, v9);
-      v12 = v13;
+      v12 = sub_23C870B24();
+      (*(v9 + 8))(v5, v8);
+      v11 = v12;
     }
 
-    return v12;
+    return v11;
   }
 
   else

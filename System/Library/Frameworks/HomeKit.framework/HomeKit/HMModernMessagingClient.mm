@@ -32,7 +32,7 @@
 
 - (void)sendModernMessagingRequestWithMessageName:(id)name destination:(id)destination requestPayload:(id)payload options:(id)options responseHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   destinationCopy = destination;
   payloadCopy = payload;
@@ -45,21 +45,21 @@
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v23 = v33 = payloadCopy;
+    v23 = v32 = payloadCopy;
     v24 = HMFBooleanToString();
     *buf = 138544386;
-    v36 = v23;
-    v37 = 2112;
-    v38 = nameCopy;
-    v39 = 2112;
-    v40 = destinationCopy;
-    v41 = 2112;
-    v42 = optionsCopy;
-    v43 = 2112;
-    v44 = v24;
+    v35 = v23;
+    v36 = 2112;
+    v37 = nameCopy;
+    v38 = 2112;
+    v39 = destinationCopy;
+    v40 = 2112;
+    v41 = optionsCopy;
+    v42 = 2112;
+    v43 = v24;
     _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_INFO, "%{public}@Sending hmmm message with message name: %@, destination: %@, options: %@, oneway: %@", buf, 0x34u);
 
-    payloadCopy = v33;
+    payloadCopy = v32;
   }
 
   objc_autoreleasePoolPop(v20);
@@ -72,7 +72,7 @@
 
   else
   {
-    v34 = payloadCopy;
+    v33 = payloadCopy;
     v27 = objc_autoreleasePoolPush();
     v28 = selfCopy;
     v29 = HMFGetOSLogHandle();
@@ -80,25 +80,23 @@
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v30;
+      v35 = v30;
       _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_ERROR, "%{public}@Error while sending hmmm request handler: home is null", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v27);
-    payloadCopy = v34;
+    payloadCopy = v33;
     if (completionHandlerCopy)
     {
       v31 = [MEMORY[0x1E696ABC0] hmErrorWithCode:2];
       completionHandlerCopy[2](completionHandlerCopy, v31);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterModernMessagingRequestHandlerWithMessageName:(id)name completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -107,11 +105,11 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v11;
-    v22 = 2112;
-    v23 = nameCopy;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Unregistering hmmm request handler with message name: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v11;
+    v21 = 2112;
+    v22 = nameCopy;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Unregistering hmmm request handler with message name: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -130,9 +128,9 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v17;
-      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Error while unregistering hmmm request handler: home is null", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Error while unregistering hmmm request handler: home is null", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -142,13 +140,11 @@
       handlerCopy[2](handlerCopy, v18);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerModernMessagingRequestHandlerWithMessageName:(id)name options:(id)options requestHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   optionsCopy = options;
   handlerCopy = handler;
@@ -159,13 +155,13 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     v17 = HMFGetLogIdentifier();
-    v26 = 138543874;
-    v27 = v17;
-    v28 = 2112;
-    v29 = nameCopy;
-    v30 = 2112;
-    v31 = optionsCopy;
-    _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Registering hmmm request handler with message name: %@, options: %@", &v26, 0x20u);
+    v25 = 138543874;
+    v26 = v17;
+    v27 = 2112;
+    v28 = nameCopy;
+    v29 = 2112;
+    v30 = optionsCopy;
+    _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Registering hmmm request handler with message name: %@, options: %@", &v25, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
@@ -184,9 +180,9 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v23;
-      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Error while registering hmmm request handler: home is null", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v23;
+      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Error while registering hmmm request handler: home is null", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
@@ -196,25 +192,21 @@
       completionHandlerCopy[2](completionHandlerCopy, v24);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)attributeDescriptions
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   home = [(HMModernMessagingClient *)self home];
   uuid = [home uuid];
   v6 = [v3 initWithName:@"HomeUUID" value:uuid];
-  v13[0] = v6;
+  v12[0] = v6;
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
   idsTopic = [(HMModernMessagingClient *)self idsTopic];
   v9 = [v7 initWithName:@"IDSTopic" value:idsTopic];
-  v13[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
 
   return v10;
 }
@@ -252,12 +244,11 @@
 
 uint64_t __38__HMModernMessagingClient_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_44229;
-  logCategory__hmf_once_v7_44229 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_44229;
+  logCategory__hmf_once_v7_44229 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

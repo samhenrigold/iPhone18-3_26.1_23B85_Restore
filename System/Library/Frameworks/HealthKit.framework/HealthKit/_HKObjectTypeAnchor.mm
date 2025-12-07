@@ -49,17 +49,17 @@
 
 - (_HKObjectTypeAnchor)initWithCoder:(id)coder
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dbi"];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
+    v12 = objc_opt_class();
     v13 = objc_opt_class();
     v14 = objc_opt_class();
-    v15 = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-    v8 = [v6 setWithArray:{v7, v13, v14}];
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+    v8 = [v6 setWithArray:{v7, v12, v13}];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"anchors"];
 
     if (v9)
@@ -79,7 +79,6 @@
     selfCopy = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -800,11 +800,11 @@ void __68__RTTripClusterStore_updateLockStatusForClusterId_isLocked_handler___bl
   dispatch_semaphore_signal(*(a1 + 48));
 }
 
-void __68__RTTripClusterStore_updateLockStatusForClusterId_isLocked_handler___block_invoke_88(uint64_t a1)
+void __68__RTTripClusterStore_updateLockStatusForClusterId_isLocked_handler___block_invoke_88(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() _predicateForClusterID:*(a1 + 40)];
-  [v2 _updateTripClusterLockStatusWithPredicate:v3 isLocked:*(a1 + 56) handler:*(a1 + 48)];
+  v3 = *(a1 + 32);
+  v4 = [objc_opt_class() _predicateForClusterID:*(a1 + 40)];
+  [v3 _updateTripClusterLockStatusWithPredicate:v4 isLocked:*(a1 + 56) handler:*(a1 + 48)];
 }
 
 - (void)updateLockStatusForClusterId:(id)id isLocked:(BOOL)locked

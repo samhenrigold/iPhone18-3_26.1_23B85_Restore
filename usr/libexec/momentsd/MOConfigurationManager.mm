@@ -356,7 +356,7 @@ LABEL_8:
   OUTLINED_FUNCTION_5();
   v0 = [NSNumber numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&_mh_execute_header, v1, v2, "Resource type %@ is not implemented", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_3(&_mh_execute_header, v1, v2, "Resource type %@ is not implemented", v3, v4, v5, v6);
 }
 
 + (void)getSensedEventGroupSettingNameFromResourceType:.cold.1()
@@ -364,7 +364,7 @@ LABEL_8:
   OUTLINED_FUNCTION_5();
   v0 = [NSNumber numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&_mh_execute_header, v1, v2, "Category %@ is not implemented", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_3(&_mh_execute_header, v1, v2, "Category %@ is not implemented", v3, v4, v5, v6);
 }
 
 + (void)getSensedEventSettingNameFromCategory:.cold.1()
@@ -372,7 +372,7 @@ LABEL_8:
   OUTLINED_FUNCTION_5();
   v0 = [NSNumber numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&_mh_execute_header, v1, v2, "Event category %@ is not implemented", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_3(&_mh_execute_header, v1, v2, "Event category %@ is not implemented", v3, v4, v5, v6);
 }
 
 - (void)_isAllowedToPromptEventCategory_prelaunch:.cold.1()
@@ -380,7 +380,7 @@ LABEL_8:
   OUTLINED_FUNCTION_1_0();
   v0 = [NSNumber numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "isAllowedToPromptEventCategory %@ is %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "isAllowedToPromptEventCategory %@ is %@", v3, v4, v5, v6);
 }
 
 - (void)_isAllowedToPromptResourceType_prelaunch:.cold.1()
@@ -388,7 +388,7 @@ LABEL_8:
   OUTLINED_FUNCTION_1_0();
   v0 = [NSNumber numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "isAllowedToPromptResourceType %@ is %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "isAllowedToPromptResourceType %@ is %@", v3, v4, v5, v6);
 }
 
 - (void)_shouldConsiderEventCategory_postlaunch:.cold.1()
@@ -396,7 +396,7 @@ LABEL_8:
   OUTLINED_FUNCTION_1_0();
   v0 = [NSNumber numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "shouldConsiderEventCategory %@ is %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "shouldConsiderEventCategory %@ is %@", v3, v4, v5, v6);
 }
 
 - (void)_shouldConsiderResourceType_postlaunch:.cold.1()
@@ -404,7 +404,7 @@ LABEL_8:
   OUTLINED_FUNCTION_1_0();
   v0 = [NSNumber numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "shouldConsiderResourceType %@ is %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "shouldConsiderResourceType %@ is %@", v3, v4, v5, v6);
 }
 
 - (void)isAllowedToProcessEventCategory:.cold.1()
@@ -412,7 +412,7 @@ LABEL_8:
   OUTLINED_FUNCTION_1_0();
   v0 = [NSNumber numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "isAllowedToProcessEventCategory %@ is %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "isAllowedToProcessEventCategory %@ is %@", v3, v4, v5, v6);
 }
 
 @end

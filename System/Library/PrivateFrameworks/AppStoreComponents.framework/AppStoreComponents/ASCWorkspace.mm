@@ -608,7 +608,7 @@ void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBun
   v0 = [0 targetApplicationRecord];
   v1 = [v0 bundleIdentifier];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_0(&dword_21571A000, v2, v3, "Found valid universal link with no matching app, source %{public}@, target %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&dword_21571A000, v2, v3, "Found valid universal link with no matching app, source %{public}@, target %{public}@", v4, v5, v6, v7);
 }
 
 void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_3()
@@ -616,7 +616,7 @@ void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBun
   v0 = [0 targetApplicationRecord];
   v1 = [v0 bundleIdentifier];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_0(&dword_21571A000, v2, v3, "Found valid universal link with no matching app, passing URL to app via UserActivity, source %{public}@, target %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&dword_21571A000, v2, v3, "Found valid universal link with no matching app, passing URL to app via UserActivity, source %{public}@, target %{public}@", v4, v5, v6, v7);
 }
 
 @end

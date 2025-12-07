@@ -59,7 +59,7 @@
   allowedApplicationIdentifiers = self->super._allowedApplicationIdentifiers;
   self->super._allowedApplicationIdentifiers = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, allowedApplicationIdentifiers);
 }
 
 - (void)setDeniedApplicationIdentifiers:(id)identifiers
@@ -68,7 +68,7 @@
   deniedApplicationIdentifiers = self->super._deniedApplicationIdentifiers;
   self->super._deniedApplicationIdentifiers = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, deniedApplicationIdentifiers);
 }
 
 - (void)setAllowedWebApplicationIdentifiers:(id)identifiers
@@ -77,7 +77,7 @@
   allowedWebApplicationIdentifiers = self->super._allowedWebApplicationIdentifiers;
   self->super._allowedWebApplicationIdentifiers = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, allowedWebApplicationIdentifiers);
 }
 
 - (void)setDeniedWebApplicationIdentifiers:(id)identifiers
@@ -86,63 +86,16 @@
   deniedWebApplicationIdentifiers = self->super._deniedWebApplicationIdentifiers;
   self->super._deniedWebApplicationIdentifiers = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, deniedWebApplicationIdentifiers);
 }
 
 - (void)setAllowedApplications:(id)applications
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   applicationsCopy = applications;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   allowedApplicationIdentifiers = self->super._allowedApplicationIdentifiers;
   self->super._allowedApplicationIdentifiers = dictionary;
-
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v7 = applicationsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v18;
-    do
-    {
-      v11 = 0;
-      do
-      {
-        if (*v18 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = *(*(&v17 + 1) + 8 * v11);
-        v13 = [DNDApplicationIdentifier alloc];
-        v14 = [(DNDApplicationIdentifier *)v13 initWithBundleID:v12, v17];
-        v15 = [v7 objectForKeyedSubscript:v12];
-        [(NSMutableDictionary *)self->super._allowedApplicationIdentifiers setObject:v15 forKeyedSubscript:v14];
-
-        ++v11;
-      }
-
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    }
-
-    while (v9);
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setDeniedApplications:(id)applications
-{
-  v21 = *MEMORY[0x277D85DE8];
-  applicationsCopy = applications;
-  v5 = [MEMORY[0x277CBEB58] set];
-  deniedApplicationIdentifiers = self->super._deniedApplicationIdentifiers;
-  self->super._deniedApplicationIdentifiers = v5;
 
   v18 = 0u;
   v19 = 0u;
@@ -167,7 +120,8 @@
         v12 = *(*(&v16 + 1) + 8 * v11);
         v13 = [DNDApplicationIdentifier alloc];
         v14 = [(DNDApplicationIdentifier *)v13 initWithBundleID:v12, v16];
-        [(NSMutableSet *)self->super._deniedApplicationIdentifiers addObject:v14];
+        v15 = [v7 objectForKeyedSubscript:v12];
+        [(NSMutableDictionary *)self->super._allowedApplicationIdentifiers setObject:v15 forKeyedSubscript:v14];
 
         ++v11;
       }
@@ -178,8 +132,50 @@
 
     while (v9);
   }
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)setDeniedApplications:(id)applications
+{
+  v20 = *MEMORY[0x277D85DE8];
+  applicationsCopy = applications;
+  v5 = [MEMORY[0x277CBEB58] set];
+  deniedApplicationIdentifiers = self->super._deniedApplicationIdentifiers;
+  self->super._deniedApplicationIdentifiers = v5;
+
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = applicationsCopy;
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v16;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v16 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v12 = *(*(&v15 + 1) + 8 * v11);
+        v13 = [DNDApplicationIdentifier alloc];
+        v14 = [(DNDApplicationIdentifier *)v13 initWithBundleID:v12, v15];
+        [(NSMutableSet *)self->super._deniedApplicationIdentifiers addObject:v14];
+
+        ++v11;
+      }
+
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v9);
+  }
 }
 
 - (void)setSenderConfiguration:(id)configuration
@@ -188,7 +184,7 @@
   senderConfiguration = self->super._senderConfiguration;
   self->super._senderConfiguration = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, senderConfiguration);
 }
 
 - (void)setExceptionForApplication:(id)application
@@ -206,18 +202,27 @@
   if (applicationConfigurationType == 1)
   {
     [(NSMutableDictionary *)self->super._allowedApplicationIdentifiers removeObjectForKey:identifierCopy];
-    [(NSMutableSet *)self->super._deniedApplicationIdentifiers addObject:identifierCopy];
+    applicationConfigurationType = [(NSMutableSet *)self->super._deniedApplicationIdentifiers addObject:identifierCopy];
   }
 
-  else if (!applicationConfigurationType)
+  else
   {
+    v5 = identifierCopy;
+    if (applicationConfigurationType)
+    {
+      goto LABEL_6;
+    }
+
     [(NSMutableSet *)self->super._deniedApplicationIdentifiers removeObject:identifierCopy];
     allowedApplicationIdentifiers = self->super._allowedApplicationIdentifiers;
-    v6 = +[DNDApplicationConfiguration defaultConfiguration];
-    [(NSMutableDictionary *)allowedApplicationIdentifiers setObject:v6 forKey:identifierCopy];
+    v7 = +[DNDApplicationConfiguration defaultConfiguration];
+    [(NSMutableDictionary *)allowedApplicationIdentifiers setObject:v7 forKey:identifierCopy];
   }
 
-  MEMORY[0x2821F96F8]();
+  v5 = identifierCopy;
+LABEL_6:
+
+  MEMORY[0x2821F96F8](applicationConfigurationType, v5);
 }
 
 - (void)removeExceptionForApplication:(id)application
@@ -465,48 +470,8 @@ LABEL_6:
 {
   allowedContacts = [(DNDSenderConfiguration *)self->super._senderConfiguration allowedContacts];
   v4 = [allowedContacts count];
-
-  if (v4)
-  {
-    return 1;
-  }
-
-  deniedContacts = [(DNDSenderConfiguration *)self->super._senderConfiguration deniedContacts];
-  v6 = [deniedContacts count];
-
-  if (v6)
-  {
-    return 1;
-  }
-
-  allowedContactGroups = [(DNDSenderConfiguration *)self->super._senderConfiguration allowedContactGroups];
-  v8 = [allowedContactGroups count];
-
-  if (v8)
-  {
-    return 1;
-  }
-
-  deniedContactGroups = [(DNDSenderConfiguration *)self->super._senderConfiguration deniedContactGroups];
-  v10 = [deniedContactGroups count];
-
-  if (v10)
-  {
-    return 1;
-  }
-
-  allowedContactTypes = [(DNDSenderConfiguration *)self->super._senderConfiguration allowedContactTypes];
-  v12 = [allowedContactTypes count];
-
-  if (v12)
-  {
-    return 1;
-  }
-
-  deniedContactTypes = [(DNDSenderConfiguration *)self->super._senderConfiguration deniedContactTypes];
-  v14 = [deniedContactTypes count];
-
-  return v14 || [(NSMutableDictionary *)self->super._allowedApplicationIdentifiers count]|| [(NSMutableSet *)self->super._deniedApplicationIdentifiers count]!= 0;
+  result = v4 || (-[DNDSenderConfiguration deniedContacts](self->super._senderConfiguration, "deniedContacts"), v5 = ;
+  return result;
 }
 
 - (id)_configurationForApplicationIdentifier:(id)identifier

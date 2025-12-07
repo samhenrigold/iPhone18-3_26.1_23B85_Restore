@@ -76,9 +76,9 @@ int main(int argc, const char **argv, const char **envp)
   return 1;
 }
 
-void sub_100000DCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100000DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -121,16 +121,37 @@ Class sub_100000DEC(uint64_t a1)
 
 uint64_t sub_100000F18(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100008060 = result;
   return result;
 }
 
-void sub_100000F8C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100000F8C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
+}
+
+void sub_100000FAC()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100000F8C(&_mh_execute_header, v0, v1, "Failed to set user dir suffix: %{darwin.errno}d", v2, v3, v4, v5, v6);
+}
+
+void sub_10000102C()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100000F8C(&_mh_execute_header, v0, v1, "Failed to resolve temporary directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
+}
+
+void sub_1000010B0()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100000F8C(&_mh_execute_header, v0, v1, "Failed to initialize temporary directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
 }
 
 void sub_100001134()

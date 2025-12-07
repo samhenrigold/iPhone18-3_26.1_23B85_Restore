@@ -27,26 +27,24 @@
 
 - (void)dispatchToObserver:(id)observer forInstallProgressService:(id)service
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   observerCopy = observer;
-  v8 = _LSProgressLog();
+  v8 = _LSProgressLog(observerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     notification = [(_LSStartupJournalledInstallNotification *)self notification];
     proxies = [(_LSStartupJournalledInstallNotification *)self proxies];
-    v14 = 134218242;
-    v15 = notification;
-    v16 = 2112;
-    v17 = proxies;
-    _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_INFO, "Sending notification %lu for proxies %@ to observer.", &v14, 0x16u);
+    v13 = 134218242;
+    v14 = notification;
+    v15 = 2112;
+    v16 = proxies;
+    _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_INFO, "Sending notification %lu for proxies %@ to observer.", &v13, 0x16u);
   }
 
   notification2 = [(_LSStartupJournalledInstallNotification *)self notification];
   proxies2 = [(_LSStartupJournalledInstallNotification *)self proxies];
   [serviceCopy directlySendNotification:notification2 withProxies:proxies2 toObserver:observerCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

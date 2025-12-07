@@ -340,8 +340,7 @@ LABEL_21:
       }
 
       sb_embeddedDisplayDefaultContext = [v16 _initializationRequestContext];
-      [sb_embeddedDisplayDefaultContext applicationInitializationContextWithCompletion:completionCopy];
-      v25 = SBLogClassicMode();
+      v25 = SBLogClassicMode([sb_embeddedDisplayDefaultContext applicationInitializationContextWithCompletion:completionCopy]);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         [(SBApplicationSupportServiceRequestContext *)v9 initializationContextForClient:v16 completion:v25];
@@ -382,16 +381,15 @@ LABEL_22:
 void __87__SBApplicationSupportServiceRequestContext_initializationContextForClient_completion___block_invoke(uint64_t a1)
 {
   v2 = (a1 + 32);
-  [*(a1 + 32) applicationInitializationContextWithCompletion:*(a1 + 56)];
-  v3 = SBLogClassicMode();
+  v3 = SBLogClassicMode([*(a1 + 32) applicationInitializationContextWithCompletion:*(a1 + 56)]);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
 
   if (v4)
   {
-    v5 = SBLogClassicMode();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = SBLogClassicMode(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __87__SBApplicationSupportServiceRequestContext_initializationContextForClient_completion___block_invoke_cold_1(a1, v2, v5);
+      __87__SBApplicationSupportServiceRequestContext_initializationContextForClient_completion___block_invoke_cold_1(a1, v2, v6);
     }
   }
 }

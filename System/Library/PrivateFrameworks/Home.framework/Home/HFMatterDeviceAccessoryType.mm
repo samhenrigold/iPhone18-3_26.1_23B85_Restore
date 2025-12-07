@@ -98,38 +98,36 @@ LABEL_14:
 
 void __55__HFMatterDeviceAccessoryType__deviceTypeToServiceType__block_invoke_2()
 {
-  v8[11] = *MEMORY[0x277D85DE8];
+  v7[11] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CD0EA0];
-  v7[0] = &unk_282523598;
-  v7[1] = &unk_2825235B0;
-  v8[0] = v0;
-  v8[1] = v0;
-  v7[2] = &unk_2825235C8;
-  v7[3] = &unk_2825235E0;
-  v8[2] = v0;
-  v8[3] = v0;
+  v6[0] = &unk_282523598;
+  v6[1] = &unk_2825235B0;
+  v7[0] = v0;
+  v7[1] = v0;
+  v6[2] = &unk_2825235C8;
+  v6[3] = &unk_2825235E0;
+  v7[2] = v0;
+  v7[3] = v0;
   v1 = *MEMORY[0x277CD0EB0];
-  v7[4] = &unk_2825235F8;
-  v7[5] = &unk_282523640;
+  v6[4] = &unk_2825235F8;
+  v6[5] = &unk_282523640;
   v2 = *MEMORY[0x277CD0F08];
-  v8[4] = v1;
-  v8[5] = v2;
-  v7[6] = &unk_282523658;
-  v7[7] = &unk_282523670;
-  v8[6] = v2;
-  v8[7] = v2;
-  v7[8] = &unk_282523688;
-  v7[9] = &unk_282523610;
+  v7[4] = v1;
+  v7[5] = v2;
+  v6[6] = &unk_282523658;
+  v6[7] = &unk_282523670;
+  v7[6] = v2;
+  v7[7] = v2;
+  v6[8] = &unk_282523688;
+  v6[9] = &unk_282523610;
   v3 = *MEMORY[0x277CD0ED0];
-  v8[8] = v2;
-  v8[9] = v3;
-  v7[10] = &unk_282523628;
-  v8[10] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:11];
+  v7[8] = v2;
+  v7[9] = v3;
+  v6[10] = &unk_282523628;
+  v7[10] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:11];
   v5 = qword_280E02598;
   qword_280E02598 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

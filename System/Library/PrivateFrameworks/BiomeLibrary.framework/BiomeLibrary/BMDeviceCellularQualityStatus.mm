@@ -16,20 +16,18 @@
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"starting" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rat" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"deviceRegistrationState" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"quality" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:2 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rrcStatus" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
@@ -63,7 +61,7 @@
 
 - (id)jsonDictionary
 {
-  v23[5] = *MEMORY[0x1E69E9840];
+  v22[5] = *MEMORY[0x1E69E9840];
   if ([(BMDeviceCellularQualityStatus *)self hasStarting])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMDeviceCellularQualityStatus starting](self, "starting")}];
@@ -87,48 +85,48 @@
   }
 
   v7 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMDeviceCellularQualityStatus rrcStatus](self, "rrcStatus")}];
-  v18 = @"starting";
+  v17 = @"starting";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16 = null;
-  v23[0] = null;
-  v19 = @"rat";
+  v15 = null;
+  v22[0] = null;
+  v18 = @"rat";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null2;
-  v20 = @"deviceRegistrationState";
+  v22[1] = null2;
+  v19 = @"deviceRegistrationState";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v21 = @"quality";
+  v22[2] = null3;
+  v20 = @"quality";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22 = @"rrcStatus";
+  v22[3] = null4;
+  v21 = @"rrcStatus";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
+  v22[4] = null5;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v17 count:{5, v15}];
   if (v7)
   {
     if (v6)
@@ -186,14 +184,13 @@ LABEL_21:
 LABEL_29:
 
 LABEL_22:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (BMDeviceCellularQualityStatus)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"starting"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -203,7 +200,7 @@ LABEL_22:
     {
       if (!error)
       {
-        v38 = 0;
+        v37 = 0;
         v13 = 0;
         selfCopy5 = self;
         goto LABEL_43;
@@ -211,22 +208,22 @@ LABEL_22:
 
       v11 = objc_alloc(MEMORY[0x1E696ABC0]);
       v12 = *MEMORY[0x1E698F240];
-      v47 = *MEMORY[0x1E696A578];
-      v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"starting"];
-      v48[0] = v37;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
-      v38 = 0;
+      v46 = *MEMORY[0x1E696A578];
+      v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"starting"];
+      v47[0] = v36;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+      v37 = 0;
       v13 = 0;
       *error = [v11 initWithDomain:v12 code:2 userInfo:v7];
       goto LABEL_56;
     }
 
-    v38 = v6;
+    v37 = v6;
   }
 
   else
   {
-    v38 = 0;
+    v37 = 0;
   }
 
   v7 = [dictionaryCopy objectForKeyedSubscript:@"rat"];
@@ -238,32 +235,32 @@ LABEL_22:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v37 = v7;
+        v36 = v7;
         goto LABEL_7;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v37 = [MEMORY[0x1E696AD98] numberWithInt:BMDeviceCellularQualityStatusRATFromString(v7)];
+        v36 = [MEMORY[0x1E696AD98] numberWithInt:BMDeviceCellularQualityStatusRATFromString(v7)];
         goto LABEL_7;
       }
 
       if (error)
       {
-        v24 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v25 = *MEMORY[0x1E698F240];
-        v45 = *MEMORY[0x1E696A578];
+        v23 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v24 = *MEMORY[0x1E698F240];
+        v44 = *MEMORY[0x1E696A578];
         v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"rat"];
-        v46 = v9;
-        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-        v37 = 0;
+        v45 = v9;
+        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+        v36 = 0;
         v13 = 0;
-        *error = [v24 initWithDomain:v25 code:2 userInfo:v8];
+        *error = [v23 initWithDomain:v24 code:2 userInfo:v8];
         goto LABEL_58;
       }
 
-      v37 = 0;
+      v36 = 0;
       v13 = 0;
 LABEL_56:
       selfCopy5 = self;
@@ -271,10 +268,10 @@ LABEL_56:
     }
   }
 
-  v37 = 0;
+  v36 = 0;
 LABEL_7:
   v8 = [dictionaryCopy objectForKeyedSubscript:@"deviceRegistrationState"];
-  v35 = v6;
+  v34 = v6;
   if (v8)
   {
     objc_opt_class();
@@ -298,16 +295,16 @@ LABEL_22:
 
       if (error)
       {
-        v26 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v25 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
-        v28 = *MEMORY[0x1E698F240];
-        v43 = *MEMORY[0x1E696A578];
+        v27 = *MEMORY[0x1E698F240];
+        v42 = *MEMORY[0x1E696A578];
         v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"deviceRegistrationState"];
-        v44 = v15;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+        v43 = v15;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
         v9 = 0;
         v13 = 0;
-        *errorCopy = [v26 initWithDomain:v28 code:2 userInfo:v14];
+        *errorCopy = [v25 initWithDomain:v27 code:2 userInfo:v14];
         goto LABEL_54;
       }
 
@@ -336,14 +333,14 @@ LABEL_23:
 
       if (error)
       {
-        v33 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v32 = objc_alloc(MEMORY[0x1E696ABC0]);
         v18 = *MEMORY[0x1E698F240];
-        v41 = *MEMORY[0x1E696A578];
+        v40 = *MEMORY[0x1E696A578];
         errorCopy2 = error;
         error = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"quality"];
         errorCopy3 = error;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&errorCopy3 forKeys:&v41 count:1];
-        v20 = [v33 initWithDomain:v18 code:2 userInfo:v16];
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&errorCopy3 forKeys:&v40 count:1];
+        v20 = [v32 initWithDomain:v18 code:2 userInfo:v16];
         v15 = 0;
         v13 = 0;
         *errorCopy2 = v20;
@@ -385,13 +382,13 @@ LABEL_37:
       if (error)
       {
         errorCopy4 = error;
-        v34 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v32 = *MEMORY[0x1E698F240];
-        v39 = *MEMORY[0x1E696A578];
-        v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"rrcStatus"];
-        v40 = v30;
-        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-        *errorCopy4 = [v34 initWithDomain:v32 code:2 userInfo:v31];
+        v33 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v31 = *MEMORY[0x1E698F240];
+        v38 = *MEMORY[0x1E696A578];
+        v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"rrcStatus"];
+        v39 = v29;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        *errorCopy4 = [v33 initWithDomain:v31 code:2 userInfo:v30];
 
         error = 0;
       }
@@ -405,18 +402,17 @@ LABEL_52:
 
   error = 0;
 LABEL_38:
-  selfCopy5 = -[BMDeviceCellularQualityStatus initWithStarting:rat:deviceRegistrationState:quality:rrcStatus:](self, "initWithStarting:rat:deviceRegistrationState:quality:rrcStatus:", v38, [v37 intValue], objc_msgSend(v9, "intValue"), v15, objc_msgSend(error, "intValue"));
+  selfCopy5 = -[BMDeviceCellularQualityStatus initWithStarting:rat:deviceRegistrationState:quality:rrcStatus:](self, "initWithStarting:rat:deviceRegistrationState:quality:rrcStatus:", v37, [v36 intValue], objc_msgSend(v9, "intValue"), v15, objc_msgSend(error, "intValue"));
   v13 = selfCopy5;
 LABEL_39:
 
 LABEL_40:
-  v6 = v35;
+  v6 = v34;
 LABEL_41:
 
 LABEL_42:
 LABEL_43:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -434,21 +430,16 @@ LABEL_43:
   toCopy = to;
   if (self->_hasStarting)
   {
-    starting = self->_starting;
     PBDataWriterWriteBOOLField();
   }
 
-  rat = self->_rat;
   PBDataWriterWriteUint32Field();
-  deviceRegistrationState = self->_deviceRegistrationState;
   PBDataWriterWriteUint32Field();
   if (self->_hasQuality)
   {
-    quality = self->_quality;
     PBDataWriterWriteInt32Field();
   }
 
-  rrcStatus = self->_rrcStatus;
   PBDataWriterWriteUint32Field();
 }
 
@@ -842,19 +833,17 @@ LABEL_93:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"starting" number:1 type:12 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rat" number:2 type:4 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"deviceRegistrationState" number:3 type:4 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"quality" number:4 type:2 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rrcStatus" number:5 type:4 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }

@@ -167,7 +167,7 @@
   v6 = imageView;
   if (imageView)
   {
-    [imageView transform];
+    objc_msgSend_transform(imageView);
   }
 
   else

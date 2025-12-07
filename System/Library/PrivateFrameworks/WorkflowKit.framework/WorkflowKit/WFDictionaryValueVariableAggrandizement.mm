@@ -93,7 +93,7 @@ LABEL_8:
 
 - (WFDictionaryValueVariableAggrandizement)initWithDictionary:(id)dictionary
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKey:@"DictionaryKey"];
   v6 = objc_opt_class();
@@ -104,14 +104,14 @@ LABEL_8:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v16 = "WFEnforceClass";
-      v17 = 2114;
-      v18 = v7;
-      v19 = 2114;
-      v20 = objc_opt_class();
-      v21 = 2114;
-      v22 = v6;
-      v10 = v20;
+      v15 = "WFEnforceClass";
+      v16 = 2114;
+      v17 = v7;
+      v18 = 2114;
+      v19 = objc_opt_class();
+      v20 = 2114;
+      v21 = v6;
+      v10 = v19;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
     }
 
@@ -125,9 +125,9 @@ LABEL_8:
 
   if (v8)
   {
-    v14.receiver = self;
-    v14.super_class = WFDictionaryValueVariableAggrandizement;
-    self = [(WFVariableAggrandizement *)&v14 initWithDictionary:dictionaryCopy];
+    v13.receiver = self;
+    v13.super_class = WFDictionaryValueVariableAggrandizement;
+    self = [(WFVariableAggrandizement *)&v13 initWithDictionary:dictionaryCopy];
     selfCopy = self;
   }
 
@@ -136,21 +136,19 @@ LABEL_8:
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (WFDictionaryValueVariableAggrandizement)initWithDictionaryKey:(id)key
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"DictionaryKey";
-  v11[0] = key;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"DictionaryKey";
+  v10[0] = key;
   v4 = MEMORY[0x1E695DF20];
   keyCopy = key;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [(WFDictionaryValueVariableAggrandizement *)self initWithDictionary:v6];
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

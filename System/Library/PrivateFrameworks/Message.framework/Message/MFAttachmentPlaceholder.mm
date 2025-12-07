@@ -13,7 +13,6 @@
 + (id)placeholderRepresentations:(id)representations;
 + (id)serializedPlaceholderForFileName:(id)name fileSize:(int64_t)size mimeType:(id)type contentID:(id)d;
 + (void)cloneFileAtURL:(id)l toPlaceholderURL:(id)rL;
-+ (void)placeholderDirectory;
 + (void)removePlaceholder:(id)placeholder;
 + (void)removePlaceholderForFileURL:(id)l;
 - (BOOL)useMailDrop;
@@ -24,6 +23,7 @@
 - (unint64_t)fileSize;
 - (void)serializedRepresentation;
 - (void)setFileSize:(unint64_t)size;
+- (void)setUseMailDrop:(BOOL)drop;
 @end
 
 @implementation MFAttachmentPlaceholder
@@ -136,6 +136,13 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setUseMailDrop:(BOOL)drop
+{
+  jsonDictionary = self->_jsonDictionary;
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:drop];
+  [NSMutableDictionary setValue:"setValue:forKey:" forKey:?];
 }
 
 + (id)_localStoreURLForFileData:(id)data contentID:(id)d
@@ -297,38 +304,38 @@ void __44__MFAttachmentPlaceholder__placeholderMagic__block_invoke()
 
 + (id)placeholderRepresentations:(id)representations
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   representationsCopy = representations;
   array = [MEMORY[0x1E695DF70] array];
   messageBody = [representationsCopy messageBody];
   rawData = [messageBody rawData];
 
-  v24 = rawData;
+  v23 = rawData;
   if ([rawData length])
   {
-    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{objc_msgSend(rawData, "bytes")}];
-    v22 = [v21 componentsSeparatedByString:@"=FA=CA=DE{"];
-    if ([v22 count])
+    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{objc_msgSend(rawData, "bytes")}];
+    v21 = [v20 componentsSeparatedByString:@"=FA=CA=DE{"];
+    if ([v21 count])
     {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
-      v6 = v22;
-      v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v6 = v21;
+      v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v7)
       {
-        v8 = *v27;
+        v8 = *v26;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v27 != v8)
+            if (*v26 != v8)
             {
               objc_enumerationMutation(v6);
             }
 
-            v10 = *(*(&v26 + 1) + 8 * i);
+            v10 = *(*(&v25 + 1) + 8 * i);
             v11 = [v10 rangeOfString:@"}"];
             if (v11 != 0x7FFFFFFFFFFFFFFFLL)
             {
@@ -350,15 +357,13 @@ void __44__MFAttachmentPlaceholder__placeholderMagic__block_invoke()
             }
           }
 
-          v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v7);
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -436,27 +441,26 @@ id __46__MFAttachmentPlaceholder_dataForPlaceholder___block_invoke(uint64_t a1, 
 
 + (BOOL)writeData:(id)data forURL:(id)l
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v4 = [data writeToURL:l options:0x40000000 error:&v10];
-  v5 = v10;
+  v11 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v4 = [data writeToURL:l options:0x40000000 error:&v9];
+  v5 = v9;
   if ((v4 & 1) == 0)
   {
     v6 = MFLogGeneral();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       ef_publicDescription = [v5 ef_publicDescription];
-      [MFAttachmentPlaceholder writeData:ef_publicDescription forURL:v11];
+      [MFAttachmentPlaceholder writeData:ef_publicDescription forURL:v10];
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 + (void)cloneFileAtURL:(id)l toPlaceholderURL:(id)rL
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -466,23 +470,23 @@ id __46__MFAttachmentPlaceholder_dataForPlaceholder___block_invoke(uint64_t a1, 
   {
     date = [MEMORY[0x1E695DF00] date];
     v11 = *MEMORY[0x1E695DA98];
-    v21[0] = *MEMORY[0x1E695DAA8];
-    v21[1] = v11;
-    v22[0] = date;
-    v22[1] = date;
-    v21[2] = *MEMORY[0x1E695DAF0];
-    v22[2] = *MEMORY[0x1E695DAE8];
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
-    v19 = 0;
-    v13 = [rLCopy setResourceValues:v12 error:&v19];
-    v14 = v19;
+    v20[0] = *MEMORY[0x1E695DAA8];
+    v20[1] = v11;
+    v21[0] = date;
+    v21[1] = date;
+    v20[2] = *MEMORY[0x1E695DAF0];
+    v21[2] = *MEMORY[0x1E695DAE8];
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
+    v18 = 0;
+    v13 = [rLCopy setResourceValues:v12 error:&v18];
+    v14 = v18;
     if ((v13 & 1) == 0)
     {
       v15 = MFLogGeneral();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         ef_publicDescription = [v14 ef_publicDescription];
-        [MFAttachmentPlaceholder cloneFileAtURL:ef_publicDescription toPlaceholderURL:v20];
+        [MFAttachmentPlaceholder cloneFileAtURL:ef_publicDescription toPlaceholderURL:v19];
       }
     }
   }
@@ -492,8 +496,6 @@ id __46__MFAttachmentPlaceholder_dataForPlaceholder___block_invoke(uint64_t a1, 
     v17 = [MEMORY[0x1E69AD6B0] dataWithContentsOfURL:lCopy];
     [self writeData:v17 forURL:rLCopy];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removePlaceholderForFileURL:(id)l
@@ -589,20 +591,16 @@ id __46__MFAttachmentPlaceholder_dataForPlaceholder___block_invoke(uint64_t a1, 
 
 + (void)attachmentPlaceholderForFileURL:fileName:fileSize:type:contentID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)attachmentPlaceholderForData:fileName:type:contentID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)placeholderFromSerializedRepresentation:.cold.1()
@@ -617,14 +615,6 @@ id __46__MFAttachmentPlaceholder_dataForPlaceholder___block_invoke(uint64_t a1, 
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)dataForPlaceholder:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)dataForPlaceholder:.cold.2()
@@ -655,14 +645,6 @@ id __46__MFAttachmentPlaceholder_dataForPlaceholder___block_invoke(uint64_t a1, 
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)placeholderDirectory
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

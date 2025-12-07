@@ -13,6 +13,7 @@
 - (void)_updateDigitsAnimated:(BOOL)animated hour:(int)hour minute:(int)minute partialSeconds:(double)seconds;
 - (void)_updateHorizontalLineAnimated:(BOOL)animated seconds:(int)seconds partialSeconds:(double)partialSeconds;
 - (void)_updateOpticalAnimated:(BOOL)animated seconds:(int)seconds partialSeconds:(double)partialSeconds;
+- (void)_updateSwipeAnimated:(BOOL)animated seconds:(int)seconds partialSeconds:(double)partialSeconds;
 - (void)_updateTritiumOpticalAnimationsForSeconds:(int)seconds;
 - (void)addForegroundView:(id)view;
 - (void)animationDidStop:(id)stop finished:(BOOL)finished;
@@ -118,8 +119,7 @@
     v53 = v28->_foregroundColors[1];
     v28->_foregroundColors[1] = v52;
 
-    [0 setMasksToBounds:1];
-    v54 = sub_3FB4();
+    v54 = sub_3FB4([0 setMasksToBounds:1]);
     [0 setActions:v54];
 
     [(NTKDolomiteContentView *)v28 _setupSceneWithSize:width, height];
@@ -309,120 +309,116 @@
 
   if (self->_backgroundStyle - 1 <= 2)
   {
-    Components = CGColorGetComponents(cGColor);
-    v33 = *(Components + 1);
-    v34 = vcvt_f32_f64(*Components);
+    CGColorGetComponents(cGColor);
     CLKUIConvertRGBtoLAB();
-    v54 = v35;
-    v36 = CGColorGetComponents(cGColor2);
-    v37 = *(v36 + 1);
-    v38 = vcvt_f32_f64(*v36);
+    v48 = v32;
+    CGColorGetComponents(cGColor2);
     CLKUIConvertRGBtoLAB();
     backgroundStyle = self->_backgroundStyle;
     if (backgroundStyle == 3)
     {
-      v42 = 60.0;
+      v36 = 60.0;
     }
 
     else
     {
-      v42 = 75.0;
+      v36 = 75.0;
     }
 
     if (backgroundStyle == 3)
     {
-      *&v40 = 80.0;
+      *&v34 = 80.0;
     }
 
     else
     {
-      *&v40 = 85.0;
+      *&v34 = 85.0;
     }
 
-    if (vmovn_s32(vcgtq_f32(v39, v54)).u8[0])
+    if (vmovn_s32(vcgtq_f32(v33, v48)).u8[0])
     {
-      if (v54.f32[0] >= v42 || (v53 = v40, v55 = v39.f32[0], cGColor3 = sub_486C(), v55 >= *&v53))
+      if (v48.f32[0] >= v36 || (v47 = v34, v49 = v33.f32[0], cGColor3 = sub_486C(), v49 >= *&v47))
       {
-        v44 = cGColor4;
+        v38 = cGColor4;
         goto LABEL_36;
       }
 
-      v43 = sub_486C();
-      cGColor4 = v43;
+      v37 = sub_486C();
+      cGColor4 = v37;
     }
 
     else
     {
-      if (v39.f32[0] >= v42 || (v53 = v40, cGColor4 = sub_486C(), v54.f32[0] >= *&v53))
+      if (v33.f32[0] >= v36 || (v47 = v34, cGColor4 = sub_486C(), v48.f32[0] >= *&v47))
       {
-        v44 = cGColor3;
+        v38 = cGColor3;
         goto LABEL_36;
       }
 
-      v43 = sub_486C();
-      cGColor3 = v43;
+      v37 = sub_486C();
+      cGColor3 = v37;
     }
 
-    v44 = v43;
+    v38 = v37;
 LABEL_36:
     if (backgroundStyle == 3 && self->_digitStyle == 1)
     {
-      cGColor3 = v44;
-      cGColor4 = v44;
+      cGColor3 = v38;
+      cGColor4 = v38;
     }
   }
 
   if (v10 < 0.5)
   {
-    v56 = cGColor5;
-    v45 = cGColor4;
-    v46 = cGColor6;
+    v50 = cGColor5;
+    v39 = cGColor4;
+    v40 = cGColor6;
   }
 
   else
   {
-    v45 = cGColor3;
+    v39 = cGColor3;
     cGColor3 = cGColor4;
-    v46 = cGColor5;
-    v56 = cGColor6;
+    v40 = cGColor5;
+    v50 = cGColor6;
   }
 
   style = self->_style;
   if (style)
   {
-    v48 = 0;
+    v42 = 0;
   }
 
   else
   {
-    v48 = v45;
+    v42 = v39;
   }
 
   if (style)
   {
-    v49 = v45;
+    v43 = v39;
   }
 
   else
   {
-    v49 = 0;
+    v43 = 0;
   }
 
-  v50 = 4;
+  v44 = 4;
   selfCopy = self;
   do
   {
-    [(CAShapeLayer *)selfCopy->_digitLayers[0] setFillColor:v48, v53];
-    [(CAShapeLayer *)selfCopy->_digitLayers[0] setStrokeColor:v49];
-    [(CAShapeLayer *)selfCopy->_opticalDigitLayers[0] setFillColor:v48];
-    [(CAShapeLayer *)selfCopy->_opticalDigitLayers[0] setStrokeColor:v49];
+    [(CAShapeLayer *)selfCopy->_digitLayers[0] setFillColor:v42, v47];
+    [(CAShapeLayer *)selfCopy->_digitLayers[0] setStrokeColor:v43];
+    [(CAShapeLayer *)selfCopy->_opticalDigitLayers[0] setFillColor:v42];
+    [(CAShapeLayer *)selfCopy->_opticalDigitLayers[0] setStrokeColor:v43];
     selfCopy = (selfCopy + 8);
-    --v50;
+    --v44;
   }
 
-  while (v50);
-  [(CALayer *)self->_backgroundLayer setBackgroundColor:v46];
-  [(CAShapeLayer *)self->_backgroundSwipeLayer setFillColor:v56];
+  while (v44);
+  [(CALayer *)self->_backgroundLayer setBackgroundColor:v40];
+  [(CAShapeLayer *)self->_backgroundSwipeLayer setFillColor:v50];
   [(CAShapeLayer *)self->_foregroundSwipeLayer setFillColor:cGColor3];
   [(CAShapeLayer *)self->_opticalSwipeLayer setFillColor:cGColor3];
   if ((self->_contentOption & 4) != 0)
@@ -470,7 +466,7 @@ LABEL_36:
   v12 = v11;
 
   v13 = 0;
-  v14 = 60 - seconds;
+  v14 = (60 - seconds);
   do
   {
     v15 = *(v9 + v13);
@@ -511,7 +507,7 @@ LABEL_36:
   if (partialSeconds < 0.833 && animated)
   {
     v17 = 0;
-    v18 = 59 - seconds;
+    v18 = (59 - seconds);
     for (i = selfCopy; ; i = (i + 8))
     {
       v20 = *(v13 + v17);
@@ -579,7 +575,7 @@ LABEL_14:
   }
 
   v26 = 0;
-  v27 = 60 - seconds;
+  v27 = (60 - seconds);
   do
   {
     [(CAShapeLayer *)selfCopy->_digitLayers[0] removeAnimationForKey:@"optical"];
@@ -709,6 +705,174 @@ LABEL_8:
     horizontalLineLayer = self->_horizontalLineLayer;
     v26 = v27;
     [(CAShapeLayer *)horizontalLineLayer setAffineTransform:&v26];
+  }
+}
+
+- (void)_updateSwipeAnimated:(BOOL)animated seconds:(int)seconds partialSeconds:(double)partialSeconds
+{
+  v6 = *&seconds;
+  animatedCopy = animated;
+  [(NTKDolomiteContentView *)self bounds];
+  if ((self->_contentOption & 4) != 0)
+  {
+    +[CATransaction begin];
+    [CATransaction setDisableActions:1];
+    if (animatedCopy)
+    {
+      [(NTKDolomiteContentView *)self _hideTritiumStrips];
+    }
+
+    else
+    {
+      if ((self->_contentOption & 8) == 0)
+      {
+        [(NTKDolomiteContentView *)self _updateTritiumOpticalAnimationsForSeconds:v6];
+      }
+
+      if (self->_backgroundStyle == 2)
+      {
+        [(NTKDolomiteContentView *)self _updateHorizontalLineAnimated:0 seconds:v6 partialSeconds:partialSeconds];
+      }
+
+      [(NTKDolomiteContentView *)self _showTritiumStrips:v6];
+    }
+
+    +[CATransaction commit];
+  }
+
+  else
+  {
+    v11 = v9;
+    v12 = v10;
+    v13 = +[CLKDevice currentDevice];
+    [v13 screenScale];
+    v15 = v14;
+
+    if (self->_contentOption)
+    {
+      v19 = v12 * 0.833333333 / -60.0;
+      v17 = v19 * v6 + v12 * 0.916666667;
+      v18 = v19 * (v6 + 1) + v12 * 0.916666667;
+    }
+
+    else
+    {
+      v16 = 0.0;
+      if (self->_backgroundStyle == 2)
+      {
+        v16 = -1.0;
+      }
+
+      v17 = round(v12 * v15 * (60 - v6) / 60.0) / v15;
+      v18 = round(v12 * v15 * (59 - v6) / 60.0) / v15 + v16;
+    }
+
+    if (partialSeconds >= 0.833)
+    {
+      v20 = (partialSeconds + -0.833) / 0.167;
+      *&v20 = v20;
+      [(CAMediaTimingFunction *)self->_timingFunction _solveForInput:v20];
+      CLKInterpolateBetweenFloatsUnclipped();
+      v17 = v21;
+    }
+
+    v22 = v12 - v17;
+    if (animatedCopy)
+    {
+      v23 = v12 - v18;
+      +[CATransaction begin];
+      [CATransaction setDisableActions:1];
+      if (partialSeconds >= 0.833)
+      {
+        v25 = 0.167 - partialSeconds;
+        v24 = 0.0;
+      }
+
+      else
+      {
+        v24 = CACurrentMediaTime() + 0.833 - partialSeconds;
+        v25 = 0.167;
+      }
+
+      v40 = [NSNumber numberWithDouble:v17];
+      v41 = [NSNumber numberWithDouble:v18];
+      v47 = [(NTKDolomiteContentView *)self _newSwipeAnimationWithKeyPath:@"transform.translation.y" fromValue:v40 toValue:v41 beginTime:v24 duration:v25];
+
+      v42 = [NSNumber numberWithDouble:v22];
+      v43 = [NSNumber numberWithDouble:v23];
+      v44 = [(NTKDolomiteContentView *)self _newSwipeAnimationWithKeyPath:@"bounds.size.height" fromValue:v42 toValue:v43 beginTime:v24 duration:v25];
+
+      v53.origin.x = 0.0;
+      v53.origin.y = 0.0;
+      v53.size.width = v11;
+      v53.size.height = v22;
+      v45 = CGPathCreateWithRect(v53, 0);
+      v54.origin.x = 0.0;
+      v54.origin.y = 0.0;
+      v54.size.width = v11;
+      v54.size.height = v23;
+      v46 = [(NTKDolomiteContentView *)self _newSwipeAnimationWithKeyPath:@"path" fromValue:v45 toValue:CGPathCreateWithRect(v54 beginTime:0) duration:v24, v25];
+      [(CAShapeLayer *)self->_foregroundSwipeLayer addAnimation:v47 forKey:@"second"];
+      [(CAShapeLayer *)self->_foregroundSwipeLayer addAnimation:v44 forKey:@"height"];
+      [(CAShapeLayer *)self->_foregroundSwipeLayer addAnimation:v46 forKey:@"path"];
+      [(CAShapeLayer *)self->_backgroundSwipeLayer addAnimation:v47 forKey:@"second"];
+      [(CAShapeLayer *)self->_backgroundSwipeLayer addAnimation:v44 forKey:@"height"];
+      [(CAShapeLayer *)self->_backgroundSwipeLayer addAnimation:v46 forKey:@"path"];
+      if ((self->_contentOption & 8) == 0)
+      {
+        [(NTKDolomiteContentView *)self _updateOpticalAnimated:1 seconds:v6 partialSeconds:partialSeconds];
+      }
+
+      if (self->_backgroundStyle == 2)
+      {
+        [(NTKDolomiteContentView *)self _updateHorizontalLineAnimated:1 seconds:v6 partialSeconds:partialSeconds];
+      }
+
+      +[CATransaction commit];
+    }
+
+    else
+    {
+      [(CAShapeLayer *)self->_foregroundSwipeLayer removeAllAnimations];
+      [(CAShapeLayer *)self->_backgroundSwipeLayer removeAllAnimations];
+      memset(&v49, 0, sizeof(v49));
+      CGAffineTransformMakeTranslation(&v49, 0.0, v17);
+      foregroundSwipeLayer = self->_foregroundSwipeLayer;
+      v48 = v49;
+      [(CAShapeLayer *)foregroundSwipeLayer setAffineTransform:&v48];
+      backgroundSwipeLayer = self->_backgroundSwipeLayer;
+      v48 = v49;
+      [(CAShapeLayer *)backgroundSwipeLayer setAffineTransform:&v48];
+      [(CAShapeLayer *)self->_foregroundSwipeLayer bounds];
+      v29 = v28;
+      v31 = v30;
+      v33 = v32;
+      [(CAShapeLayer *)self->_foregroundSwipeLayer setBounds:?];
+      v51.origin.x = v29;
+      v51.origin.y = v31;
+      v51.size.width = v33;
+      v51.size.height = v22;
+      [(CAShapeLayer *)self->_foregroundSwipeLayer setPath:CGPathCreateWithRect(v51, 0)];
+      [(CAShapeLayer *)self->_backgroundSwipeLayer bounds];
+      v35 = v34;
+      v37 = v36;
+      v39 = v38;
+      [(CAShapeLayer *)self->_backgroundSwipeLayer setBounds:?];
+      v52.origin.x = v35;
+      v52.origin.y = v37;
+      v52.size.width = v39;
+      v52.size.height = v22;
+      [(CAShapeLayer *)self->_backgroundSwipeLayer setPath:CGPathCreateWithRect(v52, 0)];
+      if ((self->_contentOption & 8) == 0)
+      {
+        [(NTKDolomiteContentView *)self _updateOpticalAnimated:0 seconds:v6 partialSeconds:partialSeconds];
+      }
+
+      if (self->_backgroundStyle == 2)
+      {
+        [(NTKDolomiteContentView *)self _updateHorizontalLineAnimated:0 seconds:v6 partialSeconds:partialSeconds];
+      }
+    }
   }
 }
 
@@ -1240,8 +1404,7 @@ LABEL_8:
 
   v17 = v14 - v15 + 2.0;
   v18 = objc_opt_new();
-  [v18 setFrame:{0.0, v14, width, v17}];
-  v19 = sub_3FB4();
+  v19 = sub_3FB4([v18 setFrame:{0.0, v14, width, v17}]);
   [v18 setActions:v19];
 
   v23.origin.x = 0.0;
@@ -1270,8 +1433,7 @@ LABEL_8:
   [v6 setPath:{CGPathCreateWithRect(v10, 0)}];
   [v6 setAnchorPoint:{0.5, 0.0}];
   [v6 setLineCap:kCALineCapRound];
-  [v6 setLineWidth:2.0];
-  v7 = sub_3FB4();
+  v7 = sub_3FB4([v6 setLineWidth:2.0]);
   [v6 setActions:v7];
 
   [parentCopy addSublayer:v6];
@@ -1288,8 +1450,7 @@ LABEL_8:
   [v7 setPosition:{width * 0.5, height * 0.5}];
   [v7 setBounds:{0.0, 0.0, width, height}];
   [v7 setLineCap:kCALineCapRound];
-  [v7 setLineWidth:2.0];
-  v8 = sub_3FB4();
+  v8 = sub_3FB4([v7 setLineWidth:2.0]);
   [v7 setActions:v8];
 
   [parentCopy addSublayer:v7];
@@ -1304,8 +1465,7 @@ LABEL_8:
   parentCopy = parent;
   v7 = +[CALayer layer];
   [v7 setPosition:{width * 0.5, height * 0.5}];
-  [v7 setBounds:{0.0, 0.0, width, height}];
-  v8 = sub_3FB4();
+  v8 = sub_3FB4([v7 setBounds:{0.0, 0.0, width, height}]);
   [v7 setActions:v8];
 
   [parentCopy addSublayer:v7];
@@ -1321,8 +1481,7 @@ LABEL_8:
   v7 = [[UIView alloc] initWithFrame:{0.0, 0.0, width, height}];
   layer = [v7 layer];
   [layer setPosition:{width * 0.5, height * 0.5}];
-  [layer setBounds:{0.0, 0.0, width, height}];
-  v9 = sub_3FB4();
+  v9 = sub_3FB4([layer setBounds:{0.0, 0.0, width, height}]);
   [layer setActions:v9];
 
   [parentCopy addSubview:v7];

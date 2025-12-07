@@ -69,14 +69,14 @@ void __44__WBSCertificateBypassManager_sharedManager__block_invoke()
 
 - (id)_readStateFromStorage
 {
-  v2 = _urlForStorage();
-  if (v2)
+  v3 = _urlForStorage();
+  if (v3)
   {
-    v3 = [MEMORY[0x1E695DF90] dictionaryWithContentsOfURL:v2];
-    v4 = v3;
-    if (v3)
+    v4 = [MEMORY[0x1E695DF90] dictionaryWithContentsOfURL:v3];
+    v5 = v4;
+    if (v4)
     {
-      dictionary = v3;
+      dictionary = v4;
     }
 
     else
@@ -89,10 +89,10 @@ void __44__WBSCertificateBypassManager_sharedManager__block_invoke()
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXCertificates();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXCertificates(0, v2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(WBSCertificateBypassManager *)v6 _readStateFromStorage];
+      [(WBSCertificateBypassManager *)v7 _readStateFromStorage];
     }
 
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];

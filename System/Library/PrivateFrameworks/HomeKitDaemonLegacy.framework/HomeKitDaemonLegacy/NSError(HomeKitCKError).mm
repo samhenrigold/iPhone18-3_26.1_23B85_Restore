@@ -6,19 +6,19 @@
 - (id)hmd_retryAfterCKError;
 - (uint64_t)hmd_isCKError;
 - (uint64_t)hmd_isNonRecoverableCKError;
-- (uint64_t)hmd_isRecordConflictCKError;
 - (uint64_t)hmd_isUnderlyingCKError;
+- (void)hmd_isRecordConflictCKError;
 @end
 
 @implementation NSError(HomeKitCKError)
 
-- (uint64_t)hmd_isRecordConflictCKError
+- (void)hmd_isRecordConflictCKError
 {
   result = [self hmd_isCKError];
   if (result)
   {
     code = [self code];
-    return code == 14 || code == 11;
+    return (code == 14 || code == 11);
   }
 
   return result;
@@ -26,7 +26,7 @@
 
 - (id)hmd_retryAfterCKError
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([self hmd_isCKError] & 1) != 0 || (objc_msgSend(self, "hmd_isUnderlyingCKError"))
   {
     if ([self code] == 2)
@@ -34,26 +34,26 @@
       userInfo = [self userInfo];
       v3 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       allValues = [v3 allValues];
-      v5 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v19;
+        v7 = *v18;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v19 != v7)
+            if (*v18 != v7)
             {
               objc_enumerationMutation(allValues);
             }
 
-            hmd_retryAfterCKError = [*(*(&v18 + 1) + 8 * i) hmd_retryAfterCKError];
+            hmd_retryAfterCKError = [*(*(&v17 + 1) + 8 * i) hmd_retryAfterCKError];
             if (hmd_retryAfterCKError)
             {
               v15 = hmd_retryAfterCKError;
@@ -62,7 +62,7 @@
             }
           }
 
-          v6 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v6 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v6)
           {
             continue;
@@ -108,7 +108,6 @@
 LABEL_20:
 
 LABEL_22:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -205,41 +204,41 @@ LABEL_10:
 
 - (id)hmd_conciseCKError
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([self hmd_isCKError])
   {
     userInfo = [self userInfo];
     v3 = [userInfo mutableCopy];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     userInfo2 = [self userInfo];
     allKeys = [userInfo2 allKeys];
 
-    v6 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           if (([ckErrorUserInfoKeys containsObject:v10] & 1) == 0)
           {
             [v3 removeObjectForKey:v10];
           }
         }
 
-        v7 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -248,7 +247,7 @@ LABEL_10:
     v11 = MEMORY[0x277CCA9B8];
     domain = [self domain];
     code = [self code];
-    v14 = [v3 copy];
+    v14 = objc_msgSend_copy(v3);
     selfCopy = [v11 errorWithDomain:domain code:code userInfo:v14];
   }
 
@@ -257,31 +256,14 @@ LABEL_10:
     selfCopy = self;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (id)hmd_actualCKErrorFromCKErrorPartialFailure:()HomeKitCKError
 {
   v4 = a3;
-  if (![self hmd_isCKError])
+  if (![self hmd_isCKError] || objc_msgSend(self, "code") != 2 || (objc_msgSend(self, "userInfo"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "objectForKey:", *MEMORY[0x277CBBFB0]), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectForKey:", v4), selfCopy = objc_claimAutoreleasedReturnValue(), v6, v5, !selfCopy))
   {
-    goto LABEL_4;
-  }
-
-  if ([self code] != 2)
-  {
-    goto LABEL_4;
-  }
-
-  userInfo = [self userInfo];
-  v6 = [userInfo objectForKey:*MEMORY[0x277CBBFB0]];
-  selfCopy = [v6 objectForKey:v4];
-
-  if (!selfCopy)
-  {
-LABEL_4:
     selfCopy = self;
   }
 

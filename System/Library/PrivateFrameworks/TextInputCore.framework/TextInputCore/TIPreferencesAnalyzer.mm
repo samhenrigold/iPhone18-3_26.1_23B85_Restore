@@ -29,19 +29,17 @@
 
 void __72__TIPreferencesAnalyzer__createEventSpecForTextInputUserPreferenceState__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
+  v6[3] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"preferenceName"];
   v1 = [MEMORY[0x277D6F308] stringFieldSpecWithName:{@"activeInputModes", v0}];
-  v7[1] = v1;
+  v6[1] = v1;
   v2 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"currentValue"];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
 
   v4 = [MEMORY[0x277D6F300] eventSpecWithName:@"textInputUserPreferenceState" inputModeRequired:0 fieldSpecs:v3];
   v5 = _createEventSpecForTextInputUserPreferenceState___eventSpec;
   _createEventSpecForTextInputUserPreferenceState___eventSpec = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createEventSpecForTextInputUserPreferenceChanges
@@ -58,37 +56,35 @@ void __72__TIPreferencesAnalyzer__createEventSpecForTextInputUserPreferenceState
 
 void __74__TIPreferencesAnalyzer__createEventSpecForTextInputUserPreferenceChanges__block_invoke()
 {
-  v17[10] = *MEMORY[0x277D85DE8];
-  v16 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"preferenceName"];
-  v17[0] = v16;
-  v15 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"activeInputModes"];
-  v17[1] = v15;
-  v14 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"previousValue"];
-  v17[2] = v14;
+  v16[10] = *MEMORY[0x277D85DE8];
+  v15 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"preferenceName"];
+  v16[0] = v15;
+  v14 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"activeInputModes"];
+  v16[1] = v14;
+  v13 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"previousValue"];
+  v16[2] = v13;
   v0 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"currentValue"];
-  v17[3] = v0;
+  v16[3] = v0;
   v1 = MEMORY[0x277D6F308];
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:5];
   v4 = [v1 integerFieldSpecWithName:@"daysSinceLastChangeBucket" minValue:v2 maxValue:v3 significantDigits:0];
-  v17[4] = v4;
+  v16[4] = v4;
   v5 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"daysSinceUpgradeToOff" minValue:&unk_28400BE08 maxValue:0 significantDigits:0];
-  v17[5] = v5;
+  v16[5] = v5;
   v6 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"daysSinceLastChange" minValue:&unk_28400BE08 maxValue:0 significantDigits:0];
-  v17[6] = v6;
+  v16[6] = v6;
   v7 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"buildAtChange"];
-  v17[7] = v7;
+  v16[7] = v7;
   v8 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"valueDidChange"];
-  v17[8] = v8;
+  v16[8] = v8;
   v9 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"isNewUser"];
-  v17[9] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:10];
+  v16[9] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:10];
 
   v11 = [MEMORY[0x277D6F300] eventSpecWithName:@"textInputUserPreferenceChanges" inputModeRequired:0 fieldSpecs:v10];
   v12 = _createEventSpecForTextInputUserPreferenceChanges___eventSpec;
   _createEventSpecForTextInputUserPreferenceChanges___eventSpec = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerAnalyticsEventSpecWithAnalyticsService
@@ -145,7 +141,7 @@ void __74__TIPreferencesAnalyzer__createEventSpecForTextInputUserPreferenceChang
 
 - (void)_dispatchEventPayloadWithPreferenceNameToChangesEvent:(id)event activeInputModes:(id)modes currentValue:(id)value previousValue:(id)previousValue changedAt:(id)at analyzedAt:(id)analyzedAt buildAtChange:(id)change isFreshInstall:(BOOL)self0 approxDateOfBuildInstall:(id)self1 buildAtLastAnalysis:(id)self2
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   modesCopy = modes;
   valueCopy = value;
@@ -154,7 +150,7 @@ void __74__TIPreferencesAnalyzer__createEventSpecForTextInputUserPreferenceChang
   changeCopy = change;
   buildInstallCopy = buildInstall;
   v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v56 = eventCopy;
+  v55 = eventCopy;
   [v23 setObject:eventCopy forKey:@"preferenceName"];
   v24 = [modesCopy componentsJoinedByString:{@", "}];
   [v23 setObject:v24 forKey:@"activeInputModes"];
@@ -200,15 +196,15 @@ void __74__TIPreferencesAnalyzer__createEventSpecForTextInputUserPreferenceChang
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      v53 = [v28 description];
-      v54 = [v28 dateByAddingTimeInterval:-v30];
-      [v54 description];
+      v52 = [v28 description];
+      v53 = [v28 dateByAddingTimeInterval:-v30];
+      [v53 description];
       *buf = 136315650;
-      v58 = "_daysSinceChangedAtDate";
-      v59 = 2112;
-      v60 = v53;
-      v62 = v61 = 2112;
-      v50 = v62;
+      v57 = "_daysSinceChangedAtDate";
+      v58 = 2112;
+      v59 = v52;
+      v61 = v60 = 2112;
+      v49 = v61;
       _os_log_fault_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s:Preference changes saved with a timestamp in the future. Refer rdar://98151099. changedAt:%@, now:%@", buf, 0x20u);
     }
 
@@ -258,14 +254,14 @@ LABEL_16:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
       {
-        v51 = [atCopy description];
-        v52 = [buildInstallCopy description];
+        v50 = [atCopy description];
+        v51 = [buildInstallCopy description];
         *buf = 136315650;
-        v58 = "[TIPreferencesAnalyzer _dispatchEventPayloadWithPreferenceNameToChangesEvent:activeInputModes:currentValue:previousValue:changedAt:analyzedAt:buildAtChange:isFreshInstall:approxDateOfBuildInstall:buildAtLastAnalysis:]";
-        v59 = 2112;
-        v60 = v51;
-        v61 = 2112;
-        v62 = v52;
+        v57 = "[TIPreferencesAnalyzer _dispatchEventPayloadWithPreferenceNameToChangesEvent:activeInputModes:currentValue:previousValue:changedAt:analyzedAt:buildAtChange:isFreshInstall:approxDateOfBuildInstall:buildAtLastAnalysis:]";
+        v58 = 2112;
+        v59 = v50;
+        v60 = 2112;
+        v61 = v51;
         _os_log_fault_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s:Preference changes saved with a timestamp in the future relative to date of BuildInstall. Refer rdar://98151099. changedAt:%@, approxDateOfBuildInstall:%@", buf, 0x20u);
       }
 
@@ -283,8 +279,6 @@ LABEL_27:
 
   mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
   [mEMORY[0x277D6F318] dispatchEventWithName:@"textInputUserPreferenceChanges" payload:v23 testingParameters:0 allowSparsePayload:1];
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetChangedAtForPreferenceKey:(id)key inDomain:(id)domain
@@ -344,18 +338,18 @@ LABEL_27:
 
 - (void)analyzeRegisteredPreferences
 {
-  v21[1] = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__8469;
-  v19 = __Block_byref_object_dispose__8470;
-  v20 = 0;
+  v20[1] = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__8469;
+  v18 = __Block_byref_object_dispose__8470;
+  v19 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = ___getSystemActiveInputModes_block_invoke;
   aBlock[3] = &unk_278733760;
-  aBlock[4] = &v15;
+  aBlock[4] = &v14;
   v3 = _Block_copy(aBlock);
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
@@ -367,13 +361,13 @@ LABEL_27:
     TIDispatchSync();
   }
 
-  v4 = v16[5];
+  v4 = v15[5];
   if (v4 && [v4 count])
   {
-    v5 = [TIPreferencesAnalyzer normalizedInputModeIdentifierGroupsFromInputModes:v16[5]];
+    v5 = [TIPreferencesAnalyzer normalizedInputModeIdentifierGroupsFromInputModes:v15[5]];
     v6 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"self" ascending:1];
-    v21[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     v8 = [v5 sortedArrayUsingDescriptors:v7];
   }
 
@@ -382,18 +376,16 @@ LABEL_27:
     v8 = &unk_28400B988;
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
   registry = [(TIPreferencesAnalyzer *)self registry];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__TIPreferencesAnalyzer_analyzeRegisteredPreferences__block_invoke;
-  v12[3] = &unk_278730AE0;
-  v12[4] = self;
-  v13 = v8;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __53__TIPreferencesAnalyzer_analyzeRegisteredPreferences__block_invoke;
+  v11[3] = &unk_278730AE0;
+  v11[4] = self;
+  v12 = v8;
   v10 = v8;
-  [registry enumerateRegisteredPreferencesUsingBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [registry enumerateRegisteredPreferencesUsingBlock:v11];
 }
 
 void __53__TIPreferencesAnalyzer_analyzeRegisteredPreferences__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, char a5)
@@ -482,7 +474,7 @@ void __53__TIPreferencesAnalyzer_analyzeRegisteredPreferences__block_invoke(uint
     v36 = CFPreferencesCopyAppValue(v35, v34);
 
     v37 = MGGetStringAnswer();
-    if (![v36 isEqualToString:v37] || !v32)
+    if (!objc_msgSend_isEqualToString_(v36) || !v32)
     {
       v38 = v37;
 
@@ -493,7 +485,7 @@ void __53__TIPreferencesAnalyzer_analyzeRegisteredPreferences__block_invoke(uint
       v32 = v39;
     }
 
-    if (([v36 isEqualToString:v37] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v36) & 1) == 0)
     {
       [*(a1 + 32) _resetChangedAtForPreferenceKey:v10 inDomain:v34];
     }
@@ -507,143 +499,142 @@ void __53__TIPreferencesAnalyzer_analyzeRegisteredPreferences__block_invoke(uint
 
 + (id)normalizedInputModeIdentifierGroupsFromInputModes:(id)modes
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   modesCopy = modes;
-  v41 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v39 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v41 = 0u;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
   v5 = modesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v44;
-    v38 = v5;
-    v39 = v4;
-    v37 = *v44;
+    v8 = *v42;
+    v36 = v5;
+    v37 = v4;
+    v35 = *v42;
     do
     {
       v9 = 0;
-      v40 = v7;
+      v38 = v7;
       do
       {
-        if (*v44 != v8)
+        if (*v42 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * v9);
-        v11 = TIInputModeGetMultilingualID();
-        if (v11)
+        v10 = TIInputModeGetMultilingualID();
+        if (v10)
         {
-          if ([v4 containsObject:v11])
+          if ([v4 containsObject:v10])
           {
             goto LABEL_35;
           }
 
-          [v4 addObject:v11];
-          v12 = TIInputModeGetMultilingualSetFromInputModesWithPreferredLanguages();
+          [v4 addObject:v10];
+          v11 = TIInputModeGetMultilingualSetFromInputModesWithPreferredLanguages();
           array = [MEMORY[0x277CBEB18] array];
-          v42 = [MEMORY[0x277CBEB58] set];
-          v14 = @"Unknown";
-          if ([v12 count])
+          v40 = [MEMORY[0x277CBEB58] set];
+          v13 = @"Unknown";
+          if ([v11 count])
           {
-            v15 = 0;
-            v16 = @"Unknown";
+            v14 = 0;
+            v15 = @"Unknown";
             do
             {
-              v17 = [v12 objectAtIndexedSubscript:v15];
-              v18 = TIInputModeGetNormalizedIdentifier();
-              if (v18)
+              v16 = [v11 objectAtIndexedSubscript:v14];
+              v17 = TIInputModeGetNormalizedIdentifier();
+              if (v17)
               {
-                if (!v15)
+                if (!v14)
                 {
-                  v19 = TIInputModeGetSWLayout();
-                  v20 = v19;
-                  if (v19)
+                  v18 = TIInputModeGetSWLayout();
+                  v19 = v18;
+                  if (v18)
                   {
-                    v21 = v19;
+                    v20 = v18;
                   }
 
                   else
                   {
-                    v21 = v16;
+                    v20 = v15;
                   }
 
-                  v22 = v21;
+                  v21 = v20;
 
-                  v16 = v22;
+                  v15 = v21;
                 }
 
-                if (v15 == [v12 count] - 1)
+                if (v14 == [v11 count] - 1)
                 {
-                  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v18, v16];
+                  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v17, v15];
                 }
 
                 else
                 {
-                  v23 = [v18 copy];
+                  v22 = [v17 copy];
                 }
 
-                v24 = v23;
-                [array addObject:v23];
+                v23 = v22;
+                [array addObject:v22];
               }
 
               else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
               {
                 *buf = 136315138;
-                v48 = "+[TIPreferencesAnalyzer normalizedInputModeIdentifierGroupsFromInputModes:]";
+                v46 = "+[TIPreferencesAnalyzer normalizedInputModeIdentifierGroupsFromInputModes:]";
                 _os_log_fault_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s:nil input mode found.", buf, 0xCu);
               }
 
-              ++v15;
+              ++v14;
             }
 
-            while (v15 < [v12 count]);
+            while (v14 < [v11 count]);
           }
 
           else
           {
-            v16 = @"Unknown";
+            v15 = @"Unknown";
           }
 
-          v31 = MEMORY[0x277CCACA8];
-          v32 = [array componentsJoinedByString:{@", "}];
-          v33 = [v31 stringWithFormat:@"(%@)", v32];
-          [v41 addObject:v33];
+          v30 = MEMORY[0x277CCACA8];
+          v31 = [array componentsJoinedByString:{@", "}];
+          v32 = [v30 stringWithFormat:@"(%@)", v31];
+          [v39 addObject:v32];
 
-          v5 = v38;
-          v4 = v39;
-          v8 = v37;
-          v7 = v40;
+          v5 = v36;
+          v4 = v37;
+          v8 = v35;
+          v7 = v38;
         }
 
         else
         {
-          v25 = TIInputModeGetNormalizedIdentifier();
-          if (v25)
+          v24 = TIInputModeGetNormalizedIdentifier();
+          if (v24)
           {
-            v12 = v25;
-            v26 = TIInputModeGetSWLayout();
-            v27 = v26;
-            if (v26)
+            v11 = v24;
+            v25 = TIInputModeGetSWLayout();
+            v26 = v25;
+            if (v25)
             {
-              v28 = v26;
+              v27 = v25;
             }
 
             else
             {
-              v28 = @"Unknown";
+              v27 = @"Unknown";
             }
 
-            v29 = v28;
+            v28 = v27;
 
-            v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v12, v29];
+            v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v11, v28];
 
-            [v41 addObject:v30];
+            [v39 addObject:v29];
           }
 
           else
@@ -651,11 +642,11 @@ void __53__TIPreferencesAnalyzer_analyzeRegisteredPreferences__block_invoke(uint
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
             {
               *buf = 136315138;
-              v48 = "+[TIPreferencesAnalyzer normalizedInputModeIdentifierGroupsFromInputModes:]";
+              v46 = "+[TIPreferencesAnalyzer normalizedInputModeIdentifierGroupsFromInputModes:]";
               _os_log_fault_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s:nil input mode found.", buf, 0xCu);
             }
 
-            v12 = 0;
+            v11 = 0;
           }
         }
 
@@ -664,15 +655,13 @@ LABEL_35:
       }
 
       while (v9 != v7);
-      v7 = [v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v41 objects:v47 count:16];
     }
 
     while (v7);
   }
 
-  allObjects = [v41 allObjects];
-
-  v35 = *MEMORY[0x277D85DE8];
+  allObjects = [v39 allObjects];
 
   return allObjects;
 }

@@ -33,7 +33,7 @@
 
 - (BOOL)parseFileHandle:(id)handle error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   if (error)
   {
     *error = 0;
@@ -56,9 +56,9 @@
   if (!self->_foundVisitArray && !v12)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
-    v21[0] = @"Could not find chrome history visit array in JSON file";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20[0] = @"Could not find chrome history visit array in JSON file";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v15 = [v13 errorWithDomain:@"com.apple.Safari.Core.WBSChromeHistoryImporterErrorDomain" code:2 userInfo:v14];
     v16 = self->_lastError;
     self->_lastError = v15;
@@ -75,56 +75,51 @@
 
   v17 = v12 == 0;
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17 && v11;
 }
 
 - (BOOL)_checkNotAtRootLevel
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableArray *)self->_stack count];
   if (!v3)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
-    v11[0] = @"Root node is expected to be a dictionary";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x1E696A578];
+    v10[0] = @"Root node is expected to be a dictionary";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v6 = [v4 errorWithDomain:@"com.apple.Safari.Core.WBSChromeHistoryImporterErrorDomain" code:1 userInfo:v5];
     lastError = self->_lastError;
     self->_lastError = v6;
   }
 
-  result = v3 != 0;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 != 0;
 }
 
 - (BOOL)_isParsingVisitArray
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E1E0;
-  v6[1] = @"Browser History";
-  v6[2] = &unk_1F308E1F8;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
+  v5[0] = &unk_1F308E1E0;
+  v5[1] = @"Browser History";
+  v5[2] = &unk_1F308E1F8;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 
 - (BOOL)_isParsingVisit
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E1E0;
-  v6[1] = @"Browser History";
-  v6[2] = &unk_1F308E1F8;
-  v6[3] = &unk_1F308E1E0;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
+  v5[0] = &unk_1F308E1E0;
+  v5[1] = @"Browser History";
+  v5[2] = &unk_1F308E1F8;
+  v5[3] = &unk_1F308E1E0;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 
@@ -163,10 +158,10 @@
 
       if (!self->_url)
       {
-        v11 = WBS_LOG_CHANNEL_PREFIXImport();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = WBS_LOG_CHANNEL_PREFIXImport(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [WBSChromeHistoryImporter jsonReader:valueCopy scalarValue:v11];
+          [WBSChromeHistoryImporter jsonReader:valueCopy scalarValue:v13];
         }
       }
     }
@@ -231,43 +226,44 @@
   if ([(WBSChromeHistoryImporter *)self _isParsingVisit])
   {
     v5 = objc_autoreleasePoolPush();
+    v7 = v5;
     if (!self->_url)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [WBSChromeHistoryImporter jsonReaderEndObject:v6];
+        [WBSChromeHistoryImporter jsonReaderEndObject:v8];
       }
     }
 
     visitTime = self->_visitTime;
     if (!visitTime)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXImport(0, v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [WBSChromeHistoryImporter jsonReaderEndObject:v8];
+        [WBSChromeHistoryImporter jsonReaderEndObject:v10];
       }
 
       visitTime = self->_visitTime;
     }
 
-    v9 = WBSUnixTimeInMicrosecondsToTimeInterval(visitTime);
+    v11 = WBSUnixTimeInMicrosecondsToTimeInterval(visitTime);
     if (self->_url)
     {
       if (self->_visitTime)
       {
-        v10 = v9;
-        if (v9 >= self->_ageLimit)
+        v12 = v11;
+        if (v11 >= self->_ageLimit)
         {
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
           absoluteString = [(NSURL *)self->_url absoluteString];
-          [WeakRetained addVisitWithURLString:absoluteString visitTime:self->_title title:1 loadSuccessful:0 httpGet:0 redirectSourceURLString:0 redirectSourceVisitTime:v10 redirectDestinationURLString:0.0 redirectDestinationVisitTime:0.0 visitCount:1];
+          [WeakRetained addVisitWithURLString:absoluteString visitTime:self->_title title:1 loadSuccessful:0 httpGet:0 redirectSourceURLString:0 redirectSourceVisitTime:v12 redirectDestinationURLString:0.0 redirectDestinationVisitTime:0.0 visitCount:1];
         }
       }
     }
 
-    objc_autoreleasePoolPop(v5);
+    objc_autoreleasePoolPop(v7);
   }
 
   [(NSMutableArray *)self->_stack removeLastObject];
@@ -285,11 +281,10 @@
 
 - (void)jsonReader:(uint64_t)a1 scalarValue:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138739971;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Invalid URL: %{sensitive}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138739971;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Invalid URL: %{sensitive}@", &v2, 0xCu);
 }
 
 @end

@@ -2,9 +2,16 @@
 - (BOOL)speech_detected;
 - (QSSMutableCheckForSpeechResponse)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setSpeech_detected:(BOOL)speech_detected;
 @end
 
 @implementation QSSMutableCheckForSpeechResponse
+
+- (void)setSpeech_detected:(BOOL)speech_detected
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:speech_detected];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)speech_detected
 {

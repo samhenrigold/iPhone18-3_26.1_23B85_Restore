@@ -38,7 +38,7 @@
 
   if (!self->_keyType || !self->_keySize || ([atributesCopy objectForKeyedSubscript:@"systemKey"], (v15 = objc_claimAutoreleasedReturnValue()) == 0) || (v16 = v15, objc_msgSend(atributesCopy, "objectForKeyedSubscript:", @"systemSessionKey"), v17 = objc_claimAutoreleasedReturnValue(), v17, v16, !v17))
   {
-    v23 = TK_LOG_rsepkey();
+    v23 = TK_LOG_rsepkey(v15);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       [TKRemoteSEPKey processServerAtributes:v23 error:?];
@@ -56,15 +56,14 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v18 = *MEMORY[0x1E695E480];
-  v19 = [atributesCopy objectForKeyedSubscript:@"accessControl"];
-  v20 = SecAccessControlCreateFromData();
+  v18 = [atributesCopy objectForKeyedSubscript:@"accessControl"];
+  v19 = SecAccessControlCreateFromData();
   accessControl = self->_accessControl;
-  self->_accessControl = v20;
+  self->_accessControl = v19;
 
   if (!self->_accessControl)
   {
-    v24 = TK_LOG_rsepkey();
+    v24 = TK_LOG_rsepkey(v21);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       [TKRemoteSEPKey processServerAtributes:v24 error:?];
@@ -151,7 +150,7 @@ TKCTKDConnection *__35__TKRemoteSEPKey_withError_invoke___block_invoke_2(uint64_
 void __35__TKRemoteSEPKey_withError_invoke___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TK_LOG_rsepkey();
+  v3 = TK_LOG_rsepkey(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __35__TKRemoteSEPKey_withError_invoke___block_invoke_3_cold_1(v3);
@@ -263,47 +262,13 @@ void __73__TKRemoteSEPKey__initWithObjectID_authContext_forceSystemSession_error
   v44.receiver = self;
   v44.super_class = TKRemoteSEPKey;
   v17 = [(TKSEPKey *)&v44 _initWithAuthContext:contextCopy];
-  if (!v17)
-  {
-    goto LABEL_6;
-  }
-
-  v18 = SecAccessControlCopyData();
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__6;
-  v42 = __Block_byref_object_dispose__6;
-  v43 = 0;
-  v26 = MEMORY[0x1E69E9820];
-  v27 = 3221225472;
-  v28 = __102__TKRemoteSEPKey__initWithKeyType_keySize_accessControl_options_authContext_forceSystemSession_error___block_invoke;
-  v29 = &unk_1E86B7EE0;
-  v30 = typeCopy;
-  sizeCopy = size;
-  v19 = v18;
-  v31 = v19;
-  v32 = optionsCopy;
-  v33 = contextCopy;
-  sessionCopy = session;
-  v20 = v17;
-  v34 = v20;
-  v35 = &v38;
-  v21 = [v20 withError:error invoke:&v26];
-  v22 = v20[9];
-  v20[9] = v21;
-
-  v23 = v20[9] ? [v20 processServerAtributes:v39[5] error:{error, v26, v27, v28, v29, v30, v31, v32, v33}] : 0;
-  _Block_object_dispose(&v38, 8);
-
-  if (!v23)
+  if (v17 && ((v18 = SecAccessControlCopyData(), v38 = 0, v39 = &v38, v40 = 0x3032000000, v41 = __Block_byref_object_copy__6, v42 = __Block_byref_object_dispose__6, v43 = 0, v26 = MEMORY[0x1E69E9820], v27 = 3221225472, v28 = __102__TKRemoteSEPKey__initWithKeyType_keySize_accessControl_options_authContext_forceSystemSession_error___block_invoke, v29 = &unk_1E86B7EE0, v30 = typeCopy, v36 = size, v19 = v18, v31 = v19, v32 = optionsCopy, v33 = contextCopy, v37 = session, v20 = v17, v34 = v20, v35 = &v38, [v20 withError:error invoke:&v26], v21 = objc_claimAutoreleasedReturnValue(), v22 = v20[9], v20[9] = v21, v22, !v20[9]) ? (v23 = 0) : (v23 = objc_msgSend(v20, "processServerAtributes:error:", v39[5], error, v26, v27, v28, v29, v30, v31, v32, v33)), v34, v33, v32, v31, v30, _Block_object_dispose(&v38, 8), v43, v19, !v23))
   {
     v24 = 0;
   }
 
   else
   {
-LABEL_6:
     v24 = v17;
   }
 
@@ -898,17 +863,16 @@ void __48__TKRemoteSEPKey_lifetimeControlWithType_error___block_invoke_2(uint64_
 
 - (void)processServerAtributes:(void *)a1 error:(NSObject *)a2 .cold.1(void **a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   if (*a1)
   {
     v2 = *v2;
   }
 
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_fault_impl(&dword_1DF413000, a2, OS_LOG_TYPE_FAULT, "unable to deserialize accessControl, error %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_fault_impl(&dword_1DF413000, a2, OS_LOG_TYPE_FAULT, "unable to deserialize accessControl, error %{public}@", &v3, 0xCu);
 }
 
 - (void)attestKey:(uint64_t)a1 nonce:(uint64_t)a2 error:.cold.1(uint64_t a1, uint64_t a2)

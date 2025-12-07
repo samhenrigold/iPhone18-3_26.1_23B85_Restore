@@ -45,6 +45,7 @@
 - (void)_updateAssetSelectionEvent:(id)event fromAssetLoadEndEvent:(id)endEvent untilAssetLoadBeginEvent:(id)beginEvent cursor:(id)cursor;
 - (void)setTestingDelegate:(id)delegate;
 - (void)subscribeToEventStream:(id)stream;
+- (void)unsubscribeFromEventStream:(id)stream;
 @end
 
 @implementation MPCRTCEventConsumer
@@ -3245,6 +3246,13 @@ void __64__MPCRTCEventConsumer__sendQueueLoadEventIfNeeded_forItemEvent___block_
   }
 
 LABEL_6:
+}
+
+- (void)unsubscribeFromEventStream:(id)stream
+{
+  subscription = self->_subscription;
+  self->_subscription = 0;
+  MEMORY[0x1EEE66BB8](self, subscription);
 }
 
 - (void)subscribeToEventStream:(id)stream

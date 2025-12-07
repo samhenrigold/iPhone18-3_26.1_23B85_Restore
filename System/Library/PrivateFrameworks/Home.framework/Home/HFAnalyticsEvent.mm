@@ -40,45 +40,43 @@
 
 - (id)description
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D2C8F8] builderWithObject:self];
   name = [(HFAnalyticsEvent *)self name];
   v5 = [v3 appendObject:name withName:@"name"];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   payload = [(HFAnalyticsEvent *)self payload];
-  v7 = [payload countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [payload countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(payload);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         payload2 = [(HFAnalyticsEvent *)self payload];
         v13 = [payload2 objectForKeyedSubscript:v11];
         v14 = [v3 appendObject:v13 withName:v11];
       }
 
-      v8 = [payload countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [payload countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   build = [v3 build];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return build;
 }
@@ -92,14 +90,12 @@
 
 - (NSDictionary)payload
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"timestamp";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"timestamp";
   timestamp = [(HFAnalyticsEvent *)self timestamp];
   hf_analyticsTimestamp = [timestamp hf_analyticsTimestamp];
-  v8[0] = hf_analyticsTimestamp;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = hf_analyticsTimestamp;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

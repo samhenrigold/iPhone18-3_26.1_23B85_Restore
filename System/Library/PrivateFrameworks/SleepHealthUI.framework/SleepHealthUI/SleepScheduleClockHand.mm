@@ -38,7 +38,7 @@
   }
 
   selfCopy = self;
-  sub_269D2FD78();
+  sub_269D2FD78(selfCopy);
 }
 
 - (BOOL)isHighlighted

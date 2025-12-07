@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SuggestedRouteSystemApertureView();
+  v3.super_class = type metadata accessor for SuggestedRouteSystemApertureView(0);
   v2 = v3.receiver;
   [(SuggestedRouteSystemApertureView *)&v3 layoutSubviews];
   [*&v2[OBJC_IVAR____TtC13MediaRemoteUI32SuggestedRouteSystemApertureView_routeLabel] bounds];

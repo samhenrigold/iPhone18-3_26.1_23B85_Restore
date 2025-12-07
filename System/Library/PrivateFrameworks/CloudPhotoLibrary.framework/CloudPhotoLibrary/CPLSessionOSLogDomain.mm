@@ -6,9 +6,11 @@
 uint64_t ____CPLSessionOSLogDomain_block_invoke()
 {
   v0 = _CPLOSLogSubsystem();
-  __CPLSessionOSLogDomain_result = os_log_create(v0, "client.session.proxy");
+  v1 = os_log_create(v0, "client.session.proxy");
+  v2 = __CPLSessionOSLogDomain_result;
+  __CPLSessionOSLogDomain_result = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 uint64_t ____CPLSessionOSLogDomain_block_invoke_0()

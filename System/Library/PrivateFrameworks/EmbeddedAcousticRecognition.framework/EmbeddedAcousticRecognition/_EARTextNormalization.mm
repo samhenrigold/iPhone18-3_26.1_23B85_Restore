@@ -77,7 +77,7 @@
 
     if (fileCopy)
     {
-      [fileCopy ear_toString];
+      objc_msgSend_ear_toString(fileCopy);
       operator new();
     }
   }
@@ -100,7 +100,7 @@
 
     if (rulesCopy)
     {
-      [rulesCopy ear_toString];
+      objc_msgSend_ear_toString(rulesCopy);
     }
 
     else
@@ -145,7 +145,7 @@
   {
     if (rulesCopy)
     {
-      [rulesCopy ear_toString];
+      objc_msgSend_ear_toString(rulesCopy);
     }
 
     else
@@ -235,7 +235,7 @@ LABEL_8:
         v7 = v6;
         if (v6)
         {
-          [v6 ear_toString];
+          objc_msgSend_ear_toString(v6);
         }
 
         else

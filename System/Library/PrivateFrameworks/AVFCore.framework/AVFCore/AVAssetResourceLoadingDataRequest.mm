@@ -11,9 +11,9 @@
 
 - (AVAssetResourceLoadingDataRequest)initWithLoadingRequest:(id)request requestedOffset:(int64_t)offset requestedLength:(int64_t)length requestsAllDataToEndOfResource:(BOOL)resource canSupplyIncrementalDataImmediately:(BOOL)immediately
 {
-  v15.receiver = self;
-  v15.super_class = AVAssetResourceLoadingDataRequest;
-  v12 = [(AVAssetResourceLoadingDataRequest *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = AVAssetResourceLoadingDataRequest;
+  v12 = [(AVAssetResourceLoadingDataRequest *)&v16 init];
   if (v12)
   {
     if (request && (v13 = objc_alloc_init(AVAssetResourceLoadingDataRequestInternal), (v12->_dataRequest = v13) != 0))
@@ -22,7 +22,7 @@
       v12->_dataRequest->requestedOffset = offset;
       v12->_dataRequest->requestedLength = length;
       v12->_dataRequest->currentOffset = offset;
-      v12->_dataRequest->dataResponseQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloadingdatarequest");
+      v12->_dataRequest->dataResponseQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloadingdatarequest", v14);
       v12->_dataRequest->requestsAllDataToEndOfResource = resource;
       v12->_dataRequest->canSupplyIncrementalDataImmediately = immediately;
       CFRetain(v12->_dataRequest);

@@ -128,10 +128,10 @@ uint64_t __32__HKAsynchronousOperation_start__block_invoke(uint64_t a1)
 
   else
   {
-    v17.receiver = self;
-    v17.super_class = HKAsynchronousOperation;
+    v18.receiver = self;
+    v18.super_class = HKAsynchronousOperation;
     changeCopy2 = change;
-    [(HKAsynchronousOperation *)&v17 observeValueForKeyPath:path ofObject:object change:changeCopy2 context:context];
+    [(HKAsynchronousOperation *)&v18 observeValueForKeyPath:path ofObject:object change:changeCopy2 context:context];
   }
 }
 
@@ -190,95 +190,91 @@ uint64_t __32__HKAsynchronousOperation_start__block_invoke(uint64_t a1)
 
 - (void)_operationDidStart
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v2 = _HKLogPersistedSignposts();
-    v3 = os_signpost_id_make_with_pointer(v2, self);
+    v3 = _HKLogPersistedSignposts(self, a2);
+    v4 = os_signpost_id_make_with_pointer(v3, self);
 
-    _HKInitializeLogging();
-    v4 = HKLogInfrastructure();
-    v5 = OUTLINED_FUNCTION_6(v4);
+    _HKInitializeLogging(v5, v6);
+    v9 = HKLogInfrastructure(v7, v8);
+    v10 = OUTLINED_FUNCTION_6(v9);
 
-    if (v5)
+    if (v10)
     {
-      v6 = HKLogInfrastructure();
-      if (OUTLINED_FUNCTION_6(v6))
+      v13 = HKLogInfrastructure(v11, v12);
+      if (OUTLINED_FUNCTION_6(v13))
       {
-        v13 = 138543362;
+        v23 = 138543362;
         selfCopy = self;
-        _os_log_impl(&dword_19197B000, v2, OS_LOG_TYPE_INFO, "%{public}@: Started.", &v13, 0xCu);
+        _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_INFO, "%{public}@: Started.", &v23, 0xCu);
       }
     }
 
-    _HKInitializeLogging();
-    v7 = _HKLogPersistedSignposts();
-    v8 = os_signpost_enabled(v7);
+    _HKInitializeLogging(v11, v12);
+    v16 = _HKLogPersistedSignposts(v14, v15);
+    v17 = os_signpost_enabled(v16);
 
-    if (v8)
+    if (v17)
     {
-      v9 = _HKLogPersistedSignposts();
-      v10 = v9;
-      if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+      v20 = _HKLogPersistedSignposts(v18, v19);
+      v21 = v20;
+      if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
       {
         name = [(CFAbsoluteTime *)self name];
-        v13 = 138543362;
+        v23 = 138543362;
         selfCopy = name;
-        _os_signpost_emit_with_name_impl(&dword_19197B000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v3, "HKAsynchronousOperation", "name=%{public}@", &v13, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_19197B000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v4, "HKAsynchronousOperation", "name=%{public}@", &v23, 0xCu);
       }
     }
 
     self[33] = CFAbsoluteTimeGetCurrent();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_operationDidFinish
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v2 = _HKLogPersistedSignposts();
-    v3 = os_signpost_id_make_with_pointer(v2, self);
+    v3 = _HKLogPersistedSignposts(self, a2);
+    v4 = os_signpost_id_make_with_pointer(v3, self);
 
-    _HKInitializeLogging();
-    v4 = HKLogInfrastructure();
-    v5 = OUTLINED_FUNCTION_6(v4);
+    _HKInitializeLogging(v5, v6);
+    v9 = HKLogInfrastructure(v7, v8);
+    v10 = OUTLINED_FUNCTION_6(v9);
 
-    if (v5)
+    if (v10)
     {
-      v6 = HKLogInfrastructure();
-      if (OUTLINED_FUNCTION_6(v6))
+      v13 = HKLogInfrastructure(v11, v12);
+      if (OUTLINED_FUNCTION_6(v13))
       {
-        v7 = CFAbsoluteTimeGetCurrent() - self[33];
-        v14 = 138543618;
+        v14 = CFAbsoluteTimeGetCurrent() - self[33];
+        v24 = 138543618;
         selfCopy = self;
-        v16 = 2048;
-        v17 = v7;
-        _os_log_impl(&dword_19197B000, v2, OS_LOG_TYPE_INFO, "%{public}@: Stopped after %0.3lfs.", &v14, 0x16u);
+        v26 = 2048;
+        v27 = v14;
+        _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_INFO, "%{public}@: Stopped after %0.3lfs.", &v24, 0x16u);
       }
     }
 
-    _HKInitializeLogging();
-    v8 = _HKLogPersistedSignposts();
-    v9 = os_signpost_enabled(v8);
+    _HKInitializeLogging(v11, v12);
+    v17 = _HKLogPersistedSignposts(v15, v16);
+    v18 = os_signpost_enabled(v17);
 
-    if (v9)
+    if (v18)
     {
-      v10 = _HKLogPersistedSignposts();
-      v11 = v10;
-      if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+      v21 = _HKLogPersistedSignposts(v19, v20);
+      v22 = v21;
+      if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
       {
         name = [self name];
-        v14 = 138543362;
+        v24 = 138543362;
         selfCopy = name;
-        _os_signpost_emit_with_name_impl(&dword_19197B000, v11, OS_SIGNPOST_INTERVAL_END, v3, "HKAsynchronousOperation", "name=%{public}@", &v14, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_19197B000, v22, OS_SIGNPOST_INTERVAL_END, v4, "HKAsynchronousOperation", "name=%{public}@", &v24, 0xCu);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

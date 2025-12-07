@@ -8,6 +8,7 @@
 - (void)sendBatteryServiceNotification:(id)notification;
 - (void)sendDevMgmtPipeConnectedMsg:(id)msg;
 - (void)sendDevMgmtPipeDisconnectedMsg:(id)msg;
+- (void)sendEnableBTSyncMsg:(unsigned __int16)msg forPeer:(id)peer;
 - (void)sendMsg:(id)msg args:(id)args;
 - (void)sendSetConnectionParametersMsg:(id)msg forPeer:(id)peer;
 @end
@@ -32,6 +33,22 @@
   msgCopy = msg;
   serverConnection = [(BTLEXpcServer *)self serverConnection];
   [serverConnection sendMsg:msgCopy args:argsCopy];
+}
+
+- (void)sendEnableBTSyncMsg:(unsigned __int16)msg forPeer:(id)peer
+{
+  msgCopy = msg;
+  peerCopy = peer;
+  serverConnection = [(BTLEXpcServer *)self serverConnection];
+  v11[0] = @"kPeerIdentifier";
+  msgIdentifier = [peerCopy msgIdentifier];
+
+  v11[1] = @"kPeriod";
+  v12[0] = msgIdentifier;
+  v9 = [NSNumber numberWithUnsignedShort:msgCopy];
+  v12[1] = v9;
+  v10 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
+  [serverConnection sendMsg:@"EnableBTSync" args:v10];
 }
 
 - (void)sendSetConnectionParametersMsg:(id)msg forPeer:(id)peer

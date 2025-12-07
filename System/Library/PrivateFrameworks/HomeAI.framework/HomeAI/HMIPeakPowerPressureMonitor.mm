@@ -22,9 +22,11 @@
 
 uint64_t __45__HMIPeakPowerPressureMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_207 = objc_alloc_init(HMIPeakPowerPressureMonitor);
+  v0 = objc_alloc_init(HMIPeakPowerPressureMonitor);
+  v1 = sharedInstance_sharedInstance_207;
+  sharedInstance_sharedInstance_207 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMIPeakPowerPressureMonitor)init
@@ -105,13 +107,13 @@ void __35__HMIPeakPowerPressureMonitor_init__block_invoke(uint64_t a1)
   {
     switch(v10)
     {
-      case 20:
+      case 0x14uLL:
         v3 = 2;
         goto LABEL_12;
-      case 30:
+      case 0x1EuLL:
         v3 = 3;
         goto LABEL_12;
-      case 40:
+      case 0x28uLL:
         v3 = 4;
         goto LABEL_12;
     }
@@ -136,7 +138,7 @@ LABEL_12:
 
   objc_autoreleasePoolPop(v4);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter postNotificationName:@"HMIPeakPowerPressureLevelDidChangeNotification" object:selfCopy];
+  [defaultCenter postNotificationName:? object:?];
 }
 
 - (void)dealloc

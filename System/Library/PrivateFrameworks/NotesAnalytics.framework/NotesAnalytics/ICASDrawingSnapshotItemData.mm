@@ -30,8 +30,8 @@
 
 - (id)toDict
 {
-  v23[5] = *MEMORY[0x277D85DE8];
-  v22[0] = @"countOfInlineDrawingV1PencilStrokes";
+  v22[5] = *MEMORY[0x277D85DE8];
+  v21[0] = @"countOfInlineDrawingV1PencilStrokes";
   countOfInlineDrawingV1PencilStrokes = [(ICASDrawingSnapshotItemData *)self countOfInlineDrawingV1PencilStrokes];
   if (countOfInlineDrawingV1PencilStrokes)
   {
@@ -44,8 +44,8 @@
   }
 
   v4 = countOfInlineDrawingV1PencilStrokes2;
-  v23[0] = countOfInlineDrawingV1PencilStrokes2;
-  v22[1] = @"countOfInlineDrawingV1FingerStrokes";
+  v22[0] = countOfInlineDrawingV1PencilStrokes2;
+  v21[1] = @"countOfInlineDrawingV1FingerStrokes";
   countOfInlineDrawingV1FingerStrokes = [(ICASDrawingSnapshotItemData *)self countOfInlineDrawingV1FingerStrokes];
   if (countOfInlineDrawingV1FingerStrokes)
   {
@@ -58,8 +58,8 @@
   }
 
   v7 = countOfInlineDrawingV1FingerStrokes2;
-  v23[1] = countOfInlineDrawingV1FingerStrokes2;
-  v22[2] = @"countOfInlineDrawingV2PencilStrokes";
+  v22[1] = countOfInlineDrawingV1FingerStrokes2;
+  v21[2] = @"countOfInlineDrawingV2PencilStrokes";
   countOfInlineDrawingV2PencilStrokes = [(ICASDrawingSnapshotItemData *)self countOfInlineDrawingV2PencilStrokes];
   if (countOfInlineDrawingV2PencilStrokes)
   {
@@ -72,8 +72,8 @@
   }
 
   v10 = countOfInlineDrawingV2PencilStrokes2;
-  v23[2] = countOfInlineDrawingV2PencilStrokes2;
-  v22[3] = @"countOfInlineDrawingV2FingerStrokes";
+  v22[2] = countOfInlineDrawingV2PencilStrokes2;
+  v21[3] = @"countOfInlineDrawingV2FingerStrokes";
   countOfInlineDrawingV2FingerStrokes = [(ICASDrawingSnapshotItemData *)self countOfInlineDrawingV2FingerStrokes];
   if (countOfInlineDrawingV2FingerStrokes)
   {
@@ -86,8 +86,8 @@
   }
 
   v13 = countOfInlineDrawingV2FingerStrokes2;
-  v23[3] = countOfInlineDrawingV2FingerStrokes2;
-  v22[4] = @"countOfFullscreenDrawingStrokes";
+  v22[3] = countOfInlineDrawingV2FingerStrokes2;
+  v21[4] = @"countOfFullscreenDrawingStrokes";
   countOfFullscreenDrawingStrokes = [(ICASDrawingSnapshotItemData *)self countOfFullscreenDrawingStrokes];
   if (countOfFullscreenDrawingStrokes)
   {
@@ -100,10 +100,8 @@
   }
 
   v16 = countOfFullscreenDrawingStrokes2;
-  v23[4] = countOfFullscreenDrawingStrokes2;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v22[4] = countOfFullscreenDrawingStrokes2;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
 
   return v17;
 }

@@ -20,7 +20,7 @@
   }
 }
 
-uint64_t __34__AXPTranslationObject_initialize__block_invoke()
+uint64_t __34__AXPTranslationObject_initialize__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   UniqueIdLock = objc_opt_new();
 
@@ -130,14 +130,13 @@ uint64_t __34__AXPTranslationObject_initialize__block_invoke()
 uint64_t __47__AXPTranslationObject_allowedDecodableClasses__block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CBEB98];
-  v2 = *(a1 + 32);
+  v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v8 = objc_opt_class();
-  allowedDecodableClasses_Allowed = [v1 setWithObjects:{v3, v4, v5, v6, v7, v8, objc_opt_class(), 0}];
+  allowedDecodableClasses_Allowed = [v1 setWithObjects:{v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
 
   return MEMORY[0x2821F96F8]();
 }

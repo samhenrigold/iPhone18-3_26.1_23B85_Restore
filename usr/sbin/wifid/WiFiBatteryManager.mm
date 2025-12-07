@@ -5,6 +5,7 @@
 - (WiFiBatteryManager)initWithContext:(void *)context;
 - (id)WiFiBatteryManagerPopulatePowerTable;
 - (id)getDutyCycleForPowerNumber:(unint64_t)number;
+- (id)getPowerNumberForDutyCycle:(int)cycle;
 - (int)admissionCheck;
 - (int)requestPowerResource:(unint64_t)resource withDetails:(void *)details;
 - (unint64_t)WiFiBatteryManagerHandleCpmsAllocatedBudgetReturnIndex:(id)index;
@@ -865,6 +866,15 @@ LABEL_15:
     [(PPMClient *)self->_wifiPpmClientRef activityStoppedWithLevel:0 options:0 error:0];
     [(WiFiBatteryManager *)self setClaimedResource:0];
   }
+}
+
+- (id)getPowerNumberForDutyCycle:(int)cycle
+{
+  dutyCycleToPowerTable100ms = self->_dutyCycleToPowerTable100ms;
+  v4 = [NSNumber numberWithInt:*&cycle];
+  v5 = [(NSDictionary *)dutyCycleToPowerTable100ms objectForKey:v4];
+
+  return v5;
 }
 
 - (id)getDutyCycleForPowerNumber:(unint64_t)number

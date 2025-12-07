@@ -151,8 +151,8 @@ void sub_1000831D8(uint64_t a1)
   v5 = [CSAudioChunk alloc];
   v6 = *(a1 + 32);
   v7 = +[CSConfig inputRecordingSampleByteDepth];
-  LOBYTE(v18) = +[CSConfig inputRecordingIsFloat];
-  v19 = [v5 initWithData:v6 numChannels:1 numSamples:v3 sampleByteDepth:v7 startSampleCount:0 hostTime:0 remoteVAD:0 isFloat:v18];
+  LOBYTE(v17) = +[CSConfig inputRecordingIsFloat];
+  v18 = [v5 initWithData:v6 numChannels:1 numSamples:v3 sampleByteDepth:v7 startSampleCount:0 hostTime:0 remoteVAD:0 isFloat:v17];
   v8 = *(a1 + 40);
   if ((*(v8 + 96) & 0x8000000000000000) != 0)
   {
@@ -163,7 +163,7 @@ void sub_1000831D8(uint64_t a1)
   if (*(v8 + 16))
   {
     v9 = mach_absolute_time();
-    v10 = [*(*(a1 + 40) + 16) getAnalyzedResultsFromAudioChunk:v19];
+    v10 = [*(*(a1 + 40) + 16) getAnalyzedResultsFromAudioChunk:v18];
     *(*(a1 + 40) + 80) += mach_absolute_time() - v9;
   }
 
@@ -193,7 +193,6 @@ void sub_1000831D8(uint64_t a1)
   if (v13[6])
   {
     v16 = mach_absolute_time();
-    v17 = *(*(a1 + 40) + 48);
     [v11 bytes];
     nd_wavedata();
     *(*(a1 + 40) + 80) += mach_absolute_time() - v16;
@@ -272,29 +271,28 @@ void sub_10008398C(uint64_t a1)
       v8 = CSLogCategorySpkrId;
       if (os_log_type_enabled(CSLogCategorySpkrId, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(*(a1 + 32) + 48);
-        v10 = v8;
+        v9 = v8;
         *buf = 136315650;
-        v21 = "[CSModelBenchmarker runNovDetectorWithConfig:configRoot:withUrl:completion:]_block_invoke";
-        v22 = 1026;
-        v23 = v7;
-        v24 = 2082;
-        v25 = nd_error();
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s ERR: Failed to initialize _novDetect: err=[%{public}d]:%{public}s", buf, 0x1Cu);
+        v20 = "[CSModelBenchmarker runNovDetectorWithConfig:configRoot:withUrl:completion:]_block_invoke";
+        v21 = 1026;
+        v22 = v7;
+        v23 = 2082;
+        v24 = nd_error();
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s ERR: Failed to initialize _novDetect: err=[%{public}d]:%{public}s", buf, 0x1Cu);
       }
 
       [*(a1 + 32) reset];
-      v11 = *(a1 + 64);
-      v12 = [NSError errorWithDomain:CSErrorDomain code:2001 userInfo:0];
-      (*(v11 + 16))(v11, v12, -1, 0.0);
+      v10 = *(a1 + 64);
+      v11 = [NSError errorWithDomain:CSErrorDomain code:2001 userInfo:0];
+      (*(v10 + 16))(v10, v11, -1, 0.0);
 
       return;
     }
 
-    v16 = objc_retainBlock(*(a1 + 64));
-    v17 = *(a1 + 32);
-    v18 = *(v17 + 56);
-    *(v17 + 56) = v16;
+    v15 = objc_retainBlock(*(a1 + 64));
+    v16 = *(a1 + 32);
+    v17 = *(v16 + 56);
+    *(v16 + 56) = v15;
 
     if ([*(a1 + 32) _setupAudioInjectionEngineWithAudioURL:*(a1 + 56)])
     {
@@ -302,26 +300,26 @@ void sub_10008398C(uint64_t a1)
     }
 
     [*(a1 + 32) reset];
-    v13 = *(a1 + 64);
-    v14 = CSErrorDomain;
-    v15 = 2005;
+    v12 = *(a1 + 64);
+    v13 = CSErrorDomain;
+    v14 = 2005;
   }
 
   else
   {
     [v5 reset];
-    v13 = *(a1 + 64);
-    v14 = CSErrorDomain;
-    v15 = 2001;
+    v12 = *(a1 + 64);
+    v13 = CSErrorDomain;
+    v14 = 2001;
   }
 
-  v19 = [NSError errorWithDomain:v14 code:v15 userInfo:0];
-  (*(v13 + 16))(v13, 0.0);
+  v18 = [NSError errorWithDomain:v13 code:v14 userInfo:0];
+  (*(v12 + 16))(v12, 0.0);
 }
 
-void sub_1000841BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000841BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -496,18 +494,7 @@ void sub_100084A44(uint64_t a1)
   {
     v3 = sub_1001687CC(v2);
     v4 = v3;
-    if (!v3)
-    {
-      goto LABEL_8;
-    }
-
-    v5 = [v3 objectForKeyedSubscript:@"frontends"];
-    v6 = [v5 objectForKeyedSubscript:@"dnn"];
-    v7 = [v6 objectForKeyedSubscript:@"nnet-forward"];
-    v8 = [v7 objectForKeyedSubscript:@"strict-batch-size"];
-    v9 = [v8 intValue];
-
-    if (v9)
+    if (v3 && ([v3 objectForKeyedSubscript:@"frontends"], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "objectForKeyedSubscript:", @"dnn"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectForKeyedSubscript:", @"nnet-forward"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", @"strict-batch-size"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "intValue"), v8, v7, v6, v5, v9))
     {
       v10 = [v4 objectForKeyedSubscript:@"frontends"];
       v11 = [v10 objectForKeyedSubscript:@"dnn"];
@@ -530,7 +517,6 @@ void sub_100084A44(uint64_t a1)
 
     else
     {
-LABEL_8:
       v16 = -10;
     }
   }
@@ -720,32 +706,31 @@ void sub_100085E10(void *a1)
 {
   if (*(a1[4] + 16))
   {
-    v2 = a1[5];
     xpc_remote_connection_send_message();
-    v3 = a1[6];
-    if (v3)
+    v2 = a1[6];
+    if (v2)
     {
-      v4 = *(v3 + 16);
+      v3 = *(v2 + 16);
 
-      v4();
+      v3();
     }
   }
 
   else
   {
-    v5 = CSLogContextFacilityCoreSpeech;
+    v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[CSRemoteControlClient _transferAudioData:numSamples:remoteWavFilePath:completion:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%s Attempt to send message while connection does not exist", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[CSRemoteControlClient _transferAudioData:numSamples:remoteWavFilePath:completion:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%s Attempt to send message while connection does not exist", &v7, 0xCu);
     }
 
-    v6 = a1[6];
-    if (v6)
+    v5 = a1[6];
+    if (v5)
     {
-      v7 = [NSError errorWithDomain:CSErrorDomain code:302 userInfo:0];
-      (*(v6 + 16))(v6, v7);
+      v6 = [NSError errorWithDomain:CSErrorDomain code:302 userInfo:0];
+      (*(v5 + 16))(v5, v6);
     }
   }
 }
@@ -828,7 +813,7 @@ LABEL_9:
     }
 
     v12 = [v11 length];
-    +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
+    objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
     *(*(a1[7] + 8) + 24) += v12 / v14;
     goto LABEL_9;
   }
@@ -841,7 +826,6 @@ uint64_t sub_100086640(uint64_t a1)
   result = *(a1 + 32);
   if (result)
   {
-    v3 = *(a1 + 40);
     return xpc_remote_connection_send_message();
   }
 
@@ -935,19 +919,18 @@ void sub_100086C64(uint64_t a1)
 {
   if (*(*(a1 + 32) + 16))
   {
-    v1 = *(a1 + 40);
 
     xpc_remote_connection_send_message();
   }
 
   else
   {
-    v2 = CSLogContextFacilityCoreSpeech;
+    v1 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v3 = 136315138;
-      v4 = "[CSRemoteControlClient notifyBluetoothWirelessSplitterStateChanged:shouldDisableSpeakerVerificationInSplitterMode:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%s Attempt to send message while connection does not exist", &v3, 0xCu);
+      v2 = 136315138;
+      v3 = "[CSRemoteControlClient notifyBluetoothWirelessSplitterStateChanged:shouldDisableSpeakerVerificationInSplitterMode:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s Attempt to send message while connection does not exist", &v2, 0xCu);
     }
   }
 }
@@ -992,28 +975,27 @@ void sub_100087530(uint64_t a1)
 {
   if (*(*(a1 + 32) + 16))
   {
-    v2 = *(a1 + 40);
-    v6 = *(a1 + 48);
+    v5 = *(a1 + 48);
     xpc_remote_connection_send_message_with_reply();
-    v3 = v6;
+    v2 = v5;
 LABEL_7:
 
     return;
   }
 
-  v4 = CSLogContextFacilityCoreSpeech;
+  v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v8 = "[CSRemoteControlClient createRemoteVoiceProfileWithAudioFiles:aesKey:encryptedAudioSampleBypeDepth:languageCode:completion:]_block_invoke";
-    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%s Attempt to send message while connection does not exist", buf, 0xCu);
+    v7 = "[CSRemoteControlClient createRemoteVoiceProfileWithAudioFiles:aesKey:encryptedAudioSampleBypeDepth:languageCode:completion:]_block_invoke";
+    _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%s Attempt to send message while connection does not exist", buf, 0xCu);
   }
 
-  v5 = *(a1 + 48);
-  if (v5)
+  v4 = *(a1 + 48);
+  if (v4)
   {
-    v3 = [NSError errorWithDomain:CSErrorDomain code:302 userInfo:0];
-    (*(v5 + 16))(v5, v3);
+    v2 = [NSError errorWithDomain:CSErrorDomain code:302 userInfo:0];
+    (*(v4 + 16))(v4, v2);
     goto LABEL_7;
   }
 }
@@ -1059,19 +1041,17 @@ void sub_100087A24(uint64_t a1)
 {
   if (*(*(a1 + 32) + 16))
   {
-    v1 = *(a1 + 40);
-    v3 = *(a1 + 32);
     xpc_remote_connection_send_message_with_reply();
   }
 
   else
   {
-    v2 = CSLogContextFacilityCoreSpeech;
+    v1 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v5 = "[CSRemoteControlClient exchangeRemoteDeviceProtocolInfo:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%s Attempt to send message while connection does not exist", buf, 0xCu);
+      v3 = "[CSRemoteControlClient exchangeRemoteDeviceProtocolInfo:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s Attempt to send message while connection does not exist", buf, 0xCu);
     }
   }
 }
@@ -1570,9 +1550,9 @@ void sub_10008A7B0(uint64_t a1)
   }
 }
 
-void sub_10008AD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10008AD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1641,31 +1621,30 @@ void sub_10008B3DC(void *a1)
 {
   if (*(a1[4] + 16))
   {
-    v2 = a1[5];
 
     xpc_remote_connection_send_message();
   }
 
   else
   {
-    v3 = CSLogContextFacilityCoreSpeech;
+    v2 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v9 = "[CSRemoteControlClient _transferFile:at:completion:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%s attempt to send message while connection does not exsit", buf, 0xCu);
+      v8 = "[CSRemoteControlClient _transferFile:at:completion:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%s attempt to send message while connection does not exsit", buf, 0xCu);
     }
 
-    v4 = a1[6];
-    if (v4)
+    v3 = a1[6];
+    if (v3)
     {
-      v5 = *(a1[4] + 8);
+      v4 = *(a1[4] + 8);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10008B544;
       block[3] = &unk_100252CA8;
-      v7 = v4;
-      dispatch_async(v5, block);
+      v6 = v3;
+      dispatch_async(v4, block);
     }
   }
 }
@@ -1896,47 +1875,43 @@ void sub_10008CC6C(uint64_t a1)
 
 void sub_10008CF28(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   type = remote_device_get_type();
-  v4 = *(*(a1 + 40) + 40);
-  if (v4 == type)
+  v3 = *(*(a1 + 40) + 40);
+  if (v3 == type)
   {
-    v17[0] = 0;
-    v17[1] = 0;
-    v5 = *(a1 + 32);
+    v13[0] = 0;
+    v13[1] = 0;
     remote_device_copy_uuid();
-    v6 = [[NSUUID alloc] initWithUUIDBytes:v17];
-    v7 = [v6 UUIDString];
-    v8 = *(a1 + 40);
-    v9 = *(v8 + 56);
-    *(v8 + 56) = v7;
+    v4 = [[NSUUID alloc] initWithUUIDBytes:v13];
+    v5 = [v4 UUIDString];
+    v6 = *(a1 + 40);
+    v7 = *(v6 + 56);
+    *(v6 + 56) = v5;
 
-    v10 = *(a1 + 32);
-    v11 = remote_device_copy_service();
-    if (v11)
+    v8 = remote_device_copy_service();
+    if (v8)
     {
-      v12 = *(*(a1 + 40) + 8);
-      v13 = xpc_remote_connection_create_with_remote_service();
+      v9 = xpc_remote_connection_create_with_remote_service();
       objc_initWeak(location, *(a1 + 40));
-      objc_copyWeak(&v16, location);
+      objc_copyWeak(&v12, location);
       xpc_remote_connection_set_event_handler();
       xpc_remote_connection_activate();
-      objc_storeStrong((*(a1 + 40) + 16), v13);
+      objc_storeStrong((*(a1 + 40) + 16), v9);
       [*(*(a1 + 40) + 24) leave];
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v12);
       objc_destroyWeak(location);
     }
 
     else
     {
-      v15 = CSLogContextFacilityCoreSpeech;
+      v11 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *location = 136315394;
         *&location[4] = "[CSRemoteControlClient didDeviceConnect:]_block_invoke";
-        v19 = 2082;
-        v20 = "com.apple.corespeech.xpc.remote.control";
-        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%s Service: %{public}s not found", location, 0x16u);
+        v15 = 2082;
+        v16 = "com.apple.corespeech.xpc.remote.control";
+        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%s Service: %{public}s not found", location, 0x16u);
       }
 
       [*(*(a1 + 40) + 24) leave];
@@ -1945,16 +1920,16 @@ void sub_10008CF28(uint64_t a1)
 
   else
   {
-    v14 = CSLogContextFacilityCoreSpeech;
+    v10 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *location = 136315650;
       *&location[4] = "[CSRemoteControlClient didDeviceConnect:]_block_invoke";
-      v19 = 2048;
-      v20 = type;
-      v21 = 2048;
-      v22 = v4;
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%s Connected to unexpected device type : %lu (expected type: %lu)", location, 0x20u);
+      v15 = 2048;
+      v16 = type;
+      v17 = 2048;
+      v18 = v3;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s Connected to unexpected device type : %lu (expected type: %lu)", location, 0x20u);
     }
   }
 }
@@ -2853,9 +2828,9 @@ void sub_100095A28(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100095BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100095BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3283,13 +3258,14 @@ void sub_100098B3C(uint64_t a1)
   *(v1 + 400) = 0;
 }
 
-void sub_100099188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_100099188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a18, 8);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 208), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v38 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3303,12 +3279,13 @@ double sub_1000991EC(void *a1)
   return result;
 }
 
-void sub_10009979C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_10009979C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  _Block_object_dispose(&a38, 8);
-  _Block_object_dispose((v38 - 224), 8);
-  _Block_object_dispose((v38 - 192), 8);
-  _Block_object_dispose((v38 - 128), 8);
+  va_start(va, a37);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v37 - 224), 8);
+  _Block_object_dispose((v37 - 192), 8);
+  _Block_object_dispose((v37 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3749,7 +3726,7 @@ void sub_100099A80(uint64_t a1)
   }
 }
 
-void sub_10009A8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
+void sub_10009A8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&STACK[0x360], 8);
   _Block_object_dispose(&a35, 8);
@@ -3757,8 +3734,8 @@ void sub_10009A8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Block_object_dispose(&a43, 8);
   _Block_object_dispose(&a47, 8);
   _Block_object_dispose(&a62, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&a66, 8);
-  _Block_object_dispose(&a70, 8);
   _Block_object_dispose(&STACK[0x218], 8);
   _Block_object_dispose(&STACK[0x390], 8);
   _Block_object_dispose(&STACK[0x290], 8);
@@ -4205,7 +4182,7 @@ void sub_10009CBD4(uint64_t a1)
       v7 = *(a1 + 32);
       if (v7)
       {
-        [v7 _outASBDWithNumChannels:*(a1 + 76)];
+        objc_msgSend__outASBDWithNumChannels_(v7);
       }
 
       else
@@ -4254,9 +4231,9 @@ LABEL_11:
   }
 }
 
-void sub_10009CE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10009CE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4304,7 +4281,7 @@ void sub_10009D260(uint64_t a1)
       v7 = *(a1 + 32);
       if (v7)
       {
-        [v7 _outASBDWithNumChannels:*(a1 + 76)];
+        objc_msgSend__outASBDWithNumChannels_(v7);
       }
 
       else
@@ -4353,9 +4330,9 @@ LABEL_11:
   }
 }
 
-void sub_10009D4E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10009D4E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4445,9 +4422,9 @@ LABEL_8:
   }
 }
 
-void sub_10009DB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10009DB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5397,9 +5374,9 @@ float sub_1000A0E28(uint64_t a1)
   }
 }
 
-void sub_1000A1128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A1128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5512,22 +5489,21 @@ void sub_1000A1540(uint64_t *a1)
   __C = 0.0;
   if (a1[19])
   {
-    v2 = 8 * *(a1 + 24);
-    __chkstk_darwin();
-    v4 = &v18[-((v3 + 15) & 0xFFFFFFFF0)];
-    if (v3 >= 0x200)
+    __chkstk_darwin(a1);
+    v3 = &v18[-((v2 + 15) & 0xFFFFFFFF0)];
+    if (v2 >= 0x200)
     {
-      v5 = 512;
+      v4 = 512;
     }
 
     else
     {
-      v5 = v3;
+      v4 = v2;
     }
 
-    bzero(&v18[-((v3 + 15) & 0xFFFFFFFF0)], v5);
-    v6 = *(a1 + 24);
-    __chkstk_darwin();
+    bzero(&v18[-((v2 + 15) & 0xFFFFFFFF0)], v4);
+    v5 = *(a1 + 24);
+    __chkstk_darwin(v6);
     v8 = &v18[-((v7 + 15) & 0xFFFFFFFF0)];
     if (v7 >= 0x200)
     {
@@ -5541,25 +5517,25 @@ void sub_1000A1540(uint64_t *a1)
 
     bzero(&v18[-((v7 + 15) & 0xFFFFFFFF0)], v9);
     v10 = *(a1 + 25);
-    if (v6)
+    if (v5)
     {
       v11 = 0;
       v12 = *a1;
       v13 = a1[3];
-      v14 = v4;
+      v14 = v3;
       v15 = v8;
       do
       {
         *v14++ = (v12 + 4 * v11);
         *v15++ = (v13 + 4 * v11);
         v11 += v10;
-        --v6;
+        --v5;
       }
 
-      while (v6);
+      while (v5);
     }
 
-    vDSP_biquadm(a1[19], v4, 1, v8, 1, v10);
+    vDSP_biquadm(a1[19], v3, 1, v8, 1, v10);
     if (*(a1 + 24))
     {
       v16 = 0;
@@ -5576,8 +5552,9 @@ void sub_1000A1540(uint64_t *a1)
   }
 }
 
-void sub_1000A16F4(uint64_t a1, float a2)
+void sub_1000A16F4(uint64_t a1, __n128 a2)
 {
+  v2 = a2.n128_u32[0];
   v4 = *(a1 + 160);
   v5 = *(a1 + 168);
   v6 = v5 - v4;
@@ -5619,9 +5596,9 @@ void sub_1000A16F4(uint64_t a1, float a2)
   }
 
 LABEL_11:
-  if (v4 == v5 || *(v4 + 8 * ((v6 >> 3) - 1)) < a2)
+  if (v4 == v5 || *(v4 + 8 * ((v6 >> 3) - 1)) < a2.n128_f32[0])
   {
-    v11 = LODWORD(a2) | (*(a1 + 112) << 32);
+    v11 = a2.n128_u32[0] | (*(a1 + 112) << 32);
     v12 = *(a1 + 176);
     if (v5 < v12)
     {
@@ -5683,7 +5660,7 @@ LABEL_52:
   v18 = 0;
   v19 = 0;
   v20 = (v5 - v4) >> 3;
-  while (*(v4 + 8 * v18) < a2)
+  while (*(v4 + 8 * v18) < a2.n128_f32[0])
   {
     v18 = ++v19;
     if (v20 <= v19)
@@ -5731,7 +5708,7 @@ LABEL_52:
       sub_1000A1A88(1uLL);
     }
 
-    *v36 = a2;
+    *v36 = v2;
     *(8 * v18 + 4) = v22;
     v38 = v37 + 8;
     memcpy((v37 + 8), v21, *(a1 + 168) - v21);
@@ -5752,7 +5729,7 @@ LABEL_52:
 
   else if (v21 == v5)
   {
-    *v5 = a2;
+    *v5 = a2.n128_u32[0];
     *(v5 + 4) = v22;
     *(a1 + 168) = v5 + 8;
   }
@@ -5782,8 +5759,8 @@ LABEL_52:
       while (v26 != v25);
     }
 
-    *v21 = a2;
-    *(v21 + 1) = v22;
+    *v21 = a2.n128_u32[0];
+    v21[1] = v22;
   }
 
 LABEL_38:
@@ -5828,7 +5805,7 @@ std::logic_error *sub_1000A1B58(std::logic_error *a1)
   return result;
 }
 
-void sub_1000A1CA4(uint64_t *a1, unint64_t a2)
+void sub_1000A1CA4(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -5840,7 +5817,7 @@ void sub_1000A1CA4(uint64_t *a1, unint64_t a2)
       return;
     }
 
-    v11 = v3 + 4 * a2;
+    v11 = (v3 + 4 * a2);
   }
 
   else
@@ -5851,7 +5828,7 @@ void sub_1000A1CA4(uint64_t *a1, unint64_t a2)
     {
       if (!(a2 >> 62))
       {
-        v8 = v7 - v3;
+        v8 = &v7[-v3];
         v9 = v8 >> 1;
         if (v8 >> 1 <= a2)
         {
@@ -5880,7 +5857,7 @@ void sub_1000A1CA4(uint64_t *a1, unint64_t a2)
     }
 
     bzero(a1[1], 4 * v6);
-    v11 = v4 + 4 * v6;
+    v11 = &v4[4 * v6];
   }
 
   a1[1] = v11;
@@ -6026,18 +6003,18 @@ uint64_t sub_1000A2F3C(uint64_t a1)
     v4 = [*(a1 + 32) description];
     v5 = v4;
     v6 = @"NO";
-    *v13 = 136315650;
-    *&v13[4] = "[CSSmartSiriVolume _startListenWithCompletion:]_block_invoke_3";
-    *&v13[12] = 2114;
+    *v11 = 136315650;
+    *&v11[4] = "[CSSmartSiriVolume _startListenWithCompletion:]_block_invoke_3";
+    *&v11[12] = 2114;
     if (v3)
     {
       v6 = @"YES";
     }
 
-    *&v13[14] = v6;
-    v14 = 2114;
-    v15 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s Start audio stream successfully ? %{public}@, error : %{public}@", v13, 0x20u);
+    *&v11[14] = v6;
+    v12 = 2114;
+    v13 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s Start audio stream successfully ? %{public}@, error : %{public}@", v11, 0x20u);
   }
 
   v7 = [*(a1 + 40) enablePolicy];
@@ -6048,16 +6025,14 @@ uint64_t sub_1000A2F3C(uint64_t a1)
     v9 = CSLogCategoryASV;
     if (os_log_type_enabled(CSLogCategoryASV, OS_LOG_TYPE_ERROR))
     {
-      *v13 = 136315138;
-      *&v13[4] = "[CSSmartSiriVolume _startListenWithCompletion:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s Received didStartRecording when Siri is off", v13, 0xCu);
+      *v11 = 136315138;
+      *&v11[4] = "[CSSmartSiriVolume _startListenWithCompletion:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s Received didStartRecording when Siri is off", v11, 0xCu);
     }
 
     [*(a1 + 40) _stopListening];
   }
 
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 32);
   return (*(*(a1 + 48) + 16))();
 }
 
@@ -6623,9 +6598,9 @@ void sub_1000A58B4(uint64_t a1)
 LABEL_11:
 }
 
-void sub_1000A5B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A5B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6640,9 +6615,9 @@ void sub_1000A5B78(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_1000A5DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A5DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6657,9 +6632,9 @@ void sub_1000A5DF8(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_1000A6128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1000A6128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6732,9 +6707,9 @@ void sub_1000A640C(uint64_t a1)
   [v1 setAudioRecordContext:v2];
 }
 
-void sub_1000A65D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A65D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7513,14 +7488,14 @@ float sub_1000AC5F8(uint64_t a1)
   return result;
 }
 
-void sub_1000AE4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000AE4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8472,14 +8447,14 @@ void sub_1000B6EAC(uint64_t a1, char a2, void *a3)
   }
 }
 
-void sub_1000B759C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000B759C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8551,11 +8526,9 @@ void sub_1000B7E40(uint64_t a1, char a2, void *a3)
 uint64_t sub_1000B7F00(uint64_t a1)
 {
   [*(a1 + 32) _didStartAudioStream:*(a1 + 56)];
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v4();
+  return v2();
 }
 
 void sub_1000B8150(uint64_t a1, uint64_t a2)
@@ -8600,19 +8573,19 @@ void sub_1000B9188(uint64_t a1)
   }
 }
 
-void sub_1000B9428(uint64_t a1)
+void sub_1000B9428(uint64_t a1, uint64_t a2)
 {
   if (CSIsHorseman())
   {
-    v2 = *(a1 + 32);
-    if (*(v2 + 464))
+    v3 = *(a1 + 32);
+    if (*(v3 + 464))
     {
-      if (*(v2 + 456))
+      if (*(v3 + 456))
       {
-        v3 = [*(v2 + 104) configPathRecognizer];
-        v4 = [CSMil2BnnsUtils readBnnsIrFromModelConfig:v3 modelType:1];
+        v4 = [*(v3 + 104) configPathRecognizer];
+        v5 = [CSMil2BnnsUtils readBnnsIrFromModelConfig:v4 modelType:1];
 
-        [CSUtils faultPagesWithVaddr:*(*(a1 + 32) + 464) mmapedSize:*(*(a1 + 32) + 456) filePath:v4];
+        [CSUtils faultPagesWithVaddr:*(*(a1 + 32) + 464) mmapedSize:*(*(a1 + 32) + 456) filePath:v5];
       }
     }
   }
@@ -9163,4 +9136,36 @@ void sub_1000BD404(uint64_t a1, char a2, void *a3)
   v12 = v6;
   v9 = v5;
   dispatch_async(v8, v10);
+}
+
+uint64_t sub_1000BD4C4(uint64_t a1)
+{
+  v2 = CSLogCategoryVT;
+  if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 136315138;
+    v7 = "[CSVoiceTriggerFirstPassJarvisAP _startListenWithCompletion:]_block_invoke_2";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s Leaving recordWillStartGroup", &v6, 0xCu);
+  }
+
+  dispatch_group_leave(*(*(a1 + 32) + 56));
+  if (*(a1 + 56) == 1)
+  {
+    v3 = *(a1 + 32);
+    if ((v3[8] & 1) == 0)
+    {
+      v4 = CSLogCategoryVT;
+      if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = 136315138;
+        v7 = "[CSVoiceTriggerFirstPassJarvisAP _startListenWithCompletion:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s didStartRecording received when CSVoiceTriggerFirstPassJarvisAP is turned off", &v6, 0xCu);
+        v3 = *(a1 + 32);
+      }
+
+      [v3 _stopListening];
+    }
+  }
+
+  return (*(*(a1 + 48) + 16))();
 }

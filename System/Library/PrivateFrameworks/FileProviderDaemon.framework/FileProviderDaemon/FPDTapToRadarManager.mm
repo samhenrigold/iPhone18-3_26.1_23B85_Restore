@@ -63,63 +63,63 @@
   }
 }
 
-void __168__FPDTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_displayReason_providerID_skipSysdiagnose___block_invoke(uint64_t a1)
+void __168__FPDTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_displayReason_providerID_skipSysdiagnose___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __168__FPDTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_displayReason_providerID_skipSysdiagnose___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __168__FPDTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_displayReason_providerID_skipSysdiagnose___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
   if ([*(a1 + 32) isEqualToString:@"com.box.desktop.boxfileprovider"])
   {
-    v10 = &unk_1F4C62940;
+    v11 = &unk_1F4C62940;
   }
 
   else if ([*(a1 + 32) fp_isiCloudDriveIdentifier])
   {
-    v10 = &unk_1F4C62958;
+    v11 = &unk_1F4C62958;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = NSClassFromString(&cfstr_Radardraft.isa);
-  v12 = objc_opt_new();
+  v12 = NSClassFromString(&cfstr_Radardraft.isa);
+  v13 = objc_opt_new();
 
   if (*(a1 + 104) == 1)
   {
-    [v12 setAutoDiagnostics:3];
+    [v13 setAutoDiagnostics:3];
   }
 
-  [v12 setTitle:*(a1 + 40)];
-  [v12 setProblemDescription:*(a1 + 48)];
-  [v12 setClassification:2];
-  [v12 setReproducibility:6];
-  v13 = NSClassFromString(&cfstr_Radarcomponent.isa);
-  v14 = [[v13 alloc] initWithName:*(a1 + 56) version:*(a1 + 64) identifier:*(a1 + 96)];
-  [v12 setComponent:v14];
+  [v13 setTitle:*(a1 + 40)];
+  [v13 setProblemDescription:*(a1 + 48)];
+  [v13 setClassification:2];
+  [v13 setReproducibility:6];
+  v14 = NSClassFromString(&cfstr_Radarcomponent.isa);
+  v15 = [[v14 alloc] initWithName:*(a1 + 56) version:*(a1 + 64) identifier:*(a1 + 96)];
+  [v13 setComponent:v15];
 
-  [v12 setKeywords:*(a1 + 72)];
-  [v12 setAttachments:*(a1 + 80)];
-  [v12 setDeleteOnAttach:1];
-  [v12 setDiagnosticExtensionIDs:v10];
-  v15 = NSClassFromString(&cfstr_Taptoradarserv.isa);
-  v16 = [v15 shared];
-  v17 = *(a1 + 88);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __168__FPDTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_displayReason_providerID_skipSysdiagnose___block_invoke_33;
-  v18[3] = &unk_1E83BDFC8;
-  v19 = *(a1 + 40);
-  [v16 createDraft:v12 forProcessNamed:@"FileProvider" withDisplayReason:v17 completionHandler:v18];
+  [v13 setKeywords:*(a1 + 72)];
+  [v13 setAttachments:*(a1 + 80)];
+  [v13 setDeleteOnAttach:1];
+  [v13 setDiagnosticExtensionIDs:v11];
+  v16 = NSClassFromString(&cfstr_Taptoradarserv.isa);
+  v17 = [v16 shared];
+  v18 = *(a1 + 88);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __168__FPDTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_displayReason_providerID_skipSysdiagnose___block_invoke_33;
+  v19[3] = &unk_1E83BDFC8;
+  v20 = *(a1 + 40);
+  [v17 createDraft:v13 forProcessNamed:@"FileProvider" withDisplayReason:v18 completionHandler:v19];
 }
 
 void __168__FPDTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_displayReason_providerID_skipSysdiagnose___block_invoke_33(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.fileproviderd"];
   v5 = [v4 BOOLForKey:@"reportTTRAttempts"];
@@ -134,9 +134,9 @@ void __168__FPDTapToRadarManager_requestTapToRadarWithTitle_description_componen
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v3;
-      _os_log_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] 📡  Tap to radar returned error: (%@)", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v3;
+      _os_log_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] 📡  Tap to radar returned error: (%@)", &v16, 0xCu);
     }
 
     if (v5)
@@ -158,8 +158,6 @@ void __168__FPDTapToRadarManager_requestTapToRadarWithTitle_description_componen
       [v4 setObject:@"success" forKey:@"TTRStatus"];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

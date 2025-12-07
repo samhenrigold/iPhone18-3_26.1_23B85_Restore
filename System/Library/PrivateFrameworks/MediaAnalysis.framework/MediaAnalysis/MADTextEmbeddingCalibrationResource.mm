@@ -43,16 +43,16 @@
   return v6;
 }
 
-id __53__MADTextEmbeddingCalibrationResource_sharedResource__block_invoke()
+id __53__MADTextEmbeddingCalibrationResource_sharedResource__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_alloc_init(objc_opt_class());
+  v2 = objc_alloc_init(objc_opt_class());
 
-  return v0;
+  return v2;
 }
 
 - (int64_t)activeCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 4;
   }
@@ -65,7 +65,7 @@ id __53__MADTextEmbeddingCalibrationResource_sharedResource__block_invoke()
 
 - (int64_t)inactiveCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 1;
   }

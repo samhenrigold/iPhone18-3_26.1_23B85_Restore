@@ -116,19 +116,8 @@
   geoJSONData = bundleID;
   v9 = bundleID2;
   geoJSONData2 = v9;
-  if ((geoJSONData != 0) != (v9 != 0) || geoJSONData && v9 && ![geoJSONData isEqual:v9])
+  if ((geoJSONData != 0) != (v9 != 0) || geoJSONData && v9 && ![geoJSONData isEqual:v9] || (geoJSONData2, geoJSONData, geoJSONData2, geoJSONData, -[IXRemoteInstallConfiguration localizedName](self, "localizedName"), v11 = objc_claimAutoreleasedReturnValue(), -[IXRemoteInstallConfiguration localizedName](v5, "localizedName"), v12 = objc_claimAutoreleasedReturnValue(), geoJSONData = v11, v13 = v12, geoJSONData2 = v13, (geoJSONData != 0) ^ (v13 != 0)) || geoJSONData && v13 && !objc_msgSend(geoJSONData, "isEqual:", v13))
   {
-    goto LABEL_8;
-  }
-
-  localizedName = [(IXRemoteInstallConfiguration *)self localizedName];
-  localizedName2 = [(IXRemoteInstallConfiguration *)v5 localizedName];
-  geoJSONData = localizedName;
-  v13 = localizedName2;
-  geoJSONData2 = v13;
-  if ((geoJSONData != 0) != (v13 != 0) || geoJSONData && v13 && ![geoJSONData isEqual:v13])
-  {
-LABEL_8:
 
     v14 = 0;
   }
@@ -137,126 +126,24 @@ LABEL_8:
   {
 
     installMode = [(IXRemoteInstallConfiguration *)self installMode];
-    if (installMode != [(IXRemoteInstallConfiguration *)v5 installMode])
+    if (installMode != [(IXRemoteInstallConfiguration *)v5 installMode]
+      || (v17 = [(IXRemoteInstallConfiguration *)self importance], v17 != [(IXRemoteInstallConfiguration *)v5 importance])
+      || ([(IXRemoteInstallConfiguration *)self iconData], v18 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 iconData], v19 = objc_claimAutoreleasedReturnValue(), v20 = sub_100006E08(v18, v19), v19, v18, !v20)
+      || (v21 = [(IXRemoteInstallConfiguration *)self iconType], v21 != [(IXRemoteInstallConfiguration *)v5 iconType])
+      || (v22 = [(IXRemoteInstallConfiguration *)self stashMode], v22 != [(IXRemoteInstallConfiguration *)v5 stashMode])
+      || ([(IXRemoteInstallConfiguration *)self deltaDirectoryURL], v23 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 deltaDirectoryURL], v24 = objc_claimAutoreleasedReturnValue(), v25 = sub_100006E08(v23, v24), v24, v23, !v25)
+      || (v26 = [(IXRemoteInstallConfiguration *)self pairedAutoInstallOverride], v26 != [(IXRemoteInstallConfiguration *)v5 pairedAutoInstallOverride])
+      || ([(IXRemoteInstallConfiguration *)self storeMetadata], v27 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 storeMetadata], v28 = objc_claimAutoreleasedReturnValue(), v29 = sub_100006E08(v27, v28), v28, v27, !v29)
+      || ([(IXRemoteInstallConfiguration *)self sinfData], v30 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 sinfData], v31 = objc_claimAutoreleasedReturnValue(), v32 = sub_100006E08(v30, v31), v31, v30, !v32)
+      || ([(IXRemoteInstallConfiguration *)self provisioningProfileDatas], v33 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 provisioningProfileDatas], v34 = objc_claimAutoreleasedReturnValue(), v35 = sub_100006E08(v33, v34), v34, v33, !v35)
+      || (v36 = [(IXRemoteInstallConfiguration *)self provisioningProfileInstallFailureIsFatal], v36 != [(IXRemoteInstallConfiguration *)v5 provisioningProfileInstallFailureIsFatal])
+      || ([(IXRemoteInstallConfiguration *)self remoteInstallTargetURL], v37 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 remoteInstallTargetURL], v38 = objc_claimAutoreleasedReturnValue(), v39 = sub_100006E08(v37, v38), v38, v37, !v39)
+      || ([(IXRemoteInstallConfiguration *)self remoteInstallTargetDirectoryURL], v40 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 remoteInstallTargetDirectoryURL], v41 = objc_claimAutoreleasedReturnValue(), v42 = sub_100006E08(v40, v41), v41, v40, !v42)
+      || ([(IXRemoteInstallConfiguration *)self remoteInstallTargetBundleName], v43 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 remoteInstallTargetBundleName], v44 = objc_claimAutoreleasedReturnValue(), v45 = sub_100006E08(v43, v44), v44, v43, !v45)
+      || (v46 = [(IXRemoteInstallConfiguration *)self installableType], v46 != [(IXRemoteInstallConfiguration *)v5 installableType])
+      || ([(IXRemoteInstallConfiguration *)self targetLastPathComponent], v47 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 targetLastPathComponent], v48 = objc_claimAutoreleasedReturnValue(), v49 = sub_100006E08(v47, v48), v48, v47, !v49)
+      || ([(IXRemoteInstallConfiguration *)self bundleVersion], v50 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 bundleVersion], v51 = objc_claimAutoreleasedReturnValue(), v52 = sub_100006E08(v50, v51), v51, v50, !v52))
     {
-      goto LABEL_35;
-    }
-
-    importance = [(IXRemoteInstallConfiguration *)self importance];
-    if (importance != [(IXRemoteInstallConfiguration *)v5 importance])
-    {
-      goto LABEL_35;
-    }
-
-    iconData = [(IXRemoteInstallConfiguration *)self iconData];
-    iconData2 = [(IXRemoteInstallConfiguration *)v5 iconData];
-    v20 = sub_100006E08(iconData, iconData2);
-
-    if (!v20)
-    {
-      goto LABEL_35;
-    }
-
-    iconType = [(IXRemoteInstallConfiguration *)self iconType];
-    if (iconType != [(IXRemoteInstallConfiguration *)v5 iconType])
-    {
-      goto LABEL_35;
-    }
-
-    stashMode = [(IXRemoteInstallConfiguration *)self stashMode];
-    if (stashMode != [(IXRemoteInstallConfiguration *)v5 stashMode])
-    {
-      goto LABEL_35;
-    }
-
-    deltaDirectoryURL = [(IXRemoteInstallConfiguration *)self deltaDirectoryURL];
-    deltaDirectoryURL2 = [(IXRemoteInstallConfiguration *)v5 deltaDirectoryURL];
-    v25 = sub_100006E08(deltaDirectoryURL, deltaDirectoryURL2);
-
-    if (!v25)
-    {
-      goto LABEL_35;
-    }
-
-    pairedAutoInstallOverride = [(IXRemoteInstallConfiguration *)self pairedAutoInstallOverride];
-    if (pairedAutoInstallOverride != [(IXRemoteInstallConfiguration *)v5 pairedAutoInstallOverride])
-    {
-      goto LABEL_35;
-    }
-
-    storeMetadata = [(IXRemoteInstallConfiguration *)self storeMetadata];
-    storeMetadata2 = [(IXRemoteInstallConfiguration *)v5 storeMetadata];
-    v29 = sub_100006E08(storeMetadata, storeMetadata2);
-
-    if (!v29)
-    {
-      goto LABEL_35;
-    }
-
-    sinfData = [(IXRemoteInstallConfiguration *)self sinfData];
-    sinfData2 = [(IXRemoteInstallConfiguration *)v5 sinfData];
-    v32 = sub_100006E08(sinfData, sinfData2);
-
-    if (!v32)
-    {
-      goto LABEL_35;
-    }
-
-    provisioningProfileDatas = [(IXRemoteInstallConfiguration *)self provisioningProfileDatas];
-    provisioningProfileDatas2 = [(IXRemoteInstallConfiguration *)v5 provisioningProfileDatas];
-    v35 = sub_100006E08(provisioningProfileDatas, provisioningProfileDatas2);
-
-    if (!v35)
-    {
-      goto LABEL_35;
-    }
-
-    provisioningProfileInstallFailureIsFatal = [(IXRemoteInstallConfiguration *)self provisioningProfileInstallFailureIsFatal];
-    if (provisioningProfileInstallFailureIsFatal != [(IXRemoteInstallConfiguration *)v5 provisioningProfileInstallFailureIsFatal])
-    {
-      goto LABEL_35;
-    }
-
-    remoteInstallTargetURL = [(IXRemoteInstallConfiguration *)self remoteInstallTargetURL];
-    remoteInstallTargetURL2 = [(IXRemoteInstallConfiguration *)v5 remoteInstallTargetURL];
-    v39 = sub_100006E08(remoteInstallTargetURL, remoteInstallTargetURL2);
-
-    if (!v39)
-    {
-      goto LABEL_35;
-    }
-
-    remoteInstallTargetDirectoryURL = [(IXRemoteInstallConfiguration *)self remoteInstallTargetDirectoryURL];
-    remoteInstallTargetDirectoryURL2 = [(IXRemoteInstallConfiguration *)v5 remoteInstallTargetDirectoryURL];
-    v42 = sub_100006E08(remoteInstallTargetDirectoryURL, remoteInstallTargetDirectoryURL2);
-
-    if (!v42)
-    {
-      goto LABEL_35;
-    }
-
-    remoteInstallTargetBundleName = [(IXRemoteInstallConfiguration *)self remoteInstallTargetBundleName];
-    remoteInstallTargetBundleName2 = [(IXRemoteInstallConfiguration *)v5 remoteInstallTargetBundleName];
-    v45 = sub_100006E08(remoteInstallTargetBundleName, remoteInstallTargetBundleName2);
-
-    if (!v45)
-    {
-      goto LABEL_35;
-    }
-
-    installableType = [(IXRemoteInstallConfiguration *)self installableType];
-    if (installableType != [(IXRemoteInstallConfiguration *)v5 installableType])
-    {
-      goto LABEL_35;
-    }
-
-    targetLastPathComponent = [(IXRemoteInstallConfiguration *)self targetLastPathComponent];
-    targetLastPathComponent2 = [(IXRemoteInstallConfiguration *)v5 targetLastPathComponent];
-    v49 = sub_100006E08(targetLastPathComponent, targetLastPathComponent2);
-
-    if (!v49 || ([(IXRemoteInstallConfiguration *)self bundleVersion], v50 = objc_claimAutoreleasedReturnValue(), [(IXRemoteInstallConfiguration *)v5 bundleVersion], v51 = objc_claimAutoreleasedReturnValue(), v52 = sub_100006E08(v50, v51), v51, v50, !v52))
-    {
-LABEL_35:
       v14 = 0;
       goto LABEL_10;
     }

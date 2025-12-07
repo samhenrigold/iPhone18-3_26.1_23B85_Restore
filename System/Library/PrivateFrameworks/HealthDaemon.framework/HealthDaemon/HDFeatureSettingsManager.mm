@@ -221,12 +221,12 @@ void __109__HDFeatureSettingsManager_setFeatureSettingsValues_featureIdentifier_
 
 id __109__HDFeatureSettingsManager_setFeatureSettingsValues_featureIdentifier_suppressNotificationsToObserver_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 32);
-  v55 = 0;
-  v7 = [v6 allValuesWithError:&v55];
-  v8 = v55;
+  v54 = 0;
+  v7 = [v6 allValuesWithError:&v54];
+  v8 = v54;
   if (v8)
   {
     v9 = v8;
@@ -246,35 +246,35 @@ id __109__HDFeatureSettingsManager_setFeatureSettingsValues_featureIdentifier_su
     goto LABEL_38;
   }
 
-  v43 = a3;
-  v45 = v5;
+  v42 = a3;
+  v44 = v5;
   v12 = *(a1 + 40);
-  v44 = v7;
+  v43 = v7;
   v13 = [v7 mutableCopy];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v51 objects:v56 count:16];
-  v46 = v14;
-  v47 = v13;
+  v15 = [v14 countByEnumeratingWithState:&v50 objects:v55 count:16];
+  v45 = v14;
+  v46 = v13;
   if (v15)
   {
     v16 = v15;
     v17 = 0;
-    v18 = *v52;
+    v18 = *v51;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v52 != v18)
+        if (*v51 != v18)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v51 + 1) + 8 * i);
-        v21 = [v13 objectForKeyedSubscript:{v20, v43}];
+        v20 = *(*(&v50 + 1) + 8 * i);
+        v21 = [v13 objectForKeyedSubscript:{v20, v42}];
         v22 = [v14 objectForKeyedSubscript:v20];
         v23 = v22;
         if (v21)
@@ -288,14 +288,14 @@ id __109__HDFeatureSettingsManager_setFeatureSettingsValues_featureIdentifier_su
           {
             v28 = *(a1 + 48);
             v29 = *(a1 + 32);
-            v50 = v17;
-            v30 = [(HDFeatureSettingsManager *)v28 _setFeatureSettingsValue:v23 forKey:v20 keyValueDomain:v29 error:&v50];
-            v31 = v50;
+            v49 = v17;
+            v30 = [(HDFeatureSettingsManager *)v28 _setFeatureSettingsValue:v23 forKey:v20 keyValueDomain:v29 error:&v49];
+            v31 = v49;
 
             *(*(*(a1 + 64) + 8) + 24) = v30;
             v17 = v31;
-            v14 = v46;
-            v13 = v47;
+            v14 = v45;
+            v13 = v46;
           }
 
           [v13 removeObjectForKey:v20];
@@ -305,28 +305,28 @@ id __109__HDFeatureSettingsManager_setFeatureSettingsValues_featureIdentifier_su
         {
           v24 = *(a1 + 48);
           v25 = *(a1 + 32);
-          v49 = v17;
-          v26 = [(HDFeatureSettingsManager *)v24 _setFeatureSettingsValue:v23 forKey:v20 keyValueDomain:v25 error:&v49];
-          v27 = v49;
+          v48 = v17;
+          v26 = [(HDFeatureSettingsManager *)v24 _setFeatureSettingsValue:v23 forKey:v20 keyValueDomain:v25 error:&v48];
+          v27 = v48;
 
           *(*(*(a1 + 64) + 8) + 24) = v26;
           v17 = v27;
-          v14 = v46;
-          v13 = v47;
+          v14 = v45;
+          v13 = v46;
         }
 
         if ((*(*(*(a1 + 64) + 8) + 24) & 1) == 0)
         {
           v32 = v17;
           v9 = v32;
-          v7 = v44;
-          v5 = v45;
+          v7 = v43;
+          v5 = v44;
           if (v32)
           {
-            if (v43)
+            if (v42)
             {
               v33 = v32;
-              *v43 = v9;
+              *v42 = v9;
             }
 
             else
@@ -335,13 +335,13 @@ id __109__HDFeatureSettingsManager_setFeatureSettingsValues_featureIdentifier_su
             }
           }
 
-          v38 = v46;
+          v38 = v45;
           v11 = 0;
           goto LABEL_37;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v50 objects:v55 count:16];
       if (v16)
       {
         continue;
@@ -367,31 +367,31 @@ id __109__HDFeatureSettingsManager_setFeatureSettingsValues_featureIdentifier_su
   v36 = [v34 initWithArray:v35];
 
   v37 = *(a1 + 32);
-  v48 = v17;
-  LOBYTE(v34) = [v37 removeValuesForKeys:v36 error:&v48];
-  v9 = v48;
+  v47 = v17;
+  LOBYTE(v34) = [v37 removeValuesForKeys:v36 error:&v47];
+  v9 = v47;
 
   *(*(*(a1 + 64) + 8) + 24) = v34;
   if (*(*(*(a1 + 64) + 8) + 24))
   {
 
 LABEL_28:
-    v7 = v44;
-    v5 = v45;
+    v7 = v43;
+    v5 = v44;
     v11 = *(a1 + 56);
     goto LABEL_36;
   }
 
   v39 = v9;
   v9 = v39;
-  v7 = v44;
-  v5 = v45;
+  v7 = v43;
+  v5 = v44;
   if (v39)
   {
-    if (v43)
+    if (v42)
     {
       v40 = v39;
-      *v43 = v9;
+      *v42 = v9;
     }
 
     else
@@ -402,11 +402,10 @@ LABEL_28:
 
   v11 = 0;
 LABEL_36:
-  v38 = v46;
+  v38 = v45;
 LABEL_37:
 
 LABEL_38:
-  v41 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -972,7 +971,7 @@ BOOL __141__HDFeatureSettingsManager__performWriteTransactionAndNotifyObserversW
 
 void __82__HDFeatureSettingsManager__notifyObserversOfFeatureIdentifier_excludingObserver___block_invoke(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (a1[4] && [v3 isEqual:?])
@@ -981,14 +980,13 @@ void __82__HDFeatureSettingsManager__notifyObserversOfFeatureIdentifier_excludin
     v5 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
     {
-      v6 = a1[5];
-      v7 = v5;
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2114;
-      v13 = v4;
-      v8 = v11;
-      _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@] Observer %{public}@ was skipped", &v10, 0x16u);
+      v6 = v5;
+      v8 = 138543618;
+      v9 = objc_opt_class();
+      v10 = 2114;
+      v11 = v4;
+      v7 = v9;
+      _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "[%{public}@] Observer %{public}@ was skipped", &v8, 0x16u);
     }
   }
 
@@ -996,8 +994,6 @@ void __82__HDFeatureSettingsManager__notifyObserversOfFeatureIdentifier_excludin
   {
     [v4 featureSettingsManager:a1[5] didUpdateSettingsForFeatureIdentifier:a1[6]];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerObserver:(id)observer featureIdentifier:(id)identifier queue:(id)queue
@@ -1045,46 +1041,45 @@ void __82__HDFeatureSettingsManager__notifyObserversOfFeatureIdentifier_excludin
 
 - (void)unregisterObserver:(id)observer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   os_unfair_lock_lock(&self->_lock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   allKeys = [(NSMutableDictionary *)self->_observersByFeatureIdentifier allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(HDFeatureSettingsManager *)self _lock_unregisterObserver:observerCopy featureIdentifier:*(*(&v11 + 1) + 8 * v9++)];
+        [(HDFeatureSettingsManager *)self _lock_unregisterObserver:observerCopy featureIdentifier:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_settingsDidSyncNotification:(id)notification
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2B0];
@@ -1095,31 +1090,31 @@ void __82__HDFeatureSettingsManager__notifyObserversOfFeatureIdentifier_excludin
     v8 = v7;
     name = [notificationCopy name];
     *buf = 138543618;
-    v24 = v7;
-    v25 = 2114;
-    v26 = name;
+    v23 = v7;
+    v24 = 2114;
+    v25 = name;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Feature settings notification received (%{public}@)", buf, 0x16u);
   }
 
   userInfo = [notificationCopy userInfo];
   v11 = [userInfo objectForKeyedSubscript:@"HDUnprotectedFeatureSettingsSyncEntityDidSyncNotificationDomainNamesKey"];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
@@ -1128,13 +1123,11 @@ void __82__HDFeatureSettingsManager__notifyObserversOfFeatureIdentifier_excludin
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

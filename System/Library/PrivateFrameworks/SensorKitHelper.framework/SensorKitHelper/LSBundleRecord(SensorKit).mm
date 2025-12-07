@@ -44,7 +44,7 @@
 
 - (uint64_t)sr_supportsMessagingIntents
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -54,34 +54,34 @@
     }
 
     applicationExtensionRecords = [self applicationExtensionRecords];
-    v8 = 0u;
     v9 = 0u;
     v10 = 0u;
     v11 = 0u;
-    result = [applicationExtensionRecords countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v12 = 0u;
+    result = [applicationExtensionRecords countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (result)
     {
-      v5 = result;
-      v6 = *v9;
+      v6 = result;
+      v7 = *v10;
 LABEL_10:
-      v7 = 0;
+      v8 = 0;
       while (1)
       {
-        if (*v9 != v6)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(applicationExtensionRecords);
         }
 
-        if ([objc_msgSend(*(*(&v8 + 1) + 8 * v7) "supportedIntents")])
+        if ([objc_msgSend(*(*(&v9 + 1) + 8 * v8) "supportedIntents")])
         {
           return 1;
         }
 
-        if (v5 == ++v7)
+        if (v6 == ++v8)
         {
-          v5 = [applicationExtensionRecords countByEnumeratingWithState:&v8 objects:v12 count:16];
+          v6 = [applicationExtensionRecords countByEnumeratingWithState:&v9 objects:v13 count:16];
           result = 0;
-          if (v5)
+          if (v6)
           {
             goto LABEL_10;
           }
@@ -125,7 +125,7 @@ LABEL_10:
 
 - (uint64_t)sr_isSocialNetworking
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   selfCopy = self;
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -152,38 +152,38 @@ LABEL_10:
     }
   }
 
-  v4 = [objc_msgSend(selfCopy "iTunesMetadata")];
   v5 = [objc_msgSend(selfCopy "iTunesMetadata")];
+  v6 = [objc_msgSend(selfCopy "iTunesMetadata")];
   infoDictionary = [selfCopy infoDictionary];
-  v7 = objc_opt_class();
-  v8 = [infoDictionary objectForKey:@"SBMatchingApplicationGenres" ofClass:v7 valuesOfClass:objc_opt_class()];
+  v8 = objc_opt_class();
+  v9 = [infoDictionary objectForKey:@"SBMatchingApplicationGenres" ofClass:v8 valuesOfClass:objc_opt_class()];
   if (_MergedGlobals_1 != -1)
   {
     dispatch_once(&_MergedGlobals_1, &__block_literal_global);
   }
 
-  v9 = qword_280AC73D8;
+  v10 = qword_280AC73D8;
   if (os_log_type_enabled(qword_280AC73D8, OS_LOG_TYPE_INFO))
   {
-    v11 = 138478595;
+    v12 = 138478595;
     bundleIdentifier = [self bundleIdentifier];
-    v13 = 2050;
-    v14 = v4;
-    v15 = 2113;
-    v16 = v5;
-    v17 = 2113;
-    v18 = v8;
-    _os_log_impl(&dword_2655E8000, v9, OS_LOG_TYPE_INFO, "bundle id: %{private}@, genre id: %{public}llu, genre: %{private}@, genres: %{private}@", &v11, 0x2Au);
+    v14 = 2050;
+    v15 = v5;
+    v16 = 2113;
+    v17 = v6;
+    v18 = 2113;
+    v19 = v9;
+    _os_log_impl(&dword_2655E8000, v10, OS_LOG_TYPE_INFO, "bundle id: %{private}@, genre id: %{public}llu, genre: %{private}@, genres: %{private}@", &v12, 0x2Au);
   }
 
-  if (v4 == 6005 || ([v5 isEqualToString:@"Social Networking"] & 1) != 0)
+  if (v5 == 6005 || ([v6 isEqualToString:@"Social Networking"] & 1) != 0)
   {
     return 1;
   }
 
   else
   {
-    return [v8 containsObject:@"Social Networking"];
+    return [v9 containsObject:@"Social Networking"];
   }
 }
 

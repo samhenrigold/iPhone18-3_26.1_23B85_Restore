@@ -142,7 +142,7 @@ void __64__SBRouteToMixedGridSwitcherModifier_appLayoutsToCacheSnapshots__block_
   return v9;
 }
 
-uint64_t __77__SBRouteToMixedGridSwitcherModifier_snapshotScaleForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__77__SBRouteToMixedGridSwitcherModifier_snapshotScaleForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 168) snapshotScaleForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -173,7 +173,7 @@ uint64_t __77__SBRouteToMixedGridSwitcherModifier_snapshotScaleForLayoutRole_inA
   return v9;
 }
 
-uint64_t __81__SBRouteToMixedGridSwitcherModifier_contentPageViewScaleForAppLayout_withScale___block_invoke(uint64_t a1)
+void *__81__SBRouteToMixedGridSwitcherModifier_contentPageViewScaleForAppLayout_withScale___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) contentPageViewScaleForAppLayout:*(a1 + 40) withScale:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = v3;
@@ -237,7 +237,7 @@ void __58__SBRouteToMixedGridSwitcherModifier_scrollViewAttributes__block_invoke
   return result;
 }
 
-uint64_t __76__SBRouteToMixedGridSwitcherModifier_restingOffsetForScrollOffset_velocity___block_invoke(uint64_t a1)
+void *__76__SBRouteToMixedGridSwitcherModifier_restingOffsetForScrollOffset_velocity___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) restingOffsetForScrollOffset:*(a1 + 48) velocity:{*(a1 + 56), *(a1 + 64), *(a1 + 72)}];
   v3 = *(*(a1 + 40) + 8);

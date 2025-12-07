@@ -360,7 +360,6 @@
   objc_storeStrong(&v69, 0);
   objc_storeStrong(&v71, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v10 = v73;
 
   return v10;
@@ -433,7 +432,6 @@
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&path, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)parseModelInfoFromBuffer:(id)buffer error:(id *)error

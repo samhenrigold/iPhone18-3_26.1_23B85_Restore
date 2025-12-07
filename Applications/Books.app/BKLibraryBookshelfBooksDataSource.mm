@@ -1325,7 +1325,7 @@ LABEL_19:
 
 - (void)_loadResourcesForAssetIDs:(NSArray *)ds audiobookAssetIDs:(NSArray *)iDs completionHandler:(id)handler
 {
-  v9 = sub_1001F1160(&qword_100AD67D0);
+  v9 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

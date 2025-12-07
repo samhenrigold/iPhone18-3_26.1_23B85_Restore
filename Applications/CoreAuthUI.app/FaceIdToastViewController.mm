@@ -59,15 +59,19 @@
 - (void)presentableWillDisappearAsBanner:(id)banner withReason:(id)reason;
 - (void)recordingFinishedSuccessfully;
 - (void)recordingFinishedWithError:(id)error;
+- (void)recordingModeChanged:(BOOL)changed;
 - (void)recordingResettingToDescriptionOfFlipbook:(id)flipbook;
 - (void)recordingUpdatedGlyphState:(int64_t)state;
 - (void)setActiveComponentStates:(id)states;
 - (void)setActiveLayoutMode:(int64_t)mode;
+- (void)setGlyphState:(int64_t)state animated:(BOOL)animated;
 - (void)shake;
 - (void)traitCollectionDidChange:(id)change;
 - (void)transitionToFinalStateCompleted;
 - (void)updateGlyphConstraintsIfOrientationChanged;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviewsWithTransitionCoordinator:(id)coordinator;
 @end
 
@@ -160,6 +164,48 @@
   [(FaceIdToastViewController *)self _setupSubviews];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = FaceIdToastViewController;
+  [(FaceIdToastViewController *)&v11 viewDidAppear:appear];
+  if (![(PresentationViewController *)self isDynamicIslandAvailable])
+  {
+    v4 = LACLogFaceIDUI();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(buf[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Face ID glyph did appear", buf, 2u);
+    }
+
+    [(FaceIdToastViewController *)self _didAppear];
+    if (self->_iPad && ![(FaceIdToastViewController *)self lightweightUI])
+    {
+      glyphView = [(PresentationViewController *)self glyphView];
+      [glyphView setState:1 animated:1];
+    }
+
+    else
+    {
+      objc_initWeak(buf, self);
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = sub_10001CB1C;
+      v8[3] = &unk_1000963B8;
+      objc_copyWeak(&v9, buf);
+      v6[0] = _NSConcreteStackBlock;
+      v6[1] = 3221225472;
+      v6[2] = sub_10001CB64;
+      v6[3] = &unk_100096B98;
+      objc_copyWeak(&v7, buf);
+      [UIView animateWithDuration:0x10000 delay:v8 options:v6 animations:0.2 completion:0.0];
+      objc_destroyWeak(&v7);
+      objc_destroyWeak(&v9);
+      objc_destroyWeak(buf);
+    }
+  }
+}
+
 - (void)_didAppear
 {
   self->_appeared = 1;
@@ -227,6 +273,38 @@
   }
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v10.receiver = self;
+  v10.super_class = FaceIdToastViewController;
+  [(FaceIdToastViewController *)&v10 viewWillDisappear:disappear];
+  if (![(PresentationViewController *)self isDynamicIslandAvailable])
+  {
+    v4 = LACLogFaceIDUI();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(buf[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Face ID glyph will disappear", buf, 2u);
+    }
+
+    objc_initWeak(buf, self);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10001CF88;
+    v7[3] = &unk_1000963B8;
+    objc_copyWeak(&v8, buf);
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_10001CFD0;
+    v5[3] = &unk_100096B98;
+    objc_copyWeak(&v6, buf);
+    [UIView animateWithDuration:0x20000 delay:v7 options:v5 animations:0.2 completion:0.0];
+    objc_destroyWeak(&v6);
+    objc_destroyWeak(&v8);
+    objc_destroyWeak(buf);
+  }
+}
+
 - (void)traitCollectionDidChange:(id)change
 {
   v4.receiver = self;
@@ -246,9 +324,7 @@
 
   else
   {
-    v6 = objc_retainBlock(appear);
-    didAppearBlock = self->_didAppearBlock;
-    self->_didAppearBlock = v6;
+    self->_didAppearBlock = objc_retainBlock(appear);
 
     _objc_release_x1();
   }
@@ -354,6 +430,68 @@ LABEL_13:
   }
 
   return v7;
+}
+
+- (void)setGlyphState:(int64_t)state animated:(BOOL)animated
+{
+  glyphState = self->_glyphState;
+  if (glyphState != state)
+  {
+    animatedCopy = animated;
+    self->_glyphState = state;
+    if ([(PresentationViewController *)self isSecureElement])
+    {
+      secureUIController = [(PresentationViewController *)self secureUIController];
+      [secureUIController transitionToState:state];
+
+      if ([(FaceIdToastViewController *)self lightweightUI])
+      {
+        [(LACUIFaceIDLightweightLeadingView *)self->_lightweightLeadingView setState:[(FaceIdToastViewController *)self _leadingViewStateFromGlyphState:state] animated:1 completion:0];
+      }
+
+      systemApertureElementContext = [(FaceIdToastViewController *)self systemApertureElementContext];
+      [systemApertureElementContext setElementNeedsUpdate];
+    }
+
+    else
+    {
+      if ([(PresentationViewController *)self isDynamicIslandAvailable])
+      {
+        v9 = [(FaceIdToastViewController *)self _isSuccessfulState:glyphState];
+        if (v9 != [(FaceIdToastViewController *)self _isSuccessfulState:state])
+        {
+          systemApertureElementContext2 = [(FaceIdToastViewController *)self systemApertureElementContext];
+          [systemApertureElementContext2 setElementNeedsUpdate];
+        }
+      }
+
+      if ([(FaceIdToastViewController *)self lightweightUI])
+      {
+        [(LACUIFaceIDLightweightLeadingView *)self->_lightweightLeadingView setState:[(FaceIdToastViewController *)self _leadingViewStateFromGlyphState:state] animated:1 completion:0];
+        [(FaceIdLightweightTrailingView *)self->_lightweightTrailingView setState:[(FaceIdToastViewController *)self _trailingViewStateForGlyphState:state]];
+        if (state == 3 && ![(PresentationViewController *)self isDynamicIslandAvailable])
+        {
+          glyphView = [(PresentationViewController *)self glyphView];
+          [glyphView setStyle:2 animated:1];
+
+          lightweightUIMode = [(FaceIdToastViewController *)self lightweightUIMode];
+          if (lightweightUIMode == LACLightweightUIModeOverShield)
+          {
+            [(FaceIdToastViewController *)self _setBackdropEnabled:1 animated:1];
+          }
+        }
+
+        v13 = [(FaceIdToastViewController *)self _lightweightJindoExpansionForState:glyphState];
+        if (v13 != [(FaceIdToastViewController *)self _lightweightJindoExpansionForState:state])
+        {
+          [(FaceIdToastViewController *)self _updateLightweightConstraintsWithCoordinatedAnimations];
+        }
+      }
+
+      systemApertureElementContext = [(LAUIPearlGlyphViewAutoLayoutWrapper *)self->_glyphWrapper glyphView];
+      [systemApertureElementContext setState:state animated:animatedCopy];
+    }
+  }
 }
 
 - (void)setActiveComponentStates:(id)states
@@ -781,9 +919,7 @@ LABEL_19:
   }
 
   [(FaceIdToastViewController *)self _setBackdropEnabled:v13 animated:0];
-  contentView2 = [(UIVisualEffectView *)self->_overlayEffectView contentView];
-  glyphWrapperParent = self->_glyphWrapperParent;
-  self->_glyphWrapperParent = contentView2;
+  self->_glyphWrapperParent = [(UIVisualEffectView *)self->_overlayEffectView contentView];
 
   _objc_release_x1();
 }
@@ -1853,6 +1989,23 @@ LABEL_10:
   }
 
   return v2;
+}
+
+- (void)recordingModeChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v5 = LACLogFaceIDUI();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 138543618;
+    selfCopy = self;
+    v9 = 1024;
+    v10 = changedCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ recording mode changed: %d", &v7, 0x12u);
+  }
+
+  secureUIController = [(PresentationViewController *)self secureUIController];
+  [secureUIController recordingStarted:changedCopy];
 }
 
 - (int64_t)_lightweightJindoExpansionForState:(int64_t)state

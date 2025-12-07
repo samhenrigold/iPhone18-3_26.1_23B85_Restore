@@ -27,7 +27,7 @@
       if (!v6)
       {
         v6 = CADisplayLookupFromDisplayId(added);
-        v7 = *(v6 + 1);
+        v7 = *(v6 + 8);
       }
 
       os_unfair_lock_lock((v8 + 8));

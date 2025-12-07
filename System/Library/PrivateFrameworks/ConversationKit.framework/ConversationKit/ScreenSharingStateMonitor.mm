@@ -8,7 +8,7 @@
 
 - (TUCall)call
 {
-  v2 = ScreenSharingStateMonitor.call.getter();
+  v2 = ScreenSharingStateMonitor.call.getter(self, a2);
 
   return v2;
 }

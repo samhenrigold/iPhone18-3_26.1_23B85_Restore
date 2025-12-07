@@ -83,25 +83,26 @@ _CNUIIDSHandleAvailability *__69__CNUIIDSRequest_resultsForIDSControllerResult_h
   if (service == 2)
   {
 LABEL_12:
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
     v3 = getIDSServiceNameFaceTimeMultiwaySymbolLoc_ptr;
-    v12 = getIDSServiceNameFaceTimeMultiwaySymbolLoc_ptr;
+    v13 = getIDSServiceNameFaceTimeMultiwaySymbolLoc_ptr;
     if (!getIDSServiceNameFaceTimeMultiwaySymbolLoc_ptr)
     {
       v6 = IDSLibrary();
-      v10[3] = dlsym(v6, "IDSServiceNameFaceTimeMultiway");
-      getIDSServiceNameFaceTimeMultiwaySymbolLoc_ptr = v10[3];
-      v3 = v10[3];
+      v11[3] = dlsym(v6, "IDSServiceNameFaceTimeMultiway");
+      getIDSServiceNameFaceTimeMultiwaySymbolLoc_ptr = v11[3];
+      v3 = v11[3];
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
     if (!v3)
     {
-      v8 = +[CNUIIDSRequest IDSServiceForService:];
-      _Block_object_dispose(&v9, 8);
-      _Unwind_Resume(v8);
+      +[CNUIIDSRequest IDSServiceForService:];
+      v9 = v8;
+      _Block_object_dispose(&v10, 8);
+      _Unwind_Resume(v9);
     }
 
     goto LABEL_15;
@@ -110,20 +111,20 @@ LABEL_12:
   if (service == 1)
   {
 LABEL_8:
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
     v3 = getIDSServiceNameiMessageSymbolLoc_ptr;
-    v12 = getIDSServiceNameiMessageSymbolLoc_ptr;
+    v13 = getIDSServiceNameiMessageSymbolLoc_ptr;
     if (!getIDSServiceNameiMessageSymbolLoc_ptr)
     {
       v5 = IDSLibrary();
-      v10[3] = dlsym(v5, "IDSServiceNameiMessage");
-      getIDSServiceNameiMessageSymbolLoc_ptr = v10[3];
-      v3 = v10[3];
+      v11[3] = dlsym(v5, "IDSServiceNameiMessage");
+      getIDSServiceNameiMessageSymbolLoc_ptr = v11[3];
+      v3 = v11[3];
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
     if (v3)
     {
       goto LABEL_15;
@@ -138,20 +139,20 @@ LABEL_8:
     goto LABEL_16;
   }
 
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v3 = getIDSServiceNameFaceTimeSymbolLoc_ptr;
-  v12 = getIDSServiceNameFaceTimeSymbolLoc_ptr;
+  v13 = getIDSServiceNameFaceTimeSymbolLoc_ptr;
   if (!getIDSServiceNameFaceTimeSymbolLoc_ptr)
   {
     v4 = IDSLibrary();
-    v10[3] = dlsym(v4, "IDSServiceNameFaceTime");
-    getIDSServiceNameFaceTimeSymbolLoc_ptr = v10[3];
-    v3 = v10[3];
+    v11[3] = dlsym(v4, "IDSServiceNameFaceTime");
+    getIDSServiceNameFaceTimeSymbolLoc_ptr = v11[3];
+    v3 = v11[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v3)
   {
     +[CNUIIDSRequest IDSServiceForService:];
@@ -280,19 +281,19 @@ void __78__CNUIIDSRequest_validateHandles_forService_scheduler_queryControllerWr
   [v5 performBlock:v11];
 }
 
-void __78__CNUIIDSRequest_validateHandles_forService_scheduler_queryControllerWrapper___block_invoke_3(void *a1)
+void __78__CNUIIDSRequest_validateHandles_forService_scheduler_queryControllerWrapper___block_invoke_3(void *a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() resultsForIDSControllerResult:a1[4] handlesByDestination:a1[5]];
-  v3 = a1[6];
-  v4 = v2;
-  if (v2)
+  v3 = [objc_opt_class() resultsForIDSControllerResult:a1[4] handlesByDestination:a1[5]];
+  v4 = a1[6];
+  v5 = v3;
+  if (v3)
   {
-    [v3 finishWithResult:v2];
+    [v4 finishWithResult:v3];
   }
 
   else
   {
-    [v3 finishWithError:a1[7]];
+    [v4 finishWithError:a1[7]];
   }
 }
 
@@ -444,11 +445,11 @@ void __42__CNUIIDSRequest_validHandlesFromHandles___block_invoke(uint64_t a1, vo
   }
 }
 
-+ (uint64_t)IDSServiceForService:.cold.1()
++ (void)IDSServiceForService:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return +[(CNUIIDSRequest *)v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[CNUIIDSRequest IDSResponseQueue];
 }
 
 void __42__CNUIIDSRequest_validHandlesFromHandles___block_invoke_cold_1(uint64_t a1, NSObject *a2)

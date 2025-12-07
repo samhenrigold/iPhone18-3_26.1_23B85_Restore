@@ -247,58 +247,62 @@ uint64_t __33__SUStorePageViewController_init__block_invoke()
 
 - (void)enqueueFetchOperation
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   newFetchOperation = [(SUStorePageViewController *)self newFetchOperation];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __50__SUStorePageViewController_enqueueFetchOperation__block_invoke;
-  v28[3] = &__block_descriptor_48_e5_v8__0ls32l8s40l8;
-  v28[4] = self;
-  v28[5] = newFetchOperation;
-  [newFetchOperation setCompletionBlock:v28];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __50__SUStorePageViewController_enqueueFetchOperation__block_invoke;
+  v30[3] = &__block_descriptor_48_e5_v8__0ls32l8s40l8;
+  v30[4] = self;
+  v30[5] = newFetchOperation;
+  [newFetchOperation setCompletionBlock:v30];
   if (self->_useWebViewFastPath)
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (v6)
     {
-      v7 = objc_opt_class();
-      v29 = 138543362;
-      v30 = v7;
-      LODWORD(v26) = 12;
-      v25 = &v29;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v8 = objc_opt_class();
+      v31 = 138543362;
+      v32 = v8;
+      v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Enqueueing fetch operation (fast path)", &v31, 12);
+      if (v9)
       {
-        v9 = v8;
-        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v29, v26}];
-        free(v9);
-        v25 = v10;
+        v10 = v9;
+        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
+        v27 = v11;
         SSFileLog();
       }
     }
 
-    v11 = [(SUStorePageViewController *)self newViewControllerForPage:0 ofType:1 returningError:0, v25];
+    v12 = [(SUStorePageViewController *)self newViewControllerForPage:0 ofType:1 returningError:0, v27];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   objc_opt_class();
@@ -307,71 +311,75 @@ uint64_t __33__SUStorePageViewController_init__block_invoke()
   shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
   if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
   {
-    v15 = shouldLog2 | 2;
+    LODWORD(v16) = shouldLog2 | 2;
   }
 
   else
   {
-    v15 = shouldLog2;
+    LODWORD(v16) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
   {
-    v15 &= 2u;
+    v16 = v16;
+  }
+
+  else
+  {
+    v16 &= 2u;
   }
 
   if (isKindOfClass)
   {
-    if (v15)
+    if (v16)
     {
-      v16 = objc_opt_class();
-      v29 = 138543362;
-      v30 = v16;
-      LODWORD(v26) = 12;
-      v25 = &v29;
-      v17 = _os_log_send_and_compose_impl();
-      if (v17)
+      v18 = objc_opt_class();
+      v31 = 138543362;
+      v32 = v18;
+      LODWORD(v28) = 12;
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: Enqueueing fetch operation (other)", &v31, v28);
+      if (v19)
       {
-        v18 = v17;
-        v19 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v29, v26}];
-        free(v18);
-        v25 = v19;
+        v20 = v19;
+        v21 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+        free(v20);
+        v27 = v21;
         SSFileLog();
       }
     }
 
-    v20 = [(SSMutableURLRequestProperties *)self->_urlRequestProperties URL];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __50__SUStorePageViewController_enqueueFetchOperation__block_invoke_32;
-    v27[3] = &unk_1E81649F8;
-    v27[4] = v11;
-    v27[5] = newFetchOperation;
-    v27[6] = self;
-    [(SUStorePageViewController *)self _renderStorePage:0 withType:1 url:v20 viewController:v11 block:v27];
+    v22 = [(SSMutableURLRequestProperties *)self->_urlRequestProperties URL];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __50__SUStorePageViewController_enqueueFetchOperation__block_invoke_32;
+    v29[3] = &unk_1E81649F8;
+    v29[4] = v12;
+    v29[5] = newFetchOperation;
+    v29[6] = self;
+    [(SUStorePageViewController *)self _renderStorePage:0 withType:1 url:v22 viewController:v12 block:v29];
   }
 
   else
   {
-    if (v15)
+    if (v16)
     {
-      v21 = objc_opt_class();
-      v29 = 138543362;
-      v30 = v21;
-      LODWORD(v26) = 12;
-      v25 = &v29;
-      v22 = _os_log_send_and_compose_impl();
-      if (v22)
+      v23 = objc_opt_class();
+      v31 = 138543362;
+      v32 = v23;
+      LODWORD(v28) = 12;
+      v24 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: Enqueueing fetch operation (SUWebViewController)", &v31, v28);
+      if (v24)
       {
-        v23 = v22;
-        v24 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v29, v26}];
-        free(v23);
         v25 = v24;
+        v26 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:4];
+        free(v25);
+        v27 = v26;
         SSFileLog();
       }
     }
 
-    [(SUViewController *)self enqueueOperation:newFetchOperation cancelOnDealloc:1, v25];
+    [(SUViewController *)self enqueueOperation:newFetchOperation cancelOnDealloc:1, v27];
   }
 
   objc_opt_class();
@@ -409,15 +417,21 @@ uint64_t __50__SUStorePageViewController_enqueueFetchOperation__block_invoke_32(
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
@@ -428,15 +442,13 @@ uint64_t __50__SUStorePageViewController_enqueueFetchOperation__block_invoke_32(
     v16 = objc_opt_class();
     v17 = 2112;
     v18 = [objc_msgSend(newFetchOperation "requestProperties")];
-    LODWORD(v14) = 22;
-    v13 = &v15;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Enqueueing fetch operation for page section. URL: %@", &v15, 22);
+    if (v10)
     {
-      v10 = v9;
-      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v15, v14}];
-      free(v10);
-      v13 = v11;
+      v11 = v10;
+      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+      free(v11);
+      v14 = v12;
       SSFileLog();
     }
   }
@@ -608,38 +620,42 @@ LABEL_5:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_ERROR))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    v8 = objc_opt_class();
-    v9 = [(SSMutableURLRequestProperties *)self->_urlRequestProperties URL];
+    v9 = objc_opt_class();
+    v10 = [(SSMutableURLRequestProperties *)self->_urlRequestProperties URL];
     v16 = 138543874;
-    v17 = v8;
+    v17 = v9;
     v18 = 2112;
     errorCopy = error;
     v20 = 2112;
-    v21 = v9;
-    LODWORD(v15) = 32;
-    v14 = &v16;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v21 = v10;
+    v11 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: Error encountered: %@ URL: %@", &v16, 32);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v16, v15}];
-      free(v11);
-      v14 = v12;
+      v12 = v11;
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
+      v15 = v13;
       SSFileLog();
     }
   }
@@ -682,9 +698,9 @@ LABEL_5:
 
 - (void)reloadWithStorePage:(id)page ofType:(int64_t)type forURL:(id)l
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v30 = 0;
-  v9 = [(SUStorePageViewController *)self newViewControllerForPage:page ofType:type returningError:&v30];
+  v40 = *MEMORY[0x1E69E9840];
+  v33 = 0;
+  v9 = [(SUStorePageViewController *)self newViewControllerForPage:page ofType:type returningError:&v33];
   if (v9)
   {
     v10 = v9;
@@ -698,15 +714,21 @@ LABEL_5:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v14) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v14) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
@@ -715,42 +737,49 @@ LABEL_5:
     {
       if (v14)
       {
-LABEL_22:
-        v22 = objc_opt_class();
-        v23 = objc_opt_class();
-        v31 = 138543874;
-        v32 = v22;
-        v33 = 2114;
-        lCopy2 = v23;
-        v35 = 2112;
-        lCopy = l;
-        LODWORD(v28) = 32;
-        v27 = &v31;
-        v24 = _os_log_send_and_compose_impl();
-        if (v24)
-        {
-          v25 = v24;
-          v26 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:{4, &v31, v28}];
-          free(v25);
-          v27 = v26;
-          SSFileLog();
-        }
+        v16 = objc_opt_class();
+        v17 = objc_opt_class();
+        v34 = 138543874;
+        v35 = v16;
+        v36 = 2114;
+        lCopy3 = v17;
+        v38 = 2112;
+        lCopy2 = l;
+        v18 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Using %{public}@ to render %@", &v34, 32);
+        goto LABEL_25;
       }
     }
 
     else if (v14)
     {
-      goto LABEL_22;
+      v27 = objc_opt_class();
+      v28 = objc_opt_class();
+      v34 = 138543874;
+      v35 = v27;
+      v36 = 2114;
+      lCopy3 = v28;
+      v38 = 2112;
+      lCopy2 = l;
+      v18 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: %{public}@ cannot be resolved to render %@", &v34, 32);
+LABEL_25:
+      if (v18)
+      {
+        v29 = v18;
+        v30 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
+        free(v29);
+        v31 = v30;
+        SSFileLog();
+      }
     }
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __63__SUStorePageViewController_reloadWithStorePage_ofType_forURL___block_invoke;
-    v29[3] = &unk_1E8164A20;
-    v29[4] = v10;
-    v29[5] = page;
-    v29[6] = l;
-    [(SUStorePageViewController *)self _renderStorePage:page withType:type url:l viewController:v10 block:v29, v27];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __63__SUStorePageViewController_reloadWithStorePage_ofType_forURL___block_invoke;
+    v32[3] = &unk_1E8164A20;
+    v32[4] = v10;
+    v32[5] = page;
+    v32[6] = l;
+    [(SUStorePageViewController *)self _renderStorePage:page withType:type url:l viewController:v10 block:v32, v31];
 
     return;
   }
@@ -759,40 +788,44 @@ LABEL_22:
   shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
   if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
   {
-    v17 = shouldLog2 | 2;
+    LODWORD(v21) = shouldLog2 | 2;
   }
 
   else
   {
-    v17 = shouldLog2;
+    LODWORD(v21) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_ERROR))
+  oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
   {
-    v17 &= 2u;
+    v21 = v21;
   }
 
-  if (v17)
+  else
   {
-    v18 = objc_opt_class();
-    v31 = 138543618;
-    v32 = v18;
-    v33 = 2112;
-    lCopy2 = l;
-    LODWORD(v28) = 22;
-    v27 = &v31;
-    v19 = _os_log_send_and_compose_impl();
-    if (v19)
+    v21 &= 2u;
+  }
+
+  if (v21)
+  {
+    v23 = objc_opt_class();
+    v34 = 138543618;
+    v35 = v23;
+    v36 = 2112;
+    lCopy3 = l;
+    v24 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 16, "%{public}@: No renderer for %@", &v34, 22);
+    if (v24)
     {
-      v20 = v19;
-      v21 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v31, v28}];
-      free(v20);
-      v27 = v21;
+      v25 = v24;
+      v26 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:4];
+      free(v25);
+      v31 = v26;
       SSFileLog();
     }
   }
 
-  [(SUStorePageViewController *)self _handleFailureWithError:v30, v27];
+  [(SUStorePageViewController *)self _handleFailureWithError:v33, v31];
 }
 
 - (void)requestWebScriptReloadWithContext:(id)context
@@ -1132,15 +1165,21 @@ LABEL_5:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -1151,15 +1190,13 @@ LABEL_5:
       v17 = objc_opt_class();
       v18 = 2112;
       displayedURL = [(SUStorePageViewController *)self displayedURL];
-      LODWORD(v14) = 22;
-      v13 = &v16;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 1, "%@: Invalidating for jetsam: %@", &v16, 22);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v16, v14}];
-        free(v11);
-        v13 = v12;
+        v12 = v11;
+        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+        free(v12);
+        v14 = v13;
         SSFileLog();
       }
     }
@@ -1386,15 +1423,21 @@ LABEL_18:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -1403,20 +1446,18 @@ LABEL_18:
   {
     v14 = 138543362;
     v15 = objc_opt_class();
-    LODWORD(v13) = 12;
-    v12 = &v14;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Reloading store page", &v14, 12);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v14, v13}];
-      free(v9);
-      v12 = v10;
+      v10 = v9;
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
+      v13 = v11;
       SSFileLog();
     }
   }
 
-  return [(SUStorePageViewController *)self _reloadWithURLRequestProperties:properties completionBlock:0, v12];
+  return [(SUStorePageViewController *)self _reloadWithURLRequestProperties:properties completionBlock:0, v13];
 }
 
 - (void)restoreArchivableContext:(id)context
@@ -1834,15 +1875,21 @@ LABEL_9:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_ERROR))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -1855,20 +1902,18 @@ LABEL_9:
     errorCopy = error;
     v20 = 2112;
     displayedURL = [(SUStorePageViewController *)self displayedURL];
-    LODWORD(v14) = 32;
-    v13 = &v16;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: Operation failed with error: %@ displayedURL: %@", &v16, 32);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v16, v14}];
-      free(v11);
-      v13 = v12;
+      v12 = v11;
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
+      v14 = v13;
       SSFileLog();
     }
   }
 
-  [(SUStorePageViewController *)self _handleFailureWithError:error, v13];
+  [(SUStorePageViewController *)self _handleFailureWithError:error, v14];
   v15.receiver = self;
   v15.super_class = SUStorePageViewController;
   [(SUViewController *)&v15 operation:operation failedWithError:error];
@@ -1906,45 +1951,45 @@ LABEL_9:
     v14 = shouldLog;
   }
 
-  if (os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = v14;
+    v16 = v14;
   }
 
   else
   {
-    v15 = v14 & 2;
+    v16 = v14 & 2;
   }
 
-  if (v15)
+  if (v16)
   {
     v24 = objc_opt_class();
     v25[0] = @"statusCode";
     v26[0] = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(response, "statusCode")}];
     v25[1] = @"correlationId";
-    v16 = [objc_msgSend(response "allHeaderFields")];
-    v17 = v16 ? v16 : @"<unknown>";
-    v26[1] = v17;
+    v17 = [objc_msgSend(response "allHeaderFields")];
+    v18 = v17 ? v17 : @"<unknown>";
+    v26[1] = v18;
     v25[2] = @"pageType";
     v26[2] = [MEMORY[0x1E696AD98] numberWithInteger:outputType];
     v25[3] = @"URL";
-    v18 = [objc_msgSend(response "URL")];
-    v19 = v18 ? v18 : @"<unknown>";
-    v26[3] = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:4];
+    v19 = [objc_msgSend(response "URL")];
+    v20 = v19 ? v19 : @"<unknown>";
+    v26[3] = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:4];
     v27 = 138543874;
     v28 = v24;
     v29 = 2114;
     operationCopy = operation;
     v31 = 2112;
-    v32 = v20;
-    LODWORD(v23) = 32;
-    v21 = _os_log_send_and_compose_impl();
-    if (v21)
+    v32 = v21;
+    v22 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: %{public}@ Finished loading. %@", &v27, 32);
+    if (v22)
     {
-      v22 = v21;
-      [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v27, v23}];
-      free(v22);
+      v23 = v22;
+      [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
+      free(v23);
       SSFileLog();
     }
   }
@@ -2163,7 +2208,7 @@ void __73__SUStorePageViewController_showPreviewOverlay_animated_completionBlock
   }
 }
 
-uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_invoke(uint64_t a1)
+void *__57__SUStorePageViewController__reloadForNetworkTypeChange___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isVisible];
   if (result)
@@ -2529,15 +2574,21 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -2546,15 +2597,13 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
   {
     v14 = 138543362;
     v15 = objc_opt_class();
-    LODWORD(v13) = 12;
-    v12 = &v14;
-    v6 = _os_log_send_and_compose_impl();
-    if (v6)
+    v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 1, "%{public}@: Finishing with failure", &v14, 12);
+    if (v7)
     {
-      v7 = v6;
-      v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:{4, &v14, v13}];
-      free(v7);
-      v12 = v8;
+      v8 = v7;
+      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+      free(v8);
+      v13 = v9;
       SSFileLog();
     }
   }
@@ -2590,15 +2639,21 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -2607,20 +2662,18 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
   {
     v15 = 138543362;
     v16 = objc_opt_class();
-    LODWORD(v14) = 12;
-    v13 = &v15;
-    v6 = _os_log_send_and_compose_impl();
-    if (v6)
+    v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 1, "%{public}@: Loading finished successfully", &v15, 12);
+    if (v7)
     {
-      v7 = v6;
-      v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:{4, &v15, v14}];
-      free(v7);
-      v13 = v8;
+      v8 = v7;
+      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+      free(v8);
+      v14 = v9;
       SSFileLog();
     }
   }
 
-  [(SUStorePageViewController *)self _setPendingChildViewController:0, v13];
+  [(SUStorePageViewController *)self _setPendingChildViewController:0, v14];
   [(SUStorePageViewController *)self setSkLoading:0];
   self->_reloadOnAppear = 0;
   [(SUStorePageViewController *)self _applyPropertiesToViewController:self->_activeChildViewController];
@@ -2647,10 +2700,10 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
   pendingWebScriptReloadContext = self->_pendingWebScriptReloadContext;
   if (pendingWebScriptReloadContext)
   {
-    v12 = pendingWebScriptReloadContext;
+    v13 = pendingWebScriptReloadContext;
 
     self->_pendingWebScriptReloadContext = 0;
-    [(SUStorePageViewController *)self _requestWebScriptReloadWithContext:v12];
+    [(SUStorePageViewController *)self _requestWebScriptReloadWithContext:v13];
   }
 }
 
@@ -2706,15 +2759,21 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -2727,13 +2786,12 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
       v20 = [(NSArray *)[(SUViewController *)self _pendingDialogs] count];
       v21 = 2048;
       numberOfPendingDialogs = [+[SUDialogManager sharedInstance](SUDialogManager numberOfPendingDialogs];
-      LODWORD(v15) = 32;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Unable to finish handling failure, (%ld,%ld) dialogs are pending", &v17, 32);
+      if (v9)
       {
-        v9 = v8;
-        [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v17, v15}];
-        free(v9);
+        v10 = v9;
+        [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
         SSFileLog();
       }
     }
@@ -2744,17 +2802,17 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
     showDialogOnError = [(SUClientInterface *)[(SUViewController *)self clientInterface] showDialogOnError];
     if (error && showDialogOnError)
     {
-      v11 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-      v12 = [MEMORY[0x1E69DC650] alertControllerWithTitle:objc_msgSend(v11 message:"localizedStringForKey:value:table:" preferredStyle:{@"GENERIC_ERROR", &stru_1F41B3660, 0), 0, 1}];
-      v13 = MEMORY[0x1E69DC648];
-      v14 = [v11 localizedStringForKey:@"OK" value:&stru_1F41B3660 table:0];
+      v12 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+      v13 = [MEMORY[0x1E69DC650] alertControllerWithTitle:objc_msgSend(v12 message:"localizedStringForKey:value:table:" preferredStyle:{@"GENERIC_ERROR", &stru_1F41B3660, 0), 0, 1}];
+      v14 = MEMORY[0x1E69DC648];
+      v15 = [v12 localizedStringForKey:@"OK" value:&stru_1F41B3660 table:0];
       v16[0] = MEMORY[0x1E69E9820];
       v16[1] = 3221225472;
       v16[2] = __53__SUStorePageViewController__handleFailureWithError___block_invoke;
       v16[3] = &unk_1E8164A98;
       v16[4] = self;
-      [v12 addAction:{objc_msgSend(v13, "actionWithTitle:style:handler:", v14, 0, v16)}];
-      [(SUStorePageViewController *)self presentViewController:v12 animated:1 completion:0];
+      [v13 addAction:{objc_msgSend(v14, "actionWithTitle:style:handler:", v15, 0, v16)}];
+      [(SUStorePageViewController *)self presentViewController:v13 animated:1 completion:0];
     }
 
     else
@@ -2825,15 +2883,21 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v14 = shouldLog | 2;
+        LODWORD(v14) = shouldLog | 2;
       }
 
       else
       {
-        v14 = shouldLog;
+        LODWORD(v14) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = v14;
+      }
+
+      else
       {
         v14 &= 2u;
       }
@@ -2842,23 +2906,22 @@ uint64_t __57__SUStorePageViewController__reloadForNetworkTypeChange___block_inv
       {
         v22 = 138412290;
         v23 = objc_opt_class();
-        LODWORD(v21) = 12;
-        v15 = _os_log_send_and_compose_impl();
-        if (v15)
+        v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Recording logging event.", &v22, 12);
+        if (v16)
         {
-          v16 = v15;
-          [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v22, v21}];
-          free(v16);
+          v17 = v16;
+          [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+          free(v17);
           SSFileLog();
         }
       }
 
-      v17 = [objc_alloc(MEMORY[0x1E698CA38]) initWithSubsystem:@"iTunesStoreUI" category:objc_msgSend(MEMORY[0x1E696AEC0] error:{"stringWithFormat:", @"%@:%@", objc_opt_class(), -[SUClientInterface hostApplicationIdentifier](-[SUViewController clientInterface](self, "clientInterface"), "hostApplicationIdentifier")), 0}];
-      v18 = MEMORY[0x1E696AEC0];
-      v19 = [objc_msgSend(operation "requestProperties")];
-      [v17 setErrorMessage:{objc_msgSend(v18, "stringWithFormat:", @"%@", objc_msgSend(v19, "ams_URLByReplaceingQueryParameters:", MEMORY[0x1E695E0F8]))}];
-      v20 = [objc_alloc(MEMORY[0x1E69E4720]) initWithURLBag:v6];
-      [objc_msgSend(MEMORY[0x1E698CA00] internalInstanceUsingBag:{v20), "enqueueEvent:", v17}];
+      v18 = [objc_alloc(MEMORY[0x1E698CA38]) initWithSubsystem:@"iTunesStoreUI" category:objc_msgSend(MEMORY[0x1E696AEC0] error:{"stringWithFormat:", @"%@:%@", objc_opt_class(), -[SUClientInterface hostApplicationIdentifier](-[SUViewController clientInterface](self, "clientInterface"), "hostApplicationIdentifier")), 0}];
+      v19 = MEMORY[0x1E696AEC0];
+      v20 = [objc_msgSend(operation "requestProperties")];
+      [v18 setErrorMessage:{objc_msgSend(v19, "stringWithFormat:", @"%@", objc_msgSend(v20, "ams_URLByReplaceingQueryParameters:", MEMORY[0x1E695E0F8]))}];
+      v21 = [objc_alloc(MEMORY[0x1E69E4720]) initWithURLBag:v6];
+      [objc_msgSend(MEMORY[0x1E698CA00] internalInstanceUsingBag:{v21), "enqueueEvent:", v18}];
     }
   }
 }
@@ -3160,7 +3223,7 @@ LABEL_15:
     [v7 _setExistingNavigationItem:{-[SUViewController navigationItem](self, "navigationItem")}];
     [(SUStorePageViewController *)self _setActiveChildViewController:v7 shouldTearDown:1];
 
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   if ([(UIViewController *)self->_activeChildViewController viewIsReady]&& !self->_reloadOnAppear)
@@ -3171,15 +3234,21 @@ LABEL_15:
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v12 = shouldLog | 2;
+        LODWORD(v12) = shouldLog | 2;
       }
 
       else
       {
-        v12 = shouldLog;
+        LODWORD(v12) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v12 = v12;
+      }
+
+      else
       {
         v12 &= 2u;
       }
@@ -3190,21 +3259,19 @@ LABEL_15:
         v20 = objc_opt_class();
         v21 = 2112;
         displayedURL = [(SUStorePageViewController *)self displayedURL];
-        LODWORD(v18) = 22;
-        v17 = &v19;
-        v13 = _os_log_send_and_compose_impl();
-        if (v13)
+        v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Reloading for cache expiration: %@", &v19, 22);
+        if (v14)
         {
-          v14 = v13;
-          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v19, v18}];
-          free(v14);
-          v17 = v15;
+          v15 = v14;
+          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+          free(v15);
+          v18 = v16;
           SSFileLog();
         }
       }
 
       [objc_msgSend(MEMORY[0x1E695DF00] distantFuture];
-      self->_expirationTime = v16;
+      self->_expirationTime = v17;
       [-[SUStorePageViewController _activePageSection](self "_activePageSection")];
       -[SSMutableURLRequestProperties setURLs:](self->_urlRequestProperties, "setURLs:", [MEMORY[0x1E695DEC8] arrayWithObjects:{-[SUStorePageViewController displayedURL](self, "displayedURL"), 0}]);
       [(SUStorePageViewController *)self _reloadWithURLRequestProperties:self->_urlRequestProperties preserveSectionControl:1];
@@ -3226,7 +3293,7 @@ LABEL_15:
       v9 = 1;
 LABEL_12:
       [(SUStorePageViewController *)selfCopy2 _fetchPage:v9];
-      goto LABEL_27;
+      goto LABEL_28;
     }
 
     if ([(SUStorePageViewController *)self _shouldShowPlaceholderForEmptyPage])
@@ -3235,7 +3302,7 @@ LABEL_12:
     }
   }
 
-LABEL_27:
+LABEL_28:
   self->_reloadOnAppear = v6;
 }
 
@@ -3718,12 +3785,12 @@ uint64_t __59__SUStorePageViewController__reloadSearchFieldWithSection___block_i
   }
 }
 
-uint64_t __80__SUStorePageViewController__renderStorePage_withType_url_viewController_block___block_invoke(uint64_t a1, uint64_t a2)
+void *__80__SUStorePageViewController__renderStorePage_withType_url_viewController_block___block_invoke(void *a1, uint64_t a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    (*(*(a1 + 48) + 16))();
+    (*(a1[6] + 16))();
   }
 
   else
@@ -3732,7 +3799,7 @@ uint64_t __80__SUStorePageViewController__renderStorePage_withType_url_viewContr
     block[1] = 3221225472;
     block[2] = __80__SUStorePageViewController__renderStorePage_withType_url_viewController_block___block_invoke_2;
     block[3] = &unk_1E8164348;
-    block[4] = *(a1 + 32);
+    block[4] = a1[4];
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
@@ -3743,33 +3810,38 @@ uint64_t __80__SUStorePageViewController__renderStorePage_withType_url_viewContr
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
-    if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v7 = [v4 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (v6)
     {
-      v7 = AMSLogableURL();
+      v8 = AMSLogableURL();
       v12 = 138412546;
-      v13 = v7;
+      v13 = v8;
       v14 = 1024;
       v15 = a2;
-      LODWORD(v10) = 18;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, v7, 0, "Creating auto bug capture report for URL: %@ allowed: %d", &v12, 18);
+      if (v9)
       {
-        v9 = v8;
-        [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v12, v10}];
-        free(v9);
+        v10 = v9;
+        [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
         SSFileLog();
       }
     }
@@ -3803,27 +3875,27 @@ uint64_t __80__SUStorePageViewController__renderStorePage_withType_url_viewContr
     v10 = shouldLog;
   }
 
-  if (os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v10;
+    v12 = v10;
   }
 
   else
   {
-    v11 = v10 & 2;
+    v12 = v10 & 2;
   }
 
-  if (v11)
+  if (v12)
   {
     v17 = 138412290;
     lCopy = l;
-    LODWORD(v15) = 12;
-    v12 = _os_log_send_and_compose_impl();
-    if (v12)
+    v13 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "Verifying is legacy URL: %@", &v17, 12);
+    if (v13)
     {
-      v13 = v12;
-      [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v17, v15}];
-      free(v13);
+      v14 = v13;
+      [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+      free(v14);
       SSFileLog();
     }
   }
@@ -3833,13 +3905,13 @@ uint64_t __80__SUStorePageViewController__renderStorePage_withType_url_viewContr
     (*(completion + 2))(completion, 0);
   }
 
-  v14 = [objc_msgSend(objc_alloc(MEMORY[0x1E698CB70]) initWithBag:{bag), "typeForURL:", l}];
+  v15 = [objc_msgSend(objc_alloc(MEMORY[0x1E698CB70]) initWithBag:{bag), "typeForURL:", l}];
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
   v16[2] = __66__SUStorePageViewController_isLegacyWebViewForURL_bag_completion___block_invoke;
   v16[3] = &unk_1E8164AE8;
   v16[4] = completion;
-  [v14 addFinishBlock:v16];
+  [v15 addFinishBlock:v16];
 }
 
 uint64_t __66__SUStorePageViewController_isLegacyWebViewForURL_bag_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -3868,53 +3940,50 @@ uint64_t __66__SUStorePageViewController_isLegacyWebViewForURL_bag_completion___
     v10 = v9;
   }
 
-  if (os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  v11 = [v8 OSLogObject];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v10;
+    v12 = v10;
   }
 
   else
   {
-    v11 = v10 & 2;
+    v12 = v10 & 2;
   }
 
   if (v7 == 1)
   {
-    if (!v11)
-    {
-      return (*(*(a1 + 32) + 16))();
-    }
-
-    v18 = 0;
-    LODWORD(v16) = 2;
-    v15 = &v18;
-    v12 = _os_log_send_and_compose_impl();
     if (!v12)
     {
-      return (*(*(a1 + 32) + 16))();
+      return (*(*(a1 + 32) + 16))(*(a1 + 32));
+    }
+
+    v17[0] = 0;
+    v13 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1C21AF000, v11, 0, "Legacy URL confirmed", v17, 2);
+    if (!v13)
+    {
+      return (*(*(a1 + 32) + 16))(*(a1 + 32));
     }
 
 LABEL_19:
-    v13 = v12;
-    [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, v15, v16}];
-    free(v13);
+    v14 = v13;
+    [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+    free(v14);
     SSFileLog();
-    return (*(*(a1 + 32) + 16))();
+    return (*(*(a1 + 32) + 16))(*(a1 + 32));
   }
 
-  if (v11)
+  if (v12)
   {
-    v17 = 0;
-    LODWORD(v16) = 2;
-    v15 = &v17;
-    v12 = _os_log_send_and_compose_impl();
-    if (v12)
+    v16[0] = 0;
+    v13 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1C21AF000, v11, 0, "Not legacy URL", v16, 2);
+    if (v13)
     {
       goto LABEL_19;
     }
   }
 
-  return (*(*(a1 + 32) + 16))();
+  return (*(*(a1 + 32) + 16))(*(a1 + 32));
 }
 
 - (void)_repositionForChildViewController:(id)controller
@@ -4162,36 +4231,36 @@ LABEL_9:
 
 - (void)_verifyStorePageProtocol:(id)protocol
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   expectedClientIdentifiers = [protocol expectedClientIdentifiers];
   if ([expectedClientIdentifiers count] && !-[SUClientInterface _ignoresExpectedClientsProtocol](-[SUViewController clientInterface](self, "clientInterface"), "_ignoresExpectedClientsProtocol"))
   {
+    v38 = 0u;
+    v39 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v5 = [expectedClientIdentifiers countByEnumeratingWithState:&v34 objects:v43 count:16];
+    v5 = [expectedClientIdentifiers countByEnumeratingWithState:&v36 objects:v45 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v35;
+      v7 = *v37;
 LABEL_6:
       v8 = 0;
       while (1)
       {
-        if (*v35 != v7)
+        if (*v37 != v7)
         {
           objc_enumerationMutation(expectedClientIdentifiers);
         }
 
-        if ([SUClientDispatch matchesClientApplication:*(*(&v34 + 1) + 8 * v8)])
+        if ([SUClientDispatch matchesClientApplication:*(*(&v36 + 1) + 8 * v8)])
         {
           break;
         }
 
         if (v6 == ++v8)
         {
-          v6 = [expectedClientIdentifiers countByEnumeratingWithState:&v34 objects:v43 count:16];
+          v6 = [expectedClientIdentifiers countByEnumeratingWithState:&v36 objects:v45 count:16];
           if (v6)
           {
             goto LABEL_6;
@@ -4209,97 +4278,102 @@ LABEL_12:
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v11 = shouldLog | 2;
+        LODWORD(v11) = shouldLog | 2;
       }
 
       else
       {
-        v11 = shouldLog;
+        LODWORD(v11) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v11 = v11;
+      }
+
+      else
       {
         v11 &= 2u;
       }
 
       if (v11)
       {
-        v12 = objc_opt_class();
-        v39 = 138412546;
-        v40 = v12;
-        v41 = 2112;
-        v42 = expectedClientIdentifiers;
-        LODWORD(v29) = 22;
-        v28 = &v39;
-        v13 = _os_log_send_and_compose_impl();
-        if (v13)
+        v13 = objc_opt_class();
+        v41 = 138412546;
+        v42 = v13;
+        v43 = 2112;
+        v44 = expectedClientIdentifiers;
+        v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Client application did not match: %@", &v41, 22);
+        if (v14)
         {
-          v14 = v13;
-          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v39, v29}];
-          free(v14);
-          v28 = v15;
+          v15 = v14;
+          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+          free(v15);
+          v30 = v16;
           SSFileLog();
         }
       }
 
-      [(UIViewController *)self dismissAnimated:0, v28];
+      [(UIViewController *)self dismissAnimated:0, v30];
       displayedURL = [(SUStorePageViewController *)self displayedURL];
-      v30 = 0u;
-      v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v17 = [expectedClientIdentifiers countByEnumeratingWithState:&v30 objects:v38 count:16];
-      if (v17)
+      v34 = 0u;
+      v35 = 0u;
+      v18 = [expectedClientIdentifiers countByEnumeratingWithState:&v32 objects:v40 count:16];
+      if (v18)
       {
-        v18 = v17;
-        v19 = *v31;
+        v19 = v18;
+        v20 = *v33;
         while (2)
         {
-          for (i = 0; i != v18; ++i)
+          for (i = 0; i != v19; ++i)
           {
-            if (*v31 != v19)
+            if (*v33 != v20)
             {
               objc_enumerationMutation(expectedClientIdentifiers);
             }
 
-            v21 = *(*(&v30 + 1) + 8 * i);
-            if (SUOpenURLInClient(displayedURL, v21, [(SUViewController *)self clientInterface]))
+            v22 = *(*(&v32 + 1) + 8 * i);
+            if (SUOpenURLInClient(displayedURL, v22, [(SUViewController *)self clientInterface]))
             {
               mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
               shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
               if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
               {
-                v24 = shouldLog2 | 2;
+                v25 = shouldLog2 | 2;
               }
 
               else
               {
-                v24 = shouldLog2;
+                v25 = shouldLog2;
               }
 
-              if (os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEBUG))
+              oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+              if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
               {
-                v25 = v24;
+                v27 = v25;
               }
 
               else
               {
-                v25 = v24 & 2;
+                v27 = v25 & 2;
               }
 
-              if (v25)
+              if (v27)
               {
-                v39 = 138412546;
-                v40 = v21;
-                v41 = 2112;
-                v42 = displayedURL;
-                LODWORD(v29) = 22;
-                v26 = _os_log_send_and_compose_impl();
-                if (v26)
+                v41 = 138412546;
+                v42 = v22;
+                v43 = 2112;
+                v44 = displayedURL;
+                LODWORD(v31) = 22;
+                v28 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 2, "%@: Opened URL in client: %@", &v41, v31);
+                if (v28)
                 {
-                  v27 = v26;
-                  [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v39, v29}];
-                  free(v27);
+                  v29 = v28;
+                  [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
+                  free(v29);
                   SSFileLog();
                 }
               }
@@ -4308,8 +4382,8 @@ LABEL_12:
             }
           }
 
-          v18 = [expectedClientIdentifiers countByEnumeratingWithState:&v30 objects:v38 count:16];
-          if (v18)
+          v19 = [expectedClientIdentifiers countByEnumeratingWithState:&v32 objects:v40 count:16];
+          if (v19)
           {
             continue;
           }

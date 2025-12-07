@@ -1,4 +1,5 @@
 @interface ABPK2DDetectionPostprocessHeatmap
+- (ABPK2DDetectionPostprocessHeatmap)initWithInputJoints:(unint64_t)joints andOutputJoints:(unint64_t)outputJoints use3DSkeletonForExtrapolation:(BOOL)extrapolation shouldPush3DSupportSkeleton:(BOOL)skeleton withExtrapolationTime:(double)time;
 - (id)get2DDetectionResultforRotation:(int64_t)rotation croppedRect:(CGRect)rect;
 - (id)getRaw2DDetectionResultforRotation:(int64_t)rotation croppedRect:(CGRect)rect;
 - (int)extract2DSkeletonfromBuffers:(id)buffers withImagePreProcessingParams:(id)params atTimestamp:(double)timestamp previousSkeleton3D:(id)d;
@@ -11,14 +12,171 @@
 
 @implementation ABPK2DDetectionPostprocessHeatmap
 
+- (ABPK2DDetectionPostprocessHeatmap)initWithInputJoints:(unint64_t)joints andOutputJoints:(unint64_t)outputJoints use3DSkeletonForExtrapolation:(BOOL)extrapolation shouldPush3DSupportSkeleton:(BOOL)skeleton withExtrapolationTime:(double)time
+{
+  skeletonCopy = skeleton;
+  extrapolationCopy = extrapolation;
+  v42 = *MEMORY[0x277D85DE8];
+  v39.receiver = self;
+  v39.super_class = ABPK2DDetectionPostprocessHeatmap;
+  v12 = [(ABPK2DDetectionPostprocessHeatmap *)&v39 init];
+  v13 = v12;
+  if (!v12)
+  {
+    return v13;
+  }
+
+  v12->_numberOfInputJoints = joints;
+  v12->_numberOfOutputJoints = outputJoints;
+  v14 = [[ABPK2DExtrapolationFiltering alloc] initWithUse3DSkeletonForExtrapolation:extrapolationCopy shouldPush3DSupportSkeleton:skeletonCopy withExtrapolationTime:time];
+  extrapolationFiltering = v13->_extrapolationFiltering;
+  v13->_extrapolationFiltering = v14;
+
+  v13->_saveKeypoints = 1;
+  v13->_humansDetected = 1;
+  v17 = __ABPKLogSharedInstance(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_DEBUG, " ABPK2DDetectionPostprocessHeatmap: Initializing ", buf, 2u);
+  }
+
+  v19 = __ABPKLogSharedInstance(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  {
+    v20 = *&v13->_numberOfInputJoints;
+    *buf = 134217984;
+    v41 = v20;
+    _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_DEBUG, " \t Number of input joints: %zu ", buf, 0xCu);
+  }
+
+  v22 = __ABPKLogSharedInstance(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  {
+    v23 = *&v13->_numberOfOutputJoints;
+    *buf = 134217984;
+    v41 = v23;
+    _os_log_impl(&dword_23EDDC000, v22, OS_LOG_TYPE_DEBUG, " \t Number of output joints: %zu ", buf, 0xCu);
+  }
+
+  v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  trackedBodies = v13->_trackedBodies;
+  v13->_trackedBodies = v24;
+
+  v13->_abpkPersonTrackerFPS = 1;
+  v26 = objc_alloc_init(ABPKPersonIDTracker);
+  abpkPersonIDTracker = v13->_abpkPersonIDTracker;
+  v13->_abpkPersonIDTracker = v26;
+
+  v13->_abpkPersonIDTrackerSupportedOnDevice = 1;
+  if (v13->_abpkPersonIDTracker)
+  {
+    v29 = __ABPKLogSharedInstance(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_23EDDC000, v29, OS_LOG_TYPE_DEBUG, " ABPKPersonIDTracker initialized in ABPK2DDetectionPostprocessHeatmap ", buf, 2u);
+    }
+
+    abpkPersonTrackerFPS = v13->_abpkPersonTrackerFPS;
+    if (abpkPersonTrackerFPS > 1)
+    {
+      if (abpkPersonTrackerFPS == 2)
+      {
+        v32 = __ABPKLogSharedInstance(v30);
+        v33 = 1045220557;
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          v34 = " ABPKPersonIDTracker being initialized with fps: 5 ";
+          goto LABEL_28;
+        }
+
+        goto LABEL_29;
+      }
+
+      if (abpkPersonTrackerFPS == 3)
+      {
+        v32 = __ABPKLogSharedInstance(v30);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_23EDDC000, v32, OS_LOG_TYPE_DEBUG, " ABPKPersonIDTracker being initialized with fps: 0 ", buf, 2u);
+        }
+
+        v33 = 2139095039;
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+      if (!abpkPersonTrackerFPS)
+      {
+        v32 = __ABPKLogSharedInstance(v30);
+        v33 = 1015580809;
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          v34 = " ABPKPersonIDTracker being initialized with fps: 60 ";
+          goto LABEL_28;
+        }
+
+LABEL_29:
+
+        LODWORD(v13->_timeLastABPKTrackerRunThreshold) = v33;
+        goto LABEL_30;
+      }
+
+      if (abpkPersonTrackerFPS == 1)
+      {
+        v32 = __ABPKLogSharedInstance(v30);
+        v33 = 1023969417;
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          v34 = " ABPKPersonIDTracker being initialized with fps: 30 ";
+LABEL_28:
+          _os_log_impl(&dword_23EDDC000, v32, OS_LOG_TYPE_DEBUG, v34, buf, 2u);
+          goto LABEL_29;
+        }
+
+        goto LABEL_29;
+      }
+    }
+
+LABEL_30:
+    v36 = __ABPKLogSharedInstance(v30);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    {
+      timeLastABPKTrackerRunThreshold = v13->_timeLastABPKTrackerRunThreshold;
+      *buf = 134217984;
+      v41 = timeLastABPKTrackerRunThreshold;
+      _os_log_impl(&dword_23EDDC000, v36, OS_LOG_TYPE_DEBUG, " ABPKPersonIDTracker _timeLastABPKTrackerRunThreshold: %f ", buf, 0xCu);
+    }
+
+    v13->_timeLastABPKTrackerRun = 0.0;
+    return v13;
+  }
+
+  v35 = __ABPKLogSharedInstance(v28);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23EDDC000, v35, OS_LOG_TYPE_ERROR, " Failed to initialize ABPK Person ID Tracker ", buf, 2u);
+  }
+
+  v13->_abpkPersonIDTrackerSupportedOnDevice = 0;
+  return v13;
+}
+
 - (int)extract2DSkeletonfromBuffers:(id)buffers withImagePreProcessingParams:(id)params atTimestamp:(double)timestamp previousSkeleton3D:(id)d
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   buffersCopy = buffers;
   paramsCopy = params;
   dCopy = d;
-  [(ABPK2DDetectionPostprocessHeatmap *)self _startExtract2DSkeletonSignpostWithTimestamp:timestamp];
-  v12 = __ABPKLogSharedInstance();
+  v12 = __ABPKLogSharedInstance([(ABPK2DDetectionPostprocessHeatmap *)self _startExtract2DSkeletonSignpostWithTimestamp:timestamp]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -30,262 +188,261 @@
   heatMapBuffer = [buffersCopy heatMapBuffer];
   CVPixelBufferLockBaseAddress(heatMapBuffer, 1uLL);
   [buffersCopy heatMapShape];
-  v79 = v15;
+  v89 = v15;
   [buffersCopy heatMapShape];
-  v76 = v16;
+  v86 = v16;
   BytesPerRow = CVPixelBufferGetBytesPerRow(heatMapBuffer);
   [(ABPK2DDetectionPostprocessHeatmap *)self _startMaxFilterSignpostWithTimestamp:timestamp];
   [(ABPK2DDetectionPostprocessHeatmap *)self _endMaxFilterSignpostWithTimestamp:timestamp];
   [(ABPK2DDetectionPostprocessHeatmap *)self _startExtractHumanSignpostWithTimestamp:timestamp];
   BaseAddress = CVPixelBufferGetBaseAddress(heatMapBuffer);
-  v19 = v76;
-  v20 = v76.n128_i32[1];
+  v19 = v86;
+  v20 = v86.n128_i32[1];
   v19.n128_u16[0] = 11878;
-  abpk::parsePersonsfromHeatmapBuffer(BaseAddress, v76.n128_i32[1], BytesPerRow >> 1, buf, v19);
-  v77 = rotationNeeded;
-  v21 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-  {
-    *v90 = 134217984;
-    *&v90[4] = 0x6DB6DB6DB6DB6DB7 * ((v86 - *buf) >> 3);
-    _os_log_impl(&dword_23EDDC000, v21, OS_LOG_TYPE_DEBUG, " \t Persons detected: %lu ", v90, 0xCu);
-  }
-
-  v22 = __ABPKLogSharedInstance();
+  abpk::parsePersonsfromHeatmapBuffer(BaseAddress, v86.n128_i32[1], BytesPerRow >> 1, buf, v19);
+  v87 = rotationNeeded;
+  v22 = __ABPKLogSharedInstance(v21);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    *v90 = 0;
-    _os_log_impl(&dword_23EDDC000, v22, OS_LOG_TYPE_DEBUG, " \t Converting person to human type ", v90, 2u);
+    *v100 = 134217984;
+    *&v100[4] = 0x6DB6DB6DB6DB6DB7 * ((v96 - *buf) >> 3);
+    _os_log_impl(&dword_23EDDC000, v22, OS_LOG_TYPE_DEBUG, " \t Persons detected: %lu ", v100, 0xCu);
   }
 
-  abpk::filterValidPersons(buf, v79, v20, 0.099976);
-  v23 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
-  {
-    *v90 = 134217984;
-    *&v90[4] = 0x6DB6DB6DB6DB6DB7 * ((v86 - *buf) >> 3);
-    _os_log_impl(&dword_23EDDC000, v23, OS_LOG_TYPE_DEBUG, " \t Valid Persons detected: %lu ", v90, 0xCu);
-  }
-
-  abpk::convertPersonsToHuman(buf, self->_numberOfOutputJoints, v90);
-  v24 = __ABPKLogSharedInstance();
+  v24 = __ABPKLogSharedInstance(v23);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    *v87 = 134217984;
-    *&v87[4] = 0xEEEEEEEEEEEEEEEFLL * ((*&v90[8] - *v90) >> 3);
-    _os_log_impl(&dword_23EDDC000, v24, OS_LOG_TYPE_DEBUG, " \t Humans detected: %lu ", v87, 0xCu);
+    *v100 = 0;
+    _os_log_impl(&dword_23EDDC000, v24, OS_LOG_TYPE_DEBUG, " \t Converting person to human type ", v100, 2u);
+  }
+
+  valid = abpk::filterValidPersons(buf, v89, v20, 0.099976);
+  v26 = __ABPKLogSharedInstance(valid);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  {
+    *v100 = 134217984;
+    *&v100[4] = 0x6DB6DB6DB6DB6DB7 * ((v96 - *buf) >> 3);
+    _os_log_impl(&dword_23EDDC000, v26, OS_LOG_TYPE_DEBUG, " \t Valid Persons detected: %lu ", v100, 0xCu);
+  }
+
+  v27 = abpk::convertPersonsToHuman(buf, self->_numberOfOutputJoints, v100);
+  v28 = __ABPKLogSharedInstance(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  {
+    *v97 = 134217984;
+    *&v97[4] = 0xEEEEEEEEEEEEEEEFLL * ((*&v100[8] - *v100) >> 3);
+    _os_log_impl(&dword_23EDDC000, v28, OS_LOG_TYPE_DEBUG, " \t Humans detected: %lu ", v97, 0xCu);
   }
 
   CVPixelBufferUnlockBaseAddress(heatMapBuffer, 1uLL);
   CVPixelBufferRelease(heatMapBuffer);
-  [(ABPK2DDetectionPostprocessHeatmap *)self _endExtractHumanSignpostWithTimestamp:timestamp];
-  v26 = *buf;
-  v25 = v86;
-  if (v86 != *buf)
+  v29 = [(ABPK2DDetectionPostprocessHeatmap *)self _endExtractHumanSignpostWithTimestamp:timestamp];
+  v31 = *buf;
+  v30 = v96;
+  if (v96 != *buf)
   {
     if (!self->_humansDetected)
     {
-      v27 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v32 = __ABPKLogSharedInstance(v29);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        *v87 = 0;
-        _os_log_impl(&dword_23EDDC000, v27, OS_LOG_TYPE_DEBUG, " Humans detected in the image ", v87, 2u);
+        *v97 = 0;
+        _os_log_impl(&dword_23EDDC000, v32, OS_LOG_TYPE_DEBUG, " Humans detected in the image ", v97, 2u);
       }
 
       self->_humansDetected = 1;
-      v26 = *buf;
-      v25 = v86;
+      v31 = *buf;
+      v30 = v96;
     }
 
-    if (0x6DB6DB6DB6DB6DB7 * ((v25 - v26) >> 3) != 0xEEEEEEEEEEEEEEEFLL * ((*&v90[8] - *v90) >> 3))
+    if (0x6DB6DB6DB6DB6DB7 * ((v30 - v31) >> 3) != 0xEEEEEEEEEEEEEEEFLL * ((*&v100[8] - *v100) >> 3))
     {
-      v57 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v64 = __ABPKLogSharedInstance(v29);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
-        *v87 = 0;
-        _os_log_impl(&dword_23EDDC000, v57, OS_LOG_TYPE_ERROR, " convertPersonsToHuman failed. Count difference. ", v87, 2u);
+        *v97 = 0;
+        _os_log_impl(&dword_23EDDC000, v64, OS_LOG_TYPE_ERROR, " convertPersonsToHuman failed. Count difference. ", v97, 2u);
       }
 
-      v58 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v66 = __ABPKLogSharedInstance(v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        *v87 = 134217984;
-        *&v87[4] = 0x6DB6DB6DB6DB6DB7 * ((v86 - *buf) >> 3);
-        _os_log_impl(&dword_23EDDC000, v58, OS_LOG_TYPE_ERROR, " Persons count: %zu ", v87, 0xCu);
+        *v97 = 134217984;
+        *&v97[4] = 0x6DB6DB6DB6DB6DB7 * ((v96 - *buf) >> 3);
+        _os_log_impl(&dword_23EDDC000, v66, OS_LOG_TYPE_ERROR, " Persons count: %zu ", v97, 0xCu);
       }
 
-      v59 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+      v68 = __ABPKLogSharedInstance(v67);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
-        *v87 = 134217984;
-        *&v87[4] = 0xEEEEEEEEEEEEEEEFLL * ((*&v90[8] - *v90) >> 3);
-        _os_log_impl(&dword_23EDDC000, v59, OS_LOG_TYPE_ERROR, " Humans count %zu ", v87, 0xCu);
+        *v97 = 134217984;
+        *&v97[4] = 0xEEEEEEEEEEEEEEEFLL * ((*&v100[8] - *v100) >> 3);
+        _os_log_impl(&dword_23EDDC000, v68, OS_LOG_TYPE_ERROR, " Humans count %zu ", v97, 0xCu);
       }
 
       goto LABEL_69;
     }
 
-    if (self->_numberOfOutputJoints != (*(*v90 + 8) - **v90) >> 3)
+    if (self->_numberOfOutputJoints != (*(*v100 + 8) - **v100) >> 3)
     {
-      v60 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v69 = __ABPKLogSharedInstance(v29);
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
-        *v87 = 0;
-        _os_log_impl(&dword_23EDDC000, v60, OS_LOG_TYPE_ERROR, " convertPersonsToHuman failed. Invalid number of joints in the converted human type. ", v87, 2u);
+        *v97 = 0;
+        _os_log_impl(&dword_23EDDC000, v69, OS_LOG_TYPE_ERROR, " convertPersonsToHuman failed. Invalid number of joints in the converted human type. ", v97, 2u);
       }
 
-      v61 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v71 = __ABPKLogSharedInstance(v70);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
-        v62 = (*(*v90 + 8) - **v90) >> 3;
+        v72 = (*(*v100 + 8) - **v100) >> 3;
         numberOfOutputJoints = self->_numberOfOutputJoints;
-        *v87 = 134218240;
-        *&v87[4] = v62;
-        v88 = 2048;
-        v89 = numberOfOutputJoints;
-        _os_log_impl(&dword_23EDDC000, v61, OS_LOG_TYPE_ERROR, " Actual joints: %zu. Expected: %zu ", v87, 0x16u);
+        *v97 = 134218240;
+        *&v97[4] = v72;
+        v98 = 2048;
+        v99 = numberOfOutputJoints;
+        _os_log_impl(&dword_23EDDC000, v71, OS_LOG_TYPE_ERROR, " Actual joints: %zu. Expected: %zu ", v97, 0x16u);
       }
 
       goto LABEL_69;
     }
 
-    v28 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v33 = __ABPKLogSharedInstance(v29);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      *v87 = 0;
-      _os_log_impl(&dword_23EDDC000, v28, OS_LOG_TYPE_DEBUG, " \t Converting 2d points from ML space to image space ", v87, 2u);
+      *v97 = 0;
+      _os_log_impl(&dword_23EDDC000, v33, OS_LOG_TYPE_DEBUG, " \t Converting 2d points from ML space to image space ", v97, 2u);
     }
 
     [paramsCopy inputResolution];
-    v74 = v29;
-    v75 = v30;
+    v84 = v34;
+    v85 = v35;
     [paramsCopy outputResolution];
-    v33 = *v90;
-    v34 = *&v90[8];
-    if (*v90 != *&v90[8])
+    v38 = *v100;
+    v39 = *&v100[8];
+    if (*v100 != *&v100[8])
     {
-      v35 = v31;
-      v36 = v32;
-      v37.f64[0] = v74;
-      v37.f64[1] = v75;
-      v80 = v37;
+      v40 = v36;
+      v41 = v37;
+      v42.f64[0] = v84;
+      v42.f64[1] = v85;
+      v90 = v42;
       do
       {
-        v38 = *v33;
-        v39 = v33[1];
-        while (v38 != v39)
+        v43 = *v38;
+        v44 = v38[1];
+        while (v43 != v44)
         {
-          LODWORD(v40) = HIDWORD(*v38);
-          if (COERCE_FLOAT(*v38) != -1.0 && v40 != -1.0)
+          LODWORD(v45) = HIDWORD(*v43);
+          if (COERCE_FLOAT(*v43) != -1.0 && v45 != -1.0)
           {
-            *&v42 = v35 * COERCE_FLOAT(*v38);
-            v43 = v36 * v40;
-            *(&v42 + 1) = v43;
-            [ABPKImagePreProcessingParams convert2DPoint:paramsCopy toInputSpaceWithParams:v42];
-            *v38 = vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(v44), v80));
+            *&v47 = v40 * COERCE_FLOAT(*v43);
+            v48 = v41 * v45;
+            *(&v47 + 1) = v48;
+            [ABPKImagePreProcessingParams convert2DPoint:paramsCopy toInputSpaceWithParams:v47];
+            *v43 = vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(v49), v90));
           }
 
-          ++v38;
+          ++v43;
         }
 
-        v33 += 15;
+        v38 += 15;
       }
 
-      while (v33 != v34);
+      while (v38 != v39);
     }
 
-    [(NSMutableArray *)self->_trackedBodies removeAllObjects];
+    removeAllObjects = [(NSMutableArray *)self->_trackedBodies removeAllObjects];
     if (self->_abpkPersonIDTrackerSupportedOnDevice)
     {
-      v45 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+      v51 = __ABPKLogSharedInstance(removeAllObjects);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
       {
         inputImageData = [buffersCopy inputImageData];
         Width = CVPixelBufferGetWidth([inputImageData pixelBuffer]);
         inputImageData2 = [buffersCopy inputImageData];
         Height = CVPixelBufferGetHeight([inputImageData2 pixelBuffer]);
-        *v87 = 134218240;
-        *&v87[4] = Width;
-        v88 = 2048;
-        v89 = Height;
-        _os_log_impl(&dword_23EDDC000, v45, OS_LOG_TYPE_DEBUG, " \t Running ANSTTracker on image with resolution: (w,h)=(%lu,%lu) ", v87, 0x16u);
+        *v97 = 134218240;
+        *&v97[4] = Width;
+        v98 = 2048;
+        v99 = Height;
+        _os_log_impl(&dword_23EDDC000, v51, OS_LOG_TYPE_DEBUG, " \t Running ANSTTracker on image with resolution: (w,h)=(%lu,%lu) ", v97, 0x16u);
       }
 
       abpkPersonIDTracker = self->_abpkPersonIDTracker;
       imageDataForNeuralNetwork = [buffersCopy imageDataForNeuralNetwork];
-      v52 = -[ABPKPersonIDTracker runWithInput:atTimeStamp:andOutput:](abpkPersonIDTracker, "runWithInput:atTimeStamp:andOutput:", [imageDataForNeuralNetwork pixelBuffer], self->_trackedBodies, timestamp) == 0;
+      v58 = -[ABPKPersonIDTracker runWithInput:atTimeStamp:andOutput:](abpkPersonIDTracker, "runWithInput:atTimeStamp:andOutput:", [imageDataForNeuralNetwork pixelBuffer], self->_trackedBodies, timestamp) == 0;
 
-      if (v52)
+      if (v58)
       {
-        v53 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+        v60 = __ABPKLogSharedInstance(v59);
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
         {
-          *v87 = 0;
-          _os_log_impl(&dword_23EDDC000, v53, OS_LOG_TYPE_DEBUG, " \t _abpkPersonIDTracker ran successfully ", v87, 2u);
+          *v97 = 0;
+          _os_log_impl(&dword_23EDDC000, v60, OS_LOG_TYPE_DEBUG, " \t _abpkPersonIDTracker ran successfully ", v97, 2u);
         }
       }
 
-      v54 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+      v61 = __ABPKLogSharedInstance(v59);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
       {
-        v55 = [(NSMutableArray *)self->_trackedBodies count];
-        *v87 = 134217984;
-        *&v87[4] = v55;
-        _os_log_impl(&dword_23EDDC000, v54, OS_LOG_TYPE_DEBUG, " \t _trackedBodies count: %lu ", v87, 0xCu);
+        v62 = [(NSMutableArray *)self->_trackedBodies count];
+        *v97 = 134217984;
+        *&v97[4] = v62;
+        _os_log_impl(&dword_23EDDC000, v61, OS_LOG_TYPE_DEBUG, " \t _trackedBodies count: %lu ", v97, 0xCu);
       }
     }
 
     else
     {
-      v52 = 0;
+      v58 = 0;
     }
 
-    [(ABPK2DDetectionPostprocessHeatmap *)self _startExtrapolationSignpostWithTimestamp:timestamp];
-    v64 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+    v74 = __ABPKLogSharedInstance([(ABPK2DDetectionPostprocessHeatmap *)self _startExtrapolationSignpostWithTimestamp:timestamp]);
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
     {
-      *v87 = 0;
-      _os_log_impl(&dword_23EDDC000, v64, OS_LOG_TYPE_DEBUG, " \t Performing extrapolation ", v87, 2u);
+      *v97 = 0;
+      _os_log_impl(&dword_23EDDC000, v74, OS_LOG_TYPE_DEBUG, " \t Performing extrapolation ", v97, 2u);
     }
 
-    if (v52 && [(NSMutableArray *)self->_trackedBodies count])
+    if (v58 && [(NSMutableArray *)self->_trackedBodies count])
     {
       extrapolationFiltering = self->_extrapolationFiltering;
-      v83 = *v90;
-      v84 = v91;
-      v91 = 0;
-      memset(v90, 0, sizeof(v90));
-      v66 = &v83;
-      timestamp = [(ABPK2DExtrapolationFiltering *)extrapolationFiltering performExtrapolationOnHumans:&v83 withImageResolution:v77 atTimestamp:dCopy rotationNeeded:self->_trackedBodies previousSkeleton3D:v74 personTracker:v75, timestamp];
+      v93 = *v100;
+      v94 = v101;
+      v101 = 0;
+      memset(v100, 0, sizeof(v100));
+      v76 = &v93;
+      timestamp = [(ABPK2DExtrapolationFiltering *)extrapolationFiltering performExtrapolationOnHumans:&v93 withImageResolution:v87 atTimestamp:dCopy rotationNeeded:self->_trackedBodies previousSkeleton3D:v84 personTracker:v85, timestamp];
     }
 
     else
     {
-      v68 = self->_extrapolationFiltering;
-      v81 = *v90;
-      v82 = v91;
-      v91 = 0;
-      memset(v90, 0, sizeof(v90));
-      v66 = &v81;
-      timestamp = [(ABPK2DExtrapolationFiltering *)v68 performExtrapolationOnHumans:&v81 withImageResolution:v77 atTimestamp:dCopy rotationNeeded:v74 previousSkeleton3D:v75, timestamp];
+      v78 = self->_extrapolationFiltering;
+      v91 = *v100;
+      v92 = v101;
+      v101 = 0;
+      memset(v100, 0, sizeof(v100));
+      v76 = &v91;
+      timestamp = [(ABPK2DExtrapolationFiltering *)v78 performExtrapolationOnHumans:&v91 withImageResolution:v87 atTimestamp:dCopy rotationNeeded:v84 previousSkeleton3D:v85, timestamp];
     }
 
-    v69 = timestamp;
-    *v87 = v66;
-    std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](v87);
+    v79 = timestamp;
+    *v97 = v76;
+    std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](v97);
     [(ABPK2DDetectionPostprocessHeatmap *)self _endExtrapolationSignpostWithTimestamp:timestamp];
-    [(ABPK2DDetectionPostprocessHeatmap *)self _endExtract2DSkeletonSignpostWithTimestamp:timestamp];
-    if (!v69)
+    v80 = [(ABPK2DDetectionPostprocessHeatmap *)self _endExtract2DSkeletonSignpostWithTimestamp:timestamp];
+    if (!v79)
     {
-      v71 = 0;
+      v82 = 0;
       goto LABEL_70;
     }
 
-    v70 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+    v81 = __ABPKLogSharedInstance(v80);
+    if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
     {
-      *v87 = 0;
-      _os_log_impl(&dword_23EDDC000, v70, OS_LOG_TYPE_ERROR, " 2D Extrapolation failed ", v87, 2u);
+      *v97 = 0;
+      _os_log_impl(&dword_23EDDC000, v81, OS_LOG_TYPE_ERROR, " 2D Extrapolation failed ", v97, 2u);
     }
 
     goto LABEL_68;
@@ -293,11 +450,11 @@
 
   if (self->_humansDetected)
   {
-    v56 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+    v63 = __ABPKLogSharedInstance(v29);
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
     {
-      *v87 = 0;
-      _os_log_impl(&dword_23EDDC000, v56, OS_LOG_TYPE_DEBUG, " No humans detected in the image ", v87, 2u);
+      *v97 = 0;
+      _os_log_impl(&dword_23EDDC000, v63, OS_LOG_TYPE_DEBUG, " No humans detected in the image ", v97, 2u);
     }
 
 LABEL_68:
@@ -305,15 +462,14 @@ LABEL_68:
   }
 
 LABEL_69:
-  v71 = -6661;
+  v82 = -6661;
 LABEL_70:
-  *v87 = v90;
-  std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](v87);
-  *v90 = buf;
-  std::vector<abpk::HeatmapPersonData>::__destroy_vector::operator()[abi:ne200100](v90);
+  *v97 = v100;
+  std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](v97);
+  *v100 = buf;
+  std::vector<abpk::HeatmapPersonData>::__destroy_vector::operator()[abi:ne200100](v100);
 
-  v72 = *MEMORY[0x277D85DE8];
-  return v71;
+  return v82;
 }
 
 - (void)getRawTrackedHumanSkeleton:(id)skeleton

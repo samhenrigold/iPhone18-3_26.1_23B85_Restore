@@ -136,10 +136,9 @@ void __34__HTDeveloperAppsFinder_findApps___block_invoke_2(uint64_t a1, void *a2
 uint64_t __34__HTDeveloperAppsFinder_findApps___block_invoke_3(uint64_t a1)
 {
   NSLog(&cfstr_ReportingTheEr.isa);
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 uint64_t __34__HTDeveloperAppsFinder_findApps___block_invoke_4(uint64_t a1, void *a2)
@@ -177,28 +176,28 @@ uint64_t __34__HTDeveloperAppsFinder_findApps___block_invoke_6(uint64_t a1, void
 
 - (void)checkProxiesForDeveloperAppAndNotifyDelegate:(id)delegate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   delegateCopy = delegate;
-  v5 = [delegateCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [delegateCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   v6 = delegateCopy;
   if (v5)
   {
     v7 = v5;
-    v8 = *v15;
+    v8 = *v14;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v15 != v8)
+      if (*v14 != v8)
       {
         objc_enumerationMutation(delegateCopy);
       }
 
-      correspondingApplicationRecord = [*(*(&v14 + 1) + 8 * v9) correspondingApplicationRecord];
+      correspondingApplicationRecord = [*(*(&v13 + 1) + 8 * v9) correspondingApplicationRecord];
       isDeveloperApp = [correspondingApplicationRecord isDeveloperApp];
 
       if (isDeveloperApp)
@@ -208,7 +207,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [delegateCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [delegateCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -232,7 +231,6 @@ LABEL_3:
 LABEL_12:
 
 LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HTDeveloperAppsFinderDelegate)delegate

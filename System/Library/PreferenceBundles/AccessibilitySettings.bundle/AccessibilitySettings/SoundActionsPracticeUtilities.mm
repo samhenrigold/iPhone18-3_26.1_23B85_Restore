@@ -21,9 +21,11 @@
 
 void __47__SoundActionsPracticeUtilities_sharedInstance__block_invoke(id a1)
 {
-  sharedInstance___SharedUtils = objc_alloc_init(SoundActionsPracticeUtilities);
+  v1 = objc_alloc_init(SoundActionsPracticeUtilities);
+  v2 = sharedInstance___SharedUtils;
+  sharedInstance___SharedUtils = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 - (id)dataForSoundUsage:(int64_t)usage assetURL:(id)l

@@ -590,18 +590,14 @@ LABEL_120:
 
 - (void)setGroupAllResults:(id)results
 {
-  v4 = convertResultToObjCInArrayIfNecessary(results);
-  groupAllResults = self->groupAllResults;
-  self->groupAllResults = v4;
+  self->groupAllResults = convertResultToObjCInArrayIfNecessary(results);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setExistingDDResultsList:(id)list
 {
-  v4 = convertResultToObjCInArrayIfNecessary(list);
-  existingDDResultsList = self->existingDDResultsList;
-  self->existingDDResultsList = v4;
+  self->existingDDResultsList = convertResultToObjCInArrayIfNecessary(list);
 
   MEMORY[0x2821F96F8]();
 }

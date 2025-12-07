@@ -36,51 +36,54 @@
 
 + (id)_overridableGestaltForKey:(__CFString *)key expectedClass:(Class)class
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = MGCopyAnswer();
   if (v6)
   {
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v7 = *DMCLogObjects();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v9 = *DMCLogObjects(isKindOfClass, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        v8 = v7;
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = NSStringFromClass(class);
-        v20 = 138543618;
-        v21 = v10;
-        v22 = 2114;
-        v23 = v11;
-        _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_FAULT, "MobileGestalt returned unexpected class %{public}@, expected %{public}@", &v20, 0x16u);
+        v10 = v9;
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
+        v13 = NSStringFromClass(class);
+        v23 = 138543618;
+        v24 = v12;
+        v25 = 2114;
+        v26 = v13;
+        _os_log_impl(&dword_1B1630000, v10, OS_LOG_TYPE_FAULT, "MobileGestalt returned unexpected class %{public}@, expected %{public}@", &v23, 0x16u);
       }
     }
   }
 
-  v12 = [DMCFeatureOverrides gestaltOverrideForKey:key withDefaultValue:v6];
-  if (v12 && (objc_opt_isKindOfClass() & 1) == 0)
+  v14 = [DMCFeatureOverrides gestaltOverrideForKey:key withDefaultValue:v6];
+  if (v14)
   {
-    v13 = *DMCLogObjects();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = objc_opt_isKindOfClass();
+    if ((v15 & 1) == 0)
     {
-      v14 = v13;
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = NSStringFromClass(class);
-      v20 = 138543618;
-      v21 = v16;
-      v22 = 2114;
-      v23 = v17;
-      _os_log_impl(&dword_1B1630000, v14, OS_LOG_TYPE_ERROR, "MobileGestalt override returned unexpected class %{public}@, expected %{public}@", &v20, 0x16u);
-    }
+      v17 = *DMCLogObjects(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        v18 = v17;
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
+        v21 = NSStringFromClass(class);
+        v23 = 138543618;
+        v24 = v20;
+        v25 = 2114;
+        v26 = v21;
+        _os_log_impl(&dword_1B1630000, v18, OS_LOG_TYPE_ERROR, "MobileGestalt override returned unexpected class %{public}@, expected %{public}@", &v23, 0x16u);
+      }
 
-    v12 = 0;
+      v14 = 0;
+    }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v14;
 }
 
 + (id)deviceClass

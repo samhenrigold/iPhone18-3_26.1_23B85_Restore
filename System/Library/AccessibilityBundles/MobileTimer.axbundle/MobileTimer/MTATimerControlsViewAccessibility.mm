@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)layoutSubviews;
+- (void)setState:(unint64_t)state animate:(BOOL)animate;
 @end
 
 @implementation MTATimerControlsViewAccessibility
@@ -32,6 +33,14 @@
   v3 = accessibilityLocalizedString(@"alarm.selected");
   v4 = [(MTATimerControlsViewAccessibility *)self safeUIViewForKey:@"_expectedTimeView"];
   [v4 setAccessibilityLabel:v3];
+}
+
+- (void)setState:(unint64_t)state animate:(BOOL)animate
+{
+  v5.receiver = self;
+  v5.super_class = MTATimerControlsViewAccessibility;
+  [(MTATimerControlsViewAccessibility *)&v5 setState:state animate:animate];
+  [(MTATimerControlsViewAccessibility *)self _accessibilityRemoveValueForKey:*MEMORY[0x29EDC7620]];
 }
 
 @end

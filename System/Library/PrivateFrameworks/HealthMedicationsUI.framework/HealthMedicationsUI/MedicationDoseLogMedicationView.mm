@@ -19,9 +19,8 @@
   swift_unknownObjectRelease();
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC19HealthMedicationsUI31MedicationDoseLogMedicationView_viewModel);
 
-    sub_2282D2868(v6);
+    sub_2282D2868(v5);
 
     swift_unknownObjectRelease();
   }
@@ -30,7 +29,7 @@
   {
   }
 
-  __swift_destroy_boxed_opaque_existential_0(v7);
+  __swift_destroy_boxed_opaque_existential_0(v6);
 }
 
 @end

@@ -7,6 +7,7 @@
 - (id)editMenuInteraction:(id)interaction menuForConfiguration:(id)configuration suggestedActions:(id)actions;
 - (void)_updateBackgroundColor:(BOOL)color;
 - (void)editMenuInteraction:(id)interaction willDismissMenuForConfiguration:(id)configuration animator:(id)animator;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 - (void)touchesBegan:(id)began withEvent:(id)event;
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event;
 - (void)touchesEnded:(id)ended withEvent:(id)event;
@@ -46,28 +47,28 @@ void __42__MUPlaceSectionRowView__createCopyAction__block_invoke(uint64_t a1)
 
 - (id)_speechMenuElementFromSuggestedActions:(id)actions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   actionsCopy = actions;
-  v4 = [actionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [actionsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = *MEMORY[0x1E69DE1B0];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(actionsCopy);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -82,7 +83,7 @@ void __42__MUPlaceSectionRowView__createCopyAction__block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [actionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [actionsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -90,8 +91,6 @@ void __42__MUPlaceSectionRowView__createCopyAction__block_invoke(uint64_t a1)
 
   v10 = 0;
 LABEL_12:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -207,6 +206,31 @@ LABEL_12:
   else
   {
     [(MUPlaceSectionRowView *)self _mapkit_setBackgroundColor:v5];
+  }
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  if (self->_selected != selected)
+  {
+    animatedCopy = animated;
+    self->_selected = selected;
+    if (selected && [(MUPlaceSectionRowView *)self supportsInteractionMenuItems])
+    {
+      [(MUPlaceSectionRowView *)self center];
+      v8 = v7;
+      v10 = v9;
+      superview = [(MUPlaceSectionRowView *)self superview];
+      [(MUPlaceSectionRowView *)self convertPoint:superview fromView:v8, v10];
+      v13 = v12;
+      v15 = v14;
+
+      editMenuInteraction = self->_editMenuInteraction;
+      v17 = [MEMORY[0x1E69DC9D8] configurationWithIdentifier:@"MUPlaceSectionRowViewMenu" sourcePoint:{v13, v15}];
+      [(UIEditMenuInteraction *)editMenuInteraction presentEditMenuWithConfiguration:v17];
+    }
+
+    [(MUPlaceSectionRowView *)self _updateBackgroundColor:animatedCopy];
   }
 }
 

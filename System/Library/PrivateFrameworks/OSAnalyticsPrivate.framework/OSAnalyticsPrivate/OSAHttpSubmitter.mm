@@ -31,7 +31,7 @@
 
 - (void)postContent:(id)content withHeaders:(id)headers toEndpoint:(int)endpoint
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   contentCopy = content;
   headersCopy = headers;
   response = self->_response;
@@ -46,7 +46,7 @@
   responseError = self->super._responseError;
   self->super._responseError = 0;
 
-  v39 = contentCopy;
+  v38 = contentCopy;
   endpointCopy = endpoint;
   if (endpoint == 2)
   {
@@ -75,37 +75,37 @@
   [v21 setNetworkServiceType:5];
   [v21 setHTTPShouldHandleCookies:0];
   [v21 setHTTPMethod:@"POST"];
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v22 = headersCopy;
-  v23 = [v22 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v41;
+    v25 = *v40;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v41 != v25)
+        if (*v40 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v40 + 1) + 8 * i);
+        v27 = *(*(&v39 + 1) + 8 * i);
         v28 = [v22 objectForKeyedSubscript:v27];
         [v21 setValue:v28 forHTTPHeaderField:v27];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v24);
   }
 
-  [v21 setHTTPBody:v39];
+  [v21 setHTTPBody:v38];
   defaultSessionConfiguration = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
   v30 = defaultSessionConfiguration;
   if (endpointCopy == 2)
@@ -129,22 +129,20 @@
     responseHeaders = self->super._responseHeaders;
     self->super._responseHeaders = allHeaderFields;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)abort
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OSAHttpSubmitter abort]";
+  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)cancelCurrentTask
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OSAHttpSubmitter cancelCurrentTask]";
+  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
@@ -176,7 +174,7 @@
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   errorCopy = error;
@@ -201,9 +199,9 @@
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412290;
-    v26 = errorCopy;
-    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Connection failed: %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = errorCopy;
+    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Connection failed: %@", &v24, 0xCu);
   }
 
   domain = [errorCopy domain];
@@ -225,14 +223,12 @@
 LABEL_9:
   [sessionCopy finishTasksAndInvalidate];
   dispatch_semaphore_signal(self->_submissionSem);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didSendBodyData:(int64_t)data totalBytesSent:(int64_t)sent totalBytesExpectedToSend:(int64_t)send
 {
   sentCopy = sent;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v12 = v11;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
@@ -249,14 +245,14 @@ LABEL_9:
     self->_thoughput_warnings = v16;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v22 = v12 - self->_last_thoughput_check;
+      v21 = v12 - self->_last_thoughput_check;
       thoughput_warnings = self->_thoughput_warnings;
       *buf = 134218496;
-      v27 = v22;
-      v28 = 2048;
-      v29 = v15;
-      v30 = 1024;
-      v31 = thoughput_warnings;
+      v26 = v21;
+      v27 = 2048;
+      v28 = v15;
+      v29 = 1024;
+      v30 = thoughput_warnings;
       _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "  deltat: %.5f, threshold: %.1f (warnings %d)", buf, 0x1Cu);
     }
   }
@@ -265,51 +261,48 @@ LABEL_9:
   if (self->_thoughput_warnings >= 2)
   {
     v17 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25 = @"Throughput threshold violation";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24 = @"Throughput threshold violation";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v19 = [v17 errorWithDomain:@"OSAHttpSubmitter" code:1 userInfo:v18];
     responseError = self->super._responseError;
     self->super._responseError = v19;
 
     [(OSAHttpSubmitter *)self abort];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(uint64_t)a3 dataTask:(uint64_t)a4 didReceiveResponse:(uint64_t)a5 completionHandler:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OSAHttpSubmitter URLSession:dataTask:didReceiveResponse:completionHandler:]";
+  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)URLSession:(uint64_t)a3 dataTask:(uint64_t)a4 didReceiveData:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OSAHttpSubmitter URLSession:dataTask:didReceiveData:]";
+  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)URLSession:(uint64_t)a3 task:(uint64_t)a4 didCompleteWithError:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OSAHttpSubmitter URLSession:task:didCompleteWithError:]";
+  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)URLSession:(int)a3 task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:.cold.1(int a1, int a2, int a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109632;
-  v4[1] = a1;
-  v5 = 1024;
-  v6 = a2;
-  v7 = 1024;
-  v8 = a3;
-  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "didSendBodyData %d (total %d of %d)", v4, 0x14u);
-  v3 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109632;
+  v3[1] = a1;
+  v4 = 1024;
+  v5 = a2;
+  v6 = 1024;
+  v7 = a3;
+  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "didSendBodyData %d (total %d of %d)", v3, 0x14u);
 }
 
 @end

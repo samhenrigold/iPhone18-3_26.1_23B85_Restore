@@ -6,7 +6,7 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v8 = MEMORY[0x1E695D5E0];
   v9 = +[PLGraphLabel entityName];
@@ -15,37 +15,37 @@
   1003 = [MEMORY[0x1E696AE18] predicateWithFormat:@"code == %d", 1003];
   [v10 setPredicate:1003];
 
-  v67 = 0;
-  v12 = [contextCopy executeFetchRequest:v10 error:&v67];
-  v13 = v67;
+  v69 = 0;
+  v12 = [contextCopy executeFetchRequest:v10 error:&v69];
+  v13 = v69;
   if (v12)
   {
     firstObject = [v12 firstObject];
     if (!firstObject)
     {
-      v27 = PLMigrationGetLog();
-      v28 = 1;
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v28 = PLMigrationGetLog();
+      v29 = 1;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        v28 = 1;
-        _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_INFO, "Did not find label with code PLBuiltInGraphLabelCodeSocialGroupKeyAssetUserPicked.", buf, 2u);
+        v29 = 1;
+        _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_INFO, "Did not find label with code PLBuiltInGraphLabelCodeSocialGroupKeyAssetUserPicked.", buf, 2u);
       }
 
-      goto LABEL_41;
+      goto LABEL_50;
     }
 
-    v61 = a2;
-    v64 = v13;
+    v63 = a2;
+    v66 = v13;
     selfCopy = self;
-    v63 = v12;
+    v65 = v12;
     v15 = contextCopy;
     v16 = [(PLManagedObject *)PLGraphEdge entityInManagedObjectContext:contextCopy];
     relationshipsByName = [v16 relationshipsByName];
     v18 = @"labels";
     v19 = [relationshipsByName objectForKey:@"labels"];
 
-    v62 = v16;
+    v64 = v16;
     if (v19)
     {
       v20 = 0;
@@ -54,10 +54,10 @@
     else
     {
       relationshipsByName2 = [v16 relationshipsByName];
-      v30 = [relationshipsByName2 objectForKey:@"additionalLabels"];
+      v31 = [relationshipsByName2 objectForKey:@"additionalLabels"];
 
-      v20 = v30 == 0;
-      if (v30)
+      v20 = v31 == 0;
+      if (v31)
       {
         v18 = @"additionalLabels";
       }
@@ -68,27 +68,29 @@
       }
     }
 
-    v31 = MEMORY[0x1E695D5E0];
-    v32 = +[PLGraphEdge entityName];
-    v33 = [v31 fetchRequestWithEntityName:v32];
+    v32 = MEMORY[0x1E695D5E0];
+    v33 = +[PLGraphEdge entityName];
+    v34 = [v32 fetchRequestWithEntityName:v33];
 
-    [v33 setResultType:1];
-    v34 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY %K = %@", v18, firstObject];
-    [v33 setPredicate:v34];
+    [v34 setResultType:1];
+    v35 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY %K = %@", v18, firstObject];
+    [v34 setPredicate:v35];
 
     if (v20)
     {
-      v35 = PLMigrationGetLog();
-      v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+      v36 = PLMigrationGetLog();
+      v37 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
 
       contextCopy = v15;
-      if (v36)
+      if (v37)
       {
         self = selfCopy;
         logger = [(PLModelMigrationActionCore *)selfCopy logger];
 
         if (logger)
         {
+          v102 = 0u;
+          v103 = 0u;
           v100 = 0u;
           v101 = 0u;
           v98 = 0u;
@@ -117,97 +119,106 @@
           v77 = 0u;
           v74 = 0u;
           v75 = 0u;
-          v72 = 0u;
-          v73 = 0u;
           *buf = 0u;
-          v71 = 0u;
-          v38 = PLMigrationGetLog();
-          os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
-          LOWORD(v68) = 0;
-          LODWORD(v59) = 2;
-          v39 = _os_log_send_and_compose_impl();
-
-          v40 = [(PLModelMigrationActionCore *)selfCopy logger:&v68];
-          [v40 logWithMessage:v39 fromCodeLocation:"PLModelMigrationActionPreSchema.m" type:{99, 16}];
-
-          v12 = v63;
-          if (v39 != buf)
+          v73 = 0u;
+          v39 = PLMigrationGetLog();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            free(v39);
+            v40 = 3;
+          }
+
+          else
+          {
+            v40 = 2;
+          }
+
+          LOWORD(v70) = 0;
+          LODWORD(v61) = 2;
+          v41 = _os_log_send_and_compose_impl(v40, 0, buf, 512, &dword_19BF1F000, v39, 16, "Failed to identify the relationship name for Edge.additionalLabels during pre schema migration.", &v70, v61);
+
+          logger2 = [(PLModelMigrationActionCore *)selfCopy logger];
+          [logger2 logWithMessage:v41 fromCodeLocation:"PLModelMigrationActionPreSchema.m" type:{99, 16}];
+
+          v12 = v65;
+          if (v41 != buf)
+          {
+            free(v41);
           }
         }
 
         else
         {
-          v51 = PLMigrationGetLog();
-          v12 = v63;
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          v54 = PLMigrationGetLog();
+          v12 = v65;
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_ERROR, "Failed to identify the relationship name for Edge.additionalLabels during pre schema migration.", buf, 2u);
+            _os_log_impl(&dword_19BF1F000, v54, OS_LOG_TYPE_ERROR, "Failed to identify the relationship name for Edge.additionalLabels during pre schema migration.", buf, 2u);
           }
         }
 
-        v28 = 1;
+        v29 = 1;
       }
 
       else
       {
-        v28 = 1;
-        v12 = v63;
+        v29 = 1;
+        v12 = v65;
         self = selfCopy;
       }
 
-      v27 = v62;
-      goto LABEL_40;
+      v28 = v64;
+      goto LABEL_49;
     }
 
-    v66 = 0;
+    v68 = 0;
     contextCopy = v15;
-    v41 = [v15 executeFetchRequest:v33 error:&v66];
-    v60 = v66;
-    if (v41)
+    v43 = [v15 executeFetchRequest:v34 error:&v68];
+    v62 = v68;
+    if (v43)
     {
       migrationContextUserInfo = [(PLModelMigrationActionCore *)selfCopy migrationContextUserInfo];
 
-      v12 = v63;
+      v12 = v65;
       if (!migrationContextUserInfo)
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        [currentHandler handleFailureInMethod:v61 object:selfCopy file:@"PLModelMigrationActionPreSchema.m" lineNumber:90 description:@"migrationContextUserInfo should not be nil."];
+        [currentHandler handleFailureInMethod:v63 object:selfCopy file:@"PLModelMigrationActionPreSchema.m" lineNumber:90 description:@"migrationContextUserInfo should not be nil."];
       }
 
       migrationContextUserInfo2 = [(PLModelMigrationActionCore *)selfCopy migrationContextUserInfo];
-      [migrationContextUserInfo2 setObject:v41 forKeyedSubscript:@"socialGroupUserPickAssetEdgeIDs"];
+      [migrationContextUserInfo2 setObject:v43 forKeyedSubscript:@"socialGroupUserPickAssetEdgeIDs"];
 
-      v28 = 1;
+      v29 = 1;
     }
 
     else
     {
-      v44 = PLMigrationGetLog();
-      v45 = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
+      v46 = PLMigrationGetLog();
+      v47 = os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
 
-      if (v45)
+      if (v47)
       {
-        logger2 = [(PLModelMigrationActionCore *)selfCopy logger];
+        logger3 = [(PLModelMigrationActionCore *)selfCopy logger];
 
-        if (!logger2)
+        if (!logger3)
         {
-          v56 = PLMigrationGetLog();
-          v27 = v62;
-          v12 = v63;
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+          v59 = PLMigrationGetLog();
+          v28 = v64;
+          v12 = v65;
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *&buf[4] = v64;
-            _os_log_impl(&dword_19BF1F000, v56, OS_LOG_TYPE_ERROR, "Failed to fetch edges with user picked label with error: %@", buf, 0xCu);
+            *&buf[4] = v66;
+            _os_log_impl(&dword_19BF1F000, v59, OS_LOG_TYPE_ERROR, "Failed to fetch edges with user picked label with error: %@", buf, 0xCu);
           }
 
-          v28 = 3;
-          goto LABEL_30;
+          v29 = 3;
+          goto LABEL_39;
         }
 
+        v102 = 0u;
+        v103 = 0u;
         v100 = 0u;
         v101 = 0u;
         v98 = 0u;
@@ -236,40 +247,47 @@
         v77 = 0u;
         v74 = 0u;
         v75 = 0u;
-        v72 = 0u;
-        v73 = 0u;
         *buf = 0u;
-        v71 = 0u;
-        v47 = PLMigrationGetLog();
-        os_log_type_enabled(v47, OS_LOG_TYPE_ERROR);
-        v68 = 138412290;
-        v69 = v64;
-        LODWORD(v59) = 12;
-        v48 = _os_log_send_and_compose_impl();
-
-        v49 = [(PLModelMigrationActionCore *)selfCopy logger:&v68];
-        [v49 logWithMessage:v48 fromCodeLocation:"PLModelMigrationActionPreSchema.m" type:{94, 16}];
-
-        if (v48 != buf)
+        v73 = 0u;
+        v49 = PLMigrationGetLog();
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
-          free(v48);
+          v50 = 3;
+        }
+
+        else
+        {
+          v50 = 2;
+        }
+
+        v70 = 138412290;
+        v71 = v66;
+        LODWORD(v61) = 12;
+        v51 = _os_log_send_and_compose_impl(v50, 0, buf, 512, &dword_19BF1F000, v49, 16, "Failed to fetch edges with user picked label with error: %@", &v70, v61);
+
+        logger4 = [(PLModelMigrationActionCore *)selfCopy logger];
+        [logger4 logWithMessage:v51 fromCodeLocation:"PLModelMigrationActionPreSchema.m" type:{94, 16}];
+
+        if (v51 != buf)
+        {
+          free(v51);
         }
       }
 
-      v28 = 3;
-      v12 = v63;
+      v29 = 3;
+      v12 = v65;
     }
 
-    v27 = v62;
-LABEL_30:
+    v28 = v64;
+LABEL_39:
 
     self = selfCopy;
-LABEL_40:
+LABEL_49:
 
-    v13 = v64;
-LABEL_41:
+    v13 = v66;
+LABEL_50:
 
-    goto LABEL_42;
+    goto LABEL_51;
   }
 
   v21 = PLMigrationGetLog();
@@ -277,10 +295,12 @@ LABEL_41:
 
   if (v22)
   {
-    logger3 = [(PLModelMigrationActionCore *)self logger];
+    logger5 = [(PLModelMigrationActionCore *)self logger];
 
-    if (logger3)
+    if (logger5)
     {
+      v102 = 0u;
+      v103 = 0u;
       v100 = 0u;
       v101 = 0u;
       v98 = 0u;
@@ -309,50 +329,56 @@ LABEL_41:
       v77 = 0u;
       v74 = 0u;
       v75 = 0u;
-      v72 = 0u;
-      v73 = 0u;
       *buf = 0u;
-      v71 = 0u;
+      v73 = 0u;
       v24 = PLMigrationGetLog();
-      os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
-      v68 = 138412290;
-      v69 = v13;
-      LODWORD(v58) = 12;
-      v25 = _os_log_send_and_compose_impl();
-
-      v26 = [(PLModelMigrationActionCore *)self logger:&v68];
-      [v26 logWithMessage:v25 fromCodeLocation:"PLModelMigrationActionPreSchema.m" type:{107, 16}];
-
-      if (v25 != buf)
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        free(v25);
+        v25 = 3;
+      }
+
+      else
+      {
+        v25 = 2;
+      }
+
+      v70 = 138412290;
+      v71 = v13;
+      v26 = _os_log_send_and_compose_impl(v25, 0, buf, 512, &dword_19BF1F000, v24, 16, "Failed to fetch labels with error: %@", &v70, 12);
+
+      logger6 = [(PLModelMigrationActionCore *)self logger];
+      [logger6 logWithMessage:v26 fromCodeLocation:"PLModelMigrationActionPreSchema.m" type:{107, 16}];
+
+      if (v26 != buf)
+      {
+        free(v26);
       }
     }
 
     else
     {
-      v50 = PLMigrationGetLog();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v53 = PLMigrationGetLog();
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         *&buf[4] = v13;
-        _os_log_impl(&dword_19BF1F000, v50, OS_LOG_TYPE_ERROR, "Failed to fetch labels with error: %@", buf, 0xCu);
+        _os_log_impl(&dword_19BF1F000, v53, OS_LOG_TYPE_ERROR, "Failed to fetch labels with error: %@", buf, 0xCu);
       }
     }
   }
 
-  v28 = 3;
-LABEL_42:
+  v29 = 3;
+LABEL_51:
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  v52 = v13;
-  v53 = v52;
-  if (v28 != 1 && error)
+  v55 = v13;
+  v56 = v55;
+  if (v29 != 1 && error)
   {
-    v54 = v52;
-    *error = v53;
+    v57 = v55;
+    *error = v56;
   }
 
-  return v28;
+  return v29;
 }
 
 @end

@@ -1,16 +1,20 @@
 @interface PKDaemonClient
 + (id)convertToXPC:(id)c version:(unint64_t)version;
 - (PKDaemonClient)initWithConnection:(id)connection queue:(id)queue user:(unsigned int)user;
+- (PKDaemonClient)initWithServiceName:(const char *)name user:(unsigned int)user;
 - (id)convertFromXPC:(id)c;
 - (id)errorInReply:(id)reply;
 - (id)request:(const char *)request;
 - (id)request:(const char *)request paths:(id)paths;
+- (void)accessPlugIns:(id)ins synchronously:(BOOL)synchronously flags:(unint64_t)flags reply:(id)reply;
 - (void)addPlugIns:(id)ins reply:(id)reply;
 - (void)bulkPlugins:(unint64_t)plugins reply:(id)reply;
 - (void)bulkSetPluginAnnotations:(id)annotations reply:(id)reply;
 - (void)findPlugInByPathURL:(id)l reply:(id)reply;
+- (void)findPlugInByUUID:(id)d synchronously:(BOOL)synchronously reply:(id)reply;
 - (void)holdPlugins:(id)plugins extensionPointName:(id)name platforms:(id)platforms flags:(unint64_t)flags reply:(id)reply;
 - (void)matchPlugIns:(id)ins flags:(unint64_t)flags uuid:(id)uuid reply:(id)reply;
+- (void)readyPlugIns:(id)ins synchronously:(BOOL)synchronously flags:(unint64_t)flags environment:(id)environment languages:(id)languages persona:(id)persona sandbox:(id)sandbox reply:(id)self0;
 - (void)releaseHold:(id)hold flags:(unint64_t)flags reply:(id)reply;
 - (void)removePlugIns:(id)ins reply:(id)reply;
 - (void)sendSynchronously:(BOOL)synchronously request:(id)request retry:(BOOL)retry reply:(id)reply;
@@ -21,13 +25,35 @@
 
 @implementation PKDaemonClient
 
+- (PKDaemonClient)initWithServiceName:(const char *)name user:(unsigned int)user
+{
+  v4 = *&user;
+  if (name)
+  {
+    nameCopy = name;
+  }
+
+  else
+  {
+    nameCopy = "com.apple.pluginkit.pkd";
+  }
+
+  v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v8 = dispatch_queue_create("pkd_client", v7);
+
+  mach_service = xpc_connection_create_mach_service(nameCopy, v8, 0);
+  v10 = [(PKDaemonClient *)self initWithConnection:mach_service queue:v8 user:v4];
+
+  return v10;
+}
+
 - (PKDaemonClient)initWithConnection:(id)connection queue:(id)queue user:(unsigned int)user
 {
   connectionCopy = connection;
   queueCopy = queue;
-  v22.receiver = self;
-  v22.super_class = PKDaemonClient;
-  v11 = [(PKDaemonClient *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = PKDaemonClient;
+  v11 = [(PKDaemonClient *)&v21 init];
   v12 = v11;
   if (v11)
   {
@@ -35,21 +61,20 @@
     objc_storeStrong(&v12->_pkd, connection);
     objc_initWeak(&location, v12);
     pkd = v12->_pkd;
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = sub_1C68ACFA8;
-    v19 = &unk_1E827F9F0;
-    objc_copyWeak(&v20, &location);
-    xpc_connection_set_event_handler(pkd, &v16);
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = sub_1C68ACFA8;
+    v18 = &unk_1E827F9F0;
+    objc_copyWeak(&v19, &location);
+    xpc_connection_set_event_handler(pkd, &v15);
     if (user)
     {
-      v14 = v12->_pkd;
       xpc_connection_set_target_uid();
     }
 
-    [(PKDaemonClient *)v12 setProtocolVersion:3, v16, v17, v18, v19];
+    [(PKDaemonClient *)v12 setProtocolVersion:3, v15, v16, v17, v18];
     xpc_connection_resume(v12->_pkd);
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 
@@ -120,6 +145,94 @@ LABEL_11:
   [(PKDaemonClient *)self send:v7 reply:replyCopy];
 }
 
+- (void)readyPlugIns:(id)ins synchronously:(BOOL)synchronously flags:(unint64_t)flags environment:(id)environment languages:(id)languages persona:(id)persona sandbox:(id)sandbox reply:(id)self0
+{
+  synchronouslyCopy = synchronously;
+  v30 = *MEMORY[0x1E69E9840];
+  insCopy = ins;
+  environmentCopy = environment;
+  languagesCopy = languages;
+  personaCopy = persona;
+  sandboxCopy = sandbox;
+  replyCopy = reply;
+  v22 = [(PKDaemonClient *)self request:"ready"];
+  xpc_dictionary_set_uint64(v22, "flags", flags);
+  if (environmentCopy)
+  {
+    v23 = _CFXPCCreateXPCObjectFromCFObject();
+    xpc_dictionary_set_value(v22, "environment", v23);
+  }
+
+  if ([languagesCopy count])
+  {
+    v24 = pklog_handle_for_category(1);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    {
+      v28 = 138412290;
+      v29 = languagesCopy;
+      _os_log_impl(&dword_1C6892000, v24, OS_LOG_TYPE_INFO, "Setting app-specific languages: %@", &v28, 0xCu);
+    }
+
+    v25 = _CFXPCCreateXPCObjectFromCFObject();
+    xpc_dictionary_set_value(v22, "preferredlanguages", v25);
+  }
+
+  if (personaCopy)
+  {
+    personaUniqueString = [personaCopy personaUniqueString];
+
+    if (personaUniqueString)
+    {
+      personaUniqueString2 = [personaCopy personaUniqueString];
+      xpc_dictionary_set_string(v22, "persona", [personaUniqueString2 UTF8String]);
+    }
+
+    else
+    {
+      personaUniqueString2 = pklog_handle_for_category(1);
+      if (os_log_type_enabled(personaUniqueString2, OS_LOG_TYPE_ERROR))
+      {
+        sub_1C68B70B4();
+      }
+    }
+  }
+
+  if (sandboxCopy)
+  {
+    xpc_dictionary_set_string(v22, "sandbox", [sandboxCopy UTF8String]);
+  }
+
+  [(PKDaemonClient *)self set:v22 plugins:insCopy];
+  [(PKDaemonClient *)self sendSynchronously:synchronouslyCopy request:v22 reply:replyCopy];
+}
+
+- (void)accessPlugIns:(id)ins synchronously:(BOOL)synchronously flags:(unint64_t)flags reply:(id)reply
+{
+  synchronouslyCopy = synchronously;
+  replyCopy = reply;
+  insCopy = ins;
+  v12 = [(PKDaemonClient *)self request:"access"];
+  xpc_dictionary_set_uint64(v12, "flags", flags);
+  [(PKDaemonClient *)self set:v12 plugins:insCopy];
+
+  [(PKDaemonClient *)self sendSynchronously:synchronouslyCopy request:v12 reply:replyCopy];
+}
+
+- (void)findPlugInByUUID:(id)d synchronously:(BOOL)synchronously reply:(id)reply
+{
+  synchronouslyCopy = synchronously;
+  v13 = *MEMORY[0x1E69E9840];
+  *uuid = 0;
+  v12 = 0;
+  replyCopy = reply;
+  dCopy = d;
+  v10 = [(PKDaemonClient *)self request:"find"];
+  [dCopy getUUIDBytes:uuid];
+
+  xpc_dictionary_set_uuid(v10, "uuids", uuid);
+  [(PKDaemonClient *)self sendSynchronously:synchronouslyCopy request:v10 reply:replyCopy];
+}
+
 - (void)findPlugInByPathURL:(id)l reply:(id)reply
 {
   replyCopy = reply;
@@ -133,9 +246,9 @@ LABEL_11:
 
 - (void)matchPlugIns:(id)ins flags:(unint64_t)flags uuid:(id)uuid reply:(id)reply
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   *uuid = 0;
-  v16 = 0;
+  v15 = 0;
   replyCopy = reply;
   insCopy = ins;
   [uuid getUUIDBytes:uuid];
@@ -146,8 +259,6 @@ LABEL_11:
   xpc_dictionary_set_uint64(v12, "flags", flags);
   xpc_dictionary_set_uuid(v12, "uuids", uuid);
   [(PKDaemonClient *)self sendSynchronously:(flags >> 10) & 1 request:v12 retry:1 reply:replyCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPluginAnnotations:(id)annotations annotations:(id)a4 reply:(id)reply
@@ -176,7 +287,7 @@ LABEL_11:
 
 - (void)holdPlugins:(id)plugins extensionPointName:(id)name platforms:(id)platforms flags:(unint64_t)flags reply:(id)reply
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   pluginsCopy = plugins;
   nameCopy = name;
   platformsCopy = platforms;
@@ -200,15 +311,15 @@ LABEL_11:
       selfCopy = self;
       flagsCopy = flags;
       v17 = xpc_array_create(0, 0);
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       v18 = platformsCopy;
-      v19 = [v18 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v19)
       {
-        v20 = *v27;
+        v20 = *v26;
         do
         {
           v21 = 0;
@@ -224,16 +335,16 @@ LABEL_11:
 
           do
           {
-            if (*v27 != v20)
+            if (*v26 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            xpc_array_set_uint64(v17, 0xFFFFFFFFFFFFFFFFLL, [*(*(&v26 + 1) + 8 * v21++) unsignedLongLongValue]);
+            xpc_array_set_uint64(v17, 0xFFFFFFFFFFFFFFFFLL, [*(*(&v25 + 1) + 8 * v21++) unsignedLongLongValue]);
           }
 
           while (v22 != v21);
-          v19 = [v18 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v19);
@@ -247,24 +358,20 @@ LABEL_11:
 
   xpc_dictionary_set_uint64(v16, "flags", flags);
   [(PKDaemonClient *)self sendSynchronously:(flags >> 3) & 1 request:v16 reply:replyCopy];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)releaseHold:(id)hold flags:(unint64_t)flags reply:(id)reply
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   holdCopy = hold;
   v10 = [(PKDaemonClient *)self request:"lock"];
-  v13[0] = holdCopy;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = holdCopy;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
 
   [(PKDaemonClient *)self set:v10 uuids:v11];
   xpc_dictionary_set_uint64(v10, "flags", flags);
   [(PKDaemonClient *)self sendSynchronously:(flags >> 3) & 1 request:v10 reply:replyCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)request:(const char *)request
@@ -291,18 +398,18 @@ LABEL_11:
 {
   retryCopy = retry;
   synchronouslyCopy = synchronously;
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   replyCopy = reply;
   objc_initWeak(&location, self);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = sub_1C68AE17C;
-  v27[3] = &unk_1E827FA18;
-  objc_copyWeak(&v29, &location);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = sub_1C68AE17C;
+  v26[3] = &unk_1E827FA18;
+  objc_copyWeak(&v28, &location);
   v12 = replyCopy;
-  v28 = v12;
-  v13 = MEMORY[0x1C6960190](v27);
+  v27 = v12;
+  v13 = MEMORY[0x1C6960190](v26);
   if (synchronouslyCopy)
   {
     v14 = xpc_connection_send_message_with_reply_sync(self->_pkd, requestCopy);
@@ -347,19 +454,17 @@ LABEL_11:
     handler[1] = 3221225472;
     handler[2] = sub_1C68AE224;
     handler[3] = &unk_1E827FA68;
-    objc_copyWeak(&v25, &location);
-    v26 = retryCopy;
-    v23 = requestCopy;
-    v24 = v13;
-    xpc_connection_send_message_with_reply(pkd, v23, replyQueue, handler);
+    objc_copyWeak(&v24, &location);
+    v25 = retryCopy;
+    v22 = requestCopy;
+    v23 = v13;
+    xpc_connection_send_message_with_reply(pkd, v22, replyQueue, handler);
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
   }
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)set:(id)set plugins:(id)plugins
@@ -388,19 +493,19 @@ LABEL_11:
 
 - (void)set:(id)set uuids:(id)uuids
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   setCopy = set;
   uuidsCopy = uuids;
   v7 = xpc_array_create(0, 0);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = uuidsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
@@ -416,28 +521,27 @@ LABEL_11:
 
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v11);
+        v13 = *(*(&v14 + 1) + 8 * v11);
         *uuid = 0;
-        v20 = 0;
-        [v13 getUUIDBytes:{uuid, v15}];
+        v19 = 0;
+        [v13 getUUIDBytes:{uuid, v14}];
         xpc_array_set_uuid(v7, 0xFFFFFFFFFFFFFFFFLL, uuid);
         ++v11;
       }
 
       while (v12 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v9);
   }
 
   xpc_dictionary_set_value(setCopy, "uuids", v7);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)convertToXPC:(id)c version:(unint64_t)version

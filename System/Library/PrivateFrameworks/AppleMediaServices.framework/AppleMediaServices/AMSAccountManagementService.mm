@@ -384,7 +384,7 @@ uint64_t __71__AMSAccountManagementService_performCreateLocalAccountWithIdentifi
   [v15 invalidate];
 }
 
-void __77__AMSAccountManagementService_performCreateLocalAccountWithIdentifier_error___block_invoke(uint64_t a1, int a2, void *a3)
+void __77__AMSAccountManagementService_performCreateLocalAccountWithIdentifier_error___block_invoke(void *a1, int a2, void *a3)
 {
   v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -398,11 +398,11 @@ void __77__AMSAccountManagementService_performCreateLocalAccountWithIdentifier_e
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = MEMORY[0x1E696AEC0];
-    v9 = *(a1 + 32);
+    v9 = a1[4];
     v10 = objc_opt_class();
     if (v9)
     {
-      [v8 stringWithFormat:@"%@: [%@] ", v10, *(a1 + 32)];
+      [v8 stringWithFormat:@"%@: [%@] ", v10, a1[4]];
     }
 
     else
@@ -425,7 +425,7 @@ void __77__AMSAccountManagementService_performCreateLocalAccountWithIdentifier_e
   }
 
   v14 = [v5 copy];
-  v15 = *(*(a1 + 48) + 8);
+  v15 = *(a1[6] + 8);
   v16 = *(v15 + 40);
   *(v15 + 40) = v14;
 }

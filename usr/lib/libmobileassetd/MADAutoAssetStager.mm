@@ -6445,12 +6445,12 @@ void __66__MADAutoAssetStager__extendSummaryWithAvailableForStagingAssets___bloc
   stagedPriorToAvailable = [descriptorCopy stagedPriorToAvailable];
   stagedFromOSVersion = [descriptorCopy stagedFromOSVersion];
   stagedFromBuildVersion = [descriptorCopy stagedFromBuildVersion];
-  patchingAttemptError = [descriptorCopy patchingAttemptError];
+  v26 = objc_msgSend_patchingAttemptError(descriptorCopy);
   BYTE1(v40) = stagedPriorToAvailable;
   LOBYTE(v40) = patchingAttempted;
   v27 = v51;
   LOBYTE(v39) = isPatch;
-  v28 = [v46 initWithAssetSelector:v51 withNotifications:v45 withAvailableForUseAttributes:metadata withNewerVersionAttributes:0 withNeverBeenLocked:1 withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:0 withDownloadedNetworkBytes:v47 withDownloadedFilesystemBytes:downloadedFilesystemBytes withDownloadedAsPatch:v39 withPatchedFromBaseSelector:patchedFromBaseSelector withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes withPatchingAttempted:v40 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:patchingAttemptError withPatchingAttemptError:0 withNewerVersionError:?];
+  v28 = [v46 initWithAssetSelector:v51 withNotifications:v45 withAvailableForUseAttributes:metadata withNewerVersionAttributes:0 withNeverBeenLocked:1 withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:0 withDownloadedNetworkBytes:v47 withDownloadedFilesystemBytes:downloadedFilesystemBytes withDownloadedAsPatch:v39 withPatchedFromBaseSelector:patchedFromBaseSelector withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes withPatchingAttempted:v40 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:v26 withPatchingAttemptError:0 withNewerVersionError:?];
 
   v29 = [MAAutoAssetSummary alloc];
   LOBYTE(downloadedFilesystemBytes) = objc_opt_respondsToSelector();
@@ -10093,12 +10093,12 @@ LABEL_22:
         stagingFromOSVersion = [(MADAutoAssetStager *)self stagingFromOSVersion];
         stagingFromBuildVersion = [(MADAutoAssetStager *)self stagingFromBuildVersion];
         availableForUseError = [currentStatus availableForUseError];
-        patchingAttemptError = [currentStatus patchingAttemptError];
+        v36 = objc_msgSend_patchingAttemptError(currentStatus);
         newerVersionError = [currentStatus newerVersionError];
         BYTE1(v63) = 1;
         LOBYTE(v63) = patchingAttempted;
         LOBYTE(v62) = downloadedAsPatch;
-        v38 = [v67 initWithAssetSelector:assetSelector withNotifications:notifications withAvailableForUseAttributes:availableForUseAttributes withNewerVersionAttributes:newerVersionAttributes withNeverBeenLocked:1 withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:v74 withDownloadedNetworkBytes:downloadedNetworkBytes withDownloadedFilesystemBytes:downloadedFilesystemBytes withDownloadedAsPatch:v62 withPatchedFromBaseSelector:patchedFromBaseSelector withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes withPatchingAttempted:v63 withStagedPriorToAvailable:stagingFromOSVersion withStagedFromOSVersion:stagingFromBuildVersion withStagedFromBuildVersion:currentLockUsage withCurrentLockUsage:availableForUseError withAvailableForUseError:patchingAttemptError withPatchingAttemptError:newerVersionError withNewerVersionError:?];
+        v38 = [v67 initWithAssetSelector:assetSelector withNotifications:notifications withAvailableForUseAttributes:availableForUseAttributes withNewerVersionAttributes:newerVersionAttributes withNeverBeenLocked:1 withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:v74 withDownloadedNetworkBytes:downloadedNetworkBytes withDownloadedFilesystemBytes:downloadedFilesystemBytes withDownloadedAsPatch:v62 withPatchedFromBaseSelector:patchedFromBaseSelector withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes withPatchingAttempted:v63 withStagedPriorToAvailable:stagingFromOSVersion withStagedFromOSVersion:stagingFromBuildVersion withStagedFromBuildVersion:currentLockUsage withCurrentLockUsage:availableForUseError withAvailableForUseError:v36 withPatchingAttemptError:newerVersionError withNewerVersionError:?];
 
         neverBeenLocked = [currentStatus neverBeenLocked];
         activeJobDescriptor = [(MADAutoAssetStager *)self activeJobDescriptor];
@@ -10127,9 +10127,9 @@ LABEL_22:
         activeJobDescriptor7 = [(MADAutoAssetStager *)self activeJobDescriptor];
         [activeJobDescriptor7 setPatchingAttempted:patchingAttempted2];
 
-        patchingAttemptError2 = [currentStatus patchingAttemptError];
+        v52 = objc_msgSend_patchingAttemptError(currentStatus);
         activeJobDescriptor8 = [(MADAutoAssetStager *)self activeJobDescriptor];
-        [activeJobDescriptor8 setPatchingAttemptError:patchingAttemptError2];
+        [activeJobDescriptor8 setPatchingAttemptError:v52];
 
         clientProgressProxy2 = [v77 clientProgressProxy];
         LOBYTE(activeJobDescriptor8) = objc_opt_respondsToSelector();
@@ -16555,8 +16555,8 @@ LABEL_7:
 
     [descriptorCopy setPatchedFromBaseFilesystemBytes:{objc_msgSend(statusCopy, "patchedFromBaseFilesystemBytes")}];
     [descriptorCopy setPatchingAttempted:{objc_msgSend(statusCopy, "patchingAttempted")}];
-    patchingAttemptError = [statusCopy patchingAttemptError];
-    [descriptorCopy setPatchingAttemptError:patchingAttemptError];
+    v12 = objc_msgSend_patchingAttemptError(statusCopy);
+    [descriptorCopy setPatchingAttemptError:v12];
   }
 
   [descriptorCopy setStagedPriorToAvailable:1];
@@ -17391,11 +17391,11 @@ LABEL_10:
     diag = [(MADAutoAssetStager *)self summary];
     summary2 = [filesystemCopy summary];
     *buf = 138543874;
-    v55 = diag;
-    v56 = 2114;
-    v57 = summary2;
-    v58 = 2114;
-    v59 = v9;
+    v56 = diag;
+    v57 = 2114;
+    v58 = summary2;
+    v59 = 2114;
+    v60 = v9;
     _os_log_impl(&dword_0, autoStagerFSM2, OS_LOG_TYPE_ERROR, "%{public}@\n[AUTO-STAGER] {_removeStagedAssetFromFilesystem} not on filesystem for stagedDescriptor:%{public}@ | localContentURL:%{public}@", buf, 0x20u);
 
 LABEL_9:
@@ -17403,36 +17403,36 @@ LABEL_9:
   }
 
   v12 = [[NSURL alloc] initFileURLWithPath:v9];
-  v13 = getControlManager();
-  v50 = [v13 getSAFRegistrationBundleID:v12];
+  v13 = getControlManager(v12);
+  v51 = [v13 getSAFRegistrationBundleID:v12];
 
   v14 = [MAAutoAssetSelector alloc];
   assetType = [filesystemCopy assetType];
   assetSpecifier = [filesystemCopy assetSpecifier];
   assetVersion = [filesystemCopy assetVersion];
-  v52 = [v14 initForAssetType:assetType withAssetSpecifier:assetSpecifier matchingAssetVersion:assetVersion];
+  v53 = [v14 initForAssetType:assetType withAssetSpecifier:assetSpecifier matchingAssetVersion:assetVersion];
 
-  v53 = 0;
-  v18 = renameWithExtThenRemoveExposeError(v9, @".purged", &v53);
-  v51 = v53;
-  if (v51)
+  v54 = 0;
+  v18 = renameWithExtThenRemoveExposeError(v9, @".purged", &v54);
+  v52 = v54;
+  if (v52)
   {
     v19 = _MADLog(@"AutoStager");
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       summary3 = [(MADAutoAssetStager *)self summary];
       summary4 = [filesystemCopy summary];
-      v22 = [MADAutoAssetClientRequest responseErrorSummary:v51];
+      v22 = [MADAutoAssetClientRequest responseErrorSummary:v52];
       *buf = 138544386;
-      v55 = summary3;
-      v56 = 2114;
-      v57 = summary4;
-      v58 = 2114;
-      v59 = v9;
-      v60 = 2114;
-      v61 = v22;
-      v62 = 2114;
-      v63 = v51;
+      v56 = summary3;
+      v57 = 2114;
+      v58 = summary4;
+      v59 = 2114;
+      v60 = v9;
+      v61 = 2114;
+      v62 = v22;
+      v63 = 2114;
+      v64 = v52;
       _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "%{public}@\n[AUTO-STAGER] {_removeStagedAssetFromFilesystem} failed to remove stagedDescriptor:%{public}@ | localContentURL:%{public}@ | error:%{public}@\n%{public}@", buf, 0x34u);
     }
   }
@@ -17448,11 +17448,11 @@ LABEL_9:
         summary5 = [(MADAutoAssetStager *)self summary];
         summary6 = [filesystemCopy summary];
         *buf = 138543874;
-        v55 = summary5;
-        v56 = 2114;
-        v57 = summary6;
-        v58 = 2114;
-        v59 = v9;
+        v56 = summary5;
+        v57 = 2114;
+        v58 = summary6;
+        v59 = 2114;
+        v60 = v9;
         _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "%{public}@\n[AUTO-STAGER] {_removeStagedAssetFromFilesystem} asset directory does not exist - stagedDescriptor:%{public}@ | localContentURL:%{public}@", buf, 0x20u);
       }
     }
@@ -17464,53 +17464,53 @@ LABEL_9:
         summary7 = [(MADAutoAssetStager *)self summary];
         summary8 = [filesystemCopy summary];
         *buf = 138543874;
-        v55 = summary7;
-        v56 = 2114;
-        v57 = summary8;
-        v58 = 2114;
-        v59 = v9;
+        v56 = summary7;
+        v57 = 2114;
+        v58 = summary8;
+        v59 = 2114;
+        v60 = v9;
         _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "%{public}@\n[AUTO-STAGER] {_removeStagedAssetFromFilesystem} successfully removed stagedDescriptor:%{public}@ | localContentURL:%{public}@", buf, 0x20u);
       }
 
-      v19 = getControlManager();
-      [v19 updateSpaceAttributionForBundleID:v50 assetPath:v12 doRegistration:0];
+      v19 = getControlManager(v34);
+      [v19 updateSpaceAttributionForBundleID:v51 assetPath:v12 doRegistration:0];
     }
   }
 
   if (operation == 404)
   {
-    v34 = 5;
+    v35 = 5;
   }
 
   else
   {
-    v34 = 4;
+    v35 = 4;
   }
 
   assetId = [filesystemCopy assetId];
   assetTargetOSVersion = [(MADAutoAssetStager *)self assetTargetOSVersion];
   assetTargetBuildVersion = [(MADAutoAssetStager *)self assetTargetBuildVersion];
-  v38 = v34;
-  v39 = v52;
-  [MADAutoAssetHistory recordOperation:operation toHistoryType:0 fromLayer:v38 forAssetID:assetId withSelector:v52 forTargetOSVersion:assetTargetOSVersion forTargetBuildVersion:assetTargetBuildVersion];
+  v39 = v35;
+  v40 = v53;
+  [MADAutoAssetHistory recordOperation:operation toHistoryType:0 fromLayer:v39 forAssetID:assetId withSelector:v53 forTargetOSVersion:assetTargetOSVersion forTargetBuildVersion:assetTargetBuildVersion];
 
   if (+[MAAIRBEventReporter isAvailable])
   {
-    v40 = [MAAIRBMobileAssetOperationMetadata alloc];
-    v41 = [MADAutoAssetHistoryTracker operationName:operation];
-    v42 = [(MAAIRBMobileAssetOperationMetadata *)v40 initWithCode:operation name:v41];
+    v41 = [MAAIRBMobileAssetOperationMetadata alloc];
+    v42 = [MADAutoAssetHistoryTracker operationName:operation];
+    v43 = [(MAAIRBMobileAssetOperationMetadata *)v41 initWithCode:operation name:v42];
 
-    v43 = [MAAIRBMobileAssetAssetSelector alloc];
-    assetType2 = [v52 assetType];
-    assetSpecifier2 = [v52 assetSpecifier];
-    assetVersion2 = [v52 assetVersion];
-    v47 = [(MAAIRBMobileAssetAssetSelector *)v43 initWithAssetType:assetType2 assetSpecifier:assetSpecifier2 assetVersion:assetVersion2];
+    v44 = [MAAIRBMobileAssetAssetSelector alloc];
+    assetType2 = [v53 assetType];
+    assetSpecifier2 = [v53 assetSpecifier];
+    assetVersion2 = [v53 assetVersion];
+    v48 = [(MAAIRBMobileAssetAssetSelector *)v44 initWithAssetType:assetType2 assetSpecifier:assetSpecifier2 assetVersion:assetVersion2];
 
-    v48 = [MAAIRBAppleIntelligenceAssetDeliveryEventType typeAssetUpdate:v42 assetSelector:v47];
-    v49 = [[MAAIRBAppleIntelligenceAssetDeliveryEvent alloc] initWithErrors:&__NSArray0__struct type:v48];
-    [MAAIRBEventReporter emitAppleIntelligenceEndEvent:v49];
+    v49 = [MAAIRBAppleIntelligenceAssetDeliveryEventType typeAssetUpdate:v43 assetSelector:v48];
+    v50 = [[MAAIRBAppleIntelligenceAssetDeliveryEvent alloc] initWithErrors:&__NSArray0__struct type:v49];
+    [MAAIRBEventReporter emitAppleIntelligenceEndEvent:v50];
 
-    v39 = v52;
+    v40 = v53;
   }
 
 LABEL_23:

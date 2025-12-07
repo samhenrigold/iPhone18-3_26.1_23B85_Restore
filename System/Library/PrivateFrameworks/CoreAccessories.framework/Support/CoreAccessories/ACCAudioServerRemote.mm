@@ -3,6 +3,8 @@
 - (void)allowBackgroundAudioForClient:(id)client withReply:(id)reply;
 - (void)deviceAudioStatesWithReply:(id)reply;
 - (void)initConnectionToServer:(id)server;
+- (void)setDigitalAudioSampleRate:(unsigned int)rate withReply:(id)reply;
+- (void)supportedDigitalAudioSampleRate:(unsigned int)rate withReply:(id)reply;
 - (void)supportedDigitalAudioSampleRatesWithReply:(id)reply;
 @end
 
@@ -103,6 +105,98 @@
   }
 
   serverCopy[2](serverCopy, v7);
+}
+
+- (void)setDigitalAudioSampleRate:(unsigned int)rate withReply:(id)reply
+{
+  v4 = *&rate;
+  replyCopy = reply;
+  v6 = platform_digitalAudio_setSampleRate(v4);
+  if (gLogObjects)
+  {
+    v7 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v9 = &_os_log_default;
+    v8 = &_os_log_default;
+  }
+
+  else
+  {
+    v9 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10[0] = 67109376;
+    v10[1] = v4;
+    v11 = 1024;
+    v12 = v6;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "[#Audio] newRate: %d, result: %d", v10, 0xEu);
+  }
+
+  if (replyCopy)
+  {
+    replyCopy[2](replyCopy, v6);
+  }
+}
+
+- (void)supportedDigitalAudioSampleRate:(unsigned int)rate withReply:(id)reply
+{
+  v4 = *&rate;
+  replyCopy = reply;
+  SupportedSampleRate = platform_digitalAudio_getSupportedSampleRate(v4);
+  if (gLogObjects)
+  {
+    v7 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v9 = &_os_log_default;
+    v8 = &_os_log_default;
+  }
+
+  else
+  {
+    v9 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10[0] = 67109376;
+    v10[1] = v4;
+    v11 = 1024;
+    v12 = SupportedSampleRate;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "[#Audio] inputRate: %d, supportedSampleRate: %d", v10, 0xEu);
+  }
+
+  if (replyCopy)
+  {
+    replyCopy[2](replyCopy, SupportedSampleRate);
+  }
 }
 
 - (void)supportedDigitalAudioSampleRatesWithReply:(id)reply

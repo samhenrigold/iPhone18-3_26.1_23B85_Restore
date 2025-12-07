@@ -9,7 +9,7 @@
 
 + (void)sendUtilityIntroAndSelectionSheetViewEventWithNumOfUtilities:(int64_t)utilities
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81D090);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81D090, qword_20D5BEC30);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v11 - v4;
   v6 = sub_20D563BA8();
@@ -62,10 +62,17 @@ LABEL_6:
 {
   if (d)
   {
-    sub_20D567838();
+    v7 = sub_20D567838();
+    v9 = v8;
   }
 
-  sub_20CF916A0();
+  else
+  {
+    v7 = 0;
+    v9 = 0;
+  }
+
+  sub_20CF916A0(v7, v9, method, passwordless);
 }
 
 - (HUHomeEnergyAnalyticsHelper)init

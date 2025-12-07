@@ -101,31 +101,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_10;
-    }
-
-    name = [(HMFAttributeDescription *)self name];
-    name2 = [(HMFAttributeDescription *)v6 name];
-    v9 = [name isEqualToString:name2];
-
-    if (!v9)
-    {
-      goto LABEL_10;
-    }
-
-    value = [(HMFAttributeDescription *)self value];
-    value2 = [(HMFAttributeDescription *)v6 value];
-    v12 = [value isEqual:value2];
-
-    if (v12)
-    {
-      goto LABEL_10;
-    }
-
-    options = [(HMFAttributeDescription *)self options];
-    if (options == [(HMFAttributeDescription *)v6 options])
+    if (v6 && (-[HMFAttributeDescription name](self, "name"), v7 = objc_claimAutoreleasedReturnValue(), -[HMFAttributeDescription name](v6, "name"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v7 isEqualToString:v8], v8, v7, v9) && (-[HMFAttributeDescription value](self, "value"), v10 = objc_claimAutoreleasedReturnValue(), -[HMFAttributeDescription value](v6, "value"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqual:", v11), v11, v10, (v12 & 1) == 0) && (v13 = -[HMFAttributeDescription options](self, "options"), v13 == -[HMFAttributeDescription options](v6, "options")))
     {
       formatter = [(HMFAttributeDescription *)self formatter];
       formatter2 = [(HMFAttributeDescription *)v6 formatter];
@@ -134,7 +110,6 @@
 
     else
     {
-LABEL_10:
       v16 = 0;
     }
   }

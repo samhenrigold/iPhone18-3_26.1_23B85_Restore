@@ -75,7 +75,7 @@
 
     if (v15)
     {
-      v19 = sh_log_object();
+      v19 = sh_log_object(v17);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
@@ -93,22 +93,20 @@
     mre = self->_mre;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return mre;
 }
 
 - (id)MRESignaturesFromMatches:(id)matches
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   matchesCopy = matches;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(matchesCopy, "count")}];
-  v5 = sh_log_object();
+  v5 = sh_log_object(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 134217984;
-    v16 = [matchesCopy count];
-    _os_log_impl(&dword_230F52000, v5, OS_LOG_TYPE_DEBUG, "Initialising MRE with %lu tracks", &v15, 0xCu);
+    v14 = 134217984;
+    v15 = [matchesCopy count];
+    _os_log_impl(&dword_230F52000, v5, OS_LOG_TYPE_DEBUG, "Initialising MRE with %lu tracks", &v14, 0xCu);
   }
 
   if ([matchesCopy count])
@@ -130,8 +128,6 @@
   }
 
   v12 = [v4 copy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -220,31 +216,31 @@
 
 - (id)matchFromMREResults:(id)results signature:(id)signature
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   signatureCopy = signature;
   array = [MEMORY[0x277CBEB18] array];
-  v34 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(resultsCopy, "count")}];
+  v33 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(resultsCopy, "count")}];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = resultsCopy;
-  v7 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
+    v9 = *v35;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * i);
+        v11 = *(*(&v34 + 1) + 8 * i);
         customCatalog = [(SHCustomCatalogMatcher *)self customCatalog];
         customCatalogContainer = [customCatalog customCatalogContainer];
         v14 = [customCatalogContainer matchReferenceForTrackID:{objc_msgSend(v11, "trackID")}];
@@ -254,14 +250,14 @@
           signature = [v14 signature];
           v16 = [signature _ID];
           uUIDString = [v16 UUIDString];
-          v18 = [v34 containsObject:uUIDString];
+          v18 = [v33 containsObject:uUIDString];
 
           if ((v18 & 1) == 0)
           {
             signature2 = [v14 signature];
             v20 = [signature2 _ID];
             uUIDString2 = [v20 UUIDString];
-            [v34 addObject:uUIDString2];
+            [v33 addObject:uUIDString2];
 
             v22 = [SHMREMatch alloc];
             mediaItems = [v14 mediaItems];
@@ -273,7 +269,7 @@
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v8);
@@ -282,8 +278,6 @@
   v26 = [SHMatch alloc];
   v27 = [array copy];
   v28 = [(SHMatch *)v26 initWithMediaItems:v27 forSignature:signatureCopy];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

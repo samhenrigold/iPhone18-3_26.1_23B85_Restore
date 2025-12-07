@@ -428,15 +428,21 @@
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v13 = shouldLog | 2;
+        LODWORD(v13) = shouldLog | 2;
       }
 
       else
       {
-        v13 = shouldLog;
+        LODWORD(v13) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = v13;
+      }
+
+      else
       {
         v13 &= 2u;
       }
@@ -445,15 +451,13 @@
       {
         v22 = 138412290;
         v23 = objc_opt_class();
-        LODWORD(v21) = 12;
-        v20 = &v22;
-        v14 = _os_log_send_and_compose_impl();
-        if (v14)
+        v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Received non-structured page for load more", &v22, 12);
+        if (v15)
         {
-          v15 = v14;
-          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v22, v21}];
-          free(v15);
-          v20 = v16;
+          v16 = v15;
+          v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+          free(v16);
+          v21 = v17;
           SSFileLog();
         }
       }
@@ -465,7 +469,7 @@
 
     else
     {
-      v18 = [-[SUTableDataSource structuredPage](-[SUTableViewController dataSource](self "dataSource")];
+      v19 = [-[SUTableDataSource structuredPage](-[SUTableViewController dataSource](self "dataSource")];
       if ([activeLoadMoreItem BOOLValueForProperty:@"reload-in-place"])
       {
         -[SUStructuredPageViewController reloadWithStorePage:forURL:](self, "reloadWithStorePage:forURL:", output, [objc_msgSend(operation "response")]);
@@ -473,8 +477,8 @@
 
       else
       {
-        v19 = [objc_msgSend(output "itemList")];
-        [v18 replaceItemAtIndexPath:v10 withItems:v19];
+        v20 = [objc_msgSend(output "itemList")];
+        [v19 replaceItemAtIndexPath:v10 withItems:v20];
         [(SUStructuredPageViewController *)self reloadData];
       }
     }

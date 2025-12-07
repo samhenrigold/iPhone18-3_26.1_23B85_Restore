@@ -115,7 +115,7 @@ uint64_t __LogCategory_OwnerAuthentication_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __LogCategory_Automation_block_invoke()
+void *__LogCategory_Automation_block_invoke()
 {
   result = [MEMORY[0x1E699BE00] BOOLForKey:@"ShowAutomationLogs" inDomain:@"com.apple.icloud.findmydeviced.notbackedup"];
   if (result)

@@ -62,6 +62,7 @@
 - (void)setIsRemote:(BOOL)remote;
 - (void)setItems:(id)items;
 - (void)setLoadsDataSynchronously:(BOOL)synchronously;
+- (void)setLocalOnly:(BOOL)only;
 - (void)setMetadata:(id)metadata;
 - (void)setOriginatorAllowedToCopyOnPaste:(BOOL)paste;
 - (void)setOriginatorBundleID:(id)d;
@@ -69,6 +70,7 @@
 - (void)setOriginatorLocalizedName:(id)name;
 - (void)setOriginatorPersistentID:(id)d;
 - (void)setOriginatorTeamID:(id)d;
+- (void)setPersistent:(BOOL)persistent;
 - (void)setPrivateMetadata:(id)metadata;
 - (void)setRemoteDataLoaded;
 - (void)setRemoteDeviceName:(id)name;
@@ -121,7 +123,7 @@
   return self;
 }
 
-uint64_t __28__PBItemCollection_isRemote__block_invoke(uint64_t a1)
+void *__28__PBItemCollection_isRemote__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_remotePasteboardState];
   *(*(*(a1 + 40) + 8) + 24) = result > 0;
@@ -153,10 +155,7 @@ uint64_t __28__PBItemCollection_isRemote__block_invoke(uint64_t a1)
 
 uint64_t __25__PBItemCollection_items__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_items];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_items];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -186,10 +185,7 @@ uint64_t __25__PBItemCollection_items__block_invoke(uint64_t a1)
 
 uint64_t __24__PBItemCollection_UUID__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_UUID];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_UUID];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -215,32 +211,32 @@ uint64_t __24__PBItemCollection_UUID__block_invoke(uint64_t a1)
 
 void __28__PBItemCollection_shutdown__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(*(a1 + 32) + 168);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v12 + 1) + 8 * v6++) didInvalidateItemCollectionWithUUID:{*(*(a1 + 32) + 72), v12}];
+        [*(*(&v11 + 1) + 8 * v6++) didInvalidateItemCollectionWithUUID:{*(*(a1 + 32) + 72), v11}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -255,8 +251,6 @@ void __28__PBItemCollection_shutdown__block_invoke(uint64_t a1)
   v9 = *(a1 + 32);
   v10 = *(v9 + 40);
   *(v9 + 40) = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerLocalAvailableDerivedRepresentations
@@ -272,38 +266,36 @@ void __28__PBItemCollection_shutdown__block_invoke(uint64_t a1)
 
 void __64__PBItemCollection_registerLocalAvailableDerivedRepresentations__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = [*(a1 + 32) itemQueue_items];
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) itemQueue_registerLocalAvailableDerivedRepresentations];
+        [*(*(&v6 + 1) + 8 * v5++) itemQueue_registerLocalAvailableDerivedRepresentations];
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setItems:(id)items
@@ -359,10 +351,7 @@ void __64__PBItemCollection_registerLocalAvailableDerivedRepresentations__block_
 
 uint64_t __28__PBItemCollection_metadata__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_metadata];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_metadata];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -406,10 +395,7 @@ uint64_t __28__PBItemCollection_metadata__block_invoke(uint64_t a1)
 
 uint64_t __35__PBItemCollection_privateMetadata__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_privateMetadata];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_privateMetadata];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -456,7 +442,7 @@ uint64_t __35__PBItemCollection_privateMetadata__block_invoke(uint64_t a1)
   return self;
 }
 
-uint64_t __34__PBItemCollection_isDataProvider__block_invoke(uint64_t a1)
+void *__34__PBItemCollection_isDataProvider__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_isDataProvider];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -488,10 +474,7 @@ uint64_t __34__PBItemCollection_isDataProvider__block_invoke(uint64_t a1)
 
 uint64_t __35__PBItemCollection_saveBootSession__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_saveBootSession];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_saveBootSession];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -530,7 +513,7 @@ uint64_t __35__PBItemCollection_saveBootSession__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __33__PBItemCollection_saveTimestamp__block_invoke(uint64_t a1)
+void *__33__PBItemCollection_saveTimestamp__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_saveTimestamp];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -574,10 +557,7 @@ uint64_t __33__PBItemCollection_saveTimestamp__block_invoke(uint64_t a1)
 
 uint64_t __42__PBItemCollection_originatorPersistentID__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_originatorPersistentID];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_originatorPersistentID];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -621,10 +601,7 @@ uint64_t __42__PBItemCollection_originatorPersistentID__block_invoke(uint64_t a1
 
 uint64_t __38__PBItemCollection_originatorBundleID__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_originatorBundleID];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_originatorBundleID];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -668,10 +645,7 @@ uint64_t __38__PBItemCollection_originatorBundleID__block_invoke(uint64_t a1)
 
 uint64_t __36__PBItemCollection_originatorTeamID__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_originatorTeamID];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_originatorTeamID];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -715,10 +689,7 @@ uint64_t __36__PBItemCollection_originatorTeamID__block_invoke(uint64_t a1)
 
 uint64_t __43__PBItemCollection_originatorLocalizedName__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_originatorLocalizedName];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_originatorLocalizedName];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -757,7 +728,7 @@ uint64_t __43__PBItemCollection_originatorLocalizedName__block_invoke(uint64_t a
   return self;
 }
 
-uint64_t __50__PBItemCollection_originatorAllowedToCopyOnPaste__block_invoke(uint64_t a1)
+void *__50__PBItemCollection_originatorAllowedToCopyOnPaste__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_originatorAllowedToCopyOnPaste];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -796,7 +767,7 @@ uint64_t __50__PBItemCollection_originatorAllowedToCopyOnPaste__block_invoke(uin
   return v4;
 }
 
-uint64_t __39__PBItemCollection_originatorDataOwner__block_invoke(uint64_t a1)
+void *__39__PBItemCollection_originatorDataOwner__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_originatorDataOwner];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -835,7 +806,7 @@ uint64_t __39__PBItemCollection_originatorDataOwner__block_invoke(uint64_t a1)
   return self;
 }
 
-uint64_t __44__PBItemCollection_isDeviceLockedPasteboard__block_invoke(uint64_t a1)
+void *__44__PBItemCollection_isDeviceLockedPasteboard__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_isDeviceLockedPasteboard];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -874,7 +845,7 @@ uint64_t __44__PBItemCollection_isDeviceLockedPasteboard__block_invoke(uint64_t 
   return self;
 }
 
-uint64_t __33__PBItemCollection_isOrWasRemote__block_invoke(uint64_t a1)
+void *__33__PBItemCollection_isOrWasRemote__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_isOrWasRemote];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -918,10 +889,7 @@ uint64_t __33__PBItemCollection_isOrWasRemote__block_invoke(uint64_t a1)
 
 uint64_t __36__PBItemCollection_remoteDeviceName__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_remoteDeviceName];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_remoteDeviceName];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -965,10 +933,7 @@ uint64_t __36__PBItemCollection_remoteDeviceName__block_invoke(uint64_t a1)
 
 uint64_t __32__PBItemCollection_sharingToken__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) itemQueue_sharingToken];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) itemQueue_sharingToken];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1007,7 +972,7 @@ uint64_t __32__PBItemCollection_sharingToken__block_invoke(uint64_t a1)
   return self;
 }
 
-uint64_t __42__PBItemCollection_loadsDataSynchronously__block_invoke(uint64_t a1)
+void *__42__PBItemCollection_loadsDataSynchronously__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_loadsDataSynchronously];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1065,10 +1030,7 @@ uint64_t __41__PBItemCollection_dataConsumersListener__block_invoke(uint64_t a1)
     v2 = *(a1 + 32);
   }
 
-  v7 = [v2 itemQueue_dataConsumersListener];
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  *(*(*(a1 + 40) + 8) + 40) = [v2 itemQueue_dataConsumersListener];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1097,7 +1059,7 @@ uint64_t __41__PBItemCollection_dataConsumersListener__block_invoke(uint64_t a1)
 
 void __44__PBItemCollection_setDataProviderEndpoint___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = [*(a1 + 40) itemQueue_remoteDataProviderEndpoint];
 
@@ -1128,43 +1090,43 @@ void __44__PBItemCollection_setDataProviderEndpoint___block_invoke(uint64_t a1)
         v10 = [v9 array];
         v11 = [v10 copy];
 
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
         v12 = v11;
-        v13 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
         if (v13)
         {
-          v14 = *v24;
+          v14 = *v23;
           do
           {
             v15 = 0;
             do
             {
-              if (*v24 != v14)
+              if (*v23 != v14)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v16 = *(*(&v23 + 1) + 8 * v15);
+              v16 = *(*(&v22 + 1) + 8 * v15);
               v17 = [PBItemRepresentation alloc];
-              v21[0] = MEMORY[0x277D85DD0];
-              v21[1] = 3221225472;
-              v21[2] = __44__PBItemCollection_setDataProviderEndpoint___block_invoke_2;
-              v21[3] = &unk_279A07170;
-              objc_copyWeak(v22, &location);
-              v21[4] = v16;
-              v22[1] = i;
-              v18 = [(PBItemRepresentation *)v17 initWithType:v16 preferredRepresentation:0 v3_loader:v21];
+              v20[0] = MEMORY[0x277D85DD0];
+              v20[1] = 3221225472;
+              v20[2] = __44__PBItemCollection_setDataProviderEndpoint___block_invoke_2;
+              v20[3] = &unk_279A07170;
+              objc_copyWeak(v21, &location);
+              v20[4] = v16;
+              v21[1] = i;
+              v18 = [(PBItemRepresentation *)v17 initWithType:v16 preferredRepresentation:0 v3_loader:v20];
               [v8 itemQueue_setItemRepresentation:v18];
 
-              objc_destroyWeak(v22);
+              objc_destroyWeak(v21);
               ++v15;
             }
 
             while (v13 != v15);
-            v13 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
+            v13 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
           }
 
           while (v13);
@@ -1174,8 +1136,6 @@ void __44__PBItemCollection_setDataProviderEndpoint___block_invoke(uint64_t a1)
       objc_destroyWeak(&location);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 id __44__PBItemCollection_setDataProviderEndpoint___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -1246,17 +1206,17 @@ id __44__PBItemCollection_setDataProviderEndpoint___block_invoke_2(uint64_t a1, 
 
 void __44__PBItemCollection_setDataProviderEndpoint___block_invoke_3(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _PBLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = v8;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_fault_impl(&dword_25E138000, v4, OS_LOG_TYPE_FAULT, "Could not retrieve data representation of type %@. Error: %@", &v9, 0x16u);
+    v7 = *(a1 + 32);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_fault_impl(&dword_25E138000, v4, OS_LOG_TYPE_FAULT, "Could not retrieve data representation of type %@. Error: %@", &v8, 0x16u);
   }
 
   v5 = *(a1 + 40);
@@ -1265,26 +1225,22 @@ void __44__PBItemCollection_setDataProviderEndpoint___block_invoke_3(uint64_t a1
     v6 = PBCannotLoadRepresentationError(*(a1 + 32), v3);
     (*(v5 + 16))(v5, 0, 0, 0, v6, 0);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PBItemCollection_setDataProviderEndpoint___block_invoke_20(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _PBLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_fault_impl(&dword_25E138000, v4, OS_LOG_TYPE_FAULT, "Could not call cleanup block for type %@. Error: %@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_fault_impl(&dword_25E138000, v4, OS_LOG_TYPE_FAULT, "Could not call cleanup block for type %@. Error: %@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PBItemCollection_setDataProviderEndpoint___block_invoke_22(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -1302,11 +1258,11 @@ void __44__PBItemCollection_setDataProviderEndpoint___block_invoke_22(uint64_t a
   v11(v10, a2, a3, 0, a4, v13);
 }
 
-uint64_t __44__PBItemCollection_setDataProviderEndpoint___block_invoke_2_23(uint64_t result)
+id *__44__PBItemCollection_setDataProviderEndpoint___block_invoke_2_23(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) callCleanupBlockWithUUID:?];
+    return [result[5] callCleanupBlockWithUUID:?];
   }
 
   return result;
@@ -1357,18 +1313,17 @@ void __58__PBItemCollection_waitForItemRequestsDeliveryCompletion___block_invoke
 
 void __58__PBItemCollection_waitForItemRequestsDeliveryCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _PBLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_fault_impl(&dword_25E138000, v4, OS_LOG_TYPE_FAULT, "Could not wait for item requests delivery. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_fault_impl(&dword_25E138000, v4, OS_LOG_TYPE_FAULT, "Could not wait for item requests delivery. Error: %@", &v5, 0xCu);
   }
 
   PBDispatchAsyncCallback(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_remoteDataProviderConnection
@@ -1510,20 +1465,19 @@ uint64_t __69__PBItemCollection_establishConnectionToDataProviderCompletionBlock
 
 void __69__PBItemCollection_establishConnectionToDataProviderCompletionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _PBLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v6 = 136315394;
-    v7 = "[PBItemCollection establishConnectionToDataProviderCompletionBlock:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_fault_impl(&dword_25E138000, v4, OS_LOG_TYPE_FAULT, "%s could not establish connection to data provider. Error: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[PBItemCollection establishConnectionToDataProviderCompletionBlock:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_fault_impl(&dword_25E138000, v4, OS_LOG_TYPE_FAULT, "%s could not establish connection to data provider. Error: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (PBItemCollection)initWithItems:(id)items
@@ -1681,10 +1635,7 @@ uint64_t __34__PBItemCollection_copyWithItems___block_invoke(uint64_t a1)
   v19 = *(v18 + 40);
   *(v18 + 40) = v17;
 
-  v20 = [*(a1 + 32) itemQueue_originatorLocalizedName];
-  v21 = *(*(a1 + 104) + 8);
-  v22 = *(v21 + 40);
-  *(v21 + 40) = v20;
+  *(*(*(a1 + 104) + 8) + 40) = [*(a1 + 32) itemQueue_originatorLocalizedName];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1714,41 +1665,39 @@ uint64_t __34__PBItemCollection_copyWithItems___block_invoke(uint64_t a1)
 
 void __44__PBItemCollection_copyWithDoNothingLoaders__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(*(a1 + 32) + 48);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v9 + 1) + 8 * v6) _itemQueue_copyWithDoNothingRepresentations];
+        v7 = [*(*(&v8 + 1) + 8 * v6) _itemQueue_copyWithDoNothingRepresentations];
         [*(*(*(a1 + 40) + 8) + 40) addObject:v7];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addItems:(id)items
@@ -1776,34 +1725,34 @@ void __29__PBItemCollection_addItems___block_invoke(uint64_t a1)
 
 - (BOOL)hasItemWithRepresentationOfType:(id)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   [(PBItemCollection *)self items];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = v14 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = v13 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) hasRepresentationOfType:{typeCopy, v11}])
+        if ([*(*(&v10 + 1) + 8 * i) hasRepresentationOfType:{typeCopy, v10}])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -1815,40 +1764,39 @@ void __29__PBItemCollection_addItems___block_invoke(uint64_t a1)
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)hasItemWithRepresentationConformingToType:(id)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   [(PBItemCollection *)self items];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = v14 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = v13 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) hasRepresentationConformingToType:{typeCopy, v11}])
+        if ([*(*(&v10 + 1) + 8 * i) hasRepresentationConformingToType:{typeCopy, v10}])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -1860,40 +1808,39 @@ LABEL_11:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)canInstantiateObjectOfClass:(Class)class
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(PBItemCollection *)self items];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = v15 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = v14 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) canInstantiateObjectOfClass:{class, v12}])
+        if ([*(*(&v11 + 1) + 8 * i) canInstantiateObjectOfClass:{class, v11}])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -1906,47 +1853,44 @@ LABEL_11:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)availableRepresentationTypes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   items = [(PBItemCollection *)self items];
   v3 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = items;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        availableTypes = [*(*(&v13 + 1) + 8 * i) availableTypes];
+        availableTypes = [*(*(&v12 + 1) + 8 * i) availableTypes];
         [v3 addObjectsFromArray:availableTypes];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   allObjects = [v3 allObjects];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -2253,7 +2197,7 @@ void __34__PBItemCollection_initWithCoder___block_invoke(uint64_t a1, void *a2, 
   _Block_object_dispose(&v94, 8);
 }
 
-uint64_t __36__PBItemCollection_encodeWithCoder___block_invoke(uint64_t a1)
+void *__36__PBItemCollection_encodeWithCoder___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) itemQueue_items];
   v3 = *(*(a1 + 40) + 8);
@@ -2333,7 +2277,7 @@ uint64_t __36__PBItemCollection_encodeWithCoder___block_invoke(uint64_t a1)
 
 void __92__PBItemCollection_setUsesServerConnectionToLoadDataWithAuthenticationBlock_dataOwnerBlock___block_invoke(id *a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] itemQueue_items];
   v3 = [v2 count];
 
@@ -2350,48 +2294,48 @@ void __92__PBItemCollection_setUsesServerConnectionToLoadDataWithAuthenticationB
       v8 = [v7 array];
       v9 = [v8 copy];
 
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       obj = v9;
-      v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v10)
       {
-        v11 = *v27;
+        v11 = *v26;
         do
         {
           v12 = 0;
           do
           {
-            if (*v27 != v11)
+            if (*v26 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v26 + 1) + 8 * v12);
+            v13 = *(*(&v25 + 1) + 8 * v12);
             objc_initWeak(&location, a1[4]);
             v14 = [PBItemRepresentation alloc];
-            v21[0] = MEMORY[0x277D85DD0];
-            v21[1] = 3221225472;
-            v21[2] = __92__PBItemCollection_setUsesServerConnectionToLoadDataWithAuthenticationBlock_dataOwnerBlock___block_invoke_2;
-            v21[3] = &unk_279A07238;
-            objc_copyWeak(v24, &location);
-            v22 = a1[5];
+            v20[0] = MEMORY[0x277D85DD0];
+            v20[1] = 3221225472;
+            v20[2] = __92__PBItemCollection_setUsesServerConnectionToLoadDataWithAuthenticationBlock_dataOwnerBlock___block_invoke_2;
+            v20[3] = &unk_279A07238;
+            objc_copyWeak(v23, &location);
+            v21 = a1[5];
             v15 = a1[6];
-            v24[1] = v4;
-            v23 = v15;
-            v21[4] = v13;
-            v16 = [(PBItemRepresentation *)v14 initWithType:v13 preferredRepresentation:1 v3_loader:v21];
+            v23[1] = v4;
+            v22 = v15;
+            v20[4] = v13;
+            v16 = [(PBItemRepresentation *)v14 initWithType:v13 preferredRepresentation:1 v3_loader:v20];
             [v6 itemQueue_setItemRepresentation:v16];
 
-            objc_destroyWeak(v24);
+            objc_destroyWeak(v23);
             objc_destroyWeak(&location);
             ++v12;
           }
 
           while (v10 != v12);
-          v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v10);
@@ -2405,8 +2349,6 @@ void __92__PBItemCollection_setUsesServerConnectionToLoadDataWithAuthenticationB
 
     while (v4 < v18);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 id __92__PBItemCollection_setUsesServerConnectionToLoadDataWithAuthenticationBlock_dataOwnerBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2540,7 +2482,7 @@ void __47__PBItemCollection_removeInvalidationDelegate___block_invoke(uint64_t a
   dispatch_sync(v5, v6);
 }
 
-uint64_t __32__PBItemCollection_setIsRemote___block_invoke(uint64_t a1)
+void *__32__PBItemCollection_setIsRemote___block_invoke(uint64_t a1)
 {
   if (*(a1 + 40) == 1)
   {
@@ -2630,7 +2572,7 @@ uint64_t __42__PBItemCollection_isRemoteMetadataLoaded__block_invoke(uint64_t a1
   return self;
 }
 
-uint64_t __38__PBItemCollection_isRemoteDataLoaded__block_invoke(uint64_t a1)
+void *__38__PBItemCollection_isRemoteDataLoaded__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) itemQueue_remotePasteboardState];
   *(*(*(a1 + 40) + 8) + 24) = result == 3;
@@ -2664,7 +2606,7 @@ uint64_t __38__PBItemCollection_isRemoteDataLoaded__block_invoke(uint64_t a1)
 
 void __44__PBItemCollection_setDataTransferDelegate___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -2672,38 +2614,37 @@ void __44__PBItemCollection_setDataTransferDelegate___block_invoke(uint64_t a1)
   }
 
   v3 = v2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(*(a1 + 40) + 48);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) itemQueue_setDataTransferDelegate:{v3, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) itemQueue_setDataTransferDelegate:{v3, v9}];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   objc_storeWeak((*(a1 + 40) + 160), *(a1 + 32));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (PBItemCollectionDataTransferDelegate)dataTransferDelegate
@@ -2731,10 +2672,7 @@ void __44__PBItemCollection_setDataTransferDelegate___block_invoke(uint64_t a1)
 
 uint64_t __40__PBItemCollection_dataTransferDelegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 160));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 160));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2758,10 +2696,10 @@ uint64_t __40__PBItemCollection_dataTransferDelegate__block_invoke(uint64_t a1)
 
 - (NSString)description
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = PBItemCollection;
-  v3 = [(PBItemCollection *)&v27 description];
+  v28 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = PBItemCollection;
+  v3 = [(PBItemCollection *)&v26 description];
   v4 = [v3 mutableCopy];
 
   name = [(PBItemCollection *)self name];
@@ -2798,35 +2736,33 @@ uint64_t __40__PBItemCollection_dataTransferDelegate__block_invoke(uint64_t a1)
   items = [(PBItemCollection *)self items];
   [v4 appendFormat:@"Items: %u\n", objc_msgSend(items, "count")];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   items2 = [(PBItemCollection *)self items];
-  v17 = [items2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v17 = [items2 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v24;
+    v19 = *v23;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v24 != v19)
+        if (*v23 != v19)
         {
           objc_enumerationMutation(items2);
         }
 
-        [v4 appendFormat:@"%@\n", *(*(&v23 + 1) + 8 * i)];
+        [v4 appendFormat:@"%@\n", *(*(&v22 + 1) + 8 * i)];
       }
 
-      v18 = [items2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v18 = [items2 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v18);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -2952,6 +2888,12 @@ void __57__PBItemCollection_Pasteboard___setMetadataValue_forKey___block_invoke(
   return v3;
 }
 
+- (void)setPersistent:(BOOL)persistent
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:persistent];
+  [(PBItemCollection *)self _setMetadataValue:v4 forKey:@"persistent"];
+}
+
 - (BOOL)isPersistent
 {
   if ([(PBItemCollection *)self isSystemPasteboard])
@@ -2981,6 +2923,12 @@ void __57__PBItemCollection_Pasteboard___setMetadataValue_forKey___block_invoke(
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setLocalOnly:(BOOL)only
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:only];
+  [(PBItemCollection *)self _setMetadataValue:v4 forKey:@"localOnly"];
 }
 
 @end

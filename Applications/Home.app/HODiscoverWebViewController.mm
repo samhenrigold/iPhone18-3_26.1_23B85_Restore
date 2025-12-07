@@ -26,6 +26,8 @@
 - (void)setupWebViewAndActivityIndicator;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)webViewNavigationStateUpdated:(id)updated navigationState:(unint64_t)state;
 @end
 
@@ -76,11 +78,11 @@
   contentView2 = [(HODiscoverWebViewController *)self contentView];
   [contentView2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v7 = sub_100014198();
-  [(HODiscoverWebViewController *)self setNetworkPathMonitorDispatchQueue:v7];
+  v8 = sub_100014198(v7);
+  [(HODiscoverWebViewController *)self setNetworkPathMonitorDispatchQueue:v8];
 
-  v8 = nw_path_monitor_create();
-  [(HODiscoverWebViewController *)self setNetworkPathMonitor:v8];
+  v9 = nw_path_monitor_create();
+  [(HODiscoverWebViewController *)self setNetworkPathMonitor:v9];
 
   networkPathMonitor = [(HODiscoverWebViewController *)self networkPathMonitor];
   networkPathMonitorDispatchQueue = [(HODiscoverWebViewController *)self networkPathMonitorDispatchQueue];
@@ -107,9 +109,9 @@
 
 - (void)viewDidLoad
 {
-  v26.receiver = self;
-  v26.super_class = HODiscoverWebViewController;
-  [(HODiscoverWebViewController *)&v26 viewDidLoad];
+  v27.receiver = self;
+  v27.super_class = HODiscoverWebViewController;
+  [(HODiscoverWebViewController *)&v27 viewDidLoad];
   view = [(HODiscoverWebViewController *)self view];
   contentView = [(HODiscoverWebViewController *)self contentView];
   [view addSubview:contentView];
@@ -119,45 +121,46 @@
   v6 = @"HOTabDiscoverTitle";
   v7 = [v5 localizedStringForKey:@"HOTabDiscoverTitle" value:@"_" table:@"HOLocalizable"];
 
-  if ([@"_" isEqualToString:v7])
+  v8 = [@"_" isEqualToString:v7];
+  if (v8)
   {
-    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v8 = sub_100016B2C();
-    v9 = [v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
-    if (v9)
+    v31 = 0u;
+    v9 = sub_100016B2C(v8);
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v34 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v28;
+      v11 = v10;
+      v12 = *v29;
 LABEL_4:
-      v12 = 0;
+      v13 = 0;
       while (1)
       {
-        if (*v28 != v11)
+        if (*v29 != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * v12);
-        v14 = +[NSBundle mainBundle];
-        v15 = [v14 localizedStringForKey:@"HOTabDiscoverTitle" value:@"HOTabDiscoverTitle" table:v13];
+        v14 = *(*(&v28 + 1) + 8 * v13);
+        v15 = +[NSBundle mainBundle];
+        v16 = [v15 localizedStringForKey:@"HOTabDiscoverTitle" value:@"HOTabDiscoverTitle" table:v14];
 
-        if (![(__CFString *)v15 isEqualToString:@"HOTabDiscoverTitle"])
+        if (![(__CFString *)v16 isEqualToString:@"HOTabDiscoverTitle"])
         {
           break;
         }
 
-        if (v10 == ++v12)
+        if (v11 == ++v13)
         {
-          v10 = [v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
-          if (v10)
+          v11 = [v9 countByEnumeratingWithState:&v28 objects:v34 count:16];
+          if (v11)
           {
             goto LABEL_4;
           }
 
-          v15 = @"_";
+          v16 = @"_";
           break;
         }
       }
@@ -167,10 +170,10 @@ LABEL_4:
 
     else
     {
-      v15 = @"_";
+      v16 = @"_";
     }
 
-    v7 = v15;
+    v7 = v16;
   }
 
   if ([@"_" isEqualToString:v7])
@@ -190,13 +193,13 @@ LABEL_4:
     navigationBar = [navigationController navigationBar];
     [navigationBar setPrefersLargeTitles:0];
 
-    v31 = NSForegroundColorAttributeName;
-    v18 = +[UIColor labelColor];
-    v32 = v18;
-    v19 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v32 = NSForegroundColorAttributeName;
+    v19 = +[UIColor labelColor];
+    v33 = v19;
+    v20 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
     navigationController2 = [(HODiscoverWebViewController *)self navigationController];
     navigationBar2 = [navigationController2 navigationBar];
-    [navigationBar2 setTitleTextAttributes:v19];
+    [navigationBar2 setTitleTextAttributes:v20];
 
     navigationController3 = [(HODiscoverWebViewController *)self navigationController];
     [navigationController3 setModalPresentationStyle:0];
@@ -206,9 +209,81 @@ LABEL_4:
   nw_path_monitor_start(networkPathMonitor);
 
   [(HODiscoverWebViewController *)self _updateNetworkConnectionState:0];
-  v24 = [UIColor colorNamed:@"background-color-discover"];
+  v25 = [UIColor colorNamed:@"background-color-discover"];
   view2 = [(HODiscoverWebViewController *)self view];
-  [view2 setBackgroundColor:v24];
+  [view2 setBackgroundColor:v25];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v26.receiver = self;
+  v26.super_class = HODiscoverWebViewController;
+  [(HODiscoverWebViewController *)&v26 viewWillAppear:appear];
+  [(HODiscoverWebViewController *)self setupWebViewAndActivityIndicator];
+  v4 = +[HODiscoverWebViewManager sharedInstance];
+  webView = [(HODiscoverWebViewController *)self webView];
+  v6 = [v4 getWebViewNavigationStateForWebView:webView];
+
+  webView2 = [(HODiscoverWebViewController *)self webView];
+  [(HODiscoverWebViewController *)self webViewNavigationStateUpdated:webView2 navigationState:v6];
+
+  applicationBackgroundedDate = [(HODiscoverWebViewController *)self applicationBackgroundedDate];
+  [applicationBackgroundedDate timeIntervalSinceNow];
+  v10 = fabs(v9);
+  v11 = +[HODiscoverWebViewManager sharedInstance];
+  [v11 cacheRefreshTimeInterval];
+  v13 = v12;
+
+  v14 = +[HODiscoverWebViewManager sharedInstance];
+  allowForcedCacheReload = [v14 allowForcedCacheReload];
+
+  if (v10 > v13 || allowForcedCacheReload)
+  {
+    v16 = +[HODiscoverWebViewManager sharedInstance];
+    [v16 reloadWebViews];
+  }
+
+  if (v6 == 2)
+  {
+    v17 = +[HODiscoverWebViewManager sharedInstance];
+    [v17 reloadWebViews];
+  }
+
+  v18 = +[HODiscoverWebViewManager sharedInstance];
+  [v18 setDelegate:self];
+
+  if (_os_feature_enabled_impl())
+  {
+    if (_os_feature_enabled_impl())
+    {
+      navigationController = [(HODiscoverWebViewController *)self navigationController];
+      navigationBar = [navigationController navigationBar];
+      [navigationBar setPrefersLargeTitles:0];
+
+      v27 = NSForegroundColorAttributeName;
+      v21 = +[UIColor labelColor];
+      v28 = v21;
+      v22 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      navigationController2 = [(HODiscoverWebViewController *)self navigationController];
+      navigationBar2 = [navigationController2 navigationBar];
+      [navigationBar2 setTitleTextAttributes:v22];
+
+      navigationController3 = [(HODiscoverWebViewController *)self navigationController];
+      [navigationController3 setModalPresentationStyle:0];
+    }
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HODiscoverWebViewController;
+  [(HODiscoverWebViewController *)&v5 viewWillDisappear:disappear];
+  if (+[HFUtilities isAMac])
+  {
+    v4 = +[NSDate date];
+    [(HODiscoverWebViewController *)self setApplicationBackgroundedDate:v4];
+  }
 }
 
 - (void)viewDidLayoutSubviews
@@ -222,43 +297,31 @@ LABEL_4:
 - (void)setupWebViewAndActivityIndicator
 {
   webView = [(HODiscoverWebViewController *)self webView];
-  if (!webView)
+  if (!webView || (v4 = webView, -[HODiscoverWebViewController contentView](self, "contentView"), v5 = objc_claimAutoreleasedReturnValue(), [v5 subviews], v6 = objc_claimAutoreleasedReturnValue(), -[HODiscoverWebViewController webView](self, "webView"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "containsObject:", v7), v7, v6, v5, v4, (v8 & 1) == 0))
   {
-    goto LABEL_3;
-  }
+    webView2 = [(HODiscoverWebViewController *)self webView];
 
-  v4 = webView;
-  contentView = [(HODiscoverWebViewController *)self contentView];
-  subviews = [contentView subviews];
-  webView2 = [(HODiscoverWebViewController *)self webView];
-  v8 = [subviews containsObject:webView2];
-
-  if ((v8 & 1) == 0)
-  {
-LABEL_3:
-    webView3 = [(HODiscoverWebViewController *)self webView];
-
-    if (!webView3)
+    if (!webView2)
     {
       v10 = +[HODiscoverWebViewManager sharedInstance];
       urlString = [(HODiscoverWebViewController *)self urlString];
       v12 = [v10 webViewForURLString:urlString];
       [(HODiscoverWebViewController *)self setWebView:v12];
 
+      webView3 = [(HODiscoverWebViewController *)self webView];
+      [webView3 setTranslatesAutoresizingMaskIntoConstraints:0];
+
       webView4 = [(HODiscoverWebViewController *)self webView];
-      [webView4 setTranslatesAutoresizingMaskIntoConstraints:0];
+      [webView4 setOpaque:0];
 
       webView5 = [(HODiscoverWebViewController *)self webView];
-      [webView5 setOpaque:0];
-
-      webView6 = [(HODiscoverWebViewController *)self webView];
-      [webView6 setClipsToBounds:1];
+      [webView5 setClipsToBounds:1];
 
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        webView7 = [(HODiscoverWebViewController *)self webView];
-        scrollView = [webView7 scrollView];
+        webView6 = [(HODiscoverWebViewController *)self webView];
+        scrollView = [webView6 scrollView];
         [scrollView contentInset];
         v19 = v18;
         v21 = v20;
@@ -266,8 +329,8 @@ LABEL_3:
 
         [(HODiscoverWebViewController *)self statusBarHeight];
         v25 = v24;
-        webView8 = [(HODiscoverWebViewController *)self webView];
-        scrollView2 = [webView8 scrollView];
+        webView7 = [(HODiscoverWebViewController *)self webView];
+        scrollView2 = [webView7 scrollView];
         [scrollView2 setContentInset:{v25, v19, v21, v23}];
       }
 
@@ -278,63 +341,63 @@ LABEL_3:
         [navigationBar setHidden:1];
       }
 
-      webView9 = [(HODiscoverWebViewController *)self webView];
-      configuration = [webView9 configuration];
+      webView8 = [(HODiscoverWebViewController *)self webView];
+      configuration = [webView8 configuration];
       [configuration setAllowsInlineMediaPlayback:1];
 
-      webView10 = [(HODiscoverWebViewController *)self webView];
-      configuration2 = [webView10 configuration];
+      webView9 = [(HODiscoverWebViewController *)self webView];
+      configuration2 = [webView9 configuration];
       [configuration2 setMediaTypesRequiringUserActionForPlayback:1];
 
-      webView11 = [(HODiscoverWebViewController *)self webView];
-      [webView11 setAllowsLinkPreview:0];
+      webView10 = [(HODiscoverWebViewController *)self webView];
+      [webView10 setAllowsLinkPreview:0];
 
       v35 = +[NSDate date];
       [(HODiscoverWebViewController *)self setApplicationBackgroundedDate:v35];
     }
 
     view = [(HODiscoverWebViewController *)self view];
-    subviews2 = [view subviews];
-    webView12 = [(HODiscoverWebViewController *)self webView];
-    v39 = [subviews2 containsObject:webView12];
+    subviews = [view subviews];
+    webView11 = [(HODiscoverWebViewController *)self webView];
+    v39 = [subviews containsObject:webView11];
 
     if ((v39 & 1) == 0)
     {
       v40 = [[HODiscoverWebKitContentController alloc] initWithDelegate:self];
-      webView13 = [(HODiscoverWebViewController *)self webView];
-      configuration3 = [webView13 configuration];
+      webView12 = [(HODiscoverWebViewController *)self webView];
+      configuration3 = [webView12 configuration];
       userContentController = [configuration3 userContentController];
       [userContentController removeScriptMessageHandlerForName:off_1000D8788];
 
-      webView14 = [(HODiscoverWebViewController *)self webView];
-      configuration4 = [webView14 configuration];
+      webView13 = [(HODiscoverWebViewController *)self webView];
+      configuration4 = [webView13 configuration];
       userContentController2 = [configuration4 userContentController];
       [userContentController2 addScriptMessageHandler:v40 name:off_1000D8788];
 
-      webView15 = [(HODiscoverWebViewController *)self webView];
-      configuration5 = [webView15 configuration];
+      webView14 = [(HODiscoverWebViewController *)self webView];
+      configuration5 = [webView14 configuration];
       userContentController3 = [configuration5 userContentController];
       [userContentController3 removeScriptMessageHandlerForName:off_1000D8790];
 
-      webView16 = [(HODiscoverWebViewController *)self webView];
-      configuration6 = [webView16 configuration];
+      webView15 = [(HODiscoverWebViewController *)self webView];
+      configuration6 = [webView15 configuration];
       userContentController4 = [configuration6 userContentController];
       [userContentController4 addScriptMessageHandler:v40 name:off_1000D8790];
 
-      webView17 = [(HODiscoverWebViewController *)self webView];
-      [webView17 setUIDelegate:self];
+      webView16 = [(HODiscoverWebViewController *)self webView];
+      [webView16 setUIDelegate:self];
 
-      webView18 = [(HODiscoverWebViewController *)self webView];
-      scrollView3 = [webView18 scrollView];
+      webView17 = [(HODiscoverWebViewController *)self webView];
+      scrollView3 = [webView17 scrollView];
       [scrollView3 setDelegate:self];
+
+      contentView = [(HODiscoverWebViewController *)self contentView];
+      webView18 = [(HODiscoverWebViewController *)self webView];
+      [contentView addSubview:webView18];
 
       contentView2 = [(HODiscoverWebViewController *)self contentView];
       webView19 = [(HODiscoverWebViewController *)self webView];
-      [contentView2 addSubview:webView19];
-
-      contentView3 = [(HODiscoverWebViewController *)self contentView];
-      webView20 = [(HODiscoverWebViewController *)self webView];
-      [contentView3 sendSubviewToBack:webView20];
+      [contentView2 sendSubviewToBack:webView19];
 
       [(HODiscoverWebViewController *)self _addWebViewConstraints];
       v60 = +[NSNotificationCenter defaultCenter];
@@ -360,9 +423,9 @@ LABEL_3:
       webViewActivityIndicator3 = [(HODiscoverWebViewController *)self webViewActivityIndicator];
       [webViewActivityIndicator3 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-      contentView4 = [(HODiscoverWebViewController *)self contentView];
+      contentView3 = [(HODiscoverWebViewController *)self contentView];
       webViewActivityIndicator4 = [(HODiscoverWebViewController *)self webViewActivityIndicator];
-      [contentView4 addSubview:webViewActivityIndicator4];
+      [contentView3 addSubview:webViewActivityIndicator4];
 
       [(HODiscoverWebViewController *)self _addConstraintsForWebViewActivityIndicator];
     }

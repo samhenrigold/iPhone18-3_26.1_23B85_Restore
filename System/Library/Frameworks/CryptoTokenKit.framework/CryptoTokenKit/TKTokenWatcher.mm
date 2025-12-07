@@ -38,29 +38,29 @@ uint64_t __31__TKTokenWatcher_startWatching__block_invoke(uint64_t a1, void *a2)
 
 void __31__TKTokenWatcher_startWatching__block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   objc_sync_enter(v4);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [v9 firstObject];
         if (v10)
         {
@@ -76,22 +76,21 @@ void __31__TKTokenWatcher_startWatching__block_invoke_2(uint64_t a1, void *a2)
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(v4);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (TKTokenWatcher)initWithCTKDConnection:(id)connection
 {
   connectionCopy = connection;
-  v22.receiver = self;
-  v22.super_class = TKTokenWatcher;
-  v5 = [(TKTokenWatcher *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = TKTokenWatcher;
+  v5 = [(TKTokenWatcher *)&v23 init];
   if (v5)
   {
     if (connectionCopy)
@@ -125,23 +124,23 @@ void __31__TKTokenWatcher_startWatching__block_invoke_2(uint64_t a1, void *a2)
     objc_initWeak(&location, v5);
     uTF8String = [@"com.apple.ctkd.watcher-started" UTF8String];
     v15 = dispatch_queue_create("server-start-notify-q", 0);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __41__TKTokenWatcher_initWithCTKDConnection___block_invoke;
-    v19[3] = &unk_1E86B83A8;
-    objc_copyWeak(&v20, &location);
-    v16 = notify_register_dispatch(uTF8String, &v5->_notifyToken, v15, v19);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __41__TKTokenWatcher_initWithCTKDConnection___block_invoke;
+    v20[3] = &unk_1E86B83A8;
+    objc_copyWeak(&v21, &location);
+    v16 = notify_register_dispatch(uTF8String, &v5->_notifyToken, v15, v20);
 
     if (v16)
     {
-      v17 = TK_LOG_watcher();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = TK_LOG_watcher(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [(TKTokenWatcher *)v16 initWithCTKDConnection:v17];
+        [(TKTokenWatcher *)v16 initWithCTKDConnection:v18];
       }
     }
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
@@ -195,7 +194,7 @@ void __41__TKTokenWatcher_initWithCTKDConnection___block_invoke(uint64_t a1)
 
 - (void)setInsertionHandler:(void *)insertionHandler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = insertionHandler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -205,32 +204,31 @@ void __41__TKTokenWatcher_initWithCTKDConnection___block_invoke(uint64_t a1)
 
   if (selfCopy->_insertionHandler)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v8 = selfCopy->_tokenInfos;
-    v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v9)
     {
-      v10 = *v15;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v14 + 1) + 8 * v11);
           (*(selfCopy->_insertionHandler + 2))(selfCopy->_insertionHandler);
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -238,8 +236,6 @@ void __41__TKTokenWatcher_initWithCTKDConnection___block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRemovalHandler:(void *)removalHandler forTokenID:(NSString *)tokenID
@@ -368,16 +364,14 @@ void __41__TKTokenWatcher_initWithCTKDConnection___block_invoke(uint64_t a1)
       while (v7);
     }
 
-    v13 = TK_LOG_watcher();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = TK_LOG_watcher(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [(TKTokenWatcher *)v13 removeAllTokens];
+      [(TKTokenWatcher *)v14 removeAllTokens];
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (TKTokenWatcherTokenInfo)tokenInfoForTokenID:(NSString *)tokenID
@@ -393,13 +387,12 @@ void __41__TKTokenWatcher_initWithCTKDConnection___block_invoke(uint64_t a1)
 
 - (void)initWithCTKDConnection:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138412546;
-  v4 = @"com.apple.ctkd.watcher-started";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "registering notification '%@' failed with status %u", &v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138412546;
+  v3 = @"com.apple.ctkd.watcher-started";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "registering notification '%@' failed with status %u", &v2, 0x12u);
 }
 
 @end

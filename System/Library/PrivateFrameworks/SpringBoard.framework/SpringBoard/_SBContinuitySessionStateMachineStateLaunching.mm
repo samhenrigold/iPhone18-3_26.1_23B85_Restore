@@ -135,7 +135,7 @@
         return;
       }
 
-      v6 = SBLogContinuitySession();
+      v6 = SBLogContinuitySession(2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *v10 = 0;
@@ -148,7 +148,7 @@
 
     if (!lockState && self->_isCurrentState)
     {
-      v6 = SBLogContinuitySession();
+      v6 = SBLogContinuitySession(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -167,73 +167,76 @@ LABEL_12:
 
 - (void)_reevaluateStateForReason:(id)reason
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v5 = reasonCopy;
   if (self->_isCurrentState)
   {
-    v5 = SBLogContinuitySession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogContinuitySession(reasonCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.Launching] Re-evaluating state for reason: %{public}@", &v15, 0xCu);
+      v18 = 138543362;
+      v19 = v5;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.Launching] Re-evaluating state for reason: %{public}@", &v18, 0xCu);
     }
 
-    v6 = [MEMORY[0x277CBEB58] set];
+    v7 = [MEMORY[0x277CBEB58] set];
+    v8 = v7;
     if (self->_radar124642623)
     {
-      v7 = SBLogContinuitySession();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = SBLogContinuitySession(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[State.Launching] waiting on rdar://124642623", &v15, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State.Launching] waiting on rdar://124642623", &v18, 2u);
       }
 
-      [v6 addObject:@"rdar://124642623"];
+      [v8 addObject:@"rdar://124642623"];
     }
 
-    if ([(NSMutableArray *)self->_handlingLaunchEvents count])
-    {
-      v8 = SBLogContinuitySession();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-      {
-        handlingLaunchEvents = self->_handlingLaunchEvents;
-        v15 = 138543362;
-        v16 = handlingLaunchEvents;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[State.Launching] still waiting on launch events: %{public}@", &v15, 0xCu);
-      }
-
-      [v6 addObject:@"checkpoint.handling-launch-event"];
-    }
-
-    v10 = [v6 count];
-    v11 = SBLogContinuitySession();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v10 = [(NSMutableArray *)self->_handlingLaunchEvents count];
     if (v10)
     {
-      if (v12)
+      v11 = SBLogContinuitySession(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        bs_array = [v6 bs_array];
-        v15 = 138543362;
-        v16 = bs_array;
-        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "[State.Launching] still blocked by %{public}@", &v15, 0xCu);
+        handlingLaunchEvents = self->_handlingLaunchEvents;
+        v18 = 138543362;
+        v19 = handlingLaunchEvents;
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "[State.Launching] still waiting on launch events: %{public}@", &v18, 0xCu);
       }
 
-      v14 = *(self->_stateUpdateHandler + 2);
+      [v8 addObject:@"checkpoint.handling-launch-event"];
+    }
+
+    v13 = [v8 count];
+    v14 = SBLogContinuitySession(v13);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    if (v13)
+    {
+      if (v15)
+      {
+        bs_array = [v8 bs_array];
+        v18 = 138543362;
+        v19 = bs_array;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[State.Launching] still blocked by %{public}@", &v18, 0xCu);
+      }
+
+      v17 = *(self->_stateUpdateHandler + 2);
     }
 
     else
     {
-      if (v12)
+      if (v15)
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "[State.Launching] --> moving to .active", &v15, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[State.Launching] --> moving to .active", &v18, 2u);
       }
 
-      v14 = *(self->_stateTransitionHandler + 2);
+      v17 = *(self->_stateTransitionHandler + 2);
     }
 
-    v14();
+    v17();
   }
 }
 

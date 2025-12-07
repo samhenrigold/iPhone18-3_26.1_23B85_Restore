@@ -1347,7 +1347,7 @@ LABEL_6:
   {
     v7 = +[MPAuthoringUtilities layerDescriptionForLayerWithZIndex:forStyle:](MPAuthoringUtilities, "layerDescriptionForLayerWithZIndex:forStyle:", [self layerIndexFromOptions:options], objc_msgSend(self, "styleFromOptions:", options));
     v6 = [v7 objectForKey:@"pickEffectsEvenlyByID"];
-    if (v6 || (v6 = [v7 objectForKey:@"PlatformSpecific"]) != 0 && (v9 = objc_msgSend(v7, "objectForKey:", @"PlatformSpecific"), LODWORD(v6) = MRIsAppleTV(), v6) && (v6 = objc_msgSend(v9, "objectForKey:", @"AppleTV")) != 0 && (v6 = objc_msgSend(objc_msgSend(v9, "objectForKey:", @"AppleTV"), "objectForKey:", @"pickEffectsEvenlyByID")) != 0)
+    if (v6 || (v6 = [v7 objectForKey:@"PlatformSpecific"]) != 0 && (v9 = objc_msgSend(v7, "objectForKey:", @"PlatformSpecific"), LODWORD(v6) = MRIsAppleTV(v9, v10), v6) && (v6 = objc_msgSend(v9, "objectForKey:", @"AppleTV")) != 0 && (v6 = objc_msgSend(objc_msgSend(v9, "objectForKey:", @"AppleTV"), "objectForKey:", @"pickEffectsEvenlyByID")) != 0)
     {
       [v6 doubleValue];
       LOBYTE(v6) = v8 != 0.0;

@@ -31,53 +31,13 @@
   v35.super_class = HDHealthService;
   v14 = [(HDHealthService *)&v35 init];
   v15 = v14;
-  if (!v14)
-  {
-    goto LABEL_4;
-  }
-
-  v14->_deliverData = 1;
-  objc_storeWeak(&v14->_serviceManager, managerCopy);
-  v16 = objc_alloc_init(NSMutableDictionary);
-  writableCharacteristics = v15->_writableCharacteristics;
-  v15->_writableCharacteristics = v16;
-
-  v18 = HKCreateSerialDispatchQueue();
-  writeQueue = v15->_writeQueue;
-  v15->_writeQueue = v18;
-
-  v20 = +[NSMutableArray array];
-  pendingWrites = v15->_pendingWrites;
-  v15->_pendingWrites = v20;
-
-  serviceUUID = [objc_opt_class() serviceUUID];
-  uUIDString = [serviceUUID UUIDString];
-  serviceId = v15->_serviceId;
-  v15->_serviceId = uUIDString;
-
-  v25 = objc_storeWeak(&v15->_healthPeripheral, peripheralCopy);
-  cbPeripheral = [peripheralCopy cbPeripheral];
-  identifier = [cbPeripheral identifier];
-  peripheralUUID = v15->_peripheralUUID;
-  v15->_peripheralUUID = identifier;
-
-  objc_storeWeak(&v15->_profile, profileCopy);
-  v29 = HKCreateSerialDispatchQueue();
-  dataQueue = v15->_dataQueue;
-  v15->_dataQueue = v29;
-
-  v31 = objc_alloc_init(NSMutableArray);
-  pendingCharacteristicBuffer = v15->_pendingCharacteristicBuffer;
-  v15->_pendingCharacteristicBuffer = v31;
-
-  if ([(HDHealthService *)v15 processAdvertisementData:dataCopy])
+  if (v14 && (v14->_deliverData = 1, objc_storeWeak(&v14->_serviceManager, managerCopy), v16 = objc_alloc_init(NSMutableDictionary), writableCharacteristics = v15->_writableCharacteristics, v15->_writableCharacteristics = v16, writableCharacteristics, HKCreateSerialDispatchQueue(), v18 = objc_claimAutoreleasedReturnValue(), writeQueue = v15->_writeQueue, v15->_writeQueue = v18, writeQueue, +[NSMutableArray array](NSMutableArray, "array"), v20 = objc_claimAutoreleasedReturnValue(), pendingWrites = v15->_pendingWrites, v15->_pendingWrites = v20, pendingWrites, [objc_opt_class() serviceUUID], v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "UUIDString"), v23 = objc_claimAutoreleasedReturnValue(), serviceId = v15->_serviceId, v15->_serviceId = v23, serviceId, v22, v25 = objc_storeWeak(&v15->_healthPeripheral, peripheralCopy), objc_msgSend(peripheralCopy, "cbPeripheral"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "identifier"), v27 = objc_claimAutoreleasedReturnValue(), peripheralUUID = v15->_peripheralUUID, v15->_peripheralUUID = v27, peripheralUUID, v26, peripheralCopy, objc_storeWeak(&v15->_profile, profileCopy), HKCreateSerialDispatchQueue(), v29 = objc_claimAutoreleasedReturnValue(), dataQueue = v15->_dataQueue, v15->_dataQueue = v29, dataQueue, v31 = objc_alloc_init(NSMutableArray), pendingCharacteristicBuffer = v15->_pendingCharacteristicBuffer, v15->_pendingCharacteristicBuffer = v31, pendingCharacteristicBuffer, -[HDHealthService processAdvertisementData:](v15, "processAdvertisementData:", dataCopy)))
   {
     v33 = v15;
   }
 
   else
   {
-LABEL_4:
     v33 = 0;
   }
 

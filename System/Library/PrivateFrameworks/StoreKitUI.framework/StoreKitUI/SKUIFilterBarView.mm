@@ -93,7 +93,7 @@
   return reason;
 }
 
-uint64_t __68__SKUIFilterBarView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__68__SKUIFilterBarView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -221,7 +221,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t __59__SKUIFilterBarView_sizeThatFitsWidth_viewElement_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__59__SKUIFilterBarView_sizeThatFitsWidth_viewElement_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) sizeForViewElement:a2 width:*(a1 + 48)];
   v5 = *(*(a1 + 40) + 8);

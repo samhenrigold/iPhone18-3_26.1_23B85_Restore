@@ -647,35 +647,13 @@ LABEL_34:
   removeCopy = remove;
   escrowExpiry = [(KTClientDataRecord *)self escrowExpiry];
 
-  if (escrowExpiry)
+  v14 = 1;
+  if (!escrowExpiry || (-[KTClientDataRecord escrowExpiry](self, "escrowExpiry"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [removeCopy compare:v8], v8, v9 != 1))
   {
-    escrowExpiry2 = [(KTClientDataRecord *)self escrowExpiry];
-    v9 = [removeCopy compare:escrowExpiry2];
-
-    if (v9 == 1)
+    if (!markedCopy || (-[KTClientDataRecord markedForDeletion](self, "markedForDeletion"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [removeCopy compare:v10], v10, v11 != 1) && (-[KTClientDataRecord expiry](self, "expiry"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(removeCopy, "compare:", v12), v12, v13 != 1))
     {
-      goto LABEL_6;
+      v14 = 0;
     }
-  }
-
-  if (!markedCopy)
-  {
-    goto LABEL_7;
-  }
-
-  markedForDeletion = [(KTClientDataRecord *)self markedForDeletion];
-  v11 = [removeCopy compare:markedForDeletion];
-
-  if (v11 == 1 || (-[KTClientDataRecord expiry](self, "expiry"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [removeCopy compare:v12], v12, v13 == 1))
-  {
-LABEL_6:
-    v14 = 1;
-  }
-
-  else
-  {
-LABEL_7:
-    v14 = 0;
   }
 
   return v14;

@@ -34,8 +34,8 @@
 
 - (id)specifiers
 {
-  v37[1] = *MEMORY[0x277D85DE8];
-  v31 = objc_opt_new();
+  v36[1] = *MEMORY[0x277D85DE8];
+  v30 = objc_opt_new();
   v3 = objc_opt_new();
   bundleControllers = self->_bundleControllers;
   self->_bundleControllers = v3;
@@ -48,8 +48,8 @@
 
   else
   {
-    v30 = +[PSUICellularPlanManagerCache sharedInstance];
-    planItems = [v30 planItems];
+    v29 = +[PSUICellularPlanManagerCache sharedInstance];
+    planItems = [v29 planItems];
     v8 = [planItems count];
     v9 = +[PSUICellularPlanManagerCache sharedInstance];
     danglingPlanItems = [v9 danglingPlanItems];
@@ -71,33 +71,31 @@
 
     if (mEMORY[0x277D4D868])
     {
-      [v31 addObject:mEMORY[0x277D4D868]];
+      [v30 addObject:mEMORY[0x277D4D868]];
     }
   }
 
 LABEL_7:
-  v36 = *MEMORY[0x277D3FE08];
-  v37[0] = @"EDGESettings";
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-  v33 = v19;
-  v34 = @"items";
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
-  v35 = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+  v35 = *MEMORY[0x277D3FE08];
+  v36[0] = @"EDGESettings";
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+  v32 = v19;
+  v33 = @"items";
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+  v34 = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
   v22 = objc_loadWeakRetained(&self->_parentSpecifier);
   v23 = objc_loadWeakRetained(&self->_listController);
   bundle = [v23 bundle];
   v25 = objc_loadWeakRetained(&self->_listController);
-  v32 = 0;
+  v31 = 0;
   v26 = SpecifiersFromPlist();
 
-  v27 = v32;
-  [(NSMutableArray *)self->_bundleControllers addObjectsFromArray:v27, &v32];
-  [v31 addObjectsFromArray:v26];
+  v27 = v31;
+  [(NSMutableArray *)self->_bundleControllers addObjectsFromArray:v27, &v31];
+  [v30 addObjectsFromArray:v26];
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v30;
 }
 
 - (PSListController)listController

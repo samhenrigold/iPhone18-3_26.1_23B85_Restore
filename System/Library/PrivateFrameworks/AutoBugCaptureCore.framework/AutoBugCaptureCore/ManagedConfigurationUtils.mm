@@ -22,9 +22,11 @@
 
 uint64_t __43__ManagedConfigurationUtils_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(ManagedConfigurationUtils);
+  v0 = objc_alloc_init(ManagedConfigurationUtils);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (ManagedConfigurationUtils)init
@@ -53,7 +55,7 @@ LABEL_10:
         return v2;
       }
 
-      class = symptomsLogHandle();
+      class = symptomsLogHandle(0);
       if (!os_log_type_enabled(class, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_10;
@@ -65,7 +67,7 @@ LABEL_10:
 
     else
     {
-      class = symptomsLogHandle();
+      class = symptomsLogHandle(0);
       if (!os_log_type_enabled(class, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_10;
@@ -100,14 +102,14 @@ LABEL_10:
 
 - (void)profileConnectionDidReceiveProfileListChangedNotification:(id)notification userInfo:(id)info
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [notification installedProfileIdentifiersWithFilterFlags:{1, info}];
-  v6 = symptomsLogHandle();
+  v6 = symptomsLogHandle(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEBUG, "Received ProfileListChangedNotification with installed visible profiles: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEBUG, "Received ProfileListChangedNotification with installed visible profiles: %@", &v10, 0xCu);
   }
 
   installedVisibleProfileIdentifiers = [(ManagedConfigurationUtils *)self installedVisibleProfileIdentifiers];
@@ -118,34 +120,31 @@ LABEL_10:
     v9 = [v5 copy];
     [(ManagedConfigurationUtils *)self setInstalledVisibleProfileIdentifiers:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)profileConnectionDidReceiveEffectiveSettingsChangedNotification:(id)notification userInfo:(id)info
 {
   v11 = *MEMORY[0x277D85DE8];
   v5 = [notification effectiveBoolValueForSetting:{@"allowDiagnosticSubmission", info}];
-  v6 = symptomsLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = v5;
+  v7 = symptomsLogHandle(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"OFF";
-    if (v5 == 1)
+    v8 = @"OFF";
+    if (v6 == 1)
     {
-      v7 = @"ON";
+      v8 = @"ON";
     }
 
     v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "MCProfile Settings Changed, we must check the value for allowDiagnosticSubmission. It's %@", &v9, 0xCu);
+    v10 = v8;
+    _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEFAULT, "MCProfile Settings Changed, we must check the value for allowDiagnosticSubmission. It's %@", &v9, 0xCu);
   }
 
-  if ((v5 == 1) != [(ManagedConfigurationUtils *)self diagnosticsAndUsageEnabled])
+  if ((v6 == 1) != [(ManagedConfigurationUtils *)self diagnosticsAndUsageEnabled])
   {
-    [(ManagedConfigurationUtils *)self setDiagnosticsAndUsageEnabled:v5 == 1];
+    [(ManagedConfigurationUtils *)self setDiagnosticsAndUsageEnabled:v6 == 1];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

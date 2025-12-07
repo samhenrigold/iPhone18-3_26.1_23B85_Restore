@@ -5,226 +5,223 @@
 
 NSObject *__76___CNAutocompletePeopleSuggesterPredictionSearchStrategyTask_convertResults__block_invoke(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 recipients];
   v5 = [v4 count];
 
   if (v5 == 1)
   {
-    v7 = [v3 recipients];
-    v6 = [v7 firstObject];
+    v8 = [v3 recipients];
+    v7 = [v8 firstObject];
 
-    v8 = [v6 displayName];
-    v9 = v8;
-    if (!v8 || ![v8 length])
+    v9 = [v7 displayName];
+    v10 = v9;
+    if (!v9 || (v9 = [v9 length]) == 0)
     {
-      v11 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = CNALoggingContextDebug(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = v3;
-        _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "Predictions: Invalid result: no display name for %@", buf, 0xCu);
+        v52 = v3;
+        _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_DEFAULT, "Predictions: Invalid result: no display name for %@", buf, 0xCu);
       }
 
-      v20 = 0;
+      v21 = 0;
       goto LABEL_31;
     }
 
-    v10 = [v6 handle];
-    v11 = v10;
-    if (v10 && [v10 length])
+    v11 = [v7 handle];
+    v12 = v11;
+    if (v11 && (v11 = [v11 length]) != 0)
     {
-      v12 = *(a1 + 32);
-      v13 = [objc_opt_class() _addressTypeFromHandle:v11];
+      v13 = [objc_opt_class() _addressTypeFromHandle:v12];
       if (v13)
       {
         v14 = v13;
-        if (![*(a1 + 40) containsObject:v11])
+        v15 = [*(a1 + 40) containsObject:v12];
+        if (!v15)
         {
-          [*(a1 + 40) addObject:v11];
-          v31 = objc_alloc_init(CNAutocompleteResultValue);
-          [(CNAutocompleteResultValue *)v31 setAddress:v11];
-          [(CNAutocompleteResultValue *)v31 setAddressType:v14];
-          v32 = [*(a1 + 48) duetResultWithDisplayName:v9 value:v31 contactIdentifier:0];
-          [v32 setPsSuggestion:v3];
-          v33 = [v6 contact];
-          v15 = v33;
-          if (v33)
+          [*(a1 + 40) addObject:v12];
+          v30 = objc_alloc_init(CNAutocompleteResultValue);
+          [(CNAutocompleteResultValue *)v30 setAddress:v12];
+          [(CNAutocompleteResultValue *)v30 setAddressType:v14];
+          v31 = [*(a1 + 48) duetResultWithDisplayName:v10 value:v30 contactIdentifier:0];
+          [v31 setPsSuggestion:v3];
+          v32 = [v7 contact];
+          v16 = v32;
+          if (v32)
           {
-            v34 = [v33 identifier];
-            v41 = v32;
-            v35 = *(*(a1 + 32) + 32);
-            v49[0] = MEMORY[0x277D85DD0];
-            v49[1] = 3221225472;
-            v49[2] = __76___CNAutocompletePeopleSuggesterPredictionSearchStrategyTask_convertResults__block_invoke_79;
-            v49[3] = &unk_2781C4DA0;
-            v50 = v35;
-            v51 = v34;
+            v33 = [v32 identifier];
+            v40 = v31;
+            v34 = *(*(a1 + 32) + 32);
+            v48[0] = MEMORY[0x277D85DD0];
+            v48[1] = 3221225472;
+            v48[2] = __76___CNAutocompletePeopleSuggesterPredictionSearchStrategyTask_convertResults__block_invoke_79;
+            v48[3] = &unk_2781C4DA0;
+            v49 = v34;
+            v50 = v33;
+            v35 = v33;
             v36 = v34;
-            v37 = v35;
-            [v41 setContactProvider:v49];
+            [v40 setContactProvider:v48];
 
-            v32 = v41;
+            v31 = v40;
           }
 
-          v38 = CNALoggingContextDebug();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v37 = CNALoggingContextDebug(v32);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v53 = v9;
-            v54 = 2112;
-            v55 = v11;
-            v56 = 2112;
-            v57 = v32;
-            _os_log_impl(&dword_2155FE000, v38, OS_LOG_TYPE_DEFAULT, "Predictions: %@ <%@>: %@", buf, 0x20u);
+            v52 = v10;
+            v53 = 2112;
+            v54 = v12;
+            v55 = 2112;
+            v56 = v31;
+            _os_log_impl(&dword_2155FE000, v37, OS_LOG_TYPE_DEFAULT, "Predictions: %@ <%@>: %@", buf, 0x20u);
           }
 
-          v45[0] = MEMORY[0x277D85DD0];
-          v45[1] = 3221225472;
-          v45[2] = __76___CNAutocompletePeopleSuggesterPredictionSearchStrategyTask_convertResults__block_invoke_81;
-          v45[3] = &unk_2781C4F28;
-          v48 = *(a1 + 64);
-          v46 = *(a1 + 56);
-          v47 = v31;
-          v39 = v31;
-          [v32 addDiagnosticLog:v45];
-          v40 = v47;
-          v20 = v32;
+          v44[0] = MEMORY[0x277D85DD0];
+          v44[1] = 3221225472;
+          v44[2] = __76___CNAutocompletePeopleSuggesterPredictionSearchStrategyTask_convertResults__block_invoke_81;
+          v44[3] = &unk_2781C4F28;
+          v47 = *(a1 + 64);
+          v45 = *(a1 + 56);
+          v46 = v30;
+          v38 = v30;
+          [v31 addDiagnosticLog:v44];
+          v39 = v46;
+          v21 = v31;
 
           goto LABEL_30;
         }
 
-        v15 = CNALoggingContextDebug();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = CNALoggingContextDebug(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v53 = v11;
-          v54 = 2112;
-          v55 = v3;
-          v16 = "Predictions: Duplicate identifier %@. Skipping %@.";
-          v17 = v15;
-          v18 = 22;
+          v52 = v12;
+          v53 = 2112;
+          v54 = v3;
+          v17 = "Predictions: Duplicate identifier %@. Skipping %@.";
+          v18 = v16;
+          v19 = 22;
 LABEL_28:
-          _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
+          _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, v17, buf, v19);
         }
 
 LABEL_29:
-        v20 = 0;
+        v21 = 0;
 LABEL_30:
 
 LABEL_31:
         goto LABEL_32;
       }
 
-      v15 = CNALoggingContextDebug();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = CNALoggingContextDebug(0);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_29;
       }
 
       *buf = 138412290;
-      v53 = v3;
-      v16 = "Predictions: Invalid result: no handle type for %@";
+      v52 = v3;
+      v17 = "Predictions: Invalid result: no handle type for %@";
     }
 
     else
     {
-      v15 = CNALoggingContextDebug();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = CNALoggingContextDebug(v11);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_29;
       }
 
       *buf = 138412290;
-      v53 = v3;
-      v16 = "Predictions: Invalid result: no handle for %@";
+      v52 = v3;
+      v17 = "Predictions: Invalid result: no handle for %@";
     }
 
-    v17 = v15;
-    v18 = 12;
+    v18 = v16;
+    v19 = 12;
     goto LABEL_28;
   }
 
   if (!v5)
   {
-    v6 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = CNALoggingContextDebug(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2155FE000, v6, OS_LOG_TYPE_DEFAULT, "Predictions: No recipient included in returned _PSSuggestion", buf, 2u);
+      _os_log_impl(&dword_2155FE000, v7, OS_LOG_TYPE_DEFAULT, "Predictions: No recipient included in returned _PSSuggestion", buf, 2u);
     }
 
     goto LABEL_24;
   }
 
-  v19 = *(a1 + 32);
-  v6 = [objc_opt_class() _identifierForGroupResultSuggestion:v3];
-  if ([*(a1 + 40) containsObject:v6])
+  v7 = [objc_opt_class() _identifierForGroupResultSuggestion:v3];
+  v20 = [*(a1 + 40) containsObject:v7];
+  if (v20)
   {
-    v9 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CNALoggingContextDebug(v20);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v53 = v6;
-      v54 = 2112;
-      v55 = v3;
-      _os_log_impl(&dword_2155FE000, v9, OS_LOG_TYPE_DEFAULT, "Predictions: Duplicate group identifier %@. Skipping %@.", buf, 0x16u);
+      v52 = v7;
+      v53 = 2112;
+      v54 = v3;
+      _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "Predictions: Duplicate group identifier %@. Skipping %@.", buf, 0x16u);
     }
 
-    v20 = 0;
+    v21 = 0;
   }
 
   else
   {
-    [*(a1 + 40) addObject:v6];
+    [*(a1 + 40) addObject:v7];
     if (![*(*(a1 + 32) + 24) shouldIncludeGroupResults])
     {
 LABEL_24:
-      v20 = 0;
+      v21 = 0;
       goto LABEL_33;
     }
 
-    v21 = *(a1 + 32);
     v22 = objc_opt_class();
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __76___CNAutocompletePeopleSuggesterPredictionSearchStrategyTask_convertResults__block_invoke_108;
     aBlock[3] = &unk_2781C4F50;
     v23 = v3;
-    v43 = v23;
-    v44 = v22;
+    v42 = v23;
+    v43 = v22;
     v24 = _Block_copy(aBlock);
     v25 = *(a1 + 48);
     v26 = [v23 groupName];
-    v20 = [v25 duetResultWithDisplayName:v26 value:0 contactIdentifier:0];
+    v21 = [v25 duetResultWithDisplayName:v26 value:0 contactIdentifier:0];
 
-    [v20 setResultType:1];
-    [v20 setIdentifier:v6];
-    [v20 setMembersProvider:v24];
-    [v20 setPsSuggestion:v23];
-    v27 = CNALoggingContextDebug();
+    [v21 setResultType:1];
+    [v21 setIdentifier:v7];
+    [v21 setMembersProvider:v24];
+    v27 = CNALoggingContextDebug([v21 setPsSuggestion:v23]);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       v28 = [v23 groupName];
       *buf = 138412802;
-      v53 = v20;
-      v54 = 2112;
-      v55 = v28;
-      v56 = 2112;
-      v57 = v6;
+      v52 = v21;
+      v53 = 2112;
+      v54 = v28;
+      v55 = 2112;
+      v56 = v7;
       _os_log_impl(&dword_2155FE000, v27, OS_LOG_TYPE_DEFAULT, "Predictions: %@ for displayName:%@ and identifier %@", buf, 0x20u);
     }
 
-    v9 = v43;
+    v10 = v42;
   }
 
 LABEL_32:
 
 LABEL_33:
-  v29 = *MEMORY[0x277D85DE8];
 
-  return v20;
+  return v21;
 }
 
 id __76___CNAutocompletePeopleSuggesterPredictionSearchStrategyTask_convertResults__block_invoke_81(uint64_t a1)
@@ -283,21 +280,21 @@ id __76___CNAutocompletePeopleSuggesterPredictionSearchStrategyTask_convertResul
 
         if (v12)
         {
-          v13 = [v8 handle];
-          v14 = [CNAutocompleteResult messagesResultWithAddress:v13 displayName:v9 nameComponents:0 resultType:0 addressType:v12 identifier:0 contactProvider:0 groupMembersProvider:0 userInfo:0];
+          v14 = [v8 handle];
+          v15 = [CNAutocompleteResult messagesResultWithAddress:v14 displayName:v9 nameComponents:0 resultType:0 addressType:v12 identifier:0 contactProvider:0 groupMembersProvider:0 userInfo:0];
 
-          [v2 addObject:v14];
+          [v2 addObject:v15];
         }
 
         else
         {
-          v14 = CNALoggingContextDebug();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = CNALoggingContextDebug(v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = [v8 handle];
+            v16 = [v8 handle];
             *buf = 138412290;
-            v23 = v15;
-            _os_log_impl(&dword_2155FE000, v14, OS_LOG_TYPE_DEFAULT, "Predictions: Unknown addressType for groupMember handle: %@", buf, 0xCu);
+            v23 = v16;
+            _os_log_impl(&dword_2155FE000, v15, OS_LOG_TYPE_DEFAULT, "Predictions: Unknown addressType for groupMember handle: %@", buf, 0xCu);
           }
         }
       }
@@ -307,8 +304,6 @@ id __76___CNAutocompletePeopleSuggesterPredictionSearchStrategyTask_convertResul
 
     while (v5);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

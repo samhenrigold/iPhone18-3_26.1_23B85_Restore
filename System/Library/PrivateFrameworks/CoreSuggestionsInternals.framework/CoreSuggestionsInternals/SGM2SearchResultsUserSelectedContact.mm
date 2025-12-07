@@ -1,6 +1,7 @@
 @interface SGM2SearchResultsUserSelectedContact
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
+- (id)appAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -126,7 +127,6 @@ LABEL_4:
       goto LABEL_23;
     }
 
-    v7 = *(equalCopy + 25);
     if (self->_wasSuggestedContact)
     {
       if ((*(equalCopy + 25) & 1) == 0)
@@ -153,7 +153,6 @@ LABEL_4:
       goto LABEL_23;
     }
 
-    v8 = *(equalCopy + 24);
     if (self->_wasKnownContact)
     {
       if ((*(equalCopy + 24) & 1) == 0)
@@ -284,19 +283,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    wasSuggestedContact = self->_wasSuggestedContact;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -315,15 +313,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  wasKnownContact = self->_wasKnownContact;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_6:
-    app = self->_app;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:
@@ -471,6 +467,21 @@ LABEL_13:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)appAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894B3F0[string];
   }
 
   return v4;

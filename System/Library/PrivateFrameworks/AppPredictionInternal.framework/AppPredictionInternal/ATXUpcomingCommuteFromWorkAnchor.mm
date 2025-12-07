@@ -34,12 +34,11 @@ BOOL __83__ATXUpcomingCommuteFromWorkAnchor_fetchAnchorOccurrencesBetweenStartDa
 
 id __83__ATXUpcomingCommuteFromWorkAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invoke_2(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   [objc_opt_class() secondsOfInfluence];
-  v4 = [v3 convertToUpcomingCommuteEventWithWindowDuration:?];
+  v3 = [v2 convertToUpcomingCommuteEventWithWindowDuration:?];
 
-  return v4;
+  return v3;
 }
 
 + (id)anchorOccurenceDateFromDuetEvent:(id)event

@@ -40,24 +40,24 @@
 
 - (id)_gkURLByAddingQueryParameters:()GKAdditions
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
     absoluteString = [self absoluteString];
     if (absoluteString)
     {
-      v21 = absoluteString;
+      v20 = absoluteString;
       v6 = [absoluteString mutableCopy];
       query = [self query];
 
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
-      v22 = v4;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v21 = v4;
       v8 = v4;
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v9)
       {
         v10 = v9;
@@ -71,17 +71,17 @@
           v11 = @"?";
         }
 
-        v12 = *v24;
+        v12 = *v23;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v24 != v12)
+            if (*v23 != v12)
             {
               objc_enumerationMutation(v8);
             }
 
-            v14 = *(*(&v23 + 1) + 8 * i);
+            v14 = *(*(&v22 + 1) + 8 * i);
             v15 = [v8 objectForKey:v14];
             v16 = v15;
             if (v15)
@@ -91,7 +91,7 @@
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v10);
@@ -104,20 +104,18 @@
         {
           selfCopy = v17;
 
-          v4 = v22;
+          v4 = v21;
           goto LABEL_21;
         }
       }
 
-      absoluteString = v21;
-      v4 = v22;
+      absoluteString = v20;
+      v4 = v21;
     }
   }
 
   selfCopy = self;
 LABEL_21:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

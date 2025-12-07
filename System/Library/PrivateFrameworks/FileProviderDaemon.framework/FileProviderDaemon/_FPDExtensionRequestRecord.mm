@@ -108,10 +108,9 @@
 
 - (void)_handleTimeout
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: hard expiration reached, cancelling progress", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: hard expiration reached, cancelling progress", v1, 0xCu);
 }
 
 - (void)_setupTimer:(double)timer
@@ -119,8 +118,8 @@
   if (!self->_handler)
   {
     timer = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ setting up timer without a timeout handler", timer];
-    v14 = fp_current_or_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v13 = fp_current_or_default_log();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_5();
     }
@@ -137,21 +136,20 @@
     v7 = self->_timer;
     v8 = dispatch_time(0, (timer * 1000000000.0));
     dispatch_source_set_timer(v7, v8, 0xFFFFFFFFFFFFFFFFLL, 0);
-    v9 = self->_timer;
     dispatch_set_qos_class_fallback();
     objc_initWeak(&location, self);
-    v10 = self->_timer;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __42___FPDExtensionRequestRecord__setupTimer___block_invoke;
-    v15[3] = &unk_1E83BE0B8;
-    objc_copyWeak(&v16, &location);
-    v11 = v10;
-    v12 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v15);
-    dispatch_source_set_event_handler(v11, v12);
+    v9 = self->_timer;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __42___FPDExtensionRequestRecord__setupTimer___block_invoke;
+    v14[3] = &unk_1E83BE0B8;
+    objc_copyWeak(&v15, &location);
+    v10 = v9;
+    v11 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v14);
+    dispatch_source_set_event_handler(v10, v11);
 
     dispatch_resume(self->_timer);
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 }
@@ -160,14 +158,14 @@
 {
   if (!self->_handler)
   {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ setting up timer without a timeout handler"];
-    v17 = fp_current_or_default_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ setting up timer without a timeout handler"];
+    v16 = fp_current_or_default_log();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_5();
     }
 
-    __assert_rtn("-[_FPDExtensionRequestRecord _setupProgressTimer]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDExtensionRequestRecord.m", 144, [v16 UTF8String]);
+    __assert_rtn("-[_FPDExtensionRequestRecord _setupProgressTimer]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDExtensionRequestRecord.m", 144, [v15 UTF8String]);
   }
 
   v3 = +[FPDConfigurationStore defaultStore];
@@ -190,21 +188,20 @@
     v10 = self->_progressTimer;
     v11 = dispatch_time(0, ((v5 + 5.0) * 1000000000.0));
     dispatch_source_set_timer(v10, v11, 0xFFFFFFFFFFFFFFFFLL, 0);
-    v12 = self->_progressTimer;
     dispatch_set_qos_class_fallback();
     objc_initWeak(&location, self);
-    v13 = self->_progressTimer;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __49___FPDExtensionRequestRecord__setupProgressTimer__block_invoke;
-    v18[3] = &unk_1E83BE0B8;
-    objc_copyWeak(&v19, &location);
-    v14 = v13;
-    v15 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v18);
-    dispatch_source_set_event_handler(v14, v15);
+    v12 = self->_progressTimer;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __49___FPDExtensionRequestRecord__setupProgressTimer__block_invoke;
+    v17[3] = &unk_1E83BE0B8;
+    objc_copyWeak(&v18, &location);
+    v13 = v12;
+    v14 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v17);
+    dispatch_source_set_event_handler(v13, v14);
 
     dispatch_resume(self->_progressTimer);
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 }

@@ -537,7 +537,7 @@ void __67__UISUserInterfaceStyleMode_descriptionBuilderWithMultilinePrefix___blo
   v8 = *(a1 + 40);
   if (v8)
   {
-    [v8 customSchedule];
+    objc_msgSend_customSchedule(v8);
     v10 = *(&v16 + 1);
     v11 = v16;
     v13 = *(&v17 + 1);

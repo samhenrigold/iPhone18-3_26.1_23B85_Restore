@@ -221,7 +221,7 @@
   *&v16 = radius;
   scale.var0 = var0;
   scale.var1 = var1;
-  [(PAEFilterDefaultBase *)self preScaleDown:&v25 + 4 withOutputRadius:&v25 withOutputScaleFactor:&v23 withInput:v16 minInputScale:*&scale maxInputScale:*&scale.var1];
+  objc_msgSend_preScaleDown_withOutputRadius_withOutputScaleFactor_withInput_minInputScale_maxInputScale_(self, a2, &v25 + 4, &v25, &v23, v16, *&scale, *&scale.var1);
   v15 = v23;
   if (v23)
   {

@@ -6,7 +6,7 @@
 
 - (void)ln_configureWithBundleIdentifier:()LNConnection interface:
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if (!v7)
@@ -16,12 +16,10 @@
   }
 
   [self setRemoteObjectInterface:v8];
-  v12 = @"bundleIdentifier";
-  v13[0] = v7;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = @"bundleIdentifier";
+  v12[0] = v7;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   [self setUserInfo:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

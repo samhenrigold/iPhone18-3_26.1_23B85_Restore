@@ -12,17 +12,7 @@
 - (BOOL)_objectPassesStringFilter:(id)filter
 {
   filterCopy = filter;
-  if ([(SignpostReporterObjectFilter *)self platform]!= 1)
-  {
-    goto LABEL_5;
-  }
-
-  subsystem = [filterCopy subsystem];
-  category = [filterCopy category];
-  name = [filterCopy name];
-  v8 = IsPerfLoggingInterval();
-
-  if (v8)
+  if (-[SignpostReporterObjectFilter platform](self, "platform") == 1 && ([filterCopy subsystem], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(filterCopy, "category"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(filterCopy, "name"), v7 = objc_claimAutoreleasedReturnValue(), v8 = IsPerfLoggingInterval(), v7, v6, v5, v8))
   {
     string1Value = [filterCopy string1Value];
     string2Value = [filterCopy string2Value];
@@ -38,7 +28,6 @@
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 

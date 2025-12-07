@@ -5,7 +5,7 @@ void sub_26F354040(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-__CFString *TRAStringFromTraitsPreferencesType(unint64_t a1)
+__CFString *TRAStringFromTraitsPreferencesType(unint64_t a1, uint64_t a2)
 {
   if (a1 >= 4)
   {
@@ -15,21 +15,21 @@ __CFString *TRAStringFromTraitsPreferencesType(unint64_t a1)
   return off_279DD48F0[a1];
 }
 
-id TRALogCommon()
+id TRALogCommon(uint64_t a1)
 {
   if (TRALogCommon_onceToken != -1)
   {
     TRALogCommon_cold_1();
   }
 
-  v1 = TRALogCommon___logObj;
+  v2 = TRALogCommon___logObj;
 
-  return v1;
+  return v2;
 }
 
 void preOrder(void *a1, void *a2, void *a3, uint64_t a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -46,37 +46,35 @@ void preOrder(void *a1, void *a2, void *a3, uint64_t a4)
     [v11 sortUsingComparator:&__block_literal_global_251];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * i);
+        v18 = *(*(&v20 + 1) + 8 * i);
         v19 = [v18 children];
         preOrder(v18, v19, v10, a4);
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __preOrder_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -130,12 +128,12 @@ void sub_26F3583C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void appendDescription(void *a1, void *a2, void *a3, int a4, uint64_t a5, uint64_t a6)
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   v11 = a1;
   v12 = a2;
   v13 = a3;
   v14 = v13;
-  v53 = v11;
+  v52 = v11;
   if (v11 && [v13 length])
   {
     [v14 appendString:@"\n"];
@@ -158,29 +156,29 @@ void appendDescription(void *a1, void *a2, void *a3, int a4, uint64_t a5, uint64
     while (v15);
   }
 
-  if (v53)
+  if (v52)
   {
-    v52 = v12;
-    v16 = [v53 participant];
+    v51 = v12;
+    v16 = [v52 participant];
     v17 = [v16 currentSettings];
     v18 = [v17 zOrderLevelSettings];
     v19 = [v18 description];
 
-    v20 = [v53 participant];
+    v20 = [v52 participant];
     v21 = [v20 currentSettings];
     v22 = [v21 orientationSettings];
     v23 = [v22 description];
 
-    v50 = v23;
-    v51 = v19;
-    v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@", v19, v23];
+    v49 = v23;
+    v50 = v19;
+    v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@", v19, v23];
     v24 = MEMORY[0x277CCACA8];
-    v25 = [v53 participant];
+    v25 = [v52 participant];
     v26 = [v25 orientationPreferences];
     v27 = TRAStringForBSInterfaceOrientationMask([v26 supportedOrientations]);
     v28 = [v24 stringWithFormat:@"supported: %@", v27];
 
-    if ([v53 debugLastSettingsWereValidated])
+    if ([v52 debugLastSettingsWereValidated])
     {
       v29 = &stru_287F70690;
       v30 = 0x277CCA000;
@@ -189,19 +187,19 @@ void appendDescription(void *a1, void *a2, void *a3, int a4, uint64_t a5, uint64
     else
     {
       v31 = MEMORY[0x277CCACA8];
-      v32 = [v53 debugLastOrientationSettingsValidationFailureReason];
+      v32 = [v52 debugLastOrientationSettingsValidationFailureReason];
       v29 = [v31 stringWithFormat:@", last validation failed: %@", v32];
 
       v30 = 0x277CCA000uLL;
     }
 
     v33 = *(v30 + 3240);
-    v34 = [v53 participant];
+    v34 = [v52 participant];
     v35 = [v34 uniqueIdentifier];
-    v36 = [v33 stringWithFormat:@"%@, %@, %@%@", v35, v49, v28, v29];
+    v36 = [v33 stringWithFormat:@"%@, %@, %@%@", v35, v48, v28, v29];
     [v14 appendString:v36];
 
-    v12 = v52;
+    v12 = v51;
   }
 
   if (v12 && a6)
@@ -214,44 +212,42 @@ void appendDescription(void *a1, void *a2, void *a3, int a4, uint64_t a5, uint64
   else if (a5 == 1)
   {
     v38 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"children.@count" ascending:1];
-    v59[0] = v38;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:1];
+    v58[0] = v38;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:1];
     v40 = [v12 sortedArrayUsingDescriptors:v39];
 
     v12 = v40;
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v41 = v12;
-  v42 = [v41 countByEnumeratingWithState:&v54 objects:v58 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v53 objects:v57 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v55;
+    v44 = *v54;
     do
     {
       for (i = 0; i != v43; ++i)
       {
-        if (*v55 != v44)
+        if (*v54 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        v46 = *(*(&v54 + 1) + 8 * i);
+        v46 = *(*(&v53 + 1) + 8 * i);
         v47 = [v46 children];
-        appendDescription(v46, v47, v14, (a4 + 1), a5, a6);
+        appendDescription(v46, v47, v14, a4 + 1, a5, a6);
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v53 objects:v57 count:16];
     }
 
     while (v43);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __appendDescription_block_invoke(uint64_t a1, void *a2, void *a3)

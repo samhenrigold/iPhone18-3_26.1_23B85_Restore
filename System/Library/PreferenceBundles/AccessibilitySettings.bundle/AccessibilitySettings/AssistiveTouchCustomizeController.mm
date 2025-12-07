@@ -3,6 +3,7 @@
 - (double)tableView:(id)view heightForRowAtIndexPath:(id)path;
 - (id)specifiers;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
+- (void)_cleanupIconPickerTableView;
 - (void)_iconPickerDone:(id)done;
 - (void)_resetCustomization:(id)customization specifier:(id)specifier;
 - (void)customCell:(id)cell wantsPickerDisplayedForIconKey:(id)key andLocation:(id)location cell:(id)a6;
@@ -150,6 +151,13 @@ id __45__AssistiveTouchCustomizeController_loadView__block_invoke(uint64_t a1, v
   v3.receiver = self;
   v3.super_class = AssistiveTouchCustomizeController;
   [(AssistiveTouchCustomizeController *)&v3 dealloc];
+}
+
+- (void)_cleanupIconPickerTableView
+{
+  iconPickerTableViewController = self->_iconPickerTableViewController;
+  self->_iconPickerTableViewController = 0;
+  _objc_release_x1(self, iconPickerTableViewController);
 }
 
 - (void)customCell:(id)cell wantsPickerDisplayedForIconKey:(id)key andLocation:(id)location cell:(id)a6

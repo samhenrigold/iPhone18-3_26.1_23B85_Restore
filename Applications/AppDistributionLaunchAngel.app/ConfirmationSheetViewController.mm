@@ -18,7 +18,7 @@
   [defaultCenter removeObserver:selfCopy name:STRestrictionsPINControllerDidFinishNotification object:0];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for ConfirmationSheetViewController();
+  v6.super_class = type metadata accessor for ConfirmationSheetViewController(0);
   [(ConfirmationSheetViewController *)&v6 dealloc];
 }
 
@@ -33,7 +33,7 @@
   }
 
   v4.receiver = self;
-  v4.super_class = type metadata accessor for ConfirmationSheetViewController();
+  v4.super_class = type metadata accessor for ConfirmationSheetViewController(0);
   selfCopy = self;
   [(ConfirmationSheetViewController *)&v4 viewDidLoad];
   sub_100023038();
@@ -43,9 +43,8 @@
 - (void)primaryButtonPressed
 {
   v3 = sub_1000047BC(&unk_100088F10, &qword_100065D60);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v11 - v5;
+  v5 = &v10 - v4;
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
@@ -54,15 +53,15 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v7 = type metadata accessor for TaskPriority();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v6 = type metadata accessor for TaskPriority();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
   selfCopy = self;
-  v9 = static MainActor.shared.getter();
-  v10 = swift_allocObject();
-  v10[2] = v9;
-  v10[3] = &protocol witness table for MainActor;
-  v10[4] = selfCopy;
-  sub_100007654(0, 0, v6, &unk_100066770, v10);
+  v8 = static MainActor.shared.getter();
+  v9 = swift_allocObject();
+  v9[2] = v8;
+  v9[3] = &protocol witness table for MainActor;
+  v9[4] = selfCopy;
+  sub_100007654(0, 0, v5, &unk_100066770, v9);
 }
 
 - (void)miniProductPageRequestDidFinish

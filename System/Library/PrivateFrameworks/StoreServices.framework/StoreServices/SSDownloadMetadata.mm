@@ -885,7 +885,7 @@ LABEL_20:
   {
     isPremium = [(SSDownloadMetadata *)self isPremium];
     hasHDR = [(SSDownloadMetadata *)self hasHDR];
-    v4 = hasHDR & SSDeviceSupportsHDRDownload() | isPremium;
+    v4 = hasHDR & SSDeviceSupportsHDRDownload(hasHDR, v7) | isPremium;
     if (!hlsPlaylistURL)
     {
       LOBYTE(v4) = 0;
@@ -1229,34 +1229,39 @@ LABEL_20:
       shouldLog = [v4 shouldLog];
       if ([v4 shouldLogToDisk])
       {
-        v6 = shouldLog | 2;
+        LODWORD(v6) = shouldLog | 2;
       }
 
       else
       {
-        v6 = shouldLog;
+        LODWORD(v6) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject = [v4 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v6 = v6;
+      }
+
+      else
       {
         v6 &= 2u;
       }
 
       if (v6)
       {
-        v7 = objc_opt_class();
+        v8 = objc_opt_class();
         v20 = 138543618;
-        v21 = v7;
+        v21 = v8;
         v22 = 2114;
         v23 = v19;
-        LODWORD(v18) = 22;
-        v8 = _os_log_send_and_compose_impl();
-        if (v8)
+        v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Error unarchiving policy. Error = %{public}@", &v20, 22);
+        if (v9)
         {
-          v9 = v8;
-          v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v20, v18}];
-          free(v9);
-          SSFileLog(v4, @"%@", v11, v12, v13, v14, v15, v16, v10);
+          v10 = v9;
+          v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+          free(v10);
+          SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v11);
         }
       }
     }
@@ -1642,34 +1647,39 @@ LABEL_20:
       shouldLog = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v7 = shouldLog | 2;
+        LODWORD(v7) = shouldLog | 2;
       }
 
       else
       {
-        v7 = shouldLog;
+        LODWORD(v7) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject = [v5 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v7 = v7;
+      }
+
+      else
       {
         v7 &= 2u;
       }
 
       if (v7)
       {
-        v8 = objc_opt_class();
+        v9 = objc_opt_class();
         v20 = 138543618;
-        v21 = v8;
+        v21 = v9;
         v22 = 2114;
         v23 = v19;
-        LODWORD(v18) = 22;
-        v9 = _os_log_send_and_compose_impl();
-        if (v9)
+        v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to archive policy. Error = %{public}@", &v20, 22);
+        if (v10)
         {
-          v10 = v9;
-          v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v20, v18}];
-          free(v10);
-          SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+          v11 = v10;
+          v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+          free(v11);
+          SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
         }
       }
     }
@@ -3253,7 +3263,7 @@ LABEL_5:
 
 - (id)_assetDictionary
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"metadata"];
   v4 = [v3 objectForKey:@"kind"];
   v5 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"assets"];
@@ -3296,16 +3306,16 @@ LABEL_5:
   {
     v9 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"hls-playlist-url"];
     v10 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"has-hdr"];
-    v11 = SSDeviceSupportsHDRDownload();
-    v12 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"is-premium"];
-    if (v11 && ([v10 BOOLValue] & 1) != 0)
+    v12 = SSDeviceSupportsHDRDownload(v10, v11);
+    v13 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"is-premium"];
+    if (v12 && ([v10 BOOLValue] & 1) != 0)
     {
       bOOLValue = 1;
     }
 
     else
     {
-      bOOLValue = [v12 BOOLValue];
+      bOOLValue = [v13 BOOLValue];
     }
 
     if (SSDownloadKindIsVideosAppKind(v4))
@@ -3316,149 +3326,149 @@ LABEL_5:
 
     if (![v5 count])
     {
-      v19 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"asset-info"];
+      v20 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"asset-info"];
       v8 = 0;
 LABEL_57:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & bOOLValue & 1) != 0 && SSDownloadKindIsVideoKind(v4))
       {
-        v32 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:4];
-        [v32 setObject:v9 forKey:@"URL"];
-        [v32 setObject:MEMORY[0x1E695E118] forKey:@"is-hls"];
-        [v32 setObject:@"movpkg" forKey:@"fileExtension"];
-        if (v8 || (v8 = v19) != 0)
+        v33 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:4];
+        [v33 setObject:v9 forKey:@"URL"];
+        [v33 setObject:MEMORY[0x1E695E118] forKey:@"is-hls"];
+        [v33 setObject:@"movpkg" forKey:@"fileExtension"];
+        if (v8 || (v8 = v20) != 0)
         {
-          v33 = [v8 objectForKey:@"file-size"];
-          if (v33)
+          v34 = [v8 objectForKey:@"file-size"];
+          if (v34)
           {
-            v40 = @"file-size";
-            v41 = v33;
-            [v32 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKey:{"dictionaryWithObjects:forKeys:count:", &v41, &v40, 1), @"asset-info"}];
+            v41 = @"file-size";
+            v42 = v34;
+            [v33 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKey:{"dictionaryWithObjects:forKeys:count:", &v42, &v41, 1), @"asset-info"}];
           }
         }
 
-        v8 = [v32 copy];
+        v8 = [v33 copy];
       }
 
       return v8;
     }
 
-    v35 = bOOLValue;
-    v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = [v3 objectForKey:@"com.apple.iTunesStore.downloadInfo"];
-    if (!v15)
+    v36 = bOOLValue;
+    v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v16 = [v3 objectForKey:@"com.apple.iTunesStore.downloadInfo"];
+    if (!v16)
     {
-      v15 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"com.apple.iTunesStore.downloadInfo"];
+      v16 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"com.apple.iTunesStore.downloadInfo"];
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = [v15 objectForKey:@"preferredAssetFlavor"];
-      if ([v16 length])
+      v17 = [v16 objectForKey:@"preferredAssetFlavor"];
+      if ([v17 length])
       {
-        [v14 addObject:v16];
+        [v15 addObject:v17];
       }
     }
 
     if (SSDownloadKindIsVideoKind(v4))
     {
-      v18 = +[SSDevice currentDevice];
-      if ([v18 supportsDeviceCapability:2])
+      v19 = +[SSDevice currentDevice];
+      if ([v19 supportsDeviceCapability:2])
       {
-        [v14 addObject:@"1080p"];
+        [v15 addObject:@"1080p"];
       }
 
-      if ([v18 supportsDeviceCapability:1])
+      if ([v19 supportsDeviceCapability:1])
       {
-        [v14 addObject:@"hdmv"];
-        [v14 addObject:@"720p"];
+        [v15 addObject:@"hdmv"];
+        [v15 addObject:@"720p"];
       }
 
-      [v14 addObject:@"480p"];
-      [v14 addObject:@"SDMV"];
-      [v14 addObject:@"SD"];
+      [v15 addObject:@"480p"];
+      [v15 addObject:@"SDMV"];
+      [v15 addObject:@"SD"];
     }
 
-    else if (SSDownloadKindIsEBookKind(v4, v17))
+    else if (SSDownloadKindIsEBookKind(v4, v18))
     {
       GSMainScreenScaleFactor();
-      if (v20 == 1.0)
+      if (v21 == 1.0)
       {
-        [v14 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:", @"lrpluspub", @"lrpub", 0)}];
+        [v15 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:", @"lrpluspub", @"lrpub", 0)}];
       }
 
-      [v14 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:", @"pluspub", @"pub", 0)}];
+      [v15 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:", @"pluspub", @"pub", 0)}];
     }
 
-    if ([v14 count])
+    if ([v15 count])
     {
-      v21 = [v5 count];
-      if (v21 >= 1)
+      v22 = [v5 count];
+      if (v22 >= 1)
       {
-        v22 = v21;
-        v23 = 0;
+        v23 = v22;
+        v24 = 0;
         v8 = 0;
-        v24 = 0x7FFFFFFFFFFFFFFFLL;
+        v25 = 0x7FFFFFFFFFFFFFFFLL;
         do
         {
-          v25 = [v5 objectAtIndex:v23];
+          v26 = [v5 objectAtIndex:v24];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v26 = [v25 objectForKey:@"flavor"];
+            v27 = [v26 objectForKey:@"flavor"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v27 = [v14 indexOfObject:v26];
-              if (v27 < v24)
+              v28 = [v15 indexOfObject:v27];
+              if (v28 < v25)
               {
-                v8 = v25;
-                v24 = v27;
+                v8 = v26;
+                v25 = v28;
               }
             }
           }
 
-          ++v23;
+          ++v24;
         }
 
-        while (v22 != v23);
+        while (v23 != v24);
         goto LABEL_56;
       }
     }
 
     else
     {
-      v38 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v28 = [v5 countByEnumeratingWithState:&v36 objects:v42 count:16];
-      if (v28)
+      v38 = 0u;
+      v29 = [v5 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      if (v29)
       {
-        v29 = v28;
-        v30 = *v37;
+        v30 = v29;
+        v31 = *v38;
 LABEL_48:
-        v31 = 0;
+        v32 = 0;
         while (1)
         {
-          if (*v37 != v30)
+          if (*v38 != v31)
           {
             objc_enumerationMutation(v5);
           }
 
-          v8 = *(*(&v36 + 1) + 8 * v31);
+          v8 = *(*(&v37 + 1) + 8 * v32);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             goto LABEL_56;
           }
 
-          if (v29 == ++v31)
+          if (v30 == ++v32)
           {
-            v29 = [v5 countByEnumeratingWithState:&v36 objects:v42 count:16];
+            v30 = [v5 countByEnumeratingWithState:&v37 objects:v43 count:16];
             v8 = 0;
-            if (v29)
+            if (v30)
             {
               goto LABEL_48;
             }
@@ -3472,8 +3482,8 @@ LABEL_48:
     v8 = 0;
 LABEL_56:
 
-    v19 = 0;
-    bOOLValue = v35;
+    v20 = 0;
+    bOOLValue = v36;
     goto LABEL_57;
   }
 

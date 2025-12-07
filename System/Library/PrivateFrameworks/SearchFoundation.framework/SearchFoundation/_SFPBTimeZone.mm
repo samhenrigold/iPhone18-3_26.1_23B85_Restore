@@ -150,9 +150,7 @@ LABEL_8:
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  identifier = self->_identifier;
-  self->_identifier = v4;
+  self->_identifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

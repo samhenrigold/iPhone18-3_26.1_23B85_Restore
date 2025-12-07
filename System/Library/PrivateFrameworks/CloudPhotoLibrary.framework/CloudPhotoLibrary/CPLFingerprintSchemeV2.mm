@@ -32,11 +32,11 @@
 
 - (CPLFingerprintSchemeV2)initWithBoundaryKey:(id)key
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v14.receiver = self;
-  v14.super_class = CPLFingerprintSchemeV2;
-  v6 = [(CPLFingerprintScheme *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = CPLFingerprintSchemeV2;
+  v6 = [(CPLFingerprintScheme *)&v13 init];
   if (v6)
   {
     v7 = [keyCopy copy];
@@ -47,24 +47,23 @@
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v11 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v10 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v16 = keyCopy;
-          _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Invalid boundary key %@", buf, 0xCu);
+          v15 = keyCopy;
+          _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Invalid boundary key %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFingerprintScheme.m"];
-      [currentHandler handleFailureInMethod:a2 object:v6 file:v13 lineNumber:355 description:{@"Invalid boundary key %@", keyCopy}];
+      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFingerprintScheme.m"];
+      [currentHandler handleFailureInMethod:a2 object:v6 file:v12 lineNumber:355 description:{@"Invalid boundary key %@", keyCopy}];
 
       abort();
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

@@ -25,7 +25,7 @@
     v6 = photoIrisProperties;
     if (photoIrisProperties)
     {
-      [photoIrisProperties photoIrisStillDisplayTime];
+      objc_msgSend_photoIrisStillDisplayTime(photoIrisProperties);
     }
 
     else
@@ -54,7 +54,7 @@
       v12 = mediaAnalysisProperties;
       if (mediaAnalysisProperties)
       {
-        [mediaAnalysisProperties bestVideoTimeRange];
+        objc_msgSend_bestVideoTimeRange(mediaAnalysisProperties);
       }
 
       else
@@ -154,7 +154,7 @@
     v12 = asset;
     if (asset)
     {
-      [asset duration];
+      objc_msgSend_duration(asset);
     }
 
     else
@@ -288,11 +288,11 @@
   objc_destroyWeak(&location);
 }
 
-void __107__PXInlineVideoStabilizationDiagnosticsViewController_prepareVariantVideoForExportWithProgress_completion___block_invoke(uint64_t a1, void *a2)
+void __107__PXInlineVideoStabilizationDiagnosticsViewController_prepareVariantVideoForExportWithProgress_completion___block_invoke(uint64_t a1, void *a2, float a3)
 {
-  v3 = a2;
+  v4 = a2;
   *(a1 + 32);
-  v4 = v3;
+  v5 = v4;
   px_dispatch_on_main_queue();
 }
 
@@ -360,11 +360,11 @@ void __98__PXInlineVideoStabilizationDiagnosticsViewController_prepareVariantVid
   px_dispatch_on_main_queue();
 }
 
-void __98__PXInlineVideoStabilizationDiagnosticsViewController_prepareVariantVideoWithProgress_completion___block_invoke_3(uint64_t a1, void *a2)
+void __98__PXInlineVideoStabilizationDiagnosticsViewController_prepareVariantVideoWithProgress_completion___block_invoke_3(uint64_t a1, void *a2, float a3)
 {
-  v3 = a2;
+  v4 = a2;
   *(a1 + 32);
-  v4 = v3;
+  v5 = v4;
   px_dispatch_on_main_queue();
 }
 

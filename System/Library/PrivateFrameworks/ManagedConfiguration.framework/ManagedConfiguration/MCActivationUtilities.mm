@@ -61,34 +61,34 @@ uint64_t __39__MCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)setIsReady:(BOOL)ready
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   isReady = self->_isReady;
   self->_isReady = ready;
   if (ready && !isReady)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     allValues = [(NSMutableDictionary *)self->_didBecomeReadyCallbacks allValues];
-    v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          (*(*(*(&v13 + 1) + 8 * i) + 16))();
+          (*(*(*(&v12 + 1) + 8 * i) + 16))();
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -98,89 +98,83 @@ uint64_t __39__MCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
     didBecomeReadyCallbacks = self->_didBecomeReadyCallbacks;
     self->_didBecomeReadyCallbacks = dictionary;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (int)isActivated
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (self->_isReady)
+  v15 = *MEMORY[0x1E69E9840];
+  if (!self->_isReady)
   {
-    selfCopy = self;
-    objc_sync_enter(selfCopy);
-    if ([(MCActivationUtilities *)selfCopy isActivatedCache])
-    {
-      v3 = 2;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v13 = 0;
-      v4 = MCMAEGetActivationStateWithError(&v13);
-      v5 = v13;
-      if (v5)
-      {
-        v6 = _MCLogObjects;
-        if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138412290;
-          v15 = v5;
-          _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "MAEGetActivationStateWithError() error: %@", buf, 0xCu);
-        }
-
-        v3 = 0;
-      }
-
-      else
-      {
-        v7 = MCkMAActivationStateActivated();
-        v8 = [v4 isEqualToString:v7];
-
-        if (v8)
-        {
-          [(MCActivationUtilities *)selfCopy setIsActivatedCache:1];
-          DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-          v10 = MCkNotificationActivationStateChanged();
-          CFNotificationCenterAddObserver(DarwinNotifyCenter, selfCopy, MCActivationUtilitiesDeactivated, v10, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-          v3 = 2;
-        }
-
-        else
-        {
-          v3 = 1;
-        }
-      }
-    }
-
-    objc_sync_exit(selfCopy);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if ([(MCActivationUtilities *)selfCopy isActivatedCache])
+  {
+    v3 = 2;
   }
 
   else
   {
-    v3 = 0;
+    v12 = 0;
+    v4 = MCMAEGetActivationStateWithError(&v12);
+    v5 = v12;
+    if (v5)
+    {
+      v6 = _MCLogObjects;
+      if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v14 = v5;
+        _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "MAEGetActivationStateWithError() error: %@", buf, 0xCu);
+      }
+
+      v3 = 0;
+    }
+
+    else
+    {
+      v7 = MCkMAActivationStateActivated();
+      v8 = [v4 isEqualToString:v7];
+
+      if (v8)
+      {
+        [(MCActivationUtilities *)selfCopy setIsActivatedCache:1];
+        DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+        v10 = MCkNotificationActivationStateChanged();
+        CFNotificationCenterAddObserver(DarwinNotifyCenter, selfCopy, MCActivationUtilitiesDeactivated, v10, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+        v3 = 2;
+      }
+
+      else
+      {
+        v3 = 1;
+      }
+    }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
+  objc_sync_exit(selfCopy);
+
   return v3;
 }
 
 - (id)activationRecord
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   activationRecordCache = [(MCActivationUtilities *)self activationRecordCache];
   if (!activationRecordCache)
   {
-    v8 = 0;
-    activationRecordCache = MCMAECopyActivationRecordWithError(&v8);
-    v4 = v8;
+    v7 = 0;
+    activationRecordCache = MCMAECopyActivationRecordWithError(&v7);
+    v4 = v7;
     if (v4)
     {
       v5 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v10 = v4;
+        v9 = v4;
         _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "MAECopyActivationRecordWithError error: %@", buf, 0xCu);
       }
 
@@ -190,14 +184,12 @@ uint64_t __39__MCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
     [(MCActivationUtilities *)self setActivationRecordCache:activationRecordCache];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return activationRecordCache;
 }
 
 - (int)isHRNMode
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (self->_isReady)
   {
     if (_os_feature_enabled_impl())
@@ -206,8 +198,8 @@ uint64_t __39__MCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
       v4 = 2;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&dword_1A795B000, v3, OS_LOG_TYPE_DEBUG, "isHRNMode returning yes because of feature flag", &v21, 2u);
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_1A795B000, v3, OS_LOG_TYPE_DEBUG, "isHRNMode returning yes because of feature flag", &v20, 2u);
       }
     }
 
@@ -229,9 +221,9 @@ uint64_t __39__MCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
             v11 = "yes";
           }
 
-          v21 = 136446210;
-          v22 = v11;
-          _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_DEBUG, "isHRNMode returning %{public}s from cache", &v21, 0xCu);
+          v20 = 136446210;
+          v21 = v11;
+          _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_DEBUG, "isHRNMode returning %{public}s from cache", &v20, 0xCu);
         }
 
         if (bOOLValue)
@@ -259,9 +251,9 @@ uint64_t __39__MCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
             v16 = "yes";
           }
 
-          v21 = 136446210;
-          v22 = v16;
-          _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "isHRNMode returning %{public}s from activation record", &v21, 0xCu);
+          v20 = 136446210;
+          v21 = v16;
+          _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "isHRNMode returning %{public}s from activation record", &v20, 0xCu);
         }
 
         v17 = [MEMORY[0x1E696AD98] numberWithBool:v14 == 33];
@@ -283,8 +275,8 @@ uint64_t __39__MCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
         v18 = _MCLogObjects;
         if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v21) = 0;
-          _os_log_impl(&dword_1A795B000, v18, OS_LOG_TYPE_DEBUG, "isHRNMode returning unknown because the device isn't activated", &v21, 2u);
+          LOWORD(v20) = 0;
+          _os_log_impl(&dword_1A795B000, v18, OS_LOG_TYPE_DEBUG, "isHRNMode returning unknown because the device isn't activated", &v20, 2u);
         }
 
         v4 = 0;
@@ -299,14 +291,13 @@ uint64_t __39__MCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
     v5 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEBUG, "isHRNMode returning unknown because it's not ready", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEBUG, "isHRNMode returning unknown because it's not ready", &v20, 2u);
     }
 
-    v4 = 0;
+    return 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

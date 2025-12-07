@@ -156,9 +156,9 @@
   }
 
   [v4 appendFormat:@" containerIdentifier:%@", containerIdentifier];
-  if ((softLinkCKDatabaseScopeString[0])(self->_databaseScope))
+  if (softLinkCKDatabaseScopeString(self->_databaseScope))
   {
-    null = (softLinkCKDatabaseScopeString[0])(self->_databaseScope);
+    null = softLinkCKDatabaseScopeString(self->_databaseScope);
   }
 
   else

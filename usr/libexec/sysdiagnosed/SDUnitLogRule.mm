@@ -133,47 +133,48 @@ LABEL_8:
 
     if ((v17 & 1) == 0)
     {
-      v42 = sub_1000278E8();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v47 = sub_1000278E8(v18);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         lastPathComponent = [v7 lastPathComponent];
         *buf = 138412290;
-        v67 = lastPathComponent;
-        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "%@ failed due to file not found", buf, 0xCu);
+        v72 = lastPathComponent;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%@ failed due to file not found", buf, 0xCu);
       }
 
-      v44 = +[SDResourceManager sharedResourceManager];
+      v49 = +[SDResourceManager sharedResourceManager];
       lastPathComponent2 = [v7 lastPathComponent];
-      [v44 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"%@ failed due to file not found", lastPathComponent2}];
+      [v49 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"%@ failed due to file not found", lastPathComponent2}];
 
       v12 = 0;
       v13 = 10;
       goto LABEL_6;
     }
 
-    v65 = 0;
-    v64 = 0;
-    v18 = [v7 getResourceValue:&v65 forKey:NSURLCreationDateKey error:&v64];
-    v19 = v65;
-    v20 = v64;
-    if (!v18 || !v19)
+    v70 = 0;
+    v69 = 0;
+    v19 = [v7 getResourceValue:&v70 forKey:NSURLCreationDateKey error:&v69];
+    v20 = v70;
+    v21 = v69;
+    v22 = v21;
+    if (!v19 || !v20)
     {
-      v46 = sub_1000278E8();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v51 = sub_1000278E8(v21);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
         lastPathComponent3 = [v7 lastPathComponent];
-        localizedDescription = [v20 localizedDescription];
+        localizedDescription = [v22 localizedDescription];
         *buf = 138412546;
-        v67 = lastPathComponent3;
-        v68 = 2112;
-        *v69 = localizedDescription;
-        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "%@ failed to get date with error %@", buf, 0x16u);
+        v72 = lastPathComponent3;
+        v73 = 2112;
+        *v74 = localizedDescription;
+        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "%@ failed to get date with error %@", buf, 0x16u);
       }
 
-      v49 = +[SDResourceManager sharedResourceManager];
+      v54 = +[SDResourceManager sharedResourceManager];
       lastPathComponent4 = [v7 lastPathComponent];
-      localizedDescription2 = [v20 localizedDescription];
-      [v49 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"%@ failed to get date with error %@", lastPathComponent4, localizedDescription2}];
+      localizedDescription2 = [v22 localizedDescription];
+      [v54 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"%@ failed to get date with error %@", lastPathComponent4, localizedDescription2}];
 
       v12 = 0;
       *rejection = 5;
@@ -182,90 +183,90 @@ LABEL_8:
 
     createdSince = [(SDUnitLogRule *)self createdSince];
 
-    if (createdSince && (-[SDUnitLogRule createdSince](self, "createdSince"), v22 = objc_claimAutoreleasedReturnValue(), [v19 earlierDate:v22], v23 = objc_claimAutoreleasedReturnValue(), v23, v22, v23 == v19))
+    if (createdSince && (-[SDUnitLogRule createdSince](self, "createdSince"), v24 = objc_claimAutoreleasedReturnValue(), [v20 earlierDate:v24], v25 = objc_claimAutoreleasedReturnValue(), v25, v24, v25 == v20))
     {
       *rejection = 6;
-      v52 = sub_1000278E8();
-      if (!os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+      v57 = sub_1000278E8(v26);
+      if (!os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_35;
       }
 
       lastPathComponent5 = [v7 lastPathComponent];
-      [v19 timeIntervalSince1970];
-      v55 = v54;
+      [v20 timeIntervalSince1970];
+      v60 = v59;
       createdSince2 = [(SDUnitLogRule *)self createdSince];
       [createdSince2 timeIntervalSince1970];
       *buf = 138412802;
-      v67 = lastPathComponent5;
-      v68 = 1024;
-      *v69 = v55;
-      *&v69[4] = 1024;
-      *&v69[6] = v57;
-      v58 = "%@ failed to pass date test %{time_t}d < %{time_t}d ";
+      v72 = lastPathComponent5;
+      v73 = 1024;
+      *v74 = v60;
+      *&v74[4] = 1024;
+      *&v74[6] = v62;
+      v63 = "%@ failed to pass date test %{time_t}d < %{time_t}d ";
     }
 
     else
     {
       createdUntil = [(SDUnitLogRule *)self createdUntil];
 
-      if (!createdUntil || (-[SDUnitLogRule createdUntil](self, "createdUntil"), v25 = objc_claimAutoreleasedReturnValue(), [v19 laterDate:v25], v26 = objc_claimAutoreleasedReturnValue(), v26, v25, v26 != v19))
+      if (!createdUntil || (-[SDUnitLogRule createdUntil](self, "createdUntil"), v28 = objc_claimAutoreleasedReturnValue(), [v20 laterDate:v28], v29 = objc_claimAutoreleasedReturnValue(), v29, v28, v29 != v20))
       {
         filter = [(SDUnitLogRule *)self filter];
 
-        if (!filter || (-[SDUnitLogRule filter](self, "filter"), v28 = objc_claimAutoreleasedReturnValue(), [v7 path], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v28, "evaluateWithObject:", v29), v29, v28, (v30 & 1) != 0))
+        if (!filter || (-[SDUnitLogRule filter](self, "filter"), v32 = objc_claimAutoreleasedReturnValue(), [v7 path], v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v32, "evaluateWithObject:", v33), v33, v32, (v34 & 1) != 0))
         {
           logArray2 = [(SDUnitLogRule *)self logArray];
-          v32 = [logArray2 count];
+          v37 = [logArray2 count];
 
-          v33 = 0;
-          if (v32)
+          v38 = 0;
+          if (v37)
           {
             do
             {
               logDates = [(SDUnitLogRule *)self logDates];
-              v35 = [logDates objectAtIndexedSubscript:v33];
-              v36 = [v35 laterDate:v19];
+              v40 = [logDates objectAtIndexedSubscript:v38];
+              v41 = [v40 laterDate:v20];
 
-              if (v36 == v19)
+              if (v41 == v20)
               {
                 break;
               }
 
-              ++v33;
+              ++v38;
               logArray3 = [(SDUnitLogRule *)self logArray];
-              v38 = [logArray3 count];
+              v43 = [logArray3 count];
             }
 
-            while (v38 > v33);
+            while (v43 > v38);
           }
 
           logArray4 = [(SDUnitLogRule *)self logArray];
           path3 = [v7 path];
-          [logArray4 insertObject:path3 atIndex:v33];
+          [logArray4 insertObject:path3 atIndex:v38];
 
           logDates2 = [(SDUnitLogRule *)self logDates];
-          [logDates2 insertObject:v19 atIndex:v33];
+          [logDates2 insertObject:v20 atIndex:v38];
 
           v12 = 1;
           goto LABEL_36;
         }
 
         *rejection = 8;
-        v52 = sub_1000278E8();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v57 = sub_1000278E8(v35);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
           lastPathComponent5 = [v7 lastPathComponent];
           createdSince2 = [(SDUnitLogRule *)self filter];
           *buf = 138412546;
-          v67 = lastPathComponent5;
-          v68 = 2112;
-          *v69 = createdSince2;
-          v58 = "%@ failed to pass predicate %@ ";
-          v59 = v52;
-          v60 = 22;
+          v72 = lastPathComponent5;
+          v73 = 2112;
+          *v74 = createdSince2;
+          v63 = "%@ failed to pass predicate %@ ";
+          v64 = v57;
+          v65 = 22;
 LABEL_34:
-          _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, v58, buf, v60);
+          _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, v63, buf, v65);
         }
 
 LABEL_35:
@@ -277,28 +278,28 @@ LABEL_36:
       }
 
       *rejection = 6;
-      v52 = sub_1000278E8();
-      if (!os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+      v57 = sub_1000278E8(v30);
+      if (!os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_35;
       }
 
       lastPathComponent5 = [v7 lastPathComponent];
-      [v19 timeIntervalSince1970];
-      v62 = v61;
+      [v20 timeIntervalSince1970];
+      v67 = v66;
       createdSince2 = [(SDUnitLogRule *)self createdUntil];
       [createdSince2 timeIntervalSince1970];
       *buf = 138412802;
-      v67 = lastPathComponent5;
-      v68 = 1024;
-      *v69 = v62;
-      *&v69[4] = 1024;
-      *&v69[6] = v63;
-      v58 = "%@ failed to pass date test %{time_t}d < %{time_t}d ";
+      v72 = lastPathComponent5;
+      v73 = 1024;
+      *v74 = v67;
+      *&v74[4] = 1024;
+      *&v74[6] = v68;
+      v63 = "%@ failed to pass date test %{time_t}d < %{time_t}d ";
     }
 
-    v59 = v52;
-    v60 = 24;
+    v64 = v57;
+    v65 = 24;
     goto LABEL_34;
   }
 
@@ -403,170 +404,171 @@ LABEL_7:
   varietyCopy = variety;
   logsCopy = logs;
   priorityCopy = priority;
-  v53 = 0;
-  v11 = [NSRegularExpression regularExpressionWithPattern:@"[.]synced$" options:1 error:&v53];
-  v12 = v53;
-  v46 = v11;
+  v56 = 0;
+  v11 = [NSRegularExpression regularExpressionWithPattern:@"[.]synced$" options:1 error:&v56];
+  v12 = v56;
+  v13 = v12;
+  v49 = v11;
   if (v11)
   {
-    v52 = v12;
-    v13 = [NSRegularExpression regularExpressionWithPattern:@"[.][0-9]{3}[.]ips" options:1 error:&v52];
-    v14 = v52;
+    v55 = v12;
+    v14 = [NSRegularExpression regularExpressionWithPattern:@"[.][0-9]{3}[.]ips" options:1 error:&v55];
+    v15 = v55;
 
-    if (v13)
+    if (v14)
     {
-      v51 = v14;
-      localizedDescription5 = [NSRegularExpression regularExpressionWithPattern:@"([0-9]{4}(-|_)[0-9]{2}(-|_)[0-9]{2}(-|_)([0-9]{6}|[0-9]{2}(-|_)[0-9]{2}(-|_)[0-9]{2}))" options:1 error:&v51];
-      v16 = v51;
+      v54 = v15;
+      localizedDescription5 = [NSRegularExpression regularExpressionWithPattern:@"([0-9]{4}(-|_)[0-9]{2}(-|_)[0-9]{2}(-|_)([0-9]{6}|[0-9]{2}(-|_)[0-9]{2}(-|_)[0-9]{2}))" options:1 error:&v54];
+      v18 = v54;
 
       if (localizedDescription5)
       {
-        v39 = v16;
+        v42 = v18;
         selfCopy = self;
-        v41 = priorityCopy;
-        v42 = logsCopy;
-        v45 = +[NSMutableDictionary dictionary];
-        v47 = 0u;
-        v48 = 0u;
-        v49 = 0u;
+        v44 = priorityCopy;
+        v45 = logsCopy;
+        v48 = +[NSMutableDictionary dictionary];
         v50 = 0u;
-        v43 = varietyCopy;
+        v51 = 0u;
+        v52 = 0u;
+        v53 = 0u;
+        v46 = varietyCopy;
         obj = [varietyCopy reverseObjectEnumerator];
-        v17 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
-        if (v17)
+        v20 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
+        if (v20)
         {
-          v18 = v17;
-          v19 = *v48;
+          v21 = v20;
+          v22 = *v51;
           do
           {
-            for (i = 0; i != v18; i = i + 1)
+            for (i = 0; i != v21; i = i + 1)
             {
-              if (*v48 != v19)
+              if (*v51 != v22)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v21 = *(*(&v47 + 1) + 8 * i);
-              v22 = objc_autoreleasePoolPush();
-              path = [v21 path];
-              path2 = [v21 path];
-              v25 = [v46 stringByReplacingMatchesInString:path options:0 range:0 withTemplate:{objc_msgSend(path2, "length"), &stru_1000A67D8}];
+              v24 = *(*(&v50 + 1) + 8 * i);
+              v25 = objc_autoreleasePoolPush();
+              path = [v24 path];
+              path2 = [v24 path];
+              v28 = [v49 stringByReplacingMatchesInString:path options:0 range:0 withTemplate:{objc_msgSend(path2, "length"), &stru_1000A67D8}];
 
-              v26 = [v13 stringByReplacingMatchesInString:v25 options:0 range:0 withTemplate:{objc_msgSend(v25, "length"), @".ips"}];
+              v29 = [v14 stringByReplacingMatchesInString:v28 options:0 range:0 withTemplate:{objc_msgSend(v28, "length"), @".ips"}];
 
-              v27 = [localizedDescription5 stringByReplacingMatchesInString:v26 options:0 range:0 withTemplate:{objc_msgSend(v26, "length"), &stru_1000A67D8}];
+              v30 = [localizedDescription5 stringByReplacingMatchesInString:v29 options:0 range:0 withTemplate:{objc_msgSend(v29, "length"), &stru_1000A67D8}];
 
-              if (v27)
+              if (v30)
               {
-                v28 = [v45 objectForKey:v27];
-                if (v28)
+                v31 = [v48 objectForKey:v30];
+                if (v31)
                 {
-                  v29 = v28;
+                  v32 = v31;
                 }
 
                 else
                 {
-                  v29 = +[NSMutableArray array];
-                  [v45 setObject:v29 forKey:v27];
-                  if (!v29)
+                  v32 = +[NSMutableArray array];
+                  [v48 setObject:v32 forKey:v30];
+                  if (!v32)
                   {
                     goto LABEL_14;
                   }
                 }
 
-                [v29 addObject:v21];
+                [v32 addObject:v24];
               }
 
 LABEL_14:
 
-              objc_autoreleasePoolPop(v22);
+              objc_autoreleasePoolPop(v25);
             }
 
-            v18 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+            v21 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
           }
 
-          while (v18);
+          while (v21);
         }
 
-        priorityCopy = v41;
-        localizedDescription3 = v45;
-        [(SDUnitLogRule *)selfCopy _getNextVariedSet:v45 withLogs:v41];
-        if ([v45 count])
+        priorityCopy = v44;
+        localizedDescription3 = v48;
+        [(SDUnitLogRule *)selfCopy _getNextVariedSet:v48 withLogs:v44];
+        if ([v48 count])
         {
-          logsCopy = v42;
-          varietyCopy = v43;
-          v14 = v39;
+          logsCopy = v45;
+          varietyCopy = v46;
+          v15 = v42;
           do
           {
-            [(SDUnitLogRule *)selfCopy _getNextVariedSet:v45 withLogs:v42];
+            [(SDUnitLogRule *)selfCopy _getNextVariedSet:v48 withLogs:v45];
           }
 
-          while ([v45 count]);
+          while ([v48 count]);
         }
 
         else
         {
-          v14 = v39;
-          logsCopy = v42;
-          varietyCopy = v43;
+          v15 = v42;
+          logsCopy = v45;
+          varietyCopy = v46;
         }
       }
 
       else
       {
-        v35 = sub_1000278E8();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v38 = sub_1000278E8(v19);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          [v16 localizedDescription];
-          v37 = v36 = v16;
+          [v18 localizedDescription];
+          v40 = v39 = v18;
           *buf = 138412290;
-          v56 = v37;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Failed to compile generateMaxVariety::regex with error: %@", buf, 0xCu);
+          v59 = v40;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Failed to compile generateMaxVariety::regex with error: %@", buf, 0xCu);
 
-          v16 = v36;
+          v18 = v39;
         }
 
         localizedDescription3 = +[SDResourceManager sharedResourceManager];
-        localizedDescription = [v16 localizedDescription];
+        localizedDescription = [v18 localizedDescription];
         [localizedDescription3 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Failed to compile generateMaxVariety::regex with error: %@", localizedDescription}];
 
-        v14 = v16;
+        v15 = v18;
       }
     }
 
     else
     {
-      v33 = sub_1000278E8();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v36 = sub_1000278E8(v16);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        localizedDescription2 = [v14 localizedDescription];
+        localizedDescription2 = [v15 localizedDescription];
         *buf = 138412290;
-        v56 = localizedDescription2;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Failed to compile generateMaxVariety::stackTripleRegex with error: %@", buf, 0xCu);
+        v59 = localizedDescription2;
+        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Failed to compile generateMaxVariety::stackTripleRegex with error: %@", buf, 0xCu);
       }
 
       localizedDescription5 = +[SDResourceManager sharedResourceManager];
-      localizedDescription3 = [v14 localizedDescription];
+      localizedDescription3 = [v15 localizedDescription];
       [localizedDescription5 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Failed to compile generateMaxVariety::stackTripleRegex with error: %@", localizedDescription3}];
     }
 
-    v12 = v14;
+    v13 = v15;
   }
 
   else
   {
-    v31 = sub_1000278E8();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_1000278E8(v12);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      localizedDescription4 = [v12 localizedDescription];
+      localizedDescription4 = [v13 localizedDescription];
       *buf = 138412290;
-      v56 = localizedDescription4;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Failed to compile generateMaxVariety::syncedRegex with error: %@", buf, 0xCu);
+      v59 = localizedDescription4;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Failed to compile generateMaxVariety::syncedRegex with error: %@", buf, 0xCu);
     }
 
-    v13 = +[SDResourceManager sharedResourceManager];
-    localizedDescription5 = [v12 localizedDescription];
-    [v13 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Failed to compile generateMaxVariety::syncedRegex with error: %@", localizedDescription5}];
+    v14 = +[SDResourceManager sharedResourceManager];
+    localizedDescription5 = [v13 localizedDescription];
+    [v14 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Failed to compile generateMaxVariety::syncedRegex with error: %@", localizedDescription5}];
   }
 }
 
@@ -674,48 +676,48 @@ LABEL_14:
 - (id)_localUserHomeDirectories
 {
   v2 = +[NSMutableArray array];
-  if (sub_100027804())
+  if (sub_100027804(v2, v3))
   {
-    v3 = +[NSFileManager defaultManager];
-    v4 = [NSURL fileURLWithPath:@"/private/var/Users" isDirectory:1];
-    v5 = [v3 enumeratorAtURL:v4 includingPropertiesForKeys:0 options:7 errorHandler:&stru_1000A10E0];
+    v4 = +[NSFileManager defaultManager];
+    v5 = [NSURL fileURLWithPath:@"/private/var/Users" isDirectory:1];
+    v6 = [v4 enumeratorAtURL:v5 includingPropertiesForKeys:0 options:7 errorHandler:&stru_1000A10E0];
 
-    v16 = 0u;
     v17 = 0u;
-    v14 = 0u;
+    v18 = 0u;
     v15 = 0u;
-    v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v7)
+    v16 = 0u;
+    v7 = v6;
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v15;
+      v9 = v8;
+      v10 = *v16;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        for (i = 0; i != v9; i = i + 1)
         {
-          if (*v15 != v9)
+          if (*v16 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
-          v12 = objc_autoreleasePoolPush();
-          [v2 addObject:{v11, v14}];
-          objc_autoreleasePoolPop(v12);
+          v12 = *(*(&v15 + 1) + 8 * i);
+          v13 = objc_autoreleasePoolPush();
+          [v2 addObject:{v12, v15}];
+          objc_autoreleasePoolPop(v13);
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
   }
 
   else
   {
-    v6 = [NSURL fileURLWithPath:@"/private/var/mobile/" isDirectory:1];
-    [v2 addObject:v6];
+    v7 = [NSURL fileURLWithPath:@"/private/var/mobile/" isDirectory:1];
+    [v2 addObject:v7];
   }
 
   return v2;
@@ -740,16 +742,16 @@ LABEL_14:
     else
     {
       v10 = [containerCopy stringByReplacingOccurrencesOfString:@"~" withString:@"/private/var/root"];
-      v16 = sub_1000278E8();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_1000278E8(v10);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        mobileContainerClass2 = containerCopy;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ cannot be resolved to user home directory. Setting to root home directory.", buf, 0xCu);
+        mobileContainerClass3 = containerCopy;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%@ cannot be resolved to user home directory. Setting to root home directory.", buf, 0xCu);
       }
 
-      v17 = +[SDResourceManager sharedResourceManager];
-      [v17 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"%@ cannot be resolved to user home directory. Setting to root home directory.", containerCopy}];
+      v18 = +[SDResourceManager sharedResourceManager];
+      [v18 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"%@ cannot be resolved to user home directory. Setting to root home directory.", containerCopy}];
     }
   }
 
@@ -787,7 +789,8 @@ LABEL_14:
 
       else
       {
-        if ([(SDUnitLogRule *)self mobileContainerClass]== 2)
+        mobileContainerClass2 = [(SDUnitLogRule *)self mobileContainerClass];
+        if (mobileContainerClass2 == 2)
         {
           path = @"/private/var/mobile/";
         }
@@ -797,18 +800,18 @@ LABEL_14:
           path = @"/DUMMY/";
         }
 
-        v13 = sub_1000278E8();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = sub_1000278E8(mobileContainerClass2);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
-          mobileContainerClass2 = [(SDUnitLogRule *)self mobileContainerClass];
-          v20 = 2048;
-          v21 = 1;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Error finding container of type %lu with error %llu, setting to bogus path.", buf, 0x16u);
+          mobileContainerClass3 = [(SDUnitLogRule *)self mobileContainerClass];
+          v21 = 2048;
+          v22 = 1;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Error finding container of type %lu with error %llu, setting to bogus path.", buf, 0x16u);
         }
 
-        v14 = +[SDResourceManager sharedResourceManager];
-        [v14 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Error finding container of type %lu with error %llu, setting to bogus path.", -[SDUnitLogRule mobileContainerClass](self, "mobileContainerClass"), 1}];
+        v15 = +[SDResourceManager sharedResourceManager];
+        [v15 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Error finding container of type %lu with error %llu, setting to bogus path.", -[SDUnitLogRule mobileContainerClass](self, "mobileContainerClass"), 1}];
       }
     }
 
@@ -830,15 +833,15 @@ LABEL_14:
 
   if (v4 >= 0x3E8)
   {
-    v5 = sub_1000278E8();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000278E8(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Hit candidate limit -- flushing the log collection pipeline", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Hit candidate limit -- flushing the log collection pipeline", v9, 2u);
     }
 
-    v6 = +[SDResourceManager sharedResourceManager];
-    [v6 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:@"Hit candidate limit -- flushing the log collection pipeline"];
+    v7 = +[SDResourceManager sharedResourceManager];
+    [v7 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:@"Hit candidate limit -- flushing the log collection pipeline"];
 
     [(SDUnitLogRule *)self setPipelineFlush:1];
   }
@@ -849,13 +852,13 @@ LABEL_14:
 - (id)resolveCrashReporterPath:(id)path
 {
   pathCopy = path;
-  if (sub_100027804())
+  if (sub_100027804(pathCopy, v4))
   {
-    v4 = [pathCopy length];
-    v5 = sub_100016A64(0);
-    v6 = [pathCopy stringByReplacingOccurrencesOfString:@"/private/var/mobile/Library/Logs/CrashReporter" withString:v5 options:9 range:{0, v4}];
+    v5 = [pathCopy length];
+    v6 = sub_100016A64(0);
+    v7 = [pathCopy stringByReplacingOccurrencesOfString:@"/private/var/mobile/Library/Logs/CrashReporter" withString:v6 options:9 range:{0, v5}];
 
-    pathCopy = v6;
+    pathCopy = v7;
   }
 
   return pathCopy;

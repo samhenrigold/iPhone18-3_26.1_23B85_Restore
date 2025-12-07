@@ -42,7 +42,16 @@
 - (void)restartEnableTimerWithTimeout:(double)timeout;
 - (void)restartLongTermKeyTimer;
 - (void)scheduleDailyMetricReporterIfNeeded;
+- (void)sendClassALongTermKeyRequest:(id)request sessionID:(unsigned int)d;
+- (void)sendCreateEscrowSecretWithStepData:(id)data sessionID:(unsigned int)d;
+- (void)sendDeviceLockStateChanged:(BOOL)changed;
+- (void)sendKeyExchangeResponse:(id)response sessionID:(unsigned int)d;
 - (void)sendLongTermKeyRequest:(id)request requestID:(id)d;
+- (void)sendSessionUnlockConfirmation:(BOOL)confirmation sessionID:(unsigned int)d;
+- (void)sendSetupRequest:(id)request withSessionID:(unsigned int)d;
+- (void)sendStashConfirmation:(BOOL)confirmation sessionID:(unsigned int)d;
+- (void)sendStashKeyExchangeResponse:(id)response sessionID:(unsigned int)d errorCode:(int64_t)code;
+- (void)sendStateResponseWithUnlockEnabled:(BOOL)enabled passcodeEnabled:(BOOL)passcodeEnabled;
 - (void)wristDetectionDisabled:(id)disabled;
 @end
 
@@ -192,7 +201,7 @@
     v11 = paired_unlock_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_100241184(&self->_tempLongTermKey);
+      sub_100241184();
     }
   }
 }
@@ -431,24 +440,8 @@ LABEL_9:
   securityManager2 = [(SDUnlockSessionManager *)self securityManager];
   ltkFileExists = [securityManager2 ltkFileExists];
 
-  if (self->_tempLongTermKey || (ltksExist & ltkFileExists) == 1 && !transferCopy)
+  if (self->_tempLongTermKey || (ltksExist & ltkFileExists) == 1 && !transferCopy || (-[SDUnlockSessionManager updateSecurityManagerIfNeeded](self, "updateSecurityManagerIfNeeded"), -[SDUnlockSessionManager securityManager](self, "securityManager"), v9 = objc_claimAutoreleasedReturnValue(), [v9 deleteLongTermKeys], v9, -[SDUnlockSessionManager securityManager](self, "securityManager"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "generateLocalLongTermKey:", 3), v11 = objc_claimAutoreleasedReturnValue(), tempLongTermKey = self->_tempLongTermKey, self->_tempLongTermKey = v11, tempLongTermKey, v10, (v13 = self->_tempLongTermKey) == 0))
   {
-    goto LABEL_13;
-  }
-
-  [(SDUnlockSessionManager *)self updateSecurityManagerIfNeeded];
-  securityManager3 = [(SDUnlockSessionManager *)self securityManager];
-  [securityManager3 deleteLongTermKeys];
-
-  securityManager4 = [(SDUnlockSessionManager *)self securityManager];
-  v11 = [securityManager4 generateLocalLongTermKey:3];
-  tempLongTermKey = self->_tempLongTermKey;
-  self->_tempLongTermKey = v11;
-
-  v13 = self->_tempLongTermKey;
-  if (!v13)
-  {
-LABEL_13:
     v20 = paired_unlock_log();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
@@ -864,7 +857,7 @@ LABEL_16:
   v9 = paired_unlock_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_1002413AC(v5, self);
+    sub_1002413AC(v5);
   }
 
 LABEL_17:
@@ -1449,17 +1442,7 @@ LABEL_28:
   securityManager = [(SDUnlockSessionManager *)self securityManager];
   -[SDUnlockSessionManager setStashBagSession:](self, "setStashBagSession:", [securityManager stashBagSessionAsOriginator:0 escrowSecret:0 manifest:0]);
 
-  if ([(SDUnlockSessionManager *)self stashBagSession]< 0)
-  {
-    goto LABEL_8;
-  }
-
-  securityManager2 = [(SDUnlockSessionManager *)self securityManager];
-  stashBagSession = [(SDUnlockSessionManager *)self stashBagSession];
-  v9 = [(SDUnlockStashKeyExchangeRequest *)v5 key];
-  v10 = [securityManager2 stepWithAuthSession:stashBagSession data:v9];
-
-  if (!v10)
+  if (-[SDUnlockSessionManager stashBagSession](self, "stashBagSession") < 0 || (-[SDUnlockSessionManager securityManager](self, "securityManager"), v7 = objc_claimAutoreleasedReturnValue(), v8 = -[SDUnlockSessionManager stashBagSession](self, "stashBagSession"), -[SDUnlockStashKeyExchangeRequest key](v5, "key"), v9 = objc_claimAutoreleasedReturnValue(), [v7 stepWithAuthSession:v8 data:v9], v10 = objc_claimAutoreleasedReturnValue(), v9, v7, !v10))
   {
 LABEL_8:
     [(SDUnlockLockManager *)self sendStashKeyExchangeResponse:0 sessionID:[(SDUnlockStashKeyExchangeRequest *)v5 sessionID] errorCode:101];
@@ -1526,6 +1509,18 @@ LABEL_9:
   [(SDUnlockLockManager *)self sendStateResponseWithUnlockEnabled:unlockEnabled passcodeEnabled:deviceKeyBagDisabled ^ 1];
 }
 
+- (void)sendDeviceLockStateChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v7 = objc_alloc_init(SDUnlockLockStateUpdated);
+  [(SDUnlockLockStateUpdated *)v7 setVersion:1];
+  [(SDUnlockLockStateUpdated *)v7 setUnlocked:changedCopy];
+  [(SDUnlockSessionManager *)self logProtoBufSend:v7];
+  idsController = [(SDUnlockSessionManager *)self idsController];
+  data = [(SDUnlockLockStateUpdated *)v7 data];
+  [idsController sendProtocolBufferData:data withType:1001 timeout:0 option:1 queueOneID:@"com.apple.sharingd.lock-state" errorHandler:&stru_1008D5308];
+}
+
 - (void)sendLongTermKeyRequest:(id)request requestID:(id)d
 {
   dCopy = d;
@@ -1547,6 +1542,193 @@ LABEL_9:
   [idsController sendProtocolBufferData:data withType:1008 timeout:v11 option:0 errorHandler:v12];
 
   [(SDUnlockLockManager *)self restartLongTermKeyTimer];
+}
+
+- (void)sendClassALongTermKeyRequest:(id)request sessionID:(unsigned int)d
+{
+  v4 = *&d;
+  requestCopy = request;
+  v7 = objc_alloc_init(SDUnlockClassALongTermKeyRequest);
+  [(SDUnlockClassALongTermKeyRequest *)v7 setVersion:1];
+  [(SDUnlockClassALongTermKeyRequest *)v7 setLongTermKey:requestCopy];
+
+  [(SDUnlockClassALongTermKeyRequest *)v7 setSessionID:v4];
+  [(SDUnlockSessionManager *)self logProtoBufSend:v7];
+  idsController = [(SDUnlockSessionManager *)self idsController];
+  data = [(SDUnlockClassALongTermKeyRequest *)v7 data];
+  v10 = [NSNumber numberWithDouble:45.0];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100240030;
+  v11[3] = &unk_1008CDF90;
+  v11[4] = self;
+  [idsController sendProtocolBufferData:data withType:1009 timeout:v10 option:0 dataClass:2 queueOneID:0 errorHandler:v11];
+
+  [(SDUnlockLockManager *)self restartEnableTimerWithTimeout:45.0 * 2.0 + 5.0];
+}
+
+- (void)sendSetupRequest:(id)request withSessionID:(unsigned int)d
+{
+  v4 = *&d;
+  requestCopy = request;
+  v7 = objc_alloc_init(SDUnlockSetupRequest);
+  [(SDUnlockSetupRequest *)v7 setVersion:1];
+  [(SDUnlockSetupRequest *)v7 setSessionID:v4];
+  if (requestCopy)
+  {
+    [(SDUnlockSetupRequest *)v7 setLongTermKey:requestCopy];
+  }
+
+  [(SDUnlockSessionManager *)self logProtoBufSend:v7];
+  idsController = [(SDUnlockSessionManager *)self idsController];
+  data = [(SDUnlockSetupRequest *)v7 data];
+  v10 = [NSNumber numberWithDouble:45.0];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1002402A0;
+  v11[3] = &unk_1008CDF90;
+  v11[4] = self;
+  [idsController sendProtocolBufferData:data withType:1002 timeout:v10 option:0 errorHandler:v11];
+
+  [(SDUnlockLockManager *)self restartEnableTimerWithTimeout:45.0];
+}
+
+- (void)sendCreateEscrowSecretWithStepData:(id)data sessionID:(unsigned int)d
+{
+  v4 = *&d;
+  dataCopy = data;
+  v7 = objc_alloc_init(SDUnlockSetupCreateSecret);
+  [(SDUnlockSetupCreateSecret *)v7 setVersion:1];
+  [(SDUnlockSetupCreateSecret *)v7 setSessionID:v4];
+  [(SDUnlockSetupCreateSecret *)v7 setToken:dataCopy];
+
+  [(SDUnlockSessionManager *)self logProtoBufSend:v7];
+  idsController = [(SDUnlockSessionManager *)self idsController];
+  data = [(SDUnlockSetupCreateSecret *)v7 data];
+  v10 = [NSNumber numberWithDouble:45.0];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100240510;
+  v11[3] = &unk_1008CDF90;
+  v11[4] = self;
+  [idsController sendProtocolBufferData:data withType:1003 timeout:v10 option:0 errorHandler:v11];
+
+  [(SDUnlockLockManager *)self restartEnableTimerWithTimeout:45.0];
+}
+
+- (void)sendKeyExchangeResponse:(id)response sessionID:(unsigned int)d
+{
+  v4 = *&d;
+  responseCopy = response;
+  v7 = objc_alloc_init(SDUnlockSessionKeyExchangeResponse);
+  [(SDUnlockSessionKeyExchangeResponse *)v7 setVersion:1];
+  [(SDUnlockSessionKeyExchangeResponse *)v7 setSessionID:v4];
+  if (responseCopy)
+  {
+    [(SDUnlockSessionKeyExchangeResponse *)v7 setKey:responseCopy];
+  }
+
+  else
+  {
+    [(SDUnlockSessionKeyExchangeResponse *)v7 setKeyFailed:1];
+  }
+
+  [(SDUnlockSessionManager *)self logProtoBufSend:v7];
+  idsController = [(SDUnlockSessionManager *)self idsController];
+  data = [(SDUnlockSessionKeyExchangeResponse *)v7 data];
+  v10 = [NSNumber numberWithDouble:45.0];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1002407A4;
+  v11[3] = &unk_1008CDF90;
+  v11[4] = self;
+  [idsController sendProtocolBufferData:data withType:1004 timeout:v10 option:1 errorHandler:v11];
+
+  [(SDUnlockSessionManager *)self restartUnlockTimer:sub_1001F0530(65)];
+}
+
+- (void)sendSessionUnlockConfirmation:(BOOL)confirmation sessionID:(unsigned int)d
+{
+  v4 = *&d;
+  confirmationCopy = confirmation;
+  v7 = objc_alloc_init(SDUnlockSessionConfirmation);
+  [(SDUnlockSessionConfirmation *)v7 setVersion:1];
+  [(SDUnlockSessionConfirmation *)v7 setSessionID:v4];
+  [(SDUnlockSessionConfirmation *)v7 setSuccess:confirmationCopy];
+  [(SDUnlockSessionManager *)self logProtoBufSend:v7];
+  idsController = [(SDUnlockSessionManager *)self idsController];
+  data = [(SDUnlockSessionConfirmation *)v7 data];
+  v10 = [NSNumber numberWithDouble:45.0];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1002408DC;
+  v11[3] = &unk_1008CDF90;
+  v11[4] = self;
+  [idsController sendProtocolBufferData:data withType:1005 timeout:v10 option:1 errorHandler:v11];
+}
+
+- (void)sendStashKeyExchangeResponse:(id)response sessionID:(unsigned int)d errorCode:(int64_t)code
+{
+  v6 = *&d;
+  responseCopy = response;
+  v9 = objc_alloc_init(SDUnlockStashKeyExchangeResponse);
+  [(SDUnlockStashKeyExchangeResponse *)v9 setVersion:1];
+  [(SDUnlockStashKeyExchangeResponse *)v9 setSessionID:v6];
+  if (responseCopy)
+  {
+    [(SDUnlockStashKeyExchangeResponse *)v9 setKey:responseCopy];
+  }
+
+  else
+  {
+    [(SDUnlockStashKeyExchangeResponse *)v9 setErrorCode:code];
+  }
+
+  [(SDUnlockSessionManager *)self logProtoBufSend:v9];
+  idsController = [(SDUnlockSessionManager *)self idsController];
+  data = [(SDUnlockStashKeyExchangeResponse *)v9 data];
+  v12 = [NSNumber numberWithDouble:45.0];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100240A30;
+  v13[3] = &unk_1008CDF90;
+  v13[4] = self;
+  [idsController sendProtocolBufferData:data withType:1006 timeout:v12 option:1 errorHandler:v13];
+}
+
+- (void)sendStashConfirmation:(BOOL)confirmation sessionID:(unsigned int)d
+{
+  v4 = *&d;
+  confirmationCopy = confirmation;
+  v7 = objc_alloc_init(SDUnlockStashConfirmation);
+  [(SDUnlockStashConfirmation *)v7 setVersion:1];
+  [(SDUnlockStashConfirmation *)v7 setSessionID:v4];
+  [(SDUnlockStashConfirmation *)v7 setSuccess:confirmationCopy];
+  [(SDUnlockSessionManager *)self logProtoBufSend:v7];
+  idsController = [(SDUnlockSessionManager *)self idsController];
+  data = [(SDUnlockStashConfirmation *)v7 data];
+  v10 = [NSNumber numberWithDouble:45.0];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100240B68;
+  v11[3] = &unk_1008CDF90;
+  v11[4] = self;
+  [idsController sendProtocolBufferData:data withType:1007 timeout:v10 option:1 errorHandler:v11];
+}
+
+- (void)sendStateResponseWithUnlockEnabled:(BOOL)enabled passcodeEnabled:(BOOL)passcodeEnabled
+{
+  passcodeEnabledCopy = passcodeEnabled;
+  enabledCopy = enabled;
+  v10 = objc_alloc_init(SDUnlockStateResponse);
+  [(SDUnlockStateResponse *)v10 setVersion:1];
+  [(SDUnlockStateResponse *)v10 setUnlockEnabled:enabledCopy];
+  [(SDUnlockStateResponse *)v10 setPasscodeEnabled:passcodeEnabledCopy];
+  [(SDUnlockSessionManager *)self logProtoBufSend:v10];
+  idsController = [(SDUnlockSessionManager *)self idsController];
+  data = [(SDUnlockStateResponse *)v10 data];
+  v9 = [NSNumber numberWithDouble:10.0];
+  [idsController sendProtocolBufferData:data withType:4 timeout:v9 option:1 errorHandler:&stru_1008D5328];
 }
 
 @end

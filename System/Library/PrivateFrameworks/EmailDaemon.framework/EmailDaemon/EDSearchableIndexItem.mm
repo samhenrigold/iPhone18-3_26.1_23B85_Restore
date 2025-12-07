@@ -6,6 +6,8 @@
 + (id)csIdentifierForMailbox:(id)mailbox;
 + (id)domainIdentifierForAccountID:(id)d mailboxPersistentID:(id)iD;
 + (id)domainIdentifierForMessage:(id)message;
++ (id)itemWithIdentifier:(id)identifier message:(id)message bodyData:(id)data fetchBody:(BOOL)body;
++ (id)itemWithMessage:(id)message bodyData:(id)data fetchBody:(BOOL)body;
 + (id)mailboxIdentifiersForBaseMessage:(id)message;
 + (id)mailboxIdentifiersForMessage:(id)message;
 + (id)messageIDForBaseMessage:(id)message;
@@ -13,9 +15,11 @@
 + (id)searchableMessageFlagsForBaseMessage:(id)message;
 + (id)searchableMessageIDForPersistedMessageID:(id)d;
 + (id)searchableMessageUpdateForBaseMessage:(id)message;
++ (id)suggestionsSearchableItemWithMessage:(id)message bodyData:(id)data fetchBody:(BOOL)body isEncrypted:(BOOL)encrypted includeEncryptedBody:(BOOL)encryptedBody;
 + (int64_t)indexingPriorityByIndexingType:(int64_t)type;
 - (BOOL)shouldExcludeFromIndex;
 - (EDSearchableIndexItem)initWithIdentifier:(id)identifier message:(id)message bodyData:(id)data fetchBody:(BOOL)body;
+- (EDSearchableIndexItem)initWithMessage:(id)message bodyData:(id)data fetchBody:(BOOL)body;
 - (NSDate)dateReceived;
 - (NSString)domainIdentifier;
 - (id)addressesAttributeKey;
@@ -63,6 +67,27 @@ void __28__EDSearchableIndexItem_log__block_invoke(uint64_t a1)
   log_log_88 = v1;
 }
 
++ (id)itemWithMessage:(id)message bodyData:(id)data fetchBody:(BOOL)body
+{
+  bodyCopy = body;
+  messageCopy = message;
+  dataCopy = data;
+  v10 = [[self alloc] initWithMessage:messageCopy bodyData:dataCopy fetchBody:bodyCopy];
+
+  return v10;
+}
+
++ (id)itemWithIdentifier:(id)identifier message:(id)message bodyData:(id)data fetchBody:(BOOL)body
+{
+  bodyCopy = body;
+  identifierCopy = identifier;
+  messageCopy = message;
+  dataCopy = data;
+  v13 = [[self alloc] initWithIdentifier:identifierCopy message:messageCopy bodyData:dataCopy fetchBody:bodyCopy];
+
+  return v13;
+}
+
 - (EDSearchableIndexItem)initWithIdentifier:(id)identifier message:(id)message bodyData:(id)data fetchBody:(BOOL)body
 {
   identifierCopy = identifier;
@@ -100,6 +125,52 @@ void __28__EDSearchableIndexItem_log__block_invoke(uint64_t a1)
   }
 
   return v13;
+}
+
+- (EDSearchableIndexItem)initWithMessage:(id)message bodyData:(id)data fetchBody:(BOOL)body
+{
+  bodyCopy = body;
+  messageCopy = message;
+  dataCopy = data;
+  persistentID = [messageCopy persistentID];
+  if (![persistentID length])
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"EDSearchableIndexItem.m" lineNumber:85 description:@"Message does not have a valid identifier. Please consider using initWithIdentifier:message:bodyData: if you need something special."];
+  }
+
+  v12 = [(EDSearchableIndexItem *)self initWithIdentifier:persistentID message:messageCopy bodyData:dataCopy fetchBody:bodyCopy];
+
+  return v12;
+}
+
++ (id)suggestionsSearchableItemWithMessage:(id)message bodyData:(id)data fetchBody:(BOOL)body isEncrypted:(BOOL)encrypted includeEncryptedBody:(BOOL)encryptedBody
+{
+  encryptedBodyCopy = encryptedBody;
+  encryptedCopy = encrypted;
+  bodyCopy = body;
+  messageCopy = message;
+  dataCopy = data;
+  persistentID = [messageCopy persistentID];
+  v15 = persistentID;
+  if (persistentID)
+  {
+    ef_UUID = persistentID;
+  }
+
+  else
+  {
+    ef_UUID = [MEMORY[0x1E696AEC0] ef_UUID];
+  }
+
+  v17 = ef_UUID;
+
+  v18 = [[self alloc] initWithIdentifier:v17 message:messageCopy bodyData:dataCopy fetchBody:bodyCopy];
+  [v18 setIsEncrypted:encryptedCopy];
+  [v18 setIncludeEncryptedBody:encryptedBodyCopy];
+  searchableItem = [v18 searchableItem];
+
+  return searchableItem;
 }
 
 - (NSDate)dateReceived
@@ -421,7 +492,7 @@ void __50__EDSearchableIndexItem_flightNumbersAttributeKey__block_invoke()
 
 - (void)setNeedsAllAttributesIndexingType
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   indexingType = [(EDSearchableIndexItem *)self indexingType];
   if (indexingType)
   {
@@ -430,13 +501,13 @@ void __50__EDSearchableIndexItem_flightNumbersAttributeKey__block_invoke()
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(EDSearchableIndexItem *)self identifier];
-      v9 = 138543874;
-      v10 = identifier;
-      v11 = 2048;
-      v12 = v4;
-      v13 = 2048;
-      v14 = 0;
-      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Upgrading item %{public}@ from type:%ld to type:%ld", &v9, 0x20u);
+      v8 = 138543874;
+      v9 = identifier;
+      v10 = 2048;
+      v11 = v4;
+      v12 = 2048;
+      v13 = 0;
+      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Upgrading item %{public}@ from type:%ld to type:%ld", &v8, 0x20u);
     }
 
     [(EDSearchableIndexItem *)self setIndexingType:0];
@@ -444,13 +515,11 @@ void __50__EDSearchableIndexItem_flightNumbersAttributeKey__block_invoke()
     searchableItem = self->_searchableItem;
     self->_searchableItem = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setNeedsAllAttributesIncludingDataDetectionResultsIndexingType
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   indexingType = [(EDSearchableIndexItem *)self indexingType];
   if (indexingType != 5)
   {
@@ -459,13 +528,13 @@ void __50__EDSearchableIndexItem_flightNumbersAttributeKey__block_invoke()
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(EDSearchableIndexItem *)self identifier];
-      v9 = 138543874;
-      v10 = identifier;
-      v11 = 2048;
-      v12 = v4;
-      v13 = 2048;
-      v14 = 5;
-      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Upgrading item %{public}@ from type:%ld to type:%ld", &v9, 0x20u);
+      v8 = 138543874;
+      v9 = identifier;
+      v10 = 2048;
+      v11 = v4;
+      v12 = 2048;
+      v13 = 5;
+      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Upgrading item %{public}@ from type:%ld to type:%ld", &v8, 0x20u);
     }
 
     [(EDSearchableIndexItem *)self setIndexingType:5];
@@ -473,8 +542,6 @@ void __50__EDSearchableIndexItem_flightNumbersAttributeKey__block_invoke()
     searchableItem = self->_searchableItem;
     self->_searchableItem = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFlagsAttributesToAttributeSet:(id)set
@@ -486,7 +553,7 @@ void __50__EDSearchableIndexItem_flightNumbersAttributeKey__block_invoke()
 
 - (void)addMailCategoryAttributesToAttributeSet:(id)set
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   setCopy = set;
   message = [(EDSearchableIndexItem *)self message];
   category = [message category];
@@ -497,11 +564,11 @@ void __50__EDSearchableIndexItem_flightNumbersAttributeKey__block_invoke()
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       message2 = [(EDSearchableIndexItem *)self message];
-      v15 = 138543618;
-      v16 = category;
-      v17 = 2114;
-      v18 = message2;
-      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, "Indexing category: %{public}@ for message: %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = category;
+      v16 = 2114;
+      v17 = message2;
+      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, "Indexing category: %{public}@ for message: %{public}@", &v14, 0x16u);
     }
 
     v9 = [[EDSearchableMessageCategoryUpdate alloc] initWithCategory:category];
@@ -528,13 +595,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addMessageAuthenticationStateAttributesToAttributeSet:(id)set
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   setCopy = set;
   message = [(EDSearchableIndexItem *)self message];
   if (message)
@@ -542,18 +607,16 @@ LABEL_10:
     v6 = +[EDSearchableIndexItem log];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v9 = 134218242;
+      v8 = 134218242;
       authenticationState = [message authenticationState];
-      v11 = 2114;
-      v12 = message;
-      _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_INFO, "Indexing authenticate state: %lld for message: %{public}@", &v9, 0x16u);
+      v10 = 2114;
+      v11 = message;
+      _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_INFO, "Indexing authenticate state: %lld for message: %{public}@", &v8, 0x16u);
     }
 
     v7 = -[EDSearchableMessageAuthenticationState initWithAuthenticationState:]([EDSearchableMessageAuthenticationState alloc], "initWithAuthenticationState:", [message authenticationState]);
     [(EDSearchableMessageAuthenticationState *)v7 addToAttributes:setCopy];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addUpdatableAttributesToAttributeSet:(id)set
@@ -566,7 +629,7 @@ LABEL_10:
 
 - (void)addStaticAttributesToAttributeSet:(id)set
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   setCopy = set;
   bodyData = [(EDSearchableIndexItem *)self bodyData];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -592,9 +655,9 @@ LABEL_10:
       {
         identifier = [(EDSearchableIndexItem *)self identifier];
         *buf = 138543618;
-        v66 = identifier;
-        v67 = 2048;
-        v68 = estimatedSizeInBytes;
+        v65 = identifier;
+        v66 = 2048;
+        v67 = estimatedSizeInBytes;
         _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Skipping body indexing for message %{public}@ due to large message size:%lu", buf, 0x16u);
       }
 
@@ -607,13 +670,13 @@ LABEL_10:
   subject = [(EDBaseMessage *)self->_baseMessage subject];
   subjectWithoutPrefix = [subject subjectWithoutPrefix];
 
-  v47 = subjectWithoutPrefix;
+  v46 = subjectWithoutPrefix;
   if (![subjectWithoutPrefix length] && type != 5)
   {
-    v63[0] = @"mailboxtype";
+    v62[0] = @"mailboxtype";
     v14 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-    v64[0] = v14;
-    v63[1] = @"identifier";
+    v63[0] = v14;
+    v62[1] = @"identifier";
     identifier2 = [(EDSearchableIndexItem *)self identifier];
     v16 = identifier2;
     v17 = @"<null>";
@@ -622,16 +685,16 @@ LABEL_10:
       v17 = identifier2;
     }
 
-    v64[1] = v17;
-    v63[2] = @"hasCompleteContent";
+    v63[1] = v17;
+    v62[2] = @"hasCompleteContent";
     v18 = [MEMORY[0x1E696AD98] numberWithBool:{-[EDSearchableIndexItem hasCompleteData](self, "hasCompleteData")}];
-    v64[2] = v18;
-    v63[3] = @"hasHeaders";
+    v63[2] = v18;
+    v62[3] = @"hasHeaders";
     v19 = MEMORY[0x1E696AD98];
     headersDictionary = [(EDBaseMessage *)self->_baseMessage headersDictionary];
     v21 = [v19 numberWithInt:{objc_msgSend(headersDictionary, "count") != 0}];
-    v64[3] = v21;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:4];
+    v63[3] = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:4];
 
     v23 = +[EDSearchableIndexItem log];
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -654,7 +717,7 @@ LABEL_10:
     v27 = 0;
   }
 
-  v46 = v27;
+  v45 = v27;
   if (_os_feature_enabled_impl() && EMIsGreymatterSupported())
   {
     message3 = [(EDSearchableIndexItem *)self message];
@@ -667,18 +730,18 @@ LABEL_10:
   }
 
   account = [(EDBaseMessage *)self->_baseMessage account];
-  v59 = [objc_opt_class() searchableMessageUpdateForBaseMessage:self->_baseMessage];
-  v50 = [objc_opt_class() searchableMessageAttachmentsForBaseMessage:self->_baseMessage includeEncryptedBody:{-[EDSearchableIndexItem includeEncryptedBody](self, "includeEncryptedBody")}];
+  v58 = [objc_opt_class() searchableMessageUpdateForBaseMessage:self->_baseMessage];
+  v49 = [objc_opt_class() searchableMessageAttachmentsForBaseMessage:self->_baseMessage includeEncryptedBody:{-[EDSearchableIndexItem includeEncryptedBody](self, "includeEncryptedBody")}];
   v29 = [EDSearchableMessage alloc];
   dateSent = [(EDBaseMessage *)self->_baseMessage dateSent];
   dateReceived = [(EDBaseMessage *)self->_baseMessage dateReceived];
   isEncrypted = [(EDSearchableIndexItem *)self isEncrypted];
   senders = [(EDBaseMessage *)self->_baseMessage senders];
-  v52 = [(EDBaseMessage *)self->_baseMessage to];
-  v51 = [(EDBaseMessage *)self->_baseMessage cc];
-  v53 = [(EDBaseMessage *)self->_baseMessage bcc];
+  v51 = [(EDBaseMessage *)self->_baseMessage to];
+  v50 = [(EDBaseMessage *)self->_baseMessage cc];
+  v52 = [(EDBaseMessage *)self->_baseMessage bcc];
   headersDictionary2 = [(EDBaseMessage *)self->_baseMessage headersDictionary];
-  v44 = isEncrypted;
+  v43 = isEncrypted;
   if (v6)
   {
     v31 = bodyData;
@@ -698,20 +761,18 @@ LABEL_10:
   emailAddressStrings = [account emailAddressStrings];
   message4 = [(EDSearchableIndexItem *)self message];
   category = [message4 category];
-  LOBYTE(v43) = isManaged;
-  BYTE1(v42) = hasCompleteData;
-  LOBYTE(v42) = isPartOfExistingThread;
-  v39 = [(EDSearchableMessage *)v29 initWithSubjectWithoutPrefix:v47 dateSent:dateSent dateReceived:dateReceived isEncrypted:v44 priority:0 senders:senders to:v52 cc:v51 bcc:v53 allHeaders:headersDictionary2 htmlContent:v31 summary:summary messageID:v46 notificationID:notificationID isPartOfExistingThread:v42 hasCompleteData:identifier3 accountIdentifier:v43 accountIsManaged:csAccountTypeString accountType:emailAddressStrings accountEmailAddresses:v59 update:v50 attachments:category category:?];
+  LOBYTE(v42) = isManaged;
+  BYTE1(v41) = hasCompleteData;
+  LOBYTE(v41) = isPartOfExistingThread;
+  v39 = [(EDSearchableMessage *)v29 initWithSubjectWithoutPrefix:v46 dateSent:dateSent dateReceived:dateReceived isEncrypted:v43 priority:0 senders:senders to:v51 cc:v50 bcc:v52 allHeaders:headersDictionary2 htmlContent:v31 summary:summary messageID:v45 notificationID:notificationID isPartOfExistingThread:v41 hasCompleteData:identifier3 accountIdentifier:v42 accountIsManaged:csAccountTypeString accountType:emailAddressStrings accountEmailAddresses:v58 update:v49 attachments:category category:?];
 
   identifier4 = [(EDSearchableIndexItem *)self identifier];
   [(EDSearchableMessage *)v39 addToAttributes:setCopy forIdentifier:identifier4];
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDataDetectionAttributesToAttributeSet:(id)set
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   setCopy = set;
   if (_os_feature_enabled_impl())
   {
@@ -722,28 +783,26 @@ LABEL_10:
       message2 = [(EDSearchableIndexItem *)self message];
       dataDetectionAttributes = [message2 dataDetectionAttributes];
 
-      v12 = MEMORY[0x1E69E9820];
-      v13 = 3221225472;
-      v14 = __66__EDSearchableIndexItem_addDataDetectionAttributesToAttributeSet___block_invoke;
-      v15 = &unk_1E8256EA8;
-      v16 = setCopy;
+      v11 = MEMORY[0x1E69E9820];
+      v12 = 3221225472;
+      v13 = __66__EDSearchableIndexItem_addDataDetectionAttributesToAttributeSet___block_invoke;
+      v14 = &unk_1E8256EA8;
+      v15 = setCopy;
       selfCopy = self;
-      [dataDetectionAttributes enumerateKeysAndObjectsUsingBlock:&v12];
-      v8 = [EDSearchableIndexItem log:v12];
+      [dataDetectionAttributes enumerateKeysAndObjectsUsingBlock:&v11];
+      v8 = [EDSearchableIndexItem log:v11];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         identifier = self->_identifier;
         v10 = [MEMORY[0x1E699B858] partiallyRedactedDictionary:dataDetectionAttributes];
         *buf = 138543618;
-        v19 = identifier;
-        v20 = 2112;
-        v21 = v10;
+        v18 = identifier;
+        v19 = 2112;
+        v20 = v10;
         _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Adding data detection results\n%@", buf, 0x16u);
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __66__EDSearchableIndexItem_addDataDetectionAttributesToAttributeSet___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -988,11 +1047,10 @@ LABEL_18:
 
 - (void)addStaticAttributesToAttributeSet:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Warning: about to index message with an empty subject. %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Warning: about to index message with an empty subject. %{public}@", &v2, 0xCu);
 }
 
 @end

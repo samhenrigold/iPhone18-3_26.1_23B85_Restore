@@ -12,7 +12,7 @@
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB82A48, &qword_230F3EAB0);
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DDUIConfirmationSceneManager();
+  v6.super_class = type metadata accessor for DDUIConfirmationSceneManager(0);
   return [(DDUIConfirmationSceneManager *)&v6 init];
 }
 
@@ -45,9 +45,10 @@
   contextCopy = context;
   selfCopy = self;
   identifier = [deactivateCopy identifier];
-  sub_230F39608();
+  v9 = sub_230F39608();
+  v11 = v10;
 
-  LOBYTE(identifier) = sub_230F368AC();
+  LOBYTE(identifier) = sub_230F368AC(0xD000000000000023, 0x8000000230F409F0, v9, v11);
 
   if (identifier)
   {

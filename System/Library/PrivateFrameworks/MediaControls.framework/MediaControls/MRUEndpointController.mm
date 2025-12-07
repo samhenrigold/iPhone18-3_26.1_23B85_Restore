@@ -113,7 +113,7 @@
 
 - (int64_t)state
 {
-  result = [(MediaControlsEndpointController *)self->_endpointController state];
+  result = objc_msgSend_state(self->_endpointController, a2);
   if (result >= 4)
   {
     return -1;
@@ -260,7 +260,7 @@ LABEL_11:
         v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
-          [v9 endpointController:self didChangeState:{-[MRUEndpointController state](self, "state")}];
+          [v9 endpointController:self didChangeState:objc_msgSend_state(self)];
         }
 
         ++v8;

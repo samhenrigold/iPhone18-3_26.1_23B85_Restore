@@ -619,7 +619,7 @@
           v39 = 0;
           if (v14)
           {
-            [v14 duration];
+            objc_msgSend_duration(v14);
             v15 = (v37 / v38);
           }
 
@@ -1317,7 +1317,7 @@ LABEL_33:
   return v12;
 }
 
-uint64_t __68__ML3Track_clearLocationFromLibrary_persistentIDs_disableKeepLocal___block_invoke(uint64_t a1, uint64_t a2)
+void *__68__ML3Track_clearLocationFromLibrary_persistentIDs_disableKeepLocal___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 56) clearLocationFromLibrary:*(a1 + 32) persistentIDs:*(a1 + 40) disableKeepLocal:*(a1 + 64) usingConnection:a2];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -2012,7 +2012,7 @@ LABEL_2:
   return d;
 }
 
-uint64_t __50__ML3Track_trackWithPersistentID_existsInLibrary___block_invoke(uint64_t a1, uint64_t a2)
+void *__50__ML3Track_trackWithPersistentID_existsInLibrary___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 40) trackWithPersistentID:*(a1 + 48) existsInLibraryWithConnection:a2];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2142,11 +2142,11 @@ uint64_t __65__ML3Track_removeFromMyLibrary_deletionType_persistentIDs_count___b
   return v22;
 }
 
-uint64_t __103__ML3Track_deleteFromLibrary_deletionType_canonicalizeCollections_persistentIDs_count_usingConnection___block_invoke(uint64_t result, uint64_t a2)
+id *__103__ML3Track_deleteFromLibrary_deletionType_canonicalizeCollections_persistentIDs_count_usingConnection___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -4655,7 +4655,7 @@ uint64_t __68__ML3Track_ML3TrackImporter__populateChapterDataWithImportChapters_
                 dispatch_semaphore_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
                 if (v15)
                 {
-                  [v15 time];
+                  objc_msgSend_time(v15);
                 }
 
                 else
@@ -5122,7 +5122,7 @@ void __95__ML3Track_ML3TrackImporter__flattenedChapterDataWithImportChapters_lib
         if (v38)
         {
           v43[2]();
-          MLChapterDataSetUTF16Value(v9, &stru_28408B690);
+          MLChapterDataSetUTF16Value(v9, &stru_28408B690, 1851878757, v44);
         }
 
         goto LABEL_13;

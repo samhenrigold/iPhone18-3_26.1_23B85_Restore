@@ -3,9 +3,9 @@
 
 @implementation AXRuntimeCheck
 
-uint64_t __AXRuntimeCheck_HasANE_block_invoke()
+void *__AXRuntimeCheck_HasANE_block_invoke()
 {
-  result = AppleNeuralEngineLibraryCore();
+  result = AppleNeuralEngineLibraryCore(0);
   if (result)
   {
     result = [get_ANEDeviceInfoClass() hasANE];
@@ -17,7 +17,7 @@ uint64_t __AXRuntimeCheck_HasANE_block_invoke()
 
 void __AXRuntimeCheck_isANEDeviceH13plus_block_invoke()
 {
-  if (AppleNeuralEngineLibraryCore())
+  if (AppleNeuralEngineLibraryCore(0))
   {
     v0 = [get_ANEDeviceInfoClass() aneSubType];
     v4 = [v0 uppercaseString];

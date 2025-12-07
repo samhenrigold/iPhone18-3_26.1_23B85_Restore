@@ -111,14 +111,14 @@
 
 - (void)setZlibError:(int)error forStream:(id)stream
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   p_zStream = &self->_zStream;
   v7 = MEMORY[0x1E696AEC0];
   streamCopy = stream;
   v9 = [[v7 alloc] initWithUTF8String:p_zStream->msg];
-  v14 = *MEMORY[0x1E696A578];
-  v15[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = *MEMORY[0x1E696A578];
+  v14[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v11 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"SYZlibErrorDomain" code:error userInfo:v10];
 
   error = self->super._error;
@@ -126,8 +126,6 @@
 
   self->super._status = 7;
   [(_SYStreamGuts *)self postStreamEvent:8 forStream:streamCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setStatusForStream:(id)stream

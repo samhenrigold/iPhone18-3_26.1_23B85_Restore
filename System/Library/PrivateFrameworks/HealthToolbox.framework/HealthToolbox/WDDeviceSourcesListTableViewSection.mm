@@ -64,41 +64,41 @@
 
 void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v18 = v5;
-  v19 = a3;
-  if (v19)
+  v17 = v5;
+  v18 = a3;
+  if (v18)
   {
     _HKInitializeLogging();
     v6 = HKLogWellnessDashboard();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_cold_1(v19, v6);
+      __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_cold_1(v18, v6);
     }
   }
 
   else if (v5 && [v5 count])
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v7)
     {
-      v8 = *v26;
+      v8 = *v25;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v26 != v8)
+          if (*v25 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v25 + 1) + 8 * i);
+          v10 = *(*(&v24 + 1) + 8 * i);
           v11 = *(*(*(a1 + 48) + 8) + 40);
           v12 = [v10 identifier];
           v13 = [v12 UUIDString];
@@ -114,13 +114,13 @@ void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke(uint6
             if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v31 = v10;
+              v30 = v10;
               _os_log_impl(&dword_251E85000, v15, OS_LOG_TYPE_INFO, "Bluetooth devices retrieved: %@", buf, 0xCu);
             }
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v7);
@@ -134,52 +134,50 @@ void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke(uint6
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v31 = 0;
+      v30 = 0;
       _os_log_impl(&dword_251E85000, v6, OS_LOG_TYPE_DEFAULT, "Bluetooth devices not returned, %{public}@", buf, 0xCu);
     }
   }
 
   v16 = *(a1 + 32);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_324;
-  v20[3] = &unk_2796E8210;
-  v23 = *(a1 + 48);
-  v21 = v16;
-  objc_copyWeak(&v24, (a1 + 56));
-  v22 = *(a1 + 40);
-  [v21 healthPeripheralsWithFilter:1 handler:v20];
-  objc_destroyWeak(&v24);
-
-  v17 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_324;
+  v19[3] = &unk_2796E8210;
+  v22 = *(a1 + 48);
+  v20 = v16;
+  objc_copyWeak(&v23, (a1 + 56));
+  v21 = *(a1 + 40);
+  [v20 healthPeripheralsWithFilter:1 handler:v19];
+  objc_destroyWeak(&v23);
 }
 
 void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_324(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
+          v11 = *(*(&v20 + 1) + 8 * i);
           if (![v11 type])
           {
             v12 = *(*(*(a1 + 48) + 8) + 40);
@@ -189,7 +187,7 @@ void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_324(u
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v8);
@@ -208,17 +206,15 @@ void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_324(u
 
   v15 = [objc_alloc(MEMORY[0x277CCD328]) initWithHealthStore:*(a1 + 32)];
   v16 = *(*(*(a1 + 48) + 8) + 40);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_326;
-  v19[3] = &unk_2796E81E8;
-  objc_copyWeak(&v20, (a1 + 56));
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_326;
+  v18[3] = &unk_2796E81E8;
+  objc_copyWeak(&v19, (a1 + 56));
   v17 = *MEMORY[0x277CCBC50];
-  v19[4] = *(a1 + 40);
-  [v15 fetchGymkitAndBluetoothDevicesMatchingValues:v16 forProperty:v17 completion:v19];
-  objc_destroyWeak(&v20);
-
-  v18 = *MEMORY[0x277D85DE8];
+  v18[4] = *(a1 + 40);
+  [v15 fetchGymkitAndBluetoothDevicesMatchingValues:v16 forProperty:v17 completion:v18];
+  objc_destroyWeak(&v19);
 }
 
 void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_326(uint64_t a1, void *a2)
@@ -248,7 +244,7 @@ void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_2(uin
 
 - (void)setSources:(id)sources devices:(id)devices
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   devicesCopy = devices;
   objc_storeStrong(&self->_sources, sources);
@@ -257,26 +253,26 @@ void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_2(uin
   [(WDDeviceSourcesListTableViewSection *)self setIdentifiers:v9];
 
   v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(devicesCopy, "count") + objc_msgSend(sourcesCopy, "count")}];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v11 = sourcesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v43;
+    v14 = *v42;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v43 != v14)
+        if (*v42 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v42 + 1) + 8 * i);
+        v16 = *(*(&v41 + 1) + 8 * i);
         source = [v16 source];
         _isHiddenSource = [source _isHiddenSource];
 
@@ -292,34 +288,34 @@ void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_2(uin
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v13);
   }
 
-  v37 = v11;
+  v36 = v11;
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v23 = devicesCopy;
-  v24 = [v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v39;
+    v26 = *v38;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v39 != v26)
+        if (*v38 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v38 + 1) + 8 * j);
+        v28 = *(*(&v37 + 1) + 8 * j);
         localDevice = [MEMORY[0x277CCD2E8] localDevice];
         v30 = [v28 isEqual:localDevice];
 
@@ -337,7 +333,7 @@ void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_2(uin
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v25);
@@ -349,8 +345,6 @@ void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_2(uin
 
   delegate = [(WDTableViewSection *)self delegate];
   [delegate reloadTable];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__WDDeviceSourcesListTableViewSection_setSources_devices___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -715,20 +709,18 @@ LABEL_6:
 
 void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Unable to retrieve Bluetooth devices, %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Unable to retrieve Bluetooth devices, %{public}@", &v2, 0xCu);
 }
 
 void __52__WDDeviceSourcesListTableViewSection_reloadDevices__block_invoke_324_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "BTLE services not returned, %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "BTLE services not returned, %{public}@", &v2, 0xCu);
 }
 
 @end

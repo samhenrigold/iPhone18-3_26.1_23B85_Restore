@@ -48,10 +48,11 @@
   v6 = (self + OBJC_IVAR___BCFrontmostWindowTracker_onFrontmostChanged);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_19C408(v7);
+  sub_19C408(v7, v8);
 }
 
 - (BCFrontmostWindowTracker)init

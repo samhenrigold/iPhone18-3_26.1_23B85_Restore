@@ -484,8 +484,8 @@ LABEL_9:
   {
     if ((buttonType - 5) < 2)
     {
-      v94 = v4;
-      v98 = v6;
+      v104 = v4;
+      v108 = v6;
       [(SKUIAttributedStringView *)self->_attributedStringView sizeThatFits:v8, v10];
       v36 = v35;
       v38 = v37;
@@ -497,7 +497,7 @@ LABEL_9:
       recta = v40;
       if (self->_buttonType == 6)
       {
-        v90 = v39;
+        v100 = v39;
         v44 = *MEMORY[0x277CBF3A0];
         v45 = *(MEMORY[0x277CBF3A0] + 8);
         v46 = *MEMORY[0x277CBF3A0];
@@ -509,11 +509,11 @@ LABEL_9:
           imageTextPaddingInterior = self->_imageTextPaddingInterior;
         }
 
-        v100.origin.x = v44;
-        v100.origin.y = v45;
-        v100.size.width = recta;
-        v100.size.height = v43;
-        v50 = imageTextPaddingInterior + CGRectGetMaxX(v100);
+        v110.origin.x = v44;
+        v110.origin.y = v45;
+        v110.size.width = recta;
+        v110.size.height = v43;
+        v50 = imageTextPaddingInterior + CGRectGetMaxX(v110);
         [(SKUIStyledButton *)self buttonPadding];
         v52 = v50 + v51;
         if (v36 >= v8 - (v50 + v51))
@@ -526,17 +526,17 @@ LABEL_9:
           v53 = v36;
         }
 
-        [(SKUIStyledButton *)self buttonPadding];
-        v55 = v54;
-        v56 = v91;
+        buttonPadding = [(SKUIStyledButton *)self buttonPadding];
+        v57 = v56;
+        v58 = v101;
       }
 
       else
       {
-        v74 = self->_imageTextPaddingInterior;
-        if (v36 >= v8 - v40 - v74)
+        v82 = self->_imageTextPaddingInterior;
+        if (v36 >= v8 - v40 - v82)
         {
-          v53 = v8 - v40 - v74;
+          v53 = v8 - v40 - v82;
         }
 
         else
@@ -545,29 +545,29 @@ LABEL_9:
         }
 
         [(SKUIStyledButton *)self buttonPadding];
-        v52 = v75;
-        v102.origin.x = v75;
-        v102.origin.y = v39;
-        v102.size.width = v53;
-        v102.size.height = v38;
-        v55 = CGRectGetMaxX(v102) + self->_imageTextPaddingInterior;
-        v56 = v39;
+        v52 = v83;
+        v112.origin.x = v83;
+        v112.origin.y = v39;
+        v112.size.width = v53;
+        v112.size.height = v38;
+        v57 = CGRectGetMaxX(v112) + self->_imageTextPaddingInterior;
+        v58 = v39;
       }
 
-      v76 = (v10 - v43) * 0.5;
-      v77 = self->_imageYAdjustment + floorf(v76);
+      v84 = (v10 - v43) * 0.5;
+      v85 = self->_imageYAdjustment + floorf(v84);
       attributedStringView = self->_attributedStringView;
-      v79 = v53;
-      v6 = v98;
-      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v52, v56, v79, v38, v94, v98, v8, v10);
-      v104 = CGRectIntegral(v103);
-      [(SKUIAttributedStringView *)attributedStringView setFrame:v104.origin.x, v104.origin.y, v104.size.width, v104.size.height];
+      v87 = v53;
+      v6 = v108;
+      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v52, v58, v87, v38, v104, v108, v8, v10, buttonPadding, v55);
+      v114 = CGRectIntegral(v113);
+      v66 = [(SKUIAttributedStringView *)attributedStringView setFrame:v114.origin.x, v114.origin.y, v114.size.width, v114.size.height];
       imageView = self->_imageView;
-      v66 = v55;
-      v67 = v77;
-      v63 = recta;
-      v65 = v43;
-      v69 = v94;
+      v72 = v57;
+      v73 = v85;
+      v69 = recta;
+      v71 = v43;
+      v75 = v104;
       goto LABEL_34;
     }
 
@@ -577,17 +577,17 @@ LABEL_9:
     }
 
 LABEL_22:
-    [(SKUIAttributedStringView *)self->_attributedStringView sizeThatFits:v8, v10];
-    v63 = v62;
-    v65 = v64;
-    *&v62 = v4 + (v8 - v62) * 0.5;
-    v66 = floorf(*&v62);
-    *&v64 = v6 + (v10 - v64) * 0.5;
-    v67 = floorf(*&v64);
+    v66 = [(SKUIAttributedStringView *)self->_attributedStringView sizeThatFits:v8, v10];
+    v69 = v68;
+    v71 = v70;
+    *&v68 = v4 + (v8 - v68) * 0.5;
+    v72 = floorf(*&v68);
+    *&v70 = v6 + (v10 - v70) * 0.5;
+    v73 = floorf(*&v70);
     imageView = self->_attributedStringView;
-    v69 = v4;
+    v75 = v4;
 LABEL_34:
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v66, v67, v63, v65, v69, v6, v8, v10);
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v72, v73, v69, v71, v75, v6, v8, v10, v66, v67);
     [imageView setFrame:?];
     [(SKUIItemOfferButton *)self->_itemOfferButton setHidden:1];
     goto LABEL_37;
@@ -595,7 +595,7 @@ LABEL_34:
 
   if ((buttonType - 2) < 3)
   {
-    v97 = v6;
+    v107 = v6;
     v21 = MEMORY[0x277CBF3A0];
     v22 = *MEMORY[0x277CBF3A0];
     [(SKUIAttributedStringView *)self->_attributedStringView sizeThatFits:v8, v10];
@@ -606,14 +606,14 @@ LABEL_34:
     [(UIImageView *)self->_disclosureImageView sizeThatFits:v8, v10];
     v29 = v28;
     v31 = v30;
-    v93 = v28;
+    v103 = v28;
     rect = v27;
     if (self->_buttonType == 3)
     {
       v32 = *(v21 + 8);
       v33 = v22;
       v34 = v31;
-      v89 = v22;
+      v99 = v22;
       v22 = CGRectGetMaxX(*(&v29 - 2)) + 2.0;
       if (v24 >= v8 - v22)
       {
@@ -628,34 +628,35 @@ LABEL_34:
         v24 = v8 - v28 + -2.0;
       }
 
-      v101.origin.x = v22;
-      v101.origin.y = v27;
-      v101.size.width = v24;
-      v101.size.height = v26;
-      v89 = CGRectGetMaxX(v101) + 2.0;
+      v111.origin.x = v22;
+      v111.origin.y = v27;
+      v111.size.width = v24;
+      v111.size.height = v26;
+      v99 = CGRectGetMaxX(v111) + 2.0;
     }
 
-    v70 = v4;
+    v76 = v4;
     layout = [(SKUIAttributedStringView *)self->_attributedStringView layout];
-    if ([layout numberOfLines] == 1 && self->_buttonType != 2)
+    numberOfLines = [layout numberOfLines];
+    if (numberOfLines == 1 && self->_buttonType != 2)
     {
       layout2 = [(SKUIAttributedStringView *)self->_attributedStringView layout];
       [layout2 baselineOffset];
-      *&v81 = v81 + rect - v31;
-      v73 = ceilf(*&v81);
+      *&v89 = v89 + rect - v31;
+      v81 = ceilf(*&v89);
     }
 
     else
     {
-      v72 = (v10 - v31) * 0.5;
-      v73 = floorf(v72);
+      v80 = (v10 - v31) * 0.5;
+      v81 = floorf(v80);
     }
 
-    v82 = self->_attributedStringView;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v22, rect, v24, v26, v70, v97, v8, v10);
-    [(SKUIAttributedStringView *)v82 setFrame:?];
+    v90 = self->_attributedStringView;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v22, rect, v24, v26, v76, v107, v8, v10, numberOfLines, v79);
+    v91 = [(SKUIAttributedStringView *)v90 setFrame:?];
     disclosureImageView = self->_disclosureImageView;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v92, v73, v93, v31, v70, v97, v8, v10);
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v102, v81, v103, v31, v76, v107, v8, v10, v91, v93);
     [(UIImageView *)disclosureImageView setFrame:?];
     [(SKUIItemOfferButton *)self->_itemOfferButton setHidden:1];
 
@@ -669,49 +670,49 @@ LABEL_34:
 
   if (buttonType == 1)
   {
-    [(SKUIAttributedStringView *)self->_attributedStringView sizeThatFits:v8, v10];
-    v58 = v57;
-    v60 = v59;
-    *&v57 = (v8 - v57) * 0.5;
-    *&v59 = (v10 - v59) * 0.5;
-    v61 = self->_attributedStringView;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(floorf(*&v57), floorf(*&v59), v58, v60, v4, v6, v8, v10);
-    [(SKUIAttributedStringView *)v61 setFrame:?];
+    v59 = [(SKUIAttributedStringView *)self->_attributedStringView sizeThatFits:v8, v10];
+    v61 = v60;
+    v63 = v62;
+    *&v60 = (v8 - v60) * 0.5;
+    *&v62 = (v10 - v62) * 0.5;
+    v64 = self->_attributedStringView;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(floorf(*&v60), floorf(*&v62), v61, v63, v4, v6, v8, v10, v59, v65);
+    [(SKUIAttributedStringView *)v64 setFrame:?];
     [(SKUIItemOfferButton *)self->_itemOfferButton setFrame:v4, v6, v8, v10];
   }
 
 LABEL_37:
   isEnabled = [(SKUIStyledButton *)self isEnabled];
-  v85 = 1.0;
+  v95 = 1.0;
   if (isEnabled)
   {
-    v86 = 1.0;
+    v96 = 1.0;
   }
 
   else
   {
-    v86 = 0.25;
+    v96 = 0.25;
   }
 
-  [(SKUIShapeView *)self->_borderView setAlpha:v86];
+  [(SKUIShapeView *)self->_borderView setAlpha:v96];
   if ((isEnabled & 1) == 0)
   {
     fillColor = [(SKUIButtonBorderStyle *)self->_borderStyle fillColor];
     if (fillColor)
     {
-      v85 = 1.0;
+      v95 = 1.0;
     }
 
     else
     {
-      v85 = 0.25;
+      v95 = 0.25;
     }
   }
 
-  [(SKUIAttributedStringView *)self->_attributedStringView setAlpha:v85];
-  v88 = self->_disclosureImageView;
+  [(SKUIAttributedStringView *)self->_attributedStringView setAlpha:v95];
+  v98 = self->_disclosureImageView;
 
-  [(UIImageView *)v88 setAlpha:v85];
+  [(UIImageView *)v98 setAlpha:v95];
 }
 
 - (BOOL)pointInside:(CGPoint)inside withEvent:(id)event
@@ -1099,19 +1100,19 @@ LABEL_16:
   {
     case 4:
       v5 = MEMORY[0x277D755B8];
-      v6 = SKUIBundle();
+      v6 = SKUIBundle(self, a2);
       v7 = @"ChevronSeeAll";
       goto LABEL_7;
     case 3:
       v8 = MEMORY[0x277D755B8];
-      v9 = SKUIBundle();
+      v9 = SKUIBundle(self, a2);
       v10 = [v8 imageNamed:@"ChevronSeeAll" inBundle:v9];
 
       CGAffineTransformMakeScale(&v22, -1.0, 1.0);
       goto LABEL_9;
     case 2:
       v5 = MEMORY[0x277D755B8];
-      v6 = SKUIBundle();
+      v6 = SKUIBundle(self, a2);
       v7 = @"SearchFilterDisclosureChevron";
 LABEL_7:
       v10 = [v5 imageNamed:v7 inBundle:v6];

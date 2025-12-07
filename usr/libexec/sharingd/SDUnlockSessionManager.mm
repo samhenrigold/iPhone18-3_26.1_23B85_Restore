@@ -35,6 +35,7 @@
 - (void)resetState;
 - (void)restartUnlockTimer:(unint64_t)timer;
 - (void)sendDisableMessage;
+- (void)sendResetMessage:(unsigned int)message reason:(unsigned __int16)reason;
 - (void)updateSecurityManager;
 - (void)updateSecurityManagerIfNeeded;
 @end
@@ -464,6 +465,22 @@ LABEL_7:
     v5 = self->_unlockTimer;
     self->_unlockTimer = 0;
   }
+}
+
+- (void)sendResetMessage:(unsigned int)message reason:(unsigned __int16)reason
+{
+  reasonCopy = reason;
+  v5 = *&message;
+  v9 = objc_alloc_init(SDUnlockReset);
+  [(SDUnlockReset *)v9 setVersion:1];
+  [(SDUnlockReset *)v9 setSessionID:v5];
+  [(SDUnlockReset *)v9 setResetReason:reasonCopy];
+  [(SDUnlockSessionManager *)self logProtoBufSend:v9];
+  WeakRetained = objc_loadWeakRetained(&self->_idsController);
+  data = [(SDUnlockReset *)v9 data];
+  [WeakRetained sendProtocolBufferData:data withType:1 timeout:0 option:1 errorHandler:&stru_1008D5398];
+
+  [(SDUnlockSessionManager *)self resetAndClearState];
 }
 
 - (void)sendDisableMessage

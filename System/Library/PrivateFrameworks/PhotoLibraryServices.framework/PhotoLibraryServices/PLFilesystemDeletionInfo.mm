@@ -43,7 +43,7 @@
     goto LABEL_8;
   }
 
-  v21 = [lsCopy count];
+  v21 = objc_msgSend_count(lsCopy);
   v22 = 0;
   if (uuidCopy && v21)
   {
@@ -78,7 +78,7 @@ LABEL_13:
   return v22;
 }
 
-uint64_t __126__PLFilesystemDeletionInfo_initWithObjectIDURI_directory_filename_fileURLs_thumbnailIndex_thumbnailIdentifier_uuid_timestamp___block_invoke_2(uint64_t a1)
+void *__126__PLFilesystemDeletionInfo_initWithObjectIDURI_directory_filename_fileURLs_thumbnailIndex_thumbnailIdentifier_uuid_timestamp___block_invoke_2(uint64_t a1)
 {
   result = [initWithObjectIDURI_directory_filename_fileURLs_thumbnailIndex_thumbnailIdentifier_uuid_timestamp__processedDeletions containsObject:*(a1 + 32)];
   if (result)
@@ -146,7 +146,7 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    if ([allFileURLs count])
+    if (objc_msgSend_count(allFileURLs))
     {
       if (PLIsAssetsd())
       {
@@ -162,7 +162,7 @@ LABEL_20:
         managedObjectContext = [v4 managedObjectContext];
         v14 = [managedObjectContext executeFetchRequest:v11 error:0];
 
-        if ([v14 count] && objc_msgSend(v14, "indexOfObjectIdenticalTo:", v4) == 0x7FFFFFFFFFFFFFFFLL)
+        if (objc_msgSend_count(v14) && [v14 indexOfObjectIdenticalTo:v4] == 0x7FFFFFFFFFFFFFFFLL)
         {
           v15 = PLBackendGetLog();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))

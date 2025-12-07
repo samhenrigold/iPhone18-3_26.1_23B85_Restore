@@ -7,15 +7,18 @@
 
 - (int64_t)getPKCategoryForDomain:(id)domain
 {
-  sub_1D373797C();
+  v3 = sub_1D373797C();
+  v5 = v4;
   if (qword_1EDEF4BF8 != -1)
   {
+    v8 = v3;
     swift_once();
+    v3 = v8;
   }
 
-  v3 = sub_1D3733894();
+  v6 = sub_1D3733894(v3, v5);
 
-  return sub_1D3727028(v3);
+  return sub_1D3727028(v6);
 }
 
 - (_TtC12icloudMCCKit21DomainHelperInterface)init

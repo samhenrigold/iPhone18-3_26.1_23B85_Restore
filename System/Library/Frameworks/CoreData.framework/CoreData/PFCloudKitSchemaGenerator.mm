@@ -4,10 +4,10 @@
 - (NSManagedObject)representativeObjectForEntity:(uint64_t)entity inStore:(void *)store withManagedObjectContext:(void *)context cache:(int)cache populate:(uint64_t)populate error:;
 - (PFCloudKitSchemaGenerator)initWithMirroringOptions:(id)options forStoreInMonitor:(id)monitor;
 - (uint64_t)createRepresentativeFileBackedFutureInContext:(uint64_t *)context error:(void *)error;
-- (uint64_t)newRepresentativeRecords:(uint64_t)records;
 - (uint64_t)populateRelationshipsOnObject:(uint64_t)object inStore:(uint64_t)store withCache:(uint64_t)cache error:;
 - (uint64_t)populateValuesOnObject:(uint64_t)object error:;
 - (void)dealloc;
+- (void)newRepresentativeRecords:(void *)records;
 @end
 
 @implementation PFCloudKitSchemaGenerator
@@ -34,45 +34,45 @@
   [(PFCloudKitSchemaGenerator *)&v3 dealloc];
 }
 
-- (uint64_t)newRepresentativeRecords:(uint64_t)records
+- (void)newRepresentativeRecords:(void *)records
 {
   recordsCopy = records;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (records)
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 1;
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x3052000000;
-    v15 = __Block_byref_object_copy__48;
-    v16 = __Block_byref_object_dispose__48;
     v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 1;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x3052000000;
+    v14 = __Block_byref_object_copy__48;
+    v15 = __Block_byref_object_dispose__48;
+    v16 = 0;
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v5 = *(recordsCopy + 16);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __54__PFCloudKitSchemaGenerator_newRepresentativeRecords___block_invoke;
-    v11[3] = &unk_1E6EC5578;
-    v11[6] = &v12;
-    v11[7] = &v18;
-    v11[4] = recordsCopy;
-    v11[5] = v4;
-    [(PFCloudKitStoreMonitor *)v5 performBlock:v11];
-    if (*(v19 + 24) == 1)
+    v5 = recordsCopy[2];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __54__PFCloudKitSchemaGenerator_newRepresentativeRecords___block_invoke;
+    v10[3] = &unk_1E6EC5578;
+    v10[6] = &v11;
+    v10[7] = &v17;
+    v10[4] = recordsCopy;
+    v10[5] = v4;
+    [(PFCloudKitStoreMonitor *)v5 performBlock:v10];
+    if (*(v18 + 24) == 1)
     {
       recordsCopy = [v4 copy];
 LABEL_12:
 
-      v13[5] = 0;
-      _Block_object_dispose(&v12, 8);
-      _Block_object_dispose(&v18, 8);
-      goto LABEL_13;
+      v12[5] = 0;
+      _Block_object_dispose(&v11, 8);
+      _Block_object_dispose(&v17, 8);
+      return recordsCopy;
     }
 
-    v6 = v13[5];
+    v6 = v12[5];
     if (v6)
     {
       if (a2)
@@ -89,9 +89,9 @@ LABEL_12:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v23 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitSchemaGenerator.m";
-        v24 = 1024;
-        v25 = 124;
+        v22 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitSchemaGenerator.m";
+        v23 = 1024;
+        v24 = 124;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -99,9 +99,9 @@ LABEL_12:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v23 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitSchemaGenerator.m";
-        v24 = 1024;
-        v25 = 124;
+        v22 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitSchemaGenerator.m";
+        v23 = 1024;
+        v24 = 124;
         _os_log_fault_impl(&dword_18565F000, v8, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
@@ -110,8 +110,6 @@ LABEL_12:
     goto LABEL_12;
   }
 
-LABEL_13:
-  v9 = *MEMORY[0x1E69E9840];
   return recordsCopy;
 }
 
@@ -150,7 +148,7 @@ void __54__PFCloudKitSchemaGenerator_newRepresentativeRecords___block_invoke(uin
 
 void __54__PFCloudKitSchemaGenerator_newRepresentativeRecords___block_invoke_2(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -167,20 +165,20 @@ void __54__PFCloudKitSchemaGenerator_newRepresentativeRecords___block_invoke_2(u
   }
 
   v8 = v7;
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v9 = [v7 countByEnumeratingWithState:&v38 objects:v45 count:16];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v9 = [v7 countByEnumeratingWithState:&v37 objects:v44 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v39;
+    v11 = *v38;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v39 != v11)
+        if (*v38 != v11)
         {
           objc_enumerationMutation(v8);
         }
@@ -193,7 +191,7 @@ void __54__PFCloudKitSchemaGenerator_newRepresentativeRecords___block_invoke_2(u
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v38 objects:v45 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v37 objects:v44 count:16];
       if (v10)
       {
         continue;
@@ -209,29 +207,29 @@ LABEL_14:
     v14 = objc_alloc_init(PFCloudKitMetadataCache);
     v15 = [[PFCloudKitSerializer alloc] initWithMirroringOptions:*(*(a1 + 48) + 8) metadataCache:v14 recordNamePrefix:@"CD_FAKE_"];
     v16 = [objc_msgSend(*(a1 + 64) "insertedObjects")];
-    v32 = v3;
-    v33 = v2;
+    v31 = v3;
+    v32 = v2;
     if ([*(a1 + 64) obtainPermanentIDsForObjects:v16 error:*(*(a1 + 80) + 8) + 40])
     {
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
-      v17 = [v16 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v17 = [v16 countByEnumeratingWithState:&v33 objects:v43 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v35;
+        v19 = *v34;
         do
         {
           for (j = 0; j != v18; ++j)
           {
-            if (*v35 != v19)
+            if (*v34 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v34 + 1) + 8 * j);
+            v21 = *(*(&v33 + 1) + 8 * j);
             v22 = objc_autoreleasePoolPush();
             if (v15 && (v23 = [(PFCloudKitSerializer *)v15 newCKRecordsFromObject:v21 fullyMaterializeRecords:1 includeRelationships:1 error:(*(*(a1 + 80) + 8) + 40)]) != 0)
             {
@@ -248,7 +246,7 @@ LABEL_14:
             objc_autoreleasePoolPop(v22);
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v34 objects:v44 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v33 objects:v43 count:16];
         }
 
         while (v18);
@@ -262,27 +260,25 @@ LABEL_14:
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        v30 = *(*(*(a1 + 80) + 8) + 40);
+        v29 = *(*(*(a1 + 80) + 8) + 40);
         *buf = 138412290;
-        v43 = v30;
+        v42 = v29;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to acquire permanent objectIDs during schema generation: %@\n", buf, 0xCu);
       }
 
       v28 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
-        v31 = *(*(*(a1 + 80) + 8) + 40);
+        v30 = *(*(*(a1 + 80) + 8) + 40);
         *buf = 138412290;
-        v43 = v31;
+        v42 = v30;
         _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Failed to acquire permanent objectIDs during schema generation: %@", buf, 0xCu);
       }
     }
 
-    v3 = v32;
-    v2 = v33;
+    v3 = v31;
+    v2 = v32;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (NSManagedObject)representativeObjectForEntity:(uint64_t)entity inStore:(void *)store withManagedObjectContext:(void *)context cache:(int)cache populate:(uint64_t)populate error:
@@ -404,7 +400,7 @@ uint64_t __58__PFCloudKitSchemaGenerator_populateValuesOnObject_error___block_in
         result = [a3 isTransient];
         if ((result & 1) == 0)
         {
-          result = [*(a1 + 32) valueForKey:a2];
+          result = objc_msgSend_valueForKey_(*(a1 + 32));
           if (!result)
           {
             if ([a3 isFileBackedFuture])
@@ -448,10 +444,10 @@ uint64_t __58__PFCloudKitSchemaGenerator_populateValuesOnObject_error___block_in
 - (uint64_t)createRepresentativeFileBackedFutureInContext:(uint64_t *)context error:(void *)error
 {
   contextCopy = context;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (context)
   {
-    v18 = 0;
+    v17 = 0;
     v3 = context[3];
     if (v3)
     {
@@ -459,43 +455,43 @@ LABEL_3:
       contextCopy = v3;
 LABEL_4:
 
-      goto LABEL_5;
+      return contextCopy;
     }
 
-    v7 = context[2];
-    if (v7 && (*(v7 + 21) & 1) != 0)
+    v6 = context[2];
+    if (v6 && (*(v6 + 21) & 1) != 0)
     {
-      v8 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v9 = [v8 initWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:0];
-      v18 = v9;
+      v7 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v8 = [v7 initWithDomain:*MEMORY[0x1E696A250] code:134407 userInfo:0];
+      v17 = v8;
     }
 
     else
     {
-      retainedMonitoredStore = [(PFCloudKitStoreMonitor *)v7 retainedMonitoredStore];
-      v11 = [PFCloudKitSerializer generateCKAssetFileURLForObjectInStore:retainedMonitoredStore];
-      v12 = [@"Some sample data generated by PFCloudKitSchemaGenerator for a representative file backed future" dataUsingEncoding:1];
-      if ([v12 writeToURL:v11 options:0 error:&v18])
+      retainedMonitoredStore = [(PFCloudKitStoreMonitor *)v6 retainedMonitoredStore];
+      v10 = [PFCloudKitSerializer generateCKAssetFileURLForObjectInStore:retainedMonitoredStore];
+      v11 = [@"Some sample data generated by PFCloudKitSchemaGenerator for a representative file backed future" dataUsingEncoding:1];
+      if ([v11 writeToURL:v10 options:0 error:&v17])
       {
-        v13 = [_NSDataFileBackedFuture alloc];
-        contextCopy[3] = -[_NSDataFileBackedFuture initWithURL:UUID:size:](v13, v11, [MEMORY[0x1E696AFB0] UUID], objc_msgSend(v12, "length"));
+        v12 = [_NSDataFileBackedFuture alloc];
+        contextCopy[3] = -[_NSDataFileBackedFuture initWithURL:UUID:size:](v12, v10, [MEMORY[0x1E696AFB0] UUID], objc_msgSend(v11, "length"));
 
         v3 = contextCopy[3];
         goto LABEL_3;
       }
 
-      v14 = v18;
+      v13 = v17;
 
-      v9 = v18;
+      v8 = v17;
     }
 
-    v15 = v9;
-    if (v15)
+    v14 = v8;
+    if (v14)
     {
       if (error)
       {
         contextCopy = 0;
-        *error = v15;
+        *error = v14;
         goto LABEL_4;
       }
     }
@@ -506,20 +502,20 @@ LABEL_4:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitSchemaGenerator.m";
-        v21 = 1024;
-        v22 = 303;
+        v19 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitSchemaGenerator.m";
+        v20 = 1024;
+        v21 = 303;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v17 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v16 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitSchemaGenerator.m";
-        v21 = 1024;
-        v22 = 303;
-        _os_log_fault_impl(&dword_18565F000, v17, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v19 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitSchemaGenerator.m";
+        v20 = 1024;
+        v21 = 303;
+        _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
 
@@ -527,8 +523,6 @@ LABEL_4:
     goto LABEL_4;
   }
 
-LABEL_5:
-  v4 = *MEMORY[0x1E69E9840];
   return contextCopy;
 }
 
@@ -669,7 +663,7 @@ uint64_t __83__PFCloudKitSchemaGenerator_populateRelationshipsOnObject_inStore_w
   if (![a3 isToMany])
   {
     v13 = [objc_msgSend(a3 "inverseRelationship")];
-    result = [*(a1 + 32) valueForKey:a2];
+    result = objc_msgSend_valueForKey_(*(a1 + 32));
     if (v13)
     {
       if (result)
@@ -718,7 +712,7 @@ LABEL_17:
     return result;
   }
 
-  v8 = [*(a1 + 32) valueForKey:a2];
+  v8 = objc_msgSend_valueForKey_(*(a1 + 32));
   if (v8)
   {
     result = [v8 count];
@@ -744,30 +738,30 @@ LABEL_10:
 
 + (void)newRepresentativeRecordForStaticFieldsInEntity:(uint64_t)entity inZoneWithID:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v5 = objc_alloc(getCloudKitCKRecordClass[0]());
   v6 = [v5 initWithRecordType:+[PFCloudKitSerializer recordTypeForEntity:](PFCloudKitSerializer zoneID:{a2), entity}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   attributesByName = [objc_msgSend(a2 attributesByName];
-  v8 = [attributesByName countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [attributesByName countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(attributesByName);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         attributeType = [v12 attributeType];
         if (attributeType && attributeType != 2000 && (+[PFCloudKitSerializer isVariableLengthAttributeType:](PFCloudKitSerializer, [v12 attributeType]) & 1) == 0)
         {
@@ -790,13 +784,12 @@ LABEL_13:
         }
       }
 
-      v9 = [attributesByName countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [attributesByName countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

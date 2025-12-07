@@ -12,7 +12,7 @@
 
 - (HMBShareInvitation)initWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMBUI.u"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMBUI.t"];
@@ -34,26 +34,25 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138544642;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v6;
-      v24 = 2112;
-      v25 = v7;
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = v10;
-      _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded shareURL: %@ token: %@ context: %@ cloudZoneID: %@ dateCreated: %@", &v18, 0x3Eu);
+      v17 = 138544642;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v7;
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2112;
+      v28 = v10;
+      _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded shareURL: %@ token: %@ context: %@ cloudZoneID: %@ dateCreated: %@", &v17, 0x3Eu);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -171,30 +170,28 @@
 
 - (id)attributeDescriptions
 {
-  v21[5] = *MEMORY[0x277D85DE8];
+  v20[5] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   shareURL = [(HMBShareInvitation *)self shareURL];
   v4 = [v3 initWithName:@"Share URL" value:shareURL];
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   token = [(HMBShareInvitation *)self token];
   v7 = [v5 initWithName:@"Token" value:token];
-  v21[1] = v7;
+  v20[1] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   context = [(HMBShareInvitation *)self context];
   v10 = [v8 initWithName:@"Context" value:context];
-  v21[2] = v10;
+  v20[2] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   cloudZoneID = [(HMBShareInvitation *)self cloudZoneID];
   v13 = [v11 initWithName:@"Cloud Zone ID" value:cloudZoneID];
-  v21[3] = v13;
+  v20[3] = v13;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   dateCreated = [(HMBShareInvitation *)self dateCreated];
   v16 = [v14 initWithName:@"Date Created" value:dateCreated];
-  v21[4] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v20[4] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
 
   return v17;
 }

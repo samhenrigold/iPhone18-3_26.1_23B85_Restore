@@ -28,9 +28,11 @@
 
 uint64_t __37__MTDBExtensionAccess_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(MTDBExtensionAccess);
+  v0 = objc_alloc_init(MTDBExtensionAccess);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (void)postDatabaseCreatedNotification
@@ -97,7 +99,7 @@ uint64_t __37__MTDBExtensionAccess_sharedInstance__block_invoke()
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (MTDBExtensionAccessContext == context)
   {
@@ -105,7 +107,7 @@ uint64_t __37__MTDBExtensionAccess_sharedInstance__block_invoke()
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = pathCopy;
+      v14 = pathCopy;
       _os_log_impl(&dword_1D8CEC000, v11, OS_LOG_TYPE_DEFAULT, "MTDBExtensionAccess did get update for keyPath - %@", buf, 0xCu);
     }
 
@@ -114,12 +116,10 @@ uint64_t __37__MTDBExtensionAccess_sharedInstance__block_invoke()
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = MTDBExtensionAccess;
-    [(MTDBExtensionAccess *)&v13 observeValueForKeyPath:pathCopy ofObject:object change:change context:context];
+    v12.receiver = self;
+    v12.super_class = MTDBExtensionAccess;
+    [(MTDBExtensionAccess *)&v12 observeValueForKeyPath:pathCopy ofObject:object change:change context:context];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObserving
@@ -167,37 +167,37 @@ uint64_t __37__MTDBExtensionAccess_sharedInstance__block_invoke()
 
 - (void)_handleChange
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = _MTLogCategoryDatabase();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v17 = +[MTDB canExtensionOpenDatabase];
+    v16 = +[MTDB canExtensionOpenDatabase];
     _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_DEFAULT, "MTDBExtensionAccess extension access did change %x will notify observers", buf, 8u);
   }
 
   v4 = self->_observers;
   objc_sync_enter(v4);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_observers;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 extensionAccessDidChange];
@@ -207,14 +207,13 @@ uint64_t __37__MTDBExtensionAccess_sharedInstance__block_invoke()
       }
 
       while (v6 != v8);
-      v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(v4);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

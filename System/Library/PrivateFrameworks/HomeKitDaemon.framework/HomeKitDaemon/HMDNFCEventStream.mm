@@ -17,7 +17,7 @@
 
 - (void)_handleXPCEvent:(id)event
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = MEMORY[0x22AAD53D0]();
   if (v5 != MEMORY[0x277D86468])
@@ -33,10 +33,10 @@
       if (v11)
       {
         v12 = HMFGetLogIdentifier();
-        v30 = 138543618;
-        v31 = v12;
-        v32 = 2112;
-        v33 = eventCopy;
+        v29 = 138543618;
+        v30 = v12;
+        v31 = 2112;
+        v32 = eventCopy;
         v13 = "%{public}@Received XPC error event: %@";
         v14 = v10;
         v15 = 22;
@@ -47,13 +47,13 @@
     else if (v11)
     {
       v12 = HMFGetLogIdentifier();
-      v30 = 138543362;
-      v31 = v12;
+      v29 = 138543362;
+      v30 = v12;
       v13 = "%{public}@Received unexpected xpc event type";
       v14 = v10;
       v15 = 12;
 LABEL_11:
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, v13, &v30, v15);
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, v13, &v29, v15);
     }
 
     v24 = v8;
@@ -68,31 +68,31 @@ LABEL_13:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     v19 = HMFGetLogIdentifier();
-    v30 = 138543618;
-    v31 = v19;
-    v32 = 2112;
-    v33 = eventCopy;
-    _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Received XPC dictionary event: %@", &v30, 0x16u);
+    v29 = 138543618;
+    v30 = v19;
+    v31 = 2112;
+    v32 = eventCopy;
+    _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Received XPC dictionary event: %@", &v29, 0x16u);
   }
 
   objc_autoreleasePoolPop(v16);
   string = xpc_dictionary_get_string(eventCopy, [@"Payload" UTF8String]);
   if (!string)
   {
-    v26 = objc_autoreleasePoolPush();
-    v27 = selfCopy2;
-    v28 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v25 = objc_autoreleasePoolPush();
+    v26 = selfCopy2;
+    v27 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v29 = HMFGetLogIdentifier();
-      v30 = 138543618;
-      v31 = v29;
-      v32 = 2112;
-      v33 = @"Payload";
-      _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@No value for '%@' in dictionary event", &v30, 0x16u);
+      v28 = HMFGetLogIdentifier();
+      v29 = 138543618;
+      v30 = v28;
+      v31 = 2112;
+      v32 = @"Payload";
+      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@No value for '%@' in dictionary event", &v29, 0x16u);
     }
 
-    v24 = v26;
+    v24 = v25;
     goto LABEL_13;
   }
 
@@ -102,12 +102,11 @@ LABEL_13:
   [delegate nfcEventStream:selfCopy2 didReceiveEvent:v23];
 
 LABEL_14:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -115,7 +114,7 @@ LABEL_14:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v6;
+    v14 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Initializing XPC NFC event handler", buf, 0xCu);
   }
 
@@ -136,8 +135,6 @@ LABEL_14:
   [name2 UTF8String];
   [@"NFC" UTF8String];
   xpc_set_event();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDNFCEventStream)initWithName:(id)name workQueue:(id)queue
@@ -149,7 +146,7 @@ LABEL_14:
   v8 = [(HMDNFCEventStream *)&v12 init];
   if (v8)
   {
-    v9 = [nameCopy copy];
+    v9 = objc_msgSend_copy(nameCopy);
     name = v8->_name;
     v8->_name = v9;
 
@@ -173,10 +170,9 @@ LABEL_14:
 
 void __32__HMDNFCEventStream_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_175701;
-  logCategory__hmf_once_v6_175701 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_175701;
+  logCategory__hmf_once_v6_175701 = v0;
 }
 
 @end

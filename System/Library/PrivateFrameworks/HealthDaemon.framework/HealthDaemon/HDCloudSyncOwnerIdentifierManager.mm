@@ -225,7 +225,7 @@ void __77__HDCloudSyncOwnerIdentifierManager__fetchDatabaseIdentifiersWithComple
 
 uint64_t __77__HDCloudSyncOwnerIdentifierManager__fetchDatabaseIdentifiersWithCompletion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   if (v5)
   {
@@ -233,9 +233,9 @@ uint64_t __77__HDCloudSyncOwnerIdentifierManager__fetchDatabaseIdentifiersWithCo
     v7 = [WeakRetained profile];
 
     v8 = HDCloudSyncKeyValueDomainWithProfile(v7);
-    v39 = 0;
-    v9 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity retrieveDatabaseIdentifierFromProfile:v7 error:&v39];
-    v10 = v39;
+    v38 = 0;
+    v9 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity retrieveDatabaseIdentifierFromProfile:v7 error:&v38];
+    v10 = v38;
     v11 = v10;
     if (v9)
     {
@@ -296,10 +296,10 @@ LABEL_29:
       {
         *buf = 138543874;
         *&buf[4] = v5;
-        v41 = 2114;
-        v42 = v14;
-        v43 = 2114;
-        v44 = @"HDCloudSyncDatabaseIdentifier";
+        v40 = 2114;
+        v41 = v14;
+        v42 = 2114;
+        v43 = @"HDCloudSyncDatabaseIdentifier";
         v16 = "%{public}@: Copy database UUID %{public}@ to %{public}@";
         v17 = v15;
         v18 = 32;
@@ -317,8 +317,8 @@ LABEL_15:
       {
         *buf = 138543618;
         *&buf[4] = v5;
-        v41 = 2114;
-        v42 = v14;
+        v40 = 2114;
+        v41 = v14;
         v16 = "%{public}@: No database UUID present yet; healthd has not yet launched while the device is unlocked on this device. Create a cloud sync database identifier: %{public}@";
         v17 = v20;
         v18 = 22;
@@ -361,48 +361,44 @@ LABEL_32:
   v27 = *(v26 + 40);
   *(v26 + 40) = v14;
 
-  if (*(*(*(a1 + 48) + 8) + 40))
+  if (!*(*(*(a1 + 48) + 8) + 40))
   {
-    v28 = HDCloudSyncKeyValueDomainWithProfile(*(a1 + 40));
-    v38 = 0;
-    v29 = [v28 stringForKey:@"OwnerDifferentiator" error:&v38];
-    v30 = v38;
-    v31 = *(*(a1 + 56) + 8);
-    v32 = *(v31 + 40);
-    *(v31 + 40) = v29;
+    return 0;
+  }
 
-    if (*(*(*(a1 + 56) + 8) + 40))
-    {
-      v33 = 1;
-    }
+  v28 = HDCloudSyncKeyValueDomainWithProfile(*(a1 + 40));
+  v37 = 0;
+  v29 = [v28 stringForKey:@"OwnerDifferentiator" error:&v37];
+  v30 = v37;
+  v31 = *(*(a1 + 56) + 8);
+  v32 = *(v31 + 40);
+  *(v31 + 40) = v29;
 
-    else
-    {
-      v33 = v30 == 0;
-    }
-
-    v34 = v33;
-    if (!v33)
-    {
-      if (a3)
-      {
-        v35 = v30;
-        *a3 = v30;
-      }
-
-      else
-      {
-        _HKLogDroppedError();
-      }
-    }
+  if (*(*(*(a1 + 56) + 8) + 40))
+  {
+    v33 = 1;
   }
 
   else
   {
-    v34 = 0;
+    v33 = v30 == 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = v33;
+  if (!v33)
+  {
+    if (a3)
+    {
+      v35 = v30;
+      *a3 = v30;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
   return v34;
 }
 
@@ -555,32 +551,32 @@ void __81__HDCloudSyncOwnerIdentifierManager_fetchOwnerIdentifierForContainer_co
 
 - (void)cacheOwnerIdentifiersForContainers:(id)containers completion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   containersCopy = containers;
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v8 = containersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v38;
+    v11 = *v37;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v38 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
         lock_cachedOwnerIdentifiersByContainerIdentifier = self->_lock_cachedOwnerIdentifiersByContainerIdentifier;
-        containerIdentifier = [*(*(&v37 + 1) + 8 * v12) containerIdentifier];
+        containerIdentifier = [*(*(&v36 + 1) + 8 * v12) containerIdentifier];
         v15 = [(NSMutableDictionary *)lock_cachedOwnerIdentifiersByContainerIdentifier objectForKeyedSubscript:containerIdentifier];
 
         if (!v15)
@@ -593,7 +589,7 @@ void __81__HDCloudSyncOwnerIdentifierManager_fetchOwnerIdentifierForContainer_co
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v10)
       {
         continue;
@@ -611,68 +607,66 @@ LABEL_11:
   if (v16)
   {
     v18 = objc_alloc_init(MEMORY[0x277D10BB0]);
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __83__HDCloudSyncOwnerIdentifierManager_cacheOwnerIdentifiersForContainers_completion___block_invoke;
-    v35[3] = &unk_2786152A8;
-    v26 = completionCopy;
-    v36 = completionCopy;
-    [v18 setDidFinish:v35];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __83__HDCloudSyncOwnerIdentifierManager_cacheOwnerIdentifiersForContainers_completion___block_invoke;
+    v34[3] = &unk_2786152A8;
+    v25 = completionCopy;
+    v35 = completionCopy;
+    [v18 setDidFinish:v34];
     [v18 beginTask];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v25 = v8;
+    v24 = v8;
     obj = v8;
-    v19 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+    v19 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v32;
+      v21 = *v31;
       do
       {
         v22 = 0;
         do
         {
-          if (*v32 != v21)
+          if (*v31 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v31 + 1) + 8 * v22);
+          v23 = *(*(&v30 + 1) + 8 * v22);
           [v18 beginTask];
-          v28[0] = MEMORY[0x277D85DD0];
-          v28[1] = 3221225472;
-          v28[2] = __83__HDCloudSyncOwnerIdentifierManager_cacheOwnerIdentifiersForContainers_completion___block_invoke_2;
-          v28[3] = &unk_2786152D0;
-          v30 = lock_fetchEpoch;
-          v28[4] = self;
-          v28[5] = v23;
-          v29 = v18;
-          [(HDCloudSyncOwnerIdentifierManager *)self fetchOwnerIdentifierForContainer:v23 completion:v28];
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = __83__HDCloudSyncOwnerIdentifierManager_cacheOwnerIdentifiersForContainers_completion___block_invoke_2;
+          v27[3] = &unk_2786152D0;
+          v29 = lock_fetchEpoch;
+          v27[4] = self;
+          v27[5] = v23;
+          v28 = v18;
+          [(HDCloudSyncOwnerIdentifierManager *)self fetchOwnerIdentifierForContainer:v23 completion:v27];
 
           ++v22;
         }
 
         while (v20 != v22);
-        v20 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+        v20 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
       }
 
       while (v20);
     }
 
     [v18 finishTask];
-    v8 = v25;
-    completionCopy = v26;
+    v8 = v24;
+    completionCopy = v25;
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HDCloudSyncOwnerIdentifierManager_cacheOwnerIdentifiersForContainers_completion___block_invoke(uint64_t a1, uint64_t a2, int a3, void *a4)
@@ -765,7 +759,7 @@ LABEL_3:
 
 void __75__HDCloudSyncOwnerIdentifierManager__fetchDeviceIDForContainer_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -798,18 +792,16 @@ void __75__HDCloudSyncOwnerIdentifierManager__fetchDeviceIDForContainer_completi
     v11 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v13;
-      v16 = 2114;
-      v17 = v6;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Failed to retrieve device identifier for %{public}@: %{public}@", &v14, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v6;
+      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Failed to retrieve device identifier for %{public}@: %{public}@", &v13, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discardCachedIdentifiers
@@ -825,7 +817,7 @@ void __75__HDCloudSyncOwnerIdentifierManager__fetchDeviceIDForContainer_completi
 
 - (void)rollOwnerDifferentiatorForReason:(id)reason completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   completionCopy = completion;
   WeakRetained = objc_loadWeakRetained(&self->_cloudSyncManager);
@@ -841,8 +833,8 @@ void __75__HDCloudSyncOwnerIdentifierManager__fetchDeviceIDForContainer_completi
   {
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = reasonCopy;
+    v24 = 2114;
+    v25 = reasonCopy;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: ownership change required: %{public}@", buf, 0x16u);
   }
 
@@ -852,9 +844,9 @@ void __75__HDCloudSyncOwnerIdentifierManager__fetchDeviceIDForContainer_completi
   v14 = HDCloudSyncKeyValueDomainWithProfile(profile);
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  v22 = 0;
-  v17 = [v14 setString:uUIDString forKey:@"OwnerDifferentiator" error:&v22];
-  v18 = v22;
+  v21 = 0;
+  v17 = [v14 setString:uUIDString forKey:@"OwnerDifferentiator" error:&v21];
+  v18 = v21;
 
   if (v17)
   {
@@ -873,8 +865,6 @@ void __75__HDCloudSyncOwnerIdentifierManager__fetchDeviceIDForContainer_completi
   {
     (*(completionCopy + 2))(completionCopy, 0, v18);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

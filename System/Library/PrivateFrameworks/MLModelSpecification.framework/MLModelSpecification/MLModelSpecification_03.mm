@@ -1,1097 +1,10 @@
-uint64_t sub_257486F50(uint64_t *a1, char *a2, void *a3)
+uint64_t OUTLINED_FUNCTION_445(uint64_t a1)
 {
-  v4 = a1;
-  v5 = *a1;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if ((result & 1) == 0)
-  {
-LABEL_14:
-    result = sub_2576FB678(v5);
-    v5 = result;
-  }
 
-  v14 = v4;
-  *v4 = v5;
-  v7 = (v5 + 16);
-  for (i = *(v5 + 16); ; *v7 = i)
-  {
-    v4 = (i - 2);
-    if (i < 2)
-    {
-LABEL_10:
-      *v14 = v5;
-      return 1;
-    }
-
-    if (!*a3)
-    {
-      break;
-    }
-
-    v9 = (v5 + 16 * i);
-    v10 = *v9;
-    v11 = &v7[2 * i];
-    v12 = v11[1];
-    sub_25748707C((*a3 + 32 * *v9), (*a3 + 32 * *v11), (*a3 + 32 * v12), a2);
-    if (v3)
-    {
-      goto LABEL_10;
-    }
-
-    if (v12 < v10)
-    {
-      __break(1u);
-LABEL_12:
-      __break(1u);
-LABEL_13:
-      __break(1u);
-      goto LABEL_14;
-    }
-
-    if (v4 >= *v7)
-    {
-      goto LABEL_12;
-    }
-
-    *v9 = v10;
-    v9[1] = v12;
-    v13 = *v7 - i;
-    if (*v7 < i)
-    {
-      goto LABEL_13;
-    }
-
-    i = *v7 - 1;
-    result = memmove(v11, v11 + 2, 16 * v13);
-  }
-
-  *v14 = v5;
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_25748707C(char *__src, char *__dst, char *a3, char *a4)
-{
-  v4 = a4;
-  v5 = a3;
-  v6 = __dst;
-  v7 = __src;
-  v8 = (__dst - __src) / 32;
-  v9 = (a3 - __dst) / 32;
-  if (v8 < v9)
-  {
-    if (a4 != __src || &__src[32 * v8] <= a4)
-    {
-      memmove(a4, __src, 32 * v8);
-    }
-
-    v11 = &v4[32 * v8];
-    while (1)
-    {
-      if (v4 >= v11 || v6 >= v5)
-      {
-        v6 = v7;
-        goto LABEL_46;
-      }
-
-      v13 = *v6 == *v4 && *(v6 + 1) == *(v4 + 1);
-      if (v13 || (sub_257743994() & 1) == 0)
-      {
-        break;
-      }
-
-      v14 = v6;
-      v13 = v7 == v6;
-      v6 += 32;
-      if (!v13)
-      {
-        goto LABEL_21;
-      }
-
-LABEL_22:
-      v7 += 32;
-    }
-
-    v14 = v4;
-    v13 = v7 == v4;
-    v4 += 32;
-    if (v13)
-    {
-      goto LABEL_22;
-    }
-
-LABEL_21:
-    v15 = *(v14 + 1);
-    *v7 = *v14;
-    *(v7 + 1) = v15;
-    goto LABEL_22;
-  }
-
-  if (a4 != __dst || &__dst[32 * v9] <= a4)
-  {
-    memmove(a4, __dst, 32 * v9);
-  }
-
-  v11 = &v4[32 * v9];
-LABEL_29:
-  v17 = v6 - 32;
-  for (v5 -= 32; v11 > v4 && v6 > v7; v5 -= 32)
-  {
-    v19 = *(v11 - 4) == *(v6 - 4) && *(v11 - 3) == *(v6 - 3);
-    if (!v19 && (sub_257743994() & 1) != 0)
-    {
-      v13 = v5 + 32 == v6;
-      v6 -= 32;
-      if (!v13)
-      {
-        v21 = *(v17 + 1);
-        *v5 = *v17;
-        *(v5 + 1) = v21;
-        v6 = v17;
-      }
-
-      goto LABEL_29;
-    }
-
-    if (v11 != v5 + 32)
-    {
-      v20 = *(v11 - 1);
-      *v5 = *(v11 - 2);
-      *(v5 + 1) = v20;
-    }
-
-    v11 -= 32;
-  }
-
-LABEL_46:
-  v22 = (v11 - v4) / 32;
-  if (v6 != v4 || v6 >= &v4[32 * v22])
-  {
-    memmove(v6, v4, 32 * v22);
-  }
-
-  return 1;
-}
-
-uint64_t sub_257487240()
-{
-  OUTLINED_FUNCTION_267();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_4(v3);
-  v5 = *(v4 + 32);
-  v6 = OUTLINED_FUNCTION_205();
-  v7(v6);
-  return v0;
-}
-
-uint64_t sub_257487298(uint64_t result, unint64_t a2, char a3)
-{
-  if (a3 != -1)
-  {
-    return sub_2574872AC(result, a2, a3);
-  }
-
-  return result;
-}
-
-uint64_t sub_2574872AC(uint64_t result, unint64_t a2, char a3)
-{
-  if (a3 == 5)
-  {
-    return sub_257486740(result, a2);
-  }
-
-  if (a3 == 1)
-  {
-  }
-
-  return result;
-}
-
-uint64_t sub_2574872D0(uint64_t result, unint64_t a2, char a3)
-{
-  if (a3 != -1)
-  {
-    return sub_2574872E4(result, a2, a3);
-  }
-
-  return result;
-}
-
-uint64_t sub_2574872E4(uint64_t result, unint64_t a2, char a3)
-{
-  if (a3 == 5)
-  {
-    return sub_257486798(result, a2);
-  }
-
-  if (a3 == 1)
-  {
-  }
-
-  return result;
-}
-
-uint64_t sub_257487308()
-{
-  OUTLINED_FUNCTION_267();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_4(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_205();
-  v7(v6);
-  return v0;
-}
-
-uint64_t OUTLINED_FUNCTION_39_0()
-{
-
-  return sub_257479298();
-}
-
-void OUTLINED_FUNCTION_56()
-{
-  *v1 = v0;
-  v1[1] = 0;
-  v1[2] = 0xE000000000000000;
-  v1[3] = v0;
-  v1[4] = v0;
-  v1[5] = v0;
-  v1[6] = 0;
-  v1[7] = 0xE000000000000000;
-  v1[8] = 0;
-  v1[9] = 0xE000000000000000;
-  v1[10] = v0;
-}
-
-__n128 OUTLINED_FUNCTION_57()
-{
-  *(v2 + 16) = v1;
-  v4 = v2 + 48 * v0;
-  result = *(v3 - 192);
-  v6 = *(v3 - 160);
-  *(v4 + 48) = *(v3 - 176);
-  *(v4 + 64) = v6;
-  *(v4 + 32) = result;
-  return result;
-}
-
-__n128 OUTLINED_FUNCTION_59@<Q0>(uint64_t a1@<X8>)
-{
-  result = *(v1 - 192);
-  v3 = *(v1 - 160);
-  *(a1 + 48) = *(v1 - 176);
-  *(a1 + 64) = v3;
-  *(a1 + 32) = result;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_68@<X0>(uint64_t a1@<X8>)
-{
-  *v1 = a1;
-  v1[1] = 0;
-  v1[2] = 0xE000000000000000;
-  v1[3] = a1;
-  v1[4] = a1;
-  v1[5] = a1;
-  v1[6] = 0;
-  v1[7] = 0xE000000000000000;
-  v1[8] = 0;
-  v1[9] = 0xE000000000000000;
-  v1[10] = a1;
-  v4 = v1 + *(v2 + 48);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-void OUTLINED_FUNCTION_74()
-{
-  v3 = *(v2 - 104);
-  v4 = *(v0 + 80);
-  *(v2 - 144) = v1;
-  v5 = *(v0 + 72);
-}
-
-uint64_t OUTLINED_FUNCTION_75@<X0>(uint64_t a1@<X8>)
-{
-  *(v4 - 136) = v3;
-  *(v4 - 128) = v2;
-  *(v4 - 120) = v1;
-  *(v4 - 104) = a1;
-  return 0;
-}
-
-uint64_t OUTLINED_FUNCTION_81()
-{
-  v2 = *(v0 - 96);
-
-  return sub_2574792EC();
-}
-
-void OUTLINED_FUNCTION_83()
-{
-  *v0 = 0;
-  v0[1] = 0xE000000000000000;
-  v0[2] = 0;
-  v0[3] = 0xE000000000000000;
-  v0[4] = 0;
-  v0[5] = 0xE000000000000000;
-  v0[6] = 0;
-  v0[7] = 0xE000000000000000;
-}
-
-uint64_t OUTLINED_FUNCTION_86()
-{
-  *v2 = v0;
-  v2[1] = 0;
-  v2[2] = 0xE000000000000000;
-  v2[3] = v0;
-  v2[4] = v0;
-  v2[5] = v0;
-  v2[6] = 0;
-  v2[7] = 0xE000000000000000;
-  v2[8] = 0;
-  v2[9] = 0xE000000000000000;
-  v2[10] = v0;
-  v4 = v2 + *(v1 + 48);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_87@<X0>(uint64_t a1@<X8>)
-{
-  *v1 = a1;
-  v1[1] = 0;
-  v1[2] = 0xE000000000000000;
-  v1[3] = a1;
-  v1[4] = a1;
-  v1[5] = a1;
-  v1[6] = 0;
-  v1[7] = 0xE000000000000000;
-  v1[8] = 0;
-  v1[9] = 0xE000000000000000;
-  v1[10] = a1;
-  v4 = v1 + *(v2 + 48);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_88(char a1, char a2, size_t a3, char a4, char a5, char a6, char a7, char a8)
-{
-  *(v15 - 134) = v14;
-  *(v15 - 133) = a8;
-  *(v15 - 132) = a7;
-  *(v15 - 131) = a6;
-  *(v15 - 130) = v8;
-  *(v15 - 129) = a5;
-  *(v15 - 128) = a4;
-  *(v15 - 127) = a2;
-  *(v15 - 126) = v13;
-  *(v15 - 125) = a1;
-  *(v15 - 124) = v12;
-  *(v15 - 123) = v11;
-  *(v15 - 122) = v10;
-  *(v15 - 121) = v9;
-
-  return memcmp((v15 - 120), (v15 - 134), a3);
-}
-
-void OUTLINED_FUNCTION_136()
-{
-  v1 = *(v0 + 160);
-  v2 = *(v1 + 24);
-  v3 = *(v1 + 16) + 1;
-}
-
-uint64_t OUTLINED_FUNCTION_140()
-{
-
-  return sub_2574792EC();
-}
-
-uint64_t OUTLINED_FUNCTION_141()
-{
-
-  return sub_2574792EC();
-}
-
-uint64_t OUTLINED_FUNCTION_143()
-{
-
-  return sub_257743644();
-}
-
-_OWORD *OUTLINED_FUNCTION_146@<X0>(uint64_t a1@<X8>)
-{
-  result = sub_25748396C((v2 - 144), (a1 + 16));
-  v4 = *(v1 + 24);
-  v5 = *(v1 + 16) + 1;
-  return result;
-}
-
-void OUTLINED_FUNCTION_149()
-{
-  *v0 = 0;
-  v0[1] = 0xE000000000000000;
-  v0[2] = 0;
-  v0[3] = 0xE000000000000000;
-  v0[4] = 0;
-  v0[5] = 0xE000000000000000;
-  v0[6] = 0;
-  v0[7] = 0xE000000000000000;
-}
-
-void OUTLINED_FUNCTION_150()
-{
-  v1 = *(v0 + 160);
-  v2 = *(v1 + 24);
-  v3 = *(v1 + 16) + 1;
-}
-
-uint64_t OUTLINED_FUNCTION_154()
-{
-  v5 = v1;
-  v6 = *(v3 - 208);
-
-  return sub_257483094(v5, v2, v0, (v3 - 120));
-}
-
-uint64_t OUTLINED_FUNCTION_164()
-{
-  v2 = *(v0 - 96);
-
-  return swift_getEnumCaseMultiPayload();
-}
-
-uint64_t OUTLINED_FUNCTION_168@<X0>(uint64_t a1@<X8>)
-{
-  *v1 = a1;
-  v1[1] = 0;
-  v1[2] = 0xE000000000000000;
-  v1[3] = a1;
-  v1[4] = a1;
-  v1[5] = a1;
-  v1[6] = 0;
-  v1[7] = 0xE000000000000000;
-  v1[8] = 0;
-  v1[9] = 0xE000000000000000;
-  v1[10] = a1;
-  v4 = v1 + *(v2 + 48);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_169@<X0>(uint64_t a1@<X8>)
-{
-  *v1 = a1;
-  v1[1] = 0;
-  v1[2] = 0xE000000000000000;
-  v1[3] = a1;
-  v1[4] = a1;
-  v1[5] = a1;
-  v1[6] = 0;
-  v1[7] = 0xE000000000000000;
-  v1[8] = 0;
-  v1[9] = 0xE000000000000000;
-  v1[10] = a1;
-  v4 = v1 + *(v2 + 48);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_170@<X0>(uint64_t a1@<X8>)
-{
-  *v1 = a1;
-  v1[1] = 0;
-  v1[2] = 0xE000000000000000;
-  v1[3] = a1;
-  v1[4] = a1;
-  v1[5] = a1;
-  v1[6] = 0;
-  v1[7] = 0xE000000000000000;
-  v1[8] = 0;
-  v1[9] = 0xE000000000000000;
-  v1[10] = a1;
-  v4 = v1 + *(v2 + 48);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-void OUTLINED_FUNCTION_171()
-{
-
-  sub_257469BAC();
-}
-
-uint64_t OUTLINED_FUNCTION_175()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_178()
-{
-
-  return swift_beginAccess();
-}
-
-uint64_t OUTLINED_FUNCTION_182(uint64_t a1)
-{
-  *(a1 + 16) = *(v1 + 256);
-  *(a1 + 32) = 1701869908;
-  *(a1 + 40) = 0xE400000000000000;
-
-  return type metadata accessor for Proto_FeatureDescription(0);
-}
-
-void OUTLINED_FUNCTION_184()
-{
-  *(v1 - 104) = v0;
-  v2 = *(v0 + 24);
-  v3 = *(v0 + 16) + 1;
-}
-
-void OUTLINED_FUNCTION_187()
-{
-  *(v1 - 112) = v0;
-  v2 = *(v0 + 24);
-  v3 = *(v0 + 16) + 1;
-}
-
-uint64_t OUTLINED_FUNCTION_192()
-{
-
-  return sub_257743644();
-}
-
-void OUTLINED_FUNCTION_199()
-{
-  *(v0 + 448) = 34;
-  *(v0 + 456) = 0xE100000000000000;
-
-  JUMPOUT(0x259C64E90);
-}
-
-void OUTLINED_FUNCTION_200()
-{
-  *(v3 - 114) = v1;
-  *(v3 - 113) = HIBYTE(v0);
-  *(v3 - 112) = v2;
-}
-
-uint64_t OUTLINED_FUNCTION_203(char a1, char a2, char a3, char a4, char a5, char a6, char a7)
-{
-  *(v15 - 150) = v14;
-  *(v15 - 149) = a6;
-  *(v15 - 148) = a5;
-  *(v15 - 147) = a7;
-  *(v15 - 146) = v7;
-  *(v15 - 145) = a3;
-  *(v15 - 144) = a2;
-  *(v15 - 143) = a1;
-  *(v15 - 142) = a4;
-  *(v15 - 141) = v12;
-  *(v15 - 140) = v11;
-  *(v15 - 139) = v10;
-  *(v15 - 138) = v9;
-  *(v15 - 137) = v8;
-  return v13;
-}
-
-uint64_t OUTLINED_FUNCTION_208(uint64_t a1)
-{
-  if (a1 >= v1 - *(v2 - 256))
-  {
-    v3 = v1 - *(v2 - 256);
-  }
-
-  return v2 - 120;
-}
-
-uint64_t OUTLINED_FUNCTION_214()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_215()
-{
-
-  return sub_257487308();
-}
-
-void OUTLINED_FUNCTION_221()
-{
-
-  JUMPOUT(0x259C64E90);
-}
-
-uint64_t OUTLINED_FUNCTION_260()
-{
-
-  return sub_257743644();
-}
-
-void OUTLINED_FUNCTION_285(uint64_t a1@<X8>)
-{
-  *(a1 + 32) = v1;
-  *(a1 + 40) = v2;
-  *(a1 + 48) = v3;
-  *(a1 + 56) = v4;
-  *(a1 + 64) = 2;
-}
-
-uint64_t OUTLINED_FUNCTION_286(uint64_t a1)
-{
-  sub_257466F40(a1, 0, 3);
-}
-
-uint64_t OUTLINED_FUNCTION_291(uint64_t result)
-{
-  v3 = *(result + 20);
-  *(v2 - 112) = v1;
-  v4 = *(v1 + v3);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_296()
-{
-
-  return swift_beginAccess();
-}
-
-uint64_t OUTLINED_FUNCTION_297()
-{
-  v2 = *(v0 - 96);
-
-  return sub_2574792EC();
-}
-
-uint64_t OUTLINED_FUNCTION_299()
-{
-  *v1 = v2;
-  v1[1] = 0;
-  v1[2] = 0xE000000000000000;
-  v1[3] = v2;
-  v1[4] = v2;
-  v1[5] = v2;
-  v1[6] = 0;
-  v1[7] = 0xE000000000000000;
-  v1[8] = 0;
-  v1[9] = 0xE000000000000000;
-  v1[10] = v2;
-  v4 = v1 + *(v0 + 48);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_300(uint64_t a1)
-{
-  *(v1 + 64) = a1;
-  v4 = v1 + *(v2 + 36);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_301@<X0>(uint64_t a1@<X8>)
-{
-  v2 = *(a1 - 256);
-
-  return sub_2574792EC();
-}
-
-uint64_t OUTLINED_FUNCTION_303()
-{
-  v3 = *(*(v2 - 104) + 48);
-  result = v1 + *(v0 + 20);
-  v5 = *(v2 - 120);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_312(uint64_t a1, uint64_t a2, char a3)
-{
-  sub_257466F40(a1, a2, a3);
-}
-
-uint64_t OUTLINED_FUNCTION_314()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_315(int64_t a1)
-{
-  if (a1 >= v2)
-  {
-    v5 = v2;
-  }
-
-  else
-  {
-    v5 = a1;
-  }
-
-  return memcmp((v3 - 120), v1, v5);
-}
-
-void OUTLINED_FUNCTION_316()
-{
-
-  JUMPOUT(0x259C64E90);
-}
-
-uint64_t OUTLINED_FUNCTION_319@<X0>(uint64_t a1@<X8>)
-{
-  v2 = *(a1 - 256);
-
-  return sub_2574792EC();
-}
-
-uint64_t OUTLINED_FUNCTION_320(uint64_t a1)
-{
-  *(v2 + 64) = a1;
-  v4 = v2 + *(v1 + 36);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-void OUTLINED_FUNCTION_327()
-{
-
-  sub_257505F58();
-}
-
-uint64_t OUTLINED_FUNCTION_330(uint64_t result)
-{
-  *v1 = result;
-  *(result + 40) = v2;
-  return result;
-}
-
-void OUTLINED_FUNCTION_331()
-{
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 56);
-  v4 = (v2 + 16 * v0);
-  v6 = *v4;
-  v5 = v4[1];
-}
-
-uint64_t OUTLINED_FUNCTION_341@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(v3 - 120) = a3;
-  *(v3 - 144) = result;
-  *(v3 - 136) = a2;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_343()
-{
-  result = v0;
-  v3 = *(v1 - 88);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_351()
-{
-  result = *v1;
-  v3 = v1[1];
-  v4 = *v0;
-  v5 = v0[1];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_352()
-{
-  v2 = (*(v0 + 80) + 32) & ~*(v0 + 80);
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_353()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_354()
-{
-  result = *v1;
-  v3 = *v0;
-  return result;
-}
-
-__n128 *OUTLINED_FUNCTION_356(__n128 *result, __n128 a2)
-{
-  result[1] = a2;
-  result[2].n128_u64[0] = 1684957515;
-  result[2].n128_u64[1] = 0xE400000000000000;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_370(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 16);
-  v3 = *(a2 + 16);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_371(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 16);
-  v3 = *(a2 + 16);
-  return result;
-}
-
-void OUTLINED_FUNCTION_378()
-{
-
-  sub_257469AE0();
-}
-
-uint64_t OUTLINED_FUNCTION_379(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
-{
-
-  return __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
-}
-
-uint64_t OUTLINED_FUNCTION_380()
-{
-}
-
-uint64_t OUTLINED_FUNCTION_381()
-{
-  v2 = *(*(v0 - 96) + 24);
-
-  return sub_2577431B4();
-}
-
-uint64_t OUTLINED_FUNCTION_382()
-{
-  v2 = *(v0 - 88);
-
-  return sub_257743644();
-}
-
-uint64_t OUTLINED_FUNCTION_383(uint64_t a1)
-{
-  *(v1 + 48) = a1;
-
-  return type metadata accessor for Proto_ModelDescription(0);
-}
-
-uint64_t OUTLINED_FUNCTION_384@<X0>(char *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v5 = *(v3 - 264);
-  v6 = *(v3 - 256);
-
-  return sub_257483094(a1, v2, v5, a2);
-}
-
-uint64_t OUTLINED_FUNCTION_385()
-{
-
-  return sub_257483824();
-}
-
-uint64_t OUTLINED_FUNCTION_386()
-{
-  v2 = *(v0 - 96);
-  v3 = *(v0 - 144);
-
-  return sub_2574792EC();
-}
-
-uint64_t OUTLINED_FUNCTION_387(uint64_t a1)
-{
-  *(v1 + 56) = a1;
-
-  return type metadata accessor for Proto_Model(0);
-}
-
-uint64_t OUTLINED_FUNCTION_388()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_389()
-{
-
-  return sub_257483824();
-}
-
-uint64_t OUTLINED_FUNCTION_390()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_391(uint64_t a1)
-{
-  v2 = *(a1 + 20);
-
-  return sub_2577431B4();
-}
-
-void OUTLINED_FUNCTION_394()
-{
-  v2 = *(v0 - 128);
-  v1 = *(v0 - 120);
-  v3 = *(v0 - 136);
-}
-
-void OUTLINED_FUNCTION_397()
-{
-  v1 = *(v0 - 152);
-  v2 = *(v0 - 320);
-  v3 = *(v0 - 176);
-}
-
-void OUTLINED_FUNCTION_403(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + 56);
-  v4 = (*(v1 + 48) + 16 * (a1 | (v2 << 6)));
-  v5 = *v4;
-  v6 = v4[1];
-}
-
-uint64_t OUTLINED_FUNCTION_407(uint64_t result)
-{
-  v4 = *(result + 48);
-  v5 = *(v3 - 104);
-  *v5 = v2;
-  v5[1] = v1;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_413(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  __swift_storeEnumTagSinglePayload(a1, a2, a3, a4);
-  v5 = *(v4 - 112);
-
-  return sub_2574FE460();
-}
-
-void OUTLINED_FUNCTION_420(uint64_t a1@<X8>)
-{
-  *(a1 + 32) = v1;
-  *(a1 + 40) = v2;
-  *(a1 + 48) = v4;
-  *(a1 + 56) = v5;
-  *(a1 + 64) = 0;
-  v6 = *(v3 + 120);
-}
-
-void OUTLINED_FUNCTION_423()
-{
-  v1 = *(v0 + 160);
-  v2 = *(v1 + 24);
-  v3 = *(v1 + 16) + 1;
-}
-
-uint64_t OUTLINED_FUNCTION_428()
-{
-
-  return sub_257743644();
-}
-
-uint64_t OUTLINED_FUNCTION_429()
-{
-
-  return swift_arrayInitWithCopy();
-}
-
-uint64_t OUTLINED_FUNCTION_430()
-{
-
-  return sub_257743644();
-}
-
-uint64_t OUTLINED_FUNCTION_431()
-{
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_432()
-{
-  *(v1 - 264) = v0;
-
-  return sub_257742F84();
-}
-
-uint64_t OUTLINED_FUNCTION_435()
-{
-  v2 = *(v0 + 52);
-
-  return type metadata accessor for Proto_Metadata(0);
-}
-
-uint64_t OUTLINED_FUNCTION_436()
-{
-  v3 = v1 + *(v0 + 48);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_437()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_438()
-{
-  v2 = *(v0 + 52);
-
-  return type metadata accessor for Proto_Metadata(0);
-}
-
-uint64_t OUTLINED_FUNCTION_439()
-{
-
-  return sub_2574792EC();
-}
-
-uint64_t OUTLINED_FUNCTION_440()
-{
-  v2 = *(v0 + 52);
-
-  return type metadata accessor for Proto_Metadata(0);
-}
-
-uint64_t OUTLINED_FUNCTION_441()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_442()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_443()
-{
-
-  return sub_257483824();
-}
-
-uint64_t OUTLINED_FUNCTION_444()
-{
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_445()
-{
-
-  return sub_257487308();
+  return sub_257487308(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_447()
+uint64_t OUTLINED_FUNCTION_447(uint64_t a1, uint64_t a2)
 {
 
   return swift_beginAccess();
@@ -1099,1543 +12,1407 @@ uint64_t OUTLINED_FUNCTION_447()
 
 uint64_t OUTLINED_FUNCTION_448(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 52);
 
   return swift_allocObject();
 }
 
 uint64_t sub_2574897E0@<X0>(uint64_t a1@<X8>)
 {
-  v1157 = a1;
+  v914 = a1;
   v1 = type metadata accessor for NeuralNetwork.Layer.CustomParameters(0);
   v2 = OUTLINED_FUNCTION_13(v1);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
   OUTLINED_FUNCTION_12_1();
-  v1156 = v5;
-  v6 = OUTLINED_FUNCTION_153();
-  v7 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters(v6);
-  v8 = OUTLINED_FUNCTION_13(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
+  v913 = v3;
+  v4 = OUTLINED_FUNCTION_153();
+  v5 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters(v4);
+  v6 = OUTLINED_FUNCTION_13(v5);
+  MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_12_1();
-  v1155 = v11;
+  v912 = v7;
+  v8 = OUTLINED_FUNCTION_153();
+  v9 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters(v8);
+  v10 = OUTLINED_FUNCTION_13(v9);
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_12_1();
+  v911 = v11;
   v12 = OUTLINED_FUNCTION_153();
-  v13 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters(v12);
+  v13 = type metadata accessor for NeuralNetwork.Layer.TopKParameters(v12);
   v14 = OUTLINED_FUNCTION_13(v13);
-  v16 = *(v15 + 64);
   MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_12_1();
-  v1154 = v17;
-  v18 = OUTLINED_FUNCTION_153();
-  v19 = type metadata accessor for NeuralNetwork.Layer.TopKParameters(v18);
-  v20 = OUTLINED_FUNCTION_13(v19);
-  v22 = *(v21 + 64);
-  MEMORY[0x28223BE20](v20);
+  v910 = v15;
+  v16 = OUTLINED_FUNCTION_153();
+  v17 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters(v16);
+  v18 = OUTLINED_FUNCTION_13(v17);
+  MEMORY[0x28223BE20](v18);
   OUTLINED_FUNCTION_12_1();
-  v1153 = v23;
+  v909 = v19;
+  v20 = OUTLINED_FUNCTION_153();
+  v21 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters(v20);
+  v22 = OUTLINED_FUNCTION_13(v21);
+  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_12_1();
+  v908 = v23;
   v24 = OUTLINED_FUNCTION_153();
-  v25 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters(v24);
+  v25 = type metadata accessor for NeuralNetwork.Layer.BiasParameters(v24);
   v26 = OUTLINED_FUNCTION_13(v25);
-  v28 = *(v27 + 64);
   MEMORY[0x28223BE20](v26);
   OUTLINED_FUNCTION_12_1();
-  v1152 = v29;
-  v30 = OUTLINED_FUNCTION_153();
-  v31 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters(v30);
-  v32 = OUTLINED_FUNCTION_13(v31);
-  v34 = *(v33 + 64);
-  MEMORY[0x28223BE20](v32);
+  v907 = v27;
+  v28 = OUTLINED_FUNCTION_153();
+  v29 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters(v28);
+  v30 = OUTLINED_FUNCTION_13(v29);
+  MEMORY[0x28223BE20](v30);
   OUTLINED_FUNCTION_12_1();
-  v1151 = v35;
+  v906 = v31;
+  v32 = OUTLINED_FUNCTION_153();
+  v33 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters(v32);
+  v34 = OUTLINED_FUNCTION_13(v33);
+  MEMORY[0x28223BE20](v34);
+  OUTLINED_FUNCTION_12_1();
+  v905 = v35;
   v36 = OUTLINED_FUNCTION_153();
-  v37 = type metadata accessor for NeuralNetwork.Layer.BiasParameters(v36);
+  v37 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters(v36);
   v38 = OUTLINED_FUNCTION_13(v37);
-  v40 = *(v39 + 64);
   MEMORY[0x28223BE20](v38);
   OUTLINED_FUNCTION_12_1();
-  v1150 = v41;
-  v42 = OUTLINED_FUNCTION_153();
-  v43 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters(v42);
-  v44 = OUTLINED_FUNCTION_13(v43);
-  v46 = *(v45 + 64);
-  MEMORY[0x28223BE20](v44);
+  v904 = v39;
+  v40 = OUTLINED_FUNCTION_153();
+  v41 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters(v40);
+  v42 = OUTLINED_FUNCTION_13(v41);
+  MEMORY[0x28223BE20](v42);
   OUTLINED_FUNCTION_12_1();
-  v1149 = v47;
+  v903 = v43;
+  v44 = OUTLINED_FUNCTION_153();
+  v45 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters(v44);
+  v46 = OUTLINED_FUNCTION_13(v45);
+  MEMORY[0x28223BE20](v46);
+  OUTLINED_FUNCTION_12_1();
+  v902 = v47;
   v48 = OUTLINED_FUNCTION_153();
-  v49 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters(v48);
+  v49 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters(v48);
   v50 = OUTLINED_FUNCTION_13(v49);
-  v52 = *(v51 + 64);
   MEMORY[0x28223BE20](v50);
   OUTLINED_FUNCTION_12_1();
-  v1148 = v53;
-  v54 = OUTLINED_FUNCTION_153();
-  v55 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters(v54);
-  v56 = OUTLINED_FUNCTION_13(v55);
-  v58 = *(v57 + 64);
-  MEMORY[0x28223BE20](v56);
+  v901 = v51;
+  v52 = OUTLINED_FUNCTION_153();
+  v53 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters(v52);
+  v54 = OUTLINED_FUNCTION_13(v53);
+  MEMORY[0x28223BE20](v54);
   OUTLINED_FUNCTION_12_1();
-  v1147 = v59;
+  v900 = v55;
+  v56 = OUTLINED_FUNCTION_153();
+  v57 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters(v56);
+  v58 = OUTLINED_FUNCTION_13(v57);
+  MEMORY[0x28223BE20](v58);
+  OUTLINED_FUNCTION_12_1();
+  v899 = v59;
   v60 = OUTLINED_FUNCTION_153();
-  v61 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters(v60);
+  v61 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters(v60);
   v62 = OUTLINED_FUNCTION_13(v61);
-  v64 = *(v63 + 64);
   MEMORY[0x28223BE20](v62);
   OUTLINED_FUNCTION_12_1();
-  v1146 = v65;
-  v66 = OUTLINED_FUNCTION_153();
-  v67 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters(v66);
-  v68 = OUTLINED_FUNCTION_13(v67);
-  v70 = *(v69 + 64);
-  MEMORY[0x28223BE20](v68);
+  v898 = v63;
+  v64 = OUTLINED_FUNCTION_153();
+  v65 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters(v64);
+  v66 = OUTLINED_FUNCTION_13(v65);
+  MEMORY[0x28223BE20](v66);
   OUTLINED_FUNCTION_12_1();
-  v1145 = v71;
+  v897 = v67;
+  v68 = OUTLINED_FUNCTION_153();
+  v69 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters(v68);
+  v70 = OUTLINED_FUNCTION_13(v69);
+  MEMORY[0x28223BE20](v70);
+  OUTLINED_FUNCTION_12_1();
+  v896 = v71;
   v72 = OUTLINED_FUNCTION_153();
-  v73 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters(v72);
+  v73 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters(v72);
   v74 = OUTLINED_FUNCTION_13(v73);
-  v76 = *(v75 + 64);
   MEMORY[0x28223BE20](v74);
   OUTLINED_FUNCTION_12_1();
-  v1144 = v77;
-  v78 = OUTLINED_FUNCTION_153();
-  v79 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters(v78);
-  v80 = OUTLINED_FUNCTION_13(v79);
-  v82 = *(v81 + 64);
-  MEMORY[0x28223BE20](v80);
+  v895 = v75;
+  v76 = OUTLINED_FUNCTION_153();
+  v77 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters(v76);
+  v78 = OUTLINED_FUNCTION_13(v77);
+  MEMORY[0x28223BE20](v78);
   OUTLINED_FUNCTION_12_1();
-  v1143 = v83;
-  v84 = OUTLINED_FUNCTION_153();
-  v85 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters(v84);
+  v80 = OUTLINED_FUNCTION_38_0(v79);
+  v81 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters(v80);
+  v82 = OUTLINED_FUNCTION_13(v81);
+  MEMORY[0x28223BE20](v82);
+  OUTLINED_FUNCTION_12_1();
+  v84 = OUTLINED_FUNCTION_38_0(v83);
+  v85 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters(v84);
   v86 = OUTLINED_FUNCTION_13(v85);
-  v88 = *(v87 + 64);
   MEMORY[0x28223BE20](v86);
   OUTLINED_FUNCTION_12_1();
-  v1142 = v89;
-  v90 = OUTLINED_FUNCTION_153();
-  v91 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters(v90);
-  v92 = OUTLINED_FUNCTION_13(v91);
-  v94 = *(v93 + 64);
-  MEMORY[0x28223BE20](v92);
+  v88 = OUTLINED_FUNCTION_38_0(v87);
+  v89 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters(v88);
+  v90 = OUTLINED_FUNCTION_13(v89);
+  MEMORY[0x28223BE20](v90);
   OUTLINED_FUNCTION_12_1();
-  v1141 = v95;
-  v96 = OUTLINED_FUNCTION_153();
-  v97 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters(v96);
+  v92 = OUTLINED_FUNCTION_38_0(v91);
+  v93 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters(v92);
+  v94 = OUTLINED_FUNCTION_13(v93);
+  MEMORY[0x28223BE20](v94);
+  OUTLINED_FUNCTION_12_1();
+  v96 = OUTLINED_FUNCTION_38_0(v95);
+  v97 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters(v96);
   v98 = OUTLINED_FUNCTION_13(v97);
-  v100 = *(v99 + 64);
   MEMORY[0x28223BE20](v98);
   OUTLINED_FUNCTION_12_1();
-  v1140 = v101;
-  v102 = OUTLINED_FUNCTION_153();
-  v103 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters(v102);
-  v104 = OUTLINED_FUNCTION_13(v103);
-  v106 = *(v105 + 64);
-  MEMORY[0x28223BE20](v104);
+  v100 = OUTLINED_FUNCTION_38_0(v99);
+  v101 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters(v100);
+  v102 = OUTLINED_FUNCTION_13(v101);
+  MEMORY[0x28223BE20](v102);
   OUTLINED_FUNCTION_12_1();
-  v1139 = v107;
-  v108 = OUTLINED_FUNCTION_153();
-  v109 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters(v108);
+  v104 = OUTLINED_FUNCTION_38_0(v103);
+  v105 = type metadata accessor for NeuralNetwork.Layer.EqualParameters(v104);
+  v106 = OUTLINED_FUNCTION_13(v105);
+  MEMORY[0x28223BE20](v106);
+  OUTLINED_FUNCTION_12_1();
+  v108 = OUTLINED_FUNCTION_38_0(v107);
+  v109 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters(v108);
   v110 = OUTLINED_FUNCTION_13(v109);
-  v112 = *(v111 + 64);
   MEMORY[0x28223BE20](v110);
   OUTLINED_FUNCTION_12_1();
-  v1138 = v113;
-  v114 = OUTLINED_FUNCTION_153();
-  v115 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters(v114);
-  v116 = OUTLINED_FUNCTION_13(v115);
-  v118 = *(v117 + 64);
-  MEMORY[0x28223BE20](v116);
+  v112 = OUTLINED_FUNCTION_38_0(v111);
+  v113 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters(v112);
+  v114 = OUTLINED_FUNCTION_13(v113);
+  MEMORY[0x28223BE20](v114);
+  OUTLINED_FUNCTION_12_1();
+  v116 = OUTLINED_FUNCTION_38_0(v115);
+  v117 = type metadata accessor for NeuralNetwork.Layer.LoopContinueParameters(v116);
+  v118 = OUTLINED_FUNCTION_13(v117);
+  MEMORY[0x28223BE20](v118);
   OUTLINED_FUNCTION_12_1();
   v120 = OUTLINED_FUNCTION_38_0(v119);
-  v121 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters(v120);
+  v121 = type metadata accessor for NeuralNetwork.Layer.LoopBreakParameters(v120);
   v122 = OUTLINED_FUNCTION_13(v121);
-  v124 = *(v123 + 64);
   MEMORY[0x28223BE20](v122);
   OUTLINED_FUNCTION_12_1();
-  v126 = OUTLINED_FUNCTION_38_0(v125);
-  v127 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters(v126);
-  v128 = OUTLINED_FUNCTION_13(v127);
-  v130 = *(v129 + 64);
-  MEMORY[0x28223BE20](v128);
+  v124 = OUTLINED_FUNCTION_38_0(v123);
+  v125 = type metadata accessor for NeuralNetwork.Layer.LoopParameters(v124);
+  v126 = OUTLINED_FUNCTION_13(v125);
+  MEMORY[0x28223BE20](v126);
+  OUTLINED_FUNCTION_12_1();
+  v128 = OUTLINED_FUNCTION_38_0(v127);
+  v129 = type metadata accessor for NeuralNetwork.Layer.CopyParameters(v128);
+  v130 = OUTLINED_FUNCTION_13(v129);
+  MEMORY[0x28223BE20](v130);
   OUTLINED_FUNCTION_12_1();
   v132 = OUTLINED_FUNCTION_38_0(v131);
-  v133 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters(v132);
+  v133 = type metadata accessor for NeuralNetwork.Layer.BranchParameters(v132);
   v134 = OUTLINED_FUNCTION_13(v133);
-  v136 = *(v135 + 64);
   MEMORY[0x28223BE20](v134);
   OUTLINED_FUNCTION_12_1();
-  v138 = OUTLINED_FUNCTION_38_0(v137);
-  v139 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters(v138);
-  v140 = OUTLINED_FUNCTION_13(v139);
-  v142 = *(v141 + 64);
-  MEMORY[0x28223BE20](v140);
+  v136 = OUTLINED_FUNCTION_38_0(v135);
+  v137 = type metadata accessor for NeuralNetwork.Layer.WhereBroadcastableParameters(v136);
+  v138 = OUTLINED_FUNCTION_13(v137);
+  MEMORY[0x28223BE20](v138);
+  OUTLINED_FUNCTION_12_1();
+  v140 = OUTLINED_FUNCTION_38_0(v139);
+  v141 = type metadata accessor for NeuralNetwork.Layer.WhereNonZeroParameters(v140);
+  v142 = OUTLINED_FUNCTION_13(v141);
+  MEMORY[0x28223BE20](v142);
   OUTLINED_FUNCTION_12_1();
   v144 = OUTLINED_FUNCTION_38_0(v143);
-  v145 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters(v144);
+  v145 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters(v144);
   v146 = OUTLINED_FUNCTION_13(v145);
-  v148 = *(v147 + 64);
   MEMORY[0x28223BE20](v146);
   OUTLINED_FUNCTION_12_1();
-  v150 = OUTLINED_FUNCTION_38_0(v149);
-  v151 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters(v150);
-  v152 = OUTLINED_FUNCTION_13(v151);
-  v154 = *(v153 + 64);
-  MEMORY[0x28223BE20](v152);
+  v148 = OUTLINED_FUNCTION_38_0(v147);
+  v149 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters(v148);
+  v150 = OUTLINED_FUNCTION_13(v149);
+  MEMORY[0x28223BE20](v150);
+  OUTLINED_FUNCTION_12_1();
+  v152 = OUTLINED_FUNCTION_38_0(v151);
+  v153 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters(v152);
+  v154 = OUTLINED_FUNCTION_13(v153);
+  MEMORY[0x28223BE20](v154);
   OUTLINED_FUNCTION_12_1();
   v156 = OUTLINED_FUNCTION_38_0(v155);
-  v157 = type metadata accessor for NeuralNetwork.Layer.EqualParameters(v156);
+  v157 = type metadata accessor for NeuralNetwork.Layer.MaxBroadcastableParameters(v156);
   v158 = OUTLINED_FUNCTION_13(v157);
-  v160 = *(v159 + 64);
   MEMORY[0x28223BE20](v158);
   OUTLINED_FUNCTION_12_1();
-  v162 = OUTLINED_FUNCTION_38_0(v161);
-  v163 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters(v162);
-  v164 = OUTLINED_FUNCTION_13(v163);
-  v166 = *(v165 + 64);
-  MEMORY[0x28223BE20](v164);
+  v160 = OUTLINED_FUNCTION_38_0(v159);
+  v161 = type metadata accessor for NeuralNetwork.Layer.MinBroadcastableParameters(v160);
+  v162 = OUTLINED_FUNCTION_13(v161);
+  MEMORY[0x28223BE20](v162);
+  OUTLINED_FUNCTION_12_1();
+  v164 = OUTLINED_FUNCTION_38_0(v163);
+  v165 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters(v164);
+  v166 = OUTLINED_FUNCTION_13(v165);
+  MEMORY[0x28223BE20](v166);
   OUTLINED_FUNCTION_12_1();
   v168 = OUTLINED_FUNCTION_38_0(v167);
-  v169 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters(v168);
+  v169 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters(v168);
   v170 = OUTLINED_FUNCTION_13(v169);
-  v172 = *(v171 + 64);
   MEMORY[0x28223BE20](v170);
   OUTLINED_FUNCTION_12_1();
-  v174 = OUTLINED_FUNCTION_38_0(v173);
-  v175 = type metadata accessor for NeuralNetwork.Layer.LoopContinueParameters(v174);
-  v176 = OUTLINED_FUNCTION_13(v175);
-  v178 = *(v177 + 64);
-  MEMORY[0x28223BE20](v176);
+  v172 = OUTLINED_FUNCTION_38_0(v171);
+  v173 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters(v172);
+  v174 = OUTLINED_FUNCTION_13(v173);
+  MEMORY[0x28223BE20](v174);
+  OUTLINED_FUNCTION_12_1();
+  v176 = OUTLINED_FUNCTION_38_0(v175);
+  v177 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters(v176);
+  v178 = OUTLINED_FUNCTION_13(v177);
+  MEMORY[0x28223BE20](v178);
   OUTLINED_FUNCTION_12_1();
   v180 = OUTLINED_FUNCTION_38_0(v179);
-  v181 = type metadata accessor for NeuralNetwork.Layer.LoopBreakParameters(v180);
+  v181 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters(v180);
   v182 = OUTLINED_FUNCTION_13(v181);
-  v184 = *(v183 + 64);
   MEMORY[0x28223BE20](v182);
   OUTLINED_FUNCTION_12_1();
-  v186 = OUTLINED_FUNCTION_38_0(v185);
-  v187 = type metadata accessor for NeuralNetwork.Layer.LoopParameters(v186);
-  v188 = OUTLINED_FUNCTION_13(v187);
-  v190 = *(v189 + 64);
-  MEMORY[0x28223BE20](v188);
+  v184 = OUTLINED_FUNCTION_38_0(v183);
+  v185 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters(v184);
+  v186 = OUTLINED_FUNCTION_13(v185);
+  MEMORY[0x28223BE20](v186);
+  OUTLINED_FUNCTION_12_1();
+  v188 = OUTLINED_FUNCTION_38_0(v187);
+  v189 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters(v188);
+  v190 = OUTLINED_FUNCTION_13(v189);
+  MEMORY[0x28223BE20](v190);
   OUTLINED_FUNCTION_12_1();
   v192 = OUTLINED_FUNCTION_38_0(v191);
-  v193 = type metadata accessor for NeuralNetwork.Layer.CopyParameters(v192);
+  v193 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters(v192);
   v194 = OUTLINED_FUNCTION_13(v193);
-  v196 = *(v195 + 64);
   MEMORY[0x28223BE20](v194);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v197);
-  v198 = type metadata accessor for NeuralNetwork.Layer.BranchParameters();
-  v199 = OUTLINED_FUNCTION_13(v198);
-  v201 = *(v200 + 64);
-  MEMORY[0x28223BE20](v199);
+  v196 = OUTLINED_FUNCTION_38_0(v195);
+  v197 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters(v196);
+  v198 = OUTLINED_FUNCTION_13(v197);
+  MEMORY[0x28223BE20](v198);
   OUTLINED_FUNCTION_12_1();
-  v203 = OUTLINED_FUNCTION_38_0(v202);
-  v204 = type metadata accessor for NeuralNetwork.Layer.WhereBroadcastableParameters(v203);
-  v205 = OUTLINED_FUNCTION_13(v204);
-  v207 = *(v206 + 64);
-  MEMORY[0x28223BE20](v205);
+  v200 = OUTLINED_FUNCTION_38_0(v199);
+  v201 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters(v200);
+  v202 = OUTLINED_FUNCTION_13(v201);
+  MEMORY[0x28223BE20](v202);
   OUTLINED_FUNCTION_12_1();
-  v209 = OUTLINED_FUNCTION_38_0(v208);
-  v210 = type metadata accessor for NeuralNetwork.Layer.WhereNonZeroParameters(v209);
-  v211 = OUTLINED_FUNCTION_13(v210);
-  v213 = *(v212 + 64);
-  MEMORY[0x28223BE20](v211);
+  v204 = OUTLINED_FUNCTION_38_0(v203);
+  v205 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters(v204);
+  v206 = OUTLINED_FUNCTION_13(v205);
+  MEMORY[0x28223BE20](v206);
   OUTLINED_FUNCTION_12_1();
-  v215 = OUTLINED_FUNCTION_38_0(v214);
-  v216 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters(v215);
-  v217 = OUTLINED_FUNCTION_13(v216);
-  v219 = *(v218 + 64);
-  MEMORY[0x28223BE20](v217);
+  v208 = OUTLINED_FUNCTION_38_0(v207);
+  v209 = type metadata accessor for NeuralNetwork.Layer.AverageParameters(v208);
+  v210 = OUTLINED_FUNCTION_13(v209);
+  MEMORY[0x28223BE20](v210);
   OUTLINED_FUNCTION_12_1();
-  v221 = OUTLINED_FUNCTION_38_0(v220);
-  v222 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters(v221);
-  v223 = OUTLINED_FUNCTION_13(v222);
-  v225 = *(v224 + 64);
-  MEMORY[0x28223BE20](v223);
+  v212 = OUTLINED_FUNCTION_38_0(v211);
+  v213 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters(v212);
+  v214 = OUTLINED_FUNCTION_13(v213);
+  MEMORY[0x28223BE20](v214);
   OUTLINED_FUNCTION_12_1();
-  v227 = OUTLINED_FUNCTION_38_0(v226);
-  v228 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters(v227);
-  v229 = OUTLINED_FUNCTION_13(v228);
-  v231 = *(v230 + 64);
-  MEMORY[0x28223BE20](v229);
+  v216 = OUTLINED_FUNCTION_38_0(v215);
+  v217 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters(v216);
+  v218 = OUTLINED_FUNCTION_13(v217);
+  MEMORY[0x28223BE20](v218);
   OUTLINED_FUNCTION_12_1();
-  v233 = OUTLINED_FUNCTION_38_0(v232);
-  v234 = type metadata accessor for NeuralNetwork.Layer.MaxBroadcastableParameters(v233);
-  v235 = OUTLINED_FUNCTION_13(v234);
-  v237 = *(v236 + 64);
-  MEMORY[0x28223BE20](v235);
+  v220 = OUTLINED_FUNCTION_38_0(v219);
+  v221 = type metadata accessor for NeuralNetwork.Layer.CropParameters(v220);
+  v222 = OUTLINED_FUNCTION_13(v221);
+  MEMORY[0x28223BE20](v222);
   OUTLINED_FUNCTION_12_1();
-  v239 = OUTLINED_FUNCTION_38_0(v238);
-  v240 = type metadata accessor for NeuralNetwork.Layer.MinBroadcastableParameters(v239);
-  v241 = OUTLINED_FUNCTION_13(v240);
-  v243 = *(v242 + 64);
-  MEMORY[0x28223BE20](v241);
+  v224 = OUTLINED_FUNCTION_38_0(v223);
+  v225 = type metadata accessor for NeuralNetwork.Layer.GRUParameters(v224);
+  v226 = OUTLINED_FUNCTION_13(v225);
+  MEMORY[0x28223BE20](v226);
   OUTLINED_FUNCTION_12_1();
-  v245 = OUTLINED_FUNCTION_38_0(v244);
-  v246 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters(v245);
-  v247 = OUTLINED_FUNCTION_13(v246);
-  v249 = *(v248 + 64);
-  MEMORY[0x28223BE20](v247);
+  v228 = OUTLINED_FUNCTION_38_0(v227);
+  v229 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters(v228);
+  v230 = OUTLINED_FUNCTION_13(v229);
+  MEMORY[0x28223BE20](v230);
   OUTLINED_FUNCTION_12_1();
-  v251 = OUTLINED_FUNCTION_38_0(v250);
-  v252 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters(v251);
-  v253 = OUTLINED_FUNCTION_13(v252);
-  v255 = *(v254 + 64);
-  MEMORY[0x28223BE20](v253);
+  v232 = OUTLINED_FUNCTION_38_0(v231);
+  v233 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters(v232);
+  v234 = OUTLINED_FUNCTION_13(v233);
+  MEMORY[0x28223BE20](v234);
   OUTLINED_FUNCTION_12_1();
-  v257 = OUTLINED_FUNCTION_38_0(v256);
-  v258 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters(v257);
-  v259 = OUTLINED_FUNCTION_13(v258);
-  v261 = *(v260 + 64);
-  MEMORY[0x28223BE20](v259);
+  v236 = OUTLINED_FUNCTION_38_0(v235);
+  v237 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters(v236);
+  v238 = OUTLINED_FUNCTION_13(v237);
+  MEMORY[0x28223BE20](v238);
   OUTLINED_FUNCTION_12_1();
-  v263 = OUTLINED_FUNCTION_38_0(v262);
-  v264 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters(v263);
-  v265 = OUTLINED_FUNCTION_13(v264);
-  v267 = *(v266 + 64);
-  MEMORY[0x28223BE20](v265);
+  v240 = OUTLINED_FUNCTION_38_0(v239);
+  v241 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters(v240);
+  v242 = OUTLINED_FUNCTION_13(v241);
+  MEMORY[0x28223BE20](v242);
   OUTLINED_FUNCTION_12_1();
-  v269 = OUTLINED_FUNCTION_38_0(v268);
-  v270 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters(v269);
-  v271 = OUTLINED_FUNCTION_13(v270);
-  v273 = *(v272 + 64);
-  MEMORY[0x28223BE20](v271);
+  v244 = OUTLINED_FUNCTION_38_0(v243);
+  v245 = type metadata accessor for NeuralNetwork.Layer.LRNParameters(v244);
+  v246 = OUTLINED_FUNCTION_13(v245);
+  MEMORY[0x28223BE20](v246);
   OUTLINED_FUNCTION_12_1();
-  v275 = OUTLINED_FUNCTION_38_0(v274);
-  v276 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters(v275);
-  v277 = OUTLINED_FUNCTION_13(v276);
-  v279 = *(v278 + 64);
-  MEMORY[0x28223BE20](v277);
+  v248 = OUTLINED_FUNCTION_38_0(v247);
+  v249 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters(v248);
+  v250 = OUTLINED_FUNCTION_13(v249);
+  MEMORY[0x28223BE20](v250);
   OUTLINED_FUNCTION_12_1();
-  v281 = OUTLINED_FUNCTION_38_0(v280);
-  v282 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters(v281);
-  v283 = OUTLINED_FUNCTION_13(v282);
-  v285 = *(v284 + 64);
-  MEMORY[0x28223BE20](v283);
+  v252 = OUTLINED_FUNCTION_38_0(v251);
+  v253 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters(v252);
+  v254 = OUTLINED_FUNCTION_13(v253);
+  MEMORY[0x28223BE20](v254);
   OUTLINED_FUNCTION_12_1();
-  v287 = OUTLINED_FUNCTION_38_0(v286);
-  v288 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters(v287);
-  v289 = OUTLINED_FUNCTION_13(v288);
-  v291 = *(v290 + 64);
-  MEMORY[0x28223BE20](v289);
+  v256 = OUTLINED_FUNCTION_38_0(v255);
+  v257 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters(v256);
+  v258 = OUTLINED_FUNCTION_13(v257);
+  MEMORY[0x28223BE20](v258);
   OUTLINED_FUNCTION_12_1();
-  v293 = OUTLINED_FUNCTION_38_0(v292);
-  v294 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters(v293);
-  v295 = OUTLINED_FUNCTION_13(v294);
-  v297 = *(v296 + 64);
-  MEMORY[0x28223BE20](v295);
+  v260 = OUTLINED_FUNCTION_38_0(v259);
+  v261 = type metadata accessor for NeuralNetwork.Layer.SoftmaxParameters(v260);
+  v262 = OUTLINED_FUNCTION_13(v261);
+  MEMORY[0x28223BE20](v262);
   OUTLINED_FUNCTION_12_1();
-  v299 = OUTLINED_FUNCTION_38_0(v298);
-  v300 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters(v299);
-  v301 = OUTLINED_FUNCTION_13(v300);
-  v303 = *(v302 + 64);
-  MEMORY[0x28223BE20](v301);
+  v264 = OUTLINED_FUNCTION_38_0(v263);
+  v265 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters(v264);
+  v266 = OUTLINED_FUNCTION_13(v265);
+  MEMORY[0x28223BE20](v266);
   OUTLINED_FUNCTION_12_1();
-  v305 = OUTLINED_FUNCTION_38_0(v304);
-  v306 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters(v305);
-  v307 = OUTLINED_FUNCTION_13(v306);
-  v309 = *(v308 + 64);
-  MEMORY[0x28223BE20](v307);
+  v268 = OUTLINED_FUNCTION_38_0(v267);
+  v269 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters(v268);
+  v270 = OUTLINED_FUNCTION_13(v269);
+  MEMORY[0x28223BE20](v270);
   OUTLINED_FUNCTION_12_1();
-  v311 = OUTLINED_FUNCTION_38_0(v310);
-  v312 = type metadata accessor for NeuralNetwork.Layer.AverageParameters(v311);
-  v313 = OUTLINED_FUNCTION_13(v312);
-  v315 = *(v314 + 64);
-  MEMORY[0x28223BE20](v313);
+  v272 = OUTLINED_FUNCTION_38_0(v271);
+  v273 = type metadata accessor for NeuralNetwork.Layer.BroadcastableFloorDivParameters(v272);
+  v274 = OUTLINED_FUNCTION_13(v273);
+  MEMORY[0x28223BE20](v274);
   OUTLINED_FUNCTION_12_1();
-  v317 = OUTLINED_FUNCTION_38_0(v316);
-  v318 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters(v317);
-  v319 = OUTLINED_FUNCTION_13(v318);
-  v321 = *(v320 + 64);
-  MEMORY[0x28223BE20](v319);
+  v276 = OUTLINED_FUNCTION_38_0(v275);
+  v277 = type metadata accessor for NeuralNetwork.Layer.BroadcastablePowParameters(v276);
+  v278 = OUTLINED_FUNCTION_13(v277);
+  MEMORY[0x28223BE20](v278);
   OUTLINED_FUNCTION_12_1();
-  v323 = OUTLINED_FUNCTION_38_0(v322);
-  v324 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters(v323);
-  v325 = OUTLINED_FUNCTION_13(v324);
-  v327 = *(v326 + 64);
-  MEMORY[0x28223BE20](v325);
+  v280 = OUTLINED_FUNCTION_38_0(v279);
+  v281 = type metadata accessor for NeuralNetwork.Layer.BroadcastableModParameters(v280);
+  v282 = OUTLINED_FUNCTION_13(v281);
+  MEMORY[0x28223BE20](v282);
   OUTLINED_FUNCTION_12_1();
-  v329 = OUTLINED_FUNCTION_38_0(v328);
-  v330 = type metadata accessor for NeuralNetwork.Layer.CropParameters(v329);
-  v331 = OUTLINED_FUNCTION_13(v330);
-  v333 = *(v332 + 64);
-  MEMORY[0x28223BE20](v331);
+  v284 = OUTLINED_FUNCTION_38_0(v283);
+  v285 = type metadata accessor for NeuralNetwork.Layer.DotProductParameters(v284);
+  v286 = OUTLINED_FUNCTION_13(v285);
+  MEMORY[0x28223BE20](v286);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v334);
-  v335 = type metadata accessor for NeuralNetwork.Layer.GRUParameters();
-  v336 = OUTLINED_FUNCTION_13(v335);
-  v338 = *(v337 + 64);
-  MEMORY[0x28223BE20](v336);
+  v288 = OUTLINED_FUNCTION_38_0(v287);
+  v289 = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters(v288);
+  v290 = OUTLINED_FUNCTION_13(v289);
+  MEMORY[0x28223BE20](v290);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v339);
-  v340 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters();
-  v341 = OUTLINED_FUNCTION_13(v340);
-  v343 = *(v342 + 64);
-  MEMORY[0x28223BE20](v341);
+  v292 = OUTLINED_FUNCTION_38_0(v291);
+  v293 = type metadata accessor for NeuralNetwork.Layer.BroadcastableDivideParameters(v292);
+  v294 = OUTLINED_FUNCTION_13(v293);
+  MEMORY[0x28223BE20](v294);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v344);
-  v345 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters();
-  v346 = OUTLINED_FUNCTION_13(v345);
-  v348 = *(v347 + 64);
-  MEMORY[0x28223BE20](v346);
+  v296 = OUTLINED_FUNCTION_38_0(v295);
+  v297 = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters(v296);
+  v298 = OUTLINED_FUNCTION_13(v297);
+  MEMORY[0x28223BE20](v298);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v349);
-  v350 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters();
-  v351 = OUTLINED_FUNCTION_13(v350);
-  v353 = *(v352 + 64);
-  MEMORY[0x28223BE20](v351);
+  v300 = OUTLINED_FUNCTION_38_0(v299);
+  v301 = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters(v300);
+  v302 = OUTLINED_FUNCTION_13(v301);
+  MEMORY[0x28223BE20](v302);
+  OUTLINED_FUNCTION_12_1();
+  v304 = OUTLINED_FUNCTION_38_0(v303);
+  v305 = type metadata accessor for NeuralNetwork.Layer.BroadcastableAddParameters(v304);
+  v306 = OUTLINED_FUNCTION_13(v305);
+  MEMORY[0x28223BE20](v306);
+  OUTLINED_FUNCTION_12_1();
+  v308 = OUTLINED_FUNCTION_38_0(v307);
+  v309 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters(v308);
+  v310 = OUTLINED_FUNCTION_13(v309);
+  MEMORY[0x28223BE20](v310);
+  OUTLINED_FUNCTION_12_1();
+  v312 = OUTLINED_FUNCTION_38_0(v311);
+  v313 = type metadata accessor for NeuralNetwork.Layer.AddParameters(v312);
+  v314 = OUTLINED_FUNCTION_13(v313);
+  MEMORY[0x28223BE20](v314);
+  OUTLINED_FUNCTION_12_1();
+  v316 = OUTLINED_FUNCTION_38_0(v315);
+  v317 = type metadata accessor for NeuralNetwork.Layer.GlobalPool3DParameters(v316);
+  v318 = OUTLINED_FUNCTION_13(v317);
+  MEMORY[0x28223BE20](v318);
+  OUTLINED_FUNCTION_12_1();
+  v320 = OUTLINED_FUNCTION_38_0(v319);
+  v321 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters(v320);
+  v322 = OUTLINED_FUNCTION_13(v321);
+  MEMORY[0x28223BE20](v322);
+  OUTLINED_FUNCTION_12_1();
+  v324 = OUTLINED_FUNCTION_38_0(v323);
+  v325 = type metadata accessor for NeuralNetwork.Layer.PoolParameters(v324);
+  v326 = OUTLINED_FUNCTION_13(v325);
+  MEMORY[0x28223BE20](v326);
+  OUTLINED_FUNCTION_12_1();
+  v328 = OUTLINED_FUNCTION_38_0(v327);
+  v329 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters(v328);
+  v330 = OUTLINED_FUNCTION_13(v329);
+  MEMORY[0x28223BE20](v330);
+  OUTLINED_FUNCTION_12_1();
+  v332 = OUTLINED_FUNCTION_38_0(v331);
+  v333 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters(v332);
+  v334 = OUTLINED_FUNCTION_13(v333);
+  MEMORY[0x28223BE20](v334);
+  OUTLINED_FUNCTION_12_1();
+  v336 = OUTLINED_FUNCTION_38_0(v335);
+  v337 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters(v336);
+  v338 = OUTLINED_FUNCTION_13(v337);
+  MEMORY[0x28223BE20](v338);
+  OUTLINED_FUNCTION_12_1();
+  v340 = OUTLINED_FUNCTION_38_0(v339);
+  v341 = type metadata accessor for NeuralNetwork.Layer.GELUParameters(v340);
+  v342 = OUTLINED_FUNCTION_13(v341);
+  MEMORY[0x28223BE20](v342);
+  OUTLINED_FUNCTION_12_1();
+  v344 = OUTLINED_FUNCTION_38_0(v343);
+  v829 = type metadata accessor for NeuralNetwork.Layer.ClipParameters(v344);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v345);
+  OUTLINED_FUNCTION_12_1();
+  v347 = OUTLINED_FUNCTION_38_0(v346);
+  v348 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters(v347);
+  v349 = OUTLINED_FUNCTION_13(v348);
+  MEMORY[0x28223BE20](v349);
+  OUTLINED_FUNCTION_12_1();
+  v351 = OUTLINED_FUNCTION_38_0(v350);
+  v352 = type metadata accessor for NeuralNetwork.Layer.Activation(v351);
+  v353 = OUTLINED_FUNCTION_13(v352);
+  MEMORY[0x28223BE20](v353);
   OUTLINED_FUNCTION_12_1();
   v355 = OUTLINED_FUNCTION_38_0(v354);
-  v356 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters(v355);
+  v356 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters(v355);
   v357 = OUTLINED_FUNCTION_13(v356);
-  v359 = *(v358 + 64);
   MEMORY[0x28223BE20](v357);
   OUTLINED_FUNCTION_12_1();
-  v361 = OUTLINED_FUNCTION_38_0(v360);
-  v362 = type metadata accessor for NeuralNetwork.Layer.LRNParameters(v361);
-  v363 = OUTLINED_FUNCTION_13(v362);
-  v365 = *(v364 + 64);
-  MEMORY[0x28223BE20](v363);
+  v359 = OUTLINED_FUNCTION_38_0(v358);
+  v360 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters(v359);
+  v361 = OUTLINED_FUNCTION_13(v360);
+  MEMORY[0x28223BE20](v361);
+  OUTLINED_FUNCTION_12_1();
+  v363 = OUTLINED_FUNCTION_38_0(v362);
+  v364 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters(v363);
+  v365 = OUTLINED_FUNCTION_13(v364);
+  MEMORY[0x28223BE20](v365);
   OUTLINED_FUNCTION_12_1();
   v367 = OUTLINED_FUNCTION_38_0(v366);
-  v368 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters(v367);
+  v368 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters(v367);
   v369 = OUTLINED_FUNCTION_13(v368);
-  v371 = *(v370 + 64);
   MEMORY[0x28223BE20](v369);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v372);
-  v373 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters();
-  v374 = OUTLINED_FUNCTION_13(v373);
-  v376 = *(v375 + 64);
-  MEMORY[0x28223BE20](v374);
+  v371 = OUTLINED_FUNCTION_38_0(v370);
+  v372 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters(v371);
+  v373 = OUTLINED_FUNCTION_13(v372);
+  MEMORY[0x28223BE20](v373);
   OUTLINED_FUNCTION_12_1();
-  v378 = OUTLINED_FUNCTION_38_0(v377);
-  v379 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters(v378);
-  v380 = OUTLINED_FUNCTION_13(v379);
-  v382 = *(v381 + 64);
-  MEMORY[0x28223BE20](v380);
+  v375 = OUTLINED_FUNCTION_38_0(v374);
+  v376 = type metadata accessor for NeuralNetwork.Layer.SliceParameters(v375);
+  v377 = OUTLINED_FUNCTION_13(v376);
+  MEMORY[0x28223BE20](v377);
   OUTLINED_FUNCTION_12_1();
-  v384 = OUTLINED_FUNCTION_38_0(v383);
-  v385 = type metadata accessor for NeuralNetwork.Layer.SoftmaxParameters(v384);
-  v386 = OUTLINED_FUNCTION_13(v385);
-  v388 = *(v387 + 64);
-  MEMORY[0x28223BE20](v386);
+  v379 = OUTLINED_FUNCTION_38_0(v378);
+  v380 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters(v379);
+  v381 = OUTLINED_FUNCTION_13(v380);
+  MEMORY[0x28223BE20](v381);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v389);
-  v390 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters();
-  v391 = OUTLINED_FUNCTION_13(v390);
-  v393 = *(v392 + 64);
-  MEMORY[0x28223BE20](v391);
+  v383 = OUTLINED_FUNCTION_38_0(v382);
+  v384 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters(v383);
+  v385 = OUTLINED_FUNCTION_13(v384);
+  MEMORY[0x28223BE20](v385);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v394);
-  v395 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters();
-  v396 = OUTLINED_FUNCTION_13(v395);
-  v398 = *(v397 + 64);
-  MEMORY[0x28223BE20](v396);
+  v387 = OUTLINED_FUNCTION_38_0(v386);
+  v388 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters(v387);
+  v389 = OUTLINED_FUNCTION_13(v388);
+  MEMORY[0x28223BE20](v389);
   OUTLINED_FUNCTION_12_1();
-  v400 = OUTLINED_FUNCTION_38_0(v399);
-  v401 = type metadata accessor for NeuralNetwork.Layer.BroadcastableFloorDivParameters(v400);
-  v402 = OUTLINED_FUNCTION_13(v401);
-  v404 = *(v403 + 64);
-  MEMORY[0x28223BE20](v402);
+  v391 = OUTLINED_FUNCTION_38_0(v390);
+  v392 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters(v391);
+  v393 = OUTLINED_FUNCTION_13(v392);
+  MEMORY[0x28223BE20](v393);
   OUTLINED_FUNCTION_12_1();
-  v406 = OUTLINED_FUNCTION_38_0(v405);
-  v407 = type metadata accessor for NeuralNetwork.Layer.BroadcastablePowParameters(v406);
-  v408 = OUTLINED_FUNCTION_13(v407);
-  v410 = *(v409 + 64);
-  MEMORY[0x28223BE20](v408);
+  v395 = OUTLINED_FUNCTION_38_0(v394);
+  v396 = type metadata accessor for NeuralNetwork.Layer.GatherNDParameters(v395);
+  v397 = OUTLINED_FUNCTION_13(v396);
+  MEMORY[0x28223BE20](v397);
   OUTLINED_FUNCTION_12_1();
-  v412 = OUTLINED_FUNCTION_38_0(v411);
-  v413 = type metadata accessor for NeuralNetwork.Layer.BroadcastableModParameters(v412);
-  v414 = OUTLINED_FUNCTION_13(v413);
-  v416 = *(v415 + 64);
-  MEMORY[0x28223BE20](v414);
+  v399 = OUTLINED_FUNCTION_38_0(v398);
+  v400 = type metadata accessor for NeuralNetwork.Layer.GatherParameters(v399);
+  v401 = OUTLINED_FUNCTION_13(v400);
+  MEMORY[0x28223BE20](v401);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v417);
-  v418 = type metadata accessor for NeuralNetwork.Layer.DotProductParameters();
-  v419 = OUTLINED_FUNCTION_13(v418);
-  v421 = *(v420 + 64);
-  MEMORY[0x28223BE20](v419);
+  v403 = OUTLINED_FUNCTION_38_0(v402);
+  v404 = type metadata accessor for NeuralNetwork.Layer.StackParameters(v403);
+  v405 = OUTLINED_FUNCTION_13(v404);
+  MEMORY[0x28223BE20](v405);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v422);
-  v423 = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters();
-  v424 = OUTLINED_FUNCTION_13(v423);
-  v426 = *(v425 + 64);
-  MEMORY[0x28223BE20](v424);
+  v407 = OUTLINED_FUNCTION_38_0(v406);
+  v408 = type metadata accessor for NeuralNetwork.Layer.ReshapeDynamicParameters(v407);
+  v409 = OUTLINED_FUNCTION_13(v408);
+  MEMORY[0x28223BE20](v409);
   OUTLINED_FUNCTION_12_1();
-  v428 = OUTLINED_FUNCTION_38_0(v427);
-  v429 = type metadata accessor for NeuralNetwork.Layer.BroadcastableDivideParameters(v428);
-  v430 = OUTLINED_FUNCTION_13(v429);
-  v432 = *(v431 + 64);
-  MEMORY[0x28223BE20](v430);
+  v411 = OUTLINED_FUNCTION_38_0(v410);
+  v412 = type metadata accessor for NeuralNetwork.Layer.ReshapeLikeParameters(v411);
+  v413 = OUTLINED_FUNCTION_13(v412);
+  MEMORY[0x28223BE20](v413);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v433);
-  v434 = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters();
-  v435 = OUTLINED_FUNCTION_13(v434);
-  v437 = *(v436 + 64);
-  MEMORY[0x28223BE20](v435);
+  v415 = OUTLINED_FUNCTION_38_0(v414);
+  v416 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters(v415);
+  v417 = OUTLINED_FUNCTION_13(v416);
+  MEMORY[0x28223BE20](v417);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v438);
-  v439 = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters();
-  v440 = OUTLINED_FUNCTION_13(v439);
-  v442 = *(v441 + 64);
-  MEMORY[0x28223BE20](v440);
+  v419 = OUTLINED_FUNCTION_38_0(v418);
+  v420 = type metadata accessor for NeuralNetwork.Layer.BroadcastToDynamicParameters(v419);
+  v421 = OUTLINED_FUNCTION_13(v420);
+  MEMORY[0x28223BE20](v421);
   OUTLINED_FUNCTION_12_1();
-  v444 = OUTLINED_FUNCTION_38_0(v443);
-  v445 = type metadata accessor for NeuralNetwork.Layer.BroadcastableAddParameters(v444);
-  v446 = OUTLINED_FUNCTION_13(v445);
-  v448 = *(v447 + 64);
-  MEMORY[0x28223BE20](v446);
+  v423 = OUTLINED_FUNCTION_38_0(v422);
+  v424 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters(v423);
+  v425 = OUTLINED_FUNCTION_13(v424);
+  MEMORY[0x28223BE20](v425);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v449);
-  v450 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters();
-  v451 = OUTLINED_FUNCTION_13(v450);
-  v453 = *(v452 + 64);
-  MEMORY[0x28223BE20](v451);
+  v427 = OUTLINED_FUNCTION_38_0(v426);
+  v428 = type metadata accessor for NeuralNetwork.Layer.BroadcastToLikeParameters(v427);
+  v429 = OUTLINED_FUNCTION_13(v428);
+  MEMORY[0x28223BE20](v429);
+  OUTLINED_FUNCTION_12_1();
+  v431 = OUTLINED_FUNCTION_38_0(v430);
+  v432 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters(v431);
+  v433 = OUTLINED_FUNCTION_13(v432);
+  MEMORY[0x28223BE20](v433);
+  OUTLINED_FUNCTION_12_1();
+  v435 = OUTLINED_FUNCTION_38_0(v434);
+  v436 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters(v435);
+  v437 = OUTLINED_FUNCTION_13(v436);
+  MEMORY[0x28223BE20](v437);
+  OUTLINED_FUNCTION_12_1();
+  v439 = OUTLINED_FUNCTION_38_0(v438);
+  v440 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters(v439);
+  v441 = OUTLINED_FUNCTION_13(v440);
+  MEMORY[0x28223BE20](v441);
+  OUTLINED_FUNCTION_12_1();
+  v443 = OUTLINED_FUNCTION_38_0(v442);
+  v444 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters(v443);
+  v445 = OUTLINED_FUNCTION_13(v444);
+  MEMORY[0x28223BE20](v445);
+  OUTLINED_FUNCTION_12_1();
+  v447 = OUTLINED_FUNCTION_38_0(v446);
+  v448 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters(v447);
+  v449 = OUTLINED_FUNCTION_13(v448);
+  MEMORY[0x28223BE20](v449);
+  OUTLINED_FUNCTION_12_1();
+  v451 = OUTLINED_FUNCTION_38_0(v450);
+  v452 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters(v451);
+  v453 = OUTLINED_FUNCTION_13(v452);
+  MEMORY[0x28223BE20](v453);
   OUTLINED_FUNCTION_12_1();
   v455 = OUTLINED_FUNCTION_38_0(v454);
-  v456 = type metadata accessor for NeuralNetwork.Layer.AddParameters(v455);
+  v456 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters(v455);
   v457 = OUTLINED_FUNCTION_13(v456);
-  v459 = *(v458 + 64);
   MEMORY[0x28223BE20](v457);
   OUTLINED_FUNCTION_12_1();
-  v461 = OUTLINED_FUNCTION_38_0(v460);
-  v462 = type metadata accessor for NeuralNetwork.Layer.GlobalPool3DParameters(v461);
-  v463 = OUTLINED_FUNCTION_13(v462);
-  v465 = *(v464 + 64);
-  MEMORY[0x28223BE20](v463);
+  v459 = OUTLINED_FUNCTION_38_0(v458);
+  v460 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters(v459);
+  v461 = OUTLINED_FUNCTION_13(v460);
+  MEMORY[0x28223BE20](v461);
+  OUTLINED_FUNCTION_12_1();
+  v463 = OUTLINED_FUNCTION_38_0(v462);
+  v464 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters(v463);
+  v465 = OUTLINED_FUNCTION_13(v464);
+  MEMORY[0x28223BE20](v465);
   OUTLINED_FUNCTION_12_1();
   v467 = OUTLINED_FUNCTION_38_0(v466);
-  v468 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters(v467);
+  v468 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters(v467);
   v469 = OUTLINED_FUNCTION_13(v468);
-  v471 = *(v470 + 64);
   MEMORY[0x28223BE20](v469);
   OUTLINED_FUNCTION_12_1();
-  v473 = OUTLINED_FUNCTION_38_0(v472);
-  v474 = type metadata accessor for NeuralNetwork.Layer.PoolParameters(v473);
-  v475 = OUTLINED_FUNCTION_13(v474);
-  v477 = *(v476 + 64);
-  MEMORY[0x28223BE20](v475);
+  v471 = OUTLINED_FUNCTION_38_0(v470);
+  v472 = type metadata accessor for NeuralNetwork.Layer.TileParameters(v471);
+  v473 = OUTLINED_FUNCTION_13(v472);
+  MEMORY[0x28223BE20](v473);
+  OUTLINED_FUNCTION_12_1();
+  v475 = OUTLINED_FUNCTION_38_0(v474);
+  v476 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters(v475);
+  v477 = OUTLINED_FUNCTION_13(v476);
+  MEMORY[0x28223BE20](v477);
   OUTLINED_FUNCTION_12_1();
   v479 = OUTLINED_FUNCTION_38_0(v478);
-  v480 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters(v479);
+  v480 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters(v479);
   v481 = OUTLINED_FUNCTION_13(v480);
-  v483 = *(v482 + 64);
   MEMORY[0x28223BE20](v481);
   OUTLINED_FUNCTION_12_1();
-  v485 = OUTLINED_FUNCTION_38_0(v484);
-  v486 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters(v485);
-  v487 = OUTLINED_FUNCTION_13(v486);
-  v489 = *(v488 + 64);
-  MEMORY[0x28223BE20](v487);
+  v483 = OUTLINED_FUNCTION_38_0(v482);
+  v484 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters(v483);
+  v485 = OUTLINED_FUNCTION_13(v484);
+  MEMORY[0x28223BE20](v485);
+  OUTLINED_FUNCTION_12_1();
+  v487 = OUTLINED_FUNCTION_38_0(v486);
+  v488 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters(v487);
+  v489 = OUTLINED_FUNCTION_13(v488);
+  MEMORY[0x28223BE20](v489);
   OUTLINED_FUNCTION_12_1();
   v491 = OUTLINED_FUNCTION_38_0(v490);
-  v492 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters(v491);
+  v492 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters(v491);
   v493 = OUTLINED_FUNCTION_13(v492);
-  v495 = *(v494 + 64);
   MEMORY[0x28223BE20](v493);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v496);
-  v497 = type metadata accessor for NeuralNetwork.Layer.GELUParameters();
-  v498 = OUTLINED_FUNCTION_13(v497);
-  v500 = *(v499 + 64);
-  MEMORY[0x28223BE20](v498);
+  v495 = OUTLINED_FUNCTION_38_0(v494);
+  v496 = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters(v495);
+  v497 = OUTLINED_FUNCTION_13(v496);
+  MEMORY[0x28223BE20](v497);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v501);
-  v1072 = type metadata accessor for NeuralNetwork.Layer.ClipParameters();
-  v502 = OUTLINED_FUNCTION_4(v1072);
-  v504 = *(v503 + 64);
-  MEMORY[0x28223BE20](v502);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v505);
-  v506 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters();
-  v507 = OUTLINED_FUNCTION_13(v506);
-  v509 = *(v508 + 64);
-  MEMORY[0x28223BE20](v507);
-  OUTLINED_FUNCTION_12_1();
-  v511 = OUTLINED_FUNCTION_38_0(v510);
-  v512 = type metadata accessor for NeuralNetwork.Layer.Activation(v511);
-  v513 = OUTLINED_FUNCTION_13(v512);
-  v515 = *(v514 + 64);
-  MEMORY[0x28223BE20](v513);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v516);
-  v517 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters();
-  v518 = OUTLINED_FUNCTION_13(v517);
-  v520 = *(v519 + 64);
-  MEMORY[0x28223BE20](v518);
-  OUTLINED_FUNCTION_12_1();
-  v522 = OUTLINED_FUNCTION_38_0(v521);
-  v523 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters(v522);
-  v524 = OUTLINED_FUNCTION_13(v523);
-  v526 = *(v525 + 64);
-  MEMORY[0x28223BE20](v524);
-  OUTLINED_FUNCTION_12_1();
-  v528 = OUTLINED_FUNCTION_38_0(v527);
-  v529 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters(v528);
-  v530 = OUTLINED_FUNCTION_13(v529);
-  v532 = *(v531 + 64);
-  MEMORY[0x28223BE20](v530);
-  OUTLINED_FUNCTION_12_1();
-  v534 = OUTLINED_FUNCTION_38_0(v533);
-  v535 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters(v534);
+  v499 = OUTLINED_FUNCTION_38_0(v498);
+  v500 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters(v499);
+  v501 = OUTLINED_FUNCTION_13(v500);
+  MEMORY[0x28223BE20](v501);
+  OUTLINED_FUNCTION_3();
+  v504 = v503 - v502;
+  v505 = type metadata accessor for NeuralNetwork.Layer.SplitParameters(0);
+  v506 = OUTLINED_FUNCTION_13(v505);
+  MEMORY[0x28223BE20](v506);
+  OUTLINED_FUNCTION_3();
+  v509 = v508 - v507;
+  v510 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters(0);
+  v511 = OUTLINED_FUNCTION_13(v510);
+  MEMORY[0x28223BE20](v511);
+  OUTLINED_FUNCTION_3();
+  v514 = v513 - v512;
+  v515 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters(0);
+  v516 = OUTLINED_FUNCTION_13(v515);
+  MEMORY[0x28223BE20](v516);
+  OUTLINED_FUNCTION_3();
+  v519 = v518 - v517;
+  v520 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters(0);
+  v521 = OUTLINED_FUNCTION_13(v520);
+  MEMORY[0x28223BE20](v521);
+  OUTLINED_FUNCTION_3();
+  v524 = v523 - v522;
+  v525 = type metadata accessor for NeuralNetwork.Layer.PadParameters(0);
+  v526 = OUTLINED_FUNCTION_13(v525);
+  MEMORY[0x28223BE20](v526);
+  OUTLINED_FUNCTION_3();
+  v529 = v528 - v527;
+  v530 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters(0);
+  v531 = OUTLINED_FUNCTION_13(v530);
+  MEMORY[0x28223BE20](v531);
+  OUTLINED_FUNCTION_3();
+  v534 = v533 - v532;
+  v535 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters(0);
   v536 = OUTLINED_FUNCTION_13(v535);
-  v538 = *(v537 + 64);
   MEMORY[0x28223BE20](v536);
-  OUTLINED_FUNCTION_12_1();
-  v540 = OUTLINED_FUNCTION_38_0(v539);
-  v541 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters(v540);
-  v542 = OUTLINED_FUNCTION_13(v541);
-  v544 = *(v543 + 64);
-  MEMORY[0x28223BE20](v542);
-  OUTLINED_FUNCTION_12_1();
-  v546 = OUTLINED_FUNCTION_38_0(v545);
-  v547 = type metadata accessor for NeuralNetwork.Layer.SliceParameters(v546);
-  v548 = OUTLINED_FUNCTION_13(v547);
-  v550 = *(v549 + 64);
-  MEMORY[0x28223BE20](v548);
-  OUTLINED_FUNCTION_12_1();
-  v552 = OUTLINED_FUNCTION_38_0(v551);
-  v553 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters(v552);
-  v554 = OUTLINED_FUNCTION_13(v553);
-  v556 = *(v555 + 64);
-  MEMORY[0x28223BE20](v554);
-  OUTLINED_FUNCTION_12_1();
-  v558 = OUTLINED_FUNCTION_38_0(v557);
-  v559 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters(v558);
-  v560 = OUTLINED_FUNCTION_13(v559);
-  v562 = *(v561 + 64);
-  MEMORY[0x28223BE20](v560);
-  OUTLINED_FUNCTION_12_1();
-  v564 = OUTLINED_FUNCTION_38_0(v563);
-  v565 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters(v564);
-  v566 = OUTLINED_FUNCTION_13(v565);
-  v568 = *(v567 + 64);
-  MEMORY[0x28223BE20](v566);
-  OUTLINED_FUNCTION_12_1();
-  v570 = OUTLINED_FUNCTION_38_0(v569);
-  v571 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters(v570);
-  v572 = OUTLINED_FUNCTION_13(v571);
-  v574 = *(v573 + 64);
-  MEMORY[0x28223BE20](v572);
-  OUTLINED_FUNCTION_12_1();
-  v576 = OUTLINED_FUNCTION_38_0(v575);
-  v577 = type metadata accessor for NeuralNetwork.Layer.GatherNDParameters(v576);
-  v578 = OUTLINED_FUNCTION_13(v577);
-  v580 = *(v579 + 64);
-  MEMORY[0x28223BE20](v578);
-  OUTLINED_FUNCTION_12_1();
-  v582 = OUTLINED_FUNCTION_38_0(v581);
-  v583 = type metadata accessor for NeuralNetwork.Layer.GatherParameters(v582);
-  v584 = OUTLINED_FUNCTION_13(v583);
-  v586 = *(v585 + 64);
-  MEMORY[0x28223BE20](v584);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v587);
-  v588 = type metadata accessor for NeuralNetwork.Layer.StackParameters();
-  v589 = OUTLINED_FUNCTION_13(v588);
-  v591 = *(v590 + 64);
-  MEMORY[0x28223BE20](v589);
-  OUTLINED_FUNCTION_12_1();
-  v593 = OUTLINED_FUNCTION_38_0(v592);
-  v594 = type metadata accessor for NeuralNetwork.Layer.ReshapeDynamicParameters(v593);
-  v595 = OUTLINED_FUNCTION_13(v594);
-  v597 = *(v596 + 64);
-  MEMORY[0x28223BE20](v595);
-  OUTLINED_FUNCTION_12_1();
-  v599 = OUTLINED_FUNCTION_38_0(v598);
-  v600 = type metadata accessor for NeuralNetwork.Layer.ReshapeLikeParameters(v599);
-  v601 = OUTLINED_FUNCTION_13(v600);
-  v603 = *(v602 + 64);
-  MEMORY[0x28223BE20](v601);
-  OUTLINED_FUNCTION_12_1();
-  v605 = OUTLINED_FUNCTION_38_0(v604);
-  v606 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters(v605);
-  v607 = OUTLINED_FUNCTION_13(v606);
-  v609 = *(v608 + 64);
-  MEMORY[0x28223BE20](v607);
-  OUTLINED_FUNCTION_12_1();
-  v611 = OUTLINED_FUNCTION_38_0(v610);
-  v612 = type metadata accessor for NeuralNetwork.Layer.BroadcastToDynamicParameters(v611);
-  v613 = OUTLINED_FUNCTION_13(v612);
-  v615 = *(v614 + 64);
-  MEMORY[0x28223BE20](v613);
-  OUTLINED_FUNCTION_12_1();
-  v617 = OUTLINED_FUNCTION_38_0(v616);
-  v618 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters(v617);
-  v619 = OUTLINED_FUNCTION_13(v618);
-  v621 = *(v620 + 64);
-  MEMORY[0x28223BE20](v619);
-  OUTLINED_FUNCTION_12_1();
-  v623 = OUTLINED_FUNCTION_38_0(v622);
-  v624 = type metadata accessor for NeuralNetwork.Layer.BroadcastToLikeParameters(v623);
-  v625 = OUTLINED_FUNCTION_13(v624);
-  v627 = *(v626 + 64);
-  MEMORY[0x28223BE20](v625);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v628);
-  v629 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters();
-  v630 = OUTLINED_FUNCTION_13(v629);
-  v632 = *(v631 + 64);
-  MEMORY[0x28223BE20](v630);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v633);
-  v634 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters();
-  v635 = OUTLINED_FUNCTION_13(v634);
-  v637 = *(v636 + 64);
-  MEMORY[0x28223BE20](v635);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v638);
-  v639 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters();
-  v640 = OUTLINED_FUNCTION_13(v639);
-  v642 = *(v641 + 64);
-  MEMORY[0x28223BE20](v640);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v643);
-  v644 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters();
-  v645 = OUTLINED_FUNCTION_13(v644);
-  v647 = *(v646 + 64);
-  MEMORY[0x28223BE20](v645);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v648);
-  v649 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters();
-  v650 = OUTLINED_FUNCTION_13(v649);
-  v652 = *(v651 + 64);
-  MEMORY[0x28223BE20](v650);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v653);
-  v654 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters();
-  v655 = OUTLINED_FUNCTION_13(v654);
-  v657 = *(v656 + 64);
-  MEMORY[0x28223BE20](v655);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v658);
-  v659 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters();
-  v660 = OUTLINED_FUNCTION_13(v659);
-  v662 = *(v661 + 64);
-  MEMORY[0x28223BE20](v660);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v663);
-  v664 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters();
-  v665 = OUTLINED_FUNCTION_13(v664);
-  v667 = *(v666 + 64);
-  MEMORY[0x28223BE20](v665);
-  OUTLINED_FUNCTION_12_1();
-  v669 = OUTLINED_FUNCTION_38_0(v668);
-  v670 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters(v669);
-  v671 = OUTLINED_FUNCTION_13(v670);
-  v673 = *(v672 + 64);
-  MEMORY[0x28223BE20](v671);
-  OUTLINED_FUNCTION_12_1();
-  v675 = OUTLINED_FUNCTION_38_0(v674);
-  v676 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters(v675);
-  v677 = OUTLINED_FUNCTION_13(v676);
-  v679 = *(v678 + 64);
-  MEMORY[0x28223BE20](v677);
-  OUTLINED_FUNCTION_12_1();
-  v681 = OUTLINED_FUNCTION_38_0(v680);
-  v682 = type metadata accessor for NeuralNetwork.Layer.TileParameters(v681);
-  v683 = OUTLINED_FUNCTION_13(v682);
-  v685 = *(v684 + 64);
-  MEMORY[0x28223BE20](v683);
-  OUTLINED_FUNCTION_12_1();
-  v687 = OUTLINED_FUNCTION_38_0(v686);
-  v688 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters(v687);
-  v689 = OUTLINED_FUNCTION_13(v688);
-  v691 = *(v690 + 64);
-  MEMORY[0x28223BE20](v689);
-  OUTLINED_FUNCTION_12_1();
-  v693 = OUTLINED_FUNCTION_38_0(v692);
-  v694 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters(v693);
-  v695 = OUTLINED_FUNCTION_13(v694);
-  v697 = *(v696 + 64);
-  MEMORY[0x28223BE20](v695);
-  OUTLINED_FUNCTION_12_1();
-  v699 = OUTLINED_FUNCTION_38_0(v698);
-  v700 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters(v699);
-  v701 = OUTLINED_FUNCTION_13(v700);
-  v703 = *(v702 + 64);
-  MEMORY[0x28223BE20](v701);
-  OUTLINED_FUNCTION_12_1();
-  v705 = OUTLINED_FUNCTION_38_0(v704);
-  v706 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters(v705);
-  v707 = OUTLINED_FUNCTION_13(v706);
-  v709 = *(v708 + 64);
-  MEMORY[0x28223BE20](v707);
-  OUTLINED_FUNCTION_12_1();
-  v711 = OUTLINED_FUNCTION_38_0(v710);
-  v712 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters(v711);
-  v713 = OUTLINED_FUNCTION_13(v712);
-  v715 = *(v714 + 64);
-  MEMORY[0x28223BE20](v713);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v716);
-  v717 = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters();
-  v718 = OUTLINED_FUNCTION_13(v717);
-  v720 = *(v719 + 64);
-  MEMORY[0x28223BE20](v718);
-  OUTLINED_FUNCTION_12_1();
-  v722 = OUTLINED_FUNCTION_38_0(v721);
-  v723 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters(v722);
-  v724 = OUTLINED_FUNCTION_13(v723);
-  v726 = *(v725 + 64);
-  MEMORY[0x28223BE20](v724);
   OUTLINED_FUNCTION_3();
-  v729 = v728 - v727;
-  v730 = type metadata accessor for NeuralNetwork.Layer.SplitParameters(0);
-  v731 = OUTLINED_FUNCTION_13(v730);
-  v733 = *(v732 + 64);
-  MEMORY[0x28223BE20](v731);
+  v539 = v538 - v537;
+  type metadata accessor for NeuralNetwork.Layer.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v540);
   OUTLINED_FUNCTION_3();
-  v736 = v735 - v734;
-  v737 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters();
-  v738 = OUTLINED_FUNCTION_13(v737);
-  v740 = *(v739 + 64);
-  MEMORY[0x28223BE20](v738);
-  OUTLINED_FUNCTION_3();
-  v743 = v742 - v741;
-  v744 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters();
-  v745 = OUTLINED_FUNCTION_13(v744);
-  v747 = *(v746 + 64);
-  MEMORY[0x28223BE20](v745);
-  OUTLINED_FUNCTION_3();
-  v750 = v749 - v748;
-  v751 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters();
-  v752 = OUTLINED_FUNCTION_13(v751);
-  v754 = *(v753 + 64);
-  MEMORY[0x28223BE20](v752);
-  OUTLINED_FUNCTION_3();
-  v757 = v756 - v755;
-  v758 = type metadata accessor for NeuralNetwork.Layer.PadParameters(0);
-  v759 = OUTLINED_FUNCTION_13(v758);
-  v761 = *(v760 + 64);
-  MEMORY[0x28223BE20](v759);
-  OUTLINED_FUNCTION_3();
-  v764 = v763 - v762;
-  v765 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters(0);
-  v766 = OUTLINED_FUNCTION_13(v765);
-  v768 = *(v767 + 64);
-  MEMORY[0x28223BE20](v766);
-  OUTLINED_FUNCTION_3();
-  v771 = v770 - v769;
-  v772 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters(0);
-  v773 = OUTLINED_FUNCTION_13(v772);
-  v775 = *(v774 + 64);
-  MEMORY[0x28223BE20](v773);
-  OUTLINED_FUNCTION_3();
-  v778 = v777 - v776;
-  v779 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v780 = OUTLINED_FUNCTION_4(v779);
-  v782 = *(v781 + 64);
-  MEMORY[0x28223BE20](v780);
-  OUTLINED_FUNCTION_3();
-  v785 = v784 - v783;
-  v786 = OUTLINED_FUNCTION_19_1();
-  sub_25749773C(v786, v785, v787);
-  v1158 = v785;
-  switch(swift_getEnumCaseMultiPayload())
+  v543 = v542 - v541;
+  v544 = OUTLINED_FUNCTION_19_1();
+  sub_25749773C(v544, v543, v545);
+  v915 = v543;
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  switch(EnumCaseMultiPayload)
   {
-    case 1u:
-      v818 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v818, v771, v819);
-      OUTLINED_FUNCTION_30_1(v771, v820, type metadata accessor for Proto_LoadConstantNDLayerParams);
+    case 1:
+      v577 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v577, v534, v578);
+      OUTLINED_FUNCTION_30_1(v534, v579, type metadata accessor for Proto_LoadConstantNDLayerParams);
       break;
-    case 2u:
-      v830 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v830, v764, v831);
-      OUTLINED_FUNCTION_30_1(v764, v832, type metadata accessor for Proto_PaddingLayerParams);
+    case 2:
+      v589 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v589, v529, v590);
+      OUTLINED_FUNCTION_30_1(v529, v591, type metadata accessor for Proto_PaddingLayerParams);
       break;
-    case 3u:
-      v1039 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v1039, v757, v1040);
-      OUTLINED_FUNCTION_30_1(v757, v1041, type metadata accessor for Proto_ConstantPaddingLayerParams);
+    case 3:
+      v796 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v796, v524, v797);
+      OUTLINED_FUNCTION_30_1(v524, v798, type metadata accessor for Proto_ConstantPaddingLayerParams);
       break;
-    case 4u:
-      v927 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v927, v750, v928);
-      OUTLINED_FUNCTION_30_1(v750, v929, type metadata accessor for Proto_ConcatLayerParams);
+    case 4:
+      v685 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v685, v519, v686);
+      OUTLINED_FUNCTION_30_1(v519, v687, type metadata accessor for Proto_ConcatLayerParams);
       break;
-    case 5u:
-      v835 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v835, v743, v836);
-      OUTLINED_FUNCTION_30_1(v743, v837, type metadata accessor for Proto_ConcatNDLayerParams);
+    case 5:
+      v594 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v594, v514, v595);
+      OUTLINED_FUNCTION_30_1(v514, v596, type metadata accessor for Proto_ConcatNDLayerParams);
       break;
-    case 6u:
-      v848 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v848, v736, v849);
+    case 6:
+      v607 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v607, v509, v608);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 7u:
-      v930 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v930, v729, v931);
-      OUTLINED_FUNCTION_30_1(v729, v932, type metadata accessor for Proto_SplitNDLayerParams);
+    case 7:
+      v688 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v688, v504, v689);
+      OUTLINED_FUNCTION_30_1(v504, v690, type metadata accessor for Proto_SplitNDLayerParams);
       break;
-    case 8u:
-      v797 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v797, v798, v1065);
+    case 8:
+      v556 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v556, v557, &v822);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 9u:
-      v883 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v883, v884, v1066);
+    case 9:
+      v641 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v641, v642, &v823);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0xAu:
-      v799 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v799, v800, v1067);
+    case 10:
+      v558 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v558, v559, &v824);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0xBu:
-      v1054 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1054, v1055, v1068);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0xCu:
-      v999 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v999, v1000, v1069);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0xDu:
-      v961 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v961, v962, v1073);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0xEu:
-      v852 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v852, v853, &v1072);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0xFu:
-      v1021 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1021, v1022, &v1070);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x10u:
-      v1052 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1052, v1053, v1071);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x11u:
-      v1062 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1062, v1063, v1074);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x12u:
-      v881 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v881, v882, v1075);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x13u:
-      v803 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v803, v804, v1076);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x14u:
+    case 11:
       v811 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v811, v812, v1077);
+      OUTLINED_FUNCTION_33_0(v811, v812, &v825);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x15u:
-      v1007 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1007, v1008, v1078);
+    case 12:
+      v757 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v757, v758, &v826);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x16u:
-      v891 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v891, v892, v1079);
+    case 13:
+      v719 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v719, v720, &v830);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x17u:
-      v1046 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1046, v1047, v1080);
+    case 14:
+      v611 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v611, v612, &v829);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x18u:
-      v1058 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1058, v1059, v1081);
+    case 15:
+      v778 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v778, v779, &v827);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x19u:
-      v795 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v795, v796, v1082);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x1Au:
-      v791 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v791, v792, v1083);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x1Bu:
-      v893 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v893, v894, v1084);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x1Cu:
-      v907 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v907, v908, v1085);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x1Du:
-      v965 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v965, v966, v1086);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x1Eu:
-      v919 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v919, v920, v1087);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x1Fu:
-      v963 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v963, v964, v1088);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x20u:
-      v933 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v933, v934, v1089);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x21u:
-      v1013 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1013, v1014, v1090);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x22u:
-      v793 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v793, v794, v1091);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x23u:
-      v805 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v805, v806, v1092);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x24u:
-      v911 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v911, v912, v1093);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x25u:
-      v823 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v823, v824, v1094);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x26u:
-      v973 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v973, v974, v1095);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x27u:
-      v977 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v977, v978, v1096);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x28u:
-      v903 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v903, v904, v1097);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x29u:
-      v991 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v991, v992, v1098);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x2Au:
-      v971 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v971, v972, v1099);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x2Bu:
-      v850 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v850, v851, v1100);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x2Cu:
-      OUTLINED_FUNCTION_12_2();
-      sub_2574977F4(v1158, v1070, v856);
-      v857 = type metadata accessor for Proto_ActivationParams.OneOf_NonlinearityType(0);
-      __swift_storeEnumTagSinglePayload(v1157, 1, 1, v857);
-      v858 = v1157 + *(type metadata accessor for Proto_ActivationParams(0) + 20);
-      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-      sub_2574695E4(v1157, &qword_27F879CC0, &unk_257752A20);
-      sub_2576B76DC();
-      sub_25749779C(v1070, type metadata accessor for NeuralNetwork.Layer.Activation);
-      __swift_storeEnumTagSinglePayload(v1157, 0, 1, v857);
-      break;
-    case 0x2Du:
-      v975 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v975, v976, v1101);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x2Eu:
-      v1001 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1001, v1002, v1102);
-      v1003 = *(v1072 + 24);
-      OUTLINED_FUNCTION_25_1();
-      OUTLINED_FUNCTION_30_1(v736 + v1004, v1005, v1006);
-      break;
-    case 0x2Fu:
-      v801 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v801, v802, v1103);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x30u:
+    case 16:
       v809 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v809, v810, v1104);
+      OUTLINED_FUNCTION_33_0(v809, v810, &v828);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x31u:
-      v854 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v854, v855, v1105);
+    case 17:
+      v819 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v819, v820, &v831);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x32u:
-      v869 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v869, v870, v1106);
+    case 18:
+      v639 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v639, v640, &v832);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x33u:
-      OUTLINED_FUNCTION_10_1();
-      OUTLINED_FUNCTION_33_0(v1158, v817, v1107);
+    case 19:
+      v562 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v562, v563, &v833);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x34u:
-      OUTLINED_FUNCTION_9_1();
-      OUTLINED_FUNCTION_33_0(v1158, v827, v1108);
+    case 20:
+      v570 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v570, v571, &v834);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x35u:
-      v1027 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1027, v1028, v1109);
+    case 21:
+      v764 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v764, v765, &v835);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x36u:
-      v1031 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1031, v1032, v1110);
+    case 22:
+      v649 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v649, v650, &v836);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x37u:
-      v846 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v846, v847, v1111);
+    case 23:
+      v803 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v803, v804, &v837);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x38u:
-      v1035 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1035, v1036, v1112);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x39u:
-      v1044 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1044, v1045, v1113);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x3Au:
-      v1060 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1060, v1061, v1114);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x3Bu:
-      v939 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v939, v940, v1115);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x3Cu:
-      v1056 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1056, v1057, v1116);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x3Du:
-      v825 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v825, v826, v1117);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x3Eu:
-      v1042 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1042, v1043, v1118);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x3Fu:
-      v943 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v943, v944, v1119);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x40u:
-      v838 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v838, v839, v1120);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x41u:
-      v937 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v937, v938, v1121);
-      OUTLINED_FUNCTION_8_1();
-      break;
-    case 0x42u:
+    case 24:
       v815 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v815, v816, v1122);
+      OUTLINED_FUNCTION_33_0(v815, v816, &v838);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x43u:
-      v1048 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1048, v1049, v1123);
+    case 25:
+      v554 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v554, v555, &v839);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x44u:
-      v1050 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1050, v1051, v1124);
+    case 26:
+      v550 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v550, v551, &v840);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x45u:
-      v842 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v842, v843, v1125);
+    case 27:
+      v651 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v651, v652, &v841);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x46u:
-      v1023 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1023, v1024, v1126);
+    case 28:
+      v665 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v665, v666, &v842);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x47u:
-      v969 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v969, v970, v1127);
+    case 29:
+      v723 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v723, v724, &v843);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x48u:
-      v967 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v967, v968, v1128);
+    case 30:
+      v677 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v677, v678, &v844);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x49u:
-      v807 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v807, v808, v1129);
+    case 31:
+      v721 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v721, v722, &v845);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x4Au:
+    case 32:
+      v691 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v691, v692, &v846);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 33:
+      v770 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v770, v771, &v847);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 34:
+      v552 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v552, v553, &v848);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 35:
+      v564 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v564, v565, &v849);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 36:
+      v669 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v669, v670, &v850);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 37:
+      v582 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v582, v583, &v851);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 38:
+      v731 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v731, v732, &v852);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 39:
+      v735 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v735, v736, &v853);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 40:
+      v661 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v661, v662, &v854);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 41:
+      v749 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v749, v750, &v855);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 42:
+      v729 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v729, v730, &v856);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 43:
+      v609 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v609, v610, &v857);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 44:
+      OUTLINED_FUNCTION_12_2();
+      sub_2574977F4(v915, v827, v615);
+      v616 = type metadata accessor for Proto_ActivationParams.OneOf_NonlinearityType(0);
+      __swift_storeEnumTagSinglePayload(v914, 1, 1, v616);
+      type metadata accessor for Proto_ActivationParams(0);
+      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+      sub_2574695E4(v914, &qword_27F879CC0, &unk_257752A20);
+      sub_2576B76DC();
+      sub_25749779C(v827, type metadata accessor for NeuralNetwork.Layer.Activation);
+      __swift_storeEnumTagSinglePayload(v914, 0, 1, v616);
+      break;
+    case 45:
+      v733 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v733, v734, &v858);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 46:
+      v759 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v759, v760, &v859);
+      OUTLINED_FUNCTION_25_1();
+      OUTLINED_FUNCTION_30_1(v509 + v761, v762, v763);
+      break;
+    case 47:
+      v560 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v560, v561, &v860);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 48:
+      v568 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v568, v569, &v861);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 49:
+      v613 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v613, v614, &v862);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 50:
+      v627 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v627, v628, &v863);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 51:
+      OUTLINED_FUNCTION_10_1();
+      OUTLINED_FUNCTION_33_0(v915, v576, &v864);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 52:
+      OUTLINED_FUNCTION_9_1();
+      OUTLINED_FUNCTION_33_0(v915, v586, &v865);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 53:
+      v784 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v784, v785, &v866);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 54:
+      v788 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v788, v789, &v867);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 55:
+      v605 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v605, v606, &v868);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 56:
+      v792 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v792, v793, &v869);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 57:
+      v801 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v801, v802, &v870);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 58:
+      v817 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v817, v818, &v871);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 59:
+      v697 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v697, v698, &v872);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 60:
       v813 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v813, v814, v1130);
+      OUTLINED_FUNCTION_33_0(v813, v814, &v873);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x4Bu:
-      v909 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v909, v910, v1131);
+    case 61:
+      v584 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v584, v585, &v874);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x4Cu:
-      v913 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v913, v914, v1132);
+    case 62:
+      v799 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v799, v800, &v875);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x4Du:
-      v861 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v861, v862, v1133);
+    case 63:
+      v701 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v701, v702, &v876);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x4Eu:
-      v821 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v821, v822, v1134);
+    case 64:
+      v597 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v597, v598, &v877);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x4Fu:
-      v1033 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1033, v1034, v1135);
+    case 65:
+      v695 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v695, v696, &v878);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x50u:
-      v833 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v833, v834, v1136);
+    case 66:
+      v574 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v574, v575, &v879);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x51u:
-      v947 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v947, v948, v1137);
+    case 67:
+      v805 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v805, v806, &v880);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x52u:
-      v875 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v875, v876, &v1138);
+    case 68:
+      v807 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v807, v808, &v881);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x53u:
-      v1025 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1025, v1026, &v1139);
+    case 69:
+      v601 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v601, v602, &v882);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x54u:
-      v1019 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1019, v1020, &v1140);
+    case 70:
+      v780 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v780, v781, &v883);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x55u:
-      v1009 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1009, v1010, &v1141);
+    case 71:
+      v727 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v727, v728, &v884);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x56u:
-      v863 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v863, v864, &v1142);
+    case 72:
+      v725 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v725, v726, &v885);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x57u:
-      v828 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v828, v829, &v1143);
+    case 73:
+      v566 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v566, v567, &v886);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x58u:
-      v885 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v885, v886, &v1144);
+    case 74:
+      v572 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v572, v573, &v887);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x59u:
-      v1037 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1037, v1038, &v1145);
+    case 75:
+      v667 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v667, v668, &v888);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x5Au:
-      v895 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v895, v896, &v1146);
+    case 76:
+      v671 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v671, v672, &v889);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x5Bu:
-      v859 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v859, v860, &v1147);
+    case 77:
+      v619 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v619, v620, &v890);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x5Cu:
-      v951 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v951, v952, &v1148);
+    case 78:
+      v580 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v580, v581, &v891);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x5Du:
-      v923 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v923, v924, &v1149);
+    case 79:
+      v790 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v790, v791, &v892);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x5Eu:
-      v935 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v935, v936, &v1150);
+    case 80:
+      v592 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v592, v593, &v893);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x5Fu:
-      v953 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v953, v954, &v1151);
+    case 81:
+      v705 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v705, v706, &v894);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x60u:
-      v949 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v949, v950, &v1152);
+    case 82:
+      v633 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v633, v634, &v895);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x61u:
-      v921 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v921, v922, &v1153);
+    case 83:
+      v782 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v782, v783, &v896);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x62u:
-      v985 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v985, v986, &v1154);
+    case 84:
+      v776 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v776, v777, &v897);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x63u:
-      v905 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v905, v906, &v1155);
+    case 85:
+      v766 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v766, v767, &v898);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x64u:
-      v981 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v981, v982, &v1156);
+    case 86:
+      v621 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v621, v622, &v899);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x65u:
-      v873 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v873, v874, &v1157);
+    case 87:
+      v587 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v587, v588, &v900);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x66u:
-      v1011 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1011, v1012, &v1158);
+    case 88:
+      v643 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v643, v644, &v901);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x67u:
-      v997 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v997, v998, v1159);
+    case 89:
+      v794 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v794, v795, &v902);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x68u:
-      v867 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v867, v868, &v1160);
+    case 90:
+      v653 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v653, v654, &v903);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x69u:
-      v1015 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1015, v1016, &v1161);
+    case 91:
+      v617 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v617, v618, &v904);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x6Au:
-      v1029 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1029, v1030, &v1162);
+    case 92:
+      v709 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v709, v710, &v905);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x6Bu:
-      v840 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v840, v841, &v1163);
+    case 93:
+      v681 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v681, v682, &v906);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x6Cu:
-      v915 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v915, v916, &v1164);
+    case 94:
+      v693 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v693, v694, &v907);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x6Du:
-      v901 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v901, v902, &v1165);
+    case 95:
+      v711 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v711, v712, &v908);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x6Eu:
-      v871 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v871, v872, &v1166);
+    case 96:
+      v707 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v707, v708, &v909);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x6Fu:
-      v1017 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v1017, v1018, &v1167);
+    case 97:
+      v679 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v679, v680, &v910);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x70u:
-      v959 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v959, v960, &v1168);
+    case 98:
+      v743 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v743, v744, &v911);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x71u:
-      v897 = OUTLINED_FUNCTION_19_1();
-      OUTLINED_FUNCTION_33_0(v897, v898, &v1169);
+    case 99:
+      v663 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v663, v664, &v912);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x72u:
-      v844 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v844, v1138, v845);
+    case 100:
+      v739 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v739, v740, &v913);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x73u:
-      v983 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v983, v1139, v984);
+    case 101:
+      v631 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v631, v632, &v914);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x74u:
-      v945 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v945, v1140, v946);
+    case 102:
+      v768 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v768, v769, &v915);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x75u:
-      v917 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v917, v1141, v918);
+    case 103:
+      v755 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v755, v756, &v916);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x76u:
-      v979 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v979, v1142, v980);
+    case 104:
+      v625 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v625, v626, &v917);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x77u:
-      v993 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v993, v1143, v994);
+    case 105:
+      v772 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v772, v773, &v918);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x78u:
-      v865 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v865, v1144, v866);
+    case 106:
+      v786 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v786, v787, &v919);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x79u:
-      v879 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v879, v1151, v880);
+    case 107:
+      v599 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v599, v600, &v920);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x7Au:
-      v877 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v877, v1145, v878);
+    case 108:
+      v673 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v673, v674, &v921);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x7Bu:
-      v889 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v889, v1146, v890);
+    case 109:
+      v659 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v659, v660, &v922);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x7Cu:
-      v899 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v899, v1147, v900);
+    case 110:
+      v629 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v629, v630, &v923);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x7Du:
-      v957 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v957, v1148, v958);
+    case 111:
+      v774 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v774, v775, &v924);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x7Eu:
-      v941 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v941, v1149, v942);
+    case 112:
+      v717 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v717, v718, &v925);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x7Fu:
-      v955 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v955, v1150, v956);
+    case 113:
+      v655 = OUTLINED_FUNCTION_19_1();
+      OUTLINED_FUNCTION_33_0(v655, v656, &v926);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x80u:
-      v989 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v989, v1152, v990);
+    case 114:
+      v603 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v603, v895, v604);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x81u:
-      v987 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v987, v1153, v988);
+    case 115:
+      v741 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v741, v896, v742);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x82u:
-      v887 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v887, v1154, v888);
+    case 116:
+      v703 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v703, v897, v704);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x83u:
-      v995 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v995, v1155, v996);
+    case 117:
+      v675 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v675, v898, v676);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x84u:
-      v925 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v925, v1156, v926);
+    case 118:
+      v737 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v737, v899, v738);
       OUTLINED_FUNCTION_8_1();
       break;
-    case 0x85u:
-    case 0x86u:
-    case 0x87u:
-    case 0x88u:
-    case 0x89u:
-    case 0x8Au:
-    case 0x8Bu:
-    case 0x8Cu:
-    case 0x8Du:
-    case 0x8Eu:
-    case 0x8Fu:
-    case 0x90u:
-    case 0x91u:
-    case 0x92u:
-    case 0x93u:
-    case 0x94u:
-    case 0x95u:
-    case 0x96u:
-    case 0x97u:
-    case 0x98u:
-    case 0x99u:
-    case 0x9Au:
-    case 0x9Bu:
-    case 0x9Cu:
-    case 0x9Du:
-      OUTLINED_FUNCTION_36_0();
+    case 119:
+      v751 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v751, v900, v752);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 120:
+      v623 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v623, v901, v624);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 121:
+      v637 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v637, v908, v638);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 122:
+      v635 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v635, v902, v636);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 123:
+      v647 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v647, v903, v648);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 124:
+      v657 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v657, v904, v658);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 125:
+      v715 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v715, v905, v716);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 126:
+      v699 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v699, v906, v700);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 127:
+      v713 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v713, v907, v714);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 128:
+      v747 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v747, v909, v748);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 129:
+      v745 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v745, v910, v746);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 130:
+      v645 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v645, v911, v646);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 131:
+      v753 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v753, v912, v754);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 132:
+      v683 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v683, v913, v684);
+      OUTLINED_FUNCTION_8_1();
+      break;
+    case 133:
+    case 134:
+    case 135:
+    case 136:
+    case 137:
+    case 138:
+    case 139:
+    case 140:
+    case 141:
+    case 142:
+    case 143:
+    case 144:
+    case 145:
+    case 146:
+    case 147:
+    case 148:
+    case 149:
+    case 150:
+    case 151:
+    case 152:
+    case 153:
+    case 154:
+    case 155:
+    case 156:
+    case 157:
+      OUTLINED_FUNCTION_36_0(EnumCaseMultiPayload);
       break;
     default:
-      v788 = OUTLINED_FUNCTION_19_1();
-      sub_2574977F4(v788, v778, v789);
-      OUTLINED_FUNCTION_30_1(v778, v790, type metadata accessor for Proto_LoadConstantLayerParams);
+      v547 = OUTLINED_FUNCTION_19_1();
+      sub_2574977F4(v547, v539, v548);
+      OUTLINED_FUNCTION_30_1(v539, v549, type metadata accessor for Proto_LoadConstantLayerParams);
       break;
   }
 
@@ -2645,3258 +1422,3118 @@ uint64_t sub_2574897E0@<X0>(uint64_t a1@<X8>)
 
 uint64_t static NeuralNetwork.Layer.Kind.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v1908 = a1;
-  v1909 = a2;
+  v1666 = a1;
+  v1667 = a2;
   v2 = type metadata accessor for NeuralNetwork.Layer.CustomParameters(0);
   v3 = OUTLINED_FUNCTION_13(v2);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_12_1();
-  v7 = OUTLINED_FUNCTION_38_0(v6);
-  v8 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters(v7);
-  v9 = OUTLINED_FUNCTION_13(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
+  v5 = OUTLINED_FUNCTION_38_0(v4);
+  v6 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters(v5);
+  v7 = OUTLINED_FUNCTION_13(v6);
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_12_1();
+  v9 = OUTLINED_FUNCTION_38_0(v8);
+  v10 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters(v9);
+  v11 = OUTLINED_FUNCTION_13(v10);
+  MEMORY[0x28223BE20](v11);
   OUTLINED_FUNCTION_12_1();
   v13 = OUTLINED_FUNCTION_38_0(v12);
-  v14 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters(v13);
+  v14 = type metadata accessor for NeuralNetwork.Layer.TopKParameters(v13);
   v15 = OUTLINED_FUNCTION_13(v14);
-  v17 = *(v16 + 64);
   MEMORY[0x28223BE20](v15);
   OUTLINED_FUNCTION_12_1();
-  v19 = OUTLINED_FUNCTION_38_0(v18);
-  v20 = type metadata accessor for NeuralNetwork.Layer.TopKParameters(v19);
-  v21 = OUTLINED_FUNCTION_13(v20);
-  v23 = *(v22 + 64);
-  MEMORY[0x28223BE20](v21);
+  v17 = OUTLINED_FUNCTION_38_0(v16);
+  v18 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters(v17);
+  v19 = OUTLINED_FUNCTION_13(v18);
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_12_1();
+  v21 = OUTLINED_FUNCTION_38_0(v20);
+  v22 = type metadata accessor for NeuralNetwork.Layer.BiasParameters(v21);
+  v23 = OUTLINED_FUNCTION_13(v22);
+  MEMORY[0x28223BE20](v23);
   OUTLINED_FUNCTION_12_1();
   v25 = OUTLINED_FUNCTION_38_0(v24);
-  v26 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters(v25);
+  v26 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters(v25);
   v27 = OUTLINED_FUNCTION_13(v26);
-  v29 = *(v28 + 64);
   MEMORY[0x28223BE20](v27);
   OUTLINED_FUNCTION_12_1();
-  v31 = OUTLINED_FUNCTION_38_0(v30);
-  v32 = type metadata accessor for NeuralNetwork.Layer.BiasParameters(v31);
-  v33 = OUTLINED_FUNCTION_13(v32);
-  v35 = *(v34 + 64);
-  MEMORY[0x28223BE20](v33);
+  v29 = OUTLINED_FUNCTION_38_0(v28);
+  v30 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters(v29);
+  v31 = OUTLINED_FUNCTION_13(v30);
+  MEMORY[0x28223BE20](v31);
+  OUTLINED_FUNCTION_12_1();
+  v33 = OUTLINED_FUNCTION_38_0(v32);
+  v34 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters(v33);
+  v35 = OUTLINED_FUNCTION_13(v34);
+  MEMORY[0x28223BE20](v35);
   OUTLINED_FUNCTION_12_1();
   v37 = OUTLINED_FUNCTION_38_0(v36);
-  v38 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters(v37);
+  v38 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters(v37);
   v39 = OUTLINED_FUNCTION_13(v38);
-  v41 = *(v40 + 64);
   MEMORY[0x28223BE20](v39);
   OUTLINED_FUNCTION_12_1();
-  v43 = OUTLINED_FUNCTION_38_0(v42);
-  v44 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters(v43);
-  v45 = OUTLINED_FUNCTION_13(v44);
-  v47 = *(v46 + 64);
-  MEMORY[0x28223BE20](v45);
+  v41 = OUTLINED_FUNCTION_38_0(v40);
+  v42 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters(v41);
+  v43 = OUTLINED_FUNCTION_13(v42);
+  MEMORY[0x28223BE20](v43);
+  OUTLINED_FUNCTION_12_1();
+  v45 = OUTLINED_FUNCTION_38_0(v44);
+  v46 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters(v45);
+  v47 = OUTLINED_FUNCTION_13(v46);
+  MEMORY[0x28223BE20](v47);
   OUTLINED_FUNCTION_12_1();
   v49 = OUTLINED_FUNCTION_38_0(v48);
-  v50 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters(v49);
+  v50 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters(v49);
   v51 = OUTLINED_FUNCTION_13(v50);
-  v53 = *(v52 + 64);
   MEMORY[0x28223BE20](v51);
   OUTLINED_FUNCTION_12_1();
-  v55 = OUTLINED_FUNCTION_38_0(v54);
-  v56 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters(v55);
-  v57 = OUTLINED_FUNCTION_13(v56);
-  v59 = *(v58 + 64);
-  MEMORY[0x28223BE20](v57);
+  v53 = OUTLINED_FUNCTION_38_0(v52);
+  v54 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters(v53);
+  v55 = OUTLINED_FUNCTION_13(v54);
+  MEMORY[0x28223BE20](v55);
+  OUTLINED_FUNCTION_12_1();
+  v57 = OUTLINED_FUNCTION_38_0(v56);
+  v58 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters(v57);
+  v59 = OUTLINED_FUNCTION_13(v58);
+  MEMORY[0x28223BE20](v59);
   OUTLINED_FUNCTION_12_1();
   v61 = OUTLINED_FUNCTION_38_0(v60);
-  v62 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters(v61);
+  v62 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters(v61);
   v63 = OUTLINED_FUNCTION_13(v62);
-  v65 = *(v64 + 64);
   MEMORY[0x28223BE20](v63);
   OUTLINED_FUNCTION_12_1();
-  v67 = OUTLINED_FUNCTION_38_0(v66);
-  v68 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters(v67);
-  v69 = OUTLINED_FUNCTION_13(v68);
-  v71 = *(v70 + 64);
-  MEMORY[0x28223BE20](v69);
+  v65 = OUTLINED_FUNCTION_38_0(v64);
+  v66 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters(v65);
+  v67 = OUTLINED_FUNCTION_13(v66);
+  MEMORY[0x28223BE20](v67);
+  OUTLINED_FUNCTION_12_1();
+  v69 = OUTLINED_FUNCTION_38_0(v68);
+  v70 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters(v69);
+  v71 = OUTLINED_FUNCTION_13(v70);
+  MEMORY[0x28223BE20](v71);
   OUTLINED_FUNCTION_12_1();
   v73 = OUTLINED_FUNCTION_38_0(v72);
-  v74 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters(v73);
+  v74 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters(v73);
   v75 = OUTLINED_FUNCTION_13(v74);
-  v77 = *(v76 + 64);
   MEMORY[0x28223BE20](v75);
   OUTLINED_FUNCTION_12_1();
-  v79 = OUTLINED_FUNCTION_38_0(v78);
-  v80 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters(v79);
-  v81 = OUTLINED_FUNCTION_13(v80);
-  v83 = *(v82 + 64);
-  MEMORY[0x28223BE20](v81);
+  v77 = OUTLINED_FUNCTION_38_0(v76);
+  v78 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters(v77);
+  v79 = OUTLINED_FUNCTION_13(v78);
+  MEMORY[0x28223BE20](v79);
+  OUTLINED_FUNCTION_12_1();
+  v81 = OUTLINED_FUNCTION_38_0(v80);
+  v82 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters(v81);
+  v83 = OUTLINED_FUNCTION_13(v82);
+  MEMORY[0x28223BE20](v83);
   OUTLINED_FUNCTION_12_1();
   v85 = OUTLINED_FUNCTION_38_0(v84);
-  v86 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters(v85);
+  v86 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters(v85);
   v87 = OUTLINED_FUNCTION_13(v86);
-  v89 = *(v88 + 64);
   MEMORY[0x28223BE20](v87);
   OUTLINED_FUNCTION_12_1();
-  v91 = OUTLINED_FUNCTION_38_0(v90);
-  v92 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters(v91);
-  v93 = OUTLINED_FUNCTION_13(v92);
-  v95 = *(v94 + 64);
-  MEMORY[0x28223BE20](v93);
+  v89 = OUTLINED_FUNCTION_38_0(v88);
+  v90 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters(v89);
+  v91 = OUTLINED_FUNCTION_13(v90);
+  MEMORY[0x28223BE20](v91);
+  OUTLINED_FUNCTION_12_1();
+  v93 = OUTLINED_FUNCTION_38_0(v92);
+  v94 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters(v93);
+  v95 = OUTLINED_FUNCTION_13(v94);
+  MEMORY[0x28223BE20](v95);
   OUTLINED_FUNCTION_12_1();
   v97 = OUTLINED_FUNCTION_38_0(v96);
-  v98 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters(v97);
+  v98 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters(v97);
   v99 = OUTLINED_FUNCTION_13(v98);
-  v101 = *(v100 + 64);
   MEMORY[0x28223BE20](v99);
   OUTLINED_FUNCTION_12_1();
-  v103 = OUTLINED_FUNCTION_38_0(v102);
-  v104 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters(v103);
-  v105 = OUTLINED_FUNCTION_13(v104);
-  v107 = *(v106 + 64);
-  MEMORY[0x28223BE20](v105);
+  v101 = OUTLINED_FUNCTION_38_0(v100);
+  v102 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters(v101);
+  v103 = OUTLINED_FUNCTION_13(v102);
+  MEMORY[0x28223BE20](v103);
+  OUTLINED_FUNCTION_12_1();
+  v105 = OUTLINED_FUNCTION_38_0(v104);
+  v106 = type metadata accessor for NeuralNetwork.Layer.EqualParameters(v105);
+  v107 = OUTLINED_FUNCTION_13(v106);
+  MEMORY[0x28223BE20](v107);
   OUTLINED_FUNCTION_12_1();
   v109 = OUTLINED_FUNCTION_38_0(v108);
-  v110 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters(v109);
+  v110 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters(v109);
   v111 = OUTLINED_FUNCTION_13(v110);
-  v113 = *(v112 + 64);
   MEMORY[0x28223BE20](v111);
   OUTLINED_FUNCTION_12_1();
-  v115 = OUTLINED_FUNCTION_38_0(v114);
-  v116 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters(v115);
-  v117 = OUTLINED_FUNCTION_13(v116);
-  v119 = *(v118 + 64);
-  MEMORY[0x28223BE20](v117);
+  v113 = OUTLINED_FUNCTION_38_0(v112);
+  v114 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters(v113);
+  v115 = OUTLINED_FUNCTION_13(v114);
+  MEMORY[0x28223BE20](v115);
+  OUTLINED_FUNCTION_12_1();
+  v117 = OUTLINED_FUNCTION_38_0(v116);
+  v118 = type metadata accessor for NeuralNetwork.Layer.LoopContinueParameters(v117);
+  v119 = OUTLINED_FUNCTION_13(v118);
+  MEMORY[0x28223BE20](v119);
   OUTLINED_FUNCTION_12_1();
   v121 = OUTLINED_FUNCTION_38_0(v120);
-  v122 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters(v121);
+  v122 = type metadata accessor for NeuralNetwork.Layer.LoopBreakParameters(v121);
   v123 = OUTLINED_FUNCTION_13(v122);
-  v125 = *(v124 + 64);
   MEMORY[0x28223BE20](v123);
   OUTLINED_FUNCTION_12_1();
-  v127 = OUTLINED_FUNCTION_38_0(v126);
-  v128 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters(v127);
-  v129 = OUTLINED_FUNCTION_13(v128);
-  v131 = *(v130 + 64);
-  MEMORY[0x28223BE20](v129);
+  v125 = OUTLINED_FUNCTION_38_0(v124);
+  v126 = type metadata accessor for NeuralNetwork.Layer.LoopParameters(v125);
+  v127 = OUTLINED_FUNCTION_13(v126);
+  MEMORY[0x28223BE20](v127);
+  OUTLINED_FUNCTION_12_1();
+  v129 = OUTLINED_FUNCTION_38_0(v128);
+  v130 = type metadata accessor for NeuralNetwork.Layer.CopyParameters(v129);
+  v131 = OUTLINED_FUNCTION_13(v130);
+  MEMORY[0x28223BE20](v131);
   OUTLINED_FUNCTION_12_1();
   v133 = OUTLINED_FUNCTION_38_0(v132);
-  v134 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters(v133);
+  v134 = type metadata accessor for NeuralNetwork.Layer.BranchParameters(v133);
   v135 = OUTLINED_FUNCTION_13(v134);
-  v137 = *(v136 + 64);
   MEMORY[0x28223BE20](v135);
   OUTLINED_FUNCTION_12_1();
-  v139 = OUTLINED_FUNCTION_38_0(v138);
-  v140 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters(v139);
-  v141 = OUTLINED_FUNCTION_13(v140);
-  v143 = *(v142 + 64);
-  MEMORY[0x28223BE20](v141);
+  v137 = OUTLINED_FUNCTION_38_0(v136);
+  v138 = type metadata accessor for NeuralNetwork.Layer.WhereBroadcastableParameters(v137);
+  v139 = OUTLINED_FUNCTION_13(v138);
+  MEMORY[0x28223BE20](v139);
+  OUTLINED_FUNCTION_12_1();
+  v141 = OUTLINED_FUNCTION_38_0(v140);
+  v142 = type metadata accessor for NeuralNetwork.Layer.WhereNonZeroParameters(v141);
+  v143 = OUTLINED_FUNCTION_13(v142);
+  MEMORY[0x28223BE20](v143);
   OUTLINED_FUNCTION_12_1();
   v145 = OUTLINED_FUNCTION_38_0(v144);
-  v146 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters(v145);
+  v146 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters(v145);
   v147 = OUTLINED_FUNCTION_13(v146);
-  v149 = *(v148 + 64);
   MEMORY[0x28223BE20](v147);
   OUTLINED_FUNCTION_12_1();
-  v151 = OUTLINED_FUNCTION_38_0(v150);
-  v152 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters(v151);
-  v153 = OUTLINED_FUNCTION_13(v152);
-  v155 = *(v154 + 64);
-  MEMORY[0x28223BE20](v153);
+  v149 = OUTLINED_FUNCTION_38_0(v148);
+  v150 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters(v149);
+  v151 = OUTLINED_FUNCTION_13(v150);
+  MEMORY[0x28223BE20](v151);
+  OUTLINED_FUNCTION_12_1();
+  v153 = OUTLINED_FUNCTION_38_0(v152);
+  v154 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters(v153);
+  v155 = OUTLINED_FUNCTION_13(v154);
+  MEMORY[0x28223BE20](v155);
   OUTLINED_FUNCTION_12_1();
   v157 = OUTLINED_FUNCTION_38_0(v156);
-  v158 = type metadata accessor for NeuralNetwork.Layer.EqualParameters(v157);
+  v158 = type metadata accessor for NeuralNetwork.Layer.MaxBroadcastableParameters(v157);
   v159 = OUTLINED_FUNCTION_13(v158);
-  v161 = *(v160 + 64);
   MEMORY[0x28223BE20](v159);
   OUTLINED_FUNCTION_12_1();
-  v163 = OUTLINED_FUNCTION_38_0(v162);
-  v164 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters(v163);
-  v165 = OUTLINED_FUNCTION_13(v164);
-  v167 = *(v166 + 64);
-  MEMORY[0x28223BE20](v165);
+  v161 = OUTLINED_FUNCTION_38_0(v160);
+  v162 = type metadata accessor for NeuralNetwork.Layer.MinBroadcastableParameters(v161);
+  v163 = OUTLINED_FUNCTION_13(v162);
+  MEMORY[0x28223BE20](v163);
+  OUTLINED_FUNCTION_12_1();
+  v165 = OUTLINED_FUNCTION_38_0(v164);
+  v166 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters(v165);
+  v167 = OUTLINED_FUNCTION_13(v166);
+  MEMORY[0x28223BE20](v167);
   OUTLINED_FUNCTION_12_1();
   v169 = OUTLINED_FUNCTION_38_0(v168);
-  v170 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters(v169);
+  v170 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters(v169);
   v171 = OUTLINED_FUNCTION_13(v170);
-  v173 = *(v172 + 64);
   MEMORY[0x28223BE20](v171);
   OUTLINED_FUNCTION_12_1();
-  v175 = OUTLINED_FUNCTION_38_0(v174);
-  v176 = type metadata accessor for NeuralNetwork.Layer.LoopContinueParameters(v175);
-  v177 = OUTLINED_FUNCTION_13(v176);
-  v179 = *(v178 + 64);
-  MEMORY[0x28223BE20](v177);
+  v173 = OUTLINED_FUNCTION_38_0(v172);
+  v174 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters(v173);
+  v175 = OUTLINED_FUNCTION_13(v174);
+  MEMORY[0x28223BE20](v175);
+  OUTLINED_FUNCTION_12_1();
+  v177 = OUTLINED_FUNCTION_38_0(v176);
+  v178 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters(v177);
+  v179 = OUTLINED_FUNCTION_13(v178);
+  MEMORY[0x28223BE20](v179);
   OUTLINED_FUNCTION_12_1();
   v181 = OUTLINED_FUNCTION_38_0(v180);
-  v182 = type metadata accessor for NeuralNetwork.Layer.LoopBreakParameters(v181);
+  v182 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters(v181);
   v183 = OUTLINED_FUNCTION_13(v182);
-  v185 = *(v184 + 64);
   MEMORY[0x28223BE20](v183);
   OUTLINED_FUNCTION_12_1();
-  v187 = OUTLINED_FUNCTION_38_0(v186);
-  v188 = type metadata accessor for NeuralNetwork.Layer.LoopParameters(v187);
-  v189 = OUTLINED_FUNCTION_13(v188);
-  v191 = *(v190 + 64);
-  MEMORY[0x28223BE20](v189);
+  v185 = OUTLINED_FUNCTION_38_0(v184);
+  v186 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters(v185);
+  v187 = OUTLINED_FUNCTION_13(v186);
+  MEMORY[0x28223BE20](v187);
+  OUTLINED_FUNCTION_12_1();
+  v189 = OUTLINED_FUNCTION_38_0(v188);
+  v190 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters(v189);
+  v191 = OUTLINED_FUNCTION_13(v190);
+  MEMORY[0x28223BE20](v191);
   OUTLINED_FUNCTION_12_1();
   v193 = OUTLINED_FUNCTION_38_0(v192);
-  v194 = type metadata accessor for NeuralNetwork.Layer.CopyParameters(v193);
+  v194 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters(v193);
   v195 = OUTLINED_FUNCTION_13(v194);
-  v197 = *(v196 + 64);
   MEMORY[0x28223BE20](v195);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v198);
-  v199 = type metadata accessor for NeuralNetwork.Layer.BranchParameters();
-  v200 = OUTLINED_FUNCTION_13(v199);
-  v202 = *(v201 + 64);
-  MEMORY[0x28223BE20](v200);
+  v197 = OUTLINED_FUNCTION_38_0(v196);
+  v198 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters(v197);
+  v199 = OUTLINED_FUNCTION_13(v198);
+  MEMORY[0x28223BE20](v199);
   OUTLINED_FUNCTION_12_1();
-  v204 = OUTLINED_FUNCTION_38_0(v203);
-  v205 = type metadata accessor for NeuralNetwork.Layer.WhereBroadcastableParameters(v204);
-  v206 = OUTLINED_FUNCTION_13(v205);
-  v208 = *(v207 + 64);
-  MEMORY[0x28223BE20](v206);
+  v201 = OUTLINED_FUNCTION_38_0(v200);
+  v202 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters(v201);
+  v203 = OUTLINED_FUNCTION_13(v202);
+  MEMORY[0x28223BE20](v203);
   OUTLINED_FUNCTION_12_1();
-  v210 = OUTLINED_FUNCTION_38_0(v209);
-  v211 = type metadata accessor for NeuralNetwork.Layer.WhereNonZeroParameters(v210);
-  v212 = OUTLINED_FUNCTION_13(v211);
-  v214 = *(v213 + 64);
-  MEMORY[0x28223BE20](v212);
+  v205 = OUTLINED_FUNCTION_38_0(v204);
+  v206 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters(v205);
+  v207 = OUTLINED_FUNCTION_13(v206);
+  MEMORY[0x28223BE20](v207);
   OUTLINED_FUNCTION_12_1();
-  v216 = OUTLINED_FUNCTION_38_0(v215);
-  v217 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters(v216);
-  v218 = OUTLINED_FUNCTION_13(v217);
-  v220 = *(v219 + 64);
-  MEMORY[0x28223BE20](v218);
+  v209 = OUTLINED_FUNCTION_38_0(v208);
+  v210 = type metadata accessor for NeuralNetwork.Layer.AverageParameters(v209);
+  v211 = OUTLINED_FUNCTION_13(v210);
+  MEMORY[0x28223BE20](v211);
   OUTLINED_FUNCTION_12_1();
-  v222 = OUTLINED_FUNCTION_38_0(v221);
-  v223 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters(v222);
-  v224 = OUTLINED_FUNCTION_13(v223);
-  v226 = *(v225 + 64);
-  MEMORY[0x28223BE20](v224);
+  v213 = OUTLINED_FUNCTION_38_0(v212);
+  v214 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters(v213);
+  v215 = OUTLINED_FUNCTION_13(v214);
+  MEMORY[0x28223BE20](v215);
   OUTLINED_FUNCTION_12_1();
-  v228 = OUTLINED_FUNCTION_38_0(v227);
-  v229 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters(v228);
-  v230 = OUTLINED_FUNCTION_13(v229);
-  v232 = *(v231 + 64);
-  MEMORY[0x28223BE20](v230);
+  v217 = OUTLINED_FUNCTION_38_0(v216);
+  v218 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters(v217);
+  v219 = OUTLINED_FUNCTION_13(v218);
+  MEMORY[0x28223BE20](v219);
   OUTLINED_FUNCTION_12_1();
-  v234 = OUTLINED_FUNCTION_38_0(v233);
-  v235 = type metadata accessor for NeuralNetwork.Layer.MaxBroadcastableParameters(v234);
-  v236 = OUTLINED_FUNCTION_13(v235);
-  v238 = *(v237 + 64);
-  MEMORY[0x28223BE20](v236);
+  v221 = OUTLINED_FUNCTION_38_0(v220);
+  v222 = type metadata accessor for NeuralNetwork.Layer.CropParameters(v221);
+  v223 = OUTLINED_FUNCTION_13(v222);
+  MEMORY[0x28223BE20](v223);
   OUTLINED_FUNCTION_12_1();
-  v240 = OUTLINED_FUNCTION_38_0(v239);
-  v241 = type metadata accessor for NeuralNetwork.Layer.MinBroadcastableParameters(v240);
-  v242 = OUTLINED_FUNCTION_13(v241);
-  v244 = *(v243 + 64);
-  MEMORY[0x28223BE20](v242);
+  v225 = OUTLINED_FUNCTION_38_0(v224);
+  v226 = type metadata accessor for NeuralNetwork.Layer.GRUParameters(v225);
+  v227 = OUTLINED_FUNCTION_13(v226);
+  MEMORY[0x28223BE20](v227);
   OUTLINED_FUNCTION_12_1();
-  v246 = OUTLINED_FUNCTION_38_0(v245);
-  v247 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters(v246);
-  v248 = OUTLINED_FUNCTION_13(v247);
-  v250 = *(v249 + 64);
-  MEMORY[0x28223BE20](v248);
+  v229 = OUTLINED_FUNCTION_38_0(v228);
+  v230 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters(v229);
+  v231 = OUTLINED_FUNCTION_13(v230);
+  MEMORY[0x28223BE20](v231);
   OUTLINED_FUNCTION_12_1();
-  v252 = OUTLINED_FUNCTION_38_0(v251);
-  v253 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters(v252);
-  v254 = OUTLINED_FUNCTION_13(v253);
-  v256 = *(v255 + 64);
-  MEMORY[0x28223BE20](v254);
+  v233 = OUTLINED_FUNCTION_38_0(v232);
+  v234 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters(v233);
+  v235 = OUTLINED_FUNCTION_13(v234);
+  MEMORY[0x28223BE20](v235);
   OUTLINED_FUNCTION_12_1();
-  v258 = OUTLINED_FUNCTION_38_0(v257);
-  v259 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters(v258);
-  v260 = OUTLINED_FUNCTION_13(v259);
-  v262 = *(v261 + 64);
-  MEMORY[0x28223BE20](v260);
+  v237 = OUTLINED_FUNCTION_38_0(v236);
+  v238 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters(v237);
+  v239 = OUTLINED_FUNCTION_13(v238);
+  MEMORY[0x28223BE20](v239);
   OUTLINED_FUNCTION_12_1();
-  v264 = OUTLINED_FUNCTION_38_0(v263);
-  v265 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters(v264);
-  v266 = OUTLINED_FUNCTION_13(v265);
-  v268 = *(v267 + 64);
-  MEMORY[0x28223BE20](v266);
+  v241 = OUTLINED_FUNCTION_38_0(v240);
+  v242 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters(v241);
+  v243 = OUTLINED_FUNCTION_13(v242);
+  MEMORY[0x28223BE20](v243);
   OUTLINED_FUNCTION_12_1();
-  v270 = OUTLINED_FUNCTION_38_0(v269);
-  v271 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters(v270);
-  v272 = OUTLINED_FUNCTION_13(v271);
-  v274 = *(v273 + 64);
-  MEMORY[0x28223BE20](v272);
+  v245 = OUTLINED_FUNCTION_38_0(v244);
+  v246 = type metadata accessor for NeuralNetwork.Layer.LRNParameters(v245);
+  v247 = OUTLINED_FUNCTION_13(v246);
+  MEMORY[0x28223BE20](v247);
   OUTLINED_FUNCTION_12_1();
-  v276 = OUTLINED_FUNCTION_38_0(v275);
-  v277 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters(v276);
-  v278 = OUTLINED_FUNCTION_13(v277);
-  v280 = *(v279 + 64);
-  MEMORY[0x28223BE20](v278);
+  v249 = OUTLINED_FUNCTION_38_0(v248);
+  v250 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters(v249);
+  v251 = OUTLINED_FUNCTION_13(v250);
+  MEMORY[0x28223BE20](v251);
   OUTLINED_FUNCTION_12_1();
-  v282 = OUTLINED_FUNCTION_38_0(v281);
-  v283 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters(v282);
-  v284 = OUTLINED_FUNCTION_13(v283);
-  v286 = *(v285 + 64);
-  MEMORY[0x28223BE20](v284);
+  v253 = OUTLINED_FUNCTION_38_0(v252);
+  v254 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters(v253);
+  v255 = OUTLINED_FUNCTION_13(v254);
+  MEMORY[0x28223BE20](v255);
   OUTLINED_FUNCTION_12_1();
-  v288 = OUTLINED_FUNCTION_38_0(v287);
-  v289 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters(v288);
-  v290 = OUTLINED_FUNCTION_13(v289);
-  v292 = *(v291 + 64);
-  MEMORY[0x28223BE20](v290);
+  v257 = OUTLINED_FUNCTION_38_0(v256);
+  v258 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters(v257);
+  v259 = OUTLINED_FUNCTION_13(v258);
+  MEMORY[0x28223BE20](v259);
   OUTLINED_FUNCTION_12_1();
-  v294 = OUTLINED_FUNCTION_38_0(v293);
-  v295 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters(v294);
-  v296 = OUTLINED_FUNCTION_13(v295);
-  v298 = *(v297 + 64);
-  MEMORY[0x28223BE20](v296);
+  v261 = OUTLINED_FUNCTION_38_0(v260);
+  v262 = type metadata accessor for NeuralNetwork.Layer.SoftmaxParameters(v261);
+  v263 = OUTLINED_FUNCTION_13(v262);
+  MEMORY[0x28223BE20](v263);
   OUTLINED_FUNCTION_12_1();
-  v300 = OUTLINED_FUNCTION_38_0(v299);
-  v301 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters(v300);
-  v302 = OUTLINED_FUNCTION_13(v301);
-  v304 = *(v303 + 64);
-  MEMORY[0x28223BE20](v302);
+  v265 = OUTLINED_FUNCTION_38_0(v264);
+  v266 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters(v265);
+  v267 = OUTLINED_FUNCTION_13(v266);
+  MEMORY[0x28223BE20](v267);
   OUTLINED_FUNCTION_12_1();
-  v306 = OUTLINED_FUNCTION_38_0(v305);
-  v307 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters(v306);
-  v308 = OUTLINED_FUNCTION_13(v307);
-  v310 = *(v309 + 64);
-  MEMORY[0x28223BE20](v308);
+  v269 = OUTLINED_FUNCTION_38_0(v268);
+  v270 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters(v269);
+  v271 = OUTLINED_FUNCTION_13(v270);
+  MEMORY[0x28223BE20](v271);
   OUTLINED_FUNCTION_12_1();
-  v312 = OUTLINED_FUNCTION_38_0(v311);
-  v313 = type metadata accessor for NeuralNetwork.Layer.AverageParameters(v312);
-  v314 = OUTLINED_FUNCTION_13(v313);
-  v316 = *(v315 + 64);
-  MEMORY[0x28223BE20](v314);
+  v273 = OUTLINED_FUNCTION_38_0(v272);
+  v274 = type metadata accessor for NeuralNetwork.Layer.BroadcastableFloorDivParameters(v273);
+  v275 = OUTLINED_FUNCTION_13(v274);
+  MEMORY[0x28223BE20](v275);
   OUTLINED_FUNCTION_12_1();
-  v318 = OUTLINED_FUNCTION_38_0(v317);
-  v319 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters(v318);
-  v320 = OUTLINED_FUNCTION_13(v319);
-  v322 = *(v321 + 64);
-  MEMORY[0x28223BE20](v320);
+  v277 = OUTLINED_FUNCTION_38_0(v276);
+  v278 = type metadata accessor for NeuralNetwork.Layer.BroadcastablePowParameters(v277);
+  v279 = OUTLINED_FUNCTION_13(v278);
+  MEMORY[0x28223BE20](v279);
   OUTLINED_FUNCTION_12_1();
-  v324 = OUTLINED_FUNCTION_38_0(v323);
-  v325 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters(v324);
-  v326 = OUTLINED_FUNCTION_13(v325);
-  v328 = *(v327 + 64);
-  MEMORY[0x28223BE20](v326);
+  v281 = OUTLINED_FUNCTION_38_0(v280);
+  v282 = type metadata accessor for NeuralNetwork.Layer.BroadcastableModParameters(v281);
+  v283 = OUTLINED_FUNCTION_13(v282);
+  MEMORY[0x28223BE20](v283);
   OUTLINED_FUNCTION_12_1();
-  v330 = OUTLINED_FUNCTION_38_0(v329);
-  v331 = type metadata accessor for NeuralNetwork.Layer.CropParameters(v330);
-  v332 = OUTLINED_FUNCTION_13(v331);
-  v334 = *(v333 + 64);
-  MEMORY[0x28223BE20](v332);
+  v285 = OUTLINED_FUNCTION_38_0(v284);
+  v286 = type metadata accessor for NeuralNetwork.Layer.DotProductParameters(v285);
+  v287 = OUTLINED_FUNCTION_13(v286);
+  MEMORY[0x28223BE20](v287);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v335);
-  v336 = type metadata accessor for NeuralNetwork.Layer.GRUParameters();
-  v337 = OUTLINED_FUNCTION_13(v336);
-  v339 = *(v338 + 64);
-  MEMORY[0x28223BE20](v337);
+  v289 = OUTLINED_FUNCTION_38_0(v288);
+  v290 = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters(v289);
+  v291 = OUTLINED_FUNCTION_13(v290);
+  MEMORY[0x28223BE20](v291);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v340);
-  v341 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters();
-  v342 = OUTLINED_FUNCTION_13(v341);
-  v344 = *(v343 + 64);
-  MEMORY[0x28223BE20](v342);
+  v293 = OUTLINED_FUNCTION_38_0(v292);
+  v294 = type metadata accessor for NeuralNetwork.Layer.BroadcastableDivideParameters(v293);
+  v295 = OUTLINED_FUNCTION_13(v294);
+  MEMORY[0x28223BE20](v295);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v345);
-  v346 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters();
+  v297 = OUTLINED_FUNCTION_38_0(v296);
+  v298 = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters(v297);
+  v299 = OUTLINED_FUNCTION_13(v298);
+  MEMORY[0x28223BE20](v299);
+  OUTLINED_FUNCTION_12_1();
+  v301 = OUTLINED_FUNCTION_38_0(v300);
+  v302 = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters(v301);
+  v303 = OUTLINED_FUNCTION_13(v302);
+  MEMORY[0x28223BE20](v303);
+  OUTLINED_FUNCTION_12_1();
+  v305 = OUTLINED_FUNCTION_38_0(v304);
+  v306 = type metadata accessor for NeuralNetwork.Layer.BroadcastableAddParameters(v305);
+  v307 = OUTLINED_FUNCTION_13(v306);
+  MEMORY[0x28223BE20](v307);
+  OUTLINED_FUNCTION_12_1();
+  v309 = OUTLINED_FUNCTION_38_0(v308);
+  v310 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters(v309);
+  v311 = OUTLINED_FUNCTION_13(v310);
+  MEMORY[0x28223BE20](v311);
+  OUTLINED_FUNCTION_12_1();
+  v313 = OUTLINED_FUNCTION_38_0(v312);
+  v314 = type metadata accessor for NeuralNetwork.Layer.AddParameters(v313);
+  v315 = OUTLINED_FUNCTION_13(v314);
+  MEMORY[0x28223BE20](v315);
+  OUTLINED_FUNCTION_12_1();
+  v317 = OUTLINED_FUNCTION_38_0(v316);
+  v318 = type metadata accessor for NeuralNetwork.Layer.GlobalPool3DParameters(v317);
+  v319 = OUTLINED_FUNCTION_13(v318);
+  MEMORY[0x28223BE20](v319);
+  OUTLINED_FUNCTION_12_1();
+  v321 = OUTLINED_FUNCTION_38_0(v320);
+  v322 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters(v321);
+  v323 = OUTLINED_FUNCTION_13(v322);
+  MEMORY[0x28223BE20](v323);
+  OUTLINED_FUNCTION_12_1();
+  v325 = OUTLINED_FUNCTION_38_0(v324);
+  v326 = type metadata accessor for NeuralNetwork.Layer.PoolParameters(v325);
+  v327 = OUTLINED_FUNCTION_13(v326);
+  MEMORY[0x28223BE20](v327);
+  OUTLINED_FUNCTION_12_1();
+  v329 = OUTLINED_FUNCTION_38_0(v328);
+  v330 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters(v329);
+  v331 = OUTLINED_FUNCTION_13(v330);
+  MEMORY[0x28223BE20](v331);
+  OUTLINED_FUNCTION_12_1();
+  v333 = OUTLINED_FUNCTION_38_0(v332);
+  v334 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters(v333);
+  v335 = OUTLINED_FUNCTION_13(v334);
+  MEMORY[0x28223BE20](v335);
+  OUTLINED_FUNCTION_12_1();
+  v337 = OUTLINED_FUNCTION_38_0(v336);
+  v338 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters(v337);
+  v339 = OUTLINED_FUNCTION_13(v338);
+  MEMORY[0x28223BE20](v339);
+  OUTLINED_FUNCTION_12_1();
+  v341 = OUTLINED_FUNCTION_38_0(v340);
+  v342 = type metadata accessor for NeuralNetwork.Layer.GELUParameters(v341);
+  v343 = OUTLINED_FUNCTION_13(v342);
+  MEMORY[0x28223BE20](v343);
+  OUTLINED_FUNCTION_12_1();
+  v345 = OUTLINED_FUNCTION_38_0(v344);
+  v346 = type metadata accessor for NeuralNetwork.Layer.ClipParameters(v345);
   v347 = OUTLINED_FUNCTION_13(v346);
-  v349 = *(v348 + 64);
   MEMORY[0x28223BE20](v347);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v350);
-  v351 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters();
-  v352 = OUTLINED_FUNCTION_13(v351);
-  v354 = *(v353 + 64);
-  MEMORY[0x28223BE20](v352);
+  v349 = OUTLINED_FUNCTION_38_0(v348);
+  v350 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters(v349);
+  v351 = OUTLINED_FUNCTION_13(v350);
+  MEMORY[0x28223BE20](v351);
   OUTLINED_FUNCTION_12_1();
-  v356 = OUTLINED_FUNCTION_38_0(v355);
-  v357 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters(v356);
-  v358 = OUTLINED_FUNCTION_13(v357);
-  v360 = *(v359 + 64);
-  MEMORY[0x28223BE20](v358);
+  v353 = OUTLINED_FUNCTION_38_0(v352);
+  v354 = type metadata accessor for NeuralNetwork.Layer.Activation(v353);
+  v355 = OUTLINED_FUNCTION_13(v354);
+  MEMORY[0x28223BE20](v355);
   OUTLINED_FUNCTION_12_1();
-  v362 = OUTLINED_FUNCTION_38_0(v361);
-  v363 = type metadata accessor for NeuralNetwork.Layer.LRNParameters(v362);
-  v364 = OUTLINED_FUNCTION_13(v363);
-  v366 = *(v365 + 64);
-  MEMORY[0x28223BE20](v364);
+  v357 = OUTLINED_FUNCTION_38_0(v356);
+  v358 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters(v357);
+  v359 = OUTLINED_FUNCTION_13(v358);
+  MEMORY[0x28223BE20](v359);
   OUTLINED_FUNCTION_12_1();
-  v368 = OUTLINED_FUNCTION_38_0(v367);
-  v369 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters(v368);
-  v370 = OUTLINED_FUNCTION_13(v369);
-  v372 = *(v371 + 64);
-  MEMORY[0x28223BE20](v370);
+  v361 = OUTLINED_FUNCTION_38_0(v360);
+  v362 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters(v361);
+  v363 = OUTLINED_FUNCTION_13(v362);
+  MEMORY[0x28223BE20](v363);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v373);
-  v374 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters();
+  v365 = OUTLINED_FUNCTION_38_0(v364);
+  v366 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters(v365);
+  v367 = OUTLINED_FUNCTION_13(v366);
+  MEMORY[0x28223BE20](v367);
+  OUTLINED_FUNCTION_12_1();
+  v369 = OUTLINED_FUNCTION_38_0(v368);
+  v370 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters(v369);
+  v371 = OUTLINED_FUNCTION_13(v370);
+  MEMORY[0x28223BE20](v371);
+  OUTLINED_FUNCTION_12_1();
+  v373 = OUTLINED_FUNCTION_38_0(v372);
+  v374 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters(v373);
   v375 = OUTLINED_FUNCTION_13(v374);
-  v377 = *(v376 + 64);
   MEMORY[0x28223BE20](v375);
   OUTLINED_FUNCTION_12_1();
-  v379 = OUTLINED_FUNCTION_38_0(v378);
-  v380 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters(v379);
-  v381 = OUTLINED_FUNCTION_13(v380);
-  v383 = *(v382 + 64);
-  MEMORY[0x28223BE20](v381);
+  v377 = OUTLINED_FUNCTION_38_0(v376);
+  v378 = type metadata accessor for NeuralNetwork.Layer.SliceParameters(v377);
+  v379 = OUTLINED_FUNCTION_13(v378);
+  MEMORY[0x28223BE20](v379);
+  OUTLINED_FUNCTION_12_1();
+  v381 = OUTLINED_FUNCTION_38_0(v380);
+  v382 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters(v381);
+  v383 = OUTLINED_FUNCTION_13(v382);
+  MEMORY[0x28223BE20](v383);
   OUTLINED_FUNCTION_12_1();
   v385 = OUTLINED_FUNCTION_38_0(v384);
-  v386 = type metadata accessor for NeuralNetwork.Layer.SoftmaxParameters(v385);
+  v386 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters(v385);
   v387 = OUTLINED_FUNCTION_13(v386);
-  v389 = *(v388 + 64);
   MEMORY[0x28223BE20](v387);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v390);
-  v391 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters();
-  v392 = OUTLINED_FUNCTION_13(v391);
-  v394 = *(v393 + 64);
-  MEMORY[0x28223BE20](v392);
+  v389 = OUTLINED_FUNCTION_38_0(v388);
+  v390 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters(v389);
+  v391 = OUTLINED_FUNCTION_13(v390);
+  MEMORY[0x28223BE20](v391);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v395);
-  v396 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters();
-  v397 = OUTLINED_FUNCTION_13(v396);
-  v399 = *(v398 + 64);
-  MEMORY[0x28223BE20](v397);
+  v393 = OUTLINED_FUNCTION_38_0(v392);
+  v394 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters(v393);
+  v395 = OUTLINED_FUNCTION_13(v394);
+  MEMORY[0x28223BE20](v395);
+  OUTLINED_FUNCTION_12_1();
+  v397 = OUTLINED_FUNCTION_38_0(v396);
+  v398 = type metadata accessor for NeuralNetwork.Layer.GatherNDParameters(v397);
+  v399 = OUTLINED_FUNCTION_13(v398);
+  MEMORY[0x28223BE20](v399);
   OUTLINED_FUNCTION_12_1();
   v401 = OUTLINED_FUNCTION_38_0(v400);
-  v402 = type metadata accessor for NeuralNetwork.Layer.BroadcastableFloorDivParameters(v401);
+  v402 = type metadata accessor for NeuralNetwork.Layer.GatherParameters(v401);
   v403 = OUTLINED_FUNCTION_13(v402);
-  v405 = *(v404 + 64);
   MEMORY[0x28223BE20](v403);
   OUTLINED_FUNCTION_12_1();
-  v407 = OUTLINED_FUNCTION_38_0(v406);
-  v408 = type metadata accessor for NeuralNetwork.Layer.BroadcastablePowParameters(v407);
-  v409 = OUTLINED_FUNCTION_13(v408);
-  v411 = *(v410 + 64);
-  MEMORY[0x28223BE20](v409);
+  v405 = OUTLINED_FUNCTION_38_0(v404);
+  v406 = type metadata accessor for NeuralNetwork.Layer.StackParameters(v405);
+  v407 = OUTLINED_FUNCTION_13(v406);
+  MEMORY[0x28223BE20](v407);
+  OUTLINED_FUNCTION_12_1();
+  v409 = OUTLINED_FUNCTION_38_0(v408);
+  v410 = type metadata accessor for NeuralNetwork.Layer.ReshapeDynamicParameters(v409);
+  v411 = OUTLINED_FUNCTION_13(v410);
+  MEMORY[0x28223BE20](v411);
   OUTLINED_FUNCTION_12_1();
   v413 = OUTLINED_FUNCTION_38_0(v412);
-  v414 = type metadata accessor for NeuralNetwork.Layer.BroadcastableModParameters(v413);
+  v414 = type metadata accessor for NeuralNetwork.Layer.ReshapeLikeParameters(v413);
   v415 = OUTLINED_FUNCTION_13(v414);
-  v417 = *(v416 + 64);
   MEMORY[0x28223BE20](v415);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v418);
-  v419 = type metadata accessor for NeuralNetwork.Layer.DotProductParameters();
-  v420 = OUTLINED_FUNCTION_13(v419);
-  v422 = *(v421 + 64);
-  MEMORY[0x28223BE20](v420);
+  v417 = OUTLINED_FUNCTION_38_0(v416);
+  v418 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters(v417);
+  v419 = OUTLINED_FUNCTION_13(v418);
+  MEMORY[0x28223BE20](v419);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v423);
-  v424 = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters();
-  v425 = OUTLINED_FUNCTION_13(v424);
-  v427 = *(v426 + 64);
-  MEMORY[0x28223BE20](v425);
+  v421 = OUTLINED_FUNCTION_38_0(v420);
+  v422 = type metadata accessor for NeuralNetwork.Layer.BroadcastToDynamicParameters(v421);
+  v423 = OUTLINED_FUNCTION_13(v422);
+  MEMORY[0x28223BE20](v423);
+  OUTLINED_FUNCTION_12_1();
+  v425 = OUTLINED_FUNCTION_38_0(v424);
+  v426 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters(v425);
+  v427 = OUTLINED_FUNCTION_13(v426);
+  MEMORY[0x28223BE20](v427);
   OUTLINED_FUNCTION_12_1();
   v429 = OUTLINED_FUNCTION_38_0(v428);
-  v430 = type metadata accessor for NeuralNetwork.Layer.BroadcastableDivideParameters(v429);
+  v430 = type metadata accessor for NeuralNetwork.Layer.BroadcastToLikeParameters(v429);
   v431 = OUTLINED_FUNCTION_13(v430);
-  v433 = *(v432 + 64);
   MEMORY[0x28223BE20](v431);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v434);
-  v435 = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters();
-  v436 = OUTLINED_FUNCTION_13(v435);
-  v438 = *(v437 + 64);
-  MEMORY[0x28223BE20](v436);
+  v433 = OUTLINED_FUNCTION_38_0(v432);
+  v434 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters(v433);
+  v435 = OUTLINED_FUNCTION_13(v434);
+  MEMORY[0x28223BE20](v435);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v439);
-  v440 = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters();
-  v441 = OUTLINED_FUNCTION_13(v440);
-  v443 = *(v442 + 64);
-  MEMORY[0x28223BE20](v441);
+  v437 = OUTLINED_FUNCTION_38_0(v436);
+  v438 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters(v437);
+  v439 = OUTLINED_FUNCTION_13(v438);
+  MEMORY[0x28223BE20](v439);
+  OUTLINED_FUNCTION_12_1();
+  v441 = OUTLINED_FUNCTION_38_0(v440);
+  v442 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters(v441);
+  v443 = OUTLINED_FUNCTION_13(v442);
+  MEMORY[0x28223BE20](v443);
   OUTLINED_FUNCTION_12_1();
   v445 = OUTLINED_FUNCTION_38_0(v444);
-  v446 = type metadata accessor for NeuralNetwork.Layer.BroadcastableAddParameters(v445);
+  v446 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters(v445);
   v447 = OUTLINED_FUNCTION_13(v446);
-  v449 = *(v448 + 64);
   MEMORY[0x28223BE20](v447);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v450);
-  v451 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters();
-  v452 = OUTLINED_FUNCTION_13(v451);
-  v454 = *(v453 + 64);
-  MEMORY[0x28223BE20](v452);
+  v449 = OUTLINED_FUNCTION_38_0(v448);
+  v450 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters(v449);
+  v451 = OUTLINED_FUNCTION_13(v450);
+  MEMORY[0x28223BE20](v451);
   OUTLINED_FUNCTION_12_1();
-  v456 = OUTLINED_FUNCTION_38_0(v455);
-  v457 = type metadata accessor for NeuralNetwork.Layer.AddParameters(v456);
-  v458 = OUTLINED_FUNCTION_13(v457);
-  v460 = *(v459 + 64);
-  MEMORY[0x28223BE20](v458);
+  v453 = OUTLINED_FUNCTION_38_0(v452);
+  v454 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters(v453);
+  v455 = OUTLINED_FUNCTION_13(v454);
+  MEMORY[0x28223BE20](v455);
   OUTLINED_FUNCTION_12_1();
-  v462 = OUTLINED_FUNCTION_38_0(v461);
-  v463 = type metadata accessor for NeuralNetwork.Layer.GlobalPool3DParameters(v462);
-  v464 = OUTLINED_FUNCTION_13(v463);
-  v466 = *(v465 + 64);
-  MEMORY[0x28223BE20](v464);
+  v457 = OUTLINED_FUNCTION_38_0(v456);
+  v458 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters(v457);
+  v459 = OUTLINED_FUNCTION_13(v458);
+  MEMORY[0x28223BE20](v459);
   OUTLINED_FUNCTION_12_1();
-  v468 = OUTLINED_FUNCTION_38_0(v467);
-  v469 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters(v468);
-  v470 = OUTLINED_FUNCTION_13(v469);
-  v472 = *(v471 + 64);
-  MEMORY[0x28223BE20](v470);
+  v461 = OUTLINED_FUNCTION_38_0(v460);
+  v462 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters(v461);
+  v463 = OUTLINED_FUNCTION_13(v462);
+  MEMORY[0x28223BE20](v463);
   OUTLINED_FUNCTION_12_1();
-  v474 = OUTLINED_FUNCTION_38_0(v473);
-  v475 = type metadata accessor for NeuralNetwork.Layer.PoolParameters(v474);
-  v476 = OUTLINED_FUNCTION_13(v475);
-  v478 = *(v477 + 64);
-  MEMORY[0x28223BE20](v476);
+  v465 = OUTLINED_FUNCTION_38_0(v464);
+  v466 = type metadata accessor for NeuralNetwork.Layer.TileParameters(v465);
+  v467 = OUTLINED_FUNCTION_13(v466);
+  MEMORY[0x28223BE20](v467);
   OUTLINED_FUNCTION_12_1();
-  v480 = OUTLINED_FUNCTION_38_0(v479);
-  v481 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters(v480);
-  v482 = OUTLINED_FUNCTION_13(v481);
-  v484 = *(v483 + 64);
-  MEMORY[0x28223BE20](v482);
+  v469 = OUTLINED_FUNCTION_38_0(v468);
+  v470 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters(v469);
+  v471 = OUTLINED_FUNCTION_13(v470);
+  MEMORY[0x28223BE20](v471);
   OUTLINED_FUNCTION_12_1();
-  v486 = OUTLINED_FUNCTION_38_0(v485);
-  v487 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters(v486);
-  v488 = OUTLINED_FUNCTION_13(v487);
-  v490 = *(v489 + 64);
-  MEMORY[0x28223BE20](v488);
+  v473 = OUTLINED_FUNCTION_38_0(v472);
+  v474 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters(v473);
+  v475 = OUTLINED_FUNCTION_13(v474);
+  MEMORY[0x28223BE20](v475);
   OUTLINED_FUNCTION_12_1();
-  v492 = OUTLINED_FUNCTION_38_0(v491);
-  v493 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters(v492);
-  v494 = OUTLINED_FUNCTION_13(v493);
-  v496 = *(v495 + 64);
-  MEMORY[0x28223BE20](v494);
+  v477 = OUTLINED_FUNCTION_38_0(v476);
+  v478 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters(v477);
+  v479 = OUTLINED_FUNCTION_13(v478);
+  MEMORY[0x28223BE20](v479);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v497);
-  v498 = type metadata accessor for NeuralNetwork.Layer.GELUParameters();
+  v481 = OUTLINED_FUNCTION_38_0(v480);
+  v482 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters(v481);
+  v483 = OUTLINED_FUNCTION_13(v482);
+  MEMORY[0x28223BE20](v483);
+  OUTLINED_FUNCTION_12_1();
+  v485 = OUTLINED_FUNCTION_38_0(v484);
+  v486 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters(v485);
+  v487 = OUTLINED_FUNCTION_13(v486);
+  MEMORY[0x28223BE20](v487);
+  OUTLINED_FUNCTION_12_1();
+  v489 = OUTLINED_FUNCTION_38_0(v488);
+  v490 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters(v489);
+  v491 = OUTLINED_FUNCTION_13(v490);
+  MEMORY[0x28223BE20](v491);
+  OUTLINED_FUNCTION_12_1();
+  v493 = OUTLINED_FUNCTION_38_0(v492);
+  v494 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters(v493);
+  v495 = OUTLINED_FUNCTION_13(v494);
+  MEMORY[0x28223BE20](v495);
+  OUTLINED_FUNCTION_12_1();
+  v497 = OUTLINED_FUNCTION_38_0(v496);
+  v498 = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters(v497);
   v499 = OUTLINED_FUNCTION_13(v498);
-  v501 = *(v500 + 64);
   MEMORY[0x28223BE20](v499);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v502);
-  v503 = type metadata accessor for NeuralNetwork.Layer.ClipParameters();
-  v504 = OUTLINED_FUNCTION_13(v503);
-  v506 = *(v505 + 64);
-  MEMORY[0x28223BE20](v504);
+  v501 = OUTLINED_FUNCTION_38_0(v500);
+  v502 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters(v501);
+  v503 = OUTLINED_FUNCTION_13(v502);
+  MEMORY[0x28223BE20](v503);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v507);
-  v508 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters();
-  v509 = OUTLINED_FUNCTION_13(v508);
-  v511 = *(v510 + 64);
-  MEMORY[0x28223BE20](v509);
+  v505 = OUTLINED_FUNCTION_38_0(v504);
+  v506 = type metadata accessor for NeuralNetwork.Layer.SplitParameters(v505);
+  v507 = OUTLINED_FUNCTION_13(v506);
+  MEMORY[0x28223BE20](v507);
+  OUTLINED_FUNCTION_12_1();
+  v509 = OUTLINED_FUNCTION_38_0(v508);
+  v510 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters(v509);
+  v511 = OUTLINED_FUNCTION_13(v510);
+  MEMORY[0x28223BE20](v511);
   OUTLINED_FUNCTION_12_1();
   v513 = OUTLINED_FUNCTION_38_0(v512);
-  v514 = type metadata accessor for NeuralNetwork.Layer.Activation(v513);
+  v514 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters(v513);
   v515 = OUTLINED_FUNCTION_13(v514);
-  v517 = *(v516 + 64);
   MEMORY[0x28223BE20](v515);
   OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v518);
-  v519 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters();
-  v520 = OUTLINED_FUNCTION_13(v519);
-  v522 = *(v521 + 64);
-  MEMORY[0x28223BE20](v520);
+  v517 = OUTLINED_FUNCTION_38_0(v516);
+  v518 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters(v517);
+  v519 = OUTLINED_FUNCTION_13(v518);
+  MEMORY[0x28223BE20](v519);
   OUTLINED_FUNCTION_12_1();
-  v524 = OUTLINED_FUNCTION_38_0(v523);
-  v525 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters(v524);
-  v526 = OUTLINED_FUNCTION_13(v525);
-  v528 = *(v527 + 64);
-  MEMORY[0x28223BE20](v526);
+  v521 = OUTLINED_FUNCTION_38_0(v520);
+  v522 = type metadata accessor for NeuralNetwork.Layer.PadParameters(v521);
+  v523 = OUTLINED_FUNCTION_13(v522);
+  MEMORY[0x28223BE20](v523);
   OUTLINED_FUNCTION_12_1();
-  v530 = OUTLINED_FUNCTION_38_0(v529);
-  v531 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters(v530);
-  v532 = OUTLINED_FUNCTION_13(v531);
-  v534 = *(v533 + 64);
-  MEMORY[0x28223BE20](v532);
+  v525 = OUTLINED_FUNCTION_38_0(v524);
+  v526 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters(v525);
+  v527 = OUTLINED_FUNCTION_13(v526);
+  MEMORY[0x28223BE20](v527);
   OUTLINED_FUNCTION_12_1();
-  v536 = OUTLINED_FUNCTION_38_0(v535);
-  v537 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters(v536);
-  v538 = OUTLINED_FUNCTION_13(v537);
-  v540 = *(v539 + 64);
-  MEMORY[0x28223BE20](v538);
+  v529 = OUTLINED_FUNCTION_38_0(v528);
+  v530 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters(v529);
+  v531 = OUTLINED_FUNCTION_13(v530);
+  MEMORY[0x28223BE20](v531);
   OUTLINED_FUNCTION_12_1();
-  v542 = OUTLINED_FUNCTION_38_0(v541);
-  v543 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters(v542);
-  v544 = OUTLINED_FUNCTION_13(v543);
-  v546 = *(v545 + 64);
-  MEMORY[0x28223BE20](v544);
-  OUTLINED_FUNCTION_12_1();
-  v548 = OUTLINED_FUNCTION_38_0(v547);
-  v549 = type metadata accessor for NeuralNetwork.Layer.SliceParameters(v548);
-  v550 = OUTLINED_FUNCTION_13(v549);
-  v552 = *(v551 + 64);
-  MEMORY[0x28223BE20](v550);
-  OUTLINED_FUNCTION_12_1();
-  v554 = OUTLINED_FUNCTION_38_0(v553);
-  v555 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters(v554);
-  v556 = OUTLINED_FUNCTION_13(v555);
-  v558 = *(v557 + 64);
-  MEMORY[0x28223BE20](v556);
-  OUTLINED_FUNCTION_12_1();
-  v560 = OUTLINED_FUNCTION_38_0(v559);
-  v561 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters(v560);
-  v562 = OUTLINED_FUNCTION_13(v561);
-  v564 = *(v563 + 64);
-  MEMORY[0x28223BE20](v562);
-  OUTLINED_FUNCTION_12_1();
-  v566 = OUTLINED_FUNCTION_38_0(v565);
-  v567 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters(v566);
-  v568 = OUTLINED_FUNCTION_13(v567);
-  v570 = *(v569 + 64);
-  MEMORY[0x28223BE20](v568);
-  OUTLINED_FUNCTION_12_1();
-  v572 = OUTLINED_FUNCTION_38_0(v571);
-  v573 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters(v572);
-  v574 = OUTLINED_FUNCTION_13(v573);
-  v576 = *(v575 + 64);
-  MEMORY[0x28223BE20](v574);
-  OUTLINED_FUNCTION_12_1();
-  v578 = OUTLINED_FUNCTION_38_0(v577);
-  v579 = type metadata accessor for NeuralNetwork.Layer.GatherNDParameters(v578);
-  v580 = OUTLINED_FUNCTION_13(v579);
-  v582 = *(v581 + 64);
-  MEMORY[0x28223BE20](v580);
-  OUTLINED_FUNCTION_12_1();
-  v584 = OUTLINED_FUNCTION_38_0(v583);
-  v585 = type metadata accessor for NeuralNetwork.Layer.GatherParameters(v584);
-  v586 = OUTLINED_FUNCTION_13(v585);
-  v588 = *(v587 + 64);
-  MEMORY[0x28223BE20](v586);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v589);
-  v590 = type metadata accessor for NeuralNetwork.Layer.StackParameters();
-  v591 = OUTLINED_FUNCTION_13(v590);
-  v593 = *(v592 + 64);
-  MEMORY[0x28223BE20](v591);
-  OUTLINED_FUNCTION_12_1();
-  v595 = OUTLINED_FUNCTION_38_0(v594);
-  v596 = type metadata accessor for NeuralNetwork.Layer.ReshapeDynamicParameters(v595);
-  v597 = OUTLINED_FUNCTION_13(v596);
-  v599 = *(v598 + 64);
-  MEMORY[0x28223BE20](v597);
-  OUTLINED_FUNCTION_12_1();
-  v601 = OUTLINED_FUNCTION_38_0(v600);
-  v602 = type metadata accessor for NeuralNetwork.Layer.ReshapeLikeParameters(v601);
-  v603 = OUTLINED_FUNCTION_13(v602);
-  v605 = *(v604 + 64);
-  MEMORY[0x28223BE20](v603);
-  OUTLINED_FUNCTION_12_1();
-  v607 = OUTLINED_FUNCTION_38_0(v606);
-  v608 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters(v607);
-  v609 = OUTLINED_FUNCTION_13(v608);
-  v611 = *(v610 + 64);
-  MEMORY[0x28223BE20](v609);
-  OUTLINED_FUNCTION_12_1();
-  v613 = OUTLINED_FUNCTION_38_0(v612);
-  v614 = type metadata accessor for NeuralNetwork.Layer.BroadcastToDynamicParameters(v613);
-  v615 = OUTLINED_FUNCTION_13(v614);
-  v617 = *(v616 + 64);
-  MEMORY[0x28223BE20](v615);
-  OUTLINED_FUNCTION_12_1();
-  v619 = OUTLINED_FUNCTION_38_0(v618);
-  v620 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters(v619);
-  v621 = OUTLINED_FUNCTION_13(v620);
-  v623 = *(v622 + 64);
-  MEMORY[0x28223BE20](v621);
-  OUTLINED_FUNCTION_12_1();
-  v625 = OUTLINED_FUNCTION_38_0(v624);
-  v626 = type metadata accessor for NeuralNetwork.Layer.BroadcastToLikeParameters(v625);
-  v627 = OUTLINED_FUNCTION_13(v626);
-  v629 = *(v628 + 64);
-  MEMORY[0x28223BE20](v627);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v630);
-  v631 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters();
-  v632 = OUTLINED_FUNCTION_13(v631);
-  v634 = *(v633 + 64);
-  MEMORY[0x28223BE20](v632);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v635);
-  v636 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters();
-  v637 = OUTLINED_FUNCTION_13(v636);
-  v639 = *(v638 + 64);
-  MEMORY[0x28223BE20](v637);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v640);
-  v641 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters();
-  v642 = OUTLINED_FUNCTION_13(v641);
-  v644 = *(v643 + 64);
-  MEMORY[0x28223BE20](v642);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v645);
-  v646 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters();
-  v647 = OUTLINED_FUNCTION_13(v646);
-  v649 = *(v648 + 64);
-  MEMORY[0x28223BE20](v647);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v650);
-  v651 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters();
-  v652 = OUTLINED_FUNCTION_13(v651);
-  v654 = *(v653 + 64);
-  MEMORY[0x28223BE20](v652);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v655);
-  v656 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters();
-  v657 = OUTLINED_FUNCTION_13(v656);
-  v659 = *(v658 + 64);
-  MEMORY[0x28223BE20](v657);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v660);
-  v661 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters();
-  v662 = OUTLINED_FUNCTION_13(v661);
-  v664 = *(v663 + 64);
-  MEMORY[0x28223BE20](v662);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v665);
-  v666 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters();
-  v667 = OUTLINED_FUNCTION_13(v666);
-  v669 = *(v668 + 64);
-  MEMORY[0x28223BE20](v667);
-  OUTLINED_FUNCTION_12_1();
-  v671 = OUTLINED_FUNCTION_38_0(v670);
-  v672 = type metadata accessor for NeuralNetwork.Layer.TileParameters(v671);
-  v673 = OUTLINED_FUNCTION_13(v672);
-  v675 = *(v674 + 64);
-  MEMORY[0x28223BE20](v673);
-  OUTLINED_FUNCTION_12_1();
-  v677 = OUTLINED_FUNCTION_38_0(v676);
-  v678 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters(v677);
-  v679 = OUTLINED_FUNCTION_13(v678);
-  v681 = *(v680 + 64);
-  MEMORY[0x28223BE20](v679);
-  OUTLINED_FUNCTION_12_1();
-  v683 = OUTLINED_FUNCTION_38_0(v682);
-  v684 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters(v683);
-  v685 = OUTLINED_FUNCTION_13(v684);
-  v687 = *(v686 + 64);
-  MEMORY[0x28223BE20](v685);
-  OUTLINED_FUNCTION_12_1();
-  v689 = OUTLINED_FUNCTION_38_0(v688);
-  v690 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters(v689);
-  v691 = OUTLINED_FUNCTION_13(v690);
-  v693 = *(v692 + 64);
-  MEMORY[0x28223BE20](v691);
-  OUTLINED_FUNCTION_12_1();
-  v695 = OUTLINED_FUNCTION_38_0(v694);
-  v696 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters(v695);
-  v697 = OUTLINED_FUNCTION_13(v696);
-  v699 = *(v698 + 64);
-  MEMORY[0x28223BE20](v697);
-  OUTLINED_FUNCTION_12_1();
-  v701 = OUTLINED_FUNCTION_38_0(v700);
-  v702 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters(v701);
-  v703 = OUTLINED_FUNCTION_13(v702);
-  v705 = *(v704 + 64);
-  MEMORY[0x28223BE20](v703);
-  OUTLINED_FUNCTION_12_1();
-  v707 = OUTLINED_FUNCTION_38_0(v706);
-  v708 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters(v707);
-  v709 = OUTLINED_FUNCTION_13(v708);
-  v711 = *(v710 + 64);
-  MEMORY[0x28223BE20](v709);
-  OUTLINED_FUNCTION_12_1();
-  v713 = OUTLINED_FUNCTION_38_0(v712);
-  v714 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters(v713);
-  v715 = OUTLINED_FUNCTION_13(v714);
-  v717 = *(v716 + 64);
-  MEMORY[0x28223BE20](v715);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v718);
-  v719 = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters();
-  v720 = OUTLINED_FUNCTION_13(v719);
-  v722 = *(v721 + 64);
-  MEMORY[0x28223BE20](v720);
-  OUTLINED_FUNCTION_12_1();
-  v724 = OUTLINED_FUNCTION_38_0(v723);
-  v725 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters(v724);
-  v726 = OUTLINED_FUNCTION_13(v725);
-  v728 = *(v727 + 64);
-  MEMORY[0x28223BE20](v726);
-  OUTLINED_FUNCTION_12_1();
-  v730 = OUTLINED_FUNCTION_38_0(v729);
-  v731 = type metadata accessor for NeuralNetwork.Layer.SplitParameters(v730);
-  v732 = OUTLINED_FUNCTION_13(v731);
-  v734 = *(v733 + 64);
-  MEMORY[0x28223BE20](v732);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v735);
-  v736 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters();
-  v737 = OUTLINED_FUNCTION_13(v736);
-  v739 = *(v738 + 64);
-  MEMORY[0x28223BE20](v737);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v740);
-  v741 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters();
-  v742 = OUTLINED_FUNCTION_13(v741);
-  v744 = *(v743 + 64);
-  MEMORY[0x28223BE20](v742);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v745);
-  v746 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters();
-  v747 = OUTLINED_FUNCTION_13(v746);
-  v749 = *(v748 + 64);
-  MEMORY[0x28223BE20](v747);
-  OUTLINED_FUNCTION_12_1();
-  v751 = OUTLINED_FUNCTION_38_0(v750);
-  v752 = type metadata accessor for NeuralNetwork.Layer.PadParameters(v751);
-  v753 = OUTLINED_FUNCTION_13(v752);
-  v755 = *(v754 + 64);
-  MEMORY[0x28223BE20](v753);
-  OUTLINED_FUNCTION_12_1();
-  v757 = OUTLINED_FUNCTION_38_0(v756);
-  v758 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters(v757);
-  v759 = OUTLINED_FUNCTION_13(v758);
-  v761 = *(v760 + 64);
-  MEMORY[0x28223BE20](v759);
-  OUTLINED_FUNCTION_12_1();
-  v763 = OUTLINED_FUNCTION_38_0(v762);
-  v764 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters(v763);
-  v765 = OUTLINED_FUNCTION_13(v764);
-  v767 = *(v766 + 64);
-  MEMORY[0x28223BE20](v765);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v768);
-  v1907 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v769 = OUTLINED_FUNCTION_4(v1907);
-  v771 = *(v770 + 64);
-  MEMORY[0x28223BE20](v769);
+  v533 = OUTLINED_FUNCTION_38_0(v532);
+  v1665 = type metadata accessor for NeuralNetwork.Layer.Kind(v533);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v534);
   OUTLINED_FUNCTION_11();
-  v1906 = (v772 - v773);
+  v1664 = (v535 - v536);
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v774);
+  MEMORY[0x28223BE20](v537);
   OUTLINED_FUNCTION_167();
-  v1905 = v775;
+  v1663 = v538;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v776);
+  MEMORY[0x28223BE20](v539);
   OUTLINED_FUNCTION_167();
-  v1904 = v777;
+  v1662 = v540;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v778);
+  MEMORY[0x28223BE20](v541);
   OUTLINED_FUNCTION_167();
-  v1903 = v779;
+  v1661 = v542;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v780);
+  MEMORY[0x28223BE20](v543);
   OUTLINED_FUNCTION_167();
-  v1902 = v781;
+  v1660 = v544;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v782);
+  MEMORY[0x28223BE20](v545);
   OUTLINED_FUNCTION_167();
-  v1901 = v783;
+  v1659 = v546;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v784);
+  MEMORY[0x28223BE20](v547);
   OUTLINED_FUNCTION_167();
-  v1900 = v785;
+  v1658 = v548;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v786);
+  MEMORY[0x28223BE20](v549);
   OUTLINED_FUNCTION_167();
-  v1899 = v787;
+  v1657 = v550;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v788);
+  MEMORY[0x28223BE20](v551);
   OUTLINED_FUNCTION_167();
-  v1898 = v789;
+  v1656 = v552;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v790);
+  MEMORY[0x28223BE20](v553);
   OUTLINED_FUNCTION_167();
-  v1897 = v791;
+  v1655 = v554;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v792);
+  MEMORY[0x28223BE20](v555);
   OUTLINED_FUNCTION_167();
-  v1896 = v793;
+  v1654 = v556;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v794);
+  MEMORY[0x28223BE20](v557);
   OUTLINED_FUNCTION_167();
-  v1895 = v795;
+  v1653 = v558;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v796);
+  MEMORY[0x28223BE20](v559);
   OUTLINED_FUNCTION_167();
-  v1894 = v797;
+  v1652 = v560;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v798);
+  MEMORY[0x28223BE20](v561);
   OUTLINED_FUNCTION_167();
-  v1893 = v799;
+  v1651 = v562;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v800);
+  MEMORY[0x28223BE20](v563);
   OUTLINED_FUNCTION_167();
-  v1892 = v801;
+  v1650 = v564;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v802);
+  MEMORY[0x28223BE20](v565);
   OUTLINED_FUNCTION_167();
-  v1891 = v803;
+  v1649 = v566;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v804);
+  MEMORY[0x28223BE20](v567);
   OUTLINED_FUNCTION_167();
-  v1890 = v805;
+  v1648 = v568;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v806);
+  MEMORY[0x28223BE20](v569);
   OUTLINED_FUNCTION_167();
-  v1889 = v807;
+  v1647 = v570;
   OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v808);
+  MEMORY[0x28223BE20](v571);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v809);
+  MEMORY[0x28223BE20](v572);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v810);
+  MEMORY[0x28223BE20](v573);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v811);
+  MEMORY[0x28223BE20](v574);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v812);
+  MEMORY[0x28223BE20](v575);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v813);
+  MEMORY[0x28223BE20](v576);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v814);
+  MEMORY[0x28223BE20](v577);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v815);
+  MEMORY[0x28223BE20](v578);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v816);
+  MEMORY[0x28223BE20](v579);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v817);
+  MEMORY[0x28223BE20](v580);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v818);
+  MEMORY[0x28223BE20](v581);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v819);
+  MEMORY[0x28223BE20](v582);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v820);
+  MEMORY[0x28223BE20](v583);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v821);
+  MEMORY[0x28223BE20](v584);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v822);
+  MEMORY[0x28223BE20](v585);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v823);
+  MEMORY[0x28223BE20](v586);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v824);
+  MEMORY[0x28223BE20](v587);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v825);
+  MEMORY[0x28223BE20](v588);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v826);
+  MEMORY[0x28223BE20](v589);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v827);
+  MEMORY[0x28223BE20](v590);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v828);
+  MEMORY[0x28223BE20](v591);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v829);
+  MEMORY[0x28223BE20](v592);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v830);
+  MEMORY[0x28223BE20](v593);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v831);
+  MEMORY[0x28223BE20](v594);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v832);
+  MEMORY[0x28223BE20](v595);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v833);
+  MEMORY[0x28223BE20](v596);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v834);
+  MEMORY[0x28223BE20](v597);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v835);
+  MEMORY[0x28223BE20](v598);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v836);
+  MEMORY[0x28223BE20](v599);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v837);
+  MEMORY[0x28223BE20](v600);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v838);
+  MEMORY[0x28223BE20](v601);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v839);
+  MEMORY[0x28223BE20](v602);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v840);
+  MEMORY[0x28223BE20](v603);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v841);
+  MEMORY[0x28223BE20](v604);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v842);
+  MEMORY[0x28223BE20](v605);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v843);
+  MEMORY[0x28223BE20](v606);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v844);
+  MEMORY[0x28223BE20](v607);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v845);
+  MEMORY[0x28223BE20](v608);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v846);
+  MEMORY[0x28223BE20](v609);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v847);
+  MEMORY[0x28223BE20](v610);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v848);
+  MEMORY[0x28223BE20](v611);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v849);
+  MEMORY[0x28223BE20](v612);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v850);
+  MEMORY[0x28223BE20](v613);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v851);
+  MEMORY[0x28223BE20](v614);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v852);
+  MEMORY[0x28223BE20](v615);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v853);
+  MEMORY[0x28223BE20](v616);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v854);
+  MEMORY[0x28223BE20](v617);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v855);
+  MEMORY[0x28223BE20](v618);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v856);
+  MEMORY[0x28223BE20](v619);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v857);
+  MEMORY[0x28223BE20](v620);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v858);
+  MEMORY[0x28223BE20](v621);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v859);
+  MEMORY[0x28223BE20](v622);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v860);
+  MEMORY[0x28223BE20](v623);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v861);
+  MEMORY[0x28223BE20](v624);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v862);
+  MEMORY[0x28223BE20](v625);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v863);
+  MEMORY[0x28223BE20](v626);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v864);
+  MEMORY[0x28223BE20](v627);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v865);
+  MEMORY[0x28223BE20](v628);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v866);
+  MEMORY[0x28223BE20](v629);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v867);
+  MEMORY[0x28223BE20](v630);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v868);
+  MEMORY[0x28223BE20](v631);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v869);
+  MEMORY[0x28223BE20](v632);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v870);
+  MEMORY[0x28223BE20](v633);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v871);
+  MEMORY[0x28223BE20](v634);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v872);
+  MEMORY[0x28223BE20](v635);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v873);
+  MEMORY[0x28223BE20](v636);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v874);
+  MEMORY[0x28223BE20](v637);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v875);
+  MEMORY[0x28223BE20](v638);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v876);
+  MEMORY[0x28223BE20](v639);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v877);
+  MEMORY[0x28223BE20](v640);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v878);
+  MEMORY[0x28223BE20](v641);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v879);
+  MEMORY[0x28223BE20](v642);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v880);
+  MEMORY[0x28223BE20](v643);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v881);
+  MEMORY[0x28223BE20](v644);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v882);
+  MEMORY[0x28223BE20](v645);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v883);
+  MEMORY[0x28223BE20](v646);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v884);
+  MEMORY[0x28223BE20](v647);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v885);
+  MEMORY[0x28223BE20](v648);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v886);
+  MEMORY[0x28223BE20](v649);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v887);
+  MEMORY[0x28223BE20](v650);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v888);
+  MEMORY[0x28223BE20](v651);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v889);
+  MEMORY[0x28223BE20](v652);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v890);
+  MEMORY[0x28223BE20](v653);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v891);
+  MEMORY[0x28223BE20](v654);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v892);
+  MEMORY[0x28223BE20](v655);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v893);
+  MEMORY[0x28223BE20](v656);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v894);
+  MEMORY[0x28223BE20](v657);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v895);
+  MEMORY[0x28223BE20](v658);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v896);
+  MEMORY[0x28223BE20](v659);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v897);
+  MEMORY[0x28223BE20](v660);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v898);
+  MEMORY[0x28223BE20](v661);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v899);
+  MEMORY[0x28223BE20](v662);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v900);
+  MEMORY[0x28223BE20](v663);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v901);
+  MEMORY[0x28223BE20](v664);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v902);
+  MEMORY[0x28223BE20](v665);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v903);
+  MEMORY[0x28223BE20](v666);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v904);
+  MEMORY[0x28223BE20](v667);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v905);
+  MEMORY[0x28223BE20](v668);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v906);
+  MEMORY[0x28223BE20](v669);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v907);
+  MEMORY[0x28223BE20](v670);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v908);
+  MEMORY[0x28223BE20](v671);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v909);
+  MEMORY[0x28223BE20](v672);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v910);
+  MEMORY[0x28223BE20](v673);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v911);
+  MEMORY[0x28223BE20](v674);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v912);
+  MEMORY[0x28223BE20](v675);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v913);
+  MEMORY[0x28223BE20](v676);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v914);
+  MEMORY[0x28223BE20](v677);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  MEMORY[0x28223BE20](v915);
+  MEMORY[0x28223BE20](v678);
   OUTLINED_FUNCTION_167();
   OUTLINED_FUNCTION_70();
-  v917 = MEMORY[0x28223BE20](v916);
-  v919 = &v1679 - v918;
-  v920 = MEMORY[0x28223BE20](v917);
-  v922 = &v1679 - v921;
-  v923 = MEMORY[0x28223BE20](v920);
-  v925 = &v1679 - v924;
-  v926 = MEMORY[0x28223BE20](v923);
-  v928 = &v1679 - v927;
-  v929 = MEMORY[0x28223BE20](v926);
-  v931 = &v1679 - v930;
-  v932 = MEMORY[0x28223BE20](v929);
-  v934 = &v1679 - v933;
-  MEMORY[0x28223BE20](v932);
-  v936 = &v1679 - v935;
-  v937 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A080, &qword_257744BB0);
-  v938 = OUTLINED_FUNCTION_13(v937);
-  v940 = *(v939 + 64);
-  v941 = MEMORY[0x28223BE20](v938);
-  v943 = &v1679 - v942;
-  v944 = *(v941 + 56);
-  sub_25749773C(v1908, &v1679 - v942, type metadata accessor for NeuralNetwork.Layer.Kind);
-  v1908 = v944;
-  sub_25749773C(v1909, &v943[v944], type metadata accessor for NeuralNetwork.Layer.Kind);
+  v680 = MEMORY[0x28223BE20](v679);
+  v682 = &v1437 - v681;
+  v683 = MEMORY[0x28223BE20](v680);
+  v685 = &v1437 - v684;
+  v686 = MEMORY[0x28223BE20](v683);
+  v688 = &v1437 - v687;
+  v689 = MEMORY[0x28223BE20](v686);
+  v691 = &v1437 - v690;
+  v692 = MEMORY[0x28223BE20](v689);
+  v694 = &v1437 - v693;
+  v695 = MEMORY[0x28223BE20](v692);
+  v697 = &v1437 - v696;
+  MEMORY[0x28223BE20](v695);
+  v699 = &v1437 - v698;
+  v700 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A080, &qword_257744BB0);
+  v701 = OUTLINED_FUNCTION_13(v700);
+  v702 = MEMORY[0x28223BE20](v701);
+  v704 = &v1437 - v703;
+  v705 = *(v702 + 56);
+  sub_25749773C(v1666, &v1437 - v703, type metadata accessor for NeuralNetwork.Layer.Kind);
+  v1666 = v705;
+  sub_25749773C(v1667, &v704[v705], type metadata accessor for NeuralNetwork.Layer.Kind);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      v1030 = OUTLINED_FUNCTION_0_2();
-      sub_25749773C(v1030, v934, v1031);
+      v790 = OUTLINED_FUNCTION_0_2();
+      sub_25749773C(v790, v697, v791);
       if (OUTLINED_FUNCTION_17_1() == 1)
       {
-        v1032 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1032, v1033, v1682);
-        v955 = static NeuralNetwork.Layer.ConstantNDParameters.== infix(_:_:)(v934, v919);
-        v1034 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters;
-        sub_25749779C(v919, type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters);
-        v1035 = v934;
+        v792 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v792, v793, &v1440);
+        v714 = static NeuralNetwork.Layer.ConstantNDParameters.== infix(_:_:)(v697);
+        v794 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters;
+        sub_25749779C(v682, type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters);
+        v795 = v697;
         goto LABEL_319;
       }
 
-      v947 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters;
-      v948 = v934;
+      v708 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters;
+      v709 = v697;
       goto LABEL_454;
     case 2u:
-      v1062 = OUTLINED_FUNCTION_0_2();
-      sub_25749773C(v1062, v931, v1063);
+      v822 = OUTLINED_FUNCTION_0_2();
+      sub_25749773C(v822, v694, v823);
       if (OUTLINED_FUNCTION_17_1() == 2)
       {
-        v1064 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1064, v1065, v1683);
+        v824 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v824, v825, &v1441);
         OUTLINED_FUNCTION_360();
         static NeuralNetwork.Layer.PadParameters.== infix(_:_:)();
-        v955 = v1066;
-        v956 = type metadata accessor for NeuralNetwork.Layer.PadParameters;
+        v714 = v826;
+        v715 = type metadata accessor for NeuralNetwork.Layer.PadParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.PadParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.PadParameters;
       goto LABEL_453;
     case 3u:
-      v1611 = OUTLINED_FUNCTION_0_2();
-      sub_25749773C(v1611, v928, v1612);
+      v1364 = OUTLINED_FUNCTION_0_2();
+      sub_25749773C(v1364, v691, v1365);
       if (OUTLINED_FUNCTION_17_1() == 3)
       {
-        v1613 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1613, v1614, v1684);
-        v955 = static NeuralNetwork.Layer.ConstantPadParameters.== infix(_:_:)(v928, v919);
-        v1034 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters;
-        sub_25749779C(v919, type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters);
-        v1035 = v928;
+        v1366 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1366, v1367, &v1442);
+        v714 = static NeuralNetwork.Layer.ConstantPadParameters.== infix(_:_:)(v691, v682);
+        v794 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters;
+        sub_25749779C(v682, type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters);
+        v795 = v691;
         goto LABEL_319;
       }
 
-      v947 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters;
-      v948 = v928;
+      v708 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters;
+      v709 = v691;
       goto LABEL_454;
     case 4u:
-      v1321 = OUTLINED_FUNCTION_0_2();
-      sub_25749773C(v1321, v925, v1322);
+      v1082 = OUTLINED_FUNCTION_0_2();
+      sub_25749773C(v1082, v688, v1083);
       if (OUTLINED_FUNCTION_17_1() == 4)
       {
-        v1323 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1323, v1324, v1685);
-        v955 = static NeuralNetwork.Layer.ConcatenateParameters.== infix(_:_:)(v925, v919);
-        v1034 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters;
-        sub_25749779C(v919, type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters);
-        v1035 = v925;
+        v1084 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1084, v1085, &v1443);
+        v714 = static NeuralNetwork.Layer.ConcatenateParameters.== infix(_:_:)(v688, v682);
+        v794 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters;
+        sub_25749779C(v682, type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters);
+        v795 = v688;
         goto LABEL_319;
       }
 
-      v947 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters;
-      v948 = v925;
+      v708 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters;
+      v709 = v688;
       goto LABEL_454;
     case 5u:
-      v1072 = OUTLINED_FUNCTION_0_2();
-      sub_25749773C(v1072, v922, v1073);
+      v833 = OUTLINED_FUNCTION_0_2();
+      sub_25749773C(v833, v685, v834);
       if (OUTLINED_FUNCTION_17_1() == 5)
       {
-        v1074 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1074, v1075, v1686);
-        v955 = static NeuralNetwork.Layer.ConcatenateNDParameters.== infix(_:_:)(v922, v919);
-        v1034 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters;
-        sub_25749779C(v919, type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters);
-        v1035 = v922;
+        v835 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v835, v836, &v1444);
+        v714 = static NeuralNetwork.Layer.ConcatenateNDParameters.== infix(_:_:)(v685, v682);
+        v794 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters;
+        sub_25749779C(v682, type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters);
+        v795 = v685;
         goto LABEL_319;
       }
 
-      v947 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters;
-      v948 = v922;
+      v708 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters;
+      v709 = v685;
       goto LABEL_454;
     case 6u:
-      v1105 = OUTLINED_FUNCTION_0_2();
-      sub_25749773C(v1105, v919, v1106);
+      v866 = OUTLINED_FUNCTION_0_2();
+      sub_25749773C(v866, v682, v867);
       if (OUTLINED_FUNCTION_17_1() == 6)
       {
-        v1107 = OUTLINED_FUNCTION_20_1();
-        v1108 = v1681;
-        sub_2574977F4(v1107, v1681, v1109);
-        v955 = static NeuralNetwork.Layer.SplitParameters.== infix(_:_:)(v919, v1108);
-        v1034 = type metadata accessor for NeuralNetwork.Layer.SplitParameters;
-        sub_25749779C(v1108, type metadata accessor for NeuralNetwork.Layer.SplitParameters);
-        v1035 = v919;
+        v868 = OUTLINED_FUNCTION_20_1();
+        v869 = v1439;
+        sub_2574977F4(v868, v1439, v870);
+        v714 = static NeuralNetwork.Layer.SplitParameters.== infix(_:_:)(v682, v869);
+        v794 = type metadata accessor for NeuralNetwork.Layer.SplitParameters;
+        sub_25749779C(v869, type metadata accessor for NeuralNetwork.Layer.SplitParameters);
+        v795 = v682;
         goto LABEL_319;
       }
 
-      v947 = type metadata accessor for NeuralNetwork.Layer.SplitParameters;
-      v948 = v919;
+      v708 = type metadata accessor for NeuralNetwork.Layer.SplitParameters;
+      v709 = v682;
       goto LABEL_454;
     case 7u:
-      v1325 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1325, v1326, v1813);
+      v1086 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1086, v1087, &v1571);
       if (OUTLINED_FUNCTION_17_1() == 7)
       {
-        v1327 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1327, v1328, v1687);
-        v1329 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SplitNDParameters.== infix(_:_:)(v1329, v1330);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters;
+        v1088 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1088, v1089, &v1445);
+        v1090 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SplitNDParameters.== infix(_:_:)(v1090, v1091);
+        v715 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters;
       goto LABEL_453;
     case 8u:
-      v968 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v968, v969, v1814);
+      v728 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v728, v729, &v1572);
       if (OUTLINED_FUNCTION_17_1() == 8)
       {
-        v970 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v970, v971, v1688);
-        v972 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.UpsampleParameters.== infix(_:_:)(v972, v973);
-        sub_25749779C(v919, type metadata accessor for NeuralNetwork.Layer.UpsampleParameters);
-        sub_25749779C(v931, type metadata accessor for NeuralNetwork.Layer.UpsampleParameters);
+        v730 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v730, v731, &v1446);
+        v732 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.UpsampleParameters.== infix(_:_:)(v732);
+        sub_25749779C(v682, type metadata accessor for NeuralNetwork.Layer.UpsampleParameters);
+        sub_25749779C(v694, type metadata accessor for NeuralNetwork.Layer.UpsampleParameters);
         OUTLINED_FUNCTION_1_2();
-        v975 = v943;
+        v734 = v704;
         goto LABEL_320;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters;
       goto LABEL_453;
     case 9u:
-      v1199 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1199, v1200, v1815);
+      v960 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v960, v961, &v1573);
       if (OUTLINED_FUNCTION_17_1() == 9)
       {
-        v1201 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1201, v1202, v1689);
-        v1203 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.FillLikeParameters.== infix(_:_:)(v1203, v1204);
-        v956 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters;
+        v962 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v962, v963, &v1447);
+        v964 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.FillLikeParameters.== infix(_:_:)(v964, v965);
+        v715 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters;
       goto LABEL_453;
     case 0xAu:
-      v976 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v976, v977, v1816);
+      v735 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v735, v736, &v1574);
       if (OUTLINED_FUNCTION_17_1() == 10)
       {
-        v978 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v978, v979, v1690);
-        v980 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.FillStaticParameters.== infix(_:_:)(v980, v981);
-        v956 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters;
+        v737 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v737, v738, &v1448);
+        v739 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.FillStaticParameters.== infix(_:_:)(v739, v740);
+        v715 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters;
       goto LABEL_453;
     case 0xBu:
-      v1646 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1646, v1647, v1817);
+      v1401 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1401, v1402, &v1575);
       if (OUTLINED_FUNCTION_17_1() == 11)
       {
-        v1648 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1648, v1649, v1691);
-        v1650 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.FillDynamicParameters.== infix(_:_:)(v1650, v1651);
-        v956 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters;
+        v1403 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1403, v1404, &v1449);
+        v1405 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.FillDynamicParameters.== infix(_:_:)(v1405, v1406);
+        v715 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters;
       goto LABEL_453;
     case 0xCu:
-      v1513 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1513, v1514, v1818);
+      v1265 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1265, v1266, &v1576);
       if (OUTLINED_FUNCTION_17_1() == 12)
       {
-        v1515 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1515, v1516, v1692);
-        v1517 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SequenceRepeatParameters.== infix(_:_:)(v1517, v1518);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters;
+        v1267 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1267, v1268, &v1450);
+        v1269 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SequenceRepeatParameters.== infix(_:_:)(v1269, v1270);
+        v715 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters;
       goto LABEL_453;
     case 0xDu:
-      v1406 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1406, v1407, v1819);
+      v1170 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1170, v1171, &v1577);
       if (OUTLINED_FUNCTION_17_1() == 13)
       {
-        v1408 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1408, v1409, v1693);
-        v1410 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReverseSequenceParameters.== infix(_:_:)(v1410, v1411);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters;
+        v1172 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1172, v1173, &v1451);
+        v1174 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReverseSequenceParameters.== infix(_:_:)(v1174, v1175);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters;
       goto LABEL_453;
     case 0xEu:
-      v1115 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1115, v1116, v1820);
+      v877 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v877, v878, &v1578);
       if (OUTLINED_FUNCTION_17_1() == 14)
       {
-        v1117 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1117, v1118, v1694);
-        v1119 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReverseParameters.== infix(_:_:)(v1119, v1120);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters;
+        v879 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v879, v880, &v1452);
+        v881 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReverseParameters.== infix(_:_:)(v881, v882);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters;
       goto LABEL_453;
     case 0xFu:
-      v1564 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1564, v1565, v1821);
+      v1315 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1315, v1316, &v1579);
       if (OUTLINED_FUNCTION_17_1() == 15)
       {
-        v1566 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1566, v1567, v1695);
+        v1317 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1317, v1318, &v1453);
         OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReorganizeDataParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters;
+        v714 = static NeuralNetwork.Layer.ReorganizeDataParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters;
       goto LABEL_453;
     case 0x10u:
-      v1640 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1640, v1641, v1822);
+      v1395 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1395, v1396, &v1580);
       if (OUTLINED_FUNCTION_17_1() == 16)
       {
-        v1642 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1642, v1643, v1696);
-        v1644 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.TileParameters.== infix(_:_:)(v1644, v1645);
-        v956 = type metadata accessor for NeuralNetwork.Layer.TileParameters;
+        v1397 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1397, v1398, &v1454);
+        v1399 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.TileParameters.== infix(_:_:)(v1399, v1400);
+        v715 = type metadata accessor for NeuralNetwork.Layer.TileParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.TileParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.TileParameters;
       goto LABEL_453;
     case 0x11u:
-      v1667 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1667, v1668, v1823);
+      v1425 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1425, v1426, &v1581);
       if (OUTLINED_FUNCTION_17_1() == 17)
       {
-        v1669 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1669, v1670, v1697);
-        v1671 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SqueezeParameters.== infix(_:_:)(v1671, v1672);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters;
+        v1427 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1427, v1428, &v1455);
+        v1429 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SqueezeParameters.== infix(_:_:)(v1429, v1430);
+        v715 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters;
       goto LABEL_453;
     case 0x12u:
-      v1193 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1193, v1194, v1824);
+      v954 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v954, v955, &v1582);
       if (OUTLINED_FUNCTION_17_1() == 18)
       {
-        v1195 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1195, v1196, v1698);
-        v1197 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ExpandDimensionsParameters.== infix(_:_:)(v1197, v1198);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters;
+        v956 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v956, v957, &v1456);
+        v958 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ExpandDimensionsParameters.== infix(_:_:)(v958, v959);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters;
       goto LABEL_453;
     case 0x13u:
-      v988 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v988, v989, v1825);
+      v747 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v747, v748, &v1583);
       if (OUTLINED_FUNCTION_17_1() == 19)
       {
-        v990 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v990, v991, v1699);
-        v992 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.FlattenParameters.== infix(_:_:)(v992, v993);
-        v956 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters;
+        v749 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v749, v750, &v1457);
+        v751 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.FlattenParameters.== infix(_:_:)(v751, v752);
+        v715 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters;
       goto LABEL_453;
     case 0x14u:
-      v1010 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1010, v1011, v1826);
+      v769 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v769, v770, &v1584);
       if (OUTLINED_FUNCTION_17_1() == 20)
       {
-        v1012 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1012, v1013, v1700);
-        v1014 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReshapeParameters.== infix(_:_:)(v1014, v1015);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters;
+        v771 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v771, v772, &v1458);
+        v773 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReshapeParameters.== infix(_:_:)(v773, v774);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters;
       goto LABEL_453;
     case 0x15u:
-      v1525 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1525, v1526, v1827);
+      v1277 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1277, v1278, &v1585);
       if (OUTLINED_FUNCTION_17_1() == 21)
       {
-        v1527 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1527, v1528, v1701);
-        v1529 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReshapeStaticParameters.== infix(_:_:)(v1529, v1530);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters;
+        v1279 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1279, v1280, &v1459);
+        v1281 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReshapeStaticParameters.== infix(_:_:)(v1281, v1282);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters;
       goto LABEL_453;
     case 0x16u:
-      v1223 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1223, v1224, v1828);
+      v982 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v982, v983, &v1586);
       if (OUTLINED_FUNCTION_17_1() == 22)
       {
-        v1225 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1225, v1226, v1702);
-        v1227 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RankPreservingReshapeParameters.== infix(_:_:)(v1227, v1228);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters;
+        v984 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v984, v985, &v1460);
+        v986 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RankPreservingReshapeParameters.== infix(_:_:)(v986, v987);
+        v715 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters;
       goto LABEL_453;
     case 0x17u:
-      v1624 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1624, v1625, v1829);
+      v1379 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1379, v1380, &v1587);
       if (OUTLINED_FUNCTION_17_1() == 23)
       {
-        v1626 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1626, v1627, v1703);
-        v1628 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.PermuteParameters.== infix(_:_:)(v1628, v1629);
-        v956 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters;
+        v1381 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1381, v1382, &v1461);
+        v1383 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.PermuteParameters.== infix(_:_:)(v1383, v1384);
+        v715 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters;
       goto LABEL_453;
     case 0x18u:
-      v1657 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1657, v1658, v1830);
+      v1413 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1413, v1414, &v1588);
       if (OUTLINED_FUNCTION_17_1() == 24)
       {
-        v1659 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1659, v1660, v1704);
-        v1661 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.TransposeParameters.== infix(_:_:)(v1661, v1662);
-        v956 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters;
+        v1415 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1415, v1416, &v1462);
+        v1417 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.TransposeParameters.== infix(_:_:)(v1417, v1418);
+        v715 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters;
       goto LABEL_453;
     case 0x19u:
-      v963 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v963, v964, v1831);
+      v722 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v722, v723, &v1589);
       if (OUTLINED_FUNCTION_17_1() == 25)
       {
-        v965 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v965, v966, v1705);
-        v967 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastToLikeParameters.== infix(_:_:)(v967);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastToLikeParameters;
+        v724 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v724, v725, &v1463);
+        v726 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastToLikeParameters.== infix(_:_:)(v726, v727);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastToLikeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastToLikeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastToLikeParameters;
       goto LABEL_453;
     case 0x1Au:
-      v949 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v949, v950, v1832);
+      v710 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v710, v711, &v1590);
       if (OUTLINED_FUNCTION_17_1() == 26)
       {
-        v951 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v951, v952, v1706);
-        v953 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastToStaticParameters.== infix(_:_:)(v953, v954);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters;
+        v712 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v712, v713, &v1464);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastToStaticParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters;
       goto LABEL_453;
     case 0x1Bu:
-      v1229 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1229, v1230, v1833);
+      v988 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v988, v989, &v1591);
       if (OUTLINED_FUNCTION_17_1() == 27)
       {
-        v1231 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1231, v1232, v1707);
-        v1233 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastToDynamicParameters.== infix(_:_:)(v1233);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastToDynamicParameters;
+        v990 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v990, v991, &v1465);
+        v992 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastToDynamicParameters.== infix(_:_:)(v992, v993);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastToDynamicParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastToDynamicParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastToDynamicParameters;
       goto LABEL_453;
     case 0x1Cu:
-      v1269 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1269, v1270, v1834);
+      v1028 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1028, v1029, &v1592);
       if (OUTLINED_FUNCTION_17_1() == 28)
       {
-        v1271 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1271, v1272, v1708);
-        v1273 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.FlattenTo2DParameters.== infix(_:_:)(v1273, v1274);
-        v956 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters;
+        v1030 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1030, v1031, &v1466);
+        v1032 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.FlattenTo2DParameters.== infix(_:_:)(v1032, v1033);
+        v715 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters;
       goto LABEL_453;
     case 0x1Du:
-      v1418 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1418, v1419, v1835);
+      v1182 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1182, v1183, &v1593);
       if (OUTLINED_FUNCTION_17_1() == 29)
       {
-        v1420 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1420, v1421, v1709);
-        v1422 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReshapeLikeParameters.== infix(_:_:)(v1422);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReshapeLikeParameters;
+        v1184 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1184, v1185, &v1467);
+        v1186 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReshapeLikeParameters.== infix(_:_:)(v1186, v1187);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReshapeLikeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReshapeLikeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReshapeLikeParameters;
       goto LABEL_453;
     case 0x1Eu:
-      v1301 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1301, v1302, v1836);
+      v1059 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1059, v1060, &v1594);
       if (OUTLINED_FUNCTION_17_1() == 30)
       {
-        v1303 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1303, v1304, v1710);
-        v1305 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReshapeDynamicParameters.== infix(_:_:)(v1305);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReshapeDynamicParameters;
+        v1061 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1061, v1062, &v1468);
+        v1063 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReshapeDynamicParameters.== infix(_:_:)(v1063, v1064);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReshapeDynamicParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReshapeDynamicParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReshapeDynamicParameters;
       goto LABEL_453;
     case 0x1Fu:
-      v1412 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1412, v1413, v1837);
+      v1176 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1176, v1177, &v1595);
       if (OUTLINED_FUNCTION_17_1() == 31)
       {
-        v1414 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1414, v1415, v1711);
-        v1416 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.StackParameters.== infix(_:_:)(v1416, v1417);
-        v956 = type metadata accessor for NeuralNetwork.Layer.StackParameters;
+        v1178 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1178, v1179, &v1469);
+        v1180 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.StackParameters.== infix(_:_:)(v1180, v1181);
+        v715 = type metadata accessor for NeuralNetwork.Layer.StackParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.StackParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.StackParameters;
       goto LABEL_453;
     case 0x20u:
-      v1331 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1331, v1332, v1838);
+      v1092 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1092, v1093, &v1596);
       if (OUTLINED_FUNCTION_17_1() == 32)
       {
-        v1333 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1333, v1334, v1712);
-        v1335 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.GatherParameters.== infix(_:_:)(v1335, v1336);
-        v956 = type metadata accessor for NeuralNetwork.Layer.GatherParameters;
+        v1094 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1094, v1095, &v1470);
+        v1096 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.GatherParameters.== infix(_:_:)(v1096, v1097);
+        v715 = type metadata accessor for NeuralNetwork.Layer.GatherParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.GatherParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.GatherParameters;
       goto LABEL_453;
     case 0x21u:
-      v1542 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1542, v1543, v1839);
+      v1293 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1293, v1294, &v1597);
       if (OUTLINED_FUNCTION_17_1() == 33)
       {
-        v1544 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1544, v1545, v1713);
+        v1295 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1295, v1296, &v1471);
         OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.GatherNDParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.GatherNDParameters;
+        v714 = static NeuralNetwork.Layer.GatherNDParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.GatherNDParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.GatherNDParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.GatherNDParameters;
       goto LABEL_453;
     case 0x22u:
-      v957 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v957, v958, v1840);
+      v716 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v716, v717, &v1598);
       if (OUTLINED_FUNCTION_17_1() == 34)
       {
-        v959 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v959, v960, v1714);
-        v961 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.GatherAlongAxisParameters.== infix(_:_:)(v961, v962);
-        v956 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters;
+        v718 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v718, v719, &v1472);
+        v720 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.GatherAlongAxisParameters.== infix(_:_:)(v720, v721);
+        v715 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters;
       goto LABEL_453;
     case 0x23u:
-      v994 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v994, v995, v1841);
+      v753 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v753, v754, &v1599);
       if (OUTLINED_FUNCTION_17_1() == 35)
       {
-        v996 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v996, v997, v1715);
-        v998 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ScatterParameters.== infix(_:_:)(v998);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters;
+        v755 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v755, v756, &v1473);
+        v757 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ScatterParameters.== infix(_:_:)(v757);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters;
       goto LABEL_453;
     case 0x24u:
-      v1280 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1280, v1281, v1842);
+      v1039 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1039, v1040, &v1600);
       if (OUTLINED_FUNCTION_17_1() == 36)
       {
-        v1282 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1282, v1283, v1716);
+        v1041 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1041, v1042, &v1474);
         OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ScatterNDParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters;
+        v714 = static NeuralNetwork.Layer.ScatterNDParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters;
       goto LABEL_453;
     case 0x25u:
-      v1041 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1041, v1042, v1843);
+      v801 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v801, v802, &v1601);
       if (OUTLINED_FUNCTION_17_1() == 37)
       {
-        v1043 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1043, v1044, v1717);
-        v1045 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ScatterAlongAxisParameters.== infix(_:_:)(v1045, v1046);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters;
+        v803 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v803, v804, &v1475);
+        v805 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ScatterAlongAxisParameters.== infix(_:_:)(v805, v806);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters;
       goto LABEL_453;
     case 0x26u:
-      v1440 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1440, v1441, v1844);
+      v1204 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1204, v1205, &v1602);
       if (OUTLINED_FUNCTION_17_1() == 38)
       {
-        v1442 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1442, v1443, v1718);
-        v1444 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SliceParameters.== infix(_:_:)(v1444, v1445);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SliceParameters;
+        v1206 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1206, v1207, &v1476);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SliceParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.SliceParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SliceParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SliceParameters;
       goto LABEL_453;
     case 0x27u:
-      v1450 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1450, v1451, v1845);
+      v1212 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1212, v1213, &v1603);
       if (OUTLINED_FUNCTION_17_1() == 39)
       {
-        v1452 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1452, v1453, v1719);
-        v1454 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SliceStaticParameters.== infix(_:_:)(v1454, v1455);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters;
+        v1214 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1214, v1215, &v1477);
+        v1216 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SliceStaticParameters.== infix(_:_:)(v1216);
+        v715 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters;
       goto LABEL_453;
     case 0x28u:
-      v1258 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1258, v1259, v1846);
+      v1018 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1018, v1019, &v1604);
       if (OUTLINED_FUNCTION_17_1() == 40)
       {
-        v1260 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1260, v1261, v1720);
-        v1262 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SliceDynamicParameters.== infix(_:_:)(v1262, v1263);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters;
+        v1020 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1020, v1021, &v1478);
+        v1022 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SliceDynamicParameters.== infix(_:_:)(v1022);
+        v715 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters;
       goto LABEL_453;
     case 0x29u:
-      v1490 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1490, v1491, v1847);
+      v1247 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1247, v1248, &v1605);
       if (OUTLINED_FUNCTION_17_1() == 41)
       {
-        v1492 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1492, v1493, v1721);
-        v1494 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SliceBySizeParameters.== infix(_:_:)(v1494, v1495);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters;
+        v1249 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1249, v1250, &v1479);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SliceBySizeParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters;
       goto LABEL_453;
     case 0x2Au:
-      v1434 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1434, v1435, v1848);
+      v1200 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1200, v1201, &v1606);
       if (OUTLINED_FUNCTION_17_1() == 42)
       {
-        v1436 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1436, v1437, v1722);
-        v1438 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SlidingWindowsParameters.== infix(_:_:)(v1438, v1439);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters;
+        v1202 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1202, v1203, &v1480);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SlidingWindowsParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters;
       goto LABEL_453;
     case 0x2Bu:
-      v1110 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1110, v1111, v1849);
+      v871 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v871, v872, &v1607);
       if (OUTLINED_FUNCTION_17_1() == 43)
       {
-        v1112 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1112, v1113, v1723);
-        v1114 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.InnerProductParameters.== infix(_:_:)(v1114);
-        v956 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters;
+        v873 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v873, v874, &v1481);
+        v875 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.InnerProductParameters.== infix(_:_:)(v875, v876);
+        v715 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters;
       goto LABEL_453;
     case 0x2Cu:
-      v1126 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1126, v1127, v1850);
+      v889 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v889, v890, &v1608);
       if (OUTLINED_FUNCTION_17_1() == 44)
       {
         OUTLINED_FUNCTION_12_2();
-        OUTLINED_FUNCTION_31_1(type metadata accessor for NeuralNetwork.Layer.Kind + v943, v1128, v1724);
+        OUTLINED_FUNCTION_31_1(type metadata accessor for NeuralNetwork.Layer.Kind + v704, v891, &v1482);
         OUTLINED_FUNCTION_360();
         static NeuralNetwork.Layer.Activation.== infix(_:_:)();
-        v955 = v1129;
-        v956 = type metadata accessor for NeuralNetwork.Layer.Activation;
+        v714 = v892;
+        v715 = type metadata accessor for NeuralNetwork.Layer.Activation;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.Activation;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.Activation;
       goto LABEL_453;
     case 0x2Du:
-      v1446 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1446, v1447, v1851);
+      v1208 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1208, v1209, &v1609);
       if (OUTLINED_FUNCTION_17_1() == 45)
       {
-        v1448 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1448, v1449, v1725);
+        v1210 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1210, v1211, &v1483);
         OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.UnaryFunctionParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters;
+        v714 = static NeuralNetwork.Layer.UnaryFunctionParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters;
       goto LABEL_453;
     case 0x2Eu:
-      v1519 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1519, v1520, v1852);
+      v1271 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1271, v1272, &v1610);
       if (OUTLINED_FUNCTION_17_1() == 46)
       {
-        v1521 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1521, v1522, v1726);
-        v1523 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ClipParameters.== infix(_:_:)(v1523, v1524);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ClipParameters;
+        v1273 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1273, v1274, &v1484);
+        v1275 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ClipParameters.== infix(_:_:)(v1275, v1276);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ClipParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ClipParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ClipParameters;
       goto LABEL_453;
     case 0x2Fu:
-      v982 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v982, v983, v1853);
+      v741 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v741, v742, &v1611);
       if (OUTLINED_FUNCTION_17_1() == 47)
       {
-        v984 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v984, v985, v1727);
-        v986 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.GELUParameters.== infix(_:_:)(v986, v987);
-        v956 = type metadata accessor for NeuralNetwork.Layer.GELUParameters;
+        v743 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v743, v744, &v1485);
+        v745 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.GELUParameters.== infix(_:_:)(v745, v746);
+        v715 = type metadata accessor for NeuralNetwork.Layer.GELUParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.GELUParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.GELUParameters;
       goto LABEL_453;
     case 0x30u:
-      v1004 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1004, v1005, v1854);
+      v763 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v763, v764, &v1612);
       if (OUTLINED_FUNCTION_17_1() == 48)
       {
-        v1006 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1006, v1007, v1728);
-        v1008 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ClampedReluParameters.== infix(_:_:)(v1008, v1009);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters;
+        v765 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v765, v766, &v1486);
+        v767 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ClampedReluParameters.== infix(_:_:)(v767, v768);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters;
       goto LABEL_453;
     case 0x31u:
-      v1121 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1121, v1122, v1855);
+      v883 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v883, v884, &v1613);
       if (OUTLINED_FUNCTION_17_1() == 49)
       {
-        v1123 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1123, v1124, v1729);
-        v1125 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ConvolutionParameters.== infix(_:_:)(v1125);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters;
+        v885 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v885, v886, &v1487);
+        v887 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ConvolutionParameters.== infix(_:_:)(v887, v888);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters;
       goto LABEL_453;
     case 0x32u:
-      v1159 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1159, v1160, v1856);
+      v922 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v922, v923, &v1614);
       if (OUTLINED_FUNCTION_17_1() == 50)
       {
-        v1161 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1161, v1162, v1730);
-        v1163 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.Convolution3DParameters.== infix(_:_:)(v1163);
-        v956 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters;
+        v924 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v924, v925, &v1488);
+        v926 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.Convolution3DParameters.== infix(_:_:)(v926, v927);
+        v715 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters;
       goto LABEL_453;
     case 0x33u:
-      v1026 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1026, v1027, v1857);
+      v786 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v786, v787, &v1615);
       if (OUTLINED_FUNCTION_17_1() == 51)
       {
         OUTLINED_FUNCTION_10_1();
-        OUTLINED_FUNCTION_31_1(type metadata accessor for NeuralNetwork.Layer.Kind + v943, v1028, v1731);
+        OUTLINED_FUNCTION_31_1(type metadata accessor for NeuralNetwork.Layer.Kind + v704, v788, &v1489);
         OUTLINED_FUNCTION_360();
         static NeuralNetwork.Layer.PoolParameters.== infix(_:_:)();
-        v955 = v1029;
-        v956 = type metadata accessor for NeuralNetwork.Layer.PoolParameters;
+        v714 = v789;
+        v715 = type metadata accessor for NeuralNetwork.Layer.PoolParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.PoolParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.PoolParameters;
       goto LABEL_453;
     case 0x34u:
-      v1053 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1053, v1054, v1858);
+      v813 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v813, v814, &v1616);
       if (OUTLINED_FUNCTION_17_1() == 52)
       {
         OUTLINED_FUNCTION_9_1();
-        OUTLINED_FUNCTION_31_1(type metadata accessor for NeuralNetwork.Layer.Kind + v943, v1055, v1732);
+        OUTLINED_FUNCTION_31_1(type metadata accessor for NeuralNetwork.Layer.Kind + v704, v815, &v1490);
         OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.Pool3DParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters;
+        v714 = static NeuralNetwork.Layer.Pool3DParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters;
       goto LABEL_453;
     case 0x35u:
-      v1580 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1580, v1581, v1859);
+      v1331 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1331, v1332, &v1617);
       if (OUTLINED_FUNCTION_17_1() == 53)
       {
-        v1582 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1582, v1583, v1733);
+        v1333 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1333, v1334, &v1491);
         OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.GlobalPool3DParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.GlobalPool3DParameters;
+        v714 = static NeuralNetwork.Layer.GlobalPool3DParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.GlobalPool3DParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.GlobalPool3DParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.GlobalPool3DParameters;
       goto LABEL_453;
     case 0x36u:
-      v1590 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1590, v1591, v1860);
+      v1341 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1341, v1342, &v1618);
       if (OUTLINED_FUNCTION_17_1() == 54)
       {
-        v1592 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1592, v1593, v1734);
-        v1594 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.AddParameters.== infix(_:_:)(v1594, v1595);
-        v956 = type metadata accessor for NeuralNetwork.Layer.AddParameters;
+        v1343 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1343, v1344, &v1492);
+        v1345 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.AddParameters.== infix(_:_:)(v1345, v1346);
+        v715 = type metadata accessor for NeuralNetwork.Layer.AddParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.AddParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.AddParameters;
       goto LABEL_453;
     case 0x37u:
-      v1099 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1099, v1100, v1861);
+      v860 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v860, v861, &v1619);
       if (OUTLINED_FUNCTION_17_1() == 55)
       {
-        v1101 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1101, v1102, v1735);
-        v1103 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.MultiplyParameters.== infix(_:_:)(v1103, v1104);
-        v956 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters;
+        v862 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v862, v863, &v1493);
+        v864 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.MultiplyParameters.== infix(_:_:)(v864, v865);
+        v715 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters;
       goto LABEL_453;
     case 0x38u:
-      v1601 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1601, v1602, v1862);
+      v1352 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1352, v1353, &v1620);
       if (OUTLINED_FUNCTION_17_1() == 56)
       {
-        v1603 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1603, v1604, v1736);
-        OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastableAddParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastableAddParameters;
+        v1354 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1354, v1355, &v1494);
+        v1356 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastableAddParameters.== infix(_:_:)(v1356, v1357);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastableAddParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastableAddParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastableAddParameters;
       goto LABEL_453;
     case 0x39u:
-      v1620 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1620, v1621, v1863);
+      v1373 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1373, v1374, &v1621);
       if (OUTLINED_FUNCTION_17_1() == 57)
       {
-        v1622 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1622, v1623, v1737);
-        OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastableSubtractParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters;
+        v1375 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1375, v1376, &v1495);
+        v1377 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastableSubtractParameters.== infix(_:_:)(v1377, v1378);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters;
       goto LABEL_453;
     case 0x3Au:
-      v1663 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1663, v1664, v1864);
+      v1419 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1419, v1420, &v1622);
       if (OUTLINED_FUNCTION_17_1() == 58)
       {
-        v1665 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1665, v1666, v1738);
-        OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastableMultiplyParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters;
+        v1421 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1421, v1422, &v1496);
+        v1423 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastableMultiplyParameters.== infix(_:_:)(v1423, v1424);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters;
       goto LABEL_453;
     case 0x3Bu:
-      v1348 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1348, v1349, v1865);
+      v1110 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1110, v1111, &v1623);
       if (OUTLINED_FUNCTION_17_1() == 59)
       {
-        v1350 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1350, v1351, v1739);
-        v1352 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastableDivideParameters.== infix(_:_:)(v1352);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastableDivideParameters;
+        v1112 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1112, v1113, &v1497);
+        v1114 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastableDivideParameters.== infix(_:_:)(v1114);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastableDivideParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastableDivideParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastableDivideParameters;
       goto LABEL_453;
     case 0x3Cu:
-      v1652 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1652, v1653, v1866);
+      v1407 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1407, v1408, &v1624);
       if (OUTLINED_FUNCTION_17_1() == 60)
       {
-        v1654 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1654, v1655, v1740);
-        v1656 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BatchedMatrixMultiplyParameters.== infix(_:_:)(v1656);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters;
+        v1409 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1409, v1410, &v1498);
+        v1411 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BatchedMatrixMultiplyParameters.== infix(_:_:)(v1411, v1412);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters;
       goto LABEL_453;
     case 0x3Du:
-      v1047 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1047, v1048, v1867);
+      v807 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v807, v808, &v1625);
       if (OUTLINED_FUNCTION_17_1() == 61)
       {
-        v1049 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1049, v1050, v1741);
-        v1051 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.DotProductParameters.== infix(_:_:)(v1051, v1052);
-        v956 = type metadata accessor for NeuralNetwork.Layer.DotProductParameters;
+        v809 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v809, v810, &v1499);
+        v811 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.DotProductParameters.== infix(_:_:)(v811, v812);
+        v715 = type metadata accessor for NeuralNetwork.Layer.DotProductParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.DotProductParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.DotProductParameters;
       goto LABEL_453;
     case 0x3Eu:
-      v1615 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1615, v1616, v1868);
+      v1368 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1368, v1369, &v1626);
       if (OUTLINED_FUNCTION_17_1() == 62)
       {
-        v1617 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1617, v1618, v1742);
-        v1619 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastableModParameters.== infix(_:_:)(v1619);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastableModParameters;
+        v1370 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1370, v1371, &v1500);
+        v1372 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastableModParameters.== infix(_:_:)(v1372);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastableModParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastableModParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastableModParameters;
       goto LABEL_453;
     case 0x3Fu:
-      v1358 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1358, v1359, v1869);
+      v1121 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1121, v1122, &v1627);
       if (OUTLINED_FUNCTION_17_1() == 63)
       {
-        v1360 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1360, v1361, v1743);
-        v1362 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastablePowParameters.== infix(_:_:)(v1362);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastablePowParameters;
+        v1123 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1123, v1124, &v1501);
+        v1125 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastablePowParameters.== infix(_:_:)(v1125);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastablePowParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastablePowParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastablePowParameters;
       goto LABEL_453;
     case 0x40u:
-      v1076 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1076, v1077, v1870);
+      v837 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v837, v838, &v1628);
       if (OUTLINED_FUNCTION_17_1() == 64)
       {
-        v1078 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1078, v1079, v1744);
-        v1080 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BroadcastableFloorDivParameters.== infix(_:_:)(v1080);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BroadcastableFloorDivParameters;
+        v839 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v839, v840, &v1502);
+        v841 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BroadcastableFloorDivParameters.== infix(_:_:)(v841);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BroadcastableFloorDivParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BroadcastableFloorDivParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BroadcastableFloorDivParameters;
       goto LABEL_453;
     case 0x41u:
-      v1343 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1343, v1344, v1871);
+      v1104 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1104, v1105, &v1629);
       if (OUTLINED_FUNCTION_17_1() == 65)
       {
-        v1345 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1345, v1346, v1745);
-        v1347 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ScaleParameters.== infix(_:_:)(v1347);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters;
+        v1106 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1106, v1107, &v1503);
+        v1108 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ScaleParameters.== infix(_:_:)(v1108, v1109);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters;
       goto LABEL_453;
     case 0x42u:
-      v1021 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1021, v1022, v1872);
+      v780 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v780, v781, &v1630);
       if (OUTLINED_FUNCTION_17_1() == 66)
       {
-        v1023 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1023, v1024, v1746);
-        v1025 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BatchNormalizeParameters.== infix(_:_:)(v1025);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters;
+        v782 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v782, v783, &v1504);
+        v784 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BatchNormalizeParameters.== infix(_:_:)(v784, v785);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters;
       goto LABEL_453;
     case 0x43u:
-      v1630 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1630, v1631, v1873);
+      v1385 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1385, v1386, &v1631);
       if (OUTLINED_FUNCTION_17_1() == 67)
       {
-        v1632 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1632, v1633, v1747);
+        v1387 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1387, v1388, &v1505);
         OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SoftmaxParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.SoftmaxParameters;
+        v714 = static NeuralNetwork.Layer.SoftmaxParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.SoftmaxParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SoftmaxParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SoftmaxParameters;
       goto LABEL_453;
     case 0x44u:
-      v1634 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1634, v1635, v1874);
+      v1389 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1389, v1390, &v1632);
       if (OUTLINED_FUNCTION_17_1() == 68)
       {
-        v1636 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1636, v1637, v1748);
-        v1638 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SoftmaxNDParameters.== infix(_:_:)(v1638, v1639);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters;
+        v1391 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1391, v1392, &v1506);
+        v1393 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SoftmaxNDParameters.== infix(_:_:)(v1393, v1394);
+        v715 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters;
       goto LABEL_453;
     case 0x45u:
-      v1087 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1087, v1088, v1875);
+      v848 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v848, v849, &v1633);
       if (OUTLINED_FUNCTION_17_1() == 69)
       {
-        v1089 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1089, v1090, v1749);
-        v1091 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.MeanVarianceNormalizeParameters.== infix(_:_:)(v1091, v1092);
-        v956 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters;
+        v850 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v850, v851, &v1507);
+        v852 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.MeanVarianceNormalizeParameters.== infix(_:_:)(v852, v853);
+        v715 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters;
       goto LABEL_453;
     case 0x46u:
-      v1568 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1568, v1569, v1876);
+      v1319 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1319, v1320, &v1634);
       if (OUTLINED_FUNCTION_17_1() == 70)
       {
-        v1570 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1570, v1571, v1750);
-        v1572 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.L2NormalizeParameters.== infix(_:_:)(v1572, v1573);
-        v956 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters;
+        v1321 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1321, v1322, &v1508);
+        v1323 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.L2NormalizeParameters.== infix(_:_:)(v1323, v1324);
+        v715 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters;
       goto LABEL_453;
     case 0x47u:
-      v1428 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1428, v1429, v1877);
+      v1194 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1194, v1195, &v1635);
       if (OUTLINED_FUNCTION_17_1() == 71)
       {
-        v1430 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1430, v1431, v1751);
-        v1432 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.LRNParameters.== infix(_:_:)(v1432, v1433);
-        v956 = type metadata accessor for NeuralNetwork.Layer.LRNParameters;
+        v1196 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1196, v1197, &v1509);
+        v1198 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.LRNParameters.== infix(_:_:)(v1198, v1199);
+        v715 = type metadata accessor for NeuralNetwork.Layer.LRNParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.LRNParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.LRNParameters;
       goto LABEL_453;
     case 0x48u:
-      v1423 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1423, v1424, v1878);
+      v1188 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1188, v1189, &v1636);
       if (OUTLINED_FUNCTION_17_1() == 72)
       {
-        v1425 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1425, v1426, v1752);
-        v1427 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.LayerNormalizeParameters.== infix(_:_:)(v1427);
-        v956 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters;
+        v1190 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1190, v1191, &v1510);
+        v1192 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.LayerNormalizeParameters.== infix(_:_:)(v1192, v1193);
+        v715 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters;
       goto LABEL_453;
     case 0x49u:
-      v999 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v999, v1000, v1879);
+      v758 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v758, v759, &v1637);
       if (OUTLINED_FUNCTION_17_1() == 73)
       {
-        v1001 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1001, v1002, v1753);
+        v760 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v760, v761, &v1511);
         OUTLINED_FUNCTION_360();
         static NeuralNetwork.Layer.UnidirectionalLSTMParameters.== infix(_:_:)();
-        v955 = v1003;
-        v956 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters;
+        v714 = v762;
+        v715 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters;
       goto LABEL_453;
     case 0x4Au:
-      v1016 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1016, v1017, v1880);
+      v775 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v775, v776, &v1638);
       if (OUTLINED_FUNCTION_17_1() == 74)
       {
-        v1018 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1018, v1019, v1754);
+        v777 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v777, v778, &v1512);
         OUTLINED_FUNCTION_360();
         static NeuralNetwork.Layer.BidirectionalLSTMParameters.== infix(_:_:)();
-        v955 = v1020;
-        v956 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters;
+        v714 = v779;
+        v715 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters;
       goto LABEL_453;
     case 0x4Bu:
-      v1275 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1275, v1276, v1881);
+      v1034 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1034, v1035, &v1639);
       if (OUTLINED_FUNCTION_17_1() == 75)
       {
-        v1277 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1277, v1278, v1755);
-        v1279 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.SimpleRecurrentParameters.== infix(_:_:)(v1279);
-        v956 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters;
+        v1036 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1036, v1037, &v1513);
+        v1038 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.SimpleRecurrentParameters.== infix(_:_:)(v1038);
+        v715 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters;
       goto LABEL_453;
     case 0x4Cu:
-      v1284 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1284, v1285, v1882);
+      v1043 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1043, v1044, &v1640);
       if (OUTLINED_FUNCTION_17_1() == 76)
       {
-        v1286 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1286, v1287, v1756);
-        v1288 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.GRUParameters.== infix(_:_:)(v1288);
-        v956 = type metadata accessor for NeuralNetwork.Layer.GRUParameters;
+        v1045 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1045, v1046, &v1514);
+        v1047 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.GRUParameters.== infix(_:_:)(v1047, v1048);
+        v715 = type metadata accessor for NeuralNetwork.Layer.GRUParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.GRUParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.GRUParameters;
       goto LABEL_453;
     case 0x4Du:
-      v1136 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1136, v1137, v1883);
+      v899 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v899, v900, &v1641);
       if (OUTLINED_FUNCTION_17_1() == 77)
       {
-        v1138 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1138, v1139, v1757);
-        OUTLINED_FUNCTION_360();
-        static NeuralNetwork.Layer.CropParameters.== infix(_:_:)();
-        v955 = v1140;
-        v956 = type metadata accessor for NeuralNetwork.Layer.CropParameters;
+        v901 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v901, v902, &v1515);
+        v903 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.CropParameters.== infix(_:_:)(v903);
+        v715 = type metadata accessor for NeuralNetwork.Layer.CropParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.CropParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.CropParameters;
       goto LABEL_453;
     case 0x4Eu:
-      v1036 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1036, v1037, v1884);
+      v796 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v796, v797, &v1642);
       if (OUTLINED_FUNCTION_17_1() == 78)
       {
-        v1038 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1038, v1039, v1758);
-        OUTLINED_FUNCTION_360();
-        static NeuralNetwork.Layer.ResizeBilinearParameters.== infix(_:_:)();
-        v955 = v1040;
-        v956 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters;
+        v798 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v798, v799, &v1516);
+        v800 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ResizeBilinearParameters.== infix(_:_:)(v800);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters;
       goto LABEL_453;
     case 0x4Fu:
-      v1596 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1596, v1597, v1885);
+      v1347 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1347, v1348, &v1643);
       if (OUTLINED_FUNCTION_17_1() == 79)
       {
-        v1598 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1598, v1599, v1759);
-        OUTLINED_FUNCTION_360();
-        static NeuralNetwork.Layer.CropResizeParameters.== infix(_:_:)();
-        v955 = v1600;
-        v956 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters;
+        v1349 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1349, v1350, &v1517);
+        v1351 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.CropResizeParameters.== infix(_:_:)(v1351);
+        v715 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters;
       goto LABEL_453;
     case 0x50u:
-      v1067 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1067, v1068, v1886);
+      v827 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v827, v828, &v1644);
       if (OUTLINED_FUNCTION_17_1() == 80)
       {
-        v1069 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1069, v1070, v1760);
-        v1071 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.AverageParameters.== infix(_:_:)(v1071);
-        v956 = type metadata accessor for NeuralNetwork.Layer.AverageParameters;
+        v829 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v829, v830, &v1518);
+        v831 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.AverageParameters.== infix(_:_:)(v831, v832);
+        v715 = type metadata accessor for NeuralNetwork.Layer.AverageParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.AverageParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.AverageParameters;
       goto LABEL_453;
     case 0x51u:
-      v1369 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1369, v1370, v1887);
+      v1132 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1132, v1133, &v1645);
       if (OUTLINED_FUNCTION_17_1() == 81)
       {
-        v1371 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1371, v1372, v1761);
+        v1134 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1134, v1135, &v1519);
         OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters;
+        v714 = static NeuralNetwork.Layer.ReduceParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters;
       goto LABEL_453;
     case 0x52u:
-      v1175 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1175, v1176, v1888);
+      v938 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v938, v939, &v1646);
       if (OUTLINED_FUNCTION_17_1() == 82)
       {
-        v1177 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1177, v1178, v1762);
-        v1179 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceL1Parameters.== infix(_:_:)(v1179, v1180);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters;
+        v940 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v940, v941, &v1520);
+        v942 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceL1Parameters.== infix(_:_:)(v942, v943);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters;
       goto LABEL_453;
     case 0x53u:
-      v1574 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1574, v1575, &v1889);
+      v1325 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1325, v1326, &v1647);
       if (OUTLINED_FUNCTION_17_1() == 83)
       {
-        v1576 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1576, v1577, v1763);
-        v1578 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceL2Parameters.== infix(_:_:)(v1578, v1579);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters;
+        v1327 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1327, v1328, &v1521);
+        v1329 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceL2Parameters.== infix(_:_:)(v1329, v1330);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters;
       goto LABEL_453;
     case 0x54u:
-      v1558 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1558, v1559, &v1890);
+      v1309 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1309, v1310, &v1648);
       if (OUTLINED_FUNCTION_17_1() == 84)
       {
-        v1560 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1560, v1561, v1764);
-        v1562 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceMaxParameters.== infix(_:_:)(v1562, v1563);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters;
+        v1311 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1311, v1312, &v1522);
+        v1313 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceMaxParameters.== infix(_:_:)(v1313, v1314);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters;
       goto LABEL_453;
     case 0x55u:
-      v1531 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1531, v1532, &v1891);
+      v1283 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1283, v1284, &v1649);
       if (OUTLINED_FUNCTION_17_1() == 85)
       {
-        v1533 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1533, v1534, v1765);
-        v1535 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceMinParameters.== infix(_:_:)(v1535, v1536);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters;
+        v1285 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1285, v1286, &v1523);
+        v1287 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceMinParameters.== infix(_:_:)(v1287, v1288);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters;
       goto LABEL_453;
     case 0x56u:
-      v1141 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1141, v1142, &v1892);
+      v904 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v904, v905, &v1650);
       if (OUTLINED_FUNCTION_17_1() == 86)
       {
-        v1143 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1143, v1144, v1766);
-        v1145 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceSumParameters.== infix(_:_:)(v1145, v1146);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters;
+        v906 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v906, v907, &v1524);
+        v908 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceSumParameters.== infix(_:_:)(v908, v909);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters;
       goto LABEL_453;
     case 0x57u:
-      v1056 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1056, v1057, &v1893);
+      v816 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v816, v817, &v1651);
       if (OUTLINED_FUNCTION_17_1() == 87)
       {
-        v1058 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1058, v1059, v1767);
-        v1060 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceProdParameters.== infix(_:_:)(v1060, v1061);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters;
+        v818 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v818, v819, &v1525);
+        v820 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceProdParameters.== infix(_:_:)(v820, v821);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters;
       goto LABEL_453;
     case 0x58u:
-      v1205 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1205, v1206, &v1894);
+      v966 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v966, v967, &v1652);
       if (OUTLINED_FUNCTION_17_1() == 88)
       {
-        v1207 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1207, v1208, v1768);
-        v1209 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceMeanParameters.== infix(_:_:)(v1209, v1210);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters;
+        v968 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v968, v969, &v1526);
+        v970 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceMeanParameters.== infix(_:_:)(v970, v971);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters;
       goto LABEL_453;
     case 0x59u:
-      v1605 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1605, v1606, &v1895);
+      v1358 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1358, v1359, &v1653);
       if (OUTLINED_FUNCTION_17_1() == 89)
       {
-        v1607 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1607, v1608, v1769);
-        v1609 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceLogSumParameters.== infix(_:_:)(v1609, v1610);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters;
+        v1360 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1360, v1361, &v1527);
+        v1362 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceLogSumParameters.== infix(_:_:)(v1362, v1363);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters;
       goto LABEL_453;
     case 0x5Au:
-      v1234 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1234, v1235, &v1896);
+      v994 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v994, v995, &v1654);
       if (OUTLINED_FUNCTION_17_1() == 90)
       {
-        v1236 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1236, v1237, v1770);
-        v1238 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceSumSquareParameters.== infix(_:_:)(v1238, v1239);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters;
+        v996 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v996, v997, &v1528);
+        v998 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceSumSquareParameters.== infix(_:_:)(v998, v999);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters;
       goto LABEL_453;
     case 0x5Bu:
-      v1130 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1130, v1131, &v1897);
+      v893 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v893, v894, &v1655);
       if (OUTLINED_FUNCTION_17_1() == 91)
       {
-        v1132 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1132, v1133, v1771);
-        v1134 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ReduceLogSumExpParameters.== infix(_:_:)(v1134, v1135);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters;
+        v895 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v895, v896, &v1529);
+        v897 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ReduceLogSumExpParameters.== infix(_:_:)(v897, v898);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters;
       goto LABEL_453;
     case 0x5Cu:
-      v1379 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1379, v1380, &v1898);
+      v1142 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1142, v1143, &v1656);
       if (OUTLINED_FUNCTION_17_1() == 92)
       {
-        v1381 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1381, v1382, v1772);
-        v1383 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.MinBroadcastableParameters.== infix(_:_:)(v1383);
-        v956 = type metadata accessor for NeuralNetwork.Layer.MinBroadcastableParameters;
+        v1144 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1144, v1145, &v1530);
+        v1146 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.MinBroadcastableParameters.== infix(_:_:)(v1146, v1147);
+        v715 = type metadata accessor for NeuralNetwork.Layer.MinBroadcastableParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.MinBroadcastableParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.MinBroadcastableParameters;
       goto LABEL_453;
     case 0x5Du:
-      v1311 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1311, v1312, &v1899);
+      v1071 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1071, v1072, &v1657);
       if (OUTLINED_FUNCTION_17_1() == 93)
       {
-        v1313 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1313, v1314, v1773);
-        v1315 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.MaxBroadcastableParameters.== infix(_:_:)(v1315);
-        v956 = type metadata accessor for NeuralNetwork.Layer.MaxBroadcastableParameters;
+        v1073 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1073, v1074, &v1531);
+        v1075 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.MaxBroadcastableParameters.== infix(_:_:)(v1075, v1076);
+        v715 = type metadata accessor for NeuralNetwork.Layer.MaxBroadcastableParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.MaxBroadcastableParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.MaxBroadcastableParameters;
       goto LABEL_453;
     case 0x5Eu:
-      v1337 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1337, v1338, &v1900);
+      v1098 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1098, v1099, &v1658);
       if (OUTLINED_FUNCTION_17_1() == 94)
       {
-        v1339 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1339, v1340, v1774);
-        v1341 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.CumulativeSumParameters.== infix(_:_:)(v1341, v1342);
-        v956 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters;
+        v1100 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1100, v1101, &v1532);
+        v1102 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.CumulativeSumParameters.== infix(_:_:)(v1102, v1103);
+        v715 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters;
       goto LABEL_453;
     case 0x5Fu:
-      v1384 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1384, v1385, &v1901);
+      v1148 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1148, v1149, &v1659);
       if (OUTLINED_FUNCTION_17_1() == 95)
       {
-        v1386 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1386, v1387, v1775);
-        v1388 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ArgMinParameters.== infix(_:_:)(v1388, v1389);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters;
+        v1150 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1150, v1151, &v1533);
+        v1152 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ArgMinParameters.== infix(_:_:)(v1152, v1153);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters;
       goto LABEL_453;
     case 0x60u:
-      v1373 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1373, v1374, &v1902);
+      v1136 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1136, v1137, &v1660);
       if (OUTLINED_FUNCTION_17_1() == 96)
       {
-        v1375 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1375, v1376, v1776);
-        v1377 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ArgMaxParameters.== infix(_:_:)(v1377, v1378);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters;
+        v1138 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1138, v1139, &v1534);
+        v1140 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ArgMaxParameters.== infix(_:_:)(v1140, v1141);
+        v715 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters;
       goto LABEL_453;
     case 0x61u:
-      v1306 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1306, v1307, &v1903);
+      v1065 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1065, v1066, &v1661);
       if (OUTLINED_FUNCTION_17_1() == 97)
       {
-        v1308 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1308, v1309, v1777);
-        v1310 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.WhereNonZeroParameters.== infix(_:_:)(v1310);
-        v956 = type metadata accessor for NeuralNetwork.Layer.WhereNonZeroParameters;
+        v1067 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1067, v1068, &v1535);
+        v1069 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.WhereNonZeroParameters.== infix(_:_:)(v1069, v1070);
+        v715 = type metadata accessor for NeuralNetwork.Layer.WhereNonZeroParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.WhereNonZeroParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.WhereNonZeroParameters;
       goto LABEL_453;
     case 0x62u:
-      v1472 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1472, v1473, &v1904);
+      v1232 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1232, v1233, &v1662);
       if (OUTLINED_FUNCTION_17_1() == 98)
       {
-        v1474 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1474, v1475, v1778);
-        v1476 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.WhereBroadcastableParameters.== infix(_:_:)(v1476);
-        v956 = type metadata accessor for NeuralNetwork.Layer.WhereBroadcastableParameters;
+        v1234 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1234, v1235, &v1536);
+        v1236 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.WhereBroadcastableParameters.== infix(_:_:)(v1236, v1237);
+        v715 = type metadata accessor for NeuralNetwork.Layer.WhereBroadcastableParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.WhereBroadcastableParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.WhereBroadcastableParameters;
       goto LABEL_453;
     case 0x63u:
-      v1264 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1264, v1265, &v1905);
+      v1023 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1023, v1024, &v1663);
       if (OUTLINED_FUNCTION_17_1() == 99)
       {
-        v1266 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1266, v1267, v1779);
-        OUTLINED_FUNCTION_360();
-        static NeuralNetwork.Layer.BranchParameters.== infix(_:_:)();
-        v955 = v1268;
-        v956 = type metadata accessor for NeuralNetwork.Layer.BranchParameters;
+        v1025 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1025, v1026, &v1537);
+        v1027 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BranchParameters.== infix(_:_:)(v1027);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BranchParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BranchParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BranchParameters;
       goto LABEL_453;
     case 0x64u:
-      v1462 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1462, v1463, &v1906);
+      v1223 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1223, v1224, &v1664);
       if (OUTLINED_FUNCTION_17_1() == 100)
       {
-        v1464 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1464, v1465, v1780);
-        OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.CopyParameters.== infix(_:_:)();
-        v956 = type metadata accessor for NeuralNetwork.Layer.CopyParameters;
+        v1225 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1225, v1226, &v1538);
+        v1227 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.CopyParameters.== infix(_:_:)(v1227);
+        v715 = type metadata accessor for NeuralNetwork.Layer.CopyParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.CopyParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.CopyParameters;
       goto LABEL_453;
     case 0x65u:
-      v1170 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1170, v1171, &v1907);
+      v934 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v934, v935, &v1665);
       if (OUTLINED_FUNCTION_17_1() == 101)
       {
-        v1172 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1172, v1173, v1781);
+        v936 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v936, v937, &v1539);
         OUTLINED_FUNCTION_360();
-        static NeuralNetwork.Layer.LoopParameters.== infix(_:_:)();
-        v955 = v1174;
-        v956 = type metadata accessor for NeuralNetwork.Layer.LoopParameters;
+        v714 = static NeuralNetwork.Layer.LoopParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.LoopParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.LoopParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.LoopParameters;
       goto LABEL_453;
     case 0x66u:
-      v1537 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1537, v1538, &v1908);
+      v1289 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1289, v1290, &v1666);
       if (OUTLINED_FUNCTION_17_1() == 102)
       {
-        v1539 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1539, v1540, v1782);
-        v1541 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.LoopBreakParameters.== infix(_:_:)(v1541);
-        v956 = type metadata accessor for NeuralNetwork.Layer.LoopBreakParameters;
+        v1291 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1291, v1292, &v1540);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.LoopBreakParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.LoopBreakParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.LoopBreakParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.LoopBreakParameters;
       goto LABEL_453;
     case 0x67u:
-      v1508 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1508, v1509, &v1909);
+      v1261 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1261, v1262, &v1667);
       if (OUTLINED_FUNCTION_17_1() == 103)
       {
-        v1510 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1510, v1511, v1783);
-        v1512 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.LoopContinueParameters.== infix(_:_:)(v1512);
-        v956 = type metadata accessor for NeuralNetwork.Layer.LoopContinueParameters;
+        v1263 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1263, v1264, &v1541);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.LoopContinueParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.LoopContinueParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.LoopContinueParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.LoopContinueParameters;
       goto LABEL_453;
     case 0x68u:
-      v1153 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1153, v1154, v1910);
+      v916 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v916, v917, &v1668);
       if (OUTLINED_FUNCTION_17_1() == 104)
       {
-        v1155 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1155, v1156, v1784);
-        v1157 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RangeStaticParameters.== infix(_:_:)(v1157, v1158);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters;
+        v918 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v918, v919, &v1542);
+        v920 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RangeStaticParameters.== infix(_:_:)(v920, v921);
+        v715 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters;
       goto LABEL_453;
     case 0x69u:
-      v1546 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1546, v1547, &v1911);
+      v1297 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1297, v1298, &v1669);
       if (OUTLINED_FUNCTION_17_1() == 105)
       {
-        v1548 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1548, v1549, v1785);
-        v1550 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RangeDynamicParameters.== infix(_:_:)(v1550, v1551);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters;
+        v1299 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1299, v1300, &v1543);
+        v1301 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RangeDynamicParameters.== infix(_:_:)(v1301, v1302);
+        v715 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters;
       goto LABEL_453;
     case 0x6Au:
-      v1584 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1584, v1585, &v1912);
+      v1335 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1335, v1336, &v1670);
       if (OUTLINED_FUNCTION_17_1() == 106)
       {
-        v1586 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1586, v1587, v1786);
-        v1588 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.EqualParameters.== infix(_:_:)(v1588, v1589);
-        v956 = type metadata accessor for NeuralNetwork.Layer.EqualParameters;
+        v1337 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1337, v1338, &v1544);
+        v1339 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.EqualParameters.== infix(_:_:)(v1339, v1340);
+        v715 = type metadata accessor for NeuralNetwork.Layer.EqualParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.EqualParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.EqualParameters;
       goto LABEL_453;
     case 0x6Bu:
-      v1081 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1081, v1082, &v1913);
+      v842 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v842, v843, &v1671);
       if (OUTLINED_FUNCTION_17_1() == 107)
       {
-        v1083 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1083, v1084, v1787);
-        v1085 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.NotEqualParameters.== infix(_:_:)(v1085, v1086);
-        v956 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters;
+        v844 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v844, v845, &v1545);
+        v846 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.NotEqualParameters.== infix(_:_:)(v846, v847);
+        v715 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters;
       goto LABEL_453;
     case 0x6Cu:
-      v1289 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1289, v1290, &v1914);
+      v1049 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1049, v1050, &v1672);
       if (OUTLINED_FUNCTION_17_1() == 108)
       {
-        v1291 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1291, v1292, v1788);
-        v1293 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.LessThanParameters.== infix(_:_:)(v1293, v1294);
-        v956 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters;
+        v1051 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1051, v1052, &v1546);
+        v1053 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.LessThanParameters.== infix(_:_:)(v1053, v1054);
+        v715 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters;
       goto LABEL_453;
     case 0x6Du:
-      v1252 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1252, v1253, &v1915);
+      v1012 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1012, v1013, &v1673);
       if (OUTLINED_FUNCTION_17_1() == 109)
       {
-        v1254 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1254, v1255, v1789);
-        v1256 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.LessEqualParameters.== infix(_:_:)(v1256, v1257);
-        v956 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters;
+        v1014 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1014, v1015, &v1547);
+        v1016 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.LessEqualParameters.== infix(_:_:)(v1016, v1017);
+        v715 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters;
       goto LABEL_453;
     case 0x6Eu:
-      v1164 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1164, v1165, &v1916);
+      v928 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v928, v929, &v1674);
       if (OUTLINED_FUNCTION_17_1() == 110)
       {
-        v1166 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1166, v1167, v1790);
-        v1168 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.GreaterThanParameters.== infix(_:_:)(v1168, v1169);
-        v956 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters;
+        v930 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v930, v931, &v1548);
+        v932 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.GreaterThanParameters.== infix(_:_:)(v932, v933);
+        v715 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters;
       goto LABEL_453;
     case 0x6Fu:
-      v1552 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1552, v1553, &v1917);
+      v1303 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1303, v1304, &v1675);
       if (OUTLINED_FUNCTION_17_1() == 111)
       {
-        v1554 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1554, v1555, v1791);
-        v1556 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.GreaterEqualParameters.== infix(_:_:)(v1556, v1557);
-        v956 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters;
+        v1305 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1305, v1306, &v1549);
+        v1307 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.GreaterEqualParameters.== infix(_:_:)(v1307, v1308);
+        v715 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters;
       goto LABEL_453;
     case 0x70u:
-      v1400 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1400, v1401, &v1918);
+      v1164 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1164, v1165, &v1676);
       if (OUTLINED_FUNCTION_17_1() == 112)
       {
-        v1402 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1402, v1403, v1792);
-        v1404 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RandomNormalLikeParameters.== infix(_:_:)(v1404, v1405);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters;
+        v1166 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1166, v1167, &v1550);
+        v1168 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RandomNormalLikeParameters.== infix(_:_:)(v1168, v1169);
+        v715 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters;
       goto LABEL_453;
     case 0x71u:
-      v1240 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1240, v1241, &v1919);
+      v1000 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v1000, v1001, &v1677);
       if (OUTLINED_FUNCTION_17_1() == 113)
       {
-        v1242 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1242, v1243, v1793);
-        v1244 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RandomNormalStaticParameters.== infix(_:_:)(v1244, v1245);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters;
+        v1002 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1002, v1003, &v1551);
+        v1004 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RandomNormalStaticParameters.== infix(_:_:)(v1004, v1005);
+        v715 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters;
       goto LABEL_453;
     case 0x72u:
-      v1093 = OUTLINED_FUNCTION_0_2();
-      OUTLINED_FUNCTION_32_2(v1093, v1094, &v1920);
+      v854 = OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_32_2(v854, v855, &v1678);
       if (OUTLINED_FUNCTION_17_1() == 114)
       {
-        v1095 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1095, v1096, v1794);
-        v1097 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RandomNormalDynamicParameters.== infix(_:_:)(v1097, v1098);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters;
+        v856 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v856, v857, &v1552);
+        v858 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RandomNormalDynamicParameters.== infix(_:_:)(v858, v859);
+        v715 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters;
       goto LABEL_453;
     case 0x73u:
-      v1466 = OUTLINED_FUNCTION_0_2();
-      v931 = v1889;
-      sub_25749773C(v1466, v1889, v1467);
+      v1228 = OUTLINED_FUNCTION_0_2();
+      v694 = v1647;
+      sub_25749773C(v1228, v1647, v1229);
       if (OUTLINED_FUNCTION_17_1() == 115)
       {
-        v1468 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1468, v1469, v1795);
-        v1470 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RandomUniformLikeParameters.== infix(_:_:)(v1470, v1471);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters;
+        v1230 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1230, v1231, &v1553);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RandomUniformLikeParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters;
       goto LABEL_453;
     case 0x74u:
-      v1363 = OUTLINED_FUNCTION_0_2();
-      v931 = v1890;
-      sub_25749773C(v1363, v1890, v1364);
+      v1126 = OUTLINED_FUNCTION_0_2();
+      v694 = v1648;
+      sub_25749773C(v1126, v1648, v1127);
       if (OUTLINED_FUNCTION_17_1() == 116)
       {
-        v1365 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1365, v1366, v1796);
-        v1367 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RandomUniformStaticParameters.== infix(_:_:)(v1367, v1368);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters;
+        v1128 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1128, v1129, &v1554);
+        v1130 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RandomUniformStaticParameters.== infix(_:_:)(v1130, v1131);
+        v715 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters;
       goto LABEL_453;
     case 0x75u:
-      v1295 = OUTLINED_FUNCTION_0_2();
-      v931 = v1891;
-      sub_25749773C(v1295, v1891, v1296);
+      v1055 = OUTLINED_FUNCTION_0_2();
+      v694 = v1649;
+      sub_25749773C(v1055, v1649, v1056);
       if (OUTLINED_FUNCTION_17_1() == 117)
       {
-        v1297 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1297, v1298, v1797);
-        v1299 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RandomUniformDynamicParameters.== infix(_:_:)(v1299, v1300);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters;
+        v1057 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1057, v1058, &v1555);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RandomUniformDynamicParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters;
       goto LABEL_453;
     case 0x76u:
-      v1456 = OUTLINED_FUNCTION_0_2();
-      v931 = v1892;
-      sub_25749773C(v1456, v1892, v1457);
+      v1217 = OUTLINED_FUNCTION_0_2();
+      v694 = v1650;
+      sub_25749773C(v1217, v1650, v1218);
       if (OUTLINED_FUNCTION_17_1() == 118)
       {
-        v1458 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1458, v1459, v1798);
-        v1460 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RandomBernoulliLikeParameters.== infix(_:_:)(v1460, v1461);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters;
+        v1219 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1219, v1220, &v1556);
+        v1221 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RandomBernoulliLikeParameters.== infix(_:_:)(v1221, v1222);
+        v715 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters;
       goto LABEL_453;
     case 0x77u:
-      v1496 = OUTLINED_FUNCTION_0_2();
-      v931 = v1893;
-      sub_25749773C(v1496, v1893, v1497);
+      v1251 = OUTLINED_FUNCTION_0_2();
+      v694 = v1651;
+      sub_25749773C(v1251, v1651, v1252);
       if (OUTLINED_FUNCTION_17_1() == 119)
       {
-        v1498 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1498, v1499, v1799);
-        v1500 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RandomBernoulliStaticParameters.== infix(_:_:)(v1500, v1501);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters;
+        v1253 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1253, v1254, &v1557);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RandomBernoulliStaticParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters;
       goto LABEL_453;
     case 0x78u:
-      v1147 = OUTLINED_FUNCTION_0_2();
-      v931 = v1894;
-      sub_25749773C(v1147, v1894, v1148);
+      v910 = OUTLINED_FUNCTION_0_2();
+      v694 = v1652;
+      sub_25749773C(v910, v1652, v911);
       if (OUTLINED_FUNCTION_17_1() == 120)
       {
-        v1149 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1149, v1150, v1800);
-        v1151 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.RandomBernoulliDynamicParameters.== infix(_:_:)(v1151, v1152);
-        v956 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters;
+        v912 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v912, v913, &v1558);
+        v914 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.RandomBernoulliDynamicParameters.== infix(_:_:)(v914, v915);
+        v715 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters;
       goto LABEL_453;
     case 0x79u:
-      v1187 = OUTLINED_FUNCTION_0_2();
-      v931 = v1895;
-      sub_25749773C(v1187, v1895, v1188);
+      v950 = OUTLINED_FUNCTION_0_2();
+      v694 = v1653;
+      sub_25749773C(v950, v1653, v951);
       if (OUTLINED_FUNCTION_17_1() == 121)
       {
-        v1189 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1189, v1190, v1801);
-        v1191 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.CategoricalDistributionParameters.== infix(_:_:)(v1191, v1192);
-        v956 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters;
+        v952 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v952, v953, &v1559);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.CategoricalDistributionParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters;
       goto LABEL_453;
     case 0x7Au:
-      v1181 = OUTLINED_FUNCTION_0_2();
-      v931 = v1896;
-      sub_25749773C(v1181, v1896, v1182);
+      v944 = OUTLINED_FUNCTION_0_2();
+      v694 = v1654;
+      sub_25749773C(v944, v1654, v945);
       if (OUTLINED_FUNCTION_17_1() == 122)
       {
-        v1183 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1183, v1184, v1802);
-        v1185 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.MatrixBandPartParameters.== infix(_:_:)(v1185, v1186);
-        v956 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters;
+        v946 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v946, v947, &v1560);
+        v948 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.MatrixBandPartParameters.== infix(_:_:)(v948, v949);
+        v715 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters;
       goto LABEL_453;
     case 0x7Bu:
-      v1217 = OUTLINED_FUNCTION_0_2();
-      v931 = v1897;
-      sub_25749773C(v1217, v1897, v1218);
+      v976 = OUTLINED_FUNCTION_0_2();
+      v694 = v1655;
+      sub_25749773C(v976, v1655, v977);
       if (OUTLINED_FUNCTION_17_1() == 123)
       {
-        v1219 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1219, v1220, v1803);
-        v1221 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.LowerTriangularParameters.== infix(_:_:)(v1221, v1222);
-        v956 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters;
+        v978 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v978, v979, &v1561);
+        v980 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.LowerTriangularParameters.== infix(_:_:)(v980, v981);
+        v715 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters;
       goto LABEL_453;
     case 0x7Cu:
-      v1246 = OUTLINED_FUNCTION_0_2();
-      v931 = v1898;
-      sub_25749773C(v1246, v1898, v1247);
+      v1006 = OUTLINED_FUNCTION_0_2();
+      v694 = v1656;
+      sub_25749773C(v1006, v1656, v1007);
       if (OUTLINED_FUNCTION_17_1() == 124)
       {
-        v1248 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1248, v1249, v1804);
-        v1250 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.UpperTriangularParameters.== infix(_:_:)(v1250, v1251);
-        v956 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters;
+        v1008 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1008, v1009, &v1562);
+        v1010 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.UpperTriangularParameters.== infix(_:_:)(v1010, v1011);
+        v715 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters;
       goto LABEL_453;
     case 0x7Du:
-      v1395 = OUTLINED_FUNCTION_0_2();
-      v931 = v1899;
-      sub_25749773C(v1395, v1899, v1396);
+      v1159 = OUTLINED_FUNCTION_0_2();
+      v694 = v1657;
+      sub_25749773C(v1159, v1657, v1160);
       if (OUTLINED_FUNCTION_17_1() == 125)
       {
-        v1397 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1397, v1398, v1805);
-        v1399 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.EmbeddingParameters.== infix(_:_:)(v1399);
-        v956 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters;
+        v1161 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1161, v1162, &v1563);
+        v1163 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.EmbeddingParameters.== infix(_:_:)(v1163);
+        v715 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters;
       goto LABEL_453;
     case 0x7Eu:
-      v1353 = OUTLINED_FUNCTION_0_2();
-      v931 = v1900;
-      sub_25749773C(v1353, v1900, v1354);
+      v1115 = OUTLINED_FUNCTION_0_2();
+      v694 = v1658;
+      sub_25749773C(v1115, v1658, v1116);
       if (OUTLINED_FUNCTION_17_1() == 126)
       {
-        v1355 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1355, v1356, v1806);
-        v1357 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.EmbeddingNDParameters.== infix(_:_:)(v1357);
-        v956 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters;
+        v1117 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1117, v1118, &v1564);
+        v1119 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.EmbeddingNDParameters.== infix(_:_:)(v1119, v1120);
+        v715 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters;
       goto LABEL_453;
     case 0x7Fu:
-      v1390 = OUTLINED_FUNCTION_0_2();
-      v931 = v1901;
-      sub_25749773C(v1390, v1901, v1391);
+      v1154 = OUTLINED_FUNCTION_0_2();
+      v694 = v1659;
+      sub_25749773C(v1154, v1659, v1155);
       if (OUTLINED_FUNCTION_17_1() == 127)
       {
-        v1392 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1392, v1393, v1807);
-        v1394 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.BiasParameters.== infix(_:_:)(v1394);
-        v956 = type metadata accessor for NeuralNetwork.Layer.BiasParameters;
+        v1156 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1156, v1157, &v1565);
+        v1158 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.BiasParameters.== infix(_:_:)(v1158);
+        v715 = type metadata accessor for NeuralNetwork.Layer.BiasParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.BiasParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.BiasParameters;
       goto LABEL_453;
     case 0x80u:
-      v1484 = OUTLINED_FUNCTION_0_2();
-      v931 = v1902;
-      sub_25749773C(v1484, v1902, v1485);
+      v1243 = OUTLINED_FUNCTION_0_2();
+      v694 = v1660;
+      sub_25749773C(v1243, v1660, v1244);
       if (OUTLINED_FUNCTION_17_1() == 128)
       {
-        v1486 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1486, v1487, v1808);
-        v1488 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.OneHotParameters.== infix(_:_:)(v1488, v1489);
-        v956 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters;
+        v1245 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1245, v1246, &v1566);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.OneHotParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters;
       goto LABEL_453;
     case 0x81u:
-      v1478 = OUTLINED_FUNCTION_0_2();
-      v931 = v1903;
-      sub_25749773C(v1478, v1903, v1479);
+      v1239 = OUTLINED_FUNCTION_0_2();
+      v694 = v1661;
+      sub_25749773C(v1239, v1661, v1240);
       if (OUTLINED_FUNCTION_17_1() == 129)
       {
-        v1480 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1480, v1481, v1809);
-        v1482 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.TopKParameters.== infix(_:_:)(v1482, v1483);
-        v956 = type metadata accessor for NeuralNetwork.Layer.TopKParameters;
+        v1241 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1241, v1242, &v1567);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.TopKParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.TopKParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.TopKParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.TopKParameters;
       goto LABEL_453;
     case 0x82u:
-      v1211 = OUTLINED_FUNCTION_0_2();
-      v931 = v1904;
-      sub_25749773C(v1211, v1904, v1212);
+      v972 = OUTLINED_FUNCTION_0_2();
+      v694 = v1662;
+      sub_25749773C(v972, v1662, v973);
       if (OUTLINED_FUNCTION_17_1() == 130)
       {
-        v1213 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1213, v1214, v1810);
-        v1215 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.ArgSortParameters.== infix(_:_:)(v1215, v1216);
-        v956 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters;
+        v974 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v974, v975, &v1568);
+        OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.ArgSortParameters.== infix(_:_:)();
+        v715 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters;
       goto LABEL_453;
     case 0x83u:
-      v1502 = OUTLINED_FUNCTION_0_2();
-      v931 = v1905;
-      sub_25749773C(v1502, v1905, v1503);
+      v1255 = OUTLINED_FUNCTION_0_2();
+      v694 = v1663;
+      sub_25749773C(v1255, v1663, v1256);
       if (OUTLINED_FUNCTION_17_1() == 131)
       {
-        v1504 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1504, v1505, v1811);
-        v1506 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.NonMaximumSuppressionParameters.== infix(_:_:)(v1506, v1507);
-        v956 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters;
+        v1257 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1257, v1258, &v1569);
+        v1259 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.NonMaximumSuppressionParameters.== infix(_:_:)(v1259, v1260);
+        v715 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters;
         goto LABEL_318;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters;
       goto LABEL_453;
     case 0x84u:
-      v1316 = OUTLINED_FUNCTION_0_2();
-      v931 = v1906;
-      sub_25749773C(v1316, v1906, v1317);
+      v1077 = OUTLINED_FUNCTION_0_2();
+      v694 = v1664;
+      sub_25749773C(v1077, v1664, v1078);
       if (OUTLINED_FUNCTION_17_1() == 132)
       {
-        v1318 = OUTLINED_FUNCTION_20_1();
-        OUTLINED_FUNCTION_31_1(v1318, v1319, v1812);
-        v1320 = OUTLINED_FUNCTION_360();
-        v955 = static NeuralNetwork.Layer.CustomParameters.== infix(_:_:)(v1320);
-        v956 = type metadata accessor for NeuralNetwork.Layer.CustomParameters;
+        v1079 = OUTLINED_FUNCTION_20_1();
+        OUTLINED_FUNCTION_31_1(v1079, v1080, &v1570);
+        v1081 = OUTLINED_FUNCTION_360();
+        v714 = static NeuralNetwork.Layer.CustomParameters.== infix(_:_:)(v1081);
+        v715 = type metadata accessor for NeuralNetwork.Layer.CustomParameters;
 LABEL_318:
-        v1034 = v956;
-        sub_25749779C(v919, v956);
-        v1035 = v931;
+        v794 = v715;
+        sub_25749779C(v682, v715);
+        v795 = v694;
         goto LABEL_319;
       }
 
-      v1673 = type metadata accessor for NeuralNetwork.Layer.CustomParameters;
+      v1431 = type metadata accessor for NeuralNetwork.Layer.CustomParameters;
 LABEL_453:
-      v947 = v1673;
-      v948 = v931;
+      v708 = v1431;
+      v709 = v694;
       goto LABEL_454;
     case 0x85u:
       if (OUTLINED_FUNCTION_24_1() != 133)
@@ -6074,46 +4711,46 @@ LABEL_453:
 
 LABEL_245:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v943, v1477);
-      v955 = 1;
-      return v955 & 1;
+      sub_25749779C(v704, v1238);
+      v714 = 1;
+      return v714 & 1;
     default:
-      v945 = OUTLINED_FUNCTION_0_2();
-      sub_25749773C(v945, v936, v946);
+      v706 = OUTLINED_FUNCTION_0_2();
+      sub_25749773C(v706, v699, v707);
       if (OUTLINED_FUNCTION_17_1())
       {
-        v947 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters;
-        v948 = v936;
+        v708 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters;
+        v709 = v699;
 LABEL_454:
-        sub_25749779C(v948, v947);
+        sub_25749779C(v709, v708);
 LABEL_455:
-        sub_2574695E4(v943, &qword_27F87A080, &qword_257744BB0);
-        v955 = 0;
+        sub_2574695E4(v704, &qword_27F87A080, &qword_257744BB0);
+        v714 = 0;
       }
 
       else
       {
-        v1675 = OUTLINED_FUNCTION_20_1();
-        v1676 = v1680;
-        sub_2574977F4(v1675, v1680, v1677);
-        v1678 = static NeuralNetwork.Layer.ConstantParameters.== infix(_:_:)(v936, v1676);
-        v1034 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters;
-        sub_25749779C(v1676, type metadata accessor for NeuralNetwork.Layer.ConstantParameters);
-        v1035 = v936;
-        v955 = v1678;
+        v1433 = OUTLINED_FUNCTION_20_1();
+        v1434 = v1438;
+        sub_2574977F4(v1433, v1438, v1435);
+        v1436 = static NeuralNetwork.Layer.ConstantParameters.== infix(_:_:)(v699);
+        v794 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters;
+        sub_25749779C(v1434, type metadata accessor for NeuralNetwork.Layer.ConstantParameters);
+        v795 = v699;
+        v714 = v1436;
 LABEL_319:
-        sub_25749779C(v1035, v1034);
+        sub_25749779C(v795, v794);
         OUTLINED_FUNCTION_1_2();
-        v975 = v943;
+        v734 = v704;
 LABEL_320:
-        sub_25749779C(v975, v974);
+        sub_25749779C(v734, v733);
       }
 
-      return v955 & 1;
+      return v714 & 1;
   }
 }
 
-uint64_t type metadata accessor for NeuralNetwork.Layer.Kind()
+uint64_t type metadata accessor for NeuralNetwork.Layer.Kind(uint64_t a1)
 {
   result = qword_27F87A088;
   if (!qword_27F87A088)
@@ -6128,99 +4765,95 @@ uint64_t NeuralNetwork.Layer.Kind.name.getter()
 {
   v0 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters(0);
   v1 = OUTLINED_FUNCTION_13(v0);
-  v3 = *(v2 + 64);
   MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_3();
-  v6 = v5 - v4;
-  v7 = type metadata accessor for NeuralNetwork.Layer.PoolParameters(0);
-  v8 = OUTLINED_FUNCTION_13(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
+  v4 = v3 - v2;
+  v5 = type metadata accessor for NeuralNetwork.Layer.PoolParameters(0);
+  v6 = OUTLINED_FUNCTION_13(v5);
+  MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_3();
-  v13 = v12 - v11;
-  v14 = type metadata accessor for NeuralNetwork.Layer.Activation(0);
-  v15 = OUTLINED_FUNCTION_4(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
+  v9 = v8 - v7;
+  type metadata accessor for NeuralNetwork.Layer.Activation(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v10);
   OUTLINED_FUNCTION_11();
-  v20 = v18 - v19;
-  MEMORY[0x28223BE20](v21);
-  v23 = &v147 - v22;
-  v24 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v25 = OUTLINED_FUNCTION_4(v24);
-  v27 = *(v26 + 64);
-  MEMORY[0x28223BE20](v25);
+  v13 = v11 - v12;
+  MEMORY[0x28223BE20](v14);
+  v16 = &v137 - v15;
+  type metadata accessor for NeuralNetwork.Layer.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_3();
-  v30 = v29 - v28;
-  v31 = OUTLINED_FUNCTION_0_2();
-  sub_25749773C(v31, v30, v32);
-  v33 = 0x6570616853746567;
+  v20 = v19 - v18;
+  v21 = OUTLINED_FUNCTION_0_2();
+  sub_25749773C(v21, v20, v22);
+  v23 = 0x6570616853746567;
   switch(swift_getEnumCaseMultiPayload())
   {
     case 2u:
-      v33 = 6578544;
+      v23 = 6578544;
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v55);
-      return v33;
+      sub_25749779C(v20, v45);
+      return v23;
     case 3u:
       OUTLINED_FUNCTION_41_1();
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v138);
-      return v33;
+      sub_25749779C(v20, v128);
+      return v23;
     case 4u:
     case 5u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v37);
+      sub_25749779C(v20, v27);
       return 0x6E657461636E6F63;
     case 6u:
     case 7u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v34);
+      sub_25749779C(v20, v24);
       return 0x74696C7073;
     case 8u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v42);
+      sub_25749779C(v20, v32);
       return 0x656C706D61737075;
     case 9u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v76);
+      sub_25749779C(v20, v66);
       return 0x656B694C6C6C6966;
     case 0xAu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v43);
+      sub_25749779C(v20, v33);
       OUTLINED_FUNCTION_37_1();
       return 0x746174536C6C6966;
     case 0xBu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v141);
+      sub_25749779C(v20, v131);
       return 0x616E79446C6C6966;
     case 0xCu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v124);
+      sub_25749779C(v20, v114);
       return 0x6553746165706572;
     case 0xDu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v113);
-      v33 = 0x737265766572;
-      return v33 & 0xFFFFFFFFFFFFLL | 0x5365000000000000;
+      sub_25749779C(v20, v103);
+      v23 = 0x737265766572;
+      return v23 & 0xFFFFFFFFFFFFLL | 0x5365000000000000;
     case 0xEu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v69);
-      v33 = 0x737265766572;
-      return v33 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
+      sub_25749779C(v20, v59);
+      v23 = 0x737265766572;
+      return v23 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
     case 0xFu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v133);
+      sub_25749779C(v20, v123);
       return 0x696E6167726F6572;
     case 0x10u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v140);
+      sub_25749779C(v20, v130);
       return 1701603700;
     case 0x11u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v39);
-      v33 = 0x7A6565757173;
-      return v33 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
+      sub_25749779C(v20, v29);
+      v23 = 0x7A6565757173;
+      return v23 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
     case 0x12u:
     case 0x25u:
     case 0x38u:
@@ -6234,18 +4867,18 @@ uint64_t NeuralNetwork.Layer.Kind.name.getter()
       goto LABEL_139;
     case 0x13u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v44);
+      sub_25749779C(v20, v34);
       return 0x6E657474616C66;
     case 0x14u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v48);
+      sub_25749779C(v20, v38);
       OUTLINED_FUNCTION_29_1();
-      return v33 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
+      return v23 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
     case 0x15u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v125);
+      sub_25749779C(v20, v115);
       OUTLINED_FUNCTION_29_1();
-      return v33 & 0xFFFFFFFFFFFFLL | 0x5365000000000000;
+      return v23 & 0xFFFFFFFFFFFFLL | 0x5365000000000000;
     case 0x16u:
     case 0x39u:
     case 0x3Au:
@@ -6256,203 +4889,203 @@ uint64_t NeuralNetwork.Layer.Kind.name.getter()
     case 0x83u:
       OUTLINED_FUNCTION_26_1();
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v142);
+      sub_25749779C(v20, v132);
       return 0xD000000000000015;
     case 0x17u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v139);
-      v33 = 0x74756D726570;
-      return v33 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
+      sub_25749779C(v20, v129);
+      v23 = 0x74756D726570;
+      return v23 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
     case 0x18u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v144);
+      sub_25749779C(v20, v134);
       OUTLINED_FUNCTION_35_1();
       return 0x736F70736E617274;
     case 0x19u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v41);
+      sub_25749779C(v20, v31);
       return 0x73616364616F7262;
     case 0x1Au:
     case 0x4Au:
     case 0x73u:
       OUTLINED_FUNCTION_26_1();
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v109);
+      sub_25749779C(v20, v99);
       OUTLINED_FUNCTION_34_1();
-      return v110 | 1;
+      return v100 | 1;
     case 0x1Bu:
     case 0x49u:
     case 0x62u:
     case 0x71u:
       OUTLINED_FUNCTION_26_1();
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v111);
+      sub_25749779C(v20, v101);
       OUTLINED_FUNCTION_34_1();
-      return v112 | 2;
+      return v102 | 2;
     case 0x1Cu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v90);
+      sub_25749779C(v20, v80);
       return 0x546E657474616C66;
     case 0x1Du:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v118);
+      sub_25749779C(v20, v108);
       OUTLINED_FUNCTION_29_1();
       return 0x4C65616853746567;
     case 0x1Eu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v93);
+      sub_25749779C(v20, v83);
       OUTLINED_FUNCTION_29_1();
       return 0x4465616853746567;
     case 0x1Fu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v117);
+      sub_25749779C(v20, v107);
       return 0x6B63617473;
     case 0x20u:
     case 0x21u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v35);
+      sub_25749779C(v20, v25);
       return 0x726568746167;
     case 0x22u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v40);
+      sub_25749779C(v20, v30);
       return 0x6C41726568746167;
     case 0x23u:
     case 0x24u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v36);
+      sub_25749779C(v20, v26);
       return 0x72657474616373;
     case 0x26u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v104);
+      sub_25749779C(v20, v94);
       OUTLINED_FUNCTION_39_1();
-      return v33 & 0xFFFF0000FFFFFFFFLL | 0x6500000000;
+      return v23 & 0xFFFF0000FFFFFFFFLL | 0x6500000000;
     case 0x27u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v114);
+      sub_25749779C(v20, v104);
       OUTLINED_FUNCTION_39_1();
-      return v33 | 0x6174536500000000;
+      return v23 | 0x6174536500000000;
     case 0x28u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v80);
+      sub_25749779C(v20, v70);
       OUTLINED_FUNCTION_39_1();
-      return v33 | 0x6E79446500000000;
+      return v23 | 0x6E79446500000000;
     case 0x29u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v119);
+      sub_25749779C(v20, v109);
       OUTLINED_FUNCTION_39_1();
       return 0x5379426553746567;
     case 0x2Au:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v103);
+      sub_25749779C(v20, v93);
       return 0x57676E6964696C73;
     case 0x2Bu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v58);
+      sub_25749779C(v20, v48);
       return 0x6F725072656E6E69;
     case 0x2Cu:
       OUTLINED_FUNCTION_12_2();
-      sub_2574977F4(v30, v23, v65);
-      sub_25749773C(v23, v20, type metadata accessor for NeuralNetwork.Layer.Activation);
-      v33 = 0x7261656E696CLL;
+      sub_2574977F4(v20, v16, v55);
+      sub_25749773C(v16, v13, type metadata accessor for NeuralNetwork.Layer.Activation);
+      v23 = 0x7261656E696CLL;
       switch(swift_getEnumCaseMultiPayload())
       {
         case 1u:
-          v33 = 1970038130;
+          v23 = 1970038130;
           break;
         case 2u:
           OUTLINED_FUNCTION_35_1();
-          v33 = 0x6C6552796B61656CLL;
+          v23 = 0x6C6552796B61656CLL;
           break;
         case 3u:
-          v33 = 0x6C6F687365726874;
+          v23 = 0x6C6F687365726874;
           break;
         case 4u:
           OUTLINED_FUNCTION_26_1();
           OUTLINED_FUNCTION_34_1();
-          v33 = v145 | 1;
+          v23 = v135 | 1;
           break;
         case 5u:
-          v33 = 1752064372;
+          v23 = 1752064372;
           break;
         case 6u:
           OUTLINED_FUNCTION_37_1();
-          v33 = 0x615464656C616373;
+          v23 = 0x615464656C616373;
           break;
         case 7u:
-          v33 = 0x64696F6D676973;
+          v23 = 0x64696F6D676973;
           break;
         case 8u:
-          v33 = 0x4864696F6D676973;
+          v23 = 0x4864696F6D676973;
           break;
         case 9u:
-          v33 = 7695461;
+          v23 = 7695461;
           break;
         case 0xAu:
-          v33 = 0x6E67697374666F73;
+          v23 = 0x6E67697374666F73;
           break;
         case 0xBu:
-          v33 = 0x73756C7074666F73;
+          v23 = 0x73756C7074666F73;
           break;
         case 0xCu:
           OUTLINED_FUNCTION_26_1();
           OUTLINED_FUNCTION_34_1();
-          v33 = v146 | 2;
+          v23 = v136 | 2;
           break;
         default:
           break;
       }
 
-      sub_25749779C(v23, type metadata accessor for NeuralNetwork.Layer.Activation);
-      v137 = v20;
-      v136 = type metadata accessor for NeuralNetwork.Layer.Activation;
+      sub_25749779C(v16, type metadata accessor for NeuralNetwork.Layer.Activation);
+      v127 = v13;
+      v126 = type metadata accessor for NeuralNetwork.Layer.Activation;
       goto LABEL_140;
     case 0x2Du:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v105);
+      sub_25749779C(v20, v95);
       return 0x7972616E75;
     case 0x2Eu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v122);
+      sub_25749779C(v20, v112);
       return 1885957219;
     case 0x2Fu:
-      v33 = 1970038119;
+      v23 = 1970038119;
       goto LABEL_42;
     case 0x30u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v45);
+      sub_25749779C(v20, v35);
       return 0x526465706D616C63;
     case 0x31u:
     case 0x32u:
-      v33 = 0x74756C6F766E6F63;
+      v23 = 0x74756C6F766E6F63;
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v62);
-      return v33;
+      sub_25749779C(v20, v52);
+      return v23;
     case 0x33u:
       OUTLINED_FUNCTION_40_1();
       OUTLINED_FUNCTION_10_1();
-      sub_2574977F4(v30, v13, v49);
-      if (*(v13 + 8) == 1 && *v13)
+      sub_2574977F4(v20, v9, v39);
+      if (*(v9 + 8) == 1 && *v9)
       {
-        if (*v13 == 1)
+        if (*v9 == 1)
         {
-          v33 = 0x5065676172657661;
+          v23 = 0x5065676172657661;
         }
 
         else
         {
-          v33 = 0x6E696C6F6F50316CLL;
+          v23 = 0x6E696C6F6F50316CLL;
         }
       }
 
-      v136 = type metadata accessor for NeuralNetwork.Layer.PoolParameters;
-      v137 = v13;
+      v126 = type metadata accessor for NeuralNetwork.Layer.PoolParameters;
+      v127 = v9;
       goto LABEL_140;
     case 0x34u:
       OUTLINED_FUNCTION_9_1();
-      sub_2574977F4(v30, v6, v53);
-      if (*(v6 + 8) == 1)
+      sub_2574977F4(v20, v4, v43);
+      if (*(v4 + 8) == 1)
       {
-        if (*v6)
+        if (*v4)
         {
           OUTLINED_FUNCTION_28_1();
           OUTLINED_FUNCTION_26_1();
@@ -6466,23 +5099,23 @@ uint64_t NeuralNetwork.Layer.Kind.name.getter()
 
       else
       {
-        v33 = 0x44336C6F6F70;
+        v23 = 0x44336C6F6F70;
       }
 
-      v136 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters;
-      v137 = v6;
+      v126 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters;
+      v127 = v4;
       goto LABEL_140;
     case 0x35u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v132);
+      sub_25749779C(v20, v122);
       return 0x6F506C61626F6C67;
     case 0x36u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v135);
+      sub_25749779C(v20, v125);
       return 6579297;
     case 0x37u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v57);
+      sub_25749779C(v20, v47);
       return 0x796C7069746C756DLL;
     case 0x3Bu:
     case 0x72u:
@@ -6490,261 +5123,261 @@ uint64_t NeuralNetwork.Layer.Kind.name.getter()
     case 0x76u:
       OUTLINED_FUNCTION_26_1();
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v106);
+      sub_25749779C(v20, v96);
       OUTLINED_FUNCTION_34_1();
-      return v107 | 3;
+      return v97 | 3;
     case 0x3Du:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v52);
+      sub_25749779C(v20, v42);
       return 0x75646F7250746F64;
     case 0x41u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v94);
-      v33 = 1818321779;
-      return v33 & 0xFFFF0000FFFFFFFFLL | 0x6500000000;
+      sub_25749779C(v20, v84);
+      v23 = 1818321779;
+      return v23 & 0xFFFF0000FFFFFFFFLL | 0x6500000000;
     case 0x42u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v46);
-      v47 = 0x4E6863746162;
-      return v47 & 0xFFFFFFFFFFFFLL | 0x726F000000000000;
+      sub_25749779C(v20, v36);
+      v37 = 0x4E6863746162;
+      return v37 & 0xFFFFFFFFFFFFLL | 0x726F000000000000;
     case 0x43u:
     case 0x44u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v38);
+      sub_25749779C(v20, v28);
       return 0x78616D74666F73;
     case 0x46u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v129);
+      sub_25749779C(v20, v119);
       return 0x6C616D726F4E326CLL;
     case 0x47u:
     case 0x78u:
       OUTLINED_FUNCTION_26_1();
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v101);
+      sub_25749779C(v20, v91);
       OUTLINED_FUNCTION_34_1();
-      return v102 | 6;
+      return v92 | 6;
     case 0x48u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v100);
-      v47 = 0x4E726579616CLL;
-      return v47 & 0xFFFFFFFFFFFFLL | 0x726F000000000000;
+      sub_25749779C(v20, v90);
+      v37 = 0x4E726579616CLL;
+      return v37 & 0xFFFFFFFFFFFFLL | 0x726F000000000000;
     case 0x4Bu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v82);
+      sub_25749779C(v20, v72);
       return 0x6552656C706D6973;
     case 0x4Cu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v83);
+      sub_25749779C(v20, v73);
       return 7696999;
     case 0x4Du:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v60);
+      sub_25749779C(v20, v50);
       return 1886351971;
     case 0x4Eu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v50);
+      sub_25749779C(v20, v40);
       return 0x6942657A69736572;
     case 0x4Fu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v134);
+      sub_25749779C(v20, v124);
       OUTLINED_FUNCTION_37_1();
       return 0x69736552706F7263;
     case 0x50u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v54);
-      v33 = 0x676172657661;
-      return v33 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
+      sub_25749779C(v20, v44);
+      v23 = 0x676172657661;
+      return v23 & 0xFFFFFFFFFFFFLL | 0x65000000000000;
     case 0x51u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v95);
+      sub_25749779C(v20, v85);
       OUTLINED_FUNCTION_11_1();
-      return v33;
+      return v23;
     case 0x52u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v67);
+      sub_25749779C(v20, v57);
       OUTLINED_FUNCTION_11_1();
       return 0x314C616853746567;
     case 0x53u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v130);
+      sub_25749779C(v20, v120);
       OUTLINED_FUNCTION_11_1();
       return 0x324C616853746567;
     case 0x54u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v128);
+      sub_25749779C(v20, v118);
       OUTLINED_FUNCTION_35_1();
       OUTLINED_FUNCTION_11_1();
       return 0x614D616853746567;
     case 0x55u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v121);
+      sub_25749779C(v20, v111);
       OUTLINED_FUNCTION_35_1();
       OUTLINED_FUNCTION_11_1();
       return 0x694D616853746567;
     case 0x56u:
       OUTLINED_FUNCTION_11_1();
-      v33 = 0x7553616853746567;
+      v23 = 0x7553616853746567;
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v61);
+      sub_25749779C(v20, v51);
       OUTLINED_FUNCTION_35_1();
-      return v33;
+      return v23;
     case 0x57u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v51);
+      sub_25749779C(v20, v41);
       OUTLINED_FUNCTION_37_1();
       OUTLINED_FUNCTION_11_1();
       return 0x7250616853746567;
     case 0x58u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v72);
+      sub_25749779C(v20, v62);
       OUTLINED_FUNCTION_37_1();
       OUTLINED_FUNCTION_11_1();
       return 0x654D616853746567;
     case 0x59u:
     case 0x5Bu:
       OUTLINED_FUNCTION_11_1();
-      v33 = 0x6F4C616853746567;
+      v23 = 0x6F4C616853746567;
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v59);
-      return v33;
+      sub_25749779C(v20, v49);
+      return v23;
     case 0x5Au:
       OUTLINED_FUNCTION_11_1();
-      v33 = 0x7553616853746567;
+      v23 = 0x7553616853746567;
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v77);
-      return v33;
+      sub_25749779C(v20, v67);
+      return v23;
     case 0x5Eu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v91);
+      sub_25749779C(v20, v81);
       return 0x6974616C756D7563;
     case 0x5Fu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v97);
+      sub_25749779C(v20, v87);
       return 0x6E694D677261;
     case 0x60u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v96);
+      sub_25749779C(v20, v86);
       return 0x78614D677261;
     case 0x61u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v87);
+      sub_25749779C(v20, v77);
       return 0x6E6F4E6572656877;
     case 0x63u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v81);
+      sub_25749779C(v20, v71);
       return 0x68636E617262;
     case 0x64u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v108);
+      sub_25749779C(v20, v98);
       return 2037411683;
     case 0x65u:
-      v33 = 1886351212;
+      v23 = 1886351212;
 LABEL_42:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v66);
-      return v33;
+      sub_25749779C(v20, v56);
+      return v23;
     case 0x66u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v123);
+      sub_25749779C(v20, v113);
       OUTLINED_FUNCTION_35_1();
       return 0x61657242706F6F6CLL;
     case 0x67u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v120);
+      sub_25749779C(v20, v110);
       return 0x746E6F43706F6F6CLL;
     case 0x68u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v63);
-      LODWORD(v33) = 1735287154;
-      return v33 | 0x6174536500000000;
+      sub_25749779C(v20, v53);
+      LODWORD(v23) = 1735287154;
+      return v23 | 0x6174536500000000;
     case 0x69u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v126);
-      LODWORD(v33) = 1735287154;
-      return v33 | 0x6E79446500000000;
+      sub_25749779C(v20, v116);
+      LODWORD(v23) = 1735287154;
+      return v23 | 0x6E79446500000000;
     case 0x6Au:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v131);
+      sub_25749779C(v20, v121);
       return 0x6C61757165;
     case 0x6Bu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v56);
+      sub_25749779C(v20, v46);
       return 0x6C61757145746F6ELL;
     case 0x6Cu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v84);
+      sub_25749779C(v20, v74);
       return 0x6E6168547373656CLL;
     case 0x6Du:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v79);
+      sub_25749779C(v20, v69);
       OUTLINED_FUNCTION_35_1();
       return 0x617571457373656CLL;
     case 0x6Eu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v64);
+      sub_25749779C(v20, v54);
       return 0x5472657461657267;
     case 0x6Fu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v127);
+      sub_25749779C(v20, v117);
       return 0x4572657461657267;
     case 0x75u:
       OUTLINED_FUNCTION_26_1();
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v85);
+      sub_25749779C(v20, v75);
       OUTLINED_FUNCTION_34_1();
-      return v86 | 4;
+      return v76 | 4;
     case 0x79u:
       OUTLINED_FUNCTION_26_1();
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v70);
+      sub_25749779C(v20, v60);
       OUTLINED_FUNCTION_34_1();
-      return v71 | 7;
+      return v61 | 7;
     case 0x7Au:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v68);
+      sub_25749779C(v20, v58);
       return 0x614278697274616DLL;
     case 0x7Bu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v74);
-      v75 = 1702326124;
-      return v75 | 0x6972547200000000;
+      sub_25749779C(v20, v64);
+      v65 = 1702326124;
+      return v65 | 0x6972547200000000;
     case 0x7Cu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v78);
-      v75 = 1701867637;
-      return v75 | 0x6972547200000000;
+      sub_25749779C(v20, v68);
+      v65 = 1701867637;
+      return v65 | 0x6972547200000000;
     case 0x7Du:
-      v33 = 0x6E69646465626D65;
+      v23 = 0x6E69646465626D65;
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v99);
-      return v33;
+      sub_25749779C(v20, v89);
+      return v23;
     case 0x7Eu:
-      v33 = 0x6E69646465626D65;
+      v23 = 0x6E69646465626D65;
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v92);
-      return v33;
+      sub_25749779C(v20, v82);
+      return v23;
     case 0x7Fu:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v98);
+      sub_25749779C(v20, v88);
       return 1935763810;
     case 0x80u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v116);
+      sub_25749779C(v20, v106);
       return 0x746F48656E6FLL;
     case 0x81u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v115);
+      sub_25749779C(v20, v105);
       return 1265659764;
     case 0x82u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v73);
+      sub_25749779C(v20, v63);
       return 0x74726F53677261;
     case 0x84u:
       OUTLINED_FUNCTION_1_2();
-      sub_25749779C(v30, v89);
+      sub_25749779C(v20, v79);
       return 0x6D6F74737563;
     case 0x85u:
-      return v33;
+      return v23;
     case 0x86u:
       return 1818846563;
     case 0x87u:
@@ -6774,457 +5407,457 @@ LABEL_42:
     case 0x93u:
       return 1752064372;
     case 0x94u:
-      v88 = 1852404577;
+      v78 = 1852404577;
       goto LABEL_93;
     case 0x95u:
-      v88 = 1936679777;
+      v78 = 1936679777;
       goto LABEL_93;
     case 0x96u:
-      v88 = 1851880545;
+      v78 = 1851880545;
 LABEL_93:
-      v33 = v88 & 0xFFFF0000FFFFFFFFLL | 0x6800000000;
+      v23 = v78 & 0xFFFF0000FFFFFFFFLL | 0x6800000000;
       break;
     case 0x97u:
-      v33 = 6713957;
+      v23 = 6713957;
       break;
     case 0x98u:
-      v33 = 7889261;
+      v23 = 7889261;
       break;
     case 0x99u:
-      v33 = 7235949;
+      v23 = 7235949;
       break;
     case 0x9Au:
       OUTLINED_FUNCTION_37_1();
       OUTLINED_FUNCTION_27_1();
-      v33 = 0x416C616853746567;
+      v23 = 0x416C616853746567;
       break;
     case 0x9Bu:
       OUTLINED_FUNCTION_35_1();
       OUTLINED_FUNCTION_27_1();
-      v33 = 0x4F6C616853746567;
+      v23 = 0x4F6C616853746567;
       break;
     case 0x9Cu:
       OUTLINED_FUNCTION_37_1();
       OUTLINED_FUNCTION_27_1();
-      v33 = 0x586C616853746567;
+      v23 = 0x586C616853746567;
       break;
     case 0x9Du:
       OUTLINED_FUNCTION_27_1();
-      v33 = 0x4E6C616853746567;
+      v23 = 0x4E6C616853746567;
       break;
     default:
       OUTLINED_FUNCTION_41_1();
 LABEL_139:
       OUTLINED_FUNCTION_1_2();
-      v137 = v30;
+      v127 = v20;
 LABEL_140:
-      sub_25749779C(v137, v136);
+      sub_25749779C(v127, v126);
       break;
   }
 
-  return v33;
+  return v23;
 }
 
-uint64_t sub_257496C8C()
+uint64_t sub_257496C8C(uint64_t a1)
 {
   result = type metadata accessor for NeuralNetwork.Layer.ConstantParameters(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for NeuralNetwork.Layer.PadParameters(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
-        result = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters();
-        if (v4 <= 0x3F)
+        result = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters(319);
+        if (v5 <= 0x3F)
         {
-          result = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters();
-          if (v5 <= 0x3F)
+          result = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters(319);
+          if (v6 <= 0x3F)
           {
-            result = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters();
-            if (v6 <= 0x3F)
+            result = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters(319);
+            if (v7 <= 0x3F)
             {
               result = type metadata accessor for NeuralNetwork.Layer.SplitParameters(319);
-              if (v7 <= 0x3F)
+              if (v8 <= 0x3F)
               {
                 result = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters(319);
-                if (v8 <= 0x3F)
+                if (v9 <= 0x3F)
                 {
-                  result = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters();
-                  if (v9 <= 0x3F)
+                  result = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters(319);
+                  if (v10 <= 0x3F)
                   {
                     result = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters(319);
-                    if (v10 <= 0x3F)
+                    if (v11 <= 0x3F)
                     {
                       result = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters(319);
-                      if (v11 <= 0x3F)
+                      if (v12 <= 0x3F)
                       {
                         result = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters(319);
-                        if (v12 <= 0x3F)
+                        if (v13 <= 0x3F)
                         {
                           result = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters(319);
-                          if (v13 <= 0x3F)
+                          if (v14 <= 0x3F)
                           {
                             result = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters(319);
-                            if (v14 <= 0x3F)
+                            if (v15 <= 0x3F)
                             {
                               result = type metadata accessor for NeuralNetwork.Layer.ReverseParameters(319);
-                              if (v15 <= 0x3F)
+                              if (v16 <= 0x3F)
                               {
                                 result = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters(319);
-                                if (v16 <= 0x3F)
+                                if (v17 <= 0x3F)
                                 {
                                   result = type metadata accessor for NeuralNetwork.Layer.TileParameters(319);
-                                  if (v17 <= 0x3F)
+                                  if (v18 <= 0x3F)
                                   {
-                                    result = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters();
-                                    if (v18 <= 0x3F)
+                                    result = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters(319);
+                                    if (v19 <= 0x3F)
                                     {
-                                      result = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters();
-                                      if (v19 <= 0x3F)
+                                      result = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters(319);
+                                      if (v20 <= 0x3F)
                                       {
-                                        result = type metadata accessor for NeuralNetwork.Layer.FlattenParameters();
-                                        if (v20 <= 0x3F)
+                                        result = type metadata accessor for NeuralNetwork.Layer.FlattenParameters(319);
+                                        if (v21 <= 0x3F)
                                         {
-                                          result = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters();
-                                          if (v21 <= 0x3F)
+                                          result = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters(319);
+                                          if (v22 <= 0x3F)
                                           {
-                                            result = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters();
-                                            if (v22 <= 0x3F)
+                                            result = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters(319);
+                                            if (v23 <= 0x3F)
                                             {
-                                              result = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters();
-                                              if (v23 <= 0x3F)
+                                              result = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters(319);
+                                              if (v24 <= 0x3F)
                                               {
-                                                result = type metadata accessor for NeuralNetwork.Layer.PermuteParameters();
-                                                if (v24 <= 0x3F)
+                                                result = type metadata accessor for NeuralNetwork.Layer.PermuteParameters(319);
+                                                if (v25 <= 0x3F)
                                                 {
-                                                  result = type metadata accessor for NeuralNetwork.Layer.TransposeParameters();
-                                                  if (v25 <= 0x3F)
+                                                  result = type metadata accessor for NeuralNetwork.Layer.TransposeParameters(319);
+                                                  if (v26 <= 0x3F)
                                                   {
                                                     result = type metadata accessor for NeuralNetwork.Layer.BroadcastToLikeParameters(319);
-                                                    if (v26 <= 0x3F)
+                                                    if (v27 <= 0x3F)
                                                     {
                                                       result = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters(319);
-                                                      if (v27 <= 0x3F)
+                                                      if (v28 <= 0x3F)
                                                       {
                                                         result = type metadata accessor for NeuralNetwork.Layer.BroadcastToDynamicParameters(319);
-                                                        if (v28 <= 0x3F)
+                                                        if (v29 <= 0x3F)
                                                         {
                                                           result = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters(319);
-                                                          if (v29 <= 0x3F)
+                                                          if (v30 <= 0x3F)
                                                           {
                                                             result = type metadata accessor for NeuralNetwork.Layer.ReshapeLikeParameters(319);
-                                                            if (v30 <= 0x3F)
+                                                            if (v31 <= 0x3F)
                                                             {
                                                               result = type metadata accessor for NeuralNetwork.Layer.ReshapeDynamicParameters(319);
-                                                              if (v31 <= 0x3F)
+                                                              if (v32 <= 0x3F)
                                                               {
-                                                                result = type metadata accessor for NeuralNetwork.Layer.StackParameters();
-                                                                if (v32 <= 0x3F)
+                                                                result = type metadata accessor for NeuralNetwork.Layer.StackParameters(319);
+                                                                if (v33 <= 0x3F)
                                                                 {
                                                                   result = type metadata accessor for NeuralNetwork.Layer.GatherParameters(319);
-                                                                  if (v33 <= 0x3F)
+                                                                  if (v34 <= 0x3F)
                                                                   {
                                                                     result = type metadata accessor for NeuralNetwork.Layer.GatherNDParameters(319);
-                                                                    if (v34 <= 0x3F)
+                                                                    if (v35 <= 0x3F)
                                                                     {
                                                                       result = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters(319);
-                                                                      if (v35 <= 0x3F)
+                                                                      if (v36 <= 0x3F)
                                                                       {
                                                                         result = type metadata accessor for NeuralNetwork.Layer.ScatterParameters(319);
-                                                                        if (v36 <= 0x3F)
+                                                                        if (v37 <= 0x3F)
                                                                         {
                                                                           result = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters(319);
-                                                                          if (v37 <= 0x3F)
+                                                                          if (v38 <= 0x3F)
                                                                           {
                                                                             result = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters(319);
-                                                                            if (v38 <= 0x3F)
+                                                                            if (v39 <= 0x3F)
                                                                             {
                                                                               result = type metadata accessor for NeuralNetwork.Layer.SliceParameters(319);
-                                                                              if (v39 <= 0x3F)
+                                                                              if (v40 <= 0x3F)
                                                                               {
                                                                                 result = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters(319);
-                                                                                if (v40 <= 0x3F)
+                                                                                if (v41 <= 0x3F)
                                                                                 {
                                                                                   result = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters(319);
-                                                                                  if (v41 <= 0x3F)
+                                                                                  if (v42 <= 0x3F)
                                                                                   {
                                                                                     result = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters(319);
-                                                                                    if (v42 <= 0x3F)
+                                                                                    if (v43 <= 0x3F)
                                                                                     {
                                                                                       result = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters(319);
-                                                                                      if (v43 <= 0x3F)
+                                                                                      if (v44 <= 0x3F)
                                                                                       {
-                                                                                        result = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters();
-                                                                                        if (v44 <= 0x3F)
+                                                                                        result = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters(319);
+                                                                                        if (v45 <= 0x3F)
                                                                                         {
                                                                                           result = type metadata accessor for NeuralNetwork.Layer.Activation(319);
-                                                                                          if (v45 <= 0x3F)
+                                                                                          if (v46 <= 0x3F)
                                                                                           {
-                                                                                            result = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters();
-                                                                                            if (v46 <= 0x3F)
+                                                                                            result = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters(319);
+                                                                                            if (v47 <= 0x3F)
                                                                                             {
-                                                                                              result = type metadata accessor for NeuralNetwork.Layer.ClipParameters();
-                                                                                              if (v47 <= 0x3F)
+                                                                                              result = type metadata accessor for NeuralNetwork.Layer.ClipParameters(319);
+                                                                                              if (v48 <= 0x3F)
                                                                                               {
-                                                                                                result = type metadata accessor for NeuralNetwork.Layer.GELUParameters();
-                                                                                                if (v48 <= 0x3F)
+                                                                                                result = type metadata accessor for NeuralNetwork.Layer.GELUParameters(319);
+                                                                                                if (v49 <= 0x3F)
                                                                                                 {
                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters(319);
-                                                                                                  if (v49 <= 0x3F)
+                                                                                                  if (v50 <= 0x3F)
                                                                                                   {
                                                                                                     result = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters(319);
-                                                                                                    if (v50 <= 0x3F)
+                                                                                                    if (v51 <= 0x3F)
                                                                                                     {
                                                                                                       result = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters(319);
-                                                                                                      if (v51 <= 0x3F)
+                                                                                                      if (v52 <= 0x3F)
                                                                                                       {
                                                                                                         result = type metadata accessor for NeuralNetwork.Layer.PoolParameters(319);
-                                                                                                        if (v52 <= 0x3F)
+                                                                                                        if (v53 <= 0x3F)
                                                                                                         {
                                                                                                           result = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters(319);
-                                                                                                          if (v53 <= 0x3F)
+                                                                                                          if (v54 <= 0x3F)
                                                                                                           {
                                                                                                             result = type metadata accessor for NeuralNetwork.Layer.GlobalPool3DParameters(319);
-                                                                                                            if (v54 <= 0x3F)
+                                                                                                            if (v55 <= 0x3F)
                                                                                                             {
                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.AddParameters(319);
-                                                                                                              if (v55 <= 0x3F)
+                                                                                                              if (v56 <= 0x3F)
                                                                                                               {
-                                                                                                                result = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters();
-                                                                                                                if (v56 <= 0x3F)
+                                                                                                                result = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters(319);
+                                                                                                                if (v57 <= 0x3F)
                                                                                                                 {
                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.BroadcastableAddParameters(319);
-                                                                                                                  if (v57 <= 0x3F)
+                                                                                                                  if (v58 <= 0x3F)
                                                                                                                   {
-                                                                                                                    result = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters();
-                                                                                                                    if (v58 <= 0x3F)
+                                                                                                                    result = type metadata accessor for NeuralNetwork.Layer.BroadcastableSubtractParameters(319);
+                                                                                                                    if (v59 <= 0x3F)
                                                                                                                     {
-                                                                                                                      result = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters();
-                                                                                                                      if (v59 <= 0x3F)
+                                                                                                                      result = type metadata accessor for NeuralNetwork.Layer.BroadcastableMultiplyParameters(319);
+                                                                                                                      if (v60 <= 0x3F)
                                                                                                                       {
                                                                                                                         result = type metadata accessor for NeuralNetwork.Layer.BroadcastableDivideParameters(319);
-                                                                                                                        if (v60 <= 0x3F)
+                                                                                                                        if (v61 <= 0x3F)
                                                                                                                         {
-                                                                                                                          result = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters();
-                                                                                                                          if (v61 <= 0x3F)
+                                                                                                                          result = type metadata accessor for NeuralNetwork.Layer.BatchedMatrixMultiplyParameters(319);
+                                                                                                                          if (v62 <= 0x3F)
                                                                                                                           {
-                                                                                                                            result = type metadata accessor for NeuralNetwork.Layer.DotProductParameters();
-                                                                                                                            if (v62 <= 0x3F)
+                                                                                                                            result = type metadata accessor for NeuralNetwork.Layer.DotProductParameters(319);
+                                                                                                                            if (v63 <= 0x3F)
                                                                                                                             {
                                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.BroadcastableModParameters(319);
-                                                                                                                              if (v63 <= 0x3F)
+                                                                                                                              if (v64 <= 0x3F)
                                                                                                                               {
                                                                                                                                 result = type metadata accessor for NeuralNetwork.Layer.BroadcastablePowParameters(319);
-                                                                                                                                if (v64 <= 0x3F)
+                                                                                                                                if (v65 <= 0x3F)
                                                                                                                                 {
                                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.BroadcastableFloorDivParameters(319);
-                                                                                                                                  if (v65 <= 0x3F)
+                                                                                                                                  if (v66 <= 0x3F)
                                                                                                                                   {
-                                                                                                                                    result = type metadata accessor for NeuralNetwork.Layer.ScaleParameters();
-                                                                                                                                    if (v66 <= 0x3F)
+                                                                                                                                    result = type metadata accessor for NeuralNetwork.Layer.ScaleParameters(319);
+                                                                                                                                    if (v67 <= 0x3F)
                                                                                                                                     {
-                                                                                                                                      result = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters();
-                                                                                                                                      if (v67 <= 0x3F)
+                                                                                                                                      result = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters(319);
+                                                                                                                                      if (v68 <= 0x3F)
                                                                                                                                       {
                                                                                                                                         result = type metadata accessor for NeuralNetwork.Layer.SoftmaxParameters(319);
-                                                                                                                                        if (v68 <= 0x3F)
+                                                                                                                                        if (v69 <= 0x3F)
                                                                                                                                         {
                                                                                                                                           result = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters(319);
-                                                                                                                                          if (v69 <= 0x3F)
+                                                                                                                                          if (v70 <= 0x3F)
                                                                                                                                           {
-                                                                                                                                            result = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters();
-                                                                                                                                            if (v70 <= 0x3F)
+                                                                                                                                            result = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters(319);
+                                                                                                                                            if (v71 <= 0x3F)
                                                                                                                                             {
                                                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters(319);
-                                                                                                                                              if (v71 <= 0x3F)
+                                                                                                                                              if (v72 <= 0x3F)
                                                                                                                                               {
                                                                                                                                                 result = type metadata accessor for NeuralNetwork.Layer.LRNParameters(319);
-                                                                                                                                                if (v72 <= 0x3F)
+                                                                                                                                                if (v73 <= 0x3F)
                                                                                                                                                 {
                                                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters(319);
-                                                                                                                                                  if (v73 <= 0x3F)
+                                                                                                                                                  if (v74 <= 0x3F)
                                                                                                                                                   {
-                                                                                                                                                    result = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters();
-                                                                                                                                                    if (v74 <= 0x3F)
+                                                                                                                                                    result = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters(319);
+                                                                                                                                                    if (v75 <= 0x3F)
                                                                                                                                                     {
-                                                                                                                                                      result = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters();
-                                                                                                                                                      if (v75 <= 0x3F)
+                                                                                                                                                      result = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters(319);
+                                                                                                                                                      if (v76 <= 0x3F)
                                                                                                                                                       {
-                                                                                                                                                        result = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters();
-                                                                                                                                                        if (v76 <= 0x3F)
+                                                                                                                                                        result = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters(319);
+                                                                                                                                                        if (v77 <= 0x3F)
                                                                                                                                                         {
-                                                                                                                                                          result = type metadata accessor for NeuralNetwork.Layer.GRUParameters();
-                                                                                                                                                          if (v77 <= 0x3F)
+                                                                                                                                                          result = type metadata accessor for NeuralNetwork.Layer.GRUParameters(319);
+                                                                                                                                                          if (v78 <= 0x3F)
                                                                                                                                                           {
                                                                                                                                                             result = type metadata accessor for NeuralNetwork.Layer.CropParameters(319);
-                                                                                                                                                            if (v78 <= 0x3F)
+                                                                                                                                                            if (v79 <= 0x3F)
                                                                                                                                                             {
                                                                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters(319);
-                                                                                                                                                              if (v79 <= 0x3F)
+                                                                                                                                                              if (v80 <= 0x3F)
                                                                                                                                                               {
                                                                                                                                                                 result = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters(319);
-                                                                                                                                                                if (v80 <= 0x3F)
+                                                                                                                                                                if (v81 <= 0x3F)
                                                                                                                                                                 {
                                                                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.AverageParameters(319);
-                                                                                                                                                                  if (v81 <= 0x3F)
+                                                                                                                                                                  if (v82 <= 0x3F)
                                                                                                                                                                   {
                                                                                                                                                                     result = type metadata accessor for NeuralNetwork.Layer.ReduceParameters(319);
-                                                                                                                                                                    if (v82 <= 0x3F)
+                                                                                                                                                                    if (v83 <= 0x3F)
                                                                                                                                                                     {
                                                                                                                                                                       result = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters(319);
-                                                                                                                                                                      if (v83 <= 0x3F)
+                                                                                                                                                                      if (v84 <= 0x3F)
                                                                                                                                                                       {
                                                                                                                                                                         result = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters(319);
-                                                                                                                                                                        if (v84 <= 0x3F)
+                                                                                                                                                                        if (v85 <= 0x3F)
                                                                                                                                                                         {
                                                                                                                                                                           result = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters(319);
-                                                                                                                                                                          if (v85 <= 0x3F)
+                                                                                                                                                                          if (v86 <= 0x3F)
                                                                                                                                                                           {
                                                                                                                                                                             result = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters(319);
-                                                                                                                                                                            if (v86 <= 0x3F)
+                                                                                                                                                                            if (v87 <= 0x3F)
                                                                                                                                                                             {
                                                                                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters(319);
-                                                                                                                                                                              if (v87 <= 0x3F)
+                                                                                                                                                                              if (v88 <= 0x3F)
                                                                                                                                                                               {
                                                                                                                                                                                 result = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters(319);
-                                                                                                                                                                                if (v88 <= 0x3F)
+                                                                                                                                                                                if (v89 <= 0x3F)
                                                                                                                                                                                 {
                                                                                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters(319);
-                                                                                                                                                                                  if (v89 <= 0x3F)
+                                                                                                                                                                                  if (v90 <= 0x3F)
                                                                                                                                                                                   {
                                                                                                                                                                                     result = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters(319);
-                                                                                                                                                                                    if (v90 <= 0x3F)
+                                                                                                                                                                                    if (v91 <= 0x3F)
                                                                                                                                                                                     {
                                                                                                                                                                                       result = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters(319);
-                                                                                                                                                                                      if (v91 <= 0x3F)
+                                                                                                                                                                                      if (v92 <= 0x3F)
                                                                                                                                                                                       {
                                                                                                                                                                                         result = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters(319);
-                                                                                                                                                                                        if (v92 <= 0x3F)
+                                                                                                                                                                                        if (v93 <= 0x3F)
                                                                                                                                                                                         {
                                                                                                                                                                                           result = type metadata accessor for NeuralNetwork.Layer.MinBroadcastableParameters(319);
-                                                                                                                                                                                          if (v93 <= 0x3F)
+                                                                                                                                                                                          if (v94 <= 0x3F)
                                                                                                                                                                                           {
                                                                                                                                                                                             result = type metadata accessor for NeuralNetwork.Layer.MaxBroadcastableParameters(319);
-                                                                                                                                                                                            if (v94 <= 0x3F)
+                                                                                                                                                                                            if (v95 <= 0x3F)
                                                                                                                                                                                             {
                                                                                                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters(319);
-                                                                                                                                                                                              if (v95 <= 0x3F)
+                                                                                                                                                                                              if (v96 <= 0x3F)
                                                                                                                                                                                               {
                                                                                                                                                                                                 result = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters(319);
-                                                                                                                                                                                                if (v96 <= 0x3F)
+                                                                                                                                                                                                if (v97 <= 0x3F)
                                                                                                                                                                                                 {
                                                                                                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters(319);
-                                                                                                                                                                                                  if (v97 <= 0x3F)
+                                                                                                                                                                                                  if (v98 <= 0x3F)
                                                                                                                                                                                                   {
                                                                                                                                                                                                     result = type metadata accessor for NeuralNetwork.Layer.WhereNonZeroParameters(319);
-                                                                                                                                                                                                    if (v98 <= 0x3F)
+                                                                                                                                                                                                    if (v99 <= 0x3F)
                                                                                                                                                                                                     {
                                                                                                                                                                                                       result = type metadata accessor for NeuralNetwork.Layer.WhereBroadcastableParameters(319);
-                                                                                                                                                                                                      if (v99 <= 0x3F)
+                                                                                                                                                                                                      if (v100 <= 0x3F)
                                                                                                                                                                                                       {
-                                                                                                                                                                                                        result = type metadata accessor for NeuralNetwork.Layer.BranchParameters();
-                                                                                                                                                                                                        if (v100 <= 0x3F)
+                                                                                                                                                                                                        result = type metadata accessor for NeuralNetwork.Layer.BranchParameters(319);
+                                                                                                                                                                                                        if (v101 <= 0x3F)
                                                                                                                                                                                                         {
                                                                                                                                                                                                           result = type metadata accessor for NeuralNetwork.Layer.CopyParameters(319);
-                                                                                                                                                                                                          if (v101 <= 0x3F)
+                                                                                                                                                                                                          if (v102 <= 0x3F)
                                                                                                                                                                                                           {
                                                                                                                                                                                                             result = type metadata accessor for NeuralNetwork.Layer.LoopParameters(319);
-                                                                                                                                                                                                            if (v102 <= 0x3F)
+                                                                                                                                                                                                            if (v103 <= 0x3F)
                                                                                                                                                                                                             {
                                                                                                                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.LoopBreakParameters(319);
-                                                                                                                                                                                                              if (v103 <= 0x3F)
+                                                                                                                                                                                                              if (v104 <= 0x3F)
                                                                                                                                                                                                               {
                                                                                                                                                                                                                 result = type metadata accessor for NeuralNetwork.Layer.LoopContinueParameters(319);
-                                                                                                                                                                                                                if (v104 <= 0x3F)
+                                                                                                                                                                                                                if (v105 <= 0x3F)
                                                                                                                                                                                                                 {
                                                                                                                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters(319);
-                                                                                                                                                                                                                  if (v105 <= 0x3F)
+                                                                                                                                                                                                                  if (v106 <= 0x3F)
                                                                                                                                                                                                                   {
                                                                                                                                                                                                                     result = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters(319);
-                                                                                                                                                                                                                    if (v106 <= 0x3F)
+                                                                                                                                                                                                                    if (v107 <= 0x3F)
                                                                                                                                                                                                                     {
                                                                                                                                                                                                                       result = type metadata accessor for NeuralNetwork.Layer.EqualParameters(319);
-                                                                                                                                                                                                                      if (v107 <= 0x3F)
+                                                                                                                                                                                                                      if (v108 <= 0x3F)
                                                                                                                                                                                                                       {
                                                                                                                                                                                                                         result = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters(319);
-                                                                                                                                                                                                                        if (v108 <= 0x3F)
+                                                                                                                                                                                                                        if (v109 <= 0x3F)
                                                                                                                                                                                                                         {
                                                                                                                                                                                                                           result = type metadata accessor for NeuralNetwork.Layer.LessThanParameters(319);
-                                                                                                                                                                                                                          if (v109 <= 0x3F)
+                                                                                                                                                                                                                          if (v110 <= 0x3F)
                                                                                                                                                                                                                           {
                                                                                                                                                                                                                             result = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters(319);
-                                                                                                                                                                                                                            if (v110 <= 0x3F)
+                                                                                                                                                                                                                            if (v111 <= 0x3F)
                                                                                                                                                                                                                             {
                                                                                                                                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters(319);
-                                                                                                                                                                                                                              if (v111 <= 0x3F)
+                                                                                                                                                                                                                              if (v112 <= 0x3F)
                                                                                                                                                                                                                               {
                                                                                                                                                                                                                                 result = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters(319);
-                                                                                                                                                                                                                                if (v112 <= 0x3F)
+                                                                                                                                                                                                                                if (v113 <= 0x3F)
                                                                                                                                                                                                                                 {
                                                                                                                                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters(319);
-                                                                                                                                                                                                                                  if (v113 <= 0x3F)
+                                                                                                                                                                                                                                  if (v114 <= 0x3F)
                                                                                                                                                                                                                                   {
                                                                                                                                                                                                                                     result = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters(319);
-                                                                                                                                                                                                                                    if (v114 <= 0x3F)
+                                                                                                                                                                                                                                    if (v115 <= 0x3F)
                                                                                                                                                                                                                                     {
                                                                                                                                                                                                                                       result = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters(319);
-                                                                                                                                                                                                                                      if (v115 <= 0x3F)
+                                                                                                                                                                                                                                      if (v116 <= 0x3F)
                                                                                                                                                                                                                                       {
                                                                                                                                                                                                                                         result = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters(319);
-                                                                                                                                                                                                                                        if (v116 <= 0x3F)
+                                                                                                                                                                                                                                        if (v117 <= 0x3F)
                                                                                                                                                                                                                                         {
                                                                                                                                                                                                                                           result = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters(319);
-                                                                                                                                                                                                                                          if (v117 <= 0x3F)
+                                                                                                                                                                                                                                          if (v118 <= 0x3F)
                                                                                                                                                                                                                                           {
                                                                                                                                                                                                                                             result = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters(319);
-                                                                                                                                                                                                                                            if (v118 <= 0x3F)
+                                                                                                                                                                                                                                            if (v119 <= 0x3F)
                                                                                                                                                                                                                                             {
                                                                                                                                                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters(319);
-                                                                                                                                                                                                                                              if (v119 <= 0x3F)
+                                                                                                                                                                                                                                              if (v120 <= 0x3F)
                                                                                                                                                                                                                                               {
                                                                                                                                                                                                                                                 result = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters(319);
-                                                                                                                                                                                                                                                if (v120 <= 0x3F)
+                                                                                                                                                                                                                                                if (v121 <= 0x3F)
                                                                                                                                                                                                                                                 {
                                                                                                                                                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters(319);
-                                                                                                                                                                                                                                                  if (v121 <= 0x3F)
+                                                                                                                                                                                                                                                  if (v122 <= 0x3F)
                                                                                                                                                                                                                                                   {
                                                                                                                                                                                                                                                     result = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters(319);
-                                                                                                                                                                                                                                                    if (v122 <= 0x3F)
+                                                                                                                                                                                                                                                    if (v123 <= 0x3F)
                                                                                                                                                                                                                                                     {
                                                                                                                                                                                                                                                       result = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters(319);
-                                                                                                                                                                                                                                                      if (v123 <= 0x3F)
+                                                                                                                                                                                                                                                      if (v124 <= 0x3F)
                                                                                                                                                                                                                                                       {
                                                                                                                                                                                                                                                         result = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters(319);
-                                                                                                                                                                                                                                                        if (v124 <= 0x3F)
+                                                                                                                                                                                                                                                        if (v125 <= 0x3F)
                                                                                                                                                                                                                                                         {
                                                                                                                                                                                                                                                           result = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters(319);
-                                                                                                                                                                                                                                                          if (v125 <= 0x3F)
+                                                                                                                                                                                                                                                          if (v126 <= 0x3F)
                                                                                                                                                                                                                                                           {
                                                                                                                                                                                                                                                             result = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters(319);
-                                                                                                                                                                                                                                                            if (v126 <= 0x3F)
+                                                                                                                                                                                                                                                            if (v127 <= 0x3F)
                                                                                                                                                                                                                                                             {
                                                                                                                                                                                                                                                               result = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters(319);
-                                                                                                                                                                                                                                                              if (v127 <= 0x3F)
+                                                                                                                                                                                                                                                              if (v128 <= 0x3F)
                                                                                                                                                                                                                                                               {
                                                                                                                                                                                                                                                                 result = type metadata accessor for NeuralNetwork.Layer.BiasParameters(319);
-                                                                                                                                                                                                                                                                if (v128 <= 0x3F)
+                                                                                                                                                                                                                                                                if (v129 <= 0x3F)
                                                                                                                                                                                                                                                                 {
                                                                                                                                                                                                                                                                   result = type metadata accessor for NeuralNetwork.Layer.OneHotParameters(319);
-                                                                                                                                                                                                                                                                  if (v129 <= 0x3F)
+                                                                                                                                                                                                                                                                  if (v130 <= 0x3F)
                                                                                                                                                                                                                                                                   {
                                                                                                                                                                                                                                                                     result = type metadata accessor for NeuralNetwork.Layer.TopKParameters(319);
-                                                                                                                                                                                                                                                                    if (v130 <= 0x3F)
+                                                                                                                                                                                                                                                                    if (v131 <= 0x3F)
                                                                                                                                                                                                                                                                     {
                                                                                                                                                                                                                                                                       result = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters(319);
-                                                                                                                                                                                                                                                                      if (v131 <= 0x3F)
+                                                                                                                                                                                                                                                                      if (v132 <= 0x3F)
                                                                                                                                                                                                                                                                       {
                                                                                                                                                                                                                                                                         result = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters(319);
-                                                                                                                                                                                                                                                                        if (v132 <= 0x3F)
+                                                                                                                                                                                                                                                                        if (v133 <= 0x3F)
                                                                                                                                                                                                                                                                         {
                                                                                                                                                                                                                                                                           result = type metadata accessor for NeuralNetwork.Layer.CustomParameters(319);
-                                                                                                                                                                                                                                                                          if (v133 <= 0x3F)
+                                                                                                                                                                                                                                                                          if (v134 <= 0x3F)
                                                                                                                                                                                                                                                                           {
                                                                                                                                                                                                                                                                             swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
                                                                                                                                                                                                                                                                             return 0;
@@ -7365,27 +5998,27 @@ uint64_t sub_257496C8C()
   return result;
 }
 
-uint64_t sub_25749773C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t sub_25749773C(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_4(v5);
-  (*(v6 + 16))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_4();
+  (*(v5 + 16))(a2, a1);
   return a2;
 }
 
-uint64_t sub_25749779C(uint64_t a1, uint64_t (*a2)(void))
+uint64_t sub_25749779C(uint64_t a1, void (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_4(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
-uint64_t sub_2574977F4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t sub_2574977F4(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_4(v5);
-  (*(v6 + 32))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_4();
+  (*(v5 + 32))(a2, a1);
   return a2;
 }
 
@@ -7404,49 +6037,46 @@ uint64_t OUTLINED_FUNCTION_8_1()
 
 uint64_t OUTLINED_FUNCTION_17_1()
 {
-  v2 = *(v0 - 104);
 
   return swift_getEnumCaseMultiPayload();
 }
 
 uint64_t OUTLINED_FUNCTION_24_1()
 {
-  v3 = v0 + *(v1 - 104);
 
   return swift_getEnumCaseMultiPayload();
 }
 
-uint64_t OUTLINED_FUNCTION_30_1(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t OUTLINED_FUNCTION_30_1(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
   v5 = *(v3 - 104);
 
   return sub_2574977F4(a1, v5, a3);
 }
 
-uint64_t OUTLINED_FUNCTION_31_1@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t a3@<X8>)
+uint64_t OUTLINED_FUNCTION_31_1@<X0>(uint64_t a1@<X0>, void (*a2)(void)@<X2>, uint64_t a3@<X8>)
 {
   v4 = *(a3 - 256);
 
   return sub_2574977F4(a1, v4, a2);
 }
 
-uint64_t OUTLINED_FUNCTION_32_2@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t a3@<X8>)
+uint64_t OUTLINED_FUNCTION_32_2@<X0>(uint64_t a1@<X0>, void (*a2)(void)@<X2>, uint64_t a3@<X8>)
 {
   v4 = *(a3 - 256);
 
   return sub_25749773C(a1, v4, a2);
 }
 
-uint64_t OUTLINED_FUNCTION_33_0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t a3@<X8>)
+uint64_t OUTLINED_FUNCTION_33_0@<X0>(uint64_t a1@<X0>, void (*a2)(void)@<X2>, uint64_t a3@<X8>)
 {
   v4 = *(a3 - 256);
 
   return sub_2574977F4(a1, v4, a2);
 }
 
-uint64_t OUTLINED_FUNCTION_36_0()
+uint64_t OUTLINED_FUNCTION_36_0(uint64_t a1)
 {
-  v2 = *(v0 - 104);
 
   return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
 }
@@ -7456,195 +6086,185 @@ void sub_257497ABC()
   OUTLINED_FUNCTION_31();
   v2 = type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration(0);
   v3 = OUTLINED_FUNCTION_13(v2);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_3();
-  v128 = v7 - v6;
-  v8 = OUTLINED_FUNCTION_153();
-  v9 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration(v8);
-  v10 = OUTLINED_FUNCTION_13(v9);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
+  v109 = v5 - v4;
+  v6 = OUTLINED_FUNCTION_153();
+  v7 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration(v6);
+  v8 = OUTLINED_FUNCTION_13(v7);
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_3();
-  v127 = v14 - v13;
-  v15 = OUTLINED_FUNCTION_153();
-  v136 = type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor(v15);
-  v16 = OUTLINED_FUNCTION_4(v136);
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v16);
+  v108 = v10 - v9;
+  v11 = OUTLINED_FUNCTION_153();
+  v117 = type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor(v11);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_25_0();
-  v126 = v19;
+  v107 = v13;
+  MEMORY[0x28223BE20](v14);
+  v106 = v103 - v15;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A048, &qword_257744980);
+  v17 = OUTLINED_FUNCTION_13(v16);
+  MEMORY[0x28223BE20](v17);
+  v116 = v103 - v18;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A0E0, &qword_257773BE0);
+  v20 = OUTLINED_FUNCTION_13(v19);
   MEMORY[0x28223BE20](v20);
-  v125 = &v121 - v21;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A048, &qword_257744980);
-  v23 = OUTLINED_FUNCTION_13(v22);
-  v25 = *(v24 + 64);
-  MEMORY[0x28223BE20](v23);
-  v135 = &v121 - v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A0E0, &qword_257773BE0);
-  v28 = OUTLINED_FUNCTION_13(v27);
-  v30 = *(v29 + 64);
-  MEMORY[0x28223BE20](v28);
   OUTLINED_FUNCTION_21_1();
-  v31 = type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
-  v32 = OUTLINED_FUNCTION_4(v31);
-  v34 = *(v33 + 64);
-  MEMORY[0x28223BE20](v32);
+  v21 = type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v22);
   OUTLINED_FUNCTION_25_0();
-  v132 = v35;
-  MEMORY[0x28223BE20](v36);
-  v138 = &v121 - v37;
-  v38 = OUTLINED_FUNCTION_153();
-  v39 = type metadata accessor for NeuralNetwork.Preprocessor(v38);
-  v40 = OUTLINED_FUNCTION_24(v39);
-  v122 = v41;
-  v43 = *(v42 + 64);
-  MEMORY[0x28223BE20](v40);
+  v113 = v23;
+  MEMORY[0x28223BE20](v24);
+  v119 = v103 - v25;
+  v26 = OUTLINED_FUNCTION_153();
+  v27 = type metadata accessor for NeuralNetwork.Preprocessor(v26);
+  v28 = OUTLINED_FUNCTION_24(v27);
+  v103[1] = v29;
+  MEMORY[0x28223BE20](v28);
   OUTLINED_FUNCTION_3();
-  v137 = (v45 - v44);
-  OUTLINED_FUNCTION_153();
-  v46 = type metadata accessor for NeuralNetwork.Layer();
-  v47 = OUTLINED_FUNCTION_24(v46);
-  v49 = v48;
-  v51 = *(v50 + 64);
-  MEMORY[0x28223BE20](v47);
+  v118 = (v31 - v30);
+  v32 = OUTLINED_FUNCTION_153();
+  v33 = type metadata accessor for NeuralNetwork.Layer(v32);
+  v34 = OUTLINED_FUNCTION_24(v33);
+  v36 = v35;
+  MEMORY[0x28223BE20](v34);
   OUTLINED_FUNCTION_3();
-  v130 = v53 - v52;
-  v131 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+  v111 = v38 - v37;
+  v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_257744E70;
-  v55 = OUTLINED_FUNCTION_28_2(inited, 24908);
-  v56 = *(v55 + 16);
-  v57 = MEMORY[0x277D84F90];
-  v133 = v31;
-  v134 = v1;
-  v123 = inited;
-  v124 = v0;
-  if (v56)
+  v40 = OUTLINED_FUNCTION_28_2(inited, 24908);
+  v41 = *(v40 + 16);
+  v42 = MEMORY[0x277D84F90];
+  v114 = v21;
+  v115 = v1;
+  v104 = inited;
+  v105 = v0;
+  if (v41)
   {
-    v139 = MEMORY[0x277D84F90];
-    sub_257484040(0, v56, 0);
-    v58 = v139;
-    v59 = *(v49 + 80);
+    v120 = MEMORY[0x277D84F90];
+    sub_257484040(0, v41, 0);
+    v43 = v120;
     OUTLINED_FUNCTION_193();
-    v121 = v55;
-    v61 = v55 + v60;
-    *&v129 = *(v49 + 72);
+    v103[0] = v40;
+    v45 = v40 + v44;
+    *&v110 = *(v36 + 72);
     do
     {
-      v62 = OUTLINED_FUNCTION_2_3();
-      v63 = v130;
-      sub_2574999D0(v62, v130);
+      v46 = OUTLINED_FUNCTION_2_3();
+      v47 = v111;
+      sub_2574999D0(v46, v111);
       sub_2576EDD44();
-      v65 = v64;
-      v67 = v66;
-      v69 = v68;
+      v49 = v48;
+      v51 = v50;
+      v53 = v52;
       OUTLINED_FUNCTION_3_2();
-      sub_257499A2C(v63, v70);
-      v139 = v58;
-      v72 = *(v58 + 16);
-      v71 = *(v58 + 24);
-      if (v72 >= v71 >> 1)
+      sub_257499A2C(v47, v54);
+      v120 = v43;
+      v56 = *(v43 + 16);
+      v55 = *(v43 + 24);
+      if (v56 >= v55 >> 1)
       {
-        OUTLINED_FUNCTION_174(v71);
+        OUTLINED_FUNCTION_174(v55);
         OUTLINED_FUNCTION_310();
-        sub_257484040(v74, v75, v76);
-        v58 = v139;
+        sub_257484040(v58, v59, v60);
+        v43 = v120;
       }
 
-      *(v58 + 16) = v72 + 1;
-      v73 = v58 + 24 * v72;
-      *(v73 + 32) = v65;
-      *(v73 + 40) = v67;
-      *(v73 + 48) = v69;
-      v61 += v129;
-      --v56;
+      *(v43 + 16) = v56 + 1;
+      v57 = v43 + 24 * v56;
+      *(v57 + 32) = v49;
+      *(v57 + 40) = v51;
+      *(v57 + 48) = v53;
+      v45 += v110;
+      --v41;
     }
 
-    while (v56);
+    while (v41);
 
-    inited = v123;
-    v0 = v124;
-    v31 = v133;
-    v1 = v134;
-    v57 = MEMORY[0x277D84F90];
+    inited = v104;
+    v0 = v105;
+    v21 = v114;
+    v1 = v115;
+    v42 = MEMORY[0x277D84F90];
   }
 
   else
   {
 
-    v58 = MEMORY[0x277D84F90];
+    v43 = MEMORY[0x277D84F90];
   }
 
-  *(inited + 48) = v58;
+  *(inited + 48) = v43;
   *(inited + 56) = 0;
   *(inited + 64) = 1;
   strcpy((inited + 72), "Preprocessors");
   *(inited + 86) = -4864;
-  v77 = NeuralNetwork.preprocessors.getter();
-  v78 = *(v77 + 16);
-  if (v78)
+  v61 = NeuralNetwork.preprocessors.getter();
+  v62 = *(v61 + 16);
+  if (v62)
   {
-    v141 = v57;
-    sub_257484040(0, v78, 0);
-    v79 = v141;
-    v80 = *(v122 + 80);
+    v122 = v42;
+    sub_257484040(0, v62, 0);
+    v63 = v122;
     OUTLINED_FUNCTION_193();
-    v121 = v77;
-    v82 = v77 + v81;
-    v130 = *(v83 + 72);
-    v129 = xmmword_257743FF0;
+    v103[0] = v61;
+    v65 = v61 + v64;
+    v111 = *(v66 + 72);
+    v110 = xmmword_257743FF0;
     do
     {
-      v84 = v137;
-      sub_2574999D0(v82, v137);
-      v85 = swift_initStackObject();
-      *(v85 + 16) = v129;
-      strcpy((v85 + 32), "Feature Name");
-      *(v85 + 45) = 0;
-      *(v85 + 46) = -5120;
-      v86 = *v84;
-      v87 = v84[1];
-      v139 = 34;
-      v140 = 0xE100000000000000;
-      MEMORY[0x259C64E90](v86, v87);
+      v67 = v118;
+      sub_2574999D0(v65, v118);
+      v68 = swift_initStackObject();
+      *(v68 + 16) = v110;
+      strcpy((v68 + 32), "Feature Name");
+      *(v68 + 45) = 0;
+      *(v68 + 46) = -5120;
+      v69 = *v67;
+      v70 = v67[1];
+      v120 = 34;
+      v121 = 0xE100000000000000;
+      MEMORY[0x259C64E90](v69, v70);
       MEMORY[0x259C64E90](34, 0xE100000000000000);
-      v88 = v140;
-      *(v85 + 48) = v139;
-      *(v85 + 56) = v88;
-      *(v85 + 64) = 0;
-      *(v85 + 72) = 1684957515;
-      *(v85 + 80) = 0xE400000000000000;
-      v89 = v84 + *(type metadata accessor for Proto_NeuralNetworkPreprocessing(0) + 20);
-      v90 = v135;
-      sub_2574998F8(v89, v135);
-      v91 = 1;
-      if (__swift_getEnumTagSinglePayload(v90, 1, v136) != 1)
+      v71 = v121;
+      *(v68 + 48) = v120;
+      *(v68 + 56) = v71;
+      *(v68 + 64) = 0;
+      *(v68 + 72) = 1684957515;
+      *(v68 + 80) = 0xE400000000000000;
+      v72 = v67 + *(type metadata accessor for Proto_NeuralNetworkPreprocessing(0) + 20);
+      v73 = v116;
+      sub_2574998F8(v72, v116);
+      v74 = 1;
+      if (__swift_getEnumTagSinglePayload(v73, 1, v117) != 1)
       {
-        v92 = v125;
-        sub_257499A84(v135, v125);
-        v93 = v126;
-        sub_2574999D0(v92, v126);
+        v75 = v106;
+        sub_257499A84(v116, v106);
+        v76 = v107;
+        sub_2574999D0(v75, v107);
         swift_getEnumCaseMultiPayload();
-        sub_257499A84(v93, v1);
+        sub_257499A84(v76, v1);
         swift_storeEnumTagMultiPayload();
-        sub_257499A2C(v92, type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor);
-        v91 = 0;
+        sub_257499A2C(v75, type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor);
+        v74 = 0;
       }
 
-      __swift_storeEnumTagSinglePayload(v1, v91, 1, v31);
-      if (__swift_getEnumTagSinglePayload(v1, 1, v31) == 1)
+      __swift_storeEnumTagSinglePayload(v1, v74, 1, v21);
+      if (__swift_getEnumTagSinglePayload(v1, 1, v21) == 1)
       {
-        v94 = v138;
-        *(v138 + 8) = 0;
-        v94[1] = 0;
-        v95 = v94 + *(type metadata accessor for Proto_NeuralNetworkImageScaler(0) + 36);
+        v77 = v119;
+        *(v119 + 8) = 0;
+        v77[1] = 0;
+        type metadata accessor for Proto_NeuralNetworkImageScaler(0);
         _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-        *v94 = 1065353216;
-        v94[4] = 0;
+        *v77 = 1065353216;
+        v77[4] = 0;
         swift_storeEnumTagMultiPayload();
-        EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v1, 1, v31);
-        v97 = v132;
+        EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v1, 1, v21);
+        v79 = v113;
         if (EnumTagSinglePayload != 1)
         {
           sub_257499968(v1);
@@ -7653,104 +6273,104 @@ void sub_257497ABC()
 
       else
       {
-        v94 = v138;
-        sub_257499A84(v1, v138);
-        v97 = v132;
+        v77 = v119;
+        sub_257499A84(v1, v119);
+        v79 = v113;
       }
 
-      sub_2574999D0(v94, v97);
+      sub_2574999D0(v77, v79);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v98 = v128;
-        sub_257499A84(v97, v128);
-        v99 = sub_25749CDBC();
-        v101 = v100;
-        v103 = v102;
-        v104 = type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration;
+        v80 = v109;
+        sub_257499A84(v79, v109);
+        v81 = sub_25749CDBC();
+        v83 = v82;
+        v85 = v84;
+        v86 = type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration;
       }
 
       else
       {
-        v98 = v127;
-        sub_257499A84(v97, v127);
-        v99 = sub_25749CC5C();
-        v101 = v105;
-        v103 = v106;
-        v104 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration;
+        v80 = v108;
+        sub_257499A84(v79, v108);
+        v81 = sub_25749CC5C();
+        v83 = v87;
+        v85 = v88;
+        v86 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration;
       }
 
-      sub_257499A2C(v98, v104);
-      sub_257499A2C(v138, type metadata accessor for NeuralNetwork.Preprocessor.Kind);
-      *(v85 + 88) = v99;
-      *(v85 + 96) = v101;
-      *(v85 + 104) = v103;
-      v107 = sub_2576A6964(v85);
-      v109 = v108;
+      sub_257499A2C(v80, v86);
+      sub_257499A2C(v119, type metadata accessor for NeuralNetwork.Preprocessor.Kind);
+      *(v68 + 88) = v81;
+      *(v68 + 96) = v83;
+      *(v68 + 104) = v85;
+      v89 = sub_2576A6964(v68);
+      v91 = v90;
       OUTLINED_FUNCTION_6_1();
-      sub_257499A2C(v137, v110);
-      v141 = v79;
-      v112 = *(v79 + 16);
-      v111 = *(v79 + 24);
-      if (v112 >= v111 >> 1)
+      sub_257499A2C(v118, v92);
+      v122 = v63;
+      v94 = *(v63 + 16);
+      v93 = *(v63 + 24);
+      if (v94 >= v93 >> 1)
       {
-        OUTLINED_FUNCTION_174(v111);
+        OUTLINED_FUNCTION_174(v93);
         OUTLINED_FUNCTION_310();
-        sub_257484040(v114, v115, v116);
-        v79 = v141;
+        sub_257484040(v96, v97, v98);
+        v63 = v122;
       }
 
-      *(v79 + 16) = v112 + 1;
-      v113 = v79 + 24 * v112;
-      *(v113 + 32) = v107;
-      *(v113 + 40) = v109;
-      *(v113 + 48) = 2;
-      v82 += v130;
-      --v78;
-      v31 = v133;
-      v1 = v134;
+      *(v63 + 16) = v94 + 1;
+      v95 = v63 + 24 * v94;
+      *(v95 + 32) = v89;
+      *(v95 + 40) = v91;
+      *(v95 + 48) = 2;
+      v65 += v111;
+      --v62;
+      v21 = v114;
+      v1 = v115;
     }
 
-    while (v78);
+    while (v62);
 
-    inited = v123;
-    v0 = v124;
+    inited = v104;
+    v0 = v105;
   }
 
   else
   {
 
-    v79 = MEMORY[0x277D84F90];
+    v63 = MEMORY[0x277D84F90];
   }
 
-  *(inited + 88) = v79;
+  *(inited + 88) = v63;
   *(inited + 96) = 0;
   *(inited + 104) = 1;
   *(inited + 112) = 0xD000000000000019;
   *(inited + 120) = 0x800000025777A070;
   if (*(v0 + 24) == 1)
   {
-    v117 = vdup_n_s32(*(v0 + 16) == 0);
-    v118.i64[0] = v117.u32[0];
-    v118.i64[1] = v117.u32[1];
-    v119 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v118, 0x3FuLL)), xmmword_257744E80, xmmword_257744E90);
+    v99 = vdup_n_s32(*(v0 + 16) == 0);
+    v100.i64[0] = v99.u32[0];
+    v100.i64[1] = v99.u32[1];
+    v101 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v100, 0x3FuLL)), xmmword_257744E80, xmmword_257744E90);
   }
 
   else
   {
-    v119 = xmmword_257744E80;
+    v101 = xmmword_257744E80;
   }
 
-  *(inited + 128) = v119;
+  *(inited + 128) = v101;
   *(inited + 144) = 0;
   *(inited + 152) = 0xD000000000000019;
   *(inited + 160) = 0x800000025777A090;
-  v120 = 0x35206B6E6152;
+  v102 = 0x35206B6E6152;
   if (*(v0 + 40))
   {
-    v120 = 0x34206B6E6152;
+    v102 = 0x34206B6E6152;
   }
 
-  *(inited + 168) = v120;
+  *(inited + 168) = v102;
   *(inited + 176) = 0xE600000000000000;
   *(inited + 184) = 0;
   sub_2576A6964(inited);
@@ -7759,129 +6379,112 @@ void sub_257497ABC()
 
 uint64_t NeuralNetwork.layers.getter()
 {
-  v3 = type metadata accessor for NeuralNetwork.Layer();
+  v3 = type metadata accessor for NeuralNetwork.Layer(0);
   v4 = OUTLINED_FUNCTION_24(v3);
   v6 = v5;
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_3();
-  v11 = v10 - v9;
-  v12 = *v0;
-  v13 = *(*v0 + 16);
-  v14 = MEMORY[0x277D84F90];
-  if (v13)
+  v9 = v8 - v7;
+  v10 = *v0;
+  v11 = *(*v0 + 16);
+  v12 = MEMORY[0x277D84F90];
+  if (v11)
   {
-    OUTLINED_FUNCTION_17_2();
-    sub_2574841E8();
-    v14 = v25;
-    v15 = type metadata accessor for Proto_NeuralNetworkLayer(0);
-    OUTLINED_FUNCTION_24(v15);
-    v17 = v12 + ((*(v16 + 80) + 32) & ~*(v16 + 80));
-    v19 = *(v18 + 72);
+    v13 = OUTLINED_FUNCTION_17_2();
+    sub_2574841E8(v13, v14, v15);
+    v12 = v28;
+    v16 = type metadata accessor for Proto_NeuralNetworkLayer(0);
+    OUTLINED_FUNCTION_24(v16);
+    v18 = v10 + ((*(v17 + 80) + 32) & ~*(v17 + 80));
+    v20 = *(v19 + 72);
     do
     {
       OUTLINED_FUNCTION_5_1();
-      sub_2574999D0(v17, v11);
+      sub_2574999D0(v18, v9);
       OUTLINED_FUNCTION_24_2();
-      if (v21)
+      if (v22)
       {
-        OUTLINED_FUNCTION_174(v20);
+        OUTLINED_FUNCTION_174(v21);
         OUTLINED_FUNCTION_310();
-        sub_2574841E8();
-        v14 = v25;
+        sub_2574841E8(v24, v25, v26);
+        v12 = v28;
       }
 
-      *(v14 + 16) = v1;
-      v22 = *(v6 + 80);
+      *(v12 + 16) = v1;
       OUTLINED_FUNCTION_193();
-      sub_257499A84(v11, v14 + v23 + *(v6 + 72) * v2);
-      v17 += v19;
-      --v13;
+      sub_257499A84(v9, v12 + v23 + *(v6 + 72) * v2);
+      v18 += v20;
+      --v11;
     }
 
-    while (v13);
+    while (v11);
   }
 
-  return v14;
-}
-
-void sub_257498560(uint64_t *a1)
-{
-  v1 = *a1;
-
-  NeuralNetwork.layers.setter();
+  return v12;
 }
 
 void NeuralNetwork.layers.setter()
 {
   OUTLINED_FUNCTION_31();
   v4 = v3;
-  v5 = type metadata accessor for NeuralNetwork.Layer();
+  v5 = type metadata accessor for NeuralNetwork.Layer(0);
   v6 = OUTLINED_FUNCTION_24(v5);
   v8 = v7;
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_3();
-  v11 = OUTLINED_FUNCTION_78();
-  v12 = type metadata accessor for Proto_NeuralNetworkLayer(v11);
-  v13 = OUTLINED_FUNCTION_24(v12);
-  v15 = v14;
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v13);
+  v9 = OUTLINED_FUNCTION_78();
+  v10 = type metadata accessor for Proto_NeuralNetworkLayer(v9);
+  v11 = OUTLINED_FUNCTION_24(v10);
+  MEMORY[0x28223BE20](v11);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_21_1();
-  v18 = *(v4 + 16);
-  if (v18)
+  v12 = *(v4 + 16);
+  if (v12)
   {
-    OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
-    sub_2574843E0();
-    v19 = v32;
-    v20 = *(v8 + 80);
+    v13 = OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
+    sub_2574843E0(v13, v12, 0);
+    v14 = v24;
     OUTLINED_FUNCTION_193();
-    v22 = v4 + v21;
-    v23 = *(v8 + 72);
+    v16 = v4 + v15;
+    v17 = *(v8 + 72);
     do
     {
-      v24 = OUTLINED_FUNCTION_2_3();
-      sub_2574999D0(v24, v1);
+      v18 = OUTLINED_FUNCTION_2_3();
+      sub_2574999D0(v18, v1);
       OUTLINED_FUNCTION_5_1();
       sub_2574999D0(v1, v2);
       OUTLINED_FUNCTION_3_2();
-      sub_257499A2C(v1, v25);
+      sub_257499A2C(v1, v19);
       OUTLINED_FUNCTION_27_2();
-      if (v27)
+      if (v21)
       {
-        OUTLINED_FUNCTION_13_1(v26);
-        sub_2574843E0();
-        v19 = v32;
+        v23 = OUTLINED_FUNCTION_13_1(v20);
+        sub_2574843E0(v23, v8, 1);
+        v14 = v24;
       }
 
-      *(v19 + 16) = v8;
-      v28 = *(v15 + 80);
+      *(v14 + 16) = v8;
       OUTLINED_FUNCTION_193();
-      v29 = *(v15 + 72);
       OUTLINED_FUNCTION_11_2();
-      sub_257499A84(v2, v30);
-      v22 += v23;
-      --v18;
+      sub_257499A84(v2, v22);
+      v16 += v17;
+      --v12;
     }
 
-    while (v18);
+    while (v12);
   }
 
   else
   {
 
-    v19 = MEMORY[0x277D84F90];
+    v14 = MEMORY[0x277D84F90];
   }
 
-  v31 = *v0;
-
-  *v0 = v19;
+  *v0 = v14;
   OUTLINED_FUNCTION_35();
 }
 
-uint64_t (*NeuralNetwork.layers.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*NeuralNetwork.layers.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   *a1 = NeuralNetwork.layers.getter();
@@ -7893,54 +6496,45 @@ uint64_t NeuralNetwork.preprocessors.getter()
   v3 = type metadata accessor for NeuralNetwork.Preprocessor(0);
   v4 = OUTLINED_FUNCTION_24(v3);
   v6 = v5;
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_3();
-  v11 = v10 - v9;
-  v12 = *(v0 + 8);
-  v13 = *(v12 + 16);
-  v14 = MEMORY[0x277D84F90];
-  if (v13)
+  v9 = v8 - v7;
+  v10 = *(v0 + 8);
+  v11 = *(v10 + 16);
+  v12 = MEMORY[0x277D84F90];
+  if (v11)
   {
-    OUTLINED_FUNCTION_17_2();
-    sub_257484240();
-    v14 = v25;
-    v15 = type metadata accessor for Proto_NeuralNetworkPreprocessing(0);
-    OUTLINED_FUNCTION_24(v15);
-    v17 = v12 + ((*(v16 + 80) + 32) & ~*(v16 + 80));
-    v19 = *(v18 + 72);
+    v13 = OUTLINED_FUNCTION_17_2();
+    sub_257484240(v13, v14, v15);
+    v12 = v28;
+    v16 = type metadata accessor for Proto_NeuralNetworkPreprocessing(0);
+    OUTLINED_FUNCTION_24(v16);
+    v18 = v10 + ((*(v17 + 80) + 32) & ~*(v17 + 80));
+    v20 = *(v19 + 72);
     do
     {
       OUTLINED_FUNCTION_4_1();
-      sub_2574999D0(v17, v11);
+      sub_2574999D0(v18, v9);
       OUTLINED_FUNCTION_24_2();
-      if (v21)
+      if (v22)
       {
-        OUTLINED_FUNCTION_174(v20);
+        OUTLINED_FUNCTION_174(v21);
         OUTLINED_FUNCTION_310();
-        sub_257484240();
-        v14 = v25;
+        sub_257484240(v24, v25, v26);
+        v12 = v28;
       }
 
-      *(v14 + 16) = v1;
-      v22 = *(v6 + 80);
+      *(v12 + 16) = v1;
       OUTLINED_FUNCTION_193();
-      sub_257499A84(v11, v14 + v23 + *(v6 + 72) * v2);
-      v17 += v19;
-      --v13;
+      sub_257499A84(v9, v12 + v23 + *(v6 + 72) * v2);
+      v18 += v20;
+      --v11;
     }
 
-    while (v13);
+    while (v11);
   }
 
-  return v14;
-}
-
-void sub_257498940(uint64_t *a1)
-{
-  v1 = *a1;
-
-  NeuralNetwork.preprocessors.setter();
+  return v12;
 }
 
 void NeuralNetwork.preprocessors.setter()
@@ -7950,69 +6544,61 @@ void NeuralNetwork.preprocessors.setter()
   v5 = type metadata accessor for NeuralNetwork.Preprocessor(0);
   v6 = OUTLINED_FUNCTION_24(v5);
   v8 = v7;
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_3();
-  v11 = OUTLINED_FUNCTION_78();
-  v12 = type metadata accessor for Proto_NeuralNetworkPreprocessing(v11);
-  v13 = OUTLINED_FUNCTION_24(v12);
-  v15 = v14;
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v13);
+  v9 = OUTLINED_FUNCTION_78();
+  v10 = type metadata accessor for Proto_NeuralNetworkPreprocessing(v9);
+  v11 = OUTLINED_FUNCTION_24(v10);
+  MEMORY[0x28223BE20](v11);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_21_1();
-  v18 = *(v4 + 16);
-  if (v18)
+  v12 = *(v4 + 16);
+  if (v12)
   {
-    OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
-    sub_257484438();
-    v19 = v31;
-    v20 = *(v8 + 80);
+    v13 = OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
+    sub_257484438(v13, v12, 0);
+    v14 = v23;
     OUTLINED_FUNCTION_193();
-    v22 = v4 + v21;
-    v23 = *(v8 + 72);
+    v16 = v4 + v15;
+    v17 = *(v8 + 72);
     do
     {
       OUTLINED_FUNCTION_10_2();
-      sub_2574999D0(v22, v1);
+      sub_2574999D0(v16, v1);
       OUTLINED_FUNCTION_4_1();
       sub_2574999D0(v1, v2);
       OUTLINED_FUNCTION_6_1();
-      sub_257499A2C(v1, v24);
+      sub_257499A2C(v1, v18);
       OUTLINED_FUNCTION_27_2();
-      if (v26)
+      if (v20)
       {
-        OUTLINED_FUNCTION_13_1(v25);
-        sub_257484438();
-        v19 = v31;
+        v22 = OUTLINED_FUNCTION_13_1(v19);
+        sub_257484438(v22, v8, 1);
+        v14 = v23;
       }
 
-      *(v19 + 16) = v8;
-      v27 = *(v15 + 80);
+      *(v14 + 16) = v8;
       OUTLINED_FUNCTION_193();
-      v28 = *(v15 + 72);
       OUTLINED_FUNCTION_9_2();
-      sub_257499A84(v2, v29);
-      v22 += v23;
-      --v18;
+      sub_257499A84(v2, v21);
+      v16 += v17;
+      --v12;
     }
 
-    while (v18);
+    while (v12);
   }
 
   else
   {
 
-    v19 = MEMORY[0x277D84F90];
+    v14 = MEMORY[0x277D84F90];
   }
 
-  v30 = *(v0 + 8);
-
-  *(v0 + 8) = v19;
+  *(v0 + 8) = v14;
   OUTLINED_FUNCTION_35();
 }
 
-uint64_t (*NeuralNetwork.preprocessors.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*NeuralNetwork.preprocessors.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   *a1 = NeuralNetwork.preprocessors.getter();
@@ -8021,26 +6607,12 @@ uint64_t (*NeuralNetwork.preprocessors.modify(uint64_t *a1))(uint64_t *a1, char 
 
 uint64_t sub_257498BA0(uint64_t *a1, char a2, uint64_t (*a3)(uint64_t))
 {
-  v5 = *a1;
-  v4 = a1[1];
   if ((a2 & 1) == 0)
   {
     return a3(*a1);
   }
 
-  v6 = *a1;
-
-  a3(v7);
-}
-
-void NeuralNetwork.arrayInputShapeMapping.getter(_BYTE *a1@<X8>)
-{
-  if (*(v1 + 24) == 1)
-  {
-    v2 = *(v1 + 16);
-  }
-
-  OUTLINED_FUNCTION_18_2(a1);
+  a3(v4);
 }
 
 unsigned __int8 *NeuralNetwork.arrayInputShapeMapping.setter(unsigned __int8 *result)
@@ -8084,151 +6656,137 @@ uint64_t *sub_257498D9C(uint64_t *result)
 void NeuralNetwork.init(layers:preprocessors:)()
 {
   OUTLINED_FUNCTION_31();
-  v74 = v2;
+  v57 = v2;
   v4 = v3;
   v6 = v5;
   v7 = type metadata accessor for NeuralNetwork.Preprocessor(0);
   v8 = OUTLINED_FUNCTION_24(v7);
   v10 = v9;
-  v12 = *(v11 + 64);
   MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_3();
-  v13 = OUTLINED_FUNCTION_78();
-  v14 = type metadata accessor for Proto_NeuralNetworkPreprocessing(v13);
-  v15 = OUTLINED_FUNCTION_24(v14);
-  v73 = v16;
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v15);
+  v11 = OUTLINED_FUNCTION_78();
+  v12 = type metadata accessor for Proto_NeuralNetworkPreprocessing(v11);
+  v13 = OUTLINED_FUNCTION_24(v12);
+  MEMORY[0x28223BE20](v13);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_21_1();
-  v19 = type metadata accessor for NeuralNetwork.Layer();
+  v14 = type metadata accessor for NeuralNetwork.Layer(0);
+  v15 = OUTLINED_FUNCTION_24(v14);
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_3();
+  v18 = v17 - v16;
+  v19 = type metadata accessor for Proto_NeuralNetworkLayer(0);
   v20 = OUTLINED_FUNCTION_24(v19);
-  v72 = v21;
-  v23 = *(v22 + 64);
   MEMORY[0x28223BE20](v20);
   OUTLINED_FUNCTION_3();
-  v26 = v25 - v24;
-  v27 = type metadata accessor for Proto_NeuralNetworkLayer(0);
-  v28 = OUTLINED_FUNCTION_24(v27);
-  v30 = v29;
-  v32 = *(v31 + 64);
-  MEMORY[0x28223BE20](v28);
-  OUTLINED_FUNCTION_3();
-  v35 = v34 - v33;
+  v23 = v22 - v21;
   *(v6 + 16) = 0;
   *(v6 + 24) = 1;
   *(v6 + 32) = 0;
   *(v6 + 40) = 1;
-  v36 = type metadata accessor for Proto_NeuralNetwork(0);
-  v37 = v6 + *(v36 + 32);
+  v24 = type metadata accessor for Proto_NeuralNetwork(0);
   _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v38 = *(v36 + 36);
+  v25 = *(v24 + 36);
   updated = type metadata accessor for Proto_NetworkUpdateParameters(0);
-  v40 = v6 + v38;
-  v41 = v4;
-  __swift_storeEnumTagSinglePayload(v40, 1, 1, updated);
-  v42 = *(v4 + 16);
-  if (v42)
+  v27 = v6 + v25;
+  v28 = v4;
+  __swift_storeEnumTagSinglePayload(v27, 1, 1, updated);
+  v29 = *(v4 + 16);
+  if (v29)
   {
-    v69 = v10;
-    v70 = v1;
-    v71 = v6;
-    OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
-    sub_2574843E0();
-    v43 = v75;
-    v44 = *(v72 + 80);
+    v54 = v10;
+    v55 = v1;
+    v56 = v6;
+    v30 = OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
+    sub_2574843E0(v30, v29, 0);
+    v31 = v58;
     OUTLINED_FUNCTION_193();
-    v46 = v41 + v45;
-    v48 = *(v47 + 72);
+    v33 = v28 + v32;
+    v35 = *(v34 + 72);
     do
     {
-      v49 = OUTLINED_FUNCTION_2_3();
-      sub_2574999D0(v49, v26);
+      v36 = OUTLINED_FUNCTION_2_3();
+      sub_2574999D0(v36, v18);
       OUTLINED_FUNCTION_5_1();
-      sub_2574999D0(v26, v35);
+      sub_2574999D0(v18, v23);
       OUTLINED_FUNCTION_3_2();
-      sub_257499A2C(v26, v50);
-      v75 = v43;
-      v52 = *(v43 + 16);
-      v51 = *(v43 + 24);
-      if (v52 >= v51 >> 1)
+      sub_257499A2C(v18, v37);
+      v58 = v31;
+      v39 = *(v31 + 16);
+      v38 = *(v31 + 24);
+      if (v39 >= v38 >> 1)
       {
-        OUTLINED_FUNCTION_13_1(v51);
-        sub_2574843E0();
+        v41 = OUTLINED_FUNCTION_13_1(v38);
+        sub_2574843E0(v41, v39 + 1, 1);
       }
 
-      *(v43 + 16) = v52 + 1;
-      v53 = *(v30 + 80);
+      *(v31 + 16) = v39 + 1;
       OUTLINED_FUNCTION_193();
-      v54 = *(v30 + 72);
       OUTLINED_FUNCTION_11_2();
-      sub_257499A84(v35, v55);
-      v46 += v48;
-      --v42;
+      sub_257499A84(v23, v40);
+      v33 += v35;
+      --v29;
     }
 
-    while (v42);
+    while (v29);
 
-    v1 = v70;
-    v6 = v71;
-    v10 = v69;
+    v1 = v55;
+    v6 = v56;
+    v10 = v54;
   }
 
   else
   {
 
-    v43 = MEMORY[0x277D84F90];
+    v31 = MEMORY[0x277D84F90];
   }
 
-  *v6 = v43;
-  v56 = *(v74 + 16);
-  if (v56)
+  *v6 = v31;
+  v42 = *(v57 + 16);
+  if (v42)
   {
-    OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
-    sub_257484438();
-    v57 = v75;
-    v58 = *(v10 + 80);
+    v43 = OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
+    sub_257484438(v43, v42, 0);
+    v44 = v58;
     OUTLINED_FUNCTION_193();
-    v60 = v74 + v59;
-    v61 = *(v10 + 72);
+    v46 = v57 + v45;
+    v47 = *(v10 + 72);
     do
     {
       OUTLINED_FUNCTION_10_2();
-      sub_2574999D0(v60, v0);
+      sub_2574999D0(v46, v0);
       OUTLINED_FUNCTION_4_1();
       sub_2574999D0(v0, v1);
       OUTLINED_FUNCTION_6_1();
-      sub_257499A2C(v0, v62);
-      v63 = v1;
-      v65 = *(v75 + 16);
-      v64 = *(v75 + 24);
-      if (v65 >= v64 >> 1)
+      sub_257499A2C(v0, v48);
+      v49 = v1;
+      v51 = *(v58 + 16);
+      v50 = *(v58 + 24);
+      if (v51 >= v50 >> 1)
       {
-        OUTLINED_FUNCTION_13_1(v64);
-        sub_257484438();
+        v53 = OUTLINED_FUNCTION_13_1(v50);
+        sub_257484438(v53, v51 + 1, 1);
       }
 
-      *(v75 + 16) = v65 + 1;
-      v66 = *(v73 + 80);
+      *(v58 + 16) = v51 + 1;
       OUTLINED_FUNCTION_193();
-      v67 = *(v73 + 72);
       OUTLINED_FUNCTION_9_2();
-      sub_257499A84(v63, v68);
-      v60 += v61;
-      --v56;
-      v1 = v63;
+      sub_257499A84(v49, v52);
+      v46 += v47;
+      --v42;
+      v1 = v49;
     }
 
-    while (v56);
+    while (v42);
   }
 
   else
   {
 
-    v57 = MEMORY[0x277D84F90];
+    v44 = MEMORY[0x277D84F90];
   }
 
-  *(v6 + 8) = v57;
+  *(v6 + 8) = v44;
   OUTLINED_FUNCTION_35();
 }
 
@@ -8239,51 +6797,48 @@ void NeuralNetwork.customMirror.getter(uint64_t a1, uint64_t a2, uint64_t a3, ui
   a20 = v22;
   v23 = sub_257743A84();
   v24 = *(v23 - 8);
-  v25 = *(v24 + 64);
   MEMORY[0x28223BE20](v23);
   OUTLINED_FUNCTION_3();
-  v28 = v27 - v26;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  v30 = OUTLINED_FUNCTION_13(v29);
-  v32 = *(v31 + 64);
-  MEMORY[0x28223BE20](v30);
-  v34 = &a9 - v33;
-  v35 = type metadata accessor for NeuralNetwork();
-  v36 = OUTLINED_FUNCTION_4(v35);
-  v38 = *(v37 + 64);
-  MEMORY[0x28223BE20](v36);
+  v27 = v26 - v25;
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  v29 = OUTLINED_FUNCTION_13(v28);
+  MEMORY[0x28223BE20](v29);
+  v31 = &a9 - v30;
+  type metadata accessor for NeuralNetwork(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v32);
   OUTLINED_FUNCTION_3();
-  sub_2574999D0(v20, v40 - v39);
+  sub_2574999D0(v20, v34 - v33);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v41 = swift_allocObject();
-  *(v41 + 16) = xmmword_257744E70;
-  v42 = OUTLINED_FUNCTION_28_2(v41, 24940);
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A098, &unk_257744EB0);
-  *(v41 + 48) = v42;
-  *(v41 + 72) = v43;
-  strcpy((v41 + 80), "preprocessors");
-  *(v41 + 94) = -4864;
-  v44 = NeuralNetwork.preprocessors.getter();
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A0A0, &qword_257770100);
-  *(v41 + 96) = v44;
-  *(v41 + 120) = v45;
-  *(v41 + 128) = 0xD000000000000016;
-  *(v41 + 136) = 0x800000025777A030;
-  *(v41 + 168) = &type metadata for NeuralNetwork.ArrayShapeMapping;
-  v46 = *(v20 + 24) == 1 && *(v20 + 16) != 0;
-  *(v41 + 144) = v46;
-  *(v41 + 176) = 0xD000000000000016;
-  *(v41 + 184) = 0x800000025777A050;
-  *(v41 + 216) = &type metadata for NeuralNetwork.ImageShapeMapping;
-  *(v41 + 192) = *(v20 + 40);
-  v47 = sub_257743A74();
-  __swift_storeEnumTagSinglePayload(v34, 1, 1, v47);
-  (*(v24 + 104))(v28, *MEMORY[0x277D84C38], v23);
+  v35 = swift_allocObject();
+  *(v35 + 16) = xmmword_257744E70;
+  v36 = OUTLINED_FUNCTION_28_2(v35, 24940);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A098, &unk_257744EB0);
+  *(v35 + 48) = v36;
+  *(v35 + 72) = v37;
+  strcpy((v35 + 80), "preprocessors");
+  *(v35 + 94) = -4864;
+  v38 = NeuralNetwork.preprocessors.getter();
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A0A0, &qword_257770100);
+  *(v35 + 96) = v38;
+  *(v35 + 120) = v39;
+  *(v35 + 128) = 0xD000000000000016;
+  *(v35 + 136) = 0x800000025777A030;
+  *(v35 + 168) = &type metadata for NeuralNetwork.ArrayShapeMapping;
+  v40 = *(v20 + 24) == 1 && *(v20 + 16) != 0;
+  *(v35 + 144) = v40;
+  *(v35 + 176) = 0xD000000000000016;
+  *(v35 + 184) = 0x800000025777A050;
+  *(v35 + 216) = &type metadata for NeuralNetwork.ImageShapeMapping;
+  *(v35 + 192) = *(v20 + 40);
+  v41 = sub_257743A74();
+  __swift_storeEnumTagSinglePayload(v31, 1, 1, v41);
+  (*(v24 + 104))(v27, *MEMORY[0x277D84C38], v23);
   sub_257743AA4();
   OUTLINED_FUNCTION_35();
 }
 
-uint64_t type metadata accessor for NeuralNetwork()
+uint64_t type metadata accessor for NeuralNetwork(uint64_t a1)
 {
   result = qword_281537F88;
   if (!qword_281537F88)
@@ -8344,10 +6899,10 @@ unint64_t sub_25749968C()
   return result;
 }
 
-uint64_t sub_257499708()
+uint64_t sub_257499708(uint64_t a1)
 {
   result = type metadata accessor for Proto_NeuralNetwork(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -8542,41 +7097,27 @@ uint64_t sub_257499968(uint64_t a1)
 uint64_t sub_2574999D0(uint64_t a1, uint64_t a2)
 {
   v4 = OUTLINED_FUNCTION_30();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_4(v6);
-  (*(v7 + 16))(a2, v2);
+  v5(v4);
+  OUTLINED_FUNCTION_4();
+  (*(v6 + 16))(a2, v2);
   return a2;
 }
 
-uint64_t sub_257499A2C(uint64_t a1, uint64_t (*a2)(void))
+uint64_t sub_257499A2C(uint64_t a1, void (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_4(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
 uint64_t sub_257499A84(uint64_t a1, uint64_t a2)
 {
   v4 = OUTLINED_FUNCTION_30();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_4(v6);
-  (*(v7 + 32))(a2, v2);
+  v5(v4);
+  OUTLINED_FUNCTION_4();
+  (*(v6 + 32))(a2, v2);
   return a2;
-}
-
-void OUTLINED_FUNCTION_24_2()
-{
-  *(v1 - 72) = v0;
-  v2 = *(v0 + 24);
-  v3 = *(v0 + 16) + 1;
-}
-
-void OUTLINED_FUNCTION_27_2()
-{
-  *(v1 - 88) = v0;
-  v2 = *(v0 + 24);
-  v3 = *(v0 + 16) + 1;
 }
 
 uint64_t OUTLINED_FUNCTION_28_2@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -8587,72 +7128,36 @@ uint64_t OUTLINED_FUNCTION_28_2@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return NeuralNetwork.layers.getter();
 }
 
-uint64_t Package.ModelMetadata.description.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return OUTLINED_FUNCTION_205();
-}
-
 uint64_t Package.ModelMetadata.description.setter()
 {
   OUTLINED_FUNCTION_7_1();
-  v3 = v1[1];
 
   *v1 = v2;
   v1[1] = v0;
   return result;
 }
 
-uint64_t Package.ModelMetadata.version.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-
-  return OUTLINED_FUNCTION_205();
-}
-
 uint64_t Package.ModelMetadata.version.setter()
 {
   OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 24);
 
   *(v1 + 16) = v2;
   *(v1 + 24) = v0;
   return result;
 }
 
-uint64_t Package.ModelMetadata.author.getter()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-
-  return OUTLINED_FUNCTION_205();
-}
-
 uint64_t Package.ModelMetadata.author.setter()
 {
   OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 40);
 
   *(v1 + 32) = v2;
   *(v1 + 40) = v0;
   return result;
 }
 
-uint64_t Package.ModelMetadata.license.getter()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
-
-  return OUTLINED_FUNCTION_205();
-}
-
 uint64_t Package.ModelMetadata.license.setter()
 {
   OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 56);
 
   *(v1 + 48) = v2;
   *(v1 + 56) = v0;
@@ -8661,7 +7166,6 @@ uint64_t Package.ModelMetadata.license.setter()
 
 uint64_t Package.ModelMetadata.creatorDefined.setter(uint64_t a1)
 {
-  v3 = *(v1 + 64);
 
   *(v1 + 64) = a1;
   return result;
@@ -8682,18 +7186,18 @@ uint64_t Package.ModelMetadata.init()@<X0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t sub_257499F04()
+unint64_t sub_257499F04(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_257743914();
+  v2 = sub_257743914();
 
-  if (v0 >= 5)
+  if (v2 >= 5)
   {
     return 5;
   }
 
   else
   {
-    return v0;
+    return v2;
   }
 }
 
@@ -8721,11 +7225,9 @@ unint64_t sub_257499F50(char a1)
   return result;
 }
 
-uint64_t sub_25749A010@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_25749A010@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v4 = *a1;
-  v3 = a1[1];
-  result = sub_257499F04();
+  result = sub_257499F04(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -8738,10 +7240,10 @@ unint64_t sub_25749A040@<X0>(unint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_25749A074@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_25749A074@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_257499F04();
-  *a1 = result;
+  result = sub_257499F04(a1, a2);
+  *a3 = result;
   return result;
 }
 
@@ -8759,7 +7261,7 @@ uint64_t sub_25749A0F0(uint64_t a1)
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void static Package.ModelMetadata.== infix(_:_:)(void *a1, void *a2)
+void static Package.ModelMetadata.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v3 = a1[3];
@@ -8797,49 +7299,51 @@ void static Package.ModelMetadata.== infix(_:_:)(void *a1, void *a2)
 
 uint64_t Package.ModelMetadata.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A0E8, &qword_257745160);
-  v5 = OUTLINED_FUNCTION_63(v4);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v5);
-  v11 = v23 - v10;
-  v12 = *v1;
-  v13 = v1[1];
-  v14 = v1[2];
-  v23[5] = v1[3];
-  v23[6] = v14;
-  v15 = v1[4];
-  v23[3] = v1[5];
-  v23[4] = v15;
-  v16 = v1[6];
-  v23[1] = v1[7];
-  v23[2] = v16;
-  v23[0] = v1[8];
-  v17 = a1[3];
-  v18 = a1[4];
-  v19 = a1;
-  v21 = v20;
-  __swift_project_boxed_opaque_existential_1(v19, v17);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A0E8, &qword_257745160);
+  OUTLINED_FUNCTION_63();
+  v5 = v4;
+  MEMORY[0x28223BE20](v6);
+  v8 = &v23 - v7;
+  v9 = *v1;
+  v10 = v1[1];
+  v11 = v1[2];
+  v28 = v1[3];
+  v29 = v11;
+  v12 = v1[4];
+  v26 = v1[5];
+  v27 = v12;
+  v13 = v1[6];
+  v24 = v1[7];
+  v25 = v13;
+  v23 = v1[8];
+  v14 = a1[3];
+  v15 = a1;
+  v17 = v16;
+  __swift_project_boxed_opaque_existential_1(v15, v14);
   sub_25749A4E4();
   sub_257743AC4();
-  v28 = 0;
-  OUTLINED_FUNCTION_3_3();
+  v35 = 0;
+  OUTLINED_FUNCTION_3_3(v9, v10, &v35);
   if (!v2)
   {
-    v27 = 1;
-    OUTLINED_FUNCTION_3_3();
-    v26 = 2;
-    OUTLINED_FUNCTION_3_3();
-    v25 = 3;
-    OUTLINED_FUNCTION_3_3();
-    v23[7] = v23[0];
-    v24 = 4;
+    v19 = v26;
+    v18 = v27;
+    v21 = v24;
+    v20 = v25;
+    v34 = 1;
+    OUTLINED_FUNCTION_3_3(v29, v28, &v34);
+    v33 = 2;
+    OUTLINED_FUNCTION_3_3(v18, v19, &v33);
+    v32 = 3;
+    OUTLINED_FUNCTION_3_3(v20, v21, &v32);
+    v30 = v23;
+    v31 = 4;
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C00, &unk_2577443A0);
-    sub_25749ACC8(&qword_27F87A0F8);
+    sub_25749ACC8(&qword_27F87A0F8, MEMORY[0x277D837D8], MEMORY[0x277D83508]);
     sub_257743954();
   }
 
-  return (*(v7 + 8))(v11, v21);
+  return (*(v5 + 8))(v8, v17);
 }
 
 void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
@@ -8864,53 +7368,34 @@ unint64_t sub_25749A4E4()
   return result;
 }
 
-uint64_t Package.ModelMetadata.hash(into:)()
+uint64_t Package.ModelMetadata.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
-  v7 = v0[6];
-  v8 = v0[7];
-  v9 = v0[8];
   sub_257743694();
   sub_257743694();
   sub_257743694();
   sub_257743694();
-  v10 = OUTLINED_FUNCTION_205();
+  v1 = OUTLINED_FUNCTION_205();
 
-  return sub_25749AB1C(v10, v11);
+  return sub_25749AB1C(v1, v2);
 }
 
 uint64_t Package.ModelMetadata.hashValue.getter()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
-  v7 = v0[6];
-  v8 = v0[7];
-  v9 = v0[8];
+  v1 = *(v0 + 64);
   sub_257743A14();
   sub_257743694();
   sub_257743694();
   sub_257743694();
   sub_257743694();
-  sub_25749AB1C(v11, v9);
+  sub_25749AB1C(v3, v1);
   return sub_257743A64();
 }
 
-uint64_t Package.ModelMetadata.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t Package.ModelMetadata.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A100, &qword_257745168);
-  v6 = OUTLINED_FUNCTION_63(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v9 = a1[4];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A100, &qword_257745168);
+  OUTLINED_FUNCTION_63();
+  MEMORY[0x28223BE20](v5);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_25749A4E4();
   sub_257743AB4();
@@ -8919,126 +7404,117 @@ uint64_t Package.ModelMetadata.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  LOBYTE(v28[0]) = 0;
-  v10 = sub_257743924();
-  v26 = v11;
+  LOBYTE(v24[0]) = 0;
+  v6 = sub_257743924();
+  v22 = v7;
   OUTLINED_FUNCTION_1_3(1);
-  v12 = sub_257743924();
-  v25 = v13;
-  v22 = v12;
+  v8 = sub_257743924();
+  v21 = v9;
+  v18 = v8;
   OUTLINED_FUNCTION_1_3(2);
-  v21 = sub_257743924();
-  v24 = v14;
+  v17 = sub_257743924();
+  v20 = v10;
   OUTLINED_FUNCTION_1_3(3);
-  v20 = sub_257743924();
-  v23 = v15;
+  v16 = sub_257743924();
+  v19 = v11;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C00, &unk_2577443A0);
-  v29 = 4;
-  sub_25749ACC8(&qword_27F87A108);
+  v25[0] = 4;
+  sub_25749ACC8(&qword_27F87A108, MEMORY[0x277D83808], MEMORY[0x277D83528]);
   sub_257743934();
-  v16 = OUTLINED_FUNCTION_0_3();
-  v17(v16);
-  v19 = v30;
-  __src[0] = v10;
-  __src[1] = v26;
-  __src[2] = v22;
-  __src[3] = v25;
-  __src[4] = v21;
-  __src[5] = v24;
-  __src[6] = v20;
-  __src[7] = v23;
-  __src[8] = v30;
+  v12 = OUTLINED_FUNCTION_0_3();
+  v13(v12);
+  v15 = v26;
+  __src[0] = v6;
+  __src[1] = v22;
+  __src[2] = v18;
+  __src[3] = v21;
+  __src[4] = v17;
+  __src[5] = v20;
+  __src[6] = v16;
+  __src[7] = v19;
+  __src[8] = v26;
   memcpy(a2, __src, 0x48uLL);
-  sub_25749AD34(__src, v28);
+  sub_25749AD34(__src, v24);
   __swift_destroy_boxed_opaque_existential_1(a1);
-  v28[0] = v10;
-  v28[1] = v26;
-  v28[2] = v22;
-  v28[3] = v25;
-  v28[4] = v21;
-  v28[5] = v24;
-  v28[6] = v20;
-  v28[7] = v23;
-  v28[8] = v19;
-  return sub_25749AD6C(v28);
+  v24[0] = v6;
+  v24[1] = v22;
+  v24[2] = v18;
+  v24[3] = v21;
+  v24[4] = v17;
+  v24[5] = v20;
+  v24[6] = v16;
+  v24[7] = v19;
+  v24[8] = v15;
+  return sub_25749AD6C(v24);
 }
 
-uint64_t sub_25749AA64()
+uint64_t sub_25749AA64(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
-  v7 = v0[6];
-  v8 = v0[7];
-  v9 = v0[8];
+  v2 = *(v1 + 64);
   sub_257743A14();
   sub_257743694();
   sub_257743694();
   sub_257743694();
   sub_257743694();
-  sub_25749AB1C(v11, v9);
+  sub_25749AB1C(v4, v2);
   return sub_257743A64();
 }
 
 uint64_t sub_25749AB1C(const void *a1, uint64_t a2)
 {
-  v3 = a2 + 64;
-  v4 = 1 << *(a2 + 32);
-  v5 = -1;
-  if (v4 < 64)
+  v2 = a2 + 64;
+  v3 = 1 << *(a2 + 32);
+  v4 = -1;
+  if (v3 < 64)
   {
-    v5 = ~(-1 << v4);
+    v4 = ~(-1 << v3);
   }
 
-  v6 = v5 & *(a2 + 64);
-  v7 = (v4 + 63) >> 6;
+  v5 = v4 & *(a2 + 64);
+  v6 = (v3 + 63) >> 6;
 
+  v8 = 0;
   v9 = 0;
-  for (i = 0; v6; v9 ^= result)
+  if (v5)
   {
-    v11 = i;
-LABEL_9:
-    v12 = __clz(__rbit64(v6));
-    v6 &= v6 - 1;
-    v13 = (v11 << 10) | (16 * v12);
-    v14 = (*(a2 + 48) + v13);
-    v15 = *v14;
-    v16 = v14[1];
-    v17 = (*(a2 + 56) + v13);
-    v18 = *v17;
-    v19 = v17[1];
-    memcpy(__dst, a1, sizeof(__dst));
-
-    sub_257743694();
-
-    sub_257743694();
-
-    result = sub_257743A64();
+    goto LABEL_9;
   }
 
   while (1)
   {
-    v11 = i + 1;
-    if (__OFADD__(i, 1))
+    v10 = v9 + 1;
+    if (__OFADD__(v9, 1))
     {
       break;
     }
 
-    if (v11 >= v7)
+    if (v10 >= v6)
     {
 
-      return MEMORY[0x259C651F0](v9);
+      return MEMORY[0x259C651F0](v8);
     }
 
-    v6 = *(v3 + 8 * v11);
-    ++i;
-    if (v6)
+    v5 = *(v2 + 8 * v10);
+    ++v9;
+    if (v5)
     {
-      i = v11;
-      goto LABEL_9;
+      v9 = v10;
+      do
+      {
+LABEL_9:
+        v5 &= v5 - 1;
+        memcpy(__dst, a1, sizeof(__dst));
+
+        sub_257743694();
+
+        sub_257743694();
+
+        result = sub_257743A64();
+        v8 ^= result;
+      }
+
+      while (v5);
+      continue;
     }
   }
 
@@ -9046,18 +7522,20 @@ LABEL_9:
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t sub_25749ACC8(unint64_t *a1)
+uint64_t sub_25749ACC8(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9357,22 +7835,18 @@ void sub_25749B108(const void *a1, uint64_t a2)
 {
   v5 = 0;
   v6 = 0;
-  v8 = a2 + 64;
-  v7 = *(a2 + 64);
-  v9 = *(a2 + 32);
+  v7 = a2 + 64;
   OUTLINED_FUNCTION_2_4();
-  v11 = v10 >> 6;
+  v9 = v8 >> 6;
   if (v2)
   {
     while (1)
     {
 LABEL_5:
       OUTLINED_FUNCTION_5_2();
-      v15 = (v13 << 9) | (8 * v14);
-      v16 = *(*(a2 + 48) + v15);
-      v17 = *(*(a2 + 56) + v15);
+      v13 = *(*(a2 + 48) + ((v11 << 9) | (8 * v12)));
       memcpy(__dst, a1, sizeof(__dst));
-      MEMORY[0x259C651F0](v16);
+      MEMORY[0x259C651F0](v13);
       OUTLINED_FUNCTION_8_2();
       v5 ^= sub_257743A64();
     }
@@ -9380,20 +7854,20 @@ LABEL_5:
 
   while (1)
   {
-    v12 = v6 + 1;
+    v10 = v6 + 1;
     if (__OFADD__(v6, 1))
     {
       break;
     }
 
-    if (v12 >= v11)
+    if (v10 >= v9)
     {
       MEMORY[0x259C651F0](0);
       return;
     }
 
     ++v6;
-    if (*(v8 + 8 * v12))
+    if (*(v7 + 8 * v10))
     {
       goto LABEL_5;
     }
@@ -9404,50 +7878,43 @@ LABEL_5:
 
 uint64_t sub_25749B204(const void *a1, uint64_t a2)
 {
-  v6 = a2 + 64;
-  v5 = *(a2 + 64);
-  v7 = *(a2 + 32);
+  v4 = a2 + 64;
   OUTLINED_FUNCTION_2_4();
-  v9 = v8 >> 6;
+  v6 = v5 >> 6;
 
-  v11 = 0;
-  v12 = 0;
+  v8 = 0;
+  v9 = 0;
   if (v2)
   {
     while (1)
     {
 LABEL_5:
       OUTLINED_FUNCTION_5_2();
-      v16 = v15 | (v14 << 6);
-      v17 = (*(a2 + 48) + 16 * v16);
-      v18 = *v17;
-      v19 = v17[1];
-      v20 = *(*(a2 + 56) + 8 * v16);
       memcpy(__dst, a1, sizeof(__dst));
 
       sub_257743694();
 
       OUTLINED_FUNCTION_8_2();
-      v11 ^= sub_257743A64();
+      v8 ^= sub_257743A64();
     }
   }
 
   while (1)
   {
-    v13 = v12 + 1;
-    if (__OFADD__(v12, 1))
+    v10 = v9 + 1;
+    if (__OFADD__(v9, 1))
     {
       break;
     }
 
-    if (v13 >= v9)
+    if (v10 >= v6)
     {
 
       return MEMORY[0x259C651F0](0);
     }
 
-    ++v12;
-    if (*(v6 + 8 * v13))
+    ++v9;
+    if (*(v4 + 8 * v10))
     {
       goto LABEL_5;
     }
@@ -9457,7 +7924,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_3_3()
+uint64_t OUTLINED_FUNCTION_3_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return sub_257743944();
@@ -9519,7 +7986,7 @@ uint64_t *sub_25749B4B4(uint64_t *result)
 uint64_t NormalizerConfiguration.init(kind:)@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
-  v4 = a2 + *(type metadata accessor for Proto_Normalizer() + 20);
+  type metadata accessor for Proto_Normalizer(0);
   result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
   *a2 = v3;
   *(a2 + 8) = 1;
@@ -9559,9 +8026,9 @@ BOOL static NormalizerConfiguration.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
     return 0;
   }
 
-  v4 = *(type metadata accessor for Proto_Normalizer() + 20);
+  type metadata accessor for Proto_Normalizer(0);
   sub_2577431B4();
-  sub_25749B978(&qword_27F879B68, MEMORY[0x277D216C8]);
+  sub_25749B978(&qword_27F879B68, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return (sub_257743644() & 1) != 0;
 }
 
@@ -9569,27 +8036,24 @@ uint64_t NormalizerConfiguration.customMirror.getter()
 {
   v1 = sub_257743A84();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   MEMORY[0x28223BE20](v1);
-  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v16 - v8;
-  v10 = type metadata accessor for NormalizerConfiguration();
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10);
-  sub_25749B8CC(v0, &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v4 = &v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v13 - v6;
+  v8 = type metadata accessor for NormalizerConfiguration(0);
+  MEMORY[0x28223BE20](v8);
+  sub_25749B8CC(v0, &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v13 = swift_allocObject();
-  *(v13 + 16) = xmmword_2577442B0;
-  *(v13 + 32) = 1684957547;
-  *(v13 + 40) = 0xE400000000000000;
-  *(v13 + 72) = &type metadata for NormalizerConfiguration.Kind;
-  NormalizerConfiguration.kind.getter((v13 + 48));
-  v14 = sub_257743A74();
-  __swift_storeEnumTagSinglePayload(v9, 1, 1, v14);
-  (*(v2 + 104))(v5, *MEMORY[0x277D84C38], v1);
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_2577442B0;
+  *(v10 + 32) = 1684957547;
+  *(v10 + 40) = 0xE400000000000000;
+  *(v10 + 72) = &type metadata for NormalizerConfiguration.Kind;
+  NormalizerConfiguration.kind.getter((v10 + 48));
+  v11 = sub_257743A74();
+  __swift_storeEnumTagSinglePayload(v7, 1, 1, v11);
+  (*(v2 + 104))(v4, *MEMORY[0x277D84C38], v1);
   return sub_257743AA4();
 }
 
@@ -9612,7 +8076,7 @@ uint64_t sub_25749B840@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t type metadata accessor for NormalizerConfiguration()
+uint64_t type metadata accessor for NormalizerConfiguration(uint64_t a1)
 {
   result = qword_281537AA0;
   if (!qword_281537AA0)
@@ -9625,12 +8089,12 @@ uint64_t type metadata accessor for NormalizerConfiguration()
 
 uint64_t sub_25749B8CC(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for NormalizerConfiguration();
+  v4 = type metadata accessor for NormalizerConfiguration(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_25749B978(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_25749B978(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9655,10 +8119,10 @@ unint64_t sub_25749B9C4()
   return result;
 }
 
-uint64_t sub_25749BA40()
+uint64_t sub_25749BA40(uint64_t a1)
 {
-  result = type metadata accessor for Proto_Normalizer();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for Proto_Normalizer(319);
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -9834,4 +8298,1523 @@ LABEL_18:
   }
 
   return result;
+}
+
+uint64_t sub_25749BC3C(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return NeuralNetwork.Preprocessor.featureName.setter(v1, v2);
+}
+
+uint64_t NeuralNetwork.Preprocessor.featureName.setter(uint64_t a1, uint64_t a2)
+{
+
+  *v2 = a1;
+  v2[1] = a2;
+  return result;
+}
+
+uint64_t (*NeuralNetwork.Preprocessor.featureName.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v4 = *v1;
+  v3 = v1[1];
+  a1[2] = v1;
+  a1[3] = v3;
+  *a1 = v4;
+  a1[1] = v3;
+
+  return sub_25749BD04;
+}
+
+uint64_t sub_25749BD04(uint64_t *a1, char a2)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = a1[2];
+  if (a2)
+  {
+
+    *v4 = v3;
+    v4[1] = v2;
+  }
+
+  else
+  {
+
+    *v4 = v3;
+    v4[1] = v2;
+  }
+
+  return result;
+}
+
+uint64_t NeuralNetwork.Preprocessor.kind.getter()
+{
+  v3 = OUTLINED_FUNCTION_16_1();
+  v4 = type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor(v3);
+  OUTLINED_FUNCTION_4();
+  v6 = MEMORY[0x28223BE20](v5);
+  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v10 = &v21 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A048, &qword_257744980);
+  OUTLINED_FUNCTION_13(v11);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_30_2();
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A0E0, &qword_257773BE0);
+  OUTLINED_FUNCTION_13(v13);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v14);
+  v16 = &v21 - v15;
+  v17 = type metadata accessor for Proto_NeuralNetworkPreprocessing(0);
+  sub_2574998F8(v1 + *(v17 + 20), v2);
+  v18 = 1;
+  if (__swift_getEnumTagSinglePayload(v2, 1, v4) != 1)
+  {
+    sub_25749D3E8(v2, v10, type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor);
+    sub_25749D484(v10, v8, type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor);
+    sub_25749C208();
+    sub_25749D4E0(v10, type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor);
+    v18 = 0;
+  }
+
+  v19 = type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
+  __swift_storeEnumTagSinglePayload(v16, v18, 1, v19);
+  if (__swift_getEnumTagSinglePayload(v16, 1, v19) != 1)
+  {
+    return sub_25749D3E8(v16, v0, type metadata accessor for NeuralNetwork.Preprocessor.Kind);
+  }
+
+  *(v0 + 8) = 0;
+  *(v0 + 4) = 0;
+  type metadata accessor for Proto_NeuralNetworkImageScaler(0);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *v0 = 1065353216;
+  *(v0 + 16) = 0;
+  OUTLINED_FUNCTION_205();
+  swift_storeEnumTagMultiPayload();
+  result = __swift_getEnumTagSinglePayload(v16, 1, v19);
+  if (result != 1)
+  {
+    return sub_2574695E4(v16, &qword_27F87A0E0, &qword_257773BE0);
+  }
+
+  return result;
+}
+
+uint64_t sub_25749C018(uint64_t a1)
+{
+  v2 = type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_25749D484(a1, v4, type metadata accessor for NeuralNetwork.Preprocessor.Kind);
+  return NeuralNetwork.Preprocessor.kind.setter(v4);
+}
+
+uint64_t NeuralNetwork.Preprocessor.kind.setter(uint64_t a1)
+{
+  v5 = type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration(0);
+  v6 = OUTLINED_FUNCTION_13(v5);
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_271();
+  v7 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration(0);
+  v8 = OUTLINED_FUNCTION_13(v7);
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_24_0();
+  v9 = *(type metadata accessor for Proto_NeuralNetworkPreprocessing(0) + 20);
+  sub_2574695E4(v1 + v9, &qword_27F87A048, &qword_257744980);
+  type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    OUTLINED_FUNCTION_6_2();
+    sub_25749D3E8(a1, v2, v10);
+    OUTLINED_FUNCTION_12_4();
+    sub_25749D3E8(v2, v1 + v9, v11);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_5_3();
+    sub_25749D3E8(a1, v3, v12);
+    OUTLINED_FUNCTION_11_3();
+    sub_25749D3E8(v3, v1 + v9, v13);
+  }
+
+  v14 = type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor(0);
+  swift_storeEnumTagMultiPayload();
+  return __swift_storeEnumTagSinglePayload(v1 + v9, 0, 1, v14);
+}
+
+uint64_t sub_25749C208()
+{
+  type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor(0);
+  swift_getEnumCaseMultiPayload();
+  v2 = OUTLINED_FUNCTION_205();
+  sub_25749D3E8(v2, v3, v4);
+  type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
+
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t NeuralNetwork.Preprocessor.ScalerConfiguration.init(scale:grayBias:)@<X0>(uint64_t a1@<X8>, float a2@<S0>, float a3@<S1>)
+{
+  *(a1 + 8) = 0;
+  *(a1 + 4) = 0;
+  type metadata accessor for Proto_NeuralNetworkImageScaler(0);
+  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *a1 = a2;
+  *(a1 + 16) = a3;
+  return result;
+}
+
+uint64_t sub_25749C2F8()
+{
+  v3 = v1;
+  v4 = OUTLINED_FUNCTION_16_1();
+  v5 = type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration(v4);
+  v6 = OUTLINED_FUNCTION_13(v5);
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_3();
+  v9 = v8 - v7;
+  v10 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration(0);
+  v11 = OUTLINED_FUNCTION_13(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_24_0();
+  type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_3();
+  v15 = v14 - v13;
+  OUTLINED_FUNCTION_7_2();
+  sub_25749D484(v3, v15, v16);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    OUTLINED_FUNCTION_6_2();
+    sub_25749D3E8(v15, v9, v17);
+    OUTLINED_FUNCTION_12_4();
+    sub_25749D3E8(v9, v0, v18);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_5_3();
+    sub_25749D3E8(v15, v2, v19);
+    OUTLINED_FUNCTION_11_3();
+    sub_25749D3E8(v2, v0, v20);
+  }
+
+  type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor(0);
+  return swift_storeEnumTagMultiPayload();
+}
+
+void (*NeuralNetwork.Preprocessor.kind.modify(void *a1))(uint64_t a1, char a2)
+{
+  *a1 = v1;
+  v3 = type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
+  OUTLINED_FUNCTION_13(v3);
+  v5 = *(v4 + 64);
+  a1[1] = __swift_coroFrameAllocStub(v5);
+  a1[2] = __swift_coroFrameAllocStub(v5);
+  NeuralNetwork.Preprocessor.kind.getter();
+  return sub_25749C4E4;
+}
+
+void sub_25749C4E4(uint64_t a1, char a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (a2)
+  {
+    sub_25749D484(*(a1 + 16), v2, type metadata accessor for NeuralNetwork.Preprocessor.Kind);
+    NeuralNetwork.Preprocessor.kind.setter(v2);
+    OUTLINED_FUNCTION_0_4();
+    sub_25749D4E0(v3, v4);
+  }
+
+  else
+  {
+    NeuralNetwork.Preprocessor.kind.setter(*(a1 + 16));
+  }
+
+  free(v3);
+
+  free(v2);
+}
+
+uint64_t NeuralNetwork.Preprocessor.init(featureName:kind:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+{
+  type metadata accessor for Proto_NeuralNetworkPreprocessing(0);
+  v9 = OUTLINED_FUNCTION_27_3();
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v10, v11, v12, v9);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *a4 = a1;
+  a4[1] = a2;
+  sub_2574695E4(a4 + v4, &qword_27F87A048, &qword_257744980);
+  sub_25749C2F8();
+  OUTLINED_FUNCTION_0_4();
+  sub_25749D4E0(a3, v13);
+  OUTLINED_FUNCTION_21_2();
+
+  return __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
+}
+
+uint64_t static NeuralNetwork.Preprocessor.scaler(featureName:scale:grayBias:)(uint64_t a1, uint64_t a2, float a3, float a4)
+{
+  v11 = OUTLINED_FUNCTION_16_1();
+  type metadata accessor for NeuralNetwork.Preprocessor.Kind(v11);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_24_0();
+  *(v5 + 8) = 0;
+  *(v5 + 4) = 0;
+  type metadata accessor for Proto_NeuralNetworkImageScaler(0);
+
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *v5 = a3;
+  *(v5 + 16) = a4;
+  swift_storeEnumTagMultiPayload();
+  type metadata accessor for Proto_NeuralNetworkPreprocessing(0);
+  v13 = OUTLINED_FUNCTION_27_3();
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v14, v15, v16, v13);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *v4 = a1;
+  v4[1] = a2;
+  sub_2574695E4(v4 + v6, &qword_27F87A048, &qword_257744980);
+  sub_25749C2F8();
+  OUTLINED_FUNCTION_0_4();
+  sub_25749D4E0(v5, v17);
+  OUTLINED_FUNCTION_21_2();
+  return __swift_storeEnumTagSinglePayload(v18, v19, v20, v21);
+}
+
+uint64_t static NeuralNetwork.Preprocessor.scaler(featureName:scale:redBias:greenBias:blueBias:)()
+{
+  OUTLINED_FUNCTION_29_2();
+  v8 = v7;
+  v10 = v9;
+  v11 = OUTLINED_FUNCTION_16_1();
+  type metadata accessor for NeuralNetwork.Preprocessor.Kind(v11);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_24_0();
+  v1[4] = 0;
+  type metadata accessor for Proto_NeuralNetworkImageScaler(0);
+
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v1[2] = v4;
+  v1[3] = v5;
+  *v1 = v6;
+  v1[1] = v3;
+  swift_storeEnumTagMultiPayload();
+  type metadata accessor for Proto_NeuralNetworkPreprocessing(0);
+  v13 = OUTLINED_FUNCTION_27_3();
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v14, v15, v16, v13);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *v0 = v10;
+  v0[1] = v8;
+  sub_2574695E4(v0 + v2, &qword_27F87A048, &qword_257744980);
+  sub_25749C2F8();
+  OUTLINED_FUNCTION_0_4();
+  sub_25749D4E0(v1, v17);
+  OUTLINED_FUNCTION_21_2();
+  return __swift_storeEnumTagSinglePayload(v18, v19, v20, v21);
+}
+
+uint64_t NeuralNetwork.Preprocessor.ScalerConfiguration.init(scale:redBias:greenBias:blueBias:)()
+{
+  OUTLINED_FUNCTION_29_2();
+  v5 = v4;
+  v4[4] = 0;
+  type metadata accessor for Proto_NeuralNetworkImageScaler(0);
+  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v5[2] = v1;
+  v5[3] = v2;
+  *v5 = v3;
+  v5[1] = v0;
+  return result;
+}
+
+uint64_t static NeuralNetwork.Preprocessor.meanImage(featureName:meanImage:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v8 = OUTLINED_FUNCTION_16_1();
+  type metadata accessor for NeuralNetwork.Preprocessor.Kind(v8);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_24_0();
+  type metadata accessor for Proto_NeuralNetworkMeanImage(0);
+
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *v4 = a3;
+  swift_storeEnumTagMultiPayload();
+  v10 = *(type metadata accessor for Proto_NeuralNetworkPreprocessing(0) + 20);
+  v11 = type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor(0);
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v12, v13, v14, v11);
+
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *v3 = a1;
+  v3[1] = a2;
+  sub_2574695E4(v3 + v10, &qword_27F87A048, &qword_257744980);
+  sub_25749C2F8();
+  OUTLINED_FUNCTION_0_4();
+  sub_25749D4E0(v4, v15);
+  return __swift_storeEnumTagSinglePayload(v3 + v10, 0, 1, v11);
+}
+
+uint64_t NeuralNetwork.Preprocessor.MeanImageConfiguration.init(meanImage:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  type metadata accessor for Proto_NeuralNetworkMeanImage(0);
+  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *a2 = a1;
+  return result;
+}
+
+void NeuralNetwork.Preprocessor.customMirror.getter()
+{
+  OUTLINED_FUNCTION_31();
+  v3 = sub_257743A84();
+  OUTLINED_FUNCTION_63();
+  v5 = v4;
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_24_0();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  OUTLINED_FUNCTION_13(v7);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v8);
+  v9 = OUTLINED_FUNCTION_64();
+  type metadata accessor for NeuralNetwork.Preprocessor(v9);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_30_2();
+  sub_25749D484(v0, v2, type metadata accessor for NeuralNetwork.Preprocessor);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
+  v11 = swift_allocObject();
+  *(v11 + 16) = xmmword_257743FF0;
+  *(v11 + 32) = 0x4E65727574616566;
+  *(v11 + 40) = 0xEB00000000656D61;
+  v12 = v0[1];
+  v13 = MEMORY[0x277D837D0];
+  *(v11 + 48) = *v0;
+  *(v11 + 56) = v12;
+  *(v11 + 72) = v13;
+  *(v11 + 80) = 1684957547;
+  *(v11 + 88) = 0xE400000000000000;
+  *(v11 + 120) = type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
+  __swift_allocate_boxed_opaque_existential_0((v11 + 96));
+
+  NeuralNetwork.Preprocessor.kind.getter();
+  sub_257743A74();
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
+  (*(v5 + 104))(v1, *MEMORY[0x277D84C38], v3);
+  OUTLINED_FUNCTION_23_1();
+  sub_257743AA4();
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t sub_25749CC5C()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+  inited = swift_initStackObject();
+  v2 = OUTLINED_FUNCTION_356(inited, xmmword_257745520);
+  v2[3] = xmmword_257745530;
+  v2[4].n128_u8[0] = 0;
+  strcpy(&v2[4].n128_i8[8], "Channel Scale");
+  v2[5].n128_u16[3] = -4864;
+  v41 = *v0;
+  inited[5].n128_u64[1] = sub_257743674();
+  inited[6].n128_u64[0] = v3;
+  inited[6].n128_u8[8] = 0;
+  inited[7].n128_u64[0] = 0x7361694220646552;
+  inited[7].n128_u64[1] = 0xE800000000000000;
+  inited[8].n128_u64[0] = OUTLINED_FUNCTION_19_2(v0[3], v4, v5, v6, v7, v8, v9, v10, v37, v41);
+  inited[8].n128_u64[1] = v11;
+  inited[9].n128_u8[0] = 0;
+  inited[9].n128_u64[1] = 0x6942206E65657247;
+  inited[10].n128_u64[0] = 0xEA00000000007361;
+  inited[10].n128_u64[1] = OUTLINED_FUNCTION_19_2(v0[2], v12, v13, v14, v15, v16, v17, v18, v38, v42);
+  inited[11].n128_u64[0] = v19;
+  inited[11].n128_u8[8] = 0;
+  inited[12].n128_u64[0] = 0x6169422065756C42;
+  inited[12].n128_u64[1] = 0xE900000000000073;
+  inited[13].n128_u64[0] = OUTLINED_FUNCTION_19_2(v0[1], v20, v21, v22, v23, v24, v25, v26, v39, v43);
+  inited[13].n128_u64[1] = v27;
+  inited[14].n128_u8[0] = 0;
+  inited[14].n128_u64[1] = 0x6169422079617247;
+  inited[15].n128_u64[0] = 0xE900000000000073;
+  inited[15].n128_u64[1] = OUTLINED_FUNCTION_19_2(v0[4], v28, v29, v30, v31, v32, v33, v34, v40, v44);
+  inited[16].n128_u64[0] = v35;
+  inited[16].n128_u8[8] = 0;
+  return sub_2576A6964(inited);
+}
+
+uint64_t sub_25749CDBC()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+  inited = swift_initStackObject();
+  v2 = OUTLINED_FUNCTION_356(inited, xmmword_257743FF0);
+  v2[3] = xmmword_257745540;
+  v2[4].n128_u8[0] = 0;
+  v2[4].n128_u64[1] = 0x7365756C6156;
+  v2[5].n128_u64[0] = 0xE600000000000000;
+  v3 = *v0;
+  v4 = *(*v0 + 16);
+  v5 = MEMORY[0x277D84F90];
+  if (v4)
+  {
+    v14 = MEMORY[0x277D84F90];
+    sub_257484040(0, v4, 0);
+    v5 = v14;
+    v6 = v3 + 32;
+    do
+    {
+      v7 = sub_257743674();
+      v9 = v8;
+      v11 = *(v14 + 16);
+      v10 = *(v14 + 24);
+      if (v11 >= v10 >> 1)
+      {
+        sub_257484040((v10 > 1), v11 + 1, 1);
+      }
+
+      *(v14 + 16) = v11 + 1;
+      v12 = v14 + 24 * v11;
+      *(v12 + 32) = v7;
+      *(v12 + 40) = v9;
+      *(v12 + 48) = 0;
+      v6 += 4;
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  inited[5].n128_u64[1] = v5;
+  inited[6].n128_u64[0] = 0;
+  inited[6].n128_u8[8] = 1;
+  return sub_2576A6964(inited);
+}
+
+void static NeuralNetwork.Preprocessor.Kind.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+  OUTLINED_FUNCTION_31();
+  a19 = v21;
+  a20 = v22;
+  v24 = v23;
+  v26 = v25;
+  v27 = type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration(0);
+  v28 = OUTLINED_FUNCTION_13(v27);
+  MEMORY[0x28223BE20](v28);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_271();
+  v29 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration(0);
+  v30 = OUTLINED_FUNCTION_13(v29);
+  MEMORY[0x28223BE20](v30);
+  OUTLINED_FUNCTION_3();
+  v33 = v32 - v31;
+  type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
+  OUTLINED_FUNCTION_4();
+  v35 = MEMORY[0x28223BE20](v34);
+  v37 = (&a9 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v35);
+  v39 = &a9 - v38;
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A140, &unk_257745550);
+  OUTLINED_FUNCTION_13(v40);
+  OUTLINED_FUNCTION_29();
+  v42 = MEMORY[0x28223BE20](v41);
+  v44 = &a9 - v43;
+  v45 = *(v42 + 56);
+  sub_25749D484(v26, &a9 - v43, type metadata accessor for NeuralNetwork.Preprocessor.Kind);
+  sub_25749D484(v24, &v44[v45], type metadata accessor for NeuralNetwork.Preprocessor.Kind);
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+    OUTLINED_FUNCTION_7_2();
+    sub_25749D484(v44, v39, v51);
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      OUTLINED_FUNCTION_5_3();
+      sub_25749D3E8(&v44[v45], v33, v54);
+      _s20MLModelSpecification13NeuralNetworkV12PreprocessorV19ScalerConfigurationV2eeoiySbAG_AGtFZ_0(v39);
+      sub_25749D4E0(v33, type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration);
+      sub_25749D4E0(v39, type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration);
+      OUTLINED_FUNCTION_0_4();
+      sub_25749D4E0(v44, v55);
+      goto LABEL_11;
+    }
+
+    v52 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration;
+    v53 = v39;
+    goto LABEL_8;
+  }
+
+  OUTLINED_FUNCTION_7_2();
+  sub_25749D484(v44, v37, v46);
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+    OUTLINED_FUNCTION_1_4();
+    v53 = v37;
+LABEL_8:
+    sub_25749D4E0(v53, v52);
+    sub_2574695E4(v44, &qword_27F87A140, &unk_257745550);
+    goto LABEL_11;
+  }
+
+  OUTLINED_FUNCTION_6_2();
+  sub_25749D3E8(&v44[v45], v20, v47);
+  if (sub_257479B60(*v37, *v20))
+  {
+    type metadata accessor for Proto_NeuralNetworkMeanImage(0);
+    sub_2577431B4();
+    OUTLINED_FUNCTION_10_3();
+    sub_25749DC50(v48, v49, MEMORY[0x277D216D0]);
+    sub_257743644();
+  }
+
+  OUTLINED_FUNCTION_1_4();
+  sub_25749D4E0(v20, v50);
+  OUTLINED_FUNCTION_1_4();
+  sub_25749D4E0(v37, v56);
+  OUTLINED_FUNCTION_0_4();
+  sub_25749D4E0(v44, v57);
+LABEL_11:
+  OUTLINED_FUNCTION_35();
+}
+
+float (*NeuralNetwork.Preprocessor.ScalerConfiguration.channelScale.modify(uint64_t a1))(uint64_t a1)
+{
+  *a1 = v1;
+  *(a1 + 8) = *v1;
+  return sub_25749D2A8;
+}
+
+float sub_25749D2A8(uint64_t a1)
+{
+  result = *(a1 + 8);
+  **a1 = result;
+  return result;
+}
+
+float (*NeuralNetwork.Preprocessor.ScalerConfiguration.redBias.modify(uint64_t a1))(float *a1)
+{
+  *a1 = v1;
+  *(a1 + 8) = *(v1 + 12);
+  return sub_25749D2F4;
+}
+
+float sub_25749D2F4(float *a1)
+{
+  result = a1[2];
+  *(*a1 + 12) = result;
+  return result;
+}
+
+float (*NeuralNetwork.Preprocessor.ScalerConfiguration.greenBias.modify(uint64_t a1))(float *a1)
+{
+  *a1 = v1;
+  *(a1 + 8) = *(v1 + 8);
+  return sub_25749D340;
+}
+
+float sub_25749D340(float *a1)
+{
+  result = a1[2];
+  *(*a1 + 8) = result;
+  return result;
+}
+
+float (*NeuralNetwork.Preprocessor.ScalerConfiguration.blueBias.modify(uint64_t a1))(float *a1)
+{
+  *a1 = v1;
+  *(a1 + 8) = *(v1 + 4);
+  return sub_25749D38C;
+}
+
+float sub_25749D38C(float *a1)
+{
+  result = a1[2];
+  *(*a1 + 4) = result;
+  return result;
+}
+
+float (*NeuralNetwork.Preprocessor.ScalerConfiguration.grayBias.modify(uint64_t a1))(float *a1)
+{
+  *a1 = v1;
+  *(a1 + 8) = *(v1 + 16);
+  return sub_25749D3D8;
+}
+
+float sub_25749D3D8(float *a1)
+{
+  result = a1[2];
+  *(*a1 + 16) = result;
+  return result;
+}
+
+uint64_t sub_25749D3E8(uint64_t a1, uint64_t a2, void (*a3)(void))
+{
+  a3(0);
+  OUTLINED_FUNCTION_4();
+  v4 = OUTLINED_FUNCTION_205();
+  v5(v4);
+  return a2;
+}
+
+uint64_t sub_25749D484(uint64_t a1, uint64_t a2, void (*a3)(void))
+{
+  a3(0);
+  OUTLINED_FUNCTION_4();
+  v4 = OUTLINED_FUNCTION_205();
+  v5(v4);
+  return a2;
+}
+
+uint64_t sub_25749D4E0(uint64_t a1, void (*a2)(void))
+{
+  a2(0);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(a1);
+  return a1;
+}
+
+void NeuralNetwork.Preprocessor.ScalerConfiguration.customMirror.getter()
+{
+  OUTLINED_FUNCTION_31();
+  v3 = v0;
+  OUTLINED_FUNCTION_16_1();
+  v4 = sub_257743A84();
+  OUTLINED_FUNCTION_63();
+  v6 = v5;
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_271();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  OUTLINED_FUNCTION_13(v8);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v9);
+  v10 = OUTLINED_FUNCTION_64();
+  type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration(v10);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_30_2();
+  sub_25749D484(v3, v2, type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_257744000;
+  v13 = v3[1];
+  *(v12 + 48) = *v3;
+  v14 = v3[2];
+  *(v12 + 96) = v3[3];
+  *(v12 + 144) = v14;
+  v15 = MEMORY[0x277D83A90];
+  strcpy((v12 + 32), "channelScale");
+  *(v12 + 45) = 0;
+  *(v12 + 46) = -5120;
+  *(v12 + 72) = v15;
+  *(v12 + 80) = 0x73616942646572;
+  *(v12 + 88) = 0xE700000000000000;
+  *(v12 + 120) = v15;
+  *(v12 + 128) = 0x6169426E65657267;
+  *(v12 + 136) = 0xE900000000000073;
+  *(v12 + 168) = v15;
+  *(v12 + 176) = 0x7361694265756C62;
+  *(v12 + 184) = 0xE800000000000000;
+  *(v12 + 192) = v13;
+  *(v12 + 216) = v15;
+  *(v12 + 224) = 0x7361694279617267;
+  *(v12 + 232) = 0xE800000000000000;
+  v16 = v3[4];
+  *(v12 + 264) = v15;
+  *(v12 + 240) = v16;
+  sub_257743A74();
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v17, v18, v19, v20);
+  (*(v6 + 104))(v1, *MEMORY[0x277D84C38], v4);
+  OUTLINED_FUNCTION_23_1();
+  sub_257743AA4();
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t NeuralNetwork.Preprocessor.MeanImageConfiguration.meanImage.setter(uint64_t a1)
+{
+
+  *v1 = a1;
+  return result;
+}
+
+uint64_t (*NeuralNetwork.Preprocessor.MeanImageConfiguration.meanImage.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = *v1;
+  a1[1] = v1;
+  a1[2] = v3;
+  *a1 = v3;
+
+  return sub_25749D854;
+}
+
+uint64_t sub_25749D854(uint64_t *a1, char a2)
+{
+  v2 = a1[1];
+  v3 = *a1;
+  if (a2)
+  {
+
+    *v2 = v3;
+  }
+
+  else
+  {
+
+    *v2 = v3;
+  }
+
+  return result;
+}
+
+BOOL static NeuralNetwork.Preprocessor.MeanImageConfiguration.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
+{
+  result = 0;
+  if (sub_257479B60(*a1, *a2))
+  {
+    type metadata accessor for Proto_NeuralNetworkMeanImage(0);
+    sub_2577431B4();
+    OUTLINED_FUNCTION_10_3();
+    sub_25749DC50(v2, v3, MEMORY[0x277D216D0]);
+    if (sub_257743644())
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+void NeuralNetwork.Preprocessor.MeanImageConfiguration.customMirror.getter()
+{
+  OUTLINED_FUNCTION_31();
+  v3 = v0;
+  OUTLINED_FUNCTION_16_1();
+  v4 = sub_257743A84();
+  OUTLINED_FUNCTION_63();
+  v6 = v5;
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_271();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  OUTLINED_FUNCTION_13(v8);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v9);
+  v10 = OUTLINED_FUNCTION_64();
+  type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration(v10);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_30_2();
+  sub_25749D484(v3, v2, type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_2577442B0;
+  *(v12 + 32) = 0x67616D496E61656DLL;
+  *(v12 + 40) = 0xE900000000000065;
+  v13 = *v3;
+  *(v12 + 72) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879D68, &qword_25776F940);
+  *(v12 + 48) = v13;
+  sub_257743A74();
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
+  (*(v6 + 104))(v1, *MEMORY[0x277D84C38], v4);
+
+  OUTLINED_FUNCTION_23_1();
+  sub_257743AA4();
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t sub_25749DC50(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t sub_25749DCD8(uint64_t a1)
+{
+  result = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration(319);
+    if (v3 <= 0x3F)
+    {
+      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_25749DDCC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
+{
+  result = a4(319, a2, a3);
+  if (v5 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_19_2(float a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, float a9, float a10)
+{
+
+  return sub_257743674();
+}
+
+uint64_t OUTLINED_FUNCTION_27_3()
+{
+
+  return type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor(0);
+}
+
+uint64_t NeuralNetwork.Layer.SimpleRecurrentParameters.propertyDescriptions.getter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
+  v1 = swift_allocObject();
+  *(v1 + 16) = xmmword_257744E70;
+  *(v1 + 32) = 0x6953207475706E49;
+  *(v1 + 40) = 0xEA0000000000657ALL;
+  v2 = *(v0 + *(type metadata accessor for Proto_SimpleRecurrentLayerParams(0) + 20));
+  OUTLINED_FUNCTION_296(v2 + 16, v15);
+  v14[0] = *(v2 + 16);
+  *(v1 + 48) = sub_257743974();
+  *(v1 + 56) = v3;
+  *(v1 + 64) = 0x532074757074754FLL;
+  *(v1 + 72) = 0xEB00000000657A69;
+  OUTLINED_FUNCTION_296(v2 + 24, v14);
+  v13[0] = *(v2 + 24);
+  *(v1 + 80) = sub_257743974();
+  *(v1 + 88) = v4;
+  *(v1 + 96) = 0x65636E6575716553;
+  *(v1 + 104) = 0xEF74757074754F20;
+  v5 = OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__sequenceOutput;
+  OUTLINED_FUNCTION_296(v2 + OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__sequenceOutput, v13);
+  if (*(v2 + v5))
+  {
+    v6 = 1702195828;
+  }
+
+  else
+  {
+    v6 = 0x65736C6166;
+  }
+
+  if (*(v2 + v5))
+  {
+    v7 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v7 = 0xE500000000000000;
+  }
+
+  *(v1 + 112) = v6;
+  *(v1 + 120) = v7;
+  strcpy((v1 + 128), "Reverse Input");
+  *(v1 + 142) = -4864;
+  v8 = OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__reverseInput;
+  OUTLINED_FUNCTION_296(v2 + OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__reverseInput, &v12);
+  if (*(v2 + v8))
+  {
+    v9 = 1702195828;
+  }
+
+  else
+  {
+    v9 = 0x65736C6166;
+  }
+
+  if (*(v2 + v8))
+  {
+    v10 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v10 = 0xE500000000000000;
+  }
+
+  *(v1 + 144) = v9;
+  *(v1 + 152) = v10;
+  return v1;
+}
+
+uint64_t NeuralNetwork.Layer.SimpleRecurrentParameters.namedWeights.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B38, &qword_2577448C0);
+  v2 = *(v1 - 8);
+  v97 = v1;
+  v98 = v2;
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_25_0();
+  v91 = v3;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_167();
+  v95 = v5;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v6);
+  v8 = &v88 - v7;
+  v9 = type metadata accessor for Proto_WeightParams(0);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_25_0();
+  v90 = v10;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_167();
+  v94 = v12;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v13);
+  v15 = &v88 - v14;
+  v16 = type metadata accessor for NeuralNetwork.WeightParameters(0);
+  MEMORY[0x28223BE20](v16 - 8);
+  OUTLINED_FUNCTION_25_0();
+  v89 = v17;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_167();
+  v93 = v19;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v20);
+  v22 = (&v88 - v21);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
+  MEMORY[0x28223BE20](v23 - 8);
+  OUTLINED_FUNCTION_25_0();
+  v88 = v24;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v25);
+  OUTLINED_FUNCTION_167();
+  v96 = v26;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_167();
+  v92 = v28;
+  OUTLINED_FUNCTION_158();
+  v30 = MEMORY[0x28223BE20](v29);
+  v32 = &v88 - v31;
+  v33 = MEMORY[0x28223BE20](v30);
+  v35 = &v88 - v34;
+  MEMORY[0x28223BE20](v33);
+  v37 = &v88 - v36;
+  v38 = *(v0 + *(type metadata accessor for Proto_SimpleRecurrentLayerParams(0) + 20));
+  v39 = OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__weightMatrix;
+  OUTLINED_FUNCTION_296(v38 + OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__weightMatrix, v102);
+  sub_25749E8D0(v38 + v39, v37);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v37, 1, v9);
+  sub_25749E940(v37);
+  v41 = MEMORY[0x277D84F90];
+  if (EnumTagSinglePayload != 1)
+  {
+    sub_25749E8D0(v38 + v39, v35);
+    OUTLINED_FUNCTION_34_0(v35);
+    if (v42)
+    {
+      *v15 = MEMORY[0x277D84F90];
+      *(v15 + 8) = xmmword_257745740;
+      *(v15 + 24) = xmmword_257745740;
+      *(v15 + 40) = xmmword_257745740;
+      v15[56] = 0;
+      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+      v43 = *(v9 + 40);
+      v44 = type metadata accessor for Proto_QuantizationParams(0);
+      __swift_storeEnumTagSinglePayload(&v15[v43], 1, 1, v44);
+      OUTLINED_FUNCTION_34_0(v35);
+      if (!v42)
+      {
+        sub_25749E940(v35);
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_1_5();
+      sub_25749EA18(v35, v15, v45);
+    }
+
+    sub_2576FF45C(v15, v22);
+    OUTLINED_FUNCTION_0_5();
+    sub_25749EA18(v22, v46, v47);
+    sub_257469D34();
+    v41 = v48;
+    v49 = *(v48 + 16);
+    if (v49 >= *(v48 + 24) >> 1)
+    {
+      sub_257469D34();
+      v41 = v83;
+    }
+
+    *(v41 + 16) = v49 + 1;
+    OUTLINED_FUNCTION_2_5();
+    sub_25749E9A8(v8, v50 + v51 * v49);
+  }
+
+  v52 = OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__recursionMatrix;
+  OUTLINED_FUNCTION_296(v38 + OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__recursionMatrix, v101);
+  sub_25749E8D0(v38 + v52, v32);
+  v53 = __swift_getEnumTagSinglePayload(v32, 1, v9);
+  sub_25749E940(v32);
+  if (v53 != 1)
+  {
+    v54 = v92;
+    sub_25749E8D0(v38 + v52, v92);
+    v55 = OUTLINED_FUNCTION_34_0(v54);
+    if (v42)
+    {
+      v57 = v94;
+      *v94 = MEMORY[0x277D84F90];
+      OUTLINED_FUNCTION_6_3(v55, xmmword_257745740);
+      v56 = type metadata accessor for Proto_QuantizationParams(0);
+      OUTLINED_FUNCTION_11_4(v56);
+      OUTLINED_FUNCTION_34_0(v54);
+      v59 = v95;
+      if (!v42)
+      {
+        sub_25749E940(v54);
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_1_5();
+      v57 = v94;
+      sub_25749EA18(v54, v94, v58);
+      v59 = v95;
+    }
+
+    v60 = v93;
+    sub_2576FF45C(v57, v93);
+    OUTLINED_FUNCTION_0_5();
+    sub_25749EA18(v60, v61, v62);
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      OUTLINED_FUNCTION_9_3();
+      v41 = v84;
+    }
+
+    v63 = *(v41 + 16);
+    if (v63 >= *(v41 + 24) >> 1)
+    {
+      OUTLINED_FUNCTION_10_4();
+      v41 = v85;
+    }
+
+    *(v41 + 16) = v63 + 1;
+    OUTLINED_FUNCTION_2_5();
+    sub_25749E9A8(v59, v64 + v65 * v63);
+  }
+
+  v66 = OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__biasVector;
+  OUTLINED_FUNCTION_296(v38 + OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__biasVector, v100);
+  v67 = v96;
+  sub_25749E8D0(v38 + v66, v96);
+  v68 = __swift_getEnumTagSinglePayload(v67, 1, v9);
+  sub_25749E940(v67);
+  if (v68 != 1)
+  {
+    v69 = OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__hasBiasVector_p;
+    OUTLINED_FUNCTION_296(v38 + OBJC_IVAR____TtCV20MLModelSpecification32Proto_SimpleRecurrentLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__hasBiasVector_p, v99);
+    if (*(v38 + v69) == 1)
+    {
+      v70 = v88;
+      sub_25749E8D0(v38 + v66, v88);
+      v71 = OUTLINED_FUNCTION_34_0(v70);
+      if (v42)
+      {
+        v73 = v90;
+        *v90 = MEMORY[0x277D84F90];
+        OUTLINED_FUNCTION_6_3(v71, xmmword_257745740);
+        v72 = type metadata accessor for Proto_QuantizationParams(0);
+        OUTLINED_FUNCTION_11_4(v72);
+        OUTLINED_FUNCTION_34_0(v70);
+        if (!v42)
+        {
+          sub_25749E940(v70);
+        }
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_1_5();
+        v73 = v90;
+        sub_25749EA18(v70, v90, v74);
+      }
+
+      v75 = v89;
+      sub_2576FF45C(v73, v89);
+      v76 = v91;
+      OUTLINED_FUNCTION_0_5();
+      sub_25749EA18(v75, v77, v78);
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        OUTLINED_FUNCTION_9_3();
+        v41 = v86;
+      }
+
+      v79 = *(v41 + 16);
+      if (v79 >= *(v41 + 24) >> 1)
+      {
+        OUTLINED_FUNCTION_10_4();
+        v41 = v87;
+      }
+
+      *(v41 + 16) = v79 + 1;
+      OUTLINED_FUNCTION_2_5();
+      sub_25749E9A8(v76, v80 + v81 * v79);
+    }
+  }
+
+  return v41;
+}
+
+uint64_t NeuralNetwork.Layer.SimpleRecurrentParameters.init()@<X0>(uint64_t a2@<X8>)
+{
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v3 = *(type metadata accessor for Proto_SimpleRecurrentLayerParams(0) + 20);
+  if (qword_27F879568 != -1)
+  {
+    swift_once();
+  }
+
+  *(a2 + v3) = qword_27F87BF28;
+}
+
+uint64_t sub_25749E8D0(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t sub_25749E940(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t sub_25749E9A8(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B38, &qword_2577448C0);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t sub_25749EA18(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+unint64_t sub_25749EA84()
+{
+  result = qword_27F87A1A8;
+  if (!qword_27F87A1A8)
+  {
+    type metadata accessor for Proto_SimpleRecurrentLayerParams(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87A1A8);
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters(uint64_t a1)
+{
+  result = qword_27F87A1B0;
+  if (!qword_27F87A1B0)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t sub_25749EB50(uint64_t a1)
+{
+  result = type metadata accessor for Proto_SimpleRecurrentLayerParams(319);
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_6_3(uint64_t a1, __n128 a2)
+{
+  *(v2 + 8) = a2;
+  *(v2 + 24) = a2;
+  *(v2 + 40) = a2;
+  *(v2 + 56) = 0;
+
+  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+}
+
+void OUTLINED_FUNCTION_9_3()
+{
+
+  sub_257469D34();
+}
+
+void OUTLINED_FUNCTION_10_4()
+{
+
+  sub_257469D34();
+}
+
+uint64_t OUTLINED_FUNCTION_11_4(uint64_t a1)
+{
+
+  return __swift_storeEnumTagSinglePayload(v2 + v1, 1, 1, a1);
+}
+
+uint64_t MLProgram.NamedValueType.name.getter()
+{
+  v1 = *v0;
+
+  return v1;
+}
+
+uint64_t sub_25749ECD0(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return MLProgram.NamedValueType.name.setter(v1, v2);
+}
+
+uint64_t MLProgram.NamedValueType.name.setter(uint64_t a1, uint64_t a2)
+{
+
+  *v2 = a1;
+  v2[1] = a2;
+  return result;
+}
+
+uint64_t (*MLProgram.NamedValueType.name.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v4 = *v1;
+  v3 = v1[1];
+  a1[2] = v1;
+  a1[3] = v3;
+  *a1 = v4;
+  a1[1] = v3;
+
+  return sub_25749BD04;
+}
+
+void MLProgram.NamedValueType.type.getter()
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879E10, &qword_257744730);
+  OUTLINED_FUNCTION_13(v2);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v3);
+  v4 = OUTLINED_FUNCTION_64();
+  v5 = type metadata accessor for Proto_MILSpec_ValueType(v4);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v6);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for Proto_MILSpec_NamedValueType(0);
+  sub_25749FB38(v0 + *(v9 + 24), v1);
+  if (__swift_getEnumTagSinglePayload(v1, 1, v5) == 1)
+  {
+    _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+    v10 = *(v5 + 20);
+    if (qword_27F878FF0 != -1)
+    {
+      OUTLINED_FUNCTION_3_4(&qword_27F878FF0);
+    }
+
+    *&v8[v10] = qword_27F87B038;
+    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v1, 1, v5);
+
+    if (EnumTagSinglePayload != 1)
+    {
+      sub_2574695E4(v1, &qword_27F879E10, &qword_257744730);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_0_6();
+    sub_25749FD18(v1, v8);
+  }
+
+  sub_2576F0F64();
+}
+
+uint64_t sub_25749EF48(uint64_t *a1)
+{
+  v2 = *a1;
+
+  return MLProgram.NamedValueType.type.setter(&v2);
+}
+
+uint64_t MLProgram.NamedValueType.type.setter(uint64_t *a1)
+{
+  v4 = v1;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879D40, &qword_257744660);
+  OUTLINED_FUNCTION_13(v6);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v7);
+  v8 = OUTLINED_FUNCTION_64();
+  v9 = type metadata accessor for Proto_MILSpec_ValueType(v8);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_24_0();
+  v11 = *a1;
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v12 = *(v9 + 20);
+  if (qword_27F878FF0 != -1)
+  {
+    OUTLINED_FUNCTION_3_4(&qword_27F878FF0);
+  }
+
+  *(v2 + v12) = qword_27F87B038;
+  v25 = v11;
+  v13 = &v25;
+  sub_2576F5020();
+  type metadata accessor for Proto_MILSpec_ValueType.OneOf_Type(0);
+  OUTLINED_FUNCTION_21();
+  __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
+
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+
+    v13 = *(v2 + v12);
+  }
+
+  else
+  {
+    type metadata accessor for Proto_MILSpec_ValueType._StorageClass(0);
+    swift_allocObject();
+    OUTLINED_FUNCTION_10_5();
+
+    sub_2574E503C(v18);
+    OUTLINED_FUNCTION_10_5();
+
+    *(v2 + v12) = &v25;
+  }
+
+  v19 = OBJC_IVAR____TtCV20MLModelSpecification23Proto_MILSpec_ValueTypeP33_332B47BD95040FAA9FC0D6990ECE156813_StorageClass__type;
+  swift_beginAccess();
+  sub_25749FBA8(v3, v13 + v19);
+  swift_endAccess();
+  v20 = *(type metadata accessor for Proto_MILSpec_NamedValueType(0) + 24);
+  sub_2574695E4(v4 + v20, &qword_27F879E10, &qword_257744730);
+  OUTLINED_FUNCTION_0_6();
+  sub_25749FD18(v2, v4 + v20);
+  OUTLINED_FUNCTION_21();
+  return __swift_storeEnumTagSinglePayload(v21, v22, v23, v9);
+}
+
+uint64_t (*MLProgram.NamedValueType.type.modify(uint64_t a1))(uint64_t *a1, char a2)
+{
+  *(a1 + 8) = v1;
+  MLProgram.NamedValueType.type.getter();
+  return sub_25749F1B4;
+}
+
+uint64_t sub_25749F1B4(uint64_t *a1, char a2)
+{
+  if (a2)
+  {
+    v3 = *a1;
+
+    MLProgram.NamedValueType.type.setter(&v3);
+  }
+
+  else
+  {
+    v3 = *a1;
+    return MLProgram.NamedValueType.type.setter(&v3);
+  }
+}
+
+uint64_t MLProgram.NamedValueType.init(name:type:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+{
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879D40, &qword_257744660);
+  OUTLINED_FUNCTION_13(v10);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v11);
+  v12 = OUTLINED_FUNCTION_64();
+  v13 = type metadata accessor for Proto_MILSpec_ValueType(v12);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_24_0();
+  v15 = *a3;
+  v16 = type metadata accessor for Proto_MILSpec_NamedValueType(0);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v17 = *(v16 + 24);
+  __swift_storeEnumTagSinglePayload(a4 + v17, 1, 1, v13);
+  *a4 = a1;
+  a4[1] = a2;
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v18 = *(v13 + 20);
+  if (qword_27F878FF0 != -1)
+  {
+    OUTLINED_FUNCTION_3_4(&qword_27F878FF0);
+  }
+
+  *(v4 + v18) = qword_27F87B038;
+  v30 = v15;
+  v19 = &v30;
+  sub_2576F5020();
+  type metadata accessor for Proto_MILSpec_ValueType.OneOf_Type(0);
+  OUTLINED_FUNCTION_21();
+  __swift_storeEnumTagSinglePayload(v20, v21, v22, v23);
+
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+
+    v19 = *(v4 + v18);
+  }
+
+  else
+  {
+    type metadata accessor for Proto_MILSpec_ValueType._StorageClass(0);
+    swift_allocObject();
+    OUTLINED_FUNCTION_10_5();
+
+    sub_2574E503C(v24);
+    OUTLINED_FUNCTION_10_5();
+
+    *(v4 + v18) = &v30;
+  }
+
+  v25 = OBJC_IVAR____TtCV20MLModelSpecification23Proto_MILSpec_ValueTypeP33_332B47BD95040FAA9FC0D6990ECE156813_StorageClass__type;
+  swift_beginAccess();
+  sub_25749FBA8(v5, v19 + v25);
+  swift_endAccess();
+  sub_2574695E4(a4 + v17, &qword_27F879E10, &qword_257744730);
+  OUTLINED_FUNCTION_0_6();
+  sub_25749FD18(v4, a4 + v17);
+  OUTLINED_FUNCTION_21();
+  return __swift_storeEnumTagSinglePayload(v26, v27, v28, v13);
 }

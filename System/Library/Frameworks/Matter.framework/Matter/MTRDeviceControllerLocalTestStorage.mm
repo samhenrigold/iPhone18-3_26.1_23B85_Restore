@@ -1,5 +1,6 @@
 @interface MTRDeviceControllerLocalTestStorage
 + (BOOL)localTestStorageEnabled;
++ (void)setLocalTestStorageEnabled:(BOOL)enabled;
 - (BOOL)controller:(id)controller removeValueForKey:(id)key securityLevel:(unint64_t)level sharingType:(unint64_t)type;
 - (BOOL)controller:(id)controller storeValue:(id)value forKey:(id)key securityLevel:(unint64_t)level sharingType:(unint64_t)type;
 - (BOOL)controller:(id)controller storeValues:(id)values securityLevel:(unint64_t)level sharingType:(unint64_t)type;
@@ -18,13 +19,48 @@
   return v3;
 }
 
++ (void)setLocalTestStorageEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8 = *MEMORY[0x277D85DE8];
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  [standardUserDefaults setBool:enabledCopy forKey:@"enableTestStorage"];
+  v5 = sub_2393D9044(0);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v7 = enabledCopy;
+    _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_DEFAULT, "MTRDeviceControllerLocalTestStorage setLocalTestStorageEnabled %d", buf, 8u);
+  }
+
+  if (sub_2393D5398(2u))
+  {
+    sub_2393D5320(0, 2, "MTRDeviceControllerLocalTestStorage setLocalTestStorageEnabled %d", enabledCopy);
+  }
+
+  if ([standardUserDefaults BOOLForKey:@"enableTestStorage"] != enabledCopy)
+  {
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v7 = enabledCopy;
+      _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_ERROR, "MTRDeviceControllerLocalTestStorage setLocalTestStorageEnabled %d failed", buf, 8u);
+    }
+
+    if (sub_2393D5398(1u))
+    {
+      sub_2393D5320(0, 1, "MTRDeviceControllerLocalTestStorage setLocalTestStorageEnabled %d failed", enabledCopy);
+    }
+  }
+}
+
 - (MTRDeviceControllerLocalTestStorage)initWithPassThroughStorage:(id)storage
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
-  v11.receiver = self;
-  v11.super_class = MTRDeviceControllerLocalTestStorage;
-  v6 = [(MTRDeviceControllerLocalTestStorage *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = MTRDeviceControllerLocalTestStorage;
+  v6 = [(MTRDeviceControllerLocalTestStorage *)&v10 init];
   v7 = v6;
   if (v6)
   {
@@ -33,17 +69,16 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = storageCopy;
+      v12 = storageCopy;
       _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_DEFAULT, "MTRDeviceControllerLocalTestStorage initialized with pass-through storage %@", buf, 0xCu);
     }
 
     if (sub_2393D5398(2u))
     {
-      sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "MTRDeviceControllerLocalTestStorage initialized with pass-through storage %@", storageCopy);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -70,7 +105,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "MTRDeviceControllerLocalTestStorage valueForKey: shared type but no pass-through storage");
       }
 
       v13 = 0;
@@ -92,7 +127,7 @@
 
 - (BOOL)controller:(id)controller storeValue:(id)value forKey:(id)key securityLevel:(unint64_t)level sharingType:(unint64_t)type
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   valueCopy = value;
   keyCopy = key;
@@ -115,7 +150,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "MTRDeviceControllerLocalTestStorage storeValue: shared type but no pass-through storage");
       }
 
       LOBYTE(type) = 0;
@@ -124,9 +159,9 @@
 
   else
   {
-    v23 = 0;
-    v16 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:valueCopy requiringSecureCoding:1 error:&v23];
-    v17 = v23;
+    v22 = 0;
+    v16 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:valueCopy requiringSecureCoding:1 error:&v22];
+    v17 = v22;
     type = v17 == 0;
     if (v17)
     {
@@ -134,13 +169,13 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = v17;
+        v24 = v17;
         _os_log_impl(&dword_238DAE000, v18, OS_LOG_TYPE_ERROR, "MTRDeviceControllerLocalTestStorage storeValue: failed to convert value object to data %@", buf, 0xCu);
       }
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "MTRDeviceControllerLocalTestStorage storeValue: failed to convert value object to data %@", v17);
       }
     }
 
@@ -151,7 +186,6 @@
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return type;
 }
 
@@ -178,7 +212,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "MTRDeviceControllerLocalTestStorage removeValueForKey: shared type but no pass-through storage");
       }
 
       v13 = 0;
@@ -217,7 +251,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "MTRDeviceControllerLocalTestStorage valuesForController: shared type but no pass-through storage");
       }
 
       dictionaryRepresentation = 0;
@@ -235,7 +269,7 @@
 
 - (BOOL)controller:(id)controller storeValues:(id)values securityLevel:(unint64_t)level sharingType:(unint64_t)type
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   valuesCopy = values;
   if (type)
@@ -256,7 +290,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "MTRDeviceControllerLocalTestStorage valuesForController: shared type but no pass-through storage");
       }
 
       v10 = 0;
@@ -266,31 +300,31 @@
   else
   {
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v31 = 0u;
-    v32 = 0u;
     v29 = 0u;
     v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v12 = valuesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v13)
     {
-      v14 = *v30;
+      v14 = *v28;
       v10 = 1;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v30 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v29 + 1) + 8 * i);
+          v16 = *(*(&v27 + 1) + 8 * i);
           v17 = MEMORY[0x277CCAAB0];
-          v18 = [v12 objectForKeyedSubscript:{v16, v24}];
-          v28 = 0;
-          v19 = [v17 archivedDataWithRootObject:v18 requiringSecureCoding:1 error:&v28];
-          v20 = v28;
+          v18 = [v12 objectForKeyedSubscript:v16];
+          v26 = 0;
+          v19 = [v17 archivedDataWithRootObject:v18 requiringSecureCoding:1 error:&v26];
+          v20 = v26;
 
           if (v20)
           {
@@ -298,14 +332,13 @@
             if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v34 = v20;
+              v32 = v20;
               _os_log_impl(&dword_238DAE000, v21, OS_LOG_TYPE_ERROR, "MTRDeviceControllerLocalTestStorage storeValues: failed to convert value object to data %@", buf, 0xCu);
             }
 
             if (sub_2393D5398(1u))
             {
-              v24 = v20;
-              sub_2393D5320(0, 1);
+              sub_2393D5320(0, 1, "MTRDeviceControllerLocalTestStorage storeValues: failed to convert value object to data %@", v20);
             }
 
             v10 = 0;
@@ -317,7 +350,7 @@
           }
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v27 objects:v33 count:16];
       }
 
       while (v13);
@@ -329,7 +362,6 @@
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 

@@ -101,18 +101,16 @@ LABEL_5:
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___WFWorkflowRemoteQuarantineRequest;
-  v2 = objc_msgSendSuper2(&v7, sel_JSONKeyPathsByPropertyKey);
+  v8[1] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___WFWorkflowRemoteQuarantineRequest;
+  v2 = objc_msgSendSuper2(&v6, sel_JSONKeyPathsByPropertyKey);
   v3 = [v2 mutableCopy];
 
-  v8 = @"workflowJavaScriptCoreRepresentation";
-  v9[0] = @"workflow";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"workflowJavaScriptCoreRepresentation";
+  v8[0] = @"workflow";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [v3 addEntriesFromDictionary:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

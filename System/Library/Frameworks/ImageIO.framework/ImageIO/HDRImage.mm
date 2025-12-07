@@ -255,7 +255,8 @@ LABEL_15:
   if (v18 == 1 && v17 == 0)
   {
     v7 = [(CGImageMetadata *)metadata description];
-    _cg_jpeg_mem_term("+[HDRImage getGainMapHeadroom:fromMetadata:]", 450, "Version 1.0 gain map metadata does not contain headroom value: %s", [(__CFString *)v7 UTF8String]);
+    [(__CFString *)v7 UTF8String];
+    _cg_jpeg_mem_term("+[HDRImage getGainMapHeadroom:fromMetadata:]", 450, "Version 1.0 gain map metadata does not contain headroom value: %s");
     goto LABEL_15;
   }
 
@@ -1157,15 +1158,15 @@ LABEL_15:
 
 - (void)dealloc
 {
-  gFunc_CVPixelBufferRelease(self->_imageBuffer);
-  gFunc_CVPixelBufferRelease(self->_gainMapBuffer);
-  gFunc_CVPixelBufferRelease(self->_alternateBuffer);
+  gFunc_CVPixelBufferRelease(self->_imageBuffer, a2);
+  gFunc_CVPixelBufferRelease(self->_gainMapBuffer, v3);
+  gFunc_CVPixelBufferRelease(self->_alternateBuffer, v4);
   CGColorSpaceRelease(self->_imageSpace);
   CGColorSpaceRelease(self->_gainMapSpace);
   CGColorSpaceRelease(self->_alternateSpace);
-  v3.receiver = self;
-  v3.super_class = HDRImage;
-  [(HDRImage *)&v3 dealloc];
+  v5.receiver = self;
+  v5.super_class = HDRImage;
+  [(HDRImage *)&v5 dealloc];
 }
 
 - (id)description
@@ -2543,7 +2544,7 @@ uint64_t __81__HDRImage_getColorTRC_matrix_toneMapping_fromSourceSpace_toTargetS
   return result;
 }
 
-uint64_t __81__HDRImage_getColorTRC_matrix_toneMapping_fromSourceSpace_toTargetSpace_options___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t __81__HDRImage_getColorTRC_matrix_toneMapping_fromSourceSpace_toTargetSpace_options___block_invoke_3(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if ((gIIODebugFlags & 0x300000) != 0)
   {
@@ -2552,7 +2553,7 @@ uint64_t __81__HDRImage_getColorTRC_matrix_toneMapping_fromSourceSpace_toTargetS
   }
 
   CGColorNxMTransformGetTransform();
-  if (*(*(*(a1 + 32) + 8) + 24) == 1)
+  if (*(*(a1[4] + 8) + 24) == 1)
   {
     LogError("+[HDRImage getColorTRC:matrix:toneMapping:fromSourceSpace:toTargetSpace:options:]_block_invoke_3", 1587, "Already have color NxM transform stage!");
   }

@@ -165,7 +165,7 @@ LABEL_7:
   [(PLFetchRecording *)v29 recordStatementWithNormalizedSQL:v26 bindVariablesAsString:v24 multiInCounts:v28 contextName:v30 pagesHit:cacheHitPages pagesMissed:cacheMissPages rowCount:Current - v20 duration:__PAIR64__(qos_class_self() QOS:countCopy)];
 }
 
-void __100__PLFetchRecorder_managedObjectContext_didExecuteFetchRequest_withSQLString_bindVariables_rowCount___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __100__PLFetchRecorder_managedObjectContext_didExecuteFetchRequest_withSQLString_bindVariables_rowCount___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v6 = [a2 value];
   objc_opt_class();
@@ -180,7 +180,7 @@ void __100__PLFetchRecorder_managedObjectContext_didExecuteFetchRequest_withSQLS
     [*(a1 + 32) appendFormat:@"%@", v6];
   }
 
-  if ([*(a1 + 40) count] >= 2 && objc_msgSend(*(a1 + 40), "count") - 1 > a3)
+  if (objc_msgSend_count(*(a1 + 40)) >= 2 && objc_msgSend_count(*(a1 + 40)) - 1 > a3)
   {
     [*(a1 + 32) appendString:{@", "}];
   }
@@ -326,13 +326,13 @@ void __46__PLFetchRecorder__startWatchingRecordingFile__block_invoke(uint64_t a1
   return v22;
 }
 
-void __70__PLFetchRecorder_sqlFromGeneralizedSQL_bindVars_multiInCounts_error___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __70__PLFetchRecorder_sqlFromGeneralizedSQL_bindVars_multiInCounts_error___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v30 = a2;
   if ([v30 hasPrefix:@"?"])
   {
     v5 = *(*(*(a1 + 64) + 8) + 24);
-    if (v5 < [*(a1 + 32) count])
+    if (v5 < objc_msgSend_count(*(a1 + 32)))
     {
       v6 = [*(a1 + 32) objectAtIndexedSubscript:*(*(*(a1 + 64) + 8) + 24)];
       v7 = *(a1 + 40);
@@ -355,7 +355,7 @@ void __70__PLFetchRecorder_sqlFromGeneralizedSQL_bindVars_multiInCounts_error___
   if ([v30 hasPrefix:@"(?)"])
   {
     v10 = *(*(*(a1 + 64) + 8) + 24);
-    if (v10 < [*(a1 + 32) count])
+    if (v10 < objc_msgSend_count(*(a1 + 32)))
     {
       v6 = [*(a1 + 32) objectAtIndexedSubscript:*(*(*(a1 + 64) + 8) + 24)];
       v11 = *(a1 + 40);
@@ -381,13 +381,13 @@ LABEL_28:
       for (i = 0; v14 != i; ++i)
       {
         v16 = *(*(*(a1 + 64) + 8) + 24);
-        if (v16 >= [*(a1 + 32) count])
+        if (v16 >= objc_msgSend_count(*(a1 + 32)))
         {
           break;
         }
 
         v17 = i + *(*(*(a1 + 64) + 8) + 24);
-        if (v17 >= [*(a1 + 32) count])
+        if (v17 >= objc_msgSend_count(*(a1 + 32)))
         {
           v21 = *(a1 + 88);
           if (!v21 || *v21)
@@ -395,7 +395,7 @@ LABEL_28:
             continue;
           }
 
-          v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"LOFR index out of bounds: %ld, item count: %ld", v17, objc_msgSend(*(a1 + 32), "count")];
+          v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"LOFR index out of bounds: %ld, item count: %ld", v17, objc_msgSend_count(*(a1 + 32))];
           v22 = PLErrorCreate();
           v23 = *(a1 + 88);
           v24 = *v23;
@@ -423,10 +423,10 @@ LABEL_28:
     goto LABEL_31;
   }
 
-  if ([v30 isEqualToString:@"N"])
+  if (objc_msgSend_isEqualToString_(v30))
   {
     v27 = *(*(*(a1 + 64) + 8) + 24);
-    if (v27 < [*(a1 + 32) count])
+    if (v27 < objc_msgSend_count(*(a1 + 32)))
     {
       v6 = [*(a1 + 32) objectAtIndexedSubscript:*(*(*(a1 + 64) + 8) + 24)];
       v28 = [v6 integerValue];
@@ -447,7 +447,7 @@ LABEL_28:
   }
 
   [*(a1 + 40) appendString:v30];
-  if ([*(a1 + 56) count] - 1 > a3)
+  if (objc_msgSend_count(*(a1 + 56)) - 1 > a3)
   {
     v25 = *(a1 + 40);
     v26 = @" ";
@@ -470,7 +470,7 @@ LABEL_32:
     v11 = [objc_opt_class() _generalizedStringByFactoringOutLimitClauseFrom:v10];
   }
 
-  if ([variablesCopy count] < 2)
+  if (objc_msgSend_count(variablesCopy) < 2)
   {
     goto LABEL_8;
   }
@@ -498,7 +498,7 @@ LABEL_9:
   }
 
 LABEL_10:
-  if ([v14 isEqualToString:v10] && objc_msgSend(variablesCopy, "count") >= 0x33)
+  if (objc_msgSend_isEqualToString_(v14) && objc_msgSend_count(variablesCopy) >= 0x33)
   {
 
     v14 = 0;
@@ -612,24 +612,24 @@ uint64_t __44__PLFetchRecorder__findRecordingsWithinURL___block_invoke(uint64_t 
 {
   lCopy = l;
   pathExtension = [lCopy pathExtension];
-  v5 = [pathExtension isEqualToString:@"lofr"];
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-  if (v5)
+  if (isEqualToString)
   {
     pathComponents = [lCopy pathComponents];
-    if ([pathComponents count] < 2)
+    if (objc_msgSend_count(pathComponents) < 2)
     {
-      LOBYTE(v5) = 0;
+      LOBYTE(isEqualToString) = 0;
     }
 
     else
     {
-      v7 = [pathComponents objectAtIndexedSubscript:{objc_msgSend(pathComponents, "count") - 2}];
-      LOBYTE(v5) = [v7 isEqualToString:@"lofr"];
+      v7 = [pathComponents objectAtIndexedSubscript:objc_msgSend_count(pathComponents) - 2];
+      LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v7);
     }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 + (id)_paramStringFromBindVariableComponent:(id)component
@@ -704,7 +704,7 @@ uint64_t __57__PLFetchRecorder__paramStringFromBindVariableComponent___block_inv
     v13 = v12 - v11;
     v14 = [lCopy substringWithRange:{v11, v12 - v11 + 1}];
     v15 = [v14 componentsSeparatedByString:@"?"];
-    v16 = [v15 count] - 1;
+    v16 = objc_msgSend_count(v15) - 1;
 
     if (v16 >= 1)
     {

@@ -173,25 +173,23 @@
 
 - (id)buildButtonItems
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   openFileProviderItemCommand = [(SSFileResultBuilder *)self openFileProviderItemCommand];
   if (openFileProviderItemCommand && ![(SSFileResultBuilder *)self isFolder])
   {
     [openFileProviderItemCommand setShouldRevealFile:1];
     v5 = objc_opt_new();
     [v5 setCommand:openFileProviderItemCommand];
-    v9[0] = v5;
-    buildButtonItems = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    buildButtonItems = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = SSFileResultBuilder;
-    buildButtonItems = [(SSResultBuilder *)&v8 buildButtonItems];
+    v7.receiver = self;
+    v7.super_class = SSFileResultBuilder;
+    buildButtonItems = [(SSResultBuilder *)&v7 buildButtonItems];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return buildButtonItems;
 }
@@ -346,7 +344,7 @@ LABEL_4:
 
 - (id)buildDescriptions
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if ([(SSFileResultBuilder *)self isFolder])
   {
@@ -429,18 +427,16 @@ LABEL_17:
     [v18 addObject:v20];
   }
 
-  if ([v18 count] && (v21 = objc_opt_new(), objc_msgSend(v21, "setFormattedTextPieces:", v18), v21))
+  if (objc_msgSend_count(v18) && (v21 = objc_opt_new(), [v21 setFormattedTextPieces:v18], v21))
   {
-    v25[0] = v21;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+    v24[0] = v21;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
   }
 
   else
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

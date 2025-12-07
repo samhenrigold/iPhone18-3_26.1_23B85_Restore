@@ -1,1331 +1,3 @@
-void sub_261843E7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-rf::ColorPaletteClassificationARKit *rf::ColorPaletteClassificationARKit::ColorPaletteClassificationARKit(rf::ColorPaletteClassificationARKit *this)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  *this = 0;
-  *(this + 1) = 0;
-  *(this + 2) = 0;
-  __asm { FMOV            V0.4S, #1.0 }
-
-  *(this + 2) = _Q0;
-  *(this + 6) = 0;
-  v7 = this + 48;
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  v10[0] = xmmword_261865CB0;
-  v10[1] = xmmword_26185E190;
-  v10[2] = xmmword_261865AF0;
-  v10[3] = xmmword_261865CC0;
-  v10[4] = xmmword_261865CD0;
-  v10[5] = xmmword_261865CE0;
-  v10[6] = xmmword_261865CF0;
-  v10[7] = xmmword_261865D00;
-  v10[8] = xmmword_261865D10;
-  v10[9] = xmmword_261865D20;
-  v10[10] = xmmword_261865D30;
-  v10[11] = xmmword_261865D40;
-  v10[12] = xmmword_261865D50;
-  v10[13] = xmmword_261865D60;
-  v10[14] = xmmword_261865D70;
-  v10[15] = xmmword_261865D80;
-  v10[16] = xmmword_261865D90;
-  v10[17] = xmmword_261865DA0;
-  v10[18] = xmmword_261865DB0;
-  v10[19] = xmmword_261865DC0;
-  v10[20] = xmmword_261865DD0;
-  v10[21] = xmmword_261865DE0;
-  v10[22] = xmmword_261865DF0;
-  v10[23] = xmmword_261865E00;
-  v10[24] = xmmword_261865E10;
-  v10[25] = xmmword_261865E20;
-  v10[26] = xmmword_261865E30;
-  v10[27] = xmmword_261865E40;
-  v10[28] = xmmword_261865E50;
-  v10[29] = xmmword_261865E60;
-  v10[30] = xmmword_261865E70;
-  v10[31] = xmmword_261865E80;
-  v10[32] = xmmword_261865E90;
-  v10[33] = xmmword_261865EA0;
-  v10[34] = xmmword_261865EB0;
-  v10[35] = xmmword_261865EC0;
-  v10[36] = xmmword_261865ED0;
-  v10[37] = xmmword_261865EE0;
-  v10[38] = xmmword_261865EF0;
-  v10[39] = xmmword_261865F00;
-  v10[40] = xmmword_261865F10;
-  v10[41] = xmmword_261865F20;
-  _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPKS1_S7_EEvT_T0_l(this, v10, v11, 0x2AuLL);
-  std::vector<BOOL>::resize(v7, (*(this + 1) - *this) >> 4);
-  v8 = *MEMORY[0x277D85DE8];
-  return this;
-}
-
-void *_ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPKS1_S7_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
-{
-  v7 = result;
-  v8 = result[2];
-  v9 = *result;
-  if (a4 > (v8 - *result) >> 4)
-  {
-    if (v9)
-    {
-      result[1] = v9;
-      operator delete(v9);
-      v8 = 0;
-      *v7 = 0;
-      v7[1] = 0;
-      v7[2] = 0;
-    }
-
-    v10 = v8 >> 3;
-    if (v8 >> 3 <= a4)
-    {
-      v10 = a4;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFF0)
-    {
-      v11 = 0xFFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(v7, v11);
-  }
-
-  v12 = result[1];
-  v13 = v12 - v9;
-  if (a4 <= (v12 - v9) >> 4)
-  {
-    v19 = a3 - __src;
-    if (a3 != __src)
-    {
-      result = memmove(*result, __src, v19);
-    }
-
-    v18 = &v9[v19];
-  }
-
-  else
-  {
-    if (v12 != v9)
-    {
-      result = memmove(*result, __src, v12 - v9);
-      v12 = v7[1];
-    }
-
-    v14 = &__src[v13];
-    v15 = v12;
-    if (&__src[v13] != a3)
-    {
-      v15 = v12;
-      v16 = v12;
-      do
-      {
-        v17 = *v14;
-        v14 += 16;
-        *v16 = v17;
-        v16 += 16;
-        v15 += 16;
-      }
-
-      while (v14 != a3);
-    }
-
-    v18 = v15;
-  }
-
-  v7[1] = v18;
-  return result;
-}
-
-void RFSyntheticEnvironmentServiceCreate()
-{
-  v0 = *MEMORY[0x277CBECE8];
-  if (qword_2810C4E08 != -1)
-  {
-    dispatch_once(&qword_2810C4E08, &__block_literal_global_16);
-  }
-
-  _CFRuntimeCreateInstance();
-  operator new();
-}
-
-uint64_t RFSyntheticEnvironmentServiceUpdateByDeltaTime(uint64_t a1, uint64_t a2, float a3)
-{
-  v5 = *(a1 + 16);
-  ECSManagerNullable = RESceneGetECSManagerNullable();
-  if (ECSManagerNullable)
-  {
-    ECSManagerNullable = REECSManagerGetServiceLocator();
-    v7 = 1;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v9 = a3;
-  v10 = ECSManagerNullable;
-  v11 = v7;
-  v12 = a2;
-  v13 = 1;
-  v14 = 0;
-  return (*(*(v5 + 8) + 16))(v5 + 8, &v9);
-}
-
-uint64_t RFSyntheticEnvironmentServiceSetFinishedLoadingCallback(uint64_t a1, uint64_t a2)
-{
-  v12[3] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 16);
-  v9 = 0;
-  if (a2)
-  {
-    v8[0] = &unk_28740ACD8;
-    v8[1] = MEMORY[0x26670D530](a2);
-    v9 = v8;
-    v11 = v10;
-    unk_28740ACF0(v8, v10);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v3 = v2 + 184;
-  if (v10 != (v2 + 184))
-  {
-    v4 = v11;
-    v5 = *(v2 + 208);
-    if (v11 == v10)
-    {
-      if (v5 == v3)
-      {
-        (*(*v11 + 24))();
-        (*(*v11 + 32))(v11);
-        v11 = 0;
-        (*(**(v2 + 208) + 24))(*(v2 + 208), v10);
-        (*(**(v2 + 208) + 32))(*(v2 + 208));
-        *(v2 + 208) = 0;
-        v11 = v10;
-        (*(v12[0] + 24))(v12, v2 + 184);
-        (*(v12[0] + 32))(v12);
-      }
-
-      else
-      {
-        (*(*v11 + 24))();
-        (*(*v11 + 32))(v11);
-        v11 = *(v2 + 208);
-      }
-
-      *(v2 + 208) = v3;
-    }
-
-    else if (v5 == v3)
-    {
-      (*(*v5 + 24))(*(v2 + 208), v10);
-      (*(**(v2 + 208) + 32))(*(v2 + 208));
-      *(v2 + 208) = v11;
-      v11 = v10;
-    }
-
-    else
-    {
-      v11 = *(v2 + 208);
-      *(v2 + 208) = v4;
-    }
-  }
-
-  std::__function::__value_func<void ()(NSURL *,NSError *)>::~__value_func[abi:ne200100](v10);
-  result = std::__function::__value_func<void ()(NSURL *,NSError *)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_261844670(_Unwind_Exception *exception_object, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void ___ZN2rf17ClassRegistrationINS_14CustomCFObjectINS_9data_flow8consumer28SyntheticEnvironmentConsumerEEEE13registerClassEv_block_invoke()
-{
-  v0 = 0;
-  v1 = 1;
-  for (i = 114; i != 91; i = aStdStringViewR_27[v0++ + 51])
-  {
-    if (i == 93)
-    {
-      v3 = -1;
-      goto LABEL_8;
-    }
-
-    if (!i)
-    {
-      v0 = 0;
-      v6 = 0;
-      goto LABEL_16;
-    }
-
-LABEL_9:
-    ;
-  }
-
-  v3 = 1;
-LABEL_8:
-  v1 += v3;
-  if (v1)
-  {
-    goto LABEL_9;
-  }
-
-  if (v0 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  if (v0 >= 0x17)
-  {
-    operator new();
-  }
-
-  v6 = v0;
-  if (v0)
-  {
-    memcpy(&__dst, "rf::data_flow::consumer::SyntheticEnvironmentConsumer]", v0);
-  }
-
-LABEL_16:
-  *(&__dst + v0) = 0;
-  xmmword_2810C4E10 = 0u;
-  xmmword_2810C4E20 = 0u;
-  xmmword_2810C4E30 = 0u;
-  unk_2810C4E40 = 0u;
-  xmmword_2810C4E50 = 0u;
-  unk_2810C4E60 = 0u;
-  p_dst = &__dst;
-  if (v6 < 0)
-  {
-    p_dst = __dst;
-  }
-
-  *(&xmmword_2810C4E10 + 1) = p_dst;
-  *&xmmword_2810C4E20 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>>::initCallback;
-  *&xmmword_2810C4E30 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>>::finalizeCallback;
-  qword_2810C4E48 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>>::copyFormattingDescriptionCallback;
-  *&xmmword_2810C4E50 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>>::copyDebugDescriptionCallback;
-  _MergedGlobals_18 = _CFRuntimeRegisterClass();
-  if (v6 < 0)
-  {
-    operator delete(__dst);
-  }
-}
-
-void sub_26184482C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *std::unique_ptr<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>::BridgableObject,std::default_delete<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>::BridgableObject>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    rf::data_flow::consumer::SyntheticEnvironmentConsumer::~SyntheticEnvironmentConsumer((v2 + 8));
-
-    JUMPOUT(0x26670D060);
-  }
-
-  return result;
-}
-
-void std::__function::__func<void({block_pointer} {__strong})(NSURL *,NSError *),std::allocator<void({block_pointer} {__strong})(NSURL *,NSError *)>,void ()(NSURL *,NSError *)>::~__func(uint64_t a1)
-{
-
-  JUMPOUT(0x26670D060);
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(NSURL *,NSError *),std::allocator<void({block_pointer} {__strong})(NSURL *,NSError *)>,void ()(NSURL *,NSError *)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_28740ACD8;
-  result = MEMORY[0x26670D530](*(a1 + 8));
-  a2[1] = result;
-  return result;
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(NSURL *,NSError *),std::allocator<void({block_pointer} {__strong})(NSURL *,NSError *)>,void ()(NSURL *,NSError *)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  return MEMORY[0x2821F96F8]();
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(NSURL *,NSError *),std::allocator<void({block_pointer} {__strong})(NSURL *,NSError *)>,void ()(NSURL *,NSError *)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
-{
-  v3 = *a2;
-  v4 = *a3;
-  return (*(*(a1 + 8) + 16))();
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(NSURL *,NSError *),std::allocator<void({block_pointer} {__strong})(NSURL *,NSError *)>,void ()(NSURL *,NSError *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(NSURL *,NSError *)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void RFVFXCollisionServiceCreate()
-{
-  v0 = *MEMORY[0x277CBECE8];
-  if (qword_2810C4E78 != -1)
-  {
-    dispatch_once(&qword_2810C4E78, &__block_literal_global_17);
-  }
-
-  _CFRuntimeCreateInstance();
-  operator new();
-}
-
-uint64_t RFVFXCollisionServiceUpdateByDeltaTime(uint64_t a1, uint64_t a2, float a3)
-{
-  v5 = *(a1 + 16);
-  ECSManagerNullable = RESceneGetECSManagerNullable();
-  if (ECSManagerNullable)
-  {
-    ECSManagerNullable = REECSManagerGetServiceLocator();
-    v7 = 1;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v9 = a3;
-  v10 = ECSManagerNullable;
-  v11 = v7;
-  v12 = a2;
-  v13 = 1;
-  v14 = 0;
-  return (*(*(v5 + 8) + 16))(v5 + 8, &v9);
-}
-
-void ___ZN2rf17ClassRegistrationINS_14CustomCFObjectINS_9data_flow8consumer20VFXCollisionConsumerEEEE13registerClassEv_block_invoke()
-{
-  v0 = 0;
-  v1 = 1;
-  for (i = 114; i != 91; i = aStdStringViewR_28[v0++ + 51])
-  {
-    if (i == 93)
-    {
-      v3 = -1;
-      goto LABEL_8;
-    }
-
-    if (!i)
-    {
-      v0 = 0;
-      v6 = 0;
-      goto LABEL_16;
-    }
-
-LABEL_9:
-    ;
-  }
-
-  v3 = 1;
-LABEL_8:
-  v1 += v3;
-  if (v1)
-  {
-    goto LABEL_9;
-  }
-
-  if (v0 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  if (v0 >= 0x17)
-  {
-    operator new();
-  }
-
-  v6 = v0;
-  if (v0)
-  {
-    memcpy(&__dst, "rf::data_flow::consumer::VFXCollisionConsumer]", v0);
-  }
-
-LABEL_16:
-  *(&__dst + v0) = 0;
-  xmmword_2810C4E80 = 0u;
-  xmmword_2810C4E90 = 0u;
-  xmmword_2810C4EA0 = 0u;
-  unk_2810C4EB0 = 0u;
-  xmmword_2810C4EC0 = 0u;
-  unk_2810C4ED0 = 0u;
-  p_dst = &__dst;
-  if (v6 < 0)
-  {
-    p_dst = __dst;
-  }
-
-  *(&xmmword_2810C4E80 + 1) = p_dst;
-  *&xmmword_2810C4E90 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>>::initCallback;
-  *&xmmword_2810C4EA0 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>>::finalizeCallback;
-  qword_2810C4EB8 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>>::copyFormattingDescriptionCallback;
-  *&xmmword_2810C4EC0 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>>::copyDebugDescriptionCallback;
-  _MergedGlobals_19 = _CFRuntimeRegisterClass();
-  if (v6 < 0)
-  {
-    operator delete(__dst);
-  }
-}
-
-void sub_261844DB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *std::unique_ptr<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>::BridgableObject,std::default_delete<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>::BridgableObject>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    *(v2 + 8) = &unk_287408E60;
-    std::__hash_table<std::__hash_value_type<REScene *,std::unordered_map<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_map<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_map<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_map<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>>>>::~__hash_table(v2 + 40);
-
-    JUMPOUT(0x26670D060);
-  }
-
-  return result;
-}
-
-void sub_261845584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, void **a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, void **a43)
-{
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&a35);
-
-  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](&STACK[0x960]);
-  a43 = &a32;
-  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a43);
-  rf::data_flow::provider::InputData::~InputData(&STACK[0xA00]);
-  _Unwind_Resume(a1);
-}
-
-void std::function<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::operator()(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  v4 = *(a2 + 24);
-  if (!v4)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v4 + 48))(v4, &v5);
-}
-
-uint64_t anonymous namespace::isInputProbe(_anonymous_namespace_ *this, ARAnchor *a2)
-{
-  v2 = this;
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  return isKindOfClass & 1;
-}
-
-void anonymous namespace::createInputProbeFromARAnchor(_anonymous_namespace_ *this@<X0>, uint64_t a2@<X8>)
-{
-  v40 = *MEMORY[0x277D85DE8];
-  v4 = this;
-  v5 = [(_anonymous_namespace_ *)v4 identifier];
-  rf::data_flow::RFUUID::copy(v5, v31);
-  [(_anonymous_namespace_ *)v4 transform];
-  v32 = v6;
-  v33 = v7;
-  v34 = v8;
-  v35 = v9;
-  [(_anonymous_namespace_ *)v4 extent];
-  v36 = v10;
-  LOBYTE(v37) = 0;
-  v38 = 0;
-  v39 = 1065353216;
-
-  v11 = [(_anonymous_namespace_ *)v4 environmentTexture];
-  LOBYTE(v5) = v11 == 0;
-
-  if ((v5 & 1) == 0)
-  {
-    v12 = [(_anonymous_namespace_ *)v4 environmentTexture];
-    if (v38 == 1)
-    {
-      v13 = v37;
-      v37 = v12;
-    }
-
-    else
-    {
-      v37 = v12;
-      v38 = 1;
-    }
-  }
-
-  v14 = rf::realityFusionLogObject(v12);
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-  {
-    rf::data_flow::RFUUID::string(v31, __p);
-    v15 = v26;
-    v16 = __p[0];
-    v17 = [(_anonymous_namespace_ *)v4 environmentTexture];
-    v18 = v17;
-    v19 = __p;
-    if (v15 < 0)
-    {
-      v19 = v16;
-    }
-
-    *buf = 136446466;
-    v28 = v19;
-    v29 = 2048;
-    v30 = v17;
-    _os_log_impl(&dword_2617CB000, v14, OS_LOG_TYPE_DEFAULT, "RFARSessionObserver: Updating probe %{public}s with texture %p", buf, 0x16u);
-
-    if (v26 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  v20 = v35;
-  v21 = v36;
-  *(a2 + 64) = v34;
-  *(a2 + 80) = v20;
-  *(a2 + 96) = v21;
-  v22 = v31[1];
-  *a2 = v31[0];
-  *(a2 + 16) = v22;
-  v23 = v33;
-  *(a2 + 32) = v32;
-  *(a2 + 48) = v23;
-  *(a2 + 112) = 0;
-  *(a2 + 120) = 0;
-  if (v38 == 1)
-  {
-    *(a2 + 112) = v37;
-    *(a2 + 120) = 1;
-  }
-
-  *(a2 + 128) = v39;
-
-  v24 = *MEMORY[0x277D85DE8];
-}
-
-void sub_261845978(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, char a35)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a35 == 1)
-  {
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t anonymous namespace::isInputAnchor(_anonymous_namespace_ *this, ARAnchor *a2)
-{
-  v2 = this;
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if (isKindOfClass)
-  {
-    isInputProbe = 1;
-  }
-
-  else
-  {
-  }
-
-  return isInputProbe ^ 1u;
-}
-
-void sub_26184602C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, void **a31, uint64_t a32, void **a33)
-{
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&a31);
-
-  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](&STACK[0x910]);
-  a33 = &a28;
-  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a33);
-  rf::data_flow::provider::InputData::~InputData(&STACK[0x9B0]);
-  _Unwind_Resume(a1);
-}
-
-void sub_261846914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, void **a35)
-{
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&a35);
-
-  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](&STACK[0x950]);
-  a14 = &a32;
-  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a14);
-  rf::data_flow::provider::InputData::~InputData(&STACK[0x9F0]);
-  _Unwind_Resume(a1);
-}
-
-void sub_261846FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, void **a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *a59)
-{
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&a35);
-
-  STACK[0x9E0] = &a32;
-  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&STACK[0x9E0]);
-  rf::data_flow::provider::InputData::~InputData(&a59);
-  _Unwind_Resume(a1);
-}
-
-void sub_2618473CC(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void *std::vector<rf::data_flow::EnvironmentProbe>::vector[abi:ne200100]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>,rf::data_flow::EnvironmentProbe (*)(ARAnchor *)>>(void *a1, uint64_t a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  v4 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](a2 + 8);
-  v6 = *(*(a2 + 8) + 8);
-  if (v6 == v4)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    v7 = v4;
-    v8 = v5;
-    v9 = 0;
-    do
-    {
-      v10 = v7 + 1;
-      v7 = *(*v8 + 1);
-      while (v10 != v7)
-      {
-        if (v8[1](*v10))
-        {
-          v7 = v10;
-          break;
-        }
-
-        ++v10;
-      }
-
-      ++v9;
-    }
-
-    while (v7 != v6);
-  }
-
-  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](a2 + 8);
-  v11 = *(*(a2 + 8) + 8);
-  if (v9)
-  {
-    if (v9 < 0x1C71C71C71C71C8)
-    {
-      std::allocator<rf::data_flow::EnvironmentProbe>::allocate_at_least[abi:ne200100](a1, v9);
-    }
-
-    std::vector<int>::__throw_length_error[abi:ne200100]();
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return a1;
-}
-
-void std::vector<rf::data_flow::EnvironmentProbe>::__vdeallocate(uint64_t *a1)
-{
-  if (*a1)
-  {
-    std::vector<rf::data_flow::EnvironmentProbe>::clear[abi:ne200100](a1);
-    operator delete(*a1);
-    *a1 = 0;
-    a1[1] = 0;
-    a1[2] = 0;
-  }
-}
-
-void anonymous namespace::createInputAnchorFromARAnchor(_anonymous_namespace_ *this, ARAnchor *a2)
-{
-  v154 = *MEMORY[0x277D85DE8];
-  v128 = a2;
-  rf::helpers::getBaseAnchorPropertiesFromARAnchor(v128, &v147);
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v4 = v128;
-    v5 = [(ARAnchor *)v4 planeExtent];
-    [v5 rotationOnYAxis];
-    v7 = __sincosf_stret(v6);
-
-    [(ARAnchor *)v4 center];
-    *v126 = v8;
-    v9 = [(ARAnchor *)v4 geometry];
-    v10 = [v9 boundaryVertexCount];
-
-    __p[0] = 0;
-    __p[1] = 0;
-    v130 = 0;
-    if (v10)
-    {
-      for (i = 0; i != v10; ++i)
-      {
-        v12 = [(ARAnchor *)v4 geometry];
-        v13 = [v12 boundaryVertices];
-        v14 = __p[1];
-        if (__p[1] >= v130)
-        {
-          v16 = (__p[1] - __p[0]) >> 4;
-          if ((v16 + 1) >> 60)
-          {
-            _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
-          }
-
-          v17 = (v130 - __p[0]) >> 3;
-          if (v17 <= v16 + 1)
-          {
-            v17 = v16 + 1;
-          }
-
-          if (v130 - __p[0] >= 0x7FFFFFFFFFFFFFF0)
-          {
-            v18 = 0xFFFFFFFFFFFFFFFLL;
-          }
-
-          else
-          {
-            v18 = v17;
-          }
-
-          if (v18)
-          {
-            _ZNSt3__19allocatorIDv3_fE17allocate_at_leastB8ne200100Em(__p, v18);
-          }
-
-          v19 = (16 * v16);
-          *v19 = *(v13 + 16 * i);
-          v15 = (16 * v16 + 16);
-          v20 = v19 - (__p[1] - __p[0]);
-          memcpy(v20, __p[0], __p[1] - __p[0]);
-          v21 = __p[0];
-          __p[0] = v20;
-          __p[1] = v15;
-          v130 = 0;
-          if (v21)
-          {
-            operator delete(v21);
-          }
-        }
-
-        else
-        {
-          *__p[1] = *(v13 + 16 * i);
-          v15 = v14 + 16;
-        }
-
-        __p[1] = v15;
-      }
-    }
-
-    v131 = v147;
-    v132 = v148;
-    v121 = v150;
-    v133 = v149;
-    v145 = v151;
-    v22 = *&v152[4];
-    v146 = *v152;
-    v143 = *&v152[8];
-    v144 = v152[24];
-    v23 = v153;
-    v153 = 0;
-    v24 = [(ARAnchor *)v4 planeExtent];
-    [v24 width];
-    v119 = v25;
-    v26 = [(ARAnchor *)v4 planeExtent];
-    [v26 height];
-    v116 = v27;
-    v28 = [(ARAnchor *)v4 alignment];
-    v29 = [(ARAnchor *)v4 classification];
-    v115 = *__p;
-    v30 = v130;
-    __p[1] = 0;
-    v130 = 0;
-    __p[0] = 0;
-
-    v31 = vrsqrte_f32(1065353216);
-    v32 = vmul_f32(v31, vrsqrts_f32(1065353216, vmul_f32(v31, v31)));
-    v43 = vmulq_n_f32(xmmword_26185DD10, vmul_f32(v32, vrsqrts_f32(1065353216, vmul_f32(v32, v32))).f32[0]);
-    v33 = vmulq_f32(v43, v43).f32[0];
-    v34 = vmuls_lane_f32(v43.f32[1], *v43.f32, 1);
-    v35 = vmuls_lane_f32(v43.f32[2], v43, 2);
-    v36 = vmuls_lane_f32(v43.f32[0], *v43.f32, 1);
-    v37 = vmuls_lane_f32(v43.f32[0], v43, 2);
-    v32.f32[0] = vmuls_lane_f32(v43.f32[1], v43, 2);
-    v38 = v7.__sinval * v43.f32[0];
-    v39 = vmuls_lane_f32(v7.__sinval, *v43.f32, 1);
-    v43.f32[0] = vmuls_lane_f32(v7.__sinval, v43, 2);
-    v40 = -(v43.f32[0] - (v36 * (1.0 - v7.__cosval)));
-    v41 = v43.f32[0] + (v36 * (1.0 - v7.__cosval));
-    v42 = -(v38 - (v32.f32[0] * (1.0 - v7.__cosval)));
-    v43.i32[3] = 0;
-    v43.f32[0] = v33 + (v7.__cosval * (1.0 - v33));
-    v43.f32[1] = v41;
-    HIDWORD(v45) = 0;
-    HIDWORD(v44) = 0;
-    *&v44 = v40;
-    *(&v44 + 1) = v34 + (v7.__cosval * (1.0 - v34));
-    *(&v44 + 2) = v38 + (v32.f32[0] * (1.0 - v7.__cosval));
-    *&v45 = v39 + (v37 * (1.0 - v7.__cosval));
-    *(&v45 + 1) = v42;
-    *(&v45 + 2) = v35 + (v7.__cosval * (1.0 - v35));
-    v46 = *v126;
-    HIDWORD(v46) = 1.0;
-    *&v47 = LODWORD(v33);
-    *&v47 = v119;
-    *(&v47 + 1) = LODWORD(v116);
-    if (v29)
-    {
-      goto LABEL_18;
-    }
-
-    v57 = vmulq_f32(v121, xmmword_26185DD10);
-    if (fabsf(v57.f32[2] + vaddv_f32(*v57.f32)) <= 0.70711)
-    {
-      if (v119 > 1.0 && v116 > 1.0)
-      {
-        v29 = 1;
-        goto LABEL_18;
-      }
-    }
-
-    else
-    {
-      if (v121.f32[1] < 0.0)
-      {
-        v29 = 3;
-LABEL_18:
-        v48 = v132;
-        *this = v131;
-        *(this + 1) = v48;
-        *(this + 2) = v133;
-        *(this + 3) = v121;
-        *(this + 4) = v145;
-        *(this + 20) = v146;
-        *(this + 21) = v22;
-        *(this + 88) = v143;
-        *(this + 104) = v144;
-        *(this + 14) = v23;
-        v43.f32[2] = -(v39 - (v37 * (1.0 - v7.__cosval)));
-        *(this + 8) = v43;
-        *(this + 9) = v44;
-        *(this + 10) = v45;
-        *(this + 11) = v46;
-        *(this + 12) = v47;
-        *(this + 52) = v28;
-        *(this + 53) = v29;
-        *(this + 216) = v115;
-        *(this + 29) = v30;
-        *(this + 64) = 1;
-        if (__p[0])
-        {
-          __p[1] = __p[0];
-          operator delete(__p[0]);
-        }
-
-        goto LABEL_58;
-      }
-
-      if (v22 < -0.5)
-      {
-        v29 = 2;
-        goto LABEL_18;
-      }
-
-      if (v119 > 0.4 && v116 > 0.4)
-      {
-        v29 = 4;
-        goto LABEL_18;
-      }
-    }
-
-    v29 = 0;
-    goto LABEL_18;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v49 = v128;
-    v135 = v151;
-    v136[0] = *v152;
-    *(v136 + 9) = *&v152[9];
-    v131 = v147;
-    v132 = v148;
-    v133 = v149;
-    v134 = v150;
-    v50 = v153;
-    v153 = 0;
-    v137 = v50;
-    v138[0] = [(ARAnchor *)v49 isDetectionOnly];
-    v51 = [(ARAnchor *)v49 name];
-    if (v51)
-    {
-      v125 = [(ARAnchor *)v49 name];
-      v52 = v125;
-      std::string::basic_string[abi:ne200100]<0>(&v138[8], [v125 UTF8String]);
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(&v138[8], "");
-    }
-
-    v123 = [(ARAnchor *)v49 referenceImage];
-    v71 = [v123 resourceGroupName];
-    if (v71)
-    {
-      v118 = [(ARAnchor *)v49 referenceImage];
-      v2 = [v118 resourceGroupName];
-      v72 = v2;
-      std::string::basic_string[abi:ne200100]<0>(&v138[32], [v2 UTF8String]);
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(&v138[32], "");
-    }
-
-    [(ARAnchor *)v49 estimatedScaleFactor];
-    v74 = v73;
-    v75 = [(ARAnchor *)v49 referenceImage];
-    [v75 physicalSize];
-    v77 = v76;
-    v78 = [(ARAnchor *)v49 referenceImage];
-    [v78 physicalSize];
-    *&v79 = v77;
-    v80.i64[0] = v79;
-    *&v82 = v81;
-    v80.i64[1] = v82;
-    v83 = v74;
-    v140 = vmulq_n_f32(v80, v83);
-
-    if (v71)
-    {
-    }
-
-    if (v51)
-    {
-    }
-
-    v84 = v136[0];
-    *(this + 4) = v135;
-    *(this + 5) = v84;
-    *(this + 89) = *(v136 + 9);
-    v85 = v132;
-    *this = v131;
-    *(this + 1) = v85;
-    v86 = v134;
-    *(this + 2) = v133;
-    *(this + 3) = v86;
-    v87 = v137;
-    v137 = 0;
-    *(this + 14) = v87;
-    *(this + 128) = v138[0];
-    *(this + 136) = *&v138[8];
-    *(this + 19) = *&v138[24];
-    memset(&v138[8], 0, 24);
-    *(this + 10) = *&v138[32];
-    *(this + 22) = v139;
-    *&v138[32] = 0;
-    *&v138[40] = 0;
-    *&v139 = 0;
-    *(this + 12) = v140;
-    *(this + 64) = 2;
-  }
-
-  else
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v53 = v128;
-      v135 = v151;
-      v136[0] = *v152;
-      *(v136 + 9) = *&v152[9];
-      v131 = v147;
-      v132 = v148;
-      v133 = v149;
-      v134 = v150;
-      v54 = v153;
-      v153 = 0;
-      v137 = v54;
-      v55 = [(ARAnchor *)v53 name];
-      if (v55)
-      {
-        v125 = [(ARAnchor *)v53 name];
-        v56 = v125;
-        std::string::basic_string[abi:ne200100]<0>(v138, [v125 UTF8String]);
-      }
-
-      else
-      {
-        std::string::basic_string[abi:ne200100]<0>(v138, "");
-      }
-
-      v124 = [(ARAnchor *)v53 referenceObject];
-      v94 = [v124 resourceGroupName];
-      if (v94)
-      {
-        v118 = [(ARAnchor *)v53 referenceObject];
-        v2 = [v118 resourceGroupName];
-        v95 = v2;
-        std::string::basic_string[abi:ne200100]<0>(&v138[24], [v2 UTF8String]);
-      }
-
-      else
-      {
-        std::string::basic_string[abi:ne200100]<0>(&v138[24], "");
-      }
-
-      v140.i8[0] = 0;
-      v140.i64[1] = 0;
-      uuid_clear(&v139);
-      v96 = [(ARAnchor *)v53 referenceObject];
-      [v96 center];
-      v141 = v97;
-      v98 = [(ARAnchor *)v53 referenceObject];
-      [v98 extent];
-      v142 = v99;
-
-      if (v94)
-      {
-      }
-
-      if (v55)
-      {
-      }
-
-      v100 = v136[0];
-      *(this + 4) = v135;
-      *(this + 5) = v100;
-      *(this + 89) = *(v136 + 9);
-      v101 = v132;
-      *this = v131;
-      *(this + 1) = v101;
-      v102 = v134;
-      *(this + 2) = v133;
-      *(this + 3) = v102;
-      v103 = v137;
-      v137 = 0;
-      *(this + 14) = v103;
-      v104 = *v138;
-      *(this + 18) = *&v138[16];
-      *(this + 8) = v104;
-      memset(v138, 0, 24);
-      *(this + 21) = *&v138[40];
-      *(this + 152) = *&v138[24];
-      memset(&v138[24], 0, 24);
-      v105 = v140;
-      *(this + 11) = v139;
-      *(this + 12) = v105;
-      v106 = v142;
-      *(this + 13) = v141;
-      *(this + 14) = v106;
-      *(this + 64) = 3;
-    }
-
-    else
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        v58 = v128;
-        v135 = v151;
-        v136[0] = *v152;
-        *(v136 + 9) = *&v152[9];
-        v131 = v147;
-        v132 = v148;
-        v133 = v149;
-        v134 = v150;
-        v59 = v153;
-        v153 = 0;
-        [(ARAnchor *)v58 leftEyeTransform];
-        v122 = v61;
-        *v127 = v60;
-        v117 = v63;
-        v120 = v62;
-        [(ARAnchor *)v58 rightEyeTransform];
-        v64 = v136[0];
-        *(this + 4) = v135;
-        *(this + 5) = v64;
-        *(this + 89) = *(v136 + 9);
-        v65 = v132;
-        *this = v131;
-        *(this + 1) = v65;
-        v66 = v134;
-        *(this + 2) = v133;
-        *(this + 3) = v66;
-        *(this + 14) = v59;
-        *(this + 8) = *v127;
-        *(this + 9) = v122;
-        *(this + 10) = v120;
-        *(this + 11) = v117;
-        *(this + 12) = v67;
-        *(this + 13) = v68;
-        *(this + 14) = v69;
-        *(this + 15) = v70;
-        *(this + 64) = 4;
-      }
-
-      else
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v88 = v128;
-          v135 = v151;
-          v136[0] = *v152;
-          *(v136 + 9) = *&v152[9];
-          v131 = v147;
-          v132 = v148;
-          v133 = v149;
-          v134 = v150;
-          v89 = v153;
-          v153 = 0;
-          [(ARAnchor *)v88 estimatedScaleFactor];
-          *&v90 = v90;
-          v91 = v136[0];
-          *(this + 4) = v135;
-          *(this + 5) = v91;
-          *(this + 89) = *(v136 + 9);
-          v92 = v132;
-          *this = v131;
-          *(this + 1) = v92;
-          v93 = v134;
-          *(this + 2) = v133;
-          *(this + 3) = v93;
-          *(this + 14) = v89;
-          *(this + 32) = LODWORD(v90);
-          *(this + 64) = 5;
-        }
-
-        else
-        {
-          v135 = v151;
-          v136[0] = *v152;
-          *(v136 + 9) = *&v152[9];
-          v131 = v147;
-          v132 = v148;
-          v133 = v149;
-          v134 = v150;
-          v107 = v153;
-          v153 = 0;
-          v137 = v107;
-          v138[0] = 0;
-          v138[24] = 0;
-          *&v138[32] = 0;
-          uuid_clear(&v138[8]);
-          v138[40] = 0;
-          v140.i8[8] = 0;
-          v108 = v136[0];
-          *(this + 4) = v135;
-          *(this + 5) = v108;
-          *(this + 89) = *(v136 + 9);
-          v109 = v132;
-          *this = v131;
-          *(this + 1) = v109;
-          v110 = v134;
-          *(this + 2) = v133;
-          *(this + 3) = v110;
-          v111 = v137;
-          v137 = 0;
-          *(this + 14) = v111;
-          v112 = v139;
-          *(this + 10) = *&v138[32];
-          *(this + 11) = v112;
-          *(this + 12) = v140;
-          v113 = *&v138[16];
-          *(this + 8) = *v138;
-          *(this + 9) = v113;
-          *(this + 64) = 0;
-        }
-      }
-    }
-  }
-
-LABEL_58:
-
-  v114 = *MEMORY[0x277D85DE8];
-}
-
 uint64_t std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](uint64_t a1)
 {
   v2 = *(a1 + 24);
@@ -1437,7 +109,6 @@ uint64_t rf::AnchorDefinitionComponent::buildIntrospectionInfo(uint64_t this)
       if (REStructBuilderInit())
       {
         REStructBuilderAddMemberCStyleArrayDataTypeWithTag();
-        v3 = *(v1 + 144);
         REStructBuilderAddMemberEnumWithTag();
         REStructBuilderAddMemberDataTypeWithTag();
         REStructBuilderAddMemberDataTypeWithTag();
@@ -1459,7 +130,6 @@ void *rf::AnchorDefinitionComponent::registerAnchorDefinitionComponent(void *thi
   if (!*this)
   {
     v1 = this;
-    v2 = this[17];
     this = RECustomComponentTypeCreate();
     *v1 = this;
   }
@@ -1548,51 +218,49 @@ uint64_t rf::AnchorDefinitionComponent::registerAnchorDefinitionComponent(void):
 
 void RFPlacementComponentSetUp(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   v12 = a5;
   v13 = rf::PlacementComponentTypeInfo::instance(v12);
-  v18[0] = &unk_28740ADA0;
-  v18[1] = MEMORY[0x26670D530](v9);
-  v18[3] = v18;
-  v17[0] = &unk_28740AE30;
-  v17[1] = MEMORY[0x26670D530](v10);
+  v17[0] = &unk_28740ADA0;
+  v17[1] = MEMORY[0x26670D530](v9);
   v17[3] = v17;
-  v16[0] = &unk_28740AEC0;
-  v16[1] = MEMORY[0x26670D530](v11);
+  v16[0] = &unk_28740AE30;
+  v16[1] = MEMORY[0x26670D530](v10);
   v16[3] = v16;
-  v15[0] = &unk_28740AF40;
-  v15[1] = MEMORY[0x26670D530](v12);
+  v15[0] = &unk_28740AEC0;
+  v15[1] = MEMORY[0x26670D530](v11);
   v15[3] = v15;
-  rf::PlacementComponentTypeInfo::initWithType(v13, a1, v18, v17, v16, v15);
-  std::__function::__value_func<RESRT ()(REComponent *)>::~__value_func[abi:ne200100](v15);
-  std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v16);
-  std::__function::__value_func<BOOL ()(REComponent *)>::~__value_func[abi:ne200100](v17);
-  std::__function::__value_func<unsigned char const* ()(REComponent *)>::~__value_func[abi:ne200100](v18);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14[0] = &unk_28740AF40;
+  v14[1] = MEMORY[0x26670D530](v12);
+  v14[3] = v14;
+  rf::PlacementComponentTypeInfo::initWithType(v13, a1, v17, v16, v15, v14);
+  std::__function::__value_func<RESRT ()(REComponent *)>::~__value_func[abi:ne200100](v14);
+  std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v15);
+  std::__function::__value_func<BOOL ()(REComponent *)>::~__value_func[abi:ne200100](v16);
+  std::__function::__value_func<unsigned char const* ()(REComponent *)>::~__value_func[abi:ne200100](v17);
 }
 
-void sub_261849058(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261849058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v9 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v13 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
   v16 = va_arg(va2, void);
   v17 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
   std::__function::__value_func<RESRT ()(REComponent *)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](va1);
   std::__function::__value_func<BOOL ()(REComponent *)>::~__value_func[abi:ne200100](va2);
-  std::__function::__value_func<unsigned char const* ()(REComponent *)>::~__value_func[abi:ne200100](v6 - 88);
+  std::__function::__value_func<unsigned char const* ()(REComponent *)>::~__value_func[abi:ne200100](v7 - 88);
 
   _Unwind_Resume(a1);
 }
@@ -1727,7 +395,7 @@ uint64_t std::__function::__func<RFPlacementComponentSetUp::$_3,std::allocator<R
 
 uint64_t rf::detail::insertRoomAnchorsInto@<X0>(uint64_t result@<X0>, rf::data_flow::RFUUID **a2@<X1>, const void **a3@<X8>)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
@@ -1745,20 +413,20 @@ uint64_t rf::detail::insertRoomAnchorsInto@<X0>(uint64_t result@<X0>, rf::data_f
       {
         if (v9)
         {
-          rf::data_flow::RFUUID::string(v4, __p);
+          rf::data_flow::RFUUID::string(__p, v4);
           v10 = __p;
-          if (v28 < 0)
+          if (v27 < 0)
           {
             v10 = __p[0];
           }
 
           *buf = 136446210;
-          v30 = v10;
+          v29 = v10;
           v11 = v8;
           v12 = "ARState: Adding Room Anchor Again %{public}s";
 LABEL_12:
           _os_log_impl(&dword_2617CB000, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
-          if (v28 < 0)
+          if (v27 < 0)
           {
             operator delete(__p[0]);
           }
@@ -1767,15 +435,15 @@ LABEL_12:
 
       else if (v9)
       {
-        rf::data_flow::RFUUID::string(v4, __p);
+        rf::data_flow::RFUUID::string(__p, v4);
         v13 = __p;
-        if (v28 < 0)
+        if (v27 < 0)
         {
           v13 = __p[0];
         }
 
         *buf = 136446210;
-        v30 = v13;
+        v29 = v13;
         v11 = v8;
         v12 = "ARState: Adding Room Anchor %{public}s";
         goto LABEL_12;
@@ -1814,7 +482,7 @@ LABEL_12:
         v24 = *(v4 + 1);
         *v23 = *v4;
         v23[1] = v24;
-        v17 = 32 * v20 + 32;
+        v17 = (32 * v20 + 32);
         memcpy(0, v18, v19);
         v25 = *a3;
         *a3 = 0;
@@ -1831,7 +499,7 @@ LABEL_12:
         v16 = *(v4 + 1);
         *v14 = *v4;
         *(v14 + 1) = v16;
-        v17 = (v14 + 32);
+        v17 = v14 + 32;
       }
 
       a3[1] = v17;
@@ -1842,7 +510,6 @@ LABEL_12:
     while (v4 != v5);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1858,7 +525,7 @@ void sub_261849A28(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unordered_map<rf::data_flow::RFUUID,rf::data_flow::Room,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,rf::data_flow::Room>>>::insert_or_assign[abi:ne200100]<rf::data_flow::Room&>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<rf::data_flow::RFUUID,rf::data_flow::Room,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,rf::data_flow::Room>>>::insert_or_assign[abi:ne200100]<rf::data_flow::Room&>(void *a1, uint64_t a2, const rf::data_flow::Room *a3)
 {
   v6 = *(a2 + 24);
   if (!v6)
@@ -1949,16 +616,16 @@ LABEL_18:
   return rf::data_flow::Room::operator=((v12 + 6), a3);
 }
 
-void sub_261849D38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261849D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void rf::detail::updateRoomAnchorsAt(uint64_t a1@<X0>, rf::data_flow::RFUUID **a2@<X1>, const void **a3@<X8>)
+void rf::detail::updateRoomAnchorsAt(uint64_t a1@<X0>, const rf::data_flow::Room **a2@<X1>, const void **a3@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
@@ -2003,7 +670,7 @@ void rf::detail::updateRoomAnchorsAt(uint64_t a1@<X0>, rf::data_flow::RFUUID **a
           v19 = *(v4 + 1);
           *v18 = *v4;
           v18[1] = v19;
-          v10 = 32 * v15 + 32;
+          v10 = (32 * v15 + 32);
           memcpy(0, v13, v14);
           v20 = *a3;
           *a3 = 0;
@@ -2020,7 +687,7 @@ void rf::detail::updateRoomAnchorsAt(uint64_t a1@<X0>, rf::data_flow::RFUUID **a
           v9 = *(v4 + 1);
           *v7 = *v4;
           *(v7 + 1) = v9;
-          v10 = (v7 + 32);
+          v10 = v7 + 32;
         }
 
         a3[1] = v10;
@@ -2032,17 +699,17 @@ void rf::detail::updateRoomAnchorsAt(uint64_t a1@<X0>, rf::data_flow::RFUUID **a
         v11 = rf::realityFusionLogObject(0);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          rf::data_flow::RFUUID::string(v4, __p);
+          rf::data_flow::RFUUID::string(__p, v4);
           v12 = __p;
-          if (v23 < 0)
+          if (v22 < 0)
           {
             v12 = __p[0];
           }
 
           *buf = 136446210;
-          v25 = v12;
+          v24 = v12;
           _os_log_impl(&dword_2617CB000, v11, OS_LOG_TYPE_DEFAULT, "ARState: Updating Room Anchor %{public}s that doesn't exist in ARState.", buf, 0xCu);
-          if (v23 < 0)
+          if (v22 < 0)
           {
             operator delete(__p[0]);
           }
@@ -2054,8 +721,6 @@ void rf::detail::updateRoomAnchorsAt(uint64_t a1@<X0>, rf::data_flow::RFUUID **a
 
     while (v4 != v5);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void sub_261849F60(_Unwind_Exception *a1)
@@ -2072,7 +737,7 @@ void sub_261849F60(_Unwind_Exception *a1)
 
 rf *rf::detail::removeRoomAnchorsFrom@<X0>(rf *result@<X0>, rf::data_flow::RFUUID **a2@<X1>, uint64_t a3@<X8>)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   *a3 = 0u;
   *(a3 + 16) = 0u;
   *(a3 + 32) = 1065353216;
@@ -2080,12 +745,12 @@ rf *rf::detail::removeRoomAnchorsFrom@<X0>(rf *result@<X0>, rf::data_flow::RFUUI
   v5 = a2[1];
   if (*a2 == v5)
   {
-    goto LABEL_64;
+    return result;
   }
 
   v6 = result;
-  v38 = a2[1];
-  v37 = result;
+  v37 = a2[1];
+  v36 = result;
   do
   {
     result = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>((*v6 + 248), v4);
@@ -2098,12 +763,12 @@ rf *rf::detail::removeRoomAnchorsFrom@<X0>(rf *result@<X0>, rf::data_flow::RFUUI
     v8 = rf::realityFusionLogObject(result);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      rf::data_flow::RFUUID::string(v4, __p);
-      v9 = v40 >= 0 ? __p : __p[0];
+      rf::data_flow::RFUUID::string(__p, v4);
+      v9 = v39 >= 0 ? __p : __p[0];
       *buf = 136446210;
-      v42 = v9;
+      v41 = v9;
       _os_log_impl(&dword_2617CB000, v8, OS_LOG_TYPE_DEFAULT, "ARState: Removing Room Anchors %{public}s", buf, 0xCu);
-      if (SHIBYTE(v40) < 0)
+      if (SHIBYTE(v39) < 0)
       {
         operator delete(__p[0]);
       }
@@ -2224,12 +889,12 @@ LABEL_26:
     std::__optional_storage_base<rf::data_flow::RoomMesh,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<rf::data_flow::RoomMesh,false>>((v16 + 44), v7 + 352);
     std::__optional_storage_base<rf::data_flow::RoomMesh,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<rf::data_flow::RoomMesh,false>>((v16 + 69), v7 + 552);
     std::__optional_storage_base<rf::data_flow::RoomMesh,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<rf::data_flow::RoomMesh,false>>((v16 + 94), v7 + 752);
-    v6 = v37;
-    v5 = v38;
-    std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__erase_unique<rf::data_flow::RFUUID>(&(*v37)[319], v4);
-    std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__erase_unique<rf::data_flow::RFUUID>(&(*v37)[324], v4);
-    v18 = *v37;
-    v19 = (*v37)[32];
+    v6 = v36;
+    v5 = v37;
+    std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__erase_unique<rf::data_flow::RFUUID>((*v36 + 2552), v4);
+    std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__erase_unique<rf::data_flow::RFUUID>((*v36 + 2592), v4);
+    v18 = *v36;
+    v19 = *(*v36 + 256);
     v20 = *(v7 + 1);
     v21 = vcnt_s8(v19);
     v21.i16[0] = vaddlv_u8(v21);
@@ -2247,7 +912,7 @@ LABEL_26:
     }
 
     v22 = v18[31];
-    v23 = *(*&v22 + 8 * v20);
+    v23 = *(v22 + 8 * v20);
     do
     {
       v24 = v23;
@@ -2255,7 +920,7 @@ LABEL_26:
     }
 
     while (v23 != v7);
-    if (v24 == &v18[33])
+    if (v24 == (v18 + 33))
     {
       goto LABEL_45;
     }
@@ -2299,7 +964,7 @@ LABEL_45:
       if (v26 != v20)
       {
 LABEL_46:
-        *(*&v22 + 8 * v20) = 0;
+        *(v22 + 8 * v20) = 0;
       }
     }
 
@@ -2322,34 +987,32 @@ LABEL_46:
 
       if (v28 != v20)
       {
-        *(*&v18[31] + 8 * v28) = v24;
+        *(v18[31] + 8 * v28) = v24;
         v27 = *v7;
       }
     }
 
     *v24 = v27;
     *v7 = 0;
-    --*&v18[34];
+    --v18[34];
     __p[0] = v7;
-    __p[1] = &v18[31];
-    LOBYTE(v40) = 1;
-    memset(&v40 + 1, 0, 7);
+    __p[1] = v18 + 31;
+    LOBYTE(v39) = 1;
+    memset(&v39 + 1, 0, 7);
     result = std::unique_ptr<std::__hash_node<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,void *>>>>::~unique_ptr[abi:ne200100](__p);
 LABEL_55:
     v4 = (v4 + 32);
   }
 
   while (v4 != v5);
-LABEL_64:
-  v36 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_26184A548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_26184A548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>>>::~__hash_table(v6);
+  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::Room>>>::~__hash_table(v11);
   _Unwind_Resume(a1);
 }
 
@@ -2648,11 +1311,11 @@ LABEL_6:
   }
 
   v14 = rf::helpers::kCameraIdentifier(v13);
-  v15 = std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__emplace_unique_key_args<rf::data_flow::RFUUID,rf::data_flow::RFUUID const&>(this + 65, v14);
+  v15 = std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__emplace_unique_key_args<rf::data_flow::RFUUID,rf::data_flow::RFUUID const&>(this + 65, v14, v14);
   v16 = rf::helpers::kHeadIdentifier(v15);
-  v17 = std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__emplace_unique_key_args<rf::data_flow::RFUUID,rf::data_flow::RFUUID const&>(this + 65, v16);
+  v17 = std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__emplace_unique_key_args<rf::data_flow::RFUUID,rf::data_flow::RFUUID const&>(this + 65, v16, v16);
   v18 = rf::helpers::kBodyIdentifier(v17);
-  std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__emplace_unique_key_args<rf::data_flow::RFUUID,rf::data_flow::RFUUID const&>(this + 65, v18);
+  std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__emplace_unique_key_args<rf::data_flow::RFUUID,rf::data_flow::RFUUID const&>(this + 65, v18, v18);
   rf::UserDefaults::~UserDefaults(__p);
   return this;
 }
@@ -2664,15 +1327,6 @@ void sub_26184ABCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::~__value_func[abi:ne200100](v22 + 72);
   std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::~__value_func[abi:ne200100](v22 + 32);
   _Unwind_Resume(a1);
-}
-
-__n128 ___ZN2rf9data_flow8consumer24AnchorManagementConsumerC2ERKNS1_22AnchorManagementConfigE_block_invoke()
-{
-  result = *MEMORY[0x277D860B8];
-  v1 = *(MEMORY[0x277D860B8] + 16);
-  v2 = *(MEMORY[0x277D860B8] + 32);
-  v3 = *(MEMORY[0x277D860B8] + 48);
-  return result;
 }
 
 uint64_t rf::data_flow::consumer::AnchorManagementConsumer::registerShadowClusterUpdateHandler(uint64_t a1, uint64_t a2)
@@ -2694,7 +1348,7 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::registerShadowCluste
 
 uint64_t ___ZN2rf9data_flow8consumer24AnchorManagementConsumer34registerShadowClusterUpdateHandlerERKNS_15ConsumerRequestE_block_invoke(uint64_t a1, float32x4_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = *(*(a1 + 32) + 16);
   REComponentGetEntity();
   if (*(v6 + 1680) == 1)
@@ -2717,58 +1371,51 @@ uint64_t ___ZN2rf9data_flow8consumer24AnchorManagementConsumer34registerShadowCl
   v15.i64[1] = 0x3F0000003F000000;
   v18 = vmlsq_lane_f32(vmulq_f32(v17, v15), a2, v16, 0);
   v19 = 0xFF0201u >> (8 * a5);
-  v28[0] = v18;
-  v28[1] = a2;
+  v22[0] = v18;
+  v22[1] = a2;
   if (a5 >= 3)
   {
     LOBYTE(v19) = 0;
   }
 
-  v29 = v19;
-  v30 = -1;
-  v31 = 0;
-  rf::helpers::getNearestPlaneAnchor(v28, v6 + 144, v8, v9, v10, v11, v12, v13, v32, v18);
-  if (v34 == 1)
+  v23 = v19;
+  v24 = -1;
+  v25 = 0;
+  rf::helpers::getNearestPlaneAnchor(v22, v6 + 144, v8, v9, v10, v11, v12, v13, v26, v18);
+  if (v28 != 1)
   {
-    if (v33 == 1)
+    if (v7)
     {
-      v20 = v32;
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-LABEL_13:
+LABEL_12:
     result = REAnchorShadowMarkerSetPlaneExists();
-    goto LABEL_14;
-  }
-
-  if ((v7 & 1) == 0)
-  {
     goto LABEL_13;
   }
 
-  v20 = (v6 + 1424);
-LABEL_11:
-  v21 = *(v20 + 3);
-  v22 = *(v20 + 5);
+  if (v27 != 1)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_10:
   result = REAnchorShadowMarkerSetPointAndNormal();
   if (v7)
   {
-    v24 = *(v6 + 1504);
-    v25 = *(v6 + 1472);
     result = REAnchorShadowMarkerSetFloorPlane();
   }
 
-LABEL_14:
-  if (v34 == 1)
+LABEL_13:
+  if (v28 == 1)
   {
-    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v32);
+    return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v26);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_26184AF78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_26184AF78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
 {
   if (a55 == 1)
   {
@@ -2778,11 +1425,11 @@ void sub_26184AF78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t rf::data_flow::consumer::AnchorManagementConsumer::doAnchoring(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t rf::data_flow::consumer::AnchorManagementConsumer::doAnchoring(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1[69] == 1 && (a1[232] & 1) == 0)
   {
-    rf::data_flow::consumer::AnchorManagementConsumer::removeLocalPeerAnchorComponents(a1);
+    rf::data_flow::consumer::AnchorManagementConsumer::removeLocalPeerAnchorComponents(a1, a3);
   }
 
   if (*(a4 + 3984) == 1)
@@ -2799,59 +1446,55 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::doAnchoring(_BYTE *a
   return result;
 }
 
-uint64_t rf::data_flow::consumer::AnchorManagementConsumer::removeLocalPeerAnchorComponents(uint64_t a1)
+uint64_t rf::data_flow::consumer::AnchorManagementConsumer::removeLocalPeerAnchorComponents(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   REAnchorComponentGetComponentType();
   result = RESceneGetComponentsOfClass();
-  if (v3)
+  if (v4)
   {
-    v4 = v3;
-    v5 = result - 8;
+    v5 = v4;
     do
     {
-      v6 = *(v5 + 8 * v4);
       result = REAnchorComponentGetAnchoredLocally();
       if ((result & 1) == 0)
       {
         Entity = REComponentGetEntity();
-        result = rf::helpers::isRemotelyOwned();
+        result = rf::helpers::isRemotelyOwned(Entity);
         if ((result & 1) == 0)
         {
-          v8 = rf::realityFusionLogObject(result);
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v7 = rf::realityFusionLogObject(result);
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
             Name = REEntityGetName();
             *buf = 136315138;
-            v12 = Name;
-            _os_log_impl(&dword_2617CB000, v8, OS_LOG_TYPE_DEFAULT, "Entity %s anchor added/modified by local peer - removing.", buf, 0xCu);
+            v10 = Name;
+            _os_log_impl(&dword_2617CB000, v7, OS_LOG_TYPE_DEFAULT, "Entity %s anchor added/modified by local peer - removing.", buf, 0xCu);
           }
 
           result = rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(a1, Entity, 1u);
         }
       }
 
-      --v4;
+      --v5;
     }
 
-    while (v4);
+    while (v5);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorComponents(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
+uint64_t rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorComponents(unsigned __int8 *a1, uint64_t a2, BOOL a3, uint64_t a4, uint64_t a5)
 {
   if (re::internal::enableSignposts(0, 0))
   {
-    v9 = *(a5 + 2816);
     kdebug_trace();
   }
 
   RESceneUnderstandingRootComponentGetComponentType();
-  ComponentsOfClass = RESceneGetComponentsOfClass();
-  v12 = v11;
+  RESceneGetComponentsOfClass();
+  v10 = v9;
   if (RESceneGetECSManagerNullable())
   {
     if (REECSManagerGetServiceLocator())
@@ -2861,9 +1504,8 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorComponen
         ShadowPatchFlatteningEnabled = REShadowManagerGetShadowPatchFlatteningEnabled();
         if ((ShadowPatchFlatteningEnabled & 1) == 0)
         {
-          if (v12)
+          if (v10)
           {
-            v14 = *ComponentsOfClass;
             REComponentGetEntity();
             RESceneUnderstandingRenderOptionsComponentGetComponentType();
             if (REEntityGetComponentByClass())
@@ -2872,20 +1514,20 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorComponen
               goto LABEL_16;
             }
 
-            v15 = rf::realityFusionLogObject(0);
-            if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v12 = rf::realityFusionLogObject(0);
+            if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_15;
             }
 
             *buf = 0;
-            v16 = "The root entity should have render option component!";
+            v13 = "The root entity should have render option component!";
           }
 
           else
           {
-            v15 = rf::realityFusionLogObject(ShadowPatchFlatteningEnabled);
-            if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v12 = rf::realityFusionLogObject(ShadowPatchFlatteningEnabled);
+            if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
 LABEL_15:
 
@@ -2893,10 +1535,10 @@ LABEL_15:
             }
 
             *buf = 0;
-            v16 = "We should have a root entity!";
+            v13 = "We should have a root entity!";
           }
 
-          _os_log_impl(&dword_2617CB000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 2u);
+          _os_log_impl(&dword_2617CB000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 2u);
           goto LABEL_15;
         }
       }
@@ -2905,59 +1547,58 @@ LABEL_15:
 
 LABEL_16:
   REAnchoringComponentGetComponentType();
-  v17 = RESceneGetComponentsOfClass();
-  v19 = v17;
-  v20 = v18;
-  if (v18)
+  ComponentsOfClass = RESceneGetComponentsOfClass();
+  v16 = ComponentsOfClass;
+  v17 = v15;
+  if (v15)
   {
-    v21 = 8 * v18;
-    v22 = v17;
+    v18 = 8 * v15;
+    v19 = ComponentsOfClass;
     do
     {
-      v23 = *v22++;
+      v19 += 8;
       REAnchoringComponentInitializeWorldTransformIfNeeded();
-      v21 -= 8;
+      v18 -= 8;
     }
 
-    while (v21);
+    while (v18);
   }
 
-  if ((*(a1 + 232) & 1) == 0)
+  if ((a1[232] & 1) == 0)
   {
     RECoordinateSpaceDefinitionComponentGetComponentType();
-    v24 = RESceneGetComponentsOfClass();
+    v20 = RESceneGetComponentsOfClass();
     *buf = 0;
-    if (v25)
+    if (v21)
     {
-      v26 = v24;
-      v27 = 8 * v25;
+      v22 = v20;
+      v23 = 8 * v21;
       do
       {
-        v28 = *v26;
         Entity = REComponentGetEntity();
         REAnchorComponentGetComponentType();
         ComponentByClass = REEntityGetComponentByClass();
         REAnchoringComponentGetComponentType();
-        v31 = REEntityGetComponentByClass();
-        if (v31)
+        v26 = REEntityGetComponentByClass();
+        if (v26)
         {
-          rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(a1, a4, Entity, ComponentByClass, v31, a5, buf);
+          rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(a1, a4, Entity, ComponentByClass, v26, a5, buf);
         }
 
-        ++v26;
-        v27 -= 8;
+        v22 += 8;
+        v23 -= 8;
       }
 
-      while (v27);
+      while (v23);
     }
   }
 
-  v93 = 0;
-  if ((a3 & 1) != 0 && MEMORY[0x26670CB30](a2))
+  v84 = 0;
+  if (a3 && MEMORY[0x26670CB30](a2))
   {
-    v88 = 0;
-    v32 = REDepthMitigationServiceIsEnabled() ^ 1;
-    if (!v20)
+    v79 = 0;
+    v27 = REDepthMitigationServiceIsEnabled() ^ 1;
+    if (!v17)
     {
       goto LABEL_28;
     }
@@ -2965,70 +1606,69 @@ LABEL_16:
 
   else
   {
-    v88 = 1;
-    v32 = 1;
-    if (!v20)
+    v79 = 1;
+    v27 = 1;
+    if (!v17)
     {
       goto LABEL_28;
     }
   }
 
-  v90 = 0;
-  v33 = &v19[v20];
+  v81 = 0;
+  v28 = &v16[v17];
   do
   {
-    v34 = *v19;
-    v35 = REComponentGetEntity();
+    v29 = REComponentGetEntity();
     RECoordinateSpaceDefinitionComponentGetComponentType();
     if (!REEntityGetComponentByClass())
     {
       REAnchorComponentGetComponentType();
-      v36 = REEntityGetComponentByClass();
+      v30 = REEntityGetComponentByClass();
       REAnchorComponentGetComponentType();
-      v37 = REEntityGetComponentByClass();
-      IsAnchoredOnClientForComponent = rf::data_flow::consumer::AnchorManagementConsumer::updateReceiveIsAnchoredOnClientForComponent(a1, v35, v37);
-      if (((*(a1 + 232) | v32) & 1) == 0)
+      v31 = REEntityGetComponentByClass();
+      IsAnchoredOnClientForComponent = rf::data_flow::consumer::AnchorManagementConsumer::updateReceiveIsAnchoredOnClientForComponent(a1, v29, v31);
+      if (((a1[232] | v27) & 1) == 0)
       {
-        v39 = rf::PlacementComponentTypeInfo::instance(IsAnchoredOnClientForComponent);
-        if (*v39)
+        v33 = rf::PlacementComponentTypeInfo::instance(IsAnchoredOnClientForComponent);
+        if (*v33)
         {
-          v40 = v39;
+          v34 = v33;
           CustomComponent = REEntityGetCustomComponent();
-          if (v36)
+          if (v30)
           {
             if (CustomComponent)
             {
-              v90 += std::function<BOOL ()(REComponent *)>::operator()((v40 + 5), CustomComponent);
+              v81 += std::function<BOOL ()(REComponent *)>::operator()((v34 + 5), CustomComponent);
             }
           }
         }
       }
 
-      v42 = rf::helpers::needAnchoringInClientProcessForEntity((a1 + 233), v35);
-      v43 = rf::helpers::needAnchoringInServerProcessForEntity(v35);
+      v36 = rf::helpers::needAnchoringInClientProcessForEntity(a1 + 233, v29);
+      v37 = rf::helpers::needAnchoringInServerProcessForEntity(v29);
       REClientAnchorSyncComponentGetComponentType();
-      v44 = REEntityGetComponentByClass();
-      if (*(a1 + 232))
+      v38 = REEntityGetComponentByClass();
+      if (a1[232])
       {
-        v45 = v42;
+        v39 = v36;
       }
 
       else
       {
-        v45 = v43;
+        v39 = v37;
       }
 
-      if (v45 == 1)
+      if (v39 == 1)
       {
-        rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(a1, a4, v35, v36, *v19, a5, &v93);
+        rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(a1, a4, v29, v30, *v16, a5, &v84);
       }
 
-      else if ((*(a1 + 232) & 1) == 0 && v44)
+      else if ((a1[232] & 1) == 0 && v38)
       {
-        isAnchoringTypeAuthorizedForPeer = rf::helpers::isAnchoringTypeAuthorizedForPeer(*v19, (a5 + 208));
+        isAnchoringTypeAuthorizedForPeer = rf::helpers::isAnchoringTypeAuthorizedForPeer(*v16, (a5 + 208));
         if (REClientAnchorSyncComponentIsAnchored() && isAnchoringTypeAuthorizedForPeer)
         {
-          if (rf::CoordinateSpaceTracker::findCoordinateSpaceDefinitionEntity(v35))
+          if (rf::CoordinateSpaceTracker::findCoordinateSpaceDefinitionEntity(v29))
           {
             REAnchoringComponentGetComponentType();
             if (REEntityGetComponentByClass())
@@ -3036,54 +1676,54 @@ LABEL_16:
               if (REAnchoringComponentGetDescriptorType() - 1 <= 4)
               {
                 REEntityCalculateWorldMatrix4x4F();
-                v83 = v47;
-                v85 = v48;
-                v81 = v50;
-                v82 = v49;
+                v74 = v41;
+                v76 = v42;
+                v72 = v44;
+                v73 = v43;
                 REClientAnchorSyncComponentGetAnchorTransform();
-                v51 = 0;
-                v94[0] = v52;
-                v94[1] = v53;
-                v94[2] = v54;
-                v94[3] = v55;
+                v45 = 0;
+                v85[0] = v46;
+                v85[1] = v47;
+                v85[2] = v48;
+                v85[3] = v49;
                 do
                 {
-                  *&buf[v51 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v83, COERCE_FLOAT(v94[v51])), v85, *&v94[v51], 1), v82, v94[v51], 2), v81, v94[v51], 3);
-                  ++v51;
+                  *&buf[v45 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v74, COERCE_FLOAT(v85[v45])), v76, *&v85[v45], 1), v73, v85[v45], 2), v72, v85[v45], 3);
+                  ++v45;
                 }
 
-                while (v51 != 4);
+                while (v45 != 4);
                 rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorComponentFromClientAnchorSyncComponent(REEntity *,REComponent *)::appManagedAnchorIdentifier = -1;
                 *algn_27FEB9ED8 = -1;
                 REAnchorComponentGetComponentType();
-                v56 = REEntityGetComponentByClass();
-                if (v56)
+                v50 = REEntityGetComponentByClass();
+                if (v50)
                 {
                   RERetain();
-                  v57 = v56;
+                  v51 = v50;
                 }
 
                 else
                 {
                   REAnchorComponentGetComponentType();
-                  v57 = REComponentCreateByClass();
-                  rf::data_flow::consumer::AnchorManagementConsumer::updateReceiveIsAnchoredOnClientForComponent(a1, v35, v57);
+                  v51 = REComponentCreateByClass();
+                  rf::data_flow::consumer::AnchorManagementConsumer::updateReceiveIsAnchoredOnClientForComponent(a1, v29, v51);
                 }
 
                 REAnchorComponentSetAnchoredLocally();
                 REAnchorComponentSetWorldTransform();
                 REAnchorComponentSetAnchorIdentifier();
-                if (!v56)
+                if (!v50)
                 {
                   RENetworkComponentGetComponentType();
-                  v58 = REEntityGetComponentByClass();
-                  if (v58)
+                  v52 = REEntityGetComponentByClass();
+                  if (v52)
                   {
-                    MEMORY[0x26670C630](v58, v57);
+                    MEMORY[0x26670C630](v52, v51);
                   }
 
                   REEntityAddExistingComponent();
-                  rf::helpers::publishAnchorStateEventDidAnchor(v35, 0);
+                  rf::helpers::publishAnchorStateEventDidAnchor(v29, 0);
                 }
 
                 IsAnchorExternal = REAnchorComponentGetIsAnchorExternal();
@@ -3092,12 +1732,12 @@ LABEL_16:
                 {
                   if (IsExternal)
                   {
-                    rf::data_flow::consumer::AnchorManagementConsumer::externalizeEntity(a1, v35, v57, 0);
+                    rf::data_flow::consumer::AnchorManagementConsumer::externalizeEntity(a1, v29, v51, 0);
                   }
 
                   else
                   {
-                    rf::data_flow::consumer::AnchorManagementConsumer::relocalizeEntity(a1, v35, v57, 0);
+                    rf::data_flow::consumer::AnchorManagementConsumer::relocalizeEntity(a1, v29, v51, 0);
                   }
                 }
 
@@ -3112,21 +1752,21 @@ LABEL_16:
           REAnchorComponentGetComponentType();
           if (REEntityGetComponentByClass())
           {
-            rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(a1, v35, 1u);
+            rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(a1, v29, 1u);
           }
         }
       }
     }
 
-    ++v19;
+    ++v16;
   }
 
-  while (v19 != v33);
+  while (v16 != v28);
 LABEL_28:
-  if (((v88 | *(a1 + 232)) & 1) == 0)
+  if (((v79 | a1[232]) & 1) == 0)
   {
     REDepthMitigationServiceSetPlacementComponentUpdateCount();
-    if ((*(a1 + 232) & 1) == 0)
+    if ((a1[232] & 1) == 0)
     {
       goto LABEL_87;
     }
@@ -3134,26 +1774,24 @@ LABEL_28:
     goto LABEL_70;
   }
 
-  if (*(a1 + 232))
+  if (a1[232])
   {
 LABEL_70:
     REAnchoringComponentGetComponentType();
-    v61 = RESceneGetComponentsOfClass();
-    if (!v62)
+    v55 = RESceneGetComponentsOfClass();
+    if (!v56)
     {
       goto LABEL_87;
     }
 
-    v63 = v61;
-    v64 = 8 * v62;
-    v84 = vdupq_n_s32(0x3727C5ACu);
+    v57 = v55;
+    v58 = 8 * v56;
+    v75 = vdupq_n_s32(0x3727C5ACu);
     do
     {
-      v65 = *v63;
       DescriptorType = REAnchoringComponentGetDescriptorType();
-      v67 = *v63;
-      v68 = REComponentGetEntity();
-      if (!rf::helpers::needAnchoringInClientProcessForEntity((a1 + 233), v68))
+      v60 = REComponentGetEntity();
+      if (!rf::helpers::needAnchoringInClientProcessForEntity(a1 + 233, v60))
       {
         goto LABEL_74;
       }
@@ -3167,17 +1805,17 @@ LABEL_70:
       REClientAnchorSyncComponentGetComponentType();
       REEntityGetOrAddComponentByClass();
       REAnchorComponentGetComponentType();
-      v69 = REEntityGetComponentByClass();
-      if ((v69 != 0) != REClientAnchorSyncComponentIsAnchored())
+      v61 = REEntityGetComponentByClass();
+      if ((v61 != 0) != REClientAnchorSyncComponentIsAnchored())
       {
         REClientAnchorSyncComponentSetIsAnchored();
         RENetworkMarkComponentDirty();
       }
 
-      v70 = REClientAnchorSyncComponentIsExternal();
-      if (v69)
+      v62 = REClientAnchorSyncComponentIsExternal();
+      if (v61)
       {
-        if (v70 == REAnchorComponentGetIsAnchorExternal())
+        if (v62 == REAnchorComponentGetIsAnchorExternal())
         {
           if ((DescriptorType - 1) <= 4)
           {
@@ -3188,23 +1826,23 @@ LABEL_70:
         }
       }
 
-      else if ((v70 & 1) == 0)
+      else if ((v62 & 1) == 0)
       {
         goto LABEL_74;
       }
 
       REClientAnchorSyncComponentSetIsExternal();
       RENetworkMarkComponentDirty();
-      if ((DescriptorType - 1) <= 4 && v69)
+      if ((DescriptorType - 1) <= 4 && v61)
       {
 LABEL_85:
         REAnchorComponentGetWorldTransform();
-        v87 = v72;
-        v89 = v71;
-        v86 = v73;
-        v91 = v74;
+        v78 = v64;
+        v80 = v63;
+        v77 = v65;
+        v82 = v66;
         REClientAnchorSyncComponentGetAnchorTransform();
-        if ((vminvq_u32(vandq_s8(vandq_s8(vcgeq_f32(v84, vabdq_f32(v89, v75)), vcgeq_f32(v84, vabdq_f32(v87, v76))), vandq_s8(vcgeq_f32(v84, vabdq_f32(v86, v77)), vcgeq_f32(v84, vabdq_f32(v91, v78))))) & 0x80000000) == 0)
+        if ((vminvq_u32(vandq_s8(vandq_s8(vcgeq_f32(v75, vabdq_f32(v80, v67)), vcgeq_f32(v75, vabdq_f32(v78, v68))), vandq_s8(vcgeq_f32(v75, vabdq_f32(v77, v69)), vcgeq_f32(v75, vabdq_f32(v82, v70))))) & 0x80000000) == 0)
         {
           REClientAnchorSyncComponentSetAnchorTransform();
           RENetworkMarkComponentDirty();
@@ -3212,18 +1850,17 @@ LABEL_85:
       }
 
 LABEL_74:
-      ++v63;
-      v64 -= 8;
+      v57 += 8;
+      v58 -= 8;
     }
 
-    while (v64);
+    while (v58);
   }
 
 LABEL_87:
   result = re::internal::enableSignposts(0, 0);
   if (result)
   {
-    v80 = *(a5 + 2816);
     return kdebug_trace();
   }
 
@@ -3232,10 +1869,10 @@ LABEL_87:
 
 uint64_t rf::data_flow::consumer::AnchorManagementConsumer::consumeLatestUpdate(uint64_t result, uint64_t a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (*(a2 + 32) != 1)
   {
-    goto LABEL_29;
+    return result;
   }
 
   v3 = result;
@@ -3243,7 +1880,7 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::consumeLatestUpdate(
   v5 = *(a2 + 24);
   if (*(a2 + 16) == 1)
   {
-    result = rf::data_flow::consumer::AnchorManagementConsumer::setUpSceneEventSubscriptions(result, *(a2 + 8), v5);
+    result = rf::data_flow::consumer::AnchorManagementConsumer::setUpSceneEventSubscriptions(result, *(a2 + 8), v5, v4 + 64);
   }
 
   if ((v3[29].i8[0] & 1) == 0)
@@ -3268,44 +1905,41 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::consumeLatestUpdate(
             goto LABEL_30;
           }
 
-          v7 = *(a2 + 24);
-          if (rf::helpers::getInternalActiveCamera())
+          if (rf::helpers::getInternalActiveCamera(*(a2 + 24)))
           {
             REEntityGetComponent();
             RETransformComponentGetWorldMatrix4x4F();
-            v8 = *a2;
             result = REDepthMitigationServiceSetCameraTransform();
           }
 
           else
           {
             CameraAnchor = rf::helpers::getCameraAnchor((v4 + 144));
-            v11 = *(CameraAnchor + 1);
-            v10 = *(CameraAnchor + 2);
-            v35 = *CameraAnchor;
-            v36 = v11;
-            v37 = v10;
-            v13 = *(CameraAnchor + 4);
-            v12 = *(CameraAnchor + 5);
-            v14 = *(CameraAnchor + 3);
-            *(v40 + 9) = *(CameraAnchor + 89);
-            v39 = v13;
-            v40[0] = v12;
+            v9 = *(CameraAnchor + 1);
+            v8 = *(CameraAnchor + 2);
+            v29 = *CameraAnchor;
+            v30 = v9;
+            v31 = v8;
+            v11 = *(CameraAnchor + 4);
+            v10 = *(CameraAnchor + 5);
+            v12 = *(CameraAnchor + 3);
+            *(v34 + 9) = *(CameraAnchor + 89);
+            v33 = v11;
+            v34[0] = v10;
+            v32 = v12;
+            v35 = CameraAnchor[14];
+            v36 = *(CameraAnchor + 8);
+            v13 = *(CameraAnchor + 9);
+            v14 = *(CameraAnchor + 10);
+            v15 = *(CameraAnchor + 12);
+            v39 = *(CameraAnchor + 11);
+            v40 = v15;
+            v37 = v13;
             v38 = v14;
-            v41 = CameraAnchor[14];
-            v42 = *(CameraAnchor + 8);
-            v15 = *(CameraAnchor + 9);
-            v16 = *(CameraAnchor + 10);
-            v17 = *(CameraAnchor + 12);
-            v45 = *(CameraAnchor + 11);
-            v46 = v17;
-            v43 = v15;
-            v44 = v16;
-            v47 = 0;
-            rf::helpers::getTransformFromAnchor(&v35);
-            v18 = *a2;
+            v41 = 0;
+            rf::helpers::getTransformFromAnchor(&v29);
             REDepthMitigationServiceSetCameraTransform();
-            result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v35);
+            result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v29);
           }
         }
       }
@@ -3330,8 +1964,7 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::consumeLatestUpdate(
 
     if (*(a2 + 32))
     {
-      v19 = *(a2 + 24);
-      if (rf::helpers::getInternalActiveCamera())
+      if (rf::helpers::getInternalActiveCamera(*(a2 + 24)))
       {
         REEntityGetComponent();
         RETransformComponentGetWorldMatrix4x4F();
@@ -3340,32 +1973,32 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::consumeLatestUpdate(
 
       else
       {
-        v20 = rf::helpers::getCameraAnchor((v4 + 144));
-        v22 = *(v20 + 1);
-        v21 = *(v20 + 2);
-        v35 = *v20;
-        v36 = v22;
-        v37 = v21;
-        v24 = *(v20 + 4);
-        v23 = *(v20 + 5);
-        v25 = *(v20 + 3);
-        *(v40 + 9) = *(v20 + 89);
-        v39 = v24;
-        v40[0] = v23;
-        v38 = v25;
-        v41 = v20[14];
-        v42 = *(v20 + 8);
-        v26 = *(v20 + 9);
-        v27 = *(v20 + 10);
-        v28 = *(v20 + 12);
-        v45 = *(v20 + 11);
-        v46 = v28;
-        v43 = v26;
-        v44 = v27;
-        v47 = 0;
-        rf::helpers::getTransformFromAnchor(&v35);
+        v16 = rf::helpers::getCameraAnchor((v4 + 144));
+        v18 = *(v16 + 1);
+        v17 = *(v16 + 2);
+        v29 = *v16;
+        v30 = v18;
+        v31 = v17;
+        v20 = *(v16 + 4);
+        v19 = *(v16 + 5);
+        v21 = *(v16 + 3);
+        *(v34 + 9) = *(v16 + 89);
+        v33 = v20;
+        v34[0] = v19;
+        v32 = v21;
+        v35 = v16[14];
+        v36 = *(v16 + 8);
+        v22 = *(v16 + 9);
+        v23 = *(v16 + 10);
+        v24 = *(v16 + 12);
+        v39 = *(v16 + 11);
+        v40 = v24;
+        v37 = v22;
+        v38 = v23;
+        v41 = 0;
+        rf::helpers::getTransformFromAnchor(&v29);
         REOcclusionServiceSetCameraPoseForCurrentFrame();
-        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v35);
+        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v29);
       }
 
 LABEL_22:
@@ -3378,19 +2011,18 @@ LABEL_30:
   }
 
 LABEL_23:
-  rf::data_flow::consumer::AnchorManagementConsumer::updateImageAnchorReference(v3);
+  rf::data_flow::consumer::AnchorManagementConsumer::updateImageAnchorReference(v3, v5);
   result = rf::data_flow::consumer::AnchorManagementConsumer::doAnchoring(v3, a2, v5, v4 + 64);
   if (v3[29].i8[0] == 1)
   {
     REClientAnchorSyncComponentGetComponentType();
     result = RESceneGetComponentsOfClass();
-    if (v29)
+    if (v25)
     {
-      v30 = result;
-      v31 = 8 * v29;
+      v26 = result;
+      v27 = 8 * v25;
       do
       {
-        v32 = *v30;
         Entity = REComponentGetEntity();
         result = rf::helpers::needAnchoringInClientProcessForEntity(&v3[29] + 1, Entity);
         if ((result & 1) == 0)
@@ -3399,53 +2031,54 @@ LABEL_23:
           result = REEntityRemoveComponentByClass();
         }
 
-        ++v30;
-        v31 -= 8;
+        v26 += 8;
+        v27 -= 8;
       }
 
-      while (v31);
+      while (v27);
     }
   }
 
-LABEL_29:
-  v34 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_26184BBF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26184BBF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *rf::data_flow::consumer::AnchorManagementConsumer::setUpSceneEventSubscriptions(void *result, uint64_t a2, uint64_t a3)
+void *rf::data_flow::consumer::AnchorManagementConsumer::setUpSceneEventSubscriptions(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v11 = a3;
+  v15 = a3;
   if (a2 && a3)
   {
-    v4 = result;
-    if (!std::__hash_table<std::__hash_value_type<REScene *,std::set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::set<REEntity *>>>>::find<REScene *>(result + 80, &v11))
+    v5 = result;
+    if (!std::__hash_table<std::__hash_value_type<REScene *,std::set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::set<REEntity *>>>>::find<REScene *>(result + 80, &v15))
     {
       goto LABEL_6;
     }
 
-    result = std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__emplace_unique_key_args<REScene *,std::piecewise_construct_t const&,std::tuple<REScene * const&>,std::tuple<>>((v4 + 640), &v11);
+    v11[0] = &v15;
+    result = std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__emplace_unique_key_args<REScene *,std::piecewise_construct_t const&,std::tuple<REScene * const&>,std::tuple<>>((v5 + 640), &v15, &std::piecewise_construct, v11);
     if ((result[15] & 1) == 0)
     {
-      std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__erase_unique<REScene *>((v4 + 640), &v11);
+      std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__erase_unique<REScene *>((v5 + 640), &v15);
 LABEL_6:
       MEMORY[0x26670CB50](a2);
-      REEngineGetEventBus();
-      RESceneGetEventBus();
-      v5 = rf::data_flow::consumer::AnchorManagementConsumer::sceneRemovalEventHandle(v4, v11);
-      v7 = v6;
-      rf::data_flow::consumer::AnchorManagementConsumer::anchorComponentEventHandles(v8);
-      v10 = v11;
-      v8[8] = v5;
-      v8[9] = v7;
-      v9 = 1;
-      std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__emplace_unique_impl<std::piecewise_construct_t const&,std::tuple<REScene *>,std::tuple<REEventBus *,REEventBus *,std::array<RESubscriptionHandle,4ul>,RESubscriptionHandle,BOOL>>();
+      EventBus = REEngineGetEventBus();
+      v7 = RESceneGetEventBus();
+      v8 = rf::data_flow::consumer::AnchorManagementConsumer::sceneRemovalEventHandle(v5, v15, EventBus);
+      v10 = v9;
+      rf::data_flow::consumer::AnchorManagementConsumer::anchorComponentEventHandles(v12);
+      v14 = v15;
+      v11[0] = EventBus;
+      v11[1] = v7;
+      v12[8] = v8;
+      v12[9] = v10;
+      v13 = 1;
+      std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__emplace_unique_impl<std::piecewise_construct_t const&,std::tuple<REScene *>,std::tuple<REEventBus *,REEventBus *,std::array<RESubscriptionHandle,4ul>,RESubscriptionHandle,BOOL>>(v5 + 640);
     }
   }
 
@@ -3454,48 +2087,46 @@ LABEL_6:
 
 rf::AnchorDefinitionComponent *rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(rf::AnchorDefinitionComponent *a1, uint64_t a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   result = rf::AnchorDefinitionComponent::instance(a1);
   if (*result)
   {
-    v5 = *rf::AnchorDefinitionComponent::instance(result);
+    rf::AnchorDefinitionComponent::instance(result);
     ComponentsOfCustomType = RESceneGetComponentsOfCustomType();
-    v8 = &ComponentsOfCustomType[v7];
-    result = std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_0>,std::identity>(ComponentsOfCustomType, v8);
-    if (v8 != result)
+    v7 = &ComponentsOfCustomType[v6];
+    result = std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_0>,std::identity>(ComponentsOfCustomType, v7);
+    if (v7 != result)
     {
-      v9 = result;
+      v8 = result;
       do
       {
-        v10 = *v9;
         Object = RECustomComponentGetObject();
-        v11 = *v9;
         Entity = REComponentGetEntity();
-        v12 = Object;
-        v30 = 0;
-        v31 = 0;
+        v9 = Object;
+        v26 = 0;
+        v27 = 0;
         uuid_clear(uu);
-        *uu = v12;
-        v30 = 1;
+        *uu = v9;
+        v26 = 1;
         if (std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(a3, uu))
         {
-          v13 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(a3, uu);
-          if (!v13)
+          v10 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(a3, uu);
+          if (!v10)
           {
             std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
           }
 
-          std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v26, (v13 + 6));
+          std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v22, (v10 + 6));
           SelfEnabled = REEntityGetSelfEnabled();
           if ((SelfEnabled & 1) == 0)
           {
-            v15 = rf::realityFusionLogObject(SelfEnabled);
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v12 = rf::realityFusionLogObject(SelfEnabled);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               Name = REEntityGetName();
               LODWORD(buf) = 136315138;
               *(&buf + 4) = Name;
-              _os_log_impl(&dword_2617CB000, v15, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Enabling %s (a redefined anchor found).", &buf, 0xCu);
+              _os_log_impl(&dword_2617CB000, v12, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Enabling %s (a redefined anchor found).", &buf, 0xCu);
             }
 
             MEMORY[0x26670C3A0](Entity, 1);
@@ -3504,93 +2135,92 @@ rf::AnchorDefinitionComponent *rf::data_flow::consumer::AnchorManagementConsumer
 
           *&buf = &Object;
           *(&buf + 1) = &Entity;
-          v25 = v9;
-          if (v28 == -1)
+          v21 = v8;
+          if (v24 == -1)
           {
             std::__throw_bad_variant_access[abi:ne200100]();
           }
 
           p_buf = &buf;
-          (off_28740B038[v28])(&p_buf, v26);
-          std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v26);
+          (off_28740B038[v24])(&p_buf, v22);
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v22);
         }
 
         else
         {
           MEMORY[0x26670C3A0](Entity, 0);
-          v17 = RENetworkMarkEntityMetadataDirty();
-          v18 = rf::realityFusionLogObject(v17);
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v14 = RENetworkMarkEntityMetadataDirty();
+          v15 = rf::realityFusionLogObject(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = REEntityGetName();
-            *v26 = 136315138;
-            v27 = v19;
-            _os_log_impl(&dword_2617CB000, v18, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Disabling %s because it needs redifinition and there's no matching anchor in the state.", v26, 0xCu);
+            v16 = REEntityGetName();
+            *v22 = 136315138;
+            v23 = v16;
+            _os_log_impl(&dword_2617CB000, v15, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Disabling %s because it needs redifinition and there's no matching anchor in the state.", v22, 0xCu);
           }
         }
 
-        result = std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_0>,std::identity>(v9 + 1, v8);
-        v9 = result;
+        result = std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_0>,std::identity>(v8 + 1, v7);
+        v8 = result;
       }
 
-      while (v8 != result);
+      while (v7 != result);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_26184BFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26184BFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void rf::data_flow::consumer::AnchorManagementConsumer::updateImageAnchorReference(int8x8_t *a1)
+void rf::data_flow::consumer::AnchorManagementConsumer::updateImageAnchorReference(int8x8_t *a1, uint64_t a2)
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   if (!*&a1[28])
   {
-    goto LABEL_165;
+    return;
   }
 
   UniqueName = RESceneGetUniqueName();
-  std::string::basic_string[abi:ne200100]<0>(v110, UniqueName);
-  v2 = a1 + 73;
-  v3 = std::__string_hash<char>::operator()[abi:ne200100](&a1[73], v110);
-  v4 = a1[74];
-  if (v4)
+  std::string::basic_string[abi:ne200100]<0>(v108, UniqueName);
+  v3 = a1 + 73;
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](&a1[73], v108);
+  v5 = a1[74];
+  if (v5)
   {
-    v5 = v3;
-    v6 = vcnt_s8(v4);
-    v6.i16[0] = vaddlv_u8(v6);
-    v7 = v6.u32[0];
-    if (v6.u32[0] > 1uLL)
+    v6 = v4;
+    v7 = vcnt_s8(v5);
+    v7.i16[0] = vaddlv_u8(v7);
+    v8 = v7.u32[0];
+    if (v7.u32[0] > 1uLL)
     {
-      v8 = v3;
-      if (v3 >= *&v4)
+      v9 = v4;
+      if (v4 >= *&v5)
       {
-        v8 = v3 % *&v4;
+        v9 = v4 % *&v5;
       }
     }
 
     else
     {
-      v8 = (*&v4 - 1) & v3;
+      v9 = (*&v5 - 1) & v4;
     }
 
-    v9 = *(*v2 + 8 * v8);
-    if (v9)
+    v10 = *(*v3 + 8 * v9);
+    if (v10)
     {
-      for (i = *v9; i; i = *i)
+      for (i = *v10; i; i = *i)
       {
-        v11 = i[1];
-        if (v5 == v11)
+        v12 = i[1];
+        if (v6 == v12)
         {
-          if (std::equal_to<std::string>::operator()[abi:ne200100](v2, i + 2, v110))
+          if (std::equal_to<std::string>::operator()[abi:ne200100](v3, i + 2, v108))
           {
             goto LABEL_48;
           }
@@ -3598,20 +2228,20 @@ void rf::data_flow::consumer::AnchorManagementConsumer::updateImageAnchorReferen
 
         else
         {
-          if (v7 > 1)
+          if (v8 > 1)
           {
-            if (v11 >= *&v4)
+            if (v12 >= *&v5)
             {
-              v11 %= *&v4;
+              v12 %= *&v5;
             }
           }
 
           else
           {
-            v11 &= *&v4 - 1;
+            v12 &= *&v5 - 1;
           }
 
-          if (v11 != v8)
+          if (v12 != v9)
           {
             break;
           }
@@ -3620,83 +2250,83 @@ void rf::data_flow::consumer::AnchorManagementConsumer::updateImageAnchorReferen
     }
   }
 
-  v107 = 0u;
-  v108 = 0u;
-  v109 = 1065353216;
-  if (SHIBYTE(v111) < 0)
+  v105 = 0u;
+  v106 = 0u;
+  v107 = 1065353216;
+  if (SHIBYTE(v109) < 0)
   {
-    std::string::__init_copy_ctor_external(v118, v110[0], v110[1]);
-    v14 = *(&v107 + 1);
-    v15 = v107;
-    v12 = *(&v108 + 1);
-    v13 = v108;
-    v16 = *&v109;
+    std::string::__init_copy_ctor_external(v116, v108[0], v108[1]);
+    v15 = *(&v105 + 1);
+    v16 = v105;
+    v13 = *(&v106 + 1);
+    v14 = v106;
+    v17 = *&v107;
   }
 
   else
   {
-    v12 = 0;
     v13 = 0;
     v14 = 0;
     v15 = 0;
-    *v118 = *v110;
-    *&v118[16] = v111;
-    v16 = 1.0;
+    v16 = 0;
+    *v116 = *v108;
+    *&v116[16] = v109;
+    v17 = 1.0;
   }
 
-  v107 = 0uLL;
-  *&v118[24] = v15;
-  *&v119 = v14;
-  *(&v119 + 1) = v13;
-  *&v120 = v12;
-  *(&v120 + 2) = v16;
-  if (v12)
+  v105 = 0uLL;
+  *&v116[24] = v16;
+  *&v117 = v15;
+  *(&v117 + 1) = v14;
+  *&v118 = v13;
+  *(&v118 + 2) = v17;
+  if (v13)
   {
-    v17 = *(v13 + 8);
-    if ((v14 & (v14 - 1)) != 0)
+    v18 = *(v14 + 8);
+    if ((v15 & (v15 - 1)) != 0)
     {
-      if (v17 >= v14)
+      if (v18 >= v15)
       {
-        v17 %= v14;
+        v18 %= v15;
       }
     }
 
     else
     {
-      v17 &= v14 - 1;
+      v18 &= v15 - 1;
     }
 
-    *(v15 + 8 * v17) = &v119 + 8;
-    v108 = 0uLL;
+    *(v16 + 8 * v18) = &v117 + 8;
+    v106 = 0uLL;
   }
 
-  v18 = std::__string_hash<char>::operator()[abi:ne200100](v2, v118);
-  v19 = v18;
-  v20 = a1[74];
-  if (!*&v20)
+  v19 = std::__string_hash<char>::operator()[abi:ne200100](v3, v116);
+  v20 = v19;
+  v21 = a1[74];
+  if (!*&v21)
   {
     goto LABEL_44;
   }
 
-  v21 = vcnt_s8(v20);
-  v21.i16[0] = vaddlv_u8(v21);
-  v22 = v21.u32[0];
-  if (v21.u32[0] > 1uLL)
+  v22 = vcnt_s8(v21);
+  v22.i16[0] = vaddlv_u8(v22);
+  v23 = v22.u32[0];
+  if (v22.u32[0] > 1uLL)
   {
-    v23 = v18;
-    if (v18 >= *&v20)
+    v24 = v19;
+    if (v19 >= *&v21)
     {
-      v23 = v18 % *&v20;
+      v24 = v19 % *&v21;
     }
   }
 
   else
   {
-    v23 = (*&v20 - 1) & v18;
+    v24 = (*&v21 - 1) & v19;
   }
 
-  v24 = *(*v2 + 8 * v23);
-  if (!v24 || (v25 = *v24) == 0)
+  v25 = *(*v3 + 8 * v24);
+  if (!v25 || (v26 = *v25) == 0)
   {
 LABEL_44:
     operator new();
@@ -3704,70 +2334,67 @@ LABEL_44:
 
   while (1)
   {
-    v26 = v25[1];
-    if (v26 == v19)
+    v27 = v26[1];
+    if (v27 == v20)
     {
       break;
     }
 
-    if (v22 > 1)
+    if (v23 > 1)
     {
-      if (v26 >= *&v20)
+      if (v27 >= *&v21)
       {
-        v26 %= *&v20;
+        v27 %= *&v21;
       }
     }
 
     else
     {
-      v26 &= *&v20 - 1;
+      v27 &= *&v21 - 1;
     }
 
-    if (v26 != v23)
+    if (v27 != v24)
     {
       goto LABEL_44;
     }
 
 LABEL_43:
-    v25 = *v25;
-    if (!v25)
+    v26 = *v26;
+    if (!v26)
     {
       goto LABEL_44;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](v2, v25 + 2, v118))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](v3, v26 + 2, v116))
   {
     goto LABEL_43;
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>>>::~__hash_table(&v118[24]);
-  if ((v118[23] & 0x80000000) != 0)
+  std::__hash_table<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>>>::~__hash_table(&v116[24]);
+  if ((v116[23] & 0x80000000) != 0)
   {
-    operator delete(*v118);
+    operator delete(*v116);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>>>::~__hash_table(&v107);
+  std::__hash_table<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>>>::~__hash_table(&v105);
 LABEL_48:
-  v107 = 0u;
-  v108 = 0u;
-  v109 = 1065353216;
+  v105 = 0u;
+  v106 = 0u;
+  v107 = 1065353216;
   REAnchoringComponentGetComponentType();
-  ComponentsOfClass = RESceneGetComponentsOfClass();
+  RESceneGetComponentsOfClass();
   v29 = v28;
   if (!v28)
   {
-    v105 = 0;
+    v103 = 0;
     goto LABEL_110;
   }
 
-  v30 = ComponentsOfClass;
-  v105 = 0;
-  v31 = 0;
-  v101 = ComponentsOfClass;
+  v103 = 0;
+  v30 = 0;
   while (2)
   {
-    v32 = *(v30 + 8 * v31);
     if (REAnchoringComponentGetDescriptorType() != 4)
     {
       goto LABEL_107;
@@ -3789,30 +2416,40 @@ LABEL_48:
       goto LABEL_107;
     }
 
-    v34 = REAnchoringComponentGetTrackingImageMTLTexture();
-    if (!v34)
+    v32 = REAnchoringComponentGetTrackingImageMTLTexture();
+    if (!v32)
     {
       goto LABEL_106;
     }
 
-    v103 = v34;
+    v101 = v32;
     if (!REAnchoringComponentGetDescriptorResourceStyle())
     {
-      rf::getMessage("AnchorManagementConsumer: Image anchoring target should not have kREAnchoringResourceNone", &v114);
-      rf::internal::logAssert(&v114);
-      if (SHIBYTE(v115) < 0)
+      rf::getMessage("AnchorManagementConsumer: Image anchoring target should not have kREAnchoringResourceNone", &v112);
+      rf::internal::logAssert(&v112);
+      if (SHIBYTE(v113) < 0)
       {
-        operator delete(v114);
+        operator delete(v112);
       }
 
-      rf::internal::debugBreakHandler(v98);
-      v113 = 0;
-      v120 = 0u;
-      v121 = 0u;
+      rf::internal::debugBreakHandler(v95);
+      v111 = 0;
+      v118 = 0u;
       v119 = 0u;
-      memset(v118, 0, sizeof(v118));
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v117 = 0u;
+      memset(v116, 0, sizeof(v116));
+      v96 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
       rf::getMessage("AnchorManagementConsumer: Image anchoring target should not have kREAnchoringResourceNone", &__p);
+      if (v96)
+      {
+        v97 = 3;
+      }
+
+      else
+      {
+        v97 = 2;
+      }
+
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -3823,9 +2460,9 @@ LABEL_48:
         p_p = __p.__r_.__value_.__r.__words[0];
       }
 
-      v116 = 136315138;
-      v117 = p_p;
-      _os_log_send_and_compose_impl();
+      v114 = 136315138;
+      v115 = p_p;
+      _os_log_send_and_compose_impl(v97, &v111, v116, 80, &dword_2617CB000, MEMORY[0x277D86220], 16, "RealityFusion Assert Fatal: %s", &v114);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -3836,66 +2473,66 @@ LABEL_48:
     }
 
     DescriptorResourceGroup = REAnchoringComponentGetDescriptorResourceGroup();
-    v36 = strlen(DescriptorResourceGroup);
+    v34 = strlen(DescriptorResourceGroup);
     DescriptorResourceName = REAnchoringComponentGetDescriptorResourceName();
-    v38 = strlen(DescriptorResourceName);
-    rf::helpers::getFullPath(DescriptorResourceGroup, v36, DescriptorResourceName, v38, &__p);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v107, &__p.__r_.__value_.__l.__data_);
-    *v118 = v110;
-    v39 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, v110);
-    v40 = std::__string_hash<char>::operator()[abi:ne200100]((v39 + 5), &__p);
-    v41 = v39[6];
-    if (v41)
+    v36 = strlen(DescriptorResourceName);
+    rf::helpers::getFullPath(DescriptorResourceGroup, v34, DescriptorResourceName, v36, &__p);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v105, &__p, &__p);
+    *v116 = v108;
+    v37 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v3, v108, v116);
+    v38 = std::__string_hash<char>::operator()[abi:ne200100]((v37 + 5), &__p);
+    v39 = v37[6];
+    if (v39)
     {
-      v42 = v40;
-      v43 = vcnt_s8(v41);
-      v43.i16[0] = vaddlv_u8(v43);
-      v44 = v43.u32[0];
-      if (v43.u32[0] > 1uLL)
+      v40 = v38;
+      v41 = vcnt_s8(v39);
+      v41.i16[0] = vaddlv_u8(v41);
+      v42 = v41.u32[0];
+      if (v41.u32[0] > 1uLL)
       {
-        v45 = v40;
-        if (v40 >= *&v41)
+        v43 = v38;
+        if (v38 >= *&v39)
         {
-          v45 = v40 % *&v41;
+          v43 = v38 % *&v39;
         }
       }
 
       else
       {
-        v45 = (*&v41 - 1) & v40;
+        v43 = (*&v39 - 1) & v38;
       }
 
-      v46 = *(v39[5] + v45);
-      if (v46)
+      v44 = *(v37[5] + v43);
+      if (v44)
       {
-        for (j = *v46; j; j = *j)
+        for (j = *v44; j; j = *j)
         {
-          v48 = j[1];
-          if (v42 == v48)
+          v46 = j[1];
+          if (v40 == v46)
           {
-            if (std::equal_to<std::string>::operator()[abi:ne200100]((v39 + 5), j + 2, &__p.__r_.__value_.__l.__data_))
+            if (std::equal_to<std::string>::operator()[abi:ne200100]((v37 + 5), j + 2, &__p.__r_.__value_.__l.__data_))
             {
-              v34 = v103;
+              v32 = v101;
               goto LABEL_103;
             }
           }
 
           else
           {
-            if (v44 > 1)
+            if (v42 > 1)
             {
-              if (v48 >= *&v41)
+              if (v46 >= *&v39)
               {
-                v48 %= *&v41;
+                v46 %= *&v39;
               }
             }
 
             else
             {
-              v48 &= *&v41 - 1;
+              v46 &= *&v39 - 1;
             }
 
-            if (v48 != v45)
+            if (v46 != v43)
             {
               break;
             }
@@ -3905,86 +2542,86 @@ LABEL_48:
     }
 
     REAnchoringComponentGetTrackingImageWidth();
-    v50 = v49;
-    v51 = [MEMORY[0x277CBF758] imageWithMTLTexture:v103 options:0];
-    v52 = a1[70];
-    if (!v52)
+    v48 = v47;
+    v49 = [MEMORY[0x277CBF758] imageWithMTLTexture:v101 options:0];
+    v50 = a1[70];
+    if (!v50)
     {
-      v53 = [MEMORY[0x277CBF740] context];
-      v54 = a1[70];
-      a1[70] = v53;
-
+      v51 = [MEMORY[0x277CBF740] context];
       v52 = a1[70];
+      a1[70] = v51;
+
+      v50 = a1[70];
     }
 
-    [v51 extent];
-    v55 = [v52 createCGImage:v51 fromRect:?];
-    *v118 = v110;
-    v56 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&a1[73], v110);
-    v57 = [objc_alloc(MEMORY[0x277CE5348]) initWithCGImage:v55 orientation:2 physicalWidth:v50];
-    v58 = &__p;
+    [v49 extent];
+    v53 = [v50 createCGImage:v49 fromRect:?];
+    *v116 = v108;
+    v54 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&a1[73], v108, v116);
+    v55 = [objc_alloc(MEMORY[0x277CE5348]) initWithCGImage:v53 orientation:2 physicalWidth:v48];
+    v56 = &__p;
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v58 = __p.__r_.__value_.__r.__words[0];
+      v56 = __p.__r_.__value_.__r.__words[0];
     }
 
-    v106 = v51;
-    v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", v58];
-    [v57 setName:v59];
+    v104 = v49;
+    v57 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", v56];
+    [v55 setName:v57];
 
-    v61 = rf::realityFusionLogObject(v60);
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+    v59 = rf::realityFusionLogObject(v58);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
-      v62 = &__p;
+      v60 = &__p;
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v62 = __p.__r_.__value_.__r.__words[0];
+        v60 = __p.__r_.__value_.__r.__words[0];
       }
 
-      *v118 = 136315138;
-      *&v118[4] = v62;
-      _os_log_impl(&dword_2617CB000, v61, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Adding reference image %s", v118, 0xCu);
+      *v116 = 136315138;
+      *&v116[4] = v60;
+      _os_log_impl(&dword_2617CB000, v59, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Adding reference image %s", v116, 0xCu);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(v118, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(v116, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      *v118 = __p;
+      *v116 = __p;
     }
 
-    v100 = v57;
-    *&v118[24] = v100;
-    v63 = std::__string_hash<char>::operator()[abi:ne200100]((v56 + 5), v118);
-    v64 = v63;
-    v65 = v56[6];
-    if (!*&v65)
+    v99 = v55;
+    *&v116[24] = v99;
+    v61 = std::__string_hash<char>::operator()[abi:ne200100]((v54 + 5), v116);
+    v62 = v61;
+    v63 = v54[6];
+    if (!*&v63)
     {
       goto LABEL_99;
     }
 
-    v66 = vcnt_s8(v65);
-    v66.i16[0] = vaddlv_u8(v66);
-    v67 = v66.u32[0];
-    if (v66.u32[0] > 1uLL)
+    v64 = vcnt_s8(v63);
+    v64.i16[0] = vaddlv_u8(v64);
+    v65 = v64.u32[0];
+    if (v64.u32[0] > 1uLL)
     {
-      v68 = v63;
-      if (v63 >= *&v65)
+      v66 = v61;
+      if (v61 >= *&v63)
       {
-        v68 = v63 % *&v65;
+        v66 = v61 % *&v63;
       }
     }
 
     else
     {
-      v68 = (*&v65 - 1) & v63;
+      v66 = (*&v63 - 1) & v61;
     }
 
-    v69 = *(v56[5] + v68);
-    if (!v69 || (v70 = *v69) == 0)
+    v67 = *(v54[5] + v66);
+    if (!v67 || (v68 = *v67) == 0)
     {
 LABEL_99:
       operator new();
@@ -3992,23 +2629,23 @@ LABEL_99:
 
     while (2)
     {
-      v71 = v70[1];
-      if (v71 != v64)
+      v69 = v68[1];
+      if (v69 != v62)
       {
-        if (v67 > 1)
+        if (v65 > 1)
         {
-          if (v71 >= *&v65)
+          if (v69 >= *&v63)
           {
-            v71 %= *&v65;
+            v69 %= *&v63;
           }
         }
 
         else
         {
-          v71 &= *&v65 - 1;
+          v69 &= *&v63 - 1;
         }
 
-        if (v71 != v68)
+        if (v69 != v66)
         {
           goto LABEL_99;
         }
@@ -4016,11 +2653,11 @@ LABEL_99:
         goto LABEL_98;
       }
 
-      if (!std::equal_to<std::string>::operator()[abi:ne200100]((v56 + 5), v70 + 2, v118))
+      if (!std::equal_to<std::string>::operator()[abi:ne200100]((v54 + 5), v68 + 2, v116))
       {
 LABEL_98:
-        v70 = *v70;
-        if (!v70)
+        v68 = *v68;
+        if (!v68)
         {
           goto LABEL_99;
         }
@@ -4031,25 +2668,24 @@ LABEL_98:
       break;
     }
 
-    v34 = v103;
-    if ((v118[23] & 0x80000000) != 0)
+    v32 = v101;
+    if ((v116[23] & 0x80000000) != 0)
     {
-      operator delete(*v118);
+      operator delete(*v116);
     }
 
-    v105 = 1;
+    v103 = 1;
 LABEL_103:
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    v2 = a1 + 73;
+    v3 = a1 + 73;
 LABEL_106:
 
-    v30 = v101;
 LABEL_107:
-    if (++v31 != v29)
+    if (++v30 != v29)
     {
       continue;
     }
@@ -4058,70 +2694,70 @@ LABEL_107:
   }
 
 LABEL_110:
-  *v118 = v110;
-  v72 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, v110);
-  v102 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v74 = v72 + 7;
-  v73 = v72[7];
-  if (v73)
+  *v116 = v108;
+  v70 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v3, v108, v116);
+  v100 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v72 = (v70 + 7);
+  v71 = v70[7];
+  if (v71)
   {
-    v75 = v72 + 5;
+    v73 = v70 + 5;
     while (1)
     {
-      v76 = std::__string_hash<char>::operator()[abi:ne200100](&v107, (v73 + 2));
-      v77 = *(&v107 + 1);
-      if (*(&v107 + 1))
+      v74 = std::__string_hash<char>::operator()[abi:ne200100](&v105, v71 + 2);
+      v75 = *(&v105 + 1);
+      if (*(&v105 + 1))
       {
-        v78 = v76;
-        v79 = vcnt_s8(*(&v107 + 8));
-        v79.i16[0] = vaddlv_u8(v79);
-        v80 = v79.u32[0];
-        if (v79.u32[0] > 1uLL)
+        v76 = v74;
+        v77 = vcnt_s8(*(&v105 + 8));
+        v77.i16[0] = vaddlv_u8(v77);
+        v78 = v77.u32[0];
+        if (v77.u32[0] > 1uLL)
         {
-          v81 = v76;
-          if (v76 >= *(&v107 + 1))
+          v79 = v74;
+          if (v74 >= *(&v105 + 1))
           {
-            v81 = v76 % *(&v107 + 1);
+            v79 = v74 % *(&v105 + 1);
           }
         }
 
         else
         {
-          v81 = (*(&v107 + 1) - 1) & v76;
+          v79 = (*(&v105 + 1) - 1) & v74;
         }
 
-        v82 = *(v107 + 8 * v81);
-        if (v82)
+        v80 = *(v105 + 8 * v79);
+        if (v80)
         {
-          for (k = *v82; k; k = *k)
+          for (k = *v80; k; k = *k)
           {
-            v84 = k[1];
-            if (v78 == v84)
+            v82 = k[1];
+            if (v76 == v82)
             {
-              v76 = std::equal_to<std::string>::operator()[abi:ne200100](&v107, k + 2, v73 + 2);
-              if (v76)
+              v74 = std::equal_to<std::string>::operator()[abi:ne200100](&v105, k + 2, v71 + 2);
+              if (v74)
               {
-                v96 = *v73;
+                v94 = *v71;
                 goto LABEL_157;
               }
             }
 
             else
             {
-              if (v80 > 1)
+              if (v78 > 1)
               {
-                if (v84 >= v77)
+                if (v82 >= v75)
                 {
-                  v84 %= v77;
+                  v82 %= v75;
                 }
               }
 
               else
               {
-                v84 &= v77 - 1;
+                v82 &= v75 - 1;
               }
 
-              if (v84 != v81)
+              if (v82 != v79)
               {
                 break;
               }
@@ -4130,133 +2766,133 @@ LABEL_110:
         }
       }
 
-      v85 = rf::realityFusionLogObject(v76);
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+      v83 = rf::realityFusionLogObject(v74);
+      if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
       {
-        v86 = [v73[5] name];
-        *v118 = 138412290;
-        *&v118[4] = v86;
-        _os_log_impl(&dword_2617CB000, v85, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Removing reference image %@", v118, 0xCu);
+        v84 = objc_msgSend_name(v71[5]);
+        *v116 = 138412290;
+        *&v116[4] = v84;
+        _os_log_impl(&dword_2617CB000, v83, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Removing reference image %@", v116, 0xCu);
       }
 
-      v87 = v72[6];
-      v88 = v73[1];
-      v89 = vcnt_s8(v87);
-      v89.i16[0] = vaddlv_u8(v89);
-      if (v89.u32[0] > 1uLL)
+      v85 = v70[6];
+      v86 = v71[1];
+      v87 = vcnt_s8(v85);
+      v87.i16[0] = vaddlv_u8(v87);
+      if (v87.u32[0] > 1uLL)
       {
-        if (v88 >= *&v87)
+        if (v86 >= *&v85)
         {
-          v88 %= *&v87;
+          v86 %= *&v85;
         }
       }
 
       else
       {
-        v88 &= *&v87 - 1;
+        v86 &= *&v85 - 1;
       }
 
-      v96 = *v73;
-      v90 = *(*v75 + 8 * v88);
+      v94 = *v71;
+      v88 = *(*v73 + 8 * v86);
       do
       {
-        v91 = v90;
-        v90 = *v90;
+        v89 = v88;
+        v88 = *v88;
       }
 
-      while (v90 != v73);
-      if (v91 != v74)
+      while (v88 != v71);
+      if (v89 != v72)
       {
-        v92 = v91[1];
-        if (v89.u32[0] > 1uLL)
+        v90 = v89[1];
+        if (v87.u32[0] > 1uLL)
         {
-          if (v92 >= *&v87)
+          if (v90 >= *&v85)
           {
-            v92 %= *&v87;
+            v90 %= *&v85;
           }
         }
 
         else
         {
-          v92 &= *&v87 - 1;
+          v90 &= *&v85 - 1;
         }
 
-        v93 = *v73;
-        if (v92 == v88)
+        v91 = *v71;
+        if (v90 == v86)
         {
           goto LABEL_149;
         }
       }
 
-      if (!v96)
+      if (!v94)
       {
         break;
       }
 
-      v94 = v96[1];
-      if (v89.u32[0] > 1uLL)
+      v92 = v94[1];
+      if (v87.u32[0] > 1uLL)
       {
-        if (v94 >= *&v87)
+        if (v92 >= *&v85)
         {
-          v94 %= *&v87;
+          v92 %= *&v85;
         }
       }
 
       else
       {
-        v94 &= *&v87 - 1;
+        v92 &= *&v85 - 1;
       }
 
-      v93 = *v73;
-      if (v94 != v88)
+      v91 = *v71;
+      if (v92 != v86)
       {
         break;
       }
 
 LABEL_150:
-      v95 = v93[1];
-      if (v89.u32[0] > 1uLL)
+      v93 = *(v91 + 8);
+      if (v87.u32[0] > 1uLL)
       {
-        if (v95 >= *&v87)
+        if (v93 >= *&v85)
         {
-          v95 %= *&v87;
+          v93 %= *&v85;
         }
       }
 
       else
       {
-        v95 &= *&v87 - 1;
+        v93 &= *&v85 - 1;
       }
 
-      if (v95 != v88)
+      if (v93 != v86)
       {
-        *(*v75 + 8 * v95) = v91;
-        v93 = *v73;
+        *(*v73 + 8 * v93) = v89;
+        v91 = *v71;
       }
 
 LABEL_156:
-      *v91 = v93;
-      *v73 = 0;
-      v72[8] = v72[8] - 1;
-      *v118 = v73;
-      *&v118[8] = v72 + 5;
-      v105 = 1;
-      v118[16] = 1;
-      *&v118[17] = 0;
-      *&v118[20] = 0;
-      std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](v118);
+      *v89 = v91;
+      *v71 = 0;
+      v70[8] = v70[8] - 1;
+      *v116 = v71;
+      *&v116[8] = v70 + 5;
+      v103 = 1;
+      v116[16] = 1;
+      *&v116[17] = 0;
+      *&v116[20] = 0;
+      std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](v116);
 LABEL_157:
-      v73 = v96;
-      if (!v96)
+      v71 = v94;
+      if (!v94)
       {
         goto LABEL_158;
       }
     }
 
-    *(*v75 + 8 * v88) = 0;
-    v93 = *v73;
+    *(*v73 + 8 * v86) = 0;
+    v91 = *v71;
 LABEL_149:
-    if (!v93)
+    if (!v91)
     {
       goto LABEL_156;
     }
@@ -4265,36 +2901,33 @@ LABEL_149:
   }
 
 LABEL_158:
-  if (v105)
+  if (v103)
   {
     while (1)
     {
-      v74 = *v74;
-      if (!v74)
+      v72 = *v72;
+      if (!v72)
       {
         break;
       }
 
-      [v102 addObject:v74[5]];
+      [v100 addObject:v72[5]];
     }
 
     if (a1[28])
     {
-      std::function<void ()(NSSet<ARReferenceImage *> *)>::operator()(&a1[25], v102);
+      std::function<void ()(NSSet<ARReferenceImage *> *)>::operator()(&a1[25], v100);
     }
   }
 
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v107);
-  if (SHIBYTE(v111) < 0)
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v105);
+  if (SHIBYTE(v109) < 0)
   {
-    operator delete(v110[0]);
+    operator delete(v108[0]);
   }
-
-LABEL_165:
-  v97 = *MEMORY[0x277D85DE8];
 }
 
-void sub_26184D0C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
+void sub_26184D0C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
 {
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a23);
   if (a34 < 0)
@@ -4307,19 +2940,19 @@ void sub_26184D0C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   REAnchorComponentGetComponentType();
   ComponentByClass = REEntityGetComponentByClass();
   if (!ComponentByClass)
   {
     rf::getMessage("Anchor component should not be null.", uu);
     rf::internal::logAssert(uu);
-    if (v26 < 0)
+    if (v21 < 0)
     {
       operator delete(*uu);
     }
 
-    ComponentByClass = rf::internal::debugBreakHandler(v21);
+    ComponentByClass = rf::internal::debugBreakHandler(v16);
   }
 
   v7 = rf::realityFusionLogObject(ComponentByClass);
@@ -4327,26 +2960,26 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(uint6
   {
     Name = REEntityGetName();
     AnchorIdentifier = REAnchorComponentGetAnchorIdentifier();
-    v25 = 0;
-    v27 = 0;
+    v20 = 0;
+    v22 = 0;
     uuid_clear(uu);
     *uu = AnchorIdentifier;
-    v25 = 1;
-    rf::data_flow::RFUUID::string(uu, __p);
-    v10 = v23 >= 0 ? __p : __p[0];
+    v20 = 1;
+    rf::data_flow::RFUUID::string(__p, uu);
+    v10 = v18 >= 0 ? __p : __p[0];
     *buf = 136315394;
-    v29 = Name;
-    v30 = 2082;
-    v31 = v10;
+    v24 = Name;
+    v25 = 2082;
+    v26 = v10;
     _os_log_impl(&dword_2617CB000, v7, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Unanchoring entity %s from anchor %{public}s", buf, 0x16u);
-    if (v23 < 0)
+    if (v18 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   rf::helpers::publishAnchorStateEventWillUnanchor(a2, a3);
-  if (rf::helpers::isRemotelyOwned())
+  if (rf::helpers::isRemotelyOwned(a2))
   {
     v11 = REAnchorComponentSetAnchoredLocally();
   }
@@ -4360,23 +2993,23 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(uint6
   CustomComponent = rf::AnchorMetadataComponent::instance(v11);
   if (*CustomComponent)
   {
-    v13 = *rf::AnchorMetadataComponent::instance(CustomComponent);
+    rf::AnchorMetadataComponent::instance(CustomComponent);
     CustomComponent = REEntityGetCustomComponent();
     if (CustomComponent)
     {
-      v14 = *rf::AnchorMetadataComponent::instance(CustomComponent);
+      rf::AnchorMetadataComponent::instance(CustomComponent);
       CustomComponent = REEntityRemoveComponentByClass();
     }
   }
 
-  v15 = rf::AnchorSourceComponent::instance(CustomComponent);
-  if (*v15)
+  v13 = rf::AnchorSourceComponent::instance(CustomComponent);
+  if (*v13)
   {
-    v16 = *rf::AnchorSourceComponent::instance(v15);
-    v17 = REEntityGetCustomComponent();
-    if (v17)
+    rf::AnchorSourceComponent::instance(v13);
+    v14 = REEntityGetCustomComponent();
+    if (v14)
     {
-      v18 = *rf::AnchorSourceComponent::instance(v17);
+      rf::AnchorSourceComponent::instance(v14);
       REEntityRemoveComponentByClass();
     }
   }
@@ -4384,10 +3017,9 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(uint6
   result = *(a1 + 56);
   if (result)
   {
-    result = std::function<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator()(result, a2, 2);
+    return std::function<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator()(result, a2, 2);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4413,78 +3045,78 @@ void std::function<void ()(NSSet<ARReferenceImage *> *)>::operator()(uint64_t a1
   (*(*v3 + 48))(v3, &v4);
 }
 
-void rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7)
+void rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(unsigned __int8 *DescriptorType, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int8x8_t *a7)
 {
   ComponentByClass = a4;
-  v165 = *MEMORY[0x277D85DE8];
-  v12 = *(a1 + 568);
-  v13 = *(a6 + 4000);
-  if (v12 == 1 && v13 == 2)
+  v164 = *MEMORY[0x277D85DE8];
+  v13 = DescriptorType[568];
+  v14 = *(a6 + 4000);
+  if (v13 == 1 && v14 == 2)
   {
-    *(a1 + 569) = 1;
+    DescriptorType[569] = 1;
     rf::helpers::cacheAnchorBeforeTravelMode(a4, a5);
-    v13 = *(a6 + 4000);
-    LOBYTE(v12) = *(a1 + 568);
+    v14 = *(a6 + 4000);
+    LOBYTE(v13) = DescriptorType[568];
   }
 
-  v130 = a6;
-  if ((v12 & 1) != 0 && !v13)
+  v129 = a6;
+  if ((v13 & 1) != 0 && !v14)
   {
-    *(a1 + 569) = 1;
+    DescriptorType[569] = 1;
     if (ComponentByClass && REAnchoringComponentGetDescriptorType() == 1)
     {
       DescriptorCachedAnchorIdentifier = REAnchoringComponentGetDescriptorCachedAnchorIdentifier();
-      if (uuid_compare(UUID_NULL, DescriptorCachedAnchorIdentifier) && (uu[16] = 0, *&uu[24] = 0, uuid_clear(uu), *uu = DescriptorCachedAnchorIdentifier, uu[16] = 1, AnchorFromAllAnchors = rf::helpers::tryGetAnchorFromAllAnchors(v130, uu), (v17 & 1) != 0))
+      if (uuid_compare(UUID_NULL, DescriptorCachedAnchorIdentifier) && (uu[16] = 0, *&uu[24] = 0, uuid_clear(uu), *uu = DescriptorCachedAnchorIdentifier, uu[16] = 1, AnchorFromAllAnchors = rf::helpers::tryGetAnchorFromAllAnchors(v129, uu), (v18 & 1) != 0))
       {
-        v18 = AnchorFromAllAnchors;
-        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v152, AnchorFromAllAnchors);
-        rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(a1, a3, v152, a5, (v130 + 80), 1);
-        v19 = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v152);
-        v20 = rf::realityFusionLogObject(v19);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v19 = AnchorFromAllAnchors;
+        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v151, AnchorFromAllAnchors);
+        rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(DescriptorType, a3, v151, a5, (v129 + 80), 1);
+        v20 = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v151);
+        v21 = rf::realityFusionLogObject(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          rf::helpers::getRFUUIDFromAnchor(v18, v132);
-          rf::data_flow::RFUUID::string(v132, __p);
-          v21 = v135;
-          v22 = __p[0];
+          rf::helpers::getRFUUIDFromAnchor(v19, v131);
+          rf::data_flow::RFUUID::string(__p, v131);
+          v22 = v134;
+          v23 = __p[0];
           Name = REEntityGetName();
-          v24 = __p;
-          if (v21 < 0)
+          v25 = __p;
+          if (v22 < 0)
           {
-            v24 = v22;
+            v25 = v23;
           }
 
           *buf = 136446466;
-          v138 = v24;
-          v139 = 2080;
-          v140 = Name;
-          _os_log_impl(&dword_2617CB000, v20, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Restoring cached anchor %{public}s for entity %s.", buf, 0x16u);
-          if (v135 < 0)
+          v137 = v25;
+          v138 = 2080;
+          v139 = Name;
+          _os_log_impl(&dword_2617CB000, v21, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Restoring cached anchor %{public}s for entity %s.", buf, 0x16u);
+          if (v134 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
-        if (std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v130 + 120), uu))
+        if (std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v129 + 120), uu))
         {
-          rf::data_flow::consumer::AnchorManagementConsumer::externalizeEntity(a1, a3, ComponentByClass, 1);
+          rf::data_flow::consumer::AnchorManagementConsumer::externalizeEntity(DescriptorType, a3, ComponentByClass, 1);
         }
 
         else
         {
-          v60 = *(a1 + 56);
+          v60 = *(DescriptorType + 7);
           if (v60)
           {
-            *&v132[0] = a3;
+            *&v131[0] = a3;
             LODWORD(__p[0]) = 1;
-            (*(*v60 + 48))(v60, v132, __p);
+            (*(*v60 + 48))(v60, v131, __p);
           }
         }
       }
 
       else
       {
-        rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(a1, a3, 0);
+        rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(DescriptorType, a3, 0);
         REAnchoringComponentSetDescriptorCachedAnchorIdentifier();
       }
     }
@@ -4493,7 +3125,7 @@ void rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorCompo
     ComponentByClass = REEntityGetComponentByClass();
   }
 
-  isRemotelyOwned = rf::helpers::isRemotelyOwned();
+  isRemotelyOwned = rf::helpers::isRemotelyOwned(a3);
   AnchoredLocally = 0;
   if ((isRemotelyOwned & 1) == 0 && ComponentByClass)
   {
@@ -4501,27 +3133,27 @@ void rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorCompo
   }
 
   REAnchoringComponentGetDescriptorType();
-  v131[0] = a7;
-  v131[1] = a1;
+  v130[0] = a7;
+  v130[1] = DescriptorType;
   REEntityIsEnabledInHierarchy();
   if (isRemotelyOwned)
   {
-    DescriptorType = REAnchoringComponentGetDescriptorType();
-    if (DescriptorType <= 0xD && ((1 << DescriptorType) & 0x2003) != 0)
+    v28 = REAnchoringComponentGetDescriptorType();
+    if (v28 <= 0xD && ((1 << v28) & 0x2003) != 0)
     {
-      goto LABEL_212;
+      return;
     }
 
-    v128 = rf::helpers::needAnchoringInClientProcessForEntity((a1 + 233), a3);
+    v127 = rf::helpers::needAnchoringInClientProcessForEntity(DescriptorType + 233, a3);
     if (!ComponentByClass)
     {
-      goto LABEL_212;
+      return;
     }
   }
 
   else
   {
-    v128 = rf::helpers::needAnchoringInClientProcessForEntity((a1 + 233), a3);
+    v127 = rf::helpers::needAnchoringInClientProcessForEntity(DescriptorType + 233, a3);
     if (!ComponentByClass)
     {
       goto LABEL_131;
@@ -4529,13 +3161,13 @@ void rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorCompo
   }
 
   AnchorIdentifier = REAnchorComponentGetAnchorIdentifier();
-  v134 = 0;
-  v136 = 0;
+  v133 = 0;
+  v135 = 0;
   uuid_clear(__p);
   __p[0] = AnchorIdentifier;
-  v134 = 1;
-  v126 = rf::PlacementComponentTypeInfo::instance(v29);
-  if (*v126)
+  v133 = 1;
+  v125 = rf::PlacementComponentTypeInfo::instance(v30);
+  if (*v125)
   {
     CustomComponent = REEntityGetCustomComponent();
   }
@@ -4546,10 +3178,10 @@ void rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorCompo
   }
 
   REClientAnchorSyncComponentGetComponentType();
-  v31 = REEntityGetComponentByClass();
-  if (std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v130 + 120), __p))
+  v32 = REEntityGetComponentByClass();
+  if (std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v129 + 120), __p))
   {
-    v127 = REAnchorComponentGetIsAnchorExternal() ^ 1;
+    v126 = REAnchorComponentGetIsAnchorExternal() ^ 1;
     if (isRemotelyOwned)
     {
       goto LABEL_36;
@@ -4558,7 +3190,7 @@ void rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorCompo
 
   else
   {
-    v127 = 0;
+    v126 = 0;
     if (isRemotelyOwned)
     {
 LABEL_36:
@@ -4571,16 +3203,16 @@ LABEL_36:
     }
   }
 
-  if (AnchoredLocally & 1 | ((v128 & 1) == 0))
+  if (AnchoredLocally & 1 | ((v127 & 1) == 0))
   {
-    v32 = rf::helpers::validateAnchorState(a5, ComponentByClass, v130);
-    if ((v32 & 1) == 0)
+    v33 = rf::helpers::validateAnchorState(a5, ComponentByClass, v129);
+    if ((v33 & 1) == 0)
     {
-      v34 = rf::realityFusionLogObject(v32);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v35 = rf::realityFusionLogObject(v33);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v152[0].i16[0] = 0;
-        _os_log_impl(&dword_2617CB000, v34, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Failed to validate anchor state.", v152, 2u);
+        v151[0].i16[0] = 0;
+        _os_log_impl(&dword_2617CB000, v35, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Failed to validate anchor state.", v151, 2u);
       }
 
       goto LABEL_44;
@@ -4588,173 +3220,173 @@ LABEL_36:
   }
 
 LABEL_41:
-  isAnchoringTypeAuthorizedForSelf = (*(*a1 + 32))(a1, a5, v128);
+  isAnchoringTypeAuthorizedForSelf = (*(*DescriptorType + 32))(DescriptorType, a5, v127);
   if (isAnchoringTypeAuthorizedForSelf)
   {
-    v34 = rf::realityFusionLogObject(isAnchoringTypeAuthorizedForSelf);
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = rf::realityFusionLogObject(isAnchoringTypeAuthorizedForSelf);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = REEntityGetName();
+      v36 = REEntityGetName();
       LocalId = REEntityGetLocalId();
-      v152[0].i32[0] = 136315394;
-      *(v152 + 4) = v35;
-      v152[1].i16[2] = 2048;
-      *(&v152[1] + 6) = LocalId;
-      _os_log_impl(&dword_2617CB000, v34, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Entity %s(%llu) failed capabilities check.", v152, 0x16u);
+      v151[0].i32[0] = 136315394;
+      *(v151 + 4) = v36;
+      v151[1].i16[2] = 2048;
+      *(&v151[1] + 6) = LocalId;
+      _os_log_impl(&dword_2617CB000, v35, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Entity %s(%llu) failed capabilities check.", v151, 0x16u);
     }
 
 LABEL_44:
 
-    rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(a1, a3, 0);
+    rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(DescriptorType, a3, 0);
     goto LABEL_119;
   }
 
-  if (*(a1 + 232) == 1)
+  if (DescriptorType[232] == 1)
   {
-    isAnchoringTypeAuthorizedForSelf = rf::helpers::isAnchoringTypeAuthorizedForSelf(a5, *(v130 + 200));
+    isAnchoringTypeAuthorizedForSelf = rf::helpers::isAnchoringTypeAuthorizedForSelf(a5, *(v129 + 200));
     if (!isAnchoringTypeAuthorizedForSelf)
     {
       goto LABEL_60;
     }
 
-    if (*(a1 + 232))
+    if (DescriptorType[232])
     {
 LABEL_50:
-      v37 = rf::helpers::kCameraIdentifier(isAnchoringTypeAuthorizedForSelf);
-      v38 = __p;
-      if (v134)
+      v38 = rf::helpers::kCameraIdentifier(isAnchoringTypeAuthorizedForSelf);
+      v39 = __p;
+      if (v133)
       {
-        v38 = __p[0];
+        v39 = __p[0];
       }
 
-      if (*(v37 + 16))
+      if (*(v38 + 16))
       {
-        v39 = *v37;
+        v40 = *v38;
       }
 
       else
       {
-        v39 = v37;
+        v40 = v38;
       }
 
-      if (!uuid_compare(v38, v39) && rf::helpers::getInternalActiveCamera())
+      if (!uuid_compare(v39, v40) && rf::helpers::getInternalActiveCamera(a2))
       {
         REEntityGetComponent();
         RETransformComponentGetWorldMatrix4x4F();
-        CameraComponentTransformInScene = rf::helpers::getCameraComponentTransformInScene(v132);
-        v49 = rf::helpers::kCameraIdentifier(CameraComponentTransformInScene);
-        v50 = v49[1];
-        *uu = *v49;
-        *&uu[16] = v50;
-        v142 = v132[0];
-        v143 = v132[1];
-        v144 = v132[2];
-        *v145 = v132[3];
-        *&v145[16] = 16842752;
-        *&v145[20] = 0;
-        v145[24] = 0;
-        v146 = 0;
-        LOBYTE(v147) = 0;
+        rf::helpers::getCameraComponentTransformInScene(a2, v131);
+        v50 = rf::helpers::kCameraIdentifier(v49);
+        v51 = v50[1];
+        *uu = *v50;
+        *&uu[16] = v51;
+        v141 = v131[0];
+        v142 = v131[1];
+        v143 = v131[2];
+        *v144 = v131[3];
+        *&v144[16] = 16842752;
+        *&v144[20] = 0;
+        v144[24] = 0;
+        v145 = 0;
+        LOBYTE(v146) = 0;
+        BYTE8(v147) = 0;
+        *&v148 = 0;
+        uuid_clear(&v146 + 8);
         BYTE8(v148) = 0;
-        *&v149 = 0;
-        uuid_clear(&v147 + 8);
-        BYTE8(v149) = 0;
-        BYTE8(v151) = 0;
-        v155 = v144;
-        v156[0] = *v145;
-        *(v156 + 9) = *&v145[9];
-        *v152[0].i8 = *uu;
-        *v152[2].i8 = *&uu[16];
-        v153 = v142;
+        BYTE8(v150) = 0;
         v154 = v143;
-        v51 = v146;
-        v146 = 0;
-        v157 = v51;
+        v155[0] = *v144;
+        *(v155 + 9) = *&v144[9];
+        *v151[0].i8 = *uu;
+        *v151[2].i8 = *&uu[16];
+        v152 = v141;
+        v153 = v142;
+        v52 = v145;
+        v145 = 0;
+        v156 = v52;
+        v159 = v148;
         v160 = v149;
         v161 = v150;
-        v162 = v151;
+        v157 = v146;
         v158 = v147;
-        v159 = v148;
-        v163 = 0;
-        rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(a1, a3, v152, (v130 + 80));
-        rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(REScene *,REEntity *,REComponent *,REComponent *,rf::ARStateData const&,BOOL,unsigned long long &)::$_0::operator()(v131);
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v152);
-        goto LABEL_212;
+        v162 = 0;
+        rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(DescriptorType, a3, v151, (v129 + 80));
+        rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(REScene *,REEntity *,REComponent *,REComponent *,rf::ARStateData const&,BOOL,unsigned long long &)::$_0::operator()(v130);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v151);
+        return;
       }
 
-      v124 = CustomComponent;
-      v40 = v136;
-      if (!v136)
+      v123 = CustomComponent;
+      v41 = v135;
+      if (!v135)
       {
-        v122 = __p;
-        if (v134)
+        v121 = __p;
+        if (v133)
         {
-          v122 = __p[0];
+          v121 = __p[0];
         }
 
-        v40 = (v122[1] + 64 * *v122 + (*v122 >> 2) + 2654435769u) ^ *v122;
-        v136 = v40;
+        v41 = (v121[1] + 64 * *v121 + (*v121 >> 2) + 2654435769u) ^ *v121;
+        v135 = v41;
       }
 
-      v41 = *(v130 + 3352);
-      if (v41)
+      v42 = *(v129 + 3352);
+      if (v42)
       {
-        v125 = (v130 + 3344);
-        v42 = vcnt_s8(v41);
-        v42.i16[0] = vaddlv_u8(v42);
-        v43 = v42.u32[0];
-        if (v42.u32[0] > 1uLL)
+        v124 = (v129 + 3344);
+        v43 = vcnt_s8(v42);
+        v43.i16[0] = vaddlv_u8(v43);
+        v44 = v43.u32[0];
+        if (v43.u32[0] > 1uLL)
         {
-          v44 = v40;
-          if (v40 >= *&v41)
+          v45 = v41;
+          if (v41 >= *&v42)
           {
-            v44 = v40 % *&v41;
+            v45 = v41 % *&v42;
           }
         }
 
         else
         {
-          v44 = (*&v41 - 1) & v40;
+          v45 = (*&v42 - 1) & v41;
         }
 
-        v52 = *(*v125 + 8 * v44);
-        if (v52)
+        v53 = *(*v124 + 8 * v45);
+        if (v53)
         {
-          v53 = *v52;
-          if (*v52)
+          v54 = *v53;
+          if (*v53)
           {
             do
             {
-              v54 = v53[1];
-              if (v40 == v54)
+              v55 = v54[1];
+              if (v41 == v55)
               {
-                if (rf::data_flow::RFUUID::Equality::operator()(v125, (v53 + 2), __p))
+                if (rf::data_flow::RFUUID::Equality::operator()(v124, (v54 + 2), __p))
                 {
-                  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v152, v53[6]);
-                  updated = rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(a1, a3, v152, (v130 + 80));
+                  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v151, v54[6]);
+                  updated = rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(DescriptorType, a3, v151, (v129 + 80));
                   v68 = *a7 + 1;
                   *a7 = v68;
-                  if (v68 >= *(a1 + 632))
+                  if (v68 >= *(DescriptorType + 79))
                   {
                     v69 = rf::realityFusionLogObject(updated);
                     if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
                     {
-                      v120 = *a7;
-                      v121 = *(a1 + 632);
+                      v119 = *a7;
+                      v120 = *(DescriptorType + 79);
                       *uu = 134218240;
-                      *&uu[4] = v120;
+                      *&uu[4] = v119;
                       *&uu[12] = 2048;
-                      *&uu[14] = v121;
+                      *&uu[14] = v120;
                       _os_log_error_impl(&dword_2617CB000, v69, OS_LOG_TYPE_ERROR, "AnchorManagementConsumer: %llu anchoring updated this frame, which more than %llu, this could cause backboardd hang", uu, 0x16u);
                     }
                   }
 
-                  if (v124)
+                  if (v123)
                   {
-                    if (std::function<BOOL ()(REComponent *)>::operator()((v126 + 5), v124))
+                    if (std::function<BOOL ()(REComponent *)>::operator()((v125 + 5), v123))
                     {
-                      std::function<void ()(REComponent *)>::operator()((v126 + 9), v124);
-                      v70 = *(a1 + 56);
+                      std::function<void ()(REComponent *)>::operator()((v125 + 9), v123);
+                      v70 = *(DescriptorType + 7);
                       if (v70)
                       {
                         std::function<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator()(v70, a3, 3);
@@ -4762,49 +3394,49 @@ LABEL_50:
                     }
                   }
 
-                  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v152);
+                  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v151);
                   goto LABEL_119;
                 }
               }
 
               else
               {
-                if (v43 > 1)
+                if (v44 > 1)
                 {
-                  if (v54 >= *&v41)
+                  if (v55 >= *&v42)
                   {
-                    v54 %= *&v41;
+                    v55 %= *&v42;
                   }
                 }
 
                 else
                 {
-                  v54 &= *&v41 - 1;
+                  v55 &= *&v42 - 1;
                 }
 
-                if (v54 != v44)
+                if (v55 != v45)
                 {
                   break;
                 }
               }
 
-              v53 = *v53;
+              v54 = *v54;
             }
 
-            while (v53);
+            while (v54);
           }
         }
       }
 
-      v55 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v130 + 3384), __p);
-      if (v55)
+      v56 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v129 + 3384), __p);
+      if (v56)
       {
-        if ((isRemotelyOwned & 1) != 0 || (rf::data_flow::consumer::AnchorManagementConsumer::matchAndReanchorEntity(a1, a3, (v55 + 6), (v130 + 80)) & 1) == 0)
+        if ((isRemotelyOwned & 1) != 0 || (rf::data_flow::consumer::AnchorManagementConsumer::matchAndReanchorEntity(DescriptorType, a3, v56 + 3, (v129 + 80)) & 1) == 0)
         {
-          v56 = rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(a1, a3, 0);
-          if (v124)
+          v57 = rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(DescriptorType, a3, 0);
+          if (v123)
           {
-            v57 = *rf::PlacementComponentTypeInfo::instance(v56);
+            rf::PlacementComponentTypeInfo::instance(v57);
             REEntityRemoveComponentByClass();
           }
         }
@@ -4812,7 +3444,7 @@ LABEL_50:
 
       else
       {
-        v58 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v130 + 3424), __p);
+        v58 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v129 + 3424), __p);
         if (v58)
         {
           v59 = *(v58 + 12);
@@ -4830,40 +3462,40 @@ LABEL_50:
           goto LABEL_119;
         }
 
-        if (v127)
+        if (v126)
         {
           v61 = rf::realityFusionLogObject(0);
           if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
           {
             v62 = REEntityGetName();
             v63 = REEntityGetLocalId();
-            rf::data_flow::RFUUID::string(__p, uu);
+            rf::data_flow::RFUUID::string(uu, __p);
             v64 = uu[23] >= 0 ? uu : *uu;
-            v152[0].i32[0] = 136315650;
-            *(v152 + 4) = v62;
-            v152[1].i16[2] = 2048;
-            *(&v152[1] + 6) = v63;
-            v152[2].i16[3] = 2082;
-            v152[3] = v64;
-            _os_log_impl(&dword_2617CB000, v61, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Marking entity external %s, %llu, holding anchor with identifier %{public}s", v152, 0x20u);
+            v151[0].i32[0] = 136315650;
+            *(v151 + 4) = v62;
+            v151[1].i16[2] = 2048;
+            *(&v151[1] + 6) = v63;
+            v151[2].i16[3] = 2082;
+            v151[3] = v64;
+            _os_log_impl(&dword_2617CB000, v61, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Marking entity external %s, %llu, holding anchor with identifier %{public}s", v151, 0x20u);
             if ((uu[23] & 0x80000000) != 0)
             {
               operator delete(*uu);
             }
           }
 
-          rf::data_flow::consumer::AnchorManagementConsumer::externalizeEntity(a1, a3, ComponentByClass, 1);
+          rf::data_flow::consumer::AnchorManagementConsumer::externalizeEntity(DescriptorType, a3, ComponentByClass, 1);
         }
 
-        else if (v124 && std::function<BOOL ()(REComponent *)>::operator()((v126 + 5), v124))
+        else if (v123 && std::function<BOOL ()(REComponent *)>::operator()((v125 + 5), v123))
         {
-          v65 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v130 + 80), __p);
+          v65 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v129 + 80), __p);
           if (v65)
           {
-            rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(a1, a3, (v65 + 6), (v130 + 80));
-            rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(REScene *,REEntity *,REComponent *,REComponent *,rf::ARStateData const&,BOOL,unsigned long long &)::$_0::operator()(v131);
-            std::function<void ()(REComponent *)>::operator()((v126 + 9), v124);
-            v66 = *(a1 + 56);
+            rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(DescriptorType, a3, (v65 + 6), (v129 + 80));
+            rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(REScene *,REEntity *,REComponent *,REComponent *,rf::ARStateData const&,BOOL,unsigned long long &)::$_0::operator()(v130);
+            std::function<void ()(REComponent *)>::operator()((v125 + 9), v123);
+            v66 = *(DescriptorType + 7);
             if (v66)
             {
               std::function<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator()(v66, a3, 3);
@@ -4875,11 +3507,11 @@ LABEL_50:
         {
           if ((REAnchorComponentGetAnchoredLocally() & 1) == 0)
           {
-            v71 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v130 + 80), __p);
+            v71 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((v129 + 80), __p);
             if (v71)
             {
-              rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(a1, a3, (v71 + 6), (v130 + 80));
-              rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(REScene *,REEntity *,REComponent *,REComponent *,rf::ARStateData const&,BOOL,unsigned long long &)::$_0::operator()(v131);
+              rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(DescriptorType, a3, (v71 + 6), (v129 + 80));
+              rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(REScene *,REEntity *,REComponent *,REComponent *,rf::ARStateData const&,BOOL,unsigned long long &)::$_0::operator()(v130);
             }
           }
         }
@@ -4889,31 +3521,31 @@ LABEL_50:
     }
   }
 
-  if (!v31)
+  if (!v32)
   {
     goto LABEL_50;
   }
 
-  isAnchoringTypeAuthorizedForSelf = rf::helpers::isAnchoringTypeAuthorizedForPeer(a5, (v130 + 208));
+  isAnchoringTypeAuthorizedForSelf = rf::helpers::isAnchoringTypeAuthorizedForPeer(a5, (v129 + 208));
   if (isAnchoringTypeAuthorizedForSelf)
   {
     goto LABEL_50;
   }
 
 LABEL_60:
-  v45 = rf::realityFusionLogObject(isAnchoringTypeAuthorizedForSelf);
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+  v46 = rf::realityFusionLogObject(isAnchoringTypeAuthorizedForSelf);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {
-    v46 = REEntityGetName();
-    v47 = REEntityGetLocalId();
-    v152[0].i32[0] = 136315394;
-    *(v152 + 4) = v46;
-    v152[1].i16[2] = 2048;
-    *(&v152[1] + 6) = v47;
-    _os_log_impl(&dword_2617CB000, v45, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Entity %s(%llu) is no longer authorized to be anchored.", v152, 0x16u);
+    v47 = REEntityGetName();
+    v48 = REEntityGetLocalId();
+    v151[0].i32[0] = 136315394;
+    *(v151 + 4) = v47;
+    v151[1].i16[2] = 2048;
+    *(&v151[1] + 6) = v48;
+    _os_log_impl(&dword_2617CB000, v46, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Entity %s(%llu) is no longer authorized to be anchored.", v151, 0x16u);
   }
 
-  rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(a1, a3, 1u);
+  rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(DescriptorType, a3, 1u);
 LABEL_119:
   REAnchorComponentGetComponentType();
   v72 = REEntityGetComponentByClass();
@@ -4937,7 +3569,7 @@ LABEL_119:
     {
       if (v72)
       {
-        if ((*(v130 + 4000) | 2) == 2)
+        if ((*(v129 + 4000) | 2) == 2)
         {
           IsAnchorExternal = REAnchorComponentGetIsAnchorExternal();
           if (IsAnchorExternal)
@@ -4947,15 +3579,15 @@ LABEL_119:
             {
               v80 = REEntityGetName();
               v81 = REEntityGetLocalId();
-              v152[0].i32[0] = 136315394;
-              *(v152 + 4) = v80;
-              v152[1].i16[2] = 2048;
-              *(&v152[1] + 6) = v81;
-              _os_log_impl(&dword_2617CB000, v79, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Relocalizing entity %s, %llu, because tracking is regained", v152, 0x16u);
+              v151[0].i32[0] = 136315394;
+              *(v151 + 4) = v80;
+              v151[1].i16[2] = 2048;
+              *(&v151[1] + 6) = v81;
+              _os_log_impl(&dword_2617CB000, v79, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Relocalizing entity %s, %llu, because tracking is regained", v151, 0x16u);
             }
 
-            rf::data_flow::consumer::AnchorManagementConsumer::relocalizeEntity(a1, a3, v72, 1);
-            rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(a1, a3, 0);
+            rf::data_flow::consumer::AnchorManagementConsumer::relocalizeEntity(DescriptorType, a3, v72, 1);
+            rf::data_flow::consumer::AnchorManagementConsumer::unanchorEntity(DescriptorType, a3, 0);
           }
         }
       }
@@ -4983,9 +3615,9 @@ LABEL_131:
 
   v85 = 0;
 LABEL_136:
-  if (*(a1 + 232) & v128)
+  if (DescriptorType[232] & v127)
   {
-    v86 = rf::helpers::isAnchoringTypeAuthorizedForSelf(a5, *(v130 + 200)) ^ 1;
+    v86 = rf::helpers::isAnchoringTypeAuthorizedForSelf(a5, *(v129 + 200)) ^ 1;
     if (!IsAnchored)
     {
       goto LABEL_138;
@@ -4994,7 +3626,7 @@ LABEL_136:
 LABEL_141:
     if ((v86 | v85 | v84))
     {
-      goto LABEL_212;
+      return;
     }
 
     goto LABEL_142;
@@ -5009,13 +3641,13 @@ LABEL_141:
 LABEL_138:
   if (v84)
   {
-    goto LABEL_212;
+    return;
   }
 
 LABEL_142:
-  if (!(*(*a1 + 40))(a1, a5))
+  if (!(*(*DescriptorType + 40))(DescriptorType, a5))
   {
-    goto LABEL_212;
+    return;
   }
 
   REAnchoringComponentGetComponentType();
@@ -5023,9 +3655,9 @@ LABEL_142:
   {
     v87 = REAnchoringComponentGetDescriptorType();
     v88 = v87;
-    if (*(v130 + 4004) != 1 && v87 == 13)
+    if (*(v129 + 4004) != 1 && v87 == 13)
     {
-      goto LABEL_212;
+      return;
     }
   }
 
@@ -5034,11 +3666,11 @@ LABEL_142:
     v88 = 11;
   }
 
-  if (*(a1 + 232) == 1)
+  if (DescriptorType[232] == 1)
   {
-    if ((rf::helpers::shouldAnchorEntityInClientProcess(a3, (a1 + 233), *(*(a1 + 16) + 264)) & 1) == 0)
+    if ((rf::helpers::shouldAnchorEntityInClientProcess(a3, DescriptorType + 233, *(*(DescriptorType + 2) + 264)) & 1) == 0)
     {
-      goto LABEL_212;
+      return;
     }
 
     goto LABEL_195;
@@ -5048,12 +3680,12 @@ LABEL_142:
   if (!REEntityGetComponentByClass())
   {
 LABEL_172:
-    if ((*(a1 + 68) & 1) != 0 || (*(a1 + 66) & 1) != 0 || *(a1 + 67) == 1)
+    if ((DescriptorType[68] & 1) != 0 || (DescriptorType[66] & 1) != 0 || DescriptorType[67] == 1)
     {
       RENetworkComponentGetComponentType();
       if (REEntityGetComponentByClass())
       {
-        if (*(a1 + 68) == 1)
+        if (DescriptorType[68] == 1)
         {
           Parent = a3;
           do
@@ -5066,12 +3698,12 @@ LABEL_172:
 
             __p[0] = REEntityGetLocalId();
             Parent = REEntityGetParent();
-            v100 = std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::find<unsigned long>((a1 + 400), __p[0]);
-            v101 = std::__hash_table<std::__hash_value_type<unsigned long,std::any>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::any>>>::find<unsigned long>((a1 + 480), __p);
+            v100 = std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::find<unsigned long>(DescriptorType + 50, __p[0]);
+            v101 = std::__hash_table<std::__hash_value_type<unsigned long,std::any>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::any>>>::find<unsigned long>(DescriptorType + 60, __p);
             if (v101)
             {
-              *&v132[0] = __p;
-              v102 = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 480), __p);
+              *&v131[0] = __p;
+              v102 = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(DescriptorType + 120, __p, &std::piecewise_construct, v131);
               LODWORD(v101) = rf::helpers::authorizedTypeForEntitledAnchoringTypesConfig(v88, v102 + 24);
             }
           }
@@ -5085,10 +3717,10 @@ LABEL_172:
         }
 
         v104 = 0;
-        if ((*(a1 + 66) & 1) != 0 || *(a1 + 67) == 1)
+        if ((DescriptorType[66] & 1) != 0 || DescriptorType[67] == 1)
         {
           v103 = RENetworkComponentOwnerPeerID();
-          if (std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::find<unsigned long>((a1 + 320), v103) || std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::find<unsigned long>((a1 + 360), v103))
+          if (std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::find<unsigned long>(DescriptorType + 40, v103) || std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::find<unsigned long>(DescriptorType + 45, v103))
           {
             v104 = 1;
           }
@@ -5098,12 +3730,12 @@ LABEL_172:
         v106 = v104;
         if (!v105)
         {
-          v106 = v104 | *(a1 + 66);
+          v106 = v104 | DescriptorType[66];
         }
 
         if (!v99 && ((v104 | v106) & 1) == 0)
         {
-          goto LABEL_212;
+          return;
         }
       }
     }
@@ -5113,36 +3745,36 @@ LABEL_195:
     v107 = REEntityGetComponentByClass();
     if (!v107)
     {
-      rf::getMessage("Anchoring component should not be null.", v152);
-      rf::internal::logAssert(v152);
-      if (v152[2].i8[7] < 0)
+      rf::getMessage("Anchoring component should not be null.", v151);
+      rf::internal::logAssert(v151);
+      if (v151[2].i8[7] < 0)
       {
-        operator delete(*v152);
+        operator delete(*v151);
       }
 
-      rf::internal::debugBreakHandler(v123);
+      rf::internal::debugBreakHandler(v122);
     }
 
     SceneNullable = REEntityGetSceneNullable();
-    v109 = rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(v152, a1, SceneNullable, v107, v130);
-    if (v164 == 1)
+    v109 = rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(v151, DescriptorType, SceneNullable, v107, v129);
+    if (v163 == 1)
     {
-      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](uu, v152);
-      rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(a1, a3, uu, v107, (v130 + 80), 1);
+      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](uu, v151);
+      rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(DescriptorType, a3, uu, v107, (v129 + 80), 1);
       v110 = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
       v111 = rf::realityFusionLogObject(v110);
       if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
       {
         v112 = REEntityGetName();
-        if ((v164 & 1) == 0)
+        if ((v163 & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
         v113 = v112;
-        rf::helpers::getRFUUIDFromAnchor(v152, v132);
-        rf::data_flow::RFUUID::string(v132, __p);
-        if (v135 >= 0)
+        rf::helpers::getRFUUIDFromAnchor(v151, v131);
+        rf::data_flow::RFUUID::string(__p, v131);
+        if (v134 >= 0)
         {
           v114 = __p;
         }
@@ -5153,54 +3785,54 @@ LABEL_195:
         }
 
         *buf = 136315394;
-        v138 = v113;
-        v139 = 2082;
-        v140 = v114;
+        v137 = v113;
+        v138 = 2082;
+        v139 = v114;
         _os_log_impl(&dword_2617CB000, v111, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Anchoring entity %s to anchor %{public}s.", buf, 0x16u);
-        if (v135 < 0)
+        if (v134 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      v109 = *(a1 + 56);
+      v109 = *(DescriptorType + 7);
       if (v109)
       {
-        *&v132[0] = a3;
+        *&v131[0] = a3;
         LODWORD(__p[0]) = 1;
-        v109 = (*(*v109 + 48))(v109, v132, __p);
+        v109 = (*(*v109 + 48))(v109, v131, __p);
       }
     }
 
-    if (v164 == 1)
+    if (v163 == 1)
     {
-      v109 = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v152);
+      v109 = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v151);
     }
 
     v115 = *a7 + 1;
     *a7 = v115;
-    if (v115 >= *(a1 + 632))
+    if (v115 >= *(DescriptorType + 79))
     {
       v116 = rf::realityFusionLogObject(v109);
       if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
       {
-        v118 = *a7;
-        v119 = *(a1 + 632);
-        v152[0].i32[0] = 134218240;
-        *(v152 + 4) = v118;
-        v152[1].i16[2] = 2048;
-        *(&v152[1] + 6) = v119;
-        _os_log_error_impl(&dword_2617CB000, v116, OS_LOG_TYPE_ERROR, "AnchorManagementConsumer: %llu anchoring updated this frame, which more than %llu, this could cause backboardd hang", v152, 0x16u);
+        v117 = *a7;
+        v118 = *(DescriptorType + 632);
+        v151[0].i32[0] = 134218240;
+        *(v151 + 4) = v117;
+        v151[1].i16[2] = 2048;
+        *(&v151[1] + 6) = v118;
+        _os_log_error_impl(&dword_2617CB000, v116, OS_LOG_TYPE_ERROR, "AnchorManagementConsumer: %llu anchoring updated this frame, which more than %llu, this could cause backboardd hang", v151, 0x16u);
       }
     }
 
-    goto LABEL_212;
+    return;
   }
 
-  v89 = *(a1 + 16);
-  memset(v152, 0, sizeof(v152));
-  LODWORD(v153) = *(v89 + 304);
-  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>>>::__rehash<true>(v152, *(v89 + 280));
+  v89 = *(DescriptorType + 2);
+  memset(v151, 0, sizeof(v151));
+  LODWORD(v152) = *(v89 + 304);
+  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>>>::__rehash<true>(v151, *(v89 + 280));
   v90 = *(v89 + 288);
   if (!v90)
   {
@@ -5210,28 +3842,28 @@ LABEL_195:
   do
   {
     v91 = v90[2];
-    if (!*&v152[1])
+    if (!*&v151[1])
     {
       goto LABEL_169;
     }
 
-    v92 = vcnt_s8(v152[1]);
+    v92 = vcnt_s8(v151[1]);
     v92.i16[0] = vaddlv_u8(v92);
     if (v92.u32[0] > 1uLL)
     {
       v93 = v90[2];
-      if (*&v152[1] <= v91)
+      if (*&v151[1] <= v91)
       {
-        v93 = v91 % *&v152[1];
+        v93 = v91 % *&v151[1];
       }
     }
 
     else
     {
-      v93 = (*&v152[1] - 1) & v91;
+      v93 = (*&v151[1] - 1) & v91;
     }
 
-    v94 = *(*v152 + 8 * v93);
+    v94 = *(*v151 + 8 * v93);
     if (!v94 || (v95 = *v94) == 0)
     {
 LABEL_169:
@@ -5248,15 +3880,15 @@ LABEL_169:
 
       if (v92.u32[0] > 1uLL)
       {
-        if (v96 >= *&v152[1])
+        if (v96 >= *&v151[1])
         {
-          v96 %= *&v152[1];
+          v96 %= *&v151[1];
         }
       }
 
       else
       {
-        v96 &= *&v152[1] - 1;
+        v96 &= *&v151[1] - 1;
       }
 
       if (v96 != v93)
@@ -5282,15 +3914,12 @@ LABEL_168:
 
   while (v90);
 LABEL_171:
-  shouldAnchorEntityRequiringClientAnchoring = rf::helpers::shouldAnchorEntityRequiringClientAnchoring(a3, v152);
-  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::WorldTrackingResultCode>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::WorldTrackingResultCode>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::WorldTrackingResultCode>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::WorldTrackingResultCode>>>::~__hash_table(v152);
+  shouldAnchorEntityRequiringClientAnchoring = rf::helpers::shouldAnchorEntityRequiringClientAnchoring(a3, v151);
+  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::WorldTrackingResultCode>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::WorldTrackingResultCode>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::WorldTrackingResultCode>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::WorldTrackingResultCode>>>::~__hash_table(v151);
   if (shouldAnchorEntityRequiringClientAnchoring)
   {
     goto LABEL_172;
   }
-
-LABEL_212:
-  v117 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26184E870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -5325,11 +3954,11 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::updateReceiveIsAncho
 
 uint64_t rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, rf::helpers *a5, int a6)
 {
-  v196 = *MEMORY[0x277D85DE8];
-  v155 = a4;
+  v194 = *MEMORY[0x277D85DE8];
+  v153 = a4;
   REAnchorComponentGetComponentType();
   ComponentByClass = REEntityGetComponentByClass();
-  v152 = ComponentByClass;
+  v150 = ComponentByClass;
   if (ComponentByClass)
   {
     v11 = ComponentByClass;
@@ -5364,11 +3993,11 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(uint64_
 
   REAnchorComponentSetAnchoredLocally();
   CameraAnchor = rf::helpers::getCameraAnchor(a5);
-  rf::helpers::getTransformFromAnchor(a3, &v155, (CameraAnchor + 4), a1 + 288, *(a1 + 576), &v154);
+  rf::helpers::getTransformFromAnchor(a3, &v153, (CameraAnchor + 4), a1 + 288, *(a1 + 576), &v152);
   REAnchorComponentSetWorldTransform();
-  if (REAnchoringComponentGetMode() || (rf::helpers::isWorldAnchoringType() & 1) != 0)
+  if (REAnchoringComponentGetMode() || (rf::helpers::isWorldAnchoringType(v153) & 1) != 0)
   {
-    std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](&v169, a3);
+    std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](&v167, a3);
   }
 
   else
@@ -5377,63 +4006,63 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(uint64_
     *&uu[24] = 0;
     uuid_clear(uu);
     uuid_generate_random(uu);
-    v180 = v154.columns[0];
-    v181 = v154.columns[1];
-    v182 = v154.columns[2];
-    *v183 = v154.columns[3];
-    *&v183[16] = 16842752;
-    *&v183[20] = 0;
-    v183[24] = 0;
-    v184 = 0;
-    v185.columns[0].i8[0] = 0;
-    v185.columns[1].i8[8] = 0;
-    v185.columns[2].i64[0] = 0;
-    uuid_clear(&v185.columns[0].u8[8]);
-    v185.columns[2].i8[8] = 0;
-    BYTE8(v186) = 0;
-    v173 = v182;
-    v174[0] = *v183;
-    *(v174 + 9) = *&v183[9];
-    v169 = *uu;
-    v170 = *&uu[16];
+    v178 = v152.columns[0];
+    v179 = v152.columns[1];
+    v180 = v152.columns[2];
+    *v181 = v152.columns[3];
+    *&v181[16] = 16842752;
+    *&v181[20] = 0;
+    v181[24] = 0;
+    v182 = 0;
+    v183.columns[0].i8[0] = 0;
+    v183.columns[1].i8[8] = 0;
+    v183.columns[2].i64[0] = 0;
+    uuid_clear(&v183.columns[0].u8[8]);
+    v183.columns[2].i8[8] = 0;
+    BYTE8(v184) = 0;
     v171 = v180;
-    v172 = v181;
-    v117 = v184;
-    v184 = 0;
-    v175 = v117;
-    v176 = v185;
-    v177 = v186;
-    v178 = 0;
+    v172[0] = *v181;
+    *(v172 + 9) = *&v181[9];
+    v167 = *uu;
+    v168 = *&uu[16];
+    v169 = v178;
+    v170 = v179;
+    v115 = v182;
+    v182 = 0;
+    v173 = v115;
+    v174 = v183;
+    v175 = v184;
+    v176 = 0;
     if (*(a1 + 96))
     {
-      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](uu, &v169);
-      v118 = *(a1 + 96);
-      if (!v118)
+      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](uu, &v167);
+      v116 = *(a1 + 96);
+      if (!v116)
       {
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      (*(*v118 + 48))(v192);
-      if (v178)
+      (*(*v116 + 48))(v190);
+      if (v176)
       {
         std::__throw_bad_variant_access[abi:ne200100]();
       }
 
-      v169 = *v192;
-      v170 = v193;
+      v167 = *v190;
+      v168 = v191;
       std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
     }
 
-    v119 = *(a1 + 128);
-    if (v119)
+    v117 = *(a1 + 128);
+    if (v117)
     {
-      std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::operator()(v119, &v169);
+      std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::operator()(v117, &v167);
     }
 
     REAnchoringComponentSetDescriptorTransform();
   }
 
-  rf::helpers::getRFUUIDFromAnchor(&v169, uu);
+  rf::helpers::getRFUUIDFromAnchor(&v167, uu);
   v16 = REAnchorComponentSetAnchorIdentifier();
   v17 = rf::PlacementComponentTypeInfo::instance(v16);
   if (*v17)
@@ -5449,19 +4078,19 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(uint64_
   PreviousWorldTransform = REAnchoringComponentGetPreviousWorldTransform();
   if (PreviousWorldTransform)
   {
-    v132 = PreviousWorldTransform[1];
-    v137 = *PreviousWorldTransform;
-    v144 = PreviousWorldTransform[3];
-    v148 = PreviousWorldTransform[2];
-    v197 = __invert_f4(v154);
+    v130 = PreviousWorldTransform[1];
+    v135 = *PreviousWorldTransform;
+    v142 = PreviousWorldTransform[3];
+    v146 = PreviousWorldTransform[2];
+    v195 = __invert_f4(v152);
     v20 = 0;
-    *v192 = v137;
-    v193 = v132;
-    v194 = v148;
-    v195 = v144;
+    *v190 = v135;
+    v191 = v130;
+    v192 = v146;
+    v193 = v142;
     do
     {
-      *&uu[v20] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v197.columns[0], COERCE_FLOAT(*&v192[v20])), v197.columns[1], *&v192[v20], 1), v197.columns[2], *&v192[v20], 2), v197.columns[3], *&v192[v20], 3);
+      *&uu[v20] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v195.columns[0], COERCE_FLOAT(*&v190[v20])), v195.columns[1], *&v190[v20], 1), v195.columns[2], *&v190[v20], 2), v195.columns[3], *&v190[v20], 3);
       v20 += 16;
     }
 
@@ -5474,15 +4103,15 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(uint64_
       {
         Name = REEntityGetName();
         rf::helpers::getBaseAnchorProperties(a3);
-        rf::data_flow::RFUUID::string(uu, v192);
-        if (v193.i8[7] >= 0)
+        rf::data_flow::RFUUID::string(v190, uu);
+        if (v191.i8[7] >= 0)
         {
-          v23 = v192;
+          v23 = v190;
         }
 
         else
         {
-          v23 = *v192;
+          v23 = *v190;
         }
 
         buf.columns[0].i32[0] = 136315394;
@@ -5490,9 +4119,9 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(uint64_
         buf.columns[0].i16[6] = 2082;
         *(&buf.columns[0].i64[1] + 6) = v23;
         _os_log_impl(&dword_2617CB000, v21, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer::anchorEntity(): Transform component not found when attempting to anchor entity %s to anchor %{public}s, adding one now", &buf, 0x16u);
-        if (v193.i8[7] < 0)
+        if (v191.i8[7] < 0)
         {
-          operator delete(*v192);
+          operator delete(*v190);
         }
       }
 
@@ -5518,195 +4147,195 @@ LABEL_30:
   }
 
   v24 = *(a3 + 80);
-  v182 = *(a3 + 64);
-  *v183 = v24;
-  *&v183[9] = *(a3 + 89);
+  v180 = *(a3 + 64);
+  *v181 = v24;
+  *&v181[9] = *(a3 + 89);
   v25 = *(a3 + 16);
   *uu = *a3;
   *&uu[16] = v25;
   v26 = *(a3 + 48);
-  v180 = *(a3 + 32);
-  v181 = v26;
-  v184 = *(a3 + 112);
+  v178 = *(a3 + 32);
+  v179 = v26;
+  v182 = *(a3 + 112);
   v27 = *(a3 + 176);
-  v185.columns[2] = *(a3 + 160);
-  v185.columns[3] = v27;
-  v186 = *(a3 + 192);
+  v183.columns[2] = *(a3 + 160);
+  v183.columns[3] = v27;
+  v184 = *(a3 + 192);
   v28 = *(a3 + 144);
-  v185.columns[0] = *(a3 + 128);
-  v185.columns[1] = v28;
+  v183.columns[0] = *(a3 + 128);
+  v183.columns[1] = v28;
   v29 = *(a3 + 216);
-  v187 = *(a3 + 208);
-  v188 = 0;
+  v185 = *(a3 + 208);
+  v186 = 0;
   v30 = *(a3 + 224);
-  v190 = 0;
-  v189 = 0;
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&v188, v29, v30, (v30 - v29) >> 4);
+  v188 = 0;
+  v187 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&v186, v29, v30, (v30 - v29) >> 4);
   REAnchoringComponentGetDescriptorBounds();
-  v149 = v31;
-  v160 = v182;
-  v161[0] = *v183;
-  *(v161 + 9) = *&v183[9];
-  v156 = *uu;
-  v157 = *&uu[16];
+  v147 = v31;
   v158 = v180;
-  v159 = v181;
+  v159[0] = *v181;
+  *(v159 + 9) = *&v181[9];
+  v154 = *uu;
+  v155 = *&uu[16];
+  v156 = v178;
+  v157 = v179;
+  v160 = v182;
+  v161 = v183;
   v162 = v184;
   v163 = v185;
-  v164 = v186;
-  v165 = v187;
   __p = 0;
-  v167 = 0;
-  v168 = 0;
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&__p, v188, v189, (v189 - v188) >> 4);
-  v145 = __PAIR64__(DWORD2(v164), v164);
+  v165 = 0;
+  v166 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&__p, v186, v187, (v187 - v186) >> 4);
+  v143 = __PAIR64__(DWORD2(v162), v162);
   v32 = 0.0;
-  if (!v165)
+  if (!v163)
   {
     v33 = 0;
-    v34 = v158;
-    v35 = v159;
-    v36 = v160;
-    v37 = v161[0];
-    v38 = v163.columns[0];
-    v39 = v163.columns[1];
-    v40 = v163.columns[2];
-    v41 = v163.columns[3];
-    buf = v163;
+    v34 = v156;
+    v35 = v157;
+    v36 = v158;
+    v37 = v159[0];
+    v38 = v161.columns[0];
+    v39 = v161.columns[1];
+    v40 = v161.columns[2];
+    v41 = v161.columns[3];
+    buf = v161;
     do
     {
-      *&v192[v33 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, COERCE_FLOAT(*&buf.columns[v33])), v35, *buf.columns[v33].f32, 1), v36, buf.columns[v33], 2), v37, buf.columns[v33], 3);
+      *&v190[v33 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, COERCE_FLOAT(*&buf.columns[v33])), v35, *buf.columns[v33].f32, 1), v36, buf.columns[v33], 2), v37, buf.columns[v33], 3);
       ++v33;
     }
 
     while (v33 != 4);
     v42 = 0;
-    v133 = v194;
-    v138 = v195;
-    v127 = v193;
-    v129 = vmulq_f32(*v192, 0);
+    v131 = v192;
+    v136 = v193;
+    v125 = v191;
+    v127 = vmulq_f32(*v190, 0);
     buf.columns[0] = v38;
     buf.columns[1] = v39;
     buf.columns[2] = v40;
     buf.columns[3] = v41;
     do
     {
-      *&v192[v42 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, COERCE_FLOAT(*&buf.columns[v42])), v35, *buf.columns[v42].f32, 1), v36, buf.columns[v42], 2), v37, buf.columns[v42], 3);
+      *&v190[v42 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, COERCE_FLOAT(*&buf.columns[v42])), v35, *buf.columns[v42].f32, 1), v36, buf.columns[v42], 2), v37, buf.columns[v42], 3);
       ++v42;
     }
 
     while (v42 != 4);
-    v120 = v193;
-    v121 = *v192;
-    v123 = v194;
-    v125 = v195;
+    v118 = v191;
+    v119 = *v190;
+    v121 = v192;
+    v123 = v193;
     v43 = rf::helpers::getCameraAnchor(a5);
-    v44 = vmlaq_f32(vaddq_f32(v133, vmlaq_f32(v129, 0, v127)), 0, v138);
-    v130 = vmlaq_f32(vmlaq_f32(vaddq_f32(v120, vmulq_f32(v121, 0)), 0, v123), 0, v125);
-    v134 = v44;
-    v45 = vextq_s8(vuzp1q_s32(v130, v130), v130, 0xCuLL);
-    v46 = vmlaq_f32(vmulq_f32(v45, vnegq_f32(v43[4])), v130, vextq_s8(vuzp1q_s32(v43[4], v43[4]), v43[4], 0xCuLL));
+    v44 = vmlaq_f32(vaddq_f32(v131, vmlaq_f32(v127, 0, v125)), 0, v136);
+    v128 = vmlaq_f32(vmlaq_f32(vaddq_f32(v118, vmulq_f32(v119, 0)), 0, v121), 0, v123);
+    v132 = v44;
+    v45 = vextq_s8(vuzp1q_s32(v128, v128), v128, 0xCuLL);
+    v46 = vmlaq_f32(vmulq_f32(v45, vnegq_f32(v43[4])), v128, vextq_s8(vuzp1q_s32(v43[4], v43[4]), v43[4], 0xCuLL));
     v47 = vextq_s8(vuzp1q_s32(v46, v46), v46, 0xCuLL);
-    v48 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v47, v47), v47, 0xCuLL), vnegq_f32(v130)), v47, v45);
+    v48 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v47, v47), v47, 0xCuLL), vnegq_f32(v128)), v47, v45);
     v49 = vextq_s8(vuzp1q_s32(v48, v48), v48, 0xCuLL);
     v50 = vmulq_f32(v48, v48);
     v45.f32[0] = v50.f32[1] + (v50.f32[2] + v50.f32[0]);
     *v50.f32 = vrsqrte_f32(v45.u32[0]);
     *v50.f32 = vmul_f32(*v50.f32, vrsqrts_f32(v45.u32[0], vmul_f32(*v50.f32, *v50.f32)));
-    v139 = vmulq_n_f32(v49, vmul_f32(*v50.f32, vrsqrts_f32(v45.u32[0], vmul_f32(*v50.f32, *v50.f32))).f32[0]);
-    v51 = vmulq_f32(v44, v139);
+    v137 = vmulq_n_f32(v49, vmul_f32(*v50.f32, vrsqrts_f32(v45.u32[0], vmul_f32(*v50.f32, *v50.f32))).f32[0]);
+    v51 = vmulq_f32(v44, v137);
     v52 = acosf(fminf(fmaxf(v51.f32[2] + vaddv_f32(*v51.f32), -1.0), 1.0));
-    v53 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v139, v139), v139, 0xCuLL), vnegq_f32(v134)), v139, vextq_s8(vuzp1q_s32(v134, v134), v134, 0xCuLL));
+    v53 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v137, v137), v137, 0xCuLL), vnegq_f32(v132)), v137, vextq_s8(vuzp1q_s32(v132, v132), v132, 0xCuLL));
     v54 = vextq_s8(vuzp1q_s32(v53, v53), v53, 0xCuLL);
     v55 = vmulq_f32(v53, v53);
     *&v56 = v55.f32[1] + (v55.f32[2] + v55.f32[0]);
     *v55.f32 = vrsqrte_f32(v56);
     *v55.f32 = vmul_f32(*v55.f32, vrsqrts_f32(v56, vmul_f32(*v55.f32, *v55.f32)));
-    v57 = vmulq_f32(v130, vmulq_n_f32(v54, vmul_f32(*v55.f32, vrsqrts_f32(v56, vmul_f32(*v55.f32, *v55.f32))).f32[0]));
+    v57 = vmulq_f32(v128, vmulq_n_f32(v54, vmul_f32(*v55.f32, vrsqrts_f32(v56, vmul_f32(*v55.f32, *v55.f32))).f32[0]));
     if ((v57.f32[2] + vaddv_f32(*v57.f32)) <= 0.0)
     {
       v52 = -v52;
     }
 
-    v32 = rf::helpers::rotationThatFitsRect(v52, v149, *&v145);
-    v58 = sqrtf(vaddv_f32(vmul_f32(v149, v149)));
+    v32 = rf::helpers::rotationThatFitsRect(v52, v147, *&v143);
+    v58 = sqrtf(vaddv_f32(vmul_f32(v147, v147)));
     if (v58 >= 0.00000011921)
     {
-      v59 = acosf(v149.f32[0] / v58);
-      v140 = fabsf(v58 * cosf(v59 + v32));
-      v60 = acosf(v149.f32[1] / v58);
-      v149 = __PAIR64__(COERCE_UNSIGNED_INT(fabsf(v58 * cosf(v60 + v32))), LODWORD(v140));
+      v59 = acosf(v147.f32[0] / v58);
+      v138 = fabsf(v58 * cosf(v59 + v32));
+      v60 = acosf(v147.f32[1] / v58);
+      v147 = __PAIR64__(COERCE_UNSIGNED_INT(fabsf(v58 * cosf(v60 + v32))), LODWORD(v138));
     }
   }
 
   v61 = rf::helpers::getCameraAnchor(a5);
-  v62 = vmulq_f32(v159, vnegq_f32(v61[4]));
+  v62 = vmulq_f32(v157, vnegq_f32(v61[4]));
   v63 = v62.f32[2] + vaddv_f32(*v62.f32);
   if (v63 <= -0.00000011921)
   {
-    v64 = vmulq_f32(v159, vsubq_f32(v161[0], v61[5]));
+    v64 = vmulq_f32(v157, vsubq_f32(v159[0], v61[5]));
     v65 = (v64.f32[2] + vaddv_f32(*v64.f32)) / v63;
     if (v65 >= 0.0)
     {
-      v131 = v65;
-      v135 = v61[5];
-      v141 = v61[4];
-      v198 = __invert_f4(v163);
-      v126 = v198.columns[0];
-      v128 = v198.columns[1];
-      v122 = v198.columns[3];
-      v124 = v198.columns[2];
-      v198.columns[0] = v158;
-      v198.columns[1] = v159;
-      v198.columns[2] = v160;
-      v198.columns[3] = v161[0];
-      v199 = __invert_f4(v198);
+      v129 = v65;
+      v133 = v61[5];
+      v139 = v61[4];
+      v196 = __invert_f4(v161);
+      v124 = v196.columns[0];
+      v126 = v196.columns[1];
+      v120 = v196.columns[3];
+      v122 = v196.columns[2];
+      v196.columns[0] = v156;
+      v196.columns[1] = v157;
+      v196.columns[2] = v158;
+      v196.columns[3] = v159[0];
+      v197 = __invert_f4(v196);
       v66 = 0;
-      buf = v199;
+      buf = v197;
       do
       {
-        *&v192[v66 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v126, COERCE_FLOAT(*&buf.columns[v66])), v128, *buf.columns[v66].f32, 1), v124, buf.columns[v66], 2), v122, buf.columns[v66], 3);
+        *&v190[v66 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v124, COERCE_FLOAT(*&buf.columns[v66])), v126, *buf.columns[v66].f32, 1), v122, buf.columns[v66], 2), v120, buf.columns[v66], 3);
         ++v66;
       }
 
       while (v66 != 4);
-      v67 = vsubq_f32(v135, vmulq_n_f32(v141, v131));
-      v68 = &v195;
+      v67 = vsubq_f32(v133, vmulq_n_f32(v139, v129));
+      v68 = &v193;
       v69 = *vld2_f32(v68).val;
-      v70 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*v192, v67.f32[0]), v193, *v67.f32, 1), v194, v67, 2);
+      v70 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*v190, v67.f32[0]), v191, *v67.f32, 1), v192, v67, 2);
       v71 = vextq_s8(v70, v70, 8uLL);
       *v71.i8 = vadd_f32(v69, vzip1_s32(*v70.i8, *v71.i8));
-      v72 = vmul_f32(v149, 0x3F0000003F000000);
-      *v70.i8 = vmul_f32(v145, 0x3F0000003F000000);
+      v72 = vmul_f32(v147, 0x3F0000003F000000);
+      *v70.i8 = vmul_f32(v143, 0x3F0000003F000000);
       *v71.i8 = vminnm_f32(vmaxnm_f32(*v71.i8, vsub_f32(v72, *v70.i8)), vsub_f32(*v70.i8, v72));
-      v150 = vtrn2q_s32(vzip1q_s32(xmmword_26185E1B0, v71), xmmword_26185E1B0);
+      v148 = vtrn2q_s32(vzip1q_s32(xmmword_26185E1B0, v71), xmmword_26185E1B0);
       *v70.i8 = vrsqrte_f32(1065353216);
       *v70.i8 = vmul_f32(*v70.i8, vrsqrts_f32(1065353216, vmul_f32(*v70.i8, *v70.i8)));
       v73 = vmulq_n_f32(xmmword_26185DD10, vmul_f32(*v70.i8, vrsqrts_f32(1065353216, vmul_f32(*v70.i8, *v70.i8))).f32[0]);
       v74 = v73.f32[1];
       v75 = v73.f32[2];
-      v142 = v73;
-      v146 = vmulq_f32(v73, v73).f32[0];
+      v140 = v73;
+      v144 = vmulq_f32(v73, v73).f32[0];
       v76 = vmuls_lane_f32(v73.f32[1], *v73.f32, 1);
       v77 = vmuls_lane_f32(v73.f32[0], *v73.f32, 1);
       v78 = vmuls_lane_f32(v73.f32[0], v73, 2);
       v79 = __sincosf_stret(v32);
       v80 = 0;
-      v81 = vmuls_lane_f32(v79.__sinval, *v142.f32, 1);
-      v82 = vmuls_lane_f32(v79.__sinval, v142, 2);
+      v81 = vmuls_lane_f32(v79.__sinval, *v140.f32, 1);
+      v82 = vmuls_lane_f32(v79.__sinval, v140, 2);
       v83 = 1.0 - v79.__cosval;
       v84.i32[3] = 0;
-      v85 = v163.columns[0];
-      v86 = v163.columns[1];
-      v87 = v163.columns[2];
-      v88 = v163.columns[3];
+      v85 = v161.columns[0];
+      v86 = v161.columns[1];
+      v87 = v161.columns[2];
+      v88 = v161.columns[3];
       buf.columns[0] = xmmword_26185DD00;
       buf.columns[1] = xmmword_26185DD10;
       buf.columns[2] = xmmword_26185DD20;
-      buf.columns[3] = v150;
+      buf.columns[3] = v148;
       do
       {
-        *&v192[v80 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v85, COERCE_FLOAT(*&buf.columns[v80])), v86, *buf.columns[v80].f32, 1), v87, buf.columns[v80], 2), v88, buf.columns[v80], 3);
+        *&v190[v80 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v85, COERCE_FLOAT(*&buf.columns[v80])), v86, *buf.columns[v80].f32, 1), v87, buf.columns[v80], 2), v88, buf.columns[v80], 3);
         ++v80;
       }
 
@@ -5714,17 +4343,17 @@ LABEL_30:
       v89 = 0;
       v84.f32[1] = v76 + (v79.__cosval * (1.0 - v76));
       v90.i32[3] = 0;
-      v91.f32[0] = v146 + (v79.__cosval * (1.0 - v146));
+      v91.f32[0] = v144 + (v79.__cosval * (1.0 - v144));
       v91.f32[1] = v82 + (v77 * v83);
       v91.i64[1] = COERCE_UNSIGNED_INT(-(v81 - (v78 * (1.0 - v79.__cosval))));
-      v84.f32[2] = (v79.__sinval * v142.f32[0]) + ((v74 * v75) * v83);
+      v84.f32[2] = (v79.__sinval * v140.f32[0]) + ((v74 * v75) * v83);
       v90.f32[0] = v81 + (v78 * v83);
-      v90.f32[1] = -((v79.__sinval * v142.f32[0]) - ((v74 * v75) * v83));
+      v90.f32[1] = -((v79.__sinval * v140.f32[0]) - ((v74 * v75) * v83));
       v90.f32[2] = (v75 * v75) + (v79.__cosval * (1.0 - (v75 * v75)));
-      v92 = *v192;
-      v93 = v193;
-      v94 = v194;
-      v95 = v195;
+      v92 = *v190;
+      v93 = v191;
+      v94 = v192;
+      v95 = v193;
       buf.columns[0] = v91;
       v84.f32[0] = -(v82 - (v77 * (1.0 - v79.__cosval)));
       buf.columns[1] = v84;
@@ -5732,30 +4361,30 @@ LABEL_30:
       buf.columns[3] = xmmword_26185E1B0;
       do
       {
-        *&v192[v89 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v92, COERCE_FLOAT(*&buf.columns[v89])), v93, *buf.columns[v89].f32, 1), v94, buf.columns[v89], 2), v95, buf.columns[v89], 3);
+        *&v190[v89 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v92, COERCE_FLOAT(*&buf.columns[v89])), v93, *buf.columns[v89].f32, 1), v94, buf.columns[v89], 2), v95, buf.columns[v89], 3);
         ++v89;
       }
 
       while (v89 != 4);
-      v147 = v193;
-      v151 = *v192;
-      v136 = v195;
-      v143 = v194;
+      v145 = v191;
+      v149 = *v190;
+      v134 = v193;
+      v141 = v192;
       RETransformComponentGetComponentType();
       if (!REEntityGetComponentByClass())
       {
         v96 = rf::realityFusionLogObject(0);
         if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
         {
-          *v192 = 0;
-          _os_log_impl(&dword_2617CB000, v96, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Plane Anchor entity require Transform component to function", v192, 2u);
+          *v190 = 0;
+          _os_log_impl(&dword_2617CB000, v96, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Plane Anchor entity require Transform component to function", v190, 2u);
         }
 
         v98 = rf::realityFusionLogObject(v97);
         if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
         {
-          *v192 = 0;
-          _os_log_impl(&dword_2617CB000, v98, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Adding Transform component", v192, 2u);
+          *v190 = 0;
+          _os_log_impl(&dword_2617CB000, v98, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Adding Transform component", v190, 2u);
         }
 
         RETransformComponentGetComponentType();
@@ -5771,7 +4400,7 @@ LABEL_30:
       buf.columns[3] = v103;
       do
       {
-        *&v192[v99 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v151, COERCE_FLOAT(*&buf.columns[v99])), v147, *buf.columns[v99].f32, 1), v143, buf.columns[v99], 2), v136, buf.columns[v99], 3);
+        *&v190[v99 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v149, COERCE_FLOAT(*&buf.columns[v99])), v145, *buf.columns[v99].f32, 1), v141, buf.columns[v99], 2), v134, buf.columns[v99], 3);
         ++v99;
       }
 
@@ -5784,78 +4413,77 @@ LABEL_30:
 
   if (__p)
   {
-    v167 = __p;
+    v165 = __p;
     operator delete(__p);
   }
 
-  if (v188)
+  if (v186)
   {
-    v189 = v188;
-    operator delete(v188);
+    v187 = v186;
+    operator delete(v186);
   }
 
 LABEL_66:
-  v104 = (*(a3 + 256) - 1);
   REAnchorComponentSetEnableShadows();
-  if (!v152)
+  if (!v150)
   {
     REClientAnchorSyncComponentGetComponentType();
-    v105 = REEntityGetComponentByClass();
-    v106 = rf::helpers::needAnchoringInClientProcessForEntity((a1 + 233), a2);
-    rf::helpers::isRemotelyOwned();
+    v104 = REEntityGetComponentByClass();
+    v105 = rf::helpers::needAnchoringInClientProcessForEntity((a1 + 233), a2);
+    rf::helpers::isRemotelyOwned(a2);
     if (*(a1 + 232))
     {
-      v107 = v106 ^ 1;
+      v106 = v105 ^ 1;
     }
 
     else
     {
-      v107 = v105 == 0;
+      v106 = v104 == 0;
     }
 
-    if ((v107 & 1) == 0)
+    if ((v106 & 1) == 0)
     {
       RENetworkComponentGetComponentType();
-      v108 = REEntityGetComponentByClass();
-      if (v108)
+      v107 = REEntityGetComponentByClass();
+      if (v107)
       {
-        MEMORY[0x26670C630](v108, v11);
+        MEMORY[0x26670C630](v107, v11);
       }
     }
 
     REEntityAddExistingComponent();
   }
 
-  rf::helpers::getRFUUIDFromAnchor(a3, v192);
-  v109 = relocalizeEntityIfNeeded(a2, v192, a5, v11, 0);
-  if (v109)
+  rf::helpers::getRFUUIDFromAnchor(a3, v190);
+  v108 = relocalizeEntityIfNeeded(a2, v190, a5, v11, 0);
+  if (v108)
   {
-    v110 = rf::realityFusionLogObject(v109);
-    if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
+    v109 = rf::realityFusionLogObject(v108);
+    if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
     {
-      v111 = REEntityGetName();
+      v110 = REEntityGetName();
       LocalId = REEntityGetLocalId();
-      rf::data_flow::RFUUID::string(v192, &buf);
-      v113 = buf.columns[1].i8[7] >= 0 ? &buf : buf.columns[0].i64[0];
+      rf::data_flow::RFUUID::string(&buf, v190);
+      v112 = buf.columns[1].i8[7] >= 0 ? &buf : buf.columns[0].i64[0];
       *uu = 136315650;
-      *&uu[4] = v111;
+      *&uu[4] = v110;
       *&uu[12] = 2048;
       *&uu[14] = LocalId;
       *&uu[22] = 2082;
-      *&uu[24] = v113;
-      _os_log_impl(&dword_2617CB000, v110, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Relocalizing entity %s, %llu anchored to a new identifier %{public}s", uu, 0x20u);
+      *&uu[24] = v112;
+      _os_log_impl(&dword_2617CB000, v109, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Relocalizing entity %s, %llu anchored to a new identifier %{public}s", uu, 0x20u);
       if (buf.columns[1].i8[7] < 0)
       {
         operator delete(buf.columns[0].i64[0]);
       }
     }
 
-    v114 = *(a1 + 56);
-    if (v114)
+    v113 = *(a1 + 56);
+    if (v113)
     {
       *uu = a2;
       buf.columns[0].i32[0] = 1;
-      (*(*v114 + 48))(v114, uu, &buf);
+      (*(*v113 + 48))(v113, uu, &buf);
     }
   }
 
@@ -5865,9 +4493,7 @@ LABEL_66:
   }
 
   RERelease();
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v169);
-  v116 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v167);
 }
 
 uint64_t rf::data_flow::consumer::AnchorManagementConsumer::externalizeEntity(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
@@ -5914,23 +4540,23 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(uint6
   v122[1] = &v88;
   v123 = v122;
   DescriptorType = REAnchoringComponentGetDescriptorType();
-  v9 = (a5 + 80);
+  v10 = (a5 + 80);
   if (DescriptorType > 3)
   {
     if (DescriptorType > 5)
     {
       if (DescriptorType == 6)
       {
-        v27 = *(a5 + 96);
-        if (!v27)
+        v28 = *(a5 + 96);
+        if (!v28)
         {
           goto LABEL_45;
         }
 
-        while (*(v27 + 76) != 4 || (*(v27 + 147) & 1) == 0)
+        while (*(v28 + 76) != 4 || (*(v28 + 147) & 1) == 0)
         {
-          v27 = *v27;
-          if (!v27)
+          v28 = *v28;
+          if (!v28)
           {
             goto LABEL_45;
           }
@@ -5944,26 +4570,26 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(uint6
 LABEL_40:
           *a1 = 0;
           *(a1 + 272) = 0;
-          goto LABEL_85;
+          return std::__function::__value_func<BOOL ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const&)>::~__value_func[abi:ne200100](v122);
         }
 
-        v27 = *(a5 + 96);
-        if (!v27)
+        v28 = *(a5 + 96);
+        if (!v28)
         {
           goto LABEL_45;
         }
 
-        while (*(v27 + 76) != 5 || (*(v27 + 147) & 1) == 0)
+        while (*(v28 + 76) != 5 || (*(v28 + 147) & 1) == 0)
         {
-          v27 = *v27;
-          if (!v27)
+          v28 = *v28;
+          if (!v28)
           {
             goto LABEL_45;
           }
         }
       }
 
-      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, (v27 + 6));
+      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, (v28 + 6));
       goto LABEL_51;
     }
 
@@ -5974,8 +4600,8 @@ LABEL_40:
       v125 = 0uLL;
       if (std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_7> &>(uu))
       {
-        v41 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_7> &>(uu);
-        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, (v41 + 6));
+        v42 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_7> &>(uu);
+        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, (v42 + 6));
         goto LABEL_51;
       }
     }
@@ -5987,20 +4613,20 @@ LABEL_40:
       v125 = 0uLL;
       if (std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_8> &>(uu))
       {
-        v20 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_8> &>(uu);
-        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, (v20 + 6));
+        v21 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_8> &>(uu);
+        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, (v21 + 6));
 LABEL_51:
-        v45 = 1;
+        v46 = 1;
         goto LABEL_52;
       }
     }
 
 LABEL_45:
-    v45 = 0;
+    v46 = 0;
     *a1 = 0;
 LABEL_52:
-    *(a1 + 272) = v45;
-    goto LABEL_85;
+    *(a1 + 272) = v46;
+    return std::__function::__value_func<BOOL ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const&)>::~__value_func[abi:ne200100](v122);
   }
 
   if (DescriptorType <= 1)
@@ -6009,17 +4635,17 @@ LABEL_52:
     {
       if (DescriptorType == 1)
       {
-        rf::helpers::createRFWorldAnchor(&v88, uu);
+        rf::helpers::createRFWorldAnchor(uu);
         if (a2[12])
         {
           std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v121, uu);
-          v10 = a2[12];
-          if (!v10)
+          v11 = a2[12];
+          if (!v11)
           {
             std::__throw_bad_function_call[abi:ne200100]();
           }
 
-          (*(*v10 + 48))(&v105);
+          (*(*v11 + 48))(&v105);
           if (v136)
           {
             std::__throw_bad_variant_access[abi:ne200100]();
@@ -6031,42 +4657,42 @@ LABEL_52:
         }
 
         REComponentGetEntity();
-        v11 = a2[16];
-        if (v11)
+        v12 = a2[16];
+        if (v12)
         {
-          std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::operator()(v11, uu);
+          std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::operator()(v12, uu);
           *&v105 = &v89;
-          v12 = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::__emplace_unique_key_args<REScene *,std::piecewise_construct_t const&,std::tuple<REScene * const&>,std::tuple<>>(a2 + 31, &v89);
+          v13 = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::__emplace_unique_key_args<REScene *,std::piecewise_construct_t const&,std::tuple<REScene * const&>,std::tuple<>>(a2 + 31, &v89, &std::piecewise_construct, &v105);
           Entity = REComponentGetEntity();
-          v14 = 0x9DDFEA08EB382D69 * ((8 * (Entity & 0x1FFFFFFF) + 8) ^ HIDWORD(Entity));
-          v15 = 0x9DDFEA08EB382D69 * (HIDWORD(Entity) ^ (v14 >> 47) ^ v14);
-          v16 = 0x9DDFEA08EB382D69 * (v15 ^ (v15 >> 47));
-          v17 = v12[4];
-          if (v17)
+          v15 = 0x9DDFEA08EB382D69 * ((8 * (Entity & 0x1FFFFFFF) + 8) ^ HIDWORD(Entity));
+          v16 = 0x9DDFEA08EB382D69 * (HIDWORD(Entity) ^ (v15 >> 47) ^ v15);
+          v17 = 0x9DDFEA08EB382D69 * (v16 ^ (v16 >> 47));
+          v18 = v13[4];
+          if (v18)
           {
-            v18 = vcnt_s8(v17);
-            v18.i16[0] = vaddlv_u8(v18);
-            if (v18.u32[0] > 1uLL)
+            v19 = vcnt_s8(v18);
+            v19.i16[0] = vaddlv_u8(v19);
+            if (v19.u32[0] > 1uLL)
             {
-              v19 = 0x9DDFEA08EB382D69 * (v15 ^ (v15 >> 47));
-              if (v16 >= *&v17)
+              v20 = 0x9DDFEA08EB382D69 * (v16 ^ (v16 >> 47));
+              if (v17 >= *&v18)
               {
-                v19 = v16 % *&v17;
+                v20 = v17 % *&v18;
               }
             }
 
             else
             {
-              v19 = (*&v17 - 1) & v16;
+              v20 = (*&v18 - 1) & v17;
             }
 
-            v76 = *(v12[3] + 8 * v19);
-            if (v76)
+            v77 = *(v13[3] + 8 * v20);
+            if (v77)
             {
-              for (i = *v76; i; i = *i)
+              for (i = *v77; i; i = *i)
               {
-                v78 = i[1];
-                if (v78 == v16)
+                v79 = i[1];
+                if (v79 == v17)
                 {
                   if (i[2] == Entity)
                   {
@@ -6076,20 +4702,20 @@ LABEL_52:
 
                 else
                 {
-                  if (v18.u32[0] > 1uLL)
+                  if (v19.u32[0] > 1uLL)
                   {
-                    if (v78 >= *&v17)
+                    if (v79 >= *&v18)
                     {
-                      v78 %= *&v17;
+                      v79 %= *&v18;
                     }
                   }
 
                   else
                   {
-                    v78 &= *&v17 - 1;
+                    v79 &= *&v18 - 1;
                   }
 
-                  if (v78 != v19)
+                  if (v79 != v20)
                   {
                     break;
                   }
@@ -6110,18 +4736,18 @@ LABEL_83:
       goto LABEL_40;
     }
 
-    if (rf::helpers::getInternalActiveCamera())
+    if (rf::helpers::getInternalActiveCamera(a3))
     {
       REEntityGetComponent();
       WorldMatrix4x4F = RETransformComponentGetWorldMatrix4x4F();
-      v83 = v30;
-      v84 = v29;
-      v81 = v32;
-      v82 = v31;
-      v33 = rf::helpers::kCameraIdentifier(WorldMatrix4x4F);
-      v34 = v33[1];
-      *uu = *v33;
-      v125 = v34;
+      v83 = v31;
+      v84 = v30;
+      v81 = v33;
+      v82 = v32;
+      v34 = rf::helpers::kCameraIdentifier(WorldMatrix4x4F);
+      v35 = v34[1];
+      *uu = *v34;
+      v125 = v35;
       v126 = v84;
       v127 = v83;
       v128 = v82;
@@ -6136,52 +4762,52 @@ LABEL_83:
       uuid_clear(&v131 + 8);
       BYTE8(v133) = 0;
       BYTE8(v135) = 0;
-      v35 = v127;
-      v36 = *v129;
+      v36 = v127;
+      v37 = *v129;
       *(a1 + 64) = v128;
-      *(a1 + 80) = v36;
+      *(a1 + 80) = v37;
       *(a1 + 89) = *&v129[9];
-      v37 = v125;
+      v38 = v125;
       *a1 = *uu;
-      *(a1 + 16) = v37;
+      *(a1 + 16) = v38;
       *(a1 + 32) = v126;
-      *(a1 + 48) = v35;
-      v38 = v130;
+      *(a1 + 48) = v36;
+      v39 = v130;
       v130 = 0;
-      *(a1 + 112) = v38;
-      v39 = v134;
+      *(a1 + 112) = v39;
+      v40 = v134;
       *(a1 + 160) = v133;
-      *(a1 + 176) = v39;
+      *(a1 + 176) = v40;
       *(a1 + 192) = v135;
-      v40 = v132;
+      v41 = v132;
       *(a1 + 128) = v131;
-      *(a1 + 144) = v40;
+      *(a1 + 144) = v41;
     }
 
     else
     {
       CameraAnchor = rf::helpers::getCameraAnchor((a5 + 80));
-      v58 = *CameraAnchor;
-      v59 = *(CameraAnchor + 2);
+      v59 = *CameraAnchor;
+      v60 = *(CameraAnchor + 2);
       *(a1 + 16) = *(CameraAnchor + 1);
-      *(a1 + 32) = v59;
-      *a1 = v58;
-      v60 = *(CameraAnchor + 3);
-      v61 = *(CameraAnchor + 4);
-      v62 = *(CameraAnchor + 5);
+      *(a1 + 32) = v60;
+      *a1 = v59;
+      v61 = *(CameraAnchor + 3);
+      v62 = *(CameraAnchor + 4);
+      v63 = *(CameraAnchor + 5);
       *(a1 + 89) = *(CameraAnchor + 89);
-      *(a1 + 64) = v61;
-      *(a1 + 80) = v62;
-      *(a1 + 48) = v60;
+      *(a1 + 64) = v62;
+      *(a1 + 80) = v63;
+      *(a1 + 48) = v61;
       *(a1 + 112) = CameraAnchor[14];
       *(a1 + 128) = *(CameraAnchor + 8);
-      v63 = *(CameraAnchor + 9);
-      v64 = *(CameraAnchor + 10);
-      v65 = *(CameraAnchor + 12);
+      v64 = *(CameraAnchor + 9);
+      v65 = *(CameraAnchor + 10);
+      v66 = *(CameraAnchor + 12);
       *(a1 + 176) = *(CameraAnchor + 11);
-      *(a1 + 192) = v65;
-      *(a1 + 144) = v63;
-      *(a1 + 160) = v64;
+      *(a1 + 192) = v66;
+      *(a1 + 144) = v64;
+      *(a1 + 160) = v65;
     }
 
     *(a1 + 256) = 0;
@@ -6196,8 +4822,8 @@ LABEL_83:
     v90[1] = 0uLL;
     if (std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_1> &>(v90))
     {
-      v42 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_1> &>(v90);
-      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](uu, (v42 + 6));
+      v43 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_1> &>(v90);
+      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](uu, (v43 + 6));
       if (v136 == -1)
       {
         std::__throw_bad_variant_access[abi:ne200100]();
@@ -6226,9 +4852,9 @@ LABEL_83:
       v105 = v93;
       v106 = v94;
       v107 = v95;
-      v43 = v99;
+      v44 = v99;
       v99 = 0;
-      v111 = v43;
+      v111 = v44;
       v114 = v102;
       v115 = v103;
       v116 = v104;
@@ -6243,50 +4869,50 @@ LABEL_83:
       if ((*(*v123 + 48))(v123, &v105))
       {
         std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a1, &v105);
-        v44 = 1;
+        v45 = 1;
       }
 
       else
       {
-        v44 = 0;
+        v45 = 0;
         *a1 = 0;
       }
 
-      *(a1 + 272) = v44;
+      *(a1 + 272) = v45;
       std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v105);
 
 LABEL_84:
       std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
-      goto LABEL_85;
+      return std::__function::__value_func<BOOL ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const&)>::~__value_func[abi:ne200100](v122);
     }
 
     goto LABEL_40;
   }
 
-  v21 = REComponentGetEntity();
-  v22 = rf::PlacementComponentTypeInfo::instance(v21);
-  if (*v22)
+  v22 = REComponentGetEntity();
+  v23 = rf::PlacementComponentTypeInfo::instance(v22);
+  if (*v23)
   {
-    v23 = v22;
+    v24 = v23;
     CustomComponent = REEntityGetCustomComponent();
     if (CustomComponent)
     {
-      v25 = std::function<unsigned char const* ()(REComponent *)>::operator()((v23 + 1), CustomComponent);
+      v26 = std::function<unsigned char const* ()(REComponent *)>::operator()((v24 + 1), CustomComponent);
       LOBYTE(v125) = 0;
       *(&v125 + 1) = 0;
       uuid_clear(uu);
-      *uu = *v25;
-      v26 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(v9, uu);
-      if (v26)
+      *uu = *v26;
+      v27 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(v10, uu);
+      if (v27)
       {
         if (!v123)
         {
           std::__throw_bad_function_call[abi:ne200100]();
         }
 
-        if ((*(*v123 + 48))(v123, v26 + 6))
+        if ((*(*v123 + 48))(v123, v27 + 6))
         {
-          std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, (v26 + 6));
+          std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, (v27 + 6));
           goto LABEL_51;
         }
       }
@@ -6295,29 +4921,29 @@ LABEL_84:
     }
   }
 
-  if (rf::helpers::getInternalActiveCamera())
+  if (rf::helpers::getInternalActiveCamera(a3))
   {
     REEntityGetComponent();
     RETransformComponentGetWorldMatrix4x4F();
-    *uu = v52;
-    v125 = v53;
-    v54 = uu;
-    v126 = v55;
-    v127 = v56;
+    *uu = v53;
+    v125 = v54;
+    v55 = uu;
+    v126 = v56;
+    v127 = v57;
   }
 
   else
   {
     uu[0] = 0;
-    v54 = (rf::helpers::getCameraAnchor(v9) + 4);
+    v55 = (rf::helpers::getCameraAnchor(v10) + 4);
   }
 
-  v66 = *(v54 + 1);
-  v93 = *v54;
-  v94 = v66;
-  v67 = *(v54 + 3);
-  v95 = *(v54 + 2);
-  v96 = v67;
+  v67 = *(v55 + 1);
+  v93 = *v55;
+  v94 = v67;
+  v68 = *(v55 + 3);
+  v95 = *(v55 + 2);
+  v96 = v68;
   *&v105 = a5 + 80;
   *(&v105 + 1) = &v93;
   *&v106 = a5 + 80;
@@ -6329,14 +4955,14 @@ LABEL_84:
   v86 = 0;
   v87 = 0;
   DescriptorAnchorIdentifier = 0;
-  std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_5> &>(uu, &v105, v46, v47, v48, v49, v50, v51);
+  std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_5> &>(uu, &v105, v47, v48, v49, v50, v51, v52);
   if (*&uu[8])
   {
-    v74 = 0;
+    v75 = 0;
     do
     {
       std::ranges::filter_view[abi:llvm18_nua]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_5>::__iterator::operator++[abi:ne200100](uu);
-      ++v74;
+      ++v75;
     }
 
     while (*&uu[8]);
@@ -6344,15 +4970,15 @@ LABEL_84:
 
   else
   {
-    v74 = 0;
+    v75 = 0;
   }
 
-  std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_5> &>(v90, &v105, v68, v69, v70, v71, v72, v73);
+  std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_5> &>(v90, &v105, v69, v70, v71, v72, v73, v74);
   p_DescriptorAnchorIdentifier = &DescriptorAnchorIdentifier;
   v92 = 0;
-  if (v74)
+  if (v75)
   {
-    if (v74 < 0xE38E38E38E38E4)
+    if (v75 < 0xE38E38E38E38E4)
     {
       operator new();
     }
@@ -6363,34 +4989,31 @@ LABEL_84:
   std::__introsort<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,false>(DescriptorAnchorIdentifier, v86, 0, 1);
   if (v86 == DescriptorAnchorIdentifier)
   {
-    v75 = 0;
+    v76 = 0;
     *a1 = 0;
   }
 
   else
   {
     std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, DescriptorAnchorIdentifier);
-    v75 = 1;
+    v76 = 1;
   }
 
-  *(a1 + 272) = v75;
+  *(a1 + 272) = v76;
   *uu = &DescriptorAnchorIdentifier;
   std::vector<std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>>>::__destroy_vector::operator()[abi:ne200100](uu);
-LABEL_85:
-  result = std::__function::__value_func<BOOL ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const&)>::~__value_func[abi:ne200100](v122);
-  v80 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<BOOL ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const&)>::~__value_func[abi:ne200100](v122);
 }
 
 rf *rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(uint64_t a1, uint64_t a2, uint64_t a3, rf::helpers *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   REAnchorComponentGetComponentType();
   v8 = REEntityGetOrAddComponentByClass();
   REAnchoringComponentGetComponentType();
   ComponentByClass = REEntityGetComponentByClass();
-  rf::helpers::getRFUUIDFromAnchor(a3, v25);
-  v9 = relocalizeEntityIfNeeded(a2, v25, a4, v8, 1u);
+  rf::helpers::getRFUUIDFromAnchor(a3, v24);
+  v9 = relocalizeEntityIfNeeded(a2, v24, a4, v8, 1u);
   if (v9)
   {
     v10 = rf::realityFusionLogObject(v9);
@@ -6398,16 +5021,16 @@ rf *rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(ui
     {
       Name = REEntityGetName();
       LocalId = REEntityGetLocalId();
-      rf::data_flow::RFUUID::string(v25, __p);
-      v13 = v30 >= 0 ? __p : *__p;
+      rf::data_flow::RFUUID::string(__p, v24);
+      v13 = v29 >= 0 ? __p : *__p;
       *buf = 136315650;
       *&buf[4] = Name;
       *&buf[12] = 2048;
       *&buf[14] = LocalId;
-      v23 = 2082;
-      v24 = v13;
+      v22 = 2082;
+      v23 = v13;
       _os_log_impl(&dword_2617CB000, v10, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Relocalizing entity %s, %llu, holding anchor with identifier %{public}s", buf, 0x20u);
-      if (v30 < 0)
+      if (v29 < 0)
       {
         operator delete(*__p);
       }
@@ -6427,48 +5050,53 @@ rf *rf::data_flow::consumer::AnchorManagementConsumer::updateEntityWithAnchor(ui
   REAnchorComponentSetWorldTransform();
   if (REAnchorComponentGetAnchoredLocally())
   {
-    result = rf::helpers::isRemotelyOwned();
+    return rf::helpers::isRemotelyOwned(a2);
   }
 
-  else
+  REAnchorComponentSetAnchoredLocally();
+  result = rf::helpers::isRemotelyOwned(a2);
+  if (result)
   {
-    REAnchorComponentSetAnchoredLocally();
-    result = rf::helpers::isRemotelyOwned();
-    if (result)
+    v17 = rf::realityFusionLogObject(result);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = rf::realityFusionLogObject(result);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = REEntityGetName();
+      rf::helpers::getRFUUIDFromAnchor(a3, buf);
+      rf::data_flow::RFUUID::string(v24, buf);
+      if (v25 >= 0)
       {
-        v18 = REEntityGetName();
-        rf::helpers::getRFUUIDFromAnchor(a3, buf);
-        rf::data_flow::RFUUID::string(buf, v25);
-        v19 = v26 >= 0 ? v25 : v25[0];
-        *__p = 136315394;
-        *&__p[4] = v18;
-        v28 = 2082;
-        v29 = v19;
-        _os_log_impl(&dword_2617CB000, v17, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Anchoring remote entity %s to anchor %{public}s.", __p, 0x16u);
-        if (v26 < 0)
-        {
-          operator delete(v25[0]);
-        }
+        v19 = v24;
       }
 
-      result = *(a1 + 56);
-      if (result)
+      else
       {
-        result = std::function<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator()(result, a2, 1);
+        v19 = v24[0];
       }
+
+      *__p = 136315394;
+      *&__p[4] = v18;
+      v27 = 2082;
+      v28 = v19;
+      _os_log_impl(&dword_2617CB000, v17, OS_LOG_TYPE_DEFAULT, "AnchorManagementConsumer: Anchoring remote entity %s to anchor %{public}s.", __p, 0x16u);
+      if (v25 < 0)
+      {
+        operator delete(v24[0]);
+      }
+    }
+
+    result = *(a1 + 56);
+    if (result)
+    {
+      return std::function<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator()(result, a2, 1);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorComponent(REScene *,REEntity *,REComponent *,REComponent *,rf::ARStateData const&,BOOL,unsigned long long &)::$_0::operator()(unint64_t **a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = a1[1];
   v2 = **a1 + 1;
   **a1 = v2;
@@ -6477,58 +5105,55 @@ void rf::data_flow::consumer::AnchorManagementConsumer::matchOrUpdateAnchorCompo
     v4 = rf::realityFusionLogObject(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = **a1;
-      v7 = v1[79];
-      v8 = 134218240;
-      v9 = v6;
-      v10 = 2048;
-      v11 = v7;
-      _os_log_error_impl(&dword_2617CB000, v4, OS_LOG_TYPE_ERROR, "AnchorManagementConsumer: %llu anchoring updated this frame, which more than %llu, this could cause backboardd hang", &v8, 0x16u);
+      v5 = **a1;
+      v6 = v1[79];
+      v7 = 134218240;
+      v8 = v5;
+      v9 = 2048;
+      v10 = v6;
+      _os_log_error_impl(&dword_2617CB000, v4, OS_LOG_TYPE_ERROR, "AnchorManagementConsumer: %llu anchoring updated this frame, which more than %llu, this could cause backboardd hang", &v7, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t rf::data_flow::consumer::AnchorManagementConsumer::matchAndReanchorEntity(uint64_t a1, uint64_t a2, uint64_t a3, rf::helpers *a4)
+uint64_t rf::data_flow::consumer::AnchorManagementConsumer::matchAndReanchorEntity(uint64_t a1, uint64_t a2, __int128 *a3, rf::helpers *a4)
 {
-  v108 = *MEMORY[0x277D85DE8];
-  if (*(a3 + 256) != 1 || *rf::PlacementComponentTypeInfo::instance(a1) && REEntityGetCustomComponent())
+  v107 = *MEMORY[0x277D85DE8];
+  if (*(a3 + 64) != 1 || *rf::PlacementComponentTypeInfo::instance(a1) && REEntityGetCustomComponent())
   {
-    v8 = 0;
-    goto LABEL_52;
+    return 0;
   }
 
-  if (*(a3 + 256) != 1)
+  if (*(a3 + 64) != 1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  v9 = *(a3 + 80);
-  v96 = *(a3 + 64);
-  v97[0] = v9;
-  *(v97 + 9) = *(a3 + 89);
-  v10 = *(a3 + 16);
-  v92 = *a3;
-  v93 = v10;
-  v11 = *(a3 + 32);
-  v95 = *(a3 + 48);
-  v94 = v11;
-  v98 = *(a3 + 112);
-  v12 = *(a3 + 176);
-  v101 = *(a3 + 160);
-  v102 = v12;
-  v103 = *(a3 + 192);
-  v13 = *(a3 + 144);
-  v99 = *(a3 + 128);
-  v100 = v13;
-  v14 = *(a3 + 216);
-  v104 = *(a3 + 208);
-  v105 = 0;
-  v15 = *(a3 + 224);
-  v107 = 0;
+  v9 = a3[5];
+  v95 = a3[4];
+  v96[0] = v9;
+  *(v96 + 9) = *(a3 + 89);
+  v10 = a3[1];
+  v91 = *a3;
+  v92 = v10;
+  v11 = a3[2];
+  v94 = a3[3];
+  v93 = v11;
+  v97 = *(a3 + 14);
+  v12 = a3[11];
+  v100 = a3[10];
+  v101 = v12;
+  v102 = a3[12];
+  v13 = a3[9];
+  v98 = a3[8];
+  v99 = v13;
+  v14 = *(a3 + 27);
+  v103 = *(a3 + 26);
+  v104 = 0;
+  v15 = *(a3 + 28);
   v106 = 0;
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&v105, v14, v15, (v15 - v14) >> 4);
+  v105 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&v104, v14, v15, (v15 - v14) >> 4);
   REAnchoringComponentGetComponentType();
   ComponentByClass = REEntityGetComponentByClass();
   if (REAnchoringComponentGetDescriptorType() == 3)
@@ -6536,7 +5161,7 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::matchAndReanchorEnti
     DescriptorAlignment = REAnchoringComponentGetDescriptorAlignment();
     DescriptorClassification = REAnchoringComponentGetDescriptorClassification();
     REAnchoringComponentGetDescriptorBounds();
-    v52 = v17;
+    v51 = v17;
     RETransformComponentGetComponentType();
     if (!REEntityGetComponentByClass())
     {
@@ -6553,46 +5178,46 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::matchAndReanchorEnti
     }
 
     RETransformComponentGetLocalSRT();
-    v48 = v19;
+    v47 = v19;
     CameraAnchor = rf::helpers::getCameraAnchor(a4);
-    rf::helpers::getTransformFromAnchor(a3, &ComponentByClass, (CameraAnchor + 4), a1 + 288, *(a1 + 576), &v53);
+    rf::helpers::getTransformFromAnchor(a3, &ComponentByClass, (CameraAnchor + 4), a1 + 288, *(a1 + 576), &v52);
     v21 = *(a4 + 2);
     if (v21)
     {
-      v22 = vaddq_f32(v56, vmlaq_laneq_f32(vmlaq_f32(vmulq_n_f32(v53, v48.f32[0]), 0, v54), v55, v48, 2));
-      v46 = vdivq_f32(v22, vdupq_laneq_s32(v22, 3));
-      v47 = vmlaq_f32(vaddq_f32(vmulq_f32(v53, 0), v54), 0, v55);
-      v49 = vnegq_f32(v47);
-      v50 = vaddq_f32(v46, vmulq_f32(v47, vdupq_n_s32(0x3D4CCCCDu)));
+      v22 = vaddq_f32(v55, vmlaq_laneq_f32(vmlaq_f32(vmulq_n_f32(v52, v47.f32[0]), 0, v53), v54, v47, 2));
+      v45 = vdivq_f32(v22, vdupq_laneq_s32(v22, 3));
+      v46 = vmlaq_f32(vaddq_f32(vmulq_f32(v52, 0), v53), 0, v54);
+      v48 = vnegq_f32(v46);
+      v49 = vaddq_f32(v45, vmulq_f32(v46, vdupq_n_s32(0x3D4CCCCDu)));
       while (1)
       {
         std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](buf, (v21 + 6));
-        if (v91 != 1)
+        if (v90 != 1)
         {
           std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
           goto LABEL_31;
         }
 
-        v64 = v80;
-        v65[0] = *v81;
-        *(v65 + 9) = *&v81[9];
-        v60 = *buf;
+        v63 = v79;
+        v64[0] = *v80;
+        *(v64 + 9) = *&v80[9];
+        v59 = *buf;
+        v60 = v76;
         v61 = v77;
         v62 = v78;
-        v63 = v79;
-        v66 = v82;
+        v65 = v81;
+        v68 = v84;
         v69 = v85;
         v70 = v86;
-        v71 = v87;
+        v66 = v82;
         v67 = v83;
-        v68 = v84;
-        v72 = v88;
+        v71 = v87;
         __p = 0;
+        v73 = 0;
         v74 = 0;
-        v75 = 0;
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&__p, v89, v90, (v90 - v89) >> 4);
-        v23 = v61 ? v60 : &v60;
-        v24 = v93 ? v92 : &v92;
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&__p, v88, v89, (v89 - v88) >> 4);
+        v23 = v60 ? v59 : &v59;
+        v24 = v92 ? v91 : &v91;
         if (!uuid_compare(v23, v24))
         {
           break;
@@ -6600,9 +5225,9 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::matchAndReanchorEnti
 
         if (DescriptorAlignment != 255)
         {
-          if (v72)
+          if (v71)
           {
-            if (v72 != 1 || (DescriptorAlignment & 2) == 0)
+            if (v71 != 1 || (DescriptorAlignment & 2) == 0)
             {
               break;
             }
@@ -6614,42 +5239,42 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::matchAndReanchorEnti
           }
         }
 
-        v26 = rf::helpers::classificationMatches(SHIDWORD(v72), DescriptorClassification);
+        v26 = rf::helpers::classificationMatches(SHIDWORD(v71), DescriptorClassification);
         v25 = 1;
         if (v26)
         {
-          if (*&v71 >= *&v52 && *(&v71 + 2) >= *(&v52 + 1))
+          if (v70.f32[0] >= *&v51 && v70.f32[2] >= *(&v51 + 1))
           {
-            v34 = rf::helpers::rayPlaneHitTestInBounds(v50, v49, v62, v63, v64, v65[0], v26, v27, v28, v29, v30, v31, v32, v33, v69, v70, v67, v68, v69);
+            v34 = rf::helpers::rayPlaneHitTestInBounds(v49, v48, v61, v62, v63, v64[0], v26, v27, v28, v29, v30, v31, v32, v33, v68, v69, v66, v67, v68, v69, v70);
             if ((v34 & 0x100000000) != 0 && *&v34 >= 0.0)
             {
               v35 = 0;
-              v36 = v62;
-              v37 = v63;
-              v38 = v64;
-              v39 = v65[0];
-              v58[0] = v67;
-              v58[1] = v68;
-              v58[2] = v69;
-              v58[3] = v70;
+              v36 = v61;
+              v37 = v62;
+              v38 = v63;
+              v39 = v64[0];
+              v57[0] = v66;
+              v57[1] = v67;
+              v57[2] = v68;
+              v57[3] = v69;
               do
               {
-                v58[v35 + 4] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v36, COERCE_FLOAT(v58[v35])), v37, *&v58[v35], 1), v38, v58[v35], 2), v39, v58[v35], 3);
+                v57[v35 + 4] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v36, COERCE_FLOAT(v57[v35])), v37, *&v57[v35], 1), v38, v57[v35], 2), v39, v57[v35], 3);
                 ++v35;
               }
 
               while (v35 != 4);
               v40 = vmlaq_f32(vaddq_f32(vmulq_f32(v36, 0), v37), 0, v38);
-              v41 = vabdq_f32(v47, v40);
+              v41 = vabdq_f32(v46, v40);
               v25 = 1;
               if (v41.f32[0] <= 0.1 && v41.f32[1] <= 0.1 && v41.f32[2] <= 0.1)
               {
-                v42 = vmulq_f32(v40, vsubq_f32(v46, v58[7]));
+                v42 = vmulq_f32(v40, vsubq_f32(v45, v57[7]));
                 if (fabsf(v42.f32[2] + vaddv_f32(*v42.f32)) <= 0.05)
                 {
-                  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v59, buf);
-                  rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(a1, a2, v59, ComponentByClass, a4, 0);
-                  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v59);
+                  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v58, buf);
+                  rf::data_flow::consumer::AnchorManagementConsumer::anchorEntity(a1, a2, v58, ComponentByClass, a4, 0);
+                  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v58);
                   v43 = *(a1 + 56);
                   if (v43)
                   {
@@ -6668,7 +5293,7 @@ uint64_t rf::data_flow::consumer::AnchorManagementConsumer::matchAndReanchorEnti
 LABEL_26:
         if (__p)
         {
-          v74 = __p;
+          v73 = __p;
           operator delete(__p);
         }
 
@@ -6695,14 +5320,12 @@ LABEL_31:
 LABEL_48:
   v8 = 0;
 LABEL_49:
-  if (v105)
+  if (v104)
   {
-    v106 = v105;
-    operator delete(v105);
+    v105 = v104;
+    operator delete(v104);
   }
 
-LABEL_52:
-  v44 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -6751,38 +5374,33 @@ uint64_t std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data
 
 void *std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_1> &>(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24) == 1)
   {
-    i = *(a1 + 16);
+    return *(a1 + 16);
   }
 
-  else
+  for (i = *(*a1 + 16); i; i = *i)
   {
-    for (i = *(*a1 + 16); i; i = *i)
+    rf::helpers::getRFUUIDFromAnchor((i + 6), v5);
+    if (v6)
     {
-      rf::helpers::getRFUUIDFromAnchor((i + 6), v6);
-      if (v7)
-      {
-        v3 = v6[0];
-      }
-
-      else
-      {
-        v3 = v6;
-      }
-
-      if (!uuid_compare(v3, **(a1 + 8)))
-      {
-        break;
-      }
+      v3 = v5[0];
     }
 
-    *(a1 + 16) = i;
-    *(a1 + 24) = 1;
+    else
+    {
+      v3 = v5;
+    }
+
+    if (!uuid_compare(v3, **(a1 + 8)))
+    {
+      break;
+    }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
+  *(a1 + 16) = i;
+  *(a1 + 24) = 1;
   return i;
 }
 
@@ -6815,8 +5433,7 @@ void *std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_v
 
   for (i = *(*a1 + 16); i; i = *i)
   {
-    v3 = **(a1 + 8);
-    if (rf::helpers::objectAnchorMatches((i + 6)))
+    if (rf::helpers::objectAnchorMatches((i + 6), **(a1 + 8)))
     {
       break;
     }
@@ -6827,7 +5444,7 @@ void *std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_v
   return i;
 }
 
-void *rf::data_flow::consumer::AnchorManagementConsumer::setEntitledAnchoringTypeAllowedForEntity(void *result, unint64_t a2, int a3, char a4)
+void *rf::data_flow::consumer::AnchorManagementConsumer::setEntitledAnchoringTypeAllowedForEntity(void *result, uint64_t a2, int a3, char a4)
 {
   v6 = a2;
   if (a3 > 4)
@@ -6836,17 +5453,17 @@ void *rf::data_flow::consumer::AnchorManagementConsumer::setEntitledAnchoringTyp
     {
       case 5:
         v7 = &v6;
-        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 60, &v6);
+        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 120, &v6, &std::piecewise_construct, &v7);
         v5 = result + 27;
         break;
       case 8:
         v7 = &v6;
-        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 60, &v6);
+        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 120, &v6, &std::piecewise_construct, &v7);
         v5 = result + 28;
         break;
       case 12:
         v7 = &v6;
-        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 60, &v6);
+        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 120, &v6, &std::piecewise_construct, &v7);
         v5 = result + 29;
         break;
       default:
@@ -6860,17 +5477,17 @@ void *rf::data_flow::consumer::AnchorManagementConsumer::setEntitledAnchoringTyp
     {
       case 1:
         v7 = &v6;
-        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 60, &v6);
+        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 120, &v6, &std::piecewise_construct, &v7);
         v5 = result + 3;
         break;
       case 3:
         v7 = &v6;
-        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 60, &v6);
+        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 120, &v6, &std::piecewise_construct, &v7);
         v5 = result + 25;
         break;
       case 4:
         v7 = &v6;
-        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 60, &v6);
+        result = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 120, &v6, &std::piecewise_construct, &v7);
         v5 = result + 26;
         break;
       default:
@@ -6884,12 +5501,12 @@ void *rf::data_flow::consumer::AnchorManagementConsumer::setEntitledAnchoringTyp
 
 void *rf::data_flow::consumer::AnchorManagementConsumer::getEntitledAnchoringTypeAllowedForEntity(uint64_t a1, unint64_t a2, int a3)
 {
-  v7[0] = a2;
-  result = std::__hash_table<std::__hash_value_type<unsigned long,std::any>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::any>>>::find<unsigned long>((a1 + 480), v7);
+  v7 = a2;
+  result = std::__hash_table<std::__hash_value_type<unsigned long,std::any>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::any>>>::find<unsigned long>((a1 + 480), &v7);
   if (result)
   {
-    v7[2] = v7;
-    v6 = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 480), v7);
+    v8 = &v7;
+    v6 = std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 480), &v7, &std::piecewise_construct, &v8);
     return rf::helpers::authorizedTypeForEntitledAnchoringTypesConfig(a3, v6 + 24);
   }
 
@@ -6898,41 +5515,37 @@ void *rf::data_flow::consumer::AnchorManagementConsumer::getEntitledAnchoringTyp
 
 void *std::function<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::function<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::function<void ()(NSSet<ARReferenceImage *> *)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
@@ -6958,57 +5571,57 @@ uint64_t relocalizeEntityIfNeeded(uint64_t a1, uint64_t a2, void *a3, uint64_t a
   return result;
 }
 
-uint64_t rf::data_flow::consumer::AnchorManagementConsumer::sceneRemovalEventHandle(uint64_t a1, uint64_t a2)
+uint64_t rf::data_flow::consumer::AnchorManagementConsumer::sceneRemovalEventHandle(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   UniqueName = RESceneGetUniqueName();
-  std::string::basic_string[abi:ne200100]<0>(&v10, UniqueName);
-  *&v8 = a1;
-  *(&v8 + 1) = a2;
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v11, UniqueName);
+  *&v9 = a1;
+  *(&v9 + 1) = a2;
+  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v9, v10.__r_.__value_.__l.__data_, v10.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v10, v11.__r_.__value_.__l.__data_, v11.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v9 = v10;
+    v10 = v11;
   }
 
   MEMORY[0x26670C400]("RESceneWillRemoveEvent");
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3321888768;
-  v11[2] = ___ZZN2rf9data_flow8consumer24AnchorManagementConsumer23sceneRemovalEventHandleEP7RESceneP10REEventBusENK3__0cvU13block_pointerF20REEventHandlerResultPvPKvEEv_block_invoke;
-  v11[3] = &__block_descriptor_72_ea8_32c108_ZTSKZN2rf9data_flow8consumer24AnchorManagementConsumer23sceneRemovalEventHandleEP7RESceneP10REEventBusE3__0_e14_I24__0_v8r_v16l;
-  v12 = v8;
-  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3321888768;
+  v12[2] = ___ZZN2rf9data_flow8consumer24AnchorManagementConsumer23sceneRemovalEventHandleEP7RESceneP10REEventBusENK3__0cvU13block_pointerF20REEventHandlerResultPvPKvEEv_block_invoke;
+  v12[3] = &__block_descriptor_72_ea8_32c108_ZTSKZN2rf9data_flow8consumer24AnchorManagementConsumer23sceneRemovalEventHandleEP7RESceneP10REEventBusE3__0_e14_I24__0_v8r_v16l;
+  v13 = v9;
+  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, v9.__r_.__value_.__l.__data_, v9.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&__p, v10.__r_.__value_.__l.__data_, v10.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v9;
+    __p = v10;
   }
 
-  v5 = MEMORY[0x26670D530](v11);
+  v6 = MEMORY[0x26670D530](v12);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v6 = REEventBusSubscribeBlock();
-
-  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v9.__r_.__value_.__l.__data_);
-  }
+  v7 = REEventBusSubscribeBlock();
 
   if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v10.__r_.__value_.__l.__data_);
   }
 
-  return v6;
+  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v11.__r_.__value_.__l.__data_);
+  }
+
+  return v7;
 }
 
 void sub_2618519E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -7023,11 +5636,9 @@ void sub_2618519E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL rf::data_flow::consumer::AnchorManagementConsumer::addOrUpdateAnchorSourceComponentData(rf::AnchorSourceComponent *a1, uint64_t a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (*rf::AnchorSourceComponent::instance(a1))
   {
-    v35 = 0u;
-    v36 = 0u;
     v33 = 0u;
     v34 = 0u;
     v31 = 0u;
@@ -7038,79 +5649,81 @@ BOOL rf::data_flow::consumer::AnchorManagementConsumer::addOrUpdateAnchorSourceC
     v28 = 0u;
     v25 = 0u;
     v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     *uu = 0u;
     uuid_clear(uu);
-    v26 = xmmword_26185DD00;
-    v27 = xmmword_26185DD10;
-    v28 = xmmword_26185DD20;
-    v29 = xmmword_26185E1B0;
-    *&v30 = 16842752;
-    BYTE8(v30) = 0;
-    *&v31 = 0;
-    LOBYTE(v32) = 0;
-    BYTE8(v33) = 0;
-    *&v34 = 0;
-    uuid_clear(&v32 + 8);
+    v24 = xmmword_26185DD00;
+    v25 = xmmword_26185DD10;
+    v26 = xmmword_26185DD20;
+    v27 = xmmword_26185E1B0;
+    *&v28 = 16842752;
+    BYTE8(v28) = 0;
+    *&v29 = 0;
+    LOBYTE(v30) = 0;
+    BYTE8(v31) = 0;
+    *&v32 = 0;
+    uuid_clear(&v30 + 8);
+    BYTE8(v32) = 0;
     BYTE8(v34) = 0;
-    BYTE8(v36) = 0;
-    v37 = 0;
+    v35 = 0;
     REAnchorComponentGetComponentType();
     if (REEntityGetComponentByClass())
     {
       AnchorIdentifier = REAnchorComponentGetAnchorIdentifier();
-      v21 = 0;
-      v22 = 0;
-      uuid_clear(v20);
-      *v20 = AnchorIdentifier;
-      v21 = 1;
-      v5 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(a3 + 10, v20);
-      v6 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(a3 + 15, v20);
-      v7 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(a3, v20);
+      v19 = 0;
+      v20 = 0;
+      uuid_clear(v18);
+      *v18 = AnchorIdentifier;
+      v19 = 1;
+      v5 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(a3 + 10, v18);
+      v6 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(a3 + 15, v18);
+      v7 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>(a3, v18);
       if (v5 || (v5 = v6) != 0)
       {
         v7 = std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1> const&>(uu, (v5 + 6));
         v8 = 0;
         v9 = 0;
 LABEL_6:
-        v10 = *rf::AnchorSourceComponent::instance(v7);
-        v11 = REEntityGetOrAddComponentByClass();
-        v12 = v11 != 0;
-        if (v11)
+        rf::AnchorSourceComponent::instance(v7);
+        v10 = REEntityGetOrAddComponentByClass();
+        v11 = v10 != 0;
+        if (v10)
         {
           Object = RECustomComponentGetObject();
-          v14 = Object;
+          v13 = Object;
           if (v9)
           {
             objc_storeStrong(Object, *(v9 + 416));
-            v15 = 1;
+            v14 = 1;
           }
 
           else
           {
             rf::helpers::getBaseAnchorProperties(uu);
-            objc_storeStrong(v14, obj);
+            objc_storeStrong(v13, obj);
 
-            v15 = 0;
-            v16 = v37;
-            if (v37 == 5)
+            v14 = 0;
+            v15 = v35;
+            if (v35 == 5)
             {
-              v17 = 5;
+              v16 = 5;
             }
 
             else
             {
-              v17 = 0;
+              v16 = 0;
             }
 
-            if (v37 >= 5)
+            if (v35 >= 5)
             {
-              v16 = v17;
+              v15 = v16;
             }
 
-            *(v14 + 2) = v16;
+            *(v13 + 2) = v15;
           }
 
-          *(v14 + 12) = v15;
+          *(v13 + 12) = v14;
         }
 
         if (v8)
@@ -7134,62 +5747,57 @@ LABEL_6:
       }
     }
 
-    v12 = 0;
+    v11 = 0;
 LABEL_23:
     std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
-    goto LABEL_24;
+    return v11;
   }
 
-  v12 = 0;
-LABEL_24:
-  v18 = *MEMORY[0x277D85DE8];
-  return v12;
+  return 0;
 }
 
-void sub_261851C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_261851C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  if (v17)
+  va_start(va, a24);
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t rf::data_flow::consumer::AnchorManagementConsumer::anchorComponentEventHandles@<X0>(uint64_t *a1@<X8>)
+uint64_t rf::data_flow::consumer::AnchorManagementConsumer::anchorComponentEventHandles@<X0>(uint64_t *a5@<X8>)
 {
   MEMORY[0x26670C400]("REComponentDidAddEvent");
   REAnchorComponentGetComponentType();
-  v2 = REEventBusSubscribeWithMatch();
-  v12 = v3;
+  v6 = REEventBusSubscribeWithMatch();
+  v16 = v7;
   MEMORY[0x26670C400]("REComponentDidChangeEvent");
   REAnchorComponentGetComponentType();
-  v4 = REEventBusSubscribeWithMatch();
-  v6 = v5;
+  v8 = REEventBusSubscribeWithMatch();
+  v10 = v9;
   MEMORY[0x26670C400]("REComponentDidChangeEvent");
   RESceneUnderstandingComponentGetComponentType();
-  v7 = REEventBusSubscribeWithMatch();
-  v9 = v8;
+  v11 = REEventBusSubscribeWithMatch();
+  v13 = v12;
   MEMORY[0x26670C400]("REComponentWillRemoveEvent");
   REAnchorComponentGetComponentType();
   result = REEventBusSubscribeWithMatch();
-  *a1 = v2;
-  a1[1] = v12;
-  a1[2] = v4;
-  a1[3] = v6;
-  a1[4] = v7;
-  a1[5] = v9;
-  a1[6] = result;
-  a1[7] = v11;
+  *a5 = v6;
+  a5[1] = v16;
+  a5[2] = v8;
+  a5[3] = v10;
+  a5[4] = v11;
+  a5[5] = v13;
+  a5[6] = result;
+  a5[7] = v15;
   return result;
 }
 
 uint64_t ___ZN2rf9data_flow8consumer24AnchorManagementConsumer27anchorComponentEventHandlesEP7RESceneP10REEventBusRKNS_11ARStateDataE_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v5 = *a3;
-  v6 = a3[1];
   REEntityGetComponentByClass();
   SourceType = RESceneUnderstandingComponentGetSourceType();
   if (SourceType == 1)
@@ -7200,77 +5808,76 @@ uint64_t ___ZN2rf9data_flow8consumer24AnchorManagementConsumer27anchorComponentE
   return 0;
 }
 
-uint64_t ___ZN2rf9data_flow8consumer24AnchorManagementConsumer27anchorComponentEventHandlesEP7RESceneP10REEventBusRKNS_11ARStateDataE_block_invoke_4(rf::AnchorSourceComponent *a1, uint64_t a2, uint64_t *a3)
+uint64_t ___ZN2rf9data_flow8consumer24AnchorManagementConsumer27anchorComponentEventHandlesEP7RESceneP10REEventBusRKNS_11ARStateDataE_block_invoke_4(rf::AnchorSourceComponent *a1, uint64_t a2, unint64_t *a3)
 {
   v5 = *(a1 + 4);
   v6 = rf::AnchorSourceComponent::instance(a1);
   if (*v6)
   {
-    v7 = *a3;
-    v8 = *rf::AnchorSourceComponent::instance(v6);
+    rf::AnchorSourceComponent::instance(v6);
     CustomComponent = REEntityGetCustomComponent();
     if (CustomComponent)
     {
-      v10 = *a3;
-      v11 = *rf::AnchorSourceComponent::instance(CustomComponent);
+      rf::AnchorSourceComponent::instance(CustomComponent);
       REEntityRemoveComponentByClass();
     }
   }
 
-  v12 = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::__emplace_unique_key_args<REScene *,std::piecewise_construct_t const&,std::tuple<REScene * const&>,std::tuple<>>((v5 + 248), a1 + 5);
-  v13 = v12[4];
-  if (v13)
+  v19 = (a1 + 40);
+  v8 = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::__emplace_unique_key_args<REScene *,std::piecewise_construct_t const&,std::tuple<REScene * const&>,std::tuple<>>((v5 + 248), a1 + 5, &std::piecewise_construct, &v19);
+  v9 = v8[4];
+  if (v9)
   {
-    v14 = 0x9DDFEA08EB382D69 * ((8 * (*a3 & 0x1FFFFFFF) + 8) ^ HIDWORD(*a3));
-    v15 = 0x9DDFEA08EB382D69 * (HIDWORD(*a3) ^ (v14 >> 47) ^ v14);
-    v16 = 0x9DDFEA08EB382D69 * (v15 ^ (v15 >> 47));
-    v17 = vcnt_s8(v13);
-    v17.i16[0] = vaddlv_u8(v17);
-    if (v17.u32[0] > 1uLL)
+    v10 = 0x9DDFEA08EB382D69 * ((8 * (*a3 & 0x1FFFFFFF) + 8) ^ HIDWORD(*a3));
+    v11 = 0x9DDFEA08EB382D69 * (HIDWORD(*a3) ^ (v10 >> 47) ^ v10);
+    v12 = 0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47));
+    v13 = vcnt_s8(v9);
+    v13.i16[0] = vaddlv_u8(v13);
+    if (v13.u32[0] > 1uLL)
     {
-      v18 = v16;
-      if (v16 >= *&v13)
+      v14 = v12;
+      if (v12 >= *&v9)
       {
-        v18 = v16 % *&v13;
+        v14 = v12 % *&v9;
       }
     }
 
     else
     {
-      v18 = v16 & (*&v13 - 1);
+      v14 = v12 & (*&v9 - 1);
     }
 
-    v19 = *(v12[3] + 8 * v18);
-    if (v19)
+    v15 = *(v8[3] + 8 * v14);
+    if (v15)
     {
-      for (i = *v19; i; i = *i)
+      for (i = *v15; i; i = *i)
       {
-        v21 = i[1];
-        if (v21 == v16)
+        v17 = i[1];
+        if (v17 == v12)
         {
           if (i[2] == *a3)
           {
-            std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::erase(v12 + 3, i);
+            std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::erase(v8 + 3, i);
             return 0;
           }
         }
 
         else
         {
-          if (v17.u32[0] > 1uLL)
+          if (v13.u32[0] > 1uLL)
           {
-            if (v21 >= *&v13)
+            if (v17 >= *&v9)
             {
-              v21 %= *&v13;
+              v17 %= *&v9;
             }
           }
 
           else
           {
-            v21 &= *&v13 - 1;
+            v17 &= *&v9 - 1;
           }
 
-          if (v21 != v18)
+          if (v17 != v14)
           {
             return 0;
           }
@@ -7406,7 +6013,7 @@ uint64_t std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::__
   return a1;
 }
 
-uint64_t *std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_0>,std::identity>(uint64_t *a1, uint64_t *a2)
+void *std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_0>,std::identity>(void *a1, void *a2)
 {
   v2 = a2;
   if (a1 != a2)
@@ -7414,10 +6021,9 @@ uint64_t *std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent
     v3 = a1;
     while (1)
     {
-      v4 = *v3;
       Object = RECustomComponentGetObject();
-      REComponentGetEntity();
-      if (*(Object + 21) == 1 && !rf::helpers::isRemotelyOwned())
+      Entity = REComponentGetEntity();
+      if (*(Object + 21) == 1 && !rf::helpers::isRemotelyOwned(Entity))
       {
         break;
       }
@@ -7434,116 +6040,85 @@ uint64_t *std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent
   return v2;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, _OWORD *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, __n128 *a2)
 {
-  v3 = *a1;
-  v4 = **(*a1 + 8);
+  v2 = *a1;
   RETransformComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
-  v5 = a2[2];
-  v6 = a2[3];
-  v7 = a2[4];
-  v8 = a2[5];
   REMakeSRTFromMatrix();
   RETransformComponentSetWorldSRT();
   result = RENetworkMarkComponentDirty();
-  *(**v3 + 72) = 0;
+  *(**v2 + 72) = 0;
   return result;
 }
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t ***a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = *(*a1)[1];
   RETransformComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
-  v5 = *(a2 + 32);
-  v6 = *(a2 + 48);
-  v7 = *(a2 + 64);
-  v8 = *(a2 + 80);
   REMakeSRTFromMatrix();
   RETransformComponentSetWorldSRT();
   RENetworkMarkComponentDirty();
-  v9 = **v3;
-  *(v9 + 72) = 0;
-  v14 = *(a2 + 192);
-  v15 = 0u;
-  v10 = *(a2 + 176);
-  v11 = v14;
-  DWORD1(v11) = DWORD1(v15);
-  *(v9 + 16) = 1;
-  *(v9 + 32) = v10;
-  *(**v3 + 48) = v11;
-  v12 = *v3[2];
+  v4 = **v3;
+  *(v4 + 72) = 0;
+  v8 = *(a2 + 192);
+  v9 = 0u;
+  v5 = *(a2 + 176);
+  v6 = v8;
+  DWORD1(v6) = DWORD1(v9);
+  *(v4 + 16) = 1;
+  *(v4 + 32) = v5;
+  *(**v3 + 48) = v6;
 
   return RENetworkMarkComponentDirty();
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, _OWORD *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, __n128 *a2)
 {
-  v3 = *a1;
-  v4 = **(*a1 + 8);
+  v2 = *a1;
   RETransformComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
-  v5 = a2[2];
-  v6 = a2[3];
-  v7 = a2[4];
-  v8 = a2[5];
   REMakeSRTFromMatrix();
   RETransformComponentSetWorldSRT();
   result = RENetworkMarkComponentDirty();
-  *(**v3 + 72) = 0;
+  *(**v2 + 72) = 0;
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, _OWORD *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, __n128 *a2)
 {
-  v3 = *a1;
-  v4 = **(*a1 + 8);
+  v2 = *a1;
   RETransformComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
-  v5 = a2[2];
-  v6 = a2[3];
-  v7 = a2[4];
-  v8 = a2[5];
   REMakeSRTFromMatrix();
   RETransformComponentSetWorldSRT();
   result = RENetworkMarkComponentDirty();
-  *(**v3 + 72) = 0;
+  *(**v2 + 72) = 0;
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, _OWORD *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, __n128 *a2)
 {
-  v3 = *a1;
-  v4 = **(*a1 + 8);
+  v2 = *a1;
   RETransformComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
-  v5 = a2[2];
-  v6 = a2[3];
-  v7 = a2[4];
-  v8 = a2[5];
   REMakeSRTFromMatrix();
   RETransformComponentSetWorldSRT();
   result = RENetworkMarkComponentDirty();
-  *(**v3 + 72) = 0;
+  *(**v2 + 72) = 0;
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, _OWORD *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(REScene *,std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const&)::$_1> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(uint64_t *a1, __n128 *a2)
 {
-  v3 = *a1;
-  v4 = **(*a1 + 8);
+  v2 = *a1;
   RETransformComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
-  v5 = a2[2];
-  v6 = a2[3];
-  v7 = a2[4];
-  v8 = a2[5];
   REMakeSRTFromMatrix();
   RETransformComponentSetWorldSRT();
   result = RENetworkMarkComponentDirty();
-  *(**v3 + 72) = 0;
+  *(**v2 + 72) = 0;
   return result;
 }
 
@@ -7683,8 +6258,7 @@ __n128 std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_
     {
       for (i = *(*(a2 + 16) + 16); i; i = *i)
       {
-        v11 = *(a2 + 24);
-        if (rf::helpers::planeAnchorMatches((i + 6)))
+        if (rf::helpers::planeAnchorMatches((i + 6), *(a2 + 24)))
         {
           break;
         }
@@ -7694,15 +6268,15 @@ __n128 std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_
       *(a2 + 40) = 1;
     }
 
-    v16[0] = a2;
-    v16[1] = i;
-    v16[2] = a2 + 16;
     v15[0] = a2;
-    v15[1] = 0;
+    v15[1] = i;
     v15[2] = a2 + 16;
-    std::ranges::__find_if_impl[abi:ne200100]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>::__iterator<false>,std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>::__iterator<false>,std::reference_wrapper<rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_5>,std::identity>(&v13, v16, v15, a4, a5, a6, a7, a8);
-    *(a2 + 48) = v13;
-    *(a2 + 64) = v14;
+    v14[0] = a2;
+    v14[1] = 0;
+    v14[2] = a2 + 16;
+    std::ranges::__find_if_impl[abi:ne200100]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>::__iterator<false>,std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>::__iterator<false>,std::reference_wrapper<rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_5>,std::identity>(&v12, v15, v14, a4, a5, a6, a7, a8);
+    *(a2 + 48) = v12;
+    *(a2 + 64) = v13;
     *(a2 + 72) = 1;
   }
 
@@ -7738,8 +6312,7 @@ uint64_t std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[ab
     v4 = *(a1 + 16);
     do
     {
-      v5 = *(v4 + 8);
-      if (rf::helpers::planeAnchorMatches((v3 + 6)))
+      if (rf::helpers::planeAnchorMatches((v3 + 6), *(v4 + 8)))
       {
         break;
       }
@@ -7756,12 +6329,12 @@ uint64_t std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[ab
 
 __n128 std::ranges::__find_if_impl[abi:ne200100]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>::__iterator<false>,std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>::__iterator<false>,std::reference_wrapper<rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_5>,std::identity>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   for (i = a2[1]; i != *(a3 + 8); i = a2[1])
   {
-    std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>::__iterator<false>::operator*[abi:ne200100](v15, *a2, i, a4, a5, a6, a7, a8);
-    v12 = v15[276];
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v15);
+    std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::unordered_map<rf::data_flow::RFUUID,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>> const>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_3>,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_4>::__iterator<false>::operator*[abi:ne200100](v14, *a2, i, a4, a5, a6, a7, a8);
+    v12 = v14[276];
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v14);
     if (v12)
     {
       break;
@@ -7773,7 +6346,6 @@ __n128 std::ranges::__find_if_impl[abi:ne200100]<std::ranges::transform_view[abi
   result = *a2;
   *a1 = *a2;
   *(a1 + 16) = a2[2];
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7784,9 +6356,7 @@ uint64_t std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[ab
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  v12 = *(a3 + 224);
-  v13 = *(a3 + 240);
-  v10 = rf::helpers::rayPlaneHitTestInBounds(*(*(a2 + 8) + 48), vnegq_f32(*(*(a2 + 8) + 32)), *(a3 + 80), *(a3 + 96), *(a3 + 112), *(a3 + 128), a1, a2, a3, a4, a5, a6, a7, a8, *(a3 + 176), *(a3 + 192), *(a3 + 176), *(a3 + 192), *(a3 + 208));
+  v10 = rf::helpers::rayPlaneHitTestInBounds(*(*(a2 + 8) + 48), vnegq_f32(*(*(a2 + 8) + 32)), *(a3 + 80), *(a3 + 96), *(a3 + 112), *(a3 + 128), a1, a2, a3, a4, a5, a6, a7, a8, *(a3 + 176), *(a3 + 192), *(a3 + 176), *(a3 + 192), *(a3 + 208), *(a3 + 224), *(a3 + 240));
   result = std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](a1, a3 + 48);
   *(a1 + 272) = v10 & 0xFFFFFFFFFFLL;
   return result;
@@ -7821,11 +6391,11 @@ void std::vector<std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flo
 uint64_t std::__introsort<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,false>(uint64_t result, uint64_t a2, uint64_t a3, char a4)
 {
   v6 = result;
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   while (2)
   {
     v7 = a2;
-    v101 = a2 - 288;
+    v100 = a2 - 288;
     v8 = v6;
     while (1)
     {
@@ -7840,14 +6410,11 @@ uint64_t std::__introsort<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorMa
           switch(v10)
           {
             case 3:
-              result = std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v6, v6 + 288, v101);
-              goto LABEL_164;
+              return std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v6, v6 + 288, v100);
             case 4:
-              result = std::__sort4[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v6, v6 + 288, v6 + 576, v101);
-              goto LABEL_164;
+              return std::__sort4[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v6, v6 + 288, v6 + 576, v100);
             case 5:
-              result = std::__sort5[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v6, v6 + 288, v6 + 576, v6 + 864, v101);
-              goto LABEL_164;
+              return std::__sort5[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v6, v6 + 288, v6 + 576, v6 + 864, v100);
           }
         }
 
@@ -7855,7 +6422,7 @@ uint64_t std::__introsort<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorMa
         {
           if (v10 < 2)
           {
-            goto LABEL_164;
+            return result;
           }
 
           v7 = a2;
@@ -7873,10 +6440,10 @@ uint64_t std::__introsort<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorMa
 
             if (*(a2 - 16) < *(v6 + 272))
             {
-              result = std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>>::swap[abi:ne200100](v6, v101);
+              return std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>>::swap[abi:ne200100](v6, v100);
             }
 
-            goto LABEL_164;
+            return result;
           }
         }
 
@@ -7907,8 +6474,8 @@ uint64_t std::__introsort<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorMa
 
                   if (*(v51 + 560) < *(v51 + 272))
                   {
-                    std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v105, v49);
-                    v106 = *(v51 + 560);
+                    std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v104, v49);
+                    v105 = *(v51 + 560);
                     v54 = v50;
                     while (1)
                     {
@@ -7922,13 +6489,13 @@ uint64_t std::__introsort<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorMa
                         break;
                       }
 
-                      if (BYTE4(v106) != 1 || (*(v6 + v55 - 12) & 1) == 0)
+                      if (BYTE4(v105) != 1 || (*(v6 + v55 - 12) & 1) == 0)
                       {
                         std::__throw_bad_optional_access[abi:ne200100]();
                       }
 
                       v54 = v55 - 288;
-                      if (*&v106 >= *(v6 + v55 - 16))
+                      if (*&v105 >= *(v6 + v55 - 16))
                       {
                         v57 = v6 + v55;
                         goto LABEL_101;
@@ -7937,12 +6504,12 @@ uint64_t std::__introsort<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorMa
 
                     v57 = v6;
 LABEL_101:
-                    std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v57, v105);
+                    std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v57, v104);
                     v58 = v6 + v55 + 272;
-                    v59 = v106;
-                    *(v58 + 4) = BYTE4(v106);
+                    v59 = v105;
+                    *(v58 + 4) = BYTE4(v105);
                     *v58 = v59;
-                    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v105);
+                    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v104);
                     v53 = a2;
                   }
 
@@ -7977,15 +6544,15 @@ LABEL_101:
 
                 if (*(v6 + 560) < *(v6 + 272))
                 {
-                  std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v105, v94);
-                  v106 = *(v6 + 560);
+                  std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v104, v94);
+                  v105 = *(v6 + 560);
                   v97 = v95;
                   do
                   {
                     std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v97 + 304, v97 + 16);
                     *(v97 + 576) = *(v97 + 288);
                     *(v97 + 580) = *(v97 + 292);
-                    if (BYTE4(v106) != 1 || (*(v97 + 4) & 1) == 0)
+                    if (BYTE4(v105) != 1 || (*(v97 + 4) & 1) == 0)
                     {
                       std::__throw_bad_optional_access[abi:ne200100]();
                     }
@@ -7994,12 +6561,12 @@ LABEL_101:
                     v97 -= 288;
                   }
 
-                  while (*&v106 < v98);
-                  std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v97 + 304, v105);
-                  v99 = v106;
-                  *(v97 + 580) = BYTE4(v106);
+                  while (*&v105 < v98);
+                  std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v97 + 304, v104);
+                  v99 = v105;
+                  *(v97 + 580) = BYTE4(v105);
                   *(v97 + 576) = v99;
-                  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v105);
+                  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v104);
                 }
 
                 v94 = v96 + 288;
@@ -8011,7 +6578,7 @@ LABEL_101:
             }
           }
 
-          goto LABEL_164;
+          return result;
         }
 
         if (!a3)
@@ -8059,8 +6626,8 @@ LABEL_101:
 
                 if (*(v64 + 272) >= *(v65 + 272))
                 {
-                  std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v105, v6 + 288 * v61);
-                  v106 = *(v65 + 272);
+                  std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v104, v6 + 288 * v61);
+                  v105 = *(v65 + 272);
                   do
                   {
                     v66 = v64;
@@ -8092,7 +6659,7 @@ LABEL_169:
                       }
                     }
 
-                    if (*(v64 + 276) != 1 || (v106 & 0x100000000) == 0)
+                    if (*(v64 + 276) != 1 || (v105 & 0x100000000) == 0)
                     {
                       goto LABEL_169;
                     }
@@ -8100,12 +6667,12 @@ LABEL_169:
                     v65 = v66;
                   }
 
-                  while (*(v64 + 272) >= *&v106);
-                  std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v66, v105);
-                  v70 = v106;
-                  *(v66 + 276) = BYTE4(v106);
+                  while (*(v64 + 272) >= *&v105);
+                  std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v66, v104);
+                  v70 = v105;
+                  *(v66 + 276) = BYTE4(v105);
                   *(v66 + 272) = v70;
-                  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v105);
+                  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v104);
                 }
               }
 
@@ -8117,9 +6684,9 @@ LABEL_169:
             do
             {
               v72 = a2;
-              std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v103, v6);
+              std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v102, v6);
               v73 = 0;
-              v104 = *(v6 + 272);
+              v103 = *(v6 + 272);
               v74 = v6;
               do
               {
@@ -8165,9 +6732,9 @@ LABEL_169:
               a2 -= 288;
               if (v76 == v72 - 288)
               {
-                std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v76, v103);
-                v92 = v104;
-                *(v76 + 276) = BYTE4(v104);
+                std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v76, v102);
+                v92 = v103;
+                *(v76 + 276) = BYTE4(v103);
                 *v81 = v92;
               }
 
@@ -8178,9 +6745,9 @@ LABEL_169:
                 v83 = v72 - 16;
                 *(v76 + 276) = *(v83 + 4);
                 *v81 = v84;
-                std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v82, v103);
-                v85 = v104;
-                *(v83 + 4) = BYTE4(v104);
+                std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v82, v102);
+                v85 = v103;
+                *(v83 + 4) = BYTE4(v103);
                 *v83 = v85;
                 v86 = v76 - v6 + 288;
                 if (v86 >= 289)
@@ -8195,8 +6762,8 @@ LABEL_167:
 
                   if (*(v88 + 272) < *v81)
                   {
-                    std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v105, v76);
-                    v106 = *(v76 + 272);
+                    std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v104, v76);
+                    v105 = *(v76 + 272);
                     do
                     {
                       v89 = v88;
@@ -8211,7 +6778,7 @@ LABEL_167:
 
                       v87 = (v87 - 1) >> 1;
                       v88 = v6 + 288 * v87;
-                      if (*(v88 + 276) != 1 || (v106 & 0x100000000) == 0)
+                      if (*(v88 + 276) != 1 || (v105 & 0x100000000) == 0)
                       {
                         std::__throw_bad_optional_access[abi:ne200100]();
                       }
@@ -8219,35 +6786,35 @@ LABEL_167:
                       v76 = v89;
                     }
 
-                    while (*(v88 + 272) < *&v106);
-                    std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v89, v105);
-                    v91 = v106;
-                    *(v89 + 276) = BYTE4(v106);
+                    while (*(v88 + 272) < *&v105);
+                    std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v89, v104);
+                    v91 = v105;
+                    *(v89 + 276) = BYTE4(v105);
                     *(v89 + 272) = v91;
-                    std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v105);
+                    std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v104);
                   }
                 }
               }
 
-              result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v103);
+              result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v102);
             }
 
             while (v71-- > 2);
           }
 
-          goto LABEL_164;
+          return result;
         }
 
         v12 = v10 >> 1;
         v13 = v6 + 288 * (v10 >> 1);
         if (v9 <= 0x9000)
         {
-          std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v13, v6, v101);
+          std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v13, v6, v100);
         }
 
         else
         {
-          std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v6, v13, v101);
+          std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v6, v13, v100);
           v14 = v6 + 288 * v12 - 288;
           std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(v6 + 288, v14, a2 - 576);
           v15 = v6 + 288 * v12;
@@ -8277,9 +6844,9 @@ LABEL_167:
           break;
         }
 
-        std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v105, v6);
+        std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v104, v6);
         v35 = *(v6 + 272);
-        v106 = v35;
+        v105 = v35;
         if ((v35 & 0x100000000) == 0 || *(v7 - 12) != 1)
         {
           goto LABEL_168;
@@ -8345,7 +6912,7 @@ LABEL_73:
         if (v8 < v40)
         {
           std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>>::swap[abi:ne200100](v8, v40);
-          if (BYTE4(v106) == 1)
+          if (BYTE4(v105) == 1)
           {
             v43 = v8;
             do
@@ -8360,14 +6927,14 @@ LABEL_73:
               v43 += 288;
             }
 
-            while (*&v106 >= v44);
+            while (*&v105 >= v44);
             v45 = v40;
             while ((*(v45 - 12) & 1) != 0)
             {
               v40 = v45 - 288;
               v46 = *(v45 - 16);
               v45 -= 288;
-              if (*&v106 >= v46)
+              if (*&v105 >= v46)
               {
                 goto LABEL_73;
               }
@@ -8385,18 +6952,18 @@ LABEL_73:
           *(v6 + 272) = v47;
         }
 
-        std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v8 - 288, v105);
-        v48 = v106;
-        *(v8 - 12) = BYTE4(v106);
+        std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v8 - 288, v104);
+        v48 = v105;
+        *(v8 - 12) = BYTE4(v105);
         *(v8 - 16) = v48;
-        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v105);
+        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v104);
 LABEL_77:
         a4 = 0;
       }
 
-      std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v105, v6);
+      std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v104, v6);
       v16 = *(v6 + 272);
-      v106 = v16;
+      v105 = v16;
       if ((v16 & 0x100000000) == 0)
       {
         goto LABEL_166;
@@ -8461,7 +7028,7 @@ LABEL_33:
         do
         {
           std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>>::swap[abi:ne200100](v8, v26);
-          if ((v106 & 0x100000000) == 0)
+          if ((v105 & 0x100000000) == 0)
           {
 LABEL_165:
             std::__throw_bad_optional_access[abi:ne200100]();
@@ -8480,7 +7047,7 @@ LABEL_165:
             v27 += 288;
           }
 
-          while (v28 < *&v106);
+          while (v28 < *&v105);
           v29 = v26;
           do
           {
@@ -8494,7 +7061,7 @@ LABEL_165:
             v29 -= 288;
           }
 
-          while (v30 >= *&v106);
+          while (v30 >= *&v105);
         }
 
         while (v8 < v26);
@@ -8508,11 +7075,11 @@ LABEL_165:
         *(v6 + 272) = v31;
       }
 
-      std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v8 - 288, v105);
-      v32 = v106;
-      *(v8 - 12) = BYTE4(v106);
+      std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v8 - 288, v104);
+      v32 = v105;
+      *(v8 - 12) = BYTE4(v105);
       *(v8 - 16) = v32;
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v105);
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v104);
       v33 = v20 >= v22;
       v7 = a2;
       if (!v33)
@@ -8541,12 +7108,8 @@ LABEL_49:
       continue;
     }
 
-    break;
+    return result;
   }
-
-LABEL_164:
-  v100 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_2618538D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
@@ -8573,7 +7136,6 @@ uint64_t std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer
   }
 
   v6 = *(a2 + 272);
-  v7 = *(a3 + 276);
   if (v6 < *(result + 272))
   {
     if (*(a3 + 276))
@@ -8581,7 +7143,7 @@ uint64_t std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer
       if (*(a3 + 272) < v6)
       {
 LABEL_10:
-        v8 = a3;
+        v7 = a3;
         goto LABEL_17;
       }
 
@@ -8624,10 +7186,10 @@ LABEL_21:
   }
 
   result = v3;
-  v8 = a2;
+  v7 = a2;
 LABEL_17:
 
-  return std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>>::swap[abi:ne200100](result, v8);
+  return std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>>::swap[abi:ne200100](result, v7);
 }
 
 uint64_t std::__sort4[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -8723,7 +7285,7 @@ LABEL_17:
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *>(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = 0x8E38E38E38E38E39 * ((a2 - a1) >> 5);
   if (v4 > 2)
   {
@@ -8731,13 +7293,13 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,rf::dat
     {
       case 3:
         std::__sort3[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(a1, a1 + 288, a2 - 288);
-        goto LABEL_30;
+        return 1;
       case 4:
         std::__sort4[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(a1, a1 + 288, a1 + 576, a2 - 288);
-        goto LABEL_30;
+        return 1;
       case 5:
         std::__sort5[abi:ne200100]<std::_RangeAlgPolicy,rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_6 &,std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>> *,0>(a1, a1 + 288, a1 + 576, a1 + 864, a2 - 288);
-        goto LABEL_30;
+        return 1;
     }
   }
 
@@ -8745,7 +7307,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,rf::dat
   {
     if (v4 < 2)
     {
-      goto LABEL_30;
+      return 1;
     }
 
     if (v4 == 2)
@@ -8760,7 +7322,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,rf::dat
         std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>>::swap[abi:ne200100](a1, a2 - 288);
       }
 
-      goto LABEL_30;
+      return 1;
     }
   }
 
@@ -8785,8 +7347,8 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,rf::dat
 
       if (*(v6 + 272) < *(v5 + 272))
       {
-        std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v17, v6);
-        v18 = *(v6 + 272);
+        std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v16, v6);
+        v17 = *(v6 + 272);
         v9 = v7;
         while (1)
         {
@@ -8800,13 +7362,13 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,rf::dat
             break;
           }
 
-          if (BYTE4(v18) != 1 || (*(a1 + v10 + 564) & 1) == 0)
+          if (BYTE4(v17) != 1 || (*(a1 + v10 + 564) & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
 
           v9 = v10 - 288;
-          if (*&v18 >= *(a1 + v10 + 560))
+          if (*&v17 >= *(a1 + v10 + 560))
           {
             v12 = a1 + v9 + 864;
             goto LABEL_25;
@@ -8815,18 +7377,18 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,rf::dat
 
         v12 = a1;
 LABEL_25:
-        std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v12, v17);
+        std::__variant_detail::__assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>>(v12, v16);
         v13 = a1 + v10 + 848;
-        *v13 = v18;
-        *(v13 + 4) = BYTE4(v18);
+        *v13 = v17;
+        *(v13 + 4) = BYTE4(v17);
         if (++v8 == 8)
         {
           v14 = v6 + 288 == a2;
-          std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v17);
-          goto LABEL_31;
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v16);
+          return v14;
         }
 
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v17);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v16);
       }
 
       v5 = v6;
@@ -8837,11 +7399,7 @@ LABEL_25:
     while (v6 != a2);
   }
 
-LABEL_30:
-  v14 = 1;
-LABEL_31:
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return 1;
 }
 
 void sub_261853EF4(_Unwind_Exception *exception_object, int a2)
@@ -8857,7 +7415,7 @@ void sub_261853EF4(_Unwind_Exception *exception_object, int a2)
 uint64_t std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,std::optional<float>>::swap[abi:ne200100](uint64_t result, uint64_t a2)
 {
   v3 = result;
-  v11[35] = *MEMORY[0x277D85DE8];
+  v10[35] = *MEMORY[0x277D85DE8];
   v4 = *(result + 256);
   v5 = *(a2 + 256);
   if (v4 != -1 || v5 != -1)
@@ -8880,15 +7438,15 @@ uint64_t std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::Plane
 
     if (v8)
     {
-      result = (off_28740B098[v4])(v11, result, a2);
+      result = (off_28740B098[v4])(v10, result, a2);
     }
 
     else
     {
-      std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v11, a2);
+      std::__variant_detail::__move_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](v10, a2);
       std::__variant_detail::__ctor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_construct[abi:ne200100]<std::__variant_detail::__impl<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>(a2, v3);
-      std::__variant_detail::__ctor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_construct[abi:ne200100]<std::__variant_detail::__impl<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>(v3, v11);
-      result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v11);
+      std::__variant_detail::__ctor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_construct[abi:ne200100]<std::__variant_detail::__impl<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>(v3, v10);
+      result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v10);
     }
   }
 
@@ -8922,7 +7480,6 @@ uint64_t std::pair<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::Plane
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8952,21 +7509,20 @@ uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<rf::data_
 
 __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm0EEE10__dispatchB8ne200100IOZNS0_6__implIJN2rf9data_flow12CustomAnchorENS8_11PlaneAnchorENS8_11ImageAnchorENS8_12ObjectAnchorENS8_10FaceAnchorENS8_10BodyAnchorEEE6__swapB8ne200100ERSF_EUlRT_RT0_E_JRNS0_6__baseILNS0_6_TraitE1EJS9_SA_SB_SC_SD_SE_EEESQ_EEEDcSH_DpT0_(uint64_t a1, __int128 *a2, __int128 *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v27 = a2[3];
-  v28 = a2[4];
-  *v29 = a2[5];
-  *&v29[9] = *(a2 + 89);
-  v24 = *a2;
-  v25 = a2[1];
-  v26 = a2[2];
+  v26 = a2[3];
+  v27 = a2[4];
+  *v28 = a2[5];
+  *&v28[9] = *(a2 + 89);
+  v23 = *a2;
+  v24 = a2[1];
+  v25 = a2[2];
   v5 = *(a2 + 14);
   *(a2 + 14) = 0;
-  v19 = a2[8];
-  v20 = a2[9];
-  v22 = a2[11];
-  v23 = a2[12];
-  v21 = a2[10];
+  v18 = a2[8];
+  v19 = a2[9];
+  v21 = a2[11];
+  v22 = a2[12];
+  v20 = a2[10];
   v6 = *a3;
   v7 = a3[2];
   a2[1] = a3[1];
@@ -8992,49 +7548,46 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm0EE
   a2[12] = v15;
   a2[9] = v13;
   a2[10] = v14;
-  a3[4] = v28;
-  a3[5] = *v29;
-  *(a3 + 89) = *&v29[9];
-  *a3 = v24;
-  a3[1] = v25;
-  a3[2] = v26;
-  a3[3] = v27;
+  a3[4] = v27;
+  a3[5] = *v28;
+  *(a3 + 89) = *&v28[9];
+  *a3 = v23;
+  a3[1] = v24;
+  a3[2] = v25;
+  a3[3] = v26;
   v16 = *(a3 + 14);
   *(a3 + 14) = v5;
 
-  result = v20;
-  a3[10] = v21;
-  a3[11] = v22;
-  a3[12] = v23;
-  a3[8] = v19;
-  a3[9] = v20;
-  v18 = *MEMORY[0x277D85DE8];
+  result = v19;
+  a3[10] = v20;
+  a3[11] = v21;
+  a3[12] = v22;
+  a3[8] = v18;
+  a3[9] = v19;
   return result;
 }
 
 __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE10__dispatchB8ne200100IOZNS0_6__implIJN2rf9data_flow12CustomAnchorENS8_11PlaneAnchorENS8_11ImageAnchorENS8_12ObjectAnchorENS8_10FaceAnchorENS8_10BodyAnchorEEE6__swapB8ne200100ERSF_EUlRT_RT0_E_JRNS0_6__baseILNS0_6_TraitE1EJS9_SA_SB_SC_SD_SE_EEESQ_EEEDcSH_DpT0_(uint64_t a1, __int128 *a2, __int128 *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v34 = a2[4];
-  *v35 = a2[5];
-  *&v35[9] = *(a2 + 89);
-  v30 = *a2;
-  v31 = a2[1];
-  v32 = a2[2];
-  v33 = a2[3];
+  v33 = a2[4];
+  *v34 = a2[5];
+  *&v34[9] = *(a2 + 89);
+  v29 = *a2;
+  v30 = a2[1];
+  v31 = a2[2];
+  v32 = a2[3];
   v5 = *(a2 + 14);
   *(a2 + 14) = 0;
-  v25 = a2[9];
-  v24 = a2[8];
-  v29 = *(a2 + 26);
-  v28 = a2[12];
-  v27 = a2[11];
-  v26 = a2[10];
+  v24 = a2[9];
+  v23 = a2[8];
+  v28 = *(a2 + 26);
+  v27 = a2[12];
+  v26 = a2[11];
+  v25 = a2[10];
   v6 = a2 + 216;
-  v23 = *(a2 + 216);
+  v22 = *(a2 + 216);
   v7 = *(a2 + 29);
-  *(a2 + 27) = 0;
-  *(a2 + 28) = 0;
+  *(a2 + 216) = 0uLL;
   *(a2 + 29) = 0;
   v8 = *a3;
   v9 = a3[2];
@@ -9064,22 +7617,22 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EE
   a2[12] = v18;
   a2[10] = v16;
   _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE13__move_assignERS4_NS_17integral_constantIbLb1EEE(v6, (a3 + 216));
-  a3[4] = v34;
-  a3[5] = *v35;
-  *(a3 + 89) = *&v35[9];
-  *a3 = v30;
-  a3[1] = v31;
-  a3[2] = v32;
-  a3[3] = v33;
+  a3[4] = v33;
+  a3[5] = *v34;
+  *(a3 + 89) = *&v34[9];
+  *a3 = v29;
+  a3[1] = v30;
+  a3[2] = v31;
+  a3[3] = v32;
   v19 = *(a3 + 14);
   *(a3 + 14) = v5;
 
-  a3[10] = v26;
-  a3[11] = v27;
-  a3[12] = v28;
-  *(a3 + 26) = v29;
-  a3[8] = v24;
-  a3[9] = v25;
+  a3[10] = v25;
+  a3[11] = v26;
+  a3[12] = v27;
+  *(a3 + 26) = v28;
+  a3[8] = v23;
+  a3[9] = v24;
   v20 = *(a3 + 27);
   if (v20)
   {
@@ -9087,43 +7640,39 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EE
     operator delete(v20);
   }
 
-  result = v23;
-  *(a3 + 216) = v23;
+  result = v22;
+  *(a3 + 216) = v22;
   *(a3 + 29) = v7;
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_6__implIJN2rf9data_flow12CustomAnchorENS8_11PlaneAnchorENS8_11ImageAnchorENS8_12ObjectAnchorENS8_10FaceAnchorENS8_10BodyAnchorEEE6__swapB8ne200100ERSF_EUlRT_RT0_E_JRNS0_6__baseILNS0_6_TraitE1EJS9_SA_SB_SC_SD_SE_EEESQ_EEEDcSH_DpT0_(uint64_t a1, __int128 *a2, __int128 *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  *v33 = a2[5];
-  *&v33[9] = *(a2 + 89);
-  v28 = *a2;
-  v29 = a2[1];
-  v31 = a2[3];
-  v32 = a2[4];
-  v30 = a2[2];
+  *v32 = a2[5];
+  *&v32[9] = *(a2 + 89);
+  v27 = *a2;
+  v28 = a2[1];
+  v30 = a2[3];
+  v31 = a2[4];
+  v29 = a2[2];
   v5 = *(a2 + 14);
   *(a2 + 14) = 0;
   v6 = *(a2 + 128);
   v7 = a2 + 136;
   v8 = *(a2 + 17);
-  *v27 = *(a2 + 18);
-  *&v27[7] = *(a2 + 151);
+  *v26 = *(a2 + 18);
+  *&v26[7] = *(a2 + 151);
   v9 = *(a2 + 159);
-  *(a2 + 17) = 0;
-  *(a2 + 18) = 0;
+  *(a2 + 136) = 0uLL;
   *(a2 + 19) = 0;
   v10 = a2 + 10;
-  v24 = *(a2 + 20);
-  *v26 = *(a2 + 21);
-  *&v26[7] = *(a2 + 175);
+  v23 = *(a2 + 20);
+  *v25 = *(a2 + 21);
+  *&v25[7] = *(a2 + 175);
   v11 = *(a2 + 183);
-  *(a2 + 21) = 0;
-  *(a2 + 22) = 0;
+  *(a2 + 168) = 0uLL;
   *(a2 + 20) = 0;
-  v25 = a2[12];
+  v24 = a2[12];
   v12 = *a3;
   v13 = a3[2];
   a2[1] = a3[1];
@@ -9148,7 +7697,7 @@ double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EE
   }
 
   v19 = *(a3 + 136);
-  *(v7 + 16) = *(a3 + 19);
+  *(v7 + 2) = *(a3 + 19);
   *v7 = v19;
   *(a3 + 159) = 0;
   *(a3 + 136) = 0;
@@ -9163,13 +7712,13 @@ double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EE
   *(a3 + 183) = 0;
   *(a3 + 160) = 0;
   a2[12] = a3[12];
-  a3[4] = v32;
-  a3[5] = *v33;
-  *(a3 + 89) = *&v33[9];
-  *a3 = v28;
-  a3[1] = v29;
-  a3[2] = v30;
-  a3[3] = v31;
+  a3[4] = v31;
+  a3[5] = *v32;
+  *(a3 + 89) = *&v32[9];
+  *a3 = v27;
+  a3[1] = v28;
+  a3[2] = v29;
+  a3[3] = v30;
   v21 = *(a3 + 14);
   *(a3 + 14) = v5;
 
@@ -9180,56 +7729,52 @@ double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EE
   }
 
   *(a3 + 17) = v8;
-  *(a3 + 18) = *v27;
-  *(a3 + 151) = *&v27[7];
+  *(a3 + 18) = *v26;
+  *(a3 + 151) = *&v26[7];
   *(a3 + 159) = v9;
   if (*(a3 + 183) < 0)
   {
     operator delete(*(a3 + 20));
   }
 
-  *(a3 + 20) = v24;
-  *(a3 + 21) = *v26;
-  *(a3 + 175) = *&v26[7];
+  *(a3 + 20) = v23;
+  *(a3 + 21) = *v25;
+  *(a3 + 175) = *&v25[7];
   *(a3 + 183) = v11;
-  result = *&v25;
-  a3[12] = v25;
-  v23 = *MEMORY[0x277D85DE8];
+  result = *&v24;
+  a3[12] = v24;
   return result;
 }
 
 __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3ELm3EEE10__dispatchB8ne200100IOZNS0_6__implIJN2rf9data_flow12CustomAnchorENS8_11PlaneAnchorENS8_11ImageAnchorENS8_12ObjectAnchorENS8_10FaceAnchorENS8_10BodyAnchorEEE6__swapB8ne200100ERSF_EUlRT_RT0_E_JRNS0_6__baseILNS0_6_TraitE1EJS9_SA_SB_SC_SD_SE_EEESQ_EEEDcSH_DpT0_(uint64_t a1, __int128 *a2, __int128 *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v37 = a2[4];
-  *v38 = a2[5];
-  *&v38[9] = *(a2 + 89);
-  v33 = *a2;
-  v34 = a2[1];
-  v35 = a2[2];
-  v36 = a2[3];
+  v36 = a2[4];
+  *v37 = a2[5];
+  *&v37[9] = *(a2 + 89);
+  v32 = *a2;
+  v33 = a2[1];
+  v34 = a2[2];
+  v35 = a2[3];
   v5 = *(a2 + 14);
   *(a2 + 14) = 0;
   v7 = a2 + 8;
   v6 = *(a2 + 16);
-  *&v32[7] = *(a2 + 143);
-  *v32 = *(a2 + 17);
+  *&v31[7] = *(a2 + 143);
+  *v31 = *(a2 + 17);
   v8 = *(a2 + 151);
-  *(a2 + 16) = 0;
-  *(a2 + 17) = 0;
+  a2[8] = 0uLL;
   *(a2 + 18) = 0;
   v10 = a2 + 152;
   v9 = *(a2 + 19);
-  *v31 = *(a2 + 20);
-  *&v31[7] = *(a2 + 167);
+  *v30 = *(a2 + 20);
+  *&v30[7] = *(a2 + 167);
   v11 = *(a2 + 175);
-  *(a2 + 20) = 0;
-  *(a2 + 21) = 0;
+  a2[10] = 0uLL;
   *(a2 + 19) = 0;
-  v29 = a2[13];
-  v30 = a2[14];
-  v27 = a2[11];
-  v28 = a2[12];
+  v28 = a2[13];
+  v29 = a2[14];
+  v26 = a2[11];
+  v27 = a2[12];
   v12 = *a3;
   v13 = a3[2];
   a2[1] = a3[1];
@@ -9263,7 +7808,7 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3ELm3EE
   }
 
   v20 = *(a3 + 152);
-  *(v10 + 16) = *(a3 + 21);
+  *(v10 + 2) = *(a3 + 21);
   *v10 = v20;
   *(a3 + 175) = 0;
   *(a3 + 152) = 0;
@@ -9274,13 +7819,13 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3ELm3EE
   a2[14] = v23;
   a2[11] = v21;
   a2[12] = v22;
-  a3[4] = v37;
-  a3[5] = *v38;
-  *(a3 + 89) = *&v38[9];
-  *a3 = v33;
-  a3[1] = v34;
-  a3[2] = v35;
-  a3[3] = v36;
+  a3[4] = v36;
+  a3[5] = *v37;
+  *(a3 + 89) = *&v37[9];
+  *a3 = v32;
+  a3[1] = v33;
+  a3[2] = v34;
+  a3[3] = v35;
   v24 = *(a3 + 14);
   *(a3 + 14) = v5;
 
@@ -9290,8 +7835,8 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3ELm3EE
   }
 
   *(a3 + 16) = v6;
-  *(a3 + 17) = *v32;
-  *(a3 + 143) = *&v32[7];
+  *(a3 + 17) = *v31;
+  *(a3 + 143) = *&v31[7];
   *(a3 + 151) = v8;
   if (*(a3 + 175) < 0)
   {
@@ -9299,38 +7844,36 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3ELm3EE
   }
 
   *(a3 + 19) = v9;
-  *(a3 + 20) = *v31;
-  *(a3 + 167) = *&v31[7];
+  *(a3 + 20) = *v30;
+  *(a3 + 167) = *&v30[7];
   *(a3 + 175) = v11;
-  a3[11] = v27;
-  a3[12] = v28;
-  result = v29;
-  a3[13] = v29;
-  a3[14] = v30;
-  v26 = *MEMORY[0x277D85DE8];
+  a3[11] = v26;
+  a3[12] = v27;
+  result = v28;
+  a3[13] = v28;
+  a3[14] = v29;
   return result;
 }
 
 __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4ELm4EEE10__dispatchB8ne200100IOZNS0_6__implIJN2rf9data_flow12CustomAnchorENS8_11PlaneAnchorENS8_11ImageAnchorENS8_12ObjectAnchorENS8_10FaceAnchorENS8_10BodyAnchorEEE6__swapB8ne200100ERSF_EUlRT_RT0_E_JRNS0_6__baseILNS0_6_TraitE1EJS9_SA_SB_SC_SD_SE_EEESQ_EEEDcSH_DpT0_(uint64_t a1, __int128 *a2, __int128 *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v34 = a2[4];
-  *v35 = a2[5];
-  *&v35[9] = *(a2 + 89);
-  v30 = *a2;
-  v31 = a2[1];
-  v32 = a2[2];
-  v33 = a2[3];
+  v33 = a2[4];
+  *v34 = a2[5];
+  *&v34[9] = *(a2 + 89);
+  v29 = *a2;
+  v30 = a2[1];
+  v31 = a2[2];
+  v32 = a2[3];
   v5 = *(a2 + 14);
   *(a2 + 14) = 0;
-  v24 = a2[10];
-  v25 = a2[11];
-  v22 = a2[8];
-  v23 = a2[9];
-  v28 = a2[14];
-  v29 = a2[15];
-  v26 = a2[12];
-  v27 = a2[13];
+  v23 = a2[10];
+  v24 = a2[11];
+  v21 = a2[8];
+  v22 = a2[9];
+  v27 = a2[14];
+  v28 = a2[15];
+  v25 = a2[12];
+  v26 = a2[13];
   v6 = *a3;
   v7 = a3[2];
   a2[1] = a3[1];
@@ -9362,39 +7905,37 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4ELm4EE
   a2[15] = v18;
   a2[12] = v16;
   a2[13] = v17;
-  a3[4] = v34;
-  a3[5] = *v35;
-  *(a3 + 89) = *&v35[9];
-  *a3 = v30;
-  a3[1] = v31;
-  a3[2] = v32;
-  a3[3] = v33;
+  a3[4] = v33;
+  a3[5] = *v34;
+  *(a3 + 89) = *&v34[9];
+  *a3 = v29;
+  a3[1] = v30;
+  a3[2] = v31;
+  a3[3] = v32;
   v19 = *(a3 + 14);
   *(a3 + 14) = v5;
 
-  a3[12] = v26;
-  a3[13] = v27;
-  a3[14] = v28;
-  a3[15] = v29;
-  a3[8] = v22;
-  a3[9] = v23;
-  result = v24;
-  a3[10] = v24;
-  a3[11] = v25;
-  v21 = *MEMORY[0x277D85DE8];
+  a3[12] = v25;
+  a3[13] = v26;
+  a3[14] = v27;
+  a3[15] = v28;
+  a3[8] = v21;
+  a3[9] = v22;
+  result = v23;
+  a3[10] = v23;
+  a3[11] = v24;
   return result;
 }
 
 void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm5ELm5EEE10__dispatchB8ne200100IOZNS0_6__implIJN2rf9data_flow12CustomAnchorENS8_11PlaneAnchorENS8_11ImageAnchorENS8_12ObjectAnchorENS8_10FaceAnchorENS8_10BodyAnchorEEE6__swapB8ne200100ERSF_EUlRT_RT0_E_JRNS0_6__baseILNS0_6_TraitE1EJS9_SA_SB_SC_SD_SE_EEESQ_EEEDcSH_DpT0_(uint64_t a1, __int128 *a2, __int128 *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20 = a2[4];
-  *v21 = a2[5];
-  *&v21[9] = *(a2 + 89);
-  v16 = *a2;
-  v17 = a2[1];
-  v18 = a2[2];
-  v19 = a2[3];
+  v19 = a2[4];
+  *v20 = a2[5];
+  *&v20[9] = *(a2 + 89);
+  v15 = *a2;
+  v16 = a2[1];
+  v17 = a2[2];
+  v18 = a2[3];
   v5 = *(a2 + 14);
   *(a2 + 14) = 0;
   v6 = *(a2 + 32);
@@ -9416,18 +7957,17 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm5ELm5EEE1
   *(a2 + 14) = v12;
 
   *(a2 + 32) = *(a3 + 32);
-  a3[4] = v20;
-  a3[5] = *v21;
-  *(a3 + 89) = *&v21[9];
-  *a3 = v16;
-  a3[1] = v17;
-  a3[2] = v18;
-  a3[3] = v19;
+  a3[4] = v19;
+  a3[5] = *v20;
+  *(a3 + 89) = *&v20[9];
+  *a3 = v15;
+  a3[1] = v16;
+  a3[2] = v17;
+  a3[3] = v18;
   v14 = *(a3 + 14);
   *(a3 + 14) = v5;
 
   *(a3 + 32) = v6;
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 __n128 std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__generic_construct[abi:ne200100]<std::__variant_detail::__impl<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>&,std::__variant_detail::__impl<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &&)::{lambda(std::__variant_detail::__impl<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &&>(uint64_t *a1, __int128 *a2)
@@ -9493,8 +8033,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatc
   result = *(a2 + 216);
   *(v2 + 216) = result;
   *(v2 + 232) = *(a2 + 29);
-  *(a2 + 27) = 0;
-  *(a2 + 28) = 0;
+  *(a2 + 216) = 0uLL;
   *(a2 + 29) = 0;
   return result;
 }
@@ -9521,14 +8060,12 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatc
   v9 = *(a2 + 136);
   *(v2 + 152) = *(a2 + 19);
   *(v2 + 136) = v9;
-  *(a2 + 18) = 0;
-  *(a2 + 19) = 0;
+  a2[9] = 0uLL;
   *(a2 + 17) = 0;
   v10 = a2[10];
   *(v2 + 176) = *(a2 + 22);
   *(v2 + 160) = v10;
-  *(a2 + 21) = 0;
-  *(a2 + 22) = 0;
+  *(a2 + 168) = 0uLL;
   *(a2 + 20) = 0;
   result = a2[12];
   *(v2 + 192) = result;
@@ -9556,14 +8093,12 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatc
   v9 = a2[8];
   *(v2 + 144) = *(a2 + 18);
   *(v2 + 128) = v9;
-  *(a2 + 17) = 0;
-  *(a2 + 18) = 0;
+  *(a2 + 136) = 0uLL;
   *(a2 + 16) = 0;
   v10 = *(a2 + 152);
   *(v2 + 168) = *(a2 + 21);
   *(v2 + 152) = v10;
-  *(a2 + 20) = 0;
-  *(a2 + 21) = 0;
+  a2[10] = 0uLL;
   *(a2 + 19) = 0;
   result = a2[11];
   v12 = a2[12];
@@ -9633,13 +8168,13 @@ float std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch
   return result;
 }
 
-uint64_t ___ZZN2rf9data_flow8consumer24AnchorManagementConsumer23sceneRemovalEventHandleEP7RESceneP10REEventBusENK3__0cvU13block_pointerF20REEventHandlerResultPvPKvEEv_block_invoke(uint64_t a1)
+uint64_t ___ZZN2rf9data_flow8consumer24AnchorManagementConsumer23sceneRemovalEventHandleEP7RESceneP10REEventBusENK3__0cvU13block_pointerF20REEventHandlerResultPvPKvEEv_block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   v3 = v2 + 73;
-  v4 = (a1 + 48);
-  v38 = (a1 + 48);
-  if (std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2 + 73, (a1 + 48))[8])
+  v4 = a1 + 6;
+  v38 = (a1 + 6);
+  if (std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2 + 73, a1 + 6, &v38)[8])
   {
     v5 = std::__string_hash<char>::operator()[abi:ne200100]((v2 + 73), v4);
     v6 = v2[74];
@@ -9749,7 +8284,7 @@ LABEL_37:
               v21 = *i;
               if (*i)
               {
-                v22 = v21[1];
+                v22 = *(v21 + 8);
                 if (v16.u32[0] > 1uLL)
                 {
                   if (v22 >= *&v14)
@@ -9814,11 +8349,11 @@ LABEL_37:
   }
 
   v24 = v2 + 31;
-  v25 = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::find<REScene *>(v2 + 31, (a1 + 40));
+  v25 = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::find<REScene *>(v2 + 31, a1 + 5);
   if (v25)
   {
     v26 = v2[32];
-    v27 = v25[1];
+    v27 = *(v25 + 1);
     v28 = vcnt_s8(v26);
     v28.i16[0] = vaddlv_u8(v28);
     if (v28.u32[0] > 1uLL)
@@ -9842,12 +8377,12 @@ LABEL_37:
     }
 
     while (v29 != v25);
-    if (v30 == v2 + 33)
+    if (v30 == (v2 + 33))
     {
       goto LABEL_66;
     }
 
-    v31 = v30[1];
+    v31 = *(v30 + 1);
     if (v28.u32[0] > 1uLL)
     {
       if (v31 >= *&v26)
@@ -9924,7 +8459,7 @@ LABEL_67:
     std::unique_ptr<std::__hash_node<std::__hash_value_type<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>,void *>>>>::~unique_ptr[abi:ne200100](&v38);
   }
 
-  v35 = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::find<REScene *>(v2 + 80, (a1 + 40));
+  v35 = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::find<REScene *>(v2 + 80, a1 + 5);
   if (v35)
   {
     v36 = v35;
@@ -9933,4 +8468,3406 @@ LABEL_67:
   }
 
   return 1;
+}
+
+void __copy_helper_block_ea8_32c108_ZTSKZN2rf9data_flow8consumer24AnchorManagementConsumer23sceneRemovalEventHandleEP7RESceneP10REEventBusE3__0(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  if (*(a2 + 71) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 48), *(a2 + 48), *(a2 + 56));
+  }
+
+  else
+  {
+    v2 = *(a2 + 48);
+    *(a1 + 64) = *(a2 + 64);
+    *(a1 + 48) = v2;
+  }
+}
+
+void __destroy_helper_block_ea8_32c108_ZTSKZN2rf9data_flow8consumer24AnchorManagementConsumer23sceneRemovalEventHandleEP7RESceneP10REEventBusE3__0(uint64_t a1)
+{
+  if (*(a1 + 71) < 0)
+  {
+    operator delete(*(a1 + 48));
+  }
+}
+
+uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,0>(v2 + 16);
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void *std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::find<REScene *>(void *a1, void *a2)
+{
+  v2 = a1[1];
+  if (!*&v2)
+  {
+    return 0;
+  }
+
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = vcnt_s8(v2);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
+  {
+    v7 = v5;
+    if (v5 >= *&v2)
+    {
+      v7 = v5 % *&v2;
+    }
+  }
+
+  else
+  {
+    v7 = v5 & (*&v2 - 1);
+  }
+
+  v8 = *(*a1 + 8 * v7);
+  if (!v8)
+  {
+    return 0;
+  }
+
+  for (result = *v8; result; result = *result)
+  {
+    v10 = result[1];
+    if (v10 == v5)
+    {
+      if (result[2] == *a2)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
+        {
+          v10 %= *&v2;
+        }
+      }
+
+      else
+      {
+        v10 &= *&v2 - 1;
+      }
+
+      if (v10 != v7)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, __int128 **a3)
+{
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
+  {
+    v10 = v5;
+    if (v5 >= *&v7)
+    {
+      v10 = v5 % *&v7;
+    }
+  }
+
+  else
+  {
+    v10 = (*&v7 - 1) & v5;
+  }
+
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v13 = v12[1];
+    if (v13 == v6)
+    {
+      break;
+    }
+
+    if (v9 > 1)
+    {
+      if (v13 >= *&v7)
+      {
+        v13 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v13 &= *&v7 - 1;
+    }
+
+    if (v13 != v10)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v12;
+}
+
+void sub_261855550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,ARReferenceImage * {__strong}>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ARReferenceImage * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      std::__destroy_at[abi:ne200100]<std::pair<std::string const,ARReferenceImage * {__strong}>,0>(v2 + 16);
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_0,std::allocator<rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_0>,BOOL ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_28740B138;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_0,std::allocator<rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_0>,BOOL ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const&)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 8);
+  v2 = *(a2 + 256);
+  if (v2 == -1)
+  {
+    std::__throw_bad_variant_access[abi:ne200100]();
+  }
+
+  v5 = &v4;
+  return (off_28740B1A8[v2])(&v5);
+}
+
+uint64_t std::__function::__func<rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_0,std::allocator<rf::data_flow::consumer::AnchorManagementConsumer::matchingAnchor(REScene *,REComponent *,rf::ARStateData const&)::$_0>,BOOL ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const&)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__value_func<BOOL ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+void *std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::__emplace_unique_key_args<REScene *,std::piecewise_construct_t const&,std::tuple<REScene * const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
+{
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
+  {
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
+    {
+      v9 = v6 % *&v7;
+    }
+  }
+
+  else
+  {
+    v9 = v6 & (*&v7 - 1);
+  }
+
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v12 = v11[1];
+    if (v12 == v6)
+    {
+      break;
+    }
+
+    if (v8.u32[0] > 1uLL)
+    {
+      if (v12 >= *&v7)
+      {
+        v12 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v12 &= *&v7 - 1;
+    }
+
+    if (v12 != v9)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v11 = *v11;
+    if (!v11)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v11[2] != *a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v11;
+}
+
+void sub_261855A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::__hash_table<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,rf::data_flow::consumer::EntitledAnchoringTypesConfig>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
+{
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
+  {
+    goto LABEL_18;
+  }
+
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
+  {
+    v7 = *a2;
+    if (v4 >= *&v5)
+    {
+      v7 = v4 % *&v5;
+    }
+  }
+
+  else
+  {
+    v7 = (*&v5 - 1) & v4;
+  }
+
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v10 = v9[1];
+    if (v10 == v4)
+    {
+      break;
+    }
+
+    if (v6.u32[0] > 1uLL)
+    {
+      if (v10 >= *&v5)
+      {
+        v10 %= *&v5;
+      }
+    }
+
+    else
+    {
+      v10 &= *&v5 - 1;
+    }
+
+    if (v10 != v7)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v9 = *v9;
+    if (!v9)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v9[2] != v4)
+  {
+    goto LABEL_17;
+  }
+
+  return v9;
+}
+
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(float *a1, unint64_t *a2, void *a3)
+{
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
+  {
+    goto LABEL_18;
+  }
+
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
+  {
+    v6 = *a2;
+    if (v3 >= *&v4)
+    {
+      v6 = v3 % *&v4;
+    }
+  }
+
+  else
+  {
+    v6 = (*&v4 - 1) & v3;
+  }
+
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v9 = v8[1];
+    if (v9 == v3)
+    {
+      break;
+    }
+
+    if (v5.u32[0] > 1uLL)
+    {
+      if (v9 >= *&v4)
+      {
+        v9 %= *&v4;
+      }
+    }
+
+    else
+    {
+      v9 &= *&v4 - 1;
+    }
+
+    if (v9 != v6)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v8 = *v8;
+    if (!v8)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v8[2] != v3)
+  {
+    goto LABEL_17;
+  }
+
+  return v8;
+}
+
+uint64_t *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
+{
+  result = std::__hash_table<std::__hash_value_type<unsigned long,rf::data_flow::provider::SyntheticARData>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,rf::data_flow::provider::SyntheticARData>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,rf::data_flow::provider::SyntheticARData>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,rf::data_flow::provider::SyntheticARData>>>::find<unsigned long>(a1, a2);
+  if (result)
+  {
+    std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::erase(a1, result);
+    return 1;
+  }
+
+  return result;
+}
+
+void *std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::swap[abi:ne200100](void *result, void *a2)
+{
+  v5[3] = *MEMORY[0x277D85DE8];
+  if (a2 != result)
+  {
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
+
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
+    {
+      v3[3] = v4;
+      a2[3] = result;
+    }
+  }
+
+  return result;
+}
+
+void sub_261856500(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void *std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::swap[abi:ne200100](void *result, void *a2)
+{
+  v5[3] = *MEMORY[0x277D85DE8];
+  if (a2 != result)
+  {
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
+
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
+    {
+      v3[3] = v4;
+      a2[3] = result;
+    }
+  }
+
+  return result;
+}
+
+void sub_261856764(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void *std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::swap[abi:ne200100](void *result, void *a2)
+{
+  v5[3] = *MEMORY[0x277D85DE8];
+  if (a2 != result)
+  {
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
+
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
+    {
+      v3[3] = v4;
+      a2[3] = result;
+    }
+  }
+
+  return result;
+}
+
+void sub_2618569C8(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void *std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::swap[abi:ne200100](void *result, void *a2)
+{
+  v5[3] = *MEMORY[0x277D85DE8];
+  if (a2 != result)
+  {
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
+
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
+    {
+      v3[3] = v4;
+      a2[3] = result;
+    }
+  }
+
+  return result;
+}
+
+void sub_261856C2C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void *std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__emplace_unique_key_args<REScene *,std::piecewise_construct_t const&,std::tuple<REScene * const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
+{
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
+  {
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
+    {
+      v9 = v6 % *&v7;
+    }
+  }
+
+  else
+  {
+    v9 = v6 & (*&v7 - 1);
+  }
+
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v12 = v11[1];
+    if (v12 == v6)
+    {
+      break;
+    }
+
+    if (v8.u32[0] > 1uLL)
+    {
+      if (v12 >= *&v7)
+      {
+        v12 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v12 &= *&v7 - 1;
+    }
+
+    if (v12 != v9)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v11 = *v11;
+    if (!v11)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v11[2] != *a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v11;
+}
+
+void sub_261856EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::unique_ptr<std::__hash_node<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t *a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions::~SceneSubscriptions((v2 + 24));
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__erase_unique<REScene *>(void *a1, void *a2)
+{
+  result = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::find<REScene *>(a1, a2);
+  if (result)
+  {
+    std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::remove(a1, result, v4);
+    std::unique_ptr<std::__hash_node<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,void *>>>>::~unique_ptr[abi:ne200100](v4);
+    return 1;
+  }
+
+  return result;
+}
+
+void sub_261856FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__node_insert_unique(uint64_t *a1, void *a2)
+{
+  v2 = a2;
+  v4 = a2 + 2;
+  v5 = 0x9DDFEA08EB382D69 * ((8 * (a2[2] & 0x1FFFFFFFLL) + 8) ^ HIDWORD(a2[2]));
+  v6 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (HIDWORD(a2[2]) ^ (v5 >> 47) ^ v5)) ^ ((0x9DDFEA08EB382D69 * (HIDWORD(a2[2]) ^ (v5 >> 47) ^ v5)) >> 47));
+  *(v4 - 1) = v6;
+  v7 = std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__node_insert_unique_prepare[abi:ne200100](a1, v6, v4);
+  if (v7)
+  {
+    return v7;
+  }
+
+  std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__node_insert_unique_perform[abi:ne200100](a1, v2);
+  return v2;
+}
+
+void *std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__node_insert_unique_prepare[abi:ne200100](uint64_t a1, unint64_t a2, void *a3)
+{
+  v3 = *(a1 + 8);
+  if (v3)
+  {
+    v4 = vcnt_s8(v3);
+    v4.i16[0] = vaddlv_u8(v4);
+    if (v4.u32[0] > 1uLL)
+    {
+      v5 = v3 <= a2 ? a2 % v3 : a2;
+    }
+
+    else
+    {
+      v5 = (v3 - 1) & a2;
+    }
+
+    v6 = *(*a1 + 8 * v5);
+    if (v6)
+    {
+      for (i = *v6; i; i = *i)
+      {
+        v8 = i[1];
+        if (v8 == a2)
+        {
+          if (i[2] == *a3)
+          {
+            return i;
+          }
+        }
+
+        else
+        {
+          if (v4.u32[0] > 1uLL)
+          {
+            if (v8 >= v3)
+            {
+              v8 %= v3;
+            }
+          }
+
+          else
+          {
+            v8 &= v3 - 1;
+          }
+
+          if (v8 != v5)
+          {
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  v9 = (*(a1 + 24) + 1);
+  v10 = *(a1 + 32);
+  if (!v3 || (v10 * v3) < v9)
+  {
+    v11 = 2 * v3;
+    v12 = v3 < 3 || (v3 & (v3 - 1)) != 0;
+    v13 = v12 | v11;
+    v14 = vcvtps_u32_f32(v9 / v10);
+    if (v13 <= v14)
+    {
+      v15 = v14;
+    }
+
+    else
+    {
+      v15 = v13;
+    }
+
+    std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> const>>>>::__rehash<true>(a1, v15);
+  }
+
+  return 0;
+}
+
+uint64_t *std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions>>>::__node_insert_unique_perform[abi:ne200100](uint64_t *result, void *a2)
+{
+  v2 = result[1];
+  v3 = a2[1];
+  v4 = vcnt_s8(v2);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    if (v3 >= *&v2)
+    {
+      v3 %= *&v2;
+    }
+  }
+
+  else
+  {
+    v3 &= *&v2 - 1;
+  }
+
+  v5 = *result;
+  v6 = *(*result + 8 * v3);
+  if (v6)
+  {
+    *a2 = *v6;
+LABEL_13:
+    *v6 = a2;
+    goto LABEL_14;
+  }
+
+  *a2 = result[2];
+  result[2] = a2;
+  *(v5 + 8 * v3) = result + 2;
+  if (*a2)
+  {
+    v7 = *(*a2 + 8);
+    if (v4.u32[0] > 1uLL)
+    {
+      if (v7 >= *&v2)
+      {
+        v7 %= *&v2;
+      }
+    }
+
+    else
+    {
+      v7 &= *&v2 - 1;
+    }
+
+    v6 = (*result + 8 * v7);
+    goto LABEL_13;
+  }
+
+LABEL_14:
+  ++result[3];
+  return result;
+}
+
+uint64_t rf::data_flow::consumer::SyntheticEnvironmentConsumer::SyntheticEnvironmentConsumer(uint64_t a1)
+{
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = &unk_28740B1F8;
+  *(a1 + 32) = 0;
+  *(a1 + 40) = 0;
+  v2 = *MEMORY[0x277D00848];
+  *(a1 + 48) = *MEMORY[0x277D00848];
+  *(a1 + 56) = v2;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 112) = 1065353216;
+  *(a1 + 200) = 0;
+  *(a1 + 120) = 0u;
+  *(a1 + 136) = 0u;
+  *(a1 + 152) = 0u;
+  *(a1 + 168) = 0;
+  v3 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x277D85CD8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v4 = dispatch_queue_attr_make_with_qos_class(v3, QOS_CLASS_USER_INITIATED, 0);
+  *(a1 + 208) = dispatch_queue_create("RealityFusionSyntheticEnvironmentConsumer", v4);
+
+  *(a1 + 216) = dispatch_group_create();
+  return a1;
+}
+
+void rf::data_flow::consumer::SyntheticEnvironmentConsumer::~SyntheticEnvironmentConsumer(rf::data_flow::consumer::SyntheticEnvironmentConsumer *this)
+{
+  *this = &unk_28740B1F8;
+  v2 = *(this + 27);
+  if (v2)
+  {
+    dispatch_group_wait(v2, 0xFFFFFFFFFFFFFFFFLL);
+    v3 = *(this + 27);
+    *(this + 27) = 0;
+  }
+
+  v4 = *(this + 26);
+  *(this + 26) = 0;
+
+  rf::data_flow::consumer::SyntheticEnvironmentConsumer::removeAllSyntheticAssets(this);
+  std::__function::__value_func<void ()(NSURL *,NSError *)>::~__value_func[abi:ne200100](this + 176);
+  std::deque<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation>::~deque[abi:ne200100](this + 120);
+  std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::~__hash_table(this + 80);
+  RESharedPtr<REEntity>::~RESharedPtr(this + 9);
+  RESharedPtr<REAsset>::~RESharedPtr(this + 8);
+  RESharedPtr<REAsset>::~RESharedPtr(this + 5);
+  RESharedPtr<REAsset>::~RESharedPtr(this + 4);
+}
+
+{
+  rf::data_flow::consumer::SyntheticEnvironmentConsumer::~SyntheticEnvironmentConsumer(this);
+
+  JUMPOUT(0x26670D060);
+}
+
+uint64_t rf::data_flow::consumer::SyntheticEnvironmentConsumer::removeAllSyntheticAssets(rf::data_flow::consumer::SyntheticEnvironmentConsumer *this)
+{
+  result = *(this + 9);
+  if (result)
+  {
+    SceneNullable = REEntityGetSceneNullable();
+    if (!SceneNullable)
+    {
+      rf::getMessage("Synthetic environments root entity has been removed from the scene!", __p);
+      rf::internal::logAssert(__p);
+      if (v6 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      rf::internal::debugBreakHandler(v4);
+    }
+
+    std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::clear(this + 80);
+    REEntitySetParent();
+    if (*(this + 9))
+    {
+      RERelease();
+    }
+
+    *(this + 9) = 0;
+    return rf::data_flow::consumer::SyntheticEnvironmentConsumer::removeRenderGraphProviders(this, SceneNullable);
+  }
+
+  return result;
+}
+
+void sub_26185754C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t rf::data_flow::consumer::SyntheticEnvironmentConsumer::removeRenderGraphProviders(uint64_t result, uint64_t a2)
+{
+  v2 = result;
+  v3 = *MEMORY[0x277D00848];
+  if (*(result + 56) != *MEMORY[0x277D00848])
+  {
+    result = RESceneRenderGraphFileProviderArrayRemove();
+    *(v2 + 56) = v3;
+  }
+
+  if (*(v2 + 48) != v3)
+  {
+    result = RESceneRenderGraphFileProviderArrayRemove();
+    *(v2 + 48) = v3;
+  }
+
+  return result;
+}
+
+void std::function<void ()(NSURL *,NSError *)>::operator()(uint64_t a1, void *a2, void *a3)
+{
+  v7 = a2;
+  v6 = a3;
+  v5 = *(a1 + 24);
+  if (!v5)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v5 + 48))(v5, &v7, &v6);
+}
+
+void ___ZN2rf9data_flow8consumer28SyntheticEnvironmentConsumer24addSyntheticAssetToSceneERKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEP7RESceneP16REServiceLocator_block_invoke_2(uint64_t a1)
+{
+  v23 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 48);
+  if (*(*(*(a1 + 40) + 8) + 24))
+  {
+    v3 = rf::realityFusionLogObject(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      *&buf[4] = REEntityGetName();
+      _os_log_impl(&dword_2617CB000, v3, OS_LOG_TYPE_DEFAULT, "SyntheticEnvironmentConsumer failed importing asset at path %s", buf, 0xCu);
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v16 = *(*(*(a1 + 40) + 8) + 24);
+      *buf = 138412290;
+      *&buf[4] = v16;
+      _os_log_error_impl(&dword_2617CB000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    }
+
+    RERelease();
+    if (*(v2 + 200))
+    {
+      std::function<void ()(NSURL *,NSError *)>::operator()(v2 + 176, *(a1 + 32), *(*(*(a1 + 40) + 8) + 24));
+    }
+
+LABEL_8:
+    CFRelease(*(*(*(a1 + 40) + 8) + 24));
+    return;
+  }
+
+  v4 = RESceneImportOperationPublishToEngine();
+  if (*(*(*(a1 + 40) + 8) + 24))
+  {
+    v5 = rf::realityFusionLogObject(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      *&buf[4] = REEntityGetName();
+      _os_log_impl(&dword_2617CB000, v5, OS_LOG_TYPE_DEFAULT, "SyntheticEnvironmentConsumer failed to publish imported asset at path %s", buf, 0xCu);
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v17 = *(*(*(a1 + 40) + 8) + 24);
+      *buf = 138412290;
+      *&buf[4] = v17;
+      _os_log_error_impl(&dword_2617CB000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    }
+
+    RERelease();
+    if (*(v2 + 200))
+    {
+      std::function<void ()(NSURL *,NSError *)>::operator()(v2 + 176, *(a1 + 32), *(*(*(a1 + 40) + 8) + 24));
+    }
+
+    goto LABEL_8;
+  }
+
+  if (RESceneImportOperationGetSceneAsset())
+  {
+    ChildCount = REEntityGetChildCount();
+    if (ChildCount >= 1)
+    {
+      v7 = (ChildCount & 0x7FFFFFFF) + 1;
+      do
+      {
+        Child = REEntityGetChild();
+        MEMORY[0x26670C370](Child);
+        --v7;
+      }
+
+      while (v7 > 1);
+    }
+
+    REEntitySubtreeLoadFromAsset();
+    v9 = *(a1 + 56);
+    v21 = 0u;
+    v22 = 0u;
+    *buf = 0u;
+    std::deque<REEntity *>::__add_back_capacity(buf);
+    v10 = *(&v22 + 1);
+    *(*(*&buf[8] + (((*(&v22 + 1) + v22) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(&v22 + 1) + v22) & 0x1FF)) = v9;
+    v11 = __CFADD__(v10, 1);
+    v12 = v10 + 1;
+    *(&v22 + 1) = v12;
+    if (!v11)
+    {
+      do
+      {
+        v13 = ((v21 - *&buf[8]) << 6) - 1;
+        if (v21 == *&buf[8])
+        {
+          v13 = 0;
+        }
+
+        *(&v22 + 1) = v12 - 1;
+        if ((v13 - (v22 + v12 - 1)) >= 0x400)
+        {
+          operator delete(*(v21 - 8));
+          *&v21 = v21 - 8;
+        }
+
+        REMeshComponentGetComponentType();
+        if (REEntityGetComponentByClass())
+        {
+          if (REMeshComponentGetMaterialCount())
+          {
+            REMeshComponentGetMaterialAtIndex();
+            if (REMaterialAssetGetTextureAsset())
+            {
+              REMeshComponentRemoveAllMaterials();
+              REMeshComponentAddMaterial();
+              REMaterialParameterBlockArrayComponentGetComponentType();
+              REEntityGetOrAddComponentByClass();
+              if (!REMaterialParameterBlockArrayComponentGetBlockAtIndex())
+              {
+                RERenderManagerMaterialParameterBlockCreateWithAsset();
+                REMaterialParameterBlockArrayComponentSetBlockAtIndex();
+                RERelease();
+              }
+
+              REMaterialParameterBlockSetTextureFromAsset();
+            }
+          }
+        }
+
+        v14 = REEntityGetChildCount();
+        if (v14)
+        {
+          for (i = 0; i != v14; ++i)
+          {
+            v19 = REEntityGetChild();
+            std::deque<REEntity *>::push_back(buf, &v19);
+          }
+        }
+
+        v12 = *(&v22 + 1);
+      }
+
+      while (*(&v22 + 1));
+    }
+
+    std::deque<REEntity *>::~deque[abi:ne200100](buf);
+  }
+
+  else
+  {
+    rf::getMessage("Couldn't get scene asset from import operation", buf);
+    rf::internal::logAssert(buf);
+    if (SBYTE7(v21) < 0)
+    {
+      operator delete(*buf);
+    }
+
+    rf::internal::debugBreakHandler(v18);
+  }
+
+  RERelease();
+  if (*(v2 + 200))
+  {
+    std::function<void ()(NSURL *,NSError *)>::operator()(v2 + 176, *(a1 + 32), 0);
+  }
+
+  *(v2 + 168) = 0;
+}
+
+void sub_261857B90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void rf::data_flow::consumer::SyntheticEnvironmentConsumer::consumeLatestUpdate(uint64_t a1, uint64_t a2)
+{
+  v89 = *MEMORY[0x277D85DE8];
+  if (*(a2 + 32) == 1 && *(a2 + 16) == 1)
+  {
+    v4 = *(a1 + 16);
+    std::mutex::lock(v4);
+    if (*(v4 + 3832))
+    {
+      if (*(a2 + 32) != 1 || *(a2 + 16) != 1)
+      {
+        goto LABEL_135;
+      }
+
+      v5 = MEMORY[0x26670CB10](*(a2 + 8));
+      if (v5 && REAssetGetAssetManager() != v5)
+      {
+        *buf = REAssetManagerCreateAssetHandle();
+        v6 = *(a1 + 32);
+        *(a1 + 32) = *buf;
+        if (v6)
+        {
+          RERelease();
+        }
+
+        *buf = 0;
+        RESharedPtr<REAsset>::~RESharedPtr(buf);
+        REAssetHandleLoadNow();
+        if ((REAssetHandleIsLoaded() & 1) == 0)
+        {
+          rf::getMessage("Loading renderSyntheticEnvironment provider failed!", buf);
+          rf::internal::logAssert(buf);
+          if (SBYTE7(v80) < 0)
+          {
+            operator delete(*buf);
+          }
+
+          rf::internal::debugBreakHandler(v66);
+        }
+
+        *buf = REAssetManagerCreateAssetHandle();
+        v7 = *(a1 + 40);
+        *(a1 + 40) = *buf;
+        if (v7)
+        {
+          RERelease();
+        }
+
+        *buf = 0;
+        RESharedPtr<REAsset>::~RESharedPtr(buf);
+        REAssetHandleLoadNow();
+        if ((REAssetHandleIsLoaded() & 1) == 0)
+        {
+          rf::getMessage("Loading composeSyntheticEnvironment provider failed!", buf);
+          rf::internal::logAssert(buf);
+          if (SBYTE7(v80) < 0)
+          {
+            operator delete(*buf);
+          }
+
+          rf::internal::debugBreakHandler(v67);
+        }
+
+        RESceneAddRenderGraphFileProviderArray();
+        *(a1 + 48) = RESceneRenderGraphFileProviderArrayAdd();
+        *(a1 + 56) = RESceneRenderGraphFileProviderArrayAdd();
+        *buf = REAssetManagerCreateAssetHandle();
+        v8 = *(a1 + 64);
+        *(a1 + 64) = *buf;
+        if (v8)
+        {
+          RERelease();
+        }
+
+        *buf = 0;
+        RESharedPtr<REAsset>::~RESharedPtr(buf);
+        REAssetHandleLoadNow();
+        if ((REAssetHandleIsLoaded() & 1) == 0)
+        {
+          rf::getMessage("Loading syntheticEnvironmentUnlit material failed!", buf);
+          rf::internal::logAssert(buf);
+          if (SBYTE7(v80) < 0)
+          {
+            operator delete(*buf);
+          }
+
+          rf::internal::debugBreakHandler(v68);
+        }
+      }
+    }
+
+    for (i = *(v4 + 3864); i; i = *i)
+    {
+      *buf = 1;
+      std::deque<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation>::emplace_back<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation::Type,std::string const&>((a1 + 120), buf, (i + 2));
+    }
+
+    for (j = *(v4 + 3824); j; j = *j)
+    {
+      *buf = 0;
+      std::deque<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation>::emplace_back<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation::Type,std::string const&>((a1 + 120), buf, (j + 2));
+    }
+
+    v11 = *(v4 + 3904);
+    if (v11)
+    {
+      v12 = *(a1 + 160);
+      do
+      {
+        v13 = *(a1 + 128);
+        v14 = *(a1 + 136);
+        v15 = 42 * ((v14 - v13) >> 3) - 1;
+        if (v14 == v13)
+        {
+          v15 = 0;
+        }
+
+        if (v15 == v12 + *(a1 + 152))
+        {
+          std::deque<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation>::__add_back_capacity((a1 + 120));
+          v13 = *(a1 + 128);
+          v14 = *(a1 + 136);
+        }
+
+        if (v14 == v13)
+        {
+          v17 = 0;
+        }
+
+        else
+        {
+          v16 = *(a1 + 160) + *(a1 + 152);
+          v17 = *(v13 + 8 * (v16 / 0x2A)) + 96 * (v16 % 0x2A);
+        }
+
+        if (*(v11 + 39) < 0)
+        {
+          std::string::__init_copy_ctor_external(&block, v11[2], v11[3]);
+        }
+
+        else
+        {
+          block = *(v11 + 2);
+        }
+
+        v18 = *(v11 + 4);
+        *buf = *(v11 + 3);
+        v80 = v18;
+        v19 = *(v11 + 6);
+        v81 = *(v11 + 5);
+        v82 = v19;
+        *v17 = 2;
+        v20 = (v17 + 8);
+        if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external(v20, block.__r_.__value_.__l.__data_, block.__r_.__value_.__l.__size_);
+          v24 = SHIBYTE(block.__r_.__value_.__r.__words[2]);
+          v25 = v80;
+          *(v17 + 32) = *buf;
+          *(v17 + 48) = v25;
+          v26 = v82;
+          *(v17 + 64) = v81;
+          *(v17 + 80) = v26;
+          if (v24 < 0)
+          {
+            operator delete(block.__r_.__value_.__l.__data_);
+          }
+        }
+
+        else
+        {
+          v21 = *&block.__r_.__value_.__l.__data_;
+          *(v17 + 24) = *(&block.__r_.__value_.__l + 2);
+          *&v20->__r_.__value_.__l.__data_ = v21;
+          v22 = v80;
+          *(v17 + 32) = *buf;
+          *(v17 + 48) = v22;
+          v23 = v82;
+          *(v17 + 64) = v81;
+          *(v17 + 80) = v23;
+        }
+
+        v12 = *(a1 + 160) + 1;
+        *(a1 + 160) = v12;
+        v11 = *v11;
+      }
+
+      while (v11);
+    }
+
+    if (*(a2 + 32) & 1) != 0 && (*(a2 + 16))
+    {
+      if (*(a1 + 168))
+      {
+LABEL_41:
+        std::mutex::unlock(v4);
+        return;
+      }
+
+      v73 = (a1 + 80);
+      v72 = *(a2 + 24);
+      v70 = *(a2 + 8);
+      domain = *MEMORY[0x277D00860];
+      while (1)
+      {
+        if (!*(a1 + 160))
+        {
+          goto LABEL_41;
+        }
+
+        v27 = *(*(a1 + 128) + 8 * (*(a1 + 152) / 0x2AuLL)) + 96 * (*(a1 + 152) % 0x2AuLL);
+        v28 = *v27;
+        if (*v27 == 2)
+        {
+          if (std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::find<std::string>(v73, (v27 + 8)))
+          {
+            if (REEntityGetSceneNullable() != v72)
+            {
+              rf::getMessage("Asset entity doesn't belong to the right scene", buf);
+              rf::internal::logAssert(buf);
+              if (SBYTE7(v80) < 0)
+              {
+                operator delete(*buf);
+              }
+
+              rf::internal::debugBreakHandler(v65);
+            }
+
+            RETransformComponentGetComponentType();
+            REEntityGetComponentByClass();
+            RETransformComponentSetWorldMatrix4x4F();
+            goto LABEL_114;
+          }
+
+          v37 = rf::realityFusionLogObject(0);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          {
+            if (*(v27 + 31) >= 0)
+            {
+              v39 = v27 + 8;
+            }
+
+            else
+            {
+              v39 = *(v27 + 8);
+            }
+
+            *buf = 136315138;
+            *&buf[4] = v39;
+            _os_log_impl(&dword_2617CB000, v37, OS_LOG_TYPE_DEFAULT, "Trying to update unknown synthetic asset %s", buf, 0xCu);
+          }
+        }
+
+        else
+        {
+          if (v28 != 1)
+          {
+            if (!v28)
+            {
+              if (*(v27 + 31) >= 0)
+              {
+                v29 = v27 + 8;
+              }
+
+              else
+              {
+                v29 = *(v27 + 8);
+              }
+
+              v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:v29];
+              v30 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+              v31 = std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::find<std::string>(v73, (v27 + 8));
+              if (!v31)
+              {
+                if (!*(a1 + 72) || REEntityGetSceneNullable() != v72)
+                {
+                  *&v86 = REEntityCreate();
+                  v40 = *(a1 + 72);
+                  *(a1 + 72) = v86;
+                  if (v40)
+                  {
+                    RERelease();
+                  }
+
+                  *&v86 = 0;
+                  RESharedPtr<REEntity>::~RESharedPtr(&v86);
+                  REEntitySetName();
+                  RETransformComponentGetComponentType();
+                  REEntityAddComponentByClass();
+                  REAnchorComponentGetComponentType();
+                  REEntityAddComponentByClass();
+                  REAnchorComponentSetAnchoredLocally();
+                  RESceneAddEntity();
+                  REHideEntity();
+                }
+
+                v45 = REEntityCreate();
+                REEntitySetName();
+                RETransformComponentGetComponentType();
+                REEntityAddComponentByClass();
+                REEntitySetParent();
+                REHideEntity();
+                RERelease();
+                RESharedPtr<REEntity>::fromGet(v45, &v78);
+                operator new();
+              }
+
+              v32 = v31[5];
+              RESubsceneComponentGetComponentType();
+              ComponentByClass = REEntityGetComponentByClass();
+              if (ComponentByClass)
+              {
+                v49 = rf::realityFusionLogObject(ComponentByClass);
+                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+                {
+                  if (*(v27 + 31) >= 0)
+                  {
+                    v50 = v27 + 8;
+                  }
+
+                  else
+                  {
+                    v50 = *(v27 + 8);
+                  }
+
+                  LODWORD(v86) = 136315138;
+                  *(&v86 + 4) = v50;
+                  _os_log_impl(&dword_2617CB000, v49, OS_LOG_TYPE_DEFAULT, "Synthetic asset at path %s is already loaded", &v86, 0xCu);
+                }
+
+                v51 = v71;
+                if (*(a1 + 200))
+                {
+                  v52 = CFErrorCreate(0, domain, 1, 0);
+                  std::function<void ()(NSURL *,NSError *)>::operator()(a1 + 176, v30, v52);
+                  CFRelease(v52);
+                }
+              }
+
+              else
+              {
+                v53 = RESceneImportOperationCreateWithURL();
+                RESceneImportOperationSetUnitType();
+                RESceneImportOperationSetIsolateFromEngine();
+                RESceneImportOperationSetCompressTextures();
+                *&v86 = 0;
+                *(&v86 + 1) = &v86;
+                v87 = 0x2020000000;
+                v88 = 0;
+                *(a1 + 168) = 1;
+                v55 = *(a1 + 208);
+                v54 = *(a1 + 216);
+                block.__r_.__value_.__r.__words[0] = MEMORY[0x277D85DD0];
+                block.__r_.__value_.__l.__size_ = 3221225472;
+                block.__r_.__value_.__r.__words[2] = ___ZN2rf9data_flow8consumer28SyntheticEnvironmentConsumer24addSyntheticAssetToSceneERKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEP7RESceneP16REServiceLocator_block_invoke;
+                v75 = &unk_279AED228;
+                v76 = &v86;
+                v77 = v53;
+                dispatch_group_async(v54, v55, &block);
+                v56 = MEMORY[0x26670CB70](v70);
+                v57 = MEMORY[0x26670CB10](v70);
+                v58 = REAssetManagerGetEngineQueue();
+                v59 = *(a1 + 216);
+                *buf = MEMORY[0x277D85DD0];
+                *&buf[8] = 3221225472;
+                *&v80 = ___ZN2rf9data_flow8consumer28SyntheticEnvironmentConsumer24addSyntheticAssetToSceneERKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEP7RESceneP16REServiceLocator_block_invoke_2;
+                *(&v80 + 1) = &unk_279AED250;
+                *(&v81 + 1) = &v86;
+                *&v82 = a1;
+                *(&v82 + 1) = v32;
+                v83 = v53;
+                *&v81 = v30;
+                v84 = v57;
+                v85 = v56;
+                dispatch_group_notify(v59, v58, buf);
+
+                v51 = v71;
+                _Block_object_dispose(&v86, 8);
+              }
+            }
+
+            goto LABEL_114;
+          }
+
+          if (std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::find<std::string>(v73, (v27 + 8)))
+          {
+            if (REEntityGetSceneNullable() != v72)
+            {
+              rf::getMessage("Asset entity doesn't belong to the right scene", buf);
+              rf::internal::logAssert(buf);
+              if (SBYTE7(v80) < 0)
+              {
+                operator delete(*buf);
+              }
+
+              rf::internal::debugBreakHandler(v64);
+            }
+
+            REEntitySetParent();
+            v33 = std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::find<std::string>(v73, (v27 + 8));
+            if (v33)
+            {
+              v34 = *(a1 + 88);
+              v35 = v33[1];
+              v36 = vcnt_s8(v34);
+              v36.i16[0] = vaddlv_u8(v36);
+              if (v36.u32[0] > 1uLL)
+              {
+                if (v35 >= *&v34)
+                {
+                  v35 %= *&v34;
+                }
+              }
+
+              else
+              {
+                v35 &= *&v34 - 1;
+              }
+
+              v41 = *(*v73 + 8 * v35);
+              do
+              {
+                v42 = v41;
+                v41 = *v41;
+              }
+
+              while (v41 != v33);
+              if (v42 == (a1 + 96))
+              {
+                goto LABEL_94;
+              }
+
+              v43 = v42[1];
+              if (v36.u32[0] > 1uLL)
+              {
+                if (v43 >= *&v34)
+                {
+                  v43 %= *&v34;
+                }
+              }
+
+              else
+              {
+                v43 &= *&v34 - 1;
+              }
+
+              if (v43 != v35)
+              {
+LABEL_94:
+                if (!*v33)
+                {
+                  goto LABEL_95;
+                }
+
+                v44 = *(*v33 + 1);
+                if (v36.u32[0] > 1uLL)
+                {
+                  if (v44 >= *&v34)
+                  {
+                    v44 %= *&v34;
+                  }
+                }
+
+                else
+                {
+                  v44 &= *&v34 - 1;
+                }
+
+                if (v44 != v35)
+                {
+LABEL_95:
+                  *(*v73 + 8 * v35) = 0;
+                }
+              }
+
+              v46 = *v33;
+              if (*v33)
+              {
+                v47 = v46[1];
+                if (v36.u32[0] > 1uLL)
+                {
+                  if (v47 >= *&v34)
+                  {
+                    v47 %= *&v34;
+                  }
+                }
+
+                else
+                {
+                  v47 &= *&v34 - 1;
+                }
+
+                if (v47 != v35)
+                {
+                  *(*v73 + 8 * v47) = v42;
+                  v46 = *v33;
+                }
+              }
+
+              *v42 = v46;
+              *v33 = 0;
+              --*(a1 + 104);
+              *buf = v33;
+              *&buf[8] = a1 + 80;
+              LOBYTE(v80) = 1;
+              *(&v80 + 1) = 0;
+              DWORD1(v80) = 0;
+              std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,void *>>>>::~unique_ptr[abi:ne200100](buf);
+            }
+
+            goto LABEL_114;
+          }
+
+          v37 = rf::realityFusionLogObject(0);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          {
+            if (*(v27 + 31) >= 0)
+            {
+              v38 = v27 + 8;
+            }
+
+            else
+            {
+              v38 = *(v27 + 8);
+            }
+
+            *buf = 136315138;
+            *&buf[4] = v38;
+            _os_log_impl(&dword_2617CB000, v37, OS_LOG_TYPE_DEFAULT, "Trying to remove unknown synthetic asset %s", buf, 0xCu);
+          }
+        }
+
+LABEL_114:
+        v60 = *(a1 + 152);
+        v61 = *(*(a1 + 128) + 8 * (v60 / 0x2A)) + 96 * (v60 % 0x2A);
+        if (*(v61 + 31) < 0)
+        {
+          operator delete(*(v61 + 8));
+          v60 = *(a1 + 152);
+        }
+
+        v62 = *(a1 + 160) - 1;
+        v63 = v60 + 1;
+        *(a1 + 152) = v63;
+        *(a1 + 160) = v62;
+        if (v63 >= 0x54)
+        {
+          operator delete(**(a1 + 128));
+          *(a1 + 128) += 8;
+          *(a1 + 152) -= 42;
+        }
+
+        if (*(a1 + 168) == 1)
+        {
+          goto LABEL_41;
+        }
+      }
+    }
+
+LABEL_135:
+    std::__throw_bad_optional_access[abi:ne200100]();
+  }
+}
+
+void sub_261858C24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39)
+{
+  if (a39 < 0)
+  {
+    operator delete(__p);
+  }
+
+  std::mutex::unlock(v39);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::deque<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation>::~deque[abi:ne200100](uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  if (v2 == v3)
+  {
+    v4 = (a1 + 40);
+    v11 = *(a1 + 8);
+  }
+
+  else
+  {
+    v4 = (a1 + 40);
+    v5 = *(a1 + 32);
+    v6 = &v3[v5 / 0x2A];
+    v7 = *v6;
+    v8 = *v6 + 96 * (v5 % 0x2A);
+    v9 = v3[(*(a1 + 40) + v5) / 0x2A] + 96 * ((*(a1 + 40) + v5) % 0x2A);
+    if (v8 != v9)
+    {
+      do
+      {
+        if (*(v8 + 31) < 0)
+        {
+          operator delete(*(v8 + 8));
+          v7 = *v6;
+        }
+
+        v8 += 96;
+        if (v8 - v7 == 4032)
+        {
+          v10 = v6[1];
+          ++v6;
+          v7 = v10;
+          v8 = v10;
+        }
+      }
+
+      while (v8 != v9);
+      v3 = *(a1 + 8);
+      v2 = *(a1 + 16);
+    }
+
+    v11 = v2;
+  }
+
+  *v4 = 0;
+  v12 = v11 - v3;
+  if (v12 >= 3)
+  {
+    do
+    {
+      operator delete(*v3);
+      v2 = *(a1 + 16);
+      v3 = (*(a1 + 8) + 8);
+      *(a1 + 8) = v3;
+      v12 = v2 - v3;
+    }
+
+    while (v12 > 2);
+    v11 = v2;
+  }
+
+  if (v12 == 1)
+  {
+    v13 = 21;
+  }
+
+  else
+  {
+    if (v12 != 2)
+    {
+      goto LABEL_19;
+    }
+
+    v13 = 42;
+  }
+
+  *(a1 + 32) = v13;
+LABEL_19:
+  if (v3 != v11)
+  {
+    do
+    {
+      v14 = *v3++;
+      operator delete(v14);
+    }
+
+    while (v3 != v11);
+    v11 = *(a1 + 8);
+    v2 = *(a1 + 16);
+  }
+
+  if (v2 != v11)
+  {
+    *(a1 + 16) = v2 + ((v11 - v2 + 7) & 0xFFFFFFFFFFFFFFF8);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::deque<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation>::emplace_back<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation::Type,std::string const&>(unint64_t *a1, int *a2, uint64_t a3)
+{
+  v6 = a1[1];
+  v7 = a1[2];
+  v8 = 42 * ((v7 - v6) >> 3) - 1;
+  if (v7 == v6)
+  {
+    v8 = 0;
+  }
+
+  if (v8 == a1[5] + a1[4])
+  {
+    std::deque<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation>::__add_back_capacity(a1);
+    v6 = a1[1];
+    v7 = a1[2];
+  }
+
+  if (v7 == v6)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v9 = a1[5] + a1[4];
+    v10 = *(v6 + 8 * (v9 / 0x2A)) + 96 * (v9 % 0x2A);
+  }
+
+  v11 = *a2;
+  if (*(a3 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, *a3, *(a3 + 8));
+  }
+
+  else
+  {
+    __p = *a3;
+  }
+
+  *v10 = v11;
+  v12 = (v10 + 8);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(v12, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    v14 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+    *(v10 + 32) = xmmword_26185DD00;
+    *(v10 + 48) = xmmword_26185DD10;
+    *(v10 + 64) = xmmword_26185DD20;
+    *(v10 + 80) = xmmword_26185E1B0;
+    if (v14 < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+  }
+
+  else
+  {
+    v13 = *&__p.__r_.__value_.__l.__data_;
+    *(v10 + 24) = *(&__p.__r_.__value_.__l + 2);
+    *&v12->__r_.__value_.__l.__data_ = v13;
+    *(v10 + 32) = xmmword_26185DD00;
+    *(v10 + 48) = xmmword_26185DD10;
+    *(v10 + 64) = xmmword_26185DD20;
+    *(v10 + 80) = xmmword_26185E1B0;
+  }
+
+  ++a1[5];
+}
+
+void sub_26185903C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::deque<rf::data_flow::consumer::SyntheticEnvironmentConsumer::Operation>::__add_back_capacity(unint64_t *a1)
+{
+  v1 = a1[4];
+  v2 = v1 >= 0x2A;
+  v3 = v1 - 42;
+  if (!v2)
+  {
+    v5 = a1[3];
+    v6 = v5 - *a1;
+    if (a1[2] - a1[1] < v6)
+    {
+      operator new();
+    }
+
+    v7 = v6 >> 2;
+    if (v5 == *a1)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = v7;
+    }
+
+    std::allocator<rf::data_flow::provider::InputData *>::allocate_at_least[abi:ne200100](v8);
+  }
+
+  a1[4] = v3;
+  v4 = a1[1];
+  v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<rf::data_flow::provider::InputData *>::emplace_back<rf::data_flow::provider::InputData *&>(a1, &v9);
+}
+
+void sub_261859480(_Unwind_Exception *a1)
+{
+  operator delete(v2);
+  if (v1)
+  {
+    operator delete(v1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::~__hash_table(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::__deallocate_node(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::__deallocate_node(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      std::__destroy_at[abi:ne200100]<std::pair<std::string const,RESharedPtr<REEntity>>,0>((v2 + 2));
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+void std::__destroy_at[abi:ne200100]<std::pair<std::string const,RESharedPtr<REEntity>>,0>(uint64_t a1)
+{
+  RESharedPtr<REEntity>::~RESharedPtr((a1 + 24));
+  if (*(a1 + 23) < 0)
+  {
+    v2 = *a1;
+
+    operator delete(v2);
+  }
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::find<std::string>(void *a1, uint64_t *a2)
+{
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v5 = a1[1];
+  if (!*&v5)
+  {
+    return 0;
+  }
+
+  v6 = v4;
+  v7 = vcnt_s8(v5);
+  v7.i16[0] = vaddlv_u8(v7);
+  v8 = v7.u32[0];
+  if (v7.u32[0] > 1uLL)
+  {
+    v9 = v4;
+    if (v4 >= *&v5)
+    {
+      v9 = v4 % *&v5;
+    }
+  }
+
+  else
+  {
+    v9 = (*&v5 - 1) & v4;
+  }
+
+  v10 = *(*a1 + 8 * v9);
+  if (!v10)
+  {
+    return 0;
+  }
+
+  for (i = *v10; i; i = *i)
+  {
+    v12 = i[1];
+    if (v12 == v6)
+    {
+      if (std::equal_to<std::string>::operator()[abi:ne200100](a1, i + 2, a2))
+      {
+        return i;
+      }
+    }
+
+    else
+    {
+      if (v8 > 1)
+      {
+        if (v12 >= *&v5)
+        {
+          v12 %= *&v5;
+        }
+      }
+
+      else
+      {
+        v12 &= *&v5 - 1;
+      }
+
+      if (v12 != v9)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return i;
+}
+
+uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      std::__destroy_at[abi:ne200100]<std::pair<std::string const,RESharedPtr<REEntity>>,0>(v2 + 16);
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::clear(uint64_t a1)
+{
+  if (*(a1 + 24))
+  {
+    std::__hash_table<std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,RESharedPtr<REEntity>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,RESharedPtr<REEntity>>>>::__deallocate_node(a1, *(a1 + 16));
+    *(a1 + 16) = 0;
+    v2 = *(a1 + 8);
+    if (v2)
+    {
+      for (i = 0; i != v2; ++i)
+      {
+        *(*a1 + 8 * i) = 0;
+      }
+    }
+
+    *(a1 + 24) = 0;
+  }
+}
+
+void RFSceneQueryServiceCreate()
+{
+  if (qword_2810C4EE8 != -1)
+  {
+    dispatch_once(&qword_2810C4EE8, &__block_literal_global_19);
+  }
+
+  _CFRuntimeCreateInstance();
+  operator new();
+}
+
+void sub_2618597F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  rf::CFObjectRef<rf::SceneQueryManager>::~CFObjectRef(va);
+  _Unwind_Resume(a1);
+}
+
+void RFServiceManagerSetSceneQueryService(uint64_t a1, CFTypeRef cf)
+{
+  v2 = *(a1 + 16);
+  if (cf)
+  {
+    CFRetain(cf);
+    operator new();
+  }
+
+  *(v2 + 4696) = 0;
+  v3 = *(v2 + 4704);
+  *(v2 + 4704) = 0;
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+}
+
+void sub_2618598F4(void *a1)
+{
+  __cxa_begin_catch(a1);
+  CFRelease(*v1);
+  __cxa_rethrow();
+}
+
+const void *RFServiceManagerGetSceneQueryService(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  v2 = *(v1 + 4696);
+  v3 = *(v1 + 4704);
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (!v2)
+  {
+    v4 = 0;
+    if (!v3)
+    {
+      return v4;
+    }
+
+    goto LABEL_7;
+  }
+
+  v4 = *(v2 - 8);
+  if (v4)
+  {
+    CFRetain(*(v2 - 8));
+    CFRetain(v4);
+    CFRelease(v4);
+    CFRelease(v4);
+  }
+
+  if (v3)
+  {
+LABEL_7:
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+
+  return v4;
+}
+
+void RFSceneQueryServiceIntersectVolumeFromBoundingBox()
+{
+  if (qword_2810C4EF8 != -1)
+  {
+    dispatch_once(&qword_2810C4EF8, &__block_literal_global_6);
+  }
+
+  _CFRuntimeCreateInstance();
+  operator new();
+}
+
+double RFSceneQuerySurfaceGetSurfaceData@<D0>(uint64_t a1@<X8>)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 48) = invalid_surface_transform;
+  *(a1 + 64) = unk_2618665B0;
+  *(a1 + 80) = xmmword_2618665C0;
+  *(a1 + 96) = unk_2618665D0;
+  result = *&invalid_surface_bounding_box;
+  *(a1 + 16) = invalid_surface_bounding_box;
+  *(a1 + 32) = unk_2618665F0;
+  *(a1 + 112) = 0;
+  return result;
+}
+
+const void **rf::CFObjectRef<rf::SceneQueryManager>::~CFObjectRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+void ___ZN2rf17ClassRegistrationINS_14CustomCFObjectINS_17SceneQueryManagerEEEE13registerClassEv_block_invoke()
+{
+  v0 = 0;
+  v1 = 1;
+  for (i = 114; i != 91; i = aStdStringViewR_29[v0++ + 51])
+  {
+    if (i == 93)
+    {
+      v3 = -1;
+      goto LABEL_8;
+    }
+
+    if (!i)
+    {
+      v0 = 0;
+      v6 = 0;
+      goto LABEL_16;
+    }
+
+LABEL_9:
+    ;
+  }
+
+  v3 = 1;
+LABEL_8:
+  v1 += v3;
+  if (v1)
+  {
+    goto LABEL_9;
+  }
+
+  if (v0 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (v0 >= 0x17)
+  {
+    operator new();
+  }
+
+  v6 = v0;
+  if (v0)
+  {
+    memcpy(&__dst, "rf::SceneQueryManager]", v0);
+  }
+
+LABEL_16:
+  *(&__dst + v0) = 0;
+  xmmword_2810C4F00 = 0u;
+  xmmword_2810C4F10 = 0u;
+  xmmword_2810C4F20 = 0u;
+  unk_2810C4F30 = 0u;
+  xmmword_2810C4F40 = 0u;
+  unk_2810C4F50 = 0u;
+  p_dst = &__dst;
+  if (v6 < 0)
+  {
+    p_dst = __dst;
+  }
+
+  *(&xmmword_2810C4F00 + 1) = p_dst;
+  *&xmmword_2810C4F10 = rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryManager>>::initCallback;
+  *&xmmword_2810C4F20 = rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryManager>>::finalizeCallback;
+  qword_2810C4F38 = rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryManager>>::copyFormattingDescriptionCallback;
+  *&xmmword_2810C4F40 = rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryManager>>::copyDebugDescriptionCallback;
+  _MergedGlobals_20 = _CFRuntimeRegisterClass();
+  if (v6 < 0)
+  {
+    operator delete(__dst);
+  }
+}
+
+void sub_261859CD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryManager>>::finalizeCallback(uint64_t a1)
+{
+  result = *(a1 + 16);
+  *(a1 + 16) = 0;
+  if (result)
+  {
+    JUMPOUT(0x26670D060);
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_pointer<rf::SceneQueryManager *,rf::CustomCFObject<rf::SceneQueryManager>::makeSharedPtr(void)::{lambda(rf::SceneQueryManager *)#1},std::allocator<rf::SceneQueryManager>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x26670D060);
+}
+
+uint64_t std::__shared_ptr_pointer<rf::SceneQueryManager *,rf::CustomCFObject<rf::SceneQueryManager>::makeSharedPtr(void)::{lambda(rf::SceneQueryManager *)#1},std::allocator<rf::SceneQueryManager>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void ___ZN2rf17ClassRegistrationINS_14CustomCFObjectINS_34SceneQueryVolumeIntersectionResultEEEE13registerClassEv_block_invoke()
+{
+  v0 = 0;
+  v1 = 1;
+  for (i = 114; i != 91; i = aStdStringViewR_30[v0++ + 51])
+  {
+    if (i == 93)
+    {
+      v3 = -1;
+      goto LABEL_8;
+    }
+
+    if (!i)
+    {
+      v0 = 0;
+      v6 = 0;
+      goto LABEL_16;
+    }
+
+LABEL_9:
+    ;
+  }
+
+  v3 = 1;
+LABEL_8:
+  v1 += v3;
+  if (v1)
+  {
+    goto LABEL_9;
+  }
+
+  if (v0 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (v0 >= 0x17)
+  {
+    operator new();
+  }
+
+  v6 = v0;
+  if (v0)
+  {
+    memcpy(&__dst, "rf::SceneQueryVolumeIntersectionResult]", v0);
+  }
+
+LABEL_16:
+  *(&__dst + v0) = 0;
+  xmmword_2810C4F60 = 0u;
+  xmmword_2810C4F70 = 0u;
+  xmmword_2810C4F80 = 0u;
+  unk_2810C4F90 = 0u;
+  xmmword_2810C4FA0 = 0u;
+  unk_2810C4FB0 = 0u;
+  p_dst = &__dst;
+  if (v6 < 0)
+  {
+    p_dst = __dst;
+  }
+
+  *(&xmmword_2810C4F60 + 1) = p_dst;
+  *&xmmword_2810C4F70 = rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryVolumeIntersectionResult>>::initCallback;
+  *&xmmword_2810C4F80 = rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryVolumeIntersectionResult>>::finalizeCallback;
+  qword_2810C4F98 = rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryVolumeIntersectionResult>>::copyFormattingDescriptionCallback;
+  *&xmmword_2810C4FA0 = rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryVolumeIntersectionResult>>::copyDebugDescriptionCallback;
+  qword_2810C4EF0 = _CFRuntimeRegisterClass();
+  if (v6 < 0)
+  {
+    operator delete(__dst);
+  }
+}
+
+void sub_261859F64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t rf::ClassRegistration<rf::CustomCFObject<rf::SceneQueryVolumeIntersectionResult>>::finalizeCallback(uint64_t a1)
+{
+  result = *(a1 + 16);
+  *(a1 + 16) = 0;
+  if (result)
+  {
+    JUMPOUT(0x26670D060);
+  }
+
+  return result;
+}
+
+void *rf::AnchorSourceComponent::instance(rf::AnchorSourceComponent *this)
+{
+  {
+    rf::AnchorSourceComponent::AnchorSourceComponent(&rf::AnchorSourceComponent::instance(void)::instance);
+  }
+
+  return &rf::AnchorSourceComponent::instance(void)::instance;
+}
+
+rf::AnchorSourceComponent *rf::AnchorSourceComponent::AnchorSourceComponent(rf::AnchorSourceComponent *this)
+{
+  *this = 0;
+  *(this + 4) = 0;
+  *(this + 8) = 0;
+  *(this + 12) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  *(this + 36) = 0;
+  rf::AnchorSourceComponent::buildIntrospectionInfo(this);
+  rf::AnchorSourceComponent::registerAnchorSourceComponent(this);
+  return this;
+}
+
+void sub_26185A080(_Unwind_Exception *a1)
+{
+  std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v1 + 104);
+  std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v1 + 72);
+  std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v1 + 40);
+  std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v1 + 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t rf::AnchorSourceComponent::buildIntrospectionInfo(uint64_t this)
+{
+  if (!*(this + 136))
+  {
+    v1 = this;
+    this = REStructBuilderCreate();
+    if (this)
+    {
+      v2 = this;
+      if (REStructBuilderInit())
+      {
+        *(v1 + 136) = RECIntrospectionStructRegister();
+      }
+
+      return MEMORY[0x282154E00](v2);
+    }
+  }
+
+  return this;
+}
+
+void *rf::AnchorSourceComponent::registerAnchorSourceComponent(void *this)
+{
+  if (!*this)
+  {
+    v5[13] = v1;
+    v5[14] = v2;
+    v3 = this;
+    v5[0] = 1;
+    v5[1] = "RFAnchorSource";
+    v5[2] = this;
+    v5[3] = rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_0::__invoke;
+    v5[4] = rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_1::__invoke;
+    v5[5] = rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_2::__invoke;
+    v5[6] = rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_3::__invoke;
+    v5[7] = rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_4::__invoke;
+    v4 = this[17];
+    v5[8] = rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_5::__invoke;
+    v5[9] = v4;
+    v5[10] = 0;
+    this = MEMORY[0x26670C120](v5, 1);
+    *v3 = this;
+  }
+
+  return this;
+}
+
+void *rf::AnchorSourceComponent::retain(void *this)
+{
+  v1 = this;
+  v2 = *(this + 36);
+  if (v2 <= 0)
+  {
+    rf::AnchorSourceComponent::buildIntrospectionInfo(this);
+    this = rf::AnchorSourceComponent::registerAnchorSourceComponent(v1);
+    v2 = *(v1 + 36);
+  }
+
+  *(v1 + 36) = v2 + 1;
+  return this;
+}
+
+void rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_1::__invoke(uint64_t a1, id *a2)
+{
+  if (a2)
+  {
+
+    JUMPOUT(0x26670D060);
+  }
+}
+
+uint64_t rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_2::__invoke(uint64_t a1)
+{
+  RECustomComponentGetType();
+  result = RECustomComponentTypeGetContext();
+  if (*(result + 32))
+  {
+    v3 = result + 8;
+
+    return std::function<void ()(REComponent *)>::operator()(v3, a1);
+  }
+
+  return result;
+}
+
+uint64_t rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_3::__invoke(uint64_t a1)
+{
+  RECustomComponentGetType();
+  result = RECustomComponentTypeGetContext();
+  if (*(result + 64))
+  {
+    v3 = result + 40;
+
+    return std::function<void ()(REComponent *)>::operator()(v3, a1);
+  }
+
+  return result;
+}
+
+uint64_t rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_4::__invoke(uint64_t a1)
+{
+  RECustomComponentGetType();
+  result = RECustomComponentTypeGetContext();
+  if (*(result + 96))
+  {
+    v3 = result + 72;
+
+    return std::function<void ()(REComponent *)>::operator()(v3, a1);
+  }
+
+  return result;
+}
+
+uint64_t rf::AnchorSourceComponent::registerAnchorSourceComponent(void)::$_5::__invoke(uint64_t a1)
+{
+  RECustomComponentGetType();
+  result = RECustomComponentTypeGetContext();
+  if (*(result + 128))
+  {
+    v3 = result + 104;
+
+    return std::function<void ()(REComponent *)>::operator()(v3, a1);
+  }
+
+  return result;
+}
+
+void RFSyntheticARDataProviderCreate(void *a1)
+{
+  v2[5] = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2[0] = &unk_28740B2E0;
+  v2[1] = rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce;
+  v2[3] = v2;
+  v2[4] = 0;
+  if (qword_2810C4FC8 != -1)
+  {
+    dispatch_once(&qword_2810C4FC8, &__block_literal_global_20);
+  }
+
+  _CFRuntimeCreateInstance();
+  operator new();
+}
+
+void sub_26185A548(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void RFSyntheticARDataProviderAddSourceAsset(uint64_t a1, unint64_t a2, void *a3)
+{
+  v5 = a3;
+  v6 = [MEMORY[0x277CCAA00] defaultManager];
+  v7 = [v5 path];
+  v8 = [v6 fileExistsAtPath:v7];
+
+  if (v8)
+  {
+    v9 = *(a1 + 16);
+    v10 = CFURLCopyFileSystemPath(v5, kCFURLPOSIXPathStyle);
+    v11 = v10;
+    if (v10)
+    {
+      applesauce::CF::details::CFString_get_value<true>(v10, v16);
+      CFRelease(v11);
+      if (v17 >= 0)
+      {
+        v12 = v16;
+      }
+
+      else
+      {
+        v12 = v16[0];
+      }
+
+      v13 = strlen(v12);
+      if (v13 < 0x7FFFFFFFFFFFFFF8)
+      {
+        v14 = v13;
+        if (v13 < 0x17)
+        {
+          *(&__p.__r_.__value_.__s + 23) = v13;
+          if (v13)
+          {
+            memmove(&__p, v12, v13);
+          }
+
+          __p.__r_.__value_.__s.__data_[v14] = 0;
+          rf::data_flow::provider::SyntheticARDataProvider::addData((v9 + 8), a2, &__p);
+        }
+
+        operator new();
+      }
+
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+  }
+}
+
+void sub_26185A724(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a20 < 0)
+  {
+    operator delete(a15);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void RFSyntheticARDataProviderSetAssetTransform(uint64_t a1, unint64_t a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+{
+  v6 = *(a1 + 16);
+  v7[0] = a3;
+  v7[1] = a4;
+  v7[2] = a5;
+  v7[3] = a6;
+  rf::data_flow::provider::SyntheticARDataProvider::setDataTransform(v6 + 8, a2, v7);
+}
+
+void RFSyntheticARDataProviderSetFrameInputFromARSession(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = *(a1 + 16);
+  v5 = v4[13];
+  v6 = v4[12];
+  v7 = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v8 = v4[14];
+  operator new();
+}
+
+void sub_26185A8B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
+{
+  std::__shared_weak_count::~__shared_weak_count(v12);
+  operator delete(v14);
+  if (a11)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__function::__func<void (*)(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData &,rf::data_flow::provider::InputData &),std::allocator<void (*)(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData &,rf::data_flow::provider::InputData &)>,void ()(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData &,rf::data_flow::provider::InputData &)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_28740B2E0;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<void (*)(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData &,rf::data_flow::provider::InputData &),std::allocator<void (*)(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData &,rf::data_flow::provider::InputData &)>,void ()(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData &,rf::data_flow::provider::InputData &)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void ___ZN2rf17ClassRegistrationINS_14CustomCFObjectINS_9data_flow8provider23SyntheticARDataProviderEEEE13registerClassEv_block_invoke()
+{
+  v0 = 0;
+  v1 = 1;
+  for (i = 114; i != 91; i = aStdStringViewR_31[v0++ + 51])
+  {
+    if (i == 93)
+    {
+      v3 = -1;
+      goto LABEL_8;
+    }
+
+    if (!i)
+    {
+      v0 = 0;
+      v6 = 0;
+      goto LABEL_16;
+    }
+
+LABEL_9:
+    ;
+  }
+
+  v3 = 1;
+LABEL_8:
+  v1 += v3;
+  if (v1)
+  {
+    goto LABEL_9;
+  }
+
+  if (v0 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (v0 >= 0x17)
+  {
+    operator new();
+  }
+
+  v6 = v0;
+  if (v0)
+  {
+    memcpy(&__dst, "rf::data_flow::provider::SyntheticARDataProvider]", v0);
+  }
+
+LABEL_16:
+  *(&__dst + v0) = 0;
+  xmmword_2810C4FD0 = 0u;
+  xmmword_2810C4FE0 = 0u;
+  xmmword_2810C4FF0 = 0u;
+  unk_2810C5000 = 0u;
+  xmmword_2810C5010 = 0u;
+  unk_2810C5020 = 0u;
+  p_dst = &__dst;
+  if (v6 < 0)
+  {
+    p_dst = __dst;
+  }
+
+  *(&xmmword_2810C4FD0 + 1) = p_dst;
+  *&xmmword_2810C4FE0 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::provider::SyntheticARDataProvider>>::initCallback;
+  *&xmmword_2810C4FF0 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::provider::SyntheticARDataProvider>>::finalizeCallback;
+  qword_2810C5008 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::provider::SyntheticARDataProvider>>::copyFormattingDescriptionCallback;
+  *&xmmword_2810C5010 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::provider::SyntheticARDataProvider>>::copyDebugDescriptionCallback;
+  _MergedGlobals_21 = _CFRuntimeRegisterClass();
+  if (v6 < 0)
+  {
+    operator delete(__dst);
+  }
+}
+
+void sub_26185AB88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::unique_ptr<rf::CustomCFObject<rf::data_flow::provider::SyntheticARDataProvider>::BridgableObject,std::default_delete<rf::CustomCFObject<rf::data_flow::provider::SyntheticARDataProvider>::BridgableObject>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    rf::data_flow::provider::SyntheticARDataProvider::~SyntheticARDataProvider((v2 + 8));
+
+    JUMPOUT(0x26670D060);
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_emplace<rf::data_flow::provider::ARSessionInputFrameProvider>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_28740B3B0;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x26670D060);
+}
+
+uint64_t rf::data_flow::provider::ARSessionInputFrameProvider::ARSessionInputFrameProvider(uint64_t a1, void *a2, uint64_t *a3)
+{
+  v10[4] = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v7 = *a3;
+  v6 = a3[1];
+  *a1 = &unk_28740A280;
+  *(a1 + 8) = v7;
+  *(a1 + 16) = v6;
+  if (v6)
+  {
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a1 + 24) = a3[2];
+  *a1 = &unk_28740B400;
+  v8 = v5;
+  *(a1 + 32) = v8;
+  v10[0] = &unk_28740B438;
+  v10[1] = a1;
+  v10[3] = v10;
+  *(a1 + 40) = [[ARSessionFrameObserver alloc] initWithCallback:v10];
+  std::__function::__value_func<void ()(rf::data_flow::provider::InputFrame &&)>::~__value_func[abi:ne200100](v10);
+  [*(a1 + 32) _addObserver:*(a1 + 40)];
+
+  return a1;
+}
+
+void sub_26185ADC8(_Unwind_Exception *a1)
+{
+  *v1 = v2;
+  v5 = *(v1 + 16);
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void rf::data_flow::provider::ARSessionInputFrameProvider::~ARSessionInputFrameProvider(id *this)
+{
+  [this[4] _removeObserver:this[5]];
+  v2 = this[4];
+  this[4] = 0;
+
+  *this = &unk_28740A280;
+  v3 = this[2];
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+}
+
+{
+  rf::data_flow::provider::ARSessionInputFrameProvider::~ARSessionInputFrameProvider(this);
+
+  JUMPOUT(0x26670D060);
+}
+
+uint64_t std::__function::__func<rf::data_flow::provider::ARSessionInputFrameProvider::ARSessionInputFrameProvider(ARSession *,rf::data_flow::DataGraph::Evaluator<rf::data_flow::provider::InputFrame> const&)::$_0,std::allocator<rf::data_flow::provider::ARSessionInputFrameProvider::ARSessionInputFrameProvider(ARSession *,rf::data_flow::DataGraph::Evaluator<rf::data_flow::provider::InputFrame> const&)::$_0>,void ()(rf::data_flow::provider::InputFrame&&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_28740B438;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<rf::data_flow::provider::ARSessionInputFrameProvider::ARSessionInputFrameProvider(ARSession *,rf::data_flow::DataGraph::Evaluator<rf::data_flow::provider::InputFrame> const&)::$_0,std::allocator<rf::data_flow::provider::ARSessionInputFrameProvider::ARSessionInputFrameProvider(ARSession *,rf::data_flow::DataGraph::Evaluator<rf::data_flow::provider::InputFrame> const&)::$_0>,void ()(rf::data_flow::provider::InputFrame&&)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t rf::data_flow::consumer::AnchorManagementConsumerIOS::shouldUnanchorDueToAnchoringCapabilities(uint64_t a1, uint64_t a2, char a3)
+{
+  DescriptorType = REAnchoringComponentGetDescriptorType();
+  v6 = 0;
+  if ((a3 & 1) == 0 && DescriptorType != 1)
+  {
+    v6 = *(a1 + 240);
+  }
+
+  return v6 & 1;
+}
+
+uint64_t rf::data_flow::consumer::AnchorManagementConsumerIOS::canNewAnchorDueToAnchoringCapabilities(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 240) == 1)
+  {
+    DescriptorType = REAnchoringComponentGetDescriptorType();
+    if (DescriptorType - 3 > 2)
+    {
+      v4 = 1;
+    }
+
+    else
+    {
+      v4 = *(a1 + DescriptorType + 232);
+    }
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  return v4 & 1;
+}
+
+int8x8_t *rf::data_flow::consumer::AnchorManagementConsumerIOS::consumeLatestUpdate(int8x8_t *result, uint64_t a2)
+{
+  if (*(a2 + 32) == 1)
+  {
+    v10[5] = v2;
+    v10[6] = v3;
+    v5 = result;
+    v6 = result[2];
+    v7 = *(a2 + 24);
+    v9 = v7;
+    if ((result[39].i8[0] & 1) == 0 && *(a2 + 16) == 1)
+    {
+      rf::data_flow::consumer::AnchorManagementConsumer::registerShadowClusterUpdateHandler(result, a2);
+    }
+
+    if (*(a2 + 16) == 1)
+    {
+      rf::data_flow::consumer::AnchorManagementConsumer::setUpSceneEventSubscriptions(v5, *(a2 + 8), v7, *&v6 + 64);
+    }
+
+    if (std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::find<REScene *>(&v5[31], &v9))
+    {
+      v10[0] = &v9;
+      v8 = std::__hash_table<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_set<REEntity *>>>>::__emplace_unique_key_args<REScene *,std::piecewise_construct_t const&,std::tuple<REScene * const&>,std::tuple<>>(&v5[31], &v9, &std::piecewise_construct, v10);
+      rf::data_flow::consumer::AnchorManagementConsumer::addAnchorSourceComponentDataForWorldAnchorEntities(v5, v8 + 3, (*&v6 + 64));
+    }
+
+    rf::data_flow::consumer::AnchorManagementConsumer::updateAnchorDefinitionComponents(v5, v9, (*&v6 + 144));
+    rf::data_flow::consumer::AnchorManagementConsumer::updateImageAnchorReference(v5, v9);
+    return rf::data_flow::consumer::AnchorManagementConsumer::doAnchoring(v5, a2, v9, *&v6 + 64);
+  }
+
+  return result;
+}
+
+void rf::data_flow::consumer::AnchorManagementConsumerIOS::~AnchorManagementConsumerIOS(id *this)
+{
+  rf::data_flow::consumer::AnchorManagementConsumer::~AnchorManagementConsumer(this);
+
+  JUMPOUT(0x26670D060);
+}
+
+uint64_t *re::foundationCoreLogObjects(re *this)
+{
+  {
+    re::foundationCoreLogObjects(void)::logObjects = os_log_create("com.apple.re", "Foundation.Core");
+  }
+
+  return &re::foundationCoreLogObjects(void)::logObjects;
+}
+
+uint64_t re::internal::enableSignposts(re::internal *this, unsigned int a2)
+{
+  {
+    v4 = a2;
+    v5 = this;
+    LOBYTE(a2) = v4;
+    LOBYTE(this) = v5;
+    if (v3)
+    {
+      re::Defaults::intValue(&v6, "enableSignposts", v4);
+      re::internal::enableSignposts(BOOL,BOOL)::value = v6 ^ 1 | (HIDWORD(v6) != 0);
+      LOBYTE(a2) = v4;
+      LOBYTE(this) = v5;
+    }
+  }
+
+  if (this)
+  {
+    re::internal::enableSignposts(BOOL,BOOL)::value = a2;
+  }
+
+  else
+  {
+    LOBYTE(a2) = re::internal::enableSignposts(BOOL,BOOL)::value;
+  }
+
+  return a2 & 1;
+}
+
+void re::Defaults::intValue(uint64_t *__return_ptr a1@<X8>, re::Defaults *this@<X0>, const char *a3@<X1>)
+  v4 = {;
+  if (v4)
+  {
+    v6 = v4;
+    *(a1 + 1) = [v4 intValue];
+    v4 = v6;
+    v5 = 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  *a1 = v5;
+}
+
+re *anonymous namespace::getValue(_anonymous_namespace_ *this, const char *a2)
+{
+  v3 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s.%s", "com.apple.re", this];
+  v5 = [v3 objectForKey:v4];
+  if (!v5)
+  {
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:this];
+    v7 = [v3 objectForKey:v6];
+    if (v7)
+    {
+      v5 = v7;
+    }
+
+    else
+    {
+      v8 = [v4 rangeOfString:@"." options:4];
+      v9 = [v4 substringToIndex:v8];
+      v10 = [v4 substringFromIndex:v8 + 1];
+
+      if ([(__CFString *)v9 isEqualToString:@"com.apple.re.network.multipeerservice"])
+      {
+
+        v9 = @"com.apple.renetwork.multipeerservice";
+      }
+
+      v11 = [v3 dictionaryForKey:v9];
+      v5 = [v11 objectForKey:v10];
+
+      if (!v5)
+      {
+        goto LABEL_11;
+      }
+
+      v6 = v10;
+    }
+
+    v12 = *re::foundationCoreLogObjects(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+    }
+
+    v10 = v6;
+LABEL_11:
+  }
+
+  return v5;
+}
+
+std::__fs::filesystem::path::__string_view std::__fs::filesystem::path::__filename(const std::__fs::filesystem::path *this)
+{
+  v1 = MEMORY[0x2821F73E8](this);
+  result.__size_ = v2;
+  result.__data_ = v1;
+  return result;
+}
+
+std::__fs::filesystem::path::__string_view std::__fs::filesystem::path::__extension(const std::__fs::filesystem::path *this)
+{
+  v1 = MEMORY[0x2821F73F0](this);
+  result.__size_ = v2;
+  result.__data_ = v1;
+  return result;
+}
+
+std::__fs::filesystem::path::__string_view std::__fs::filesystem::path::__root_directory(const std::__fs::filesystem::path *this)
+{
+  v1 = MEMORY[0x2821F7400](this);
+  result.__size_ = v2;
+  result.__data_ = v1;
+  return result;
+}
+
+std::__fs::filesystem::path::__string_view std::__fs::filesystem::path::__stem(const std::__fs::filesystem::path *this)
+{
+  v1 = MEMORY[0x2821F7428](this);
+  result.__size_ = v2;
+  result.__data_ = v1;
+  return result;
+}
+
+std::runtime_error *__cdecl std::runtime_error::runtime_error(std::runtime_error *this, const char *a2)
+{
+  return MEMORY[0x2821F7518](this, a2);
+}
+
+{
+  return MEMORY[0x2821F7530](this, a2);
+}
+
+uint64_t std::to_chars(std::__1 *this, char *a2, char *a3, double a4)
+{
+  return MEMORY[0x2821F7E98](this, a2, a3, a4);
+}
+
+{
+  return MEMORY[0x2821F7EB0](this, a2, a3, a4);
+}
+
+uint64_t std::to_chars()
+{
+  return MEMORY[0x2821F7EA0]();
+}
+
+{
+  return MEMORY[0x2821F7EA8]();
+}
+
+{
+  return MEMORY[0x2821F7EB8]();
+}
+
+{
+  return MEMORY[0x2821F7EC0]();
+}
+
+{
+  return MEMORY[0x2821F7ED0]();
+}
+
+{
+  return MEMORY[0x2821F7ED8]();
+}
+
+void operator delete(void *__p)
+{
+    ;
+  }
+}
+
+void operator delete()
+{
+    ;
+  }
+}
+
+void operator new()
+{
+    ;
+  }
+}
+
+simd_float4x4 __invert_f4(simd_float4x4 a1)
+{
+  MEMORY[0x2822043A8](a1.columns[0], a1.columns[1], a1.columns[2], a1.columns[3]);
+  result.columns[3].i64[1] = v8;
+  result.columns[3].i64[0] = v7;
+  result.columns[2].i64[1] = v6;
+  result.columns[2].i64[0] = v5;
+  result.columns[1].i64[1] = v4;
+  result.columns[1].i64[0] = v3;
+  result.columns[0].i64[1] = v2;
+  result.columns[0].i64[0] = v1;
+  return result;
+}
+
+__float2 __sincosf_stret(float a1)
+{
+  MEMORY[0x2822043C8](a1);
+  result.__cosval = v2;
+  result.__sinval = v1;
+  return result;
 }

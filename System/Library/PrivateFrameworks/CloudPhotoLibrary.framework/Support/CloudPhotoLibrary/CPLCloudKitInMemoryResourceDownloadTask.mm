@@ -50,60 +50,60 @@
   recordCopy = record;
   keysCopy = keys;
   blockCopy = block;
-  v18 = sub_1001A8CE0(keysCopy);
-  if (CPLCloudKitUseGateKeeperForOperationType(type))
+  v17 = sub_1001A8CE0(keysCopy);
+  if (CPLCloudKitUseGateKeeperForOperationType())
   {
-    v19 = CPLCloudKitGateKeeperDefaultDownloadType;
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_1000A4C10;
-    v35[3] = &unk_1002769D0;
-    v36 = blockCopy;
-    v20 = [CPLCKResourceDownloadOperation inMemoryDownloadOperationForRecordID:dCopy resource:resourceCopy record:recordCopy keys:keysCopy downloadType:v19 completionBlock:v35];
-    v21 = v36;
+    v18 = CPLCloudKitGateKeeperDefaultDownloadType;
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_1000A4C10;
+    v34[3] = &unk_1002769D0;
+    v35 = blockCopy;
+    v19 = [CPLCKResourceDownloadOperation inMemoryDownloadOperationForRecordID:dCopy resource:resourceCopy record:recordCopy keys:keysCopy downloadType:v18 completionBlock:v34];
+    v20 = v35;
   }
 
   else
   {
-    v22 = [CKFetchRecordsOperation alloc];
-    v38 = dCopy;
-    v23 = [NSArray arrayWithObjects:&v38 count:1];
-    v20 = [v22 initWithRecordIDs:v23];
+    v21 = [CKFetchRecordsOperation alloc];
+    v37 = dCopy;
+    v22 = [NSArray arrayWithObjects:&v37 count:1];
+    v19 = [v21 initWithRecordIDs:v22];
 
-    [v20 setShouldFetchAssetContentInMemory:1];
-    v21 = sub_1001A8C80(keysCopy);
-    v37[0] = v18;
-    v37[1] = v21;
-    v24 = [NSArray arrayWithObjects:v37 count:2];
-    [v20 setDesiredKeys:v24];
+    [v19 setShouldFetchAssetContentInMemory:1];
+    v20 = sub_1001A8C80(keysCopy);
+    v36[0] = v17;
+    v36[1] = v20;
+    v23 = [NSArray arrayWithObjects:v36 count:2];
+    [v19 setDesiredKeys:v23];
 
-    v33[0] = 0;
-    v33[1] = v33;
-    v33[2] = 0x3032000000;
-    v33[3] = sub_1000044F0;
-    v33[4] = sub_10000535C;
-    v34 = 0;
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_1001ACDC4;
-    v32[3] = &unk_1002769F8;
-    v32[4] = v33;
-    [v20 setPerRecordCompletionBlock:v32];
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_1000A4CB0;
-    v26[3] = &unk_100276A20;
-    v31 = v33;
-    v27 = dCopy;
-    v28 = v18;
-    v29 = keysCopy;
-    v30 = blockCopy;
-    [v20 setFetchRecordsCompletionBlock:v26];
+    v32[0] = 0;
+    v32[1] = v32;
+    v32[2] = 0x3032000000;
+    v32[3] = sub_1000044F0;
+    v32[4] = sub_10000535C;
+    v33 = 0;
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1001ACDC4;
+    v31[3] = &unk_1002769F8;
+    v31[4] = v32;
+    [v19 setPerRecordCompletionBlock:v31];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_1000A4CB0;
+    v25[3] = &unk_100276A20;
+    v30 = v32;
+    v26 = dCopy;
+    v27 = v17;
+    v28 = keysCopy;
+    v29 = blockCopy;
+    [v19 setFetchRecordsCompletionBlock:v25];
 
-    _Block_object_dispose(v33, 8);
+    _Block_object_dispose(v32, 8);
   }
 
-  return v20;
+  return v19;
 }
 
 - (void)runOperations
@@ -157,9 +157,9 @@
 
 - (void)_startDownload
 {
-  v31 = 0;
-  v3 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v31];
-  v4 = v31;
+  v32 = 0;
+  v3 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v32];
+  v4 = v32;
   if (v3)
   {
     v5 = sub_100084A0C(CPLCloudKitResourceKeys, [CPLCloudKitFakeDynamicDerivatives realResourceTypeForResource:self->_resource]);
@@ -173,61 +173,61 @@
 
       if (v10)
       {
-        v27 = v7;
+        v28 = v7;
         identifier = [resourceScopedIdentifier identifier];
         v12 = [v10 recordIDWithRecordName:identifier];
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v13 = sub_100003AFC();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = sub_100003AFC(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             sub_1001A8CE0(v5);
-            v15 = v14 = resourceScopedIdentifier;
+            v16 = v15 = resourceScopedIdentifier;
             *buf = 138412546;
             *&buf[4] = v12;
-            v33 = 2112;
-            v34 = v15;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Starting in memory download for %@ (resourceKey %@)", buf, 0x16u);
+            v34 = 2112;
+            v35 = v16;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Starting in memory download for %@ (resourceKey %@)", buf, 0x16u);
 
-            resourceScopedIdentifier = v14;
+            resourceScopedIdentifier = v15;
           }
         }
 
-        v26 = resourceScopedIdentifier;
-        v16 = objc_alloc_init(CPLCloudKitDownloadMetric);
+        v27 = resourceScopedIdentifier;
+        v17 = objc_alloc_init(CPLCloudKitDownloadMetric);
         identity = [(CPLResource *)self->_resource identity];
-        -[CPLCloudKitDownloadMetric setExpectedSize:](v16, "setExpectedSize:", [identity fileSize]);
+        -[CPLCloudKitDownloadMetric setExpectedSize:](v17, "setExpectedSize:", [identity fileSize]);
 
-        [(CPLCloudKitDownloadMetric *)v16 setRequestedItemCount:1];
-        [(CPLCloudKitTransportTask *)self associateMetric:v16];
-        v28[0] = _NSConcreteStackBlock;
-        v28[1] = 3221225472;
-        v28[2] = sub_1000A5560;
-        v28[3] = &unk_100276A70;
-        v28[4] = self;
-        v29 = v16;
-        v30 = v12;
-        v18 = v12;
-        scopeIdentifier2 = v16;
-        v20 = objc_retainBlock(v28);
-        v21 = itemScopedIdentifier;
-        v22 = CPLCloudKitOperationTypeForScope(v10);
-        v23 = [(CPLCloudKitInMemoryResourceDownloadTask *)self _inMemoryDownloadOperationForRecordID:v18 resource:self->_resource record:self->_record keys:v5 operationType:v22 completionBlock:v20];
-        v24 = v22;
-        itemScopedIdentifier = v21;
-        [(CPLCloudKitTransportTask *)self launchOperation:v23 type:v24 withContext:0];
+        [(CPLCloudKitDownloadMetric *)v17 setRequestedItemCount:1];
+        [(CPLCloudKitTransportTask *)self associateMetric:v17];
+        v29[0] = _NSConcreteStackBlock;
+        v29[1] = 3221225472;
+        v29[2] = sub_1000A5560;
+        v29[3] = &unk_100276A70;
+        v29[4] = self;
+        v30 = v17;
+        v31 = v12;
+        v19 = v12;
+        scopeIdentifier2 = v17;
+        v21 = objc_retainBlock(v29);
+        v22 = itemScopedIdentifier;
+        v23 = CPLCloudKitOperationTypeForScope(v10);
+        v24 = [(CPLCloudKitInMemoryResourceDownloadTask *)self _inMemoryDownloadOperationForRecordID:v19 resource:self->_resource record:self->_record keys:v5 operationType:v23 completionBlock:v21];
+        v25 = v23;
+        itemScopedIdentifier = v22;
+        [(CPLCloudKitTransportTask *)self launchOperation:v24 type:v25 withContext:0];
 
-        resourceScopedIdentifier = v26;
-        v7 = v27;
+        resourceScopedIdentifier = v27;
+        v7 = v28;
       }
 
       else
       {
         completionHandler = self->_completionHandler;
         scopeIdentifier2 = [resourceScopedIdentifier scopeIdentifier];
-        v18 = [CPLErrors cplErrorWithCode:80 description:@"Missing zone for %@", scopeIdentifier2];
-        completionHandler[2](completionHandler, 0, v18);
+        v19 = [CPLErrors cplErrorWithCode:80 description:@"Missing zone for %@", scopeIdentifier2];
+        completionHandler[2](completionHandler, 0, v19);
       }
     }
 

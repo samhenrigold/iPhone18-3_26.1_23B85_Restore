@@ -1,1914 +1,10 @@
-uint64_t __RKEntityInteractionsComponent.Registration.deinit()
-{
-  v1 = *(v0 + 24);
-  RECustomComponentTypeDestroy();
-  v2 = *(v0 + 16);
-  RECIntrospectionStructUnregister();
-  return v0;
-}
-
-uint64_t __RKEntityInteractionsComponent.Registration.__deallocating_deinit()
-{
-  v1 = *(v0 + 24);
-  RECustomComponentTypeDestroy();
-  v2 = *(v0 + 16);
-  RECIntrospectionStructUnregister();
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t static __RKEntityInteractionsComponent.registration.setter(void *a1)
-{
-  swift_beginAccess();
-  static __RKEntityInteractionsComponent.registration = a1;
-}
-
-uint64_t key path setter for static __RKEntityInteractionsComponent.registration : __RKEntityInteractionsComponent.Type(void **a1)
-{
-  v1 = *a1;
-  swift_beginAccess();
-  static __RKEntityInteractionsComponent.registration = v1;
-}
-
-uint64_t Entity.__interactions.getter()
-{
-  swift_beginAccess();
-  if (!static __RKEntityInteractionsComponent.registration)
-  {
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  v1 = *(static __RKEntityInteractionsComponent.registration + 3);
-  v2 = *(v0 + 16);
-  if (!REEntityGetCustomComponent())
-  {
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  Object = RECustomComponentGetObject();
-  if (!Object)
-  {
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  if (*(Object + 16))
-  {
-  }
-
-  return __RKEntityInteractionsComponent.decodedJSON()();
-}
-
-uint64_t Entity.__interactions.setter(uint64_t a1)
-{
-  swift_beginAccess();
-  if (!static __RKEntityInteractionsComponent.registration)
-  {
-  }
-
-  v3 = *(static __RKEntityInteractionsComponent.registration + 3);
-  if (*(a1 + 16))
-  {
-    v4 = *(v1 + 16);
-    if (REEntityGetCustomComponent() || (v5 = *(v1 + 16), REEntityAddComponentByClass()))
-    {
-      if (RECustomComponentGetObject())
-      {
-        return __RKEntityInteractionsComponent.specifications.setter(a1);
-      }
-    }
-  }
-
-  v7 = *(v1 + 16);
-  result = REEntityGetCustomComponent();
-  if (result)
-  {
-    v8 = *(v1 + 16);
-    return REEntityRemoveComponentByClass();
-  }
-
-  return result;
-}
-
-void (*Entity.__interactions.modify(uint64_t *a1))(uint64_t a1, char a2)
-{
-  if (MEMORY[0x1E69E7D08])
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x28uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 32) = v1;
-  swift_beginAccess();
-  if (static __RKEntityInteractionsComponent.registration && (v5 = *(static __RKEntityInteractionsComponent.registration + 3), v6 = *(v1 + 16), REEntityGetCustomComponent()) && (Object = RECustomComponentGetObject()) != 0)
-  {
-    if (*(Object + 16))
-    {
-    }
-
-    else
-    {
-      v8 = __RKEntityInteractionsComponent.decodedJSON()();
-    }
-  }
-
-  else
-  {
-    v8 = MEMORY[0x1E69E7CC0];
-  }
-
-  *(v4 + 24) = v8;
-  return Entity.__interactions.modify;
-}
-
-void Entity.__interactions.modify(uint64_t a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 24);
-  if (a2)
-  {
-    v4 = v2[4];
-    v5 = *(*a1 + 24);
-
-    Entity.__interactions.setter(v6);
-    v7 = v2[3];
-LABEL_9:
-
-    goto LABEL_10;
-  }
-
-  if (!static __RKEntityInteractionsComponent.registration)
-  {
-    goto LABEL_9;
-  }
-
-  v8 = *(static __RKEntityInteractionsComponent.registration + 3);
-  v9 = v2[4];
-  if (*(v3 + 16))
-  {
-    v10 = *(v9 + 16);
-    if (REEntityGetCustomComponent() || (v11 = *(v9 + 16), REEntityAddComponentByClass()))
-    {
-      if (RECustomComponentGetObject())
-      {
-        __RKEntityInteractionsComponent.specifications.setter(v3);
-        goto LABEL_10;
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-  v12 = *(*a1 + 24);
-
-  v13 = *(v9 + 16);
-  if (REEntityGetCustomComponent())
-  {
-    v14 = *(v9 + 16);
-    REEntityRemoveComponentByClass();
-  }
-
-LABEL_10:
-
-  free(v2);
-}
-
-uint64_t getEnumTagSinglePayload for __RKEntityInteractionsComponent(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0x7FFFFFFF && *(a1 + 41))
-  {
-    return (*a1 + 0x7FFFFFFF);
-  }
-
-  v3 = *(a1 + 8);
-  if (v3 >= 0xFFFFFFFF)
-  {
-    LODWORD(v3) = -1;
-  }
-
-  v4 = v3 - 1;
-  if (v4 < 0)
-  {
-    v4 = -1;
-  }
-
-  return (v4 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for __RKEntityInteractionsComponent(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0x7FFFFFFE)
-  {
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *(result + 40) = 0;
-    *result = a2 - 0x7FFFFFFF;
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 41) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 41) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 8) = a2;
-    }
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type __RKEntityInteractionsComponent.Registration.RegistrationError and conformance __RKEntityInteractionsComponent.Registration.RegistrationError()
-{
-  result = lazy protocol witness table cache variable for type __RKEntityInteractionsComponent.Registration.RegistrationError and conformance __RKEntityInteractionsComponent.Registration.RegistrationError;
-  if (!lazy protocol witness table cache variable for type __RKEntityInteractionsComponent.Registration.RegistrationError and conformance __RKEntityInteractionsComponent.Registration.RegistrationError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type __RKEntityInteractionsComponent.Registration.RegistrationError and conformance __RKEntityInteractionsComponent.Registration.RegistrationError);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type __RKEntityInteractionsComponent.Registration.RegistrationError and conformance __RKEntityInteractionsComponent.Registration.RegistrationError;
-  if (!lazy protocol witness table cache variable for type __RKEntityInteractionsComponent.Registration.RegistrationError and conformance __RKEntityInteractionsComponent.Registration.RegistrationError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type __RKEntityInteractionsComponent.Registration.RegistrationError and conformance __RKEntityInteractionsComponent.Registration.RegistrationError);
-  }
-
-  return result;
-}
-
-unint64_t type metadata accessor for OS_os_log()
-{
-  result = lazy cache variable for type metadata for OS_os_log;
-  if (!lazy cache variable for type metadata for OS_os_log)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &lazy cache variable for type metadata for OS_os_log);
-  }
-
-  return result;
-}
-
-uint64_t specialized Array._customRemoveLast()()
-{
-  v1 = *v0;
-  result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  if (!result || v1 < 0 || (v1 & 0x4000000000000000) != 0)
-  {
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v1);
-    v1 = result;
-  }
-
-  v3 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (v3)
-  {
-    v4 = v3 - 1;
-    result = *((v1 & 0xFFFFFFFFFFFFFF8) + 8 * v4 + 0x20);
-    *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10) = v4;
-    *v0 = v1;
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-void specialized __RKEntityInteractionsComponent.willRemove(componentRef:)()
-{
-  v1 = v0;
-  v21 = 91;
-  v22 = 0xE100000000000000;
-  if (swift_weakLoadStrong())
-  {
-    _print_unlocked<A, B>(_:_:)();
-    v2 = 0;
-    v3 = 0xE000000000000000;
-  }
-
-  else
-  {
-    v3 = 0xE300000000000000;
-    v2 = 7104878;
-  }
-
-  MEMORY[0x1C68F3410](v2, v3);
-
-  MEMORY[0x1C68F3410](8285, 0xE200000000000000);
-  v4 = StaticString.description.getter();
-  MEMORY[0x1C68F3410](v4);
-
-  MEMORY[0x1C68F3410](8250, 0xE200000000000000);
-
-  v6 = v21;
-  v5 = v22;
-  v7 = static os_log_type_t.debug.getter();
-  specialized InteractionsLogger.log(_:_:)(v7, &v21);
-  Strong = swift_weakLoadStrong();
-  if (!Strong)
-  {
-    v21 = v6;
-    v22 = v5;
-    v14 = static os_log_type_t.error.getter();
-    specialized InteractionsLogger.log(_:_:)(v14, &v21);
-LABEL_27:
-    v21 = v6;
-    v22 = v5;
-    v20 = static os_log_type_t.debug.getter();
-    specialized InteractionsLogger.log(_:_:)(v20, &v21);
-
-    return;
-  }
-
-  v9 = *(v0 + 24);
-  if (!v9)
-  {
-
-LABEL_26:
-    swift_weakAssign();
-    goto LABEL_27;
-  }
-
-  v10 = *(Strong + 16);
-  SceneNullable = REEntityGetSceneNullable();
-  if (!SceneNullable)
-  {
-    goto LABEL_22;
-  }
-
-  v12 = SceneNullable;
-  v13 = RESceneGetSwiftObject();
-  type metadata accessor for Scene();
-  if (v13)
-  {
-    swift_dynamicCastClassUnconditional();
-  }
-
-  else
-  {
-    swift_allocObject();
-    Scene.init(coreScene:)(v12);
-  }
-
-  Scene.__interactionService.getter();
-
-  type metadata accessor for __RKEntityInteractionManager();
-  if (!swift_dynamicCastClass())
-  {
-    swift_unknownObjectRelease();
-LABEL_22:
-    v21 = v6;
-    v22 = v5;
-    v19 = static os_log_type_t.error.getter();
-    specialized InteractionsLogger.log(_:_:)(v19, &v21);
-
-LABEL_25:
-    *(v1 + 24) = 0;
-    goto LABEL_26;
-  }
-
-  v21 = v6;
-  v22 = v5;
-  v15 = static os_log_type_t.info.getter();
-  specialized InteractionsLogger.log(_:_:)(v15, &v21);
-  if (!(v9 >> 62))
-  {
-    v16 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v16)
-    {
-      goto LABEL_15;
-    }
-
-LABEL_24:
-
-    swift_unknownObjectRelease();
-
-    goto LABEL_25;
-  }
-
-  v16 = __CocoaSet.count.getter();
-  if (!v16)
-  {
-    goto LABEL_24;
-  }
-
-LABEL_15:
-  if (v16 >= 1)
-  {
-    for (i = 0; i != v16; ++i)
-    {
-      if ((v9 & 0xC000000000000001) != 0)
-      {
-        v18 = MEMORY[0x1C68F41F0](i, v9);
-      }
-
-      else
-      {
-        v18 = *(v9 + 8 * i + 32);
-      }
-
-      __RKEntityInteractionManager.__removeInteraction(_:)(v18);
-    }
-
-    goto LABEL_24;
-  }
-
-  __break(1u);
-}
-
-uint64_t specialized __RKEntityInteractionsComponent.didActivate(componentRef:)()
-{
-  v1 = v0;
-  v2 = type metadata accessor for DispatchTime();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v101 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v101 - v8;
-  Strong = swift_weakLoadStrong();
-  v112 = 91;
-  v113 = 0xE100000000000000;
-  if (Strong)
-  {
-    v110 = 0;
-    v111 = 0xE000000000000000;
-    v108 = Strong;
-    _print_unlocked<A, B>(_:_:)();
-    v11 = v110;
-    v12 = v111;
-  }
-
-  else
-  {
-    v12 = 0xE300000000000000;
-    v11 = 7104878;
-  }
-
-  MEMORY[0x1C68F3410](v11, v12);
-
-  MEMORY[0x1C68F3410](8285, 0xE200000000000000);
-  v13 = StaticString.description.getter();
-  MEMORY[0x1C68F3410](v13);
-
-  MEMORY[0x1C68F3410](8250, 0xE200000000000000);
-
-  v15 = v112;
-  v14 = v113;
-  v16 = static os_log_type_t.debug.getter();
-  specialized InteractionsLogger.log(_:_:)(v16, &v112);
-  v17 = swift_weakLoadStrong();
-  if (!v17)
-  {
-    v112 = v15;
-    v113 = v14;
-    v26 = static os_log_type_t.error.getter();
-    specialized InteractionsLogger.log(_:_:)(v26, &v112);
-LABEL_28:
-    v112 = v15;
-    v113 = v14;
-    v45 = static os_log_type_t.debug.getter();
-    v46 = &v112;
-LABEL_29:
-    specialized InteractionsLogger.log(_:_:)(v45, v46);
-  }
-
-  v18 = v17;
-  v112 = v15;
-  v113 = v14;
-  v19 = static os_log_type_t.info.getter();
-  specialized InteractionsLogger.log(_:_:)(v19, &v112);
-  v20 = *(v0 + 40);
-  if (v20 != 2 && (v20 & 1) != 0)
-  {
-    v112 = v15;
-    v113 = v14;
-    v21 = static os_log_type_t.error.getter();
-    specialized InteractionsLogger.log(_:_:)(v21, &v112);
-LABEL_27:
-
-    goto LABEL_28;
-  }
-
-  v22 = *(v18 + 16);
-  SceneNullable = REEntityGetSceneNullable();
-  if (!SceneNullable)
-  {
-LABEL_26:
-    v112 = v15;
-    v113 = v14;
-    v44 = static os_log_type_t.error.getter();
-    specialized InteractionsLogger.log(_:_:)(v44, &v112);
-    goto LABEL_27;
-  }
-
-  v24 = SceneNullable;
-  v25 = RESceneGetSwiftObject();
-  type metadata accessor for Scene();
-  if (v25)
-  {
-    swift_dynamicCastClassUnconditional();
-  }
-
-  else
-  {
-    swift_allocObject();
-    Scene.init(coreScene:)(v24);
-  }
-
-  v27 = Scene.__interactionService.getter();
-
-  type metadata accessor for __RKEntityInteractionManager();
-  v28 = swift_dynamicCastClass();
-  if (!v28)
-  {
-    swift_unknownObjectRelease();
-    goto LABEL_26;
-  }
-
-  v29 = v28;
-  swift_beginAccess();
-  if (*(v29 + 26) != 1)
-  {
-    v110 = v15;
-    v111 = v14;
-    v48 = static os_log_type_t.error.getter();
-    specialized InteractionsLogger.log(_:_:)(v48, &v110, partial apply for implicit closure #7 in __RKEntityInteractionsComponent.didActivate(componentRef:), v29);
-    swift_unknownObjectRelease();
-
-    goto LABEL_80;
-  }
-
-  v101 = v29;
-  v102 = v9;
-  v106 = v27;
-  v103 = v3;
-  v104 = v2;
-  swift_retain_n();
-  v30 = *(v18 + 16);
-  REAnchorComponentGetComponentType();
-  isUniquelyReferenced_nonNull_native = v18;
-  if (REEntityGetComponentByClass())
-  {
-LABEL_16:
-    v32 = *(isUniquelyReferenced_nonNull_native + 16);
-
-    REAnchorComponentGetComponentType();
-    ComponentByClass = REEntityGetComponentByClass();
-
-    if (ComponentByClass)
-    {
-      v110 = v15;
-      v111 = v14;
-      v34 = static os_log_type_t.info.getter();
-      specialized InteractionsLogger.log(_:_:)(v34, &v110);
-      *(v1 + 40) = 1;
-      v35 = swift_allocObject();
-      *(v35 + 16) = 0;
-      v36 = (v35 + 16);
-      v37 = *(v18 + 16);
-
-      ChildCount = REEntityGetChildCount();
-      if (ChildCount < 0)
-      {
-LABEL_92:
-        __break(1u);
-      }
-
-      else
-      {
-        v39 = ChildCount;
-        if (!ChildCount)
-        {
-
-LABEL_82:
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-          v89 = swift_allocObject();
-          *(v89 + 16) = xmmword_1C1898160;
-          *(v89 + 32) = v18;
-          *v36 = v89;
-
-          goto LABEL_83;
-        }
-
-        v40 = 0;
-        do
-        {
-          v41 = *(v18 + 16);
-          if (v40 >= REEntityGetChildCount())
-          {
-            __break(1u);
-            goto LABEL_89;
-          }
-
-          ++v40;
-        }
-
-        while (v39 != v40);
-
-        v110 = v18;
-
-        v42 = specialized Entity.ChildCollection.filter(recursive:_:)(1, &v110);
-
-        *v36 = v42;
-
-        if (!v42)
-        {
-          goto LABEL_82;
-        }
-
-        MEMORY[0x1C68F3650](v43);
-        if (*((*v36 & 0xFFFFFFFFFFFFFF8) + 0x10) < *((*v36 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-        {
-LABEL_24:
-          specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-LABEL_83:
-          v90 = MEMORY[0x1C68F3280](0x747365544358, 0xE600000000000000);
-          v91 = NSClassFromString(v90);
-
-          if (v91 && (v92 = v101, swift_beginAccess(), (*(v92 + 25) & 1) != 0))
-          {
-
-            swift_unknownObjectRelease();
-          }
-
-          else
-          {
-            v93 = specialized static __ServiceLocator.shared.getter();
-            swift_beginAccess();
-            v94 = *(v93 + 24);
-            swift_unownedRetainStrong();
-            static DispatchTime.now()();
-            v95 = v35;
-            v96 = v102;
-            + infix(_:_:)();
-            v97 = v104;
-            v105 = *(v103 + 8);
-            v105(v6, v104);
-            v98 = swift_allocObject();
-            v107 = isUniquelyReferenced_nonNull_native;
-            v99 = v98;
-            swift_weakInit();
-
-            v100 = swift_allocObject();
-            *(v100 + 16) = v99;
-            *(v100 + 24) = v95;
-
-            __Engine.asyncAfterOnEngineQueue(deadline:_:)(v96, partial apply for closure #2 in __RKEntityInteractionsComponent.didActivate(componentRef:), v100);
-
-            swift_unknownObjectRelease();
-
-            v105(v96, v97);
-          }
-
-          v109[0] = v15;
-          v109[1] = v14;
-          v45 = static os_log_type_t.debug.getter();
-          v46 = v109;
-          goto LABEL_29;
-        }
-      }
-
-      specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-      goto LABEL_24;
-    }
-
-LABEL_79:
-
-    v110 = v15;
-    v111 = v14;
-    v88 = static os_log_type_t.error.getter();
-    specialized InteractionsLogger.log(_:_:)(v88, &v110);
-
-    swift_unknownObjectRelease();
-LABEL_80:
-    v110 = v15;
-    v111 = v14;
-    v45 = static os_log_type_t.debug.getter();
-    v46 = &v110;
-    goto LABEL_29;
-  }
-
-  isUniquelyReferenced_nonNull_native = v18;
-  v107 = v6;
-  v105 = v1;
-  while (1)
-  {
-    v50 = *(isUniquelyReferenced_nonNull_native + 16);
-    Parent = REEntityGetParent();
-    if (!Parent)
-    {
-
-      goto LABEL_79;
-    }
-
-    v35 = Parent;
-    if (!REEntityGetSwiftObject())
-    {
-      break;
-    }
-
-    type metadata accessor for Entity();
-    isUniquelyReferenced_nonNull_native = swift_dynamicCastClassUnconditional();
-LABEL_33:
-    v49 = *(isUniquelyReferenced_nonNull_native + 16);
-    REAnchorComponentGetComponentType();
-    if (REEntityGetComponentByClass())
-    {
-      goto LABEL_16;
-    }
-  }
-
-  if (REEntityIsBeingDestroyed())
-  {
-LABEL_89:
-    __break(1u);
-LABEL_90:
-    __break(1u);
-LABEL_91:
-    __break(1u);
-    goto LABEL_92;
-  }
-
-  if (one-time initialization token for customComponentTypeObjectIdToHandles != -1)
-  {
-    swift_once();
-  }
-
-  swift_beginAccess();
-  v52 = static SceneManager.customComponentTypeObjectIdToHandles;
-  if (*(static SceneManager.customComponentTypeObjectIdToHandles + 16) && (v53 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for __EntityInfoComponent), (v54 & 1) != 0))
-  {
-    v55 = *(*(v52 + 56) + 8 * v53);
-  }
-
-  else
-  {
-    v56 = v15;
-    v15 = isUniquelyReferenced_nonNull_native;
-    swift_endAccess();
-    v6 = specialized static SceneManager.customComponentTypeHelper(_:typeName:)(&type metadata for __EntityInfoComponent, &protocol witness table for __EntityInfoComponent, 0, 0);
-    swift_beginAccess();
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v57 = static SceneManager.customComponentTypeObjectIdToHandles;
-    v108 = static SceneManager.customComponentTypeObjectIdToHandles;
-    static SceneManager.customComponentTypeObjectIdToHandles = 0x8000000000000000;
-    v59 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for __EntityInfoComponent);
-    v60 = *(v57 + 16);
-    v61 = (v58 & 1) == 0;
-    v62 = v60 + v61;
-    if (__OFADD__(v60, v61))
-    {
-      goto LABEL_90;
-    }
-
-    v63 = v58;
-    if (*(v57 + 24) >= v62)
-    {
-      if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-      {
-        specialized _NativeDictionary.copy()();
-      }
-    }
-
-    else
-    {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v62, isUniquelyReferenced_nonNull_native);
-      v64 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for __EntityInfoComponent);
-      if ((v63 & 1) != (v65 & 1))
-      {
-        goto LABEL_95;
-      }
-
-      v59 = v64;
-    }
-
-    isUniquelyReferenced_nonNull_native = v15;
-    v66 = v108;
-    v15 = v56;
-    if (v63)
-    {
-      *(*(v108 + 56) + 8 * v59) = v6;
-      v1 = v105;
-    }
-
-    else
-    {
-      *(v108 + 8 * (v59 >> 6) + 64) |= 1 << v59;
-      *(v66[6] + 8 * v59) = &type metadata for __EntityInfoComponent;
-      *(v66[7] + 8 * v59) = v6;
-      v67 = v66[2];
-      v68 = __OFADD__(v67, 1);
-      v69 = v67 + 1;
-      v1 = v105;
-      if (v68)
-      {
-        goto LABEL_91;
-      }
-
-      v66[2] = v69;
-    }
-
-    static SceneManager.customComponentTypeObjectIdToHandles = v66;
-  }
-
-  swift_endAccess();
-  CustomComponent = REEntityGetCustomComponent();
-  v6 = v107;
-  if (!CustomComponent)
-  {
-    goto LABEL_75;
-  }
-
-  Object = RECustomComponentGetObject();
-  if (!Object)
-  {
-    goto LABEL_75;
-  }
-
-  v72 = *Object;
-  if (*(Object + 8))
-  {
-    v73 = 1;
-  }
-
-  else
-  {
-    v73 = v72 == 0;
-  }
-
-  if (v73)
-  {
-    v74 = *(Object + 8);
-  }
-
-  else
-  {
-    v75 = *v72;
-    v76 = String.init(utf8String:)();
-    if (v77)
-    {
-      v78 = v76;
-    }
-
-    else
-    {
-      v78 = 0;
-    }
-
-    if (v77)
-    {
-      v79 = v77;
-    }
-
-    else
-    {
-      v79 = 0xE000000000000000;
-    }
-
-    v72 = specialized static __EntityInfoComponent.makeRawData(isNinja:entityTypeName:)(v75 == 42, v78, v79);
-
-    type metadata accessor for IntrospectionDataCleanupHelper();
-    *(swift_allocObject() + 16) = v72;
-  }
-
-  if (v72)
-  {
-    v80 = String.init(utf8String:)();
-    if (v81)
-    {
-      v82 = v81;
-    }
-
-    else
-    {
-      v80 = 0;
-      v82 = 0xE000000000000000;
-    }
-
-    v83 = MEMORY[0x1C68F3280](v80, v82);
-
-    v84 = NSClassFromString(v83);
-
-    if (v84)
-    {
-      swift_getObjCClassMetadata();
-      type metadata accessor for Entity();
-      v85 = swift_dynamicCastMetatype();
-      if (v85)
-      {
-        v86 = (*(v85 + 232))();
-        v87 = *(v86 + 16);
-
-        MEMORY[0x1C68F9740](v87, 0);
-        *(v86 + 16) = v35;
-        MEMORY[0x1C68F9740](v35, v86);
-
-LABEL_76:
-
-        isUniquelyReferenced_nonNull_native = v86;
-        goto LABEL_33;
-      }
-    }
-
-LABEL_75:
-    v86 = makeEntity(for:)(v35);
-    goto LABEL_76;
-  }
-
-  __break(1u);
-LABEL_95:
-  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
-uint64_t outlined init with copy of __RKEntityInteractionSpecification(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for __RKEntityInteractionSpecification(0);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined destroy of __RKEntityInteractionSpecification(uint64_t a1)
-{
-  v2 = type metadata accessor for __RKEntityInteractionSpecification(0);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
-{
-  result = *a1;
-  if (!result)
-  {
-    v4 = *a2;
-    result = swift_getTypeByMangledNameInContextInMetadataState2();
-    *a1 = result;
-  }
-
-  return result;
-}
-
-uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
-{
-  if ((*(*(a1 - 8) + 82) & 2) != 0)
-  {
-    return *a2;
-  }
-
-  return a2;
-}
-
-uint64_t outlined init with take of __RKEntityInteractionSpecification(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for __RKEntityInteractionSpecification(0);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t lazy protocol witness table accessor for type [__RKEntityInteractionSpecification] and conformance <A> [A](unint64_t *a1, unint64_t *a2)
-{
-  result = *a1;
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10RealityKit34__RKEntityInteractionSpecificationVGMd, &_sSay10RealityKit34__RKEntityInteractionSpecificationVGMR);
-    lazy protocol witness table accessor for type __RKEntityInteractionSpecification and conformance __RKEntityInteractionSpecification(a2);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t lazy protocol witness table accessor for type __RKEntityInteractionSpecification and conformance __RKEntityInteractionSpecification(unint64_t *a1)
-{
-  result = *a1;
-  if (!result)
-  {
-    type metadata accessor for __RKEntityInteractionSpecification(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for __RKEntityInteractionsComponent.Registration.RegistrationError(unsigned int *a1, int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if ((a2 + 1) >= 0x10000)
-  {
-    v2 = 4;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if ((a2 + 1) < 0x100)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    return *a1;
-  }
-
-  if (v3 == 2)
-  {
-    return *a1;
-  }
-
-  return *a1;
-}
-
-_WORD *storeEnumTagSinglePayload for __RKEntityInteractionsComponent.Registration.RegistrationError(_WORD *result, int a2, int a3)
-{
-  if ((a3 + 1) >= 0x10000)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 1) < 0x100)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (!a3)
-  {
-    v4 = 0;
-  }
-
-  if (a2)
-  {
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        *result = a2;
-      }
-
-      else
-      {
-        *result = a2;
-      }
-    }
-
-    else if (v4)
-    {
-      *result = a2;
-    }
-  }
-
-  else if (v4 > 1)
-  {
-    if (v4 == 2)
-    {
-      *result = 0;
-    }
-
-    else
-    {
-      *result = 0;
-    }
-  }
-
-  else if (v4)
-  {
-    *result = 0;
-  }
-
-  return result;
-}
-
-void DirectionalLightComponent.Shadow.maximumDistance.setter(float a1)
-{
-  *(v1 + 12) = LODWORD(a1);
-  *(v1 + 20) = 0;
-  *(v1 + 24) = 1;
-  *(v1 + 4) = a1;
-}
-
-uint64_t *(*DirectionalLightComponent.Shadow.maximumDistance.modify(uint64_t a1))(uint64_t *result)
-{
-  *a1 = v1;
-  *(a1 + 8) = *(v1 + 4);
-  return DirectionalLightComponent.Shadow.maximumDistance.modify;
-}
-
-uint64_t *DirectionalLightComponent.Shadow.maximumDistance.modify(uint64_t *result)
-{
-  v1 = *result;
-  v2 = *(result + 2);
-  *(v1 + 12) = v2;
-  *(v1 + 20) = 0;
-  *(v1 + 24) = 1;
-  *(v1 + 4) = v2;
-  return result;
-}
-
-double DirectionalLightComponent.Shadow.init()@<D0>(uint64_t a1@<X8>)
-{
-  result = 2048.00048;
-  *a1 = 0x40A000003F800000;
-  *(a1 + 8) = 3;
-  *(a1 + 12) = 1084227584;
-  *(a1 + 20) = 0;
-  *(a1 + 24) = 1;
-  return result;
-}
-
-void DirectionalLightComponent.Shadow.init(maximumDistance:depthBias:)(uint64_t a1@<X8>, unsigned int a2@<S0>, float a3@<S1>)
-{
-  *a1 = a3;
-  *(a1 + 4) = *&a2;
-  *(a1 + 8) = 3;
-  *(a1 + 12) = a2;
-  *(a1 + 20) = 0;
-  *(a1 + 24) = 1;
-}
-
-uint64_t DirectionalLightComponent.Shadow.shadowProjection.setter(uint64_t result)
-{
-  v2 = *(result + 8);
-  v3 = *(result + 12);
-  *(v1 + 12) = *result;
-  *(v1 + 20) = v2;
-  *(v1 + 24) = v3;
-  return result;
-}
-
-uint64_t static DirectionalLightComponent.Shadow.__fromCore(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  REDirectionalLightShadowMapComponentGetDepthBias();
-  v5 = v4;
-  REDirectionalLightShadowMapComponentGetDistance();
-  v7 = v6;
-  CullMode = REDirectionalLightShadowMapComponentGetCullModeEx();
-  AutomaticallyAdjustsShadowProjection = REDirectionalLightShadowMapComponentGetAutomaticallyAdjustsShadowProjection();
-  REDirectionalLightShadowMapComponentGetZNear();
-  v11 = v10;
-  REDirectionalLightShadowMapComponentGetZFar();
-  v13 = v12;
-  result = REDirectionalLightShadowMapComponentGetOrthographicScale();
-  v16 = v11 | (v13 << 32);
-  if (AutomaticallyAdjustsShadowProjection)
-  {
-    v16 = v7;
-    v15 = 0.0;
-  }
-
-  v17 = 1;
-  if (!CullMode)
-  {
-    v17 = 3;
-  }
-
-  *a2 = v5;
-  *(a2 + 4) = v7;
-  *(a2 + 8) = v17;
-  *(a2 + 12) = v16;
-  *(a2 + 20) = v15;
-  *(a2 + 24) = AutomaticallyAdjustsShadowProjection;
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t *DirectionalLightComponent.Shadow.init(shadowProjection:depthBias:cullMode:)@<X0>(uint64_t *result@<X0>, char *a2@<X1>, uint64_t a3@<X8>, float a4@<S0>)
-{
-  v4 = *result;
-  v5 = *(result + 2);
-  v6 = *(result + 12);
-  v7 = *a2;
-  *a3 = a4;
-  *(a3 + 4) = 1084227584;
-  *(a3 + 8) = v7;
-  *(a3 + 12) = v4;
-  *(a3 + 20) = v5;
-  *(a3 + 24) = v6;
-  return result;
-}
-
-uint64_t DirectionalLightComponent.Shadow.__toCore(_:)(uint64_t *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *v1;
-  v4 = *(v1 + 8);
-  v5 = *(v1 + 3);
-  v6 = v1[5];
-  v7 = *(v1 + 24);
-  REDirectionalLightShadowMapComponentSetDepthBias();
-  if (v7)
-  {
-    REDirectionalLightShadowMapComponentSetDistance();
-  }
-
-  else
-  {
-    REDirectionalLightShadowMapComponentSetZNear();
-    REDirectionalLightShadowMapComponentSetZFar();
-    REDirectionalLightShadowMapComponentSetOrthographicScale();
-  }
-
-  REDirectionalLightShadowMapComponentSetAutomaticallyAdjustsShadowProjection();
-  REDirectionalLightShadowMapComponentSetCullMode();
-  result = RENetworkMarkComponentDirty();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void DirectionalLightComponent.init(cgColor:intensity:isRealWorldProxy:)(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X8>, float a4@<S0>)
-{
-  *a3 = a1;
-  *(a3 + 8) = a4;
-  *(a3 + 12) = a2;
-}
-
-void static DirectionalLightComponent.__fromCore(_:)(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  REDirectionalLightComponentGetColorGamut3F();
-  REDirectionalLightComponentGetIntensity();
-  v5 = v4;
-  LOBYTE(v3) = REDirectionalLightComponentGetIsProxy();
-  v6 = RECreateCGColorFromColorGamut();
-
-  *a2 = v6;
-  *(a2 + 8) = v5;
-  *(a2 + 12) = v3;
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t DirectionalLightComponent.__toCore(_:)(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *v1;
-  v4 = *(v1 + 2);
-  v5 = *(v1 + 12);
-  RECGColorToColorGamut();
-  REDirectionalLightComponentSetColorGamut3F();
-  REDirectionalLightComponentSetIntensity();
-  REDirectionalLightComponentSetIsProxy();
-  result = RENetworkMarkComponentDirty();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t static DirectionalLightComponent.== infix(_:_:)(float *a1, float *a2)
-{
-  v2 = *a1;
-  v3 = a1[2];
-  v4 = *(a1 + 12);
-  v5 = *a2;
-  v6 = a2[2];
-  v7 = *(a2 + 12);
-  type metadata accessor for CGColorRef(0);
-  lazy protocol witness table accessor for type CGColorRef and conformance CGColorRef();
-  return static _CFObject.== infix(_:_:)() & (v4 ^ v7 ^ 1) & (v3 == v6);
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance DirectionalLightComponent(float *a1, float *a2)
-{
-  v2 = *a1;
-  v3 = a1[2];
-  v4 = *(a1 + 12);
-  v5 = *a2;
-  v6 = a2[2];
-  v7 = *(a2 + 12);
-  type metadata accessor for CGColorRef(0);
-  lazy protocol witness table accessor for type CGColorRef and conformance CGColorRef();
-  return static _CFObject.== infix(_:_:)() & (v4 ^ v7 ^ 1) & (v3 == v6);
-}
-
-_BYTE *(*DirectionalLightComponent.Shadow.cullModeOverride.modify(uint64_t a1))(_BYTE *result)
-{
-  *a1 = v1;
-  *(a1 + 8) = *(v1 + 8);
-  return DirectionalLightComponent.Shadow.cullModeOverride.modify;
-}
-
-void DirectionalLightComponent.Shadow.shadowProjection.getter(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 20);
-  v3 = *(v1 + 24);
-  *a1 = *(v1 + 12);
-  *(a1 + 8) = v2;
-  *(a1 + 12) = v3;
-}
-
-uint64_t *(*DirectionalLightComponent.Shadow.shadowProjection.modify(uint64_t a1))(uint64_t *result)
-{
-  *a1 = v1;
-  v2 = *(v1 + 20);
-  v3 = *(v1 + 24);
-  *(a1 + 8) = *(v1 + 12);
-  *(a1 + 16) = v2;
-  *(a1 + 20) = v3;
-  return DirectionalLightComponent.Shadow.shadowProjection.modify;
-}
-
-uint64_t *DirectionalLightComponent.Shadow.shadowProjection.modify(uint64_t *result)
-{
-  v1 = *result;
-  v2 = *(result + 4);
-  v3 = *(result + 20);
-  *(v1 + 12) = result[1];
-  *(v1 + 20) = v2;
-  *(v1 + 24) = v3;
-  return result;
-}
-
-uint64_t DirectionalLightComponent.Shadow.customMirror.getter@<X0>(uint64_t a1@<X8>)
-{
-  v21 = a1;
-  v2 = type metadata accessor for Mirror.AncestorRepresentation();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x1EEE9AC00](v7 - 8);
-  v11 = &v20 - v10;
-  v12 = *(v1 + 8);
-  v13 = *(v1 + 12);
-  v14 = *(v1 + 20);
-  v15 = *(v1 + 24);
-  v9.n128_u64[0] = *v1;
-  v20 = v9;
-  v22 = v9.n128_u64[0];
-  v23 = v12;
-  v24 = v13;
-  v25 = v14;
-  v26 = v15;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
-  v16 = swift_allocObject();
-  *(v16 + 16) = xmmword_1C1897FD0;
-  *(v16 + 32) = 0xD000000000000010;
-  *(v16 + 40) = 0x80000001C18DE1D0;
-  *(v16 + 48) = v13;
-  *(v16 + 56) = v14;
-  *(v16 + 60) = v15;
-  *(v16 + 72) = &type metadata for DirectionalLightComponent.Shadow.ShadowProjectionType;
-  *(v16 + 80) = 0x6169426874706564;
-  *(v16 + 88) = 0xE900000000000073;
-  v17 = MEMORY[0x1E69E6448];
-  *(v16 + 96) = v20.n128_u32[0];
-  *(v16 + 120) = v17;
-  *(v16 + 128) = 0xD000000000000010;
-  *(v16 + 136) = 0x80000001C18DE1F0;
-  *(v16 + 168) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22MaterialParameterTypesV11FaceCullingOSgMd, &_s17RealityFoundation22MaterialParameterTypesV11FaceCullingOSgMR);
-  *(v16 + 144) = v12;
-  v18 = type metadata accessor for Mirror.DisplayStyle();
-  (*(*(v18 - 8) + 56))(v11, 1, 1, v18);
-  (*(v3 + 104))(v6, *MEMORY[0x1E69E75D8], v2);
-  return Mirror.init<A>(_:children:displayStyle:ancestorRepresentation:)();
-}
-
-BOOL specialized static DirectionalLightComponent.Shadow.ShadowProjectionType.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  if (*(a1 + 12))
-  {
-    return (*(a2 + 12) & 1) != 0 && *&v2 == *&v3;
-  }
-
-  if (*(a2 + 12))
-  {
-    return 0;
-  }
-
-  v5 = HIDWORD(*a1);
-  v7 = *(&v2 + 1) == *(&v3 + 1) && *&v2 == COERCE_FLOAT(*a2);
-  return v7 && *(a1 + 2) == *(a2 + 2);
-}
-
-uint64_t specialized static DirectionalLightComponent.Shadow.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if (*a1 != *a2 || *(a1 + 4) != *(a2 + 4))
-  {
-    return 0;
-  }
-
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 12);
-  v6 = *(a1 + 20);
-  v7 = *(a1 + 24);
-  v8 = *(a2 + 8);
-  v9 = *(a2 + 12);
-  v10 = *(a2 + 24);
-  if (v4 == 3)
-  {
-    if (v8 != 3)
-    {
-      return 0;
-    }
-
-LABEL_12:
-    if (v7)
-    {
-      if (*&v5 == *&v9)
-      {
-        v11 = *(a2 + 24);
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-
-      if (v11)
-      {
-        return 1;
-      }
-    }
-
-    else if ((*(a2 + 24) & 1) == 0)
-    {
-      v12 = HIDWORD(v9);
-      v13 = *&v5 == COERCE_FLOAT(*(a2 + 12)) && *(&v5 + 1) == *&v12;
-      if (v13 && v6 == *(a2 + 20))
-      {
-        return 1;
-      }
-    }
-
-    return 0;
-  }
-
-  result = 0;
-  if (v8 != 3 && v4 == v8)
-  {
-    goto LABEL_12;
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type CGColorRef and conformance CGColorRef()
-{
-  result = lazy protocol witness table cache variable for type CGColorRef and conformance CGColorRef;
-  if (!lazy protocol witness table cache variable for type CGColorRef and conformance CGColorRef)
-  {
-    type metadata accessor for CGColorRef(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CGColorRef and conformance CGColorRef);
-  }
-
-  return result;
-}
-
-void *__swift_memcpy13_8(void *result, uint64_t *a2)
-{
-  v2 = *a2;
-  *(result + 5) = *(a2 + 5);
-  *result = v2;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for DirectionalLightComponent(uint64_t *a1, int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0 && *(a1 + 13))
-  {
-    return *a1 + 0x80000000;
-  }
-
-  v2 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for DirectionalLightComponent(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *(result + 12) = 0;
-    *(result + 8) = 0;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 13) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *result = (a2 - 1);
-      return result;
-    }
-
-    *(result + 13) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-__n128 __swift_memcpy25_4(uint64_t a1, uint64_t a2)
-{
-  result = *a2;
-  *(a1 + 9) = *(a2 + 9);
-  *a1 = result;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for DirectionalLightComponent.Shadow(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 25))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 24);
-  if (v3 <= 1)
-  {
-    v4 = -1;
-  }
-
-  else
-  {
-    v4 = v3 ^ 0xFF;
-  }
-
-  return (v4 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for DirectionalLightComponent.Shadow(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 8) = 0;
-    *(result + 16) = 0;
-    *(result + 24) = 0;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 25) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 25) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 24) = -a2;
-    }
-  }
-
-  return result;
-}
-
-void *__swift_memcpy13_4(void *result, uint64_t *a2)
-{
-  v2 = *a2;
-  *(result + 5) = *(a2 + 5);
-  *result = v2;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for DirectionalLightComponent.Shadow.ShadowProjectionType(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 13))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 12);
-  if (v3 <= 1)
-  {
-    v4 = -1;
-  }
-
-  else
-  {
-    v4 = v3 ^ 0xFF;
-  }
-
-  return (v4 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for DirectionalLightComponent.Shadow.ShadowProjectionType(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 12) = 0;
-    *(result + 8) = 0;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 13) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 13) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 12) = -a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t one-time initialization function for UpdateLoop(uint64_t a1)
-{
-  return one-time initialization function for UpdateLoop(a1, 0x6F4C657461647055, 0xEA0000000000706FLL, &static __REOSLog.UpdateLoop);
-}
-
-{
-  return one-time initialization function for UpdateLoop(a1, static __RESignpostID.UpdateLoop, &one-time initialization token for UpdateLoop, &static __REOSLog.UpdateLoop);
-}
-
-uint64_t one-time initialization function for ARQL(uint64_t a1)
-{
-  return one-time initialization function for UpdateLoop(a1, 1280397889, 0xE400000000000000, &static __REOSLog.ARQL);
-}
-
-{
-  return one-time initialization function for UpdateLoop(a1, static __RESignpostID.ARQL, &one-time initialization token for ARQL, &static __REOSLog.ARQL);
-}
-
-uint64_t one-time initialization function for RealityComposer(uint64_t a1)
-{
-  return one-time initialization function for UpdateLoop(a1, 0x437974696C616552, 0xEF7265736F706D6FLL, &static __REOSLog.RealityComposer);
-}
-
-{
-  return one-time initialization function for UpdateLoop(a1, static __RESignpostID.RealityComposer, one-time initialization token for RealityComposer, &static __REOSLog.RealityComposer);
-}
-
-uint64_t one-time initialization function for UpdateLoop(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  type metadata accessor for OS_os_log();
-  result = OS_os_log.init(subsystem:category:)();
-  *a4 = result;
-  return result;
-}
-
-id static __REOSLog.UpdateLoop.getter(void *a1, void **a2)
-{
-  if (*a1 == -1)
-  {
-    v3 = *a2;
-  }
-
-  else
-  {
-    swift_once();
-    v3 = *a2;
-  }
-
-  return v3;
-}
-
-uint64_t one-time initialization function for UpdateLoop(uint64_t a1, uint64_t *a2, void *a3, id *a4)
-{
-  v7 = type metadata accessor for OSSignpostID();
-  __swift_allocate_value_buffer(v7, a2);
-  __swift_project_value_buffer(v7, a2);
-  if (*a3 != -1)
-  {
-    swift_once();
-  }
-
-  v8 = *a4;
-  return OSSignpostID.init(log:)();
-}
-
-uint64_t static __RESignpostID.UpdateLoop.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  if (*a1 != -1)
-  {
-    swift_once();
-  }
-
-  v5 = type metadata accessor for OSSignpostID();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
-
-  return v7(a3, v6, v5);
-}
-
-uint64_t __REOSSignpostScope.__allocating_init(osLog:signpostID:name:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
-{
-  v6 = v5;
-  v12 = *(v6 + 48);
-  v13 = *(v6 + 52);
-  v14 = swift_allocObject();
-  *(v14 + 16) = a3;
-  *(v14 + 24) = a4;
-  *(v14 + 32) = a5;
-  *(v14 + 40) = a1;
-  v15 = OBJC_IVAR____TtC10RealityKit19__REOSSignpostScope_signpostID;
-  v16 = type metadata accessor for OSSignpostID();
-  v17 = *(v16 - 8);
-  (*(v17 + 16))(v14 + v15, a2, v16);
-  v18 = a1;
-  static os_signpost_type_t.begin.getter();
-  os_signpost(_:dso:log:name:signpostID:)();
-
-  (*(v17 + 8))(a2, v16);
-  return v14;
-}
-
-uint64_t __REOSSignpostScope.init(osLog:signpostID:name:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
-{
-  *(v5 + 16) = a3;
-  *(v5 + 24) = a4;
-  *(v5 + 32) = a5;
-  *(v5 + 40) = a1;
-  v8 = OBJC_IVAR____TtC10RealityKit19__REOSSignpostScope_signpostID;
-  v9 = type metadata accessor for OSSignpostID();
-  v10 = *(v9 - 8);
-  (*(v10 + 16))(v5 + v8, a2, v9);
-  v11 = a1;
-  static os_signpost_type_t.begin.getter();
-  os_signpost(_:dso:log:name:signpostID:)();
-
-  (*(v10 + 8))(a2, v9);
-  return v5;
-}
-
-uint64_t __REOSSignpostScope.deinit()
-{
-  v1 = type metadata accessor for OSSignpostID();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x1EEE9AC00](v1);
-  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static os_signpost_type_t.end.getter();
-  v6 = *(v0 + 40);
-  v7 = *(v0 + 16);
-  v8 = *(v0 + 24);
-  v9 = OBJC_IVAR____TtC10RealityKit19__REOSSignpostScope_signpostID;
-  v10 = *(v0 + 32);
-  (*(v2 + 16))(v5, v0 + OBJC_IVAR____TtC10RealityKit19__REOSSignpostScope_signpostID, v1);
-  v11 = v6;
-  os_signpost(_:dso:log:name:signpostID:)();
-
-  v12 = *(v2 + 8);
-  v12(v5, v1);
-
-  v12((v0 + v9), v1);
-  return v0;
-}
-
-uint64_t __REOSSignpostScope.__deallocating_deinit()
-{
-  v1 = type metadata accessor for OSSignpostID();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x1EEE9AC00](v1);
-  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static os_signpost_type_t.end.getter();
-  v6 = *(v0 + 40);
-  v7 = *(v0 + 16);
-  v8 = *(v0 + 24);
-  v9 = OBJC_IVAR____TtC10RealityKit19__REOSSignpostScope_signpostID;
-  v10 = *(v0 + 32);
-  (*(v2 + 16))(v5, v0 + OBJC_IVAR____TtC10RealityKit19__REOSSignpostScope_signpostID, v1);
-  v11 = v6;
-  os_signpost(_:dso:log:name:signpostID:)();
-
-  v12 = *(v2 + 8);
-  v12(v5, v1);
-
-  v12((v0 + v9), v1);
-  v13 = *(*v0 + 48);
-  v14 = *(*v0 + 52);
-  return swift_deallocClassInstance();
-}
-
-uint64_t type metadata accessor for __REOSSignpostScope()
-{
-  result = type metadata singleton initialization cache for __REOSSignpostScope;
-  if (!type metadata singleton initialization cache for __REOSSignpostScope)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for __REOSSignpostScope()
-{
-  result = type metadata accessor for OSSignpostID();
-  if (v1 <= 0x3F)
-  {
-    v2 = *(result - 8) + 64;
-    result = swift_updateClassMetadata2();
-    if (!result)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -1999,7 +95,7 @@ uint64_t static __RKSimulationSceneCoordinator.shared.setter(uint64_t a1)
   static __RKSimulationSceneCoordinator.shared = a1;
 }
 
-uint64_t (*static __RKSimulationSceneCoordinator.shared.modify())()
+uint64_t (*static __RKSimulationSceneCoordinator.shared.modify(uint64_t a1))(uint64_t a1)
 {
   if (one-time initialization token for shared != -1)
   {
@@ -2043,14 +139,6 @@ uint64_t __RKSimulationSceneCoordinator.init()()
   return v0;
 }
 
-uint64_t __RKSimulationSceneCoordinator.delegate.getter()
-{
-  swift_beginAccess();
-  result = swift_unknownObjectWeakLoadStrong();
-  v2 = *(v0 + 24);
-  return result;
-}
-
 uint64_t __RKSimulationSceneCoordinator.delegate.setter(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
@@ -2085,12 +173,10 @@ void (*__RKSimulationSceneCoordinator.delegate.modify(uint64_t *a1))(uint64_t a1
 void __RKSimulationSceneCoordinator.delegate.modify(uint64_t a1, char a2)
 {
   v3 = *a1;
-  v4 = *(*a1 + 24);
   *(*(*a1 + 40) + 24) = *(*a1 + 32);
   swift_unknownObjectWeakAssign();
   if (a2)
   {
-    v5 = v3[3];
     swift_unknownObjectRelease();
     swift_endAccess();
   }
@@ -2150,7 +236,7 @@ unint64_t lazy protocol witness table accessor for type __RKSimulationSceneCoord
   result = lazy protocol witness table cache variable for type __RKSimulationSceneCoordinatorState and conformance __RKSimulationSceneCoordinatorState;
   if (!lazy protocol witness table cache variable for type __RKSimulationSceneCoordinatorState and conformance __RKSimulationSceneCoordinatorState)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for __RKSimulationSceneCoordinatorState, &type metadata for __RKSimulationSceneCoordinatorState, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type __RKSimulationSceneCoordinatorState and conformance __RKSimulationSceneCoordinatorState);
   }
 
@@ -2334,9 +420,8 @@ Swift::Int EnvironmentBlendingComponent.BlendingMode.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t static EnvironmentBlendingComponent.__fromCore(_:)@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t static EnvironmentBlendingComponent.__fromCore(_:)@<X0>(_BYTE *a2@<X8>)
 {
-  v3 = *a1;
   result = REOcclusionComponentGetEnabled();
   *a2 = result;
   return result;
@@ -2344,11 +429,10 @@ uint64_t static EnvironmentBlendingComponent.__fromCore(_:)@<X0>(uint64_t *a1@<X
 
 uint64_t EnvironmentBlendingComponent.__toCore(_:)(uint64_t *a1)
 {
-  v2 = *a1;
-  v3 = *v1;
+  v1 = *a1;
   REOcclusionComponentSetEnabled();
 
-  return MEMORY[0x1EEDFD5A8](v2, 0);
+  return MEMORY[0x1EEDFD5A8](v1, 0);
 }
 
 unint64_t lazy protocol witness table accessor for type EnvironmentBlendingComponent.EnvironmentType and conformance EnvironmentBlendingComponent.EnvironmentType()
@@ -2356,7 +440,7 @@ unint64_t lazy protocol witness table accessor for type EnvironmentBlendingCompo
   result = lazy protocol witness table cache variable for type EnvironmentBlendingComponent.EnvironmentType and conformance EnvironmentBlendingComponent.EnvironmentType;
   if (!lazy protocol witness table cache variable for type EnvironmentBlendingComponent.EnvironmentType and conformance EnvironmentBlendingComponent.EnvironmentType)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for EnvironmentBlendingComponent.EnvironmentType, &type metadata for EnvironmentBlendingComponent.EnvironmentType, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type EnvironmentBlendingComponent.EnvironmentType and conformance EnvironmentBlendingComponent.EnvironmentType);
   }
 
@@ -2368,16 +452,15 @@ unint64_t lazy protocol witness table accessor for type EnvironmentBlendingCompo
   result = lazy protocol witness table cache variable for type EnvironmentBlendingComponent.BlendingMode and conformance EnvironmentBlendingComponent.BlendingMode;
   if (!lazy protocol witness table cache variable for type EnvironmentBlendingComponent.BlendingMode and conformance EnvironmentBlendingComponent.BlendingMode)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for EnvironmentBlendingComponent.BlendingMode, &type metadata for EnvironmentBlendingComponent.BlendingMode, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type EnvironmentBlendingComponent.BlendingMode and conformance EnvironmentBlendingComponent.BlendingMode);
   }
 
   return result;
 }
 
-uint64_t protocol witness for static Component.__fromCore(_:) in conformance EnvironmentBlendingComponent@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t protocol witness for static Component.__fromCore(_:) in conformance EnvironmentBlendingComponent@<X0>(_BYTE *a2@<X8>)
 {
-  v3 = *a1;
   result = REOcclusionComponentGetEnabled();
   *a2 = result;
   return result;
@@ -2385,11 +468,10 @@ uint64_t protocol witness for static Component.__fromCore(_:) in conformance Env
 
 uint64_t protocol witness for Component.__toCore(_:) in conformance EnvironmentBlendingComponent(uint64_t *a1)
 {
-  v2 = *a1;
-  v3 = *v1;
+  v1 = *a1;
   REOcclusionComponentSetEnabled();
 
-  return MEMORY[0x1EEDFD5A8](v2, 0);
+  return MEMORY[0x1EEDFD5A8](v1, 0);
 }
 
 uint64_t getEnumTagSinglePayload for EnvironmentBlendingComponent(unsigned __int8 *a1, unsigned int a2)
@@ -2470,12 +552,10 @@ uint64_t FromToByAnimation.name.getter()
   if (v0[20])
   {
     v1 = v0[19];
-    v2 = v0[20];
   }
 
   else if (*(v0[25] + 16))
   {
-    v3 = v0[20];
     RETimelineDefinitionGetName();
     v1 = String.init(cString:)();
   }
@@ -2498,7 +578,6 @@ uint64_t key path setter for FromToByAnimation.name : <A>FromToByAnimation<A>(ui
 
 uint64_t FromToByAnimation.name.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 160);
 
   *(v2 + 152) = a1;
   *(v2 + 160) = a2;
@@ -2518,10 +597,8 @@ uint64_t FromToByAnimation.name.modify(uint64_t *a1, char a2)
   v2 = a1[1];
   v3 = a1[2];
   v4 = *a1;
-  v5 = *(v3 + 160);
   if (a2)
   {
-    v6 = a1[1];
 
     *(v3 + 152) = v4;
     *(v3 + 160) = v2;
@@ -2529,7 +606,6 @@ uint64_t FromToByAnimation.name.modify(uint64_t *a1, char a2)
 
   else
   {
-    v8 = *(v3 + 160);
 
     *(v3 + 152) = v4;
     *(v3 + 160) = v2;
@@ -2570,7 +646,6 @@ uint64_t *(*FromToByAnimation.blendLayer.modify(uint64_t a1))(uint64_t *result)
     if (v2)
     {
       v3 = a1;
-      v4 = *(*(v1 + 200) + 16);
       LODWORD(v2) = RETimelineDefinitionGetAnimationLayer();
       a1 = v3;
     }
@@ -2670,19 +745,19 @@ uint64_t FromToByAnimation.bindTarget.setter(uint64_t *a1)
   return result;
 }
 
-uint64_t (*FromToByAnimation.bindTarget.modify(uint64_t a1))(uint64_t a1, char a2)
+uint64_t (*FromToByAnimation.bindTarget.modify(uint64_t a1))(uint64_t *a1, char a2)
 {
   *(a1 + 24) = v1;
   FromToByAnimation.bindTarget.getter(a1);
   return FromToByAnimation.bindTarget.modify;
 }
 
-uint64_t FromToByAnimation.bindTarget.modify(uint64_t a1, char a2)
+uint64_t FromToByAnimation.bindTarget.modify(uint64_t *a1, char a2)
 {
   v3 = *a1;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v4 = *(a1 + 16);
-  v5 = *(a1 + 24);
+  v5 = a1[3];
   if (a2)
   {
     outlined copy of BindTarget(*a1, v2, v4);
@@ -2736,7 +811,6 @@ unsigned __int8 *(*FromToByAnimation.fillMode.modify(uint64_t a1))(unsigned __in
     if (v2)
     {
       v3 = a1;
-      v4 = *(*(v1 + 200) + 16);
       LOBYTE(v2) = RETimelineDefinitionGetFillMode();
       a1 = v3;
     }
@@ -2766,7 +840,7 @@ uint64_t FromToByAnimation.isAdditive.getter()
   return v1 & 1;
 }
 
-_BYTE *(*FromToByAnimation.isAdditive.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*FromToByAnimation.isAdditive.modify(uint64_t a1))()
 {
   *a1 = v1;
   LODWORD(v2) = *(v1 + 195);
@@ -2776,7 +850,6 @@ _BYTE *(*FromToByAnimation.isAdditive.modify(uint64_t a1))(_BYTE *result)
     if (v2)
     {
       v3 = a1;
-      v4 = *(*(v1 + 200) + 16);
       LOBYTE(v2) = RETimelineDefinitionIsAdditive();
       a1 = v3;
     }
@@ -2798,32 +871,29 @@ __n128 FromToByAnimation.timing.getter@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
   return result;
 }
 
-double key path getter for FromToByAnimation.timing : <A>FromToByAnimation<A>@<D0>(uint64_t a1@<X1>, uint64_t a2@<X2>, __n128 *a3@<X8>)
+double key path getter for FromToByAnimation.timing : <A>FromToByAnimation<A>@<D0>(uint64_t a1@<X1>, uint64_t a2@<X2>, __n128 *a3@<X8>, uint64_t a4@<X3>)
 {
-  v4 = a1 + a2;
-  v5 = *(a1 + a2 - 16);
-  v6 = *(v4 - 8);
-  v7 = type metadata accessor for FromToByAnimation();
-  FromToByAnimation.timing.getter(v7, &v11);
-  v8 = v12;
-  v9 = v13;
-  result = v11.n128_f64[0];
-  *a3 = v11;
-  a3[1].n128_u32[0] = v8;
-  a3[1].n128_u8[4] = v9;
+  v5 = type metadata accessor for FromToByAnimation(0, *(a1 + a2 - 16), *(a1 + a2 - 8), a4);
+  FromToByAnimation.timing.getter(v5, &v9);
+  v6 = v10;
+  v7 = v11;
+  result = v9.n128_f64[0];
+  *a3 = v9;
+  a3[1].n128_u32[0] = v6;
+  a3[1].n128_u8[4] = v7;
   return result;
 }
 
-double key path setter for FromToByAnimation.timing : <A>FromToByAnimation<A>(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double key path setter for FromToByAnimation.timing : <A>FromToByAnimation<A>(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = *(a3 + a4 - 16);
   v5 = *(a3 + a4 - 8);
-  v6 = a1[1].n128_u32[0];
-  v7 = a1[1].n128_u8[4];
+  v6 = *(a1 + 4);
+  v7 = *(a1 + 20);
   v10 = *a1;
   v11 = v6;
   v12 = v7;
-  v8 = type metadata accessor for FromToByAnimation();
+  v8 = type metadata accessor for FromToByAnimation(0, v4, v5, a4);
   *&result = FromToByAnimation.timing.setter(&v10, v8).n128_u64[0];
   return result;
 }
@@ -2878,23 +948,19 @@ void FromToByAnimation.timing.modify(void **a1)
 
 uint64_t FromToByAnimation.trimStart.getter()
 {
-  if (*(v0 + 9))
+  if ((*(v0 + 9) & 1) == 0)
   {
-    result = *(*(v0 + 144) + 16);
-    if (result)
-    {
-      result = RETimelineDefinitionGetClipStart();
-      if (result)
-      {
-        return *result;
-      }
-    }
+    return *v0;
   }
 
-  else
+  result = *(*(v0 + 144) + 16);
+  if (result)
   {
-    result = *v0;
-    v2 = *(v0 + 8);
+    result = RETimelineDefinitionGetClipStart();
+    if (result)
+    {
+      return *result;
+    }
   }
 
   return result;
@@ -2927,23 +993,19 @@ uint64_t FromToByAnimation.trimStart.modify(uint64_t result)
 
 uint64_t FromToByAnimation.trimEnd.getter()
 {
-  if (*(v0 + 25))
+  if ((*(v0 + 25) & 1) == 0)
   {
-    result = *(*(v0 + 144) + 16);
-    if (result)
-    {
-      result = RETimelineDefinitionGetClipEnd();
-      if (result)
-      {
-        return *result;
-      }
-    }
+    return *(v0 + 16);
   }
 
-  else
+  result = *(*(v0 + 144) + 16);
+  if (result)
   {
-    result = *(v0 + 16);
-    v2 = *(v0 + 24);
+    result = RETimelineDefinitionGetClipEnd();
+    if (result)
+    {
+      return *result;
+    }
   }
 
   return result;
@@ -2976,23 +1038,19 @@ uint64_t FromToByAnimation.trimEnd.modify(uint64_t result)
 
 uint64_t FromToByAnimation.trimDuration.getter()
 {
-  if (*(v0 + 41))
+  if ((*(v0 + 41) & 1) == 0)
   {
-    result = *(*(v0 + 144) + 16);
-    if (result)
-    {
-      result = RETimelineDefinitionGetClipDuration();
-      if (result)
-      {
-        return *result;
-      }
-    }
+    return *(v0 + 32);
   }
 
-  else
+  result = *(*(v0 + 144) + 16);
+  if (result)
   {
-    result = *(v0 + 32);
-    v2 = *(v0 + 40);
+    result = RETimelineDefinitionGetClipDuration();
+    if (result)
+    {
+      return *result;
+    }
   }
 
   return result;
@@ -3030,11 +1088,9 @@ double FromToByAnimation.offset.getter()
     return *(v0 + 48);
   }
 
-  v1 = *(v0 + 144);
   result = 0.0;
-  if (*(v1 + 16))
+  if (*(*(v0 + 144) + 16))
   {
-    v3 = *(v1 + 16);
     TimelineType = RETimelineDefinitionGetTimelineType();
     result = 0.0;
     if (TimelineType == 2)
@@ -3070,11 +1126,9 @@ double FromToByAnimation.delay.getter()
     return *(v0 + 64);
   }
 
-  v1 = *(v0 + 144);
   result = 0.0;
-  if (*(v1 + 16))
+  if (*(*(v0 + 144) + 16))
   {
-    v3 = *(v1 + 16);
     TimelineType = RETimelineDefinitionGetTimelineType();
     result = 0.0;
     if (TimelineType == 2)
@@ -3103,18 +1157,16 @@ double FromToByAnimation.delay.modify(uint64_t a1)
   return result;
 }
 
-float FromToByAnimation.speed.getter()
+float FromToByAnimation.speed.getter(__n128 a1)
 {
-  if ((*(v0 + 80) & 1) == 0)
+  if ((*(v1 + 80) & 1) == 0)
   {
-    return *(v0 + 76);
+    return *(v1 + 76);
   }
 
-  v1 = *(v0 + 144);
   result = 1.0;
-  if (*(v1 + 16))
+  if (*(*(v1 + 144) + 16))
   {
-    v3 = *(v1 + 16);
     TimelineType = RETimelineDefinitionGetTimelineType();
     result = 1.0;
     if (TimelineType == 2)
@@ -3127,10 +1179,10 @@ float FromToByAnimation.speed.getter()
   return result;
 }
 
-float (*FromToByAnimation.speed.modify(uint64_t a1))(float *a1)
+float (*FromToByAnimation.speed.modify(uint64_t a1, __n128 a2))(float *a1)
 {
-  *a1 = v1;
-  *(a1 + 8) = FromToByAnimation.speed.getter();
+  *a1 = v2;
+  *(a1 + 8) = FromToByAnimation.speed.getter(a2);
   return FromToByAnimation.speed.modify;
 }
 
@@ -3145,11 +1197,10 @@ float FromToByAnimation.speed.modify(float *a1)
 
 uint64_t FromToByAnimation.repeatMode.getter@<X0>(_BYTE *a1@<X8>)
 {
-  result = *(v1 + 81);
+  result = *(v2 + 81);
   if (result == 4)
   {
-    v3 = *(v1 + 144);
-    if (!*(v3 + 16))
+    if (!*(*(v2 + 144) + 16))
     {
 LABEL_6:
       result = 0;
@@ -3157,7 +1208,6 @@ LABEL_6:
     }
 
     v4 = a1;
-    v5 = *(v3 + 16);
     if (RETimelineDefinitionGetTimelineType() != 2)
     {
       result = 0;
@@ -3180,9 +1230,9 @@ LABEL_8:
   return result;
 }
 
-_BYTE *(*FromToByAnimation.repeatMode.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*FromToByAnimation.repeatMode.modify(uint64_t a1, double a2))()
 {
-  *a1 = v1;
+  *a1 = v2;
   FromToByAnimation.repeatMode.getter((a1 + 8));
   return FromToByAnimation.repeatMode.modify;
 }
@@ -3248,39 +1298,39 @@ double FromToByAnimation.duration.modify(uint64_t a1)
   return result;
 }
 
-uint64_t FromToByAnimation.init(name:from:to:by:duration:timing:isAdditive:bindTarget:blendLayer:repeatMode:fillMode:trimStart:trimEnd:trimDuration:offset:delay:speed:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X5>, char a7@<W6>, uint64_t *a8@<X7>, uint64_t a9@<X8>, double a10@<D0>, double a11@<D1>, double a12@<D2>, float a13@<S3>, int a14, char *a15, char *a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22)
+uint64_t FromToByAnimation.init(name:from:to:by:duration:timing:isAdditive:bindTarget:blendLayer:repeatMode:fillMode:trimStart:trimEnd:trimDuration:offset:delay:speed:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X5>, char a7@<W6>, uint64_t *a8@<X7>, uint64_t a9@<X8>, double a10@<D0>, double a11@<D1>, double a12@<D2>, float a13@<S3>, int a14, char *a15, char *a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24)
 {
-  v56 = a6[1];
-  v57 = *a6;
-  v54 = *(a6 + 20);
-  v55 = *(a6 + 4);
-  v44 = a8[1];
-  v45 = *a8;
-  v43 = *(a8 + 16);
-  v42 = *a15;
-  v46 = *a16;
-  v29 = type metadata accessor for FromToByAnimation();
-  v30 = v29[10];
-  v31 = type metadata accessor for Optional();
-  v32 = *(v31 - 8);
-  v33 = *(v32 + 56);
-  v33(a9 + v30, 1, 1, v31);
-  v47 = v29[11];
-  v33(a9 + v47, 1, 1, v31);
-  v49 = v29[12];
-  v33(a9 + v49, 1, 1, v31);
-  v50 = v29;
-  v51 = a9 + v29[13];
-  *(a9 + v29[15]) = 0;
-  *(a9 + v29[16]) = 2;
-  *(a9 + v29[17]) = 2;
-  *(a9 + v29[18]) = 2;
-  *(a9 + v29[19]) = 0;
+  v58 = a6[1];
+  v59 = *a6;
+  v56 = *(a6 + 20);
+  v57 = *(a6 + 4);
+  v46 = a8[1];
+  v47 = *a8;
+  v45 = *(a8 + 16);
+  v44 = *a15;
+  v48 = *a16;
+  v31 = type metadata accessor for FromToByAnimation(0, a23, a24, a4);
+  v32 = v31[10];
+  v33 = type metadata accessor for Optional();
+  v34 = *(v33 - 8);
+  v35 = *(v34 + 56);
+  v35(a9 + v32, 1, 1, v33);
+  v49 = v31[11];
+  v35(a9 + v49, 1, 1, v33);
+  v51 = v31[12];
+  v35(a9 + v51, 1, 1, v33);
+  v52 = v31;
+  v53 = a9 + v31[13];
+  *(a9 + v31[15]) = 0;
+  *(a9 + v31[16]) = 2;
+  *(a9 + v31[17]) = 2;
+  *(a9 + v31[18]) = 2;
+  *(a9 + v31[19]) = 0;
 
   outlined consume of BindTarget?(0, 0, 0xFFu);
   type metadata accessor for TimelineDefinition();
-  v34 = swift_allocObject();
-  *(v34 + 16) = 0;
+  v36 = swift_allocObject();
+  *(v36 + 16) = 0;
   *a9 = a17;
   *(a9 + 8) = a18 & 1;
   *(a9 + 9) = 0;
@@ -3294,7 +1344,7 @@ uint64_t FromToByAnimation.init(name:from:to:by:duration:timing:isAdditive:bindT
   *(a9 + 72) = 0;
   *(a9 + 76) = a13;
   *(a9 + 80) = 0;
-  *(a9 + 81) = v42;
+  *(a9 + 81) = v44;
   *(a9 + 88) = 0;
   *(a9 + 96) = a1;
   *(a9 + 104) = a2;
@@ -3303,281 +1353,273 @@ uint64_t FromToByAnimation.init(name:from:to:by:duration:timing:isAdditive:bindT
   *(a9 + 132) = 0;
   *(a9 + 136) = 0;
   *(a9 + 138) = 0;
-  *(a9 + 144) = v34;
+  *(a9 + 144) = v36;
   outlined consume of BindTarget?(0, 0, 0xFFu);
-  v35 = swift_allocObject();
-  *(v35 + 16) = 0;
+  v37 = swift_allocObject();
+  *(v37 + 16) = 0;
   *(a9 + 152) = a1;
   *(a9 + 160) = a2;
-  *(a9 + 168) = v45;
-  *(a9 + 176) = v44;
-  *(a9 + 184) = v43;
-  *(a9 + 185) = v59;
-  *(a9 + 187) = v60;
+  *(a9 + 168) = v47;
+  *(a9 + 176) = v46;
+  *(a9 + 184) = v45;
+  *(a9 + 185) = v61;
+  *(a9 + 187) = v62;
   *(a9 + 188) = a14;
   *(a9 + 192) = 0;
-  *(a9 + 193) = v46;
+  *(a9 + 193) = v48;
   *(a9 + 194) = 0;
   *(a9 + 195) = a7;
-  *(a9 + 200) = v35;
-  v36 = type metadata accessor for Optional();
-  v37 = *(*(v36 - 8) + 8);
-  v38 = v30;
-  v37(a9 + v30, v36);
-  v39 = *(v32 + 32);
-  v39(a9 + v38, a3, v31);
-  v33(a9 + v38, 0, 1, v31);
-  v37(a9 + v47, v36);
-  v39(a9 + v47, a4, v31);
-  v33(a9 + v47, 0, 1, v31);
-  v37(a9 + v49, v36);
-  v39(a9 + v49, a5, v31);
-  result = (v33)(a9 + v49, 0, 1, v31);
-  *v51 = a10;
-  *(v51 + 8) = 0;
-  v41 = a9 + v50[14];
-  *v41 = v57;
-  *(v41 + 8) = v56;
-  *(v41 + 16) = v55;
-  *(v41 + 20) = v54;
+  *(a9 + 200) = v37;
+  v38 = type metadata accessor for Optional();
+  v39 = *(*(v38 - 8) + 8);
+  v40 = v32;
+  v39(a9 + v32, v38);
+  v41 = *(v34 + 32);
+  v41(a9 + v40, a3, v33);
+  v35(a9 + v40, 0, 1, v33);
+  v39(a9 + v49, v38);
+  v41(a9 + v49, a4, v33);
+  v35(a9 + v49, 0, 1, v33);
+  v39(a9 + v51, v38);
+  v41(a9 + v51, a5, v33);
+  result = (v35)(a9 + v51, 0, 1, v33);
+  *v53 = a10;
+  *(v53 + 8) = 0;
+  v43 = a9 + v52[14];
+  *v43 = v59;
+  *(v43 + 8) = v58;
+  *(v43 + 16) = v57;
+  *(v43 + 20) = v56;
   return result;
 }
 
-uint64_t specialized FromToByAnimation.createResource(timelineDefinition:)(Swift::OpaquePointer a1)
+void *specialized FromToByAnimation.createResource(timelineDefinition:)(Swift::OpaquePointer a1)
 {
   if (!a1._rawValue)
   {
     v5 = v1[7];
     v6 = v1[5];
-    v75 = v1[6];
-    v76 = v5;
+    v74 = v1[6];
+    v75 = v5;
     v7 = v1[7];
-    v77 = v1[8];
+    v76 = v1[8];
     v8 = v1[3];
     v9 = v1[1];
-    v71 = v1[2];
-    v72 = v8;
+    v70 = v1[2];
+    v71 = v8;
     v10 = v1[3];
     v11 = v1[5];
-    v73 = v1[4];
-    v74 = v11;
+    v72 = v1[4];
+    v73 = v11;
     v12 = v1[1];
-    v70[0] = *v1;
-    v70[1] = v12;
-    v63 = v75;
-    v64 = v7;
-    v65 = v1[8];
-    v59 = v71;
-    v60 = v10;
-    v61 = v73;
-    v62 = v6;
-    v78 = *(v1 + 18);
-    v66 = *(v1 + 18);
-    v57 = v70[0];
-    v58 = v9;
-    if (!TimelineClipProperties.isClipped.getter())
+    v69[0] = *v1;
+    v69[1] = v12;
+    v62 = v74;
+    v63 = v7;
+    v64 = v1[8];
+    v58 = v70;
+    v59 = v10;
+    v60 = v72;
+    v61 = v6;
+    v77 = *(v1 + 18);
+    v65 = *(v1 + 18);
+    v56 = v69[0];
+    v57 = v9;
+    if (!TimelineClipProperties.isClipped.getter(v64))
     {
       if (!*(*(v1 + 25) + 16))
       {
         return 0;
       }
 
-      v16 = specialized static __ServiceLocator.shared.getter();
+      v15 = specialized static __ServiceLocator.shared.getter();
       swift_beginAccess();
-      outlined init with copy of __REAssetService(v16 + 120, &v57);
-      v17 = *(&v58 + 1);
-      v18 = v59;
-      __swift_project_boxed_opaque_existential_1(&v57, *(&v58 + 1));
-      (*(v18 + 32))(v17, v18);
-      __swift_destroy_boxed_opaque_existential_1(&v57);
+      outlined init with copy of __REAssetService(v15 + 120, &v56);
+      v16 = *(&v57 + 1);
+      v17 = v58;
+      __swift_project_boxed_opaque_existential_1(&v56, *(&v57 + 1));
+      (*(v17 + 32))(v16, v17);
+      __swift_destroy_boxed_opaque_existential_1(&v56);
       TimelineAsset = RETimelineDefinitionCreateTimelineAsset();
       if (!TimelineAsset)
       {
         return 0;
       }
 
-      v20 = TimelineAsset;
+      v19 = TimelineAsset;
       RETimelineDefinitionGetName();
-      v21 = String.init(cString:)();
-      v23 = v22;
+      v20 = String.init(cString:)();
+      v22 = v21;
       type metadata accessor for AnimationResource();
       v13 = swift_allocObject();
-      v13[2] = v20;
-      v13[3] = v21;
-      v13[4] = v23;
+      v13[2] = v19;
+      v13[3] = v20;
+      v13[4] = v22;
       RERetain();
       REAssetSetSwiftObject();
       RERelease();
       return v13;
     }
 
+    v62 = v74;
     v63 = v75;
     v64 = v76;
     v65 = v77;
-    v66 = v78;
+    v58 = v70;
     v59 = v71;
     v60 = v72;
     v61 = v73;
-    v62 = v74;
-    v57 = v70[0];
-    v58 = v70[1];
+    v56 = v69[0];
+    v57 = v69[1];
     if ((TimelineClipProperties.isModified.getter() & 1) == 0)
     {
       return TimelineDefinition.resource.getter();
     }
 
+    v52 = v74;
     v53 = v75;
     v54 = v76;
     v55 = v77;
-    v56 = v78;
+    v48 = v70;
     v49 = v71;
     v50 = v72;
     v51 = v73;
-    v52 = v74;
-    v47 = v70[0];
-    v48 = v70[1];
-    outlined init with copy of TimelineClipProperties(v70, &v57);
+    v46 = v69[0];
+    v47 = v69[1];
+    outlined init with copy of TimelineClipProperties(v69, &v56);
     v13 = TimelineClipProperties.createClip()();
+    v62 = v52;
     v63 = v53;
     v64 = v54;
     v65 = v55;
-    v66 = v56;
+    v58 = v48;
     v59 = v49;
     v60 = v50;
     v61 = v51;
-    v62 = v52;
+    v56 = v46;
     v57 = v47;
-    v58 = v48;
-    v14 = &v57;
+    v14 = &v56;
     goto LABEL_20;
   }
 
   v3 = *(v1 + 168);
-  v68[0] = *(v1 + 152);
-  v68[1] = v3;
-  v68[2] = *(v1 + 184);
-  v69 = *(v1 + 25);
+  v67[0] = *(v1 + 152);
+  v67[1] = v3;
+  v67[2] = *(v1 + 184);
+  v68 = *(v1 + 25);
   v4 = *(v1 + 168);
-  v70[0] = *(v1 + 152);
-  v70[1] = v4;
-  v71 = *(v1 + 184);
-  *&v72 = *(v1 + 25);
-  outlined init with copy of TimelineBaseProperties(v68, &v57);
+  v69[0] = *(v1 + 152);
+  v69[1] = v4;
+  v70 = *(v1 + 184);
+  *&v71 = *(v1 + 25);
+  outlined init with copy of TimelineBaseProperties(v67, &v56);
   TimelineBaseProperties.writeProperties(_:)(a1);
-  v45[0] = v70[0];
-  v45[1] = v70[1];
-  v45[2] = v71;
-  v46 = v72;
-  outlined destroy of TimelineBaseProperties(v45);
-  if (*(v1 + 264))
+  v44[0] = v69[0];
+  v44[1] = v69[1];
+  v44[2] = v70;
+  v45 = v71;
+  outlined destroy of TimelineBaseProperties(v44);
+  if ((*(v1 + 264) & 1) != 0 && *(v68 + 16))
   {
-    if (*(v69 + 16))
-    {
-      RETimelineDefinitionGetDuration();
-    }
-  }
-
-  else
-  {
-    v15 = *(v1 + 32);
+    RETimelineDefinitionGetDuration();
   }
 
   RETimelineDefinitionSetDuration();
-  v70[0] = v1[17];
-  *(v70 + 13) = *(v1 + 285);
+  v69[0] = v1[17];
+  *(v69 + 13) = *(v1 + 285);
   AnimationTimingFunction.coreEasingFunction.getter();
-  if (*(v24 + 16))
+  if (*(v23 + 16))
   {
     RETimelineDefinitionSetEasingFunctionEx();
   }
 
-  v25 = v1[7];
-  v26 = v1[5];
-  v63 = v1[6];
-  v64 = v25;
-  v27 = v1[7];
-  v65 = v1[8];
-  v28 = v1[3];
-  v29 = v1[1];
-  v59 = v1[2];
-  v60 = v28;
-  v30 = v1[3];
-  v31 = v1[5];
-  v61 = v1[4];
-  v62 = v31;
-  v32 = v1[1];
-  v57 = *v1;
-  v58 = v32;
-  v75 = v63;
-  v76 = v27;
-  v77 = v1[8];
-  v71 = v59;
-  v72 = v30;
-  v73 = v61;
-  v74 = v26;
-  v66 = *(v1 + 18);
-  v78 = *(v1 + 18);
-  v70[0] = v57;
-  v70[1] = v29;
-  if (TimelineClipProperties.isClipped.getter())
+  v24 = v1[7];
+  v25 = v1[5];
+  v62 = v1[6];
+  v63 = v24;
+  v26 = v1[7];
+  v64 = v1[8];
+  v27 = v1[3];
+  v28 = v1[1];
+  v58 = v1[2];
+  v59 = v27;
+  v29 = v1[3];
+  v30 = v1[5];
+  v60 = v1[4];
+  v61 = v30;
+  v31 = v1[1];
+  v56 = *v1;
+  v57 = v31;
+  v74 = v62;
+  v75 = v26;
+  v76 = v1[8];
+  v70 = v58;
+  v71 = v29;
+  v72 = v60;
+  v73 = v25;
+  v65 = *(v1 + 18);
+  v77 = *(v1 + 18);
+  v69[0] = v56;
+  v69[1] = v28;
+  if (TimelineClipProperties.isClipped.getter(v76))
   {
-    v67 = *(&v62 + 1);
+    v66 = *(&v61 + 1);
+    v40 = v58;
     v41 = v59;
     v42 = v60;
     v43 = v61;
-    v44 = v62;
+    v38 = v56;
     v39 = v57;
-    v40 = v58;
-    v38 = v66;
-    v36 = v64;
     v37 = v65;
     v35 = v63;
+    v36 = v64;
+    v34 = v62;
     type metadata accessor for TimelineDefinition();
-    v33 = swift_allocObject();
-    *(v33 + 16) = a1;
-    outlined init with copy of TimelineClipProperties(&v57, v70);
+    v32 = swift_allocObject();
+    v32[2]._rawValue = a1._rawValue;
+    outlined init with copy of TimelineClipProperties(&v56, v69);
     RERetain();
-    outlined destroy of BodyTrackingComponent?(&v67, &_s17RealityFoundation18TimelineDefinitionCSgMd, &_s17RealityFoundation18TimelineDefinitionCSgMR);
+    outlined destroy of BodyTrackingComponent?(&v66, &_s17RealityFoundation18TimelineDefinitionCSgMd, &_s17RealityFoundation18TimelineDefinitionCSgMR);
+    v70 = v40;
     v71 = v41;
     v72 = v42;
-    v73 = v43;
-    v70[0] = v39;
-    v70[1] = v40;
-    *&v74 = v44;
-    *(&v74 + 1) = v33;
-    v78 = v38;
-    v76 = v36;
+    v69[0] = v38;
+    v69[1] = v39;
+    *&v73 = v43;
+    *(&v73 + 1) = v32;
     v77 = v37;
     v75 = v35;
-    outlined init with copy of TimelineClipProperties(v70, &v47);
-    if (*(v33 + 16))
+    v76 = v36;
+    v74 = v34;
+    outlined init with copy of TimelineClipProperties(v69, &v46);
+    if (v32[2]._rawValue)
     {
 
-      closure #1 in TimelineClipProperties.createClip()(v70, &v47);
+      closure #1 in TimelineClipProperties.createClip()(v69, &v46);
 
-      outlined destroy of TimelineClipProperties(v70);
-      v13 = v47;
+      outlined destroy of TimelineClipProperties(v69);
+      v13 = v46;
     }
 
     else
     {
 
-      outlined destroy of TimelineClipProperties(v70);
+      outlined destroy of TimelineClipProperties(v69);
       v13 = 0;
     }
 
+    v48 = v40;
     v49 = v41;
     v50 = v42;
-    v51 = v43;
+    v46 = v38;
     v47 = v39;
-    v48 = v40;
-    *&v52 = v44;
-    *(&v52 + 1) = v33;
-    v56 = v38;
-    v54 = v36;
+    *&v51 = v43;
+    *(&v51 + 1) = v32;
     v55 = v37;
     v53 = v35;
-    v14 = &v47;
+    v54 = v36;
+    v52 = v34;
+    v14 = &v46;
 LABEL_20:
     outlined destroy of TimelineClipProperties(v14);
     return v13;
@@ -3599,235 +1641,227 @@ LABEL_20:
   {
     v5 = v1[7];
     v6 = v1[5];
-    v75 = v1[6];
-    v76 = v5;
+    v74 = v1[6];
+    v75 = v5;
     v7 = v1[7];
-    v77 = v1[8];
+    v76 = v1[8];
     v8 = v1[3];
     v9 = v1[1];
-    v71 = v1[2];
-    v72 = v8;
+    v70 = v1[2];
+    v71 = v8;
     v10 = v1[3];
     v11 = v1[5];
-    v73 = v1[4];
-    v74 = v11;
+    v72 = v1[4];
+    v73 = v11;
     v12 = v1[1];
-    v70[0] = *v1;
-    v70[1] = v12;
-    v63 = v75;
-    v64 = v7;
-    v65 = v1[8];
-    v59 = v71;
-    v60 = v10;
-    v61 = v73;
-    v62 = v6;
-    v78 = *(v1 + 18);
-    v66 = *(v1 + 18);
-    v57 = v70[0];
-    v58 = v9;
-    if (!TimelineClipProperties.isClipped.getter())
+    v69[0] = *v1;
+    v69[1] = v12;
+    v62 = v74;
+    v63 = v7;
+    v64 = v1[8];
+    v58 = v70;
+    v59 = v10;
+    v60 = v72;
+    v61 = v6;
+    v77 = *(v1 + 18);
+    v65 = *(v1 + 18);
+    v56 = v69[0];
+    v57 = v9;
+    if (!TimelineClipProperties.isClipped.getter(v64))
     {
       if (!*(*(v1 + 25) + 16))
       {
         return 0;
       }
 
-      v16 = specialized static __ServiceLocator.shared.getter();
+      v15 = specialized static __ServiceLocator.shared.getter();
       swift_beginAccess();
-      outlined init with copy of __REAssetService(v16 + 120, &v57);
-      v17 = *(&v58 + 1);
-      v18 = v59;
-      __swift_project_boxed_opaque_existential_1(&v57, *(&v58 + 1));
-      (*(v18 + 32))(v17, v18);
-      __swift_destroy_boxed_opaque_existential_1(&v57);
+      outlined init with copy of __REAssetService(v15 + 120, &v56);
+      v16 = *(&v57 + 1);
+      v17 = v58;
+      __swift_project_boxed_opaque_existential_1(&v56, *(&v57 + 1));
+      (*(v17 + 32))(v16, v17);
+      __swift_destroy_boxed_opaque_existential_1(&v56);
       TimelineAsset = RETimelineDefinitionCreateTimelineAsset();
       if (!TimelineAsset)
       {
         return 0;
       }
 
-      v20 = TimelineAsset;
+      v19 = TimelineAsset;
       RETimelineDefinitionGetName();
-      v21 = String.init(cString:)();
-      v23 = v22;
+      v20 = String.init(cString:)();
+      v22 = v21;
       type metadata accessor for AnimationResource();
       v13 = swift_allocObject();
-      v13[2] = v20;
-      v13[3] = v21;
-      v13[4] = v23;
+      v13[2] = v19;
+      v13[3] = v20;
+      v13[4] = v22;
       RERetain();
       REAssetSetSwiftObject();
       RERelease();
       return v13;
     }
 
+    v62 = v74;
     v63 = v75;
     v64 = v76;
     v65 = v77;
-    v66 = v78;
+    v58 = v70;
     v59 = v71;
     v60 = v72;
     v61 = v73;
-    v62 = v74;
-    v57 = v70[0];
-    v58 = v70[1];
+    v56 = v69[0];
+    v57 = v69[1];
     if ((TimelineClipProperties.isModified.getter() & 1) == 0)
     {
       return TimelineDefinition.resource.getter();
     }
 
+    v52 = v74;
     v53 = v75;
     v54 = v76;
     v55 = v77;
-    v56 = v78;
+    v48 = v70;
     v49 = v71;
     v50 = v72;
     v51 = v73;
-    v52 = v74;
-    v47 = v70[0];
-    v48 = v70[1];
-    outlined init with copy of TimelineClipProperties(v70, &v57);
+    v46 = v69[0];
+    v47 = v69[1];
+    outlined init with copy of TimelineClipProperties(v69, &v56);
     v13 = TimelineClipProperties.createClip()();
+    v62 = v52;
     v63 = v53;
     v64 = v54;
     v65 = v55;
-    v66 = v56;
+    v58 = v48;
     v59 = v49;
     v60 = v50;
     v61 = v51;
-    v62 = v52;
+    v56 = v46;
     v57 = v47;
-    v58 = v48;
-    v14 = &v57;
+    v14 = &v56;
     goto LABEL_20;
   }
 
   v3 = *(v1 + 168);
-  v68[0] = *(v1 + 152);
-  v68[1] = v3;
-  v68[2] = *(v1 + 184);
-  v69 = *(v1 + 25);
+  v67[0] = *(v1 + 152);
+  v67[1] = v3;
+  v67[2] = *(v1 + 184);
+  v68 = *(v1 + 25);
   v4 = *(v1 + 168);
-  v70[0] = *(v1 + 152);
-  v70[1] = v4;
-  v71 = *(v1 + 184);
-  *&v72 = *(v1 + 25);
-  outlined init with copy of TimelineBaseProperties(v68, &v57);
+  v69[0] = *(v1 + 152);
+  v69[1] = v4;
+  v70 = *(v1 + 184);
+  *&v71 = *(v1 + 25);
+  outlined init with copy of TimelineBaseProperties(v67, &v56);
   TimelineBaseProperties.writeProperties(_:)(a1);
-  v45[0] = v70[0];
-  v45[1] = v70[1];
-  v45[2] = v71;
-  v46 = v72;
-  outlined destroy of TimelineBaseProperties(v45);
-  if (v1[19])
+  v44[0] = v69[0];
+  v44[1] = v69[1];
+  v44[2] = v70;
+  v45 = v71;
+  outlined destroy of TimelineBaseProperties(v44);
+  if ((v1[19] & 1) != 0 && *(v68 + 16))
   {
-    if (*(v69 + 16))
-    {
-      RETimelineDefinitionGetDuration();
-    }
-  }
-
-  else
-  {
-    v15 = *(v1 + 37);
+    RETimelineDefinitionGetDuration();
   }
 
   RETimelineDefinitionSetDuration();
-  v70[0] = v1[20];
-  *(v70 + 13) = *(v1 + 333);
+  v69[0] = v1[20];
+  *(v69 + 13) = *(v1 + 333);
   AnimationTimingFunction.coreEasingFunction.getter();
-  if (*(v24 + 16))
+  if (*(v23 + 16))
   {
     RETimelineDefinitionSetEasingFunctionEx();
   }
 
-  v25 = v1[7];
-  v26 = v1[5];
-  v63 = v1[6];
-  v64 = v25;
-  v27 = v1[7];
-  v65 = v1[8];
-  v28 = v1[3];
-  v29 = v1[1];
-  v59 = v1[2];
-  v60 = v28;
-  v30 = v1[3];
-  v31 = v1[5];
-  v61 = v1[4];
-  v62 = v31;
-  v32 = v1[1];
-  v57 = *v1;
-  v58 = v32;
-  v75 = v63;
-  v76 = v27;
-  v77 = v1[8];
-  v71 = v59;
-  v72 = v30;
-  v73 = v61;
-  v74 = v26;
-  v66 = *(v1 + 18);
-  v78 = *(v1 + 18);
-  v70[0] = v57;
-  v70[1] = v29;
-  if (TimelineClipProperties.isClipped.getter())
+  v24 = v1[7];
+  v25 = v1[5];
+  v62 = v1[6];
+  v63 = v24;
+  v26 = v1[7];
+  v64 = v1[8];
+  v27 = v1[3];
+  v28 = v1[1];
+  v58 = v1[2];
+  v59 = v27;
+  v29 = v1[3];
+  v30 = v1[5];
+  v60 = v1[4];
+  v61 = v30;
+  v31 = v1[1];
+  v56 = *v1;
+  v57 = v31;
+  v74 = v62;
+  v75 = v26;
+  v76 = v1[8];
+  v70 = v58;
+  v71 = v29;
+  v72 = v60;
+  v73 = v25;
+  v65 = *(v1 + 18);
+  v77 = *(v1 + 18);
+  v69[0] = v56;
+  v69[1] = v28;
+  if (TimelineClipProperties.isClipped.getter(v76))
   {
-    v67 = *(&v62 + 1);
+    v66 = *(&v61 + 1);
+    v40 = v58;
     v41 = v59;
     v42 = v60;
     v43 = v61;
-    v44 = v62;
+    v38 = v56;
     v39 = v57;
-    v40 = v58;
-    v38 = v66;
-    v36 = v64;
     v37 = v65;
     v35 = v63;
+    v36 = v64;
+    v34 = v62;
     type metadata accessor for TimelineDefinition();
-    v33 = swift_allocObject();
-    *(v33 + 16) = a1;
-    outlined init with copy of TimelineClipProperties(&v57, v70);
+    v32 = swift_allocObject();
+    v32[2]._rawValue = a1._rawValue;
+    outlined init with copy of TimelineClipProperties(&v56, v69);
     RERetain();
-    outlined destroy of BodyTrackingComponent?(&v67, &_s17RealityFoundation18TimelineDefinitionCSgMd, &_s17RealityFoundation18TimelineDefinitionCSgMR);
+    outlined destroy of BodyTrackingComponent?(&v66, &_s17RealityFoundation18TimelineDefinitionCSgMd, &_s17RealityFoundation18TimelineDefinitionCSgMR);
+    v70 = v40;
     v71 = v41;
     v72 = v42;
-    v73 = v43;
-    v70[0] = v39;
-    v70[1] = v40;
-    *&v74 = v44;
-    *(&v74 + 1) = v33;
-    v78 = v38;
-    v76 = v36;
+    v69[0] = v38;
+    v69[1] = v39;
+    *&v73 = v43;
+    *(&v73 + 1) = v32;
     v77 = v37;
     v75 = v35;
-    outlined init with copy of TimelineClipProperties(v70, &v47);
-    if (*(v33 + 16))
+    v76 = v36;
+    v74 = v34;
+    outlined init with copy of TimelineClipProperties(v69, &v46);
+    if (v32[2]._rawValue)
     {
 
-      closure #1 in TimelineClipProperties.createClip()(v70, &v47);
+      closure #1 in TimelineClipProperties.createClip()(v69, &v46);
 
-      outlined destroy of TimelineClipProperties(v70);
-      v13 = v47;
+      outlined destroy of TimelineClipProperties(v69);
+      v13 = v46;
     }
 
     else
     {
 
-      outlined destroy of TimelineClipProperties(v70);
+      outlined destroy of TimelineClipProperties(v69);
       v13 = 0;
     }
 
+    v48 = v40;
     v49 = v41;
     v50 = v42;
-    v51 = v43;
+    v46 = v38;
     v47 = v39;
-    v48 = v40;
-    *&v52 = v44;
-    *(&v52 + 1) = v33;
-    v56 = v38;
-    v54 = v36;
+    *&v51 = v43;
+    *(&v51 + 1) = v32;
     v55 = v37;
     v53 = v35;
-    v14 = &v47;
+    v54 = v36;
+    v52 = v34;
+    v14 = &v46;
 LABEL_20:
     outlined destroy of TimelineClipProperties(v14);
     return v13;
@@ -3849,235 +1883,227 @@ LABEL_20:
   {
     v5 = v1[7];
     v6 = v1[5];
-    v75 = v1[6];
-    v76 = v5;
+    v74 = v1[6];
+    v75 = v5;
     v7 = v1[7];
-    v77 = v1[8];
+    v76 = v1[8];
     v8 = v1[3];
     v9 = v1[1];
-    v71 = v1[2];
-    v72 = v8;
+    v70 = v1[2];
+    v71 = v8;
     v10 = v1[3];
     v11 = v1[5];
-    v73 = v1[4];
-    v74 = v11;
+    v72 = v1[4];
+    v73 = v11;
     v12 = v1[1];
-    v70[0] = *v1;
-    v70[1] = v12;
-    v63 = v75;
-    v64 = v7;
-    v65 = v1[8];
-    v59 = v71;
-    v60 = v10;
-    v61 = v73;
-    v62 = v6;
-    v78 = *(v1 + 18);
-    v66 = *(v1 + 18);
-    v57 = v70[0];
-    v58 = v9;
-    if (!TimelineClipProperties.isClipped.getter())
+    v69[0] = *v1;
+    v69[1] = v12;
+    v62 = v74;
+    v63 = v7;
+    v64 = v1[8];
+    v58 = v70;
+    v59 = v10;
+    v60 = v72;
+    v61 = v6;
+    v77 = *(v1 + 18);
+    v65 = *(v1 + 18);
+    v56 = v69[0];
+    v57 = v9;
+    if (!TimelineClipProperties.isClipped.getter(v64))
     {
       if (!*(*(v1 + 25) + 16))
       {
         return 0;
       }
 
-      v16 = specialized static __ServiceLocator.shared.getter();
+      v15 = specialized static __ServiceLocator.shared.getter();
       swift_beginAccess();
-      outlined init with copy of __REAssetService(v16 + 120, &v57);
-      v17 = *(&v58 + 1);
-      v18 = v59;
-      __swift_project_boxed_opaque_existential_1(&v57, *(&v58 + 1));
-      (*(v18 + 32))(v17, v18);
-      __swift_destroy_boxed_opaque_existential_1(&v57);
+      outlined init with copy of __REAssetService(v15 + 120, &v56);
+      v16 = *(&v57 + 1);
+      v17 = v58;
+      __swift_project_boxed_opaque_existential_1(&v56, *(&v57 + 1));
+      (*(v17 + 32))(v16, v17);
+      __swift_destroy_boxed_opaque_existential_1(&v56);
       TimelineAsset = RETimelineDefinitionCreateTimelineAsset();
       if (!TimelineAsset)
       {
         return 0;
       }
 
-      v20 = TimelineAsset;
+      v19 = TimelineAsset;
       RETimelineDefinitionGetName();
-      v21 = String.init(cString:)();
-      v23 = v22;
+      v20 = String.init(cString:)();
+      v22 = v21;
       type metadata accessor for AnimationResource();
       v13 = swift_allocObject();
-      v13[2] = v20;
-      v13[3] = v21;
-      v13[4] = v23;
+      v13[2] = v19;
+      v13[3] = v20;
+      v13[4] = v22;
       RERetain();
       REAssetSetSwiftObject();
       RERelease();
       return v13;
     }
 
+    v62 = v74;
     v63 = v75;
     v64 = v76;
     v65 = v77;
-    v66 = v78;
+    v58 = v70;
     v59 = v71;
     v60 = v72;
     v61 = v73;
-    v62 = v74;
-    v57 = v70[0];
-    v58 = v70[1];
+    v56 = v69[0];
+    v57 = v69[1];
     if ((TimelineClipProperties.isModified.getter() & 1) == 0)
     {
       return TimelineDefinition.resource.getter();
     }
 
+    v52 = v74;
     v53 = v75;
     v54 = v76;
     v55 = v77;
-    v56 = v78;
+    v48 = v70;
     v49 = v71;
     v50 = v72;
     v51 = v73;
-    v52 = v74;
-    v47 = v70[0];
-    v48 = v70[1];
-    outlined init with copy of TimelineClipProperties(v70, &v57);
+    v46 = v69[0];
+    v47 = v69[1];
+    outlined init with copy of TimelineClipProperties(v69, &v56);
     v13 = TimelineClipProperties.createClip()();
+    v62 = v52;
     v63 = v53;
     v64 = v54;
     v65 = v55;
-    v66 = v56;
+    v58 = v48;
     v59 = v49;
     v60 = v50;
     v61 = v51;
-    v62 = v52;
+    v56 = v46;
     v57 = v47;
-    v58 = v48;
-    v14 = &v57;
+    v14 = &v56;
     goto LABEL_20;
   }
 
   v3 = *(v1 + 168);
-  v68[0] = *(v1 + 152);
-  v68[1] = v3;
-  v68[2] = *(v1 + 184);
-  v69 = *(v1 + 25);
+  v67[0] = *(v1 + 152);
+  v67[1] = v3;
+  v67[2] = *(v1 + 184);
+  v68 = *(v1 + 25);
   v4 = *(v1 + 168);
-  v70[0] = *(v1 + 152);
-  v70[1] = v4;
-  v71 = *(v1 + 184);
-  *&v72 = *(v1 + 25);
-  outlined init with copy of TimelineBaseProperties(v68, &v57);
+  v69[0] = *(v1 + 152);
+  v69[1] = v4;
+  v70 = *(v1 + 184);
+  *&v71 = *(v1 + 25);
+  outlined init with copy of TimelineBaseProperties(v67, &v56);
   TimelineBaseProperties.writeProperties(_:)(a1);
-  v45[0] = v70[0];
-  v45[1] = v70[1];
-  v45[2] = v71;
-  v46 = v72;
-  outlined destroy of TimelineBaseProperties(v45);
-  if (v1[25])
+  v44[0] = v69[0];
+  v44[1] = v69[1];
+  v44[2] = v70;
+  v45 = v71;
+  outlined destroy of TimelineBaseProperties(v44);
+  if ((v1[25] & 1) != 0 && *(v68 + 16))
   {
-    if (*(v69 + 16))
-    {
-      RETimelineDefinitionGetDuration();
-    }
-  }
-
-  else
-  {
-    v15 = *(v1 + 49);
+    RETimelineDefinitionGetDuration();
   }
 
   RETimelineDefinitionSetDuration();
-  v70[0] = v1[26];
-  *(v70 + 13) = *(v1 + 429);
+  v69[0] = v1[26];
+  *(v69 + 13) = *(v1 + 429);
   AnimationTimingFunction.coreEasingFunction.getter();
-  if (*(v24 + 16))
+  if (*(v23 + 16))
   {
     RETimelineDefinitionSetEasingFunctionEx();
   }
 
-  v25 = v1[7];
-  v26 = v1[5];
-  v63 = v1[6];
-  v64 = v25;
-  v27 = v1[7];
-  v65 = v1[8];
-  v28 = v1[3];
-  v29 = v1[1];
-  v59 = v1[2];
-  v60 = v28;
-  v30 = v1[3];
-  v31 = v1[5];
-  v61 = v1[4];
-  v62 = v31;
-  v32 = v1[1];
-  v57 = *v1;
-  v58 = v32;
-  v75 = v63;
-  v76 = v27;
-  v77 = v1[8];
-  v71 = v59;
-  v72 = v30;
-  v73 = v61;
-  v74 = v26;
-  v66 = *(v1 + 18);
-  v78 = *(v1 + 18);
-  v70[0] = v57;
-  v70[1] = v29;
-  if (TimelineClipProperties.isClipped.getter())
+  v24 = v1[7];
+  v25 = v1[5];
+  v62 = v1[6];
+  v63 = v24;
+  v26 = v1[7];
+  v64 = v1[8];
+  v27 = v1[3];
+  v28 = v1[1];
+  v58 = v1[2];
+  v59 = v27;
+  v29 = v1[3];
+  v30 = v1[5];
+  v60 = v1[4];
+  v61 = v30;
+  v31 = v1[1];
+  v56 = *v1;
+  v57 = v31;
+  v74 = v62;
+  v75 = v26;
+  v76 = v1[8];
+  v70 = v58;
+  v71 = v29;
+  v72 = v60;
+  v73 = v25;
+  v65 = *(v1 + 18);
+  v77 = *(v1 + 18);
+  v69[0] = v56;
+  v69[1] = v28;
+  if (TimelineClipProperties.isClipped.getter(v76))
   {
-    v67 = *(&v62 + 1);
+    v66 = *(&v61 + 1);
+    v40 = v58;
     v41 = v59;
     v42 = v60;
     v43 = v61;
-    v44 = v62;
+    v38 = v56;
     v39 = v57;
-    v40 = v58;
-    v38 = v66;
-    v36 = v64;
     v37 = v65;
     v35 = v63;
+    v36 = v64;
+    v34 = v62;
     type metadata accessor for TimelineDefinition();
-    v33 = swift_allocObject();
-    *(v33 + 16) = a1;
-    outlined init with copy of TimelineClipProperties(&v57, v70);
+    v32 = swift_allocObject();
+    v32[2]._rawValue = a1._rawValue;
+    outlined init with copy of TimelineClipProperties(&v56, v69);
     RERetain();
-    outlined destroy of BodyTrackingComponent?(&v67, &_s17RealityFoundation18TimelineDefinitionCSgMd, &_s17RealityFoundation18TimelineDefinitionCSgMR);
+    outlined destroy of BodyTrackingComponent?(&v66, &_s17RealityFoundation18TimelineDefinitionCSgMd, &_s17RealityFoundation18TimelineDefinitionCSgMR);
+    v70 = v40;
     v71 = v41;
     v72 = v42;
-    v73 = v43;
-    v70[0] = v39;
-    v70[1] = v40;
-    *&v74 = v44;
-    *(&v74 + 1) = v33;
-    v78 = v38;
-    v76 = v36;
+    v69[0] = v38;
+    v69[1] = v39;
+    *&v73 = v43;
+    *(&v73 + 1) = v32;
     v77 = v37;
     v75 = v35;
-    outlined init with copy of TimelineClipProperties(v70, &v47);
-    if (*(v33 + 16))
+    v76 = v36;
+    v74 = v34;
+    outlined init with copy of TimelineClipProperties(v69, &v46);
+    if (v32[2]._rawValue)
     {
 
-      closure #1 in TimelineClipProperties.createClip()(v70, &v47);
+      closure #1 in TimelineClipProperties.createClip()(v69, &v46);
 
-      outlined destroy of TimelineClipProperties(v70);
-      v13 = v47;
+      outlined destroy of TimelineClipProperties(v69);
+      v13 = v46;
     }
 
     else
     {
 
-      outlined destroy of TimelineClipProperties(v70);
+      outlined destroy of TimelineClipProperties(v69);
       v13 = 0;
     }
 
+    v48 = v40;
     v49 = v41;
     v50 = v42;
-    v51 = v43;
+    v46 = v38;
     v47 = v39;
-    v48 = v40;
-    *&v52 = v44;
-    *(&v52 + 1) = v33;
-    v56 = v38;
-    v54 = v36;
+    *&v51 = v43;
+    *(&v51 + 1) = v32;
     v55 = v37;
     v53 = v35;
-    v14 = &v47;
+    v54 = v36;
+    v52 = v34;
+    v14 = &v46;
 LABEL_20:
     outlined destroy of TimelineClipProperties(v14);
     return v13;
@@ -4099,235 +2125,227 @@ LABEL_20:
   {
     v5 = v1[7];
     v6 = v1[5];
-    v75 = v1[6];
-    v76 = v5;
+    v74 = v1[6];
+    v75 = v5;
     v7 = v1[7];
-    v77 = v1[8];
+    v76 = v1[8];
     v8 = v1[3];
     v9 = v1[1];
-    v71 = v1[2];
-    v72 = v8;
+    v70 = v1[2];
+    v71 = v8;
     v10 = v1[3];
     v11 = v1[5];
-    v73 = v1[4];
-    v74 = v11;
+    v72 = v1[4];
+    v73 = v11;
     v12 = v1[1];
-    v70[0] = *v1;
-    v70[1] = v12;
-    v63 = v75;
-    v64 = v7;
-    v65 = v1[8];
-    v59 = v71;
-    v60 = v10;
-    v61 = v73;
-    v62 = v6;
-    v78 = *(v1 + 18);
-    v66 = *(v1 + 18);
-    v57 = v70[0];
-    v58 = v9;
-    if (!TimelineClipProperties.isClipped.getter())
+    v69[0] = *v1;
+    v69[1] = v12;
+    v62 = v74;
+    v63 = v7;
+    v64 = v1[8];
+    v58 = v70;
+    v59 = v10;
+    v60 = v72;
+    v61 = v6;
+    v77 = *(v1 + 18);
+    v65 = *(v1 + 18);
+    v56 = v69[0];
+    v57 = v9;
+    if (!TimelineClipProperties.isClipped.getter(v64))
     {
       if (!*(*(v1 + 25) + 16))
       {
         return 0;
       }
 
-      v16 = specialized static __ServiceLocator.shared.getter();
+      v15 = specialized static __ServiceLocator.shared.getter();
       swift_beginAccess();
-      outlined init with copy of __REAssetService(v16 + 120, &v57);
-      v17 = *(&v58 + 1);
-      v18 = v59;
-      __swift_project_boxed_opaque_existential_1(&v57, *(&v58 + 1));
-      (*(v18 + 32))(v17, v18);
-      __swift_destroy_boxed_opaque_existential_1(&v57);
+      outlined init with copy of __REAssetService(v15 + 120, &v56);
+      v16 = *(&v57 + 1);
+      v17 = v58;
+      __swift_project_boxed_opaque_existential_1(&v56, *(&v57 + 1));
+      (*(v17 + 32))(v16, v17);
+      __swift_destroy_boxed_opaque_existential_1(&v56);
       TimelineAsset = RETimelineDefinitionCreateTimelineAsset();
       if (!TimelineAsset)
       {
         return 0;
       }
 
-      v20 = TimelineAsset;
+      v19 = TimelineAsset;
       RETimelineDefinitionGetName();
-      v21 = String.init(cString:)();
-      v23 = v22;
+      v20 = String.init(cString:)();
+      v22 = v21;
       type metadata accessor for AnimationResource();
       v13 = swift_allocObject();
-      v13[2] = v20;
-      v13[3] = v21;
-      v13[4] = v23;
+      v13[2] = v19;
+      v13[3] = v20;
+      v13[4] = v22;
       RERetain();
       REAssetSetSwiftObject();
       RERelease();
       return v13;
     }
 
+    v62 = v74;
     v63 = v75;
     v64 = v76;
     v65 = v77;
-    v66 = v78;
+    v58 = v70;
     v59 = v71;
     v60 = v72;
     v61 = v73;
-    v62 = v74;
-    v57 = v70[0];
-    v58 = v70[1];
+    v56 = v69[0];
+    v57 = v69[1];
     if ((TimelineClipProperties.isModified.getter() & 1) == 0)
     {
       return TimelineDefinition.resource.getter();
     }
 
+    v52 = v74;
     v53 = v75;
     v54 = v76;
     v55 = v77;
-    v56 = v78;
+    v48 = v70;
     v49 = v71;
     v50 = v72;
     v51 = v73;
-    v52 = v74;
-    v47 = v70[0];
-    v48 = v70[1];
-    outlined init with copy of TimelineClipProperties(v70, &v57);
+    v46 = v69[0];
+    v47 = v69[1];
+    outlined init with copy of TimelineClipProperties(v69, &v56);
     v13 = TimelineClipProperties.createClip()();
+    v62 = v52;
     v63 = v53;
     v64 = v54;
     v65 = v55;
-    v66 = v56;
+    v58 = v48;
     v59 = v49;
     v60 = v50;
     v61 = v51;
-    v62 = v52;
+    v56 = v46;
     v57 = v47;
-    v58 = v48;
-    v14 = &v57;
+    v14 = &v56;
     goto LABEL_20;
   }
 
   v3 = *(v1 + 168);
-  v68[0] = *(v1 + 152);
-  v68[1] = v3;
-  v68[2] = *(v1 + 184);
-  v69 = *(v1 + 25);
+  v67[0] = *(v1 + 152);
+  v67[1] = v3;
+  v67[2] = *(v1 + 184);
+  v68 = *(v1 + 25);
   v4 = *(v1 + 168);
-  v70[0] = *(v1 + 152);
-  v70[1] = v4;
-  v71 = *(v1 + 184);
-  *&v72 = *(v1 + 25);
-  outlined init with copy of TimelineBaseProperties(v68, &v57);
+  v69[0] = *(v1 + 152);
+  v69[1] = v4;
+  v70 = *(v1 + 184);
+  *&v71 = *(v1 + 25);
+  outlined init with copy of TimelineBaseProperties(v67, &v56);
   TimelineBaseProperties.writeProperties(_:)(a1);
-  v45[0] = v70[0];
-  v45[1] = v70[1];
-  v45[2] = v71;
-  v46 = v72;
-  outlined destroy of TimelineBaseProperties(v45);
-  if (v1[15])
+  v44[0] = v69[0];
+  v44[1] = v69[1];
+  v44[2] = v70;
+  v45 = v71;
+  outlined destroy of TimelineBaseProperties(v44);
+  if ((v1[15] & 1) != 0 && *(v68 + 16))
   {
-    if (*(v69 + 16))
-    {
-      RETimelineDefinitionGetDuration();
-    }
-  }
-
-  else
-  {
-    v15 = *(v1 + 29);
+    RETimelineDefinitionGetDuration();
   }
 
   RETimelineDefinitionSetDuration();
-  v70[0] = v1[16];
-  *(v70 + 13) = *(v1 + 269);
+  v69[0] = v1[16];
+  *(v69 + 13) = *(v1 + 269);
   AnimationTimingFunction.coreEasingFunction.getter();
-  if (*(v24 + 16))
+  if (*(v23 + 16))
   {
     RETimelineDefinitionSetEasingFunctionEx();
   }
 
-  v25 = v1[7];
-  v26 = v1[5];
-  v63 = v1[6];
-  v64 = v25;
-  v27 = v1[7];
-  v65 = v1[8];
-  v28 = v1[3];
-  v29 = v1[1];
-  v59 = v1[2];
-  v60 = v28;
-  v30 = v1[3];
-  v31 = v1[5];
-  v61 = v1[4];
-  v62 = v31;
-  v32 = v1[1];
-  v57 = *v1;
-  v58 = v32;
-  v75 = v63;
-  v76 = v27;
-  v77 = v1[8];
-  v71 = v59;
-  v72 = v30;
-  v73 = v61;
-  v74 = v26;
-  v66 = *(v1 + 18);
-  v78 = *(v1 + 18);
-  v70[0] = v57;
-  v70[1] = v29;
-  if (TimelineClipProperties.isClipped.getter())
+  v24 = v1[7];
+  v25 = v1[5];
+  v62 = v1[6];
+  v63 = v24;
+  v26 = v1[7];
+  v64 = v1[8];
+  v27 = v1[3];
+  v28 = v1[1];
+  v58 = v1[2];
+  v59 = v27;
+  v29 = v1[3];
+  v30 = v1[5];
+  v60 = v1[4];
+  v61 = v30;
+  v31 = v1[1];
+  v56 = *v1;
+  v57 = v31;
+  v74 = v62;
+  v75 = v26;
+  v76 = v1[8];
+  v70 = v58;
+  v71 = v29;
+  v72 = v60;
+  v73 = v25;
+  v65 = *(v1 + 18);
+  v77 = *(v1 + 18);
+  v69[0] = v56;
+  v69[1] = v28;
+  if (TimelineClipProperties.isClipped.getter(v76))
   {
-    v67 = *(&v62 + 1);
+    v66 = *(&v61 + 1);
+    v40 = v58;
     v41 = v59;
     v42 = v60;
     v43 = v61;
-    v44 = v62;
+    v38 = v56;
     v39 = v57;
-    v40 = v58;
-    v38 = v66;
-    v36 = v64;
     v37 = v65;
     v35 = v63;
+    v36 = v64;
+    v34 = v62;
     type metadata accessor for TimelineDefinition();
-    v33 = swift_allocObject();
-    *(v33 + 16) = a1;
-    outlined init with copy of TimelineClipProperties(&v57, v70);
+    v32 = swift_allocObject();
+    v32[2]._rawValue = a1._rawValue;
+    outlined init with copy of TimelineClipProperties(&v56, v69);
     RERetain();
-    outlined destroy of BodyTrackingComponent?(&v67, &_s17RealityFoundation18TimelineDefinitionCSgMd, &_s17RealityFoundation18TimelineDefinitionCSgMR);
+    outlined destroy of BodyTrackingComponent?(&v66, &_s17RealityFoundation18TimelineDefinitionCSgMd, &_s17RealityFoundation18TimelineDefinitionCSgMR);
+    v70 = v40;
     v71 = v41;
     v72 = v42;
-    v73 = v43;
-    v70[0] = v39;
-    v70[1] = v40;
-    *&v74 = v44;
-    *(&v74 + 1) = v33;
-    v78 = v38;
-    v76 = v36;
+    v69[0] = v38;
+    v69[1] = v39;
+    *&v73 = v43;
+    *(&v73 + 1) = v32;
     v77 = v37;
     v75 = v35;
-    outlined init with copy of TimelineClipProperties(v70, &v47);
-    if (*(v33 + 16))
+    v76 = v36;
+    v74 = v34;
+    outlined init with copy of TimelineClipProperties(v69, &v46);
+    if (v32[2]._rawValue)
     {
 
-      closure #1 in TimelineClipProperties.createClip()(v70, &v47);
+      closure #1 in TimelineClipProperties.createClip()(v69, &v46);
 
-      outlined destroy of TimelineClipProperties(v70);
-      v13 = v47;
+      outlined destroy of TimelineClipProperties(v69);
+      v13 = v46;
     }
 
     else
     {
 
-      outlined destroy of TimelineClipProperties(v70);
+      outlined destroy of TimelineClipProperties(v69);
       v13 = 0;
     }
 
+    v48 = v40;
     v49 = v41;
     v50 = v42;
-    v51 = v43;
+    v46 = v38;
     v47 = v39;
-    v48 = v40;
-    *&v52 = v44;
-    *(&v52 + 1) = v33;
-    v56 = v38;
-    v54 = v36;
+    *&v51 = v43;
+    *(&v51 + 1) = v32;
     v55 = v37;
     v53 = v35;
-    v14 = &v47;
+    v54 = v36;
+    v52 = v34;
+    v14 = &v46;
 LABEL_20:
     outlined destroy of TimelineClipProperties(v14);
     return v13;
@@ -4344,192 +2362,191 @@ LABEL_20:
   return v13;
 }
 
-uint64_t FromToByAnimation.createResource()(uint64_t a1)
+void *FromToByAnimation.createResource()(uint64_t a1)
 {
   v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v38 = &v38 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v39 = &v38 - v6;
-  MEMORY[0x1EEE9AC00](v7);
-  v40 = &v38 - v8;
-  MEMORY[0x1EEE9AC00](v9);
-  v41 = &v38 - v10;
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v38 - v12;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v38 - v15;
-  MEMORY[0x1EEE9AC00](v17);
-  v19 = &v38 - v18;
-  MEMORY[0x1EEE9AC00](v20);
-  v22 = &v38 - v21;
-  MEMORY[0x1EEE9AC00](v23);
-  v25 = &v38 - v24;
-  v27 = MEMORY[0x1EEE9AC00](v26);
-  v42 = *(v2 + 16);
-  v43 = v29;
-  v42(&v38 - v28, v27);
+  v37 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v38 = &v37 - v5;
+  MEMORY[0x1EEE9AC00](v6);
+  v39 = &v37 - v7;
+  MEMORY[0x1EEE9AC00](v8);
+  v40 = &v37 - v9;
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v37 - v11;
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v37 - v14;
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v37 - v17;
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v37 - v20;
+  MEMORY[0x1EEE9AC00](v22);
+  v24 = &v37 - v23;
+  v26 = MEMORY[0x1EEE9AC00](v25);
+  v41 = *(v2 + 16);
+  v42 = v28;
+  v41(&v37 - v27, v26);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17FromToByAnimationVySfGMd, &_s17RealityFoundation17FromToByAnimationVySfGMR);
   if (!swift_dynamicCast())
   {
-    (v42)(v22, v43, a1);
+    (v41)(v21, v42, a1);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17FromToByAnimationVySdGMd, &_s17RealityFoundation17FromToByAnimationVySdGMR);
     if (swift_dynamicCast())
     {
-      memcpy(v46, v48, 0x140uLL);
-      v30 = &_s17RealityFoundation17FromToByAnimationVySdGMd;
-      v31 = &_s17RealityFoundation17FromToByAnimationVySdGMR;
-      outlined destroy of BodyTrackingComponent?(v46, &_s17RealityFoundation17FromToByAnimationVySdGMd, &_s17RealityFoundation17FromToByAnimationVySdGMR);
-      (v42)(v25, v43, a1);
+      memcpy(v45, v47, 0x140uLL);
+      v29 = &_s17RealityFoundation17FromToByAnimationVySdGMd;
+      v30 = &_s17RealityFoundation17FromToByAnimationVySdGMR;
+      outlined destroy of BodyTrackingComponent?(v45, &_s17RealityFoundation17FromToByAnimationVySdGMd, &_s17RealityFoundation17FromToByAnimationVySdGMR);
+      (v41)(v24, v42, a1);
       swift_dynamicCast();
-      memcpy(v44, v45, 0x140uLL);
-      v35 = FromToByAnimation<>.createResource()();
+      memcpy(v43, v44, 0x140uLL);
+      v34 = FromToByAnimation<>.createResource()();
     }
 
     else
     {
-      (v42)(v19, v43, a1);
+      (v41)(v18, v42, a1);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMd, &_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMR);
       if (!swift_dynamicCast())
       {
-        (v42)(v16, v43, a1);
+        (v41)(v15, v42, a1);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMd, &_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMR);
         if (swift_dynamicCast())
         {
-          memcpy(v46, v48, 0x170uLL);
-          v30 = &_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMd;
-          v31 = &_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMR;
-          outlined destroy of BodyTrackingComponent?(v46, &_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMd, &_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMR);
-          (v42)(v25, v43, a1);
+          memcpy(v45, v47, 0x170uLL);
+          v29 = &_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMd;
+          v30 = &_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMR;
+          outlined destroy of BodyTrackingComponent?(v45, &_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMd, &_s17RealityFoundation17FromToByAnimationVys5SIMD3VySfGGMR);
+          (v41)(v24, v42, a1);
           swift_dynamicCast();
-          memcpy(v44, v45, 0x170uLL);
-          v36 = FromToByAnimation<>.createResource()();
+          memcpy(v43, v44, 0x170uLL);
+          v35 = FromToByAnimation<>.createResource()();
         }
 
         else
         {
-          (v42)(v13, v43, a1);
+          (v41)(v12, v42, a1);
           __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMd, &_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMR);
           if (swift_dynamicCast())
           {
-            memcpy(v46, v48, 0x170uLL);
-            v30 = &_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMd;
-            v31 = &_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMR;
-            outlined destroy of BodyTrackingComponent?(v46, &_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMd, &_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMR);
-            (v42)(v25, v43, a1);
+            memcpy(v45, v47, 0x170uLL);
+            v29 = &_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMd;
+            v30 = &_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMR;
+            outlined destroy of BodyTrackingComponent?(v45, &_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMd, &_s17RealityFoundation17FromToByAnimationVys5SIMD4VySfGGMR);
+            (v41)(v24, v42, a1);
             swift_dynamicCast();
-            memcpy(v44, v45, 0x170uLL);
-            v36 = FromToByAnimation<>.createResource()();
+            memcpy(v43, v44, 0x170uLL);
+            v35 = FromToByAnimation<>.createResource()();
           }
 
           else
           {
-            (v42)(v41, v43, a1);
+            (v41)(v40, v42, a1);
             __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMd, &_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMR);
             if (!swift_dynamicCast())
             {
-              (v42)(v40, v43, a1);
+              (v41)(v39, v42, a1);
               __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMd, &_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMR);
               if (swift_dynamicCast())
               {
-                memcpy(v46, v48, sizeof(v46));
-                v30 = &_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMd;
-                v31 = &_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMR;
-                outlined destroy of BodyTrackingComponent?(v46, &_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMd, &_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMR);
-                (v42)(v25, v43, a1);
+                memcpy(v45, v47, sizeof(v45));
+                v29 = &_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMd;
+                v30 = &_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMR;
+                outlined destroy of BodyTrackingComponent?(v45, &_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMd, &_s17RealityFoundation17FromToByAnimationVy0A3Kit9TransformVGMR);
+                (v41)(v24, v42, a1);
                 swift_dynamicCast();
-                memcpy(v44, v45, sizeof(v44));
-                v33 = FromToByAnimation<>.createResource()();
-                v34 = 464;
+                memcpy(v43, v44, sizeof(v43));
+                v32 = FromToByAnimation<>.createResource()();
+                v33 = 464;
                 goto LABEL_16;
               }
 
-              (v42)(v39, v43, a1);
+              (v41)(v38, v42, a1);
               __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMd, &_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMR);
               if (swift_dynamicCast())
               {
-                memcpy(v46, v48, 0x130uLL);
-                v30 = &_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMd;
-                v31 = &_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMR;
-                outlined destroy of BodyTrackingComponent?(v46, &_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMd, &_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMR);
-                (v42)(v25, v43, a1);
+                memcpy(v45, v47, 0x130uLL);
+                v29 = &_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMd;
+                v30 = &_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMR;
+                outlined destroy of BodyTrackingComponent?(v45, &_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMd, &_s17RealityFoundation17FromToByAnimationVyAA15JointTransformsVGMR);
+                (v41)(v24, v42, a1);
                 swift_dynamicCast();
-                memcpy(v44, v45, 0x130uLL);
-                v32 = FromToByAnimation<>.createResource()();
+                memcpy(v43, v44, 0x130uLL);
+                v31 = FromToByAnimation<>.createResource()();
               }
 
               else
               {
-                (v42)(v38, v43, a1);
+                (v41)(v37, v42, a1);
                 __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMd, &_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMR);
                 if ((swift_dynamicCast() & 1) == 0)
                 {
                   return 0;
                 }
 
-                memcpy(v46, v48, 0x130uLL);
-                v30 = &_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMd;
-                v31 = &_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMR;
-                outlined destroy of BodyTrackingComponent?(v46, &_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMd, &_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMR);
-                (v42)(v25, v43, a1);
+                memcpy(v45, v47, 0x130uLL);
+                v29 = &_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMd;
+                v30 = &_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMR;
+                outlined destroy of BodyTrackingComponent?(v45, &_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMd, &_s17RealityFoundation17FromToByAnimationVyAA17BlendShapeWeightsVGMR);
+                (v41)(v24, v42, a1);
                 swift_dynamicCast();
-                memcpy(v44, v45, 0x130uLL);
-                v32 = FromToByAnimation<>.createResource()();
+                memcpy(v43, v44, 0x130uLL);
+                v31 = FromToByAnimation<>.createResource()();
               }
 
               goto LABEL_3;
             }
 
-            memcpy(v46, v48, 0x170uLL);
-            v30 = &_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMd;
-            v31 = &_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMR;
-            outlined destroy of BodyTrackingComponent?(v46, &_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMd, &_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMR);
-            (v42)(v25, v43, a1);
+            memcpy(v45, v47, 0x170uLL);
+            v29 = &_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMd;
+            v30 = &_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMR;
+            outlined destroy of BodyTrackingComponent?(v45, &_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMd, &_s17RealityFoundation17FromToByAnimationVySo10simd_quatfaGMR);
+            (v41)(v24, v42, a1);
             swift_dynamicCast();
-            memcpy(v44, v45, 0x170uLL);
-            v36 = FromToByAnimation<>.createResource()();
+            memcpy(v43, v44, 0x170uLL);
+            v35 = FromToByAnimation<>.createResource()();
           }
         }
 
-        v33 = v36;
-        v34 = 368;
+        v32 = v35;
+        v33 = 368;
         goto LABEL_16;
       }
 
-      memcpy(v46, v48, 0x140uLL);
-      v30 = &_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMd;
-      v31 = &_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMR;
-      outlined destroy of BodyTrackingComponent?(v46, &_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMd, &_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMR);
-      (v42)(v25, v43, a1);
+      memcpy(v45, v47, 0x140uLL);
+      v29 = &_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMd;
+      v30 = &_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMR;
+      outlined destroy of BodyTrackingComponent?(v45, &_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMd, &_s17RealityFoundation17FromToByAnimationVys5SIMD2VySfGGMR);
+      (v41)(v24, v42, a1);
       swift_dynamicCast();
-      memcpy(v44, v45, 0x140uLL);
-      v35 = FromToByAnimation<>.createResource()();
+      memcpy(v43, v44, 0x140uLL);
+      v34 = FromToByAnimation<>.createResource()();
     }
 
-    v33 = v35;
-    v34 = 320;
+    v32 = v34;
+    v33 = 320;
     goto LABEL_16;
   }
 
-  memcpy(v46, v48, 0x130uLL);
-  v30 = &_s17RealityFoundation17FromToByAnimationVySfGMd;
-  v31 = &_s17RealityFoundation17FromToByAnimationVySfGMR;
-  outlined destroy of BodyTrackingComponent?(v46, &_s17RealityFoundation17FromToByAnimationVySfGMd, &_s17RealityFoundation17FromToByAnimationVySfGMR);
-  (v42)(v25, v43, a1);
+  memcpy(v45, v47, 0x130uLL);
+  v29 = &_s17RealityFoundation17FromToByAnimationVySfGMd;
+  v30 = &_s17RealityFoundation17FromToByAnimationVySfGMR;
+  outlined destroy of BodyTrackingComponent?(v45, &_s17RealityFoundation17FromToByAnimationVySfGMd, &_s17RealityFoundation17FromToByAnimationVySfGMR);
+  (v41)(v24, v42, a1);
   swift_dynamicCast();
-  memcpy(v44, v45, 0x130uLL);
-  v32 = FromToByAnimation<>.createResource()();
+  memcpy(v43, v44, 0x130uLL);
+  v31 = FromToByAnimation<>.createResource()();
 LABEL_3:
-  v33 = v32;
-  v34 = 304;
+  v32 = v31;
+  v33 = 304;
 LABEL_16:
-  memcpy(v47, v44, v34);
-  outlined destroy of BodyTrackingComponent?(v47, v30, v31);
-  return v33;
+  memcpy(v46, v43, v33);
+  outlined destroy of BodyTrackingComponent?(v46, v29, v30);
+  return v32;
 }
 
-uint64_t FromToByAnimation<>.createResource()()
+void *FromToByAnimation<>.createResource()()
 {
   __dst[39] = *MEMORY[0x1E69E9840];
   memcpy(__dst, v0, 0x130uLL);
@@ -4539,8 +2556,7 @@ uint64_t FromToByAnimation<>.createResource()()
     if (LOBYTE(__dst[23]) == 255 && (__dst[24] & 1) != 0 && (__dst[24] & 0x10000) != 0 && BYTE3(__dst[24]) == 2 && (__dst[30] & 1) != 0 && (__dst[26] & 0x10000000000) != 0 && (__dst[27] & 0x10000000000) != 0 && (__dst[28] & 0x10000000000) != 0)
     {
       v2._rawValue = 0;
-      v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
-      goto LABEL_26;
+      return specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
     }
 
     if (*(__dst[25] + 16))
@@ -4554,50 +2570,27 @@ uint64_t FromToByAnimation<>.createResource()()
 
   v4 = RETimelineDefinitionCreateFromToByFloatAnimation();
 
-  if ((__dst[26] & 0x10000000000) != 0)
+  if ((__dst[26] & 0x10000000000) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      FloatFromValue = RETimelineDefinitionGetFloatFromValue();
-      if (FloatFromValue)
-      {
-        v6 = *FloatFromValue;
-      }
-    }
+    RETimelineDefinitionGetFloatFromValue();
   }
 
   RETimelineDefinitionSetFloatFromValue();
-  if ((__dst[27] & 0x10000000000) != 0)
+  if ((__dst[27] & 0x10000000000) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      FloatToValue = RETimelineDefinitionGetFloatToValue();
-      if (FloatToValue)
-      {
-        v8 = *FloatToValue;
-      }
-    }
+    RETimelineDefinitionGetFloatToValue();
   }
 
   RETimelineDefinitionSetFloatToValue();
-  if ((__dst[28] & 0x10000000000) != 0)
+  if ((__dst[28] & 0x10000000000) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      FloatByValue = RETimelineDefinitionGetFloatByValue();
-      if (FloatByValue)
-      {
-        v10 = *FloatByValue;
-      }
-    }
+    RETimelineDefinitionGetFloatByValue();
   }
 
   RETimelineDefinitionSetFloatByValue();
-  v11._rawValue = v4;
-  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v11);
+  v5._rawValue = v4;
+  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v5);
   RERelease();
-LABEL_26:
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -4610,8 +2603,7 @@ LABEL_26:
     if (LOBYTE(__dst[23]) == 255 && (__dst[24] & 1) != 0 && (__dst[24] & 0x10000) != 0 && BYTE3(__dst[24]) == 2 && (__dst[33] & 1) != 0 && (__dst[27] & 0x100) != 0 && (__dst[29] & 0x100) != 0 && (__dst[31] & 0x100) != 0)
     {
       v2._rawValue = 0;
-      v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
-      goto LABEL_26;
+      return specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
     }
 
     if (*(__dst[25] + 16))
@@ -4625,50 +2617,27 @@ LABEL_26:
 
   v4 = RETimelineDefinitionCreateFromToByDoubleAnimation();
 
-  if ((__dst[27] & 0x100) != 0)
+  if ((__dst[27] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      DoubleFromValue = RETimelineDefinitionGetDoubleFromValue();
-      if (DoubleFromValue)
-      {
-        v6 = *DoubleFromValue;
-      }
-    }
+    RETimelineDefinitionGetDoubleFromValue();
   }
 
   RETimelineDefinitionSetDoubleFromValue();
-  if ((__dst[29] & 0x100) != 0)
+  if ((__dst[29] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      DoubleToValue = RETimelineDefinitionGetDoubleToValue();
-      if (DoubleToValue)
-      {
-        v8 = *DoubleToValue;
-      }
-    }
+    RETimelineDefinitionGetDoubleToValue();
   }
 
   RETimelineDefinitionSetDoubleToValue();
-  if ((__dst[31] & 0x100) != 0)
+  if ((__dst[31] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      DoubleByValue = RETimelineDefinitionGetDoubleByValue();
-      if (DoubleByValue)
-      {
-        v10 = *DoubleByValue;
-      }
-    }
+    RETimelineDefinitionGetDoubleByValue();
   }
 
   RETimelineDefinitionSetDoubleByValue();
-  v11._rawValue = v4;
-  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v11);
+  v5._rawValue = v4;
+  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v5);
   RERelease();
-LABEL_26:
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -4681,8 +2650,7 @@ LABEL_26:
     if (LOBYTE(__dst[23]) == 255 && (__dst[24] & 1) != 0 && (__dst[24] & 0x10000) != 0 && BYTE3(__dst[24]) == 2 && (__dst[33] & 1) != 0 && (__dst[27] & 0x100) != 0 && (__dst[29] & 0x100) != 0 && (__dst[31] & 0x100) != 0)
     {
       v2._rawValue = 0;
-      v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
-      goto LABEL_26;
+      return specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
     }
 
     if (*(__dst[25] + 16))
@@ -4696,50 +2664,27 @@ LABEL_26:
 
   v4 = RETimelineDefinitionCreateFromToByFloat2Animation();
 
-  if ((__dst[27] & 0x100) != 0)
+  if ((__dst[27] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      Float2FromValue = RETimelineDefinitionGetFloat2FromValue();
-      if (Float2FromValue)
-      {
-        v6 = *Float2FromValue;
-      }
-    }
+    RETimelineDefinitionGetFloat2FromValue();
   }
 
   RETimelineDefinitionSetFloat2FromValue();
-  if ((__dst[29] & 0x100) != 0)
+  if ((__dst[29] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      Float2ToValue = RETimelineDefinitionGetFloat2ToValue();
-      if (Float2ToValue)
-      {
-        v8 = *Float2ToValue;
-      }
-    }
+    RETimelineDefinitionGetFloat2ToValue();
   }
 
   RETimelineDefinitionSetFloat2ToValue();
-  if ((__dst[31] & 0x100) != 0)
+  if ((__dst[31] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      Float2ByValue = RETimelineDefinitionGetFloat2ByValue();
-      if (Float2ByValue)
-      {
-        v10 = *Float2ByValue;
-      }
-    }
+    RETimelineDefinitionGetFloat2ByValue();
   }
 
   RETimelineDefinitionSetFloat2ByValue();
-  v11._rawValue = v4;
-  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v11);
+  v5._rawValue = v4;
+  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v5);
   RERelease();
-LABEL_26:
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -4752,8 +2697,7 @@ LABEL_26:
     if (LOBYTE(__dst[23]) == 255 && (__dst[24] & 1) != 0 && (__dst[24] & 0x10000) != 0 && BYTE3(__dst[24]) == 2 && (__dst[38] & 1) != 0 && (__dst[28] & 0x100) != 0 && (__dst[32] & 0x100) != 0 && (__dst[36] & 0x100) != 0)
     {
       v2._rawValue = 0;
-      v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
-      goto LABEL_26;
+      return specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
     }
 
     if (*(__dst[25] + 16))
@@ -4767,50 +2711,27 @@ LABEL_26:
 
   v4 = RETimelineDefinitionCreateFromToByFloat3Animation();
 
-  if ((__dst[28] & 0x100) != 0)
+  if ((__dst[28] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      Float3FromValue = RETimelineDefinitionGetFloat3FromValue();
-      if (Float3FromValue)
-      {
-        v6 = *Float3FromValue;
-      }
-    }
+    RETimelineDefinitionGetFloat3FromValue();
   }
 
   RETimelineDefinitionSetFloat3FromValue();
-  if ((__dst[32] & 0x100) != 0)
+  if ((__dst[32] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      Float3ToValue = RETimelineDefinitionGetFloat3ToValue();
-      if (Float3ToValue)
-      {
-        v8 = *Float3ToValue;
-      }
-    }
+    RETimelineDefinitionGetFloat3ToValue();
   }
 
   RETimelineDefinitionSetFloat3ToValue();
-  if ((__dst[36] & 0x100) != 0)
+  if ((__dst[36] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      Float3ByValue = RETimelineDefinitionGetFloat3ByValue();
-      if (Float3ByValue)
-      {
-        v10 = *Float3ByValue;
-      }
-    }
+    RETimelineDefinitionGetFloat3ByValue();
   }
 
   RETimelineDefinitionSetFloat3ByValue();
-  v11._rawValue = v4;
-  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v11);
+  v5._rawValue = v4;
+  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v5);
   RERelease();
-LABEL_26:
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -4823,8 +2744,7 @@ LABEL_26:
     if (LOBYTE(__dst[23]) == 255 && (__dst[24] & 1) != 0 && (__dst[24] & 0x10000) != 0 && BYTE3(__dst[24]) == 2 && (__dst[38] & 1) != 0 && (__dst[28] & 0x100) != 0 && (__dst[32] & 0x100) != 0 && (__dst[36] & 0x100) != 0)
     {
       v2._rawValue = 0;
-      v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
-      goto LABEL_26;
+      return specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
     }
 
     if (*(__dst[25] + 16))
@@ -4838,50 +2758,27 @@ LABEL_26:
 
   v4 = RETimelineDefinitionCreateFromToByFloat4Animation();
 
-  if ((__dst[28] & 0x100) != 0)
+  if ((__dst[28] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      Float4FromValue = RETimelineDefinitionGetFloat4FromValue();
-      if (Float4FromValue)
-      {
-        v6 = *Float4FromValue;
-      }
-    }
+    RETimelineDefinitionGetFloat4FromValue();
   }
 
   RETimelineDefinitionSetFloat4FromValue();
-  if ((__dst[32] & 0x100) != 0)
+  if ((__dst[32] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      Float4ToValue = RETimelineDefinitionGetFloat4ToValue();
-      if (Float4ToValue)
-      {
-        v8 = *Float4ToValue;
-      }
-    }
+    RETimelineDefinitionGetFloat4ToValue();
   }
 
   RETimelineDefinitionSetFloat4ToValue();
-  if ((__dst[36] & 0x100) != 0)
+  if ((__dst[36] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      Float4ByValue = RETimelineDefinitionGetFloat4ByValue();
-      if (Float4ByValue)
-      {
-        v10 = *Float4ByValue;
-      }
-    }
+    RETimelineDefinitionGetFloat4ByValue();
   }
 
   RETimelineDefinitionSetFloat4ByValue();
-  v11._rawValue = v4;
-  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v11);
+  v5._rawValue = v4;
+  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v5);
   RERelease();
-LABEL_26:
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -4894,8 +2791,7 @@ LABEL_26:
     if (LOBYTE(__dst[23]) == 255 && (__dst[24] & 1) != 0 && (__dst[24] & 0x10000) != 0 && BYTE3(__dst[24]) == 2 && (__dst[38] & 1) != 0 && (__dst[28] & 0x100) != 0 && (__dst[32] & 0x100) != 0 && (__dst[36] & 0x100) != 0)
     {
       v2._rawValue = 0;
-      v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
-      goto LABEL_26;
+      return specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
     }
 
     if (*(__dst[25] + 16))
@@ -4909,50 +2805,27 @@ LABEL_26:
 
   v4 = RETimelineDefinitionCreateFromToByQuaternionAnimation();
 
-  if ((__dst[28] & 0x100) != 0)
+  if ((__dst[28] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      QuaternionFromValue = RETimelineDefinitionGetQuaternionFromValue();
-      if (QuaternionFromValue)
-      {
-        v6 = *QuaternionFromValue;
-      }
-    }
+    RETimelineDefinitionGetQuaternionFromValue();
   }
 
   RETimelineDefinitionSetQuaternionFromValue();
-  if ((__dst[32] & 0x100) != 0)
+  if ((__dst[32] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      QuaternionToValue = RETimelineDefinitionGetQuaternionToValue();
-      if (QuaternionToValue)
-      {
-        v8 = *QuaternionToValue;
-      }
-    }
+    RETimelineDefinitionGetQuaternionToValue();
   }
 
   RETimelineDefinitionSetQuaternionToValue();
-  if ((__dst[36] & 0x100) != 0)
+  if ((__dst[36] & 0x100) != 0 && *(v1 + 16))
   {
-    if (*(v1 + 16))
-    {
-      QuaternionByValue = RETimelineDefinitionGetQuaternionByValue();
-      if (QuaternionByValue)
-      {
-        v10 = *QuaternionByValue;
-      }
-    }
+    RETimelineDefinitionGetQuaternionByValue();
   }
 
   RETimelineDefinitionSetQuaternionByValue();
-  v11._rawValue = v4;
-  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v11);
+  v5._rawValue = v4;
+  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v5);
   RERelease();
-LABEL_26:
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -4965,8 +2838,7 @@ LABEL_26:
     if (LOBYTE(__dst[23]) == 255 && (__dst[24] & 1) != 0 && (__dst[24] & 0x10000) != 0 && BYTE3(__dst[24]) == 2 && (__dst[50] & 1) != 0 && (__dst[32] & 0x100) != 0 && (__dst[40] & 0x100) != 0 && (__dst[48] & 0x100) != 0)
     {
       v2._rawValue = 0;
-      v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
-      goto LABEL_29;
+      return specialized FromToByAnimation.createResource(timelineDefinition:)(v2);
     }
 
     if (*(__dst[25] + 16))
@@ -4980,77 +2852,27 @@ LABEL_26:
 
   v4 = RETimelineDefinitionCreateFromToBySRTAnimation();
 
-  if ((__dst[32] & 0x100) != 0)
+  if ((__dst[32] & 0x100) != 0 && *(v1 + 16) && RETimelineDefinitionGetSRTFromValue() && one-time initialization token for identity != -1)
   {
-    if (*(v1 + 16))
-    {
-      SRTFromValue = RETimelineDefinitionGetSRTFromValue();
-      if (SRTFromValue)
-      {
-        v6 = *SRTFromValue;
-        v7 = SRTFromValue[1];
-        v8 = SRTFromValue[2];
-        if (one-time initialization token for identity != -1)
-        {
-          v23 = SRTFromValue[1];
-          v26 = *SRTFromValue;
-          v20 = SRTFromValue[2];
-          swift_once();
-        }
-      }
-    }
+    swift_once();
   }
 
   RETimelineDefinitionSetSRTFromValue();
-  if ((__dst[40] & 0x100) != 0)
+  if ((__dst[40] & 0x100) != 0 && *(v1 + 16) && RETimelineDefinitionGetSRTToValue() && one-time initialization token for identity != -1)
   {
-    if (*(v1 + 16))
-    {
-      SRTToValue = RETimelineDefinitionGetSRTToValue();
-      if (SRTToValue)
-      {
-        v10 = *SRTToValue;
-        v11 = SRTToValue[1];
-        v12 = SRTToValue[2];
-        if (one-time initialization token for identity != -1)
-        {
-          v24 = SRTToValue[1];
-          v27 = *SRTToValue;
-          v21 = SRTToValue[2];
-          swift_once();
-        }
-      }
-    }
+    swift_once();
   }
 
   RETimelineDefinitionSetSRTToValue();
-  if ((__dst[48] & 0x100) != 0)
+  if ((__dst[48] & 0x100) != 0 && *(v1 + 16) && RETimelineDefinitionGetSRTByValue() && one-time initialization token for identity != -1)
   {
-    if (*(v1 + 16))
-    {
-      SRTByValue = RETimelineDefinitionGetSRTByValue();
-      if (SRTByValue)
-      {
-        v14 = *SRTByValue;
-        v15 = SRTByValue[1];
-        v16 = SRTByValue[2];
-        if (one-time initialization token for identity != -1)
-        {
-          v25 = SRTByValue[1];
-          v28 = *SRTByValue;
-          v22 = SRTByValue[2];
-          swift_once();
-        }
-      }
-    }
+    swift_once();
   }
 
   RETimelineDefinitionSetSRTByValue();
-  v17._rawValue = v4;
-  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v17);
+  v5._rawValue = v4;
+  v3 = specialized FromToByAnimation.createResource(timelineDefinition:)(v5);
   RERelease();
-LABEL_29:
-  v18 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -5075,30 +2897,27 @@ LABEL_29:
 
   v3 = RETimelineDefinitionCreateFromToBySkeletalPoseAnimation();
 
-  FromToByAnimation<>.fromValue.getter(&v27);
-  if (v27)
+  FromToByAnimation<>.fromValue.getter(&v18);
+  if (v18)
   {
-    v4 = *(v27 + 16);
     RETimelineDefinitionSetSkeletalPoseFromValue();
 
-    v5 = FromToByAnimation<>.jointNames.getter();
-    v6 = *(v5 + 2);
-    if (v6)
+    v4 = FromToByAnimation<>.jointNames.getter();
+    v5 = *(v4 + 2);
+    if (v5)
     {
-      v7 = 0;
-      v8 = (v5 + 40);
+      v6 = 0;
+      v7 = v4 + 40;
       do
       {
-        v9 = *(v8 - 1);
-        v10 = *v8;
         String.utf8CString.getter();
         RETimelineDefinitionSetSkeletalPoseFromJointName();
 
-        v8 += 2;
-        ++v7;
+        v7 += 16;
+        ++v6;
       }
 
-      while (v6 != v7);
+      while (v5 != v6);
     }
   }
 
@@ -5107,26 +2926,52 @@ LABEL_29:
     RETimelineDefinitionSetSkeletalPoseFromValue();
   }
 
-  FromToByAnimation<>.toValue.getter(&v27);
-  if (v27)
+  FromToByAnimation<>.toValue.getter(&v18);
+  if (v18)
   {
-    v11 = *(v27 + 16);
     RETimelineDefinitionSetSkeletalPoseToValue();
+
+    v8 = FromToByAnimation<>.jointNames.getter();
+    v9 = *(v8 + 2);
+    if (v9)
+    {
+      v10 = 0;
+      v11 = v8 + 40;
+      do
+      {
+        String.utf8CString.getter();
+        RETimelineDefinitionSetSkeletalPoseToJointName();
+
+        v11 += 16;
+        ++v10;
+      }
+
+      while (v9 != v10);
+    }
+  }
+
+  else
+  {
+    RETimelineDefinitionSetSkeletalPoseToValue();
+  }
+
+  FromToByAnimation<>.byValue.getter(&v18);
+  if (v18)
+  {
+    RETimelineDefinitionSetSkeletalPoseByValue();
 
     v12 = FromToByAnimation<>.jointNames.getter();
     v13 = *(v12 + 2);
     if (v13)
     {
       v14 = 0;
-      v15 = (v12 + 40);
+      v15 = v12 + 40;
       do
       {
-        v16 = *(v15 - 1);
-        v17 = *v15;
         String.utf8CString.getter();
-        RETimelineDefinitionSetSkeletalPoseToJointName();
+        RETimelineDefinitionSetSkeletalPoseByJointName();
 
-        v15 += 2;
+        v15 += 16;
         ++v14;
       }
 
@@ -5136,43 +2981,11 @@ LABEL_29:
 
   else
   {
-    RETimelineDefinitionSetSkeletalPoseToValue();
-  }
-
-  FromToByAnimation<>.byValue.getter(&v27);
-  if (v27)
-  {
-    v18 = *(v27 + 16);
-    RETimelineDefinitionSetSkeletalPoseByValue();
-
-    v19 = FromToByAnimation<>.jointNames.getter();
-    v20 = *(v19 + 2);
-    if (v20)
-    {
-      v21 = 0;
-      v22 = (v19 + 40);
-      do
-      {
-        v23 = *(v22 - 1);
-        v24 = *v22;
-        String.utf8CString.getter();
-        RETimelineDefinitionSetSkeletalPoseByJointName();
-
-        v22 += 2;
-        ++v21;
-      }
-
-      while (v20 != v21);
-    }
-  }
-
-  else
-  {
     RETimelineDefinitionSetSkeletalPoseByValue();
   }
 
-  v25._rawValue = v3;
-  v2 = specialized FromToByAnimation.createResource(timelineDefinition:)(v25);
+  v16._rawValue = v3;
+  v2 = specialized FromToByAnimation.createResource(timelineDefinition:)(v16);
   RERelease();
   return v2;
 }
@@ -5198,30 +3011,27 @@ LABEL_29:
 
   v3 = RETimelineDefinitionCreateFromToByBlendShapeWeightsAnimation();
 
-  FromToByAnimation<>.fromValue.getter(&v27);
-  if (v27)
+  FromToByAnimation<>.fromValue.getter(&v18);
+  if (v18)
   {
-    v4 = *(v27 + 16);
     RETimelineDefinitionSetBlendShapeWeightsFromValues();
 
-    v5 = FromToByAnimation<>.weightNames.getter();
-    v6 = *(v5 + 2);
-    if (v6)
+    v4 = FromToByAnimation<>.weightNames.getter();
+    v5 = *(v4 + 2);
+    if (v5)
     {
-      v7 = 0;
-      v8 = (v5 + 40);
+      v6 = 0;
+      v7 = v4 + 40;
       do
       {
-        v9 = *(v8 - 1);
-        v10 = *v8;
         String.utf8CString.getter();
         RETimelineDefinitionSetBlendShapeWeightsFromWeightName();
 
-        v8 += 2;
-        ++v7;
+        v7 += 16;
+        ++v6;
       }
 
-      while (v6 != v7);
+      while (v5 != v6);
     }
   }
 
@@ -5230,26 +3040,52 @@ LABEL_29:
     RETimelineDefinitionSetBlendShapeWeightsFromValues();
   }
 
-  FromToByAnimation<>.toValue.getter(&v27);
-  if (v27)
+  FromToByAnimation<>.toValue.getter(&v18);
+  if (v18)
   {
-    v11 = *(v27 + 16);
     RETimelineDefinitionSetBlendShapeWeightsToValues();
+
+    v8 = FromToByAnimation<>.weightNames.getter();
+    v9 = *(v8 + 2);
+    if (v9)
+    {
+      v10 = 0;
+      v11 = v8 + 40;
+      do
+      {
+        String.utf8CString.getter();
+        RETimelineDefinitionSetBlendShapeWeightsToWeightName();
+
+        v11 += 16;
+        ++v10;
+      }
+
+      while (v9 != v10);
+    }
+  }
+
+  else
+  {
+    RETimelineDefinitionSetBlendShapeWeightsToValues();
+  }
+
+  FromToByAnimation<>.byValue.getter(&v18);
+  if (v18)
+  {
+    RETimelineDefinitionSetBlendShapeWeightsByValues();
 
     v12 = FromToByAnimation<>.weightNames.getter();
     v13 = *(v12 + 2);
     if (v13)
     {
       v14 = 0;
-      v15 = (v12 + 40);
+      v15 = v12 + 40;
       do
       {
-        v16 = *(v15 - 1);
-        v17 = *v15;
         String.utf8CString.getter();
-        RETimelineDefinitionSetBlendShapeWeightsToWeightName();
+        RETimelineDefinitionSetBlendShapeWeightsByWeightName();
 
-        v15 += 2;
+        v15 += 16;
         ++v14;
       }
 
@@ -5259,48 +3095,16 @@ LABEL_29:
 
   else
   {
-    RETimelineDefinitionSetBlendShapeWeightsToValues();
-  }
-
-  FromToByAnimation<>.byValue.getter(&v27);
-  if (v27)
-  {
-    v18 = *(v27 + 16);
-    RETimelineDefinitionSetBlendShapeWeightsByValues();
-
-    v19 = FromToByAnimation<>.weightNames.getter();
-    v20 = *(v19 + 2);
-    if (v20)
-    {
-      v21 = 0;
-      v22 = (v19 + 40);
-      do
-      {
-        v23 = *(v22 - 1);
-        v24 = *v22;
-        String.utf8CString.getter();
-        RETimelineDefinitionSetBlendShapeWeightsByWeightName();
-
-        v22 += 2;
-        ++v21;
-      }
-
-      while (v20 != v21);
-    }
-  }
-
-  else
-  {
     RETimelineDefinitionSetBlendShapeWeightsByValues();
   }
 
-  v25._rawValue = v3;
-  v2 = specialized FromToByAnimation.createResource(timelineDefinition:)(v25);
+  v16._rawValue = v3;
+  v2 = specialized FromToByAnimation.createResource(timelineDefinition:)(v16);
   RERelease();
   return v2;
 }
 
-uint64_t FromToByAnimation.generate()(uint64_t a1)
+void *FromToByAnimation.generate()(uint64_t a1)
 {
   result = FromToByAnimation.createResource()(a1);
   if (!result)
@@ -5482,7 +3286,7 @@ uint64_t (*protocol witness for AnimationDefinition.speed.modify in conformance 
   }
 
   *a1 = v2;
-  *(v2 + 32) = FromToByAnimation.speed.modify(v2);
+  *(v2 + 32) = FromToByAnimation.speed.modify(v2, v3);
   return protocol witness for AnimationDefinition.name.modify in conformance FromToByAnimation<A>;
 }
 
@@ -5499,7 +3303,7 @@ uint64_t (*protocol witness for AnimationDefinition.repeatMode.modify in conform
   }
 
   *a1 = v2;
-  *(v2 + 32) = FromToByAnimation.repeatMode.modify(v2);
+  *(v2 + 32) = FromToByAnimation.repeatMode.modify(v2, v3);
   return protocol witness for AnimationDefinition.name.modify in conformance FromToByAnimation<A>;
 }
 
@@ -5537,11 +3341,11 @@ unint64_t FromToByAnimation<>.fromValue.getter()
   return v3 | (v2 << 32);
 }
 
-uint64_t key path getter for FromToByAnimation<>.fromValue : FromToByAnimation<Float>@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+int *key path getter for FromToByAnimation<>.fromValue : FromToByAnimation<Float>@<X0>(int *result@<X0>, uint64_t a2@<X8>)
 {
   if (*(result + 213))
   {
-    result = *(*(result + 200) + 16);
+    result = *(*(result + 25) + 16);
     if (result)
     {
       v2 = a2;
@@ -5570,8 +3374,8 @@ uint64_t key path getter for FromToByAnimation<>.fromValue : FromToByAnimation<F
 
   else
   {
-    v4 = *(result + 208);
-    v3 = *(result + 212) & 1;
+    v4 = result[52];
+    v3 = result[53] & 1;
   }
 
   *a2 = v4;
@@ -5665,11 +3469,11 @@ unint64_t FromToByAnimation<>.toValue.getter()
   return v3 | (v2 << 32);
 }
 
-uint64_t key path getter for FromToByAnimation<>.toValue : FromToByAnimation<Float>@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+int *key path getter for FromToByAnimation<>.toValue : FromToByAnimation<Float>@<X0>(int *result@<X0>, uint64_t a2@<X8>)
 {
   if (*(result + 221))
   {
-    result = *(*(result + 200) + 16);
+    result = *(*(result + 25) + 16);
     if (result)
     {
       v2 = a2;
@@ -5698,8 +3502,8 @@ uint64_t key path getter for FromToByAnimation<>.toValue : FromToByAnimation<Flo
 
   else
   {
-    v4 = *(result + 216);
-    v3 = *(result + 220) & 1;
+    v4 = result[54];
+    v3 = result[55] & 1;
   }
 
   *a2 = v4;
@@ -5793,11 +3597,11 @@ unint64_t FromToByAnimation<>.byValue.getter()
   return v3 | (v2 << 32);
 }
 
-uint64_t key path getter for FromToByAnimation<>.byValue : FromToByAnimation<Float>@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+int *key path getter for FromToByAnimation<>.byValue : FromToByAnimation<Float>@<X0>(int *result@<X0>, uint64_t a2@<X8>)
 {
   if (*(result + 229))
   {
-    result = *(*(result + 200) + 16);
+    result = *(*(result + 25) + 16);
     if (result)
     {
       v2 = a2;
@@ -5826,8 +3630,8 @@ uint64_t key path getter for FromToByAnimation<>.byValue : FromToByAnimation<Flo
 
   else
   {
-    v4 = *(result + 224);
-    v3 = *(result + 228) & 1;
+    v4 = result[56];
+    v3 = result[57] & 1;
   }
 
   *a2 = v4;
@@ -5904,6 +3708,18 @@ uint64_t FromToByAnimation<>.fromValue.getter()
   return FromToByAnimation<>.fromValue.getter(MEMORY[0x1E6998CF8]);
 }
 
+{
+  return FromToByAnimation<>.fromValue.getter(MEMORY[0x1E6998D18]);
+}
+
+{
+  return FromToByAnimation<>.fromValue.getter(MEMORY[0x1E6998D38]);
+}
+
+{
+  return FromToByAnimation<>.fromValue.getter(MEMORY[0x1E6998D60]);
+}
+
 uint64_t FromToByAnimation<>.fromValue.setter(uint64_t result, char a2)
 {
   *(v2 + 208) = result;
@@ -5941,6 +3757,34 @@ uint64_t (*FromToByAnimation<>.fromValue.modify(uint64_t a1))(uint64_t result)
   return FromToByAnimation<>.fromValue.modify;
 }
 
+{
+  *(a1 + 16) = v1;
+  if (*(v1 + 217))
+  {
+    if (*(*(v1 + 200) + 16) && (Float2FromValue = RETimelineDefinitionGetFloat2FromValue()) != 0)
+    {
+      v4 = 0;
+      v5 = *Float2FromValue;
+    }
+
+    else
+    {
+      v5 = 0;
+      v4 = 1;
+    }
+  }
+
+  else
+  {
+    v5 = *(v1 + 208);
+    v4 = *(v1 + 216);
+  }
+
+  *a1 = v5;
+  *(a1 + 8) = v4 & 1;
+  return FromToByAnimation<>.fromValue.modify;
+}
+
 uint64_t FromToByAnimation<>.fromValue.modify(uint64_t result)
 {
   v1 = *(result + 16);
@@ -5957,6 +3801,18 @@ uint64_t FromToByAnimation<>.toValue.getter()
 
 {
   return FromToByAnimation<>.toValue.getter(MEMORY[0x1E6998D00]);
+}
+
+{
+  return FromToByAnimation<>.toValue.getter(MEMORY[0x1E6998D20]);
+}
+
+{
+  return FromToByAnimation<>.toValue.getter(MEMORY[0x1E6998D40]);
+}
+
+{
+  return FromToByAnimation<>.toValue.getter(MEMORY[0x1E6998D68]);
 }
 
 uint64_t FromToByAnimation<>.toValue.setter(uint64_t result, char a2)
@@ -5996,6 +3852,34 @@ uint64_t (*FromToByAnimation<>.toValue.modify(uint64_t a1))(uint64_t result)
   return FromToByAnimation<>.toValue.modify;
 }
 
+{
+  *(a1 + 16) = v1;
+  if (*(v1 + 233))
+  {
+    if (*(*(v1 + 200) + 16) && (Float2ToValue = RETimelineDefinitionGetFloat2ToValue()) != 0)
+    {
+      v4 = 0;
+      v5 = *Float2ToValue;
+    }
+
+    else
+    {
+      v5 = 0;
+      v4 = 1;
+    }
+  }
+
+  else
+  {
+    v5 = *(v1 + 224);
+    v4 = *(v1 + 232);
+  }
+
+  *a1 = v5;
+  *(a1 + 8) = v4 & 1;
+  return FromToByAnimation<>.toValue.modify;
+}
+
 uint64_t FromToByAnimation<>.toValue.modify(uint64_t result)
 {
   v1 = *(result + 16);
@@ -6012,6 +3896,18 @@ uint64_t FromToByAnimation<>.byValue.getter()
 
 {
   return FromToByAnimation<>.byValue.getter(MEMORY[0x1E6998CF0]);
+}
+
+{
+  return FromToByAnimation<>.byValue.getter(MEMORY[0x1E6998D10]);
+}
+
+{
+  return FromToByAnimation<>.byValue.getter(MEMORY[0x1E6998D30]);
+}
+
+{
+  return FromToByAnimation<>.byValue.getter(MEMORY[0x1E6998D58]);
 }
 
 uint64_t FromToByAnimation<>.byValue.setter(uint64_t result, char a2)
@@ -6051,284 +3947,6 @@ uint64_t (*FromToByAnimation<>.byValue.modify(uint64_t a1))(uint64_t result)
   return FromToByAnimation<>.byValue.modify;
 }
 
-uint64_t FromToByAnimation<>.byValue.modify(uint64_t result)
-{
-  v1 = *(result + 16);
-  v2 = *(result + 8);
-  *(v1 + 240) = *result;
-  *(v1 + 248) = v2;
-  return result;
-}
-
-uint64_t FromToByAnimation<>.fromValue.getter(uint64_t (*a1)(void))
-{
-  if (*(v1 + 217))
-  {
-    if (*(*(v1 + 200) + 16))
-    {
-      result = a1(*(*(v1 + 200) + 16));
-      if (result)
-      {
-        return *result;
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    result = *(v1 + 208);
-    v3 = *(v1 + 216);
-  }
-
-  return result;
-}
-
-uint64_t key path getter for FromToByAnimation<>.fromValue : FromToByAnimation<Double>@<X0>(uint64_t result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
-{
-  if (*(result + 217))
-  {
-    result = *(*(result + 200) + 16);
-    if (result)
-    {
-      v3 = a3;
-      result = a2();
-      if (result)
-      {
-        v4 = 0;
-        v5 = *result;
-      }
-
-      else
-      {
-        v5 = 0;
-        v4 = 1;
-      }
-
-      a3 = v3;
-    }
-
-    else
-    {
-      v5 = 0;
-      v4 = 1;
-    }
-  }
-
-  else
-  {
-    v5 = *(result + 208);
-    v4 = *(result + 216);
-  }
-
-  *a3 = v5;
-  *(a3 + 8) = v4 & 1;
-  return result;
-}
-
-uint64_t (*FromToByAnimation<>.fromValue.modify(uint64_t a1))()
-{
-  *(a1 + 16) = v1;
-  if (*(v1 + 217))
-  {
-    if (*(*(v1 + 200) + 16) && (Float2FromValue = RETimelineDefinitionGetFloat2FromValue()) != 0)
-    {
-      v4 = 0;
-      v5 = *Float2FromValue;
-    }
-
-    else
-    {
-      v5 = 0;
-      v4 = 1;
-    }
-  }
-
-  else
-  {
-    v5 = *(v1 + 208);
-    v4 = *(v1 + 216);
-  }
-
-  *a1 = v5;
-  *(a1 + 8) = v4 & 1;
-  return FromToByAnimation<>.fromValue.modify;
-}
-
-uint64_t FromToByAnimation<>.toValue.getter(uint64_t (*a1)(void))
-{
-  if (*(v1 + 233))
-  {
-    if (*(*(v1 + 200) + 16))
-    {
-      result = a1(*(*(v1 + 200) + 16));
-      if (result)
-      {
-        return *result;
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    result = *(v1 + 224);
-    v3 = *(v1 + 232);
-  }
-
-  return result;
-}
-
-uint64_t key path getter for FromToByAnimation<>.toValue : FromToByAnimation<Double>@<X0>(uint64_t result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
-{
-  if (*(result + 233))
-  {
-    result = *(*(result + 200) + 16);
-    if (result)
-    {
-      v3 = a3;
-      result = a2();
-      if (result)
-      {
-        v4 = 0;
-        v5 = *result;
-      }
-
-      else
-      {
-        v5 = 0;
-        v4 = 1;
-      }
-
-      a3 = v3;
-    }
-
-    else
-    {
-      v5 = 0;
-      v4 = 1;
-    }
-  }
-
-  else
-  {
-    v5 = *(result + 224);
-    v4 = *(result + 232);
-  }
-
-  *a3 = v5;
-  *(a3 + 8) = v4 & 1;
-  return result;
-}
-
-uint64_t (*FromToByAnimation<>.toValue.modify(uint64_t a1))()
-{
-  *(a1 + 16) = v1;
-  if (*(v1 + 233))
-  {
-    if (*(*(v1 + 200) + 16) && (Float2ToValue = RETimelineDefinitionGetFloat2ToValue()) != 0)
-    {
-      v4 = 0;
-      v5 = *Float2ToValue;
-    }
-
-    else
-    {
-      v5 = 0;
-      v4 = 1;
-    }
-  }
-
-  else
-  {
-    v5 = *(v1 + 224);
-    v4 = *(v1 + 232);
-  }
-
-  *a1 = v5;
-  *(a1 + 8) = v4 & 1;
-  return FromToByAnimation<>.toValue.modify;
-}
-
-uint64_t FromToByAnimation<>.byValue.getter(uint64_t (*a1)(void))
-{
-  if (*(v1 + 249))
-  {
-    if (*(*(v1 + 200) + 16))
-    {
-      result = a1(*(*(v1 + 200) + 16));
-      if (result)
-      {
-        return *result;
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    result = *(v1 + 240);
-    v3 = *(v1 + 248);
-  }
-
-  return result;
-}
-
-uint64_t key path getter for FromToByAnimation<>.byValue : FromToByAnimation<Double>@<X0>(uint64_t result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
-{
-  if (*(result + 249))
-  {
-    result = *(*(result + 200) + 16);
-    if (result)
-    {
-      v3 = a3;
-      result = a2();
-      if (result)
-      {
-        v4 = 0;
-        v5 = *result;
-      }
-
-      else
-      {
-        v5 = 0;
-        v4 = 1;
-      }
-
-      a3 = v3;
-    }
-
-    else
-    {
-      v5 = 0;
-      v4 = 1;
-    }
-  }
-
-  else
-  {
-    v5 = *(result + 240);
-    v4 = *(result + 248);
-  }
-
-  *a3 = v5;
-  *(a3 + 8) = v4 & 1;
-  return result;
-}
-
-uint64_t (*FromToByAnimation<>.byValue.modify(uint64_t a1))()
 {
   *(a1 + 16) = v1;
   if (*(v1 + 249))
@@ -6357,17 +3975,262 @@ uint64_t (*FromToByAnimation<>.byValue.modify(uint64_t a1))()
   return FromToByAnimation<>.byValue.modify;
 }
 
-void *FromToByAnimation<>.fromValue.getter()
+uint64_t FromToByAnimation<>.byValue.modify(uint64_t result)
 {
-  return FromToByAnimation<>.fromValue.getter(MEMORY[0x1E6998D18]);
+  v1 = *(result + 16);
+  v2 = *(result + 8);
+  *(v1 + 240) = *result;
+  *(v1 + 248) = v2;
+  return result;
+}
+
+uint64_t FromToByAnimation<>.fromValue.getter(uint64_t (*a1)(void))
+{
+  if ((*(v1 + 217) & 1) == 0)
+  {
+    return *(v1 + 208);
+  }
+
+  if (!*(*(v1 + 200) + 16))
+  {
+    return 0;
+  }
+
+  result = a1(*(*(v1 + 200) + 16));
+  if (result)
+  {
+    return *result;
+  }
+
+  return result;
 }
 
 {
-  return FromToByAnimation<>.fromValue.getter(MEMORY[0x1E6998D38]);
+  if ((*(v1 + 225) & 1) == 0)
+  {
+    return *(v1 + 208);
+  }
+
+  if (!*(*(v1 + 200) + 16))
+  {
+    return 0;
+  }
+
+  result = a1(*(*(v1 + 200) + 16));
+  if (result)
+  {
+    return *result;
+  }
+
+  return result;
+}
+
+uint64_t *key path getter for FromToByAnimation<>.fromValue : FromToByAnimation<Double>@<X0>(uint64_t *result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
+{
+  if (*(result + 217))
+  {
+    result = *(result[25] + 16);
+    if (result)
+    {
+      v3 = a3;
+      result = a2();
+      if (result)
+      {
+        v4 = 0;
+        v5 = *result;
+      }
+
+      else
+      {
+        v5 = 0;
+        v4 = 1;
+      }
+
+      a3 = v3;
+    }
+
+    else
+    {
+      v5 = 0;
+      v4 = 1;
+    }
+  }
+
+  else
+  {
+    v5 = result[26];
+    v4 = *(result + 216);
+  }
+
+  *a3 = v5;
+  *(a3 + 8) = v4 & 1;
+  return result;
+}
+
+uint64_t FromToByAnimation<>.toValue.getter(uint64_t (*a1)(void))
+{
+  if ((*(v1 + 233) & 1) == 0)
+  {
+    return *(v1 + 224);
+  }
+
+  if (!*(*(v1 + 200) + 16))
+  {
+    return 0;
+  }
+
+  result = a1(*(*(v1 + 200) + 16));
+  if (result)
+  {
+    return *result;
+  }
+
+  return result;
 }
 
 {
-  return FromToByAnimation<>.fromValue.getter(MEMORY[0x1E6998D60]);
+  if ((*(v1 + 257) & 1) == 0)
+  {
+    return *(v1 + 240);
+  }
+
+  if (!*(*(v1 + 200) + 16))
+  {
+    return 0;
+  }
+
+  result = a1(*(*(v1 + 200) + 16));
+  if (result)
+  {
+    return *result;
+  }
+
+  return result;
+}
+
+uint64_t *key path getter for FromToByAnimation<>.toValue : FromToByAnimation<Double>@<X0>(uint64_t *result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
+{
+  if (*(result + 233))
+  {
+    result = *(result[25] + 16);
+    if (result)
+    {
+      v3 = a3;
+      result = a2();
+      if (result)
+      {
+        v4 = 0;
+        v5 = *result;
+      }
+
+      else
+      {
+        v5 = 0;
+        v4 = 1;
+      }
+
+      a3 = v3;
+    }
+
+    else
+    {
+      v5 = 0;
+      v4 = 1;
+    }
+  }
+
+  else
+  {
+    v5 = result[28];
+    v4 = *(result + 232);
+  }
+
+  *a3 = v5;
+  *(a3 + 8) = v4 & 1;
+  return result;
+}
+
+uint64_t FromToByAnimation<>.byValue.getter(uint64_t (*a1)(void))
+{
+  if ((*(v1 + 249) & 1) == 0)
+  {
+    return *(v1 + 240);
+  }
+
+  if (!*(*(v1 + 200) + 16))
+  {
+    return 0;
+  }
+
+  result = a1(*(*(v1 + 200) + 16));
+  if (result)
+  {
+    return *result;
+  }
+
+  return result;
+}
+
+{
+  if ((*(v1 + 289) & 1) == 0)
+  {
+    return *(v1 + 272);
+  }
+
+  if (!*(*(v1 + 200) + 16))
+  {
+    return 0;
+  }
+
+  result = a1(*(*(v1 + 200) + 16));
+  if (result)
+  {
+    return *result;
+  }
+
+  return result;
+}
+
+uint64_t *key path getter for FromToByAnimation<>.byValue : FromToByAnimation<Double>@<X0>(uint64_t *result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
+{
+  if (*(result + 249))
+  {
+    result = *(result[25] + 16);
+    if (result)
+    {
+      v3 = a3;
+      result = a2();
+      if (result)
+      {
+        v4 = 0;
+        v5 = *result;
+      }
+
+      else
+      {
+        v5 = 0;
+        v4 = 1;
+      }
+
+      a3 = v3;
+    }
+
+    else
+    {
+      v5 = 0;
+      v4 = 1;
+    }
+  }
+
+  else
+  {
+    v5 = result[30];
+    v4 = *(result + 248);
+  }
+
+  *a3 = v5;
+  *(a3 + 8) = v4 & 1;
+  return result;
 }
 
 uint64_t (*FromToByAnimation<>.fromValue.modify(uint64_t *a1))()
@@ -6503,19 +4366,6 @@ uint64_t (*FromToByAnimation<>.fromValue.modify(uint64_t *a1))()
   return FromToByAnimation<>.fromValue.modify;
 }
 
-void *FromToByAnimation<>.toValue.getter()
-{
-  return FromToByAnimation<>.toValue.getter(MEMORY[0x1E6998D20]);
-}
-
-{
-  return FromToByAnimation<>.toValue.getter(MEMORY[0x1E6998D40]);
-}
-
-{
-  return FromToByAnimation<>.toValue.getter(MEMORY[0x1E6998D68]);
-}
-
 uint64_t (*FromToByAnimation<>.toValue.modify(uint64_t *a1))()
 {
   if (MEMORY[0x1E69E7D08])
@@ -6647,19 +4497,6 @@ uint64_t (*FromToByAnimation<>.toValue.modify(uint64_t *a1))()
   *(v4 + 8) = v8;
   *(v4 + 16) = v6 & 1;
   return FromToByAnimation<>.toValue.modify;
-}
-
-void *FromToByAnimation<>.byValue.getter()
-{
-  return FromToByAnimation<>.byValue.getter(MEMORY[0x1E6998D10]);
-}
-
-{
-  return FromToByAnimation<>.byValue.getter(MEMORY[0x1E6998D30]);
-}
-
-{
-  return FromToByAnimation<>.byValue.getter(MEMORY[0x1E6998D58]);
 }
 
 uint64_t (*FromToByAnimation<>.byValue.modify(uint64_t *a1))()
@@ -6795,42 +4632,11 @@ uint64_t (*FromToByAnimation<>.byValue.modify(uint64_t *a1))()
   return FromToByAnimation<>.byValue.modify;
 }
 
-void *FromToByAnimation<>.fromValue.getter(uint64_t (*a1)(void))
-{
-  if (*(v1 + 225))
-  {
-    if (*(*(v1 + 200) + 16))
-    {
-      result = a1(*(*(v1 + 200) + 16));
-      if (result)
-      {
-        v3 = result;
-        result = *result;
-        v4 = v3[1];
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    result = *(v1 + 208);
-    v5 = *(v1 + 216);
-    v6 = *(v1 + 224);
-  }
-
-  return result;
-}
-
-uint64_t key path getter for FromToByAnimation<>.fromValue : FromToByAnimation<SIMD3<Float>>@<X0>(uint64_t result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
+uint64_t *key path getter for FromToByAnimation<>.fromValue : FromToByAnimation<SIMD3<Float>>@<X0>(uint64_t *result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
 {
   if (*(result + 225))
   {
-    result = *(*(result + 200) + 16);
+    result = *(result[25] + 16);
     if (result)
     {
       v3 = a3;
@@ -6839,7 +4645,7 @@ uint64_t key path getter for FromToByAnimation<>.fromValue : FromToByAnimation<S
       {
         v4 = 0;
         v5 = *result;
-        v6 = *(result + 8);
+        v6 = result[1];
       }
 
       else
@@ -6862,8 +4668,8 @@ uint64_t key path getter for FromToByAnimation<>.fromValue : FromToByAnimation<S
 
   else
   {
-    v5 = *(result + 208);
-    v6 = *(result + 216);
+    v5 = result[26];
+    v6 = result[27];
     v4 = *(result + 224);
   }
 
@@ -6892,42 +4698,25 @@ void FromToByAnimation<>.fromValue.modify(void **a1)
   free(v1);
 }
 
-void *FromToByAnimation<>.toValue.getter(uint64_t (*a1)(void))
 {
-  if (*(v1 + 257))
-  {
-    if (*(*(v1 + 200) + 16))
-    {
-      result = a1(*(*(v1 + 200) + 16));
-      if (result)
-      {
-        v3 = result;
-        result = *result;
-        v4 = v3[1];
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    result = *(v1 + 240);
-    v5 = *(v1 + 248);
-    v6 = *(v1 + 256);
-  }
-
-  return result;
+  v1 = *a1;
+  v2 = v1[1];
+  v3 = v1[2];
+  v4 = *(v1 + 48);
+  v5 = *(v1 + 7);
+  *(v5 + 208) = *v1;
+  *(v5 + 224) = v2;
+  *(v5 + 240) = v3;
+  *(v5 + 256) = v4;
+  *(v5 + 257) = 0;
+  free(v1);
 }
 
-uint64_t key path getter for FromToByAnimation<>.toValue : FromToByAnimation<SIMD3<Float>>@<X0>(uint64_t result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
+uint64_t *key path getter for FromToByAnimation<>.toValue : FromToByAnimation<SIMD3<Float>>@<X0>(uint64_t *result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
 {
   if (*(result + 257))
   {
-    result = *(*(result + 200) + 16);
+    result = *(result[25] + 16);
     if (result)
     {
       v3 = a3;
@@ -6936,7 +4725,7 @@ uint64_t key path getter for FromToByAnimation<>.toValue : FromToByAnimation<SIM
       {
         v4 = 0;
         v5 = *result;
-        v6 = *(result + 8);
+        v6 = result[1];
       }
 
       else
@@ -6959,8 +4748,8 @@ uint64_t key path getter for FromToByAnimation<>.toValue : FromToByAnimation<SIM
 
   else
   {
-    v5 = *(result + 240);
-    v6 = *(result + 248);
+    v5 = result[30];
+    v6 = result[31];
     v4 = *(result + 256);
   }
 
@@ -6989,42 +4778,25 @@ void FromToByAnimation<>.toValue.modify(void **a1)
   free(v1);
 }
 
-void *FromToByAnimation<>.byValue.getter(uint64_t (*a1)(void))
 {
-  if (*(v1 + 289))
-  {
-    if (*(*(v1 + 200) + 16))
-    {
-      result = a1(*(*(v1 + 200) + 16));
-      if (result)
-      {
-        v3 = result;
-        result = *result;
-        v4 = v3[1];
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    result = *(v1 + 272);
-    v5 = *(v1 + 280);
-    v6 = *(v1 + 288);
-  }
-
-  return result;
+  v1 = *a1;
+  v2 = v1[1];
+  v3 = v1[2];
+  v4 = *(v1 + 48);
+  v5 = *(v1 + 7);
+  *(v5 + 272) = *v1;
+  *(v5 + 288) = v2;
+  *(v5 + 304) = v3;
+  *(v5 + 320) = v4;
+  *(v5 + 321) = 0;
+  free(v1);
 }
 
-uint64_t key path getter for FromToByAnimation<>.byValue : FromToByAnimation<SIMD3<Float>>@<X0>(uint64_t result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
+uint64_t *key path getter for FromToByAnimation<>.byValue : FromToByAnimation<SIMD3<Float>>@<X0>(uint64_t *result@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t a3@<X8>)
 {
   if (*(result + 289))
   {
-    result = *(*(result + 200) + 16);
+    result = *(result[25] + 16);
     if (result)
     {
       v3 = a3;
@@ -7033,7 +4805,7 @@ uint64_t key path getter for FromToByAnimation<>.byValue : FromToByAnimation<SIM
       {
         v4 = 0;
         v5 = *result;
-        v6 = *(result + 8);
+        v6 = result[1];
       }
 
       else
@@ -7056,8 +4828,8 @@ uint64_t key path getter for FromToByAnimation<>.byValue : FromToByAnimation<SIM
 
   else
   {
-    v5 = *(result + 272);
-    v6 = *(result + 280);
+    v5 = result[34];
+    v6 = result[35];
     v4 = *(result + 288);
   }
 
@@ -7083,6 +4855,20 @@ void FromToByAnimation<>.byValue.modify(void **a1)
   v3 = *(v1 + 16);
   *(v2 + 272) = *v1;
   *(v2 + 288) = v3;
+  free(v1);
+}
+
+{
+  v1 = *a1;
+  v2 = v1[1];
+  v3 = v1[2];
+  v4 = *(v1 + 48);
+  v5 = *(v1 + 7);
+  *(v5 + 336) = *v1;
+  *(v5 + 352) = v2;
+  *(v5 + 368) = v3;
+  *(v5 + 384) = v4;
+  *(v5 + 385) = 0;
   free(v1);
 }
 
@@ -7181,7 +4967,7 @@ __n128 FromToByAnimation<>.fromValue.setter(uint64_t a1)
   return result;
 }
 
-void (*FromToByAnimation<>.fromValue.modify(uint64_t *a1))(void **a1, char a2)
+void (*FromToByAnimation<>.fromValue.modify(uint64_t *a1))(void **a1)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -7257,31 +5043,6 @@ void (*FromToByAnimation<>.fromValue.modify(uint64_t *a1))(void **a1, char a2)
   *(v4 + 40) = v10;
   *(v4 + 48) = v12 & 1;
   return FromToByAnimation<>.fromValue.modify;
-}
-
-void FromToByAnimation<>.fromValue.modify(void **a1, char a2)
-{
-  v2 = *a1;
-  v3 = v2[1];
-  v4 = v2[2];
-  v5 = *(v2 + 48);
-  if (a2)
-  {
-    v7 = *(v2 + 48);
-  }
-
-  else
-  {
-    v8 = *(v2 + 48);
-  }
-
-  v6 = *(v2 + 7);
-  *(v6 + 208) = *v2;
-  *(v6 + 224) = v3;
-  *(v6 + 240) = v4;
-  *(v6 + 256) = v5;
-  *(v6 + 257) = 0;
-  free(v2);
 }
 
 void FromToByAnimation<>.toValue.getter(uint64_t a1@<X8>)
@@ -7379,7 +5140,7 @@ __n128 FromToByAnimation<>.toValue.setter(uint64_t a1)
   return result;
 }
 
-void (*FromToByAnimation<>.toValue.modify(uint64_t *a1))(void **a1, char a2)
+void (*FromToByAnimation<>.toValue.modify(uint64_t *a1))(void **a1)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -7455,31 +5216,6 @@ void (*FromToByAnimation<>.toValue.modify(uint64_t *a1))(void **a1, char a2)
   *(v4 + 40) = v10;
   *(v4 + 48) = v12 & 1;
   return FromToByAnimation<>.toValue.modify;
-}
-
-void FromToByAnimation<>.toValue.modify(void **a1, char a2)
-{
-  v2 = *a1;
-  v3 = v2[1];
-  v4 = v2[2];
-  v5 = *(v2 + 48);
-  if (a2)
-  {
-    v7 = *(v2 + 48);
-  }
-
-  else
-  {
-    v8 = *(v2 + 48);
-  }
-
-  v6 = *(v2 + 7);
-  *(v6 + 272) = *v2;
-  *(v6 + 288) = v3;
-  *(v6 + 304) = v4;
-  *(v6 + 320) = v5;
-  *(v6 + 321) = 0;
-  free(v2);
 }
 
 void FromToByAnimation<>.byValue.getter(uint64_t a1@<X8>)
@@ -7577,7 +5313,7 @@ __n128 FromToByAnimation<>.byValue.setter(uint64_t a1)
   return result;
 }
 
-void (*FromToByAnimation<>.byValue.modify(uint64_t *a1))(void **a1, char a2)
+void (*FromToByAnimation<>.byValue.modify(uint64_t *a1))(void **a1)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -7655,99 +5391,71 @@ void (*FromToByAnimation<>.byValue.modify(uint64_t *a1))(void **a1, char a2)
   return FromToByAnimation<>.byValue.modify;
 }
 
-void FromToByAnimation<>.byValue.modify(void **a1, char a2)
-{
-  v2 = *a1;
-  v3 = v2[1];
-  v4 = v2[2];
-  v5 = *(v2 + 48);
-  if (a2)
-  {
-    v7 = *(v2 + 48);
-  }
-
-  else
-  {
-    v8 = *(v2 + 48);
-  }
-
-  v6 = *(v2 + 7);
-  *(v6 + 336) = *v2;
-  *(v6 + 352) = v3;
-  *(v6 + 368) = v4;
-  *(v6 + 384) = v5;
-  *(v6 + 385) = 0;
-  free(v2);
-}
-
 char *FromToByAnimation<>.jointNames.getter()
 {
   v1 = *(v0 + 280);
   if (v1)
   {
-    v2 = *(v0 + 280);
 
     return v1;
   }
 
-  v3 = *(v0 + 200);
-  if (!*(v3 + 16))
+  if (!*(*(v0 + 200) + 16))
   {
     return MEMORY[0x1E69E7CC0];
   }
 
-  v4 = *(v3 + 16);
   SkeletalPoseFromJointCount = RETimelineDefinitionGetSkeletalPoseFromJointCount();
   if (!SkeletalPoseFromJointCount)
   {
     return MEMORY[0x1E69E7CC0];
   }
 
-  v6 = SkeletalPoseFromJointCount;
+  v3 = SkeletalPoseFromJointCount;
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, SkeletalPoseFromJointCount & ~(SkeletalPoseFromJointCount >> 63), 0, MEMORY[0x1E69E7CC0]);
-  if ((v6 & 0x8000000000000000) == 0)
+  if ((v3 & 0x8000000000000000) == 0)
   {
     v1 = result;
-    v8 = 0;
+    v5 = 0;
     while (1)
     {
       SkeletalPoseFromJointName = RETimelineDefinitionGetSkeletalPoseFromJointName();
       if (SkeletalPoseFromJointName)
       {
         SkeletalPoseFromJointName = String.init(cString:)();
-        v10 = *(v1 + 2);
-        v9 = *(v1 + 3);
-        v11 = v10 + 1;
-        if (v10 >= v9 >> 1)
+        v7 = *(v1 + 2);
+        v6 = *(v1 + 3);
+        v8 = v7 + 1;
+        if (v7 >= v6 >> 1)
         {
-          v15 = v12;
+          v12 = v9;
 LABEL_13:
-          v16 = SkeletalPoseFromJointName;
-          v1 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v9 > 1), v11, 1, v1);
-          SkeletalPoseFromJointName = v16;
-          v12 = v15;
+          v13 = SkeletalPoseFromJointName;
+          v1 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v6 > 1), v8, 1, v1);
+          SkeletalPoseFromJointName = v13;
+          v9 = v12;
         }
       }
 
       else
       {
-        v10 = *(v1 + 2);
-        v9 = *(v1 + 3);
-        v11 = v10 + 1;
-        v12 = 0xE000000000000000;
-        if (v10 >= v9 >> 1)
+        v7 = *(v1 + 2);
+        v6 = *(v1 + 3);
+        v8 = v7 + 1;
+        v9 = 0xE000000000000000;
+        if (v7 >= v6 >> 1)
         {
-          v15 = 0xE000000000000000;
+          v12 = 0xE000000000000000;
           goto LABEL_13;
         }
       }
 
-      ++v8;
-      *(v1 + 2) = v11;
-      v13 = &v1[16 * v10];
-      *(v13 + 4) = SkeletalPoseFromJointName;
-      *(v13 + 5) = v12;
-      if (v6 == v8)
+      ++v5;
+      *(v1 + 2) = v8;
+      v10 = &v1[16 * v7];
+      *(v10 + 4) = SkeletalPoseFromJointName;
+      *(v10 + 5) = v9;
+      if (v3 == v5)
       {
         return v1;
       }
@@ -7760,13 +5468,12 @@ LABEL_13:
 
 uint64_t FromToByAnimation<>.jointNames.setter(uint64_t a1)
 {
-  v3 = *(v1 + 280);
 
   *(v1 + 280) = a1;
   return result;
 }
 
-uint64_t (*FromToByAnimation<>.jointNames.modify(char **a1))(uint64_t *a1, char a2)
+uint64_t (*FromToByAnimation<>.jointNames.modify(char **a1))()
 {
   a1[1] = v1;
   memcpy(v5, v1, sizeof(v5));
@@ -7778,45 +5485,40 @@ uint64_t (*FromToByAnimation<>.jointNames.modify(char **a1))(uint64_t *a1, char 
   return FromToByAnimation<>.jointNames.modify;
 }
 
-uint64_t FromToByAnimation<>.jointNames.modify(uint64_t *a1, char a2)
+uint64_t FromToByAnimation<>.jointNames.modify(void *a1, char a2)
 {
-  v3 = a1[1];
-  v2 = a1[2];
-  v4 = *a1;
+  v2 = a1[1];
+  v3 = *a1;
   if (a2)
   {
-    v5 = *a1;
 
-    *(v3 + 280) = v4;
+    *(v2 + 280) = v3;
   }
 
   else
   {
-    v7 = a1[2];
 
-    *(v3 + 280) = v4;
+    *(v2 + 280) = v3;
   }
 
   return result;
 }
 
-uint64_t FromToByAnimation<>.fromValue.getter@<X0>(void *a1@<X8>)
+uint64_t FromToByAnimation<>.fromValue.getter@<X0>(uint64_t *a1@<X8>)
 {
   v2 = *(v1 + 208);
   v3 = v2;
   if (v2 == 1)
   {
-    v4 = *(v1 + 200);
-    if (*(v4 + 16))
+    if (*(*(v1 + 200) + 16))
     {
-      v5 = a1;
-      v6 = *(v4 + 16);
+      v4 = a1;
       SkeletalPoseFromJointCount = RETimelineDefinitionGetSkeletalPoseFromJointCount();
-      if (SkeletalPoseFromJointCount && (v8 = SkeletalPoseFromJointCount, (SkeletalPoseFromValue = RETimelineDefinitionGetSkeletalPoseFromValue()) != 0))
+      if (SkeletalPoseFromJointCount && (v6 = SkeletalPoseFromJointCount, (SkeletalPoseFromValue = RETimelineDefinitionGetSkeletalPoseFromValue()) != 0))
       {
-        v10 = SkeletalPoseFromValue;
-        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo5RESRTa_Tt1g5Tm(v8, 0, &_ss23_ContiguousArrayStorageCySo5RESRTaGMd, &_ss23_ContiguousArrayStorageCySo5RESRTaGMR);
-        memcpy(v3 + 4, v10, 48 * v8);
+        v8 = SkeletalPoseFromValue;
+        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo5RESRTa_Tt1g5Tm(v6, 0, &_ss23_ContiguousArrayStorageCySo5RESRTaGMd, &_ss23_ContiguousArrayStorageCySo5RESRTaGMR, 15);
+        memcpy(v3 + 4, v8, 48 * v6);
       }
 
       else
@@ -7825,7 +5527,7 @@ uint64_t FromToByAnimation<>.fromValue.getter@<X0>(void *a1@<X8>)
       }
 
       v2 = 1;
-      a1 = v5;
+      a1 = v4;
     }
 
     else
@@ -7844,17 +5546,15 @@ uint64_t FromToByAnimation<>.fromValue.getter@<X0>(void *a1@<X8>)
   v3 = v2;
   if (v2 == 1)
   {
-    v4 = *(v1 + 200);
-    if (*(v4 + 16))
+    if (*(*(v1 + 200) + 16))
     {
-      v5 = a1;
-      v6 = *(v4 + 16);
+      v4 = a1;
       BlendShapeWeightsFromWeightCount = RETimelineDefinitionGetBlendShapeWeightsFromWeightCount();
-      if (BlendShapeWeightsFromWeightCount && (v8 = BlendShapeWeightsFromWeightCount, (BlendShapeWeightsFromValue = RETimelineDefinitionGetBlendShapeWeightsFromValue()) != 0))
+      if (BlendShapeWeightsFromWeightCount && (v6 = BlendShapeWeightsFromWeightCount, (BlendShapeWeightsFromValue = RETimelineDefinitionGetBlendShapeWeightsFromValue()) != 0))
       {
-        v10 = BlendShapeWeightsFromValue;
-        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSf_Tt1g5Tm(v8, 0, &_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
-        memcpy(v3 + 4, v10, 4 * v8);
+        v8 = BlendShapeWeightsFromValue;
+        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSf_Tt1g5Tm(v6, 0, &_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
+        memcpy(v3 + 4, v8, 4 * v6);
       }
 
       else
@@ -7863,7 +5563,7 @@ uint64_t FromToByAnimation<>.fromValue.getter@<X0>(void *a1@<X8>)
       }
 
       v2 = 1;
-      a1 = v5;
+      a1 = v4;
     }
 
     else
@@ -7885,7 +5585,7 @@ uint64_t FromToByAnimation<>.fromValue.setter(uint64_t *a1)
   return result;
 }
 
-uint64_t (*FromToByAnimation<>.fromValue.modify(void *a1))(uint64_t *a1, char a2)
+uint64_t (*FromToByAnimation<>.fromValue.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   memcpy(v4, v1, sizeof(v4));
@@ -7900,23 +5600,21 @@ uint64_t (*FromToByAnimation<>.fromValue.modify(void *a1))(uint64_t *a1, char a2
   return FromToByAnimation<>.fromValue.modify;
 }
 
-uint64_t FromToByAnimation<>.toValue.getter@<X0>(void *a1@<X8>)
+uint64_t FromToByAnimation<>.toValue.getter@<X0>(uint64_t *a1@<X8>)
 {
   v2 = *(v1 + 216);
   v3 = v2;
   if (v2 == 1)
   {
-    v4 = *(v1 + 200);
-    if (*(v4 + 16))
+    if (*(*(v1 + 200) + 16))
     {
-      v5 = a1;
-      v6 = *(v4 + 16);
+      v4 = a1;
       SkeletalPoseToJointCount = RETimelineDefinitionGetSkeletalPoseToJointCount();
-      if (SkeletalPoseToJointCount && (v8 = SkeletalPoseToJointCount, (SkeletalPoseToValue = RETimelineDefinitionGetSkeletalPoseToValue()) != 0))
+      if (SkeletalPoseToJointCount && (v6 = SkeletalPoseToJointCount, (SkeletalPoseToValue = RETimelineDefinitionGetSkeletalPoseToValue()) != 0))
       {
-        v10 = SkeletalPoseToValue;
-        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo5RESRTa_Tt1g5Tm(v8, 0, &_ss23_ContiguousArrayStorageCySo5RESRTaGMd, &_ss23_ContiguousArrayStorageCySo5RESRTaGMR);
-        memcpy(v3 + 4, v10, 48 * v8);
+        v8 = SkeletalPoseToValue;
+        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo5RESRTa_Tt1g5Tm(v6, 0, &_ss23_ContiguousArrayStorageCySo5RESRTaGMd, &_ss23_ContiguousArrayStorageCySo5RESRTaGMR, 15);
+        memcpy(v3 + 4, v8, 48 * v6);
       }
 
       else
@@ -7925,7 +5623,7 @@ uint64_t FromToByAnimation<>.toValue.getter@<X0>(void *a1@<X8>)
       }
 
       v2 = 1;
-      a1 = v5;
+      a1 = v4;
     }
 
     else
@@ -7944,17 +5642,15 @@ uint64_t FromToByAnimation<>.toValue.getter@<X0>(void *a1@<X8>)
   v3 = v2;
   if (v2 == 1)
   {
-    v4 = *(v1 + 200);
-    if (*(v4 + 16))
+    if (*(*(v1 + 200) + 16))
     {
-      v5 = a1;
-      v6 = *(v4 + 16);
+      v4 = a1;
       BlendShapeWeightsToWeightCount = RETimelineDefinitionGetBlendShapeWeightsToWeightCount();
-      if (BlendShapeWeightsToWeightCount && (v8 = BlendShapeWeightsToWeightCount, (BlendShapeWeightsToValue = RETimelineDefinitionGetBlendShapeWeightsToValue()) != 0))
+      if (BlendShapeWeightsToWeightCount && (v6 = BlendShapeWeightsToWeightCount, (BlendShapeWeightsToValue = RETimelineDefinitionGetBlendShapeWeightsToValue()) != 0))
       {
-        v10 = BlendShapeWeightsToValue;
-        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSf_Tt1g5Tm(v8, 0, &_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
-        memcpy(v3 + 4, v10, 4 * v8);
+        v8 = BlendShapeWeightsToValue;
+        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSf_Tt1g5Tm(v6, 0, &_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
+        memcpy(v3 + 4, v8, 4 * v6);
       }
 
       else
@@ -7963,7 +5659,7 @@ uint64_t FromToByAnimation<>.toValue.getter@<X0>(void *a1@<X8>)
       }
 
       v2 = 1;
-      a1 = v5;
+      a1 = v4;
     }
 
     else
@@ -7985,7 +5681,7 @@ uint64_t FromToByAnimation<>.toValue.setter(uint64_t *a1)
   return result;
 }
 
-uint64_t (*FromToByAnimation<>.toValue.modify(void *a1))(uint64_t *a1, char a2)
+uint64_t (*FromToByAnimation<>.toValue.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   memcpy(v4, v1, sizeof(v4));
@@ -8000,23 +5696,21 @@ uint64_t (*FromToByAnimation<>.toValue.modify(void *a1))(uint64_t *a1, char a2)
   return FromToByAnimation<>.toValue.modify;
 }
 
-uint64_t FromToByAnimation<>.byValue.getter@<X0>(void *a1@<X8>)
+uint64_t FromToByAnimation<>.byValue.getter@<X0>(uint64_t *a1@<X8>)
 {
   v2 = *(v1 + 224);
   v3 = v2;
   if (v2 == 1)
   {
-    v4 = *(v1 + 200);
-    if (*(v4 + 16))
+    if (*(*(v1 + 200) + 16))
     {
-      v5 = a1;
-      v6 = *(v4 + 16);
+      v4 = a1;
       SkeletalPoseByJointCount = RETimelineDefinitionGetSkeletalPoseByJointCount();
-      if (SkeletalPoseByJointCount && (v8 = SkeletalPoseByJointCount, (SkeletalPoseByValue = RETimelineDefinitionGetSkeletalPoseByValue()) != 0))
+      if (SkeletalPoseByJointCount && (v6 = SkeletalPoseByJointCount, (SkeletalPoseByValue = RETimelineDefinitionGetSkeletalPoseByValue()) != 0))
       {
-        v10 = SkeletalPoseByValue;
-        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo5RESRTa_Tt1g5Tm(v8, 0, &_ss23_ContiguousArrayStorageCySo5RESRTaGMd, &_ss23_ContiguousArrayStorageCySo5RESRTaGMR);
-        memcpy(v3 + 4, v10, 48 * v8);
+        v8 = SkeletalPoseByValue;
+        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo5RESRTa_Tt1g5Tm(v6, 0, &_ss23_ContiguousArrayStorageCySo5RESRTaGMd, &_ss23_ContiguousArrayStorageCySo5RESRTaGMR, 15);
+        memcpy(v3 + 4, v8, 48 * v6);
       }
 
       else
@@ -8025,7 +5719,7 @@ uint64_t FromToByAnimation<>.byValue.getter@<X0>(void *a1@<X8>)
       }
 
       v2 = 1;
-      a1 = v5;
+      a1 = v4;
     }
 
     else
@@ -8044,17 +5738,15 @@ uint64_t FromToByAnimation<>.byValue.getter@<X0>(void *a1@<X8>)
   v3 = v2;
   if (v2 == 1)
   {
-    v4 = *(v1 + 200);
-    if (*(v4 + 16))
+    if (*(*(v1 + 200) + 16))
     {
-      v5 = a1;
-      v6 = *(v4 + 16);
+      v4 = a1;
       BlendShapeWeightsByWeightCount = RETimelineDefinitionGetBlendShapeWeightsByWeightCount();
-      if (BlendShapeWeightsByWeightCount && (v8 = BlendShapeWeightsByWeightCount, (BlendShapeWeightsByValue = RETimelineDefinitionGetBlendShapeWeightsByValue()) != 0))
+      if (BlendShapeWeightsByWeightCount && (v6 = BlendShapeWeightsByWeightCount, (BlendShapeWeightsByValue = RETimelineDefinitionGetBlendShapeWeightsByValue()) != 0))
       {
-        v10 = BlendShapeWeightsByValue;
-        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSf_Tt1g5Tm(v8, 0, &_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
-        memcpy(v3 + 4, v10, 4 * v8);
+        v8 = BlendShapeWeightsByValue;
+        v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSf_Tt1g5Tm(v6, 0, &_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
+        memcpy(v3 + 4, v8, 4 * v6);
       }
 
       else
@@ -8063,7 +5755,7 @@ uint64_t FromToByAnimation<>.byValue.getter@<X0>(void *a1@<X8>)
       }
 
       v2 = 1;
-      a1 = v5;
+      a1 = v4;
     }
 
     else
@@ -8085,7 +5777,7 @@ uint64_t FromToByAnimation<>.byValue.setter(uint64_t *a1)
   return result;
 }
 
-uint64_t (*FromToByAnimation<>.byValue.modify(void *a1))(uint64_t *a1, char a2)
+uint64_t (*FromToByAnimation<>.byValue.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   memcpy(v4, v1, sizeof(v4));
@@ -8119,7 +5811,7 @@ uint64_t FromToByAnimation<>.isScaleAnimated.getter()
   return v1 & 1;
 }
 
-_BYTE *(*FromToByAnimation<>.isScaleAnimated.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*FromToByAnimation<>.isScaleAnimated.modify(uint64_t a1))()
 {
   *a1 = v1;
   v2 = *(v1 + 288);
@@ -8128,7 +5820,6 @@ _BYTE *(*FromToByAnimation<>.isScaleAnimated.modify(uint64_t a1))(_BYTE *result)
     if (*(*(v1 + 200) + 16))
     {
       v3 = a1;
-      v4 = *(*(v1 + 200) + 16);
       LOBYTE(v2) = RETimelineDefinitionGetSkeletalPoseScaleChannelMask();
       a1 = v3;
     }
@@ -8162,7 +5853,7 @@ uint64_t FromToByAnimation<>.isRotationAnimated.getter()
   return v1 & 1;
 }
 
-_BYTE *(*FromToByAnimation<>.isRotationAnimated.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*FromToByAnimation<>.isRotationAnimated.modify(uint64_t a1))()
 {
   *a1 = v1;
   v2 = *(v1 + 289);
@@ -8171,7 +5862,6 @@ _BYTE *(*FromToByAnimation<>.isRotationAnimated.modify(uint64_t a1))(_BYTE *resu
     if (*(*(v1 + 200) + 16))
     {
       v3 = a1;
-      v4 = *(*(v1 + 200) + 16);
       LOBYTE(v2) = RETimelineDefinitionGetSkeletalPoseRotationChannelMask();
       a1 = v3;
     }
@@ -8205,7 +5895,7 @@ uint64_t FromToByAnimation<>.isTranslationAnimated.getter()
   return v1 & 1;
 }
 
-_BYTE *(*FromToByAnimation<>.isTranslationAnimated.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*FromToByAnimation<>.isTranslationAnimated.modify(uint64_t a1))()
 {
   *a1 = v1;
   v2 = *(v1 + 290);
@@ -8214,7 +5904,6 @@ _BYTE *(*FromToByAnimation<>.isTranslationAnimated.modify(uint64_t a1))(_BYTE *r
     if (*(*(v1 + 200) + 16))
     {
       v3 = a1;
-      v4 = *(*(v1 + 200) + 16);
       LOBYTE(v2) = RETimelineDefinitionGetSkeletalPoseTranslationChannelMask();
       a1 = v3;
     }
@@ -8316,69 +6005,66 @@ char *FromToByAnimation<>.weightNames.getter()
   v1 = *(v0 + 296);
   if (v1)
   {
-    v2 = *(v0 + 296);
 
     return v1;
   }
 
-  v3 = *(v0 + 200);
-  if (!*(v3 + 16))
+  if (!*(*(v0 + 200) + 16))
   {
     return MEMORY[0x1E69E7CC0];
   }
 
-  v4 = *(v3 + 16);
   BlendShapeWeightsFromWeightCount = RETimelineDefinitionGetBlendShapeWeightsFromWeightCount();
   if (!BlendShapeWeightsFromWeightCount)
   {
     return MEMORY[0x1E69E7CC0];
   }
 
-  v6 = BlendShapeWeightsFromWeightCount;
+  v3 = BlendShapeWeightsFromWeightCount;
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, BlendShapeWeightsFromWeightCount & ~(BlendShapeWeightsFromWeightCount >> 63), 0, MEMORY[0x1E69E7CC0]);
-  if ((v6 & 0x8000000000000000) == 0)
+  if ((v3 & 0x8000000000000000) == 0)
   {
     v1 = result;
-    v8 = 0;
+    v5 = 0;
     while (1)
     {
       BlendShapeWeightsFromWeightName = RETimelineDefinitionGetBlendShapeWeightsFromWeightName();
       if (BlendShapeWeightsFromWeightName)
       {
         BlendShapeWeightsFromWeightName = String.init(cString:)();
-        v10 = *(v1 + 2);
-        v9 = *(v1 + 3);
-        v11 = v10 + 1;
-        if (v10 >= v9 >> 1)
+        v7 = *(v1 + 2);
+        v6 = *(v1 + 3);
+        v8 = v7 + 1;
+        if (v7 >= v6 >> 1)
         {
-          v15 = v12;
+          v12 = v9;
 LABEL_13:
-          v16 = BlendShapeWeightsFromWeightName;
-          v1 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v9 > 1), v11, 1, v1);
-          BlendShapeWeightsFromWeightName = v16;
-          v12 = v15;
+          v13 = BlendShapeWeightsFromWeightName;
+          v1 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v6 > 1), v8, 1, v1);
+          BlendShapeWeightsFromWeightName = v13;
+          v9 = v12;
         }
       }
 
       else
       {
-        v10 = *(v1 + 2);
-        v9 = *(v1 + 3);
-        v11 = v10 + 1;
-        v12 = 0xE000000000000000;
-        if (v10 >= v9 >> 1)
+        v7 = *(v1 + 2);
+        v6 = *(v1 + 3);
+        v8 = v7 + 1;
+        v9 = 0xE000000000000000;
+        if (v7 >= v6 >> 1)
         {
-          v15 = 0xE000000000000000;
+          v12 = 0xE000000000000000;
           goto LABEL_13;
         }
       }
 
-      ++v8;
-      *(v1 + 2) = v11;
-      v13 = &v1[16 * v10];
-      *(v13 + 4) = BlendShapeWeightsFromWeightName;
-      *(v13 + 5) = v12;
-      if (v6 == v8)
+      ++v5;
+      *(v1 + 2) = v8;
+      v10 = &v1[16 * v7];
+      *(v10 + 4) = BlendShapeWeightsFromWeightName;
+      *(v10 + 5) = v9;
+      if (v3 == v5)
       {
         return v1;
       }
@@ -8391,13 +6077,12 @@ LABEL_13:
 
 uint64_t FromToByAnimation<>.weightNames.setter(uint64_t a1)
 {
-  v3 = *(v1 + 296);
 
   *(v1 + 296) = a1;
   return result;
 }
 
-uint64_t (*FromToByAnimation<>.weightNames.modify(char **a1))(uint64_t *a1, char a2)
+uint64_t (*FromToByAnimation<>.weightNames.modify(char **a1))()
 {
   a1[1] = v1;
   memcpy(v5, v1, sizeof(v5));
@@ -8408,23 +6093,20 @@ uint64_t (*FromToByAnimation<>.weightNames.modify(char **a1))(uint64_t *a1, char
   return FromToByAnimation<>.weightNames.modify;
 }
 
-uint64_t FromToByAnimation<>.weightNames.modify(uint64_t *a1, char a2)
+uint64_t FromToByAnimation<>.weightNames.modify(void *a1, char a2)
 {
-  v3 = a1[1];
-  v2 = a1[2];
-  v4 = *a1;
+  v2 = a1[1];
+  v3 = *a1;
   if (a2)
   {
-    v5 = *a1;
 
-    *(v3 + 296) = v4;
+    *(v2 + 296) = v3;
   }
 
   else
   {
-    v7 = a1[2];
 
-    *(v3 + 296) = v4;
+    *(v2 + 296) = v3;
   }
 
   return result;
@@ -8437,7 +6119,6 @@ uint64_t FromToByAnimation<>.fromValue.modify(uint64_t *a1, char a2, void (*a3)(
   v6 = *(v5 + 208);
   if (a2)
   {
-    v7 = *a1;
 
     a3(v6);
     *(v5 + 208) = v4;
@@ -8459,7 +6140,6 @@ uint64_t FromToByAnimation<>.toValue.modify(uint64_t *a1, char a2, void (*a3)(ui
   v6 = *(v5 + 216);
   if (a2)
   {
-    v7 = *a1;
 
     a3(v6);
     *(v5 + 216) = v4;
@@ -8481,7 +6161,6 @@ uint64_t FromToByAnimation<>.byValue.modify(uint64_t *a1, char a2, void (*a3)(ui
   v6 = *(v5 + 224);
   if (a2)
   {
-    v7 = *a1;
 
     a3(v6);
     *(v5 + 224) = v4;
@@ -8577,42 +6256,42 @@ uint64_t FromToByAnimation<>.init(weightNames:name:from:to:by:duration:timing:is
   return result;
 }
 
-uint64_t outlined copy of BindTarget?(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+uint64_t outlined copy of BindTarget?(uint64_t result, uint64_t a2, unsigned __int8 a3)
 {
   if (a3 != 0xFF)
   {
-    return outlined copy of BindTarget(a1, a2, a3);
-  }
-
-  return a1;
-}
-
-uint64_t outlined copy of BindTarget(uint64_t a1, uint64_t a2, unsigned __int8 a3)
-{
-  if (a3 <= 5u && (((1 << a3) & 0x33) != 0 || a3 == 2))
-  {
+    return outlined copy of BindTarget(result, a2, a3);
   }
 
   return result;
 }
 
-uint64_t outlined consume of BindTarget?(uint64_t a1, uint64_t a2, unsigned __int8 a3)
-{
-  if (a3 != 0xFF)
-  {
-    return outlined consume of BindTarget(a1, a2, a3);
-  }
-
-  return a1;
-}
-
-uint64_t outlined consume of BindTarget(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+uint64_t outlined copy of BindTarget(uint64_t result, uint64_t a2, unsigned __int8 a3)
 {
   if (a3 <= 5u && (((1 << a3) & 0x33) != 0 || a3 == 2))
   {
   }
 
+  return v3;
+}
+
+uint64_t outlined consume of BindTarget?(uint64_t result, uint64_t a2, unsigned __int8 a3)
+{
+  if (a3 != 0xFF)
+  {
+    return outlined consume of BindTarget(result, a2, a3);
+  }
+
   return result;
+}
+
+uint64_t outlined consume of BindTarget(uint64_t result, uint64_t a2, unsigned __int8 a3)
+{
+  if (a3 <= 5u && (((1 << a3) & 0x33) != 0 || a3 == 2))
+  {
+  }
+
+  return v3;
 }
 
 char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4)

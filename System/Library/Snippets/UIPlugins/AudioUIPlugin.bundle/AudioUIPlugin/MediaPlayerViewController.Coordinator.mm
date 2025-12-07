@@ -15,28 +15,32 @@
     v11 = swift_allocObject();
     *(v11 + 16) = v8;
     v8 = sub_F16C;
-    if (!v10)
+    if (v10)
     {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
-  v11 = 0;
-  if (v9)
-  {
 LABEL_3:
-    *(swift_allocObject() + 16) = v10;
-    v10 = sub_F110;
+      v12 = swift_allocObject();
+      *(v12 + 16) = v10;
+      v10 = sub_F110;
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
+  else
+  {
+    v11 = 0;
+    if (v9)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v12 = 0;
+LABEL_6:
   controllerCopy = controller;
   selfCopy = self;
-  sub_DBC4(controllerCopy, v8, v11, v10);
-  sub_F0C8(v10);
-  sub_F0C8(v8);
+  sub_DBC4(controllerCopy, v8, v11, v10, v12);
+  sub_F0C8(v10, v12);
+  sub_F0C8(v8, v11);
 }
 
 - (_TtCV13AudioUIPluginP33_20A183E58FC9C8C577EBBC3EDCE2267625MediaPlayerViewController11Coordinator)init

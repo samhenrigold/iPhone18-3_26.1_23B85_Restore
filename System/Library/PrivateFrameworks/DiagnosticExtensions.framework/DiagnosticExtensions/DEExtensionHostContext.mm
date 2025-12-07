@@ -121,7 +121,7 @@ void __52__DEExtensionHostContext_attachmentListWithHandler___block_invoke(uint6
 
 - (void)annotatedAttachmentsForParameters:(id)parameters withHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   handlerCopy = handler;
   if ([(DEExtensionHostContext *)self hasEntitlement])
@@ -133,39 +133,37 @@ void __52__DEExtensionHostContext_attachmentListWithHandler___block_invoke(uint6
       v10 = [v8 objectForKeyedSubscript:@"DEExtensionAttachmentsParamBundleIDKey"];
       v11 = [v8 objectForKeyedSubscript:@"DEExtensionAttachmentsParamDisplayNameKey"];
       *buf = 138413058;
-      v21 = @"DEExtensionAttachmentsParamBundleIDKey";
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2112;
-      v25 = @"DEExtensionAttachmentsParamDisplayNameKey";
-      v26 = 2112;
-      v27 = v11;
+      v20 = @"DEExtensionAttachmentsParamBundleIDKey";
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2112;
+      v24 = @"DEExtensionAttachmentsParamDisplayNameKey";
+      v25 = 2112;
+      v26 = v11;
       _os_log_impl(&dword_248AB3000, v9, OS_LOG_TYPE_DEFAULT, "annotatedAttachmentsForParameters:withHandler: {%@:%@, %@:%@}", buf, 0x2Au);
     }
 
     _auxiliaryConnection = [(DEExtensionHostContext *)self _auxiliaryConnection];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __72__DEExtensionHostContext_annotatedAttachmentsForParameters_withHandler___block_invoke;
-    v18[3] = &unk_278F63688;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __72__DEExtensionHostContext_annotatedAttachmentsForParameters_withHandler___block_invoke;
+    v17[3] = &unk_278F63688;
     v13 = handlerCopy;
-    v19 = v13;
-    v14 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:v18];
+    v18 = v13;
+    v14 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:v17];
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __72__DEExtensionHostContext_annotatedAttachmentsForParameters_withHandler___block_invoke_145;
-    v16[3] = &unk_278F636B0;
-    v17 = v13;
-    [v14 annotatedAttachmentsForParameters:v8 withHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __72__DEExtensionHostContext_annotatedAttachmentsForParameters_withHandler___block_invoke_145;
+    v15[3] = &unk_278F636B0;
+    v16 = v13;
+    [v14 annotatedAttachmentsForParameters:v8 withHandler:v15];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __72__DEExtensionHostContext_annotatedAttachmentsForParameters_withHandler___block_invoke(uint64_t a1, void *a2)
@@ -182,7 +180,7 @@ void __72__DEExtensionHostContext_annotatedAttachmentsForParameters_withHandler_
 
 - (void)attachmentsForParameters:(id)parameters withProgressHandler:(id)handler withHandler:(id)withHandler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   handlerCopy = handler;
   withHandlerCopy = withHandler;
@@ -195,36 +193,36 @@ void __72__DEExtensionHostContext_annotatedAttachmentsForParameters_withHandler_
       v13 = [v11 objectForKeyedSubscript:@"DEExtensionAttachmentsParamBundleIDKey"];
       v14 = [v11 objectForKeyedSubscript:@"DEExtensionAttachmentsParamDisplayNameKey"];
       *buf = 138413058;
-      v25 = @"DEExtensionAttachmentsParamBundleIDKey";
-      v26 = 2112;
-      v27 = v13;
-      v28 = 2112;
-      v29 = @"DEExtensionAttachmentsParamDisplayNameKey";
-      v30 = 2112;
-      v31 = v14;
+      v24 = @"DEExtensionAttachmentsParamBundleIDKey";
+      v25 = 2112;
+      v26 = v13;
+      v27 = 2112;
+      v28 = @"DEExtensionAttachmentsParamDisplayNameKey";
+      v29 = 2112;
+      v30 = v14;
       _os_log_impl(&dword_248AB3000, v12, OS_LOG_TYPE_DEFAULT, "attachmentsForParameters:withProgressHandler: {%@:%@, %@:%@}", buf, 0x2Au);
     }
 
     _auxiliaryConnection = [(DEExtensionHostContext *)self _auxiliaryConnection];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __83__DEExtensionHostContext_attachmentsForParameters_withProgressHandler_withHandler___block_invoke;
-    v22[3] = &unk_278F63688;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __83__DEExtensionHostContext_attachmentsForParameters_withProgressHandler_withHandler___block_invoke;
+    v21[3] = &unk_278F63688;
     v16 = withHandlerCopy;
-    v23 = v16;
-    v17 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:v22];
+    v22 = v16;
+    v17 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:v21];
 
     [(DEExtensionHostContext *)self setProgressHandler:handlerCopy];
     objc_initWeak(buf, self);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __83__DEExtensionHostContext_attachmentsForParameters_withProgressHandler_withHandler___block_invoke_147;
-    v19[3] = &unk_278F636D8;
-    objc_copyWeak(&v21, buf);
-    v20 = v16;
-    [v17 attachmentsForParameters:v11 withHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __83__DEExtensionHostContext_attachmentsForParameters_withProgressHandler_withHandler___block_invoke_147;
+    v18[3] = &unk_278F636D8;
+    objc_copyWeak(&v20, buf);
+    v19 = v16;
+    [v17 attachmentsForParameters:v11 withHandler:v18];
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
@@ -232,8 +230,6 @@ void __72__DEExtensionHostContext_annotatedAttachmentsForParameters_withHandler_
   {
     (*(withHandlerCopy + 2))(withHandlerCopy, 0);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __83__DEExtensionHostContext_attachmentsForParameters_withProgressHandler_withHandler___block_invoke(uint64_t a1, void *a2)
@@ -348,37 +344,37 @@ void __71__DEExtensionHostContext_isExtensionEnhancedLoggingStateOnWithHandler__
 
 - (id)updatedParametersWithExtensionFileNameFromParameters:(id)parameters
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   v4 = [parametersCopy mutableCopy];
   v5 = [parametersCopy objectForKey:@"DEExtensionAttachmentsParamBundleIDKey"];
 
   if (v5)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v22 = parametersCopy;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = parametersCopy;
     v6 = [parametersCopy objectForKeyedSubscript:@"DEExtensionAttachmentsParamBundleIDKey"];
-    v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (!v7)
     {
       goto LABEL_14;
     }
 
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         v12 = SBSCopyExecutablePathForDisplayIdentifier();
         lastPathComponent = [v12 lastPathComponent];
         v14 = [v4 objectForKey:@"DEExtensionAttachmentsParamDisplayNameKey"];
@@ -414,12 +410,12 @@ LABEL_9:
 LABEL_12:
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (!v8)
       {
 LABEL_14:
 
-        parametersCopy = v22;
+        parametersCopy = v21;
         break;
       }
     }
@@ -427,68 +423,50 @@ LABEL_14:
 
   v19 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v4];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (void)hasEntitlement
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"com.apple.DiagnosticExtensions.extension";
-  _os_log_error_impl(&dword_248AB3000, log, OS_LOG_TYPE_ERROR, "Missing entitlement: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"com.apple.DiagnosticExtensions.extension";
+  _os_log_error_impl(&dword_248AB3000, log, OS_LOG_TYPE_ERROR, "Missing entitlement: %@", &v1, 0xCu);
 }
 
 void __52__DEExtensionHostContext_attachmentListWithHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling attachmentList - %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling attachmentList - %{public}@", v4, v5, v6, v7);
 }
 
 void __72__DEExtensionHostContext_annotatedAttachmentsForParameters_withHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling attachmentsForParameters: - %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling attachmentsForParameters: - %{public}@", v4, v5, v6, v7);
 }
 
 void __57__DEExtensionHostContext_setupForParameters_withHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling setupForParameters: - %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling setupForParameters: - %{public}@", v4, v5, v6, v7);
 }
 
 void __60__DEExtensionHostContext_teardownForParameters_withHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling teardownForParameters: - %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling teardownForParameters: - %{public}@", v4, v5, v6, v7);
 }
 
 void __71__DEExtensionHostContext_isExtensionEnhancedLoggingStateOnWithHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling isExtensionEnhancedLoggingStateOn: - %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_248AB3000, v2, v3, "error calling isExtensionEnhancedLoggingStateOn: - %{public}@", v4, v5, v6, v7);
 }
 
 @end

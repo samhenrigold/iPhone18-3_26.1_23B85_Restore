@@ -88,9 +88,9 @@
         [(NSMutableOrderedSet *)sandboxExtensionURLs moveObjectsAtIndexes:v8 toIndex:0];
       }
 
-      if ([(NSMutableOrderedSet *)self->_sandboxExtensionURLs count]> self->_cacheLimit)
+      if (objc_msgSend_count(self->_sandboxExtensionURLs) > self->_cacheLimit)
       {
-        [(NSMutableOrderedSet *)self->_sandboxExtensionURLs removeObjectAtIndex:[(NSMutableOrderedSet *)self->_sandboxExtensionURLs count]- 1];
+        [(NSMutableOrderedSet *)self->_sandboxExtensionURLs removeObjectAtIndex:objc_msgSend_count(self->_sandboxExtensionURLs) - 1];
       }
 
       os_unfair_lock_unlock(&self->_lock);

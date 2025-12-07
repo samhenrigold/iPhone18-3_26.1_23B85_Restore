@@ -60,12 +60,12 @@
 
 - (NSDate)timeStartedShowing
 {
-  v3 = sub_1005B981C(&qword_101A0A320);
+  v3 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_timeStartedShowing;
   swift_beginAccess();
-  sub_10000BE14(self + v6, v5, &qword_101A0A320);
+  sub_10000BE14(self + v6, v5, &qword_101A0A320, &qword_10146D650);
   v7 = type metadata accessor for Date();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -82,7 +82,7 @@
 
 - (void)setTimeStartedShowing:(id)showing
 {
-  v5 = sub_1005B981C(&qword_101A0A320);
+  v5 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (showing)
@@ -165,11 +165,12 @@
   v3 = *(self + OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_stopButtonClickedHandler);
   if (v3)
   {
+    v4 = *(self + OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_stopButtonClickedHandler + 8);
     selfCopy = self;
-    v5 = sub_10067F2EC(v3);
-    v3(v5);
+    v6 = sub_10067F2EC(v3, v4);
+    v3(v6);
 
-    sub_1000C1014(v3);
+    sub_1000C1014(v3, v4);
   }
 }
 

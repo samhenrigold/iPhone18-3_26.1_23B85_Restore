@@ -1,4 +1,5 @@
 @interface HDSPSleepSession
++ (id)sleepSessionWithDateInterval:(id)interval sleepIntervals:(id)intervals endReason:(unint64_t)reason metadata:(id)metadata requiresFirstUnlock:(BOOL)unlock;
 - (BOOL)isEqual:(id)equal;
 - (HDSPSleepSession)initWithCoder:(id)coder;
 - (HDSPSleepSession)initWithDateInterval:(id)interval sleepIntervals:(id)intervals endReason:(unint64_t)reason metadata:(id)metadata requiresFirstUnlock:(BOOL)unlock;
@@ -9,6 +10,17 @@
 @end
 
 @implementation HDSPSleepSession
+
++ (id)sleepSessionWithDateInterval:(id)interval sleepIntervals:(id)intervals endReason:(unint64_t)reason metadata:(id)metadata requiresFirstUnlock:(BOOL)unlock
+{
+  unlockCopy = unlock;
+  metadataCopy = metadata;
+  intervalsCopy = intervals;
+  intervalCopy = interval;
+  v15 = [[self alloc] initWithDateInterval:intervalCopy sleepIntervals:intervalsCopy endReason:reason metadata:metadataCopy requiresFirstUnlock:unlockCopy];
+
+  return v15;
+}
 
 - (HDSPSleepSession)initWithDateInterval:(id)interval sleepIntervals:(id)intervals endReason:(unint64_t)reason metadata:(id)metadata requiresFirstUnlock:(BOOL)unlock
 {
@@ -45,11 +57,11 @@
 
 - (HDSPSleepSession)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = HDSPSleepSession;
-  v5 = [(HDSPSleepSession *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = HDSPSleepSession;
+  v5 = [(HDSPSleepSession *)&v20 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SleepSessionDateInterval"];
@@ -57,9 +69,9 @@
     v5->_interval = v6;
 
     v8 = MEMORY[0x277CBEB98];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v10 = [v8 setWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"SleepSessionSleepIntervals"];
@@ -68,10 +80,10 @@
 
     v5->_endReason = [coderCopy decodeIntegerForKey:@"SleepSessionEndReason"];
     v13 = MEMORY[0x277CBEB98];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v22[2] = objc_opt_class();
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v21[2] = objc_opt_class();
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
     v15 = [v13 setWithArray:v14];
 
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"SleepSessionMetadata"];
@@ -82,7 +94,6 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -25,7 +25,7 @@
 
 - (void)zoneManagerDidCreateZone:(id)zone
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   workQueue = [(HMDHomeHindsightCloudShareManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -36,9 +36,9 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Notified that target zone was created", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Notified that target zone was created", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -50,13 +50,11 @@
     dataSource2 = [(HMDHomeHindsightCloudShareManager *)selfCopy dataSource];
     [dataSource2 cloudShareManagerDidCreateZone:selfCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)zoneManagerDidStart:(id)start
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   startCopy = start;
   workQueue = [(HMDHomeHindsightCloudShareManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -67,16 +65,14 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@HomeKit events zone manager started", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@HomeKit events zone manager started", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   localZone = [startCopy localZone];
   [localZone startUp];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)zoneManager:(id)manager shouldRequestShareInvitationFromUser:(id)user
@@ -133,7 +129,7 @@
 
 - (void)_synchronize
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomeHindsightCloudShareManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -150,7 +146,7 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v10;
+      v21 = v10;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Synchronizing hindsight cloud share manager by performing cloud pull", buf, 0xCu);
     }
 
@@ -162,12 +158,12 @@
     v15 = [v13 schedulerWithDispatchQueue:workQueue2];
     v16 = [v12 reschedule:v15];
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __49__HMDHomeHindsightCloudShareManager__synchronize__block_invoke;
-    v20[3] = &unk_278687CC0;
-    v20[4] = selfCopy;
-    v17 = [v16 addCompletionBlock:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __49__HMDHomeHindsightCloudShareManager__synchronize__block_invoke;
+    v19[3] = &unk_278687CC0;
+    v19[4] = selfCopy;
+    v17 = [v16 addCompletionBlock:v19];
   }
 
   else
@@ -176,20 +172,18 @@
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v18;
+      v21 = v18;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Synchronizing hindsight cloud share manager by starting zone manager", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     [(HMDHomeHindsightCloudShareManager *)selfCopy _startZoneManager];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HMDHomeHindsightCloudShareManager__synchronize__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -198,15 +192,13 @@ void __49__HMDHomeHindsightCloudShareManager__synchronize__block_invoke(uint64_t
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v10;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Finished performing cloud pull for synchronization", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Finished performing cloud pull for synchronization", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
   [*(a1 + 32) _startZoneManager];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronize
@@ -277,7 +269,7 @@ LABEL_11:
   v18 = [(HMDHomeHindsightCloudShareManager *)&v31 init];
   if (v18)
   {
-    v19 = [dCopy copy];
+    v19 = objc_msgSend_copy(dCopy);
     UUID = v18->_UUID;
     v18->_UUID = v19;
 
@@ -353,10 +345,9 @@ LABEL_11:
 
 void __48__HMDHomeHindsightCloudShareManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_264446;
-  logCategory__hmf_once_v6_264446 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_264446;
+  logCategory__hmf_once_v6_264446 = v0;
 }
 
 @end

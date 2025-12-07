@@ -8,36 +8,36 @@
 
 - (id)batchOfRecordsToWriteWithFilter:(unint64_t)filter limit:(int64_t)limit error:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v7 = [IMDMessageStore sharedInstance:filter];
   v8 = [v7 messagesPendingUpdateT1ToCloudKitWithLimit:limit];
 
-  v39 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v38 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
   recordNameToRowIDMap = self->_recordNameToRowIDMap;
   self->_recordNameToRowIDMap = v9;
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = v8;
-  v11 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v11 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v11)
   {
-    v13 = *v42;
+    v13 = *v41;
     *&v12 = 138412290;
-    v38 = v12;
+    v37 = v12;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * i);
+        v15 = *(*(&v40 + 1) + 8 * i);
         v16 = MEMORY[0x277D1AA28];
         v17 = +[IMDRecordZoneManager sharedInstance];
         updateRecordZoneID = [v17 updateRecordZoneID];
@@ -61,7 +61,7 @@
           v27 = [v15 objectForKeyedSubscript:@"MID"];
           stringValue = [v27 stringValue];
 
-          [v39 setObject:v21 forKey:stringValue];
+          [v38 setObject:v21 forKey:stringValue];
           v29 = [v15 objectForKeyedSubscript:@"ROWID"];
           recordNameToRowIDMap2 = [(IMDUpdateV1RecordStore *)self recordNameToRowIDMap];
           recordID2 = [v21 recordID];
@@ -76,8 +76,8 @@
             v33 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
             {
-              *buf = v38;
-              v46 = v15;
+              *buf = v37;
+              v45 = v15;
               _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "**** T1 Update item [%@] could not be converted to CKRecord, marking it as clean and moving on.", buf, 0xCu);
             }
           }
@@ -92,15 +92,13 @@
 LABEL_15:
       }
 
-      v11 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v11 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v11);
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v39;
+  return v38;
 }
 
 - (void)recordUpdateSucceededWithRecord:(id)record
@@ -130,7 +128,7 @@ LABEL_15:
 
 - (void)recordUpdateFailedWithID:(id)d localGUID:(id)iD error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   errorCopy = error;
@@ -140,11 +138,11 @@ LABEL_15:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       recordName = [dCopy recordName];
-      v23 = 138412546;
-      v24 = errorCopy;
-      v25 = 2112;
-      v26 = recordName;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Error %@ while writing up record %@", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = errorCopy;
+      v24 = 2112;
+      v25 = recordName;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Error %@ while writing up record %@", &v22, 0x16u);
     }
   }
 
@@ -164,17 +162,15 @@ LABEL_15:
       v20 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v23 = 138412290;
-        v24 = errorCopy;
-        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Extracted record from server error %@", &v23, 0xCu);
+        v22 = 138412290;
+        v23 = errorCopy;
+        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Extracted record from server error %@", &v22, 0xCu);
       }
     }
 
     v21 = +[IMDChatRegistry sharedInstance];
     [v21 handleMessageUpdateConflictType:@"UT1" serverRecord:v14 localRowID:v19];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

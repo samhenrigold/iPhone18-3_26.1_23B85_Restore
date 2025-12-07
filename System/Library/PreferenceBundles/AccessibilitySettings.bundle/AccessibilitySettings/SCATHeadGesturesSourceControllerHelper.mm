@@ -9,7 +9,7 @@
 {
   swift_getObjCClassMetadata();
   static SCATHeadGesturesSourceControllerHelper.specifiers()();
-  sub_1544A0(0, &qword_2B8278);
+  sub_1544A0(0, &qword_2B8278, PSSpecifier_ptr);
   v2.super.isa = sub_19C094().super.isa;
 
   return v2.super.isa;

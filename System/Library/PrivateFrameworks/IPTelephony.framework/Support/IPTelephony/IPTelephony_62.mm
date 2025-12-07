@@ -1,64 +1,3 @@
-void sub_1E50C9124(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
-{
-  if (*(v16 - 81) < 0)
-  {
-    operator delete(*(v16 - 104));
-  }
-
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::ostringstream::~ostringstream(&a16);
-  _Unwind_Resume(a1);
-}
-
-uint64_t SDPMediaFormatEVSParams::updateConfigName(uint64_t this)
-{
-  v1 = *(this + 84);
-  if (v1 == 3)
-  {
-    v3 = *(this + 56);
-    if ((v3 & 0x2000) != 0)
-    {
-      v2 = 1;
-      goto LABEL_12;
-    }
-
-    if ((~v3 & 0x9000) == 0)
-    {
-      v2 = 4;
-      goto LABEL_12;
-    }
-
-LABEL_10:
-    v2 = 255;
-    goto LABEL_12;
-  }
-
-  if (v1 != 4)
-  {
-    goto LABEL_10;
-  }
-
-  if ((~*(this + 56) & 0x2200) != 0)
-  {
-    if ((~*(this + 56) & 0x8200) == 0)
-    {
-      v2 = 3;
-      goto LABEL_12;
-    }
-
-    goto LABEL_10;
-  }
-
-  v2 = 0;
-LABEL_12:
-  *(this + 114) = v2;
-  return this;
-}
-
 void SDPMediaFormatAMRParams::~SDPMediaFormatAMRParams(void **this)
 {
   *this = &unk_1F5EF5FB8;
@@ -551,17 +490,17 @@ void sub_1E50CA618(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void XcapClient::fetchAllServices()
+void XcapClient::fetchAllServices(XcapClient *a1, uint64_t a2)
 {
-  v1 = 0;
-  memset(v0, 0, sizeof(v0));
-  XcapNodeSelector::XcapNodeSelector(v0);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  XcapNodeSelector::XcapNodeSelector(v2);
 }
 
-void sub_1E50CA720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E50CA720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x1E69235B0](v7, 0x10B2C409DA9FE99);
+  va_start(va, a13);
+  MEMORY[0x1E69235B0](v13, 0x10B2C409DA9FE99, a3, a4, a5, a6, a7);
   XcapNodeSelector::~XcapNodeSelector(va);
   _Unwind_Resume(a1);
 }
@@ -582,12 +521,11 @@ void ___ZN10XcapClient16fetchAllServicesEU13block_pointerFv9ImsResultPK16XcapDoc
   XcapDocumentSimservs::~XcapDocumentSimservs(v10);
 }
 
-void sub_1E50CA820(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E50CA820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -597,16 +535,10 @@ void sub_1E50CA820(_Unwind_Exception *a1, uint64_t a2, ...)
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   ImsResult::~ImsResult(va);
   XcapDocumentSimservs::~XcapDocumentSimservs(va1);
   _Unwind_Resume(a1);
-}
-
-void XcapClient::_queueRequest(XcapClient *this, XcapRequest *a2)
-{
-  v2 = *(this + 70);
-  v3 = a2;
-  operator new();
 }
 
 void sub_1E50CAA44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char a25)
@@ -697,10 +629,10 @@ uint64_t XcapClient::storeAppServerAuthCredentials(XcapClient *this, const SipAu
   return result;
 }
 
-void *XcapClient::operationComplete(void *a1, uint64_t a2)
+void XcapClient::operationComplete(XcapClient *a1, uint64_t a2)
 {
-  v5 = a1[56];
-  v4 = a1[57];
+  v5 = *(a1 + 56);
+  v4 = *(a1 + 57);
   if (v5 != v4)
   {
     while (1)
@@ -726,15 +658,15 @@ void *XcapClient::operationComplete(void *a1, uint64_t a2)
       }
     }
 
-    v4 = a1[57];
+    v4 = *(a1 + 57);
   }
 
   if (v5 == v4)
   {
-    std::string::basic_string[abi:ne200100]<0>(v26, kXcapLoggingFacility);
-    v22[0] = 0;
-    v25 = 0;
-    v15 = ims::debug(v26, v22);
+    std::string::basic_string[abi:ne200100]<0>(v25, kXcapLoggingFacility);
+    v21[0] = 0;
+    v24 = 0;
+    v15 = ims::debug(v25, v21);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), ": ", 2);
     *(v15 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "Session ", 8);
@@ -743,27 +675,27 @@ void *XcapClient::operationComplete(void *a1, uint64_t a2)
     *(v15 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " not found in list of sessions. Current Size: ", 46);
     *(v15 + 17) = 0;
-    MEMORY[0x1E6923370](*(v15 + 8), (a1[57] - a1[56]) >> 4);
+    MEMORY[0x1E6923370](*(v15 + 8), (*(a1 + 57) - *(a1 + 56)) >> 4);
     *(v15 + 17) = 0;
     (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v15 + 17) = 0;
-    if (v25 == 1 && v24 < 0)
+    if (v24 == 1 && v23 < 0)
     {
       operator delete(__p);
     }
 
-    if (v27 < 0)
+    if (v26 < 0)
     {
-      operator delete(v26[0]);
+      operator delete(v25[0]);
     }
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(v26, kXcapLoggingFacility);
-    v22[0] = 0;
-    v25 = 0;
-    v8 = ims::debug(v26, v22);
+    std::string::basic_string[abi:ne200100]<0>(v25, kXcapLoggingFacility);
+    v21[0] = 0;
+    v24 = 0;
+    v8 = ims::debug(v25, v21);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), ": ", 2);
     *(v8 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "Removing ", 9);
@@ -772,21 +704,21 @@ void *XcapClient::operationComplete(void *a1, uint64_t a2)
     *(v8 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), " from list of session. Current Size: ", 37);
     *(v8 + 17) = 0;
-    MEMORY[0x1E6923370](*(v8 + 8), (a1[57] - a1[56]) >> 4);
+    MEMORY[0x1E6923370](*(v8 + 8), (*(a1 + 57) - *(a1 + 56)) >> 4);
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v25 == 1 && v24 < 0)
+    if (v24 == 1 && v23 < 0)
     {
       operator delete(__p);
     }
 
-    if (v27 < 0)
+    if (v26 < 0)
     {
-      operator delete(v26[0]);
+      operator delete(v25[0]);
     }
 
-    v9 = a1[57];
+    v9 = *(a1 + 57);
     if (v5 + 2 != v9)
     {
       do
@@ -807,7 +739,7 @@ void *XcapClient::operationComplete(void *a1, uint64_t a2)
       }
 
       while (v13 != v9);
-      v9 = a1[57];
+      v9 = *(a1 + 57);
       v5 = v12;
     }
 
@@ -822,18 +754,18 @@ void *XcapClient::operationComplete(void *a1, uint64_t a2)
       v9 -= 2;
     }
 
-    a1[57] = v5;
+    *(a1 + 57) = v5;
   }
 
-  v16 = a1[70];
+  v16 = *(a1 + 70);
   if (v16)
   {
-    v17 = a1[69];
+    v17 = *(a1 + 69);
     v19 = *v17;
     v18 = v17[1];
     *(v19 + 8) = v18;
     *v18 = v19;
-    a1[70] = v16 - 1;
+    *(a1 + 70) = v16 - 1;
     v20 = v17[3];
     if (v20)
     {
@@ -843,7 +775,7 @@ void *XcapClient::operationComplete(void *a1, uint64_t a2)
     operator delete(v17);
   }
 
-  return XcapClient::_processTopRequest(a1);
+  XcapClient::_processTopRequest(a1);
 }
 
 void sub_1E50CB0AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -861,59 +793,56 @@ void sub_1E50CB0AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *XcapClient::_processTopRequest(void *this)
+void XcapClient::_processTopRequest(XcapClient *this)
 {
-  if (this[70])
+  if (*(this + 70))
   {
-    v1 = this;
-    v2 = this[69];
-    v4 = *(v2 + 16);
-    v3 = *(v2 + 24);
-    if (v3)
+    v2 = *(*(this + 69) + 24);
+    if (v2)
     {
-      atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v5 = this[52];
-    if (v5 && std::__shared_weak_count::lock(v5) && (v6 = v1[51], __p[0] = 0, __p[1] = 0, *&v13 = 0, v6))
+    v3 = *(this + 52);
+    if (v3 && std::__shared_weak_count::lock(v3) && (v4 = *(this + 51), __p[0] = 0, __p[1] = 0, *&v11 = 0, v4))
     {
-      (*(*v6 + 40))(__p);
+      (*(*v4 + 40))(__p);
     }
 
     else
     {
       __p[0] = 0;
       __p[1] = 0;
-      *&v13 = 0;
+      *&v11 = 0;
     }
 
-    v7 = v1[50];
-    if (v7)
+    v5 = *(this + 50);
+    if (v5)
     {
-      v8 = v1[49];
-      v9 = std::__shared_weak_count::lock(v7);
-      v11[1] = v9;
-      if (v9)
+      v6 = *(this + 49);
+      v7 = std::__shared_weak_count::lock(v5);
+      v9[1] = v7;
+      if (v7)
       {
-        if (v8)
+        if (v6)
         {
-          v14 = v8 + 376;
-          v15 = v9;
-          v10 = v11;
+          v12 = v6 + 376;
+          v13 = v7;
+          v8 = v9;
         }
 
         else
         {
-          v10 = &v14;
+          v8 = &v12;
         }
 
-        *v10 = 0;
-        v10[1] = 0;
-        v16 = v14;
-        v17 = v15;
-        if (v15)
+        *v8 = 0;
+        v8[1] = 0;
+        v14 = v12;
+        v15 = v13;
+        if (v13)
         {
-          atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
         }
 
         XcapSession::create();
@@ -922,8 +851,6 @@ void *XcapClient::_processTopRequest(void *this)
 
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
-
-  return this;
 }
 
 void sub_1E50CB9A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
@@ -1232,7 +1159,7 @@ void LazuliDelegate::addLazuliDelegate(LazuliDelegate *a1, uint64_t a2, NSObject
     while (1)
     {
       v14 = v13;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v15, (v13 + 32)) & 0x80) == 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v15, v13 + 32) & 0x80) == 0)
       {
         break;
       }
@@ -1245,13 +1172,13 @@ void LazuliDelegate::addLazuliDelegate(LazuliDelegate *a1, uint64_t a2, NSObject
       }
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v14 + 4, &v15.__r_.__value_.__l.__data_) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v14 + 4, &v15) & 0x80) == 0)
     {
       break;
     }
 
-    v8 = v14 + 1;
-    v13 = v14[1];
+    v8 = (v14 + 8);
+    v13 = *(v14 + 1);
     if (!v13)
     {
       goto LABEL_20;
@@ -1432,7 +1359,7 @@ void sub_1E50CC7C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void LazuliDelegate::removeLazuliDelegate(uint64_t **a1, void **a2)
+void LazuliDelegate::removeLazuliDelegate(uint64_t **a1, char *a2)
 {
   v3 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 1), a2);
   if (a1 + 2 != v3)
@@ -1508,7 +1435,7 @@ void LazuliDelegate::addChat(uint64_t a1, uint64_t a2, uint64_t *a3)
   }
 
   v21[0] = a2;
-  v8 = std::__tree<std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 32, a2);
+  v8 = std::__tree<std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 32), a2, v21);
   v10 = *a3;
   v9 = a3[1];
   if (v9)
@@ -1516,16 +1443,16 @@ void LazuliDelegate::addChat(uint64_t a1, uint64_t a2, uint64_t *a3)
     atomic_fetch_add_explicit((v9 + 16), 1uLL, memory_order_relaxed);
   }
 
-  v11 = *(v8 + 64);
-  *(v8 + 56) = v10;
-  *(v8 + 64) = v9;
+  v11 = v8[8];
+  v8[7] = v10;
+  v8[8] = v9;
   if (v11)
   {
     std::__shared_weak_count::__release_weak(v11);
   }
 }
 
-void LazuliDelegate::removeChat(uint64_t a1, void **a2)
+void LazuliDelegate::removeChat(uint64_t a1, char *a2)
 {
   v11 = 0;
   ImsLock::set(&v11, (a1 + 56), v12);
@@ -1562,7 +1489,7 @@ void LazuliDelegate::removeChat(uint64_t a1, void **a2)
   ImsLock::~ImsLock(&v11);
 }
 
-void LazuliDelegate::trackPendingBye(uint64_t a1, void **a2)
+void LazuliDelegate::trackPendingBye(uint64_t a1, uint64_t ***a2)
 {
   v9 = 0;
   ImsLock::set(&v9, (a1 + 56), v10);
@@ -1586,11 +1513,11 @@ void LazuliDelegate::trackPendingBye(uint64_t a1, void **a2)
     operator delete(v10[0]);
   }
 
-  std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1 + 120, a2);
+  std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 120), a2, a2);
   ImsLock::~ImsLock(&v9);
 }
 
-BOOL LazuliDelegate::hasPendingBye(uint64_t a1, void **a2)
+BOOL LazuliDelegate::hasPendingBye(uint64_t a1, char *a2)
 {
   v6 = 0;
   ImsLock::set(&v6, (a1 + 56), v7);
@@ -1903,7 +1830,7 @@ void __destroy_helper_block_e8_32c50_ZTSNSt3__18weak_ptrIN3ims6lazuli12ChatDeleg
 
 void LazuliDelegate::handleMessageReceivedWithCompletion(uint64_t a1, uint64_t *a2, void **a3, uint64_t a4)
 {
-  v26[4] = *MEMORY[0x1E69E9840];
+  v25[4] = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 8);
   v5 = (a1 + 16);
   if (v4 != (a1 + 16))
@@ -1923,7 +1850,7 @@ void LazuliDelegate::handleMessageReceivedWithCompletion(uint64_t a1, uint64_t *
         atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v19 = v9;
+      v18 = v9;
       if (v9)
       {
         dispatch_retain(v9);
@@ -1934,7 +1861,7 @@ void LazuliDelegate::handleMessageReceivedWithCompletion(uint64_t a1, uint64_t *
       block[2] = ___ZN14LazuliDelegate35handleMessageReceivedWithCompletionENSt3__110shared_ptrIN3ims6lazuli4ChatEEEN3xpc4dictENS0_8functionIFvvEEE_block_invoke;
       block[3] = &__block_descriptor_tmp_13_2;
       block[4] = v11;
-      v21 = v10;
+      v20 = v10;
       if (v10)
       {
         atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
@@ -1942,9 +1869,9 @@ void LazuliDelegate::handleMessageReceivedWithCompletion(uint64_t a1, uint64_t *
 
       v13 = *a2;
       v12 = a2[1];
-      v22 = v4 + 4;
-      v23 = v13;
-      v24 = v12;
+      v21 = v4 + 4;
+      v22 = v13;
+      v23 = v12;
       if (v12)
       {
         atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1962,24 +1889,24 @@ void LazuliDelegate::handleMessageReceivedWithCompletion(uint64_t a1, uint64_t *
         object = xpc_null_create();
       }
 
-      std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v26, a4);
-      IMSClientManager::callOnDestinationQueue(&v19, block);
+      std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v25, a4);
+      IMSClientManager::callOnDestinationQueue(&v18, block);
       if (v9)
       {
         dispatch_release(v9);
       }
 
-      std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v26);
+      std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v25);
       xpc_release(object);
       object = 0;
-      if (v24)
+      if (v23)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v23);
       }
 
-      if (v21)
+      if (v20)
       {
-        std::__shared_weak_count::__release_weak(v21);
+        std::__shared_weak_count::__release_weak(v20);
       }
 
       if (v10)
@@ -2021,8 +1948,6 @@ void LazuliDelegate::handleMessageReceivedWithCompletion(uint64_t a1, uint64_t *
 
     while (v16 != v5);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E50CD680(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, xpc_object_t object)
@@ -2037,7 +1962,7 @@ void sub_1E50CD680(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN14LazuliDelegate35handleMessageReceivedWithCompletionENSt3__110shared_ptrIN3ims6lazuli4ChatEEEN3xpc4dictENS0_8functionIFvvEEE_block_invoke(void *a1)
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   v2 = a1[5];
   if (v2)
   {
@@ -2049,9 +1974,9 @@ void ___ZN14LazuliDelegate35handleMessageReceivedWithCompletionENSt3__110shared_
       if (v5)
       {
         std::string::basic_string[abi:ne200100]<0>(queue, "laz.client");
-        v14[0] = 0;
-        v17 = 0;
-        v6 = ims::debug(queue, v14);
+        v13[0] = 0;
+        v16 = 0;
+        v6 = ims::debug(queue, v13);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "dispatch ", 9);
         *(v6 + 17) = 0;
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "handleMessageReceivedWithCompletion_block_invoke", 48);
@@ -2061,19 +1986,19 @@ void ___ZN14LazuliDelegate35handleMessageReceivedWithCompletionENSt3__110shared_
         (*(*v6 + 32))(v6, a1[6]);
         (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
         *(v6 + 17) = 0;
-        if (v17 == 1 && v16 < 0)
+        if (v16 == 1 && v15 < 0)
         {
           operator delete(__p);
         }
 
-        if (v19 < 0)
+        if (v18 < 0)
         {
           operator delete(queue[0]);
         }
 
         v7 = a1[8];
-        v12 = a1[7];
-        v13 = v7;
+        v11 = a1[7];
+        v12 = v7;
         if (v7)
         {
           atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -2091,12 +2016,12 @@ void ___ZN14LazuliDelegate35handleMessageReceivedWithCompletionENSt3__110shared_
           object = xpc_null_create();
         }
 
-        (*(*v5 + 24))(v5, &v12, &object);
+        (*(*v5 + 24))(v5, &v11, &object);
         xpc_release(object);
         object = 0;
-        if (v13)
+        if (v12)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v12);
         }
 
         ims::getQueue(queue);
@@ -2104,7 +2029,7 @@ void ___ZN14LazuliDelegate35handleMessageReceivedWithCompletionENSt3__110shared_
         block[1] = 1174405120;
         block[2] = ___ZN14LazuliDelegate35handleMessageReceivedWithCompletionENSt3__110shared_ptrIN3ims6lazuli4ChatEEEN3xpc4dictENS0_8functionIFvvEEE_block_invoke_2;
         block[3] = &__block_descriptor_tmp_12_2;
-        std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v21, (a1 + 10));
+        std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v20, (a1 + 10));
         v9 = queue[0];
         dispatch_async(queue[0], block);
         if (v9)
@@ -2112,14 +2037,12 @@ void ___ZN14LazuliDelegate35handleMessageReceivedWithCompletionENSt3__110shared_
           dispatch_release(v9);
         }
 
-        std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v21);
+        std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v20);
       }
 
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E50CD98C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, char a21, dispatch_object_t object, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -2471,122 +2394,120 @@ void sub_1E50CDF7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void LazuliDelegate::handleSessionReady(uint64_t a1, uint64_t a2, void **a3)
 {
-  v6 = *a2;
   if (!*a2)
   {
     goto LABEL_16;
   }
 
-  v7 = **v6;
-  if (!v8)
+  if (!v6)
   {
     goto LABEL_16;
   }
 
-  v9 = v8;
-  v10 = *(a2 + 8);
-  if (v10)
+  v7 = v6;
+  v8 = *(a2 + 8);
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  memset(&v34[1], 0, 24);
-  v33[0] = a3;
-  v33[1] = "kMlsOpaqueToken";
-  xpc::dict::object_proxy::operator xpc::object(v33, v34);
+  memset(&v32[1], 0, 24);
+  v31[0] = a3;
+  v31[1] = "kMlsOpaqueToken";
+  xpc::dict::object_proxy::operator xpc::object(v31, v32);
   __p = 0;
-  v31 = 0;
-  v32 = 0;
+  v29 = 0;
+  v30 = 0;
   xpc::dyn_cast_or_default();
-  xpc_release(v34[0]);
-  if (SHIBYTE(v34[3]) < 0)
+  xpc_release(v32[0]);
+  if (SHIBYTE(v32[3]) < 0)
   {
-    if (!v34[2])
+    if (!v32[2])
     {
 LABEL_12:
-      if (SHIBYTE(v34[3]) < 0)
+      if (SHIBYTE(v32[3]) < 0)
       {
-        operator delete(v34[1]);
+        operator delete(v32[1]);
       }
 
       goto LABEL_14;
     }
 
-    std::string::__init_copy_ctor_external(&v29, v34[1], v34[2]);
+    std::string::__init_copy_ctor_external(&v27, v32[1], v32[2]);
 LABEL_10:
-    (*(*v9 + 8))(v9, &v29);
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    (*(*v7 + 8))(v7, &v27);
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
+      operator delete(v27.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_12;
   }
 
-  if (HIBYTE(v34[3]))
+  if (HIBYTE(v32[3]))
   {
-    v29 = *&v34[1];
+    v27 = *&v32[1];
     goto LABEL_10;
   }
 
 LABEL_14:
-  if (v10)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
 LABEL_16:
-  v11 = *(a1 + 8);
-  v12 = (a1 + 16);
-  if (v11 != (a1 + 16))
+  v9 = *(a1 + 8);
+  v10 = (a1 + 16);
+  if (v9 != (a1 + 16))
   {
     do
     {
-      v13 = v11[7];
-      if (v13)
+      v11 = v9[7];
+      if (v11)
       {
-        dispatch_retain(v11[7]);
+        dispatch_retain(v9[7]);
       }
 
-      v15 = v11[8];
-      v14 = v11[9];
-      if (v14)
+      v13 = v9[8];
+      v12 = v9[9];
+      if (v12)
       {
-        atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v28 = v13;
-      if (v13)
+      v26 = v11;
+      if (v11)
       {
-        dispatch_retain(v13);
+        dispatch_retain(v11);
       }
 
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 1174405120;
       block[2] = ___ZN14LazuliDelegate18handleSessionReadyENSt3__110shared_ptrIN3ims6lazuli4ChatEEEN3xpc4dictE_block_invoke;
       block[3] = &__block_descriptor_tmp_19_1;
-      block[4] = v15;
-      v23 = v14;
+      block[4] = v13;
+      v21 = v12;
+      if (v12)
+      {
+        atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v15 = *a2;
+      v14 = *(a2 + 8);
+      v22 = v9 + 4;
+      v23 = v15;
+      v24 = v14;
       if (v14)
       {
-        atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v17 = *a2;
-      v16 = *(a2 + 8);
-      v24 = v11 + 4;
-      v25 = v17;
-      v26 = v16;
+      v16 = *a3;
+      object = v16;
       if (v16)
       {
-        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v18 = *a3;
-      object = v18;
-      if (v18)
-      {
-        xpc_retain(v18);
+        xpc_retain(v16);
       }
 
       else
@@ -2594,62 +2515,62 @@ LABEL_16:
         object = xpc_null_create();
       }
 
-      IMSClientManager::callOnDestinationQueue(&v28, block);
-      if (v13)
+      IMSClientManager::callOnDestinationQueue(&v26, block);
+      if (v11)
       {
-        dispatch_release(v13);
+        dispatch_release(v11);
       }
 
       xpc_release(object);
       object = 0;
-      if (v26)
+      if (v24)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
       }
 
-      if (v23)
+      if (v21)
       {
-        std::__shared_weak_count::__release_weak(v23);
+        std::__shared_weak_count::__release_weak(v21);
       }
 
-      if (v14)
+      if (v12)
       {
-        std::__shared_weak_count::__release_weak(v14);
+        std::__shared_weak_count::__release_weak(v12);
       }
 
-      if (v13)
+      if (v11)
       {
-        dispatch_release(v13);
+        dispatch_release(v11);
       }
 
-      v19 = v11[1];
-      if (v19)
+      v17 = v9[1];
+      if (v17)
       {
         do
         {
-          v20 = v19;
-          v19 = *v19;
+          v18 = v17;
+          v17 = *v17;
         }
 
-        while (v19);
+        while (v17);
       }
 
       else
       {
         do
         {
-          v20 = v11[2];
-          v21 = *v20 == v11;
-          v11 = v20;
+          v18 = v9[2];
+          v19 = *v18 == v9;
+          v9 = v18;
         }
 
-        while (!v21);
+        while (!v19);
       }
 
-      v11 = v20;
+      v9 = v18;
     }
 
-    while (v20 != v12);
+    while (v18 != v10);
   }
 }
 
@@ -3763,234 +3684,232 @@ void sub_1E50CF720(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void LazuliDelegate::handleGroupChatCreated(uint64_t a1, uint64_t a2, void **a3)
 {
-  v5 = *a2;
   if (!*a2)
   {
     goto LABEL_29;
   }
 
-  v6 = **v5;
-  if (!v7)
+  if (!v5)
   {
     goto LABEL_29;
   }
 
-  v8 = v7;
-  v9 = *(a2 + 8);
-  if (v9)
+  v6 = v5;
+  v7 = *(a2 + 8);
+  if (v7)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  memset(&v36[1], 0, sizeof(std::string));
+  memset(&v34[1], 0, sizeof(std::string));
   __p = a3;
-  v31 = "kConferenceFocus";
+  v29 = "kConferenceFocus";
   xpc::dict::object_proxy::operator xpc::object(&__p, object);
-  memset(v36, 0, 24);
+  memset(v34, 0, 24);
   xpc::dyn_cast_or_default();
-  if (SHIBYTE(v36[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36[0].__r_.__value_.__l.__data_);
+    operator delete(v34[0].__r_.__value_.__l.__data_);
   }
 
   xpc_release(object[0]);
-  if (SHIBYTE(v36[1].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34[1].__r_.__value_.__r.__words[2]) < 0)
   {
-    if (!v36[1].__r_.__value_.__l.__size_)
+    if (!v34[1].__r_.__value_.__l.__size_)
     {
       goto LABEL_14;
     }
 
-    std::string::__init_copy_ctor_external(&v35, v36[1].__r_.__value_.__l.__data_, v36[1].__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v33, v34[1].__r_.__value_.__l.__data_, v34[1].__r_.__value_.__l.__size_);
   }
 
   else
   {
-    if (!*(&v36[1].__r_.__value_.__s + 23))
+    if (!*(&v34[1].__r_.__value_.__s + 23))
     {
       goto LABEL_14;
     }
 
-    v35 = v36[1];
+    v33 = v34[1];
   }
 
-  (**v8)(v8, &v35);
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  (**v6)(v6, &v33);
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v35.__r_.__value_.__l.__data_);
+    operator delete(v33.__r_.__value_.__l.__data_);
   }
 
 LABEL_14:
-  memset(v36, 0, 24);
+  memset(v34, 0, 24);
   object[0] = a3;
   object[1] = "kMlsOpaqueToken";
-  xpc::dict::object_proxy::operator xpc::object(object, &v34);
+  xpc::dict::object_proxy::operator xpc::object(object, &v32);
   __p = 0;
-  v31 = 0;
-  v32 = 0;
+  v29 = 0;
+  v30 = 0;
   xpc::dyn_cast_or_default();
-  if (SHIBYTE(v32) < 0)
+  if (SHIBYTE(v30) < 0)
   {
     operator delete(__p);
   }
 
-  xpc_release(v34);
-  if (SHIBYTE(v36[0].__r_.__value_.__r.__words[2]) < 0)
+  xpc_release(v32);
+  if (SHIBYTE(v34[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    if (!v36[0].__r_.__value_.__l.__size_)
+    if (!v34[0].__r_.__value_.__l.__size_)
     {
 LABEL_23:
-      if (SHIBYTE(v36[0].__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v34[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v36[0].__r_.__value_.__l.__data_);
+        operator delete(v34[0].__r_.__value_.__l.__data_);
       }
 
       goto LABEL_25;
     }
 
-    std::string::__init_copy_ctor_external(&v29, v36[0].__r_.__value_.__l.__data_, v36[0].__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v27, v34[0].__r_.__value_.__l.__data_, v34[0].__r_.__value_.__l.__size_);
 LABEL_21:
-    (*(*v8 + 8))(v8, &v29);
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    (*(*v6 + 8))(v6, &v27);
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
+      operator delete(v27.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_23;
   }
 
-  if (*(&v36[0].__r_.__value_.__s + 23))
+  if (*(&v34[0].__r_.__value_.__s + 23))
   {
-    v29 = v36[0];
+    v27 = v34[0];
     goto LABEL_21;
   }
 
 LABEL_25:
-  if (SHIBYTE(v36[1].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34[1].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36[1].__r_.__value_.__l.__data_);
+    operator delete(v34[1].__r_.__value_.__l.__data_);
   }
 
-  if (v9)
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
 LABEL_29:
-  v10 = *(a1 + 8);
-  v11 = (a1 + 16);
-  if (v10 != (a1 + 16))
+  v8 = *(a1 + 8);
+  v9 = (a1 + 16);
+  if (v8 != (a1 + 16))
   {
     do
     {
-      v12 = v10[7];
-      if (v12)
+      v10 = v8[7];
+      if (v10)
       {
-        dispatch_retain(v10[7]);
+        dispatch_retain(v8[7]);
       }
 
-      v13 = v10[8];
-      v14 = v10[9];
-      if (v14)
-      {
-        atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v28 = v12;
+      v11 = v8[8];
+      v12 = v8[9];
       if (v12)
       {
-        dispatch_retain(v12);
+        atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v26 = v10;
+      if (v10)
+      {
+        dispatch_retain(v10);
       }
 
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 1174405120;
       block[2] = ___ZN14LazuliDelegate22handleGroupChatCreatedENSt3__110shared_ptrIN3ims6lazuli4ChatEEEN3xpc4dictE_block_invoke;
       block[3] = &__block_descriptor_tmp_34_1;
-      block[4] = v13;
-      v23 = v14;
-      if (v14)
+      block[4] = v11;
+      v21 = v12;
+      if (v12)
       {
-        atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v16 = *a2;
-      v15 = *(a2 + 8);
-      v24 = v10 + 4;
-      v25 = v16;
-      v26 = v15;
+      v14 = *a2;
+      v13 = *(a2 + 8);
+      v22 = v8 + 4;
+      v23 = v14;
+      v24 = v13;
+      if (v13)
+      {
+        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v15 = *a3;
+      v25 = v15;
       if (v15)
       {
-        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v17 = *a3;
-      v27 = v17;
-      if (v17)
-      {
-        xpc_retain(v17);
+        xpc_retain(v15);
       }
 
       else
       {
-        v27 = xpc_null_create();
+        v25 = xpc_null_create();
       }
 
-      IMSClientManager::callOnDestinationQueue(&v28, block);
-      if (v12)
+      IMSClientManager::callOnDestinationQueue(&v26, block);
+      if (v10)
       {
-        dispatch_release(v12);
+        dispatch_release(v10);
       }
 
-      xpc_release(v27);
-      v27 = 0;
-      if (v26)
+      xpc_release(v25);
+      v25 = 0;
+      if (v24)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
       }
 
-      if (v23)
+      if (v21)
       {
-        std::__shared_weak_count::__release_weak(v23);
-      }
-
-      if (v14)
-      {
-        std::__shared_weak_count::__release_weak(v14);
+        std::__shared_weak_count::__release_weak(v21);
       }
 
       if (v12)
       {
-        dispatch_release(v12);
+        std::__shared_weak_count::__release_weak(v12);
       }
 
-      v18 = v10[1];
-      if (v18)
+      if (v10)
+      {
+        dispatch_release(v10);
+      }
+
+      v16 = v8[1];
+      if (v16)
       {
         do
         {
-          v19 = v18;
-          v18 = *v18;
+          v17 = v16;
+          v16 = *v16;
         }
 
-        while (v18);
+        while (v16);
       }
 
       else
       {
         do
         {
-          v19 = v10[2];
-          v20 = *v19 == v10;
-          v10 = v19;
+          v17 = v8[2];
+          v18 = *v17 == v8;
+          v8 = v17;
         }
 
-        while (!v20);
+        while (!v18);
       }
 
-      v10 = v19;
+      v8 = v17;
     }
 
-    while (v19 != v11);
+    while (v17 != v9);
   }
 }
 
@@ -4794,38 +4713,38 @@ LABEL_25:
 
 void LazuliDelegate::handleMessageReceivedWithCompletion(LazuliDelegate *a1, void **a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   LazuliDelegate::garbageCollectExpired(a1);
-  v32[0] = 0;
-  v32[1] = 0;
-  v33 = 0;
-  v23[0] = a2;
-  v23[1] = "kConversationId";
-  xpc::dict::object_proxy::operator xpc::object(v23, object);
-  __p = 0;
-  v30 = 0;
+  v30[0] = 0;
+  v30[1] = 0;
   v31 = 0;
+  v21[0] = a2;
+  v21[1] = "kConversationId";
+  xpc::dict::object_proxy::operator xpc::object(v21, object);
+  __p = 0;
+  v28 = 0;
+  v29 = 0;
   xpc::dyn_cast_or_default();
-  if (SHIBYTE(v31) < 0)
+  if (SHIBYTE(v29) < 0)
   {
     operator delete(__p);
   }
 
   xpc_release(object[0]);
-  std::string::basic_string[abi:ne200100]<0>(v27, "MessageReceived");
-  LazuliDelegate::getChat(&__p, a1, v32, v27);
+  std::string::basic_string[abi:ne200100]<0>(v25, "MessageReceived");
+  LazuliDelegate::getChat(&__p, a1, v30, v25);
   v7 = __p;
-  v6 = v30;
-  if (v28 < 0)
+  v6 = v28;
+  if (v26 < 0)
   {
-    operator delete(v27[0]);
+    operator delete(v25[0]);
   }
 
   __p = a2;
-  v30 = "kIsGroupChat";
-  xpc::dict::object_proxy::operator xpc::object(&__p, v23);
-  v8 = xpc::dyn_cast_or_default(v23, 0);
-  xpc_release(v23[0]);
+  v28 = "kIsGroupChat";
+  xpc::dict::object_proxy::operator xpc::object(&__p, v21);
+  v8 = xpc::dyn_cast_or_default(v21, 0);
+  xpc_release(v21[0]);
   if (v7)
   {
     v9 = v8;
@@ -4837,58 +4756,58 @@ void LazuliDelegate::handleMessageReceivedWithCompletion(LazuliDelegate *a1, voi
   }
 
   {
-    v12 = v11;
+    v11 = v10;
     if (v6)
     {
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     __p = 0;
-    v30 = 0;
-    v31 = 0;
-    (*(*v11 + 16))(&__p, v11);
-    v13 = HIBYTE(v31);
-    v14 = HIBYTE(v31);
-    if (v31 < 0)
+    v28 = 0;
+    v29 = 0;
+    (*(*v10 + 16))(&__p, v10);
+    v12 = HIBYTE(v29);
+    v13 = HIBYTE(v29);
+    if (v29 < 0)
     {
-      v13 = v30;
+      v12 = v28;
     }
 
-    if (v13)
+    if (v12)
     {
-      (*(*v12 + 16))(v23, v12);
-      if (v24 >= 0)
+      (*(*v11 + 16))(v21, v11);
+      if (v22 >= 0)
       {
-        v15 = v23;
+        v14 = v21;
       }
 
       else
       {
-        v15 = v23[0];
+        v14 = v21[0];
       }
 
-      v25 = xpc_string_create(v15);
-      if (!v25)
+      v23 = xpc_string_create(v14);
+      if (!v23)
       {
-        v25 = xpc_null_create();
+        v23 = xpc_null_create();
       }
 
       object[0] = a2;
       object[1] = "kRemoteUri";
-      xpc::dict::object_proxy::operator=(object, &v25, &v26);
-      xpc_release(v26);
-      v26 = 0;
-      xpc_release(v25);
-      v25 = 0;
-      if (v24 < 0)
+      xpc::dict::object_proxy::operator=(object, &v23, &v24);
+      xpc_release(v24);
+      v24 = 0;
+      xpc_release(v23);
+      v23 = 0;
+      if (v22 < 0)
       {
-        operator delete(v23[0]);
+        operator delete(v21[0]);
       }
 
-      v14 = HIBYTE(v31);
+      v13 = HIBYTE(v29);
     }
 
-    if (v14 < 0)
+    if (v13 < 0)
     {
       operator delete(__p);
       if (v6)
@@ -4901,71 +4820,67 @@ void LazuliDelegate::handleMessageReceivedWithCompletion(LazuliDelegate *a1, voi
     {
 LABEL_25:
       std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-      v20 = v7;
-      v21 = v6;
+      v18 = v7;
+      v19 = v6;
 LABEL_27:
-      v16 = 0;
+      v15 = 0;
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
       goto LABEL_31;
     }
 
-    v20 = v7;
-    v21 = 0;
+    v18 = v7;
+    v19 = 0;
   }
 
   else
   {
-    v20 = v7;
-    v21 = v6;
+    v18 = v7;
+    v19 = v6;
     if (v6)
     {
       goto LABEL_27;
     }
   }
 
-  v16 = 1;
+  v15 = 1;
 LABEL_31:
-  v17 = *a2;
-  v19 = v17;
-  if (v17)
+  v16 = *a2;
+  v17 = v16;
+  if (v16)
   {
-    xpc_retain(v17);
+    xpc_retain(v16);
   }
 
   else
   {
-    v19 = xpc_null_create();
+    v17 = xpc_null_create();
   }
 
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v34, a3);
-  (*(*a1 + 136))(a1, &v20, &v19, v34);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v34);
-  xpc_release(v19);
-  v19 = 0;
-  if (v21)
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v32, a3);
+  (*(*a1 + 136))(a1, &v18, &v17, v32);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v32);
+  xpc_release(v17);
+  v17 = 0;
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
-  if (SHIBYTE(v33) < 0)
+  if (SHIBYTE(v31) < 0)
   {
-    operator delete(v32[0]);
-    if (v16)
+    operator delete(v30[0]);
+    if (v15)
     {
-      goto LABEL_39;
+      return;
     }
-
-    goto LABEL_38;
   }
 
-  if ((v16 & 1) == 0)
+  else if (v15)
   {
-LABEL_38:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    return;
   }
 
-LABEL_39:
-  v18 = *MEMORY[0x1E69E9840];
+  std::__shared_weak_count::__release_shared[abi:ne200100](v6);
 }
 
 void sub_1E50D112C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, uint64_t a10, uint64_t a11, xpc_object_t a12, uint64_t a13, xpc_object_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
@@ -5060,7 +4975,7 @@ void sub_1E50D139C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void LazuliDelegate::handleSessionReady(LazuliDelegate *a1, std::string::size_type a2)
+void LazuliDelegate::handleSessionReady(LazuliDelegate *a1, void **a2)
 {
   LazuliDelegate::garbageCollectExpired(a1);
   v9 = 0;
@@ -5138,36 +5053,36 @@ void sub_1E50D1FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void LazuliDelegate::handleSessionTerminated(LazuliDelegate *a1, void **a2)
 {
   LazuliDelegate::garbageCollectExpired(a1);
-  v29[0] = 0;
-  v29[1] = 0;
-  v30 = 0;
-  v20[0] = a2;
-  v20[1] = "kConversationId";
-  xpc::dict::object_proxy::operator xpc::object(v20, object);
+  v28[0] = 0;
+  v28[1] = 0;
+  v29 = 0;
+  v19[0] = a2;
+  v19[1] = "kConversationId";
+  xpc::dict::object_proxy::operator xpc::object(v19, object);
+  v25 = 0;
   v26 = 0;
   v27 = 0;
-  v28 = 0;
   xpc::dyn_cast_or_default();
-  if (SHIBYTE(v28) < 0)
+  if (SHIBYTE(v27) < 0)
   {
-    operator delete(v26);
+    operator delete(v25);
   }
 
   xpc_release(object[0]);
   std::string::basic_string[abi:ne200100]<0>(__p, "SessionTerminated");
-  LazuliDelegate::getChat(&v26, a1, v29, __p);
-  v5 = v26;
-  v4 = v27;
-  if (v25 < 0)
+  LazuliDelegate::getChat(&v25, a1, v28, __p);
+  v5 = v25;
+  v4 = v26;
+  if (v24 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v26 = a2;
-  v27 = "kUserEvictedFromGroup";
-  xpc::dict::object_proxy::operator xpc::object(&v26, v20);
-  v6 = xpc::dyn_cast_or_default(v20, 0);
-  xpc_release(v20[0]);
+  v25 = a2;
+  v26 = "kUserEvictedFromGroup";
+  xpc::dict::object_proxy::operator xpc::object(&v25, v19);
+  v6 = xpc::dyn_cast_or_default(v19, 0);
+  xpc_release(v19[0]);
   if (v5)
   {
     v7 = v6;
@@ -5179,60 +5094,60 @@ void LazuliDelegate::handleSessionTerminated(LazuliDelegate *a1, void **a2)
   }
 
   {
-    v10 = v9;
+    v9 = v8;
     if (v4)
     {
       atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
+    v25 = 0;
     v26 = 0;
     v27 = 0;
-    v28 = 0;
-    (*(*v9 + 16))(&v26, v9);
-    v11 = HIBYTE(v28);
-    v12 = HIBYTE(v28);
-    if (v28 < 0)
+    (*(*v8 + 16))(&v25, v8);
+    v10 = HIBYTE(v27);
+    v11 = HIBYTE(v27);
+    if (v27 < 0)
     {
-      v11 = v27;
+      v10 = v26;
     }
 
-    if (v11)
+    if (v10)
     {
-      (*(*v10 + 16))(v20, v10);
-      if (v21 >= 0)
+      (*(*v9 + 16))(v19, v9);
+      if (v20 >= 0)
       {
-        v13 = v20;
+        v12 = v19;
       }
 
       else
       {
-        v13 = v20[0];
+        v12 = v19[0];
       }
 
-      v22 = xpc_string_create(v13);
-      if (!v22)
+      v21 = xpc_string_create(v12);
+      if (!v21)
       {
-        v22 = xpc_null_create();
+        v21 = xpc_null_create();
       }
 
       object[0] = a2;
       object[1] = "kConferenceFocus";
-      xpc::dict::object_proxy::operator=(object, &v22, &v23);
-      xpc_release(v23);
-      v23 = 0;
+      xpc::dict::object_proxy::operator=(object, &v21, &v22);
       xpc_release(v22);
       v22 = 0;
-      if (v21 < 0)
+      xpc_release(v21);
+      v21 = 0;
+      if (v20 < 0)
       {
-        operator delete(v20[0]);
+        operator delete(v19[0]);
       }
 
-      v12 = HIBYTE(v28);
+      v11 = HIBYTE(v27);
     }
 
-    if (v12 < 0)
+    if (v11 < 0)
     {
-      operator delete(v26);
+      operator delete(v25);
       if (v4)
       {
         goto LABEL_25;
@@ -5243,60 +5158,60 @@ void LazuliDelegate::handleSessionTerminated(LazuliDelegate *a1, void **a2)
     {
 LABEL_25:
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-      v17 = v5;
-      v18 = v4;
+      v16 = v5;
+      v17 = v4;
 LABEL_27:
-      v14 = 0;
+      v13 = 0;
       atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
       goto LABEL_31;
     }
 
-    v17 = v5;
-    v18 = 0;
+    v16 = v5;
+    v17 = 0;
   }
 
   else
   {
-    v17 = v5;
-    v18 = v4;
+    v16 = v5;
+    v17 = v4;
     if (v4)
     {
       goto LABEL_27;
     }
   }
 
-  v14 = 1;
+  v13 = 1;
 LABEL_31:
-  v15 = *a2;
-  v16 = v15;
-  if (v15)
+  v14 = *a2;
+  v15 = v14;
+  if (v14)
   {
-    xpc_retain(v15);
+    xpc_retain(v14);
   }
 
   else
   {
-    v16 = xpc_null_create();
+    v15 = xpc_null_create();
   }
 
-  (*(*a1 + 48))(a1, &v17, &v16);
-  xpc_release(v16);
-  v16 = 0;
-  if (v18)
+  (*(*a1 + 48))(a1, &v16, &v15);
+  xpc_release(v15);
+  v15 = 0;
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
-  if (SHIBYTE(v30) < 0)
+  if (SHIBYTE(v29) < 0)
   {
-    operator delete(v29[0]);
-    if (v14)
+    operator delete(v28[0]);
+    if (v13)
     {
       return;
     }
   }
 
-  else if (v14)
+  else if (v13)
   {
     return;
   }
@@ -5414,40 +5329,40 @@ void sub_1E50D284C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void LazuliDelegate::handleLeaveGroupChat(LazuliDelegate *a1, void **a2)
 {
   LazuliDelegate::garbageCollectExpired(a1);
-  v38[0] = 0;
-  v38[1] = 0;
-  v39 = 0;
+  v37[0] = 0;
+  v37[1] = 0;
+  v38 = 0;
   __p[0] = a2;
   __p[1] = "kConversationId";
   xpc::dict::object_proxy::operator xpc::object(__p, object);
+  v34 = 0;
   v35 = 0;
   v36 = 0;
-  v37 = 0;
   xpc::dyn_cast_or_default();
-  if (SHIBYTE(v37) < 0)
+  if (SHIBYTE(v36) < 0)
   {
-    operator delete(v35);
+    operator delete(v34);
   }
 
   xpc_release(object[0]);
-  std::string::basic_string[abi:ne200100]<0>(v33, "LeaveGroupChat");
-  LazuliDelegate::getChat(&v35, a1, v38, v33);
-  v5 = v35;
-  v4 = v36;
-  if (v34 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v32, "LeaveGroupChat");
+  LazuliDelegate::getChat(&v34, a1, v37, v32);
+  v5 = v34;
+  v4 = v35;
+  if (v33 < 0)
   {
-    operator delete(v33[0]);
+    operator delete(v32[0]);
   }
 
-  v31 = v5;
-  v32 = v4;
+  v30 = v5;
+  v31 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v6 = *a2;
-  v30 = v6;
+  v29 = v6;
   if (v6)
   {
     xpc_retain(v6);
@@ -5455,29 +5370,29 @@ void LazuliDelegate::handleLeaveGroupChat(LazuliDelegate *a1, void **a2)
 
   else
   {
-    v30 = xpc_null_create();
+    v29 = xpc_null_create();
   }
 
-  (*(*a1 + 112))(a1, &v31, &v30);
-  xpc_release(v30);
-  v30 = 0;
-  if (v32)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
-  }
-
+  (*(*a1 + 112))(a1, &v30, &v29);
+  xpc_release(v29);
   v29 = 0;
+  if (v31)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+  }
+
+  v28 = 0;
   v7 = xpc_dictionary_create(0, 0, 0);
   v8 = v7;
   if (v7)
   {
-    v29 = v7;
+    v28 = v7;
   }
 
   else
   {
     v8 = xpc_null_create();
-    v29 = v8;
+    v28 = v8;
     if (!v8)
     {
       v9 = xpc_null_create();
@@ -5494,48 +5409,48 @@ void LazuliDelegate::handleLeaveGroupChat(LazuliDelegate *a1, void **a2)
 
   v9 = xpc_null_create();
 LABEL_19:
-  v29 = v9;
+  v28 = v9;
 LABEL_20:
   xpc_release(v8);
-  if (v39 >= 0)
+  if (v38 >= 0)
   {
-    v10 = v38;
+    v10 = v37;
   }
 
   else
   {
-    v10 = v38[0];
+    v10 = v37[0];
   }
 
-  v27 = xpc_string_create(v10);
-  if (!v27)
+  v26 = xpc_string_create(v10);
+  if (!v26)
   {
-    v27 = xpc_null_create();
+    v26 = xpc_null_create();
   }
 
-  v35 = &v29;
-  v36 = "kConversationId";
-  xpc::dict::object_proxy::operator=(&v35, &v27, &v28);
-  xpc_release(v28);
-  v28 = 0;
+  v34 = &v28;
+  v35 = "kConversationId";
+  xpc::dict::object_proxy::operator=(&v34, &v26, &v27);
   xpc_release(v27);
   v27 = 0;
-  v25 = xpc_string_create("LeaveGroup");
-  if (!v25)
-  {
-    v25 = xpc_null_create();
-  }
-
-  v35 = &v29;
-  v36 = "kReason";
-  xpc::dict::object_proxy::operator=(&v35, &v25, &v26);
   xpc_release(v26);
   v26 = 0;
+  v24 = xpc_string_create("LeaveGroup");
+  if (!v24)
+  {
+    v24 = xpc_null_create();
+  }
+
+  v34 = &v28;
+  v35 = "kReason";
+  xpc::dict::object_proxy::operator=(&v34, &v24, &v25);
   xpc_release(v25);
   v25 = 0;
+  xpc_release(v24);
+  v24 = 0;
   {
-    v18 = v5;
-    v19 = v4;
+    v17 = v5;
+    v18 = v4;
     if (!v4)
     {
       goto LABEL_47;
@@ -5544,60 +5459,60 @@ LABEL_20:
     goto LABEL_46;
   }
 
-  v13 = v12;
+  v12 = v11;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
+  v34 = 0;
   v35 = 0;
   v36 = 0;
-  v37 = 0;
-  (*(*v12 + 16))(&v35, v12);
-  v14 = HIBYTE(v37);
-  v15 = HIBYTE(v37);
-  if (v37 < 0)
+  (*(*v11 + 16))(&v34, v11);
+  v13 = HIBYTE(v36);
+  v14 = HIBYTE(v36);
+  if (v36 < 0)
   {
-    v14 = v36;
+    v13 = v35;
   }
 
-  if (v14)
+  if (v13)
   {
-    (*(*v13 + 16))(__p, v13);
-    if (v22 >= 0)
+    (*(*v12 + 16))(__p, v12);
+    if (v21 >= 0)
     {
-      v16 = __p;
+      v15 = __p;
     }
 
     else
     {
-      v16 = __p[0];
+      v15 = __p[0];
     }
 
-    v23 = xpc_string_create(v16);
-    if (!v23)
+    v22 = xpc_string_create(v15);
+    if (!v22)
     {
-      v23 = xpc_null_create();
+      v22 = xpc_null_create();
     }
 
-    object[0] = &v29;
+    object[0] = &v28;
     object[1] = "kConferenceFocus";
-    xpc::dict::object_proxy::operator=(object, &v23, &v24);
-    xpc_release(v24);
-    v24 = 0;
+    xpc::dict::object_proxy::operator=(object, &v22, &v23);
     xpc_release(v23);
     v23 = 0;
-    if (v22 < 0)
+    xpc_release(v22);
+    v22 = 0;
+    if (v21 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v15 = HIBYTE(v37);
+    v14 = HIBYTE(v36);
   }
 
-  if (v15 < 0)
+  if (v14 < 0)
   {
-    operator delete(v35);
+    operator delete(v34);
     if (v4)
     {
       goto LABEL_44;
@@ -5608,39 +5523,39 @@ LABEL_20:
   {
 LABEL_44:
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-    v18 = v5;
-    v19 = v4;
+    v17 = v5;
+    v18 = v4;
 LABEL_46:
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
     goto LABEL_47;
   }
 
-  v18 = v5;
-  v19 = 0;
+  v17 = v5;
+  v18 = 0;
 LABEL_47:
-  v17 = v29;
-  if (v29)
+  v16 = v28;
+  if (v28)
   {
-    xpc_retain(v29);
+    xpc_retain(v28);
   }
 
   else
   {
-    v17 = xpc_null_create();
+    v16 = xpc_null_create();
   }
 
-  (*(*a1 + 48))(a1, &v18, &v17);
-  xpc_release(v17);
-  v17 = 0;
-  if (v19)
+  (*(*a1 + 48))(a1, &v17, &v16);
+  xpc_release(v16);
+  v16 = 0;
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
-  xpc_release(v29);
-  if (SHIBYTE(v39) < 0)
+  xpc_release(v28);
+  if (SHIBYTE(v38) < 0)
   {
-    operator delete(v38[0]);
+    operator delete(v37[0]);
   }
 
   if (v4)
@@ -6915,11 +6830,11 @@ uint64_t *std::__tree<std::__value_type<std::string,DelegateInfo>,std::__map_val
   return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<ims::lazuli::Chat>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, __int128 **a3)
 {
-  v3 = (a1 + 8);
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1 + 1;
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_7;
   }
@@ -6928,45 +6843,45 @@ uint64_t std::__tree<std::__value_type<std::string,std::weak_ptr<ims::lazuli::Ch
   {
     while (1)
     {
-      v5 = v2;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (v2 + 32)) & 0x80) == 0)
+      v6 = v3;
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v3 + 32) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v5;
-      v3 = v5;
-      if (!*v5)
+      v3 = *v6;
+      v4 = v6;
+      if (!*v6)
       {
         goto LABEL_7;
       }
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5 + 4, a2) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v6 + 4, a2) & 0x80) == 0)
     {
       break;
     }
 
-    v3 = v5 + 1;
-    v2 = v5[1];
-    if (!v2)
+    v4 = (v6 + 1);
+    v3 = v6[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 
-  if (!*v3)
+  if (!*v4)
   {
 LABEL_7:
     operator new();
   }
 
-  return *v3;
+  return *v4;
 }
 
-void sub_1E50D49E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E50D49E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7079,78 +6994,78 @@ void IBIResultDomain::~IBIResultDomain(void **this)
 
 uint64_t IBIResultDomain::textForResultCode@<X0>(uint64_t a1@<X1>, _BYTE *a2@<X8>)
 {
-  v21 = 0;
-  v19 = 0u;
-  memset(v20, 0, sizeof(v20));
-  *__p = 0u;
+  v20 = 0;
   v18 = 0u;
-  v15 = 0u;
-  *__src = 0u;
-  v13 = 0u;
+  memset(v19, 0, sizeof(v19));
+  *__p = 0u;
+  v17 = 0u;
   v14 = 0u;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-  v5 = asString();
-  v6 = strlen(v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, v5, v6);
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, " (", 2);
-  v8 = MEMORY[0x1E6923340](v7, a1);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ")", 1);
-  if ((BYTE8(v19) & 0x10) != 0)
+  *__src = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
+  v4 = asString();
+  v5 = strlen(v4);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v12, v4, v5);
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v12, " (", 2);
+  v7 = MEMORY[0x1E6923340](v6, a1);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ")", 1);
+  if ((BYTE8(v18) & 0x10) != 0)
   {
-    v10 = v19;
-    if (v19 < __src[1])
+    v9 = v18;
+    if (v18 < __src[1])
     {
-      *&v19 = __src[1];
-      v10 = __src[1];
+      *&v18 = __src[1];
+      v9 = __src[1];
     }
 
-    v11 = __src[0];
+    v10 = __src[0];
   }
 
   else
   {
-    if ((BYTE8(v19) & 8) == 0)
+    if ((BYTE8(v18) & 8) == 0)
     {
-      v9 = 0;
+      v8 = 0;
       a2[23] = 0;
       goto LABEL_14;
     }
 
-    v11 = *(&v14 + 1);
-    v10 = *(&v15 + 1);
+    v10 = *(&v13 + 1);
+    v9 = *(&v14 + 1);
   }
 
-  v9 = v10 - v11;
-  if ((v10 - v11) >= 0x7FFFFFFFFFFFFFF8)
+  v8 = v9 - v10;
+  if ((v9 - v10) >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v9 >= 0x17)
+  if (v8 >= 0x17)
   {
     operator new();
   }
 
-  a2[23] = v9;
-  if (v9)
+  a2[23] = v8;
+  if (v8)
   {
-    memmove(a2, v11, v9);
+    memmove(a2, v10, v8);
   }
 
 LABEL_14:
-  a2[v9] = 0;
-  *&v13 = *MEMORY[0x1E69E54E8];
-  *(&v13 + *(v13 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  *(&v13 + 1) = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v18) < 0)
+  a2[v8] = 0;
+  *&v12 = *MEMORY[0x1E69E54E8];
+  *(&v12 + *(v12 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v12 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v17) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v13 + 1) = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v14);
+  *(&v12 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v13);
   std::ostream::~ostream();
-  return MEMORY[0x1E6923510](v20);
+  return MEMORY[0x1E6923510](v19);
 }
 
 void sub_1E50D514C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -7189,7 +7104,7 @@ void XcapDocumentOIP::XcapDocumentOIP(XcapDocumentOIP *this)
 {
   v3 = 0;
   v4 = &v3;
-  v2 = (std::__tree<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::__map_value_compare<XcapNs::nsType,std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::less<XcapNs::nsType>,true>,std::allocator<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>>>::__emplace_unique_key_args<XcapNs::nsType,std::piecewise_construct_t const&,std::tuple<XcapNs::nsType const&>,std::tuple<>>(&XcapNs::_allNamespaces, &v3) + 5);
+  v2 = (std::__tree<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::__map_value_compare<XcapNs::nsType,std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::less<XcapNs::nsType>,true>,std::allocator<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>>>::__emplace_unique_key_args<XcapNs::nsType,std::piecewise_construct_t const&,std::tuple<XcapNs::nsType const&>,std::tuple<>>(&XcapNs::_allNamespaces, &v3, &std::piecewise_construct, &v4) + 5);
   *this = &unk_1F5ED5818;
   bambi::XmlTreeItem::XmlTreeItem(this + 8, &XcapDocumentOIP::kName, v2);
   *(this + 8) = &XcapDocumentOIP::kName;
@@ -7316,11 +7231,11 @@ void XcapDocumentOIP::~XcapDocumentOIP(void **this)
   JUMPOUT(0x1E69235B0);
 }
 
-void sub_1E50D5844(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E50D5844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<bambi::XmlParserNamespace>::__destroy_vector::operator()[abi:ne200100](va);
-  MEMORY[0x1E69235B0](v2, v3);
+  MEMORY[0x1E69235B0](v3, v4);
   _Unwind_Resume(a1);
 }
 
@@ -7331,7 +7246,7 @@ void non-virtual thunk toXcapDocumentOIP::~XcapDocumentOIP(void **this)
   JUMPOUT(0x1E69235B0);
 }
 
-_BYTE *ims::toString<DscpClass>@<X0>(_DWORD *a1@<X0>, _BYTE *a2@<X8>)
+void *ims::toString<DscpClass>@<X0>(_DWORD *a1@<X0>, void *a2@<X8>)
 {
   HIDWORD(v5) = *a1;
   LODWORD(v5) = *a1;
@@ -7491,7 +7406,7 @@ int *ImsServiceClass::ImsServiceClass(int *a1, uint64_t a2, uint64_t a3)
                           }
 
                           v129 = &unk_1F5EF36B0;
-                          ims::CFString::asString(v27, 0x8000100, &__p);
+                          ims::CFString::asString(&__p, v27, 0x8000100);
                           ims::CFType::~CFType(&v129);
                           std::string::basic_string[abi:ne200100]<0>(v28, "CS6");
                           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -8190,7 +8105,7 @@ LABEL_206:
   return a1;
 }
 
-void sub_1E50D63D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
+void sub_1E50D63D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
 {
   ims::CFType::~CFType(&a13);
   if (a20 < 0)
@@ -9813,7 +9728,7 @@ LABEL_378:
                 {
                   if (v105 != v104[10] && SipUri::isEmergencyUrn((v105 + 8)) && SipUri::getEmergencySubservice((v105 + 8)) != 6)
                   {
-                    SipUri::asString(v105 + 8, &v235);
+                    SipUri::asString(v105 + 8, 2, &v235);
                     if (v236.__r_.__value_.__s.__data_[7] >= 0)
                     {
                       v106 = &v235;

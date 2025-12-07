@@ -3,6 +3,7 @@
 - (BOOL)shouldCreateLinkForNRUUID:(id)d;
 - (id)initManagerWithQueue:(id)queue managerDelegate:(id)delegate;
 - (void)reportEvent:(unsigned int)event details:(id)details;
+- (void)reportEvent:(unsigned int)event detailsFormat:(id)format;
 @end
 
 @implementation NRLinkManager
@@ -120,6 +121,15 @@ LABEL_4:
   return self;
 }
 
+- (void)reportEvent:(unsigned int)event detailsFormat:(id)format
+{
+  v4 = *&event;
+  formatCopy = format;
+  v7 = [[NSString alloc] initWithFormat:formatCopy arguments:&v8];
+
+  [(NRLinkManager *)self reportEvent:v4 details:v7];
+}
+
 - (void)reportEvent:(unsigned int)event details:(id)details
 {
   detailsCopy = details;
@@ -138,36 +148,38 @@ LABEL_4:
 
     if (IsLevelEnabled)
     {
-      goto LABEL_9;
-    }
-
-    goto LABEL_10;
-  }
-
-  dispatch_assert_queue_V2(queueCopy);
-  if (!delegateCopy)
-  {
-    v15 = sub_1000E7D20();
-    v16 = _NRLogIsLevelEnabled();
-
-    if (v16)
-    {
-LABEL_9:
-      v17 = sub_1000E7D20();
-      _NRLogWithArgs();
+      v15 = sub_1000E7D20();
+      _NRLogWithArgs(v15, 17, "%s called with null queue");
+LABEL_10:
 
       selfCopy = 0;
       goto LABEL_5;
     }
 
-LABEL_10:
+LABEL_11:
     selfCopy = 0;
     goto LABEL_5;
   }
 
-  v23.receiver = self;
-  v23.super_class = NRLinkManager;
-  v9 = [(NRLinkManager *)&v23 init];
+  dispatch_assert_queue_V2(queueCopy);
+  if (!delegateCopy)
+  {
+    v16 = sub_1000E7D20();
+    v17 = _NRLogIsLevelEnabled();
+
+    if (v17)
+    {
+      v15 = sub_1000E7D20();
+      _NRLogWithArgs(v15, 17, "%s called with null managerDelegate");
+      goto LABEL_10;
+    }
+
+    goto LABEL_11;
+  }
+
+  v25.receiver = self;
+  v25.super_class = NRLinkManager;
+  v9 = [(NRLinkManager *)&v25 init];
   if (!v9)
   {
     v18 = sub_1000E7D20();
@@ -176,14 +188,14 @@ LABEL_10:
     if (v19)
     {
       v20 = sub_1000E7D20();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v20, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRLinkManager initManagerWithQueue:managerDelegate:]"", 19);
     }
 
-    _os_log_pack_size();
-    v21 = *__error();
-    v22 = _os_log_pack_fill();
-    *v22 = 136446210;
-    *(v22 + 4) = "[NRLinkManager initManagerWithQueue:managerDelegate:]";
+    v21 = _os_log_pack_size();
+    v22 = __error();
+    v23 = _os_log_pack_fill(&v24 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0), v21, *v22, &_mh_execute_header, "%{public}s [super init] failed");
+    *v23 = 136446210;
+    *(v23 + 4) = "[NRLinkManager initManagerWithQueue:managerDelegate:]";
     sub_1000E7D20();
     _NRLogAbortWithPack();
   }

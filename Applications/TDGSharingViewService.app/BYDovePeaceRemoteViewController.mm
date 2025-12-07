@@ -30,7 +30,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_10001EC88(context, v6, v7);
-  sub_100009ED0(v6);
+  sub_100009ED0(v6, v7);
 }
 
 - (void)configureWithContext:(id)context completion:(id)completion
@@ -38,14 +38,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_100021780;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_10001FE40(context, v6);
-  sub_100009ED0(v6);
+  sub_100009ED0(v6, v7);
 }
 
 - (void)viewDidLoad
@@ -57,7 +63,7 @@
 - (void)_willAppearInRemoteViewController
 {
   selfCopy = self;
-  sub_100020374();
+  sub_100020374(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear

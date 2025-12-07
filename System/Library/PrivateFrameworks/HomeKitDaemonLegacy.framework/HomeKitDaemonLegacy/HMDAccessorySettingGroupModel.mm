@@ -19,20 +19,18 @@
 
 void __43__HMDAccessorySettingGroupModel_properties__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"name";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"name";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = properties__properties_147955;
   properties__properties_147955 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)schemaHashRoot
 {
-  v2 = [@"4E347E70-4576-4D21-B00D-A0054A1889A4" copy];
+  v2 = objc_msgSend_copy(@"4E347E70-4576-4D21-B00D-A0054A1889A4", a2);
 
   return v2;
 }

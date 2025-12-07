@@ -11,21 +11,21 @@
   v5 = v4;
   if (!v4)
   {
-    v7 = sub_1000104FC();
+    v7 = sub_1000104FC(0);
     if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
     *buf = 0;
-    v12 = "The Managed Background Assets defaults suite is unavailable.";
+    v13 = "The Managed Background Assets defaults suite is unavailable.";
 LABEL_14:
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v12, buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v13, buf, 2u);
     goto LABEL_15;
   }
 
   v6 = [v4 URLForKey:@"MBAURLOverride"];
-  v7 = sub_1000104FC();
+  v7 = sub_1000104FC(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (!v6)
   {
@@ -35,18 +35,18 @@ LABEL_14:
     }
 
     *buf = 0;
-    v12 = "No development override is set.";
+    v13 = "No development override is set.";
     goto LABEL_14;
   }
 
   if (v8)
   {
     *buf = 138543362;
-    v27 = v6;
+    v31 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "A development-override URL, “%{public}@”, is set.", buf, 0xCu);
   }
 
-  if ((os_variant_has_internal_content() & 1) != 0 || [recordCopy isProfileValidated] && !objc_msgSend(recordCopy, "isBeta"))
+  if ((os_variant_has_internal_content() & 1) != 0 || (v15 = [recordCopy isProfileValidated], v15) && (v15 = objc_msgSend(recordCopy, "isBeta"), !v15))
   {
     host = [v6 host];
 
@@ -54,71 +54,71 @@ LABEL_14:
     {
       v7 = v6;
 LABEL_8:
-      v10 = [recordCopy platform] - 1;
-      if (v10 > 0xB)
+      v11 = [recordCopy platform] - 1;
+      if (v11 > 0xB)
       {
-        v11 = 0;
+        v12 = 0;
       }
 
       else
       {
-        v11 = off_10007A1C0[v10];
+        v12 = off_10007A1C0[v11];
       }
 
-      v19 = [NSURLComponents componentsWithURL:v7 resolvingAgainstBaseURL:1];
-      [v19 setPath:@"/manifest"];
-      v20 = [NSURLQueryItem queryItemWithName:@"platform" value:v11];
-      v25 = v20;
-      v21 = [NSArray arrayWithObjects:&v25 count:1];
-      [v19 setQueryItems:v21];
+      v23 = [NSURLComponents componentsWithURL:v7 resolvingAgainstBaseURL:1];
+      [v23 setPath:@"/manifest"];
+      v24 = [NSURLQueryItem queryItemWithName:@"platform" value:v12];
+      v29 = v24;
+      v25 = [NSArray arrayWithObjects:&v29 count:1];
+      [v23 setQueryItems:v25];
 
-      v13 = [v19 URL];
+      v14 = [v23 URL];
 
       goto LABEL_29;
     }
 
-    v16 = sub_1000104FC();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_1000104FC(v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v27 = v6;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "The development-override URL “%{public}@” lacks a host component; reinterpreting it as a string and constructing a URL explicitly…", buf, 0xCu);
+      v31 = v6;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "The development-override URL “%{public}@” lacks a host component; reinterpreting it as a string and constructing a URL explicitly…", buf, 0xCu);
     }
 
     v7 = [v5 stringForKey:@"MBAURLOverride"];
     if (v7)
     {
-      v17 = [NSURL URLWithString:v7];
+      v19 = [NSURL URLWithString:v7];
 
-      if (v17)
+      if (v19)
       {
-        host2 = [v17 host];
+        host2 = [v19 host];
 
         if (host2)
         {
 
-          v7 = v17;
+          v7 = v19;
           goto LABEL_8;
         }
 
-        v24 = sub_1000104FC();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v28 = sub_1000104FC(v22);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v27 = v17;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "The development-override URL “%{public}@” lacks a host component.", buf, 0xCu);
+          v31 = v19;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "The development-override URL “%{public}@” lacks a host component.", buf, 0xCu);
         }
 
-        v6 = v17;
+        v6 = v19;
       }
 
       else
       {
-        v6 = sub_1000104FC();
+        v6 = sub_1000104FC(v20);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v27 = v7;
+          v31 = v7;
           _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "The string “%{public}@” couldn’t be converted into a URL.", buf, 0xCu);
         }
       }
@@ -126,33 +126,33 @@ LABEL_8:
 
     else
     {
-      v23 = sub_1000104FC();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_1000104FC(0);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "The the development-override URL’s value couldn’t be interpreted as a string.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "The the development-override URL’s value couldn’t be interpreted as a string.", buf, 2u);
       }
     }
 
 LABEL_15:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_29;
   }
 
-  v14 = sub_1000104FC();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_1000104FC(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     applicationIdentifier = [recordCopy applicationIdentifier];
     *buf = 138543362;
-    v27 = applicationIdentifier;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Development overrides aren’t permitted for the application with the identifier “%{public}@”.", buf, 0xCu);
+    v31 = applicationIdentifier;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Development overrides aren’t permitted for the application with the identifier “%{public}@”.", buf, 0xCu);
   }
 
-  v13 = 0;
+  v14 = 0;
   v7 = v6;
 LABEL_29:
 
-  return v13;
+  return v14;
 }
 
 @end

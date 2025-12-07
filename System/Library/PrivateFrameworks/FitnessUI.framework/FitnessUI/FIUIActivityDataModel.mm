@@ -34,40 +34,40 @@
   return v3;
 }
 
-uint64_t __39__FIUIActivityDataModel_idealizedModel__block_invoke()
+uint64_t __39__FIUIActivityDataModel_idealizedModel__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = idealizedModel_idealizedModel;
-  idealizedModel_idealizedModel = v0;
+  v2 = objc_opt_new();
+  v3 = idealizedModel_idealizedModel;
+  idealizedModel_idealizedModel = v2;
 
-  v2 = idealizedModel_idealizedModel;
-  v3 = MEMORY[0x1E696C348];
-  v4 = [MEMORY[0x1E696C510] kilocalorieUnit];
-  v5 = [v3 quantityWithUnit:v4 doubleValue:500.0];
-  [v2 setActiveEnergyGoal:v5];
+  v4 = idealizedModel_idealizedModel;
+  v5 = MEMORY[0x1E696C348];
+  v6 = [MEMORY[0x1E696C510] kilocalorieUnit];
+  v7 = [v5 quantityWithUnit:v6 doubleValue:500.0];
+  [v4 setActiveEnergyGoal:v7];
 
-  v6 = idealizedModel_idealizedModel;
-  v7 = [idealizedModel_idealizedModel activeEnergyGoal];
-  [v6 setActiveEnergyTotal:v7];
+  v8 = idealizedModel_idealizedModel;
+  v9 = [idealizedModel_idealizedModel activeEnergyGoal];
+  [v8 setActiveEnergyTotal:v9];
 
   [idealizedModel_idealizedModel setAppleStandHoursGoal:12];
   [idealizedModel_idealizedModel setAppleStandHoursTotal:{objc_msgSend(idealizedModel_idealizedModel, "appleStandHoursGoal")}];
   [idealizedModel_idealizedModel setAppleExerciseTimeGoal:30.0];
-  v8 = idealizedModel_idealizedModel;
+  v10 = idealizedModel_idealizedModel;
   [idealizedModel_idealizedModel appleExerciseTimeGoal];
 
-  return [v8 setAppleExerciseTimeTotal:?];
+  return [v10 setAppleExerciseTimeTotal:?];
 }
 
 - (id)debugDescription
 {
   activeEnergyGoal = [(FIUIActivityDataModel *)self activeEnergyGoal];
-  v4 = _kilocalorieUnit();
+  v4 = _kilocalorieUnit(activeEnergyGoal);
   [activeEnergyGoal doubleValueForUnit:v4];
   v6 = v5;
 
   activeEnergyTotal = [(FIUIActivityDataModel *)self activeEnergyTotal];
-  v8 = _kilocalorieUnit();
+  v8 = _kilocalorieUnit(activeEnergyTotal);
   [activeEnergyTotal doubleValueForUnit:v8];
   v10 = v9;
 
@@ -96,7 +96,7 @@ uint64_t __39__FIUIActivityDataModel_idealizedModel__block_invoke()
   else
   {
     activeEnergyGoal = [(FIUIActivityDataModel *)self activeEnergyGoal];
-    v6 = _kilocalorieUnit();
+    v6 = _kilocalorieUnit(activeEnergyGoal);
     [activeEnergyGoal doubleValueForUnit:v6];
     v4 = v7;
   }
@@ -130,12 +130,12 @@ uint64_t __39__FIUIActivityDataModel_idealizedModel__block_invoke()
   else
   {
     activeEnergyGoal = [(FIUIActivityDataModel *)self activeEnergyGoal];
-    v10 = _kilocalorieUnit();
+    v10 = _kilocalorieUnit(activeEnergyGoal);
     [activeEnergyGoal doubleValueForUnit:v10];
     v12 = v11;
 
     activeEnergyTotal = [(FIUIActivityDataModel *)self activeEnergyTotal];
-    v14 = _kilocalorieUnit();
+    v14 = _kilocalorieUnit(activeEnergyTotal);
     [activeEnergyTotal doubleValueForUnit:v14];
     v16 = v15;
 

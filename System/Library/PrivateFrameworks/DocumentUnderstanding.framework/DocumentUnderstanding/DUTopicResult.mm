@@ -12,7 +12,7 @@
 
 - (_TtC21DocumentUnderstanding26DUGlobalTopicSetIdentifier)topicSet
 {
-  v2 = sub_232C129FC();
+  v2 = sub_232C129FC(self);
 
   return v2;
 }
@@ -42,7 +42,7 @@
 
 - (NSArray)topicNames
 {
-  sub_232C12EB0();
+  sub_232C12EB0(self);
   v2 = sub_232CE9FD0();
 
   return v2;

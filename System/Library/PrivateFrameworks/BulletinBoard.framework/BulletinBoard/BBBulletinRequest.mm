@@ -15,7 +15,7 @@
 
 - (void)setContextValue:(id)value forKey:(id)key
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   if (valueCopy && keyCopy)
@@ -23,35 +23,35 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v10 = MEMORY[0x277CBEAD8];
-      v11 = *MEMORY[0x277CBE660];
-      v26[0] = @"value";
-      v26[1] = @"key";
-      v27[0] = valueCopy;
-      v27[1] = keyCopy;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-      v13 = [v10 exceptionWithName:v11 reason:@"key must be of type NSString" userInfo:v12];
-      v14 = v13;
+      v9 = MEMORY[0x277CBEAD8];
+      v10 = *MEMORY[0x277CBE660];
+      v25[0] = @"value";
+      v25[1] = @"key";
+      v26[0] = valueCopy;
+      v26[1] = keyCopy;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+      v12 = [v9 exceptionWithName:v10 reason:@"key must be of type NSString" userInfo:v11];
+      v13 = v12;
 
-      objc_exception_throw(v13);
+      objc_exception_throw(v12);
     }
 
     if ((BBIsValueAllowed(valueCopy) & 1) == 0)
     {
-      v15 = MEMORY[0x277CBEAD8];
-      v16 = *MEMORY[0x277CBE660];
-      v17 = MEMORY[0x277CCACA8];
-      v18 = BBAllowedClasses();
-      v19 = [v17 stringWithFormat:@"value must be one of and contain only the following types: %@", v18];
-      v24[0] = @"value";
-      v24[1] = @"key";
-      v25[0] = valueCopy;
-      v25[1] = keyCopy;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-      v21 = [v15 exceptionWithName:v16 reason:v19 userInfo:v20];
-      v22 = v21;
+      v14 = MEMORY[0x277CBEAD8];
+      v15 = *MEMORY[0x277CBE660];
+      v16 = MEMORY[0x277CCACA8];
+      v17 = BBAllowedClasses();
+      v18 = [v16 stringWithFormat:@"value must be one of and contain only the following types: %@", v17];
+      v23[0] = @"value";
+      v23[1] = @"key";
+      v24[0] = valueCopy;
+      v24[1] = keyCopy;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v20 = [v14 exceptionWithName:v15 reason:v18 userInfo:v19];
+      v21 = v20;
 
-      objc_exception_throw(v21);
+      objc_exception_throw(v20);
     }
 
     context = [(BBBulletin *)self context];
@@ -60,8 +60,6 @@
     [v8 setValue:valueCopy forKey:keyCopy];
     [(BBBulletin *)self setContext:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPrimaryAttachmentType:(int64_t)type
@@ -160,44 +158,42 @@ id __55__BBBulletinRequest_setSupplementaryActions_forLayout___block_invoke(uint
 
 - (void)_updateSupplementaryAction:(id)action
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   [actionCopy setActionType:7];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     actions = [actionCopy actions];
-    v6 = [actions countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(actions);
           }
 
-          [(BBBulletinRequest *)self _updateSupplementaryAction:*(*(&v11 + 1) + 8 * v9++)];
+          [(BBBulletinRequest *)self _updateSupplementaryAction:*(*(&v10 + 1) + 8 * v9++)];
         }
 
         while (v7 != v9);
-        v7 = [actions countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAlertSuppressionAppID:(id)d
@@ -1032,43 +1028,7 @@ id __55__BBBulletinRequest_setSupplementaryActions_forLayout___block_invoke(uint
   }
 
   content2 = [(BBBulletin *)self wantsFullscreenPresentation];
-  if (content2 != [toCopy wantsFullscreenPresentation])
-  {
-    goto LABEL_120;
-  }
-
-  content2 = [(BBBulletin *)self ignoresQuietMode];
-  if (content2 != [toCopy ignoresQuietMode])
-  {
-    goto LABEL_120;
-  }
-
-  content2 = [(BBBulletin *)self ignoresDowntime];
-  if (content2 != [toCopy ignoresDowntime])
-  {
-    goto LABEL_120;
-  }
-
-  content2 = [(BBBulletin *)self preemptsPresentedAlert];
-  if (content2 != [toCopy preemptsPresentedAlert])
-  {
-    goto LABEL_120;
-  }
-
-  content2 = [(BBBulletin *)self displaysActionsInline];
-  if (content2 != [toCopy displaysActionsInline])
-  {
-    goto LABEL_120;
-  }
-
-  content2 = [(BBBulletin *)self dateIsAllDay];
-  if (content2 != [toCopy dateIsAllDay])
-  {
-    goto LABEL_120;
-  }
-
-  content2 = [(BBBulletin *)self dateFormatStyle];
-  if (content2 == [toCopy dateFormatStyle] && (content2 = -[BBBulletin clearable](self, "clearable"), content2 == objc_msgSend(toCopy, "clearable")) && (content2 = -[BBBulletin turnsOnDisplay](self, "turnsOnDisplay"), content2 == objc_msgSend(toCopy, "turnsOnDisplay")) && (content2 = -[BBBulletin sectionSubtype](self, "sectionSubtype"), content2 == objc_msgSend(toCopy, "sectionSubtype")) && (content2 = -[BBBulletin contentPreviewSetting](self, "contentPreviewSetting"), content2 == objc_msgSend(toCopy, "contentPreviewSetting")) && (content2 = -[BBBulletin preventAutomaticRemovalFromLockScreen](self, "preventAutomaticRemovalFromLockScreen"), content2 == objc_msgSend(toCopy, "preventAutomaticRemovalFromLockScreen")) && (content2 = -[BBBulletin lockScreenPriority](self, "lockScreenPriority"), content2 == objc_msgSend(toCopy, "lockScreenPriority")))
+  if (content2 == [toCopy wantsFullscreenPresentation] && (content2 = -[BBBulletin ignoresQuietMode](self, "ignoresQuietMode"), content2 == objc_msgSend(toCopy, "ignoresQuietMode")) && (content2 = -[BBBulletin ignoresDowntime](self, "ignoresDowntime"), content2 == objc_msgSend(toCopy, "ignoresDowntime")) && (content2 = -[BBBulletin preemptsPresentedAlert](self, "preemptsPresentedAlert"), content2 == objc_msgSend(toCopy, "preemptsPresentedAlert")) && (content2 = -[BBBulletin displaysActionsInline](self, "displaysActionsInline"), content2 == objc_msgSend(toCopy, "displaysActionsInline")) && (content2 = -[BBBulletin dateIsAllDay](self, "dateIsAllDay"), content2 == objc_msgSend(toCopy, "dateIsAllDay")) && (content2 = -[BBBulletin dateFormatStyle](self, "dateFormatStyle"), content2 == objc_msgSend(toCopy, "dateFormatStyle")) && (content2 = -[BBBulletin clearable](self, "clearable"), content2 == objc_msgSend(toCopy, "clearable")) && (content2 = -[BBBulletin turnsOnDisplay](self, "turnsOnDisplay"), content2 == objc_msgSend(toCopy, "turnsOnDisplay")) && (content2 = -[BBBulletin sectionSubtype](self, "sectionSubtype"), content2 == objc_msgSend(toCopy, "sectionSubtype")) && (content2 = -[BBBulletin contentPreviewSetting](self, "contentPreviewSetting"), content2 == objc_msgSend(toCopy, "contentPreviewSetting")) && (content2 = -[BBBulletin preventAutomaticRemovalFromLockScreen](self, "preventAutomaticRemovalFromLockScreen"), content2 == objc_msgSend(toCopy, "preventAutomaticRemovalFromLockScreen")) && (content2 = -[BBBulletin lockScreenPriority](self, "lockScreenPriority"), content2 == objc_msgSend(toCopy, "lockScreenPriority")))
   {
     summaryArgument = [(BBBulletin *)self summaryArgument];
     summaryArgument2 = [toCopy summaryArgument];
@@ -1427,7 +1387,6 @@ id __55__BBBulletinRequest_setSupplementaryActions_forLayout___block_invoke(uint
 
   else
   {
-LABEL_120:
     v126 = 0;
     v130 = 0;
     v131 = 0;

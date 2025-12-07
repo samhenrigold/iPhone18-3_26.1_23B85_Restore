@@ -11,42 +11,40 @@
 
 - (id)attributeDescriptions
 {
-  v24[6] = *MEMORY[0x277D85DE8];
+  v23[6] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   title = [(HMDCHIPConnectedEcosystemsChangedBulletin *)self title];
-  v22 = [v3 initWithName:@"Title" value:title];
-  v24[0] = v22;
+  v21 = [v3 initWithName:@"Title" value:title];
+  v23[0] = v21;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   body = [(HMDCHIPConnectedEcosystemsChangedBulletin *)self body];
   v5 = [v4 initWithName:@"Body" value:body];
-  v24[1] = v5;
+  v23[1] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   threadIdentifier = [(HMDCHIPConnectedEcosystemsChangedBulletin *)self threadIdentifier];
   v8 = [v6 initWithName:@"Thread ID" value:threadIdentifier];
-  v24[2] = v8;
+  v23[2] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   dateOfOccurrence = [(HMDCHIPConnectedEcosystemsChangedBulletin *)self dateOfOccurrence];
   v11 = [v9 initWithName:@"Date" value:dateOfOccurrence];
-  v24[3] = v11;
+  v23[3] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   userInfo = [(HMDCHIPConnectedEcosystemsChangedBulletin *)self userInfo];
   v14 = [v12 initWithName:@"User Info" value:userInfo];
-  v24[4] = v14;
+  v23[4] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDCHIPConnectedEcosystemsChangedBulletin *)self isTimeSensitive];
   v16 = HMFBooleanToString();
   v17 = [v15 initWithName:@"Time Sensitive" value:v16];
-  v24[5] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v23[5] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:6];
 
   return v18;
 }
 
 - (HMDCHIPConnectedEcosystemsChangedBulletin)initWithAddedPairing:(id)pairing accessory:(id)accessory
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   pairingCopy = pairing;
   accessoryCopy = accessory;
   if (!pairingCopy)
@@ -68,7 +66,7 @@ LABEL_12:
   vendor = [ecosystem vendor];
   isAppleVendor = [vendor isAppleVendor];
 
-  v57 = pairingCopy;
+  v56 = pairingCopy;
   if (!isAppleVendor)
   {
     selfCopy = self;
@@ -92,7 +90,7 @@ LABEL_12:
         vendor4 = [ecosystem4 vendor];
         name2 = [vendor4 name];
         name3 = [v8 name];
-        v55 = [v25 localizedBodyForEcosystemName:name2 accessoryName:name3];
+        v54 = [v25 localizedBodyForEcosystemName:name2 accessoryName:name3];
 
         selfCopy2 = selfCopy;
         goto LABEL_10;
@@ -106,13 +104,13 @@ LABEL_12:
     selfCopy2 = selfCopy;
     v30 = objc_opt_class();
     home4 = [v8 name];
-    v55 = [v30 localizedBodyForAccessoryName:home4];
+    v54 = [v30 localizedBodyForAccessoryName:home4];
     goto LABEL_10;
   }
 
   v13 = objc_opt_class();
   home4 = [v8 name];
-  v55 = [v13 localizedBodyForAppleEcosystemWithAccessoryName:home4];
+  v54 = [v13 localizedBodyForAppleEcosystemWithAccessoryName:home4];
   selfCopy2 = self;
 LABEL_10:
 
@@ -120,16 +118,16 @@ LABEL_10:
   v32 = MEMORY[0x277CD1878];
   contextSPIUniqueIdentifier = [v8 contextSPIUniqueIdentifier];
   uUIDString = [contextSPIUniqueIdentifier UUIDString];
-  v52 = [v32 tupleWithQueryType:1 uuidString:uUIDString];
+  v51 = [v32 tupleWithQueryType:1 uuidString:uUIDString];
 
   v35 = MEMORY[0x277CD1878];
   contextSPIUniqueIdentifier2 = [home5 contextSPIUniqueIdentifier];
   uUIDString2 = [contextSPIUniqueIdentifier2 UUIDString];
-  v54 = [v35 tupleWithQueryType:0 uuidString:uUIDString2];
+  v53 = [v35 tupleWithQueryType:0 uuidString:uUIDString2];
 
   v38 = MEMORY[0x277CBEB98];
-  v58[0] = v54;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:1];
+  v57[0] = v53;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
   v40 = [v38 setWithArray:v39];
   v41 = generateURLForHomeKitObject();
 
@@ -145,9 +143,8 @@ LABEL_10:
   uuid = [home5 uuid];
   uUIDString3 = [uuid UUIDString];
   date = [MEMORY[0x277CBEAA8] date];
-  v49 = [(HMDCHIPConnectedEcosystemsChangedBulletin *)selfCopy2 initWithTitle:localizedTitle body:v55 threadIdentifier:uUIDString3 dateOfOccurrence:date userInfo:v43 isTimeSensitive:1];
+  v49 = [(HMDCHIPConnectedEcosystemsChangedBulletin *)selfCopy2 initWithTitle:localizedTitle body:v54 threadIdentifier:uUIDString3 dateOfOccurrence:date userInfo:v43 isTimeSensitive:1];
 
-  v50 = *MEMORY[0x277D85DE8];
   return v49;
 }
 
@@ -198,23 +195,23 @@ LABEL_13:
   v20 = [(HMDCHIPConnectedEcosystemsChangedBulletin *)&v36 init];
   if (v20)
   {
-    v21 = [titleCopy copy];
+    v21 = objc_msgSend_copy(titleCopy);
     title = v20->_title;
     v20->_title = v21;
 
-    v23 = [bodyCopy copy];
+    v23 = objc_msgSend_copy(bodyCopy);
     body = v20->_body;
     v20->_body = v23;
 
-    v25 = [identifierCopy copy];
+    v25 = objc_msgSend_copy(identifierCopy);
     threadIdentifier = v20->_threadIdentifier;
     v20->_threadIdentifier = v25;
 
-    v27 = [occurrenceCopy copy];
+    v27 = objc_msgSend_copy(occurrenceCopy);
     dateOfOccurrence = v20->_dateOfOccurrence;
     v20->_dateOfOccurrence = v27;
 
-    v29 = [v19 copy];
+    v29 = objc_msgSend_copy(v19);
     userInfo = v20->_userInfo;
     v20->_userInfo = v29;
 
@@ -226,14 +223,14 @@ LABEL_13:
 
 + (id)localizedBodyForEcosystemName:(id)name accessoryName:(id)accessoryName
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   accessoryNameCopy = accessoryName;
   v7 = MEMORY[0x277CCACA8];
   v8 = HMDLocalizedStringForKey(@"BULLETIN_CONNECTED_CHIP_ECOSYSTEMS_ADDED_BODY_THIRD_PARTY");
-  v18 = 0;
-  nameCopy = [v7 localizedStringWithValidatedFormat:v8 validFormatSpecifiers:@"%@ %@" error:&v18, accessoryNameCopy, nameCopy];
-  v10 = v18;
+  v17 = 0;
+  nameCopy = [v7 localizedStringWithValidatedFormat:v8 validFormatSpecifiers:@"%@ %@" error:&v17, accessoryNameCopy, nameCopy];
+  v10 = v17;
 
   v11 = nameCopy;
   if (!nameCopy)
@@ -244,13 +241,13 @@ LABEL_13:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v20 = v14;
-      v21 = 2112;
-      v22 = @"BULLETIN_CONNECTED_CHIP_ECOSYSTEMS_ADDED_BODY_THIRD_PARTY";
-      v23 = 2112;
-      v24 = @"%@ %@";
-      v25 = 2112;
-      v26 = v10;
+      v19 = v14;
+      v20 = 2112;
+      v21 = @"BULLETIN_CONNECTED_CHIP_ECOSYSTEMS_ADDED_BODY_THIRD_PARTY";
+      v22 = 2112;
+      v23 = @"%@ %@";
+      v24 = 2112;
+      v25 = v10;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
     }
 
@@ -260,19 +257,18 @@ LABEL_13:
 
   v15 = v11;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (id)localizedBodyForAppleEcosystemWithAccessoryName:(id)name
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = MEMORY[0x277CCACA8];
   v5 = HMDLocalizedStringForKey(@"BULLETIN_CONNECTED_CHIP_ECOSYSTEMS_ADDED_BODY_APPLE");
-  v15 = 0;
-  nameCopy = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@" error:&v15, nameCopy];
-  v7 = v15;
+  v14 = 0;
+  nameCopy = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@" error:&v14, nameCopy];
+  v7 = v14;
 
   v8 = nameCopy;
   if (!nameCopy)
@@ -283,13 +279,13 @@ LABEL_13:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v17 = v11;
-      v18 = 2112;
-      v19 = @"BULLETIN_CONNECTED_CHIP_ECOSYSTEMS_ADDED_BODY_APPLE";
-      v20 = 2112;
-      v21 = @"%@";
-      v22 = 2112;
-      v23 = v7;
+      v16 = v11;
+      v17 = 2112;
+      v18 = @"BULLETIN_CONNECTED_CHIP_ECOSYSTEMS_ADDED_BODY_APPLE";
+      v19 = 2112;
+      v20 = @"%@";
+      v21 = 2112;
+      v22 = v7;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
     }
 
@@ -299,19 +295,18 @@ LABEL_13:
 
   v12 = v8;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (id)localizedBodyForAccessoryName:(id)name
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = MEMORY[0x277CCACA8];
   v5 = HMDLocalizedStringForKey(@"BULLETIN_CONNECTED_CHIP_ECOSYSTEMS_ADDED_BODY_GENERIC");
-  v15 = 0;
-  nameCopy = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@" error:&v15, nameCopy];
-  v7 = v15;
+  v14 = 0;
+  nameCopy = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@" error:&v14, nameCopy];
+  v7 = v14;
 
   v8 = nameCopy;
   if (!nameCopy)
@@ -322,13 +317,13 @@ LABEL_13:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v17 = v11;
-      v18 = 2112;
-      v19 = @"BULLETIN_CONNECTED_CHIP_ECOSYSTEMS_ADDED_BODY_GENERIC";
-      v20 = 2112;
-      v21 = @"%@";
-      v22 = 2112;
-      v23 = v7;
+      v16 = v11;
+      v17 = 2112;
+      v18 = @"BULLETIN_CONNECTED_CHIP_ECOSYSTEMS_ADDED_BODY_GENERIC";
+      v19 = 2112;
+      v20 = @"%@";
+      v21 = 2112;
+      v22 = v7;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
     }
 
@@ -338,7 +333,6 @@ LABEL_13:
 
   v12 = v8;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)maxDlModulationAsString:(int)string;
+- (id)maxUlModulationAsString:(int)string;
 - (int)StringAsMaxDlModulation:(id)modulation;
 - (int)StringAsMaxUlModulation:(id)modulation;
 - (int)maxDlModulation;
@@ -292,6 +294,21 @@
   self->_has = (*&self->_has & 0xFFFFFFBF | v3);
 }
 
+- (id)maxDlModulationAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003176E0 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsMaxDlModulation:(id)modulation
 {
   modulationCopy = modulation;
@@ -364,6 +381,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFBFFFF | v3);
+}
+
+- (id)maxUlModulationAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003176E0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsMaxUlModulation:(id)modulation
@@ -930,14 +962,12 @@ LABEL_34:
   has = self->_has;
   if ((*&has & 0x80000) != 0)
   {
-    pscellDlBand = self->_pscellDlBand;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((*&has & 0x100000) != 0)
   {
-    secondUlBand = self->_secondUlBand;
     PBDataWriterWriteUint32Field();
   }
 
@@ -946,16 +976,15 @@ LABEL_34:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 4) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 4) != 0)
   {
-    dlConfiguredAggregatedBwMhz = self->_dlConfiguredAggregatedBwMhz;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((*&v7 & 0x200000) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x200000) == 0)
     {
 LABEL_9:
-      if ((*&v7 & 8) == 0)
+      if ((*&v5 & 8) == 0)
       {
         goto LABEL_10;
       }
@@ -964,18 +993,17 @@ LABEL_9:
     }
   }
 
-  else if ((*&v7 & 0x200000) == 0)
+  else if ((*&v5 & 0x200000) == 0)
   {
     goto LABEL_9;
   }
 
-  ulConfiguredAggregatedBwMhz = self->_ulConfiguredAggregatedBwMhz;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 8) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 8) == 0)
   {
 LABEL_10:
-    if ((*&v7 & 0x400000) == 0)
+    if ((*&v5 & 0x400000) == 0)
     {
       goto LABEL_11;
     }
@@ -984,13 +1012,12 @@ LABEL_10:
   }
 
 LABEL_39:
-  dlConfiguredAggregatedCcCount = self->_dlConfiguredAggregatedCcCount;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x400000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400000) == 0)
   {
 LABEL_11:
-    if ((*&v7 & 1) == 0)
+    if ((*&v5 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -999,13 +1026,12 @@ LABEL_11:
   }
 
 LABEL_40:
-  ulConfiguredAggregatedCcCount = self->_ulConfiguredAggregatedCcCount;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 1) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 1) == 0)
   {
 LABEL_12:
-    if ((*&v7 & 2) == 0)
+    if ((*&v5 & 2) == 0)
     {
       goto LABEL_13;
     }
@@ -1014,13 +1040,12 @@ LABEL_12:
   }
 
 LABEL_41:
-  configuredAggregatedDlMimoLayers = self->_configuredAggregatedDlMimoLayers;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 2) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 2) == 0)
   {
 LABEL_13:
-    if ((*&v7 & 0x10) == 0)
+    if ((*&v5 & 0x10) == 0)
     {
       goto LABEL_14;
     }
@@ -1029,13 +1054,12 @@ LABEL_13:
   }
 
 LABEL_42:
-  configuredAggregatedUlMimoLayers = self->_configuredAggregatedUlMimoLayers;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x10) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10) == 0)
   {
 LABEL_14:
-    if ((*&v7 & 0x20) == 0)
+    if ((*&v5 & 0x20) == 0)
     {
       goto LABEL_16;
     }
@@ -1044,12 +1068,10 @@ LABEL_14:
   }
 
 LABEL_43:
-  maxConfiguredPerCcDlMimoLayers = self->_maxConfiguredPerCcDlMimoLayers;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_15:
-    maxConfiguredPerCcUlMimoLayers = self->_maxConfiguredPerCcUlMimoLayers;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1059,16 +1081,15 @@ LABEL_16:
     PBDataWriterWriteStringField();
   }
 
-  v9 = self->_has;
-  if ((*&v9 & 0x400) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x400) != 0)
   {
-    maxScheduledAggregatedDlBwMhz = self->_maxScheduledAggregatedDlBwMhz;
     PBDataWriterWriteUint32Field();
-    v9 = self->_has;
-    if ((*&v9 & 0x800) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x800) == 0)
     {
 LABEL_20:
-      if ((*&v9 & 0x1000) == 0)
+      if ((*&v6 & 0x1000) == 0)
       {
         goto LABEL_21;
       }
@@ -1077,18 +1098,17 @@ LABEL_20:
     }
   }
 
-  else if ((*&v9 & 0x800) == 0)
+  else if ((*&v6 & 0x800) == 0)
   {
     goto LABEL_20;
   }
 
-  maxScheduledAggregatedDlCcCount = self->_maxScheduledAggregatedDlCcCount;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x1000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x1000) == 0)
   {
 LABEL_21:
-    if ((*&v9 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_22;
     }
@@ -1097,13 +1117,12 @@ LABEL_21:
   }
 
 LABEL_47:
-  maxScheduledAggregatedDlMimoLayers = self->_maxScheduledAggregatedDlMimoLayers;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x2000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_22:
-    if ((*&v9 & 0x4000) == 0)
+    if ((*&v6 & 0x4000) == 0)
     {
       goto LABEL_23;
     }
@@ -1112,13 +1131,12 @@ LABEL_22:
   }
 
 LABEL_48:
-  maxScheduledAggregatedUlMimoLayers = self->_maxScheduledAggregatedUlMimoLayers;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x4000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x4000) == 0)
   {
 LABEL_23:
-    if ((*&v9 & 0x8000) == 0)
+    if ((*&v6 & 0x8000) == 0)
     {
       goto LABEL_24;
     }
@@ -1127,13 +1145,12 @@ LABEL_23:
   }
 
 LABEL_49:
-  maxScheduledPerCcDlMimoLayers = self->_maxScheduledPerCcDlMimoLayers;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x8000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x8000) == 0)
   {
 LABEL_24:
-    if ((*&v9 & 0x40) == 0)
+    if ((*&v6 & 0x40) == 0)
     {
       goto LABEL_25;
     }
@@ -1142,13 +1159,12 @@ LABEL_24:
   }
 
 LABEL_50:
-  maxScheduledPerCcUlMimoLayers = self->_maxScheduledPerCcUlMimoLayers;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x40) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40) == 0)
   {
 LABEL_25:
-    if ((*&v9 & 0x40000) == 0)
+    if ((*&v6 & 0x40000) == 0)
     {
       goto LABEL_26;
     }
@@ -1157,13 +1173,12 @@ LABEL_25:
   }
 
 LABEL_51:
-  maxDlModulation = self->_maxDlModulation;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x40000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40000) == 0)
   {
 LABEL_26:
-    if ((*&v9 & 0x20000) == 0)
+    if ((*&v6 & 0x20000) == 0)
     {
       goto LABEL_27;
     }
@@ -1172,13 +1187,12 @@ LABEL_26:
   }
 
 LABEL_52:
-  maxUlModulation = self->_maxUlModulation;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x20000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x20000) == 0)
   {
 LABEL_27:
-    if ((*&v9 & 0x80) == 0)
+    if ((*&v6 & 0x80) == 0)
     {
       goto LABEL_28;
     }
@@ -1187,13 +1201,12 @@ LABEL_27:
   }
 
 LABEL_53:
-  maxUeRank = self->_maxUeRank;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x80) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80) == 0)
   {
 LABEL_28:
-    if ((*&v9 & 0x200) == 0)
+    if ((*&v6 & 0x200) == 0)
     {
       goto LABEL_29;
     }
@@ -1202,13 +1215,12 @@ LABEL_28:
   }
 
 LABEL_54:
-  maxPerCcRxAnt = self->_maxPerCcRxAnt;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x200) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x200) == 0)
   {
 LABEL_29:
-    if ((*&v9 & 0x100) == 0)
+    if ((*&v6 & 0x100) == 0)
     {
       goto LABEL_30;
     }
@@ -1217,13 +1229,12 @@ LABEL_29:
   }
 
 LABEL_55:
-  maxRxAnt = self->_maxRxAnt;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x100) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x100) == 0)
   {
 LABEL_30:
-    if ((*&v9 & 0x10000) == 0)
+    if ((*&v6 & 0x10000) == 0)
     {
       goto LABEL_31;
     }
@@ -1232,13 +1243,12 @@ LABEL_30:
   }
 
 LABEL_56:
-  maxPerCcTxAnt = self->_maxPerCcTxAnt;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x10000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10000) == 0)
   {
 LABEL_31:
-    if ((*&v9 & 0x800000) == 0)
+    if ((*&v6 & 0x800000) == 0)
     {
       goto LABEL_32;
     }
@@ -1247,13 +1257,12 @@ LABEL_31:
   }
 
 LABEL_57:
-  maxTxAnt = self->_maxTxAnt;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x800000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x800000) == 0)
   {
 LABEL_32:
-    if ((*&v9 & 0x1000000) == 0)
+    if ((*&v6 & 0x1000000) == 0)
     {
       goto LABEL_34;
     }
@@ -1262,12 +1271,10 @@ LABEL_32:
   }
 
 LABEL_58:
-  hasBwpSwitch = self->_hasBwpSwitch;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x1000000) != 0)
   {
 LABEL_33:
-    isTddFdd = self->_isTddFdd;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2316,7 +2323,6 @@ LABEL_29:
       goto LABEL_138;
     }
 
-    v11 = *(equalCopy + 116);
     if (self->_hasBwpSwitch)
     {
       if ((*(equalCopy + 116) & 1) == 0)
@@ -2345,7 +2351,7 @@ LABEL_29:
         if (*(equalCopy + 117))
         {
 LABEL_136:
-          v12 = 1;
+          v11 = 1;
           goto LABEL_139;
         }
       }
@@ -2357,14 +2363,14 @@ LABEL_136:
     }
 
 LABEL_138:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_139;
   }
 
-  v12 = (v10 & 0x1000000) == 0;
+  v11 = (v10 & 0x1000000) == 0;
 LABEL_139:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

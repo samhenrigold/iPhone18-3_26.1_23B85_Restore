@@ -61,7 +61,7 @@
 
 - (id)buildDescriptions
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   relatedAppBundleIdentifier = [(SSResultBuilder *)self relatedAppBundleIdentifier];
   v4 = SSAppNameForBundleId(relatedAppBundleIdentifier);
 
@@ -74,11 +74,9 @@
   else
   {
     v7 = [MEMORY[0x1E69CA3A0] textWithString:v4];
-    v10[0] = v7;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = v7;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

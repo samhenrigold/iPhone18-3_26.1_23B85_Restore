@@ -64,7 +64,7 @@
   return v8;
 }
 
-uint64_t __35__BMBookmarkClasses_sharedInstance__block_invoke()
+uint64_t __35__BMBookmarkClasses_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedInstance_bookmarkClasses = objc_opt_new();
 
@@ -73,10 +73,10 @@ uint64_t __35__BMBookmarkClasses_sharedInstance__block_invoke()
 
 - (BMBookmarkClasses)init
 {
-  v11[14] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = BMBookmarkClasses;
-  v2 = [(BMBookmarkClasses *)&v10 init];
+  v10[14] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = BMBookmarkClasses;
+  v2 = [(BMBookmarkClasses *)&v9 init];
   v3 = v2;
   if (v2)
   {
@@ -84,27 +84,26 @@ uint64_t __35__BMBookmarkClasses_sharedInstance__block_invoke()
     *&v2->_addedBiomeStorageClasses = 0;
     v2->_addedCascadeSetsClasses = 0;
     v4 = MEMORY[0x1E695DFA8];
-    v11[0] = objc_opt_class();
-    v11[1] = objc_opt_class();
-    v11[2] = objc_opt_class();
-    v11[3] = objc_opt_class();
-    v11[4] = objc_opt_class();
-    v11[5] = objc_opt_class();
-    v11[6] = objc_opt_class();
-    v11[7] = objc_opt_class();
-    v11[8] = objc_opt_class();
-    v11[9] = objc_opt_class();
-    v11[10] = objc_opt_class();
-    v11[11] = objc_opt_class();
-    v11[12] = objc_opt_class();
-    v11[13] = objc_opt_class();
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:14];
+    v10[0] = objc_opt_class();
+    v10[1] = objc_opt_class();
+    v10[2] = objc_opt_class();
+    v10[3] = objc_opt_class();
+    v10[4] = objc_opt_class();
+    v10[5] = objc_opt_class();
+    v10[6] = objc_opt_class();
+    v10[7] = objc_opt_class();
+    v10[8] = objc_opt_class();
+    v10[9] = objc_opt_class();
+    v10[10] = objc_opt_class();
+    v10[11] = objc_opt_class();
+    v10[12] = objc_opt_class();
+    v10[13] = objc_opt_class();
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:14];
     v6 = [v4 setWithArray:v5];
     allowed = v3->_allowed;
     v3->_allowed = v6;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

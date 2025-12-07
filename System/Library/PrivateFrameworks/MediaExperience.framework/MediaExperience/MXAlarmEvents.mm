@@ -29,10 +29,10 @@ void __31__MXAlarmEvents_sharedInstance__block_invoke()
 
 - (MXAlarmEvents)init
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = MXAlarmEvents;
-  v2 = [(MXAlarmEvents *)&v7 init];
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = MXAlarmEvents;
+  v2 = [(MXAlarmEvents *)&v6 init];
   if (v2)
   {
     if (dword_1EB75DE40)
@@ -46,19 +46,15 @@ void __31__MXAlarmEvents_sharedInstance__block_invoke()
     v2->mAccessQueue = dispatch_queue_create("com.apple.mediaexperience.MXAlarmEvents", v4);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)handleAlarmEventNotification:(id)notification
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9E40];
   FigXPCMessageCopyCFString();
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAlarmEvent:(double)event eventName:(id)name
@@ -75,7 +71,7 @@ void __31__MXAlarmEvents_sharedInstance__block_invoke()
 
 void __41__MXAlarmEvents_setAlarmEvent_eventName___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) UTF8String];
   xpc_set_event();
   v2 = xpc_dictionary_create(0, 0, 0);
@@ -93,7 +89,6 @@ void __41__MXAlarmEvents_setAlarmEvent_eventName___block_invoke(uint64_t a1)
   [*(a1 + 32) UTF8String];
   xpc_set_event();
   xpc_release(v2);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetAlarmEvent:(id)event
@@ -109,7 +104,7 @@ void __41__MXAlarmEvents_setAlarmEvent_eventName___block_invoke(uint64_t a1)
 
 uint64_t __33__MXAlarmEvents_resetAlarmEvent___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -118,9 +113,7 @@ uint64_t __33__MXAlarmEvents_resetAlarmEvent___block_invoke(uint64_t a1)
   }
 
   [*(a1 + 32) UTF8String];
-  result = xpc_set_event();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return xpc_set_event();
 }
 
 @end

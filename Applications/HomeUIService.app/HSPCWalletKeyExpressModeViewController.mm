@@ -10,7 +10,10 @@
 - (id)dismissButtonBlock;
 - (void)_enableExpressModeAfterAuthWithPromise:(id)promise;
 - (void)_sendAnalytics:(unint64_t)analytics;
+- (void)_setAllowsAlertStacking:(BOOL)stacking;
 - (void)_updateHasOnboardedForWalletKey:(id)key;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HSPCWalletKeyExpressModeViewController
@@ -58,6 +61,22 @@
   }
 
   return v11;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HSPCWalletKeyExpressModeViewController;
+  [(HSPCWalletKeyExpressModeViewController *)&v4 viewDidAppear:appear];
+  [(HSPCWalletKeyExpressModeViewController *)self _setAllowsAlertStacking:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = HSPCWalletKeyExpressModeViewController;
+  [(HSPCWalletKeyExpressModeViewController *)&v4 viewWillDisappear:disappear];
+  [(HSPCWalletKeyExpressModeViewController *)self _setAllowsAlertStacking:0];
 }
 
 - (id)commitConfiguration
@@ -541,6 +560,29 @@ LABEL_10:
   v2 = objc_retainBlock(v4);
 
   return v2;
+}
+
+- (void)_setAllowsAlertStacking:(BOOL)stacking
+{
+  stackingCopy = stacking;
+  objc_opt_class();
+  coordinator = [(HSPCWalletKeyExpressModeViewController *)self coordinator];
+  delegate = [coordinator delegate];
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = delegate;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = v7;
+
+  _remoteViewControllerProxy = [v8 _remoteViewControllerProxy];
+
+  [_remoteViewControllerProxy setAllowsAlertStacking:stackingCopy];
 }
 
 + (id)_expresssModePassConflictError:(id)error

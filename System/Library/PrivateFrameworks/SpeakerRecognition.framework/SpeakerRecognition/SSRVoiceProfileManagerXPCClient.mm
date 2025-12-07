@@ -42,121 +42,58 @@
 
 void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D01970];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
+    v24 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_70;
-  v22[3] = &unk_278579690;
-  v23 = *(a1 + 80);
-  v4 = MEMORY[0x22AA71400](v22);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_70;
+  v21[3] = &unk_278579690;
+  v22 = *(a1 + 80);
+  v4 = MEMORY[0x22AA71400](v21);
   v5 = +[SSRVoiceProfileManagerXPCClient createVoiceProfileManagerXPCConnection];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_71;
-  v20[3] = &unk_2785795F0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_71;
+  v19[3] = &unk_2785795F0;
   v6 = v4;
-  v21 = v6;
-  [v5 setInvalidationHandler:v20];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_76;
-  v18[3] = &unk_2785795F0;
+  v20 = v6;
+  [v5 setInvalidationHandler:v19];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_76;
+  v17[3] = &unk_2785795F0;
   v7 = v6;
-  v19 = v7;
-  [v5 setInterruptionHandler:v18];
+  v18 = v7;
+  [v5 setInterruptionHandler:v17];
   [v5 resume];
   v8 = *v2;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
+    v24 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
     _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s XPC connection established", buf, 0xCu);
   }
 
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_81;
-  v16 = &unk_278579690;
-  v17 = v7;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_81;
+  v15 = &unk_278579690;
+  v16 = v7;
   v9 = v7;
-  v10 = [v5 remoteObjectProxyWithErrorHandler:&v13];
-  LOBYTE(v12) = *(a1 + 88);
-  [v10 importVoiceProfile:*(a1 + 32) appDomain:*(a1 + 40) withSharedUserId:*(a1 + 48) withPersonaId:*(a1 + 56) withLocale:*(a1 + 64) withAsset:*(a1 + 72) trainWithPayload:v12 withCompletion:{v9, v13, v14, v15, v16}];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [v5 remoteObjectProxyWithErrorHandler:&v12];
+  LOBYTE(v11) = *(a1 + 88);
+  [v10 importVoiceProfile:*(a1 + 32) appDomain:*(a1 + 40) withSharedUserId:*(a1 + 48) withPersonaId:*(a1 + 56) withLocale:*(a1 + 64) withAsset:*(a1 + 72) trainWithPayload:v11 withCompletion:{v9, v12, v13, v14, v15}];
 }
 
 void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_70(uint64_t a1, void *a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = *MEMORY[0x277D01970];
-  if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = 136315394;
-    v8 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Completion called with error: %@", &v7, 0x16u);
-  }
-
-  v5 = *(a1 + 32);
-  if (v5)
-  {
-    (*(v5 + 16))(v5, v3);
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_71(uint64_t a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.speakerrecognition" code:1106 userInfo:&unk_2839338B0];
-  v3 = *MEMORY[0x277D01970];
-  if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
-  {
-    v5 = 136315394;
-    v6 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
-  }
-
-  (*(*(a1 + 32) + 16))();
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_76(uint64_t a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.speakerrecognition" code:1105 userInfo:&unk_2839338D8];
-  v3 = *MEMORY[0x277D01970];
-  if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
-  {
-    v5 = 136315394;
-    v6 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
-  }
-
-  (*(*(a1 + 32) + 16))();
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_81(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
@@ -167,12 +104,65 @@ void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSha
     v7 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
     v8 = 2112;
     v9 = v3;
-    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Remote object proxy error: %@", &v6, 0x16u);
+    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Completion called with error: %@", &v6, 0x16u);
+  }
+
+  v5 = *(a1 + 32);
+  if (v5)
+  {
+    (*(v5 + 16))(v5, v3);
+  }
+}
+
+void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_71(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.speakerrecognition" code:1106 userInfo:&unk_2839338B0];
+  v3 = *MEMORY[0x277D01970];
+  if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
+  {
+    v4 = 136315394;
+    v5 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_76(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.speakerrecognition" code:1105 userInfo:&unk_2839338D8];
+  v3 = *MEMORY[0x277D01970];
+  if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
+  {
+    v4 = 136315394;
+    v5 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
+  }
+
+  (*(*(a1 + 32) + 16))();
+}
+
+void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSharedUserId_withPersonaId_withLocale_withAsset_trainWithPayload_withCompletion___block_invoke_81(uint64_t a1, void *a2)
+{
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = *MEMORY[0x277D01970];
+  if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 136315394;
+    v6 = "[SSRVoiceProfileManagerXPCClient importVoiceProfile:appDomain:withSharedUserId:withPersonaId:withLocale:withAsset:trainWithPayload:withCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Remote object proxy error: %@", &v5, 0x16u);
+  }
+
+  (*(*(a1 + 32) + 16))();
 }
 
 - (void)markSATEnrollmentSuccessForVoiceProfile:(id)profile completion:(id)completion
@@ -193,72 +183,70 @@ void __148__SSRVoiceProfileManagerXPCClient_importVoiceProfile_appDomain_withSha
 
 void __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D01970];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
+    v23 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_51;
-  v21[3] = &unk_278579668;
-  v22 = *(a1 + 40);
-  v4 = MEMORY[0x22AA71400](v21);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_51;
+  v20[3] = &unk_278579668;
+  v21 = *(a1 + 40);
+  v4 = MEMORY[0x22AA71400](v20);
   v5 = +[SSRVoiceProfileManagerXPCClient createVoiceProfileManagerXPCConnection];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_53;
-  v19[3] = &unk_2785795F0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_53;
+  v18[3] = &unk_2785795F0;
   v6 = v4;
-  v20 = v6;
-  [v5 setInvalidationHandler:v19];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_60;
-  v17[3] = &unk_2785795F0;
+  v19 = v6;
+  [v5 setInvalidationHandler:v18];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_60;
+  v16[3] = &unk_2785795F0;
   v7 = v6;
-  v18 = v7;
-  [v5 setInterruptionHandler:v17];
+  v17 = v7;
+  [v5 setInterruptionHandler:v16];
   [v5 resume];
   v8 = *v2;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
+    v23 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
     _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s XPC connection established", buf, 0xCu);
   }
 
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_68;
-  v15 = &unk_278579690;
-  v16 = v7;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_68;
+  v14 = &unk_278579690;
+  v15 = v7;
   v9 = v7;
-  v10 = [v5 remoteObjectProxyWithErrorHandler:&v12];
-  [v10 markSATEnrollmentSuccessForVoiceProfile:*(a1 + 32) completion:{v9, v12, v13, v14, v15}];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [v5 remoteObjectProxyWithErrorHandler:&v11];
+  [v10 markSATEnrollmentSuccessForVoiceProfile:*(a1 + 32) completion:{v9, v11, v12, v13, v14}];
 }
 
 void __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_51(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s Completion called with result: %i, error: %@", &v9, 0x1Cu);
+    v8 = 136315650;
+    v9 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s Completion called with result: %i, error: %@", &v8, 0x1Cu);
   }
 
   v7 = *(a1 + 32);
@@ -266,65 +254,57 @@ void __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfi
   {
     (*(v7 + 16))(v7, a2, v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_53(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.speakerrecognition" code:1106 userInfo:&unk_283933860];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_60(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.speakerrecognition" code:1105 userInfo:&unk_283933888];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __86__SSRVoiceProfileManagerXPCClient_markSATEnrollmentSuccessForVoiceProfile_completion___block_invoke_68(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Remote object proxy error: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SSRVoiceProfileManagerXPCClient markSATEnrollmentSuccessForVoiceProfile:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Remote object proxy error: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (SSRVoiceProfileManagerXPCClient)init

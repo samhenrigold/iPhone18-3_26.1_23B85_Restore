@@ -35,7 +35,7 @@
 {
   disappearCopy = disappear;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for NotificationSettingsController();
+  v6.super_class = type metadata accessor for NotificationSettingsController(0);
   v4 = v6.receiver;
   [(NotificationSettingsController *)&v6 viewWillDisappear:disappearCopy];
   [v4 saveIfNeeded];
@@ -100,7 +100,7 @@
 
   sub_BF4A4(v10, for);
 
-  sub_C060(v10, &qword_104818);
+  sub_C060(v10, &qword_104818, &qword_CEAF0);
 }
 
 - (id)specifierValueFor:(id)for

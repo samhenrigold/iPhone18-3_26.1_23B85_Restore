@@ -133,7 +133,7 @@ LABEL_21:
   if (v5)
   {
     v6 = v5;
-    v7 = sub_1003D67A0();
+    v7 = sub_1003D67A0(AppDefaultsManager);
     if (os_variant_has_internal_content() && v7)
     {
     }
@@ -197,7 +197,7 @@ LABEL_21:
 
     if (os_variant_has_internal_content())
     {
-      v28 = sub_1003D67D8();
+      v28 = sub_1003D67D8(AppDefaultsManager);
 
       if (v28)
       {
@@ -269,7 +269,7 @@ LABEL_26:
 
   [v38 setCachePolicy:1];
   [v38 setTimeoutInterval:120.0];
-  v39 = sub_1002D6988();
+  v39 = sub_1002D6988(AMSUserAgent);
   [v38 setHTTPUserAgent:v39];
 
   if (*(&self->_session + 6))

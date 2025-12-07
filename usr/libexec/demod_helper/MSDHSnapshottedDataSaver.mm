@@ -22,11 +22,11 @@
 {
   domainsCopy = domains;
   v4 = +[NSFileManager defaultManager];
-  v5 = sub_100021268();
+  v5 = sub_100021268(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v79 = @"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter";
+    v85 = @"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Rescuing needed files to data shelter at %{public}@", buf, 0xCu);
   }
 
@@ -36,9 +36,9 @@
     goto LABEL_7;
   }
 
-  v76 = 0;
-  v6 = [v4 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter" error:&v76];
-  v7 = v76;
+  v82 = 0;
+  v6 = [v4 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter" error:&v82];
+  v7 = v82;
   v8 = v7;
   if (v6)
   {
@@ -46,64 +46,64 @@
 LABEL_7:
     [(MSDHSnapshottedDataSaver *)self moveBluetoothFilesToDataShelter];
     [(MSDHSnapshottedDataSaver *)self moveSecondPartyAppFilesToDataShelter];
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
-    v73 = 0u;
+    v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     obj = domainsCopy;
-    v51 = [obj countByEnumeratingWithState:&v72 objects:v88 count:16];
-    if (!v51)
+    v57 = [obj countByEnumeratingWithState:&v78 objects:v94 count:16];
+    if (!v57)
     {
       goto LABEL_69;
     }
 
-    v50 = *v73;
+    v56 = *v79;
     *&v10 = 138543874;
-    v46 = v10;
+    v52 = v10;
     selfCopy = self;
     while (1)
     {
       v11 = 0;
       do
       {
-        if (*v73 != v50)
+        if (*v79 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v53 = v11;
-        v12 = *(*(&v72 + 1) + 8 * v11);
+        v59 = v11;
+        v12 = *(*(&v78 + 1) + 8 * v11);
         context = objc_autoreleasePoolPush();
-        v54 = +[NSMutableArray array];
-        v68 = 0u;
-        v69 = 0u;
-        v70 = 0u;
-        v71 = 0u;
-        v55 = v12;
-        v13 = [v55 countByEnumeratingWithState:&v68 objects:v87 count:16];
+        v60 = +[NSMutableArray array];
+        v74 = 0u;
+        v75 = 0u;
+        v76 = 0u;
+        v77 = 0u;
+        v61 = v12;
+        v13 = [v61 countByEnumeratingWithState:&v74 objects:v93 count:16];
         if (v13)
         {
           v14 = v13;
           v15 = 0;
-          v16 = *v69;
+          v16 = *v75;
           while (2)
           {
             for (i = 0; i != v14; i = i + 1)
             {
-              if (*v69 != v16)
+              if (*v75 != v16)
               {
-                objc_enumerationMutation(v55);
+                objc_enumerationMutation(v61);
               }
 
-              v18 = *(*(&v68 + 1) + 8 * i);
-              if ([v4 fileExistsAtPath:{v18, v46}])
+              v18 = *(*(&v74 + 1) + 8 * i);
+              if ([v4 fileExistsAtPath:{v18, v52}])
               {
                 v19 = [(MSDHSnapshottedDataSaver *)self getFileSizeForItemAtPath:v18];
                 if (v19 < 0)
                 {
-                  sub_100027480(v85, v18, &v86);
+                  sub_100027480(v91, v18, &v92);
 LABEL_52:
-                  v35 = v53;
+                  v40 = v59;
                   goto LABEL_53;
                 }
 
@@ -111,7 +111,7 @@ LABEL_52:
               }
             }
 
-            v14 = [v55 countByEnumeratingWithState:&v68 objects:v87 count:16];
+            v14 = [v61 countByEnumeratingWithState:&v74 objects:v93 count:16];
             if (v14)
             {
               continue;
@@ -126,84 +126,87 @@ LABEL_52:
           v15 = 0;
         }
 
-        v20 = sub_100021268();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v21 = sub_100021268(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134349056;
-          v79 = v15;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Total free disk space needed for current item domain: %{public, iec-bytes}llu", buf, 0xCu);
+          v85 = v15;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Total free disk space needed for current item domain: %{public, iec-bytes}llu", buf, 0xCu);
         }
 
-        if ([(MSDHSnapshottedDataSaver *)self canDeviceHaveEnoughSpaceForItemDomainWithSize:v15])
+        v22 = [(MSDHSnapshottedDataSaver *)self canDeviceHaveEnoughSpaceForItemDomainWithSize:v15];
+        if (v22)
         {
-          v65 = 0u;
-          v63 = 0u;
-          v64 = 0u;
-          v62 = 0u;
-          v55 = v55;
-          v21 = [v55 countByEnumeratingWithState:&v62 objects:v84 count:16];
-          if (v21)
+          v71 = 0u;
+          v69 = 0u;
+          v70 = 0u;
+          v68 = 0u;
+          v61 = v61;
+          v23 = [v61 countByEnumeratingWithState:&v68 objects:v90 count:16];
+          if (v23)
           {
-            v22 = v21;
-            v23 = *v63;
-            v24 = v9;
+            v24 = v23;
+            v25 = *v69;
+            v26 = v9;
             while (2)
             {
-              for (j = 0; j != v22; j = j + 1)
+              for (j = 0; j != v24; j = j + 1)
               {
-                if (*v63 != v23)
+                if (*v69 != v25)
                 {
-                  objc_enumerationMutation(v55);
+                  objc_enumerationMutation(v61);
                 }
 
-                v26 = *(*(&v62 + 1) + 8 * j);
-                v27 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter" stringByAppendingPathComponent:{v26, v46}];
-                stringByDeletingLastPathComponent = [v27 stringByDeletingLastPathComponent];
-                v29 = [v4 fileExistsAtPath:v26];
-                v30 = sub_100021268();
-                v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
-                if (v29)
+                v28 = *(*(&v68 + 1) + 8 * j);
+                v29 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter" stringByAppendingPathComponent:{v28, v52}];
+                stringByDeletingLastPathComponent = [v29 stringByDeletingLastPathComponent];
+                v31 = [v4 fileExistsAtPath:v28];
+                v32 = v31;
+                v33 = sub_100021268(v31);
+                v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+                if (v32)
                 {
-                  if (v31)
+                  if (v34)
                   {
                     *buf = 138543362;
-                    v79 = v26;
-                    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, ">>> Copying item from: '%{public}@'", buf, 0xCu);
+                    v85 = v28;
+                    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, ">>> Copying item from: '%{public}@'", buf, 0xCu);
                   }
 
-                  v61 = v24;
-                  v32 = [v4 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v61];
-                  v9 = v61;
+                  v67 = v26;
+                  v35 = [v4 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v67];
+                  v9 = v67;
 
-                  if ((v32 & 1) == 0)
+                  if ((v35 & 1) == 0)
                   {
-                    v33 = sub_100021268();
-                    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+                    v38 = sub_100021268(v36);
+                    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
                     {
                       localizedDescription = [v9 localizedDescription];
                       *buf = 138543618;
-                      v79 = stringByDeletingLastPathComponent;
-                      v80 = 2114;
-                      v81 = localizedDescription;
-                      _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Failed to create parent folder %{public}@ with error - %{public}@", buf, 0x16u);
+                      v85 = stringByDeletingLastPathComponent;
+                      v86 = 2114;
+                      v87 = localizedDescription;
+                      _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Failed to create parent folder %{public}@ with error - %{public}@", buf, 0x16u);
                     }
 
                     goto LABEL_50;
                   }
 
-                  if (([v4 cloneFile:v26 to:v27 expectingHash:0 correctOwnership:0] & 1) == 0)
+                  v37 = [v4 cloneFile:v28 to:v29 expectingHash:0 correctOwnership:0];
+                  if ((v37 & 1) == 0)
                   {
-                    v33 = sub_100021268();
-                    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+                    v38 = sub_100021268(v37);
+                    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
                     {
                       localizedDescription2 = [v9 localizedDescription];
-                      *buf = v46;
-                      v79 = v26;
-                      v80 = 2114;
-                      v81 = v27;
-                      v82 = 2114;
-                      v83 = localizedDescription2;
-                      _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Failed to copy item from %{public}@ to %{public}@ with error - %{public}@", buf, 0x20u);
+                      *buf = v52;
+                      v85 = v28;
+                      v86 = 2114;
+                      v87 = v29;
+                      v88 = 2114;
+                      v89 = localizedDescription2;
+                      _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Failed to copy item from %{public}@ to %{public}@ with error - %{public}@", buf, 0x20u);
                     }
 
 LABEL_50:
@@ -213,28 +216,28 @@ LABEL_51:
                     goto LABEL_52;
                   }
 
-                  [v54 addObject:v27];
-                  if (![MSDXattr setContentRoot:v27])
+                  [v60 addObject:v29];
+                  if (![MSDXattr setContentRoot:v29])
                   {
                     goto LABEL_51;
                   }
 
-                  v24 = v9;
+                  v26 = v9;
                 }
 
                 else
                 {
-                  if (v31)
+                  if (v34)
                   {
                     *buf = 138543362;
-                    v79 = v26;
-                    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, ">>> Skipping non-existent item: %{public}@", buf, 0xCu);
+                    v85 = v28;
+                    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, ">>> Skipping non-existent item: %{public}@", buf, 0xCu);
                   }
                 }
               }
 
-              v22 = [v55 countByEnumeratingWithState:&v62 objects:v84 count:16];
-              if (v22)
+              v24 = [v61 countByEnumeratingWithState:&v68 objects:v90 count:16];
+              if (v24)
               {
                 continue;
               }
@@ -242,59 +245,59 @@ LABEL_51:
               break;
             }
 
-            v9 = v24;
+            v9 = v26;
             self = selfCopy;
           }
 
           goto LABEL_63;
         }
 
-        v55 = sub_100021268();
-        v35 = v53;
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v61 = sub_100021268(v22);
+        v40 = v59;
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
-          sub_1000274FC(&v66, v67, v55);
+          sub_1000274FC(&v72, v73, v61);
         }
 
 LABEL_53:
 
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        v55 = v54;
-        v36 = [v55 countByEnumeratingWithState:&v57 objects:v77 count:16];
-        if (v36)
+        v65 = 0u;
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        v61 = v60;
+        v41 = [v61 countByEnumeratingWithState:&v63 objects:v83 count:16];
+        if (v41)
         {
-          v37 = v36;
-          v38 = *v58;
+          v42 = v41;
+          v43 = *v64;
           while (2)
           {
-            for (k = 0; k != v37; k = k + 1)
+            for (k = 0; k != v42; k = k + 1)
             {
-              if (*v58 != v38)
+              if (*v64 != v43)
               {
-                objc_enumerationMutation(v55);
+                objc_enumerationMutation(v61);
               }
 
-              v40 = *(*(&v57 + 1) + 8 * k);
-              if ([v4 fileExistsAtPath:{v40, v46}])
+              v45 = *(*(&v63 + 1) + 8 * k);
+              if ([v4 fileExistsAtPath:{v45, v52}])
               {
-                v56 = v9;
-                v41 = [v4 removeItemAtPath:v40 error:&v56];
-                v8 = v56;
+                v62 = v9;
+                v46 = [v4 removeItemAtPath:v45 error:&v62];
+                v8 = v62;
 
-                if ((v41 & 1) == 0)
+                if ((v46 & 1) == 0)
                 {
-                  v44 = sub_100021268();
-                  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                  v50 = sub_100021268(v47);
+                  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
                   {
                     localizedDescription3 = [v8 localizedDescription];
                     *buf = 138543618;
-                    v79 = v40;
-                    v80 = 2114;
-                    v81 = localizedDescription3;
-                    _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Failed to clean up item %{public}@ with error - %{public}@", buf, 0x16u);
+                    v85 = v45;
+                    v86 = 2114;
+                    v87 = localizedDescription3;
+                    _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Failed to clean up item %{public}@ with error - %{public}@", buf, 0x16u);
                   }
 
                   objc_autoreleasePoolPop(context);
@@ -305,8 +308,8 @@ LABEL_53:
               }
             }
 
-            v37 = [v55 countByEnumeratingWithState:&v57 objects:v77 count:16];
-            if (v37)
+            v42 = [v61 countByEnumeratingWithState:&v63 objects:v83 count:16];
+            if (v42)
             {
               continue;
             }
@@ -315,17 +318,17 @@ LABEL_53:
           }
 
 LABEL_63:
-          v35 = v53;
+          v40 = v59;
         }
 
         objc_autoreleasePoolPop(context);
-        v11 = v35 + 1;
+        v11 = v40 + 1;
       }
 
-      while (v11 != v51);
-      v43 = [obj countByEnumeratingWithState:&v72 objects:v88 count:16];
-      v51 = v43;
-      if (!v43)
+      while (v11 != v57);
+      v49 = [obj countByEnumeratingWithState:&v78 objects:v94 count:16];
+      v57 = v49;
+      if (!v49)
       {
 LABEL_69:
         v8 = v9;
@@ -334,7 +337,7 @@ LABEL_69:
     }
   }
 
-  obj = sub_100021268();
+  obj = sub_100021268(v7);
   if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
   {
     sub_1000273F0(v8);
@@ -372,10 +375,10 @@ LABEL_73:
 
   else
   {
-    v7 = sub_100021268();
+    v7 = sub_100021268(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10002753C(&v34);
+      sub_10002753C();
     }
   }
 
@@ -443,26 +446,27 @@ LABEL_73:
 - (int64_t)getFileSizeForItemAtPath:(id)path
 {
   pathCopy = path;
-  memset(&v8, 0, sizeof(v8));
-  if (stat([pathCopy fileSystemRepresentation], &v8))
+  memset(&v9, 0, sizeof(v9));
+  v4 = stat([pathCopy fileSystemRepresentation], &v9);
+  if (v4)
   {
-    sub_1000275B4();
+    sub_1000275B4(pathCopy);
 LABEL_10:
     st_size = -1;
     goto LABEL_11;
   }
 
-  v4 = v8.st_mode & 0xF000;
-  if (v4 == 0x8000)
+  v5 = v9.st_mode & 0xF000;
+  if (v5 == 0x8000)
   {
-    st_size = v8.st_size;
+    st_size = v9.st_size;
     goto LABEL_11;
   }
 
-  if (v4 != 0x4000)
+  if (v5 != 0x4000)
   {
-    v6 = sub_100021268();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100021268(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1000276EC();
     }
@@ -473,7 +477,7 @@ LABEL_10:
   [pathCopy fileSystemRepresentation];
   if (dirstat_np())
   {
-    sub_100027650();
+    sub_100027650(pathCopy);
     goto LABEL_10;
   }
 
@@ -489,7 +493,7 @@ LABEL_11:
   v5 = v4;
   if (!v4)
   {
-    v6 = sub_100021268();
+    v6 = sub_100021268(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000277CC();
@@ -500,7 +504,7 @@ LABEL_11:
 
   v6 = [v4 objectForKey:kMGQDiskUsageAmountDataAvailable];
   v7 = [v5 objectForKey:kMGQDiskUsageAmountDataReserved];
-  v8 = sub_100021268();
+  v8 = sub_100021268(v7);
   v9 = v8;
   if (v6)
   {
@@ -542,260 +546,261 @@ LABEL_9:
 {
   successCopy = success;
   shelterCopy = shelter;
-  v50 = +[NSFileManager defaultManager];
-  v6 = sub_100021268();
+  v56 = +[NSFileManager defaultManager];
+  v6 = sub_100021268(v56);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v64 = shelterCopy;
-    v65 = 1024;
-    LODWORD(v66) = successCopy;
+    v70 = shelterCopy;
+    v71 = 1024;
+    LODWORD(v72) = successCopy;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Preserving files from %{public}@ - removeFilesOnSuccess:  %{BOOLean}d", buf, 0x12u);
   }
 
-  v47 = successCopy;
+  v53 = successCopy;
 
   v7 = [NSURL fileURLWithPath:shelterCopy isDirectory:1];
-  v72[0] = NSURLIsRegularFileKey;
-  v72[1] = NSURLIsDirectoryKey;
-  v8 = [NSArray arrayWithObjects:v72 count:2];
-  v9 = [v50 enumeratorAtURL:v7 includingPropertiesForKeys:v8 options:0 errorHandler:&stru_100050CF0];
+  v78[0] = NSURLIsRegularFileKey;
+  v78[1] = NSURLIsDirectoryKey;
+  v8 = [NSArray arrayWithObjects:v78 count:2];
+  v9 = [v56 enumeratorAtURL:v7 includingPropertiesForKeys:v8 options:0 errorHandler:&stru_100050CF0];
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
-  v60 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   obj = v9;
-  v52 = [obj countByEnumeratingWithState:&v59 objects:v71 count:16];
+  v58 = [obj countByEnumeratingWithState:&v65 objects:v77 count:16];
   v10 = 0;
-  if (v52)
+  if (v58)
   {
-    v51 = *v60;
-    v48 = shelterCopy;
+    v57 = *v66;
+    v54 = shelterCopy;
     do
     {
       v11 = 0;
       do
       {
-        if (*v60 != v51)
+        if (*v66 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v59 + 1) + 8 * v11);
-        v57 = 0;
-        v58 = 0;
-        v13 = [v12 getResourceValue:&v58 forKey:NSURLIsRegularFileKey error:&v57];
-        v14 = v58;
-        v15 = v57;
+        v12 = *(*(&v65 + 1) + 8 * v11);
+        v63 = 0;
+        v64 = 0;
+        v13 = [v12 getResourceValue:&v64 forKey:NSURLIsRegularFileKey error:&v63];
+        v14 = v64;
+        v15 = v63;
 
         if ((v13 & 1) == 0)
         {
-          v31 = sub_100021268();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v35 = sub_100021268(v16);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             path = [v12 path];
             localizedDescription = [v15 localizedDescription];
             *buf = 138543618;
-            v64 = path;
-            v65 = 2114;
-            v66 = localizedDescription;
-            _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "getResourceValue NSURLIsRegularFileKey failed for %{public}@ with error %{public}@", buf, 0x16u);
+            v70 = path;
+            v71 = 2114;
+            v72 = localizedDescription;
+            _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "getResourceValue NSURLIsRegularFileKey failed for %{public}@ with error %{public}@", buf, 0x16u);
           }
 
           stringByDeletingLastPathComponent = 0;
-          v22 = 0;
-          v21 = 0;
-          v17 = 0;
+          v24 = 0;
+          v23 = 0;
+          v18 = 0;
           goto LABEL_33;
         }
 
-        v55 = 0;
-        v56 = 0;
-        v16 = [v12 getResourceValue:&v56 forKey:NSURLIsDirectoryKey error:&v55];
-        v17 = v56;
-        v10 = v55;
+        v61 = 0;
+        v62 = 0;
+        v17 = [v12 getResourceValue:&v62 forKey:NSURLIsDirectoryKey error:&v61];
+        v18 = v62;
+        v10 = v61;
 
-        if (v16)
+        if (v17)
         {
-          if (([v14 BOOLValue] & 1) == 0 && !objc_msgSend(v17, "BOOLValue") || (objc_msgSend(v12, "path"), v18 = objc_claimAutoreleasedReturnValue(), v19 = +[MSDXattr isContentRoot:](MSDXattr, "isContentRoot:", v18), v18, !v19))
+          if (([v14 BOOLValue] & 1) == 0 && !objc_msgSend(v18, "BOOLValue") || (objc_msgSend(v12, "path"), v20 = objc_claimAutoreleasedReturnValue(), v21 = +[MSDXattr isContentRoot:](MSDXattr, "isContentRoot:", v20), v20, !v21))
           {
             stringByDeletingLastPathComponent = 0;
-            v22 = 0;
-            v21 = 0;
-            v30 = 1;
+            v24 = 0;
+            v23 = 0;
+            v34 = 1;
             goto LABEL_21;
           }
 
           path2 = [v12 path];
-          v21 = [path2 substringFromIndex:{objc_msgSend(shelterCopy, "length")}];
+          v23 = [path2 substringFromIndex:{objc_msgSend(shelterCopy, "length")}];
 
-          v22 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter" stringByAppendingPathComponent:v21];
-          stringByDeletingLastPathComponent = [v22 stringByDeletingLastPathComponent];
-          v24 = v50;
-          if (([v50 fileExistsAtPath:stringByDeletingLastPathComponent] & 1) == 0)
+          v24 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter" stringByAppendingPathComponent:v23];
+          stringByDeletingLastPathComponent = [v24 stringByDeletingLastPathComponent];
+          v26 = v56;
+          v27 = [v56 fileExistsAtPath:stringByDeletingLastPathComponent];
+          if ((v27 & 1) == 0)
           {
-            v54 = v10;
-            v25 = [v50 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v54];
-            v15 = v54;
+            v60 = v10;
+            v28 = [v56 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v60];
+            v15 = v60;
 
-            if ((v25 & 1) == 0)
+            if ((v28 & 1) == 0)
             {
-              v31 = sub_100021268();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+              v35 = sub_100021268(v27);
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
                 localizedDescription2 = [v15 localizedDescription];
                 *buf = 138543618;
-                v64 = stringByDeletingLastPathComponent;
-                v65 = 2114;
-                v66 = localizedDescription2;
-                _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Failed to create parent folder %{public}@. Error: %{public}@", buf, 0x16u);
+                v70 = stringByDeletingLastPathComponent;
+                v71 = 2114;
+                v72 = localizedDescription2;
+                _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Failed to create parent folder %{public}@. Error: %{public}@", buf, 0x16u);
               }
 
               goto LABEL_36;
             }
 
             v10 = v15;
-            v24 = v50;
+            v26 = v56;
           }
 
-          v26 = sub_100021268();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v29 = sub_100021268(v27);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             path3 = [v12 path];
             *buf = 136315650;
-            v64 = "[MSDHSnapshottedDataSaver movePreservedFilesToDataShelter:removeFilesOnSuccess:]";
-            v65 = 2114;
-            v66 = path3;
-            v67 = 2114;
-            v68 = v22;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%s - Clone item %{public}@ ==> %{public}@", buf, 0x20u);
+            v70 = "[MSDHSnapshottedDataSaver movePreservedFilesToDataShelter:removeFilesOnSuccess:]";
+            v71 = 2114;
+            v72 = path3;
+            v73 = 2114;
+            v74 = v24;
+            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%s - Clone item %{public}@ ==> %{public}@", buf, 0x20u);
 
-            v24 = v50;
+            v26 = v56;
           }
 
           path4 = [v12 path];
-          v29 = [v24 cloneFile:path4 to:v22 expectingHash:0 correctOwnership:0];
+          v32 = [v26 cloneFile:path4 to:v24 expectingHash:0 correctOwnership:0];
 
-          if (v29)
+          if (v32)
           {
-            v30 = 1;
-            shelterCopy = v48;
+            v34 = 1;
+            shelterCopy = v54;
             goto LABEL_21;
           }
 
-          v46 = sub_100021268();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v52 = sub_100021268(v33);
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
             path5 = [v12 path];
-            v37 = __error();
-            v38 = strerror(*v37);
+            v41 = __error();
+            v42 = strerror(*v41);
             *buf = 136315906;
-            v64 = "[MSDHSnapshottedDataSaver movePreservedFilesToDataShelter:removeFilesOnSuccess:]";
-            v65 = 2114;
-            v66 = path5;
-            v67 = 2114;
-            v68 = v22;
-            v69 = 2080;
-            v70 = v38;
-            _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "%s - Failed to clone item %{public}@ ==> %{public}@ - Error:  %s", buf, 0x2Au);
+            v70 = "[MSDHSnapshottedDataSaver movePreservedFilesToDataShelter:removeFilesOnSuccess:]";
+            v71 = 2114;
+            v72 = path5;
+            v73 = 2114;
+            v74 = v24;
+            v75 = 2080;
+            v76 = v42;
+            _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%s - Failed to clone item %{public}@ ==> %{public}@ - Error:  %s", buf, 0x2Au);
 
             v15 = v10;
-            v31 = v46;
+            v35 = v52;
 LABEL_36:
-            shelterCopy = v48;
+            shelterCopy = v54;
             goto LABEL_33;
           }
 
           v15 = v10;
-          shelterCopy = v48;
+          shelterCopy = v54;
         }
 
         else
         {
-          v46 = sub_100021268();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v52 = sub_100021268(v19);
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
             path6 = [v12 path];
             localizedDescription3 = [v10 localizedDescription];
             *buf = 138543618;
-            v64 = path6;
-            v65 = 2114;
-            v66 = localizedDescription3;
-            _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "getResourceValue NSURLIsDirectoryKey failed for %{public}@ with error %{public}@", buf, 0x16u);
+            v70 = path6;
+            v71 = 2114;
+            v72 = localizedDescription3;
+            _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "getResourceValue NSURLIsDirectoryKey failed for %{public}@ with error %{public}@", buf, 0x16u);
           }
 
           stringByDeletingLastPathComponent = 0;
-          v22 = 0;
-          v21 = 0;
+          v24 = 0;
+          v23 = 0;
           v15 = v10;
         }
 
-        v31 = v46;
+        v35 = v52;
 LABEL_33:
 
-        v30 = 0;
+        v34 = 0;
         v10 = v15;
 LABEL_21:
 
-        if (!v30)
+        if (!v34)
         {
-          v44 = obj;
-          v43 = v10;
+          v50 = obj;
+          v48 = v10;
           goto LABEL_46;
         }
 
         v11 = v11 + 1;
       }
 
-      while (v52 != v11);
-      v40 = [obj countByEnumeratingWithState:&v59 objects:v71 count:16];
-      v52 = v40;
+      while (v58 != v11);
+      v44 = [obj countByEnumeratingWithState:&v65 objects:v77 count:16];
+      v58 = v44;
     }
 
-    while (v40);
+    while (v44);
   }
 
-  if (v47)
+  if (v53)
   {
-    v41 = sub_100021268();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v46 = sub_100021268(v45);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v64 = shelterCopy;
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Remove preserved files from:  %{public}@", buf, 0xCu);
+      v70 = shelterCopy;
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Remove preserved files from:  %{public}@", buf, 0xCu);
     }
 
-    v53 = v10;
-    v42 = [v50 removeItemAtPath:shelterCopy error:&v53];
-    v43 = v53;
+    v59 = v10;
+    v47 = [v56 removeItemAtPath:shelterCopy error:&v59];
+    v48 = v59;
 
-    if ((v42 & 1) == 0)
+    if ((v47 & 1) == 0)
     {
-      v44 = sub_100021268();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v50 = sub_100021268(v49);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
-        localizedDescription4 = [v43 localizedDescription];
+        localizedDescription4 = [v48 localizedDescription];
         *buf = 136315650;
-        v64 = "[MSDHSnapshottedDataSaver movePreservedFilesToDataShelter:removeFilesOnSuccess:]";
-        v65 = 2114;
-        v66 = shelterCopy;
-        v67 = 2114;
-        v68 = localizedDescription4;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "%s - Failed to remove preserved files from:  %{public}@ - Error:  %{public}@", buf, 0x20u);
+        v70 = "[MSDHSnapshottedDataSaver movePreservedFilesToDataShelter:removeFilesOnSuccess:]";
+        v71 = 2114;
+        v72 = shelterCopy;
+        v73 = 2114;
+        v74 = localizedDescription4;
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "%s - Failed to remove preserved files from:  %{public}@ - Error:  %{public}@", buf, 0x20u);
       }
 
 LABEL_46:
     }
 
-    v10 = v43;
+    v10 = v48;
   }
 }
 
 - (BOOL)createIntermdediateDirectoriesInPathAndRestoreAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  v4 = sub_100021268();
+  v4 = sub_100021268(attributesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -853,7 +858,7 @@ LABEL_46:
 
   if (v7)
   {
-    sub_100027AB0();
+    sub_100027AB0(forCopy);
     v10 = 0;
   }
 
@@ -870,361 +875,363 @@ LABEL_46:
   underCopy = under;
   pathCopy = path;
   v6 = +[NSFileManager defaultManager];
-  HIBYTE(v117) = 0;
-  v105 = v6;
-  if (![v6 fileExistsAtPath:underCopy isDirectory:&v117 + 7] || HIBYTE(v117) != 1)
+  HIBYTE(v125) = 0;
+  v113 = v6;
+  if (![v6 fileExistsAtPath:underCopy isDirectory:&v125 + 7] || HIBYTE(v125) != 1)
   {
-    v11 = 0;
-    v33 = 0;
     v12 = 0;
-    v34 = 0;
+    v38 = 0;
+    v13 = 0;
+    v39 = 0;
     goto LABEL_37;
   }
 
-  v116 = 0;
-  v7 = [v6 contentsOfDirectoryAtPath:underCopy error:&v116];
-  v8 = v116;
+  v124 = 0;
+  v7 = [v6 contentsOfDirectoryAtPath:underCopy error:&v124];
+  v8 = v124;
+  v9 = v8;
   if (!v7)
   {
-    v40 = sub_100021268();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v47 = sub_100021268(v8);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v8 localizedDescription];
+      localizedDescription = [v9 localizedDescription];
       sub_100008A0C();
-      *(v74 + 4) = "[MSDHSnapshottedDataSaver adjustContentUnder:userHomePath:]";
+      *(v82 + 4) = "[MSDHSnapshottedDataSaver adjustContentUnder:userHomePath:]";
       sub_100008A18();
-      *(v75 + 14) = underCopy;
+      *(v83 + 14) = underCopy;
       sub_100008A4C();
       sub_100008A24();
-      _os_log_error_impl(v76, v77, v78, v79, v80, 0x20u);
+      _os_log_error_impl(v84, v85, v86, v87, v88, 0x20u);
     }
 
     stringByDeletingLastPathComponent = 0;
-    v11 = 0;
-    v33 = 0;
     v12 = 0;
+    v38 = 0;
+    v13 = 0;
     goto LABEL_73;
   }
 
-  *v114 = 0u;
-  v115 = 0u;
-  *v112 = 0u;
-  v113 = 0u;
-  v9 = v7;
-  v104 = [v9 countByEnumeratingWithState:v112 objects:v123 count:16];
-  v11 = 0;
-  if (!v104)
+  *v122 = 0u;
+  v123 = 0u;
+  *v120 = 0u;
+  v121 = 0u;
+  v10 = v7;
+  v112 = [v10 countByEnumeratingWithState:v120 objects:v131 count:16];
+  v12 = 0;
+  if (!v112)
   {
-    v100 = 0;
-    v12 = 0;
+    v108 = 0;
+    v13 = 0;
     goto LABEL_57;
   }
 
-  v100 = 0;
-  v12 = 0;
-  v103 = *v113;
-  *&v10 = 138412290;
-  *v98 = v10;
-  *&v10 = 136315906;
-  *v97 = v10;
-  v99 = v9;
+  v108 = 0;
+  v13 = 0;
+  v111 = *v121;
+  *&v11 = 138412290;
+  *v106 = v11;
+  *&v11 = 136315906;
+  *v105 = v11;
+  v107 = v10;
   do
   {
-    v13 = 0;
+    v14 = 0;
     do
     {
-      v14 = v12;
-      v15 = v11;
-      if (*v113 != v103)
+      v15 = v13;
+      v16 = v12;
+      if (*v121 != v111)
       {
-        objc_enumerationMutation(v9);
+        objc_enumerationMutation(v10);
       }
 
-      v16 = underCopy;
-      v12 = [underCopy stringByAppendingPathComponent:{*(v112[1] + 8 * v13), *v97}];
+      v17 = underCopy;
+      v13 = [underCopy stringByAppendingPathComponent:{*(v120[1] + 8 * v14), *v105}];
 
-      v111 = v8;
-      v11 = [v105 attributesOfItemAtPath:v12 error:&v111];
-      v17 = v111;
+      v119 = v9;
+      v12 = [v113 attributesOfItemAtPath:v13 error:&v119];
+      v18 = v119;
 
-      if (!v11)
+      if (!v12)
       {
-        v48 = sub_100021268();
-        if (sub_100005E88(v48))
+        v56 = sub_100021268(v19);
+        if (sub_100005E88(v56))
         {
-          localizedDescription2 = [v17 localizedDescription];
+          localizedDescription2 = [v18 localizedDescription];
           sub_100008A0C();
-          *(v50 + 4) = "[MSDHSnapshottedDataSaver adjustContentUnder:userHomePath:]";
+          *(v58 + 4) = "[MSDHSnapshottedDataSaver adjustContentUnder:userHomePath:]";
           sub_100008A18();
-          *(v51 + 14) = v12;
+          *(v59 + 14) = v13;
           sub_100008A4C();
-          sub_100008A64(&_mh_execute_header, v52, v53, "%s: Cannot get attribute from %@ - %@", v54, v55, v56, v57, v97[0], v97[1], v98[0], v98[1], v99, v100, self, pathCopy, NSFileTypeSymbolicLink, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112[0], v112[1], v113, *(&v113 + 1), v114[0], v114[1], v115, *(&v115 + 1), v116, v117, buf[0]);
+          sub_100008A64(&_mh_execute_header, v60, v61, "%s: Cannot get attribute from %@ - %@", v62, v63, v64, v65, v105[0], v105[1], v106[0], v106[1], v107, v108, self, pathCopy, NSFileTypeSymbolicLink, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120[0], v120[1], v121, *(&v121 + 1), v122[0], v122[1], v123, *(&v123 + 1), v124, v125);
         }
 
         goto LABEL_63;
       }
 
-      fileType = [v11 fileType];
-      v19 = [fileType isEqualToString:NSFileTypeSymbolicLink];
+      fileType = [v12 fileType];
+      v21 = [fileType isEqualToString:NSFileTypeSymbolicLink];
 
-      if (v19)
+      if (v21)
       {
-        v20 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter" stringByAppendingPathComponent:pathCopy];
-        if (!v20 || [v12 caseInsensitiveCompare:v20])
+        v22 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/DataShelter" stringByAppendingPathComponent:pathCopy];
+        if (!v22 || [v13 caseInsensitiveCompare:v22])
         {
 
           goto LABEL_25;
         }
 
-        v21 = sub_100021268();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = sub_100021268(0);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           sub_100008A58();
-          *(v22 + 4) = v20;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Found wormhole in staging to user volume: %@", buf, 0xCu);
+          *(v24 + 4) = v22;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Found wormhole in staging to user volume: %@", buf, 0xCu);
         }
       }
 
-      if (![MSDXattr isNotExtracted:v12])
+      if (![MSDXattr isNotExtracted:v13])
       {
-        [(MSDHSnapshottedDataSaver *)self adjustContentUnder:v12 userHomePath:pathCopy];
+        [(MSDHSnapshottedDataSaver *)self adjustContentUnder:v13 userHomePath:pathCopy];
 LABEL_25:
-        v8 = v17;
+        v9 = v18;
 LABEL_26:
-        underCopy = v16;
+        underCopy = v17;
         goto LABEL_29;
       }
 
-      v23 = [(MSDHSnapshottedDataSaver *)self originalPathFor:v12];
+      v25 = [(MSDHSnapshottedDataSaver *)self originalPathFor:v13];
 
-      v24 = sub_100021268();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_100021268(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         sub_100008A58();
-        *(v25 + 4) = v12;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%@ is not extracted (under a content root), should use the original content.", buf, 0xCu);
+        *(v28 + 4) = v13;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%@ is not extracted (under a content root), should use the original content.", buf, 0xCu);
       }
 
-      v110 = v17;
-      v8 = [v105 removeItemAtPath:v12 error:&v110];
-      v26 = v110;
+      v118 = v18;
+      v9 = [v113 removeItemAtPath:v13 error:&v118];
+      v29 = v118;
 
-      if ((v8 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        v58 = sub_100021268();
-        if (sub_100005E88(v58))
+        v66 = sub_100021268(v30);
+        if (sub_100005E88(v66))
         {
-          localizedDescription3 = [v26 localizedDescription];
+          localizedDescription3 = [v29 localizedDescription];
           sub_100008A0C();
-          *(v65 + 4) = "[MSDHSnapshottedDataSaver adjustContentUnder:userHomePath:]";
+          *(v73 + 4) = "[MSDHSnapshottedDataSaver adjustContentUnder:userHomePath:]";
           sub_100008A18();
-          *(v66 + 14) = v12;
+          *(v74 + 14) = v13;
           sub_100008A4C();
-          sub_100008A64(&_mh_execute_header, v67, v68, "%s: Cannot remove item: %@ - Error:  %@", v69, v70, v71, v72, v97[0], v97[1], v98[0], v98[1], v99, v100, self, pathCopy, NSFileTypeSymbolicLink, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112[0], v112[1], v113, *(&v113 + 1), v114[0], v114[1], v115, *(&v115 + 1), v116, v117, buf[0]);
+          sub_100008A64(&_mh_execute_header, v75, v76, "%s: Cannot remove item: %@ - Error:  %@", v77, v78, v79, v80, v105[0], v105[1], v106[0], v106[1], v107, v108, self, pathCopy, NSFileTypeSymbolicLink, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120[0], v120[1], v121, *(&v121 + 1), v122[0], v122[1], v123, *(&v123 + 1), v124, v125);
         }
 
-        v100 = v23;
-        v17 = v26;
-        v9 = v99;
+        v108 = v25;
+        v18 = v29;
+        v10 = v107;
 LABEL_63:
 
-        v40 = v9;
+        v47 = v10;
         stringByDeletingLastPathComponent = 0;
-        v43 = 0;
-        v8 = v17;
-        underCopy = v16;
-        v33 = v100;
+        v50 = 0;
+        v9 = v18;
+        underCopy = v17;
+        v38 = v108;
         goto LABEL_64;
       }
 
-      if ([v105 fileExistsAtPath:v23])
+      if ([v113 fileExistsAtPath:v25])
       {
-        v109 = v26;
-        v27 = [v105 moveItemAtPath:v23 toPath:v12 error:&v109];
-        v8 = v109;
+        v117 = v29;
+        v31 = [v113 moveItemAtPath:v25 toPath:v13 error:&v117];
+        v9 = v117;
 
-        if ((v27 & 1) == 0)
+        if ((v31 & 1) == 0)
         {
-          v28 = sub_100021268();
-          v9 = v99;
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v33 = sub_100021268(v32);
+          v10 = v107;
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            localizedDescription4 = [v8 localizedDescription];
+            localizedDescription4 = [v9 localizedDescription];
             sub_100008A58();
-            *(v30 + 4) = "[MSDHSnapshottedDataSaver adjustContentUnder:userHomePath:]";
-            v119 = 2112;
-            *(v30 + 14) = v23;
-            v120 = 2112;
-            v121 = v12;
-            v122 = 2112;
-            *(v30 + 34) = v31;
-            _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%s: Could not move item %@ to %@.  Error:  %@", buf, 0x2Au);
+            *(v35 + 4) = "[MSDHSnapshottedDataSaver adjustContentUnder:userHomePath:]";
+            v127 = 2112;
+            *(v35 + 14) = v25;
+            v128 = 2112;
+            v129 = v13;
+            v130 = 2112;
+            *(v35 + 34) = v36;
+            _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "%s: Could not move item %@ to %@.  Error:  %@", buf, 0x2Au);
           }
 
-          v100 = v23;
+          v108 = v25;
           goto LABEL_26;
         }
 
-        v100 = v23;
+        v108 = v25;
       }
 
       else
       {
-        v100 = v23;
-        v8 = v26;
+        v108 = v25;
+        v9 = v29;
       }
 
-      underCopy = v16;
-      v9 = v99;
+      underCopy = v17;
+      v10 = v107;
 LABEL_29:
-      v13 = v13 + 1;
+      v14 = v14 + 1;
     }
 
-    while (v104 != v13);
-    v32 = [v9 countByEnumeratingWithState:v112 objects:v123 count:16];
-    v104 = v32;
+    while (v112 != v14);
+    v37 = [v10 countByEnumeratingWithState:v120 objects:v131 count:16];
+    v112 = v37;
   }
 
-  while (v32);
+  while (v37);
 LABEL_57:
 
-  v33 = v100;
-  v34 = v8;
-  v6 = v105;
+  v38 = v108;
+  v39 = v9;
+  v6 = v113;
 LABEL_37:
   if (![MSDXattr isContentRoot:underCopy])
   {
     stringByDeletingLastPathComponent = 0;
-    v43 = 1;
+    v50 = 1;
     goto LABEL_66;
   }
 
-  v35 = [MSDXattr isContentRootToRemove:underCopy];
+  v40 = [MSDXattr isContentRootToRemove:underCopy];
   [MSDXattr removeXattr:underCopy];
-  v36 = [(MSDHSnapshottedDataSaver *)self originalPathFor:underCopy];
+  v41 = [(MSDHSnapshottedDataSaver *)self originalPathFor:underCopy];
 
-  if (![v6 fileExistsAtPath:v36])
+  v42 = [v6 fileExistsAtPath:v41];
+  if (!v42)
   {
     goto LABEL_41;
   }
 
-  v108 = v34;
-  v33 = v36;
-  v37 = [v6 removeItemAtPath:v36 error:&v108];
-  v8 = v108;
+  v116 = v39;
+  v38 = v41;
+  v43 = [v6 removeItemAtPath:v41 error:&v116];
+  v9 = v116;
 
-  if ((v37 & 1) == 0)
+  if ((v43 & 1) == 0)
   {
-    v40 = sub_100021268();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v47 = sub_100021268(v42);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription5 = [v8 localizedDescription];
+      localizedDescription5 = [v9 localizedDescription];
       sub_100008A0C();
-      *(v82 + 4) = v33;
+      *(v90 + 4) = v38;
       sub_100008A18();
-      *(v84 + 14) = v83;
+      *(v92 + 14) = v91;
       sub_100008A24();
-      _os_log_error_impl(v85, v86, v87, v88, v89, 0x16u);
+      _os_log_error_impl(v93, v94, v95, v96, v97, 0x16u);
     }
 
     stringByDeletingLastPathComponent = 0;
     goto LABEL_73;
   }
 
-  v34 = v8;
-  v6 = v105;
-  v36 = v33;
+  v39 = v9;
+  v6 = v113;
+  v41 = v38;
 LABEL_41:
-  if ((v35 & 1) == 0)
+  if ((v40 & 1) == 0)
   {
-    v44 = sub_100021268();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v51 = sub_100021268(v42);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       sub_1000089F4();
-      *(v45 + 14) = v36;
-      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Moving content root item %@ to %@.", buf, 0x16u);
+      *(v52 + 14) = v41;
+      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Moving content root item %@ to %@.", buf, 0x16u);
     }
 
-    v46 = v36;
-    stringByDeletingLastPathComponent = [v36 stringByDeletingLastPathComponent];
-    v6 = v105;
-    if (([v105 fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v117 + 7] & 1) == 0 && !-[MSDHSnapshottedDataSaver createIntermdediateDirectoriesInPathAndRestoreAttributes:](self, "createIntermdediateDirectoriesInPathAndRestoreAttributes:", stringByDeletingLastPathComponent))
+    v53 = v41;
+    stringByDeletingLastPathComponent = [v41 stringByDeletingLastPathComponent];
+    v6 = v113;
+    if (([v113 fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v125 + 7] & 1) == 0 && !-[MSDHSnapshottedDataSaver createIntermdediateDirectoriesInPathAndRestoreAttributes:](self, "createIntermdediateDirectoriesInPathAndRestoreAttributes:", stringByDeletingLastPathComponent))
     {
-      v43 = 0;
-      v33 = v46;
+      v50 = 0;
+      v38 = v53;
       goto LABEL_66;
     }
 
-    v107 = v34;
-    v33 = v46;
-    v47 = [v105 moveItemAtPath:underCopy toPath:v46 error:&v107];
-    v8 = v107;
+    v115 = v39;
+    v38 = v53;
+    v54 = [v113 moveItemAtPath:underCopy toPath:v53 error:&v115];
+    v9 = v115;
 
-    if (v47)
+    if (v54)
     {
-      v43 = 1;
+      v50 = 1;
       goto LABEL_65;
     }
 
-    v40 = sub_100021268();
-    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v47 = sub_100021268(v55);
+    if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      v43 = 0;
-      v33 = v46;
+      v50 = 0;
+      v38 = v53;
       goto LABEL_64;
     }
 
-    localizedDescription6 = [v8 localizedDescription];
+    localizedDescription6 = [v9 localizedDescription];
     sub_1000089F4();
-    v33 = v46;
-    *(v91 + 14) = v46;
+    v38 = v53;
+    *(v99 + 14) = v53;
     sub_100008A4C();
     sub_100008A24();
-    _os_log_error_impl(v92, v93, v94, v95, v96, 0x20u);
+    _os_log_error_impl(v100, v101, v102, v103, v104, 0x20u);
 
 LABEL_73:
-    v43 = 0;
+    v50 = 0;
     goto LABEL_64;
   }
 
-  v106 = v34;
-  v38 = [v6 removeItemAtPath:underCopy error:&v106];
-  v8 = v106;
+  v114 = v39;
+  v44 = [v6 removeItemAtPath:underCopy error:&v114];
+  v9 = v114;
 
-  if ((v38 & 1) == 0)
+  if ((v44 & 1) == 0)
   {
-    v39 = sub_100021268();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v46 = sub_100021268(v45);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      [v8 localizedDescription];
-      v61 = v60 = v36;
+      [v9 localizedDescription];
+      v69 = v68 = v41;
       sub_1000089F4();
-      *(v63 + 14) = v62;
-      _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Failed to remove:  %@ - Error:  %@", buf, 0x16u);
+      *(v71 + 14) = v70;
+      _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Failed to remove:  %@ - Error:  %@", buf, 0x16u);
 
-      v36 = v60;
+      v41 = v68;
     }
   }
 
-  v40 = sub_100021268();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v47 = sub_100021268(v45);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     sub_100008A58();
-    *(v41 + 4) = v36;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Removed %@.", buf, 0xCu);
+    *(v48 + 4) = v41;
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Removed %@.", buf, 0xCu);
   }
 
-  v33 = v36;
+  v38 = v41;
   stringByDeletingLastPathComponent = 0;
-  v43 = 1;
+  v50 = 1;
 LABEL_64:
 
 LABEL_65:
-  v34 = v8;
-  v6 = v105;
+  v39 = v9;
+  v6 = v113;
 LABEL_66:
 
-  return v43;
+  return v50;
 }
 
 @end

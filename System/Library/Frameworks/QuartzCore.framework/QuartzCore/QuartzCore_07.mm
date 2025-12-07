@@ -1,165 +1,168 @@
-float32x2_t CA::OGL::anonymous namespace::desired_src_edge_replication(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x2_t *a5, uint64_t a6, _BYTE *a7, BOOL *a8, float32x2_t result)
+float32x2_t CA::OGL::anonymous namespace::desired_src_edge_replication(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x2_t *a5, uint64_t a6, _BYTE *a7, BOOL *a8, __n128 result)
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   v16 = a1[78];
-  if (v16)
+  if (!v16 || (v17 = *(v16 + 16), !v17))
   {
-    v17 = *(v16 + 16);
-    if (v17)
+LABEL_8:
+    if (a1[10] - a1[9] != 192)
     {
-      if (*(*(v16 + 24) + 13))
-      {
-        goto LABEL_17;
-      }
+      return result.n128_u64[0];
+    }
 
-      v18 = 0;
+    v20 = *(a2 + 136);
+    if (!v20)
+    {
+      return result.n128_u64[0];
+    }
+
+    v16 = *(v20 + 96);
+    if (!v16)
+    {
+      return result.n128_u64[0];
+    }
+
+    v17 = *(v16 + 16);
+    if (!v17)
+    {
+      return result.n128_u64[0];
+    }
+
+    if ((*(*(v16 + 24) + 13) & 1) == 0)
+    {
+      v21 = 0;
       do
       {
-        if (v17 - 1 == v18)
+        if (v17 - 1 == v21)
         {
-          goto LABEL_8;
+          return result.n128_u64[0];
         }
 
-        v19 = *(v16 + 8 * v18++ + 32);
+        v22 = *(v16 + 8 * v21++ + 32);
       }
 
-      while ((*(v19 + 13) & 1) == 0);
-      if (v18 < v17)
+      while ((*(v22 + 13) & 1) == 0);
+      if (v21 >= v17)
       {
-        goto LABEL_17;
+        return result.n128_u64[0];
       }
     }
+
+    goto LABEL_17;
   }
 
-LABEL_8:
-  if (a1[10] - a1[9] == 192)
+  if ((*(*(v16 + 24) + 13) & 1) == 0)
   {
-    v20 = *(a2 + 136);
-    if (v20)
+    v18 = 0;
+    while (v17 - 1 != v18)
     {
-      v16 = *(v20 + 96);
-      if (v16)
+      v19 = *(v16 + 8 * v18++ + 32);
+      if (*(v19 + 13))
       {
-        v17 = *(v16 + 16);
-        if (v17)
+        if (v18 < v17)
         {
-          if (*(*(v16 + 24) + 13))
-          {
-            goto LABEL_17;
-          }
+          goto LABEL_17;
+        }
 
-          v21 = 0;
-          do
-          {
-            if (v17 - 1 == v21)
-            {
-              return result;
-            }
+        goto LABEL_8;
+      }
+    }
 
-            v22 = *(v16 + 8 * v21++ + 32);
-          }
+    goto LABEL_8;
+  }
 
-          while ((*(v22 + 13) & 1) == 0);
-          if (v21 < v17)
-          {
 LABEL_17:
-            v23 = 0;
-            v24 = 0;
-            v25 = 8 * v17;
-            for (i = (v16 + 24); ; ++i)
-            {
-              if ((*(*i + 12) & 0x40100) == 0x100)
-              {
-                v27 = *(*i + 24);
-                if (v23)
-                {
-                  if ((v27 - 283) >= 2 && v27 != 97 && v27 != 202)
-                  {
-                    goto LABEL_31;
-                  }
+  v23 = 0;
+  v24 = 0;
+  v25 = 8 * v17;
+  v26 = (v16 + 24);
+  do
+  {
+    if ((*(*v26 + 12) & 0x40100) != 0x100)
+    {
+      goto LABEL_31;
+    }
 
+    v27 = *(*v26 + 24);
+    if (v23)
+    {
+      if ((v27 - 283) < 2 || v27 == 97 || v27 == 202)
+      {
+        goto LABEL_30;
+      }
+    }
+
+    else if (v27 > 282)
+    {
+      if ((v27 - 283) < 2)
+      {
+        goto LABEL_30;
+      }
+
+      if (v27 == 737)
+      {
+        goto LABEL_34;
+      }
+    }
+
+    else
+    {
+      if (v27 == 97 || v27 == 202)
+      {
 LABEL_30:
-                  v24 = *i;
-                  goto LABEL_31;
-                }
+        v24 = *v26;
+        goto LABEL_31;
+      }
 
-                if (v27 <= 282)
-                {
-                  if (v27 != 97 && v27 != 202)
-                  {
-                    if (v27 != 280)
-                    {
-                      goto LABEL_31;
-                    }
-
+      if (v27 == 280)
+      {
 LABEL_34:
-                    v23 = *i;
-                    goto LABEL_31;
-                  }
-
-                  goto LABEL_30;
-                }
-
-                if ((v27 - 283) < 2)
-                {
-                  goto LABEL_30;
-                }
-
-                if (v27 == 737)
-                {
-                  goto LABEL_34;
-                }
-              }
+        v23 = *v26;
+      }
+    }
 
 LABEL_31:
-              v25 -= 8;
-              if (!v25)
-              {
-                if (v23)
-                {
-                  v28 = *(v23 + 48);
-                  if (v28)
-                  {
-                    if ((*(*v28 + 72))(*(v23 + 48)))
-                    {
-                      *a7 = (*(*v28 + 144))(v28, v23, a2, a3, a4, a5, a6);
-                    }
-                  }
-                }
+    ++v26;
+    v25 -= 8;
+  }
 
-                if (v24)
-                {
-                  v29 = *(v24 + 48);
-                  if (v29)
-                  {
-                    if ((*(*v29 + 72))(*(v24 + 48)))
-                    {
-                      v32[0] = 0;
-                      (*(*v29 + 144))(v29, v24, a2, a3, 0, v32, 0);
-                      v30 = v32[0];
-                      v31 = *v32 != 0.0;
-                      if (*(v32 + 1) != 0.0)
-                      {
-                        v31 = 1;
-                      }
-
-                      *a8 = v31;
-                      result = vadd_f32(*a5, v30);
-                      *a5 = result;
-                    }
-                  }
-                }
-
-                return result;
-              }
-            }
-          }
-        }
+  while (v25);
+  if (v23)
+  {
+    v28 = *(v23 + 48);
+    if (v28)
+    {
+      if ((*(*v28 + 72))(*(v23 + 48), result))
+      {
+        *a7 = (*(*v28 + 144))(v28, v23, a2, a3, a4, a5, a6);
       }
     }
   }
 
-  return result;
+  if (v24)
+  {
+    v29 = *(v24 + 48);
+    if (v29)
+    {
+      if ((*(*v29 + 72))(*(v24 + 48), result))
+      {
+        v33[0] = 0;
+        (*(*v29 + 144))(v29, v24, a2, a3, 0, v33, 0);
+        v30 = v33[0];
+        v31 = *v33 != 0.0;
+        if (*(v33 + 1) != 0.0)
+        {
+          v31 = 1;
+        }
+
+        *a8 = v31;
+        result.n128_u64[0] = vadd_f32(*a5, v30);
+        *a5 = result.n128_u64[0];
+      }
+    }
+  }
+
+  return result.n128_u64[0];
 }
 
 uint64_t CA::OGL::GlassBackgroundFilter::get_edge_info(uint64_t a1, CA::OGL::GlassBackgroundFilter **a2, uint64_t a3, uint64_t a4, uint64_t a5, float32x2_t *a6)
@@ -208,7 +211,7 @@ uint64_t CA::OGL::GlassBackgroundFilter::get_edge_info(uint64_t a1, CA::OGL::Gla
   return 1;
 }
 
-uint64_t CA::OGL::anonymous namespace::filters_are_valid(uint64_t result)
+BOOL CA::OGL::anonymous namespace::filters_are_valid(_BOOL8 result)
 {
   if (result)
   {
@@ -1641,7 +1644,7 @@ LABEL_380:
         }
 
         [*v18 setUsage:1];
-        if (!CA::OGL::MetalContext::is_viable_texture_from_iosurface(a1, buffer, v22))
+        if (!CA::OGL::MetalContext::is_viable_texture_from_iosurface(a1, buffer, v22, v20, v19))
         {
 
           return;
@@ -1920,7 +1923,7 @@ double CA::WindowServer::Surface::Surface(CA::WindowServer::Surface *this, CA::W
   return result;
 }
 
-void std::vector<CA::WindowServer::Surface *>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<CA::WindowServer::Surface *>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -2501,7 +2504,7 @@ LABEL_55:
   return result;
 }
 
-unint64_t CA::SurfaceUtil::CASurfaceQuerySharedEvent(CA::SurfaceUtil *this, __IOSurface *a2)
+void *CA::SurfaceUtil::CASurfaceQuerySharedEvent(CA::SurfaceUtil *this, __IOSurface *a2)
 {
   v2 = this;
   v40 = *MEMORY[0x1E69E9840];
@@ -3588,7 +3591,7 @@ LABEL_93:
   return result;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>,std::__unordered_map_hasher<CA::OGL::Context::RenderObjectSlice,std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>,CA::OGL::Context::RenderObjectSlice::Hash,std::equal_to<CA::OGL::Context::RenderObjectSlice>,true>,std::__unordered_map_equal<CA::OGL::Context::RenderObjectSlice,std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>,std::equal_to<CA::OGL::Context::RenderObjectSlice>,CA::OGL::Context::RenderObjectSlice::Hash,true>,std::allocator<std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>>>::find<CA::OGL::Context::RenderObjectSlice>(void *a1, unint64_t a2, unsigned __int8 a3)
+uint64_t ***std::__hash_table<std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>,std::__unordered_map_hasher<CA::OGL::Context::RenderObjectSlice,std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>,CA::OGL::Context::RenderObjectSlice::Hash,std::equal_to<CA::OGL::Context::RenderObjectSlice>,true>,std::__unordered_map_equal<CA::OGL::Context::RenderObjectSlice,std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>,std::equal_to<CA::OGL::Context::RenderObjectSlice>,CA::OGL::Context::RenderObjectSlice::Hash,true>,std::allocator<std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>>>::find<CA::OGL::Context::RenderObjectSlice>(void *a1, unint64_t a2, unsigned __int8 a3)
 {
   v3 = a1[1];
   if (!*&v3)
@@ -3669,30 +3672,31 @@ uint64_t CA::Render::Texture::set_pointer(uint64_t this, unint64_t a2, void *a3)
   return this;
 }
 
-void CA::WindowServer::IOMFBServer::frame_info_callback(const void *a1, int a2, const __CFDictionary *a3, uint64_t *a4)
+void CA::WindowServer::IOMFBServer::frame_info_callback(const void *a1, uint64_t a2, const __CFDictionary *a3, CA::WindowServer::IOMFBDisplay **a4)
 {
-  v363 = *MEMORY[0x1E69E9840];
-  if (!(*(*a4 + 424))(a4))
+  v6 = a2;
+  v387 = *MEMORY[0x1E69E9840];
+  if (!(*(*a4 + 53))(a4))
   {
     __assert_rtn("frame_info_callback", "windowserver-iomfb-server.cpp", 1272, "run_loop != nullptr");
   }
 
-  v338 = 0;
-  CA::WindowServer::IOMFBDisplay::collect_frame_info(&v338, a4[12], a2);
-  v8 = v338;
-  if (!v338)
+  v362 = 0;
+  CA::WindowServer::IOMFBDisplay::collect_frame_info(&v362, a4[12], v6);
+  v8 = v362;
+  if (!v362)
   {
     return;
   }
 
-  if ((*(v338 + 110) & 0x10) != 0)
+  if ((*(v362 + 110) & 0x10) != 0)
   {
 LABEL_19:
-    v338 = 0;
-    goto LABEL_319;
+    v362 = 0;
+    goto LABEL_321;
   }
 
-  v9 = *(v338 + 1);
+  v9 = *(v362 + 1);
   Int64 = CA_CFDictionaryGetInt64(a3, @"Presentation_time");
   v11 = CA_CFDictionaryGetInt64(a3, @"Requested_presentation");
   v12 = CA_CFDictionaryGetInt64(a3, @"Last_Fence_or_Event_Time");
@@ -3713,15 +3717,15 @@ LABEL_19:
     usleep(((v13 - v15) * 1000000.0));
   }
 
-  v336 = 0;
-  v337 = 0;
+  v360 = 0;
+  v361 = 0;
   if ((*(v8 + 110) & 0x40) != 0)
   {
     kdebug_trace();
-    v26 = (*(*a4 + 432))(a4);
-    CA::WindowServer::IOMFBServer::collect_gpu_data(v26, *(v8 + 1), &v337, &v336, v27);
+    v26 = (*(*a4 + 54))(a4);
+    CA::WindowServer::IOMFBServer::collect_gpu_data(v26, *(v8 + 1), &v361, &v360, v27);
     CA::WindowServer::IOMFBDisplay::add_timing(a4[12], Int64);
-    CA::WindowServer::IOMFBServer::forward_frame_info_callback(a4, a3, v8, v337, v336);
+    CA::WindowServer::IOMFBServer::forward_frame_info_callback(a4, a3, v8, v361, v360);
     goto LABEL_19;
   }
 
@@ -3730,12 +3734,12 @@ LABEL_19:
   __p[0] = 0;
   __p[1] = 0;
   mach_get_times();
-  v299 = __p[1] - __p[0];
+  v321 = __p[1] - __p[0];
   v18 = *(v8 + 4) - (__p[1] - __p[0]);
   kdebug_trace();
   v20 = a4[12];
   cf = a1;
-  if ((*(v20 + 672) & 0x1C00) != 0 && (*(v20 + 656) & 0x8000000000000000) != 0 && (BYTE2(xmmword_1ED4E98AC) & 1) == 0)
+  if ((*(v20 + 336) & 0x1C00) != 0 && (*(v20 + 82) & 0x8000000000000000) != 0 && (BYTE2(xmmword_1ED4E98AC) & 1) == 0)
   {
     v19.n128_f64[0] = v16 - *(v8 + 1);
     if (v19.n128_f64[0] < 0.0)
@@ -3747,7 +3751,7 @@ LABEL_19:
     v20 = a4[12];
   }
 
-  v323 = v299 + Int64;
+  v347 = v321 + Int64;
   v21 = *(v8 + 4);
   v22 = (*(*v20 + 760))(v20);
   v23 = CAHostTimeWithTime(v22);
@@ -3762,7 +3766,7 @@ LABEL_19:
     v25 = *(v8 + 196) - 1;
   }
 
-  v318 = v323 - v21;
+  v342 = v347 - v21;
   if ((v24 & 4) != 0)
   {
     v28 = v23;
@@ -3774,7 +3778,7 @@ LABEL_19:
   }
 
   v29 = v28 + v25 * v23;
-  v298 = v9;
+  v320 = v9;
   if (*(v8 + 4) >= *(v8 + 5))
   {
     v33 = 0;
@@ -3791,7 +3795,7 @@ LABEL_19:
   {
     v30 = v23;
     v31 = a4[12];
-    if ((v31[336] & 0x1C00) != 0)
+    if ((*(v31 + 336) & 0x1C00) != 0)
     {
       v32 = 0;
       v23 = v30;
@@ -3825,19 +3829,19 @@ LABEL_19:
 
       v38 = v36 + v35;
       v23 = v30;
-      v32 = v38 + v37 < *(v8 + 5) - v299;
+      v32 = v38 + v37 < *(v8 + 5) - v321;
       v33 = v36 - v18;
     }
   }
 
   v39 = v29 + v33;
-  v320 = v23;
-  v40 = v318 > (v23 >> 1) + (v23 >> 6) + v39 || v32;
-  v304 = v24 & 2;
+  v344 = v23;
+  v40 = v342 > (v23 >> 1) + (v23 >> 6) + v39 || v32;
+  v326 = v24 & 2;
   if (v40)
   {
     kdebug_trace();
-    if (v304)
+    if (v326)
     {
       kdebug_trace();
     }
@@ -3846,7 +3850,7 @@ LABEL_19:
   if (v12)
   {
     v41 = a4[12];
-    if ((v41[29549] & 1) == 0)
+    if ((*(v41 + 29549) & 1) == 0)
     {
       __p[0] = 0;
       __p[1] = 0;
@@ -3876,7 +3880,7 @@ LABEL_19:
   {
     v44 = (*(*a4[12] + 776))(a4[12]);
     v45 = CAHostTimeWithTime(v44);
-    if ((*(a4[12] + 640) & 0x10) != 0)
+    if ((*(a4[12] + 160) & 0x10) != 0)
     {
       v46 = v45;
     }
@@ -3920,13 +3924,13 @@ LABEL_19:
   }
 
   pthread_mutex_lock((a4 + 107));
-  CA::WindowServer::IOMFBServer::set_throttle_reason(a4, 1, *(a4 + 829));
+  CA::WindowServer::IOMFBServer::set_throttle_reason(a4, 1u, *(a4 + 829));
   CA::WindowServer::IOMFBServer::set_throttle_reason(a4, 0, *(a4 + 828));
-  CA::WindowServer::IOMFBServer::set_throttle_reason(a4, 2, *(a4 + 835));
+  CA::WindowServer::IOMFBServer::set_throttle_reason(a4, 2u, *(a4 + 835));
   CA::WindowServer::IOMFBServer::update_throttle(a4);
   pthread_mutex_unlock((a4 + 107));
 LABEL_68:
-  v294 = v39;
+  v316 = v39;
   if (initialized[0] != -1)
   {
     dispatch_once_f(initialized, 0, init_debug);
@@ -3945,25 +3949,25 @@ LABEL_68:
   CA::WindowServer::IOMFBDisplay::add_timing(a4[12], Int64);
   v51 = a4[12];
   v52 = 0.003;
-  v292 = v12;
-  if ((*(v51 + 640) & 0x10) != 0 && (*(v51 + 656) & 0x8000000000000000) != 0)
+  v314 = v12;
+  if ((*(v51 + 160) & 0x10) != 0 && (*(v51 + 82) & 0x8000000000000000) != 0)
   {
     v52 = (*(*v51 + 776))(v51, 0.003) + 0.003;
   }
 
-  v53 = v338;
+  v53 = v362;
   if (v16 < v17 - v52)
   {
-    goto LABEL_318;
+    goto LABEL_320;
   }
 
   v54 = 0;
   v55 = a4[12];
-  v293 = *(v55 + 27360);
-  *(v55 + 27360) = v323;
+  v315 = *(v55 + 3420);
+  *(v55 + 3420) = v347;
   if (CA::WindowServer::IOMFBServer::frame_info_callback(__IOMobileFramebuffer *,unsigned int,__CFDictionary const*,void *)::previous_swap_id)
   {
-    v56 = CA::WindowServer::IOMFBServer::frame_info_callback(__IOMobileFramebuffer *,unsigned int,__CFDictionary const*,void *)::previous_swap_id == a2;
+    v56 = CA::WindowServer::IOMFBServer::frame_info_callback(__IOMobileFramebuffer *,unsigned int,__CFDictionary const*,void *)::previous_swap_id == v6;
   }
 
   else
@@ -3977,7 +3981,7 @@ LABEL_68:
     v57 = 0;
   }
 
-  CA::WindowServer::IOMFBServer::frame_info_callback(__IOMobileFramebuffer *,unsigned int,__CFDictionary const*,void *)::previous_swap_id = a2;
+  CA::WindowServer::IOMFBServer::frame_info_callback(__IOMobileFramebuffer *,unsigned int,__CFDictionary const*,void *)::previous_swap_id = v6;
   CA::WindowServer::IOMFBServer::frame_info_callback(__IOMobileFramebuffer *,unsigned int,__CFDictionary const*,void *)::mt_previous_pres = Int64;
   qword_1EA850F00 += v57;
   v58 = v11 - Int64;
@@ -4004,15 +4008,15 @@ LABEL_68:
     v60 = CA_CFDictionaryGetInt64(a3, @"GP1_Max_BW");
     v61 = CA_CFDictionaryGetInt64(a3, @"GP0_Obs_BW");
     v62 = CA_CFDictionaryGetInt64(a3, @"GP1_Obs_BW");
-    atomic_store(COERCE_UNSIGNED_INT64(v61), (a4[12] + 28720));
-    atomic_store(COERCE_UNSIGNED_INT64(v59), (a4[12] + 28728));
-    atomic_store(COERCE_UNSIGNED_INT64(v62), (a4[12] + 28736));
-    atomic_store(COERCE_UNSIGNED_INT64(v60), (a4[12] + 28744));
+    atomic_store(COERCE_UNSIGNED_INT64(v61), a4[12] + 3590);
+    atomic_store(COERCE_UNSIGNED_INT64(v59), a4[12] + 3591);
+    atomic_store(COERCE_UNSIGNED_INT64(v62), a4[12] + 3592);
+    atomic_store(COERCE_UNSIGNED_INT64(v60), a4[12] + 3593);
   }
 
-  v291 = a3;
-  v295 = a4;
-  v296 = Int64;
+  v313 = a3;
+  v317 = a4;
+  v318 = Int64;
   if (BYTE13(xmmword_1ED4E97EC) == 1)
   {
     if (x_log_get_windowserver(void)::once != -1)
@@ -4020,38 +4024,38 @@ LABEL_68:
       dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
     }
 
-    v268 = x_log_get_windowserver(void)::log;
+    v288 = x_log_get_windowserver(void)::log;
     if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(__p[0]) = 67109888;
-      HIDWORD(__p[0]) = a2;
+      HIDWORD(__p[0]) = v6;
       LOWORD(__p[1]) = 2048;
       *(&__p[1] + 2) = *&v17;
       WORD1(__p[2]) = 2048;
       *(&__p[2] + 4) = *&v16;
       WORD2(__p[3]) = 2048;
       *(&__p[3] + 6) = v16 - v17;
-      _os_log_impl(&dword_183AA6000, v268, OS_LOG_TYPE_DEFAULT, "swap %u : requested %.5f, presented at %.5f, diff %.5f\n", __p, 0x26u);
+      _os_log_impl(&dword_183AA6000, v288, OS_LOG_TYPE_DEFAULT, "swap %u : requested %.5f, presented at %.5f, diff %.5f\n", __p, 0x26u);
     }
   }
 
   v63 = *(v53 + 3);
-  v64 = v320;
+  v64 = v344;
   if (v63 != 0.0)
   {
     v64 = CAHostTimeWithTime(v63);
   }
 
   v65 = *(v53 + 8);
-  v289 = a2;
+  v311 = v6;
   if (v65 == 0.0)
   {
-    CA::Render::invoke_presentation_handlers(v8 + 12, a2, v323, v320, *(v53 + 196), v16);
+    CA::Render::invoke_presentation_handlers(v8 + 12, v6, v347, v344, *(v53 + 196), v16);
     v66 = 0;
     if (!v40)
     {
 LABEL_96:
-      v324 = 0;
+      v348 = 0;
       goto LABEL_99;
     }
   }
@@ -4060,7 +4064,7 @@ LABEL_96:
   {
     v66 = CACFAbsoluteTimeToContinuousTime(v65);
     v67 = *(v53 + 4);
-    CA::Render::invoke_presentation_handlers(v8 + 12, a2, v323, v320, *(v53 + 196), v16);
+    CA::Render::invoke_presentation_handlers(v8 + 12, v6, v347, v344, *(v53 + 196), v16);
     if (!v40 && v67 <= (v66 + v64 * 2.1))
     {
       goto LABEL_96;
@@ -4068,30 +4072,30 @@ LABEL_96:
   }
 
   kdebug_trace();
-  v324 = 1;
+  v348 = 1;
 LABEL_99:
-  v290 = v66;
+  v312 = v66;
   v68 = a4[12];
   v69 = *(v53 + 4);
-  v333 = 0;
-  v334 = 0;
-  v335 = 0;
+  v357 = 0;
+  v358 = 0;
+  v359 = 0;
   v70 = *(v8 + 12);
   v71 = (v8 + 104);
-  v288 = v64;
+  v308 = v64;
   if (v70 == v71)
   {
-    v322 = 0;
+    v346 = 0;
   }
 
   else
   {
-    v322 = 0;
-    v287 = v69;
+    v346 = 0;
+    v307 = v69;
     v72 = -1;
-    v285 = vdupq_n_s64(0x7FFFFFFFuLL);
-    v286 = vdupq_n_s64(v69);
-    v284 = vdupq_n_s64(0xFFFFFFFF80000000);
+    v305 = vdupq_n_s64(0x7FFFFFFFuLL);
+    v306 = vdupq_n_s64(v69);
+    v304 = vdupq_n_s64(0xFFFFFFFF80000000);
     do
     {
       v73 = v70[4];
@@ -4125,83 +4129,85 @@ LABEL_99:
       v78 = v70[6];
       *buf = v74;
       __p[0] = buf;
-      v79 = std::__hash_table<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v68 + 27368), v74);
+      v79 = std::__hash_table<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v68 + 6842, v74, __p);
       v80 = v79[4];
       v81 = *(v70[4] + 44);
       if (v81 != *(v79 + 6))
       {
         *buf = v74;
         __p[0] = buf;
-        v82 = std::__hash_table<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v68 + 27368), v74);
+        v82 = std::__hash_table<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v68 + 6842, v74, __p);
         v82[3] = v81;
-        v82[4] = v323;
+        v82[4] = v347;
       }
 
       if (v78 < v72)
       {
-        v322 = CA::Render::Context::process_path(v70[4]);
+        v346 = CA::Render::Context::process_path(v70[4]);
         v72 = v78;
       }
 
-      if ((v324 | HIBYTE(xmmword_1ED4E988C)))
+      if ((v348 | HIBYTE(xmmword_1ED4E988C)))
       {
         kdebug_trace();
         v85.i64[0] = v78;
         v85.i64[1] = v80;
-        v86 = vsubq_s64(v85, v286);
-        v87 = vbslq_s8(vcgtq_s64(v285, v86), v86, v285);
-        v283 = vmovn_s64(vbslq_s8(vcgtq_s64(v87, v284), v87, v284));
-        v88 = CACFAbsoluteTimeToContinuousTime(*(v70[4] + 656));
-        v89 = v88 - v287;
-        if ((v88 - v287) >= 0x7FFFFFFF)
+        v86 = vsubq_s64(v85, v306);
+        v87 = vbslq_s8(vcgtq_s64(v305, v86), v86, v305);
+        v88 = vbslq_s8(vcgtq_s64(v87, v304), v87, v304);
+        *v88.i8 = vmovn_s64(v88);
+        v303 = v88;
+        v89 = CACFAbsoluteTimeToContinuousTime(*(v70[4] + 656));
+        v90 = v89 - v307;
+        if ((v89 - v307) >= 0x7FFFFFFF)
         {
-          v89 = 0x7FFFFFFFLL;
+          v90 = 0x7FFFFFFFLL;
         }
 
-        if (v89 <= 0xFFFFFFFF80000000)
+        if (v90 <= 0xFFFFFFFF80000000)
         {
-          LODWORD(v89) = 0x80000000;
+          LODWORD(v90) = 0x80000000;
         }
 
-        if (!v88)
+        if (!v89)
         {
-          LODWORD(v89) = 0x80000000;
+          LODWORD(v90) = 0x80000000;
         }
 
-        v90 = v333;
-        if (v333 != v334)
+        v91 = v357;
+        if (v357 != v358)
         {
-          while (v75 != v90->i32[0])
+          while (v75 != v91->i32[0])
           {
-            v90 += 2;
-            if (v90 == v334)
+            v91 += 2;
+            if (v91 == v358)
             {
               goto LABEL_134;
             }
           }
         }
 
-        if (v90 == v334)
+        if (v91 == v358)
         {
 LABEL_134:
-          *(__p + 4) = v283;
+          *(__p + 4) = v303.i64[0];
           LODWORD(__p[0]) = v75;
-          HIDWORD(__p[1]) = v89;
-          std::vector<CA::Vec2<double>>::push_back[abi:nn200100](&v333, __p);
+          HIDWORD(__p[1]) = v90;
+          std::vector<CA::Vec2<double>>::push_back[abi:nn200100](&v357, __p);
         }
 
         else
         {
-          v91 = v90->i32[1];
-          if (v91 >= v283)
+          v92 = v91->i32[1];
+          if (v92 >= v303.i32[0])
           {
-            v91 = v283;
+            v92 = v303.i32[0];
           }
 
-          v90->i32[1] = v91;
-          v92.i32[0] = vdup_lane_s32(v283, 1).u32[0];
-          v92.i32[1] = v89;
-          v90[1] = vmax_s32(v90[1], v92);
+          v91->i32[1] = v92;
+          v93.i32[0] = vdup_lane_s32(*v303.i8, 1).u32[0];
+          v93.i32[1] = v90;
+          v91[1] = vmax_s32(v91[1], v93);
         }
       }
 
@@ -4233,120 +4239,120 @@ LABEL_134:
     }
 
     while (v84 != v71);
-    v53 = v338;
+    v53 = v362;
   }
 
-  v332 = 0;
-  v93 = (*(*a4 + 432))(a4);
-  CA::WindowServer::IOMFBServer::collect_gpu_data(v93, *(v53 + 1), &v337, &v336, v94);
-  v326 = 0u;
-  v327 = 0u;
-  v328 = v337;
-  v329 = v336;
-  v330 = *(v53 + 4);
-  v331 = v323;
-  v95 = *(v53 + 1);
+  v356 = 0;
+  v94 = (*(*a4 + 54))(a4);
+  CA::WindowServer::IOMFBServer::collect_gpu_data(v94, *(v53 + 1), &v361, &v360, v95);
+  v350 = 0u;
+  v351 = 0u;
+  v352 = v361;
+  v353 = v360;
+  v354 = *(v53 + 4);
+  v355 = v347;
+  v96 = *(v53 + 1);
   pthread_mutex_lock((a4 + 66));
-  v96 = a4[74];
-  v97 = a4[75];
-  v98 = v96;
-  if (v96 != v97)
+  v97 = a4[74];
+  v98 = a4[75];
+  v99 = v97;
+  if (v97 != v98)
   {
-    v98 = a4[74];
+    v99 = a4[74];
     do
     {
-      if (*(v98 + 6) == v95)
+      if (*(v99 + 6) == v96)
       {
         break;
       }
 
-      v98 += 40;
+      v99 = (v99 + 40);
     }
 
-    while (v98 != v97);
+    while (v99 != v98);
   }
 
-  if (v98 == v97)
+  if (v99 == v98)
   {
-    v106 = 0;
-    v108 = 0;
-    v109 = 0;
     v107 = 0;
+    v109 = 0;
     v110 = 0;
+    v108 = 0;
+    v111 = 0;
   }
 
   else
   {
-    v326 = *v98;
-    v99 = v98 + 40;
-    v100 = v98 + 40 - v96;
-    if (v98 + 40 <= v96)
+    v350 = *v99;
+    v100 = (v99 + 40);
+    v101 = (v99 + 40) - v97;
+    if ((v99 + 40) <= v97)
     {
       __assert_rtn("erase", "x-small-vector.h", 373, "end > begin && erase invalid iterator range");
     }
 
-    v101 = v98[37];
-    v102 = *(v98 + 16);
-    v103 = v98[34];
-    v104 = v98[35];
-    v105 = v98[36];
-    if (v97 != v99)
+    v102 = *(v99 + 37);
+    v103 = *(v99 + 16);
+    v104 = *(v99 + 34);
+    v105 = *(v99 + 35);
+    v106 = *(v99 + 36);
+    if (v98 != v100)
     {
-      memmove(v96, v98 + 40, v97 - v99 - 2);
-      v97 = a4[75];
+      memmove(v97, v99 + 40, v98 - v100 - 2);
+      v98 = a4[75];
     }
 
-    v106 = 4 * v101;
-    a4[75] = &v97[-v100];
-    v107 = v104 << 56;
-    v108 = v102 << 32;
-    v109 = v103 << 48;
-    v110 = v105 << 56;
+    v107 = 4 * v102;
+    a4[75] = (v98 - v101);
+    v108 = v105 << 56;
+    v109 = v103 << 32;
+    v110 = v104 << 48;
+    v111 = v106 << 56;
   }
 
   pthread_mutex_unlock((a4 + 66));
-  v111 = a4[12];
-  if (v111)
+  v112 = a4[12];
+  if (v112)
   {
-    (*(*v111 + 2296))(a4[12], *(v53 + 1), &v327, &v327 + 8, &v332);
-    LODWORD(v112) = v111[6];
+    (*(*v112 + 2296))(a4[12], *(v53 + 1), &v351, &v351 + 8, &v356);
+    LODWORD(v113) = *(v112 + 6);
   }
 
   else
   {
-    LODWORD(v112) = 0;
+    LODWORD(v113) = 0;
   }
 
-  if (v112 >= 0xFF)
+  if (v113 >= 0xFF)
   {
-    v112 = 255;
+    v113 = 255;
   }
 
   else
   {
-    v112 = v112;
+    v113 = v113;
   }
 
-  v113 = *(v53 + 48) | (((v106 | v304 | v332) & 0xFFFF0FFF | ((*(v53 + 196) & 0xF) << 12)) << 32) | (v112 << 48);
-  if (v288 >= 0xFFFFFFFF)
+  v114 = *(v53 + 48) | (((v107 | v326 | v356) & 0xFFFF0FFF | ((*(v53 + 196) & 0xF) << 12)) << 32) | (v113 << 48);
+  if (v308 >= 0xFFFFFFFF)
   {
-    v114 = 0xFFFFFFFFLL;
+    v115 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v114 = v288;
+    v115 = v308;
   }
 
-  v115 = v110 | v108 | v109;
-  if (v324)
+  v116 = v111 | v109 | v110;
+  if (v348)
   {
     if (x_log_get_iomfb_server_stalls(void)::once != -1)
     {
       dispatch_once(&x_log_get_iomfb_server_stalls(void)::once, &__block_literal_global_5_18058);
     }
 
-    v116 = &x_log_get_iomfb_server_stalls(void)::log;
+    v117 = &x_log_get_iomfb_server_stalls(void)::log;
   }
 
   else
@@ -4356,642 +4362,666 @@ LABEL_134:
       dispatch_once(&x_log_get_iomfb_server(void)::once, &__block_literal_global_18053);
     }
 
-    v116 = &x_log_get_iomfb_server(void)::log;
+    v117 = &x_log_get_iomfb_server(void)::log;
   }
 
-  v117 = (v113 | v107);
-  v118 = (v115 | v114);
-  v119 = *v116;
-  v120 = *(v53 + 4);
-  if (v330 <= v120)
-  {
-    v121 = 0;
-  }
-
-  else
-  {
-    v121 = (v330 - v120) << 32;
-  }
-
-  if (v331 <= v120)
+  v118 = (v114 | v108);
+  v119 = (v116 | v115);
+  v120 = *v117;
+  v121 = *(v53 + 4);
+  if (v354 <= v121)
   {
     v122 = 0;
   }
 
   else
   {
-    v122 = (v331 - v120);
+    v122 = (v354 - v121) << 32;
   }
 
-  if (v328 <= v120)
+  if (v355 <= v121)
   {
     v123 = 0;
   }
 
   else
   {
-    v123 = (v328 - v120);
+    v123 = (v355 - v121);
   }
 
-  if (v329 <= v120)
+  if (v352 <= v121)
   {
     v124 = 0;
   }
 
   else
   {
-    v124 = (v329 - v120);
+    v124 = (v352 - v121);
   }
 
-  if (v327 <= v120)
+  if (v353 <= v121)
   {
     v125 = 0;
   }
 
   else
   {
-    v125 = (v327 - v120);
+    v125 = (v353 - v121);
   }
 
-  if (*(&v327 + 1) <= v120)
+  if (v351 <= v121)
   {
     v126 = 0;
   }
 
   else
   {
-    v126 = (DWORD2(v327) - v120);
+    v126 = (v351 - v121);
   }
 
-  if (v326 <= v120)
+  if (*(&v351 + 1) <= v121)
   {
     v127 = 0;
   }
 
   else
   {
-    v127 = (v326 - v120) << 32;
+    v127 = (DWORD2(v351) - v121);
   }
 
-  if (*(&v326 + 1) <= v120)
+  if (v350 <= v121)
   {
     v128 = 0;
   }
 
   else
   {
-    v128 = (DWORD2(v326) - v120);
+    v128 = (v350 - v121) << 32;
   }
 
-  if (v126 == v125)
+  if (*(&v350 + 1) <= v121)
   {
-    v129 = 4 * (v124 != v123);
-  }
-
-  else
-  {
-    v129 = (4 * (v124 != v123)) | 2;
-  }
-
-  if (v290)
-  {
-    v130 = v129 + 1;
+    v129 = 0;
   }
 
   else
   {
-    v130 = v129;
+    v129 = (DWORD2(v350) - v121);
   }
 
-  v131 = *v53 - 1;
-  if (v130 > 3)
+  if (v127 == v126)
   {
-    if (v130 > 5)
+    v130 = 4 * (v125 != v124);
+  }
+
+  else
+  {
+    v130 = (4 * (v125 != v124)) | 2;
+  }
+
+  if (v312)
+  {
+    v131 = v130 + 1;
+  }
+
+  else
+  {
+    v131 = v130;
+  }
+
+  v132 = *v53 - 1;
+  if (v131 <= 3)
+  {
+    if (v131 <= 1)
     {
-      if (v130 == 6)
+      if (v131)
       {
-        if (v131 > 0xFFFFFFFFFFFFFFFDLL)
+        if (v132 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          goto LABEL_249;
-        }
+          v155 = v120;
+          v156 = *v53;
+          v157 = v119;
+          v158 = v123;
+          if (os_signpost_enabled(v120))
+          {
+            v159 = v314 - v121;
+            LODWORD(__p[0]) = 134220290;
+            if (v314 <= v121)
+            {
+              v159 = 0;
+            }
 
-        v312 = v117;
-        v300 = v118;
-        v141 = v122;
-        if (!os_signpost_enabled(v119))
-        {
-          goto LABEL_249;
-        }
+            v160 = v312 - v121;
+            *(__p + 4) = v121;
+            WORD2(__p[1]) = 2050;
+            if (v312 <= v121)
+            {
+              v160 = 0;
+            }
 
-        v142 = v292 - v120;
-        LODWORD(__p[0]) = 134220546;
-        if (v292 <= v120)
-        {
-          v142 = 0;
+            *(&__p[1] + 6) = v118;
+            HIWORD(__p[2]) = 2050;
+            __p[3] = v157;
+            LOWORD(__p[4]) = 1040;
+            *(&__p[4] + 2) = (v358 - v357) & 0xFFFFFFF0;
+            HIWORD(__p[4]) = 2098;
+            __p[5] = v357;
+            LOWORD(v365[0]) = 2048;
+            *(v365 + 2) = v158 | v122;
+            WORD5(v365[0]) = 2048;
+            *(v365 + 12) = v129 | v128;
+            WORD2(v365[1]) = 1024;
+            *(&v365[1] + 6) = v159;
+            WORD5(v365[1]) = 2048;
+            *(&v365[1] + 12) = v315;
+            WORD2(v365[2]) = 1024;
+            *(&v365[2] + 6) = v160;
+            _os_signpost_emit_unreliably_with_name_impl(&dword_183AA6000, v155, 0, v156, "FrameUpdate", "Unique ID is a pack of two 32-bit update_seed and swap_id. base_mct=%{signpost.generator:base_mct}llu  args1=%{public, name=args1}#llx args2=%{public, name=args2}#llx contributors=%{public, name=contributors}.*P FrameLifetimeInterval=%{name=FrameLifetimeInterval,signpost.generator:begin_end_32b}llu  FrameRender=%{name=FrameRender,signpost.generator:begin_end_32b}llu  FrameReady=%{name=FrameReady,signpost.generator:event}u  FramePrevious=%{name=FramePrevious,signpost.generator:event}llu  FrameModifierTarget=%{name=FrameModifierTarget,signpost.generator:event}u ", __p, 90, *&v303);
+          }
         }
-
-        *(__p + 4) = v120;
-        WORD2(__p[1]) = 2050;
-        *(&__p[1] + 6) = v312;
-        HIWORD(__p[2]) = 2050;
-        __p[3] = v300;
-        LOWORD(__p[4]) = 1040;
-        *(&__p[4] + 2) = (v334 - v333) & 0xFFFFFFF0;
-        HIWORD(__p[4]) = 2098;
-        __p[5] = v333;
-        LOWORD(v341[0]) = 2048;
-        *(v341 + 2) = v141 | v121;
-        WORD5(v341[0]) = 2048;
-        *(v341 + 12) = v128 | v127;
-        WORD2(v341[1]) = 1024;
-        *(&v341[1] + 6) = v142;
-        WORD5(v341[1]) = 2048;
-        *(&v341[1] + 12) = v293;
-        WORD2(v341[2]) = 2048;
-        *(&v341[2] + 6) = v124 | (v123 << 32);
-        HIWORD(v341[2]) = 2048;
-        v342 = v126 | (v125 << 32);
       }
 
-      else
+      else if (v132 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        if (v131 > 0xFFFFFFFFFFFFFFFDLL)
+        v133 = v120;
+        v134 = *v53;
+        v135 = v119;
+        v136 = v123;
+        if (os_signpost_enabled(v120))
         {
-          goto LABEL_249;
-        }
+          v137 = v314 - v121;
+          LODWORD(__p[0]) = 134220034;
+          if (v314 <= v121)
+          {
+            v137 = 0;
+          }
 
-        v315 = v117;
-        v301 = v118;
-        v155 = v122;
-        if (!os_signpost_enabled(v119))
-        {
-          goto LABEL_249;
+          *(__p + 4) = v121;
+          WORD2(__p[1]) = 2050;
+          *(&__p[1] + 6) = v118;
+          HIWORD(__p[2]) = 2050;
+          __p[3] = v135;
+          LOWORD(__p[4]) = 1040;
+          *(&__p[4] + 2) = (v358 - v357) & 0xFFFFFFF0;
+          HIWORD(__p[4]) = 2098;
+          __p[5] = v357;
+          LOWORD(v365[0]) = 2048;
+          *(v365 + 2) = v136 | v122;
+          WORD5(v365[0]) = 2048;
+          *(v365 + 12) = v129 | v128;
+          WORD2(v365[1]) = 1024;
+          *(&v365[1] + 6) = v137;
+          WORD5(v365[1]) = 2048;
+          *(&v365[1] + 12) = v315;
+          _os_signpost_emit_unreliably_with_name_impl(&dword_183AA6000, v133, 0, v134, "FrameUpdate", "Unique ID is a pack of two 32-bit update_seed and swap_id. base_mct=%{signpost.generator:base_mct}llu  args1=%{public, name=args1}#llx args2=%{public, name=args2}#llx contributors=%{public, name=contributors}.*P FrameLifetimeInterval=%{name=FrameLifetimeInterval,signpost.generator:begin_end_32b}llu  FrameRender=%{name=FrameRender,signpost.generator:begin_end_32b}llu  FrameReady=%{name=FrameReady,signpost.generator:event}u  FramePrevious=%{name=FramePrevious,signpost.generator:event}llu ", __p, 84, *&v303);
         }
-
-        v156 = v292 - v120;
-        LODWORD(__p[0]) = 134220802;
-        if (v292 <= v120)
-        {
-          v156 = 0;
-        }
-
-        *(__p + 4) = v120;
-        WORD2(__p[1]) = 2050;
-        *(&__p[1] + 6) = v315;
-        HIWORD(__p[2]) = 2050;
-        if (v290 <= v120)
-        {
-          v157 = 0;
-        }
-
-        else
-        {
-          v157 = v290 - v120;
-        }
-
-        __p[3] = v301;
-        LOWORD(__p[4]) = 1040;
-        *(&__p[4] + 2) = (v334 - v333) & 0xFFFFFFF0;
-        HIWORD(__p[4]) = 2098;
-        __p[5] = v333;
-        LOWORD(v341[0]) = 2048;
-        *(v341 + 2) = v155 | v121;
-        WORD5(v341[0]) = 2048;
-        *(v341 + 12) = v128 | v127;
-        WORD2(v341[1]) = 1024;
-        *(&v341[1] + 6) = v156;
-        WORD5(v341[1]) = 2048;
-        *(&v341[1] + 12) = v293;
-        WORD2(v341[2]) = 2048;
-        *(&v341[2] + 6) = v124 | (v123 << 32);
-        HIWORD(v341[2]) = 2048;
-        v342 = v126 | (v125 << 32);
-        v343 = 1024;
-        v344 = v157;
       }
+
+      goto LABEL_251;
     }
 
-    else if (v130 == 4)
+    if (v131 == 2)
     {
-      if (v131 > 0xFFFFFFFFFFFFFFFDLL)
+      if (v132 > 0xFFFFFFFFFFFFFFFDLL)
       {
-        goto LABEL_249;
+        goto LABEL_251;
       }
 
-      v305 = v121;
-      v310 = v117;
-      v135 = v118;
-      v136 = v122;
-      if (!os_signpost_enabled(v119))
+      v146 = v120;
+      v147 = *v53;
+      v328 = v122;
+      v335 = v118;
+      v148 = v119;
+      v149 = v123;
+      if (!os_signpost_enabled(v120))
       {
-        goto LABEL_249;
+        goto LABEL_251;
       }
 
-      v137 = v292 - v120;
+      v142 = v147;
+      v143 = v146;
+      v150 = v314 - v121;
       LODWORD(__p[0]) = 134220290;
-      if (v292 <= v120)
-      {
-        v137 = 0;
-      }
-
-      *(__p + 4) = v120;
-      WORD2(__p[1]) = 2050;
-      *(&__p[1] + 6) = v310;
-      HIWORD(__p[2]) = 2050;
-      __p[3] = v135;
-      LOWORD(__p[4]) = 1040;
-      *(&__p[4] + 2) = (v334 - v333) & 0xFFFFFFF0;
-      HIWORD(__p[4]) = 2098;
-      __p[5] = v333;
-      LOWORD(v341[0]) = 2048;
-      *(v341 + 2) = v136 | v305;
-      WORD5(v341[0]) = 2048;
-      *(v341 + 12) = v128 | v127;
-      WORD2(v341[1]) = 1024;
-      *(&v341[1] + 6) = v137;
-      WORD5(v341[1]) = 2048;
-      *(&v341[1] + 12) = v293;
-      WORD2(v341[2]) = 2048;
-      *(&v341[2] + 6) = v124 | (v123 << 32);
-    }
-
-    else
-    {
-      if (v131 > 0xFFFFFFFFFFFFFFFDLL)
-      {
-        goto LABEL_249;
-      }
-
-      v307 = v121;
-      v313 = v117;
-      v147 = v118;
-      v148 = v122;
-      if (!os_signpost_enabled(v119))
-      {
-        goto LABEL_249;
-      }
-
-      v149 = v292 - v120;
-      LODWORD(__p[0]) = 134220546;
-      if (v292 <= v120)
-      {
-        v149 = 0;
-      }
-
-      *(__p + 4) = v120;
-      WORD2(__p[1]) = 2050;
-      v150 = v290 - v120;
-      *(&__p[1] + 6) = v313;
-      if (v290 <= v120)
+      if (v314 <= v121)
       {
         v150 = 0;
       }
 
+      *(__p + 4) = v121;
+      WORD2(__p[1]) = 2050;
+      *(&__p[1] + 6) = v335;
       HIWORD(__p[2]) = 2050;
-      __p[3] = v147;
+      __p[3] = v148;
       LOWORD(__p[4]) = 1040;
-      *(&__p[4] + 2) = (v334 - v333) & 0xFFFFFFF0;
+      *(&__p[4] + 2) = (v358 - v357) & 0xFFFFFFF0;
       HIWORD(__p[4]) = 2098;
-      __p[5] = v333;
-      LOWORD(v341[0]) = 2048;
-      *(v341 + 2) = v148 | v307;
-      WORD5(v341[0]) = 2048;
-      *(v341 + 12) = v128 | v127;
-      WORD2(v341[1]) = 1024;
-      *(&v341[1] + 6) = v149;
-      WORD5(v341[1]) = 2048;
-      *(&v341[1] + 12) = v293;
-      WORD2(v341[2]) = 2048;
-      *(&v341[2] + 6) = v124 | (v123 << 32);
-      HIWORD(v341[2]) = 1024;
-      LODWORD(v342) = v150;
+      __p[5] = v357;
+      LOWORD(v365[0]) = 2048;
+      *(v365 + 2) = v149 | v328;
+      WORD5(v365[0]) = 2048;
+      *(v365 + 12) = v129 | v128;
+      WORD2(v365[1]) = 1024;
+      *(&v365[1] + 6) = v150;
+      WORD5(v365[1]) = 2048;
+      *(&v365[1] + 12) = v315;
+      WORD2(v365[2]) = 2048;
+      *(&v365[2] + 6) = v127 | (v126 << 32);
+      v145 = "Unique ID is a pack of two 32-bit update_seed and swap_id. base_mct=%{signpost.generator:base_mct}llu  args1=%{public, name=args1}#llx args2=%{public, name=args2}#llx contributors=%{public, name=contributors}.*P FrameLifetimeInterval=%{name=FrameLifetimeInterval,signpost.generator:begin_end_32b}llu  FrameRender=%{name=FrameRender,signpost.generator:begin_end_32b}llu  FrameReady=%{name=FrameReady,signpost.generator:event}u  FramePrevious=%{name=FramePrevious,signpost.generator:event}llu  FrameProcess=%{name=FrameProcess,signpost.generator:begin_end_32b}llu ";
+      goto LABEL_213;
     }
+
+    if (v132 > 0xFFFFFFFFFFFFFFFDLL)
+    {
+      goto LABEL_251;
+    }
+
+    v167 = v120;
+    v168 = *v53;
+    v331 = v122;
+    v338 = v118;
+    v169 = v119;
+    v170 = v123;
+    if (!os_signpost_enabled(v120))
+    {
+      goto LABEL_251;
+    }
+
+    v142 = v168;
+    v143 = v167;
+    v171 = v314 - v121;
+    LODWORD(__p[0]) = 134220546;
+    if (v314 <= v121)
+    {
+      v171 = 0;
+    }
+
+    *(__p + 4) = v121;
+    WORD2(__p[1]) = 2050;
+    v172 = v312 - v121;
+    *(&__p[1] + 6) = v338;
+    if (v312 <= v121)
+    {
+      v172 = 0;
+    }
+
+    HIWORD(__p[2]) = 2050;
+    __p[3] = v169;
+    LOWORD(__p[4]) = 1040;
+    *(&__p[4] + 2) = (v358 - v357) & 0xFFFFFFF0;
+    HIWORD(__p[4]) = 2098;
+    __p[5] = v357;
+    LOWORD(v365[0]) = 2048;
+    *(v365 + 2) = v170 | v331;
+    WORD5(v365[0]) = 2048;
+    *(v365 + 12) = v129 | v128;
+    WORD2(v365[1]) = 1024;
+    *(&v365[1] + 6) = v171;
+    WORD5(v365[1]) = 2048;
+    *(&v365[1] + 12) = v315;
+    WORD2(v365[2]) = 2048;
+    *(&v365[2] + 6) = v127 | (v126 << 32);
+    HIWORD(v365[2]) = 1024;
+    LODWORD(v366) = v172;
+    v145 = "Unique ID is a pack of two 32-bit update_seed and swap_id. base_mct=%{signpost.generator:base_mct}llu  args1=%{public, name=args1}#llx args2=%{public, name=args2}#llx contributors=%{public, name=contributors}.*P FrameLifetimeInterval=%{name=FrameLifetimeInterval,signpost.generator:begin_end_32b}llu  FrameRender=%{name=FrameRender,signpost.generator:begin_end_32b}llu  FrameReady=%{name=FrameReady,signpost.generator:event}u  FramePrevious=%{name=FramePrevious,signpost.generator:event}llu  FrameProcess=%{name=FrameProcess,signpost.generator:begin_end_32b}llu  FrameModifierTarget=%{name=FrameModifierTarget,signpost.generator:event}u ";
+    goto LABEL_241;
   }
 
-  else if (v130 > 1)
+  if (v131 <= 5)
   {
-    if (v130 == 2)
+    if (v131 == 4)
     {
-      if (v131 > 0xFFFFFFFFFFFFFFFDLL)
+      if (v132 > 0xFFFFFFFFFFFFFFFDLL)
       {
-        goto LABEL_249;
+        goto LABEL_251;
       }
 
-      v306 = v121;
-      v311 = v117;
-      v138 = v118;
-      v139 = v122;
-      if (!os_signpost_enabled(v119))
+      v138 = v120;
+      v139 = *v53;
+      v327 = v122;
+      v334 = v118;
+      v140 = v119;
+      v141 = v123;
+      if (!os_signpost_enabled(v120))
       {
-        goto LABEL_249;
+        goto LABEL_251;
       }
 
-      v140 = v292 - v120;
+      v142 = v139;
+      v143 = v138;
+      v144 = v314 - v121;
       LODWORD(__p[0]) = 134220290;
-      if (v292 <= v120)
+      if (v314 <= v121)
       {
-        v140 = 0;
+        v144 = 0;
       }
 
-      *(__p + 4) = v120;
+      *(__p + 4) = v121;
       WORD2(__p[1]) = 2050;
-      *(&__p[1] + 6) = v311;
+      *(&__p[1] + 6) = v334;
       HIWORD(__p[2]) = 2050;
-      __p[3] = v138;
+      __p[3] = v140;
       LOWORD(__p[4]) = 1040;
-      *(&__p[4] + 2) = (v334 - v333) & 0xFFFFFFF0;
+      *(&__p[4] + 2) = (v358 - v357) & 0xFFFFFFF0;
       HIWORD(__p[4]) = 2098;
-      __p[5] = v333;
-      LOWORD(v341[0]) = 2048;
-      *(v341 + 2) = v139 | v306;
-      WORD5(v341[0]) = 2048;
-      *(v341 + 12) = v128 | v127;
-      WORD2(v341[1]) = 1024;
-      *(&v341[1] + 6) = v140;
-      WORD5(v341[1]) = 2048;
-      *(&v341[1] + 12) = v293;
-      WORD2(v341[2]) = 2048;
-      *(&v341[2] + 6) = v126 | (v125 << 32);
+      __p[5] = v357;
+      LOWORD(v365[0]) = 2048;
+      *(v365 + 2) = v141 | v327;
+      WORD5(v365[0]) = 2048;
+      *(v365 + 12) = v129 | v128;
+      WORD2(v365[1]) = 1024;
+      *(&v365[1] + 6) = v144;
+      WORD5(v365[1]) = 2048;
+      *(&v365[1] + 12) = v315;
+      WORD2(v365[2]) = 2048;
+      *(&v365[2] + 6) = v125 | (v124 << 32);
+      v145 = "Unique ID is a pack of two 32-bit update_seed and swap_id. base_mct=%{signpost.generator:base_mct}llu  args1=%{public, name=args1}#llx args2=%{public, name=args2}#llx contributors=%{public, name=contributors}.*P FrameLifetimeInterval=%{name=FrameLifetimeInterval,signpost.generator:begin_end_32b}llu  FrameRender=%{name=FrameRender,signpost.generator:begin_end_32b}llu  FrameReady=%{name=FrameReady,signpost.generator:event}u  FramePrevious=%{name=FramePrevious,signpost.generator:event}llu  FrameGPUExecute=%{name=FrameGPUExecute,signpost.generator:begin_end_32b}llu ";
+LABEL_213:
+      v151 = 94;
+LABEL_250:
+      _os_signpost_emit_unreliably_with_name_impl(&dword_183AA6000, v143, 0, v142, "FrameUpdate", v145, __p, v151, *&v303);
+      goto LABEL_251;
     }
 
-    else
+    if (v132 > 0xFFFFFFFFFFFFFFFDLL)
     {
-      if (v131 > 0xFFFFFFFFFFFFFFFDLL)
+      goto LABEL_251;
+    }
+
+    v161 = v120;
+    v162 = *v53;
+    v330 = v122;
+    v337 = v118;
+    v163 = v119;
+    v164 = v123;
+    if (!os_signpost_enabled(v120))
+    {
+      goto LABEL_251;
+    }
+
+    v142 = v162;
+    v143 = v161;
+    v165 = v314 - v121;
+    LODWORD(__p[0]) = 134220546;
+    if (v314 <= v121)
+    {
+      v165 = 0;
+    }
+
+    *(__p + 4) = v121;
+    WORD2(__p[1]) = 2050;
+    v166 = v312 - v121;
+    *(&__p[1] + 6) = v337;
+    if (v312 <= v121)
+    {
+      v166 = 0;
+    }
+
+    HIWORD(__p[2]) = 2050;
+    __p[3] = v163;
+    LOWORD(__p[4]) = 1040;
+    *(&__p[4] + 2) = (v358 - v357) & 0xFFFFFFF0;
+    HIWORD(__p[4]) = 2098;
+    __p[5] = v357;
+    LOWORD(v365[0]) = 2048;
+    *(v365 + 2) = v164 | v330;
+    WORD5(v365[0]) = 2048;
+    *(v365 + 12) = v129 | v128;
+    WORD2(v365[1]) = 1024;
+    *(&v365[1] + 6) = v165;
+    WORD5(v365[1]) = 2048;
+    *(&v365[1] + 12) = v315;
+    WORD2(v365[2]) = 2048;
+    *(&v365[2] + 6) = v125 | (v124 << 32);
+    HIWORD(v365[2]) = 1024;
+    LODWORD(v366) = v166;
+    v145 = "Unique ID is a pack of two 32-bit update_seed and swap_id. base_mct=%{signpost.generator:base_mct}llu  args1=%{public, name=args1}#llx args2=%{public, name=args2}#llx contributors=%{public, name=contributors}.*P FrameLifetimeInterval=%{name=FrameLifetimeInterval,signpost.generator:begin_end_32b}llu  FrameRender=%{name=FrameRender,signpost.generator:begin_end_32b}llu  FrameReady=%{name=FrameReady,signpost.generator:event}u  FramePrevious=%{name=FramePrevious,signpost.generator:event}llu  FrameGPUExecute=%{name=FrameGPUExecute,signpost.generator:begin_end_32b}llu  FrameModifierTarget=%{name=FrameModifierTarget,signpost.generator:event}u ";
+LABEL_241:
+    v151 = 100;
+    goto LABEL_250;
+  }
+
+  if (v131 == 6)
+  {
+    if (v132 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v329 = v122;
+      v336 = v118;
+      v309 = v120;
+      v152 = *v53;
+      v322 = v119;
+      v153 = v123;
+      if (os_signpost_enabled(v120))
       {
-        goto LABEL_249;
+        v154 = v314 - v121;
+        LODWORD(__p[0]) = 134220546;
+        if (v314 <= v121)
+        {
+          v154 = 0;
+        }
+
+        *(__p + 4) = v121;
+        WORD2(__p[1]) = 2050;
+        *(&__p[1] + 6) = v336;
+        HIWORD(__p[2]) = 2050;
+        __p[3] = v322;
+        LOWORD(__p[4]) = 1040;
+        *(&__p[4] + 2) = (v358 - v357) & 0xFFFFFFF0;
+        HIWORD(__p[4]) = 2098;
+        __p[5] = v357;
+        LOWORD(v365[0]) = 2048;
+        *(v365 + 2) = v153 | v329;
+        WORD5(v365[0]) = 2048;
+        *(v365 + 12) = v129 | v128;
+        WORD2(v365[1]) = 1024;
+        *(&v365[1] + 6) = v154;
+        WORD5(v365[1]) = 2048;
+        *(&v365[1] + 12) = v315;
+        WORD2(v365[2]) = 2048;
+        *(&v365[2] + 6) = v125 | (v124 << 32);
+        HIWORD(v365[2]) = 2048;
+        v366 = v127 | (v126 << 32);
+        _os_signpost_emit_unreliably_with_name_impl(&dword_183AA6000, v309, 0, v152, "FrameUpdate", "Unique ID is a pack of two 32-bit update_seed and swap_id. base_mct=%{signpost.generator:base_mct}llu  args1=%{public, name=args1}#llx args2=%{public, name=args2}#llx contributors=%{public, name=contributors}.*P FrameLifetimeInterval=%{name=FrameLifetimeInterval,signpost.generator:begin_end_32b}llu  FrameRender=%{name=FrameRender,signpost.generator:begin_end_32b}llu  FrameReady=%{name=FrameReady,signpost.generator:event}u  FramePrevious=%{name=FramePrevious,signpost.generator:event}llu  FrameGPUExecute=%{name=FrameGPUExecute,signpost.generator:begin_end_32b}llu  FrameProcess=%{name=FrameProcess,signpost.generator:begin_end_32b}llu ", __p, 104, *&v303);
+      }
+    }
+
+    goto LABEL_251;
+  }
+
+  if (v132 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v332 = v122;
+    v339 = v118;
+    v310 = v120;
+    v173 = *v53;
+    v323 = v119;
+    v174 = v123;
+    v175 = os_signpost_enabled(v120);
+    v143 = v310;
+    if (v175)
+    {
+      v176 = v314 - v121;
+      LODWORD(__p[0]) = 134220802;
+      if (v314 <= v121)
+      {
+        v176 = 0;
       }
 
-      v308 = v121;
-      v314 = v117;
-      v151 = v118;
-      v152 = v122;
-      if (!os_signpost_enabled(v119))
-      {
-        goto LABEL_249;
-      }
-
-      v153 = v292 - v120;
-      LODWORD(__p[0]) = 134220546;
-      if (v292 <= v120)
-      {
-        v153 = 0;
-      }
-
-      *(__p + 4) = v120;
+      *(__p + 4) = v121;
       WORD2(__p[1]) = 2050;
-      v154 = v290 - v120;
-      *(&__p[1] + 6) = v314;
-      if (v290 <= v120)
+      *(&__p[1] + 6) = v339;
+      HIWORD(__p[2]) = 2050;
+      if (v312 <= v121)
       {
-        v154 = 0;
+        v177 = 0;
       }
 
-      HIWORD(__p[2]) = 2050;
-      __p[3] = v151;
+      else
+      {
+        v177 = v312 - v121;
+      }
+
+      __p[3] = v323;
       LOWORD(__p[4]) = 1040;
-      *(&__p[4] + 2) = (v334 - v333) & 0xFFFFFFF0;
+      *(&__p[4] + 2) = (v358 - v357) & 0xFFFFFFF0;
       HIWORD(__p[4]) = 2098;
-      __p[5] = v333;
-      LOWORD(v341[0]) = 2048;
-      *(v341 + 2) = v152 | v308;
-      WORD5(v341[0]) = 2048;
-      *(v341 + 12) = v128 | v127;
-      WORD2(v341[1]) = 1024;
-      *(&v341[1] + 6) = v153;
-      WORD5(v341[1]) = 2048;
-      *(&v341[1] + 12) = v293;
-      WORD2(v341[2]) = 2048;
-      *(&v341[2] + 6) = v126 | (v125 << 32);
-      HIWORD(v341[2]) = 1024;
-      LODWORD(v342) = v154;
+      __p[5] = v357;
+      LOWORD(v365[0]) = 2048;
+      *(v365 + 2) = v174 | v332;
+      WORD5(v365[0]) = 2048;
+      *(v365 + 12) = v129 | v128;
+      WORD2(v365[1]) = 1024;
+      *(&v365[1] + 6) = v176;
+      WORD5(v365[1]) = 2048;
+      *(&v365[1] + 12) = v315;
+      WORD2(v365[2]) = 2048;
+      *(&v365[2] + 6) = v125 | (v124 << 32);
+      HIWORD(v365[2]) = 2048;
+      v366 = v127 | (v126 << 32);
+      v367 = 1024;
+      v368 = v177;
+      v145 = "Unique ID is a pack of two 32-bit update_seed and swap_id. base_mct=%{signpost.generator:base_mct}llu  args1=%{public, name=args1}#llx args2=%{public, name=args2}#llx contributors=%{public, name=contributors}.*P FrameLifetimeInterval=%{name=FrameLifetimeInterval,signpost.generator:begin_end_32b}llu  FrameRender=%{name=FrameRender,signpost.generator:begin_end_32b}llu  FrameReady=%{name=FrameReady,signpost.generator:event}u  FramePrevious=%{name=FramePrevious,signpost.generator:event}llu  FrameGPUExecute=%{name=FrameGPUExecute,signpost.generator:begin_end_32b}llu  FrameProcess=%{name=FrameProcess,signpost.generator:begin_end_32b}llu  FrameModifierTarget=%{name=FrameModifierTarget,signpost.generator:event}u ";
+      v142 = v173;
+      v151 = 110;
+      goto LABEL_250;
     }
   }
 
-  else if (v130)
+LABEL_251:
+  v178 = v317;
+  v179 = v317[12];
+  v180 = v179 + 27312;
+  v181 = v313;
+  if (*(v179 + 29531) != 1)
   {
-    if (v131 > 0xFFFFFFFFFFFFFFFDLL)
-    {
-      goto LABEL_249;
-    }
-
-    v143 = v118;
-    v144 = v122;
-    if (!os_signpost_enabled(v119))
-    {
-      goto LABEL_249;
-    }
-
-    v145 = v292 - v120;
-    LODWORD(__p[0]) = 134220290;
-    if (v292 <= v120)
-    {
-      v145 = 0;
-    }
-
-    v146 = v290 - v120;
-    *(__p + 4) = v120;
-    WORD2(__p[1]) = 2050;
-    if (v290 <= v120)
-    {
-      v146 = 0;
-    }
-
-    *(&__p[1] + 6) = v117;
-    HIWORD(__p[2]) = 2050;
-    __p[3] = v143;
-    LOWORD(__p[4]) = 1040;
-    *(&__p[4] + 2) = (v334 - v333) & 0xFFFFFFF0;
-    HIWORD(__p[4]) = 2098;
-    __p[5] = v333;
-    LOWORD(v341[0]) = 2048;
-    *(v341 + 2) = v144 | v121;
-    WORD5(v341[0]) = 2048;
-    *(v341 + 12) = v128 | v127;
-    WORD2(v341[1]) = 1024;
-    *(&v341[1] + 6) = v145;
-    WORD5(v341[1]) = 2048;
-    *(&v341[1] + 12) = v293;
-    WORD2(v341[2]) = 1024;
-    *(&v341[2] + 6) = v146;
+    goto LABEL_280;
   }
 
-  else
-  {
-    if (v131 > 0xFFFFFFFFFFFFFFFDLL)
-    {
-      goto LABEL_249;
-    }
-
-    v132 = v118;
-    v133 = v122;
-    if (!os_signpost_enabled(v119))
-    {
-      goto LABEL_249;
-    }
-
-    v134 = v292 - v120;
-    LODWORD(__p[0]) = 134220034;
-    if (v292 <= v120)
-    {
-      v134 = 0;
-    }
-
-    *(__p + 4) = v120;
-    WORD2(__p[1]) = 2050;
-    *(&__p[1] + 6) = v117;
-    HIWORD(__p[2]) = 2050;
-    __p[3] = v132;
-    LOWORD(__p[4]) = 1040;
-    *(&__p[4] + 2) = (v334 - v333) & 0xFFFFFFF0;
-    HIWORD(__p[4]) = 2098;
-    __p[5] = v333;
-    LOWORD(v341[0]) = 2048;
-    *(v341 + 2) = v133 | v121;
-    WORD5(v341[0]) = 2048;
-    *(v341 + 12) = v128 | v127;
-    WORD2(v341[1]) = 1024;
-    *(&v341[1] + 6) = v134;
-    WORD5(v341[1]) = 2048;
-    *(&v341[1] + 12) = v293;
-  }
-
-  _os_signpost_emit_unreliably_with_name_impl();
-LABEL_249:
-  v158 = v295;
-  v159 = v295[12];
-  v160 = (v159 + 27312);
-  v161 = v291;
-  if (*(v159 + 29531) != 1)
+  memset(v365, 0, sizeof(v365));
+  memset(__p, 0, sizeof(__p));
+  os_unfair_lock_lock(v179 + 102);
+  CA::WindowServer::Display::ModeSet::ModeSet(__p, (v179 + 416));
+  os_unfair_lock_unlock(v179 + 102);
+  v182 = __p[0];
+  if (__p[0] == __p[1])
   {
     goto LABEL_278;
   }
 
-  memset(v341, 0, sizeof(v341));
-  memset(__p, 0, sizeof(__p));
-  os_unfair_lock_lock((v159 + 408));
-  CA::WindowServer::Display::ModeSet::ModeSet(__p, (v159 + 416));
-  os_unfair_lock_unlock((v159 + 408));
-  v162 = __p[0];
-  if (__p[0] == __p[1])
-  {
-    goto LABEL_276;
-  }
-
   for (i = (__p[0] + 8); i != __p[1]; ++i)
   {
-    v164 = *i;
-    if (((*v162 >> 54) & 1) == ((*i >> 54) & 1))
+    v184 = *i;
+    if (((*v182 >> 54) & 1) == ((*i >> 54) & 1))
     {
-      if (((*v162 >> 14) & 0x3FFF) * (*v162 & 0x3FFF) >= ((v164 >> 14) & 0x3FFF) * (v164 & 0x3FFF))
+      if (((*v182 >> 14) & 0x3FFF) * (*v182 & 0x3FFF) >= ((v184 >> 14) & 0x3FFF) * (v184 & 0x3FFF))
       {
         continue;
       }
 
-LABEL_257:
-      v162 = i;
+LABEL_259:
+      v182 = i;
       continue;
     }
 
-    if ((v164 & 0x40000000000000) == 0)
+    if ((v184 & 0x40000000000000) == 0)
     {
-      goto LABEL_257;
+      goto LABEL_259;
     }
   }
 
-  v165 = *v162;
-  memset(v339, 0, 44);
-  (*(*v159 + 1384))(v339, v159);
+  v185 = *v182;
+  memset(v363, 0, 44);
+  (*(*v179 + 1384))(v363, v179);
   if (x_log_get_display_perf(void)::once != -1)
   {
     dispatch_once(&x_log_get_display_perf(void)::once, &__block_literal_global_9);
   }
 
-  v166 = *(v159 + 24);
-  if (v166)
+  v186 = *(v179 + 6);
+  if (v186)
   {
-    v167 = x_log_get_display_perf(void)::log;
+    v187 = x_log_get_display_perf(void)::log;
     if (os_signpost_enabled(x_log_get_display_perf(void)::log))
     {
-      v168 = (*(v159 + 29495) & 1) == 0 && (*(v159 + 672) & 0x1C00) != 4096;
-      if (LODWORD(v339[0]) > 3)
+      v188 = (*(v179 + 29495) & 1) == 0 && (*(v179 + 336) & 0x1C00) != 4096;
+      if (LODWORD(v363[0]) > 3)
       {
-        v169 = "Unspecified";
+        v189 = "Unspecified";
       }
 
       else
       {
-        v169 = off_1E6DFA200[LODWORD(v339[0])];
+        v189 = off_1E6DFA200[LODWORD(v363[0])];
       }
 
-      v170 = v165 & 0x3FFF;
-      v171 = (*(v159 + 672) >> 13) - 1;
-      if (v171 > 4)
+      v190 = v185 & 0x3FFF;
+      v191 = (*(v179 + 336) >> 13) - 1;
+      if (v191 > 4)
       {
-        v172 = "Unspecified";
+        v192 = "Unspecified";
       }
 
       else
       {
-        v172 = off_1E6DFA220[v171];
+        v192 = off_1E6DFA220[v191];
       }
 
-      v173 = *(v159 + 29530);
-      v174 = *v160;
-      v175 = *(v159 + 27316);
-      v176 = (v165 >> 14) & 0x3FFF;
-      v177 = vcvtd_n_f64_u32((v165 >> 29) & 0x1FFFFFF, 0x10uLL);
-      v178 = BYTE4(v339[1]);
-      Count = *(v159 + 27336);
+      v193 = *(v179 + 29530);
+      v194 = *v180;
+      v195 = *(v179 + 6829);
+      v196 = (v185 >> 14) & 0x3FFF;
+      v197 = vcvtd_n_f64_u32((v185 >> 29) & 0x1FFFFFF, 0x10uLL);
+      v198 = BYTE4(v363[1]);
+      Count = *(v179 + 3417);
       if (Count)
       {
-        v180 = v168;
-        v181 = v169;
-        v316 = v167;
-        v182 = v172;
-        v309 = BYTE4(v339[1]);
-        v302 = v173;
+        v200 = v188;
+        v201 = v189;
+        v340 = v187;
+        v202 = v192;
+        v333 = BYTE4(v363[1]);
+        v324 = v193;
         Count = CFArrayGetCount(Count);
-        v173 = v302;
-        v178 = v309;
-        v172 = v182;
-        v167 = v316;
-        v169 = v181;
-        v168 = v180;
+        v193 = v324;
+        v198 = v333;
+        v192 = v202;
+        v187 = v340;
+        v189 = v201;
+        v188 = v200;
       }
 
       *buf = 67243010;
-      *&buf[4] = v166;
+      *&buf[4] = v186;
       *&buf[8] = 1026;
-      *&buf[10] = v168;
+      *&buf[10] = v188;
       *&buf[14] = 1026;
-      *v346 = v173;
-      *&v346[4] = 1026;
-      *&v346[6] = v174;
-      v347 = 1026;
-      v348 = v175;
-      v349 = 1026;
-      v350 = v170;
-      v351 = 1026;
-      v352 = v176;
-      v353 = 2050;
-      v354 = v177;
-      v355 = 2082;
-      v356 = v169;
-      v357 = 1026;
-      v358 = v178;
-      v359 = 2082;
-      v360 = v172;
-      v361 = 2050;
-      v362 = Count;
-      _os_signpost_emit_with_name_impl(&dword_183AA6000, v167, OS_SIGNPOST_INTERVAL_END, v166, "HotPlug", "displayId=%{public, name=displayId}u isInternalPanel=%{public, BOOL, name=isInternalPanel}d state=%{public, BOOL, name=state}d vendorId=%{public, name=vendorId}u modelId=%{public, name=modelId}u bestWidth=%{public, name=bestWidth}d bestHeight=%{public, name=bestHeight}d bestRefreshRate=%{public, name=bestRefreshRate}.3f dolbyVision=%{public, name=dolbyVision}s legacyHDMI=%{public, BOOL, name=legacyHDMI}d preferredHdrType=%{public, name=preferredHdrType}s modeCount=%{public, name=modeCount}lu", buf, 0x5Au);
-      v161 = v291;
+      *v370 = v193;
+      *&v370[4] = 1026;
+      *&v370[6] = v194;
+      v371 = 1026;
+      v372 = v195;
+      v373 = 1026;
+      v374 = v190;
+      v375 = 1026;
+      v376 = v196;
+      v377 = 2050;
+      v378 = v197;
+      v379 = 2082;
+      v380 = v189;
+      v381 = 1026;
+      v382 = v198;
+      v383 = 2082;
+      v384 = v192;
+      v385 = 2050;
+      v386 = Count;
+      _os_signpost_emit_with_name_impl(&dword_183AA6000, v187, OS_SIGNPOST_INTERVAL_END, v186, "HotPlug", "displayId=%{public, name=displayId}u isInternalPanel=%{public, BOOL, name=isInternalPanel}d state=%{public, BOOL, name=state}d vendorId=%{public, name=vendorId}u modelId=%{public, name=modelId}u bestWidth=%{public, name=bestWidth}d bestHeight=%{public, name=bestHeight}d bestRefreshRate=%{public, name=bestRefreshRate}.3f dolbyVision=%{public, name=dolbyVision}s legacyHDMI=%{public, BOOL, name=legacyHDMI}d preferredHdrType=%{public, name=preferredHdrType}s modeCount=%{public, name=modeCount}lu", buf, 0x5Au);
+      v181 = v313;
     }
   }
 
-  *(v160 + 2219) = 0;
-  v158 = v295;
-LABEL_276:
-  std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(v341);
+  v180[2219] = 0;
+  v178 = v317;
+LABEL_278:
+  std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(v365);
   std::__tree<std::tuple<unsigned short,unsigned short>>::destroy(__p[4]);
   if (__p[0])
   {
@@ -4999,498 +5029,498 @@ LABEL_276:
     operator delete(__p[0]);
   }
 
-LABEL_278:
-  v183 = (v323 - v293) / v320;
-  v184 = v183 >= 0.95;
-  if (v183 > 1.05)
+LABEL_280:
+  v203 = (v347 - v315) / v344;
+  v204 = v203 >= 0.95;
+  if (v203 > 1.05)
   {
-    v184 = 0;
+    v204 = 0;
   }
 
-  if ((v184 & v324) != 1)
+  if ((v204 & v348) != 1)
   {
-    v187 = 0;
-    goto LABEL_287;
+    v207 = 0;
+    goto LABEL_289;
   }
 
-  v185 = v318 - v294;
-  LODWORD(v186) = v298;
-  if (v318 == v294)
+  v205 = v342 - v316;
+  LODWORD(v206) = v320;
+  if (v342 == v316)
   {
-    if (v185 <= v320)
+    if (v205 <= v344)
     {
-      v187 = v320;
+      v207 = v344;
     }
 
     else
     {
-      v187 = v318 - v294;
+      v207 = v342 - v316;
     }
 
-    v188 = 16;
+    v208 = 16;
   }
 
   else
   {
-    if (v185 <= v320)
+    if (v205 <= v344)
     {
-      v187 = v320;
+      v207 = v344;
     }
 
     else
     {
-      v187 = v318 - v294;
+      v207 = v342 - v316;
     }
 
-    if (v293 >= *(v53 + 4))
+    if (v315 >= *(v53 + 4))
     {
-      v188 = 16;
+      v208 = 16;
     }
 
     else
     {
-      v188 = 48;
+      v208 = 48;
     }
   }
 
-  v189 = *(v53 + 110);
+  v209 = *(v53 + 110);
   if (os_variant_uses_ephemeral_storage())
   {
-    goto LABEL_295;
+    goto LABEL_297;
   }
 
-  v205 = mach_absolute_time();
-  *&v206 = CATimeWithHostTime(v205);
-  if (*&CATailspinLastDefaultCheckTimestamp != 0.0 && *&v206 - *&CATailspinLastDefaultCheckTimestamp <= 3600.0)
+  v225 = mach_absolute_time();
+  *&v226 = CATimeWithHostTime(v225);
+  if (*&CATailspinLastDefaultCheckTimestamp != 0.0 && *&v226 - *&CATailspinLastDefaultCheckTimestamp <= 3600.0)
   {
     if (CATailspinCanGenerate)
     {
-      goto LABEL_326;
+      goto LABEL_328;
     }
 
-LABEL_287:
-    LODWORD(v186) = v298;
-    goto LABEL_295;
+LABEL_289:
+    LODWORD(v206) = v320;
+    goto LABEL_297;
   }
 
-  v282 = should_emit_tailspins();
-  CATailspinCanGenerate = v282;
-  CATailspinLastDefaultCheckTimestamp = v206;
-  if (!v282)
+  v302 = should_emit_tailspins();
+  CATailspinCanGenerate = v302;
+  CATailspinLastDefaultCheckTimestamp = v226;
+  if (!v302)
   {
-    goto LABEL_287;
+    goto LABEL_289;
   }
 
-LABEL_326:
-  v207 = v188 & 0xFFFFFFBF | (((v189 >> 1) & 1) << 6);
-  v208 = *&CATailspinMinimumTimestamp == 0.0;
-  if (*&v206 >= *&CATailspinMinimumTimestamp)
+LABEL_328:
+  v227 = v208 & 0xFFFFFFBF | (((v209 >> 1) & 1) << 6);
+  v228 = *&CATailspinMinimumTimestamp == 0.0;
+  if (*&v226 >= *&CATailspinMinimumTimestamp)
   {
-    v208 = 1;
+    v228 = 1;
   }
 
-  LODWORD(v186) = v298;
-  if (v207 > 0x1F || !v208 || *&v206 - *&CATailspinLastRequestTimestamp < 1800.0)
+  LODWORD(v206) = v320;
+  if (v227 > 0x1F || !v228 || *&v226 - *&CATailspinLastRequestTimestamp < 1800.0)
   {
-    goto LABEL_295;
+    goto LABEL_297;
   }
 
-  v317 = v207;
+  v341 = v227;
   {
     operator new();
   }
 
-  v209 = CATailspinGlitchHistory(void)::a;
-  v210 = CAHostTimeWithTime(1.0);
-  v211 = *(v209 + 32);
-  v212 = (v211 >> 5) & 0x7FFFFFFFFFFFFF8;
-  v213 = *(v209 + 8);
-  v214 = *(v209 + 16);
-  v215 = (v213 + v212);
-  v216 = v211 >> 8;
-  v325 = v213;
-  if (v214 == v213)
+  v229 = CATailspinGlitchHistory(void)::a;
+  v230 = CAHostTimeWithTime(1.0);
+  v231 = *(v229 + 32);
+  v232 = (v231 >> 5) & 0x7FFFFFFFFFFFFF8;
+  v233 = *(v229 + 8);
+  v234 = *(v229 + 16);
+  v235 = (v233 + v232);
+  v236 = v231 >> 8;
+  v349 = v233;
+  if (v234 == v233)
   {
-    v217 = 0;
-    v319 = (v209 + 40);
-    goto LABEL_353;
+    v237 = 0;
+    v343 = (v229 + 40);
+    goto LABEL_355;
   }
 
-  v217 = *v215 + 16 * v211;
-  v319 = (v209 + 40);
-  v218 = *(v209 + 40) + v211;
-  v219 = (v218 >> 5) & 0x7FFFFFFFFFFFFF8;
-  if (*(v325 + v219) + 16 * v218 == v217)
+  v237 = *v235 + 16 * v231;
+  v343 = (v229 + 40);
+  v238 = *(v229 + 40) + v231;
+  v239 = (v238 >> 5) & 0x7FFFFFFFFFFFFF8;
+  if (*(v349 + v239) + 16 * v238 == v237)
   {
-    goto LABEL_353;
+    goto LABEL_355;
   }
 
-  v220 = (*(v209 + 40) + v211) | (32 * (v219 - v212));
-  v221 = v220 - *(v209 + 32);
-  if (v220 == *(v209 + 32))
+  v240 = (*(v229 + 40) + v231) | (32 * (v239 - v232));
+  v241 = v240 - *(v229 + 32);
+  if (v240 == *(v229 + 32))
   {
-    v230 = (v325 + 8 * v216);
+    v250 = (v349 + 8 * v236);
   }
 
   else
   {
-    v222 = v323 - v210;
+    v242 = v347 - v230;
     do
     {
-      v223 = v221 >> 1;
-      if (v221 == 1)
+      v243 = v241 >> 1;
+      if (v241 == 1)
       {
-        v224 = v215;
-        v225 = v217;
+        v244 = v235;
+        v245 = v237;
       }
 
       else
       {
-        v226 = v223 + ((v217 - *v215) >> 4);
-        if (v226 < 1)
+        v246 = v243 + ((v237 - *v235) >> 4);
+        if (v246 < 1)
         {
-          v227 = 255 - v226;
-          LOBYTE(v226) = ~(-1 - v226);
-          v224 = &v215[-(v227 >> 8)];
+          v247 = 255 - v246;
+          LOBYTE(v246) = ~(-1 - v246);
+          v244 = &v235[-(v247 >> 8)];
         }
 
         else
         {
-          v224 = &v215[v226 >> 8];
+          v244 = &v235[v246 >> 8];
         }
 
-        v225 = (*v224 + 16 * v226);
+        v245 = (*v244 + 16 * v246);
       }
 
-      if (*v225 >= v222)
+      if (*v245 >= v242)
       {
-        v228 = 1;
+        v248 = 1;
       }
 
       else
       {
-        v228 = 255;
+        v248 = 255;
       }
 
-      if (*v225 != v222 && v228 >= 0x80)
+      if (*v245 != v242 && v248 >= 0x80)
       {
-        v217 = (v225 + 2);
-        if ((v225 - *v224 + 16) == 4096)
+        v237 = (v245 + 2);
+        if ((v245 - *v244 + 16) == 4096)
         {
-          v229 = v224[1];
-          ++v224;
-          v217 = v229;
+          v249 = v244[1];
+          ++v244;
+          v237 = v249;
         }
 
-        v223 = v221 + ~v223;
-        v215 = v224;
+        v243 = v241 + ~v243;
+        v235 = v244;
       }
 
-      v221 = v223;
+      v241 = v243;
     }
 
-    while (v223);
-LABEL_353:
-    v230 = (v325 + 8 * v216);
-    if (v214 == v325)
+    while (v243);
+LABEL_355:
+    v250 = (v349 + 8 * v236);
+    if (v234 == v349)
     {
-      v231 = 0;
-      goto LABEL_358;
+      v251 = 0;
+      goto LABEL_360;
     }
   }
 
-  v231 = *v230 + 16 * v211;
-LABEL_358:
-  if (v217 == v231)
+  v251 = *v250 + 16 * v231;
+LABEL_360:
+  if (v237 == v251)
   {
-    v232 = 0;
+    v252 = 0;
   }
 
   else
   {
-    v232 = ((v217 - *v215) >> 4) + 32 * (v215 - v230) - ((v231 - *v230) >> 4);
+    v252 = ((v237 - *v235) >> 4) + 32 * (v235 - v250) - ((v251 - *v250) >> 4);
   }
 
-  if (v214 == v325)
+  if (v234 == v349)
   {
-    v233 = 0;
-  }
-
-  else
-  {
-    v233 = *v230 + 16 * v211;
-  }
-
-  if (v231 == v233)
-  {
-    v234 = 0;
+    v253 = 0;
   }
 
   else
   {
-    v234 = ((v231 - *v230) >> 4) - ((v233 - *v230) >> 4);
+    v253 = *v250 + 16 * v231;
   }
 
-  v235 = v230;
-  v236 = std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long>*,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long>**,long,256l>::operator+[abi:nn200100](v230, v233, v234);
-  v238 = *(v209 + 40);
-  if (v232 < 1)
+  if (v251 == v253)
   {
-    v161 = v291;
+    v254 = 0;
   }
 
   else
   {
-    v239 = v236;
-    v303 = v233;
-    v321 = v237;
-    v240 = std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long>*,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long>**,long,256l>::operator+[abi:nn200100](v236, v237, v232);
-    if (v234 <= (v238 - v232) >> 1)
+    v254 = ((v251 - *v250) >> 4) - ((v253 - *v250) >> 4);
+  }
+
+  v255 = v250;
+  v256 = std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long>*,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long>**,long,256l>::operator+[abi:nn200100](v250, v253, v254);
+  v258 = *(v229 + 40);
+  if (v252 < 1)
+  {
+    v181 = v313;
+  }
+
+  else
+  {
+    v259 = v256;
+    v325 = v253;
+    v345 = v257;
+    v260 = std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long>*,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long>**,long,256l>::operator+[abi:nn200100](v256, v257, v252);
+    if (v254 <= (v258 - v252) >> 1)
     {
-      if (v239 == v235)
+      if (v259 == v255)
       {
         memset(__p, 0, 24);
-        std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v233, v321, v240, v241);
-        v161 = v291;
+        std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v253, v345, v260, v261);
+        v181 = v313;
       }
 
       else
       {
-        v245 = *v239;
-        v244 = v239 - 1;
+        v265 = *v259;
+        v264 = v259 - 1;
         memset(__p, 0, 24);
-        std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v245, v321, v240, v241);
-        v246 = __p[1];
-        v247 = __p[2];
-        if (v244 == v235)
+        std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v265, v345, v260, v261);
+        v266 = __p[1];
+        v267 = __p[2];
+        if (v264 == v255)
         {
-          v161 = v291;
+          v181 = v313;
         }
 
         else
         {
-          v161 = v291;
+          v181 = v313;
           do
           {
-            v248 = *v244--;
+            v268 = *v264--;
             memset(__p, 0, 24);
-            std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v248, v248 + 4096, v246, v247);
-            v246 = __p[1];
-            v247 = __p[2];
+            std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v268, v268 + 4096, v266, v267);
+            v266 = __p[1];
+            v267 = __p[2];
           }
 
-          while (v244 != v235);
+          while (v264 != v255);
         }
 
-        v259 = *v244;
+        v279 = *v264;
         memset(__p, 0, 24);
-        std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v303, v259 + 4096, v246, v247);
+        std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v325, v279 + 4096, v266, v267);
       }
 
-      *(v209 + 40) -= v232;
+      *(v229 + 40) -= v252;
       while (1)
       {
-        v211 = *(v209 + 32) + v232;
-        *(v209 + 32) = v211;
-        if (v211 < 0x200)
+        v231 = *(v229 + 32) + v252;
+        *(v229 + 32) = v231;
+        if (v231 < 0x200)
         {
           break;
         }
 
-        operator delete(**(v209 + 8));
-        *(v209 + 8) += 8;
-        v232 = -256;
+        operator delete(**(v229 + 8));
+        *(v229 + 8) += 8;
+        v252 = -256;
       }
 
-      v238 = *(v209 + 40);
+      v258 = *(v229 + 40);
     }
 
     else
     {
-      v242 = (v325 + 8 * ((v211 + v238) >> 8));
-      if (v214 == v325)
+      v262 = (v349 + 8 * ((v231 + v258) >> 8));
+      if (v234 == v349)
       {
-        v243 = 0;
+        v263 = 0;
       }
 
       else
       {
-        v243 = *v242 + 16 * (v211 + v238);
+        v263 = *v262 + 16 * (v231 + v258);
       }
 
-      if (v240 == v242)
+      if (v260 == v262)
       {
         memset(__p, 0, 24);
-        v249 = v243;
-        v250 = v239;
-        v251 = v321;
+        v269 = v263;
+        v270 = v259;
+        v271 = v345;
       }
 
       else
       {
-        v253 = (v240 + 1);
-        v252 = *v240;
+        v273 = (v260 + 1);
+        v272 = *v260;
         memset(__p, 0, 24);
-        v254 = (v252 + 4096);
-        v250 = v239;
-        v251 = v321;
+        v274 = (v272 + 4096);
+        v270 = v259;
+        v271 = v345;
         while (1)
         {
-          std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v241, v254, v250, v251);
-          v250 = __p[1];
-          v251 = __p[2];
-          if (v253 == v242)
+          std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v261, v274, v270, v271);
+          v270 = __p[1];
+          v271 = __p[2];
+          if (v273 == v262)
           {
             break;
           }
 
-          v255 = *v253++;
-          v241 = v255;
+          v275 = *v273++;
+          v261 = v275;
           memset(__p, 0, 24);
-          v254 = v255 + 4096;
+          v274 = v275 + 4096;
         }
 
-        v241 = *v253;
+        v261 = *v273;
         memset(__p, 0, 24);
-        v249 = v243;
+        v269 = v263;
       }
 
-      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v241, v249, v250, v251);
-      v238 = *(v209 + 40) - v232;
-      *(v209 + 40) = v238;
-      v256 = *(v209 + 16);
-      v161 = v291;
+      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::pair<unsigned long long,unsigned long long> *,std::__deque_iterator<std::pair<unsigned long long,unsigned long long>,std::pair<unsigned long long,unsigned long long> *,std::pair<unsigned long long,unsigned long long>&,std::pair<unsigned long long,unsigned long long> **,long,256l>,0>(__p, v261, v269, v270, v271);
+      v258 = *(v229 + 40) - v252;
+      *(v229 + 40) = v258;
+      v276 = *(v229 + 16);
+      v181 = v313;
       while (1)
       {
-        v257 = *(v209 + 8);
-        v258 = v256 == v257 ? 0 : 32 * (v256 - v257) - 1;
-        v211 = *(v209 + 32);
-        if (v258 - (v238 + v211) < 0x200)
+        v277 = *(v229 + 8);
+        v278 = v276 == v277 ? 0 : 32 * (v276 - v277) - 1;
+        v231 = *(v229 + 32);
+        if (v278 - (v258 + v231) < 0x200)
         {
           break;
         }
 
-        operator delete(*(v256 - 8));
-        v256 = *(v209 + 16) - 8;
-        *(v209 + 16) = v256;
-        v238 = *(v209 + 40);
+        operator delete(*(v276 - 8));
+        v276 = *(v229 + 16) - 8;
+        *(v229 + 16) = v276;
+        v258 = *(v229 + 40);
       }
     }
   }
 
-  v260 = *(v209 + 16);
-  v261 = *(v209 + 8);
-  if (v260 == v261)
+  v280 = *(v229 + 16);
+  v281 = *(v229 + 8);
+  if (v280 == v281)
   {
-    v262 = 0;
+    v282 = 0;
   }
 
   else
   {
-    v262 = 32 * (v260 - v261) - 1;
+    v282 = 32 * (v280 - v281) - 1;
   }
 
-  v263 = v238 + v211;
-  if (v262 == v238 + v211)
+  v283 = v258 + v231;
+  if (v282 == v258 + v231)
   {
-    if (v211 < 0x100)
+    if (v231 < 0x100)
     {
-      v264 = *(v209 + 24);
-      v265 = v264 - *v209;
-      if (v260 - v261 < v265)
+      v284 = *(v229 + 24);
+      v285 = v284 - *v229;
+      if (v280 - v281 < v285)
       {
         operator new();
       }
 
-      v266 = v265 >> 2;
-      if (v264 == *v209)
+      v286 = v285 >> 2;
+      if (v284 == *v229)
       {
-        v267 = 1;
+        v287 = 1;
       }
 
       else
       {
-        v267 = v266;
+        v287 = v286;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<CA::Display::DisplayLinkItem *>>(v267);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<CA::Display::DisplayLinkItem *>>(v287);
     }
 
-    *(v209 + 32) = v211 - 256;
-    __p[0] = *v261;
-    *(v209 + 8) = v261 + 1;
-    std::__split_buffer<std::pair<unsigned long long,unsigned long long> *,std::allocator<std::pair<unsigned long long,unsigned long long> *>>::emplace_back<std::pair<unsigned long long,unsigned long long> *&>(v209, __p);
-    v211 = *(v209 + 32);
-    v238 = *(v209 + 40);
-    v261 = *(v209 + 8);
-    v260 = *(v209 + 16);
-    v263 = v211 + v238;
+    *(v229 + 32) = v231 - 256;
+    __p[0] = *v281;
+    *(v229 + 8) = v281 + 1;
+    std::__split_buffer<std::pair<unsigned long long,unsigned long long> *,std::allocator<std::pair<unsigned long long,unsigned long long> *>>::emplace_back<std::pair<unsigned long long,unsigned long long> *&>(v229, __p);
+    v231 = *(v229 + 32);
+    v258 = *(v229 + 40);
+    v281 = *(v229 + 8);
+    v280 = *(v229 + 16);
+    v283 = v231 + v258;
   }
 
-  v269 = (*(v261 + ((v263 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v263);
-  *v269 = v323;
-  v269[1] = v187;
-  *(v209 + 40) = v238 + 1;
-  if (v260 == v261)
+  v289 = (*(v281 + ((v283 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v283);
+  *v289 = v347;
+  v289[1] = v207;
+  *(v229 + 40) = v258 + 1;
+  if (v280 == v281)
   {
-    v277 = 0;
-    v158 = v295;
-LABEL_423:
-    v186 = v298;
-    goto LABEL_424;
+    v297 = 0;
+    v178 = v317;
+LABEL_425:
+    v206 = v320;
+    goto LABEL_426;
   }
 
-  v270 = &v261[v211 >> 8];
-  v271 = *v270;
-  v272 = *v270 + 16 * v211;
-  v273 = *(v261 + (((*v319 + v211) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*v319 + v211);
-  v158 = v295;
-  if (v272 == v273)
+  v290 = &v281[v231 >> 8];
+  v291 = *v290;
+  v292 = *v290 + 16 * v231;
+  v293 = *(v281 + (((*v343 + v231) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*v343 + v231);
+  v178 = v317;
+  if (v292 == v293)
   {
-    v277 = 0;
-    goto LABEL_423;
+    v297 = 0;
+    goto LABEL_425;
   }
 
-  v274 = 0;
-  v186 = v298;
+  v294 = 0;
+  v206 = v320;
   do
   {
-    v275 = v272 + 16;
-    if (v272 + 16 - v271 == 4096)
+    v295 = v292 + 16;
+    if (v292 + 16 - v291 == 4096)
     {
-      v276 = v270[1];
-      ++v270;
-      v271 = v276;
-      v275 = v276;
+      v296 = v290[1];
+      ++v290;
+      v291 = v296;
+      v295 = v296;
     }
 
-    v274 += *(v272 + 8);
-    v272 = v275;
+    v294 += *(v292 + 8);
+    v292 = v295;
   }
 
-  while (v275 != v273);
-  v277 = v274;
-LABEL_424:
-  v278 = (CATimeWithHostTime(v277) * 1000.0);
-  if (arc4random_uniform(0xFAu) <= v278 && (![objc_msgSend(objc_msgSend(MEMORY[0x1E696AEC0] stringWithUTF8String:{v322 + 7), "lastPathComponent"), "isEqual:", @"SpringBoard"}] || arc4random_uniform(0x64u) >= 0x55))
+  while (v295 != v293);
+  v297 = v294;
+LABEL_426:
+  v298 = (CATimeWithHostTime(v297) * 1000.0);
+  if (arc4random_uniform(0xFAu) <= v298 && (![objc_msgSend(objc_msgSend(MEMORY[0x1E696AEC0] stringWithUTF8String:{v346 + 7), "lastPathComponent"), "isEqual:", @"SpringBoard"}] || arc4random_uniform(0x64u) >= 0x55))
   {
     if (x_log_get_utilities::once != -1)
     {
       dispatch_once(&x_log_get_utilities::once, &__block_literal_global_5_2153);
     }
 
-    v279 = x_log_get_utilities::log;
+    v299 = x_log_get_utilities::log;
     if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_INFO))
     {
-      v280 = *v319;
+      v300 = *v343;
       LODWORD(__p[0]) = 134218240;
-      *(__p + 4) = v280;
+      *(__p + 4) = v300;
       WORD2(__p[1]) = 1024;
-      *(&__p[1] + 6) = v278;
-      _os_log_impl(&dword_183AA6000, v279, OS_LOG_TYPE_INFO, "Diagnostics (tailspin) allowed for %zu glitches with %d ms glitch time.", __p, 0x12u);
+      *(&__p[1] + 6) = v298;
+      _os_log_impl(&dword_183AA6000, v299, OS_LOG_TYPE_INFO, "Diagnostics (tailspin) allowed for %zu glitches with %d ms glitch time.", __p, 0x12u);
     }
 
-    CATailspinLastRequestTimestamp = v206;
+    CATailspinLastRequestTimestamp = v226;
     if (CADeviceHasInternalBuild::once != -1)
     {
       dispatch_once(&CADeviceHasInternalBuild::once, &__block_literal_global_171);
@@ -5500,135 +5530,135 @@ LABEL_424:
     {
       memset(__p, 0, 24);
       *buf = xmmword_183E21570;
-      *v346 = __p;
+      *v370 = __p;
       CA::Render::post_notification(0x2Fu, 0, buf, 0);
-      v281 = x_stream_finish(__p);
+      v301 = x_stream_finish(__p);
       if (__p[0])
       {
         free(__p[0]);
       }
 
-      CATailspinEmit(v289, v186, v317, (v322 + 7), v281);
-      if (v281)
+      CATailspinEmit(v311, v206, v341, (v346 + 7), v301);
+      if (v301)
       {
-        free(v281);
+        free(v301);
       }
     }
 
     else
     {
-      CATailspinEmit(v289, v186, v317, (v322 + 7), 0);
+      CATailspinEmit(v311, v206, v341, (v346 + 7), 0);
     }
   }
 
-LABEL_295:
-  *&xmmword_1EA851010 = xmmword_1EA851010 + v187;
+LABEL_297:
+  *&xmmword_1EA851010 = xmmword_1EA851010 + v207;
   __p[0] = cf;
   __p[1] = 0;
   __p[2] = 0;
   __p[3] = cf;
-  *&v190 = -1;
-  *(&v190 + 1) = -1;
-  *&__p[4] = v190;
-  v341[0] = v190;
+  *&v210 = -1;
+  *(&v210 + 1) = -1;
+  *&__p[4] = v210;
+  v365[0] = v210;
   if (cf)
   {
     CFRetain(cf);
   }
 
-  CA::IOMobileFramebuffer::swap_wait(__p);
-  v53 = v338;
-  v191 = *(v338 + 9);
-  v192 = v338 + 80;
-  if (v191 != v338 + 80)
+  CA::IOMobileFramebuffer::swap_wait(__p, v311, 2147483649);
+  v53 = v362;
+  v211 = *(v362 + 9);
+  v212 = v362 + 80;
+  if (v211 != v362 + 80)
   {
-    v193 = v16 - v17;
+    v213 = v16 - v17;
     do
     {
-      v194 = *(v191 + 4);
-      if (*(v194 + 12) != 25)
+      v214 = *(v211 + 4);
+      if (*(v214 + 12) != 25)
       {
         __assert_rtn("frame_info_callback", "windowserver-iomfb-server.cpp", 1835, "obj->type () == Render::kTypeImageQueue");
       }
 
-      v195 = *(v158 + 12);
-      v196 = 0.0;
-      if ((v195[160] & 0x10) != 0)
+      v215 = v178[12];
+      v216 = 0.0;
+      if ((*(v215 + 160) & 0x10) != 0)
       {
-        v196 = (*(*v195 + 776))(v195);
+        v216 = (*(*v215 + 776))(v215);
       }
 
-      CA::Render::ImageQueue::did_display(v194, v186, v16, v193, v196);
-      v197 = *(v191 + 1);
-      if (v197)
+      CA::Render::ImageQueue::did_display(v214, v206, v16, v213, v216);
+      v217 = *(v211 + 1);
+      if (v217)
       {
         do
         {
-          v198 = v197;
-          v197 = *v197;
+          v218 = v217;
+          v217 = *v217;
         }
 
-        while (v197);
+        while (v217);
       }
 
       else
       {
         do
         {
-          v198 = *(v191 + 2);
-          v56 = *v198 == v191;
-          v191 = v198;
+          v218 = *(v211 + 2);
+          v56 = *v218 == v211;
+          v211 = v218;
         }
 
         while (!v56);
       }
 
-      v191 = v198;
+      v211 = v218;
     }
 
-    while (v198 != v192);
+    while (v218 != v212);
   }
 
-  v199 = CATimeWithHostTime(v296 - *(v158 + 170));
-  v200 = fmax(round(v199 / (*(**(v158 + 12) + 776))(*(v158 + 12))) + -1.0, 0.0);
-  v201 = *(v158 + 12);
-  v202 = 240;
-  if (v200 < 0xF0)
+  v219 = CATimeWithHostTime(v318 - v178[170]);
+  v220 = fmax(round(v219 / (*(*v178[12] + 776))(v178[12])) + -1.0, 0.0);
+  v221 = v178[12];
+  v222 = 240;
+  if (v220 < 0xF0)
   {
-    v202 = v200;
+    v222 = v220;
   }
 
-  ++*(v201[3196] + 8 * v202);
-  if (v200 + 1 == (*(*v201 + 784))())
+  ++*(*(v221 + 3196) + 8 * v222);
+  if (v220 + 1 == (*(*v221 + 784))())
   {
-    v203 = *(v53 + 197) & 0xF;
-    if (v203 >= 9)
+    v223 = *(v53 + 197) & 0xF;
+    if (v223 >= 9)
     {
-      v203 = 9;
+      v223 = 9;
     }
 
-    v204 = *(v158 + 12) + 4 * v203;
-    ++*(v204 + 25616);
+    v224 = v178[12] + 4 * v223;
+    ++*(v224 + 25616);
   }
 
-  *(v158 + 170) = v296;
-  CA::WindowServer::IOMFBServer::forward_frame_info_callback(v158, v161, v53, v337, v336);
+  v178[170] = v318;
+  CA::WindowServer::IOMFBServer::forward_frame_info_callback(v178, v181, v53, v361, v360);
   if (__p[0])
   {
     CFRelease(__p[0]);
   }
 
-  if (v333)
+  if (v357)
   {
-    operator delete(v333);
+    operator delete(v357);
   }
 
-LABEL_318:
-  v338 = 0;
+LABEL_320:
+  v362 = 0;
   v8 = v53;
   if (v53)
   {
-LABEL_319:
+LABEL_321:
     CA::WindowServer::IOMFBDisplay::FrameInfo::~FrameInfo(v8);
     if (x_malloc_get_zone::once != -1)
     {
@@ -5890,25 +5920,25 @@ void CA::WindowServer::FlipBook::swap_completed(os_unfair_lock_s *this, unsigned
   os_unfair_lock_unlock(this + 2);
 }
 
-void CA::WindowServer::FlipBook::collect(CA::WindowServer::FlipBook *this)
+void CA::WindowServer::FlipBook::collect(void *this)
 {
-  v1 = *(this + 15);
-  v2 = ((*(this + 18) - *(this + 17)) >> 7) + ((v1 - *(this + 14)) >> 7) + ((*(this + 12) - *(this + 11)) >> 7);
-  v3 = *(this + 9);
+  v1 = this[15];
+  v2 = ((this[18] - this[17]) >> 7) + ((v1 - this[14]) >> 7) + ((this[12] - this[11]) >> 7);
+  v3 = this[9];
   v4 = v2 - v3;
   if (v2 > v3)
   {
     do
     {
-      if (*(this + 14) == v1)
+      if (this[14] == v1)
       {
         break;
       }
 
-      *(this + 42) -= *(v1 - 16);
+      this[42] -= *(v1 - 16);
       CA::WindowServer::FlipBook::free_surface(this, (v1 - 128));
-      v1 = *(this + 15) - 128;
-      *(this + 15) = v1;
+      v1 = this[15] - 128;
+      this[15] = v1;
       --v4;
     }
 
@@ -5953,94 +5983,94 @@ uint64_t CA_CFInt64Value(const void *a1)
 
 void CA::WindowServer::IOMFBDisplay::add_timing(CA::WindowServer::IOMFBDisplay *this, unint64_t a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(this + 6576);
-  CA::WindowServer::IOMFBDisplay::initialize_timings(this);
-  v4 = *(this + 3290);
-  if (v4)
+  CA::WindowServer::IOMFBDisplay::initialize_timings(this, v4);
+  v5 = *(this + 3290);
+  if (v5)
   {
-    v5 = atomic_load(v4);
-    if (v5 & 1) != 0 && ((*(this + 336) & 0x1C00) == 0 || (*(this + 82) & 0x8000000000000000) == 0 || (BYTE2(xmmword_1ED4E98AC)))
+    v6 = atomic_load(v5);
+    if (v6 & 1) != 0 && ((*(this + 336) & 0x1C00) == 0 || (*(this + 82) & 0x8000000000000000) == 0 || (BYTE2(xmmword_1ED4E98AC)))
     {
-      v6 = mach_absolute_time();
-      v7 = v6;
-      if (v6 < a2)
+      v7 = mach_absolute_time();
+      v8 = v7;
+      if (v7 < a2)
       {
-        v39 = v6;
+        v40 = v7;
         if (x_log_get_windowserver(void)::once != -1)
         {
           dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
         }
 
-        v37 = x_log_get_windowserver(void)::log;
+        v38 = x_log_get_windowserver(void)::log;
         if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
           *&buf[4] = a2;
-          v43 = 2048;
-          v44 = v39;
-          _os_log_error_impl(&dword_183AA6000, v37, OS_LOG_TYPE_ERROR, "unexpected presentation time %llu, now %llu", buf, 0x16u);
+          v44 = 2048;
+          v45 = v40;
+          _os_log_error_impl(&dword_183AA6000, v38, OS_LOG_TYPE_ERROR, "unexpected presentation time %llu, now %llu", buf, 0x16u);
         }
       }
 
       else if (*(this + 3295))
       {
-        v8 = atomic_load((*(this + 3290) + 32));
-        *buf = v8;
-        if (v8)
+        v9 = atomic_load((*(this + 3290) + 32));
+        *buf = v9;
+        if (v9)
         {
-          CA::WindowServer::IOMFBDisplay::flush_timings_locked(this, v6, buf);
+          CA::WindowServer::IOMFBDisplay::flush_timings_locked(this, v7, buf);
         }
 
-        v9 = *(this + 3295);
-        v10 = (*(*this + 776))(this, v7);
-        v11 = CAHostTimeWithTime(v10);
-        v12 = *(this + 3295);
-        if (v12 < a2 && (v13 = a2 - v9, (v14 = vcvtad_u64_f64((a2 - v9) / v11)) != 0))
+        v10 = *(this + 3295);
+        v11 = (*(*this + 776))(this, v8);
+        v12 = CAHostTimeWithTime(v11);
+        v13 = *(this + 3295);
+        if (v13 < a2 && (v14 = a2 - v10, (v15 = vcvtad_u64_f64((a2 - v10) / v12)) != 0))
         {
-          v15 = v13 / v14;
-          v16 = v11 - v13 / v14;
-          v17 = v13 / v14 >= v11;
-          v18 = v13 / v14 - v11;
-          if (v18 != 0 && v17)
+          v16 = v14 / v15;
+          v17 = v12 - v14 / v15;
+          v18 = v14 / v15 >= v12;
+          v19 = v14 / v15 - v12;
+          if (v19 != 0 && v18)
           {
-            v16 = v18;
+            v17 = v19;
           }
 
-          v19 = *(this + 3294) + v14;
-          *(this + 3294) = v19;
+          v20 = *(this + 3294) + v15;
+          *(this + 3294) = v20;
           *(this + 3295) = a2;
-          v20 = *(this + 3290);
+          v21 = *(this + 3290);
           if (*buf)
           {
-            v21 = atomic_load((v20 + 64));
-            v22 = v19 - v21;
-            v23 = atomic_load((*(this + 3290) + 72));
-            v24 = v22 + v23;
-            v20 = *(this + 3290);
-            add = atomic_fetch_add((v20 + 28), 1u);
-            atomic_store(*(this + 3294), (v20 + 64));
-            atomic_store(v24, (v20 + 72));
+            v22 = atomic_load((v21 + 64));
+            v23 = v20 - v22;
+            v24 = atomic_load((*(this + 3290) + 72));
+            v25 = v23 + v24;
+            v21 = *(this + 3290);
+            add = atomic_fetch_add((v21 + 28), 1u);
+            atomic_store(*(this + 3294), (v21 + 64));
+            atomic_store(v25, (v21 + 72));
           }
 
           else
           {
-            add = atomic_fetch_add((v20 + 28), 1u);
-            atomic_store(*(this + 3294), (v20 + 64));
+            add = atomic_fetch_add((v21 + 28), 1u);
+            atomic_store(*(this + 3294), (v21 + 64));
           }
 
-          atomic_store(a2, (v20 + 80));
-          atomic_store(add + 2, (v20 + 28));
+          atomic_store(a2, (v21 + 80));
+          atomic_store(add + 2, (v21 + 28));
           if (byte_1ED4E9847 == 1)
           {
-            v38 = v16;
-            v40 = v11;
+            v39 = v17;
+            v41 = v12;
             CA::WindowServer::IOMFBDisplay::emit_server_timing_update_locked(this);
-            v16 = v38;
-            v11 = v40;
+            v17 = v39;
+            v12 = v41;
           }
 
-          if (v16 > v11 >> 4)
+          if (v17 > v12 >> 4)
           {
             *(this + 6582) = 0;
             *(this + 3292) = 0;
@@ -6048,55 +6078,55 @@ void CA::WindowServer::IOMFBDisplay::add_timing(CA::WindowServer::IOMFBDisplay *
 
           else
           {
-            v26 = *(this + 6582);
-            v27 = *(this + 3292);
-            if (v26 > 0xFF)
+            v27 = *(this + 6582);
+            v28 = *(this + 3292);
+            if (v27 > 0xFF)
             {
-              v28 = v27 - (v27 >> 8) + v15;
-              v30 = v28 >> 8;
+              v29 = v28 - (v28 >> 8) + v16;
+              v31 = v29 >> 8;
             }
 
             else
             {
-              v28 = v27 + v15;
-              v29 = v26 + 1;
-              *(this + 6582) = v29;
-              v30 = v28 / v29;
+              v29 = v28 + v16;
+              v30 = v27 + 1;
+              *(this + 6582) = v30;
+              v31 = v29 / v30;
             }
 
-            *(this + 3292) = v28;
-            atomic_store(v30, (*(this + 3290) + 16));
-            *(this + 3293) = v15;
-            v31 = *(this + 3296);
-            if (v31)
+            *(this + 3292) = v29;
+            atomic_store(v31, (*(this + 3290) + 16));
+            *(this + 3293) = v16;
+            v32 = *(this + 3296);
+            if (v32)
             {
-              *(this + 3296) = v31 - 1;
+              *(this + 3296) = v32 - 1;
             }
 
             if ((*(this + 336) & 0x1C00) == 0)
             {
-              v32 = (*(*this + 784))(this);
-              v33 = atomic_load((*(this + 3290) + 16));
-              v34 = v33 * v32;
-              v35 = *(this + 3294);
+              v33 = (*(*this + 784))(this);
+              v34 = atomic_load((*(this + 3290) + 16));
+              v35 = v34 * v33;
+              v36 = *(this + 3294);
               if (CA::OGL::AsynchronousDispatcher::dispatcher(void)::once[0] != -1)
               {
-                v41 = *(this + 3294);
+                v42 = *(this + 3294);
                 dispatch_once(CA::OGL::AsynchronousDispatcher::dispatcher(void)::once, &__block_literal_global_1819);
-                v35 = v41;
+                v36 = v42;
               }
 
-              v36 = CA::OGL::AsynchronousDispatcher::dispatcher(void)::dispatcher;
-              *(CA::OGL::AsynchronousDispatcher::dispatcher(void)::dispatcher + 72) = v35;
-              *(v36 + 80) = a2 + (v34 >> 1);
-              *(v36 + 88) = v34;
+              v37 = CA::OGL::AsynchronousDispatcher::dispatcher(void)::dispatcher;
+              *(CA::OGL::AsynchronousDispatcher::dispatcher(void)::dispatcher + 72) = v36;
+              *(v37 + 80) = a2 + (v35 >> 1);
+              *(v37 + 88) = v35;
             }
 
             __dmb(0xBu);
           }
         }
 
-        else if (v12 > a2 + (v11 >> 14))
+        else if (v13 > a2 + (v12 >> 14))
         {
           *(this + 1647) = 0u;
         }
@@ -6401,32 +6431,32 @@ LABEL_55:
   std::__tree<std::tuple<unsigned short,unsigned short>>::destroy(v43);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::WindowServer::IOMFBDisplay::PreviousMCTRecord>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(float *a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6434,44 +6464,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void *X::small_vector_base<CA::OGL::MetalContext::ExecutionInterval>::erase(void *result, char *__dst)
@@ -6495,36 +6525,37 @@ void *X::small_vector_base<CA::OGL::MetalContext::ExecutionInterval>::erase(void
 
 _DWORD *CA::Render::Context::process_path(CA::Render::Context *this)
 {
-  v1 = MEMORY[0x1EEE9AC00](this);
-  v9 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1EEE9AC00](this);
+  v2 = v1;
+  v10 = *MEMORY[0x1E69E9840];
   result = *(v1 + 232);
   if (!result)
   {
     bzero(buffer, 0x1000uLL);
-    v3 = atomic_load((v1 + 228));
-    if (!v3)
+    v4 = atomic_load((v2 + 228));
+    if (!v4)
     {
-      v3 = *(v1 + 256) ? 0 : getpid();
-      v4 = 0;
-      atomic_compare_exchange_strong((v1 + 228), &v4, v3);
-      if (v4)
+      v4 = *(v2 + 256) ? 0 : getpid();
+      v5 = 0;
+      atomic_compare_exchange_strong((v2 + 228), &v5, v4);
+      if (v5)
       {
-        v3 = v4;
+        v4 = v5;
       }
     }
 
-    v5 = proc_pidpath(v3, buffer, 0x1000u);
-    result = CA::Render::String::new_string(v5, buffer, v6);
-    v7 = *(v1 + 232);
-    *(v1 + 232) = result;
-    if (v7)
+    v6 = proc_pidpath(v4, buffer, 0x1000u);
+    result = CA::Render::String::new_string(v6, buffer, v7);
+    v8 = *(v2 + 232);
+    *(v2 + 232) = result;
+    if (v8)
     {
-      if (atomic_fetch_add(v7 + 2, 0xFFFFFFFF) == 1)
+      if (atomic_fetch_add(v8 + 2, 0xFFFFFFFF) == 1)
       {
-        (*(*v7 + 16))(v7);
+        (*(*v8 + 16))(v8);
       }
 
-      return *(v1 + 232);
+      return *(v2 + 232);
     }
   }
 
@@ -7022,9 +7053,9 @@ LABEL_14:
   return result;
 }
 
-void CA::WindowServer::IOMFBDisplay::initialize_timings(CA::WindowServer::IOMFBDisplay *this)
+void CA::WindowServer::IOMFBDisplay::initialize_timings(CA::WindowServer::IOMFBDisplay *this, unint64_t a2)
 {
-  v1 = this + 26308;
+  v2 = this + 26308;
   if ((*(this + 26308) & 1) == 0)
   {
     if (*(this + 29513))
@@ -7034,18 +7065,18 @@ void CA::WindowServer::IOMFBDisplay::initialize_timings(CA::WindowServer::IOMFBD
 
     if (!*(this + 3289))
     {
-      v3 = CA::Render::Shmem::new_shmem(0x58);
-      *(this + 3289) = v3;
-      *(this + 3290) = *(v3 + 3);
+      v4 = CA::Render::Shmem::new_shmem(0x58);
+      *(this + 3289) = v4;
+      *(this + 3290) = *(v4 + 3);
     }
 
-    (*(*this + 776))(this);
+    (*(*this + 776))(this, a2);
     if ((*(this + 336) & 0x1C00) != 0 && (*(this + 82) & 0x8000000000000000) != 0 && !BYTE2(xmmword_1ED4E98AC))
     {
-      v4 = v4 * 1.0025;
+      v5 = v5 * 1.0025;
     }
 
-    atomic_store(CAHostTimeWithTime(v4), (*(this + 3290) + 16));
+    atomic_store(CAHostTimeWithTime(v5), (*(this + 3290) + 16));
     if ((*(this + 160) & 0x100) == 0)
     {
       goto LABEL_14;
@@ -7058,21 +7089,21 @@ void CA::WindowServer::IOMFBDisplay::initialize_timings(CA::WindowServer::IOMFBD
 
     if (CAPrefers60HzAPT(void)::enabled == 1)
     {
-      v5 = (*(*this + 760))(this);
-      v6 = CAHostTimeWithTime(v5);
+      v6 = (*(*this + 760))(this);
+      v7 = CAHostTimeWithTime(v6);
     }
 
     else
     {
 LABEL_14:
-      v6 = 0;
+      v7 = 0;
     }
 
-    atomic_store(v6, (*(this + 3290) + 8));
+    atomic_store(v7, (*(this + 3290) + 8));
     if ((*(*this + 776))(this) != 0.0)
     {
 LABEL_16:
-      *v1 = 1;
+      *v2 = 1;
     }
   }
 }
@@ -7211,48 +7242,48 @@ uint64_t CA_CFIntValue(const void *a1)
   return valuePtr;
 }
 
-uint64_t CA::IOMobileFramebuffer::swap_wait(CA::IOMobileFramebuffer *this)
+uint64_t CA::IOMobileFramebuffer::swap_wait(CA::IOMobileFramebuffer *this, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = mach_absolute_time();
-  v3 = CATimeWithHostTime(v2);
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = mach_absolute_time();
+  v5 = CATimeWithHostTime(v4);
   if (*(this + 8) == 1)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2000000000;
-    v10 = 0;
+    v12 = 0;
     BMMonitorBlockExecutionWithSignature();
-    v4 = *(*&buf[8] + 24);
+    v6 = *(*&buf[8] + 24);
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v4 = IOMobileFramebufferSwapWait();
+    v6 = IOMobileFramebufferSwapWait();
   }
 
-  v5 = mach_absolute_time();
-  v6 = CATimeWithHostTime(v5) - v3;
-  if (v6 > 3.0)
+  v7 = mach_absolute_time();
+  v8 = CATimeWithHostTime(v7) - v5;
+  if (v8 > 3.0)
   {
     if (x_log_get_windowserver(void)::once != -1)
     {
       dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
     }
 
-    v7 = x_log_get_windowserver(void)::log;
+    v9 = x_log_get_windowserver(void)::log;
     if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "IOMobileFramebufferSwapWait";
       *&buf[12] = 2048;
-      *&buf[14] = v6;
-      _os_log_error_impl(&dword_183AA6000, v7, OS_LOG_TYPE_ERROR, "%s took %.2f seconds", buf, 0x16u);
+      *&buf[14] = v8;
+      _os_log_error_impl(&dword_183AA6000, v9, OS_LOG_TYPE_ERROR, "%s took %.2f seconds", buf, 0x16u);
     }
   }
 
-  return v4;
+  return v6;
 }
 
 uint64_t CA::Render::fourcc_compressed_of_type(CA::Render *compressed_agx_universal_rgb_fourcc, int a2, int a3)
@@ -9838,10 +9869,10 @@ void CA::Render::post_notification(unsigned int a1, unint64_t a2, uint64_t a3, u
       v50 = a2;
       while (v16)
       {
-        v21 = (v13 - 2);
+        v21 = v13 - 2;
         if (v15 && v13[2] >= v14[2])
         {
-          v21 = (v14 - 2);
+          v21 = v14 - 2;
 LABEL_24:
           v14 = v14[1];
           goto LABEL_25;
@@ -9849,7 +9880,7 @@ LABEL_24:
 
         v13 = v13[1];
 LABEL_25:
-        v22 = *(v21 + 6);
+        v22 = v21[6];
         if (v22)
         {
           v23 = v22 == a2;
@@ -9864,7 +9895,7 @@ LABEL_25:
         {
           if (!atomic_fetch_add(v21 + 18, 1u))
           {
-            v10 = dispatch_semaphore_wait(*(v21 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            v10 = dispatch_semaphore_wait(v21[8], 0xFFFFFFFFFFFFFFFFLL);
             v12 = v55;
           }
 
@@ -9937,7 +9968,7 @@ LABEL_25:
 
           else
           {
-            v10 = MEMORY[0x1EEE9AC00](v10);
+            MEMORY[0x1EEE9AC00](v10);
             *(&v48 - 2) = v21;
             *(&v48 - 1) = v19;
             v19 = &v48 - 2;
@@ -9946,24 +9977,24 @@ LABEL_25:
           ++v20;
           if (*(v21 + 76) == 1)
           {
-            v33 = *(v21 + 6);
+            v33 = v21[6];
 LABEL_52:
             *(v21 + 77) = 1;
             v35 = *v21;
-            v34 = *(v21 + 1);
+            v34 = v21[1];
             *(v35 + 8) = v34;
             *v34 = v35;
             *v21 = v21;
-            *(v21 + 1) = v21;
-            v36 = *(v21 + 3);
-            v37 = *(v21 + 2);
-            *(v37 + 8) = v36;
+            v21[1] = v21;
+            v36 = v21[3];
+            v37 = v21[2];
+            v37[1] = v36;
             *v36 = v37;
-            *(v21 + 2) = v21 + 4;
-            *(v21 + 3) = v21 + 4;
+            v21[2] = v21 + 2;
+            v21[3] = v21 + 2;
             if (v33)
             {
-              v10 = std::__hash_table<std::__hash_value_type<CA::Render::Object *,x_link_struct>,std::__unordered_map_hasher<CA::Render::Object *,std::__hash_value_type<CA::Render::Object *,x_link_struct>,std::hash<CA::Render::Object *>,std::equal_to<CA::Render::Object *>,true>,std::__unordered_map_equal<CA::Render::Object *,std::__hash_value_type<CA::Render::Object *,x_link_struct>,std::equal_to<CA::Render::Object *>,std::hash<CA::Render::Object *>,true>,std::allocator<std::__hash_value_type<CA::Render::Object *,x_link_struct>>>::find<CA::Render::Object *>((&CA::Render::notifications_map_data + v9), *(v21 + 6));
+              v10 = std::__hash_table<std::__hash_value_type<CA::Render::Object *,x_link_struct>,std::__unordered_map_hasher<CA::Render::Object *,std::__hash_value_type<CA::Render::Object *,x_link_struct>,std::hash<CA::Render::Object *>,std::equal_to<CA::Render::Object *>,true>,std::__unordered_map_equal<CA::Render::Object *,std::__hash_value_type<CA::Render::Object *,x_link_struct>,std::equal_to<CA::Render::Object *>,std::hash<CA::Render::Object *>,true>,std::allocator<std::__hash_value_type<CA::Render::Object *,x_link_struct>>>::find<CA::Render::Object *>((&CA::Render::notifications_map_data + v9), v21[6]);
               if (v10 && v10[4] == v10 + 3)
               {
                 std::__hash_table<std::__hash_value_type<CA::Render::Object *,x_link_struct>,std::__unordered_map_hasher<CA::Render::Object *,std::__hash_value_type<CA::Render::Object *,x_link_struct>,std::hash<CA::Render::Object *>,std::equal_to<CA::Render::Object *>,true>,std::__unordered_map_equal<CA::Render::Object *,std::__hash_value_type<CA::Render::Object *,x_link_struct>,std::equal_to<CA::Render::Object *>,std::hash<CA::Render::Object *>,true>,std::allocator<std::__hash_value_type<CA::Render::Object *,x_link_struct>>>::erase((&CA::Render::notifications_map_data + v9), v10);
@@ -9979,7 +10010,7 @@ LABEL_52:
         if (a4)
         {
           v33 = a2;
-          if (*(v21 + 6) == a2)
+          if (v21[6] == a2)
           {
             goto LABEL_52;
           }
@@ -10060,7 +10091,7 @@ LABEL_57:
 
       if (v15)
       {
-        v21 = (v14 - 2);
+        v21 = v14 - 2;
       }
 
       else

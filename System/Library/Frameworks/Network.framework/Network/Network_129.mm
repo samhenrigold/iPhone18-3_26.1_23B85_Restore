@@ -1,88 +1,88 @@
 void nw_protocol_http_sniffing_create::$_1::__invoke(nw_protocol_http_sniffing_create::$_1 *this, nw_protocol *a2, nw_protocol *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!this)
   {
-    __nwlog_obj();
+    v6 = __nwlog_obj();
     *buf = 136446210;
-    v17 = "operator()";
-    v6 = _os_log_send_and_compose_impl();
+    v19 = "operator()";
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null protocol", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v14 = 0;
-    if (!__nwlog_fault(v6, &type, &v14))
+    v16 = 0;
+    if (!__nwlog_fault(v7, &type, &v16))
     {
       goto LABEL_36;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v7 = __nwlog_obj();
-      v8 = type;
-      if (!os_log_type_enabled(v7, type))
+      v8 = __nwlog_obj();
+      v9 = type;
+      if (!os_log_type_enabled(v8, type))
       {
         goto LABEL_36;
       }
 
       *buf = 136446210;
-      v17 = "operator()";
-      v9 = "%{public}s called with null protocol";
+      v19 = "operator()";
+      v10 = "%{public}s called with null protocol";
     }
 
-    else if (v14 == 1)
+    else if (v16 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v7 = __nwlog_obj();
-      v8 = type;
-      v11 = os_log_type_enabled(v7, type);
+      v8 = __nwlog_obj();
+      v9 = type;
+      v13 = os_log_type_enabled(v8, type);
       if (backtrace_string)
       {
-        if (v11)
+        if (v13)
         {
           *buf = 136446466;
-          v17 = "operator()";
-          v18 = 2082;
-          v19 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
+          v19 = "operator()";
+          v20 = 2082;
+          v21 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v8, v9, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
 LABEL_36:
-        if (!v6)
+        if (!v7)
         {
           return;
         }
 
 LABEL_37:
-        free(v6);
+        free(v7);
         return;
       }
 
-      if (!v11)
+      if (!v13)
       {
         goto LABEL_36;
       }
 
       *buf = 136446210;
-      v17 = "operator()";
-      v9 = "%{public}s called with null protocol, no backtrace";
+      v19 = "operator()";
+      v10 = "%{public}s called with null protocol, no backtrace";
     }
 
     else
     {
-      v7 = __nwlog_obj();
-      v8 = type;
-      if (!os_log_type_enabled(v7, type))
+      v8 = __nwlog_obj();
+      v9 = type;
+      if (!os_log_type_enabled(v8, type))
       {
         goto LABEL_36;
       }
 
       *buf = 136446210;
-      v17 = "operator()";
-      v9 = "%{public}s called with null protocol, backtrace limit exceeded";
+      v19 = "operator()";
+      v10 = "%{public}s called with null protocol, backtrace limit exceeded";
     }
 
 LABEL_35:
-    _os_log_impl(&dword_181A37000, v7, v8, v9, buf, 0xCu);
+    _os_log_impl(&dword_181A37000, v8, v9, v10, buf, 0xCu);
     goto LABEL_36;
   }
 
@@ -105,75 +105,75 @@ LABEL_35:
     return;
   }
 
-  __nwlog_obj();
+  v11 = __nwlog_obj();
   *buf = 136446210;
-  v17 = "operator()";
-  v6 = _os_log_send_and_compose_impl();
+  v19 = "operator()";
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null http_sniffing", buf, 12);
   type = OS_LOG_TYPE_ERROR;
-  v14 = 0;
-  if (!__nwlog_fault(v6, &type, &v14))
+  v16 = 0;
+  if (!__nwlog_fault(v7, &type, &v16))
   {
     goto LABEL_36;
   }
 
   if (type == OS_LOG_TYPE_FAULT)
   {
-    v7 = __nwlog_obj();
-    v8 = type;
-    if (!os_log_type_enabled(v7, type))
+    v8 = __nwlog_obj();
+    v9 = type;
+    if (!os_log_type_enabled(v8, type))
     {
       goto LABEL_36;
     }
 
     *buf = 136446210;
-    v17 = "operator()";
-    v9 = "%{public}s called with null http_sniffing";
+    v19 = "operator()";
+    v10 = "%{public}s called with null http_sniffing";
     goto LABEL_35;
   }
 
-  if (v14 != 1)
+  if (v16 != 1)
   {
-    v7 = __nwlog_obj();
-    v8 = type;
-    if (!os_log_type_enabled(v7, type))
+    v8 = __nwlog_obj();
+    v9 = type;
+    if (!os_log_type_enabled(v8, type))
     {
       goto LABEL_36;
     }
 
     *buf = 136446210;
-    v17 = "operator()";
-    v9 = "%{public}s called with null http_sniffing, backtrace limit exceeded";
+    v19 = "operator()";
+    v10 = "%{public}s called with null http_sniffing, backtrace limit exceeded";
     goto LABEL_35;
   }
 
-  v12 = __nw_create_backtrace_string();
-  v7 = __nwlog_obj();
-  v8 = type;
-  v13 = os_log_type_enabled(v7, type);
-  if (!v12)
+  v14 = __nw_create_backtrace_string();
+  v8 = __nwlog_obj();
+  v9 = type;
+  v15 = os_log_type_enabled(v8, type);
+  if (!v14)
   {
-    if (!v13)
+    if (!v15)
     {
       goto LABEL_36;
     }
 
     *buf = 136446210;
-    v17 = "operator()";
-    v9 = "%{public}s called with null http_sniffing, no backtrace";
+    v19 = "operator()";
+    v10 = "%{public}s called with null http_sniffing, no backtrace";
     goto LABEL_35;
   }
 
-  if (v13)
+  if (v15)
   {
     *buf = 136446466;
-    v17 = "operator()";
-    v18 = 2082;
-    v19 = v12;
-    _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null http_sniffing, dumping backtrace:%{public}s", buf, 0x16u);
+    v19 = "operator()";
+    v20 = 2082;
+    v21 = v14;
+    _os_log_impl(&dword_181A37000, v8, v9, "%{public}s called with null http_sniffing, dumping backtrace:%{public}s", buf, 0x16u);
   }
 
-  free(v12);
-  if (v6)
+  free(v14);
+  if (v7)
   {
     goto LABEL_37;
   }
@@ -217,63 +217,63 @@ void ___ZL39nw_protocol_http_sniffing_get_callbacksv_block_invoke()
 
 BOOL nw_protocol_http_sniffing_get_input_frames(nw_protocol *a1, nw_protocol *a2, uint64_t a3, uint64_t a4, uint64_t a5, nw_frame_array_s *a6)
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    __nwlog_obj();
-    *v93 = 136446210;
-    *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-    v57 = _os_log_send_and_compose_impl();
+    v57 = __nwlog_obj();
+    *v96 = 136446210;
+    *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+    v58 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v57, 16, "%{public}s called with null protocol", v96, 12);
     buf[0] = 16;
-    v96[0] = 0;
-    if (!__nwlog_fault(v57, buf, v96))
+    v99[0] = 0;
+    if (!__nwlog_fault(v58, buf, v99))
     {
       goto LABEL_145;
     }
 
     if (buf[0] != 17)
     {
-      if (v96[0] != 1)
+      if (v99[0] != 1)
       {
-        v58 = __nwlog_obj();
-        v59 = buf[0];
-        if (!os_log_type_enabled(v58, buf[0]))
+        v59 = __nwlog_obj();
+        v60 = buf[0];
+        if (!os_log_type_enabled(v59, buf[0]))
         {
           goto LABEL_145;
         }
 
-        *v93 = 136446210;
-        *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-        v60 = "%{public}s called with null protocol, backtrace limit exceeded";
+        *v96 = 136446210;
+        *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+        v61 = "%{public}s called with null protocol, backtrace limit exceeded";
         goto LABEL_144;
       }
 
       backtrace_string = __nw_create_backtrace_string();
-      v58 = __nwlog_obj();
-      v59 = buf[0];
-      v65 = os_log_type_enabled(v58, buf[0]);
+      v59 = __nwlog_obj();
+      v60 = buf[0];
+      v67 = os_log_type_enabled(v59, buf[0]);
       if (!backtrace_string)
       {
-        if (!v65)
+        if (!v67)
         {
           goto LABEL_145;
         }
 
-        *v93 = 136446210;
-        *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-        v60 = "%{public}s called with null protocol, no backtrace";
+        *v96 = 136446210;
+        *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+        v61 = "%{public}s called with null protocol, no backtrace";
         goto LABEL_144;
       }
 
-      if (v65)
+      if (v67)
       {
-        *v93 = 136446466;
-        *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-        *&v93[12] = 2082;
-        *&v93[14] = backtrace_string;
-        v66 = "%{public}s called with null protocol, dumping backtrace:%{public}s";
+        *v96 = 136446466;
+        *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+        *&v96[12] = 2082;
+        *&v96[14] = backtrace_string;
+        v68 = "%{public}s called with null protocol, dumping backtrace:%{public}s";
 LABEL_130:
-        _os_log_impl(&dword_181A37000, v58, v59, v66, v93, 0x16u);
+        _os_log_impl(&dword_181A37000, v59, v60, v68, v96, 0x16u);
       }
 
 LABEL_131:
@@ -281,22 +281,22 @@ LABEL_131:
       goto LABEL_145;
     }
 
-    v58 = __nwlog_obj();
-    v59 = buf[0];
-    if (!os_log_type_enabled(v58, buf[0]))
+    v59 = __nwlog_obj();
+    v60 = buf[0];
+    if (!os_log_type_enabled(v59, buf[0]))
     {
       goto LABEL_145;
     }
 
-    *v93 = 136446210;
-    *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-    v60 = "%{public}s called with null protocol";
+    *v96 = 136446210;
+    *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+    v61 = "%{public}s called with null protocol";
 LABEL_144:
-    _os_log_impl(&dword_181A37000, v58, v59, v60, v93, 0xCu);
+    _os_log_impl(&dword_181A37000, v59, v60, v61, v96, 0xCu);
 LABEL_145:
-    if (v57)
+    if (v58)
     {
-      free(v57);
+      free(v58);
     }
 
     return 0;
@@ -305,106 +305,106 @@ LABEL_145:
   handle = a1->handle;
   if (!handle)
   {
-    __nwlog_obj();
-    *v93 = 136446210;
-    *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-    v57 = _os_log_send_and_compose_impl();
+    v62 = __nwlog_obj();
+    *v96 = 136446210;
+    *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+    v58 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v62, 16, "%{public}s called with null http_sniffing", v96, 12);
     buf[0] = 16;
-    v96[0] = 0;
-    if (!__nwlog_fault(v57, buf, v96))
+    v99[0] = 0;
+    if (!__nwlog_fault(v58, buf, v99))
     {
       goto LABEL_145;
     }
 
     if (buf[0] == 17)
     {
-      v58 = __nwlog_obj();
-      v59 = buf[0];
-      if (!os_log_type_enabled(v58, buf[0]))
+      v59 = __nwlog_obj();
+      v60 = buf[0];
+      if (!os_log_type_enabled(v59, buf[0]))
       {
         goto LABEL_145;
       }
 
-      *v93 = 136446210;
-      *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-      v60 = "%{public}s called with null http_sniffing";
+      *v96 = 136446210;
+      *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+      v61 = "%{public}s called with null http_sniffing";
       goto LABEL_144;
     }
 
-    if (v96[0] != 1)
+    if (v99[0] != 1)
     {
-      v58 = __nwlog_obj();
-      v59 = buf[0];
-      if (!os_log_type_enabled(v58, buf[0]))
+      v59 = __nwlog_obj();
+      v60 = buf[0];
+      if (!os_log_type_enabled(v59, buf[0]))
       {
         goto LABEL_145;
       }
 
-      *v93 = 136446210;
-      *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-      v60 = "%{public}s called with null http_sniffing, backtrace limit exceeded";
+      *v96 = 136446210;
+      *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+      v61 = "%{public}s called with null http_sniffing, backtrace limit exceeded";
       goto LABEL_144;
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v58 = __nwlog_obj();
-    v59 = buf[0];
-    v67 = os_log_type_enabled(v58, buf[0]);
+    v59 = __nwlog_obj();
+    v60 = buf[0];
+    v69 = os_log_type_enabled(v59, buf[0]);
     if (backtrace_string)
     {
-      if (v67)
+      if (v69)
       {
-        *v93 = 136446466;
-        *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-        *&v93[12] = 2082;
-        *&v93[14] = backtrace_string;
-        v66 = "%{public}s called with null http_sniffing, dumping backtrace:%{public}s";
+        *v96 = 136446466;
+        *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+        *&v96[12] = 2082;
+        *&v96[14] = backtrace_string;
+        v68 = "%{public}s called with null http_sniffing, dumping backtrace:%{public}s";
         goto LABEL_130;
       }
 
       goto LABEL_131;
     }
 
-    if (!v67)
+    if (!v69)
     {
       goto LABEL_145;
     }
 
-    *v93 = 136446210;
-    *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-    v60 = "%{public}s called with null http_sniffing, no backtrace";
+    *v96 = 136446210;
+    *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+    v61 = "%{public}s called with null http_sniffing, no backtrace";
     goto LABEL_144;
   }
 
   if ((handle[198] & 1) == 0 && gLogDatapath == 1)
   {
-    v61 = a6;
-    v62 = __nwlog_obj();
-    v63 = os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG);
-    a6 = v61;
-    if (v63)
+    v63 = a6;
+    v64 = __nwlog_obj();
+    v65 = os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG);
+    a6 = v63;
+    if (v65)
     {
-      *v93 = 136447490;
-      *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-      *&v93[12] = 2082;
-      *&v93[14] = handle + 114;
-      *&v93[22] = 2080;
-      v94 = " ";
-      *v95 = 1024;
-      *&v95[2] = a3;
-      *&v95[6] = 1024;
-      *&v95[8] = a4;
-      *&v95[12] = 1024;
-      *&v95[14] = a5;
-      _os_log_impl(&dword_181A37000, v62, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%sminimum bytes %u, maximum bytes %u, maximum frame count %u", v93, 0x32u);
-      a6 = v61;
+      *v96 = 136447490;
+      *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+      *&v96[12] = 2082;
+      *&v96[14] = handle + 114;
+      *&v96[22] = 2080;
+      v97 = " ";
+      *v98 = 1024;
+      *&v98[2] = a3;
+      *&v98[6] = 1024;
+      *&v98[8] = a4;
+      *&v98[12] = 1024;
+      *&v98[14] = a5;
+      _os_log_impl(&dword_181A37000, v64, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%sminimum bytes %u, maximum bytes %u, maximum frame count %u", v96, 0x32u);
+      a6 = v63;
     }
   }
 
   v11 = *(handle + 162);
   if ((v11 & 1) == 0)
   {
-    v80 = a6;
+    v83 = a6;
     *(handle + 162) = v11 | 1;
     v13 = handle[460];
     if ((v13 & 1) == 0)
@@ -419,8 +419,8 @@ LABEL_10:
         }
 
         *buf = 0;
-        v96[0] = 0;
-        input_frames = nw_protocol_fulfill_frame_request(handle + 41, v80, a3, a4, a5, buf, v96);
+        v99[0] = 0;
+        input_frames = nw_protocol_fulfill_frame_request(handle + 41, v83, a3, a4, a5, buf, v99);
         v56 = *(handle + 114);
         v16 = v56 >= *buf;
         *(handle + 114) = v56 - *buf;
@@ -433,9 +433,9 @@ LABEL_10:
 
           v23 = input_frames;
           v24 = __nwlog_obj();
-          v70 = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
+          v72 = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
           input_frames = v23;
-          if (!v70)
+          if (!v72)
           {
             goto LABEL_106;
           }
@@ -455,22 +455,22 @@ LABEL_10:
             v16 = a3 >= v14;
             v17 = a3 - v14;
             v18 = v16 ? v17 : 1;
-            *v93 = 0;
-            *&v93[8] = v93;
-            nw_protocol_get_input_frames(a1->output_handler->flow_id, a1, v18, v15, a5, v93);
-            if (*v93)
+            *v96 = 0;
+            *&v96[8] = v96;
+            nw_protocol_get_input_frames(a1->output_handler->flow_id, a1, v18, v15, a5, v96);
+            if (*v96)
             {
               v19 = *(handle + 42);
-              *v19 = *v93;
-              v20 = *&v93[8];
-              *(*v93 + 40) = v19;
+              *v19 = *v96;
+              v20 = *&v96[8];
+              *(*v96 + 40) = v19;
               *(handle + 42) = v20;
             }
           }
 
           *buf = 0;
-          v96[0] = 0;
-          input_frames = nw_protocol_fulfill_frame_request(handle + 41, v80, a3, a4, a5, buf, v96);
+          v99[0] = 0;
+          input_frames = nw_protocol_fulfill_frame_request(handle + 41, v83, a3, a4, a5, buf, v99);
           v22 = *(handle + 114);
           v16 = v22 >= *buf;
           *(handle + 114) = v22 - *buf;
@@ -494,23 +494,23 @@ LABEL_10:
           }
 
 LABEL_148:
-          v71 = *(handle + 114);
-          *v93 = 136446978;
-          *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-          *&v93[12] = 2082;
-          *&v93[14] = "http_sniffing->pending_input_frames_byte_count";
-          *&v93[22] = 2048;
-          v94 = *buf;
-          *v95 = 2048;
-          *&v95[2] = v71;
-          _os_log_impl(&dword_181A37000, v24, OS_LOG_TYPE_DEBUG, "%{public}s Underflow: %{public}s, decrement %llu, result %llu", v93, 0x2Au);
+          v73 = *(handle + 114);
+          *v96 = 136446978;
+          *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+          *&v96[12] = 2082;
+          *&v96[14] = "http_sniffing->pending_input_frames_byte_count";
+          *&v96[22] = 2048;
+          v97 = *buf;
+          *v98 = 2048;
+          *&v98[2] = v73;
+          _os_log_impl(&dword_181A37000, v24, OS_LOG_TYPE_DEBUG, "%{public}s Underflow: %{public}s, decrement %llu, result %llu", v96, 0x2Au);
           input_frames = v23;
 LABEL_106:
           *(handle + 114) = 0;
           goto LABEL_107;
         }
 
-        input_frames = nw_protocol_get_input_frames(a1->output_handler->flow_id, a1, a3, a4, a5, v80);
+        input_frames = nw_protocol_get_input_frames(a1->output_handler->flow_id, a1, a3, a4, a5, v83);
       }
 
 LABEL_107:
@@ -519,18 +519,18 @@ LABEL_108:
       nw_protocol_plugin_retry_set_getting_input_frames((handle + 216), a1, 0);
       if ((handle[198] & 1) == 0 && gLogDatapath == 1)
       {
-        v69 = __nwlog_obj();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+        v71 = __nwlog_obj();
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
         {
-          *v93 = 136446978;
-          *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-          *&v93[12] = 2082;
-          *&v93[14] = handle + 114;
-          *&v93[22] = 2080;
-          v94 = " ";
-          *v95 = 1024;
-          *&v95[2] = v55;
-          _os_log_impl(&dword_181A37000, v69, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%sreturning %u frames", v93, 0x26u);
+          *v96 = 136446978;
+          *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+          *&v96[12] = 2082;
+          *&v96[14] = handle + 114;
+          *&v96[22] = 2080;
+          v97 = " ";
+          *v98 = 1024;
+          *&v98[2] = v55;
+          _os_log_impl(&dword_181A37000, v71, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%sreturning %u frames", v96, 0x26u);
         }
       }
 
@@ -539,13 +539,13 @@ LABEL_108:
 
     while (1)
     {
-      *v93 = 0;
-      *&v93[8] = v93;
-      *&v93[16] = 0x3802000000;
-      v94 = __Block_byref_object_copy__848;
-      *v95 = __Block_byref_object_dispose__849;
-      *&v95[8] = 0;
-      *&v95[16] = &v95[8];
+      *v96 = 0;
+      *&v96[8] = v96;
+      *&v96[16] = 0x3802000000;
+      v97 = __Block_byref_object_copy__848;
+      *v98 = __Block_byref_object_dispose__849;
+      *&v98[8] = 0;
+      *&v98[16] = &v98[8];
       v26 = a5;
       v27 = a4;
       v28 = a3;
@@ -586,28 +586,28 @@ LABEL_108:
         v26 = 0xFFFFFFFFLL;
       }
 
-      if (nw_protocol_get_input_frames(a1->output_handler->flow_id, a1, v28, v27, v26, &v95[8]) && *(*&v93[8] + 40))
+      if (nw_protocol_get_input_frames(a1->output_handler->flow_id, a1, v28, v27, v26, &v98[8]) && *(*&v96[8] + 40))
       {
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3802000000;
-        v90 = __Block_byref_object_copy__17;
-        *&v91 = __Block_byref_object_dispose__18;
+        v93 = __Block_byref_object_copy__17;
+        *&v94 = __Block_byref_object_dispose__18;
         if (nw_protocol_copy_http_definition_onceToken != -1)
         {
           dispatch_once(&nw_protocol_copy_http_definition_onceToken, &__block_literal_global_16_75909);
         }
 
-        *(&v91 + 1) = nw_protocol_copy_http_definition_http_definition;
-        v92 |= 1u;
-        v81[0] = MEMORY[0x1E69E9820];
-        v81[1] = 0x40000000;
-        v82 = ___ZL42nw_protocol_http_sniffing_get_input_framesP11nw_protocolS0_jjjP16nw_frame_array_s_block_invoke;
-        v83 = &unk_1E6A2B4F0;
-        v84 = buf;
-        v85 = v93;
-        v86 = handle;
-        v32 = *(*&v93[8] + 40);
+        *(&v94 + 1) = nw_protocol_copy_http_definition_http_definition;
+        v95 |= 1u;
+        v84[0] = MEMORY[0x1E69E9820];
+        v84[1] = 0x40000000;
+        v85 = ___ZL42nw_protocol_http_sniffing_get_input_framesP11nw_protocolS0_jjjP16nw_frame_array_s_block_invoke;
+        v86 = &unk_1E6A2B4F0;
+        v87 = buf;
+        v88 = v96;
+        v89 = handle;
+        v32 = *(*&v96[8] + 40);
         do
         {
           if (!v32)
@@ -616,7 +616,7 @@ LABEL_108:
           }
 
           v33 = *(v32 + 32);
-          v34 = v82(v81);
+          v34 = v85(v84);
           v32 = v33;
         }
 
@@ -652,7 +652,7 @@ LABEL_46:
 
             if (nw_protocol_metadata_matches_definition(v38, nw_protocol_copy_http_client_definition_definition))
             {
-              v39 = _nw_protocol_metadata_get_handle(v38);
+              v39 = _nw_protocol_metadata_get_handle();
               if (v39)
               {
                 __nw_http_client_metadata_call_prevent_timeout_callback_block_invoke(&__block_literal_global_88, v39);
@@ -662,24 +662,25 @@ LABEL_46:
             }
 
             logb = __nwlog_obj();
-            *v96 = 136446210;
-            *&v96[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
-            v79 = _os_log_send_and_compose_impl();
+            *v99 = 136446210;
+            *&v99[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
+            LODWORD(v74) = 12;
+            v82 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, logb, 16, "%{public}s metadata must be http_client", v99, v74);
 
             type = OS_LOG_TYPE_ERROR;
-            v87 = 0;
-            if (__nwlog_fault(v79, &type, &v87))
+            v90 = 0;
+            if (__nwlog_fault(v82, &type, &v90))
             {
               if (type == OS_LOG_TYPE_FAULT)
               {
                 log = __nwlog_obj();
-                v73 = type;
+                v76 = type;
                 if (os_log_type_enabled(log, type))
                 {
-                  *v96 = 136446210;
-                  *&v96[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
+                  *v99 = 136446210;
+                  *&v99[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
                   v50 = log;
-                  v51 = v73;
+                  v51 = v76;
                   v52 = "%{public}s metadata must be http_client";
                   goto LABEL_93;
                 }
@@ -687,21 +688,21 @@ LABEL_46:
                 goto LABEL_94;
               }
 
-              if (v87 == 1)
+              if (v90 == 1)
               {
                 loga = __nw_create_backtrace_string();
-                v74 = __nwlog_obj();
-                v72 = type;
-                v53 = os_log_type_enabled(v74, type);
+                v77 = __nwlog_obj();
+                v75 = type;
+                v53 = os_log_type_enabled(v77, type);
                 if (loga)
                 {
                   if (v53)
                   {
-                    *v96 = 136446466;
-                    *&v96[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
-                    *&v96[12] = 2082;
-                    *&v96[14] = loga;
-                    _os_log_impl(&dword_181A37000, v74, v72, "%{public}s metadata must be http_client, dumping backtrace:%{public}s", v96, 0x16u);
+                    *v99 = 136446466;
+                    *&v99[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
+                    *&v99[12] = 2082;
+                    *&v99[14] = loga;
+                    _os_log_impl(&dword_181A37000, v77, v75, "%{public}s metadata must be http_client, dumping backtrace:%{public}s", v99, 0x16u);
                   }
 
                   free(loga);
@@ -710,27 +711,27 @@ LABEL_46:
 
                 if (v53)
                 {
-                  *v96 = 136446210;
-                  *&v96[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
-                  _os_log_impl(&dword_181A37000, v74, v72, "%{public}s metadata must be http_client, no backtrace", v96, 0xCu);
+                  *v99 = 136446210;
+                  *&v99[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
+                  _os_log_impl(&dword_181A37000, v77, v75, "%{public}s metadata must be http_client, no backtrace", v99, 0xCu);
                 }
 
-                v54 = v74;
+                v54 = v77;
               }
 
               else
               {
                 log = __nwlog_obj();
-                v75 = type;
+                v78 = type;
                 if (os_log_type_enabled(log, type))
                 {
-                  *v96 = 136446210;
-                  *&v96[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
+                  *v99 = 136446210;
+                  *&v99[4] = "nw_http_client_metadata_call_prevent_timeout_callback";
                   v50 = log;
-                  v51 = v75;
+                  v51 = v78;
                   v52 = "%{public}s metadata must be http_client, backtrace limit exceeded";
 LABEL_93:
-                  _os_log_impl(&dword_181A37000, v50, v51, v52, v96, 0xCu);
+                  _os_log_impl(&dword_181A37000, v50, v51, v52, v99, 0xCu);
                 }
 
 LABEL_94:
@@ -739,9 +740,9 @@ LABEL_94:
             }
 
 LABEL_96:
-            if (v79)
+            if (v82)
             {
-              free(v79);
+              free(v82);
             }
 
 LABEL_51:
@@ -749,9 +750,9 @@ LABEL_51:
         }
 
         _Block_object_dispose(buf, 8);
-        if ((v92 & 1) != 0 && *(&v91 + 1))
+        if ((v95 & 1) != 0 && *(&v94 + 1))
         {
-          os_release(*(&v91 + 1));
+          os_release(*(&v94 + 1));
         }
 
         v40 = 1;
@@ -767,7 +768,7 @@ LABEL_51:
 LABEL_74:
       v40 = 0;
 LABEL_75:
-      _Block_object_dispose(v93, 8);
+      _Block_object_dispose(v96, 8);
       v13 = handle[460];
       if (!v40 || (handle[460] & 1) == 0)
       {
@@ -776,12 +777,12 @@ LABEL_75:
     }
 
     handle[460] = v41 & 0xFE;
-    nw_http_sniffing_guess_media_type(v96, handle);
-    v42 = v97;
-    v43 = v97;
-    if ((v97 & 0x80u) != 0)
+    nw_http_sniffing_guess_media_type(v99, handle);
+    v42 = v100;
+    v43 = v100;
+    if ((v100 & 0x80u) != 0)
     {
-      v42 = *&v96[8];
+      v42 = *&v99[8];
     }
 
     if (v42)
@@ -791,10 +792,10 @@ LABEL_75:
         v48 = __nwlog_obj();
         if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
         {
-          v49 = v96;
-          if ((v97 & 0x80u) != 0)
+          v49 = v99;
+          if ((v100 & 0x80u) != 0)
           {
-            v49 = *v96;
+            v49 = *v99;
           }
 
           *buf = 136446978;
@@ -802,9 +803,9 @@ LABEL_75:
           *&buf[12] = 2082;
           *&buf[14] = handle + 114;
           *&buf[22] = 2080;
-          v90 = " ";
-          LOWORD(v91) = 2080;
-          *(&v91 + 2) = v49;
+          v93 = " ";
+          LOWORD(v94) = 2080;
+          *(&v94 + 2) = v49;
           _os_log_impl(&dword_181A37000, v48, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%smedia type %s", buf, 0x2Au);
         }
       }
@@ -812,7 +813,7 @@ LABEL_75:
       v44 = *(handle + 49);
       if (v44)
       {
-        v43 = v97;
+        v43 = v100;
       }
 
       else
@@ -829,7 +830,7 @@ LABEL_75:
 
         *(handle + 49) = v44;
         handle[400] = v45 | 1;
-        v43 = v97;
+        v43 = v100;
         if (!v44)
         {
           goto LABEL_72;
@@ -838,22 +839,22 @@ LABEL_75:
 
       if ((v43 & 0x80u) == 0)
       {
-        v47 = v96;
+        v47 = v99;
       }
 
       else
       {
-        v47 = *v96;
+        v47 = *v99;
       }
 
       nw_http_client_metadata_set_sniffed_media_type(v44, v47);
-      v43 = v97;
+      v43 = v100;
     }
 
 LABEL_72:
     if ((v43 & 0x80) != 0)
     {
-      operator delete(*v96);
+      operator delete(*v99);
     }
 
     goto LABEL_74;
@@ -864,17 +865,17 @@ LABEL_72:
     return 0;
   }
 
-  v68 = __nwlog_obj();
-  result = os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG);
+  v70 = __nwlog_obj();
+  result = os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG);
   if (result)
   {
-    *v93 = 136446722;
-    *&v93[4] = "nw_protocol_http_sniffing_get_input_frames";
-    *&v93[12] = 2082;
-    *&v93[14] = handle + 114;
-    *&v93[22] = 2080;
-    v94 = " ";
-    _os_log_impl(&dword_181A37000, v68, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%salready getting input frames, returning 0", v93, 0x20u);
+    *v96 = 136446722;
+    *&v96[4] = "nw_protocol_http_sniffing_get_input_frames";
+    *&v96[12] = 2082;
+    *&v96[14] = handle + 114;
+    *&v96[22] = 2080;
+    v97 = " ";
+    _os_log_impl(&dword_181A37000, v70, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%salready getting input frames, returning 0", v96, 0x20u);
     return 0;
   }
 
@@ -912,7 +913,7 @@ uint64_t __Block_byref_object_dispose__18(uint64_t result)
 
 BOOL ___ZL42nw_protocol_http_sniffing_get_input_framesP11nw_protocolS0_jjjP16nw_frame_array_s_block_invoke(void *a1, uint64_t a2)
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v127 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v4 = nw_frame_copy_metadata_for_protocol(a2, *(*(a1[4] + 8) + 40));
@@ -945,18 +946,18 @@ BOOL ___ZL42nw_protocol_http_sniffing_get_input_framesP11nw_protocolS0_jjjP16nw_
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x4002000000;
-        v115 = __Block_byref_object_copy__22;
-        *&v116 = __Block_byref_object_dispose__23;
-        *(&v116 + 1) = 0;
-        v117 = 0;
-        v118 = 0;
-        v103[0] = MEMORY[0x1E69E9820];
-        v103[1] = 0x40000000;
-        v103[2] = ___ZL31nw_http_sniffing_get_media_typeP25nw_protocol_http_sniffingP20nw_protocol_metadata_block_invoke;
-        v103[3] = &unk_1E6A2B518;
-        v103[4] = buf;
+        v123 = __Block_byref_object_copy__22;
+        *&v124 = __Block_byref_object_dispose__23;
+        *(&v124 + 1) = 0;
+        v125 = 0;
+        v126 = 0;
+        v111[0] = MEMORY[0x1E69E9820];
+        v111[1] = 0x40000000;
+        v111[2] = ___ZL31nw_http_sniffing_get_media_typeP25nw_protocol_http_sniffingP20nw_protocol_metadata_block_invoke;
+        v111[3] = &unk_1E6A2B518;
+        v111[4] = buf;
         v11 = v10;
-        v12 = v103;
+        v12 = v111;
         _nw_http_fields_enumerate_by_name(v11, "Content-Type", v12);
 
         v13 = *&buf[8];
@@ -998,16 +999,16 @@ BOOL ___ZL42nw_protocol_http_sniffing_get_input_framesP11nw_protocolS0_jjjP16nw_
 
 LABEL_18:
           _Block_object_dispose(buf, 8);
-          if (SHIBYTE(v118) < 0)
+          if (SHIBYTE(v126) < 0)
           {
-            operator delete(*(&v116 + 1));
+            operator delete(*(&v124 + 1));
           }
 
           os_release(v11);
           v19 = a1[6];
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(&v101, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(&v109, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
             v20 = a1[6];
             if (v19)
             {
@@ -1018,7 +1019,7 @@ LABEL_18:
           }
 
 LABEL_21:
-          v101 = __p;
+          v109 = __p;
           v20 = v19;
           if (v19)
           {
@@ -1036,37 +1037,37 @@ LABEL_24:
               v23 = nw_http_metadata_copy_header_fields(v21);
               if (v23)
               {
-                v110 = 0;
-                v111 = &v110;
-                v112 = 0x2000000000;
-                v113 = 0;
+                v118 = 0;
+                v119 = &v118;
+                v120 = 0x2000000000;
+                v121 = 0;
                 *type = MEMORY[0x1E69E9820];
-                v106 = 0x40000000;
-                v107 = ___ZL29nw_http_sniffing_should_sniffP25nw_protocol_http_sniffingNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEP20nw_protocol_metadata_block_invoke;
-                v108 = &unk_1E6A2B540;
-                v109 = &v110;
+                v114 = 0x40000000;
+                v115 = ___ZL29nw_http_sniffing_should_sniffP25nw_protocol_http_sniffingNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEP20nw_protocol_metadata_block_invoke;
+                v116 = &unk_1E6A2B540;
+                v117 = &v118;
                 v24 = v23;
                 v25 = type;
                 _nw_http_fields_access_value_by_name(v24, "X-Content-Type-Options", v25);
 
-                if (v111[3])
+                if (v119[3])
                 {
                   LOBYTE(v22) = 0;
 LABEL_39:
-                  _Block_object_dispose(&v110, 8);
+                  _Block_object_dispose(&v118, 8);
                   os_release(v24);
 LABEL_40:
                   *(a1[6] + 460) = *(a1[6] + 460) & 0xFE | v22;
-                  if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v101.__r_.__value_.__l.__data_);
+                    operator delete(v109.__r_.__value_.__l.__data_);
                   }
 
-                  v31 = a1[6];
-                  if (*(v31 + 460))
+                  v32 = a1[6];
+                  if (*(v32 + 460))
                   {
-                    v32 = (v31 + 408);
-                    if (*(v31 + 431) < 0)
+                    v33 = (v32 + 408);
+                    if (*(v32 + 431) < 0)
                     {
                       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                       {
@@ -1088,95 +1089,95 @@ LABEL_40:
                         size = __p.__r_.__value_.__l.__size_;
                       }
 
-                      std::string::__assign_no_alias<false>(v32, p_p, size);
+                      std::string::__assign_no_alias<false>(v33, p_p, size);
                     }
 
                     else
                     {
                       if ((*(&__p.__r_.__value_.__s + 23) & 0x80) == 0)
                       {
-                        *v32 = *&__p.__r_.__value_.__l.__data_;
-                        *(v31 + 424) = *(&__p.__r_.__value_.__l + 2);
+                        *v33 = *&__p.__r_.__value_.__l.__data_;
+                        *(v32 + 424) = *(&__p.__r_.__value_.__l + 2);
                         *(a1[6] + 440) = *(a1[6] + 432);
 LABEL_56:
                         v5 = 0;
 LABEL_57:
-                        v36 = *(a2 + 64);
-                        if (v36)
+                        v37 = *(a2 + 64);
+                        if (v37)
                         {
-                          v37 = (*(v36 + 66) >> 6) & 1;
+                          v38 = (*(v37 + 66) >> 6) & 1;
                         }
 
                         else
                         {
-                          LOBYTE(v37) = 0;
+                          LOBYTE(v38) = 0;
                         }
 
-                        v38 = a1[6];
-                        if (!*(v38 + 344) || (*(v38 + 460) & 1) == 0)
+                        v39 = a1[6];
+                        if (!*(v39 + 344) || (*(v39 + 460) & 1) == 0)
                         {
                           goto LABEL_107;
                         }
 
                         if (*(a2 + 112) && ((*(a2 + 204) & 0x100) == 0 || !g_channel_check_validity || g_channel_check_validity(a2, *(a2 + 88))))
                         {
-                          v39 = *(a2 + 52);
-                          if (v39)
+                          v40 = *(a2 + 52);
+                          if (v40)
                           {
-                            v40 = *(a2 + 56);
-                            v41 = v39 - (v40 + *(a2 + 60));
-                            if (v41)
+                            v41 = *(a2 + 56);
+                            v42 = v40 - (v41 + *(a2 + 60));
+                            if (v42)
                             {
-                              v42 = a1[6];
-                              v44 = *(v42 + 432);
-                              v43 = *(v42 + 440);
-                              v45 = v44 - v43 + 512;
-                              v46 = v45 >= v41 ? v41 : v45;
-                              if (v44 - v43 != -512)
+                              v43 = a1[6];
+                              v45 = *(v43 + 432);
+                              v44 = *(v43 + 440);
+                              v46 = v45 - v44 + 512;
+                              v47 = v46 >= v42 ? v42 : v46;
+                              if (v45 - v44 != -512)
                               {
-                                v47 = *(a2 + 112);
-                                v48 = *(v42 + 448);
-                                if (v48 - v43 >= v46)
+                                v48 = *(a2 + 112);
+                                v49 = *(v43 + 448);
+                                if (v49 - v44 >= v47)
                                 {
-                                  memmove(*(v42 + 440), (v47 + v40), v46);
-                                  *(v42 + 440) = v43 + v46;
+                                  memmove(*(v43 + 440), (v48 + v41), v47);
+                                  *(v43 + 440) = v44 + v47;
                                 }
 
                                 else
                                 {
-                                  v49 = v43 - v44 + v46;
-                                  if (v49 < 0)
+                                  v50 = v44 - v45 + v47;
+                                  if (v50 < 0)
                                   {
                                     std::string::__throw_length_error[abi:nn200100]();
                                   }
 
-                                  v50 = v48 - v44;
-                                  if (2 * v50 > v49)
+                                  v51 = v49 - v45;
+                                  if (2 * v51 > v50)
                                   {
-                                    v49 = 2 * v50;
+                                    v50 = 2 * v51;
                                   }
 
-                                  v51 = v50 >= 0x3FFFFFFFFFFFFFFFLL;
-                                  v52 = 0x7FFFFFFFFFFFFFFFLL;
-                                  if (!v51)
+                                  v52 = v51 >= 0x3FFFFFFFFFFFFFFFLL;
+                                  v53 = 0x7FFFFFFFFFFFFFFFLL;
+                                  if (!v52)
                                   {
-                                    v52 = v49;
+                                    v53 = v50;
                                   }
 
-                                  if (v52)
+                                  if (v53)
                                   {
                                     operator new();
                                   }
 
-                                  memcpy((v43 - v44), (v47 + v40), v46);
-                                  *(v42 + 440) = v43;
-                                  memcpy(0, v44, v43 - v44);
-                                  *(v42 + 432) = 0;
-                                  *(v42 + 440) = v43 - v44 + v46;
-                                  *(v42 + 448) = 0;
-                                  if (v44)
+                                  memcpy((v44 - v45), (v48 + v41), v47);
+                                  *(v43 + 440) = v44;
+                                  memcpy(0, v45, v44 - v45);
+                                  *(v43 + 432) = 0;
+                                  *(v43 + 440) = v44 - v45 + v47;
+                                  *(v43 + 448) = 0;
+                                  if (v45)
                                   {
-                                    operator delete(v44);
+                                    operator delete(v45);
                                   }
                                 }
                               }
@@ -1184,72 +1185,72 @@ LABEL_57:
                           }
                         }
 
-                        v53 = a1[6];
-                        if (!((*(v53 + 440) - *(v53 + 432) > 0x1FFuLL) | v37 & 1))
+                        v54 = a1[6];
+                        if (!((*(v54 + 440) - *(v54 + 432) > 0x1FFuLL) | v38 & 1))
                         {
 LABEL_106:
-                          v38 = a1[6];
+                          v39 = a1[6];
 LABEL_107:
-                          v60 = *(v38 + 456);
-                          v61 = *(a2 + 52);
-                          if (v61)
+                          v61 = *(v39 + 456);
+                          v62 = *(a2 + 52);
+                          if (v62)
                           {
-                            v61 -= *(a2 + 56) + *(a2 + 60);
+                            v62 -= *(a2 + 56) + *(a2 + 60);
                           }
 
-                          *(v38 + 456) = v60 + v61;
-                          if (__CFADD__(v60, v61))
+                          *(v39 + 456) = v61 + v62;
+                          if (__CFADD__(v61, v62))
                           {
                             if (gLogDatapath == 1)
                             {
-                              v75 = __nwlog_obj();
-                              if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+                              v77 = __nwlog_obj();
+                              if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
                               {
-                                v76 = *(a2 + 52);
-                                if (v76)
+                                v78 = *(a2 + 52);
+                                if (v78)
                                 {
-                                  v77 = (v76 - (*(a2 + 56) + *(a2 + 60)));
+                                  v79 = (v78 - (*(a2 + 56) + *(a2 + 60)));
                                 }
 
                                 else
                                 {
-                                  v77 = 0;
+                                  v79 = 0;
                                 }
 
-                                v97 = *(a1[6] + 456);
+                                v104 = *(a1[6] + 456);
                                 *buf = 136446978;
                                 *&buf[4] = "nw_protocol_http_sniffing_get_input_frames_block_invoke";
                                 *&buf[12] = 2082;
                                 *&buf[14] = "http_sniffing->pending_input_frames_byte_count";
                                 *&buf[22] = 2048;
-                                v115 = v77;
-                                LOWORD(v116) = 2048;
-                                *(&v116 + 2) = v97;
-                                _os_log_impl(&dword_181A37000, v75, OS_LOG_TYPE_DEBUG, "%{public}s Overflow: %{public}s, increment %llu, result %llu", buf, 0x2Au);
+                                v123 = v79;
+                                LOWORD(v124) = 2048;
+                                *(&v124 + 2) = v104;
+                                _os_log_impl(&dword_181A37000, v77, OS_LOG_TYPE_DEBUG, "%{public}s Overflow: %{public}s, increment %llu, result %llu", buf, 0x2Au);
                               }
                             }
 
                             *(a1[6] + 456) = -1;
                           }
 
-                          v62 = (*(a1[5] + 8) + 48);
-                          v63 = (a2 + 32);
-                          v64 = *(a2 + 32);
-                          v65 = *(a2 + 40);
-                          if (v64)
+                          v63 = (*(a1[5] + 8) + 48);
+                          v64 = (a2 + 32);
+                          v65 = *(a2 + 32);
+                          v66 = *(a2 + 40);
+                          if (v65)
                           {
-                            v62 = (v64 + 40);
+                            v63 = (v65 + 40);
                           }
 
-                          *v62 = v65;
-                          *v65 = v64;
+                          *v63 = v66;
+                          *v66 = v65;
                           *(a2 + 40) = 0;
-                          *v63 = 0;
-                          v66 = a1[6];
-                          v67 = *(v66 + 336);
-                          *(a2 + 40) = v67;
-                          *v67 = a2;
-                          *(v66 + 336) = v63;
+                          *v64 = 0;
+                          v67 = a1[6];
+                          v68 = *(v67 + 336);
+                          *(a2 + 40) = v68;
+                          *v68 = a2;
+                          *(v67 + 336) = v64;
                           if (v5)
                           {
                             os_release(v5);
@@ -1258,86 +1259,86 @@ LABEL_107:
                           return a2 != 0;
                         }
 
-                        if (*(v53 + 460))
+                        if (*(v54 + 460))
                         {
-                          *(v53 + 460) &= ~1u;
-                          nw_http_sniffing_guess_media_type(type, v53);
-                          v54 = HIBYTE(v107);
-                          v55 = HIBYTE(v107);
-                          if (SHIBYTE(v107) < 0)
+                          *(v54 + 460) &= ~1u;
+                          nw_http_sniffing_guess_media_type(type, v54);
+                          v55 = HIBYTE(v115);
+                          v56 = HIBYTE(v115);
+                          if (SHIBYTE(v115) < 0)
                           {
-                            v54 = v106;
+                            v55 = v114;
                           }
 
-                          if (!v54)
+                          if (!v55)
                           {
                             goto LABEL_104;
                           }
 
-                          if ((*(v53 + 198) & 1) == 0 && gLogDatapath == 1)
+                          if ((*(v54 + 198) & 1) == 0 && gLogDatapath == 1)
                           {
-                            v95 = __nwlog_obj();
-                            if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
+                            v102 = __nwlog_obj();
+                            if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
                             {
-                              v96 = type;
-                              if (SHIBYTE(v107) < 0)
+                              v103 = type;
+                              if (SHIBYTE(v115) < 0)
                               {
-                                v96 = *type;
+                                v103 = *type;
                               }
 
                               *buf = 136446978;
                               *&buf[4] = "nw_http_sniffing_stop";
                               *&buf[12] = 2082;
-                              *&buf[14] = v53 + 114;
+                              *&buf[14] = v54 + 114;
                               *&buf[22] = 2080;
-                              v115 = " ";
-                              LOWORD(v116) = 2080;
-                              *(&v116 + 2) = v96;
-                              _os_log_impl(&dword_181A37000, v95, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%smedia type %s", buf, 0x2Au);
+                              v123 = " ";
+                              LOWORD(v124) = 2080;
+                              *(&v124 + 2) = v103;
+                              _os_log_impl(&dword_181A37000, v102, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%smedia type %s", buf, 0x2Au);
                             }
                           }
 
-                          client_metadata_in_parameters = *(v53 + 392);
+                          client_metadata_in_parameters = *(v54 + 392);
                           if (client_metadata_in_parameters)
                           {
-                            v55 = HIBYTE(v107);
+                            v56 = HIBYTE(v115);
                           }
 
                           else
                           {
-                            client_metadata_in_parameters = nw_http_messaging_options_find_or_create_client_metadata_in_parameters(*(v53 + 376), v53);
-                            v57 = *(v53 + 400);
-                            if ((v57 & 1) != 0 && *(v53 + 392))
+                            client_metadata_in_parameters = nw_http_messaging_options_find_or_create_client_metadata_in_parameters(*(v54 + 376), v54);
+                            v58 = *(v54 + 400);
+                            if ((v58 & 1) != 0 && *(v54 + 392))
                             {
-                              v58 = client_metadata_in_parameters;
-                              os_release(*(v53 + 392));
-                              client_metadata_in_parameters = v58;
-                              v57 = *(v53 + 400);
+                              v59 = client_metadata_in_parameters;
+                              os_release(*(v54 + 392));
+                              client_metadata_in_parameters = v59;
+                              v58 = *(v54 + 400);
                             }
 
-                            *(v53 + 392) = client_metadata_in_parameters;
-                            *(v53 + 400) = v57 | 1;
-                            v55 = HIBYTE(v107);
+                            *(v54 + 392) = client_metadata_in_parameters;
+                            *(v54 + 400) = v58 | 1;
+                            v56 = HIBYTE(v115);
                             if (!client_metadata_in_parameters)
                             {
                               goto LABEL_104;
                             }
                           }
 
-                          if (v55 >= 0)
+                          if (v56 >= 0)
                           {
-                            v59 = type;
+                            v60 = type;
                           }
 
                           else
                           {
-                            v59 = *type;
+                            v60 = *type;
                           }
 
-                          nw_http_client_metadata_set_sniffed_media_type(client_metadata_in_parameters, v59);
-                          v55 = HIBYTE(v107);
+                          nw_http_client_metadata_set_sniffed_media_type(client_metadata_in_parameters, v60);
+                          v56 = HIBYTE(v115);
 LABEL_104:
-                          if (v55 < 0)
+                          if (v56 < 0)
                           {
                             operator delete(*type);
                           }
@@ -1345,90 +1346,91 @@ LABEL_104:
                           goto LABEL_106;
                         }
 
-                        __nwlog_obj();
+                        v87 = __nwlog_obj();
                         *buf = 136446210;
                         *&buf[4] = "nw_http_sniffing_stop";
-                        v82 = _os_log_send_and_compose_impl();
+                        LODWORD(v108) = 12;
+                        v88 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v87, 16, "%{public}s called with null http_sniffing->active", buf, v108);
                         type[0] = OS_LOG_TYPE_ERROR;
-                        LOBYTE(v104[0]) = 0;
-                        v83 = v82;
-                        if (__nwlog_fault(v82, type, v104))
+                        LOBYTE(v112[0]) = 0;
+                        v89 = v88;
+                        if (__nwlog_fault(v88, type, v112))
                         {
                           if (type[0] == OS_LOG_TYPE_FAULT)
                           {
-                            v84 = __nwlog_obj();
-                            v85 = type[0];
-                            if (!os_log_type_enabled(v84, type[0]))
+                            v90 = __nwlog_obj();
+                            v91 = type[0];
+                            if (!os_log_type_enabled(v90, type[0]))
                             {
                               goto LABEL_227;
                             }
 
                             *buf = 136446210;
                             *&buf[4] = "nw_http_sniffing_stop";
-                            v86 = "%{public}s called with null http_sniffing->active";
+                            v92 = "%{public}s called with null http_sniffing->active";
                             goto LABEL_226;
                           }
 
-                          if (LOBYTE(v104[0]) != 1)
+                          if (LOBYTE(v112[0]) != 1)
                           {
-                            v84 = __nwlog_obj();
-                            v85 = type[0];
-                            if (!os_log_type_enabled(v84, type[0]))
+                            v90 = __nwlog_obj();
+                            v91 = type[0];
+                            if (!os_log_type_enabled(v90, type[0]))
                             {
                               goto LABEL_227;
                             }
 
                             *buf = 136446210;
                             *&buf[4] = "nw_http_sniffing_stop";
-                            v86 = "%{public}s called with null http_sniffing->active, backtrace limit exceeded";
+                            v92 = "%{public}s called with null http_sniffing->active, backtrace limit exceeded";
                             goto LABEL_226;
                           }
 
                           backtrace_string = __nw_create_backtrace_string();
-                          v84 = __nwlog_obj();
-                          v85 = type[0];
-                          v99 = os_log_type_enabled(v84, type[0]);
+                          v90 = __nwlog_obj();
+                          v91 = type[0];
+                          v106 = os_log_type_enabled(v90, type[0]);
                           if (backtrace_string)
                           {
-                            if (v99)
+                            if (v106)
                             {
                               *buf = 136446466;
                               *&buf[4] = "nw_http_sniffing_stop";
                               *&buf[12] = 2082;
                               *&buf[14] = backtrace_string;
-                              _os_log_impl(&dword_181A37000, v84, v85, "%{public}s called with null http_sniffing->active, dumping backtrace:%{public}s", buf, 0x16u);
+                              _os_log_impl(&dword_181A37000, v90, v91, "%{public}s called with null http_sniffing->active, dumping backtrace:%{public}s", buf, 0x16u);
                             }
 
                             free(backtrace_string);
                             goto LABEL_227;
                           }
 
-                          if (v99)
+                          if (v106)
                           {
                             *buf = 136446210;
                             *&buf[4] = "nw_http_sniffing_stop";
-                            v86 = "%{public}s called with null http_sniffing->active, no backtrace";
+                            v92 = "%{public}s called with null http_sniffing->active, no backtrace";
 LABEL_226:
-                            _os_log_impl(&dword_181A37000, v84, v85, v86, buf, 0xCu);
+                            _os_log_impl(&dword_181A37000, v90, v91, v92, buf, 0xCu);
                           }
                         }
 
 LABEL_227:
-                        if (v83)
+                        if (v89)
                         {
-                          free(v83);
+                          free(v89);
                         }
 
                         goto LABEL_106;
                       }
 
-                      std::string::__assign_no_alias<true>(v32, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+                      std::string::__assign_no_alias<true>(v33, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
                     }
                   }
 
-                  v35 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+                  v36 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
                   *(a1[6] + 440) = *(a1[6] + 432);
-                  if (v35 < 0)
+                  if (v36 < 0)
                   {
                     operator delete(__p.__r_.__value_.__l.__data_);
                   }
@@ -1436,19 +1438,19 @@ LABEL_227:
                   goto LABEL_56;
                 }
 
-                v30 = HIBYTE(v101.__r_.__value_.__r.__words[2]);
-                if ((v101.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                v31 = HIBYTE(v109.__r_.__value_.__r.__words[2]);
+                if ((v109.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                 {
-                  v30 = v101.__r_.__value_.__l.__size_;
+                  v31 = v109.__r_.__value_.__l.__size_;
                 }
 
-                if (!v30)
+                if (!v31)
                 {
                   goto LABEL_38;
                 }
 
                 mime_type_to_class();
-                v22 = std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::find<std::string>(&v101);
+                v22 = std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::find<std::string>(&v109.__r_.__value_.__l.__data_);
                 mime_type_to_class();
                 if (!v22)
                 {
@@ -1465,17 +1467,17 @@ LABEL_38:
                 *buf = 0;
                 *&buf[8] = buf;
                 *&buf[16] = 0x4002000000;
-                v115 = __Block_byref_object_copy__22;
-                *&v116 = __Block_byref_object_dispose__23;
-                *(&v116 + 1) = 0;
-                v117 = 0;
-                v118 = 0;
-                v104[0] = MEMORY[0x1E69E9820];
-                v104[1] = 0x40000000;
-                v104[2] = ___ZL29nw_http_sniffing_should_sniffP25nw_protocol_http_sniffingNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEP20nw_protocol_metadata_block_invoke_2;
-                v104[3] = &unk_1E6A2B568;
-                v104[4] = buf;
-                nw_http_fields_enumerate_by_name(v24, "Content-Type", v104);
+                v123 = __Block_byref_object_copy__22;
+                *&v124 = __Block_byref_object_dispose__23;
+                *(&v124 + 1) = 0;
+                v125 = 0;
+                v126 = 0;
+                v112[0] = MEMORY[0x1E69E9820];
+                v112[1] = 0x40000000;
+                v112[2] = ___ZL29nw_http_sniffing_should_sniffP25nw_protocol_http_sniffingNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEP20nw_protocol_metadata_block_invoke_2;
+                v112[3] = &unk_1E6A2B568;
+                v112[4] = buf;
+                nw_http_fields_enumerate_by_name(v24, "Content-Type", v112);
                 v22 = (*&buf[8] + 40);
                 if (*(*&buf[8] + 63) < 0)
                 {
@@ -1502,26 +1504,27 @@ LABEL_122:
                 LOBYTE(v22) = 1;
 LABEL_123:
                 _Block_object_dispose(buf, 8);
-                if (SHIBYTE(v118) < 0)
+                if (SHIBYTE(v126) < 0)
                 {
-                  operator delete(*(&v116 + 1));
+                  operator delete(*(&v124 + 1));
                 }
 
                 goto LABEL_39;
               }
 
-              __nwlog_obj();
+              v98 = __nwlog_obj();
               *buf = 136446210;
               *&buf[4] = "nw_http_sniffing_should_sniff";
-              v26 = _os_log_send_and_compose_impl();
+              LODWORD(v108) = 12;
+              v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v98, 16, "%{public}s called with null header_fields", buf, v108);
               type[0] = OS_LOG_TYPE_ERROR;
-              LOBYTE(v104[0]) = 0;
-              if (!__nwlog_fault(v26, type, v104))
+              LOBYTE(v112[0]) = 0;
+              if (!__nwlog_fault(v27, type, v112))
               {
 LABEL_232:
-                if (v26)
+                if (v27)
                 {
-                  free(v26);
+                  free(v27);
                 }
 
                 goto LABEL_24;
@@ -1529,125 +1532,126 @@ LABEL_232:
 
               if (type[0] == OS_LOG_TYPE_FAULT)
               {
-                v27 = __nwlog_obj();
-                v28 = type[0];
-                if (!os_log_type_enabled(v27, type[0]))
+                v28 = __nwlog_obj();
+                v29 = type[0];
+                if (!os_log_type_enabled(v28, type[0]))
                 {
                   goto LABEL_232;
                 }
 
                 *buf = 136446210;
                 *&buf[4] = "nw_http_sniffing_should_sniff";
-                v29 = "%{public}s called with null header_fields";
+                v30 = "%{public}s called with null header_fields";
                 goto LABEL_231;
               }
 
-              if (LOBYTE(v104[0]) != 1)
+              if (LOBYTE(v112[0]) != 1)
               {
-                v27 = __nwlog_obj();
-                v28 = type[0];
-                if (!os_log_type_enabled(v27, type[0]))
+                v28 = __nwlog_obj();
+                v29 = type[0];
+                if (!os_log_type_enabled(v28, type[0]))
                 {
                   goto LABEL_232;
                 }
 
                 *buf = 136446210;
                 *&buf[4] = "nw_http_sniffing_should_sniff";
-                v29 = "%{public}s called with null header_fields, backtrace limit exceeded";
+                v30 = "%{public}s called with null header_fields, backtrace limit exceeded";
                 goto LABEL_231;
               }
 
-              v87 = __nw_create_backtrace_string();
-              v27 = __nwlog_obj();
-              v28 = type[0];
-              v100 = os_log_type_enabled(v27, type[0]);
-              if (!v87)
+              v93 = __nw_create_backtrace_string();
+              v28 = __nwlog_obj();
+              v29 = type[0];
+              v107 = os_log_type_enabled(v28, type[0]);
+              if (!v93)
               {
-                if (!v100)
+                if (!v107)
                 {
                   goto LABEL_232;
                 }
 
                 *buf = 136446210;
                 *&buf[4] = "nw_http_sniffing_should_sniff";
-                v29 = "%{public}s called with null header_fields, no backtrace";
+                v30 = "%{public}s called with null header_fields, no backtrace";
                 goto LABEL_231;
               }
 
-              if (v100)
+              if (v107)
               {
                 *buf = 136446466;
                 *&buf[4] = "nw_http_sniffing_should_sniff";
                 *&buf[12] = 2082;
-                *&buf[14] = v87;
-                v89 = "%{public}s called with null header_fields, dumping backtrace:%{public}s";
+                *&buf[14] = v93;
+                v95 = "%{public}s called with null header_fields, dumping backtrace:%{public}s";
                 goto LABEL_206;
               }
 
 LABEL_207:
-              free(v87);
+              free(v93);
               goto LABEL_232;
             }
 
-            __nwlog_obj();
+            v86 = __nwlog_obj();
             *buf = 136446210;
             *&buf[4] = "nw_http_sniffing_should_sniff";
-            v26 = _os_log_send_and_compose_impl();
+            LODWORD(v108) = 12;
+            v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v86, 16, "%{public}s called with null http_metadata", buf, v108);
             type[0] = OS_LOG_TYPE_ERROR;
-            LOBYTE(v104[0]) = 0;
-            if (!__nwlog_fault(v26, type, v104))
+            LOBYTE(v112[0]) = 0;
+            if (!__nwlog_fault(v27, type, v112))
             {
               goto LABEL_232;
             }
 
             if (type[0] == OS_LOG_TYPE_FAULT)
             {
-              v27 = __nwlog_obj();
-              v28 = type[0];
-              if (!os_log_type_enabled(v27, type[0]))
+              v28 = __nwlog_obj();
+              v29 = type[0];
+              if (!os_log_type_enabled(v28, type[0]))
               {
                 goto LABEL_232;
               }
 
               *buf = 136446210;
               *&buf[4] = "nw_http_sniffing_should_sniff";
-              v29 = "%{public}s called with null http_metadata";
+              v30 = "%{public}s called with null http_metadata";
               goto LABEL_231;
             }
 
-            if (LOBYTE(v104[0]) != 1)
+            if (LOBYTE(v112[0]) != 1)
             {
-              v27 = __nwlog_obj();
-              v28 = type[0];
-              if (!os_log_type_enabled(v27, type[0]))
+              v28 = __nwlog_obj();
+              v29 = type[0];
+              if (!os_log_type_enabled(v28, type[0]))
               {
                 goto LABEL_232;
               }
 
               *buf = 136446210;
               *&buf[4] = "nw_http_sniffing_should_sniff";
-              v29 = "%{public}s called with null http_metadata, backtrace limit exceeded";
+              v30 = "%{public}s called with null http_metadata, backtrace limit exceeded";
               goto LABEL_231;
             }
 
-            v87 = __nw_create_backtrace_string();
-            v27 = __nwlog_obj();
-            v28 = type[0];
-            v94 = os_log_type_enabled(v27, type[0]);
-            if (!v87)
+            v93 = __nw_create_backtrace_string();
+            v28 = __nwlog_obj();
+            v29 = type[0];
+            v101 = os_log_type_enabled(v28, type[0]);
+            if (!v93)
             {
-              if (!v94)
+              if (!v101)
               {
                 goto LABEL_232;
               }
 
               *buf = 136446210;
               *&buf[4] = "nw_http_sniffing_should_sniff";
-              v29 = "%{public}s called with null http_metadata, no backtrace";
+              v30 = "%{public}s called with null http_metadata, no backtrace";
               goto LABEL_231;
             }
 
-            if (!v94)
+            if (!v101)
             {
               goto LABEL_207;
             }
@@ -1655,73 +1659,74 @@ LABEL_207:
             *buf = 136446466;
             *&buf[4] = "nw_http_sniffing_should_sniff";
             *&buf[12] = 2082;
-            *&buf[14] = v87;
-            v89 = "%{public}s called with null http_metadata, dumping backtrace:%{public}s";
+            *&buf[14] = v93;
+            v95 = "%{public}s called with null http_metadata, dumping backtrace:%{public}s";
             goto LABEL_206;
           }
 
 LABEL_29:
-          __nwlog_obj();
+          v26 = __nwlog_obj();
           *buf = 136446210;
           *&buf[4] = "nw_http_sniffing_should_sniff";
-          v26 = _os_log_send_and_compose_impl();
+          LODWORD(v108) = 12;
+          v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s called with null http_sniffing", buf, v108);
           type[0] = OS_LOG_TYPE_ERROR;
-          LOBYTE(v104[0]) = 0;
-          if (!__nwlog_fault(v26, type, v104))
+          LOBYTE(v112[0]) = 0;
+          if (!__nwlog_fault(v27, type, v112))
           {
             goto LABEL_232;
           }
 
           if (type[0] == OS_LOG_TYPE_FAULT)
           {
-            v27 = __nwlog_obj();
-            v28 = type[0];
-            if (!os_log_type_enabled(v27, type[0]))
+            v28 = __nwlog_obj();
+            v29 = type[0];
+            if (!os_log_type_enabled(v28, type[0]))
             {
               goto LABEL_232;
             }
 
             *buf = 136446210;
             *&buf[4] = "nw_http_sniffing_should_sniff";
-            v29 = "%{public}s called with null http_sniffing";
+            v30 = "%{public}s called with null http_sniffing";
 LABEL_231:
-            _os_log_impl(&dword_181A37000, v27, v28, v29, buf, 0xCu);
+            _os_log_impl(&dword_181A37000, v28, v29, v30, buf, 0xCu);
             goto LABEL_232;
           }
 
-          if (LOBYTE(v104[0]) != 1)
+          if (LOBYTE(v112[0]) != 1)
           {
-            v27 = __nwlog_obj();
-            v28 = type[0];
-            if (!os_log_type_enabled(v27, type[0]))
+            v28 = __nwlog_obj();
+            v29 = type[0];
+            if (!os_log_type_enabled(v28, type[0]))
             {
               goto LABEL_232;
             }
 
             *buf = 136446210;
             *&buf[4] = "nw_http_sniffing_should_sniff";
-            v29 = "%{public}s called with null http_sniffing, backtrace limit exceeded";
+            v30 = "%{public}s called with null http_sniffing, backtrace limit exceeded";
             goto LABEL_231;
           }
 
-          v87 = __nw_create_backtrace_string();
-          v27 = __nwlog_obj();
-          v28 = type[0];
-          v88 = os_log_type_enabled(v27, type[0]);
-          if (!v87)
+          v93 = __nw_create_backtrace_string();
+          v28 = __nwlog_obj();
+          v29 = type[0];
+          v94 = os_log_type_enabled(v28, type[0]);
+          if (!v93)
           {
-            if (!v88)
+            if (!v94)
             {
               goto LABEL_232;
             }
 
             *buf = 136446210;
             *&buf[4] = "nw_http_sniffing_should_sniff";
-            v29 = "%{public}s called with null http_sniffing, no backtrace";
+            v30 = "%{public}s called with null http_sniffing, no backtrace";
             goto LABEL_231;
           }
 
-          if (!v88)
+          if (!v94)
           {
             goto LABEL_207;
           }
@@ -1729,10 +1734,10 @@ LABEL_231:
           *buf = 136446466;
           *&buf[4] = "nw_http_sniffing_should_sniff";
           *&buf[12] = 2082;
-          *&buf[14] = v87;
-          v89 = "%{public}s called with null http_sniffing, dumping backtrace:%{public}s";
+          *&buf[14] = v93;
+          v95 = "%{public}s called with null http_sniffing, dumping backtrace:%{public}s";
 LABEL_206:
-          _os_log_impl(&dword_181A37000, v27, v28, v89, buf, 0x16u);
+          _os_log_impl(&dword_181A37000, v28, v29, v95, buf, 0x16u);
           goto LABEL_207;
         }
 
@@ -1742,75 +1747,75 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      __nwlog_obj();
+      v85 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_http_sniffing_get_media_type";
-      v78 = _os_log_send_and_compose_impl();
+      v81 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v85, 16, "%{public}s called with null header_fields", buf, 12);
       type[0] = OS_LOG_TYPE_ERROR;
-      LOBYTE(v104[0]) = 0;
-      if (__nwlog_fault(v78, type, v104))
+      LOBYTE(v112[0]) = 0;
+      if (__nwlog_fault(v81, type, v112))
       {
         if (type[0] == OS_LOG_TYPE_FAULT)
         {
-          v79 = __nwlog_obj();
-          v80 = type[0];
-          if (!os_log_type_enabled(v79, type[0]))
+          v82 = __nwlog_obj();
+          v83 = type[0];
+          if (!os_log_type_enabled(v82, type[0]))
           {
             goto LABEL_219;
           }
 
           *buf = 136446210;
           *&buf[4] = "nw_http_sniffing_get_media_type";
-          v81 = "%{public}s called with null header_fields";
+          v84 = "%{public}s called with null header_fields";
           goto LABEL_218;
         }
 
-        if (LOBYTE(v104[0]) != 1)
+        if (LOBYTE(v112[0]) != 1)
         {
-          v79 = __nwlog_obj();
-          v80 = type[0];
-          if (!os_log_type_enabled(v79, type[0]))
+          v82 = __nwlog_obj();
+          v83 = type[0];
+          if (!os_log_type_enabled(v82, type[0]))
           {
             goto LABEL_219;
           }
 
           *buf = 136446210;
           *&buf[4] = "nw_http_sniffing_get_media_type";
-          v81 = "%{public}s called with null header_fields, backtrace limit exceeded";
+          v84 = "%{public}s called with null header_fields, backtrace limit exceeded";
           goto LABEL_218;
         }
 
-        v92 = __nw_create_backtrace_string();
-        v79 = __nwlog_obj();
-        v80 = type[0];
-        v93 = os_log_type_enabled(v79, type[0]);
-        if (!v92)
+        v99 = __nw_create_backtrace_string();
+        v82 = __nwlog_obj();
+        v83 = type[0];
+        v100 = os_log_type_enabled(v82, type[0]);
+        if (!v99)
         {
-          if (!v93)
+          if (!v100)
           {
             goto LABEL_219;
           }
 
           *buf = 136446210;
           *&buf[4] = "nw_http_sniffing_get_media_type";
-          v81 = "%{public}s called with null header_fields, no backtrace";
+          v84 = "%{public}s called with null header_fields, no backtrace";
           goto LABEL_218;
         }
 
-        if (v93)
+        if (v100)
         {
           *buf = 136446466;
           *&buf[4] = "nw_http_sniffing_get_media_type";
           *&buf[12] = 2082;
-          *&buf[14] = v92;
-          _os_log_impl(&dword_181A37000, v79, v80, "%{public}s called with null header_fields, dumping backtrace:%{public}s", buf, 0x16u);
+          *&buf[14] = v99;
+          _os_log_impl(&dword_181A37000, v82, v83, "%{public}s called with null header_fields, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
-        free(v92);
+        free(v99);
       }
 
 LABEL_219:
-      if (!v78)
+      if (!v81)
       {
 LABEL_221:
         memset(&__p, 0, sizeof(__p));
@@ -1819,69 +1824,69 @@ LABEL_221:
       }
 
 LABEL_220:
-      free(v78);
+      free(v81);
       goto LABEL_221;
     }
 
-    __nwlog_obj();
+    v80 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_sniffing_get_media_type";
-    v78 = _os_log_send_and_compose_impl();
+    v81 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v80, 16, "%{public}s called with null http_metadata", buf, 12);
     type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v104[0]) = 0;
-    if (!__nwlog_fault(v78, type, v104))
+    LOBYTE(v112[0]) = 0;
+    if (!__nwlog_fault(v81, type, v112))
     {
       goto LABEL_219;
     }
 
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
-      v79 = __nwlog_obj();
-      v80 = type[0];
-      if (!os_log_type_enabled(v79, type[0]))
+      v82 = __nwlog_obj();
+      v83 = type[0];
+      if (!os_log_type_enabled(v82, type[0]))
       {
         goto LABEL_219;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_http_sniffing_get_media_type";
-      v81 = "%{public}s called with null http_metadata";
+      v84 = "%{public}s called with null http_metadata";
     }
 
     else
     {
-      if (LOBYTE(v104[0]) != 1)
+      if (LOBYTE(v112[0]) != 1)
       {
-        v79 = __nwlog_obj();
-        v80 = type[0];
-        if (!os_log_type_enabled(v79, type[0]))
+        v82 = __nwlog_obj();
+        v83 = type[0];
+        if (!os_log_type_enabled(v82, type[0]))
         {
           goto LABEL_219;
         }
 
         *buf = 136446210;
         *&buf[4] = "nw_http_sniffing_get_media_type";
-        v81 = "%{public}s called with null http_metadata, backtrace limit exceeded";
+        v84 = "%{public}s called with null http_metadata, backtrace limit exceeded";
         goto LABEL_218;
       }
 
-      v90 = __nw_create_backtrace_string();
-      v79 = __nwlog_obj();
-      v80 = type[0];
-      v91 = os_log_type_enabled(v79, type[0]);
-      if (v90)
+      v96 = __nw_create_backtrace_string();
+      v82 = __nwlog_obj();
+      v83 = type[0];
+      v97 = os_log_type_enabled(v82, type[0]);
+      if (v96)
       {
-        if (v91)
+        if (v97)
         {
           *buf = 136446466;
           *&buf[4] = "nw_http_sniffing_get_media_type";
           *&buf[12] = 2082;
-          *&buf[14] = v90;
-          _os_log_impl(&dword_181A37000, v79, v80, "%{public}s called with null http_metadata, dumping backtrace:%{public}s", buf, 0x16u);
+          *&buf[14] = v96;
+          _os_log_impl(&dword_181A37000, v82, v83, "%{public}s called with null http_metadata, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
-        free(v90);
-        if (!v78)
+        free(v96);
+        if (!v81)
         {
           goto LABEL_221;
         }
@@ -1889,92 +1894,92 @@ LABEL_220:
         goto LABEL_220;
       }
 
-      if (!v91)
+      if (!v97)
       {
         goto LABEL_219;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_http_sniffing_get_media_type";
-      v81 = "%{public}s called with null http_metadata, no backtrace";
+      v84 = "%{public}s called with null http_metadata, no backtrace";
     }
 
 LABEL_218:
-    _os_log_impl(&dword_181A37000, v79, v80, v81, buf, 0xCu);
+    _os_log_impl(&dword_181A37000, v82, v83, v84, buf, 0xCu);
     goto LABEL_219;
   }
 
-  __nwlog_obj();
+  v70 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_protocol_http_sniffing_get_input_frames_block_invoke";
-  v69 = _os_log_send_and_compose_impl();
+  v71 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v70, 16, "%{public}s called with null frame", buf, 12);
   type[0] = OS_LOG_TYPE_ERROR;
-  LOBYTE(v104[0]) = 0;
-  if (__nwlog_fault(v69, type, v104))
+  LOBYTE(v112[0]) = 0;
+  if (__nwlog_fault(v71, type, v112))
   {
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
-      v70 = __nwlog_obj();
-      v71 = type[0];
-      if (!os_log_type_enabled(v70, type[0]))
+      v72 = __nwlog_obj();
+      v73 = type[0];
+      if (!os_log_type_enabled(v72, type[0]))
       {
         goto LABEL_185;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_protocol_http_sniffing_get_input_frames_block_invoke";
-      v72 = "%{public}s called with null frame";
+      v74 = "%{public}s called with null frame";
       goto LABEL_184;
     }
 
-    if (LOBYTE(v104[0]) != 1)
+    if (LOBYTE(v112[0]) != 1)
     {
-      v70 = __nwlog_obj();
-      v71 = type[0];
-      if (!os_log_type_enabled(v70, type[0]))
+      v72 = __nwlog_obj();
+      v73 = type[0];
+      if (!os_log_type_enabled(v72, type[0]))
       {
         goto LABEL_185;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_protocol_http_sniffing_get_input_frames_block_invoke";
-      v72 = "%{public}s called with null frame, backtrace limit exceeded";
+      v74 = "%{public}s called with null frame, backtrace limit exceeded";
       goto LABEL_184;
     }
 
-    v73 = __nw_create_backtrace_string();
-    v70 = __nwlog_obj();
-    v71 = type[0];
-    v74 = os_log_type_enabled(v70, type[0]);
-    if (v73)
+    v75 = __nw_create_backtrace_string();
+    v72 = __nwlog_obj();
+    v73 = type[0];
+    v76 = os_log_type_enabled(v72, type[0]);
+    if (v75)
     {
-      if (v74)
+      if (v76)
       {
         *buf = 136446466;
         *&buf[4] = "nw_protocol_http_sniffing_get_input_frames_block_invoke";
         *&buf[12] = 2082;
-        *&buf[14] = v73;
-        _os_log_impl(&dword_181A37000, v70, v71, "%{public}s called with null frame, dumping backtrace:%{public}s", buf, 0x16u);
+        *&buf[14] = v75;
+        _os_log_impl(&dword_181A37000, v72, v73, "%{public}s called with null frame, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
-      free(v73);
+      free(v75);
       goto LABEL_185;
     }
 
-    if (v74)
+    if (v76)
     {
       *buf = 136446210;
       *&buf[4] = "nw_protocol_http_sniffing_get_input_frames_block_invoke";
-      v72 = "%{public}s called with null frame, no backtrace";
+      v74 = "%{public}s called with null frame, no backtrace";
 LABEL_184:
-      _os_log_impl(&dword_181A37000, v70, v71, v72, buf, 0xCu);
+      _os_log_impl(&dword_181A37000, v72, v73, v74, buf, 0xCu);
     }
   }
 
 LABEL_185:
-  if (v69)
+  if (v71)
   {
-    free(v69);
+    free(v71);
   }
 
   return a2 != 0;
@@ -1982,7 +1987,7 @@ LABEL_185:
 
 void nw_http_sniffing_guess_media_type(uint64_t a1, uint64_t a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     *a1 = 0;
@@ -2008,7 +2013,7 @@ void nw_http_sniffing_guess_media_type(uint64_t a1, uint64_t a2)
     }
 
     mime_type_to_class();
-    v5 = std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::find<std::string>(a2 + 408);
+    v5 = std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::find<std::string>((a2 + 408));
     mime_type_to_class();
     if (!v5)
     {
@@ -2456,7 +2461,7 @@ LABEL_38:
             v40 = *(a2 + 416);
           }
 
-          std::string::__assign_no_alias<false>(&buf, v39, v40);
+          std::string::__assign_no_alias<false>(&buf.__r_.__value_.__l.__data_, v39, v40);
         }
 
         else if ((*(a2 + 431) & 0x80) != 0)
@@ -2487,76 +2492,76 @@ LABEL_67:
     goto LABEL_70;
   }
 
-  __nwlog_obj();
+  v41 = __nwlog_obj();
   LODWORD(buf.__r_.__value_.__l.__data_) = 136446210;
   *(buf.__r_.__value_.__r.__words + 4) = "nw_http_sniffing_guess_media_type";
-  v41 = _os_log_send_and_compose_impl();
+  v42 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v41, 16, "%{public}s called with null http_sniffing", &buf, 12);
   __dst.__r_.__value_.__s.__data_[0] = 16;
-  v48 = 0;
-  if (__nwlog_fault(v41, &__dst, &v48))
+  v49 = 0;
+  if (__nwlog_fault(v42, &__dst, &v49))
   {
     if (__dst.__r_.__value_.__s.__data_[0] == 17)
     {
-      v42 = __nwlog_obj();
-      v43 = __dst.__r_.__value_.__s.__data_[0];
-      if (os_log_type_enabled(v42, __dst.__r_.__value_.__s.__data_[0]))
+      v43 = __nwlog_obj();
+      v44 = __dst.__r_.__value_.__s.__data_[0];
+      if (os_log_type_enabled(v43, __dst.__r_.__value_.__s.__data_[0]))
       {
         LODWORD(buf.__r_.__value_.__l.__data_) = 136446210;
         *(buf.__r_.__value_.__r.__words + 4) = "nw_http_sniffing_guess_media_type";
-        v44 = "%{public}s called with null http_sniffing";
+        v45 = "%{public}s called with null http_sniffing";
 LABEL_143:
-        _os_log_impl(&dword_181A37000, v42, v43, v44, &buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v43, v44, v45, &buf, 0xCu);
       }
     }
 
-    else if (v48 == 1)
+    else if (v49 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v42 = __nwlog_obj();
-      v43 = __dst.__r_.__value_.__s.__data_[0];
-      v46 = os_log_type_enabled(v42, __dst.__r_.__value_.__s.__data_[0]);
+      v43 = __nwlog_obj();
+      v44 = __dst.__r_.__value_.__s.__data_[0];
+      v47 = os_log_type_enabled(v43, __dst.__r_.__value_.__s.__data_[0]);
       if (backtrace_string)
       {
-        if (v46)
+        if (v47)
         {
           LODWORD(buf.__r_.__value_.__l.__data_) = 136446466;
           *(buf.__r_.__value_.__r.__words + 4) = "nw_http_sniffing_guess_media_type";
           WORD2(buf.__r_.__value_.__r.__words[1]) = 2082;
           *(&buf.__r_.__value_.__r.__words[1] + 6) = backtrace_string;
-          _os_log_impl(&dword_181A37000, v42, v43, "%{public}s called with null http_sniffing, dumping backtrace:%{public}s", &buf, 0x16u);
+          _os_log_impl(&dword_181A37000, v43, v44, "%{public}s called with null http_sniffing, dumping backtrace:%{public}s", &buf, 0x16u);
         }
 
         free(backtrace_string);
         goto LABEL_144;
       }
 
-      if (v46)
+      if (v47)
       {
         LODWORD(buf.__r_.__value_.__l.__data_) = 136446210;
         *(buf.__r_.__value_.__r.__words + 4) = "nw_http_sniffing_guess_media_type";
-        v44 = "%{public}s called with null http_sniffing, no backtrace";
+        v45 = "%{public}s called with null http_sniffing, no backtrace";
         goto LABEL_143;
       }
     }
 
     else
     {
-      v42 = __nwlog_obj();
-      v43 = __dst.__r_.__value_.__s.__data_[0];
-      if (os_log_type_enabled(v42, __dst.__r_.__value_.__s.__data_[0]))
+      v43 = __nwlog_obj();
+      v44 = __dst.__r_.__value_.__s.__data_[0];
+      if (os_log_type_enabled(v43, __dst.__r_.__value_.__s.__data_[0]))
       {
         LODWORD(buf.__r_.__value_.__l.__data_) = 136446210;
         *(buf.__r_.__value_.__r.__words + 4) = "nw_http_sniffing_guess_media_type";
-        v44 = "%{public}s called with null http_sniffing, backtrace limit exceeded";
+        v45 = "%{public}s called with null http_sniffing, backtrace limit exceeded";
         goto LABEL_143;
       }
     }
   }
 
 LABEL_144:
-  if (v41)
+  if (v42)
   {
-    free(v41);
+    free(v42);
   }
 
   *a1 = 0;
@@ -2941,15 +2946,15 @@ void mime_type_to_class(void)
     mime_type_to_class(void)::instance = 0u;
     *&qword_1EA840238 = 0u;
     dword_1EA840248 = 1065353216;
-    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v9);
-    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v11);
-    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(__p);
-    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v15);
-    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v17);
-    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v19);
-    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v21);
-    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v23);
-    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v25);
+    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v9, v9);
+    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v11, v11);
+    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(__p, __p);
+    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v15, v15);
+    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v17, v17);
+    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v19, v19);
+    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v21, v21);
+    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v23, v23);
+    std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(v25, v25);
     if (v26 < 0)
     {
       operator delete(v25[0]);
@@ -3061,7 +3066,7 @@ LABEL_21:
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::find<std::string>(uint64_t a1)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::find<std::string>(const void **a1)
 {
   v1 = *(a1 + 23);
   if (v1 >= 0)
@@ -3081,7 +3086,7 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string,mime_type_class>
 
   else
   {
-    v3 = *(a1 + 8);
+    v3 = a1[1];
   }
 
   v4 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v2, v3);
@@ -3208,8 +3213,7 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
 
 std::string *nw_http_sniffing_get_mime_type_for_rule_array(std::string *result, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
-  result->__r_.__value_.__r.__words[0] = 0;
-  result->__r_.__value_.__l.__size_ = 0;
+  *&result->__r_.__value_.__l.__data_ = 0uLL;
   result->__r_.__value_.__r.__words[2] = 0;
   if (a2 != a3)
   {
@@ -3800,7 +3804,7 @@ LABEL_17:
   return this;
 }
 
-_BYTE *std::string::__assign_no_alias<true>(_BYTE *__dst, const void *a2, size_t __len)
+void *std::string::__assign_no_alias<true>(void *__dst, const void *a2, size_t __len)
 {
   if (__len > 0x16)
   {
@@ -3812,7 +3816,7 @@ _BYTE *std::string::__assign_no_alias<true>(_BYTE *__dst, const void *a2, size_t
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   v5 = __dst;
   if (__len)
   {
@@ -3820,13 +3824,13 @@ _BYTE *std::string::__assign_no_alias<true>(_BYTE *__dst, const void *a2, size_t
     v5 = __dst;
   }
 
-  v5[__len] = 0;
+  *(v5 + __len) = 0;
   return __dst;
 }
 
-uint64_t std::string::__assign_no_alias<false>(uint64_t a1, const void *a2, size_t __len)
+void **std::string::__assign_no_alias<false>(void **a1, const void *a2, size_t __len)
 {
-  v5 = *(a1 + 16) & 0x7FFFFFFFFFFFFFFFLL;
+  v5 = a1[2] & 0x7FFFFFFFFFFFFFFFLL;
   if (v5 <= __len)
   {
     if (0x7FFFFFFFFFFFFFF7 - v5 >= __len - v5 + 1)
@@ -3838,7 +3842,7 @@ uint64_t std::string::__assign_no_alias<false>(uint64_t a1, const void *a2, size
   }
 
   v6 = *a1;
-  *(a1 + 8) = __len;
+  a1[1] = __len;
   if (__len)
   {
     memmove(v6, a2, __len);
@@ -3980,7 +3984,7 @@ LABEL_8:
   }
 }
 
-uint64_t std::pair<std::string const,mime_type_class>::pair[abi:nn200100]<char const*&,mime_type_class,0>(uint64_t a1, char *__s, _DWORD *a3)
+_DWORD *std::pair<std::string const,mime_type_class>::pair[abi:nn200100]<char const*&,mime_type_class,0>(_DWORD *a1, char *__s, _DWORD *a3)
 {
   v6 = strlen(__s);
   if (v6 >= 0x7FFFFFFFFFFFFFF8)
@@ -4001,96 +4005,95 @@ uint64_t std::pair<std::string const,mime_type_class>::pair[abi:nn200100]<char c
   }
 
   *(a1 + v7) = 0;
-  *(a1 + 24) = *a3;
+  a1[6] = *a3;
   return a1;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<std::string,mime_type_class>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mime_type_class>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mime_type_class>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mime_type_class>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mime_type_class> const&>(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 23);
-  if (v1 >= 0)
+  v2 = *(a1 + 23);
+  if (v2 >= 0)
   {
-    v2 = a1;
+    v3 = a1;
   }
 
   else
   {
-    v2 = *a1;
+    v3 = *a1;
   }
 
-  if (v1 >= 0)
+  if (v2 >= 0)
   {
-    v3 = *(a1 + 23);
+    v4 = *(a1 + 23);
   }
 
   else
   {
-    v3 = *(a1 + 8);
+    v4 = *(a1 + 8);
   }
 
-  v4 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v2, v3);
-  v5 = v4;
-  v6 = *(&mime_type_to_class(void)::instance + 1);
+  v5 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v3, v4);
+  v6 = v5;
+  v7 = *(&mime_type_to_class(void)::instance + 1);
   if (!*(&mime_type_to_class(void)::instance + 1))
   {
     goto LABEL_41;
   }
 
-  v7 = vcnt_s8(*(&mime_type_to_class(void)::instance + 8));
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(*(&mime_type_to_class(void)::instance + 8));
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v8 = v4;
-    if (v4 >= *(&mime_type_to_class(void)::instance + 1))
+    v9 = v5;
+    if (v5 >= *(&mime_type_to_class(void)::instance + 1))
     {
-      v8 = v4 % *(&mime_type_to_class(void)::instance + 1);
+      v9 = v5 % *(&mime_type_to_class(void)::instance + 1);
     }
   }
 
   else
   {
-    v8 = (*(&mime_type_to_class(void)::instance + 1) - 1) & v4;
+    v9 = (*(&mime_type_to_class(void)::instance + 1) - 1) & v5;
   }
 
-  v9 = *(mime_type_to_class(void)::instance + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v10 = *(mime_type_to_class(void)::instance + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_41:
     operator new();
   }
 
-  if (v7.u32[0] < 2uLL)
+  if (v8.u32[0] < 2uLL)
   {
     while (1)
     {
-      v11 = v10[1];
-      if (v11 == v5)
+      v12 = v11[1];
+      if (v12 == v6)
       {
-        v12 = *(v10 + 39);
-        v13 = v12;
-        if (v12 < 0)
+        v13 = *(v11 + 39);
+        v14 = v13;
+        if (v13 < 0)
         {
-          v12 = v10[3];
+          v13 = v11[3];
         }
 
-        if (v12 == v3)
+        if (v13 == v4)
         {
-          v14 = v13 >= 0 ? (v10 + 2) : v10[2];
-          result = memcmp(v14, v2, v3);
-          if (!result)
+          v15 = v14 >= 0 ? (v11 + 2) : v11[2];
+          if (!memcmp(v15, v3, v4))
           {
-            return result;
+            return;
           }
         }
       }
 
-      else if ((v11 & (v6 - 1)) != v8)
+      else if ((v12 & (v7 - 1)) != v9)
       {
         goto LABEL_41;
       }
 
-      v10 = *v10;
-      if (!v10)
+      v11 = *v11;
+      if (!v11)
       {
         goto LABEL_41;
       }
@@ -4099,50 +4102,47 @@ LABEL_41:
 
   while (1)
   {
-    v16 = v10[1];
-    if (v16 == v5)
+    v16 = v11[1];
+    if (v16 == v6)
     {
       break;
     }
 
-    if (v16 >= v6)
+    if (v16 >= v7)
     {
-      v16 %= v6;
+      v16 %= v7;
     }
 
-    if (v16 != v8)
+    if (v16 != v9)
     {
       goto LABEL_41;
     }
 
 LABEL_29:
-    v10 = *v10;
-    if (!v10)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_41;
     }
   }
 
-  v17 = *(v10 + 39);
+  v17 = *(v11 + 39);
   v18 = v17;
   if (v17 < 0)
   {
-    v17 = v10[3];
+    v17 = v11[3];
   }
 
-  if (v17 != v3)
+  if (v17 != v4)
   {
     goto LABEL_29;
   }
 
-  v19 = v18 >= 0 ? (v10 + 2) : v10[2];
-  result = memcmp(v19, v2, v3);
-  if (result)
+  v19 = v18 >= 0 ? (v11 + 2) : v11[2];
+  if (memcmp(v19, v3, v4))
   {
     goto LABEL_29;
   }
-
-  return result;
 }
 
 void std::string::__init_copy_ctor_external(std::string *this, const std::string::value_type *__s, std::string::size_type __sz)
@@ -4276,7 +4276,7 @@ LABEL_27:
         p_dst = __dst;
       }
 
-      std::string::__assign_no_alias<false>(v18 + 40, p_dst, v16);
+      std::string::__assign_no_alias<false>((v18 + 40), p_dst, v16);
     }
 
     if ((v17 & 0x80000000) == 0)
@@ -4376,7 +4376,7 @@ uint64_t networkd_privileged_get_kernel_socket_internal(uint64_t a1)
       v12 = gLogObj;
       *buf = 136446210;
       v94 = "networkd_privileged_get_kernel_socket_internal";
-      v7 = _os_log_send_and_compose_impl();
+      v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s received NULL response", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v91 = 0;
@@ -4460,7 +4460,7 @@ uint64_t networkd_privileged_get_kernel_socket_internal(uint64_t a1)
         v94 = "networkd_privileged_get_kernel_socket_internal";
         v95 = 2082;
         *v96 = v7;
-        v9 = _os_log_send_and_compose_impl();
+        v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s received unknown type XPC %{public}s", buf, 22);
 
         type = OS_LOG_TYPE_ERROR;
         v91 = 0;
@@ -4572,7 +4572,7 @@ LABEL_54:
         v33 = gLogObj;
         *buf = 136446210;
         v94 = "networkd_privileged_get_kernel_socket_internal";
-        v7 = _os_log_send_and_compose_impl();
+        v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v33, 16, "%{public}s received XPC_ERROR_CONNECTION_INTERRUPTED", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v91 = 0;
@@ -4664,7 +4664,7 @@ LABEL_54:
           v94 = "networkd_privileged_get_kernel_socket_internal";
           v95 = 2082;
           *v96 = v7;
-          v9 = _os_log_send_and_compose_impl();
+          v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s received returned unknown XPC error %{public}s", buf, 22);
 
           type = OS_LOG_TYPE_ERROR;
           v91 = 0;
@@ -4748,7 +4748,7 @@ LABEL_54:
         v51 = gLogObj;
         *buf = 136446210;
         v94 = "networkd_privileged_get_kernel_socket_internal";
-        v7 = _os_log_send_and_compose_impl();
+        v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v51, 16, "%{public}s received XPC_ERROR_TERMINATION_IMMINENT", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v91 = 0;
@@ -4833,7 +4833,7 @@ LABEL_26:
       v30 = gLogObj;
       *buf = 136446210;
       v94 = "networkd_privileged_get_kernel_socket_internal";
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v30, 16, "%{public}s received response without result code", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v91 = 0;
@@ -4909,7 +4909,7 @@ LABEL_26:
       v17 = gLogObj;
       *buf = 136446210;
       v94 = "networkd_privileged_get_kernel_socket_internal";
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s received invalid result type", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v91 = 0;
@@ -5009,7 +5009,7 @@ LABEL_78:
         v94 = "networkd_privileged_get_kernel_socket_internal";
         v95 = 1024;
         *v96 = v36;
-        v38 = _os_log_send_and_compose_impl();
+        v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v37, 16, "%{public}s received failure result code %{darwin.errno}d", buf, 18);
 
         type = OS_LOG_TYPE_ERROR;
         v91 = 0;
@@ -5101,7 +5101,7 @@ LABEL_181:
       *v96 = v36;
       *&v96[8] = 2082;
       *&v96[10] = v62;
-      v38 = _os_log_send_and_compose_impl();
+      v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v61, 16, "%{public}s received internal failure result code: [%lld] %{public}s", buf, 32);
 
       type = OS_LOG_TYPE_ERROR;
       v91 = 0;
@@ -5195,7 +5195,7 @@ LABEL_154:
     v94 = "networkd_privileged_get_kernel_socket_internal";
     v95 = 1024;
     *v96 = v53;
-    v55 = _os_log_send_and_compose_impl();
+    v55 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v54, 16, "%{public}s received invalid fd %d", buf, 18);
 
     type = OS_LOG_TYPE_ERROR;
     v91 = 0;
@@ -5275,7 +5275,7 @@ LABEL_213:
   v79 = __nwlog_obj();
   *buf = 136446210;
   v94 = "networkd_privileged_get_kernel_socket_internal";
-  v80 = _os_log_send_and_compose_impl();
+  v80 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v79, 16, "%{public}s xpc_dictionary_create failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v91 = 0;
@@ -5583,7 +5583,7 @@ uint64_t networkd_privileged_set_agent_on_interface_internal(const char *a1, con
         v19 = gLogObj;
         *buf = 136446210;
         v103 = "networkd_privileged_set_agent_on_interface_internal";
-        v14 = _os_log_send_and_compose_impl();
+        v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s received NULL response", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v100 = 0;
@@ -5667,7 +5667,7 @@ uint64_t networkd_privileged_set_agent_on_interface_internal(const char *a1, con
           v103 = "networkd_privileged_set_agent_on_interface_internal";
           v104 = 2082;
           *v105 = v14;
-          v16 = _os_log_send_and_compose_impl();
+          v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s received unknown type XPC %{public}s", buf, 22);
 
           type = OS_LOG_TYPE_ERROR;
           v100 = 0;
@@ -5782,7 +5782,7 @@ LABEL_58:
           v41 = gLogObj;
           *buf = 136446210;
           v103 = "networkd_privileged_set_agent_on_interface_internal";
-          v14 = _os_log_send_and_compose_impl();
+          v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v41, 16, "%{public}s received XPC_ERROR_CONNECTION_INTERRUPTED", buf, 12);
 
           type = OS_LOG_TYPE_ERROR;
           v100 = 0;
@@ -5874,7 +5874,7 @@ LABEL_58:
             v103 = "networkd_privileged_set_agent_on_interface_internal";
             v104 = 2082;
             *v105 = v14;
-            v16 = _os_log_send_and_compose_impl();
+            v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v31, 16, "%{public}s received returned unknown XPC error %{public}s", buf, 22);
 
             type = OS_LOG_TYPE_ERROR;
             v100 = 0;
@@ -5958,7 +5958,7 @@ LABEL_58:
           v57 = gLogObj;
           *buf = 136446210;
           v103 = "networkd_privileged_set_agent_on_interface_internal";
-          v14 = _os_log_send_and_compose_impl();
+          v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v57, 16, "%{public}s received XPC_ERROR_TERMINATION_IMMINENT", buf, 12);
 
           type = OS_LOG_TYPE_ERROR;
           v100 = 0;
@@ -6043,7 +6043,7 @@ LABEL_30:
         v37 = gLogObj;
         *buf = 136446210;
         v103 = "networkd_privileged_set_agent_on_interface_internal";
-        v25 = _os_log_send_and_compose_impl();
+        v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v37, 16, "%{public}s received response without result code", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v100 = 0;
@@ -6119,7 +6119,7 @@ LABEL_30:
         v24 = gLogObj;
         *buf = 136446210;
         v103 = "networkd_privileged_set_agent_on_interface_internal";
-        v25 = _os_log_send_and_compose_impl();
+        v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s received invalid result type", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v100 = 0;
@@ -6242,7 +6242,7 @@ LABEL_152:
         v103 = "networkd_privileged_set_agent_on_interface_internal";
         v104 = 1024;
         *v105 = v44;
-        v64 = _os_log_send_and_compose_impl();
+        v64 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v45, 16, "%{public}s received failure result code %{darwin.errno}d", buf, 18);
 
         type = OS_LOG_TYPE_ERROR;
         v100 = 0;
@@ -6334,7 +6334,7 @@ LABEL_186:
       *v105 = v44;
       *&v105[8] = 2082;
       *&v105[10] = v63;
-      v64 = _os_log_send_and_compose_impl();
+      v64 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v62, 16, "%{public}s received internal failure result code: [%lld] %{public}s", buf, 32);
 
       type = OS_LOG_TYPE_ERROR;
       v100 = 0;
@@ -6418,7 +6418,7 @@ LABEL_186:
     v88 = __nwlog_obj();
     *buf = 136446210;
     v103 = "networkd_privileged_set_agent_on_interface_internal";
-    v89 = _os_log_send_and_compose_impl();
+    v89 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v88, 16, "%{public}s xpc_dictionary_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v100 = 0;
@@ -6491,7 +6491,7 @@ LABEL_223:
   v84 = __nwlog_obj();
   *buf = 136446210;
   v103 = "networkd_privileged_set_agent_on_interface_internal";
-  v85 = _os_log_send_and_compose_impl();
+  v85 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v84, 16, "%{public}s called with null interface_name", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v100 = 0;
@@ -6568,7 +6568,7 @@ uint64_t networkd_privileged_setup_feth_pair(const char *a1, const char *a2)
     v78 = __nwlog_obj();
     *buf = 136446210;
     v103 = "networkd_privileged_setup_feth_pair";
-    v79 = _os_log_send_and_compose_impl();
+    v79 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v78, 16, "%{public}s called with null ifname1", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v100 = 0;
@@ -6643,7 +6643,7 @@ uint64_t networkd_privileged_setup_feth_pair(const char *a1, const char *a2)
     v82 = __nwlog_obj();
     *buf = 136446210;
     v103 = "networkd_privileged_setup_feth_pair";
-    v79 = _os_log_send_and_compose_impl();
+    v79 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v82, 16, "%{public}s called with null ifname2", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v100 = 0;
@@ -6725,7 +6725,7 @@ LABEL_227:
     v84 = __nwlog_obj();
     *buf = 136446210;
     v103 = "networkd_privileged_setup_feth_pair";
-    v85 = _os_log_send_and_compose_impl();
+    v85 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v84, 16, "%{public}s xpc_dictionary_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v100 = 0;
@@ -6807,7 +6807,7 @@ LABEL_234:
     v14 = gLogObj;
     *buf = 136446210;
     v103 = "networkd_privileged_setup_feth_pair";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s received NULL response", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v100 = 0;
@@ -6890,7 +6890,7 @@ LABEL_234:
       v32 = gLogObj;
       *buf = 136446210;
       v103 = "networkd_privileged_setup_feth_pair";
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v32, 16, "%{public}s received response without result code", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v100 = 0;
@@ -6966,7 +6966,7 @@ LABEL_234:
       v19 = gLogObj;
       *buf = 136446210;
       v103 = "networkd_privileged_setup_feth_pair";
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s received invalid result type", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v100 = 0;
@@ -7074,7 +7074,7 @@ LABEL_152:
       v103 = "networkd_privileged_setup_feth_pair";
       v104 = 1024;
       *v105 = v39;
-      v41 = _os_log_send_and_compose_impl();
+      v41 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v40, 16, "%{public}s received failure result code %{darwin.errno}d", buf, 18);
 
       type = OS_LOG_TYPE_ERROR;
       v100 = 0;
@@ -7166,7 +7166,7 @@ LABEL_180:
     *v105 = v39;
     *&v105[8] = 2082;
     *&v105[10] = v60;
-    v41 = _os_log_send_and_compose_impl();
+    v41 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v59, 16, "%{public}s received internal failure result code: [%lld] %{public}s", buf, 32);
 
     type = OS_LOG_TYPE_ERROR;
     v100 = 0;
@@ -7256,7 +7256,7 @@ LABEL_180:
       v36 = gLogObj;
       *buf = 136446210;
       v103 = "networkd_privileged_setup_feth_pair";
-      v9 = _os_log_send_and_compose_impl();
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v36, 16, "%{public}s received XPC_ERROR_CONNECTION_INTERRUPTED", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v100 = 0;
@@ -7348,7 +7348,7 @@ LABEL_180:
         v103 = "networkd_privileged_setup_feth_pair";
         v104 = 2082;
         *v105 = v9;
-        v11 = _os_log_send_and_compose_impl();
+        v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s received returned unknown XPC error %{public}s", buf, 22);
 
         type = OS_LOG_TYPE_ERROR;
         v100 = 0;
@@ -7434,7 +7434,7 @@ LABEL_56:
       v54 = gLogObj;
       *buf = 136446210;
       v103 = "networkd_privileged_setup_feth_pair";
-      v9 = _os_log_send_and_compose_impl();
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v54, 16, "%{public}s received XPC_ERROR_TERMINATION_IMMINENT", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v100 = 0;
@@ -7518,7 +7518,7 @@ LABEL_28:
   v103 = "networkd_privileged_setup_feth_pair";
   v104 = 2082;
   *v105 = v9;
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s received unknown type XPC %{public}s", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
   v100 = 0;
@@ -7631,7 +7631,7 @@ void networkd_privileged_teardown_feth_pair(const char *a1, const char *a2)
     v76 = __nwlog_obj();
     *buf = 136446210;
     v101 = "networkd_privileged_teardown_feth_pair";
-    v77 = _os_log_send_and_compose_impl();
+    v77 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v76, 16, "%{public}s called with null ifname1", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v98 = 0;
@@ -7716,7 +7716,7 @@ LABEL_224:
         v14 = gLogObj;
         *buf = 136446210;
         v101 = "networkd_privileged_teardown_feth_pair";
-        v9 = _os_log_send_and_compose_impl();
+        v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s received NULL response", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v98 = 0;
@@ -7800,7 +7800,7 @@ LABEL_224:
           v101 = "networkd_privileged_teardown_feth_pair";
           v102 = 2082;
           *v103 = v9;
-          v11 = _os_log_send_and_compose_impl();
+          v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s received unknown type XPC %{public}s", buf, 22);
 
           type = OS_LOG_TYPE_ERROR;
           v98 = 0;
@@ -7913,7 +7913,7 @@ LABEL_56:
           v35 = gLogObj;
           *buf = 136446210;
           v101 = "networkd_privileged_teardown_feth_pair";
-          v9 = _os_log_send_and_compose_impl();
+          v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v35, 16, "%{public}s received XPC_ERROR_CONNECTION_INTERRUPTED", buf, 12);
 
           type = OS_LOG_TYPE_ERROR;
           v98 = 0;
@@ -8005,7 +8005,7 @@ LABEL_56:
             v101 = "networkd_privileged_teardown_feth_pair";
             v102 = 2082;
             *v103 = v9;
-            v11 = _os_log_send_and_compose_impl();
+            v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s received returned unknown XPC error %{public}s", buf, 22);
 
             type = OS_LOG_TYPE_ERROR;
             v98 = 0;
@@ -8089,7 +8089,7 @@ LABEL_56:
           v53 = gLogObj;
           *buf = 136446210;
           v101 = "networkd_privileged_teardown_feth_pair";
-          v9 = _os_log_send_and_compose_impl();
+          v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v53, 16, "%{public}s received XPC_ERROR_TERMINATION_IMMINENT", buf, 12);
 
           type = OS_LOG_TYPE_ERROR;
           v98 = 0;
@@ -8174,7 +8174,7 @@ LABEL_28:
         v32 = gLogObj;
         *buf = 136446210;
         v101 = "networkd_privileged_teardown_feth_pair";
-        v20 = _os_log_send_and_compose_impl();
+        v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v32, 16, "%{public}s received response without result code", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v98 = 0;
@@ -8250,7 +8250,7 @@ LABEL_28:
         v19 = gLogObj;
         *buf = 136446210;
         v101 = "networkd_privileged_teardown_feth_pair";
-        v20 = _os_log_send_and_compose_impl();
+        v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s received invalid result type", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v98 = 0;
@@ -8354,7 +8354,7 @@ LABEL_80:
         v101 = "networkd_privileged_teardown_feth_pair";
         v102 = 1024;
         *v103 = v38;
-        v40 = _os_log_send_and_compose_impl();
+        v40 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v39, 16, "%{public}s received failure result code %{darwin.errno}d", buf, 18);
 
         type = OS_LOG_TYPE_ERROR;
         v98 = 0;
@@ -8446,7 +8446,7 @@ LABEL_177:
       *v103 = v38;
       *&v103[8] = 2082;
       *&v103[10] = v59;
-      v40 = _os_log_send_and_compose_impl();
+      v40 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v58, 16, "%{public}s received internal failure result code: [%lld] %{public}s", buf, 32);
 
       type = OS_LOG_TYPE_ERROR;
       v98 = 0;
@@ -8530,7 +8530,7 @@ LABEL_177:
     v82 = __nwlog_obj();
     *buf = 136446210;
     v101 = "networkd_privileged_teardown_feth_pair";
-    v83 = _os_log_send_and_compose_impl();
+    v83 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v82, 16, "%{public}s xpc_dictionary_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v98 = 0;
@@ -8602,7 +8602,7 @@ LABEL_230:
   v80 = __nwlog_obj();
   *buf = 136446210;
   v101 = "networkd_privileged_teardown_feth_pair";
-  v77 = _os_log_send_and_compose_impl();
+  v77 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v80, 16, "%{public}s called with null ifname2", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v98 = 0;
@@ -8702,7 +8702,7 @@ void __networkd_privileged_check_mobile_asset_block_invoke(uint64_t a1, void *a2
     v10 = gLogObj;
     *buf = 136446210;
     v74 = "networkd_privileged_check_mobile_asset_block_invoke";
-    v5 = _os_log_send_and_compose_impl();
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s received NULL response", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v71 = 0;
@@ -8785,7 +8785,7 @@ void __networkd_privileged_check_mobile_asset_block_invoke(uint64_t a1, void *a2
       v28 = gLogObj;
       *buf = 136446210;
       v74 = "networkd_privileged_check_mobile_asset_block_invoke";
-      v16 = _os_log_send_and_compose_impl();
+      v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s received response without result code", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -8861,7 +8861,7 @@ void __networkd_privileged_check_mobile_asset_block_invoke(uint64_t a1, void *a2
       v15 = gLogObj;
       *buf = 136446210;
       v74 = "networkd_privileged_check_mobile_asset_block_invoke";
-      v16 = _os_log_send_and_compose_impl();
+      v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s received invalid result type", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -8975,7 +8975,7 @@ LABEL_77:
       v74 = "networkd_privileged_check_mobile_asset_block_invoke";
       v75 = 1024;
       *v76 = v34;
-      v36 = _os_log_send_and_compose_impl();
+      v36 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v35, 16, "%{public}s received failure result code %{darwin.errno}d", buf, 18);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -9067,7 +9067,7 @@ LABEL_175:
     *v76 = v34;
     *&v76[8] = 2082;
     *&v76[10] = v55;
-    v36 = _os_log_send_and_compose_impl();
+    v36 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v54, 16, "%{public}s received internal failure result code: [%lld] %{public}s", buf, 32);
 
     type = OS_LOG_TYPE_ERROR;
     v71 = 0;
@@ -9157,7 +9157,7 @@ LABEL_175:
       v31 = gLogObj;
       *buf = 136446210;
       v74 = "networkd_privileged_check_mobile_asset_block_invoke";
-      v5 = _os_log_send_and_compose_impl();
+      v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v31, 16, "%{public}s received XPC_ERROR_CONNECTION_INTERRUPTED", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -9236,7 +9236,7 @@ LABEL_175:
         v74 = "networkd_privileged_check_mobile_asset_block_invoke";
         v75 = 2082;
         *v76 = v5;
-        v7 = _os_log_send_and_compose_impl();
+        v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s received returned unknown XPC error %{public}s", buf, 22);
 
         type = OS_LOG_TYPE_ERROR;
         v71 = 0;
@@ -9322,7 +9322,7 @@ LABEL_53:
       v49 = gLogObj;
       *buf = 136446210;
       v74 = "networkd_privileged_check_mobile_asset_block_invoke";
-      v5 = _os_log_send_and_compose_impl();
+      v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v49, 16, "%{public}s received XPC_ERROR_TERMINATION_IMMINENT", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -9420,7 +9420,7 @@ LABEL_84:
   v74 = "networkd_privileged_check_mobile_asset_block_invoke";
   v75 = 2082;
   *v76 = v5;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s received unknown type XPC %{public}s", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
   v71 = 0;
@@ -9532,7 +9532,7 @@ void __networkd_privileged_run_probes_block_invoke(uint64_t a1, void *a2)
     v10 = gLogObj;
     *buf = 136446210;
     v74 = "networkd_privileged_run_probes_block_invoke";
-    v5 = _os_log_send_and_compose_impl();
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s received NULL response", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v71 = 0;
@@ -9615,7 +9615,7 @@ void __networkd_privileged_run_probes_block_invoke(uint64_t a1, void *a2)
       v28 = gLogObj;
       *buf = 136446210;
       v74 = "networkd_privileged_run_probes_block_invoke";
-      v16 = _os_log_send_and_compose_impl();
+      v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s received response without result code", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -9691,7 +9691,7 @@ void __networkd_privileged_run_probes_block_invoke(uint64_t a1, void *a2)
       v15 = gLogObj;
       *buf = 136446210;
       v74 = "networkd_privileged_run_probes_block_invoke";
-      v16 = _os_log_send_and_compose_impl();
+      v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s received invalid result type", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -9805,7 +9805,7 @@ LABEL_77:
       v74 = "networkd_privileged_run_probes_block_invoke";
       v75 = 1024;
       *v76 = v34;
-      v36 = _os_log_send_and_compose_impl();
+      v36 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v35, 16, "%{public}s received failure result code %{darwin.errno}d", buf, 18);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -9897,7 +9897,7 @@ LABEL_175:
     *v76 = v34;
     *&v76[8] = 2082;
     *&v76[10] = v55;
-    v36 = _os_log_send_and_compose_impl();
+    v36 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v54, 16, "%{public}s received internal failure result code: [%lld] %{public}s", buf, 32);
 
     type = OS_LOG_TYPE_ERROR;
     v71 = 0;
@@ -9987,7 +9987,7 @@ LABEL_175:
       v31 = gLogObj;
       *buf = 136446210;
       v74 = "networkd_privileged_run_probes_block_invoke";
-      v5 = _os_log_send_and_compose_impl();
+      v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v31, 16, "%{public}s received XPC_ERROR_CONNECTION_INTERRUPTED", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -10066,7 +10066,7 @@ LABEL_175:
         v74 = "networkd_privileged_run_probes_block_invoke";
         v75 = 2082;
         *v76 = v5;
-        v7 = _os_log_send_and_compose_impl();
+        v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s received returned unknown XPC error %{public}s", buf, 22);
 
         type = OS_LOG_TYPE_ERROR;
         v71 = 0;
@@ -10152,7 +10152,7 @@ LABEL_53:
       v49 = gLogObj;
       *buf = 136446210;
       v74 = "networkd_privileged_run_probes_block_invoke";
-      v5 = _os_log_send_and_compose_impl();
+      v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v49, 16, "%{public}s received XPC_ERROR_TERMINATION_IMMINENT", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v71 = 0;
@@ -10250,7 +10250,7 @@ LABEL_84:
   v74 = "networkd_privileged_run_probes_block_invoke";
   v75 = 2082;
   *v76 = v5;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s received unknown type XPC %{public}s", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
   v71 = 0;

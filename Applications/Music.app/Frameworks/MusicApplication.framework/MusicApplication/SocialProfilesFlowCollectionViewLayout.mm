@@ -26,7 +26,7 @@
 
   if (v8)
   {
-    sub_13C80(0, &qword_E04510);
+    sub_13C80(0, &qword_E04510, UICollectionViewLayoutAttributes_ptr);
     v9.super.isa = sub_AB9740().super.isa;
   }
 
@@ -42,7 +42,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = sub_AB92A0();
   v13 = v12;

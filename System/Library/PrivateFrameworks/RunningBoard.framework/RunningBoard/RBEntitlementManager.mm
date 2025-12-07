@@ -54,41 +54,41 @@
     +[RBEntitlementManager _hardCodedEntitlements];
   }
 
-  v0 = _hardCodedEntitlements_hardCodedEntitlements;
+  v1 = _hardCodedEntitlements_hardCodedEntitlements;
 
-  return v0;
+  return v1;
 }
 
 - (NSString)debugDescription
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = self->_entitlementsByIdentifier;
-  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = [(NSMapTable *)self->_entitlementsByIdentifier objectForKey:v9];
         v11 = [v9 description];
         [v3 appendFormat:@"%@=%@\n\t", v11, v10];
       }
 
-      v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -99,8 +99,6 @@
   allObjects = [(NSSet *)self->_availableEntitlements allObjects];
   v15 = [allObjects componentsJoinedByString:{@", \n\t\t"}];
   v16 = [v12 initWithFormat:@"<%@|  availableEntitlements:[\n\t\t%@\n\t] entitlementsByIdentifier:[\n\t%@\n\t\t]>", v13, v15, v3];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -193,7 +191,7 @@ uint64_t __46__RBEntitlementManager__hardCodedEntitlements__block_invoke()
 
 - (void)_entitlementsForProcess:(void *)process
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (process)
   {
@@ -203,38 +201,38 @@ uint64_t __46__RBEntitlementManager__hardCodedEntitlements__block_invoke()
     if (auditToken)
     {
       memset(&buf, 0, sizeof(buf));
-      [auditToken realToken];
+      objc_msgSend_realToken(auditToken);
       token = buf;
-      v11 = SecTaskCreateWithAuditToken(0, &token);
-      if (v11)
+      v10 = SecTaskCreateWithAuditToken(0, &token);
+      if (v10)
       {
-        v13 = v11;
-        v14 = process[3];
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __48__RBEntitlementManager__entitlementsForProcess___block_invoke;
-        v16[3] = &unk_279B32FE0;
-        v16[4] = process;
-        v18 = v11;
-        v15 = v4;
-        v17 = v15;
-        [v14 enumerateObjectsUsingBlock:v16];
-        if (([v15 containsObject:@"com.apple.assertiond.app-state-monitor"] & 1) == 0 && (objc_msgSend(v15, "containsObject:", @"com.apple.runningboard.testbinary") & 1) == 0 && (SecTaskGetCodeSignStatus(v13) & 0xC000001) == 0x4000001 && (objc_msgSend(v3, "isTestApp") & 1) == 0)
+        v12 = v10;
+        v13 = process[3];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __48__RBEntitlementManager__entitlementsForProcess___block_invoke;
+        v15[3] = &unk_279B32FE0;
+        v15[4] = process;
+        v17 = v10;
+        v14 = v4;
+        v16 = v14;
+        [v13 enumerateObjectsUsingBlock:v15];
+        if (([v14 containsObject:@"com.apple.assertiond.app-state-monitor"] & 1) == 0 && (objc_msgSend(v14, "containsObject:", @"com.apple.runningboard.testbinary") & 1) == 0 && (SecTaskGetCodeSignStatus(v12) & 0xC000001) == 0x4000001 && (objc_msgSend(v3, "isTestApp") & 1) == 0)
         {
-          [v15 addObject:@"com.apple.assertiond.app-state-monitor"];
+          [v14 addObject:@"com.apple.assertiond.app-state-monitor"];
         }
 
-        CFRelease(v13);
+        CFRelease(v12);
       }
 
       else
       {
-        v12 = rbs_general_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v11 = rbs_general_log();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           token.val[0] = 138543362;
           *&token.val[1] = v3;
-          _os_log_error_impl(&dword_262485000, v12, OS_LOG_TYPE_ERROR, "SecTaskCreateWithAuditToken failed for %{public}@", &token, 0xCu);
+          _os_log_error_impl(&dword_262485000, v11, OS_LOG_TYPE_ERROR, "SecTaskCreateWithAuditToken failed for %{public}@", &token, 0xCu);
         }
       }
 
@@ -258,14 +256,12 @@ uint64_t __46__RBEntitlementManager__hardCodedEntitlements__block_invoke()
     process = v8;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return process;
 }
 
 - (void)_removeRestrictedEntitlements:(void *)entitlements forProcess:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   entitlementsCopy = entitlements;
   v7 = entitlementsCopy;
@@ -276,12 +272,12 @@ uint64_t __46__RBEntitlementManager__hardCodedEntitlements__block_invoke()
 
   identity = [entitlementsCopy identity];
   isTestApp = [v7 isTestApp];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (!v10)
   {
 
@@ -290,22 +286,22 @@ uint64_t __46__RBEntitlementManager__hardCodedEntitlements__block_invoke()
   }
 
   v11 = v10;
-  v22 = v7;
-  v23 = v5;
-  v25 = 0;
-  v12 = *v27;
+  v21 = v7;
+  v22 = v5;
+  v24 = 0;
+  v12 = *v26;
   do
   {
     v13 = 0;
     do
     {
-      if (*v27 != v12)
+      if (*v26 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v26 + 1) + 8 * v13);
-      v15 = [*(self + 32) objectForKey:{v14, v22, v23}];
+      v14 = *(*(&v25 + 1) + 8 * v13);
+      v15 = [*(self + 32) objectForKey:{v14, v21, v22}];
       v16 = v15;
       if (v15 && ([v15 containsObject:identity] & 1) == 0)
       {
@@ -326,19 +322,19 @@ uint64_t __46__RBEntitlementManager__hardCodedEntitlements__block_invoke()
         if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           *buf = 138543618;
-          v31 = identity;
-          v32 = 2114;
-          v33 = v14;
+          v30 = identity;
+          v31 = 2114;
+          v32 = v14;
           _os_log_fault_impl(&dword_262485000, v17, OS_LOG_TYPE_FAULT, "RunningBoard: Process %{public}@ does not have permission to have entitlement %{public}@", buf, 0x16u);
         }
 
-        v18 = v25;
-        if (!v25)
+        v18 = v24;
+        if (!v24)
         {
           v18 = [MEMORY[0x277CBEB58] set];
         }
 
-        v25 = v18;
+        v24 = v18;
         [v18 addObject:v14];
       }
 
@@ -348,65 +344,38 @@ LABEL_18:
     }
 
     while (v11 != v13);
-    v19 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v19 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
     v11 = v19;
   }
 
   while (v19);
 
-  v20 = v25;
-  if (v25)
+  v20 = v24;
+  if (v24)
   {
-    [v9 minusSet:v25];
+    [v9 minusSet:v24];
   }
 
-  v7 = v22;
-  v5 = v23;
+  v7 = v21;
+  v5 = v22;
 LABEL_27:
 
 LABEL_28:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_secTask:(CFStringRef)entitlement hasEntitlement:
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (self)
+  v13 = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    error = 0;
-    v3 = SecTaskCopyValueForEntitlement(task, entitlement, &error);
-    if (v3 && (objc_opt_respondsToSelector() & 1) != 0)
-    {
-      bOOLValue = [v3 BOOLValue];
-    }
+    return 0;
+  }
 
-    else
-    {
-      bOOLValue = 0;
-    }
-
-    v5 = error;
-    if (error)
-    {
-      code = [(__CFError *)error code];
-      v7 = rbs_general_log();
-      v8 = v7;
-      if (code == 3)
-      {
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_262485000, v8, OS_LOG_TYPE_INFO, "sectask entitlement check made for not-running process", buf, 2u);
-        }
-      }
-
-      else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138543362;
-        v13 = v5;
-        _os_log_error_impl(&dword_262485000, v8, OS_LOG_TYPE_ERROR, "SecTaskCopyValueForEntitlement failed with error %{public}@", buf, 0xCu);
-      }
-    }
+  error = 0;
+  v3 = SecTaskCopyValueForEntitlement(task, entitlement, &error);
+  if (v3 && (objc_opt_respondsToSelector() & 1) != 0)
+  {
+    bOOLValue = [v3 BOOLValue];
   }
 
   else
@@ -414,7 +383,29 @@ LABEL_28:
     bOOLValue = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  v5 = error;
+  if (error)
+  {
+    code = [(__CFError *)error code];
+    v7 = rbs_general_log();
+    v8 = v7;
+    if (code == 3)
+    {
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_262485000, v8, OS_LOG_TYPE_INFO, "sectask entitlement check made for not-running process", buf, 2u);
+      }
+    }
+
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543362;
+      v12 = v5;
+      _os_log_error_impl(&dword_262485000, v8, OS_LOG_TYPE_ERROR, "SecTaskCopyValueForEntitlement failed with error %{public}@", buf, 0xCu);
+    }
+  }
+
   return bOOLValue;
 }
 

@@ -36,9 +36,9 @@
 {
   labelCopy = label;
   dirCopy = dir;
-  v39.receiver = self;
-  v39.super_class = VMAccountStore;
-  v8 = [(VMAccountStore *)&v39 init];
+  v37.receiver = self;
+  v37.super_class = VMAccountStore;
+  v8 = [(VMAccountStore *)&v37 init];
   if (v8)
   {
     v9 = dispatch_queue_create("com.apple.voicemail.VMAccountStore.queue", 0);
@@ -60,9 +60,9 @@
       v17 = +[NSFileManager defaultManager];
       accountDir = [(VMAccountStore *)v8 accountDir];
       path2 = [accountDir path];
-      v38 = 0;
-      v20 = [v17 createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v38];
-      v21 = v38;
+      v36 = 0;
+      v20 = [v17 createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v36];
+      v21 = v36;
 
       if ((v20 & 1) == 0)
       {
@@ -81,61 +81,59 @@
     if (v8->store)
     {
       CSDBRecordStoreRegisterClass();
-      store = v8->store;
       CSDBRecordStoreSetSetupHandler();
-      v25 = v8->store;
       Database = CSDBRecordStoreGetDatabase();
       if (Database)
       {
-        v27 = Database;
+        v25 = Database;
         CSDBSqliteDatabaseSetDataProtectionClass();
         CSDBSqliteDatabaseSetVersion();
-        v28 = CSDBSqliteDatabaseConnectionForReading();
-        v29 = vm_vmd_log();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v26 = CSDBSqliteDatabaseConnectionForReading();
+        v27 = vm_vmd_log();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = *v27;
+          v28 = *v25;
           *buf = 134218498;
-          v41 = v27;
-          v42 = 2112;
-          v43 = v30;
-          v44 = 2048;
-          v45 = v28;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Creating account db %p path %@, connection %p", buf, 0x20u);
+          v39 = v25;
+          v40 = 2112;
+          v41 = v28;
+          v42 = 2048;
+          v43 = v26;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Creating account db %p path %@, connection %p", buf, 0x20u);
         }
 
-        v31 = CSDBSqliteDatabaseCopyValueForProperty();
-        if (v31)
+        v29 = CSDBSqliteDatabaseCopyValueForProperty();
+        if (v29)
         {
-          CFRelease(v31);
+          CFRelease(v29);
         }
 
-        v32 = 0;
-        v33 = &off_1000EFB58;
+        v30 = 0;
+        v31 = &off_1000EFB58;
         do
         {
-          v34 = *v33;
-          dword_10010DA64[v32] = CSDBRecordIndexOfPropertyNamed();
-          v35 = vm_vmd_log();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v32 = *v31;
+          dword_10010DA64[v30] = CSDBRecordIndexOfPropertyNamed();
+          v33 = vm_vmd_log();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
-            v36 = dword_10010DA64[v32];
+            v34 = dword_10010DA64[v30];
             *buf = 134218754;
+            v39 = v30;
+            v40 = 2080;
             v41 = v32;
-            v42 = 2080;
-            v43 = v34;
-            v44 = 2048;
-            v45 = v32;
-            v46 = 1024;
-            v47 = v36;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "[%lu] Property ID of %s (%lu) is %d", buf, 0x26u);
+            v42 = 2048;
+            v43 = v30;
+            v44 = 1024;
+            v45 = v34;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[%lu] Property ID of %s (%lu) is %d", buf, 0x26u);
           }
 
-          ++v32;
-          v33 += 5;
+          ++v30;
+          v31 += 5;
         }
 
-        while (v32 != 11);
+        while (v30 != 11);
       }
     }
   }
@@ -145,14 +143,13 @@
 
 - (void)dealloc
 {
-  store = self->store;
   CSDBRecordStoreDestroy();
   [(VMAccountStore *)self setLabel:0];
   [(VMAccountStore *)self setAccountDir:0];
   [(VMAccountStore *)self setDbfile:0];
-  v4.receiver = self;
-  v4.super_class = VMAccountStore;
-  [(VMAccountStore *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = VMAccountStore;
+  [(VMAccountStore *)&v3 dealloc];
 }
 
 - (id)description
@@ -166,13 +163,15 @@
 
 - (void)getRecordProperty_sync:(void *)property_sync property:(int)property
 {
-  if (!property_sync)
+  if (property_sync)
+  {
+    return CSDBRecordGetProperty();
+  }
+
+  else
   {
     return 0;
   }
-
-  v4 = dword_10010DA64[property];
-  return CSDBRecordGetProperty();
 }
 
 - (void)getRecordProperty:(void *)property property:(int)a4

@@ -3783,7 +3783,7 @@ LABEL_15:
       v26 = _rt_log_facility_get_os_log(RTLogFacilityRelabeling);
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        *v29 = 0;
+        v29[0] = 0;
         _os_log_impl(&dword_2304B3000, v26, OS_LOG_TYPE_INFO, "demoted because does not satisfy minimum confidence ratio", v29, 2u);
       }
     }

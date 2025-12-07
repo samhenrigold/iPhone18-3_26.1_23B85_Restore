@@ -8,11 +8,10 @@
 - (id)initForArchiveAt:(id)at error:(id *)error
 {
   v4 = sub_1000847C8();
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100084768();
-  return ICArchiveNotesPreviewer.init(forArchiveAt:)(v7);
+  return ICArchiveNotesPreviewer.init(forArchiveAt:)(v6);
 }
 
 - (_TtC26NotesAppMigrationExtension23ICArchiveNotesPreviewer)init

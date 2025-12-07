@@ -6,6 +6,7 @@
 - (id)applyStylesToValueFromTitleViewUpdate:(id)update;
 - (id)viewForValueType:(unint64_t)type;
 - (void)layoutSubviews;
+- (void)relayoutWithAnimation:(BOOL)animation;
 - (void)updateTitleViewWithUpdate:(id)update animated:(BOOL)animated completion:(id)completion;
 @end
 
@@ -188,6 +189,13 @@ LABEL_12:
   result.origin.y = v15;
   result.origin.x = v14;
   return result;
+}
+
+- (void)relayoutWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  update = [(NUCrossFadeTitleView *)self update];
+  [(NUCrossFadeTitleView *)self updateTitleViewWithUpdate:update animated:animationCopy completion:0];
 }
 
 - (id)viewForValueType:(unint64_t)type

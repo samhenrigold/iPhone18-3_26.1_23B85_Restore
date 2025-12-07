@@ -12,14 +12,14 @@
 
 - (DSPController)initWithBundleID:(id)d withLogger:(id)logger andADMConfigurator:(id)configurator andHALDSPFactory:(id)factory
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   loggerCopy = logger;
   configuratorCopy = configurator;
   factoryCopy = factory;
-  v26.receiver = self;
-  v26.super_class = DSPController;
-  v14 = [(DSPController *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = DSPController;
+  v14 = [(DSPController *)&v25 init];
   v15 = v14;
   if (v14)
   {
@@ -42,17 +42,16 @@
     v15->admFactory = createFactory;
 
     v20 = v15->admFactory;
-    v27[0] = @"client bundle identifier";
-    v27[1] = @"client unique identifier";
-    v28[0] = dCopy;
-    v28[1] = @"Isolated ADM DSP";
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v26[0] = @"client bundle identifier";
+    v26[1] = @"client unique identifier";
+    v27[0] = dCopy;
+    v27[1] = @"Isolated ADM DSP";
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
     v22 = [(HAL_DSP_Factory *)v20 createProcessor:v21 withHost:0];
     dspIOProcessor = v15->dspIOProcessor;
     v15->dspIOProcessor = v22;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -65,7 +64,7 @@
 
 - (id)adaptToConfigurationChange:(id)change error:(id *)error inputStreamIndicesInIOProc:(id)proc outputStreamIndicesInIOProc:(id)oProc frameBufferSize:(unint64_t)size
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   procCopy = proc;
   oProcCopy = oProc;
@@ -76,42 +75,42 @@
 
   v15 = [(HAL_DSP_IOProcessor *)self->dspIOProcessor adaptToConfigurationChange:changeCopy withCallbacks:&self->admCallbacks error:error];
   v16 = [procCopy count];
-  std::vector<unsigned long>::vector[abi:ne200100](&v29, v16);
+  std::vector<unsigned long>::vector[abi:ne200100](&v28, v16);
   if (v16)
   {
     for (i = 0; i != v16; ++i)
     {
       v18 = [procCopy objectAtIndex:i];
       unsignedLongLongValue = [v18 unsignedLongLongValue];
-      *(v29 + i) = unsignedLongLongValue;
+      *(v28 + i) = unsignedLongLongValue;
     }
   }
 
   v20 = [oProcCopy count];
-  std::vector<unsigned long>::vector[abi:ne200100](&v27, v20);
+  std::vector<unsigned long>::vector[abi:ne200100](&v26, v20);
   if (v20)
   {
     for (j = 0; j != v20; ++j)
     {
       v22 = [oProcCopy objectAtIndex:j];
       unsignedLongLongValue2 = [v22 unsignedLongLongValue];
-      *(v27 + j) = unsignedLongLongValue2;
+      *(v26 + j) = unsignedLongLongValue2;
     }
   }
 
-  v31 = 1;
+  v30 = 1;
   sizeCopy = size;
-  *v34 = 0u;
-  v35 = 0u;
+  *v33 = 0u;
+  v34 = 0u;
   *__p = 0u;
-  v37 = 0;
+  v36 = 0;
   if (error)
   {
     if (!*error)
     {
-      std::function<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::operator=(v33, &self->admCallbacks.m_ioCallback);
-      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v34[1], v29, v30, (v30 - v29) >> 3);
-      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(__p, v27, v28, (v28 - v27) >> 3);
+      std::function<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::operator=(v32, &self->admCallbacks.m_ioCallback);
+      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v33[1], v28, v29, (v29 - v28) >> 3);
+      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(__p, v26, v27, (v27 - v26) >> 3);
       if (self->admCallbacks.m_registerClientCallback.__f_.__f_)
       {
         std::function<void ()>::operator()(&self->admCallbacks, 1);
@@ -119,7 +118,7 @@
     }
   }
 
-  [(ADMConfigurationProtocol *)self->admConfigurator configure:&v31];
+  [(ADMConfigurationProtocol *)self->admConfigurator configure:&v30];
   v24 = v15;
   if (__p[0])
   {
@@ -127,26 +126,24 @@
     operator delete(__p[0]);
   }
 
-  if (v34[1])
+  if (v33[1])
   {
-    *&v35 = v34[1];
-    operator delete(v34[1]);
+    *&v34 = v33[1];
+    operator delete(v33[1]);
   }
 
-  std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::~__value_func[abi:ne200100](v33);
-  if (v27)
+  std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::~__value_func[abi:ne200100](v32);
+  if (v26)
   {
-    v28 = v27;
-    operator delete(v27);
+    v27 = v26;
+    operator delete(v26);
   }
 
-  if (v29)
+  if (v28)
   {
-    v30 = v29;
-    operator delete(v29);
+    v29 = v28;
+    operator delete(v28);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

@@ -37,18 +37,18 @@
 
   if (!hk_gregorianCalendar)
   {
-    _HKInitializeLogging();
-    v9 = HKLogDefault;
+    _HKInitializeLogging(v9, v10);
+    v11 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEBUG))
     {
-      [(HKCalendarCache *)v9 calendarForTimeZone:zoneCopy];
+      [(HKCalendarCache *)v11 calendarForTimeZone:zoneCopy];
     }
 
     hk_gregorianCalendar = [MEMORY[0x1E695DEE8] hk_gregorianCalendar];
     [hk_gregorianCalendar setTimeZone:zoneCopy];
-    v10 = self->_calendarsByTimeZoneName;
+    v12 = self->_calendarsByTimeZoneName;
     name2 = [zoneCopy name];
-    [(NSMutableDictionary *)v10 setObject:hk_gregorianCalendar forKeyedSubscript:name2];
+    [(NSMutableDictionary *)v12 setObject:hk_gregorianCalendar forKeyedSubscript:name2];
   }
 
   return hk_gregorianCalendar;
@@ -126,18 +126,16 @@ void __41__HKCalendarCache_latestTimeZoneCalendar__block_invoke()
 
 - (void)calendarForTimeZone:(uint64_t)a3 .cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v8 = 138543874;
-  v9 = objc_opt_class();
-  v10 = 2048;
-  v11 = a2;
-  v12 = 2114;
-  v13 = a3;
-  v6 = v9;
-  _os_log_debug_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEBUG, "[%{public}@.%p] Creating new calendar for time zone: %{public}@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138543874;
+  v8 = objc_opt_class();
+  v9 = 2048;
+  v10 = a2;
+  v11 = 2114;
+  v12 = a3;
+  v6 = v8;
+  _os_log_debug_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEBUG, "[%{public}@.%p] Creating new calendar for time zone: %{public}@", &v7, 0x20u);
 }
 
 @end

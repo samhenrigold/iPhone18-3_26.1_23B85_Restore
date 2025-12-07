@@ -9,9 +9,9 @@ uint64_t __88__NSArray_Cinematography___firstIndexAtOrAfterTime_startIndex_lastI
   v6 = a3;
   memset(&v13[1], 0, sizeof(CMTime));
   v7 = *(a1 + 32);
-  if (v7 && ([v7 _timeForObject:v5 timeSelector:*(a1 + 40)], v8 = *(a1 + 32), memset(v13, 0, 24), v8))
+  if (v7 && (objc_msgSend__timeForObject_timeSelector_(v7), v8 = *(a1 + 32), memset(v13, 0, 24), v8))
   {
-    [v8 _timeForObject:v6 timeSelector:*(a1 + 40)];
+    objc_msgSend__timeForObject_timeSelector_(v8);
   }
 
   else

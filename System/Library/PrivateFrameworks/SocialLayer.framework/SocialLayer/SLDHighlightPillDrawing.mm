@@ -64,38 +64,36 @@
 
   if (v8 > v13)
   {
-    v14 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = SLDaemonLogHandle(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(SLDHighlightPillDrawing *)self drawingSize];
     }
 
-    v15 = [(SLDHighlightPillDrawing *)self tag];
-    [v15 maxWidth];
-    v8 = v16;
+    v16 = [(SLDHighlightPillDrawing *)self tag];
+    [v16 maxWidth];
+    v8 = v17;
   }
 
-  v17 = v8;
-  v18 = v10;
-  result.height = v18;
-  result.width = v17;
+  v18 = v8;
+  v19 = v10;
+  result.height = v19;
+  result.width = v18;
   return result;
 }
 
 - (void)drawingSize
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [self tag];
   [v6 maxWidth];
-  v9 = 134218496;
+  v8 = 134218496;
   selfCopy = self;
-  v11 = 2048;
-  v12 = v7;
-  v13 = 2048;
-  v14 = a3;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLDHighlightPillSlotDrawer: %p] client specified a max width smaller than the min size to fit the non-flexible contents. This will result in incorrect layout. maxWidth: %f, non-flexible item width: %f", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = 2048;
+  v11 = v7;
+  v12 = 2048;
+  v13 = a3;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLDHighlightPillSlotDrawer: %p] client specified a max width smaller than the min size to fit the non-flexible contents. This will result in incorrect layout. maxWidth: %f, non-flexible item width: %f", &v8, 0x20u);
 }
 
 @end

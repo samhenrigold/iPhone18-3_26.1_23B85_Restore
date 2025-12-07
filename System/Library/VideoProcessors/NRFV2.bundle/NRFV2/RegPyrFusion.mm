@@ -1067,52 +1067,52 @@ LABEL_7:
   refTexlvl1Copy = refTexlvl1;
   mapCopy = map;
   confidenceMapCopy = confidenceMap;
-  v323 = 0;
-  v324 = 0;
-  v279 = imageCopy;
-  v280 = texlvl1Copy;
-  v278 = refTexlvl1Copy;
-  v281 = confidenceMapCopy;
+  v321 = 0;
+  v322 = 0;
+  v277 = imageCopy;
+  v278 = texlvl1Copy;
+  v276 = refTexlvl1Copy;
+  v279 = confidenceMapCopy;
   if (!texlvl1Copy)
   {
-    sub_2958925B8(&v287);
+    sub_2958925B8(&v285);
 LABEL_66:
-    v284 = 0;
+    v282 = 0;
     refTexlvl1Copy = 0;
     goto LABEL_47;
   }
 
   if (!refTexlvl1Copy)
   {
-    sub_29589250C(&v287);
+    sub_29589250C(&v285);
 LABEL_69:
-    v284 = 0;
+    v282 = 0;
     goto LABEL_47;
   }
 
   if (!mapCopy)
   {
-    sub_295892460(&v287);
+    sub_295892460(&v285);
     goto LABEL_66;
   }
 
   if (!confidenceMapCopy)
   {
-    sub_2958923B4(&v287);
+    sub_2958923B4(&v285);
     goto LABEL_66;
   }
 
   v20 = objc_msgSend_setLumaTexture_chromaTexture_level_metal_(self->_refPyr, v19, imgCopy[2], imgCopy[3], 0, self->_metal);
   if (v20)
   {
-    sub_2958918CC(v20, &v287);
+    sub_2958918CC(v20, &v285);
     goto LABEL_66;
   }
 
   v22 = objc_msgSend_setLumaTexture_chromaTexture_level_metal_(self->_nonRefPyr, v21, imageCopy[2], imageCopy[3], 0, self->_metal);
   if (v22)
   {
-    sub_295891984(v22, &v287);
+    sub_295891984(v22, &v285);
     goto LABEL_66;
   }
 
@@ -1123,17 +1123,17 @@ LABEL_69:
 
   if (!refTexlvl1Copy)
   {
-    sub_295892308(&v287);
+    sub_295892308(&v285);
     goto LABEL_69;
   }
 
   v33 = objc_msgSend_allocator(self->_metal, v30, v31, v32);
   v36 = objc_msgSend_newTextureDescriptor_(v33, v34, 0, v35);
 
-  v284 = v36;
+  v282 = v36;
   if (!v36)
   {
-    sub_29589225C(&v287);
+    sub_29589225C(&v285);
     goto LABEL_69;
   }
 
@@ -1153,19 +1153,19 @@ LABEL_69:
     v48 = *&v43[v41 + 57];
     if (!v48)
     {
-      sub_2958921B0(&v287);
+      sub_2958921B0(&v285);
 LABEL_47:
       v68 = 0;
 LABEL_48:
-      v69 = v287;
+      v69 = v285;
       goto LABEL_45;
     }
 
     *&v49 = *(v42 - 21) / *(v42 - 20);
     *(&v49 + 1) = *(v42 - 1) / *v42;
-    v285 = v49;
+    v283 = v49;
     v50 = v48;
-    *objc_msgSend_contents(v50, v51, v52, v53) = v285;
+    *objc_msgSend_contents(v50, v51, v52, v53) = v283;
     ++v42;
     v41 += 2;
   }
@@ -1173,6 +1173,8 @@ LABEL_48:
   while (v41 != 18);
   v54 = objc_msgSend_width(imgCopy[2], v38, v39, v40);
   v58 = objc_msgSend_height(imgCopy[2], v55, v56, v57);
+  v301 = 0u;
+  v302 = 0u;
   v303 = 0u;
   v304 = 0u;
   v305 = 0u;
@@ -1191,30 +1193,28 @@ LABEL_48:
   v318 = 0u;
   v319 = 0u;
   v320 = 0u;
-  v321 = 0u;
-  v322 = 0u;
   v59 = *(MEMORY[0x29EDCA928] + 16);
-  v288[0] = *MEMORY[0x29EDCA928];
-  v288[1] = v59;
-  v289 = *(MEMORY[0x29EDCA928] + 32);
-  v293 = 0;
-  v294 = (v54 - 1);
-  v295 = (v58 - 1);
-  v290 = 0;
-  v291 = v294;
-  v292 = v295;
-  v296[0] = v288[0];
-  v296[1] = v59;
-  v296[2] = v289;
-  v300 = 0;
-  v301 = v294;
-  v302 = v295;
-  v297 = 0;
-  v298 = v294;
-  v299 = v295;
-  self->_teleIsRefCalibData = v296;
-  self->_wideIsRefCalibData = v288;
-  objc_msgSend_scaleHomographyUsingCalib_to_(self, v60, v296, self->_pyrHomographyTeleIsRef);
+  v286[0] = *MEMORY[0x29EDCA928];
+  v286[1] = v59;
+  v287 = *(MEMORY[0x29EDCA928] + 32);
+  v291 = 0;
+  v292 = (v54 - 1);
+  v293 = (v58 - 1);
+  v288 = 0;
+  v289 = v292;
+  v290 = v293;
+  v294[0] = v286[0];
+  v294[1] = v59;
+  v294[2] = v287;
+  v298 = 0;
+  v299 = v292;
+  v300 = v293;
+  v295 = 0;
+  v296 = v292;
+  v297 = v293;
+  self->_teleIsRefCalibData = v294;
+  self->_wideIsRefCalibData = v286;
+  objc_msgSend_scaleHomographyUsingCalib_to_(self, v60, v294, self->_pyrHomographyTeleIsRef);
   objc_msgSend_scaleHomographyUsingCalib_to_(self, v61, self->_wideIsRefCalibData, self->_pyrHomographyWideIsRef);
   if (objc_msgSend_setupPyramidScalersUsingCalib(self, v62, v63, v64))
   {
@@ -1226,7 +1226,7 @@ LABEL_48:
   v70 = objc_msgSend_renderPassDescriptor(MEMORY[0x29EDBB5F8], v65, v66, v67);
   if (!v70)
   {
-    sub_295892104(&v287);
+    sub_295892104(&v285);
     goto LABEL_47;
   }
 
@@ -1257,9 +1257,9 @@ LABEL_48:
 
     if (!self->_refPyr->textureY[i])
     {
-      sub_295892058(&v287);
+      sub_295892058(&v285);
 LABEL_52:
-      v69 = v287;
+      v69 = v285;
       v68 = v74;
       goto LABEL_45;
     }
@@ -1273,7 +1273,7 @@ LABEL_52:
 
     if (!self->_nonRefPyr->textureY[i])
     {
-      sub_295891FAC(&v287);
+      sub_295891FAC(&v285);
       goto LABEL_52;
     }
 
@@ -1283,7 +1283,7 @@ LABEL_52:
   v122 = objc_msgSend_commandBuffer(self->_metal, v84, v85, v86);
   if (!v122)
   {
-    sub_295891F00(&v287);
+    sub_295891F00(&v285);
     goto LABEL_52;
   }
 
@@ -1296,8 +1296,8 @@ LABEL_52:
     v128 = v127[1];
     v129 = v127[2];
     v130 = &self->_nonRefPyr->textureY[v126++];
-    LODWORD(v273) = v126;
-    objc_msgSend_bilinearScaleWithCommandBuffer_renderPassDesc_refTexIn_refTexOut_nonRefTexIn_nonRefTexOut_pyrLevel_(self, v125, v124, v74, v128, v129, v130[1], v130[2], v273);
+    LODWORD(v271) = v126;
+    objc_msgSend_bilinearScaleWithCommandBuffer_renderPassDesc_refTexIn_refTexOut_nonRefTexIn_nonRefTexOut_pyrLevel_(self, v125, v124, v74, v128, v129, v130[1], v130[2], v271);
   }
 
   while (v126 != 9);
@@ -1306,7 +1306,7 @@ LABEL_52:
 
   if (!v68)
   {
-    sub_295891E44(v124, &v287);
+    sub_295891E44(v124, &v285);
     goto LABEL_48;
   }
 
@@ -1314,20 +1314,20 @@ LABEL_52:
 
   if (!v139)
   {
-    sub_295891D98(&v287);
+    sub_295891D98(&v285);
     goto LABEL_48;
   }
 
-  v277 = imgCopy;
+  v275 = imgCopy;
   v143 = 0;
   v144 = &self->_pyrHomographyWideIsRef[10];
   v145 = &self->_pyrWidths[10];
   v146 = 80;
-  v283 = &self->_pyrHomographyWideIsRef[10];
+  v281 = &self->_pyrHomographyWideIsRef[10];
   while (1)
   {
-    v286 = 0;
-    v287 = 0;
+    v284 = 0;
+    v285 = 0;
     v147 = *v145;
     v148 = objc_msgSend_desc(refTexlvl1Copy, v140, v141, v142);
     objc_msgSend_setWidth_(v148, v149, v147, v150);
@@ -1344,24 +1344,24 @@ LABEL_52:
 
     objc_msgSend_setLabel_(refTexlvl1Copy, v170, 0, v171);
     v175 = objc_msgSend_allocator(self->_metal, v172, v173, v174);
-    v287 = objc_msgSend_newTextureWithDescriptor_(v175, v176, refTexlvl1Copy, v177);
+    v285 = objc_msgSend_newTextureWithDescriptor_(v175, v176, refTexlvl1Copy, v177);
 
-    if (!v287)
+    if (!v285)
     {
-      sub_295891CEC(v325);
+      sub_295891CEC(v323);
 LABEL_56:
-      v69 = v325[0];
+      v69 = v323[0];
       goto LABEL_59;
     }
 
     objc_msgSend_generateDerivativesWithCommandBuffer_renderPassDesc_inputTex_outputTex_(self, v178, v139, v68, self->_refPyr->textureY[v143 + 10]);
     objc_msgSend_setLabel_(refTexlvl1Copy, v179, 0, v180);
     v184 = objc_msgSend_allocator(self->_metal, v181, v182, v183);
-    v286 = objc_msgSend_newTextureWithDescriptor_(v184, v185, refTexlvl1Copy, v186);
+    v284 = objc_msgSend_newTextureWithDescriptor_(v184, v185, refTexlvl1Copy, v186);
 
-    if (!v286)
+    if (!v284)
     {
-      sub_295891C40(v325);
+      sub_295891C40(v323);
       goto LABEL_56;
     }
 
@@ -1372,18 +1372,18 @@ LABEL_56:
     objc_msgSend_setLabel_(refTexlvl1Copy, v194, 0, v195);
     v199 = objc_msgSend_allocator(self->_metal, v196, v197, v198);
     v202 = objc_msgSend_newTextureWithDescriptor_(v199, v200, refTexlvl1Copy, v201);
-    v203 = v323;
-    v323 = v202;
+    v203 = v321;
+    v321 = v202;
 
-    if (!v323)
+    if (!v321)
     {
-      sub_295891B94(v325);
+      sub_295891B94(v323);
       goto LABEL_56;
     }
 
     if (v143)
     {
-      v205 = v324;
+      v205 = v322;
     }
 
     else
@@ -1391,56 +1391,56 @@ LABEL_56:
       v205 = 0;
     }
 
-    LODWORD(v274) = v143 + 10;
-    objc_msgSend_basicSearchWithCommandBuffer_renderPassDesc_refDerivTex_nonRefDerivTex_prevShiftMap_nextShiftMap_homography_pyrLevel_(self, v204, v139, v68, v287, v286, v205, v144[v143], v274);
+    LODWORD(v272) = v143 + 10;
+    objc_msgSend_basicSearchWithCommandBuffer_renderPassDesc_refDerivTex_nonRefDerivTex_prevShiftMap_nextShiftMap_homography_pyrLevel_(self, v204, v139, v68, v285, v284, v205, v144[v143], v272);
     if (v143)
     {
       FigMetalDecRef();
     }
 
-    objc_msgSend_setLabel_(v284, v206, 0, v207);
-    v211 = objc_msgSend_desc(v284, v208, v209, v210);
+    objc_msgSend_setLabel_(v282, v206, 0, v207);
+    v211 = objc_msgSend_desc(v282, v208, v209, v210);
     objc_msgSend_setPixelFormat_(v211, v212, 65, v213);
 
     v214 = *v145;
-    v218 = objc_msgSend_desc(v284, v215, v216, v217);
+    v218 = objc_msgSend_desc(v282, v215, v216, v217);
     objc_msgSend_setWidth_(v218, v219, v214, v220);
 
     v221 = v145[20];
-    v225 = objc_msgSend_desc(v284, v222, v223, v224);
+    v225 = objc_msgSend_desc(v282, v222, v223, v224);
     objc_msgSend_setHeight_(v225, v226, v221, v227);
 
-    v231 = objc_msgSend_desc(v284, v228, v229, v230);
+    v231 = objc_msgSend_desc(v282, v228, v229, v230);
     objc_msgSend_setUsage_(v231, v232, 7, v233);
 
     v237 = objc_msgSend_allocator(self->_metal, v234, v235, v236);
-    v239 = objc_msgSend_newTextureWithDescriptor_subAllocatorID_(v237, v238, v284, 0);
-    v240 = v324;
-    v324 = v239;
+    v239 = objc_msgSend_newTextureWithDescriptor_subAllocatorID_(v237, v238, v282, 0);
+    v240 = v322;
+    v322 = v239;
 
-    if (!v324)
+    if (!v322)
     {
       break;
     }
 
-    objc_msgSend_smoothShiftMapWithCommandBuffer_renderPassDesc_input_output_(self, v241, v139, v68, v323);
+    objc_msgSend_smoothShiftMapWithCommandBuffer_renderPassDesc_input_output_(self, v241, v139, v68, v321);
     FigMetalDecRef();
     objc_msgSend_setLabel_(refTexlvl1Copy, v242, 0, v243);
     v247 = objc_msgSend_allocator(self->_metal, v244, v245, v246);
     v250 = objc_msgSend_newTextureWithDescriptor_(v247, v248, refTexlvl1Copy, v249);
-    v251 = v323;
-    v323 = v250;
+    v251 = v321;
+    v321 = v250;
 
-    if (!v323)
+    if (!v321)
     {
-      sub_295891A3C(v325);
-      v69 = v325[0];
+      sub_295891A3C(v323);
+      v69 = v323[0];
       goto LABEL_59;
     }
 
     v144 = &self->_pyrHomographyWideIsRef[10];
-    LODWORD(v275) = v143 + 10;
-    ShiftMap_nextShiftMap_homography_pyrLevel = objc_msgSend_selectionWithCommandBuffer_renderPassDesc_refDerivTex_nonRefDerivTex_prevShiftMap_nextShiftMap_homography_pyrLevel_(self, v252, v139, v68, v287, v286, v324, v283[v143], v275);
+    LODWORD(v273) = v143 + 10;
+    ShiftMap_nextShiftMap_homography_pyrLevel = objc_msgSend_selectionWithCommandBuffer_renderPassDesc_refDerivTex_nonRefDerivTex_prevShiftMap_nextShiftMap_homography_pyrLevel_(self, v252, v139, v68, v285, v284, v322, v281[v143], v273);
     if (ShiftMap_nextShiftMap_homography_pyrLevel)
     {
       goto LABEL_49;
@@ -1451,20 +1451,20 @@ LABEL_56:
     if (v143 == -9)
     {
       v259 = mapCopy;
-      v260 = v324;
-      v324 = v259;
+      v260 = v322;
+      v322 = v259;
     }
 
     else
     {
       v260 = objc_msgSend_allocator(self->_metal, v256, v257, v258);
       v263 = objc_msgSend_newTextureWithDescriptor_(v260, v261, refTexlvl1Copy, v262);
-      v264 = v324;
-      v324 = v263;
+      v264 = v322;
+      v322 = v263;
     }
 
-    LODWORD(v276) = v143 + 10;
-    ShiftMap_nextShiftMap_homography_pyrLevel = objc_msgSend_fusionWithCommandBuffer_refTex_refDerivTex_nonRefDerivTex_prevShiftMap_nextShiftMap_homography_pyrLevel_(self, v265, v139, self->_refPyr->textureY[v143 + 10], v287, v286, v323, v324, v283[v143], v276);
+    LODWORD(v274) = v143 + 10;
+    ShiftMap_nextShiftMap_homography_pyrLevel = objc_msgSend_fusionWithCommandBuffer_refTex_refDerivTex_nonRefDerivTex_prevShiftMap_nextShiftMap_homography_pyrLevel_(self, v265, v139, self->_refPyr->textureY[v143 + 10], v285, v284, v321, v322, v281[v143], v274);
     if (ShiftMap_nextShiftMap_homography_pyrLevel)
     {
 LABEL_49:
@@ -1477,32 +1477,30 @@ LABEL_49:
     FigMetalDecRef();
     if (v143 != -9)
     {
-      v266 = self->_refPyr + v146;
       FigMetalDecRef();
-      v267 = self->_nonRefPyr + v146;
       FigMetalDecRef();
     }
 
-    v268 = v143 + 10;
+    v266 = v143 + 10;
     --v143;
     v146 -= 8;
     --v145;
-    if (v268 <= 1)
+    if (v266 <= 1)
     {
-      objc_msgSend_confidenceMapWithCommandBuffer_renderPassDesc_shiftMap_confidenceOut_(self, v140, v139, v68, mapCopy, v281);
-      objc_msgSend_commit(self->_metal, v269, v270, v271);
+      objc_msgSend_confidenceMapWithCommandBuffer_renderPassDesc_shiftMap_confidenceOut_(self, v140, v139, v68, mapCopy, v279);
+      objc_msgSend_commit(self->_metal, v267, v268, v269);
 
       v69 = 0;
       goto LABEL_44;
     }
   }
 
-  sub_295891AE8(v325);
-  v69 = v325[0];
+  sub_295891AE8(v323);
+  v69 = v323[0];
 LABEL_59:
 
 LABEL_44:
-  imgCopy = v277;
+  imgCopy = v275;
 LABEL_45:
 
   return v69;

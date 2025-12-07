@@ -6,7 +6,7 @@
 id __53___UIButtonConfigurationStyleBehaviors_tintBehaviors__block_invoke_6(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = +[UIColor blackColor];
+  v3 = objc_msgSend_blackColor(UIColor);
   v4 = [v3 resolvedColorWithTraitCollection:v2];
 
   return v4;
@@ -118,7 +118,7 @@ id __53___UIButtonConfigurationStyleBehaviors_fillBehaviors__block_invoke_7(uint
   else
   {
     v5 = a2;
-    v3 = +[UIColor blackColor];
+    v3 = objc_msgSend_blackColor(UIColor);
     v4 = [v3 resolvedColorWithTraitCollection:v5];
   }
 
@@ -355,7 +355,7 @@ LABEL_25:
 id __53___UIButtonConfigurationStyleBehaviors_grayBehaviors__block_invoke_6(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = +[UIColor blackColor];
+  v3 = objc_msgSend_blackColor(UIColor);
   v4 = [v3 resolvedColorWithTraitCollection:v2];
 
   return v4;
@@ -509,7 +509,7 @@ id __55___UIButtonConfigurationStyleBehaviors_plainBehaviors___block_invoke_4(ui
   v3 = a2;
   if ([v3 userInterfaceIdiom] == 6)
   {
-    v4 = +[UIColor blackColor];
+    v4 = objc_msgSend_blackColor(UIColor);
     v5 = [v4 resolvedColorWithTraitCollection:v3];
   }
 

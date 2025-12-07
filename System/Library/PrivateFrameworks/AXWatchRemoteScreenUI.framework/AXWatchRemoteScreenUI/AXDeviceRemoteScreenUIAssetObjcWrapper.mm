@@ -53,9 +53,9 @@
 
 + (uint64_t)watchView
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __getAXUIBannerPresenterClass_block_invoke_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return __getAXUIBannerPresenterClass_block_invoke_cold_1();
 }
 
 @end

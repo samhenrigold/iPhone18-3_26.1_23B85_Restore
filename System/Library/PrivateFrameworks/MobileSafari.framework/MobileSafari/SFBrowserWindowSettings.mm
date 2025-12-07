@@ -17,7 +17,7 @@ void __65___SFBrowserWindowSettings__initializeSettingsDictionaryIfNeeded__block
   [*(*(a1 + 32) + 8) setObject:v6 forKeyedSubscript:v5];
 }
 
-uint64_t __39___SFBrowserWindowSettings_synchronize__block_invoke(uint64_t a1)
+void *__39___SFBrowserWindowSettings_synchronize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _synchronizeNow];
   *(*(a1 + 32) + 16) = 0;

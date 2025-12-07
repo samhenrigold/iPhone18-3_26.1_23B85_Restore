@@ -1807,7 +1807,6 @@ LABEL_351:
   objc_storeStrong(&v402, 0);
   objc_storeStrong(&v403, 0);
   objc_storeStrong(v405, 0);
-  *MEMORY[0x277D85DE8];
   v19 = v407;
 
   return v19;
@@ -2378,7 +2377,6 @@ LABEL_70:
 
   objc_storeStrong(&v128, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v19 = v131;
 
   return v19;
@@ -2490,7 +2488,6 @@ void __67__AMDJSDebugHandler_handleAsyncDebugRequest_withCompletionHandler___blo
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v2 = a1[4];
   (*(a1[5] + 16))();
   objc_storeStrong(location, 0);
 }
@@ -2500,7 +2497,6 @@ void __67__AMDJSDebugHandler_handleAsyncDebugRequest_withCompletionHandler___blo
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v2 = a1[4];
   (*(a1[5] + 16))();
   objc_storeStrong(location, 0);
 }
@@ -2510,7 +2506,6 @@ void __67__AMDJSDebugHandler_handleAsyncDebugRequest_withCompletionHandler___blo
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v2 = a1[4];
   (*(a1[5] + 16))();
   objc_storeStrong(location, 0);
 }
@@ -2558,7 +2553,6 @@ void __67__AMDJSDebugHandler_handleAsyncDebugRequest_withCompletionHandler___blo
   (*(a1[4] + 16))();
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __67__AMDJSDebugHandler_handleAsyncDebugRequest_withCompletionHandler___block_invoke_596(void *a1, void *a2, void *a3)

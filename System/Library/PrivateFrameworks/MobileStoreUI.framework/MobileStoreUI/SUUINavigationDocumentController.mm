@@ -56,23 +56,23 @@
 - (SUUINavigationDocumentController)initWithNavigationController:(id)controller
 {
   controllerCopy = controller;
-  v14.receiver = self;
-  v14.super_class = SUUINavigationDocumentController;
-  v6 = [(SUUINavigationDocumentController *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = SUUINavigationDocumentController;
+  v6 = [(SUUINavigationDocumentController *)&v16 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_navigationController, controller);
-    v8 = storeSemanticContentAttribute();
+    v10 = storeSemanticContentAttribute(v8, v9);
     view = [(UINavigationController *)v7->_navigationController view];
-    [view setSemanticContentAttribute:v8];
+    [view setSemanticContentAttribute:v10];
 
     navigationBar = [(UINavigationController *)v7->_navigationController navigationBar];
-    [navigationBar setSemanticContentAttribute:v8];
+    [navigationBar setSemanticContentAttribute:v10];
 
-    v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
     stackItems = v7->_stackItems;
-    v7->_stackItems = v11;
+    v7->_stackItems = v13;
   }
 
   return v7;
@@ -471,7 +471,7 @@ void __169__SUUINavigationDocumentController_showStopPageForTab_replacementAppAd
 {
   undefinedCopy = undefined;
   v4 = undefinedCopy;
-  if (undefinedCopy && ([undefinedCopy isEqualToString:@"undefined"] & 1) != 0)
+  if (undefinedCopy && (objc_msgSend_isEqualToString_(undefinedCopy) & 1) != 0)
   {
     v5 = 0;
   }

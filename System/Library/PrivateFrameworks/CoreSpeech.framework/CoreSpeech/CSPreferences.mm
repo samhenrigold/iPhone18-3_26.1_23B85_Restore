@@ -1,5 +1,6 @@
 @interface CSPreferences
 + (id)sharedPreferences;
+- (BOOL)enableAudioInjection:(BOOL)injection;
 - (BOOL)fileLoggingIsEnabled;
 - (BOOL)isAdaptiveSiriVolumePermanentOffsetEnabled;
 - (BOOL)isAdaptiveSiriVolumeTemporaryIntentValid;
@@ -24,6 +25,7 @@
 - (int)adaptiveSiriVolumeRecentIntent;
 - (void)disableAdaptiveSiriVolume:(id)volume;
 - (void)setAudioInjectionFilePath:(id)path;
+- (void)setFileLoggingIsEnabled:(BOOL)enabled;
 @end
 
 @implementation CSPreferences
@@ -115,6 +117,15 @@
   useSiriActivationSPIForHomePod = [mEMORY[0x277D01788] useSiriActivationSPIForHomePod];
 
   return useSiriActivationSPIForHomePod;
+}
+
+- (BOOL)enableAudioInjection:(BOOL)injection
+{
+  injectionCopy = injection;
+  mEMORY[0x277D01788] = [MEMORY[0x277D01788] sharedPreferences];
+  LOBYTE(injectionCopy) = [mEMORY[0x277D01788] enableAudioInjection:injectionCopy];
+
+  return injectionCopy;
 }
 
 - (void)setAudioInjectionFilePath:(id)path
@@ -220,6 +231,13 @@
   fileLoggingIsEnabled = [mEMORY[0x277D01788] fileLoggingIsEnabled];
 
   return fileLoggingIsEnabled;
+}
+
+- (void)setFileLoggingIsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  mEMORY[0x277D01788] = [MEMORY[0x277D01788] sharedPreferences];
+  [mEMORY[0x277D01788] setFileLoggingIsEnabled:enabledCopy];
 }
 
 + (id)sharedPreferences

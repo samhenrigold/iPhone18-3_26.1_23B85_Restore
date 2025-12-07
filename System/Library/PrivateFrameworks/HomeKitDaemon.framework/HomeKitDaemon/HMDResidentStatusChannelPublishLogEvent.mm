@@ -73,7 +73,7 @@
     [dictionary setObject:v10 forKeyedSubscript:@"publishReason"];
   }
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }

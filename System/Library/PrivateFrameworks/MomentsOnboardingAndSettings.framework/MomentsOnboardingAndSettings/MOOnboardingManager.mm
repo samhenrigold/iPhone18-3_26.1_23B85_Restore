@@ -154,20 +154,18 @@ uint64_t __72__MOOnboardingManager_getExtendedOnboardingFlowRefreshCompletionSta
 
 - (void)setOnboardingFlowCompletionStatus:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  v3 = 71;
-  _os_log_error_impl(&dword_25A200000, v0, OS_LOG_TYPE_ERROR, "Can't set onboarding status if you have not checked what it was before trying to set it (in %s:%d)", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 71;
+  _os_log_error_impl(&dword_25A200000, v0, OS_LOG_TYPE_ERROR, "Can't set onboarding status if you have not checked what it was before trying to set it (in %s:%d)", v1, 0x12u);
 }
 
 - (void)onboardingFlowRefreshCompletionStatus
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  v3 = 78;
-  _os_log_error_impl(&dword_25A200000, v0, OS_LOG_TYPE_ERROR, "Can't check onboarding refresh status if you have not changed onboarding status (in %s:%d)", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 78;
+  _os_log_error_impl(&dword_25A200000, v0, OS_LOG_TYPE_ERROR, "Can't check onboarding refresh status if you have not changed onboarding status (in %s:%d)", v1, 0x12u);
 }
 
 @end

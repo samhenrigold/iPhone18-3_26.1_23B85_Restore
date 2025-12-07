@@ -9,6 +9,7 @@
 - (id)createRequestMessageWithApplicationLabel:(id)label payload:(id)payload;
 - (id)createResponseWithApplicationLabel:(id)label payload:(id)payload forRequestMessage:(id)message;
 - (id)createTapEventWithApplicationLabel:(id)label singleBandAWDLModeRequested:(BOOL)requested pkData:(id)data bonjourListenerUUID:(id)d identity:(id)identity isUnsupportedApplicationLabel:(BOOL)applicationLabel flags:(unsigned int)flags;
+- (id)createValidationPayloadWithKnownIdentity:(BOOL)identity supportsApplicationLabel:(BOOL)label;
 @end
 
 @implementation RPNearFieldDataSource
@@ -39,6 +40,13 @@
   v11 = [(RPNearFieldAuthenticationPayload *)v8 initWithTimeStamp:v9 pkData:dataCopy bonjourListenerUUID:dCopy selfIdentity:_identityForNFCDeviceDiscovery];
 
   return v11;
+}
+
+- (id)createValidationPayloadWithKnownIdentity:(BOOL)identity supportsApplicationLabel:(BOOL)label
+{
+  v4 = [[RPNearFieldValidationPayload alloc] initWithKnownIdentity:identity supportsApplicationLabel:label];
+
+  return v4;
 }
 
 - (id)createRequestMessageWithApplicationLabel:(id)label payload:(id)payload

@@ -7,58 +7,58 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v51 = 0;
-  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v51);
-  v11 = v51;
-  v16 = objc_msgSend_decimalRepresentation(v10, v12, v13, v14, v15);
+  v45 = 0;
+  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v45);
+  v11 = v45;
+  v15 = objc_msgSend_decimalRepresentation(v10, v12, v13, v14);
   if (v11)
   {
-    v20 = objc_msgSend_raiseErrorOrConvert_(context, v17, v11, v18, v19);
+    v18 = objc_msgSend_raiseErrorOrConvert_(context, v16, v11, v17);
   }
 
   else
   {
-    v21 = v16;
-    v22 = v17;
-    v23 = *(*arguments + 8);
-    v50 = 0;
-    v25 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v23, v24, context, spec, 1, &v50);
-    v11 = v50;
-    v30 = objc_msgSend_trunc(v25, v26, v27, v28, v29);
+    v19 = v15;
+    v20 = v16;
+    v21 = *(*arguments + 8);
+    v44 = 0;
+    v23 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v21, v22, context, spec, 1, &v44);
+    v11 = v44;
+    v27 = objc_msgSend_trunc(v23, v24, v25, v26);
 
-    v49._decimal.w[0] = objc_msgSend_decimalRepresentation(v30, v31, v32, v33, v34);
-    v49._decimal.w[1] = v35;
+    v43._decimal.w[0] = objc_msgSend_decimalRepresentation(v27, v28, v29, v30);
+    v43._decimal.w[1] = v31;
     if (v11)
     {
-      v38 = objc_msgSend_raiseErrorOrConvert_(context, v35, v11, v36, v37);
+      v33 = objc_msgSend_raiseErrorOrConvert_(context, v31, v11, v32);
     }
 
     else
     {
       TSUDecimal::operator=();
-      *&v45[0] = v21;
-      *(&v45[0] + 1) = v22;
+      *&v39[0] = v19;
+      *(&v39[0] + 1) = v20;
       TSUDecimal::operator/=();
-      v45[3] = v45[0];
+      v39[3] = v39[0];
       TSUDecimal::operator+=();
-      v47 = v46;
-      TSUDecimal::doubleValue(&v47);
-      v40 = v39;
-      TSUDecimal::doubleValue(&v49);
-      pow(v40, v41);
+      v41 = v40;
+      TSUDecimal::doubleValue(&v41);
+      v35 = v34;
+      TSUDecimal::doubleValue(&v43);
+      pow(v35, v36);
       TSUDecimal::operator=();
       TSUDecimal::operator=();
-      v45[0] = v46;
+      v39[0] = v40;
       TSUDecimal::operator-=();
-      v48 = v46;
-      TSCEFormat::TSCEFormat(v45, 258);
-      v38 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v42, &v48, v45, v43);
+      v42 = v40;
+      TSCEFormat::TSCEFormat(v39, 258);
+      v33 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v37, &v42, v39);
     }
 
-    v20 = v38;
+    v18 = v33;
   }
 
-  return v20;
+  return v18;
 }
 
 @end

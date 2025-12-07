@@ -5,6 +5,14 @@
 - (BOOL)isPopulated;
 - (BOOL)isValid;
 - (BOOL)markAsUsed:(id *)used;
+- (BOOL)propertyAsBool:(unsigned int)bool async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asArray:(id)array async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asBool:(BOOL)bool async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asData:(id)data async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asDate:(id)date async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asNumber:(id)number async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asObject:(id)object async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asString:(id)string async:(BOOL)async options:(unsigned int)options error:(id *)error;
 - (id).cxx_construct;
 - (id)brContainer;
 - (id)brContainerDocuments;
@@ -17,6 +25,13 @@
 - (id)fpDomain;
 - (id)fpItem;
 - (id)iteratorWithOptions:(unsigned int)options;
+- (id)propertyAsArray:(unsigned int)array async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsData:(unsigned int)data async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsDate:(unsigned int)date async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsDictionary:(unsigned int)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsNSObject:(unsigned int)object async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsNumber:(unsigned int)number async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsString:(unsigned int)string async:(BOOL)async options:(unsigned int)options error:(id *)error;
 - (id)shortDescription;
 - (shared_ptr<TFSInfo>)fsInfo;
 - (unint64_t)nodeIs:(unint64_t)is error:(id *)error;
@@ -27,6 +42,8 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)inlineProgressCancel;
 - (void)nodeRestartObservingWithOptions:(unsigned int)options;
+- (void)startObserving:(unsigned int)observing with:(OpaqueEventNotifier *)with;
+- (void)stopObserving:(unsigned int)observing with:(OpaqueEventNotifier *)with;
 - (void)synchronizeWithOptions:(unsigned int)options async:(BOOL)async;
 @end
 
@@ -235,7 +252,7 @@
 
   else
   {
-    TNode::Path(asTNode, &v62.fString.fRef);
+    TNode::Path(&v62, asTNode);
     if (CFStringGetLength(v62.fString.fRef))
     {
       v37 = MEMORY[0x1E696AEC0];
@@ -304,7 +321,7 @@
 
 - (id)fileURL
 {
-  [(FIDSNode *)self fsInfo];
+  objc_msgSend_fsInfo(self, a2);
   os_unfair_lock_lock((v6 + 108));
   v2 = *(v6 + 16);
   v5 = v2;
@@ -335,7 +352,7 @@
 
 - (id)fpItem
 {
-  [(FIDSNode *)self fsInfo];
+  objc_msgSend_fsInfo(self, a2);
   v2 = TFSInfo::GetFPItem(v4);
   if (v5)
   {
@@ -387,7 +404,7 @@
 
 - (id)fpDomain
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   fiDomain = [(FIDSNode *)self fiDomain];
   v3 = fiDomain;
   if (fiDomain)
@@ -399,15 +416,15 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         domainID = [v3 domainID];
-        v10.fString.fRef = &stru_1F5F42870;
+        v9.fString.fRef = &stru_1F5F42870;
         CFRetain(&stru_1F5F42870);
-        TString::SetStringRefAsImmutable(&v10, domainID);
+        TString::SetStringRefAsImmutable(&v9, domainID);
 
-        v7 = SanitizedStr(&v10);
+        v7 = SanitizedStr(&v9);
         *buf = 138543362;
-        v12 = v7;
+        v11 = v7;
         _os_log_impl(&dword_1E5674000, v5, OS_LOG_TYPE_ERROR, "Found fiDomain but not FPDomain available %{public}@", buf, 0xCu);
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v10.fString.fRef);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v9.fString.fRef);
       }
     }
   }
@@ -416,8 +433,6 @@
   {
     domain = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return domain;
 }
@@ -438,7 +453,7 @@
 
 void __31__FIDSNode_FPv2_makeWithCoder___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v5;
@@ -450,15 +465,15 @@ void __31__FIDSNode_FPv2_makeWithCoder___block_invoke(uint64_t a1, void *a2, voi
     {
       v10 = *(a1 + 56);
       v11 = *(a1 + 64);
-      v16 = 138544130;
-      v17 = v7;
-      v18 = 2114;
-      v19 = v10;
-      v20 = 2114;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v8;
-      _os_log_impl(&dword_1E5674000, v9, OS_LOG_TYPE_ERROR, "Failed to decode FPItem to node.\n\t%{public}@\n\tfpItem: %{public}@\n\tfpDomain: %{public}@\n\terror: %{public}@", &v16, 0x2Au);
+      v15 = 138544130;
+      v16 = v7;
+      v17 = 2114;
+      v18 = v10;
+      v19 = 2114;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v8;
+      _os_log_impl(&dword_1E5674000, v9, OS_LOG_TYPE_ERROR, "Failed to decode FPItem to node.\n\t%{public}@\n\tfpItem: %{public}@\n\tfpDomain: %{public}@\n\terror: %{public}@", &v15, 0x2Au);
     }
   }
 
@@ -468,7 +483,6 @@ void __31__FIDSNode_FPv2_makeWithCoder___block_invoke(uint64_t a1, void *a2, voi
   *v13 = v12;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_makeWithCoder:(id)coder
@@ -550,36 +564,36 @@ LABEL_12:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = FIDSNode;
-  [(FINode *)&v23 encodeWithCoder:coderCopy];
+  v22.receiver = self;
+  v22.super_class = FIDSNode;
+  [(FINode *)&v22 encodeWithCoder:coderCopy];
   if ([objc_opt_class() conformsToProtocol:&unk_1F5F4BCC0])
   {
     theString = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
     v5 = sSubclassMakeWithCoderRegistry;
     objc_sync_enter(v5);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     allKeys = [sSubclassMakeWithCoderRegistry allKeys];
-    v7 = [allKeys countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v7)
     {
-      v8 = *v19;
+      v8 = *v18;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = [sSubclassMakeWithCoderRegistry objectForKeyedSubscript:v10];
           if ([v11 isEqual:objc_opt_class()])
           {
@@ -593,7 +607,7 @@ LABEL_12:
           }
         }
 
-        v7 = [allKeys countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v17 objects:v23 count:16];
         if (v7)
         {
           continue;
@@ -635,8 +649,6 @@ LABEL_14:
   {
     [coderCopy encodeObject:fileURL forKey:@"FI URL"];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (void)registerClassForFIDSNodeCoding:(id)coding
@@ -664,20 +676,98 @@ void __43__FIDSNode_registerClassForFIDSNodeCoding___block_invoke()
   sSubclassMakeWithCoderRegistry = v0;
 }
 
+- (void)startObserving:(unsigned int)observing with:(OpaqueEventNotifier *)with
+{
+  v5 = *&observing;
+  v17 = *MEMORY[0x1E69E9840];
+  [(FINode *)self nodesToObserve];
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v7 = v13 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = *v13;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v11 = *(*(&v12 + 1) + 8 * v10);
+        NodeRegisterChangeNotification([v11 nodeRef], with, v5);
+
+        ++v10;
+      }
+
+      while (v8 != v10);
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v8);
+  }
+
+  NodeObservedOptionsCountRegistry::StartedObserving(self, v5);
+}
+
+- (void)stopObserving:(unsigned int)observing with:(OpaqueEventNotifier *)with
+{
+  v5 = *&observing;
+  v17 = *MEMORY[0x1E69E9840];
+  [(FINode *)self nodesToObserve];
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v7 = v13 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = *v13;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v11 = *(*(&v12 + 1) + 8 * v10);
+        NodeUnregisterChangeNotification([v11 nodeRef], with, v5);
+
+        ++v10;
+      }
+
+      while (v8 != v10);
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v8);
+  }
+
+  NodeObservedOptionsCountRegistry::StoppedObserving(self, v5);
+}
+
 - (void)dispatchEvent:(id)event forObserver:(id)observer
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   observerCopy = observer;
-  NodeEventFromNodeEventRef(event, &v13);
-  v14[0] = *(TNodeEventPtr::operator->(&v13) + 64);
-  TDSNotifier::AddPtrReference(v14[0]);
-  v6 = *(v14[0] + 3);
+  NodeEventFromNodeEventRef(&v12, event);
+  v13[0] = *(TNodeEventPtr::operator->(&v12) + 64);
+  TDSNotifier::AddPtrReference(v13[0]);
+  v6 = *(v13[0] + 3);
   v7 = TNodeFromFINode(v6);
   v8 = FIDSNodeFromTNode(v7);
 
-  TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(v14);
-  v9 = *(TNodeEventPtr::operator->(&v13) + 8);
-  v10 = *TNodeEventPtr::operator->(&v13);
+  TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(v13);
+  v9 = *(TNodeEventPtr::operator->(&v12) + 8);
+  v10 = *TNodeEventPtr::operator->(&v12);
   if (v10 > 5)
   {
     if (v10 > 8)
@@ -705,12 +795,12 @@ void __43__FIDSNode_registerClassForFIDSNodeCoding___block_invoke()
     {
       if (objc_opt_respondsToSelector())
       {
-        [observerCopy childChanged:v9 in:v8 for:*(TNodeEventPtr::operator->(&v13) + 16)];
+        [observerCopy childChanged:v9 in:v8 for:*(TNodeEventPtr::operator->(&v12) + 16)];
       }
 
       else if (objc_opt_respondsToSelector())
       {
-        [observerCopy childNodePropertyChanged:v9 forProperty:*(TNodeEventPtr::operator->(&v13) + 16)];
+        [observerCopy childNodePropertyChanged:v9 forProperty:*(TNodeEventPtr::operator->(&v12) + 16)];
       }
     }
 
@@ -736,8 +826,8 @@ void __43__FIDSNode_registerClassForFIDSNodeCoding___block_invoke()
       {
         if (objc_opt_respondsToSelector())
         {
-          v14[0] = v9;
-          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+          v13[0] = v9;
+          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
           [observerCopy childrenAdded:v11 to:v8];
         }
 
@@ -748,8 +838,8 @@ void __43__FIDSNode_registerClassForFIDSNodeCoding___block_invoke()
             goto LABEL_43;
           }
 
-          v14[0] = v9;
-          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+          v13[0] = v9;
+          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
           [observerCopy childNodesAdded:v11];
         }
       }
@@ -763,8 +853,8 @@ void __43__FIDSNode_registerClassForFIDSNodeCoding___block_invoke()
 
         if (objc_opt_respondsToSelector())
         {
-          v14[0] = v9;
-          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+          v13[0] = v9;
+          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
           [observerCopy childrenDeleted:v11 from:v8];
         }
 
@@ -775,8 +865,8 @@ void __43__FIDSNode_registerClassForFIDSNodeCoding___block_invoke()
             goto LABEL_43;
           }
 
-          v14[0] = v9;
-          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+          v13[0] = v9;
+          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
           [observerCopy childNodesDeleted:v11];
         }
       }
@@ -801,46 +891,45 @@ void __43__FIDSNode_registerClassForFIDSNodeCoding___block_invoke()
     {
       if (objc_opt_respondsToSelector())
       {
-        [observerCopy nodeChanged:v8 for:*(TNodeEventPtr::operator->(&v13) + 16)];
+        [observerCopy nodeChanged:v8 for:*(TNodeEventPtr::operator->(&v12) + 16)];
       }
 
       else if (objc_opt_respondsToSelector())
       {
-        [observerCopy nodePropertyChanged:v8 forProperty:*(TNodeEventPtr::operator->(&v13) + 16)];
+        [observerCopy nodePropertyChanged:v8 forProperty:*(TNodeEventPtr::operator->(&v12) + 16)];
       }
     }
   }
 
 LABEL_43:
 
-  TNodeEventPtr::~TNodeEventPtr(&v13);
-  v12 = *MEMORY[0x1E69E9840];
+  TNodeEventPtr::~TNodeEventPtr(&v12);
 }
 
 - (id)iteratorWithOptions:(unsigned int)options
 {
-  v9 = 0;
+  v10 = 0;
   nodeRef = [(FINode *)self nodeRef];
   if ((options & 0x40000) == 0)
   {
-    NodeCreateNewRequest(0);
+    NodeCreateNewRequest(0, v4);
   }
 
-  v8 = 0;
-  NodeNewIterator(nodeRef, &v9);
-  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v8);
-  if (v9)
+  v9 = 0;
+  NodeNewIterator(nodeRef, &v10, 0, options);
+  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v9);
+  if (v10)
   {
-    v5 = [FINodeIterator alloc];
-    v6 = [(FINodeIterator *)v5 initWithIterator:v9];
+    v6 = [FINodeIterator alloc];
+    v7 = [(FINodeIterator *)v6 initWithIterator:v10, v9];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (unint64_t)nodeIs:(unint64_t)is error:(id *)error
@@ -853,7 +942,7 @@ LABEL_43:
 
   else
   {
-    v7 = -8058;
+    v7 = 4294959238;
   }
 
   if (asTNode)
@@ -875,7 +964,7 @@ LABEL_43:
   asTNode = [(FIDSNode *)self asTNode];
   if (!asTNode)
   {
-    v6 = -8058;
+    v6 = 4294959238;
     if (!error)
     {
       return isCopy;
@@ -900,7 +989,7 @@ LABEL_3:
   asTNode = [(FIDSNode *)self asTNode];
   if (!asTNode)
   {
-    Permissions = -8058;
+    Permissions = 4294959238;
     if (!error)
     {
       return permissionsCopy;
@@ -1053,7 +1142,7 @@ LABEL_9:
   {
     if (TNode::VirtualType(asTNode) == 26)
     {
-      TNode::GetAliasTarget(v3, &v6);
+      TNode::GetAliasTarget(&v6, v3);
       v4 = TNodeFromFINode(v6);
       v3 = FIDSNodeFromTNode(v4);
     }
@@ -1074,6 +1163,745 @@ LABEL_9:
   v2 = v4;
 
   return v2;
+}
+
+- (id)propertyAsNumber:(unsigned int)number async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  asyncCopy = async;
+  v9 = *&number;
+  v18 = 0;
+  v17 = 5;
+  v16 = &v18;
+  nodeRef = [(FINode *)self nodeRef];
+  if (asyncCopy)
+  {
+    NodeCreateNewRequest(0, v10);
+  }
+
+  v15 = 0;
+  NodeProperty = GetNodeProperty(nodeRef, v9, &v16, 0, options);
+  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v15);
+  if (error)
+  {
+    *error = ErrorWithOSStatus(NodeProperty, 0);
+  }
+
+  v13 = [MEMORY[0x1E696AD98] numberWithLongLong:{v18, v15}];
+
+  return v13;
+}
+
+- (id)propertyAsDate:(unsigned int)date async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  asyncCopy = async;
+  v9 = *&date;
+  v18 = 0.0;
+  v17 = 7;
+  v16 = &v18;
+  nodeRef = [(FINode *)self nodeRef];
+  if (asyncCopy)
+  {
+    NodeCreateNewRequest(0, v10);
+  }
+
+  v15 = 0;
+  NodeProperty = GetNodeProperty(nodeRef, v9, &v16, 0, options);
+  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v15);
+  if (error)
+  {
+    *error = ErrorWithOSStatus(NodeProperty, 0);
+  }
+
+  v13 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:{v18, v15}];
+
+  return v13;
+}
+
+- (id)propertyAsString:(unsigned int)string async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  asyncCopy = async;
+  v9 = *&string;
+  asTNode = [(FIDSNode *)self asTNode];
+  if (asTNode)
+  {
+    v12 = asTNode;
+    if (v9 == 1684955501)
+    {
+      v13 = TNode::InfoLock(asTNode);
+      os_unfair_lock_lock(v13);
+      v15 = *(v12 + 16);
+      v14 = *(v12 + 24);
+      if (v14)
+      {
+        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      os_unfair_lock_unlock(v13);
+      os_unfair_lock_lock((v15 + 108));
+      v16 = *(v15 + 123);
+      os_unfair_lock_unlock((v15 + 108));
+      if (v14)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      }
+
+      v9 = 1684955501;
+      if (v16 < 0)
+      {
+        v9 = 1886282093;
+      }
+    }
+
+    v24 = 0;
+    v23 = 12;
+    v22 = &v24;
+    if (asyncCopy)
+    {
+      NodeCreateNewRequest(0, v11);
+    }
+
+    v20 = 0;
+    v21 = 0;
+    Property = TNode::GetProperty(v12, v9, &v22, &v21, options);
+    TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v20);
+    if (Property)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v18 = v24;
+    }
+
+    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v24);
+    if (error)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+    Property = 4294959238;
+    if (error)
+    {
+LABEL_17:
+      *error = ErrorWithOSStatus(Property, 0);
+    }
+  }
+
+  return v18;
+}
+
+- (id)propertyAsArray:(unsigned int)array async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  asyncCopy = async;
+  v8 = *&array;
+  v38 = *MEMORY[0x1E69E9840];
+  asTNode = [(FIDSNode *)self asTNode];
+  if (asTNode)
+  {
+    v36 = 0;
+    v35 = 17;
+    v34 = &v36;
+    if (asyncCopy)
+    {
+      NodeCreateNewRequest(0, v10);
+    }
+
+    v32 = 0;
+    v33 = 0;
+    Property = TNode::GetProperty(asTNode, v8, &v34, &v33, options);
+    TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v32);
+    if (Property)
+    {
+      TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>::~TRef(&v36);
+      v12 = 0;
+    }
+
+    else
+    {
+      v12 = v36;
+      TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>::~TRef(&v36);
+      if (v8 == 1718903156 && [v12 count] && objc_opt_class())
+      {
+        v13 = objc_opt_new();
+        v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
+        v14 = v12;
+        v15 = [v14 countByEnumeratingWithState:&v28 objects:v37 count:16];
+        if (v15)
+        {
+          v16 = *v29;
+          do
+          {
+            for (i = 0; i != v15; ++i)
+            {
+              if (*v29 != v16)
+              {
+                objc_enumerationMutation(v14);
+              }
+
+              v18 = objc_cast<NSDictionary,NSObject * {__strong}>(*(*(&v28 + 1) + 8 * i));
+              v19 = v18;
+              if (v18)
+              {
+                v20 = [(TCFURLInfo *)v18 objectForKeyedSubscript:@"TagName"];
+                v21 = objc_cast<NSString,objc_object * {__strong}>(v20);
+
+                if ([v21 length])
+                {
+                  v23 = TCFURLInfo::DecodeLabelColorFromTagDictionary(v19, v22);
+                  v24 = [objc_alloc(MEMORY[0x1E6967428]) initWithLabel:v21 color:v23 & (v23 << 15 >> 31)];
+                  [v13 addObject:v24];
+                }
+              }
+            }
+
+            v15 = [v14 countByEnumeratingWithState:&v28 objects:v37 count:16];
+          }
+
+          while (v15);
+        }
+
+        Property = 0;
+        v12 = v13;
+      }
+
+      else
+      {
+        Property = 0;
+      }
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+    Property = 4294959238;
+  }
+
+  if (error)
+  {
+    *error = ErrorWithOSStatus(Property, 0);
+  }
+
+  v25 = Copy<NSMutableArray<FILocalAppContainerNode *>>(v12);
+
+  return v25;
+}
+
+- (id)propertyAsNSObject:(unsigned int)object async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  asyncCopy = async;
+  v9 = *&object;
+  asTNode = [(FIDSNode *)self asTNode];
+  location = 0;
+  if (asTNode)
+  {
+    v23 = 10;
+    p_location = &location;
+    if (v9 == 1869769063 || asyncCopy)
+    {
+      NodeCreateNewRequest(0, v12);
+    }
+
+    v20 = 0;
+    v21 = 0;
+    Property = TNode::GetProperty(asTNode, v9, &p_location, &v21, options);
+    TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v20);
+    asTNode = location;
+  }
+
+  else
+  {
+    Property = 4294959238;
+  }
+
+  v14 = objc_cast<UTType,NSObject * {__strong}>(asTNode);
+  v15 = v14;
+  if (v9 == 1970566256 && (!v14 || [v14 isEqual:*MEMORY[0x1E6982E48]]))
+  {
+    if ([(FINode *)self isPackage])
+    {
+      v16 = MEMORY[0x1E6982F30];
+    }
+
+    else
+    {
+      isFolder = [(FINode *)self isFolder];
+      v16 = MEMORY[0x1E6982E48];
+      if (isFolder)
+      {
+        v16 = MEMORY[0x1E6982DC8];
+      }
+    }
+
+    objc_storeStrong(&location, *v16);
+  }
+
+  if (error)
+  {
+    *error = ErrorWithOSStatus(Property, 0);
+  }
+
+  v18 = location;
+
+  return v18;
+}
+
+- (id)propertyAsDictionary:(unsigned int)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  asyncCopy = async;
+  v9 = *&dictionary;
+  asTNode = [(FIDSNode *)self asTNode];
+  if (asTNode)
+  {
+    v19 = 0;
+    v18 = 15;
+    v17 = &v19;
+    if (asyncCopy)
+    {
+      NodeCreateNewRequest(0, v11);
+    }
+
+    v15 = 0;
+    v16 = 0;
+    Property = TNode::GetProperty(asTNode, v9, &v17, &v16, options);
+    TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v15);
+    if (Property)
+    {
+      v13 = 0;
+    }
+
+    else
+    {
+      v13 = v19;
+    }
+
+    TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>::~TRef(&v19);
+    if (error)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+    Property = 4294959238;
+    if (error)
+    {
+LABEL_10:
+      *error = ErrorWithOSStatus(Property, 0);
+    }
+  }
+
+  return v13;
+}
+
+- (BOOL)propertyAsBool:(unsigned int)bool async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  asyncCopy = async;
+  v9 = *&bool;
+  v17 = 0;
+  v16 = 1;
+  v15 = &v17;
+  nodeRef = [(FINode *)self nodeRef];
+  if (asyncCopy)
+  {
+    NodeCreateNewRequest(0, v10);
+  }
+
+  v14 = 0;
+  NodeProperty = GetNodeProperty(nodeRef, v9, &v15, 0, options);
+  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v14);
+  if (error)
+  {
+    *error = ErrorWithOSStatus(NodeProperty, 0);
+  }
+
+  return v17;
+}
+
+- (id)propertyAsData:(unsigned int)data async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  asyncCopy = async;
+  v9 = *&data;
+  if ([(FIDSNode *)self asTNode])
+  {
+    v20 = 0;
+    v21 = 0;
+    v19 = 9;
+    v18 = &v20;
+    nodeRef = [(FINode *)self nodeRef];
+    if (asyncCopy)
+    {
+      NodeCreateNewRequest(0, v11);
+    }
+
+    __p[0] = 0;
+    NodeProperty = GetNodeProperty(nodeRef, v9, &v18, 0, options);
+    TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(__p);
+    if (NodeProperty == -8063)
+    {
+      std::vector<unsigned char>::vector[abi:ne200100](__p, HIDWORD(v20));
+      v21 = __p[0];
+      LODWORD(v20) = HIDWORD(v20);
+      v16 = 0;
+      NodeProperty = GetNodeProperty([(FINode *)self nodeRef], v9, &v18, 0, options);
+      TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v16);
+      if (NodeProperty)
+      {
+        v13 = 0;
+      }
+
+      else
+      {
+        v13 = [MEMORY[0x1E695DEF0] dataWithBytes:v21 length:{HIDWORD(v20), v16}];
+      }
+
+      if (__p[0])
+      {
+        __p[1] = __p[0];
+        operator delete(__p[0]);
+      }
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+    NodeProperty = 4294959238;
+  }
+
+  if (error)
+  {
+    *error = ErrorWithOSStatus(NodeProperty, 0);
+  }
+
+  return v13;
+}
+
+- (BOOL)setProperty:(unsigned int)property asNumber:(id)number async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  numberCopy = number;
+  v13 = numberCopy;
+  if (numberCopy)
+  {
+    Type = CFNumberGetType(numberCopy);
+    switch(Type)
+    {
+      case kCFNumberSInt16Type:
+        LOWORD(v24) = [(__CFNumber *)v13 shortValue];
+        nodeRef = [(FINode *)self nodeRef];
+        v27 = 3;
+        v26 = &v24;
+        if (asyncCopy)
+        {
+          NodeCreateNewRequest(0, v20);
+        }
+
+        break;
+      case kCFNumberSInt32Type:
+        LODWORD(v24) = [(__CFNumber *)v13 intValue];
+        nodeRef = [(FINode *)self nodeRef];
+        v27 = 4;
+        v26 = &v24;
+        if (asyncCopy)
+        {
+          NodeCreateNewRequest(0, v18);
+        }
+
+        break;
+      case kCFNumberSInt64Type:
+        longLongValue = [(__CFNumber *)v13 longLongValue];
+        nodeRef2 = [(FINode *)self nodeRef];
+        v27 = 5;
+        v26 = &longLongValue;
+        if (asyncCopy)
+        {
+          NodeCreateNewRequest(0, v15);
+        }
+
+        v24 = 0;
+        v21 = SetNodeProperty(nodeRef2, v10, &v26, 0, v8);
+        v22 = &v24;
+LABEL_18:
+        TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(v22);
+        if (!error)
+        {
+LABEL_20:
+          v17 = v21 == 0;
+          goto LABEL_21;
+        }
+
+LABEL_19:
+        *error = ErrorWithOSStatus(v21, 0);
+        goto LABEL_20;
+      default:
+        v21 = 4294959224;
+        if (!error)
+        {
+          goto LABEL_20;
+        }
+
+        goto LABEL_19;
+    }
+
+    longLongValue = 0;
+    v21 = SetNodeProperty(nodeRef, v10, &v26, 0, v8);
+    v22 = &longLongValue;
+    goto LABEL_18;
+  }
+
+  if (error)
+  {
+    ErrorWithOSStatus(4294959224, 0);
+    *error = v17 = 0;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+LABEL_21:
+
+  return v17;
+}
+
+- (BOOL)setProperty:(unsigned int)property asDate:(id)date async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  [date timeIntervalSinceReferenceDate];
+  v20 = v12;
+  nodeRef = [(FINode *)self nodeRef];
+  v19 = 7;
+  v18 = &v20;
+  if (asyncCopy)
+  {
+    NodeCreateNewRequest(0, v13);
+  }
+
+  v17 = 0;
+  v15 = SetNodeProperty(nodeRef, v10, &v18, 0, v8);
+  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v17);
+  if (error)
+  {
+    *error = ErrorWithOSStatus(v15, 0);
+  }
+
+  return v15 == 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asString:(id)string async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  v12 = Copy<NSMutableArray<FILocalAppContainerNode *>>(string);
+  v13 = v12;
+  v21 = v12;
+  if (v12)
+  {
+    CFRetain(v12);
+  }
+
+  nodeRef = [(FINode *)self nodeRef];
+  v20 = 12;
+  v19 = &v21;
+  if (asyncCopy)
+  {
+    NodeCreateNewRequest(0, v14);
+  }
+
+  v18 = 0;
+  v16 = SetNodeProperty(nodeRef, v10, &v19, 0, v8);
+  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v18);
+  if (error)
+  {
+    *error = ErrorWithOSStatus(v16, 0);
+  }
+
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v21);
+  return v16 == 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asArray:(id)array async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  v12 = Copy<NSMutableArray<FILocalAppContainerNode *>>(array);
+  v13 = v12;
+  v21 = v12;
+  if (v12)
+  {
+    CFRetain(v12);
+  }
+
+  nodeRef = [(FINode *)self nodeRef];
+  v20 = 17;
+  v19 = &v21;
+  if (asyncCopy)
+  {
+    NodeCreateNewRequest(0, v14);
+  }
+
+  v18 = 0;
+  v16 = SetNodeProperty(nodeRef, v10, &v19, 0, v8);
+  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v18);
+  if (error)
+  {
+    *error = ErrorWithOSStatus(v16, 0);
+  }
+
+  TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>::~TRef(&v21);
+  return v16 == 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asBool:(BOOL)bool async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  boolCopy = bool;
+  nodeRef = [(FINode *)self nodeRef];
+  v17 = 1;
+  v16 = &boolCopy;
+  if (asyncCopy)
+  {
+    NodeCreateNewRequest(0, v11);
+  }
+
+  v15 = 0;
+  v13 = SetNodeProperty(nodeRef, v10, &v16, 0, v8);
+  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v15);
+  if (error)
+  {
+    *error = ErrorWithOSStatus(v13, 0);
+  }
+
+  return v13 == 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asData:(id)data async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  dataCopy = data;
+  v13 = dataCopy;
+  if (!dataCopy)
+  {
+    if (error)
+    {
+      v15 = ErrorWithOSStatus(4294959224, 0);
+      goto LABEL_7;
+    }
+
+LABEL_10:
+    v16 = 0;
+    goto LABEL_15;
+  }
+
+  v14 = [dataCopy length];
+  if (HIDWORD(v14))
+  {
+    if (error)
+    {
+      v15 = ErrorWithOSStatus(4294959200, 0);
+LABEL_7:
+      v16 = 0;
+      *error = v15;
+      goto LABEL_15;
+    }
+
+    goto LABEL_10;
+  }
+
+  v25[0] = v14;
+  v25[1] = v14;
+  std::vector<unsigned char>::vector[abi:ne200100](__p, v14);
+  v26 = __p[0];
+  [v13 getBytes:? length:?];
+  nodeRef = [(FINode *)self nodeRef];
+  v23 = 9;
+  v22 = v25;
+  if (asyncCopy)
+  {
+    NodeCreateNewRequest(0, v17);
+  }
+
+  v21 = 0;
+  v19 = SetNodeProperty(nodeRef, v10, &v22, 0, v8);
+  TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v21);
+  if (error)
+  {
+    *error = ErrorWithOSStatus(v19, 0);
+  }
+
+  v16 = v19 == 0;
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+
+LABEL_15:
+
+  return v16;
+}
+
+- (BOOL)setProperty:(unsigned int)property asObject:(id)object async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  objectCopy = object;
+  v21 = objectCopy;
+  if (property == 1668638316)
+  {
+    nodeRef = [(FINode *)self nodeRef];
+    v20 = 10;
+    v19 = &v21;
+    if (asyncCopy)
+    {
+      NodeCreateNewRequest(0, v13);
+    }
+
+    v18 = 0;
+    v16 = SetNodeProperty(nodeRef, 0x6375666C, &v19, 0, v8);
+    TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v18);
+    if (error)
+    {
+      *error = ErrorWithOSStatus(v16, 0);
+    }
+
+    v15 = v16 == 0;
+    objectCopy = v21;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  return v15;
 }
 
 - (void)nodeRestartObservingWithOptions:(unsigned int)options
@@ -1106,7 +1934,7 @@ LABEL_9:
       if (v11)
       {
 LABEL_4:
-        v7 = -8072;
+        v7 = 4294959224;
         goto LABEL_5;
       }
     }
@@ -1121,7 +1949,7 @@ LABEL_4:
     }
 
     memset(&v13, 0, sizeof(v13));
-    TNode::RequestInternalTask();
+    TNode::RequestInternalTask(asTNode, 1007, &v13, 0);
   }
 
 LABEL_5:
@@ -1141,23 +1969,25 @@ LABEL_5:
   {
     if (asyncCopy)
     {
-      NodeCreateNewRequest(0);
+      NodeCreateNewRequest(0, v7);
     }
 
-    v7 = 0;
     v8 = 0;
-    TNode::Synchronize(asTNode, &v8, options);
-    TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v7);
+    v9 = 0;
+    TNode::Synchronize(asTNode, &v9, options);
+    TRef<OpaqueNodeRequest *,TRetainReleasePolicy<OpaqueNodeRequest *>>::~TRef(&v8);
   }
 }
 
 - (void)_sendNotification:(unsigned int)notification node:(id)node property:(unsigned int)property
 {
+  v5 = *&property;
+  v6 = *&notification;
   nodeCopy = node;
   asTNode = [(FIDSNode *)self asTNode];
   v10 = objc_cast<FIDSNode,FINode * {__strong}>(nodeCopy);
   TNodePtr::TNodePtr(&v11, [v10 asTNode]);
-  TNodeEvent::CreateNodeEvent(notification, &v11.fFINode, property, &v14);
+  TNodeEvent::CreateNodeEvent(v6, &v11.fFINode, v5, &v14);
 
   v11.fFINode = 0;
   v12 = 0;

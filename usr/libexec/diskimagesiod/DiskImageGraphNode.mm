@@ -9,6 +9,7 @@
 - (id)toDIShadowNode;
 - (id)toDictionary;
 - (void)addDecendantsToArray:(id)array;
+- (void)setIsCache:(BOOL)cache;
 - (void)setMetadata:(id)metadata;
 - (void)setParent:(id)parent;
 - (void)setTag:(id)tag;
@@ -211,6 +212,20 @@
   {
     pstackDict2 = [(DiskImageGraphNode *)self pstackDict];
     [pstackDict2 setObject:metadataCopy forKey:@"Metadata"];
+  }
+}
+
+- (void)setIsCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  self->_isCache = cache;
+  pstackDict = [(DiskImageGraphNode *)self pstackDict];
+
+  if (pstackDict)
+  {
+    pstackDict2 = [(DiskImageGraphNode *)self pstackDict];
+    v6 = [NSNumber numberWithBool:cacheCopy];
+    [pstackDict2 setObject:v6 forKey:@"IsCache"];
   }
 }
 

@@ -37,7 +37,7 @@
 - (id)application:(id)application configurationForConnectingSceneSession:(id)session options:(id)options
 {
   sessionCopy = session;
-  v6 = sub_100012608();
+  v6 = sub_100012608(sessionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136446210;

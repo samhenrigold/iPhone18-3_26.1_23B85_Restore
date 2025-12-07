@@ -3,7 +3,7 @@
 
 @implementation FileSinkPauseRecording
 
-uint64_t __captureSession_FileSinkPauseRecording_block_invoke(uint64_t a1)
+void *__captureSession_FileSinkPauseRecording_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -56,15 +56,7 @@ uint64_t __captureSession_FileSinkPauseRecording_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_5();
-  return FigDebugAssert3();
-}
-
-uint64_t __captureSession_FileSinkPauseRecording_block_invoke_cold_2()
-{
-  OUTLINED_FUNCTION_9_38();
-  FigDebugAssert3();
-
-  return FigSignalErrorAtGM();
+  return FigDebugAssert3(v0);
 }
 
 @end

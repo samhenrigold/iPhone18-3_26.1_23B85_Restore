@@ -933,7 +933,9 @@ void __49__ICAttachmentGalleryModel_searchableStringArray__block_invoke(uint64_t
 {
   v1 = [a1 attachment];
   v2 = [v1 identifier];
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v3, v4, "Had a dirty attachment gallery document after refresh: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v3, v4, "Had a dirty attachment gallery document after refresh: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)enumerateSubAttachmentsWithBlock:(void *)a3 .cold.1(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -947,7 +949,9 @@ void __49__ICAttachmentGalleryModel_searchableStringArray__block_invoke(uint64_t
 - (void)singleSubAttachmentAtIndex:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Parent attachment not synced yet for: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Parent attachment not synced yet for: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)singleSubAttachmentAtIndex:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)

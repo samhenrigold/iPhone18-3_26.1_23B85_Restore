@@ -22,7 +22,7 @@
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMMLogEvent durationMilliseconds](self, "durationMilliseconds")}];
   [dictionary setObject:v6 forKeyedSubscript:@"latency"];
 
-  v7 = [dictionary copy];
+  v7 = objc_msgSend_copy(dictionary);
 
   return v7;
 }

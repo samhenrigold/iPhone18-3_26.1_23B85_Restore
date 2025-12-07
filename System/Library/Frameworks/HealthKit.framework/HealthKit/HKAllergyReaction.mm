@@ -20,15 +20,13 @@
 
 + (id)indexableKeyPathsWithPrefix:(id)prefix
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"manifestations";
-  v9[1] = @"severity";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"manifestations";
+  v8[1] = @"severity";
   v3 = MEMORY[0x1E695DEC8];
   prefixCopy = prefix;
-  v5 = [v3 arrayWithObjects:v9 count:2];
+  v5 = [v3 arrayWithObjects:v8 count:2];
   v6 = [HKConceptIndexUtilities keyPaths:v5 prefix:prefixCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -431,7 +429,7 @@ LABEL_32:
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if ([pathCopy isEqualToString:@"manifestations"])
   {
@@ -448,8 +446,8 @@ LABEL_6:
     {
       manifestationCodingCollections = [HKMedicalCodingCollection collectionWithCoding:?];
       v9 = [HKIndexableObject indexableObjectWithObject:manifestationCodingCollections];
-      v12[0] = v9;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+      v11[0] = v9;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
 
       goto LABEL_6;
     }
@@ -464,8 +462,6 @@ LABEL_6:
   }
 
 LABEL_9:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -120,7 +120,6 @@ LABEL_6:
     }
 
 LABEL_8:
-    isVideo = self->_isVideo;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -130,7 +129,6 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -145,7 +143,6 @@ LABEL_5:
   }
 
 LABEL_9:
-  onLockScreen = self->_onLockScreen;
 
   PBDataWriterWriteUint32Field();
 }

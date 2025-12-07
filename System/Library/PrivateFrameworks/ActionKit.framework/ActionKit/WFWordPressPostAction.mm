@@ -365,14 +365,14 @@ id __54__WFWordPressPostAction_possibleStatesForEnumeration___block_invoke(uint6
 
 - (id)suggestedTagsForTagField:(id)field
 {
-  v57[2] = *MEMORY[0x277D85DE8];
+  v56[2] = *MEMORY[0x277D85DE8];
   fieldCopy = field;
   v4 = +[WFDiskCache workflowCache];
   v5 = [(WFWordPressPostAction *)self parameterForKey:@"WFAccount"];
   v6 = [(WFWordPressPostAction *)self parameterStateForKey:@"WFAccount"];
   value = [v6 value];
-  v54 = v6;
-  v55 = v5;
+  v53 = v6;
+  v54 = v5;
   if (value)
   {
     value2 = [v6 value];
@@ -385,7 +385,7 @@ id __54__WFWordPressPostAction_possibleStatesForEnumeration___block_invoke(uint6
   }
 
   username = [v9 username];
-  v53 = v9;
+  v52 = v9;
   endpointURL = [v9 endpointURL];
   absoluteString = [endpointURL absoluteString];
   v20 = WFDiskCacheKey(username, v13, v14, v15, v16, v17, v18, v19, absoluteString);
@@ -397,8 +397,8 @@ id __54__WFWordPressPostAction_possibleStatesForEnumeration___block_invoke(uint6
   v25 = [v4 objectOfClasses:v24 forKeyComponents:{v20, @"WFWordPressBlogs", 0}];
 
   value3 = [v21 value];
-  v50 = v25;
-  v51 = v21;
+  v49 = v25;
+  v50 = v21;
   v27 = v4;
   if (value3)
   {
@@ -415,11 +415,11 @@ id __54__WFWordPressPostAction_possibleStatesForEnumeration___block_invoke(uint6
   v31 = [blogId description];
   v39 = WFDiskCacheKey(v20, v32, v33, v34, v35, v36, v37, v38, v31);
 
-  v56[0] = @"Tags";
-  v56[1] = @"Categories";
-  v57[0] = @"WFWordPressPostTags";
-  v57[1] = @"WFWordPressPostCategories";
-  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
+  v55[0] = @"Tags";
+  v55[1] = @"Categories";
+  v56[0] = @"WFWordPressPostTags";
+  v56[1] = @"WFWordPressPostCategories";
+  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
   v41 = MEMORY[0x277CBEB98];
   v42 = objc_opt_class();
   v43 = [v41 setWithObjects:{v42, objc_opt_class(), 0}];
@@ -428,8 +428,6 @@ id __54__WFWordPressPostAction_possibleStatesForEnumeration___block_invoke(uint6
   v45 = [v40 objectForKeyedSubscript:v44];
   v46 = [v27 objectOfClasses:v43 forKeyComponents:{v39, v45, 0}];
   v47 = [v46 if_compactMap:&__block_literal_global_316];
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v47;
 }
@@ -574,35 +572,35 @@ void __45__WFWordPressPostAction_updatePossibleStates__block_invoke(uint64_t a1,
 
 - (void)updateAccountMetadata
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v32 = +[WFDiskCache workflowCache];
+  v43 = *MEMORY[0x277D85DE8];
+  v31 = +[WFDiskCache workflowCache];
   selfCopy = self;
   resourceManager = [(WFWordPressPostAction *)self resourceManager];
   v4 = [resourceManager resourceObjectsOfClass:objc_opt_class()];
   anyObject = [v4 anyObject];
 
   v6 = dispatch_group_create();
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v28 = anyObject;
+  v27 = anyObject;
   obj = [anyObject accounts];
-  v7 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v7 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v7)
   {
     v8 = v7;
-    v31 = *v40;
+    v30 = *v39;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v40 != v31)
+        if (*v39 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v39 + 1) + 8 * i);
+        v10 = *(*(&v38 + 1) + 8 * i);
         v11 = objc_alloc_init(WFWordPressSessionManager);
         username = [v10 username];
         [(WFWordPressSessionManager *)v11 setUsername:username];
@@ -619,19 +617,19 @@ void __45__WFWordPressPostAction_updatePossibleStates__block_invoke(uint64_t a1,
         v25 = WFDiskCacheKey(username2, v18, v19, v20, v21, v22, v23, v24, absoluteString);
 
         dispatch_group_enter(v6);
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke;
-        v34[3] = &unk_278C1F300;
-        v35 = v32;
-        v36 = v25;
-        v37 = v10;
-        v38 = v6;
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke;
+        v33[3] = &unk_278C1F300;
+        v34 = v31;
+        v35 = v25;
+        v36 = v10;
+        v37 = v6;
         v26 = v25;
-        [(WFWordPressSessionManager *)v11 getBlogsWithCompletionHandler:v34];
+        [(WFWordPressSessionManager *)v11 getBlogsWithCompletionHandler:v33];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v8 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v8);
@@ -643,40 +641,38 @@ void __45__WFWordPressPostAction_updatePossibleStates__block_invoke(uint64_t a1,
   block[3] = &unk_278C224A0;
   block[4] = selfCopy;
   dispatch_group_notify(v6, MEMORY[0x277D85CD0], block);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __46__WFWordPressPostAction_updateAccountMetadata__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v33 = a3;
+  v32 = a3;
   if (v5)
   {
-    [*(a1 + 32) setObject:v5 forKeyComponents:{*(a1 + 40), @"WFWordPressBlogs", 0, v33}];
+    [*(a1 + 32) setObject:v5 forKeyComponents:{*(a1 + 40), @"WFWordPressBlogs", 0, v32}];
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v6 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
   if (v6)
   {
     v7 = v6;
-    v35 = *v61;
+    v34 = *v60;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v61 != v35)
+        if (*v60 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v60 + 1) + 8 * i);
+        v9 = *(*(&v59 + 1) + 8 * i);
         v10 = objc_alloc_init(WFWordPressSessionManager);
         v11 = [*(a1 + 48) username];
         [(WFWordPressSessionManager *)v10 setUsername:v11];
@@ -696,75 +692,74 @@ void __46__WFWordPressPostAction_updateAccountMetadata__block_invoke(uint64_t a1
         v25 = WFDiskCacheKey(v15, v18, v19, v20, v21, v22, v23, v24, v17);
 
         dispatch_group_enter(*(a1 + 56));
-        v56[0] = MEMORY[0x277D85DD0];
-        v56[1] = 3221225472;
-        v56[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_2;
-        v56[3] = &unk_278C1C170;
-        v57 = *(a1 + 32);
+        v55[0] = MEMORY[0x277D85DD0];
+        v55[1] = 3221225472;
+        v55[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_2;
+        v55[3] = &unk_278C1C170;
+        v56 = *(a1 + 32);
         v26 = v25;
-        v58 = v26;
-        v59 = *(a1 + 56);
-        [(WFWordPressSessionManager *)v10 getPostStatusesWithCompletionHandler:v56];
+        v57 = v26;
+        v58 = *(a1 + 56);
+        [(WFWordPressSessionManager *)v10 getPostStatusesWithCompletionHandler:v55];
         dispatch_group_enter(*(a1 + 56));
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_3;
-        v52[3] = &unk_278C1C170;
-        v53 = *(a1 + 32);
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_3;
+        v51[3] = &unk_278C1C170;
+        v52 = *(a1 + 32);
         v27 = v26;
-        v54 = v27;
-        v55 = *(a1 + 56);
-        [(WFWordPressSessionManager *)v10 getPageTemplatesWithCompletionHandler:v52];
+        v53 = v27;
+        v54 = *(a1 + 56);
+        [(WFWordPressSessionManager *)v10 getPageTemplatesWithCompletionHandler:v51];
         dispatch_group_enter(*(a1 + 56));
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_4;
-        v48[3] = &unk_278C1C170;
-        v49 = *(a1 + 32);
+        v47[0] = MEMORY[0x277D85DD0];
+        v47[1] = 3221225472;
+        v47[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_4;
+        v47[3] = &unk_278C1C170;
+        v48 = *(a1 + 32);
         v28 = v27;
-        v50 = v28;
-        v51 = *(a1 + 56);
-        [(WFWordPressSessionManager *)v10 getPostTypesWithCompletionHandler:v48];
+        v49 = v28;
+        v50 = *(a1 + 56);
+        [(WFWordPressSessionManager *)v10 getPostTypesWithCompletionHandler:v47];
         dispatch_group_enter(*(a1 + 56));
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_5;
-        v44[3] = &unk_278C1C170;
-        v45 = *(a1 + 32);
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_5;
+        v43[3] = &unk_278C1C170;
+        v44 = *(a1 + 32);
         v29 = v28;
-        v46 = v29;
-        v47 = *(a1 + 56);
-        [(WFWordPressSessionManager *)v10 getPostFormatsWithCompletionHandler:v44];
+        v45 = v29;
+        v46 = *(a1 + 56);
+        [(WFWordPressSessionManager *)v10 getPostFormatsWithCompletionHandler:v43];
         dispatch_group_enter(*(a1 + 56));
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 3221225472;
-        v40[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_6;
-        v40[3] = &unk_278C221D0;
-        v41 = *(a1 + 32);
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_6;
+        v39[3] = &unk_278C221D0;
+        v40 = *(a1 + 32);
         v30 = v29;
-        v42 = v30;
-        v43 = *(a1 + 56);
-        [(WFWordPressSessionManager *)v10 getTermsForTaxonomy:@"category" completionHandler:v40];
+        v41 = v30;
+        v42 = *(a1 + 56);
+        [(WFWordPressSessionManager *)v10 getTermsForTaxonomy:@"category" completionHandler:v39];
         dispatch_group_enter(*(a1 + 56));
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_7;
-        v36[3] = &unk_278C221D0;
-        v37 = *(a1 + 32);
-        v38 = v30;
-        v39 = *(a1 + 56);
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_7;
+        v35[3] = &unk_278C221D0;
+        v36 = *(a1 + 32);
+        v37 = v30;
+        v38 = *(a1 + 56);
         v31 = v30;
-        [(WFWordPressSessionManager *)v10 getTermsForTaxonomy:@"post_tag" completionHandler:v36];
+        [(WFWordPressSessionManager *)v10 getTermsForTaxonomy:@"post_tag" completionHandler:v35];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+      v7 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
     }
 
     while (v7);
   }
 
   dispatch_group_leave(*(a1 + 56));
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__WFWordPressPostAction_updateAccountMetadata__block_invoke_8(uint64_t a1)
@@ -884,39 +879,39 @@ void __44__WFWordPressPostAction_wasAddedToWorkflow___block_invoke(uint64_t a1)
 
 - (void)initializeParameters
 {
-  v16[8] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = WFWordPressPostAction;
-  [(WFWordPressPostAction *)&v14 initializeParameters];
-  v16[0] = @"Blog";
-  v16[1] = @"Type";
-  v16[2] = @"Format";
-  v16[3] = @"Status";
-  v16[4] = @"Template";
-  v16[5] = @"WFWordPressPostTags";
-  v16[6] = @"Categories";
-  v16[7] = @"Tags";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:8];
+  v15[8] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = WFWordPressPostAction;
+  [(WFWordPressPostAction *)&v13 initializeParameters];
+  v15[0] = @"Blog";
+  v15[1] = @"Type";
+  v15[2] = @"Format";
+  v15[3] = @"Status";
+  v15[4] = @"Template";
+  v15[5] = @"WFWordPressPostTags";
+  v15[6] = @"Categories";
+  v15[7] = @"Tags";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v3 = v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v3 = v12 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(WFWordPressPostAction *)self parameterForKey:*(*(&v10 + 1) + 8 * v7), v10];
+        v8 = [(WFWordPressPostAction *)self parameterForKey:*(*(&v9 + 1) + 8 * v7), v9];
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
@@ -927,14 +922,13 @@ void __44__WFWordPressPostAction_wasAddedToWorkflow___block_invoke(uint64_t a1)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   [(WFWordPressPostAction *)self updateHiddenStates];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runAsynchronouslyWithInput:(id)input
@@ -1132,7 +1126,7 @@ void *__52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke(uint
 
 void __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_278(uint64_t a1)
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(WFWordPressSessionManager);
   v3 = [*(a1 + 32) username];
   [(WFWordPressSessionManager *)v2 setUsername:v3];
@@ -1161,53 +1155,51 @@ void __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_278(u
   if (v9)
   {
     v10 = *(a1 + 56);
-    v38[0] = objc_opt_class();
-    v38[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_2_283;
-    v35[3] = &unk_278C1EEA8;
+    v37[0] = objc_opt_class();
+    v37[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_2_283;
+    v34[3] = &unk_278C1EEA8;
     v12 = *(a1 + 64);
-    v36 = v2;
-    v37 = v12;
+    v35 = v2;
+    v36 = v12;
     v13 = v2;
-    [v10 generateCollectionByCoercingToItemClasses:v11 completionHandler:v35];
+    [v10 generateCollectionByCoercingToItemClasses:v11 completionHandler:v34];
 
-    v14 = v36;
+    v14 = v35;
   }
 
   else
   {
     v16 = *(a1 + 56);
     v15 = *(a1 + 64);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_7;
-    v21[3] = &unk_278C1C0F8;
-    v21[4] = v15;
-    v22 = v2;
-    v23 = *(a1 + 72);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_7;
+    v20[3] = &unk_278C1C0F8;
+    v20[4] = v15;
+    v21 = v2;
+    v22 = *(a1 + 72);
     v17 = *(a1 + 48);
     v18 = *(a1 + 144);
-    v24 = v17;
-    v33 = v18;
-    v25 = *(a1 + 80);
-    v26 = *(a1 + 88);
-    v34 = *(a1 + 152);
-    v27 = *(a1 + 96);
-    v28 = *(a1 + 104);
-    v29 = *(a1 + 112);
-    v30 = *(a1 + 120);
-    v31 = *(a1 + 128);
-    v32 = *(a1 + 136);
+    v23 = v17;
+    v32 = v18;
+    v24 = *(a1 + 80);
+    v25 = *(a1 + 88);
+    v33 = *(a1 + 152);
+    v26 = *(a1 + 96);
+    v27 = *(a1 + 104);
+    v28 = *(a1 + 112);
+    v29 = *(a1 + 120);
+    v30 = *(a1 + 128);
+    v31 = *(a1 + 136);
     v19 = v2;
-    [v15 generateHTMLFromInput:v16 completionHandler:v21];
+    [v15 generateHTMLFromInput:v16 completionHandler:v20];
 
-    v14 = v22;
+    v14 = v21;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_14(uint64_t a1, void *a2)
@@ -1442,20 +1434,19 @@ void __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_4_285
   {
     v3 = *(a1 + 32);
     v4 = [a2 fileId];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_5_286;
-    v7[3] = &unk_278C1C030;
-    v8 = *(a1 + 40);
-    [v3 getPost:v4 completionHandler:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_5_286;
+    v6[3] = &unk_278C1C030;
+    v7 = *(a1 + 40);
+    [v3 getPost:v4 completionHandler:v6];
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
 
-    v6();
+    v5();
   }
 }
 
@@ -1489,23 +1480,21 @@ id __52__WFWordPressPostAction_runAsynchronouslyWithInput___block_invoke_4(uint6
 
 - (void)generateHTMLFromInput:(id)input completionHandler:(id)handler
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   inputCopy = input;
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v13[2] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __65__WFWordPressPostAction_generateHTMLFromInput_completionHandler___block_invoke;
-  v11[3] = &unk_278C20848;
-  v11[4] = self;
-  v12 = handlerCopy;
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v12[2] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __65__WFWordPressPostAction_generateHTMLFromInput_completionHandler___block_invoke;
+  v10[3] = &unk_278C20848;
+  v10[4] = self;
+  v11 = handlerCopy;
   v9 = handlerCopy;
-  [inputCopy generateCollectionByCoercingToItemClasses:v8 completionHandler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [inputCopy generateCollectionByCoercingToItemClasses:v8 completionHandler:v10];
 }
 
 void __65__WFWordPressPostAction_generateHTMLFromInput_completionHandler___block_invoke(uint64_t a1, void *a2)

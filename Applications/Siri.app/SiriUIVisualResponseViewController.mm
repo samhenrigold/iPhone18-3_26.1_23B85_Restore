@@ -204,7 +204,7 @@
 {
   commandCopy = command;
   selfCopy = self;
-  sub_1000B5954();
+  sub_1000B5954(commandCopy);
 }
 
 - (void)navigateWithPluginModelData:(id)data bundleName:(id)name

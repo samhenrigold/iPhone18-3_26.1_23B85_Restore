@@ -131,7 +131,7 @@
   transitionLookaheadMaxSeconds = [v12 transitionLookaheadMaxSeconds];
 
   v14 = [dateCopy dateByAddingTimeInterval:transitionLookaheadMaxSeconds];
-  v15 = __atxlog_handle_dailyroutines();
+  v15 = __atxlog_handle_dailyroutines(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ATXPredictedTransitionsCache fetchEntriesStartingDate:onActivity:];
@@ -143,10 +143,10 @@
   if (v17 >= v18)
   {
 LABEL_17:
-    v20 = v11;
+    v23 = v11;
 LABEL_18:
     [(ATXPredictedTransitionsCache *)self dump];
-    v11 = v20;
+    v11 = v23;
   }
 
   else
@@ -154,15 +154,17 @@ LABEL_18:
     while (1)
     {
       v19 = objc_autoreleasePoolPush();
-      if ([activityCopy shouldDefer])
+      shouldDefer = [activityCopy shouldDefer];
+      if (shouldDefer)
       {
         break;
       }
 
-      if (![(ATXPredictedTransitionsCache *)self cacheHeadingFromLoiType:1 toLoiType:0 forDate:v11])
+      v21 = [(ATXPredictedTransitionsCache *)self cacheHeadingFromLoiType:1 toLoiType:0 forDate:v11];
+      if ((v21 & 1) == 0)
       {
-        v25 = __atxlog_handle_dailyroutines();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v28 = __atxlog_handle_dailyroutines(v21);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
 LABEL_15:
           [ATXPredictedTransitionsCache fetchEntriesStartingDate:onActivity:];
@@ -174,10 +176,11 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      if (![(ATXPredictedTransitionsCache *)self cacheHeadingFromLoiType:0 toLoiType:1 forDate:v11])
+      v22 = [(ATXPredictedTransitionsCache *)self cacheHeadingFromLoiType:0 toLoiType:1 forDate:v11];
+      if ((v22 & 1) == 0)
       {
-        v25 = __atxlog_handle_dailyroutines();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v28 = __atxlog_handle_dailyroutines(v22);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_15;
         }
@@ -185,24 +188,24 @@ LABEL_16:
         goto LABEL_16;
       }
 
-      v20 = [v11 dateByAddingTimeInterval:3600.0];
+      v23 = [v11 dateByAddingTimeInterval:3600.0];
 
       objc_autoreleasePoolPop(v19);
-      [v20 timeIntervalSinceReferenceDate];
-      v22 = v21;
+      [v23 timeIntervalSinceReferenceDate];
+      v25 = v24;
       [v14 timeIntervalSinceReferenceDate];
-      v11 = v20;
-      if (v22 >= v23)
+      v11 = v23;
+      if (v25 >= v26)
       {
         goto LABEL_18;
       }
     }
 
-    v24 = __atxlog_handle_dailyroutines();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v27 = __atxlog_handle_dailyroutines(shouldDefer);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      *v26 = 0;
-      _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "Abandoning cache update early since we were asked to defer", v26, 2u);
+      *v29 = 0;
+      _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "Abandoning cache update early since we were asked to defer", v29, 2u);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -211,9 +214,9 @@ LABEL_16:
 
 - (BOOL)cacheHeadingFromLoiType:(int64_t)type toLoiType:(int64_t)loiType forDate:(id)date
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v9 = __atxlog_handle_dailyroutines();
+  v9 = __atxlog_handle_dailyroutines(dateCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [ATXPredictedTransitionsCache cacheHeadingFromLoiType:toLoiType:forDate:];
@@ -229,56 +232,57 @@ LABEL_16:
 
     if (v14)
     {
-      v15 = __atxlog_handle_dailyroutines();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = __atxlog_handle_dailyroutines(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         [ATXPredictedTransitionsCache cacheHeadingFromLoiType:toLoiType:forDate:];
       }
 
-      v16 = 1;
+      v17 = 1;
       goto LABEL_38;
     }
 
-    v17 = [(ATXPredictedLocationsManagerProtocol *)self->_manager getPredictedLocationsOfInterestFromLOIName:v10 startDate:dateCopy];
-    v15 = v17;
-    if (v17)
+    v18 = [(ATXPredictedLocationsManagerProtocol *)self->_manager getPredictedLocationsOfInterestFromLOIName:v10 startDate:dateCopy];
+    v16 = v18;
+    if (v18)
     {
-      v35 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v36 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      v18 = v17;
-      v19 = [v18 countByEnumeratingWithState:&v33 objects:v37 count:16];
-      if (v19)
+      v37 = 0u;
+      v19 = v18;
+      v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      if (v20)
       {
-        v20 = v19;
-        v32 = v11;
-        v21 = *v34;
+        v21 = v20;
+        v35 = v11;
+        v22 = *v37;
         while (2)
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v34 != v21)
+            if (*v37 != v22)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v19);
             }
 
-            if ([*(*(&v33 + 1) + 8 * i) type] == loiType)
+            type = [*(*(&v36 + 1) + 8 * i) type];
+            if (type == loiType)
             {
-              v24 = __atxlog_handle_dailyroutines();
-              v11 = v32;
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+              v26 = __atxlog_handle_dailyroutines(type);
+              v11 = v35;
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
               {
                 [ATXPredictedTransitionsCache cacheHeadingFromLoiType:toLoiType:forDate:];
               }
 
-              v23 = 1;
+              v25 = 1;
               goto LABEL_25;
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v33 objects:v37 count:16];
-          if (v20)
+          v21 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+          if (v21)
           {
             continue;
           }
@@ -286,54 +290,55 @@ LABEL_16:
           break;
         }
 
-        v23 = 0;
-        v11 = v32;
+        v25 = 0;
+        v11 = v35;
       }
 
       else
       {
-        v23 = 0;
+        v25 = 0;
       }
 
 LABEL_25:
 
-      v25 = objc_opt_new();
-      if (!v23)
+      v28 = objc_opt_new();
+      v27 = v28;
+      if (!v25)
       {
-        v28 = __atxlog_handle_dailyroutines();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v32 = __atxlog_handle_dailyroutines(v28);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
           [ATXPredictedTransitionsCache cacheHeadingFromLoiType:toLoiType:forDate:];
         }
 
-        v27 = v25;
+        v30 = v27;
         goto LABEL_32;
       }
 
-      v26 = [(ATXPredictedLocationsManagerProtocol *)self->_manager getPredictedExitTimesFromLOIName:v10 startDate:dateCopy];
-      if (v26)
+      v29 = [(ATXPredictedLocationsManagerProtocol *)self->_manager getPredictedExitTimesFromLOIName:v10 startDate:dateCopy];
+      if (v29)
       {
-        v27 = v26;
+        v30 = v29;
 
-        v28 = __atxlog_handle_dailyroutines();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v32 = __atxlog_handle_dailyroutines(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
           [ATXPredictedTransitionsCache cacheHeadingFromLoiType:toLoiType:forDate:];
         }
 
 LABEL_32:
 
-        [v13 setObject:v27 forKeyedSubscript:dateCopy];
-        v16 = 1;
-        v25 = v27;
+        [v13 setObject:v30 forKeyedSubscript:dateCopy];
+        v17 = 1;
+        v27 = v30;
 LABEL_37:
 
 LABEL_38:
         goto LABEL_39;
       }
 
-      v29 = __atxlog_handle_dailyroutines();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v33 = __atxlog_handle_dailyroutines(0);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
         [ATXPredictedTransitionsCache cacheHeadingFromLoiType:toLoiType:forDate:];
       }
@@ -341,22 +346,21 @@ LABEL_38:
 
     else
     {
-      v25 = __atxlog_handle_dailyroutines();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v27 = __atxlog_handle_dailyroutines(0);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         [ATXPredictedTransitionsCache cacheHeadingFromLoiType:toLoiType:forDate:];
       }
     }
 
-    v16 = 0;
+    v17 = 0;
     goto LABEL_37;
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_39:
 
-  v30 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v17;
 }
 
 - (id)cacheForDestinationLoiType:(int64_t)type
@@ -375,7 +379,7 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  v5 = __atxlog_handle_dailyroutines();
+  v5 = __atxlog_handle_dailyroutines(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     [ATXPredictedTransitionsCache cacheForDestinationLoiType:];
@@ -389,11 +393,17 @@ LABEL_9:
 
 - (void)dump
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(self + 24);
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = __atxlog_handle_dailyroutines(self);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  {
+    [ATXPredictedTransitionsCache dump];
+  }
+
+  v4 = __atxlog_handle_dailyroutines(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [ATXPredictedTransitionsCache dump];
+  }
 }
 
 - (void)pruneStaleEntries
@@ -414,16 +424,16 @@ LABEL_9:
   dateCopy = date;
   cacheCopy = cache;
   allKeys = [cacheCopy allKeys];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __66__ATXPredictedTransitionsCache_removeEntriesFromCache_beforeDate___block_invoke;
-  v11[3] = &unk_278597FA8;
-  v12 = dateCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __66__ATXPredictedTransitionsCache_removeEntriesFromCache_beforeDate___block_invoke;
+  v12[3] = &unk_278597FA8;
+  v13 = dateCopy;
   v8 = dateCopy;
-  v9 = [allKeys _pas_filteredArrayWithTest:v11];
+  v9 = [allKeys _pas_filteredArrayWithTest:v12];
 
-  v10 = __atxlog_handle_dailyroutines();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = __atxlog_handle_dailyroutines(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     +[ATXPredictedTransitionsCache removeEntriesFromCache:beforeDate:];
   }
@@ -439,14 +449,6 @@ BOOL __66__ATXPredictedTransitionsCache_removeEntriesFromCache_beforeDate___bloc
   return v4 < v5;
 }
 
-- (void)fetchEntriesStartingDate:onActivity:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_1(&dword_2263AA000, v0, v1, "Fetching entries from %@ to %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)fetchEntriesStartingDate:onActivity:.cold.2()
 {
   OUTLINED_FUNCTION_3();
@@ -456,46 +458,30 @@ BOOL __66__ATXPredictedTransitionsCache_removeEntriesFromCache_beforeDate___bloc
 
 - (void)cacheHeadingFromLoiType:toLoiType:forDate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheHeadingFromLoiType:toLoiType:forDate:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheHeadingFromLoiType:toLoiType:forDate:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheHeadingFromLoiType:toLoiType:forDate:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cacheHeadingFromLoiType:toLoiType:forDate:.cold.5()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_1(&dword_2263AA000, v0, v1, "Caching transition to %@ for time: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheHeadingFromLoiType:toLoiType:forDate:.cold.6()
@@ -514,19 +500,16 @@ BOOL __66__ATXPredictedTransitionsCache_removeEntriesFromCache_beforeDate___bloc
 
 - (void)cacheForDestinationLoiType:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "Asked to cache for unsupported loi type %ld", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "Asked to cache for unsupported loi type %ld", v1, 0xCu);
 }
 
 + (void)removeEntriesFromCache:beforeDate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

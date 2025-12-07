@@ -33,7 +33,7 @@
   v37 = 0;
   if (gLogCategory_CoreRCHID <= 40 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    sub_25E4();
+    sub_25E4(value);
   }
 
   v35 = 0u;
@@ -139,7 +139,7 @@ LABEL_12:
             [v22 setOSDName:@"debug" error:0];
             if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF();
+              LogPrintF(&gLogCategory_CoreRCDevice, "[CoreRCHIDService(CoreRC) addIRMappingWithValue:]", 40, "added device %@ (%@)", v22, v37);
             }
 
             return;
@@ -168,12 +168,10 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 10 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    managerCopy = manager;
-    addedCopy = added;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCHID, "[CoreRCHIDService(CoreRCManagerDelegate) manager:hasAdded:]", 10, "manager: %@ hasAdded: %@\n", manager, added);
   }
 
-  if ([(CoreRCManager *)[(CoreRCHIDService *)self manager:managerCopy] isEqual:manager])
+  if ([(CoreRCManager *)[(CoreRCHIDService *)self manager] isEqual:manager])
   {
 
     [(CoreRCHIDService *)self addBus:added];
@@ -184,12 +182,10 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 10 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    managerCopy = manager;
-    removedCopy = removed;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCHID, "[CoreRCHIDService(CoreRCManagerDelegate) manager:hasRemoved:]", 10, "manager: %@ hasRemoved: %@\n", manager, removed);
   }
 
-  if ([(CoreRCManager *)[(CoreRCHIDService *)self manager:managerCopy] isEqual:manager])
+  if ([(CoreRCManager *)[(CoreRCHIDService *)self manager] isEqual:manager])
   {
 
     [(CoreRCHIDService *)self removeBus:removed];
@@ -200,7 +196,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 10 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCHID, "[CoreRCHIDService(CoreRCBusDelegate) bus:deviceHasBeenAdded:]", 10, "bus: %@ deviceHasBeenAdded: %@\n", bus, added);
   }
 
   [(CoreRCHIDService *)self addDevice:added];
@@ -210,7 +206,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 10 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCHID, "[CoreRCHIDService(CoreRCBusDelegate) bus:deviceHasBeenRemoved:]", 10, "bus: %@ deviceHasBeenRemoved: %@\n", bus, removed);
   }
 
   [(CoreRCHIDService *)self removeDevice:removed];
@@ -220,7 +216,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 40 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCHID, "[CoreRCHIDService(CoreRCDeviceDelegate) device:receivedHIDEvent:fromDevice:]", 40, "device: %@ receivedHIDEvent: %@ fromDevice: %@\n", device, event, fromDevice);
   }
 
   [(CoreRCHIDService *)self dispatchHIDEvent:event fromDevice:fromDevice];
@@ -294,7 +290,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 10 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    sub_26AC();
+    sub_26AC(table);
     if (!service)
     {
       return -536870206;
@@ -318,7 +314,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 10 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    sub_26EC();
+    sub_26EC(table);
   }
 
   return 0;
@@ -365,7 +361,7 @@ LABEL_35:
       {
         if (gLogCategory_CoreRCHID <= 10 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
         {
-          sub_274C();
+          sub_274C(key);
         }
 
         v4 = 0;
@@ -380,7 +376,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 10 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCHID, "[CoreRCHIDService setIOHIDServicePropertyForKey:withValue:]", 10, "Unsupported HID key: %@ (value: %@)\n", key, value);
   }
 
   return 1;
@@ -409,7 +405,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 40 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    sub_278C();
+    sub_278C(queue);
   }
 
   queue = self->_queue;
@@ -425,7 +421,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 40 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    sub_27CC();
+    sub_27CC(queue);
   }
 
   queue = self->_queue;
@@ -441,7 +437,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 40 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    sub_280C();
+    sub_280C(bus);
   }
 
   [(NSMutableSet *)self->_monitoredBuses addObject:bus];
@@ -480,7 +476,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 40 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    sub_284C();
+    sub_284C(bus);
   }
 
   if ([bus delegate] == self)
@@ -497,7 +493,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 40 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    sub_288C();
+    sub_288C(device);
   }
 
   [(NSMutableSet *)self->_monitoredDevices addObject:device];
@@ -509,7 +505,7 @@ LABEL_35:
 {
   if (gLogCategory_CoreRCHID <= 40 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
   {
-    sub_28CC();
+    sub_28CC(device);
   }
 
   if ([device delegate] == self)

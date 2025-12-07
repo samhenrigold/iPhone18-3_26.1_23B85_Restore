@@ -11,14 +11,11 @@
 
 - (NSString)description
 {
-  v2 = (self + OBJC_IVAR____TtC9AskToCore20_CommunicationHandle_value);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_2410DF0A0();
+  v2 = sub_2410DF0A0();
 
-  return v5;
+  return v2;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -46,20 +43,17 @@
 - (int64_t)hash
 {
   sub_2410DFA00();
-  v3 = (self + OBJC_IVAR____TtC9AskToCore20_CommunicationHandle_value);
   swift_beginAccess();
-  v5 = *v3;
-  v4 = v3[1];
   selfCopy = self;
 
   sub_2410DF150();
 
-  v7 = OBJC_IVAR____TtC9AskToCore20_CommunicationHandle_kind;
+  v4 = OBJC_IVAR____TtC9AskToCore20_CommunicationHandle_kind;
   swift_beginAccess();
-  MEMORY[0x245CD9E40](*(&selfCopy->super.isa + v7));
-  v8 = sub_2410DF9E0();
+  MEMORY[0x245CD9E40](*(&selfCopy->super.isa + v4));
+  v5 = sub_2410DF9E0();
 
-  return v8;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder

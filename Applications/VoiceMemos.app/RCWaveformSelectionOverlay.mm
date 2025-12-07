@@ -480,22 +480,22 @@
 
   self->_requestedAnimatedLayoutDuration = 0.0;
   self->_requestedNonAnimatedLayout = 0;
-  v166[0] = _NSConcreteStackBlock;
-  v166[1] = 3221225472;
-  v166[2] = sub_10004BF40;
-  v166[3] = &unk_10028AC60;
-  v166[4] = self;
-  *&v166[5] = v7;
-  *&v166[6] = v8;
-  v167 = v3;
-  v10 = objc_retainBlock(v166);
+  v178[0] = _NSConcreteStackBlock;
+  v178[1] = 3221225472;
+  v178[2] = sub_10004BF40;
+  v178[3] = &unk_10028AC60;
+  v178[4] = self;
+  *&v178[5] = v7;
+  *&v178[6] = v8;
+  v179 = v3;
+  v10 = objc_retainBlock(v178);
   [(RCWaveformSelectionOverlay *)self _createSublayersIfNeeded];
   [(RCWaveformSelectionOverlay *)self _selectionBoundsIncludingKnobs];
-  x = v169.origin.x;
-  y = v169.origin.y;
-  width = v169.size.width;
-  height = v169.size.height;
-  if (CGRectIsEmpty(v169) || (v170.origin.x = x, v170.origin.y = y, v170.size.width = width, v170.size.height = height, CGRectIsInfinite(v170)) || (*&x & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || (*&y & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || (*&width & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || (*&height & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+  x = v181.origin.x;
+  y = v181.origin.y;
+  width = v181.size.width;
+  height = v181.size.height;
+  if (CGRectIsEmpty(v181) || (v182.origin.x = x, v182.origin.y = y, v182.size.width = width, v182.size.height = height, CGRectIsInfinite(v182)) || (*&x & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || (*&y & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || (*&width & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || (*&height & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
     if (v3)
     {
@@ -521,12 +521,12 @@
       }
     }
 
-    v156 = v15;
+    v168 = v15;
     [(RCWaveformSelectionOverlay *)self selectedTimeRange];
     v17 = v16;
-    v154 = v18;
+    v166 = v18;
     RCTimeRangeDeltaWithUIPrecision();
-    v150 = v19;
+    v162 = v19;
     v20 = v19 == 0.0 && self->_insertMode;
     v21 = v19 > 0.0 || !self->_insertMode;
     overviewTrimHandleStyle = self->_overviewTrimHandleStyle;
@@ -557,11 +557,11 @@
     [(RCOverlayBarLayer *)self->_endTimeSelection setZPosition:v24];
     [(CALayer *)self->_corneredDimOverlayContainer setZPosition:0.5];
     [(RCWaveformSelectionOverlay *)self _selectionHighlightBounds];
-    v159 = v25;
-    v160 = v26;
+    v171 = v25;
+    v172 = v26;
     [(RCOverlayBarLayer *)self->_beginTimeSelection frame];
     v28 = v27;
-    v151 = v29;
+    v163 = v29;
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     v31 = WeakRetained;
     assetDuration = self->_assetDuration;
@@ -578,260 +578,260 @@
     [WeakRetained waveformSelectionOverlay:self offsetForTime:assetDuration];
     v34 = v33;
 
-    v158 = v21;
-    v161 = v34;
+    v170 = v21;
+    v173 = v34;
     if (self->_overviewTrimHandleStyle)
     {
       if (v20 || v21)
       {
         [(RCOverlayBarLayer *)self->_endTimeSelection frame];
         v28 = v35;
-        [(RCOverlayBarLayer *)self->_beginTimeSelection setMasksToBounds:0];
-        MinY = v159;
-        v36 = v160;
-        v38 = v28;
+        v36 = [(RCOverlayBarLayer *)self->_beginTimeSelection setMasksToBounds:0];
+        MinY = v171;
+        v38 = v172;
+        v40 = v28;
       }
 
       else
       {
-        [(RCOverlayBarLayer *)self->_beginTimeSelection setMasksToBounds:1];
+        v36 = [(RCOverlayBarLayer *)self->_beginTimeSelection setMasksToBounds:1];
         v28 = 1.0;
-        MinY = v159;
-        v36 = v160;
-        v38 = 1.0;
+        MinY = v171;
+        v38 = v172;
+        v40 = 1.0;
       }
     }
 
     else
     {
-      v38 = v28 * 0.5;
-      v171.origin.x = x;
-      v171.origin.y = y;
-      v171.size.width = width;
-      v171.size.height = height;
-      MinY = CGRectGetMinY(v171);
-      v36 = v151;
+      v40 = v28 * 0.5;
+      v183.origin.x = x;
+      v183.origin.y = y;
+      v183.size.width = width;
+      v183.size.height = height;
+      MinY = CGRectGetMinY(v183);
+      v38 = v163;
     }
 
-    v39.n128_f64[0] = RCRoundCoord(v161 - v38);
+    v41.n128_f64[0] = RCRoundCoord(v36, v37, v173 - v40);
     if (v20)
     {
-      v40.n128_f64[0] = 0.0;
+      v42.n128_f64[0] = 0.0;
     }
 
     else
     {
-      v40.n128_f64[0] = v156;
+      v42.n128_f64[0] = v168;
     }
 
-    (v10[2])(v10, self->_beginTimeSelection, 0, 0, v39, MinY, v28, v36, v40);
+    (v10[2])(v10, self->_beginTimeSelection, 0, 0, v41, MinY, v28, v38, v42);
     [(RCOverlayBarLayer *)self->_endTimeSelection frame];
-    v42 = v41;
-    v152 = v43;
-    v44 = objc_loadWeakRetained(&self->_delegate);
-    v45 = v44;
-    v46 = self->_assetDuration;
-    if (v154 < v46)
+    v44 = v43;
+    v164 = v45;
+    v46 = objc_loadWeakRetained(&self->_delegate);
+    v47 = v46;
+    v48 = self->_assetDuration;
+    if (v166 < v48)
     {
-      v46 = v154;
+      v48 = v166;
     }
 
-    if (v46 < 0.0)
+    if (v48 < 0.0)
     {
-      v46 = 0.0;
+      v48 = 0.0;
     }
 
-    [v44 waveformSelectionOverlay:self offsetForTime:v46];
-    v48 = v47;
+    [v46 waveformSelectionOverlay:self offsetForTime:v48];
+    v50 = v49;
 
-    v49 = v159;
-    v50 = v160;
+    v53 = v171;
+    v54 = v172;
     if (!self->_overviewTrimHandleStyle)
     {
-      v48 = v48 + v42 * -0.5;
-      v172.origin.x = x;
-      v172.origin.y = y;
-      v172.size.width = width;
-      v172.size.height = height;
-      v49 = CGRectGetMinY(v172);
-      v50 = v152;
+      v50 = v50 + v44 * -0.5;
+      v184.origin.x = x;
+      v184.origin.y = y;
+      v184.size.width = width;
+      v184.size.height = height;
+      v53 = CGRectGetMinY(v184);
+      v54 = v164;
     }
 
-    v51.n128_f64[0] = RCRoundCoord(v48);
+    v55.n128_f64[0] = RCRoundCoord(v51, v52, v50);
     if (v21)
     {
-      v52.n128_f64[0] = v156;
+      v56.n128_f64[0] = v168;
     }
 
     else
     {
-      v52.n128_f64[0] = 0.0;
+      v56.n128_f64[0] = 0.0;
     }
 
-    (v10[2])(v10, self->_endTimeSelection, 0, 0, v51, v49, v42, v50, v52);
+    (v10[2])(v10, self->_endTimeSelection, 0, 0, v55, v53, v44, v54, v56);
     [(RCWaveformSelectionOverlay *)self playWidthMultiplier];
     [(RCWaveformSelectionOverlay *)self _selectionBoundsIncludingKnobsUsingMultiplier:?];
-    v54 = v53;
-    v56 = v55;
     v58 = v57;
     v60 = v59;
+    v62 = v61;
+    v64 = v63;
     trackedAssetCurrentTime = self->_trackedAssetCurrentTime;
     if (trackedAssetCurrentTime < 0.0)
     {
-      v62 = objc_loadWeakRetained(&self->_delegate);
-      [v62 waveformSelectionOverlayGetCurrentTime:self];
-      trackedAssetCurrentTime = v63;
+      v66 = objc_loadWeakRetained(&self->_delegate);
+      [v66 waveformSelectionOverlayGetCurrentTime:self];
+      trackedAssetCurrentTime = v67;
     }
 
-    v64 = self->_assetDuration;
-    if (trackedAssetCurrentTime < v64)
+    v68 = self->_assetDuration;
+    if (trackedAssetCurrentTime < v68)
     {
-      v64 = trackedAssetCurrentTime;
+      v68 = trackedAssetCurrentTime;
     }
 
-    if (v64 >= 0.0)
+    if (v68 >= 0.0)
     {
-      v65 = v64;
+      v69 = v68;
     }
 
     else
     {
-      v65 = 0.0;
+      v69 = 0.0;
     }
 
     [(RCOverlayBarLayer *)self->_currentTimeBar frame];
-    v67 = v66;
-    v69 = v68;
-    v70 = objc_loadWeakRetained(&self->_delegate);
-    [v70 waveformSelectionOverlay:self offsetForTime:v65];
-    v72 = v71;
+    v71 = v70;
+    v73 = v72;
+    v74 = objc_loadWeakRetained(&self->_delegate);
+    [v74 waveformSelectionOverlay:self offsetForTime:v69];
+    v76 = v75;
 
     +[RCOverlayBarLayer selectionKnobRadius];
-    v74 = v73;
-    [(RCWaveformSelectionOverlay *)self playWidthMultiplier];
-    v76 = RCRoundCoord(v72 - v74 * v75);
+    v78 = v77;
+    playWidthMultiplier = [(RCWaveformSelectionOverlay *)self playWidthMultiplier];
+    v82 = RCRoundCoord(playWidthMultiplier, v81, v76 - v78 * v80);
     if (self->_overviewTrimHandleStyle)
     {
       [v9 overviewPlayheadHeightInset];
-      v78 = -v77;
-      v173.origin.x = v76;
-      v173.origin.y = v159;
-      v173.size.height = v160;
-      v173.size.width = v67;
-      v174 = CGRectInset(v173, 0.0, v78);
-      v76 = v174.origin.x;
-      v79 = v174.origin.y;
-      v67 = v174.size.width;
-      v69 = v174.size.height;
+      v84 = -v83;
+      v185.origin.x = v82;
+      v185.origin.y = v171;
+      v185.size.height = v172;
+      v185.size.width = v71;
+      v186 = CGRectInset(v185, 0.0, v84);
+      v82 = v186.origin.x;
+      v85 = v186.origin.y;
+      v71 = v186.size.width;
+      v73 = v186.size.height;
     }
 
     else
     {
-      v175.origin.x = v54;
-      v175.origin.y = v56;
-      v175.size.width = v58;
-      v175.size.height = v60;
-      v79 = CGRectGetMinY(v175);
+      v187.origin.x = v58;
+      v187.origin.y = v60;
+      v187.size.width = v62;
+      v187.size.height = v64;
+      v85 = CGRectGetMinY(v187);
     }
 
-    if (v72 < 0.0)
+    if (v76 < 0.0)
     {
-      v80 = 0.0;
+      v86 = 0.0;
     }
 
     else
     {
-      v80 = 1.0;
+      v86 = 1.0;
     }
 
     layer = [(RCWaveformSelectionOverlay *)self layer];
-    v82 = [layer animationForKey:@"bounds.origin"];
+    v88 = [layer animationForKey:@"bounds.origin"];
 
-    v155 = v82;
-    if ([v82 isMemberOfClass:objc_opt_class()])
+    v167 = v88;
+    if ([v88 isMemberOfClass:objc_opt_class()])
     {
-      v157 = v82;
+      v169 = v88;
     }
 
     else
     {
-      v157 = 0;
+      v169 = 0;
     }
 
     [(RCOverlayBarLayer *)self->_currentTimeBar position];
-    v84 = v83;
-    v86 = v85;
+    v90 = v89;
+    v92 = v91;
     delegate = [(RCWaveformSelectionOverlay *)self delegate];
     waveformSelectionOverlayNeedsExplicitAnimations = [delegate waveformSelectionOverlayNeedsExplicitAnimations];
 
     [(RCOverlayBarLayer *)self->_currentTimeBar frame];
-    if (waveformSelectionOverlayNeedsExplicitAnimations && v157)
+    if (waveformSelectionOverlayNeedsExplicitAnimations && v169)
     {
-      v90 = v76 - v84;
-      if (v76 - v84 < 0.0)
+      v96 = v82 - v90;
+      if (v82 - v90 < 0.0)
       {
-        v90 = -(v76 - v84);
+        v96 = -(v82 - v90);
       }
 
-      if (v90 > v89)
+      if (v96 > v95)
       {
         +[CATransaction begin];
-        v91 = v155;
-        v92 = [CASpringAnimation animationWithKeyPath:@"position"];
-        [v91 duration];
-        [v92 setDuration:?];
-        [v91 timingFunction];
-        v94 = v93 = v4;
-        [v92 setTimingFunction:v94];
+        v97 = v167;
+        v98 = [CASpringAnimation animationWithKeyPath:@"position"];
+        [v97 duration];
+        [v98 setDuration:?];
+        [v97 timingFunction];
+        v100 = v99 = v4;
+        [v98 setTimingFunction:v100];
 
-        v4 = v93;
-        [v91 damping];
-        [v92 setDamping:?];
-        [v91 stiffness];
-        [v92 setStiffness:?];
-        [v91 mass];
-        v96 = v95;
+        v4 = v99;
+        [v97 damping];
+        [v98 setDamping:?];
+        [v97 stiffness];
+        [v98 setStiffness:?];
+        [v97 mass];
+        v102 = v101;
 
-        [v92 setMass:v96];
+        [v98 setMass:v102];
         [(RCOverlayBarLayer *)self->_currentTimeBar position];
-        v97 = [NSValue valueWithCGPoint:?];
-        [v92 setFromValue:v97];
+        v103 = [NSValue valueWithCGPoint:?];
+        [v98 setFromValue:v103];
 
-        [(RCOverlayBarLayer *)self->_currentTimeBar setPosition:v76, v79];
-        [(RCOverlayBarLayer *)self->_currentTimeBar addAnimation:v92 forKey:@"position"];
+        [(RCOverlayBarLayer *)self->_currentTimeBar setPosition:v82, v85];
+        [(RCOverlayBarLayer *)self->_currentTimeBar addAnimation:v98 forKey:@"position"];
         +[CATransaction commit];
       }
     }
 
-    else if (v84 != v76 || v86 != v79)
+    else if (v90 != v82 || v92 != v85)
     {
-      (v10[2])(v10, self->_currentTimeBar, 0, 0, v76, v79, v67, v69, v80);
+      (v10[2])(v10, self->_currentTimeBar, 0, 0, v82, v85, v71, v73, v86);
     }
 
     [(RCWaveformSelectionOverlay *)self bounds];
-    v99 = v98;
-    v101 = v100;
-    v103 = v102;
+    v105 = v104;
+    v107 = v106;
+    v109 = v108;
     [(RCOverlayBarLayer *)self->_compactCurrentTimeBar frame];
-    v104 = CGRectGetWidth(v176);
-    v177.origin.x = v99;
-    v177.origin.y = v101;
-    v177.size.width = v104;
-    v177.size.height = v103;
-    v105 = CGRectGetWidth(v177);
-    v106 = RCRoundCoord(v72 + v105 * -0.5);
+    v110 = CGRectGetWidth(v188);
+    v189.origin.x = v105;
+    v189.origin.y = v107;
+    v189.size.width = v110;
+    v189.size.height = v109;
+    v111 = CGRectGetWidth(v189);
+    v114 = RCRoundCoord(v112, v113, v76 + v111 * -0.5);
     [v9 compactStyleTimeBarHeightInset];
-    v108 = v107;
-    v178.origin.x = v106;
-    v178.origin.y = v101;
-    v178.size.width = v104;
-    v178.size.height = v103;
-    v179 = CGRectInset(v178, 0.0, v108);
-    (v10[2])(v10, self->_compactCurrentTimeBar, 0, 0, v179.origin, *&v179.origin.y, v179.size, *&v179.size.height, v80);
+    v116 = v115;
+    v190.origin.x = v114;
+    v190.origin.y = v107;
+    v190.size.width = v110;
+    v190.size.height = v109;
+    v191 = CGRectInset(v190, 0.0, v116);
+    (v10[2])(v10, self->_compactCurrentTimeBar, 0, 0, v191.origin, *&v191.origin.y, v191.size, *&v191.size.height, v86);
     selectionMode = self->_selectionMode;
-    v110 = selectionMode == 1;
+    v118 = selectionMode == 1;
     [(RCOverlayBarLayer *)self->_compactCurrentTimeBar setHidden:selectionMode != 1];
-    [(RCOverlayBarLayer *)self->_currentTimeBar setHidden:v110];
+    [(RCOverlayBarLayer *)self->_currentTimeBar setHidden:v118];
     if (self->_insertMode)
     {
       recordPositionBarColor = [v9 recordPositionBarColor];
@@ -841,8 +841,8 @@
       [(RCOverlayBarLayer *)self->_endTimeSelection setColor:recordPositionBarColor2];
 
       replaceSelectionOverlayColor = [v9 replaceSelectionOverlayColor];
-      v114 = objc_loadWeakRetained(&self->_selectionBackgroundView);
-      [v114 setBackgroundColor:replaceSelectionOverlayColor];
+      v122 = objc_loadWeakRetained(&self->_selectionBackgroundView);
+      [v122 setBackgroundColor:replaceSelectionOverlayColor];
 
       [v9 recordPositionBarColor];
     }
@@ -856,15 +856,15 @@
       [(RCOverlayBarLayer *)self->_endTimeSelection setColor:selectionOverlayEndpointBarColor2];
 
       selectionOverlayColor = [v9 selectionOverlayColor];
-      v119 = objc_loadWeakRetained(&self->_selectionBackgroundView);
-      [v119 setBackgroundColor:selectionOverlayColor];
+      v127 = objc_loadWeakRetained(&self->_selectionBackgroundView);
+      [v127 setBackgroundColor:selectionOverlayColor];
 
       [v9 selectionOverlayEndpointBarColor];
     }
-    v115 = ;
-    -[CALayer setBorderColor:](self->_middleSelectionOverlay, "setBorderColor:", [v115 CGColor]);
+    v123 = ;
+    -[CALayer setBorderColor:](self->_middleSelectionOverlay, "setBorderColor:", [v123 CGColor]);
 
-    if (self->_isRecording || self->_insertMode && (v120 = v150, v150 == 0.0))
+    if (self->_isRecording || self->_insertMode && (v128 = v162, v162 == 0.0))
     {
       recordPositionBarColor3 = [v9 recordPositionBarColor];
       [(RCOverlayBarLayer *)self->_currentTimeBar setColor:recordPositionBarColor3];
@@ -880,95 +880,95 @@
       recordPositionBarColor4 = [v9 playbackPositionBarColor];
     }
 
-    v124 = recordPositionBarColor4;
+    v132 = recordPositionBarColor4;
     [(RCOverlayBarLayer *)self->_compactCurrentTimeBar setColor:recordPositionBarColor4];
 
     [(RCOverlayBarLayer *)self->_beginTimeSelection frame];
-    MidX = CGRectGetMidX(v180);
+    MidX = CGRectGetMidX(v192);
     [(RCOverlayBarLayer *)self->_endTimeSelection frame];
-    v126 = CGRectGetMidX(v181) - MidX;
-    v127 = RCRoundCoord(MidX);
-    v128 = RCRoundCoord(v126);
+    v134 = CGRectGetMidX(v193) - MidX;
+    v137 = RCRoundCoord(v135, v136, MidX);
+    v140 = RCRoundCoord(v138, v139, v134);
     middleSelectionOverlay = self->_middleSelectionOverlay;
-    v130 = 0.0;
-    v131 = 0.0;
-    v132.n128_u64[0] = 0;
-    if (isEditingEnabled & v158)
+    v142 = 0.0;
+    v143 = 0.0;
+    v144.n128_u64[0] = 0;
+    if (isEditingEnabled & v170)
     {
       [v9 selectionOverlayAlpha];
-      v132.n128_u64[0] = v133;
-      v131 = 1.0;
+      v144.n128_u64[0] = v145;
+      v143 = 1.0;
     }
 
-    (v10[2])(v10, middleSelectionOverlay, 0, 0, v127, v159, v128, v160, v132);
+    (v10[2])(v10, middleSelectionOverlay, 0, 0, v137, v171, v140, v172, v144);
     +[CATransaction begin];
     [CATransaction setDisableActions:1];
-    v134 = objc_loadWeakRetained(&self->_selectionBackgroundView);
-    [v134 setFrame:{v127, v159, v128, v160}];
+    v146 = objc_loadWeakRetained(&self->_selectionBackgroundView);
+    [v146 setFrame:{v137, v171, v140, v172}];
 
-    v135 = objc_loadWeakRetained(&self->_selectionBackgroundView);
-    [v135 setAlpha:v131];
+    v147 = objc_loadWeakRetained(&self->_selectionBackgroundView);
+    [v147 setAlpha:v143];
 
     if ([(RCWaveformSelectionOverlay *)self overviewTrimHandleStyle])
     {
       [v9 selectionOverlayBorderWidth];
-      v130 = v136;
+      v142 = v148;
     }
 
-    v137 = objc_loadWeakRetained(&self->_delegate);
-    [v137 waveformSelectionOverlay:self offsetForTime:0.0];
-    v139 = v138;
+    v149 = objc_loadWeakRetained(&self->_delegate);
+    [v149 waveformSelectionOverlay:self offsetForTime:0.0];
+    v151 = v150;
 
-    v140 = objc_loadWeakRetained(&self->_delegate);
-    [v140 waveformSelectionOverlay:self offsetForTime:self->_assetDuration];
-    v142 = v141;
+    v152 = objc_loadWeakRetained(&self->_delegate);
+    [v152 waveformSelectionOverlay:self offsetForTime:self->_assetDuration];
+    v154 = v153;
 
-    v182.origin.x = v127;
-    v182.origin.y = v159;
-    v182.size.width = v128;
-    v182.size.height = v160;
-    v183 = CGRectInset(v182, 0.0, v130);
-    (v10[2])(v10, self->_corneredDimOverlayContainer, 0, 0, v139, *&v183.origin.y, v142 - v139, *&v183.size.height, v131);
-    v184.origin.x = v127 - v139;
-    v184.origin.y = v159;
-    v184.size.width = v128;
-    v184.size.height = v160;
+    v194.origin.x = v137;
+    v194.origin.y = v171;
+    v194.size.width = v140;
+    v194.size.height = v172;
+    v195 = CGRectInset(v194, 0.0, v142);
+    (v10[2])(v10, self->_corneredDimOverlayContainer, 0, 0, v151, *&v195.origin.y, v154 - v151, *&v195.size.height, v143);
+    v196.origin.x = v137 - v151;
+    v196.origin.y = v171;
+    v196.size.width = v140;
+    v196.size.height = v172;
     +[CATransaction commit];
     if (+[UIApplication shouldMakeUIForDefaultPNG])
     {
-      v164 = 0u;
-      v165 = 0u;
-      v162 = 0u;
-      v163 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
       layer2 = [(RCWaveformSelectionOverlay *)self layer];
       sublayers = [layer2 sublayers];
 
-      v145 = [sublayers countByEnumeratingWithState:&v162 objects:v168 count:16];
-      if (v145)
+      v157 = [sublayers countByEnumeratingWithState:&v174 objects:v180 count:16];
+      if (v157)
       {
-        v146 = v145;
-        v147 = *v163;
+        v158 = v157;
+        v159 = *v175;
         do
         {
-          for (i = 0; i != v146; i = i + 1)
+          for (i = 0; i != v158; i = i + 1)
           {
-            if (*v163 != v147)
+            if (*v175 != v159)
             {
               objc_enumerationMutation(sublayers);
             }
 
-            [*(*(&v162 + 1) + 8 * i) setHidden:1];
+            [*(*(&v174 + 1) + 8 * i) setHidden:1];
           }
 
-          v146 = [sublayers countByEnumeratingWithState:&v162 objects:v168 count:16];
+          v158 = [sublayers countByEnumeratingWithState:&v174 objects:v180 count:16];
         }
 
-        while (v146);
+        while (v158);
       }
 
       [(RCOverlayBarLayer *)self->_currentTimeBar setHidden:0];
-      LODWORD(v149) = 1.0;
-      [(RCOverlayBarLayer *)self->_currentTimeBar setOpacity:v149];
+      LODWORD(v161) = 1.0;
+      [(RCOverlayBarLayer *)self->_currentTimeBar setOpacity:v161];
     }
 
     if (v4)

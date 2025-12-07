@@ -250,12 +250,12 @@ LABEL_35:
 
 - (SFRichText)initWithProtobuf:(id)protobuf
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   text = [protobufCopy text];
-  v38.receiver = self;
-  v38.super_class = SFRichText;
-  v6 = [(SFText *)&v38 initWithProtobuf:text];
+  v37.receiver = self;
+  v37.super_class = SFRichText;
+  v6 = [(SFText *)&v37 initWithProtobuf:text];
 
   if (v6)
   {
@@ -287,33 +287,33 @@ LABEL_35:
       v12 = 0;
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     icons2 = [protobufCopy icons];
-    v14 = [icons2 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v14 = [icons2 countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v35;
+      v16 = *v34;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v35 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(icons2);
           }
 
-          v18 = [[SFImage alloc] initWithProtobuf:*(*(&v34 + 1) + 8 * i)];
+          v18 = [[SFImage alloc] initWithProtobuf:*(*(&v33 + 1) + 8 * i)];
           if (v18)
           {
             [v12 addObject:v18];
           }
         }
 
-        v15 = [icons2 countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v15 = [icons2 countByEnumeratingWithState:&v33 objects:v39 count:16];
       }
 
       while (v15);
@@ -331,33 +331,33 @@ LABEL_35:
       v20 = 0;
     }
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     formattedTextPieces2 = [protobufCopy formattedTextPieces];
-    v22 = [formattedTextPieces2 countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v22 = [formattedTextPieces2 countByEnumeratingWithState:&v29 objects:v38 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v31;
+      v24 = *v30;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v31 != v24)
+          if (*v30 != v24)
           {
             objc_enumerationMutation(formattedTextPieces2);
           }
 
-          v26 = [[SFFormattedText alloc] initWithProtobuf:*(*(&v30 + 1) + 8 * j)];
+          v26 = [[SFFormattedText alloc] initWithProtobuf:*(*(&v29 + 1) + 8 * j)];
           if (v26)
           {
             [v20 addObject:v26];
           }
         }
 
-        v23 = [formattedTextPieces2 countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v23 = [formattedTextPieces2 countByEnumeratingWithState:&v29 objects:v38 count:16];
       }
 
       while (v23);
@@ -367,7 +367,6 @@ LABEL_35:
     v27 = v6;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

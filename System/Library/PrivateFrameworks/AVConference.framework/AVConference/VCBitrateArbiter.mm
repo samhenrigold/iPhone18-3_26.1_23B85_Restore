@@ -158,21 +158,21 @@
 
 - (void)readStoreBagValues:(void *)values
 {
-  v353 = *MEMORY[0x1E69E9840];
+  v203 = *MEMORY[0x1E69E9840];
   v5 = +[GKSConnectivitySettings getAllSettings];
   if (v5)
   {
-    LOBYTE(v12) = [objc_msgSend(v5 "description")];
+    v6 = [objc_msgSend(v5 "description")];
   }
 
   else
   {
-    v12 = "<nil>";
+    v6 = "<nil>";
   }
 
-  VRLogfilePrintWithTimestamp(values, "Current bag settings: %s\n", v6, v7, v8, v9, v10, v11, v12);
-  v13 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-2g"];
-  if (rangeCheck(v13))
+  VRLogfilePrintWithTimestamp(values, "Current bag settings: %s\n", v6);
+  v7 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-2g"];
+  if (rangeCheck(v7))
   {
     maxAllowedBitrate2G = self->_maxAllowedBitrate2G;
     ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
@@ -180,125 +180,125 @@
     {
       if (ErrorLogLevelForModule >= 7)
       {
-        v16 = VRTraceErrorLogLevelToCSTR();
-        v17 = *MEMORY[0x1E6986650];
+        v10 = VRTraceErrorLogLevelToCSTR();
+        v11 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v18 = objc_opt_class();
+          v12 = objc_opt_class();
           *buf = 136316162;
-          v342 = v16;
-          v343 = 2080;
-          v344 = "[VCBitrateArbiter readStoreBagValues:]";
-          v345 = 1024;
-          v346 = 331;
-          v347 = 2080;
-          Name = class_getName(v18);
-          v349 = 1024;
-          v350 = v13;
-          _os_log_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 2G bitrate with storebag value of %d", buf, 0x2Cu);
+          v192 = v10;
+          v193 = 2080;
+          v194 = "[VCBitrateArbiter readStoreBagValues:]";
+          v195 = 1024;
+          v196 = 331;
+          v197 = 2080;
+          Name = class_getName(v12);
+          v199 = 1024;
+          v200 = v7;
+          _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 2G bitrate with storebag value of %d", buf, 0x2Cu);
         }
       }
 
-      v19 = objc_opt_class();
-      v20 = class_getName(v19);
-      VRLogfilePrintWithTimestamp(values, "%s: overriding 2G bitrate with storebag value of %d\n", v21, v22, v23, v24, v25, v26, v20);
-      self->_maxAllowedBitrate2G = v13;
+      v13 = objc_opt_class();
+      v14 = class_getName(v13);
+      VRLogfilePrintWithTimestamp(values, "%s: overriding 2G bitrate with storebag value of %d\n", v14, v7);
+      self->_maxAllowedBitrate2G = v7;
     }
 
     else
     {
       if (ErrorLogLevelForModule >= 7)
       {
-        v27 = VRTraceErrorLogLevelToCSTR();
-        v28 = *MEMORY[0x1E6986650];
+        v15 = VRTraceErrorLogLevelToCSTR();
+        v16 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v29 = objc_opt_class();
+          v17 = objc_opt_class();
           *buf = 136316162;
-          v342 = v27;
-          v343 = 2080;
-          v344 = "[VCBitrateArbiter readStoreBagValues:]";
-          v345 = 1024;
-          v346 = 334;
-          v347 = 2080;
-          Name = class_getName(v29);
-          v349 = 1024;
-          v350 = v13;
-          _os_log_impl(&dword_1DB56E000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 2G, ignored storebag value of %d", buf, 0x2Cu);
+          v192 = v15;
+          v193 = 2080;
+          v194 = "[VCBitrateArbiter readStoreBagValues:]";
+          v195 = 1024;
+          v196 = 334;
+          v197 = 2080;
+          Name = class_getName(v17);
+          v199 = 1024;
+          v200 = v7;
+          _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 2G, ignored storebag value of %d", buf, 0x2Cu);
         }
       }
 
-      v30 = objc_opt_class();
-      v31 = class_getName(v30);
-      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 2G, ignored storebag value of %d\n", v32, v33, v34, v35, v36, v37, v31);
+      v18 = objc_opt_class();
+      v19 = class_getName(v18);
+      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 2G, ignored storebag value of %d\n", v19, v7);
     }
   }
 
-  v38 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ss-bitrate-max-2g"];
-  if (v38)
+  v20 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ss-bitrate-max-2g"];
+  if (v20)
   {
-    v39 = v38;
-    if (rangeCheck(v38))
+    v21 = v20;
+    if (rangeCheck(v20))
     {
-      v40 = self->_maxAllowedBitrate2G;
-      v41 = VRTraceGetErrorLogLevelForModule();
-      if (v40)
+      v22 = self->_maxAllowedBitrate2G;
+      v23 = VRTraceGetErrorLogLevelForModule();
+      if (v22)
       {
-        if (v41 >= 7)
+        if (v23 >= 7)
         {
-          v42 = VRTraceErrorLogLevelToCSTR();
-          v43 = *MEMORY[0x1E6986650];
+          v24 = VRTraceErrorLogLevelToCSTR();
+          v25 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v44 = objc_opt_class();
-            v45 = class_getName(v44);
+            v26 = objc_opt_class();
+            v27 = class_getName(v26);
             *buf = 136316162;
-            v342 = v42;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 346;
-            v347 = 2080;
-            Name = v45;
-            v349 = 1024;
-            v350 = v39;
-            _os_log_impl(&dword_1DB56E000, v43, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding ScreenShare 2G bitrate with storebag value of %d", buf, 0x2Cu);
+            v192 = v24;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 346;
+            v197 = 2080;
+            Name = v27;
+            v199 = 1024;
+            v200 = v21;
+            _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding ScreenShare 2G bitrate with storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v46 = objc_opt_class();
-        v47 = class_getName(v46);
-        VRLogfilePrintWithTimestamp(values, "%s: overriding ScreenShare 2G bitrate with storebag value of %d\n", v48, v49, v50, v51, v52, v53, v47);
-        self->_maxAllowedScreenShareBitrate2G = v39;
+        v28 = objc_opt_class();
+        v29 = class_getName(v28);
+        VRLogfilePrintWithTimestamp(values, "%s: overriding ScreenShare 2G bitrate with storebag value of %d\n", v29, v21);
+        self->_maxAllowedScreenShareBitrate2G = v21;
       }
 
       else
       {
-        if (v41 >= 7)
+        if (v23 >= 7)
         {
-          v54 = VRTraceErrorLogLevelToCSTR();
-          v55 = *MEMORY[0x1E6986650];
+          v30 = VRTraceErrorLogLevelToCSTR();
+          v31 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v56 = objc_opt_class();
-            v57 = class_getName(v56);
+            v32 = objc_opt_class();
+            v33 = class_getName(v32);
             *buf = 136316162;
-            v342 = v54;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 349;
-            v347 = 2080;
-            Name = v57;
-            v349 = 1024;
-            v350 = v39;
-            _os_log_impl(&dword_1DB56E000, v55, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 2G, ignored storebag value of %d", buf, 0x2Cu);
+            v192 = v30;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 349;
+            v197 = 2080;
+            Name = v33;
+            v199 = 1024;
+            v200 = v21;
+            _os_log_impl(&dword_1DB56E000, v31, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 2G, ignored storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v58 = objc_opt_class();
-        v59 = class_getName(v58);
-        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 2G, ignored storebag value of %d\n", v60, v61, v62, v63, v64, v65, v59);
+        v34 = objc_opt_class();
+        v35 = class_getName(v34);
+        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 2G, ignored storebag value of %d\n", v35, v21);
       }
     }
   }
@@ -308,71 +308,71 @@
     self->_maxAllowedScreenShareBitrate2G = 510;
   }
 
-  v66 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ac-bitrate-max-2g"];
-  if (v66)
+  v36 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ac-bitrate-max-2g"];
+  if (v36)
   {
-    v67 = v66;
-    if (IsValidAudioBitrateRange(v66))
+    v37 = v36;
+    if (IsValidAudioBitrateRange(v36))
     {
-      v68 = self->_maxAllowedBitrate2G;
-      v69 = VRTraceGetErrorLogLevelForModule();
-      if (v68)
+      v38 = self->_maxAllowedBitrate2G;
+      v39 = VRTraceGetErrorLogLevelForModule();
+      if (v38)
       {
-        if (v69 >= 7)
+        if (v39 >= 7)
         {
-          v70 = VRTraceErrorLogLevelToCSTR();
-          v71 = *MEMORY[0x1E6986650];
+          v40 = VRTraceErrorLogLevelToCSTR();
+          v41 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v72 = objc_opt_class();
-            v73 = class_getName(v72);
+            v42 = objc_opt_class();
+            v43 = class_getName(v42);
             *buf = 136316162;
-            v342 = v70;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 362;
-            v347 = 2080;
-            Name = v73;
-            v349 = 1024;
-            v350 = v67;
-            _os_log_impl(&dword_1DB56E000, v71, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 2G AppleCalling bitrate with storebag value of %d", buf, 0x2Cu);
+            v192 = v40;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 362;
+            v197 = 2080;
+            Name = v43;
+            v199 = 1024;
+            v200 = v37;
+            _os_log_impl(&dword_1DB56E000, v41, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 2G AppleCalling bitrate with storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v74 = objc_opt_class();
-        v75 = class_getName(v74);
-        VRLogfilePrintWithTimestamp(values, "%s: overriding 2G AppleCalling bitrate with storebag value of %d\n", v76, v77, v78, v79, v80, v81, v75);
-        self->_maxAllowedAudioOnlyBitrate2G = v67;
+        v44 = objc_opt_class();
+        v45 = class_getName(v44);
+        VRLogfilePrintWithTimestamp(values, "%s: overriding 2G AppleCalling bitrate with storebag value of %d\n", v45, v37);
+        self->_maxAllowedAudioOnlyBitrate2G = v37;
       }
 
       else
       {
-        if (v69 >= 7)
+        if (v39 >= 7)
         {
-          v82 = VRTraceErrorLogLevelToCSTR();
-          v83 = *MEMORY[0x1E6986650];
+          v46 = VRTraceErrorLogLevelToCSTR();
+          v47 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v84 = objc_opt_class();
-            v85 = class_getName(v84);
+            v48 = objc_opt_class();
+            v49 = class_getName(v48);
             *buf = 136316162;
-            v342 = v82;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 365;
-            v347 = 2080;
-            Name = v85;
-            v349 = 1024;
-            v350 = v67;
-            _os_log_impl(&dword_1DB56E000, v83, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 2G, ignored storebag value of %d", buf, 0x2Cu);
+            v192 = v46;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 365;
+            v197 = 2080;
+            Name = v49;
+            v199 = 1024;
+            v200 = v37;
+            _os_log_impl(&dword_1DB56E000, v47, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 2G, ignored storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v86 = objc_opt_class();
-        v87 = class_getName(v86);
-        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 2G, ignored storebag value of %d\n", v88, v89, v90, v91, v92, v93, v87);
+        v50 = objc_opt_class();
+        v51 = class_getName(v50);
+        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 2G, ignored storebag value of %d\n", v51, v37);
       }
     }
   }
@@ -382,136 +382,136 @@
     self->_maxAllowedAudioOnlyBitrate2G = 21;
   }
 
-  v94 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-3g"];
-  if (rangeCheck(v94))
+  v52 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-3g"];
+  if (rangeCheck(v52))
   {
     maxAllowedBitrate3G = self->_maxAllowedBitrate3G;
-    v96 = VRTraceGetErrorLogLevelForModule();
+    v54 = VRTraceGetErrorLogLevelForModule();
     if (maxAllowedBitrate3G)
     {
-      if (v96 >= 7)
+      if (v54 >= 7)
       {
-        v97 = VRTraceErrorLogLevelToCSTR();
-        v98 = *MEMORY[0x1E6986650];
+        v55 = VRTraceErrorLogLevelToCSTR();
+        v56 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v99 = objc_opt_class();
-          v100 = class_getName(v99);
+          v57 = objc_opt_class();
+          v58 = class_getName(v57);
           *buf = 136316162;
-          v342 = v97;
-          v343 = 2080;
-          v344 = "[VCBitrateArbiter readStoreBagValues:]";
-          v345 = 1024;
-          v346 = 374;
-          v347 = 2080;
-          Name = v100;
-          v349 = 1024;
-          v350 = v94;
-          _os_log_impl(&dword_1DB56E000, v98, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 3G bitrate with storebag value of %d", buf, 0x2Cu);
+          v192 = v55;
+          v193 = 2080;
+          v194 = "[VCBitrateArbiter readStoreBagValues:]";
+          v195 = 1024;
+          v196 = 374;
+          v197 = 2080;
+          Name = v58;
+          v199 = 1024;
+          v200 = v52;
+          _os_log_impl(&dword_1DB56E000, v56, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 3G bitrate with storebag value of %d", buf, 0x2Cu);
         }
       }
 
-      v101 = objc_opt_class();
-      v102 = class_getName(v101);
-      VRLogfilePrintWithTimestamp(values, "%s: overriding 3G bitrate with storebag value of %d\n", v103, v104, v105, v106, v107, v108, v102);
-      self->_maxAllowedBitrate3G = v94;
+      v59 = objc_opt_class();
+      v60 = class_getName(v59);
+      VRLogfilePrintWithTimestamp(values, "%s: overriding 3G bitrate with storebag value of %d\n", v60, v52);
+      self->_maxAllowedBitrate3G = v52;
     }
 
     else
     {
-      if (v96 >= 7)
+      if (v54 >= 7)
       {
-        v109 = VRTraceErrorLogLevelToCSTR();
-        v110 = *MEMORY[0x1E6986650];
+        v61 = VRTraceErrorLogLevelToCSTR();
+        v62 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v111 = objc_opt_class();
-          v112 = class_getName(v111);
+          v63 = objc_opt_class();
+          v64 = class_getName(v63);
           *buf = 136316162;
-          v342 = v109;
-          v343 = 2080;
-          v344 = "[VCBitrateArbiter readStoreBagValues:]";
-          v345 = 1024;
-          v346 = 377;
-          v347 = 2080;
-          Name = v112;
-          v349 = 1024;
-          v350 = v94;
-          _os_log_impl(&dword_1DB56E000, v110, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 3G, ignored storebag value of %d", buf, 0x2Cu);
+          v192 = v61;
+          v193 = 2080;
+          v194 = "[VCBitrateArbiter readStoreBagValues:]";
+          v195 = 1024;
+          v196 = 377;
+          v197 = 2080;
+          Name = v64;
+          v199 = 1024;
+          v200 = v52;
+          _os_log_impl(&dword_1DB56E000, v62, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 3G, ignored storebag value of %d", buf, 0x2Cu);
         }
       }
 
-      v113 = objc_opt_class();
-      v114 = class_getName(v113);
-      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 3G, ignored storebag value of %d\n", v115, v116, v117, v118, v119, v120, v114);
+      v65 = objc_opt_class();
+      v66 = class_getName(v65);
+      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 3G, ignored storebag value of %d\n", v66, v52);
     }
   }
 
-  v121 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ss-bitrate-max-3g"];
-  if (v121)
+  v67 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ss-bitrate-max-3g"];
+  if (v67)
   {
-    v122 = v121;
-    if (rangeCheck(v121))
+    v68 = v67;
+    if (rangeCheck(v67))
     {
-      v123 = self->_maxAllowedBitrate3G;
-      v124 = VRTraceGetErrorLogLevelForModule();
-      if (v123)
+      v69 = self->_maxAllowedBitrate3G;
+      v70 = VRTraceGetErrorLogLevelForModule();
+      if (v69)
       {
-        if (v124 >= 7)
+        if (v70 >= 7)
         {
-          v125 = VRTraceErrorLogLevelToCSTR();
-          v126 = *MEMORY[0x1E6986650];
+          v71 = VRTraceErrorLogLevelToCSTR();
+          v72 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v127 = objc_opt_class();
-            v128 = class_getName(v127);
+            v73 = objc_opt_class();
+            v74 = class_getName(v73);
             *buf = 136316162;
-            v342 = v125;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 389;
-            v347 = 2080;
-            Name = v128;
-            v349 = 1024;
-            v350 = v122;
-            _os_log_impl(&dword_1DB56E000, v126, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 3G ScreenShare bitrate with storebag value of %d", buf, 0x2Cu);
+            v192 = v71;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 389;
+            v197 = 2080;
+            Name = v74;
+            v199 = 1024;
+            v200 = v68;
+            _os_log_impl(&dword_1DB56E000, v72, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 3G ScreenShare bitrate with storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v129 = objc_opt_class();
-        v130 = class_getName(v129);
-        VRLogfilePrintWithTimestamp(values, "%s: overriding 3G ScreenShare bitrate with storebag value of %d\n", v131, v132, v133, v134, v135, v136, v130);
-        self->_maxAllowedScreenShareBitrate3G = v122;
+        v75 = objc_opt_class();
+        v76 = class_getName(v75);
+        VRLogfilePrintWithTimestamp(values, "%s: overriding 3G ScreenShare bitrate with storebag value of %d\n", v76, v68);
+        self->_maxAllowedScreenShareBitrate3G = v68;
       }
 
       else
       {
-        if (v124 >= 7)
+        if (v70 >= 7)
         {
-          v137 = VRTraceErrorLogLevelToCSTR();
-          v138 = *MEMORY[0x1E6986650];
+          v77 = VRTraceErrorLogLevelToCSTR();
+          v78 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v139 = objc_opt_class();
-            v140 = class_getName(v139);
+            v79 = objc_opt_class();
+            v80 = class_getName(v79);
             *buf = 136316162;
-            v342 = v137;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 392;
-            v347 = 2080;
-            Name = v140;
-            v349 = 1024;
-            v350 = v122;
-            _os_log_impl(&dword_1DB56E000, v138, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 3G, ignored storebag value of %d", buf, 0x2Cu);
+            v192 = v77;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 392;
+            v197 = 2080;
+            Name = v80;
+            v199 = 1024;
+            v200 = v68;
+            _os_log_impl(&dword_1DB56E000, v78, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 3G, ignored storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v141 = objc_opt_class();
-        v142 = class_getName(v141);
-        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 3G, ignored storebag value of %d\n", v143, v144, v145, v146, v147, v148, v142);
+        v81 = objc_opt_class();
+        v82 = class_getName(v81);
+        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 3G, ignored storebag value of %d\n", v82, v68);
       }
     }
   }
@@ -521,71 +521,71 @@
     self->_maxAllowedScreenShareBitrate3G = 510;
   }
 
-  v149 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ac-bitrate-max-3g"];
-  if (v149)
+  v83 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ac-bitrate-max-3g"];
+  if (v83)
   {
-    v150 = v149;
-    if (IsValidAudioBitrateRange(v149))
+    v84 = v83;
+    if (IsValidAudioBitrateRange(v83))
     {
-      v151 = self->_maxAllowedBitrate3G;
-      v152 = VRTraceGetErrorLogLevelForModule();
-      if (v151)
+      v85 = self->_maxAllowedBitrate3G;
+      v86 = VRTraceGetErrorLogLevelForModule();
+      if (v85)
       {
-        if (v152 >= 7)
+        if (v86 >= 7)
         {
-          v153 = VRTraceErrorLogLevelToCSTR();
-          v154 = *MEMORY[0x1E6986650];
+          v87 = VRTraceErrorLogLevelToCSTR();
+          v88 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v155 = objc_opt_class();
-            v156 = class_getName(v155);
+            v89 = objc_opt_class();
+            v90 = class_getName(v89);
             *buf = 136316162;
-            v342 = v153;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 405;
-            v347 = 2080;
-            Name = v156;
-            v349 = 1024;
-            v350 = v150;
-            _os_log_impl(&dword_1DB56E000, v154, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 3G AppleCalling bitrate with storebag value of %d", buf, 0x2Cu);
+            v192 = v87;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 405;
+            v197 = 2080;
+            Name = v90;
+            v199 = 1024;
+            v200 = v84;
+            _os_log_impl(&dword_1DB56E000, v88, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 3G AppleCalling bitrate with storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v157 = objc_opt_class();
-        v158 = class_getName(v157);
-        VRLogfilePrintWithTimestamp(values, "%s: overriding 3G AppleCalling bitrate with storebag value of %d\n", v159, v160, v161, v162, v163, v164, v158);
-        self->_maxAllowedAudioOnlyBitrate3G = v150;
+        v91 = objc_opt_class();
+        v92 = class_getName(v91);
+        VRLogfilePrintWithTimestamp(values, "%s: overriding 3G AppleCalling bitrate with storebag value of %d\n", v92, v84);
+        self->_maxAllowedAudioOnlyBitrate3G = v84;
       }
 
       else
       {
-        if (v152 >= 7)
+        if (v86 >= 7)
         {
-          v165 = VRTraceErrorLogLevelToCSTR();
-          v166 = *MEMORY[0x1E6986650];
+          v93 = VRTraceErrorLogLevelToCSTR();
+          v94 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v167 = objc_opt_class();
-            v168 = class_getName(v167);
+            v95 = objc_opt_class();
+            v96 = class_getName(v95);
             *buf = 136316162;
-            v342 = v165;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 408;
-            v347 = 2080;
-            Name = v168;
-            v349 = 1024;
-            v350 = v150;
-            _os_log_impl(&dword_1DB56E000, v166, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 3G, ignored storebag value of %d", buf, 0x2Cu);
+            v192 = v93;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 408;
+            v197 = 2080;
+            Name = v96;
+            v199 = 1024;
+            v200 = v84;
+            _os_log_impl(&dword_1DB56E000, v94, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 3G, ignored storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v169 = objc_opt_class();
-        v170 = class_getName(v169);
-        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 3G, ignored storebag value of %d\n", v171, v172, v173, v174, v175, v176, v170);
+        v97 = objc_opt_class();
+        v98 = class_getName(v97);
+        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 3G, ignored storebag value of %d\n", v98, v84);
       }
     }
   }
@@ -595,8 +595,8 @@
     self->_maxAllowedAudioOnlyBitrate3G = 40;
   }
 
-  v177 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-lte-v2"];
-  if (rangeCheck(v177))
+  v99 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-lte-v2"];
+  if (rangeCheck(v99))
   {
     if (self->_maxAllowedBitrateLTE)
     {
@@ -604,30 +604,30 @@
       {
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v178 = VRTraceErrorLogLevelToCSTR();
-          v179 = *MEMORY[0x1E6986650];
+          v100 = VRTraceErrorLogLevelToCSTR();
+          v101 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v180 = objc_opt_class();
-            v181 = class_getName(v180);
+            v102 = objc_opt_class();
+            v103 = class_getName(v102);
             *buf = 136316162;
-            v342 = v178;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 418;
-            v347 = 2080;
-            Name = v181;
-            v349 = 1024;
-            v350 = v177;
-            _os_log_impl(&dword_1DB56E000, v179, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding LTE bitrate with storebag value of %d", buf, 0x2Cu);
+            v192 = v100;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 418;
+            v197 = 2080;
+            Name = v103;
+            v199 = 1024;
+            v200 = v99;
+            _os_log_impl(&dword_1DB56E000, v101, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding LTE bitrate with storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v182 = objc_opt_class();
-        v183 = class_getName(v182);
-        VRLogfilePrintWithTimestamp(values, "%s: overriding LTE bitrate with storebag value of %d\n", v184, v185, v186, v187, v188, v189, v183);
-        self->_maxAllowedBitrateLTE = v177;
+        v104 = objc_opt_class();
+        v105 = class_getName(v104);
+        VRLogfilePrintWithTimestamp(values, "%s: overriding LTE bitrate with storebag value of %d\n", v105, v99);
+        self->_maxAllowedBitrateLTE = v99;
       }
     }
 
@@ -635,227 +635,227 @@
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v190 = VRTraceErrorLogLevelToCSTR();
-        v191 = *MEMORY[0x1E6986650];
+        v106 = VRTraceErrorLogLevelToCSTR();
+        v107 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v192 = objc_opt_class();
-          v193 = class_getName(v192);
+          v108 = objc_opt_class();
+          v109 = class_getName(v108);
           *buf = 136316162;
-          v342 = v190;
-          v343 = 2080;
-          v344 = "[VCBitrateArbiter readStoreBagValues:]";
-          v345 = 1024;
-          v346 = 422;
-          v347 = 2080;
-          Name = v193;
-          v349 = 1024;
-          v350 = v177;
-          _os_log_impl(&dword_1DB56E000, v191, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support LTE, ignored storebag value of %d", buf, 0x2Cu);
+          v192 = v106;
+          v193 = 2080;
+          v194 = "[VCBitrateArbiter readStoreBagValues:]";
+          v195 = 1024;
+          v196 = 422;
+          v197 = 2080;
+          Name = v109;
+          v199 = 1024;
+          v200 = v99;
+          _os_log_impl(&dword_1DB56E000, v107, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support LTE, ignored storebag value of %d", buf, 0x2Cu);
         }
       }
 
-      v194 = objc_opt_class();
-      v195 = class_getName(v194);
-      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support LTE, ignored storebag value of %d\n", v196, v197, v198, v199, v200, v201, v195);
+      v110 = objc_opt_class();
+      v111 = class_getName(v110);
+      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support LTE, ignored storebag value of %d\n", v111, v99);
     }
   }
 
-  v202 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-5g"];
-  if (rangeCheck(v202))
+  v112 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-5g"];
+  if (rangeCheck(v112))
   {
     maxAllowedBitrateHighRat = self->_maxAllowedBitrateHighRat;
-    v204 = VRTraceGetErrorLogLevelForModule();
+    v114 = VRTraceGetErrorLogLevelForModule();
     if (maxAllowedBitrateHighRat)
     {
-      if (v204 >= 7)
+      if (v114 >= 7)
       {
-        v205 = VRTraceErrorLogLevelToCSTR();
-        v206 = *MEMORY[0x1E6986650];
+        v115 = VRTraceErrorLogLevelToCSTR();
+        v116 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v207 = objc_opt_class();
-          v208 = class_getName(v207);
+          v117 = objc_opt_class();
+          v118 = class_getName(v117);
           *buf = 136316162;
-          v342 = v205;
-          v343 = 2080;
-          v344 = "[VCBitrateArbiter readStoreBagValues:]";
-          v345 = 1024;
-          v346 = 431;
-          v347 = 2080;
-          Name = v208;
-          v349 = 1024;
-          v350 = v202;
-          _os_log_impl(&dword_1DB56E000, v206, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 5G bitrate with storebag value of %d", buf, 0x2Cu);
+          v192 = v115;
+          v193 = 2080;
+          v194 = "[VCBitrateArbiter readStoreBagValues:]";
+          v195 = 1024;
+          v196 = 431;
+          v197 = 2080;
+          Name = v118;
+          v199 = 1024;
+          v200 = v112;
+          _os_log_impl(&dword_1DB56E000, v116, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding 5G bitrate with storebag value of %d", buf, 0x2Cu);
         }
       }
 
-      v209 = objc_opt_class();
-      v210 = class_getName(v209);
-      VRLogfilePrintWithTimestamp(values, "%s: overriding 5G bitrate with storebag value of %d\n", v211, v212, v213, v214, v215, v216, v210);
-      self->_maxAllowedBitrateHighRat = v202;
+      v119 = objc_opt_class();
+      v120 = class_getName(v119);
+      VRLogfilePrintWithTimestamp(values, "%s: overriding 5G bitrate with storebag value of %d\n", v120, v112);
+      self->_maxAllowedBitrateHighRat = v112;
     }
 
     else
     {
-      if (v204 >= 7)
+      if (v114 >= 7)
       {
-        v217 = VRTraceErrorLogLevelToCSTR();
-        v218 = *MEMORY[0x1E6986650];
+        v121 = VRTraceErrorLogLevelToCSTR();
+        v122 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v219 = objc_opt_class();
-          v220 = class_getName(v219);
+          v123 = objc_opt_class();
+          v124 = class_getName(v123);
           *buf = 136316162;
-          v342 = v217;
-          v343 = 2080;
-          v344 = "[VCBitrateArbiter readStoreBagValues:]";
-          v345 = 1024;
-          v346 = 434;
-          v347 = 2080;
-          Name = v220;
-          v349 = 1024;
-          v350 = v202;
-          _os_log_impl(&dword_1DB56E000, v218, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 5G, ignored storebag value of %d", buf, 0x2Cu);
+          v192 = v121;
+          v193 = 2080;
+          v194 = "[VCBitrateArbiter readStoreBagValues:]";
+          v195 = 1024;
+          v196 = 434;
+          v197 = 2080;
+          Name = v124;
+          v199 = 1024;
+          v200 = v112;
+          _os_log_impl(&dword_1DB56E000, v122, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support 5G, ignored storebag value of %d", buf, 0x2Cu);
         }
       }
 
-      v221 = objc_opt_class();
-      v222 = class_getName(v221);
-      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 5G, ignored storebag value of %d\n", v223, v224, v225, v226, v227, v228, v222);
+      v125 = objc_opt_class();
+      v126 = class_getName(v125);
+      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support 5G, ignored storebag value of %d\n", v126, v112);
     }
   }
 
-  v229 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-wifi"];
-  if (rangeCheck(v229))
+  v127 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-bitrate-max-wifi"];
+  if (rangeCheck(v127))
   {
     maxAllowedBitrateWifi = self->_maxAllowedBitrateWifi;
-    v231 = VRTraceGetErrorLogLevelForModule();
+    v129 = VRTraceGetErrorLogLevelForModule();
     if (maxAllowedBitrateWifi)
     {
-      if (v231 >= 7)
+      if (v129 >= 7)
       {
-        v232 = VRTraceErrorLogLevelToCSTR();
-        v233 = *MEMORY[0x1E6986650];
+        v130 = VRTraceErrorLogLevelToCSTR();
+        v131 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v234 = objc_opt_class();
-          v235 = class_getName(v234);
+          v132 = objc_opt_class();
+          v133 = class_getName(v132);
           *buf = 136316162;
-          v342 = v232;
-          v343 = 2080;
-          v344 = "[VCBitrateArbiter readStoreBagValues:]";
-          v345 = 1024;
-          v346 = 443;
-          v347 = 2080;
-          Name = v235;
-          v349 = 1024;
-          v350 = v229;
-          _os_log_impl(&dword_1DB56E000, v233, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding Wi-Fi bitrate with storebag value of %d", buf, 0x2Cu);
+          v192 = v130;
+          v193 = 2080;
+          v194 = "[VCBitrateArbiter readStoreBagValues:]";
+          v195 = 1024;
+          v196 = 443;
+          v197 = 2080;
+          Name = v133;
+          v199 = 1024;
+          v200 = v127;
+          _os_log_impl(&dword_1DB56E000, v131, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding Wi-Fi bitrate with storebag value of %d", buf, 0x2Cu);
         }
       }
 
-      v236 = objc_opt_class();
-      v237 = class_getName(v236);
-      VRLogfilePrintWithTimestamp(values, "%s: overriding Wi-Fi bitrate with storebag value of %d\n", v238, v239, v240, v241, v242, v243, v237);
-      self->_maxAllowedBitrateWifi = v229;
+      v134 = objc_opt_class();
+      v135 = class_getName(v134);
+      VRLogfilePrintWithTimestamp(values, "%s: overriding Wi-Fi bitrate with storebag value of %d\n", v135, v127);
+      self->_maxAllowedBitrateWifi = v127;
     }
 
     else
     {
-      if (v231 >= 7)
+      if (v129 >= 7)
       {
-        v244 = VRTraceErrorLogLevelToCSTR();
-        v245 = *MEMORY[0x1E6986650];
+        v136 = VRTraceErrorLogLevelToCSTR();
+        v137 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v246 = objc_opt_class();
-          v247 = class_getName(v246);
+          v138 = objc_opt_class();
+          v139 = class_getName(v138);
           *buf = 136316162;
-          v342 = v244;
-          v343 = 2080;
-          v344 = "[VCBitrateArbiter readStoreBagValues:]";
-          v345 = 1024;
-          v346 = 446;
-          v347 = 2080;
-          Name = v247;
-          v349 = 1024;
-          v350 = v229;
-          _os_log_impl(&dword_1DB56E000, v245, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support Wi-Fi, ignored storebag value of %d", buf, 0x2Cu);
+          v192 = v136;
+          v193 = 2080;
+          v194 = "[VCBitrateArbiter readStoreBagValues:]";
+          v195 = 1024;
+          v196 = 446;
+          v197 = 2080;
+          Name = v139;
+          v199 = 1024;
+          v200 = v127;
+          _os_log_impl(&dword_1DB56E000, v137, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support Wi-Fi, ignored storebag value of %d", buf, 0x2Cu);
         }
       }
 
-      v248 = objc_opt_class();
-      v249 = class_getName(v248);
-      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support Wi-Fi, ignored storebag value of %d\n", v250, v251, v252, v253, v254, v255, v249);
+      v140 = objc_opt_class();
+      v141 = class_getName(v140);
+      VRLogfilePrintWithTimestamp(values, "%s: hardware does not support Wi-Fi, ignored storebag value of %d\n", v141, v127);
     }
   }
 
-  v256 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ss-bitrate-max-lte"];
-  if (v256)
+  v142 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ss-bitrate-max-lte"];
+  if (v142)
   {
-    v257 = v256;
-    if (rangeCheck(v256))
+    v143 = v142;
+    if (rangeCheck(v142))
     {
       maxAllowedBitrateLTE = self->_maxAllowedBitrateLTE;
-      v259 = VRTraceGetErrorLogLevelForModule();
+      v145 = VRTraceGetErrorLogLevelForModule();
       if (maxAllowedBitrateLTE)
       {
-        if (v259 >= 7)
+        if (v145 >= 7)
         {
-          v260 = VRTraceErrorLogLevelToCSTR();
-          v261 = *MEMORY[0x1E6986650];
+          v146 = VRTraceErrorLogLevelToCSTR();
+          v147 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v262 = objc_opt_class();
-            v263 = class_getName(v262);
+            v148 = objc_opt_class();
+            v149 = class_getName(v148);
             *buf = 136316162;
-            v342 = v260;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 458;
-            v347 = 2080;
-            Name = v263;
-            v349 = 1024;
-            v350 = v257;
-            _os_log_impl(&dword_1DB56E000, v261, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding LTE ScreenShare bitrate with storebag value of %d", buf, 0x2Cu);
+            v192 = v146;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 458;
+            v197 = 2080;
+            Name = v149;
+            v199 = 1024;
+            v200 = v143;
+            _os_log_impl(&dword_1DB56E000, v147, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding LTE ScreenShare bitrate with storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v264 = objc_opt_class();
-        v265 = class_getName(v264);
-        VRLogfilePrintWithTimestamp(values, "%s: overriding LTE ScreenShare bitrate with storebag value of %d\n", v266, v267, v268, v269, v270, v271, v265);
-        self->_maxAllowedScreenShareBitrateLTE = v257;
+        v150 = objc_opt_class();
+        v151 = class_getName(v150);
+        VRLogfilePrintWithTimestamp(values, "%s: overriding LTE ScreenShare bitrate with storebag value of %d\n", v151, v143);
+        self->_maxAllowedScreenShareBitrateLTE = v143;
       }
 
       else
       {
-        if (v259 >= 7)
+        if (v145 >= 7)
         {
-          v272 = VRTraceErrorLogLevelToCSTR();
-          v273 = *MEMORY[0x1E6986650];
+          v152 = VRTraceErrorLogLevelToCSTR();
+          v153 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v274 = objc_opt_class();
-            v275 = class_getName(v274);
+            v154 = objc_opt_class();
+            v155 = class_getName(v154);
             *buf = 136316162;
-            v342 = v272;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 461;
-            v347 = 2080;
-            Name = v275;
-            v349 = 1024;
-            v350 = v257;
-            _os_log_impl(&dword_1DB56E000, v273, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support LTE, ignored storebag value of %d", buf, 0x2Cu);
+            v192 = v152;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 461;
+            v197 = 2080;
+            Name = v155;
+            v199 = 1024;
+            v200 = v143;
+            _os_log_impl(&dword_1DB56E000, v153, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support LTE, ignored storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v276 = objc_opt_class();
-        v277 = class_getName(v276);
-        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support LTE, ignored storebag value of %d\n", v278, v279, v280, v281, v282, v283, v277);
+        v156 = objc_opt_class();
+        v157 = class_getName(v156);
+        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support LTE, ignored storebag value of %d\n", v157, v143);
       }
     }
   }
@@ -865,71 +865,71 @@
     self->_maxAllowedScreenShareBitrateLTE = 510;
   }
 
-  v284 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ac-bitrate-max-lte"];
-  if (v284)
+  v158 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"rtc-ac-bitrate-max-lte"];
+  if (v158)
   {
-    v285 = v284;
-    if (IsValidAudioBitrateRange(v284))
+    v159 = v158;
+    if (IsValidAudioBitrateRange(v158))
     {
-      v286 = self->_maxAllowedBitrateLTE;
-      v287 = VRTraceGetErrorLogLevelForModule();
-      if (v286)
+      v160 = self->_maxAllowedBitrateLTE;
+      v161 = VRTraceGetErrorLogLevelForModule();
+      if (v160)
       {
-        if (v287 >= 7)
+        if (v161 >= 7)
         {
-          v288 = VRTraceErrorLogLevelToCSTR();
-          v289 = *MEMORY[0x1E6986650];
+          v162 = VRTraceErrorLogLevelToCSTR();
+          v163 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v290 = objc_opt_class();
-            v291 = class_getName(v290);
+            v164 = objc_opt_class();
+            v165 = class_getName(v164);
             *buf = 136316162;
-            v342 = v288;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 474;
-            v347 = 2080;
-            Name = v291;
-            v349 = 1024;
-            v350 = v285;
-            _os_log_impl(&dword_1DB56E000, v289, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding LTE AppleCalling bitrate with storebag value of %d", buf, 0x2Cu);
+            v192 = v162;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 474;
+            v197 = 2080;
+            Name = v165;
+            v199 = 1024;
+            v200 = v159;
+            _os_log_impl(&dword_1DB56E000, v163, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding LTE AppleCalling bitrate with storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v292 = objc_opt_class();
-        v293 = class_getName(v292);
-        VRLogfilePrintWithTimestamp(values, "%s: overriding LTE AppleCalling bitrate with storebag value of %d\n", v294, v295, v296, v297, v298, v299, v293);
-        self->_maxAllowedAudioOnlyBitrateLTE = v285;
+        v166 = objc_opt_class();
+        v167 = class_getName(v166);
+        VRLogfilePrintWithTimestamp(values, "%s: overriding LTE AppleCalling bitrate with storebag value of %d\n", v167, v159);
+        self->_maxAllowedAudioOnlyBitrateLTE = v159;
       }
 
       else
       {
-        if (v287 >= 7)
+        if (v161 >= 7)
         {
-          v300 = VRTraceErrorLogLevelToCSTR();
-          v301 = *MEMORY[0x1E6986650];
+          v168 = VRTraceErrorLogLevelToCSTR();
+          v169 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v302 = objc_opt_class();
-            v303 = class_getName(v302);
+            v170 = objc_opt_class();
+            v171 = class_getName(v170);
             *buf = 136316162;
-            v342 = v300;
-            v343 = 2080;
-            v344 = "[VCBitrateArbiter readStoreBagValues:]";
-            v345 = 1024;
-            v346 = 477;
-            v347 = 2080;
-            Name = v303;
-            v349 = 1024;
-            v350 = v285;
-            _os_log_impl(&dword_1DB56E000, v301, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support LTE, ignored storebag value of %d", buf, 0x2Cu);
+            v192 = v168;
+            v193 = 2080;
+            v194 = "[VCBitrateArbiter readStoreBagValues:]";
+            v195 = 1024;
+            v196 = 477;
+            v197 = 2080;
+            Name = v171;
+            v199 = 1024;
+            v200 = v159;
+            _os_log_impl(&dword_1DB56E000, v169, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: hardware does not support LTE, ignored storebag value of %d", buf, 0x2Cu);
           }
         }
 
-        v304 = objc_opt_class();
-        v305 = class_getName(v304);
-        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support LTE, ignored storebag value of %d\n", v306, v307, v308, v309, v310, v311, v305);
+        v172 = objc_opt_class();
+        v173 = class_getName(v172);
+        VRLogfilePrintWithTimestamp(values, "%s: hardware does not support LTE, ignored storebag value of %d\n", v173, v159);
       }
     }
   }
@@ -939,78 +939,78 @@
     self->_maxAllowedAudioOnlyBitrateLTE = 40;
   }
 
-  v312 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-tcp-relay-bitrate-max"];
-  self->_maxAllowedBitrateTCPRelay = v312;
-  if (v312)
+  v174 = [(VCBitrateArbiter *)self storeBagBitrateForKey:@"gk-p2p-tcp-relay-bitrate-max"];
+  self->_maxAllowedBitrateTCPRelay = v174;
+  if (v174)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v313 = VRTraceErrorLogLevelToCSTR();
-      v314 = *MEMORY[0x1E6986650];
+      v175 = VRTraceErrorLogLevelToCSTR();
+      v176 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v315 = objc_opt_class();
-        v316 = class_getName(v315);
+        v177 = objc_opt_class();
+        v178 = class_getName(v177);
         maxAllowedBitrateTCPRelay = self->_maxAllowedBitrateTCPRelay;
         *buf = 136316162;
-        v342 = v313;
-        v343 = 2080;
-        v344 = "[VCBitrateArbiter readStoreBagValues:]";
-        v345 = 1024;
-        v346 = 484;
-        v347 = 2080;
-        Name = v316;
-        v349 = 1024;
-        v350 = maxAllowedBitrateTCPRelay;
-        _os_log_impl(&dword_1DB56E000, v314, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding TCP Relay bitrate with storebag value of %d", buf, 0x2Cu);
+        v192 = v175;
+        v193 = 2080;
+        v194 = "[VCBitrateArbiter readStoreBagValues:]";
+        v195 = 1024;
+        v196 = 484;
+        v197 = 2080;
+        Name = v178;
+        v199 = 1024;
+        v200 = maxAllowedBitrateTCPRelay;
+        _os_log_impl(&dword_1DB56E000, v176, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: overriding TCP Relay bitrate with storebag value of %d", buf, 0x2Cu);
       }
     }
 
-    v318 = objc_opt_class();
-    v319 = class_getName(v318);
-    VRLogfilePrintWithTimestamp(values, "%s: overriding TCP Relay bitrate with storebag value of %d\n", v320, v321, v322, v323, v324, v325, v319);
+    v180 = objc_opt_class();
+    v181 = class_getName(v180);
+    VRLogfilePrintWithTimestamp(values, "%s: overriding TCP Relay bitrate with storebag value of %d\n", v181, self->_maxAllowedBitrateTCPRelay);
   }
 
-  v326 = [GKSConnectivitySettings isFeatureEnabledForStorebagKey:@"vc-raise-u-one-bandwidth-limit-when-constrained" exceptionKey:@"vc-raise-u-one-bandwidth-limit-when-constrained-exceptions" userDefaultKey:@"raiseU1BandwidthLimitWhenConstrained" featureFlagDomain:"AVConference" featureFlagName:"RaiseU1BandwidthLimitWhenContrained"];
-  if (v326)
+  v182 = [GKSConnectivitySettings isFeatureEnabledForStorebagKey:@"vc-raise-u-one-bandwidth-limit-when-constrained" exceptionKey:@"vc-raise-u-one-bandwidth-limit-when-constrained-exceptions" userDefaultKey:@"raiseU1BandwidthLimitWhenConstrained" featureFlagDomain:"AVConference" featureFlagName:"RaiseU1BandwidthLimitWhenContrained"];
+  if (v182)
   {
-    v327 = 600;
+    v183 = 600;
   }
 
   else
   {
-    v327 = 228;
+    v183 = 228;
   }
 
-  self->_maxAllowedBitrateConstrained = v327;
+  self->_maxAllowedBitrateConstrained = v183;
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v328 = VRTraceErrorLogLevelToCSTR();
-    v329 = *MEMORY[0x1E6986650];
+    v184 = VRTraceErrorLogLevelToCSTR();
+    v185 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v330 = objc_opt_class();
-      v331 = class_getName(v330);
+      v186 = objc_opt_class();
+      v187 = class_getName(v186);
       maxAllowedBitrateConstrained = self->_maxAllowedBitrateConstrained;
       *buf = 136316418;
-      v342 = v328;
-      v343 = 2080;
-      v344 = "[VCBitrateArbiter readStoreBagValues:]";
-      v345 = 1024;
-      v346 = 489;
-      v347 = 2080;
-      Name = v331;
-      v349 = 1024;
-      v350 = maxAllowedBitrateConstrained;
-      v351 = 1024;
-      v352 = v326;
-      _os_log_impl(&dword_1DB56E000, v329, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: max bitrate for constrained wifi set to %d, enabled setting=%d", buf, 0x32u);
+      v192 = v184;
+      v193 = 2080;
+      v194 = "[VCBitrateArbiter readStoreBagValues:]";
+      v195 = 1024;
+      v196 = 489;
+      v197 = 2080;
+      Name = v187;
+      v199 = 1024;
+      v200 = maxAllowedBitrateConstrained;
+      v201 = 1024;
+      v202 = v182;
+      _os_log_impl(&dword_1DB56E000, v185, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s: max bitrate for constrained wifi set to %d, enabled setting=%d", buf, 0x32u);
     }
   }
 
-  v333 = objc_opt_class();
-  v334 = class_getName(v333);
-  VRLogfilePrintWithTimestamp(values, "%s: max bitrate for constrained wifi set to %d, enabled setting=%d\n", v335, v336, v337, v338, v339, v340, v334);
+  v189 = objc_opt_class();
+  v190 = class_getName(v189);
+  VRLogfilePrintWithTimestamp(values, "%s: max bitrate for constrained wifi set to %d, enabled setting=%d\n", v190, self->_maxAllowedBitrateConstrained, v182);
 }
 
 - (void)updateMaxAllowedBitrate:(unsigned int *)bitrate key:(__CFString *)key type:(id)type isAudio:(BOOL)audio carrierBundleBitrates:(__CFDictionary *)bitrates

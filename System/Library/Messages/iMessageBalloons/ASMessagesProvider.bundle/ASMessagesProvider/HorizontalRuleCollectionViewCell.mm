@@ -18,7 +18,7 @@
   v9 = sub_75AC60();
   (*(*(v9 - 8) + 104))(self + v7, v8, v9);
   v10 = OBJC_IVAR____TtC18ASMessagesProvider32HorizontalRuleCollectionViewCell_lineColor;
-  sub_BE70(0, &qword_93E540);
+  sub_BE70(0, &qword_93E540, UIColor_ptr);
   *(&self->super.super.super.super.super.isa + v10) = sub_769FB0();
   result = sub_76A840();
   __break(1u);

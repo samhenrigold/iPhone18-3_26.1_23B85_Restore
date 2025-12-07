@@ -11,7 +11,7 @@
 {
   noiseCopy = noise;
   _kernelCopy = _kernel;
-  v6 = SDOFV2MetalLibURL();
+  v6 = SDOFV2MetalLibURL(self, a2);
   v7 = @"_sparserendering_antialias_y_no_noise";
   if (noiseCopy)
   {
@@ -33,7 +33,7 @@
 
 - (id)_noiseGeneratorKernel
 {
-  v2 = SDOFV2MetalLibURL();
+  v2 = SDOFV2MetalLibURL(self, a2);
 
   return [(CIKernel *)CIColorKernel cachedKernelWithFunctionName:@"_noiseGenerator" fromMetalLibrary:v2 error:0];
 }

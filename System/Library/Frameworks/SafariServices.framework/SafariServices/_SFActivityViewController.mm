@@ -394,29 +394,29 @@ LABEL_18:
 
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXDownloads(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_INFO, "Performing SFSaveToFilesActivity", buf, 2u);
+      _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_INFO, "Performing SFSaveToFilesActivity", buf, 2u);
     }
 
-    v8 = [[SFSaveToFilesActivity alloc] initWithActivityItemProviderCollection:self->_itemProviderCollection customizationController:self->_customizationController];
+    v10 = [[SFSaveToFilesActivity alloc] initWithActivityItemProviderCollection:self->_itemProviderCollection customizationController:self->_customizationController];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     if (objc_opt_respondsToSelector())
     {
-      -[SFSaveToFilesActivity setSupportsDownloads:](v8, "setSupportsDownloads:", [WeakRetained activityViewControllerSupportsDownloads:self]);
+      -[SFSaveToFilesActivity setSupportsDownloads:](v10, "setSupportsDownloads:", [WeakRetained activityViewControllerSupportsDownloads:self]);
     }
   }
 
   else
   {
-    v8 = activityCopy;
+    v10 = activityCopy;
   }
 
-  v10.receiver = self;
-  v10.super_class = _SFActivityViewController;
-  [(_SFActivityViewController *)&v10 _performActivity:v8];
+  v12.receiver = self;
+  v12.super_class = _SFActivityViewController;
+  [(_SFActivityViewController *)&v12 _performActivity:v10];
 }
 
 - (void)_prepareActivity:(id)activity completion:(id)completion

@@ -344,32 +344,25 @@
 - (void)updateClientsWithHandler:(id)handler
 {
   [-[CLVisionNotifier universe](self "universe")];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   clients = self->_clients;
-  v6 = [(NSMutableSet *)clients countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients, 0);
   if (v6)
   {
     v7 = v6;
-    v8 = *v11;
+    v8 = MEMORY[0];
     do
     {
-      v9 = 0;
-      do
+      for (i = 0; i != v7; i = i + 1)
       {
-        if (*v11 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(clients);
         }
 
-        (*(handler + 2))(handler, *(*(&v10 + 1) + 8 * v9));
-        v9 = v9 + 1;
+        (*(handler + 2))(handler, *(8 * i));
       }
 
-      while (v7 != v9);
-      v7 = [(NSMutableSet *)clients countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients);
     }
 
     while (v7);

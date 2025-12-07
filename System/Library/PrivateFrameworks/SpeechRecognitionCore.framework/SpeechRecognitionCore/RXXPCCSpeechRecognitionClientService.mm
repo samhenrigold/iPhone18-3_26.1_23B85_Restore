@@ -52,7 +52,7 @@
 
 - (void)legacyClientEventWithMessage:(id)message
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = _CFXPCCreateXPCObjectFromCFObject();
   v6 = v5;
@@ -64,21 +64,19 @@
 
   else
   {
-    v8 = RXOSLog();
+    v8 = RXOSLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = messageCopy;
-      _os_log_impl(&dword_26B583000, v8, OS_LOG_TYPE_ERROR, "failed to handle client event for %@\n", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = messageCopy;
+      _os_log_impl(&dword_26B583000, v8, OS_LOG_TYPE_ERROR, "failed to handle client event for %@\n", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recognizedEventWithLegacyMessage:(id)message result:(id)result
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   resultCopy = result;
   v7 = _CFXPCCreateXPCObjectFromCFObject();
@@ -87,28 +85,26 @@
   {
     v9 = xpc_unwrap_uint64s_in_object(v7);
     v10 = RXXPC::Queue(v9);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __80__RXXPCCSpeechRecognitionClientService_recognizedEventWithLegacyMessage_result___block_invoke;
-    v13[3] = &unk_279CF6B38;
-    v14 = v9;
-    v15 = resultCopy;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __80__RXXPCCSpeechRecognitionClientService_recognizedEventWithLegacyMessage_result___block_invoke;
+    v12[3] = &unk_279CF6B38;
+    v13 = v9;
+    v14 = resultCopy;
     v11 = v9;
-    dispatch_async(v10, v13);
+    dispatch_async(v10, v12);
   }
 
   else
   {
-    v11 = RXOSLog();
+    v11 = RXOSLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = messageCopy;
+      v16 = messageCopy;
       _os_log_impl(&dword_26B583000, v11, OS_LOG_TYPE_ERROR, "failed to handle recognition event for %@\n", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __80__RXXPCCSpeechRecognitionClientService_recognizedEventWithLegacyMessage_result___block_invoke(uint64_t a1)

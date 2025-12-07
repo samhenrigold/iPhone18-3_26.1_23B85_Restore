@@ -101,30 +101,30 @@
   peripheralCopy = peripheral;
   characteristicCopy = characteristic;
   errorCopy = error;
-  v11 = sub_1000034AC();
+  v11 = sub_1000034AC(errorCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = sub_1000034AC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000034AC(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "didUpdateValueForCharacteristic was called", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "didUpdateValueForCharacteristic was called", buf, 2u);
     }
   }
 
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_10000DF38;
-  v17[3] = &unk_1001759C0;
-  v18 = peripheralCopy;
-  v19 = characteristicCopy;
-  v20 = errorCopy;
-  v14 = errorCopy;
-  v15 = characteristicCopy;
-  v16 = peripheralCopy;
-  [(EPResourceManager *)self enumerateResourcesWithBlock:v17];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_10000DF38;
+  v18[3] = &unk_1001759C0;
+  v19 = peripheralCopy;
+  v20 = characteristicCopy;
+  v21 = errorCopy;
+  v15 = errorCopy;
+  v16 = characteristicCopy;
+  v17 = peripheralCopy;
+  [(EPResourceManager *)self enumerateResourcesWithBlock:v18];
 }
 
 @end

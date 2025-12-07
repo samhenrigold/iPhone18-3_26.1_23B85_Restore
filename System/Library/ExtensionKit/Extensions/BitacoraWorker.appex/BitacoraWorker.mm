@@ -8,11 +8,10 @@ uint64_t sub_100001190()
 
 uint64_t sub_100001210(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = async function pointer to MLHostExtension.shouldRun(context:)[1];
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = sub_1000022A0;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = sub_1000022A0;
 
   return MLHostExtension.shouldRun(context:)(a1, a2, a3);
 }
@@ -29,33 +28,30 @@ uint64_t sub_1000012C0(uint64_t a1)
 
 uint64_t sub_100001368(uint64_t a1)
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
 uint64_t sub_100001464(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v15 = async function pointer to MLHostExtension.loadConfig<A>(context:)[1];
-  v16 = swift_task_alloc();
-  *(v7 + 16) = v16;
-  *v16 = v7;
-  v16[1] = sub_100001548;
+  v15 = swift_task_alloc();
+  *(v7 + 16) = v15;
+  *v15 = v7;
+  v15[1] = sub_100001548;
 
   return MLHostExtension.loadConfig<A>(context:)(a1, a2, a6, a3, a7, a4, a5);
 }
 
 uint64_t sub_100001548()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_10000163C(uint64_t a1)
@@ -260,11 +256,9 @@ LABEL_8:
 
 char *sub_100001A84(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100001AD0(a1, a2);
+  v3 = sub_100001AD0(a1, a2);
   sub_100001C00(&off_100004278);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100001AD0(uint64_t a1, unint64_t a2)
@@ -364,7 +358,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -378,15 +371,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_100001D60(result, v12, 1, v3);
+  result = sub_100001D60(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -401,15 +394,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -418,12 +411,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -533,7 +526,7 @@ char *sub_100001D60(char *result, int64_t a2, char a3, char *a4)
 
 uint64_t sub_100001E74()
 {
-  v23 = v0;
+  v22 = v0;
   if (qword_100008030 != -1)
   {
     swift_once();
@@ -548,40 +541,39 @@ uint64_t sub_100001E74()
 
   if (os_log_type_enabled(v4, v5))
   {
-    v6 = *(v0 + 16);
-    v7 = swift_slowAlloc();
-    v22 = swift_slowAlloc();
-    *v7 = 136315394;
-    v8 = sub_100002304();
-    v10 = sub_1000018AC(v8, v9, &v22);
+    v6 = swift_slowAlloc();
+    v21 = swift_slowAlloc();
+    *v6 = 136315394;
+    v7 = sub_100002304();
+    v9 = sub_1000018AC(v7, v8, &v21);
 
-    *(v7 + 4) = v10;
-    *(v7 + 12) = 2080;
-    v11 = sub_100002314();
-    v13 = sub_1000018AC(v11, v12, &v22);
+    *(v6 + 4) = v9;
+    *(v6 + 12) = 2080;
+    v10 = sub_100002314();
+    v12 = sub_1000018AC(v10, v11, &v21);
 
-    *(v7 + 14) = v13;
-    _os_log_impl(&_mh_execute_header, v4, v5, "TaskId: %s, TaskName: %s", v7, 0x16u);
+    *(v6 + 14) = v12;
+    _os_log_impl(&_mh_execute_header, v4, v5, "TaskId: %s, TaskName: %s", v6, 0x16u);
     swift_arrayDestroy();
   }
 
-  v14 = sub_100002324();
-  v15 = sub_100002364();
-  if (os_log_type_enabled(v14, v15))
+  v13 = sub_100002324();
+  v14 = sub_100002364();
+  if (os_log_type_enabled(v13, v14))
   {
-    v16 = swift_slowAlloc();
-    *v16 = 0;
-    _os_log_impl(&_mh_execute_header, v14, v15, "Running aggregation.", v16, 2u);
+    v15 = swift_slowAlloc();
+    *v15 = 0;
+    _os_log_impl(&_mh_execute_header, v13, v14, "Running aggregation.", v15, 2u);
   }
 
-  v17 = [objc_allocWithZone(LBFAggregator) initForMLHost];
-  [v17 upload:1 uploadRawEvents:1 skipNullIdentifiers:1];
-  v18 = objc_allocWithZone(sub_1000022C4());
-  v19 = sub_1000022B4();
+  v16 = [objc_allocWithZone(LBFAggregator) initForMLHost];
+  [v16 upload:1 uploadRawEvents:1 skipNullIdentifiers:1];
+  v17 = objc_allocWithZone(sub_1000022C4());
+  v18 = sub_1000022B4();
 
-  v20 = *(v0 + 8);
+  v19 = *(v0 + 8);
 
-  return v20(v19);
+  return v19(v18);
 }
 
 uint64_t sub_100002110(uint64_t a1, uint64_t a2)
@@ -621,7 +613,6 @@ uint64_t sub_1000021F0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -631,14 +622,11 @@ uint64_t sub_1000021F0(uint64_t *a1, uint64_t *a2)
 
 uint64_t *sub_10000223C(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

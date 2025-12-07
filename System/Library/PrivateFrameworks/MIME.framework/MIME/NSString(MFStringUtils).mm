@@ -64,9 +64,9 @@
 
 - (void)mf_dataUsingEncoding:()MFStringUtils allowLossyConversion:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = [(__CFString *)self length];
-  v19 = 0xAAAAAAAAAAAAAAAALL;
+  v18 = 0xAAAAAAAAAAAAAAAALL;
   v8 = CFStringConvertNSStringEncodingToEncoding(a3);
   if (!CFStringIsEncodingAvailable(v8))
   {
@@ -74,11 +74,11 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v21 = a3;
+      v20 = a3;
       _os_log_impl(&dword_1D36B2000, v16, OS_LOG_TYPE_DEFAULT, "#Warning Unknown encoding %lu", buf, 0xCu);
     }
 
-    goto LABEL_16;
+    return 0;
   }
 
   if (a3 == 1)
@@ -101,38 +101,34 @@
     v10 = 0;
   }
 
-  v23.location = 0;
-  v23.length = v7;
-  if (MFStringGetBytes(self, v23, v8, v10, 1u, 0, 0, &v19) != v7)
+  v22.location = 0;
+  v22.length = v7;
+  if (MFStringGetBytes(self, v22, v8, v10, 1u, 0, 0, &v18) != v7)
   {
-LABEL_16:
-    v13 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v11 = objc_allocWithZone(MFMutableData);
-  v12 = [v11 initWithLength:v19];
+  v12 = [v11 initWithLength:v18];
   v13 = v12;
-  if (v19)
+  if (v18)
   {
     mutableBytes = [v12 mutableBytes];
-    v24.location = 0;
-    v24.length = v7;
-    if (MFStringGetBytes(self, v24, v8, v10, 1u, mutableBytes, v19, &v19) == v7)
+    v23.location = 0;
+    v23.length = v7;
+    if (MFStringGetBytes(self, v23, v8, v10, 1u, mutableBytes, v18, &v18) == v7)
     {
-      [v13 setLength:v19];
+      [v13 setLength:v18];
       goto LABEL_12;
     }
 
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"%@: didn't convert all characters", _NSMethodExceptionProem()}];
 
-    goto LABEL_16;
+    return 0;
   }
 
 LABEL_12:
   v15 = v13;
-LABEL_17:
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

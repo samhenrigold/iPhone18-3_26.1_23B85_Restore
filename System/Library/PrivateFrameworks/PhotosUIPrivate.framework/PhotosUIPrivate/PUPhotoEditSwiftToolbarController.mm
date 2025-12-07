@@ -15,7 +15,7 @@
 
 - (void)updateForToolControllers:(id)controllers
 {
-  sub_1B3710718(0, &unk_1EB84F170);
+  sub_1B3710718(0, &unk_1EB84F170, off_1E7B6E228);
   v4 = sub_1B3C9C788();
   selfCopy = self;
   sub_1B382952C(v4);

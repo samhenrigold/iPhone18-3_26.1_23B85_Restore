@@ -208,7 +208,7 @@ LABEL_39:
         memset(buf, 0, sizeof(buf));
         if (v33)
         {
-          [v33 geometryDescriptor];
+          objc_msgSend_geometryDescriptor(v33);
           if (*buf == 10)
           {
             [CKChatItemLayoutUtilities transcriptTapbackMinSpacingForSenderChatItem:self withNextChatItem:v15 previousItem:v14 associatedChatItem:v33];
@@ -361,7 +361,7 @@ LABEL_52:
 
 - (id)getAttributeTextForMessagesFromEmergencyUser:(id)user transcriptSharingMessageType:(int64_t)type
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   userCopy = user;
   if (!type)
   {
@@ -373,35 +373,35 @@ LABEL_52:
   {
     v7 = [MEMORY[0x1E696AD98] numberWithInteger:type];
     *buf = 138412290;
-    v16 = v7;
+    v17 = v7;
     _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "transcriptSharingMessageType: %@", buf, 0xCu);
   }
 
   if (type == 2)
   {
-    v12 = MEMORY[0x1E696AEC0];
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"TS_EMERGENCY_USER_ATTRIBUTE_INFORMATION" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
-    [v12 localizedStringWithFormat:v10, v14];
+    v13 = MEMORY[0x1E696AEC0];
+    v10 = CKFrameworkBundle(v8);
+    v11 = [v10 localizedStringForKey:@"TS_EMERGENCY_USER_ATTRIBUTE_INFORMATION" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
+    [v13 localizedStringWithFormat:v11, v15];
     goto LABEL_9;
   }
 
   if (type != 1)
   {
 LABEL_7:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_10;
   }
 
-  v8 = MEMORY[0x1E696AEC0];
-  v9 = CKFrameworkBundle();
-  v10 = [v9 localizedStringForKey:@"TS_EMERGENCY_USER_ATTRIBUTE_MESSAGE" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
-  [v8 localizedStringWithFormat:v10, userCopy];
-  v11 = LABEL_9:;
+  v9 = MEMORY[0x1E696AEC0];
+  v10 = CKFrameworkBundle(v8);
+  v11 = [v10 localizedStringForKey:@"TS_EMERGENCY_USER_ATTRIBUTE_MESSAGE" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
+  [v9 localizedStringWithFormat:v11, userCopy];
+  v12 = LABEL_9:;
 
 LABEL_10:
 
-  return v11;
+  return v12;
 }
 
 - (id)loadTranscriptText
@@ -425,7 +425,7 @@ LABEL_10:
 
     else
     {
-      v13 = CKFrameworkBundle();
+      v13 = CKFrameworkBundle(0);
       v11 = [v13 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
@@ -451,7 +451,7 @@ LABEL_10:
 
     else
     {
-      v18 = CKFrameworkBundle();
+      v18 = CKFrameworkBundle(0);
       v11 = [v18 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
@@ -488,33 +488,34 @@ LABEL_10:
 
       else
       {
-        v29 = CKFrameworkBundle();
+        v29 = CKFrameworkBundle(0);
         v28 = [v29 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
 
         v11 = v29;
       }
 
-      if ([handle isStewieEmergencyServices])
+      isStewieEmergencyServices = [handle isStewieEmergencyServices];
+      if (isStewieEmergencyServices)
       {
-        v30 = MEMORY[0x1E696AEC0];
-        v31 = CKFrameworkBundle();
-        v32 = [v31 localizedStringForKey:@"TS_EMERGENCY_SERVICE_ATTRIBUTE_TEXT" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
-        v11 = [v30 localizedStringWithFormat:v32];
+        v31 = MEMORY[0x1E696AEC0];
+        v32 = CKFrameworkBundle(isStewieEmergencyServices);
+        v33 = [v32 localizedStringForKey:@"TS_EMERGENCY_SERVICE_ATTRIBUTE_TEXT" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
+        v11 = [v31 localizedStringWithFormat:v33];
 
-        v33 = +[CKUIBehavior sharedBehaviors];
-        [v33 stewieTranscriptEmergencyServiceAttributes];
+        v34 = +[CKUIBehavior sharedBehaviors];
+        [v34 stewieTranscriptEmergencyServiceAttributes];
       }
 
       else
       {
         v11 = -[CKSenderChatItem getAttributeTextForMessagesFromEmergencyUser:transcriptSharingMessageType:](self, "getAttributeTextForMessagesFromEmergencyUser:transcriptSharingMessageType:", v28, [iMChatItem transcriptSharingMessageType]);
 
-        v33 = +[CKUIBehavior sharedBehaviors];
-        [v33 stewieTranscriptEmergencyUserAttributes];
+        v34 = +[CKUIBehavior sharedBehaviors];
+        [v34 stewieTranscriptEmergencyUserAttributes];
       }
-      v34 = ;
+      v35 = ;
 
-      senderTranscriptTextAttributes = v34;
+      senderTranscriptTextAttributes = v35;
     }
 
     _unknownSenderAttributedString = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v11 attributes:senderTranscriptTextAttributes];
@@ -554,83 +555,84 @@ LABEL_26:
   if (name)
   {
     name2 = [handle name];
+    v8 = name2;
     if (hasName)
     {
-      v7 = @"HANDLE_ADD_LINK_TEXT";
+      v9 = @"HANDLE_ADD_LINK_TEXT";
     }
 
     else
     {
-      v7 = @"NAME_ADD_LINK_TEXT";
+      v9 = @"NAME_ADD_LINK_TEXT";
     }
   }
 
   else
   {
-    v8 = CKFrameworkBundle();
-    name2 = [v8 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
+    v10 = CKFrameworkBundle(v6);
+    v8 = [v10 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v7 = @"HANDLE_ADD_LINK_TEXT";
+    v9 = @"HANDLE_ADD_LINK_TEXT";
   }
 
-  v9 = CKFrameworkBundle();
-  v10 = [v9 localizedStringForKey:@"ADD_TO_CONTACTS_SHORT" value:&stru_1F04268F8 table:@"ChatKit"];
+  v11 = CKFrameworkBundle(name2);
+  v12 = [v11 localizedStringForKey:@"ADD_TO_CONTACTS_SHORT" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v11 = MEMORY[0x1E696AEC0];
-  v12 = CKFrameworkBundle();
-  v13 = [v12 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
-  v37 = name2;
-  v14 = [v11 stringWithFormat:v13, name2, v10];
+  v13 = MEMORY[0x1E696AEC0];
+  v15 = CKFrameworkBundle(v14);
+  v16 = [v15 localizedStringForKey:v9 value:&stru_1F04268F8 table:@"ChatKit"];
+  v40 = v8;
+  v17 = [v13 stringWithFormat:v16, v8, v12];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
-    v17 = @"\u200F";
+    v20 = @"\u200F";
   }
 
   else
   {
-    v17 = @"\u200E";
+    v20 = @"\u200E";
   }
 
-  v18 = [(__CFString *)v17 stringByAppendingString:v14];
+  v21 = [(__CFString *)v20 stringByAppendingString:v17];
 
-  v19 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v18];
-  v20 = +[CKUIBehavior sharedBehaviors];
-  senderTranscriptTextAttributes = [v20 senderTranscriptTextAttributes];
-  v22 = [senderTranscriptTextAttributes mutableCopy];
-
+  v22 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v21];
   v23 = +[CKUIBehavior sharedBehaviors];
-  senderAddToContactsTranscriptTextAttributes = [v23 senderAddToContactsTranscriptTextAttributes];
-  v25 = [senderAddToContactsTranscriptTextAttributes mutableCopy];
+  senderTranscriptTextAttributes = [v23 senderTranscriptTextAttributes];
+  v25 = [senderTranscriptTextAttributes mutableCopy];
 
   v26 = +[CKUIBehavior sharedBehaviors];
-  theme = [v26 theme];
+  senderAddToContactsTranscriptTextAttributes = [v26 senderAddToContactsTranscriptTextAttributes];
+  v28 = [senderAddToContactsTranscriptTextAttributes mutableCopy];
+
+  v29 = +[CKUIBehavior sharedBehaviors];
+  theme = [v29 theme];
   messageSenderAddToContactTextColor = [theme messageSenderAddToContactTextColor];
 
-  [v19 addAttributes:v22 range:{0, objc_msgSend(v19, "length")}];
-  string = [v19 string];
-  v30 = [string rangeOfString:v10 options:4];
-  v32 = v31;
+  [v22 addAttributes:v25 range:{0, objc_msgSend(v22, "length")}];
+  string = [v22 string];
+  v33 = [string rangeOfString:v12 options:4];
+  v35 = v34;
 
-  if (v32)
+  if (v35)
   {
-    if (v30 != 0x7FFFFFFFFFFFFFFFLL)
+    if (v33 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      [v19 addAttributes:v25 range:{v30, v32}];
+      [v22 addAttributes:v28 range:{v33, v35}];
       transcriptTraitCollection = [(CKChatItem *)self transcriptTraitCollection];
       isTranscriptBackgroundActive = [transcriptTraitCollection isTranscriptBackgroundActive];
 
       if (isTranscriptBackgroundActive)
       {
-        [CKMessageStatusChatItem appendChevronToStatusText:v19 withButtonTextColor:messageSenderAddToContactTextColor textAttributes:v25];
+        [CKMessageStatusChatItem appendChevronToStatusText:v22 withButtonTextColor:messageSenderAddToContactTextColor textAttributes:v28];
       }
     }
   }
 
-  return v19;
+  return v22;
 }
 
 - (CGSize)loadSizeThatFits:(CGSize)fits textAlignmentInsets:(UIEdgeInsets *)insets

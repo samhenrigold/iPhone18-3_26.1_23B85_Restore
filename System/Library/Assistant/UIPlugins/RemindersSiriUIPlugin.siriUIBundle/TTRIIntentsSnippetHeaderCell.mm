@@ -23,12 +23,11 @@
 
 - (void)prepareForReuse
 {
-  v5.receiver = self;
-  v5.super_class = swift_getObjectType();
-  v2 = v5.receiver;
-  [(TTRIIntentsSnippetHeaderCell *)&v5 prepareForReuse];
+  v4.receiver = self;
+  v4.super_class = swift_getObjectType();
+  v2 = v4.receiver;
+  [(TTRIIntentsSnippetHeaderCell *)&v4 prepareForReuse];
   v3 = &v2[OBJC_IVAR____TtC21RemindersSiriUIPlugin28TTRIIntentsSnippetHeaderCell_viewModel];
-  v4 = *&v2[OBJC_IVAR____TtC21RemindersSiriUIPlugin28TTRIIntentsSnippetHeaderCell_viewModel + 8];
   *v3 = 0;
   *(v3 + 1) = 0;
 

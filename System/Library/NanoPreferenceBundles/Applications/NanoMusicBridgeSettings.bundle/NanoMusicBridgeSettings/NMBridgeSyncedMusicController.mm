@@ -17,6 +17,7 @@
 - (id)_recommendationSpecifierWithRecommendation:(id)recommendation;
 - (id)_recommendationsGroup;
 - (id)_selfOrPresentedViewController;
+- (id)_specifierWithTitle:(id)title subtitle:(id)subtitle artworkCatalog:(id)catalog placeholderSystemImage:(id)image modelObject:(id)object showSwitch:(BOOL)switch showDownloadInfo:(BOOL)info showWarningIfAboveQuota:(BOOL)self0 itemGroup:(id)self1 set:(SEL)self2 get:(SEL)self3;
 - (id)_workoutPlaylistID;
 - (id)specifiers;
 - (id)syncInfoController;
@@ -58,9 +59,13 @@
 - (void)dealloc;
 - (void)mediaPicker:(id)picker didPickMediaItems:(id)items;
 - (void)mediaPickerDidCancel:(id)cancel;
+- (void)setEditable:(BOOL)editable;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NMBridgeSyncedMusicController
@@ -142,6 +147,60 @@
   v3.super_class = NMBridgeSyncedMusicController;
   [(NMBridgeSyncedMusicController *)&v3 viewDidLayoutSubviews];
   [(NMBridgeSyncedMusicController *)self _updateHeaderSize];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = NMBridgeSyncedMusicController;
+  [(NMBridgeSyncedMusicController *)&v12 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"MUSIC_TITLE" table:0 locale:v5 bundleURL:bundleURL];
+
+  bundleIdentifier = [v3 bundleIdentifier];
+  bundleIdentifier2 = [v3 bundleIdentifier];
+  v10 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v11 = [NSURL URLWithString:v10];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v11];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = NMBridgeSyncedMusicController;
+  [(NMBridgeSyncedMusicController *)&v12 viewDidAppear:appear];
+  v4 = +[NRPairedDeviceRegistry sharedInstance];
+  v5 = +[NRPairedDeviceRegistry activePairedDeviceSelectorBlock];
+  v6 = [v4 getAllDevicesWithArchivedAltAccountDevicesMatching:v5];
+  firstObject = [v6 firstObject];
+  v8 = [[NSUUID alloc] initWithUUIDString:@"4649745E-094C-4F84-80DD-F7AB46F54792"];
+  v9 = [firstObject supportsCapability:v8];
+
+  if ((v9 & 1) == 0)
+  {
+    v10 = +[NMSSyncManager sharedManager];
+    [v10 beginReceivingSyncProgressUpdates];
+  }
+
+  syncInfoController = [(NMBridgeSyncedMusicController *)self syncInfoController];
+  [syncInfoController beginObservingSyncInfo];
+
+  if (self->_needsVisibleSpecifiersSyncInfoUpdate)
+  {
+    [(NMBridgeSyncedMusicController *)self _updateHeaderAndSyncProgressIfNeeded];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = NMBridgeSyncedMusicController;
+  [(NMBridgeSyncedMusicController *)&v5 viewDidDisappear:disappear];
+  syncInfoController = [(NMBridgeSyncedMusicController *)self syncInfoController];
+  [syncInfoController endObservingSyncInfo];
 }
 
 - (void)dealloc
@@ -1504,6 +1563,119 @@ LABEL_26:
   return v24;
 }
 
+- (id)_specifierWithTitle:(id)title subtitle:(id)subtitle artworkCatalog:(id)catalog placeholderSystemImage:(id)image modelObject:(id)object showSwitch:(BOOL)switch showDownloadInfo:(BOOL)info showWarningIfAboveQuota:(BOOL)self0 itemGroup:(id)self1 set:(SEL)self2 get:(SEL)self3
+{
+  switchCopy = switch;
+  titleCopy = title;
+  subtitleCopy = subtitle;
+  catalogCopy = catalog;
+  imageCopy = image;
+  objectCopy = object;
+  groupCopy = group;
+  if (switchCopy)
+  {
+    v24 = 6;
+  }
+
+  else
+  {
+    v24 = 3;
+  }
+
+  selfCopy = self;
+  v25 = [PSSpecifier preferenceSpecifierNamed:titleCopy target:self set:set get:get detail:0 cell:v24 edit:0];
+  [v25 setProperty:objc_opt_class() forKey:PSCellClassKey];
+  [v25 setProperty:&off_15300 forKey:PSTableCellStyleOverrideKey];
+  v26 = objc_alloc_init(NMBUIMediaTableCellConfiguration);
+  v56 = objectCopy;
+  [v26 setModelObject:objectCopy];
+  v53 = catalogCopy;
+  [v26 setArtworkCatalog:catalogCopy];
+  v52 = imageCopy;
+  if (imageCopy)
+  {
+    v27 = imageCopy;
+  }
+
+  else
+  {
+    v27 = @"music";
+  }
+
+  [v26 setPlaceholderSystemImageName:v27];
+  v55 = titleCopy;
+  [v26 setTitle:titleCopy];
+  v54 = subtitleCopy;
+  [v26 setSubtitle:subtitleCopy];
+  v28 = +[NRPairedDeviceRegistry sharedInstance];
+  v29 = +[NRPairedDeviceRegistry activePairedDeviceSelectorBlock];
+  v30 = [v28 getAllDevicesWithArchivedAltAccountDevicesMatching:v29];
+  firstObject = [v30 firstObject];
+  v32 = [[NSUUID alloc] initWithUUIDString:@"4649745E-094C-4F84-80DD-F7AB46F54792"];
+  v33 = [firstObject supportsCapability:v32];
+
+  if (v33 && info)
+  {
+    syncInfoController = [(NMBridgeSyncedMusicController *)selfCopy syncInfoController];
+    v35 = [syncInfoController downloadStateForModelObject:v56];
+
+    syncInfoController2 = [(NMBridgeSyncedMusicController *)selfCopy syncInfoController];
+    [syncInfoController2 progressForModelObject:v56];
+    v38 = v37;
+
+    v39 = [[NMBUIMediaTableCellDownloadState alloc] initWithState:v35 progress:v38];
+    [v26 setDownloadState:v39];
+
+    objc_initWeak(location, selfCopy);
+    v57[0] = _NSConcreteStackBlock;
+    v57[1] = 3221225472;
+    v57[2] = sub_6CB0;
+    v57[3] = &unk_146A0;
+    objc_copyWeak(&v59, location);
+    v58 = v56;
+    [v26 setDownloadIndicatorTapAction:v57];
+
+    objc_destroyWeak(&v59);
+    objc_destroyWeak(location);
+  }
+
+  [v25 setProperty:v26 forKey:NMBUISpecifierCellConfigurationKey];
+  v40 = [NSNumber numberWithBool:switchCopy];
+  [v25 setProperty:v40 forKey:NMBUISpecifierShouldShowSwitchKey];
+
+  v41 = +[NRPairedDeviceRegistry sharedInstance];
+  v42 = +[NRPairedDeviceRegistry activePairedDeviceSelectorBlock];
+  v43 = [v41 getAllDevicesWithArchivedAltAccountDevicesMatching:v42];
+  firstObject2 = [v43 firstObject];
+  v45 = [[NSUUID alloc] initWithUUIDString:@"4649745E-094C-4F84-80DD-F7AB46F54792"];
+  if (([firstObject2 supportsCapability:v45] & 1) != 0 || !quota)
+  {
+
+    v47 = groupCopy;
+  }
+
+  else
+  {
+    v46 = +[NMSMediaPinningManager sharedManager];
+    v47 = groupCopy;
+    v48 = [v46 isItemGroupWithinQuota:groupCopy];
+
+    if (v48)
+    {
+      goto LABEL_16;
+    }
+
+    [v25 setProperty:&__kCFBooleanTrue forKey:NMBUISpecifierShouldShowExclamationIconKey];
+    [v25 setProperty:selfCopy forKey:NMBUISpecifierIconTargetKey];
+    v41 = NSStringFromSelector("_showSyncStorageWarning");
+    [v25 setProperty:v41 forKey:NMBUISpecifierIconActionStringKey];
+  }
+
+LABEL_16:
+
+  return v25;
+}
+
 - (id)_selfOrPresentedViewController
 {
   presentedViewController = [(NMBridgeSyncedMusicController *)self presentedViewController];
@@ -1665,19 +1837,7 @@ LABEL_26:
   v36[5] = &v37;
   [v33 enumeratePersistentIDsAndProperties:v22 usingBlock:v36];
 
-  if (*(v38 + 24) != 1)
-  {
-    goto LABEL_10;
-  }
-
-  v32 = +[NRPairedDeviceRegistry sharedInstance];
-  v31 = +[NRPairedDeviceRegistry activePairedDeviceSelectorBlock];
-  v23 = [v32 getAllDevicesWithArchivedAltAccountDevicesMatching:v31];
-  firstObject = [v23 firstObject];
-  v25 = [[NSUUID alloc] initWithUUIDString:@"205EB184-AC17-4886-BC97-09F15A9CA5F1"];
-  v26 = [firstObject supportsCapability:v25];
-
-  if ((v26 & 1) == 0)
+  if (*(v38 + 24) == 1 && (+[NRPairedDeviceRegistry sharedInstance](NRPairedDeviceRegistry, "sharedInstance"), v32 = objc_claimAutoreleasedReturnValue(), +[NRPairedDeviceRegistry activePairedDeviceSelectorBlock](NRPairedDeviceRegistry, "activePairedDeviceSelectorBlock"), v31 = objc_claimAutoreleasedReturnValue(), [v32 getAllDevicesWithArchivedAltAccountDevicesMatching:v31], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "firstObject"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend([NSUUID alloc], "initWithUUIDString:", @"205EB184-AC17-4886-BC97-09F15A9CA5F1"), v26 = objc_msgSend(v24, "supportsCapability:", v25), v25, v24, v23, v31, v32, (v26 & 1) == 0))
   {
     [(NMBridgeSyncedMusicController *)self _presentFavoritesPlaylistUnsupportedAlert];
     v29 = 1;
@@ -1685,7 +1845,6 @@ LABEL_26:
 
   else
   {
-LABEL_10:
     v35[0] = _NSConcreteStackBlock;
     v35[1] = 3221225472;
     v35[2] = sub_77F8;
@@ -2192,6 +2351,26 @@ LABEL_14:
   {
     [(NMKeepLocalTransientState *)self->_keepLocalTransientState removeEnableStateForModelObject:objectCopy];
     [(NMBridgeSyncedMusicController *)self _reloadContents];
+  }
+}
+
+- (void)setEditable:(BOOL)editable
+{
+  editableCopy = editable;
+  if ([(NMBridgeSyncedMusicController *)self editable]!= editable)
+  {
+    v10.receiver = self;
+    v10.super_class = NMBridgeSyncedMusicController;
+    [(NMBridgeSyncedMusicController *)&v10 setEditable:editableCopy];
+    if (editableCopy)
+    {
+      v5 = *&self->PSEditableListController_opaque[OBJC_IVAR___PSListController__table];
+      v6 = [NSBundle bundleForClass:objc_opt_class()];
+      v7 = [v6 localizedStringForKey:@"PLAYLIST_ALBUM_SECTION_TITLE" value:@"Playlists & Albums" table:0];
+      v8 = [(NMBridgeSyncedMusicController *)self specifierForID:v7];
+      v9 = [(NMBridgeSyncedMusicController *)self indexPathForSpecifier:v8];
+      [v5 scrollToRowAtIndexPath:v9 atScrollPosition:1 animated:1];
+    }
   }
 }
 

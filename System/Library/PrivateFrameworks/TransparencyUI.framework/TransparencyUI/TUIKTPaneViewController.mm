@@ -70,16 +70,22 @@
 - (void)dismissRemoteUIForViewController;
 - (void)optInFlowResultWithStateUpdate;
 - (void)presentOptInNavigationController;
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated;
 - (void)remoteUIController:(id)controller didFinishLoadWithError:(id)error forRequest:(id)request;
 - (void)remoteUIController:(id)controller didReceiveHTTPResponse:(id)response forRequest:(id)request;
 - (void)remoteUIController:(id)controller didReceiveObjectModel:(id)model actionSignal:(unint64_t *)signal;
 - (void)remoteUIController:(id)controller didRefreshObjectModel:(id)model;
+- (void)remoteUIController:(id)controller willPresentObjectModel:(id)model modally:(BOOL)modally;
 - (void)specifierProvider:(id)provider didFinishLoadingSpecifier:(id)specifier;
 - (void)specifierProvider:(id)provider showViewController:(id)controller;
 - (void)specifierProvider:(id)provider willBeginLoadingSpecifier:(id)specifier;
 - (void)specifiers;
 - (void)validateDataclassAccessForProvider:(id)provider specifier:(id)specifier completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willMoveToParentViewController:(id)controller;
 @end
 
@@ -87,7 +93,7 @@
 
 - (TUIKTPaneViewController)initWithAccountManager:(id)manager optInManager:(id)inManager
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   inManagerCopy = inManager;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
@@ -99,19 +105,19 @@
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v27 = "[TUIKTPaneViewController initWithAccountManager:optInManager:]";
-    v28 = 2114;
-    v29 = managerCopy;
-    v30 = 2114;
-    v31 = inManagerCopy;
-    v32 = 2114;
+    v26 = "[TUIKTPaneViewController initWithAccountManager:optInManager:]";
+    v27 = 2114;
+    v28 = managerCopy;
+    v29 = 2114;
+    v30 = inManagerCopy;
+    v31 = 2114;
     selfCopy = self;
     _os_log_debug_impl(&dword_26F50B000, v9, OS_LOG_TYPE_DEBUG, "%s accountManager = %{public}@, optInManager = %{public}@ on %{public}@", buf, 0x2Au);
   }
 
-  v25.receiver = self;
-  v25.super_class = TUIKTPaneViewController;
-  v10 = [(TUIKTPaneViewController *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = TUIKTPaneViewController;
+  v10 = [(TUIKTPaneViewController *)&v24 init];
   v11 = v10;
   if (v10)
   {
@@ -139,7 +145,6 @@
     v11->_stateManager = v21;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -152,10 +157,9 @@ uint64_t __63__TUIKTPaneViewController_initWithAccountManager_optInManager___blo
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __34__TUIKTPaneViewController_dealloc__block_invoke()
@@ -163,6 +167,28 @@ uint64_t __34__TUIKTPaneViewController_dealloc__block_invoke()
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14 = os_log_create("com.apple.Transparency", "ui");
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
+  {
+    [TUIKTPaneViewController viewWillAppear:];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTPaneViewController viewWillAppear:];
+  }
+
+  v8.receiver = self;
+  v8.super_class = TUIKTPaneViewController;
+  [(TUIKTPaneViewController *)&v8 viewWillAppear:appearCopy];
+  navigationItem = [(TUIKTPaneViewController *)self navigationItem];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v6 localizedStringForKey:@"DEVICE_VERIFICATION_SPECIFIER_TITLE" value:&stru_287F92480 table:@"Localizable"];
+  [navigationItem setTitle:v7];
 }
 
 uint64_t __42__TUIKTPaneViewController_viewWillAppear___block_invoke()
@@ -174,10 +200,9 @@ uint64_t __42__TUIKTPaneViewController_viewWillAppear___block_invoke()
 
 - (void)viewDidLoad
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __38__TUIKTPaneViewController_viewDidLoad__block_invoke()
@@ -189,7 +214,7 @@ uint64_t __38__TUIKTPaneViewController_viewDidLoad__block_invoke()
 
 void __38__TUIKTPaneViewController_viewDidLoad__block_invoke_59(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -236,13 +261,11 @@ void __38__TUIKTPaneViewController_viewDidLoad__block_invoke_59(uint64_t a1)
     v13 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = "[TUIKTPaneViewController viewDidLoad]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v13, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "[TUIKTPaneViewController viewDidLoad]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v13, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38__TUIKTPaneViewController_viewDidLoad__block_invoke_2()
@@ -250,6 +273,47 @@ uint64_t __38__TUIKTPaneViewController_viewDidLoad__block_invoke_2()
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14 = os_log_create("com.apple.Transparency", "ui");
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v11 = *MEMORY[0x277D85DE8];
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
+  {
+    [TUIKTPaneViewController viewDidAppear:];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTPaneViewController viewDidAppear:];
+  }
+
+  v8.receiver = self;
+  v8.super_class = TUIKTPaneViewController;
+  [(TUIKTPaneViewController *)&v8 viewDidAppear:appearCopy];
+  stateManager = [(TUIKTPaneViewController *)self stateManager];
+  shouldMaybeUpdateMonitor = [stateManager shouldMaybeUpdateMonitor];
+
+  if (shouldMaybeUpdateMonitor)
+  {
+    if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
+    {
+      [TUIKTPaneViewController viewDidAppear:];
+    }
+
+    v7 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
+    if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ forcing a refresh since we are in error", buf, 0xCu);
+    }
+
+    [(TUIKTPaneViewController *)self _maybeRefreshMonitorStateInBackground];
+  }
+
+  [(TUIKTPaneViewController *)self _provideNavigationDonations];
 }
 
 uint64_t __41__TUIKTPaneViewController_viewDidAppear___block_invoke()
@@ -268,12 +332,10 @@ uint64_t __41__TUIKTPaneViewController_viewDidAppear___block_invoke_68()
 
 - (void)_provideNavigationDonations
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__TUIKTPaneViewController__provideNavigationDonations__block_invoke()
@@ -290,11 +352,47 @@ uint64_t __54__TUIKTPaneViewController__provideNavigationDonations__block_invoke
   return MEMORY[0x2821F96F8]();
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
+  {
+    [TUIKTPaneViewController viewWillDisappear:];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTPaneViewController viewWillDisappear:];
+  }
+
+  v5.receiver = self;
+  v5.super_class = TUIKTPaneViewController;
+  [(TUIKTPaneViewController *)&v5 viewWillDisappear:disappearCopy];
+}
+
 uint64_t __45__TUIKTPaneViewController_viewWillDisappear___block_invoke()
 {
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14 = os_log_create("com.apple.Transparency", "ui");
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
+  {
+    [TUIKTPaneViewController viewDidDisappear:];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTPaneViewController viewDidDisappear:];
+  }
+
+  v5.receiver = self;
+  v5.super_class = TUIKTPaneViewController;
+  [(TUIKTPaneViewController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 uint64_t __44__TUIKTPaneViewController_viewDidDisappear___block_invoke()
@@ -1090,7 +1188,7 @@ LABEL_19:
 
 - (id)_getDeviceVerificationEnabledForSpecifier:(id)specifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1122,13 +1220,13 @@ LABEL_19:
       goto LABEL_14;
     }
 
-    *v17 = 138543362;
-    *&v17[4] = self;
+    *v16 = 138543362;
+    *&v16[4] = self;
     v8 = "%{public}@ adding spinner to specifier...";
 LABEL_13:
-    _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_INFO, v8, v17, 0xCu);
+    _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_INFO, v8, v16, 0xCu);
 LABEL_14:
-    [(TUIKTPaneViewController *)self _startSpinnerForSpecifier:specifierCopy, *v17];
+    [(TUIKTPaneViewController *)self _startSpinnerForSpecifier:specifierCopy, *v16, *&v16[8]];
     v6 = MEMORY[0x277CBEC28];
     goto LABEL_15;
   }
@@ -1146,25 +1244,25 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    *v17 = 138543362;
-    *&v17[4] = self;
+    *v16 = 138543362;
+    *&v16[4] = self;
     v8 = "%{public}@ cached opt in state is not available, adding spinner to specifier...";
     goto LABEL_13;
   }
 
-  v11 = [specifierCopy propertyForKey:*MEMORY[0x277D40148]];
+  v10 = [specifierCopy propertyForKey:*MEMORY[0x277D40148]];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    control = [v11 control];
+    control = [v10 control];
     [control setIsAccessibilityElement:1];
     [control setAccessibilityIdentifier:@"OptIn Switch"];
-    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TUIKTStateManager optIn](self->_stateManager, "optIn")}];
-    stringValue = [v13 stringValue];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TUIKTStateManager optIn](self->_stateManager, "optIn")}];
+    stringValue = [v12 stringValue];
     [control setAccessibilityValue:stringValue];
 
-    v15 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasActiveConnection];
-    [specifierCopy setProperty:v15 forKey:*MEMORY[0x277D3FF38]];
+    v14 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasActiveConnection];
+    [specifierCopy setProperty:v14 forKey:*MEMORY[0x277D3FF38]];
 
     v6 = [MEMORY[0x277CCABB0] numberWithInt:{-[TUIKTStateManager optIn](self->_stateManager, "optIn") == 1}];
   }
@@ -1176,17 +1274,16 @@ LABEL_14:
       [TUIKTPaneViewController _getDeviceVerificationEnabledForSpecifier:];
     }
 
-    v16 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
+    v15 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      [(TUIKTPaneViewController *)self _getDeviceVerificationEnabledForSpecifier:v11, v16];
+      [(TUIKTPaneViewController *)self _getDeviceVerificationEnabledForSpecifier:v10, v15];
     }
 
     v6 = &stru_287F92480;
   }
 
 LABEL_15:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1236,10 +1333,9 @@ uint64_t __69__TUIKTPaneViewController__getDeviceVerificationEnabledForSpecifier
 
 - (void)_updateAppleIDButtonPressed
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __54__TUIKTPaneViewController__updateAppleIDButtonPressed__block_invoke()
@@ -1251,11 +1347,10 @@ uint64_t __54__TUIKTPaneViewController__updateAppleIDButtonPressed__block_invoke
 
 - (void)dismissRemoteUIForViewController
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_26F50B000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ dismissing CDP repair UI", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26F50B000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ dismissing CDP repair UI", &v2, 0xCu);
 }
 
 uint64_t __59__TUIKTPaneViewController_dismissRemoteUIForViewController__block_invoke()
@@ -1267,17 +1362,17 @@ uint64_t __59__TUIKTPaneViewController_dismissRemoteUIForViewController__block_i
 
 void __59__TUIKTPaneViewController_dismissRemoteUIForViewController__block_invoke_203(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __59__TUIKTPaneViewController_dismissRemoteUIForViewController__block_invoke_206;
-    v5[3] = &unk_279DDABC8;
-    v5[4] = WeakRetained;
-    [WeakRetained dismissViewControllerAnimated:1 completion:v5];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __59__TUIKTPaneViewController_dismissRemoteUIForViewController__block_invoke_206;
+    v4[3] = &unk_279DDABC8;
+    v4[4] = WeakRetained;
+    [WeakRetained dismissViewControllerAnimated:1 completion:v4];
   }
 
   else
@@ -1291,12 +1386,10 @@ void __59__TUIKTPaneViewController_dismissRemoteUIForViewController__block_invok
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v7 = "[TUIKTPaneViewController dismissRemoteUIForViewController]_block_invoke";
+      v6 = "[TUIKTPaneViewController dismissRemoteUIForViewController]_block_invoke";
       _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__TUIKTPaneViewController_dismissRemoteUIForViewController__block_invoke_2()
@@ -1329,10 +1422,9 @@ uint64_t __59__TUIKTPaneViewController_dismissRemoteUIForViewController__block_i
 
 - (void)_updateAppleID
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __41__TUIKTPaneViewController__updateAppleID__block_invoke()
@@ -1344,7 +1436,7 @@ uint64_t __41__TUIKTPaneViewController__updateAppleID__block_invoke()
 
 void __41__TUIKTPaneViewController__updateAppleID__block_invoke_215(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -1358,13 +1450,13 @@ void __41__TUIKTPaneViewController__updateAppleID__block_invoke_215(uint64_t a1,
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v14 = "[TUIKTPaneViewController _updateAppleID]_block_invoke_2";
-      v15 = 1024;
-      v16 = a2;
-      v17 = 2114;
-      v18 = v5;
-      v19 = 2114;
-      v20 = WeakRetained;
+      v13 = "[TUIKTPaneViewController _updateAppleID]_block_invoke_2";
+      v14 = 1024;
+      v15 = a2;
+      v16 = 2114;
+      v17 = v5;
+      v18 = 2114;
+      v19 = WeakRetained;
       _os_log_debug_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEBUG, "%s isVerified = %d, error = %{public}@ on %{public}@", buf, 0x26u);
       if (a2)
       {
@@ -1372,12 +1464,12 @@ LABEL_6:
         if ((*(*(*(a1 + 32) + 8) + 24) & 1) == 0)
         {
           v10 = [WeakRetained optInManager];
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __41__TUIKTPaneViewController__updateAppleID__block_invoke_221;
-          v12[3] = &unk_279DDAFE0;
-          v12[4] = WeakRetained;
-          [v10 waitForIDSRegistration:1 complete:v12];
+          v11[0] = MEMORY[0x277D85DD0];
+          v11[1] = 3221225472;
+          v11[2] = __41__TUIKTPaneViewController__updateAppleID__block_invoke_221;
+          v11[3] = &unk_279DDAFE0;
+          v11[4] = WeakRetained;
+          [v10 waitForIDSRegistration:1 complete:v11];
 
           goto LABEL_13;
         }
@@ -1406,13 +1498,11 @@ LABEL_6:
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v14 = "[TUIKTPaneViewController _updateAppleID]_block_invoke";
+    v13 = "[TUIKTPaneViewController _updateAppleID]_block_invoke";
     _os_log_impl(&dword_26F50B000, v9, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
   }
 
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__TUIKTPaneViewController__updateAppleID__block_invoke_2()
@@ -1431,7 +1521,7 @@ uint64_t __41__TUIKTPaneViewController__updateAppleID__block_invoke_218()
 
 void __41__TUIKTPaneViewController__updateAppleID__block_invoke_221(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1443,9 +1533,9 @@ void __41__TUIKTPaneViewController__updateAppleID__block_invoke_221(uint64_t a1,
     v4 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v3;
-      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "waitForIDSRegistration error after verifying CDP %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v3;
+      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "waitForIDSRegistration error after verifying CDP %{public}@", &v9, 0xCu);
     }
 
     v5 = [*(a1 + 32) optInFlowController];
@@ -1465,8 +1555,6 @@ void __41__TUIKTPaneViewController__updateAppleID__block_invoke_221(uint64_t a1,
   }
 
   [*(a1 + 32) _checkKTStatus:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__TUIKTPaneViewController__updateAppleID__block_invoke_2_222()
@@ -1490,10 +1578,9 @@ uint64_t __41__TUIKTPaneViewController__updateAppleID__block_invoke_2_222()
 
 - (void)_openMessagesSettings
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __48__TUIKTPaneViewController__openMessagesSettings__block_invoke()
@@ -1505,7 +1592,7 @@ uint64_t __48__TUIKTPaneViewController__openMessagesSettings__block_invoke()
 
 void __48__TUIKTPaneViewController__openMessagesSettings__block_invoke_234(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -1524,13 +1611,11 @@ void __48__TUIKTPaneViewController__openMessagesSettings__block_invoke_234(uint6
     v4 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[TUIKTPaneViewController _openMessagesSettings]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[TUIKTPaneViewController _openMessagesSettings]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__TUIKTPaneViewController__openMessagesSettings__block_invoke_2()
@@ -1614,7 +1699,7 @@ uint64_t __48__TUIKTPaneViewController__openMessagesSettings__block_invoke_2()
 
 - (void)_resetButtonPressed:(id)pressed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1625,25 +1710,24 @@ uint64_t __48__TUIKTPaneViewController__openMessagesSettings__block_invoke_2()
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[TUIKTPaneViewController _resetButtonPressed:]";
-    v13 = 2114;
+    v11 = "[TUIKTPaneViewController _resetButtonPressed:]";
+    v12 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %{public}@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_264;
-  v8[3] = &unk_279DDA9E8;
-  objc_copyWeak(&v10, buf);
-  v9 = pressedCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_264;
+  v7[3] = &unk_279DDA9E8;
+  objc_copyWeak(&v9, buf);
+  v8 = pressedCopy;
   v6 = pressedCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__TUIKTPaneViewController__resetButtonPressed___block_invoke()
@@ -1655,7 +1739,7 @@ uint64_t __47__TUIKTPaneViewController__resetButtonPressed___block_invoke()
 
 void __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_264(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1671,15 +1755,15 @@ void __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_264(uint64
     else
     {
       objc_initWeak(buf, v3);
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_267;
-      v8[3] = &unk_279DDB030;
-      objc_copyWeak(&v10, buf);
-      v9 = *(a1 + 32);
-      [v3 _showResetConfirmationAlertWithCompletion:v8];
+      v7[0] = MEMORY[0x277D85DD0];
+      v7[1] = 3221225472;
+      v7[2] = __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_267;
+      v7[3] = &unk_279DDB030;
+      objc_copyWeak(&v9, buf);
+      v8 = *(a1 + 32);
+      [v3 _showResetConfirmationAlertWithCompletion:v7];
 
-      objc_destroyWeak(&v10);
+      objc_destroyWeak(&v9);
       objc_destroyWeak(buf);
     }
   }
@@ -1695,12 +1779,10 @@ void __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_264(uint64
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v12 = "[TUIKTPaneViewController _resetButtonPressed:]_block_invoke";
+      v11 = "[TUIKTPaneViewController _resetButtonPressed:]_block_invoke";
       _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_2()
@@ -1712,7 +1794,7 @@ uint64_t __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_2()
 
 void __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_267(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (WeakRetained)
@@ -1733,13 +1815,11 @@ void __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_267(uint64
     v6 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[TUIKTPaneViewController _resetButtonPressed:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[TUIKTPaneViewController _resetButtonPressed:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__TUIKTPaneViewController__resetButtonPressed___block_invoke_2_268()
@@ -1791,7 +1871,7 @@ uint64_t __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___
 
 void __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___block_invoke_274(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1807,27 +1887,27 @@ void __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___bloc
     {
       *location = 136316162;
       *&location[4] = "[TUIKTPaneViewController _changeOptInState:requestedOptInChange:]_block_invoke_2";
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2114;
-      v20 = v7;
-      v21 = 2114;
-      v22 = v8;
-      v23 = 2114;
-      v24 = WeakRetained;
+      v16 = 1024;
+      v17 = a2;
+      v18 = 2114;
+      v19 = v7;
+      v20 = 2114;
+      v21 = v8;
+      v22 = 2114;
+      v23 = WeakRetained;
       _os_log_debug_impl(&dword_26F50B000, v10, OS_LOG_TYPE_DEBUG, "%s changeOptInState result = %d, loggableDatas = %{public}@, error = %{public}@ on %{public}@", location, 0x30u);
     }
 
     objc_initWeak(location, WeakRetained);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___block_invoke_280;
-    v13[3] = &unk_279DDA9E8;
-    objc_copyWeak(&v15, location);
-    v14 = *(a1 + 32);
-    dispatch_async(MEMORY[0x277D85CD0], v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___block_invoke_280;
+    v12[3] = &unk_279DDA9E8;
+    objc_copyWeak(&v14, location);
+    v13 = *(a1 + 32);
+    dispatch_async(MEMORY[0x277D85CD0], v12);
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(location);
   }
 
@@ -1846,8 +1926,6 @@ void __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___bloc
       _os_log_impl(&dword_26F50B000, v11, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", location, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___block_invoke_2()
@@ -1866,7 +1944,7 @@ uint64_t __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___
 
 void __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___block_invoke_280(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1888,13 +1966,11 @@ void __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___bloc
     v5 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "[TUIKTPaneViewController _changeOptInState:requestedOptInChange:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[TUIKTPaneViewController _changeOptInState:requestedOptInChange:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___block_invoke_2_281()
@@ -1918,7 +1994,7 @@ uint64_t __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___
 
 - (void)_turnOffButtonPressed:(id)pressed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1929,25 +2005,24 @@ uint64_t __66__TUIKTPaneViewController__changeOptInState_requestedOptInChange___
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[TUIKTPaneViewController _turnOffButtonPressed:]";
-    v13 = 2114;
+    v11 = "[TUIKTPaneViewController _turnOffButtonPressed:]";
+    v12 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %{public}@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke_298;
-  v8[3] = &unk_279DDA9E8;
-  objc_copyWeak(&v10, buf);
-  v9 = pressedCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke_298;
+  v7[3] = &unk_279DDA9E8;
+  objc_copyWeak(&v9, buf);
+  v8 = pressedCopy;
   v6 = pressedCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke()
@@ -1959,18 +2034,18 @@ uint64_t __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke()
 
 void __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke_298(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke_301;
-    v6[3] = &unk_279DDB080;
-    v6[4] = WeakRetained;
-    v7 = *(a1 + 32);
-    [v3 _showOptOutConfirmationAlertWithCompletion:v6];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke_301;
+    v5[3] = &unk_279DDB080;
+    v5[4] = WeakRetained;
+    v6 = *(a1 + 32);
+    [v3 _showOptOutConfirmationAlertWithCompletion:v5];
   }
 
   else
@@ -1984,12 +2059,10 @@ void __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke_298(uint
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v9 = "[TUIKTPaneViewController _turnOffButtonPressed:]_block_invoke";
+      v8 = "[TUIKTPaneViewController _turnOffButtonPressed:]_block_invoke";
       _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke_2()
@@ -2011,10 +2084,9 @@ void __49__TUIKTPaneViewController__turnOffButtonPressed___block_invoke_301(uint
 
 - (void)_beginObservingTransparencyStatusChangedNotification
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __79__TUIKTPaneViewController__beginObservingTransparencyStatusChangedNotification__block_invoke()
@@ -2026,10 +2098,9 @@ uint64_t __79__TUIKTPaneViewController__beginObservingTransparencyStatusChangedN
 
 - (void)_stopObservingTransparencyStatusChangedNotification
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __78__TUIKTPaneViewController__stopObservingTransparencyStatusChangedNotification__block_invoke()
@@ -2041,7 +2112,7 @@ uint64_t __78__TUIKTPaneViewController__stopObservingTransparencyStatusChangedNo
 
 - (void)_transparencyStatusChangedNotificationHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -2052,10 +2123,10 @@ uint64_t __78__TUIKTPaneViewController__stopObservingTransparencyStatusChangedNo
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v12 = "[TUIKTPaneViewController _transparencyStatusChangedNotificationHandler:]";
-    v13 = 2114;
-    v14 = handlerCopy;
-    v15 = 2114;
+    v11 = "[TUIKTPaneViewController _transparencyStatusChangedNotificationHandler:]";
+    v12 = 2114;
+    v13 = handlerCopy;
+    v14 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %{public}@", buf, 0x20u);
   }
@@ -2082,12 +2153,10 @@ uint64_t __78__TUIKTPaneViewController__stopObservingTransparencyStatusChangedNo
   block[1] = 3221225472;
   block[2] = __73__TUIKTPaneViewController__transparencyStatusChangedNotificationHandler___block_invoke_311;
   block[3] = &unk_279DDAB28;
-  objc_copyWeak(&v10, buf);
+  objc_copyWeak(&v9, buf);
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__TUIKTPaneViewController__transparencyStatusChangedNotificationHandler___block_invoke()
@@ -2099,7 +2168,7 @@ uint64_t __73__TUIKTPaneViewController__transparencyStatusChangedNotificationHan
 
 void __73__TUIKTPaneViewController__transparencyStatusChangedNotificationHandler___block_invoke_311(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -2118,13 +2187,11 @@ void __73__TUIKTPaneViewController__transparencyStatusChangedNotificationHandler
     v4 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[TUIKTPaneViewController _transparencyStatusChangedNotificationHandler:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[TUIKTPaneViewController _transparencyStatusChangedNotificationHandler:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__TUIKTPaneViewController__transparencyStatusChangedNotificationHandler___block_invoke_2()
@@ -2174,7 +2241,7 @@ uint64_t __73__TUIKTPaneViewController__transparencyStatusChangedNotificationHan
 
 - (void)_checkKTStatus:(BOOL)status
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
   {
     [TUIKTPaneViewController _checkKTStatus:];
@@ -2184,25 +2251,24 @@ uint64_t __73__TUIKTPaneViewController__transparencyStatusChangedNotificationHan
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[TUIKTPaneViewController _checkKTStatus:]";
-    v13 = 2114;
+    v11 = "[TUIKTPaneViewController _checkKTStatus:]";
+    v12 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEFAULT, "%s getting CKV status on %{public}@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   v6 = dispatch_get_global_queue(33, 0);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __42__TUIKTPaneViewController__checkKTStatus___block_invoke_317;
-  v8[3] = &unk_279DDB0A8;
-  objc_copyWeak(&v9, buf);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __42__TUIKTPaneViewController__checkKTStatus___block_invoke_317;
+  v7[3] = &unk_279DDB0A8;
+  objc_copyWeak(&v8, buf);
   statusCopy = status;
-  dispatch_async(v6, v8);
+  dispatch_async(v6, v7);
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__TUIKTPaneViewController__checkKTStatus___block_invoke()
@@ -2214,15 +2280,15 @@ uint64_t __42__TUIKTPaneViewController__checkKTStatus___block_invoke()
 
 void __42__TUIKTPaneViewController__checkKTStatus___block_invoke_317(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v3 = objc_alloc(MEMORY[0x277D73568]);
     v4 = [v3 initWithApplication:*MEMORY[0x277D735B0]];
-    v15 = 0;
-    v5 = [v4 status:&v15];
-    v6 = v15;
+    v14 = 0;
+    v5 = [v4 status:&v14];
+    v6 = v14;
     if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
     {
       __42__TUIKTPaneViewController__checkKTStatus___block_invoke_317_cold_1();
@@ -2232,28 +2298,28 @@ void __42__TUIKTPaneViewController__checkKTStatus___block_invoke_317(uint64_t a1
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v17 = "[TUIKTPaneViewController _checkKTStatus:]_block_invoke_2";
-      v18 = 2114;
-      v19 = v5;
-      v20 = 2114;
-      v21 = v6;
-      v22 = 2114;
-      v23 = WeakRetained;
+      v16 = "[TUIKTPaneViewController _checkKTStatus:]_block_invoke_2";
+      v17 = 2114;
+      v18 = v5;
+      v19 = 2114;
+      v20 = v6;
+      v21 = 2114;
+      v22 = WeakRetained;
       _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "%s got CKV status = %{public}@, error = %{public}@ on %{public}@", buf, 0x2Au);
     }
 
     objc_initWeak(buf, WeakRetained);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __42__TUIKTPaneViewController__checkKTStatus___block_invoke_323;
-    v11[3] = &unk_279DDAC68;
-    objc_copyWeak(&v13, buf);
-    v12 = v5;
-    v14 = *(a1 + 40);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __42__TUIKTPaneViewController__checkKTStatus___block_invoke_323;
+    v10[3] = &unk_279DDAC68;
+    objc_copyWeak(&v12, buf);
+    v11 = v5;
+    v13 = *(a1 + 40);
     v8 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
+    dispatch_async(MEMORY[0x277D85CD0], v10);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 
@@ -2268,12 +2334,10 @@ void __42__TUIKTPaneViewController__checkKTStatus___block_invoke_317(uint64_t a1
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[TUIKTPaneViewController _checkKTStatus:]_block_invoke";
+      v16 = "[TUIKTPaneViewController _checkKTStatus:]_block_invoke";
       _os_log_impl(&dword_26F50B000, v9, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__TUIKTPaneViewController__checkKTStatus___block_invoke_2()
@@ -2292,7 +2356,7 @@ uint64_t __42__TUIKTPaneViewController__checkKTStatus___block_invoke_320()
 
 void __42__TUIKTPaneViewController__checkKTStatus___block_invoke_323(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -2315,9 +2379,9 @@ void __42__TUIKTPaneViewController__checkKTStatus___block_invoke_323(uint64_t a1
         v7 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
         if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 138543362;
-          v11 = v3;
-          _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ forcing a refresh on because of failure at initial load", &v10, 0xCu);
+          v9 = 138543362;
+          v10 = v3;
+          _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ forcing a refresh on because of failure at initial load", &v9, 0xCu);
         }
 
         [v3 _maybeRefreshMonitorStateInBackground];
@@ -2337,13 +2401,11 @@ void __42__TUIKTPaneViewController__checkKTStatus___block_invoke_323(uint64_t a1
     v8 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[TUIKTPaneViewController _checkKTStatus:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[TUIKTPaneViewController _checkKTStatus:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__TUIKTPaneViewController__checkKTStatus___block_invoke_2_324()
@@ -2374,7 +2436,7 @@ void __64__TUIKTPaneViewController__maybeRefreshMonitorStateInBackground__block_
 
 - (void)_setDeviceVerificationEnabled:(id)enabled withSpecifier:(id)specifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
@@ -2398,14 +2460,14 @@ void __64__TUIKTPaneViewController__maybeRefreshMonitorStateInBackground__block_
         goto LABEL_17;
       }
 
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_341;
-      v12[3] = &unk_279DDA9E8;
-      v10 = &v14;
-      objc_copyWeak(&v14, buf);
-      v13 = specifierCopy;
-      dispatch_async(MEMORY[0x277D85CD0], v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_341;
+      v11[3] = &unk_279DDA9E8;
+      v10 = &v13;
+      objc_copyWeak(&v13, buf);
+      v12 = specifierCopy;
+      dispatch_async(MEMORY[0x277D85CD0], v11);
     }
 
     else
@@ -2414,8 +2476,8 @@ void __64__TUIKTPaneViewController__maybeRefreshMonitorStateInBackground__block_
       block[1] = 3221225472;
       block[2] = __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_338;
       block[3] = &unk_279DDAB28;
-      v10 = &v16;
-      objc_copyWeak(&v16, buf);
+      v10 = &v15;
+      objc_copyWeak(&v15, buf);
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
 
@@ -2439,8 +2501,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke()
@@ -2459,7 +2519,7 @@ uint64_t __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifi
 
 void __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_338(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -2481,13 +2541,11 @@ void __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier__
     v5 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "[TUIKTPaneViewController _setDeviceVerificationEnabled:withSpecifier:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[TUIKTPaneViewController _setDeviceVerificationEnabled:withSpecifier:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_2()
@@ -2499,17 +2557,17 @@ uint64_t __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifi
 
 void __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_341(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_345;
-    v5[3] = &unk_279DDB080;
-    v6 = *(a1 + 32);
-    v7 = WeakRetained;
-    [WeakRetained _showOptOutConfirmationAlertWithCompletion:v5];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_345;
+    v4[3] = &unk_279DDB080;
+    v5 = *(a1 + 32);
+    v6 = WeakRetained;
+    [WeakRetained _showOptOutConfirmationAlertWithCompletion:v4];
   }
 
   else
@@ -2523,12 +2581,10 @@ void __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier__
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v9 = "[TUIKTPaneViewController _setDeviceVerificationEnabled:withSpecifier:]_block_invoke";
+      v8 = "[TUIKTPaneViewController _setDeviceVerificationEnabled:withSpecifier:]_block_invoke";
       _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_2_342()
@@ -2566,7 +2622,7 @@ void __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier__
 
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_345_cold_2(a1);
+      __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_345_cold_2();
     }
   }
 }
@@ -2604,7 +2660,7 @@ uint64_t __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifi
 
 void __45__TUIKTPaneViewController__openReportToApple__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -2643,13 +2699,11 @@ void __45__TUIKTPaneViewController__openReportToApple__block_invoke(uint64_t a1)
     v10 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[TUIKTPaneViewController _openReportToApple]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[TUIKTPaneViewController _openReportToApple]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__TUIKTPaneViewController__openReportToApple__block_invoke_2()
@@ -2715,28 +2769,28 @@ uint64_t __42__TUIKTPaneViewController__openTapToRadar__block_invoke()
 
 void __42__TUIKTPaneViewController__openTapToRadar__block_invoke_356(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * v7) idms];
+        v8 = [*(*(&v10 + 1) + 8 * v7) idms];
         v9 = [v8 pushToken];
 
         if (v9)
@@ -2748,15 +2802,13 @@ void __42__TUIKTPaneViewController__openTapToRadar__block_invoke_356(uint64_t a1
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showOptOutConfirmationAlertWithCompletion:(id)completion
@@ -2992,7 +3044,7 @@ uint64_t __69__TUIKTPaneViewController__showResetConfirmationAlertWithCompletion
 
 void __47__TUIKTPaneViewController__dismissPendingAlert__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -3029,13 +3081,11 @@ void __47__TUIKTPaneViewController__dismissPendingAlert__block_invoke(uint64_t a
     v6 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[TUIKTPaneViewController _dismissPendingAlert]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[TUIKTPaneViewController _dismissPendingAlert]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__TUIKTPaneViewController__dismissPendingAlert__block_invoke_2()
@@ -3054,16 +3104,15 @@ uint64_t __47__TUIKTPaneViewController__dismissPendingAlert__block_invoke_404()
 
 - (void)_handleLaunchURL
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *(self + 1464);
-  v5 = 136315650;
-  v6 = "[TUIKTPaneViewController _handleLaunchURL]";
-  v7 = 2114;
-  v8 = v3;
-  v9 = 2114;
+  v4 = 136315650;
+  v5 = "[TUIKTPaneViewController _handleLaunchURL]";
+  v6 = 2114;
+  v7 = v3;
+  v8 = 2114;
   selfCopy = self;
-  OUTLINED_FUNCTION_5_0(&dword_26F50B000, a2, a3, "%s %{public}@ on %{public}@", &v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_0(&dword_26F50B000, a2, a3, "%s %{public}@ on %{public}@", &v4);
 }
 
 uint64_t __43__TUIKTPaneViewController__handleLaunchURL__block_invoke()
@@ -3075,7 +3124,7 @@ uint64_t __43__TUIKTPaneViewController__handleLaunchURL__block_invoke()
 
 void __43__TUIKTPaneViewController__handleLaunchURL__block_invoke_409(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -3136,13 +3185,11 @@ void __43__TUIKTPaneViewController__handleLaunchURL__block_invoke_409(uint64_t a
     v7 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[TUIKTPaneViewController _handleLaunchURL]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[TUIKTPaneViewController _handleLaunchURL]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__TUIKTPaneViewController__handleLaunchURL__block_invoke_2()
@@ -3161,10 +3208,9 @@ uint64_t __43__TUIKTPaneViewController__handleLaunchURL__block_invoke_421()
 
 - (void)presentOptInNavigationController
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __59__TUIKTPaneViewController_presentOptInNavigationController__block_invoke()
@@ -3176,7 +3222,7 @@ uint64_t __59__TUIKTPaneViewController_presentOptInNavigationController__block_i
 
 void __59__TUIKTPaneViewController_presentOptInNavigationController__block_invoke_426(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -3195,13 +3241,11 @@ void __59__TUIKTPaneViewController_presentOptInNavigationController__block_invok
     v4 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[TUIKTPaneViewController presentOptInNavigationController]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[TUIKTPaneViewController presentOptInNavigationController]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__TUIKTPaneViewController_presentOptInNavigationController__block_invoke_2()
@@ -3245,7 +3289,7 @@ uint64_t __57__TUIKTPaneViewController_optInFlowResultWithStateUpdate__block_inv
 
 void __57__TUIKTPaneViewController_optInFlowResultWithStateUpdate__block_invoke_431(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -3259,8 +3303,8 @@ void __57__TUIKTPaneViewController_optInFlowResultWithStateUpdate__block_invoke_
     v3 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_INFO, "Attempting to reload specifiers in transparency pane...", &v6, 2u);
+      LOWORD(v5) = 0;
+      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_INFO, "Attempting to reload specifiers in transparency pane...", &v5, 2u);
     }
 
     [v2 reloadSpecifiers];
@@ -3276,13 +3320,11 @@ void __57__TUIKTPaneViewController_optInFlowResultWithStateUpdate__block_invoke_
     v4 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[TUIKTPaneViewController optInFlowResultWithStateUpdate]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[TUIKTPaneViewController optInFlowResultWithStateUpdate]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__TUIKTPaneViewController_optInFlowResultWithStateUpdate__block_invoke_2()
@@ -3364,6 +3406,40 @@ uint64_t __71__TUIKTPaneViewController_specifierProvider_didFinishLoadingSpecifi
   return MEMORY[0x2821F96F8]();
 }
 
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  providerCopy = provider;
+  specifiersCopy = specifiers;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
+  {
+    [TUIKTPaneViewController reloadSpecifiersForProvider:oldSpecifiers:animated:];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTPaneViewController reloadSpecifiersForProvider:oldSpecifiers:animated:];
+  }
+
+  if ([specifiersCopy count])
+  {
+    specifiers = [providerCopy specifiers];
+    [(TUIKTPaneViewController *)self replaceContiguousSpecifiers:specifiersCopy withSpecifiers:specifiers animated:animatedCopy];
+  }
+
+  else
+  {
+    [(TUIKTPaneViewController *)self reloadSpecifiers];
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) != 0 && self->_topGroupSpecifier)
+  {
+    [(TUIKTPaneViewController *)self _updateTopGroupSpecifierFooter:animatedCopy];
+  }
+}
+
 uint64_t __78__TUIKTPaneViewController_reloadSpecifiersForProvider_oldSpecifiers_animated___block_invoke()
 {
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14 = os_log_create("com.apple.Transparency", "ui");
@@ -3396,7 +3472,7 @@ uint64_t __83__TUIKTPaneViewController_validateDataclassAccessForProvider_specif
 
 - (void)_loadRemoteRequest:(id)request withIdentifier:(id)identifier specifier:(id)specifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   identifierCopy = identifier;
   specifierCopy = specifier;
@@ -3411,12 +3487,12 @@ uint64_t __83__TUIKTPaneViewController_validateDataclassAccessForProvider_specif
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v18 = "[TUIKTPaneViewController _loadRemoteRequest:withIdentifier:specifier:]";
-      v19 = 2114;
-      v20 = requestCopy;
-      v21 = 2114;
-      v22 = identifierCopy;
-      v23 = 2114;
+      v17 = "[TUIKTPaneViewController _loadRemoteRequest:withIdentifier:specifier:]";
+      v18 = 2114;
+      v19 = requestCopy;
+      v20 = 2114;
+      v21 = identifierCopy;
+      v22 = 2114;
       selfCopy = self;
       _os_log_debug_impl(&dword_26F50B000, v11, OS_LOG_TYPE_DEBUG, "%s another request is runnning, ignoring request = %{public}@, identifier = %{public}@ on %{public}@", buf, 0x2Au);
     }
@@ -3427,20 +3503,18 @@ uint64_t __83__TUIKTPaneViewController_validateDataclassAccessForProvider_specif
     objc_storeStrong(&self->_deviceDetailsButtonSpecifier, specifier);
     [(TUIKTPaneViewController *)self _startSpinnerForSpecifier:specifierCopy];
     objc_initWeak(buf, self);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifier___block_invoke_447;
-    v15[3] = &unk_279DDB120;
-    objc_copyWeak(&v16, buf);
-    v12 = [(TUIKTPaneViewController *)self _loadRemoteRequest:requestCopy withIdentifier:identifierCopy preparation:0 completion:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifier___block_invoke_447;
+    v14[3] = &unk_279DDB120;
+    objc_copyWeak(&v15, buf);
+    v12 = [(TUIKTPaneViewController *)self _loadRemoteRequest:requestCopy withIdentifier:identifierCopy preparation:0 completion:v14];
     activeRemoteUIController = self->_activeRemoteUIController;
     self->_activeRemoteUIController = v12;
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifier___block_invoke()
@@ -3452,7 +3526,7 @@ uint64_t __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifi
 
 void __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifier___block_invoke_447(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -3473,13 +3547,11 @@ void __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifier__
     v4 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[TUIKTPaneViewController _loadRemoteRequest:withIdentifier:specifier:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[TUIKTPaneViewController _loadRemoteRequest:withIdentifier:specifier:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifier___block_invoke_2()
@@ -3491,7 +3563,7 @@ uint64_t __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifi
 
 - (id)_loadRemoteRequest:(id)request withIdentifier:(id)identifier preparation:(id)preparation completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   identifierCopy = identifier;
   preparationCopy = preparation;
@@ -3505,12 +3577,12 @@ uint64_t __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifi
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v29 = "[TUIKTPaneViewController _loadRemoteRequest:withIdentifier:preparation:completion:]";
-    v30 = 2114;
-    v31 = requestCopy;
-    v32 = 2114;
-    v33 = identifierCopy;
-    v34 = 2114;
+    v28 = "[TUIKTPaneViewController _loadRemoteRequest:withIdentifier:preparation:completion:]";
+    v29 = 2114;
+    v30 = requestCopy;
+    v31 = 2114;
+    v32 = identifierCopy;
+    v33 = 2114;
     selfCopy = self;
     _os_log_debug_impl(&dword_26F50B000, v14, OS_LOG_TYPE_DEBUG, "%s request = %{public}@, identifier = %{public}@ on %{public}@", buf, 0x2Au);
   }
@@ -3525,21 +3597,20 @@ uint64_t __71__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_specifi
     preparationCopy[2](preparationCopy, v15);
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __84__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_preparation_completion___block_invoke_453;
-  v24[3] = &unk_279DDB198;
-  v27 = completionCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __84__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_preparation_completion___block_invoke_453;
+  v23[3] = &unk_279DDB198;
+  v26 = completionCopy;
   v17 = v15;
-  v25 = v17;
-  v26 = requestCopy;
+  v24 = v17;
+  v25 = requestCopy;
   v18 = requestCopy;
   v19 = completionCopy;
-  [(TUIKTPaneViewController *)self _getServerUILoadDelegateWithCompletion:v24];
-  v20 = v26;
+  [(TUIKTPaneViewController *)self _getServerUILoadDelegateWithCompletion:v23];
+  v20 = v25;
   v21 = v17;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -3579,7 +3650,7 @@ void __84__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_preparation
 
 void __84__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_preparation_completion___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -3591,27 +3662,25 @@ void __84__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_preparation
   {
     v7 = *(a1 + 32);
     *buf = 138412802;
-    v17 = v7;
-    v18 = 1024;
-    v19 = a2;
-    v20 = 2112;
-    v21 = v5;
+    v16 = v7;
+    v17 = 1024;
+    v18 = a2;
+    v19 = 2112;
+    v20 = v5;
     _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_DEBUG, "%@ done loading request with success %d. Error: %@", buf, 0x1Cu);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __84__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_preparation_completion___block_invoke_456;
-  v11[3] = &unk_279DDB148;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __84__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_preparation_completion___block_invoke_456;
+  v10[3] = &unk_279DDB148;
   v8 = *(a1 + 40);
-  v15 = a2;
-  v14 = v8;
-  v12 = v5;
-  v13 = *(a1 + 32);
+  v14 = a2;
+  v13 = v8;
+  v11 = v5;
+  v12 = *(a1 + 32);
   v9 = v5;
-  dispatch_async(MEMORY[0x277D85CD0], v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v10);
 }
 
 uint64_t __84__TUIKTPaneViewController__loadRemoteRequest_withIdentifier_preparation_completion___block_invoke_3()
@@ -3688,6 +3757,28 @@ uint64_t __68__TUIKTPaneViewController_remoteUIController_didRefreshObjectModel_
   return MEMORY[0x2821F96F8]();
 }
 
+- (void)remoteUIController:(id)controller willPresentObjectModel:(id)model modally:(BOOL)modally
+{
+  modallyCopy = modally;
+  controllerCopy = controller;
+  modelCopy = model;
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
+  {
+    [TUIKTPaneViewController remoteUIController:willPresentObjectModel:modally:];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTPaneViewController remoteUIController:willPresentObjectModel:modally:];
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [(TUIKTPaneViewController *)self _handleObjectModelChangeForController:controllerCopy objectModel:modelCopy isModal:modallyCopy];
+  }
+}
+
 uint64_t __77__TUIKTPaneViewController_remoteUIController_willPresentObjectModel_modally___block_invoke()
 {
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14 = os_log_create("com.apple.Transparency", "ui");
@@ -3751,7 +3842,7 @@ uint64_t __81__TUIKTPaneViewController_remoteUIController_shouldLoadRequest_redi
 
 void __81__TUIKTPaneViewController_remoteUIController_shouldLoadRequest_redirectResponse___block_invoke_477(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -3767,13 +3858,11 @@ void __81__TUIKTPaneViewController_remoteUIController_shouldLoadRequest_redirect
       v8 = *(a1 + 32);
       v9 = v7;
       v10 = [v8 URL];
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_26F50B000, v9, OS_LOG_TYPE_ERROR, "TUIKTPaneViewController shouldLoadRequest failed to open URL: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_26F50B000, v9, OS_LOG_TYPE_ERROR, "TUIKTPaneViewController shouldLoadRequest failed to open URL: %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __81__TUIKTPaneViewController_remoteUIController_shouldLoadRequest_redirectResponse___block_invoke_2()
@@ -3785,7 +3874,7 @@ uint64_t __81__TUIKTPaneViewController_remoteUIController_shouldLoadRequest_redi
 
 - (void)remoteUIController:(id)controller didFinishLoadWithError:(id)error forRequest:(id)request
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   errorCopy = error;
   requestCopy = request;
@@ -3799,13 +3888,13 @@ uint64_t __81__TUIKTPaneViewController_remoteUIController_shouldLoadRequest_redi
   {
     *location = 136316162;
     *&location[4] = "[TUIKTPaneViewController remoteUIController:didFinishLoadWithError:forRequest:]";
-    v19 = 2114;
-    v20 = controllerCopy;
-    v21 = 2114;
-    v22 = errorCopy;
-    v23 = 2114;
-    v24 = requestCopy;
-    v25 = 2114;
+    v18 = 2114;
+    v19 = controllerCopy;
+    v20 = 2114;
+    v21 = errorCopy;
+    v22 = 2114;
+    v23 = requestCopy;
+    v24 = 2114;
     selfCopy = self;
     _os_log_debug_impl(&dword_26F50B000, v11, OS_LOG_TYPE_DEBUG, "%s controller = %{public}@, error = %{public}@, request = %{public}@ on %{public}@", location, 0x34u);
   }
@@ -3814,20 +3903,18 @@ uint64_t __81__TUIKTPaneViewController_remoteUIController_shouldLoadRequest_redi
   {
     objc_initWeak(location, self);
     appleAccountManager = [(TUIKTPaneViewController *)self appleAccountManager];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke_484;
-    v14[3] = &unk_279DDB1E8;
-    objc_copyWeak(&v17, location);
-    v15 = controllerCopy;
-    v16 = requestCopy;
-    [appleAccountManager silentRenewAppleAccountWithCompletionHandler:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke_484;
+    v13[3] = &unk_279DDB1E8;
+    objc_copyWeak(&v16, location);
+    v14 = controllerCopy;
+    v15 = requestCopy;
+    [appleAccountManager silentRenewAppleAccountWithCompletionHandler:v13];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(location);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke()
@@ -3839,7 +3926,7 @@ uint64_t __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError
 
 void __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke_484(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained)
@@ -3853,7 +3940,7 @@ void __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_for
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v15 = "[TUIKTPaneViewController remoteUIController:didFinishLoadWithError:forRequest:]_block_invoke";
+      v14 = "[TUIKTPaneViewController remoteUIController:didFinishLoadWithError:forRequest:]_block_invoke";
       _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_ERROR, "%s, block strong self is nil", buf, 0xCu);
     }
   }
@@ -3867,29 +3954,27 @@ void __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_for
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v15 = "[TUIKTPaneViewController remoteUIController:didFinishLoadWithError:forRequest:]_block_invoke_2";
-    v16 = 2048;
-    v17 = a2;
-    v18 = 2114;
-    v19 = v5;
-    v20 = 2114;
-    v21 = WeakRetained;
+    v14 = "[TUIKTPaneViewController remoteUIController:didFinishLoadWithError:forRequest:]_block_invoke_2";
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2114;
+    v18 = v5;
+    v19 = 2114;
+    v20 = WeakRetained;
     _os_log_debug_impl(&dword_26F50B000, v8, OS_LOG_TYPE_DEBUG, "%s device details remote UI: silent renew result = %ld, error = %{public}@ on %{public}@", buf, 0x2Au);
   }
 
   objc_initWeak(buf, WeakRetained);
   v10 = *(a1 + 32);
   v9 = *(a1 + 40);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke_490;
-  v12[3] = &unk_279DDB120;
-  objc_copyWeak(&v13, buf);
-  [v10 loadRequest:v9 completion:v12];
-  objc_destroyWeak(&v13);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke_490;
+  v11[3] = &unk_279DDB120;
+  objc_copyWeak(&v12, buf);
+  [v10 loadRequest:v9 completion:v11];
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke_2()
@@ -3908,7 +3993,7 @@ uint64_t __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError
 
 void __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke_490(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
@@ -3921,9 +4006,9 @@ void __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_for
     v7 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[TUIKTPaneViewController remoteUIController:didFinishLoadWithError:forRequest:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_ERROR, "%s, block strong self is nil", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[TUIKTPaneViewController remoteUIController:didFinishLoadWithError:forRequest:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_ERROR, "%s, block strong self is nil", &v9, 0xCu);
     }
   }
 
@@ -3935,18 +4020,16 @@ void __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_for
   v8 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315906;
-    v11 = "[TUIKTPaneViewController remoteUIController:didFinishLoadWithError:forRequest:]_block_invoke_2";
-    v12 = 1024;
-    v13 = a2;
-    v14 = 2114;
-    v15 = v5;
-    v16 = 2114;
-    v17 = WeakRetained;
-    _os_log_debug_impl(&dword_26F50B000, v8, OS_LOG_TYPE_DEBUG, "%s device details remote UI: retry loadRequest result = %d, error = %{public}@ on %{public}@", &v10, 0x26u);
+    v9 = 136315906;
+    v10 = "[TUIKTPaneViewController remoteUIController:didFinishLoadWithError:forRequest:]_block_invoke_2";
+    v11 = 1024;
+    v12 = a2;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = WeakRetained;
+    _os_log_debug_impl(&dword_26F50B000, v8, OS_LOG_TYPE_DEBUG, "%s device details remote UI: retry loadRequest result = %d, error = %{public}@ on %{public}@", &v9, 0x26u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke_2_491()
@@ -3965,7 +4048,7 @@ uint64_t __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError
 
 - (void)remoteUIController:(id)controller didReceiveHTTPResponse:(id)response forRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   responseCopy = response;
   requestCopy = request;
@@ -3977,20 +4060,18 @@ uint64_t __80__TUIKTPaneViewController_remoteUIController_didFinishLoadWithError
   v11 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136316162;
-    v14 = "[TUIKTPaneViewController remoteUIController:didReceiveHTTPResponse:forRequest:]";
-    v15 = 2114;
-    v16 = controllerCopy;
-    v17 = 2114;
-    v18 = responseCopy;
-    v19 = 2114;
-    v20 = requestCopy;
-    v21 = 2114;
+    v12 = 136316162;
+    v13 = "[TUIKTPaneViewController remoteUIController:didReceiveHTTPResponse:forRequest:]";
+    v14 = 2114;
+    v15 = controllerCopy;
+    v16 = 2114;
+    v17 = responseCopy;
+    v18 = 2114;
+    v19 = requestCopy;
+    v20 = 2114;
     selfCopy = self;
-    _os_log_debug_impl(&dword_26F50B000, v11, OS_LOG_TYPE_DEBUG, "%s controller = %{public}@, response = %{public}@, request = %{public}@ on %{public}@", &v13, 0x34u);
+    _os_log_debug_impl(&dword_26F50B000, v11, OS_LOG_TYPE_DEBUG, "%s controller = %{public}@, response = %{public}@, request = %{public}@ on %{public}@", &v12, 0x34u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__TUIKTPaneViewController_remoteUIController_didReceiveHTTPResponse_forRequest___block_invoke()
@@ -4003,7 +4084,7 @@ uint64_t __80__TUIKTPaneViewController_remoteUIController_didReceiveHTTPResponse
 - (void)_handleObjectModelChangeForController:(id)controller objectModel:(id)model isModal:(BOOL)modal
 {
   modalCopy = modal;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   modelCopy = model;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
@@ -4014,17 +4095,17 @@ uint64_t __80__TUIKTPaneViewController_remoteUIController_didReceiveHTTPResponse
   v10 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
   {
-    v21 = v10;
+    v20 = v10;
     identifier = [modelCopy identifier];
     *location = 136315906;
     *&location[4] = "[TUIKTPaneViewController _handleObjectModelChangeForController:objectModel:isModal:]";
-    v27 = 2114;
-    v28 = controllerCopy;
-    v29 = 2114;
-    v30 = identifier;
-    v31 = 2114;
+    v26 = 2114;
+    v27 = controllerCopy;
+    v28 = 2114;
+    v29 = identifier;
+    v30 = 2114;
     selfCopy = self;
-    _os_log_debug_impl(&dword_26F50B000, v21, OS_LOG_TYPE_DEBUG, "%s controller = %{public}@, model: %{public}@ on %{public}@", location, 0x2Au);
+    _os_log_debug_impl(&dword_26F50B000, v20, OS_LOG_TYPE_DEBUG, "%s controller = %{public}@, model: %{public}@ on %{public}@", location, 0x2Au);
   }
 
   objc_storeStrong(&self->_currentObjectModel, model);
@@ -4050,19 +4131,17 @@ uint64_t __80__TUIKTPaneViewController_remoteUIController_didReceiveHTTPResponse
   else
   {
     objc_initWeak(location, controllerCopy);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __85__TUIKTPaneViewController__handleObjectModelChangeForController_objectModel_isModal___block_invoke_508;
-    v23[3] = &unk_279DDB210;
-    objc_copyWeak(&v24, location);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __85__TUIKTPaneViewController__handleObjectModelChangeForController_objectModel_isModal___block_invoke_508;
+    v22[3] = &unk_279DDB210;
+    objc_copyWeak(&v23, location);
     v15 = *MEMORY[0x277CEFEC0];
-    v25 = modalCopy;
-    [controllerCopy setHandlerForButtonName:v15 handler:v23];
-    objc_destroyWeak(&v24);
+    v24 = modalCopy;
+    [controllerCopy setHandlerForButtonName:v15 handler:v22];
+    objc_destroyWeak(&v23);
     objc_destroyWeak(location);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__TUIKTPaneViewController__handleObjectModelChangeForController_objectModel_isModal___block_invoke()
@@ -4319,7 +4398,7 @@ uint64_t __78__TUIKTPaneViewController__attemptUpdateAuthControllerWithActionabl
 
 void __78__TUIKTPaneViewController__attemptUpdateAuthControllerWithActionableResponse___block_invoke_536(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -4331,12 +4410,12 @@ void __78__TUIKTPaneViewController__attemptUpdateAuthControllerWithActionableRes
     v6 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v11) = 0;
       v7 = "Successfully passed on auth response to AuthKit.";
       v8 = v6;
       v9 = 2;
 LABEL_10:
-      _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_DEBUG, v7, &v12, v9);
+      _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_DEBUG, v7, &v11, v9);
     }
   }
 
@@ -4350,8 +4429,8 @@ LABEL_10:
     v10 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 138412290;
-      v13 = v5;
+      v11 = 138412290;
+      v12 = v5;
       v7 = "Failed to inform AuthKit of auth response! Error: %@.";
       v8 = v10;
       v9 = 12;
@@ -4360,8 +4439,6 @@ LABEL_10:
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__TUIKTPaneViewController__attemptUpdateAuthControllerWithActionableResponse___block_invoke_2()
@@ -4464,7 +4541,7 @@ void __66__TUIKTPaneViewController__getServerUILoadDelegateWithCompletion___bloc
 
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
     {
-      __66__TUIKTPaneViewController__getServerUILoadDelegateWithCompletion___block_invoke_547_cold_2(v6, a1);
+      __66__TUIKTPaneViewController__getServerUILoadDelegateWithCompletion___block_invoke_547_cold_2();
     }
   }
 
@@ -4501,11 +4578,9 @@ uint64_t __66__TUIKTPaneViewController__getServerUILoadDelegateWithCompletion___
   result = a1[7];
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[6];
-    v6 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v6();
+    return v4();
   }
 
   return result;
@@ -4634,7 +4709,7 @@ uint64_t __58__TUIKTPaneViewController__updateTopGroupSpecifierFooter___block_in
 
 void __58__TUIKTPaneViewController__updateTopGroupSpecifierFooter___block_invoke_559(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -4697,13 +4772,11 @@ LABEL_12:
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v21 = "[TUIKTPaneViewController _updateTopGroupSpecifierFooter:]_block_invoke";
+    v20 = "[TUIKTPaneViewController _updateTopGroupSpecifierFooter:]_block_invoke";
     _os_log_impl(&dword_26F50B000, v12, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
   }
 
 LABEL_14:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__TUIKTPaneViewController__updateTopGroupSpecifierFooter___block_invoke_2()
@@ -4715,11 +4788,18 @@ uint64_t __58__TUIKTPaneViewController__updateTopGroupSpecifierFooter___block_in
 
 - (void)activeConnectionChanged
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *self;
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  self->_hasActiveConnection = [(TUINetworkMonitor *)self->_networkMonitor hasActiveConnection];
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_14 != -1)
+  {
+    [TUIKTPaneViewController activeConnectionChanged];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTPaneViewController activeConnectionChanged];
+  }
+
+  [(TUIKTPaneViewController *)self reloadSpecifiers];
 }
 
 uint64_t __50__TUIKTPaneViewController_activeConnectionChanged__block_invoke()
@@ -4731,393 +4811,330 @@ uint64_t __50__TUIKTPaneViewController_activeConnectionChanged__block_invoke()
 
 - (void)viewWillAppear:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)viewDidAppear:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)viewWillDisappear:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)viewDidDisappear:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateNoError:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateNoIDSAppleID:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateCDPWaiting:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateDeviceError:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateOtherError:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateCDPError:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateTemporaryError:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateTreeReset:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateOptInPendingCDPError:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateOptInPendingCDPWaiting:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setupUIStateIDSDisabled:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)specifiers
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *self;
   v5 = a2;
-  v7 = 136315650;
-  v8 = "[TUIKTPaneViewController specifiers]";
-  v9 = 2048;
+  v6 = 136315650;
+  v7 = "[TUIKTPaneViewController specifiers]";
+  v8 = 2048;
   state = [v4 state];
-  v11 = 2114;
-  v12 = a3;
-  _os_log_error_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s unexpected UI state (%ld) on %{public}@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v10 = 2114;
+  v11 = a3;
+  _os_log_error_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s unexpected UI state (%ld) on %{public}@", &v6, 0x20u);
 }
 
 - (void)_getDeviceVerificationEnabledForSpecifier:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 1608);
   v4 = a2;
   v5 = [v3 stateDescription];
   [*(a1 + 1608) isVerifyCDPRunning];
-  v9[0] = 136315906;
+  v8[0] = 136315906;
   OUTLINED_FUNCTION_1_1();
-  v10 = v5;
-  v11 = 1024;
-  v12 = v6;
-  v13 = v7;
-  v14 = a1;
-  _os_log_debug_impl(&dword_26F50B000, v4, OS_LOG_TYPE_DEBUG, "%s %{public}@, isVerifyCDPRunning = %d on %{public}@", v9, 0x26u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = v5;
+  v10 = 1024;
+  v11 = v6;
+  v12 = v7;
+  v13 = a1;
+  _os_log_debug_impl(&dword_26F50B000, v4, OS_LOG_TYPE_DEBUG, "%s %{public}@, isVerifyCDPRunning = %d on %{public}@", v8, 0x26u);
 }
 
 - (void)_getDeviceVerificationEnabledForSpecifier:(NSObject *)a3 .cold.4(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_6_0(&dword_26F50B000, a2, a3, "%{public}@ trying update the switch cell that is not there, %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_6_0(&dword_26F50B000, a2, a3, "%{public}@ trying update the switch cell that is not there, %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __59__TUIKTPaneViewController_dismissRemoteUIForViewController__block_invoke_206_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_26F50B000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ CDP repair UI dismissed", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_26F50B000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ CDP repair UI dismissed", &v3, 0xCu);
 }
 
 - (void)_changeOptInState:(uint64_t)a3 requestedOptInChange:.cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCABB0];
   v6 = a1;
   v7 = [v5 numberWithUnsignedInteger:a2];
-  v11[0] = 136315650;
+  v10[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v12 = v8;
-  v13 = a3;
-  OUTLINED_FUNCTION_5_0(&dword_26F50B000, v6, v9, "%s requestedOptInChange = %{public}@ on %{public}@", v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = v8;
+  v12 = a3;
+  OUTLINED_FUNCTION_5_0(&dword_26F50B000, v6, v9, "%s requestedOptInChange = %{public}@ on %{public}@", v10);
 }
 
 - (void)_setDeviceVerificationEnabled:(uint64_t)a3 withSpecifier:.cold.2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 1608);
   v6 = a2;
   v7 = [v5 stateDescription];
   [*(a1 + 1608) isVerifyCDPRunning];
-  v11[0] = 136316162;
+  v10[0] = 136316162;
   OUTLINED_FUNCTION_1_1();
-  v12 = v7;
-  v13 = v8;
-  v14 = a3;
-  v15 = 1024;
-  v16 = v9;
-  v17 = v8;
-  v18 = a1;
-  _os_log_debug_impl(&dword_26F50B000, v6, OS_LOG_TYPE_DEBUG, "%s %{public}@, enabled: %{public}@, isVerifyCDPRunning = %d on %{public}@", v11, 0x30u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = v7;
+  v12 = v8;
+  v13 = a3;
+  v14 = 1024;
+  v15 = v9;
+  v16 = v8;
+  v17 = a1;
+  _os_log_debug_impl(&dword_26F50B000, v6, OS_LOG_TYPE_DEBUG, "%s %{public}@, enabled: %{public}@, isVerifyCDPRunning = %d on %{public}@", v10, 0x30u);
 }
 
-void __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_345_cold_2(uint64_t a1)
+void __71__TUIKTPaneViewController__setDeviceVerificationEnabled_withSpecifier___block_invoke_345_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  v5 = 138543618;
+  v2 = 138543618;
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_6_0(&dword_26F50B000, v2, v3, "%{public}@ trying update the switch cell that is not there, %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_0(&dword_26F50B000, v0, v1, "%{public}@ trying update the switch cell that is not there, %{public}@", v2);
 }
 
 - (void)_showOptOutConfirmationAlertWithCompletion:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __47__TUIKTPaneViewController__dismissPendingAlert__block_invoke_cold_2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 alert];
-  v8[0] = 136315650;
+  v7[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v9 = v5;
-  v10 = a2;
-  OUTLINED_FUNCTION_5_0(&dword_26F50B000, v3, v6, "%s alert = %{public}@ on %{public}@", v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = v5;
+  v9 = a2;
+  OUTLINED_FUNCTION_5_0(&dword_26F50B000, v3, v6, "%s alert = %{public}@ on %{public}@", v7);
 }
 
 void __43__TUIKTPaneViewController__handleLaunchURL__block_invoke_409_cold_2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 appleIDSpecifier];
-  v8[0] = 136315650;
+  v7[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v9 = v5;
-  v10 = a2;
-  OUTLINED_FUNCTION_5_0(&dword_26F50B000, v3, v6, "%s appleIDSpecifier = %{public}@ on %{public}@", v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = v5;
+  v9 = a2;
+  OUTLINED_FUNCTION_5_0(&dword_26F50B000, v3, v6, "%s appleIDSpecifier = %{public}@ on %{public}@", v7);
 }
 
 - (void)reloadSpecifiersForProvider:oldSpecifiers:animated:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateDataclassAccessForProvider:specifier:completion:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s not implemented on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s not implemented on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)remoteUIController:createPageWithName:attributes:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:didRefreshObjectModel:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:willPresentObjectModel:modally:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:shouldLoadRequest:redirectResponse:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:didReceiveObjectModel:actionSignal:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelButtonForRemoteObjectModelWasTapped:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_addHeadersToRequest:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_authController
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_attemptUpdateAuthControllerWithActionableResponse:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_getServerUILoadDelegateWithCompletion:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s AKAppleIDServerResourceLoadDelegate cache available on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s AKAppleIDServerResourceLoadDelegate cache available on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_getServerUILoadDelegateWithCompletion:.cold.4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s Starting to fetch AKAppleIDServerResourceLoadDelegate on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__TUIKTPaneViewController__getServerUILoadDelegateWithCompletion___block_invoke_547_cold_2(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *(a2 + 32);
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s Starting to fetch AKAppleIDServerResourceLoadDelegate on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_updateTopGroupSpecifierFooter:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

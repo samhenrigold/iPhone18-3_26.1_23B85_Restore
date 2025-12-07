@@ -9,18 +9,16 @@
 - (NSSet)featureNames
 {
   swift_beginAccess();
-  v3 = *(self + 2);
 
-  v4 = sub_22616FA28();
+  v2 = sub_22616FA28();
 
-  return v4;
+  return v2;
 }
 
 - (void)setFeatureNames:(id)names
 {
   v4 = sub_22616FA38();
   swift_beginAccess();
-  v5 = *(self + 2);
   *(self + 2) = v4;
 }
 

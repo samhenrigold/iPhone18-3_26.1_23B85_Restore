@@ -141,23 +141,23 @@
 - (BOOL)application:(id)application openURL:(id)l options:(id)options
 {
   lCopy = l;
-  v7 = sub_100003B9C();
+  v7 = sub_100003B9C(lCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FaceTime was launched via URL", &v13, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FaceTime was launched via URL", &v14, 2u);
   }
 
   pseudonymForLinkDetailsView = [lCopy pseudonymForLinkDetailsView];
 
   if (pseudonymForLinkDetailsView)
   {
-    v9 = sub_100003B9C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100003B9C(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = pseudonymForLinkDetailsView;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Showing link detail view for pseudonym %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = pseudonymForLinkDetailsView;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Showing link detail view for pseudonym %@", &v14, 0xCu);
     }
 
     rootViewController = [(PhoneApplication *)self rootViewController];
@@ -172,7 +172,7 @@
 {
   lCopy = l;
   videoMessageUUID = [lCopy videoMessageUUID];
-  v6 = sub_100003B9C();
+  v6 = sub_100003B9C(videoMessageUUID);
   rootViewController = v6;
   if (videoMessageUUID)
   {
@@ -198,7 +198,7 @@
 {
   lCopy = l;
   recentsUniqueID = [lCopy recentsUniqueID];
-  v6 = sub_100003B9C();
+  v6 = sub_100003B9C(recentsUniqueID);
   rootViewController = v6;
   if (recentsUniqueID)
   {
@@ -320,8 +320,7 @@ LABEL_9:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v9 = [v8 intValue], (v9 - 0x7FFFFFFF) <= 1))
   {
-    [(FaceTimeApplication *)self _ftFailedTest:nameCopy];
-    v10 = sub_100003B9C();
+    v10 = sub_100003B9C([(FaceTimeApplication *)self _ftFailedTest:nameCopy]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000C4ED4(v8, v10, v11, v12, v13, v14, v15, v16);
@@ -346,25 +345,24 @@ LABEL_9:
       v26 = intValue;
       if (([nameCopy hasSuffix:@"Recents"] & 1) == 0 && (objc_msgSend(nameCopy, "hasSuffix:", @"RecentsGlitch") & 1) == 0 && !objc_msgSend(nameCopy, "hasSuffix:", @"RecentsGlitchExtended") || (-[FaceTimeApplication _fetchScrollView](self, "_fetchScrollView"), (v27 = objc_claimAutoreleasedReturnValue()) == 0))
       {
-        [(FaceTimeApplication *)self _ftFailedTest:nameCopy];
-        v19 = sub_100003B9C();
+        v19 = sub_100003B9C([(FaceTimeApplication *)self _ftFailedTest:nameCopy]);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          sub_1000C4F40(nameCopy, v19, v34, v35, v36, v37, v38, v39);
+          sub_1000C4F40(nameCopy, v19, v35, v36, v37, v38, v39, v40);
         }
 
         goto LABEL_12;
       }
 
       v19 = v27;
-      v28 = sub_100003B9C();
+      v28 = sub_100003B9C(v27);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = 138412546;
-        v42 = nameCopy;
-        v43 = 2112;
-        v44 = optionsCopy;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Performing scroll test %@ with the following options: %@", &v41, 0x16u);
+        v42 = 138412546;
+        v43 = nameCopy;
+        v44 = 2112;
+        v45 = optionsCopy;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Performing scroll test %@ with the following options: %@", &v42, 0x16u);
       }
 
       [(FaceTimeApplication *)self _ftStartedTest:nameCopy];
@@ -375,17 +373,17 @@ LABEL_9:
 
         if (v30)
         {
-          v31 = sub_100003B9C();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v32 = sub_100003B9C(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v41) = 0;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Running recap based scroll view test", &v41, 2u);
+            LOWORD(v42) = 0;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Running recap based scroll view test", &v42, 2u);
           }
 
-          v32 = [(FaceTimeApplication *)self scrollTestsWithCount:v26 forScrollView:v19 name:nameCopy];
-          v33 = [RPTGroupScrollTestParameters newWithTestName:nameCopy parameters:v32 completionHandler:&stru_10010B718];
+          v33 = [(FaceTimeApplication *)self scrollTestsWithCount:v26 forScrollView:v19 name:nameCopy];
+          v34 = [RPTGroupScrollTestParameters newWithTestName:nameCopy parameters:v33 completionHandler:&stru_10010B718];
 
-          [RPTTestRunner runTestWithParameters:v33];
+          [RPTTestRunner runTestWithParameters:v34];
           goto LABEL_12;
         }
       }
@@ -394,21 +392,19 @@ LABEL_9:
       {
       }
 
-      [v19 _performScrollTest:nameCopy iterations:v26 delta:v9];
-      v40 = sub_100003B9C();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v41 = sub_100003B9C([v19 _performScrollTest:nameCopy iterations:v26 delta:v9]);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = 138412290;
-        v42 = nameCopy;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Finished test %@", &v41, 0xCu);
+        v42 = 138412290;
+        v43 = nameCopy;
+        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Finished test %@", &v42, 0xCu);
       }
 
       goto LABEL_12;
     }
   }
 
-  [(FaceTimeApplication *)self _ftFailedTest:nameCopy];
-  v19 = sub_100003B9C();
+  v19 = sub_100003B9C([(FaceTimeApplication *)self _ftFailedTest:nameCopy]);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     sub_1000C4FAC(v17, v19, v20, v21, v22, v23, v24, v25);

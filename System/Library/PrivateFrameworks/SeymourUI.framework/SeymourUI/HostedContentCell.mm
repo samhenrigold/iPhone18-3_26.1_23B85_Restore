@@ -15,10 +15,10 @@
   *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI17HostedContentCell_delegate) = 0;
   swift_unknownObjectWeakInit();
   v8 = OBJC_IVAR____TtC9SeymourUI17HostedContentCell_itemInfo;
-  v9 = type metadata accessor for ShelfCellItemInfo();
+  v9 = type metadata accessor for ShelfCellItemInfo(0);
   (*(*(v9 - 8) + 56))(self + v8, 1, 1, v9);
   v11.receiver = self;
-  v11.super_class = type metadata accessor for HostedContentCell();
+  v11.super_class = type metadata accessor for HostedContentCell(0);
   return [(HostedContentCell *)&v11 initWithFrame:x, y, width, height];
 }
 
@@ -27,7 +27,7 @@
   *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI17HostedContentCell_delegate) = 0;
   swift_unknownObjectWeakInit();
   v4 = OBJC_IVAR____TtC9SeymourUI17HostedContentCell_itemInfo;
-  v5 = type metadata accessor for ShelfCellItemInfo();
+  v5 = type metadata accessor for ShelfCellItemInfo(0);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   result = sub_20C13DE24();
   __break(1u);
@@ -36,15 +36,15 @@
 
 - (void)prepareForReuse
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550, &unk_20C1505A0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v10 - v4;
-  v6 = type metadata accessor for HostedContentCell();
+  v6 = type metadata accessor for HostedContentCell(0);
   v11.receiver = self;
   v11.super_class = v6;
   selfCopy = self;
   [(HostedContentCell *)&v11 prepareForReuse];
-  v8 = type metadata accessor for ShelfCellItemInfo();
+  v8 = type metadata accessor for ShelfCellItemInfo(0);
   (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
   v9 = OBJC_IVAR____TtC9SeymourUI17HostedContentCell_itemInfo;
   swift_beginAccess();

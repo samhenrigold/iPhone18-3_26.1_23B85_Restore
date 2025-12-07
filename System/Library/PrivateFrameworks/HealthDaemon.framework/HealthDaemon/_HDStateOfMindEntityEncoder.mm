@@ -9,16 +9,14 @@
 
 - (id)orderedProperties
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"reflective_interval";
-  v9[1] = @"valence";
-  v9[2] = @"context";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
+  v8[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"reflective_interval";
+  v8[1] = @"valence";
+  v8[2] = @"context";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -32,7 +30,7 @@
 
 - (id)codableRepresentationForPersistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   transaction = [(HDEntityEncoder *)self transaction];
   v10 = [HDStateOfMindLabelEntity labelsForObjectID:d transaction:transaction error:error];
 
@@ -53,57 +51,57 @@
         [(HDCodableStateOfMind *)v15 setReflectiveInterval:HDSQLiteColumnWithNameAsInt64()];
         HDSQLiteColumnWithNameAsDouble();
         [(HDCodableStateOfMind *)v15 setValence:?];
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         v16 = v10;
-        v17 = [v16 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v34;
+          v19 = *v33;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v34 != v19)
+              if (*v33 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              -[HDCodableStateOfMind addLabels:](v15, "addLabels:", [*(*(&v33 + 1) + 8 * i) longLongValue]);
+              -[HDCodableStateOfMind addLabels:](v15, "addLabels:", [*(*(&v32 + 1) + 8 * i) longLongValue]);
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v33 objects:v38 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v32 objects:v37 count:16];
           }
 
           while (v18);
         }
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v21 = v12;
-        v22 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v30;
+          v24 = *v29;
           do
           {
             for (j = 0; j != v23; ++j)
             {
-              if (*v30 != v24)
+              if (*v29 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              -[HDCodableStateOfMind addDomains:](v15, "addDomains:", [*(*(&v29 + 1) + 8 * j) longLongValue]);
+              -[HDCodableStateOfMind addDomains:](v15, "addDomains:", [*(*(&v28 + 1) + 8 * j) longLongValue]);
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
           }
 
           while (v23);
@@ -132,8 +130,6 @@
   {
     v15 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

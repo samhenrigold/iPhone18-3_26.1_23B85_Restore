@@ -66,7 +66,7 @@
     imAutomaticTranslationIndicatorChatItem = IMLogHandleForCategory();
     if (os_log_type_enabled(imAutomaticTranslationIndicatorChatItem, OS_LOG_TYPE_ERROR))
     {
-      [CKAutomaticTranslationIndicatorCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKAutomaticTranslationIndicatorCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
   }
 }
@@ -227,7 +227,7 @@
 
 - (void)updateButtonMenu
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v11 - v4;
   v6 = sub_190D572E0();
@@ -251,7 +251,7 @@
 
 - (void)addButtonMenuWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

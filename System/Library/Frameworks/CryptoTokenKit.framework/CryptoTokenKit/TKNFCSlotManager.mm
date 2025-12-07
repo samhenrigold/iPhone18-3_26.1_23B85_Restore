@@ -125,8 +125,8 @@
     selfCopy->_nfcSlotState = 1;
     objc_sync_exit(selfCopy);
 
-    v16 = sub_100014350();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = sub_100014350(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       sub_100020030(dCopy, registrationCopy);
     }
@@ -139,7 +139,7 @@
 {
   dCopy = d;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v6 = objc_sync_enter(selfCopy);
   if (selfCopy->_nfcSlotState != 2)
   {
     goto LABEL_14;
@@ -152,20 +152,20 @@
     goto LABEL_12;
   }
 
-  stringRepresentation = [(TKTokenID *)activeTokenID stringRepresentation];
+  stringRepresentation = [activeTokenID stringRepresentation];
   stringRepresentation2 = [dCopy stringRepresentation];
-  v10 = [stringRepresentation isEqualToString:stringRepresentation2];
+  v11 = [stringRepresentation isEqualToString:stringRepresentation2];
 
-  if (v10)
+  if (v11)
   {
-    v11 = +[NSDate date];
-    v12 = v11;
-    if (!selfCopy->_lastPostponementTime || ([v11 timeIntervalSinceDate:?], v13 >= 0.6))
+    v12 = +[NSDate date];
+    v13 = v12;
+    if (!selfCopy->_lastPostponementTime || ([v12 timeIntervalSinceDate:?], v14 >= 0.6))
     {
       [(TKNFCSlotManager *)selfCopy _postponeNFCSlotTermination];
-      objc_storeStrong(&selfCopy->_lastPostponementTime, v12);
-      v14 = sub_100014350();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      objc_storeStrong(&selfCopy->_lastPostponementTime, v13);
+      v16 = sub_100014350(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         sub_100020130();
       }
@@ -179,22 +179,23 @@ LABEL_16:
   if (selfCopy->_nfcSlotState != 2)
   {
 LABEL_14:
-    v12 = sub_100014350();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = sub_100014350(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000200C8(&selfCopy->_nfcSlotState);
+      sub_1000200C8();
     }
 
     goto LABEL_16;
   }
 
-  if (!*p_activeTokenID || ([*p_activeTokenID stringRepresentation], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dCopy, "stringRepresentation"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqualToString:", v16), v16, v15, (v17 & 1) == 0))
+  activeTokenID = *p_activeTokenID;
+  if (!*p_activeTokenID || ([activeTokenID stringRepresentation], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dCopy, "stringRepresentation"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v17, "isEqualToString:", v18), v18, v17, (v19 & 1) == 0))
   {
 LABEL_12:
-    v12 = sub_100014350();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = sub_100014350(activeTokenID);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_100020198(&selfCopy->_activeTokenID);
+      sub_100020198();
     }
 
     goto LABEL_16;
@@ -457,46 +458,47 @@ LABEL_17:
 
     if ((v10 & 1) == 0)
     {
-      v11 = sub_100014350();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = sub_100014350(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        sub_100020524(dCopy, &selfCopy->_activeTokenID);
+        sub_100020524();
       }
     }
   }
 
   objc_storeStrong(&selfCopy->_activeTokenID, d);
-  v12 = sub_100014350();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = sub_100014350(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [(TKSharedResourceSlot *)selfCopy->_nfcOperationSlot idleTimeout];
-    sub_10002059C(dCopy, buf, v12, v13);
+    sub_10002059C(dCopy, buf, v14, v15);
   }
 
   nfcOperationSlot = selfCopy->_nfcOperationSlot;
-  v20 = 0;
-  v15 = [(TKSharedResourceSlot *)nfcOperationSlot resourceWithError:&v20];
-  v16 = v20;
-  if (v16)
+  v23 = 0;
+  v17 = [(TKSharedResourceSlot *)nfcOperationSlot resourceWithError:&v23];
+  v18 = v23;
+  v19 = v18;
+  if (v18)
   {
-    v17 = sub_100014350();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = sub_100014350(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1000205F0();
     }
 
-    v18 = 0;
+    v21 = 0;
   }
 
   else
   {
-    objc_storeStrong(&selfCopy->_activeNFCOperation, v15);
-    v18 = v15;
+    objc_storeStrong(&selfCopy->_activeNFCOperation, v17);
+    v21 = v17;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v18;
+  return v21;
 }
 
 - (void)_releaseNFCOperationResource
@@ -523,14 +525,14 @@ LABEL_17:
 - (void)_refreshNFCOperationTerminationTimer
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (selfCopy->_activeNFCOperation)
   {
-    v3 = sub_100014350();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100014350(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [(TKSharedResourceSlot *)selfCopy->_nfcOperationSlot idleTimeout];
-      sub_100020658(v6, v3, v4);
+      sub_100020658(v7, v4, v5);
     }
 
     activeNFCOperation = selfCopy->_activeNFCOperation;
@@ -543,29 +545,29 @@ LABEL_17:
 - (void)_postponeNFCSlotTermination
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (selfCopy->_nfcOperationSlot && selfCopy->_activeTokenID)
   {
-    v3 = sub_100014350();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100014350(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_10002069C(&selfCopy->_activeTokenID);
+      sub_10002069C();
     }
 
     activeNFCOperation = selfCopy->_activeNFCOperation;
     selfCopy->_activeNFCOperation = 0;
 
     nfcOperationSlot = selfCopy->_nfcOperationSlot;
-    v10 = 0;
-    v6 = [(TKSharedResourceSlot *)nfcOperationSlot resourceWithError:&v10];
-    v7 = v10;
-    v8 = selfCopy->_activeNFCOperation;
-    selfCopy->_activeNFCOperation = v6;
+    v12 = 0;
+    v7 = [(TKSharedResourceSlot *)nfcOperationSlot resourceWithError:&v12];
+    v8 = v12;
+    v9 = selfCopy->_activeNFCOperation;
+    selfCopy->_activeNFCOperation = v7;
 
-    if (v7)
+    if (v8)
     {
-      v9 = sub_100014350();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = sub_100014350(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_100020714();
       }
@@ -598,7 +600,8 @@ LABEL_17:
   replyCopy = reply;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if ([nameCopy isEqual:TKNFCSlotName])
+  v15 = [nameCopy isEqual:TKNFCSlotName];
+  if (v15)
   {
     nfcSlotState = selfCopy->_nfcSlotState;
     if (endpointCopy)
@@ -606,30 +609,30 @@ LABEL_17:
       if (!nfcSlotState)
       {
         selfCopy->_nfcSlotState = 1;
-        v16 = sub_100014350();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v17 = sub_100014350(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          sub_10002077C(v16);
+          sub_10002077C(v17);
         }
       }
     }
 
     else if (nfcSlotState)
     {
-      v17 = sub_100014350();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v18 = sub_100014350(v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000207C0(v17);
+        sub_1000207C0(v18);
       }
 
       nfcSlotCompletionBlock = selfCopy->_nfcSlotCompletionBlock;
       if (nfcSlotCompletionBlock)
       {
-        v21 = NSLocalizedDescriptionKey;
-        v22 = @"NFC slot ended without receiving token";
-        v19 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-        v20 = [NSError errorWithDomain:TKErrorDomain code:-7 userInfo:v19];
-        nfcSlotCompletionBlock[2](nfcSlotCompletionBlock, 0, v20);
+        v22 = NSLocalizedDescriptionKey;
+        v23 = @"NFC slot ended without receiving token";
+        v20 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+        v21 = [NSError errorWithDomain:TKErrorDomain code:-7 userInfo:v20];
+        nfcSlotCompletionBlock[2](nfcSlotCompletionBlock, 0, v21);
       }
 
       selfCopy->_nfcSlotState = 0;
@@ -703,11 +706,11 @@ LABEL_5:
 - (void)_handleConnectionCloseWithInvalidate:(BOOL)invalidate
 {
   invalidateCopy = invalidate;
-  [(NSRecursiveLock *)self->_slotServerConnectionLock lock];
+  lock = [(NSRecursiveLock *)self->_slotServerConnectionLock lock];
   if (self->_slotServerConnection)
   {
-    v5 = sub_100014350();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_100014350(lock);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_100020804();
     }
@@ -736,7 +739,7 @@ LABEL_5:
 - (void)connectionDidActivate:(id)activate
 {
   activateCopy = activate;
-  v4 = sub_100014350();
+  v4 = sub_100014350(activateCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_1000208A4();

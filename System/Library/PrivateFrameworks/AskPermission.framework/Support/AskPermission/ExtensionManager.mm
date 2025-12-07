@@ -25,22 +25,8 @@
 - (BOOL)checkDownloadQueueWithContentType:(int64_t)type error:(id *)error
 {
   v6 = [(ExtensionManager *)self _extensionToCheckDownloadQueueWithContentType:type error:?];
-  if (!v6)
+  if (!v6 || (v7 = objc_alloc_init(NSExtensionItem), v12 = APRequestExtensionContextUserInfoKeyCheckDownloadQueue, v13 = &__kCFBooleanTrue, v8 = 1, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v13, &v12, 1), v9 = objc_claimAutoreleasedReturnValue(), [v7 setUserInfo:v9], v9, v10 = -[ExtensionManager _requestExtension:withItem:error:](self, "_requestExtension:withItem:error:", v6, v7, error), v7, (v10 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v7 = objc_alloc_init(NSExtensionItem);
-  v12 = APRequestExtensionContextUserInfoKeyCheckDownloadQueue;
-  v13 = &__kCFBooleanTrue;
-  v8 = 1;
-  v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-  [v7 setUserInfo:v9];
-
-  v10 = [(ExtensionManager *)self _requestExtension:v6 withItem:v7 error:error];
-  if ((v10 & 1) == 0)
-  {
-LABEL_3:
     v8 = 0;
   }
 
@@ -51,23 +37,8 @@ LABEL_3:
 {
   resultCopy = result;
   v7 = [(ExtensionManager *)self _extensionToNotifyWithResult:resultCopy error:error];
-  if (!v7)
+  if (!v7 || (v8 = objc_alloc_init(NSExtensionItem), v14 = APRequestExtensionContextUserInfoKeyResult, [resultCopy compile], v9 = objc_claimAutoreleasedReturnValue(), v15 = v9, v10 = 1, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v15, &v14, 1), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "setUserInfo:", v11), v11, v9, v12 = -[ExtensionManager _requestExtension:withItem:error:](self, "_requestExtension:withItem:error:", v7, v8, error), v8, (v12 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v8 = objc_alloc_init(NSExtensionItem);
-  v14 = APRequestExtensionContextUserInfoKeyResult;
-  compile = [resultCopy compile];
-  v15 = compile;
-  v10 = 1;
-  v11 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  [v8 setUserInfo:v11];
-
-  v12 = [(ExtensionManager *)self _requestExtension:v7 withItem:v8 error:error];
-  if ((v12 & 1) == 0)
-  {
-LABEL_3:
     v10 = 0;
   }
 

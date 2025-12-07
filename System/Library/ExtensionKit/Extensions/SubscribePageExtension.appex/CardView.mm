@@ -33,10 +33,11 @@
   selfCopy = self;
   if ([fromCopy state] == 3 && (v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtensionP33_E5954FF992A6C09524C80223408D11068CardView_tapAction)) != 0)
   {
+    v6 = *&selfCopy->tintView[OBJC_IVAR____TtC22SubscribePageExtensionP33_E5954FF992A6C09524C80223408D11068CardView_tapAction];
 
-    v5(v6);
+    v5(v7);
 
-    sub_1000164A8(v5);
+    sub_1000164A8(v5, v6);
   }
 
   else

@@ -82,7 +82,7 @@
 {
   v63 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
-  if ([suggestionsCopy count])
+  if (objc_msgSend_count(suggestionsCopy))
   {
     v53 = 0u;
     v54 = 0u;
@@ -867,7 +867,7 @@ LABEL_82:
           v28 = textCopy;
           v30 = v29 = queryCopy;
           lowercaseString3 = [v18 lowercaseString];
-          v34 = [v30 isEqualToString:lowercaseString3];
+          isEqualToString = objc_msgSend_isEqualToString_(v30);
 
           queryCopy = v29;
           textCopy = v28;
@@ -875,7 +875,7 @@ LABEL_82:
           v16 = v33;
 
           v11 = 0.0;
-          if (!v34)
+          if (!isEqualToString)
           {
             goto LABEL_14;
           }
@@ -955,7 +955,7 @@ LABEL_19:
     }
 
     suggestionComponents = [suggestionCopy suggestionComponents];
-    v15 = v9 / [suggestionComponents count];
+    v15 = v9 / objc_msgSend_count(suggestionComponents);
   }
 
   else
@@ -1240,19 +1240,19 @@ uint64_t __56__PSISuggestionRanker_sortedSuggestionsFromSuggestions___block_invo
   queryCopy = query;
   rankedSuggestionsCopy = rankedSuggestions;
   completionCopy = completion;
-  if ([rankedSuggestionsCopy count] >= suggestions)
+  if (objc_msgSend_count(rankedSuggestionsCopy) >= suggestions)
   {
     (*(completionCopy + 2))(completionCopy, 0, MEMORY[0x1E695E0F0], 0);
     goto LABEL_49;
   }
 
   indexCopy = index;
-  if ([typesCopy count] <= index)
+  if (objc_msgSend_count(typesCopy) <= index)
   {
     indexCopy = 0;
   }
 
-  if (indexCopy >= [typesCopy count])
+  if (indexCopy >= objc_msgSend_count(typesCopy))
   {
     v29 = indexCopy;
     goto LABEL_33;
@@ -1287,7 +1287,7 @@ LABEL_8:
         }
 
         v27 = *(*(&v48 + 1) + 8 * v26);
-        if ([rankedSuggestionsCopy count] >= suggestions)
+        if (objc_msgSend_count(rankedSuggestionsCopy) >= suggestions)
         {
           break;
         }
@@ -1345,7 +1345,7 @@ LABEL_23:
     typesCopy = v38;
   }
 
-  while (v42 + 1 < [v38 count]);
+  while (v42 + 1 < objc_msgSend_count(v38));
   if (v41)
   {
     v30 = 1;
@@ -1355,7 +1355,7 @@ LABEL_23:
 
   completionCopy = v37;
 LABEL_33:
-  if ([rankedSuggestionsCopy count] >= suggestions)
+  if (objc_msgSend_count(rankedSuggestionsCopy) >= suggestions)
   {
     v30 = 0;
   }
@@ -1384,7 +1384,7 @@ LABEL_36:
         }
 
         v36 = *(*(&v44 + 1) + 8 * v35);
-        if ([rankedSuggestionsCopy count] >= suggestions)
+        if (objc_msgSend_count(rankedSuggestionsCopy) >= suggestions)
         {
           break;
         }
@@ -1425,7 +1425,7 @@ LABEL_49:
 {
   candidatesCopy = candidates;
   queryCopy = query;
-  if ([candidatesCopy count])
+  if (objc_msgSend_count(candidatesCopy))
   {
     v16 = [candidatesCopy objectForKeyedSubscript:&unk_1F0FBC208];
     v33 = v16;
@@ -1487,7 +1487,7 @@ LABEL_49:
     v39 = 0;
     do
     {
-      if ([*(v45 + 5) count] >= v26)
+      if (objc_msgSend_count(*(v45 + 5)) >= v26)
       {
         break;
       }
@@ -1544,7 +1544,7 @@ void __155__PSISuggestionRanker_rankedSearchSuggestionsFromSuggestionCandidates_
   v11 = [v5 _rankedSearchSuggestionsFromSuggestions:a3 queryAssetCount:v6 queryCollectionCount:v7 suggestionType:v8 suggestionQuery:v9];
   [*(a1 + 40) setObject:v11 forKeyedSubscript:v10];
 
-  *(*(*(a1 + 48) + 8) + 24) += [v11 count];
+  *(*(*(a1 + 48) + 8) + 24) += objc_msgSend_count(v11);
 }
 
 void __155__PSISuggestionRanker_rankedSearchSuggestionsFromSuggestionCandidates_suggestionType_queryAssetCount_queryCollectionCount_suggestionLimit_suggestionQuery___block_invoke_3(void *a1, char a2, void *a3, uint64_t a4)

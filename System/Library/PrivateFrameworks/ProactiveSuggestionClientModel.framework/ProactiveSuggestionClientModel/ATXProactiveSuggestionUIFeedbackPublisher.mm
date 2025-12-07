@@ -119,7 +119,7 @@ uint64_t __81__ATXProactiveSuggestionUIFeedbackPublisher_mergedBlendingClientCon
 
 id __92__ATXProactiveSuggestionUIFeedbackPublisher_uiFeedbackSessionPublisherWithCorrelateHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 eventBody];
@@ -135,9 +135,9 @@ id __92__ATXProactiveSuggestionUIFeedbackPublisher_uiFeedbackSessionPublisherWit
   v8 = [v5 second];
   v9 = objc_alloc(MEMORY[0x1E695DF00]);
   [v6 timestamp];
-  v42 = [v9 initWithTimeIntervalSinceReferenceDate:?];
+  v41 = [v9 initWithTimeIntervalSinceReferenceDate:?];
   v10 = [v7 sessionProcessingOptionsForSessionType:0];
-  v43 = a1;
+  v42 = a1;
   v11 = [v7 sessionIdentifierForSessionType:0 uiCacheConsumerSubType:*(*(a1 + 32) + 8)];
   if (!v11)
   {
@@ -148,37 +148,37 @@ id __92__ATXProactiveSuggestionUIFeedbackPublisher_uiFeedbackSessionPublisherWit
     goto LABEL_33;
   }
 
-  v39 = v6;
-  v40 = v5;
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
+  v38 = v6;
+  v39 = v5;
   v47 = 0u;
-  v38 = v10;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v37 = v10;
   obj = v10;
-  v12 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v12 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (!v12)
   {
-    v44 = 0;
+    v43 = 0;
     goto LABEL_32;
   }
 
   v13 = v12;
-  v44 = 0;
-  v14 = *v47;
-  v16 = v42;
+  v43 = 0;
+  v14 = *v46;
+  v16 = v41;
   v15 = a1;
-  v41 = v7;
+  v40 = v7;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v47 != v14)
+      if (*v46 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = [*(*(&v46 + 1) + 8 * i) unsignedIntegerValue];
+      v18 = [*(*(&v45 + 1) + 8 * i) unsignedIntegerValue];
       switch(v18)
       {
         case 2:
@@ -188,7 +188,7 @@ id __92__ATXProactiveSuggestionUIFeedbackPublisher_uiFeedbackSessionPublisherWit
           {
             v26 = v25;
 
-            v44 = v26;
+            v43 = v26;
           }
 
           goto LABEL_25;
@@ -206,25 +206,25 @@ id __92__ATXProactiveSuggestionUIFeedbackPublisher_uiFeedbackSessionPublisherWit
 
               if (v24)
               {
-                v7 = v41;
-                v16 = v42;
+                v7 = v40;
+                v16 = v41;
               }
 
               else
               {
-                v27 = [v8 returnAndRemoveUIFeedbackSessionWithSessionIdentifier:v11 endDate:v42];
+                v27 = [v8 returnAndRemoveUIFeedbackSessionWithSessionIdentifier:v11 endDate:v41];
 
-                [v8 trackNewUIFeedbackSessionWithSessionIdentifier:v11 startDate:v42];
+                [v8 trackNewUIFeedbackSessionWithSessionIdentifier:v11 startDate:v41];
                 v28 = [v8 uiFeedbackSessionWithSessionIdentifier:v11];
 
-                v44 = v27;
+                v43 = v27;
                 v19 = v28;
-                v16 = v42;
-                v7 = v41;
+                v16 = v41;
+                v7 = v40;
               }
             }
 
-            v15 = v43;
+            v15 = v42;
           }
 
           if (v19)
@@ -245,23 +245,22 @@ LABEL_25:
       }
     }
 
-    v13 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v13 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
   }
 
   while (v13);
 LABEL_32:
 
   v34 = objc_alloc(MEMORY[0x1E698B020]);
-  v5 = v40;
-  v35 = [v40 second];
-  v31 = [v34 initWithFirst:v44 second:v35];
+  v5 = v39;
+  v35 = [v39 second];
+  v31 = [v34 initWithFirst:v43 second:v35];
 
-  v10 = v38;
-  v6 = v39;
+  v10 = v37;
+  v6 = v38;
 LABEL_33:
 
 LABEL_34:
-  v36 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
@@ -367,21 +366,22 @@ LABEL_10:
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = MEMORY[0x1E696AD98];
-      v8 = eventCopy;
-      sessionEndDate = [v8 sessionEndDate];
+      v8 = MEMORY[0x1E696AD98];
+      v9 = eventCopy;
+      sessionEndDate = [v9 sessionEndDate];
       [sessionEndDate timeIntervalSinceReferenceDate];
-      v6 = [v7 numberWithDouble:?];
+      v6 = [v8 numberWithDouble:?];
     }
 
     else
     {
-      v10 = __atxlog_handle_blending_ecosystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = __atxlog_handle_blending_ecosystem(isKindOfClass);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(ATXProactiveSuggestionUIFeedbackPublisher *)self _timestampFromEvent:eventCopy, v10];
+        [(ATXProactiveSuggestionUIFeedbackPublisher *)self _timestampFromEvent:eventCopy, v11];
       }
 
       v6 = &unk_1F5A41260;
@@ -393,16 +393,14 @@ LABEL_10:
 
 - (void)_timestampFromEvent:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_ERROR, "%@ - _timestampFromEvent invoked with unknown object: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_ERROR, "%@ - _timestampFromEvent invoked with unknown object: %@", &v7, 0x16u);
 }
 
 @end

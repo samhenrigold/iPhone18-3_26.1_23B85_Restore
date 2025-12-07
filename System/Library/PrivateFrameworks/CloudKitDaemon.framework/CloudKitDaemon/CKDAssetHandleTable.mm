@@ -11,15 +11,14 @@
 
 - (BOOL)assetHandleExistsInDatabase:(id)database
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11 = @"ITEMID";
-  v12[0] = database;
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = @"ITEMID";
+  v11[0] = database;
   v4 = MEMORY[0x277CBEAC0];
   databaseCopy = database;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v11, &v10, 1);
 
   LOBYTE(self) = objc_msgSend_countOfEntriesMatching_label_error_predicate_(self, v8, v7, off_27D7198F8, 0, &unk_28385C440) != 0;
-  v9 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -68,22 +67,20 @@
 
 - (id)selectProperties:(id)properties inAssetHandlesWithStatus:(int64_t)status
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
-  v18 = @"STATUS";
+  v17 = @"STATUS";
   v8 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v7, status);
-  v19[0] = v8;
-  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v19, &v18, 1);
+  v18[0] = v8;
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v18, &v17, 1);
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_225116BEC;
-  v16[3] = &unk_278545C98;
-  v17 = propertiesCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_225116BEC;
+  v15[3] = &unk_278545C98;
+  v16 = propertiesCopy;
   v11 = propertiesCopy;
-  v13 = objc_msgSend_entriesWithValues_label_setupBlock_(self, v12, v10, off_27D7199A0, v16);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = objc_msgSend_entriesWithValues_label_setupBlock_(self, v12, v10, off_27D7199A0, v15);
 
   return v13;
 }

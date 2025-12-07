@@ -12,6 +12,7 @@
 - (void)operationEndsWithReason:(int64_t)reason;
 - (void)setDelegate:(id)delegate;
 - (void)startBioOperation:(BOOL)operation reply:(id)reply;
+- (void)startOperation:(BOOL)operation reply:(id)reply;
 - (void)startWithReply:(id)reply;
 - (void)statusMessage:(unsigned int)message client:(unint64_t)client;
 @end
@@ -20,7 +21,7 @@
 
 - (void)cancel
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   kdebug_trace();
   v3 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
@@ -37,9 +38,9 @@
   {
     xpcClient = self->_xpcClient;
     v6 = v4;
-    v10 = 134217984;
+    v9 = 134217984;
     connectionId = [(BiometricKitXPCClient *)xpcClient connectionId];
-    _os_log_impl(&dword_1C82AD000, v6, OS_LOG_TYPE_DEFAULT, "BKOperation::cancel (_cid:%lu)\n", &v10, 0xCu);
+    _os_log_impl(&dword_1C82AD000, v6, OS_LOG_TYPE_DEFAULT, "BKOperation::cancel (_cid:%lu)\n", &v9, 0xCu);
   }
 
   selfCopy = self;
@@ -64,12 +65,11 @@
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKOperation::cancel -> void\n", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKOperation::cancel -> void\n", &v9, 2u);
   }
 
   kdebug_trace();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -104,7 +104,7 @@
 
 - (BKOperation)initWithDevice:(id)device
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   kdebug_trace();
   v6 = MEMORY[0x1E69E9C10];
@@ -121,13 +121,13 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = deviceCopy;
+    v23 = deviceCopy;
     _os_log_impl(&dword_1C82AD000, v7, OS_LOG_TYPE_DEFAULT, "BKOperation::initWithDevice: %@\n", buf, 0xCu);
   }
 
-  v22.receiver = self;
-  v22.super_class = BKOperation;
-  v8 = [(BKOperation *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = BKOperation;
+  v8 = [(BKOperation *)&v21 init];
   v9 = v8;
   if (v8)
   {
@@ -161,9 +161,9 @@
       v17 = v15;
       connectionId = [(BiometricKitXPCClient *)v16 connectionId];
       *buf = 138412546;
-      v24 = v9;
-      v25 = 2048;
-      v26 = connectionId;
+      v23 = v9;
+      v24 = 2048;
+      v25 = connectionId;
       _os_log_impl(&dword_1C82AD000, v17, OS_LOG_TYPE_DEFAULT, "BKOperation::initWithDevice: -> %@ (_cid:%lu)\n", buf, 0x16u);
     }
   }
@@ -183,22 +183,21 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v24 = 0;
-      v25 = 2048;
-      v26 = 0;
+      v23 = 0;
+      v24 = 2048;
+      v25 = 0;
       _os_log_impl(&dword_1C82AD000, v19, OS_LOG_TYPE_ERROR, "BKOperation::initWithDevice: -> %@ (_cid:%lu)\n", buf, 0x16u);
     }
   }
 
   kdebug_trace();
 
-  v20 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)setDelegate:(id)delegate
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   v5 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
@@ -215,11 +214,11 @@
   {
     xpcClient = self->_xpcClient;
     v8 = v6;
-    v12 = 138412546;
-    v13 = delegateCopy;
-    v14 = 2048;
+    v11 = 138412546;
+    v12 = delegateCopy;
+    v13 = 2048;
     connectionId = [(BiometricKitXPCClient *)xpcClient connectionId];
-    _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKOperation::setDelegate: %@ (_cid:%lu)\n", &v12, 0x16u);
+    _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKOperation::setDelegate: %@ (_cid:%lu)\n", &v11, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -242,11 +241,9 @@
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_1C82AD000, v10, OS_LOG_TYPE_DEFAULT, "BKOperation::setDelegate: -> void\n", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_impl(&dword_1C82AD000, v10, OS_LOG_TYPE_DEFAULT, "BKOperation::setDelegate: -> void\n", &v11, 2u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dispatchQueue
@@ -288,9 +285,84 @@
   replyCopy[2](replyCopy, 0, v5);
 }
 
+- (void)startOperation:(BOOL)operation reply:(id)reply
+{
+  operationCopy = operation;
+  v20 = *MEMORY[0x1E69E9840];
+  replyCopy = reply;
+  kdebug_trace();
+  v7 = MEMORY[0x1E69E9C10];
+  if (__osLogTrace)
+  {
+    v8 = __osLogTrace;
+  }
+
+  else
+  {
+    v8 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v19 = operationCopy;
+    _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKOperation::startOperation: async:%d)\n", buf, 8u);
+  }
+
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __36__BKOperation_startOperation_reply___block_invoke;
+  v16[3] = &unk_1E8304358;
+  v9 = replyCopy;
+  v17 = v9;
+  v10 = MEMORY[0x1CCA736F0](v16);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if ([(BKOperation *)selfCopy state]!= 1 || selfCopy->_startPending)
+  {
+    [BKOperation startOperation:reply:];
+    v13 = [BKErrorHelper errorWithCode:1];
+    (v10)[2](v10, 0, v13);
+
+    objc_sync_exit(selfCopy);
+  }
+
+  else
+  {
+    selfCopy->_startPending = 1;
+    objc_sync_exit(selfCopy);
+
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __36__BKOperation_startOperation_reply___block_invoke_9;
+    v14[3] = &unk_1E83043A8;
+    v14[4] = selfCopy;
+    v15 = v10;
+    [(BKOperation *)selfCopy startBioOperation:operationCopy reply:v14];
+  }
+
+  if (__osLogTrace)
+  {
+    v12 = __osLogTrace;
+  }
+
+  else
+  {
+    v12 = v7;
+  }
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1C82AD000, v12, OS_LOG_TYPE_DEFAULT, "BKOperation::startOperation: -> void\n", buf, 2u);
+  }
+
+  kdebug_trace();
+}
+
 void __36__BKOperation_startOperation_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (__osLogTrace)
   {
@@ -306,23 +378,23 @@ void __36__BKOperation_startOperation_reply___block_invoke(uint64_t a1, uint64_t
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 67109378;
-      v12 = 1;
-      v13 = 2112;
-      v14 = v5;
+      v10 = 67109378;
+      v11 = 1;
+      v12 = 2112;
+      v13 = v5;
       v7 = v6;
       v8 = OS_LOG_TYPE_DEFAULT;
 LABEL_9:
-      _os_log_impl(&dword_1C82AD000, v7, v8, "BKOperation::startOperation: -> reply(%d, %@)\n", &v11, 0x12u);
+      _os_log_impl(&dword_1C82AD000, v7, v8, "BKOperation::startOperation: -> reply(%d, %@)\n", &v10, 0x12u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v11 = 67109378;
-    v12 = 0;
-    v13 = 2112;
-    v14 = v5;
+    v10 = 67109378;
+    v11 = 0;
+    v12 = 2112;
+    v13 = v5;
     v7 = v6;
     v8 = OS_LOG_TYPE_ERROR;
     goto LABEL_9;
@@ -330,8 +402,6 @@ LABEL_9:
 
   kdebug_trace();
   (*(*(a1 + 32) + 16))(*(a1 + 32), a2, v5, v9);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __36__BKOperation_startOperation_reply___block_invoke_9(uint64_t a1, int a2, void *a3)
@@ -429,7 +499,7 @@ void __30__BKOperation_startWithReply___block_invoke(uint64_t a1, char a2, void 
 
 - (id)userPresentWithError:(id *)error
 {
-  *&v20[5] = *MEMORY[0x1E69E9840];
+  *&v19[5] = *MEMORY[0x1E69E9840];
   kdebug_trace();
   v5 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
@@ -446,9 +516,9 @@ void __30__BKOperation_startWithReply___block_invoke(uint64_t a1, char a2, void 
   {
     xpcClient = self->_xpcClient;
     v8 = v6;
-    v19 = 134217984;
-    *v20 = [(BiometricKitXPCClient *)xpcClient connectionId];
-    _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKOperation::userPresent (_cid:%lu)\n", &v19, 0xCu);
+    v18 = 134217984;
+    *v19 = [(BiometricKitXPCClient *)xpcClient connectionId];
+    _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKOperation::userPresent (_cid:%lu)\n", &v18, 0xCu);
   }
 
   isFingerOn = [(BiometricKitXPCClient *)self->_xpcClient isFingerOn];
@@ -481,10 +551,10 @@ void __30__BKOperation_startWithReply___block_invoke(uint64_t a1, char a2, void 
       v13 = 0;
     }
 
-    v19 = 67109378;
-    v20[0] = isFingerOn;
-    LOWORD(v20[1]) = 2112;
-    *(&v20[1] + 2) = v13;
+    v18 = 67109378;
+    v19[0] = isFingerOn;
+    LOWORD(v19[1]) = 2112;
+    *(&v19[1] + 2) = v13;
     v15 = v12;
     v16 = OS_LOG_TYPE_DEFAULT;
   }
@@ -506,25 +576,24 @@ void __30__BKOperation_startWithReply___block_invoke(uint64_t a1, char a2, void 
       v14 = 0;
     }
 
-    v19 = 67109378;
-    v20[0] = isFingerOn;
-    LOWORD(v20[1]) = 2112;
-    *(&v20[1] + 2) = v14;
+    v18 = 67109378;
+    v19[0] = isFingerOn;
+    LOWORD(v19[1]) = 2112;
+    *(&v19[1] + 2) = v14;
     v15 = v12;
     v16 = OS_LOG_TYPE_ERROR;
   }
 
-  _os_log_impl(&dword_1C82AD000, v15, v16, "BKOperation::userPresent -> %d, error:%@\n", &v19, 0x12u);
+  _os_log_impl(&dword_1C82AD000, v15, v16, "BKOperation::userPresent -> %d, error:%@\n", &v18, 0x12u);
 LABEL_21:
   kdebug_trace();
-  v17 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (void)changeState:(int64_t)state
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   kdebug_trace();
   v5 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
@@ -554,13 +623,13 @@ LABEL_21:
     if (v9)
     {
       dispatchQueue = [(BKOperation *)selfCopy dispatchQueue];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __27__BKOperation_changeState___block_invoke;
-      v13[3] = &unk_1E8303D98;
-      v13[4] = selfCopy;
-      v13[5] = state;
-      dispatch_async(dispatchQueue, v13);
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __27__BKOperation_changeState___block_invoke;
+      v12[3] = &unk_1E8303D98;
+      v12[4] = selfCopy;
+      v12[5] = state;
+      dispatch_async(dispatchQueue, v12);
     }
 
     selfCopy->_state = state;
@@ -585,7 +654,6 @@ LABEL_21:
   }
 
   kdebug_trace();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __27__BKOperation_changeState___block_invoke(uint64_t a1)
@@ -596,7 +664,7 @@ void __27__BKOperation_changeState___block_invoke(uint64_t a1)
 
 - (void)operationEndsWithReason:(int64_t)reason
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   kdebug_trace();
   v5 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
@@ -615,7 +683,7 @@ void __27__BKOperation_changeState___block_invoke(uint64_t a1)
     v8 = v6;
     *buf = 134218240;
     reasonCopy = reason;
-    v17 = 2048;
+    v16 = 2048;
     connectionId = [(BiometricKitXPCClient *)xpcClient connectionId];
     _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKOperation::operationEndsWithReason: %ld (_cid:%lu)\n", buf, 0x16u);
   }
@@ -627,13 +695,13 @@ void __27__BKOperation_changeState___block_invoke(uint64_t a1)
   if (v10)
   {
     dispatchQueue = [(BKOperation *)self dispatchQueue];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __39__BKOperation_operationEndsWithReason___block_invoke;
-    v14[3] = &unk_1E8303D98;
-    v14[4] = self;
-    v14[5] = reason;
-    dispatch_async(dispatchQueue, v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __39__BKOperation_operationEndsWithReason___block_invoke;
+    v13[3] = &unk_1E8303D98;
+    v13[4] = self;
+    v13[5] = reason;
+    dispatch_async(dispatchQueue, v13);
   }
 
   [(BiometricKitXPCClient *)self->_xpcClient setDelegate:0];
@@ -655,7 +723,6 @@ void __27__BKOperation_changeState___block_invoke(uint64_t a1)
   }
 
   kdebug_trace();
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __39__BKOperation_operationEndsWithReason___block_invoke(uint64_t a1)
@@ -666,7 +733,7 @@ void __39__BKOperation_operationEndsWithReason___block_invoke(uint64_t a1)
 
 - (void)statusMessage:(unsigned int)message client:(unint64_t)client
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   kdebug_trace();
   v7 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
@@ -683,7 +750,7 @@ void __39__BKOperation_operationEndsWithReason___block_invoke(uint64_t a1)
   {
     *buf = 67109376;
     messageCopy = message;
-    v22 = 2048;
+    v21 = 2048;
     clientCopy = client;
     _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKOperation::statusMessage:client: %u, client:%llu\n", buf, 0x12u);
   }
@@ -802,13 +869,13 @@ LABEL_25:
   if (v12)
   {
     dispatchQueue = [(BKOperation *)self dispatchQueue];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __36__BKOperation_statusMessage_client___block_invoke;
-    v18[3] = &unk_1E8304258;
-    v18[4] = self;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __36__BKOperation_statusMessage_client___block_invoke;
+    v17[3] = &unk_1E8304258;
+    v17[4] = self;
     messageCopy2 = message;
-    dispatch_async(dispatchQueue, v18);
+    dispatch_async(dispatchQueue, v17);
   }
 
   if (message == 64)
@@ -838,7 +905,6 @@ LABEL_40:
   }
 
   kdebug_trace();
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __36__BKOperation_statusMessage_client___block_invoke(uint64_t a1)
@@ -856,15 +922,12 @@ void __36__BKOperation_statusMessage_client___block_invoke(uint64_t a1)
 
 - (void)startOperation:reply:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

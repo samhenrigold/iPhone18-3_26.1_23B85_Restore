@@ -1120,7 +1120,7 @@ id sub_1005386A8(void *a1, double a2)
         v16 = [v15 unsignedLongLongValue];
 
         v17 = [v10 objectForKey:@"localDeliveryQueueStatsLastDeliveredTime"];
-        [v17 doubleValue];
+        objc_msgSend_doubleValue(v17);
         v19 = v18;
 
         v20 = [v9 UTF8String];
@@ -1669,15 +1669,15 @@ void sub_10053A6D8(uint64_t a1)
   }
 }
 
-void sub_10053BDFC(uint64_t a1, void *a2)
+void sub_10053BDFC(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = a2;
+  v3 = a2;
   if (qword_100CBEF90 != -1)
   {
     sub_100928F88();
   }
 
-  v3 = [v2 objectForKey:qword_100CBEF30];
+  v4 = [v3 objectForKey:qword_100CBEF30];
   if (qword_100CBEFA0 != -1)
   {
     sub_100928F9C();
@@ -1685,79 +1685,79 @@ void sub_10053BDFC(uint64_t a1, void *a2)
 
   if (off_100CBEF98)
   {
-    v4 = [off_100CBEF98(v3) copy];
+    v5 = [off_100CBEF98(v4) copy];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = [v2 objectForKey:qword_100CBEF38];
-  if (CFEqual(v5, qword_100CBEF40))
+  v6 = [v3 objectForKey:qword_100CBEF38];
+  if (CFEqual(v6, qword_100CBEF40))
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  else if (CFEqual(v5, qword_100CBEF48))
+  else if (CFEqual(v6, qword_100CBEF48))
   {
-    v6 = 2;
+    v7 = 2;
   }
 
-  else if (CFEqual(v5, qword_100CBEF50))
+  else if (CFEqual(v6, qword_100CBEF50))
   {
-    v6 = 3;
+    v7 = 3;
   }
 
-  else if (CFEqual(v5, qword_100CBEF58))
+  else if (CFEqual(v6, qword_100CBEF58))
   {
-    v6 = 4;
+    v7 = 4;
   }
 
-  else if (CFEqual(v5, qword_100CBEF60))
+  else if (CFEqual(v6, qword_100CBEF60))
   {
-    v6 = 5;
+    v7 = 5;
   }
 
-  else if (CFEqual(v5, qword_100CBEF68))
+  else if (CFEqual(v6, qword_100CBEF68))
   {
-    v6 = 6;
+    v7 = 6;
   }
 
-  else if (CFEqual(v5, qword_100CBEF70))
+  else if (CFEqual(v6, qword_100CBEF70))
   {
-    v6 = 7;
+    v7 = 7;
   }
 
-  else if (CFEqual(v5, qword_100CBEF78))
+  else if (CFEqual(v6, qword_100CBEF78))
   {
-    v6 = 8;
+    v7 = 8;
   }
 
-  else if (CFEqual(v5, qword_100CBEF80))
+  else if (CFEqual(v6, qword_100CBEF80))
   {
-    v6 = 9;
+    v7 = 9;
   }
 
-  else if (CFEqual(v5, qword_100CBEF88))
+  else if (CFEqual(v6, qword_100CBEF88))
   {
-    v6 = 10;
+    v7 = 10;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = (&off_100CB1008)[v6];
+    v9 = (&off_100CB1008)[v7];
     *buf = 136315394;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_WiFiDeviceAutoJoinCallback: status = %s, SSID = [%@]", buf, 0x16u);
+    v12 = v9;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "_WiFiDeviceAutoJoinCallback: status = %s, SSID = [%@]", buf, 0x16u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
@@ -1772,7 +1772,7 @@ void sub_10053BDFC(uint64_t a1, void *a2)
     }
   }
 
-  v9 = v4;
+  v10 = v5;
   IDSTransportThreadAddBlock();
 }
 
@@ -2991,16 +2991,16 @@ void sub_100550378(uint64_t a1, void *a2)
   [WeakRetained _handleLostDevice:v3];
 }
 
-id sub_1005503D4()
+id sub_1005503D4(uint64_t a1)
 {
   if (qword_100CBEFB8 != -1)
   {
     sub_1009290D4();
   }
 
-  v1 = qword_100CBEFC0;
+  v2 = qword_100CBEFC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100550418(uint64_t a1, void *a2, void *a3)
@@ -3126,24 +3126,24 @@ void sub_100550BF4(uint64_t a1, void *a2, void *a3, void *a4)
     {
       v12 = *(a1 + 32);
       *buf = 138478083;
-      v22 = v12;
-      v23 = 2113;
-      v24 = v7;
+      v23 = v12;
+      v24 = 2113;
+      v25 = v7;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Found companionLinkClient {deviceIdentifier: %{private}@, client: %{private}@}", buf, 0x16u);
     }
 
     v13 = *(a1 + 40);
-    v14 = sub_1005503D4();
-    v19 = v14;
-    v20 = &__kCFBooleanTrue;
-    v15 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100550E08;
-    v16[3] = &unk_100BDA9A0;
-    v17 = *(a1 + 32);
-    v18 = *(a1 + 48);
-    [v7 sendEventID:@"ids-message" event:v13 destinationID:v8 options:v15 completion:v16];
+    v15 = sub_1005503D4(v14);
+    v20 = v15;
+    v21 = &__kCFBooleanTrue;
+    v16 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100550E08;
+    v17[3] = &unk_100BDA9A0;
+    v18 = *(a1 + 32);
+    v19 = *(a1 + 48);
+    [v7 sendEventID:@"ids-message" event:v13 destinationID:v8 options:v16 completion:v17];
   }
 }
 
@@ -3671,9 +3671,9 @@ void sub_10055947C(uint64_t a1)
   (*(*(a1 + 64) + 16))();
 }
 
-void sub_100559B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100559B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3705,12 +3705,15 @@ void sub_10055A480(uint64_t a1)
 uint64_t sub_10055A4C8(uint64_t a1, void *a2)
 {
   v3 = [a2 topic];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 32) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 32) addObject:v3];
+    v4 = v6;
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v4);
 }
 
 id sub_10055BB74(uint64_t a1)
@@ -5685,7 +5688,7 @@ double sub_100570288()
 
   if (v1)
   {
-    [v1 doubleValue];
+    objc_msgSend_doubleValue(v1);
     v3 = v2;
   }
 
@@ -5714,9 +5717,9 @@ void sub_100570B60(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    *v148 = a4;
-    *&v148[4] = 2112;
-    *&v148[6] = v10;
+    *v147 = a4;
+    *&v147[4] = 2112;
+    *&v147[6] = v10;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "  Received get dependent registration response with result: %d  error: %@", buf, 0x12u);
   }
 
@@ -5725,7 +5728,7 @@ void sub_100570B60(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v148 = v12;
+    *v147 = v12;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, " response for message: %@", buf, 0xCu);
   }
 
@@ -5733,16 +5736,16 @@ void sub_100570B60(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v148 = v14;
+    *v147 = v14;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "   response idsUserID: %@", buf, 0xCu);
   }
 
-  v106 = objc_alloc_init(NSMutableSet);
-  v105 = objc_alloc_init(NSMutableDictionary);
-  v80 = v10;
+  v105 = objc_alloc_init(NSMutableSet);
+  v104 = objc_alloc_init(NSMutableDictionary);
+  v79 = v10;
   [*(a1 + 32) _submitGDRReponseToAWDWithResultCode:a4 error:v10];
-  v108 = a1;
-  v79 = v12;
+  v107 = a1;
+  v78 = v12;
   if (!a4)
   {
     v17 = +[IMRGLog GDR_oversized];
@@ -5750,291 +5753,290 @@ void sub_100570B60(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 
     if (v18)
     {
-      v77 = v11;
-      v78 = v14;
-      v140 = 0u;
-      v141 = 0u;
-      v138 = 0u;
+      v76 = v11;
+      v77 = v14;
       v139 = 0u;
+      v140 = 0u;
+      v137 = 0u;
+      v138 = 0u;
       obj = [v11 _arrayForKey:@"registrations"];
-      v92 = [obj countByEnumeratingWithState:&v138 objects:v146 count:16];
-      if (v92)
+      v91 = [obj countByEnumeratingWithState:&v137 objects:v145 count:16];
+      if (v91)
       {
-        v91 = *v139;
-        v90 = IDSDevicePropertyService;
-        v89 = IDSDevicePropertyPushToken;
-        v88 = IDSDevicePropertyName;
-        v87 = IDSDevicePropertyHardwareVersion;
-        v86 = IDSDevicePropertyPrivateDeviceData;
-        v85 = IDSDevicePropertySubServices;
-        v84 = IDSDevicePropertyIdentities;
-        v83 = IDSDevicePropertyLinkedUserURIs;
-        v82 = IDSDevicePropertyIsHSATrustedDevice;
+        v90 = *v138;
+        v89 = IDSDevicePropertyService;
+        v88 = IDSDevicePropertyPushToken;
+        v87 = IDSDevicePropertyName;
+        v86 = IDSDevicePropertyHardwareVersion;
+        v85 = IDSDevicePropertyPrivateDeviceData;
+        v84 = IDSDevicePropertySubServices;
+        v83 = IDSDevicePropertyIdentities;
+        v82 = IDSDevicePropertyLinkedUserURIs;
+        v81 = IDSDevicePropertyIsHSATrustedDevice;
         do
         {
           v19 = 0;
           do
           {
-            if (*v139 != v91)
+            if (*v138 != v90)
             {
               objc_enumerationMutation(obj);
             }
 
-            v104 = v19;
-            v20 = *(*(&v138 + 1) + 8 * v19);
-            v21 = [v20 objectForKey:v90];
-            v102 = [v21 copy];
+            v103 = v19;
+            v20 = *(*(&v137 + 1) + 8 * v19);
+            v21 = [v20 objectForKey:v89];
+            v101 = [v21 copy];
 
-            v22 = [v20 objectForKey:v89];
-            v100 = [v22 debugDescription];
+            v22 = [v20 objectForKey:v88];
+            v99 = [v22 debugDescription];
 
-            v23 = [v20 objectForKey:v88];
+            v23 = [v20 objectForKey:v87];
             v24 = [v23 copy];
 
-            v25 = [v20 objectForKey:v87];
+            v25 = [v20 objectForKey:v86];
             v26 = [v25 copy];
 
-            v27 = [v20 objectForKey:v86];
-            v97 = [IDSLogFormatter descriptionForDictionary:v27 options:1];
+            v27 = [v20 objectForKey:v85];
+            v96 = [IDSLogFormatter descriptionForDictionary:v27 options:1];
 
-            v28 = [v20 objectForKey:v85];
+            v28 = [v20 objectForKey:v84];
             v29 = [v28 __imArrayByApplyingBlock:&stru_100BE0778];
             v30 = [IDSLogFormatter descriptionForArray:v29 options:0];
 
-            v31 = [v20 objectForKey:v84];
+            v31 = [v20 objectForKey:v83];
             v32 = [IDSLogFormatter descriptionForArray:v31 options:0];
 
-            v33 = [v20 objectForKey:v83];
+            v33 = [v20 objectForKey:v82];
             v34 = [IDSLogFormatter descriptionForArray:v33 options:0];
 
-            v35 = [v20 objectForKey:v82];
+            v35 = [v20 objectForKey:v81];
             v36 = [v35 copy];
 
-            v125 = _NSConcreteStackBlock;
-            v126 = 3221225472;
-            v127 = sub_100571674;
-            v128 = &unk_100BE07A0;
-            v129 = v24;
-            v130 = v102;
-            v131 = v26;
-            v132 = v100;
-            v133 = v34;
-            v134 = v32;
-            v135 = v97;
-            v136 = v30;
-            v137 = v36;
-            v95 = v36;
-            v94 = v30;
-            v98 = v97;
-            v93 = v32;
+            v124 = _NSConcreteStackBlock;
+            v125 = 3221225472;
+            v126 = sub_100571674;
+            v127 = &unk_100BE07A0;
+            v128 = v24;
+            v129 = v101;
+            v130 = v26;
+            v131 = v99;
+            v132 = v34;
+            v133 = v32;
+            v134 = v96;
+            v135 = v30;
+            v136 = v36;
+            v94 = v36;
+            v93 = v30;
+            v97 = v96;
+            v92 = v32;
             v37 = v34;
-            v38 = v100;
+            v38 = v99;
             v39 = v26;
-            v40 = v102;
+            v40 = v101;
             v41 = v24;
             cut_dispatch_log_queue();
 
-            v19 = v104 + 1;
+            v19 = v103 + 1;
           }
 
-          while (v92 != (v104 + 1));
-          v92 = [obj countByEnumeratingWithState:&v138 objects:v146 count:16];
+          while (v91 != (v103 + 1));
+          v91 = [obj countByEnumeratingWithState:&v137 objects:v145 count:16];
         }
 
-        while (v92);
+        while (v91);
       }
 
-      a1 = v108;
-      v11 = v77;
-      v14 = v78;
+      a1 = v107;
+      v11 = v76;
+      v14 = v77;
     }
   }
 
   v42 = v11;
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
   v122 = 0u;
-  v96 = v14;
-  v101 = [v96 countByEnumeratingWithState:&v121 objects:v145 count:16];
-  if (v101)
+  v123 = 0u;
+  v120 = 0u;
+  v121 = 0u;
+  v95 = v14;
+  v100 = [v95 countByEnumeratingWithState:&v120 objects:v144 count:16];
+  if (v100)
   {
-    v99 = *v122;
+    v98 = *v121;
     do
     {
       v43 = 0;
       do
       {
-        if (*v122 != v99)
+        if (*v121 != v98)
         {
-          objc_enumerationMutation(v96);
+          objc_enumerationMutation(v95);
         }
 
-        v103 = v43;
-        v44 = *(*(&v121 + 1) + 8 * v43);
-        v119 = 0u;
-        v120 = 0u;
-        v117 = 0u;
+        v102 = v43;
         v118 = 0u;
-        v45 = *(*(a1 + 32) + 16);
-        v46 = [v45 countByEnumeratingWithState:&v117 objects:v144 count:16];
-        if (v46)
+        v119 = 0u;
+        v116 = 0u;
+        v117 = 0u;
+        v44 = *(*(a1 + 32) + 16);
+        v45 = [v44 countByEnumeratingWithState:&v116 objects:v143 count:16];
+        if (v45)
         {
-          v47 = v46;
-          v48 = *v118;
+          v46 = v45;
+          v47 = *v117;
           do
           {
-            for (i = 0; i != v47; i = i + 1)
+            for (i = 0; i != v46; i = i + 1)
             {
-              if (*v118 != v48)
+              if (*v117 != v47)
               {
-                objc_enumerationMutation(v45);
+                objc_enumerationMutation(v44);
               }
 
-              v50 = *(*(&v117 + 1) + 8 * i);
-              v51 = [v50 idsUserID];
-              v52 = [v51 isEqualToIgnoringCase:v44];
+              v49 = *(*(&v116 + 1) + 8 * i);
+              v50 = [v49 idsUserID];
+              v51 = objc_msgSend_isEqualToIgnoringCase_(v50);
 
-              if (v52)
+              if (v51)
               {
-                v53 = [v50 guid];
-                if ([v53 length])
+                v52 = [v49 guid];
+                if ([v52 length])
                 {
-                  [v106 addObject:v50];
-                  v54 = v108;
-                  v55 = [*(*(v108 + 32) + 8) objectForKey:v53];
-                  if (v55)
+                  [v105 addObject:v49];
+                  v53 = v107;
+                  v54 = [*(*(v107 + 32) + 8) objectForKey:v52];
+                  if (v54)
                   {
-                    v56 = [[NSArray alloc] initWithArray:v55 copyItems:1];
-                    [v105 setObject:v56 forKey:v53];
+                    v55 = [[NSArray alloc] initWithArray:v54 copyItems:1];
+                    [v104 setObject:v55 forKey:v52];
 
-                    v54 = v108;
+                    v53 = v107;
                   }
 
-                  [*(*(v54 + 32) + 8) removeObjectForKey:v53];
+                  [*(*(v53 + 32) + 8) removeObjectForKey:v52];
                 }
 
                 else
                 {
-                  v55 = +[IMRGLog warning];
-                  if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+                  v54 = +[IMRGLog warning];
+                  if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
                   {
                     *buf = 138412290;
-                    *v148 = v50;
-                    _os_log_fault_impl(&_mh_execute_header, v55, OS_LOG_TYPE_FAULT, "No GUID for registration %@, when processing getDependentRegistration response", buf, 0xCu);
+                    *v147 = v49;
+                    _os_log_fault_impl(&_mh_execute_header, v54, OS_LOG_TYPE_FAULT, "No GUID for registration %@, when processing getDependentRegistration response", buf, 0xCu);
                   }
                 }
               }
             }
 
-            v47 = [v45 countByEnumeratingWithState:&v117 objects:v144 count:16];
+            v46 = [v44 countByEnumeratingWithState:&v116 objects:v143 count:16];
           }
 
-          while (v47);
+          while (v46);
         }
 
-        v43 = v103 + 1;
-        a1 = v108;
+        v43 = v102 + 1;
+        a1 = v107;
       }
 
-      while ((v103 + 1) != v101);
-      v101 = [v96 countByEnumeratingWithState:&v121 objects:v145 count:16];
+      while ((v102 + 1) != v100);
+      v100 = [v95 countByEnumeratingWithState:&v120 objects:v144 count:16];
     }
 
-    while (v101);
+    while (v100);
   }
 
-  [*(*(a1 + 32) + 16) minusSet:v106];
+  [*(*(a1 + 32) + 16) minusSet:v105];
   if (![*(*(a1 + 32) + 16) count])
   {
-    v57 = *(a1 + 32);
-    v58 = *(v57 + 16);
-    *(v57 + 16) = 0;
+    v56 = *(a1 + 32);
+    v57 = *(v56 + 16);
+    *(v56 + 16) = 0;
   }
 
   if (![*(*(a1 + 32) + 8) count])
   {
-    v59 = *(a1 + 32);
-    v60 = *(v59 + 8);
-    *(v59 + 8) = 0;
+    v58 = *(a1 + 32);
+    v59 = *(v58 + 8);
+    *(v58 + 8) = 0;
   }
 
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
   v114 = 0u;
-  v107 = v106;
-  v61 = [v107 countByEnumeratingWithState:&v113 objects:v143 count:16];
-  if (v61)
+  v115 = 0u;
+  v112 = 0u;
+  v113 = 0u;
+  v106 = v105;
+  v60 = [v106 countByEnumeratingWithState:&v112 objects:v142 count:16];
+  if (v60)
   {
-    v62 = v61;
-    v63 = *v114;
+    v61 = v60;
+    v62 = *v113;
     do
     {
-      for (j = 0; j != v62; j = j + 1)
+      for (j = 0; j != v61; j = j + 1)
       {
-        if (*v114 != v63)
+        if (*v113 != v62)
         {
-          objc_enumerationMutation(v107);
+          objc_enumerationMutation(v106);
         }
 
-        v65 = *(*(&v113 + 1) + 8 * j);
-        v66 = [v65 guid];
-        v67 = [v105 objectForKey:v66];
+        v64 = *(*(&v112 + 1) + 8 * j);
+        v65 = [v64 guid];
+        v66 = [v104 objectForKey:v65];
 
-        v111 = 0u;
-        v112 = 0u;
-        v109 = 0u;
         v110 = 0u;
-        v68 = v67;
-        v69 = [v68 countByEnumeratingWithState:&v109 objects:v142 count:16];
-        if (v69)
+        v111 = 0u;
+        v108 = 0u;
+        v109 = 0u;
+        v67 = v66;
+        v68 = [v67 countByEnumeratingWithState:&v108 objects:v141 count:16];
+        if (v68)
         {
-          v70 = v69;
-          v71 = *v110;
+          v69 = v68;
+          v70 = *v109;
           do
           {
-            for (k = 0; k != v70; k = k + 1)
+            for (k = 0; k != v69; k = k + 1)
             {
-              if (*v110 != v71)
+              if (*v109 != v70)
               {
-                objc_enumerationMutation(v68);
+                objc_enumerationMutation(v67);
               }
 
-              v73 = *(*(&v109 + 1) + 8 * k);
-              if (v73)
+              v72 = *(*(&v108 + 1) + 8 * k);
+              if (v72)
               {
-                (*(v73 + 16))(v73, v65, a4, a4 == 0, v42);
+                (*(v72 + 16))(v72, v64, a4, a4 == 0, v42);
               }
             }
 
-            v70 = [v68 countByEnumeratingWithState:&v109 objects:v142 count:16];
+            v69 = [v67 countByEnumeratingWithState:&v108 objects:v141 count:16];
           }
 
-          while (v70);
+          while (v69);
         }
       }
 
-      v62 = [v107 countByEnumeratingWithState:&v113 objects:v143 count:16];
+      v61 = [v106 countByEnumeratingWithState:&v112 objects:v142 count:16];
     }
 
-    while (v62);
+    while (v61);
   }
 
-  v74 = *(v108 + 32);
-  if (!*(v74 + 8))
+  v73 = *(v107 + 32);
+  if (!*(v73 + 8))
   {
-    v75 = +[IDSDaemon sharedInstance];
-    [v75 _processStoredIncomingMessages];
+    v74 = +[IDSDaemon sharedInstance];
+    [v74 _processStoredIncomingMessages];
 
-    v74 = *(v108 + 32);
+    v73 = *(v107 + 32);
   }
 
-  [*(v74 + 40) accountsChanged];
-  v76 = *(*(v108 + 32) + 64);
-  if (v76)
+  [*(v73 + 40) accountsChanged];
+  v75 = *(*(v107 + 32) + 64);
+  if (v75)
   {
-    (*(v76 + 16))();
+    (*(v75 + 16))();
   }
 }
 
@@ -6074,11 +6076,11 @@ void sub_100571674(void *a1)
   }
 }
 
-void sub_100571D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100571D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
-  objc_destroyWeak((v6 - 32));
+  objc_destroyWeak((v11 - 32));
   _Unwind_Resume(a1);
 }
 
@@ -6959,9 +6961,9 @@ uint64_t sub_100577740(void *a1)
   return v4;
 }
 
-void sub_1005779BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1005779BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7535,9 +7537,9 @@ void sub_100583560(uint64_t a1, void *a2, void *a3, void *a4, void *a5, uint64_t
   _Block_object_dispose(&v34, 8);
 }
 
-void sub_1005837B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1005837B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7596,7 +7598,7 @@ void sub_1005837CC(uint64_t a1, void *a2, void *a3)
 
   v14 = [v7 domain];
   v15 = IDSPeerIDManagerErrorDomain;
-  if ([v14 isEqualToIgnoringCase:IDSPeerIDManagerErrorDomain])
+  if (objc_msgSend_isEqualToIgnoringCase_(v14))
   {
     v16 = [v7 code] == 3;
 
@@ -7932,9 +7934,9 @@ void sub_1005881E8(uint64_t a1, void *a2, void *a3, void *a4, void *a5, uint64_t
   _Block_object_dispose(&v45, 8);
 }
 
-void sub_1005884CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1005884CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7993,7 +7995,7 @@ void sub_1005884EC(uint64_t a1, void *a2, void *a3)
 
   v14 = [v7 domain];
   v15 = IDSPeerIDManagerErrorDomain;
-  if ([v14 isEqualToIgnoringCase:IDSPeerIDManagerErrorDomain])
+  if (objc_msgSend_isEqualToIgnoringCase_(v14))
   {
     v16 = [v7 code] == 3;
 

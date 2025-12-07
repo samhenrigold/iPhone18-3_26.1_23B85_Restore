@@ -9,18 +9,17 @@
 - (void)dealloc
 {
   ObjectType = swift_getObjectType();
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC19HealthBalanceDaemon30BalanceWidgetSchedulingManager_changeProvider);
-  v5 = *&self->widgetReloader[OBJC_IVAR____TtC19HealthBalanceDaemon30BalanceWidgetSchedulingManager_changeProvider];
-  v6 = swift_getObjectType();
-  v7 = *(v5 + 16);
+  v4 = *&self->widgetReloader[OBJC_IVAR____TtC19HealthBalanceDaemon30BalanceWidgetSchedulingManager_changeProvider];
+  v5 = swift_getObjectType();
+  v6 = *(v4 + 16);
   selfCopy = self;
   swift_unknownObjectRetain();
-  v7(selfCopy, &off_283BD4620, v6, v5);
+  v6(selfCopy, &off_283BD4620, v5, v4);
   swift_unknownObjectRelease();
 
-  v9.receiver = selfCopy;
-  v9.super_class = ObjectType;
-  [(BalanceWidgetSchedulingManager *)&v9 dealloc];
+  v8.receiver = selfCopy;
+  v8.super_class = ObjectType;
+  [(BalanceWidgetSchedulingManager *)&v8 dealloc];
 }
 
 - (void)profileDidBecomeReady:(id)ready

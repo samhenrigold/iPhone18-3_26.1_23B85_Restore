@@ -16,14 +16,12 @@
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"batteryPercentage" dataType:1 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"fullyCharged" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:12 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -87,7 +85,7 @@ LABEL_15:
 
 - (id)jsonDictionary
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   if (![(BMDeviceBatteryLevel *)self hasBatteryPercentage]|| ([(BMDeviceBatteryLevel *)self batteryPercentage], fabs(v3) == INFINITY))
   {
     v5 = 0;
@@ -111,23 +109,23 @@ LABEL_15:
     v6 = 0;
   }
 
-  v12[0] = @"batteryPercentage";
+  v11[0] = @"batteryPercentage";
   null = v5;
   if (!v5)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = @"fullyCharged";
-  v13[0] = null;
+  v11[1] = @"fullyCharged";
+  v12[0] = null;
   null2 = v6;
   if (!v6)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = null2;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   if (v6)
   {
     if (v5)
@@ -146,14 +144,13 @@ LABEL_15:
   }
 
 LABEL_14:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (BMDeviceBatteryLevel)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"batteryPercentage"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -168,16 +165,16 @@ LABEL_14:
         goto LABEL_9;
       }
 
-      v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v15 = *MEMORY[0x1E698F240];
-      v23 = *MEMORY[0x1E696A578];
+      v13 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v14 = *MEMORY[0x1E698F240];
+      v22 = *MEMORY[0x1E696A578];
       v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"batteryPercentage"];
-      v24[0] = v10;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
-      v16 = [v14 initWithDomain:v15 code:2 userInfo:v9];
+      v23[0] = v10;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v15 = [v13 initWithDomain:v14 code:2 userInfo:v9];
       v8 = 0;
       selfCopy = 0;
-      *error = v16;
+      *error = v15;
       goto LABEL_8;
     }
 
@@ -197,13 +194,13 @@ LABEL_14:
     {
       if (error)
       {
-        v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v18 = *MEMORY[0x1E698F240];
-        v21 = *MEMORY[0x1E696A578];
-        v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"fullyCharged"];
-        v22 = v19;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-        *error = [v17 initWithDomain:v18 code:2 userInfo:v20];
+        v16 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v17 = *MEMORY[0x1E698F240];
+        v20 = *MEMORY[0x1E696A578];
+        v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"fullyCharged"];
+        v21 = v18;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+        *error = [v16 initWithDomain:v17 code:2 userInfo:v19];
       }
 
       v10 = 0;
@@ -224,7 +221,6 @@ LABEL_14:
 LABEL_8:
 
 LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -240,19 +236,17 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_hasBatteryPercentage)
   {
-    batteryPercentage = self->_batteryPercentage;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_hasFullyCharged)
   {
-    fullyCharged = self->_fullyCharged;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -462,14 +456,12 @@ LABEL_41:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"batteryPercentage" number:1 type:0 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"fullyCharged" number:2 type:12 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

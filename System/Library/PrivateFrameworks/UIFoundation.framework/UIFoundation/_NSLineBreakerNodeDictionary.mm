@@ -1,7 +1,7 @@
 @interface _NSLineBreakerNodeDictionary
 - (void)dealloc;
 - (void)enumerateClassesAndNodesUsingBlock:(void *)block;
-- (void)setNode:(uint64_t)node forClass:(uint64_t)class;
+- (void)setNode:(uint64_t)result forClass:(uint64_t)class;
 @end
 
 @implementation _NSLineBreakerNodeDictionary
@@ -19,9 +19,9 @@
   [(_NSLineBreakerNodeDictionary *)&v4 dealloc];
 }
 
-- (void)setNode:(uint64_t)node forClass:(uint64_t)class
+- (void)setNode:(uint64_t)result forClass:(uint64_t)class
 {
-  if (node)
+  if (result)
   {
     if (!class || *(class + 32) == 1)
     {

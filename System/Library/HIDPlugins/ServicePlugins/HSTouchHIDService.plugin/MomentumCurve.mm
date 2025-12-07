@@ -37,7 +37,7 @@
       __p = 0;
       v8 = 0;
       v9 = 0;
-      std::vector<std::vector<int>>::push_back[abi:ne200100](&v2->_deltas, &__p);
+      std::vector<std::vector<int>>::push_back[abi:ne200100](&v2->_deltas.__begin_, &__p);
       if (__p)
       {
         v8 = __p;
@@ -47,7 +47,7 @@
       __p = 0;
       v8 = 0;
       v9 = 0;
-      std::vector<std::vector<int>>::push_back[abi:ne200100](&v2->_interpolatedDeltas, &__p);
+      std::vector<std::vector<int>>::push_back[abi:ne200100](&v2->_interpolatedDeltas.__begin_, &__p);
       if (__p)
       {
         v8 = __p;
@@ -131,90 +131,90 @@
     v27 = v26;
     [(MomentumCurve *)self interpolationFrameInterval];
     [(MomentumCurve *)self setInterpolationMinFrameSkipsAtEndOfTail:(roundf((v27 / v28) * ([(MomentumCurve *)self minFrameSkipsAtEndOfTail]+ 1)) + -1.0)];
-    [(MomentumCurve *)self setDragButtons:0];
-    v29 = MTLoggingPlugin();
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v29 = [(MomentumCurve *)self setDragButtons:0];
+    v31 = MTLoggingPlugin(v29, v30);
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_13;
     }
 
-    v45 = 136315650;
-    v46 = "";
-    v47 = 2080;
-    v48 = "";
-    v49 = 2080;
-    v50 = "[MomentumCurve generateCurvesWithMomentumState:scrollMomentumDispatchRate:]";
-    v30 = "[HID] [MT] %s%s%s Starting momentum scroll";
+    v51 = 136315650;
+    v52 = "";
+    v53 = 2080;
+    v54 = "";
+    v55 = 2080;
+    v56 = "[MomentumCurve generateCurvesWithMomentumState:scrollMomentumDispatchRate:]";
+    v32 = "[HID] [MT] %s%s%s Starting momentum scroll";
   }
 
   else
   {
     [(MomentumCurve *)self physicalFrameInterval];
     [(MomentumCurve *)self setFrameInterval:?];
-    LODWORD(v31) = 1.0;
-    [(MomentumCurve *)self setDeltaMultiplier:v31];
-    LODWORD(v32) = 1.0;
-    [(MomentumCurve *)self setDecayStopDelta:v32];
-    [(MomentumCurve *)self setDragButtons:*(stateCopy + 6)];
-    v29 = MTLoggingPlugin();
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    LODWORD(v33) = 1.0;
+    [(MomentumCurve *)self setDeltaMultiplier:v33];
+    LODWORD(v34) = 1.0;
+    [(MomentumCurve *)self setDecayStopDelta:v34];
+    v35 = [(MomentumCurve *)self setDragButtons:*(stateCopy + 6)];
+    v31 = MTLoggingPlugin(v35, v36);
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_13;
     }
 
-    v45 = 136315650;
-    v46 = "";
-    v47 = 2080;
-    v48 = "";
-    v49 = 2080;
-    v50 = "[MomentumCurve generateCurvesWithMomentumState:scrollMomentumDispatchRate:]";
-    v30 = "[HID] [MT] %s%s%s Starting momentum point / drag";
+    v51 = 136315650;
+    v52 = "";
+    v53 = 2080;
+    v54 = "";
+    v55 = 2080;
+    v56 = "[MomentumCurve generateCurvesWithMomentumState:scrollMomentumDispatchRate:]";
+    v32 = "[HID] [MT] %s%s%s Starting momentum point / drag";
   }
 
-  _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, v30, &v45, 0x20u);
+  _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, v32, &v51, 0x20u);
 LABEL_13:
 
   [(MomentumCurve *)self generateCurvesWithInitialDelta:stateCopy + 2];
-  [(MomentumCurve *)self initialDelta];
-  v34 = v33;
-  v36 = v35;
-  v37 = MTLoggingPlugin();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  initialDelta = [(MomentumCurve *)self initialDelta];
+  v39 = v38;
+  v41 = v40;
+  v43 = MTLoggingPlugin(*&initialDelta, v42);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
   {
     subtype = [(MomentumCurve *)self subtype];
     [(MomentumCurve *)self frameInterval];
-    v40 = v39;
+    v46 = v45;
     [(MomentumCurve *)self interpolationFrameInterval];
-    v42 = v41;
+    v48 = v47;
     useInterpolatedCurve = [(MomentumCurve *)self useInterpolatedCurve];
     dragButtons = [(MomentumCurve *)self dragButtons];
-    v45 = 136317442;
-    v46 = "";
-    v47 = 2080;
-    v48 = "";
-    v49 = 2080;
-    v50 = "[MomentumCurve generateCurvesWithMomentumState:scrollMomentumDispatchRate:]";
-    v51 = 1024;
-    v52 = subtype;
-    v53 = 2048;
-    v54 = v34;
-    v55 = 2048;
-    v56 = v36;
-    v57 = 2048;
-    v58 = v40;
+    v51 = 136317442;
+    v52 = "";
+    v53 = 2080;
+    v54 = "";
+    v55 = 2080;
+    v56 = "[MomentumCurve generateCurvesWithMomentumState:scrollMomentumDispatchRate:]";
+    v57 = 1024;
+    v58 = subtype;
     v59 = 2048;
-    v60 = v42;
-    v61 = 1024;
-    v62 = useInterpolatedCurve;
-    v63 = 1024;
-    v64 = dragButtons;
-    _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Subtype 0x%02X, initial delta (%4.1f, %4.1f), frame interval %f, interpolated frame interval %f, use interpolation %u, drag buttons %d", &v45, 0x5Au);
+    v60 = v39;
+    v61 = 2048;
+    v62 = v41;
+    v63 = 2048;
+    v64 = v46;
+    v65 = 2048;
+    v66 = v48;
+    v67 = 1024;
+    v68 = useInterpolatedCurve;
+    v69 = 1024;
+    v70 = dragButtons;
+    _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Subtype 0x%02X, initial delta (%4.1f, %4.1f), frame interval %f, interpolated frame interval %f, use interpolation %u, drag buttons %d", &v51, 0x5Au);
   }
 }
 
 - (void)regenerateCurvesWithInitialDelta:(const void *)delta
 {
-  v5 = MTLoggingPlugin();
+  v5 = MTLoggingPlugin(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *delta;
@@ -769,30 +769,31 @@ LABEL_31:
 
 - (pair<int,)getCurrentMomentumDeltasAndStep
 {
-  if (![(MomentumCurve *)self atEndOfCurve])
+  atEndOfCurve = [(MomentumCurve *)self atEndOfCurve];
+  if (!atEndOfCurve)
   {
     begin = self->_deltas.__begin_;
-    v7 = self->_interpolatedDeltas.__begin_;
+    v9 = self->_interpolatedDeltas.__begin_;
     useInterpolatedCurve = [(MomentumCurve *)self useInterpolatedCurve];
     curveIndex = [(MomentumCurve *)self curveIndex];
-    v10 = curveIndex;
+    v12 = curveIndex;
     if (useInterpolatedCurve)
     {
       [(MomentumCurve *)self getTimeAtIndex:curveIndex curve:1];
-      v12 = v11;
-      [(MomentumCurve *)self getTimeAtIndex:[(MomentumCurve *)self curveIndex]+ 1 curve:1];
       v14 = v13;
+      [(MomentumCurve *)self getTimeAtIndex:[(MomentumCurve *)self curveIndex]+ 1 curve:1];
+      v16 = v15;
       curveIndex2 = [(MomentumCurve *)self curveIndex];
-      v16 = *v7;
-      if (curveIndex2 < (v7[1] - *v7) >> 2)
+      v18 = *v9;
+      if (curveIndex2 < (v9[1] - *v9) >> 2)
       {
-        v17 = curveIndex2;
+        v19 = curveIndex2;
         curveIndex3 = [(MomentumCurve *)self curveIndex];
-        v19 = v7[3];
-        if (curveIndex3 < (v7[4] - v19) >> 2)
+        v21 = v9[3];
+        if (curveIndex3 < (v9[4] - v21) >> 2)
         {
-          v4 = *(v16 + 4 * v17);
-          v5 = *(v19 + 4 * curveIndex3);
+          v6 = *(v18 + 4 * v19);
+          v7 = *(v21 + 4 * curveIndex3);
           [(MomentumCurve *)self setCurveIndex:[(MomentumCurve *)self curveIndex]+ 1];
           [(MomentumCurve *)self interpolationFrameInterval];
           [(MomentumCurve *)self setCurrentInterval:?];
@@ -800,51 +801,51 @@ LABEL_31:
           [(MomentumCurve *)self setNextInterval:?];
           if (![(MomentumCurve *)self stopInterpolatingInfoSet])
           {
-            return (v4 | (v5 << 32));
+            return (v6 | (v7 << 32));
           }
 
           if ([(MomentumCurve *)self atEndOfCurve])
           {
-            return (v4 | (v5 << 32));
+            return (v6 | (v7 << 32));
           }
 
           [(MomentumCurve *)self stopInterpolatingTime];
-          if (v14 < v20)
+          if (v16 < v22)
           {
-            return (v4 | (v5 << 32));
+            return (v6 | (v7 << 32));
           }
 
           [(MomentumCurve *)self setUseInterpolatedCurve:0];
           [(MomentumCurve *)self setCurveIndex:[(MomentumCurve *)self stopInterpolatingDefaultIndex]];
           [(MomentumCurve *)self getTimeAtIndex:[(MomentumCurve *)self curveIndex] curve:0];
-          v22 = v21 - v12;
+          v24 = v23 - v14;
           [(MomentumCurve *)self frameInterval];
-          *&v24 = v22 / v23;
-          [(MomentumCurve *)self setFirstSwitchFromInterpolatedCurveMultiplier:v24];
-          *&v25 = v22;
-          [(MomentumCurve *)self setFirstSwitchFromInterpolatedCurveInterval:v25];
+          *&v26 = v24 / v25;
+          [(MomentumCurve *)self setFirstSwitchFromInterpolatedCurveMultiplier:v26];
+          *&v27 = v24;
+          [(MomentumCurve *)self setFirstSwitchFromInterpolatedCurveInterval:v27];
           [(MomentumCurve *)self firstSwitchFromInterpolatedCurveInterval];
           [(MomentumCurve *)self setNextInterval:?];
           selfCopy2 = self;
-          v27 = 1;
+          v29 = 1;
 LABEL_16:
-          [(MomentumCurve *)selfCopy2 setFirstSwitchFromInterpolatedCurve:v27];
-          return (v4 | (v5 << 32));
+          [(MomentumCurve *)selfCopy2 setFirstSwitchFromInterpolatedCurve:v29];
+          return (v6 | (v7 << 32));
         }
       }
     }
 
     else
     {
-      v28 = *begin;
+      v30 = *begin;
       if (curveIndex < (begin[1] - *begin) >> 2)
       {
         curveIndex4 = [(MomentumCurve *)self curveIndex];
-        v30 = begin[3];
-        if (curveIndex4 < (begin[4] - v30) >> 2)
+        v32 = begin[3];
+        if (curveIndex4 < (begin[4] - v32) >> 2)
         {
-          v4 = *(v28 + 4 * v10);
-          v5 = *(v30 + 4 * curveIndex4);
+          v6 = *(v30 + 4 * v12);
+          v7 = *(v32 + 4 * curveIndex4);
           [(MomentumCurve *)self setCurveIndex:[(MomentumCurve *)self curveIndex]+ 1];
           [(MomentumCurve *)self frameInterval];
           [(MomentumCurve *)self setCurrentInterval:?];
@@ -852,17 +853,17 @@ LABEL_16:
           [(MomentumCurve *)self setNextInterval:?];
           if (![(MomentumCurve *)self firstSwitchFromInterpolatedCurve])
           {
-            return (v4 | (v5 << 32));
+            return (v6 | (v7 << 32));
           }
 
           [(MomentumCurve *)self firstSwitchFromInterpolatedCurveMultiplier];
-          v4 = llroundf(v31 * v4);
+          v6 = llroundf(v33 * v6);
           [(MomentumCurve *)self firstSwitchFromInterpolatedCurveMultiplier];
-          LODWORD(v5) = llroundf(v32 * v5);
+          LODWORD(v7) = llroundf(v34 * v7);
           [(MomentumCurve *)self firstSwitchFromInterpolatedCurveInterval];
           [(MomentumCurve *)self setCurrentInterval:?];
           selfCopy2 = self;
-          v27 = 0;
+          v29 = 0;
           goto LABEL_16;
         }
       }
@@ -871,21 +872,21 @@ LABEL_16:
     std::vector<int>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v3 = MTLoggingPlugin();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v5 = MTLoggingPlugin(atEndOfCurve, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v34 = 136315650;
-    v35 = "[Error] ";
-    v36 = 2080;
-    v37 = "";
+    v36 = 136315650;
+    v37 = "[Error] ";
     v38 = 2080;
-    v39 = "[MomentumCurve getCurrentMomentumDeltasAndStep]";
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Momentum deltas requested past the end of the curves", &v34, 0x20u);
+    v39 = "";
+    v40 = 2080;
+    v41 = "[MomentumCurve getCurrentMomentumDeltasAndStep]";
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Momentum deltas requested past the end of the curves", &v36, 0x20u);
   }
 
-  v4 = 0;
-  v5 = 0;
-  return (v4 | (v5 << 32));
+  v6 = 0;
+  v7 = 0;
+  return (v6 | (v7 << 32));
 }
 
 - (pair<int,)getCurrentMomentumDeltas

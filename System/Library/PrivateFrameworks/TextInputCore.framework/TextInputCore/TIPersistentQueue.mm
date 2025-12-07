@@ -9,20 +9,20 @@
 
 - (void)dequeueObjects:(id)objects
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   if (objectsCopy)
   {
     v5 = [objc_alloc(MEMORY[0x277CCA9E8]) initWithFilePresenter:0];
     presentedItemURL = self->_presentedItemURL;
-    v13 = 0;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __36__TIPersistentQueue_dequeueObjects___block_invoke;
-    v11[3] = &unk_278733118;
-    v12 = objectsCopy;
-    [v5 coordinateWritingItemAtURL:presentedItemURL options:0 error:&v13 byAccessor:v11];
-    v7 = v13;
+    v12 = 0;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __36__TIPersistentQueue_dequeueObjects___block_invoke;
+    v10[3] = &unk_278733118;
+    v11 = objectsCopy;
+    [v5 coordinateWritingItemAtURL:presentedItemURL options:0 error:&v12 byAccessor:v10];
+    v7 = v12;
     if (v7)
     {
       if (TICanLogMessageAtLevel_onceToken != -1)
@@ -33,20 +33,18 @@
       v8 = TIOSLogFacility();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to coordinate write of %@: %@", "-[TIPersistentQueue dequeueObjects:]", self->_presentedItemURL, v7];
+        v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to coordinate write of %@: %@", "-[TIPersistentQueue dequeueObjects:]", self->_presentedItemURL, v7];
         *buf = 138412290;
-        v15 = v10;
+        v14 = v9;
         _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __36__TIPersistentQueue_dequeueObjects___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEB18] arrayWithContentsOfURL:v3];
   v5 = (*(*(a1 + 32) + 16))();
@@ -62,9 +60,9 @@ void __36__TIPersistentQueue_dequeueObjects___block_invoke(uint64_t a1, void *a2
     if (![v6 count])
     {
       v9 = [MEMORY[0x277CCAA00] defaultManager];
-      v12 = 0;
-      [v9 removeItemAtURL:v3 error:&v12];
-      v7 = v12;
+      v11 = 0;
+      [v9 removeItemAtURL:v3 error:&v11];
+      v7 = v11;
 
       if (!v7)
       {
@@ -81,9 +79,9 @@ LABEL_16:
       v8 = TIOSLogFacility();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to delete %@: %@", "-[TIPersistentQueue dequeueObjects:]_block_invoke", v3, v7];
+        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to delete %@: %@", "-[TIPersistentQueue dequeueObjects:]_block_invoke", v3, v7];
         *buf = 138412290;
-        v14 = v11;
+        v13 = v10;
         _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -107,33 +105,31 @@ LABEL_15:
 
       v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to write to %@ for updated persistent queue: %@", "-[TIPersistentQueue dequeueObjects:]_block_invoke", v3, v6];
       *buf = 138412290;
-      v14 = v8;
+      v13 = v8;
       _os_log_debug_impl(&dword_22CA55000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       goto LABEL_15;
     }
   }
 
 LABEL_17:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueObjects:(id)objects
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   if (objectsCopy)
   {
     v5 = [objc_alloc(MEMORY[0x277CCA9E8]) initWithFilePresenter:0];
     presentedItemURL = self->_presentedItemURL;
-    v13 = 0;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __36__TIPersistentQueue_enqueueObjects___block_invoke;
-    v11[3] = &unk_278733118;
-    v12 = objectsCopy;
-    [v5 coordinateWritingItemAtURL:presentedItemURL options:0 error:&v13 byAccessor:v11];
-    v7 = v13;
+    v12 = 0;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __36__TIPersistentQueue_enqueueObjects___block_invoke;
+    v10[3] = &unk_278733118;
+    v11 = objectsCopy;
+    [v5 coordinateWritingItemAtURL:presentedItemURL options:0 error:&v12 byAccessor:v10];
+    v7 = v12;
     if (v7)
     {
       if (TICanLogMessageAtLevel_onceToken != -1)
@@ -144,15 +140,13 @@ LABEL_17:
       v8 = TIOSLogFacility();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to coordinate write of %@: %@", "-[TIPersistentQueue enqueueObjects:]", self->_presentedItemURL, v7];
+        v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to coordinate write of %@: %@", "-[TIPersistentQueue enqueueObjects:]", self->_presentedItemURL, v7];
         *buf = 138412290;
-        v15 = v10;
+        v14 = v9;
         _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __36__TIPersistentQueue_enqueueObjects___block_invoke(uint64_t a1, void *a2)
@@ -182,20 +176,20 @@ void __36__TIPersistentQueue_enqueueObjects___block_invoke(uint64_t a1, void *a2
 
 - (void)readObjects:(id)objects
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   if (objectsCopy)
   {
     v5 = [objc_alloc(MEMORY[0x277CCA9E8]) initWithFilePresenter:0];
     presentedItemURL = self->_presentedItemURL;
-    v13 = 0;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __33__TIPersistentQueue_readObjects___block_invoke;
-    v11[3] = &unk_278733118;
-    v12 = objectsCopy;
-    [v5 coordinateReadingItemAtURL:presentedItemURL options:0 error:&v13 byAccessor:v11];
-    v7 = v13;
+    v12 = 0;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __33__TIPersistentQueue_readObjects___block_invoke;
+    v10[3] = &unk_278733118;
+    v11 = objectsCopy;
+    [v5 coordinateReadingItemAtURL:presentedItemURL options:0 error:&v12 byAccessor:v10];
+    v7 = v12;
     if (v7)
     {
       if (TICanLogMessageAtLevel_onceToken != -1)
@@ -206,15 +200,13 @@ void __36__TIPersistentQueue_enqueueObjects___block_invoke(uint64_t a1, void *a2
       v8 = TIOSLogFacility();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to coordinate read of %@: %@", "-[TIPersistentQueue readObjects:]", self->_presentedItemURL, v7];
+        v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to coordinate read of %@: %@", "-[TIPersistentQueue readObjects:]", self->_presentedItemURL, v7];
         *buf = 138412290;
-        v15 = v10;
+        v14 = v9;
         _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __33__TIPersistentQueue_readObjects___block_invoke(uint64_t a1, uint64_t a2)

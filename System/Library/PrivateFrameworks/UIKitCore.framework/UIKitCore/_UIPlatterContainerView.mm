@@ -65,7 +65,7 @@
   }
 
   platterContentView = [(_UIPlatterContainerView *)self platterContentView];
-  [(UIView *)self transform];
+  objc_msgSend_transform(self);
   [containerCopy _preparePreviewContainerWithPreview:platterContentView source:v8 initialTransform:&v13];
 }
 

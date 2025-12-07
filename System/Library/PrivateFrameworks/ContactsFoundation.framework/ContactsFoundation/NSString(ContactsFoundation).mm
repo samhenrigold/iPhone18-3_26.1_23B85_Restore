@@ -15,13 +15,13 @@
 - (uint64_t)_cn_containsOnlyDigits;
 - (uint64_t)_cn_hasPrefix:()ContactsFoundation options:;
 - (uint64_t)_cn_hasSuffix:()ContactsFoundation options:;
-- (uint64_t)_cn_rangeFromIndex:()ContactsFoundation;
 - (uint64_t)_cn_rangeOfAnchoredCharacters:()ContactsFoundation options:;
 - (uint64_t)_cn_rangeOfCommonPrefixWithString:()ContactsFoundation options:;
 - (uint64_t)_cn_skip:()ContactsFoundation;
 - (uint64_t)_cn_skipLast:()ContactsFoundation;
 - (uint64_t)_cn_take:()ContactsFoundation;
 - (uint64_t)_cn_takeLast:()ContactsFoundation;
+- (unint64_t)_cn_rangeFromIndex:()ContactsFoundation;
 - (void)_cn_eachCharacter:()ContactsFoundation;
 @end
 
@@ -240,7 +240,7 @@
   return v7;
 }
 
-- (uint64_t)_cn_rangeFromIndex:()ContactsFoundation
+- (unint64_t)_cn_rangeFromIndex:()ContactsFoundation
 {
   v3 = a3;
   if ([self length] < a3)
@@ -373,7 +373,7 @@
 
 - (id)_cn_resultWithAllCharacters:()ContactsFoundation
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [(__CFString *)self length];
   if (!self || (v6 = v5, ![(__CFString *)self length]))
@@ -389,7 +389,7 @@ LABEL_9:
     if (v6 <= 0xFE)
     {
       MEMORY[0x1EEE9AC00](0);
-      v9 = v15 - ((v8 + 17) & 0xFFFFFFFFFFFFFFF0);
+      v9 = v14 - ((v8 + 17) & 0xFFFFFFFFFFFFFFF0);
       [(__CFString *)self getCharacters:v9 range:0, v6];
       *&v9[2 * v6] = 0;
       v10 = (*(v4 + 2))(v4, v9, v6);
@@ -413,8 +413,6 @@ LABEL_9:
   (*(v4 + 2))(v4, CharactersPtr, v6);
   v10 = LABEL_10:;
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

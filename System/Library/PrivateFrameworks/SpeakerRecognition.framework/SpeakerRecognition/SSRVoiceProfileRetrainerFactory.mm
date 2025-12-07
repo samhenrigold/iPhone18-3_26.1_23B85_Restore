@@ -7,7 +7,7 @@
 
 - (id)voiceRetrainersWithContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = [[SSRVoiceProfileRetrainerPSR alloc] initWithVoiceRetrainingContext:contextCopy];
@@ -55,9 +55,9 @@
       v16 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
-        v21 = 136315138;
-        v22 = "[SSRVoiceProfileRetrainerFactory voiceRetrainersWithContext:]";
-        _os_log_error_impl(&dword_225E12000, v16, OS_LOG_TYPE_ERROR, "%s SecureAsset is nil", &v21, 0xCu);
+        v20 = 136315138;
+        v21 = "[SSRVoiceProfileRetrainerFactory voiceRetrainersWithContext:]";
+        _os_log_error_impl(&dword_225E12000, v16, OS_LOG_TYPE_ERROR, "%s SecureAsset is nil", &v20, 0xCu);
       }
     }
   }
@@ -74,21 +74,20 @@
 
   v18 = v17;
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (SSRVoiceProfileRetrainerFactory)init
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D01788] = [MEMORY[0x277D01788] sharedPreferences];
   isSpeakerRecognitionAvailable = [mEMORY[0x277D01788] isSpeakerRecognitionAvailable];
 
   if (isSpeakerRecognitionAvailable)
   {
-    v9.receiver = self;
-    v9.super_class = SSRVoiceProfileRetrainerFactory;
-    self = [(SSRVoiceProfileRetrainerFactory *)&v9 init];
+    v8.receiver = self;
+    v8.super_class = SSRVoiceProfileRetrainerFactory;
+    self = [(SSRVoiceProfileRetrainerFactory *)&v8 init];
     selfCopy = self;
   }
 
@@ -98,14 +97,13 @@
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v11 = "[SSRVoiceProfileRetrainerFactory init]";
+      v10 = "[SSRVoiceProfileRetrainerFactory init]";
       _os_log_error_impl(&dword_225E12000, v6, OS_LOG_TYPE_ERROR, "%s ERR: SpeakerRecognition is not available on this platform", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

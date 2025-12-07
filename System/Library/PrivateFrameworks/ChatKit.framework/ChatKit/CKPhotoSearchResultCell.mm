@@ -636,7 +636,7 @@ LABEL_17:
   v6 = v5;
   if (v5)
   {
-    [v5 durationForVideoResult:resultCopy];
+    objc_msgSend_durationForVideoResult_(v5);
   }
 
   else
@@ -669,7 +669,7 @@ LABEL_17:
   [(CKPhotoSearchResultCell *)self setNeedsLayout];
 }
 
-void *__60__CKPhotoSearchResultCell__configureDurationLabelForResult___block_invoke()
+double (*__60__CKPhotoSearchResultCell__configureDurationLabelForResult___block_invoke())(void)
 {
   result = MEMORY[0x193AF5ED0]("CMTimeGetSeconds", @"CoreMedia");
   _configureDurationLabelForResult___CMTimeGetSeconds = result;

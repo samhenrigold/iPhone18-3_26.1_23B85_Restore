@@ -32,19 +32,18 @@
 
 - (void)flushPowerlog
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC10ChronoCoreP33_2559684BF6D015C60DA4DF344EC1B12920ChronoServicesClient__queue);
   selfCopy = self;
   BSDispatchQueueAssert();
-  v5[4] = sub_224BE88C0;
-  v5[5] = 0;
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 1107296256;
-  v5[2] = sub_224A39F40;
-  v5[3] = &block_descriptor_244;
-  v4 = _Block_copy(v5);
+  v4[4] = sub_224BE88C0;
+  v4[5] = 0;
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 1107296256;
+  v4[2] = sub_224A39F40;
+  v4[3] = &block_descriptor_244;
+  v3 = _Block_copy(v4);
   BSDispatchMain();
 
-  _Block_release(v4);
+  _Block_release(v3);
 }
 
 - (void)retryStuckRemotePairings
@@ -73,48 +72,50 @@
 
 - (id)widgetEnvironmentDataForBundleIdentifier:(id)identifier
 {
-  sub_224DAEE18();
+  v4 = sub_224DAEE18();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_224BE9BB8();
-  v7 = v6;
+  v8 = sub_224BE9BB8(v4, v6);
+  v10 = v9;
 
-  if (v7 >> 60 == 15)
+  if (v10 >> 60 == 15)
   {
-    v8 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v9 = sub_224DA96B8();
-    sub_224AC1D9C(v5, v7);
-    v8 = v9;
+    v12 = sub_224DA96B8();
+    sub_224AC1D9C(v8, v10);
+    v11 = v12;
   }
 
-  return v8;
+  return v11;
 }
 
 - (void)setWidgetConfiguration:(id)configuration activationState:(id)state forWidgetHostWithIdentifier:(id)identifier
 {
-  sub_224DAEE18();
+  v8 = sub_224DAEE18();
+  v10 = v9;
   configurationCopy = configuration;
   stateCopy = state;
   selfCopy = self;
-  sub_224BEAA68(configurationCopy, stateCopy);
+  sub_224BEAA68(configurationCopy, stateCopy, v8, v10);
 }
 
 - (void)setActivationState:(id)state forWidgetHostWithIdentifier:(id)identifier
 {
-  sub_224DAEE18();
+  v6 = sub_224DAEE18();
+  v8 = v7;
   stateCopy = state;
   selfCopy = self;
-  sub_224BEB284(stateCopy);
+  sub_224BEB284(stateCopy, v6, v8);
 }
 
 - (void)launchLiveActivityWithID:(id)d deviceID:(id)iD url:(id)url
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D6F4680, &unk_224DB4610);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v20 - v9;
   v11 = sub_224DAEE18();
   v13 = v12;
@@ -190,26 +191,26 @@
 
 - (BOOL)unpairDeviceWith:(id)with error:(id *)error
 {
-  sub_224DAEE18();
+  v5 = sub_224DAEE18();
+  v7 = v6;
   selfCopy = self;
-  sub_224BF3708();
+  sub_224BF3708(v5, v7);
 
   return 1;
 }
 
 - (BOOL)toggleRemoteWidgetsEnabled:(id)enabled error:(id *)error
 {
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC10ChronoCoreP33_2559684BF6D015C60DA4DF344EC1B12920ChronoServicesClient__queue);
   enabledCopy = enabled;
   selfCopy = self;
   BSDispatchQueueAssert();
   bOOLValue = [enabledCopy BOOLValue];
-  v9 = selfCopy + OBJC_IVAR____TtC10ChronoCoreP33_2559684BF6D015C60DA4DF344EC1B12920ChronoServicesClient_enablementProvider;
+  v8 = selfCopy + OBJC_IVAR____TtC10ChronoCoreP33_2559684BF6D015C60DA4DF344EC1B12920ChronoServicesClient_enablementProvider;
   swift_beginAccess();
-  v10 = *(v9 + 24);
-  v11 = *(v9 + 32);
-  __swift_mutable_project_boxed_opaque_existential_1(v9, v10);
-  (*(v11 + 16))(bOOLValue, v10, v11);
+  v9 = *(v8 + 24);
+  v10 = *(v8 + 32);
+  __swift_mutable_project_boxed_opaque_existential_1(v8, v9);
+  (*(v10 + 16))(bOOLValue, v9, v10);
   swift_endAccess();
 
   return 1;

@@ -43,27 +43,27 @@
   {
     if (objc_opt_isKindOfClass())
     {
-      v3 = subscriptionBundleID;
+      v4 = subscriptionBundleID;
     }
 
     else
     {
-      v3 = 0;
+      v4 = 0;
     }
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    if ([v4 intValue])
+    if ([v5 intValue])
     {
-      stringValue = [v4 stringValue];
+      stringValue = [v5 stringValue];
     }
 
     else
@@ -80,21 +80,21 @@
     {
       if (objc_opt_isKindOfClass())
       {
-        v7 = subscriptionBundleID2;
+        v8 = subscriptionBundleID2;
       }
 
       else
       {
-        v7 = 0;
+        v8 = 0;
       }
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    stringValue = v7;
+    stringValue = v8;
   }
 
   return stringValue;

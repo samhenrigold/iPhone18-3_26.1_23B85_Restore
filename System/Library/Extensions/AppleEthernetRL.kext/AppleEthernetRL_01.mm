@@ -1,204 +1,3 @@
-void re_check_link_status(uint64_t a1)
-{
-  v2 = 1;
-  if (!*(a1 + 167))
-  {
-    v3 = *(*(a1 + 40) + 108);
-    __dmb(1u);
-    if ((v3 & 2) != 0)
-    {
-      v2 = 1;
-    }
-
-    else
-    {
-      v2 = 2;
-    }
-  }
-
-  v22 = v2;
-  if (re_get_platform_forced_link_state(a1, &v22))
-  {
-    if (v22 == 1)
-    {
-      v4 = "up";
-    }
-
-    else
-    {
-      v4 = "down";
-    }
-
-    IOLog("rl::%s(%d): forced link state: %s\n", "re_check_link_status", 7429, v4);
-  }
-
-  v5 = v22;
-  if (v22 != *(a1 + 166))
-  {
-    *(a1 + 166) = v22;
-    if (v5 == 1)
-    {
-      if (!*(a1 + 167))
-      {
-        v11 = *(*(a1 + 40) + 108);
-        __dmb(1u);
-        v12 = *(a1 + 167);
-        if (v11)
-        {
-          if (*(a1 + 167))
-          {
-            goto LABEL_13;
-          }
-
-          __dmb(2u);
-          if (*(a1 + 167))
-          {
-            v13 = -524289;
-          }
-
-          else
-          {
-            v17 = *(*(a1 + 40) + 64);
-            __dmb(1u);
-            v13 = v17 & 0xFCF7FFFF | 0x3000000;
-          }
-        }
-
-        else
-        {
-          if (*(a1 + 167))
-          {
-            goto LABEL_13;
-          }
-
-          __dmb(2u);
-          if (*(a1 + 167))
-          {
-            v13 = -17301505;
-          }
-
-          else
-          {
-            v16 = *(*(a1 + 40) + 64);
-            __dmb(1u);
-            v13 = v16 & 0xFCF7FFFF | 0x2000000;
-          }
-        }
-
-        v18 = *(a1 + 40);
-        *(v18 + 64) = v13;
-        if (!*(a1 + 167))
-        {
-          v19 = *(v18 + 108);
-          __dmb(1u);
-          if ((v19 & 4) == 0)
-          {
-LABEL_43:
-            if (*(a1 + 152))
-            {
-              if (*(a1 + 167))
-              {
-                v20 = 1;
-              }
-
-              else
-              {
-                v21 = *(*(a1 + 40) + 108);
-                __dmb(1u);
-                v20 = (v21 >> 2) & 1;
-              }
-
-              re_set_pfm_patch(a1, v20);
-            }
-
-            v23 = 0;
-            _re_stop(a1);
-            LODWORD(v23) = *a1;
-            WORD2(v23) = *(a1 + 4);
-            re_rar_set(a1, &v23);
-            (*(a1 + 248))(a1);
-            re_link_state_change(a1, 1);
-            return;
-          }
-        }
-      }
-
-LABEL_13:
-      v6 = *(a1 + 57) - 80;
-      if (v6 <= 0x15 && ((1 << v6) & 0x301D3F) != 0 && !*(a1 + 167))
-      {
-        __dmb(2u);
-        v7 = *(a1 + 40);
-        *(v7 + 176) = 1883242496;
-        if (!*(a1 + 167))
-        {
-          v8 = *(v7 + 176);
-          __dmb(1u);
-          if (!*(a1 + 167))
-          {
-            __dmb(2u);
-            *(*(a1 + 40) + 176) = v8 | 0xF0400002;
-          }
-        }
-      }
-
-      goto LABEL_43;
-    }
-
-    re_link_state_change(a1, 2);
-    if (*(a1 + 152))
-    {
-      re_set_pfm_patch(a1, 1);
-    }
-
-    _re_stop(a1);
-    v9 = *(a1 + 167);
-    if (*(a1 + 239))
-    {
-      if (*(a1 + 167))
-      {
-        return;
-      }
-
-      __dmb(2u);
-      v10 = 3340;
-    }
-
-    else
-    {
-      if (*(a1 + 167))
-      {
-        return;
-      }
-
-      __dmb(2u);
-      v10 = 56;
-    }
-
-    if (*(a1 + 239))
-    {
-      v14 = *(a1 + 238) - 2;
-      if (v14 >= 6)
-      {
-        IOLog("rl::%s(%d): invalid isr version \n", "re_get_linkchg_intr", 4970);
-        v15 = 0;
-      }
-
-      else
-      {
-        v15 = dword_225A0[v14];
-      }
-    }
-
-    else
-    {
-      v15 = 32;
-    }
-
-    *(*(a1 + 40) + v10) = v15;
-  }
-}
-
 uint64_t re_ifmedia_upd_8125(uint64_t a1)
 {
   if ((*(a1 + 48) & 0xE0) != 0x20)
@@ -797,24 +596,24 @@ LABEL_13:
   return v14;
 }
 
-void re_hw_phy_config(uint64_t a1)
+void re_hw_phy_config(uint64_t result)
 {
-  if ((*(a1 + 57) & 0xFE) == 0x50 && re_real_ocp_phy_read(a1, 50198) != 1280)
+  if ((*(result + 57) & 0xFE) == 0x50 && re_real_ocp_phy_read(result, 50198) != 1280)
   {
-    re_set_phy_mcu_patch_request(a1);
-    re_real_ocp_phy_write(a1, 0xC416u, 0);
-    re_real_ocp_phy_write(a1, 0xC416u, 1280);
-    re_clear_phy_mcu_patch_request(a1);
+    re_set_phy_mcu_patch_request(result);
+    re_real_ocp_phy_write(result, 0xC416u, 0);
+    re_real_ocp_phy_write(result, 0xC416u, 1280);
+    re_clear_phy_mcu_patch_request(result);
   }
 
-  if (*(a1 + 170) != 3 || *(a1 + 232) != 6)
+  if (*(result + 170) != 3 || *(result + 232) != 6)
   {
-    re_real_ocp_phy_write(a1, 0xA436u, 32798);
-    v2 = re_real_ocp_phy_read(a1, 42040);
-    *(a1 + 158) = v2;
-    if (v2 != *(a1 + 156))
+    re_real_ocp_phy_write(result, 0xA436u, 32798);
+    v2 = re_real_ocp_phy_read(result, 42040);
+    *(result + 158) = v2;
+    if (v2 != *(result + 156))
     {
-      v3 = *(a1 + 57) - 80;
+      v3 = *(result + 57) - 80;
       if (v3 <= 0x15)
       {
         __asm { BR              X16 }
@@ -822,13 +621,13 @@ void re_hw_phy_config(uint64_t a1)
 
       __asm { BTI             j }
 
-      re_real_ocp_phy_write(a1, 0xA436u, 32798);
-      re_real_ocp_phy_write(a1, 0xA438u, *(a1 + 156));
-      *(a1 + 158) = *(a1 + 156);
+      re_real_ocp_phy_write(result, 0xA436u, 32798);
+      re_real_ocp_phy_write(result, 0xA438u, *(result + 156));
+      *(result + 158) = *(result + 156);
     }
 
-    *(a1 + 160) = 0;
-    v8 = *(a1 + 57) - 80;
+    *(result + 160) = 0;
+    v8 = *(result + 57) - 80;
     if (v8 <= 0x15)
     {
       __asm { BR              X16 }
@@ -836,25 +635,25 @@ void re_hw_phy_config(uint64_t a1)
 
     __asm { BTI             j }
 
-    v9 = re_real_ocp_phy_read(a1, 58368);
-    re_real_ocp_phy_write(a1, 0xE400u, v9 | 0x8000);
-    v10 = re_real_ocp_phy_read(a1, 58384);
-    re_real_ocp_phy_write(a1, 0xE410u, v10 | 0x100);
-    v11 = re_real_ocp_phy_read(a1, 42560);
-    re_real_ocp_phy_write(a1, 0xA640u, v11 | 0x8000);
-    v12 = re_real_ocp_phy_read(a1, 42420);
-    re_real_ocp_phy_write(a1, 0xA5B4u, v12 & 0x7FFF);
-    if (*(a1 + 24) == 1)
+    v9 = re_real_ocp_phy_read(result, 58368);
+    re_real_ocp_phy_write(result, 0xE400u, v9 | 0x8000);
+    v10 = re_real_ocp_phy_read(result, 58384);
+    re_real_ocp_phy_write(result, 0xE410u, v10 | 0x100);
+    v11 = re_real_ocp_phy_read(result, 42560);
+    re_real_ocp_phy_write(result, 0xA640u, v11 | 0x8000);
+    v12 = re_real_ocp_phy_read(result, 42420);
+    re_real_ocp_phy_write(result, 0xA5B4u, v12 & 0x7FFF);
+    if (*(result + 24) == 1)
     {
-      re_enable_eee(a1);
+      re_enable_eee(result);
     }
 
     else
     {
-      re_disable_eee(a1);
+      re_disable_eee(result);
     }
 
-    *(a1 + 160) = 0;
+    *(result + 160) = 0;
   }
 }
 
@@ -919,7 +718,7 @@ uint64_t re_clear_set_mac_ocp_bit(uint64_t result, int a2, __int16 a3, __int16 a
   return result;
 }
 
-void re_ocp_write(uint64_t a1, int a2, unsigned __int8 a3, int a4)
+void re_ocp_write(uint64_t a1, int a2, char a3, int a4)
 {
   if (!*(a1 + 172))
   {
@@ -1379,22 +1178,21 @@ uint64_t re_enable_eee_workaround(uint64_t result)
 
 uint64_t re_configure_global_rx(uint64_t result, int a2)
 {
-  v2 = *(result + 167);
   if (a2 == 2)
   {
     if (!*(result + 167))
     {
       __dmb(2u);
-      v3 = *(result + 40);
-      *(v3 + 68) = 1090522368;
+      v2 = *(result + 40);
+      *(v2 + 68) = 1090522368;
       if (!*(result + 167))
       {
-        v4 = *(v3 + 216);
+        v3 = *(v2 + 216);
         __dmb(1u);
         if (!*(result + 167))
         {
           __dmb(2u);
-          *(*(result + 40) + 216) = v4 & 0xFC | 1;
+          *(*(result + 40) + 216) = v3 & 0xFC | 1;
         }
       }
     }
@@ -1582,7 +1380,6 @@ uint64_t re_write_mac_mcu_ram_code(uint64_t result, unsigned __int16 *a2, unsign
         while (1)
         {
           v5 = v4 / v3;
-          v6 = *(result + 167);
           if (!(v4 % v3))
           {
             break;
@@ -1606,14 +1403,14 @@ LABEL_13:
         }
 
         __dmb(2u);
-        v8 = *(result + 40);
-        *(v8 + 176) = 1914896384;
+        v7 = *(result + 40);
+        *(v7 + 176) = 1914896384;
         if (*(result + 167))
         {
           goto LABEL_13;
         }
 
-        v9 = *(v8 + 176);
+        v8 = *(v7 + 176);
         __dmb(1u);
         if (*(result + 167))
         {
@@ -1621,39 +1418,39 @@ LABEL_13:
         }
 
         __dmb(2u);
-        *(*(result + 40) + 176) = v9 & 0xFFFC | v5 & 3 | 0xF2230000;
+        *(*(result + 40) + 176) = v8 & 0xFFFC | v5 & 3 | 0xF2230000;
         if (*(result + 167))
         {
           goto LABEL_13;
         }
 
 LABEL_8:
-        v7 = ((a2[v4] | ((v4 - v5 * v3) << 16)) + 2080374784) | 0x80000000;
+        v6 = ((a2[v4] | ((v4 - v5 * v3) << 16)) + 2080374784) | 0x80000000;
         __dmb(2u);
-        *(*(result + 40) + 176) = v7;
+        *(*(result + 40) + 176) = v6;
         goto LABEL_13;
       }
     }
 
     else if (a3)
     {
-      v10 = a3;
-      v11 = 2080374784;
+      v9 = a3;
+      v10 = 2080374784;
       do
       {
         if (!*(result + 167))
         {
-          v12 = (v11 + *a2) | 0x80000000;
+          v11 = (v10 + *a2) | 0x80000000;
           __dmb(2u);
-          *(*(result + 40) + 176) = v12;
+          *(*(result + 40) + 176) = v11;
         }
 
-        v11 += 0x10000;
+        v10 += 0x10000;
         ++a2;
-        --v10;
+        --v9;
       }
 
-      while (v10);
+      while (v9);
     }
   }
 
@@ -3101,7 +2898,7 @@ void re_real_set_phy_mcu_8125a_2(uint64_t a1)
   re_release_phy_mcu_patch_key_lock(a1);
 }
 
-uint64_t AppleEthernetRL::setPowerState(AppleEthernetRL *this, uint64_t a2, IOService *a3)
+uint64_t AppleEthernetRL::setPowerState(AppleEthernetRL *this, IOService *a2, IOService *a3)
 {
   if (a2 && !*(this + 348))
   {
@@ -3117,60 +2914,58 @@ uint64_t AppleEthernetRL::setPowerState(AppleEthernetRL *this, uint64_t a2, IOSe
 
 void AppleEthernetRL::hwConfigNicProxyData(_DWORD *a1, unsigned int *a2)
 {
-  v11[0] = 0;
-  v11[1] = 0;
-  v4 = *(a1 + 177);
-  if (v4)
+  v9[0] = 0;
+  v9[1] = 0;
+  if (*(a1 + 177))
   {
-    v5 = *v4;
     IOFreeData();
     *(a1 + 177) = 0;
   }
 
   if (a2)
   {
-    v6 = *a2;
-    v7 = IOMallocZeroData();
-    *(a1 + 177) = v7;
-    if (v7)
+    v4 = *a2;
+    v5 = IOMallocZeroData();
+    *(a1 + 177) = v5;
+    if (v5)
     {
-      v8 = *a2;
-      if (v6 < v8)
+      v6 = *a2;
+      if (v4 < v6)
       {
         __break(0xBFFEu);
         return;
       }
 
-      memmove(v7, a2, v8);
+      memmove(v5, a2, v6);
       *(a1 + 178) = mach_continuous_time();
-      if (!(*(*a1 + 2008))(a1, 0x8000) && !(*(*a1 + 2032))(a1, v11) && !(*(*a1 + 2040))(a1, v11) && !(*(*a1 + 2048))(a1, v11) && !(*(*a1 + 2056))(a1, v11) && !(*(*a1 + 2072))(a1, v11))
+      if (!(*(*a1 + 2008))(a1, 0x8000) && !(*(*a1 + 2032))(a1, v9) && !(*(*a1 + 2040))(a1, v9) && !(*(*a1 + 2048))(a1, v9) && !(*(*a1 + 2056))(a1, v9) && !(*(*a1 + 2072))(a1, v9))
       {
-        v9 = a1[353];
+        v7 = a1[353];
         if ((a1[336] - 1) > 0xFFFD)
         {
-          if ((v9 & 1) == 0)
+          if ((v7 & 1) == 0)
           {
             return;
           }
 
-          v10 = 26;
+          v8 = 26;
         }
 
         else
         {
           (*(*a1 + 2064))(a1, a1[336]);
-          if (v9)
+          if (v7)
           {
-            v10 = 27;
+            v8 = 27;
           }
 
           else
           {
-            v10 = 1;
+            v8 = 1;
           }
         }
 
-        (*(*a1 + 2008))(a1, v10);
+        (*(*a1 + 2008))(a1, v8);
         a1[76] |= 0x4000000u;
         re_setwol((a1 + 74));
       }
@@ -3669,11 +3464,11 @@ uint64_t AppleEthernetRL::updateReport(IOSimpleReporter **this, OSSet *a2, IORep
 {
   v6 = a4;
   v10 = 0;
-  v11 = (this + 189);
+  v11 = this + 189;
   v12 = 0x5061726974793030;
   do
   {
-    IOSimpleReporter::setValue(this[187], v12++, *&v11[v10]);
+    IOSimpleReporter::setValue(this[187], v12++, *(v11 + v10));
     v10 += 4;
   }
 
@@ -3716,15 +3511,12 @@ void __chkstk_darwin_probe(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   {
     do
     {
-      v10 -= 4096;
-      v11 = *v10;
+      v10 -= 512;
       v9 -= 4096;
     }
 
     while (v9 > 0x1000);
   }
-
-  v12 = v10[-v9];
 }
 
 uint64_t AppleEthernetRLIPC::releaseMailboxSlots(uint64_t this, int a2)
@@ -4022,15 +3814,14 @@ uint64_t AppleEthernetRL::down(AppleEthernetRL *this)
   }
 
   *(this + 1216) = 0;
-  v2 = *(this + 161);
-  if (v2)
+  if (*(this + 161))
   {
-    v3 = OUTLINED_FUNCTION_0_0(v2);
-    (*(v4 + 1488))(v3);
+    OUTLINED_FUNCTION_0_0();
+    (*(v2 + 1488))();
   }
 
-  v5 = OUTLINED_FUNCTION_0_0(*(this + 47));
-  (*(v6 + 312))(v5);
+  OUTLINED_FUNCTION_0_0();
+  (*(v3 + 312))();
   AppleEthernetRL::disableIntrs(this);
   re_setwol(this + 296);
   if (*(this + 600))
@@ -4041,16 +3832,16 @@ uint64_t AppleEthernetRL::down(AppleEthernetRL *this)
   return 0;
 }
 
-uint64_t AppleEthernetRL::generateFakeMACAddress(uint64_t **this, unsigned __int8 *a2, int a3)
+uint64_t AppleEthernetRL::generateFakeMACAddress(IORegistryEntry *this, unsigned __int8 *a2, int a3)
 {
   v6 = IORegistryEntry::fromPath("/chosen", gIODTPlane, 0, 0, 0);
-  v27 = 0;
-  memset(v28, 0, sizeof(v28));
-  memset(&v29, 0, sizeof(v29));
+  v25 = 0;
+  memset(v26, 0, sizeof(v26));
+  memset(&v27, 0, sizeof(v27));
   if (a3 == 2)
   {
-    v9 = OUTLINED_FUNCTION_0_0(this[69]);
-    v11 = (*(v10 + 1448))(v9);
+    OUTLINED_FUNCTION_0_0();
+    v10 = (*(v9 + 1448))();
   }
 
   else
@@ -4066,29 +3857,29 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v11 = 0;
+    v10 = 0;
   }
 
-  v12 = (v6->getProperty_1)(v6, "unique-chip-id");
-  v13 = OSMetaClassBase::safeMetaCast(v12, OSData::metaClass);
-  if (v13)
+  v11 = (v6->getProperty_1)(v6, "unique-chip-id");
+  v12 = OSMetaClassBase::safeMetaCast(v11, OSData::metaClass);
+  if (v12)
   {
-    v14 = v13;
-    v15 = OUTLINED_FUNCTION_0_0(v13);
-    v27 = *(*(v16 + 216))(v15);
-    if (v27)
+    v13 = v12;
+    OUTLINED_FUNCTION_0_0();
+    v25 = *(*(v14 + 216))();
+    if (v25)
     {
-      MD5Init(&v29);
-      v17 = (*(*v14 + 160))(v14);
-      MD5Update(&v29, &v27, v17);
-      MD5Final(v28, &v29);
+      MD5Init(&v27);
+      v15 = (v13->__vftable[1].getMetaClass)(v13);
+      MD5Update(&v27, &v25, v15);
+      MD5Final(v26, &v27);
       v7 = 0;
-      a2[5] = v28[2];
+      a2[5] = v26[2];
       *a2 = 2;
       a2[1] = -32;
       a2[2] = -4;
-      *(a2 + 3) = *v28;
-      v8 = a2[5] + v11;
+      *(a2 + 3) = *v26;
+      v8 = a2[5] + v10;
       goto LABEL_9;
     }
 
@@ -4101,17 +3892,17 @@ LABEL_9:
   }
 
 LABEL_10:
-  if (this[75])
+  if (this[15].__vftable)
   {
-    v19 = this[76];
-    v20 = *a2;
-    v21 = a2[1];
-    v22 = a2[2];
-    v23 = a2[3];
-    v24 = a2[4];
-    v25 = a2[5];
+    v17 = *&this[15].retainCount;
+    v18 = *a2;
+    v19 = a2[1];
+    v20 = a2[2];
+    v21 = a2[3];
+    v22 = a2[4];
+    v23 = a2[5];
     RegistryEntryID = IORegistryEntry::getRegistryEntryID(this);
-    IOLog("[0x%llx] rl::%s(%d): generated %02x:%02x:%02x:%02x:%02x:%02x for registryEntryID 0x%llx (mode %d), status 0x%x\n", v19, "generateFakeMACAddress", 620, v20, v21, v22, v23, v24, v25, RegistryEntryID, *(this + 156), v7);
+    IOLog("[0x%llx] rl::%s(%d): generated %02x:%02x:%02x:%02x:%02x:%02x for registryEntryID 0x%llx (mode %d), status 0x%x\n", v17, "generateFakeMACAddress", 620, v18, v19, v20, v21, v22, v23, RegistryEntryID, LODWORD(this[15].fRegistryTable), v7);
     if (!v6)
     {
       return v7;
@@ -4133,10 +3924,10 @@ void AppleEthernetRL::start(uint64_t a1, IOMemoryMap **a2)
 {
   v3 = *(a1 + 608);
   PhysicalAddress = IOMemoryMap::getPhysicalAddress(*a2);
-  v5 = OUTLINED_FUNCTION_0_0(*a2);
-  v7 = (*(v6 + 120))(v5);
-  v8 = ((*a2)->getLength)();
-  IOLog("[0x%llx] rl::%s(%d): PCI MemBar at p=%p v=%p len=0x%llx\n", v3, "start", 125, PhysicalAddress, v7, v8);
+  OUTLINED_FUNCTION_0_0();
+  v6 = (*(v5 + 120))();
+  v7 = ((*a2)->getLength)();
+  IOLog("[0x%llx] rl::%s(%d): PCI MemBar at p=%p v=%p len=0x%llx\n", v3, "start", 125, PhysicalAddress, v6, v7);
 }
 
 uint64_t AppleEthernetRLUserClient::sMethodExtReadRegister(AppleEthernetRLUserClient *this, AppleEthernetRLUserClient *a2, void *a3, IOExternalMethodArguments *a4)
@@ -4144,19 +3935,19 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadRegister(AppleEthernetRLUserCl
   OUTLINED_FUNCTION_5();
   if (v6)
   {
-    v7 = OUTLINED_FUNCTION_2(v6);
-    v9 = (*(v8 + 880))(v7);
-    v10 = OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass);
-    if (v10)
+    OUTLINED_FUNCTION_2();
+    v8 = (*(v7 + 880))();
+    v9 = OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass);
+    if (v9)
     {
-      v11 = **(v5 + 32);
+      v10 = **(v5 + 32);
       v4 = (v4 + 2);
-      if (!(v11 >> 18) && (v11 & 3) == 0)
+      if (!(v10 >> 18) && (v10 & 3) == 0)
       {
         v4 = 0;
-        v12 = *(&v10[42].~OSMetaClassBase + (v11 & 0x3FFFF));
+        v11 = *(&v9[42].~OSMetaClassBase + (v10 & 0x3FFFF));
         __dmb(1u);
-        **(v5 + 72) = v12;
+        **(v5 + 72) = v11;
       }
     }
   }
@@ -4169,17 +3960,17 @@ uint64_t AppleEthernetRLUserClient::sMethodExtWriteRegister(AppleEthernetRLUserC
   OUTLINED_FUNCTION_5();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
       OUTLINED_FUNCTION_8();
-      if (!(v10 >> 18) && (v10 & 3) == 0)
+      if (!(v9 >> 18) && (v9 & 3) == 0)
       {
         v4 = 0;
-        v12 = *(v11 + 8);
+        v11 = *(v10 + 8);
         __dmb(2u);
-        *(*(v9 + 336) + (*&v10 & 0x3FFFFLL)) = v12;
+        *(*(v8 + 336) + (*&v9 & 0x3FFFFLL)) = v11;
       }
     }
   }
@@ -4192,16 +3983,16 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadPhyRegister(AppleEthernetRLUse
   v4 = 3758097088;
   if (this)
   {
-    v6 = OUTLINED_FUNCTION_0_0(this);
-    v8 = (*(v7 + 880))(v6);
-    v9 = OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass);
-    if (v9)
+    OUTLINED_FUNCTION_0_0();
+    v7 = (*(v6 + 880))();
+    v8 = OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass);
+    if (v8)
     {
-      v10 = *a3[4];
+      v9 = *a3[4];
       v4 = 3758097090;
-      if ((v10 & 1) == 0 && (v10 & 0xFFFC) != 0xFFFC)
+      if ((v9 & 1) == 0 && (v9 & 0xFFFC) != 0xFFFC)
       {
-        PhyReg16 = AppleEthernetRL::readPhyReg16(v9, *a3[4]);
+        PhyReg16 = AppleEthernetRL::readPhyReg16(v8, *a3[4]);
         OUTLINED_FUNCTION_11(PhyReg16);
       }
     }
@@ -4215,14 +4006,14 @@ uint64_t AppleEthernetRLUserClient::sMethodExtWritePhyRegister(AppleEthernetRLUs
   OUTLINED_FUNCTION_5();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
       OUTLINED_FUNCTION_8();
-      if ((v10 & 1) == 0 && (v10 & 0xFFFC) != 0xFFFC)
+      if ((v9 & 1) == 0 && (v9 & 0xFFFC) != 0xFFFC)
       {
-        AppleEthernetRL::writePhyReg16(v9, v10, *(v11 + 8));
+        AppleEthernetRL::writePhyReg16(v8, v9, *(v10 + 8));
         return 0;
       }
     }
@@ -4236,16 +4027,16 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadMacRegister(AppleEthernetRLUse
   v4 = 3758097088;
   if (this)
   {
-    v6 = OUTLINED_FUNCTION_0_0(this);
-    v8 = (*(v7 + 880))(v6);
-    v9 = OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass);
-    if (v9)
+    OUTLINED_FUNCTION_0_0();
+    v7 = (*(v6 + 880))();
+    v8 = OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass);
+    if (v8)
     {
-      v10 = *a3[4];
+      v9 = *a3[4];
       v4 = 3758097090;
-      if ((v10 & 1) == 0 && (v10 & 0xFFFC) != 0xFFFC)
+      if ((v9 & 1) == 0 && (v9 & 0xFFFC) != 0xFFFC)
       {
-        MacReg16 = AppleEthernetRL::readMacReg16(v9, *a3[4]);
+        MacReg16 = AppleEthernetRL::readMacReg16(v8, *a3[4]);
         OUTLINED_FUNCTION_11(MacReg16);
       }
     }
@@ -4259,14 +4050,14 @@ uint64_t AppleEthernetRLUserClient::sMethodExtWriteMacRegister(AppleEthernetRLUs
   OUTLINED_FUNCTION_5();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
       OUTLINED_FUNCTION_8();
-      if ((v10 & 1) == 0 && (v10 & 0xFFFC) != 0xFFFC)
+      if ((v9 & 1) == 0 && (v9 & 0xFFFC) != 0xFFFC)
       {
-        AppleEthernetRL::writeMacReg16(v9, v10, *(v11 + 8));
+        AppleEthernetRL::writeMacReg16(v8, v9, *(v10 + 8));
         return 0;
       }
     }
@@ -4280,33 +4071,33 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadDescRing(AppleEthernetRLUserCl
   OUTLINED_FUNCTION_0_1();
   if (v6)
   {
-    v7 = OUTLINED_FUNCTION_2(v6);
-    v9 = (*(v8 + 880))(v7);
-    v10 = OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass);
-    if (v10)
+    OUTLINED_FUNCTION_2();
+    v8 = (*(v7 + 880))();
+    v9 = OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass);
+    if (v9)
     {
-      v11 = *(v5 + 32);
-      v12 = *(v11 + 8);
-      if (v12 > 2)
+      v10 = *(v5 + 32);
+      v11 = *(v10 + 8);
+      if (v11 > 2)
       {
         v4 = (v4 + 2);
       }
 
       else
       {
-        v13 = v10;
-        if (*v11)
+        v12 = v9;
+        if (*v10)
         {
-          v14 = 97;
+          v13 = 97;
         }
 
         else
         {
-          v14 = 124;
+          v13 = 124;
         }
 
-        v15 = OUTLINED_FUNCTION_1_0();
-        OutputAreaFromArgs = generateOutputAreaFromArgs(v15, v16, v17, v18);
+        v14 = OUTLINED_FUNCTION_1_0();
+        OutputAreaFromArgs = generateOutputAreaFromArgs(v14, v15, v16, v17);
         if (OutputAreaFromArgs)
         {
           v4 = OutputAreaFromArgs;
@@ -4314,37 +4105,37 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadDescRing(AppleEthernetRLUserCl
 
         else
         {
-          v27 = &v13[9 * (v12 & 3) + v14];
-          v28 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v20, v21, v22, v23, v24, v25, v26, v42, __dst, v45, v46);
-          v30 = (*(v29 + 176))(v28);
-          v31 = *(v27 + 12);
-          v32 = *(v27 + 24);
-          v33 = (v32 * v31);
-          if (v30 < v33)
+          v26 = &v12[9 * (v11 & 3) + v13];
+          v27 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v19, v20, v21, v22, v23, v24, v25, v39, __dst, v42, v43);
+          v29 = (*(v28 + 176))(v27);
+          v30 = *(v26 + 12);
+          v31 = *(v26 + 24);
+          v32 = (v31 * v30);
+          if (v29 < v32)
           {
             v4 = (v4 + 27);
           }
 
           else
           {
-            v34 = *(v5 + 72);
-            *&v35 = *v27;
-            *(&v35 + 1) = HIDWORD(*v27);
-            *v34 = v35;
-            *(v34 + 16) = *(v27 + 8);
-            *(v34 + 24) = v31;
-            *(v34 + 32) = *(v27 + 20);
-            *(v34 + 40) = v32;
-            *(v34 + 48) = *(v27 + 40);
-            v36 = *(v27 + 32);
-            if (v36)
+            v33 = *(v5 + 72);
+            *&v34 = *v26;
+            *(&v34 + 1) = HIDWORD(*v26);
+            *v33 = v34;
+            *(v33 + 16) = *(v26 + 8);
+            *(v33 + 24) = v30;
+            *(v33 + 32) = *(v26 + 20);
+            *(v33 + 40) = v31;
+            *(v33 + 48) = *(v26 + 40);
+            v35 = *(v26 + 32);
+            if (v35)
             {
-              memmove(__dsta, v36, v33);
+              memmove(__dsta, v35, v32);
             }
 
             else
             {
-              bzero(__dsta, v33);
+              bzero(__dsta, v32);
             }
 
             v4 = 0;
@@ -4353,17 +4144,17 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadDescRing(AppleEthernetRLUserCl
       }
     }
 
-    if (v45)
+    if (v42)
     {
-      v37 = OUTLINED_FUNCTION_0_0(v45);
-      (*(v38 + 40))(v37);
+      OUTLINED_FUNCTION_0_0();
+      (*(v36 + 40))();
     }
   }
 
-  if (v46)
+  if (v43)
   {
-    v39 = OUTLINED_FUNCTION_0_0(v46);
-    (*(v40 + 40))(v39);
+    OUTLINED_FUNCTION_0_0();
+    (*(v37 + 40))();
   }
 
   return v4;
@@ -4372,43 +4163,43 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadDescRing(AppleEthernetRLUserCl
 uint64_t AppleEthernetRLUserClient::sMethodExtDbgSendTimeSyncPacket(AppleEthernetRLUserClient *this, AppleEthernetRLUserClient *a2, void *a3, IOExternalMethodArguments *a4)
 {
   OUTLINED_FUNCTION_0_1();
-  if (v5)
+  if (v6)
   {
-    v7 = v6;
-    v8 = OUTLINED_FUNCTION_0_0(v5);
-    v10 = (*(v9 + 880))(v8);
-    v11 = OSMetaClassBase::safeMetaCast(v10, &AppleEthernetRL::gMetaClass);
-    if (v11)
+    v7 = v5;
+    OUTLINED_FUNCTION_0_0();
+    v9 = (*(v8 + 880))();
+    v10 = OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass);
+    if (v10)
     {
-      v12 = v11;
-      v13 = *v7->scalarInput;
-      v14 = generateInputAreaFromArgs(v7, &v38, &v37, &__src);
-      if (v14)
+      v11 = v10;
+      v12 = *v7->scalarInput;
+      v13 = generateInputAreaFromArgs(v7, &v35, &v34, &__src);
+      if (v13)
       {
-        v4 = v14;
+        v4 = v13;
       }
 
       else
       {
-        v22 = OUTLINED_FUNCTION_3(v14, v15, v16, v17, v18, v19, v20, v21, v35, __src, v37, v38);
-        v24 = (*(v23 + 176))(v22);
-        if (v24 > 0x7CF)
+        v21 = OUTLINED_FUNCTION_3(v13, v14, v15, v16, v17, v18, v19, v20, v32, __src, v34, v35);
+        v23 = (*(v22 + 176))(v21);
+        if (v23 > 0x7CF)
         {
           v4 = (v4 + 27);
         }
 
         else
         {
-          v25 = v24;
+          v24 = v23;
           OUTLINED_FUNCTION_12();
-          v27 = (*(v26 + 1976))(v12);
-          v28 = v27;
-          if (*(v27 + 4) == 1)
+          v26 = (*(v25 + 1976))(v11);
+          v27 = v26;
+          if (*(v26 + 4) == 1)
           {
-            memmove(*(v27 + 8), __src, v25);
-            *(v28 + 80) = v25;
-            *(v28 + 16) = v25;
-            v4 = (v12->__vftable[17].taggedRelease_0)(v12, v28, v13);
+            memmove(*(v26 + 8), __src, v24);
+            *(v27 + 80) = v24;
+            *(v27 + 16) = v24;
+            v4 = (v11->__vftable[17].taggedRelease_0)(v11, v27, v12);
           }
 
           else
@@ -4417,22 +4208,22 @@ uint64_t AppleEthernetRLUserClient::sMethodExtDbgSendTimeSyncPacket(AppleEtherne
           }
 
           OUTLINED_FUNCTION_12();
-          (*(v29 + 1984))(v12, v28);
+          (*(v28 + 1984))(v11, v27);
         }
       }
     }
 
-    if (v37)
+    if (v34)
     {
-      v30 = OUTLINED_FUNCTION_0_0(v37);
-      (*(v31 + 40))(v30);
+      OUTLINED_FUNCTION_0_0();
+      (*(v29 + 40))();
     }
   }
 
-  if (v38)
+  if (v35)
   {
-    v32 = OUTLINED_FUNCTION_0_0(v38);
-    (*(v33 + 40))(v32);
+    OUTLINED_FUNCTION_0_0();
+    (*(v30 + 40))();
   }
 
   return v4;
@@ -4440,64 +4231,64 @@ uint64_t AppleEthernetRLUserClient::sMethodExtDbgSendTimeSyncPacket(AppleEtherne
 
 uint64_t AppleEthernetRLUserClient::sMethodExtDbgSendRealtimePacket(AppleEthernetRLUserClient *this, AppleEthernetRLUserClient *a2, void *a3, IOExternalMethodArguments *a4)
 {
-  v34 = 0;
-  v35 = 0;
+  v29 = 0;
+  v30 = 0;
   OUTLINED_FUNCTION_5();
   __src = 0;
-  v33 = 0;
-  v31 = 0;
-  if (v5)
+  v28 = 0;
+  v26 = 0;
+  if (v6)
   {
-    v7 = v6;
-    v8 = OUTLINED_FUNCTION_0_0(v5);
-    v10 = (*(v9 + 880))(v8);
-    v11 = OSMetaClassBase::safeMetaCast(v10, &AppleEthernetRL::gMetaClass);
-    if (v11)
+    v7 = v5;
+    OUTLINED_FUNCTION_0_0();
+    v9 = (*(v8 + 880))();
+    v10 = OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass);
+    if (v10)
     {
-      v12 = v11;
-      v13 = **(v7 + 32);
-      v14 = OUTLINED_FUNCTION_0_0(v11);
-      if ((*(v15 + 1792))(v14) <= v13)
+      v11 = v10;
+      v12 = **(v7 + 32);
+      OUTLINED_FUNCTION_0_0();
+      if ((*(v13 + 1792))() <= v12)
       {
         v4 = (v4 + 2);
       }
 
       else
       {
-        v16 = *(*(v7 + 32) + 8);
-        v17 = generateInputAreaFromArgs(v7, &v34, &v33, &__src);
-        if (v17)
+        v14 = *(*(v7 + 32) + 8);
+        v15 = generateInputAreaFromArgs(v7, &v29, &v28, &__src);
+        if (v15)
         {
-          v4 = v17;
+          v4 = v15;
         }
 
         else
         {
-          v18 = OUTLINED_FUNCTION_0_0(v34);
-          v20 = (*(v19 + 176))(v18);
+          OUTLINED_FUNCTION_0_0();
+          v17 = (*(v16 + 176))();
           v4 = (v4 + 27);
-          if (v20 <= 0x7CF)
+          if (v17 <= 0x7CF)
           {
-            v21 = v20;
+            v18 = v17;
             OUTLINED_FUNCTION_12();
-            v23 = (*(v22 + 1976))(v12);
-            v24 = v23;
-            v35 = v23;
-            if (*(v23 + 4) == 1)
+            v20 = (*(v19 + 1976))(v11);
+            v21 = v20;
+            v30 = v20;
+            if (*(v20 + 4) == 1)
             {
-              memmove(*(v23 + 8), __src, v21);
-              *(v24 + 80) = v21;
-              *(v24 + 16) = v21;
-              *(v24 + 136) = (*(*v12 + 1880))(v12, 0, 0) + v16;
-              *(v24 + 144) = 1;
-              v4 = (*(*v12 + 1864))(v12, v13, &v35, 1, 0, &v31);
-              v24 = v35;
+              memmove(*(v20 + 8), __src, v18);
+              *(v21 + 80) = v18;
+              *(v21 + 16) = v18;
+              *(v21 + 136) = (v11->__vftable[18].~OSMetaClassBase_0)(v11, 0, 0) + v14;
+              *(v21 + 144) = 1;
+              v4 = (v11->__vftable[17].Dispatch)(v11, v12, &v30, 1, 0, &v26);
+              v21 = v30;
             }
 
-            if (v24 && v4)
+            if (v21 && v4)
             {
               OUTLINED_FUNCTION_12();
-              (*(v25 + 1984))(v12, v24);
+              (*(v22 + 1984))(v11, v21);
             }
           }
         }
@@ -4505,16 +4296,16 @@ uint64_t AppleEthernetRLUserClient::sMethodExtDbgSendRealtimePacket(AppleEtherne
     }
   }
 
-  if (v33)
+  if (v28)
   {
-    v26 = OUTLINED_FUNCTION_0_0(v33);
-    (*(v27 + 40))(v26);
+    OUTLINED_FUNCTION_0_0();
+    (*(v23 + 40))();
   }
 
-  if (v34)
+  if (v29)
   {
-    v28 = OUTLINED_FUNCTION_0_0(v34);
-    (*(v29 + 40))(v28);
+    OUTLINED_FUNCTION_0_0();
+    (*(v24 + 40))();
   }
 
   return v4;
@@ -4528,15 +4319,15 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadTally(AppleEthernetRLUserClien
     goto LABEL_9;
   }
 
-  v7 = OUTLINED_FUNCTION_2(v6);
-  v9 = (*(v8 + 880))(v7);
-  if (OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass))
+  OUTLINED_FUNCTION_2();
+  v8 = (*(v7 + 880))();
+  if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
   {
     OUTLINED_FUNCTION_9();
-    v11 = *v10;
-    v12 = v10[1];
-    v13 = OUTLINED_FUNCTION_1_0();
-    OutputAreaFromArgs = generateOutputAreaFromArgs(v13, v14, v15, v16);
+    v10 = *v9;
+    v11 = v9[1];
+    v12 = OUTLINED_FUNCTION_1_0();
+    OutputAreaFromArgs = generateOutputAreaFromArgs(v12, v13, v14, v15);
     if (OutputAreaFromArgs)
     {
 LABEL_6:
@@ -4544,10 +4335,10 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v25 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v18, v19, v20, v21, v22, v23, v24, v32, __dst, v35, v36);
-    if ((*(v26 + 176))(v25) >= 0xC0)
+    v24 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v17, v18, v19, v20, v21, v22, v23, v29, __dst, v32, v33);
+    if ((*(v25 + 176))(v24) >= 0xC0)
     {
-      OutputAreaFromArgs = AppleEthernetRL::readTallyInfo(v5, __dsta, v11 != 0, v12 != 0);
+      OutputAreaFromArgs = AppleEthernetRL::readTallyInfo(v5, __dsta, v10 != 0, v11 != 0);
       goto LABEL_6;
     }
 
@@ -4555,17 +4346,17 @@ LABEL_6:
   }
 
 LABEL_7:
-  if (v35)
+  if (v32)
   {
-    v27 = OUTLINED_FUNCTION_0_0(v35);
-    (*(v28 + 40))(v27);
+    OUTLINED_FUNCTION_0_0();
+    (*(v26 + 40))();
   }
 
 LABEL_9:
-  if (v36)
+  if (v33)
   {
-    v29 = OUTLINED_FUNCTION_0_0(v36);
-    (*(v30 + 40))(v29);
+    OUTLINED_FUNCTION_0_0();
+    (*(v27 + 40))();
   }
 
   return v4;
@@ -4576,34 +4367,34 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadFwStatus(AppleEthernetRLUserCl
   OUTLINED_FUNCTION_0_1();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
-      v9 = OUTLINED_FUNCTION_1_0();
-      OutputAreaFromArgs = generateOutputAreaFromArgs(v9, v10, v11, v12);
+      v8 = OUTLINED_FUNCTION_1_0();
+      OutputAreaFromArgs = generateOutputAreaFromArgs(v8, v9, v10, v11);
       if (!OutputAreaFromArgs)
       {
-        v21 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v14, v15, v16, v17, v18, v19, v20, v31, v32, v33, v34);
-        (*(v22 + 176))(v21);
-        v23 = OUTLINED_FUNCTION_7();
-        OutputAreaFromArgs = AppleEthernetRL::fetchIPC_SysInfo(v23, v24, v25);
+        v20 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v13, v14, v15, v16, v17, v18, v19, v28, v29, v30, v31);
+        (*(v21 + 176))(v20);
+        v22 = OUTLINED_FUNCTION_7();
+        OutputAreaFromArgs = AppleEthernetRL::fetchIPC_SysInfo(v22, v23, v24);
       }
 
       v4 = OutputAreaFromArgs;
     }
 
-    if (v33)
+    if (v30)
     {
-      v26 = OUTLINED_FUNCTION_0_0(v33);
-      (*(v27 + 40))(v26);
+      OUTLINED_FUNCTION_0_0();
+      (*(v25 + 40))();
     }
   }
 
-  if (v34)
+  if (v31)
   {
-    v28 = OUTLINED_FUNCTION_0_0(v34);
-    (*(v29 + 40))(v28);
+    OUTLINED_FUNCTION_0_0();
+    (*(v26 + 40))();
   }
 
   return v4;
@@ -4614,34 +4405,34 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadFwLifecycle(AppleEthernetRLUse
   OUTLINED_FUNCTION_0_1();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
-      v9 = OUTLINED_FUNCTION_1_0();
-      OutputAreaFromArgs = generateOutputAreaFromArgs(v9, v10, v11, v12);
+      v8 = OUTLINED_FUNCTION_1_0();
+      OutputAreaFromArgs = generateOutputAreaFromArgs(v8, v9, v10, v11);
       if (!OutputAreaFromArgs)
       {
-        v21 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v14, v15, v16, v17, v18, v19, v20, v31, v32, v33, v34);
-        (*(v22 + 176))(v21);
-        v23 = OUTLINED_FUNCTION_7();
-        OutputAreaFromArgs = AppleEthernetRL::fetchIPC_Lifecycle(v23, v24, v25);
+        v20 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v13, v14, v15, v16, v17, v18, v19, v28, v29, v30, v31);
+        (*(v21 + 176))(v20);
+        v22 = OUTLINED_FUNCTION_7();
+        OutputAreaFromArgs = AppleEthernetRL::fetchIPC_Lifecycle(v22, v23, v24);
       }
 
       v4 = OutputAreaFromArgs;
     }
 
-    if (v33)
+    if (v30)
     {
-      v26 = OUTLINED_FUNCTION_0_0(v33);
-      (*(v27 + 40))(v26);
+      OUTLINED_FUNCTION_0_0();
+      (*(v25 + 40))();
     }
   }
 
-  if (v34)
+  if (v31)
   {
-    v28 = OUTLINED_FUNCTION_0_0(v34);
-    (*(v29 + 40))(v28);
+    OUTLINED_FUNCTION_0_0();
+    (*(v26 + 40))();
   }
 
   return v4;
@@ -4652,36 +4443,35 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadFwKeyHash(AppleEthernetRLUserC
   OUTLINED_FUNCTION_0_1();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
       OUTLINED_FUNCTION_9();
-      v10 = *v9;
-      v11 = OUTLINED_FUNCTION_1_0();
-      OutputAreaFromArgs = generateOutputAreaFromArgs(v11, v12, v13, v14);
+      v8 = OUTLINED_FUNCTION_1_0();
+      OutputAreaFromArgs = generateOutputAreaFromArgs(v8, v9, v10, v11);
       if (!OutputAreaFromArgs)
       {
-        v23 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v16, v17, v18, v19, v20, v21, v22, v34, v35, v36, v37);
-        (*(v24 + 176))(v23);
-        v25 = OUTLINED_FUNCTION_6();
-        OutputAreaFromArgs = AppleEthernetRL::fetchIPC_ReadROTPK(v25, v26, v27, v28);
+        v20 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v13, v14, v15, v16, v17, v18, v19, v29, v30, v31, v32);
+        (*(v21 + 176))(v20);
+        v22 = OUTLINED_FUNCTION_6();
+        OutputAreaFromArgs = AppleEthernetRL::fetchIPC_ReadROTPK(v22, v23, v24, v25);
       }
 
       v4 = OutputAreaFromArgs;
     }
 
-    if (v36)
+    if (v31)
     {
-      v29 = OUTLINED_FUNCTION_0_0(v36);
-      (*(v30 + 40))(v29);
+      OUTLINED_FUNCTION_0_0();
+      (*(v26 + 40))();
     }
   }
 
-  if (v37)
+  if (v32)
   {
-    v31 = OUTLINED_FUNCTION_0_0(v37);
-    (*(v32 + 40))(v31);
+    OUTLINED_FUNCTION_0_0();
+    (*(v27 + 40))();
   }
 
   return v4;
@@ -4692,37 +4482,35 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadFwNvram(AppleEthernetRLUserCli
   OUTLINED_FUNCTION_0_1();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
       OUTLINED_FUNCTION_9();
-      v11 = *v9;
-      v10 = v9[1];
-      v12 = OUTLINED_FUNCTION_1_0();
-      OutputAreaFromArgs = generateOutputAreaFromArgs(v12, v13, v14, v15);
+      v8 = OUTLINED_FUNCTION_1_0();
+      OutputAreaFromArgs = generateOutputAreaFromArgs(v8, v9, v10, v11);
       if (!OutputAreaFromArgs)
       {
-        v24 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v17, v18, v19, v20, v21, v22, v23, v36, v37, v38, v39);
-        (*(v25 + 176))(v24);
-        v26 = OUTLINED_FUNCTION_10();
-        OutputAreaFromArgs = AppleEthernetRL::fetchIPC_ReadNVRAM(v26, v27, v28, v29, v30);
+        v20 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v13, v14, v15, v16, v17, v18, v19, v30, v31, v32, v33);
+        (*(v21 + 176))(v20);
+        v22 = OUTLINED_FUNCTION_10();
+        OutputAreaFromArgs = AppleEthernetRL::fetchIPC_ReadNVRAM(v22, v23, v24, v25, v26);
       }
 
       v4 = OutputAreaFromArgs;
     }
 
-    if (v38)
+    if (v32)
     {
-      v31 = OUTLINED_FUNCTION_0_0(v38);
-      (*(v32 + 40))(v31);
+      OUTLINED_FUNCTION_0_0();
+      (*(v27 + 40))();
     }
   }
 
-  if (v39)
+  if (v33)
   {
-    v33 = OUTLINED_FUNCTION_0_0(v39);
-    (*(v34 + 40))(v33);
+    OUTLINED_FUNCTION_0_0();
+    (*(v28 + 40))();
   }
 
   return v4;
@@ -4735,20 +4523,20 @@ uint64_t AppleEthernetRLUserClient::sMethodExtEraseFwNvram(AppleEthernetRLUserCl
     return 3758097088;
   }
 
-  v5 = OUTLINED_FUNCTION_0_0(this);
-  v7 = (*(v6 + 880))(v5);
-  v8 = OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass);
-  if (!v8)
+  OUTLINED_FUNCTION_0_0();
+  v6 = (*(v5 + 880))();
+  v7 = OSMetaClassBase::safeMetaCast(v6, &AppleEthernetRL::gMetaClass);
+  if (!v7)
   {
     return 3758097088;
   }
 
-  v9 = a3[4];
-  v10 = *v9;
-  v11 = v9[2];
-  v12 = v9[4];
+  v8 = a3[4];
+  v9 = *v8;
+  v10 = v8[2];
+  v11 = v8[4];
 
-  return AppleEthernetRL::fetchIPC_EraseNVRAM(v8, v10, v11, v12);
+  return AppleEthernetRL::fetchIPC_EraseNVRAM(v7, v9, v10, v11);
 }
 
 uint64_t AppleEthernetRLUserClient::sMethodExtWriteFwNvram(AppleEthernetRLUserClient *this, AppleEthernetRLUserClient *a2, void *a3, IOExternalMethodArguments *a4)
@@ -4756,37 +4544,35 @@ uint64_t AppleEthernetRLUserClient::sMethodExtWriteFwNvram(AppleEthernetRLUserCl
   OUTLINED_FUNCTION_0_1();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
       OUTLINED_FUNCTION_9();
-      v11 = *v9;
-      v10 = v9[1];
-      v12 = OUTLINED_FUNCTION_1_0();
-      InputAreaFromArgs = generateInputAreaFromArgs(v12, v13, v14, v15);
+      v8 = OUTLINED_FUNCTION_1_0();
+      InputAreaFromArgs = generateInputAreaFromArgs(v8, v9, v10, v11);
       if (!InputAreaFromArgs)
       {
-        v24 = OUTLINED_FUNCTION_3(InputAreaFromArgs, v17, v18, v19, v20, v21, v22, v23, v36, v37, v38, v39);
-        (*(v25 + 176))(v24);
-        v26 = OUTLINED_FUNCTION_10();
-        InputAreaFromArgs = AppleEthernetRL::fetchIPC_WriteNVRAM(v26, v27, v28, v29, v30);
+        v20 = OUTLINED_FUNCTION_3(InputAreaFromArgs, v13, v14, v15, v16, v17, v18, v19, v30, v31, v32, v33);
+        (*(v21 + 176))(v20);
+        v22 = OUTLINED_FUNCTION_10();
+        InputAreaFromArgs = AppleEthernetRL::fetchIPC_WriteNVRAM(v22, v23, v24, v25, v26);
       }
 
       v4 = InputAreaFromArgs;
     }
 
-    if (v38)
+    if (v32)
     {
-      v31 = OUTLINED_FUNCTION_0_0(v38);
-      (*(v32 + 40))(v31);
+      OUTLINED_FUNCTION_0_0();
+      (*(v27 + 40))();
     }
   }
 
-  if (v39)
+  if (v33)
   {
-    v33 = OUTLINED_FUNCTION_0_0(v39);
-    (*(v34 + 40))(v33);
+    OUTLINED_FUNCTION_0_0();
+    (*(v28 + 40))();
   }
 
   return v4;
@@ -4797,34 +4583,34 @@ uint64_t AppleEthernetRLUserClient::sMethodExtWriteSecureFw(AppleEthernetRLUserC
   OUTLINED_FUNCTION_0_1();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
-      v9 = OUTLINED_FUNCTION_1_0();
-      InputAreaFromArgs = generateInputAreaFromArgs(v9, v10, v11, v12);
+      v8 = OUTLINED_FUNCTION_1_0();
+      InputAreaFromArgs = generateInputAreaFromArgs(v8, v9, v10, v11);
       if (!InputAreaFromArgs)
       {
-        v21 = OUTLINED_FUNCTION_3(InputAreaFromArgs, v14, v15, v16, v17, v18, v19, v20, v31, v32, v33, v34);
-        (*(v22 + 176))(v21);
-        v23 = OUTLINED_FUNCTION_7();
-        InputAreaFromArgs = AppleEthernetRL::fetchIPC_WriteSecureFw(v23, v24, v25);
+        v20 = OUTLINED_FUNCTION_3(InputAreaFromArgs, v13, v14, v15, v16, v17, v18, v19, v28, v29, v30, v31);
+        (*(v21 + 176))(v20);
+        v22 = OUTLINED_FUNCTION_7();
+        InputAreaFromArgs = AppleEthernetRL::fetchIPC_WriteSecureFw(v22, v23, v24);
       }
 
       v4 = InputAreaFromArgs;
     }
 
-    if (v33)
+    if (v30)
     {
-      v26 = OUTLINED_FUNCTION_0_0(v33);
-      (*(v27 + 40))(v26);
+      OUTLINED_FUNCTION_0_0();
+      (*(v25 + 40))();
     }
   }
 
-  if (v34)
+  if (v31)
   {
-    v28 = OUTLINED_FUNCTION_0_0(v34);
-    (*(v29 + 40))(v28);
+    OUTLINED_FUNCTION_0_0();
+    (*(v26 + 40))();
   }
 
   return v4;
@@ -4835,34 +4621,34 @@ uint64_t AppleEthernetRLUserClient::sMethodExtWriteNonSecureFw(AppleEthernetRLUs
   OUTLINED_FUNCTION_0_1();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
-      v9 = OUTLINED_FUNCTION_1_0();
-      InputAreaFromArgs = generateInputAreaFromArgs(v9, v10, v11, v12);
+      v8 = OUTLINED_FUNCTION_1_0();
+      InputAreaFromArgs = generateInputAreaFromArgs(v8, v9, v10, v11);
       if (!InputAreaFromArgs)
       {
-        v21 = OUTLINED_FUNCTION_3(InputAreaFromArgs, v14, v15, v16, v17, v18, v19, v20, v31, v32, v33, v34);
-        (*(v22 + 176))(v21);
-        v23 = OUTLINED_FUNCTION_7();
-        InputAreaFromArgs = AppleEthernetRL::fetchIPC_WriteNonSecureFw(v23, v24, v25);
+        v20 = OUTLINED_FUNCTION_3(InputAreaFromArgs, v13, v14, v15, v16, v17, v18, v19, v28, v29, v30, v31);
+        (*(v21 + 176))(v20);
+        v22 = OUTLINED_FUNCTION_7();
+        InputAreaFromArgs = AppleEthernetRL::fetchIPC_WriteNonSecureFw(v22, v23, v24);
       }
 
       v4 = InputAreaFromArgs;
     }
 
-    if (v33)
+    if (v30)
     {
-      v26 = OUTLINED_FUNCTION_0_0(v33);
-      (*(v27 + 40))(v26);
+      OUTLINED_FUNCTION_0_0();
+      (*(v25 + 40))();
     }
   }
 
-  if (v34)
+  if (v31)
   {
-    v28 = OUTLINED_FUNCTION_0_0(v34);
-    (*(v29 + 40))(v28);
+    OUTLINED_FUNCTION_0_0();
+    (*(v26 + 40))();
   }
 
   return v4;
@@ -4875,15 +4661,15 @@ uint64_t AppleEthernetRLUserClient::sMethodExtCompleteWriteFw(AppleEthernetRLUse
     return 3758097088;
   }
 
-  v4 = OUTLINED_FUNCTION_0_0(this);
-  v6 = (*(v5 + 880))(v4);
-  v7 = OSMetaClassBase::safeMetaCast(v6, &AppleEthernetRL::gMetaClass);
-  if (!v7)
+  OUTLINED_FUNCTION_0_0();
+  v5 = (*(v4 + 880))();
+  v6 = OSMetaClassBase::safeMetaCast(v5, &AppleEthernetRL::gMetaClass);
+  if (!v6)
   {
     return 3758097088;
   }
 
-  return AppleEthernetRL::fetchIPC_CompleteWriteFw(v7);
+  return AppleEthernetRL::fetchIPC_CompleteWriteFw(v6);
 }
 
 uint64_t AppleEthernetRLUserClient::sMethodExtResetFw(AppleEthernetRLUserClient *this, AppleEthernetRLUserClient *a2, void *a3, IOExternalMethodArguments *a4)
@@ -4891,12 +4677,12 @@ uint64_t AppleEthernetRLUserClient::sMethodExtResetFw(AppleEthernetRLUserClient 
   OUTLINED_FUNCTION_5();
   if (v6)
   {
-    v7 = OUTLINED_FUNCTION_2(v6);
-    v9 = (*(v8 + 880))(v7);
-    v10 = OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass);
-    if (v10)
+    OUTLINED_FUNCTION_2();
+    v8 = (*(v7 + 880))();
+    v9 = OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass);
+    if (v9)
     {
-      AppleEthernetRL::setResetRisc(v10, **(v5 + 32), *(*(v5 + 32) + 8), *(*(v5 + 32) + 16), *(*(v5 + 32) + 24), *(*(v5 + 32) + 32));
+      AppleEthernetRL::setResetRisc(v9, **(v5 + 32), *(*(v5 + 32) + 8), *(*(v5 + 32) + 16), *(*(v5 + 32) + 24), *(*(v5 + 32) + 32));
       return 0;
     }
   }
@@ -4909,14 +4695,14 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadLastHandoff(AppleEthernetRLUse
   OUTLINED_FUNCTION_0_1();
   if (v6)
   {
-    v7 = OUTLINED_FUNCTION_2(v6);
-    v9 = (*(v8 + 880))(v7);
-    v10 = OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass);
-    if (v10)
+    OUTLINED_FUNCTION_2();
+    v8 = (*(v7 + 880))();
+    v9 = OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass);
+    if (v9)
     {
-      v11 = v10;
-      v12 = OUTLINED_FUNCTION_1_0();
-      OutputAreaFromArgs = generateOutputAreaFromArgs(v12, v13, v14, v15);
+      v10 = v9;
+      v11 = OUTLINED_FUNCTION_1_0();
+      OutputAreaFromArgs = generateOutputAreaFromArgs(v11, v12, v13, v14);
       if (OutputAreaFromArgs)
       {
         v4 = OutputAreaFromArgs;
@@ -4924,45 +4710,45 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadLastHandoff(AppleEthernetRLUse
 
       else
       {
-        v24 = v11[177].__vftable;
-        if (v24)
+        v23 = v10[177].__vftable;
+        if (v23)
         {
-          v25 = LODWORD(v24->~OSMetaClassBase);
+          v24 = LODWORD(v23->~OSMetaClassBase);
         }
 
         else
         {
-          v25 = 0;
+          v24 = 0;
         }
 
-        v26 = *(v5 + 72);
-        *v26 = v25;
-        v26[1] = v11[178].__vftable;
-        v27 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v17, v18, v19, v20, v21, v22, v23, v34, __dst, v37, v38);
-        if ((*(v28 + 176))(v27) < v25)
+        v25 = *(v5 + 72);
+        *v25 = v24;
+        v25[1] = v10[178].__vftable;
+        v26 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v16, v17, v18, v19, v20, v21, v22, v31, __dst, v34, v35);
+        if ((*(v27 + 176))(v26) < v24)
         {
           v4 = (v4 + 27);
         }
 
         else
         {
-          memmove(__dsta, v11[177].__vftable, v25);
+          memmove(__dsta, v10[177].__vftable, v24);
           v4 = 0;
         }
       }
     }
 
-    if (v37)
+    if (v34)
     {
-      v29 = OUTLINED_FUNCTION_0_0(v37);
-      (*(v30 + 40))(v29);
+      OUTLINED_FUNCTION_0_0();
+      (*(v28 + 40))();
     }
   }
 
-  if (v38)
+  if (v35)
   {
-    v31 = OUTLINED_FUNCTION_0_0(v38);
-    (*(v32 + 40))(v31);
+    OUTLINED_FUNCTION_0_0();
+    (*(v29 + 40))();
   }
 
   return v4;
@@ -4973,13 +4759,13 @@ uint64_t AppleEthernetRLUserClient::sMethodExtDbgSetWakeTimeout(AppleEthernetRLU
   OUTLINED_FUNCTION_5();
   if (v6)
   {
-    v7 = OUTLINED_FUNCTION_2(v6);
-    v9 = (*(v8 + 880))(v7);
-    v10 = OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass);
-    if (v10)
+    OUTLINED_FUNCTION_2();
+    v8 = (*(v7 + 880))();
+    v9 = OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass);
+    if (v9)
     {
       v4 = 0;
-      LODWORD(v10[168].__vftable) = **(v5 + 32);
+      LODWORD(v9[168].__vftable) = **(v5 + 32);
     }
   }
 
@@ -4989,37 +4775,36 @@ uint64_t AppleEthernetRLUserClient::sMethodExtDbgSetWakeTimeout(AppleEthernetRLU
 uint64_t AppleEthernetRLUserClient::sMethodExtReadFwLog(AppleEthernetRLUserClient *this, AppleEthernetRLUserClient *a2, void *a3, IOExternalMethodArguments *a4)
 {
   OUTLINED_FUNCTION_0_1();
-  if (v6)
+  if (v5)
   {
-    v7 = OUTLINED_FUNCTION_2(v6);
-    v9 = (*(v8 + 880))(v7);
-    if (OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
-      v10 = OUTLINED_FUNCTION_1_0();
-      OutputAreaFromArgs = generateOutputAreaFromArgs(v10, v11, v12, v13);
+      v8 = OUTLINED_FUNCTION_1_0();
+      OutputAreaFromArgs = generateOutputAreaFromArgs(v8, v9, v10, v11);
       if (!OutputAreaFromArgs)
       {
-        v22 = **(v5 + 32);
-        v23 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v15, v16, v17, v18, v19, v20, v21, v34, v35, v36, v37);
-        (*(v24 + 176))(v23);
-        v25 = OUTLINED_FUNCTION_6();
-        OutputAreaFromArgs = AppleEthernetRL::readFWLog(v25, v26, v27, v28);
+        v20 = OUTLINED_FUNCTION_3(OutputAreaFromArgs, v13, v14, v15, v16, v17, v18, v19, v29, v30, v31, v32);
+        (*(v21 + 176))(v20);
+        v22 = OUTLINED_FUNCTION_6();
+        OutputAreaFromArgs = AppleEthernetRL::readFWLog(v22, v23, v24, v25);
       }
 
       v4 = OutputAreaFromArgs;
     }
 
-    if (v36)
+    if (v31)
     {
-      v29 = OUTLINED_FUNCTION_0_0(v36);
-      (*(v30 + 40))(v29);
+      OUTLINED_FUNCTION_0_0();
+      (*(v26 + 40))();
     }
   }
 
-  if (v37)
+  if (v32)
   {
-    v31 = OUTLINED_FUNCTION_0_0(v37);
-    (*(v32 + 40))(v31);
+    OUTLINED_FUNCTION_0_0();
+    (*(v27 + 40))();
   }
 
   return v4;
@@ -5030,15 +4815,15 @@ uint64_t AppleEthernetRLUserClient::sMethodExtReadPtpOffsets(AppleEthernetRLUser
   OUTLINED_FUNCTION_5();
   if (v6)
   {
-    v7 = OUTLINED_FUNCTION_2(v6);
-    v9 = (*(v8 + 880))(v7);
-    v10 = OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass);
-    if (v10)
+    OUTLINED_FUNCTION_2();
+    v8 = (*(v7 + 880))();
+    v9 = OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass);
+    if (v9)
     {
       v4 = 0;
-      v11 = *(v5 + 72);
-      *v11 = v10[162].__vftable;
-      v11[1] = v10[163].__vftable;
+      v10 = *(v5 + 72);
+      *v10 = v9[162].__vftable;
+      v10[1] = v9[163].__vftable;
     }
   }
 
@@ -5050,16 +4835,16 @@ uint64_t AppleEthernetRLUserClient::sMethodExtWritePtpOffsets(AppleEthernetRLUse
   OUTLINED_FUNCTION_5();
   if (v6)
   {
-    v7 = OUTLINED_FUNCTION_2(v6);
-    v9 = (*(v8 + 880))(v7);
-    v10 = OSMetaClassBase::safeMetaCast(v9, &AppleEthernetRL::gMetaClass);
-    if (v10)
+    OUTLINED_FUNCTION_2();
+    v8 = (*(v7 + 880))();
+    v9 = OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass);
+    if (v9)
     {
-      v11 = *(v5 + 32);
-      v10[162] = *v11;
-      v10[163] = v11[1];
-      v12 = OUTLINED_FUNCTION_0_0(v10);
-      (*(v13 + 1968))(v12);
+      v10 = *(v5 + 32);
+      v9[162].__vftable = *v10;
+      v9[163].__vftable = v10[1];
+      OUTLINED_FUNCTION_0_0();
+      (*(v11 + 1968))();
       return 0;
     }
   }
@@ -5072,36 +4857,35 @@ uint64_t AppleEthernetRLUserClient::sMethodExtWriteFwKeyHash(AppleEthernetRLUser
   OUTLINED_FUNCTION_0_1();
   if (v5)
   {
-    v6 = OUTLINED_FUNCTION_2(v5);
-    v8 = (*(v7 + 880))(v6);
-    if (OSMetaClassBase::safeMetaCast(v8, &AppleEthernetRL::gMetaClass))
+    OUTLINED_FUNCTION_2();
+    v7 = (*(v6 + 880))();
+    if (OSMetaClassBase::safeMetaCast(v7, &AppleEthernetRL::gMetaClass))
     {
       OUTLINED_FUNCTION_9();
-      v10 = *v9;
-      v11 = OUTLINED_FUNCTION_1_0();
-      InputAreaFromArgs = generateInputAreaFromArgs(v11, v12, v13, v14);
+      v8 = OUTLINED_FUNCTION_1_0();
+      InputAreaFromArgs = generateInputAreaFromArgs(v8, v9, v10, v11);
       if (!InputAreaFromArgs)
       {
-        v23 = OUTLINED_FUNCTION_3(InputAreaFromArgs, v16, v17, v18, v19, v20, v21, v22, v34, v35, v36, v37);
-        (*(v24 + 176))(v23);
-        v25 = OUTLINED_FUNCTION_6();
-        InputAreaFromArgs = AppleEthernetRL::fetchIPC_WriteROTPK(v25, v26, v27, v28);
+        v20 = OUTLINED_FUNCTION_3(InputAreaFromArgs, v13, v14, v15, v16, v17, v18, v19, v29, v30, v31, v32);
+        (*(v21 + 176))(v20);
+        v22 = OUTLINED_FUNCTION_6();
+        InputAreaFromArgs = AppleEthernetRL::fetchIPC_WriteROTPK(v22, v23, v24, v25);
       }
 
       v4 = InputAreaFromArgs;
     }
 
-    if (v36)
+    if (v31)
     {
-      v29 = OUTLINED_FUNCTION_0_0(v36);
-      (*(v30 + 40))(v29);
+      OUTLINED_FUNCTION_0_0();
+      (*(v26 + 40))();
     }
   }
 
-  if (v37)
+  if (v32)
   {
-    v31 = OUTLINED_FUNCTION_0_0(v37);
-    (*(v32 + 40))(v31);
+    OUTLINED_FUNCTION_0_0();
+    (*(v27 + 40))();
   }
 
   return v4;
@@ -5114,42 +4898,42 @@ uint64_t generateOutputAreaFromArgs(const IOExternalMethodArguments *a1, IOMemor
   if (v9)
   {
     *v6 = v9;
-    v10 = OUTLINED_FUNCTION_0_0(v9);
-    (*(v11 + 32))(v10);
+    OUTLINED_FUNCTION_0_0();
+    (*(v10 + 32))();
   }
 
   else
   {
-    v20 = *(v7 + 88);
-    if (v20)
+    v17 = *(v7 + 88);
+    if (v17)
     {
-      v21 = *(v7 + 96);
-      if (v21)
+      v18 = *(v7 + 96);
+      if (v18)
       {
-        v12 = IOMemoryDescriptor::withAddress(v20, v21, 2u);
-        *v6 = v12;
+        v11 = IOMemoryDescriptor::withAddress(v17, v18, 2u);
+        *v6 = v11;
         goto LABEL_4;
       }
     }
   }
 
-  v12 = *v6;
+  v11 = *v6;
 LABEL_4:
-  v13 = 3758097085;
-  if (v12)
+  v12 = 3758097085;
+  if (v11)
   {
-    v14 = OUTLINED_FUNCTION_0_0(v12);
-    v16 = (*(v15 + 232))(v14, 0);
-    *v5 = v16;
-    if (v16)
+    OUTLINED_FUNCTION_0_0();
+    v14 = (*(v13 + 232))();
+    *v5 = v14;
+    if (v14)
     {
-      v17 = OUTLINED_FUNCTION_0_0(v16);
-      v13 = 0;
-      *v4 = (*(v18 + 120))(v17);
+      OUTLINED_FUNCTION_0_0();
+      v12 = 0;
+      *v4 = (*(v15 + 120))();
     }
   }
 
-  return v13;
+  return v12;
 }
 
 uint64_t generateInputAreaFromArgs(const IOExternalMethodArguments *a1, IOMemoryDescriptor **a2, IOMemoryMap **a3, unsigned __int8 **a4)
@@ -5159,73 +4943,73 @@ uint64_t generateInputAreaFromArgs(const IOExternalMethodArguments *a1, IOMemory
   if (v9)
   {
     *v6 = v9;
-    v10 = OUTLINED_FUNCTION_0_0(v9);
-    (*(v11 + 32))(v10);
+    OUTLINED_FUNCTION_0_0();
+    (*(v10 + 32))();
   }
 
   else
   {
-    v20 = *(v7 + 48);
-    if (v20)
+    v17 = *(v7 + 48);
+    if (v17)
     {
-      v21 = *(v7 + 56);
-      if (v21)
+      v18 = *(v7 + 56);
+      if (v18)
       {
-        v12 = IOMemoryDescriptor::withAddress(v20, v21, 1u);
-        *v6 = v12;
+        v11 = IOMemoryDescriptor::withAddress(v17, v18, 1u);
+        *v6 = v11;
         goto LABEL_4;
       }
     }
   }
 
-  v12 = *v6;
+  v11 = *v6;
 LABEL_4:
-  v13 = 3758097085;
-  if (v12)
+  v12 = 3758097085;
+  if (v11)
   {
-    v14 = OUTLINED_FUNCTION_0_0(v12);
-    v16 = (*(v15 + 232))(v14, 4096);
-    *v5 = v16;
-    if (v16)
+    OUTLINED_FUNCTION_0_0();
+    v14 = (*(v13 + 232))();
+    *v5 = v14;
+    if (v14)
     {
-      v17 = OUTLINED_FUNCTION_0_0(v16);
-      v13 = 0;
-      *v4 = (*(v18 + 120))(v17);
+      OUTLINED_FUNCTION_0_0();
+      v12 = 0;
+      *v4 = (*(v15 + 120))();
     }
   }
 
-  return v13;
+  return v12;
 }
 
 uint64_t AppleEthernetRL::createSnapshotService(AppleEthernetRL *this)
 {
-  v2 = OUTLINED_FUNCTION_0_0(this);
-  v4 = (*(v3 + 1440))(v2);
+  OUTLINED_FUNCTION_0_0();
+  v3 = (*(v2 + 1440))();
   if (*(this + 161))
   {
     return 0;
   }
 
-  v6 = 3758097085;
-  if (!v4)
+  v5 = 3758097085;
+  if (!v3)
   {
     return 3758097109;
   }
 
-  v7 = AppleEthernetRLClock::alloc_clock(this, v4, v5);
-  *(this + 161) = v7;
-  if (v7)
+  v6 = AppleEthernetRLClock::alloc_clock(this, v3, v4);
+  *(this + 161) = v6;
+  if (v6)
   {
     if (*(this + 1216))
     {
-      v8 = OUTLINED_FUNCTION_0_0(v7);
-      (*(v9 + 1480))(v8);
+      OUTLINED_FUNCTION_0_0();
+      (*(v7 + 1480))();
     }
 
     return 0;
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t AppleEthernetRL::setRealtimeReceiveQueueFilter(AppleEthernetRL *this, unsigned int a2, IOEthernetController::IOEthernetAVBIngressFilterElement *a3, int a4)
@@ -5240,19 +5024,18 @@ uint64_t AppleEthernetRL::setRealtimeReceiveQueueFilter(AppleEthernetRL *this, u
 
     else if (!a2 && a4 == 1 && a3->filterType == IOEthernetAVBIngressFilterTypeEtherTypeVLANTag)
     {
-      v9 = *(this + 158);
-      if (v9)
+      if (*(this + 158))
       {
-        v10 = OUTLINED_FUNCTION_0_0(v9);
-        (*(v11 + 40))(v10);
+        OUTLINED_FUNCTION_0_0();
+        (*(v9 + 40))();
         *(this + 158) = 0;
       }
 
       *(this + 158) = OSArray::withCapacity(1u);
-      v12 = OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>::create();
-      memcpy(v12[2], a3, 0x110uLL);
+      v10 = OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>::create();
+      memcpy(v10[2], a3, 0x110uLL);
       (*(**(this + 158) + 232))();
-      (*(*v12 + 5))(v12);
+      (*(*v10 + 5))(v10);
       AppleEthernetRL::configureAVBFilterSlots(this);
       AppleEthernetRL::activateAVBFilter(this);
       if (re_apply_avb_filter(this + 296, 1000))
@@ -5262,11 +5045,10 @@ uint64_t AppleEthernetRL::setRealtimeReceiveQueueFilter(AppleEthernetRL *this, u
 
       else
       {
-        v13 = *(this + 158);
-        if (v13)
+        if (*(this + 158))
         {
-          v14 = OUTLINED_FUNCTION_0_0(v13);
-          (*(v15 + 40))(v14);
+          OUTLINED_FUNCTION_0_0();
+          (*(v11 + 40))();
         }
 
         *(this + 158) = 0;
@@ -5297,56 +5079,48 @@ uint64_t AppleEthernetRL::getRealtimeReceiveQueueFilter(AppleEthernetRL *this, u
         {
           v9 = *a4;
           *a4 = 0;
-          v10 = this + 1264;
-          v11 = 8 * a2;
-          v12 = (this + v11 + 1264);
-          if (v11 != v11)
+          v10 = 8 * a2;
+          v11 = (this + v10 + 1264);
+          if (v10 != v10)
           {
-            v12 = ((this + v11 + 1264) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+            v11 = ((this + v10 + 1264) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
           }
 
-          if (*v12)
+          if (*v11)
           {
-            v13 = OUTLINED_FUNCTION_0_0(*v12);
-            v15 = (*(v14 + 144))(v13);
-            if (v9 < v15)
+            OUTLINED_FUNCTION_0_0();
+            v13 = (*(v12 + 144))();
+            if (v9 < v13)
             {
               v7 = 3758097115;
             }
 
             else
             {
-              v16 = v15;
-              if (v15)
+              v14 = v13;
+              if (v13)
               {
-                v17 = 0;
-                v18 = 8 * a2;
-                v19 = &v10[v18];
-                if (v18 != v18)
-                {
-                  v19 = (&v10[v18] & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
-                }
-
+                v15 = 0;
                 do
                 {
-                  v20 = OUTLINED_FUNCTION_0_0(*v19);
-                  v22 = (*(v21 + 280))(v20, v17);
-                  v23 = OSMetaClassBase::safeMetaCast(v22, &OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>::gMetaClass)[2].__vftable;
-                  memcpy(v8, v23, sizeof(IOEthernetController::IOEthernetAVBIngressFilterElement));
+                  OUTLINED_FUNCTION_0_0();
+                  v17 = (*(v16 + 280))();
+                  v18 = OSMetaClassBase::safeMetaCast(v17, &OSValueObject<IOEthernetController::IOEthernetAVBIngressFilterElement>::gMetaClass)[2].__vftable;
+                  memcpy(v8, v18, sizeof(IOEthernetController::IOEthernetAVBIngressFilterElement));
                   if (*(this + 600))
                   {
-                    IOLog("[0x%llx] rl::%s(%d): qi %d [%d] filterType 0x%x\n", *(this + 76), "getRealtimeReceiveQueueFilter", 221, a2, v17, v8->filterType);
+                    IOLog("[0x%llx] rl::%s(%d): qi %d [%d] filterType 0x%x\n", *(this + 76), "getRealtimeReceiveQueueFilter", 221, a2, v15, v8->filterType);
                   }
 
-                  ++v17;
+                  ++v15;
                   ++v8;
                 }
 
-                while (v16 != v17);
+                while (v14 != v15);
               }
 
               v7 = 0;
-              *a4 = v16;
+              *a4 = v14;
             }
           }
 
@@ -5404,19 +5178,19 @@ uint64_t AppleEthernetRL::setRealtimeReceiveQueuePacketHandler(AppleEthernetRL *
   return result;
 }
 
-uint64_t AppleEthernetRL::transmitRealtimePackets(uint64_t **this, unsigned int a2, IOEthernetController::IOEthernetAVBPacket **a3, unsigned int a4, int a5, unsigned int *a6)
+uint64_t AppleEthernetRL::transmitRealtimePackets(AppleEthernetRL *this, unsigned int a2, IOEthernetController::IOEthernetAVBPacket **a3, unsigned int a4, int a5, unsigned int *a6)
 {
   result = 3758097090;
   if (*(this + 312))
   {
     if (*(this + 313) <= a2)
     {
-      v39 = 0;
+      v34 = 0;
     }
 
-    else if (this[161])
+    else if (*(this + 161))
     {
-      if (this[152])
+      if (*(this + 1216))
       {
         v8 = IOTimeSyncInvalidTime;
         if (a4 && a5)
@@ -5433,108 +5207,97 @@ uint64_t AppleEthernetRL::transmitRealtimePackets(uint64_t **this, unsigned int 
           packetTimestamp = IOTimeSyncInvalidTime;
           if (!a4)
           {
-            v39 = 0;
+            v34 = 0;
             result = 0;
-            goto LABEL_36;
+            goto LABEL_35;
           }
         }
 
-        v40 = a6;
+        v35 = a6;
         v10 = 0;
-        v44 = 0;
+        v39 = 0;
         v11 = 72 * (a2 + 2);
         v12 = this + v11 + 776;
         if (v11 != v11)
         {
-          v12 = (&this[v11 / 8 + 97] & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+          v12 = ((this + v11 + 776) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
         }
 
-        v41 = 1 << (a2 + 9);
-        v42 = a4;
+        v36 = 1 << (a2 + 9);
+        v37 = a4;
         do
         {
           v13 = a3[v10];
           numberOfEntries = v13->numberOfEntries;
           v15 = *(v12 + 1);
-          if (packetTimestamp == v8)
+          if (packetTimestamp != v8 || (v16 = v8, v13->timestampValid))
           {
-            v16 = v8;
-            if (v13->timestampValid)
-            {
-              v17 = v13->packetTimestamp;
-              v18 = OUTLINED_FUNCTION_0_0(this[161]);
-              v16 = (*(v19 + 1400))(v18, v20);
-            }
-          }
-
-          else
-          {
-            v21 = OUTLINED_FUNCTION_0_0(this[161]);
-            v16 = (*(v22 + 1400))(v21, packetTimestamp);
+            OUTLINED_FUNCTION_0_0();
+            v16 = (*(v17 + 1400))();
           }
 
           if (numberOfEntries)
           {
-            v23 = 0;
-            v24 = *(v12 + 4);
-            v25 = 16 * (numberOfEntries - 1);
+            v18 = 0;
+            v19 = *(v12 + 4);
+            v20 = 16 * (numberOfEntries - 1);
             do
             {
-              v26 = *(v12 + 4);
-              v27 = v15 == v24;
-              v28 = 32 * v15;
-              v29 = v26 + (32 * v15);
-              if (v28 != 32 * v15)
+              v21 = *(v12 + 4);
+              v22 = v15 == v19;
+              v23 = 32 * v15;
+              v24 = v21 + (32 * v15);
+              if (v23 != 32 * v15)
               {
-                v29 = (v26 + v28) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+                v24 = (v21 + v23) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
               }
 
-              v30 = v13 + v23;
-              v31 = *(v12 + 8);
-              v32 = 8 * v15;
-              v33 = (v31 + (8 * v15));
-              v34 = (v31 + v32) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
-              if (v32 != 8 * v15)
+              v25 = v13 + v18;
+              v26 = *(v12 + 8);
+              v27 = 8 * v15;
+              v28 = (v26 + (8 * v15));
+              v29 = (v26 + v27) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+              if (v27 != 8 * v15)
               {
-                v33 = v34;
+                v28 = v29;
               }
 
-              v35 = *(v30 + 40);
-              v36 = *(v30 + 9);
-              if (v25 == v23)
+              v30 = *(v25 + 40);
+              v31 = *(v25 + 9);
+              if (v20 == v18)
               {
-                v37 = v13;
-              }
-
-              else
-              {
-                v37 = 0;
-              }
-
-              *v33 = v37;
-              if (v25 == v23)
-              {
-                v38 = -1879048192;
+                v32 = v13;
               }
 
               else
               {
-                v38 = 0x80000000;
+                v32 = 0;
               }
 
-              *(v29 + 4) = 0;
-              *(v29 + 8) = v36;
-              *(v29 + 20) = 0;
-              *(v29 + 16) = 0;
-              *(v29 + 24) = v16;
-              *v29 = v38 | ((v23 == 0) << 29) | v35 | (v27 << 30);
-              v24 = *(v12 + 4);
-              v15 = v24 & (v15 + 1);
-              v23 += 16;
+              *v28 = v32;
+              if (v20 == v18)
+              {
+                v33 = -1879048192;
+              }
+
+              else
+              {
+                v33 = 0x80000000;
+              }
+
+              *(v24 + 4) = 0;
+              *(v24 + 8) = v31;
+              *(v24 + 20) = 0;
+              *(v24 + 16) = 0;
+              *(v24 + 24) = v16;
+              *v24 = v33 | ((v18 == 0) << 29) | v30 | (v22 << 30);
+              v19 = *(v12 + 4);
+              v15 = v19 & (v15 + 1);
+              v18 += 16;
             }
 
-            while (16 * numberOfEntries != v23);
-            v44 += numberOfEntries;
+            while (16 * numberOfEntries != v18);
+            v39 += numberOfEntries;
           }
 
           if (v15 != *(v12 + 1))
@@ -5543,43 +5306,43 @@ uint64_t AppleEthernetRL::transmitRealtimePackets(uint64_t **this, unsigned int 
             if (!*(this + 463))
             {
               __dmb(2u);
-              *(this[42] + 72) = v41;
+              *(*(this + 42) + 144) = v36;
             }
           }
 
           ++v10;
         }
 
-        while (v10 != v42);
+        while (v10 != v37);
         result = 0;
-        a6 = v40;
-        v39 = v44;
+        a6 = v35;
+        v34 = v39;
       }
 
       else
       {
-        v39 = 0;
+        v34 = 0;
         result = 3758097124;
       }
     }
 
     else
     {
-      v39 = 0;
+      v34 = 0;
       result = 3758097112;
     }
   }
 
   else
   {
-    v39 = 0;
+    v34 = 0;
     result = 3758097095;
   }
 
-LABEL_36:
+LABEL_35:
   if (a6)
   {
-    *a6 = v39;
+    *a6 = v34;
   }
 
   return result;
@@ -6018,7 +5781,6 @@ void AppleEthernetRL::queueIntrHandler(AppleEthernetRL *this, IOInterruptEventSo
     IOLog("[0x%llx] rl::%s(%d): ^^^ %d%d%d\n", *(this + 76), "queueIntrHandler", 187, v4, v4, v4);
   }
 
-  v6 = *(this + 463);
   if (v5 > 31)
   {
     if (*(this + 463))
@@ -6027,7 +5789,7 @@ void AppleEthernetRL::queueIntrHandler(AppleEthernetRL *this, IOInterruptEventSo
     }
 
     __dmb(2u);
-    v7 = 3348;
+    v6 = 3348;
   }
 
   else
@@ -6038,15 +5800,14 @@ void AppleEthernetRL::queueIntrHandler(AppleEthernetRL *this, IOInterruptEventSo
     }
 
     __dmb(2u);
-    v7 = 3332;
+    v6 = 3332;
   }
 
-  OUTLINED_FUNCTION_0_2(v7);
+  OUTLINED_FUNCTION_0_2(v6);
 LABEL_10:
   __dmb(1u);
-  v8 = *(this + 387);
   OUTLINED_FUNCTION_1_2();
-  if (v5 == v9)
+  if (v5 == v7)
   {
     if ((*(this + 169))(this, 0, 64))
     {
@@ -6061,9 +5822,8 @@ LABEL_16:
     goto LABEL_22;
   }
 
-  v10 = *(this + 388);
   OUTLINED_FUNCTION_1_2();
-  if (v5 == v11)
+  if (v5 == v8)
   {
     if ((*(this + 170))(this, 0))
     {
@@ -6088,7 +5848,7 @@ LABEL_22:
     }
 
     __dmb(2u);
-    v13 = 3340;
+    v10 = 3340;
     goto LABEL_26;
   }
 
@@ -6098,9 +5858,9 @@ LABEL_22:
   }
 
   __dmb(2u);
-  v13 = 3352;
+  v10 = 3352;
 LABEL_26:
-  OUTLINED_FUNCTION_0_2(v13);
+  OUTLINED_FUNCTION_0_2(v10);
 LABEL_27:
   if ((*(this + 600) & 0x10) != 0)
   {
@@ -6324,7 +6084,6 @@ uint64_t AppleEthernetRLKDPPoller::releaseInterface(AppleEthernetRLKDPPoller *th
 uint64_t AppleEthernetRL::initializePowerStateHandling(IOService *this)
 {
   (this->PMinit)(this);
-  v2 = *kOSBooleanTrue;
   (*(**&this[4].retainCount + 200))();
   result = (this->registerPowerDriver)(this, this, &kPowerStateArray, 3);
   if (!result)
@@ -6508,7 +6267,6 @@ OSSet *AppleEthernetRL::initializeIOReporters(AppleEthernetRL *this)
       v6 = *(this + 187);
       v7 = (*(**(this + 69) + 488))(*(this + 69), 0);
       IOReportLegend::addReporterLegend(this, v6, v7, "Realtek Parity Interrupts", v8);
-      v9 = *(this + 187);
       (*(**(this + 188) + 240))();
       return (&dword_0 + 1);
     }

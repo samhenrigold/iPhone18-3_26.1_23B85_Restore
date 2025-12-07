@@ -646,11 +646,11 @@ LABEL_6:
   }
 }
 
-uint64_t __54__STScreenTimeReportController__editLimit_isNewLimit___block_invoke(uint64_t result, int a2)
+id *__54__STScreenTimeReportController__editLimit_isNewLimit___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _editLimit:*(result + 40) isNewLimit:*(result + 48)];
+    return [result[4] _editLimit:result[5] isNewLimit:*(result + 48)];
   }
 
   return result;

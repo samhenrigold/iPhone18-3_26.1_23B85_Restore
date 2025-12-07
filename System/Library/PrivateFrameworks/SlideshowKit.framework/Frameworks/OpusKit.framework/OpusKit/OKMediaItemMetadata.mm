@@ -910,7 +910,7 @@ LABEL_16:
   {
     if (*MEMORY[0x277D62808] >= 4)
     {
-      [MEMORY[0x277D627B8] logMessageWithLevel:4 file:"/Library/Caches/com.apple.xbs/Sources/SlideshowKit/OpusKit/Framework/Media/OKMediaItemMetadata.m" line:834 andFormat:@"Failed to write media metadata to \"%@\" (\"%@\", l, v7, objc_msgSend(v12, "localizedDescription"")];
+      [MEMORY[0x277D627B8] logMessageWithLevel:4 file:"/Library/Caches/com.apple.xbs/Sources/SlideshowKit/OpusKit/Framework/Media/OKMediaItemMetadata.m" line:834 andFormat:@"Failed to write media metadata to %@ (%@, l, v7, objc_msgSend(v12, "localizedDescription"")];
     }
 
     [v8 close];

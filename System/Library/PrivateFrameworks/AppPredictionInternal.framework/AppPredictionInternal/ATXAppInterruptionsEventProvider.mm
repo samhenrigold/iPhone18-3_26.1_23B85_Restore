@@ -40,7 +40,7 @@
 
 - (BOOL)successfullyCalculatedAppSessionInterruptions:(id)interruptions
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   interruptionsCopy = interruptions;
   v5 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-1209600.0];
   v6 = objc_opt_new();
@@ -53,47 +53,46 @@
   v11 = [v8 stripStoreEvent:v10];
 
   v12 = [(ATXModeEntityEventProviderProtocol *)self->_modeEventProvider biomePublisherWithBookmark:0];
-  v35[0] = v11;
-  v35[1] = v7;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke;
-  v34[3] = &unk_278597CB8;
-  v34[4] = self;
-  v14 = [v12 orderedMergeWithOthers:v13 comparator:v34];
+  v34[0] = v11;
+  v34[1] = v7;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke;
+  v33[3] = &unk_278597CB8;
+  v33[4] = self;
+  v14 = [v12 orderedMergeWithOthers:v13 comparator:v33];
 
-  v31 = 0;
-  v32[0] = &v31;
-  v32[1] = 0x3032000000;
-  v32[2] = __Block_byref_object_copy__91;
-  v32[3] = __Block_byref_object_dispose__91;
-  v33 = 0;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_22;
-  v30[3] = &unk_278597540;
-  v30[4] = &v31;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_2;
-  v27[3] = &unk_27859EF38;
+  v30 = 0;
+  v31[0] = &v30;
+  v31[1] = 0x3032000000;
+  v31[2] = __Block_byref_object_copy__91;
+  v31[3] = __Block_byref_object_dispose__91;
+  v32 = 0;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_22;
+  v29[3] = &unk_278597540;
+  v29[4] = &v30;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_2;
+  v26[3] = &unk_27859EF38;
   v15 = interruptionsCopy;
-  v28 = v15;
+  v27 = v15;
   selfCopy = self;
-  v16 = [v14 sinkWithCompletion:v30 shouldContinue:v27];
-  v17 = *(v32[0] + 40);
+  v16 = [v14 sinkWithCompletion:v29 shouldContinue:v26];
+  v17 = *(v31[0] + 40);
   if (v17)
   {
-    v18 = __atxlog_handle_modes();
+    v18 = __atxlog_handle_modes(v16);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(ATXAppInterruptionsEventProvider *)v32 successfullyCalculatedAppSessionInterruptions:v18, v19, v20, v21, v22, v23, v24];
+      [(ATXAppInterruptionsEventProvider *)v31 successfullyCalculatedAppSessionInterruptions:v18, v19, v20, v21, v22, v23, v24];
     }
   }
 
-  _Block_object_dispose(&v31, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
   return v17 == 0;
 }
 
@@ -159,36 +158,36 @@ uint64_t __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSession
     goto LABEL_19;
   }
 
-  v19 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v20 = __atxlog_handle_modes(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_cold_1(v5, v19, v20, v21, v22, v23, v24, v25);
+    __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_cold_1(v5, v20, v21, v22, v23, v24, v25, v26);
   }
 
   if (!v15)
   {
 LABEL_19:
-    v26 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = __atxlog_handle_modes(v19);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_cold_1(v6, v26, v27, v28, v29, v30, v31, v32);
+      __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_cold_1(v6, v27, v28, v29, v30, v31, v32, v33);
     }
   }
 
 LABEL_22:
-  v33 = [v9 startDate];
-  [v33 timeIntervalSinceReferenceDate];
-  v35 = v34;
+  v34 = [v9 startDate];
+  [v34 timeIntervalSinceReferenceDate];
+  v36 = v35;
 
-  v36 = [v15 startDate];
-  [v36 timeIntervalSinceReferenceDate];
-  v38 = v37;
+  v37 = [v15 startDate];
+  [v37 timeIntervalSinceReferenceDate];
+  v39 = v38;
 
-  v39 = [MEMORY[0x277CCABB0] numberWithDouble:v35];
-  v40 = [MEMORY[0x277CCABB0] numberWithDouble:v38];
-  v41 = [v39 compare:v40];
+  v40 = [MEMORY[0x277CCABB0] numberWithDouble:v36];
+  v41 = [MEMORY[0x277CCABB0] numberWithDouble:v39];
+  v42 = [v40 compare:v41];
 
-  return v41;
+  return v42;
 }
 
 uint64_t __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_22(uint64_t a1, void *a2)
@@ -206,46 +205,47 @@ uint64_t __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSession
   v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) didDefer];
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_2_cold_1(v5);
+      __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_2_cold_1(v6);
     }
   }
 
   else
   {
-    v5 = [*(*(a1 + 40) + 8) aggregationEventsFromEvent:v3];
-    if ([v5 count])
+    v6 = [*(*(a1 + 40) + 8) aggregationEventsFromEvent:v3];
+    if ([v6 count])
     {
       v14 = 0u;
       v15 = 0u;
       v12 = 0u;
       v13 = 0u;
-      v5 = v5;
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
-      if (v6)
+      v6 = v6;
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v7)
       {
-        v7 = v6;
-        v8 = *v13;
+        v8 = v7;
+        v9 = *v13;
         do
         {
-          for (i = 0; i != v7; ++i)
+          for (i = 0; i != v8; ++i)
           {
-            if (*v13 != v8)
+            if (*v13 != v9)
             {
-              objc_enumerationMutation(v5);
+              objc_enumerationMutation(v6);
             }
 
             [*(a1 + 40) trackNewModeEvent:{*(*(&v12 + 1) + 8 * i), v12}];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
-        while (v7);
+        while (v8);
       }
     }
 
@@ -259,8 +259,7 @@ uint64_t __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSession
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v4 ^ 1u;
+  return v5 ^ 1u;
 }
 
 - (id)dateIntervalFromNotificationEvent:(id)event
@@ -492,17 +491,16 @@ uint64_t __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSession
 
 - (void)successfullyCalculatedAppSessionInterruptions:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXAppInterruptionsEventProvider: Error from merged publishers: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXAppInterruptionsEventProvider: Error from merged publishers: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __82__ATXAppInterruptionsEventProvider_successfullyCalculatedAppSessionInterruptions___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXAppInterruptionsEventProvider: During ordered merge, encountered unknown event: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXAppInterruptionsEventProvider: During ordered merge, encountered unknown event: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

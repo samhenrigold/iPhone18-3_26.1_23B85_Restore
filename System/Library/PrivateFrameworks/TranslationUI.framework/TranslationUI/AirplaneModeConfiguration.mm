@@ -17,7 +17,7 @@
   }
 
   v6.receiver = self;
-  v6.super_class = type metadata accessor for AirplaneModeConfiguration();
+  v6.super_class = type metadata accessor for AirplaneModeConfiguration(0);
   [(AirplaneModeConfiguration *)&v6 dealloc];
 }
 

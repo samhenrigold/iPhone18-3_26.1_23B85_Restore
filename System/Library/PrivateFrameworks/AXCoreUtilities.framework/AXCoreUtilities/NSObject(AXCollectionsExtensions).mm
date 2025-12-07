@@ -7,7 +7,7 @@
 
 - (void)_ax_appendPrettyDescriptionToString:()AXCollectionsExtensions indentationString:visitedCollections:
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -50,54 +50,54 @@
     {
       [v10 addObject:v27];
       [(__CFString *)v9 appendString:@"    "];
-      v50 = 0;
-      v51 = &v50;
-      v52 = 0x2020000000;
-      v53 = 0;
+      v49 = 0;
+      v50 = &v49;
+      v51 = 0x2020000000;
+      v52 = 0;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         [v8 appendString:@"{"];
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __110__NSObject_AXCollectionsExtensions___ax_appendPrettyDescriptionToString_indentationString_visitedCollections___block_invoke;
-        v45[3] = &unk_1E735B150;
-        v49 = &v50;
-        v46 = v8;
-        v47 = v9;
-        v48 = v10;
-        [self enumerateKeysAndObjectsUsingBlock:v45];
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __110__NSObject_AXCollectionsExtensions___ax_appendPrettyDescriptionToString_indentationString_visitedCollections___block_invoke;
+        v44[3] = &unk_1E735B150;
+        v48 = &v49;
+        v45 = v8;
+        v46 = v9;
+        v47 = v10;
+        [self enumerateKeysAndObjectsUsingBlock:v44];
 
         v31 = @"}";
-        selfCopy = v46;
+        selfCopy = v45;
       }
 
       else
       {
         [v8 appendString:@"["];
-        v40 = v27;
+        v39 = v27;
+        v40 = 0u;
         v41 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
         selfCopy = self;
-        v33 = [selfCopy countByEnumeratingWithState:&v41 objects:v54 count:16];
+        v33 = [selfCopy countByEnumeratingWithState:&v40 objects:v53 count:16];
         if (v33)
         {
-          v34 = *v42;
+          v34 = *v41;
           do
           {
             for (i = 0; i != v33; ++i)
             {
-              if (*v42 != v34)
+              if (*v41 != v34)
               {
                 objc_enumerationMutation(selfCopy);
               }
 
-              v36 = *(*(&v41 + 1) + 8 * i);
-              if ((v51[3] & 1) == 0)
+              v36 = *(*(&v40 + 1) + 8 * i);
+              if ((v50[3] & 1) == 0)
               {
-                *(v51 + 24) = 1;
+                *(v50 + 24) = 1;
                 [v8 appendString:@"\n"];
               }
 
@@ -106,20 +106,20 @@
               [v8 appendString:{@", \n"}];
             }
 
-            v33 = [selfCopy countByEnumeratingWithState:&v41 objects:v54 count:16];
+            v33 = [selfCopy countByEnumeratingWithState:&v40 objects:v53 count:16];
           }
 
           while (v33);
         }
 
-        v27 = v40;
+        v27 = v39;
         v31 = @"]";
       }
 
       v37 = [@"    " length];
       [(__CFString *)v9 deleteCharactersInRange:[(__CFString *)v9 length]- v37, v37];
       [v10 removeObject:v27];
-      if (*(v51 + 24))
+      if (*(v50 + 24))
       {
         v38 = v9;
       }
@@ -131,7 +131,7 @@
 
       [v8 appendString:v38];
       [v8 appendString:v31];
-      _Block_object_dispose(&v50, 8);
+      _Block_object_dispose(&v49, 8);
     }
   }
 
@@ -148,8 +148,6 @@
       [v8 appendFormat:@"%@", 0];
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (id)ax_prettyDescription

@@ -33,7 +33,7 @@
 
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreCECBusClient addDeviceWithAttributes:error:]", 10, "CoreCECBus addDeviceWithAttributes: %@\n", attributes);
   }
 
   v13[0] = MEMORY[0x277D85DD0];
@@ -102,7 +102,7 @@ uint64_t __50__CoreCECBusClient_addDeviceWithAttributes_error___block_invoke_2(u
 
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECBusClient removeDeviceWithType:];
+    [CoreCECBusClient removeDeviceWithType:type];
   }
 
   v6[0] = MEMORY[0x277D85DD0];
@@ -114,7 +114,7 @@ uint64_t __50__CoreCECBusClient_addDeviceWithAttributes_error___block_invoke_2(u
   v6[4] = manager;
   if ((CoreRCWaitForAsyncOperation(0, v6) & 1) == 0)
   {
-    [CoreCECBusClient removeDeviceWithType:];
+    [CoreCECBusClient removeDeviceWithType:type];
   }
 }
 
@@ -205,19 +205,20 @@ uint64_t __50__CoreCECBusClient_addDeviceWithAttributes_error___block_invoke_2(u
   return [v1 handleFailureInMethod:v0 object:? file:? lineNumber:? description:?];
 }
 
-- (uint64_t)removeDeviceWithType:.cold.3()
+- (uint64_t)removeDeviceWithType:(uint64_t)result .cold.3(uint64_t result)
 {
   if (gLogCategory_CoreRCXPC <= 40)
   {
+    v1 = result;
     if (gLogCategory_CoreRCXPC != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_CoreRCXPC, "[CoreCECBusClient removeDeviceWithType:]", 40, "CoreCECBus removeDeviceWithType async operation failed %d\n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_CoreRCXPC, "[CoreCECBusClient removeDeviceWithType:]", 40, "CoreCECBus removeDeviceWithType async operation failed %d\n", v1);
     }
   }
 

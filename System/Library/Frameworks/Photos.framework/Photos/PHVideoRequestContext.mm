@@ -103,7 +103,7 @@
   videoOptions = self->_videoOptions;
   if (videoOptions)
   {
-    [(PHVideoRequestOptions *)videoOptions timeRange];
+    objc_msgSend_timeRange(videoOptions);
   }
 
   else

@@ -6,83 +6,81 @@
 
 + (id)createXPCDictionaryFromChangedObjectIDs:(id)ds redundantDeletes:(id)deletes uuidsForCloudDeletion:(id)deletion updatedAttributesByObjectID:(id)d updatedRelationshipsByObjectID:(id)iD updatedOrderKeys:(id)keys changeSource:(int)source syncChangeMarker:(BOOL)self0
 {
-  v130[3] = *MEMORY[0x1E69E9840];
+  v128[3] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   deletesCopy = deletes;
   deletionCopy = deletion;
   dCopy = d;
   iDCopy = iD;
   keysCopy = keys;
-  v117 = 0;
-  v118 = &v117;
-  v119 = 0x3032000000;
-  v120 = __Block_byref_object_copy__18258;
-  v121 = __Block_byref_object_dispose__18259;
-  v122 = 0;
+  v115 = 0;
+  v116 = &v115;
+  v117 = 0x3032000000;
+  v118 = __Block_byref_object_copy__18258;
+  v119 = __Block_byref_object_dispose__18259;
+  v120 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __215__PLLegacyChangeEventBuilder_createXPCDictionaryFromChangedObjectIDs_redundantDeletes_uuidsForCloudDeletion_updatedAttributesByObjectID_updatedRelationshipsByObjectID_updatedOrderKeys_changeSource_syncChangeMarker___block_invoke;
   aBlock[3] = &unk_1E756ED68;
-  aBlock[4] = &v117;
+  aBlock[4] = &v115;
   sourceCopy = source;
-  v77 = _Block_copy(aBlock);
+  v75 = _Block_copy(aBlock);
   v15 = *MEMORY[0x1E695D4C8];
-  v130[0] = *MEMORY[0x1E695D320];
-  v130[1] = v15;
-  v71 = v15;
-  v72 = *MEMORY[0x1E695D2F0];
-  v130[2] = *MEMORY[0x1E695D2F0];
-  xarray = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:3];
-  v113 = 0u;
-  v114 = 0u;
+  v128[0] = *MEMORY[0x1E695D320];
+  v128[1] = v15;
+  v128[2] = *MEMORY[0x1E695D2F0];
+  xarray = [MEMORY[0x1E695DEC8] arrayWithObjects:v128 count:3];
   v111 = 0u;
   v112 = 0u;
+  v109 = 0u;
+  v110 = 0u;
   allKeys = [deletionCopy allKeys];
-  v17 = [allKeys countByEnumeratingWithState:&v111 objects:v129 count:16];
+  v17 = [allKeys countByEnumeratingWithState:&v109 objects:v127 count:16];
   if (v17)
   {
-    v18 = *v112;
+    v18 = *v110;
     obj = allKeys;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v112 != v18)
+        if (*v110 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v111 + 1) + 8 * i);
+        v20 = *(*(&v109 + 1) + 8 * i);
         v21 = [deletionCopy objectForKey:v20];
         if (v21)
         {
-          v77[2]();
+          v75[2]();
           v22 = xpc_array_create(0, 0);
-          v23 = v118[5];
+          v23 = v116[5];
           v24 = v20;
           xpc_dictionary_set_value(v23, [v20 UTF8String], v22);
-          v109 = 0u;
-          v110 = 0u;
           v107 = 0u;
           v108 = 0u;
+          v105 = 0u;
+          v106 = 0u;
           v25 = v21;
-          v26 = [v25 countByEnumeratingWithState:&v107 objects:v128 count:16];
+          v26 = [v25 countByEnumeratingWithState:&v105 objects:v126 count:16];
           if (v26)
           {
-            v27 = *v108;
+            v27 = *v106;
             do
             {
               for (j = 0; j != v26; ++j)
               {
-                if (*v108 != v27)
+                if (*v106 != v27)
                 {
                   objc_enumerationMutation(v25);
                 }
 
-                xpc_array_set_string(v22, 0xFFFFFFFFFFFFFFFFLL, [*(*(&v107 + 1) + 8 * j) UTF8String]);
+                xpc_array_set_string(v22, 0xFFFFFFFFFFFFFFFFLL, [*(*(&v105 + 1) + 8 * j) UTF8String]);
               }
 
-              v26 = [v25 countByEnumeratingWithState:&v107 objects:v128 count:16];
+              v26 = [v25 countByEnumeratingWithState:&v105 objects:v126 count:16];
             }
 
             while (v26);
@@ -90,7 +88,7 @@
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v111 objects:v129 count:16];
+      v17 = [obj countByEnumeratingWithState:&v109 objects:v127 count:16];
     }
 
     while (v17);
@@ -105,64 +103,64 @@
     }
   }
 
-  v77[2]();
-  xpc_dictionary_set_BOOL(v118[5], "syncChangeMarker", 1);
+  v75[2]();
+  xpc_dictionary_set_BOOL(v116[5], "syncChangeMarker", 1);
 LABEL_20:
-  v105 = 0u;
-  v106 = 0u;
   v103 = 0u;
   v104 = 0u;
+  v101 = 0u;
+  v102 = 0u;
   v69 = xarray;
-  v75 = [v69 countByEnumeratingWithState:&v103 objects:v127 count:16];
-  if (v75)
+  v73 = [v69 countByEnumeratingWithState:&v101 objects:v125 count:16];
+  if (v73)
   {
-    v70 = *v104;
+    v70 = *v102;
     do
     {
-      for (k = 0; k != v75; ++k)
+      for (k = 0; k != v73; ++k)
       {
-        if (*v104 != v70)
+        if (*v102 != v70)
         {
           objc_enumerationMutation(v69);
         }
 
-        v29 = *(*(&v103 + 1) + 8 * k);
-        v82 = [dsCopy objectForKeyedSubscript:v29];
-        if ([v29 isEqualToString:v72] && objc_msgSend(deletesCopy, "count"))
+        v29 = *(*(&v101 + 1) + 8 * k);
+        v80 = [dsCopy objectForKeyedSubscript:v29];
+        if (objc_msgSend_isEqualToString_(v29) && objc_msgSend_count(deletesCopy))
         {
-          v101 = 0u;
-          v102 = 0u;
           v99 = 0u;
           v100 = 0u;
-          v82 = v82;
-          v30 = [v82 countByEnumeratingWithState:&v99 objects:v126 count:16];
+          v97 = 0u;
+          v98 = 0u;
+          v80 = v80;
+          v30 = [v80 countByEnumeratingWithState:&v97 objects:v124 count:16];
           v31 = v29;
           if (v30)
           {
             v32 = 0;
-            v33 = *v100;
+            v33 = *v98;
             do
             {
               for (m = 0; m != v30; ++m)
               {
-                if (*v100 != v33)
+                if (*v98 != v33)
                 {
-                  objc_enumerationMutation(v82);
+                  objc_enumerationMutation(v80);
                 }
 
-                v35 = *(*(&v99 + 1) + 8 * m);
+                v35 = *(*(&v97 + 1) + 8 * m);
                 if ([deletesCopy containsObject:v35])
                 {
                   if (!v32)
                   {
-                    v32 = [v82 mutableCopy];
+                    v32 = [v80 mutableCopy];
                   }
 
                   [v32 removeObject:v35];
                 }
               }
 
-              v30 = [v82 countByEnumeratingWithState:&v99 objects:v126 count:16];
+              v30 = [v80 countByEnumeratingWithState:&v97 objects:v124 count:16];
             }
 
             while (v30);
@@ -177,18 +175,18 @@ LABEL_20:
 
           else
           {
-            v36 = v82;
+            v36 = v80;
 LABEL_41:
-            v82 = v36;
+            v80 = v36;
           }
 
           v29 = v31;
         }
 
-        v37 = [v29 isEqualToString:v71];
-        if (v37)
+        isEqualToString = objc_msgSend_isEqualToString_(v29);
+        if (isEqualToString)
         {
-          v38 = [keysCopy count] != 0;
+          v38 = objc_msgSend_count(keysCopy) != 0;
         }
 
         else
@@ -196,8 +194,8 @@ LABEL_41:
           v38 = 0;
         }
 
-        v39 = v82;
-        if (v82)
+        v39 = v80;
+        if (v80)
         {
           v40 = 0;
         }
@@ -210,40 +208,40 @@ LABEL_41:
         if (!v40)
         {
           xarraya = xpc_array_create(0, 0);
-          v76 = v29;
-          if (v37)
+          v74 = v29;
+          if (isEqualToString)
           {
             value = xpc_array_create(0, 0);
-            v80 = xpc_array_create(0, 0);
+            v78 = xpc_array_create(0, 0);
           }
 
           else
           {
-            v80 = 0;
+            v78 = 0;
             value = 0;
           }
 
           obja = [keysCopy mutableCopy];
-          v97 = 0u;
-          v98 = 0u;
           v95 = 0u;
           v96 = 0u;
-          v41 = v82;
-          v42 = [v41 countByEnumeratingWithState:&v95 objects:v125 count:16];
+          v93 = 0u;
+          v94 = 0u;
+          v41 = v80;
+          v42 = [v41 countByEnumeratingWithState:&v93 objects:v123 count:16];
           if (v42)
           {
-            v43 = *v96;
+            v43 = *v94;
             do
             {
               for (n = 0; n != v42; ++n)
               {
-                if (*v96 != v43)
+                if (*v94 != v43)
                 {
                   objc_enumerationMutation(v41);
                 }
 
-                v45 = *(*(&v95 + 1) + 8 * n);
-                if (!v37)
+                v45 = *(*(&v93 + 1) + 8 * n);
+                if (!isEqualToString)
                 {
                   unsignedLongLongValue2 = 0;
                   unsignedLongLongValue = 0;
@@ -260,7 +258,7 @@ LABEL_64:
 
                   else
                   {
-                    v51 = v37 ^ 1;
+                    v51 = isEqualToString ^ 1;
                   }
 
                   if ((v51 & 1) != 0 || unsignedLongLongValue2)
@@ -280,10 +278,10 @@ LABEL_64:
                     else
                     {
                       xpc_array_set_data(xarraya, 0xFFFFFFFFFFFFFFFFLL, buffer, v53);
-                      if (v37)
+                      if (isEqualToString)
                       {
                         xpc_array_set_uint64(value, 0xFFFFFFFFFFFFFFFFLL, unsignedLongLongValue);
-                        xpc_array_set_uint64(v80, 0xFFFFFFFFFFFFFFFFLL, unsignedLongLongValue2);
+                        xpc_array_set_uint64(v78, 0xFFFFFFFFFFFFFFFFLL, unsignedLongLongValue2);
                       }
                     }
                   }
@@ -291,7 +289,7 @@ LABEL_64:
                   continue;
                 }
 
-                v46 = [dCopy objectForKey:*(*(&v95 + 1) + 8 * n)];
+                v46 = [dCopy objectForKey:*(*(&v93 + 1) + 8 * n)];
                 unsignedLongLongValue = [v46 unsignedLongLongValue];
 
                 v48 = [iDCopy objectForKey:v45];
@@ -310,33 +308,33 @@ LABEL_64:
                 }
               }
 
-              v42 = [v41 countByEnumeratingWithState:&v95 objects:v125 count:16];
+              v42 = [v41 countByEnumeratingWithState:&v93 objects:v123 count:16];
             }
 
             while (v42);
           }
 
-          if (v37)
+          if (isEqualToString)
           {
-            v92 = 0u;
-            v93 = 0u;
             v90 = 0u;
             v91 = 0u;
+            v88 = 0u;
+            v89 = 0u;
             v55 = obja;
-            v56 = [v55 countByEnumeratingWithState:&v90 objects:v123 count:16];
+            v56 = [v55 countByEnumeratingWithState:&v88 objects:v121 count:16];
             if (v56)
             {
-              v57 = *v91;
+              v57 = *v89;
               do
               {
                 for (ii = 0; ii != v56; ++ii)
                 {
-                  if (*v91 != v57)
+                  if (*v89 != v57)
                   {
                     objc_enumerationMutation(v55);
                   }
 
-                  v59 = *(*(&v90 + 1) + 8 * ii);
+                  v59 = *(*(&v88 + 1) + 8 * ii);
                   v60 = [v55 objectForKey:v59];
                   unsignedLongLongValue3 = [v60 unsignedLongLongValue];
 
@@ -356,11 +354,11 @@ LABEL_64:
                   {
                     xpc_array_set_data(xarraya, 0xFFFFFFFFFFFFFFFFLL, buffer, v63);
                     xpc_array_set_uint64(value, 0xFFFFFFFFFFFFFFFFLL, 0);
-                    xpc_array_set_uint64(v80, 0xFFFFFFFFFFFFFFFFLL, unsignedLongLongValue3);
+                    xpc_array_set_uint64(v78, 0xFFFFFFFFFFFFFFFFLL, unsignedLongLongValue3);
                   }
                 }
 
-                v56 = [v55 countByEnumeratingWithState:&v90 objects:v123 count:16];
+                v56 = [v55 countByEnumeratingWithState:&v88 objects:v121 count:16];
               }
 
               while (v56);
@@ -368,37 +366,37 @@ LABEL_64:
 
             if (xpc_array_get_count(value))
             {
-              v77[2]();
-              xpc_dictionary_set_value(v118[5], "PLUpdatedAttributesKey", value);
+              v75[2]();
+              xpc_dictionary_set_value(v116[5], "PLUpdatedAttributesKey", value);
             }
 
-            if (xpc_array_get_count(v80))
+            if (xpc_array_get_count(v78))
             {
-              v77[2]();
-              xpc_dictionary_set_value(v118[5], "PLUpdatedRelationshipsKey", v80);
+              v75[2]();
+              xpc_dictionary_set_value(v116[5], "PLUpdatedRelationshipsKey", v78);
             }
           }
 
           if (xpc_array_get_count(xarraya))
           {
-            v77[2]();
-            v65 = v118[5];
-            v66 = v76;
-            xpc_dictionary_set_value(v65, [v76 UTF8String], xarraya);
+            v75[2]();
+            v65 = v116[5];
+            v66 = v74;
+            xpc_dictionary_set_value(v65, [v74 UTF8String], xarraya);
           }
 
-          v39 = v82;
+          v39 = v80;
         }
       }
 
-      v75 = [v69 countByEnumeratingWithState:&v103 objects:v127 count:16];
+      v73 = [v69 countByEnumeratingWithState:&v101 objects:v125 count:16];
     }
 
-    while (v75);
+    while (v73);
   }
 
-  v67 = v118[5];
-  _Block_object_dispose(&v117, 8);
+  v67 = v116[5];
+  _Block_object_dispose(&v115, 8);
 
   return v67;
 }

@@ -193,7 +193,7 @@ LABEL_11:
     client = [(NSFileReactorProxy *)self client];
     if (client)
     {
-      [client auditToken];
+      objc_msgSend_auditToken(client);
     }
 
     else
@@ -260,7 +260,7 @@ LABEL_11:
   return v7 & 1;
 }
 
-uint64_t __38__NSFilePresenterProxy_allowedForURL___block_invoke(uint64_t a1, void *a2, char *a3)
+void *__38__NSFilePresenterProxy_allowedForURL___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v8 = [a2 fileSystemRepresentation];
   v6 = 1;
@@ -314,7 +314,7 @@ uint64_t __38__NSFilePresenterProxy_allowedForURL___block_invoke(uint64_t a1, vo
   client = self->super._client;
   if (client)
   {
-    [(NSXPCConnection *)client auditToken];
+    objc_msgSend_auditToken(client);
   }
 
   else
@@ -380,7 +380,7 @@ void __82__NSFilePresenterProxy_startWatchingWithQueue_lastEventID_unannouncedMo
       {
         v13 = *(*(a1 + 32) + 40);
 
-        [v13 updateLastEventID:a5];
+        [v13 updateLastEventID:{a5, a4}];
       }
     }
 
@@ -422,7 +422,7 @@ void __82__NSFilePresenterProxy_startWatchingWithQueue_lastEventID_unannouncedMo
           }
         }
 
-        if (![v16 shouldSendObservationMessageWithPurposeID:*(v16 + 80)])
+        if (![v16 shouldSendObservationMessageWithPurposeID:{*(v16 + 80), a4, a5}])
         {
           return;
         }
@@ -457,15 +457,15 @@ LABEL_28:
   }
 }
 
-uint64_t __82__NSFilePresenterProxy_startWatchingWithQueue_lastEventID_unannouncedMoveHandler___block_invoke_2(uint64_t result, uint64_t a2)
+id *__82__NSFilePresenterProxy_startWatchingWithQueue_lastEventID_unannouncedMoveHandler___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
     v3 = result;
-    result = [*(result + 32) shouldSendObservationMessageWithPurposeID:*(*(result + 32) + 80)];
+    result = [result[4] shouldSendObservationMessageWithPurposeID:*(result[4] + 10)];
     if (result)
     {
-      v4 = *(*(v3 + 32) + 40);
+      v4 = *(v3[4] + 5);
 
       return [v4 observeChangeWithSubitemURL:a2];
     }

@@ -4,6 +4,7 @@
 - (MOSettingsManager)init;
 - (MOSettingsManagerDelegate)delegate;
 - (void)setDelegate:(id)delegate;
+- (void)setState:(BOOL)state forSetting:(unint64_t)setting;
 @end
 
 @implementation MOSettingsManager
@@ -60,6 +61,13 @@ uint64_t __35__MOSettingsManager_sharedInstance__block_invoke(uint64_t a1)
   LOBYTE(setting) = [v4 getStateForSetting:setting];
 
   return setting;
+}
+
+- (void)setState:(BOOL)state forSetting:(unint64_t)setting
+{
+  stateCopy = state;
+  v6 = +[MOOnboardingAndSettingsManager sharedInstance];
+  [v6 setState:stateCopy forSetting:setting];
 }
 
 @end

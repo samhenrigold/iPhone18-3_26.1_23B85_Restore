@@ -60,30 +60,30 @@
 
 - (id)accessibilityCustomActions
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   _axCommandButtons = [(SearchUIHeroCardSectionViewAccessibility *)self _axCommandButtons];
-  v17 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{objc_msgSend(_axCommandButtons, "count")}];
+  v16 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{objc_msgSend(_axCommandButtons, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = _axCommandButtons;
-  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = @"buttonItem.command";
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = [v9 safeValueForKeyPath:v6];
         NSClassFromString(&cfstr_Sftogglewatchl.isa);
         if (objc_opt_isKindOfClass())
@@ -102,21 +102,19 @@
           v13 = v6;
           v14 = [objc_alloc(MEMORY[0x29EDC78E0]) initWithName:v12 target:self selector:sel__axPerformCustomAction_];
           [v14 _accessibilitySetRetainedValue:v9 forKey:@"AXHeroCommandButtonKey"];
-          [v17 axSafelyAddObject:v14];
+          [v16 axSafelyAddObject:v14];
 
           v6 = v13;
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
   }
 
-  v15 = *MEMORY[0x29EDCA608];
-
-  return v17;
+  return v16;
 }
 
 - (BOOL)_axPerformCustomAction:(id)action
@@ -134,7 +132,7 @@
   return v4;
 }
 
-uint64_t __67__SearchUIHeroCardSectionViewAccessibility__axPerformCustomAction___block_invoke(uint64_t a1)
+void *__67__SearchUIHeroCardSectionViewAccessibility__axPerformCustomAction___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) buttonPressed:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -315,10 +313,7 @@ Class __78__SearchUIHeroCardSectionViewAccessibility__axApplicationForBundleIden
 
 uint64_t __78__SearchUIHeroCardSectionViewAccessibility__axApplicationForBundleIdentifier___block_invoke_452(uint64_t a1)
 {
-  v2 = [_axApplicationForBundleIdentifier__searchUIUtilities bundleIdentifierForApp:*(a1 + 40)];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = [_axApplicationForBundleIdentifier__searchUIUtilities bundleIdentifierForApp:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }

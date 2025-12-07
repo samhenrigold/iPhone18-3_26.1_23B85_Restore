@@ -33,54 +33,57 @@
 
 - (void)applyForcesWithMultiplier:(double)multiplier
 {
-  v55 = *MEMORY[0x1E69E9840];
   if (!self->_hasPhysicsStateOverride)
   {
     if (!self->_setupDone)
     {
-      v5 = avt_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v4 = avt_default_log(self);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        [(AVTPhysicsController *)v5 applyForcesWithMultiplier:v6, v7, v8, v9, v10, v11, v12];
+        [(AVTPhysicsController *)v4 applyForcesWithMultiplier:v5, v6, v7, v8, v9, v10, v11];
       }
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_physicsWorld);
     [WeakRetained scale];
-    v47 = v14;
+    v35 = v13;
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v15 = self->_physicsRigs;
-    v16 = [(NSArray *)v15 countByEnumeratingWithState:&v50 objects:v54 count:16];
-    if (v16)
+    v14 = self->_physicsRigs;
+    v15 = [NSArray countByEnumeratingWithState:v14 objects:"countByEnumeratingWithState:objects:count:" count:?];
+    if (v15)
     {
-      v17 = v16;
-      v18 = *v51;
-      v19 = *v47.i32 * multiplier;
-      v49 = v19;
-      v45 = vdupq_lane_s32(v47, 0);
+      v16 = v15;
+      v17 = MEMORY[0];
+      v34 = vdupq_lane_s32(v35, 0);
       __asm { FMOV            V0.4S, #5.0 }
 
-      v48 = _Q0;
-      v43 = vdupq_n_s32(0x42440000u);
-      v44 = xmmword_1BB4F0590;
+      v32 = vdupq_n_s32(0x42440000u);
+      v33 = xmmword_1BB4F0590;
       do
       {
-        v25 = 0;
+        v23 = 0;
         do
         {
-          if (*v51 != v18)
+          if (MEMORY[0] != v17)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v14);
           }
 
-          v26 = *(*(&v50 + 1) + 8 * v25);
-          if (v26)
+          v24 = *(8 * v23);
+          if (v24)
           {
-            v27 = *(v26 + 16);
+            v25 = *(v24 + 16);
+          }
+
+          else
+          {
+            v25 = 0;
+          }
+
+          presentationNode = [v25 presentationNode];
+          if (v24)
+          {
+            v27 = *(v24 + 24);
           }
 
           else
@@ -88,10 +91,10 @@
             v27 = 0;
           }
 
-          presentationNode = [v27 presentationNode];
-          if (v26)
+          presentationNode2 = [v27 presentationNode];
+          if (v24)
           {
-            v29 = *(v26 + 24);
+            v29 = *(v24 + 32);
           }
 
           else
@@ -99,84 +102,27 @@
             v29 = 0;
           }
 
-          presentationNode2 = [v29 presentationNode];
-          if (v26)
+          v30 = v29;
+          [presentationNode convertPosition:? toNode:?];
+          [presentationNode2 convertVector:? toNode:?];
+          if (!v24 || *(v24 + 48) >= 0.0)
           {
-            v31 = *(v26 + 32);
+            [presentationNode2 convertVector:? toNode:?];
           }
 
-          else
-          {
-            v31 = 0;
-          }
+          [v30 applyForce:? impulse:?];
 
-          v32 = v31;
-          [presentationNode convertPosition:presentationNode2 toNode:0.0];
-          if (v26)
-          {
-            v34 = *(v26 + 64);
-          }
-
-          else
-          {
-            v34 = 0uLL;
-          }
-
-          v35 = vmulq_f32(vsubq_f32(v34, v33), v48);
-          v36 = vmulq_f32(v35, v35);
-          v37 = sqrtf(v36.f32[2] + vaddv_f32(*v36.f32));
-          if (v37 > 20.0)
-          {
-            v35.i64[0] = vmulq_n_f32(v35, 20.0 / v37).u64[0];
-          }
-
-          [presentationNode2 convertVector:0 toNode:*v35.i64];
-          v39 = vmulq_n_f32(v38, v49);
-          if (v26)
-          {
-            if (*(v26 + 48) < 0.0)
-            {
-              goto LABEL_27;
-            }
-
-            v46 = v39;
-            v39 = *(v26 + 80);
-          }
-
-          else
-          {
-            v46 = v39;
-            v39.i64[0] = 0;
-          }
-
-          [presentationNode2 convertVector:0 toNode:*v39.i64];
-          if (v26)
-          {
-            v40 = *(v26 + 48);
-          }
-
-          else
-          {
-            v40 = 0.0;
-          }
-
-          v39.i64[0] = vmlaq_n_f32(v46, vmulq_f32(vmlsq_f32(v44, v45, v39), v43), v40).u64[0];
-LABEL_27:
-          [v32 applyForce:0 impulse:*v39.i64];
-
-          ++v25;
+          v23 = (v23 + 1);
         }
 
-        while (v17 != v25);
-        v41 = [(NSArray *)v15 countByEnumeratingWithState:&v50 objects:v54 count:16];
-        v17 = v41;
+        while (v16 != v23);
+        v31 = [NSArray countByEnumeratingWithState:v14 objects:"countByEnumeratingWithState:objects:count:" count:?];
+        v16 = v31;
       }
 
-      while (v41);
+      while (v31);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAtTime:(double)time forceMultiplier:(double)multiplier
@@ -185,44 +131,39 @@ LABEL_27:
   {
     if (self->_physicsBehaviorsAreInstalledInPhysicsWorld)
     {
-      [(AVTPhysicsController *)self applyForcesWithMultiplier:multiplier];
+      [(AVTPhysicsController *)self applyForcesWithMultiplier:?];
     }
 
     else
     {
       self->_physicsBehaviorsAreInstalledInPhysicsWorld = 1;
-      [(AVTPhysicsController *)self installPhysics:time];
+      [(AVTPhysicsController *)self installPhysics];
     }
   }
 }
 
 - (__n128)offsetFromRestingPositionForNode:(void *)node inCoordinateSpaceOfNode:(void *)ofNode
 {
-  v40 = *MEMORY[0x1E69E9840];
   nodeCopy = node;
   ofNodeCopy = ofNode;
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v32 = 0u;
+  v28 = 0u;
   v8 = *(self + 16);
-  v9 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
   if (v9)
   {
     v10 = v9;
-    v11 = *v36;
+    v11 = MEMORY[0];
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v36 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * v12);
+        v13 = *(8 * v12);
         if (v13)
         {
           v14 = *(v13 + 16);
@@ -240,20 +181,18 @@ LABEL_27:
             if (v13)
             {
               v16 = *(v13 + 24);
-              v17 = *(v13 + 64);
             }
 
             else
             {
               v16 = 0;
-              *&v17 = 0;
             }
 
-            [v16 convertPosition:ofNodeCopy toNode:*&v17];
-            v33 = v18;
+            [v16 convertPosition:? toNode:?];
+            v29 = v17;
 
-            [nodeCopy convertPosition:ofNodeCopy toNode:0.0];
-            v32 = vsubq_f32(v19, v33);
+            [nodeCopy convertPosition:? toNode:?];
+            v28 = vsubq_f32(v18, v29);
           }
 
           else
@@ -261,45 +200,34 @@ LABEL_27:
             presentationNode = [ofNodeCopy presentationNode];
             if (v13)
             {
-              v21 = *(v13 + 24);
+              v20 = *(v13 + 24);
             }
 
             else
             {
-              v21 = 0;
+              v20 = 0;
             }
 
-            v22 = v21;
-            presentationNode2 = [v22 presentationNode];
-            v24 = presentationNode2;
-            if (v13)
-            {
-              v25 = *(v13 + 64);
-            }
-
-            else
-            {
-              *&v25 = 0;
-            }
-
-            [presentationNode2 convertPosition:presentationNode toNode:*&v25];
-            v34 = v26;
+            v21 = v20;
+            presentationNode2 = [v21 presentationNode];
+            [presentationNode2 convertPosition:? toNode:?];
+            v30 = v23;
 
             presentationNode3 = [nodeCopy presentationNode];
-            [presentationNode3 convertPosition:presentationNode toNode:0.0];
-            v31 = v28;
+            [presentationNode3 convertPosition:? toNode:?];
+            v27 = v25;
 
-            v32 = vsubq_f32(v31, v34);
+            v28 = vsubq_f32(v27, v30);
           }
 
-          goto LABEL_23;
+          goto LABEL_21;
         }
 
-        ++v12;
+        v12 = (v12 + 1);
       }
 
       while (v10 != v12);
-      v15 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v15 = [v8 countByEnumeratingWithState:? objects:? count:?];
       v10 = v15;
       if (v15)
       {
@@ -310,10 +238,9 @@ LABEL_27:
     }
   }
 
-LABEL_23:
+LABEL_21:
 
-  v29 = *MEMORY[0x1E69E9840];
-  return v32;
+  return v28;
 }
 
 - (void)installPhysics
@@ -321,86 +248,65 @@ LABEL_23:
   [(AVTPhysicsController *)self setupPhysicsIfNeeded];
   WeakRetained = objc_loadWeakRetained(&self->_physicsWorld);
   v4 = MEMORY[0x1E69DF378];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __38__AVTPhysicsController_installPhysics__block_invoke;
-  v6[3] = &unk_1E7F47E78;
-  v6[4] = self;
-  v7 = WeakRetained;
+  v6 = MEMORY[0x1E69E9820];
+  selfCopy = self;
+  v8 = WeakRetained;
   v5 = WeakRetained;
-  [v4 enqueueCommandForObject:v5 immediateTransactionBlock:v6];
+  [v4 enqueueCommandForObject:v6 immediateTransactionBlock:{3221225472, __38__AVTPhysicsController_installPhysics__block_invoke, &unk_1E7F47E78, selfCopy}];
 }
 
-uint64_t __38__AVTPhysicsController_installPhysics__block_invoke(uint64_t a1)
+void *__38__AVTPhysicsController_installPhysics__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  *&v12[37] = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 16);
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:0 objects:? count:?];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = MEMORY[0];
     do
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (MEMORY[0] != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * v6);
+        v7 = *(8 * v6);
         if (!v7 || !*(v7 + 40))
         {
-          v8 = avt_default_log();
+          v8 = avt_default_log(v3);
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
-            __38__AVTPhysicsController_installPhysics__block_invoke_cold_1(buf, &v21, v8);
+            __38__AVTPhysicsController_installPhysics__block_invoke_cold_1(buf, v12, v8);
           }
         }
 
-        if (v7)
-        {
-          v9 = *(v7 + 40);
-        }
-
-        else
-        {
-          v9 = 0;
-        }
-
-        [*(a1 + 40) addPhysicsJoint:{v9, v16}];
-        ++v6;
+        v3 = [*(a1 + 40) addPhysicsJoint:?];
+        v6 = (v6 + 1);
       }
 
       while (v4 != v6);
-      v10 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
-      v4 = v10;
+      v3 = [v2 countByEnumeratingWithState:? objects:? count:?];
+      v4 = v3;
     }
 
-    while (v10);
+    while (v3);
   }
 
-  LODWORD(v11) = 8.0;
-  [*(a1 + 40) setSpeed:v11];
-  v12 = 60;
+  [*(a1 + 40) setSpeed:?];
+  v9 = 60;
   do
   {
-    [*(a1 + 32) applyForcesWithMultiplier:{1.0, v16}];
-    [*(a1 + 40) _step:0.0166666667];
-    --v12;
+    [*(a1 + 32) applyForcesWithMultiplier:?];
+    [*(a1 + 40) _step:?];
+    --v9;
   }
 
-  while (v12);
-  LODWORD(v13) = 4.0;
-  result = [*(a1 + 40) setSpeed:v13];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  while (v9);
+  return [*(a1 + 40) setSpeed:?];
 }
 
 - (void)setupPhysicsIfNeeded
@@ -420,50 +326,49 @@ uint64_t __38__AVTPhysicsController_installPhysics__block_invoke(uint64_t a1)
 
 - (void)setupPhysics
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "avatarNode";
 }
 
 void __36__AVTPhysicsController_setupPhysics__block_invoke(uint64_t a1, void *a2)
 {
   v8 = a2;
   v3 = [v8 name];
-  v4 = [v3 hasSuffix:@"_DYN"];
+  v4 = [v3 hasSuffix:?];
 
   if (v4)
   {
     v5 = [v8 parentNode];
     v6 = [v5 name];
-    v7 = [v6 hasSuffix:@"_DYN"];
+    v7 = [v6 hasSuffix:?];
 
     if ((v7 & 1) == 0)
     {
-      [*(a1 + 32) _setupPhysicsChain:v8 physicsRigs:*(a1 + 40)];
+      [*(a1 + 32) _setupPhysicsChain:? physicsRigs:?];
     }
   }
 }
 
 void __44__AVTPhysicsController__setupCollisionNode___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  v2 = [v8 model];
+  v7 = a2;
+  v2 = [v7 model];
 
   if (v2)
   {
     v3 = [MEMORY[0x1E69DF340] kinematicBody];
-    [v8 setPhysicsBody:v3];
+    [v7 setPhysicsBody:?];
 
-    v4 = [v8 physicsBody];
-    [v4 setRestitution:0.0];
+    v4 = [v7 physicsBody];
+    [v4 setRestitution:?];
 
-    v5 = [v8 physicsBody];
-    LODWORD(v6) = 1.0;
-    [v5 setFriction:v6];
+    v5 = [v7 physicsBody];
+    [v5 setFriction:?];
 
-    v7 = [v8 physicsBody];
-    [v7 setCategoryBitMask:8];
+    v6 = [v7 physicsBody];
+    [v6 setCategoryBitMask:?];
 
-    [v8 setOpacity:0.0];
+    [v7 setOpacity:?];
   }
 }
 
@@ -473,142 +378,126 @@ void __44__AVTPhysicsController__setupCollisionNode___block_invoke(uint64_t a1, 
   rigsCopy = rigs;
   if (chainCopy)
   {
-    LODWORD(v8) = 1.5;
-    v9 = [MEMORY[0x1E69DF338] sphereWithRadius:v8];
-    [v9 setSegmentCount:12];
+    v7 = [MEMORY[0x1E69DF338] sphereWithRadius:?];
+    [v7 setSegmentCount:?];
     kinematicBody = [MEMORY[0x1E69DF340] kinematicBody];
-    [kinematicBody setAffectedByGravity:0];
-    LODWORD(v11) = 1061997773;
-    [kinematicBody setDamping:v11];
-    LODWORD(v12) = 1061997773;
-    [kinematicBody setAngularDamping:v12];
-    [chainCopy setPhysicsBody:kinematicBody];
-    v13 = [MEMORY[0x1E69DF350] shapeWithModel:v9];
-    [kinematicBody setPhysicsShape:v13];
-    v23[0] = 0;
-    v23[1] = v23;
-    v23[2] = 0x3032000000;
-    v23[3] = __Block_byref_object_copy__1;
-    v23[4] = __Block_byref_object_dispose__1;
-    v24 = chainCopy;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __55__AVTPhysicsController__setupPhysicsChain_physicsRigs___block_invoke;
-    v16[3] = &unk_1E7F47EC8;
-    v17 = v24;
-    v14 = v13;
-    v22 = v23;
-    v18 = v14;
-    selfCopy = self;
-    v15 = kinematicBody;
-    v20 = v15;
-    v21 = rigsCopy;
-    [v17 enumerateChildNodesUsingBlock:v16];
+    [kinematicBody setAffectedByGravity:?];
+    [kinematicBody setDamping:?];
+    [kinematicBody setAngularDamping:?];
+    [chainCopy setPhysicsBody:?];
+    v9 = [MEMORY[0x1E69DF350] shapeWithModel:?];
+    [kinematicBody setPhysicsShape:?];
+    v15[0] = 0;
+    v15[1] = v15;
+    v15[2] = 0x3032000000;
+    v15[3] = __Block_byref_object_copy__1;
+    v15[4] = __Block_byref_object_dispose__1;
+    v16 = chainCopy;
+    v10 = MEMORY[0x1E69E9820];
+    v11 = v16;
+    v12 = v9;
+    v13 = kinematicBody;
+    v14 = rigsCopy;
+    [v11 enumerateChildNodesUsingBlock:{v10, 3221225472, __55__AVTPhysicsController__setupPhysicsChain_physicsRigs___block_invoke, &unk_1E7F47EC8}];
 
-    _Block_object_dispose(v23, 8);
+    _Block_object_dispose(v15, 8);
   }
 }
 
 - (void)downforcesDidChange
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_delegate";
 }
 
 - (id)physicsState
 {
-  v42 = *MEMORY[0x1E69E9840];
   if (!self->_physicsRigs)
   {
-    v3 = avt_default_log();
+    v3 = avt_default_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [(AVTPhysicsController *)v3 physicsState:v4];
     }
   }
 
-  v34 = _AVTPoseRoundingBehaviour();
-  v33 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSArray count](self->_physicsRigs, "count")}];
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v11 = self->_physicsRigs;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
-  if (v12)
+  v33 = _AVTPoseRoundingBehaviour(self);
+  v11 = objc_alloc(MEMORY[0x1E695DF90]);
+  [(NSArray *)self->_physicsRigs count];
+  v32 = [v11 initWithCapacity:?];
+  v12 = self->_physicsRigs;
+  v13 = [NSArray countByEnumeratingWithState:v12 objects:"countByEnumeratingWithState:objects:count:" count:?];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v36;
+    v14 = v13;
+    v15 = MEMORY[0];
     do
     {
-      v15 = 0;
+      v16 = 0;
       do
       {
-        if (*v36 != v14)
+        if (MEMORY[0] != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v35 + 1) + 8 * v15);
-        if (v16)
+        v17 = *(8 * v16);
+        if (v17)
         {
-          v17 = *(v16 + 16);
-          v18 = *(v16 + 24);
+          v18 = *(v17 + 16);
+          v19 = *(v17 + 24);
         }
 
         else
         {
-          v17 = 0;
           v18 = 0;
+          v19 = 0;
         }
 
-        v19 = v18;
+        v20 = v19;
         if (self->_physicsBehaviorsAreInstalledInPhysicsWorld)
         {
-          presentationNode = [v17 presentationNode];
+          presentationNode = [v18 presentationNode];
 
-          presentationNode2 = [v19 presentationNode];
+          presentationNode2 = [v20 presentationNode];
 
-          v19 = presentationNode2;
-          v17 = presentationNode;
+          v20 = presentationNode2;
+          v18 = presentationNode;
         }
 
-        name = [v17 name];
-        [v19 convertPosition:v17 fromNode:0.0];
-        if (v16)
+        name = [v18 name];
+        [v20 convertPosition:? fromNode:?];
+        if (v17)
         {
-          v24 = *(v16 + 64);
+          v25 = *(v17 + 64);
         }
 
         else
         {
-          v24 = 0uLL;
+          v25 = 0uLL;
         }
 
-        v25 = vsubq_f32(v23, v24);
-        v26 = vmulq_f32(v25, v25);
-        if ((v26.f32[2] + vaddv_f32(*v26.f32)) >= 0.1)
+        v26 = vsubq_f32(v24, v25);
+        v27 = vmulq_f32(v26, v26);
+        if ((v27.f32[2] + vaddv_f32(*v27.f32)) >= 0.1)
         {
-          v39 = @"offset";
-          v27 = [MEMORY[0x1E695DEC8] avt_arrayWithFloat3:v34 roundingBehavior:?];
-          v40 = v27;
-          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-          [v33 setObject:v28 forKeyedSubscript:name];
+          v34 = [MEMORY[0x1E695DEC8] avt_arrayWithFloat3:? roundingBehavior:?];
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+          [v32 setObject:? forKeyedSubscript:?];
         }
 
-        ++v15;
+        v16 = (v16 + 1);
       }
 
-      while (v13 != v15);
-      v29 = [(NSArray *)v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
-      v13 = v29;
+      while (v14 != v16);
+      v29 = [NSArray countByEnumeratingWithState:v12 objects:"countByEnumeratingWithState:objects:count:" count:?];
+      v14 = v29;
     }
 
     while (v29);
   }
 
-  v30 = [[AVTAvatarPhysicsState alloc] initWithDictionaryRepresentation:v33];
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = [[AVTAvatarPhysicsState alloc] initWithDictionaryRepresentation:?];
 
   return v30;
 }
@@ -616,35 +505,35 @@ void __44__AVTPhysicsController__setupCollisionNode___block_invoke(uint64_t a1, 
 - (void)resetToPhysicsState:(id)state assumeRestStateIfNil:(BOOL)nil
 {
   nilCopy = nil;
-  v37 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   [(AVTPhysicsController *)self setupPhysicsIfNeeded];
   if (stateCopy || nilCopy)
   {
     self->_hasPhysicsStateOverride = 1;
-    v26 = stateCopy;
+    v23 = stateCopy;
     dictionaryRepresentation = [stateCopy dictionaryRepresentation];
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v34 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     obj = self->_physicsRigs;
-    v8 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v8 = [NSArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
     if (v8)
     {
       v9 = v8;
-      v10 = *v32;
+      v10 = *v28;
       do
       {
         v11 = 0;
         do
         {
-          if (*v32 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v31 + 1) + 8 * v11);
+          v12 = *(*(&v27 + 1) + 8 * v11);
           if (v12)
           {
             v13 = *(v12 + 16);
@@ -660,69 +549,44 @@ void __44__AVTPhysicsController__setupCollisionNode___block_invoke(uint64_t a1, 
           v15 = v14;
           parentNode = [v13 parentNode];
           name = [v13 name];
-          v18 = [(NSArray *)dictionaryRepresentation objectForKeyedSubscript:name];
+          v18 = [(NSArray *)dictionaryRepresentation objectForKeyedSubscript:?];
           v19 = v18;
           if (v18)
           {
-            v20 = [v18 objectForKeyedSubscript:@"offset"];
+            v20 = [v18 objectForKeyedSubscript:?];
             [v20 avt_float3];
-            v29 = v21;
-
-            if (v12)
-            {
-              v22 = *(v12 + 64);
-            }
-
-            else
-            {
-              v22 = 0uLL;
-            }
-
-            v22.i64[0] = vaddq_f32(v29, v22).u64[0];
           }
 
-          else if (v12)
-          {
-            v22 = *(v12 + 64);
-          }
-
-          else
-          {
-            v22.i64[0] = 0;
-          }
-
-          [v15 convertPosition:parentNode toNode:*v22.i64];
+          [v15 convertPosition:? toNode:?];
           [v13 setPosition:?];
           physicsBody = [v13 physicsBody];
-          [physicsBody setResting:1];
+          [physicsBody setResting:?];
 
-          ++v11;
+          v11 = (v11 + 1);
         }
 
         while (v9 != v11);
-        v24 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-        v9 = v24;
+        v22 = [NSArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
+        v9 = v22;
       }
 
-      while (v24);
+      while (v22);
     }
 
-    stateCopy = v26;
+    stateCopy = v23;
   }
 
   else
   {
     self->_hasPhysicsStateOverride = 0;
-    memset(v30, 0, sizeof(v30));
+    memset(v26, 0, sizeof(v26));
     dictionaryRepresentation = self->_physicsRigs;
-    v7 = [(NSArray *)dictionaryRepresentation countByEnumeratingWithState:v30 objects:v35 count:16];
+    v7 = [NSArray countByEnumeratingWithState:dictionaryRepresentation objects:"countByEnumeratingWithState:objects:count:" count:?];
     if (v7)
     {
-      [(AVTPhysicsController *)v30 resetToPhysicsState:dictionaryRepresentation assumeRestStateIfNil:v7, v35];
+      [(AVTPhysicsController *)v26 resetToPhysicsState:dictionaryRepresentation assumeRestStateIfNil:v7, v31];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addToPhysicsWorld:(id)world
@@ -732,10 +596,10 @@ void __44__AVTPhysicsController__setupCollisionNode___block_invoke(uint64_t a1, 
 
   if (WeakRetained)
   {
-    v6 = avt_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = avt_default_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(AVTPhysicsController *)v6 addToPhysicsWorld:v7, v8, v9, v10, v11, v12, v13];
+      [(AVTPhysicsController *)v7 addToPhysicsWorld:v8, v9, v10, v11, v12, v13, v14];
     }
   }
 
@@ -744,71 +608,64 @@ void __44__AVTPhysicsController__setupCollisionNode___block_invoke(uint64_t a1, 
 
 - (void)removeFromPhysicsWorld:(id)world
 {
-  v28 = *MEMORY[0x1E69E9840];
   worldCopy = world;
   WeakRetained = objc_loadWeakRetained(&self->_physicsWorld);
 
   if (WeakRetained != worldCopy)
   {
-    v6 = avt_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = avt_default_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(AVTPhysicsController *)v6 removeFromPhysicsWorld:v7, v8, v9, v10, v11, v12, v13];
+      [(AVTPhysicsController *)v7 removeFromPhysicsWorld:v8, v9, v10, v11, v12, v13, v14];
     }
   }
 
   if (self->_physicsBehaviorsAreInstalledInPhysicsWorld)
   {
     self->_physicsBehaviorsAreInstalledInPhysicsWorld = 0;
-    v23 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v14 = self->_physicsRigs;
-    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v15)
+    v15 = self->_physicsRigs;
+    v16 = [NSArray countByEnumeratingWithState:v15 objects:"countByEnumeratingWithState:objects:count:" count:0];
+    if (v16)
     {
-      v16 = v15;
-      v17 = *v24;
+      v17 = v16;
+      v18 = MEMORY[0];
       do
       {
-        v18 = 0;
+        v19 = 0;
         do
         {
-          if (*v24 != v17)
+          if (MEMORY[0] != v18)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v23 + 1) + 8 * v18);
-          if (v19)
+          v20 = *(8 * v19);
+          if (v20)
           {
-            [worldCopy removePhysicsJoint:{*(v19 + 40), v23}];
-            v20 = *(v19 + 16);
+            [worldCopy removePhysicsJoint:?];
+            v21 = *(v20 + 16);
           }
 
           else
           {
             [AVTPhysicsController removeFromPhysicsWorld:worldCopy];
-            v20 = 0;
+            v21 = 0;
           }
 
-          [v20 setPhysicsBody:{0, v23}];
-          ++v18;
+          [v21 setPhysicsBody:?];
+          v19 = (v19 + 1);
         }
 
-        while (v16 != v18);
-        v21 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
-        v16 = v21;
+        while (v17 != v19);
+        v22 = [NSArray countByEnumeratingWithState:v15 objects:"countByEnumeratingWithState:objects:count:" count:?];
+        v17 = v22;
       }
 
-      while (v21);
+      while (v22);
     }
   }
 
   objc_storeWeak(&self->_physicsWorld, 0);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (AVTPhysicsControllerDelegate)delegate
@@ -821,184 +678,150 @@ void __44__AVTPhysicsController__setupCollisionNode___block_invoke(uint64_t a1, 
 void __55__AVTPhysicsController__setupPhysicsChain_physicsRigs___block_invoke(uint64_t a1, void *a2)
 {
   v5 = a2;
-  v64 = objc_alloc_init(AVTPhysicsRig);
-  [(AVTPhysicsRig *)v64 setRig:v5];
-  [(AVTPhysicsRig *)v64 setChainRoot:?];
+  v38 = objc_alloc_init(AVTPhysicsRig);
+  [(AVTPhysicsRig *)v38 setRig:v5];
+  [(AVTPhysicsRig *)v38 setChainRoot:?];
   v6 = [MEMORY[0x1E69DF340] dynamicBody];
-  [v6 setPhysicsShape:*(a1 + 40)];
-  [v6 setCategoryBitMask:3];
-  [v6 setCollisionBitMask:8];
-  [v6 setAffectedByGravity:0];
-  LODWORD(v7) = 1061997773;
-  [v6 setDamping:v7];
-  LODWORD(v8) = 1061997773;
-  [v6 setAngularDamping:v8];
-  [v5 setPhysicsBody:v6];
-  [(AVTPhysicsRig *)v64 setPhysicsBody:v6];
-  [v5 convertPosition:*(a1 + 32) toNode:0.0];
-  v60 = v9;
+  [v6 setPhysicsShape:?];
+  [v6 setCategoryBitMask:?];
+  [v6 setCollisionBitMask:?];
+  [v6 setAffectedByGravity:?];
+  [v6 setDamping:?];
+  [v6 setAngularDamping:?];
+  [v5 setPhysicsBody:?];
+  [(AVTPhysicsRig *)v38 setPhysicsBody:v6];
+  [v5 convertPosition:? toNode:?];
+  v36 = v7;
   OUTLINED_FUNCTION_1_0();
-  [v5 convertPosition:*(v10 + 40) toNode:0.0];
-  v62 = v11;
-  if (v64)
+  [v5 convertPosition:? toNode:?];
+  v37 = v8;
+  if (v38)
   {
-    *v64->_restPosition_chainRoot = v60;
-    [*(a1 + 32) convertVector:0 fromNode:-0.0078125];
-    *v64->_restGravityVector_chainRoot = v12;
+    *v38->_restPosition_chainRoot = v36;
+    [*(a1 + 32) convertVector:? fromNode:?];
+    *v38->_restGravityVector_chainRoot = v9;
   }
 
   else
   {
-    [*(a1 + 32) convertVector:0 fromNode:-0.0078125];
+    [*(a1 + 32) convertVector:? fromNode:?];
   }
 
-  v13 = [v5 name];
-  if (v13)
+  v10 = [v5 name];
+  if (v10)
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 40));
-    v15 = *(a1 + 48);
     v3 = [v5 name];
-    [WeakRetained physicsController:v15 downforceForNodeNamed:v3];
+    [WeakRetained physicsController:? downforceForNodeNamed:?];
   }
 
   else
   {
-    v14 = -1.0;
+    v11 = -1.0;
   }
 
-  if (v64)
+  if (v38)
   {
-    v64->_downForceFactor = v14;
+    v38->_downForceFactor = v11;
   }
 
-  if (v13)
+  if (v10)
   {
   }
 
-  v16 = vmulq_f32(v62, v62);
-  v17 = v16.f32[2] + vaddv_f32(*v16.f32);
-  if (v64)
+  v12 = vmulq_f32(v37, v37);
+  v13 = v12.f32[2] + vaddv_f32(*v12.f32);
+  if (v38)
   {
-    v64->_coneConstraintLength = sqrtf(v17);
-    v64->_coneConstraintSinusAngularLimit = 0.30902;
+    v38->_coneConstraintLength = sqrtf(v13);
+    v38->_coneConstraintSinusAngularLimit = 0.30902;
   }
 
-  v18 = v17;
-  v19 = vrsqrte_f32(LODWORD(v17));
-  v20 = vmul_f32(v19, vrsqrts_f32(LODWORD(v18), vmul_f32(v19, v19)));
-  v21 = vmulq_n_f32(v62, vmul_f32(v20, vrsqrts_f32(LODWORD(v18), vmul_f32(v20, v20))).f32[0]);
-  v22 = vabsq_f32(v21);
-  if (v22.f32[0] >= v22.f32[1])
+  v14 = v13;
+  v15 = vrsqrte_f32(LODWORD(v13));
+  v16 = vmul_f32(v15, vrsqrts_f32(LODWORD(v14), vmul_f32(v15, v15)));
+  v17 = vmulq_n_f32(v37, vmul_f32(v16, vrsqrts_f32(LODWORD(v14), vmul_f32(v16, v16))).f32[0]);
+  v18 = vabsq_f32(v17);
+  if (v18.f32[0] >= v18.f32[1])
   {
-    if (v22.f32[1] < v22.f32[2])
+    if (v18.f32[1] < v18.f32[2])
     {
-      v23.i32[1] = 0;
-      v23.f32[0] = -v21.f32[2];
-      v23.i64[1] = v21.u32[0];
+      v19.i32[1] = 0;
+      v19.f32[0] = -v17.f32[2];
+      v19.i64[1] = v17.u32[0];
       goto LABEL_18;
     }
   }
 
-  else if (v22.f32[0] < v22.f32[2])
+  else if (v18.f32[0] < v18.f32[2])
   {
-    v23.i32[0] = 0;
-    v23.f32[1] = -v21.f32[2];
-    v23.i64[1] = v21.u32[1];
+    v19.i32[0] = 0;
+    v19.f32[1] = -v17.f32[2];
+    v19.i64[1] = v17.u32[1];
     goto LABEL_18;
   }
 
-  v23.i64[1] = 0;
-  v23.f32[0] = -v21.f32[1];
-  v23.i32[1] = v21.i32[0];
+  v19.i64[1] = 0;
+  v19.f32[0] = -v17.f32[1];
+  v19.i32[1] = v17.i32[0];
 LABEL_18:
-  if (v64)
+  if (v38)
   {
-    v24 = vmulq_f32(v23, v23);
-    *&v25 = v24.f32[2] + vaddv_f32(*v24.f32);
-    *v24.f32 = vrsqrte_f32(v25);
-    *v24.f32 = vmul_f32(*v24.f32, vrsqrts_f32(v25, vmul_f32(*v24.f32, *v24.f32)));
-    v26 = vmulq_n_f32(v23, vmul_f32(*v24.f32, vrsqrts_f32(v25, vmul_f32(*v24.f32, *v24.f32))).f32[0]);
-    v27 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v26, v26), v26, 0xCuLL), vnegq_f32(v21)), v26, vextq_s8(vuzp1q_s32(v21, v21), v21, 0xCuLL));
-    *v64->_anon_60 = v21;
-    *&v64->_anon_60[16] = v26;
-    *&v64->_anon_60[32] = vextq_s8(vuzp1q_s32(v27, v27), v27, 0xCuLL);
-  }
-
-  v28 = *MEMORY[0x1E69E9B18];
-  v29 = *(MEMORY[0x1E69E9B18] + 16);
-  v30 = *(MEMORY[0x1E69E9B18] + 32);
-  v31 = *(MEMORY[0x1E69E9B18] + 48);
-  OUTLINED_FUNCTION_1_0();
-  v61 = v34;
-  v63 = v33;
-  v58 = v36;
-  v59 = v35;
-  [v5 convertTransform:*(v32 + 40) fromNode:?];
-  if (v64)
-  {
-    *&v64[1].super.isa = v37;
-    *&v64[1]._rig = v38;
-    *&v64[1]._physicsBody = v39;
-    *&v64[1]._downForceFactor = v40;
+    v20 = vmulq_f32(v19, v19);
+    *&v21 = v20.f32[2] + vaddv_f32(*v20.f32);
+    *v20.f32 = vrsqrte_f32(v21);
+    *v20.f32 = vmul_f32(*v20.f32, vrsqrts_f32(v21, vmul_f32(*v20.f32, *v20.f32)));
+    v22 = vmulq_n_f32(v19, vmul_f32(*v20.f32, vrsqrts_f32(v21, vmul_f32(*v20.f32, *v20.f32))).f32[0]);
+    v23 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v22, v22), v22, 0xCuLL), vnegq_f32(v17)), v22, vextq_s8(vuzp1q_s32(v17, v17), v17, 0xCuLL));
+    *v38->_anon_60 = v17;
+    *&v38->_anon_60[16] = v22;
+    *&v38->_anon_60[32] = vextq_s8(vuzp1q_s32(v23, v23), v23, 0xCuLL);
   }
 
   OUTLINED_FUNCTION_1_0();
-  v43 = *(v42 + 40);
-  v44 = *(a1 + 32);
-  v45 = MEMORY[0x1E69DF348];
-  if (v43 == v44)
+  [v5 convertTransform:? fromNode:?];
+  if (v38)
   {
-    v46 = *(a1 + 56);
+    *&v38[1].super.isa = v24;
+    *&v38[1]._rig = v25;
+    *&v38[1]._physicsBody = v26;
+    *&v38[1]._downForceFactor = v27;
+  }
+
+  OUTLINED_FUNCTION_1_0();
+  v29 = *(v28 + 40);
+  v30 = *(a1 + 32);
+  v31 = MEMORY[0x1E69DF348];
+  if (v29 == v30)
+  {
+    v32 = *(a1 + 56);
   }
 
   else
   {
-    v46 = [v43 physicsBody];
-    v41 = v64;
+    v32 = [v29 physicsBody];
   }
 
-  if (v41)
+  v33 = [v31 jointWithBodyA:? frameA:? bodyB:? frameB:?];
+  if (v29 != v30)
   {
-    v47 = *&v41[1].super.isa;
-    v48 = *&v41[1]._rig;
-    v49 = *&v41[1]._physicsBody;
-    v50 = *&v41[1]._downForceFactor;
   }
 
-  else
-  {
-    *&v49 = 0;
-    *&v48 = 0;
-    *&v47 = 0;
-    *&v50 = 0;
-  }
-
-  v51 = [v45 jointWithBodyA:v46 frameA:v6 bodyB:v63 frameB:{v61, v59, v58, *&v47, *&v48, *&v49, *&v50}];
-  v53 = 0;
-  if (v43 != v44)
-  {
-
-    v53 = 1050728828;
-  }
-
-  LODWORD(v52) = 1050728828;
-  [v51 setMaximumAngularLimit1:v52];
-  LODWORD(v54) = 1050728828;
-  [v51 setMaximumAngularLimit2:v54];
-  LODWORD(v55) = v53;
-  [v51 setMaximumTwistAngle:v55];
-  [(AVTPhysicsRig *)v64 setPhysicsBehavior:v51];
-  [*(a1 + 64) addObject:v64];
+  [v33 setMaximumAngularLimit1:?];
+  [v33 setMaximumAngularLimit2:?];
+  [v33 setMaximumTwistAngle:?];
+  [(AVTPhysicsRig *)v38 setPhysicsBehavior:v33];
+  [*(a1 + 64) addObject:?];
   OUTLINED_FUNCTION_1_0();
-  v57 = *(v56 + 40);
-  *(v56 + 40) = v5;
+  v35 = *(v34 + 40);
+  *(v34 + 40) = v5;
 }
 
 - (void)applyForcesWithMultiplier:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Internal consistency error, at this point we should have a initialized the physcis controller", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_setupDone";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Internal consistency error, at this point we should have a initialized the physcis controller", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __38__AVTPhysicsController_installPhysics__block_invoke_cold_1(uint8_t *buf, void *a2, os_log_t log)
@@ -1009,42 +832,42 @@ void __38__AVTPhysicsController_installPhysics__block_invoke_cold_1(uint8_t *buf
 
 - (void)physicsState
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_physicsRigs";
 }
 
-- (uint64_t)resetToPhysicsState:(uint64_t)a3 assumeRestStateIfNil:(uint64_t)a4 .cold.1(uint64_t a1, id obj, uint64_t a3, uint64_t a4)
+- (void)resetToPhysicsState:(void *)a3 assumeRestStateIfNil:(uint64_t)a4 .cold.1(uint64_t a1, id obj, void *a3, uint64_t a4)
 {
-  v8 = **(a1 + 16);
+  v7 = **(a1 + 16);
   do
   {
-    v9 = 0;
+    v8 = 0;
     do
     {
-      if (**(a1 + 16) != v8)
+      if (**(a1 + 16) != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(a1 + 8) + 8 * v9);
-      if (v10)
+      v9 = *(*(a1 + 8) + 8 * v8);
+      if (v9)
       {
-        v11 = *(v10 + 16);
+        v10 = *(v9 + 16);
       }
 
       else
       {
-        v11 = 0;
+        v10 = 0;
       }
 
-      v12 = [v11 physicsBody];
-      [v12 setResting:0];
+      v11 = [v10 physicsBody];
+      [v11 setResting:?];
 
-      ++v9;
+      v8 = v8 + 1;
     }
 
-    while (a3 != v9);
-    result = [obj countByEnumeratingWithState:a1 objects:a4 count:16];
+    while (a3 != v8);
+    result = [obj countByEnumeratingWithState:? objects:? count:?];
     a3 = result;
   }
 
@@ -1054,16 +877,16 @@ void __38__AVTPhysicsController_installPhysics__block_invoke_cold_1(uint8_t *buf
 
 - (void)addToPhysicsWorld:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. An avatar should not be shared across renderers", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_physicsWorld == nil";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. An avatar should not be shared across renderers", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)removeFromPhysicsWorld:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. An avatar should not be shared across renderers", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_physicsWorld == physicsWorld";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. An avatar should not be shared across renderers", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

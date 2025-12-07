@@ -13,133 +13,129 @@
 - (id)hdhr_electrocardiogramRecordingOnboardingHistoryWithError:()ElectrocardiogramRecording
 {
   v22 = *MEMORY[0x277D85DE8];
-  v4 = *MEMORY[0x277CCBCE8];
+  v5 = *MEMORY[0x277CCBCE8];
   v19 = 0;
-  v5 = [self propertyListValueForKey:v4 error:&v19];
-  v6 = v19;
-  v7 = v6;
-  if (v5)
+  v6 = [self propertyListValueForKey:v5 error:&v19];
+  v7 = v19;
+  v8 = v7;
+  if (v6)
   {
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = v6 == 0;
+    v9 = v7 == 0;
   }
 
-  if (v8)
+  if (v9)
   {
-    v9 = v5;
+    v10 = v6;
   }
 
   else
   {
-    hk_isDatabaseAccessibilityError = [v6 hk_isDatabaseAccessibilityError];
+    hk_isDatabaseAccessibilityError = [v7 hk_isDatabaseAccessibilityError];
     _HKInitializeLogging();
-    v11 = *MEMORY[0x277CCC2D8];
     v12 = *MEMORY[0x277CCC2D8];
+    v13 = *MEMORY[0x277CCC2D8];
     if (hk_isDatabaseAccessibilityError)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = v11;
-        v14 = objc_opt_class();
+        v14 = v12;
+        v15 = objc_opt_class();
         *buf = 138543362;
-        v21 = v14;
-        v15 = v14;
-        _os_log_impl(&dword_229486000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Database is inaccessible; can't determine ECG onboarding history", buf, 0xCu);
+        v21 = v15;
+        v16 = v15;
+        _os_log_impl(&dword_229486000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Database is inaccessible; can't determine ECG onboarding history", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [HDKeyValueDomain(ElectrocardiogramRecording) hdhr_electrocardiogramRecordingOnboardingHistoryWithError:v11];
+      [(HDKeyValueDomain(ElectrocardiogramRecording) *)v12 hdhr_electrocardiogramRecordingOnboardingHistoryWithError:self];
     }
 
     if (a3)
     {
-      v16 = v7;
-      v9 = 0;
-      *a3 = v7;
+      v17 = v8;
+      v10 = 0;
+      *a3 = v8;
     }
 
     else
     {
       _HKLogDroppedError();
-      v9 = 0;
+      v10 = 0;
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 - (id)hdhr_electrocardiogramRecordingFirstOnboardingCompletedDateWithError:()ElectrocardiogramRecording
 {
   v22 = *MEMORY[0x277D85DE8];
-  v4 = *MEMORY[0x277CCBCD0];
+  v5 = *MEMORY[0x277CCBCD0];
   v19 = 0;
-  v5 = [self dateForKey:v4 error:&v19];
-  v6 = v19;
-  v7 = v6;
-  if (v5)
+  v6 = [self dateForKey:v5 error:&v19];
+  v7 = v19;
+  v8 = v7;
+  if (v6)
   {
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = v6 == 0;
+    v9 = v7 == 0;
   }
 
-  if (v8)
+  if (v9)
   {
-    v9 = v5;
+    v10 = v6;
   }
 
   else
   {
-    hk_isDatabaseAccessibilityError = [v6 hk_isDatabaseAccessibilityError];
+    hk_isDatabaseAccessibilityError = [v7 hk_isDatabaseAccessibilityError];
     _HKInitializeLogging();
-    v11 = *MEMORY[0x277CCC2D8];
     v12 = *MEMORY[0x277CCC2D8];
+    v13 = *MEMORY[0x277CCC2D8];
     if (hk_isDatabaseAccessibilityError)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = v11;
-        v14 = objc_opt_class();
+        v14 = v12;
+        v15 = objc_opt_class();
         *buf = 138543362;
-        v21 = v14;
-        v15 = v14;
-        _os_log_impl(&dword_229486000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Database is inaccessible; can't determine first ECG onboarding completion date", buf, 0xCu);
+        v21 = v15;
+        v16 = v15;
+        _os_log_impl(&dword_229486000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Database is inaccessible; can't determine first ECG onboarding completion date", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [HDKeyValueDomain(ElectrocardiogramRecording) hdhr_electrocardiogramRecordingFirstOnboardingCompletedDateWithError:v11];
+      [(HDKeyValueDomain(ElectrocardiogramRecording) *)v12 hdhr_electrocardiogramRecordingFirstOnboardingCompletedDateWithError:self];
     }
 
     if (a3)
     {
-      v16 = v7;
-      v9 = 0;
-      *a3 = v7;
+      v17 = v8;
+      v10 = 0;
+      *a3 = v8;
     }
 
     else
     {
       _HKLogDroppedError();
-      v9 = 0;
+      v10 = 0;
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 - (uint64_t)hdhr_setElectrocardiogramRecordingFirstOnboardingCompletedDate:()ElectrocardiogramRecording error:
@@ -178,16 +174,16 @@
 
 - (id)hdhr_electrocardiogramRecordingOnboardingCountryCodeWithError:()ElectrocardiogramRecording
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([self category] != 105 || (objc_msgSend(self, "domainName"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", *MEMORY[0x277CCE460]), v5, (v6 & 1) == 0))
   {
     [HDKeyValueDomain(ElectrocardiogramRecording) hdhr_electrocardiogramRecordingOnboardingCountryCodeWithError:];
   }
 
   v7 = *MEMORY[0x277CCBCE0];
-  v22 = 0;
-  v8 = [self stringForKey:v7 error:&v22];
-  v9 = v22;
+  v21 = 0;
+  v8 = [self stringForKey:v7 error:&v21];
+  v9 = v21;
   v10 = v9;
   if (v8)
   {
@@ -217,7 +213,7 @@
         v16 = v14;
         v17 = objc_opt_class();
         *buf = 138543362;
-        v24 = v17;
+        v23 = v17;
         v18 = v17;
         _os_log_impl(&dword_229486000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Database is inaccessible; can't determine ECG onboarding country code", buf, 0xCu);
       }
@@ -225,7 +221,7 @@
 
     else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [HDKeyValueDomain(ElectrocardiogramRecording) hdhr_electrocardiogramRecordingOnboardingCountryCodeWithError:v14];
+      [(HDKeyValueDomain(ElectrocardiogramRecording) *)v14 hdhr_electrocardiogramRecordingOnboardingCountryCodeWithError:self];
     }
 
     if (a3)
@@ -241,8 +237,6 @@
       hk_copyNonEmptyString = 0;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return hk_copyNonEmptyString;
 }
@@ -278,26 +272,20 @@
   return [self numberForKey:@"HKElectrocardiogramOnboardingCountryCodeProvenance" error:a3];
 }
 
-- (void)hdhr_electrocardiogramRecordingOnboardingHistoryWithError:()ElectrocardiogramRecording .cold.1(void *a1)
+- (void)hdhr_electrocardiogramRecordingOnboardingHistoryWithError:()ElectrocardiogramRecording .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_2(v2);
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Error reading ECG onboarding history: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_2(v3);
+  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Error reading ECG onboarding history: %{public}@", v7, v8, v9, v10);
 }
 
-- (void)hdhr_electrocardiogramRecordingFirstOnboardingCompletedDateWithError:()ElectrocardiogramRecording .cold.1(void *a1)
+- (void)hdhr_electrocardiogramRecordingFirstOnboardingCompletedDateWithError:()ElectrocardiogramRecording .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_2(v2);
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Error reading first ECG onboarding completion date: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_2(v3);
+  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Error reading first ECG onboarding completion date: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)hdhr_setElectrocardiogramRecordingFirstOnboardingCompletedDate:()ElectrocardiogramRecording error:.cold.1()
@@ -324,15 +312,12 @@
   [v0 handleFailureInMethod:@"self.category == HDKeyValueEntityCategoryProtectedNanoUserDefaults && [self.domainName isEqualToString:kHKHeartRhythmDefaultsDomain]" object:? file:? lineNumber:? description:?];
 }
 
-- (void)hdhr_electrocardiogramRecordingOnboardingCountryCodeWithError:()ElectrocardiogramRecording .cold.2(void *a1)
+- (void)hdhr_electrocardiogramRecordingOnboardingCountryCodeWithError:()ElectrocardiogramRecording .cold.2(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_2(v2);
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Error reading ECG onboarding country code: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_2(v3);
+  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Error reading ECG onboarding country code: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)hdhr_resetElectrocardiogramRecordingFirstOnboardingCompletedDateWithError:()ElectrocardiogramRecording .cold.1()

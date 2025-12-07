@@ -10,6 +10,7 @@
 - (id)specifierForID:(id)d inSpecifiers:(id)specifiers;
 - (id)specifiers;
 - (void)_addKey:(id)key isCopyable:(BOOL)copyable toSpecifiers:(id)specifiers;
+- (void)_addKey:(id)key value:(id)value isCopyable:(BOOL)copyable toSpecifiers:(id)specifiers;
 - (void)_refresh:(id)_refresh;
 - (void)_refreshWithForcedNetworkPolicy:(BOOL)policy forceUpdateFollowup:(BOOL)followup withCompletion:(id)completion;
 - (void)_setValue:(id)value forSpecifier:(id)specifier;
@@ -29,6 +30,7 @@
 - (void)showUI;
 - (void)updateAppStoreLookupWithSpecifiers:(id)specifiers;
 - (void)updateAppSupportSpecifiersWithSpecifiers:(id)specifiers;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation NDOWarrantyInfoController
@@ -50,9 +52,9 @@
 
 - (void)loadView
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, self, a3, "%{public}s: Not signed in to icloud. Leaving...", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOWarrantyInfoController loadView]";
+  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, self, a3, "%{public}s: Not signed in to icloud. Leaving...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __37__NDOWarrantyInfoController_loadView__block_invoke(uint64_t a1)
@@ -65,29 +67,27 @@ void __37__NDOWarrantyInfoController_loadView__block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __37__NDOWarrantyInfoController_loadView__block_invoke_2(uint64_t a1)
+void __37__NDOWarrantyInfoController_loadView__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = _NDOLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = _NDOLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136446210;
-    v7 = "[NDOWarrantyInfoController loadView]_block_invoke_2";
-    _os_log_impl(&dword_25BD8D000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: finished updating warranty", &v6, 0xCu);
+    v7 = 136446210;
+    v8 = "[NDOWarrantyInfoController loadView]_block_invoke_2";
+    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: finished updating warranty", &v7, 0xCu);
   }
 
-  v3 = [*(a1 + 32) specifier];
-  v4 = [v3 propertyForKey:@"NDODeviceInfo"];
+  v5 = [*(a1 + 32) specifier];
+  v6 = [v5 propertyForKey:@"NDODeviceInfo"];
 
-  [*(a1 + 32) postCAEventWithDeviceInfo:v4];
+  [*(a1 + 32) postCAEventWithDeviceInfo:v6];
   [*(a1 + 32) showUI];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postCAEventWithDeviceInfo:(id)info
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   warranty = [infoCopy warranty];
   coverageLocalizedLabel = [warranty coverageLocalizedLabel];
@@ -103,12 +103,10 @@ void __37__NDOWarrantyInfoController_loadView__block_invoke_2(uint64_t a1)
     coverageLocalizedLabel = @"NULL";
   }
 
-  v9 = @"coverageType";
-  v10[0] = coverageLocalizedLabel;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"coverageType";
+  v9[0] = coverageLocalizedLabel;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [MEMORY[0x277D2D0C0] postCAEventFor:@"com.apple.newdeviceoutreach.coverage.viewload" eventDict:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isWarrantyValid
@@ -143,6 +141,14 @@ void __37__NDOWarrantyInfoController_loadView__block_invoke_2(uint64_t a1)
   }
 
   return v13;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = NDOWarrantyInfoController;
+  [(NDOWarrantyInfoController *)&v4 viewDidAppear:appear];
+  [(NDOWarrantyInfoController *)self reloadSpecifiers];
 }
 
 - (void)_refresh:(id)_refresh
@@ -183,10 +189,10 @@ void __38__NDOWarrantyInfoController__refresh___block_invoke(uint64_t a1)
 {
   followupCopy = followup;
   policyCopy = policy;
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   specifier = [(NDOWarrantyInfoController *)self specifier];
-  v47 = [specifier propertyForKey:@"NDODevice"];
+  v46 = [specifier propertyForKey:@"NDODevice"];
 
   specifier2 = [(NDOWarrantyInfoController *)self specifier];
   v10 = [specifier2 propertyForKey:@"NDODeviceInfo"];
@@ -221,9 +227,9 @@ void __38__NDOWarrantyInfoController__refresh___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v59 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]";
-    v60 = 1024;
-    v61 = v12 != 0;
+    v58 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]";
+    v59 = 1024;
+    v60 = v12 != 0;
     _os_log_impl(&dword_25BD8D000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: checking for warranty in settings: %d", buf, 0x12u);
   }
 
@@ -232,11 +238,11 @@ void __38__NDOWarrantyInfoController__refresh___block_invoke(uint64_t a1)
   aBlock[2] = __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke;
   aBlock[3] = &unk_279978418;
   aBlock[4] = self;
-  v57 = v12 != 0;
+  v56 = v12 != 0;
   v18 = v16;
-  v55 = v18;
+  v54 = v18;
   v19 = completionCopy;
-  v56 = v19;
+  v55 = v19;
   v20 = _Block_copy(aBlock);
   v21 = v20;
   if (!v12)
@@ -245,17 +251,17 @@ void __38__NDOWarrantyInfoController__refresh___block_invoke(uint64_t a1)
     {
       if (v18)
       {
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke_90;
-        v50[3] = &unk_279978468;
-        v51 = v20;
-        [v18 forceUpdateSpecifiersAndForceUpdateFollowup:followupCopy withCompletionHandler:v50];
-        v33 = v51;
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke_90;
+        v49[3] = &unk_279978468;
+        v50 = v20;
+        [v18 forceUpdateSpecifiersAndForceUpdateFollowup:followupCopy withCompletionHandler:v49];
+        v33 = v50;
 LABEL_28:
 
 LABEL_39:
-        v23 = v47;
+        v23 = v46;
         goto LABEL_40;
       }
 
@@ -263,7 +269,7 @@ LABEL_39:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v59 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]";
+        v58 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]";
         v44 = "%s: no achostingController, cannot call forceUpdateSpecifiersAndForceUpdateFollowup:withCompletionHandler:";
 LABEL_37:
         _os_log_impl(&dword_25BD8D000, v43, OS_LOG_TYPE_DEFAULT, v44, buf, 0xCu);
@@ -274,13 +280,13 @@ LABEL_37:
     {
       if (v18)
       {
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke_91;
-        v48[3] = &unk_279978468;
-        v49 = v20;
-        [v18 updateSpecifiersWithCompletionHandler:v48];
-        v33 = v49;
+        v47[0] = MEMORY[0x277D85DD0];
+        v47[1] = 3221225472;
+        v47[2] = __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke_91;
+        v47[3] = &unk_279978468;
+        v48 = v20;
+        [v18 updateSpecifiersWithCompletionHandler:v47];
+        v33 = v48;
         goto LABEL_28;
       }
 
@@ -288,7 +294,7 @@ LABEL_37:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v59 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]";
+        v58 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]";
         v44 = "%s: no achostingController, cannot call updateSpecifiersWithCompletionHandler:";
         goto LABEL_37;
       }
@@ -308,8 +314,8 @@ LABEL_37:
     v22 = 0;
   }
 
-  v23 = v47;
-  if (!(v10 | v47))
+  v23 = v46;
+  if (!(v10 | v46))
   {
     v24 = _NDOLogSystem();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -329,16 +335,16 @@ LABEL_37:
 
     else
     {
-      device = v47;
+      device = v46;
     }
 
     deeplinkParams = [(NDOWarrantyInfoController *)self deeplinkParams];
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke_89;
-    v52[3] = &unk_279978440;
-    v53 = v21;
-    [v15 updateDeviceInfoForDevice:device usingPolicy:v22 params:deeplinkParams forceUpdateFollowup:followupCopy withReply:v52];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke_89;
+    v51[3] = &unk_279978440;
+    v52 = v21;
+    [v15 updateDeviceInfoForDevice:device usingPolicy:v22 params:deeplinkParams forceUpdateFollowup:followupCopy withReply:v51];
 
     if (v10)
     {
@@ -357,24 +363,22 @@ LABEL_37:
   }
 
 LABEL_40:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _NDOLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) specifier];
     *buf = 136446722;
-    v20 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]_block_invoke";
-    v21 = 2112;
-    v22 = v5;
-    v23 = 2112;
-    v24 = v3;
+    v19 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]_block_invoke";
+    v20 = 2112;
+    v21 = v5;
+    v22 = 2112;
+    v23 = v3;
     _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: refresh completion: specifier: %@, deviceInfo: %@", buf, 0x20u);
   }
 
@@ -389,9 +393,9 @@ void __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdate
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v20 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]_block_invoke";
-        v21 = 2112;
-        v22 = v3;
+        v19 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]_block_invoke";
+        v20 = 2112;
+        v21 = v3;
         _os_log_impl(&dword_25BD8D000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: isHostSettings == NO, setting specifier deviceInfo: %@", buf, 0x16u);
       }
 
@@ -420,9 +424,9 @@ void __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdate
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v20 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]_block_invoke";
-      v21 = 2112;
-      v22 = v3;
+      v19 = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]_block_invoke";
+      v20 = 2112;
+      v21 = v3;
       _os_log_impl(&dword_25BD8D000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: isHostSettings == YES, setting specifier deviceInfo: %@", buf, 0x16u);
     }
 
@@ -435,15 +439,13 @@ void __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdate
 LABEL_16:
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke_87;
-  v17[3] = &unk_2799783F0;
-  v17[4] = *(a1 + 32);
-  v18 = *(a1 + 48);
-  dispatch_async(MEMORY[0x277D85CD0], v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke_87;
+  v16[3] = &unk_2799783F0;
+  v16[4] = *(a1 + 32);
+  v17 = *(a1 + 48);
+  dispatch_async(MEMORY[0x277D85CD0], v16);
 }
 
 uint64_t __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUpdateFollowup_withCompletion___block_invoke_87(uint64_t a1)
@@ -462,20 +464,18 @@ uint64_t __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUp
 
 - (void)reloadSpecifiers
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-  v4 = 136446466;
-  v5 = "[NDOWarrantyInfoController reloadSpecifiers]";
-  v6 = 2114;
-  v7 = callStackSymbols;
-  _os_log_error_impl(&dword_25BD8D000, self, OS_LOG_TYPE_ERROR, "%{public}s: called off main thread with backtrace: %{public}@", &v4, 0x16u);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136446466;
+  v4 = "[NDOWarrantyInfoController reloadSpecifiers]";
+  v5 = 2114;
+  v6 = callStackSymbols;
+  _os_log_error_impl(&dword_25BD8D000, self, OS_LOG_TYPE_ERROR, "%{public}s: called off main thread with backtrace: %{public}@", &v3, 0x16u);
 }
 
 - (void)updateAppSupportSpecifiersWithSpecifiers:(id)specifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
   specifier = [(NDOWarrantyInfoController *)self specifier];
   v6 = [specifier propertyForKey:@"NDOWarranty"];
@@ -499,8 +499,8 @@ uint64_t __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUp
           appSupportDictionary = [(NDOWarrantyInfoController *)self appSupportDictionary];
           *location = 136446466;
           *&location[4] = "[NDOWarrantyInfoController updateAppSupportSpecifiersWithSpecifiers:]";
-          v19 = 2112;
-          v20 = appSupportDictionary;
+          v18 = 2112;
+          v19 = appSupportDictionary;
           _os_log_impl(&dword_25BD8D000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: appSupport added with appSupportDictionary: %@", location, 0x16u);
         }
 
@@ -520,19 +520,17 @@ uint64_t __96__NDOWarrantyInfoController__refreshWithForcedNetworkPolicy_forceUp
 
       objc_initWeak(location, self);
       v10 = objc_opt_new();
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___block_invoke;
-      v16[3] = &unk_279978490;
-      objc_copyWeak(&v17, location);
-      [v10 appSupportDictionaryWithReply:v16];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___block_invoke;
+      v15[3] = &unk_279978490;
+      objc_copyWeak(&v16, location);
+      [v10 appSupportDictionaryWithReply:v15];
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(location);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___block_invoke(uint64_t a1, void *a2)
@@ -552,7 +550,7 @@ void __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___
 
 void __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setAppSupportDictionary:*(a1 + 32)];
   [WeakRetained updateAppStoreLookupWithSpecifiers:0];
@@ -564,19 +562,17 @@ void __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [WeakRetained appSupportDictionary];
-    v7 = 136446466;
-    v8 = "[NDOWarrantyInfoController updateAppSupportSpecifiersWithSpecifiers:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: appSupport reload completed with appSupportDictionary: %@", &v7, 0x16u);
+    v6 = 136446466;
+    v7 = "[NDOWarrantyInfoController updateAppSupportSpecifiersWithSpecifiers:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: appSupport reload completed with appSupportDictionary: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAppStoreLookupWithSpecifiers:(id)specifiers
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
   appSupportDictionary = [(NDOWarrantyInfoController *)self appSupportDictionary];
 
@@ -594,7 +590,7 @@ void __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___
       intValue = [v9 intValue];
       previousAppSupportAvailabilityType = [(NDOWarrantyInfoController *)self previousAppSupportAvailabilityType];
       -[NDOWarrantyInfoController setPreviousAppSupportAvailabilityType:](self, "setPreviousAppSupportAvailabilityType:", [v9 intValue]);
-      v30 = previousAppSupportAvailabilityType;
+      v29 = previousAppSupportAvailabilityType;
       if (specifiersCopy)
       {
         [specifiersCopy addObject:v10];
@@ -602,8 +598,8 @@ void __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___
 
       else
       {
-        v34[0] = v10;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+        v33[0] = v10;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
         lastDetailSpecifier = [(NDOWarrantyInfoController *)self lastDetailSpecifier];
         if (lastDetailSpecifier)
         {
@@ -620,17 +616,17 @@ void __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___
         identifier = [v14 identifier];
         v18 = v16;
         intValue = v15;
-        [(NDOWarrantyInfoController *)self insertContiguousSpecifiers:v29 afterSpecifierID:identifier animated:v18];
+        [(NDOWarrantyInfoController *)self insertContiguousSpecifiers:v28 afterSpecifierID:identifier animated:v18];
       }
 
-      v32[0] = *MEMORY[0x277D3FE58];
-      v33[0] = objc_opt_class();
-      v32[1] = *MEMORY[0x277D40140];
+      v31[0] = *MEMORY[0x277D3FE58];
+      v32[0] = objc_opt_class();
+      v31[1] = *MEMORY[0x277D40140];
       v19 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D76F30]];
-      v32[2] = *MEMORY[0x277D3FFB8];
-      v33[1] = v19;
-      v33[2] = @"APPSUPPORT";
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
+      v31[2] = *MEMORY[0x277D3FFB8];
+      v32[1] = v19;
+      v32[2] = @"APPSUPPORT";
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
 
       v21 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_286D71538 target:self set:0 get:0 detail:0 cell:4 edit:0];
       [v21 setProperties:v20];
@@ -653,17 +649,15 @@ void __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___
 
         else
         {
-          v25 = v30 != intValue;
-          v31 = v21;
-          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+          v25 = v29 != intValue;
+          v30 = v21;
+          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
           identifier2 = [v10 identifier];
           [(NDOWarrantyInfoController *)self insertContiguousSpecifiers:v26 afterSpecifierID:identifier2 animated:v25];
         }
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)noCoverageInternalSubtitle:(id)subtitle
@@ -683,7 +677,7 @@ void __70__NDOWarrantyInfoController_updateAppSupportSpecifiersWithSpecifiers___
 
 - (id)specifiers
 {
-  v106[2] = *MEMORY[0x277D85DE8];
+  v105[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D3FC48];
   v3 = *(&self->super.super.super.super.super.isa + v2);
   if (v3)
@@ -702,7 +696,7 @@ LABEL_41:
 
   if (v7)
   {
-    v100 = v2;
+    v99 = v2;
     specifier3 = [(NDOWarrantyInfoController *)self specifier];
     v11 = [specifier3 propertyForKey:@"isCoverageCentralContainer"];
     bOOLValue = [v11 BOOLValue];
@@ -713,15 +707,15 @@ LABEL_41:
     coverageHasACLogo = [v7 coverageHasACLogo];
     v14 = MEMORY[0x277D3FE58];
     v15 = MEMORY[0x277D3FFB8];
-    v102 = v12;
+    v101 = v12;
     if (coverageHasACLogo)
     {
-      v105[0] = *MEMORY[0x277D3FE58];
-      v106[0] = objc_opt_class();
-      v105[1] = *MEMORY[0x277D40140];
+      v104[0] = *MEMORY[0x277D3FE58];
+      v105[0] = objc_opt_class();
+      v104[1] = *MEMORY[0x277D40140];
       v16 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D76F30]];
-      v106[1] = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:2];
+      v105[1] = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:2];
 
       v18 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_286D71538 target:self set:0 get:0 detail:0 cell:4 edit:0];
       [v18 setProperties:v17];
@@ -768,7 +762,7 @@ LABEL_21:
         v36 = v35;
 
 LABEL_15:
-        v40 = v102;
+        v40 = v101;
         if (v36 <= 0.0)
         {
           goto LABEL_23;
@@ -786,7 +780,7 @@ LABEL_15:
         v44 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
         [warranty2 setProperty:v44 forKey:@"isCoverageCentralContainer"];
 
-        [v102 addObject:warranty2];
+        [v101 addObject:warranty2];
         warranty6 = [v9 warranty];
         acOfferDisplayDate2 = [warranty6 acLocalizedOfferDesc];
 
@@ -821,7 +815,7 @@ LABEL_15:
     }
 
 LABEL_22:
-    v40 = v102;
+    v40 = v101;
 
 LABEL_23:
     [v5 addObjectsFromArray:v40];
@@ -868,15 +862,15 @@ LABEL_31:
         footer1LinkLabel = [v7 footer1LinkLabel];
         v78 = [v75 stringWithFormat:footer1FormatString2, footer1LinkLabel];
 
-        v40 = v102;
+        v40 = v101;
         [emptyGroupSpecifier3 setProperty:v78 forKey:*MEMORY[0x277D3FF70]];
         v79 = objc_opt_class();
         v80 = NSStringFromClass(v79);
         [emptyGroupSpecifier3 setProperty:v80 forKey:*MEMORY[0x277D3FF48]];
 
         footer1LinkLabel2 = [v7 footer1LinkLabel];
-        v109.location = [v78 rangeOfString:footer1LinkLabel2];
-        v82 = NSStringFromRange(v109);
+        v108.location = [v78 rangeOfString:footer1LinkLabel2];
+        v82 = NSStringFromRange(v108);
         [emptyGroupSpecifier3 setProperty:v82 forKey:*MEMORY[0x277D3FF58]];
 
         v83 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -897,15 +891,15 @@ LABEL_31:
         footer2LinkLabel = [v7 footer2LinkLabel];
         v90 = [v87 stringWithFormat:footer2FormatString2, footer2LinkLabel];
 
-        v40 = v102;
+        v40 = v101;
         [emptyGroupSpecifier4 setProperty:v90 forKey:*MEMORY[0x277D3FF70]];
         v91 = objc_opt_class();
         v92 = NSStringFromClass(v91);
         [emptyGroupSpecifier4 setProperty:v92 forKey:*MEMORY[0x277D3FF48]];
 
         footer2LinkLabel2 = [v7 footer2LinkLabel];
-        v110.location = [v90 rangeOfString:footer2LinkLabel2];
-        v94 = NSStringFromRange(v110);
+        v109.location = [v90 rangeOfString:footer2LinkLabel2];
+        v94 = NSStringFromRange(v109);
         [emptyGroupSpecifier4 setProperty:v94 forKey:*MEMORY[0x277D3FF58]];
 
         v95 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -915,10 +909,10 @@ LABEL_31:
         [v5 addObject:emptyGroupSpecifier4];
       }
 
-      v96 = *(&self->super.super.super.super.super.isa + v100);
-      *(&self->super.super.super.super.super.isa + v100) = v5;
+      v96 = *(&self->super.super.super.super.super.isa + v99);
+      *(&self->super.super.super.super.super.isa + v99) = v5;
 
-      v3 = *(&self->super.super.super.super.super.isa + v100);
+      v3 = *(&self->super.super.super.super.super.isa + v99);
       goto LABEL_41;
     }
 
@@ -933,14 +927,14 @@ LABEL_31:
     {
       v52 = objc_opt_new();
       coverageDetailsArray = [v7 coverageDetailsArray];
-      v103[0] = MEMORY[0x277D85DD0];
-      v103[1] = 3221225472;
-      v103[2] = __39__NDOWarrantyInfoController_specifiers__block_invoke;
-      v103[3] = &unk_2799784B8;
-      v103[4] = self;
-      v104 = v52;
+      v102[0] = MEMORY[0x277D85DD0];
+      v102[1] = 3221225472;
+      v102[2] = __39__NDOWarrantyInfoController_specifiers__block_invoke;
+      v102[3] = &unk_2799784B8;
+      v102[4] = self;
+      v103 = v52;
       v54 = v52;
-      [coverageDetailsArray enumerateObjectsUsingBlock:v103];
+      [coverageDetailsArray enumerateObjectsUsingBlock:v102];
       [v5 addObjectsFromArray:v54];
       lastObject = [v54 lastObject];
       [(NDOWarrantyInfoController *)self setLastDetailSpecifier:lastObject];
@@ -964,15 +958,15 @@ LABEL_30:
       localizedCoverageFooterFormatString2 = [v7 localizedCoverageFooterFormatString];
       v61 = [v59 stringWithFormat:localizedCoverageFooterFormatString2, localizedCoverageFooterFormatString];
 
-      v40 = v102;
+      v40 = v101;
       [v50 setProperty:v61 forKey:*MEMORY[0x277D3FF88]];
       [v50 setProperty:v61 forKey:*MEMORY[0x277D3FF70]];
       v62 = objc_opt_class();
       v63 = NSStringFromClass(v62);
       [v50 setProperty:v63 forKey:*MEMORY[0x277D3FF48]];
 
-      v108.location = [v61 rangeOfString:localizedCoverageFooterFormatString];
-      v64 = NSStringFromRange(v108);
+      v107.location = [v61 rangeOfString:localizedCoverageFooterFormatString];
+      v64 = NSStringFromRange(v107);
       [v50 setProperty:v64 forKey:*MEMORY[0x277D3FF58]];
 
       v65 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -997,7 +991,6 @@ LABEL_30:
 
   v23 = *(&self->super.super.super.super.super.isa + v2);
 LABEL_42:
-  v97 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1013,16 +1006,16 @@ void __39__NDOWarrantyInfoController_specifiers__block_invoke(uint64_t a1, void 
 
 - (void)handleURL:(id)l withCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   lCopy = l;
   completionCopy = completion;
   v8 = _NDOLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v12 = "[NDOWarrantyInfoController handleURL:withCompletion:]";
-    v13 = 2112;
-    v14 = lCopy;
+    v11 = "[NDOWarrantyInfoController handleURL:withCompletion:]";
+    v12 = 2112;
+    v13 = lCopy;
     _os_log_impl(&dword_25BD8D000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: Handle url %@", buf, 0x16u);
   }
 
@@ -1031,11 +1024,9 @@ void __39__NDOWarrantyInfoController_specifiers__block_invoke(uint64_t a1, void 
     [(NDOWarrantyInfoController *)self reloadSpecifiers];
   }
 
-  v10.receiver = self;
-  v10.super_class = NDOWarrantyInfoController;
-  [(NDOWarrantyInfoController *)&v10 handleURL:lCopy withCompletion:completionCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = NDOWarrantyInfoController;
+  [(NDOWarrantyInfoController *)&v9 handleURL:lCopy withCompletion:completionCopy];
 }
 
 - (id)coverageItemSubTitle:(id)title
@@ -1079,7 +1070,7 @@ void __39__NDOWarrantyInfoController_specifiers__block_invoke(uint64_t a1, void 
 
 - (void)managePlanPressed:(id)pressed
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   v4 = _NDOLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -1088,11 +1079,11 @@ void __39__NDOWarrantyInfoController_specifiers__block_invoke(uint64_t a1, void 
   }
 
   v5 = [pressedCopy propertyForKey:@"NDODeviceInfo"];
-  v38 = @"devicetype";
+  v37 = @"devicetype";
   device = [v5 device];
   deviceTypeString = [device deviceTypeString];
-  v39[0] = deviceTypeString;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v38[0] = deviceTypeString;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
 
   [MEMORY[0x277D2D0C0] postCAEventFor:@"com.apple.newdeviceoutreach.coverage.loadmanageplan" eventDict:v8];
   v9 = MEMORY[0x277CEE408];
@@ -1103,13 +1094,13 @@ void __39__NDOWarrantyInfoController_specifiers__block_invoke(uint64_t a1, void 
 
   v13 = [MEMORY[0x277CEE3F8] bagForProfile:@"AppleCare" profileVersion:@"1"];
   v14 = [v13 URLForKey:@"manageSubscriptionsV2Url"];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __47__NDOWarrantyInfoController_managePlanPressed___block_invoke;
-  v36[3] = &unk_2799784E0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __47__NDOWarrantyInfoController_managePlanPressed___block_invoke;
+  v35[3] = &unk_2799784E0;
   v15 = pressedCopy;
-  v37 = v15;
-  v16 = [v14 transformWithBlock:v36];
+  v36 = v15;
+  v16 = [v14 transformWithBlock:v35];
   ams_sharedAccountStore = [MEMORY[0x277CB8F48] ams_sharedAccountStore];
   ams_activeiTunesAccount = [ams_sharedAccountStore ams_activeiTunesAccount];
 
@@ -1125,29 +1116,27 @@ void __39__NDOWarrantyInfoController_specifiers__block_invoke(uint64_t a1, void 
   v27 = [objc_alloc(MEMORY[0x277CEE940]) initWithBag:v13 account:ams_activeiTunesAccount clientInfo:0];
   v28 = [v27 loadBagValue:v16];
   v29 = [[NDOAMSUIWebViewWrapperController alloc] initWithViewController:v27];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __47__NDOWarrantyInfoController_managePlanPressed___block_invoke_189;
-  v35[3] = &unk_2799782A0;
-  v35[4] = self;
-  [(NDOAMSUIWebViewWrapperController *)v29 setDismissBlock:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __47__NDOWarrantyInfoController_managePlanPressed___block_invoke_189;
+  v34[3] = &unk_2799782A0;
+  v34[4] = self;
+  [(NDOAMSUIWebViewWrapperController *)v29 setDismissBlock:v34];
   presentationController = [(NDOAMSUIWebViewWrapperController *)v29 presentationController];
   [presentationController setDelegate:v29];
 
   v31 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v29];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __47__NDOWarrantyInfoController_managePlanPressed___block_invoke_191;
-  v34[3] = &unk_2799782A0;
-  v34[4] = self;
-  [(NDOWarrantyInfoController *)self presentViewController:v31 animated:1 completion:v34];
-
-  v32 = *MEMORY[0x277D85DE8];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __47__NDOWarrantyInfoController_managePlanPressed___block_invoke_191;
+  v33[3] = &unk_2799782A0;
+  v33[4] = self;
+  [(NDOWarrantyInfoController *)self presentViewController:v31 animated:1 completion:v33];
 }
 
 id __47__NDOWarrantyInfoController_managePlanPressed___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 propertyForKey:@"NDODeviceInfo"];
@@ -1162,11 +1151,11 @@ id __47__NDOWarrantyInfoController_managePlanPressed___block_invoke(uint64_t a1,
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v16 = "[NDOWarrantyInfoController managePlanPressed:]_block_invoke";
-    v17 = 2112;
-    v18 = v4;
-    v19 = 2112;
-    v20 = v8;
+    v15 = "[NDOWarrantyInfoController managePlanPressed:]_block_invoke";
+    v16 = 2112;
+    v17 = v4;
+    v18 = 2112;
+    v19 = v8;
     _os_log_impl(&dword_25BD8D000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: deviceInfo: %@ with url: %@", buf, 0x20u);
   }
 
@@ -1174,25 +1163,21 @@ id __47__NDOWarrantyInfoController_managePlanPressed___block_invoke(uint64_t a1,
   v11 = [MEMORY[0x277CBEBC0] URLWithString:v8];
   v12 = [v10 promiseWithResult:v11];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
-uint64_t __47__NDOWarrantyInfoController_managePlanPressed___block_invoke_189(uint64_t a1)
+uint64_t __47__NDOWarrantyInfoController_managePlanPressed___block_invoke_189(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = _NDOLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = _NDOLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446210;
-    v6 = "[NDOWarrantyInfoController managePlanPressed:]_block_invoke";
-    _os_log_impl(&dword_25BD8D000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: refreshing warranty after dismiss", &v5, 0xCu);
+    v6 = 136446210;
+    v7 = "[NDOWarrantyInfoController managePlanPressed:]_block_invoke";
+    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: refreshing warranty after dismiss", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) _refreshWithForcedNetworkPolicy:1 forceUpdateFollowup:0 withCompletion:0];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _refreshWithForcedNetworkPolicy:1 forceUpdateFollowup:0 withCompletion:0];
 }
 
 - (void)footer1Tapped:(id)tapped
@@ -1225,6 +1210,17 @@ uint64_t __47__NDOWarrantyInfoController_managePlanPressed___block_invoke_189(ui
   footer2LinkURL = [v8 footer2LinkURL];
   v7 = [v5 URLWithString:footer2LinkURL];
   [(NDOWarrantyInfoController *)self openURL:v7];
+}
+
+- (void)_addKey:(id)key value:(id)value isCopyable:(BOOL)copyable toSpecifiers:(id)specifiers
+{
+  copyableCopy = copyable;
+  specifiersCopy = specifiers;
+  valueCopy = value;
+  [(NDOWarrantyInfoController *)self _addKey:key isCopyable:copyableCopy toSpecifiers:specifiersCopy];
+  lastObject = [specifiersCopy lastObject];
+
+  [(NDOWarrantyInfoController *)self _setValue:valueCopy forSpecifier:lastObject];
 }
 
 - (void)_addKey:(id)key isCopyable:(BOOL)copyable toSpecifiers:(id)specifiers
@@ -1323,14 +1319,14 @@ void __57__NDOWarrantyInfoController_specifierForID_inSpecifiers___block_invoke(
 
 - (void)ndoAppleCareCoveragePressed:(id)pressed
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   v5 = _NDOLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 136315138;
-    v27 = "[NDOWarrantyInfoController ndoAppleCareCoveragePressed:]";
-    _os_log_impl(&dword_25BD8D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v26, 0xCu);
+    v25 = 136315138;
+    v26 = "[NDOWarrantyInfoController ndoAppleCareCoveragePressed:]";
+    _os_log_impl(&dword_25BD8D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v25, 0xCu);
   }
 
   v6 = [pressedCopy propertyForKey:@"NDODeviceInfo"];
@@ -1395,19 +1391,17 @@ LABEL_12:
 LABEL_13:
   [v21 setModalInPresentation:1];
   [(NDOWarrantyInfoController *)self presentViewController:v21 animated:1 completion:0];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)outreachFinishedForDeviceWithSerialNumber:(id)number withCompletion:(unint64_t)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   v7 = _NDOLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[NDOWarrantyInfoController outreachFinishedForDeviceWithSerialNumber:withCompletion:]";
+    v15 = "[NDOWarrantyInfoController outreachFinishedForDeviceWithSerialNumber:withCompletion:]";
     _os_log_impl(&dword_25BD8D000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -1424,12 +1418,12 @@ LABEL_13:
   }
 
   v9 = objc_opt_new();
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_217;
-  v12[3] = &unk_279978278;
-  v13 = numberCopy;
-  [v9 dismissFollowUpForSerialNumber:v13 completion:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_217;
+  v11[3] = &unk_279978278;
+  v12 = numberCopy;
+  [v9 dismissFollowUpForSerialNumber:v12 completion:v11];
   if (completion == 2)
   {
     v8[2](v8);
@@ -1437,12 +1431,12 @@ LABEL_13:
     goto LABEL_9;
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_225;
-  v11[3] = &unk_2799782A0;
-  v11[4] = self;
-  dispatch_async(MEMORY[0x277D85CD0], v11);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_225;
+  v10[3] = &unk_2799782A0;
+  v10[4] = self;
+  dispatch_async(MEMORY[0x277D85CD0], v10);
 
   if (completion != 3 && completion != 5)
   {
@@ -1451,8 +1445,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke(uint64_t a1)
@@ -1471,7 +1463,7 @@ void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_w
 
 void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (*(a1 + 40) == 2)
@@ -1480,81 +1472,74 @@ void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_w
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v8 = "[NDOWarrantyInfoController outreachFinishedForDeviceWithSerialNumber:withCompletion:]_block_invoke_2";
+      v7 = "[NDOWarrantyInfoController outreachFinishedForDeviceWithSerialNumber:withCompletion:]_block_invoke_2";
       _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Refreshing device info after purchase done", buf, 0xCu);
     }
 
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_215;
-    v6[3] = &unk_2799782A0;
-    v6[4] = v3;
-    [v3 _refreshWithForcedNetworkPolicy:1 forceUpdateFollowup:1 withCompletion:v6];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_215;
+    v5[3] = &unk_2799782A0;
+    v5[4] = v3;
+    [v3 _refreshWithForcedNetworkPolicy:1 forceUpdateFollowup:1 withCompletion:v5];
   }
 
   else
   {
     [WeakRetained dismissViewControllerAnimated:1 completion:0];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_215(uint64_t a1)
+void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_215(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = _NDOLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = 136446210;
-    v6 = "[NDOWarrantyInfoController outreachFinishedForDeviceWithSerialNumber:withCompletion:]_block_invoke";
-    _os_log_impl(&dword_25BD8D000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: Device info refreshed after purchase done", &v5, 0xCu);
-  }
-
-  [*(a1 + 32) dismissViewControllerAnimated:1 completion:0];
-  v3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v3 postNotificationName:@"NDOPurchaseCompletedNotification" object:0];
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_217(uint64_t a1, int a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = _NDOLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"Failed to dismiss";
+    v6 = 136446210;
+    v7 = "[NDOWarrantyInfoController outreachFinishedForDeviceWithSerialNumber:withCompletion:]_block_invoke";
+    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Device info refreshed after purchase done", &v6, 0xCu);
+  }
+
+  [*(a1 + 32) dismissViewControllerAnimated:1 completion:0];
+  v5 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v5 postNotificationName:@"NDOPurchaseCompletedNotification" object:0];
+}
+
+void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_217(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a2;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = _NDOLogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"Failed to dismiss";
     v9 = "[NDOWarrantyInfoController outreachFinishedForDeviceWithSerialNumber:withCompletion:]_block_invoke";
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     v8 = 136446722;
-    if (a2)
+    if (v3)
     {
-      v5 = @"Dismissed";
+      v6 = @"Dismissed";
     }
 
     v10 = 2114;
-    v11 = v5;
+    v11 = v6;
     v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_25BD8D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: %{public}@ followup up for %@", &v8, 0x20u);
+    v13 = v7;
+    _os_log_impl(&dword_25BD8D000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: %{public}@ followup up for %@", &v8, 0x20u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_2_226()
+void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_withCompletion___block_invoke_2_226(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = _NDOLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = _NDOLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136446210;
-    v3 = "[NDOWarrantyInfoController outreachFinishedForDeviceWithSerialNumber:withCompletion:]_block_invoke_2";
-    _os_log_impl(&dword_25BD8D000, v0, OS_LOG_TYPE_DEFAULT, "%{public}s: Device info refreshed only.", &v2, 0xCu);
+    v4 = 136446210;
+    v5 = "[NDOWarrantyInfoController outreachFinishedForDeviceWithSerialNumber:withCompletion:]_block_invoke_2";
+    _os_log_impl(&dword_25BD8D000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: Device info refreshed only.", &v4, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_noAccountConfig
@@ -1644,43 +1629,41 @@ void __86__NDOWarrantyInfoController_outreachFinishedForDeviceWithSerialNumber_w
 
 - (void)postCAEventWithDeviceInfo:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136446467;
-  v4 = "[NDOWarrantyInfoController postCAEventWithDeviceInfo:]";
-  v5 = 2113;
-  v6 = a1;
-  _os_log_error_impl(&dword_25BD8D000, a2, OS_LOG_TYPE_ERROR, "%{public}s: coverageLocalizedLabel nil with deviceInfo: %{private}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136446467;
+  v3 = "[NDOWarrantyInfoController postCAEventWithDeviceInfo:]";
+  v4 = 2113;
+  v5 = a1;
+  _os_log_error_impl(&dword_25BD8D000, a2, OS_LOG_TYPE_ERROR, "%{public}s: coverageLocalizedLabel nil with deviceInfo: %{private}@", &v2, 0x16u);
 }
 
 - (void)_refreshWithForcedNetworkPolicy:(uint64_t)a3 forceUpdateFollowup:(uint64_t)a4 withCompletion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, a1, a3, "%{public}s: cannot load warranty: no deviceInfo or device to make query", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]";
+  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, a1, a3, "%{public}s: cannot load warranty: no deviceInfo or device to make query", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_refreshWithForcedNetworkPolicy:(uint64_t)a3 forceUpdateFollowup:(uint64_t)a4 withCompletion:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, a1, a3, "%s: no settingshostingController, cannot call updateDeviceInfoForDevice:usingPolicy:params:forceUpdateFollowup:withReply:", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NDOWarrantyInfoController _refreshWithForcedNetworkPolicy:forceUpdateFollowup:withCompletion:]";
+  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, a1, a3, "%s: no settingshostingController, cannot call updateDeviceInfoForDevice:usingPolicy:params:forceUpdateFollowup:withReply:", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)managePlanPressed:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "[NDOWarrantyInfoController managePlanPressed:]";
-  _os_log_debug_impl(&dword_25BD8D000, log, OS_LOG_TYPE_DEBUG, "%{public}s:", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "[NDOWarrantyInfoController managePlanPressed:]";
+  _os_log_debug_impl(&dword_25BD8D000, log, OS_LOG_TYPE_DEBUG, "%{public}s:", &v1, 0xCu);
 }
 
 - (void)managePlanPressed:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, a1, a3, "%{public}s: No active itunes account", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NDOWarrantyInfoController managePlanPressed:]";
+  OUTLINED_FUNCTION_0_2(&dword_25BD8D000, a1, a3, "%{public}s: No active itunes account", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

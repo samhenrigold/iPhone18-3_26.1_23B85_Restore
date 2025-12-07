@@ -18,7 +18,7 @@
 
 - (void)dealloc
 {
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(ATXProactivePredictionClientHelper *)v3 dealloc];
@@ -50,12 +50,12 @@
   return xpcConnection;
 }
 
-void __52__ATXProactivePredictionClientHelper__getConnection__block_invoke()
+void __52__ATXProactivePredictionClientHelper__getConnection__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __52__ATXProactivePredictionClientHelper__getConnection__block_invoke_cold_1(v0);
+    __52__ATXProactivePredictionClientHelper__getConnection__block_invoke_cold_1(v2);
   }
 }
 
@@ -80,19 +80,20 @@ void __109__ATXProactivePredictionClientHelper_parameterSuggestionsForBundleID_i
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_action_prediction(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __109__ATXProactivePredictionClientHelper_parameterSuggestionsForBundleID_intentName_toolID_limit_withCompletion___block_invoke_cold_1(v6, v7);
+      __109__ATXProactivePredictionClientHelper_parameterSuggestionsForBundleID_intentName_toolID_limit_withCompletion___block_invoke_cold_1(v7, v8);
     }
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v9 = *(a1 + 32);
+  if (v9)
   {
-    (*(v8 + 16))(v8, v5, v6);
+    (*(v9 + 16))(v9, v5, v7);
   }
 }
 
@@ -163,10 +164,10 @@ void __73__ATXProactivePredictionClientHelper_suggestionMetadataForActions_error
   if (v7)
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
-    v8 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_action_prediction(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __73__ATXProactivePredictionClientHelper_suggestionMetadataForActions_error___block_invoke_cold_1(v7, v8);
+      __73__ATXProactivePredictionClientHelper_suggestionMetadataForActions_error___block_invoke_cold_1(v7, v9);
     }
   }
 
@@ -178,20 +179,18 @@ void __73__ATXProactivePredictionClientHelper_suggestionMetadataForActions_error
 
 void __109__ATXProactivePredictionClientHelper_parameterSuggestionsForBundleID_intentName_toolID_limit_withCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_260DCE000, a2, OS_LOG_TYPE_ERROR, "Failed to get parameter suggestions: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_260DCE000, a2, OS_LOG_TYPE_ERROR, "Failed to get parameter suggestions: %@", &v2, 0xCu);
 }
 
 void __73__ATXProactivePredictionClientHelper_suggestionMetadataForActions_error___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_260DCE000, a2, OS_LOG_TYPE_ERROR, "Failed to get action suggestion metadata: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_260DCE000, a2, OS_LOG_TYPE_ERROR, "Failed to get action suggestion metadata: %@", &v2, 0xCu);
 }
 
 @end

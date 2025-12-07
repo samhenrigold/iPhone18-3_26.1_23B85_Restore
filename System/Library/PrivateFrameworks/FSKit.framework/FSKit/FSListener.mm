@@ -56,7 +56,7 @@ LABEL_8:
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = fskit_std_log();
+  v6 = fskit_std_log(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *v8 = 0;

@@ -4,6 +4,7 @@
 - (ASDCellularSettings)initWithIdentity:(id)identity;
 - (id)_cellularSettings;
 - (int64_t)cellularDataPrompt;
+- (void)setAllowAutomaticDownloads:(BOOL)downloads;
 - (void)setCellularDataPrompt:(int64_t)prompt;
 @end
 
@@ -41,6 +42,12 @@
   }
 
   return v7;
+}
+
+- (void)setAllowAutomaticDownloads:(BOOL)downloads
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:downloads];
+  CFPreferencesSetAppValue(@"AllowAutoDownloadOnCellular", v3, @"com.apple.itunesstored");
 }
 
 - (int64_t)cellularDataPrompt

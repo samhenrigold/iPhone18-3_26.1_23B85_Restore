@@ -161,18 +161,19 @@
 
 - (id)calculateHDRStatsForImage:(id)image
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   [image extent];
-  x = v43.origin.x;
-  y = v43.origin.y;
-  width = v43.size.width;
-  height = v43.size.height;
-  if (CGRectIsEmpty(v43) || (v44.origin.x = x, v44.origin.y = y, v44.size.width = width, v44.size.height = height, CGRectIsInfinite(v44)))
+  x = v45.origin.x;
+  y = v45.origin.y;
+  width = v45.size.width;
+  height = v45.size.height;
+  IsEmpty = CGRectIsEmpty(v45);
+  if (IsEmpty || (v46.origin.x = x, v46.origin.y = y, v46.size.width = width, v46.size.height = height, IsEmpty = CGRectIsInfinite(v46)))
   {
-    v9 = ci_logger_api();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = ci_logger_api(IsEmpty, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [CIContext(CalculateHDRStats) calculateHDRStatsForImage:v9];
+      [CIContext(CalculateHDRStats) calculateHDRStatsForImage:v11];
     }
 
     return 0;
@@ -180,45 +181,45 @@
 
   else
   {
-    v11 = objc_autoreleasePoolPush();
-    v12 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F100]);
-    v13 = [image imageByColorMatchingWorkingSpaceToColorSpace:v12];
-    CGColorSpaceRelease(v12);
-    v14 = [v13 imageByApplyingFilter:@"CIMaximumComponent"];
-    memset(&v41, 0, sizeof(v41));
-    CGAffineTransformMakeScale(&v41, 0.125, 0.125);
-    v38 = v41;
-    [objc_msgSend(v14 imageByApplyingTransform:{&v38), "extent"}];
-    v16 = v15;
+    v13 = objc_autoreleasePoolPush();
+    v14 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F100]);
+    v15 = [image imageByColorMatchingWorkingSpaceToColorSpace:v14];
+    CGColorSpaceRelease(v14);
+    v16 = [v15 imageByApplyingFilter:@"CIMaximumComponent"];
+    memset(&v43, 0, sizeof(v43));
+    CGAffineTransformMakeScale(&v43, 0.125, 0.125);
+    v40 = v43;
+    [objc_msgSend(v16 imageByApplyingTransform:{&v40), "extent"}];
     v18 = v17;
     v20 = v19;
     v22 = v21;
-    imageByClampingToExtent = [v14 imageByClampingToExtent];
-    v38 = v41;
-    v24 = [objc_msgSend(imageByClampingToExtent imageByApplyingTransform:&v38 highQualityDownsample:{1), "imageByCroppingToRect:", v16, v18, v20, v22}];
-    v39 = @"inputExtent";
-    [v24 extent];
-    v40 = [CIVector vectorWithCGRect:?];
-    v25 = [v24 imageByApplyingFilter:@"CIAreaAverageMaximumRed" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v40, &v39, 1)}];
-    v41.a = 0.0;
-    v41.b = 0.0;
-    v26 = [[CIRenderDestination alloc] initWithBitmapData:&v41 width:1 height:1 bytesPerRow:16 format:2056];
-    v27 = v26;
-    [(CIRenderDestination *)v26 setColorSpace:0];
-    [(CIRenderTask *)[(CIContext *)self startTaskToRender:v25 fromRect:v26 toDestination:0 atPoint:0.0 error:0.0 waitUntilCompletedAndReturnError:1.0, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)], "waitUntilCompletedAndReturnError:", 0];
-    _H0 = LOWORD(v41.a);
+    v24 = v23;
+    imageByClampingToExtent = [v16 imageByClampingToExtent];
+    v40 = v43;
+    v26 = [objc_msgSend(imageByClampingToExtent imageByApplyingTransform:&v40 highQualityDownsample:{1), "imageByCroppingToRect:", v18, v20, v22, v24}];
+    v41 = @"inputExtent";
+    [v26 extent];
+    v42 = [CIVector vectorWithCGRect:?];
+    v27 = [v26 imageByApplyingFilter:@"CIAreaAverageMaximumRed" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v42, &v41, 1)}];
+    v43.a = 0.0;
+    v43.b = 0.0;
+    v28 = [[CIRenderDestination alloc] initWithBitmapData:&v43 width:1 height:1 bytesPerRow:16 format:2056];
+    v29 = v28;
+    [(CIRenderDestination *)v28 setColorSpace:0];
+    [(CIRenderTask *)[(CIContext *)self startTaskToRender:v27 fromRect:v28 toDestination:0 atPoint:0.0 error:0.0 waitUntilCompletedAndReturnError:1.0, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)], "waitUntilCompletedAndReturnError:", 0];
+    _H0 = LOWORD(v43.a);
     __asm { FCVT            D0, H0 }
 
-    *&v16 = fmax(_D0, 1.0);
-    LOWORD(_D0) = WORD1(v41.a);
+    *&v18 = fmax(_D0, 1.0);
+    LOWORD(_D0) = WORD1(v43.a);
     __asm { FCVT            D0, H0 }
 
-    *&v18 = fmax(_D0, 0.0);
-    objc_autoreleasePoolPop(v11);
-    LODWORD(v35) = LODWORD(v16);
-    v36 = [image imageBySettingContentHeadroom:v35];
+    *&v20 = fmax(_D0, 0.0);
+    objc_autoreleasePoolPop(v13);
     LODWORD(v37) = LODWORD(v18);
-    return [v36 imageBySettingContentAverageLightLevel:v37];
+    v38 = [image imageBySettingContentHeadroom:v37];
+    LODWORD(v39) = LODWORD(v20);
+    return [v38 imageBySettingContentAverageLightLevel:v39];
   }
 }
 
@@ -290,26 +291,32 @@
 
 - (void)lock
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock((self->_priv + 8));
   _internalContext = [(CIContext *)self _internalContext];
   v4 = _internalContext[19] + 1;
-  if (CI_KDEBUG())
+  v5 = CI_KDEBUG();
+  if (v5)
   {
     (*(*_internalContext + 280))(_internalContext);
-    kdebug_trace();
+    v5 = kdebug_trace();
   }
 
-  v5 = ci_signpost_log_render();
-  v6 = (*(*_internalContext + 280))(_internalContext) << 32;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v7 = ci_signpost_log_render(v5, v6);
+  v8 = (*(*_internalContext + 280))(_internalContext);
+  v10 = v8 << 32;
+  if (((v8 << 32) - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = 134217984;
-    v8 = v4;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v6, "render_lock", "frame %lu", &v7, 0xCu);
+    v8 = os_signpost_enabled(v7);
+    if (v8)
+    {
+      v11 = 134217984;
+      v12 = v4;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v10, "render_lock", "frame %lu", &v11, 0xCu);
+    }
   }
 
-  if (CI_PRINT_TIME() >= 2)
+  if (CI_PRINT_TIME(v8, v9) >= 2)
   {
     _internalContext[41] = 0;
     *(_internalContext + 42) = CFAbsoluteTimeGetCurrent();
@@ -323,22 +330,23 @@
 
 - (void)unlock
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   _internalContext = [(CIContext *)self _internalContext];
-  if (CI_KDEBUG())
+  v4 = CI_KDEBUG();
+  if (v4)
   {
     (*(*_internalContext + 280))(_internalContext);
-    kdebug_trace();
+    v4 = kdebug_trace();
   }
 
-  v4 = ci_signpost_log_render();
-  v5 = (*(*_internalContext + 280))(_internalContext) << 32;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v6 = ci_signpost_log_render(v4, v5);
+  v7 = (*(*_internalContext + 280))(_internalContext) << 32;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    v6 = _internalContext[19];
-    v7 = 134217984;
-    v8 = v6;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v5, "render_lock", "frame %lu", &v7, 0xCu);
+    v8 = _internalContext[19];
+    v9 = 134217984;
+    v10 = v8;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v7, "render_lock", "frame %lu", &v9, 0xCu);
   }
 
   CI::Context::endFrame(_internalContext);
@@ -353,7 +361,7 @@
 - (BOOL)loadArchiveWithURL:(id)l
 {
   _internalContext = [(CIContext *)self _internalContext];
-  if (((*_internalContext)[2])(_internalContext) == 85)
+  if ((*_internalContext)[2](_internalContext) == 85)
   {
     v5 = [CIContext loadArchiveWithURL:l];
     if (v5)
@@ -376,7 +384,7 @@
   if (l)
   {
     _internalContext = [(CIContext *)self _internalContext];
-    if (((*_internalContext)[2])(_internalContext) == 85)
+    if ((*_internalContext)[2](_internalContext) == 85)
     {
       v7 = [CIContext loadArchiveWithName:name fromURL:l];
       if (v7)
@@ -403,7 +411,7 @@
 - (BOOL)loadArchive:(id)archive
 {
   _internalContext = [(CIContext *)self _internalContext];
-  if (((*_internalContext)[2])(_internalContext) == 85)
+  if ((*_internalContext)[2](_internalContext) == 85)
   {
     v5 = [CIContext loadArchive:archive];
     if (v5)
@@ -423,54 +431,54 @@
 
 + (BOOL)loadArchiveWithURL:(id)l
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v4 = CI_ARCHIVE_USAGE_MODE();
   if (v4)
   {
     if ((CI_DISABLE_LOADING_ARCHIVES() & 1) == 0)
     {
       v5 = [objc_msgSend(objc_msgSend(l "absoluteString")];
-      v6 = CI_DISABLE_LOADING_ARCHIVES_BY_NAME();
-      if (!v6 || (v6 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithCString:CI_DISABLE_LOADING_ARCHIVES_BY_NAME() encoding:{1), "containsString:", v5}], (v6 & 1) == 0))
+      v7 = CI_DISABLE_LOADING_ARCHIVES_BY_NAME(v5, v6);
+      if (!v7 || (v7 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithCString:CI_DISABLE_LOADING_ARCHIVES_BY_NAME(v7 encoding:{v8), 1), "containsString:", v5}], (v7 & 1) == 0))
       {
-        v7 = CI::MetalContext::binaryArchiveCache(v6);
-        objc_sync_enter(v7);
-        v8 = [v7 objectForKey:v5];
-        if (!v8)
+        v9 = CI::MetalContext::binaryArchiveCache(v7);
+        objc_sync_enter(v9);
+        v10 = [v9 objectForKey:v5];
+        if (!v10)
         {
-          v9 = CILoadBinaryArchive(l);
-          if (!v9)
+          v11 = CILoadBinaryArchive(l);
+          if (!v11)
           {
-            v11 = ci_logger_api();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+            v16 = ci_logger_api(0, v12);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               +[CIContext loadArchiveWithURL:];
             }
 
-            [v7 setObject:MEMORY[0x1E695E0F8] forKey:v5];
-            objc_sync_exit(v7);
+            [v9 setObject:MEMORY[0x1E695E0F8] forKey:v5];
+            objc_sync_exit(v9);
             goto LABEL_14;
           }
 
-          v17 = @"bin";
-          v18[0] = v9;
-          v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-          [v7 setObject:v8 forKey:v5];
-          v10 = ci_logger_api();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          v22 = @"bin";
+          v23[0] = v11;
+          v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+          v13 = [v9 setObject:v10 forKey:v5];
+          v15 = ci_logger_api(v13, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            v13 = 136446466;
-            v14 = "+[CIContext loadArchiveWithURL:]";
-            v15 = 2114;
+            v18 = 136446466;
+            v19 = "+[CIContext loadArchiveWithURL:]";
+            v20 = 2114;
             lCopy = l;
-            _os_log_impl(&dword_19CC36000, v10, OS_LOG_TYPE_INFO, "%{public}s Loaded CoreImage stitched libraries binary archive from url %{public}@", &v13, 0x16u);
+            _os_log_impl(&dword_19CC36000, v15, OS_LOG_TYPE_INFO, "%{public}s Loaded CoreImage stitched libraries binary archive from url %{public}@", &v18, 0x16u);
           }
         }
 
-        objc_sync_exit(v7);
-        if (v8)
+        objc_sync_exit(v9);
+        if (v10)
         {
-          LOBYTE(v4) = [v8 count] != 0;
+          LOBYTE(v4) = [v10 count] != 0;
           return v4;
         }
       }
@@ -485,14 +493,23 @@ LABEL_14:
 
 + (BOOL)loadArchiveWithName:(id)name fromURL:(id)l
 {
-  if (!l || CI_DISABLE_LOADING_ARCHIVES_BY_NAME() && ([objc_msgSend(MEMORY[0x1E696AEC0] stringWithCString:CI_DISABLE_LOADING_ARCHIVES_BY_NAME() encoding:{1), "containsString:", name}] & 1) != 0)
+  if (!l)
   {
     return 0;
   }
 
-  v7 = [l URLByAppendingPathComponent:{objc_msgSend(name, "stringByAppendingString:", @"_bin.metallib"}];
+  v6 = CI_DISABLE_LOADING_ARCHIVES_BY_NAME(self, a2);
+  if (v6)
+  {
+    if ([objc_msgSend(MEMORY[0x1E696AEC0] stringWithCString:CI_DISABLE_LOADING_ARCHIVES_BY_NAME(v6 encoding:{v7), 1), "containsString:", name}])
+    {
+      return 0;
+    }
+  }
 
-  return [CIContext loadArchiveWithURL:v7];
+  v9 = [l URLByAppendingPathComponent:{objc_msgSend(name, "stringByAppendingString:", @"_bin.metallib"}];
+
+  return [CIContext loadArchiveWithURL:v9];
 }
 
 + (BOOL)loadArchive:(id)archive
@@ -551,15 +568,16 @@ LABEL_14:
   (*(*_internalContext + 336))(_internalContext);
   if ([key isEqual:@"output_color_space"])
   {
-    if (CI::ColorSpace_is_RGB_or_Gray_and_supports_output(object, v8))
+    is_RGB_or_Gray_and_supports_output = CI::ColorSpace_is_RGB_or_Gray_and_supports_output(object, v8);
+    if (is_RGB_or_Gray_and_supports_output)
     {
 
       CI::Context::updateColorSpace(v7, object);
       return;
     }
 
-    v10 = ci_logger_api();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v14 = ci_logger_api(is_RGB_or_Gray_and_supports_output, v10);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       return;
     }
@@ -571,10 +589,11 @@ LABEL_26:
 
   if ([key isEqual:@"working_color_space"])
   {
-    if (!CI::ColorSpace_is_RGB_or_Gray_and_supports_output(object, v9))
+    v12 = CI::ColorSpace_is_RGB_or_Gray_and_supports_output(object, v11);
+    if (!v12)
     {
-      v11 = ci_logger_api();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v17 = ci_logger_api(v12, v13);
+      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         return;
       }
@@ -589,10 +608,11 @@ LABEL_26:
   if ([key isEqual:@"kCIContextName"])
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v13 = ci_logger_api();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v19 = ci_logger_api(isKindOfClass, v16);
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         return;
       }
@@ -607,9 +627,9 @@ LABEL_26:
   if ([key isEqual:@"quality"])
   {
     [object floatValue];
-    v12 = *(*v7 + 200);
+    v18 = *(*v7 + 200);
 
-    v12(v7);
+    v18(v7);
     return;
   }
 
@@ -617,9 +637,9 @@ LABEL_26:
   {
     if (object == MEMORY[0x1E695E118])
     {
-      v14 = *(*v7 + 216);
-      v15 = v7;
-      v16 = 1;
+      v20 = *(*v7 + 216);
+      v21 = v7;
+      v22 = 1;
     }
 
     else
@@ -629,9 +649,9 @@ LABEL_26:
         return;
       }
 
-      v14 = *(*v7 + 216);
-      v15 = v7;
-      v16 = 0;
+      v20 = *(*v7 + 216);
+      v21 = v7;
+      v22 = 0;
     }
 
     goto LABEL_62;
@@ -654,10 +674,11 @@ LABEL_26:
 
   if (![key isEqual:@"kCIContextHLGOpticalScale"])
   {
-    if (![key isEqual:@"kCIContextLossyCompressedIntermediates"])
+    v27 = [key isEqual:@"kCIContextLossyCompressedIntermediates"];
+    if (!v27)
     {
-      v20 = ci_logger_api();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v30 = ci_logger_api(v27, v28);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [CIContext setObject:forKey:];
       }
@@ -667,17 +688,17 @@ LABEL_26:
 
     if (object == MEMORY[0x1E695E118])
     {
-      v14 = *(*v7 + 168);
-      v15 = v7;
-      v16 = 1;
+      v20 = *(*v7 + 168);
+      v21 = v7;
+      v22 = 1;
     }
 
     else
     {
       if (object != MEMORY[0x1E695E110])
       {
-        v19 = ci_logger_api();
-        if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v29 = ci_logger_api(v27, v28);
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           return;
         }
@@ -685,23 +706,24 @@ LABEL_26:
         goto LABEL_26;
       }
 
-      v14 = *(*v7 + 168);
-      v15 = v7;
-      v16 = 0;
+      v20 = *(*v7 + 168);
+      v21 = v7;
+      v22 = 0;
     }
 
 LABEL_62:
-    v14(v15, v16);
+    v20(v21, v22);
     return;
   }
 
   if (key)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v24 = objc_opt_isKindOfClass();
+    if ((v24 & 1) == 0)
     {
-      v21 = ci_logger_api();
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v31 = ci_logger_api(v24, v25);
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         return;
       }
@@ -710,16 +732,16 @@ LABEL_62:
     }
 
     [key floatValue];
-    v18 = *(*v7 + 152);
+    v26 = *(*v7 + 152);
   }
 
   else
   {
-    v18 = *(*v7 + 152);
-    v17.n128_u64[0] = 0;
+    v26 = *(*v7 + 152);
+    v23.n128_u64[0] = 0;
   }
 
-  v18(v7, v17);
+  v26(v7, v23);
 }
 
 - (id)objectForKey:(id)key
@@ -812,18 +834,19 @@ LABEL_28:
     return [v9 numberWithFloat:?];
   }
 
-  if ([key isEqual:@"kCIContextLossyCompressedIntermediates"])
+  v11 = [key isEqual:@"kCIContextLossyCompressedIntermediates"];
+  if (v11)
   {
-    v11 = MEMORY[0x1E696AD98];
-    v12 = (*(*v5 + 176))(v5);
+    v13 = MEMORY[0x1E696AD98];
+    v14 = (*(*v5 + 176))(v5);
 
-    return [v11 numberWithBool:v12];
+    return [v13 numberWithBool:v14];
   }
 
   else
   {
-    v13 = ci_logger_api();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = ci_logger_api(v11, v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [CIContext objectForKey:];
     }
@@ -853,152 +876,161 @@ LABEL_28:
 - (CIContext)initWithOptions:(NSDictionary *)options
 {
   v5 = objc_autoreleasePoolPush();
-  v26.receiver = self;
-  v26.super_class = CIContext;
-  v6 = [(CIContext *)&v26 init];
+  v40.receiver = self;
+  v40.super_class = CIContext;
+  v6 = [(CIContext *)&v40 init];
   if (!v6)
   {
-    goto LABEL_48;
+    goto LABEL_55;
   }
 
   [-[NSDictionary valueForKey:](options valueForKey:{@"CoreUI", "BOOLValue"}];
   v7 = [-[NSDictionary objectForKey:](options objectForKey:{@"software_renderer", "intValue"}];
-  if ((isWidget() & 1) == 0 && v7 != 2)
+  v8 = v7;
+  v10 = isWidget(v7, v9);
+  if ((v10 & 1) == 0 && v8 != 2)
   {
-    if (can_use_metal() & 1) != 0 || +[CIContext isOpenCLAvailable]|| !CIGLIsUsable() || (can_use_metal())
+    if (can_use_metal(v10, v11) & 1) != 0 || (v12 = +[CIContext isOpenCLAvailable], (v12) || (v13 = CIGLIsUsable(v12), !v13) || (v15 = can_use_metal(v13, v14), (v15))
     {
       if (options)
       {
-        v8 = [(NSDictionary *)options objectForKey:@"software_renderer"];
+        v17 = [(NSDictionary *)options objectForKey:@"software_renderer"];
       }
 
       else
       {
-        v8 = 0;
+        v17 = 0;
       }
 
-      v11 = MEMORY[0x1E695E118];
-      v12 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:options];
-      [v12 removeObjectForKey:@"software_renderer"];
-      if (v8 == v11 || v8 == &unk_1F10819B0)
+      v20 = MEMORY[0x1E695E118];
+      v21 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:options];
+      [v21 removeObjectForKey:@"software_renderer"];
+      if (v17 == v20 || v17 == &unk_1F10819B0)
       {
-        [v12 setValue:MEMORY[0x1E695E118] forKey:@"priority_request_low"];
+        [v21 setValue:MEMORY[0x1E695E118] forKey:@"priority_request_low"];
       }
 
-      v13 = [(NSDictionary *)options objectForKeyedSubscript:@"kCIContextUseMetalRenderer"];
-      if (v13)
+      bOOLValue = [(NSDictionary *)options objectForKeyedSubscript:@"kCIContextUseMetalRenderer"];
+      if (bOOLValue)
       {
-        v14 = [v13 BOOLValue] ^ 1;
-        v15 = v14;
+        bOOLValue = [bOOLValue BOOLValue];
+        v24 = bOOLValue ^ 1;
+        v25 = bOOLValue ^ 1;
       }
 
       else
       {
-        v15 = 0;
-        LOBYTE(v14) = 1;
+        v25 = 0;
+        v24 = 1;
       }
 
-      v16 = CI_ENABLE_METAL_GPU();
-      v17 = 0;
-      if ((v15 & 1) == 0 && v16)
+      v26 = CI_ENABLE_METAL_GPU(bOOLValue, v23);
+      v27 = 0;
+      if ((v25 & 1) == 0 && v26)
       {
         if (options)
         {
-          [(NSDictionary *)options objectForKey:@"kCIContextAllowLowPower"];
+          v28 = [(NSDictionary *)options objectForKey:@"kCIContextAllowLowPower"];
         }
 
-        v18 = CIMetalCopyDefaultDevice();
-        if (v18)
+        else
         {
-          v20 = v18;
-          if (CIMetalDeviceIsSupported(v18, v19))
+          v28 = 0;
+        }
+
+        v30 = v28 == v20 || v28 == &unk_1F10819B0;
+        v31 = CIMetalCopyDefaultDevice(v30, 0);
+        if (v31)
+        {
+          v33 = v31;
+          if (CIMetalDeviceIsSupported(v31, v32))
           {
-            v17 = [CIContext internalContextWithMTLDevice:v20 options:v12];
+            v27 = [CIContext internalContextWithMTLDevice:v33 options:v21];
           }
 
           else
           {
-            v17 = 0;
+            v27 = 0;
           }
 
-          CFRelease(v20);
+          CFRelease(v33);
         }
 
         else
         {
-          v17 = 0;
+          v27 = 0;
         }
       }
 
-      if (v17)
+      if (v27)
       {
-        v21 = 1;
+        v34 = 1;
       }
 
       else
       {
-        v21 = v14;
+        v34 = v24;
       }
 
-      if ((v21 & 1) != 0 && (v17 || (v17 = [CIContext internalGLContextWithOptions:v12]) != 0))
+      if ((v34 & 1) != 0 && (v27 || (v27 = [CIContext internalGLContextWithOptions:v21]) != 0))
       {
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __29__CIContext_initWithOptions___block_invoke;
-        v25[3] = &__block_descriptor_40_e8_v12__0B8l;
-        v25[4] = v17;
-        OptionIsTrueOrFalse(options, @"kCIContextEnableBlending", v25);
-        v6 = [(CIContext *)v6 _initWithInternalRepresentation:v17];
-        if (CI_ENABLE_METAL_GPU())
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __29__CIContext_initWithOptions___block_invoke;
+        v39[3] = &__block_descriptor_40_e8_v12__0B8l;
+        v39[4] = v27;
+        OptionIsTrueOrFalse(options, @"kCIContextEnableBlending", v39);
+        v6 = [(CIContext *)v6 _initWithInternalRepresentation:v27];
+        if (CI_ENABLE_METAL_GPU(v6, v35))
         {
-          v22 = v15;
+          v36 = v25;
         }
 
         else
         {
-          v22 = 1;
+          v36 = 1;
         }
 
-        if ((v22 & 1) == 0 && [-[NSDictionary valueForKey:](options valueForKey:{@"CoreUI", "BOOLValue"}])
+        if ((v36 & 1) == 0 && [-[NSDictionary valueForKey:](options valueForKey:{@"CoreUI", "BOOLValue"}])
         {
           [(CIContext *)v6 loadArchive:@"coreui_archive"];
         }
 
-        v10 = v17;
-        goto LABEL_42;
+        v19 = v27;
+        goto LABEL_49;
       }
     }
 
     else
     {
-      v23 = ci_logger_api();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v37 = ci_logger_api(v15, v16);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         [CIContext initWithOptions:];
       }
     }
 
     v6 = 0;
-    goto LABEL_48;
+    goto LABEL_55;
   }
 
-  v9 = [CIContext internalSWContextWithOptions:options];
-  v6 = [(CIContext *)v6 _initWithInternalRepresentation:v9];
-  if (!v9)
+  v18 = [CIContext internalSWContextWithOptions:options];
+  v6 = [(CIContext *)v6 _initWithInternalRepresentation:v18];
+  if (!v18)
   {
-    goto LABEL_43;
+    goto LABEL_50;
   }
 
-  v10 = v9;
-LABEL_42:
-  CI::Object::unref(v10);
-LABEL_43:
+  v19 = v18;
+LABEL_49:
+  CI::Object::unref(v19);
+LABEL_50:
   if (v6)
   {
     CoreAnalytics(&cfstr_Initwithoption.isa, v6);
   }
 
-LABEL_48:
+LABEL_55:
   objc_autoreleasePoolPop(v5);
   return v6;
 }
@@ -1107,10 +1139,11 @@ LABEL_20:
 - (CIContext)initWithEAGLContext:(id)context options:(id)options
 {
   v7 = objc_autoreleasePoolPush();
-  if (CIEAGLContextGetAPI(context) - 4 <= 0xFFFFFFFD)
+  API = CIEAGLContextGetAPI(context);
+  if ((API - 4) <= 0xFFFFFFFD)
   {
-    v8 = ci_logger_api();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = ci_logger_api(API, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [CIContext initWithEAGLContext:options:];
     }
@@ -1118,32 +1151,32 @@ LABEL_20:
     goto LABEL_10;
   }
 
-  v14.receiver = self;
-  v14.super_class = CIContext;
-  v9 = [(CIContext *)&v14 init];
-  if (!v9)
+  v16.receiver = self;
+  v16.super_class = CIContext;
+  v11 = [(CIContext *)&v16 init];
+  if (!v11)
   {
 LABEL_10:
-    v12 = 0;
+    v14 = 0;
     goto LABEL_11;
   }
 
-  v10 = v9;
-  v11 = [CIContext internalContextWithEAGLContext:context options:options];
-  v12 = [(CIContext *)v10 _initWithInternalRepresentation:v11];
-  if (v11)
+  v12 = v11;
+  v13 = [CIContext internalContextWithEAGLContext:context options:options];
+  v14 = [(CIContext *)v12 _initWithInternalRepresentation:v13];
+  if (v13)
   {
-    CI::Object::unref(v11);
+    CI::Object::unref(v13);
   }
 
-  if (v12)
+  if (v14)
   {
-    CoreAnalytics(&cfstr_Contextwitheag.isa, v12);
+    CoreAnalytics(&cfstr_Contextwitheag.isa, v14);
   }
 
 LABEL_11:
   objc_autoreleasePoolPop(v7);
-  return v12;
+  return v14;
 }
 
 + (CIContext)contextWithMTLDevice:(id)device
@@ -1277,16 +1310,16 @@ LABEL_11:
   }
 
   [(CIImage *)image extent];
-  v73.origin.x = v21;
-  v73.origin.y = v22;
-  v73.size.width = v23;
-  v73.size.height = v24;
-  v65.origin.x = x;
-  v65.origin.y = y;
-  v65.size.width = width;
-  v65.size.height = height;
-  v66 = CGRectIntersection(v65, v73);
-  if (CGRectIsEmpty(v66))
+  v80.origin.x = v21;
+  v80.origin.y = v22;
+  v80.size.width = v23;
+  v80.size.height = v24;
+  v72.origin.x = x;
+  v72.origin.y = y;
+  v72.size.width = width;
+  v72.size.height = height;
+  v73 = CGRectIntersection(v72, v80);
+  if (CGRectIsEmpty(v73))
   {
     goto LABEL_43;
   }
@@ -1312,18 +1345,23 @@ LABEL_11:
     v28 = v27;
   }
 
-  if ((*(*v20 + 16))(v20) == 84 && CI::format_is_not_supported_as_destination_on_gles(v28))
+  if ((*(*v20 + 16))(v20) == 84)
   {
-    v29 = ci_logger_api();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    is_not_supported_as_destination_on_gles = CI::format_is_not_supported_as_destination_on_gles(v28);
+    if (is_not_supported_as_destination_on_gles)
     {
-      [CIContext render:v28 toBitmap:? rowBytes:? bounds:? format:? colorSpace:?];
-    }
+      v31 = ci_logger_api(is_not_supported_as_destination_on_gles, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        [CIContext render:v28 toBitmap:? rowBytes:? bounds:? format:? colorSpace:?];
+      }
 
-    goto LABEL_43;
+      goto LABEL_43;
+    }
   }
 
-  if (CI::format_is_supported_render_to_bitmap(v28))
+  is_supported_render_to_bitmap = CI::format_is_supported_render_to_bitmap(v28);
+  if (is_supported_render_to_bitmap)
   {
     if (!colorSpace)
     {
@@ -1331,133 +1369,139 @@ LABEL_11:
     }
 
     TypeID = CGColorSpaceGetTypeID();
-    if (TypeID == CFGetTypeID(colorSpace) && CGColorSpaceSupportsOutput(colorSpace))
+    Model = CFGetTypeID(colorSpace);
+    if (TypeID == Model)
     {
-      is_luminance = CI::format_is_luminance(v28);
-      Model = CGColorSpaceGetModel(colorSpace);
-      if (is_luminance)
+      Model = CGColorSpaceSupportsOutput(colorSpace);
+      if (Model)
       {
-        if (Model)
+        is_luminance = CI::format_is_luminance(v28);
+        Model = CGColorSpaceGetModel(colorSpace);
+        if (is_luminance)
         {
-          goto LABEL_21;
+          if (Model)
+          {
+            goto LABEL_21;
+          }
+
+          goto LABEL_26;
         }
 
-        goto LABEL_26;
-      }
-
-      if (Model == kCGColorSpaceModelRGB)
-      {
+        if (Model == 1)
+        {
 LABEL_26:
-        if (rowBytes % CI::format_destination_rowbytes_requirement(v28))
-        {
-          v35 = ci_logger_api();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v40 = CI::format_destination_rowbytes_requirement(v28);
+          if (rowBytes % v40)
           {
-            [CIContext render:toBitmap:rowBytes:bounds:format:colorSpace:];
-          }
-        }
-
-        else
-        {
-          v67.origin.x = x;
-          v67.origin.y = y;
-          v67.size.width = width;
-          v67.size.height = height;
-          v68 = CGRectStandardize(v67);
-          v36 = v68.size.width;
-          v37 = v68.size.height;
-          v38 = floor(v68.origin.x);
-          v39 = floor(v68.origin.y);
-          v40 = floor(v68.size.width);
-          v41 = floor(v68.size.height);
-          [CIContext _crashed_because_nonaddressable_memory_was_passed_to_render:image toBitmap:data rowBytes:rowBytes bounds:v28 format:colorSpace colorSpace:v38, v39, v40, v41];
-          v42 = vcvtmd_u64_f64(v36);
-          v43 = vcvtmd_u64_f64(v37);
-          if (rowBytes >= 0)
-          {
-            v44 = rowBytes;
-          }
-
-          else
-          {
-            v44 = -rowBytes;
-          }
-
-          v63 = v44;
-          v64 = v42;
-          if (rowBytes < 0)
-          {
-            v45 = (v43 - 1) * rowBytes;
-          }
-
-          else
-          {
-            v45 = 0;
-          }
-
-          v46 = [[CIRenderDestination alloc] initWithBitmapData:data + v45 width:v42 height:v43 bytesPerRow:v44 format:v28];
-          [(CIRenderDestination *)v46 setColorSpace:colorSpace];
-          [(CIRenderDestination *)v46 setFlipped:rowBytes >= 0];
-          if ((v20[40] & 1) == 0)
-          {
-            [(CIRenderDestination *)v46 setAlphaMode:2];
-          }
-
-          if ((v20[41] & 1) == 0)
-          {
-            [(CIRenderDestination *)v46 setClamped:0];
-          }
-
-          [(CIImage *)image extent:v63];
-          v74.origin.x = v47;
-          v74.origin.y = v48;
-          v74.size.width = v49;
-          v74.size.height = v50;
-          v69.origin.x = v38;
-          v69.origin.y = v39;
-          v69.size.width = v40;
-          v69.size.height = v41;
-          v70 = CGRectUnion(v69, v74);
-          v51 = v70.origin.x;
-          v52 = v70.origin.y;
-          v53 = v70.size.width;
-          v54 = v70.size.height;
-          [(CIImage *)image extent];
-          v75.origin.x = v55;
-          v75.origin.y = v56;
-          v75.size.width = v57;
-          v75.size.height = v58;
-          v71.origin.x = v51;
-          v71.origin.y = v52;
-          v71.size.width = v53;
-          v71.size.height = v54;
-          if (CGRectContainsRect(v71, v75))
-          {
-            [(CIImage *)image extent];
-            v76.origin.x = v59;
-            v76.origin.y = v60;
-            v76.size.width = v61;
-            v76.size.height = v62;
-            v72.origin.x = v51;
-            v72.origin.y = v52;
-            v72.size.width = v53;
-            v72.size.height = v54;
-            if (!CGRectEqualToRect(v72, v76))
+            v42 = ci_logger_api(v40, v41);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
-              image = [(CIImage *)image imageByCompositingOverImage:+[CIImage clearImage]];
+              [CIContext render:toBitmap:rowBytes:bounds:format:colorSpace:];
             }
           }
 
-          [(CIRenderTask *)[(CIContext *)self startTaskToRender:image fromRect:v46 toDestination:0 atPoint:v38 error:v39 waitUntilCompletedAndReturnError:v40, v41, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)], "waitUntilCompletedAndReturnError:", 0];
-        }
+          else
+          {
+            v74.origin.x = x;
+            v74.origin.y = y;
+            v74.size.width = width;
+            v74.size.height = height;
+            v75 = CGRectStandardize(v74);
+            v43 = v75.size.width;
+            v44 = v75.size.height;
+            v45 = floor(v75.origin.x);
+            v46 = floor(v75.origin.y);
+            v47 = floor(v75.size.width);
+            v48 = floor(v75.size.height);
+            [CIContext _crashed_because_nonaddressable_memory_was_passed_to_render:image toBitmap:data rowBytes:rowBytes bounds:v28 format:colorSpace colorSpace:v45, v46, v47, v48];
+            v49 = vcvtmd_u64_f64(v43);
+            v50 = vcvtmd_u64_f64(v44);
+            if (rowBytes >= 0)
+            {
+              v51 = rowBytes;
+            }
 
-        goto LABEL_43;
+            else
+            {
+              v51 = -rowBytes;
+            }
+
+            v70 = v51;
+            v71 = v49;
+            if (rowBytes < 0)
+            {
+              v52 = (v50 - 1) * rowBytes;
+            }
+
+            else
+            {
+              v52 = 0;
+            }
+
+            v53 = [[CIRenderDestination alloc] initWithBitmapData:data + v52 width:v49 height:v50 bytesPerRow:v51 format:v28];
+            [(CIRenderDestination *)v53 setColorSpace:colorSpace];
+            [(CIRenderDestination *)v53 setFlipped:rowBytes >= 0];
+            if ((v20[40] & 1) == 0)
+            {
+              [(CIRenderDestination *)v53 setAlphaMode:2];
+            }
+
+            if ((v20[41] & 1) == 0)
+            {
+              [(CIRenderDestination *)v53 setClamped:0];
+            }
+
+            [(CIImage *)image extent:v70];
+            v81.origin.x = v54;
+            v81.origin.y = v55;
+            v81.size.width = v56;
+            v81.size.height = v57;
+            v76.origin.x = v45;
+            v76.origin.y = v46;
+            v76.size.width = v47;
+            v76.size.height = v48;
+            v77 = CGRectUnion(v76, v81);
+            v58 = v77.origin.x;
+            v59 = v77.origin.y;
+            v60 = v77.size.width;
+            v61 = v77.size.height;
+            [(CIImage *)image extent];
+            v82.origin.x = v62;
+            v82.origin.y = v63;
+            v82.size.width = v64;
+            v82.size.height = v65;
+            v78.origin.x = v58;
+            v78.origin.y = v59;
+            v78.size.width = v60;
+            v78.size.height = v61;
+            if (CGRectContainsRect(v78, v82))
+            {
+              [(CIImage *)image extent];
+              v83.origin.x = v66;
+              v83.origin.y = v67;
+              v83.size.width = v68;
+              v83.size.height = v69;
+              v79.origin.x = v58;
+              v79.origin.y = v59;
+              v79.size.width = v60;
+              v79.size.height = v61;
+              if (!CGRectEqualToRect(v79, v83))
+              {
+                image = [(CIImage *)image imageByCompositingOverImage:+[CIImage clearImage]];
+              }
+            }
+
+            [(CIRenderTask *)[(CIContext *)self startTaskToRender:image fromRect:v53 toDestination:0 atPoint:v45 error:v46 waitUntilCompletedAndReturnError:v47, v48, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)], "waitUntilCompletedAndReturnError:", 0];
+          }
+
+          goto LABEL_43;
+        }
       }
     }
 
 LABEL_21:
-    v33 = ci_logger_api();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v38 = ci_logger_api(Model, v36);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [CIContext render:toBitmap:rowBytes:bounds:format:colorSpace:];
     }
@@ -1465,8 +1509,8 @@ LABEL_21:
     goto LABEL_43;
   }
 
-  v34 = ci_logger_api();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+  v39 = ci_logger_api(is_supported_render_to_bitmap, v33);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
   {
     [CIContext render:v28 toBitmap:? rowBytes:? bounds:? format:? colorSpace:?];
   }
@@ -1605,57 +1649,58 @@ LABEL_43:
   }
 
   [render extent];
-  if (CGRectIsEmpty(v33))
+  if (CGRectIsEmpty(v35))
   {
     goto LABEL_10;
   }
 
   [(CIContext *)self bounds];
-  x = v34.origin.x;
-  y = v34.origin.y;
-  width = v34.size.width;
-  height = v34.size.height;
-  if (!CGRectIsInfinite(v34))
+  x = v36.origin.x;
+  y = v36.origin.y;
+  width = v36.size.width;
+  height = v36.size.height;
+  if (!CGRectIsInfinite(v36))
   {
     selfCopy2 = self;
     renderCopy2 = render;
-    v13 = x;
-    v14 = y;
-    v15 = width;
-    v16 = height;
-    v17 = x;
-    v18 = y;
-    v19 = width;
-    v20 = height;
+    v15 = x;
+    v16 = y;
+    v17 = width;
+    v18 = height;
+    v19 = x;
+    v20 = y;
+    v21 = width;
+    v22 = height;
 LABEL_9:
-    [(CIContext *)selfCopy2 drawImage:renderCopy2 inRect:v13 fromRect:v14, v15, v16, v17, v18, v19, v20];
+    [(CIContext *)selfCopy2 drawImage:renderCopy2 inRect:v15 fromRect:v16, v17, v18, v19, v20, v21, v22];
     goto LABEL_10;
   }
 
   [render extent];
-  if (!CGRectIsInfinite(v35))
+  IsInfinite = CGRectIsInfinite(v37);
+  if (!IsInfinite)
   {
     [render extent];
-    v22 = v21;
     v24 = v23;
     v26 = v25;
     v28 = v27;
+    v30 = v29;
     [render extent];
-    v17 = v29;
-    v18 = v30;
     v19 = v31;
     v20 = v32;
+    v21 = v33;
+    v22 = v34;
     selfCopy2 = self;
     renderCopy2 = render;
-    v13 = v22;
-    v14 = v24;
-    v15 = v26;
-    v16 = v28;
+    v15 = v24;
+    v16 = v26;
+    v17 = v28;
+    v18 = v30;
     goto LABEL_9;
   }
 
-  v10 = ci_logger_api();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v12 = ci_logger_api(IsInfinite, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     [CIContext render:];
   }
@@ -1699,54 +1744,55 @@ LABEL_10:
   v11 = inRect.origin.y;
   v12 = inRect.origin.x;
   v15 = objc_autoreleasePoolPush();
-  if ([(CIContext *)self _isGLBackedContext]|| [(CIContext *)self _isCGBackedContext])
+  if ([(CIContext *)self _isGLBackedContext]|| (v16 = [(CIContext *)self _isCGBackedContext], (v16 & 1) != 0))
   {
     [(CIContext *)self _gpuContextCheck];
     _internalContext = [(CIContext *)self _internalContext];
-    v50.origin.x = x;
-    v50.origin.y = y;
-    v50.size.width = width;
-    v50.size.height = height;
-    v51 = CGRectStandardize(v50);
-    v17 = v51.origin.x;
-    v18 = v51.origin.y;
-    v19 = v51.size.width;
-    v20 = v51.size.height;
-    v51.origin.x = v12;
-    v51.origin.y = v11;
-    v51.size.width = v10;
-    v51.size.height = v9;
-    v52 = CGRectStandardize(v51);
+    v54.origin.x = x;
+    v54.origin.y = y;
+    v54.size.width = width;
+    v54.size.height = height;
+    v55 = CGRectStandardize(v54);
+    v19 = v55.origin.x;
+    v20 = v55.origin.y;
+    v21 = v55.size.width;
+    v22 = v55.size.height;
+    v55.origin.x = v12;
+    v55.origin.y = v11;
+    v55.size.width = v10;
+    v55.size.height = v9;
+    v56 = CGRectStandardize(v55);
     if (image)
     {
       if (_internalContext)
       {
-        v21 = v52.origin.x;
-        v22 = v52.origin.y;
-        v23 = v52.size.width;
-        v24 = v52.size.height;
-        if (!CGRectIsEmpty(v52))
+        v23 = v56.origin.x;
+        v24 = v56.origin.y;
+        v25 = v56.size.width;
+        v26 = v56.size.height;
+        if (!CGRectIsEmpty(v56))
         {
           [(CIImage *)image extent];
-          v57.origin.x = v25;
-          v57.origin.y = v26;
-          v57.size.width = v27;
-          v57.size.height = v28;
-          v53.origin.x = v17;
-          v53.origin.y = v18;
-          v53.size.width = v19;
-          v53.size.height = v20;
-          v54 = CGRectIntersection(v53, v57);
-          if (!CGRectIsEmpty(v54))
+          v61.origin.x = v27;
+          v61.origin.y = v28;
+          v61.size.width = v29;
+          v61.size.height = v30;
+          v57.origin.x = v19;
+          v57.origin.y = v20;
+          v57.size.width = v21;
+          v57.size.height = v22;
+          v58 = CGRectIntersection(v57, v61);
+          if (!CGRectIsEmpty(v58))
           {
-            v55.origin.x = v17;
-            v55.origin.y = v18;
-            v55.size.width = v19;
-            v55.size.height = v20;
-            if (CGRectIsInfinite(v55) || (v56.origin.x = v21, v56.origin.y = v22, v56.size.width = v23, v56.size.height = v24, CGRectIsInfinite(v56)))
+            v59.origin.x = v19;
+            v59.origin.y = v20;
+            v59.size.width = v21;
+            v59.size.height = v22;
+            IsInfinite = CGRectIsInfinite(v59);
+            if (IsInfinite || (v60.origin.x = v23, v60.origin.y = v24, v60.size.width = v25, v60.size.height = v26, IsInfinite = CGRectIsInfinite(v60)))
             {
-              v29 = ci_logger_api();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+              v33 = ci_logger_api(IsInfinite, v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
                 [CIContext drawImage:inRect:fromRect:];
               }
@@ -1754,43 +1800,43 @@ LABEL_10:
 
             else if ([(CIContext *)self _isCGBackedContext])
             {
-              v31 = *(_internalContext + 6);
-              if (CGContextGetType() == 4 && CGBitmapContextGetColorSpace(v31))
+              v35 = *(_internalContext + 6);
+              if (CGContextGetType() == 4 && CGBitmapContextGetColorSpace(v35))
               {
-                ColorSpace = CGBitmapContextGetColorSpace(v31);
-                BitsPerComponent = CGBitmapContextGetBitsPerComponent(v31);
-                BitmapInfo = CGBitmapContextGetBitmapInfo(v31);
+                ColorSpace = CGBitmapContextGetColorSpace(v35);
+                BitsPerComponent = CGBitmapContextGetBitsPerComponent(v35);
+                BitmapInfo = CGBitmapContextGetBitmapInfo(v35);
                 if ((BitmapInfo & 0x100) != 0)
                 {
                   if ((BitmapInfo & 0x7000) == 0x1000)
                   {
-                    v42 = &kCIFormatRGBAh;
+                    v46 = &kCIFormatRGBAh;
                   }
 
                   else
                   {
-                    v42 = &kCIFormatRGBAf;
+                    v46 = &kCIFormatRGBAf;
                   }
 
                   Model = CGColorSpaceGetModel(ColorSpace);
-                  v35 = &kCIFormatLAf;
+                  v39 = &kCIFormatLAf;
                   if (Model)
                   {
-                    v35 = v42;
+                    v39 = v46;
                   }
                 }
 
                 else if (CGColorSpaceGetModel(ColorSpace))
                 {
-                  v35 = &kCIFormatRGBA8;
+                  v39 = &kCIFormatRGBA8;
                 }
 
                 else
                 {
-                  v35 = &kCIFormatLA16;
+                  v39 = &kCIFormatLA16;
                   if (BitsPerComponent <= 8)
                   {
-                    v35 = &kCIFormatLA8;
+                    v39 = &kCIFormatLA8;
                   }
                 }
               }
@@ -1803,49 +1849,49 @@ LABEL_10:
                   ColorSpace = [(CIContext *)self _outputColorSpace];
                 }
 
-                v40 = CGColorSpaceUsesExtendedRange(ColorSpace);
-                if (CGColorSpaceUsesITUR_2100TF(ColorSpace) || v40)
+                v44 = CGColorSpaceUsesExtendedRange(ColorSpace);
+                if (CGColorSpaceUsesITUR_2100TF(ColorSpace) || v44)
                 {
-                  v35 = &kCIFormatRGBAh;
+                  v39 = &kCIFormatRGBAh;
                 }
 
                 else
                 {
-                  v35 = &kCIFormatRGBA8;
+                  v39 = &kCIFormatRGBA8;
                 }
               }
 
-              v41 = [(CIContext *)self createCGImage:image fromRect:*v35 format:ColorSpace colorSpace:v17, v18, v19, v20];
+              v45 = [(CIContext *)self createCGImage:image fromRect:*v39 format:ColorSpace colorSpace:v19, v20, v21, v22];
               CGContextDrawImageFromRect();
-              CGImageRelease(v41);
+              CGImageRelease(v45);
             }
 
             else
             {
-              v44 = v23 / v19;
-              v45 = v23 / v19 * 0.0;
-              v46 = v24 / v20 * 0.0;
-              v47 = v24 / v20;
-              v48 = v21 - v23 / v19 * v17 - v46 * v18;
-              v49 = v22 - v45 * v17 - v24 / v20 * v18;
-              v36 = [(CIImage *)image imageByApplyingTransform:&v44];
-              v37 = *(_internalContext + 2);
+              v48 = v25 / v21;
+              v49 = v25 / v21 * 0.0;
+              v50 = v26 / v22 * 0.0;
+              v51 = v26 / v22;
+              v52 = v23 - v25 / v21 * v19 - v50 * v20;
+              v53 = v24 - v49 * v19 - v26 / v22 * v20;
+              v40 = [(CIImage *)image imageByApplyingTransform:&v48];
+              v41 = *(_internalContext + 2);
               if ((*(*_internalContext + 16))(_internalContext) == 84 && CI::GLContext::is_user_destination_srgb(_internalContext))
               {
-                v37 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1B0]);
-                CFAutorelease(v37);
+                v41 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1B0]);
+                CFAutorelease(v41);
               }
 
-              _internalRepresentation = [[(CIImage *)v36 imageByColorMatchingWorkingSpaceToColorSpace:v37] _internalRepresentation];
+              _internalRepresentation = [[(CIImage *)v40 imageByColorMatchingWorkingSpaceToColorSpace:v41] _internalRepresentation];
               [(CIContext *)self lock];
               ++*(_internalContext + 19);
               *(_internalContext + 24) = 0;
-              *(_internalContext + 20) = v21;
-              *(_internalContext + 21) = v22;
-              *(_internalContext + 22) = v23;
-              *(_internalContext + 23) = v24;
+              *(_internalContext + 20) = v23;
+              *(_internalContext + 21) = v24;
+              *(_internalContext + 22) = v25;
+              *(_internalContext + 23) = v26;
               (*(*_internalContext + 248))(_internalContext, 0);
-              CI::image_render_to_display(_internalContext, _internalRepresentation, 264, v21, v22, v23, v24);
+              CI::image_render_to_display(_internalContext, _internalRepresentation, 264, v23, v24, v25, v26);
               [(CIContext *)self unlock];
             }
           }
@@ -1856,8 +1902,8 @@ LABEL_10:
 
   else
   {
-    v30 = ci_logger_api();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v34 = ci_logger_api(v16, v17);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [CIContext drawImage:inRect:fromRect:];
     }
@@ -1874,57 +1920,58 @@ LABEL_10:
   x = bounds.origin.x;
   v13 = *&texture;
   v16 = objc_autoreleasePoolPush();
+  v18 = v16;
   if (target == 3553)
   {
-    v29.origin.x = x;
-    v29.origin.y = y;
-    v29.size.width = width;
-    v29.size.height = height;
-    v30 = CGRectStandardize(v29);
+    v33.origin.x = x;
+    v33.origin.y = y;
+    v33.size.width = width;
+    v33.size.height = height;
+    v34 = CGRectStandardize(v33);
     if (render)
     {
-      v17 = v30.origin.x;
-      v18 = v30.origin.y;
-      v19 = v30.size.width;
-      v20 = v30.size.height;
+      v19 = v34.origin.x;
+      v20 = v34.origin.y;
+      v21 = v34.size.width;
+      v22 = v34.size.height;
       if ([(CIContext *)self _internalContext])
       {
         [render extent];
-        v33.origin.x = v21;
-        v33.origin.y = v22;
-        v33.size.width = v23;
-        v33.size.height = v24;
-        v31.origin.x = v17;
-        v31.origin.y = v18;
-        v31.size.width = v19;
-        v31.size.height = v20;
-        v32 = CGRectIntersection(v31, v33);
-        if (!CGRectIsEmpty(v32))
+        v37.origin.x = v23;
+        v37.origin.y = v24;
+        v37.size.width = v25;
+        v37.size.height = v26;
+        v35.origin.x = v19;
+        v35.origin.y = v20;
+        v35.size.width = v21;
+        v35.size.height = v22;
+        v36 = CGRectIntersection(v35, v37);
+        if (!CGRectIsEmpty(v36))
         {
           [(CIContext *)self _gpuContextCheck];
           _internalContext = [(CIContext *)self _internalContext];
-          if ((*(*_internalContext + 16))(_internalContext) == 84 || (*(*_internalContext + 16))(_internalContext) == 82)
+          if ((*(*_internalContext + 16))(_internalContext) == 84 || (v28 = (*(*_internalContext + 16))(_internalContext), v28 == 82))
           {
-            v26 = [[CIRenderDestination alloc] initWithGLTexture:v13 target:3553 width:v19 height:v20];
-            [(CIRenderDestination *)v26 setColorSpace:space];
-            [(CIRenderDestination *)v26 setFlipped:0];
+            v30 = [[CIRenderDestination alloc] initWithGLTexture:v13 target:3553 width:v21 height:v22];
+            [(CIRenderDestination *)v30 setColorSpace:space];
+            [(CIRenderDestination *)v30 setFlipped:0];
             if ((_internalContext[40] & 1) == 0)
             {
-              [(CIRenderDestination *)v26 setAlphaMode:2];
+              [(CIRenderDestination *)v30 setAlphaMode:2];
             }
 
             if ((_internalContext[41] & 1) == 0)
             {
-              [(CIRenderDestination *)v26 setClamped:0];
+              [(CIRenderDestination *)v30 setClamped:0];
             }
 
-            [(CIContext *)self startTaskToRender:render fromRect:v26 toDestination:0 atPoint:v17 error:v18, v19, v20, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)];
+            [(CIContext *)self startTaskToRender:render fromRect:v30 toDestination:0 atPoint:v19 error:v20, v21, v22, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)];
           }
 
           else
           {
-            v28 = ci_logger_api();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v32 = ci_logger_api(v28, v29);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               [CIContext render:toTexture:target:bounds:colorSpace:];
             }
@@ -1936,14 +1983,14 @@ LABEL_10:
 
   else
   {
-    v27 = ci_logger_api();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v31 = ci_logger_api(v16, v17);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       [CIContext render:toTexture:target:bounds:colorSpace:];
     }
   }
 
-  objc_autoreleasePoolPop(v16);
+  objc_autoreleasePoolPop(v18);
 }
 
 - (void)render:(CIImage *)image toMTLTexture:(id)texture commandBuffer:(id)commandBuffer bounds:(CGRect)bounds colorSpace:(CGColorSpaceRef)colorSpace
@@ -1953,60 +2000,62 @@ LABEL_10:
   y = bounds.origin.y;
   x = bounds.origin.x;
   v16 = objc_autoreleasePoolPush();
-  v30.origin.x = x;
-  v30.origin.y = y;
-  v30.size.width = width;
-  v30.size.height = height;
-  v31 = CGRectStandardize(v30);
+  v33.origin.x = x;
+  v33.origin.y = y;
+  v33.size.width = width;
+  v33.size.height = height;
+  v34 = CGRectStandardize(v33);
   if (image)
   {
-    v17 = v31.origin.x;
-    v18 = v31.origin.y;
-    v19 = v31.size.width;
-    v20 = v31.size.height;
+    v17 = v34.origin.x;
+    v18 = v34.origin.y;
+    v19 = v34.size.width;
+    v20 = v34.size.height;
     if ([(CIContext *)self _internalContext])
     {
       [(CIImage *)image extent];
-      v34.origin.x = v21;
-      v34.origin.y = v22;
-      v34.size.width = v23;
-      v34.size.height = v24;
-      v32.origin.x = v17;
-      v32.origin.y = v18;
-      v32.size.width = v19;
-      v32.size.height = v20;
-      v33 = CGRectIntersection(v32, v34);
-      if (!CGRectIsEmpty(v33))
+      v37.origin.x = v21;
+      v37.origin.y = v22;
+      v37.size.width = v23;
+      v37.size.height = v24;
+      v35.origin.x = v17;
+      v35.origin.y = v18;
+      v35.size.width = v19;
+      v35.size.height = v20;
+      v36 = CGRectIntersection(v35, v37);
+      if (!CGRectIsEmpty(v36))
       {
         _internalContext = [(CIContext *)self _internalContext];
-        if ([texture textureType] == 2)
+        textureType = [texture textureType];
+        if (textureType == 2)
         {
-          if ((*(*_internalContext + 16))(_internalContext) == 85)
+          v28 = (*(*_internalContext + 16))(_internalContext);
+          if (v28 == 85)
           {
-            v26 = [[CIRenderDestination alloc] initWithMTLTexture:texture commandBuffer:commandBuffer];
-            [(CIRenderDestination *)v26 setColorSpace:colorSpace];
+            v30 = [[CIRenderDestination alloc] initWithMTLTexture:texture commandBuffer:commandBuffer];
+            [(CIRenderDestination *)v30 setColorSpace:colorSpace];
             if ((_internalContext[40] & 1) == 0)
             {
-              [(CIRenderDestination *)v26 setAlphaMode:2];
+              [(CIRenderDestination *)v30 setAlphaMode:2];
             }
 
             if ((_internalContext[41] & 1) == 0)
             {
-              [(CIRenderDestination *)v26 setClamped:0];
+              [(CIRenderDestination *)v30 setClamped:0];
             }
 
             if ((dyld_program_sdk_at_least() & 1) == 0 && (dyld_program_sdk_at_least() & 1) == 0)
             {
-              [(CIRenderDestination *)v26 setFlipped:0];
+              [(CIRenderDestination *)v30 setFlipped:0];
             }
 
-            [(CIContext *)self startTaskToRender:image fromRect:v26 toDestination:0 atPoint:v17 error:v18, v19, v20, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)];
+            [(CIContext *)self startTaskToRender:image fromRect:v30 toDestination:0 atPoint:v17 error:v18, v19, v20, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)];
           }
 
-          else if (commandBuffer || (v29 = [texture iosurface]) == 0)
+          else if (commandBuffer || (v28 = [texture iosurface]) == 0)
           {
-            v28 = ci_logger_api();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v32 = ci_logger_api(v28, v29);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               [CIContext render:toMTLTexture:commandBuffer:bounds:colorSpace:];
             }
@@ -2014,14 +2063,14 @@ LABEL_10:
 
           else
           {
-            [(CIContext *)self render:image toIOSurface:v29 bounds:colorSpace colorSpace:v17, v18, v19, v20];
+            [(CIContext *)self render:image toIOSurface:v28 bounds:colorSpace colorSpace:v17, v18, v19, v20];
           }
         }
 
         else
         {
-          v27 = ci_logger_api();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v31 = ci_logger_api(textureType, v27);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             [CIContext render:toMTLTexture:commandBuffer:bounds:colorSpace:];
           }
@@ -2283,7 +2332,7 @@ LABEL_10:
 - (id)flatten:(id)flatten fromRect:(CGRect)rect format:(int)format colorSpace:(CGColorSpace *)space
 {
   v11 = *MEMORY[0x1E69E9840];
-  v7 = ci_logger_api();
+  v7 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v9 = 136446210;
@@ -2320,7 +2369,7 @@ LABEL_10:
     memset(&v35, 0, sizeof(v35));
     if (self)
     {
-      [(CIContext *)self CTM];
+      objc_msgSend_CTM(self);
     }
 
     else
@@ -2716,14 +2765,14 @@ LABEL_27:
 
 + (void)internalContextWithEAGLContext:(id)context options:(id)options
 {
-  if (CIGLIsUsable() && (!context || ContextIsUsable(context)))
+  if (CIGLIsUsable(self) && (!context || ContextIsUsable(context)))
   {
-    v17 = 0;
-    GetOutputColorSpaceFromOptions(options, &v17);
-    if (v17)
+    v18 = 0;
+    GetOutputColorSpaceFromOptions(options, &v18);
+    if (v18)
     {
-      GetWorkingColorSpaceFromOptions(options, &v17);
-      if (v17)
+      GetWorkingColorSpaceFromOptions(options, &v18);
+      if (v18)
       {
         v6 = [options valueForKey:@"working_format"];
         v8 = v6;
@@ -2741,21 +2790,21 @@ LABEL_27:
         if (v8 && v11 != 266 && v11 != 264 && v11 != 2056)
         {
           v12 = CI::name_for_format(v11);
-          v13 = ci_logger_api();
-          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+          v14 = ci_logger_api(v12, v13);
+          v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
           if (v12)
           {
-            if (v14)
+            if (v15)
             {
               +[CIContext(Internal) internalContextWithEAGLContext:options:];
               if (!options)
               {
 LABEL_22:
-                v15 = [options objectForKey:@"kCIContextIntermediateMemoryTarget"];
+                v16 = [options objectForKey:@"kCIContextIntermediateMemoryTarget"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  [v15 intValue];
+                  [v16 intValue];
                 }
 
                 else if (defaultIntermediateMemoryTarget(void)::onceToken != -1)
@@ -2763,11 +2812,11 @@ LABEL_22:
                   +[CIContext(Internal) internalContextWithEAGLContext:options:];
                 }
 
-                v16 = [options objectForKey:@"kCIContextMemoryLimit"];
+                v17 = [options objectForKey:@"kCIContextMemoryLimit"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  [v16 intValue];
+                  [v17 intValue];
                 }
 
                 [options valueForKey:@"CoreUI"];
@@ -2780,7 +2829,7 @@ LABEL_20:
             }
           }
 
-          else if (v14)
+          else if (v15)
           {
             +[CIContext(Internal) internalContextWithEAGLContext:options:];
             if (!options)
@@ -2829,12 +2878,12 @@ LABEL_20:
 {
   if (queue)
   {
-    v22[0] = 0;
-    GetOutputColorSpaceFromOptions(options, v22);
-    if (v22[0])
+    v25[0] = 0;
+    GetOutputColorSpaceFromOptions(options, v25);
+    if (v25[0])
     {
-      GetWorkingColorSpaceFromOptions(options, v22);
-      if (v22[0])
+      GetWorkingColorSpaceFromOptions(options, v25);
+      if (v25[0])
       {
         v5 = [options valueForKey:@"working_format"];
         v7 = v5;
@@ -2856,17 +2905,17 @@ LABEL_20:
           if (!v12 && v10 != 2312)
           {
             v14 = CI::name_for_format(v10);
-            v15 = ci_logger_api();
-            v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+            v16 = ci_logger_api(v14, v15);
+            v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
             if (v14)
             {
-              if (v16)
+              if (v17)
               {
                 +[CIContext(Internal) internalContextWithMTLCommandQueue:options:];
               }
             }
 
-            else if (v16)
+            else if (v17)
             {
               +[CIContext(Internal) internalContextWithMTLCommandQueue:options:];
             }
@@ -2879,11 +2928,11 @@ LABEL_20:
           [options objectForKey:@"kCIContextAllowHalfPrecision"];
         }
 
-        v17 = [options objectForKey:@"kCIContextIntermediateMemoryTarget"];
+        v18 = [options objectForKey:@"kCIContextIntermediateMemoryTarget"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v17 intValue];
+          [v18 intValue];
         }
 
         else if (defaultIntermediateMemoryTarget(void)::onceToken != -1)
@@ -2891,23 +2940,24 @@ LABEL_20:
           +[CIContext(Internal) internalContextWithEAGLContext:options:];
         }
 
-        v18 = [options objectForKey:@"kCIContextMemoryLimit"];
+        v19 = [options objectForKey:@"kCIContextMemoryLimit"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v18 intValue];
+          [v19 intValue];
         }
 
         [objc_msgSend(options objectForKeyedSubscript:{@"kCIContextIOSurfaceMemoryPoolID", "unsignedIntValue"}];
         [options objectForKeyedSubscript:@"kCIContextIntermediateAllocator"];
-        v19 = [options objectForKeyedSubscript:@"kCIContextCVMetalTextureCache"];
-        if (v19)
+        v20 = [options objectForKeyedSubscript:@"kCIContextCVMetalTextureCache"];
+        if (v20)
         {
-          v20 = CFGetTypeID(v19);
-          if (v20 != CVMetalTextureCacheGetTypeID())
+          v21 = CFGetTypeID(v20);
+          TypeID = CVMetalTextureCacheGetTypeID();
+          if (v21 != TypeID)
           {
-            v21 = ci_logger_api();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v24 = ci_logger_api(TypeID, v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               +[CIContext(Internal) internalContextWithMTLCommandQueue:options:];
             }
@@ -2933,12 +2983,12 @@ uint64_t __66__CIContext_Internal__internalContextWithMTLCommandQueue_options___
 
 + (void)internalSWContextWithOptions:(id)options
 {
-  v18 = 0;
-  GetOutputColorSpaceFromOptions(options, &v18);
-  if (v18)
+  v19 = 0;
+  GetOutputColorSpaceFromOptions(options, &v19);
+  if (v19)
   {
-    GetWorkingColorSpaceFromOptions(options, &v18);
-    if (v18)
+    GetWorkingColorSpaceFromOptions(options, &v19);
+    if (v19)
     {
       v4 = [options valueForKey:@"working_format"];
       v6 = v4;
@@ -2960,21 +3010,21 @@ uint64_t __66__CIContext_Internal__internalContextWithMTLCommandQueue_options___
         if (!v10 && v8 != 2312)
         {
           v12 = CI::name_for_format(v8);
-          v13 = ci_logger_api();
-          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+          v14 = ci_logger_api(v12, v13);
+          v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
           if (v12)
           {
-            if (v14)
+            if (v15)
             {
               +[CIContext(Internal) internalContextWithMTLCommandQueue:options:];
               if (!options)
               {
 LABEL_26:
-                v15 = [options objectForKey:@"kCIContextIntermediateMemoryTarget"];
+                v16 = [options objectForKey:@"kCIContextIntermediateMemoryTarget"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  [v15 intValue];
+                  [v16 intValue];
                 }
 
                 else if (defaultIntermediateMemoryTarget(void)::onceToken != -1)
@@ -2982,11 +3032,11 @@ LABEL_26:
                   +[CIContext(Internal) internalContextWithEAGLContext:options:];
                 }
 
-                v16 = [options objectForKey:@"kCIContextMemoryLimit"];
+                v17 = [options objectForKey:@"kCIContextMemoryLimit"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  [v16 intValue];
+                  [v17 intValue];
                 }
 
                 operator new();
@@ -2998,7 +3048,7 @@ LABEL_24:
             }
           }
 
-          else if (v14)
+          else if (v15)
           {
             +[CIContext(Internal) internalContextWithMTLCommandQueue:options:];
             if (!options)
@@ -3025,38 +3075,42 @@ LABEL_24:
 
 - (id)_initWithInternalRepresentation:(void *)representation
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (representation)
   {
-    v24.receiver = self;
-    v24.super_class = CIContext;
-    v4 = [(CIContext *)&v24 init];
+    v28.receiver = self;
+    v28.super_class = CIContext;
+    v4 = [(CIContext *)&v28 init];
     if (v4)
     {
-      if ((v4->_priv = malloc_type_calloc(1uLL, 0x58uLL, 0x1020040347FB3B5uLL), *v4->_priv = CI::Object::ref(representation), pthread_mutex_init((v4->_priv + 8), 0), CI_PRINT_TREE()) && (v5 = (*(*representation + 280))(representation), CI_PRINT_TREE_context(v5, representation + 236)) || CI_PRINT_TIME() && (v6 = (*(*representation + 280))(representation), CI_PRINT_TIME_context(v6, representation + 236)))
+      if (v4->_priv = malloc_type_calloc(1uLL, 0x58uLL, 0x1020040347FB3B5uLL), *v4->_priv = CI::Object::ref(representation), v5 = pthread_mutex_init((v4->_priv + 8), 0), dli_fname = CI_PRINT_TREE(v5, v6), dli_fname) && (v9 = (*(*representation + 280))(representation), dli_fname = CI_PRINT_TREE_context(v9, representation + 236), (dli_fname) || CI_PRINT_TIME(dli_fname, v8) && (v10 = (*(*representation + 280))(representation), dli_fname = CI_PRINT_TIME_context(v10, representation + 236), dli_fname))
       {
         {
-          log_context_creation(CI::Context *)::isInternalBuild = os_variant_has_internal_content();
+          if (dli_fname)
+          {
+            log_context_creation(CI::Context *)::isInternalBuild = os_variant_has_internal_content();
+          }
         }
 
         if (log_context_creation(CI::Context *)::isInternalBuild == 1)
         {
+          v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
           v36 = 0u;
           v37 = 0u;
           v34 = 0u;
           v35 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v30 = 0u;
           v31 = 0u;
-          v28 = 0u;
-          v29 = 0u;
-          v27 = 0u;
           memset(buf, 0, sizeof(buf));
-          v7 = backtrace(buf, 32);
-          if (dladdr(*buf, &v25))
+          v11 = backtrace(buf, 32);
+          dli_fname = dladdr(*buf, &v29);
+          if (dli_fname)
           {
-            dli_fbase = v25.dli_fbase;
+            dli_fbase = v29.dli_fbase;
           }
 
           else
@@ -3064,27 +3118,34 @@ LABEL_24:
             dli_fbase = 0;
           }
 
-          if (v7 >= 2)
+          if (v11 >= 2)
           {
-            v9 = 8 * v7;
-            v10 = 8;
-            while (dladdr(*&buf[v10], &v25))
+            v13 = 8 * v11;
+            for (i = 8; v13 != i; i += 8)
             {
-              if (v25.dli_fbase != dli_fbase)
+              dli_fname = dladdr(*&buf[i], &v29);
+              if (!dli_fname)
               {
-                if (v25.dli_fname)
+                break;
+              }
+
+              if (v29.dli_fbase != dli_fbase)
+              {
+                dli_fname = v29.dli_fname;
+                if (v29.dli_fname)
                 {
-                  v11 = strrchr(v25.dli_fname, 47);
+                  dli_fname = strrchr(v29.dli_fname, 47);
+                  v15 = dli_fname;
                 }
 
                 else
                 {
-                  v11 = 0;
+                  v15 = 0;
                 }
 
-                if (v25.dli_sname)
+                if (v29.dli_sname)
                 {
-                  dli_sname = v25.dli_sname;
+                  dli_sname = v29.dli_sname;
                 }
 
                 else
@@ -3092,84 +3153,78 @@ LABEL_24:
                   dli_sname = "";
                 }
 
-                v13 = "from";
+                v17 = "from";
                 goto LABEL_20;
-              }
-
-              v10 += 8;
-              if (v9 == v10)
-              {
-                break;
               }
             }
           }
 
-          v11 = 0;
+          v15 = 0;
           dli_sname = "";
-          v13 = "";
+          v17 = "";
         }
 
         else
         {
-          v11 = 0;
+          v15 = 0;
           dli_sname = "";
-          v13 = "";
+          v17 = "";
         }
 
 LABEL_20:
-        v14 = ci_logger_api();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v18 = ci_logger_api(dli_fname, v8);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v15 = (*(*representation + 312))(representation);
-          v16 = (*(*representation + 280))(representation);
-          v18 = *(representation + 236);
-          v17 = representation + 236;
-          v19 = v18 == 0;
+          v19 = (*(*representation + 312))(representation);
+          v20 = (*(*representation + 280))(representation);
+          v22 = *(representation + 236);
+          v21 = representation + 236;
+          v23 = v22 == 0;
           *buf = 136447746;
-          if (v18)
+          if (v22)
           {
-            v20 = ":";
+            v24 = ":";
           }
 
           else
           {
-            v20 = "";
+            v24 = "";
           }
 
-          if (v19)
+          if (v23)
           {
-            v21 = "";
+            v25 = "";
           }
 
           else
           {
-            v21 = v17;
+            v25 = v21;
           }
 
-          *&buf[4] = v15;
+          *&buf[4] = v19;
           *&buf[12] = 1026;
-          if (v11)
+          if (v15)
           {
-            v22 = v11 + 1;
+            v26 = (v15 + 1);
           }
 
           else
           {
-            v22 = "";
+            v26 = "";
           }
 
-          *&buf[14] = v16;
+          *&buf[14] = v20;
           *&buf[18] = 2082;
-          *&buf[20] = v20;
+          *&buf[20] = v24;
           *&buf[28] = 2082;
-          *&buf[30] = v21;
+          *&buf[30] = v25;
           *&buf[38] = 2082;
-          *&buf[40] = v13;
+          *&buf[40] = v17;
           *&buf[48] = 2082;
-          *&buf[50] = v22;
+          *&buf[50] = v26;
           *&buf[58] = 2082;
           *&buf[60] = dli_sname;
-          _os_log_impl(&dword_19CC36000, v14, OS_LOG_TYPE_INFO, "Created CIContext (%{public}s context %{public}d%{public}s%{public}s) %{public}s %{public}s %{public}s", buf, 0x44u);
+          _os_log_impl(&dword_19CC36000, v18, OS_LOG_TYPE_INFO, "Created CIContext (%{public}s context %{public}d%{public}s%{public}s) %{public}s %{public}s %{public}s", buf, 0x44u);
         }
       }
     }
@@ -3261,17 +3316,17 @@ uint64_t __39__CIContext__createCached___namedCache__block_invoke()
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v183 = *MEMORY[0x1E69E9840];
+  v196 = *MEMORY[0x1E69E9840];
   v20 = objc_autoreleasePoolPush();
   imageCopy = image;
   imageCopy2 = image;
   [(CIContext *)self _gpuContextCheck];
-  v184.origin.x = x;
-  v184.origin.y = y;
-  v184.size.width = width;
-  v184.size.height = height;
-  v185 = CGRectStandardize(v184);
-  if (!image || (v23 = v185.origin.x, v24 = v185.origin.y, v25 = v185.size.width, v26 = v185.size.height, CGRectIsInfinite(v185)) || ([image extent], v202.origin.x = v27, v202.origin.y = v28, v202.size.width = v29, v202.size.height = v30, v186.origin.x = v23, v186.origin.y = v24, v186.size.width = v25, v186.size.height = v26, v187 = CGRectIntersection(v186, v202), CGRectIsEmpty(v187)))
+  v197.origin.x = x;
+  v197.origin.y = y;
+  v197.size.width = width;
+  v197.size.height = height;
+  v198 = CGRectStandardize(v197);
+  if (!image || (v23 = v198.origin.x, v24 = v198.origin.y, v25 = v198.size.width, v26 = v198.size.height, CGRectIsInfinite(v198)) || ([image extent], v215.origin.x = v27, v215.origin.y = v28, v215.size.width = v29, v215.size.height = v30, v199.origin.x = v23, v199.origin.y = v24, v199.size.width = v25, v199.size.height = v26, v200 = CGRectIntersection(v199, v215), CGRectIsEmpty(v200)))
   {
 LABEL_4:
     v32 = 0;
@@ -3279,21 +3334,10 @@ LABEL_4:
   }
 
   v34 = CI::format_modernize(v13, "[CIContext(_createCGImageInternal) _createCGImage:fromRect:format:premultiplied:colorSpace:deferred:renderCallback:]", v31);
-  if (CI::format_CGBitmapInfo(v34, 1) == -1)
+  v35 = CI::format_CGBitmapInfo(v34, 1);
+  if (v35 == -1)
   {
-    v35 = ci_logger_api();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-    {
-      [CIContext(_createCGImageInternal) _createCGImage:v34 fromRect:? format:? premultiplied:? colorSpace:? deferred:? renderCallback:?];
-    }
-
-    goto LABEL_4;
-  }
-
-  _internalContext = [(CIContext *)self _internalContext];
-  if ((*(*_internalContext + 16))(_internalContext) == 84 && CI::format_is_not_supported_as_destination_on_gles(v34))
-  {
-    v37 = ci_logger_api();
+    v37 = ci_logger_api(v35, v36);
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       [CIContext(_createCGImageInternal) _createCGImage:v34 fromRect:? format:? premultiplied:? colorSpace:? deferred:? renderCallback:?];
@@ -3302,20 +3346,37 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v162 = v34;
+  _internalContext = [(CIContext *)self _internalContext];
+  if ((*(*_internalContext + 16))(_internalContext) == 84)
+  {
+    is_not_supported_as_destination_on_gles = CI::format_is_not_supported_as_destination_on_gles(v34);
+    if (is_not_supported_as_destination_on_gles)
+    {
+      v41 = ci_logger_api(is_not_supported_as_destination_on_gles, v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      {
+        [CIContext(_createCGImageInternal) _createCGImage:v34 fromRect:? format:? premultiplied:? colorSpace:? deferred:? renderCallback:?];
+      }
+
+      goto LABEL_4;
+    }
+  }
+
+  v175 = v34;
   if (!space)
   {
     goto LABEL_21;
   }
 
   TypeID = CGColorSpaceGetTypeID();
-  if (TypeID != CFGetTypeID(space) || !CGColorSpaceSupportsOutput(space))
+  Model = CFGetTypeID(space);
+  if (TypeID != Model || (Model = CGColorSpaceSupportsOutput(space), !Model))
   {
 LABEL_18:
-    v41 = ci_logger_api();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v46 = ci_logger_api(Model, v44);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(_createCGImageInternal) *)v41 _createCGImage:v42 fromRect:v43 format:v44 premultiplied:v45 colorSpace:v46 deferred:v47 renderCallback:v48];
+      [(CIContext(_createCGImageInternal) *)v46 _createCGImage:v47 fromRect:v48 format:v49 premultiplied:v50 colorSpace:v51 deferred:v52 renderCallback:v53];
     }
 
     goto LABEL_4;
@@ -3325,7 +3386,7 @@ LABEL_18:
   Model = CGColorSpaceGetModel(space);
   if (!is_luminance)
   {
-    if (Model == kCGColorSpaceModelRGB)
+    if (Model == 1)
     {
       goto LABEL_21;
     }
@@ -3339,26 +3400,26 @@ LABEL_18:
   }
 
 LABEL_21:
-  v188.origin.x = v23;
-  v188.origin.y = v24;
-  v188.size.width = v25;
-  v188.size.height = v26;
-  MidY = CGRectGetMidY(v188);
+  v201.origin.x = v23;
+  v201.origin.y = v24;
+  v201.size.width = v25;
+  v201.size.height = v26;
+  MidY = CGRectGetMidY(v201);
   *&buf[8] = 0;
-  *v168 = 0;
+  *v181 = 0;
   *buf = 0x3FF0000000000000;
-  *&v168[8] = xmmword_19CF25100;
-  *&v168[24] = MidY + MidY;
-  v161 = [image imageByApplyingTransform:buf];
+  *&v181[8] = xmmword_19CF25100;
+  *&v181[24] = MidY + MidY;
+  v174 = [image imageByApplyingTransform:buf];
   _internalContext2 = [(CIContext *)self _internalContext];
-  v51 = _internalContext2;
+  v56 = _internalContext2;
   callbackCopy = &__block_literal_global_15;
   if (callback)
   {
     callbackCopy = callback;
   }
 
-  v155 = callbackCopy;
+  v168 = callbackCopy;
   if ((*(*_internalContext2 + 560))(_internalContext2))
   {
     var0 = deferred.var0;
@@ -3371,309 +3432,310 @@ LABEL_21:
 
   if (v34 == 784 || v34 == 785)
   {
-    v55 = -1;
+    v60 = -1;
   }
 
   else
   {
-    v55 = var0;
+    v60 = var0;
   }
 
-  v178 = 0;
-  v179 = &v178;
-  v180 = 0x2020000000;
-  v181 = 0;
-  v189.origin.x = v23;
-  v189.origin.y = v24;
-  v189.size.width = v25;
-  v189.size.height = v26;
-  v157 = v55;
-  if (CGRectIsNull(v189))
+  v191 = 0;
+  v192 = &v191;
+  v193 = 0x2020000000;
+  v194 = 0;
+  v202.origin.x = v23;
+  v202.origin.y = v24;
+  v202.size.width = v25;
+  v202.size.height = v26;
+  v170 = v60;
+  if (CGRectIsNull(v202))
   {
-    v56 = 0;
-    v57 = 0;
-    v58 = 0x7FFFFFFF;
-    v59 = 0x7FFFFFFF;
+    v61 = 0;
+    v62 = 0;
+    v63 = 0x7FFFFFFF;
+    v64 = 0x7FFFFFFF;
   }
 
   else
   {
-    v190.origin.x = v23;
-    v190.origin.y = v24;
-    v190.size.width = v25;
-    v190.size.height = v26;
-    if (CGRectIsInfinite(v190))
-    {
-      v58 = -2147483647;
-      v56 = 0xFFFFFFFFLL;
-      v59 = -2147483647;
-      v57 = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      v191.origin.x = v23;
-      v191.origin.y = v24;
-      v191.size.width = v25;
-      v191.size.height = v26;
-      v192 = CGRectInset(v191, 0.000001, 0.000001);
-      v193 = CGRectIntegral(v192);
-      v58 = v193.origin.x;
-      v59 = v193.origin.y;
-      v56 = v193.size.width;
-      v57 = v193.size.height;
-    }
-  }
-
-  _internalRepresentation = [v161 _internalRepresentation];
-  if ((*(*_internalRepresentation + 128))(_internalRepresentation))
-  {
-    [v161 extent];
     v203.origin.x = v23;
     v203.origin.y = v24;
     v203.size.width = v25;
     v203.size.height = v26;
-    if (CGRectContainsRect(v194, v203))
+    if (CGRectIsInfinite(v203))
     {
-      if (v162 == 264)
+      v63 = -2147483647;
+      v61 = 0xFFFFFFFFLL;
+      v64 = -2147483647;
+      v62 = 0xFFFFFFFFLL;
+    }
+
+    else
+    {
+      v204.origin.x = v23;
+      v204.origin.y = v24;
+      v204.size.width = v25;
+      v204.size.height = v26;
+      v205 = CGRectInset(v204, 0.000001, 0.000001);
+      v206 = CGRectIntegral(v205);
+      v63 = v206.origin.x;
+      v64 = v206.origin.y;
+      v61 = v206.size.width;
+      v62 = v206.size.height;
+    }
+  }
+
+  _internalRepresentation = [v174 _internalRepresentation];
+  if ((*(*_internalRepresentation + 128))(_internalRepresentation))
+  {
+    [v174 extent];
+    v216.origin.x = v23;
+    v216.origin.y = v24;
+    v216.size.width = v25;
+    v216.size.height = v26;
+    if (CGRectContainsRect(v207, v216))
+    {
+      if (v175 == 264)
       {
-        v61 = 268;
+        v66 = 268;
       }
 
       else
       {
-        v61 = v162;
+        v66 = v175;
       }
 
-      if (v61 == 266)
+      if (v66 == 266)
       {
-        v61 = 270;
+        v66 = 270;
       }
 
-      if (v61 == 265)
+      if (v66 == 265)
       {
-        v61 = 269;
+        v66 = 269;
       }
 
-      if (v61 == 267)
+      if (v66 == 267)
       {
-        v61 = 271;
+        v66 = 271;
       }
 
-      if (v61 == 784)
+      if (v66 == 784)
       {
-        v61 = 775;
+        v66 = 775;
       }
 
-      if (v61 == 1800)
+      if (v66 == 1800)
       {
-        v61 = 1804;
+        v66 = 1804;
       }
 
-      if (v61 == 2056)
+      if (v66 == 2056)
       {
-        v61 = 2060;
+        v66 = 2060;
       }
 
-      if (v61 == 2312)
+      if (v66 == 2312)
       {
-        v61 = 2316;
+        v66 = 2316;
       }
 
-      if (v61 == 260)
+      if (v66 == 260)
       {
-        v61 = 259;
+        v66 = 259;
       }
 
-      if (v61 == 1796)
+      if (v66 == 1796)
       {
-        v61 = 1795;
+        v66 = 1795;
       }
 
-      if (v61 == 2052)
+      if (v66 == 2052)
       {
-        v61 = 2051;
+        v66 = 2051;
       }
 
-      if (v61 == 2308)
+      if (v66 == 2308)
       {
-        v61 = 2307;
+        v66 = 2307;
       }
 
-      v162 = v61;
+      v175 = v66;
     }
   }
 
   if (premultipliedCopy)
   {
-    v62 = 1;
+    v67 = 1;
   }
 
   else
   {
-    v62 = 2;
+    v67 = 2;
   }
 
-  if (CI::format_has_unpremul_alpha(v162))
+  if (CI::format_has_unpremul_alpha(v175))
   {
-    v63 = 2;
+    v68 = 2;
   }
 
-  else if (CI::format_has_alpha(v162))
+  else if (CI::format_has_alpha(v175))
   {
-    v63 = v62;
+    v68 = v67;
   }
 
   else
   {
-    v63 = 0;
+    v68 = 0;
   }
 
-  v156 = v63;
-  *buf = v58;
-  *&buf[4] = v59;
-  *&buf[8] = v56;
-  *v168 = v57;
-  v64 = v162;
-  CI::Context::swizzler_for_output(v51, v162, buf, 0, v177);
-  v159 = vcvtpd_u64_f64(v26);
-  v160 = vcvtpd_u64_f64(v25);
-  v176[0] = 0x3FF0000000000000;
-  v176[1] = 0;
-  v176[2] = 0;
-  v176[3] = 0x3FF0000000000000;
-  *&v176[4] = -v23;
-  *&v176[5] = -v24;
-  v174 = v177[0];
-  v175 = 0;
-  v65 = strcmp((v51 + 236), "CoreUI");
+  v169 = v68;
+  *buf = v63;
+  *&buf[4] = v64;
+  *&buf[8] = v61;
+  *v181 = v62;
+  v69 = v175;
+  CI::Context::swizzler_for_output(v56, v175, buf, 0, v190);
+  v172 = vcvtpd_u64_f64(v26);
+  v173 = vcvtpd_u64_f64(v25);
+  v189[0] = 0x3FF0000000000000;
+  v189[1] = 0;
+  v189[2] = 0;
+  v189[3] = 0x3FF0000000000000;
+  *&v189[4] = -v23;
+  *&v189[5] = -v24;
+  v187 = v190[0];
+  v188 = 0;
+  v70 = strcmp(v56 + 236, "CoreUI");
   if (*(_internalRepresentation + 113))
   {
-    v66 = v65;
+    v71 = v70;
     [(CIContext *)self lock];
-    ++*(v51 + 152);
-    *(v51 + 192) = 0;
-    *(v51 + 160) = v23;
-    *(v51 + 168) = v24;
-    *(v51 + 176) = v25;
-    *(v51 + 184) = v26;
-    (*(*v51 + 248))(v51, 0);
-    v195.origin.x = (*(*_internalRepresentation + 88))(_internalRepresentation);
-    v196 = CGRectIntegral(v195);
-    v204.origin.x = v23;
-    v204.origin.y = v24;
-    v204.size.width = v25;
-    v204.size.height = v26;
-    if (!CGRectContainsRect(v196, v204))
+    ++v56[19];
+    v56[24] = 0;
+    *(v56 + 20) = v23;
+    *(v56 + 21) = v24;
+    *(v56 + 22) = v25;
+    *(v56 + 23) = v26;
+    (*(*v56 + 248))(v56, 0);
+    v208.origin.x = (*(*_internalRepresentation + 88))(_internalRepresentation);
+    v209 = CGRectIntegral(v208);
+    v217.origin.x = v23;
+    v217.origin.y = v24;
+    v217.size.width = v25;
+    v217.size.height = v26;
+    v72 = CGRectContainsRect(v209, v217);
+    if (!v72)
     {
 LABEL_86:
       [(CIContext *)self unlock];
       goto LABEL_87;
     }
 
-    v67 = ci_signpost_log_render();
-    v68 = (*(*v51 + 280))(v51) << 32;
-    if (v68 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v67))
+    v74 = ci_signpost_log_render(v72, v73);
+    v75 = (*(*v56 + 280))(v56) << 32;
+    if (v75 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v74))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v67, OS_SIGNPOST_INTERVAL_BEGIN, v68, "create_cgimage_check", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v74, OS_SIGNPOST_INTERVAL_BEGIN, v75, "create_cgimage_check", &unk_19CFBCBAE, buf, 2u);
     }
 
-    v69 = (*(*v51 + 280))(v51);
-    TimerBase::TimerBase(v182, v69, 0, "create_cgimage_check", 0);
-    v197.origin.x = v23;
-    v197.origin.y = v24;
-    v197.size.width = v160;
-    v197.size.height = v159;
-    v70 = CI::Affine::applyToRect(v176, v197);
-    v153 = v71;
-    v154 = v72;
-    v73 = v70;
-    v75 = v74;
-    *buf = v177[0];
-    *v168 = v177[1];
-    *&v168[16] = v177[2];
-    v76 = CI::prepare_initial_graph(v51, "create_cgimage_check", _internalRepresentation, 0, space, v162, buf, v176, v23, v24, v160, v159, 1u, &v174);
-    v78 = v76;
-    if (!v66 && v157 == -1)
+    v76 = (*(*v56 + 280))(v56);
+    TimerBase::TimerBase(v195, v76, 0, "create_cgimage_check", 0);
+    v210.origin.x = v23;
+    v210.origin.y = v24;
+    v210.size.width = v173;
+    v210.size.height = v172;
+    v77 = CI::Affine::applyToRect(v189, v210);
+    v166 = v78;
+    v167 = v79;
+    v80 = v77;
+    v82 = v81;
+    *buf = v190[0];
+    *v181 = v190[1];
+    *&v181[16] = v190[2];
+    v83 = CI::prepare_initial_graph(v56, "create_cgimage_check", _internalRepresentation, 0, space, v175, buf, v189, v23, v24, v173, v172, 1u, &v187);
+    v85 = v83;
+    if (!v71 && v170 == -1)
     {
 LABEL_80:
-      v79 = v179[3];
-      if (v79)
+      v86 = v192[3];
+      if (v86)
       {
-        CGImageGetColorSpace(v79);
+        CGImageGetColorSpace(v86);
         if ((CGColorSpaceEqualToColorSpace() & 1) == 0)
         {
-          CFAutorelease(v179[3]);
-          CopyWithColorSpace = CGImageCreateCopyWithColorSpace(v179[3], space);
-          v179[3] = CopyWithColorSpace;
+          CFAutorelease(v192[3]);
+          CopyWithColorSpace = CGImageCreateCopyWithColorSpace(v192[3], space);
+          v192[3] = CopyWithColorSpace;
         }
       }
 
-      CI::traverse_releasing_resources(v78, v77);
-      if (v78)
+      CI::traverse_releasing_resources(v85, v84);
+      if (v85)
       {
-        CI::Object::unref(v78);
+        CI::Object::unref(v85);
       }
 
-      CI::create_cgimage(CIContext *,CIImage *,CGRect,CGColorSpace *,int,BOOL,CI::Trilean,void({block_pointer})(CGRect,NSError *))::SignpostTimer::~SignpostTimer(v182);
+      CI::create_cgimage(CIContext *,CIImage *,CGRect,CGColorSpace *,int,BOOL,CI::Trilean,void({block_pointer})(CGRect,NSError *))::SignpostTimer::~SignpostTimer(v195, v88);
       goto LABEL_86;
     }
 
-    if ((*(*v76 + 16))(v76) == 34)
+    if ((*(*v83 + 16))(v83) == 34)
     {
-      if (v78[7] != 1.0 || v78[8] != 0.0 || v78[9] != 0.0 || v78[10] != 1.0 || vabdd_f64(v78[11], round(v78[11])) >= 1.0e-10 || vabdd_f64(v78[12], round(v78[12])) >= 1.0e-10)
+      if (v85[7] != 1.0 || v85[8] != 0.0 || v85[9] != 0.0 || v85[10] != 1.0 || vabdd_f64(v85[11], round(v85[11])) >= 1.0e-10 || vabdd_f64(v85[12], round(v85[12])) >= 1.0e-10)
       {
         goto LABEL_80;
       }
 
-      CI::Affine::inverse((v78 + 7), buf);
-      v198.origin.x = v73;
-      v198.origin.y = v75;
-      v198.size.width = v153;
-      v198.size.height = v154;
-      v90 = CI::Affine::applyToRect(buf, v198);
-      v153 = v91;
-      v154 = v92;
-      v73 = v90;
-      v75 = v93;
-      v94 = (*(*v78 + 48))(v78, 0);
-      v64 = v162;
+      CI::Affine::inverse(buf, (v85 + 7));
+      v211.origin.x = v80;
+      v211.origin.y = v82;
+      v211.size.width = v166;
+      v211.size.height = v167;
+      v100 = CI::Affine::applyToRect(buf, v211);
+      v166 = v101;
+      v167 = v102;
+      v80 = v100;
+      v82 = v103;
+      v104 = (*(*v85 + 48))(v85, 0);
+      v69 = v175;
     }
 
     else
     {
-      v94 = v78;
+      v104 = v85;
     }
 
-    if ((*(*v94 + 16))(v94) == 37 || (*(*v94 + 16))(v94) == 38)
+    if ((*(*v104 + 16))(v104) == 37 || (*(*v104 + 16))(v104) == 38)
     {
-      v94 = (*(*v94 + 48))(v94, 0);
+      v104 = (*(*v104 + 48))(v104, 0);
     }
 
-    if ((*(*v94 + 16))(v94) == 55)
+    if ((*(*v104 + 16))(v104) == 55)
     {
-      v98 = (*(*v94 + 424))(v94);
-      if (v98 > 0xF || ((1 << v98) & 0xFC2B) == 0)
+      v110 = (*(*v104 + 424))(v104);
+      if (v110 > 0xF || ((1 << v110) & 0xFC2B) == 0)
       {
         goto LABEL_80;
       }
 
-      v94 = (*(*v94 + 48))(v94, 0);
+      v104 = (*(*v104 + 48))(v104, 0);
     }
 
-    if ((*(*v94 + 16))(v94) == 35)
+    if ((*(*v104 + 16))(v104) == 35)
     {
-      v99 = *(v94 + 13);
-      v100 = (*(*v94 + 176))(v94);
-      v164 = v101;
-      rect1 = v102;
-      v103 = v100;
-      v105 = v104;
-      v107 = CI::format_from_CGImage(v99, v106);
-      if (CI::format_has_alpha(v107))
+      v111 = *(v104 + 13);
+      v112 = (*(*v104 + 176))(v104);
+      v177 = v113;
+      rect1 = v114;
+      v115 = v112;
+      v117 = v116;
+      v119 = CI::format_from_CGImage(v111, v118);
+      if (CI::format_has_alpha(v119))
       {
-        has_alpha = CI::format_has_alpha(v64);
+        has_alpha = CI::format_has_alpha(v69);
       }
 
       else
@@ -3681,100 +3743,101 @@ LABEL_80:
         has_alpha = 1;
       }
 
-      if (CI::format_is_rgb(v107) && (CI::format_is_rgb(v64) & 1) != 0)
+      if (CI::format_is_rgb(v119) && (CI::format_is_rgb(v69) & 1) != 0)
       {
-        v152 = 1;
+        v165 = 1;
       }
 
-      else if (CI::format_is_luminance(v107))
+      else if (CI::format_is_luminance(v119))
       {
-        v152 = CI::format_is_luminance(v64);
+        v165 = CI::format_is_luminance(v69);
       }
 
       else
       {
-        v152 = 0;
+        v165 = 0;
       }
 
-      v120 = CI::format_bits_per_component(v107);
-      v121 = CI::format_bits_per_component(v64);
-      if (CGImageGetProperty() != *MEMORY[0x1E695E4D0] || v157 != -1)
+      v132 = CI::format_bits_per_component(v119);
+      v133 = CI::format_bits_per_component(v69);
+      if (CGImageGetProperty() != *MEMORY[0x1E695E4D0] || v170 != -1)
       {
-        v199.origin.x = v103;
-        v199.origin.y = v105;
-        v199.size.width = v164;
-        v199.size.height = rect1;
-        v205.origin.x = v73;
-        v205.origin.y = v75;
-        v205.size.width = v153;
-        v205.size.height = v154;
-        if ((CGRectContainsRect(v199, v205) & has_alpha & v152) == 1 && v120 == v121)
+        v212.origin.x = v115;
+        v212.origin.y = v117;
+        v212.size.width = v177;
+        v212.size.height = rect1;
+        v218.origin.x = v80;
+        v218.origin.y = v82;
+        v218.size.width = v166;
+        v218.size.height = v167;
+        if ((CGRectContainsRect(v212, v218) & has_alpha & v165) == 1 && v132 == v133)
         {
-          v200.origin.x = v73;
-          v200.origin.y = v75;
-          v200.size.width = v153;
-          v200.size.height = v154;
-          v122 = CGImageCreateWithImageInRect(v99, v200);
-          v179[3] = v122;
+          v213.origin.x = v80;
+          v213.origin.y = v82;
+          v213.size.width = v166;
+          v213.size.height = v167;
+          v134 = CGImageCreateWithImageInRect(v111, v213);
+          v192[3] = v134;
         }
       }
     }
 
-    else if ((*(*v94 + 16))(v94) == 54)
+    else if ((*(*v104 + 16))(v104) == 54)
     {
-      v151 = *(v94 + 7);
-      v109 = (*(*v94 + 176))(v94);
-      v149 = v111;
-      v150 = v110;
-      v112 = v109;
-      v114 = v113;
-      v144 = (*(*v94 + 432))(v94) != 2;
-      v116 = CI::format_from_IOSurface(v151, v115);
-      v145 = CI::format_CGBitmapInfo(v116, v144);
-      v165 = v116;
-      v117 = CI::format_has_alpha(v116) ? CI::format_has_alpha(v64) : 1;
-      v148 = v117;
-      if (CI::format_is_rgb(v165) && (CI::format_is_rgb(v64) & 1) != 0)
+      v164 = *(v104 + 7);
+      v121 = (*(*v104 + 176))(v104);
+      v162 = v123;
+      v163 = v122;
+      v124 = v121;
+      v126 = v125;
+      v157 = (*(*v104 + 432))(v104) != 2;
+      v128 = CI::format_from_IOSurface(v164, v127);
+      v158 = CI::format_CGBitmapInfo(v128, v157);
+      v178 = v128;
+      v129 = CI::format_has_alpha(v128) ? CI::format_has_alpha(v69) : 1;
+      v161 = v129;
+      if (CI::format_is_rgb(v178) && (CI::format_is_rgb(v69) & 1) != 0)
       {
-        v147 = 1;
+        v160 = 1;
       }
 
       else
       {
-        v147 = CI::format_is_luminance(v165) ? CI::format_is_luminance(v64) : 0;
+        v160 = CI::format_is_luminance(v178) ? CI::format_is_luminance(v69) : 0;
       }
 
-      v146 = CI::format_bits_per_component(v165);
-      v135 = CI::format_bits_per_component(v64);
-      v201.origin.x = v112;
-      v201.origin.y = v114;
-      v201.size.height = v149;
-      v201.size.width = v150;
-      v206.origin.x = v73;
-      v206.origin.y = v75;
-      v206.size.width = v153;
-      v206.size.height = v154;
-      if ((CGRectEqualToRect(v201, v206) & v148 & v147) == 1 && v146 == v135 && v145 != -1)
+      v159 = CI::format_bits_per_component(v178);
+      v147 = CI::format_bits_per_component(v69);
+      v214.origin.x = v124;
+      v214.origin.y = v126;
+      v214.size.height = v162;
+      v214.size.width = v163;
+      v219.origin.x = v80;
+      v219.origin.y = v82;
+      v219.size.width = v166;
+      v219.size.height = v167;
+      if ((CGRectEqualToRect(v214, v219) & v161 & v160) == 1 && v159 == v147 && v158 != -1)
       {
-        if (((*(*v94 + 432))(v94) || (CI::format_has_alpha(v64) & 1) == 0) && (CI::format_has_alpha(v165) & 1) != 0 || (v136 = CGImageCreateFromIOSurface(), (v179[3] = v136) == 0))
+        if (((*(*v104 + 432))(v104) || (CI::format_has_alpha(v69) & 1) == 0) && (CI::format_has_alpha(v178) & 1) != 0 || (v148 = CGImageCreateFromIOSurface(), (v192[3] = v148) == 0))
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
-          *v168 = ___ZN2CIL14create_cgimageEP9CIContextP7CIImage6CGRectP12CGColorSpaceibNS_7TrileanEU13block_pointerFvS4_P7NSErrorE_block_invoke;
-          *&v168[8] = &unk_1E75C2168;
-          v171 = v165;
-          v172 = v64;
-          v173 = v144;
-          v169 = v51;
+          *v181 = ___ZN2CIL14create_cgimageEP9CIContextP7CIImage6CGRectP12CGColorSpaceibNS_7TrileanEU13block_pointerFvS4_P7NSErrorE_block_invoke;
+          *&v181[8] = &unk_1E75C2168;
+          v184 = v178;
+          v185 = v69;
+          v186 = v157;
+          v182 = v56;
           spaceCopy = space;
-          *&v168[16] = &v178;
-          *&v168[24] = v94;
-          if (SurfaceApplyPlaneReadOnlyBlock(v151, buf))
+          *&v181[16] = &v191;
+          *&v181[24] = v104;
+          OnlyBlock = SurfaceApplyPlaneReadOnlyBlock(v164, buf);
+          if (OnlyBlock)
           {
-            v137 = ci_logger_render();
-            if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
+            v150 = ci_logger_render(OnlyBlock, v84);
+            if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
             {
-              [(CIContext(_createCGImageInternal) *)v137 _createCGImage:v77 fromRect:v138 format:v139 premultiplied:v140 colorSpace:v141 deferred:v142 renderCallback:v143];
+              [(CIContext(_createCGImageInternal) *)v150 _createCGImage:v84 fromRect:v151 format:v152 premultiplied:v153 colorSpace:v154 deferred:v155 renderCallback:v156];
             }
           }
         }
@@ -3785,82 +3848,83 @@ LABEL_80:
   }
 
 LABEL_87:
-  if (v157 != 1)
+  if (v170 != 1)
   {
-    v81 = v159;
-    if (v160 > v159)
+    v89 = v172;
+    if (v173 > v172)
     {
-      v81 = v160;
+      v89 = v173;
     }
 
-    if (v157 == -1 || v81 <= 0x1000)
+    if (v170 == -1 || v89 <= 0x1000)
     {
-      if (v179[3])
+      if (v192[3])
       {
         if (!CGImageGetImageProvider())
         {
           goto LABEL_227;
         }
 
-        CGImageRelease(v179[3]);
+        CGImageRelease(v192[3]);
       }
 
       valuePtr = 0;
       _internalContext3 = [(CIContext *)self _internalContext];
-      v87 = CI_IOSURFACE_WRAPPING(2u);
-      v88 = *_internalContext3;
-      if (v87)
+      v97 = CI_IOSURFACE_WRAPPING(2u);
+      v98 = *_internalContext3;
+      if (v97)
       {
-        v89 = (v88 + 552);
+        v99 = (v98 + 552);
       }
 
       else
       {
-        v89 = (v88 + 536);
+        v99 = (v98 + 536);
       }
 
-      (*v89)(_internalContext3, v64);
-      CI::format_bytes_per_pixel(v64);
-      v95 = ci_signpost_log_render();
-      v96 = (*(*_internalContext3 + 280))(_internalContext3) << 32;
-      if (v96 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v95))
+      (*v99)(_internalContext3, v69);
+      v105 = CI::format_bytes_per_pixel(v69);
+      v107 = ci_signpost_log_render(v105, v106);
+      v108 = (*(*_internalContext3 + 280))(_internalContext3) << 32;
+      if (v108 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v107))
       {
-        *v182 = 134218240;
-        *&v182[4] = v160;
-        *&v182[12] = 2048;
-        *&v182[14] = v159;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v95, OS_SIGNPOST_INTERVAL_BEGIN, v96, "new_bitmap", "[%zu %zu]", v182, 0x16u);
+        *v195 = 134218240;
+        *&v195[4] = v173;
+        *&v195[12] = 2048;
+        *&v195[14] = v172;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v107, OS_SIGNPOST_INTERVAL_BEGIN, v108, "new_bitmap", "[%zu %zu]", v195, 0x16u);
       }
 
-      v97 = (*(*_internalContext3 + 280))(_internalContext3);
-      TimerBase::TimerBase(v182, v97, 0, "new_bitmap", 0);
+      v109 = (*(*_internalContext3 + 280))(_internalContext3);
+      TimerBase::TimerBase(v195, v109, 0, "new_bitmap", 0);
       operator new();
     }
   }
 
-  if (v179[3])
+  if (v192[3])
   {
     goto LABEL_227;
   }
 
   _createClone = [(CIContext *)self _createClone];
   _internalContext4 = [_createClone _internalContext];
-  v83 = 0;
-  if (v64 > 1799)
+  v176 = _internalContext4;
+  v93 = 0;
+  if (v69 > 1799)
   {
-    if (v64 > 2059)
+    if (v69 > 2059)
     {
-      v85 = v64;
-      if (v64 <= 2311)
+      v95 = v69;
+      if (v69 <= 2311)
       {
-        if (v64 <= 2307)
+        if (v69 <= 2307)
         {
-          if (v64 == 2060)
+          if (v69 == 2060)
           {
             goto LABEL_199;
           }
 
-          if (v64 != 2307)
+          if (v69 != 2307)
           {
             goto LABEL_183;
           }
@@ -3868,12 +3932,12 @@ LABEL_87:
           goto LABEL_166;
         }
 
-        if (v64 == 2308)
+        if (v69 == 2308)
         {
           goto LABEL_199;
         }
 
-        if (v64 != 2311)
+        if (v69 != 2311)
         {
           goto LABEL_183;
         }
@@ -3881,31 +3945,31 @@ LABEL_87:
 
       else
       {
-        if (v64 <= 2315)
+        if (v69 <= 2315)
         {
-          if (v64 == 2312)
+          if (v69 == 2312)
           {
             goto LABEL_199;
           }
 
-          if (v64 == 2313)
+          if (v69 == 2313)
           {
-            v83 = 0;
-            v85 = 2312;
+            v93 = 0;
+            v95 = 2312;
             goto LABEL_199;
           }
 
           goto LABEL_183;
         }
 
-        if (v64 == 2316)
+        if (v69 == 2316)
         {
           goto LABEL_199;
         }
 
-        if (v64 != 2317)
+        if (v69 != 2317)
         {
-          if (v64 != 3331)
+          if (v69 != 3331)
           {
             goto LABEL_183;
           }
@@ -3914,24 +3978,24 @@ LABEL_87:
         }
       }
 
-      v83 = 0;
-      v85 = 2316;
+      v93 = 0;
+      v95 = 2316;
       goto LABEL_199;
     }
 
-    if (v64 > 2050)
+    if (v69 > 2050)
     {
-      if (v64 > 2054)
+      if (v69 > 2054)
       {
-        if (v64 == 2055)
+        if (v69 == 2055)
         {
-          v83 = 0;
-          v85 = 2060;
+          v93 = 0;
+          v95 = 2060;
           goto LABEL_199;
         }
 
-        v85 = v64;
-        if (v64 != 2056)
+        v95 = v69;
+        if (v69 != 2056)
         {
           goto LABEL_183;
         }
@@ -3939,10 +4003,10 @@ LABEL_87:
         goto LABEL_199;
       }
 
-      if (v64 != 2051)
+      if (v69 != 2051)
       {
-        v85 = v64;
-        if (v64 != 2052)
+        v95 = v69;
+        if (v69 != 2052)
         {
           goto LABEL_183;
         }
@@ -3953,29 +4017,29 @@ LABEL_87:
       goto LABEL_166;
     }
 
-    v85 = v64;
-    if (v64 <= 1803)
+    v95 = v69;
+    if (v69 <= 1803)
     {
-      if (v64 != 1800)
+      if (v69 != 1800)
       {
-        if (v64 != 1801)
+        if (v69 != 1801)
         {
           goto LABEL_183;
         }
 
-        v83 = 0;
-        v85 = 1800;
+        v93 = 0;
+        v95 = 1800;
       }
 
       goto LABEL_199;
     }
 
-    if (v64 == 1804)
+    if (v69 == 1804)
     {
       goto LABEL_199;
     }
 
-    if (v64 != 1805)
+    if (v69 != 1805)
     {
       goto LABEL_183;
     }
@@ -3983,16 +4047,16 @@ LABEL_87:
     goto LABEL_180;
   }
 
-  if (v64 > 770)
+  if (v69 > 770)
   {
-    if (v64 <= 784)
+    if (v69 <= 784)
     {
-      if (v64 != 771)
+      if (v69 != 771)
       {
-        if (v64 != 775)
+        if (v69 != 775)
         {
-          v85 = v64;
-          if (v64 != 784)
+          v95 = v69;
+          if (v69 != 784)
           {
             goto LABEL_183;
           }
@@ -4001,26 +4065,26 @@ LABEL_87:
         }
 
 LABEL_167:
-        v85 = v64;
+        v95 = v69;
         goto LABEL_199;
       }
 
 LABEL_165:
-      v85 = 1795;
-      v83 = 1;
+      v95 = 1795;
+      v93 = 1;
       goto LABEL_199;
     }
 
-    if (v64 <= 1795)
+    if (v69 <= 1795)
     {
-      if (v64 == 785)
+      if (v69 == 785)
       {
-        v83 = 0;
-        v85 = 784;
+        v93 = 0;
+        v95 = 784;
         goto LABEL_199;
       }
 
-      if (v64 != 1795)
+      if (v69 != 1795)
       {
         goto LABEL_183;
       }
@@ -4028,37 +4092,37 @@ LABEL_165:
       goto LABEL_165;
     }
 
-    v85 = v64;
-    if (v64 == 1796)
+    v95 = v69;
+    if (v69 == 1796)
     {
       goto LABEL_199;
     }
 
-    if (v64 != 1799)
+    if (v69 != 1799)
     {
       goto LABEL_183;
     }
 
 LABEL_180:
-    v83 = 0;
-    v85 = 1804;
+    v93 = 0;
+    v95 = 1804;
     goto LABEL_199;
   }
 
-  if (v64 > 263)
+  if (v69 > 263)
   {
-    if ((v64 - 264) <= 7)
+    if ((v69 - 264) <= 7)
     {
-      v84 = 1 << (v64 - 8);
-      if ((v84 & 0xE) != 0)
+      v94 = 1 << (v69 - 8);
+      if ((v94 & 0xE) != 0)
       {
-        v83 = 0;
-        v85 = 264;
+        v93 = 0;
+        v95 = 264;
         goto LABEL_199;
       }
 
-      v85 = v64;
-      if ((v84 & 0xE0) == 0)
+      v95 = v69;
+      if ((v94 & 0xE0) == 0)
       {
         goto LABEL_199;
       }
@@ -4069,112 +4133,112 @@ LABEL_180:
     goto LABEL_183;
   }
 
-  if (v64 == 259)
+  if (v69 == 259)
   {
 LABEL_166:
-    v83 = 1;
+    v93 = 1;
     goto LABEL_167;
   }
 
-  v85 = v64;
-  if (v64 != 260)
+  v95 = v69;
+  if (v69 != 260)
   {
-    if (v64 == 263)
+    if (v69 == 263)
     {
 LABEL_164:
-      v83 = 0;
-      v85 = 268;
+      v93 = 0;
+      v95 = 268;
       goto LABEL_199;
     }
 
 LABEL_183:
-    v118 = ci_logger_render();
-    if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
+    v130 = ci_logger_render(_internalContext4, v92);
+    if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
     {
-      v119 = CI::name_for_format(v64);
-      [CIContext(_createCGImageInternal) _createCGImage:v119 fromRect:v182 format:v118 premultiplied:? colorSpace:? deferred:? renderCallback:?];
+      v131 = CI::name_for_format(v69);
+      [CIContext(_createCGImageInternal) _createCGImage:v131 fromRect:v195 format:v130 premultiplied:? colorSpace:? deferred:? renderCallback:?];
     }
 
     goto LABEL_225;
   }
 
 LABEL_199:
-  if ((CI::format_is_half_float(v64) & 1) == 0 && (CI::format_is_full_float(v64) & 1) == 0 && v85 != 775 && v85 != 784)
+  if ((CI::format_is_half_float(v69) & 1) == 0 && (CI::format_is_full_float(v69) & 1) == 0 && v95 != 775 && v95 != 784)
   {
-    CI::format_is_deep(v64);
+    CI::format_is_deep(v69);
   }
 
   Mutable = CFDictionaryCreateMutable(0, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  if (CI::format_has_alpha(v64))
+  if (CI::format_has_alpha(v69))
   {
-    if (v156 == 1)
+    if (v169 == 1)
     {
-      v125 = MEMORY[0x1E695F2C8];
+      v137 = MEMORY[0x1E695F2C8];
       goto LABEL_211;
     }
 
-    if (v156 == 2)
+    if (v169 == 2)
     {
-      v125 = MEMORY[0x1E695F2B8];
+      v137 = MEMORY[0x1E695F2B8];
 LABEL_211:
-      __CFDictionary::setValue(Mutable, *v125, 1, v124);
+      __CFDictionary::setValue(Mutable, *v137, 1, v136);
     }
   }
 
-  else if ((v83 & 1) == 0)
+  else if ((v93 & 1) == 0)
   {
-    v125 = MEMORY[0x1E695F2C0];
+    v137 = MEMORY[0x1E695F2C0];
     goto LABEL_211;
   }
 
-  *v182 = xmmword_1F10308D0;
-  *&v182[16] = *&off_1F10308E0;
-  v126 = malloc_type_calloc(1uLL, 0x50uLL, 0x108004010BCB57AuLL);
-  *v126 = _createClone;
-  v126[1] = v161;
-  *(v126 + 4) = v85;
-  v126[3] = v156;
-  *(v126 + 4) = v23;
-  *(v126 + 5) = v24;
-  *(v126 + 6) = v25;
-  *(v126 + 7) = v26;
-  v126[9] = _Block_copy(v155);
-  v127 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v126[8] = dispatch_queue_create("CI_CGImageProviderCallbackQueue", v127);
+  *v195 = xmmword_1F10308D0;
+  *&v195[16] = *&off_1F10308E0;
+  v138 = malloc_type_calloc(1uLL, 0x50uLL, 0x108004010BCB57AuLL);
+  *v138 = _createClone;
+  v138[1] = v174;
+  *(v138 + 4) = v95;
+  v138[3] = v169;
+  *(v138 + 4) = v23;
+  *(v138 + 5) = v24;
+  *(v138 + 6) = v25;
+  *(v138 + 7) = v26;
+  v138[9] = _Block_copy(v168);
+  v139 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v138[8] = dispatch_queue_create("CI_CGImageProviderCallbackQueue", v139);
   if (CGImageProviderCreate())
   {
     CGImageProviderSetProperty();
-    v129 = CI::format_bytes_per_row(v64, v160);
-    if (v129)
+    v141 = CI::format_bytes_per_row(v69, v173);
+    if (v141)
     {
-      v130 = (*(*_internalContext4 + 496))(_internalContext4) / (2 * v129);
-      if (v130 >= (0x4000000 / v129))
+      v142 = (*(*v176 + 496))(v176) / (2 * v141);
+      if (v142 >= (0x4000000 / v141))
       {
-        LODWORD(v130) = 0x4000000 / v129;
+        LODWORD(v142) = 0x4000000 / v141;
       }
 
-      if (v130 >= v159)
+      if (v142 >= v172)
       {
-        LODWORD(v130) = v159;
+        LODWORD(v142) = v172;
       }
 
-      LODWORD(valuePtr) = v130;
-      v131 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+      LODWORD(valuePtr) = v142;
+      v143 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
       CGImageProviderSetProperty();
-      if (v131)
+      if (v143)
       {
-        CFRelease(v131);
+        CFRelease(v143);
       }
     }
 
-    v132 = CGImageCreateWithImageProvider();
+    v144 = CGImageCreateWithImageProvider();
     CGImageProviderRelease();
     if (Mutable)
     {
       CFRelease(Mutable);
     }
 
-    if (v132)
+    if (v144)
     {
       CGImageSetProperty();
     }
@@ -4182,27 +4246,27 @@ LABEL_211:
     goto LABEL_226;
   }
 
-  CI::_providerInfoReleaseCallback(v126, v128);
+  CI::_providerInfoReleaseCallback(v138, v140);
 LABEL_225:
-  v132 = 0;
+  v144 = 0;
 LABEL_226:
-  v179[3] = v132;
+  v192[3] = v144;
 
 LABEL_227:
-  [v161 contentHeadroom];
-  v134 = v133;
+  [v174 contentHeadroom];
+  v146 = v145;
   if (!CGColorSpaceIsPQBased(space) && !CGColorSpaceUsesITUR_2100TF(space) && CGColorSpaceUsesExtendedRange(space))
   {
-    CI::format_is_float(v64);
+    CI::format_is_float(v69);
   }
 
-  if (v134 >= 1.0)
+  if (v146 >= 1.0)
   {
     CGImageSetHeadroom();
   }
 
-  v32 = v179[3];
-  _Block_object_dispose(&v178, 8);
+  v32 = v192[3];
+  _Block_object_dispose(&v191, 8);
 LABEL_5:
   objc_autoreleasePoolPop(v20);
   return v32;
@@ -4605,42 +4669,42 @@ LABEL_9:
 {
   premultipliedCopy = premultiplied;
   v13 = *&format;
-  v230 = *MEMORY[0x1E69E9840];
+  v238 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
-  v197 = 0;
-  v198 = &v197;
-  v199 = 0x5012000000;
-  v200 = __Block_byref_object_copy__1;
-  v201 = __Block_byref_object_dispose__1;
-  v202 = &unk_19D0E11CF;
+  v205 = 0;
+  v206 = &v205;
+  v207 = 0x5012000000;
+  v208 = __Block_byref_object_copy__1;
+  v209 = __Block_byref_object_dispose__1;
+  v210 = &unk_19D0E11CF;
   v17 = *(MEMORY[0x1E695F050] + 16);
-  v203 = *MEMORY[0x1E695F050];
-  v204 = v17;
-  v191 = 0;
-  v192 = &v191;
-  v193 = 0x3052000000;
-  v194 = __Block_byref_object_copy__58;
-  v195 = __Block_byref_object_dispose__59;
-  v196 = 0;
+  v211 = *MEMORY[0x1E695F050];
+  v212 = v17;
+  v199 = 0;
+  v200 = &v199;
+  v201 = 0x3052000000;
+  v202 = __Block_byref_object_copy__58;
+  v203 = __Block_byref_object_dispose__59;
+  v204 = 0;
   if (([type isEqual:@"public.jpeg"] & 1) == 0)
   {
     [type isEqual:@"public.heic"];
   }
 
   [image extent];
-  v190[0] = MEMORY[0x1E69E9820];
-  v190[1] = 3221225472;
-  v190[2] = __138__CIContext_ImageRepresentation___dataRepresentationOfImage_UTIType_format_premultiplied_colorSpace_options_addAuxData_keysToMerge_error___block_invoke;
-  v190[3] = &unk_1E75C2238;
-  v190[4] = &v197;
-  v190[5] = &v191;
-  v18 = [(CIContext *)self createCGImage:image fromRect:v13 format:premultipliedCopy premultiplied:space colorSpace:1 deferred:v190 renderCallback:?];
+  v198[0] = MEMORY[0x1E69E9820];
+  v198[1] = 3221225472;
+  v198[2] = __138__CIContext_ImageRepresentation___dataRepresentationOfImage_UTIType_format_premultiplied_colorSpace_options_addAuxData_keysToMerge_error___block_invoke;
+  v198[3] = &unk_1E75C2238;
+  v198[4] = &v205;
+  v198[5] = &v199;
+  v18 = [(CIContext *)self createCGImage:image fromRect:v13 format:premultipliedCopy premultiplied:space colorSpace:1 deferred:v198 renderCallback:?];
   v19 = v18;
   if (!v18)
   {
-    *&v212 = @"CINonLocalizedDescriptionKey";
+    *&v220 = @"CINonLocalizedDescriptionKey";
     *&buf = @"failed to create data representation.";
-    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v212 count:1];
+    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v220 count:1];
     v35 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:3 userInfo:v34];
     v36 = v35;
 LABEL_183:
@@ -4652,65 +4716,65 @@ LABEL_183:
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary addEntriesFromDictionary:{objc_msgSend(image, "properties")}];
   v21 = *MEMORY[0x1E696DD50];
-  v208[0] = *MEMORY[0x1E696D890];
-  v208[1] = v21;
+  v216[0] = *MEMORY[0x1E696D890];
+  v216[1] = v21;
   v22 = *MEMORY[0x1E696DEF0];
-  v208[2] = *MEMORY[0x1E696D448];
-  v208[3] = v22;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v208 count:4];
+  v216[2] = *MEMORY[0x1E696D448];
+  v216[3] = v22;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v216 count:4];
   selfCopy = self;
-  v188 = 0u;
-  v189 = 0u;
-  v186 = 0u;
-  v187 = 0u;
-  v24 = [v23 countByEnumeratingWithState:&v186 objects:v207 count:16];
+  v196 = 0u;
+  v197 = 0u;
+  v194 = 0u;
+  v195 = 0u;
+  v24 = [v23 countByEnumeratingWithState:&v194 objects:v215 count:16];
   if (v24)
   {
-    v25 = *v187;
+    v25 = *v195;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v187 != v25)
+        if (*v195 != v25)
         {
           objc_enumerationMutation(v23);
         }
 
-        [dictionary removeObjectForKey:*(*(&v186 + 1) + 8 * i)];
+        [dictionary removeObjectForKey:*(*(&v194 + 1) + 8 * i)];
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v186 objects:v207 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v194 objects:v215 count:16];
     }
 
     while (v24);
   }
 
   imageCopy = image;
-  v184 = 0u;
-  v185 = 0u;
-  v182 = 0u;
-  v183 = 0u;
-  v27 = [merge countByEnumeratingWithState:&v182 objects:v206 count:16];
+  v192 = 0u;
+  v193 = 0u;
+  v190 = 0u;
+  v191 = 0u;
+  v27 = [merge countByEnumeratingWithState:&v190 objects:v214 count:16];
   if (v27)
   {
-    v28 = *v183;
+    v28 = *v191;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v183 != v28)
+        if (*v191 != v28)
         {
           objc_enumerationMutation(merge);
         }
 
-        v30 = *(*(&v182 + 1) + 8 * j);
+        v30 = *(*(&v190 + 1) + 8 * j);
         if ([options objectForKey:v30])
         {
           [dictionary setObject:objc_msgSend(options forKey:{"objectForKey:", v30), v30}];
         }
       }
 
-      v27 = [merge countByEnumeratingWithState:&v182 objects:v206 count:16];
+      v27 = [merge countByEnumeratingWithState:&v190 objects:v214 count:16];
     }
 
     while (v27);
@@ -4745,9 +4809,9 @@ LABEL_183:
   if (!v37)
   {
 
-    *&v212 = @"CINonLocalizedDescriptionKey";
+    *&v220 = @"CINonLocalizedDescriptionKey";
     *&buf = @"failed to create data representation.";
-    v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v212 count:1];
+    v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v220 count:1];
     v35 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:3 userInfo:v45];
     v46 = v35;
     goto LABEL_183;
@@ -4791,17 +4855,19 @@ LABEL_183:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [v44 extent];
-    x = v231.origin.x;
-    y = v231.origin.y;
-    width = v231.size.width;
-    height = v231.size.height;
-    if (CGRectIsInfinite(v231) || (v232.origin.x = x, v232.origin.y = y, v232.size.width = width, v232.size.height = height, CGRectIsEmpty(v232)))
+    x = v239.origin.x;
+    y = v239.origin.y;
+    width = v239.size.width;
+    height = v239.size.height;
+    IsInfinite = CGRectIsInfinite(v239);
+    if (IsInfinite || (v240.origin.x = x, v240.origin.y = y, v240.size.width = width, v240.size.height = height, IsInfinite = CGRectIsEmpty(v240)))
     {
-      v51 = ci_logger_api();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v55 = ci_logger_api(IsInfinite, v54);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
       {
         [CIContext(ImageRepresentation) _dataRepresentationOfImage:UTIType:format:premultiplied:colorSpace:options:addAuxData:keysToMerge:error:];
       }
@@ -4812,38 +4878,16 @@ LABEL_183:
     metadataa = CGImageMetadataCreateMutable();
     if (!v42)
     {
-      v55 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapBaseHeadroom"];
-      v56 = &unk_1F1083148;
-      if (v55)
+      v59 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapBaseHeadroom"];
+      v60 = &unk_1F1083148;
+      if (v59)
       {
-        v56 = v55;
+        v60 = v59;
       }
 
-      v173 = v56;
-      v57 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapAlternateHeadroom"];
-      v58 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapMin"];
-      if (v58)
-      {
-        v59 = v58;
-      }
-
-      else
-      {
-        v59 = v173;
-      }
-
-      v60 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapMax"];
-      if (v60)
-      {
-        v61 = v60;
-      }
-
-      else
-      {
-        v61 = v57;
-      }
-
-      v62 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapOffset"];
+      v181 = v60;
+      v61 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapAlternateHeadroom"];
+      v62 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapMin"];
       if (v62)
       {
         v63 = v62;
@@ -4851,10 +4895,10 @@ LABEL_183:
 
       else
       {
-        v63 = &unk_1F1083168;
+        v63 = v181;
       }
 
-      v64 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapGamma"];
+      v64 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapMax"];
       if (v64)
       {
         v65 = v64;
@@ -4862,12 +4906,34 @@ LABEL_183:
 
       else
       {
-        v65 = &unk_1F1083158;
+        v65 = v61;
       }
 
-      v66 = [objc_msgSend(optionsCopy objectForKeyedSubscript:{@"kCIImageRepresentationHDRGainMapAsRGB", "BOOLValue"}];
+      v66 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapOffset"];
+      if (v66)
+      {
+        v67 = v66;
+      }
+
+      else
+      {
+        v67 = &unk_1F1083168;
+      }
+
+      v68 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapGamma"];
+      if (v68)
+      {
+        v69 = v68;
+      }
+
+      else
+      {
+        v69 = &unk_1F1083158;
+      }
+
+      v70 = [objc_msgSend(optionsCopy objectForKeyedSubscript:{@"kCIImageRepresentationHDRGainMapAsRGB", "BOOLValue"}];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & (v57 != 0)) == 1)
+      if ((objc_opt_isKindOfClass() & (v61 != 0)) == 1)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -4881,215 +4947,215 @@ LABEL_183:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [(__CFString *)v173 floatValue];
-                v68 = v67;
-                [v57 floatValue];
-                v70 = v69;
+                [(__CFString *)v181 floatValue];
+                v72 = v71;
+                [v61 floatValue];
+                v74 = v73;
                 CGImageMetadataRegisterNamespaceForPrefix(metadataa, @"http://ns.apple.com/HDRToneMap/1.0/", @"HDRToneMap", 0);
                 CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:Version", @"1");
-                LODWORD(v71) = v68;
-                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:BaseHeadroom", [MEMORY[0x1E696AD98] numberWithFloat:v71]);
-                LODWORD(v72) = v70;
-                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:AlternateHeadroom", [MEMORY[0x1E696AD98] numberWithFloat:v72]);
+                LODWORD(v75) = v72;
+                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:BaseHeadroom", [MEMORY[0x1E696AD98] numberWithFloat:v75]);
+                LODWORD(v76) = v74;
+                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:AlternateHeadroom", [MEMORY[0x1E696AD98] numberWithFloat:v76]);
                 CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:BaseColorIsWorkingColor", @"True");
-                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].BaseOffset", v63);
-                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].AlternateOffset", v63);
-                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].GainMapMin", v59);
-                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].GainMapMax", v61);
-                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].Gamma", v65);
+                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].BaseOffset", v67);
+                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].AlternateOffset", v67);
+                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].GainMapMin", v63);
+                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].GainMapMax", v65);
+                CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRToneMap:ChannelMetadata[0].Gamma", v69);
               }
             }
           }
         }
       }
 
-      if (v66)
+      if (v70)
       {
-        v73 = 1;
-        v74 = 1380401729;
-        v75 = 2;
+        v77 = 1;
+        v78 = 1380401729;
+        v79 = 2;
       }
 
       else
       {
-        v73 = 0;
-        v75 = 0;
-        v74 = 1278226488;
+        v77 = 0;
+        v79 = 0;
+        v78 = 1278226488;
       }
 
       goto LABEL_85;
     }
 
-    v53 = CGImageMetadataCopyTagWithPath([objc_msgSend(v44 "properties")], 0, @"HDRGainMap:HDRGainMapHeadroom");
-    if (v53)
+    v57 = CGImageMetadataCopyTagWithPath([objc_msgSend(v44 "properties")], 0, @"HDRGainMap:HDRGainMapHeadroom");
+    if (v57)
     {
-      v54 = 0.0;
-      CFRelease(v53);
+      v58 = 0.0;
+      CFRelease(v57);
     }
 
     else
     {
       [imageCopy _makernoteMeteorHeadroom];
-      v54 = v76;
+      v58 = v80;
     }
 
-    v77 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationHDRGainMapHeadroom"];
-    if (v77 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v81 = [optionsCopy objectForKeyedSubscript:@"kCIImageRepresentationHDRGainMapHeadroom"];
+    if (v81 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      [v77 floatValue];
-      v54 = v78;
+      [v81 floatValue];
+      v58 = v82;
     }
 
-    else if (v54 <= 0.0)
+    else if (v58 <= 0.0)
     {
       goto LABEL_81;
     }
 
-    if (v54 > 0.0)
+    if (v58 > 0.0)
     {
-      if (v54 <= 1.0)
+      if (v58 <= 1.0)
       {
-        v79 = 0x10000;
+        v83 = 0x10000;
       }
 
       else
       {
-        v79 = 0x20000;
+        v83 = 0x20000;
       }
 
-      MetadataAddVersion(metadataa, @"HDRGainMap", @"http://ns.apple.com/HDRGainMap/1.0/", @"HDRGainMapVersion", v79);
-      v74 = 1278226488;
-      if (v54 > 1.0)
+      MetadataAddVersion(metadataa, @"HDRGainMap", @"http://ns.apple.com/HDRGainMap/1.0/", @"HDRGainMapVersion", v83);
+      v78 = 1278226488;
+      if (v58 > 1.0)
       {
-        *&v80 = v54;
-        CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRGainMap:HDRGainMapHeadroom", [MEMORY[0x1E696AD98] numberWithFloat:v80]);
+        *&v84 = v58;
+        CGImageMetadataSetValueWithPath(metadataa, 0, @"HDRGainMap:HDRGainMapHeadroom", [MEMORY[0x1E696AD98] numberWithFloat:v84]);
       }
 
       goto LABEL_83;
     }
 
 LABEL_81:
-    v81 = [objc_msgSend(v44 "properties")];
-    v74 = 1278226488;
-    if (v81)
+    v85 = [objc_msgSend(v44 "properties")];
+    v78 = 1278226488;
+    if (v85)
     {
       CFRelease(metadataa);
-      v82 = v81;
-      v73 = 0;
-      v75 = 0;
-      metadataa = v81;
+      v86 = v85;
+      v77 = 0;
+      v79 = 0;
+      metadataa = v85;
 LABEL_85:
-      v83 = vcvtmd_u64_f64(width);
-      v84 = vcvtmd_u64_f64(height);
-      v85 = ((v83 << v75) + 15) & 0xFFFFFFFFFFFFFFF0;
-      v86 = [MEMORY[0x1E695DF88] dataWithLength:v85 * v84];
-      mutableBytes = [(__CFString *)v86 mutableBytes];
-      v88 = &kCIFormatRGBX8;
-      if (!v73)
+      v87 = vcvtmd_u64_f64(width);
+      v88 = vcvtmd_u64_f64(height);
+      v89 = ((v87 << v79) + 15) & 0xFFFFFFFFFFFFFFF0;
+      v90 = [MEMORY[0x1E695DF88] dataWithLength:v89 * v88];
+      mutableBytes = [(__CFString *)v90 mutableBytes];
+      v92 = &kCIFormatRGBX8;
+      if (!v77)
       {
-        v88 = &kCIFormatL8;
+        v92 = &kCIFormatL8;
       }
 
-      [(CIContext *)selfCopy render:v44 toBitmap:mutableBytes rowBytes:v85 bounds:*v88 format:0 colorSpace:0.0, 0.0, v83, v84];
-      v89 = *MEMORY[0x1E696D228];
-      v220 = *MEMORY[0x1E696D218];
-      v221 = v89;
-      v225 = v86;
-      v226 = metadataa;
-      v222 = *MEMORY[0x1E696D220];
-      *&v212 = @"BytesPerRow";
-      *&buf = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v85];
-      *(&v212 + 1) = @"Height";
-      *(&buf + 1) = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v84];
-      *&v213 = @"Width";
-      v210 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v83];
-      *(&v213 + 1) = @"PixelFormat";
-      v211 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v74];
-      v227 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v212 count:4];
-      v90 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v225 forKeys:&v220 count:3];
+      [(CIContext *)selfCopy render:v44 toBitmap:mutableBytes rowBytes:v89 bounds:*v92 format:0 colorSpace:0.0, 0.0, v87, v88];
+      v93 = *MEMORY[0x1E696D228];
+      v228 = *MEMORY[0x1E696D218];
+      v229 = v93;
+      v233 = v90;
+      v234 = metadataa;
+      v230 = *MEMORY[0x1E696D220];
+      *&v220 = @"BytesPerRow";
+      *&buf = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v89];
+      *(&v220 + 1) = @"Height";
+      *(&buf + 1) = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v88];
+      *&v221 = @"Width";
+      v218 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v87];
+      *(&v221 + 1) = @"PixelFormat";
+      v219 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v78];
+      v235 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v220 count:4];
+      v94 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v233 forKeys:&v228 count:3];
       CFRelease(metadataa);
-      if (v90)
+      if (v94)
       {
-        CGImageDestinationAddAuxiliaryDataInfo(v38, v43, v90);
+        CGImageDestinationAddAuxiliaryDataInfo(v38, v43, v94);
       }
 
       goto LABEL_89;
     }
 
 LABEL_83:
-    v73 = 0;
-    v75 = 0;
+    v77 = 0;
+    v79 = 0;
     goto LABEL_85;
   }
 
-  v52 = ci_logger_api();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+  v56 = ci_logger_api(isKindOfClass, v48);
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
   {
     [CIContext(ImageRepresentation) _dataRepresentationOfImage:UTIType:format:premultiplied:colorSpace:options:addAuxData:keysToMerge:error:];
   }
 
 LABEL_89:
-  v91 = [options objectForKey:@"kCIImageRepresentationAVPortraitEffectsMatte"];
-  v92 = [options objectForKey:@"kCIImageRepresentationPortraitEffectsMatteImage"];
+  v95 = [options objectForKey:@"kCIImageRepresentationAVPortraitEffectsMatte"];
+  v96 = [options objectForKey:@"kCIImageRepresentationPortraitEffectsMatteImage"];
   auxiliaryImageDataType[0] = *MEMORY[0x1E696D288];
-  if (v92)
+  if (v96)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v92 = 0;
+      v96 = 0;
     }
   }
 
-  [v92 extent];
-  v93 = v233.origin.x;
-  v94 = v233.origin.y;
-  v95 = v233.size.width;
-  v96 = v233.size.height;
-  if (CGRectIsInfinite(v233) || (v234.origin.x = v93, v234.origin.y = v94, v234.size.width = v95, v234.size.height = v96, CGRectIsEmpty(v234)))
+  [v96 extent];
+  v97 = v241.origin.x;
+  v98 = v241.origin.y;
+  v99 = v241.size.width;
+  v100 = v241.size.height;
+  if (CGRectIsInfinite(v241) || (v242.origin.x = v97, v242.origin.y = v98, v242.size.width = v99, v242.size.height = v100, CGRectIsEmpty(v242)))
   {
-    v92 = 0;
+    v96 = 0;
   }
 
-  if (isKind_AVPortraitEffectsMatteClass(v91))
+  if (isKind_AVPortraitEffectsMatteClass(v95))
   {
-    v97 = v91;
+    v101 = v95;
   }
 
   else
   {
-    v97 = 0;
+    v101 = 0;
   }
 
-  if (v92 || !v97)
+  if (v96 || !v101)
   {
-    if (!v92)
+    if (!v96)
     {
       goto LABEL_106;
     }
 
-    v99 = vcvtmd_u64_f64(v95);
-    v100 = vcvtmd_u64_f64(v96);
-    v100 = [MEMORY[0x1E695DF88] dataWithLength:((v99 + 15) & 0xFFFFFFFFFFFFFFF0) * v100];
-    [(CIContext *)selfCopy render:v92 toBitmap:[(__CFString *)v100 mutableBytes] rowBytes:(v99 + 15) & 0xFFFFFFFFFFFFFFF0 bounds:259 format:0 colorSpace:0.0, 0.0, v99, v100];
+    v103 = vcvtmd_u64_f64(v99);
+    v104 = vcvtmd_u64_f64(v100);
+    v104 = [MEMORY[0x1E695DF88] dataWithLength:((v103 + 15) & 0xFFFFFFFFFFFFFFF0) * v104];
+    [(CIContext *)selfCopy render:v96 toBitmap:[(__CFString *)v104 mutableBytes] rowBytes:(v103 + 15) & 0xFFFFFFFFFFFFFFF0 bounds:259 format:0 colorSpace:0.0, 0.0, v103, v104];
     Mutable = CGImageMetadataCreateMutable();
     MetadataAddVersion(Mutable, @"portraitEffectsMatte", @"http://ns.apple.com/portraitEffectsMatte/1.0/", @"PortraitEffectsMatteVersion", 0x10000);
-    v225 = v100;
-    v220 = @"kCGImageAuxiliaryDataInfoData";
-    v221 = @"kCGImageAuxiliaryDataInfoDataDescription";
-    *&v212 = @"BytesPerRow";
-    *&buf = [MEMORY[0x1E696AD98] numberWithUnsignedLong:(v99 + 15) & 0xFFFFFFFFFFFFFFF0];
-    *(&v212 + 1) = @"Height";
-    *(&buf + 1) = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v100];
-    *&v213 = @"Width";
-    v210 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v99];
-    *(&v213 + 1) = @"PixelFormat";
-    v211 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1278226488];
-    v103 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v212 count:4];
-    v222 = @"kCGImageAuxiliaryDataInfoMetadata";
-    v226 = v103;
-    v227 = Mutable;
-    v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v225 forKeys:&v220 count:3];
+    v233 = v104;
+    v228 = @"kCGImageAuxiliaryDataInfoData";
+    v229 = @"kCGImageAuxiliaryDataInfoDataDescription";
+    *&v220 = @"BytesPerRow";
+    *&buf = [MEMORY[0x1E696AD98] numberWithUnsignedLong:(v103 + 15) & 0xFFFFFFFFFFFFFFF0];
+    *(&v220 + 1) = @"Height";
+    *(&buf + 1) = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v104];
+    *&v221 = @"Width";
+    v218 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v103];
+    *(&v221 + 1) = @"PixelFormat";
+    v219 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1278226488];
+    v107 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v220 count:4];
+    v230 = @"kCGImageAuxiliaryDataInfoMetadata";
+    v234 = v107;
+    v235 = Mutable;
+    v102 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v233 forKeys:&v228 count:3];
     if (Mutable)
     {
       CFRelease(Mutable);
@@ -5098,325 +5164,328 @@ LABEL_89:
 
   else
   {
-    v98 = AVPortraitEffectsMatteDictionaryRepresentation(v97, auxiliaryImageDataType);
+    v102 = AVPortraitEffectsMatteDictionaryRepresentation(v101, auxiliaryImageDataType);
   }
 
-  if (v98)
+  if (v102)
   {
-    CGImageDestinationAddAuxiliaryDataInfo(v38, auxiliaryImageDataType[0], v98);
+    CGImageDestinationAddAuxiliaryDataInfo(v38, auxiliaryImageDataType[0], v102);
   }
 
 LABEL_106:
-  v225 = @"kCIImageRepresentationSemanticSegmentationSkinMatteImage";
-  v226 = @"kCIImageRepresentationSemanticSegmentationHairMatteImage";
-  v227 = @"kCIImageRepresentationSemanticSegmentationTeethMatteImage";
-  v228 = @"kCIImageRepresentationSemanticSegmentationGlassesMatteImage";
-  v229 = @"kCIImageRepresentationSemanticSegmentationSkyMatteImage";
-  v104 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v225 count:5];
-  v105 = *MEMORY[0x1E696D298];
-  v220 = *MEMORY[0x1E696D2A0];
-  v221 = v105;
-  v106 = *MEMORY[0x1E696D290];
-  v222 = *MEMORY[0x1E696D2B0];
-  v223 = v106;
-  v224 = *MEMORY[0x1E696D2A8];
-  metadatab = [MEMORY[0x1E695DEC8] arrayWithObjects:&v220 count:5];
-  if ([v104 count])
+  v233 = @"kCIImageRepresentationSemanticSegmentationSkinMatteImage";
+  v234 = @"kCIImageRepresentationSemanticSegmentationHairMatteImage";
+  v235 = @"kCIImageRepresentationSemanticSegmentationTeethMatteImage";
+  v236 = @"kCIImageRepresentationSemanticSegmentationGlassesMatteImage";
+  v237 = @"kCIImageRepresentationSemanticSegmentationSkyMatteImage";
+  v108 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v233 count:5];
+  v109 = *MEMORY[0x1E696D298];
+  v228 = *MEMORY[0x1E696D2A0];
+  v229 = v109;
+  v110 = *MEMORY[0x1E696D290];
+  v230 = *MEMORY[0x1E696D2B0];
+  v231 = v110;
+  v232 = *MEMORY[0x1E696D2A8];
+  metadatab = [MEMORY[0x1E695DEC8] arrayWithObjects:&v228 count:5];
+  if ([v108 count])
   {
-    v108 = 0;
-    v172 = *MEMORY[0x1E696D218];
-    v170 = *MEMORY[0x1E696D220];
-    v171 = *MEMORY[0x1E696D228];
-    *&v107 = 138543362;
-    v169 = v107;
+    v112 = 0;
+    v180 = *MEMORY[0x1E696D218];
+    v178 = *MEMORY[0x1E696D220];
+    v179 = *MEMORY[0x1E696D228];
+    *&v111 = 138543362;
+    v177 = v111;
     do
     {
-      v109 = [v104 objectAtIndexedSubscript:{v108, v169}];
-      v110 = [options objectForKey:v109];
-      if (v110)
+      v113 = [v108 objectAtIndexedSubscript:{v112, v177}];
+      v114 = [options objectForKey:v113];
+      if (v114)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v115 = objc_opt_isKindOfClass();
+        if (v115)
         {
-          [v110 extent];
-          v111 = v235.origin.x;
-          v112 = v235.origin.y;
-          v113 = v235.size.width;
-          v114 = v235.size.height;
-          if (!CGRectIsInfinite(v235))
+          [v114 extent];
+          v117 = v243.origin.x;
+          v118 = v243.origin.y;
+          v119 = v243.size.width;
+          v120 = v243.size.height;
+          IsEmpty = CGRectIsInfinite(v243);
+          if (!IsEmpty)
           {
-            v236.origin.x = v111;
-            v236.origin.y = v112;
-            v236.size.width = v113;
-            v236.size.height = v114;
-            if (!CGRectIsEmpty(v236))
+            v244.origin.x = v117;
+            v244.origin.y = v118;
+            v244.size.width = v119;
+            v244.size.height = v120;
+            IsEmpty = CGRectIsEmpty(v244);
+            if (!IsEmpty)
             {
-              v174 = [(CGImageMetadata *)metadatab objectAtIndexedSubscript:v108];
-              v119 = CGImageMetadataCreateMutable();
-              MetadataAddVersion(v119, @"semanticSegmentationMatte", @"http://ns.apple.com/semanticSegmentationMatte/1.0/", @"SemanticSegmentationMatteVersion", 0x10000);
-              v120 = vcvtmd_u64_f64(v113);
-              v121 = vcvtmd_u64_f64(v114);
-              v121 = [MEMORY[0x1E695DF88] dataWithLength:((v120 + 15) & 0xFFFFFFFFFFFFFFF0) * v121];
-              -[CIContext render:toBitmap:rowBytes:bounds:format:colorSpace:](selfCopy, "render:toBitmap:rowBytes:bounds:format:colorSpace:", v110, [v121 mutableBytes], (v120 + 15) & 0xFFFFFFFFFFFFFFF0, 259, 0, 0.0, 0.0, v120, v121);
-              v218[0] = v172;
-              v218[1] = v171;
-              v219[0] = v121;
-              v219[1] = v119;
-              v218[2] = v170;
-              v216[0] = @"BytesPerRow";
-              auxiliaryImageDataType[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:(v120 + 15) & 0xFFFFFFFFFFFFFFF0];
-              v216[1] = @"Height";
-              auxiliaryImageDataType[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v121];
-              v216[2] = @"Width";
-              auxiliaryImageDataType[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v120];
-              v216[3] = @"PixelFormat";
+              v182 = [(CGImageMetadata *)metadatab objectAtIndexedSubscript:v112];
+              v127 = CGImageMetadataCreateMutable();
+              MetadataAddVersion(v127, @"semanticSegmentationMatte", @"http://ns.apple.com/semanticSegmentationMatte/1.0/", @"SemanticSegmentationMatteVersion", 0x10000);
+              v128 = vcvtmd_u64_f64(v119);
+              v129 = vcvtmd_u64_f64(v120);
+              v129 = [MEMORY[0x1E695DF88] dataWithLength:((v128 + 15) & 0xFFFFFFFFFFFFFFF0) * v129];
+              -[CIContext render:toBitmap:rowBytes:bounds:format:colorSpace:](selfCopy, "render:toBitmap:rowBytes:bounds:format:colorSpace:", v114, [v129 mutableBytes], (v128 + 15) & 0xFFFFFFFFFFFFFFF0, 259, 0, 0.0, 0.0, v128, v129);
+              v226[0] = v180;
+              v226[1] = v179;
+              v227[0] = v129;
+              v227[1] = v127;
+              v226[2] = v178;
+              v224[0] = @"BytesPerRow";
+              auxiliaryImageDataType[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:(v128 + 15) & 0xFFFFFFFFFFFFFFF0];
+              v224[1] = @"Height";
+              auxiliaryImageDataType[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v129];
+              v224[2] = @"Width";
+              auxiliaryImageDataType[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v128];
+              v224[3] = @"PixelFormat";
               auxiliaryImageDataType[3] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1278226488];
-              v219[2] = [MEMORY[0x1E695DF20] dictionaryWithObjects:auxiliaryImageDataType forKeys:v216 count:4];
-              v123 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v219 forKeys:v218 count:3];
-              CFRelease(v119);
-              if (v123)
+              v227[2] = [MEMORY[0x1E695DF20] dictionaryWithObjects:auxiliaryImageDataType forKeys:v224 count:4];
+              v131 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v227 forKeys:v226 count:3];
+              CFRelease(v127);
+              if (v131)
               {
-                CGImageDestinationAddAuxiliaryDataInfo(v38, v174, v123);
+                CGImageDestinationAddAuxiliaryDataInfo(v38, v182, v131);
               }
 
               goto LABEL_115;
             }
           }
 
-          v115 = ci_logger_api();
-          if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+          v123 = ci_logger_api(IsEmpty, v122);
+          if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(buf) = v169;
-            *(&buf + 4) = v109;
-            v116 = v115;
-            v117 = "Saving %{public}@ option requires an image with a finite non-empty extent.";
+            LODWORD(buf) = v177;
+            *(&buf + 4) = v113;
+            v124 = v123;
+            v125 = "Saving %{public}@ option requires an image with a finite non-empty extent.";
 LABEL_120:
-            _os_log_error_impl(&dword_19CC36000, v116, OS_LOG_TYPE_ERROR, v117, &buf, 0xCu);
+            _os_log_error_impl(&dword_19CC36000, v124, OS_LOG_TYPE_ERROR, v125, &buf, 0xCu);
           }
         }
 
         else
         {
-          v118 = ci_logger_api();
-          if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
+          v126 = ci_logger_api(v115, v116);
+          if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(buf) = v169;
-            *(&buf + 4) = v109;
-            v116 = v118;
-            v117 = "Saving %{public}@ option requires a CIImage object.";
+            LODWORD(buf) = v177;
+            *(&buf + 4) = v113;
+            v124 = v126;
+            v125 = "Saving %{public}@ option requires a CIImage object.";
             goto LABEL_120;
           }
         }
       }
 
 LABEL_115:
-      ++v108;
+      ++v112;
     }
 
-    while ([v104 count] > v108);
+    while ([v108 count] > v112);
   }
 
-  v124 = [options objectForKey:@"kCIImageRepresentationAVSemanticSegmentationMattes"];
-  if (v124)
+  v132 = [options objectForKey:@"kCIImageRepresentationAVSemanticSegmentationMattes"];
+  if (v132)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v214 = 0u;
-      v215 = 0u;
-      v212 = 0u;
-      v213 = 0u;
-      v125 = [v124 countByEnumeratingWithState:&v212 objects:&buf count:16];
-      if (v125)
+      v222 = 0u;
+      v223 = 0u;
+      v220 = 0u;
+      v221 = 0u;
+      v133 = [v132 countByEnumeratingWithState:&v220 objects:&buf count:16];
+      if (v133)
       {
-        v126 = *v213;
+        v134 = *v221;
         do
         {
-          for (k = 0; k != v125; ++k)
+          for (k = 0; k != v133; ++k)
           {
-            if (*v213 != v126)
+            if (*v221 != v134)
             {
-              objc_enumerationMutation(v124);
+              objc_enumerationMutation(v132);
             }
 
-            v128 = *(*(&v212 + 1) + 8 * k);
-            if (isKind_AVSemanticSegmentationMatteClass(v128))
+            v136 = *(*(&v220 + 1) + 8 * k);
+            if (isKind_AVSemanticSegmentationMatteClass(v136))
             {
-              v205 = 0;
-              v129 = AVSemanticSegmentationMatteDictionaryRepresentationForAuxiliaryType(v128, &v205);
-              if (v129)
+              v213 = 0;
+              v137 = AVSemanticSegmentationMatteDictionaryRepresentationForAuxiliaryType(v136, &v213);
+              if (v137)
               {
-                CGImageDestinationAddAuxiliaryDataInfo(v38, v205, v129);
+                CGImageDestinationAddAuxiliaryDataInfo(v38, v213, v137);
               }
             }
           }
 
-          v125 = [v124 countByEnumeratingWithState:&v212 objects:&buf count:16];
+          v133 = [v132 countByEnumeratingWithState:&v220 objects:&buf count:16];
         }
 
-        while (v125);
+        while (v133);
       }
     }
   }
 
-  v130 = [options objectForKey:@"kCIImageRepresentationAVDepthData"];
-  v131 = [options objectForKey:@"kCIImageRepresentationDepthImage"];
-  v132 = [options objectForKey:@"kCIImageRepresentationDisparityImage"];
-  v133 = v132;
-  if (v132)
+  v138 = [options objectForKey:@"kCIImageRepresentationAVDepthData"];
+  v139 = [options objectForKey:@"kCIImageRepresentationDepthImage"];
+  v140 = [options objectForKey:@"kCIImageRepresentationDisparityImage"];
+  v141 = v140;
+  if (v140)
   {
-    v134 = v132;
+    v142 = v140;
   }
 
   else
   {
-    v134 = v131;
+    v142 = v139;
   }
 
-  depthData = [v134 depthData];
+  depthData = [v142 depthData];
   auxiliaryImageDataType[0] = 0;
-  if (v134)
+  if (v142)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v136 = v134;
+      v144 = v142;
     }
 
     else
     {
-      v136 = 0;
+      v144 = 0;
     }
   }
 
   else
   {
-    v136 = 0;
+    v144 = 0;
   }
 
-  [v136 extent];
-  v137 = v237.origin.x;
-  v138 = v237.origin.y;
-  v139 = v237.size.width;
-  v140 = v237.size.height;
-  if (CGRectIsInfinite(v237) || (v238.origin.x = v137, v238.origin.y = v138, v238.size.width = v139, v238.size.height = v140, CGRectIsEmpty(v238)))
+  [v144 extent];
+  v145 = v245.origin.x;
+  v146 = v245.origin.y;
+  v147 = v245.size.width;
+  v148 = v245.size.height;
+  if (CGRectIsInfinite(v245) || (v246.origin.x = v145, v246.origin.y = v146, v246.size.width = v147, v246.size.height = v148, CGRectIsEmpty(v246)))
   {
-    v136 = 0;
+    v144 = 0;
   }
 
-  if (isKind_AVDepthDataClass(v130))
+  if (isKind_AVDepthDataClass(v138))
   {
-    v141 = v130;
+    v149 = v138;
   }
 
   else
   {
-    v141 = 0;
+    v149 = 0;
   }
 
-  if (!v136 && v141)
+  if (!v144 && v149)
   {
-    v142 = AVFDepthDataDictionaryRepresentation(v141, auxiliaryImageDataType);
+    v150 = AVFDepthDataDictionaryRepresentation(v149, auxiliaryImageDataType);
 LABEL_171:
-    if (v142)
+    if (v150)
     {
-      CGImageDestinationAddAuxiliaryDataInfo(v38, auxiliaryImageDataType[0], v142);
+      CGImageDestinationAddAuxiliaryDataInfo(v38, auxiliaryImageDataType[0], v150);
     }
 
     goto LABEL_173;
   }
 
-  v143 = vcvtmd_u64_f64(v139);
-  v144 = vcvtmd_u64_f64(v140);
-  if (v136 && depthData)
+  v151 = vcvtmd_u64_f64(v147);
+  v152 = vcvtmd_u64_f64(v148);
+  if (v144 && depthData)
   {
-    v145 = MEMORY[0x1E696D260];
-    if (!v133)
+    v153 = MEMORY[0x1E696D260];
+    if (!v141)
     {
-      v145 = MEMORY[0x1E696D258];
+      v153 = MEMORY[0x1E696D258];
     }
 
-    auxiliaryImageDataType[0] = *v145;
+    auxiliaryImageDataType[0] = *v153;
     *&buf = 0;
-    v225 = *MEMORY[0x1E69660D8];
-    *&v212 = MEMORY[0x1E695E0F8];
-    v146 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v212 forKeys:&v225 count:1];
-    if (v133)
+    v233 = *MEMORY[0x1E69660D8];
+    *&v220 = MEMORY[0x1E695E0F8];
+    v154 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v220 forKeys:&v233 count:1];
+    if (v141)
     {
-      v147 = 1751411059;
+      v155 = 1751411059;
     }
 
     else
     {
-      v147 = 1751410032;
+      v155 = 1751410032;
     }
 
-    CVPixelBufferCreate(0, v143, v144, v147, v146, &buf);
+    CVPixelBufferCreate(0, v151, v152, v155, v154, &buf);
     if (buf)
     {
-      [(CIContext *)selfCopy render:v136 toCVPixelBuffer:buf bounds:0 colorSpace:v137, v138, v139, v140];
-      v148 = AVFDepthDataByReplacingDepthDataMapWithPixelBuffer(depthData, buf);
-      v142 = AVFDepthDataDictionaryRepresentation(v148, auxiliaryImageDataType);
+      [(CIContext *)selfCopy render:v144 toCVPixelBuffer:buf bounds:0 colorSpace:v145, v146, v147, v148];
+      v156 = AVFDepthDataByReplacingDepthDataMapWithPixelBuffer(depthData, buf);
+      v150 = AVFDepthDataDictionaryRepresentation(v156, auxiliaryImageDataType);
       CFRelease(buf);
     }
 
     else
     {
-      v142 = 0;
+      v150 = 0;
     }
 
     goto LABEL_171;
   }
 
-  if (v136)
+  if (v144)
   {
-    v149 = MEMORY[0x1E696D260];
-    if (!v133)
+    v157 = MEMORY[0x1E696D260];
+    if (!v141)
     {
-      v149 = MEMORY[0x1E696D258];
+      v157 = MEMORY[0x1E696D258];
     }
 
-    auxiliaryImageDataType[0] = *v149;
-    if (v133)
+    auxiliaryImageDataType[0] = *v157;
+    if (v141)
     {
-      v150 = 1751411059;
-    }
-
-    else
-    {
-      v150 = 1717856627;
-    }
-
-    v144 = [MEMORY[0x1E695DF88] dataWithLength:2 * v143 * v144];
-    [(CIContext *)selfCopy render:v134 toBitmap:[(__CFString *)v144 mutableBytes] rowBytes:2 * v143 bounds:2051 format:0 colorSpace:0.0, 0.0, v143, v144];
-    if ([v134 properties])
-    {
-      properties = [v134 properties];
-      v153 = [properties objectForKeyedSubscript:*MEMORY[0x1E696D228]];
+      v158 = 1751411059;
     }
 
     else
     {
-      v153 = 0;
+      v158 = 1717856627;
     }
 
-    v225 = v144;
-    v220 = @"kCGImageAuxiliaryDataInfoData";
-    v221 = @"kCGImageAuxiliaryDataInfoDataDescription";
-    *&v212 = @"BytesPerRow";
-    *&buf = [MEMORY[0x1E696AD98] numberWithUnsignedLong:2 * v143];
-    *(&v212 + 1) = @"Height";
-    *(&buf + 1) = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v144];
-    *&v213 = @"Width";
-    v210 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v143];
-    *(&v213 + 1) = @"PixelFormat";
-    v211 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v150];
-    v226 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v212 count:4];
-    v142 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v225 forKeys:&v220 count:2];
-    if (v153)
+    v152 = [MEMORY[0x1E695DF88] dataWithLength:2 * v151 * v152];
+    [(CIContext *)selfCopy render:v142 toBitmap:[(__CFString *)v152 mutableBytes] rowBytes:2 * v151 bounds:2051 format:0 colorSpace:0.0, 0.0, v151, v152];
+    if ([v142 properties])
     {
-      v142 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v142];
-      [(__CFDictionary *)v142 setObject:v153 forKeyedSubscript:*MEMORY[0x1E696D228]];
+      properties = [v142 properties];
+      v161 = [properties objectForKeyedSubscript:*MEMORY[0x1E696D228]];
+    }
+
+    else
+    {
+      v161 = 0;
+    }
+
+    v233 = v152;
+    v228 = @"kCGImageAuxiliaryDataInfoData";
+    v229 = @"kCGImageAuxiliaryDataInfoDataDescription";
+    *&v220 = @"BytesPerRow";
+    *&buf = [MEMORY[0x1E696AD98] numberWithUnsignedLong:2 * v151];
+    *(&v220 + 1) = @"Height";
+    *(&buf + 1) = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v152];
+    *&v221 = @"Width";
+    v218 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v151];
+    *(&v221 + 1) = @"PixelFormat";
+    v219 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v158];
+    v234 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v220 count:4];
+    v150 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v233 forKeys:&v228 count:2];
+    if (v161)
+    {
+      v150 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v150];
+      [(__CFDictionary *)v150 setObject:v161 forKeyedSubscript:*MEMORY[0x1E696D228]];
     }
 
     goto LABEL_171;
@@ -5425,66 +5494,66 @@ LABEL_171:
 LABEL_173:
   v31 = imageCopy;
 LABEL_174:
-  v154 = CGImageDestinationFinalize(v38);
-  if (v192[5])
+  v162 = CGImageDestinationFinalize(v38);
+  if (v200[5])
   {
-    v155 = v198[6];
-    v156 = v198[7];
-    v157 = v198[8];
-    v158 = v198[9];
+    v163 = v206[6];
+    v164 = v206[7];
+    v165 = v206[8];
+    v166 = v206[9];
     [v31 extent];
-    v240.origin.x = v159;
-    v240.origin.y = v160;
-    v240.size.width = v161;
-    v240.size.height = v162;
-    v239.origin.x = v155;
-    v239.origin.y = v156;
-    v239.size.width = v157;
-    v239.size.height = v158;
-    v163 = CGRectContainsRect(v239, v240);
+    v248.origin.x = v167;
+    v248.origin.y = v168;
+    v248.size.width = v169;
+    v248.size.height = v170;
+    v247.origin.x = v163;
+    v247.origin.y = v164;
+    v247.size.width = v165;
+    v247.size.height = v166;
+    v171 = CGRectContainsRect(v247, v248);
   }
 
   else
   {
-    v163 = 1;
+    v171 = 1;
   }
 
-  if (!v154 || !v163)
+  if (!v162 || !v171)
   {
 
-    v164 = v192[5];
-    if (v164)
+    v172 = v200[5];
+    if (v172)
     {
-      *&v212 = *MEMORY[0x1E696AA08];
-      *(&v212 + 1) = @"CINonLocalizedDescriptionKey";
-      *&buf = v164;
+      *&v220 = *MEMORY[0x1E696AA08];
+      *(&v220 + 1) = @"CINonLocalizedDescriptionKey";
+      *&buf = v172;
       *(&buf + 1) = @"failed to create data representation.";
-      v165 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v212 count:2];
+      v173 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v220 count:2];
     }
 
     else
     {
-      *&v212 = @"CINonLocalizedDescriptionKey";
+      *&v220 = @"CINonLocalizedDescriptionKey";
       *&buf = @"failed to create data representation.";
-      v165 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v212 count:1];
+      v173 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v220 count:1];
     }
 
-    v35 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:3 userInfo:v165];
-    v166 = v35;
+    v35 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:3 userInfo:v173];
+    v174 = v35;
     goto LABEL_183;
   }
 
   v35 = 0;
 LABEL_184:
-  _Block_object_dispose(&v191, 8);
-  _Block_object_dispose(&v197, 8);
+  _Block_object_dispose(&v199, 8);
+  _Block_object_dispose(&v205, 8);
   objc_autoreleasePoolPop(context);
   if (error && v35)
   {
     *error = v35;
   }
 
-  v167 = v35;
+  v175 = v35;
   return data;
 }
 
@@ -5532,266 +5601,269 @@ void __138__CIContext_ImageRepresentation___dataRepresentationOfImage_UTIType_fo
 
 - (void)_addSemanticImages:(id)images session:(CMPhotoCompressionSession *)session imageHandle:(int64_t)handle options:(id)options
 {
-  v89 = *MEMORY[0x1E69E9840];
-  v85 = 0;
-  v83 = 0u;
-  v84 = 0u;
-  *&v80 = 0;
-  *(&v80 + 1) = &v80;
-  *&v81 = 0x2020000000;
+  v95 = *MEMORY[0x1E69E9840];
+  v91 = 0;
+  v89 = 0u;
+  v90 = 0u;
+  *&v86 = 0;
+  *(&v86 + 1) = &v86;
+  *&v87 = 0x2020000000;
   v7 = getkCMPhotoAuxiliaryImageTypeURN_SemanticSkinMatteSymbolLoc(void)::ptr;
-  *(&v81 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticSkinMatteSymbolLoc(void)::ptr;
+  *(&v87 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticSkinMatteSymbolLoc(void)::ptr;
   if (!getkCMPhotoAuxiliaryImageTypeURN_SemanticSkinMatteSymbolLoc(void)::ptr)
   {
-    *&v86 = MEMORY[0x1E69E9820];
-    *(&v86 + 1) = 3221225472;
-    *&v87 = ___ZL59getkCMPhotoAuxiliaryImageTypeURN_SemanticSkinMatteSymbolLocv_block_invoke;
-    *(&v87 + 1) = &unk_1E75C1E10;
-    v88 = &v80;
+    *&v92 = MEMORY[0x1E69E9820];
+    *(&v92 + 1) = 3221225472;
+    *&v93 = ___ZL59getkCMPhotoAuxiliaryImageTypeURN_SemanticSkinMatteSymbolLocv_block_invoke;
+    *(&v93 + 1) = &unk_1E75C1E10;
+    v94 = &v86;
     v8 = CMPhotoLibrary();
     v9 = dlsym(v8, "kCMPhotoAuxiliaryImageTypeURN_SemanticSkinMatte");
-    *(*(v88 + 1) + 24) = v9;
-    getkCMPhotoAuxiliaryImageTypeURN_SemanticSkinMatteSymbolLoc(void)::ptr = *(*(v88 + 1) + 24);
-    v7 = *(*(&v80 + 1) + 24);
+    *(*(v94 + 1) + 24) = v9;
+    getkCMPhotoAuxiliaryImageTypeURN_SemanticSkinMatteSymbolLoc(void)::ptr = *(*(v94 + 1) + 24);
+    v7 = *(*(&v86 + 1) + 24);
   }
 
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v7)
   {
     [CIContext(ImageRepresentation) _addSemanticImages:session:imageHandle:options:];
   }
 
-  *&v83 = *v7;
-  *&v80 = 0;
-  *(&v80 + 1) = &v80;
-  *&v81 = 0x2020000000;
+  *&v89 = *v7;
+  *&v86 = 0;
+  *(&v86 + 1) = &v86;
+  *&v87 = 0x2020000000;
   v10 = getkCMPhotoAuxiliaryImageTypeURN_SemanticHairMatteSymbolLoc(void)::ptr;
-  *(&v81 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticHairMatteSymbolLoc(void)::ptr;
+  *(&v87 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticHairMatteSymbolLoc(void)::ptr;
   if (!getkCMPhotoAuxiliaryImageTypeURN_SemanticHairMatteSymbolLoc(void)::ptr)
   {
-    *&v86 = MEMORY[0x1E69E9820];
-    *(&v86 + 1) = 3221225472;
-    *&v87 = ___ZL59getkCMPhotoAuxiliaryImageTypeURN_SemanticHairMatteSymbolLocv_block_invoke;
-    *(&v87 + 1) = &unk_1E75C1E10;
-    v88 = &v80;
+    *&v92 = MEMORY[0x1E69E9820];
+    *(&v92 + 1) = 3221225472;
+    *&v93 = ___ZL59getkCMPhotoAuxiliaryImageTypeURN_SemanticHairMatteSymbolLocv_block_invoke;
+    *(&v93 + 1) = &unk_1E75C1E10;
+    v94 = &v86;
     v11 = CMPhotoLibrary();
     v12 = dlsym(v11, "kCMPhotoAuxiliaryImageTypeURN_SemanticHairMatte");
-    *(*(v88 + 1) + 24) = v12;
-    getkCMPhotoAuxiliaryImageTypeURN_SemanticHairMatteSymbolLoc(void)::ptr = *(*(v88 + 1) + 24);
-    v10 = *(*(&v80 + 1) + 24);
+    *(*(v94 + 1) + 24) = v12;
+    getkCMPhotoAuxiliaryImageTypeURN_SemanticHairMatteSymbolLoc(void)::ptr = *(*(v94 + 1) + 24);
+    v10 = *(*(&v86 + 1) + 24);
   }
 
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v10)
   {
     [CIContext(ImageRepresentation) _addSemanticImages:session:imageHandle:options:];
   }
 
-  *(&v83 + 1) = *v10;
-  *&v80 = 0;
-  *(&v80 + 1) = &v80;
-  *&v81 = 0x2020000000;
+  *(&v89 + 1) = *v10;
+  *&v86 = 0;
+  *(&v86 + 1) = &v86;
+  *&v87 = 0x2020000000;
   v13 = getkCMPhotoAuxiliaryImageTypeURN_SemanticTeethMatteSymbolLoc(void)::ptr;
-  *(&v81 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticTeethMatteSymbolLoc(void)::ptr;
+  *(&v87 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticTeethMatteSymbolLoc(void)::ptr;
   if (!getkCMPhotoAuxiliaryImageTypeURN_SemanticTeethMatteSymbolLoc(void)::ptr)
   {
-    *&v86 = MEMORY[0x1E69E9820];
-    *(&v86 + 1) = 3221225472;
-    *&v87 = ___ZL60getkCMPhotoAuxiliaryImageTypeURN_SemanticTeethMatteSymbolLocv_block_invoke;
-    *(&v87 + 1) = &unk_1E75C1E10;
-    v88 = &v80;
+    *&v92 = MEMORY[0x1E69E9820];
+    *(&v92 + 1) = 3221225472;
+    *&v93 = ___ZL60getkCMPhotoAuxiliaryImageTypeURN_SemanticTeethMatteSymbolLocv_block_invoke;
+    *(&v93 + 1) = &unk_1E75C1E10;
+    v94 = &v86;
     v14 = CMPhotoLibrary();
     v15 = dlsym(v14, "kCMPhotoAuxiliaryImageTypeURN_SemanticTeethMatte");
-    *(*(v88 + 1) + 24) = v15;
-    getkCMPhotoAuxiliaryImageTypeURN_SemanticTeethMatteSymbolLoc(void)::ptr = *(*(v88 + 1) + 24);
-    v13 = *(*(&v80 + 1) + 24);
+    *(*(v94 + 1) + 24) = v15;
+    getkCMPhotoAuxiliaryImageTypeURN_SemanticTeethMatteSymbolLoc(void)::ptr = *(*(v94 + 1) + 24);
+    v13 = *(*(&v86 + 1) + 24);
   }
 
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v13)
   {
     [CIContext(ImageRepresentation) _addSemanticImages:session:imageHandle:options:];
   }
 
-  *&v84 = *v13;
-  *&v80 = 0;
-  *(&v80 + 1) = &v80;
-  *&v81 = 0x2020000000;
+  *&v90 = *v13;
+  *&v86 = 0;
+  *(&v86 + 1) = &v86;
+  *&v87 = 0x2020000000;
   v16 = getkCMPhotoAuxiliaryImageTypeURN_SemanticGlassesMatteSymbolLoc(void)::ptr;
-  *(&v81 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticGlassesMatteSymbolLoc(void)::ptr;
+  *(&v87 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticGlassesMatteSymbolLoc(void)::ptr;
   if (!getkCMPhotoAuxiliaryImageTypeURN_SemanticGlassesMatteSymbolLoc(void)::ptr)
   {
-    *&v86 = MEMORY[0x1E69E9820];
-    *(&v86 + 1) = 3221225472;
-    *&v87 = ___ZL62getkCMPhotoAuxiliaryImageTypeURN_SemanticGlassesMatteSymbolLocv_block_invoke;
-    *(&v87 + 1) = &unk_1E75C1E10;
-    v88 = &v80;
+    *&v92 = MEMORY[0x1E69E9820];
+    *(&v92 + 1) = 3221225472;
+    *&v93 = ___ZL62getkCMPhotoAuxiliaryImageTypeURN_SemanticGlassesMatteSymbolLocv_block_invoke;
+    *(&v93 + 1) = &unk_1E75C1E10;
+    v94 = &v86;
     v17 = CMPhotoLibrary();
     v18 = dlsym(v17, "kCMPhotoAuxiliaryImageTypeURN_SemanticGlassesMatte");
-    *(*(v88 + 1) + 24) = v18;
-    getkCMPhotoAuxiliaryImageTypeURN_SemanticGlassesMatteSymbolLoc(void)::ptr = *(*(v88 + 1) + 24);
-    v16 = *(*(&v80 + 1) + 24);
+    *(*(v94 + 1) + 24) = v18;
+    getkCMPhotoAuxiliaryImageTypeURN_SemanticGlassesMatteSymbolLoc(void)::ptr = *(*(v94 + 1) + 24);
+    v16 = *(*(&v86 + 1) + 24);
   }
 
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v16)
   {
     [CIContext(ImageRepresentation) _addSemanticImages:session:imageHandle:options:];
   }
 
-  *(&v84 + 1) = *v16;
-  *&v80 = 0;
-  *(&v80 + 1) = &v80;
-  *&v81 = 0x2020000000;
+  *(&v90 + 1) = *v16;
+  *&v86 = 0;
+  *(&v86 + 1) = &v86;
+  *&v87 = 0x2020000000;
   v19 = getkCMPhotoAuxiliaryImageTypeURN_SemanticSkyMatteSymbolLoc(void)::ptr;
-  *(&v81 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticSkyMatteSymbolLoc(void)::ptr;
+  *(&v87 + 1) = getkCMPhotoAuxiliaryImageTypeURN_SemanticSkyMatteSymbolLoc(void)::ptr;
   if (!getkCMPhotoAuxiliaryImageTypeURN_SemanticSkyMatteSymbolLoc(void)::ptr)
   {
-    *&v86 = MEMORY[0x1E69E9820];
-    *(&v86 + 1) = 3221225472;
-    *&v87 = ___ZL58getkCMPhotoAuxiliaryImageTypeURN_SemanticSkyMatteSymbolLocv_block_invoke;
-    *(&v87 + 1) = &unk_1E75C1E10;
-    v88 = &v80;
+    *&v92 = MEMORY[0x1E69E9820];
+    *(&v92 + 1) = 3221225472;
+    *&v93 = ___ZL58getkCMPhotoAuxiliaryImageTypeURN_SemanticSkyMatteSymbolLocv_block_invoke;
+    *(&v93 + 1) = &unk_1E75C1E10;
+    v94 = &v86;
     v20 = CMPhotoLibrary();
     v21 = dlsym(v20, "kCMPhotoAuxiliaryImageTypeURN_SemanticSkyMatte");
-    *(*(v88 + 1) + 24) = v21;
-    getkCMPhotoAuxiliaryImageTypeURN_SemanticSkyMatteSymbolLoc(void)::ptr = *(*(v88 + 1) + 24);
-    v19 = *(*(&v80 + 1) + 24);
+    *(*(v94 + 1) + 24) = v21;
+    getkCMPhotoAuxiliaryImageTypeURN_SemanticSkyMatteSymbolLoc(void)::ptr = *(*(v94 + 1) + 24);
+    v19 = *(*(&v86 + 1) + 24);
   }
 
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v19)
   {
     [CIContext(ImageRepresentation) _addSemanticImages:session:imageHandle:options:];
   }
 
   v22 = 0;
-  v85 = *v19;
+  v91 = *v19;
+  v94 = 0;
+  v92 = 0u;
+  v93 = 0u;
   v88 = 0;
   v86 = 0u;
   v87 = 0u;
-  v82 = 0;
-  v80 = 0u;
-  v81 = 0u;
-  v79 = 0;
-  v77 = 0u;
-  v78 = 0u;
-  v58 = 0x8420102uLL;
+  v85 = 0;
+  v83 = 0u;
+  v84 = 0u;
+  v64 = 0x8420102uLL;
   do
   {
     v23 = off_1E75C22B0[v22];
-    v24 = [options objectForKeyedSubscript:{v23, v58}];
+    v24 = [options objectForKeyedSubscript:{v23, v64}];
     if (!v24)
     {
       goto LABEL_26;
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       [v24 extent];
-      if (!CGRectIsInfinite(v90))
+      IsInfinite = CGRectIsInfinite(v96);
+      if (!IsInfinite)
       {
         [v24 extent];
-        if (!CGRectIsEmpty(v91))
+        IsInfinite = CGRectIsEmpty(v97);
+        if (!IsInfinite)
         {
           goto LABEL_25;
         }
       }
 
-      v25 = ci_logger_api();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v29 = ci_logger_api(IsInfinite, v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        *buf = v58;
+        *buf = v64;
         *&buf[4] = v23;
-        v26 = v25;
-        v27 = "Saving %{public}@ option requires an image with a finite non-empty extent.";
+        v30 = v29;
+        v31 = "Saving %{public}@ option requires an image with a finite non-empty extent.";
 LABEL_29:
-        _os_log_error_impl(&dword_19CC36000, v26, OS_LOG_TYPE_ERROR, v27, buf, 0xCu);
+        _os_log_error_impl(&dword_19CC36000, v30, OS_LOG_TYPE_ERROR, v31, buf, 0xCu);
       }
     }
 
     else
     {
-      v28 = ci_logger_api();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v32 = ci_logger_api(isKindOfClass, v26);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        *buf = v58;
+        *buf = v64;
         *&buf[4] = v23;
-        v26 = v28;
-        v27 = "Saving %{public}@ option requires a CIImage object.";
+        v30 = v32;
+        v31 = "Saving %{public}@ option requires a CIImage object.";
         goto LABEL_29;
       }
     }
 
     v24 = 0;
 LABEL_25:
-    *(&v86 + v22 * 8) = v24;
+    *(&v92 + v22 * 8) = v24;
 LABEL_26:
     ++v22;
   }
 
   while (v22 != 5);
-  v29 = [options objectForKeyedSubscript:@"kCIImageRepresentationAVSemanticSegmentationMattes"];
+  v33 = [options objectForKeyedSubscript:@"kCIImageRepresentationAVSemanticSegmentationMattes"];
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  if (isKindOfClass)
+  v34 = objc_opt_isKindOfClass();
+  if (v34)
   {
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
-    v64 = 0u;
-    v31 = [v29 countByEnumeratingWithState:&v63 objects:v76 count:16];
-    if (v31)
+    v71 = 0u;
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v35 = [v33 countByEnumeratingWithState:&v69 objects:v82 count:16];
+    if (v35)
     {
-      v32 = *v64;
+      v36 = *v70;
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v35; ++i)
         {
-          if (*v64 != v32)
+          if (*v70 != v36)
           {
-            objc_enumerationMutation(v29);
+            objc_enumerationMutation(v33);
           }
 
-          v34 = *(*(&v63 + 1) + 8 * i);
-          if (isKind_AVSemanticSegmentationMatteClass(v34))
+          v38 = *(*(&v69 + 1) + 8 * i);
+          if (isKind_AVSemanticSegmentationMatteClass(v38))
           {
             *buf = 0;
-            v35 = AVSemanticSegmentationMatteDictionaryRepresentationForAuxiliaryType(v34, buf);
+            v39 = AVSemanticSegmentationMatteDictionaryRepresentationForAuxiliaryType(v38, buf);
             if ([*buf hasSuffix:@"SkinMatte"])
             {
-              v37 = &v80;
-              v38 = &v77;
+              v41 = &v86;
+              v42 = &v83;
 LABEL_43:
-              *v37 = AVSemanticSegmentationMatteImage(v34, v36);
-              *v38 = [v35 objectForKeyedSubscript:@"kCGImageAuxiliaryDataInfoMetadata"];
+              *v41 = AVSemanticSegmentationMatteImage(v38, v40);
+              *v42 = [v39 objectForKeyedSubscript:@"kCGImageAuxiliaryDataInfoMetadata"];
               continue;
             }
 
-            v38 = (&v77 + 8);
-            v37 = &v80 + 1;
+            v42 = (&v83 + 8);
+            v41 = &v86 + 1;
             if ([*buf hasSuffix:@"HairMatte"])
             {
               goto LABEL_43;
             }
 
-            v37 = &v81;
-            v38 = &v78;
+            v41 = &v87;
+            v42 = &v84;
             if ([*buf hasSuffix:@"TeethMatte"])
             {
               goto LABEL_43;
             }
 
-            v37 = &v81 + 1;
-            v38 = (&v78 + 8);
+            v41 = &v87 + 1;
+            v42 = (&v84 + 8);
             if ([*buf hasSuffix:@"GlassesMatte"])
             {
               goto LABEL_43;
             }
 
-            v37 = &v82;
-            v38 = &v79;
+            v41 = &v88;
+            v42 = &v85;
             if ([*buf hasSuffix:@"SkyMatte"])
             {
               goto LABEL_43;
@@ -5799,58 +5871,60 @@ LABEL_43:
           }
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v63 objects:v76 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v69 objects:v82 count:16];
       }
 
-      while (v31);
+      while (v35);
     }
   }
 
-  v39 = 0;
-  v62 = *MEMORY[0x1E69660D8];
+  v43 = 0;
+  v68 = *MEMORY[0x1E69660D8];
   while (2)
   {
-    v40 = getkCMPhotoCompressionOption_AuxiliaryImageCustomTypeURN();
-    v41 = *(&v83 + v39);
-    v74 = v40;
-    v75 = v41;
-    v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-    v43 = *(&v80 + v39);
-    if (v43)
+    v44 = getkCMPhotoCompressionOption_AuxiliaryImageCustomTypeURN();
+    v45 = *(&v89 + v43);
+    v80 = v44;
+    v81 = v45;
+    v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+    v47 = *(&v86 + v43);
+    if (v47)
     {
-      v44 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(session, handle, 4, *(&v77 + v39), v42, v43);
+      v48 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(session, handle, 4, *(&v83 + v43), v46, v47);
+      v50 = v48;
       goto LABEL_49;
     }
 
-    v48 = *(&v86 + v39);
-    if (v48)
+    v54 = *(&v92 + v43);
+    if (v54)
     {
-      [*(&v86 + v39) extent];
-      v50 = v49;
-      v52 = v51;
-      v53 = [objc_msgSend(v48 "properties")];
+      [*(&v92 + v43) extent];
+      v56 = v55;
+      v58 = v57;
+      v59 = [objc_msgSend(v54 "properties")];
       Mutable = CGImageMetadataCreateMutable();
       MetadataAddVersion(Mutable, @"semanticSegmentationMatte", @"http://ns.apple.com/semanticSegmentationMatte/1.0/", @"SemanticSegmentationMatteVersion", 0x10000);
       *buf = 0;
-      v72 = v62;
-      v73 = MEMORY[0x1E695E0F8];
-      v55 = vcvtmd_u64_f64(v50);
-      v56 = vcvtmd_u64_f64(v52);
-      v44 = CVPixelBufferCreate(0, v55, v56, 0x4C303038u, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1], buf);
-      if (!v44)
+      v78 = v68;
+      v79 = MEMORY[0x1E695E0F8];
+      v61 = vcvtmd_u64_f64(v56);
+      v62 = vcvtmd_u64_f64(v58);
+      v48 = CVPixelBufferCreate(0, v61, v62, 0x4C303038u, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1], buf);
+      v50 = v48;
+      if (!v48)
       {
-        [(CIContext *)self render:v48 toCVPixelBuffer:*buf bounds:0 colorSpace:0.0, 0.0, v55, v56];
-        if (v53)
+        [(CIContext *)self render:v54 toCVPixelBuffer:*buf bounds:0 colorSpace:0.0, 0.0, v61, v62];
+        if (v59)
         {
-          v57 = v53;
+          v63 = v59;
         }
 
         else
         {
-          v57 = Mutable;
+          v63 = Mutable;
         }
 
-        v44 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(session, handle, 4, v57, v42, *buf);
+        v50 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(session, handle, 4, v63, v46, *buf);
         CFRelease(*buf);
       }
 
@@ -5860,26 +5934,26 @@ LABEL_43:
       }
 
 LABEL_49:
-      if (v44)
+      if (v50)
       {
-        v45 = ci_logger_api();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v51 = ci_logger_api(v48, v49);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
-          v46 = off_1E75C22B0[v39 / 8];
-          v47 = FigErrorString(v44);
+          v52 = off_1E75C22B0[v43 / 8];
+          v53 = FigErrorString(v50);
           *buf = 136446722;
           *&buf[4] = "[CIContext(ImageRepresentation) _addSemanticImages:session:imageHandle:options:]";
-          v68 = 2114;
-          v69 = v46;
-          v70 = 2082;
-          v71 = v47;
-          _os_log_error_impl(&dword_19CC36000, v45, OS_LOG_TYPE_ERROR, "%{public}s failed to add %{public}@ to the PhotoCompressionSession. (%{public}s)", buf, 0x20u);
+          v74 = 2114;
+          v75 = v52;
+          v76 = 2082;
+          v77 = v53;
+          _os_log_error_impl(&dword_19CC36000, v51, OS_LOG_TYPE_ERROR, "%{public}s failed to add %{public}@ to the PhotoCompressionSession. (%{public}s)", buf, 0x20u);
         }
       }
     }
 
-    v39 += 8;
-    if (v39 != 40)
+    v43 += 8;
+    if (v43 != 40)
     {
       continue;
     }
@@ -5890,39 +5964,42 @@ LABEL_49:
 
 - (void)_addPortraitMatte:(id)matte session:(CMPhotoCompressionSession *)session imageHandle:(int64_t)handle options:(id)options
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   v10 = [options objectForKeyedSubscript:@"kCIImageRepresentationPortraitEffectsMatteImage"];
   if (v10)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v11 = ci_logger_api();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = ci_logger_api(isKindOfClass, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(CIContext(ImageRepresentation) *)v11 _addPortraitMatte:v12 session:v13 imageHandle:v14 options:v15, v16, v17, v18];
+        [(CIContext(ImageRepresentation) *)v13 _addPortraitMatte:v14 session:v15 imageHandle:v16 options:v17, v18, v19, v20];
       }
 
       v10 = 0;
     }
 
     [v10 extent];
-    if (CGRectIsInfinite(v44) || ([v10 extent], CGRectIsEmpty(v45)))
+    IsInfinite = CGRectIsInfinite(v50);
+    if (IsInfinite || ([v10 extent], IsInfinite = CGRectIsEmpty(v51)))
     {
-      v19 = ci_logger_api();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v23 = ci_logger_api(IsInfinite, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [(CIContext(ImageRepresentation) *)v19 _addPortraitMatte:v20 session:v21 imageHandle:v22 options:v23, v24, v25, v26];
+        [(CIContext(ImageRepresentation) *)v23 _addPortraitMatte:v24 session:v25 imageHandle:v26 options:v27, v28, v29, v30];
       }
 
       v10 = 0;
     }
   }
 
-  v27 = [options objectForKeyedSubscript:@"kCIImageRepresentationAVPortraitEffectsMatte"];
-  if (isKind_AVPortraitEffectsMatteClass(v27) && (cf = 0, v28 = AVPortraitEffectsMatteDictionaryRepresentation(v27, &cf), v30 = AVFPortraitEffectsMatteImage(v27, v29), v31 = [v28 objectForKeyedSubscript:@"kCGImageAuxiliaryDataInfoMetadata"], v30))
+  v31 = [options objectForKeyedSubscript:@"kCIImageRepresentationAVPortraitEffectsMatte"];
+  if (isKind_AVPortraitEffectsMatteClass(v31) && (cf = 0, v32 = AVPortraitEffectsMatteDictionaryRepresentation(v31, &cf), v34 = AVFPortraitEffectsMatteImage(v31, v33), v35 = [v32 objectForKeyedSubscript:@"kCGImageAuxiliaryDataInfoMetadata"], v34))
   {
-    v32 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(session, handle, 5, v31, 0, v30);
+    v36 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(session, handle, 5, v35, 0, v34);
+    v38 = v36;
   }
 
   else
@@ -5932,31 +6009,32 @@ LABEL_49:
       return;
     }
 
-    v33 = [objc_msgSend(v10 "properties")];
+    v39 = [objc_msgSend(v10 "properties")];
     [v10 extent];
-    v35 = vcvtmd_u64_f64(v34);
+    v41 = vcvtmd_u64_f64(v40);
     [v10 extent];
-    v37 = vcvtmd_u64_f64(v36);
+    v43 = vcvtmd_u64_f64(v42);
     Mutable = CGImageMetadataCreateMutable();
     MetadataAddVersion(Mutable, @"portraitEffectsMatte", @"http://ns.apple.com/portraitEffectsMatte/1.0/", @"PortraitEffectsMatteVersion", 0x10000);
     cf = 0;
-    v42 = *MEMORY[0x1E69660D8];
-    v43[0] = MEMORY[0x1E695E0F8];
-    v32 = CVPixelBufferCreate(0, v35, v37, 0x4C303038u, [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1], &cf);
-    if (!v32)
+    v48 = *MEMORY[0x1E69660D8];
+    v49[0] = MEMORY[0x1E695E0F8];
+    v36 = CVPixelBufferCreate(0, v41, v43, 0x4C303038u, [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1], &cf);
+    v38 = v36;
+    if (!v36)
     {
-      [(CIContext *)self render:v10 toCVPixelBuffer:cf bounds:0 colorSpace:0.0, 0.0, v35, v37];
-      if (v33)
+      [(CIContext *)self render:v10 toCVPixelBuffer:cf bounds:0 colorSpace:0.0, 0.0, v41, v43];
+      if (v39)
       {
-        v39 = v33;
+        v45 = v39;
       }
 
       else
       {
-        v39 = Mutable;
+        v45 = Mutable;
       }
 
-      v32 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(session, handle, 5, v39, 0, cf);
+      v38 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(session, handle, 5, v45, 0, cf);
       CFRelease(cf);
     }
 
@@ -5966,19 +6044,19 @@ LABEL_49:
     }
   }
 
-  if (v32)
+  if (v38)
   {
-    v40 = ci_logger_api();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v46 = ci_logger_api(v36, v37);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      [CIContext(ImageRepresentation) _addPortraitMatte:v32 session:? imageHandle:? options:?];
+      [CIContext(ImageRepresentation) _addPortraitMatte:v38 session:? imageHandle:? options:?];
     }
   }
 }
 
 - (void)_addGainMap:(id)map session:(CMPhotoCompressionSession *)session imageHandle:(int64_t)handle containerFormat:(int)format options:(id)options orientation:(id)orientation
 {
-  v132[1] = *MEMORY[0x1E69E9840];
+  v138[1] = *MEMORY[0x1E69E9840];
   v15 = @"kCIImageRepresentationHDRGainMapImage";
   v16 = [options objectForKeyedSubscript:@"kCIImageRepresentationHDRGainMapImage"];
   v17 = v16;
@@ -6000,17 +6078,19 @@ LABEL_49:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [v18 extent];
-    x = v133.origin.x;
-    y = v133.origin.y;
-    width = v133.size.width;
-    height = v133.size.height;
-    if (CGRectIsInfinite(v133) || (v134.origin.x = x, v134.origin.y = y, v134.size.width = width, v134.size.height = height, CGRectIsEmpty(v134)))
+    x = v139.origin.x;
+    y = v139.origin.y;
+    width = v139.size.width;
+    height = v139.size.height;
+    IsInfinite = CGRectIsInfinite(v139);
+    if (IsInfinite || (v140.origin.x = x, v140.origin.y = y, v140.size.width = width, v140.size.height = height, IsInfinite = CGRectIsEmpty(v140)))
     {
-      v24 = ci_logger_api();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v28 = ci_logger_api(IsInfinite, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [CIContext(ImageRepresentation) _dataRepresentationOfImage:UTIType:format:premultiplied:colorSpace:options:addAuxData:keysToMerge:error:];
       }
@@ -6019,223 +6099,223 @@ LABEL_49:
     else
     {
       handleCopy = handle;
-      v26 = v17 == 0;
-      v27 = [objc_msgSend(v18 "properties")];
-      v131 = *MEMORY[0x1E69660D8];
-      v132[0] = MEMORY[0x1E695E0F8];
-      pixelBufferAttributes = [MEMORY[0x1E695DF20] dictionaryWithObjects:v132 forKeys:&v131 count:1];
-      v80 = vcvtmd_u64_f64(width);
+      v30 = v17 == 0;
+      v31 = [objc_msgSend(v18 "properties")];
+      v137 = *MEMORY[0x1E69660D8];
+      v138[0] = MEMORY[0x1E695E0F8];
+      pixelBufferAttributes = [MEMORY[0x1E695DF20] dictionaryWithObjects:v138 forKeys:&v137 count:1];
+      v86 = vcvtmd_u64_f64(width);
       pixelBufferOut[0] = 0;
-      v79 = vcvtmd_u64_f64(height);
-      if (v26)
+      v85 = vcvtmd_u64_f64(height);
+      if (v30)
       {
-        v38 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapBaseHeadroom"];
-        if (v38)
+        v42 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapBaseHeadroom"];
+        if (v42)
         {
-          v39 = v38;
+          v43 = v42;
         }
 
         else
         {
-          v39 = &unk_1F1083148;
+          v43 = &unk_1F1083148;
         }
 
-        v40 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapAlternateHeadroom"];
-        v41 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapMin"];
-        if (v41)
-        {
-          v42 = v41;
-        }
-
-        else
-        {
-          v42 = v39;
-        }
-
-        v75 = v42;
-        v43 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapMax"];
-        if (v43)
-        {
-          v44 = v43;
-        }
-
-        else
-        {
-          v44 = v40;
-        }
-
-        v73 = v44;
-        v45 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapOffset"];
-        v46 = &unk_1F1083168;
+        v44 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapAlternateHeadroom"];
+        v45 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapMin"];
         if (v45)
         {
           v46 = v45;
         }
 
-        v74 = v46;
-        v47 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapGamma"];
-        v48 = &unk_1F1083158;
+        else
+        {
+          v46 = v43;
+        }
+
+        v81 = v46;
+        v47 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapMax"];
         if (v47)
         {
           v48 = v47;
         }
 
-        v72 = v48;
-        v76 = [objc_msgSend(options objectForKeyedSubscript:{@"kCIImageRepresentationHDRGainMapAsRGB", "BOOLValue"}];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass() & (v40 != 0)) == 1 && (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
+        else
         {
-          v126 = &unk_1F10819E0;
-          v125[0] = @"TonemapVersion";
-          v125[1] = @"TonemapBaseHDRHeadroom";
-          v127 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(isKindOfClass, v39);
-          v125[2] = @"TonemapAlternateHDRHeadroom";
-          v128 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v127, v40);
-          v129 = MEMORY[0x1E695E118];
-          v125[3] = @"TonemapBaseColorIsWorkingColor";
-          v125[4] = @"TonemapChannelMetadata";
-          v118[0] = @"BaseOffset";
-          v119 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v128, v74);
-          v118[1] = @"AlternateOffset";
-          v120 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v119, v74);
-          v118[2] = @"GainMapMin";
-          v121 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v120, v75);
-          v118[3] = @"GainMapMax";
-          v122 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v121, v73);
-          v118[4] = @"Gamma";
-          v123 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v122, v72);
-          v124 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v119 forKeys:v118 count:5];
-          v130 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v124 count:1];
-          v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v126 forKeys:v125 count:5];
-          v51 = v50;
-          if (v76)
+          v48 = v44;
+        }
+
+        v79 = v48;
+        v49 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapOffset"];
+        v50 = &unk_1F1083168;
+        if (v49)
+        {
+          v50 = v49;
+        }
+
+        v80 = v50;
+        v51 = [options objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapGamma"];
+        v52 = &unk_1F1083158;
+        if (v51)
+        {
+          v52 = v51;
+        }
+
+        v78 = v52;
+        v82 = [objc_msgSend(options objectForKeyedSubscript:{@"kCIImageRepresentationHDRGainMapAsRGB", "BOOLValue"}];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass() & (v44 != 0)) == 1 && (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), v53 = objc_opt_isKindOfClass(), (v53))
+        {
+          v132 = &unk_1F10819E0;
+          v131[0] = @"TonemapVersion";
+          v131[1] = @"TonemapBaseHDRHeadroom";
+          v133 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v53, v43);
+          v131[2] = @"TonemapAlternateHDRHeadroom";
+          v134 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v133, v44);
+          v135 = MEMORY[0x1E695E118];
+          v131[3] = @"TonemapBaseColorIsWorkingColor";
+          v131[4] = @"TonemapChannelMetadata";
+          v124[0] = @"BaseOffset";
+          v125 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v134, v80);
+          v124[1] = @"AlternateOffset";
+          v126 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v125, v80);
+          v124[2] = @"GainMapMin";
+          v127 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v126, v81);
+          v124[3] = @"GainMapMax";
+          v128 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v127, v79);
+          v124[4] = @"Gamma";
+          v129 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v128, v78);
+          v130 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v125 forKeys:v124 count:5];
+          v136 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v130 count:1];
+          v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:v131 count:5];
+          v55 = v54;
+          if (v82)
           {
-            v113 = &unk_1F10819E0;
-            v112[0] = @"TonemapVersion";
-            v112[1] = @"TonemapBaseHDRHeadroom";
-            v114 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v50, v39);
-            v112[2] = @"TonemapAlternateHDRHeadroom";
-            v115 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v114, v40);
-            v116 = MEMORY[0x1E695E118];
-            v112[3] = @"TonemapBaseColorIsWorkingColor";
-            v112[4] = @"TonemapChannelMetadata";
+            v119 = &unk_1F10819E0;
+            v118[0] = @"TonemapVersion";
+            v118[1] = @"TonemapBaseHDRHeadroom";
+            v120 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v54, v43);
+            v118[2] = @"TonemapAlternateHDRHeadroom";
+            v121 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v120, v44);
+            v122 = MEMORY[0x1E695E118];
+            v118[3] = @"TonemapBaseColorIsWorkingColor";
+            v118[4] = @"TonemapChannelMetadata";
+            v109[0] = @"BaseOffset";
+            v110 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v121, v80);
+            v109[1] = @"AlternateOffset";
+            v111 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v110, v80);
+            v109[2] = @"GainMapMin";
+            v112 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v111, v81);
+            v109[3] = @"GainMapMax";
+            v113 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v112, v79);
+            v109[4] = @"Gamma";
+            v114 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v113, v78);
+            v115 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v110 forKeys:v109 count:5];
             v103[0] = @"BaseOffset";
-            v104 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v115, v74);
+            v104 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v115, v80);
             v103[1] = @"AlternateOffset";
-            v105 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v104, v74);
+            v105 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v104, v80);
             v103[2] = @"GainMapMin";
-            v106 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v105, v75);
+            v106 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v105, v81);
             v103[3] = @"GainMapMax";
-            v107 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v106, v73);
+            v107 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v106, v79);
             v103[4] = @"Gamma";
-            v108 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v107, v72);
-            v109 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:v103 count:5];
+            v108 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v107, v78);
+            v116 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:v103 count:5];
             v97[0] = @"BaseOffset";
-            v98 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v109, v74);
+            v98 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v116, v80);
             v97[1] = @"AlternateOffset";
-            v99 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v98, v74);
+            v99 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v98, v80);
             v97[2] = @"GainMapMin";
-            v100 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v99, v75);
+            v100 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v99, v81);
             v97[3] = @"GainMapMax";
-            v101 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v100, v73);
+            v101 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v100, v79);
             v97[4] = @"Gamma";
-            v102 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v101, v72);
-            v110 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:v97 count:5];
-            v91[0] = @"BaseOffset";
-            v92 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v110, v74);
-            v91[1] = @"AlternateOffset";
-            v93 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v92, v74);
-            v91[2] = @"GainMapMin";
-            v94 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v93, v75);
-            v91[3] = @"GainMapMax";
-            v95 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v94, v73);
-            v91[4] = @"Gamma";
-            v96 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v95, v72);
-            v111 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:v91 count:5];
-            v117 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v109 count:3];
-            v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v113 forKeys:v112 count:5];
+            v102 = kCIImageRepresentationSemanticSegmentationSkyMatteImage_block_invoke(v101, v78);
+            v117 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:v97 count:5];
+            v123 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v115 count:3];
+            v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v119 forKeys:v118 count:5];
           }
         }
 
         else
         {
-          v51 = 0;
+          v55 = 0;
         }
 
-        if (v76)
+        if (v82)
         {
-          v52 = 1111970369;
+          v56 = 1111970369;
         }
 
         else
         {
-          v52 = 1278226488;
+          v56 = 1278226488;
         }
 
-        v53 = CVPixelBufferCreate(0, v80, v79, v52, pixelBufferAttributes, pixelBufferOut);
-        if (!v53)
+        v58 = CVPixelBufferCreate(0, v86, v85, v56, pixelBufferAttributes, pixelBufferOut);
+        if (!v58)
         {
-          [(CIContext *)self render:v18 toCVPixelBuffer:pixelBufferOut[0] bounds:0 colorSpace:0.0, 0.0, v80, v79];
+          [(CIContext *)self render:v18 toCVPixelBuffer:pixelBufferOut[0] bounds:0 colorSpace:0.0, 0.0, v86, v85];
           if (format)
           {
-            v54 = 0;
+            v59 = 0;
           }
 
           else
           {
-            v54 = 1752589105;
+            v59 = 1752589105;
           }
 
           if (format == 1)
           {
-            v55 = 1785750887;
+            v60 = 1785750887;
           }
 
           else
           {
-            v55 = v54;
+            v60 = v59;
           }
 
-          v56 = [options objectForKeyedSubscript:*MEMORY[0x1E696D338]];
+          v61 = [options objectForKeyedSubscript:*MEMORY[0x1E696D338]];
           objc_opt_class();
-          v57 = objc_opt_isKindOfClass();
-          v58 = 0.0;
-          if (v57)
+          v62 = objc_opt_isKindOfClass();
+          v63 = 0.0;
+          if (v62)
           {
-            [v56 floatValue];
+            [v61 floatValue];
           }
 
-          v59 = fminf(fmaxf(v58, 0.9), 1.0);
-          if (v59 > 0.9944)
+          v64 = fminf(fmaxf(v63, 0.9), 1.0);
+          if (v64 > 0.9944)
           {
-            v60 = 1;
-          }
-
-          else
-          {
-            v60 = 5;
-          }
-
-          if (v76)
-          {
-            v61 = v60;
+            v65 = 1;
           }
 
           else
           {
-            v61 = 6;
+            v65 = 5;
+          }
+
+          if (v82)
+          {
+            v66 = v65;
+          }
+
+          else
+          {
+            v66 = 6;
           }
 
           dictionary = [MEMORY[0x1E695DF90] dictionary];
           [dictionary setObject:MEMORY[0x1E695E110] forKeyedSubscript:getkCMPhotoCompressionOption_ApplyTransform()];
-          [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", v55), getkCMPhotoCompressionOption_CodecType()}];
+          [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", v60), getkCMPhotoCompressionOption_CodecType()}];
           [dictionary setObject:&unk_1F10819F8 forKeyedSubscript:getkCMPhotoCompressionOption_QualityControllerType()];
-          [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", v61), getkCMPhotoCompressionOption_Subsampling()}];
+          [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", v66), getkCMPhotoCompressionOption_Subsampling()}];
           [dictionary setObject:&unk_1F1081A10 forKeyedSubscript:getkCMPhotoCompressionOption_BitDepth()];
-          v89 = getkCMPhotoQualityControllerParameter_QualityValue();
-          *&v63 = v59;
-          v90 = [MEMORY[0x1E696AD98] numberWithFloat:v63];
-          [dictionary setObject:objc_msgSend(MEMORY[0x1E695DF20] forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", &v90, &v89, 1), getkCMPhotoCompressionOption_QualityControllerParameters()}];
+          v95 = getkCMPhotoQualityControllerParameter_QualityValue();
+          *&v68 = v64;
+          v96 = [MEMORY[0x1E696AD98] numberWithFloat:v68];
+          [dictionary setObject:objc_msgSend(MEMORY[0x1E695DF20] forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", &v96, &v95, 1), getkCMPhotoCompressionOption_QualityControllerParameters()}];
           if (!format)
           {
             if (orientation)
@@ -6251,94 +6331,95 @@ LABEL_49:
             [dictionary setObject:orientationCopy forKeyedSubscript:getkCMPhotoCompressionOption_ImageOrientation()];
           }
 
-          v65 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F178]);
-          v87 = getkCMPhotoCompressionOption_ColorSpace();
-          v88 = v65;
-          v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
-          CGColorSpaceRelease(v65);
-          v53 = soft_CMPhotoCompressionSessionAddTmapImageOneShot(session, handleCopy, dictionary, v66, pixelBufferOut[0], v51, v67, v68, v71);
+          v70 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F178]);
+          v93 = getkCMPhotoCompressionOption_ColorSpace();
+          v94 = v70;
+          v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+          CGColorSpaceRelease(v70);
+          v58 = soft_CMPhotoCompressionSessionAddTmapImageOneShot(session, handleCopy, dictionary, v71, pixelBufferOut[0], v55, v72, v73, v77);
         }
       }
 
       else
       {
-        v28 = v27;
+        v32 = v31;
         selfCopy = self;
         sessionCopy = session;
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-        v83 = 0;
-        v84 = &v83;
-        v85 = 0x2020000000;
-        v32 = getkCMPhotoAuxiliaryImageTypeURN_HDRGainMapSymbolLoc(void)::ptr;
-        v86 = getkCMPhotoAuxiliaryImageTypeURN_HDRGainMapSymbolLoc(void)::ptr;
+        v89 = 0;
+        v90 = &v89;
+        v91 = 0x2020000000;
+        v36 = getkCMPhotoAuxiliaryImageTypeURN_HDRGainMapSymbolLoc(void)::ptr;
+        v92 = getkCMPhotoAuxiliaryImageTypeURN_HDRGainMapSymbolLoc(void)::ptr;
         if (!getkCMPhotoAuxiliaryImageTypeURN_HDRGainMapSymbolLoc(void)::ptr)
         {
           pixelBufferOut[1] = MEMORY[0x1E69E9820];
           pixelBufferOut[2] = 3221225472;
           pixelBufferOut[3] = ___ZL52getkCMPhotoAuxiliaryImageTypeURN_HDRGainMapSymbolLocv_block_invoke;
           pixelBufferOut[4] = &unk_1E75C1E10;
-          v82 = &v83;
-          v33 = CMPhotoLibrary();
-          v84[3] = dlsym(v33, "kCMPhotoAuxiliaryImageTypeURN_HDRGainMap");
-          getkCMPhotoAuxiliaryImageTypeURN_HDRGainMapSymbolLoc(void)::ptr = *(v82[1] + 24);
-          v32 = v84[3];
+          v88 = &v89;
+          v37 = CMPhotoLibrary();
+          v90[3] = dlsym(v37, "kCMPhotoAuxiliaryImageTypeURN_HDRGainMap");
+          getkCMPhotoAuxiliaryImageTypeURN_HDRGainMapSymbolLoc(void)::ptr = *(v88[1] + 24);
+          v36 = v90[3];
         }
 
-        _Block_object_dispose(&v83, 8);
-        if (!v32)
+        _Block_object_dispose(&v89, 8);
+        if (!v36)
         {
           [CIContext(ImageRepresentation) _addGainMap:session:imageHandle:containerFormat:options:orientation:];
         }
 
-        [dictionary2 setObject:*v32 forKeyedSubscript:getkCMPhotoCompressionOption_AuxiliaryImageCustomTypeURN()];
+        [dictionary2 setObject:*v36 forKeyedSubscript:getkCMPhotoCompressionOption_AuxiliaryImageCustomTypeURN()];
         Mutable = CGImageMetadataCreateMutable();
         MetadataAddVersion(Mutable, @"HDRGainMap", @"http://ns.apple.com/HDRGainMap/1.0/", @"HDRGainMapVersion", 0x20000);
-        v35 = [options objectForKeyedSubscript:@"kCIImageRepresentationHDRGainMapHeadroom"];
+        v39 = [options objectForKeyedSubscript:@"kCIImageRepresentationHDRGainMapHeadroom"];
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 floatValue], v36 > 1.0))
+        if ((objc_opt_isKindOfClass() & 1) != 0 && ([v39 floatValue], v40 > 1.0))
         {
-          v37 = MEMORY[0x1E696AD98];
-          [v35 floatValue];
-          CGImageMetadataSetValueWithPath(Mutable, 0, @"HDRGainMap:HDRGainMapHeadroom", [v37 numberWithFloat:?]);
+          v41 = MEMORY[0x1E696AD98];
+          [v39 floatValue];
+          CGImageMetadataSetValueWithPath(Mutable, 0, @"HDRGainMap:HDRGainMapHeadroom", [v41 numberWithFloat:?]);
         }
 
-        else if (v28)
+        else if (v32)
         {
           CFRelease(Mutable);
-          CFRetain(v28);
-          Mutable = v28;
+          CFRetain(v32);
+          Mutable = v32;
         }
 
         else
         {
           [map _makernoteMeteorHeadroom];
-          if (v69 > 1.0)
+          if (v74 > 1.0)
           {
             CGImageMetadataSetValueWithPath(Mutable, 0, @"HDRGainMap:HDRGainMapHeadroom", [MEMORY[0x1E696AD98] numberWithFloat:?]);
           }
         }
 
-        v53 = CVPixelBufferCreate(0, v80, v79, 0x4C303038u, pixelBufferAttributes, pixelBufferOut);
-        if (!v53)
+        v58 = CVPixelBufferCreate(0, v86, v85, 0x4C303038u, pixelBufferAttributes, pixelBufferOut);
+        if (!v58)
         {
-          [(CIContext *)selfCopy render:v18 toCVPixelBuffer:pixelBufferOut[0] bounds:0 colorSpace:0.0, 0.0, v80, v79];
-          v53 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(sessionCopy, handleCopy, 4, Mutable, dictionary2, pixelBufferOut[0]);
+          [(CIContext *)selfCopy render:v18 toCVPixelBuffer:pixelBufferOut[0] bounds:0 colorSpace:0.0, 0.0, v86, v85];
+          v58 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(sessionCopy, handleCopy, 4, Mutable, dictionary2, pixelBufferOut[0]);
         }
 
         CFRelease(Mutable);
       }
 
+      v75 = pixelBufferOut[0];
       if (pixelBufferOut[0])
       {
         CFRelease(pixelBufferOut[0]);
       }
 
-      if (v53)
+      if (v58)
       {
-        v70 = ci_logger_api();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v76 = ci_logger_api(v75, v57);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
-          [CIContext(ImageRepresentation) _addGainMap:v15 session:v53 imageHandle:? containerFormat:? options:? orientation:?];
+          [CIContext(ImageRepresentation) _addGainMap:v15 session:v58 imageHandle:? containerFormat:? options:? orientation:?];
         }
       }
     }
@@ -6346,8 +6427,8 @@ LABEL_49:
 
   else
   {
-    v25 = ci_logger_api();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v29 = ci_logger_api(isKindOfClass, v21);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [CIContext(ImageRepresentation) _dataRepresentationOfImage:UTIType:format:premultiplied:colorSpace:options:addAuxData:keysToMerge:error:];
     }
@@ -6356,7 +6437,7 @@ LABEL_49:
 
 - (void)_addDepthMap:(id)map session:(CMPhotoCompressionSession *)session imageHandle:(int64_t)handle options:(id)options
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   v10 = [options objectForKeyedSubscript:@"kCIImageRepresentationAVDepthData"];
   v11 = [options objectForKeyedSubscript:@"kCIImageRepresentationDepthImage"];
   v12 = [options objectForKeyedSubscript:@"kCIImageRepresentationDisparityImage"];
@@ -6373,7 +6454,7 @@ LABEL_49:
   }
 
   depthData = [v14 depthData];
-  v42 = 0;
+  v43 = 0;
   if (v14)
   {
     objc_opt_class();
@@ -6394,11 +6475,11 @@ LABEL_49:
   }
 
   [v16 extent];
-  x = v48.origin.x;
-  y = v48.origin.y;
-  width = v48.size.width;
-  height = v48.size.height;
-  if (CGRectIsInfinite(v48) || (v49.origin.x = x, v49.origin.y = y, v49.size.width = width, v49.size.height = height, CGRectIsEmpty(v49)))
+  x = v49.origin.x;
+  y = v49.origin.y;
+  width = v49.size.width;
+  height = v49.size.height;
+  if (CGRectIsInfinite(v49) || (v50.origin.x = x, v50.origin.y = y, v50.size.width = width, v50.size.height = height, CGRectIsEmpty(v50)))
   {
     v16 = 0;
   }
@@ -6420,7 +6501,7 @@ LABEL_49:
         v30 = MEMORY[0x1E696D258];
       }
 
-      v42 = *v30;
+      v43 = *v30;
       if (v13)
       {
         v31 = 1751411059;
@@ -6431,9 +6512,9 @@ LABEL_49:
         v31 = 1751410032;
       }
 
-      v46 = *MEMORY[0x1E69660D8];
-      v47[0] = MEMORY[0x1E695E0F8];
-      CVPixelBufferCreate(0, v28, v29, v31, [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1], &pixelBufferOut);
+      v47 = *MEMORY[0x1E69660D8];
+      v48[0] = MEMORY[0x1E695E0F8];
+      CVPixelBufferCreate(0, v28, v29, v31, [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1], &pixelBufferOut);
       if (!pixelBufferOut)
       {
         goto LABEL_52;
@@ -6451,7 +6532,7 @@ LABEL_49:
 
       [(CIContext *)self render:v16 toCVPixelBuffer:x bounds:y colorSpace:width, height];
       v32 = AVFDepthDataByReplacingDepthDataMapWithPixelBuffer(depthData, pixelBufferOut);
-      properties = AVFDepthDataDictionaryRepresentation(v32, &v42);
+      properties = AVFDepthDataDictionaryRepresentation(v32, &v43);
     }
 
     else
@@ -6468,7 +6549,7 @@ LABEL_49:
         v34 = MEMORY[0x1E696D258];
       }
 
-      v42 = *v34;
+      v43 = *v34;
       if (v13)
       {
         v27 = 1;
@@ -6489,16 +6570,16 @@ LABEL_49:
         v36 = 1751411059;
       }
 
-      v44 = *MEMORY[0x1E69660D8];
-      v45 = MEMORY[0x1E695E0F8];
-      CVPixelBufferCreate(0, v28, v29, v36, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1], &pixelBufferOut);
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __75__CIContext_ImageRepresentation___addDepthMap_session_imageHandle_options___block_invoke;
-      v41[3] = &unk_1E75C22E0;
-      v41[4] = self;
-      v41[5] = v14;
-      PixelBufferApplyPlaneBlock(pixelBufferOut, v41);
+      v45 = *MEMORY[0x1E69660D8];
+      v46 = MEMORY[0x1E695E0F8];
+      CVPixelBufferCreate(0, v28, v29, v36, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1], &pixelBufferOut);
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __75__CIContext_ImageRepresentation___addDepthMap_session_imageHandle_options___block_invoke;
+      v42[3] = &unk_1E75C22E0;
+      v42[4] = self;
+      v42[5] = v14;
+      PixelBufferApplyPlaneBlock(pixelBufferOut, v42);
       properties = [v14 properties];
     }
 
@@ -6514,7 +6595,7 @@ LABEL_49:
       CFRetain(v22);
     }
 
-    v23 = [AVFDepthDataDictionaryRepresentation(v10 &v42)];
+    v23 = [AVFDepthDataDictionaryRepresentation(v10 &v43)];
     v25 = AVFDepthDataType(v10, v24);
     if (v25 == 1717856627 || v25 == 1751411059)
     {
@@ -6536,11 +6617,11 @@ LABEL_49:
   v38 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(session, handle, v27, v23, 0, pixelBufferOut);
   if (v38)
   {
-    v39 = v38;
-    v40 = ci_logger_api();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v40 = v38;
+    v41 = ci_logger_api(v38, v39);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      [CIContext(ImageRepresentation) _addDepthMap:v39 session:? imageHandle:? options:?];
+      [CIContext(ImageRepresentation) _addDepthMap:v40 session:? imageHandle:? options:?];
     }
   }
 
@@ -6557,46 +6638,47 @@ LABEL_53:
 {
   v11 = *&format;
   alphaCopy = alpha;
-  v190 = *MEMORY[0x1E69E9840];
-  v174 = 0;
+  v206 = *MEMORY[0x1E69E9840];
+  v190 = 0;
   v16 = objc_autoreleasePoolPush();
   [image extent];
-  v192 = CGRectInset(v191, 0.00100000005, 0.00100000005);
-  v193 = CGRectIntegral(v192);
-  x = v193.origin.x;
-  y = v193.origin.y;
-  width = v193.size.width;
-  height = v193.size.height;
-  if (CGRectIsEmpty(v193) || (v194.origin.x = x, v194.origin.y = y, v194.size.width = width, v194.size.height = height, CGRectIsInfinite(v194)))
+  v208 = CGRectInset(v207, 0.00100000005, 0.00100000005);
+  v209 = CGRectIntegral(v208);
+  x = v209.origin.x;
+  y = v209.origin.y;
+  width = v209.size.width;
+  height = v209.size.height;
+  IsEmpty = CGRectIsEmpty(v209);
+  if ((IsEmpty & 1) != 0 || (v210.origin.x = x, v210.origin.y = y, v210.size.width = width, v210.size.height = height, IsEmpty = CGRectIsInfinite(v210), IsEmpty))
   {
-    v21 = ci_logger_api();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = ci_logger_api(IsEmpty, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(ImageRepresentation) *)v21 _CMPhotoRepresentationOfImage:v22 depth:v23 allowAlpha:v24 containerFormat:v25 colorSpace:v26 options:v27 error:v28];
+      [(CIContext(ImageRepresentation) *)v23 _CMPhotoRepresentationOfImage:v24 depth:v25 allowAlpha:v26 containerFormat:v27 colorSpace:v28 options:v29 error:v30];
     }
 
-    v186 = @"CINonLocalizedDescriptionKey";
+    v202 = @"CINonLocalizedDescriptionKey";
     *bytes = @"requires an image with a finite non-empty extent.";
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:bytes forKeys:&v186 count:1];
-    v30 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:4 userInfo:v29];
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:bytes forKeys:&v202 count:1];
+    v32 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:4 userInfo:v31];
 LABEL_17:
-    v44 = v30;
-    v45 = v30;
+    v46 = v32;
+    v47 = v32;
     goto LABEL_18;
   }
 
-  if (!space || (TypeID = CGColorSpaceGetTypeID(), TypeID != CFGetTypeID(space)) || !CGColorSpaceSupportsOutput(space) || CGColorSpaceGetModel(space) && CGColorSpaceGetModel(space) != kCGColorSpaceModelRGB)
+  if (!space || (TypeID = CGColorSpaceGetTypeID(), IsEmpty = CFGetTypeID(space), TypeID != IsEmpty) || (IsEmpty = CGColorSpaceSupportsOutput(space), !IsEmpty) || CGColorSpaceGetModel(space) && (IsEmpty = CGColorSpaceGetModel(space), IsEmpty != 1))
   {
-    v35 = ci_logger_api();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v37 = ci_logger_api(IsEmpty, v22);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(ImageRepresentation) *)v35 _CMPhotoRepresentationOfImage:v36 depth:v37 allowAlpha:v38 containerFormat:v39 colorSpace:v40 options:v41 error:v42];
+      [(CIContext(ImageRepresentation) *)v37 _CMPhotoRepresentationOfImage:v38 depth:v39 allowAlpha:v40 containerFormat:v41 colorSpace:v42 options:v43 error:v44];
     }
 
-    v186 = @"CINonLocalizedDescriptionKey";
+    v202 = @"CINonLocalizedDescriptionKey";
     *bytes = @"unsupported colorspace.";
-    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:bytes forKeys:&v186 count:1];
-    v30 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:5 userInfo:v43];
+    v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:bytes forKeys:&v202 count:1];
+    v32 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:5 userInfo:v45];
     goto LABEL_17;
   }
 
@@ -6604,263 +6686,264 @@ LABEL_17:
   Model = CGColorSpaceGetModel(space);
   isOpaque = [image isOpaque];
   cGImage = [image CGImage];
-  if (cGImage && (v34 = cGImage, ![image _originalIOSurface]))
+  if (cGImage && (v36 = cGImage, ![image _originalIOSurface]))
   {
-    CGImageGetColorSpace(v34);
+    CGImageGetColorSpace(v36);
     if (CGColorSpaceEqualToColorSpace())
     {
-      v48 = v34;
+      v50 = v36;
     }
 
     else
     {
-      v48 = 0;
+      v50 = 0;
     }
 
-    v167 = v48;
+    v183 = v50;
   }
 
   else
   {
-    v167 = 0;
+    v183 = 0;
   }
 
-  v179 = *MEMORY[0x1E69660D8];
-  v180 = MEMORY[0x1E695E0F8];
-  pixelBufferAttributes = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v180 forKeys:&v179 count:1];
-  v161 = alphaCopy & (isOpaque ^ 1);
-  if (v167)
+  v195 = *MEMORY[0x1E69660D8];
+  v196 = MEMORY[0x1E695E0F8];
+  pixelBufferAttributes = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v196 forKeys:&v195 count:1];
+  v177 = alphaCopy & (isOpaque ^ 1);
+  if (v183)
   {
-    v49 = 1;
+    v51 = 1;
   }
 
   else
   {
-    v49 = alphaCopy & (isOpaque ^ 1);
+    v51 = alphaCopy & (isOpaque ^ 1);
   }
 
   if (depth == 8)
   {
     if (Model)
     {
-      v50 = 875704422;
+      v52 = 875704422;
     }
 
     else
     {
-      v50 = 1278226488;
+      v52 = 1278226488;
     }
 
-    v51 = 1279340600;
+    v53 = 1279340600;
     if (Model)
     {
-      v51 = 1111970369;
+      v53 = 1111970369;
     }
   }
 
   else
   {
-    v50 = 1278226736;
+    v52 = 1278226736;
     if (Model)
     {
-      v50 = 2019963440;
-      v51 = 1815491698;
+      v52 = 2019963440;
+      v53 = 1815491698;
     }
 
     else
     {
-      v51 = 1279340854;
+      v53 = 1279340854;
     }
   }
 
-  if (v49)
+  if (v51)
   {
-    v52 = v51;
+    v54 = v53;
   }
 
   else
   {
-    v52 = v50;
+    v54 = v52;
   }
 
-  v163 = v52;
-  v165 = [options objectForKeyedSubscript:*MEMORY[0x1E696D338]];
-  v53 = [options objectForKeyedSubscript:*MEMORY[0x1E696DE20]];
-  v54 = *MEMORY[0x1E696DE10];
-  v55 = [options objectForKeyedSubscript:*MEMORY[0x1E696DE10]];
-  if (!v55)
-  {
-    v55 = [v53 objectForKeyedSubscript:v54];
-  }
-
-  v56 = *MEMORY[0x1E696DE18];
-  v57 = [options objectForKeyedSubscript:*MEMORY[0x1E696DE18]];
+  v179 = v54;
+  v181 = [options objectForKeyedSubscript:*MEMORY[0x1E696D338]];
+  v55 = [options objectForKeyedSubscript:*MEMORY[0x1E696DE20]];
+  v56 = *MEMORY[0x1E696DE10];
+  v57 = [options objectForKeyedSubscript:*MEMORY[0x1E696DE10]];
   if (!v57)
   {
-    v57 = [v53 objectForKeyedSubscript:v56];
+    v57 = [v55 objectForKeyedSubscript:v56];
   }
 
-  if ([v55 intValue] >= 1 && objc_msgSend(v55, "intValue") > 1)
+  v58 = *MEMORY[0x1E696DE18];
+  v59 = [options objectForKeyedSubscript:*MEMORY[0x1E696DE18]];
+  if (!v59)
+  {
+    v59 = [v55 objectForKeyedSubscript:v58];
+  }
+
+  if ([v57 intValue] >= 1 && objc_msgSend(v57, "intValue") > 1)
   {
     intValue = 2;
   }
 
-  else if ([v55 intValue] < 1)
+  else if ([v57 intValue] < 1)
   {
     intValue = 0;
   }
 
   else
   {
-    intValue = [v55 intValue];
+    intValue = [v57 intValue];
   }
 
-  if ([v57 intValue] >= 1 && objc_msgSend(v57, "intValue") > 1)
+  if ([v59 intValue] >= 1 && objc_msgSend(v59, "intValue") > 1)
   {
     intValue2 = 2;
   }
 
-  else if ([v57 intValue] < 1)
+  else if ([v59 intValue] < 1)
   {
     intValue2 = 0;
   }
 
   else
   {
-    intValue2 = [v57 intValue];
+    intValue2 = [v59 intValue];
   }
 
-  [v165 floatValue];
-  v61 = v11 == 1 && v60 > 0.9944;
-  if (v61)
+  [v181 floatValue];
+  v63 = v11 == 1 && v62 > 0.9944;
+  if (v63)
   {
-    v62 = 1;
+    v64 = 1;
   }
 
   else
   {
-    v62 = 2;
+    v64 = 2;
   }
 
   if (intValue)
   {
-    v62 = intValue;
+    v64 = intValue;
   }
 
   if (intValue2)
   {
-    v61 = intValue2 == 1;
+    v63 = intValue2 == 1;
   }
 
-  if (v62 == 1 && v61)
+  if (v64 == 1 && v63)
   {
-    v63 = 1;
-  }
-
-  else
-  {
-    v63 = 5;
-  }
-
-  v64 = v62 == 2 && v61;
-  if (v64)
-  {
-    v65 = 3;
+    v65 = 1;
   }
 
   else
   {
-    v65 = v63;
+    v65 = 5;
   }
 
-  v66 = v163 != 1278226488;
-  if (v163 == 1278226488)
+  v66 = v64 == 2 && v63;
+  if (v66)
   {
-    v65 = 6;
-  }
-
-  v160 = v65;
-  v67 = v65 == 1;
-  if (v65 == 1)
-  {
-    v68 = 875836518;
+    v67 = 3;
   }
 
   else
   {
-    v68 = 875704422;
+    v67 = v65;
   }
 
-  if (v67)
+  v68 = v179 != 1278226488;
+  if (v179 == 1278226488)
   {
-    v69 = 2019963956;
+    v67 = 6;
   }
 
-  else
+  v176 = v67;
+  v69 = v67 == 1;
+  if (v67 == 1)
   {
-    v69 = 2019963440;
-  }
-
-  v70 = (v66 & v64) == 0;
-  if ((v66 & v64) != 0)
-  {
-    v71 = 875704934;
+    v70 = 875836518;
   }
 
   else
   {
-    v71 = v68;
+    v70 = 875704422;
   }
 
-  v72 = 2019963442;
-  if (v70)
+  if (v69)
   {
-    v72 = v69;
-  }
-
-  if (v163 != 875704422)
-  {
-    v71 = v163;
-  }
-
-  if (v71 == 2019963440)
-  {
-    v73 = v72;
+    v71 = 2019963956;
   }
 
   else
   {
-    v73 = v71;
+    v71 = 2019963440;
+  }
+
+  v72 = (v68 & v66) == 0;
+  if ((v68 & v66) != 0)
+  {
+    v73 = 875704934;
+  }
+
+  else
+  {
+    v73 = v70;
+  }
+
+  v74 = 2019963442;
+  if (v72)
+  {
+    v74 = v71;
+  }
+
+  if (v179 != 875704422)
+  {
+    v73 = v179;
+  }
+
+  if (v73 == 2019963440)
+  {
+    v75 = v74;
+  }
+
+  else
+  {
+    v75 = v73;
   }
 
   [image extent];
-  v75 = v74;
+  v77 = v76;
   [image extent];
-  if (CVPixelBufferCreate(0, v75, v76, v73, pixelBufferAttributes, &pixelBufferOut) || !pixelBufferOut)
+  v79 = CVPixelBufferCreate(0, v77, v78, v75, pixelBufferAttributes, &pixelBufferOut);
+  if (v79 || (v79 = pixelBufferOut) == 0)
   {
-    v80 = ci_logger_api();
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+    v84 = ci_logger_api(v79, v80);
+    if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(ImageRepresentation) *)v80 _CMPhotoRepresentationOfImage:v81 depth:v82 allowAlpha:v83 containerFormat:v84 colorSpace:v85 options:v86 error:v87];
+      [(CIContext(ImageRepresentation) *)v84 _CMPhotoRepresentationOfImage:v85 depth:v86 allowAlpha:v87 containerFormat:v88 colorSpace:v89 options:v90 error:v91];
     }
 
-    v186 = @"CINonLocalizedDescriptionKey";
+    v202 = @"CINonLocalizedDescriptionKey";
     *bytes = @"failed to create a CVPixelBuffer.";
-    v88 = [MEMORY[0x1E695DF20] dictionaryWithObjects:bytes forKeys:&v186 count:1];
-    v44 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:6 userInfo:v88];
-    v89 = v44;
+    v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:bytes forKeys:&v202 count:1];
+    v46 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CINonLocalizedDescriptionKey" code:6 userInfo:v92];
+    v93 = v46;
     goto LABEL_18;
   }
 
   CFAutorelease(pixelBufferOut);
   IsHLGBased = CGColorSpaceIsHLGBased(space);
   IsPQBased = CGColorSpaceIsPQBased(space);
-  v79 = -[CIContext addAuxOptionsForSDR:HDR:colorSpace:rgbGainmap:](self, "addAuxOptionsForSDR:HDR:colorSpace:rgbGainmap:", image, [options objectForKeyedSubscript:@"kCIImageRepresentationHDRImage"], space, objc_msgSend(objc_msgSend(options, "objectForKeyedSubscript:", @"kCIImageRepresentationHDRGainMapAsRGB"), "BOOLValue"));
-  if (v79)
+  v83 = -[CIContext addAuxOptionsForSDR:HDR:colorSpace:rgbGainmap:](self, "addAuxOptionsForSDR:HDR:colorSpace:rgbGainmap:", image, [options objectForKeyedSubscript:@"kCIImageRepresentationHDRImage"], space, objc_msgSend(objc_msgSend(options, "objectForKeyedSubscript:", @"kCIImageRepresentationHDRGainMapAsRGB"), "BOOLValue"));
+  if (v83)
   {
     optionsCopy = [MEMORY[0x1E695DF90] dictionary];
     [optionsCopy addEntriesFromDictionary:options];
-    [optionsCopy addEntriesFromDictionary:v79];
+    [optionsCopy addEntriesFromDictionary:v83];
   }
 
   else
@@ -6868,177 +6951,177 @@ LABEL_17:
     optionsCopy = options;
   }
 
-  v90 = equivalent_uncompressed_format(v73);
-  v91 = equivalent_uncompressed_format(v90);
-  if (v91 > 1936077359)
+  v94 = equivalent_uncompressed_format(v75);
+  v95 = equivalent_uncompressed_format(v94);
+  if (v95 > 1936077359)
   {
-    if (v91 > 1953903151)
+    if (v95 > 1953903151)
     {
-      if (v91 <= 2016686641)
+      if (v95 <= 2016686641)
       {
-        if (v91 <= 1953903667)
+        if (v95 <= 1953903667)
         {
-          if (v91 == 1953903152)
+          if (v95 == 1953903152)
           {
             goto LABEL_152;
           }
 
-          v92 = 1953903154;
+          v96 = 1953903154;
           goto LABEL_151;
         }
 
-        if (v91 == 1953903668)
+        if (v95 == 1953903668)
         {
           goto LABEL_152;
         }
 
-        v96 = 12848;
+        v100 = 12848;
       }
 
       else
       {
-        if (v91 > 2019963439)
+        if (v95 > 2019963439)
         {
-          if (v91 == 2019963440 || v91 == 2019963956)
+          if (v95 == 2019963440 || v95 == 2019963956)
           {
             goto LABEL_152;
           }
 
-          v92 = 2019963442;
+          v96 = 2019963442;
           goto LABEL_151;
         }
 
-        if (v91 == 2016686642)
+        if (v95 == 2016686642)
         {
           goto LABEL_152;
         }
 
-        v96 = 13364;
+        v100 = 13364;
       }
 
-      v92 = v96 | 0x78340000;
+      v96 = v100 | 0x78340000;
       goto LABEL_151;
     }
 
-    if (v91 <= 1937125937)
+    if (v95 <= 1937125937)
     {
-      if (v91 <= 1936077875)
+      if (v95 <= 1936077875)
       {
-        if (v91 == 1936077360)
+        if (v95 == 1936077360)
         {
           goto LABEL_152;
         }
 
-        v92 = 1936077362;
+        v96 = 1936077362;
         goto LABEL_151;
       }
 
-      if (v91 == 1936077876)
+      if (v95 == 1936077876)
       {
         goto LABEL_152;
       }
 
-      v94 = 12848;
+      v98 = 12848;
     }
 
     else
     {
-      if (v91 > 1952854575)
+      if (v95 > 1952854575)
       {
-        if (v91 == 1952854576 || v91 == 1952854578)
+        if (v95 == 1952854576 || v95 == 1952854578)
         {
           goto LABEL_152;
         }
 
-        v92 = 1952855092;
+        v96 = 1952855092;
         goto LABEL_151;
       }
 
-      if (v91 == 1937125938)
+      if (v95 == 1937125938)
       {
         goto LABEL_152;
       }
 
-      v94 = 13364;
+      v98 = 13364;
     }
 
-    v92 = v94 | 0x73760000;
+    v96 = v98 | 0x73760000;
     goto LABEL_151;
   }
 
-  if (v91 > 1751527983)
+  if (v95 > 1751527983)
   {
-    if (v91 <= 1882468913)
+    if (v95 <= 1882468913)
     {
-      if (v91 <= 1751528499)
+      if (v95 <= 1751528499)
       {
-        if (v91 == 1751527984)
+        if (v95 == 1751527984)
         {
           goto LABEL_152;
         }
 
-        v92 = 1751527986;
+        v96 = 1751527986;
         goto LABEL_151;
       }
 
-      if (v91 == 1751528500)
+      if (v95 == 1751528500)
       {
         goto LABEL_152;
       }
 
-      v95 = 12848;
+      v99 = 12848;
     }
 
     else
     {
-      if (v91 > 1885745711)
+      if (v95 > 1885745711)
       {
-        if (v91 == 1885745712 || v91 == 1885745714)
+        if (v95 == 1885745712 || v95 == 1885745714)
         {
           goto LABEL_152;
         }
 
-        v92 = 1885746228;
+        v96 = 1885746228;
         goto LABEL_151;
       }
 
-      if (v91 == 1882468914)
+      if (v95 == 1882468914)
       {
         goto LABEL_152;
       }
 
-      v95 = 13364;
+      v99 = 13364;
     }
 
-    v92 = v95 | 0x70340000;
+    v96 = v99 | 0x70340000;
     goto LABEL_151;
   }
 
-  if (v91 <= 875836517)
+  if (v95 <= 875836517)
   {
-    if (v91 > 875704933)
+    if (v95 > 875704933)
     {
-      if (v91 == 875704934)
+      if (v95 == 875704934)
       {
         goto LABEL_152;
       }
 
-      v93 = 12918;
+      v97 = 12918;
     }
 
     else
     {
-      if (v91 == 875704422)
+      if (v95 == 875704422)
       {
         goto LABEL_152;
       }
 
-      v93 = 12406;
+      v97 = 12406;
     }
 
-    v92 = v93 | 0x34320000;
+    v96 = v97 | 0x34320000;
 LABEL_151:
-    if (v91 != v92)
+    if (v95 != v96)
     {
       goto LABEL_159;
     }
@@ -7046,47 +7129,47 @@ LABEL_151:
     goto LABEL_152;
   }
 
-  if (v91 <= 1647534391)
+  if (v95 <= 1647534391)
   {
-    if (v91 == 875836518)
+    if (v95 == 875836518)
     {
       goto LABEL_152;
     }
 
-    v92 = 875836534;
+    v96 = 875836534;
     goto LABEL_151;
   }
 
-  if (v91 != 1647534392 && v91 != 1667838776)
+  if (v95 != 1647534392 && v95 != 1667838776)
   {
-    v92 = 1714643256;
+    v96 = 1714643256;
     goto LABEL_151;
   }
 
 LABEL_152:
-  v97 = *MEMORY[0x1E6965FC8];
+  v101 = *MEMORY[0x1E6965FC8];
   if (Model == kCGColorSpaceModelMonochrome)
   {
-    v97 = 0;
+    v101 = 0;
   }
 
   if (IsHLGBased || IsPQBased)
   {
-    v98 = *MEMORY[0x1E6965FB0];
+    v102 = *MEMORY[0x1E6965FB0];
   }
 
   else
   {
-    v98 = v97;
+    v102 = v101;
   }
 
-  if (v98)
+  if (v102)
   {
-    CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965F98], v98, kCVAttachmentMode_ShouldPropagate);
+    CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965F98], v102, kCVAttachmentMode_ShouldPropagate);
   }
 
 LABEL_159:
-  ColorAttributesForColorSpace = CreateColorAttributesForColorSpace();
+  ColorAttributesForColorSpace = CreateColorAttributesForColorSpace(space);
   if (ColorAttributesForColorSpace)
   {
     CVBufferSetAttachments(pixelBufferOut, ColorAttributesForColorSpace, kCVAttachmentMode_ShouldPropagate);
@@ -7094,48 +7177,48 @@ LABEL_159:
   }
 
   CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965CE8], space, kCVAttachmentMode_ShouldPropagate);
-  if (v161)
+  if (v177)
   {
-    v100 = MEMORY[0x1E6965CD0];
-    if (v167)
+    v104 = MEMORY[0x1E6965CD0];
+    if (v183)
     {
-      v100 = MEMORY[0x1E6965CC8];
+      v104 = MEMORY[0x1E6965CC8];
     }
 
-    CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965CC0], *v100, kCVAttachmentMode_ShouldPropagate);
+    CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965CC0], *v104, kCVAttachmentMode_ShouldPropagate);
   }
 
   [image contentHeadroom];
-  if (v101 > 1.0)
+  if (v105 > 1.0)
   {
-    *bytes = __rev16(fminf((v101 * 203.0) + 0.5, 65535.0));
+    *bytes = __rev16(fminf((v105 * 203.0) + 0.5, 65535.0));
     [image contentAverageLightLevel];
-    if (v102 != 0.0)
+    if (v106 != 0.0)
     {
-      *&bytes[2] = __rev16(fminf((v102 * 203.0) + 0.5, 65535.0));
+      *&bytes[2] = __rev16(fminf((v106 * 203.0) + 0.5, 65535.0));
     }
 
-    v103 = CFDataCreate(0, bytes, 4);
-    CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965DE0], v103, kCVAttachmentMode_ShouldPropagate);
-    CFRelease(v103);
+    v107 = CFDataCreate(0, bytes, 4);
+    CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965DE0], v107, kCVAttachmentMode_ShouldPropagate);
+    CFRelease(v107);
   }
 
-  if (!v167)
+  if (!v183)
   {
     *bytes = 0;
-    v125 = [CIRenderDestination alloc];
-    v126 = [(CIRenderDestination *)v125 initWithPixelBuffer:pixelBufferOut];
-    [(CIRenderDestination *)v126 setColorSpace:space];
-    v127 = [(CIContext *)self startTaskToRender:image fromRect:v126 toDestination:bytes atPoint:x error:y, width, height, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)];
-    if (v127)
+    v133 = [CIRenderDestination alloc];
+    v134 = [(CIRenderDestination *)v133 initWithPixelBuffer:pixelBufferOut];
+    [(CIRenderDestination *)v134 setColorSpace:space];
+    v135 = [(CIContext *)self startTaskToRender:image fromRect:v134 toDestination:bytes atPoint:x error:y, width, height, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)];
+    if (v135)
     {
-      if ([(CIRenderTask *)v127 waitUntilCompletedAndReturnError:bytes])
+      if ([(CIRenderTask *)v135 waitUntilCompletedAndReturnError:bytes])
       {
         goto LABEL_171;
       }
 
-      v128 = ci_logger_api();
-      if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+      v138 = ci_logger_api(0, v137);
+      if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_212;
       }
@@ -7143,270 +7226,273 @@ LABEL_159:
 
     else
     {
-      v128 = ci_logger_api();
-      if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+      v138 = ci_logger_api(0, v136);
+      if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
       {
 LABEL_212:
-        [(CIContext(ImageRepresentation) *)v128 _CMPhotoRepresentationOfImage:v129 depth:v130 allowAlpha:v131 containerFormat:v132 colorSpace:v133 options:v134 error:v135];
+        [(CIContext(ImageRepresentation) *)v138 _CMPhotoRepresentationOfImage:v139 depth:v140 allowAlpha:v141 containerFormat:v142 colorSpace:v143 options:v144 error:v145];
       }
     }
 
-    v44 = imageRepError(7, &cfstr_FailedToRender.isa, *bytes);
-    v152 = v44;
+    v46 = imageRepError(7, &cfstr_FailedToRender.isa, *bytes);
+    v164 = v46;
     goto LABEL_18;
   }
 
-  v171[0] = MEMORY[0x1E69E9820];
-  v171[1] = 3221225472;
-  v171[2] = __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_depth_allowAlpha_containerFormat_colorSpace_options_error___block_invoke;
-  v171[3] = &__block_descriptor_52_e21_v48__0_v8Q16Q24Q32Q40l;
-  v172 = v73;
-  v171[4] = space;
-  v171[5] = v167;
-  PixelBufferApplyPlaneBlock(pixelBufferOut, v171);
+  v187[0] = MEMORY[0x1E69E9820];
+  v187[1] = 3221225472;
+  v187[2] = __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_depth_allowAlpha_containerFormat_colorSpace_options_error___block_invoke;
+  v187[3] = &__block_descriptor_52_e21_v48__0_v8Q16Q24Q32Q40l;
+  v188 = v75;
+  v187[4] = space;
+  v187[5] = v183;
+  PixelBufferApplyPlaneBlock(pixelBufferOut, v187);
 LABEL_171:
   arg = 0;
-  v186 = 0;
-  v187 = &v186;
-  v188 = 0x2020000000;
-  v104 = getCMPhotoCompressionSessionCreateSymbolLoc(void)::ptr;
-  v189 = getCMPhotoCompressionSessionCreateSymbolLoc(void)::ptr;
+  v202 = 0;
+  v203 = &v202;
+  v204 = 0x2020000000;
+  v108 = getCMPhotoCompressionSessionCreateSymbolLoc(void)::ptr;
+  v205 = getCMPhotoCompressionSessionCreateSymbolLoc(void)::ptr;
   if (!getCMPhotoCompressionSessionCreateSymbolLoc(void)::ptr)
   {
     *bytes = MEMORY[0x1E69E9820];
-    v182 = 3221225472;
-    v183 = ___ZL43getCMPhotoCompressionSessionCreateSymbolLocv_block_invoke;
-    v184 = &unk_1E75C1E10;
-    v185 = &v186;
-    v105 = CMPhotoLibrary();
-    v106 = dlsym(v105, "CMPhotoCompressionSessionCreate");
-    *(v185[1] + 24) = v106;
-    getCMPhotoCompressionSessionCreateSymbolLoc(void)::ptr = *(v185[1] + 24);
-    v104 = v187[3];
-  }
-
-  _Block_object_dispose(&v186, 8);
-  if (!v104)
-  {
-    [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:depth:allowAlpha:containerFormat:colorSpace:options:error:];
-  }
-
-  (v104)(0, 0, &arg);
-  CFAutorelease(arg);
-  if (!arg)
-  {
-    v136 = ci_logger_api();
-    if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
-    {
-      [(CIContext(ImageRepresentation) *)v136 _CMPhotoRepresentationOfImage:v137 depth:v138 allowAlpha:v139 containerFormat:v140 colorSpace:v141 options:v142 error:v143];
-    }
-
-    v124 = imageRepError(8, &cfstr_FailedToCreate_1.isa);
-    goto LABEL_198;
-  }
-
-  dictionary = [MEMORY[0x1E695DF90] dictionary];
-  [dictionary addEntriesFromDictionary:{objc_msgSend(image, "properties")}];
-  v186 = 0;
-  v187 = &v186;
-  v188 = 0x2020000000;
-  v108 = getkCMPhotoCompressionContainerOption_FormatSymbolLoc(void)::ptr;
-  v189 = getkCMPhotoCompressionContainerOption_FormatSymbolLoc(void)::ptr;
-  if (!getkCMPhotoCompressionContainerOption_FormatSymbolLoc(void)::ptr)
-  {
-    *bytes = MEMORY[0x1E69E9820];
-    v182 = 3221225472;
-    v183 = ___ZL53getkCMPhotoCompressionContainerOption_FormatSymbolLocv_block_invoke;
-    v184 = &unk_1E75C1E10;
-    v185 = &v186;
+    v198 = 3221225472;
+    v199 = ___ZL43getCMPhotoCompressionSessionCreateSymbolLocv_block_invoke;
+    v200 = &unk_1E75C1E10;
+    v201 = &v202;
     v109 = CMPhotoLibrary();
-    v110 = dlsym(v109, "kCMPhotoCompressionContainerOption_Format");
-    *(v185[1] + 24) = v110;
-    getkCMPhotoCompressionContainerOption_FormatSymbolLoc(void)::ptr = *(v185[1] + 24);
-    v108 = v187[3];
+    v110 = dlsym(v109, "CMPhotoCompressionSessionCreate");
+    *(v201[1] + 24) = v110;
+    getCMPhotoCompressionSessionCreateSymbolLoc(void)::ptr = *(v201[1] + 24);
+    v108 = v203[3];
   }
 
-  _Block_object_dispose(&v186, 8);
+  _Block_object_dispose(&v202, 8);
   if (!v108)
   {
     [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:depth:allowAlpha:containerFormat:colorSpace:options:error:];
   }
 
-  v177[0] = *v108;
-  v178[0] = [MEMORY[0x1E696AD98] numberWithInt:v11];
-  v186 = 0;
-  v187 = &v186;
-  v188 = 0x2020000000;
-  v111 = getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLoc(void)::ptr;
-  v189 = getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLoc(void)::ptr;
-  if (!getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLoc(void)::ptr)
+  (v108)(0, 0, &arg);
+  v111 = CFAutorelease(arg);
+  if (!arg)
   {
-    *bytes = MEMORY[0x1E69E9820];
-    v182 = 3221225472;
-    v183 = ___ZL61getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLocv_block_invoke;
-    v184 = &unk_1E75C1E10;
-    v185 = &v186;
-    v112 = CMPhotoLibrary();
-    v113 = dlsym(v112, "kCMPhotoCompressionContainerOption_ImageCountHint");
-    *(v185[1] + 24) = v113;
-    getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLoc(void)::ptr = *(v185[1] + 24);
-    v111 = v187[3];
+    v146 = ci_logger_api(v111, v112);
+    if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
+    {
+      [(CIContext(ImageRepresentation) *)v146 _CMPhotoRepresentationOfImage:v147 depth:v148 allowAlpha:v149 containerFormat:v150 colorSpace:v151 options:v152 error:v153];
+    }
+
+    v132 = imageRepError(8, &cfstr_FailedToCreate_1.isa);
+    goto LABEL_198;
   }
 
-  _Block_object_dispose(&v186, 8);
-  if (!v111)
-  {
-    [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:depth:allowAlpha:containerFormat:colorSpace:options:error:];
-  }
-
-  v177[1] = *v111;
-  v178[1] = &unk_1F1081A28;
-  v186 = 0;
-  v187 = &v186;
-  v188 = 0x2020000000;
-  v114 = getkCMPhotoCompressionContainerOption_BackingTypeSymbolLoc(void)::ptr;
-  v189 = getkCMPhotoCompressionContainerOption_BackingTypeSymbolLoc(void)::ptr;
-  if (!getkCMPhotoCompressionContainerOption_BackingTypeSymbolLoc(void)::ptr)
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  [dictionary addEntriesFromDictionary:{objc_msgSend(image, "properties")}];
+  v202 = 0;
+  v203 = &v202;
+  v204 = 0x2020000000;
+  v114 = getkCMPhotoCompressionContainerOption_FormatSymbolLoc(void)::ptr;
+  v205 = getkCMPhotoCompressionContainerOption_FormatSymbolLoc(void)::ptr;
+  if (!getkCMPhotoCompressionContainerOption_FormatSymbolLoc(void)::ptr)
   {
     *bytes = MEMORY[0x1E69E9820];
-    v182 = 3221225472;
-    v183 = ___ZL58getkCMPhotoCompressionContainerOption_BackingTypeSymbolLocv_block_invoke;
-    v184 = &unk_1E75C1E10;
-    v185 = &v186;
+    v198 = 3221225472;
+    v199 = ___ZL53getkCMPhotoCompressionContainerOption_FormatSymbolLocv_block_invoke;
+    v200 = &unk_1E75C1E10;
+    v201 = &v202;
     v115 = CMPhotoLibrary();
-    v116 = dlsym(v115, "kCMPhotoCompressionContainerOption_BackingType");
-    *(v185[1] + 24) = v116;
-    getkCMPhotoCompressionContainerOption_BackingTypeSymbolLoc(void)::ptr = *(v185[1] + 24);
-    v114 = v187[3];
+    v116 = dlsym(v115, "kCMPhotoCompressionContainerOption_Format");
+    *(v201[1] + 24) = v116;
+    getkCMPhotoCompressionContainerOption_FormatSymbolLoc(void)::ptr = *(v201[1] + 24);
+    v114 = v203[3];
   }
 
-  _Block_object_dispose(&v186, 8);
+  _Block_object_dispose(&v202, 8);
   if (!v114)
   {
     [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:depth:allowAlpha:containerFormat:colorSpace:options:error:];
   }
 
-  v177[2] = *v114;
-  v178[2] = &unk_1F1081A40;
-  v117 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v178 forKeys:v177 count:3];
-  v118 = arg;
-  v186 = 0;
-  v187 = &v186;
-  v188 = 0x2020000000;
-  v119 = getCMPhotoCompressionSessionOpenEmptyContainerSymbolLoc(void)::ptr;
-  v189 = getCMPhotoCompressionSessionOpenEmptyContainerSymbolLoc(void)::ptr;
-  if (!getCMPhotoCompressionSessionOpenEmptyContainerSymbolLoc(void)::ptr)
+  v193[0] = *v114;
+  v194[0] = [MEMORY[0x1E696AD98] numberWithInt:v11];
+  v202 = 0;
+  v203 = &v202;
+  v204 = 0x2020000000;
+  v117 = getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLoc(void)::ptr;
+  v205 = getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLoc(void)::ptr;
+  if (!getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLoc(void)::ptr)
   {
     *bytes = MEMORY[0x1E69E9820];
-    v182 = 3221225472;
-    v183 = ___ZL55getCMPhotoCompressionSessionOpenEmptyContainerSymbolLocv_block_invoke;
-    v184 = &unk_1E75C1E10;
-    v185 = &v186;
-    v120 = CMPhotoLibrary();
-    v121 = dlsym(v120, "CMPhotoCompressionSessionOpenEmptyContainer");
-    *(v185[1] + 24) = v121;
-    getCMPhotoCompressionSessionOpenEmptyContainerSymbolLoc(void)::ptr = *(v185[1] + 24);
-    v119 = v187[3];
+    v198 = 3221225472;
+    v199 = ___ZL61getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLocv_block_invoke;
+    v200 = &unk_1E75C1E10;
+    v201 = &v202;
+    v118 = CMPhotoLibrary();
+    v119 = dlsym(v118, "kCMPhotoCompressionContainerOption_ImageCountHint");
+    *(v201[1] + 24) = v119;
+    getkCMPhotoCompressionContainerOption_ImageCountHintSymbolLoc(void)::ptr = *(v201[1] + 24);
+    v117 = v203[3];
   }
 
-  _Block_object_dispose(&v186, 8);
-  if (!v119)
+  _Block_object_dispose(&v202, 8);
+  if (!v117)
   {
     [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:depth:allowAlpha:containerFormat:colorSpace:options:error:];
   }
 
-  v122 = v119(v118, v117);
-  if (v122)
+  v193[1] = *v117;
+  v194[1] = &unk_1F1081A28;
+  v202 = 0;
+  v203 = &v202;
+  v204 = 0x2020000000;
+  v120 = getkCMPhotoCompressionContainerOption_BackingTypeSymbolLoc(void)::ptr;
+  v205 = getkCMPhotoCompressionContainerOption_BackingTypeSymbolLoc(void)::ptr;
+  if (!getkCMPhotoCompressionContainerOption_BackingTypeSymbolLoc(void)::ptr)
   {
-    v123 = ci_logger_api();
-    if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+    *bytes = MEMORY[0x1E69E9820];
+    v198 = 3221225472;
+    v199 = ___ZL58getkCMPhotoCompressionContainerOption_BackingTypeSymbolLocv_block_invoke;
+    v200 = &unk_1E75C1E10;
+    v201 = &v202;
+    v121 = CMPhotoLibrary();
+    v122 = dlsym(v121, "kCMPhotoCompressionContainerOption_BackingType");
+    *(v201[1] + 24) = v122;
+    getkCMPhotoCompressionContainerOption_BackingTypeSymbolLoc(void)::ptr = *(v201[1] + 24);
+    v120 = v203[3];
+  }
+
+  _Block_object_dispose(&v202, 8);
+  if (!v120)
+  {
+    [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:depth:allowAlpha:containerFormat:colorSpace:options:error:];
+  }
+
+  v193[2] = *v120;
+  v194[2] = &unk_1F1081A40;
+  v123 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v194 forKeys:v193 count:3];
+  v124 = arg;
+  v202 = 0;
+  v203 = &v202;
+  v204 = 0x2020000000;
+  v125 = getCMPhotoCompressionSessionOpenEmptyContainerSymbolLoc(void)::ptr;
+  v205 = getCMPhotoCompressionSessionOpenEmptyContainerSymbolLoc(void)::ptr;
+  if (!getCMPhotoCompressionSessionOpenEmptyContainerSymbolLoc(void)::ptr)
+  {
+    *bytes = MEMORY[0x1E69E9820];
+    v198 = 3221225472;
+    v199 = ___ZL55getCMPhotoCompressionSessionOpenEmptyContainerSymbolLocv_block_invoke;
+    v200 = &unk_1E75C1E10;
+    v201 = &v202;
+    v126 = CMPhotoLibrary();
+    v127 = dlsym(v126, "CMPhotoCompressionSessionOpenEmptyContainer");
+    *(v201[1] + 24) = v127;
+    getCMPhotoCompressionSessionOpenEmptyContainerSymbolLoc(void)::ptr = *(v201[1] + 24);
+    v125 = v203[3];
+  }
+
+  _Block_object_dispose(&v202, 8);
+  if (!v125)
+  {
+    [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:depth:allowAlpha:containerFormat:colorSpace:options:error:];
+  }
+
+  v128 = v125(v124, v123);
+  v130 = v128;
+  if (v128)
+  {
+    v131 = ci_logger_api(v128, v129);
+    if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
     {
-      [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:v122 depth:? allowAlpha:? containerFormat:? colorSpace:? options:? error:?];
+      [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:v130 depth:? allowAlpha:? containerFormat:? colorSpace:? options:? error:?];
     }
 
-    v124 = imageRepError(9, &cfstr_FailedToOpenTh.isa);
+    v132 = imageRepError(9, &cfstr_FailedToOpenTh.isa);
 LABEL_198:
-    v44 = v124;
-    v144 = v124;
+    v46 = v132;
+    v154 = v132;
     goto LABEL_18;
   }
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-  v146 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E696DE78]];
-  v147 = v146;
-  if (!v11 && v146)
+  v156 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E696DE78]];
+  v157 = v156;
+  if (!v11 && v156)
   {
-    [dictionary2 setObject:v146 forKeyedSubscript:getkCMPhotoCompressionOption_ImageOrientation()];
+    [dictionary2 setObject:v156 forKeyedSubscript:getkCMPhotoCompressionOption_ImageOrientation()];
   }
 
-  [dictionary2 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", v160), getkCMPhotoCompressionOption_Subsampling()}];
-  if (v165)
+  [dictionary2 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", v176), getkCMPhotoCompressionOption_Subsampling()}];
+  if (v181)
   {
     [dictionary2 setObject:&unk_1F10819F8 forKeyedSubscript:getkCMPhotoCompressionOption_QualityControllerType()];
-    v175 = getkCMPhotoQualityControllerParameter_QualityValue();
-    v176 = v165;
-    [dictionary2 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", &v176, &v175, 1), getkCMPhotoCompressionOption_QualityControllerParameters()}];
+    v191 = getkCMPhotoQualityControllerParameter_QualityValue();
+    v192 = v181;
+    [dictionary2 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", &v192, &v191, 1), getkCMPhotoCompressionOption_QualityControllerParameters()}];
   }
 
-  v186 = 0;
+  v202 = 0;
   if (pixelBufferOut)
   {
-    v148 = pixelBufferOut;
+    v158 = pixelBufferOut;
   }
 
   else
   {
-    v148 = v167;
+    v158 = v183;
   }
 
-  v149 = soft_CMPhotoCompressionSessionAddImage(arg, dictionary2, v148, &v186);
-  if (v149)
+  v159 = soft_CMPhotoCompressionSessionAddImage(arg, dictionary2, v158, &v202);
+  v161 = v159;
+  if (v159)
   {
-    v150 = ci_logger_api();
-    if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+    v162 = ci_logger_api(v159, v160);
+    if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
     {
-      [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:v149 depth:? allowAlpha:? containerFormat:? colorSpace:? options:? error:?];
+      [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:v161 depth:? allowAlpha:? containerFormat:? colorSpace:? options:? error:?];
     }
 
-    v151 = imageRepError(10, &cfstr_FailedToAddIma.isa);
+    v163 = imageRepError(10, &cfstr_FailedToAddIma.isa);
 LABEL_229:
-    v44 = v151;
-    v159 = v151;
+    v46 = v163;
+    v175 = v163;
     goto LABEL_18;
   }
 
   if (pixelBufferOut)
   {
-    v153 = v161;
+    v165 = v177;
   }
 
   else
   {
-    v153 = 0;
+    v165 = 0;
   }
 
-  if (v153 == 1)
+  if (v165 == 1)
   {
     *bytes = 0;
-    v182 = bytes;
-    v183 = 0x2020000000;
-    LOBYTE(v184) = 1;
-    v168[0] = MEMORY[0x1E69E9820];
-    v168[1] = 3221225472;
-    v168[2] = __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_depth_allowAlpha_containerFormat_colorSpace_options_error___block_invoke_228;
-    v168[3] = &unk_1E75C2328;
-    v169 = v73;
-    v168[4] = bytes;
-    PixelBufferApplyPlaneReadOnlyBlock(pixelBufferOut, v168);
-    if ((*(v182 + 24) & 1) == 0)
+    v198 = bytes;
+    v199 = 0x2020000000;
+    LOBYTE(v200) = 1;
+    v184[0] = MEMORY[0x1E69E9820];
+    v184[1] = 3221225472;
+    v184[2] = __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_depth_allowAlpha_containerFormat_colorSpace_options_error___block_invoke_228;
+    v184[3] = &unk_1E75C2328;
+    v185 = v75;
+    v184[4] = bytes;
+    PixelBufferApplyPlaneReadOnlyBlock(pixelBufferOut, v184);
+    if ((*(v198 + 24) & 1) == 0)
     {
-      v154 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(arg, v186, 3, 0, 0, pixelBufferOut);
-      if (v154)
+      v166 = soft_CMPhotoCompressionSessionAddAuxiliaryImage(arg, v202, 3, 0, 0, pixelBufferOut);
+      v168 = v166;
+      if (v166)
       {
-        v155 = ci_logger_api();
-        if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
+        v169 = ci_logger_api(v166, v167);
+        if (os_log_type_enabled(v169, OS_LOG_TYPE_ERROR))
         {
-          [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:v154 depth:? allowAlpha:? containerFormat:? colorSpace:? options:? error:?];
+          [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:v168 depth:? allowAlpha:? containerFormat:? colorSpace:? options:? error:?];
         }
       }
     }
@@ -7414,38 +7500,39 @@ LABEL_229:
     _Block_object_dispose(bytes, 8);
   }
 
-  [(CIContext *)self _addSemanticImages:image session:arg imageHandle:v186 options:optionsCopy];
-  [(CIContext *)self _addPortraitMatte:image session:arg imageHandle:v186 options:optionsCopy];
-  [(CIContext *)self _addGainMap:image session:arg imageHandle:v186 containerFormat:v11 options:optionsCopy orientation:v147];
-  [(CIContext *)self _addDepthMap:image session:arg imageHandle:v186 options:optionsCopy];
+  [(CIContext *)self _addSemanticImages:image session:arg imageHandle:v202 options:optionsCopy];
+  [(CIContext *)self _addPortraitMatte:image session:arg imageHandle:v202 options:optionsCopy];
+  [(CIContext *)self _addGainMap:image session:arg imageHandle:v202 containerFormat:v11 options:optionsCopy orientation:v157];
+  [(CIContext *)self _addDepthMap:image session:arg imageHandle:v202 options:optionsCopy];
   if (dictionary)
   {
-    soft_CMPhotoCompressionSessionAddMetadataFromImageProperties(arg, v186, dictionary, v156);
+    soft_CMPhotoCompressionSessionAddMetadataFromImageProperties(arg, v202, dictionary, v170);
   }
 
-  v157 = soft_CMPhotoCompressionSessionCloseContainerAndCopyBacking(arg, &v174);
-  if (v157)
+  v171 = soft_CMPhotoCompressionSessionCloseContainerAndCopyBacking(arg, &v190);
+  v173 = v171;
+  if (v171)
   {
-    v158 = ci_logger_api();
-    if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
+    v174 = ci_logger_api(v171, v172);
+    if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
     {
-      [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:v157 depth:? allowAlpha:? containerFormat:? colorSpace:? options:? error:?];
+      [CIContext(ImageRepresentation) _CMPhotoRepresentationOfImage:v173 depth:? allowAlpha:? containerFormat:? colorSpace:? options:? error:?];
     }
 
-    v151 = imageRepError(11, &cfstr_FailedToCloseT.isa);
+    v163 = imageRepError(11, &cfstr_FailedToCloseT.isa);
     goto LABEL_229;
   }
 
-  v44 = 0;
+  v46 = 0;
 LABEL_18:
   objc_autoreleasePoolPop(v16);
-  v46 = v44;
+  v48 = v46;
   if (error)
   {
-    *error = v44;
+    *error = v46;
   }
 
-  return v174;
+  return v190;
 }
 
 void __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_depth_allowAlpha_containerFormat_colorSpace_options_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, size_t a4, size_t a5, size_t a6)
@@ -7582,9 +7669,10 @@ uint64_t __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_dep
 - (id)_HEIFRepresentationOfImage:(id)image format:(int)format colorSpace:(CGColorSpace *)space options:(id)options error:(id *)error
 {
   v12 = CI::format_modernize(*&format, "[CIContext(ImageRepresentation) _HEIFRepresentationOfImage:format:colorSpace:options:error:]", image);
+  v13 = v12;
   if (canCreateDataRepresentation(image, space, v12, error))
   {
-    return [(CIContext *)self _CMPhotoRepresentationOfImage:image depth:8 allowAlpha:CI::format_has_alpha(v12) containerFormat:0 colorSpace:space options:options error:error];
+    return [(CIContext *)self _CMPhotoRepresentationOfImage:image depth:8 allowAlpha:CI::format_has_alpha(v13) containerFormat:0 colorSpace:space options:options error:error];
   }
 
   else
@@ -7941,29 +8029,29 @@ uint64_t __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_dep
 
 - (CIFilter)depthBlurEffectFilterForImageData:(NSData *)data options:(NSDictionary *)options
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   v6 = [CIImage imageWithData:?];
-  v43 = @"kCIImageAuxiliaryDisparity";
-  v44[0] = &unk_1F1081A58;
-  v7 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1]);
-  v41 = @"kCIImageAuxiliaryPortraitEffectsMatte";
-  v42 = &unk_1F1081A58;
-  v8 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1]);
-  v39 = @"kCIImageAuxiliarySemanticSegmentationHairMatte";
-  v40 = &unk_1F1081A58;
-  v9 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1]);
-  v37 = @"kCIImageAuxiliarySemanticSegmentationGlassesMatte";
-  v38 = &unk_1F1081A58;
-  v10 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1]);
-  v35 = @"kCIImageAuxiliaryHDRGainMap";
-  v36 = &unk_1F1081A58;
-  v11 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1]);
+  v44 = @"kCIImageAuxiliaryDisparity";
+  v45[0] = &unk_1F1081A58;
+  v7 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1]);
+  v42 = @"kCIImageAuxiliaryPortraitEffectsMatte";
+  v43 = &unk_1F1081A58;
+  v8 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1]);
+  v40 = @"kCIImageAuxiliarySemanticSegmentationHairMatte";
+  v41 = &unk_1F1081A58;
+  v9 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1]);
+  v38 = @"kCIImageAuxiliarySemanticSegmentationGlassesMatte";
+  v39 = &unk_1F1081A58;
+  v10 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1]);
+  v36 = @"kCIImageAuxiliaryHDRGainMap";
+  v37 = &unk_1F1081A58;
+  v11 = +[CIImage imageWithData:options:](CIImage, "imageWithData:options:", data, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1]);
   if (!v6)
   {
-    v16 = ci_logger_api();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = ci_logger_api(v11, v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(CIDepthBlurEffect) *)v16 depthBlurEffectFilterForImageData:v17 options:v18, v19, v20, v21, v22, v23];
+      [(CIContext(CIDepthBlurEffect) *)v17 depthBlurEffectFilterForImageData:v18 options:v19, v20, v21, v22, v23, v24];
     }
 
     return 0;
@@ -7971,70 +8059,70 @@ uint64_t __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_dep
 
   if (!v7)
   {
-    v24 = ci_logger_api();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = ci_logger_api(v11, v12);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(CIDepthBlurEffect) *)v24 depthBlurEffectFilterForImageData:v25 options:v26, v27, v28, v29, v30, v31];
+      [(CIContext(CIDepthBlurEffect) *)v25 depthBlurEffectFilterForImageData:v26 options:v27, v28, v29, v30, v31, v32];
     }
 
     return 0;
   }
 
-  v12 = v11;
+  v13 = v11;
   properties = [(CIImage *)v6 properties];
   if (properties)
   {
-    v14 = [-[NSDictionary objectForKey:](properties objectForKey:{@"Orientation", "intValue"}];
-    if (v14 <= 1)
+    v15 = [-[NSDictionary objectForKey:](properties objectForKey:{@"Orientation", "intValue"}];
+    if (v15 <= 1)
     {
-      v15 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v15 = v14;
+      v16 = v15;
     }
 
-    if (v15 >= 8)
+    if (v16 >= 8)
     {
-      v15 = 8;
+      v16 = 8;
     }
   }
 
   else
   {
-    v15 = 1;
+    v16 = 1;
   }
 
-  LODWORD(v33) = v15;
-  return [(CIContext *)self depthBlurEffectFilterForImage:v6 disparityImage:v7 portraitEffectsMatte:v8 hairSemanticSegmentation:v9 glassesMatte:v10 gainMap:v12 orientation:v33 options:options];
+  LODWORD(v34) = v16;
+  return [(CIContext *)self depthBlurEffectFilterForImage:v6 disparityImage:v7 portraitEffectsMatte:v8 hairSemanticSegmentation:v9 glassesMatte:v10 gainMap:v13 orientation:v34 options:options];
 }
 
 - (CIFilter)depthBlurEffectFilterForImageURL:(NSURL *)url options:(NSDictionary *)options
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   v6 = [CIImage imageWithContentsOfURL:?];
-  v43 = @"kCIImageAuxiliaryDisparity";
-  v44[0] = &unk_1F1081A58;
-  v7 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1]);
-  v41 = @"kCIImageAuxiliaryPortraitEffectsMatte";
-  v42 = &unk_1F1081A58;
-  v8 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1]);
-  v39 = @"kCIImageAuxiliarySemanticSegmentationHairMatte";
-  v40 = &unk_1F1081A58;
-  v9 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1]);
-  v37 = @"kCIImageAuxiliarySemanticSegmentationGlassesMatte";
-  v38 = &unk_1F1081A58;
-  v10 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1]);
-  v35 = @"kCIImageAuxiliaryHDRGainMap";
-  v36 = &unk_1F1081A58;
-  v11 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1]);
+  v44 = @"kCIImageAuxiliaryDisparity";
+  v45[0] = &unk_1F1081A58;
+  v7 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1]);
+  v42 = @"kCIImageAuxiliaryPortraitEffectsMatte";
+  v43 = &unk_1F1081A58;
+  v8 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1]);
+  v40 = @"kCIImageAuxiliarySemanticSegmentationHairMatte";
+  v41 = &unk_1F1081A58;
+  v9 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1]);
+  v38 = @"kCIImageAuxiliarySemanticSegmentationGlassesMatte";
+  v39 = &unk_1F1081A58;
+  v10 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1]);
+  v36 = @"kCIImageAuxiliaryHDRGainMap";
+  v37 = &unk_1F1081A58;
+  v11 = +[CIImage imageWithContentsOfURL:options:](CIImage, "imageWithContentsOfURL:options:", url, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1]);
   if (!v6)
   {
-    v16 = ci_logger_api();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = ci_logger_api(v11, v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(CIDepthBlurEffect) *)v16 depthBlurEffectFilterForImageURL:v17 options:v18, v19, v20, v21, v22, v23];
+      [(CIContext(CIDepthBlurEffect) *)v17 depthBlurEffectFilterForImageURL:v18 options:v19, v20, v21, v22, v23, v24];
     }
 
     return 0;
@@ -8042,59 +8130,59 @@ uint64_t __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_dep
 
   if (!v7)
   {
-    v24 = ci_logger_api();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = ci_logger_api(v11, v12);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(CIDepthBlurEffect) *)v24 depthBlurEffectFilterForImageURL:v25 options:v26, v27, v28, v29, v30, v31];
+      [(CIContext(CIDepthBlurEffect) *)v25 depthBlurEffectFilterForImageURL:v26 options:v27, v28, v29, v30, v31, v32];
     }
 
     return 0;
   }
 
-  v12 = v11;
+  v13 = v11;
   properties = [(CIImage *)v6 properties];
   if (properties)
   {
-    v14 = [-[NSDictionary objectForKey:](properties objectForKey:{@"Orientation", "intValue"}];
-    if (v14 <= 1)
+    v15 = [-[NSDictionary objectForKey:](properties objectForKey:{@"Orientation", "intValue"}];
+    if (v15 <= 1)
     {
-      v15 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v15 = v14;
+      v16 = v15;
     }
 
-    if (v15 >= 8)
+    if (v16 >= 8)
     {
-      v15 = 8;
+      v16 = 8;
     }
   }
 
   else
   {
-    v15 = 1;
+    v16 = 1;
   }
 
-  LODWORD(v33) = v15;
-  return [(CIContext *)self depthBlurEffectFilterForImage:v6 disparityImage:v7 portraitEffectsMatte:v8 hairSemanticSegmentation:v9 glassesMatte:v10 gainMap:v12 orientation:v33 options:options];
+  LODWORD(v34) = v16;
+  return [(CIContext *)self depthBlurEffectFilterForImage:v6 disparityImage:v7 portraitEffectsMatte:v8 hairSemanticSegmentation:v9 glassesMatte:v10 gainMap:v13 orientation:v34 options:options];
 }
 
 - (void)_performFaceDetection:(id)detection image:(id)image orientation:(int)orientation filter:(id)filter
 {
   v7 = *&orientation;
-  v88[1] = *MEMORY[0x1E69E9840];
+  v87[1] = *MEMORY[0x1E69E9840];
   v9 = [CIDetector detectorOfType:@"CIDetectorTypeFace" context:self options:MEMORY[0x1E695E0F8]];
-  CGAffineTransformMakeScale(&v85, 0.25, 0.25);
-  v10 = [image imageByApplyingTransform:&v85 highQualityDownsample:0];
+  CGAffineTransformMakeScale(&v84, 0.25, 0.25);
+  v10 = [image imageByApplyingTransform:&v84 highQualityDownsample:0];
   [v10 extent];
   if (v11 < 1024.0 || ([v10 extent], v12 < 1024.0))
   {
     [image extent];
-    v75 = v13;
+    v74 = v13;
     [image extent];
-    v14.f64[0] = v75;
+    v14.f64[0] = v74;
     v14.f64[1] = v15;
     v16 = vcvtq_f64_f32(vcvt_f32_f64(vmulq_f64(v14, vdupq_n_s64(0x3F50000000000000uLL))));
     __asm { FMOV            V1.2D, #1.0 }
@@ -8106,13 +8194,13 @@ uint64_t __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_dep
     }
 
     v22 = v21.f64[0];
-    CGAffineTransformMakeScale(&v85, v22, v22);
-    v10 = [image imageByApplyingTransform:&v85 highQualityDownsample:0];
+    CGAffineTransformMakeScale(&v84, v22, v22);
+    v10 = [image imageByApplyingTransform:&v84 highQualityDownsample:0];
   }
 
-  v87 = @"CIDetectorImageOrientation";
-  v88[0] = [MEMORY[0x1E696AD98] numberWithInt:v7];
-  v23 = -[CIDetector featuresInImage:options:](v9, "featuresInImage:options:", v10, [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:&v87 count:1]);
+  v86 = @"CIDetectorImageOrientation";
+  v87[0] = [MEMORY[0x1E696AD98] numberWithInt:v7];
+  v23 = -[CIDetector featuresInImage:options:](v9, "featuresInImage:options:", v10, [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:&v86 count:1]);
   if (v23)
   {
     v24 = v23;
@@ -8134,27 +8222,26 @@ uint64_t __122__CIContext_ImageRepresentation___CMPhotoRepresentationOfImage_dep
     if (v26)
     {
       v27 = v26;
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
       v78 = 0u;
-      v28 = [(NSArray *)v24 countByEnumeratingWithState:&v77 objects:v86 count:16];
+      v79 = 0u;
+      v76 = 0u;
+      v77 = 0u;
+      v28 = [(NSArray *)v24 countByEnumeratingWithState:&v76 objects:v85 count:16];
       if (v28)
       {
         v29 = v28;
-        v74 = v10;
-        v69 = v7;
+        v73 = v10;
         v30 = 0;
-        v71 = &v27[2 * v25];
-        v72 = &v27[4 * v25];
-        v73 = &v27[6 * v25];
-        v31 = *v78;
-        v76 = v27;
+        v70 = &v27[2 * v25];
+        v71 = &v27[4 * v25];
+        v72 = &v27[6 * v25];
+        v31 = *v77;
+        v75 = v27;
 LABEL_13:
         v32 = 0;
         while (1)
         {
-          if (*v78 != v31)
+          if (*v77 != v31)
           {
             objc_enumerationMutation(v24);
           }
@@ -8164,7 +8251,7 @@ LABEL_13:
             break;
           }
 
-          v33 = *(*(&v77 + 1) + 8 * v32);
+          v33 = *(*(&v76 + 1) + 8 * v32);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -8190,19 +8277,19 @@ LABEL_13:
                     {
                       [objc_msgSend(v36 objectAtIndexedSubscript:{0), "CGPointValue"}];
                       v40 = v39;
-                      memset(&v85, 0, sizeof(v85));
-                      if (v74)
+                      memset(&v84, 0, sizeof(v84));
+                      if (v73)
                       {
-                        [v74 imageTransformForOrientation:v69];
+                        objc_msgSend_imageTransformForOrientation_(v73);
                       }
 
                       filterCopy = filter;
-                      memset(&v84, 0, sizeof(v84));
-                      CGAffineTransformMakeRotation(&v84, v37 / 180.0);
-                      t1 = v85;
                       memset(&v83, 0, sizeof(v83));
-                      t2 = v84;
-                      CGAffineTransformConcat(&v83, &t1, &t2);
+                      CGAffineTransformMakeRotation(&v83, v37 / 180.0);
+                      t1 = v84;
+                      memset(&v82, 0, sizeof(v82));
+                      t2 = v83;
+                      CGAffineTransformConcat(&v82, &t1, &t2);
                       v41 = 0;
                       if ([v36 count])
                       {
@@ -8210,7 +8297,7 @@ LABEL_13:
                         do
                         {
                           [objc_msgSend(v36 objectAtIndexedSubscript:{v42), "CGPointValue"}];
-                          v45 = v83.ty + v43 * v83.d + v83.b * v44;
+                          v45 = v82.ty + v43 * v82.d + v82.b * v44;
                           if (v45 < v40 || v42 == 0)
                           {
                             v41 = v42;
@@ -8240,25 +8327,25 @@ LABEL_13:
                     }
 
                     v53 = v48 == v51 && v50 == v52;
-                    v27 = v76;
+                    v27 = v75;
                     if (!v53)
                     {
                       v54 = CIVNAverage([v35 objectForKeyedSubscript:@"nose"]);
                       v56 = v55;
                       [v33 leftEyePosition];
-                      v76[2 * v30] = v57;
+                      v75[2 * v30] = v57;
                       [v33 leftEyePosition];
                       v58 = (16 * v30) | 8;
-                      *(v76 + v58) = v59;
+                      *(v75 + v58) = v59;
                       [v33 rightEyePosition];
-                      v71[2 * v30] = v60;
+                      v70[2 * v30] = v60;
                       [v33 rightEyePosition];
-                      *(v71 + v58) = v61;
-                      v27 = v76;
-                      v73[2 * v30] = v48;
-                      *(v73 + v58) = v50;
-                      v72[2 * v30++] = v54;
-                      *(v72 + v58) = v56;
+                      *(v70 + v58) = v61;
+                      v27 = v75;
+                      v72[2 * v30] = v48;
+                      *(v72 + v58) = v50;
+                      v71[2 * v30++] = v54;
+                      *(v71 + v58) = v56;
                     }
                   }
                 }
@@ -8268,7 +8355,7 @@ LABEL_13:
 
           if (++v32 == v29)
           {
-            v29 = [(NSArray *)v24 countByEnumeratingWithState:&v77 objects:v86 count:16];
+            v29 = [(NSArray *)v24 countByEnumeratingWithState:&v76 objects:v85 count:16];
             if (v29)
             {
               goto LABEL_13;
@@ -8285,28 +8372,28 @@ LABEL_13:
 
         if (v30)
         {
-          [v74 extent];
-          v70 = v62;
-          [v74 extent];
+          [v73 extent];
+          v69 = v62;
+          [v73 extent];
           v63 = 4 * v30;
-          v64 = vdupq_lane_s64(v70, 0);
+          v64 = vdupq_lane_s64(v69, 0);
           v66 = vdupq_lane_s64(v65, 0);
           v67 = v27;
           do
           {
-            v89 = vld2q_f64(v67);
-            v90.val[0] = vdivq_f64(v89.val[0], v64);
-            v90.val[1] = vdivq_f64(v89.val[1], v66);
-            vst2q_f64(v67, v90);
+            v88 = vld2q_f64(v67);
+            v89.val[0] = vdivq_f64(v88.val[0], v64);
+            v89.val[1] = vdivq_f64(v88.val[1], v66);
+            vst2q_f64(v67, v89);
             v67 += 4;
             v63 -= 2;
           }
 
           while (v63);
           [filter setValue:+[CIVector vectorWithValues:count:](CIVector forKey:{"vectorWithValues:count:", v27, 2 * v30), @"inputLeftEyePositions"}];
-          [filter setValue:+[CIVector vectorWithValues:count:](CIVector forKey:{"vectorWithValues:count:", v71, 2 * v30), @"inputRightEyePositions"}];
-          [filter setValue:+[CIVector vectorWithValues:count:](CIVector forKey:{"vectorWithValues:count:", v72, 2 * v30), @"inputNosePositions"}];
-          [filter setValue:+[CIVector vectorWithValues:count:](CIVector forKey:{"vectorWithValues:count:", v73, 2 * v30), @"inputChinPositions"}];
+          [filter setValue:+[CIVector vectorWithValues:count:](CIVector forKey:{"vectorWithValues:count:", v70, 2 * v30), @"inputRightEyePositions"}];
+          [filter setValue:+[CIVector vectorWithValues:count:](CIVector forKey:{"vectorWithValues:count:", v71, 2 * v30), @"inputNosePositions"}];
+          [filter setValue:+[CIVector vectorWithValues:count:](CIVector forKey:{"vectorWithValues:count:", v72, 2 * v30), @"inputChinPositions"}];
         }
       }
 
@@ -8317,107 +8404,108 @@ LABEL_13:
 
 - (CIFilter)depthBlurEffectFilterForImage:(CIImage *)image disparityImage:(CIImage *)disparityImage portraitEffectsMatte:(CIImage *)portraitEffectsMatte hairSemanticSegmentation:(CIImage *)hairSemanticSegmentation glassesMatte:(CIImage *)glassesMatte gainMap:(CIImage *)gainMap orientation:(CGImagePropertyOrientation)orientation options:(NSDictionary *)options
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   if (!image || !disparityImage)
   {
-    v29 = ci_logger_api();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v31 = ci_logger_api(self, a2);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [CIContext(CIDepthBlurEffect) depthBlurEffectFilterForImage:v29 disparityImage:v30 portraitEffectsMatte:v31 hairSemanticSegmentation:v32 glassesMatte:v33 gainMap:v34 orientation:v35 options:v36];
+      [CIContext(CIDepthBlurEffect) depthBlurEffectFilterForImage:v31 disparityImage:v32 portraitEffectsMatte:v33 hairSemanticSegmentation:v34 glassesMatte:v35 gainMap:v36 orientation:v37 options:v38];
     }
 
     return 0;
   }
 
   [(CIImage *)image extent];
-  x = v81.origin.x;
-  y = v81.origin.y;
-  width = v81.size.width;
-  height = v81.size.height;
-  if (CGRectIsEmpty(v81) || (v82.origin.x = x, v82.origin.y = y, v82.size.width = width, v82.size.height = height, CGRectIsInfinite(v82)))
+  x = v83.origin.x;
+  y = v83.origin.y;
+  width = v83.size.width;
+  height = v83.size.height;
+  IsEmpty = CGRectIsEmpty(v83);
+  if (IsEmpty || (v84.origin.x = x, v84.origin.y = y, v84.size.width = width, v84.size.height = height, IsEmpty = CGRectIsInfinite(v84)))
   {
-    v21 = ci_logger_api();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = ci_logger_api(IsEmpty, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [CIContext(CIDepthBlurEffect) depthBlurEffectFilterForImage:v21 disparityImage:v22 portraitEffectsMatte:v23 hairSemanticSegmentation:v24 glassesMatte:v25 gainMap:v26 orientation:v27 options:v28];
+      [CIContext(CIDepthBlurEffect) depthBlurEffectFilterForImage:v23 disparityImage:v24 portraitEffectsMatte:v25 hairSemanticSegmentation:v26 glassesMatte:v27 gainMap:v28 orientation:v29 options:v30];
     }
 
     return 0;
   }
 
-  v39 = orientation;
+  v41 = orientation;
   if (orientation - 9 <= 0xFFFFFFF7)
   {
-    v40 = ci_logger_api();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v42 = ci_logger_api(IsEmpty, v22);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      [CIContext(CIDepthBlurEffect) depthBlurEffectFilterForImage:v40 disparityImage:v41 portraitEffectsMatte:v42 hairSemanticSegmentation:v43 glassesMatte:v44 gainMap:v45 orientation:v46 options:v47];
+      [CIContext(CIDepthBlurEffect) depthBlurEffectFilterForImage:v42 disparityImage:v43 portraitEffectsMatte:v44 hairSemanticSegmentation:v45 glassesMatte:v46 gainMap:v47 orientation:v48 options:v49];
     }
 
     return 0;
   }
 
-  v37 = [CIFilter filterWithName:@"CIDepthBlurEffect"];
-  [(CIFilter *)v37 setDefaults];
-  [(CIFilter *)v37 setValue:image forKey:@"inputImage"];
-  [(CIFilter *)v37 setValue:disparityImage forKey:@"inputDisparityImage"];
+  v39 = [CIFilter filterWithName:@"CIDepthBlurEffect"];
+  [(CIFilter *)v39 setDefaults];
+  [(CIFilter *)v39 setValue:image forKey:@"inputImage"];
+  [(CIFilter *)v39 setValue:disparityImage forKey:@"inputDisparityImage"];
   if (portraitEffectsMatte)
   {
-    [(CIFilter *)v37 setValue:portraitEffectsMatte forKey:@"inputMatteImage"];
+    [(CIFilter *)v39 setValue:portraitEffectsMatte forKey:@"inputMatteImage"];
   }
 
   if (hairSemanticSegmentation)
   {
-    [(CIFilter *)v37 setValue:hairSemanticSegmentation forKey:@"inputHairImage"];
+    [(CIFilter *)v39 setValue:hairSemanticSegmentation forKey:@"inputHairImage"];
   }
 
   if (glassesMatte)
   {
-    [(CIFilter *)v37 setValue:glassesMatte forKey:@"inputGlassesImage"];
+    [(CIFilter *)v39 setValue:glassesMatte forKey:@"inputGlassesImage"];
   }
 
   if (gainMap)
   {
-    [(CIFilter *)v37 setValue:gainMap forKey:@"inputGainMap"];
+    [(CIFilter *)v39 setValue:gainMap forKey:@"inputGainMap"];
   }
 
   properties = [(CIImage *)disparityImage properties];
   if (properties)
   {
-    v49 = [(NSDictionary *)properties objectForKeyedSubscript:*MEMORY[0x1E696D228]];
-    if (v49)
+    v51 = [(NSDictionary *)properties objectForKeyedSubscript:*MEMORY[0x1E696D228]];
+    if (v51)
     {
-      v50 = v49;
-      [(CIFilter *)v37 setValue:v49 forKey:@"inputAuxDataMetadata"];
-      v51 = CGImageMetadataCopyTagWithPath(v50, 0, @"depthBlurEffect:SimulatedAperture");
-      if (v51)
+      v52 = v51;
+      [(CIFilter *)v39 setValue:v51 forKey:@"inputAuxDataMetadata"];
+      v53 = CGImageMetadataCopyTagWithPath(v52, 0, @"depthBlurEffect:SimulatedAperture");
+      if (v53)
       {
-        v52 = v51;
-        [CGImageMetadataTagCopyValue(v51) floatValue];
-        -[CIFilter setValue:forKey:](v37, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithFloat:?], @"inputAperture");
-        CFRelease(v52);
+        v54 = v53;
+        [CGImageMetadataTagCopyValue(v53) floatValue];
+        -[CIFilter setValue:forKey:](v39, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithFloat:?], @"inputAperture");
+        CFRelease(v54);
       }
     }
   }
 
   depthData = [(CIImage *)disparityImage depthData];
-  v55 = AVFDepthCameraCalibrationData(depthData, v54);
-  if (v55)
+  v57 = AVFDepthCameraCalibrationData(depthData, v56);
+  if (v57)
   {
-    [(CIFilter *)v37 setValue:v55 forKey:@"inputCalibrationData"];
+    [(CIFilter *)v39 setValue:v57 forKey:@"inputCalibrationData"];
   }
 
-  v56 = options;
+  v58 = options;
   if ([(CIImage *)image properties])
   {
     properties2 = [(CIImage *)image properties];
     Value = CFDictionaryGetValue(properties2, *MEMORY[0x1E696DE30]);
     if (Value)
     {
-      v59 = CFDictionaryGetValue(Value, @"29");
-      if (v59)
+      v61 = CFDictionaryGetValue(Value, @"29");
+      if (v61)
       {
-        [(CIFilter *)v37 setValue:v59 forKey:@"inputLumaNoiseScale"];
+        [(CIFilter *)v39 setValue:v61 forKey:@"inputLumaNoiseScale"];
       }
     }
   }
@@ -8425,56 +8513,56 @@ LABEL_13:
   properties3 = [(CIImage *)image properties];
   if (properties3)
   {
-    v61 = [(NSDictionary *)properties3 objectForKey:*MEMORY[0x1E696D8B0]];
-    if (v61)
+    v63 = [(NSDictionary *)properties3 objectForKey:*MEMORY[0x1E696D8B0]];
+    if (v63)
     {
-      v62 = [v61 objectForKey:@"Regions"];
-      if (v62)
+      v64 = [v63 objectForKey:@"Regions"];
+      if (v64)
       {
-        v63 = [v62 objectForKey:*MEMORY[0x1E696D930]];
-        v75 = 0u;
-        v76 = 0u;
+        v65 = [v64 objectForKey:*MEMORY[0x1E696D930]];
         v77 = 0u;
         v78 = 0u;
-        v64 = [v63 countByEnumeratingWithState:&v75 objects:v79 count:16];
-        if (v64)
+        v79 = 0u;
+        v80 = 0u;
+        v66 = [v65 countByEnumeratingWithState:&v77 objects:v81 count:16];
+        if (v66)
         {
-          v65 = v64;
-          v66 = *v76;
-          v67 = *MEMORY[0x1E696D938];
-          v68 = *MEMORY[0x1E696D920];
-          v73 = options;
+          v67 = v66;
+          v68 = *v78;
+          v69 = *MEMORY[0x1E696D938];
+          v70 = *MEMORY[0x1E696D920];
+          v75 = options;
           while (2)
           {
-            for (i = 0; i != v65; ++i)
+            for (i = 0; i != v67; ++i)
             {
-              if (*v76 != v66)
+              if (*v78 != v68)
               {
-                objc_enumerationMutation(v63);
+                objc_enumerationMutation(v65);
               }
 
-              v70 = *(*(&v75 + 1) + 8 * i);
-              v71 = [v70 objectForKey:{v67, v73}];
-              if (v71 && [v71 isEqualToString:v68] && CGRectMakeWithDictionaryRepresentation(v70, &rect))
+              v72 = *(*(&v77 + 1) + 8 * i);
+              v73 = [v72 objectForKey:{v69, v75}];
+              if (v73 && [v73 isEqualToString:v70] && CGRectMakeWithDictionaryRepresentation(v72, &rect))
               {
                 rect.origin.x = rect.origin.x - rect.size.width * 0.5;
                 rect.origin.y = 1.0 - rect.origin.y - rect.size.height * 0.5;
-                v72 = [CIVector vectorWithCGRect:?];
-                v39 = orientation;
-                v56 = v73;
-                if (v72)
+                v74 = [CIVector vectorWithCGRect:?];
+                v41 = orientation;
+                v58 = v75;
+                if (v74)
                 {
-                  [(CIFilter *)v37 setValue:v72 forKey:@"inputFocusRect"];
+                  [(CIFilter *)v39 setValue:v74 forKey:@"inputFocusRect"];
                 }
 
                 goto LABEL_48;
               }
             }
 
-            v65 = [v63 countByEnumeratingWithState:&v75 objects:v79 count:16];
-            v39 = orientation;
-            v56 = v73;
-            if (v65)
+            v67 = [v65 countByEnumeratingWithState:&v77 objects:v81 count:16];
+            v41 = orientation;
+            v58 = v75;
+            if (v67)
             {
               continue;
             }
@@ -8487,8 +8575,8 @@ LABEL_13:
   }
 
 LABEL_48:
-  [(CIContext *)self _performFaceDetection:v56 image:image orientation:v39 filter:v37];
-  return v37;
+  [(CIContext *)self _performFaceDetection:v58 image:image orientation:v41 filter:v39];
+  return v39;
 }
 
 - (CIRenderTask)startTaskToRender:(CIImage *)image fromRect:(CGRect)fromRect toDestination:(CIRenderDestination *)destination atPoint:(CGPoint)atPoint error:(NSError *)error
@@ -8505,20 +8593,21 @@ LABEL_48:
 - (id)_startTaskToRender:(id)render toDestination:(id)destination forPrepareRender:(BOOL)prepareRender forClear:(BOOL)clear error:(id *)error
 {
   prepareRenderCopy = prepareRender;
-  v131[4] = *MEMORY[0x1E69E9840];
+  v150[4] = *MEMORY[0x1E69E9840];
   [(CIContext *)self _gpuContextCheck];
   _internalContext = [(CIContext *)self _internalContext];
   if (!_internalContext)
   {
     if (error)
     {
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:1 userInfo:&unk_1F1082640];
+      _internalContext = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:1 userInfo:&unk_1F1082640];
+      *error = _internalContext;
     }
 
-    v32 = ci_logger_api();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v37 = ci_logger_api(_internalContext, v14);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(CIRenderDestination) *)v32 _startTaskToRender:v33 toDestination:v34 forPrepareRender:v35 forClear:v36 error:v37, v38, v39];
+      [(CIContext(CIRenderDestination) *)v37 _startTaskToRender:v38 toDestination:v39 forPrepareRender:v40 forClear:v41 error:v42, v43, v44];
     }
 
     return 0;
@@ -8528,62 +8617,67 @@ LABEL_48:
   {
     if (error)
     {
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:2 userInfo:&unk_1F1082668];
+      _internalContext = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:2 userInfo:&unk_1F1082668];
+      *error = _internalContext;
     }
 
-    v48 = ci_logger_api();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v53 = ci_logger_api(_internalContext, v14);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(CIRenderDestination) *)v48 _startTaskToRender:v49 toDestination:v50 forPrepareRender:v51 forClear:v52 error:v53, v54, v55];
+      [(CIContext(CIRenderDestination) *)v53 _startTaskToRender:v54 toDestination:v55 forPrepareRender:v56 forClear:v57 error:v58, v59, v60];
     }
 
     return 0;
   }
 
-  v14 = _internalContext;
+  v15 = _internalContext;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || ![destination _internalRepresentation])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0 || (isKindOfClass = [destination _internalRepresentation]) == 0)
   {
     if (error)
     {
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:3 userInfo:&unk_1F1082690];
+      isKindOfClass = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:3 userInfo:&unk_1F1082690];
+      *error = isKindOfClass;
     }
 
-    v40 = ci_logger_api();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v45 = ci_logger_api(isKindOfClass, v17);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(CIRenderDestination) *)v40 _startTaskToRender:v41 toDestination:v42 forPrepareRender:v43 forClear:v44 error:v45, v46, v47];
+      [(CIContext(CIRenderDestination) *)v45 _startTaskToRender:v46 toDestination:v47 forPrepareRender:v48 forClear:v49 error:v50, v51, v52];
     }
 
     return 0;
   }
 
   [render extent];
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
   width = [destination width];
-  v134.size.height = [destination height];
-  v134.origin.x = 0.0;
-  v134.origin.y = 0.0;
-  v132.origin.x = v16;
-  v132.origin.y = v18;
-  v132.size.width = v20;
-  v132.size.height = v22;
-  v134.size.width = width;
-  v133 = CGRectIntersection(v132, v134);
-  if (CGRectIsEmpty(v133))
+  v153.size.height = [destination height];
+  v153.origin.x = 0.0;
+  v153.origin.y = 0.0;
+  v151.origin.x = v19;
+  v151.origin.y = v21;
+  v151.size.width = v23;
+  v151.size.height = v25;
+  v153.size.width = width;
+  v152 = CGRectIntersection(v151, v153);
+  IsEmpty = CGRectIsEmpty(v152);
+  if (IsEmpty)
   {
     if (error)
     {
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:4 userInfo:&unk_1F10826B8];
+      IsEmpty = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:4 userInfo:&unk_1F10826B8];
+      *error = IsEmpty;
     }
 
-    v24 = ci_logger_api();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v29 = ci_logger_api(IsEmpty, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      [(CIContext(CIRenderDestination) *)v24 _startTaskToRender:v25 toDestination:v26 forPrepareRender:v27 forClear:v28 error:v29, v30, v31];
+      [(CIContext(CIRenderDestination) *)v29 _startTaskToRender:v30 toDestination:v31 forPrepareRender:v32 forClear:v33 error:v34, v35, v36];
     }
 
     return 0;
@@ -8591,40 +8685,50 @@ LABEL_48:
 
   format = [destination format];
   _internalContext2 = [(CIContext *)self _internalContext];
-  if ((*(*_internalContext2 + 16))(_internalContext2) == 84 && CI::format_is_not_supported_as_destination_on_gles(format))
+  if ((*(*_internalContext2 + 16))(_internalContext2) == 84)
   {
-    if (error)
+    is_not_supported_as_destination_on_gles = CI::format_is_not_supported_as_destination_on_gles(format);
+    if (is_not_supported_as_destination_on_gles)
     {
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:5 userInfo:&unk_1F10826E0];
-    }
+      if (error)
+      {
+        is_not_supported_as_destination_on_gles = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:5 userInfo:&unk_1F10826E0];
+        *error = is_not_supported_as_destination_on_gles;
+      }
 
-    v59 = ci_logger_api();
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
-    {
-      [CIContext(CIRenderDestination) _startTaskToRender:format toDestination:? forPrepareRender:? forClear:? error:?];
-    }
+      v66 = ci_logger_api(is_not_supported_as_destination_on_gles, v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      {
+        [CIContext(CIRenderDestination) _startTaskToRender:format toDestination:? forPrepareRender:? forClear:? error:?];
+      }
 
-    return 0;
+      return 0;
+    }
   }
 
-  if ([destination blendKernel] && objc_msgSend(destination, "alphaMode") == 3)
+  if ([destination blendKernel])
   {
-    if (error)
+    alphaMode = [destination alphaMode];
+    if (alphaMode == 3)
     {
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:6 userInfo:&unk_1F1082708];
-    }
+      if (error)
+      {
+        alphaMode = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextStartTask" code:6 userInfo:&unk_1F1082708];
+        *error = alphaMode;
+      }
 
-    v60 = ci_logger_api();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
-    {
-      [(CIContext(CIRenderDestination) *)v60 _startTaskToRender:v61 toDestination:v62 forPrepareRender:v63 forClear:v64 error:v65, v66, v67];
-    }
+      v69 = ci_logger_api(alphaMode, v68);
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      {
+        [(CIContext(CIRenderDestination) *)v69 _startTaskToRender:v70 toDestination:v71 forPrepareRender:v72 forClear:v73 error:v74, v75, v76];
+      }
 
-    return 0;
+      return 0;
+    }
   }
 
   colorSpace = [destination colorSpace];
-  alphaMode = [destination alphaMode];
+  alphaMode2 = [destination alphaMode];
   format2 = [destination format];
   if (!CI_NO_CM() && CI::format_only_alpha(format2))
   {
@@ -8635,34 +8739,34 @@ LABEL_48:
   if (!CI_NO_CM())
   {
     baseColorSpace = [render baseColorSpace];
-    if (CI::ColorSpace_is_HDR(baseColorSpace, v100))
+    if (CI::ColorSpace_is_HDR(baseColorSpace, v115))
     {
-      if (colorSpace && (CI::ColorSpace_is_HDR(colorSpace, v101) & 1) == 0 && !CGColorSpaceUsesExtendedRange(colorSpace))
+      if (colorSpace && (CI::ColorSpace_is_HDR(colorSpace, v116) & 1) == 0 && !CGColorSpaceUsesExtendedRange(colorSpace))
       {
         render = [objc_msgSend(render imageByColorMatchingWorkingSpaceToColorSpace:{baseColorSpace), "imageByToneMappingColorSpaceToWorkingSpace:", baseColorSpace}];
       }
     }
   }
 
-  if ([destination blendKernel] && (v71 = objc_msgSend(destination, "imageRepresentation")) != 0)
+  if ([destination blendKernel] && (v80 = objc_msgSend(destination, "imageRepresentation")) != 0)
   {
-    v72 = v71;
+    v81 = v80;
     if ([objc_msgSend(destination "blendKernel")])
     {
       [render extent];
-      v72 = [v72 imageByCroppingToRect:?];
+      v81 = [v81 imageByCroppingToRect:?];
     }
 
-    if ((*(*v14 + 16))(v14) == 84 || [destination isCompressed])
+    if ((*(*v15 + 16))(v15) == 84 || [destination isCompressed])
     {
-      v72 = [v72 imageByInsertingIntermediate:0];
+      v81 = [v81 imageByInsertingIntermediate:0];
     }
 
-    v73 = [destination blendsInDestinationColorSpace] ^ 1;
-    if ((v73 & 1) == 0 && colorSpace && !CI_NO_CM())
+    v82 = [destination blendsInDestinationColorSpace] ^ 1;
+    if ((v82 & 1) == 0 && colorSpace && !CI_NO_CM())
     {
       render = [render imageByColorMatchingWorkingSpaceToRGBorGrayColorSpace:colorSpace];
-      v72 = [v72 imageByColorMatchingWorkingSpaceToRGBorGrayColorSpace:colorSpace];
+      v81 = [v81 imageByColorMatchingWorkingSpaceToRGBorGrayColorSpace:colorSpace];
     }
 
     render = [objc_msgSend(destination "blendKernel")];
@@ -8670,19 +8774,19 @@ LABEL_48:
 
   else
   {
-    v73 = 1;
+    v82 = 1;
   }
 
-  if (v73 && colorSpace && !CI_NO_CM())
+  if (v82 && colorSpace && !CI_NO_CM())
   {
     render = [render imageByColorMatchingWorkingSpaceToRGBorGrayColorSpace:colorSpace];
   }
 
-  v74 = [render imageByCroppingToRect:{0.0, 0.0, objc_msgSend(destination, "width"), objc_msgSend(destination, "height")}];
-  _imageByClampingAlpha = v74;
-  if (!alphaMode)
+  v83 = [render imageByCroppingToRect:{0.0, 0.0, objc_msgSend(destination, "width"), objc_msgSend(destination, "height")}];
+  _imageByClampingAlpha = v83;
+  if (!alphaMode2)
   {
-    [(CIImage *)v74 extent];
+    [(CIImage *)v83 extent];
     _imageByClampingAlpha = [(CIImage *)_imageByClampingAlpha imageBySettingAlphaOneInExtent:?];
   }
 
@@ -8694,26 +8798,26 @@ LABEL_48:
   _internalRepresentation = [destination _internalRepresentation];
   if (*(_internalRepresentation + 28))
   {
-    v77 = *(_internalRepresentation + 32);
-    v78 = *(_internalRepresentation + 40);
-    v79 = *(_internalRepresentation + 48);
-    v80 = *(_internalRepresentation + 56);
-    v81 = *(_internalRepresentation + 64);
-    v82 = *(_internalRepresentation + 72);
-    v83 = *(_internalRepresentation + 80);
-    v84 = *(_internalRepresentation + 88);
-    v85 = *(_internalRepresentation + 96);
-    v86 = *(_internalRepresentation + 104);
-    v87 = *(_internalRepresentation + 112);
-    v130[0] = @"inputRVector";
-    v131[0] = [CIVector vectorWithX:v77 Y:v78 Z:v79];
-    v130[1] = @"inputGVector";
-    v131[1] = [CIVector vectorWithX:v80 Y:v81 Z:v82];
-    v130[2] = @"inputBVector";
-    v131[2] = [CIVector vectorWithX:v83 Y:v84 Z:v85];
-    v130[3] = @"inputBiasVector";
-    v131[3] = [CIVector vectorWithX:v86 Y:v87 Z:v87];
-    _imageByClampingAlpha = -[CIImage imageByApplyingFilter:withInputParameters:](_imageByClampingAlpha, "imageByApplyingFilter:withInputParameters:", @"CIColorMatrix", [MEMORY[0x1E695DF20] dictionaryWithObjects:v131 forKeys:v130 count:4]);
+    v86 = *(_internalRepresentation + 32);
+    v87 = *(_internalRepresentation + 40);
+    v88 = *(_internalRepresentation + 48);
+    v89 = *(_internalRepresentation + 56);
+    v90 = *(_internalRepresentation + 64);
+    v91 = *(_internalRepresentation + 72);
+    v92 = *(_internalRepresentation + 80);
+    v93 = *(_internalRepresentation + 88);
+    v94 = *(_internalRepresentation + 96);
+    v95 = *(_internalRepresentation + 104);
+    v96 = *(_internalRepresentation + 112);
+    v149[0] = @"inputRVector";
+    v150[0] = [CIVector vectorWithX:v86 Y:v87 Z:v88];
+    v149[1] = @"inputGVector";
+    v150[1] = [CIVector vectorWithX:v89 Y:v90 Z:v91];
+    v149[2] = @"inputBVector";
+    v150[2] = [CIVector vectorWithX:v92 Y:v93 Z:v94];
+    v149[3] = @"inputBiasVector";
+    v150[3] = [CIVector vectorWithX:v95 Y:v96 Z:v96];
+    _imageByClampingAlpha = -[CIImage imageByApplyingFilter:withInputParameters:](_imageByClampingAlpha, "imageByApplyingFilter:withInputParameters:", @"CIColorMatrix", [MEMORY[0x1E695DF20] dictionaryWithObjects:v150 forKeys:v149 count:4]);
   }
 
   if ([destination isDithered])
@@ -8721,31 +8825,31 @@ LABEL_48:
     _imageByClampingAlpha = ditherImage(_imageByClampingAlpha, [destination ditherDepth], objc_msgSend(destination, "colorSpace"));
   }
 
-  if (alphaMode == 2)
+  if (alphaMode2 == 2)
   {
     _imageByClampingAlpha = [(CIImage *)_imageByClampingAlpha imageByUnpremultiplyingAlpha];
   }
 
   if ([destination isFlipped])
   {
-    v127 = 0;
+    v146 = 0;
     buf = 0x3FF0000000000000uLL;
-    v128 = xmmword_19CF25100;
+    v147 = xmmword_19CF25100;
     height = [destination height];
     _imageByClampingAlpha = [(CIImage *)_imageByClampingAlpha imageByApplyingTransform:&buf];
   }
 
   captureTraceURL = [destination captureTraceURL];
-  v89 = 0;
+  v98 = 0;
   if (clear)
   {
-    v91 = 0;
+    v100 = 0;
     mEMORY[0x1E6974000] = 0;
     goto LABEL_90;
   }
 
-  v90 = captureTraceURL;
-  v91 = 0;
+  v99 = captureTraceURL;
+  v100 = 0;
   mEMORY[0x1E6974000] = 0;
   if (!captureTraceURL)
   {
@@ -8757,29 +8861,31 @@ LABEL_48:
     goto LABEL_89;
   }
 
-  if (![v90 isFileURL] || !objc_msgSend(objc_msgSend(v90, "path"), "hasSuffix:", @".gputrace"))
+  isFileURL = [v99 isFileURL];
+  if (!isFileURL || (isFileURL = [objc_msgSend(v99 "path")], !isFileURL))
   {
-    v102 = ci_logger_api();
-    if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+    v117 = ci_logger_api(isFileURL, v103);
+    if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
     {
       [CIContext(CIRenderDestination) _startTaskToRender:toDestination:forPrepareRender:forClear:error:];
     }
 
 LABEL_89:
-    v89 = 0;
-    v91 = 0;
+    v98 = 0;
+    v100 = 0;
     mEMORY[0x1E6974000] = 0;
     goto LABEL_90;
   }
 
-  v123 = 0;
+  v142 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  if ([defaultManager fileExistsAtPath:objc_msgSend(v90 isDirectory:{"path"), 0}])
+  if ([defaultManager fileExistsAtPath:objc_msgSend(v99 isDirectory:{"path"), 0}])
   {
-    if (([defaultManager removeItemAtPath:objc_msgSend(v90 error:{"path"), &v123}] & 1) == 0)
+    v105 = [defaultManager removeItemAtPath:objc_msgSend(v99 error:{"path"), &v142}];
+    if ((v105 & 1) == 0)
     {
-      v94 = ci_logger_api();
-      if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+      v107 = ci_logger_api(v105, v106);
+      if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
       {
         [CIContext(CIRenderDestination) _startTaskToRender:toDestination:forPrepareRender:forClear:error:];
       }
@@ -8787,38 +8893,40 @@ LABEL_89:
   }
 
   mEMORY[0x1E6974000] = [MEMORY[0x1E6974000] sharedCaptureManager];
-  v91 = objc_alloc_init(MEMORY[0x1E6973FF8]);
-  [v91 setCaptureObject:{-[CIContext internalCommandQueue](self, "internalCommandQueue")}];
-  [v91 setDestination:2];
-  [v91 setOutputURL:v90];
-  v89 = [mEMORY[0x1E6974000] newCaptureScopeWithDevice:{-[CIContext device](self, "device")}];
-  [v89 setLabel:@"Capture Scope"];
-  v95 = [mEMORY[0x1E6974000] startCaptureWithDescriptor:v91 error:&v123];
-  v96 = ci_logger_render();
-  if (v95)
+  v100 = objc_alloc_init(MEMORY[0x1E6973FF8]);
+  [v100 setCaptureObject:{-[CIContext internalCommandQueue](self, "internalCommandQueue")}];
+  [v100 setDestination:2];
+  [v100 setOutputURL:v99];
+  v98 = [mEMORY[0x1E6974000] newCaptureScopeWithDevice:{-[CIContext device](self, "device")}];
+  [v98 setLabel:@"Capture Scope"];
+  v108 = [mEMORY[0x1E6974000] startCaptureWithDescriptor:v100 error:&v142];
+  v109 = v108;
+  v111 = ci_logger_render(v108, v110);
+  if (v109)
   {
-    v97 = v96;
-    if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
+    v112 = v111;
+    if (os_log_type_enabled(v111, OS_LOG_TYPE_INFO))
     {
-      v98 = [objc_msgSend(v91 "outputURL")];
+      v113 = [objc_msgSend(v100 "outputURL")];
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v98;
-      _os_log_impl(&dword_19CC36000, v97, OS_LOG_TYPE_INFO, "CIRenderDestination.captureTraceURL: %{public}@\n", &buf, 0xCu);
+      *(&buf + 4) = v113;
+      _os_log_impl(&dword_19CC36000, v112, OS_LOG_TYPE_INFO, "CIRenderDestination.captureTraceURL: %{public}@\n", &buf, 0xCu);
     }
 
-    [v89 beginScope];
+    [v98 beginScope];
   }
 
   else
   {
-    v113 = v96;
-    if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+    v130 = v111;
+    v131 = os_log_type_enabled(v111, OS_LOG_TYPE_ERROR);
+    if (v131)
     {
-      [(CIContext(CIRenderDestination) *)&v123 _startTaskToRender:v113 toDestination:v114 forPrepareRender:v115 forClear:v116 error:v117, v118, v119];
+      [(CIContext(CIRenderDestination) *)&v142 _startTaskToRender:v130 toDestination:v133 forPrepareRender:v134 forClear:v135 error:v136, v137, v138];
     }
 
-    v120 = ci_logger_render();
-    if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+    v139 = ci_logger_render(v131, v132);
+    if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
     {
       [CIContext(CIRenderDestination) _startTaskToRender:toDestination:forPrepareRender:forClear:error:];
     }
@@ -8827,7 +8935,7 @@ LABEL_89:
 LABEL_90:
   [(CIContext *)self lock];
   _internalContext3 = [(CIContext *)self _internalContext];
-  v104 = _internalContext3;
+  v119 = _internalContext3;
   if (prepareRenderCopy)
   {
     _internalContext3[86] = 1;
@@ -8835,47 +8943,47 @@ LABEL_90:
 
   if ([destination blendKernel] || clear)
   {
-    v106 = (*(*v104 + 296))(v104);
-    (*(*v104 + 288))(v104, 0);
-    v105 = [destination _render:_imageByClampingAlpha withContext:self];
-    if (v106)
+    v121 = (*(*v119 + 296))(v119);
+    (*(*v119 + 288))(v119, 0);
+    v120 = [destination _render:_imageByClampingAlpha withContext:self];
+    if (v121)
     {
-      (*(*v104 + 288))(v104, 1);
+      (*(*v119 + 288))(v119, 1);
     }
   }
 
   else
   {
-    v105 = [destination _render:_imageByClampingAlpha withContext:self];
+    v120 = [destination _render:_imageByClampingAlpha withContext:self];
   }
 
   if (prepareRenderCopy)
   {
-    v104[86] = 0;
+    v119[86] = 0;
   }
 
   if (![(CIContext *)self clientCommandQueue])
   {
-    CI::RenderTask::waitUntilScheduled(v105);
+    CI::RenderTask::waitUntilScheduled(v120);
   }
 
   [(CIContext *)self unlock];
-  [v89 endScope];
+  [v98 endScope];
   [mEMORY[0x1E6974000] stopCapture];
 
-  v107 = *(v105 + 16);
-  if (v107)
+  v122 = *(v120 + 128);
+  if (v122)
   {
-    v108 = CFRetain(v107);
-    if (v108)
+    v123 = CFRetain(v122);
+    if (v123)
     {
-      v109 = v108;
-      CI::Object::unref(v105);
+      v124 = v123;
+      CI::Object::unref(v120);
       objc_autoreleasePoolPop(contexta);
-      v110 = ci_logger_api();
-      if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+      v127 = ci_logger_api(v125, v126);
+      if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
       {
-        [CIContext(CIRenderDestination) _startTaskToRender:v109 toDestination:? forPrepareRender:? forClear:? error:?];
+        [CIContext(CIRenderDestination) _startTaskToRender:v124 toDestination:? forPrepareRender:? forClear:? error:?];
         if (error)
         {
           goto LABEL_105;
@@ -8885,23 +8993,23 @@ LABEL_90:
       else if (error)
       {
 LABEL_105:
-        v124 = @"CINonLocalizedDescriptionKey";
-        v125 = v109;
-        *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextRenderDestination" code:5 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v125, &v124, 1)}];
+        v143 = @"CINonLocalizedDescriptionKey";
+        v144 = v124;
+        *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CIContextRenderDestination" code:5 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v144, &v143, 1)}];
 LABEL_113:
-        CFRelease(v109);
+        CFRelease(v124);
         return 0;
       }
 
-      CI::Context::AbortIfUnhandledError(v109, v111);
+      CI::Context::AbortIfUnhandledError(v124, v128);
       goto LABEL_113;
     }
   }
 
-  v112 = [[CIRenderTask alloc] initWithInternalTask:v105];
-  CI::Object::unref(v105);
+  v129 = [[CIRenderTask alloc] initWithInternalTask:v120];
+  CI::Object::unref(v120);
   objc_autoreleasePoolPop(contexta);
-  return v112;
+  return v129;
 }
 
 - (BOOL)prepareRender:(CIImage *)image fromRect:(CGRect)fromRect toDestination:(CIRenderDestination *)destination atPoint:(CGPoint)atPoint error:(NSError *)error
@@ -8966,15 +9074,17 @@ LABEL_113:
 - (void)render:(int)a1 toBitmap:rowBytes:bounds:format:colorSpace:.cold.1(int a1)
 {
   CI::name_for_format(a1);
+  v7 = 136446466;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s format %{public}s is unsupported.", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s format %{public}s is unsupported.", v3, v4, v5, v6, v7);
 }
 
 - (void)render:(int)a1 toBitmap:rowBytes:bounds:format:colorSpace:.cold.4(int a1)
 {
   CI::name_for_format(a1);
+  v7 = 136446466;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s format %{public}s is not supported on GLES.", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v1, v2, "%{public}s format %{public}s is not supported on GLES.", v3, v4, v5, v6, v7);
 }
 
 @end

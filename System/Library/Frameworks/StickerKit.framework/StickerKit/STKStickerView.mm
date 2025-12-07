@@ -182,10 +182,11 @@
   v6 = (self + OBJC_IVAR___STKStickerView_dragPreviewLiftContainerProvider);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_19A60126C(v7);
+  sub_19A60126C(v7, v8);
 }
 
 - (BOOL)boundsIncludeStroke
@@ -231,7 +232,7 @@
   [defaultCenter removeObserver_];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for StickerView();
+  v6.super_class = type metadata accessor for StickerView(0);
   [(STKStickerView *)&v6 dealloc];
 }
 
@@ -259,7 +260,7 @@
 
 - (void)animatedImageForImageGlyph:(STKImageGlyph *)glyph completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -307,7 +308,7 @@
 - (void)didMoveToWindow
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for StickerView();
+  v3.super_class = type metadata accessor for StickerView(0);
   v2 = v3.receiver;
   [(STKStickerView *)&v3 didMoveToWindow];
   sub_19A6C663C();
@@ -316,7 +317,7 @@
 - (void)removeFromSuperview
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for StickerView();
+  v3.super_class = type metadata accessor for StickerView(0);
   v2 = v3.receiver;
   [(STKStickerView *)&v3 removeFromSuperview];
   if (*&v2[OBJC_IVAR___STKStickerView_displayLink])
@@ -377,7 +378,7 @@
   _s10StickerKit0A4ViewC15dragInteraction_17itemsForBeginningSaySo10UIDragItemCGSo0iE0C_So0I7Session_ptF_0();
 
   swift_unknownObjectRelease();
-  sub_19A5F5028(0, &qword_1EAFCE4F0);
+  sub_19A5F5028(0, &qword_1EAFCE4F0, 0x1E69DC990);
   v7 = sub_19A7AB234();
 
   return v7;
@@ -401,7 +402,8 @@
   [v4 set:1 wantsElasticEffects:?];
   [v4 set:1 resizable:?];
   [v4 set:1 rotatable:?];
-  [v4 set:CGPointMake(32.0 minimumResizableSize:32.0)];
+  CGPointMake();
+  [v4 set_minimumResizableSize_];
   [v4 set:300.0 maximumResizableSize:300.0];
 
   return v4;
@@ -420,7 +422,7 @@
 - (void)dragInteraction:(id)interaction sessionDidTransferItems:(id)items
 {
   selfCopy = self;
-  sub_19A6CB4D0();
+  sub_19A6CB4D0(0x6B63697453, 0xE500000000000000);
 }
 
 - (void)dragInteraction:(id)interaction item:(id)item willAnimateCancelWithAnimator:(id)animator

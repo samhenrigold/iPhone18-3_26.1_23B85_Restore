@@ -26,11 +26,11 @@
   v8 = [(HDJournalChapterItem *)&v14 init];
   if (v8)
   {
-    v9 = [nameCopy copy];
+    v9 = objc_msgSend_copy(nameCopy);
     entryClassName = v8->_entryClassName;
     v8->_entryClassName = v9;
 
-    v11 = [dataCopy copy];
+    v11 = objc_msgSend_copy(dataCopy);
     serializedEntryData = v8->_serializedEntryData;
     v8->_serializedEntryData = v11;
   }

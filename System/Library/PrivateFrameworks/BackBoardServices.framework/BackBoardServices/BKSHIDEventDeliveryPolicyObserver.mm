@@ -41,55 +41,55 @@ void __64__BKSHIDEventDeliveryPolicyObserver_deferringResolutionsChanged__block_
 
 - (void)deferringResolutionsChanged
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __64__BKSHIDEventDeliveryPolicyObserver_deferringResolutionsChanged__block_invoke;
-  v22[3] = &unk_1E6F477B8;
-  v22[4] = self;
-  v3 = [(BKSHIDEventDeliveryPolicyObserver *)self _lock_updatePolicyWithBlock:v22];
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __64__BKSHIDEventDeliveryPolicyObserver_deferringResolutionsChanged__block_invoke;
+  v24 = &unk_1E6F477B8;
+  selfCopy = self;
+  v3 = [(BKSHIDEventDeliveryPolicyObserver *)self _lock_updatePolicyWithBlock:?];
   v4 = self->_lock_currentPolicy;
   os_unfair_lock_unlock(&self->_lock);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:? objects:? count:?];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       v9 = 0;
       do
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * v9);
+        v10 = *(*(&v17 + 1) + 8 * v9);
         v11 = BKLogEventDelivery();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           v13 = objc_opt_class();
           *buf = 134218498;
-          selfCopy = self;
-          v25 = 2114;
-          v26 = v13;
-          v27 = 2048;
-          v28 = v10;
+          selfCopy2 = self;
+          v28 = 2114;
+          v29 = v13;
+          v30 = 2048;
+          v31 = v10;
           v14 = v13;
           _os_log_debug_impl(&dword_186345000, v11, OS_LOG_TYPE_DEBUG, "observerPolicyDidChange: %p -> <%{public}@: %p>", buf, 0x20u);
         }
 
         if (objc_opt_respondsToSelector())
         {
-          [v10 observerDeliveryPolicyDidChange:self];
+          [v10 observerDeliveryPolicyDidChange:?];
         }
 
         else if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
@@ -101,61 +101,54 @@ void __64__BKSHIDEventDeliveryPolicyObserver_deferringResolutionsChanged__block_
           block[3] = &unk_1E6F469E8;
           block[4] = v10;
           block[5] = self;
-          v17 = v4;
+          v16 = v4;
           dispatch_async(asyncObserverCalloutQueue, block);
         }
 
-        ++v9;
+        v9 = (v9 + 1);
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_lock_effectivePolicyObservation
 {
-  v31 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   v3 = self->_lock_observations;
-  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = [NSSet countByEnumeratingWithState:v3 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v27;
+    v7 = MEMORY[0];
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v27 != v7)
+      if (MEMORY[0] != v7)
       {
         objc_enumerationMutation(v3);
       }
 
-      v9 = *(*(&v26 + 1) + 8 * v8);
+      v9 = *(8 * v8);
       v10 = getpid();
       if (v10 == [v9 pid])
       {
         lock_display = self->_lock_display;
-        if (!lock_display || ([v9 display], v12 = objc_claimAutoreleasedReturnValue(), v13 = -[BKSHIDEventDisplay isEqual:](lock_display, "isEqual:", v12), v12, v13))
+        if (!lock_display || ([v9 display], v12 = objc_claimAutoreleasedReturnValue(), v13 = -[BKSHIDEventDisplay isEqual:](lock_display, "isEqual:"), v12, v13))
         {
           lock_environment = self->_lock_environment;
-          if (!lock_environment || ([v9 environment], v15 = objc_claimAutoreleasedReturnValue(), v16 = -[BKSHIDEventDeferringEnvironment isEqual:](lock_environment, "isEqual:", v15), v15, v16))
+          if (!lock_environment || ([v9 environment], v15 = objc_claimAutoreleasedReturnValue(), v16 = -[BKSHIDEventDeferringEnvironment isEqual:](lock_environment, "isEqual:"), v15, v16))
           {
             lock_token = self->_lock_token;
-            if (!lock_token || ([v9 token], v18 = objc_claimAutoreleasedReturnValue(), v19 = -[BKSHIDEventDeferringToken isEqual:](lock_token, "isEqual:", v18), v18, v19))
+            if (!lock_token || ([v9 token], v18 = objc_claimAutoreleasedReturnValue(), v19 = -[BKSHIDEventDeferringToken isEqual:](lock_token, "isEqual:"), v18, v19))
             {
-              if (!self->_lock_selectionPathIdentifier || ([v9 selectionPath], v20 = objc_claimAutoreleasedReturnValue(), v21 = -[BKSHIDEventDeferringSelectionPathIdentifier isEqual:](self->_lock_selectionPathIdentifier, "isEqual:", v20), v20, v21))
+              if (!self->_lock_selectionPathIdentifier || ([v9 selectionPath], v20 = objc_claimAutoreleasedReturnValue(), v21 = -[BKSHIDEventDeferringSelectionPathIdentifier isEqual:](self->_lock_selectionPathIdentifier, "isEqual:"), v20, v21))
               {
                 policyStatus = [v9 policyStatus];
                 if (policyStatus > [v6 policyStatus])
@@ -176,7 +169,7 @@ LABEL_3:
 
       if (v5 == ++v8)
       {
-        v5 = [(NSSet *)v3 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v5 = [NSSet countByEnumeratingWithState:v3 objects:"countByEnumeratingWithState:objects:count:" count:?];
         v23 = v6;
         if (v5)
         {
@@ -193,8 +186,6 @@ LABEL_3:
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v23;
 }
 
@@ -204,7 +195,7 @@ LABEL_3:
   if ([(BKSHIDEventObserver *)self->_observer hasReceivedLatestDeferringObservationsFromServer])
   {
     _lock_effectivePolicyObservation = [(BKSHIDEventDeliveryPolicyObserver *)self _lock_effectivePolicyObservation];
-    v4 = [[BKSHIDEventDeliveryPolicy alloc] _initWithPolicyObservation:_lock_effectivePolicyObservation];
+    v4 = [[BKSHIDEventDeliveryPolicy alloc] _initWithPolicyObservation:?];
   }
 
   else
@@ -217,41 +208,40 @@ LABEL_3:
 
 - (BKSHIDEventDeliveryPolicyObserver)init
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   if (v4 != objc_opt_class())
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventDeliveryPolicyObserver does not support subclassing"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = 138544642;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v12;
-      v17 = 2048;
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = 138544642;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v11;
+      v16 = 2048;
       selfCopy = self;
-      v19 = 2114;
-      v20 = @"BKSHIDEventDeliveryPolicyObserver.m";
-      v21 = 1024;
-      v22 = 59;
-      v23 = 2114;
-      v24 = v9;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v13, 0x3Au);
+      v18 = 2114;
+      v19 = @"BKSHIDEventDeliveryPolicyObserver.m";
+      v20 = 1024;
+      v21 = 59;
+      v22 = 2114;
+      v23 = v8;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v12, 0x3Au);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18634AB80);
   }
 
   v5 = +[BKSHIDEventObserver sharedInstance];
-  v6 = [(BKSHIDEventDeliveryPolicyObserver *)self _initWithObserver:v5];
+  v6 = [(BKSHIDEventDeliveryPolicyObserver *)self _initWithObserver:?];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -262,25 +252,26 @@ LABEL_3:
     dispatch_once(&_lock_description_onceToken, &__block_literal_global_2678);
   }
 
-  v3 = MEMORY[0x1E698E688];
-  v4 = _lock_description_lockedStyle;
+  v2 = MEMORY[0x1E698E688];
 
-  return [v3 descriptionForRootObject:self withStyle:v4];
+  return [v2 descriptionForRootObject:? withStyle:?];
 }
 
 uint64_t __54__BKSHIDEventDeliveryPolicyObserver__lock_description__block_invoke()
 {
-  _lock_description_lockedStyle = [MEMORY[0x1E698E690] build:&__block_literal_global_64];
+  v0 = [MEMORY[0x1E698E690] build:?];
+  v1 = _lock_description_lockedStyle;
+  _lock_description_lockedStyle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __54__BKSHIDEventDeliveryPolicyObserver__lock_description__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x1E695DFD8];
   v3 = a2;
-  v4 = [v2 setWithObject:@"_BKSHIDEventDeliveryPolicyObserver_locked"];
-  [v3 setClientInformation:v4];
+  v4 = [v2 setWithObject:?];
+  [v3 setClientInformation:?];
 }
 
 - (int64_t)policyStatus
@@ -314,19 +305,19 @@ void __54__BKSHIDEventDeliveryPolicyObserver__lock_description__block_invoke_2(u
   streamCopy = stream;
   style = [streamCopy style];
   clientInformation = [style clientInformation];
-  v6 = [clientInformation containsObject:@"_BKSHIDEventDeliveryPolicyObserver_locked"];
+  v6 = [clientInformation containsObject:?];
 
   p_lock = &self->_lock;
   if (v6)
   {
     os_unfair_lock_assert_owner(p_lock);
-    [(BKSHIDEventDeliveryPolicyObserver *)self _lock_appendDescriptionToStream:streamCopy];
+    [(BKSHIDEventDeliveryPolicyObserver *)self _lock_appendDescriptionToStream:?];
   }
 
   else
   {
     os_unfair_lock_lock(p_lock);
-    [(BKSHIDEventDeliveryPolicyObserver *)self _lock_appendDescriptionToStream:streamCopy];
+    [(BKSHIDEventDeliveryPolicyObserver *)self _lock_appendDescriptionToStream:?];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -335,23 +326,12 @@ void __54__BKSHIDEventDeliveryPolicyObserver__lock_description__block_invoke_2(u
 - (void)_lock_appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___block_invoke;
-  v8[3] = &unk_1E6F47C78;
-  v8[4] = self;
-  v5 = streamCopy;
-  v9 = v5;
-  [v5 appendProem:self block:v8];
-  if ([v5 hasDebugStyle])
+  [streamCopy appendProem:? block:?];
+  if ([streamCopy hasDebugStyle])
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___block_invoke_2;
-    v6[3] = &unk_1E6F47C78;
-    v6[4] = self;
-    v7 = v5;
-    [v7 appendBodySectionWithName:0 block:v6];
+    v5 = MEMORY[0x1E69E9820];
+    v6 = streamCopy;
+    [v6 appendBodySectionWithName:v5 block:{3221225472, __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___block_invoke_2, &unk_1E6F47C78, self}];
   }
 }
 
@@ -362,73 +342,68 @@ void __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___b
   v4 = v3 != 0;
   if (v3)
   {
-    v5 = [*(a1 + 40) appendObject:v3 withName:@"display"];
+    v5 = [*(a1 + 40) appendObject:? withName:?];
     v2 = *(a1 + 32);
   }
 
-  v6 = v2[6];
-  if (v6)
+  if (v2[6])
   {
-    v7 = [*(a1 + 40) appendObject:v6 withName:@"environment"];
+    v6 = [*(a1 + 40) appendObject:? withName:?];
     v2 = *(a1 + 32);
     v4 = 1;
   }
 
-  v8 = v2[7];
-  if (v8)
+  if (v2[7])
   {
-    v9 = [*(a1 + 40) appendObject:v8 withName:@"token"];
-    v10 = *(a1 + 32);
-    if (!*(v10 + 64))
+    v7 = [*(a1 + 40) appendObject:? withName:?];
+    if (!*(*(a1 + 32) + 64))
     {
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-    v11 = *(v10 + 56);
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
   if (v2[8])
   {
-    v11 = 0;
-LABEL_10:
-    v12 = [*(a1 + 40) appendObject:v11 withName:@"selectionPathIdentifier"];
-    goto LABEL_11;
+LABEL_9:
+    v8 = [*(a1 + 40) appendObject:? withName:?];
+    goto LABEL_10;
   }
 
   if (!v4)
   {
-    [*(a1 + 40) appendString:@"process scope" withName:0];
+    [*(a1 + 40) appendString:? withName:?];
   }
 
-LABEL_11:
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 40);
-  v15 = *(v13 + 80);
-  if (v15)
+LABEL_10:
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v11 = *(v9 + 80);
+  if (v11)
   {
-    v16 = NSStringFromBKSHIDEventDeferringPolicyStatus([v15 deferringPolicyStatus]);
-    [v14 appendString:v16 withName:@"status"];
+    v12 = NSStringFromBKSHIDEventDeferringPolicyStatus([v11 deferringPolicyStatus]);
+    [v10 appendString:? withName:?];
   }
 
   else
   {
 
-    [v14 appendString:@"UNKNOWN" withName:@"status"];
+    [v10 appendString:? withName:?];
   }
 }
 
-id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___block_invoke_2(uint64_t a1)
+void *__69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___block_invoke_2(uint64_t a1)
 {
   if ([*(*(a1 + 32) + 72) count])
   {
-    v2 = [*(a1 + 40) appendObject:*(*(a1 + 32) + 72) withName:@"observations"];
+    v2 = [*(a1 + 40) appendObject:? withName:?];
   }
 
   result = [*(*(a1 + 32) + 88) count];
   if (result)
   {
-    return [*(a1 + 40) appendObject:*(*(a1 + 32) + 88) withName:@"observers"];
+    return [*(a1 + 40) appendObject:? withName:?];
   }
 
   return result;
@@ -436,41 +411,41 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
 
 - (NSString)debugDescription
 {
-  v3 = MEMORY[0x1E698E688];
+  v2 = MEMORY[0x1E698E688];
   debugStyle = [MEMORY[0x1E698E690] debugStyle];
-  v5 = [v3 descriptionForRootObject:self withStyle:debugStyle];
+  v4 = [v2 descriptionForRootObject:? withStyle:?];
 
-  return v5;
+  return v4;
 }
 
 - (id)_lock_updatePolicyWithBlock:(id)block
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"block"];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"block"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = NSStringFromSelector(a2);
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
+      v17 = NSStringFromSelector(a2);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
       *buf = 138544642;
+      v21 = v17;
+      v22 = 2114;
       v23 = v19;
-      v24 = 2114;
-      v25 = v21;
-      v26 = 2048;
+      v24 = 2048;
       selfCopy = self;
-      v28 = 2114;
-      v29 = @"BKSHIDEventDeliveryPolicyObserver.m";
-      v30 = 1024;
-      v31 = 276;
-      v32 = 2114;
-      v33 = v18;
+      v26 = 2114;
+      v27 = @"BKSHIDEventDeliveryPolicyObserver.m";
+      v28 = 1024;
+      v29 = 276;
+      v30 = 2114;
+      v31 = v16;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v18 UTF8String];
+    [v16 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186369728);
@@ -484,77 +459,74 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
   lock_currentPolicy = self->_lock_currentPolicy;
   self->_lock_currentPolicy = _lock_buildCurrentPolicy;
 
-  v10 = self->_lock_currentPolicy;
   if (BSEqualObjects())
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v12 = BKLogEventDelivery();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = BKLogEventDelivery();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       _lock_description = [(BKSHIDEventDeliveryPolicyObserver *)self _lock_description];
-      v14 = NSStringFromBKSHIDEventDeferringPolicyStatus([(BKSHIDEventDeliveryPolicy *)v7 deferringPolicyStatus]);
+      v13 = NSStringFromBKSHIDEventDeferringPolicyStatus([(BKSHIDEventDeliveryPolicy *)v7 deferringPolicyStatus]);
       *buf = 138543618;
-      v23 = _lock_description;
-      v24 = 2114;
-      v25 = v14;
-      _os_log_impl(&dword_186345000, v12, OS_LOG_TYPE_DEFAULT, "policyStatus:%{public}@ was:%{public}@", buf, 0x16u);
+      v21 = _lock_description;
+      v22 = 2114;
+      v23 = v13;
+      _os_log_impl(&dword_186345000, v11, OS_LOG_TYPE_DEFAULT, "policyStatus:%{public}@ was:%{public}@", buf, 0x16u);
     }
 
     allObjects = [(NSHashTable *)self->_lock_observers allObjects];
-    v11 = [allObjects copy];
+    v10 = [allObjects copy];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v10;
 }
 
 - (void)_notifyAsyncObservers:(id)observers didUpdatePolicy:(id)policy
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   observersCopy = observers;
   policyCopy = policy;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v8 = [observersCopy countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v8 = [observersCopy countByEnumeratingWithState:? objects:? count:?];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
-    v19 = observersCopy;
+    v10 = *v22;
+    v18 = observersCopy;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(observersCopy);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * v11);
+        v12 = *(*(&v21 + 1) + 8 * v11);
         v13 = BKLogEventDelivery();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           v15 = objc_opt_class();
           *buf = 134218498;
           selfCopy = self;
-          v28 = 2114;
-          v29 = v15;
-          v30 = 2048;
-          v31 = v12;
+          v27 = 2114;
+          v28 = v15;
+          v29 = 2048;
+          v30 = v12;
           v16 = policyCopy;
           v17 = v15;
           _os_log_debug_impl(&dword_186345000, v13, OS_LOG_TYPE_DEBUG, "observerPolicyDidChange: %p -> <%{public}@: %p>", buf, 0x20u);
 
           policyCopy = v16;
-          observersCopy = v19;
+          observersCopy = v18;
         }
 
         if (objc_opt_respondsToSelector())
@@ -566,21 +538,19 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
           block[3] = &unk_1E6F469E8;
           block[4] = v12;
           block[5] = self;
-          v21 = policyCopy;
+          v20 = policyCopy;
           dispatch_async(asyncObserverCalloutQueue, block);
         }
 
-        ++v11;
+        v11 = (v11 + 1);
       }
 
       while (v9 != v11);
-      v9 = [observersCopy countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v9 = [observersCopy countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_replacePolicySpecificationObject:(id)object withObject:(id)withObject replaceIvarBlock:(id)block
@@ -598,51 +568,47 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
 
   else
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __99__BKSHIDEventDeliveryPolicyObserver__replacePolicySpecificationObject_withObject_replaceIvarBlock___block_invoke;
-    v14[3] = &unk_1E6F469C0;
-    v14[4] = self;
+    v14 = MEMORY[0x1E69E9820];
     v15 = blockCopy;
-    v12 = [(BKSHIDEventDeliveryPolicyObserver *)self _lock_updatePolicyWithBlock:v14];
+    v12 = [(BKSHIDEventDeliveryPolicyObserver *)self _lock_updatePolicyWithBlock:v14, 3221225472, __99__BKSHIDEventDeliveryPolicyObserver__replacePolicySpecificationObject_withObject_replaceIvarBlock___block_invoke, &unk_1E6F469C0, self];
   }
 
   v13 = self->_lock_currentPolicy;
   os_unfair_lock_unlock(&self->_lock);
   if (v13)
   {
-    [(BKSHIDEventDeliveryPolicyObserver *)self _notifyAsyncObservers:v12 didUpdatePolicy:v13];
+    [BKSHIDEventDeliveryPolicyObserver _notifyAsyncObservers:"_notifyAsyncObservers:didUpdatePolicy:" didUpdatePolicy:?];
   }
 }
 
 - (void)removeObserver:(id)observer
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   if (!observerCopy)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer"];
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"observer"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = NSStringFromSelector(a2);
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v6 = NSStringFromSelector(a2);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138544642;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v9;
-      v15 = 2048;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v8;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2114;
-      v18 = @"BKSHIDEventDeliveryPolicyObserver.m";
-      v19 = 1024;
-      v20 = 197;
-      v21 = 2114;
-      v22 = v6;
+      v16 = 2114;
+      v17 = @"BKSHIDEventDeliveryPolicyObserver.m";
+      v18 = 1024;
+      v19 = 197;
+      v20 = 2114;
+      v21 = v5;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v6 UTF8String];
+    [v5 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186369C44);
@@ -650,39 +616,38 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
 
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
-  [(NSHashTable *)self->_lock_observers removeObject:observerCopy];
+  [(NSHashTable *)self->_lock_observers removeObject:?];
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   if (!observerCopy)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer"];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"observer"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromSelector(a2);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v10 = NSStringFromSelector(a2);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138544642;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2048;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2048;
       selfCopy = self;
-      v21 = 2114;
-      v22 = @"BKSHIDEventDeliveryPolicyObserver.m";
-      v23 = 1024;
-      v24 = 184;
-      v25 = 2114;
-      v26 = v10;
+      v20 = 2114;
+      v21 = @"BKSHIDEventDeliveryPolicyObserver.m";
+      v22 = 1024;
+      v23 = 184;
+      v24 = 2114;
+      v25 = v9;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v10 UTF8String];
+    [v9 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186369E18);
@@ -691,17 +656,15 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
   v6 = observerCopy;
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
-  [(NSHashTable *)self->_lock_observers addObject:v6];
+  [(NSHashTable *)self->_lock_observers addObject:?];
   v7 = self->_lock_currentPolicy;
   os_unfair_lock_unlock(&self->_lock);
   if (v7)
   {
-    v14 = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
-    [(BKSHIDEventDeliveryPolicyObserver *)self _notifyAsyncObservers:v8 didUpdatePolicy:v7];
+    v13 = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+    [BKSHIDEventDeliveryPolicyObserver _notifyAsyncObservers:"_notifyAsyncObservers:didUpdatePolicy:" didUpdatePolicy:?];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)finalStringTokenInChain
@@ -714,62 +677,55 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
 
 - (void)setSelectionPathIdentifier:(id)identifier
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v9 = MEMORY[0x1E696AEC0];
+      v7 = MEMORY[0x1E696AEC0];
       classForCoder = [identifierCopy classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v11 = NSStringFromClass(classForCoder);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = [v9 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"selectionPathIdentifier", v11, v13];
+      v9 = NSStringFromClass(classForCoder);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [v7 stringWithFormat:@"selectionPathIdentifier", v9, v11];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v15 = NSStringFromSelector(a2);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v13 = NSStringFromSelector(a2);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         *buf = 138544642;
-        v21 = v15;
-        v22 = 2114;
-        v23 = v17;
-        v24 = 2048;
+        v18 = v13;
+        v19 = 2114;
+        v20 = v15;
+        v21 = 2048;
         selfCopy = self;
-        v26 = 2114;
-        v27 = @"BKSHIDEventDeliveryPolicyObserver.m";
-        v28 = 1024;
-        v29 = 152;
-        v30 = 2114;
-        v31 = v14;
+        v23 = 2114;
+        v24 = @"BKSHIDEventDeliveryPolicyObserver.m";
+        v25 = 1024;
+        v26 = 152;
+        v27 = 2114;
+        v28 = v12;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v14 UTF8String];
+      [v12 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18636A09CLL);
     }
   }
 
-  lock_selectionPathIdentifier = self->_lock_selectionPathIdentifier;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __64__BKSHIDEventDeliveryPolicyObserver_setSelectionPathIdentifier___block_invoke;
-  v18[3] = &unk_1E6F46998;
-  v19 = identifierCopy;
-  v7 = identifierCopy;
-  [(BKSHIDEventDeliveryPolicyObserver *)self _replacePolicySpecificationObject:lock_selectionPathIdentifier withObject:v7 replaceIvarBlock:v18];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v16 = identifierCopy;
+  v6 = identifierCopy;
+  [BKSHIDEventDeliveryPolicyObserver _replacePolicySpecificationObject:"_replacePolicySpecificationObject:withObject:replaceIvarBlock:" withObject:? replaceIvarBlock:?];
 }
 
 - (BKSHIDEventDeferringSelectionPathIdentifier)selectionPathIdentifier
@@ -793,62 +749,55 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
 
 - (void)setDeferringToken:(id)token
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   if (tokenCopy)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v9 = MEMORY[0x1E696AEC0];
+      v7 = MEMORY[0x1E696AEC0];
       classForCoder = [tokenCopy classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v11 = NSStringFromClass(classForCoder);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = [v9 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"token", v11, v13];
+      v9 = NSStringFromClass(classForCoder);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [v7 stringWithFormat:@"token", v9, v11];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v15 = NSStringFromSelector(a2);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v13 = NSStringFromSelector(a2);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         *buf = 138544642;
-        v21 = v15;
-        v22 = 2114;
-        v23 = v17;
-        v24 = 2048;
+        v18 = v13;
+        v19 = 2114;
+        v20 = v15;
+        v21 = 2048;
         selfCopy = self;
-        v26 = 2114;
-        v27 = @"BKSHIDEventDeliveryPolicyObserver.m";
-        v28 = 1024;
-        v29 = 129;
-        v30 = 2114;
-        v31 = v14;
+        v23 = 2114;
+        v24 = @"BKSHIDEventDeliveryPolicyObserver.m";
+        v25 = 1024;
+        v26 = 129;
+        v27 = 2114;
+        v28 = v12;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v14 UTF8String];
+      [v12 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18636A39CLL);
     }
   }
 
-  lock_token = self->_lock_token;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __55__BKSHIDEventDeliveryPolicyObserver_setDeferringToken___block_invoke;
-  v18[3] = &unk_1E6F46998;
-  v19 = tokenCopy;
-  v7 = tokenCopy;
-  [(BKSHIDEventDeliveryPolicyObserver *)self _replacePolicySpecificationObject:lock_token withObject:v7 replaceIvarBlock:v18];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v16 = tokenCopy;
+  v6 = tokenCopy;
+  [BKSHIDEventDeliveryPolicyObserver _replacePolicySpecificationObject:"_replacePolicySpecificationObject:withObject:replaceIvarBlock:" withObject:? replaceIvarBlock:?];
 }
 
 - (BKSHIDEventDeferringToken)deferringToken
@@ -863,62 +812,55 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
 
 - (void)setDeferringEnvironment:(id)environment
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   environmentCopy = environment;
   if (environmentCopy)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v9 = MEMORY[0x1E696AEC0];
+      v7 = MEMORY[0x1E696AEC0];
       classForCoder = [environmentCopy classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v11 = NSStringFromClass(classForCoder);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = [v9 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"environment", v11, v13];
+      v9 = NSStringFromClass(classForCoder);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [v7 stringWithFormat:@"environment", v9, v11];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v15 = NSStringFromSelector(a2);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v13 = NSStringFromSelector(a2);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         *buf = 138544642;
-        v21 = v15;
-        v22 = 2114;
-        v23 = v17;
-        v24 = 2048;
+        v18 = v13;
+        v19 = 2114;
+        v20 = v15;
+        v21 = 2048;
         selfCopy = self;
-        v26 = 2114;
-        v27 = @"BKSHIDEventDeliveryPolicyObserver.m";
-        v28 = 1024;
-        v29 = 113;
-        v30 = 2114;
-        v31 = v14;
+        v23 = 2114;
+        v24 = @"BKSHIDEventDeliveryPolicyObserver.m";
+        v25 = 1024;
+        v26 = 113;
+        v27 = 2114;
+        v28 = v12;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v14 UTF8String];
+      [v12 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18636A64CLL);
     }
   }
 
-  lock_environment = self->_lock_environment;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __61__BKSHIDEventDeliveryPolicyObserver_setDeferringEnvironment___block_invoke;
-  v18[3] = &unk_1E6F46998;
-  v19 = environmentCopy;
-  v7 = environmentCopy;
-  [(BKSHIDEventDeliveryPolicyObserver *)self _replacePolicySpecificationObject:lock_environment withObject:v7 replaceIvarBlock:v18];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v16 = environmentCopy;
+  v6 = environmentCopy;
+  [BKSHIDEventDeliveryPolicyObserver _replacePolicySpecificationObject:"_replacePolicySpecificationObject:withObject:replaceIvarBlock:" withObject:? replaceIvarBlock:?];
 }
 
 - (BKSHIDEventDeferringEnvironment)deferringEnvironment
@@ -933,62 +875,55 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
 
 - (void)setDisplay:(id)display
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   displayCopy = display;
   if (displayCopy)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v9 = MEMORY[0x1E696AEC0];
+      v7 = MEMORY[0x1E696AEC0];
       classForCoder = [displayCopy classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v11 = NSStringFromClass(classForCoder);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = [v9 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"display", v11, v13];
+      v9 = NSStringFromClass(classForCoder);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [v7 stringWithFormat:@"display", v9, v11];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v15 = NSStringFromSelector(a2);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v13 = NSStringFromSelector(a2);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         *buf = 138544642;
-        v21 = v15;
-        v22 = 2114;
-        v23 = v17;
-        v24 = 2048;
+        v18 = v13;
+        v19 = 2114;
+        v20 = v15;
+        v21 = 2048;
         selfCopy = self;
-        v26 = 2114;
-        v27 = @"BKSHIDEventDeliveryPolicyObserver.m";
-        v28 = 1024;
-        v29 = 97;
-        v30 = 2114;
-        v31 = v14;
+        v23 = 2114;
+        v24 = @"BKSHIDEventDeliveryPolicyObserver.m";
+        v25 = 1024;
+        v26 = 97;
+        v27 = 2114;
+        v28 = v12;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v14 UTF8String];
+      [v12 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18636A8FCLL);
     }
   }
 
-  lock_display = self->_lock_display;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __48__BKSHIDEventDeliveryPolicyObserver_setDisplay___block_invoke;
-  v18[3] = &unk_1E6F46998;
-  v19 = displayCopy;
-  v7 = displayCopy;
-  [(BKSHIDEventDeliveryPolicyObserver *)self _replacePolicySpecificationObject:lock_display withObject:v7 replaceIvarBlock:v18];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v16 = displayCopy;
+  v6 = displayCopy;
+  [BKSHIDEventDeliveryPolicyObserver _replacePolicySpecificationObject:"_replacePolicySpecificationObject:withObject:replaceIvarBlock:" withObject:? replaceIvarBlock:?];
 }
 
 - (BKSHIDEventDisplay)display
@@ -1003,70 +938,69 @@ id __69__BKSHIDEventDeliveryPolicyObserver__lock_appendDescriptionToStream___blo
 
 - (id)_initWithObserver:(id)observer
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   if (!observerCopy)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer"];
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"observer"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromSelector(a2);
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v20 = NSStringFromSelector(a2);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138544642;
-      v28 = v21;
-      v29 = 2114;
-      v30 = v23;
-      v31 = 2048;
+      v30 = v20;
+      v31 = 2114;
+      v32 = v22;
+      v33 = 2048;
       selfCopy = self;
-      v33 = 2114;
-      v34 = @"BKSHIDEventDeliveryPolicyObserver.m";
-      v35 = 1024;
-      v36 = 64;
-      v37 = 2114;
-      v38 = v20;
+      v35 = 2114;
+      v36 = @"BKSHIDEventDeliveryPolicyObserver.m";
+      v37 = 1024;
+      v38 = 64;
+      v39 = 2114;
+      v40 = v19;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v20 UTF8String];
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18636ABF0);
   }
 
   v7 = observerCopy;
-  v26.receiver = self;
-  v26.super_class = BKSHIDEventDeliveryPolicyObserver;
-  v8 = [(BKSHIDEventDeliveryPolicyObserver *)&v26 init];
+  v28.receiver = self;
+  v28.super_class = BKSHIDEventDeliveryPolicyObserver;
+  v8 = [(BKSHIDEventDeliveryPolicyObserver *)&v28 init];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_observer, observer);
     v9->_lock._os_unfair_lock_opaque = 0;
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventDeliveryPolicyObserver <%p> - async callout", v9];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:v9];
     Serial = BSDispatchQueueCreateSerial();
     asyncObserverCalloutQueue = v9->_asyncObserverCalloutQueue;
     v9->_asyncObserverCalloutQueue = Serial;
 
-    v13 = [MEMORY[0x1E696AC70] hashTableWithOptions:517];
+    v13 = [MEMORY[0x1E696AC70] hashTableWithOptions:?];
     lock_observers = v9->_lock_observers;
     v9->_lock_observers = v13;
 
-    v15 = [(BKSHIDEventObserver *)v9->_observer addDeferringObserver:v9];
+    v15 = [(BKSHIDEventObserver *)v9->_observer addDeferringObserver:?];
     observingAssertion = v9->_observingAssertion;
     v9->_observingAssertion = v15;
 
     os_unfair_lock_lock(&v9->_lock);
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __55__BKSHIDEventDeliveryPolicyObserver__initWithObserver___block_invoke;
-    v24[3] = &unk_1E6F477B8;
-    v25 = v9;
-    v17 = [(BKSHIDEventDeliveryPolicyObserver *)v25 _lock_updatePolicyWithBlock:v24];
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = __55__BKSHIDEventDeliveryPolicyObserver__initWithObserver___block_invoke;
+    v26 = &unk_1E6F477B8;
+    v27 = v9;
+    v17 = [(BKSHIDEventDeliveryPolicyObserver *)v27 _lock_updatePolicyWithBlock:?];
     os_unfair_lock_unlock(&v9->_lock);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

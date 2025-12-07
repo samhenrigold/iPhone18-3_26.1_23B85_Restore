@@ -220,16 +220,15 @@ Swift::String __swiftcall locstr(_:value:)(Swift::String _, Swift::String value)
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
-  v6 = *a1;
+  v5 = *a1;
   if (!*a1)
   {
-    v3 = *a2;
     TypeByMangledNameInContext2 = swift_getTypeByMangledNameInContext2();
     *a1 = TypeByMangledNameInContext2;
     return TypeByMangledNameInContext2;
   }
 
-  return v6;
+  return v5;
 }
 
 unint64_t lazy protocol witness table accessor for type String and conformance String()
@@ -274,9 +273,9 @@ void DeleteAppFontsAlertPresenter.mainController.setter(void *a1)
   swift_endAccess();
 }
 
-void (*DeleteAppFontsAlertPresenter.mainController.modify(void *a1))(uint64_t *a1, char a2)
+void (*DeleteAppFontsAlertPresenter.mainController.modify(void *a1))(id **a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x30uLL);
+  v3 = __swift_coroFrameAllocStub(0x30uLL, 11049);
   *a1 = v3;
   v3[4] = v1;
   v3[5] = OBJC_IVAR____TtC22FontInstallViewService28DeleteAppFontsAlertPresenter_mainController;
@@ -285,29 +284,26 @@ void (*DeleteAppFontsAlertPresenter.mainController.modify(void *a1))(uint64_t *a
   return DeleteAppFontsAlertPresenter.mainController.modify;
 }
 
-void DeleteAppFontsAlertPresenter.mainController.modify(uint64_t *a1, char a2)
+void DeleteAppFontsAlertPresenter.mainController.modify(id **a1, char a2)
 {
-  v7 = *a1;
+  v4 = *a1;
   if (a2)
   {
-    v4 = *(v7 + 32) + *(v7 + 40);
-    v5 = *(v7 + 24);
-    v5;
+    v2 = v4[3];
+    v2;
     swift_unknownObjectWeakAssign();
 
-    outlined destroy of DeleteAppFontsMainController?((v7 + 24));
+    outlined destroy of DeleteAppFontsMainController?(v4 + 3);
   }
 
   else
   {
-    v2 = *(v7 + 40);
-    v3 = *(v7 + 32);
-    v6 = *(v7 + 24);
+    v3 = v4[3];
     swift_unknownObjectWeakAssign();
   }
 
   swift_endAccess();
-  free(v7);
+  free(v4);
 }
 
 uint64_t DeleteAppFontsAlertPresenter.appIconImage.getter()
@@ -547,7 +543,6 @@ id @nonobjc UIAlertAction.__allocating_init(title:style:handler:)(uint64_t a1, u
 uint64_t thunk for @escaping @callee_guaranteed (@guaranteed UIAlertAction) -> ()(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v5 = *(a1 + 40);
 
   a2;
   v3(a2);
@@ -647,8 +642,8 @@ uint64_t DeleteAppFontsAlertPresenter.ListView.body.getter@<X0>(uint64_t a1@<X0>
   v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16listRowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA04Listg6InsetsO3KeyVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16listRowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA04Listg6InsetsO3KeyVGGMR);
   v29 = lazy protocol witness table accessor for type [String] and conformance [A]();
-  lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.listRowSeparator(_:edges:)>>.0, _TraitWritingModifier<ListRowInsetsTraitKey>> and conformance <> ModifiedContent<A, B>();
-  List<>.init<A, B, C>(_:id:rowContent:)(v30, KeyPath, v25, v26, v27);
+  v7 = lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.listRowSeparator(_:edges:)>>.0, _TraitWritingModifier<ListRowInsetsTraitKey>> and conformance <> ModifiedContent<A, B>();
+  List<>.init<A, B, C>(_:id:rowContent:)(v30, KeyPath, v25, v26, v27, v28, v29, &protocol witness table for String, v7);
   static ListStyle<>.plain.getter();
   v39 = lazy protocol witness table accessor for type List<Never, ForEach<[String], String, ModifiedContent<<<opaque return type of View.listRowSeparator(_:edges:)>>.0, _TraitWritingModifier<ListRowInsetsTraitKey>>>> and conformance List<A, B>();
   v40 = &protocol witness table for PlainListStyle;
@@ -678,16 +673,16 @@ uint64_t DeleteAppFontsAlertPresenter.ListView.body.getter@<X0>(uint64_t a1@<X0>
   View.padding(_:_:)();
   sub_10000EA3C(v55);
   v56 = static Alignment.leading.getter();
-  v57 = v7;
+  v57 = v8;
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.listStyle<A>(_:)>>.0, _EnvironmentKeyWritingModifier<CGFloat>>, _PaddingLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
   v78 = 1;
   View.frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-  v8 = sub_10000EB70(v60);
-  static ShapeStyle<>.background.getter(v8);
+  sub_10000EB70(v60);
+  static ShapeStyle<>.background.getter();
   v63 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.listStyle<A>(_:)>>.0, _EnvironmentKeyWritingModifier<CGFloat>>, _PaddingLayout>, _PaddingLayout>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
   v62 = &type metadata for BackgroundStyle;
   v64 = &protocol witness table for BackgroundStyle;
-  default argument 1 of View.background<A>(_:ignoresSafeAreaEdges:)();
+  default argument 1 of View.background<A>(_:ignoresSafeAreaEdges:)(v61, &type metadata for BackgroundStyle);
   View.background<A>(_:ignoresSafeAreaEdges:)();
   sub_10000ECD0(v65);
   (*(v66 + 104))(v70, enum case for RoundedCornerStyle.continuous(_:), v68);
@@ -700,7 +695,7 @@ uint64_t DeleteAppFontsAlertPresenter.ListView.body.getter@<X0>(uint64_t a1@<X0>
   outlined destroy of RoundedRectangle(v75);
   sub_10000EFB0(v76);
   v80 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.listStyle<A>(_:)>>.0, _EnvironmentKeyWritingModifier<CGFloat>>, _PaddingLayout>, _PaddingLayout>, _FlexFrameLayout>, _BackgroundStyleModifier<BackgroundStyle>>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>();
-  default argument 0 of View.padding(_:_:)();
+  default argument 0 of View.padding(_:_:)(v79, v80);
   View.padding(_:_:)();
   sub_10000F194(v81);
   v84 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.listStyle<A>(_:)>>.0, _EnvironmentKeyWritingModifier<CGFloat>>, _PaddingLayout>, _PaddingLayout>, _FlexFrameLayout>, _BackgroundStyleModifier<BackgroundStyle>>, _ClipEffect<RoundedRectangle>>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
@@ -724,7 +719,7 @@ uint64_t closure #1 in DeleteAppFontsAlertPresenter.ListView.body.getter@<X0>(ui
   v35 = *(v34 - 8);
   v36 = v34 - 8;
   v37 = (*(v35 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
+  __chkstk_darwin(v34);
   v38 = v17 - v37;
   v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16listRowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA04Listg6InsetsO3KeyVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16listRowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA04Listg6InsetsO3KeyVGGMR);
   v41 = (*(*(v40 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -807,9 +802,8 @@ uint64_t closure #1 in DeleteAppFontsAlertPresenter.ListView.body.getter@<X0>(ui
   sub_1000115B0(v44);
 }
 
-uint64_t List<>.init<A, B, C>(_:id:rowContent:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t List<>.init<A, B, C>(_:id:rowContent:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v8 = *(*a2 + class metadata base offset for KeyPath + 8);
   type metadata accessor for ForEach();
   swift_getWitnessTable();
   List<>.init(content:)();
@@ -833,16 +827,15 @@ unint64_t lazy protocol witness table accessor for type [String] and conformance
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
-  v6 = *a1;
+  v5 = *a1;
   if (!*a1)
   {
-    v3 = *a2;
     TypeByMangledNameInContextInMetadataState2 = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = TypeByMangledNameInContextInMetadataState2;
     return TypeByMangledNameInContextInMetadataState2;
   }
 
-  return v6;
+  return v5;
 }
 
 unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.listRowSeparator(_:edges:)>>.0, _TraitWritingModifier<ListRowInsetsTraitKey>> and conformance <> ModifiedContent<A, B>()
@@ -889,7 +882,7 @@ unint64_t lazy protocol witness table accessor for type List<Never, ForEach<[Str
   return v2;
 }
 
-uint64_t key path getter for EnvironmentValues.defaultMinListRowHeight : EnvironmentValues@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t key path getter for EnvironmentValues.defaultMinListRowHeight : EnvironmentValues@<X0>(uint64_t a1@<X0>, double *a2@<X8>)
 {
   v9 = a2;
   v7[1] = a1;
@@ -897,7 +890,7 @@ uint64_t key path getter for EnvironmentValues.defaultMinListRowHeight : Environ
   v10 = *(v13 - 8);
   v11 = v13 - 8;
   v8 = (*(v10 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  __chkstk_darwin(v13);
   v12 = v7 - v8;
   (*(v10 + 16))(v7 - v8);
   EnvironmentValues.defaultMinListRowHeight.getter();
@@ -945,7 +938,7 @@ uint64_t sub_10000E908(uint64_t a1)
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_Md, &_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_MR);
   (*(*(v1 - 8) + 8))(a1);
-  v2 = *(a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR) + 36));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR);
 
   return a1;
 }
@@ -969,7 +962,7 @@ uint64_t sub_10000EA3C(uint64_t a1)
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_Md, &_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_MR);
   (*(*(v1 - 8) + 8))(a1);
-  v2 = *(a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR) + 36));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR);
 
   return a1;
 }
@@ -993,7 +986,7 @@ uint64_t sub_10000EB70(uint64_t a1)
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_Md, &_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_MR);
   (*(*(v1 - 8) + 8))(a1);
-  v2 = *(a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR) + 36));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR);
 
   return a1;
 }
@@ -1017,7 +1010,7 @@ uint64_t sub_10000ECD0(uint64_t a1)
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_Md, &_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_MR);
   (*(*(v1 - 8) + 8))(a1);
-  v2 = *(a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR) + 36));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR);
 
   return a1;
 }
@@ -1078,7 +1071,7 @@ uint64_t sub_10000EFB0(uint64_t a1)
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_Md, &_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_MR);
   (*(*(v1 - 8) + 8))(a1);
-  v2 = *(a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR) + 36));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR);
 
   return a1;
 }
@@ -1117,12 +1110,12 @@ uint64_t sub_10000F194(uint64_t a1)
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_Md, &_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_MR);
   (*(*(v1 - 8) + 8))(a1);
-  v2 = *(a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR) + 36));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR);
 
-  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGA17_GAA16_FlexFrameLayoutVGAA011_BackgroundgV0VyAA010BackgroundG0VGGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGA17_GAA16_FlexFrameLayoutVGAA011_BackgroundgV0VyAA010BackgroundG0VGGAA11_ClipEffectVyAA16RoundedRectangleVGGMR) + 36);
-  v6 = *(type metadata accessor for RoundedRectangle() + 20);
-  v3 = type metadata accessor for RoundedCornerStyle();
-  (*(*(v3 - 8) + 8))(a1 + v5 + v6);
+  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGA17_GAA16_FlexFrameLayoutVGAA011_BackgroundgV0VyAA010BackgroundG0VGGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGA17_GAA16_FlexFrameLayoutVGAA011_BackgroundgV0VyAA010BackgroundG0VGGAA11_ClipEffectVyAA16RoundedRectangleVGGMR) + 36);
+  v5 = *(type metadata accessor for RoundedRectangle() + 20);
+  v2 = type metadata accessor for RoundedCornerStyle();
+  (*(*(v2 - 8) + 8))(a1 + v4 + v5);
   return a1;
 }
 
@@ -1145,12 +1138,12 @@ uint64_t sub_10000F344(uint64_t a1)
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_Md, &_s7SwiftUI4ViewPAAE9listStyleyQrqd__AA04ListE0Rd__lFQOyAA0F0Vys5NeverOAA7ForEachVySaySSGSSAA15ModifiedContentVyAcAE0D12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0fl6InsetsT3KeyVGGGG_AA05PlainfE0VQo_MR);
   (*(*(v1 - 8) + 8))(a1);
-  v2 = *(a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR) + 36));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGMR);
 
-  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGA17_GAA16_FlexFrameLayoutVGAA011_BackgroundgV0VyAA010BackgroundG0VGGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGA17_GAA16_FlexFrameLayoutVGAA011_BackgroundgV0VyAA010BackgroundG0VGGAA11_ClipEffectVyAA16RoundedRectangleVGGMR) + 36);
-  v6 = *(type metadata accessor for RoundedRectangle() + 20);
-  v3 = type metadata accessor for RoundedCornerStyle();
-  (*(*(v3 - 8) + 8))(a1 + v5 + v6);
+  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGA17_GAA16_FlexFrameLayoutVGAA011_BackgroundgV0VyAA010BackgroundG0VGGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA4ViewPAAE9listStyleyQrqd__AA04ListG0Rd__lFQOyAA0H0Vys5NeverOAA7ForEachVySaySSGSSACyAeAE0F12RowSeparator_5edgesQrAA10VisibilityO_AA12VerticalEdgeO3SetVtFQOyAA4TextV_Qo_AA21_TraitWritingModifierVyAA0hl6InsetsT3KeyVGGGG_AA05PlainhG0VQo_AA012_EnvironmentxuV0Vy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGA17_GAA16_FlexFrameLayoutVGAA011_BackgroundgV0VyAA010BackgroundG0VGGAA11_ClipEffectVyAA16RoundedRectangleVGGMR) + 36);
+  v5 = *(type metadata accessor for RoundedRectangle() + 20);
+  v2 = type metadata accessor for RoundedCornerStyle();
+  (*(*(v2 - 8) + 8))(a1 + v4 + v5);
   return a1;
 }
 
@@ -1275,20 +1268,20 @@ uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initNam
         __chkstk_darwin(v17);
         v15 = partial apply for closure #1 in closure #1 in closure #1 in _unimplementedInitializer(className:initName:file:line:column:);
         v16 = &v37;
-        specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(partial apply for specialized closure #1 in StaticString.withUTF8Buffer<A>(_:), v13, v11);
+        specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(partial apply for specialized closure #1 in StaticString.withUTF8Buffer<A>(_:), &v13, v11);
         return v10;
       }
 
       LODWORD(v15) = 0;
       v14 = 148;
-      v13[0] = 2;
+      LOBYTE(v13) = 2;
       _assertionFailure(_:_:file:line:flags:)();
       __break(1u);
     }
 
     LODWORD(v15) = 0;
     v14 = 3053;
-    v13[0] = 2;
+    LOBYTE(v13) = 2;
     _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
@@ -1307,7 +1300,7 @@ uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initNam
       {
         LODWORD(v15) = 0;
         v14 = 268;
-        v13[0] = 2;
+        LOBYTE(v13) = 2;
         _assertionFailure(_:_:file:line:flags:)();
         __break(1u);
       }
@@ -1327,7 +1320,7 @@ uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initNam
           {
             LODWORD(v15) = 0;
             v14 = 269;
-            v13[0] = 2;
+            LOBYTE(v13) = 2;
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
           }
@@ -1355,63 +1348,63 @@ uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initNam
 
                     LODWORD(v15) = 0;
                     v14 = 3053;
-                    v13[0] = 2;
+                    LOBYTE(v13) = 2;
                     _assertionFailure(_:_:file:line:flags:)();
                     __break(1u);
                   }
 
                   LODWORD(v15) = 0;
                   v14 = 3053;
-                  v13[0] = 2;
+                  LOBYTE(v13) = 2;
                   _assertionFailure(_:_:file:line:flags:)();
                   __break(1u);
                 }
 
                 LODWORD(v15) = 0;
                 v14 = 3268;
-                v13[0] = 2;
+                LOBYTE(v13) = 2;
                 _assertionFailure(_:_:file:line:flags:)();
                 __break(1u);
               }
 
               LODWORD(v15) = 0;
               v14 = 3262;
-              v13[0] = 2;
+              LOBYTE(v13) = 2;
               _assertionFailure(_:_:file:line:flags:)();
               __break(1u);
             }
 
             LODWORD(v15) = 0;
             v14 = 3268;
-            v13[0] = 2;
+            LOBYTE(v13) = 2;
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
           }
 
           LODWORD(v15) = 0;
           v14 = 3262;
-          v13[0] = 2;
+          LOBYTE(v13) = 2;
           _assertionFailure(_:_:file:line:flags:)();
           __break(1u);
         }
 
         LODWORD(v15) = 0;
         v14 = 3268;
-        v13[0] = 2;
+        LOBYTE(v13) = 2;
         _assertionFailure(_:_:file:line:flags:)();
         __break(1u);
       }
 
       LODWORD(v15) = 0;
       v14 = 3262;
-      v13[0] = 2;
+      LOBYTE(v13) = 2;
       _assertionFailure(_:_:file:line:flags:)();
       __break(1u);
     }
 
     LODWORD(v15) = 0;
     v14 = 1410;
-    v13[0] = 2;
+    LOBYTE(v13) = 2;
     _fatalErrorMessage(_:_:file:line:flags:)();
     __break(1u);
   }
@@ -1419,20 +1412,6 @@ uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initNam
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
-}
-
-uint64_t *outlined destroy of Image(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return a1;
-}
-
-uint64_t *outlined destroy of [String](uint64_t *a1)
-{
-  v1 = *a1;
-
-  return a1;
 }
 
 __n128 __swift_memcpy16_8(__n128 *a1, __n128 *a2)
@@ -1498,7 +1477,7 @@ uint64_t storeEnumTagSinglePayload for DeleteAppFontsAlertPresenter.ListView(uin
   return result;
 }
 
-void *__swift_coroFrameAllocStub(size_t a1)
+void *__swift_coroFrameAllocStub(size_t a1, uint64_t a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -1677,25 +1656,6 @@ uint64_t closure #1 in closure #1 in List<>.init<A, B, C>(_:id:rowContent:)@<X0>
   return (v22)(v19, v20);
 }
 
-uint64_t sub_100011400()
-{
-  v5 = v0[2];
-  v4 = v0[3];
-  v3 = v0[4];
-  v1 = v0[9];
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for closure #1 in closure #1 in List<>.init<A, B, C>(_:id:rowContent:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2[5];
-  v4 = v2[6];
-  v5 = v2[8];
-  v6 = v2[9];
-  return closure #1 in closure #1 in List<>.init<A, B, C>(_:id:rowContent:)(a1, v2[2], v2[3], v2[4], a2, v2[7]);
-}
-
 uint64_t outlined consume of Text.Storage(uint64_t a1, uint64_t a2, char a3)
 {
   if (a3)
@@ -1710,7 +1670,6 @@ uint64_t outlined consume of Text.Storage(uint64_t a1, uint64_t a2, char a3)
 uint64_t outlined destroy of Text(uint64_t a1)
 {
   outlined consume of Text.Storage(*a1, *(a1 + 8), *(a1 + 16) & 1);
-  v1 = *(a1 + 24);
 
   return a1;
 }
@@ -1794,18 +1753,17 @@ uint64_t one-time initialization function for caution()
   return ImageResource.init(name:bundle:)();
 }
 
-uint64_t __swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
+uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v6 = a2;
+  v5 = a2;
   if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *(*(a1 - 8) + 64);
-    v3 = swift_slowAlloc();
-    *a2 = v3;
-    return v3;
+    v2 = swift_slowAlloc();
+    *a2 = v2;
+    return v2;
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
@@ -1835,4 +1793,12 @@ uint64_t static ImageResource.caution.getter@<X0>(uint64_t a1@<X8>)
   v3 = ImageResource.caution.unsafeMutableAddressor();
   v1 = type metadata accessor for ImageResource();
   return (*(*(v1 - 8) + 16))(a1, v3);
+}
+
+Swift::String __swiftcall String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(Builtin::RawPointer _builtinStringLiteral, Builtin::Word utf8CodeUnitCount, Builtin::Int1 isASCII)
+{
+  v3 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(_builtinStringLiteral, utf8CodeUnitCount, isASCII);
+  result._object = v4;
+  result._countAndFlagsBits = v3;
+  return result;
 }

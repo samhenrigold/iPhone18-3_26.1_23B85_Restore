@@ -36,15 +36,15 @@
 
 - (void)import:(id)import
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   importCopy = import;
   date = [MEMORY[0x277CBEAA8] date];
   v6 = +[MKLog log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v25 = 138412290;
+    v24 = 138412290;
     selfCopy3 = self;
-    _os_log_impl(&dword_2592D2000, v6, OS_LOG_TYPE_INFO, "%@ will import iCal.", &v25, 0xCu);
+    _os_log_impl(&dword_2592D2000, v6, OS_LOG_TYPE_INFO, "%@ will import iCal.", &v24, 0xCu);
   }
 
   defaultCalendarForNewEvents = [(EKEventStore *)self->_eventStore defaultCalendarForNewEvents];
@@ -61,9 +61,9 @@
     v9 = +[MKLog log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v25 = 138412290;
+      v24 = 138412290;
       selfCopy3 = self;
-      _os_log_impl(&dword_2592D2000, v9, OS_LOG_TYPE_INFO, "%@ EKEventStore was failed to import data.", &v25, 0xCu);
+      _os_log_impl(&dword_2592D2000, v9, OS_LOG_TYPE_INFO, "%@ EKEventStore was failed to import data.", &v24, 0xCu);
     }
 
     v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"MKCalendarError" code:1 userInfo:0];
@@ -108,12 +108,10 @@
   v23 = +[MKLog log];
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
-    v25 = 138412290;
+    v24 = 138412290;
     selfCopy3 = self;
-    _os_log_impl(&dword_2592D2000, v23, OS_LOG_TYPE_INFO, "%@ did import iCal.", &v25, 0xCu);
+    _os_log_impl(&dword_2592D2000, v23, OS_LOG_TYPE_INFO, "%@ did import iCal.", &v24, 0xCu);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

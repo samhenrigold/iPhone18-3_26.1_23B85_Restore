@@ -15,7 +15,7 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/BackwardsCompatibility.mm", 0x3C, @"[<MPSCNNConvolutionDataSource> initWithSource:neuronInfo:batchNorm] Internal error: attempted to overwrite a convolution data source descriptor batch norm info with another set of batch norm info.\n\tThese should not be coalesced.", v97, v98, v99, v100);
     }
 
     return 0;
@@ -23,9 +23,9 @@
 
   else
   {
-    v99.receiver = self;
-    v99.super_class = MPSWeightsWrapper;
-    v26 = [(MPSWeightsWrapper *)&v99 init];
+    v103.receiver = self;
+    v103.super_class = MPSWeightsWrapper;
+    v26 = [(MPSWeightsWrapper *)&v103 init];
     if (v26)
     {
       sourceCopy = source;
@@ -34,9 +34,9 @@
       *(v26 + 24) = *&info->type;
       *(v26 + 5) = aData;
       v36 = objc_msgSend_descriptor(sourceCopy, v29, v30, v31, v32, v33, v34, v35);
-      v97 = *(v26 + 24);
-      v98 = *(v26 + 5);
-      *(v26 + 6) = objc_msgSend_newDescriptorWithNeuronInfo_(v36, v37, &v97, v38, v39, v40, v41, v42);
+      v101 = *(v26 + 24);
+      v102 = *(v26 + 5);
+      *(v26 + 6) = objc_msgSend_newDescriptorWithNeuronInfo_(v36, v37, &v101, v38, v39, v40, v41, v42);
       if (norm)
       {
         objc_msgSend_load(norm, v43, v44, v45, v46, v47, v48, v49);
@@ -87,7 +87,7 @@
 
   else
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/BackwardsCompatibility.mm", 0x70, @"rangesForUInt8Kernel called on MPSCNNConvolutionDataSource that does not support the optional protocol method ", v5, v6, v7, v8);
     v9 = *(self + 16);
   }
 
@@ -106,7 +106,7 @@
 
   else
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/BackwardsCompatibility.mm", 0x77, @"lookupTableForUInt8Kernel called on MPSCNNConvolutionDataSource that does not support the optional protocol method", v6, v7, v8, v9);
     source = self->_source;
   }
 

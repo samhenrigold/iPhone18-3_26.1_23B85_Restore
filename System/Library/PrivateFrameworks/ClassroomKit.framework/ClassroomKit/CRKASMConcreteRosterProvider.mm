@@ -201,7 +201,7 @@
 void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v2 = _CRKLogASM_14();
+  v2 = _CRKLogASM_14(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -221,7 +221,7 @@ void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke(uint64_
 
 uint64_t __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke_11(uint64_t a1)
 {
-  v2 = _CRKLogASM_14();
+  v2 = _CRKLogASM_14(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -260,12 +260,13 @@ void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke_14(uint
   buildCopy = build;
   [(CRKASMConcreteRosterProvider *)self logDurationOfOperation:buildCopy];
   error = [buildCopy error];
+  v6 = error;
   if (error)
   {
-    v6 = _CRKLogASM_14();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CRKLogASM_14(error);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CRKASMConcreteRosterProvider *)error processFinishedWorldBuild:v6];
+      [(CRKASMConcreteRosterProvider *)v6 processFinishedWorldBuild:v7];
     }
   }
 
@@ -275,30 +276,30 @@ void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke_14(uint
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v8 = resultObject;
+      v9 = resultObject;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    v9 = v8;
+    v10 = v9;
 
-    v14 = 0;
-    roster = [v9 roster];
-    [(CRKASMConcreteRosterProvider *)self updateRoster:roster outTrustedPersonIDsChanged:&v14];
+    v16 = 0;
+    roster = [v10 roster];
+    [(CRKASMConcreteRosterProvider *)self updateRoster:roster outTrustedPersonIDsChanged:&v16];
 
-    manageableLocations = [v9 manageableLocations];
+    manageableLocations = [v10 manageableLocations];
 
     [(CRKASMConcreteRosterProvider *)self updateManageableLocations:manageableLocations];
-    if (v14 == 1)
+    if (v16 == 1)
     {
-      v12 = _CRKLogASM_14();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = _CRKLogASM_14(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_243550000, v12, OS_LOG_TYPE_DEFAULT, "World building again because the observed trusted person IDs changed", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_243550000, v14, OS_LOG_TYPE_DEFAULT, "World building again because the observed trusted person IDs changed", v15, 2u);
       }
 
       [(CRKASMConcreteRosterProvider *)self startNewWorldBuild];
@@ -308,7 +309,7 @@ void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke_14(uint
 
 - (void)updateRoster:(id)roster outTrustedPersonIDsChanged:(BOOL *)changed
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   rosterCopy = roster;
   roster = [(CRKASMConcreteRosterProvider *)self roster];
   if (rosterCopy | roster)
@@ -319,40 +320,40 @@ void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke_14(uint
 
     if ((v10 & 1) == 0)
     {
-      v11 = _CRKLogASM_14();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _CRKLogASM_14(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         courses = [rosterCopy courses];
-        v19 = 138543362;
-        v20 = courses;
-        _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "Updating ASM roster with courses: %{public}@", &v19, 0xCu);
+        v22 = 138543362;
+        v23 = courses;
+        _os_log_impl(&dword_243550000, v12, OS_LOG_TYPE_DEFAULT, "Updating ASM roster with courses: %{public}@", &v22, 0xCu);
       }
 
-      v13 = _CRKLogASM_14();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-      {
-        user = [rosterCopy user];
-        v19 = 138543362;
-        v20 = user;
-        _os_log_impl(&dword_243550000, v13, OS_LOG_TYPE_DEFAULT, "Updating ASM roster with user: %{public}@", &v19, 0xCu);
-      }
-
-      v15 = _CRKLogASM_14();
+      v15 = _CRKLogASM_14(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
+        user = [rosterCopy user];
+        v22 = 138543362;
+        v23 = user;
+        _os_log_impl(&dword_243550000, v15, OS_LOG_TYPE_DEFAULT, "Updating ASM roster with user: %{public}@", &v22, 0xCu);
+      }
+
+      v18 = _CRKLogASM_14(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
         organization = [rosterCopy organization];
-        v19 = 138543362;
-        v20 = organization;
-        _os_log_impl(&dword_243550000, v15, OS_LOG_TYPE_DEFAULT, "Updating ASM roster with organization: %{public}@", &v19, 0xCu);
+        v22 = 138543362;
+        v23 = organization;
+        _os_log_impl(&dword_243550000, v18, OS_LOG_TYPE_DEFAULT, "Updating ASM roster with organization: %{public}@", &v22, 0xCu);
       }
 
       [(CRKASMConcreteRosterProvider *)self setRoster:rosterCopy];
       classKitChangeNotifier = [(CRKASMConcreteRosterProvider *)self classKitChangeNotifier];
-      v18 = [classKitChangeNotifier updateObservedTrustedPersonIDsWithRoster:rosterCopy];
+      v21 = [classKitChangeNotifier updateObservedTrustedPersonIDsWithRoster:rosterCopy];
 
       if (changed)
       {
-        *changed = v18;
+        *changed = v21;
       }
     }
   }
@@ -360,7 +361,7 @@ void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke_14(uint
 
 - (void)updateManageableLocations:(id)locations
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   locationsWithManagePermissions = [(CRKASMConcreteRosterProvider *)self locationsWithManagePermissions];
   if (locationsCopy | locationsWithManagePermissions)
@@ -371,12 +372,12 @@ void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke_14(uint
 
     if ((v8 & 1) == 0)
     {
-      v9 = _CRKLogASM_14();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = _CRKLogASM_14(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 134217984;
-        v11 = [locationsCopy count];
-        _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "Updating Manageable ASM locations. Count: %lu", &v10, 0xCu);
+        v11 = 134217984;
+        v12 = [locationsCopy count];
+        _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "Updating Manageable ASM locations. Count: %lu", &v11, 0xCu);
       }
 
       [(CRKASMConcreteRosterProvider *)self setLocationsWithManagePermissions:locationsCopy];
@@ -386,7 +387,7 @@ void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke_14(uint
 
 - (void)logDurationOfOperation:(id)operation
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   finishedDate = [operationCopy finishedDate];
   startedDate = [operationCopy startedDate];
@@ -394,12 +395,12 @@ void __50__CRKASMConcreteRosterProvider_startNewWorldBuild__block_invoke_14(uint
   [finishedDate timeIntervalSinceDate:startedDate];
   v7 = v6;
 
-  v8 = _CRKLogASM_14();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _CRKLogASM_14(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
-    v10 = v7;
-    _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "ASM world build operation took %.2f seconds", &v9, 0xCu);
+    v10 = 134217984;
+    v11 = v7;
+    _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "ASM world build operation took %.2f seconds", &v10, 0xCu);
   }
 }
 

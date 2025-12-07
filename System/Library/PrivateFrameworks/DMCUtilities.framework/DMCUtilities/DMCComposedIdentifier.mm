@@ -14,7 +14,7 @@
 
 + (id)newComposedIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = [identifierCopy rangeOfString:@" "];
   v6 = v5;
@@ -40,14 +40,15 @@
 
     else
     {
-      if (![v10 hasPrefix:@"{"] || !objc_msgSend(v10, "hasSuffix:", @"}"))
+      v13 = [v10 hasPrefix:@"{"];
+      if (!v13 || (v13 = [v10 hasSuffix:@"}"], !v13))
       {
-        v16 = *DMCLogObjects();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v23 = *DMCLogObjects(v13, v14);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v20 = 138543362;
-          v21 = v8;
-          _os_log_impl(&dword_1B1630000, v16, OS_LOG_TYPE_ERROR, "Invalid composed identifier %{public}@", &v20, 0xCu);
+          v26 = 138543362;
+          v27 = v8;
+          _os_log_impl(&dword_1B1630000, v23, OS_LOG_TYPE_ERROR, "Invalid composed identifier %{public}@", &v26, 0xCu);
         }
 
         goto LABEL_25;
@@ -62,32 +63,32 @@
 
   if (![v11 length])
   {
-    v17 = *DMCLogObjects();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v24 = *DMCLogObjects(0, v15);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138543362;
-      v21 = v8;
+      v26 = 138543362;
+      v27 = v8;
 LABEL_23:
-      _os_log_impl(&dword_1B1630000, v17, OS_LOG_TYPE_ERROR, "Invalid composed identifier %{public}@", &v20, 0xCu);
+      _os_log_impl(&dword_1B1630000, v24, OS_LOG_TYPE_ERROR, "Invalid composed identifier %{public}@", &v26, 0xCu);
     }
 
 LABEL_24:
 
 LABEL_25:
-    v15 = 0;
+    v22 = 0;
     goto LABEL_26;
   }
 
-  v13 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"(){}"];
-  v14 = [v11 rangeOfCharacterFromSet:v13];
+  v16 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"(){}"];
+  v17 = [v11 rangeOfCharacterFromSet:v16];
 
-  if (v14 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v17 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v17 = *DMCLogObjects();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v24 = *DMCLogObjects(v18, v19);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138543362;
-      v21 = v8;
+      v26 = 138543362;
+      v27 = v8;
       goto LABEL_23;
     }
 
@@ -96,35 +97,34 @@ LABEL_25:
 
   if (v10 && ![v10 length])
   {
-    v17 = *DMCLogObjects();
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v24 = *DMCLogObjects(0, v20);
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_24;
     }
 
-    v20 = 138543362;
-    v21 = v8;
+    v26 = 138543362;
+    v27 = v8;
     goto LABEL_23;
   }
 
   if (v9 && ![v9 length])
   {
-    v17 = *DMCLogObjects();
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v24 = *DMCLogObjects(0, v21);
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_24;
     }
 
-    v20 = 138543362;
-    v21 = v8;
+    v26 = 138543362;
+    v27 = v8;
     goto LABEL_23;
   }
 
-  v15 = [[DMCComposedIdentifier alloc] initWithBundleID:v11 teamID:v10 requirement:v9];
+  v22 = [[DMCComposedIdentifier alloc] initWithBundleID:v11 teamID:v10 requirement:v9];
 
 LABEL_26:
-  v18 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v22;
 }
 
 + (id)newComposedIdentifierWithBundleID:(id)d

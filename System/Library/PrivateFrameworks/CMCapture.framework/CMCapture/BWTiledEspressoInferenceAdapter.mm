@@ -125,35 +125,35 @@ id __106__BWTiledEspressoInferenceAdapter_inferenceProviderForType_version_confi
       v17 = v16;
       appliesFinalCropRect = [configuration appliesFinalCropRect];
       v19 = [BWInferenceLazyVideoRequirement alloc];
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __106__BWTiledEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke;
-      v33[3] = &unk_1E798F7E0;
-      v33[4] = configuration;
-      v20 = [(BWInferenceLazyVideoRequirement *)v19 initWithAttachedMediaKey:0x1F219E750 preparedByAttachedMediaKey:@"PrimaryFormat" videoFormatProvider:v33];
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = __106__BWTiledEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke;
+      v40[3] = &unk_1E798F7E0;
+      v40[4] = configuration;
+      v20 = [(BWInferenceLazyVideoRequirement *)v19 initWithAttachedMediaKey:0x1F219E750 preparedByAttachedMediaKey:@"PrimaryFormat" videoFormatProvider:v40];
       if (v20)
       {
         v21 = v20;
         [v13 setInputAlphaVideoRequirement:v20];
         v22 = [BWInferenceLazyVideoRequirement alloc];
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __106__BWTiledEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke_2;
-        v30[3] = &unk_1E7990C40;
-        v31 = v17;
-        v30[4] = configuration;
-        v32 = appliesFinalCropRect;
-        if ([(BWInferenceLazyVideoRequirement *)v22 initWithAttachedMediaKey:@"PrimaryFormat" preparedByAttachedMediaKey:@"PrimaryFormat" videoFormatProvider:v30])
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __106__BWTiledEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke_2;
+        v37[3] = &unk_1E7990C40;
+        v38 = v17;
+        v37[4] = configuration;
+        v39 = appliesFinalCropRect;
+        if ([(BWInferenceLazyVideoRequirement *)v22 initWithAttachedMediaKey:@"PrimaryFormat" preparedByAttachedMediaKey:@"PrimaryFormat" videoFormatProvider:v37])
         {
           [OUTLINED_FUNCTION_4() setInputImageVideoRequirement:?];
           v23 = [BWInferenceLazyVideoRequirement alloc];
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __106__BWTiledEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke_3;
-          v28[3] = &unk_1E798F7B8;
-          v29 = v17;
-          v28[4] = configuration;
-          v24 = [(BWInferenceLazyVideoRequirement *)v23 initWithAttachedMediaKey:0x1F21AABB0 preparedByAttachedMediaKey:@"PrimaryFormat" videoFormatProvider:v28];
+          v35[0] = MEMORY[0x1E69E9820];
+          v35[1] = 3221225472;
+          v35[2] = __106__BWTiledEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke_3;
+          v35[3] = &unk_1E798F7B8;
+          v36 = v17;
+          v35[4] = configuration;
+          v24 = [(BWInferenceLazyVideoRequirement *)v23 initWithAttachedMediaKey:0x1F21AABB0 preparedByAttachedMediaKey:@"PrimaryFormat" videoFormatProvider:v35];
           if (v24)
           {
             v25 = v24;
@@ -185,12 +185,16 @@ LABEL_21:
 
           fig_log_get_emitter();
           OUTLINED_FUNCTION_0_33();
+          v32 = 4294935580;
+          v33 = 130;
         }
 
         else
         {
           fig_log_get_emitter();
           OUTLINED_FUNCTION_0_33();
+          v32 = 4294935585;
+          v33 = 115;
         }
       }
 
@@ -198,9 +202,11 @@ LABEL_21:
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0_33();
+        v32 = 4294935585;
+        v33 = 100;
       }
 
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v28, v32, "<<<< BWTiledEspressoInferenceAdapter >>>>", v33, v29, v30, v31, v34);
 LABEL_30:
       v14 = -31784;
       goto LABEL_22;
@@ -328,7 +334,7 @@ LABEL_15:
     if (v3)
     {
       array = [MEMORY[0x1E695DF70] array];
-      v12 = OUTLINED_FUNCTION_11_2(array, v5, v6, v7, v8, v9, v10, v11, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, 0);
+      v12 = OUTLINED_FUNCTION_11_2(array, v5, v6, v7, v8, v9, v10, v11, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
       if (v12)
       {
         v13 = v12;
@@ -342,14 +348,11 @@ LABEL_15:
               objc_enumerationMutation(a2);
             }
 
-            v16 = MEMORY[0x1E696AEC0];
-            v26 = *(8 * i);
-            v28 = [a2 objectForKeyedSubscript:v26];
-            [v16 stringWithFormat:@"%@:%@"];
-            v17 = [OUTLINED_FUNCTION_4() addObject:?];
+            [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", *(8 * i), objc_msgSend(a2, "objectForKeyedSubscript:", *(8 * i))];
+            v16 = [OUTLINED_FUNCTION_4() addObject:?];
           }
 
-          v13 = OUTLINED_FUNCTION_11_2(v17, v18, v19, v20, v21, v22, v23, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v61);
+          v13 = OUTLINED_FUNCTION_11_2(v16, v17, v18, v19, v20, v21, v22, v23, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
         }
 
         while (v13);

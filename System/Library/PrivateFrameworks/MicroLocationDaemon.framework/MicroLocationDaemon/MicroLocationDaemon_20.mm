@@ -1,2235 +1,50 @@
-double *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> *,std::greater<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>> &>(double *a1, double *a2)
+void CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(double **result, uint64_t *a2, __n128 a3, __n128 a4)
 {
-  v2 = *a1;
-  v3 = *a1;
-  if (*(a2 - 1) >= *a1)
+  v5 = *result;
+  v4 = result[1];
+  v6 = *a2;
+  v7 = a2[1];
+  if (v4 - *result == v7 - *a2)
   {
-    v6 = a1 + 1;
-    do
+    v8 = a3.n128_f64[0];
+    if (v5 != v4)
     {
-      v4 = v6;
-      if (v6 >= a2)
-      {
-        break;
-      }
-
-      ++v6;
-    }
-
-    while (*v4 >= v3);
-  }
-
-  else
-  {
-    v4 = a1;
-    do
-    {
-      v5 = v4[1];
-      ++v4;
-    }
-
-    while (v5 >= v3);
-  }
-
-  if (v4 < a2)
-  {
-    do
-    {
-      v7 = *--a2;
-    }
-
-    while (v7 < v3);
-  }
-
-  if (v4 < a2)
-  {
-    v8 = *v4;
-    v9 = *a2;
-    do
-    {
-      *v4 = v9;
-      *a2 = v8;
+      v9 = v5 + 1;
       do
       {
-        v10 = v4[1];
-        ++v4;
-        v8 = v10;
-      }
-
-      while (v10 >= v3);
-      do
-      {
-        v11 = *--a2;
-        v12 = v11;
-      }
-
-      while (v11 < v3);
-      v9 = v12;
-    }
-
-    while (v4 < a2);
-  }
-
-  if (v4 - 1 != a1)
-  {
-    *a1 = *(v4 - 1);
-  }
-
-  *(v4 - 1) = v2;
-  return v4;
-}
-
-double *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> *,std::greater<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>> &>(double *a1, double *a2)
-{
-  v2 = 0;
-  v3 = *a1;
-  v4 = *a1;
-  do
-  {
-    v5 = a1[++v2];
-  }
-
-  while (v5 > v4);
-  v6 = &a1[v2];
-  v7 = &a1[v2 - 1];
-  if (v2 == 1)
-  {
-    do
-    {
-      if (v6 >= a2)
-      {
-        break;
-      }
-
-      v9 = *--a2;
-    }
-
-    while (v9 <= v4);
-  }
-
-  else
-  {
-    do
-    {
-      v8 = *--a2;
-    }
-
-    while (v8 <= v4);
-  }
-
-  if (v6 < a2)
-  {
-    v10 = *a2;
-    v11 = &a1[v2];
-    v12 = a2;
-    do
-    {
-      *v11 = v10;
-      *v12 = v5;
-      do
-      {
-        v13 = v11[1];
-        ++v11;
-        v5 = v13;
-      }
-
-      while (v13 > v4);
-      do
-      {
-        v14 = *--v12;
-        v15 = v14;
-      }
-
-      while (v14 <= v4);
-      v10 = v15;
-    }
-
-    while (v11 < v12);
-    v7 = v11 - 1;
-  }
-
-  if (v7 != a1)
-  {
-    *a1 = *v7;
-  }
-
-  *v7 = v3;
-  return v7;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>> &,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>*>(double *a1, double *a2)
-{
-  v2 = a2 - a1;
-  if (v2 > 2)
-  {
-    if (v2 == 3)
-    {
-      v16 = *a1;
-      v17 = a1[1];
-      v18 = *(a2 - 1);
-      if (v17 > *a1)
-      {
-        if (v18 <= v17)
-        {
-          *a1 = v17;
-          a1[1] = v16;
-          v44 = *(a2 - 1);
-          if (v44 <= v16)
-          {
-            return 1;
-          }
-
-          a1[1] = v44;
-        }
-
-        else
-        {
-          *a1 = v18;
-        }
-
-        *(a2 - 1) = v16;
-        return 1;
-      }
-
-      if (v18 <= v17)
-      {
-        return 1;
-      }
-
-      a1[1] = v18;
-      *(a2 - 1) = v17;
-      v33 = a1[1];
-LABEL_67:
-      v48 = *a1;
-      if (v33 > *a1)
-      {
-        *a1 = v33;
-        a1[1] = v48;
-      }
-
-      return 1;
-    }
-
-    if (v2 != 4)
-    {
-      if (v2 != 5)
-      {
-        goto LABEL_16;
-      }
-
-      v4 = a1 + 1;
-      v5 = a1[1];
-      v6 = a1 + 2;
-      v7 = a1[2];
-      v8 = *a1;
-      if (v5 <= *a1)
-      {
-        if (v7 <= v5)
-        {
-          v11 = *a1;
-          v8 = a1[1];
-          goto LABEL_57;
-        }
-
-        *v4 = v7;
-        *v6 = v5;
-        v9 = a1;
-        v10 = a1 + 1;
-        v11 = v7;
-        v12 = v8;
-        v13 = v5;
-        if (v7 <= v8)
-        {
-          v11 = v8;
-          v8 = v7;
-          v7 = v5;
-LABEL_57:
-          v45 = a1[3];
-          if (v45 <= v7)
-          {
-            v7 = a1[3];
-          }
-
-          else
-          {
-            a1[2] = v45;
-            a1[3] = v7;
-            if (v45 > v8)
-            {
-              *v4 = v45;
-              *v6 = v8;
-              if (v45 > v11)
-              {
-                *a1 = v45;
-                a1[1] = v11;
-              }
-            }
-          }
-
-          v46 = *(a2 - 1);
-          if (v46 <= v7)
-          {
-            return 1;
-          }
-
-          a1[3] = v46;
-          *(a2 - 1) = v7;
-          v47 = a1[2];
-          v33 = a1[3];
-          if (v33 <= v47)
-          {
-            return 1;
-          }
-
-          a1[2] = v33;
-          a1[3] = v47;
-          v43 = a1[1];
-LABEL_65:
-          if (v33 <= v43)
-          {
-            return 1;
-          }
-
-          a1[1] = v33;
-          a1[2] = v43;
-          goto LABEL_67;
-        }
-      }
-
-      else if (v7 <= v5)
-      {
-        *a1 = v5;
-        a1[1] = v8;
-        v9 = a1 + 1;
-        v10 = a1 + 2;
-        v11 = v5;
-        v12 = v7;
-        v13 = v8;
-        if (v7 <= v8)
-        {
-          v11 = v5;
-          goto LABEL_57;
-        }
-      }
-
-      else
-      {
-        v9 = a1;
-        v10 = a1 + 2;
-        v11 = a1[2];
-        v12 = a1[1];
-        v13 = *a1;
-      }
-
-      *v9 = v7;
-      *v10 = v8;
-      v8 = v12;
-      v7 = v13;
-      goto LABEL_57;
-    }
-
-    v25 = a1 + 1;
-    v26 = a1[1];
-    v27 = a1 + 2;
-    v28 = a1[2];
-    v29 = *a1;
-    if (v26 <= *a1)
-    {
-      if (v28 <= v26)
-      {
-LABEL_46:
-        v26 = v28;
-        goto LABEL_47;
-      }
-
-      *v25 = v28;
-      *v27 = v26;
-      v30 = a1;
-      v31 = a1 + 1;
-      v32 = v26;
-      if (v28 <= v29)
-      {
-LABEL_47:
-        v42 = *(a2 - 1);
-        if (v42 <= v26)
-        {
-          return 1;
-        }
-
-        *v27 = v42;
-        *(a2 - 1) = v26;
-        v33 = *v27;
-        v43 = *v25;
-        goto LABEL_65;
-      }
-    }
-
-    else
-    {
-      v30 = a1;
-      v31 = a1 + 2;
-      v32 = *a1;
-      if (v28 <= v26)
-      {
-        *a1 = v26;
-        a1[1] = v29;
-        v30 = a1 + 1;
-        v31 = a1 + 2;
-        v32 = v29;
-        if (v28 <= v29)
-        {
-          goto LABEL_46;
-        }
-      }
-    }
-
-    *v30 = v28;
-    *v31 = v29;
-    v26 = v32;
-    goto LABEL_47;
-  }
-
-  if (v2 < 2)
-  {
-    return 1;
-  }
-
-  if (v2 == 2)
-  {
-    v14 = *(a2 - 1);
-    v15 = *a1;
-    if (v14 > *a1)
-    {
-      *a1 = v14;
-      *(a2 - 1) = v15;
-    }
-
-    return 1;
-  }
-
-LABEL_16:
-  v19 = a1 + 2;
-  v20 = a1[2];
-  v21 = a1[1];
-  v22 = *a1;
-  if (v21 > *a1)
-  {
-    v23 = a1;
-    v24 = a1 + 2;
-    if (v20 <= v21)
-    {
-      *a1 = v21;
-      a1[1] = v22;
-      v23 = a1 + 1;
-      v24 = a1 + 2;
-      if (v20 <= v22)
-      {
-        goto LABEL_29;
-      }
-    }
-
-LABEL_28:
-    *v23 = v20;
-    *v24 = v22;
-    goto LABEL_29;
-  }
-
-  if (v20 > v21)
-  {
-    a1[1] = v20;
-    *v19 = v21;
-    v23 = a1;
-    v24 = a1 + 1;
-    if (v20 > v22)
-    {
-      goto LABEL_28;
-    }
-  }
-
-LABEL_29:
-  v34 = a1 + 3;
-  if (a1 + 3 == a2)
-  {
-    return 1;
-  }
-
-  v35 = 0;
-  for (i = 24; ; i += 8)
-  {
-    v37 = *v34;
-    v38 = *v19;
-    if (*v34 > *v19)
-    {
-      v39 = i;
-      while (1)
-      {
-        *(a1 + v39) = v38;
-        v40 = v39 - 8;
-        if (v39 == 8)
-        {
-          break;
-        }
-
-        v38 = *(a1 + v39 - 16);
-        v39 -= 8;
-        if (v38 >= v37)
-        {
-          v41 = (a1 + v40);
-          goto LABEL_37;
-        }
-      }
-
-      v41 = a1;
-LABEL_37:
-      *v41 = v37;
-      if (++v35 == 8)
-      {
-        break;
-      }
-    }
-
-    v19 = v34++;
-    if (v34 == a2)
-    {
-      return 1;
-    }
-  }
-
-  return v34 + 1 == a2;
-}
-
-double *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>> &,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>*,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>*>(double *a1, double *a2, double *a3, uint64_t a4)
-{
-  if (a1 != a2)
-  {
-    v6 = a2;
-    v8 = a2 - a1;
-    if (v8 >= 2)
-    {
-      v9 = (v8 - 2) >> 1;
-      v10 = v9 + 1;
-      v11 = &a1[v9];
-      do
-      {
-        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>> &,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>*>(a1, a4, v8, v11--);
-        --v10;
-      }
-
-      while (v10);
-    }
-
-    v12 = v6;
-    if (v6 != a3)
-    {
-      v12 = v6;
-      do
-      {
-        v13 = *v12;
-        if (*v12 > *a1)
-        {
-          *v12 = *a1;
-          *a1 = v13;
-          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>> &,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>*>(a1, a4, v8, a1);
-        }
-
-        ++v12;
-      }
-
-      while (v12 != a3);
-    }
-
-    if (v8 >= 2)
-    {
-      do
-      {
-        v14 = 0;
-        v15 = *a1;
-        v16 = a1;
-        do
-        {
-          v17 = v16;
-          v18 = &v16[v14];
-          v16 = v18 + 1;
-          v19 = 2 * v14;
-          v14 = (2 * v14) | 1;
-          v20 = v19 + 2;
-          if (v20 < v8)
-          {
-            v22 = v18[2];
-            v21 = v18 + 2;
-            if (*(v21 - 1) > v22)
-            {
-              v16 = v21;
-              v14 = v20;
-            }
-          }
-
-          *v17 = *v16;
-        }
-
-        while (v14 <= ((v8 - 2) >> 1));
-        if (v16 != --v6)
-        {
-          *v16 = *v6;
-          *v6 = v15;
-          v23 = (v16 - a1 + 8) >> 3;
-          v24 = v23 < 2;
-          v25 = v23 - 2;
-          if (v24)
-          {
-            goto LABEL_22;
-          }
-
-          v26 = v25 >> 1;
-          v27 = &a1[v26];
-          v28 = *v27;
-          v15 = *v16;
-          if (*v27 <= *v16)
-          {
-            goto LABEL_22;
-          }
-
-          do
-          {
-            *v16 = v28;
-            v16 = v27;
-            if (!v26)
-            {
-              break;
-            }
-
-            v26 = (v26 - 1) >> 1;
-            v27 = &a1[v26];
-            v28 = *v27;
-          }
-
-          while (*v27 > v15);
-        }
-
-        *v16 = v15;
-LABEL_22:
-        v24 = v8-- <= 2;
-      }
-
-      while (!v24);
-    }
-
-    return v12;
-  }
-
-  return a3;
-}
-
-uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>> &,std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>>*>(uint64_t result, uint64_t a2, uint64_t a3, double *a4)
-{
-  if (a3 >= 2)
-  {
-    v4 = a4 - result;
-    v5 = (a3 - 2) >> 1;
-    if (v5 >= (a4 - result) >> 3)
-    {
-      v6 = v4 >> 2;
-      v7 = (v4 >> 2) + 1;
-      v8 = (result + 8 * v7);
-      v9 = v6 + 2;
-      if (v9 < a3 && *v8 > v8[1])
-      {
-        ++v8;
-        v7 = v9;
-      }
-
-      v10 = *v8;
-      v11 = *a4;
-      if (*v8 <= *a4)
-      {
-        do
-        {
-          *a4 = v10;
-          a4 = v8;
-          if (v5 < v7)
-          {
-            break;
-          }
-
-          v12 = 2 * v7;
-          v7 = (2 * v7) | 1;
-          v8 = (result + 8 * v7);
-          v13 = v12 + 2;
-          if (v13 < a3 && *v8 > v8[1])
-          {
-            ++v8;
-            v7 = v13;
-          }
-
-          v10 = *v8;
-        }
-
-        while (*v8 <= v11);
-        *a4 = v11;
-      }
-    }
-  }
-
-  return result;
-}
-
-void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>>>::__emplace_unique_key_args<boost::uuids::uuid,std::pair<boost::uuids::uuid const,CLMicroLocationAnchorAppearance>>(void *a1, void *a2)
-{
-  v2 = 0;
-  for (i = 0; i != 16; ++i)
-  {
-    v2 ^= (v2 << 6) + (v2 >> 2) + 2654435769u + *(a2 + i);
-  }
-
-  v4 = a1[1];
-  if (!*&v4)
-  {
-    goto LABEL_24;
-  }
-
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
-  {
-    v6 = v2;
-    if (v2 >= *&v4)
-    {
-      v6 = v2 % *&v4;
-    }
-  }
-
-  else
-  {
-    v6 = (*&v4 - 1) & v2;
-  }
-
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
-  {
-LABEL_24:
-    operator new();
-  }
-
-  while (1)
-  {
-    v9 = v8[1];
-    if (v9 == v2)
-    {
-      break;
-    }
-
-    if (v5.u32[0] > 1uLL)
-    {
-      if (v9 >= *&v4)
-      {
-        v9 %= *&v4;
-      }
-    }
-
-    else
-    {
-      v9 &= *&v4 - 1;
-    }
-
-    if (v9 != v6)
-    {
-      goto LABEL_24;
-    }
-
-LABEL_23:
-    v8 = *v8;
-    if (!v8)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  if (v8[2] != *a2 || v8[3] != a2[1])
-  {
-    goto LABEL_23;
-  }
-
-  return v8;
-}
-
-void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(void *a1, void *a2)
-{
-  v2 = 0;
-  for (i = 0; i != 16; ++i)
-  {
-    v2 ^= (v2 << 6) + (v2 >> 2) + 2654435769u + *(a2 + i);
-  }
-
-  v4 = a1[1];
-  if (!*&v4)
-  {
-    goto LABEL_24;
-  }
-
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
-  {
-    v6 = v2;
-    if (v2 >= *&v4)
-    {
-      v6 = v2 % *&v4;
-    }
-  }
-
-  else
-  {
-    v6 = (*&v4 - 1) & v2;
-  }
-
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
-  {
-LABEL_24:
-    operator new();
-  }
-
-  while (1)
-  {
-    v9 = v8[1];
-    if (v9 == v2)
-    {
-      break;
-    }
-
-    if (v5.u32[0] > 1uLL)
-    {
-      if (v9 >= *&v4)
-      {
-        v9 %= *&v4;
-      }
-    }
-
-    else
-    {
-      v9 &= *&v4 - 1;
-    }
-
-    if (v9 != v6)
-    {
-      goto LABEL_24;
-    }
-
-LABEL_23:
-    v8 = *v8;
-    if (!v8)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  if (v8[2] != *a2 || v8[3] != a2[1])
-  {
-    goto LABEL_23;
-  }
-
-  return v8;
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,CLMicroLocationAnchorAppearance>>>::erase(void *a1, uint64_t *a2)
-{
-  v2 = *a2;
-  std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::remove(a1, a2, &__p);
-  v3 = __p;
-  __p = 0;
-  if (v3)
-  {
-    operator delete(v3);
-  }
-
-  return v2;
-}
-
-uint64_t CLMicroLocationBlueAtlasAlgorithms::learnBlueAtlasModel@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, CLMicroLocationFingerprintPool *a3@<X2>, uuid *a4@<X3>, uint64_t a5@<X8>)
-{
-  v226 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 24);
-  if (!v6)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  result = (*(*v6 + 48))(v6);
-  if (result)
-  {
-    *a5 = 0;
-    *(a5 + 344) = 0;
-LABEL_184:
-    v140 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v225 = 0uLL;
-  *buf = 0;
-  boost::uuids::detail::random_provider_base::random_provider_base(buf);
-  *&v225 = boost::uuids::random_generator_pure::operator()(buf);
-  *(&v225 + 1) = v10;
-  boost::uuids::detail::random_provider_base::destroy(buf);
-  CLMicroLocationModel::CLMicroLocationModel(&v182);
-  v181 = 0;
-  v179 = &v180;
-  v180 = 0;
-  v175 = 0;
-  LOBYTE(v176.var0) = 0;
-  v177 = 0;
-  v172 = 0;
-  v173 = 0;
-  v171 = 0;
-  v174 = 0;
-  v178 = -3.4028e38;
-  v11 = std::__function::__value_func<BOOL ()(void)>::__value_func[abi:ne200100](v224, a1);
-  CLMicroLocationBlueAtlasAlgorithms::getBlueAtlasScanningData(v11, a2, a4, &v225, v168);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v224);
-  v12 = *(a1 + 24);
-  if (!v12)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  if (((*(*v12 + 48))(v12) & 1) != 0 || (v170 & 1) == 0)
-  {
-    *a5 = 0;
-    *(a5 + 344) = 0;
-LABEL_172:
-    if (v170 == 1)
-    {
-      *buf = &v169;
-      std::vector<ULMapLabelDOAndLabelObjectID>::__destroy_vector::operator()[abi:ne200100](buf);
-      *buf = v168;
-      std::vector<CLMicroLocationFingerprint>::__destroy_vector::operator()[abi:ne200100](buf);
-    }
-
-    if (v171)
-    {
-      v172 = v171;
-      operator delete(v171);
-    }
-
-    std::__tree<std::__value_type<unsigned long long,std::vector<float>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<float>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<float>>>>::destroy(&v179, v180);
-    if (v200 < 0)
-    {
-      operator delete(v199);
-    }
-
-    if (v197)
-    {
-      v198 = v197;
-      operator delete(v197);
-    }
-
-    std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(&v196);
-    *buf = &v195;
-    std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](buf);
-    if (v187 == 1)
-    {
-      if (v186[0])
-      {
-        v186[1] = v186[0];
-        operator delete(v186[0]);
-      }
-    }
-
-    result = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v185);
-    goto LABEL_184;
-  }
-
-  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul>,std::vector<CLMicroLocationFingerprint>,std::vector<ULMapLabelDOAndLabelObjectID>,std::optional<AssociatedAccessPointInfo>,unsigned long>::__tuple_impl(&v162, v168);
-  v13 = v167;
-  if (!v167)
-  {
-LABEL_158:
-    v182 = 0x300000005;
-    v183 = 1;
-    v184 = 1;
-    v188 = v13;
-    v189 = -1227133513 * ((v163 - v162) >> 5);
-    v190 = v189;
-    v191 = 0;
-    v192 = (v172 - v171) >> 3;
-    v194 = 0;
-    v193 = 0;
-    std::optional<CLMicroLocationModel::BlueAtlasData>::operator=[abi:ne200100]<CLMicroLocationModel::BlueAtlasData,void>(v186, &v171);
-    *v222.data = 0;
-    *&v222.data[8] = 0;
-    *buf = 0;
-    boost::uuids::detail::random_provider_base::random_provider_base(buf);
-    *v222.data = boost::uuids::random_generator_pure::operator()(buf);
-    *&v222.data[8] = v133;
-    boost::uuids::detail::random_provider_base::destroy(buf);
-    v135 = v162;
-    for (i = v163; v135 != i; v135 = (v135 + 224))
-    {
-      CLMicroLocationFingerprint::CLMicroLocationFingerprint(buf, v135);
-      CLMicroLocationModel::addFingerprint(&v182, buf, &v222, a3);
-      CLMicroLocationModel::addRecording(&v182, &v222, &buf[40]);
-      *&v160 = &v212 + 8;
-      std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v160);
-      if (*&v211[8])
-      {
-        *&v211[16] = *&v211[8];
-        operator delete(*&v211[8]);
-      }
-
-      std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v206);
-      std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v204);
-      std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(buf);
-    }
-
-    CLMicroLocationBlueAtlasAlgorithms::validateBlueAtlasModelQuality(&v182, v134);
-    _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJN5boost5uuids4uuidE20CLMicroLocationModelNS_6vectorI28ULMapLabelDOAndLabelObjectIDNS_9allocatorIS8_EEEEEEC2B8ne200100IJLm0ELm1ELm2EEJS5_S6_SB_EJEJEJRS5_RS6_RSB_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSI_IJDpT2_EEEDpOT3_(buf, &v225, &v182, v164);
-    v137 = *&buf[16];
-    *a5 = *buf;
-    *(a5 + 16) = v137;
-    std::unordered_map<boost::uuids::uuid,CLMicroLocationAnchorAppearance>::unordered_map(a5 + 32, &buf[32]);
-    *(a5 + 72) = *&v204[8];
-    *(a5 + 88) = 0;
-    *(a5 + 152) = 0;
-    if (v210 == 1)
-    {
-      *(a5 + 88) = v205;
-      *(a5 + 104) = v206;
-      v206 = 0;
-      v205 = 0uLL;
-      v138 = v208;
-      *(a5 + 112) = v207;
-      *(a5 + 128) = v138;
-      *(a5 + 144) = v209;
-      *(a5 + 152) = 1;
-    }
-
-    *(a5 + 160) = *v211;
-    *(a5 + 172) = *&v211[12];
-    *(a5 + 192) = v212;
-    *(a5 + 208) = v213;
-    v212 = 0uLL;
-    v213 = 0;
-    std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::__hash_table(a5 + 216, v214);
-    v139 = v216;
-    *(a5 + 256) = v214[5];
-    *(a5 + 264) = v215;
-    *(a5 + 280) = v139;
-    v215 = 0uLL;
-    *(a5 + 288) = v217;
-    *(a5 + 304) = v218;
-    v216 = 0;
-    v217 = 0uLL;
-    v218 = 0;
-    *(a5 + 312) = v219;
-    *(a5 + 320) = v220;
-    *(a5 + 336) = v221;
-    v220 = 0uLL;
-    v221 = 0;
-    *(a5 + 344) = 1;
-    *&v160 = &v220;
-    std::vector<ULMapLabelDOAndLabelObjectID>::__destroy_vector::operator()[abi:ne200100](&v160);
-    if (SHIBYTE(v218) < 0)
-    {
-      operator delete(v217);
-    }
-
-    if (v215)
-    {
-      *(&v215 + 1) = v215;
-      operator delete(v215);
-    }
-
-    std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(v214);
-    *&v160 = &v212;
-    std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](&v160);
-    if (v210 == 1 && v205)
-    {
-      *(&v205 + 1) = v205;
-      operator delete(v205);
-    }
-
-    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&buf[32]);
-    *buf = v164;
-    std::vector<ULMapLabelDOAndLabelObjectID>::__destroy_vector::operator()[abi:ne200100](buf);
-    *buf = &v162;
-    std::vector<CLMicroLocationFingerprint>::__destroy_vector::operator()[abi:ne200100](buf);
-    goto LABEL_172;
-  }
-
-  v14 = v162;
-  for (j = v163; v14 != j; v14 = (v14 + 224))
-  {
-    for (k = *(v14 + 2); k; k = *k)
-    {
-      if (*(k + 6) == 1)
-      {
-        if (*(k + 14))
-        {
-          std::__throw_bad_variant_access[abi:ne200100]();
-        }
-
-        *v222.data = k[4];
-        v16 = *(k + 7);
-        *buf = &v222;
-        v17 = std::__tree<std::__value_type<unsigned long long,std::vector<float>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<float>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<float>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v179, v222.data);
-        v18 = v17;
-        v20 = v17[6];
-        v19 = v17[7];
-        if (v20 >= v19)
-        {
-          v22 = v17[5];
-          v23 = v20 - v22;
-          v24 = (v20 - v22) >> 2;
-          v25 = v24 + 1;
-          if ((v24 + 1) >> 62)
-          {
-            std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
-          }
-
-          v26 = v19 - v22;
-          if (v26 >> 1 > v25)
-          {
-            v25 = v26 >> 1;
-          }
-
-          if (v26 >= 0x7FFFFFFFFFFFFFFCLL)
-          {
-            v27 = 0x3FFFFFFFFFFFFFFFLL;
-          }
-
-          else
-          {
-            v27 = v25;
-          }
-
-          if (v27)
-          {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>((v17 + 5), v27);
-          }
-
-          v28 = (v20 - v22) >> 2;
-          v29 = (4 * v24);
-          v30 = (4 * v24 - 4 * v28);
-          *v29 = v16;
-          v21 = v29 + 1;
-          memcpy(v30, v22, v23);
-          v31 = v18[5];
-          v18[5] = v30;
-          v18[6] = v21;
-          v18[7] = 0;
-          if (v31)
-          {
-            operator delete(v31);
-          }
-        }
-
-        else
-        {
-          *v20 = v16;
-          v21 = v20 + 4;
-        }
-
-        v18[6] = v21;
-      }
-    }
-  }
-
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    CLMicroLocationBlueAtlasAlgorithms::learnBlueAtlasModel();
-  }
-
-  v32 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289282;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2050;
-    *&buf[20] = v181;
-    _os_log_impl(&dword_258FE9000, v32, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:learnBlueAtlasModel, Num unique APs:%{public}lu}", buf, 0x1Cu);
-  }
-
-  v33 = +[ULDefaultsSingleton shared];
-  v34 = [v33 defaultsDictionary];
-
-  v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasAppearanceRateThresholds"];
-  v36 = [v34 objectForKey:v35];
-  if (v36 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v36, buf);
-    v222 = *buf;
-    v37 = *&buf[16];
-  }
-
-  else
-  {
-    ULSettings::convert<std::initializer_list<double>,std::vector<double>>(&_ZGRN10ULSettings14SettingsTraitsINS_33BlueAtlasAppearanceRateThresholdsEE12defaultValueE_, 2uLL, buf);
-    v37 = *&buf[16];
-    v222 = *buf;
-  }
-
-  v223 = v37;
-
-  v38 = +[ULDefaultsSingleton shared];
-  v39 = [v38 defaultsDictionary];
-
-  v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasAppearanceRateScores"];
-  v41 = [v39 objectForKey:v40];
-  if (v41 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v41, buf);
-    v144 = *buf;
-    v160 = *buf;
-    v42 = *&buf[16];
-  }
-
-  else
-  {
-    ULSettings::convert<std::initializer_list<double>,std::vector<double>>(&_ZGRN10ULSettings14SettingsTraitsINS_29BlueAtlasAppearanceRateScoresEE12defaultValueE_, 2uLL, buf);
-    v42 = *&buf[16];
-    v144 = *buf;
-    v160 = *buf;
-  }
-
-  v161 = v42;
-
-  v43 = +[ULDefaultsSingleton shared];
-  v44 = [v43 defaultsDictionary];
-
-  v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasRssiThresholds"];
-  v46 = [v44 objectForKey:v45];
-  if (v46 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v46, buf);
-    v147 = *buf;
-    v158 = *buf;
-    v47 = *&buf[16];
-  }
-
-  else
-  {
-    ULSettings::convert<std::initializer_list<double>,std::vector<double>>(_ZGRN10ULSettings14SettingsTraitsINS_23BlueAtlasRssiThresholdsEE12defaultValueE_, 4uLL, buf);
-    v47 = *&buf[16];
-    v147 = *buf;
-    v158 = *buf;
-  }
-
-  v159 = v47;
-
-  v145 = v147;
-  v48 = +[ULDefaultsSingleton shared];
-  v49 = [v48 defaultsDictionary];
-
-  v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasRssiScores"];
-  v51 = [v49 objectForKey:v50];
-  if (v51 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v51, buf);
-    v148 = *buf;
-    v156 = *buf;
-    v52 = *&buf[16];
-  }
-
-  else
-  {
-    ULSettings::convert<std::initializer_list<double>,std::vector<double>>(_ZGRN10ULSettings14SettingsTraitsINS_19BlueAtlasRssiScoresEE12defaultValueE_, 4uLL, buf);
-    v52 = *&buf[16];
-    v148 = *buf;
-    v156 = *buf;
-  }
-
-  v157 = v52;
-
-  __src = 0;
-  v154 = 0;
-  v155 = 0;
-  v53 = v179;
-  if (v179 == &v180)
-  {
-    v84 = 0;
-    v83 = 0;
-  }
-
-  else
-  {
-    do
-    {
-      v55 = v53[5];
-      v54 = v53[6];
-      v56 = v54 - v55;
-      if (v54 == v55)
-      {
-        v59 = 0.0;
-      }
-
-      else
-      {
-        v57 = 0.0;
-        do
-        {
-          v58 = *v55++;
-          v57 = v57 + v58;
-        }
-
-        while (v55 != v54);
-        v59 = v57;
-      }
-
-      v60 = (v56 >> 2);
-      CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(&v222, &v160, v60 / v167);
-      v62 = v61;
-      CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(&v158, &v156, v59 / v60);
-      v64 = (v62 + v63) * 0.5;
-      v65 = v53[4];
-      v66 = v154;
-      if (v154 >= v155)
-      {
-        v68 = __src;
-        v69 = v154 - __src;
-        v70 = (v154 - __src) >> 4;
-        v71 = v70 + 1;
-        if ((v70 + 1) >> 60)
-        {
-          std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
-        }
-
-        v72 = v155 - __src;
-        if ((v155 - __src) >> 3 > v71)
-        {
-          v71 = v72 >> 3;
-        }
-
-        if (v72 >= 0x7FFFFFFFFFFFFFF0)
-        {
-          v73 = 0xFFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v73 = v71;
-        }
-
-        if (v73)
-        {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<boost::uuids::uuid>>(&__src, v73);
-        }
-
-        v74 = (v154 - __src) >> 4;
-        v75 = 16 * v70;
-        *v75 = v65;
-        *(v75 + 8) = v64;
-        v67 = 16 * v70 + 16;
-        v76 = (16 * v70 - 16 * v74);
-        memcpy((v75 - 16 * v74), v68, v69);
-        v77 = __src;
-        __src = v76;
-        v154 = v67;
-        v155 = 0;
-        if (v77)
-        {
-          operator delete(v77);
-        }
-      }
-
-      else
-      {
-        *v154 = v65;
-        *(v66 + 1) = v64;
-        v67 = (v66 + 16);
-      }
-
-      v154 = v67;
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        CLMicroLocationBlueAtlasAlgorithms::learnBlueAtlasModel();
-      }
-
-      v78 = logObject_MicroLocation_Default;
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
-      {
-        v151.var0 = ULHomeSlamModel::getTrajectoryPointCloud(v53[4]);
-        CLMacAddress::toPrettyStr(&v151, &__p);
-        p_p = &__p;
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-        {
-          p_p = __p.__r_.__value_.__r.__words[0];
-        }
-
-        *buf = 68289538;
-        *&buf[4] = 0;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2082;
-        *&buf[20] = p_p;
-        *&buf[28] = 2050;
-        *&buf[30] = v64;
-        _os_log_impl(&dword_258FE9000, v78, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:learnBlueAtlasModel, bssid:%{public, location:escape_only}s, score:%{public}f}", buf, 0x26u);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-      }
-
-      v80 = v53[1];
-      if (v80)
-      {
-        do
-        {
-          v81 = v80;
-          v80 = *v80;
-        }
-
-        while (v80);
-      }
-
-      else
-      {
-        do
-        {
-          v81 = v53[2];
-          v82 = *v81 == v53;
-          v53 = v81;
-        }
-
-        while (!v82);
-      }
-
-      v53 = v81;
-    }
-
-    while (v81 != &v180);
-    v83 = __src;
-    v84 = v154;
-  }
-
-  v85 = 126 - 2 * __clz((v84 - v83) >> 4);
-  if (v84 == v83)
-  {
-    v86 = 0;
-  }
-
-  else
-  {
-    v86 = v85;
-  }
-
-  std::__introsort<std::_ClassicAlgPolicy,CLMicroLocationBlueAtlasAlgorithms::learnBlueAtlasModel(std::function<BOOL ()(void)>,ULDatabaseStoreInterface &,CLMicroLocationFingerprintPool &,boost::uuids::uuid const&)::$_0 &,std::pair<unsigned long long,double> *,false>(v83, v84, v86, 1);
-  v87 = +[ULDefaultsSingleton shared];
-  v88 = [v87 defaultsDictionary];
-
-  v89 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasModelMaxSources"];
-  v90 = [v88 objectForKey:v89];
-  if (v90 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v91 = [v90 intValue];
-  }
-
-  else
-  {
-    v91 = [&unk_286A724C8 intValue];
-  }
-
-  v92 = v91;
-
-  v93 = __src;
-  v94 = v154;
-  v95 = (v154 - __src) >> 4;
-  if (v95 <= v92)
-  {
-    goto LABEL_95;
-  }
-
-  v96 = __src + 16 * v92;
-  if (v96 != v154)
-  {
-    v97 = __src + 16 * v92;
-    for (m = &v97[v154 - v96]; m != v94; m += 16)
-    {
-      *v97 = *m;
-      *(v97 + 1) = *(m + 1);
-      v97 += 16;
-    }
-
-    v154 = v97;
-    v95 = (v97 - v93) >> 4;
-  }
-
-  if (v95 == v92)
-  {
-LABEL_95:
-    v99 = ULSettings::get<ULSettings::BlueAtlasModelMinSources>();
-    if (v99 < (v154 - __src) >> 4)
-    {
-      v100 = +[ULDefaultsSingleton shared];
-      v101 = [v100 defaultsDictionary];
-
-      v102 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasApSelectionScoreThreshold"];
-      v103 = [v101 objectForKey:v102];
-      if (!v103)
-      {
-        goto LABEL_99;
-      }
-
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        [v103 floatValue];
-      }
-
-      else
-      {
-LABEL_99:
-        [&unk_286A72F10 floatValue];
-      }
-
-      v105 = v104;
-
-      v106 = v154;
-      v107 = __src + 16 * v99;
-      if (v107 != v154)
-      {
-        v108 = v105;
-        v109 = v107 + 16;
-        while (*(v109 - 1) >= v108)
-        {
-          v82 = v109 == v154;
-          v109 += 16;
-          if (v82)
-          {
-            goto LABEL_113;
-          }
-        }
-
-        v110 = v109 - 16;
-        if (v109 - 16 != v154)
-        {
-          while (v109 != v106)
-          {
-            v111 = *(v109 + 1);
-            if (v111 >= v108)
-            {
-              *v110 = *v109;
-              *(v110 + 1) = v111;
-              v110 += 16;
-            }
-
-            v109 += 16;
-          }
-        }
-
-        if (v110 != v106)
-        {
-          v154 = v110;
-        }
-      }
-    }
-
-LABEL_113:
-    if (onceToken_MicroLocation_Default != -1)
-    {
-      CLMicroLocationBlueAtlasAlgorithms::learnBlueAtlasModel();
-    }
-
-    v112 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289282;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2050;
-      *&buf[20] = (v154 - __src) >> 4;
-      _os_log_impl(&dword_258FE9000, v112, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:learnBlueAtlasModel, Num dominant APs:%{public}lu}", buf, 0x1Cu);
-    }
-
-    v113 = __src;
-    v114 = v154;
-    if (__src != v154)
-    {
-      do
-      {
-        TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(*v113);
-        v116 = v172;
-        if (v172 >= v173)
-        {
-          v118 = v171;
-          v119 = v172 - v171;
-          v120 = (v172 - v171) >> 3;
-          v121 = v120 + 1;
-          if ((v120 + 1) >> 61)
-          {
-            std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
-          }
-
-          v122 = v173 - v171;
-          if ((v173 - v171) >> 2 > v121)
-          {
-            v121 = v122 >> 2;
-          }
-
-          if (v122 >= 0x7FFFFFFFFFFFFFF8)
-          {
-            v123 = 0x1FFFFFFFFFFFFFFFLL;
-          }
-
-          else
-          {
-            v123 = v121;
-          }
-
-          if (v123)
-          {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(&v171, v123);
-          }
-
-          *(8 * v120) = TrajectoryPointCloud;
-          v117 = 8 * v120 + 8;
-          memcpy(0, v118, v119);
-          v124 = v171;
-          v171 = 0;
-          v172 = v117;
-          v173 = 0;
-          if (v124)
-          {
-            operator delete(v124);
-          }
-        }
-
-        else
-        {
-          *v172 = TrajectoryPointCloud;
-          v117 = (v116 + 8);
-        }
-
-        v172 = v117;
-        v113 += 2;
-      }
-
-      while (v113 != v114);
-    }
-
-    v125 = +[ULDefaultsSingleton shared];
-    v126 = [v125 defaultsDictionary];
-
-    v127 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasAssociatedAccessPointLocalizerEnabled"];
-    v128 = [v126 objectForKey:v127];
-    if (v128 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-    {
-      v129 = [v128 BOOLValue];
-    }
-
-    else
-    {
-      v129 = [MEMORY[0x277CBEC38] BOOLValue];
-    }
-
-    v130 = v129;
-
-    if (v130 && v166 == 1)
-    {
-      if ((v177 & 1) == 0)
-      {
-        v177 = 1;
-      }
-
-      v176.var0 = v164[3];
-      v178 = v165;
-      v131 = _CLLogObjectForCategory_MicroLocation_Default();
-      if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
-      {
-        if ((v177 & 1) == 0)
-        {
-          std::__throw_bad_optional_access[abi:ne200100]();
-        }
-
-        CLMacAddress::toCLStr(&v176, &__p);
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v132 = &__p;
-        }
-
-        else
-        {
-          v132 = __p.__r_.__value_.__r.__words[0];
-        }
-
-        *buf = 68289539;
-        *&buf[4] = 0;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2081;
-        *&buf[20] = v132;
-        *&buf[28] = 2050;
-        *&buf[30] = v178;
-        _os_log_impl(&dword_258FE9000, v131, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:learnBlueAtlasModel, updating associated AP, MAC Address:%{private, location:escape_only}s, Rssi:%{public}f}", buf, 0x26u);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-      }
-    }
-
-    if (__src)
-    {
-      v154 = __src;
-      operator delete(__src);
-    }
-
-    if (v148)
-    {
-      operator delete(v148);
-    }
-
-    if (v145)
-    {
-      operator delete(v145);
-    }
-
-    if (v144)
-    {
-      operator delete(v144);
-    }
-
-    if (*v222.data)
-    {
-      operator delete(*v222.data);
-    }
-
-    v13 = v167;
-    goto LABEL_158;
-  }
-
-  v141 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v141, OS_LOG_TYPE_FAULT))
-  {
-    *buf = 68290051;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2050;
-    *&buf[20] = (v154 - __src) >> 4;
-    *&buf[28] = 1026;
-    *&buf[30] = v92;
-    *&buf[34] = 2082;
-    *&buf[36] = "assert";
-    v202 = 2081;
-    v203 = "apScores.size() == (size_t)maxSources";
-    _os_log_impl(&dword_258FE9000, v141, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Unexpected remaining number of sources, remaining APs:%{public}lu, maxSources:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x36u);
-  }
-
-  v142 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_signpost_enabled(v142))
-  {
-    *buf = 68290051;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2050;
-    *&buf[20] = (v154 - __src) >> 4;
-    *&buf[28] = 1026;
-    *&buf[30] = v92;
-    *&buf[34] = 2082;
-    *&buf[36] = "assert";
-    v202 = 2081;
-    v203 = "apScores.size() == (size_t)maxSources";
-    _os_signpost_emit_with_name_impl(&dword_258FE9000, v142, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Unexpected remaining number of sources", "{msg%{public}.0s:Unexpected remaining number of sources, remaining APs:%{public}lu, maxSources:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x36u);
-  }
-
-  v143 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v143, OS_LOG_TYPE_INFO))
-  {
-    *buf = 68290051;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2050;
-    *&buf[20] = (v154 - __src) >> 4;
-    *&buf[28] = 1026;
-    *&buf[30] = v92;
-    *&buf[34] = 2082;
-    *&buf[36] = "assert";
-    v202 = 2081;
-    v203 = "apScores.size() == (size_t)maxSources";
-    _os_log_impl(&dword_258FE9000, v143, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Unexpected remaining number of sources, remaining APs:%{public}lu, maxSources:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x36u);
-  }
-
-  result = abort_report_np();
-  __break(1u);
-  return result;
-}
-
-void sub_25916CC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a16)
-  {
-    operator delete(a16);
-  }
-
-  if (a17)
-  {
-    operator delete(a17);
-  }
-
-  if (a39)
-  {
-    operator delete(a39);
-  }
-
-  v77 = *(v75 - 208);
-  if (v77)
-  {
-    operator delete(v77);
-  }
-
-  std::tuple<std::vector<CLMicroLocationFingerprint>,std::vector<ULMapLabelDOAndLabelObjectID>,std::optional<AssociatedAccessPointInfo>,unsigned long>::~tuple(&a43);
-  std::optional<std::tuple<std::vector<CLMicroLocationFingerprint>,std::vector<ULMapLabelDOAndLabelObjectID>,std::optional<AssociatedAccessPointInfo>,unsigned long>>::~optional(&a53);
-  if (a64)
-  {
-    a65 = a64;
-    operator delete(a64);
-  }
-
-  std::__tree<std::__value_type<unsigned long long,std::vector<float>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<float>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<float>>>>::destroy(&a72, STACK[0x200]);
-  CLMicroLocationModel::~CLMicroLocationModel(&STACK[0x210]);
-  _Unwind_Resume(a1);
-}
-
-uint64_t CLMicroLocationBlueAtlasAlgorithms::getBlueAtlasScanningData@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uuid *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v34 = a5;
-  v107[3] = *MEMORY[0x277D85DE8];
-  CLMicroLocationFingerprintConfiguration::getCustomLoiRecordingConfigurationFromSettings(&v58);
-  v8 = +[ULDefaultsSingleton shared];
-  v9 = [v8 defaultsDictionary];
-
-  v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULLearningRecordingLimit"];
-  v11 = [v9 objectForKey:v10];
-  if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v12 = [v11 unsignedIntValue];
-  }
-
-  else
-  {
-    v12 = [&unk_286A72498 unsignedIntValue];
-  }
-
-  v13 = v12;
-
-  v14 = (*(*a2 + 144))(a2);
-  v15 = v14;
-  __p.var0 = *a3;
-  __p.var1.var0.var0.var0[0] = 1;
-  if (v14)
-  {
-    [v14 getScanningEventUUIDsAtLoiGroupId:&__p withScanType:0x10000 startDate:0 endDate:0 onlyScansWithLabels:0 Limit:v13];
-  }
-
-  else
-  {
-    v55 = 0;
-    v56 = 0;
-    v57 = 0;
-  }
-
-  v52 = 0;
-  v53 = 0;
-  v54 = 0;
-  v49 = 0;
-  v50 = 0;
-  v51 = 0;
-  LOBYTE(v47) = 0;
-  v48 = 0;
-  *__p.var0.data = 1065353216;
-  v45 = 0;
-  v46 = 0;
-  v44 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v44, &__p, &__p.var0.data[4], 1uLL);
-  v16 = v55;
-  v17 = v56;
-  if (v55 == v56)
-  {
-    v27 = v55;
-LABEL_84:
-    v28 = (v27 - v16) >> 4;
-    v59 = v28;
-    if (onceToken_MicroLocation_Default != -1)
-    {
-      CLMicroLocationBlueAtlasAlgorithms::learnBlueAtlasModel();
-    }
-
-    v29 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
-    {
-      *__p.var0.data = 68289538;
-      *&__p.var0.data[8] = 2082;
-      *&__p.var0.data[10] = "";
-      WORD1(__p.var1.var0.var1.var0) = 2050;
-      *(&__p.var1.var0.var1.var0 + 4) = v28;
-      WORD2(__p.var1.var0.var1.var1) = 2050;
-      *(&__p.var1.var0.var1.var1 + 6) = 0x6DB6DB6DB6DB6DB7 * ((v53 - v52) >> 5);
-      _os_log_impl(&dword_258FE9000, v29, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:learnBlueAtlasModel, Num recording entries:%{public}lu, Num valid fingerprints:%{public}lu}", __p.var0.data, 0x26u);
-    }
-
-    _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2ELm3EEEEJNS_6vectorI26CLMicroLocationFingerprintNS_9allocatorIS4_EEEENS3_I28ULMapLabelDOAndLabelObjectIDNS5_IS8_EEEENS_8optionalI25AssociatedAccessPointInfoEEmEEC2B8ne200100IJLm0ELm1ELm2ELm3EEJS7_SA_SD_mEJEJEJRS7_RSA_RSD_RmEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSL_IJDpT2_EEEDpOT3_(&__p, &v52, &v49, &v47, &v59);
-    *v34 = __p.var0;
-    v30 = v97;
-    *(v34 + 16) = __p.var1.var0.var1.var0;
-    *&__p.var0.data[8] = 0;
-    *__p.var0.data = 0;
-    *(v34 + 24) = *&__p.var1.var0.var1.var1;
-    *(v34 + 40) = v30;
-    memset(&__p.var1, 0, sizeof(__p.var1));
-    v97 = 0;
-    *(v34 + 48) = v98;
-    v31 = v99[1];
-    *(v34 + 64) = v99[0];
-    *(v34 + 72) = v31;
-    *(v34 + 80) = 1;
-    *v84.var0.data = &__p.var1.var0.var1.var1;
-    std::vector<ULMapLabelDOAndLabelObjectID>::__destroy_vector::operator()[abi:ne200100](&v84);
-    *v84.var0.data = &__p;
-    std::vector<CLMicroLocationFingerprint>::__destroy_vector::operator()[abi:ne200100](&v84);
-  }
-
-  else
-  {
-    v35 = 0;
-    while (1)
-    {
-      v18 = *(a1 + 24);
-      if (!v18)
-      {
-        std::__throw_bad_function_call[abi:ne200100]();
-      }
-
-      if ((*(*v18 + 48))(v18))
-      {
-        break;
-      }
-
-      v19 = (*(*a2 + 144))(a2);
-      v84.var0 = *v16;
-      memset(&__p, 0, 24);
-      std::vector<boost::uuids::uuid>::__init_with_size[abi:ne200100]<boost::uuids::uuid const*,boost::uuids::uuid const*>(&__p, &v84, &v84.var1, 1uLL);
-      if (v19)
-      {
-        [v19 fetchScanningEventsWithLabelObjectIDsForUUIDs:&__p];
-      }
-
-      else
-      {
-        v41 = 0;
-        v42 = 0;
-        v43 = 0;
-      }
-
-      if (*__p.var0.data)
-      {
-        *&__p.var0.data[8] = *__p.var0.data;
-        operator delete(*__p.var0.data);
-      }
-
-      if (v42 != v41)
-      {
-        std::pair<ULScanningEventDO,std::vector<NSManagedObjectID * {__strong}>>::pair[abi:ne200100](&__p, v41);
-        ULScanningEventDO::ULScanningEventDO(&v84, &__p);
-        CLMicroLocationFingerprint::create(&v84, &v58, v77);
-        if (v83 == 1)
-        {
-          v20 = v53;
-          if (v53 >= v54)
-          {
-            v21 = std::vector<CLMicroLocationFingerprint>::__emplace_back_slow_path<CLMicroLocationFingerprint>(&v52, v77);
-          }
-
-          else
-          {
-            std::allocator_traits<std::allocator<CLMicroLocationFingerprint>>::construct[abi:ne200100]<CLMicroLocationFingerprint,CLMicroLocationFingerprint,void,0>(&v52, v53, v77);
-            v21 = v20 + 224;
-          }
-
-          v53 = v21;
-        }
-
-        if (v86 != v85)
-        {
-          v22 = 0;
-          v23 = 0;
-          do
-          {
-            v40[0] = 0;
-            v40[12] = 0;
-            v59 = 0;
-            v60 = 0;
-            v61 = 0;
-            std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v59, v44, v45, (v45 - v44) >> 2);
-            LOBYTE(v62) = 1;
-            LOBYTE(v38[0]) = 0;
-            v39 = 0;
-            v37 = cl::chrono::CFAbsoluteTimeClock::now();
-            ULMapLabelDO::ULMapLabelDO(&v72, v40, &v59, v38, &v37, v85 + v22, a4);
-            if (v39 == 1 && v38[0])
-            {
-              v38[1] = v38[0];
-              operator delete(v38[0]);
-            }
-
-            if (v62 == 1 && v59)
-            {
-              v60 = v59;
-              operator delete(v59);
-            }
-
-            ULMapLabelDOAndLabelObjectID::ULMapLabelDOAndLabelObjectID(&v59, &v72, *(v107[0] + 8 * v23));
-            v24 = v50;
-            if (v50 >= v51)
-            {
-              v26 = std::vector<ULMapLabelDOAndLabelObjectID>::__emplace_back_slow_path<ULMapLabelDOAndLabelObjectID>(&v49, &v59);
-            }
-
-            else
-            {
-              ULMapLabelDO::ULMapLabelDO(v50, &v59);
-              v25 = v71;
-              v71 = 0;
-              *(v24 + 232) = v25;
-              v26 = v24 + 240;
-            }
-
-            v50 = v26;
-
-            if (v70 == 1)
-            {
-              v69 = -1;
-            }
-
-            if (v68 < 0)
-            {
-              operator delete(v67);
-            }
-
-            if (v66 == 1 && v64)
-            {
-              v65 = v64;
-              operator delete(v64);
-            }
-
-            if (v63 == 1 && v61)
-            {
-              v62 = v61;
-              operator delete(v61);
-            }
-
-            if (v76 == 1)
-            {
-              v75 = -1;
-            }
-
-            if (v74 < 0)
-            {
-              operator delete(v73);
-            }
-
-            if (v72.var2.var1 && v72.var2.var0.var1.var0)
-            {
-              v72.var2.var0.var1.var1 = v72.var2.var0.var1.var0;
-              operator delete(v72.var2.var0.var1.var0);
-            }
-
-            if (v72.var1.var1 && v72.var1.var0.var1.var0)
-            {
-              v72.var1.var0.var1.var1 = v72.var1.var0.var1.var0;
-              operator delete(v72.var1.var0.var1.var0);
-            }
-
-            ++v23;
-            v22 += 128;
-          }
-
-          while (v23 < (v86 - v85) >> 7);
-        }
-
-        if (v94)
-        {
-          if (v35)
-          {
-            if (SDWORD2(v93) > SDWORD2(v47))
-            {
-              *&v47 = v93;
-              DWORD2(v47) = DWORD2(v93);
-            }
-
-            v35 = 1;
-          }
-
-          else
-          {
-            v47 = v93;
-            v35 = 1;
-            v48 = 1;
-          }
-        }
-
-        if (v83 == 1)
-        {
-          v59 = &v82;
-          std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v59);
-          if (v80)
-          {
-            v81 = v80;
-            operator delete(v80);
-          }
-
-          std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v79);
-          std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v78);
-          std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v77);
-        }
-
-        v59 = &v95;
-        std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v59);
-        if (v91)
-        {
-          v92 = v91;
-          operator delete(v91);
-        }
-
-        if (v89)
-        {
-          v90 = v89;
-          operator delete(v89);
-        }
-
-        if (v87)
-        {
-          v88 = v87;
-          operator delete(v87);
-        }
-
-        v59 = &v85;
-        std::vector<ULLabelDO>::__destroy_vector::operator()[abi:ne200100](&v59);
-        if (*(&v84.var1.var0.var1 + 23) < 0)
-        {
-          operator delete(v84.var1.var0.var1.var0);
-        }
-
-        *v84.var0.data = v107;
-        std::vector<NSManagedObjectID * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v84);
-        *v84.var0.data = &v106;
-        std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v84);
-        if (v104)
-        {
-          v105 = v104;
-          operator delete(v104);
-        }
-
-        if (v102)
-        {
-          v103 = v102;
-          operator delete(v102);
-        }
-
-        if (v100)
-        {
-          v101 = v100;
-          operator delete(v100);
-        }
-
-        *v84.var0.data = v99;
-        std::vector<ULLabelDO>::__destroy_vector::operator()[abi:ne200100](&v84);
-        if (*(&__p.var1.var0.var1 + 23) < 0)
-        {
-          operator delete(__p.var1.var0.var1.var0);
-        }
-      }
-
-      *__p.var0.data = &v41;
-      std::vector<std::pair<ULScanningEventDO,std::vector<NSManagedObjectID * {__strong}>>>::__destroy_vector::operator()[abi:ne200100](&__p);
-      if (++v16 == v17)
-      {
-        v16 = v55;
-        v27 = v56;
-        goto LABEL_84;
-      }
-    }
-
-    *v34 = 0;
-    *(v34 + 80) = 0;
-  }
-
-  if (v44)
-  {
-    v45 = v44;
-    operator delete(v44);
-  }
-
-  *__p.var0.data = &v49;
-  std::vector<ULMapLabelDOAndLabelObjectID>::__destroy_vector::operator()[abi:ne200100](&__p);
-  *__p.var0.data = &v52;
-  std::vector<CLMicroLocationFingerprint>::__destroy_vector::operator()[abi:ne200100](&__p);
-  if (v55)
-  {
-    v56 = v55;
-    operator delete(v55);
-  }
-
-  result = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v58.var1);
-  v33 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(uint64_t result, uint64_t **a2, double a3)
-{
-  v4 = *result;
-  v3 = *(result + 8);
-  v5 = *a2;
-  v6 = a2[1];
-  if ((v3 - *result) == (v6 - *a2))
-  {
-    v7 = a3;
-    if (v4 != v3)
-    {
-      v8 = v4 + 1;
-      do
-      {
-        if (v8 == v3)
+        if (v9 == v4)
         {
           goto LABEL_10;
         }
 
-        v10 = *(v8 - 1);
-        v9 = *v8++;
+        v11 = *(v9 - 1);
+        v10 = *v9++;
       }
 
-      while (v9 <= v10);
-      result = CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>();
-      while (v5 != v6)
+      while (v10 <= v11);
+      CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(result);
+      do
       {
-        if (*v4 < v7)
+        if (v6 == v7 || *v5 < v8)
         {
-          v11 = *v5;
-          return result;
+          break;
         }
 
-        ++v4;
         ++v5;
+        v6 += 8;
 LABEL_10:
-        if (v4 == v3)
-        {
-          return result;
-        }
+        ;
       }
+
+      while (v5 != v4);
     }
   }
 
   else
   {
-    v12 = CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>();
-    return ULSettings::get<ULSettings::BlueAtlasModelMinSources>(v12);
+    CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(result);
+    ULSettings::get<ULSettings::BlueAtlasModelMinSources>();
   }
-
-  return result;
 }
 
 uint64_t ULSettings::get<ULSettings::BlueAtlasModelMinSources>()
@@ -2291,8 +106,8 @@ void CLMicroLocationBlueAtlasAlgorithms::validateBlueAtlasModelQuality(CLMicroLo
 {
   v82 = *MEMORY[0x277D85DE8];
   __p = 0;
+  v64 = 0;
   v65 = 0;
-  v66 = 0;
   if (*(this + 136) == 1 && *(this + 120) == 1)
   {
     v3 = *(this + 32);
@@ -2313,12 +128,12 @@ void CLMicroLocationBlueAtlasAlgorithms::validateBlueAtlasModelQuality(CLMicroLo
 
     v9 = v8;
 
-    v55 = v3 >= v9;
+    v54 = v3 >= v9;
   }
 
   else
   {
-    v55 = 0;
+    v54 = 0;
   }
 
   v10 = *(this + 37);
@@ -2328,7 +143,7 @@ void CLMicroLocationBlueAtlasAlgorithms::validateBlueAtlasModelQuality(CLMicroLo
   {
     *buf = 3;
     std::vector<int>::push_back[abi:ne200100](&__p, buf);
-    if (v55)
+    if (v54)
     {
       v12 = 2;
     }
@@ -2339,7 +154,7 @@ void CLMicroLocationBlueAtlasAlgorithms::validateBlueAtlasModelQuality(CLMicroLo
     }
   }
 
-  v56 = v12;
+  v55 = v12;
   if (*(this + 136))
   {
     v13 = (*(this + 10) - *(this + 9)) >> 3;
@@ -2350,35 +165,35 @@ void CLMicroLocationBlueAtlasAlgorithms::validateBlueAtlasModelQuality(CLMicroLo
     v13 = 0;
   }
 
-  v53 = v13;
+  v52 = v13;
   if (v13 < ULSettings::get<ULSettings::BlueAtlasModelMinSources>())
   {
     *buf = 1;
     std::vector<int>::push_back[abi:ne200100](&__p, buf);
-    if (v56 == 3)
+    if (v55 == 3)
     {
       v14 = 2;
     }
 
     else
     {
-      v14 = v56;
+      v14 = v55;
     }
 
-    if (!v55)
+    if (!v54)
     {
       v14 = 1;
     }
 
-    v56 = v14;
+    v55 = v14;
   }
 
-  v63[0] = 0;
-  v63[1] = 0;
-  v61 = 0;
-  v62 = v63;
-  v59 = &v60;
+  v62[0] = 0;
+  v62[1] = 0;
   v60 = 0;
+  v61 = v62;
+  v58 = &v59;
+  v59 = 0;
   v15 = *(this + 22);
   for (i = *(this + 23); v15 != i; v15 += 32)
   {
@@ -2386,12 +201,12 @@ void CLMicroLocationBlueAtlasAlgorithms::validateBlueAtlasModelQuality(CLMicroLo
     {
       if (*(j + 6) == 1)
       {
-        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v58, (j + 8));
+        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v57, (j + 8));
         if (*(this + 136))
         {
           v17 = *(this + 9);
           v18 = *(this + 10);
-          std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](buf, v58);
+          std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](buf, v57);
           if (v17 != v18)
           {
             while (1)
@@ -2417,32 +232,25 @@ void CLMicroLocationBlueAtlasAlgorithms::validateBlueAtlasModelQuality(CLMicroLo
 
           v20 = *(this + 10);
           std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
-          std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v58);
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v57);
           if (v17 != v20)
           {
             *buf = j + 8;
-            v21 = std::__tree<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::__map_value_compare<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::less<std::variant<unsigned long long,boost::uuids::uuid,std::string>>,true>,std::allocator<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>>>::__emplace_unique_key_args<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::piecewise_construct_t const&,std::tuple<std::variant<unsigned long long,boost::uuids::uuid,std::string> const&>,std::tuple<>>(&v62, (j + 8));
-            ++*(v21 + 64);
+            v21 = std::__tree<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::__map_value_compare<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::less<std::variant<unsigned long long,boost::uuids::uuid,std::string>>,true>,std::allocator<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>>>::__emplace_unique_key_args<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::piecewise_construct_t const&,std::tuple<std::variant<unsigned long long,boost::uuids::uuid,std::string> const&>,std::tuple<>>(&v61, (j + 8), &std::piecewise_construct, buf, &v66);
+            ++v21[8];
             v22 = j[7];
             v23 = +[ULDefaultsSingleton shared];
             v24 = [v23 defaultsDictionary];
 
             v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasModelValidationMinRssi"];
             v26 = [v24 objectForKey:v25];
-            if (!v26)
-            {
-              goto LABEL_37;
-            }
-
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            if (v26 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
               v27 = [v26 intValue];
             }
 
             else
             {
-LABEL_37:
               v27 = [&unk_286A724E0 intValue];
             }
 
@@ -2450,14 +258,14 @@ LABEL_37:
 
             if (v22 > v28)
             {
-              std::__tree<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__emplace_unique_key_args<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::variant<unsigned long long,boost::uuids::uuid,std::string> const&>(&v59, (j + 8));
+              std::__tree<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__emplace_unique_key_args<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::variant<unsigned long long,boost::uuids::uuid,std::string> const&>(&v58, (j + 8), (j + 8));
             }
           }
         }
 
         else
         {
-          std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v58);
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v57);
         }
       }
     }
@@ -2480,8 +288,8 @@ LABEL_37:
 
   v34 = v33;
 
-  v35 = v62;
-  if (v62 == v63)
+  v35 = v61;
+  if (v61 == v62)
   {
     v36 = 0;
   }
@@ -2523,7 +331,7 @@ LABEL_37:
       v35 = v38;
     }
 
-    while (v38 != v63);
+    while (v38 != v62);
   }
 
   v40 = +[ULDefaultsSingleton shared];
@@ -2543,11 +351,11 @@ LABEL_37:
 
   v45 = v44;
 
-  if (v61 < v45 || v36 < v45)
+  if (v60 < v45 || v36 < v45)
   {
     *buf = 8;
     std::vector<int>::push_back[abi:ne200100](&__p, buf);
-    if (v55)
+    if (v54)
     {
       v47 = 2;
     }
@@ -2557,20 +365,20 @@ LABEL_37:
       v47 = 1;
     }
 
-    if (v56 >= v47)
+    if (v55 >= v47)
     {
       v46 = v47;
     }
 
     else
     {
-      v46 = v56;
+      v46 = v55;
     }
   }
 
   else
   {
-    v46 = v56;
+    v46 = v55;
   }
 
   v48 = v46;
@@ -2596,9 +404,9 @@ LABEL_37:
     v72 = 1026;
     v73 = v51;
     v74 = 2050;
-    v75 = v54;
+    v75 = v53;
     v76 = 2050;
-    v77 = v61;
+    v77 = v60;
     v78 = 2050;
     v79 = v36;
     v80 = 2050;
@@ -2606,15 +414,13 @@ LABEL_37:
     _os_log_impl(&dword_258FE9000, v49, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:validateBlueAtlasModelQuality, Num input fingerprints:%{public}lu, Minimal num fingerprints:%{public}d, Num WiFi APs:%{public}lu, Num APs with valid RSSI:%{public}lu, Num APs with valid appearance rate:%{public}lu, Model Quality:%{public}lu}", buf, 0x4Au);
   }
 
-  std::__tree<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::destroy(&v59, v60);
-  std::__tree<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::destroy(&v62, v63[0]);
+  std::__tree<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::destroy(&v58, v59);
+  std::__tree<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::destroy(&v61, v62[0]);
   if (__p)
   {
-    v65 = __p;
+    v64 = __p;
     operator delete(__p);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25916E278(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
@@ -2667,7 +473,7 @@ uint64_t std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul>,std::vector<CLM
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>(a1 + 24, *(a2 + 24), *(a2 + 32), 0xEEEEEEEEEEEEEEEFLL * ((*(a2 + 32) - *(a2 + 24)) >> 4));
+  std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>((a1 + 24), *(a2 + 24), *(a2 + 32), 0xEEEEEEEEEEEEEEEFLL * ((*(a2 + 32) - *(a2 + 24)) >> 4));
   v4 = *(a2 + 48);
   *(a1 + 64) = *(a2 + 64);
   *(a1 + 48) = v4;
@@ -2675,14 +481,14 @@ uint64_t std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul>,std::vector<CLM
   return a1;
 }
 
-void sub_25916E5CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25916E5CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<CLMicroLocationFingerprint>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<CLMicroLocationFingerprint>::__init_with_size[abi:ne200100]<CLMicroLocationFingerprint*,CLMicroLocationFingerprint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CLMicroLocationFingerprint>::__init_with_size[abi:ne200100]<CLMicroLocationFingerprint*,CLMicroLocationFingerprint*>(uint64_t *result, CLMicroLocationFingerprint *a2, CLMicroLocationFingerprint *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2774,7 +580,7 @@ void sub_25916EAEC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double *std::__introsort<std::_ClassicAlgPolicy,CLMicroLocationBlueAtlasAlgorithms::learnBlueAtlasModel(std::function<BOOL ()(void)>,ULDatabaseStoreInterface &,CLMicroLocationFingerprintPool &,boost::uuids::uuid const&)::$_0 &,std::pair<unsigned long long,double> *,false>(double *result, double *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,CLMicroLocationBlueAtlasAlgorithms::learnBlueAtlasModel(std::function<BOOL ()(void)>,ULDatabaseStoreInterface &,CLMicroLocationFingerprintPool &,boost::uuids::uuid const&)::$_0 &,std::pair<unsigned long long,double> *,false>(uint64_t result, double *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -3569,7 +1375,7 @@ LABEL_81:
 
       if (v55 <= *(a2 - 1))
       {
-        v73 = v8 + 2;
+        v73 = (v8 + 2);
         do
         {
           v8 = v73;
@@ -3578,8 +1384,8 @@ LABEL_81:
             break;
           }
 
-          v74 = v73[1];
-          v73 += 2;
+          v74 = *(v73 + 8);
+          v73 += 16;
         }
 
         while (v55 <= v74);
@@ -3857,7 +1663,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,CLMic
         if (v8 <= v6)
         {
           *a1 = a1[2];
-          a1[2] = v9;
+          *(a1 + 2) = v9;
           a1[1] = v6;
           a1[3] = v7;
           v32 = *(a2 - 1);
@@ -3944,7 +1750,7 @@ LABEL_54:
 
       v31 = *a1;
       *a1 = v30;
-      a1[2] = v31;
+      *(a1 + 2) = v31;
     }
 
     else
@@ -3953,7 +1759,7 @@ LABEL_54:
       if (v20 <= v17)
       {
         *a1 = a1[2];
-        a1[2] = v21;
+        *(a1 + 2) = v21;
         a1[1] = v17;
         a1[3] = v19;
         if (v20 <= v19)
@@ -3962,14 +1768,14 @@ LABEL_54:
         }
 
         a1[2] = a1[4];
-        a1[4] = v21;
+        *(a1 + 4) = v21;
         v18 = a1 + 3;
       }
 
       else
       {
         *a1 = a1[4];
-        a1[4] = v21;
+        *(a1 + 4) = v21;
       }
 
       v16 = a1 + 5;
@@ -4013,7 +1819,7 @@ LABEL_50:
 
     v47 = *a1;
     *a1 = v46;
-    a1[2] = v47;
+    *(a1 + 2) = v47;
     goto LABEL_54;
   }
 
@@ -4050,7 +1856,7 @@ LABEL_13:
     if (v14 <= v10)
     {
       *a1 = a1[2];
-      a1[2] = v15;
+      *(a1 + 2) = v15;
       a1[1] = v10;
       a1[3] = v12;
       if (v14 <= v12)
@@ -4059,14 +1865,14 @@ LABEL_13:
       }
 
       a1[2] = a1[4];
-      a1[4] = v15;
+      *(a1 + 4) = v15;
       v11 = a1 + 3;
     }
 
     else
     {
       *a1 = a1[4];
-      a1[4] = v15;
+      *(a1 + 4) = v15;
     }
 
     goto LABEL_33;
@@ -4084,7 +1890,7 @@ LABEL_13:
     {
       v28 = *a1;
       *a1 = v27;
-      a1[2] = v28;
+      *(a1 + 2) = v28;
       v13 = a1 + 3;
 LABEL_33:
       *v11 = v14;
@@ -4122,7 +1928,7 @@ LABEL_34:
         v39 -= 16;
         if (v37 <= v40[3])
         {
-          v41 = a1 + v39 + 48;
+          v41 = (a1 + v39 + 48);
           goto LABEL_42;
         }
       }
@@ -4130,7 +1936,7 @@ LABEL_34:
       v41 = a1;
 LABEL_42:
       *v41 = v38;
-      *(v41 + 8) = v37;
+      v41[1] = v37;
       if (++v35 == 8)
       {
         return v33 + 2 == a2;
@@ -4147,14 +1953,14 @@ LABEL_42:
   }
 }
 
-uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJN5boost5uuids4uuidE20CLMicroLocationModelNS_6vectorI28ULMapLabelDOAndLabelObjectIDNS_9allocatorIS8_EEEEEEC2B8ne200100IJLm0ELm1ELm2EEJS5_S6_SB_EJEJEJRS5_RS6_RSB_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSI_IJDpT2_EEEDpOT3_(uint64_t a1, _OWORD *a2, CLMicroLocationModel *a3, uint64_t *a4)
+uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJN5boost5uuids4uuidE20CLMicroLocationModelNS_6vectorI28ULMapLabelDOAndLabelObjectIDNS_9allocatorIS8_EEEEEEC2B8ne200100IJLm0ELm1ELm2EEJS5_S6_SB_EJEJEJRS5_RS6_RSB_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSI_IJDpT2_EEEDpOT3_(uint64_t a1, _OWORD *a2, CLMicroLocationModel *a3, uint64_t a4)
 {
   *a1 = *a2;
   CLMicroLocationModel::CLMicroLocationModel((a1 + 16), a3);
   *(a1 + 320) = 0;
   *(a1 + 328) = 0;
   *(a1 + 336) = 0;
-  std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>(a1 + 320, *a4, a4[1], 0xEEEEEEEEEEEEEEEFLL * ((a4[1] - *a4) >> 4));
+  std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>((a1 + 320), *a4, *(a4 + 8), 0xEEEEEEEEEEEEEEEFLL * ((*(a4 + 8) - *a4) >> 4));
   return a1;
 }
 
@@ -4171,14 +1977,14 @@ void CLMicroLocationModel::CLMicroLocationModel(CLMicroLocationModel *this, cons
   *(this + 9) = v4;
   *(this + 23) = 0;
   *(this + 24) = 0;
-  std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__init_with_size[abi:ne200100]<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>*,std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>*>(this + 176, *(a2 + 22), *(a2 + 23), (*(a2 + 23) - *(a2 + 22)) >> 5);
+  std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__init_with_size[abi:ne200100]<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>*,std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>*>(this + 22, *(a2 + 22), *(a2 + 23), (*(a2 + 23) - *(a2 + 22)) >> 5);
   std::unordered_map<boost::uuids::uuid,std::vector<boost::uuids::uuid>>::unordered_map(this + 200, a2 + 200);
   v6 = *(a2 + 30);
   *(this + 31) = 0;
   *(this + 30) = v6;
   *(this + 32) = 0;
   *(this + 33) = 0;
-  std::vector<CLMicroLocationProto::ServiceQualityReasonEnum>::__init_with_size[abi:ne200100]<CLMicroLocationProto::ServiceQualityReasonEnum*,CLMicroLocationProto::ServiceQualityReasonEnum*>(this + 248, *(a2 + 31), *(a2 + 32), (*(a2 + 32) - *(a2 + 31)) >> 2);
+  std::vector<CLMicroLocationProto::ServiceQualityReasonEnum>::__init_with_size[abi:ne200100]<CLMicroLocationProto::ServiceQualityReasonEnum*,CLMicroLocationProto::ServiceQualityReasonEnum*>(this + 31, *(a2 + 31), *(a2 + 32), (*(a2 + 32) - *(a2 + 31)) >> 2);
   if (*(a2 + 295) < 0)
   {
     std::string::__init_copy_ctor_external((this + 272), *(a2 + 34), *(a2 + 35));
@@ -4194,29 +2000,29 @@ void CLMicroLocationModel::CLMicroLocationModel(CLMicroLocationModel *this, cons
   *(this + 296) = *(a2 + 296);
 }
 
-void sub_25916FDBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25916FDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v5 = *v3;
-  if (*v3)
+  va_start(va, a3);
+  v6 = *v4;
+  if (*v4)
   {
-    *(v2 + 256) = v5;
-    operator delete(v5);
+    *(v3 + 256) = v6;
+    operator delete(v6);
   }
 
-  std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(v2 + 200);
+  std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table((v3 + 200));
   std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 136) == 1)
+  if (*(v3 + 136) == 1)
   {
-    v6 = *(v2 + 72);
-    if (v6)
+    v7 = *(v3 + 72);
+    if (v7)
     {
-      *(v2 + 80) = v6;
-      operator delete(v6);
+      *(v3 + 80) = v7;
+      operator delete(v7);
     }
   }
 
-  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v2 + 16);
+  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v3 + 16);
   _Unwind_Resume(a1);
 }
 
@@ -4251,7 +2057,7 @@ void sub_25916FEAC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__init_with_size[abi:ne200100]<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>*,std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__init_with_size[abi:ne200100]<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>*,std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4268,7 +2074,7 @@ void sub_25916FF34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -4478,7 +2284,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t std::vector<CLMicroLocationProto::ServiceQualityReasonEnum>::__init_with_size[abi:ne200100]<CLMicroLocationProto::ServiceQualityReasonEnum*,CLMicroLocationProto::ServiceQualityReasonEnum*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CLMicroLocationProto::ServiceQualityReasonEnum>::__init_with_size[abi:ne200100]<CLMicroLocationProto::ServiceQualityReasonEnum*,CLMicroLocationProto::ServiceQualityReasonEnum*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4516,7 +2322,7 @@ uint64_t std::tuple<boost::uuids::uuid,CLMicroLocationModel,std::vector<ULMapLab
     operator delete(v2);
   }
 
-  std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(a1 + 216);
+  std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table((a1 + 216));
   v5 = (a1 + 192);
   std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](&v5);
   if (*(a1 + 152) == 1)
@@ -4579,7 +2385,7 @@ uint64_t std::vector<ULMapLabelDOAndLabelObjectID>::__emplace_back_slow_path<ULM
   v15 = 0;
   v16 = 240 * v2;
   v17 = 240 * v2;
-  v7 = ULMapLabelDO::ULMapLabelDO();
+  v7 = ULMapLabelDO::ULMapLabelDO(240 * v2, a2);
   v8 = *(a2 + 232);
   *(a2 + 232) = 0;
   *(v7 + 232) = v8;
@@ -4600,9 +2406,9 @@ uint64_t std::vector<ULMapLabelDOAndLabelObjectID>::__emplace_back_slow_path<ULM
   return v14;
 }
 
-void sub_259170764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_259170764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ULMapLabelDOAndLabelObjectID>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4706,7 +2512,7 @@ void ULMapLabelDOAndLabelObjectID::~ULMapLabelDOAndLabelObjectID(id *this)
   }
 }
 
-uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2ELm3EEEEJNS_6vectorI26CLMicroLocationFingerprintNS_9allocatorIS4_EEEENS3_I28ULMapLabelDOAndLabelObjectIDNS5_IS8_EEEENS_8optionalI25AssociatedAccessPointInfoEEmEEC2B8ne200100IJLm0ELm1ELm2ELm3EEJS7_SA_SD_mEJEJEJRS7_RSA_RSD_RmEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSL_IJDpT2_EEEDpOT3_(uint64_t a1, uint64_t *a2, uint64_t *a3, __int128 *a4, void *a5)
+uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2ELm3EEEEJNS_6vectorI26CLMicroLocationFingerprintNS_9allocatorIS4_EEEENS3_I28ULMapLabelDOAndLabelObjectIDNS5_IS8_EEEENS_8optionalI25AssociatedAccessPointInfoEEmEEC2B8ne200100IJLm0ELm1ELm2ELm3EEJS7_SA_SD_mEJEJEJRS7_RSA_RSD_RmEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSL_IJDpT2_EEEDpOT3_(uint64_t a1, CLMicroLocationFingerprint **a2, uint64_t a3, __int128 *a4, void *a5)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -4715,7 +2521,7 @@ uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2ELm3EEEEJNS_6v
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>(a1 + 24, *a3, a3[1], 0xEEEEEEEEEEEEEEEFLL * ((a3[1] - *a3) >> 4));
+  std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>((a1 + 24), *a3, *(a3 + 8), 0xEEEEEEEEEEEEEEEFLL * ((*(a3 + 8) - *a3) >> 4));
   v9 = *a4;
   *(a1 + 64) = *(a4 + 2);
   *(a1 + 48) = v9;
@@ -4723,9 +2529,9 @@ uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2ELm3EEEEJNS_6v
   return a1;
 }
 
-void sub_259170A14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_259170A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<CLMicroLocationFingerprint>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4747,93 +2553,93 @@ void std::__tree<std::__value_type<unsigned long long,std::vector<float>>,std::_
   }
 }
 
-void *std::__tree<std::__value_type<unsigned long long,std::vector<float>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<float>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<float>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,std::vector<float>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<float>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<float>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::__map_value_compare<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::less<std::variant<unsigned long long,boost::uuids::uuid,std::string>>,true>,std::allocator<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>>>::__emplace_unique_key_args<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::piecewise_construct_t const&,std::tuple<std::variant<unsigned long long,boost::uuids::uuid,std::string> const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+void *std::__tree<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::__map_value_compare<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::less<std::variant<unsigned long long,boost::uuids::uuid,std::string>>,true>,std::allocator<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>>>::__emplace_unique_key_args<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::piecewise_construct_t const&,std::tuple<std::variant<unsigned long long,boost::uuids::uuid,std::string> const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__find_equal<std::variant<unsigned long long,boost::uuids::uuid,std::string>>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__find_equal<std::variant<unsigned long long,boost::uuids::uuid,std::string>>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::__map_value_compare<std::variant<unsigned long long,boost::uuids::uuid,std::string>,std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>,std::less<std::variant<unsigned long long,boost::uuids::uuid,std::string>>,true>,std::allocator<std::__value_type<std::variant<unsigned long long,boost::uuids::uuid,std::string>,unsigned long>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::variant<unsigned long long,boost::uuids::uuid,std::string> const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 void CLMicroLocationClientUtils::getClientIdAndServiceUuid(const void **a1)
 {
   if (*(a1 + 23) >= 0)
   {
-    v2 = *(a1 + 23);
+    v4 = *(a1 + 23);
   }
 
   else
   {
-    v2 = a1[1];
+    v4 = a1[1];
   }
 
-  v3 = __p;
-  std::string::basic_string[abi:ne200100](__p, v2 + 2);
-  if (v6 < 0)
+  v5 = __p;
+  std::string::basic_string[abi:ne200100](__p, v4 + 2);
+  if (v8 < 0)
   {
-    v3 = __p[0];
+    v5 = __p[0];
   }
 
-  if (v2)
+  if (v4)
   {
     if (*(a1 + 23) >= 0)
     {
-      v4 = a1;
+      v6 = a1;
     }
 
     else
     {
-      v4 = *a1;
+      v6 = *a1;
     }
 
-    memmove(v3, v4, v2);
+    memmove(v5, v6, v4);
   }
 
-  strcpy(v3 + v2, "--");
+  strcpy(v5 + v4, "--");
   operator new();
 }
 
@@ -4856,7 +2662,7 @@ void CLMicroLocationClientUtils::getClientIdFromClientIdAndServiceUuid(const std
   a2->__r_.__value_.__l.__size_ = 0;
   a2->__r_.__value_.__r.__words[2] = 0;
   size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
-  if (size >= 0)
+  if ((size & 0x80u) == 0)
   {
     v6 = a1;
   }
@@ -4866,7 +2672,7 @@ void CLMicroLocationClientUtils::getClientIdFromClientIdAndServiceUuid(const std
     v6 = a1->__r_.__value_.__r.__words[0];
   }
 
-  if (size < 0)
+  if ((size & 0x80u) != 0)
   {
     size = a1->__r_.__value_.__l.__size_;
   }
@@ -4886,18 +2692,18 @@ void CLMicroLocationClientUtils::getClientIdFromClientIdAndServiceUuid(const std
   {
     if (size >= v7)
     {
-      v9 = &size[v6];
+      v9 = v6 + size;
       v10 = *v4;
       v11 = v6;
       do
       {
-        v12 = &size[-v7];
+        v12 = size - v7;
         if (v12 == -1)
         {
           break;
         }
 
-        v13 = memchr(v11, v10, (v12 + 1));
+        v13 = memchr(v11, v10, v12 + 1);
         if (!v13)
         {
           break;
@@ -4908,8 +2714,8 @@ void CLMicroLocationClientUtils::getClientIdFromClientIdAndServiceUuid(const std
         {
           if (v14 != v9)
           {
-            v8 = &v14[-v6];
-            if (&v14[-v6] != -1)
+            v8 = v14 - v6;
+            if (v14 - v6 != -1)
             {
               goto LABEL_13;
             }
@@ -4918,8 +2724,8 @@ void CLMicroLocationClientUtils::getClientIdFromClientIdAndServiceUuid(const std
           break;
         }
 
-        v11 = v14 + 1;
-        size = (v9 - (v14 + 1));
+        v11 = (v14 + 1);
+        size = v9 - (v14 + 1);
       }
 
       while (size >= v7);
@@ -4954,7 +2760,7 @@ void sub_259170F20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(uint64_t a1@<X0>, uint64_t a2@<X1>, float *a3@<X8>)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36[4] = *MEMORY[0x277D85DE8];
   v6 = +[ULDefaultsSingleton shared];
   v7 = [v6 defaultsDictionary];
 
@@ -4973,20 +2779,20 @@ void CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(uint64_t a1@<X
   v11 = v10;
 
   v12 = ULSettings::getFingerprintDistanceFunctionParamsForType(v11);
-  std::unordered_map<boost::uuids::uuid,CLMicroLocationAnchorAppearance>::unordered_map(&v31, a2 + 16);
-  v34 = *(a2 + 56);
-  v35 = 1;
-  ULAlgorithms::createLearnFingerprintDistanceFunction(v11, v12, a1 + 8, &v31, v37);
-  if (v35 == 1)
+  std::unordered_map<boost::uuids::uuid,CLMicroLocationAnchorAppearance>::unordered_map(&v30, a2 + 16);
+  v33 = *(a2 + 56);
+  v34 = 1;
+  ULAlgorithms::createLearnFingerprintDistanceFunction(v11, v12, a1 + 8, &v30, v36);
+  if (v34 == 1)
   {
-    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v31);
+    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v30);
   }
 
-  std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::__value_func[abi:ne200100](v36, v37);
-  CLMicroLocationModel::getClusterPairwiseDistances(a2, v36, &v31);
-  std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::~__value_func[abi:ne200100](v36);
-  v13 = v32;
-  if (v31)
+  std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::__value_func[abi:ne200100](v35, v36);
+  CLMicroLocationModel::getClusterPairwiseDistances(a2, v35, &v30);
+  std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::~__value_func[abi:ne200100](v35);
+  v13 = v31;
+  if (v30)
   {
     v14 = 0;
     v15 = 0.0;
@@ -4997,8 +2803,8 @@ void CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(uint64_t a1@<X
     v20 = 1.1755e-38;
     do
     {
-      v21 = (v14 + 1);
-      v22 = *(v32 + (((v14 + 1) * v14) >> 1) + v14);
+      v21 = v14 + 1;
+      v22 = *(v31 + (((v14 + 1) * v14) >> 1) + v14);
       v23 = v22;
       if (v22 > v17)
       {
@@ -5010,8 +2816,8 @@ void CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(uint64_t a1@<X
         v16 = v22;
       }
 
-      v24 = (v14 + 1);
-      if (v21 < v31)
+      v24 = v14 + 1;
+      if (v21 < v30)
       {
         do
         {
@@ -5035,7 +2841,7 @@ void CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(uint64_t a1@<X
             v26 = v14;
           }
 
-          v27 = *(v32 + ((v25 + v25 * v25) >> 1) + v26);
+          v27 = *(v31 + ((v25 + v25 * v25) >> 1) + v26);
           v28 = v27;
           v18 = v18 + v28;
           if (v27 > v20)
@@ -5051,14 +2857,14 @@ void CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(uint64_t a1@<X
           ++v24;
         }
 
-        while (v31 != v24);
+        while (v30 != v24);
       }
 
       ++v14;
-      v15 = (v15 + v23) / v31;
+      v15 = (v15 + v23) / v30;
     }
 
-    while (v21 != v31);
+    while (v21 != v30);
   }
 
   else
@@ -5071,7 +2877,7 @@ void CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(uint64_t a1@<X
     v17 = 1.1755e-38;
   }
 
-  v29 = (((v31 - 1) * v31) >> 1);
+  v29 = (((v30 - 1) * v30) >> 1);
   *a3 = v16;
   a3[1] = v17;
   a3[2] = v15;
@@ -5080,22 +2886,21 @@ void CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(uint64_t a1@<X
   a3[5] = v18 / v29;
   if (v13)
   {
-    v33 = v13;
+    v32 = v13;
     operator delete(v13);
   }
 
-  std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::~__value_func[abi:ne200100](v37);
-
-  v30 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::~__value_func[abi:ne200100](v36);
 }
 
-id CLMicroLocationCoreAnalyticsPublishHelper::initializeModelLearningEventMetricsDict(int a1, int a2, const std::string *a3)
+id CLMicroLocationCoreAnalyticsPublishHelper::initializeModelLearningEventMetricsDict(int a1, uint64_t a2, const std::string *a3)
 {
   if (a1)
   {
+    v4 = a2;
     v5 = [MEMORY[0x277CBEB38] dictionary];
     v6 = MEMORY[0x277CCACA8];
-    CLMicroLocationProtobufHelper::ModelTypeToDomain(a2, &__p);
+    CLMicroLocationProtobufHelper::ModelTypeToDomain(v4, &__p);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -5266,17 +3071,17 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateModelRfCharacteristics(voi
         {
           v53 = 1;
           v73 = &v53;
-          v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v62, &v53)[5]}];
+          v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v62, &v53, &std::piecewise_construct, &v73)[5]}];
           [v8 setObject:v26 forKeyedSubscript:@"maxWifiFingerprintSize"];
 
           v53 = 1;
           v73 = &v53;
-          v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v60, &v53)[5]}];
+          v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v60, &v53, &std::piecewise_construct, &v73)[5]}];
           [v8 setObject:v27 forKeyedSubscript:@"minWifiFingerprintSize"];
 
           v53 = 1;
           v73 = &v53;
-          v28 = [MEMORY[0x277CCABB0] numberWithDouble:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v58, &v53)[5] / v18}];
+          v28 = [MEMORY[0x277CCABB0] numberWithDouble:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v58, &v53, &std::piecewise_construct, &v73)[5] / v18}];
           [v8 setObject:v28 forKeyedSubscript:@"avgWifiFingerprintSize"];
 
           v23 = v59[0];
@@ -5301,17 +3106,17 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateModelRfCharacteristics(voi
           {
             v53 = 5;
             v73 = &v53;
-            v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v62, &v53)[5]}];
+            v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v62, &v53, &std::piecewise_construct, &v73)[5]}];
             [v8 setObject:v31 forKeyedSubscript:@"maxBleFingerprintSize"];
 
             v53 = 5;
             v73 = &v53;
-            v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v60, &v53)[5]}];
+            v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v60, &v53, &std::piecewise_construct, &v73)[5]}];
             [v8 setObject:v32 forKeyedSubscript:@"minBleFingerprintSize"];
 
             v53 = 5;
             v73 = &v53;
-            v33 = [MEMORY[0x277CCABB0] numberWithDouble:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v58, &v53)[5] / v18}];
+            v33 = [MEMORY[0x277CCABB0] numberWithDouble:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v58, &v53, &std::piecewise_construct, &v73)[5] / v18}];
             [v8 setObject:v33 forKeyedSubscript:@"avgBleFingerprintSize"];
 
             v23 = v59[0];
@@ -5335,17 +3140,17 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateModelRfCharacteristics(voi
             {
               v53 = 6;
               v73 = &v53;
-              v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v62, &v53)[5]}];
+              v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v62, &v53, &std::piecewise_construct, &v73)[5]}];
               [v8 setObject:v35 forKeyedSubscript:@"maxUwbFingerprintSize"];
 
               v53 = 6;
               v73 = &v53;
-              v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v60, &v53)[5]}];
+              v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v60, &v53, &std::piecewise_construct, &v73)[5]}];
               [v8 setObject:v36 forKeyedSubscript:@"minUwbFingerprintSize"];
 
               v53 = 6;
               v73 = &v53;
-              v37 = [MEMORY[0x277CCABB0] numberWithDouble:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v58, &v53)[5] / v18}];
+              v37 = [MEMORY[0x277CCABB0] numberWithDouble:{std::__tree<std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::__map_value_compare<CLMicroLocationProto::DataType, std::__value_type<CLMicroLocationProto::DataType, unsigned long>, std::less<CLMicroLocationProto::DataType>, true>, std::allocator<std::__value_type<CLMicroLocationProto::DataType, unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType, std::piecewise_construct_t const&, std::tuple<CLMicroLocationProto::DataType const&>, std::tuple<>>(&v58, &v53, &std::piecewise_construct, &v73)[5] / v18}];
               [v8 setObject:v37 forKeyedSubscript:@"avgUwbFingerprintSize"];
             }
           }
@@ -5475,12 +3280,14 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateModelRfCharacteristics(voi
   }
 }
 
-void sub_259171DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, char a33)
+void sub_259171DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a27, v35[1]);
-  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a30, v35[4]);
-  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a33, v35[7]);
-  std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v36 - 160);
+  va_start(va, a32);
+
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a27, v34[1]);
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a30, v34[4]);
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(va, v34[7]);
+  std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v35 - 160);
 
   _Unwind_Resume(a1);
 }
@@ -5500,7 +3307,7 @@ uint64_t *CLMicroLocationCoreAnalyticsPublishHelper::updateModelRfCharacteristic
         v6 = v4[1];
         do
         {
-          std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::__emplace_unique_key_args<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement const&>(v6, (v5 + 2));
+          std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::__emplace_unique_key_args<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement const&>(v6, (v5 + 2), (v5 + 2));
           v5 = *v5;
         }
 
@@ -5611,13 +3418,13 @@ uint64_t *CLMicroLocationCoreAnalyticsPublishHelper::updateModelRfCharacteristic
         if (v29 == v26 + 8 || v28 < *(v29 + 32))
         {
 LABEL_33:
-          v51 = (i + 4);
-          std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v26, i + 4)[5] = 0;
+          v51 = i + 4;
+          std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v26, i + 4, &std::piecewise_construct, &v51)[5] = 0;
           v26 = v4[7];
         }
 
-        v51 = (i + 4);
-        v30 = std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v26, i + 4);
+        v51 = i + 4;
+        v30 = std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v26, i + 4, &std::piecewise_construct, &v51);
         v31 = *(v2 + 16);
         if (v31)
         {
@@ -5651,8 +3458,8 @@ LABEL_33:
         }
 
         v34 = v4[7];
-        v51 = (i + 4);
-        std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v34, i + 4)[5] = v33;
+        v51 = i + 4;
+        std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v34, i + 4, &std::piecewise_construct, &v51)[5] = v33;
         v35 = v4[8];
         v36 = *(v35 + 8);
         if (!v36)
@@ -5681,13 +3488,13 @@ LABEL_51:
 
         if (v38 == v4[7] + 8)
         {
-          v51 = (i + 4);
-          std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v35, i + 4)[5] = -1;
+          v51 = i + 4;
+          std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v35, i + 4, &std::piecewise_construct, &v51)[5] = -1;
           v35 = v4[8];
         }
 
-        v51 = (i + 4);
-        v39 = std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v35, i + 4);
+        v51 = i + 4;
+        v39 = std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v35, i + 4, &std::piecewise_construct, &v51);
         v40 = *(v2 + 16);
         if (v40)
         {
@@ -5721,8 +3528,8 @@ LABEL_51:
         }
 
         v43 = v4[8];
-        v51 = (i + 4);
-        std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v43, i + 4)[5] = v42;
+        v51 = i + 4;
+        std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v43, i + 4, &std::piecewise_construct, &v51)[5] = v42;
         v44 = v4[9];
         v45 = *(v44 + 8);
         if (!v45)
@@ -5746,8 +3553,8 @@ LABEL_51:
         if (v47 == v44 + 8 || v46 < *(v47 + 32))
         {
 LABEL_71:
-          v51 = (i + 4);
-          std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v44, i + 4)[5] = 0;
+          v51 = i + 4;
+          std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v44, i + 4, &std::piecewise_construct, &v51)[5] = 0;
           v46 = *v25;
         }
 
@@ -5774,8 +3581,8 @@ LABEL_71:
         }
 
         v50 = v4[9];
-        v51 = (i + 4);
-        result = std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v50, i + 4);
+        v51 = i + 4;
+        result = std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(v50, i + 4, &std::piecewise_construct, &v51);
         result[5] += v49;
       }
 
@@ -5790,7 +3597,7 @@ LABEL_71:
 
 void CLMicroLocationCoreAnalyticsPublishHelper::updateClusterRfDistanceCharacteristics(CLMicroLocationCoreAnalyticsPublishHelper *this, NSMutableDictionary *a2, const CLMicroLocationModel *a3)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v4 = this;
   v5 = +[ULDefaultsSingleton shared];
   v6 = [v5 defaultsDictionary];
@@ -5809,41 +3616,41 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateClusterRfDistanceCharacter
 
   v10 = v9;
 
-  v47[0] = &stru_286A60C80;
-  v47[1] = CLMicroLocationUtils::createEnabledTechnologies(1, 1, 1, 1);
-  v48 = v10;
-  v49 = @"Wifi";
+  v46[0] = &stru_286A60C80;
+  v46[1] = CLMicroLocationUtils::createEnabledTechnologies(1, 1, 1, 1);
+  v47 = v10;
+  v48 = @"Wifi";
   EnabledTechnologies = CLMicroLocationUtils::createEnabledTechnologies(1, 0, 0, 0);
-  v51 = v10;
-  v52 = @"Ble";
-  v53 = CLMicroLocationUtils::createEnabledTechnologies(0, 1, 0, 0);
-  v54 = v10;
-  v55 = @"Uwb";
-  v56 = CLMicroLocationUtils::createEnabledTechnologies(0, 0, 1, 0);
-  v57 = v10;
-  v58 = @"PhotoFeatures";
+  v50 = v10;
+  v51 = @"Ble";
+  v52 = CLMicroLocationUtils::createEnabledTechnologies(0, 1, 0, 0);
+  v53 = v10;
+  v54 = @"Uwb";
+  v55 = CLMicroLocationUtils::createEnabledTechnologies(0, 0, 1, 0);
+  v56 = v10;
+  v57 = @"PhotoFeatures";
   v11 = 0;
-  v59 = CLMicroLocationUtils::createEnabledTechnologies(0, 0, 0, 1);
-  v60 = v10;
+  v58 = CLMicroLocationUtils::createEnabledTechnologies(0, 0, 0, 1);
+  v59 = v10;
   do
   {
+    v35 = 0;
     v36 = 0;
     v37 = 0;
-    v38 = 0;
-    CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(&v47[v11], a2, &v36);
-    LODWORD(v12) = v36;
+    CLMicroLocationClusterRFDistance::evaluateRFClusterDistances(&v46[v11], a2, &v35);
+    LODWORD(v12) = v35;
     v13 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"minClusterRfSize", v47[v11]];
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"minClusterRfSize", v46[v11]];
     [(CLMicroLocationCoreAnalyticsPublishHelper *)v4 setObject:v13 forKeyedSubscript:v14];
 
-    LODWORD(v15) = HIDWORD(v36);
+    LODWORD(v15) = HIDWORD(v35);
     v16 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"maxClusterRfSize", v47[v11]];
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"maxClusterRfSize", v46[v11]];
     [(CLMicroLocationCoreAnalyticsPublishHelper *)v4 setObject:v16 forKeyedSubscript:v17];
 
-    LODWORD(v18) = v37;
+    LODWORD(v18) = v36;
     v19 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"avgClusterRfSize", v47[v11]];
+    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"avgClusterRfSize", v46[v11]];
     [(CLMicroLocationCoreAnalyticsPublishHelper *)v4 setObject:v19 forKeyedSubscript:v20];
 
     if (onceToken_MicroLocation_Default != -1)
@@ -5854,33 +3661,33 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateClusterRfDistanceCharacter
     v21 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
     {
-      v22 = v47[v11];
+      v22 = v46[v11];
       *buf = 138413058;
-      v40 = v22;
-      v41 = 2048;
-      v42 = *&v36;
-      v43 = 2048;
-      v44 = *(&v36 + 1);
-      v45 = 2048;
-      v46 = *&v37;
+      v39 = v22;
+      v40 = 2048;
+      v41 = *&v35;
+      v42 = 2048;
+      v43 = *(&v35 + 1);
+      v44 = 2048;
+      v45 = *&v36;
       _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_DEBUG, "Model cluster RF sizes %@: %f (min), %f(max), %f (mean)", buf, 0x2Au);
     }
 
     if (CLMicroLocationModel::numClusters(a2) >= 2)
     {
-      LODWORD(v23) = HIDWORD(v37);
+      LODWORD(v23) = HIDWORD(v36);
       v24 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
-      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"minClusterRfDistance", v47[v11]];
+      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"minClusterRfDistance", v46[v11]];
       [(CLMicroLocationCoreAnalyticsPublishHelper *)v4 setObject:v24 forKeyedSubscript:v25];
 
-      LODWORD(v26) = v38;
+      LODWORD(v26) = v37;
       v27 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
-      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"maxClusterRfDistance", v47[v11]];
+      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"maxClusterRfDistance", v46[v11]];
       [(CLMicroLocationCoreAnalyticsPublishHelper *)v4 setObject:v27 forKeyedSubscript:v28];
 
-      LODWORD(v29) = HIDWORD(v38);
+      LODWORD(v29) = HIDWORD(v37);
       v30 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
-      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"avgClusterRfDistance", v47[v11]];
+      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"avgClusterRfDistance", v46[v11]];
       [(CLMicroLocationCoreAnalyticsPublishHelper *)v4 setObject:v30 forKeyedSubscript:v31];
 
       if (onceToken_MicroLocation_Default != -1)
@@ -5891,15 +3698,15 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateClusterRfDistanceCharacter
       v32 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
       {
-        v33 = v47[v11];
+        v33 = v46[v11];
         *buf = 138413058;
-        v40 = v33;
-        v41 = 2048;
-        v42 = *(&v37 + 1);
-        v43 = 2048;
-        v44 = *&v38;
-        v45 = 2048;
-        v46 = *(&v38 + 1);
+        v39 = v33;
+        v40 = 2048;
+        v41 = *(&v36 + 1);
+        v42 = 2048;
+        v43 = *&v37;
+        v44 = 2048;
+        v45 = *(&v37 + 1);
         _os_log_impl(&dword_258FE9000, v32, OS_LOG_TYPE_DEBUG, "Model cluster RF distances %@: %f (min), %f(max), %f (mean)", buf, 0x2Au);
       }
     }
@@ -5911,8 +3718,6 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateClusterRfDistanceCharacter
   for (i = 12; i != -3; i -= 3)
   {
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void CLMicroLocationCoreAnalyticsPublishHelper::updateLearnEventSummary(void *a1, CLMicroLocationModel *a2, const CLMicroLocationModel *a3, double a4)
@@ -5963,179 +3768,177 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateLearnEventSummary(void *a1
 
       CLMicroLocationCoreAnalyticsPublishHelper::updateModelSizeMetrics(v8, a2, a3, v17);
       CLMicroLocationCoreAnalyticsPublishHelper::updateClusterRfDistanceCharacteristics(v8, a2, v18);
-      v19 = MEMORY[0x277CCABB0];
-      CLMicroLocationModel::representativeFPsRatio(a2);
-      v20 = [v19 numberWithDouble:?];
-      [v8 setObject:v20 forKeyedSubscript:@"representativeFPsRatio"];
+      v19 = [MEMORY[0x277CCABB0] numberWithDouble:CLMicroLocationModel::representativeFPsRatio(a2)];
+      [v8 setObject:v19 forKeyedSubscript:@"representativeFPsRatio"];
 
       __src = 0;
+      v56 = 0;
       v57 = 0;
-      v58 = 0;
-      v21 = *(a2 + 27);
-      if (v21)
+      v20 = *(a2 + 27);
+      if (v20)
       {
-        v22 = 0;
+        v21 = 0;
         do
         {
-          v23 = (v21[5] - v21[4]) >> 4;
-          if (v22 >= v58)
+          v22 = (v20[5] - v20[4]) >> 4;
+          if (v21 >= v57)
           {
-            v24 = __src;
-            v25 = v22 - __src;
-            v26 = (v22 - __src) >> 3;
-            v27 = v26 + 1;
-            if ((v26 + 1) >> 61)
+            v23 = __src;
+            v24 = v21 - __src;
+            v25 = (v21 - __src) >> 3;
+            v26 = v25 + 1;
+            if ((v25 + 1) >> 61)
             {
               std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
             }
 
-            v28 = v58 - __src;
-            if ((v58 - __src) >> 2 > v27)
+            v27 = v57 - __src;
+            if ((v57 - __src) >> 2 > v26)
             {
-              v27 = v28 >> 2;
+              v26 = v27 >> 2;
             }
 
-            if (v28 >= 0x7FFFFFFFFFFFFFF8)
+            if (v27 >= 0x7FFFFFFFFFFFFFF8)
             {
-              v29 = 0x1FFFFFFFFFFFFFFFLL;
+              v28 = 0x1FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v29 = v27;
+              v28 = v26;
             }
 
-            if (v29)
+            if (v28)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(&__src, v29);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(&__src, v28);
             }
 
-            v30 = v26;
-            v31 = (8 * v26);
-            v32 = &v31[-v30];
-            *v31 = v23;
-            v22 = (v31 + 1);
-            memcpy(v32, v24, v25);
-            v33 = __src;
-            __src = v32;
-            v57 = v22;
-            v58 = 0;
-            if (v33)
+            v29 = v25;
+            v30 = (8 * v25);
+            v31 = &v30[-v29];
+            *v30 = v22;
+            v21 = (v30 + 1);
+            memcpy(v31, v23, v24);
+            v32 = __src;
+            __src = v31;
+            v56 = v21;
+            v57 = 0;
+            if (v32)
             {
-              operator delete(v33);
+              operator delete(v32);
             }
           }
 
           else
           {
-            *v22++ = v23;
+            *v21++ = v22;
           }
 
-          v57 = v22;
-          v21 = *v21;
+          v56 = v21;
+          v20 = *v20;
         }
 
-        while (v21);
-        v34 = __src;
+        while (v20);
+        v33 = __src;
       }
 
       else
       {
-        v22 = 0;
-        v34 = 0;
+        v21 = 0;
+        v33 = 0;
       }
 
-      v35 = 126 - 2 * __clz(v22 - v34);
-      if (v22 == v34)
+      v34 = 126 - 2 * __clz(v21 - v33);
+      if (v21 == v33)
       {
-        v36 = 0;
-      }
-
-      else
-      {
-        v36 = v35;
-      }
-
-      std::__introsort<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,true>(v34, v22, __p, v36, 1);
-      v37 = +[ULDefaultsSingleton shared];
-      v38 = [v37 defaultsDictionary];
-
-      v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMaximumNumberOfClustersForLearningAnalytics"];
-      v40 = [v38 objectForKey:v39];
-      if (v40 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-      {
-        v41 = [v40 unsignedLongValue];
+        v35 = 0;
       }
 
       else
       {
-        v41 = [&unk_286A72528 unsignedLongValue];
+        v35 = v34;
       }
 
-      v42 = v41;
+      std::__introsort<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,true>(v33, v21, __p, v35, 1);
+      v36 = +[ULDefaultsSingleton shared];
+      v37 = [v36 defaultsDictionary];
 
-      v44 = __src;
-      v43 = v57;
-      if (v57 != __src)
+      v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMaximumNumberOfClustersForLearningAnalytics"];
+      v39 = [v37 objectForKey:v38];
+      if (v39 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
+        v40 = [v39 unsignedLongValue];
+      }
+
+      else
+      {
+        v40 = [&unk_286A72528 unsignedLongValue];
+      }
+
+      v41 = v40;
+
+      v43 = __src;
+      v42 = v56;
+      if (v56 != __src)
+      {
+        v44 = 0;
         v45 = 0;
-        v46 = 0;
         do
         {
-          if (v45 >= v42)
+          if (v44 >= v41)
           {
-            v46 += v44[v45];
+            v45 += v43[v44];
           }
 
           else
           {
-            v47 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v44[v45]];
-            v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"numFingerprintsInCluster%zu", v45];
-            [v8 setObject:v47 forKeyedSubscript:v48];
+            v46 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v43[v44]];
+            v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"numFingerprintsInCluster%zu", v44];
+            [v8 setObject:v46 forKeyedSubscript:v47];
 
-            v44 = __src;
-            v43 = v57;
+            v43 = __src;
+            v42 = v56;
           }
 
-          ++v45;
+          ++v44;
         }
 
-        while (v45 < v43 - v44);
-        if (v46)
+        while (v44 < v42 - v43);
+        if (v45)
         {
-          v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v46];
-          [v8 setObject:v49 forKeyedSubscript:@"numFingerprintsInRemainingClusters"];
+          v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v45];
+          [v8 setObject:v48 forKeyedSubscript:@"numFingerprintsInRemainingClusters"];
 
-          v43 = v57;
+          v42 = v56;
         }
       }
 
-      v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(v43 - 1)];
-      [v8 setObject:v50 forKeyedSubscript:@"numFingerprintsInSmallestCluster"];
+      v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(v42 - 1)];
+      [v8 setObject:v49 forKeyedSubscript:@"numFingerprintsInSmallestCluster"];
 
       CLMicroLocationCoreAnalyticsPublishHelper::generationAlgorithmToString(*a2, __p);
-      if (v55 >= 0)
+      if (v54 >= 0)
       {
-        v51 = __p;
+        v50 = __p;
       }
 
       else
       {
-        v51 = __p[0];
+        v50 = __p[0];
       }
 
-      v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:v51];
-      [v8 setObject:v52 forKeyedSubscript:@"generationAlgorithm"];
+      v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:v50];
+      [v8 setObject:v51 forKeyedSubscript:@"generationAlgorithm"];
 
-      CLMicroLocationCoreAnalyticsPublishHelper::updateModelQualityMetrics(v8, a2, v53);
-      if (v55 < 0)
+      CLMicroLocationCoreAnalyticsPublishHelper::updateModelQualityMetrics(v8, a2, v52);
+      if (v54 < 0)
       {
         operator delete(__p[0]);
       }
 
       if (__src)
       {
-        v57 = __src;
+        v56 = __src;
         operator delete(__src);
       }
     }
@@ -6269,7 +4072,7 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateModelQualityMetrics(CLMicr
   v30 = 0;
   v31 = 0;
   v32 = 0;
-  std::vector<CLMicroLocationProto::ServiceQualityReasonEnum>::__init_with_size[abi:ne200100]<CLMicroLocationProto::ServiceQualityReasonEnum*,CLMicroLocationProto::ServiceQualityReasonEnum*>(&v30, *CandidateQualityReasons, CandidateQualityReasons[1], (CandidateQualityReasons[1] - *CandidateQualityReasons) >> 2);
+  std::vector<CLMicroLocationProto::ServiceQualityReasonEnum>::__init_with_size[abi:ne200100]<CLMicroLocationProto::ServiceQualityReasonEnum*,CLMicroLocationProto::ServiceQualityReasonEnum*>(&v30, *CandidateQualityReasons, *(CandidateQualityReasons + 8), (*(CandidateQualityReasons + 8) - *CandidateQualityReasons) >> 2);
   v8 = 126 - 2 * __clz((v31 - v30) >> 2);
   if (v31 == v30)
   {
@@ -6364,7 +4167,7 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateModelQualityMetrics(CLMicr
     while (v10 != v11);
   }
 
-  boost::algorithm::join<std::vector<std::string>,char [2]>(" ", &v27, &v35);
+  boost::algorithm::join<std::vector<std::string>,char [2]>(&v35, " ", &v27);
   if (SHIBYTE(v35.__end_) >= 0)
   {
     first = &v35;
@@ -6432,8 +4235,8 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateMagicalMomentOldModelMetri
       v16 = [v14 numberWithInt:v15 - CLMicroLocationModel::numClusters(a3)];
       [v11 setObject:v16 forKeyedSubscript:@"numClustersDiff"];
 
-      CLMicroLocationModel::getIdentifiers(a2, &v28);
-      CLMicroLocationModel::getIdentifiers(a3, &v26);
+      CLMicroLocationModel::getIdentifiers(&v28, a2);
+      CLMicroLocationModel::getIdentifiers(&v26, a3);
       v17 = v28;
       if (v28 == v29)
       {
@@ -6502,7 +4305,7 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateMagicalMomentOldModelMetri
   }
 }
 
-void sub_25917381C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, char a12, void *a13)
+void sub_25917381C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13)
 {
   std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a9, a10);
   std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a12, a13);
@@ -6512,7 +4315,7 @@ void sub_25917381C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void CLMicroLocationCoreAnalyticsPublishHelper::updateMagicalMomentsNumPrunedFingerprints(void *a1, uint64_t *a2, unsigned int a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a1;
   if (v5)
   {
@@ -6565,13 +4368,13 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateMagicalMomentsNumPrunedFin
     {
       v8 = (a2[1] - *a2) >> 3;
       *buf = 68289538;
-      v23 = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2050;
-      v27 = a3;
-      v28 = 2050;
-      v29 = v8;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2050;
+      v26 = a3;
+      v27 = 2050;
+      v28 = v8;
       _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:updateMagicalMomentsNumPrunedFingerprints called incorrectly, iteration:%{public}lu, numFingerprintsPerIteration size:%{public}lu}", buf, 0x26u);
     }
 
@@ -6585,20 +4388,18 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateMagicalMomentsNumPrunedFin
     {
       v10 = (a2[1] - *a2) >> 3;
       *buf = 68289538;
-      v23 = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2050;
-      v27 = a3;
-      v28 = 2050;
-      v29 = v10;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2050;
+      v26 = a3;
+      v27 = 2050;
+      v28 = v10;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "updateMagicalMomentsNumPrunedFingerprints called incorrectly", "{msg%{public}.0s:updateMagicalMomentsNumPrunedFingerprints called incorrectly, iteration:%{public}lu, numFingerprintsPerIteration size:%{public}lu}", buf, 0x26u);
     }
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void CLMicroLocationCoreAnalyticsPublishHelper::updateMagicalMomentsNumPrunedClusters(CLMicroLocationCoreAnalyticsPublishHelper *this, NSMutableDictionary *a2, const CLMicroLocationModel *a3, uint64_t a4)
@@ -6618,10 +4419,10 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateMagicalMomentsNumPrunedClu
   }
 }
 
-void CLMicroLocationCoreAnalyticsPublishHelper::updateModelStabilityMetrics(void *a1, unsigned int *a2, _BYTE *a3)
+void CLMicroLocationCoreAnalyticsPublishHelper::updateModelStabilityMetrics(void *a1, CLMicroLocationModel *a2, _BYTE *a3)
 {
   v10 = a1;
-  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[3]];
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 3)];
   [v10 setObject:v5 forKeyedSubscript:@"DaysWithRecordings"];
 
   v6 = [MEMORY[0x277CCABB0] numberWithBool:CLMicroLocationModel::getQualityIndicator(a2) == 3];
@@ -6661,41 +4462,41 @@ void CLMicroLocationCoreAnalyticsPublishHelper::updateModelStabilityMetrics(void
   }
 }
 
-uint64_t *std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::__map_value_compare<CLMicroLocationProto::DataType,std::__value_type<CLMicroLocationProto::DataType,unsigned long>,std::less<CLMicroLocationProto::DataType>,true>,std::allocator<std::__value_type<CLMicroLocationProto::DataType,unsigned long>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -6709,7 +4510,7 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_121()
   logObject_MicroLocation_Default = v0;
 }
 
-unint64_t *std::__introsort<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,true>(unint64_t *result, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,true>(uint64_t result, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -7459,7 +5260,7 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
   v2 = *a1;
   if (*a1 <= *(a2 - 1))
   {
-    v5 = (a1 + 1);
+    v5 = a1 + 1;
     do
     {
       v3 = v5;
@@ -8279,7 +6080,7 @@ LABEL_91:
   return v39 + 1 == a2;
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,unsigned long *>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,unsigned long *>(unint64_t *a1, unint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -8502,7 +6303,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<unsi
   return result;
 }
 
-int *std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CLMicroLocationProto::ServiceQualityReasonEnum *,false>(int *result, int *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CLMicroLocationProto::ServiceQualityReasonEnum *,false>(uint64_t result, unsigned int *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -8544,9 +6345,9 @@ LABEL_3:
 
     if (v12 == 4)
     {
-      v58 = v9 + 1;
+      v58 = (v9 + 1);
       v59 = v9[1];
-      v60 = v9 + 2;
+      v60 = (v9 + 2);
       v61 = v9[2];
       v62 = *v9;
       if (v59 >= v62)
@@ -8619,9 +6420,9 @@ LABEL_121:
 
     if (v12 == 5)
     {
-      v47 = v9 + 1;
+      v47 = (v9 + 1);
       v48 = v9[1];
-      v50 = v9 + 2;
+      v50 = (v9 + 2);
       v49 = v9[2];
       v51 = *v9;
       if (v48 >= v51)
@@ -9068,7 +6869,7 @@ LABEL_62:
     }
 
     v43 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CLMicroLocationProto::ServiceQualityReasonEnum *>(v9, v41);
-    v9 = v41 + 1;
+    v9 = (v41 + 1);
     result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CLMicroLocationProto::ServiceQualityReasonEnum *>(v41 + 1, a2);
     if (result)
     {
@@ -9087,7 +6888,7 @@ LABEL_62:
     {
 LABEL_67:
       result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CLMicroLocationProto::ServiceQualityReasonEnum *,false>(v8, v41, a3, -v11, a5 & 1);
-      v9 = v41 + 1;
+      v9 = (v41 + 1);
 LABEL_69:
       a5 = 0;
       a4 = -v11;
@@ -9288,7 +7089,7 @@ int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,
   return v6;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CLMicroLocationProto::ServiceQualityReasonEnum *>(_DWORD *a1, int *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CLMicroLocationProto::ServiceQualityReasonEnum *>(int *a1, int *a2)
 {
   v2 = a2 - a1;
   if (v2 > 2)
@@ -9775,4 +7576,2087 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<v
   }
 
   return a3;
+}
+
+uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CLMicroLocationProto::ServiceQualityReasonEnum *>(uint64_t result, uint64_t a2, uint64_t a3, int *a4)
+{
+  if (a3 >= 2)
+  {
+    v4 = a4 - result;
+    v5 = (a3 - 2) >> 1;
+    if (v5 >= (a4 - result) >> 2)
+    {
+      v6 = v4 >> 1;
+      v7 = (v4 >> 1) + 1;
+      v8 = (result + 4 * v7);
+      v9 = v6 + 2;
+      if (v9 >= a3)
+      {
+        v10 = *v8;
+      }
+
+      else
+      {
+        v10 = *v8;
+        v11 = v8[1];
+        if (*v8 <= v11)
+        {
+          v10 = v8[1];
+        }
+
+        if (*v8 < v11)
+        {
+          ++v8;
+          v7 = v9;
+        }
+      }
+
+      v12 = *a4;
+      if (v10 >= *a4)
+      {
+        do
+        {
+          *a4 = v10;
+          a4 = v8;
+          if (v5 < v7)
+          {
+            break;
+          }
+
+          v13 = (2 * v7) | 1;
+          v8 = (result + 4 * v13);
+          v7 = 2 * v7 + 2;
+          if (v7 >= a3)
+          {
+            v10 = *v8;
+            v7 = v13;
+          }
+
+          else
+          {
+            v10 = *v8;
+            v14 = v8[1];
+            if (*v8 <= v14)
+            {
+              v10 = v8[1];
+            }
+
+            if (*v8 >= v14)
+            {
+              v7 = v13;
+            }
+
+            else
+            {
+              ++v8;
+            }
+          }
+        }
+
+        while (v10 >= v12);
+        *a4 = v12;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__tree<boost::uuids::uuid>::find<boost::uuids::uuid>(uint64_t a1, unint64_t *a2)
+{
+  v4 = *(a1 + 8);
+  v2 = a1 + 8;
+  v3 = v4;
+  if (!v4)
+  {
+    return v2;
+  }
+
+  v5 = bswap64(*a2);
+  v6 = v2;
+  do
+  {
+    v7 = bswap64(*(v3 + 25));
+    if (v7 == v5)
+    {
+      v7 = bswap64(*(v3 + 33));
+      v8 = bswap64(a2[1]);
+      if (v7 == v8)
+      {
+        v9 = 0;
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      v8 = v5;
+    }
+
+    if (v7 < v8)
+    {
+      v9 = -1;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+LABEL_10:
+    if (v9 >= 0)
+    {
+      v6 = v3;
+    }
+
+    v3 = *(v3 + ((v9 >> 28) & 8));
+  }
+
+  while (v3);
+  if (v6 == v2)
+  {
+    return v2;
+  }
+
+  v10 = bswap64(*a2);
+  v11 = bswap64(*(v6 + 25));
+  if (v10 != v11 || (v10 = bswap64(a2[1]), v11 = bswap64(*(v6 + 33)), v10 != v11))
+  {
+    v12 = v10 < v11 ? -1 : 1;
+    if (v12 < 0)
+    {
+      return v2;
+    }
+  }
+
+  return v6;
+}
+
+uint64_t CLMicroLocationErrorHandling::reportError(uint64_t *a1)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    CLMicroLocationErrorHandling::reportError();
+  }
+
+  v2 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
+  {
+    if (*(a1 + 23) >= 0)
+    {
+      v3 = a1;
+    }
+
+    else
+    {
+      v3 = *a1;
+    }
+
+    *buf = 136315138;
+    v6 = v3;
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_ERROR, "Microlocation error report: %s", buf, 0xCu);
+  }
+
+  result = ULSettings::get<ULSettings::AnalyticsSendEventEnabled>();
+  if (result)
+  {
+    return AnalyticsSendEventLazy();
+  }
+
+  return result;
+}
+
+id ___ZN28CLMicroLocationErrorHandling11reportErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE_block_invoke(uint64_t a1)
+{
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"errorType";
+  v1 = *(a1 + 32);
+  if (*(v1 + 23) < 0)
+  {
+    v1 = *v1;
+  }
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+
+  return v3;
+}
+
+void CLMicroLocationErrorHandling::reportError(CLMicroLocationErrorHandling *this, NSString *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = this;
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    CLMicroLocationErrorHandling::reportError();
+  }
+
+  v3 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_ERROR, "Microlocation error report: %@", buf, 0xCu);
+  }
+
+  if (ULSettings::get<ULSettings::AnalyticsSendEventEnabled>())
+  {
+    v4 = v2;
+    AnalyticsSendEventLazy();
+  }
+}
+
+id ___ZN28CLMicroLocationErrorHandling11reportErrorEP8NSString_block_invoke(uint64_t a1)
+{
+  v5[1] = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 32);
+  v4 = @"errorType";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+
+  return v2;
+}
+
+void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_122()
+{
+  v0 = os_log_create("com.apple.MicroLocation", "MicroLocation");
+  v1 = logObject_MicroLocation_Default;
+  logObject_MicroLocation_Default = v0;
+}
+
+void CLMicroLocationFingerprintConfiguration::getCustomLoiRecordingConfigurationFromSettings(uint64_t *__return_ptr a1@<X8>)
+{
+  CLMicroLocationFingerprintConfiguration::getRecordingConfigurationFromSettings(a1);
+  v3 = +[ULDefaultsSingleton shared];
+  v4 = [v3 defaultsDictionary];
+
+  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumTotalNumberOfMeasurementsForFingerprintInCustomLoi"];
+  v6 = [v4 objectForKey:v5];
+  if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v7 = [v6 unsignedLongValue];
+  }
+
+  else
+  {
+    v7 = [&unk_286A72540 unsignedLongValue];
+  }
+
+  v8 = v7;
+
+  *a1 = v8;
+}
+
+uint64_t *CLMicroLocationFingerprintConfiguration::getRecordingConfigurationFromSettings@<X0>(uint64_t a2@<X8>)
+{
+  *a2 = ULSettings::get<ULSettings::MinimumTotalNumberOfMeasurementsForFingerprint>();
+  *(a2 + 8) = ULSettings::get<ULSettings::ProcessOffChannelRssiAP>();
+  v3 = ULSettings::get<ULSettings::ProcessInvalidRssiAP>();
+  *(a2 + 16) = 0u;
+  v4 = a2 + 16;
+  *(v4 - 7) = v3;
+  *(v4 + 16) = 0u;
+  *(v4 + 32) = 1065353216;
+  v5 = ULSettings::get<ULSettings::MeasurementProcessingWifiRssiEnable>();
+  v6 = +[ULDefaultsSingleton shared];
+  v7 = [v6 defaultsDictionary];
+
+  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumWiFiDurationForFingerprintRecording"];
+  v9 = [v7 objectForKey:v8];
+  if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    [v9 doubleValue];
+  }
+
+  else
+  {
+    [&unk_286A72F40 doubleValue];
+  }
+
+  v11 = v10;
+
+  v12 = +[ULDefaultsSingleton shared];
+  v13 = [v12 defaultsDictionary];
+
+  v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumWiFiNumberOfMeasurementsForFingerprintRecording"];
+  v15 = [v13 objectForKey:v14];
+  if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v16 = [v15 unsignedLongValue];
+  }
+
+  else
+  {
+    v16 = [&unk_286A72540 unsignedLongValue];
+  }
+
+  v51 = v16;
+
+  v17 = ULSettings::get<ULSettings::MaximumNumberOfWifiRssiMeasurementsForFingerprint>();
+  v50 = ULSettings::get<ULSettings::MeasurementProcessingBleLeechEnable>();
+  v18 = +[ULDefaultsSingleton shared];
+  v19 = [v18 defaultsDictionary];
+
+  v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumBleDurationForFingerprintRecording"];
+  v21 = [v19 objectForKey:v20];
+  if (v21 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    [v21 doubleValue];
+  }
+
+  else
+  {
+    [&unk_286A72588 doubleValue];
+  }
+
+  v23 = v22;
+
+  v24 = +[ULDefaultsSingleton shared];
+  v25 = [v24 defaultsDictionary];
+
+  v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumBleNumberOfMeasurementsForFingerprintRecording"];
+  v27 = [v25 objectForKey:v26];
+  if (v27 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v28 = [v27 unsignedLongValue];
+  }
+
+  else
+  {
+    v28 = [&unk_286A72588 unsignedLongValue];
+  }
+
+  v29 = v28;
+
+  v30 = ULSettings::get<ULSettings::MaximumNumberOfBleRssiMeasurementsForFingerprint>();
+  v31 = v5;
+  v32 = ULSettings::get<ULSettings::MeasurementProcessingUwbRangeEnable>();
+  if (v32)
+  {
+    isUwbRangingSupportedOnDevice = ULHomeNearbyRangingSupport::isUwbRangingSupportedOnDevice(v32);
+  }
+
+  else
+  {
+    isUwbRangingSupportedOnDevice = 0;
+  }
+
+  v34 = +[ULDefaultsSingleton shared];
+  v35 = [v34 defaultsDictionary];
+
+  v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumUwbRangeDurationForFingerprintRecording"];
+  v37 = [v35 objectForKey:v36];
+  if (v37 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    [v37 doubleValue];
+  }
+
+  else
+  {
+    [&unk_286A72588 doubleValue];
+  }
+
+  v39 = v38;
+
+  v40 = +[ULDefaultsSingleton shared];
+  v41 = [v40 defaultsDictionary];
+
+  v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumUwbNumberOfMeasurementsForFingerprintRecording"];
+  v43 = [v41 objectForKey:v42];
+  if (v43 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v44 = [v43 unsignedLongValue];
+  }
+
+  else
+  {
+    v44 = [&unk_286A72588 unsignedLongValue];
+  }
+
+  v45 = v44;
+
+  v46 = ULSettings::get<ULSettings::MaximumNumberOfUwbRangeMeasurementsForFingerprint>();
+  v52 = 1;
+  v56 = &v52;
+  v47 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType&&>,std::tuple<>>(v4, &v52, &std::piecewise_construct, &v56);
+  *(v47 + 24) = v31;
+  *(v47 + 25) = *v55;
+  *(v47 + 7) = *&v55[3];
+  v47[4] = v11;
+  v47[5] = v51;
+  v47[6] = v17;
+  v52 = 5;
+  v56 = &v52;
+  v48 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType&&>,std::tuple<>>(v4, &v52, &std::piecewise_construct, &v56);
+  *(v48 + 24) = v50;
+  *(v48 + 25) = *v54;
+  *(v48 + 7) = *&v54[3];
+  v48[4] = v23;
+  v48[5] = v29;
+  v48[6] = v30;
+  v52 = 6;
+  v56 = &v52;
+  result = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType&&>,std::tuple<>>(v4, &v52, &std::piecewise_construct, &v56);
+  *(result + 24) = isUwbRangingSupportedOnDevice;
+  *(result + 25) = *v53;
+  *(result + 7) = *&v53[3];
+  result[4] = v39;
+  result[5] = v45;
+  result[6] = v46;
+  return result;
+}
+
+uint64_t ULSettings::get<ULSettings::MinimumTotalNumberOfMeasurementsForFingerprint>()
+{
+  v0 = +[ULDefaultsSingleton shared];
+  v1 = [v0 defaultsDictionary];
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumTotalNumberOfMeasurementsForFingerprint"];
+  v3 = [v1 objectForKey:v2];
+  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v4 = [v3 unsignedLongValue];
+  }
+
+  else
+  {
+    v4 = [&unk_286A72558 unsignedLongValue];
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+uint64_t ULSettings::get<ULSettings::ProcessOffChannelRssiAP>()
+{
+  v0 = +[ULDefaultsSingleton shared];
+  v1 = [v0 defaultsDictionary];
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULProcessOffChannelRssiAP"];
+  v3 = [v1 objectForKey:v2];
+  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v4 = [v3 BOOLValue];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CBEC28] BOOLValue];
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+uint64_t ULSettings::get<ULSettings::ProcessInvalidRssiAP>()
+{
+  v0 = +[ULDefaultsSingleton shared];
+  v1 = [v0 defaultsDictionary];
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULProcessInvalidRssiAP"];
+  v3 = [v1 objectForKey:v2];
+  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v4 = [v3 BOOLValue];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CBEC38] BOOLValue];
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+uint64_t ULSettings::get<ULSettings::MeasurementProcessingWifiRssiEnable>()
+{
+  v0 = +[ULDefaultsSingleton shared];
+  v1 = [v0 defaultsDictionary];
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMeasurementProcessingWifiRssiEnable"];
+  v3 = [v1 objectForKey:v2];
+  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v4 = [v3 BOOLValue];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CBEC38] BOOLValue];
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+uint64_t ULSettings::get<ULSettings::MaximumNumberOfWifiRssiMeasurementsForFingerprint>()
+{
+  v0 = +[ULDefaultsSingleton shared];
+  v1 = [v0 defaultsDictionary];
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMaximumNumberOfWifiRssiMeasurementsForFingerprint"];
+  v3 = [v1 objectForKey:v2];
+  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v4 = [v3 unsignedLongValue];
+  }
+
+  else
+  {
+    v4 = [&unk_286A72570 unsignedLongValue];
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+uint64_t ULSettings::get<ULSettings::MeasurementProcessingBleLeechEnable>()
+{
+  v0 = +[ULDefaultsSingleton shared];
+  v1 = [v0 defaultsDictionary];
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMeasurementProcessingBleLeechEnable"];
+  v3 = [v1 objectForKey:v2];
+  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v4 = [v3 BOOLValue];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CBEC38] BOOLValue];
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+uint64_t ULSettings::get<ULSettings::MaximumNumberOfBleRssiMeasurementsForFingerprint>()
+{
+  v0 = +[ULDefaultsSingleton shared];
+  v1 = [v0 defaultsDictionary];
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMaximumNumberOfBleRssiMeasurementsForFingerprint"];
+  v3 = [v1 objectForKey:v2];
+  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v4 = [v3 unsignedLongValue];
+  }
+
+  else
+  {
+    v4 = [&unk_286A72570 unsignedLongValue];
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+uint64_t ULSettings::get<ULSettings::MeasurementProcessingUwbRangeEnable>()
+{
+  v0 = +[ULDefaultsSingleton shared];
+  v1 = [v0 defaultsDictionary];
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMeasurementProcessingUwbRangeEnable"];
+  v3 = [v1 objectForKey:v2];
+  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v4 = [v3 BOOLValue];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CBEC38] BOOLValue];
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+uint64_t ULSettings::get<ULSettings::MaximumNumberOfUwbRangeMeasurementsForFingerprint>()
+{
+  v0 = +[ULDefaultsSingleton shared];
+  v1 = [v0 defaultsDictionary];
+
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMaximumNumberOfUwbRangeMeasurementsForFingerprint"];
+  v3 = [v1 objectForKey:v2];
+  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v4 = [v3 unsignedLongValue];
+  }
+
+  else
+  {
+    v4 = [&unk_286A72570 unsignedLongValue];
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+uint64_t *CLMicroLocationFingerprintConfiguration::getLocalizingConfigurationFromSettings@<X0>(void **__return_ptr a1@<X8>)
+{
+  *a1 = ULSettings::get<ULSettings::MinimumTotalNumberOfMeasurementsForFingerprint>();
+  *(a1 + 8) = ULSettings::get<ULSettings::ProcessOffChannelRssiAP>();
+  v2 = ULSettings::get<ULSettings::ProcessInvalidRssiAP>();
+  *(a1 + 1) = 0u;
+  v3 = a1 + 2;
+  *(v3 - 7) = v2;
+  *(v3 + 1) = 0u;
+  *(v3 + 8) = 1065353216;
+  v4 = ULSettings::get<ULSettings::MeasurementProcessingWifiRssiEnable>();
+  v5 = +[ULDefaultsSingleton shared];
+  v6 = [v5 defaultsDictionary];
+
+  v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumWiFiDurationForFingerprintLocalizing"];
+  v8 = [v6 objectForKey:v7];
+  if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    [v8 doubleValue];
+  }
+
+  else
+  {
+    [&unk_286A72F40 doubleValue];
+  }
+
+  v10 = v9;
+
+  v11 = +[ULDefaultsSingleton shared];
+  v12 = [v11 defaultsDictionary];
+
+  v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumWiFiNumberOfMeasurementsForFingerprintLocalizing"];
+  v14 = [v12 objectForKey:v13];
+  if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v15 = [v14 unsignedLongValue];
+  }
+
+  else
+  {
+    v15 = [&unk_286A72540 unsignedLongValue];
+  }
+
+  v50 = v15;
+
+  v16 = ULSettings::get<ULSettings::MaximumNumberOfWifiRssiMeasurementsForFingerprint>();
+  v49 = ULSettings::get<ULSettings::MeasurementProcessingBleLeechEnable>();
+  v17 = +[ULDefaultsSingleton shared];
+  v18 = [v17 defaultsDictionary];
+
+  v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumBleDurationForFingerprintLocalizing"];
+  v20 = [v18 objectForKey:v19];
+  if (v20 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    [v20 doubleValue];
+  }
+
+  else
+  {
+    [&unk_286A72588 doubleValue];
+  }
+
+  v22 = v21;
+
+  v23 = +[ULDefaultsSingleton shared];
+  v24 = [v23 defaultsDictionary];
+
+  v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumBleNumberOfMeasurementsForFingerprintLocalizing"];
+  v26 = [v24 objectForKey:v25];
+  if (v26 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v27 = [v26 unsignedLongValue];
+  }
+
+  else
+  {
+    v27 = [&unk_286A72588 unsignedLongValue];
+  }
+
+  v28 = v27;
+
+  v29 = ULSettings::get<ULSettings::MaximumNumberOfBleRssiMeasurementsForFingerprint>();
+  v30 = v4;
+  v31 = ULSettings::get<ULSettings::MeasurementProcessingUwbRangeEnable>();
+  if (v31)
+  {
+    isUwbRangingSupportedOnDevice = ULHomeNearbyRangingSupport::isUwbRangingSupportedOnDevice(v31);
+  }
+
+  else
+  {
+    isUwbRangingSupportedOnDevice = 0;
+  }
+
+  v33 = +[ULDefaultsSingleton shared];
+  v34 = [v33 defaultsDictionary];
+
+  v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumUwbRangeDurationForFingerprintLocalizing"];
+  v36 = [v34 objectForKey:v35];
+  if (v36 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    [v36 doubleValue];
+  }
+
+  else
+  {
+    [&unk_286A72588 doubleValue];
+  }
+
+  v38 = v37;
+
+  v39 = +[ULDefaultsSingleton shared];
+  v40 = [v39 defaultsDictionary];
+
+  v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULMinimumUwbNumberOfMeasurementsForFingerprintLocalizing"];
+  v42 = [v40 objectForKey:v41];
+  if (v42 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v43 = [v42 unsignedLongValue];
+  }
+
+  else
+  {
+    v43 = [&unk_286A72588 unsignedLongValue];
+  }
+
+  v44 = v43;
+
+  v45 = ULSettings::get<ULSettings::MaximumNumberOfUwbRangeMeasurementsForFingerprint>();
+  v51 = 1;
+  v55 = &v51;
+  v46 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType&&>,std::tuple<>>(v3, &v51, &std::piecewise_construct, &v55);
+  *(v46 + 24) = v30;
+  *(v46 + 25) = *v54;
+  *(v46 + 7) = *&v54[3];
+  v46[4] = v10;
+  v46[5] = v50;
+  v46[6] = v16;
+  v51 = 5;
+  v55 = &v51;
+  v47 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType&&>,std::tuple<>>(v3, &v51, &std::piecewise_construct, &v55);
+  *(v47 + 24) = v49;
+  *(v47 + 25) = *v53;
+  *(v47 + 7) = *&v53[3];
+  v47[4] = v22;
+  v47[5] = v28;
+  v47[6] = v29;
+  v51 = 6;
+  v55 = &v51;
+  result = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprintConfiguration::MeasurementTypeConfiguration>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,std::piecewise_construct_t const&,std::tuple<CLMicroLocationProto::DataType&&>,std::tuple<>>(v3, &v51, &std::piecewise_construct, &v55);
+  *(result + 24) = isUwbRangingSupportedOnDevice;
+  *(result + 25) = *v52;
+  *(result + 7) = *&v52[3];
+  result[4] = v38;
+  result[5] = v44;
+  result[6] = v45;
+  return result;
+}
+
+uint64_t CLMicroLocationFingerprint::Measurement::HashMeasurement::operator()(uint64_t a1, uint64_t a2)
+{
+  v5 = *(a2 + 8);
+  v4 = &v5;
+  v2 = *(a2 + 40);
+  if (v2 == -1)
+  {
+    std::__throw_bad_variant_access[abi:ne200100]();
+  }
+
+  v6 = &v4;
+  (off_286A5C960[v2])(&v6, a2 + 16);
+  return v5;
+}
+
+uint64_t CLMicroLocationFingerprint::Measurement::PredicateMeasurement::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a2 + 8) != *(a3 + 8))
+  {
+    return 0;
+  }
+
+  v5 = *(a2 + 40);
+  v6 = *(a3 + 40);
+  result = v6 == v5;
+  if (v5 != -1 && v6 == v5)
+  {
+    v10[1] = v3;
+    v10[2] = v4;
+    v10[0] = &v9;
+    return (off_286A5C978[v5])(v10, a2 + 16, a3 + 16);
+  }
+
+  return result;
+}
+
+uint64_t CLMicroLocationFingerprint::Measurement::toProtobufFingerprintMeasurement@<X0>(CLMicroLocationFingerprint::Measurement *this@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>)
+{
+  v16[4] = *MEMORY[0x277D85DE8];
+  CLMicroLocationProto::FingerprintMeasurement::FingerprintMeasurement(a2, a3);
+  v5 = *(this + 2);
+  if (!CLMicroLocationProto::DataType_IsValid(v5))
+  {
+    __assert_rtn("set_datatype", "microlocation.pb.h", 12367, "::CLMicroLocationProto::DataType_IsValid(value)");
+  }
+
+  v6 = *(a2 + 36);
+  *(a2 + 16) = v5;
+  *(a2 + 8) = *this;
+  *(a2 + 20) = *(this + 3);
+  *(a2 + 36) = v6 | 0xF;
+  v7 = *(a2 + 24);
+  if (!v7)
+  {
+    operator new();
+  }
+
+  v13[0] = &unk_286A5C9D8;
+  v13[1] = v7;
+  v13[3] = v13;
+  v12[0] = &unk_286A5CA68;
+  v12[1] = v7;
+  v12[3] = v12;
+  v11[0] = &unk_286A5CAF8;
+  v11[1] = v7;
+  v11[3] = v11;
+  CLMicroLocationUtils::DeviceIdVisitor<void>::DeviceIdVisitor(v14, v13, v12, v11);
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v11);
+  std::__function::__value_func<void ()(boost::uuids::uuid const&)>::~__value_func[abi:ne200100](v12);
+  std::__function::__value_func<void ()(unsigned long long const&)>::~__value_func[abi:ne200100](v13);
+  v8 = *(this + 10);
+  if (v8 == -1)
+  {
+    std::__throw_bad_variant_access[abi:ne200100]();
+  }
+
+  v10 = v14;
+  (off_286A5C990[v8])(&v10, this + 16);
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v16);
+  std::__function::__value_func<void ()(boost::uuids::uuid const&)>::~__value_func[abi:ne200100](&v15);
+  return std::__function::__value_func<void ()(unsigned long long const&)>::~__value_func[abi:ne200100](v14);
+}
+
+void sub_259177E6C(_Unwind_Exception *a1)
+{
+  MEMORY[0x259CA1F90](v2, 0x10A1C4000609EC7);
+  CLMicroLocationProto::FingerprintMeasurement::~FingerprintMeasurement(v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t CLMicroLocationFingerprint::Measurement::fromProtobuf@<X0>(CLMicroLocationFingerprint::Measurement *this@<X0>, const CLMicroLocationProto::Measurement *a2@<X1>, uint64_t a3@<X8>)
+{
+  v27 = *MEMORY[0x277D85DE8];
+  v5 = *(this + 16);
+  v6 = *(this + 1);
+  MeasurementValue = CLMicroLocationProtobufHelper::getMeasurementValue(this, a2);
+  v23.__r_.__value_.__r.__words[0] = 0;
+  v24 = 0;
+  if (v5 > 3)
+  {
+    switch(v5)
+    {
+      case 4:
+        v9 = *(this + 5);
+        if (!v9)
+        {
+          v9 = *(CLMicroLocationProto::Measurement::default_instance(v7) + 40);
+        }
+
+        goto LABEL_30;
+      case 5:
+        v15 = *(this + 6);
+        if (!v15)
+        {
+          v7 = CLMicroLocationProto::Measurement::default_instance(v7);
+          v15 = *(v7 + 6);
+        }
+
+        if ((*(v15 + 64) & 0x80) == 0)
+        {
+          v16 = *(this + 6);
+          if (!v16)
+          {
+            v7 = CLMicroLocationProto::Measurement::default_instance(v7);
+            v16 = *(v7 + 6);
+          }
+
+          if ((*(v16 + 64) & 8) != 0)
+          {
+            v9 = *(this + 6);
+            if (!v9)
+            {
+              v9 = *(CLMicroLocationProto::Measurement::default_instance(v7) + 48);
+            }
+
+            goto LABEL_30;
+          }
+
+          goto LABEL_40;
+        }
+
+        v17 = *(this + 6);
+        if (!v17)
+        {
+          v17 = *(CLMicroLocationProto::Measurement::default_instance(v7) + 48);
+        }
+
+        v18 = CLMicroLocationProtobufHelper::uuidFromProtobuf(*(v17 + 48), &v25);
+        if (v26 != 1)
+        {
+          v19 = *(this + 6);
+          if (!v19)
+          {
+            v19 = *(CLMicroLocationProto::Measurement::default_instance(v18) + 48);
+          }
+
+          std::__variant_detail::__assignment<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>>::__assign_alt[abi:ne200100]<2ul,std::string,std::string const&>(&v23, &v23, *(v19 + 48));
+          goto LABEL_40;
+        }
+
+        break;
+      case 6:
+        v10 = *(this + 7);
+        if (!v10)
+        {
+          v10 = *(CLMicroLocationProto::Measurement::default_instance(v7) + 56);
+        }
+
+        v11 = CLMicroLocationProtobufHelper::uuidFromProtobuf(*(v10 + 32), &v25);
+        if (v26 != 1)
+        {
+          v12 = *(this + 7);
+          if (!v12)
+          {
+            v12 = *(CLMicroLocationProto::Measurement::default_instance(v11) + 56);
+          }
+
+          std::__variant_detail::__assignment<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>>::__assign_alt[abi:ne200100]<2ul,std::string,std::string const&>(&v23, &v23, *(v12 + 32));
+          goto LABEL_40;
+        }
+
+        break;
+      default:
+        goto LABEL_40;
+    }
+
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v23);
+    *&v23.__r_.__value_.__l.__data_ = v25;
+    v24 = 1;
+    goto LABEL_40;
+  }
+
+  switch(v5)
+  {
+    case 1:
+      v13 = *(this + 2);
+      if (v13)
+      {
+        v14 = *(v13 + 24);
+      }
+
+      else
+      {
+        v14 = *(*(CLMicroLocationProto::Measurement::default_instance(v7) + 16) + 24);
+      }
+
+      v23.__r_.__value_.__r.__words[0] = v14;
+      break;
+    case 2:
+      v9 = *(this + 3);
+      if (!v9)
+      {
+        v9 = *(CLMicroLocationProto::Measurement::default_instance(v7) + 24);
+      }
+
+      goto LABEL_30;
+    case 3:
+      v9 = *(this + 4);
+      if (!v9)
+      {
+        v9 = *(CLMicroLocationProto::Measurement::default_instance(v7) + 32);
+      }
+
+LABEL_30:
+      std::__variant_detail::__assignment<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>>::__assign_alt[abi:ne200100]<2ul,std::string,std::string const&>(&v23, &v23, *(v9 + 24));
+      break;
+  }
+
+LABEL_40:
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v22, &v23);
+  v20 = MeasurementValue;
+  *a3 = v6;
+  *(a3 + 8) = v5;
+  *(a3 + 12) = v20;
+  std::__variant_detail::__move_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a3 + 16, v22);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v22);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v23);
+}
+
+void sub_259178154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t CLMicroLocationFingerprint::Measurement::fromWifiMeasurement@<X0>(CLMicroLocationFingerprint::Measurement *this@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *this;
+  v4 = *(this + 2);
+  v7[0] = CLMacAddress::toUint64(this + 2);
+  v8 = 0;
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v6, v7);
+  *a2 = v3;
+  *(a2 + 8) = 1;
+  *(a2 + 12) = v4;
+  std::__variant_detail::__move_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a2 + 16, v6);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v6);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v7);
+}
+
+void sub_2591781F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t CLMicroLocationFingerprint::Measurement::fromBLEMeasurement@<X0>(CLMicroLocationFingerprint::Measurement *this@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *this;
+  v4 = *(this + 2);
+  v7 = *(this + 12);
+  v8 = 1;
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v6, &v7);
+  *a2 = v3;
+  *(a2 + 8) = 5;
+  *(a2 + 12) = v4;
+  std::__variant_detail::__move_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a2 + 16, v6);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v6);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v7);
+}
+
+void sub_259178290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t CLMicroLocationFingerprint::Measurement::fromUWBMeasurement@<X0>(CLMicroLocationFingerprint::Measurement *this@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *this;
+  v4 = *(this + 2);
+  v7 = *(this + 12);
+  v8 = 1;
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v6, &v7);
+  *a2 = v3;
+  *(a2 + 8) = 6;
+  *(a2 + 12) = v4;
+  std::__variant_detail::__move_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a2 + 16, v6);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v6);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v7);
+}
+
+void sub_259178324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t CLMicroLocationFingerprint::Measurement::fromProtobuf@<X0>(CLMicroLocationFingerprint::Measurement *this@<X0>, uint64_t a2@<X8>)
+{
+  v2 = this;
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = *(this + 4);
+  v5 = *(this + 1);
+  v6 = *(this + 5);
+  v15.__r_.__value_.__r.__words[0] = 0;
+  v16 = 0;
+  v7 = *(this + 3);
+  if (!v7)
+  {
+    this = CLMicroLocationProto::FingerprintMeasurement::default_instance(this);
+    v7 = *(this + 3);
+  }
+
+  v8 = *(v2 + 3);
+  if (*(v7 + 28))
+  {
+    if (!v8)
+    {
+      v8 = *(CLMicroLocationProto::FingerprintMeasurement::default_instance(this) + 24);
+    }
+
+    v15.__r_.__value_.__r.__words[0] = *(v8 + 8);
+  }
+
+  else
+  {
+    if (!v8)
+    {
+      this = CLMicroLocationProto::FingerprintMeasurement::default_instance(this);
+      v8 = *(this + 3);
+    }
+
+    if ((*(v8 + 28) & 2) != 0)
+    {
+      v11 = *(v2 + 3);
+      if (!v11)
+      {
+        v11 = *(CLMicroLocationProto::FingerprintMeasurement::default_instance(this) + 24);
+      }
+
+      v12 = CLMicroLocationProtobufHelper::uuidFromProtobuf(*(v11 + 16), buf);
+      if (v18 == 1)
+      {
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v15);
+        *&v15.__r_.__value_.__l.__data_ = *buf;
+        v16 = 1;
+      }
+
+      else
+      {
+        v13 = *(v2 + 3);
+        if (!v13)
+        {
+          v13 = *(CLMicroLocationProto::FingerprintMeasurement::default_instance(v12) + 24);
+        }
+
+        std::__variant_detail::__assignment<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>>::__assign_alt[abi:ne200100]<2ul,std::string,std::string const&>(&v15, &v15, *(v13 + 16));
+      }
+    }
+
+    else
+    {
+      if (onceToken_MicroLocation_Default != -1)
+      {
+        CLMicroLocationFingerprint::Measurement::fromProtobuf();
+      }
+
+      v9 = logObject_MicroLocation_Default;
+      if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "Unknown device id", buf, 2u);
+      }
+
+      std::__variant_detail::__assignment<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>>::__assign_alt[abi:ne200100]<2ul,std::string,char const(&)[8]>(&v15, &v15, "Unknown");
+    }
+  }
+
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v14, &v15);
+  *a2 = v5;
+  *(a2 + 8) = v4;
+  *(a2 + 12) = v6;
+  std::__variant_detail::__move_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a2 + 16, v14);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v14);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v15);
+}
+
+unint64_t CLMicroLocationFingerprint::CLMicroLocationFingerprint(unint64_t a1, uint64_t *a2)
+{
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 0;
+  *(a1 + 104) = 0u;
+  *(a1 + 96) = 1065353216;
+  *(a1 + 120) = 0u;
+  *(a1 + 136) = 1065353216;
+  *(a1 + 168) = 0;
+  *(a1 + 200) = 0;
+  v4 = (a1 + 200);
+  *(a1 + 208) = 0;
+  *(a1 + 216) = 0;
+  *(a1 + 144) = 0;
+  *(a1 + 152) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 192) = 0;
+  *(a1 + 176) = 0;
+  *(a1 + 184) = 0;
+  v13[0] = 0;
+  boost::uuids::detail::random_provider_base::random_provider_base(v13);
+  *(a1 + 40) = boost::uuids::random_generator_pure::operator()(v13);
+  *(a1 + 48) = v5;
+  boost::uuids::detail::random_provider_base::destroy(v13);
+  *(a1 + 144) = xmmword_2592211C0;
+  v7 = *a2;
+  v6 = a2[1];
+  if (v7 != v6)
+  {
+    v8 = 1.79769313e308;
+    v9 = 2.22507386e-308;
+    do
+    {
+      v10 = *(v7 + 16);
+      if (v10)
+      {
+        do
+        {
+          std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::__emplace_unique_key_args<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement const&>(a1, (v10 + 2), (v10 + 2));
+          v10 = *v10;
+        }
+
+        while (v10);
+        v8 = *(a1 + 144);
+        v9 = *(a1 + 152);
+      }
+
+      if (*(v7 + 144) < v8)
+      {
+        v8 = *(v7 + 144);
+      }
+
+      *(a1 + 144) = v8;
+      if (v9 < *(v7 + 152))
+      {
+        v9 = *(v7 + 152);
+      }
+
+      *(a1 + 152) = v9;
+      v7 += 224;
+    }
+
+    while (v7 != v6);
+  }
+
+  for (i = (a1 + 16); ; CLMicroLocationFingerprint::updatePerMeasurementFields(a1, (i + 2)))
+  {
+    i = *i;
+    if (!i)
+    {
+      break;
+    }
+  }
+
+  std::vector<ULPhotoFeaturesDO>::__assign_with_size[abi:ne200100]<ULPhotoFeaturesDO const*,ULPhotoFeaturesDO const*>(v4, 0, 0, 0);
+  return a1;
+}
+
+void sub_2591786FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](va);
+  v7 = *v5;
+  if (*v5)
+  {
+    *(v3 + 176) = v7;
+    operator delete(v7);
+  }
+
+  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v4);
+  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v3 + 64);
+  std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v3);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *CLMicroLocationFingerprint::updatePerMeasurementFields(CLMicroLocationFingerprint *this, const CLMicroLocationFingerprint::Measurement *a2)
+{
+  std::__hash_table<CLMicroLocationProto::DataType,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,std::allocator<CLMicroLocationProto::DataType>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,CLMicroLocationProto::DataType const&>(this + 8, a2 + 2, a2 + 2);
+  if (std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>(this + 13, a2 + 2))
+  {
+    result = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>(this + 13, a2 + 2);
+    *&v5.f64[1] = result[4];
+    v5.f64[0] = *a2;
+    *&v6.f64[0] = result[3];
+    v6.f64[1] = *a2;
+    *(result + 3) = vbslq_s8(vcgtq_f64(v6, v5), vdupq_lane_s64(*a2, 0), *(result + 3));
+  }
+
+  else
+  {
+    *&v7 = *a2;
+    *(&v7 + 1) = v7;
+    return std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::__emplace_unique_key_args<CLMicroLocationProto::DataType,CLMicroLocationProto::DataType const&,CLMicroLocationFingerprint::StartAndEndTimestamps>(this + 13, a2 + 2, a2 + 2, &v7);
+  }
+
+  return result;
+}
+
+void CLMicroLocationFingerprint::CLMicroLocationFingerprint(CLMicroLocationFingerprint *this, const CLMicroLocationProto::Fingerprint *a2)
+{
+  *this = 0u;
+  *(this + 1) = 0u;
+  *(this + 8) = 1065353216;
+  *(this + 56) = 0u;
+  v4 = (this + 56);
+  *(this + 72) = 0u;
+  *(this + 11) = 0;
+  *(this + 24) = 1065353216;
+  *(this + 104) = 0u;
+  *(this + 120) = 0u;
+  *(this + 34) = 1065353216;
+  *(this + 18) = 0;
+  v5 = (this + 144);
+  *(this + 21) = 0;
+  *(this + 25) = 0;
+  v6 = (this + 200);
+  *(this + 26) = 0;
+  *(this + 27) = 0;
+  *(this + 19) = 0;
+  *(this + 40) = 0;
+  *(this + 192) = 0;
+  *(this + 22) = 0;
+  *(this + 23) = 0;
+  v7 = *(a2 + 7);
+  v8 = *(v7 + 23);
+  if ((v8 & 0x80000000) == 0)
+  {
+    if (v8 != 16)
+    {
+      goto LABEL_7;
+    }
+
+LABEL_6:
+    *(this + 40) = *v7;
+    goto LABEL_11;
+  }
+
+  if (v7[1] == 16)
+  {
+    v7 = *v7;
+    goto LABEL_6;
+  }
+
+LABEL_7:
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    CLMicroLocationFingerprint::Measurement::fromProtobuf();
+  }
+
+  v9 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(__p[0].var0.var0) = 0;
+    _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "#Warning The protobuf fingerprint does not have a valid recording uuid", __p, 2u);
+  }
+
+LABEL_11:
+  *v5 = *(a2 + 40);
+  v10 = *(a2 + 4);
+  if (v10 < 1)
+  {
+    v13 = *(a2 + 20);
+    if (v13)
+    {
+      v14 = *(a2 + 9);
+      v15 = 8 * v13;
+      do
+      {
+        CLMicroLocationFingerprint::Measurement::fromProtobuf(*v14, __p);
+        std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::__emplace_unique_key_args<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement>(this, __p, __p);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&__p[0].var0.var2);
+        ++v14;
+        v15 -= 8;
+      }
+
+      while (v15);
+    }
+  }
+
+  else
+  {
+    v11 = *(a2 + 1);
+    v12 = 8 * v10;
+    do
+    {
+      CLMicroLocationFingerprint::Measurement::fromProtobuf(*v11, a2, __p);
+      std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::__emplace_unique_key_args<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement>(this, __p, __p);
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&__p[0].var0.var2);
+      ++v11;
+      v12 -= 8;
+    }
+
+    while (v12);
+  }
+
+  for (i = (this + 16); ; CLMicroLocationFingerprint::updatePerMeasurementFields(this, (i + 2)))
+  {
+    i = *i;
+    if (!i)
+    {
+      break;
+    }
+  }
+
+  if (*(a2 + 120))
+  {
+    *v4 |= 0x20uLL;
+  }
+
+  if (*(a2 + 121) == 1)
+  {
+    *v4 |= 0x40uLL;
+  }
+
+  v17 = *(a2 + 26);
+  if (v17)
+  {
+    v18 = *(a2 + 12);
+    v19 = 8 * v17;
+    do
+    {
+      ULPhotoFeaturesDO::ULPhotoFeaturesDO(__p, *v18);
+      std::vector<ULPhotoFeaturesDO>::push_back[abi:ne200100](v6, __p);
+      if (__p[0].var0.var0)
+      {
+        __p[0].var0.var1 = __p[0].var0.var0;
+        operator delete(__p[0].var0.var0);
+      }
+
+      ++v18;
+      v19 -= 8;
+    }
+
+    while (v19);
+  }
+}
+
+void sub_259178A5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+{
+  std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&a16);
+  v20 = *v18;
+  if (*v18)
+  {
+    *(v16 + 176) = v20;
+    operator delete(v20);
+  }
+
+  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v17);
+  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v16 + 64);
+  std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v16);
+  _Unwind_Resume(a1);
+}
+
+void CLMicroLocationFingerprint::removeExceedingMeasurements(void *a1, std::vector<int>::size_type a2, uint64_t a3)
+{
+  v3 = a1[2];
+  if (v3)
+  {
+    v4 = a3;
+    v7 = 0;
+    do
+    {
+      if (*(v3 + 6) == a3)
+      {
+        ++v7;
+      }
+
+      v3 = *v3;
+    }
+
+    while (v3);
+    if (v7 > a2)
+    {
+      memset(&v21, 0, sizeof(v21));
+      std::vector<int>::reserve(&v21, v7);
+      for (i = a1[2]; i; i = *i)
+      {
+        if (*(i + 6) == v4)
+        {
+          end = v21.__end_;
+          if (v21.__end_ >= v21.__end_cap_.__value_)
+          {
+            begin = v21.__begin_;
+            v13 = v21.__end_ - v21.__begin_;
+            v14 = v21.__end_ - v21.__begin_;
+            v15 = v14 + 1;
+            if ((v14 + 1) >> 62)
+            {
+              std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
+            }
+
+            v16 = v21.__end_cap_.__value_ - v21.__begin_;
+            if ((v21.__end_cap_.__value_ - v21.__begin_) >> 1 > v15)
+            {
+              v15 = v16 >> 1;
+            }
+
+            if (v16 >= 0x7FFFFFFFFFFFFFFCLL)
+            {
+              v17 = 0x3FFFFFFFFFFFFFFFLL;
+            }
+
+            else
+            {
+              v17 = v15;
+            }
+
+            if (v17)
+            {
+              std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>(&v21, v17);
+            }
+
+            *(4 * v14) = *(i + 7);
+            v11 = (4 * v14 + 4);
+            memcpy(0, begin, v13);
+            v18 = v21.__begin_;
+            v21.__begin_ = 0;
+            v21.__end_ = v11;
+            v21.__end_cap_.__value_ = 0;
+            if (v18)
+            {
+              operator delete(v18);
+            }
+          }
+
+          else
+          {
+            LODWORD(v8) = *(i + 7);
+            *v21.__end_ = LODWORD(v8);
+            v11 = end + 1;
+          }
+
+          v21.__end_ = v11;
+        }
+      }
+
+      if (v4 <= 7 && ((1 << v4) & 0xC4) != 0)
+      {
+        CLMicroLocationFingerprint::removeExceedingRangeMeasurements(a1, &v21, a2, v4);
+      }
+
+      else
+      {
+        CLMicroLocationFingerprint::removeExceedingRssiMeasurements(a1, &v21, a2, v4, v8);
+      }
+
+      v19 = a1[2];
+      if (!v19)
+      {
+        goto LABEL_33;
+      }
+
+      v20 = 0;
+      do
+      {
+        if (*(v19 + 6) == v4)
+        {
+          ++v20;
+        }
+
+        v19 = *v19;
+      }
+
+      while (v19);
+      if (v20 > a2)
+      {
+        CLMicroLocationFingerprint::removeExceedingMeasurements(&v22);
+
+        abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/CLMicroLocationFingerprint.mm", 407, "removeExceedingMeasurements");
+        __break(1u);
+      }
+
+      else
+      {
+LABEL_33:
+        if (v21.__begin_)
+        {
+          v21.__end_ = v21.__begin_;
+          operator delete(v21.__begin_);
+        }
+      }
+    }
+  }
+}
+
+void sub_259178CF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t CLMicroLocationFingerprint::removeExceedingRssiMeasurements(void *a1, uint64_t *a2, uint64_t a3, int a4, double a5)
+{
+  v9 = *a2;
+  v10 = a2[1];
+  v11 = 126 - 2 * __clz((v10 - v9) >> 2);
+  if (v10 == v9)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  result = std::__introsort<std::_ClassicAlgPolicy,std::greater<float> &,float *,true>(v9, v10, v17, v12, 1, a5);
+  v14 = a1[2];
+  if (v14)
+  {
+    v15 = *(*a2 + 4 * a3);
+    do
+    {
+      while (*(v14 + 6) != a4 || *(v14 + 7) > v15)
+      {
+        v14 = *v14;
+        if (!v14)
+        {
+          return result;
+        }
+      }
+
+      v16 = *v14;
+      std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::remove(a1, v14, v17);
+      result = std::unique_ptr<std::__hash_node<CLMicroLocationFingerprint::Measurement,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<CLMicroLocationFingerprint::Measurement,void *>>>>::~unique_ptr[abi:ne200100](v17);
+      v14 = v16;
+    }
+
+    while (v16);
+  }
+
+  return result;
+}
+
+uint64_t CLMicroLocationFingerprint::removeExceedingRangeMeasurements(void *a1, void *a2, uint64_t a3, int a4)
+{
+  result = std::__sort<std::__less<float,float> &,float *>();
+  v9 = a1[2];
+  if (v9)
+  {
+    v10 = *(*a2 + 4 * a3);
+    do
+    {
+      while (*(v9 + 6) != a4 || *(v9 + 7) < v10)
+      {
+        v9 = *v9;
+        if (!v9)
+        {
+          return result;
+        }
+      }
+
+      v11 = *v9;
+      std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::remove(a1, v9, v12);
+      result = std::unique_ptr<std::__hash_node<CLMicroLocationFingerprint::Measurement,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<CLMicroLocationFingerprint::Measurement,void *>>>>::~unique_ptr[abi:ne200100](v12);
+      v9 = v11;
+    }
+
+    while (v11);
+  }
+
+  return result;
+}
+
+void CLMicroLocationFingerprint::UpdateFingerprintWithMeasurementsAndConfiguration(unint64_t a1, void *a2, uint64_t a3, int a4, char a5)
+{
+  v9 = a2[2];
+  if (v9)
+  {
+    v11 = 2.22507386e-308;
+    v12 = 1.79769313e308;
+    do
+    {
+      v13 = std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::__equal_range_multi<CLMicroLocationFingerprint::Measurement>(a2, v9 + 16);
+      v15 = v14;
+      LODWORD(v32) = *(v9 + 24);
+      v16 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>((a3 + 16), &v32);
+      v17 = v16 + 3;
+      if (!v16)
+      {
+        v17 = &CLMicroLocationFingerprintConfiguration::getConfigurationForType(CLMicroLocationProto::DataType)const::sourceDisabledConfiguration;
+      }
+
+      if (*v17 == 1 && v13 != v15)
+      {
+        v19 = 0.0;
+        v20 = 0.0;
+        do
+        {
+          v21 = *(v13 + 16);
+          if (v21 < v12)
+          {
+            v12 = *(v13 + 16);
+          }
+
+          if (v21 > v11)
+          {
+            v11 = *(v13 + 16);
+          }
+
+          CLMicroLocationFingerprint::updatePerMeasurementFields(a1, (v13 + 16));
+          v20 = v20 + 1.0;
+          v19 = v19 + *(v13 + 28);
+          v13 = *v13;
+        }
+
+        while (v13 != v15);
+        if (v20 > 0.0)
+        {
+          v32 = *(v9 + 16);
+          std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v33, v9 + 32);
+          v22 = v19 / v20;
+          *(&v32 + 3) = v22;
+          std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::__emplace_unique_key_args<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement const&>(a1, &v32, &v32);
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v33);
+        }
+      }
+
+      v9 = v15;
+    }
+
+    while (v15);
+  }
+
+  else
+  {
+    v12 = 1.79769313e308;
+    v11 = 2.22507386e-308;
+  }
+
+  *(a1 + 144) = v12;
+  *(a1 + 152) = v11;
+  v23 = *(a1 + 200);
+  v24 = *(a1 + 208);
+  while (v23 != v24)
+  {
+    if (*(v23 + 24) < v12)
+    {
+      v12 = *(v23 + 24);
+    }
+
+    *(a1 + 144) = v12;
+    if (v11 < *(v23 + 24))
+    {
+      v11 = *(v23 + 24);
+    }
+
+    *(a1 + 152) = v11;
+    v23 += 32;
+  }
+
+  for (i = *(a1 + 80); i; i = *i)
+  {
+    LODWORD(v32) = *(i + 4);
+    v26 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>((a3 + 16), &v32);
+    v27 = v26 + 3;
+    if (!v26)
+    {
+      v27 = &CLMicroLocationFingerprintConfiguration::getConfigurationForType(CLMicroLocationProto::DataType)const::sourceDisabledConfiguration;
+    }
+
+    CLMicroLocationFingerprint::removeExceedingMeasurements(a1, v27[3], *(i + 4));
+  }
+
+  if (a5)
+  {
+    v28 = *(a1 + 16);
+    if (!v28)
+    {
+      goto LABEL_38;
+    }
+
+    v29 = 0;
+    do
+    {
+      if (*(v28 + 6) == 5)
+      {
+        ++v29;
+      }
+
+      v28 = *v28;
+    }
+
+    while (v28);
+    if (!v29)
+    {
+LABEL_38:
+      *(a1 + 56) |= 0x20uLL;
+    }
+  }
+
+  if (a4)
+  {
+    v30 = *(a1 + 16);
+    if (!v30)
+    {
+      goto LABEL_46;
+    }
+
+    v31 = 0;
+    do
+    {
+      if (*(v30 + 6) == 6)
+      {
+        ++v31;
+      }
+
+      v30 = *v30;
+    }
+
+    while (v30);
+    if (!v31)
+    {
+LABEL_46:
+      *(a1 + 56) |= 0x40uLL;
+    }
+  }
+}
+
+uint64_t CLMicroLocationFingerprint::isFingerprintValid(void *a1, unint64_t *a2)
+{
+  v70 = *MEMORY[0x277D85DE8];
+  *buf = 1;
+  v4 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>(a2 + 2, buf);
+  v5 = &CLMicroLocationFingerprintConfiguration::getConfigurationForType(CLMicroLocationProto::DataType)const::sourceDisabledConfiguration;
+  if (v4)
+  {
+    v6 = (v4 + 3);
+  }
+
+  else
+  {
+    v6 = &CLMicroLocationFingerprintConfiguration::getConfigurationForType(CLMicroLocationProto::DataType)const::sourceDisabledConfiguration;
+  }
+
+  *buf = 5;
+  v7 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>(a2 + 2, buf);
+  if (v7)
+  {
+    v8 = (v7 + 3);
+  }
+
+  else
+  {
+    v8 = &CLMicroLocationFingerprintConfiguration::getConfigurationForType(CLMicroLocationProto::DataType)const::sourceDisabledConfiguration;
+  }
+
+  *buf = 6;
+  v9 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>(a2 + 2, buf);
+  if (v9)
+  {
+    v5 = (v9 + 3);
+  }
+
+  *buf = 1;
+  v10 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>(a1 + 13, buf);
+  if (v10)
+  {
+    v11 = *(v10 + 4) - *(v10 + 3);
+  }
+
+  else
+  {
+    v11 = 0.0;
+  }
+
+  *buf = 5;
+  v12 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>(a1 + 13, buf);
+  if (v12)
+  {
+    v13 = *(v12 + 4) - *(v12 + 3);
+  }
+
+  else
+  {
+    v13 = 0.0;
+  }
+
+  *buf = 6;
+  v14 = std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::find<CLMicroLocationProto::DataType>(a1 + 13, buf);
+  if (v14)
+  {
+    v15 = *(v14 + 4) - *(v14 + 3);
+  }
+
+  else
+  {
+    v15 = 0.0;
+  }
+
+  v16 = *v6;
+  v17 = v16 != 1 || v11 >= v6[1];
+  v18 = *v8;
+  v19 = v18 != 1 || v13 >= v8[1];
+  v20 = *v5;
+  if (v20 == 1)
+  {
+    v21 = v15 >= v5[1];
+    if (!v17)
+    {
+LABEL_26:
+      v39 = 0;
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+    v21 = 1;
+    if (!v17)
+    {
+      goto LABEL_26;
+    }
+  }
+
+  v39 = v19 && v21;
+LABEL_29:
+  v22 = a1[2];
+  if (v22)
+  {
+    v23 = 0;
+    v24 = a1[2];
+    do
+    {
+      if (*(v24 + 6) == 1)
+      {
+        ++v23;
+      }
+
+      v24 = *v24;
+    }
+
+    while (v24);
+    v25 = 0;
+    v26 = a1[2];
+    do
+    {
+      if (*(v26 + 6) == 5)
+      {
+        ++v25;
+      }
+
+      v26 = *v26;
+    }
+
+    while (v26);
+    v27 = 0;
+    do
+    {
+      if (*(v22 + 6) == 6)
+      {
+        ++v27;
+      }
+
+      v22 = *v22;
+    }
+
+    while (v22);
+  }
+
+  else
+  {
+    v25 = 0;
+    v23 = 0;
+    v27 = 0;
+  }
+
+  v28 = v16 ^ 1;
+  if (v23 >= *(v6 + 2))
+  {
+    v29 = 1;
+  }
+
+  else
+  {
+    v29 = v28;
+  }
+
+  if (v29 == 1)
+  {
+    v30 = v18 ^ 1;
+    if (v25 >= *(v8 + 2))
+    {
+      v30 = 1;
+    }
+
+    v31 = v30 & (v20 ^ 1 | (v27 >= *(v5 + 2)));
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  v32 = a1[3];
+  v33 = *a2;
+  if (*a2 > v32)
+  {
+    v31 = 0;
+  }
+
+  if (v39)
+  {
+    v34 = v31;
+  }
+
+  else
+  {
+    v34 = 0;
+  }
+
+  if (a1[26] == a1[25])
+  {
+    v35 = v34;
+  }
+
+  else
+  {
+    v35 = 1;
+  }
+
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    CLMicroLocationFingerprint::isFingerprintValid();
+  }
+
+  v36 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
+  {
+    v37 = (a1[26] - a1[25]) >> 5;
+    *buf = 68292354;
+    v42 = 2082;
+    v41 = 0;
+    v43 = "";
+    v44 = 2050;
+    v45 = v23;
+    v46 = 2050;
+    v47 = v25;
+    v48 = 2050;
+    v49 = v27;
+    v50 = 2050;
+    v51 = v37;
+    v52 = 2050;
+    v53 = v32;
+    v54 = 2050;
+    v55 = v11;
+    v56 = 1026;
+    v57 = v29;
+    v58 = 1026;
+    v59 = v33 <= v32;
+    v60 = 1026;
+    v61 = v39;
+    v62 = 1026;
+    v63 = v34;
+    v64 = 1026;
+    v65 = v35;
+    v66 = 2050;
+    v67 = v13;
+    v68 = 2050;
+    v69 = v15;
+    _os_log_impl(&dword_258FE9000, v36, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Fingerprint creation, NumWiFiMeasurements:%{public}lu, NumBLEMeasurements:%{public}lu, NumUWBMeasurements:%{public}lu, NumPhotoFeature Vectors:%{public}lu, number of total measurements:%{public}lu, WiFi RSSI duration_s:%{public}.09f, enough WiFi measurements:%{public}hhd, enough total measurements:%{public}hhd, isDurationValid:%{public}hhd, is RF valid:%{public}hhd, is Fingerprint Valid:%{public}hhd, BLE Duration_s:%{public}.09f, UWB Duration_s:%{public}.09f}", buf, 0x80u);
+  }
+
+  return v35;
 }

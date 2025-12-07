@@ -102,30 +102,30 @@ void __84__PAAggregateVisibilityStateMonitorHandle_initWithStartupInterval_onQue
 
 - (void)recomputeCurrentState
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   currentState = self->_currentState;
   v4 = self->_states;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [(NSMutableDictionary *)self->_states objectForKeyedSubscript:*(*(&v14 + 1) + 8 * i), v14];
+        v10 = [(NSMutableDictionary *)self->_states objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i), v13];
         integerValue = [v10 integerValue];
         if (integerValue > v7)
         {
@@ -133,7 +133,7 @@ void __84__PAAggregateVisibilityStateMonitorHandle_initWithStartupInterval_onQue
         }
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -158,8 +158,6 @@ void __84__PAAggregateVisibilityStateMonitorHandle_initWithStartupInterval_onQue
   {
     self->_currentState = v7;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate

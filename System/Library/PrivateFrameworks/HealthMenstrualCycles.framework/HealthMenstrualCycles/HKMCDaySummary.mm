@@ -1,4 +1,5 @@
 @interface HKMCDaySummary
++ (id)daySummaryWithDayIndex:(int64_t)index menstrualFlow:(int64_t)flow bleedingInPregnancyFlow:(int64_t)pregnancyFlow bleedingAfterPregnancyFlow:(int64_t)afterPregnancyFlow intermenstrualBleeding:(BOOL)bleeding symptoms:(unint64_t)symptoms sexualActivity:(int64_t)activity ovulationTestResult:(int64_t)self0 pregnancyTestResult:(int64_t)self1 progesteroneTestResult:(int64_t)self2 cervicalMucusQuality:(int64_t)self3 basalBodyTemperature:(id)self4;
 + (id)daySummaryWithDayIndex:(int64_t)index menstrualFlow:(int64_t)flow bleedingInPregnancyFlow:(int64_t)pregnancyFlow bleedingAfterPregnancyFlow:(int64_t)afterPregnancyFlow intermenstrualBleeding:(BOOL)bleeding symptoms:(unint64_t)symptoms sexualActivity:(int64_t)activity ovulationTestResult:(int64_t)self0 pregnancyTestResult:(int64_t)self1 progesteroneTestResult:(int64_t)self2 cervicalMucusQuality:(int64_t)self3 basalBodyTemperature:(id)self4 wristTemperature:(id)self5 menstrualFlowModificationDayIndex:(int64_t)self6 startOfCycleFromCycleTracking:(id)self7 startedCycleFactors:(id)self8 endedCycleFactors:(id)self9 sampleCountByType:(id)type;
 + (id)emptyDaySummaryWithDayIndex:(int64_t)index;
 - (BOOL)hasFlow;
@@ -27,6 +28,15 @@
 @end
 
 @implementation HKMCDaySummary
+
++ (id)daySummaryWithDayIndex:(int64_t)index menstrualFlow:(int64_t)flow bleedingInPregnancyFlow:(int64_t)pregnancyFlow bleedingAfterPregnancyFlow:(int64_t)afterPregnancyFlow intermenstrualBleeding:(BOOL)bleeding symptoms:(unint64_t)symptoms sexualActivity:(int64_t)activity ovulationTestResult:(int64_t)self0 pregnancyTestResult:(int64_t)self1 progesteroneTestResult:(int64_t)self2 cervicalMucusQuality:(int64_t)self3 basalBodyTemperature:(id)self4
+{
+  bleedingCopy = bleeding;
+  temperatureCopy = temperature;
+  v22 = [[self alloc] _initWithDayIndex:index menstrualFlow:flow bleedingInPregnancyFlow:pregnancyFlow bleedingAfterPregnancyFlow:afterPregnancyFlow intermenstrualBleeding:bleedingCopy symptoms:symptoms sexualActivity:activity ovulationTestResult:result pregnancyTestResult:testResult progesteroneTestResult:progesteroneTestResult cervicalMucusQuality:quality basalBodyTemperature:temperatureCopy wristTemperature:0 menstrualFlowModificationDayIndex:0 startOfCycleFromCycleTracking:0 startedCycleFactors:0 endedCycleFactors:0 sampleCountByType:0];
+
+  return v22;
+}
 
 + (id)daySummaryWithDayIndex:(int64_t)index menstrualFlow:(int64_t)flow bleedingInPregnancyFlow:(int64_t)pregnancyFlow bleedingAfterPregnancyFlow:(int64_t)afterPregnancyFlow intermenstrualBleeding:(BOOL)bleeding symptoms:(unint64_t)symptoms sexualActivity:(int64_t)activity ovulationTestResult:(int64_t)self0 pregnancyTestResult:(int64_t)self1 progesteroneTestResult:(int64_t)self2 cervicalMucusQuality:(int64_t)self3 basalBodyTemperature:(id)self4 wristTemperature:(id)self5 menstrualFlowModificationDayIndex:(int64_t)self6 startOfCycleFromCycleTracking:(id)self7 startedCycleFactors:(id)self8 endedCycleFactors:(id)self9 sampleCountByType:(id)type
 {
@@ -434,37 +444,7 @@ LABEL_50:
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_17;
-    }
-
-    dayIndex = [(HKMCDaySummary *)self dayIndex];
-    if (dayIndex != [(HKMCDaySummary *)equalCopy dayIndex])
-    {
-      goto LABEL_17;
-    }
-
-    menstrualFlow = [(HKMCDaySummary *)self menstrualFlow];
-    if (menstrualFlow != [(HKMCDaySummary *)equalCopy menstrualFlow])
-    {
-      goto LABEL_17;
-    }
-
-    bleedingInPregnancyFlow = [(HKMCDaySummary *)self bleedingInPregnancyFlow];
-    if (bleedingInPregnancyFlow != [(HKMCDaySummary *)equalCopy bleedingInPregnancyFlow])
-    {
-      goto LABEL_17;
-    }
-
-    bleedingAfterPregnancyFlow = [(HKMCDaySummary *)self bleedingAfterPregnancyFlow];
-    if (bleedingAfterPregnancyFlow != [(HKMCDaySummary *)equalCopy bleedingAfterPregnancyFlow])
-    {
-      goto LABEL_17;
-    }
-
-    intermenstrualBleeding = [(HKMCDaySummary *)self intermenstrualBleeding];
-    if (intermenstrualBleeding == [(HKMCDaySummary *)equalCopy intermenstrualBleeding]&& (v10 = [(HKMCDaySummary *)self symptoms], v10 == [(HKMCDaySummary *)equalCopy symptoms]) && (v11 = [(HKMCDaySummary *)self sexualActivity], v11 == [(HKMCDaySummary *)equalCopy sexualActivity]) && (v12 = [(HKMCDaySummary *)self ovulationTestResult], v12 == [(HKMCDaySummary *)equalCopy ovulationTestResult]) && (v13 = [(HKMCDaySummary *)self pregnancyTestResult], v13 == [(HKMCDaySummary *)equalCopy pregnancyTestResult]) && (v14 = [(HKMCDaySummary *)self progesteroneTestResult], v14 == [(HKMCDaySummary *)equalCopy progesteroneTestResult]) && (v15 = [(HKMCDaySummary *)self cervicalMucusQuality], v15 == [(HKMCDaySummary *)equalCopy cervicalMucusQuality]))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [(HKMCDaySummary *)self dayIndex], v5 == [(HKMCDaySummary *)equalCopy dayIndex]) && (v6 = [(HKMCDaySummary *)self menstrualFlow], v6 == [(HKMCDaySummary *)equalCopy menstrualFlow]) && (v7 = [(HKMCDaySummary *)self bleedingInPregnancyFlow], v7 == [(HKMCDaySummary *)equalCopy bleedingInPregnancyFlow]) && (v8 = [(HKMCDaySummary *)self bleedingAfterPregnancyFlow], v8 == [(HKMCDaySummary *)equalCopy bleedingAfterPregnancyFlow]) && (v9 = [(HKMCDaySummary *)self intermenstrualBleeding], v9 == [(HKMCDaySummary *)equalCopy intermenstrualBleeding]) && (v10 = [(HKMCDaySummary *)self symptoms], v10 == [(HKMCDaySummary *)equalCopy symptoms]) && (v11 = [(HKMCDaySummary *)self sexualActivity], v11 == [(HKMCDaySummary *)equalCopy sexualActivity]) && (v12 = [(HKMCDaySummary *)self ovulationTestResult], v12 == [(HKMCDaySummary *)equalCopy ovulationTestResult]) && (v13 = [(HKMCDaySummary *)self pregnancyTestResult], v13 == [(HKMCDaySummary *)equalCopy pregnancyTestResult]) && (v14 = [(HKMCDaySummary *)self progesteroneTestResult], v14 == [(HKMCDaySummary *)equalCopy progesteroneTestResult]) && (v15 = [(HKMCDaySummary *)self cervicalMucusQuality], v15 == [(HKMCDaySummary *)equalCopy cervicalMucusQuality]))
     {
       basalBodyTemperature = [(HKMCDaySummary *)self basalBodyTemperature];
       basalBodyTemperature2 = [(HKMCDaySummary *)equalCopy basalBodyTemperature];
@@ -492,7 +472,6 @@ LABEL_50:
 
     else
     {
-LABEL_17:
       v21 = 0;
     }
   }

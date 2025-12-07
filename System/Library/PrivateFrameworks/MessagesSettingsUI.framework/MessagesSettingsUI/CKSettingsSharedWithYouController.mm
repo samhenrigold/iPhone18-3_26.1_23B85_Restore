@@ -169,7 +169,7 @@ void __62__CKSettingsSharedWithYouController_updateAppPreferencesWith___block_in
 
 - (void)setupDefaultAppsIfRequired
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   getAppBundleIDsFromDefaults = [(CKSettingsSharedWithYouController *)self getAppBundleIDsFromDefaults];
   mEMORY[0x277D1AC40] = [MEMORY[0x277D1AC40] sharedManager];
   v5 = [objc_msgSend(mEMORY[0x277D1AC40] performSelector:{sel_defaultAppBundleIDs), "mutableCopy"}];
@@ -180,29 +180,29 @@ void __62__CKSettingsSharedWithYouController_updateAppPreferencesWith___block_in
   if (![getAppBundleIDsFromDefaults count])
   {
     v8 = v5;
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     onboardingAppBundleIDs = [MEMORY[0x277D1AC40] onboardingAppBundleIDs];
-    v10 = [onboardingAppBundleIDs countByEnumeratingWithState:&v48 objects:v54 count:16];
+    v10 = [onboardingAppBundleIDs countByEnumeratingWithState:&v47 objects:v53 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v49;
+      v12 = *v48;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v49 != v12)
+          if (*v48 != v12)
           {
             objc_enumerationMutation(onboardingAppBundleIDs);
           }
 
-          [MEMORY[0x277D1AC40] setSharedWithYouEnabled:v7 forApplicationWithBundleID:*(*(&v48 + 1) + 8 * i)];
+          [MEMORY[0x277D1AC40] setSharedWithYouEnabled:v7 forApplicationWithBundleID:*(*(&v47 + 1) + 8 * i)];
         }
 
-        v11 = [onboardingAppBundleIDs countByEnumeratingWithState:&v48 objects:v54 count:16];
+        v11 = [onboardingAppBundleIDs countByEnumeratingWithState:&v47 objects:v53 count:16];
       }
 
       while (v11);
@@ -215,7 +215,7 @@ void __62__CKSettingsSharedWithYouController_updateAppPreferencesWith___block_in
 
   v15 = [MEMORY[0x277CBEB98] setWithArray:getAppBundleIDsFromDefaults2];
   v16 = [v15 count];
-  v39 = v5;
+  v38 = v5;
   v17 = [MEMORY[0x277CBEB98] setWithArray:v5];
   v18 = [v17 count];
 
@@ -223,28 +223,28 @@ void __62__CKSettingsSharedWithYouController_updateAppPreferencesWith___block_in
   {
     NSLog(&cfstr_MessagesSettin.isa);
     collaborationAppBundleIDs = [MEMORY[0x277D1AC40] collaborationAppBundleIDs];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v20 = [collaborationAppBundleIDs countByEnumeratingWithState:&v44 objects:v53 count:16];
+    v20 = [collaborationAppBundleIDs countByEnumeratingWithState:&v43 objects:v52 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v45;
+      v22 = *v44;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v45 != v22)
+          if (*v44 != v22)
           {
             objc_enumerationMutation(collaborationAppBundleIDs);
           }
 
-          [MEMORY[0x277D1AC40] setSharedWithYouEnabled:v7 forApplicationWithBundleID:*(*(&v44 + 1) + 8 * j)];
+          [MEMORY[0x277D1AC40] setSharedWithYouEnabled:v7 forApplicationWithBundleID:*(*(&v43 + 1) + 8 * j)];
         }
 
-        v21 = [collaborationAppBundleIDs countByEnumeratingWithState:&v44 objects:v53 count:16];
+        v21 = [collaborationAppBundleIDs countByEnumeratingWithState:&v43 objects:v52 count:16];
       }
 
       while (v21);
@@ -254,33 +254,33 @@ void __62__CKSettingsSharedWithYouController_updateAppPreferencesWith___block_in
   getAppBundleIDsFromDefaults3 = [(CKSettingsSharedWithYouController *)self getAppBundleIDsFromDefaults];
 
   v25 = [getAppBundleIDsFromDefaults3 count];
-  v26 = v39;
-  if (v25 < [v39 count])
+  v26 = v38;
+  if (v25 < [v38 count])
   {
-    [v39 removeObjectsInArray:getAppBundleIDsFromDefaults3];
-    if ([v39 count])
+    [v38 removeObjectsInArray:getAppBundleIDsFromDefaults3];
+    if ([v38 count])
     {
-      v38 = getAppBundleIDsFromDefaults3;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
+      v37 = getAppBundleIDsFromDefaults3;
       v41 = 0u;
-      v27 = v39;
-      v28 = [v27 countByEnumeratingWithState:&v40 objects:v52 count:16];
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v27 = v38;
+      v28 = [v27 countByEnumeratingWithState:&v39 objects:v51 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v41;
+        v30 = *v40;
         do
         {
           for (k = 0; k != v29; ++k)
           {
-            if (*v41 != v30)
+            if (*v40 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v40 + 1) + 8 * k);
+            v32 = *(*(&v39 + 1) + 8 * k);
             if (v7)
             {
               mEMORY[0x277D1A990]2 = [MEMORY[0x277D1A990] sharedInstance];
@@ -294,75 +294,73 @@ void __62__CKSettingsSharedWithYouController_updateAppPreferencesWith___block_in
 
             else
             {
-              [MEMORY[0x277D1AC40] setSharedWithYouEnabled:0 forApplicationWithBundleID:*(*(&v40 + 1) + 8 * k)];
+              [MEMORY[0x277D1AC40] setSharedWithYouEnabled:0 forApplicationWithBundleID:*(*(&v39 + 1) + 8 * k)];
             }
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v40 objects:v52 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v39 objects:v51 count:16];
         }
 
         while (v29);
       }
 
-      getAppBundleIDsFromDefaults3 = v38;
-      v26 = v39;
+      getAppBundleIDsFromDefaults3 = v37;
+      v26 = v38;
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAppSpecifiers
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = MEMORY[0x277D3FAD8];
   v4 = MessagesSettingsLocalizedString(@"APPS_HEADER");
   v5 = [v3 groupSpecifierWithID:@"SHARED_WITH_YOU_APPS_GROUP" name:v4];
 
-  v26 = v2;
+  v25 = v2;
   [v2 addObject:v5];
   mEMORY[0x277D1AC40] = [MEMORY[0x277D1AC40] sharedManager];
   v7 = [mEMORY[0x277D1AC40] performSelector:sel_sharedWithYouApps];
 
-  v25 = v7;
+  v24 = v7;
   allKeys = [v7 allKeys];
   v9 = [allKeys sortedArrayUsingSelector:sel_localizedCaseInsensitiveCompare_];
 
   if ([v9 count])
   {
-    v22 = v9;
-    v23 = v5;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
+    v21 = v9;
+    v22 = v5;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v28;
+      v13 = *v27;
       v14 = *MEMORY[0x277D40008];
       v15 = *MEMORY[0x277D40020];
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v28 != v13)
+          if (*v27 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v17 = *(*(&v27 + 1) + 8 * i);
+          v17 = *(*(&v26 + 1) + 8 * i);
           if ([v17 length])
           {
-            v18 = [v25 objectForKey:v17];
+            v18 = [v24 objectForKey:v17];
             v19 = [objc_alloc(MEMORY[0x277D3FAD8]) initWithName:v17 target:self set:sel_setAppIsEnabled_specifier_shouldPostNotification_ get:sel_appIsEnabled_ detail:0 cell:6 edit:0];
             [v19 setIdentifier:v18];
             [v19 setProperty:v18 forKey:v14];
             [v19 setProperty:@"YES" forKey:v15];
-            [v26 addObject:v19];
+            [v25 addObject:v19];
           }
 
           else
@@ -371,19 +369,17 @@ void __62__CKSettingsSharedWithYouController_updateAppPreferencesWith___block_in
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v12);
     }
 
-    v9 = v22;
-    v5 = v23;
+    v9 = v21;
+    v5 = v22;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v25;
 }
 
 - (id)getAppBundleIDsFromDefaults

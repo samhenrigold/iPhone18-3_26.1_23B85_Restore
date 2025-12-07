@@ -102,7 +102,7 @@
   v15 = 0u;
   if (self)
   {
-    [(GGMController *)self setDefaultControllerConfig:v14];
+    objc_msgSend_setDefaultControllerConfig(self, v14, v15, v16, v17);
   }
 
   if (dictCopy)
@@ -217,9 +217,7 @@ LABEL_7:
   metaInfoQueue = self->_metaInfoQueue;
   self->_metaInfoQueue = v3;
 
-  v5 = objc_alloc_init(RepairWeightsProcessor);
-  repairWeightsProcessor = self->_repairWeightsProcessor;
-  self->_repairWeightsProcessor = v5;
+  self->_repairWeightsProcessor = objc_alloc_init(RepairWeightsProcessor);
 
   _objc_release_x1();
 }
@@ -250,14 +248,9 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  processedFrameInDetection = self->_processedFrameInDetection;
-  lightSourceMask = self->_lightSourceMask;
-  keyPointsList = self->_keyPointsList;
-  futureFramesToDetectionAndRepair = self->_futureFramesToDetectionAndRepair;
-  ispTimeStamp = self->_ispTimeStamp;
-  v7 = [GGMController detectGreenGhostFor:"detectGreenGhostFor:metaData:frameNum:timeStamp:keyPoint:lightSourceMask:futureFrames:" metaData:futureFramesToDetectionAndRepair frameNum:? timeStamp:? keyPoint:? lightSourceMask:? futureFrames:?];
+  v3 = [GGMController detectGreenGhostFor:"detectGreenGhostFor:metaData:frameNum:timeStamp:keyPoint:lightSourceMask:futureFrames:" metaData:self->_futureFramesToDetectionAndRepair frameNum:? timeStamp:? keyPoint:? lightSourceMask:? futureFrames:?];
   detectedGreenGhostInfo = self->_detectedGreenGhostInfo;
-  self->_detectedGreenGhostInfo = v7;
+  self->_detectedGreenGhostInfo = v3;
 
   if (self->_detectedGreenGhostInfo)
   {

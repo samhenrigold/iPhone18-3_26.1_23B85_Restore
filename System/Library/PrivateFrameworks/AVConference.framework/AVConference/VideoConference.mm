@@ -475,19 +475,21 @@ LABEL_12:
 - (unsigned)initializeNewCallWithDeviceRole:(int)role reportingHierarchyToken:(id)token
 {
   v5 = *&role;
-  v10[5] = *MEMORY[0x1E69E9840];
+  v15[5] = *MEMORY[0x1E69E9840];
   global_queue = dispatch_get_global_queue(0, 0);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __75__VideoConference_initializeNewCallWithDeviceRole_reportingHierarchyToken___block_invoke;
-  v10[3] = &unk_1E85F3778;
-  v10[4] = self;
-  dispatch_async(global_queue, v10);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __75__VideoConference_initializeNewCallWithDeviceRole_reportingHierarchyToken___block_invoke;
+  v15[3] = &unk_1E85F3778;
+  v15[4] = self;
+  dispatch_async(global_queue, v15);
   self->_deviceRole = v5;
   v8 = [(VideoConference *)self newSessionWithDeviceRole:v5 reportingHierarchyToken:token];
-  self->frontQueue = [VCRemoteVideoManager_DefaultManager() newQueueForStreamToken:objc_msgSend(v8 videoMode:{"callID"), 0}];
-  self->backQueue = [VCRemoteVideoManager_DefaultManager() newQueueForStreamToken:objc_msgSend(v8 videoMode:{"callID"), 1}];
-  self->screenQueue = [VCRemoteVideoManager_DefaultManager() newQueueForStreamToken:objc_msgSend(v8 videoMode:{"callID"), 2}];
+  v10 = [VCRemoteVideoManager_DefaultManager(v8 v9)];
+  self->frontQueue = v10;
+  v12 = [VCRemoteVideoManager_DefaultManager(v10 v11)];
+  self->backQueue = v12;
+  self->screenQueue = [VCRemoteVideoManager_DefaultManager(v12 v13)];
   LODWORD(self) = [v8 callID];
 
   return self;
@@ -4278,11 +4280,11 @@ LABEL_23:
 
 - (BOOL)recvSamplesForSession:(id)session sampleBuffer:(opaqueVCAudioBufferList *)buffer
 {
-  v19 = *MEMORY[0x1E69E9840];
-  memset(v18, 170, sizeof(v18));
-  v15 = 0.0;
-  v16 = &v18[1];
-  v17 = vdupq_n_s64(0x10uLL);
+  v20 = *MEMORY[0x1E69E9840];
+  memset(v19, 170, sizeof(v19));
+  v16 = 0.0;
+  v17 = &v19[1];
+  v18 = vdupq_n_s64(0x10uLL);
   SampleCount = VCAudioBufferList_GetSampleCount(buffer);
   Timestamp = VCAudioBufferList_GetTimestamp(buffer);
   if ([session state] != 1 || !objc_msgSend(session, "isAudioRunning"))
@@ -4290,26 +4292,27 @@ LABEL_23:
     goto LABEL_8;
   }
 
-  if (!VCAudioReceiver_PullAudioSamples([session audioReceiver], buffer, 0, &v15, &v16, v18, 0))
+  VCAudioReceiver_PullAudioSamples([session audioReceiver], buffer, 0, &v16, &v17, v19, 0);
+  if (!v9)
   {
     goto LABEL_7;
   }
 
-  [session updateLastReceivedPacketWithTimestamp:5 packetType:v15];
-  if (v17.i64[1])
+  [session updateLastReceivedPacketWithTimestamp:5 packetType:v16];
+  if (v18.i64[1])
   {
     [objc_msgSend(session "ringBuf")];
-    if (!v18[0] || LOBYTE(v18[1]))
+    if (!v19[0] || LOBYTE(v19[1]))
     {
-      [session setLastReceived:{(Timestamp + SampleCount), *&v15, v16, v17.i64[0]}];
-      if (LOBYTE(v18[1]))
+      [session setLastReceived:{(Timestamp + SampleCount), *&v16, v17, v18.i64[0]}];
+      if (LOBYTE(v19[1]))
       {
-        v13 = -[NSArray indexOfObject:](self->connectedPeers, "indexOfObject:", [session remoteParticipantID]);
-        if (v13 != 0x7FFFFFFFFFFFFFFFLL)
+        v14 = -[NSArray indexOfObject:](self->connectedPeers, "indexOfObject:", [session remoteParticipantID]);
+        if (v14 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v11 = v13;
-          v10 = 1;
-          v12 = LOBYTE(v18[1]);
+          v12 = v14;
+          v11 = 1;
+          v13 = LOBYTE(v19[1]);
           goto LABEL_11;
         }
       }
@@ -4321,18 +4324,18 @@ LABEL_7:
     if (Timestamp > [session lastReceived])
     {
 LABEL_8:
-      v9 = -[NSArray indexOfObject:](self->connectedPeers, "indexOfObject:", [session remoteParticipantID]);
-      if (v9 == 0x7FFFFFFFFFFFFFFFLL)
+      v10 = -[NSArray indexOfObject:](self->connectedPeers, "indexOfObject:", [session remoteParticipantID]);
+      if (v10 == 0x7FFFFFFFFFFFFFFFLL)
       {
         return 0;
       }
 
-      v11 = v9;
-      v12 = 0;
-      v10 = 0;
+      v12 = v10;
+      v13 = 0;
+      v11 = 0;
 LABEL_11:
-      -[VideoConference updateMeter:forParticipant:atIndex:](self, "updateMeter:forParticipant:atIndex:", v12, [session remoteParticipantID], v11);
-      return v10;
+      -[VideoConference updateMeter:forParticipant:atIndex:](self, "updateMeter:forParticipant:atIndex:", v13, [session remoteParticipantID], v12);
+      return v11;
     }
 
     return 1;
@@ -4440,57 +4443,58 @@ LABEL_11:
 
 - (int)pullDecodedAsFocusClient:(opaqueVCAudioBufferList *)client
 {
-  v12 = *MEMORY[0x1E69E9840];
-  memset(v11, 170, sizeof(v11));
-  v8 = 0.0;
-  v9 = &v11[1];
-  v10 = vdupq_n_s64(0x10uLL);
+  v13 = *MEMORY[0x1E69E9840];
+  memset(v12, 170, sizeof(v12));
+  v9 = 0.0;
+  v10 = &v12[1];
+  v11 = vdupq_n_s64(0x10uLL);
   if ([(VCCallSession *)self->currentFocusSession state]!= 1 || ![(VCCallSession *)self->currentFocusSession isAudioRunning]|| ![(VCCallSession *)self->currentFocusSession shouldSendAudio])
   {
     return 0;
   }
 
-  if (VCAudioReceiver_PullAudioSamples([(VCCallSession *)self->currentFocusSession audioReceiver], client, 0, &v8, &v9, v11, 0) && ([(VCCallSession *)self->currentFocusSession updateLastReceivedPacketWithTimestamp:5 packetType:v8], !v11[0]))
+  VCAudioReceiver_PullAudioSamples([(VCCallSession *)self->currentFocusSession audioReceiver], client, 0, &v9, &v10, v12, 0);
+  if (v5 && ([(VCCallSession *)self->currentFocusSession updateLastReceivedPacketWithTimestamp:5 packetType:v9], !v12[0]))
   {
-    v6 = 1;
-    if (v10.i64[1] < 2uLL)
+    v7 = 1;
+    if (v11.i64[1] < 2uLL)
     {
-      return v6;
+      return v7;
     }
 
-    v5 = LOWORD(v11[1]);
+    v6 = LOWORD(v12[1]);
   }
 
   else
   {
-    v5 = 0;
     v6 = 0;
+    v7 = 0;
   }
 
-  [(VideoConference *)self updateMeters:v5];
-  return v6;
+  [(VideoConference *)self updateMeters:v6];
+  return v7;
 }
 
 - (int)pullDecodedMeshMode:(opaqueVCAudioBufferList *)mode
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   sourceBuffer = self->_sourceBuffer;
   SampleCount = VCAudioBufferList_GetSampleCount(mode);
   VCAudioBufferList_SetSampleCount(sourceBuffer, SampleCount);
-  v29 = -1431655766;
+  v33 = -1431655766;
   v7 = self->_sourceBuffer;
   HostTime = VCAudioBufferList_GetHostTime(mode);
   Timestamp = VCAudioBufferList_GetTimestamp(mode);
   VCAudioBufferList_SetTime(v7, Timestamp, HostTime);
-  v28 = -1431655766;
+  v32 = -1431655766;
   selfCopy = self;
-  v27 = 0;
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v31 = 0;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   sessionArray = self->_sessionArray;
-  v11 = [(NSArray *)sessionArray countByEnumeratingWithState:&v35 objects:v34 count:16];
+  v11 = [(NSArray *)sessionArray countByEnumeratingWithState:&v39 objects:v38 count:16];
   if (!v11)
   {
     return 0;
@@ -4498,64 +4502,69 @@ LABEL_11:
 
   v13 = v11;
   v14 = 0;
-  v15 = *v36;
+  v15 = *v40;
   *&v12 = 136315906;
-  v25 = v12;
+  v29 = v12;
   modeCopy = mode;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v36 != v15)
+      if (*v40 != v15)
       {
         objc_enumerationMutation(sessionArray);
       }
 
-      v18 = *(*(&v35 + 1) + 8 * i);
-      if ([v18 state] == 1 && objc_msgSend(v18, "isAudioRunning"))
+      v18 = *(*(&v39 + 1) + 8 * i);
+      if ([v18 state] == 1)
       {
-        v19 = micro();
-        v20 = [v18 pullAudioSamples:modeCopy rtpTimestamp:&v29 lastReceivedAudioTime:&v27 padding:0 paddingLength:0 silence:&v28];
-        v21 = micro() - v19;
-        if (v21 > 0.005 && VRTraceGetErrorLogLevelForModule() >= 7)
+        isAudioRunning = [v18 isAudioRunning];
+        if (isAudioRunning)
         {
-          v22 = VRTraceErrorLogLevelToCSTR();
-          v23 = *MEMORY[0x1E6986650];
-          if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+          v21 = micro(isAudioRunning, v20);
+          v22 = [v18 pullAudioSamples:modeCopy rtpTimestamp:&v33 lastReceivedAudioTime:&v31 padding:0 paddingLength:0 silence:&v32];
+          v23 = v22;
+          v25 = micro(v22, v24) - v21;
+          if (v25 > 0.005 && VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            *buf = v25;
-            *&buf[4] = v22;
-            *&buf[12] = 2080;
-            *&buf[14] = "[VideoConference(AudioProcessing) pullDecodedMeshMode:]";
-            *&buf[22] = 1024;
-            v31 = 2779;
-            v32 = 2048;
-            v33 = v21;
-            _os_log_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_DEFAULT, "VideoConference [%s] %s:%d pullAudioSamples() took a long time = %f", buf, 0x26u);
-          }
-        }
-
-        if (v20)
-        {
-          VCAudioBufferList_GetNetworkTimestamp(mode, buf);
-          *(&selfCopy->packetsPerBundle + 1) = *buf;
-          *&selfCopy->recvRTPTimeStamp.flags = *&buf[16];
-          if (!v28)
-          {
-            ++v14;
+            v26 = VRTraceErrorLogLevelToCSTR();
+            v27 = *MEMORY[0x1E6986650];
+            if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = v29;
+              *&buf[4] = v26;
+              *&buf[12] = 2080;
+              *&buf[14] = "[VideoConference(AudioProcessing) pullDecodedMeshMode:]";
+              *&buf[22] = 1024;
+              v35 = 2779;
+              v36 = 2048;
+              v37 = v25;
+              _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, "VideoConference [%s] %s:%d pullAudioSamples() took a long time = %f", buf, 0x26u);
+            }
           }
 
-          if (modeCopy != mode)
+          if (v23)
           {
-            VCAudioBufferList_Mix(mode, modeCopy);
-          }
+            VCAudioBufferList_GetNetworkTimestamp(mode, buf);
+            *(&selfCopy->packetsPerBundle + 1) = *buf;
+            *&selfCopy->recvRTPTimeStamp.flags = *&buf[16];
+            if (!v32)
+            {
+              ++v14;
+            }
 
-          modeCopy = selfCopy->_sourceBuffer;
+            if (modeCopy != mode)
+            {
+              VCAudioBufferList_Mix(mode, modeCopy);
+            }
+
+            modeCopy = selfCopy->_sourceBuffer;
+          }
         }
       }
     }
 
-    v13 = [(NSArray *)sessionArray countByEnumeratingWithState:&v35 objects:v34 count:16];
+    v13 = [(NSArray *)sessionArray countByEnumeratingWithState:&v39 objects:v38 count:16];
   }
 
   while (v13);
@@ -5138,7 +5147,7 @@ LABEL_3:
 {
   cancelCopy = cancel;
   v7 = *&d;
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v9 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   [(VideoConference *)self rdlock];
   v10 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInt:v7];
@@ -5168,34 +5177,34 @@ LABEL_3:
         v15 = "<nil>";
       }
 
-      v16 = 136316418;
-      v17 = v13;
-      v18 = 2080;
-      v19 = "[VideoConference(PrivateMethods) stopCallID:didRemoteCancel:error:]";
-      v20 = 1024;
-      v21 = 3077;
+      v18 = 136316418;
+      v19 = v13;
+      v20 = 2080;
+      v21 = "[VideoConference(PrivateMethods) stopCallID:didRemoteCancel:error:]";
       v22 = 1024;
-      v23 = v7;
+      v23 = 3077;
       v24 = 1024;
-      v25 = cancelCopy;
-      v26 = 2080;
-      v27 = v15;
-      _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, "VideoConference [%s] %s:%d stopCallID: %d, didRemoteCancel = %d, session = %s", &v16, 0x32u);
+      v25 = v7;
+      v26 = 1024;
+      v27 = cancelCopy;
+      v28 = 2080;
+      v29 = v15;
+      _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, "VideoConference [%s] %s:%d stopCallID: %d, didRemoteCancel = %d, session = %s", &v18, 0x32u);
     }
   }
 
   if (!v7)
   {
-    [(VideoConference *)self markUnfinishedSessions];
+    markUnfinishedSessions = [(VideoConference *)self markUnfinishedSessions];
   }
 
-  [VCRemoteVideoManager_DefaultManager() releaseQueueForStreamToken:v7];
+  [VCRemoteVideoManager_DefaultManager(markUnfinishedSessions v17)];
 }
 
 - (void)cancelCallID:(unsigned int)d error:(id)error
 {
   v5 = *&d;
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   [(VideoConference *)self rdlock];
   v8 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInt:v5];
@@ -5220,26 +5229,26 @@ LABEL_3:
         v13 = "<nil>";
       }
 
-      v14 = 136316162;
-      v15 = v11;
-      v16 = 2080;
-      v17 = "[VideoConference(PrivateMethods) cancelCallID:error:]";
-      v18 = 1024;
-      v19 = 3107;
+      v16 = 136316162;
+      v17 = v11;
+      v18 = 2080;
+      v19 = "[VideoConference(PrivateMethods) cancelCallID:error:]";
       v20 = 1024;
-      v21 = v5;
-      v22 = 2080;
-      v23 = v13;
-      _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, "VideoConference [%s] %s:%d cancelCallID: %d, session = %s", &v14, 0x2Cu);
+      v21 = 3107;
+      v22 = 1024;
+      v23 = v5;
+      v24 = 2080;
+      v25 = v13;
+      _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, "VideoConference [%s] %s:%d cancelCallID: %d, session = %s", &v16, 0x2Cu);
     }
   }
 
   if (!v5)
   {
-    [(VideoConference *)self markUnfinishedSessions];
+    markUnfinishedSessions = [(VideoConference *)self markUnfinishedSessions];
   }
 
-  [VCRemoteVideoManager_DefaultManager() releaseQueueForStreamToken:v5];
+  [VCRemoteVideoManager_DefaultManager(markUnfinishedSessions v15)];
 }
 
 - (void)cleanupSession:(id)session withDelay:(unint64_t)delay
@@ -5664,11 +5673,11 @@ uint64_t __80__VideoConference_SessionDelegate__session_withCallID_videoIsDegrad
 
   if (*(a1 + 45) == 1)
   {
-    v3 = VCRemoteVideoManager_DefaultManager();
-    v4 = *(a1 + 44);
-    v5 = *(a1 + 40);
+    v4 = VCRemoteVideoManager_DefaultManager(result, v3);
+    v5 = *(a1 + 44);
+    v6 = *(a1 + 40);
 
-    return [v3 remoteVideoDidDegrade:v4 streamToken:v5];
+    return [v4 remoteVideoDidDegrade:v5 streamToken:v6];
   }
 
   return result;
@@ -5719,14 +5728,14 @@ uint64_t __69__VideoConference_SessionDelegate__session_localIPChange_withCallID
   dispatch_async(delegateNotificationQueue, v7);
 }
 
-uint64_t __113__VideoConference_SessionDelegate__session_connectionDidChangeWithLocalInterfaceType_remoteInterfaceType_callID___block_invoke(uint64_t a1)
+uint64_t __113__VideoConference_SessionDelegate__session_connectionDidChangeWithLocalInterfaceType_remoteInterfaceType_callID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = VCRemoteVideoManager_DefaultManager();
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
+  v3 = VCRemoteVideoManager_DefaultManager(a1, a2);
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
 
-  return [v2 connectionDidChangeWithLocalInterfaceType:v3 remoteInterfaceType:v4 streamToken:v5];
+  return [v3 connectionDidChangeWithLocalInterfaceType:v4 remoteInterfaceType:v5 streamToken:v6];
 }
 
 - (void)session:(id)session didStart:(BOOL)start connectionType:(unsigned int)type localInterfaceType:(id)interfaceType remoteInterfaceType:(id)remoteInterfaceType error:(id)error
@@ -5901,20 +5910,24 @@ uint64_t __113__VideoConference_SessionDelegate__session_didStart_connectionType
   v3 = [*(a1 + 32) delegate];
   if (v2)
   {
-    [v3 videoConference:*(a1 + 32) didStartSession:*(a1 + 76) withCallID:*(a1 + 72) withUserInfo:*(a1 + 40) error:*(a1 + 48)];
+    v4 = [v3 videoConference:*(a1 + 32) didStartSession:*(a1 + 76) withCallID:*(a1 + 72) withUserInfo:*(a1 + 40) error:*(a1 + 48)];
   }
 
-  else if (objc_opt_respondsToSelector())
+  else
   {
-    [objc_msgSend(*(a1 + 32) "delegate")];
+    v4 = objc_opt_respondsToSelector();
+    if (v4)
+    {
+      v4 = [objc_msgSend(*(a1 + 32) "delegate")];
+    }
   }
 
-  v4 = VCRemoteVideoManager_DefaultManager();
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 64);
-  v7 = *(a1 + 72);
+  v6 = VCRemoteVideoManager_DefaultManager(v4, v5);
+  v7 = *(a1 + 56);
+  v8 = *(a1 + 64);
+  v9 = *(a1 + 72);
 
-  return [v4 connectionDidChangeWithLocalInterfaceType:v5 remoteInterfaceType:v6 streamToken:v7];
+  return [v6 connectionDidChangeWithLocalInterfaceType:v7 remoteInterfaceType:v8 streamToken:v9];
 }
 
 - (void)session:(id)session cleanUpWithDelay:(int64_t)delay error:(id)error
@@ -6098,16 +6111,17 @@ uint64_t __72__VideoConference_SessionDelegate__session_receivedNoPacketsForSeco
 uint64_t __63__VideoConference_SessionDelegate__session_remoteMediaStalled___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) delegate];
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    [objc_msgSend(*(a1 + 32) "delegate")];
+    v2 = [objc_msgSend(*(a1 + 32) "delegate")];
   }
 
-  v2 = VCRemoteVideoManager_DefaultManager();
-  v3 = *(a1 + 48);
-  v4 = [*(a1 + 40) callID];
+  v4 = VCRemoteVideoManager_DefaultManager(v2, v3);
+  v5 = *(a1 + 48);
+  v6 = [*(a1 + 40) callID];
 
-  return [v2 remoteMediaDidStall:v3 streamToken:v4];
+  return [v4 remoteMediaDidStall:v5 streamToken:v6];
 }
 
 - (void)session:(id)session packMeters:(char *)meters withLength:(char *)length
@@ -6456,31 +6470,33 @@ LABEL_39:
 void __135__VideoConference_SessionDelegate__session_receivedRemoteFrame_atTime_withScreenAttributes_videoAttributes_isFirstFrame_isVideoPaused___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) delegate];
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    [objc_msgSend(*(a1 + 32) "delegate")];
+    v2 = [objc_msgSend(*(a1 + 32) "delegate")];
   }
 
-  v2 = VCRemoteVideoManager_DefaultManager();
-  v3 = *(a1 + 40);
-  v4 = [*(a1 + 48) callID];
+  v4 = VCRemoteVideoManager_DefaultManager(v2, v3);
+  v5 = *(a1 + 40);
+  v6 = [*(a1 + 48) callID];
 
-  VCRemoteVideoManager_RemoteScreenAttributesDidChange(v2, v3, v4);
+  VCRemoteVideoManager_RemoteScreenAttributesDidChange(v4, v5, v6);
 }
 
 void __135__VideoConference_SessionDelegate__session_receivedRemoteFrame_atTime_withScreenAttributes_videoAttributes_isFirstFrame_isVideoPaused___block_invoke_649(uint64_t a1)
 {
   [*(a1 + 32) delegate];
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    [objc_msgSend(*(a1 + 32) "delegate")];
+    v2 = [objc_msgSend(*(a1 + 32) "delegate")];
   }
 
-  v2 = VCRemoteVideoManager_DefaultManager();
-  v3 = *(a1 + 40);
-  v4 = [*(a1 + 48) callID];
+  v4 = VCRemoteVideoManager_DefaultManager(v2, v3);
+  v5 = *(a1 + 40);
+  v6 = [*(a1 + 48) callID];
 
-  VCRemoteVideoManager_RemoteVideoAttributesDidChange(v2, v3, v4);
+  VCRemoteVideoManager_RemoteVideoAttributesDidChange(v4, v5, v6);
 }
 
 void __135__VideoConference_SessionDelegate__session_receivedRemoteFrame_atTime_withScreenAttributes_videoAttributes_isFirstFrame_isVideoPaused___block_invoke_2(uint64_t a1)
@@ -6499,15 +6515,16 @@ void __135__VideoConference_SessionDelegate__session_receivedRemoteFrame_atTime_
 void __135__VideoConference_SessionDelegate__session_receivedRemoteFrame_atTime_withScreenAttributes_videoAttributes_isFirstFrame_isVideoPaused___block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) delegate];
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    [objc_msgSend(*(a1 + 32) "delegate")];
+    v2 = [objc_msgSend(*(a1 + 32) "delegate")];
   }
 
-  v2 = VCRemoteVideoManager_DefaultManager();
-  v3 = [*(a1 + 40) callID];
+  v4 = VCRemoteVideoManager_DefaultManager(v2, v3);
+  v5 = [*(a1 + 40) callID];
 
-  VCRemoteVideoManager_DidReceiveFirstRemoteFrameForStreamToken(v2, v3);
+  VCRemoteVideoManager_DidReceiveFirstRemoteFrameForStreamToken(v4, v5);
 }
 
 - (void)session:(id)session didReceiveARPLData:(id)data fromCallID:(unsigned int)d
@@ -7406,20 +7423,21 @@ uint64_t __63__VideoConference_SessionDelegate__remoteAudioDidPause_callID___blo
 _BYTE *__63__VideoConference_SessionDelegate__remoteVideoDidPause_callID___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) delegate];
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    [objc_msgSend(*(a1 + 32) "delegate")];
+    v2 = [objc_msgSend(*(a1 + 32) "delegate")];
   }
 
-  result = [VCRemoteVideoManager_DefaultManager() remoteVideoDidPause:*(a1 + 44) streamToken:*(a1 + 40)];
+  result = [VCRemoteVideoManager_DefaultManager(v2 v3)];
   if ((*(a1 + 44) & 1) == 0)
   {
     result = *(a1 + 32);
     if (result[1015] == 1)
     {
-      v3 = *(a1 + 40);
+      v5 = *(a1 + 40);
 
-      return [result setPauseVideo:0 callID:v3 error:0];
+      return [result setPauseVideo:0 callID:v5 error:0];
     }
   }
 
@@ -7732,16 +7750,17 @@ uint64_t __63__VideoConference_SessionDelegate__session_cancelRelayRequest___blo
 void __76__VideoConference_SessionDelegate__session_didChangeRemoteScreenAttributes___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) delegate];
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    [objc_msgSend(*(a1 + 32) "delegate")];
+    v2 = [objc_msgSend(*(a1 + 32) "delegate")];
   }
 
-  v2 = VCRemoteVideoManager_DefaultManager();
-  v3 = *(a1 + 40);
-  v4 = [*(a1 + 48) callID];
+  v4 = VCRemoteVideoManager_DefaultManager(v2, v3);
+  v5 = *(a1 + 40);
+  v6 = [*(a1 + 48) callID];
 
-  VCRemoteVideoManager_RemoteScreenAttributesDidChange(v2, v3, v4);
+  VCRemoteVideoManager_RemoteScreenAttributesDidChange(v4, v5, v6);
 }
 
 - (void)session:(id)session remoteAudioEnabled:(BOOL)enabled withCallID:(unsigned int)d
@@ -8664,7 +8683,7 @@ void __35__VideoConference_setupNATObserver__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Something is wrong with getting the snatmapserver", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Something is wrong with getting the snatmapserver", v2, v3, v4, v5);
 }
 
 - (void)inviteDataForParticipantID:callID:remoteInviteData:nonCellularCandidateTimeout:error:.cold.1()
@@ -8694,14 +8713,14 @@ void __35__VideoConference_setupNATObserver__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d audio for the session should not be running", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d audio for the session should not be running", v2, v3, v4, v5);
 }
 
 - (void)setUpAudioIO:callID:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d _startedSessions is not empty", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d _startedSessions is not empty", v2, v3, v4, v5);
 }
 
 - (void)setupSpatialAudioWithCallID:.cold.1()
@@ -8715,7 +8734,7 @@ void __35__VideoConference_setupNATObserver__block_invoke_cold_1()
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Failed to register the spatial metadata. status=%08x", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Failed to register the spatial metadata. status=%08x", v2, v3, v4, v5);
     }
   }
 
@@ -8733,7 +8752,7 @@ void __35__VideoConference_setupNATObserver__block_invoke_cold_1()
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Failed to retrieve the channel index. status=%08x", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Failed to retrieve the channel index. status=%08x", v2, v3, v4, v5);
     }
   }
 
@@ -8751,7 +8770,7 @@ void __35__VideoConference_setupNATObserver__block_invoke_cold_1()
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Failed to allocate spatial metadata entry. status=%08x", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Failed to allocate spatial metadata entry. status=%08x", v2, v3, v4, v5);
     }
   }
 
@@ -8769,7 +8788,7 @@ void __35__VideoConference_setupNATObserver__block_invoke_cold_1()
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Failed to create the spatial metadata. status=%08x", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d Failed to create the spatial metadata. status=%08x", v2, v3, v4, v5);
     }
   }
 

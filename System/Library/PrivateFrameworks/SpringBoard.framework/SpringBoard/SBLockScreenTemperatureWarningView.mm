@@ -198,7 +198,7 @@ LABEL_6:
   titleLabel = [(SBUILockOverlayView *)self titleLabel];
   _titleFont = [(SBLockScreenTemperatureWarningView *)self _titleFont];
   [titleLabel sizeToFit];
-  [titleLabel frame];
+  objc_msgSend_frame(titleLabel);
   UIRectCenteredXInRectScale();
   v13 = v12;
   v15 = v14;
@@ -209,7 +209,7 @@ LABEL_6:
   subtitleLabel = [(SBUILockOverlayView *)self subtitleLabel];
   _subtitleFont = [(SBLockScreenTemperatureWarningView *)self _subtitleFont];
   [subtitleLabel sizeToFit];
-  [subtitleLabel frame];
+  objc_msgSend_frame(subtitleLabel);
   UIRectCenteredXInRectScale();
   v23 = v22;
   v25 = v24;
@@ -217,7 +217,7 @@ LABEL_6:
   [(SBLockScreenTemperatureWarningView *)self _subtitleBaseline];
   [subtitleLabel sb_yPositionForLabelWithContainerBounds:_subtitleFont baselineOffset:v4 font:{v6, v8, v10, v28}];
   [subtitleLabel setFrame:{v23, v29, v25, v27}];
-  [(UIImageView *)self->_warningIconView frame];
+  objc_msgSend_frame(self->_warningIconView);
   v31 = v30;
   v33 = v32;
   v34 = (v8 - v30) * 0.5;

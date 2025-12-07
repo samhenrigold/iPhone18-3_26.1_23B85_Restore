@@ -28,7 +28,7 @@
 
     if (!*(v9 + 492))
     {
-      [(DiskImageParamsUDIF_XPC *)v8 createSinkDiskImage];
+      objc_msgSend_createSinkDiskImage(v8);
       *(v8->_header.__ptr_ + 492) = (*(*v12 + 32))();
       if (v12)
       {
@@ -46,15 +46,15 @@
   v4 = backendXPC;
   if (backendXPC)
   {
-    [backendXPC backend];
+    objc_msgSend_backend(backendXPC);
   }
 
   else
   {
-    v8 = 0uLL;
+    v7 = 0uLL;
   }
 
-  if ((*(*v8 + 48))(v8))
+  if ((*(*v7 + 48))(v7))
   {
     backendXPC2 = [(DiskImageParamsXPC *)self backendXPC];
     isUnlocked = [backendXPC2 isUnlocked];
@@ -66,7 +66,6 @@
     }
   }
 
-  ptr = self->_header.__ptr_;
   operator new();
 }
 

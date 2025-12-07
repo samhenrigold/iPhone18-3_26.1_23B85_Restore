@@ -1,5 +1,6 @@
 @interface MAAutoAssetStatus
 + (id)newCurrentLockUsageSummary:(id)summary;
+- (MAAutoAssetStatus)initWithAssetSelector:(id)selector withNotifications:(id)notifications withAvailableForUseAttributes:(id)attributes withNewerVersionAttributes:(id)versionAttributes withDownloadUserInitiated:(BOOL)initiated withDownloadProgress:(id)progress withDownloadedNetworkBytes:(int64_t)bytes withDownloadedFilesystemBytes:(int64_t)self0 withDownloadedAsPatch:(BOOL)self1 withPatchedFromBaseSelector:(id)self2 withPatchedFromBaseFilesystemBytes:(int64_t)self3 withPatchingAttempted:(BOOL)self4 withStagedPriorToAvailable:(BOOL)self5 withStagedFromOSVersion:(id)self6 withStagedFromBuildVersion:(id)self7 withCurrentLockUsage:(id)self8 withAvailableForUseError:(id)self9 withPatchingAttemptError:(id)attemptError withNewerVersionError:(id)versionError;
 - (MAAutoAssetStatus)initWithAssetSelector:(id)selector withNotifications:(id)notifications withAvailableForUseAttributes:(id)attributes withNewerVersionAttributes:(id)versionAttributes withNeverBeenLocked:(BOOL)locked withDownloadUserInitiated:(BOOL)initiated withDownloadProgress:(id)progress withDownloadedNetworkBytes:(int64_t)self0 withDownloadedFilesystemBytes:(int64_t)self1 withDownloadedAsPatch:(BOOL)self2 withPatchedFromBaseSelector:(id)self3 withPatchedFromBaseFilesystemBytes:(int64_t)self4 withPatchingAttempted:(BOOL)self5 withStagedPriorToAvailable:(BOOL)self6 withStagedFromOSVersion:(id)self7 withStagedFromBuildVersion:(id)self8 withCurrentLockUsage:(id)self9 withAvailableForUseError:(id)error withPatchingAttemptError:(id)attemptError withNewerVersionError:(id)versionError;
 - (MAAutoAssetStatus)initWithCoder:(id)coder;
 - (id)copy;
@@ -11,6 +12,13 @@
 @end
 
 @implementation MAAutoAssetStatus
+
+- (MAAutoAssetStatus)initWithAssetSelector:(id)selector withNotifications:(id)notifications withAvailableForUseAttributes:(id)attributes withNewerVersionAttributes:(id)versionAttributes withDownloadUserInitiated:(BOOL)initiated withDownloadProgress:(id)progress withDownloadedNetworkBytes:(int64_t)bytes withDownloadedFilesystemBytes:(int64_t)self0 withDownloadedAsPatch:(BOOL)self1 withPatchedFromBaseSelector:(id)self2 withPatchedFromBaseFilesystemBytes:(int64_t)self3 withPatchingAttempted:(BOOL)self4 withStagedPriorToAvailable:(BOOL)self5 withStagedFromOSVersion:(id)self6 withStagedFromBuildVersion:(id)self7 withCurrentLockUsage:(id)self8 withAvailableForUseError:(id)self9 withPatchingAttemptError:(id)attemptError withNewerVersionError:(id)versionError
+{
+  LOWORD(v23) = __PAIR16__(available, attempted);
+  LOBYTE(v22) = patch;
+  return [(MAAutoAssetStatus *)self initWithAssetSelector:selector withNotifications:notifications withAvailableForUseAttributes:attributes withNewerVersionAttributes:versionAttributes withNeverBeenLocked:0 withDownloadUserInitiated:initiated withDownloadProgress:progress withDownloadedNetworkBytes:bytes withDownloadedFilesystemBytes:filesystemBytes withDownloadedAsPatch:v22 withPatchedFromBaseSelector:baseSelector withPatchedFromBaseFilesystemBytes:baseFilesystemBytes withPatchingAttempted:v23 withStagedPriorToAvailable:version withStagedFromOSVersion:buildVersion withStagedFromBuildVersion:usage withCurrentLockUsage:error withAvailableForUseError:attemptError withPatchingAttemptError:versionError withNewerVersionError:?];
+}
 
 - (MAAutoAssetStatus)initWithAssetSelector:(id)selector withNotifications:(id)notifications withAvailableForUseAttributes:(id)attributes withNewerVersionAttributes:(id)versionAttributes withNeverBeenLocked:(BOOL)locked withDownloadUserInitiated:(BOOL)initiated withDownloadProgress:(id)progress withDownloadedNetworkBytes:(int64_t)self0 withDownloadedFilesystemBytes:(int64_t)self1 withDownloadedAsPatch:(BOOL)self2 withPatchedFromBaseSelector:(id)self3 withPatchedFromBaseFilesystemBytes:(int64_t)self4 withPatchingAttempted:(BOOL)self5 withStagedPriorToAvailable:(BOOL)self6 withStagedFromOSVersion:(id)self7 withStagedFromBuildVersion:(id)self8 withCurrentLockUsage:(id)self9 withAvailableForUseError:(id)error withPatchingAttemptError:(id)attemptError withNewerVersionError:(id)versionError
 {
@@ -61,30 +69,30 @@
 
 - (MAAutoAssetStatus)initWithCoder:(id)coder
 {
-  v40[8] = *MEMORY[0x1E69E9840];
+  v39[8] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v38.receiver = self;
-  v38.super_class = MAAutoAssetStatus;
-  v5 = [(MAAutoAssetStatus *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = MAAutoAssetStatus;
+  v5 = [(MAAutoAssetStatus *)&v37 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v40[0] = objc_opt_class();
-    v40[1] = objc_opt_class();
-    v40[2] = objc_opt_class();
-    v40[3] = objc_opt_class();
-    v40[4] = objc_opt_class();
-    v40[5] = objc_opt_class();
-    v40[6] = objc_opt_class();
-    v40[7] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:8];
-    v8 = [v6 setWithArray:v7];
-
-    v9 = MEMORY[0x1E695DFD8];
     v39[0] = objc_opt_class();
     v39[1] = objc_opt_class();
     v39[2] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:3];
+    v39[3] = objc_opt_class();
+    v39[4] = objc_opt_class();
+    v39[5] = objc_opt_class();
+    v39[6] = objc_opt_class();
+    v39[7] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:8];
+    v8 = [v6 setWithArray:v7];
+
+    v9 = MEMORY[0x1E695DFD8];
+    v38[0] = objc_opt_class();
+    v38[1] = objc_opt_class();
+    v38[2] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:3];
     v11 = [v9 setWithArray:v10];
 
     v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"assetSelector"];
@@ -144,7 +152,6 @@
     v5->_newerVersionError = v34;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -189,8 +196,8 @@
   availableForUseError = [(MAAutoAssetStatus *)self availableForUseError];
   [coderCopy encodeObject:availableForUseError forKey:@"availableForUseError"];
 
-  patchingAttemptError = [(MAAutoAssetStatus *)self patchingAttemptError];
-  [coderCopy encodeObject:patchingAttemptError forKey:@"patchingAttemptError"];
+  v15 = objc_msgSend_patchingAttemptError(self);
+  [coderCopy encodeObject:v15 forKey:@"patchingAttemptError"];
 
   newerVersionError = [(MAAutoAssetStatus *)self newerVersionError];
   [coderCopy encodeObject:newerVersionError forKey:@"newerVersionError"];
@@ -222,12 +229,12 @@
   currentLockUsage = [(MAAutoAssetStatus *)self currentLockUsage];
   v7 = [currentLockUsage copy];
   availableForUseError = [(MAAutoAssetStatus *)self availableForUseError];
-  patchingAttemptError = [(MAAutoAssetStatus *)self patchingAttemptError];
+  v9 = objc_msgSend_patchingAttemptError(self);
   newerVersionError = [(MAAutoAssetStatus *)self newerVersionError];
   BYTE1(v13) = stagedPriorToAvailable;
   LOBYTE(v13) = patchingAttempted;
   LOBYTE(v12) = downloadedAsPatch;
-  v28 = [(MAAutoAssetStatus *)v27 initWithAssetSelector:v26 withNotifications:v25 withAvailableForUseAttributes:availableForUseAttributes withNewerVersionAttributes:newerVersionAttributes withNeverBeenLocked:neverBeenLocked withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:v32 withDownloadedNetworkBytes:downloadedNetworkBytes withDownloadedFilesystemBytes:downloadedFilesystemBytes withDownloadedAsPatch:v12 withPatchedFromBaseSelector:v15 withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes withPatchingAttempted:v13 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:v7 withCurrentLockUsage:availableForUseError withAvailableForUseError:patchingAttemptError withPatchingAttemptError:newerVersionError withNewerVersionError:?];
+  v28 = [(MAAutoAssetStatus *)v27 initWithAssetSelector:v26 withNotifications:v25 withAvailableForUseAttributes:availableForUseAttributes withNewerVersionAttributes:newerVersionAttributes withNeverBeenLocked:neverBeenLocked withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:v32 withDownloadedNetworkBytes:downloadedNetworkBytes withDownloadedFilesystemBytes:downloadedFilesystemBytes withDownloadedAsPatch:v12 withPatchedFromBaseSelector:v15 withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes withPatchingAttempted:v13 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:v7 withCurrentLockUsage:availableForUseError withAvailableForUseError:v9 withPatchingAttemptError:newerVersionError withNewerVersionError:?];
 
   return v28;
 }
@@ -387,12 +394,12 @@
     checkedSummary = @"N";
   }
 
-  patchingAttemptError = [(MAAutoAssetStatus *)self patchingAttemptError];
+  v19 = objc_msgSend_patchingAttemptError(self);
   v55 = stagedFromOSVersion;
-  if (patchingAttemptError)
+  if (v19)
   {
-    patchingAttemptError2 = [(MAAutoAssetStatus *)self patchingAttemptError];
-    checkedSummary2 = [patchingAttemptError2 checkedSummary];
+    v39 = objc_msgSend_patchingAttemptError(self);
+    checkedSummary2 = [v39 checkedSummary];
   }
 
   else
@@ -426,7 +433,7 @@
     v59 = [v58 stringWithFormat:@"                   assetSelector: %@\n                   notifications: %@\n       availableForUseAttributes: %@\n          newerVersionAttributes: %@\n                 neverBeenLocked: %@\n           downloadUserInitiated: %@\n                downloadProgress: %@\n          downloadedNetworkBytes: %ld\n       downloadedFilesystemBytes: %ld\n               downloadedAsPatch: %@\n         patchedFromBaseSelector: %@\n  patchedFromBaseFilesystemBytes: %ld\n               patchingAttempted: %@\n          stagedPriorToAvailable: %@\n             stagedFromOSVersion: %@\n          stagedFromBuildVersion: %@\n                currentLockUsage: %@\n            availableForUseError: %@\n            patchingAttemptError: %@\n               newerVersionError: %@\n", summary, summary2, v57, v56, v54, v53, summary3, downloadedNetworkBytes, downloadedFilesystemBytes, v49, summary4, patchedFromBaseFilesystemBytes, v46, v45, stagedFromOSVersion2, stagedFromBuildVersion2, v62, checkedSummary, checkedSummary2, @"N"];
   }
 
-  if (patchingAttemptError)
+  if (v19)
   {
   }
 
@@ -663,12 +670,12 @@
     checkedSummary = @"N";
   }
 
-  patchingAttemptError = [(MAAutoAssetStatus *)self patchingAttemptError];
+  v19 = objc_msgSend_patchingAttemptError(self);
   v52 = stagedFromBuildVersion;
-  if (patchingAttemptError)
+  if (v19)
   {
-    patchingAttemptError2 = [(MAAutoAssetStatus *)self patchingAttemptError];
-    checkedSummary2 = [patchingAttemptError2 checkedSummary];
+    v39 = objc_msgSend_patchingAttemptError(self);
+    checkedSummary2 = [v39 checkedSummary];
   }
 
   else
@@ -703,7 +710,7 @@
     v59 = [v58 stringWithFormat:@"[assetSelector:%@|notifications:%@|availableForUseAttributes:%@|newerVersionAttributes:%@|neverBeenLocked:%@|downloadUserInitiated:%@|downloadProgress:%@|downloadedNetworkBytes:%ld|downloadedFilesystemBytes:%ld|downloadedAsPatch:%@|patchedFromBaseSelector:%@|patchedFromBaseBytes:%ld|patchingAttempted:%@|stagedPriorToAvailable:%@|stagedFromOSVersion:%@|stagedFromBuildVersion:%@|currentLockUsage:%@|availableForUseError:%@|patchingAttemptError:%@|newerVersionError:%@", summary, summary2, v57, v56, v54, v53, summary3, downloadedNetworkBytes, downloadedFilesystemBytes, v49, summary4, patchedFromBaseFilesystemBytes, v46, v45, stagedFromOSVersion2, stagedFromBuildVersion2, v62, checkedSummary, checkedSummary2, @"N"];
   }
 
-  if (patchingAttemptError)
+  if (v19)
   {
   }
 
@@ -789,7 +796,7 @@
 
 - (void)getAvailableForUseAttributesAssetFormat:(id *)format assetBuild:(id *)build minOSVersion:(id *)version maxOSVersion:(id *)sVersion prerequisiteBuilds:(id *)builds
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   availableForUseAttributes = [(MAAutoAssetStatus *)self availableForUseAttributes];
 
   if (availableForUseAttributes)
@@ -830,28 +837,28 @@
 
       if (v19)
       {
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         v20 = v19;
-        v21 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v21)
         {
           v22 = v21;
-          v29 = v19;
+          v28 = v19;
           v23 = 0;
-          v24 = *v31;
+          v24 = *v30;
           do
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v31 != v24)
+              if (*v30 != v24)
               {
                 objc_enumerationMutation(v20);
               }
 
-              v26 = *(*(&v30 + 1) + 8 * i);
+              v26 = *(*(&v29 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -867,7 +874,7 @@
               }
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v22 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
           }
 
           while (v22);
@@ -877,7 +884,7 @@
             v27 = v23;
           }
 
-          v19 = v29;
+          v19 = v28;
         }
 
         else
@@ -895,8 +902,6 @@
       }
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)newSummaryDictionary
@@ -1079,11 +1084,11 @@
     [v3 setSafeObject:@"NO" forKey:@"availableForUseError"];
   }
 
-  patchingAttemptError = [(MAAutoAssetStatus *)self patchingAttemptError];
-  if (patchingAttemptError)
+  v36 = objc_msgSend_patchingAttemptError(self);
+  if (v36)
   {
-    patchingAttemptError2 = [(MAAutoAssetStatus *)self patchingAttemptError];
-    checkedSummary2 = [patchingAttemptError2 checkedSummary];
+    v37 = objc_msgSend_patchingAttemptError(self);
+    checkedSummary2 = [v37 checkedSummary];
     [v3 setSafeObject:checkedSummary2 forKey:@"patchingAttemptError"];
   }
 
@@ -1172,35 +1177,35 @@
 
 + (id)newCurrentLockUsageSummary:(id)summary
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   currentLockUsage = [summaryCopy currentLockUsage];
 
   if (currentLockUsage)
   {
     v5 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"{"];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     obj = [summaryCopy currentLockUsage];
-    v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       v9 = 1;
       do
       {
         v10 = 0;
         do
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * v10);
+          v11 = *(*(&v17 + 1) + 8 * v10);
           currentLockUsage2 = [summaryCopy currentLockUsage];
           v13 = [currentLockUsage2 safeIntegerForKey:v11];
 
@@ -1217,7 +1222,7 @@
 
           else
           {
-            [(__CFString *)v5 appendFormat:@"?:%ld", v13, v16];
+            [(__CFString *)v5 appendFormat:@"?:%ld", v13, v15];
           }
 
           v9 = 0;
@@ -1225,7 +1230,7 @@
         }
 
         while (v7 != v10);
-        v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
         v9 = 0;
       }
 
@@ -1240,7 +1245,6 @@
     v5 = &stru_1F0C1B388;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -29,10 +29,10 @@
 
 - (CEKApertureButton)initWithFrame:(CGRect)frame
 {
-  v41[1] = *MEMORY[0x1E69E9840];
-  v39.receiver = self;
-  v39.super_class = CEKApertureButton;
-  v3 = [(CEKApertureButton *)&v39 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v42[1] = *MEMORY[0x1E69E9840];
+  v40.receiver = self;
+  v40.super_class = CEKApertureButton;
+  v3 = [(CEKApertureButton *)&v40 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     systemYellowColor = [MEMORY[0x1E69DC888] systemYellowColor];
@@ -48,77 +48,78 @@
 
     v10 = [v9 imageWithRenderingMode:2];
 
-    v38 = v10;
+    v39 = v10;
     v11 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v10];
     objc_storeStrong(&v3->__circleOutlineView, v11);
-    v12 = CEKFontOfSizeWeightStyle(1, 14.0, *MEMORY[0x1E69DB978]);
-    v13 = CEKLocalizedFrameworkString(@"PORTRAIT_APERTURE_BUTTON_NO_VALUE", 0);
-    v14 = CEKLocalizedFrameworkString(@"PORTRAIT_APERTURE_BUTTON_VALUE_FORMAT", 0);
-    v15 = [v14 hasPrefix:@"%@"];
-    v37 = v14;
-    if (v15)
+    v12.n128_u64[0] = 14.0;
+    v13 = CEKFontOfSizeWeightStyle(1, v12, *MEMORY[0x1E69DB978]);
+    v14 = CEKLocalizedFrameworkString(@"PORTRAIT_APERTURE_BUTTON_NO_VALUE", 0);
+    v15 = CEKLocalizedFrameworkString(@"PORTRAIT_APERTURE_BUTTON_VALUE_FORMAT", 0);
+    v16 = [v15 hasPrefix:@"%@"];
+    v38 = v15;
+    if (v16)
     {
-      LOBYTE(v15) = [v14 hasSuffix:{v13, v14}];
+      LOBYTE(v16) = [v15 hasSuffix:{v14, v15}];
     }
 
-    v3->__rightToLeftFormatting = v15;
-    v16 = objc_alloc(MEMORY[0x1E69DCC10]);
-    v17 = *MEMORY[0x1E695F058];
-    v18 = *(MEMORY[0x1E695F058] + 8);
-    v19 = *(MEMORY[0x1E695F058] + 16);
-    v20 = *(MEMORY[0x1E695F058] + 24);
-    v21 = [v16 initWithFrame:{*MEMORY[0x1E695F058], v18, v19, v20}];
+    v3->__rightToLeftFormatting = v16;
+    v17 = objc_alloc(MEMORY[0x1E69DCC10]);
+    v18 = *MEMORY[0x1E695F058];
+    v19 = *(MEMORY[0x1E695F058] + 8);
+    v20 = *(MEMORY[0x1E695F058] + 16);
+    v21 = *(MEMORY[0x1E695F058] + 24);
+    v22 = [v17 initWithFrame:{*MEMORY[0x1E695F058], v19, v20, v21}];
     clearColor = [MEMORY[0x1E69DC888] clearColor];
-    [v21 setBackgroundColor:clearColor];
+    [v22 setBackgroundColor:clearColor];
 
-    [v21 setFont:v12];
-    [v21 setTextAlignment:4];
-    [v21 setText:v13];
-    objc_storeStrong(&v3->__symbolLabel, v21);
-    v23 = CEKMonospacedStylisticNumeralFontOfSizeAndStyle(0, 14.0);
-    v24 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v17, v18, v19, v20}];
+    [v22 setFont:v13];
+    [v22 setTextAlignment:4];
+    [v22 setText:v14];
+    objc_storeStrong(&v3->__symbolLabel, v22);
+    v24 = CEKMonospacedStylisticNumeralFontOfSizeAndStyle(0, 14.0);
+    v25 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v18, v19, v20, v21}];
     clearColor2 = [MEMORY[0x1E69DC888] clearColor];
-    [v24 setBackgroundColor:clearColor2];
+    [v25 setBackgroundColor:clearColor2];
 
-    [v24 setFont:v23];
-    [v24 setTextAlignment:4];
-    objc_storeStrong(&v3->__valueLabel, v24);
-    v26 = objc_alloc_init(MEMORY[0x1E696ADA0]);
+    [v25 setFont:v24];
+    [v25 setTextAlignment:4];
+    objc_storeStrong(&v3->__valueLabel, v25);
+    v27 = objc_alloc_init(MEMORY[0x1E696ADA0]);
     decimalFormatter = v3->__decimalFormatter;
-    v3->__decimalFormatter = v26;
+    v3->__decimalFormatter = v27;
 
     [(NSNumberFormatter *)v3->__decimalFormatter setPositiveFormat:@"0.0"];
-    v28 = [(NSNumberFormatter *)v3->__decimalFormatter stringFromNumber:&unk_1F2FDFB08];
-    v29 = [v28 isEqualToString:{@"4, 5"}];
+    v29 = [(NSNumberFormatter *)v3->__decimalFormatter stringFromNumber:&unk_1F2FDFB08];
+    v30 = [v29 isEqualToString:{@"4, 5"}];
 
-    if (v29)
+    if (v30)
     {
       [(NSNumberFormatter *)v3->__decimalFormatter setDecimalSeparator:@"."];
     }
 
-    v30 = objc_alloc_init(MEMORY[0x1E696ADA0]);
+    v31 = objc_alloc_init(MEMORY[0x1E696ADA0]);
     wholeNumberFormatter = v3->__wholeNumberFormatter;
-    v3->__wholeNumberFormatter = v30;
+    v3->__wholeNumberFormatter = v31;
 
     [(NSNumberFormatter *)v3->__wholeNumberFormatter setPositiveFormat:@"0"];
     [(CEKApertureButton *)v3 addSubview:v11];
-    [v11 addSubview:v21];
-    [v11 addSubview:v24];
+    [v11 addSubview:v22];
+    [v11 addSubview:v25];
     [(CEKApertureButton *)v3 _updateColorsAnimated:0];
-    [v24 setAlpha:0.0];
-    v40 = *MEMORY[0x1E69DB648];
-    v41[0] = v12;
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
-    [@" " sizeWithAttributes:v32];
+    [v25 setAlpha:0.0];
+    v41 = *MEMORY[0x1E69DB648];
+    v42[0] = v13;
+    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    [@" " sizeWithAttributes:v33];
 
     UIRoundToViewScale();
-    v3->__cachedSpaceWidth = v33;
-    [v21 intrinsicContentSize];
+    v3->__cachedSpaceWidth = v34;
+    [v22 intrinsicContentSize];
     UICeilToViewScale();
-    v3->__cachedSymbolLabelWidth = v34;
+    v3->__cachedSymbolLabelWidth = v35;
     v3->_wantsBackground = 0;
     [(CEKApertureButton *)v3 _updateBackgroundView];
-    v35 = v3;
+    v36 = v3;
   }
 
   return v3;
@@ -619,7 +620,7 @@ void __57__CEKApertureButton_setShouldShowApertureValue_animated___block_invoke(
 {
   animatedCopy = animated;
   viewCopy = view;
-  memset(&v20, 0, sizeof(v20));
+  memset(&v18, 0, sizeof(v18));
   if (orientation > 2)
   {
     if (orientation == 4)
@@ -638,12 +639,12 @@ void __57__CEKApertureButton_setShouldShowApertureValue_animated___block_invoke(
     }
 
 LABEL_10:
-    CGAffineTransformMakeRotation(&v20, v11);
-    v16 = v20;
+    CGAffineTransformMakeRotation(&v18, v11);
+    v16 = v18;
     UIIntegralTransform();
-    *&v20.a = v17;
-    *&v20.c = v18;
-    v10 = v19;
+    *&v18.a = v17[0];
+    *&v18.c = v17[1];
+    v10 = v17[2];
     goto LABEL_11;
   }
 
@@ -659,15 +660,15 @@ LABEL_10:
   }
 
   v9 = *(MEMORY[0x1E695EFD0] + 16);
-  *&v20.a = *MEMORY[0x1E695EFD0];
-  *&v20.c = v9;
+  *&v18.a = *MEMORY[0x1E695EFD0];
+  *&v18.c = v9;
   v10 = *(MEMORY[0x1E695EFD0] + 32);
 LABEL_11:
-  *&v20.tx = v10;
+  *&v18.tx = v10;
 LABEL_12:
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
-  v15 = v20;
+  v15 = v18;
   aBlock[2] = __67__CEKApertureButton__rotateView_withInterfaceOrientation_animated___block_invoke;
   aBlock[3] = &unk_1E7CC6B10;
   aBlock[4] = self;
@@ -722,7 +723,7 @@ uint64_t __67__CEKApertureButton__rotateView_withInterfaceOrientation_animated__
   v17 = v16;
   if (v16)
   {
-    [v16 CATransform3DValue];
+    objc_msgSend_CATransform3DValue(v16);
   }
 
   else

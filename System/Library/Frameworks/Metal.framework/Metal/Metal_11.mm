@@ -1,814 +1,3 @@
-uint64_t EqualColorAttachments(unint64_t a1, unsigned int *a2)
-{
-  if (!(a1 | a2))
-  {
-    return 1;
-  }
-
-  if (a1)
-  {
-    LODWORD(v2) = *a1;
-    if (a2)
-    {
-LABEL_4:
-      v3 = *a2;
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    LODWORD(v2) = 0;
-    if (a2)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  v3 = 0;
-LABEL_7:
-  if (v2 <= v3)
-  {
-    v2 = v3;
-  }
-
-  else
-  {
-    v2 = v2;
-  }
-
-  if (v2)
-  {
-    v4 = (a1 + 4);
-    v5 = a2 + 1;
-    v6 = v2 - 1;
-    while (1)
-    {
-      if (a1)
-      {
-        v7 = (v4 + *v4);
-        if (a2)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      else
-      {
-        v7 = 0;
-        if (a2)
-        {
-LABEL_14:
-          v8 = (v5 + *v5);
-          if (!v7)
-          {
-            goto LABEL_25;
-          }
-
-          goto LABEL_18;
-        }
-      }
-
-      v8 = 0;
-      if (!v7)
-      {
-        goto LABEL_25;
-      }
-
-LABEL_18:
-      v9 = (v7 - *v7);
-      v10 = *v9;
-      if (v10 < 5)
-      {
-        LODWORD(v7) = 0;
-LABEL_25:
-        LODWORD(v13) = 0;
-        LODWORD(v14) = 0;
-        LODWORD(v15) = 0;
-        LODWORD(v16) = 0;
-        LODWORD(v11) = 0;
-LABEL_26:
-        v12 = 15;
-LABEL_27:
-        v17 = 1;
-LABEL_28:
-        v18 = 1;
-        goto LABEL_29;
-      }
-
-      v11 = v9[2];
-      if (v9[2])
-      {
-        LODWORD(v11) = *(v7 + v11);
-      }
-
-      if (v10 < 7)
-      {
-        LODWORD(v7) = 0;
-        LODWORD(v13) = 0;
-        LODWORD(v14) = 0;
-        LODWORD(v15) = 0;
-        LODWORD(v16) = 0;
-        goto LABEL_26;
-      }
-
-      if (v9[3])
-      {
-        v12 = *(v7 + v9[3]);
-      }
-
-      else
-      {
-        v12 = 15;
-      }
-
-      if (v10 < 9)
-      {
-        LODWORD(v7) = 0;
-        LODWORD(v13) = 0;
-        LODWORD(v14) = 0;
-        LODWORD(v15) = 0;
-        LODWORD(v16) = 0;
-        goto LABEL_27;
-      }
-
-      v16 = v9[4];
-      if (v9[4])
-      {
-        LODWORD(v16) = *(v7 + v16);
-      }
-
-      if (v10 < 0xB)
-      {
-        LODWORD(v7) = 0;
-        LODWORD(v13) = 0;
-        LODWORD(v14) = 0;
-        LODWORD(v15) = 0;
-        goto LABEL_27;
-      }
-
-      v15 = v9[5];
-      if (v9[5])
-      {
-        LODWORD(v15) = *(v7 + v15);
-      }
-
-      if (v10 < 0xD)
-      {
-        LODWORD(v7) = 0;
-        LODWORD(v13) = 0;
-        LODWORD(v14) = 0;
-        goto LABEL_27;
-      }
-
-      v14 = v9[6];
-      if (v9[6])
-      {
-        LODWORD(v14) = *(v7 + v14);
-      }
-
-      if (v10 >= 0x15)
-      {
-        if (v9[10])
-        {
-          v18 = *(v7 + v9[10]);
-        }
-
-        else
-        {
-LABEL_109:
-          v18 = 1;
-        }
-
-        if (v9[9])
-        {
-          v17 = *(v7 + v9[9]);
-        }
-
-        else
-        {
-          v17 = 1;
-        }
-
-        goto LABEL_120;
-      }
-
-      if (v10 >= 0x13)
-      {
-        goto LABEL_109;
-      }
-
-      v17 = 1;
-      if (v10 < 0xF)
-      {
-        LODWORD(v7) = 0;
-        LODWORD(v13) = 0;
-        goto LABEL_28;
-      }
-
-      v18 = 1;
-LABEL_120:
-      v13 = v9[7];
-      if (v9[7])
-      {
-        LODWORD(v13) = *(v7 + v13);
-      }
-
-      if (v10 >= 0x11 && (v40 = v9[8]) != 0)
-      {
-        LODWORD(v7) = *(v7 + v40);
-      }
-
-      else
-      {
-        LODWORD(v7) = 0;
-      }
-
-LABEL_29:
-      if (!v8)
-      {
-        goto LABEL_37;
-      }
-
-      v19 = (v8 - *v8);
-      v20 = *v19;
-      if (v20 < 5)
-      {
-        LODWORD(v8) = 0;
-LABEL_37:
-        LODWORD(v23) = 0;
-        LODWORD(v24) = 0;
-        LODWORD(v25) = 0;
-        LODWORD(v26) = 0;
-        LODWORD(v21) = 0;
-LABEL_38:
-        v22 = 15;
-LABEL_39:
-        v27 = 1;
-        goto LABEL_40;
-      }
-
-      v21 = v19[2];
-      if (v19[2])
-      {
-        LODWORD(v21) = *(v8 + v21);
-      }
-
-      if (v20 < 7)
-      {
-        LODWORD(v8) = 0;
-        LODWORD(v23) = 0;
-        LODWORD(v24) = 0;
-        LODWORD(v25) = 0;
-        LODWORD(v26) = 0;
-        goto LABEL_38;
-      }
-
-      if (v19[3])
-      {
-        v22 = *(v8 + v19[3]);
-      }
-
-      else
-      {
-        v22 = 15;
-      }
-
-      if (v20 < 9)
-      {
-        LODWORD(v8) = 0;
-        LODWORD(v23) = 0;
-        LODWORD(v24) = 0;
-        LODWORD(v25) = 0;
-        LODWORD(v26) = 0;
-        goto LABEL_39;
-      }
-
-      v26 = v19[4];
-      if (v19[4])
-      {
-        LODWORD(v26) = *(v8 + v26);
-      }
-
-      if (v20 < 0xB)
-      {
-        LODWORD(v8) = 0;
-        LODWORD(v23) = 0;
-        LODWORD(v24) = 0;
-        LODWORD(v25) = 0;
-        goto LABEL_39;
-      }
-
-      v25 = v19[5];
-      if (v19[5])
-      {
-        LODWORD(v25) = *(v8 + v25);
-      }
-
-      if (v20 < 0xD)
-      {
-        LODWORD(v8) = 0;
-        LODWORD(v23) = 0;
-        LODWORD(v24) = 0;
-        goto LABEL_39;
-      }
-
-      v24 = v19[6];
-      if (v19[6])
-      {
-        LODWORD(v24) = *(v8 + v24);
-      }
-
-      if (v20 >= 0x15)
-      {
-        if (v19[10])
-        {
-          v28 = *(v8 + v19[10]);
-        }
-
-        else
-        {
-LABEL_113:
-          v28 = 1;
-        }
-
-        if (v19[9])
-        {
-          v27 = *(v8 + v19[9]);
-        }
-
-        else
-        {
-          v27 = 1;
-        }
-
-LABEL_128:
-        v23 = v19[7];
-        if (v19[7])
-        {
-          LODWORD(v23) = *(v8 + v23);
-        }
-
-        if (v20 >= 0x11 && (v41 = v19[8]) != 0)
-        {
-          LODWORD(v8) = *(v8 + v41);
-        }
-
-        else
-        {
-          LODWORD(v8) = 0;
-        }
-
-        goto LABEL_41;
-      }
-
-      if (v20 >= 0x13)
-      {
-        goto LABEL_113;
-      }
-
-      v27 = 1;
-      if (v20 >= 0xF)
-      {
-        v28 = 1;
-        goto LABEL_128;
-      }
-
-      LODWORD(v8) = 0;
-      LODWORD(v23) = 0;
-LABEL_40:
-      v28 = 1;
-LABEL_41:
-      v37 = v11 == v21 && v12 == v22 && v16 == v26 && v15 == v25 && v14 == v24 && v18 == v28 && v17 == v27 && v13 == v23 && v7 == v8;
-      v39 = v6-- != 0;
-      if (v37)
-      {
-        ++v4;
-        ++v5;
-        if (v39)
-        {
-          continue;
-        }
-      }
-
-      return v37;
-    }
-  }
-
-  return 1;
-}
-
-uint64_t MTLMetalScriptSerializer::EqualVertexShaderDescriptor(int *a1, int *a2)
-{
-  v4 = (a1 - *a1);
-  v5 = *v4;
-  if (v5 >= 5 && v4[2])
-  {
-    v6 = *(a1 + v4[2]);
-  }
-
-  else
-  {
-    v6 = 1;
-  }
-
-  v7 = (a2 - *a2);
-  v8 = *v7;
-  if (v8 >= 5 && v7[2])
-  {
-    v9 = *(a2 + v7[2]);
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  if (v6 != v9)
-  {
-    return 0;
-  }
-
-  if (v5 < 0xB)
-  {
-    LODWORD(v10) = 0;
-  }
-
-  else
-  {
-    v10 = v4[5];
-    if (v4[5])
-    {
-      LODWORD(v10) = *(a1 + v10);
-    }
-  }
-
-  if (v8 < 0xB)
-  {
-    LODWORD(v11) = 0;
-  }
-
-  else
-  {
-    v11 = v7[5];
-    if (v7[5])
-    {
-      LODWORD(v11) = *(a2 + v11);
-    }
-  }
-
-  if (v10 != v11)
-  {
-    return 0;
-  }
-
-  v12 = v5 >= 0xD && v4[6] ? *(a1 + v4[6]) : 16;
-  v13 = v8 >= 0xD && v7[6] ? *(a2 + v7[6]) : 16;
-  if (v12 != v13)
-  {
-    return 0;
-  }
-
-  if (v5 < 0xF)
-  {
-    LOBYTE(v14) = 0;
-  }
-
-  else
-  {
-    v14 = v4[7];
-    if (v4[7])
-    {
-      LOBYTE(v14) = *(a1 + v14) != 0;
-    }
-  }
-
-  if (v8 >= 0xF && v7[7])
-  {
-    LOBYTE(v14) = v14 ^ (*(a2 + v7[7]) != 0);
-  }
-
-  if (v14)
-  {
-    return 0;
-  }
-
-  if (v5 < 0x11)
-  {
-    LODWORD(v15) = 0;
-  }
-
-  else
-  {
-    v15 = v4[8];
-    if (v4[8])
-    {
-      LODWORD(v15) = *(a1 + v15);
-    }
-  }
-
-  if (v8 < 0x11)
-  {
-    LODWORD(v16) = 0;
-  }
-
-  else
-  {
-    v16 = v7[8];
-    if (v7[8])
-    {
-      LODWORD(v16) = *(a2 + v16);
-    }
-  }
-
-  if (v15 != v16)
-  {
-    return 0;
-  }
-
-  if (v5 < 0x13)
-  {
-    LODWORD(v17) = 0;
-  }
-
-  else
-  {
-    v17 = v4[9];
-    if (v4[9])
-    {
-      LODWORD(v17) = *(a1 + v17);
-    }
-  }
-
-  if (v8 < 0x13)
-  {
-    LODWORD(v18) = 0;
-  }
-
-  else
-  {
-    v18 = v7[9];
-    if (v7[9])
-    {
-      LODWORD(v18) = *(a2 + v18);
-    }
-  }
-
-  if (v17 != v18)
-  {
-    return 0;
-  }
-
-  if (v5 < 0x15)
-  {
-    LODWORD(v19) = 0;
-  }
-
-  else
-  {
-    v19 = v4[10];
-    if (v4[10])
-    {
-      LODWORD(v19) = *(a1 + v19);
-    }
-  }
-
-  if (v8 < 0x15)
-  {
-    LODWORD(v20) = 0;
-  }
-
-  else
-  {
-    v20 = v7[10];
-    if (v7[10])
-    {
-      LODWORD(v20) = *(a2 + v20);
-    }
-  }
-
-  if (v19 != v20)
-  {
-    return 0;
-  }
-
-  if (v5 < 0x17)
-  {
-    LODWORD(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v4[11];
-    if (v4[11])
-    {
-      LODWORD(v21) = *(a1 + v21);
-    }
-  }
-
-  if (v8 < 0x17)
-  {
-    LODWORD(v22) = 0;
-  }
-
-  else
-  {
-    v22 = v7[11];
-    if (v7[11])
-    {
-      LODWORD(v22) = *(a2 + v22);
-    }
-  }
-
-  if (v21 != v22)
-  {
-    return 0;
-  }
-
-  if (v5 < 0x19)
-  {
-    LODWORD(v23) = 0;
-  }
-
-  else
-  {
-    v23 = v4[12];
-    if (v4[12])
-    {
-      LODWORD(v23) = *(a1 + v23);
-    }
-  }
-
-  if (v8 < 0x19)
-  {
-    LODWORD(v24) = 0;
-  }
-
-  else
-  {
-    v24 = v7[12];
-    if (v7[12])
-    {
-      LODWORD(v24) = *(a2 + v24);
-    }
-  }
-
-  if (v23 != v24)
-  {
-    return 0;
-  }
-
-  v25 = v5 >= 0x1B && v4[13] ? *(a1 + v4[13]) : 1;
-  v26 = v8 >= 0x1B && v7[13] ? *(a2 + v7[13]) : 1;
-  if (v25 != v26)
-  {
-    return 0;
-  }
-
-  if (v5 < 0x1D)
-  {
-    LODWORD(v27) = 0;
-  }
-
-  else
-  {
-    v27 = v4[14];
-    if (v4[14])
-    {
-      LODWORD(v27) = *(a1 + v27);
-    }
-  }
-
-  if (v8 < 0x1D)
-  {
-    LODWORD(v28) = 0;
-  }
-
-  else
-  {
-    v28 = v7[14];
-    if (v7[14])
-    {
-      LODWORD(v28) = *(a2 + v28);
-    }
-  }
-
-  if (v27 != v28)
-  {
-    return 0;
-  }
-
-  if (v5 < 0x23)
-  {
-    LOBYTE(v29) = 0;
-  }
-
-  else
-  {
-    v29 = v4[17];
-    if (v4[17])
-    {
-      LOBYTE(v29) = *(a1 + v29) != 0;
-    }
-  }
-
-  if (v8 >= 0x23 && v7[17])
-  {
-    LOBYTE(v29) = v29 ^ (*(a2 + v7[17]) != 0);
-  }
-
-  if (v29)
-  {
-    return 0;
-  }
-
-  v30 = v5 >= 0x27 && v4[19] ? *(a1 + v4[19]) : 255;
-  v31 = v8 >= 0x27 && v7[19] ? *(a2 + v7[19]) : 255;
-  if (v30 != v31)
-  {
-    return 0;
-  }
-
-  if (v5 < 0x29)
-  {
-    LODWORD(v32) = 0;
-  }
-
-  else
-  {
-    v32 = v4[20];
-    if (v4[20])
-    {
-      LODWORD(v32) = *(a1 + v32);
-    }
-  }
-
-  if (v8 < 0x29)
-  {
-    LODWORD(v33) = 0;
-  }
-
-  else
-  {
-    v33 = v7[20];
-    if (v7[20])
-    {
-      LODWORD(v33) = *(a2 + v33);
-    }
-  }
-
-  if (v32 != v33)
-  {
-    return 0;
-  }
-
-  v42 = (a2 - *a2);
-  if (v5 >= 7 && v4[3])
-  {
-    v34 = (a1 + v4[3] + *(a1 + v4[3]));
-  }
-
-  else
-  {
-    v34 = 0;
-  }
-
-  v35 = v8 >= 7 && v42[3] ? (a2 + v42[3] + *(a2 + v42[3])) : 0;
-  if (!EqualStageInputOutputDescriptor(v34, v35))
-  {
-    return 0;
-  }
-
-  v36 = v5 >= 0x1F && v4[15] ? a1 + v4[15] + *(a1 + v4[15]) : 0;
-  v37 = v8 >= 0x1F && v42[15] ? (a2 + v42[15] + *(a2 + v42[15])) : 0;
-  if (!EqualPipelineBuffers(v36, v37))
-  {
-    return 0;
-  }
-
-  if (v5 >= 0x2D && v4[22])
-  {
-    v39 = a1 + v4[22] + *(a1 + v4[22]);
-  }
-
-  else
-  {
-    v39 = 0;
-  }
-
-  if (v8 >= 0x2D && v42[22])
-  {
-    v41 = a2 + v42[22] + *(a2 + v42[22]);
-  }
-
-  else
-  {
-    v41 = 0;
-  }
-
-  return MTLMetalScriptSerializer::EqualLinkedFunctions(v39, v41, v38);
-}
-
 uint64_t MTLMetalScriptSerializer::EqualRenderDescriptor(int *a1, int *a2)
 {
   v2 = (a1 - *a1);
@@ -1243,7 +432,7 @@ uint64_t MTLMetalScriptSerializer::EqualMeshRenderDescriptor(int *a1, int *a2)
   }
 
   v36 = v14 >= 0x13 && v13[9] ? v4 + v13[9] + *(v4 + v13[9]) : 0;
-  v37 = v17 >= 0x13 && v16[9] ? (v7 + v16[9] + *(v7 + v16[9])) : 0;
+  v37 = v17 >= 0x13 && v16[9] ? v7 + v16[9] + *(v7 + v16[9]) : 0;
   if (!EqualPipelineBuffers(v36, v37))
   {
     return 0;
@@ -1551,7 +740,7 @@ uint64_t MTLMetalScriptSerializer::EqualMeshRenderDescriptor(int *a1, int *a2)
   }
 
   v65 = v42 >= 0x13 && v41[9] ? v8 + v41[9] + *(v8 + v41[9]) : 0;
-  v66 = v45 >= 0x13 && v44[9] ? (v9 + v44[9] + *(v9 + v44[9])) : 0;
+  v66 = v45 >= 0x13 && v44[9] ? v9 + v44[9] + *(v9 + v44[9]) : 0;
   if (!EqualPipelineBuffers(v65, v66))
   {
     return 0;
@@ -1788,14 +977,14 @@ uint64_t MTLMetalScriptSerializer::EqualTileRenderDescriptor(int *a1, int *a2)
   }
 
   v24 = v9 >= 0xF && v8[7] ? v4 + v8[7] + *(v4 + v8[7]) : 0;
-  v25 = v12 >= 0xF && v11[7] ? (v7 + v11[7] + *(v7 + v11[7])) : 0;
+  v25 = v12 >= 0xF && v11[7] ? v7 + v11[7] + *(v7 + v11[7]) : 0;
   if (!EqualTileAttachments(v24, v25))
   {
     return 0;
   }
 
   v26 = v9 >= 0x11 && v8[8] ? v4 + v8[8] + *(v4 + v8[8]) : 0;
-  v27 = v12 >= 0x11 && v11[8] ? (v7 + v11[8] + *(v7 + v11[8])) : 0;
+  v27 = v12 >= 0x11 && v11[8] ? v7 + v11[8] + *(v7 + v11[8]) : 0;
   if (!EqualPipelineBuffers(v26, v27))
   {
     return 0;
@@ -1824,7 +1013,7 @@ uint64_t MTLMetalScriptSerializer::EqualTileRenderDescriptor(int *a1, int *a2)
   return MTLMetalScriptSerializer::EqualLinkedFunctions(v29, v31, v28);
 }
 
-uint64_t EqualTileAttachments(unint64_t a1, unsigned int *a2)
+BOOL EqualTileAttachments(unint64_t a1, unint64_t a2)
 {
   if (!(a1 | a2))
   {
@@ -1866,7 +1055,7 @@ LABEL_7:
   if (v2)
   {
     v4 = (a1 + 4);
-    v5 = a2 + 1;
+    v5 = (a2 + 4);
     v6 = v2 - 1;
     while (1)
     {
@@ -2859,42 +2048,42 @@ void sub_185C7EA00(_Unwind_Exception *exception_object)
 
 uint64_t MTLMetalScriptSerializer::buildStitchingGraphFromDescriptor(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v8 = [a3 functions];
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v40, a4);
-  FunctionArray = MTLMetalScriptSerializer::createFunctionArray(a1, v8, v40);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v40);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v39, a4);
+  FunctionArray = MTLMetalScriptSerializer::createFunctionArray(a1, v8, v39);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v39);
   __p = 0;
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v10 = [a3 functionGraphs];
-  v12 = [v10 countByEnumeratingWithState:&v32 objects:v39 count:16];
+  v12 = [v10 countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (v12)
   {
-    v13 = *v33;
+    v13 = *v32;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v33 != v13)
+        if (*v32 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        Graph = MTLMetalScriptSerializer::createGraph(a1, *(*(&v32 + 1) + 8 * i), v11);
+        Graph = MTLMetalScriptSerializer::createGraph(a1, *(*(&v31 + 1) + 8 * i), v11);
         std::vector<unsigned int>::push_back[abi:ne200100](&__p, &Graph);
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v32 objects:v39 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v31 objects:v38 count:16];
     }
 
     while (v12);
     v15 = __p;
-    v16 = v37;
+    v16 = v36;
   }
 
   else
@@ -2948,11 +2137,10 @@ uint64_t MTLMetalScriptSerializer::buildStitchingGraphFromDescriptor(uint64_t a1
   v28 = flatbuffers::FlatBufferBuilder::EndTable(a1, v25 - v26 + v27);
   if (__p)
   {
-    v37 = __p;
+    v36 = __p;
     operator delete(__p);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
@@ -2968,29 +2156,29 @@ void sub_185C7EC2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MTLMetalScriptSerializer::createFunctionArray(flatbuffers::FlatBufferBuilder *a1, void *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v24 = 0;
   v25 = 0;
   v26 = 0;
-  v27 = 0;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v6 = [a2 countByEnumeratingWithState:&v21 objects:v28 count:16];
+  v6 = [a2 countByEnumeratingWithState:&v20 objects:v27 count:16];
   if (v6)
   {
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(a2);
         }
 
-        std::function<std::string ()(objc_object  {objcproto11MTLFunction}*)>::operator()(a3, *(*(&v21 + 1) + 8 * i));
-        if ((v19 & 0x80u) == 0)
+        std::function<std::string ()(objc_object  {objcproto11MTLFunction}*)>::operator()(a3, *(*(&v20 + 1) + 8 * i));
+        if ((v18 & 0x80u) == 0)
         {
           v9 = __p;
         }
@@ -3000,9 +2188,9 @@ uint64_t MTLMetalScriptSerializer::createFunctionArray(flatbuffers::FlatBufferBu
           v9 = __p[0];
         }
 
-        if ((v19 & 0x80u) == 0)
+        if ((v18 & 0x80u) == 0)
         {
-          v10 = v19;
+          v10 = v18;
         }
 
         else
@@ -3011,20 +2199,20 @@ uint64_t MTLMetalScriptSerializer::createFunctionArray(flatbuffers::FlatBufferBu
         }
 
         String = flatbuffers::FlatBufferBuilder::CreateString(a1, v9, v10);
-        if (v19 < 0)
+        if (v18 < 0)
         {
           operator delete(__p[0]);
         }
 
-        std::vector<unsigned int>::push_back[abi:ne200100](&v25, &String);
+        std::vector<unsigned int>::push_back[abi:ne200100](&v24, &String);
       }
 
-      v6 = [a2 countByEnumeratingWithState:&v21 objects:v28 count:16];
+      v6 = [a2 countByEnumeratingWithState:&v20 objects:v27 count:16];
     }
 
     while (v6);
-    v11 = v25;
-    v12 = v26;
+    v11 = v24;
+    v12 = v25;
   }
 
   else
@@ -3045,13 +2233,12 @@ uint64_t MTLMetalScriptSerializer::createFunctionArray(flatbuffers::FlatBufferBu
   }
 
   v15 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v14, v13 >> 2);
-  if (v25)
+  if (v24)
   {
-    v26 = v25;
-    operator delete(v25);
+    v25 = v24;
+    operator delete(v24);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -3067,14 +2254,14 @@ void sub_185C7EE00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, MTLFunctionStitchingGraph *a2, MTLFunctionStitchingGraph *a3)
 {
-  v192 = *MEMORY[0x1E69E9840];
-  reorderStitchingGraphNodes(a2, &v185);
+  v191 = *MEMORY[0x1E69E9840];
+  reorderStitchingGraphNodes(&v184, a2);
+  v181 = 0;
   v182 = 0;
   v183 = 0;
-  v184 = 0;
-  v4 = v185;
-  v152 = v186;
-  if (v185 != v186)
+  v4 = v184;
+  v151 = v185;
+  if (v184 != v185)
   {
     while (1)
     {
@@ -3102,13 +2289,13 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
           flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v49);
           v50 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 1);
           flatbuffers::FlatBufferBuilder::TrackField(this, 4, v50);
-          LODWORD(v179) = flatbuffers::FlatBufferBuilder::EndTable(this, v47 - v48 + v46);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v179);
+          LODWORD(v178) = flatbuffers::FlatBufferBuilder::EndTable(this, v47 - v48 + v46);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v178);
         }
 
         else if ([v5 isMemberOfClass:objc_opt_class()])
         {
-          v154 = v4;
+          v153 = v4;
           v51 = [v5 bindIndex];
           *(this + 70) = 1;
           v52 = *(this + 8);
@@ -3134,7 +2321,7 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
             v64 = *(this + 6);
             v65 = *(this + 4);
             flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 4, v62);
-            v4 = v154;
+            v4 = v153;
             v66 = flatbuffers::FlatBufferBuilder::EndTable(this, v65 - v64 + v63);
             *(this + 70) = 1;
             v67 = *(this + 8);
@@ -3150,13 +2337,13 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
             v68 = *(this + 12);
             v69 = *(this + 10);
             flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v62);
-            v4 = v154;
+            v4 = v153;
             v70 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 4);
           }
 
           flatbuffers::FlatBufferBuilder::TrackField(this, 4, v70);
-          LODWORD(v179) = flatbuffers::FlatBufferBuilder::EndTable(this, v67 - v68 + v69);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v179);
+          LODWORD(v178) = flatbuffers::FlatBufferBuilder::EndTable(this, v67 - v68 + v69);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v178);
         }
 
         else if ([v5 isMemberOfClass:objc_opt_class()])
@@ -3176,8 +2363,8 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
           flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v75);
           v79 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 3);
           flatbuffers::FlatBufferBuilder::TrackField(this, 4, v79);
-          LODWORD(v179) = flatbuffers::FlatBufferBuilder::EndTable(this, v76 - v77 + v78);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v179);
+          LODWORD(v178) = flatbuffers::FlatBufferBuilder::EndTable(this, v76 - v77 + v78);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v178);
         }
 
         else if ([v5 isMemberOfClass:objc_opt_class()])
@@ -3196,8 +2383,8 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
           flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v84);
           v85 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 6);
           flatbuffers::FlatBufferBuilder::TrackField(this, 4, v85);
-          LODWORD(v179) = flatbuffers::FlatBufferBuilder::EndTable(this, v82 - v83 + v81);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v179);
+          LODWORD(v178) = flatbuffers::FlatBufferBuilder::EndTable(this, v82 - v83 + v81);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v178);
         }
 
         else if ([v5 isMemberOfClass:objc_opt_class()])
@@ -3216,8 +2403,8 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
           flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v90);
           v91 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 7);
           flatbuffers::FlatBufferBuilder::TrackField(this, 4, v91);
-          LODWORD(v179) = flatbuffers::FlatBufferBuilder::EndTable(this, v88 - v89 + v87);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v179);
+          LODWORD(v178) = flatbuffers::FlatBufferBuilder::EndTable(this, v88 - v89 + v87);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v178);
         }
 
         else if ([v5 isMemberOfClass:objc_opt_class()])
@@ -3236,8 +2423,8 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
           flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v96);
           v97 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 8);
           flatbuffers::FlatBufferBuilder::TrackField(this, 4, v97);
-          LODWORD(v179) = flatbuffers::FlatBufferBuilder::EndTable(this, v94 - v95 + v93);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v179);
+          LODWORD(v178) = flatbuffers::FlatBufferBuilder::EndTable(this, v94 - v95 + v93);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v178);
         }
 
         else if ([v5 isMemberOfClass:objc_opt_class()])
@@ -3251,8 +2438,8 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
           flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v98);
           v102 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 9);
           flatbuffers::FlatBufferBuilder::TrackField(this, 4, v102);
-          LODWORD(v179) = flatbuffers::FlatBufferBuilder::EndTable(this, v99 - v100 + v101);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v179);
+          LODWORD(v178) = flatbuffers::FlatBufferBuilder::EndTable(this, v99 - v100 + v101);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v178);
         }
 
         else if ([v5 isMemberOfClass:objc_opt_class()])
@@ -3271,73 +2458,73 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
           flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v107);
           v111 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 10);
           flatbuffers::FlatBufferBuilder::TrackField(this, 4, v111);
-          LODWORD(v179) = flatbuffers::FlatBufferBuilder::EndTable(this, v108 - v109 + v110);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v179);
+          LODWORD(v178) = flatbuffers::FlatBufferBuilder::EndTable(this, v108 - v109 + v110);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v178);
         }
 
         else if ([v5 isMemberOfClass:objc_opt_class()])
         {
           BuiltinNode = Mtl4::FunctionStitching::CreateBuiltinNode(this, 0);
-          LODWORD(v179) = Mtl4::FunctionStitching::CreateNode(this, 10, BuiltinNode);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v179);
+          LODWORD(v178) = Mtl4::FunctionStitching::CreateNode(this, 10, BuiltinNode);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v178);
         }
 
         goto LABEL_50;
       }
 
+      v178 = 0;
       v179 = 0;
       v180 = 0;
-      v181 = 0;
       __p[0] = [v5 condition];
-      v176 = __p;
-      LODWORD(v170) = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v187, __p) + 6);
+      v175 = __p;
+      LODWORD(v169) = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v186, __p, &std::piecewise_construct, &v175) + 6);
+      v159 = 0u;
       v160 = 0u;
       v161 = 0u;
       v162 = 0u;
-      v163 = 0u;
       v31 = [v5 controlDependencies];
-      v32 = [v31 countByEnumeratingWithState:&v160 objects:v189 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v159 objects:v188 count:16];
       if (v32)
       {
-        v33 = *v161;
+        v33 = *v160;
         do
         {
           for (i = 0; i != v32; ++i)
           {
-            if (*v161 != v33)
+            if (*v160 != v33)
             {
               objc_enumerationMutation(v31);
             }
 
-            __p[0] = *(*(&v160 + 1) + 8 * i);
-            v176 = __p;
-            v171 = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v187, __p) + 6);
-            std::vector<unsigned int>::push_back[abi:ne200100](&v179, &v171);
+            __p[0] = *(*(&v159 + 1) + 8 * i);
+            v175 = __p;
+            v170 = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v186, __p, &std::piecewise_construct, &v175) + 6);
+            std::vector<unsigned int>::push_back[abi:ne200100](&v178, &v170);
           }
 
-          v32 = [v31 countByEnumeratingWithState:&v160 objects:v189 count:16];
+          v32 = [v31 countByEnumeratingWithState:&v159 objects:v188 count:16];
         }
 
         while (v32);
       }
 
-      if (v180 == v179)
+      if (v179 == v178)
       {
         v35 = &flatbuffers::data<Mtl::FunctionStitching::NodeId,std::allocator<Mtl::FunctionStitching::NodeId>>(std::vector<Mtl::FunctionStitching::NodeId> const&)::t;
       }
 
       else
       {
-        v35 = v179;
+        v35 = v178;
       }
 
-      v36 = flatbuffers::FlatBufferBuilder::CreateVectorOfStructs<Mtl4::FunctionStitching::NodeId>(this, v35, (v180 - v179) >> 2);
+      v36 = flatbuffers::FlatBufferBuilder::CreateVectorOfStructs<Mtl4::FunctionStitching::NodeId>(this, v35, (v179 - v178) >> 2);
       *(this + 70) = 1;
       v37 = *(this + 8);
       v38 = *(this + 12);
       v39 = *(this + 10);
       flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v36);
-      flatbuffers::FlatBufferBuilder::AddStruct<Mtl4::FunctionStitching::NodeId>(this, 4, &v170);
+      flatbuffers::FlatBufferBuilder::AddStruct<Mtl4::FunctionStitching::NodeId>(this, 4, &v169);
       v40 = flatbuffers::FlatBufferBuilder::EndTable(this, v37 - v38 + v39);
       *(this + 70) = 1;
       v41 = *(this + 8);
@@ -3346,112 +2533,112 @@ uint64_t MTLMetalScriptSerializer::createGraph(MTLMetalScriptSerializer *this, M
       flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v40);
       v44 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 11);
       flatbuffers::FlatBufferBuilder::TrackField(this, 4, v44);
-      LODWORD(v176) = flatbuffers::FlatBufferBuilder::EndTable(this, v41 - v42 + v43);
-      std::vector<unsigned int>::push_back[abi:ne200100](&v182, &v176);
-      v30 = v179;
-      if (v179)
+      LODWORD(v175) = flatbuffers::FlatBufferBuilder::EndTable(this, v41 - v42 + v43);
+      std::vector<unsigned int>::push_back[abi:ne200100](&v181, &v175);
+      v30 = v178;
+      if (v178)
       {
         goto LABEL_47;
       }
 
 LABEL_50:
-      if (++v4 == v152)
+      if (++v4 == v151)
       {
         goto LABEL_71;
       }
     }
 
-    v153 = v4;
+    v152 = v4;
+    v178 = 0;
     v179 = 0;
     v180 = 0;
-    v181 = 0;
+    v175 = 0;
     v176 = 0;
     v177 = 0;
-    v178 = 0;
+    v171 = 0u;
     v172 = 0u;
     v173 = 0u;
     v174 = 0u;
-    v175 = 0u;
     v6 = [v5 arguments];
-    v7 = [v6 countByEnumeratingWithState:&v172 objects:v191 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v171 objects:v190 count:16];
     if (v7)
     {
-      v8 = *v173;
+      v8 = *v172;
       do
       {
         for (j = 0; j != v7; ++j)
         {
-          if (*v173 != v8)
+          if (*v172 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v170 = *(*(&v172 + 1) + 8 * j);
-          __p[0] = &v170;
-          v171 = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v187, &v170) + 6);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v179, &v171);
+          v169 = *(*(&v171 + 1) + 8 * j);
+          __p[0] = &v169;
+          v170 = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v186, &v169, &std::piecewise_construct, __p) + 6);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v178, &v170);
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v172 objects:v191 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v171 objects:v190 count:16];
       }
 
       while (v7);
     }
 
-    v168 = 0u;
-    v169 = 0u;
-    v166 = 0u;
     v167 = 0u;
+    v168 = 0u;
+    v165 = 0u;
+    v166 = 0u;
     v10 = [v5 controlDependencies];
-    v11 = [v10 countByEnumeratingWithState:&v166 objects:v190 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v165 objects:v189 count:16];
     if (v11)
     {
-      v12 = *v167;
+      v12 = *v166;
       do
       {
         for (k = 0; k != v11; ++k)
         {
-          if (*v167 != v12)
+          if (*v166 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v170 = *(*(&v166 + 1) + 8 * k);
-          __p[0] = &v170;
-          v171 = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v187, &v170) + 6);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v176, &v171);
+          v169 = *(*(&v165 + 1) + 8 * k);
+          __p[0] = &v169;
+          v170 = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v186, &v169, &std::piecewise_construct, __p) + 6);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v175, &v170);
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v166 objects:v190 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v165 objects:v189 count:16];
       }
 
       while (v11);
     }
 
-    if (v180 == v179)
+    if (v179 == v178)
     {
       v14 = &flatbuffers::data<Mtl::FunctionStitching::NodeId,std::allocator<Mtl::FunctionStitching::NodeId>>(std::vector<Mtl::FunctionStitching::NodeId> const&)::t;
     }
 
     else
     {
-      v14 = v179;
+      v14 = v178;
     }
 
-    v15 = flatbuffers::FlatBufferBuilder::CreateVectorOfStructs<Mtl4::FunctionStitching::NodeId>(this, v14, (v180 - v179) >> 2);
-    if (v177 == v176)
+    v15 = flatbuffers::FlatBufferBuilder::CreateVectorOfStructs<Mtl4::FunctionStitching::NodeId>(this, v14, (v179 - v178) >> 2);
+    if (v176 == v175)
     {
       v16 = &flatbuffers::data<Mtl::FunctionStitching::NodeId,std::allocator<Mtl::FunctionStitching::NodeId>>(std::vector<Mtl::FunctionStitching::NodeId> const&)::t;
     }
 
     else
     {
-      v16 = v176;
+      v16 = v175;
     }
 
-    v17 = flatbuffers::FlatBufferBuilder::CreateVectorOfStructs<Mtl4::FunctionStitching::NodeId>(this, v16, (v177 - v176) >> 2);
+    v17 = flatbuffers::FlatBufferBuilder::CreateVectorOfStructs<Mtl4::FunctionStitching::NodeId>(this, v16, (v176 - v175) >> 2);
     std::string::basic_string[abi:ne200100]<0>(__p, [objc_msgSend(v5 "name")]);
-    if ((v165 & 0x80u) == 0)
+    if ((v164 & 0x80u) == 0)
     {
       v18 = __p;
     }
@@ -3461,9 +2648,9 @@ LABEL_50:
       v18 = __p[0];
     }
 
-    if ((v165 & 0x80u) == 0)
+    if ((v164 & 0x80u) == 0)
     {
-      v19 = v165;
+      v19 = v164;
     }
 
     else
@@ -3472,7 +2659,7 @@ LABEL_50:
     }
 
     String = flatbuffers::FlatBufferBuilder::CreateString(this, v18, v19);
-    if (v165 < 0)
+    if (v164 < 0)
     {
       operator delete(__p[0]);
     }
@@ -3494,22 +2681,22 @@ LABEL_50:
     v29 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, 2);
     flatbuffers::FlatBufferBuilder::TrackField(this, 4, v29);
     LODWORD(__p[0]) = flatbuffers::FlatBufferBuilder::EndTable(this, v26 - v27 + v28);
-    std::vector<unsigned int>::push_back[abi:ne200100](&v182, __p);
-    if (v176)
+    std::vector<unsigned int>::push_back[abi:ne200100](&v181, __p);
+    if (v175)
     {
-      v177 = v176;
-      operator delete(v176);
+      v176 = v175;
+      operator delete(v175);
     }
 
-    v30 = v179;
-    v4 = v153;
-    if (!v179)
+    v30 = v178;
+    v4 = v152;
+    if (!v178)
     {
       goto LABEL_50;
     }
 
 LABEL_47:
-    v180 = v30;
+    v179 = v30;
     operator delete(v30);
     goto LABEL_50;
   }
@@ -3519,32 +2706,32 @@ LABEL_71:
   v114 = [(NSString *)[(MTLFunctionStitchingGraph *)a2 functionName] UTF8String];
   v115 = strlen(v114);
   v116 = flatbuffers::FlatBufferBuilder::CreateString(this, v114, v115);
+  v178 = 0;
   v179 = 0;
   v180 = 0;
-  v181 = 0;
+  v155 = 0u;
   v156 = 0u;
   v157 = 0u;
   v158 = 0u;
-  v159 = 0u;
   v117 = [(MTLFunctionStitchingGraph *)a2 attributes];
-  v118 = [(NSArray *)v117 countByEnumeratingWithState:&v156 objects:v188 count:16];
+  v118 = [(NSArray *)v117 countByEnumeratingWithState:&v155 objects:v187 count:16];
   if (!v118)
   {
     goto LABEL_83;
   }
 
-  v155 = 0;
-  v119 = *v157;
+  v154 = 0;
+  v119 = *v156;
   do
   {
     for (m = 0; m != v118; ++m)
     {
-      if (*v157 != v119)
+      if (*v156 != v119)
       {
         objc_enumerationMutation(v117);
       }
 
-      v121 = *(*(&v156 + 1) + 8 * m);
+      v121 = *(*(&v155 + 1) + 8 * m);
       if ([v121 isMemberOfClass:objc_opt_class()])
       {
         *(this + 70) = 1;
@@ -3556,8 +2743,8 @@ LABEL_71:
         flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v122);
         v126 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this, 1);
         flatbuffers::FlatBufferBuilder::TrackField(this, 4, v126);
-        LODWORD(v176) = flatbuffers::FlatBufferBuilder::EndTable(this, v123 - v124 + v125);
-        std::vector<unsigned int>::push_back[abi:ne200100](&v179, &v176);
+        LODWORD(v175) = flatbuffers::FlatBufferBuilder::EndTable(this, v123 - v124 + v125);
+        std::vector<unsigned int>::push_back[abi:ne200100](&v178, &v175);
       }
 
       else if ([v121 isMemberOfClass:objc_opt_class()])
@@ -3571,18 +2758,18 @@ LABEL_71:
         flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v127);
         v131 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this, 2);
         flatbuffers::FlatBufferBuilder::TrackField(this, 4, v131);
-        LODWORD(v176) = flatbuffers::FlatBufferBuilder::EndTable(this, v128 - v129 + v130);
-        std::vector<unsigned int>::push_back[abi:ne200100](&v179, &v176);
-        v155 = 1;
+        LODWORD(v175) = flatbuffers::FlatBufferBuilder::EndTable(this, v128 - v129 + v130);
+        std::vector<unsigned int>::push_back[abi:ne200100](&v178, &v175);
+        v154 = 1;
       }
     }
 
-    v118 = [(NSArray *)v117 countByEnumeratingWithState:&v156 objects:v188 count:16];
+    v118 = [(NSArray *)v117 countByEnumeratingWithState:&v155 objects:v187 count:16];
   }
 
   while (v118);
   v113 = a2;
-  if ((v155 & 1) == 0)
+  if ((v154 & 1) == 0)
   {
 LABEL_83:
     objc_opt_class();
@@ -3597,39 +2784,39 @@ LABEL_83:
       flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v132);
       v136 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this, 2);
       flatbuffers::FlatBufferBuilder::TrackField(this, 4, v136);
-      LODWORD(v176) = flatbuffers::FlatBufferBuilder::EndTable(this, v133 - v134 + v135);
-      std::vector<unsigned int>::push_back[abi:ne200100](&v179, &v176);
+      LODWORD(v175) = flatbuffers::FlatBufferBuilder::EndTable(this, v133 - v134 + v135);
+      std::vector<unsigned int>::push_back[abi:ne200100](&v178, &v175);
       v113 = a2;
     }
   }
 
-  if (v180 == v179)
+  if (v179 == v178)
   {
     v137 = &flatbuffers::data<flatbuffers::Offset<Mtl::FunctionStitching::Attribute>,std::allocator<flatbuffers::Offset<Mtl::FunctionStitching::Attribute>>>(std::vector<flatbuffers::Offset<Mtl::FunctionStitching::Attribute>> const&)::t;
   }
 
   else
   {
-    v137 = v179;
+    v137 = v178;
   }
 
-  v138 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(this, v137, (v180 - v179) >> 2);
-  if (v183 == v182)
+  v138 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(this, v137, (v179 - v178) >> 2);
+  if (v182 == v181)
   {
     v139 = &flatbuffers::data<flatbuffers::Offset<Mtl::FunctionStitching::Node>,std::allocator<flatbuffers::Offset<Mtl::FunctionStitching::Node>>>(std::vector<flatbuffers::Offset<Mtl::FunctionStitching::Node>> const&)::t;
   }
 
   else
   {
-    v139 = v182;
+    v139 = v181;
   }
 
-  v140 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(this, v139, (v183 - v182) >> 2);
+  v140 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(this, v139, (v182 - v181) >> 2);
   if ([(MTLFunctionStitchingGraph *)v113 outputNode])
   {
     __p[0] = [(MTLFunctionStitchingGraph *)v113 outputNode];
-    v176 = __p;
-    v141 = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v187, __p) + 6);
+    v175 = __p;
+    v141 = *(std::__hash_table<std::__hash_value_type<objc_object  {objcproto24MTLFunctionStitchingNode}*,unsigned int>,std::__unordered_map_hasher<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::hash<objc_object  {objcproto24MTLFunctionStitchingNode}>,std::equal_to<objc_object  {objcproto24MTLFunctionStitchingNode}>,true>,std::__unordered_map_equal<objc_object  {objcproto24MTLFunctionStitchingNode},objc_object  {objcproto24MTLFunctionStitchingNode}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto24MTLFunctionStitchingNode}*>>::__emplace_unique_key_args<objc_object  {objcproto24MTLFunctionStitchingNode},std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto24MTLFunctionStitchingNode}&&>,std::piecewise_construct_t const&<>>(v186, __p, &std::piecewise_construct, &v175) + 6);
   }
 
   else
@@ -3637,7 +2824,7 @@ LABEL_83:
     v141 = 0;
   }
 
-  LODWORD(v170) = v141;
+  LODWORD(v169) = v141;
   v142 = [(MTLFunctionStitchingGraph *)v113 outputNode];
   v143 = v138;
   *(this + 70) = 1;
@@ -3647,7 +2834,7 @@ LABEL_83:
   flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 10, v143);
   if (v142)
   {
-    v147 = &v170;
+    v147 = &v169;
   }
 
   else
@@ -3659,26 +2846,25 @@ LABEL_83:
   flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v140);
   flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 4, v116);
   v148 = flatbuffers::FlatBufferBuilder::EndTable(this, v144 - v145 + v146);
-  if (v179)
+  if (v178)
   {
-    v180 = v179;
-    operator delete(v179);
+    v179 = v178;
+    operator delete(v178);
   }
 
-  if (v182)
+  if (v181)
   {
-    v183 = v182;
-    operator delete(v182);
+    v182 = v181;
+    operator delete(v181);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(v187);
-  if (v185)
+  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(v186);
+  if (v184)
   {
-    v186 = v185;
-    operator delete(v185);
+    v185 = v184;
+    operator delete(v184);
   }
 
-  v149 = *MEMORY[0x1E69E9840];
   return v148;
 }
 
@@ -3695,7 +2881,7 @@ void sub_185C7FEF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t MTLMetalScriptSerializer::buildComputePipeline(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   std::function<std::string ()(objc_object  {objcproto11MTLFunction}*)>::operator()(a3, *(a2 + 8));
   size = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
@@ -3731,11 +2917,11 @@ LABEL_10:
 
 LABEL_11:
   v7 = *(a2 + 24);
-  v89 = String;
+  v88 = String;
   if (!v7)
   {
 LABEL_64:
-    v93 = 0;
+    v92 = 0;
     v45 = 0;
     goto LABEL_89;
   }
@@ -3807,10 +2993,10 @@ LABEL_31:
     }
   }
 
-  v92 = *(a2 + 24);
+  v91 = *(a2 + 24);
   if (!v14)
   {
-    v93 = 0;
+    v92 = 0;
     v44 = 0;
     if (!v19)
     {
@@ -3822,7 +3008,7 @@ LABEL_31:
 
   memset(&__p, 0, sizeof(__p));
   std::vector<flatbuffers::Offset<Mtl4::VertexBufferLayoutDescriptor>>::reserve(&__p, v14);
-  v93 = 0;
+  v92 = 0;
   for (k = 0; k != v14; ++k)
   {
     v23 = *(*(v7 + 8) + 8 + 8 * k);
@@ -3897,8 +3083,8 @@ LABEL_31:
       v33 = v32 + 4;
     }
 
-    v7 = v92;
-    v93 |= v27;
+    v7 = v91;
+    v92 |= v27;
     __p.__r_.__value_.__l.__size_ = v33;
   }
 
@@ -3923,7 +3109,7 @@ LABEL_31:
   if (v19)
   {
 LABEL_66:
-    v88 = v44;
+    v87 = v44;
     memset(&__p, 0, sizeof(__p));
     std::vector<flatbuffers::Offset<Mtl4::VertexBufferLayoutDescriptor>>::reserve(&__p, v19);
     for (m = 0; m != v19; ++m)
@@ -3998,7 +3184,7 @@ LABEL_66:
         v55 = v54 + 4;
       }
 
-      v7 = v92;
+      v7 = v91;
       __p.__r_.__value_.__l.__size_ = v55;
     }
 
@@ -4019,7 +3205,7 @@ LABEL_66:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    LODWORD(v44) = v88;
+    LODWORD(v44) = v87;
   }
 
 LABEL_88:
@@ -4035,9 +3221,9 @@ LABEL_88:
 LABEL_89:
   v67 = addPipelineBufferDescriptor(a1, *(a2 + 48));
   v68 = *(a2 + 152);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v95, a3);
-  LinkedFunctions = MTLMetalScriptSerializer::createLinkedFunctions(a1, v68, v95);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v95);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v94, a3);
+  LinkedFunctions = MTLMetalScriptSerializer::createLinkedFunctions(a1, v68, v94);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v94);
   if ([objc_msgSend(*(a2 + 152) "binaryFunctions")])
   {
     v70 = 536870918;
@@ -4091,7 +3277,7 @@ LABEL_89:
   }
 
   v76 = v75 | 0x80000000;
-  if (v93)
+  if (v92)
   {
     v77 = v76;
   }
@@ -4160,7 +3346,7 @@ LABEL_115:
   v84 = *(a1 + 48);
   v85 = *(a1 + 40);
   flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 4, v82);
-  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 6, v89);
+  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 6, v88);
   flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 14, v45);
   flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 16, v67);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 8, *(a2 + 16), 0);
@@ -4171,9 +3357,7 @@ LABEL_115:
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 20, *(a2 + 168), 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 22, *(a2 + 104), 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 24, *(a2 + 136), 0);
-  result = flatbuffers::FlatBufferBuilder::EndTable(a1, v83 - v84 + v85);
-  v87 = *MEMORY[0x1E69E9840];
-  return result;
+  return flatbuffers::FlatBufferBuilder::EndTable(a1, v83 - v84 + v85);
 }
 
 void sub_185C80980(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21)
@@ -4343,15 +3527,15 @@ void sub_185C80C64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MTLMetalScriptSerializer::createLinkedFunctions(uint64_t a1, void *a2, uint64_t a3)
+void *MTLMetalScriptSerializer::createLinkedFunctions(uint64_t a1, void *a2, uint64_t a3)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if ([objc_msgSend(a2 "functions")])
   {
     v6 = [a2 functions];
-    std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v40, a3);
-    FunctionArray = MTLMetalScriptSerializer::createFunctionArray(a1, v6, v40);
-    std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v40);
+    std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v39, a3);
+    FunctionArray = MTLMetalScriptSerializer::createFunctionArray(a1, v6, v39);
+    std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v39);
   }
 
   else
@@ -4362,9 +3546,9 @@ uint64_t MTLMetalScriptSerializer::createLinkedFunctions(uint64_t a1, void *a2, 
   if ([objc_msgSend(a2 "privateFunctions")])
   {
     v8 = [a2 privateFunctions];
-    std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v39, a3);
-    v9 = MTLMetalScriptSerializer::createFunctionArray(a1, v8, v39);
-    std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v39);
+    std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v38, a3);
+    v9 = MTLMetalScriptSerializer::createFunctionArray(a1, v8, v38);
+    std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v38);
   }
 
   else
@@ -4375,26 +3559,26 @@ uint64_t MTLMetalScriptSerializer::createLinkedFunctions(uint64_t a1, void *a2, 
   if ([objc_msgSend(a2 "groups")])
   {
     v10 = [a2 groups];
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x4812000000;
-    v44 = __Block_byref_object_copy__50;
-    v45 = __Block_byref_object_dispose__51;
-    v46 = &unk_185DF1D43;
-    v48 = 0;
-    v49 = 0;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x4812000000;
+    v43 = __Block_byref_object_copy__50;
+    v44 = __Block_byref_object_dispose__51;
+    v45 = &unk_185DF1D43;
     v47 = 0;
-    *&v32 = MEMORY[0x1E69E9820];
-    *(&v32 + 1) = 3221225472;
-    *&v33 = ___ZN24MTLMetalScriptSerializerL12createGroupsERN11flatbuffers17FlatBufferBuilderEP12NSDictionaryIP8NSStringP7NSArrayIPU22objcproto11MTLFunction11objc_objectEE_block_invoke;
-    *(&v33 + 1) = &unk_1E6EEB308;
-    *&v34 = &v41;
-    *(&v34 + 1) = a1;
-    [v10 enumerateKeysAndObjectsUsingBlock:&v32];
-    v11 = v42[7] - v42[6];
+    v48 = 0;
+    v46 = 0;
+    *&v31 = MEMORY[0x1E69E9820];
+    *(&v31 + 1) = 3221225472;
+    *&v32 = ___ZN24MTLMetalScriptSerializerL12createGroupsERN11flatbuffers17FlatBufferBuilderEP12NSDictionaryIP8NSStringP7NSArrayIPU22objcproto11MTLFunction11objc_objectEE_block_invoke;
+    *(&v32 + 1) = &unk_1E6EEB308;
+    *&v33 = &v40;
+    *(&v33 + 1) = a1;
+    [v10 enumerateKeysAndObjectsUsingBlock:&v31];
+    v11 = v41[7] - v41[6];
     if (v11)
     {
-      v12 = v42[6];
+      v12 = v41[6];
     }
 
     else
@@ -4403,11 +3587,11 @@ uint64_t MTLMetalScriptSerializer::createLinkedFunctions(uint64_t a1, void *a2, 
     }
 
     v13 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v12, v11 >> 2);
-    _Block_object_dispose(&v41, 8);
-    if (v47)
+    _Block_object_dispose(&v40, 8);
+    if (v46)
     {
-      v48 = v47;
-      operator delete(v47);
+      v47 = v46;
+      operator delete(v46);
     }
   }
 
@@ -4418,37 +3602,37 @@ uint64_t MTLMetalScriptSerializer::createLinkedFunctions(uint64_t a1, void *a2, 
 
   v14 = [a2 binaryFunctions];
   __p = 0;
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v32 objects:&v41 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v31 objects:&v40 count:16];
   if (v15)
   {
-    v16 = *v33;
+    v16 = *v32;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v33 != v16)
+        if (*v32 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = [objc_msgSend(*(*(&v32 + 1) + 8 * i) "name")];
+        v18 = [objc_msgSend(*(*(&v31 + 1) + 8 * i) "name")];
         v19 = strlen(v18);
         String = flatbuffers::FlatBufferBuilder::CreateString(a1, v18, v19);
         std::vector<unsigned int>::push_back[abi:ne200100](&__p, &String);
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v32 objects:&v41 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v31 objects:&v40 count:16];
     }
 
     while (v15);
     v20 = __p;
-    v21 = v37;
+    v21 = v36;
   }
 
   else
@@ -4471,7 +3655,7 @@ uint64_t MTLMetalScriptSerializer::createLinkedFunctions(uint64_t a1, void *a2, 
   v25 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v23, v22 >> 2);
   if (__p)
   {
-    v37 = __p;
+    v36 = __p;
     operator delete(__p);
   }
 
@@ -4485,18 +3669,17 @@ uint64_t MTLMetalScriptSerializer::createLinkedFunctions(uint64_t a1, void *a2, 
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 8, v9);
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 10, v13);
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 6, v25);
-    result = flatbuffers::FlatBufferBuilder::EndTable(a1, v27 - v28 + v29);
+    return flatbuffers::FlatBufferBuilder::EndTable(a1, v27 - v28 + v29);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t MTLMetalScriptSerializer::buildRenderPipeline(flatbuffers::FlatBufferBuilder *a1, uint64_t a2, uint64_t a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v45 = 0;
+  v48 = *MEMORY[0x1E69E9840];
   v44 = 0;
+  v43 = 0;
   v6 = *(a2 + 256);
   if (!v6)
   {
@@ -4504,33 +3687,33 @@ uint64_t MTLMetalScriptSerializer::buildRenderPipeline(flatbuffers::FlatBufferBu
   }
 
   std::function<std::string ()(objc_object  {objcproto11MTLFunction}*)>::operator()(a3, v6);
-  size = SHIBYTE(v46.__r_.__value_.__r.__words[2]);
-  if ((SHIBYTE(v46.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  size = SHIBYTE(v45.__r_.__value_.__r.__words[2]);
+  if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    size = v46.__r_.__value_.__l.__size_;
-    if (!v46.__r_.__value_.__l.__size_)
+    size = v45.__r_.__value_.__l.__size_;
+    if (!v45.__r_.__value_.__l.__size_)
     {
       String = 0;
 LABEL_11:
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v45.__r_.__value_.__l.__data_);
       goto LABEL_12;
     }
 
-    v8 = v46.__r_.__value_.__r.__words[0];
+    v8 = v45.__r_.__value_.__r.__words[0];
     goto LABEL_8;
   }
 
-  if (!*(&v46.__r_.__value_.__s + 23))
+  if (!*(&v45.__r_.__value_.__s + 23))
   {
 LABEL_5:
     String = 0;
     goto LABEL_12;
   }
 
-  v8 = &v46;
+  v8 = &v45;
 LABEL_8:
   String = flatbuffers::FlatBufferBuilder::CreateString(a1, v8, size);
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_11;
   }
@@ -4543,70 +3726,70 @@ LABEL_12:
   }
 
   std::function<std::string ()(objc_object  {objcproto11MTLFunction}*)>::operator()(a3, v10);
-  v11 = SHIBYTE(v46.__r_.__value_.__r.__words[2]);
-  if ((SHIBYTE(v46.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  v11 = SHIBYTE(v45.__r_.__value_.__r.__words[2]);
+  if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    v11 = v46.__r_.__value_.__l.__size_;
-    if (!v46.__r_.__value_.__l.__size_)
+    v11 = v45.__r_.__value_.__l.__size_;
+    if (!v45.__r_.__value_.__l.__size_)
     {
       v13 = 0;
 LABEL_22:
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v45.__r_.__value_.__l.__data_);
       goto LABEL_23;
     }
 
-    v12 = v46.__r_.__value_.__r.__words[0];
+    v12 = v45.__r_.__value_.__r.__words[0];
     goto LABEL_19;
   }
 
-  if (!*(&v46.__r_.__value_.__s + 23))
+  if (!*(&v45.__r_.__value_.__s + 23))
   {
 LABEL_16:
     v13 = 0;
     goto LABEL_23;
   }
 
-  v12 = &v46;
+  v12 = &v45;
 LABEL_19:
   v13 = flatbuffers::FlatBufferBuilder::CreateString(a1, v12, v11);
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_22;
   }
 
 LABEL_23:
-  v43 = addPipelineBufferDescriptor(a1, *(a2 + 408));
-  v42 = addPipelineBufferDescriptor(a1, *(a2 + 416));
-  v15 = MTLMetalScriptSerializer::addColorAttachmentsDescriptor(a1, *a2, &v45, v14);
-  v17 = MTLMetalScriptSerializer::addVertexDescriptor(a1, *(a2 + 272), &v44, v16);
+  v42 = addPipelineBufferDescriptor(a1, *(a2 + 408));
+  v41 = addPipelineBufferDescriptor(a1, *(a2 + 416));
+  v15 = MTLMetalScriptSerializer::addColorAttachmentsDescriptor(a1, *a2, &v44, v14);
+  v17 = MTLMetalScriptSerializer::addVertexDescriptor(a1, *(a2 + 272), &v43, v16);
   v18 = *(a2 + 496);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v48, a3);
-  LinkedFunctions = MTLMetalScriptSerializer::createLinkedFunctions(a1, v18, v48);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v48);
-  v19 = *(a2 + 488);
   std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v47, a3);
-  v20 = MTLMetalScriptSerializer::createLinkedFunctions(a1, v19, v47);
+  LinkedFunctions = MTLMetalScriptSerializer::createLinkedFunctions(a1, v18, v47);
   std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v47);
+  v19 = *(a2 + 488);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v46, a3);
+  v20 = MTLMetalScriptSerializer::createLinkedFunctions(a1, v19, v46);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v46);
   if (MTLMetalScriptSerializer::linkedFunctionHasEntryExcludingPrivate(*(a2 + 496), v21) || MTLMetalScriptSerializer::linkedFunctionHasEntryExcludingPrivate(*(a2 + 488), v22))
   {
-    v23 = v45;
-    if ((v45 & 0x1FFFFFFE) < 6)
+    v23 = v44;
+    if ((v44 & 0x1FFFFFFE) < 6)
     {
-      v23 = v45 & 0x60000000 | 6;
+      v23 = v44 & 0x60000000 | 6;
     }
 
-    v45 = v23 | 0x80000000;
+    v44 = v23 | 0x80000000;
   }
 
   if ([objc_msgSend(*(a2 + 496) "privateFunctions")])
   {
-    LODWORD(v24) = v45;
+    LODWORD(v24) = v44;
   }
 
   else
   {
     v25 = [objc_msgSend(*(a2 + 488) "privateFunctions")];
-    v24 = v45;
+    v24 = v44;
     if (!v25)
     {
       goto LABEL_35;
@@ -4625,7 +3808,7 @@ LABEL_23:
 
   v24 = (v26 | 0x80000000);
 LABEL_35:
-  if (v44 == 1)
+  if (v43 == 1)
   {
     if ((v24 & 0x1FFFFFFF) >= 5)
     {
@@ -4694,31 +3877,31 @@ LABEL_35:
     v24 = (v31 | 0x20000000);
   }
 
-  MTLMetalScriptSerializer::generateEnableString(v24, &v46);
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  MTLMetalScriptSerializer::generateEnableString(v24, &v45);
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v32 = &v46;
+    v32 = &v45;
   }
 
   else
   {
-    v32 = v46.__r_.__value_.__r.__words[0];
+    v32 = v45.__r_.__value_.__r.__words[0];
   }
 
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v33 = HIBYTE(v46.__r_.__value_.__r.__words[2]);
+    v33 = HIBYTE(v45.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v33 = v46.__r_.__value_.__l.__size_;
+    v33 = v45.__r_.__value_.__l.__size_;
   }
 
   v34 = flatbuffers::FlatBufferBuilder::CreateString(a1, v32, v33);
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v46.__r_.__value_.__l.__data_);
+    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
   v35 = v34;
@@ -4754,8 +3937,8 @@ LABEL_67:
   flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 52, v15);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 54, *(a2 + 72), 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 56, *(a2 + 80), 0);
-  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 58, v43);
-  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 60, v42);
+  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 58, v42);
+  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 60, v41);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 62, *(a2 + 152), 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 64, *(a2 + 568), 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 66, *(a2 + 569), 0);
@@ -4773,9 +3956,7 @@ LABEL_67:
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 86, *(a2 + 232), 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 88, *(a2 + 236), 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 90, *(a2 + 472), 0);
-  result = flatbuffers::FlatBufferBuilder::EndTable(a1, v36 - v37 + v38);
-  v40 = *MEMORY[0x1E69E9840];
-  return result;
+  return flatbuffers::FlatBufferBuilder::EndTable(a1, v36 - v37 + v38);
 }
 
 void sub_185C817D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
@@ -4790,8 +3971,8 @@ void sub_185C817D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MTLMetalScriptSerializer::buildMeshPipeline(flatbuffers::FlatBufferBuilder *a1, uint64_t a2, uint64_t a3)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  LODWORD(v44.super.isa) = 0;
+  v46 = *MEMORY[0x1E69E9840];
+  LODWORD(v43.super.isa) = 0;
   v6 = *(a2 + 96);
   if (!v6)
   {
@@ -4912,25 +4093,25 @@ LABEL_34:
   v17 = addPipelineBufferDescriptor(a1, *(a2 + 152));
   v18 = addPipelineBufferDescriptor(a1, *(a2 + 160));
   v19 = addPipelineBufferDescriptor(a1, *(a2 + 144));
-  v21 = MTLMetalScriptSerializer::addColorAttachmentsDescriptor(a1, *a2, &v44, v20);
+  v21 = MTLMetalScriptSerializer::addColorAttachmentsDescriptor(a1, *a2, &v43, v20);
   v22 = *(a2 + 224);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v46, a3);
-  LinkedFunctions = MTLMetalScriptSerializer::createLinkedFunctions(a1, v22, v46);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v46);
-  v23 = *(a2 + 216);
   std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v45, a3);
-  v40 = MTLMetalScriptSerializer::createLinkedFunctions(a1, v23, v45);
+  LinkedFunctions = MTLMetalScriptSerializer::createLinkedFunctions(a1, v22, v45);
   std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v45);
+  v23 = *(a2 + 216);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v44, a3);
+  v39 = MTLMetalScriptSerializer::createLinkedFunctions(a1, v23, v44);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v44);
   v24 = *(a2 + 208);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](&v44.super.isa + 4, a3);
-  v39 = MTLMetalScriptSerializer::createLinkedFunctions(a1, v24, &v44.super.isa + 4);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](&v44.super.isa + 4);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](&v43.super.isa + 4, a3);
+  v38 = MTLMetalScriptSerializer::createLinkedFunctions(a1, v24, &v43.super.isa + 4);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](&v43.super.isa + 4);
   if (MTLMetalScriptSerializer::linkedFunctionHasEntryExcludingPrivate(*(a2 + 224), v25) || MTLMetalScriptSerializer::linkedFunctionHasEntryExcludingPrivate(*(a2 + 216), v26) || MTLMetalScriptSerializer::linkedFunctionHasEntryExcludingPrivate(*(a2 + 208), v27))
   {
-    isa = v44.super.isa;
-    if ((v44.super.isa & 0x1FFFFFFF) < 9)
+    isa = v43.super.isa;
+    if ((v43.super.isa & 0x1FFFFFFF) < 9)
     {
-      isa = v44.super.isa & 0x60000000 | 9;
+      isa = v43.super.isa & 0x60000000 | 9;
     }
 
     v29 = isa | 0x80000000;
@@ -4938,7 +4119,7 @@ LABEL_34:
 
   else
   {
-    v29 = v44.super.isa;
+    v29 = v43.super.isa;
   }
 
   if ((v29 & 0x1FFFFFFF) >= 7)
@@ -4980,8 +4161,8 @@ LABEL_34:
 
   *(a1 + 70) = 1;
   v34 = *(a1 + 12);
-  v37 = *(a1 + 8);
-  v38 = *(a1 + 10);
+  v36 = *(a1 + 8);
+  v37 = *(a1 + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 4, v33);
   flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 8, String);
   flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 10, v12);
@@ -5026,11 +4207,9 @@ LABEL_34:
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 14, (*(a2 + 60) >> 42) & 1, 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 12, (*(a2 + 60) >> 41) & 1, 0);
   flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 96, LinkedFunctions);
-  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 92, v39);
-  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 94, v40);
-  result = flatbuffers::FlatBufferBuilder::EndTable(a1, v37 - v34 + v38);
-  v36 = *MEMORY[0x1E69E9840];
-  return result;
+  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 92, v38);
+  flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 94, v39);
+  return flatbuffers::FlatBufferBuilder::EndTable(a1, v36 - v34 + v37);
 }
 
 void sub_185C81F84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
@@ -5045,7 +4224,7 @@ void sub_185C81F84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MTLMetalScriptSerializer::buildTileRenderPipeline(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   std::function<std::string ()(objc_object  {objcproto11MTLFunction}*)>::operator()(a3, *(a2 + 24));
   size = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
@@ -5081,9 +4260,9 @@ LABEL_11:
   v9 = addPipelineBufferDescriptor(a1, *(a2 + 56));
   v11 = MTLMetalScriptSerializer::addTileColorAttachmentsDescriptor(a1, *a2, v10);
   v12 = *(a2 + 96);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v26, a3);
-  LinkedFunctions = MTLMetalScriptSerializer::createLinkedFunctions(a1, v12, v26);
-  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v26);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::__value_func[abi:ne200100](v25, a3);
+  LinkedFunctions = MTLMetalScriptSerializer::createLinkedFunctions(a1, v12, v25);
+  std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](v25);
   if (MTLMetalScriptSerializer::linkedFunctionHasEntryExcludingPrivate(*(a2 + 96), v14))
   {
     v15 = -2147483642;
@@ -5147,9 +4326,7 @@ LABEL_11:
   flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 10, *(a2 + 64), 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 8, *(a2 + 32), 0);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 24, *(a2 + 72), 0);
-  result = flatbuffers::FlatBufferBuilder::EndTable(a1, v20 - v21 + v22);
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  return flatbuffers::FlatBufferBuilder::EndTable(a1, v20 - v21 + v22);
 }
 
 void sub_185C82268(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -5164,130 +4341,125 @@ void sub_185C82268(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MTLMetalScriptSerializer::addFunctionConstants(MTLMetalScriptSerializer *this, flatbuffers::FlatBufferBuilder *a2, MTLFunctionConstantValuesInternal *a3)
 {
-  v51 = *MEMORY[0x1E69E9840];
-  if (a2)
+  v50 = *MEMORY[0x1E69E9840];
+  if (!a2)
   {
-    __p = 0;
-    v46 = 0;
-    v47 = 0;
-    v5 = [(flatbuffers::FlatBufferBuilder *)a2 newNamedConstantArray];
-    v33 = a2;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v41 objects:v50 count:16];
-    if (v6)
-    {
-      v7 = *v42;
-      obj = v5;
-      do
-      {
-        for (i = 0; i != v6; ++i)
-        {
-          if (*v42 != v7)
-          {
-            objc_enumerationMutation(obj);
-          }
+    return 0;
+  }
 
-          v9 = *(*(&v41 + 1) + 8 * i);
-          v10 = [v9 name];
-          v12 = MTLMetalScriptSerializer::addString(this, v10, v11);
-          v13 = [v9 dataType];
-          LODWORD(v9) = makeValue(this, v13, [v9 data]);
-          *(this + 70) = 1;
-          v14 = *(this + 8);
-          v15 = *(this + 12);
-          v16 = *(this + 10);
-          v17 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this, 2);
-          flatbuffers::FlatBufferBuilder::TrackField(this, 4, v17);
-          flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v12);
-          flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(this, 8, v13, 0);
-          flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 10, v9);
-          v40 = flatbuffers::FlatBufferBuilder::EndTable(this, v14 - v15 + v16);
-          std::vector<unsigned int>::push_back[abi:ne200100](&__p, &v40);
+  __p = 0;
+  v45 = 0;
+  v46 = 0;
+  v5 = [(flatbuffers::FlatBufferBuilder *)a2 newNamedConstantArray];
+  v32 = a2;
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v40 objects:v49 count:16];
+  if (v6)
+  {
+    v7 = *v41;
+    obj = v5;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v41 != v7)
+        {
+          objc_enumerationMutation(obj);
         }
 
-        v5 = obj;
-        v6 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v9 = *(*(&v40 + 1) + 8 * i);
+        v10 = [v9 name];
+        v12 = MTLMetalScriptSerializer::addString(this, v10, v11);
+        v13 = [v9 dataType];
+        LODWORD(v9) = makeValue(this, v13, [v9 data]);
+        *(this + 70) = 1;
+        v14 = *(this + 8);
+        v15 = *(this + 12);
+        v16 = *(this + 10);
+        v17 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this, 2);
+        flatbuffers::FlatBufferBuilder::TrackField(this, 4, v17);
+        flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v12);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(this, 8, v13, 0);
+        flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 10, v9);
+        v39 = flatbuffers::FlatBufferBuilder::EndTable(this, v14 - v15 + v16);
+        std::vector<unsigned int>::push_back[abi:ne200100](&__p, &v39);
       }
 
-      while (v6);
+      v5 = obj;
+      v6 = [obj countByEnumeratingWithState:&v40 objects:v49 count:16];
     }
 
-    v18 = [(flatbuffers::FlatBufferBuilder *)v33 newIndexedConstantArray];
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v19 = [v18 countByEnumeratingWithState:&v36 objects:v49 count:16];
-    if (v19)
-    {
-      v20 = *v37;
-      obja = v18;
-      do
-      {
-        for (j = 0; j != v19; ++j)
-        {
-          if (*v37 != v20)
-          {
-            objc_enumerationMutation(obja);
-          }
+    while (v6);
+  }
 
-          v22 = *(*(&v36 + 1) + 8 * j);
-          v48 = [v22 index];
-          v23 = [v22 dataType];
-          LODWORD(v22) = makeValue(this, v23, [v22 data]);
-          v24 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(this, &v48);
-          *(this + 70) = 1;
-          v25 = *(this + 8);
-          v26 = *(this + 12);
-          v27 = *(this + 10);
-          v28 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this, 1);
-          flatbuffers::FlatBufferBuilder::TrackField(this, 4, v28);
-          flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v24);
-          flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(this, 8, v23, 0);
-          flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 10, v22);
-          v40 = flatbuffers::FlatBufferBuilder::EndTable(this, v25 - v26 + v27);
-          std::vector<unsigned int>::push_back[abi:ne200100](&__p, &v40);
+  v18 = [(flatbuffers::FlatBufferBuilder *)v32 newIndexedConstantArray];
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v19 = [v18 countByEnumeratingWithState:&v35 objects:v48 count:16];
+  if (v19)
+  {
+    v20 = *v36;
+    obja = v18;
+    do
+    {
+      for (j = 0; j != v19; ++j)
+      {
+        if (*v36 != v20)
+        {
+          objc_enumerationMutation(obja);
         }
 
-        v18 = obja;
-        v19 = [obja countByEnumeratingWithState:&v36 objects:v49 count:16];
+        v22 = *(*(&v35 + 1) + 8 * j);
+        v47 = [v22 index];
+        v23 = [v22 dataType];
+        LODWORD(v22) = makeValue(this, v23, [v22 data]);
+        v24 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(this, &v47);
+        *(this + 70) = 1;
+        v25 = *(this + 8);
+        v26 = *(this + 12);
+        v27 = *(this + 10);
+        v28 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this, 1);
+        flatbuffers::FlatBufferBuilder::TrackField(this, 4, v28);
+        flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 6, v24);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(this, 8, v23, 0);
+        flatbuffers::FlatBufferBuilder::AddOffset<void>(this, 10, v22);
+        v39 = flatbuffers::FlatBufferBuilder::EndTable(this, v25 - v26 + v27);
+        std::vector<unsigned int>::push_back[abi:ne200100](&__p, &v39);
       }
 
-      while (v19);
+      v18 = obja;
+      v19 = [obja countByEnumeratingWithState:&v35 objects:v48 count:16];
     }
 
+    while (v19);
+  }
+
+  v29 = __p;
+  if (__p != v45)
+  {
+    v30 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(this, __p, (v45 - __p) >> 2);
     v29 = __p;
-    if (__p != v46)
+    if (!__p)
     {
-      v30 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(this, __p, (v46 - __p) >> 2);
-      v29 = __p;
-      if (!__p)
-      {
-        goto LABEL_22;
-      }
-
-      goto LABEL_21;
+      return v30;
     }
 
-    v30 = 0;
-    if (__p)
-    {
-LABEL_21:
-      v46 = v29;
-      operator delete(v29);
-    }
+    goto LABEL_21;
   }
 
-  else
+  v30 = 0;
+  if (__p)
   {
-    v30 = 0;
+LABEL_21:
+    v45 = v29;
+    operator delete(v29);
   }
 
-LABEL_22:
-  v31 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
@@ -5365,7 +4537,7 @@ void MTLMetalScriptBuilderImpl::initFromData(MTLMetalScriptBuilderImpl *this, ch
           v16 = v14 + *&v13[v10 + 8 + v14 - *(v15 + 1)];
           v17 = &v13[v10 + v16 + *&v13[v10 + 4 + v16]];
           std::string::basic_string[abi:ne200100](__p, v17 + 8, *(v17 + 1));
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(this + 16, __p);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(this + 16, __p, __p);
           if (SHIBYTE(v130) < 0)
           {
             operator delete(__p[0]);
@@ -5476,7 +4648,7 @@ void MTLMetalScriptBuilderImpl::initFromData(MTLMetalScriptBuilderImpl *this, ch
               std::string::basic_string[abi:ne200100](__p, v47 + 8, *(v47 + 1));
               std::string::basic_string[abi:ne200100](__dst, v46 + 4, *v46);
               v131 = __dst;
-              v48 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 6, __dst);
+              v48 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 6, __dst, &std::piecewise_construct, &v131);
               v49 = v48;
               if (*(v48 + 63) < 0)
               {
@@ -5590,7 +4762,7 @@ void MTLMetalScriptBuilderImpl::initFromData(MTLMetalScriptBuilderImpl *this, ch
                 std::string::basic_string[abi:ne200100]<0>(__p, "");
               }
 
-              std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(this + 21, __p);
+              std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(this + 21, __p, __p);
               if (SHIBYTE(v130) < 0)
               {
                 operator delete(__p[0]);
@@ -5636,7 +4808,7 @@ void MTLMetalScriptBuilderImpl::initFromData(MTLMetalScriptBuilderImpl *this, ch
                 std::string::basic_string[abi:ne200100]<0>(__p, "");
               }
 
-              std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(this + 26, __p);
+              std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(this + 26, __p, __p);
               if (SHIBYTE(v130) < 0)
               {
                 operator delete(__p[0]);
@@ -6116,13 +5288,13 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
   v6 = &a2[-v4];
   if (*v6 >= 0x5Fu && (v7 = *(v6 + 47)) != 0)
   {
-    v134 = Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(a1, &a2[v7 + *&a2[v7]]);
+    v133 = Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(a1, &a2[v7 + *&a2[v7]]);
     v5 = -*a2;
   }
 
   else
   {
-    v134 = 0;
+    v133 = 0;
   }
 
   if (*&a2[v5] >= 0x5Du && *&a2[v5 + 92])
@@ -6138,20 +5310,20 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   if (*&a2[v5] >= 0x3Du && *&a2[v5 + 60])
   {
-    v135 = &a2[*&a2[v5 + 60] + *&a2[*&a2[v5 + 60]]];
-    v133 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_29CloneRenderPipelineDescriptorINS3_24RenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_39RenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v135, &v135, a1);
+    v134 = &a2[*&a2[v5 + 60] + *&a2[*&a2[v5 + 60]]];
+    v132 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_29CloneRenderPipelineDescriptorINS3_24RenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_39RenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v134, &v134, a1);
     v5 = -*a2;
   }
 
   else
   {
-    v133 = 0;
+    v132 = 0;
   }
 
   if (*&a2[v5] >= 0x3Bu && *&a2[v5 + 58])
   {
-    v135 = &a2[*&a2[v5 + 58] + *&a2[*&a2[v5 + 58]]];
-    v9 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_29CloneRenderPipelineDescriptorINS3_24RenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_39RenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v135, &v135, a1);
+    v134 = &a2[*&a2[v5 + 58] + *&a2[*&a2[v5 + 58]]];
+    v9 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_29CloneRenderPipelineDescriptorINS3_24RenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_39RenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v134, &v134, a1);
     v5 = -*a2;
   }
 
@@ -6162,8 +5334,8 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   if (*&a2[v5] >= 0x35u && *&a2[v5 + 52])
   {
-    v135 = &a2[*&a2[v5 + 52] + *&a2[*&a2[v5 + 52]]];
-    v10 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl39RenderPipelineColorAttachmentDescriptorEEEZNS3_29CloneRenderPipelineDescriptorINS3_24RenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_39RenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE1_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v135, &v135, a1);
+    v134 = &a2[*&a2[v5 + 52] + *&a2[*&a2[v5 + 52]]];
+    v10 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl39RenderPipelineColorAttachmentDescriptorEEEZNS3_29CloneRenderPipelineDescriptorINS3_24RenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_39RenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE1_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v134, &v134, a1);
     v5 = -*a2;
   }
 
@@ -6217,107 +5389,106 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
   }
 
   *(a1 + 70) = 1;
-  v15 = *(a1 + 32);
-  v130 = v15;
-  v131 = *(a1 + 48);
-  v132 = *(a1 + 40);
-  v16 = &a2[v5];
-  if (*v16 >= 0x2Fu && (v17 = *(v16 + 23)) != 0)
+  v129 = *(a1 + 32);
+  v130 = *(a1 + 48);
+  v131 = *(a1 + 40);
+  v15 = &a2[v5];
+  if (*v15 >= 0x2Fu && (v16 = *(v15 + 23)) != 0)
   {
-    v18 = *&a2[v17];
+    v17 = *&a2[v16];
   }
 
   else
   {
-    v18 = -1;
+    v17 = -1;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 46, v18, -1);
-  v19 = &a2[-*a2];
-  if (*v19 >= 0x2Du && (v20 = *(v19 + 22)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 46, v17, -1);
+  v18 = &a2[-*a2];
+  if (*v18 >= 0x2Du && (v19 = *(v18 + 22)) != 0)
   {
-    v21 = *&a2[v20];
-  }
-
-  else
-  {
-    v21 = 0;
-  }
-
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 44, v21, 0);
-  v22 = &a2[-*a2];
-  if (*v22 >= 0x2Bu && (v23 = *(v22 + 21)) != 0)
-  {
-    v24 = *&a2[v23];
+    v20 = *&a2[v19];
   }
 
   else
   {
-    v24 = 1;
+    v20 = 0;
   }
 
-  v25 = 1;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 42, v24, 1);
-  v26 = &a2[-*a2];
-  if (*v26 >= 0x21u)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 44, v20, 0);
+  v21 = &a2[-*a2];
+  if (*v21 >= 0x2Bu && (v22 = *(v21 + 21)) != 0)
   {
-    v27 = *(v26 + 16);
-    if (v27)
+    v23 = *&a2[v22];
+  }
+
+  else
+  {
+    v23 = 1;
+  }
+
+  v24 = 1;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 42, v23, 1);
+  v25 = &a2[-*a2];
+  if (*v25 >= 0x21u)
+  {
+    v26 = *(v25 + 16);
+    if (v26)
     {
-      v25 = *&a2[v27];
+      v24 = *&a2[v26];
     }
 
     else
     {
-      v25 = 1;
+      v24 = 1;
     }
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 32, v25, 1);
-  v28 = &a2[-*a2];
-  if (*v28 >= 0x13u && (v29 = *(v28 + 9)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 32, v24, 1);
+  v27 = &a2[-*a2];
+  if (*v27 >= 0x13u && (v28 = *(v27 + 9)) != 0)
   {
-    v30 = *&a2[v29];
+    v29 = *&a2[v28];
   }
 
   else
   {
-    v30 = 16;
+    v29 = 16;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 18, v30, 16);
-  v31 = &a2[-*a2];
-  if (*v31 >= 0xDu && (v32 = *(v31 + 6)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 18, v29, 16);
+  v30 = &a2[-*a2];
+  if (*v30 >= 0xDu && (v31 = *(v30 + 6)) != 0)
   {
-    v33 = *&a2[v32];
+    v32 = *&a2[v31];
   }
 
   else
   {
-    v33 = 1;
+    v32 = 1;
   }
 
-  v34 = 1;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 12, v33, 1);
-  v35 = &a2[-*a2];
-  if (*v35 >= 0xBu)
+  v33 = 1;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 12, v32, 1);
+  v34 = &a2[-*a2];
+  if (*v34 >= 0xBu)
   {
-    v36 = *(v35 + 5);
-    if (v36)
+    v35 = *(v34 + 5);
+    if (v35)
     {
-      v34 = *&a2[v36];
+      v33 = *&a2[v35];
     }
 
     else
     {
-      v34 = 1;
+      v33 = 1;
     }
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 10, v34, 1);
-  if (v134)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 10, v33, 1);
+  if (v133)
   {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 94, v134);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 94, v133);
   }
 
   if (v8)
@@ -6325,33 +5496,33 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 92, v8);
   }
 
-  v37 = &a2[-*a2];
-  if (*v37 >= 0x59u && (v38 = *(v37 + 44)) != 0)
+  v36 = &a2[-*a2];
+  if (*v36 >= 0x59u && (v37 = *(v36 + 44)) != 0)
   {
-    v39 = *&a2[v38];
+    v38 = *&a2[v37];
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 88, v39, 0);
-  v40 = &a2[-*a2];
-  if (*v40 >= 0x57u && (v41 = *(v40 + 43)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 88, v38, 0);
+  v39 = &a2[-*a2];
+  if (*v39 >= 0x57u && (v40 = *(v39 + 43)) != 0)
   {
-    v42 = *&a2[v41];
+    v41 = *&a2[v40];
   }
 
   else
   {
-    v42 = 0;
+    v41 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 86, v42, 0);
-  if (v133)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 86, v41, 0);
+  if (v132)
   {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 60, v133);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 60, v132);
   }
 
   if (v9)
@@ -6364,18 +5535,18 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 52, v10);
   }
 
-  v43 = &a2[-*a2];
-  v44 = 1.0;
-  if (*v43 >= 0x31u)
+  v42 = &a2[-*a2];
+  v43 = 1.0;
+  if (*v42 >= 0x31u)
   {
-    v45 = *(v43 + 24);
-    if (v45)
+    v44 = *(v42 + 24);
+    if (v44)
     {
-      v44 = *&a2[v45];
+      v43 = *&a2[v44];
     }
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<float>(a1, 48, v44, 1.0);
+  flatbuffers::FlatBufferBuilder::AddElement<float>(a1, 48, v43, 1.0);
   if (v11)
   {
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 14, v11);
@@ -6396,61 +5567,61 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 4, v14);
   }
 
-  v46 = &a2[-*a2];
-  if (*v46 >= 0x39u && (v47 = *(v46 + 28)) != 0)
+  v45 = &a2[-*a2];
+  if (*v45 >= 0x39u && (v46 = *(v45 + 28)) != 0)
   {
-    v48 = *&a2[v47];
+    v47 = *&a2[v46];
   }
 
   else
   {
-    v48 = 0;
+    v47 = 0;
   }
 
-  v49 = Mtl::ClonePixelFormat<Mtl::PixelFormat>(v48);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 56, v49, 0);
-  v50 = &a2[-*a2];
-  if (*v50 >= 0x37u && (v51 = *(v50 + 27)) != 0)
+  v48 = Mtl::ClonePixelFormat<Mtl::PixelFormat>(v47);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 56, v48, 0);
+  v49 = &a2[-*a2];
+  if (*v49 >= 0x37u && (v50 = *(v49 + 27)) != 0)
   {
-    v52 = *&a2[v51];
-  }
-
-  else
-  {
-    v52 = 0;
-  }
-
-  v53 = Mtl::ClonePixelFormat<Mtl::PixelFormat>(v52);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 54, v53, 0);
-  v54 = &a2[-*a2];
-  v56 = *v54 >= 0x5Bu && (v55 = *(v54 + 45)) != 0 && a2[v55] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 90, v56, 0);
-  v57 = &a2[-*a2];
-  v59 = *v57 >= 0x55u && (v58 = *(v57 + 42)) != 0 && a2[v58] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 84, v59, 0);
-  v60 = &a2[-*a2];
-  v62 = *v60 >= 0x53u && (v61 = *(v60 + 41)) != 0 && a2[v61] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 82, v62, 0);
-  v63 = &a2[-*a2];
-  v65 = *v63 >= 0x51u && (v64 = *(v63 + 40)) != 0 && a2[v64] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 80, v65, 0);
-  v66 = &a2[-*a2];
-  if (*v66 >= 0x4Fu && (v67 = *(v66 + 39)) != 0)
-  {
-    v68 = a2[v67];
+    v51 = *&a2[v50];
   }
 
   else
   {
-    v68 = 255;
+    v51 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 78, v68, 255);
-  v69 = &a2[-*a2];
-  if (*v69 >= 0x4Du && (v70 = *(v69 + 38)) != 0)
+  v52 = Mtl::ClonePixelFormat<Mtl::PixelFormat>(v51);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 54, v52, 0);
+  v53 = &a2[-*a2];
+  v55 = *v53 >= 0x5Bu && (v54 = *(v53 + 45)) != 0 && a2[v54] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 90, v55, 0);
+  v56 = &a2[-*a2];
+  v58 = *v56 >= 0x55u && (v57 = *(v56 + 42)) != 0 && a2[v57] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 84, v58, 0);
+  v59 = &a2[-*a2];
+  v61 = *v59 >= 0x53u && (v60 = *(v59 + 41)) != 0 && a2[v60] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 82, v61, 0);
+  v62 = &a2[-*a2];
+  v64 = *v62 >= 0x51u && (v63 = *(v62 + 40)) != 0 && a2[v63] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 80, v64, 0);
+  v65 = &a2[-*a2];
+  if (*v65 >= 0x4Fu && (v66 = *(v65 + 39)) != 0)
   {
-    v71 = a2[v70];
-    if (v71 >= 8)
+    v67 = a2[v66];
+  }
+
+  else
+  {
+    v67 = 255;
+  }
+
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 78, v67, 255);
+  v68 = &a2[-*a2];
+  if (*v68 >= 0x4Du && (v69 = *(v68 + 38)) != 0)
+  {
+    v70 = a2[v69];
+    if (v70 >= 8)
     {
       goto LABEL_210;
     }
@@ -6458,18 +5629,18 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   else
   {
-    v71 = 0;
+    v70 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 76, v71, 0);
-  v72 = &a2[-*a2];
-  v74 = *v72 >= 0x4Bu && (v73 = *(v72 + 37)) != 0 && a2[v73] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 74, v74, 0);
-  v75 = &a2[-*a2];
-  if (*v75 >= 0x49u && (v76 = *(v75 + 36)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 76, v70, 0);
+  v71 = &a2[-*a2];
+  v73 = *v71 >= 0x4Bu && (v72 = *(v71 + 37)) != 0 && a2[v72] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 74, v73, 0);
+  v74 = &a2[-*a2];
+  if (*v74 >= 0x49u && (v75 = *(v74 + 36)) != 0)
   {
-    v77 = a2[v76];
-    if (v77 >= 0x10)
+    v76 = a2[v75];
+    if (v76 >= 0x10)
     {
       goto LABEL_210;
     }
@@ -6477,18 +5648,18 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   else
   {
-    v77 = 0;
+    v76 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 72, v77, 0);
-  v78 = &a2[-*a2];
-  v80 = *v78 >= 0x47u && (v79 = *(v78 + 35)) != 0 && a2[v79] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 70, v80, 0);
-  v81 = &a2[-*a2];
-  if (*v81 >= 0x45u && (v82 = *(v81 + 34)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 72, v76, 0);
+  v77 = &a2[-*a2];
+  v79 = *v77 >= 0x47u && (v78 = *(v77 + 35)) != 0 && a2[v78] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 70, v79, 0);
+  v80 = &a2[-*a2];
+  if (*v80 >= 0x45u && (v81 = *(v80 + 34)) != 0)
   {
-    v83 = a2[v82];
-    if (v83 >= 3)
+    v82 = a2[v81];
+    if (v82 >= 3)
     {
       goto LABEL_210;
     }
@@ -6496,36 +5667,36 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   else
   {
-    v83 = 0;
+    v82 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 68, v83, 0);
-  v84 = &a2[-*a2];
-  v86 = *v84 >= 0x43u && (v85 = *(v84 + 33)) != 0 && a2[v85] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 66, v86, 0);
-  v87 = &a2[-*a2];
-  v89 = *v87 >= 0x41u && (v88 = *(v87 + 32)) != 0 && a2[v88] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 64, v89, 0);
-  v90 = &a2[-*a2];
-  v92 = *v90 >= 0x3Fu && (v91 = *(v90 + 31)) != 0 && a2[v91] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 62, v92, 0);
-  v93 = &a2[-*a2];
-  v95 = *v93 >= 0x33u && (v94 = *(v93 + 25)) != 0 && a2[v94] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 50, v95, 0);
-  v96 = &a2[-*a2];
-  v98 = *v96 >= 0x29u && (v97 = *(v96 + 20)) != 0 && a2[v97] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 40, v98, 0);
-  v99 = &a2[-*a2];
-  v101 = *v99 >= 0x27u && (v100 = *(v99 + 19)) != 0 && a2[v100] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 38, v101, 0);
-  v102 = &a2[-*a2];
-  v104 = *v102 < 0x25u || (v103 = *(v102 + 18)) == 0 || a2[v103] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 36, v104, 1);
-  v105 = &a2[-*a2];
-  if (*v105 >= 0x23u && (v106 = *(v105 + 17)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 68, v82, 0);
+  v83 = &a2[-*a2];
+  v85 = *v83 >= 0x43u && (v84 = *(v83 + 33)) != 0 && a2[v84] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 66, v85, 0);
+  v86 = &a2[-*a2];
+  v88 = *v86 >= 0x41u && (v87 = *(v86 + 32)) != 0 && a2[v87] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 64, v88, 0);
+  v89 = &a2[-*a2];
+  v91 = *v89 >= 0x3Fu && (v90 = *(v89 + 31)) != 0 && a2[v90] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 62, v91, 0);
+  v92 = &a2[-*a2];
+  v94 = *v92 >= 0x33u && (v93 = *(v92 + 25)) != 0 && a2[v93] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 50, v94, 0);
+  v95 = &a2[-*a2];
+  v97 = *v95 >= 0x29u && (v96 = *(v95 + 20)) != 0 && a2[v96] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 40, v97, 0);
+  v98 = &a2[-*a2];
+  v100 = *v98 >= 0x27u && (v99 = *(v98 + 19)) != 0 && a2[v99] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 38, v100, 0);
+  v101 = &a2[-*a2];
+  v103 = *v101 < 0x25u || (v102 = *(v101 + 18)) == 0 || a2[v102] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 36, v103, 1);
+  v104 = &a2[-*a2];
+  if (*v104 >= 0x23u && (v105 = *(v104 + 17)) != 0)
   {
-    v107 = a2[v106];
-    if (v107 >= 2)
+    v106 = a2[v105];
+    if (v106 >= 2)
     {
       goto LABEL_210;
     }
@@ -6533,15 +5704,15 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   else
   {
-    v107 = 0;
+    v106 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 34, v107, 0);
-  v108 = &a2[-*a2];
-  if (*v108 >= 0x1Fu && (v109 = *(v108 + 15)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 34, v106, 0);
+  v107 = &a2[-*a2];
+  if (*v107 >= 0x1Fu && (v108 = *(v107 + 15)) != 0)
   {
-    v110 = a2[v109];
-    if (v110 >= 4)
+    v109 = a2[v108];
+    if (v109 >= 4)
     {
       goto LABEL_210;
     }
@@ -6549,15 +5720,15 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   else
   {
-    v110 = 0;
+    v109 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 30, v110, 0);
-  v111 = &a2[-*a2];
-  if (*v111 >= 0x1Du && (v112 = *(v111 + 14)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 30, v109, 0);
+  v110 = &a2[-*a2];
+  if (*v110 >= 0x1Du && (v111 = *(v110 + 14)) != 0)
   {
-    v113 = a2[v112];
-    if (v113 >= 2)
+    v112 = a2[v111];
+    if (v112 >= 2)
     {
       goto LABEL_210;
     }
@@ -6565,15 +5736,15 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   else
   {
-    v113 = 0;
+    v112 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 28, v113, 0);
-  v114 = &a2[-*a2];
-  if (*v114 >= 0x1Bu && (v115 = *(v114 + 13)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 28, v112, 0);
+  v113 = &a2[-*a2];
+  if (*v113 >= 0x1Bu && (v114 = *(v113 + 13)) != 0)
   {
-    v116 = a2[v115];
-    if (v116 >= 4)
+    v115 = a2[v114];
+    if (v115 >= 4)
     {
       goto LABEL_210;
     }
@@ -6581,15 +5752,15 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   else
   {
-    v116 = 0;
+    v115 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 26, v116, 0);
-  v117 = &a2[-*a2];
-  if (*v117 >= 0x19u && (v118 = *(v117 + 12)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 26, v115, 0);
+  v116 = &a2[-*a2];
+  if (*v116 >= 0x19u && (v117 = *(v116 + 12)) != 0)
   {
-    v119 = a2[v118];
-    if (v119 >= 3)
+    v118 = a2[v117];
+    if (v118 >= 3)
     {
       goto LABEL_210;
     }
@@ -6597,15 +5768,15 @@ uint64_t Mtl::CloneRenderPipelineDescriptor<Mtl::RenderPipelineDescriptor>(uint6
 
   else
   {
-    v119 = 0;
+    v118 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 24, v119, 0);
-  v120 = &a2[-*a2];
-  if (*v120 >= 0x17u && (v121 = *(v120 + 11)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 24, v118, 0);
+  v119 = &a2[-*a2];
+  if (*v119 >= 0x17u && (v120 = *(v119 + 11)) != 0)
   {
-    v122 = a2[v121];
-    if (v122 >= 2)
+    v121 = a2[v120];
+    if (v121 >= 2)
     {
 LABEL_210:
       abort();
@@ -6614,18 +5785,18 @@ LABEL_210:
 
   else
   {
-    v122 = 0;
+    v121 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 22, v122, 0);
-  v123 = &a2[-*a2];
-  v125 = *v123 >= 0x15u && (v124 = *(v123 + 10)) != 0 && a2[v124] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 20, v125, 0);
-  v126 = &a2[-*a2];
-  if (*v126 >= 0x11u && (v127 = *(v126 + 8)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 22, v121, 0);
+  v122 = &a2[-*a2];
+  v124 = *v122 >= 0x15u && (v123 = *(v122 + 10)) != 0 && a2[v123] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 20, v124, 0);
+  v125 = &a2[-*a2];
+  if (*v125 >= 0x11u && (v126 = *(v125 + 8)) != 0)
   {
-    v128 = a2[v127];
-    if (v128 >= 4)
+    v127 = a2[v126];
+    if (v127 >= 4)
     {
       goto LABEL_210;
     }
@@ -6633,11 +5804,11 @@ LABEL_210:
 
   else
   {
-    v128 = 0;
+    v127 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 16, v128, 0);
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v130 - v131 + v132);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 16, v127, 0);
+  return flatbuffers::FlatBufferBuilder::EndTable(a1, v129 - v130 + v131);
 }
 
 uint64_t Mtl::CloneTileRenderPipelineDescriptor<Mtl::TileRenderPipelineDescriptor>(uint64_t a1, const char *a2)
@@ -6854,18 +6025,7 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
 
   if (*&a2[v5] >= 0x61u && *&a2[v5 + 96])
   {
-    v133 = Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(a1, &a2[*&a2[v5 + 96] + *&a2[*&a2[v5 + 96]]]);
-    v5 = -*a2;
-  }
-
-  else
-  {
-    v133 = 0;
-  }
-
-  if (*&a2[v5] >= 0x5Fu && *&a2[v5 + 94])
-  {
-    v132 = Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(a1, &a2[*&a2[v5 + 94] + *&a2[*&a2[v5 + 94]]]);
+    v132 = Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(a1, &a2[*&a2[v5 + 96] + *&a2[*&a2[v5 + 96]]]);
     v5 = -*a2;
   }
 
@@ -6874,9 +6034,9 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
     v132 = 0;
   }
 
-  if (*&a2[v5] >= 0x5Du && *&a2[v5 + 92])
+  if (*&a2[v5] >= 0x5Fu && *&a2[v5 + 94])
   {
-    v131 = Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(a1, &a2[*&a2[v5 + 92] + *&a2[*&a2[v5 + 92]]]);
+    v131 = Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(a1, &a2[*&a2[v5 + 94] + *&a2[*&a2[v5 + 94]]]);
     v5 = -*a2;
   }
 
@@ -6885,10 +6045,9 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
     v131 = 0;
   }
 
-  if (*&a2[v5] >= 0x3Du && *&a2[v5 + 60])
+  if (*&a2[v5] >= 0x5Du && *&a2[v5 + 92])
   {
-    v136 = &a2[*&a2[v5 + 60] + *&a2[*&a2[v5 + 60]]];
-    v130 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_33CloneMeshRenderPipelineDescriptorINS3_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE1_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v136, &v136, a1);
+    v130 = Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(a1, &a2[*&a2[v5 + 92] + *&a2[*&a2[v5 + 92]]]);
     v5 = -*a2;
   }
 
@@ -6897,10 +6056,10 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
     v130 = 0;
   }
 
-  if (*&a2[v5] >= 0x3Bu && *&a2[v5 + 58])
+  if (*&a2[v5] >= 0x3Du && *&a2[v5 + 60])
   {
-    v136 = &a2[*&a2[v5 + 58] + *&a2[*&a2[v5 + 58]]];
-    v129 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_33CloneMeshRenderPipelineDescriptorINS3_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE2_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v136, &v136, a1);
+    v135 = &a2[*&a2[v5 + 60] + *&a2[*&a2[v5 + 60]]];
+    v129 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_33CloneMeshRenderPipelineDescriptorINS3_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE1_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v135, &v135, a1);
     v5 = -*a2;
   }
 
@@ -6909,10 +6068,22 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
     v129 = 0;
   }
 
+  if (*&a2[v5] >= 0x3Bu && *&a2[v5 + 58])
+  {
+    v135 = &a2[*&a2[v5 + 58] + *&a2[*&a2[v5 + 58]]];
+    v128 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_33CloneMeshRenderPipelineDescriptorINS3_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE2_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v135, &v135, a1);
+    v5 = -*a2;
+  }
+
+  else
+  {
+    v128 = 0;
+  }
+
   if (*&a2[v5] >= 0x39u && *&a2[v5 + 56])
   {
-    v136 = &a2[*&a2[v5 + 56] + *&a2[*&a2[v5 + 56]]];
-    v8 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_33CloneMeshRenderPipelineDescriptorINS3_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE3_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v136, &v136, a1);
+    v135 = &a2[*&a2[v5 + 56] + *&a2[*&a2[v5 + 56]]];
+    v8 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl24PipelineBufferDescriptorEEEZNS3_33CloneMeshRenderPipelineDescriptorINS3_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE3_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v135, &v135, a1);
     v5 = -*a2;
   }
 
@@ -6923,8 +6094,8 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
 
   if (*&a2[v5] >= 0x33u && *&a2[v5 + 50])
   {
-    v136 = &a2[*&a2[v5 + 50] + *&a2[*&a2[v5 + 50]]];
-    v9 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl39RenderPipelineColorAttachmentDescriptorEEEZNS3_33CloneMeshRenderPipelineDescriptorINS3_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE4_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v136, &v136, a1);
+    v135 = &a2[*&a2[v5 + 50] + *&a2[*&a2[v5 + 50]]];
+    v9 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl39RenderPipelineColorAttachmentDescriptorEEEZNS3_33CloneMeshRenderPipelineDescriptorINS3_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE4_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v135, &v135, a1);
     v5 = -*a2;
   }
 
@@ -6978,162 +6149,161 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
   }
 
   *(a1 + 70) = 1;
-  v14 = *(a1 + 32);
-  v126 = v14;
-  v127 = *(a1 + 48);
-  v128 = *(a1 + 40);
-  v15 = &a2[v5];
-  if (*v15 >= 0x2Du && (v16 = *(v15 + 22)) != 0)
+  v125 = *(a1 + 32);
+  v126 = *(a1 + 48);
+  v127 = *(a1 + 40);
+  v14 = &a2[v5];
+  if (*v14 >= 0x2Du && (v15 = *(v14 + 22)) != 0)
   {
-    v17 = *&a2[v16];
+    v16 = *&a2[v15];
   }
 
   else
   {
-    v17 = -1;
+    v16 = -1;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 44, v17, -1);
-  v18 = &a2[-*a2];
-  if (*v18 >= 0x2Bu && (v19 = *(v18 + 21)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 44, v16, -1);
+  v17 = &a2[-*a2];
+  if (*v17 >= 0x2Bu && (v18 = *(v17 + 21)) != 0)
   {
-    v20 = *&a2[v19];
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 42, v20, 0);
-  v21 = &a2[-*a2];
-  if (*v21 >= 0x29u && (v22 = *(v21 + 20)) != 0)
-  {
-    v23 = *&a2[v22];
+    v19 = *&a2[v18];
   }
 
   else
   {
-    v23 = 1;
+    v19 = 0;
   }
 
-  v24 = 1;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 40, v23, 1);
-  v25 = &a2[-*a2];
-  if (*v25 >= 0x1Fu)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 42, v19, 0);
+  v20 = &a2[-*a2];
+  if (*v20 >= 0x29u && (v21 = *(v20 + 20)) != 0)
   {
-    v26 = *(v25 + 15);
-    if (v26)
+    v22 = *&a2[v21];
+  }
+
+  else
+  {
+    v22 = 1;
+  }
+
+  v23 = 1;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 40, v22, 1);
+  v24 = &a2[-*a2];
+  if (*v24 >= 0x1Fu)
+  {
+    v25 = *(v24 + 15);
+    if (v25)
     {
-      v24 = *&a2[v26];
+      v23 = *&a2[v25];
     }
 
     else
     {
-      v24 = 1;
+      v23 = 1;
     }
   }
 
-  v27 = 1;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 30, v24, 1);
-  v28 = &a2[-*a2];
-  if (*v28 >= 0x1Du)
+  v26 = 1;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 30, v23, 1);
+  v27 = &a2[-*a2];
+  if (*v27 >= 0x1Du)
   {
-    v29 = *(v28 + 14);
-    if (v29)
+    v28 = *(v27 + 14);
+    if (v28)
     {
-      v27 = *&a2[v29];
+      v26 = *&a2[v28];
     }
 
     else
     {
-      v27 = 1;
+      v26 = 1;
     }
   }
 
-  v30 = 1;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 28, v27, 1);
-  v31 = &a2[-*a2];
-  if (*v31 >= 0x1Bu)
+  v29 = 1;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 28, v26, 1);
+  v30 = &a2[-*a2];
+  if (*v30 >= 0x1Bu)
   {
-    v32 = *(v31 + 13);
-    if (v32)
+    v31 = *(v30 + 13);
+    if (v31)
     {
-      v30 = *&a2[v32];
+      v29 = *&a2[v31];
     }
 
     else
     {
-      v30 = 1;
+      v29 = 1;
     }
   }
 
-  v33 = 1;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 26, v30, 1);
-  v34 = &a2[-*a2];
-  if (*v34 >= 0x19u)
+  v32 = 1;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 26, v29, 1);
+  v33 = &a2[-*a2];
+  if (*v33 >= 0x19u)
   {
-    v35 = *(v34 + 12);
-    if (v35)
+    v34 = *(v33 + 12);
+    if (v34)
     {
-      v33 = *&a2[v35];
+      v32 = *&a2[v34];
     }
 
     else
     {
-      v33 = 1;
+      v32 = 1;
     }
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 24, v33, 1);
-  v36 = &a2[-*a2];
-  if (*v36 >= 0x17u && (v37 = *(v36 + 11)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 24, v32, 1);
+  v35 = &a2[-*a2];
+  if (*v35 >= 0x17u && (v36 = *(v35 + 11)) != 0)
   {
-    v38 = *&a2[v37];
+    v37 = *&a2[v36];
   }
 
   else
   {
-    v38 = 0;
+    v37 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 22, v38, 0);
-  v39 = &a2[-*a2];
-  if (*v39 >= 0x15u && (v40 = *(v39 + 10)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 22, v37, 0);
+  v38 = &a2[-*a2];
+  if (*v38 >= 0x15u && (v39 = *(v38 + 10)) != 0)
   {
-    v41 = *&a2[v40];
+    v40 = *&a2[v39];
   }
 
   else
   {
-    v41 = 0;
+    v40 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 20, v41, 0);
-  v42 = &a2[-*a2];
-  if (*v42 >= 0x13u && (v43 = *(v42 + 9)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 20, v40, 0);
+  v41 = &a2[-*a2];
+  if (*v41 >= 0x13u && (v42 = *(v41 + 9)) != 0)
   {
-    v44 = *&a2[v43];
+    v43 = *&a2[v42];
   }
 
   else
   {
-    v44 = 0;
+    v43 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 18, v44, 0);
-  v45 = &a2[-*a2];
-  if (*v45 >= 0x11u && (v46 = *(v45 + 8)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 18, v43, 0);
+  v44 = &a2[-*a2];
+  if (*v44 >= 0x11u && (v45 = *(v44 + 8)) != 0)
   {
-    v47 = *&a2[v46];
+    v46 = *&a2[v45];
   }
 
   else
   {
-    v47 = 0;
+    v46 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 16, v47, 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 16, v46, 0);
   if (VectorIyZN3Mtl33CloneMeshRenderPipelineDescriptorINS2_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS2_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS_6OffsetIS4_EEE4typeERS0_PKS8_EUlmPvE_vEENS9_INS_6VectorIS8_EEEEmT0_PT1)
   {
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 100, VectorIyZN3Mtl33CloneMeshRenderPipelineDescriptorINS2_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS2_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS_6OffsetIS4_EEE4typeERS0_PKS8_EUlmPvE_vEENS9_INS_6VectorIS8_EEEEmT0_PT1);
@@ -7144,41 +6314,41 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 98, VectorIyZN3Mtl33CloneMeshRenderPipelineDescriptorINS2_28MeshRenderPipelineDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS2_43MeshRenderPipelineDescriptorCloneCompatibleET_EE5valueENS_6OffsetIS4_EEE4typeERS0_PKS8_EUlmPvE0_vEENS9_INS_6VectorIS8_EEEEmT0_PT1);
   }
 
-  if (v133)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 96, v133);
-  }
-
   if (v132)
   {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 94, v132);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 96, v132);
   }
 
   if (v131)
   {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 92, v131);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 94, v131);
   }
 
-  v48 = &a2[-*a2];
-  if (*v48 >= 0x59u && (v49 = *(v48 + 44)) != 0)
+  if (v130)
   {
-    v50 = *&a2[v49];
+    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 92, v130);
+  }
+
+  v47 = &a2[-*a2];
+  if (*v47 >= 0x59u && (v48 = *(v47 + 44)) != 0)
+  {
+    v49 = *&a2[v48];
   }
 
   else
   {
-    v50 = 0;
+    v49 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 88, v50, 0);
-  if (v130)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 60, v130);
-  }
-
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 88, v49, 0);
   if (v129)
   {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 58, v129);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 60, v129);
+  }
+
+  if (v128)
+  {
+    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 58, v128);
   }
 
   if (v8)
@@ -7191,18 +6361,18 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 50, v9);
   }
 
-  v51 = &a2[-*a2];
-  v52 = 1.0;
-  if (*v51 >= 0x2Fu)
+  v50 = &a2[-*a2];
+  v51 = 1.0;
+  if (*v50 >= 0x2Fu)
   {
-    v53 = *(v51 + 23);
-    if (v53)
+    v52 = *(v50 + 23);
+    if (v52)
     {
-      v52 = *&a2[v53];
+      v51 = *&a2[v52];
     }
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<float>(a1, 46, v52, 1.0);
+  flatbuffers::FlatBufferBuilder::AddElement<float>(a1, 46, v51, 1.0);
   if (String)
   {
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 10, String);
@@ -7223,61 +6393,61 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
     flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 4, v13);
   }
 
-  v54 = &a2[-*a2];
-  if (*v54 >= 0x37u && (v55 = *(v54 + 27)) != 0)
+  v53 = &a2[-*a2];
+  if (*v53 >= 0x37u && (v54 = *(v53 + 27)) != 0)
   {
-    v56 = *&a2[v55];
+    v55 = *&a2[v54];
   }
 
   else
   {
-    v56 = 0;
+    v55 = 0;
   }
 
-  v57 = Mtl::ClonePixelFormat<Mtl::PixelFormat>(v56);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 54, v57, 0);
-  v58 = &a2[-*a2];
-  if (*v58 >= 0x35u && (v59 = *(v58 + 26)) != 0)
+  v56 = Mtl::ClonePixelFormat<Mtl::PixelFormat>(v55);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 54, v56, 0);
+  v57 = &a2[-*a2];
+  if (*v57 >= 0x35u && (v58 = *(v57 + 26)) != 0)
   {
-    v60 = *&a2[v59];
-  }
-
-  else
-  {
-    v60 = 0;
-  }
-
-  v61 = Mtl::ClonePixelFormat<Mtl::PixelFormat>(v60);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 52, v61, 0);
-  v62 = &a2[-*a2];
-  v64 = *v62 >= 0x5Bu && (v63 = *(v62 + 45)) != 0 && a2[v63] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 90, v64, 0);
-  v65 = &a2[-*a2];
-  v67 = *v65 >= 0x57u && (v66 = *(v65 + 43)) != 0 && a2[v66] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 86, v67, 0);
-  v68 = &a2[-*a2];
-  v70 = *v68 >= 0x55u && (v69 = *(v68 + 42)) != 0 && a2[v69] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 84, v70, 0);
-  v71 = &a2[-*a2];
-  v73 = *v71 >= 0x53u && (v72 = *(v71 + 41)) != 0 && a2[v72] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 82, v73, 0);
-  v74 = &a2[-*a2];
-  if (*v74 >= 0x51u && (v75 = *(v74 + 40)) != 0)
-  {
-    v76 = a2[v75];
+    v59 = *&a2[v58];
   }
 
   else
   {
-    v76 = 255;
+    v59 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 80, v76, 255);
-  v77 = &a2[-*a2];
-  if (*v77 >= 0x4Fu && (v78 = *(v77 + 39)) != 0)
+  v60 = Mtl::ClonePixelFormat<Mtl::PixelFormat>(v59);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(a1, 52, v60, 0);
+  v61 = &a2[-*a2];
+  v63 = *v61 >= 0x5Bu && (v62 = *(v61 + 45)) != 0 && a2[v62] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 90, v63, 0);
+  v64 = &a2[-*a2];
+  v66 = *v64 >= 0x57u && (v65 = *(v64 + 43)) != 0 && a2[v65] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 86, v66, 0);
+  v67 = &a2[-*a2];
+  v69 = *v67 >= 0x55u && (v68 = *(v67 + 42)) != 0 && a2[v68] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 84, v69, 0);
+  v70 = &a2[-*a2];
+  v72 = *v70 >= 0x53u && (v71 = *(v70 + 41)) != 0 && a2[v71] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 82, v72, 0);
+  v73 = &a2[-*a2];
+  if (*v73 >= 0x51u && (v74 = *(v73 + 40)) != 0)
   {
-    v79 = a2[v78];
-    if (v79 >= 8)
+    v75 = a2[v74];
+  }
+
+  else
+  {
+    v75 = 255;
+  }
+
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 80, v75, 255);
+  v76 = &a2[-*a2];
+  if (*v76 >= 0x4Fu && (v77 = *(v76 + 39)) != 0)
+  {
+    v78 = a2[v77];
+    if (v78 >= 8)
     {
       goto LABEL_216;
     }
@@ -7285,18 +6455,18 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
 
   else
   {
-    v79 = 0;
+    v78 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 78, v79, 0);
-  v80 = &a2[-*a2];
-  v82 = *v80 >= 0x4Du && (v81 = *(v80 + 38)) != 0 && a2[v81] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 76, v82, 0);
-  v83 = &a2[-*a2];
-  if (*v83 >= 0x4Bu && (v84 = *(v83 + 37)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 78, v78, 0);
+  v79 = &a2[-*a2];
+  v81 = *v79 >= 0x4Du && (v80 = *(v79 + 38)) != 0 && a2[v80] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 76, v81, 0);
+  v82 = &a2[-*a2];
+  if (*v82 >= 0x4Bu && (v83 = *(v82 + 37)) != 0)
   {
-    v85 = a2[v84];
-    if (v85 >= 0x10)
+    v84 = a2[v83];
+    if (v84 >= 0x10)
     {
       goto LABEL_216;
     }
@@ -7304,18 +6474,18 @@ uint64_t Mtl::CloneMeshRenderPipelineDescriptor<Mtl::MeshRenderPipelineDescripto
 
   else
   {
-    v85 = 0;
+    v84 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 74, v85, 0);
-  v86 = &a2[-*a2];
-  v88 = *v86 >= 0x49u && (v87 = *(v86 + 36)) != 0 && a2[v87] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 72, v88, 0);
-  v89 = &a2[-*a2];
-  if (*v89 >= 0x47u && (v90 = *(v89 + 35)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 74, v84, 0);
+  v85 = &a2[-*a2];
+  v87 = *v85 >= 0x49u && (v86 = *(v85 + 36)) != 0 && a2[v86] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 72, v87, 0);
+  v88 = &a2[-*a2];
+  if (*v88 >= 0x47u && (v89 = *(v88 + 35)) != 0)
   {
-    v91 = a2[v90];
-    if (v91 >= 3)
+    v90 = a2[v89];
+    if (v90 >= 3)
     {
 LABEL_216:
       abort();
@@ -7324,39 +6494,39 @@ LABEL_216:
 
   else
   {
-    v91 = 0;
+    v90 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 70, v91, 0);
-  v92 = &a2[-*a2];
-  v94 = *v92 >= 0x45u && (v93 = *(v92 + 34)) != 0 && a2[v93] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 68, v94, 0);
-  v95 = &a2[-*a2];
-  v97 = *v95 >= 0x43u && (v96 = *(v95 + 33)) != 0 && a2[v96] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 66, v97, 0);
-  v98 = &a2[-*a2];
-  v100 = *v98 >= 0x41u && (v99 = *(v98 + 32)) != 0 && a2[v99] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 64, v100, 0);
-  v101 = &a2[-*a2];
-  v103 = *v101 >= 0x3Fu && (v102 = *(v101 + 31)) != 0 && a2[v102] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 62, v103, 0);
-  v104 = &a2[-*a2];
-  v106 = *v104 >= 0x31u && (v105 = *(v104 + 24)) != 0 && a2[v105] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 48, v106, 0);
-  v107 = &a2[-*a2];
-  v109 = *v107 >= 0x27u && (v108 = *(v107 + 19)) != 0 && a2[v108] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 38, v109, 0);
-  v110 = &a2[-*a2];
-  v112 = *v110 >= 0x25u && (v111 = *(v110 + 18)) != 0 && a2[v111] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 36, v112, 0);
-  v113 = &a2[-*a2];
-  v115 = *v113 < 0x23u || (v114 = *(v113 + 17)) == 0 || a2[v114] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 34, v115, 1);
-  v116 = &a2[-*a2];
-  if (*v116 >= 0x21u && (v117 = *(v116 + 16)) != 0)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 70, v90, 0);
+  v91 = &a2[-*a2];
+  v93 = *v91 >= 0x45u && (v92 = *(v91 + 34)) != 0 && a2[v92] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 68, v93, 0);
+  v94 = &a2[-*a2];
+  v96 = *v94 >= 0x43u && (v95 = *(v94 + 33)) != 0 && a2[v95] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 66, v96, 0);
+  v97 = &a2[-*a2];
+  v99 = *v97 >= 0x41u && (v98 = *(v97 + 32)) != 0 && a2[v98] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 64, v99, 0);
+  v100 = &a2[-*a2];
+  v102 = *v100 >= 0x3Fu && (v101 = *(v100 + 31)) != 0 && a2[v101] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 62, v102, 0);
+  v103 = &a2[-*a2];
+  v105 = *v103 >= 0x31u && (v104 = *(v103 + 24)) != 0 && a2[v104] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 48, v105, 0);
+  v106 = &a2[-*a2];
+  v108 = *v106 >= 0x27u && (v107 = *(v106 + 19)) != 0 && a2[v107] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 38, v108, 0);
+  v109 = &a2[-*a2];
+  v111 = *v109 >= 0x25u && (v110 = *(v109 + 18)) != 0 && a2[v110] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 36, v111, 0);
+  v112 = &a2[-*a2];
+  v114 = *v112 < 0x23u || (v113 = *(v112 + 17)) == 0 || a2[v113] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 34, v114, 1);
+  v115 = &a2[-*a2];
+  if (*v115 >= 0x21u && (v116 = *(v115 + 16)) != 0)
   {
-    v118 = a2[v117];
-    if (v118 >= 2)
+    v117 = a2[v116];
+    if (v117 >= 2)
     {
       goto LABEL_216;
     }
@@ -7364,41 +6534,38 @@ LABEL_216:
 
   else
   {
-    v118 = 0;
+    v117 = 0;
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 32, v118, 0);
-  v119 = &a2[-*a2];
-  v121 = *v119 >= 0xFu && (v120 = *(v119 + 7)) != 0 && a2[v120] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 14, v121, 0);
-  v122 = &a2[-*a2];
-  v124 = *v122 >= 0xDu && (v123 = *(v122 + 6)) != 0 && a2[v123] != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 12, v124, 0);
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v126 - v127 + v128);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 32, v117, 0);
+  v118 = &a2[-*a2];
+  v120 = *v118 >= 0xFu && (v119 = *(v118 + 7)) != 0 && a2[v119] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 14, v120, 0);
+  v121 = &a2[-*a2];
+  v123 = *v121 >= 0xDu && (v122 = *(v121 + 6)) != 0 && a2[v122] != 0;
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 12, v123, 0);
+  return flatbuffers::FlatBufferBuilder::EndTable(a1, v125 - v126 + v127);
 }
 
 void MTLMetalScriptBuilderImpl::makeFunctionString(uint64_t a1@<X0>, void *a2@<X1>, std::string *a3@<X8>)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 bitCodeHash];
   v6 = *(v5 + 16);
-  v10[0] = *v5;
-  v10[1] = v6;
-  HashToString(v10, &__p);
+  v9[0] = *v5;
+  v9[1] = v6;
+  HashToString(v9, &__p);
   v7 = std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>((a1 + 88), v5);
   MTLMetalScriptBuilderImpl::makeFunctionString((v7 + 9), a3);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void HashToString(uint64_t a1@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::reserve(a2, 0x40uLL);
   for (i = 0; i != 32; ++i)
@@ -7410,8 +6577,7 @@ void HashToString(uint64_t a1@<X0>, std::string *a2@<X8>)
 }
 
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::reserve(a2, 0x40uLL);
   for (i = 0; i != 32; ++i)
@@ -7550,8 +6716,7 @@ void MTLMetalScriptBuilderImpl::makeFunctionString(unsigned int *a1@<X2>, std::s
 
   else
   {
-    a2->__r_.__value_.__r.__words[0] = 0;
-    a2->__r_.__value_.__l.__size_ = 0;
+    *&a2->__r_.__value_.__l.__data_ = 0uLL;
     a2->__r_.__value_.__r.__words[2] = 0;
   }
 }
@@ -7578,21 +6743,21 @@ void sub_185C85A70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MTLMetalScriptBuilderImpl::addLinkedFunction(MTLMetalScriptBuilderImpl *this, MTLLinkedFunctions *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  if ([(NSArray *)[(MTLLinkedFunctions *)a2 functions] count]&& (v4 = [(MTLLinkedFunctions *)a2 functions], v16 = 0u, v17 = 0u, v18 = 0u, v19 = 0u, (v5 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16]) != 0))
+  v20 = *MEMORY[0x1E69E9840];
+  if ([(NSArray *)[(MTLLinkedFunctions *)a2 functions] count]&& (v4 = [(MTLLinkedFunctions *)a2 functions], v15 = 0u, v16 = 0u, v17 = 0u, v18 = 0u, (v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16]) != 0))
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
 LABEL_4:
     v8 = 0;
     while (1)
     {
-      if (*v17 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      result = MTLMetalScriptBuilderImpl::addFunction(this, *(*(&v16 + 1) + 8 * v8));
+      result = MTLMetalScriptBuilderImpl::addFunction(this, *(*(&v15 + 1) + 8 * v8));
       if (!result)
       {
         break;
@@ -7600,7 +6765,7 @@ LABEL_4:
 
       if (v6 == ++v8)
       {
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v6)
         {
           goto LABEL_4;
@@ -7614,20 +6779,20 @@ LABEL_4:
   else
   {
 LABEL_10:
-    if ([(NSArray *)[(MTLLinkedFunctions *)a2 privateFunctions] count]&& (v10 = [(MTLLinkedFunctions *)a2 privateFunctions], v16 = 0u, v17 = 0u, v18 = 0u, v19 = 0u, (v11 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16]) != 0))
+    if ([(NSArray *)[(MTLLinkedFunctions *)a2 privateFunctions] count]&& (v10 = [(MTLLinkedFunctions *)a2 privateFunctions], v15 = 0u, v16 = 0u, v17 = 0u, v18 = 0u, (v11 = [(NSArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16]) != 0))
     {
       v12 = v11;
-      v13 = *v17;
+      v13 = *v16;
 LABEL_13:
       v14 = 0;
       while (1)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        result = MTLMetalScriptBuilderImpl::addFunction(this, *(*(&v16 + 1) + 8 * v14));
+        result = MTLMetalScriptBuilderImpl::addFunction(this, *(*(&v15 + 1) + 8 * v14));
         if (!result)
         {
           break;
@@ -7635,25 +6800,23 @@ LABEL_13:
 
         if (v12 == ++v14)
         {
-          v12 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v12 = [(NSArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v12)
           {
             goto LABEL_13;
           }
 
-          goto LABEL_19;
+          return 1;
         }
       }
     }
 
     else
     {
-LABEL_19:
-      result = 1;
+      return 1;
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7683,7 +6846,7 @@ void ___ZN25MTLMetalScriptBuilderImpl32addComputePipelineWithDescriptorEP28MTLCo
 
 uint64_t MTLMetalScriptBuilderImpl::addFunction(MTLMetalScriptBuilderImpl *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = [a2 libraryData];
   if (![a2 airScript])
   {
@@ -7693,12 +6856,11 @@ uint64_t MTLMetalScriptBuilderImpl::addFunction(MTLMetalScriptBuilderImpl *a1, v
   v5 = [a2 bitCodeHash];
   if (std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>(a1 + 11, v5))
   {
-    goto LABEL_4;
+    return 1;
   }
 
   if ([a2 specializationAirScript])
   {
-    v8 = *MEMORY[0x1E69E9840];
 
     return MTLMetalScriptBuilderImpl::addFunctionWithDescriptorInternal(a1, a2, 0, 0);
   }
@@ -7707,55 +6869,51 @@ uint64_t MTLMetalScriptBuilderImpl::addFunction(MTLMetalScriptBuilderImpl *a1, v
   {
     if (![a2 stitchingAirScript])
     {
-      v10 = (*(*v4 + 344))(v4);
-      *v16 = *v10;
-      *&v16[16] = v10[1];
-      HashToString(v16, &v14);
+      v7 = (*(*v4 + 344))(v4);
+      *v13 = *v7;
+      *&v13[16] = v7[1];
+      HashToString(v13, &v11);
       std::string::basic_string[abi:ne200100]<0>(__p, [objc_msgSend(a2 "name")]);
-      if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(v16, v14.__r_.__value_.__l.__data_, v14.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(v13, v11.__r_.__value_.__l.__data_, v11.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        *v16 = v14;
+        *v13 = v11;
       }
 
-      *&v16[24] = *__p;
-      v17 = v13;
+      *&v13[24] = *__p;
+      v14 = v10;
       __p[1] = 0;
-      v13 = 0;
+      v10 = 0;
       __p[0] = 0;
-      v15 = v5;
-      v11 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(a1 + 11, v5);
-      std::pair<std::string,std::string>::operator=[abi:ne200100]((v11 + 6), v16);
-      if (SHIBYTE(v17) < 0)
+      v12 = v5;
+      v8 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(a1 + 11, v5, &std::piecewise_construct, &v12);
+      std::pair<std::string,std::string>::operator=[abi:ne200100]((v8 + 6), v13);
+      if (SHIBYTE(v14) < 0)
       {
-        operator delete(*&v16[24]);
+        operator delete(*&v13[24]);
       }
 
-      if ((v16[23] & 0x80000000) != 0)
+      if ((v13[23] & 0x80000000) != 0)
       {
-        operator delete(*v16);
+        operator delete(*v13);
       }
 
-      if (SHIBYTE(v13) < 0)
+      if (SHIBYTE(v10) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v14.__r_.__value_.__l.__data_);
+        operator delete(v11.__r_.__value_.__l.__data_);
       }
 
-LABEL_4:
-      v6 = *MEMORY[0x1E69E9840];
       return 1;
     }
-
-    v9 = *MEMORY[0x1E69E9840];
 
     return MTLMetalScriptBuilderImpl::addStitchedFunctionLibraryWithDescriptorInternal(a1, a2, 0, 0);
   }
@@ -7776,16 +6934,16 @@ void sub_185C85FE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MTLMetalScriptBuilderImpl::addComputePipeline(MTLMetalScriptBuilderImpl *this, MTLComputePipelineDescriptor *a2)
+void MTLMetalScriptBuilderImpl::addComputePipeline(const void **this, MTLComputePipelineDescriptor *a2)
 {
   v2 = *MEMORY[0x1E69E9840];
   [(MTLComputePipelineDescriptor *)a2 _descriptorPrivate];
   operator new();
 }
 
-void sub_185C86200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_185C86200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7849,7 +7007,7 @@ LABEL_12:
   objc_autoreleasePoolPop(v3);
 }
 
-void MTLMetalScriptBuilderImpl::addRenderPipeline(MTLMetalScriptBuilderImpl *this, MTLRenderPipelineDescriptor *a2)
+void MTLMetalScriptBuilderImpl::addRenderPipeline(const void **this, MTLRenderPipelineDescriptor *a2)
 {
   v2 = *MEMORY[0x1E69E9840];
   [(MTLRenderPipelineDescriptor *)a2 _descriptorPrivate];
@@ -7942,7 +7100,7 @@ LABEL_18:
   objc_autoreleasePoolPop(v3);
 }
 
-void MTLMetalScriptBuilderImpl::addMeshRenderPipeline(MTLMetalScriptBuilderImpl *this, MTLMeshRenderPipelineDescriptor *a2)
+void MTLMetalScriptBuilderImpl::addMeshRenderPipeline(const void **this, MTLMeshRenderPipelineDescriptor *a2)
 {
   v2 = *MEMORY[0x1E69E9840];
   [(MTLMeshRenderPipelineDescriptor *)a2 _descriptorPrivate];
@@ -7994,16 +7152,16 @@ void ___ZN25MTLMetalScriptBuilderImpl35addTileRenderPipelineWithDescriptorEP31MT
   objc_autoreleasePoolPop(v3);
 }
 
-void MTLMetalScriptBuilderImpl::addTileRenderPipeline(MTLMetalScriptBuilderImpl *this, MTLTileRenderPipelineDescriptor *a2)
+void MTLMetalScriptBuilderImpl::addTileRenderPipeline(const void **this, MTLTileRenderPipelineDescriptor *a2)
 {
   v2 = *MEMORY[0x1E69E9840];
   [(MTLTileRenderPipelineDescriptor *)a2 _descriptorPrivate];
   operator new();
 }
 
-void sub_185C86ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_185C86ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<std::string ()(objc_object  {objcproto11MTLFunction}*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8022,25 +7180,24 @@ void MTLMetalScriptBuilderImpl::addFunctionWithDescriptor(NSObject **a1, uint64_
   dispatch_sync(v4, v5);
 }
 
-void ___ZN25MTLMetalScriptBuilderImpl25addFunctionWithDescriptorEPU22objcproto11MTLFunction11objc_objectPU21objcproto10MTLLibrary11objc_objectP21MTLFunctionDescriptor_block_invoke(uint64_t a1)
+void ___ZN25MTLMetalScriptBuilderImpl25addFunctionWithDescriptorEPU22objcproto11MTLFunction11objc_objectPU21objcproto10MTLLibrary11objc_objectP21MTLFunctionDescriptor_block_invoke(void *a1)
 {
-  v2 = *(a1 + 56);
+  v2 = a1[7];
   v3 = objc_autoreleasePoolPush();
-  MTLMetalScriptBuilderImpl::addFunctionWithDescriptorInternal(v2, *(a1 + 32), *(a1 + 40), *(a1 + 48));
+  MTLMetalScriptBuilderImpl::addFunctionWithDescriptorInternal(v2, a1[4], a1[5], a1[6]);
 
   objc_autoreleasePoolPop(v3);
 }
 
 uint64_t MTLMetalScriptBuilderImpl::addFunctionWithDescriptorInternal(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   v8 = [a2 specializationAirScript];
   v9 = [a4 options];
   v10 = v9;
   if (!v8 && (v9 & 1) == 0)
   {
-    v11 = 0;
-    goto LABEL_168;
+    return 0;
   }
 
   memset(__p, 0, 24);
@@ -8112,15 +7269,15 @@ LABEL_33:
   }
 
   *c.count = [v14 bitCodeHash];
-  v15 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((a1 + 88), *c.count);
+  v15 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((a1 + 88), *c.count, &std::piecewise_construct, &c);
   if (*(v15 + 71) < 0)
   {
-    std::string::__init_copy_ctor_external(&v112, v15[6], v15[7]);
+    std::string::__init_copy_ctor_external(&v111, v15[6], v15[7]);
   }
 
   else
   {
-    v112 = *(v15 + 2);
+    v111 = *(v15 + 2);
   }
 
   if (a3)
@@ -8132,9 +7289,9 @@ LABEL_33:
   v16 = dispatch_data_create_map(v8, &buffer_ptr, &size_ptr);
   if (!v16 || !size_ptr)
   {
-    if (SHIBYTE(v112.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v112.__r_.__value_.__l.__data_);
+      operator delete(v111.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_33;
@@ -8312,75 +7469,75 @@ LABEL_70:
 LABEL_71:
   v38 = MTLMetalScriptSerializer::addFunctionConstants((a1 + 248), v13, v35);
   CC_SHA256_Init(&c);
-  if ((v112.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v111.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v39 = &v112;
+    v39 = &v111;
   }
 
   else
   {
-    v39 = v112.__r_.__value_.__r.__words[0];
+    v39 = v111.__r_.__value_.__r.__words[0];
   }
 
   CC_SHA256_Update(&c, v39, 0x40u);
   Air::ConstantsSpecializationDescriptor::HashImpl(v21, &c);
-  flatbuffers::SignatureBuilder::Create(&c, v108);
-  v106 = String;
-  v116 = *v108[0];
-  v117 = *(v108[0] + 1);
-  v108[1] = v108[0];
-  operator delete(v108[0]);
+  flatbuffers::SignatureBuilder::Create(v107, &c);
+  v105 = String;
+  v115 = *v107[0];
+  v116 = *(v107[0] + 1);
+  v107[1] = v107[0];
+  operator delete(v107[0]);
   std::string::basic_string[abi:ne200100]<0>(&__dst, "SpecializedLib_");
-  *c.count = v116;
-  *&c.hash[2] = v117;
-  HashToString(&c, &v107);
-  if ((v107.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *c.count = v115;
+  *&c.hash[2] = v116;
+  HashToString(&c, &v106);
+  if ((v106.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v40 = &v107;
+    v40 = &v106;
   }
 
   else
   {
-    v40 = v107.__r_.__value_.__r.__words[0];
+    v40 = v106.__r_.__value_.__r.__words[0];
   }
 
-  if ((v107.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v106.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v107.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v106.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v107.__r_.__value_.__l.__size_;
+    size = v106.__r_.__value_.__l.__size_;
   }
 
   v42 = std::string::append(&__dst, v40, size);
   v43 = *&v42->__r_.__value_.__l.__data_;
-  v109 = v42->__r_.__value_.__r.__words[2];
-  *v108 = v43;
+  v108 = v42->__r_.__value_.__r.__words[2];
+  *v107 = v43;
   v42->__r_.__value_.__l.__size_ = 0;
   v42->__r_.__value_.__r.__words[2] = 0;
   v42->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v106.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v107.__r_.__value_.__l.__data_);
+    operator delete(v106.__r_.__value_.__l.__data_);
   }
 
-  v105 = v38;
+  v104 = v38;
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__dst.__r_.__value_.__l.__data_);
   }
 
   v44 = v37;
-  if (v109 >= 0)
+  if (v108 >= 0)
   {
-    v45 = HIBYTE(v109);
+    v45 = HIBYTE(v108);
   }
 
   else
   {
-    v45 = v108[1];
+    v45 = v107[1];
   }
 
   std::string::basic_string[abi:ne200100](&c, v45 + 1);
@@ -8396,14 +7553,14 @@ LABEL_71:
 
   if (v45)
   {
-    if (v109 >= 0)
+    if (v108 >= 0)
     {
-      v47 = v108;
+      v47 = v107;
     }
 
     else
     {
-      v47 = v108[0];
+      v47 = v107[0];
     }
 
     memmove(v46, v47, v45);
@@ -8452,19 +7609,19 @@ LABEL_71:
     operator delete(*c.count);
   }
 
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 168), v108);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 168), v107, v107);
   if ((v53 & 1) == 0)
   {
     goto LABEL_114;
   }
 
-  v54 = SHIBYTE(v109);
-  if ((SHIBYTE(v109) & 0x8000000000000000) != 0)
+  v54 = SHIBYTE(v108);
+  if ((SHIBYTE(v108) & 0x8000000000000000) != 0)
   {
-    v54 = v108[1];
-    if (v108[1])
+    v54 = v107[1];
+    if (v107[1])
     {
-      v55 = v108[0];
+      v55 = v107[0];
       goto LABEL_111;
     }
 
@@ -8473,12 +7630,12 @@ LABEL_112:
     goto LABEL_113;
   }
 
-  if (!HIBYTE(v109))
+  if (!HIBYTE(v108))
   {
     goto LABEL_112;
   }
 
-  v55 = v108;
+  v55 = v107;
 LABEL_111:
   v56 = flatbuffers::FlatBufferBuilder::CreateString((a1 + 248), v55, v54);
 LABEL_113:
@@ -8488,28 +7645,28 @@ LABEL_113:
   v59 = *(a1 + 288);
   flatbuffers::FlatBufferBuilder::AddOffset<void>((a1 + 248), 4, v56);
   flatbuffers::FlatBufferBuilder::AddOffset<void>((a1 + 248), 6, v44);
-  flatbuffers::FlatBufferBuilder::AddOffset<void>((a1 + 248), 8, v106);
-  flatbuffers::FlatBufferBuilder::AddOffset<void>((a1 + 248), 12, v105);
+  flatbuffers::FlatBufferBuilder::AddOffset<void>((a1 + 248), 8, v105);
+  flatbuffers::FlatBufferBuilder::AddOffset<void>((a1 + 248), 12, v104);
   c.count[0] = flatbuffers::FlatBufferBuilder::EndTable((a1 + 248), v57 - v58 + v59);
   std::vector<unsigned int>::push_back[abi:ne200100]((a1 + 368), &c);
 LABEL_114:
   v60 = [a2 bitCodeHash];
   std::string::basic_string[abi:ne200100](&__dst, v26 + 1, *v26);
-  if (SHIBYTE(v109) < 0)
+  if (SHIBYTE(v108) < 0)
   {
-    std::string::__init_copy_ctor_external(&c, v108[0], v108[1]);
+    std::string::__init_copy_ctor_external(&c, v107[0], v107[1]);
   }
 
   else
   {
-    *c.count = *v108;
-    *&c.hash[2] = v109;
+    *c.count = *v107;
+    *&c.hash[2] = v108;
   }
 
   *&c.hash[4] = __dst;
   memset(&__dst, 0, sizeof(__dst));
-  v107.__r_.__value_.__r.__words[0] = v60;
-  v61 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((a1 + 88), v60);
+  v106.__r_.__value_.__r.__words[0] = v60;
+  v61 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((a1 + 88), v60, &std::piecewise_construct, &v106);
   std::pair<std::string,std::string>::operator=[abi:ne200100]((v61 + 6), &c);
   if (SHIBYTE(c.wbuf[1]) < 0)
   {
@@ -8527,16 +7684,16 @@ LABEL_114:
   }
 
   dispatch_release(v17);
-  if (SHIBYTE(v109) < 0)
+  if (SHIBYTE(v108) < 0)
   {
-    operator delete(v108[0]);
+    operator delete(v107[0]);
   }
 
   v24 = 0;
 LABEL_126:
-  if (SHIBYTE(v112.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v112.__r_.__value_.__l.__data_);
+    operator delete(v111.__r_.__value_.__l.__data_);
   }
 
   if (v10)
@@ -8717,8 +7874,6 @@ LABEL_166:
     operator delete(__p[0]);
   }
 
-LABEL_168:
-  v103 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -8755,11 +7910,11 @@ void MTLMetalScriptBuilderImpl::addLibraryWithDescriptor(NSObject **a1, uint64_t
   dispatch_sync(v3, block);
 }
 
-void ___ZN25MTLMetalScriptBuilderImpl24addLibraryWithDescriptorEPU21objcproto10MTLLibrary11objc_objectP28MTLStitchedLibraryDescriptor_block_invoke(uint64_t a1)
+void ___ZN25MTLMetalScriptBuilderImpl24addLibraryWithDescriptorEPU21objcproto10MTLLibrary11objc_objectP28MTLStitchedLibraryDescriptor_block_invoke(void *a1)
 {
-  v2 = *(a1 + 48);
+  v2 = a1[6];
   v3 = objc_autoreleasePoolPush();
-  MTLMetalScriptBuilderImpl::addStitchedFunctionLibraryWithDescriptorInternal(v2, 0, *(a1 + 32), *(a1 + 40));
+  MTLMetalScriptBuilderImpl::addStitchedFunctionLibraryWithDescriptorInternal(v2, 0, a1[4], a1[5]);
 
   objc_autoreleasePoolPop(v3);
 }
@@ -8859,7 +8014,7 @@ void MTLMetalScriptBuilderImpl::addLibraryData(uint64_t a1, flatbuffers::FlatBuf
     MTLMetalScriptBuilderImpl::addLibrary(a1, a2, &__p);
     std::string::basic_string[abi:ne200100]<0>(&v15, -[flatbuffers::FlatBufferBuilder cStringUsingEncoding:](a2, "cStringUsingEncoding:", 4));
     v14 = &__p;
-    v10 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 48), &__p.__r_.__value_.__l.__data_);
+    v10 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 48), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v14, &v13);
     v11 = v10;
     if (*(v10 + 63) < 0)
     {
@@ -8874,8 +8029,6 @@ void MTLMetalScriptBuilderImpl::addLibraryData(uint64_t a1, flatbuffers::FlatBuf
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void sub_185C87EBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -8904,60 +8057,66 @@ void MTLMetalScriptBuilderImpl::addLibraryData(MTLMetalScriptBuilderImpl *this, 
 
 uint64_t MTLMetalScriptBuilderImpl::addStitchedFunctionLibraryWithDescriptorInternal(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v136 = *MEMORY[0x1E69E9840];
+  v135 = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    v99 = a2;
+    v98 = a2;
+    v126 = 0;
     v127 = 0;
     v128 = 0;
-    v129 = 0;
     __src = 0;
+    v124 = 0;
     v125 = 0;
-    v126 = 0;
     obj = [a4 functions];
-    v97 = 0;
+    v96 = 0;
   }
 
   else
   {
-    if (!a2 || (v99 = a2, (v38 = [a2 stitchedLibraryTrackingData]) == 0))
+    if (!a2)
     {
-      v37 = 0;
-      goto LABEL_155;
+      return 0;
     }
 
+    v98 = a2;
+    v38 = [a2 stitchedLibraryTrackingData];
+    if (!v38)
+    {
+      return 0;
+    }
+
+    v126 = 0;
     v127 = 0;
     v128 = 0;
-    v129 = 0;
+    v124 = 0;
     v125 = 0;
-    v126 = 0;
     __src = 0;
-    v97 = v38;
+    v96 = v38;
     obj = *(v38 + 8);
   }
 
-  v100 = a4;
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
+  v99 = a4;
   v121 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v120 objects:v135 count:{16, v97}];
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v119 objects:v134 count:{16, v96}];
   if (!v7)
   {
     goto LABEL_43;
   }
 
-  v8 = *v121;
+  v8 = *v120;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v121 != v8)
+      if (*v120 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v120 + 1) + 8 * i);
+      v10 = *(*(&v119 + 1) + 8 * i);
       if ((MTLMetalScriptBuilderImpl::addFunction(a1, v10) & 1) == 0)
       {
         v37 = 0;
@@ -8986,20 +8145,20 @@ LABEL_14:
 
       String = 0;
 LABEL_16:
-      v14 = v125;
-      if (v125 >= v126)
+      v14 = v124;
+      if (v124 >= v125)
       {
         v16 = __src;
-        v17 = v125 - __src;
-        v18 = (v125 - __src) >> 2;
+        v17 = v124 - __src;
+        v18 = (v124 - __src) >> 2;
         v19 = v18 + 1;
         if ((v18 + 1) >> 62)
         {
           std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
         }
 
-        v20 = v126 - __src;
-        if ((v126 - __src) >> 1 > v19)
+        v20 = v125 - __src;
+        if ((v125 - __src) >> 1 > v19)
         {
           v19 = v20 >> 1;
         }
@@ -9021,8 +8180,8 @@ LABEL_16:
         memcpy(0, v16, v17);
         v23 = __src;
         __src = 0;
-        v125 = v15;
-        v126 = 0;
+        v124 = v15;
+        v125 = 0;
         if (v23)
         {
           operator delete(v23);
@@ -9031,33 +8190,33 @@ LABEL_16:
 
       else
       {
-        *v125 = String;
+        *v124 = String;
         v15 = (v14 + 4);
       }
 
-      v125 = v15;
+      v124 = v15;
       if (SHIBYTE(__p.hash[3]) < 0)
       {
         operator delete(*__p.count);
       }
 
       v24 = [v10 bitCodeHash];
-      v25 = v128;
-      if (v128 >= v129)
+      v25 = v127;
+      if (v127 >= v128)
       {
-        v27 = (v128 - v127) >> 3;
+        v27 = (v127 - v126) >> 3;
         if ((v27 + 1) >> 61)
         {
           std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
         }
 
-        v28 = (v129 - v127) >> 2;
+        v28 = (v128 - v126) >> 2;
         if (v28 <= v27 + 1)
         {
           v28 = v27 + 1;
         }
 
-        if (v129 - v127 >= 0x7FFFFFFFFFFFFFF8)
+        if (v128 - v126 >= 0x7FFFFFFFFFFFFFF8)
         {
           v29 = 0x1FFFFFFFFFFFFFFFLL;
         }
@@ -9069,17 +8228,17 @@ LABEL_16:
 
         if (v29)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<MTLUINT256_t const*>>(&v127, v29);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<MTLUINT256_t const*>>(&v126, v29);
         }
 
         *(8 * v27) = v24;
         v26 = (8 * v27 + 8);
-        v30 = (8 * v27 - (v128 - v127));
-        memcpy(v30, v127, v128 - v127);
-        v31 = v127;
-        v127 = v30;
-        v128 = v26;
-        v129 = 0;
+        v30 = (8 * v27 - (v127 - v126));
+        memcpy(v30, v126, v127 - v126);
+        v31 = v126;
+        v126 = v30;
+        v127 = v26;
+        v128 = 0;
         if (v31)
         {
           operator delete(v31);
@@ -9088,14 +8247,14 @@ LABEL_16:
 
       else
       {
-        *v128 = v24;
+        *v127 = v24;
         v26 = v25 + 1;
       }
 
-      v128 = v26;
+      v127 = v26;
     }
 
-    v7 = [obj countByEnumeratingWithState:&v120 objects:v135 count:16];
+    v7 = [obj countByEnumeratingWithState:&v119 objects:v134 count:16];
     if (v7)
     {
       continue;
@@ -9105,39 +8264,39 @@ LABEL_16:
   }
 
 LABEL_43:
+  v116 = 0;
   v117 = 0;
   v118 = 0;
-  v119 = 0;
+  v113 = 0;
   v114 = 0;
   v115 = 0;
-  v116 = 0;
   if (a3)
   {
-    v112 = 0u;
-    v113 = 0u;
-    v110 = 0u;
     v111 = 0u;
-    v32 = [v100 functionGraphs];
-    v34 = [v32 countByEnumeratingWithState:&v110 objects:v134 count:16];
+    v112 = 0u;
+    v109 = 0u;
+    v110 = 0u;
+    v32 = [v99 functionGraphs];
+    v34 = [v32 countByEnumeratingWithState:&v109 objects:v133 count:16];
     if (v34)
     {
-      v35 = *v111;
+      v35 = *v110;
       do
       {
         for (j = 0; j != v34; ++j)
         {
-          if (*v111 != v35)
+          if (*v110 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          __p.count[0] = MTLMetalScriptSerializer::createGraph((a1 + 248), *(*(&v110 + 1) + 8 * j), v33);
-          std::vector<unsigned int>::push_back[abi:ne200100](&v117, &__p);
-          *__p.count = (v115 - v114) >> 3;
-          std::vector<MTLTagType>::push_back[abi:ne200100](&v114, &__p);
+          __p.count[0] = MTLMetalScriptSerializer::createGraph((a1 + 248), *(*(&v109 + 1) + 8 * j), v33);
+          std::vector<unsigned int>::push_back[abi:ne200100](&v116, &__p);
+          *__p.count = (v114 - v113) >> 3;
+          std::vector<MTLTagType>::push_back[abi:ne200100](&v113, &__p);
         }
 
-        v34 = [v32 countByEnumeratingWithState:&v110 objects:v134 count:16];
+        v34 = [v32 countByEnumeratingWithState:&v109 objects:v133 count:16];
       }
 
       while (v34);
@@ -9147,7 +8306,7 @@ LABEL_43:
   }
 
   memset(&__p, 0, 24);
-  std::vector<NSObject  {objcproto16OS_dispatch_data}*>::__init_with_size[abi:ne200100]<NSObject  {objcproto16OS_dispatch_data}**,NSObject  {objcproto16OS_dispatch_data}**>(&__p, *(v98 + 16), *(v98 + 24), (*(v98 + 24) - *(v98 + 16)) >> 3);
+  std::vector<NSObject  {objcproto16OS_dispatch_data}*>::__init_with_size[abi:ne200100]<NSObject  {objcproto16OS_dispatch_data}**,NSObject  {objcproto16OS_dispatch_data}**>(&__p, *(v97 + 16), *(v97 + 24), (*(v97 + 24) - *(v97 + 16)) >> 3);
   v39 = *__p.count;
   v40 = *__p.hash;
   if (*__p.count != *__p.hash)
@@ -9183,20 +8342,20 @@ LABEL_43:
       }
 
       v50 = Mtl::FunctionStitching::CloneGraph<Air::FunctionStitching::Graph>(a1 + 248, &v47[v49 + *&v47[v49]]);
-      v51 = v118;
-      if (v118 >= v119)
+      v51 = v117;
+      if (v117 >= v118)
       {
-        v53 = v117;
-        v54 = v118 - v117;
-        v55 = (v118 - v117) >> 2;
+        v53 = v116;
+        v54 = v117 - v116;
+        v55 = (v117 - v116) >> 2;
         v56 = v55 + 1;
         if ((v55 + 1) >> 62)
         {
           std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
         }
 
-        v57 = v119 - v117;
-        if ((v119 - v117) >> 1 > v56)
+        v57 = v118 - v116;
+        if ((v118 - v116) >> 1 > v56)
         {
           v56 = v57 >> 1;
         }
@@ -9213,16 +8372,16 @@ LABEL_43:
 
         if (v58)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(&v117, v58);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(&v116, v58);
         }
 
         *(4 * v55) = v50;
         v52 = 4 * v55 + 4;
         memcpy(0, v53, v54);
-        v59 = v117;
-        v117 = 0;
-        v118 = v52;
-        v119 = 0;
+        v59 = v116;
+        v116 = 0;
+        v117 = v52;
+        v118 = 0;
         if (v59)
         {
           operator delete(v59);
@@ -9231,13 +8390,13 @@ LABEL_43:
 
       else
       {
-        *v118 = v50;
+        *v117 = v50;
         v52 = (v51 + 4);
       }
 
-      v118 = v52;
-      v107.__r_.__value_.__r.__words[0] = (v115 - v114) >> 3;
-      std::vector<MTLTagType>::push_back[abi:ne200100](&v114, &v107);
+      v117 = v52;
+      v106.__r_.__value_.__r.__words[0] = (v114 - v113) >> 3;
+      std::vector<MTLTagType>::push_back[abi:ne200100](&v113, &v106);
       if (++v39 == v40)
       {
         v39 = *__p.count;
@@ -9263,8 +8422,8 @@ LABEL_82:
   }
 
 LABEL_84:
-  v60 = 126 - 2 * __clz((v128 - v127) >> 3);
-  if (v128 == v127)
+  v60 = 126 - 2 * __clz((v127 - v126) >> 3);
+  if (v127 == v126)
   {
     v61 = 0;
   }
@@ -9274,11 +8433,11 @@ LABEL_84:
     v61 = v60;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,MTLMetalScriptBuilderImpl::addStitchedFunctionLibraryWithDescriptorInternal(objc_object  {objcproto11MTLFunction}*,objc_object  {objcproto10MTLLibrary}*,MTLStitchedLibraryDescriptor *)::$_0 &,MTLUINT256_t const**,false>(v127, v128, v61, 1);
-  v62 = 126 - 2 * __clz((v115 - v114) >> 3);
+  std::__introsort<std::_ClassicAlgPolicy,MTLMetalScriptBuilderImpl::addStitchedFunctionLibraryWithDescriptorInternal(objc_object  {objcproto11MTLFunction}*,objc_object  {objcproto10MTLLibrary}*,MTLStitchedLibraryDescriptor *)::$_0 &,MTLUINT256_t const**,false>(v126, v127, v61, 1);
+  v62 = 126 - 2 * __clz((v114 - v113) >> 3);
   *__p.count = a1;
-  *__p.hash = &v117;
-  if (v115 == v114)
+  *__p.hash = &v116;
+  if (v114 == v113)
   {
     v63 = 0;
   }
@@ -9288,75 +8447,75 @@ LABEL_84:
     v63 = v62;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,MTLMetalScriptBuilderImpl::addStitchedFunctionLibraryWithDescriptorInternal(objc_object  {objcproto11MTLFunction}*,objc_object  {objcproto10MTLLibrary}*,MTLStitchedLibraryDescriptor *)::$_1 &,unsigned long *,false>(v114, v115, &__p, v63, 1);
+  std::__introsort<std::_ClassicAlgPolicy,MTLMetalScriptBuilderImpl::addStitchedFunctionLibraryWithDescriptorInternal(objc_object  {objcproto11MTLFunction}*,objc_object  {objcproto10MTLLibrary}*,MTLStitchedLibraryDescriptor *)::$_1 &,unsigned long *,false>(v113, v114, &__p, v63, 1);
   CC_SHA256_Init(&__p);
-  v64 = v127;
-  v65 = v128;
+  v64 = v126;
+  v65 = v127;
   while (v64 != v65)
   {
     CC_SHA256_Update(&__p, *v64++, 0x20u);
   }
 
-  v66 = v114;
-  v67 = v115;
+  v66 = v113;
+  v67 = v114;
   while (v66 != v67)
   {
-    Mtl::FunctionStitching::Graph::HashImpl((*(a1 + 296) + *(a1 + 280) - *(a1 + 296) + *(a1 + 288) - *(v117 + *v66)), &__p);
+    Mtl::FunctionStitching::Graph::HashImpl((*(a1 + 296) + *(a1 + 280) - *(a1 + 296) + *(a1 + 288) - *(v116 + *v66)), &__p);
     v66 += 8;
   }
 
-  flatbuffers::SignatureBuilder::Create(&__p, buffer_ptr);
+  flatbuffers::SignatureBuilder::Create(buffer_ptr, &__p);
   *size_ptr = *buffer_ptr[0];
-  v133 = *(buffer_ptr[0] + 1);
+  v132 = *(buffer_ptr[0] + 1);
   buffer_ptr[1] = buffer_ptr[0];
   operator delete(buffer_ptr[0]);
-  std::string::basic_string[abi:ne200100]<0>(&v107, "StitchedLib_");
+  std::string::basic_string[abi:ne200100]<0>(&v106, "StitchedLib_");
   *__p.count = *size_ptr;
-  *&__p.hash[2] = v133;
-  HashToString(&__p, &v106);
-  if ((v106.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *&__p.hash[2] = v132;
+  HashToString(&__p, &v105);
+  if ((v105.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v68 = &v106;
+    v68 = &v105;
   }
 
   else
   {
-    v68 = v106.__r_.__value_.__r.__words[0];
+    v68 = v105.__r_.__value_.__r.__words[0];
   }
 
-  if ((v106.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v105.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v106.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v105.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v106.__r_.__value_.__l.__size_;
+    size = v105.__r_.__value_.__l.__size_;
   }
 
-  v70 = std::string::append(&v107, v68, size);
+  v70 = std::string::append(&v106, v68, size);
   v71 = *&v70->__r_.__value_.__l.__data_;
-  v109 = v70->__r_.__value_.__r.__words[2];
+  v108 = v70->__r_.__value_.__r.__words[2];
   *buffer_ptr = v71;
   v70->__r_.__value_.__l.__size_ = 0;
   v70->__r_.__value_.__r.__words[2] = 0;
   v70->__r_.__value_.__r.__words[0] = 0;
-  v72 = v100;
+  v72 = v99;
+  if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v105.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v106.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v106.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v107.__r_.__value_.__l.__data_);
-  }
-
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 208), buffer_ptr);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 208), buffer_ptr, buffer_ptr);
   if (v73)
   {
-    v74 = SHIBYTE(v109);
-    if ((SHIBYTE(v109) & 0x8000000000000000) != 0)
+    v74 = SHIBYTE(v108);
+    if ((SHIBYTE(v108) & 0x8000000000000000) != 0)
     {
       v74 = buffer_ptr[1];
       if (!buffer_ptr[1])
@@ -9371,7 +8530,7 @@ LABEL_112:
 
     else
     {
-      if (HIBYTE(v109))
+      if (HIBYTE(v108))
       {
         v75 = buffer_ptr;
         goto LABEL_112;
@@ -9381,7 +8540,7 @@ LABEL_113:
       v76 = 0;
     }
 
-    if (v125 == __src)
+    if (v124 == __src)
     {
       v77 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
     }
@@ -9391,18 +8550,18 @@ LABEL_113:
       v77 = __src;
     }
 
-    v78 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((a1 + 248), v77, (v125 - __src) >> 2);
-    if (v118 == v117)
+    v78 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((a1 + 248), v77, (v124 - __src) >> 2);
+    if (v117 == v116)
     {
       v79 = &flatbuffers::data<flatbuffers::Offset<Mtl::FunctionStitching::Graph>,std::allocator<flatbuffers::Offset<Mtl::FunctionStitching::Graph>>>(std::vector<flatbuffers::Offset<Mtl::FunctionStitching::Graph>> const&)::t;
     }
 
     else
     {
-      v79 = v117;
+      v79 = v116;
     }
 
-    v80 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((a1 + 248), v79, (v118 - v117) >> 2);
+    v80 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((a1 + 248), v79, (v117 - v116) >> 2);
     *(a1 + 318) = 1;
     v81 = *(a1 + 280);
     v82 = *(a1 + 296);
@@ -9412,33 +8571,33 @@ LABEL_113:
     flatbuffers::FlatBufferBuilder::AddOffset<void>((a1 + 248), 8, v80);
     __p.count[0] = flatbuffers::FlatBufferBuilder::EndTable((a1 + 248), v81 - v82 + v83);
     std::vector<unsigned int>::push_back[abi:ne200100]((a1 + 392), &__p);
-    v72 = v100;
+    v72 = v99;
   }
 
   if (a3)
   {
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
     v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
     v84 = [v72 functionGraphs];
-    v85 = [v84 countByEnumeratingWithState:&v102 objects:v130 count:16];
+    v85 = [v84 countByEnumeratingWithState:&v101 objects:v129 count:16];
     if (v85)
     {
-      v86 = *v103;
+      v86 = *v102;
       do
       {
         for (k = 0; k != v85; ++k)
         {
-          if (*v103 != v86)
+          if (*v102 != v86)
           {
             objc_enumerationMutation(v84);
           }
 
-          v88 = [a3 newFunctionWithName:{objc_msgSend(*(*(&v102 + 1) + 8 * k), "functionName")}];
+          v88 = [a3 newFunctionWithName:{objc_msgSend(*(*(&v101 + 1) + 8 * k), "functionName")}];
           v89 = [v88 bitCodeHash];
           v90 = [objc_msgSend(v88 "name")];
-          if (SHIBYTE(v109) < 0)
+          if (SHIBYTE(v108) < 0)
           {
             std::string::__init_copy_ctor_external(&__p, buffer_ptr[0], buffer_ptr[1]);
           }
@@ -9446,12 +8605,12 @@ LABEL_113:
           else
           {
             *__p.count = *buffer_ptr;
-            *&__p.hash[2] = v109;
+            *&__p.hash[2] = v108;
           }
 
           *&__p.hash[4] = v90;
-          v107.__r_.__value_.__r.__words[0] = v89;
-          v91 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((a1 + 88), v89);
+          v106.__r_.__value_.__r.__words[0] = v89;
+          v91 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((a1 + 88), v89, &std::piecewise_construct, &v106);
           std::pair<std::string,std::string>::operator=[abi:ne200100]<std::string,char const*,0>((v91 + 6), &__p);
           if (SHIBYTE(__p.hash[3]) < 0)
           {
@@ -9459,7 +8618,7 @@ LABEL_113:
           }
         }
 
-        v85 = [v84 countByEnumeratingWithState:&v102 objects:v130 count:16];
+        v85 = [v84 countByEnumeratingWithState:&v101 objects:v129 count:16];
       }
 
       while (v85);
@@ -9468,9 +8627,9 @@ LABEL_113:
 
   else
   {
-    v92 = [v99 bitCodeHash];
-    v93 = [objc_msgSend(v99 "name")];
-    if (SHIBYTE(v109) < 0)
+    v92 = [v98 bitCodeHash];
+    v93 = [objc_msgSend(v98 "name")];
+    if (SHIBYTE(v108) < 0)
     {
       std::string::__init_copy_ctor_external(&__p, buffer_ptr[0], buffer_ptr[1]);
     }
@@ -9478,12 +8637,12 @@ LABEL_113:
     else
     {
       *__p.count = *buffer_ptr;
-      *&__p.hash[2] = v109;
+      *&__p.hash[2] = v108;
     }
 
     *&__p.hash[4] = v93;
-    v107.__r_.__value_.__r.__words[0] = v92;
-    v94 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((a1 + 88), v92);
+    v106.__r_.__value_.__r.__words[0] = v92;
+    v94 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((a1 + 88), v92, &std::piecewise_construct, &v106);
     std::pair<std::string,std::string>::operator=[abi:ne200100]<std::string,char const*,0>((v94 + 6), &__p);
     if (SHIBYTE(__p.hash[3]) < 0)
     {
@@ -9491,40 +8650,38 @@ LABEL_113:
     }
   }
 
-  if (SHIBYTE(v109) < 0)
+  if (SHIBYTE(v108) < 0)
   {
     operator delete(buffer_ptr[0]);
   }
 
   v37 = 1;
 LABEL_147:
-  if (v114)
+  if (v113)
   {
-    v115 = v114;
-    operator delete(v114);
+    v114 = v113;
+    operator delete(v113);
   }
 
-  if (v117)
+  if (v116)
   {
-    v118 = v117;
-    operator delete(v117);
+    v117 = v116;
+    operator delete(v116);
   }
 
 LABEL_151:
   if (__src)
   {
-    v125 = __src;
+    v124 = __src;
     operator delete(__src);
   }
 
-  if (v127)
+  if (v126)
   {
-    v128 = v127;
-    operator delete(v127);
+    v127 = v126;
+    operator delete(v126);
   }
 
-LABEL_155:
-  v95 = *MEMORY[0x1E69E9840];
   return v37;
 }
 
@@ -9833,6 +8990,1168 @@ uint64_t Mtl::FunctionStitching::Graph::HashImpl(Mtl::FunctionStitching::Graph *
   {
     data = 0;
     return CC_SHA256_Update(c, &data, 4u);
+  }
+
+  return result;
+}
+
+uint64_t std::pair<std::string,std::string>::operator=[abi:ne200100]<std::string,char const*,0>(uint64_t a1, __int128 *a2)
+{
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  v4 = *a2;
+  *(a1 + 16) = *(a2 + 2);
+  *a1 = v4;
+  *(a2 + 23) = 0;
+  *a2 = 0;
+  MEMORY[0x1865FEFC0](a1 + 24, *(a2 + 3));
+  return a1;
+}
+
+uint64_t MTLMetalScriptBuilderImpl::newSerializedMetalScript(NSObject **this)
+{
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x3052000000;
+  v8 = __Block_byref_object_copy__1;
+  v9 = __Block_byref_object_dispose__1;
+  v10 = 0;
+  v1 = *this;
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = ___ZN25MTLMetalScriptBuilderImpl24newSerializedMetalScriptEv_block_invoke;
+  v4[3] = &unk_1E6EEB2C0;
+  v4[4] = &v5;
+  v4[5] = this;
+  dispatch_sync(v1, v4);
+  v2 = v6[5];
+  _Block_object_dispose(&v5, 8);
+  return v2;
+}
+
+void ___ZN25MTLMetalScriptBuilderImpl24newSerializedMetalScriptEv_block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 40);
+  if (*(v1 + 424) == *(v1 + 416) && *(v1 + 448) == *(v1 + 440) && *(v1 + 472) == *(v1 + 464) && *(v1 + 568) == *(v1 + 560))
+  {
+    *(*(*(a1 + 32) + 8) + 40) = 0;
+  }
+
+  else
+  {
+    v2 = *(v1 + 544) - *(v1 + 536);
+    if (v2)
+    {
+      v3 = *(v1 + 536);
+    }
+
+    else
+    {
+      v3 = &flatbuffers::data<flatbuffers::Offset<Mtl::NamedPredicate>,std::allocator<flatbuffers::Offset<Mtl::NamedPredicate>>>(std::vector<flatbuffers::Offset<Mtl::NamedPredicate>> const&)::t;
+    }
+
+    v48 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v3, v2 >> 2);
+    v4 = *(v1 + 352) - *(v1 + 344);
+    if (v4)
+    {
+      v5 = *(v1 + 344);
+    }
+
+    else
+    {
+      v5 = &flatbuffers::data<flatbuffers::Offset<Mtl::PathLibrary>,std::allocator<flatbuffers::Offset<Mtl::PathLibrary>>>(std::vector<flatbuffers::Offset<Mtl::PathLibrary>> const&)::t;
+    }
+
+    v47 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v5, v4 >> 2);
+    v6 = *(v1 + 376) - *(v1 + 368);
+    if (v6)
+    {
+      v7 = *(v1 + 368);
+    }
+
+    else
+    {
+      v7 = &flatbuffers::data<flatbuffers::Offset<Mtl::SpecializedFunctionLibrary>,std::allocator<flatbuffers::Offset<Mtl::SpecializedFunctionLibrary>>>(std::vector<flatbuffers::Offset<Mtl::SpecializedFunctionLibrary>> const&)::t;
+    }
+
+    v45 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v7, v6 >> 2);
+    v8 = *(v1 + 400) - *(v1 + 392);
+    if (v8)
+    {
+      v9 = *(v1 + 392);
+    }
+
+    else
+    {
+      v9 = &flatbuffers::data<flatbuffers::Offset<Mtl::StitchedLibrary>,std::allocator<flatbuffers::Offset<Mtl::StitchedLibrary>>>(std::vector<flatbuffers::Offset<Mtl::StitchedLibrary>> const&)::t;
+    }
+
+    v10 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v9, v8 >> 2);
+    v11 = *(v1 + 424) - *(v1 + 416);
+    if (v11)
+    {
+      v12 = *(v1 + 416);
+    }
+
+    else
+    {
+      v12 = &flatbuffers::data<flatbuffers::Offset<Mtl::ComputePipelineDescriptor>,std::allocator<flatbuffers::Offset<Mtl::ComputePipelineDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::ComputePipelineDescriptor>> const&)::t;
+    }
+
+    v46 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v12, v11 >> 2);
+    v13 = *(v1 + 448) - *(v1 + 440);
+    if (v13)
+    {
+      v14 = *(v1 + 440);
+    }
+
+    else
+    {
+      v14 = &flatbuffers::data<flatbuffers::Offset<Mtl::RenderPipelineDescriptor>,std::allocator<flatbuffers::Offset<Mtl::RenderPipelineDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::RenderPipelineDescriptor>> const&)::t;
+    }
+
+    v15 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v14, v13 >> 2);
+    v16 = *(v1 + 568) - *(v1 + 560);
+    if (v16)
+    {
+      v17 = *(v1 + 560);
+    }
+
+    else
+    {
+      v17 = &flatbuffers::data<flatbuffers::Offset<Mtl::MeshRenderPipelineDescriptor>,std::allocator<flatbuffers::Offset<Mtl::MeshRenderPipelineDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::MeshRenderPipelineDescriptor>> const&)::t;
+    }
+
+    v18 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v17, v16 >> 2);
+    v19 = *(v1 + 472) - *(v1 + 464);
+    if (v19)
+    {
+      v20 = *(v1 + 464);
+    }
+
+    else
+    {
+      v20 = &flatbuffers::data<flatbuffers::Offset<Mtl::TileRenderPipelineDescriptor>,std::allocator<flatbuffers::Offset<Mtl::TileRenderPipelineDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::TileRenderPipelineDescriptor>> const&)::t;
+    }
+
+    v21 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v20, v19 >> 2);
+    v22 = *(v1 + 496) - *(v1 + 488);
+    if (v22)
+    {
+      v23 = *(v1 + 488);
+    }
+
+    else
+    {
+      v23 = &flatbuffers::data<flatbuffers::Offset<Mtl::VisibleFunctionDescriptor>,std::allocator<flatbuffers::Offset<Mtl::VisibleFunctionDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::VisibleFunctionDescriptor>> const&)::t;
+    }
+
+    v24 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v23, v22 >> 2);
+    v25 = *(v1 + 520) - *(v1 + 512);
+    if (v25)
+    {
+      v26 = *(v1 + 512);
+    }
+
+    else
+    {
+      v26 = &flatbuffers::data<flatbuffers::Offset<Mtl::IntersectionFunctionDescriptor>,std::allocator<flatbuffers::Offset<Mtl::IntersectionFunctionDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::IntersectionFunctionDescriptor>> const&)::t;
+    }
+
+    v27 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v26, v25 >> 2);
+    *(v1 + 318) = 1;
+    v28 = *(v1 + 288);
+    v29 = *(v1 + 280) - *(v1 + 296);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 4, v47);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 6, v45);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 8, v10);
+    v30 = flatbuffers::FlatBufferBuilder::EndTable((v1 + 248), v29 + v28);
+    *(v1 + 318) = 1;
+    v31 = *(v1 + 288);
+    v32 = *(v1 + 280) - *(v1 + 296);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 4, v46);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 6, v15);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 8, v21);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 10, v18);
+    v33 = flatbuffers::FlatBufferBuilder::EndTable((v1 + 248), v32 + v31);
+    *(v1 + 318) = 1;
+    v34 = *(v1 + 288);
+    v35 = *(v1 + 280) - *(v1 + 296);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 6, v24);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 4, v27);
+    v36 = flatbuffers::FlatBufferBuilder::EndTable((v1 + 248), v35 + v34);
+    v56 = 0x300000000;
+    v57 = 0;
+    *(v1 + 318) = 1;
+    v37 = *(v1 + 288);
+    v38 = *(v1 + 280) - *(v1 + 296);
+    flatbuffers::FlatBufferBuilder::AddStruct<Mtl4::Version>((v1 + 248), 4, &v56);
+    v39 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(v1 + 248, 2);
+    flatbuffers::FlatBufferBuilder::TrackField((v1 + 248), 6, v39);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 8, v48);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 12, v30);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 14, v33);
+    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 16, v36);
+    v40 = flatbuffers::FlatBufferBuilder::EndTable((v1 + 248), v38 + v37);
+    flatbuffers::FlatBufferBuilder::Finish((v1 + 248), v40, "MTLP", 0);
+    v41 = *(v1 + 256);
+    v43 = *(v1 + 280);
+    v42 = *(v1 + 288);
+    v44 = *(v1 + 296);
+    v50 = *(v1 + 248);
+    v51 = v41;
+    v52 = v42;
+    v53 = v43;
+    v54 = v44;
+    v55 = (v43 + v42 - v44);
+    if (v41 == 1)
+    {
+      *(v1 + 248) = 0;
+      *(v1 + 256) = 0;
+    }
+
+    *(v1 + 280) = 0u;
+    *(v1 + 296) = 0u;
+    *(*(*(a1 + 32) + 8) + 40) = dispatch_data_create(v44, (v43 + v42 - v44), 0, 0);
+    MTLMetalScriptBuilderImpl::resetInternal(v1, 0);
+    MTLMetalScriptBuilderImpl::initFromData(v1, v44);
+    flatbuffers::DetachedBuffer::~DetachedBuffer(&v50);
+  }
+}
+
+void sub_185C896F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  flatbuffers::DetachedBuffer::~DetachedBuffer(va);
+  _Unwind_Resume(a1);
+}
+
+void MTLMetalScriptBuilderImpl::reset(NSObject **this, char a2)
+{
+  v2 = *this;
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = ___ZN25MTLMetalScriptBuilderImpl5resetEb_block_invoke;
+  v3[3] = &__block_descriptor_41_e5_v8__0l;
+  v3[4] = this;
+  v4 = a2;
+  dispatch_sync(v2, v3);
+}
+
+void MTLMetalScriptBuilder::addComputePipelineWithDescriptor(MTLMetalScriptBuilder *this, MTLComputePipelineDescriptor *a2)
+{
+  v2 = *this;
+  v3 = **this;
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = ___ZN25MTLMetalScriptBuilderImpl32addComputePipelineWithDescriptorEP28MTLComputePipelineDescriptor_block_invoke;
+  v4[3] = &unk_1E6EEB298;
+  v4[4] = a2;
+  v4[5] = v2;
+  dispatch_sync(v3, v4);
+}
+
+void MTLMetalScriptBuilder::addRenderPipelineWithDescriptor(MTLMetalScriptBuilder *this, MTLRenderPipelineDescriptor *a2)
+{
+  v2 = *this;
+  v3 = **this;
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = ___ZN25MTLMetalScriptBuilderImpl31addRenderPipelineWithDescriptorEP27MTLRenderPipelineDescriptor_block_invoke;
+  v4[3] = &unk_1E6EEB298;
+  v4[4] = a2;
+  v4[5] = v2;
+  dispatch_sync(v3, v4);
+}
+
+void MTLMetalScriptBuilder::addMeshRenderPipelineWithDescriptor(MTLMetalScriptBuilder *this, MTLMeshRenderPipelineDescriptor *a2)
+{
+  v2 = *this;
+  v3 = **this;
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = ___ZN25MTLMetalScriptBuilderImpl35addMeshRenderPipelineWithDescriptorEP31MTLMeshRenderPipelineDescriptor_block_invoke;
+  v4[3] = &unk_1E6EEB298;
+  v4[4] = a2;
+  v4[5] = v2;
+  dispatch_sync(v3, v4);
+}
+
+void MTLMetalScriptBuilder::addTileRenderPipelineWithDescriptor(MTLMetalScriptBuilder *this, MTLTileRenderPipelineDescriptor *a2)
+{
+  v2 = *this;
+  v3 = **this;
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = ___ZN25MTLMetalScriptBuilderImpl35addTileRenderPipelineWithDescriptorEP31MTLTileRenderPipelineDescriptor_block_invoke;
+  v4[3] = &unk_1E6EEB298;
+  v4[4] = a2;
+  v4[5] = v2;
+  dispatch_sync(v3, v4);
+}
+
+void MTLMetalScriptBuilder::addFunctionWithDescriptor(NSObject ***a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *a1;
+  v5 = **a1;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = ___ZN25MTLMetalScriptBuilderImpl25addFunctionWithDescriptorEPU22objcproto11MTLFunction11objc_objectPU21objcproto10MTLLibrary11objc_objectP21MTLFunctionDescriptor_block_invoke;
+  v6[3] = &unk_1E6EEAEF8;
+  v6[4] = a2;
+  v6[5] = a3;
+  v6[6] = a4;
+  v6[7] = v4;
+  dispatch_sync(v5, v6);
+}
+
+void MTLMetalScriptBuilder::addLibraryWithDescriptor(NSObject ***a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *a1;
+  v4 = **a1;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = ___ZN25MTLMetalScriptBuilderImpl24addLibraryWithDescriptorEPU21objcproto10MTLLibrary11objc_objectP28MTLStitchedLibraryDescriptor_block_invoke;
+  block[3] = &unk_1E6EEAD68;
+  block[5] = a3;
+  block[6] = v3;
+  block[4] = a2;
+  dispatch_sync(v4, block);
+}
+
+void MTLMetalScriptBuilder::reset(MTLMetalScriptBuilder *this)
+{
+  v1 = *this;
+  v2 = **this;
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = ___ZN25MTLMetalScriptBuilderImpl5resetEb_block_invoke;
+  v3[3] = &__block_descriptor_41_e5_v8__0l;
+  v3[4] = v1;
+  v4 = 1;
+  dispatch_sync(v2, v3);
+}
+
+uint64_t **std::__hash_table<std::string_view,std::hash<std::string_view>,std::equal_to<std::string_view>,std::allocator<std::string_view>>::__emplace_unique_key_args<std::string_view,std::string_view>(void *a1, uint64_t **a2, _OWORD *a3)
+{
+  v5 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_20;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
+  {
+    v10 = v5;
+    if (v5 >= *&v7)
+    {
+      v10 = v5 % *&v7;
+    }
+  }
+
+  else
+  {
+    v10 = (*&v7 - 1) & v5;
+  }
+
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
+  {
+LABEL_20:
+    operator new();
+  }
+
+  v15 = a2;
+  v13 = *a2;
+  v14 = v15[1];
+  while (1)
+  {
+    v16 = v12[1];
+    if (v16 == v6)
+    {
+      break;
+    }
+
+    if (v9 > 1)
+    {
+      if (v16 >= *&v7)
+      {
+        v16 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v16 &= *&v7 - 1;
+    }
+
+    if (v16 != v10)
+    {
+      goto LABEL_20;
+    }
+
+LABEL_19:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_20;
+    }
+  }
+
+  if (v12[3] != v14 || memcmp(v12[2], v13, v14))
+  {
+    goto LABEL_19;
+  }
+
+  return v12;
+}
+
+__n128 __Block_byref_object_copy__50(__n128 *a1, __n128 *a2)
+{
+  a1[3] = 0uLL;
+  a1[4].n128_u64[0] = 0;
+  result = a2[3];
+  a1[3] = result;
+  a1[4].n128_u64[0] = a2[4].n128_u64[0];
+  a2[3] = 0uLL;
+  a2[4].n128_u64[0] = 0;
+  return result;
+}
+
+void __Block_byref_object_dispose__51(uint64_t a1)
+{
+  v2 = *(a1 + 48);
+  if (v2)
+  {
+    *(a1 + 56) = v2;
+    operator delete(v2);
+  }
+}
+
+void ___ZN24MTLMetalScriptSerializerL12createGroupsERN11flatbuffers17FlatBufferBuilderEP12NSDictionaryIP8NSStringP7NSArrayIPU22objcproto11MTLFunction11objc_objectEE_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v49 = *MEMORY[0x1E69E9840];
+  v5 = *(a1 + 40);
+  v6 = [a2 UTF8String];
+  v7 = strlen(v6);
+  String = flatbuffers::FlatBufferBuilder::CreateString(v5, v6, v7);
+  __p = 0;
+  v46 = 0;
+  v47 = 0;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v9 = [a3 countByEnumeratingWithState:&v41 objects:v48 count:16];
+  if (v9)
+  {
+    v10 = *v42;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v42 != v10)
+        {
+          objc_enumerationMutation(a3);
+        }
+
+        v12 = *(a1 + 40);
+        v13 = [objc_msgSend(*(*(&v41 + 1) + 8 * i) "name")];
+        v14 = strlen(v13);
+        v40 = flatbuffers::FlatBufferBuilder::CreateString(v12, v13, v14);
+        std::vector<unsigned int>::push_back[abi:ne200100](&__p, &v40);
+      }
+
+      v9 = [a3 countByEnumeratingWithState:&v41 objects:v48 count:16];
+    }
+
+    while (v9);
+    v15 = __p;
+    v16 = v46;
+  }
+
+  else
+  {
+    v16 = 0;
+    v15 = 0;
+  }
+
+  v17 = v16 - v15;
+  if (v17)
+  {
+    v18 = v15;
+  }
+
+  else
+  {
+    v18 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
+  }
+
+  v19 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(*(a1 + 40), v18, v17 >> 2);
+  v20 = *(a1 + 40);
+  *(v20 + 70) = 1;
+  v21 = *(v20 + 32);
+  v22 = *(v20 + 48);
+  v23 = *(v20 + 40);
+  flatbuffers::FlatBufferBuilder::AddOffset<void>(v20, 4, String);
+  flatbuffers::FlatBufferBuilder::AddOffset<void>(v20, 6, v19);
+  v24 = *(*(a1 + 32) + 8);
+  v25 = flatbuffers::FlatBufferBuilder::EndTable(v20, v21 - v22 + v23);
+  v27 = v24[7];
+  v26 = v24[8];
+  if (v27 >= v26)
+  {
+    v29 = v24[6];
+    v30 = v27 - v29;
+    v31 = (v27 - v29) >> 2;
+    v32 = v31 + 1;
+    if ((v31 + 1) >> 62)
+    {
+      std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
+    }
+
+    v33 = v26 - v29;
+    if (v33 >> 1 > v32)
+    {
+      v32 = v33 >> 1;
+    }
+
+    v34 = v33 >= 0x7FFFFFFFFFFFFFFCLL;
+    v35 = 0x3FFFFFFFFFFFFFFFLL;
+    if (!v34)
+    {
+      v35 = v32;
+    }
+
+    if (v35)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>((v24 + 6), v35);
+    }
+
+    v36 = (v27 - v29) >> 2;
+    v37 = (4 * v31);
+    v38 = (4 * v31 - 4 * v36);
+    *v37 = v25;
+    v28 = v37 + 1;
+    memcpy(v38, v29, v30);
+    v39 = v24[6];
+    v24[6] = v38;
+    v24[7] = v28;
+    v24[8] = 0;
+    if (v39)
+    {
+      operator delete(v39);
+    }
+  }
+
+  else
+  {
+    *v27 = v25;
+    v28 = v27 + 4;
+  }
+
+  v24[7] = v28;
+  if (__p)
+  {
+    v46 = __p;
+    operator delete(__p);
+  }
+}
+
+void sub_185C8A040(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t makeValue(flatbuffers::FlatBufferBuilder *a1, MTLDataType a2, _DWORD *a3)
+{
+  switch(a2)
+  {
+    case MTLDataTypeFloat:
+      v3 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, v3);
+    case MTLDataTypeFloat2:
+      v12 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, v12);
+    case MTLDataTypeFloat3:
+      v15 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, v15);
+    case MTLDataTypeFloat4:
+      v19 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, v19);
+    case MTLDataTypeHalf:
+      v24 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, v24);
+    case MTLDataTypeHalf2:
+      v11 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, v11);
+    case MTLDataTypeHalf3:
+      v10 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, v10);
+    case MTLDataTypeHalf4:
+      v14 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, v14);
+    case MTLDataTypeInt:
+      v3 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, v3);
+    case MTLDataTypeInt2:
+      v12 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, v12);
+    case MTLDataTypeInt3:
+      v15 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, v15);
+    case MTLDataTypeInt4:
+      v19 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, v19);
+    case MTLDataTypeUInt:
+      v3 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, v3);
+    case MTLDataTypeUInt2:
+      v12 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, v12);
+    case MTLDataTypeUInt3:
+      v15 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, v15);
+    case MTLDataTypeUInt4:
+      v19 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, v19);
+    case MTLDataTypeShort:
+      v24 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, v24);
+    case MTLDataTypeShort2:
+      v11 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, v11);
+    case MTLDataTypeShort3:
+      v10 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, v10);
+    case MTLDataTypeShort4:
+      v14 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, v14);
+    case MTLDataTypeUShort:
+      v24 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, v24);
+    case MTLDataTypeUShort2:
+      v11 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, v11);
+    case MTLDataTypeUShort3:
+      v10 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, v10);
+    case MTLDataTypeUShort4:
+      v14 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, v14);
+    case MTLDataTypeChar:
+      v16 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, v16);
+    case MTLDataTypeChar2:
+      v13 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, v13);
+    case MTLDataTypeChar3:
+      v23 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, v23);
+    case MTLDataTypeChar4:
+      v18 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, v18);
+    case MTLDataTypeUChar:
+      v16 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, v16);
+    case MTLDataTypeUChar2:
+      v13 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, v13);
+    case MTLDataTypeUChar3:
+      v23 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, v23);
+    case MTLDataTypeUChar4:
+      v18 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, v18);
+    case MTLDataTypeBool:
+      v16 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, v16);
+    case MTLDataTypeBool2:
+      v13 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, v13);
+    case MTLDataTypeBool3:
+      v23 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, v23);
+    case MTLDataTypeBool4:
+      v18 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, v18);
+    case MTLDataTypeLong:
+      v9 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, v9);
+    case MTLDataTypeLong2:
+      v21 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, v21);
+    case MTLDataTypeLong3:
+      v8 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, v8);
+    case MTLDataTypeLong4:
+      v5 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, v5);
+    case MTLDataTypeULong:
+      v9 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, v9);
+    case MTLDataTypeULong2:
+      v21 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, v21);
+    case MTLDataTypeULong3:
+      v8 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, v8);
+    case MTLDataTypeULong4:
+      v5 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, v5);
+    case MTLDataTypeULong4|MTLDataTypeStruct:
+      v9 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, v9);
+    case MTLDataTypeULong4|MTLDataTypeArray:
+      v21 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, v21);
+    case MTLDataTypeULong4|MTLDataTypeFloat:
+      v8 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, v8);
+    case MTLDataTypeULong4|MTLDataTypeFloat2:
+      v5 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, v5);
+    case MTLDataTypeULong4|MTLDataTypeFloat3:
+      v22 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, v22);
+    case MTLDataTypeULong4|MTLDataTypeFloat4:
+      v7 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, v7);
+    case MTLDataTypeULong4|MTLDataTypeFloat2x2:
+      v6 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, v6);
+    case MTLDataTypeR16Unorm|MTLDataTypeInt4:
+      v27 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, v27);
+    case MTLDataTypeR16Snorm|MTLDataTypeInt4:
+      v22 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, v22);
+    case MTLDataTypeRG8Unorm|MTLDataTypeInt4:
+      v7 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, v7);
+    case MTLDataTypeRG8Snorm|MTLDataTypeInt4:
+      v22 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, v22);
+    case MTLDataTypeRG16Unorm|MTLDataTypeInt4:
+      v7 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, v7);
+    case MTLDataTypeRG16Snorm|MTLDataTypeInt4:
+      v6 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, v6);
+    case MTLDataTypeRGBA8Unorm|MTLDataTypeInt4:
+      v27 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, v27);
+    case MTLDataTypeRGBA8Unorm_sRGB|MTLDataTypeInt4:
+      v6 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, v6);
+    case MTLDataTypeRGBA8Snorm|MTLDataTypeInt4:
+      v27 = a3;
+      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, v27);
+    case MTLDataTypeRGBA16Unorm|MTLDataTypeInt4:
+      v25 = a3;
+      goto LABEL_79;
+    case MTLDataTypeRGBA16Snorm|MTLDataTypeInt4:
+      v26 = a3;
+      goto LABEL_81;
+    case MTLDataTypeRGB10A2Unorm|MTLDataTypeInt4:
+      v25 = a3;
+      goto LABEL_79;
+    case MTLDataTypeRG11B10Float|MTLDataTypeInt4:
+      v26 = a3;
+      goto LABEL_81;
+    case MTLDataTypeRGB9E5Float|MTLDataTypeInt4:
+      v4 = a3;
+      goto LABEL_5;
+    case MTLDataTypeRenderPipeline|MTLDataTypeInt4:
+      v20 = a3;
+      goto LABEL_48;
+    case MTLDataTypeComputePipeline|MTLDataTypeInt4:
+      v4 = a3;
+      goto LABEL_5;
+    case MTLDataTypeIndirectCommandBuffer|MTLDataTypeInt4:
+      v20 = a3;
+      goto LABEL_48;
+    case MTLDataTypeLong|MTLDataTypeInt4:
+      v4 = a3;
+LABEL_5:
+      result = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong8>(a1, v4);
+      break;
+    case MTLDataTypeLong2|MTLDataTypeInt4:
+      v20 = a3;
+LABEL_48:
+      result = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong16>(a1, v20);
+      break;
+    case MTLDataTypeInstanceAccelerationStructure|MTLDataTypeStruct:
+      v25 = a3;
+LABEL_79:
+      result = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool8>(a1, v25);
+      break;
+    case MTLDataTypeULong4|MTLDataTypeInt4:
+      v26 = a3;
+LABEL_81:
+      result = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool16>(a1, v26);
+      break;
+    default:
+      result = 0;
+      break;
+  }
+
+  return result;
+}
+
+uint64_t Air::FunctionConstantValue::HashImpl(Air::FunctionConstantValue *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "Air.FunctionConstantValue", 0x19u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LOWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LOWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 2u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  v84 = v7;
+  CC_SHA256_Update(c, &v84, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 7u && (v9 = v8[3]) != 0)
+  {
+    switch(*(a1 + v9))
+    {
+      case 3:
+        v10 = Air::FunctionConstantValue::value_as_ConstantFloat(a1);
+        result = Air::ConstantFloat::HashImpl(v10, c);
+        break;
+      case 4:
+        v43 = Air::FunctionConstantValue::value_as_ConstantFloat2(a1);
+        result = Air::ConstantFloat2::HashImpl(v43, c);
+        break;
+      case 5:
+        v35 = Air::FunctionConstantValue::value_as_ConstantFloat3(a1);
+        result = Air::ConstantFloat3::HashImpl(v35, c);
+        break;
+      case 6:
+        v51 = Air::FunctionConstantValue::value_as_ConstantFloat4(a1);
+        result = Air::ConstantFloat4::HashImpl(v51, c);
+        break;
+      case 0x10:
+        v53 = Air::FunctionConstantValue::value_as_ConstantHalf(a1);
+        result = Air::ConstantHalf::HashImpl(v53, c);
+        break;
+      case 0x11:
+        v38 = Air::FunctionConstantValue::value_as_ConstantHalf2(a1);
+        result = Air::ConstantHalf2::HashImpl(v38, c);
+        break;
+      case 0x12:
+        v44 = Air::FunctionConstantValue::value_as_ConstantHalf3(a1);
+        result = Air::ConstantHalf3::HashImpl(v44, c);
+        break;
+      case 0x13:
+        v45 = Air::FunctionConstantValue::value_as_ConstantHalf4(a1);
+        result = Air::ConstantHalf4::HashImpl(v45, c);
+        break;
+      case 0x1D:
+        v57 = Air::FunctionConstantValue::value_as_ConstantInt(a1);
+        result = Air::ConstantInt::HashImpl(v57, c);
+        break;
+      case 0x1E:
+        v55 = Air::FunctionConstantValue::value_as_ConstantInt2(a1);
+        result = Air::ConstantInt2::HashImpl(v55, c);
+        break;
+      case 0x1F:
+        v28 = Air::FunctionConstantValue::value_as_ConstantInt3(a1);
+        result = Air::ConstantInt3::HashImpl(v28, c);
+        break;
+      case 0x20:
+        v39 = Air::FunctionConstantValue::value_as_ConstantInt4(a1);
+        result = Air::ConstantInt4::HashImpl(v39, c);
+        break;
+      case 0x21:
+        v33 = Air::FunctionConstantValue::value_as_ConstantUInt(a1);
+        result = Air::ConstantUInt::HashImpl(v33, c);
+        break;
+      case 0x22:
+        v24 = Air::FunctionConstantValue::value_as_ConstantUInt2(a1);
+        result = Air::ConstantUInt2::HashImpl(v24, c);
+        break;
+      case 0x23:
+        v47 = Air::FunctionConstantValue::value_as_ConstantUInt3(a1);
+        result = Air::ConstantUInt3::HashImpl(v47, c);
+        break;
+      case 0x24:
+        v48 = Air::FunctionConstantValue::value_as_ConstantUInt4(a1);
+        result = Air::ConstantUInt4::HashImpl(v48, c);
+        break;
+      case 0x25:
+        v60 = Air::FunctionConstantValue::value_as_ConstantShort(a1);
+        result = Air::ConstantShort::HashImpl(v60, c);
+        break;
+      case 0x26:
+        v58 = Air::FunctionConstantValue::value_as_ConstantShort2(a1);
+        result = Air::ConstantShort2::HashImpl(v58, c);
+        break;
+      case 0x27:
+        v22 = Air::FunctionConstantValue::value_as_ConstantShort3(a1);
+        result = Air::ConstantShort3::HashImpl(v22, c);
+        break;
+      case 0x28:
+        v34 = Air::FunctionConstantValue::value_as_ConstantShort4(a1);
+        result = Air::ConstantShort4::HashImpl(v34, c);
+        break;
+      case 0x29:
+        v63 = Air::FunctionConstantValue::value_as_ConstantUShort(a1);
+        result = Air::ConstantUShort::HashImpl(v63, c);
+        break;
+      case 0x2A:
+        v23 = Air::FunctionConstantValue::value_as_ConstantUShort2(a1);
+        result = Air::ConstantUShort2::HashImpl(v23, c);
+        break;
+      case 0x2B:
+        v32 = Air::FunctionConstantValue::value_as_ConstantUShort3(a1);
+        result = Air::ConstantUShort3::HashImpl(v32, c);
+        break;
+      case 0x2C:
+        v27 = Air::FunctionConstantValue::value_as_ConstantUShort4(a1);
+        result = Air::ConstantUShort4::HashImpl(v27, c);
+        break;
+      case 0x2D:
+        v41 = Air::FunctionConstantValue::value_as_ConstantChar(a1);
+        result = Air::ConstantChar::HashImpl(v41, c);
+        break;
+      case 0x2E:
+        v25 = Air::FunctionConstantValue::value_as_ConstantChar2(a1);
+        result = Air::ConstantChar2::HashImpl(v25, c);
+        break;
+      case 0x2F:
+        v70 = Air::FunctionConstantValue::value_as_ConstantChar3(a1);
+        result = Air::ConstantChar3::HashImpl(v70, c);
+        break;
+      case 0x30:
+        v69 = Air::FunctionConstantValue::value_as_ConstantChar4(a1);
+        result = Air::ConstantChar4::HashImpl(v69, c);
+        break;
+      case 0x31:
+        v30 = Air::FunctionConstantValue::value_as_ConstantUChar(a1);
+        result = Air::ConstantUChar::HashImpl(v30, c);
+        break;
+      case 0x32:
+        v36 = Air::FunctionConstantValue::value_as_ConstantUChar2(a1);
+        result = Air::ConstantUChar2::HashImpl(v36, c);
+        break;
+      case 0x33:
+        v50 = Air::FunctionConstantValue::value_as_ConstantUChar3(a1);
+        result = Air::ConstantUChar3::HashImpl(v50, c);
+        break;
+      case 0x34:
+        v37 = Air::FunctionConstantValue::value_as_ConstantUChar4(a1);
+        result = Air::ConstantUChar4::HashImpl(v37, c);
+        break;
+      case 0x35:
+        v74 = Air::FunctionConstantValue::value_as_ConstantBool(a1);
+        result = Air::ConstantBool::HashImpl(v74, c);
+        break;
+      case 0x36:
+        v29 = Air::FunctionConstantValue::value_as_ConstantBool2(a1);
+        result = Air::ConstantBool2::HashImpl(v29, c);
+        break;
+      case 0x37:
+        v59 = Air::FunctionConstantValue::value_as_ConstantBool3(a1);
+        result = Air::ConstantBool3::HashImpl(v59, c);
+        break;
+      case 0x38:
+        v73 = Air::FunctionConstantValue::value_as_ConstantBool4(a1);
+        result = Air::ConstantBool4::HashImpl(v73, c);
+        break;
+      case 0x51:
+        v20 = Air::FunctionConstantValue::value_as_ConstantLong(a1);
+        result = Air::ConstantLong::HashImpl(v20, c);
+        break;
+      case 0x52:
+        v54 = Air::FunctionConstantValue::value_as_ConstantLong2(a1);
+        result = Air::ConstantLong2::HashImpl(v54, c);
+        break;
+      case 0x53:
+        v19 = Air::FunctionConstantValue::value_as_ConstantLong3(a1);
+        result = Air::ConstantLong3::HashImpl(v19, c);
+        break;
+      case 0x54:
+        v18 = Air::FunctionConstantValue::value_as_ConstantLong4(a1);
+        result = Air::ConstantLong4::HashImpl(v18, c);
+        break;
+      case 0x55:
+        v31 = Air::FunctionConstantValue::value_as_ConstantULong(a1);
+        result = Air::ConstantULong::HashImpl(v31, c);
+        break;
+      case 0x56:
+        v42 = Air::FunctionConstantValue::value_as_ConstantULong2(a1);
+        result = Air::ConstantULong2::HashImpl(v42, c);
+        break;
+      case 0x57:
+        v62 = Air::FunctionConstantValue::value_as_ConstantULong3(a1);
+        result = Air::ConstantULong3::HashImpl(v62, c);
+        break;
+      case 0x58:
+        v13 = Air::FunctionConstantValue::value_as_ConstantULong4(a1);
+        result = Air::ConstantULong4::HashImpl(v13, c);
+        break;
+      case 0x59:
+        v21 = Air::FunctionConstantValue::value_as_ConstantDouble(a1);
+        result = Air::ConstantDouble::HashImpl(v21, c);
+        break;
+      case 0x5A:
+        v46 = Air::FunctionConstantValue::value_as_ConstantDouble2(a1);
+        result = Air::ConstantDouble2::HashImpl(v46, c);
+        break;
+      case 0x5B:
+        v52 = Air::FunctionConstantValue::value_as_ConstantDouble3(a1);
+        result = Air::ConstantDouble3::HashImpl(v52, c);
+        break;
+      case 0x5C:
+        v75 = Air::FunctionConstantValue::value_as_ConstantDouble4(a1);
+        result = Air::ConstantDouble4::HashImpl(v75, c);
+        break;
+      case 0x5D:
+        v49 = Air::FunctionConstantValue::value_as_ConstantFloat8(a1);
+        result = Air::ConstantFloat8::HashImpl(v49, c);
+        break;
+      case 0x5E:
+        v17 = Air::FunctionConstantValue::value_as_ConstantFloat16(a1);
+        result = Air::ConstantFloat16::HashImpl(v17, c);
+        break;
+      case 0x5F:
+        v14 = Air::FunctionConstantValue::value_as_ConstantHalf8(a1);
+        result = Air::ConstantHalf8::HashImpl(v14, c);
+        break;
+      case 0x60:
+        v79 = Air::FunctionConstantValue::value_as_ConstantHalf16(a1);
+        result = Air::ConstantHalf16::HashImpl(v79, c);
+        break;
+      case 0x61:
+        v72 = Air::FunctionConstantValue::value_as_ConstantInt8(a1);
+        result = Air::ConstantInt8::HashImpl(v72, c);
+        break;
+      case 0x62:
+        v16 = Air::FunctionConstantValue::value_as_ConstantInt16(a1);
+        result = Air::ConstantInt16::HashImpl(v16, c);
+        break;
+      case 0x63:
+        v56 = Air::FunctionConstantValue::value_as_ConstantUInt8(a1);
+        result = Air::ConstantUInt8::HashImpl(v56, c);
+        break;
+      case 0x64:
+        v61 = Air::FunctionConstantValue::value_as_ConstantUInt16(a1);
+        result = Air::ConstantUInt16::HashImpl(v61, c);
+        break;
+      case 0x65:
+        v15 = Air::FunctionConstantValue::value_as_ConstantShort8(a1);
+        result = Air::ConstantShort8::HashImpl(v15, c);
+        break;
+      case 0x66:
+        v68 = Air::FunctionConstantValue::value_as_ConstantShort16(a1);
+        result = Air::ConstantShort16::HashImpl(v68, c);
+        break;
+      case 0x67:
+        v64 = Air::FunctionConstantValue::value_as_ConstantUShort8(a1);
+        result = Air::ConstantUShort8::HashImpl(v64, c);
+        break;
+      case 0x68:
+        v82 = Air::FunctionConstantValue::value_as_ConstantUShort16(a1);
+        result = Air::ConstantUShort16::HashImpl(v82, c);
+        break;
+      case 0x69:
+        v77 = Air::FunctionConstantValue::value_as_ConstantChar8(a1);
+        result = Air::ConstantChar8::HashImpl(v77, c);
+        break;
+      case 0x6A:
+        v80 = Air::FunctionConstantValue::value_as_ConstantChar16(a1);
+        result = Air::ConstantChar16::HashImpl(v80, c);
+        break;
+      case 0x6B:
+        v65 = Air::FunctionConstantValue::value_as_ConstantUChar8(a1);
+        result = Air::ConstantUChar8::HashImpl(v65, c);
+        break;
+      case 0x6C:
+        v66 = Air::FunctionConstantValue::value_as_ConstantUChar16(a1);
+        result = Air::ConstantUChar16::HashImpl(v66, c);
+        break;
+      case 0x6D:
+        v26 = Air::FunctionConstantValue::value_as_ConstantLong8(a1);
+        result = Air::ConstantLong8::HashImpl(v26, c);
+        break;
+      case 0x6E:
+        v71 = Air::FunctionConstantValue::value_as_ConstantLong16(a1);
+        result = Air::ConstantLong16::HashImpl(v71, c);
+        break;
+      case 0x6F:
+        v12 = Air::FunctionConstantValue::value_as_ConstantULong8(a1);
+        result = Air::ConstantULong8::HashImpl(v12, c);
+        break;
+      case 0x70:
+        v76 = Air::FunctionConstantValue::value_as_ConstantULong16(a1);
+        result = Air::ConstantULong16::HashImpl(v76, c);
+        break;
+      case 0x71:
+        v78 = Air::FunctionConstantValue::value_as_ConstantDouble8(a1);
+        result = Air::ConstantDouble8::HashImpl(v78, c);
+        break;
+      case 0x72:
+        v40 = Air::FunctionConstantValue::value_as_ConstantDouble16(a1);
+        result = Air::ConstantDouble16::HashImpl(v40, c);
+        break;
+      case 0x77:
+        v81 = Air::FunctionConstantValue::value_as_ConstantBool8(a1);
+        result = Air::ConstantBool8::HashImpl(v81, c);
+        break;
+      case 0x78:
+        v67 = Air::FunctionConstantValue::value_as_ConstantBool16(a1);
+        result = Air::ConstantBool16::HashImpl(v67, c);
+        break;
+      default:
+        goto LABEL_13;
+    }
+  }
+
+  else
+  {
+LABEL_13:
+    v85 = 0;
+    return CC_SHA256_Update(c, &v85, 4u);
   }
 
   return result;

@@ -30,13 +30,13 @@
 
 - (BioLogDiagnosticPipeline)init
 {
-  v38 = *MEMORY[0x29EDCA608];
-  v35.receiver = self;
-  v35.super_class = BioLogDiagnosticPipeline;
-  v2 = [(BioLogDiagnosticPipeline *)&v35 init];
+  v37 = *MEMORY[0x29EDCA608];
+  v34.receiver = self;
+  v34.super_class = BioLogDiagnosticPipeline;
+  v2 = [(BioLogDiagnosticPipeline *)&v34 init];
   if (!v2)
   {
-    goto LABEL_23;
+    return 0;
   }
 
   v3 = v2;
@@ -49,9 +49,7 @@
   if (!v7)
   {
     [(BioLogDiagnosticPipeline *)v3 init];
-LABEL_23:
-    v11 = 0;
-    goto LABEL_24;
+    return 0;
   }
 
   v8 = dispatch_source_create(MEMORY[0x29EDCA5D0], 0, 0, v7);
@@ -62,7 +60,7 @@ LABEL_23:
   if (!v10)
   {
     [(BioLogDiagnosticPipeline *)v3 init];
-    goto LABEL_23;
+    return 0;
   }
 
   handler[0] = MEMORY[0x29EDCA5F8];
@@ -70,7 +68,7 @@ LABEL_23:
   handler[2] = __32__BioLogDiagnosticPipeline_init__block_invoke;
   handler[3] = &unk_29EE54570;
   v11 = v3;
-  v34 = v11;
+  v33 = v11;
   dispatch_source_set_event_handler(v10, handler);
   dispatch_activate(v3[2]);
 
@@ -82,7 +80,7 @@ LABEL_23:
   if (!v14)
   {
     [(BioLogDiagnosticPipeline *)v11 init];
-    goto LABEL_23;
+    return 0;
   }
 
   v15 = [(BioUserDefaults *)v14 numberForKey:@"bioLogDiagnosticPipelineSubmitted"];
@@ -109,7 +107,7 @@ LABEL_23:
     {
       v21 = v11->_submitFromDate;
       *buf = 138412290;
-      v37 = v21;
+      v36 = v21;
       _os_log_impl(&dword_296CA4000, v20, OS_LOG_TYPE_DEFAULT, "_submitFromDate: %@ (Last submit)\n", buf, 0xCu);
     }
   }
@@ -144,7 +142,7 @@ LABEL_23:
     {
       v29 = v11->_submitFromDate;
       *buf = 138412290;
-      v37 = v29;
+      v36 = v29;
       _os_log_impl(&dword_296CA4000, v28, OS_LOG_TYPE_DEFAULT, "_submitFromDate: %@ (Never submitted)\n", buf, 0xCu);
     }
   }
@@ -152,12 +150,10 @@ LABEL_23:
   environment = v11->_environment;
   v11->_environment = @"development";
 
-LABEL_24:
-  v31 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
-uint64_t __32__BioLogDiagnosticPipeline_init__block_invoke(uint64_t a1)
+void *__32__BioLogDiagnosticPipeline_init__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 56) = 1;
   result = [*(a1 + 32) submit];
@@ -167,24 +163,24 @@ uint64_t __32__BioLogDiagnosticPipeline_init__block_invoke(uint64_t a1)
 
 - (void)submit
 {
-  v79[11] = *MEMORY[0x29EDCA608];
+  v78[11] = *MEMORY[0x29EDCA608];
   date = [MEMORY[0x29EDB8DB0] date];
   lastSubmitTry = self->_lastSubmitTry;
   self->_lastSubmitTry = date;
 
-  v68 = date;
+  v67 = date;
   location = &self->_submitFromDate;
-  v70 = self->_submitFromDate;
+  v69 = self->_submitFromDate;
   uUID = [MEMORY[0x29EDBA140] UUID];
   v5 = MEMORY[0x29EDBA0F8];
   v6 = +[BLHelper deviceSerialNumberString];
-  [(NSDate *)v68 timeIntervalSince1970];
+  [(NSDate *)v67 timeIntervalSince1970];
   v8 = v7;
   uUIDString = [uUID UUIDString];
-  v64 = [v5 stringWithFormat:@"BioLogMeta_%@_%lu_%@.zip", v6, v8, uUIDString];
+  v63 = [v5 stringWithFormat:@"BioLogMeta_%@_%lu_%@.zip", v6, v8, uUIDString];
 
   v10 = NSTemporaryDirectory();
-  v65 = [v10 stringByAppendingPathComponent:v64];
+  v64 = [v10 stringByAppendingPathComponent:v63];
 
   pipe = [MEMORY[0x29EDBA098] pipe];
   v11 = objc_alloc_init(MEMORY[0x29EDBA100]);
@@ -196,21 +192,21 @@ uint64_t __32__BioLogDiagnosticPipeline_init__block_invoke(uint64_t a1)
   [v12 setCurrentDirectoryURL:v14];
 
   [v11 setLaunchPath:@"/usr/bin/find"];
-  v79[0] = @".";
-  v79[1] = CFSTR("(");
-  v79[2] = @"-name";
-  v79[3] = @"seq-*.json";
-  v79[4] = @"-or";
-  v79[5] = @"-name";
-  v79[6] = @"sec-*.json";
-  v79[7] = @"");
-  v79[8] = @"-Btime";
+  v78[0] = @".";
+  v78[1] = CFSTR("(");
+  v78[2] = @"-name";
+  v78[3] = @"seq-*.json";
+  v78[4] = @"-or";
+  v78[5] = @"-name";
+  v78[6] = @"sec-*.json";
+  v78[7] = @"");
+  v78[8] = @"-Btime";
   v15 = MEMORY[0x29EDBA0F8];
-  [(NSDate *)v70 timeIntervalSinceNow];
+  [(NSDate *)v69 timeIntervalSinceNow];
   v17 = [v15 stringWithFormat:@"%lds", v16];
-  v79[9] = v17;
-  v79[10] = @"-print0";
-  v18 = [MEMORY[0x29EDB8D80] arrayWithObjects:v79 count:11];
+  v78[9] = v17;
+  v78[10] = @"-print0";
+  v18 = [MEMORY[0x29EDB8D80] arrayWithObjects:v78 count:11];
   [v11 setArguments:v18];
 
   [v11 setStandardOutput:pipe];
@@ -228,49 +224,49 @@ uint64_t __32__BioLogDiagnosticPipeline_init__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    *v78 = v70;
-    *&v78[8] = 2112;
-    *&v78[10] = obj;
+    *v77 = v69;
+    *&v77[8] = 2112;
+    *&v77[10] = obj;
     _os_log_impl(&dword_296CA4000, v19, OS_LOG_TYPE_DEFAULT, "submit <- (submitFromDate: %@, submitToDate: %@)\n", buf, 0x16u);
   }
 
-  v75[0] = @"bundle_type";
-  v75[1] = @"bundle_version";
-  v76[0] = @"com.apple.pearl.biolog_meta";
-  v76[1] = &unk_2A1E038A0;
-  v75[2] = @"bundle_id";
+  v74[0] = @"bundle_type";
+  v74[1] = @"bundle_version";
+  v75[0] = @"com.apple.pearl.biolog_meta";
+  v75[1] = &unk_2A1E038A0;
+  v74[2] = @"bundle_id";
   uUIDString2 = [uUID UUIDString];
-  v76[2] = uUIDString2;
-  v76[3] = @"iOS";
-  v75[3] = @"device_category";
-  v75[4] = @"device_serial";
+  v75[2] = uUIDString2;
+  v75[3] = @"iOS";
+  v74[3] = @"device_category";
+  v74[4] = @"device_serial";
   v21 = +[BLHelper deviceSerialNumberString];
-  v76[4] = v21;
-  v75[5] = @"build_version";
+  v75[4] = v21;
+  v74[5] = @"build_version";
   v22 = +[BLHelper buildVersionString];
-  v76[5] = v22;
-  v75[6] = @"start_time_seconds";
+  v75[5] = v22;
+  v74[6] = @"start_time_seconds";
   v23 = MEMORY[0x29EDBA070];
-  [(NSDate *)v70 timeIntervalSince1970];
+  [(NSDate *)v69 timeIntervalSince1970];
   v24 = [v23 numberWithDouble:?];
-  v76[6] = v24;
-  v75[7] = @"end_time_seconds";
+  v75[6] = v24;
+  v74[7] = @"end_time_seconds";
   v25 = MEMORY[0x29EDBA070];
   [obj timeIntervalSince1970];
   v26 = [v25 numberWithDouble:?];
-  v76[7] = v26;
-  v75[8] = @"creation_time_seconds";
+  v75[7] = v26;
+  v74[8] = @"creation_time_seconds";
   v27 = MEMORY[0x29EDBA070];
-  [(NSDate *)v68 timeIntervalSince1970];
+  [(NSDate *)v67 timeIntervalSince1970];
   v28 = [v27 numberWithDouble:?];
-  v76[8] = v28;
-  v75[9] = @"environment";
-  v76[9] = self->_environment;
-  v29 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v76 forKeys:v75 count:10];
+  v75[8] = v28;
+  v74[9] = @"environment";
+  v75[9] = self->_environment;
+  v29 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v75 forKeys:v74 count:10];
 
-  v73 = 0;
-  v30 = [MEMORY[0x29EDB9FF0] dataWithJSONObject:v29 options:1 error:&v73];
-  v31 = v73;
+  v72 = 0;
+  v30 = [MEMORY[0x29EDB9FF0] dataWithJSONObject:v29 options:1 error:&v72];
+  v31 = v72;
   if (v30)
   {
     v32 = [@"/Library/Logs/BioLog" stringByAppendingPathComponent:@"DRContext.json"];
@@ -306,7 +302,7 @@ LABEL_18:
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v78 = v31;
+      *v77 = v31;
       v35 = "ERROR: dataWithJSONObject(contextDictionary) -> nil (%@)\n";
       v36 = v38;
       v37 = 12;
@@ -315,32 +311,32 @@ LABEL_18:
   }
 
   [v12 setLaunchPath:@"/usr/bin/login"];
-  v74[0] = @"-f";
-  v74[1] = @"mobile";
-  v74[2] = @"tar";
-  v74[3] = @"--cd";
-  v74[4] = @"/Library/Logs/BioLog";
-  v74[5] = @"--create";
-  v74[6] = @"--auto-compress";
-  v74[7] = @"--file";
-  v74[8] = v65;
-  v74[9] = @"--null";
-  v74[10] = @"--files-from";
-  v74[11] = @"-";
-  v74[12] = @"DRContext.json";
-  v39 = [MEMORY[0x29EDB8D80] arrayWithObjects:v74 count:13];
+  v73[0] = @"-f";
+  v73[1] = @"mobile";
+  v73[2] = @"tar";
+  v73[3] = @"--cd";
+  v73[4] = @"/Library/Logs/BioLog";
+  v73[5] = @"--create";
+  v73[6] = @"--auto-compress";
+  v73[7] = @"--file";
+  v73[8] = v64;
+  v73[9] = @"--null";
+  v73[10] = @"--files-from";
+  v73[11] = @"-";
+  v73[12] = @"DRContext.json";
+  v39 = [MEMORY[0x29EDB8D80] arrayWithObjects:v73 count:13];
   [v12 setArguments:v39];
 
   [v12 setStandardInput:pipe];
-  v72 = 0;
-  LOBYTE(v39) = [v12 launchAndReturnError:&v72];
-  v40 = v72;
+  v71 = 0;
+  LOBYTE(v39) = [v12 launchAndReturnError:&v71];
+  v40 = v71;
 
   if (v39)
   {
-    v71 = 0;
-    v41 = [v11 launchAndReturnError:&v71];
-    v42 = v71;
+    v70 = 0;
+    v41 = [v11 launchAndReturnError:&v70];
+    v42 = v70;
 
     if (v41)
     {
@@ -362,7 +358,7 @@ LABEL_18:
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v78 = v42;
+        *v77 = v42;
         _os_log_impl(&dword_296CA4000, v44, OS_LOG_TYPE_ERROR, "ERROR: findTask -> %@\n", buf, 0xCu);
       }
     }
@@ -385,7 +381,7 @@ LABEL_18:
     if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v78 = v40;
+      *v77 = v40;
       _os_log_impl(&dword_296CA4000, v43, OS_LOG_TYPE_ERROR, "ERROR: tarTask -> %@\n", buf, 0xCu);
     }
   }
@@ -408,9 +404,9 @@ LABEL_18:
       terminationStatus = [v12 terminationStatus];
       terminationReason = [v12 terminationReason];
       *buf = 67109376;
-      *v78 = terminationStatus;
-      *&v78[4] = 2048;
-      *&v78[6] = terminationReason;
+      *v77 = terminationStatus;
+      *&v77[4] = 2048;
+      *&v77[6] = terminationReason;
       _os_log_impl(&dword_296CA4000, v46, OS_LOG_TYPE_ERROR, "ERROR: tarTask(find) -> %d (terminationReason:%ld)\n", buf, 0x12u);
     }
 
@@ -430,7 +426,7 @@ LABEL_57:
     {
       submitPostponeHours = self->_submitPostponeHours;
       *buf = 134217984;
-      *v78 = submitPostponeHours;
+      *v77 = submitPostponeHours;
       _os_log_impl(&dword_296CA4000, v60, OS_LOG_TYPE_INFO, "submit -> FAILED: Will retry in %lu hours.\n", buf, 0xCu);
     }
 
@@ -439,7 +435,7 @@ LABEL_57:
   }
 
   defaultManager = [MEMORY[0x29EDB9FB8] defaultManager];
-  v50 = [defaultManager fileExistsAtPath:v65];
+  v50 = [defaultManager fileExistsAtPath:v64];
 
   if ((v50 & 1) == 0)
   {
@@ -456,7 +452,7 @@ LABEL_57:
     if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v78 = v65;
+      *v77 = v64;
       _os_log_impl(&dword_296CA4000, v58, OS_LOG_TYPE_ERROR, "ERROR: tarTask(find) failed to create log bundle file: %@\n", buf, 0xCu);
     }
 
@@ -481,7 +477,7 @@ LABEL_57:
     if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v78 = v52;
+      *v77 = v52;
       _os_log_impl(&dword_296CA4000, v59, OS_LOG_TYPE_ERROR, "ERROR: DRSubmitLog -> %@\n", buf, 0xCu);
     }
 
@@ -511,13 +507,11 @@ LABEL_57:
   {
     v57 = *location;
     *buf = 138412290;
-    *v78 = v57;
+    *v77 = v57;
     _os_log_impl(&dword_296CA4000, v56, OS_LOG_TYPE_INFO, "submit -> DONE (_submitFromDate: %@)\n", buf, 0xCu);
   }
 
 LABEL_63:
-
-  v62 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)scheduleSubmit
@@ -549,15 +543,12 @@ LABEL_63:
 
 - (void)init
 {
-  v10 = *MEMORY[0x29EDCA608];
   if (OUTLINED_FUNCTION_12(__osLog_BioLogDiagnosticPipeline))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_7_0(&dword_296CA4000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_7_0(&dword_296CA4000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 @end

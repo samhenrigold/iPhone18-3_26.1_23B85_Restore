@@ -25,12 +25,11 @@
 
 uint64_t __44__HMDCameraMediaConfigGenerator_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_46751;
-  logCategory__hmf_once_v9_46751 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_46751;
+  logCategory__hmf_once_v9_46751 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)_loadMiscConfig:(id)config
@@ -87,7 +86,7 @@ uint64_t __44__HMDCameraMediaConfigGenerator_logCategory__block_invoke()
 
 - (BOOL)extractReselectedConfigFromVideoTier:(id)tier videoStreamConfig:(id *)config
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   tierCopy = tier;
   v6 = objc_alloc_init(HMDVideoStreamConfig);
   videoResolution = [tierCopy videoResolution];
@@ -111,9 +110,9 @@ uint64_t __44__HMDCameraMediaConfigGenerator_logCategory__block_invoke()
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v24;
-      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to translate image resolution", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v24;
+      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to translate image resolution", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v22);
@@ -143,13 +142,12 @@ uint64_t __44__HMDCameraMediaConfigGenerator_logCategory__block_invoke()
     *config = v6;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v10 != -1;
 }
 
 - (BOOL)_loadAVCVideoStreamConfig:(id)config protocolParameters:(id)parameters
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   configCopy = config;
   parametersCopy = parameters;
   selectedStreamConfigurationWrite = [parametersCopy selectedStreamConfigurationWrite];
@@ -167,13 +165,13 @@ uint64_t __44__HMDCameraMediaConfigGenerator_logCategory__block_invoke()
       selectedStreamConfigurationWrite2 = [parametersCopy selectedStreamConfigurationWrite];
       videoParameters2 = [selectedStreamConfigurationWrite2 videoParameters];
       codec2 = [videoParameters2 codec];
-      v101 = 138543618;
-      v102 = v14;
-      v103 = 2048;
+      v100 = 138543618;
+      v101 = v14;
+      v102 = 2048;
       decodedNumber = [codec2 decodedNumber];
       v18 = "%{public}@Failed to translate to video codec type from %lu";
 LABEL_4:
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, v18, &v101, 0x16u);
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, v18, &v100, 0x16u);
 
 LABEL_5:
     }
@@ -207,17 +205,17 @@ LABEL_5:
     resolutionType = [videoResolution resolutionType];
     if ((resolutionType - 1) >= 0x1D)
     {
-      v37 = &kIPCameraUnknownParameter;
+      v36 = &kIPCameraUnknownParameter;
     }
 
     else
     {
-      v37 = (&unk_253D4BC40 + 8 * resolutionType - 8);
+      v36 = (&unk_253D4BC40 + 8 * resolutionType - 8);
     }
 
-    v38 = *v37;
+    v37 = *v36;
 
-    if (v38 == -1)
+    if (v37 == -1)
     {
       v12 = objc_autoreleasePoolPush();
       v13 = HMFGetOSLogHandle();
@@ -227,14 +225,14 @@ LABEL_5:
       }
 
       v14 = HMFGetLogIdentifier();
-      v101 = 138543362;
-      v102 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to translate image resolution", &v101, 0xCu);
+      v100 = 138543362;
+      v101 = v14;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to translate image resolution", &v100, 0xCu);
       goto LABEL_5;
     }
 
     video3 = [configCopy video];
-    [video3 setVideoResolution:v38];
+    [video3 setVideoResolution:v37];
 
     selectedStreamConfigurationWrite6 = [parametersCopy selectedStreamConfigurationWrite];
     videoParameters6 = [selectedStreamConfigurationWrite6 videoParameters];
@@ -265,7 +263,7 @@ LABEL_5:
     rtpParameters5 = [videoParameters9 rtpParameters];
     rtcpInterval = [rtpParameters5 rtcpInterval];
     [rtcpInterval floatValue];
-    [configCopy setRtcpSendInterval:v62];
+    [configCopy setRtcpSendInterval:v61];
 
     setupEndPointWrite = [parametersCopy setupEndPointWrite];
     address = [setupEndPointWrite address];
@@ -340,9 +338,9 @@ LABEL_5:
       selectedStreamConfigurationWrite2 = [parametersCopy setupEndPointRead];
       videoParameters2 = [selectedStreamConfigurationWrite2 videoSrtpParameters];
       codec2 = [videoParameters2 srtpCryptoSuite];
-      v101 = 138543618;
-      v102 = v14;
-      v103 = 2048;
+      v100 = 138543618;
+      v101 = v14;
+      v102 = 2048;
       decodedNumber = [codec2 decodedNumber];
       v18 = "%{public}@Failed to translate to crypto suite for video from %lu";
       goto LABEL_4;
@@ -355,20 +353,19 @@ LABEL_6:
   v19 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)_loadAVCAudioStreamConfig:(id)config protocolParameters:(id)parameters
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   configCopy = config;
   parametersCopy = parameters;
   selectedStreamConfigurationWrite = [parametersCopy selectedStreamConfigurationWrite];
   audioParameters = [selectedStreamConfigurationWrite audioParameters];
   codecGroup = [audioParameters codecGroup];
   codec = [codecGroup codec];
-  v110 = parametersCopy;
+  v109 = parametersCopy;
   selectedStreamConfigurationWrite2 = [parametersCopy selectedStreamConfigurationWrite];
   audioParameters2 = [selectedStreamConfigurationWrite2 audioParameters];
   codecParameters = [audioParameters2 codecParameters];
@@ -438,44 +435,44 @@ LABEL_7:
     }
   }
 
-  v108 = selectedStreamConfigurationWrite;
+  v107 = selectedStreamConfigurationWrite;
   context = objc_autoreleasePoolPush();
   v19 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v106 = HMFGetLogIdentifier();
+    v105 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v113 = v106;
-    v114 = 2048;
-    v115 = codec;
-    v116 = 2048;
-    v117 = v16;
+    v112 = v105;
+    v113 = 2048;
+    v114 = codec;
+    v115 = 2048;
+    v116 = v16;
     _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to translate the HMD audio codec type: %tu, sample rate: %tu", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(context);
   v18 = -1;
   v17 = 1;
-  selectedStreamConfigurationWrite = v108;
+  selectedStreamConfigurationWrite = v107;
 LABEL_23:
 
   if (v17)
   {
     v20 = objc_autoreleasePoolPush();
     v21 = HMFGetOSLogHandle();
-    v23 = v110;
+    v23 = v109;
     v22 = configCopy;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      selectedStreamConfigurationWrite3 = [v110 selectedStreamConfigurationWrite];
+      selectedStreamConfigurationWrite3 = [v109 selectedStreamConfigurationWrite];
       audioParameters3 = [selectedStreamConfigurationWrite3 audioParameters];
       codecGroup2 = [audioParameters3 codecGroup];
       decodedNumber = [codecGroup2 decodedNumber];
       *buf = 138543618;
-      v113 = v24;
-      v114 = 2048;
-      v115 = decodedNumber;
+      v112 = v24;
+      v113 = 2048;
+      v114 = decodedNumber;
       v29 = "%{public}@Failed to translate to audio codec type from %lu";
 LABEL_30:
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, v29, buf, 0x16u);
@@ -496,66 +493,66 @@ LABEL_30:
   audio3 = [configCopy audio];
   [audio3 setDtxEnabled:1];
 
-  v23 = v110;
-  selectedStreamConfigurationWrite4 = [v110 selectedStreamConfigurationWrite];
+  v23 = v109;
+  selectedStreamConfigurationWrite4 = [v109 selectedStreamConfigurationWrite];
   audioParameters4 = [selectedStreamConfigurationWrite4 audioParameters];
   rtpParameters = [audioParameters4 rtpParameters];
   payloadType = [rtpParameters payloadType];
   [configCopy setTxPayloadType:{objc_msgSend(payloadType, "unsignedIntegerValue")}];
 
-  selectedStreamConfigurationWrite5 = [v110 selectedStreamConfigurationWrite];
+  selectedStreamConfigurationWrite5 = [v109 selectedStreamConfigurationWrite];
   audioParameters5 = [selectedStreamConfigurationWrite5 audioParameters];
   rtpParameters2 = [audioParameters5 rtpParameters];
   payloadType2 = [rtpParameters2 payloadType];
   [configCopy setRxPayloadType:{objc_msgSend(payloadType2, "unsignedIntegerValue")}];
 
   [configCopy setDirection:3];
-  selectedStreamConfigurationWrite6 = [v110 selectedStreamConfigurationWrite];
+  selectedStreamConfigurationWrite6 = [v109 selectedStreamConfigurationWrite];
   audioParameters6 = [selectedStreamConfigurationWrite6 audioParameters];
   rtpParameters3 = [audioParameters6 rtpParameters];
   rtcpInterval = [rtpParameters3 rtcpInterval];
   [rtcpInterval floatValue];
   [configCopy setRtcpSendInterval:v45];
 
-  setupEndPointWrite = [v110 setupEndPointWrite];
+  setupEndPointWrite = [v109 setupEndPointWrite];
   address = [setupEndPointWrite address];
   ipAddress = [address ipAddress];
   localAddress = [configCopy localAddress];
   [localAddress setIp:ipAddress];
 
-  setupEndPointWrite2 = [v110 setupEndPointWrite];
+  setupEndPointWrite2 = [v109 setupEndPointWrite];
   address2 = [setupEndPointWrite2 address];
   audioRTPPort = [address2 audioRTPPort];
   unsignedShortValue = [audioRTPPort unsignedShortValue];
   localAddress2 = [configCopy localAddress];
   [localAddress2 setPort:unsignedShortValue];
 
-  setupEndPointWrite3 = [v110 setupEndPointWrite];
+  setupEndPointWrite3 = [v109 setupEndPointWrite];
   address3 = [setupEndPointWrite3 address];
   isIPv6Address = [address3 isIPv6Address];
   localAddress3 = [configCopy localAddress];
   [localAddress3 setIsIPv6:isIPv6Address];
 
-  setupEndPointRead = [v110 setupEndPointRead];
+  setupEndPointRead = [v109 setupEndPointRead];
   address4 = [setupEndPointRead address];
   ipAddress2 = [address4 ipAddress];
   remoteAddress = [configCopy remoteAddress];
   [remoteAddress setIp:ipAddress2];
 
-  setupEndPointRead2 = [v110 setupEndPointRead];
+  setupEndPointRead2 = [v109 setupEndPointRead];
   address5 = [setupEndPointRead2 address];
   audioRTPPort2 = [address5 audioRTPPort];
   unsignedShortValue2 = [audioRTPPort2 unsignedShortValue];
   remoteAddress2 = [configCopy remoteAddress];
   [remoteAddress2 setPort:unsignedShortValue2];
 
-  setupEndPointRead3 = [v110 setupEndPointRead];
+  setupEndPointRead3 = [v109 setupEndPointRead];
   address6 = [setupEndPointRead3 address];
   isIPv6Address2 = [address6 isIPv6Address];
   remoteAddress3 = [configCopy remoteAddress];
   [remoteAddress3 setIsIPv6:isIPv6Address2];
 
-  setupEndPointRead4 = [v110 setupEndPointRead];
+  setupEndPointRead4 = [v109 setupEndPointRead];
   address7 = [setupEndPointRead4 address];
   audioRTPPort3 = [address7 audioRTPPort];
   [configCopy setRtcpRemotePort:{objc_msgSend(audioRTPPort3, "unsignedShortValue")}];
@@ -563,14 +560,14 @@ LABEL_30:
   audio4 = [configCopy audio];
   [audio4 setAudioStreamMode:3];
 
-  selectedStreamConfigurationWrite7 = [v110 selectedStreamConfigurationWrite];
+  selectedStreamConfigurationWrite7 = [v109 selectedStreamConfigurationWrite];
   audioParameters7 = [selectedStreamConfigurationWrite7 audioParameters];
   comfortNoiseEnabled = [audioParameters7 comfortNoiseEnabled];
   bOOLValue = [comfortNoiseEnabled BOOLValue];
   audio5 = [configCopy audio];
   [audio5 setCnEnabled:bOOLValue];
 
-  selectedStreamConfigurationWrite8 = [v110 selectedStreamConfigurationWrite];
+  selectedStreamConfigurationWrite8 = [v109 selectedStreamConfigurationWrite];
   audioParameters8 = [selectedStreamConfigurationWrite8 audioParameters];
   rtpParameters4 = [audioParameters8 rtpParameters];
   comfortNoisePayloadType = [rtpParameters4 comfortNoisePayloadType];
@@ -578,7 +575,7 @@ LABEL_30:
   audio6 = [configCopy audio];
   [audio6 setCnPayloadType:unsignedIntegerValue];
 
-  selectedStreamConfigurationWrite9 = [v110 selectedStreamConfigurationWrite];
+  selectedStreamConfigurationWrite9 = [v109 selectedStreamConfigurationWrite];
   audioParameters9 = [selectedStreamConfigurationWrite9 audioParameters];
   codecParameters2 = [audioParameters9 codecParameters];
   rtpPtime = [codecParameters2 rtpPtime];
@@ -586,7 +583,7 @@ LABEL_30:
   audio7 = [configCopy audio];
   [audio7 setPtime:unsignedIntegerValue2];
 
-  setupEndPointRead5 = [v110 setupEndPointRead];
+  setupEndPointRead5 = [v109 setupEndPointRead];
   audioSrtpParameters = [setupEndPointRead5 audioSrtpParameters];
   srtpCryptoSuite = [audioSrtpParameters srtpCryptoSuite];
   LOBYTE(rtpPtime) = [(HMDCameraMediaConfigGenerator *)self _loadConfig:configCopy cipherCuite:srtpCryptoSuite];
@@ -598,14 +595,14 @@ LABEL_30:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      selectedStreamConfigurationWrite3 = [v110 setupEndPointRead];
+      selectedStreamConfigurationWrite3 = [v109 setupEndPointRead];
       audioParameters3 = [selectedStreamConfigurationWrite3 audioSrtpParameters];
       codecGroup2 = [audioParameters3 srtpCryptoSuite];
       decodedNumber2 = [codecGroup2 decodedNumber];
       *buf = 138543618;
-      v113 = v24;
-      v114 = 2048;
-      v115 = decodedNumber2;
+      v112 = v24;
+      v113 = 2048;
+      v114 = decodedNumber2;
       v29 = "%{public}@Failed to translate to crypto suite for audio from %lu";
       goto LABEL_30;
     }
@@ -617,27 +614,26 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  setupEndPointWrite4 = [v110 setupEndPointWrite];
+  setupEndPointWrite4 = [v109 setupEndPointWrite];
   audioSrtpParameters2 = [setupEndPointWrite4 audioSrtpParameters];
-  setupEndPointRead6 = [v110 setupEndPointRead];
+  setupEndPointRead6 = [v109 setupEndPointRead];
   audioSrtpParameters3 = [setupEndPointRead6 audioSrtpParameters];
   [(HMDCameraMediaConfigGenerator *)self _loadConfig:configCopy sendSrtpParameters:audioSrtpParameters2 receiveSrtpParameters:audioSrtpParameters3];
 
   [(HMDCameraMediaConfigGenerator *)self _loadMiscConfig:configCopy];
-  setupEndPointRead7 = [v110 setupEndPointRead];
+  setupEndPointRead7 = [v109 setupEndPointRead];
   audioSSRC = [setupEndPointRead7 audioSSRC];
   [configCopy setRemoteSSRC:{objc_msgSend(audioSSRC, "unsignedIntegerValue")}];
 
   v102 = 1;
 LABEL_32:
 
-  v104 = *MEMORY[0x277D85DE8];
   return v102;
 }
 
 - (BOOL)extractSelectedConfigFromProtocolParameters:(id)parameters videoStreamConfig:(id *)config audioStreamConfig:(id *)streamConfig
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   v9 = objc_alloc_init(HMDVideoStreamConfig);
   if ([(HMDCameraMediaConfigGenerator *)self _loadAVCVideoStreamConfig:v9 protocolParameters:parametersCopy])
@@ -666,9 +662,9 @@ LABEL_32:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v22 = 138543362;
-        v23 = v19;
-        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to load audio config from the protocol parameters", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = v19;
+        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to load audio config from the protocol parameters", &v21, 0xCu);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -682,16 +678,15 @@ LABEL_32:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v16;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to load video config from the protocol parameters", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v16;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to load video config from the protocol parameters", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

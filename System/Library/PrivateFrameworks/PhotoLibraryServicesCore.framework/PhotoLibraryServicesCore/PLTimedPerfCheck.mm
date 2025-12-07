@@ -54,7 +54,7 @@
   if (infoCopy || ([(PLTimedPerfCheck *)self stop], (infoCopy = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v5 = infoCopy;
-    [(PLTimedPerfCheck *)self perfUnitsFromPerfCheckInfo:infoCopy];
+    objc_msgSend_perfUnitsFromPerfCheckInfo_(self);
     v27 = MEMORY[0x1E696AEC0];
     v28 = [v5 objectForKeyedSubscript:@"processMemoryPeakKiloBytesInitial"];
     [v28 doubleValue];

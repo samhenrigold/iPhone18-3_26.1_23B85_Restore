@@ -19,9 +19,9 @@
   listenerCopy = listener;
   connectionCopy = connection;
   selfCopy = self;
-  v9 = sub_1000289AC(connectionCopy);
+  v11 = sub_1000289AC(connectionCopy, v9, v10);
 
-  return v9 & 1;
+  return v11 & 1;
 }
 
 - (void)requestAuthorizationFor:(int64_t)for :(id)a4
@@ -93,18 +93,17 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(handler);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(handler);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
-  v13 = OBJC_IVAR____TtC19FamilyControlsAgent5Agent_manager;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  v12 = OBJC_IVAR____TtC19FamilyControlsAgent5Agent_manager;
   selfCopy = self;
-  sub_10000A4E4(v10, (&self->super.isa + v13), selfCopy, sub_10002B8A8, v12);
+  sub_10000A4E4(v9, (&self->super.isa + v12), selfCopy, sub_10002B8A8, v11);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)requestInternalAuthorizationForMember:(int64_t)member replyHandler:(id)handler

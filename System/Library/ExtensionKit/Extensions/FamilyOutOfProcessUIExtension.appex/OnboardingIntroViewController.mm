@@ -3,6 +3,7 @@
 - (_TtC29FamilyOutOfProcessUIExtension29OnboardingIntroViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout;
 - (void)cancelFlow;
 - (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)appear;
 @end
@@ -14,6 +15,14 @@
   v2.receiver = self;
   v2.super_class = type metadata accessor for OnboardingIntroViewController(0);
   [(OnboardingIntroViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for OnboardingIntroViewController(0);
+  [(OnboardingIntroViewController *)&v4 viewDidDisappear:disappearCopy];
 }
 
 - (void)viewWillAppear:(BOOL)appear

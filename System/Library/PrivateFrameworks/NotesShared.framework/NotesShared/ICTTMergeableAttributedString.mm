@@ -1062,14 +1062,14 @@ LABEL_125:
     v7 = 0;
     do
     {
-      v8 = [stringCopy attributesAtIndex:v7 longestEffectiveRange:&v14 inRange:{0, v6}];
+      v8 = [stringCopy attributesAtIndex:v7 longestEffectiveRange:v14 inRange:{0, v6}];
       v9 = *(archive + 23);
       v10 = *(archive + 22);
       if (v10 >= v9)
       {
         if (v9 == *(archive + 24))
         {
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 80, v9 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 20, v9 + 1);
         }
 
         google::protobuf::internal::GenericTypeHandler<topotext::AttributeRun>::New();
@@ -1078,11 +1078,11 @@ LABEL_125:
       v11 = *(archive + 10);
       *(archive + 22) = v10 + 1;
       v12 = *(v11 + 8 * v10);
-      v13 = ICTTBoundedCheckedCastNSUIntegerToUInt32(v15);
+      ICTTBoundedCheckedCastNSUIntegerToUInt32();
       *(v12 + 32) |= 1u;
       *(v12 + 48) = v13;
       [ICTTMergeableAttributedString saveAttributes:v8 toArchive:v12];
-      v7 += v15;
+      v7 += v14[1];
     }
 
     while (v7 < v6);
@@ -1091,13 +1091,14 @@ LABEL_125:
 
 - (id)serialize
 {
-  topotext::String::String(v5);
-  [(ICTTMergeableAttributedString *)self saveToArchive:v5];
-  v3 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:topotext::String::ByteSize(v5)];
-  google::protobuf::MessageLite::SerializeToArray(v5, [v3 mutableBytes], objc_msgSend(v3, "length"));
-  topotext::String::~String(v5);
+  topotext::String::String(v7);
+  [(ICTTMergeableAttributedString *)self saveToArchive:v7];
+  v3 = objc_alloc(MEMORY[0x277CBEB28]);
+  v5 = [v3 initWithLength:{topotext::String::ByteSize(v7, v4)}];
+  google::protobuf::MessageLite::SerializeToArray(v7, [v5 mutableBytes], objc_msgSend(v5, "length"));
+  topotext::String::~String(v7);
 
-  return v3;
+  return v5;
 }
 
 - (void)saveDeltaSinceTimestamp:(id)timestamp toArchive:(void *)archive
@@ -1190,7 +1191,7 @@ void __58__ICTTMergeableAttributedString_allowedAttributesForModel__block_invoke
 {
   length = range.length;
   location = range.location;
-  v32 = *MEMORY[0x277D85DE8];
+  *&v32 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   if (length)
   {
@@ -1249,12 +1250,12 @@ void __58__ICTTMergeableAttributedString_allowedAttributesForModel__block_invoke
       v25 = 0;
       v26 = 0;
       v27 = 0;
-      v31[0] = location;
-      v31[1] = length;
+      *&v31 = location;
+      *(&v31 + 1) = length;
       v23 = 0;
       v24 = 0;
       __p = 0;
-      std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(&__p, v31, &v32, 1uLL);
+      std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(&__p, &v31, &v32, 1uLL);
       [(ICTTMergeableString *)self getSubstrings:&v25 forCharacterRange:location, length];
       v19 = v25;
       v20 = v26;
@@ -1521,22 +1522,24 @@ LABEL_23:
   }
 }
 
-void __57__ICTTMergeableAttributedString_setAttributes_substring___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void __57__ICTTMergeableAttributedString_setAttributes_substring___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  v8 = *(a1 + 40);
-  LODWORD(a3) = ICTTBoundedCheckedCastNSUIntegerToUInt32(a3 - *(a1 + 48));
-  v9 = ICTTBoundedCheckedCastNSUIntegerToUInt32(a4);
-  v10 = *v8;
-  v11 = *(v8 + 8);
-  v12 = [*(a1 + 32) attributeRanges];
-  v13 = v10;
-  v15 = v13;
-  v16 = v11 + a3;
-  v17 = v9;
-  v14 = v7;
-  v18 = v14;
-  std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::push_back[abi:ne200100](v12, &v15);
+  v3 = a2;
+  v4 = *(a1 + 40);
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
+  v6 = v5;
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
+  v8 = v7;
+  v9 = *v4;
+  v10 = *(v4 + 8);
+  v11 = [*(a1 + 32) attributeRanges];
+  v12 = v9;
+  v18 = v12;
+  v19 = v10 + v6;
+  v20 = v8;
+  v13 = v3;
+  v21 = v13;
+  std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::push_back[abi:ne200100](v11, &v18, v14, v15, v16, v17);
 }
 
 - (NSAttributedString)editsAttributedString
@@ -1593,11 +1596,11 @@ void __54__ICTTMergeableAttributedString_editsAttributedString__block_invoke(uin
   }
 }
 
-uint64_t __54__ICTTMergeableAttributedString_editsAttributedString__block_invoke_2(uint64_t result, uint64_t a2)
+id *__54__ICTTMergeableAttributedString_editsAttributedString__block_invoke_2(id *result, uint64_t a2)
 {
   if ((*(a2 + 44) & 1) == 0)
   {
-    return [*(result + 32) addAttribute:ICTTAttributeNameReplicaID value:*a2 range:{*(a2 + 40), *(a2 + 16)}];
+    return [result[4] addAttribute:ICTTAttributeNameReplicaID value:*a2 range:{*(a2 + 40), *(a2 + 16)}];
   }
 
   return result;

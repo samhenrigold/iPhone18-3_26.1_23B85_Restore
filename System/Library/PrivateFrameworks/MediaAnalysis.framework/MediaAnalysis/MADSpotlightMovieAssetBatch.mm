@@ -1167,7 +1167,7 @@ LABEL_12:
 
     if (v21)
     {
-      [v21 timeRange];
+      objc_msgSend_timeRange(v21);
     }
 
     else

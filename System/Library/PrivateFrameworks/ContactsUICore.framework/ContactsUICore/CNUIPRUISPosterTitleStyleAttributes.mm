@@ -180,7 +180,7 @@ uint64_t __47__CNUIPRUISPosterTitleStyleAttributes_isEqual___block_invoke_2(uint
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "Failed to fetch attributes for configuration: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "Failed to fetch attributes for configuration: %@", v4, v5, v6, v7);
 }
 
 @end

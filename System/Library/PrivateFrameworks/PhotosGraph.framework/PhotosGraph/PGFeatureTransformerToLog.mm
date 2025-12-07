@@ -6,13 +6,13 @@
 
 + (id)instanceWithParameters:(id)parameters error:(id *)error
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   if ([parametersCopy count])
   {
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v7 = [PGFeatureTransformerHelper validParameters:parametersCopy ofTypes:v6];
 
     if (v7)
@@ -25,9 +25,9 @@
     else if (error)
     {
       v10 = MEMORY[0x277CCA9B8];
-      v14 = *MEMORY[0x277CCA450];
-      v15 = @"Failed to instantiate PGFeatureTransformerToLog: incorrect parameters.";
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x277CCA450];
+      v14 = @"Failed to instantiate PGFeatureTransformerToLog: incorrect parameters.";
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
       *error = [v10 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureTransformerToLog" code:0 userInfo:v11];
 
       error = 0;
@@ -38,8 +38,6 @@
   {
     error = objc_alloc_init(PGFeatureTransformerToLog);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return error;
 }

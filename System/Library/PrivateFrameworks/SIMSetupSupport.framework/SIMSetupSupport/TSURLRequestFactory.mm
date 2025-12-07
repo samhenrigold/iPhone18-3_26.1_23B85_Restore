@@ -9,27 +9,28 @@
 
 + (id)requestWithType:(unint64_t)type URL:(id)l postdata:(id)postdata
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   lCopy = l;
   postdataCopy = postdata;
-  if (lCopy && ([lCopy absoluteString], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "length"), v9, v10))
+  v9 = postdataCopy;
+  if (lCopy && ([lCopy absoluteString], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "length"), v10, v11))
   {
-    if (postdataCopy)
+    if (v9)
     {
-      allKeys = [postdataCopy allKeys];
-      v12 = [allKeys count];
+      allKeys = [v9 allKeys];
+      v13 = [allKeys count];
 
-      if (v12)
+      if (v13)
       {
         if (type > 2)
         {
           if (type == 3)
           {
-            v23 = [TSURLRequestFactory _urlEncodedBodyWithCarrierPostRawData:postdataCopy];
+            postdataCopy = [TSURLRequestFactory _urlEncodedBodyWithCarrierPostRawData:v9];
 LABEL_26:
-            v24 = v23;
+            v24 = postdataCopy;
             v25 = @"application/x-www-form-urlencoded";
-            if (v23)
+            if (postdataCopy)
             {
               goto LABEL_27;
             }
@@ -40,36 +41,37 @@ LABEL_26:
           if (type == 5)
           {
 LABEL_20:
-            v24 = [TSURLRequestFactory _jsonBodyWithPostdata:postdataCopy];
+            postdataCopy = [TSURLRequestFactory _jsonBodyWithPostdata:v9];
+            v24 = postdataCopy;
             v25 = @"application/json";
-            if (!v24)
+            if (!postdataCopy)
             {
               goto LABEL_34;
             }
 
 LABEL_27:
-            v21 = [MEMORY[0x277CCAB70] requestWithURL:lCopy];
-            [v21 _setNonAppInitiated:1];
-            [v21 setValue:v25 forHTTPHeaderField:@"content-type"];
-            [v21 setHTTPMethod:@"POST"];
-            [v21 setHTTPBody:v24];
+            v22 = [MEMORY[0x277CCAB70] requestWithURL:lCopy];
+            [v22 _setNonAppInitiated:1];
+            [v22 setValue:v25 forHTTPHeaderField:@"content-type"];
+            [v22 setHTTPMethod:@"POST"];
+            [v22 setHTTPBody:v24];
             v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", -[NSObject length](v24, "length")];
-            [v21 setValue:v34 forHTTPHeaderField:@"content-length"];
+            [v22 setValue:v34 forHTTPHeaderField:@"content-length"];
 
-            v35 = _TSLogDomain();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
-            {
-              [TSURLRequestFactory requestWithType:lCopy URL:v21 postdata:?];
-            }
-
-            v36 = _TSLogDomain();
+            v36 = _TSLogDomain(v35);
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
-              [TSURLRequestFactory requestWithType:v25 URL:v21 postdata:?];
+              [TSURLRequestFactory requestWithType:lCopy URL:v22 postdata:?];
             }
 
-            v37 = _TSLogDomain();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+            v38 = _TSLogDomain(v37);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+            {
+              [TSURLRequestFactory requestWithType:v25 URL:v22 postdata:?];
+            }
+
+            v40 = _TSLogDomain(v39);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
             {
               +[TSURLRequestFactory requestWithType:URL:postdata:];
             }
@@ -80,13 +82,13 @@ LABEL_27:
           if (type != 6)
           {
 LABEL_34:
-            v24 = _TSLogDomain();
+            v24 = _TSLogDomain(postdataCopy);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              [(TSURLRequestFactory *)v24 requestWithType:v38 URL:v39 postdata:v40, v41, v42, v43, v44];
+              [(TSURLRequestFactory *)v24 requestWithType:v41 URL:v42 postdata:v43, v44, v45, v46, v47];
             }
 
-            v21 = 0;
+            v22 = 0;
 LABEL_37:
 
             goto LABEL_38;
@@ -97,7 +99,7 @@ LABEL_37:
         {
           if (!type)
           {
-            v26 = _TSLogDomain();
+            v26 = _TSLogDomain(postdataCopy);
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               [(TSURLRequestFactory *)v26 requestWithType:v27 URL:v28 postdata:v29, v30, v31, v32, v33];
@@ -117,41 +119,39 @@ LABEL_37:
           }
         }
 
-        v23 = [TSURLRequestFactory _urlEncodedBodyWithPostdata:postdataCopy];
+        postdataCopy = [TSURLRequestFactory _urlEncodedBodyWithPostdata:v9];
         goto LABEL_26;
       }
     }
 
-    v22 = _TSLogDomain();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v23 = _TSLogDomain(postdataCopy);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v48 = lCopy;
-      v49 = 2080;
-      v50 = "+[TSURLRequestFactory requestWithType:URL:postdata:]";
-      _os_log_impl(&dword_262AA8000, v22, OS_LOG_TYPE_INFO, "[I] No postdata for: %@ @%s", buf, 0x16u);
+      v50 = lCopy;
+      v51 = 2080;
+      v52 = "+[TSURLRequestFactory requestWithType:URL:postdata:]";
+      _os_log_impl(&dword_262AA8000, v23, OS_LOG_TYPE_INFO, "[I] No postdata for: %@ @%s", buf, 0x16u);
     }
 
-    v21 = [MEMORY[0x277CCAB70] requestWithURL:lCopy];
-    [v21 _setNonAppInitiated:1];
+    v22 = [MEMORY[0x277CCAB70] requestWithURL:lCopy];
+    [v22 _setNonAppInitiated:1];
   }
 
   else
   {
-    v13 = _TSLogDomain();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _TSLogDomain(postdataCopy);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(TSURLRequestFactory *)v13 requestWithType:v14 URL:v15 postdata:v16, v17, v18, v19, v20];
+      [(TSURLRequestFactory *)v14 requestWithType:v15 URL:v16 postdata:v17, v18, v19, v20, v21];
     }
 
-    v21 = 0;
+    v22 = 0;
   }
 
 LABEL_38:
 
-  v45 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v22;
 }
 
 + (id)_urlEncodedBodyWithPostdata:(id)postdata
@@ -190,29 +190,31 @@ void __51__TSURLRequestFactory__urlEncodedBodyWithPostdata___block_invoke(uint64
   v4 = *MEMORY[0x277CF96A0];
   v5 = [data objectForKeyedSubscript:v4];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _TSLogDomain(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(TSURLRequestFactory *)v5 _urlEncodedBodyWithCarrierPostRawData:v4, v6];
+      [(TSURLRequestFactory *)v5 _urlEncodedBodyWithCarrierPostRawData:v4, v7];
     }
   }
 
-  v7 = [v5 dataUsingEncoding:4];
+  v8 = [v5 dataUsingEncoding:4];
 
-  return v7;
+  return v8;
 }
 
 + (id)_jsonBodyWithPostdata:(id)postdata
 {
-  v7 = 0;
-  v3 = [MEMORY[0x277CCAAA0] dataWithJSONObject:postdata options:0 error:&v7];
-  v4 = v7;
+  v8 = 0;
+  v3 = [MEMORY[0x277CCAAA0] dataWithJSONObject:postdata options:0 error:&v8];
+  v4 = v8;
+  v5 = v4;
   if (v4)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[TSURLRequestFactory _jsonBodyWithPostdata:];
     }
@@ -223,76 +225,66 @@ void __51__TSURLRequestFactory__urlEncodedBodyWithPostdata___block_invoke(uint64
 
 + (void)requestWithType:(uint64_t)a3 URL:(uint64_t)a4 postdata:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Unknown request @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[TSURLRequestFactory requestWithType:URL:postdata:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Unknown request @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)requestWithType:(uint64_t)a1 URL:(void *)a2 postdata:.cold.2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a2 allHTTPHeaderFields];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_262AA8000, v3, v4, "[Db] http request %@ headers: %@ @%s", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_262AA8000, v3, v4, "[Db] http request %@ headers: %@ @%s", v5, v6, v7, v8);
 }
 
 + (void)requestWithType:(uint64_t)a1 URL:(void *)a2 postdata:.cold.3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a2 HTTPBody];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_262AA8000, v3, v4, "[Db] contentType %@, body: %@ @%s", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_262AA8000, v3, v4, "[Db] contentType %@, body: %@ @%s", v5, v6, v7, v8);
 }
 
 + (void)requestWithType:URL:postdata:.cold.4()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "+[TSURLRequestFactory requestWithType:URL:postdata:]";
-  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] postdata: %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "+[TSURLRequestFactory requestWithType:URL:postdata:]";
+  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] postdata: %@ @%s", v1, 0x16u);
 }
 
 + (void)requestWithType:(uint64_t)a3 URL:(uint64_t)a4 postdata:(uint64_t)a5 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Invalid request body @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[TSURLRequestFactory requestWithType:URL:postdata:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Invalid request body @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)requestWithType:(uint64_t)a3 URL:(uint64_t)a4 postdata:(uint64_t)a5 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Empty URL @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[TSURLRequestFactory requestWithType:URL:postdata:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Empty URL @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_urlEncodedBodyWithCarrierPostRawData:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v7 = 138412802;
-  v8 = objc_opt_class();
-  v9 = 2112;
-  v10 = a2;
-  v11 = 2080;
-  v12 = "+[TSURLRequestFactory _urlEncodedBodyWithCarrierPostRawData:]";
-  v5 = v8;
-  _os_log_error_impl(&dword_262AA8000, a3, OS_LOG_TYPE_ERROR, "[E]value type (%@) is unexpected for key (%@) @%s", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v6 = 138412802;
+  v7 = objc_opt_class();
+  v8 = 2112;
+  v9 = a2;
+  v10 = 2080;
+  v11 = "+[TSURLRequestFactory _urlEncodedBodyWithCarrierPostRawData:]";
+  v5 = v7;
+  _os_log_error_impl(&dword_262AA8000, a3, OS_LOG_TYPE_ERROR, "[E]value type (%@) is unexpected for key (%@) @%s", &v6, 0x20u);
 }
 
 + (void)_jsonBodyWithPostdata:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "+[TSURLRequestFactory _jsonBodyWithPostdata:]";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Failed to create request body: %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "+[TSURLRequestFactory _jsonBodyWithPostdata:]";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Failed to create request body: %@ @%s", v1, 0x16u);
 }
 
 @end

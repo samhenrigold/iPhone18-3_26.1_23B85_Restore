@@ -386,7 +386,7 @@
 
 - (CKUserIdentity)initWithCoder:(id)coder
 {
-  v46[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   inited = objc_msgSend_initInternal(self, v5, v6);
   if (inited)
@@ -408,9 +408,9 @@
     inited->_lookupInfo = v19;
 
     v21 = MEMORY[0x1E695DFD8];
-    v46[0] = objc_opt_class();
-    v46[1] = objc_opt_class();
-    v23 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v22, v46, 2);
+    v45[0] = objc_opt_class();
+    v45[1] = objc_opt_class();
+    v23 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v22, v45, 2);
     v25 = objc_msgSend_setWithArray_(v21, v24, v23);
     v27 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v26, v25, @"ContactIdentifiers");
     contactIdentifiers = inited->_contactIdentifiers;
@@ -437,7 +437,6 @@
     objc_autoreleasePoolPop(v8);
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return inited;
 }
 

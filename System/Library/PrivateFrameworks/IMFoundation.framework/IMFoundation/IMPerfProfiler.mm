@@ -51,41 +51,40 @@
 
 - (void)logMeasurement:(IMPerfMeasurement_t *)measurement
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = selfCopy->_sinks;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v19, v23, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v18, v22, 16);
   if (v9)
   {
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        v13 = objc_msgSend_behavior(v12, v7, v8, v19);
+        v12 = *(*(&v18 + 1) + 8 * i);
+        v13 = objc_msgSend_behavior(v12, v7, v8, v18);
         v16 = objc_msgSend_sink(v12, v14, v15);
         objc_msgSend_perfProfiler_measurementDidFinish_withSink_(v13, v17, selfCopy, measurement, v16);
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v19, v23, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v18, v22, 16);
     }
 
     while (v9);
   }
 
   objc_sync_exit(selfCopy);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

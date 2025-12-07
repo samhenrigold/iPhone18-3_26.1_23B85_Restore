@@ -128,65 +128,65 @@ LABEL_15:
 
 + (BOOL)isClinicalLoginRedirectURL:(id)l
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v53 = [MEMORY[0x1E695DFD8] setWithObjects:{@"code", @"state", 0}];
+  v52 = [MEMORY[0x1E695DFD8] setWithObjects:{@"code", @"state", 0}];
   [MEMORY[0x1E695DFD8] setWithObject:@"error"];
-  v51 = v50 = lCopy;
+  v50 = v49 = lCopy;
   v7 = [MEMORY[0x1E696AF20] componentsWithURL:lCopy resolvingAgainstBaseURL:1];
   v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
-  v52 = v7;
+  v51 = v7;
   queryItems = [v7 queryItems];
-  v10 = [queryItems countByEnumeratingWithState:&v85 objects:v91 count:16];
+  v10 = [queryItems countByEnumeratingWithState:&v84 objects:v90 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v86;
+    v12 = *v85;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v86 != v12)
+        if (*v85 != v12)
         {
           objc_enumerationMutation(queryItems);
         }
 
-        name = [*(*(&v85 + 1) + 8 * i) name];
+        name = [*(*(&v84 + 1) + 8 * i) name];
         [v8 addObject:name];
       }
 
-      v11 = [queryItems countByEnumeratingWithState:&v85 objects:v91 count:16];
+      v11 = [queryItems countByEnumeratingWithState:&v84 objects:v90 count:16];
     }
 
     while (v11);
   }
 
-  if (([v53 isSubsetOfSet:v8] & 1) == 0 && !objc_msgSend(v51, "isSubsetOfSet:", v8))
+  if (([v52 isSubsetOfSet:v8] & 1) == 0 && !objc_msgSend(v50, "isSubsetOfSet:", v8))
   {
     v47 = 0;
     goto LABEL_61;
   }
 
-  path = [v52 path];
+  path = [v51 path];
   v15 = [path length];
 
   if (!v15)
   {
-    [v52 setPath:@"/"];
+    [v51 setPath:@"/"];
   }
 
-  v57 = [v52 URL];
+  v56 = [v51 URL];
   v16 = objc_alloc_init(MEMORY[0x1E696AF20]);
   [v16 setHost:@"HealthProviderLogin"];
   [v16 setPath:@"/"];
   [v16 setScheme:@"x-argonaut-app"];
   v17 = [v16 URL];
 
-  v90[0] = v17;
+  v89[0] = v17;
   v18 = objc_alloc_init(MEMORY[0x1E696AF20]);
   [v18 setHost:@"redirect.health.apple.com"];
   v19 = [@"/" stringByAppendingPathComponent:@"HealthProviderLogin"];
@@ -195,36 +195,36 @@ LABEL_15:
   [v18 setScheme:@"https"];
   v20 = [v18 URL];
 
-  v90[1] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:2];
+  v89[1] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:2];
 
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
   v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   obj = v21;
-  v77 = [obj countByEnumeratingWithState:&v81 objects:v89 count:16];
-  if (!v77)
+  v76 = [obj countByEnumeratingWithState:&v80 objects:v88 count:16];
+  if (!v76)
   {
     v47 = 0;
-    v22 = v57;
+    v22 = v56;
     goto LABEL_59;
   }
 
-  v76 = *v82;
-  v22 = v57;
+  v75 = *v81;
+  v22 = v56;
   while (2)
   {
-    for (j = 0; j != v77; ++j)
+    for (j = 0; j != v76; ++j)
     {
-      v80 = v5;
+      v79 = v5;
       port4 = i;
-      if (*v82 != v76)
+      if (*v81 != v75)
       {
         objc_enumerationMutation(obj);
       }
 
-      v25 = *(*(&v81 + 1) + 8 * j);
+      v25 = *(*(&v80 + 1) + 8 * j);
       scheme = [v22 scheme];
       scheme2 = [v25 scheme];
       if (scheme != scheme2)
@@ -238,7 +238,7 @@ LABEL_15:
 
         scheme4 = [v22 scheme];
         scheme5 = [v25 scheme];
-        v75 = scheme4;
+        v74 = scheme4;
         v30 = scheme4;
         v21 = scheme5;
         if (![v30 isEqual:scheme5])
@@ -248,11 +248,11 @@ LABEL_15:
         }
       }
 
-      v78 = scheme3;
+      v77 = scheme3;
       port = [v22 port];
       port2 = [v25 port];
       v33 = port2;
-      v79 = port;
+      v78 = port;
       if (port != port2)
       {
         port3 = [v25 port];
@@ -260,21 +260,21 @@ LABEL_15:
         {
           port4 = [v22 port];
           port5 = [v25 port];
-          v80 = port5;
+          v79 = port5;
           if ([port4 isEqual:port5])
           {
-            v70 = v33;
+            v69 = v33;
             v35 = v21;
             goto LABEL_26;
           }
 
-          scheme3 = v78;
+          scheme3 = v77;
           i = port4;
           if (scheme == scheme2)
           {
 LABEL_33:
 
-            v5 = v80;
+            v5 = v79;
             continue;
           }
         }
@@ -283,7 +283,7 @@ LABEL_33:
         {
 
           port3 = 0;
-          scheme3 = v78;
+          scheme3 = v77;
           i = port4;
           if (scheme == scheme2)
           {
@@ -296,18 +296,18 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      v70 = port2;
+      v69 = port2;
       v35 = v21;
 LABEL_26:
       host = [v22 host];
       lowercaseString = [host lowercaseString];
       host2 = [v25 host];
       lowercaseString2 = [host2 lowercaseString];
-      v74 = lowercaseString;
+      v73 = lowercaseString;
       if (lowercaseString == lowercaseString2)
       {
-        v66 = host;
-        v72 = v35;
+        v65 = host;
+        v71 = v35;
         goto LABEL_35;
       }
 
@@ -316,39 +316,39 @@ LABEL_26:
       v21 = v35;
       if (lowercaseString3)
       {
-        v66 = host;
+        v65 = host;
         host4 = [v22 host];
         lowercaseString4 = [host4 lowercaseString];
         host5 = [v25 host];
         [host5 lowercaseString];
-        v58 = v60 = lowercaseString4;
-        v39 = v70;
+        v57 = v59 = lowercaseString4;
+        v39 = v69;
         if (![lowercaseString4 isEqual:?])
         {
-          v69 = 0;
+          v68 = 0;
           i = port4;
-          v5 = v80;
-          v22 = v57;
-          host = v66;
+          v5 = v79;
+          v22 = v56;
+          host = v65;
 LABEL_46:
 
           goto LABEL_47;
         }
 
-        v72 = v21;
-        v22 = v57;
+        v71 = v21;
+        v22 = v56;
 LABEL_35:
         path2 = [v22 path];
         lowercaseString5 = [path2 lowercaseString];
         path3 = [v25 path];
         lowercaseString6 = [path3 lowercaseString];
-        v62 = lowercaseString5;
+        v61 = lowercaseString5;
         if (lowercaseString5 == lowercaseString6)
         {
-          v69 = 1;
+          v68 = 1;
           i = port4;
-          v5 = v80;
-          v39 = v70;
+          v5 = v79;
+          v39 = v69;
         }
 
         else
@@ -357,31 +357,31 @@ LABEL_35:
           lowercaseString7 = [path4 lowercaseString];
           if (lowercaseString7)
           {
-            v55 = lowercaseString7;
+            v54 = lowercaseString7;
             path5 = [v22 path];
             lowercaseString8 = [path5 lowercaseString];
             path6 = [v25 path];
             lowercaseString9 = [path6 lowercaseString];
-            v69 = [lowercaseString8 isEqual:lowercaseString9];
+            v68 = [lowercaseString8 isEqual:lowercaseString9];
 
-            v22 = v57;
-            lowercaseString7 = v55;
+            v22 = v56;
+            lowercaseString7 = v54;
           }
 
           else
           {
-            v69 = 0;
+            v68 = 0;
           }
 
           i = port4;
-          v39 = v70;
+          v39 = v69;
 
-          v5 = v80;
+          v5 = v79;
         }
 
-        v21 = v72;
-        host = v66;
-        if (v74 == lowercaseString2)
+        v21 = v71;
+        host = v65;
+        if (v73 == lowercaseString2)
         {
           goto LABEL_48;
         }
@@ -389,39 +389,39 @@ LABEL_35:
         goto LABEL_46;
       }
 
-      v69 = 0;
+      v68 = 0;
       lowercaseString3 = 0;
       i = port4;
-      v5 = v80;
-      v39 = v70;
+      v5 = v79;
+      v39 = v69;
 LABEL_47:
 
 LABEL_48:
-      if (v79 != v39)
+      if (v78 != v39)
       {
       }
 
       if (scheme == scheme2)
       {
 
-        scheme3 = v78;
+        scheme3 = v77;
       }
 
       else
       {
 
-        scheme3 = v78;
+        scheme3 = v77;
       }
 
-      if (v69)
+      if (v68)
       {
         v47 = 1;
         goto LABEL_59;
       }
     }
 
-    v77 = [obj countByEnumeratingWithState:&v81 objects:v89 count:16];
-    if (v77)
+    v76 = [obj countByEnumeratingWithState:&v80 objects:v88 count:16];
+    if (v76)
     {
       continue;
     }
@@ -433,7 +433,6 @@ LABEL_48:
 LABEL_59:
 
 LABEL_61:
-  v48 = *MEMORY[0x1E69E9840];
   return v47;
 }
 

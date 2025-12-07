@@ -53,7 +53,7 @@
 - (void)fmf_dismissModalViewController:()FMFModal
 {
   v4 = a3;
-  v5 = LogCategory_Daemon();
+  v5 = LogCategory_Daemon(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

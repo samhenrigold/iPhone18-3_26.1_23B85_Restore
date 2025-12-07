@@ -13,8 +13,8 @@
   }
 
   v2 = static HeadphoneAudioNotificationModel.shared;
-  type metadata accessor for HeadphoneAudioNotificationModel();
-  sub_2658AF0E8(&qword_280028538, type metadata accessor for HeadphoneAudioNotificationModel);
+  type metadata accessor for HeadphoneAudioNotificationModel(0);
+  sub_2658AF0E8(&qword_280028538, type metadata accessor for HeadphoneAudioNotificationModel, &protocol conformance descriptor for HeadphoneAudioNotificationModel);
   v3 = v2;
   sub_2658B68C8();
   v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280028578, &unk_2658B90D0));

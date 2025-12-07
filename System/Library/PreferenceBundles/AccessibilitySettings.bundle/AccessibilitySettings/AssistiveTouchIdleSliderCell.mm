@@ -19,19 +19,20 @@
 
 - (void)_updateRightLabelWithValue:(double)value
 {
-  v4 = AXFormatFloatWithPercentage();
-  [(AssistiveTouchIdleSliderCell *)self setLabelText:v4];
+  valueCopy = value;
+  v5 = AXFormatFloatWithPercentage(valueCopy);
+  [(AssistiveTouchIdleSliderCell *)self setLabelText:v5];
 
-  v5 = objc_initWeak(&location, self);
+  v6 = objc_initWeak(&location, self);
   slider = [(AssistiveTouchIdleSliderCell *)self slider];
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = __59__AssistiveTouchIdleSliderCell__updateRightLabelWithValue___block_invoke;
-  v7[3] = &unk_255F00;
-  objc_copyWeak(&v8, &location);
-  [slider _setAccessibilityValueBlock:v7];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = __59__AssistiveTouchIdleSliderCell__updateRightLabelWithValue___block_invoke;
+  v8[3] = &unk_255F00;
+  objc_copyWeak(&v9, &location);
+  [slider _setAccessibilityValueBlock:v8];
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
 }
 
@@ -39,9 +40,10 @@ id __59__AssistiveTouchIdleSliderCell__updateRightLabelWithValue___block_invoke(
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained initialValue];
-  v2 = AXFormatFloatWithPercentage();
+  *&v2 = v2;
+  v3 = AXFormatFloatWithPercentage(*&v2);
 
-  return v2;
+  return v3;
 }
 
 - (void)handleSliderBeingDragged:(id)dragged

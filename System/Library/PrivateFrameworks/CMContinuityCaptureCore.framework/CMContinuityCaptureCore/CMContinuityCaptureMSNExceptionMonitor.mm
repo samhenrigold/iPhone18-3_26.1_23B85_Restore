@@ -76,90 +76,91 @@ uint64_t __55__CMContinuityCaptureMSNExceptionMonitor_sharedMonitor__block_invok
 void __75__CMContinuityCaptureMSNExceptionMonitor_incrementExceptionCountForEntity___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = WeakRetained[2];
-    v5 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-    LOBYTE(v4) = [v4 containsObject:v5];
+    v3 = WeakRetained[2];
+    v4 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    LOBYTE(v3) = [v3 containsObject:?];
 
-    if (v4)
+    if (v3)
     {
-      v29 = 0;
-      v28 = OS_LOG_TYPE_DEFAULT;
-      v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      *&v7 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v26 = v7;
-      v27 = v7;
-      v24 = v7;
-      v25 = v7;
-      v22 = v7;
-      v23 = v7;
-      v20 = v7;
-      v21 = v7;
-      os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+      v27 = 0;
+      v26 = OS_LOG_TYPE_DEFAULT;
+      v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      *&v6 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v24 = v6;
+      v25 = v6;
+      v22 = v6;
+      v23 = v6;
+      v20 = v6;
+      v21 = v6;
+      v18 = v6;
+      v19 = v6;
+      os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
     else
     {
-      v8 = v3[2];
-      v9 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-      [v8 addObject:v9];
+      v7 = v2[2];
+      v8 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+      [v7 addObject:?];
 
       if (dword_27ECB4D80)
       {
-        v29 = 0;
-        v28 = OS_LOG_TYPE_DEFAULT;
-        v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        *&v11 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v26 = v11;
-        v27 = v11;
-        v24 = v11;
-        v25 = v11;
-        v22 = v11;
-        v23 = v11;
-        v20 = v11;
-        v21 = v11;
-        os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+        v27 = 0;
+        v26 = OS_LOG_TYPE_DEFAULT;
+        v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        *&v10 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v24 = v10;
+        v25 = v10;
+        v22 = v10;
+        v23 = v10;
+        v20 = v10;
+        v21 = v10;
+        v18 = v10;
+        v19 = v10;
+        os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      if ([v3[2] count] == 1)
+      if ([v2[2] count] == 1)
       {
         if (dword_27ECB4D80)
         {
-          v29 = 0;
-          v28 = OS_LOG_TYPE_DEFAULT;
-          v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          *&v13 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v26 = v13;
-          v27 = v13;
-          v24 = v13;
-          v25 = v13;
-          v22 = v13;
-          v23 = v13;
-          v20 = v13;
-          v21 = v13;
-          v14 = v29;
-          if (os_log_type_enabled(v12, v28))
+          v27 = 0;
+          v26 = OS_LOG_TYPE_DEFAULT;
+          v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          *&v12 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v24 = v12;
+          v25 = v12;
+          v22 = v12;
+          v23 = v12;
+          v20 = v12;
+          v21 = v12;
+          v18 = v12;
+          v19 = v12;
+          v13 = v27;
+          v14 = v26;
+          if (os_log_type_enabled(v11, v26))
           {
-            v15 = v14;
+            v15 = v13;
           }
 
           else
           {
-            v15 = v14 & 0xFFFFFFFE;
+            v15 = v13 & 0xFFFFFFFE;
           }
 
           if (v15)
           {
-            v18 = 136315138;
-            v19 = "[CMContinuityCaptureMSNExceptionMonitor incrementExceptionCountForEntity:]_block_invoke";
-            _os_log_send_and_compose_impl();
+            v16 = 136315138;
+            v17 = "[CMContinuityCaptureMSNExceptionMonitor incrementExceptionCountForEntity:]_block_invoke";
+            _os_log_send_and_compose_impl(v15, 0, &v18, 128, &dword_242545000, v11, v14, "<<<< CMContinuityCaptureMSNExceptionMonitor >>>> %s: Beginning MSN exception", &v16);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -189,71 +190,72 @@ void __75__CMContinuityCaptureMSNExceptionMonitor_incrementExceptionCountForEnti
 void __75__CMContinuityCaptureMSNExceptionMonitor_decrementExceptionCountForEntity___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = WeakRetained[2];
-    v5 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-    LODWORD(v4) = [v4 containsObject:v5];
+    v3 = WeakRetained[2];
+    v4 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    LODWORD(v3) = [v3 containsObject:?];
 
-    if (v4)
+    if (v3)
     {
-      v6 = v3[2];
-      v7 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-      [v6 removeObject:v7];
+      v5 = v2[2];
+      v6 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+      [v5 removeObject:?];
 
       if (dword_27ECB4D80)
       {
-        v29 = 0;
-        v28 = OS_LOG_TYPE_DEFAULT;
-        v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        *&v9 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v26 = v9;
-        v27 = v9;
-        v24 = v9;
-        v25 = v9;
-        v22 = v9;
-        v23 = v9;
-        v20 = v9;
-        v21 = v9;
-        os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+        v27 = 0;
+        v26 = OS_LOG_TYPE_DEFAULT;
+        v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        *&v8 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v24 = v8;
+        v25 = v8;
+        v22 = v8;
+        v23 = v8;
+        v20 = v8;
+        v21 = v8;
+        v18 = v8;
+        v19 = v8;
+        os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      if (![v3[2] count])
+      if (![v2[2] count])
       {
         if (dword_27ECB4D80)
         {
-          v29 = 0;
-          v28 = OS_LOG_TYPE_DEFAULT;
-          v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          *&v13 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v26 = v13;
-          v27 = v13;
-          v24 = v13;
-          v25 = v13;
-          v22 = v13;
-          v23 = v13;
-          v20 = v13;
-          v21 = v13;
-          v14 = v29;
-          if (os_log_type_enabled(v12, v28))
+          v27 = 0;
+          v26 = OS_LOG_TYPE_DEFAULT;
+          v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          *&v12 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v24 = v12;
+          v25 = v12;
+          v22 = v12;
+          v23 = v12;
+          v20 = v12;
+          v21 = v12;
+          v18 = v12;
+          v19 = v12;
+          v13 = v27;
+          v14 = v26;
+          if (os_log_type_enabled(v11, v26))
           {
-            v15 = v14;
+            v15 = v13;
           }
 
           else
           {
-            v15 = v14 & 0xFFFFFFFE;
+            v15 = v13 & 0xFFFFFFFE;
           }
 
           if (v15)
           {
-            v18 = 136315138;
-            v19 = "[CMContinuityCaptureMSNExceptionMonitor decrementExceptionCountForEntity:]_block_invoke";
-            _os_log_send_and_compose_impl();
+            v16 = 136315138;
+            v17 = "[CMContinuityCaptureMSNExceptionMonitor decrementExceptionCountForEntity:]_block_invoke";
+            _os_log_send_and_compose_impl(v15, 0, &v18, 128, &dword_242545000, v11, v14, "<<<< CMContinuityCaptureMSNExceptionMonitor >>>> %s: Ending MSN exception", &v16);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -265,20 +267,20 @@ void __75__CMContinuityCaptureMSNExceptionMonitor_decrementExceptionCountForEnti
 
     else if (dword_27ECB4D80)
     {
-      v29 = 0;
-      v28 = OS_LOG_TYPE_DEFAULT;
-      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      *&v11 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v26 = v11;
-      v27 = v11;
-      v24 = v11;
-      v25 = v11;
-      v22 = v11;
-      v23 = v11;
-      v20 = v11;
-      v21 = v11;
-      os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      v27 = 0;
+      v26 = OS_LOG_TYPE_DEFAULT;
+      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      *&v10 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v24 = v10;
+      v25 = v10;
+      v22 = v10;
+      v23 = v10;
+      v20 = v10;
+      v21 = v10;
+      v18 = v10;
+      v19 = v10;
+      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }

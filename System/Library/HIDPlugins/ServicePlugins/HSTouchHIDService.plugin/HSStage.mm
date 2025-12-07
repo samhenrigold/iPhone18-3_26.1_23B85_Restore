@@ -194,7 +194,7 @@ LABEL_6:
 
   HSUtil::ObjectLock::ObjectLock(v8, self);
   objc_initWeak(&location, observerCopy);
-  std::__hash_table<objc_object  {objcproto15HSStageObserver}* {__weak},HSUtil::ObjectHasher,std::equal_to<objc_object  {objcproto15HSStageObserver}*>,std::allocator<objc_object  {objcproto15HSStageObserver}*>>::__emplace_unique_key_args<objc_object  {objcproto15HSStageObserver}*,objc_object  {objcproto15HSStageObserver} const {__weak}&>(&self->_state.observers.__table_.__bucket_list_.__ptr_, &location);
+  std::__hash_table<objc_object  {objcproto15HSStageObserver}* {__weak},HSUtil::ObjectHasher,std::equal_to<objc_object  {objcproto15HSStageObserver}*>,std::allocator<objc_object  {objcproto15HSStageObserver}*>>::__emplace_unique_key_args<objc_object  {objcproto15HSStageObserver}*,objc_object  {objcproto15HSStageObserver} const {__weak}&>(&self->_state.observers.__table_.__bucket_list_.__ptr_, &location, &location);
   objc_destroyWeak(&location);
   [(HSStage *)self _pruneObservers];
   HSUtil::ObjectLock::~ObjectLock(v8);
@@ -279,41 +279,41 @@ LABEL_6:
 
 - (id)encodeStateToData
 {
-  v3 = HSUtil::EncoderBuf::EncoderBuf(v8);
+  v3 = HSUtil::EncoderBuf::EncoderBuf(v9);
   HSUtil::Encoder::encodeHSCodable(v3, self);
-  v4 = HSUtil::EncoderBuf::buffer(v8);
+  v4 = HSUtil::EncoderBuf::buffer(v9);
   if (*(v4 + 5))
   {
-    v5 = HSUtil::Buffer::getNSData(v4);
+    v6 = HSUtil::Buffer::getNSData(v4, v5);
   }
 
   else
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStage+Util.mm", v7);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStage+Util.mm", v8);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       [HSStage(Util) encodeStateToData];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  HSUtil::Buffer::~Buffer(&v14);
-  if (v12)
+  HSUtil::Buffer::~Buffer(&v15);
+  if (v13)
   {
-    v13 = v12;
-    operator delete(v12);
+    v14 = v13;
+    operator delete(v13);
   }
 
-  if (v10)
+  if (v11)
   {
-    v11 = v10;
-    operator delete(v10);
+    v12 = v11;
+    operator delete(v11);
   }
 
-  std::__function::__value_func<BOOL ()(HSUtil::Encoder &,objc_object *)>::~__value_func[abi:ne200100](&v9);
+  std::__function::__value_func<BOOL ()(HSUtil::Encoder &,objc_object *)>::~__value_func[abi:ne200100](&v10);
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)decodeStateFromData:(id)data
@@ -407,17 +407,17 @@ LABEL_6:
 - (void)setStateObject:(id)object
 {
   objectCopy = object;
-  v5 = HSUtil::EncoderBuf::EncoderBuf(v10);
+  v5 = HSUtil::EncoderBuf::EncoderBuf(v11);
   HSUtil::Encoder::encodeObject(v5, objectCopy);
-  v6 = HSUtil::EncoderBuf::buffer(v10);
+  v6 = HSUtil::EncoderBuf::buffer(v11);
   if (*(v6 + 5))
   {
-    v7 = HSUtil::Buffer::getNSData(v6);
-    v8 = [(HSStage *)self decodeStateFromData:v7];
+    v8 = HSUtil::Buffer::getNSData(v6, v7);
+    v9 = [(HSStage *)self decodeStateFromData:v8];
 
-    if ((v8 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
-      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStage+Util.mm", v9);
+      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStage+Util.mm", v10);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         [HSStage(Util) setStateObject:];
@@ -427,27 +427,27 @@ LABEL_6:
 
   else
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStage+Util.mm", v9);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStage+Util.mm", v10);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       [HSStage(Util) setStateObject:];
     }
   }
 
-  HSUtil::Buffer::~Buffer(&v16);
-  if (v14)
+  HSUtil::Buffer::~Buffer(&v17);
+  if (v15)
   {
-    v15 = v14;
-    operator delete(v14);
+    v16 = v15;
+    operator delete(v15);
   }
 
-  if (v12)
+  if (v13)
   {
-    v13 = v12;
-    operator delete(v12);
+    v14 = v13;
+    operator delete(v13);
   }
 
-  std::__function::__value_func<BOOL ()(HSUtil::Encoder &,objc_object *)>::~__value_func[abi:ne200100](&v11);
+  std::__function::__value_func<BOOL ()(HSUtil::Encoder &,objc_object *)>::~__value_func[abi:ne200100](&v12);
 }
 
 - (id)HSStageProxy_decodeStateFromData:(id)data

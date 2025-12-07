@@ -1,6 +1,6 @@
 uint64_t usbUtil_getInterfaceAndNameString(io_service_t a1, uint64_t a2, io_service_t a3, const __CFUUID *a4, void *a5)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   theInterface = 0;
   theScore = 0;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -24,22 +24,22 @@ uint64_t usbUtil_getInterfaceAndNameString(io_service_t a1, uint64_t a2, io_serv
   {
     if (theInterface)
     {
-      v59 = 0;
-      v57 = 0;
       v58 = 0;
+      v56 = 0;
+      v57 = 0;
       v13 = CFUUIDGetConstantUUIDWithBytes(0, 0x2Du, 0x97u, 0x86u, 0xC6u, 0x9Eu, 0xF3u, 0x11u, 0xD4u, 0xADu, 0x51u, 0, 0xAu, 0x27u, 5u, 0x28u, 0x61u);
       v14 = CFUUIDGetConstantUUIDWithBytes(0, 0xC2u, 0x44u, 0xE8u, 0x58u, 0x10u, 0x9Cu, 0x11u, 0xD4u, 0x91u, 0xD4u, 0, 0x50u, 0xE4u, 0xC6u, 0x42u, 0x6Fu);
-      v15 = IOCreatePlugInInterfaceForService(a3, v13, v14, &v58, &theScore);
+      v15 = IOCreatePlugInInterfaceForService(a3, v13, v14, &v57, &theScore);
       v12 = 0;
       if (!v15)
       {
-        v16 = v58;
-        if (v58)
+        v16 = v57;
+        if (v57)
         {
-          QueryInterface = (*v58)->QueryInterface;
+          QueryInterface = (*v57)->QueryInterface;
           v18 = CFUUIDGetUUIDBytes(a4);
-          v19 = (QueryInterface)(v16, *&v18.byte0, *&v18.byte8, &v57);
-          if (((*v58)->Release)(v58))
+          v19 = (QueryInterface)(v16, *&v18.byte0, *&v18.byte8, &v56);
+          if (((*v57)->Release)(v57))
           {
             v20 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
             if (v20)
@@ -51,140 +51,138 @@ uint64_t usbUtil_getInterfaceAndNameString(io_service_t a1, uint64_t a2, io_serv
           v12 = 0;
           if (!v19)
           {
-            if (v57)
+            if (v56)
             {
-              if ((*(*v57 + 344))(v57, &v59))
+              if ((*(*v56 + 344))(v56, &v58))
               {
-LABEL_16:
-                v12 = 0;
-                goto LABEL_17;
+                return 0;
               }
 
-              v91 = 0u;
-              v92 = 0u;
-              v89 = 0u;
               v90 = 0u;
-              v87 = 0u;
+              v91 = 0u;
               v88 = 0u;
-              v85 = 0u;
+              v89 = 0u;
               v86 = 0u;
-              v83 = 0u;
+              v87 = 0u;
               v84 = 0u;
-              v81 = 0u;
+              v85 = 0u;
               v82 = 0u;
-              v79 = 0u;
+              v83 = 0u;
               v80 = 0u;
+              v81 = 0u;
+              v78 = 0u;
+              v79 = 0u;
               memset(buf, 0, sizeof(buf));
-              v53[0] = 1664;
-              v53[1] = v59 | 0x300;
-              v54 = 16778249;
-              v55 = buf;
-              v56 = 0;
-              if ((*(*v57 + 192))(v57, 0, v53))
+              v52[0] = 1664;
+              v52[1] = v58 | 0x300;
+              v53 = 16778249;
+              v54 = buf;
+              v55 = 0;
+              if ((*(*v56 + 192))(v56, 0, v52))
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
                   usbUtil_getInterfaceAndNameString_cold_2();
                 }
 
-                goto LABEL_16;
+                return 0;
               }
 
-              v30 = v56;
-              v31 = v55;
-              if (v56 < 4)
+              v29 = v55;
+              v30 = v54;
+              if (v55 < 4)
               {
-                LODWORD(v32) = v56;
+                LODWORD(v31) = v55;
               }
 
               else
               {
-                v32 = (v56 - 2);
-                if (v55[v32])
+                v31 = (v55 - 2);
+                if (v54[v31])
                 {
                   goto LABEL_26;
                 }
 
-                v33 = v56 - 1;
-                if (v55[(v56 - 1)])
+                v32 = v55 - 1;
+                if (v54[(v55 - 1)])
                 {
                   goto LABEL_26;
                 }
 
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
-                  v34 = v31[v32];
-                  v35 = v31[v33];
-                  *v62 = 136317186;
-                  v63 = "usbUtil_getInterfaceAndNameString";
-                  v64 = 1024;
-                  v65 = 93;
-                  v66 = 1024;
-                  v67 = a3;
-                  v68 = 1024;
-                  *v69 = v59;
-                  *&v69[4] = 2048;
-                  *&v69[6] = v31;
-                  v70 = 1024;
-                  v71 = v34;
-                  v72 = 1024;
-                  v73 = v35;
-                  v74 = 1024;
-                  v75 = v30;
-                  v76 = 1024;
-                  v77 = v30 - 2;
-                  _os_log_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d interface %d, stringIndex %d, pData[end] %p [%02x %02x], Adjust wLenDone %d -> %d", v62, 0x40u);
+                  v33 = v30[v31];
+                  v34 = v30[v32];
+                  *v61 = 136317186;
+                  v62 = "usbUtil_getInterfaceAndNameString";
+                  v63 = 1024;
+                  v64 = 93;
+                  v65 = 1024;
+                  v66 = a3;
+                  v67 = 1024;
+                  *v68 = v58;
+                  *&v68[4] = 2048;
+                  *&v68[6] = v30;
+                  v69 = 1024;
+                  v70 = v33;
+                  v71 = 1024;
+                  v72 = v34;
+                  v73 = 1024;
+                  v74 = v29;
+                  v75 = 1024;
+                  v76 = v29 - 2;
+                  _os_log_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d interface %d, stringIndex %d, pData[end] %p [%02x %02x], Adjust wLenDone %d -> %d", v61, 0x40u);
                 }
               }
 
-              if (v32 < 3)
+              if (v31 < 3)
               {
                 goto LABEL_31;
               }
 
-              v32 = (v32 - 2);
+              v31 = (v31 - 2);
 LABEL_26:
-              v36 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v31 + 2 length:v32 encoding:2483028224];
-              if (v36)
+              v35 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v30 + 2 length:v31 encoding:2483028224];
+              if (v35)
               {
-                v12 = v36;
+                v12 = v35;
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
-                  *v62 = 136315906;
-                  v63 = "usbUtil_getInterfaceAndNameString";
-                  v64 = 1024;
-                  v65 = a3;
-                  v66 = 1024;
-                  v67 = v59;
-                  v68 = 2112;
-                  *v69 = v12;
-                  _os_log_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: interface %d, stringIndex %d, name '%@'", v62, 0x22u);
+                  *v61 = 136315906;
+                  v62 = "usbUtil_getInterfaceAndNameString";
+                  v63 = 1024;
+                  v64 = a3;
+                  v65 = 1024;
+                  v66 = v58;
+                  v67 = 2112;
+                  *v68 = v12;
+                  _os_log_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: interface %d, stringIndex %d, name '%@'", v61, 0x22u);
                 }
 
                 if (a5)
                 {
-                  *a5 = v57;
-                  goto LABEL_17;
+                  *a5 = v56;
+                  return v12;
                 }
 
                 goto LABEL_34;
               }
 
 LABEL_31:
-              v37 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-              if (v37)
+              v36 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+              if (v36)
               {
-                usbUtil_getInterfaceAndNameString_cold_3(v37, v38, v39, v40, v41, v42, v43, v44);
+                usbUtil_getInterfaceAndNameString_cold_3(v36, v37, v38, v39, v40, v41, v42, v43);
               }
 
               v12 = 0;
 LABEL_34:
-              if ((*(*v57 + 24))(v57))
+              if ((*(*v56 + 24))(v56))
               {
-                v45 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-                if (v45)
+                v44 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+                if (v44)
                 {
-                  usbUtil_getInterfaceAndNameString_cold_1(v45, v46, v47, v48, v49, v50, v51, v52);
+                  usbUtil_getInterfaceAndNameString_cold_1(v44, v45, v46, v47, v48, v49, v50, v51);
                 }
               }
             }
@@ -194,14 +192,12 @@ LABEL_34:
     }
   }
 
-LABEL_17:
-  v28 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t usbUtil_findParentOfClass(io_object_t a1, const char *a2, const char *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     usbUtil_findParentOfClass_cold_1();
@@ -248,27 +244,26 @@ LABEL_12:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v11 = "usbUtil_findParentOfClass";
-    v12 = 1024;
-    v13 = 169;
-    v14 = 1024;
-    v15 = parent;
-    v16 = 2080;
-    v17 = a2;
-    v18 = 2080;
-    v19 = a3;
+    v10 = "usbUtil_findParentOfClass";
+    v11 = 1024;
+    v12 = 169;
+    v13 = 1024;
+    v14 = parent;
+    v15 = 2080;
+    v16 = a2;
+    v17 = 2080;
+    v18 = a3;
     _os_log_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s:%d parent %d after Looking for match for %s in plane %s", buf, 0x2Cu);
   }
 
-  result = parent;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return parent;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id acc_userNotifications_generateIdentifier(uint64_t a1, uint64_t a2)
@@ -518,7 +513,7 @@ id logObjectForModule()
 
 void __AppleUSBHostBillboardDeviceAdded(void *a1, io_iterator_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (gLogObjects)
   {
@@ -549,11 +544,11 @@ void __AppleUSBHostBillboardDeviceAdded(void *a1, io_iterator_t a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "__AppleUSBHostBillboardDeviceAdded";
-    v20 = 1024;
-    v21 = [v3 accessoryUSBBillboardDeviceVIDPID];
-    v22 = 2112;
-    v23 = v3;
+    v18 = "__AppleUSBHostBillboardDeviceAdded";
+    v19 = 1024;
+    v20 = [v3 accessoryUSBBillboardDeviceVIDPID];
+    v21 = 2112;
+    v22 = v3;
     _os_log_impl(&dword_2336F5000, v6, OS_LOG_TYPE_DEFAULT, "%s: listener(0x%X) = %@", buf, 0x1Cu);
   }
 
@@ -581,9 +576,9 @@ void __AppleUSBHostBillboardDeviceAdded(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v19 = v10;
-          v20 = 1024;
-          v21 = v11;
+          v18 = v10;
+          v19 = 1024;
+          v20 = v11;
           _os_log_error_impl(&dword_2336F5000, v9, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -599,9 +594,9 @@ void __AppleUSBHostBillboardDeviceAdded(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v19 = "__AppleUSBHostBillboardDeviceAdded";
-        v20 = 1024;
-        v21 = v8;
+        v18 = "__AppleUSBHostBillboardDeviceAdded";
+        v19 = 1024;
+        v20 = v8;
         _os_log_impl(&dword_2336F5000, v14, OS_LOG_TYPE_DEFAULT, "%s: Connected BillboardDevice service with service %d", buf, 0x12u);
       }
 
@@ -633,13 +628,11 @@ void __AppleUSBHostBillboardDeviceAdded(void *a1, io_iterator_t a2)
   {
     __AppleUSBHostBillboardDeviceAdded_cold_3(v3);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __AppleUSBHostBillboardDeviceTerminated(void *a1, io_iterator_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (gLogObjects)
   {
@@ -670,11 +663,11 @@ void __AppleUSBHostBillboardDeviceTerminated(void *a1, io_iterator_t a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "__AppleUSBHostBillboardDeviceTerminated";
-    v20 = 1024;
-    v21 = [v3 accessoryUSBBillboardDeviceVIDPID];
-    v22 = 2112;
-    v23 = v3;
+    v18 = "__AppleUSBHostBillboardDeviceTerminated";
+    v19 = 1024;
+    v20 = [v3 accessoryUSBBillboardDeviceVIDPID];
+    v21 = 2112;
+    v22 = v3;
     _os_log_impl(&dword_2336F5000, v6, OS_LOG_TYPE_DEFAULT, "%s: listener(0x%X) = %@", buf, 0x1Cu);
   }
 
@@ -702,9 +695,9 @@ void __AppleUSBHostBillboardDeviceTerminated(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v19 = v10;
-          v20 = 1024;
-          v21 = v11;
+          v18 = v10;
+          v19 = 1024;
+          v20 = v11;
           _os_log_error_impl(&dword_2336F5000, v9, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -720,9 +713,9 @@ void __AppleUSBHostBillboardDeviceTerminated(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v19 = "__AppleUSBHostBillboardDeviceTerminated";
-        v20 = 1024;
-        v21 = v8;
+        v18 = "__AppleUSBHostBillboardDeviceTerminated";
+        v19 = 1024;
+        v20 = v8;
         _os_log_impl(&dword_2336F5000, v14, OS_LOG_TYPE_DEFAULT, "%s: Terminated BillboardDevice service with service %d", buf, 0x12u);
       }
 
@@ -754,20 +747,20 @@ void __AppleUSBHostBillboardDeviceTerminated(void *a1, io_iterator_t a2)
   {
     __AppleUSBHostBillboardDeviceTerminated_cold_3(v3);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x1Cu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x1Cu);
 }
 
 void sub_2336FABAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
@@ -785,54 +778,63 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2336FFCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_2336FFCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
+  va_start(va, a56);
   _Block_object_dispose(&a45, 8);
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a53, 8);
-  _Block_object_dispose(&a57, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_233700004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2337019C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_233700004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233701B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2337019C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233701CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_233701B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233701E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_233701CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_4_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_233701E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+void sub_23370220C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void OUTLINED_FUNCTION_4_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 _BYTE *OUTLINED_FUNCTION_6(_BYTE *result, _BYTE *a2)
@@ -878,7 +880,7 @@ unint64_t systemInfo_getCurrentUnixTimeMS()
   }
 }
 
-uint64_t systemInfo_isInternalBuild()
+uint64_t systemInfo_isInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_isInternalBuild_onceToken != -1)
   {
@@ -895,7 +897,7 @@ uint64_t __systemInfo_isInternalBuild_block_invoke()
   return result;
 }
 
-uint64_t systemInfo_isDeveloperBuild()
+uint64_t systemInfo_isDeveloperBuild(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_isDeveloperBuild_onceToken != -1)
   {
@@ -922,7 +924,7 @@ void __systemInfo_isDeveloperBuild_block_invoke()
   }
 }
 
-uint64_t systemInfo_systemSupportsPearl()
+uint64_t systemInfo_systemSupportsPearl(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_systemSupportsPearl_onceToken != -1)
   {
@@ -939,7 +941,7 @@ uint64_t __systemInfo_systemSupportsPearl_block_invoke()
   return result;
 }
 
-uint64_t systemInfo_systemSupportsWAPI()
+uint64_t systemInfo_systemSupportsWAPI(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_systemSupportsWAPI_onceToken != -1)
   {
@@ -1009,7 +1011,7 @@ void init_logging_signpost_modules(uint64_t a1, char a2, uint64_t a3)
 
 void __init_logging_signpost_modules_block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = &off_233713000;
   if (*(a1 + 48))
   {
@@ -1027,7 +1029,7 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v14) = v4;
+          LODWORD(v13) = v4;
           _os_log_error_impl(&dword_2336F5000, v6, OS_LOG_TYPE_ERROR, "Subsystem missing for logging module %d!\n(Check LoggingSignpostModuleEntry_t table)", buf, 8u);
           v7 = *(a1 + 32);
           v8 = "<Undefined>";
@@ -1040,7 +1042,7 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
         v9 = "<Undefined>";
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_signpost_modules_block_invoke_cold_1(v17, v4, &v18);
+          __init_logging_signpost_modules_block_invoke_cold_1(v16, v4, &v16[4]);
           v9 = "<Undefined>";
         }
       }
@@ -1053,9 +1055,9 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v14 = v8;
-          v15 = 2080;
-          v16 = v9;
+          v13 = v8;
+          v14 = 2080;
+          v15 = v9;
           _os_log_debug_impl(&dword_2336F5000, v6, OS_LOG_TYPE_DEBUG, "Created log object %s: %s", buf, 0x16u);
         }
       }
@@ -1063,9 +1065,9 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
       else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v14 = v8;
-        v15 = 2080;
-        v16 = v9;
+        v13 = v8;
+        v14 = 2080;
+        v15 = v9;
         _os_log_error_impl(&dword_2336F5000, v6, OS_LOG_TYPE_ERROR, "Failed to create os_log_t object %s: %s!", buf, 0x16u);
       }
 
@@ -1087,14 +1089,13 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = *(v2 + 240);
-    LODWORD(v14) = v5;
+    LODWORD(v13) = v5;
     _os_log_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Created %d log object(s)!", buf, 8u);
     LODWORD(v11) = *(a1 + 48);
   }
 
   gLogSignpostObjects = *(a1 + 40);
   gNumLogSignpostObjects = v11;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id logObjectForModule_0()
@@ -1128,9 +1129,9 @@ id logObjectForModule_0()
   return v2;
 }
 
-uint64_t findPipe(uint64_t a1, unsigned int a2, int a3, int a4, unsigned __int8 *a5, _WORD *a6)
+uint64_t findPipe(uint64_t a1, unsigned int a2, int a3, int a4, unsigned __int8 *a5, __int16 *a6)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     *a5 = 0;
@@ -1143,8 +1144,7 @@ uint64_t findPipe(uint64_t a1, unsigned int a2, int a3, int a4, unsigned __int8 
 
   if (!a2)
   {
-    v11 = 3758097084;
-    goto LABEL_41;
+    return 3758097084;
   }
 
   v8 = 1;
@@ -1152,11 +1152,11 @@ uint64_t findPipe(uint64_t a1, unsigned int a2, int a3, int a4, unsigned __int8 
   v10 = 1;
   while (1)
   {
-    v29 = 0;
     v28 = 0;
     v27 = 0;
     v26 = 0;
-    v11 = (*(*a1 + 208))(a1, v10, &v29 + 1, &v29, &v28, &v27, &v26);
+    v25 = 0;
+    v11 = (*(*a1 + 208))(a1, v10, &v28 + 1, &v28, &v27, &v26, &v25);
     if (v11)
     {
       v12 = gLogObjects;
@@ -1176,9 +1176,9 @@ uint64_t findPipe(uint64_t a1, unsigned int a2, int a3, int a4, unsigned __int8 
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *v31 = v12;
-          *&v31[8] = 1024;
-          v32 = v13;
+          *v30 = v12;
+          *&v30[8] = 1024;
+          v31 = v13;
           _os_log_error_impl(&dword_2336F5000, v9, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -1194,16 +1194,16 @@ uint64_t findPipe(uint64_t a1, unsigned int a2, int a3, int a4, unsigned __int8 
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        *v31 = v11;
-        *&v31[4] = 1024;
-        *&v31[6] = v8;
+        *v30 = v11;
+        *&v30[4] = 1024;
+        *&v30[6] = v8;
         _os_log_error_impl(&dword_2336F5000, v17, OS_LOG_TYPE_ERROR, "GetPipeProperties failed with error: %08x for currentPipeRef: %d", buf, 0xEu);
       }
 
       goto LABEL_25;
     }
 
-    if (HIBYTE(v29) == a3 && v28 == a4)
+    if (HIBYTE(v28) == a3 && v27 == a4)
     {
       break;
     }
@@ -1212,7 +1212,7 @@ LABEL_25:
     v8 = ++v10;
     if (v10 > a2)
     {
-      goto LABEL_41;
+      return v11;
     }
   }
 
@@ -1235,9 +1235,9 @@ LABEL_25:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 67109376;
-    *v31 = a3;
-    *&v31[4] = 1024;
-    *&v31[6] = a4;
+    *v30 = a3;
+    *&v30[4] = 1024;
+    *&v30[6] = a4;
     _os_log_impl(&dword_2336F5000, v18, OS_LOG_TYPE_INFO, "found USB pipe successfully for direction %d and type %d", buf, 0xEu);
   }
 
@@ -1248,18 +1248,17 @@ LABEL_25:
 
   if (a6)
   {
-    *a6 = v27;
+    *a6 = v26;
   }
 
-  v11 = 0;
-LABEL_41:
-  v20 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 0;
 }
 
-void InterruptReadCompletion(void *a1, int a2, int a3)
+void InterruptReadCompletion(void *a1, uint64_t a2, uint64_t a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v4 = a2;
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a1;
   if (gLogObjects)
   {
@@ -1289,18 +1288,18 @@ void InterruptReadCompletion(void *a1, int a2, int a3)
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v30 = 67109888;
-    v31 = a2;
-    v32 = 1024;
-    v33 = a3;
-    v34 = 1024;
-    v35 = [v5 interruptBulkReadAllocCount];
-    v36 = 1024;
-    v37 = [v5 interruptBulkReadReleaseCount];
-    _os_log_debug_impl(&dword_2336F5000, v8, OS_LOG_TYPE_DEBUG, "InterruptReadCompletion: result=%d numBytesRead=%u, counts %d : %d", &v30, 0x1Au);
+    v29 = 67109888;
+    v30 = v4;
+    v31 = 1024;
+    v32 = v3;
+    v33 = 1024;
+    v34 = [v5 interruptBulkReadAllocCount];
+    v35 = 1024;
+    v36 = [v5 interruptBulkReadReleaseCount];
+    _os_log_debug_impl(&dword_2336F5000, v8, OS_LOG_TYPE_DEBUG, "InterruptReadCompletion: result=%d numBytesRead=%u, counts %d : %d", &v29, 0x1Au);
   }
 
-  if (a2)
+  if (v4)
   {
     if (gLogObjects && gNumLogObjects >= 1)
     {
@@ -1346,7 +1345,7 @@ void InterruptReadCompletion(void *a1, int a2, int a3)
   }
 
   v13 = [v5 hasReadInterruptPipe];
-  if (!a2 && v13)
+  if (!v4 && v13)
   {
     v14 = [[IAPDataBuffer alloc] initWithiAPInterface:v5];
     v15 = [v5 interruptBulkReadList];
@@ -1376,11 +1375,11 @@ void InterruptReadCompletion(void *a1, int a2, int a3)
       {
         v18 = [v5 interruptBulkReadAllocCount];
         v19 = [v5 interruptBulkReadReleaseCount];
-        v30 = 67109376;
-        v31 = v18;
-        v32 = 1024;
-        v33 = v19;
-        _os_log_impl(&dword_2336F5000, v16, OS_LOG_TYPE_DEFAULT, "InterruptReadCompletion: mismatched interrupt and read? counts %d : %d   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", &v30, 0xEu);
+        v29 = 67109376;
+        v30 = v18;
+        v31 = 1024;
+        v32 = v19;
+        _os_log_impl(&dword_2336F5000, v16, OS_LOG_TYPE_DEFAULT, "InterruptReadCompletion: mismatched interrupt and read? counts %d : %d   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", &v29, 0xEu);
       }
     }
 
@@ -1472,13 +1471,13 @@ void InterruptReadCompletion(void *a1, int a2, int a3)
 LABEL_70:
     [v5 setHasReadInterruptPipe:1];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void ReadCompletion(void *a1, int a2, unsigned int a3)
+void ReadCompletion(void *a1, uint64_t a2, uint64_t a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v4 = a2;
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [v5 parentiAPInterface];
   if (gLogObjects)
@@ -1509,18 +1508,18 @@ void ReadCompletion(void *a1, int a2, unsigned int a3)
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v35 = 67109888;
-    v36 = a2;
-    v37 = 1024;
-    *v38 = a3;
-    *&v38[4] = 1024;
-    *&v38[6] = [v6 interruptBulkReadAllocCount];
-    LOWORD(v39[0]) = 1024;
-    *(v39 + 2) = [v6 interruptBulkReadReleaseCount];
-    _os_log_debug_impl(&dword_2336F5000, v9, OS_LOG_TYPE_DEBUG, "ReadCompletion: result=%d numBytesRead=%u, counts %d : %d", &v35, 0x1Au);
+    v34 = 67109888;
+    v35 = v4;
+    v36 = 1024;
+    *v37 = v3;
+    *&v37[4] = 1024;
+    *&v37[6] = [v6 interruptBulkReadAllocCount];
+    LOWORD(v38[0]) = 1024;
+    *(v38 + 2) = [v6 interruptBulkReadReleaseCount];
+    _os_log_debug_impl(&dword_2336F5000, v9, OS_LOG_TYPE_DEBUG, "ReadCompletion: result=%d numBytesRead=%u, counts %d : %d", &v34, 0x1Au);
   }
 
-  if (a2)
+  if (v4)
   {
     if (gLogObjects && gNumLogObjects >= 1)
     {
@@ -1565,7 +1564,7 @@ void ReadCompletion(void *a1, int a2, unsigned int a3)
     ReadCompletion_cold_5();
   }
 
-  if (a3)
+  if (v3)
   {
     if (v6)
     {
@@ -1573,7 +1572,7 @@ void ReadCompletion(void *a1, int a2, unsigned int a3)
 
       if (v14)
       {
-        v15 = [MEMORY[0x277CBEA90] dataWithBytes:v5[1] length:a3];
+        v15 = [MEMORY[0x277CBEA90] dataWithBytes:v5[1] length:v3];
         v16 = [v6 dataInHandler];
         (v16)[2](v16, v6, v15);
 
@@ -1619,7 +1618,7 @@ LABEL_53:
     goto LABEL_54;
   }
 
-  if (!a3)
+  if (!v3)
   {
     if (gLogObjects && gNumLogObjects >= 1)
     {
@@ -1639,8 +1638,8 @@ LABEL_53:
 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v35) = 0;
-      _os_log_impl(&dword_2336F5000, v19, OS_LOG_TYPE_DEFAULT, "no bytes read!", &v35, 2u);
+      LOWORD(v34) = 0;
+      _os_log_impl(&dword_2336F5000, v19, OS_LOG_TYPE_DEFAULT, "no bytes read!", &v34, 2u);
     }
 
     goto LABEL_53;
@@ -1654,7 +1653,7 @@ LABEL_53:
 LABEL_54:
   v18 = 0;
 LABEL_55:
-  if ([v6 interruptInPipeRef] && (!objc_msgSend(v6, "interruptInPipeRef") || v5[2] > a3))
+  if ([v6 interruptInPipeRef] && (!objc_msgSend(v6, "interruptInPipeRef") || v5[2] > v3))
   {
     goto LABEL_99;
   }
@@ -1677,15 +1676,15 @@ LABEL_55:
 
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    v33 = [v6 interruptInPipeRef];
-    v34 = v5[1];
-    v35 = 67109634;
-    v36 = v33;
-    v37 = 2080;
-    *v38 = v34;
-    *&v38[8] = 1024;
-    v39[0] = a3;
-    _os_log_debug_impl(&dword_2336F5000, v22, OS_LOG_TYPE_DEBUG, "interruptInPipeRef = %d, dataBufferInLen = %s, numBytesRead = %d", &v35, 0x18u);
+    v32 = [v6 interruptInPipeRef];
+    v33 = v5[1];
+    v34 = 67109634;
+    v35 = v32;
+    v36 = 2080;
+    *v37 = v33;
+    *&v37[8] = 1024;
+    v38[0] = v3;
+    _os_log_debug_impl(&dword_2336F5000, v22, OS_LOG_TYPE_DEBUG, "interruptInPipeRef = %d, dataBufferInLen = %s, numBytesRead = %d", &v34, 0x18u);
   }
 
   if (!v6 || !*[v6 interface])
@@ -1717,8 +1716,8 @@ LABEL_55:
 
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v35) = 0;
-    _os_log_impl(&dword_2336F5000, v25, OS_LOG_TYPE_INFO, "USB Pipe stalled, clear and retry!", &v35, 2u);
+    LOWORD(v34) = 0;
+    _os_log_impl(&dword_2336F5000, v25, OS_LOG_TYPE_INFO, "USB Pipe stalled, clear and retry!", &v34, 2u);
   }
 
   if (!(*(*[v6 interface] + 240))(objc_msgSend(v6, "interface"), objc_msgSend(v6, "bulkInPipeRef")))
@@ -1785,8 +1784,6 @@ LABEL_99:
   }
 
 LABEL_101:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __61__iAP2EASession_initWithProtocol_endpointUUID_eaSessionUUID___block_invoke()
@@ -1838,10 +1835,11 @@ void _StaticUSBReadComplete(void *a1, uint64_t a2, uint64_t a3)
   [v6 _readComplete:v5 readLength:a3];
 }
 
-void OUTLINED_FUNCTION_6_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void init_logging_modules(uint64_t a1, char a2, uint64_t a3)
@@ -1861,7 +1859,7 @@ void init_logging_modules(uint64_t a1, char a2, uint64_t a3)
 
 void __init_logging_modules_block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = &off_233713000;
   if (*(a1 + 48))
   {
@@ -1879,7 +1877,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v14) = v4;
+          LODWORD(v13) = v4;
           _os_log_error_impl(&dword_2336F5000, v6, OS_LOG_TYPE_ERROR, "Subsystem missing for logging module %d!\n(Check LoggingModuleEntry_t table)", buf, 8u);
           v7 = *(a1 + 32);
           v8 = "<Undefined>";
@@ -1892,7 +1890,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         v9 = "<Undefined>";
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_modules_block_invoke_cold_1(v17, v4, &v18);
+          __init_logging_modules_block_invoke_cold_1(v16, v4, &v16[4]);
           v9 = "<Undefined>";
         }
       }
@@ -1905,9 +1903,9 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v14 = v8;
-          v15 = 2080;
-          v16 = v9;
+          v13 = v8;
+          v14 = 2080;
+          v15 = v9;
           _os_log_debug_impl(&dword_2336F5000, v6, OS_LOG_TYPE_DEBUG, "Created log object %s: %s", buf, 0x16u);
         }
       }
@@ -1915,9 +1913,9 @@ void __init_logging_modules_block_invoke(uint64_t a1)
       else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v14 = v8;
-        v15 = 2080;
-        v16 = v9;
+        v13 = v8;
+        v14 = 2080;
+        v15 = v9;
         _os_log_error_impl(&dword_2336F5000, v6, OS_LOG_TYPE_ERROR, "Failed to create os_log_t object %s: %s!", buf, 0x16u);
       }
 
@@ -1939,14 +1937,13 @@ void __init_logging_modules_block_invoke(uint64_t a1)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = *(v2 + 240);
-    LODWORD(v14) = v5;
+    LODWORD(v13) = v5;
     _os_log_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Created %d log object(s)!", buf, 8u);
     LODWORD(v11) = *(a1 + 48);
   }
 
   gLogObjects = *(a1 + 40);
   gNumLogObjects = v11;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 const void *platform_systemInfo_copySystemName()
@@ -2019,7 +2016,7 @@ uint64_t platform_systemInfo_deviceType()
 
 void _asyncCallback(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v8 = gNumLogObjects < 1;
@@ -2048,15 +2045,15 @@ void _asyncCallback(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 134218752;
-    v18 = a1;
-    v19 = 1024;
-    v20 = a2;
-    v21 = 2048;
-    v22 = a3;
-    v23 = 2048;
-    v24 = a4;
-    _os_log_impl(&dword_2336F5000, v10, OS_LOG_TYPE_DEFAULT, "_asyncReadCallback %p %x %llx %llx\n", &v17, 0x26u);
+    v16 = 134218752;
+    v17 = a1;
+    v18 = 1024;
+    v19 = a2;
+    v20 = 2048;
+    v21 = a3;
+    v22 = 2048;
+    v23 = a4;
+    _os_log_impl(&dword_2336F5000, v10, OS_LOG_TYPE_DEFAULT, "_asyncReadCallback %p %x %llx %llx\n", &v16, 0x26u);
   }
 
   v11 = a1;
@@ -2080,8 +2077,8 @@ void _asyncCallback(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_2336F5000, v12, OS_LOG_TYPE_DEFAULT, "POLLIN", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_2336F5000, v12, OS_LOG_TYPE_DEFAULT, "POLLIN", &v16, 2u);
     }
 
     [v11 _handleReadDataCallback:a2 revent:a3 t_look:a4];
@@ -2107,14 +2104,12 @@ void _asyncCallback(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_2336F5000, v14, OS_LOG_TYPE_DEFAULT, "POLLHUP", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_2336F5000, v14, OS_LOG_TYPE_DEFAULT, "POLLHUP", &v16, 2u);
     }
 
     [v11 closeCDCInterface];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void init_logging()
@@ -2126,85 +2121,83 @@ void init_logging()
 
 void usbUtil_getInterfaceAndNameString_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1(&dword_2336F5000, MEMORY[0x277D86220], a3, "%s: error releasing plugin interface", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "usbUtil_getInterfaceAndNameString";
+  OUTLINED_FUNCTION_1(&dword_2336F5000, MEMORY[0x277D86220], a3, "%s: error releasing plugin interface", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void usbUtil_getInterfaceAndNameString_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  *(&v2[3] + 2) = v0;
-  _os_log_error_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: error calling ControlRequest on interface, 0x%x", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  *(&v1[3] + 2) = v0;
+  _os_log_error_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: error calling ControlRequest on interface, 0x%x", v1, 0x12u);
 }
 
 void usbUtil_getInterfaceAndNameString_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1(&dword_2336F5000, MEMORY[0x277D86220], a3, "%s: Empty interfaceNameString", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "usbUtil_getInterfaceAndNameString";
+  OUTLINED_FUNCTION_1(&dword_2336F5000, MEMORY[0x277D86220], a3, "%s: Empty interfaceNameString", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void usbUtil_findParentOfClass_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 136315906;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  v4 = v0;
-  v5 = v1;
-  _os_log_debug_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s:%d Looking for match for %s in plane %s", v3, 0x26u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  v4 = v1;
+  _os_log_debug_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s:%d Looking for match for %s in plane %s", v2, 0x26u);
 }
 
 void usbUtil_findParentOfClass_cold_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = a1;
-  _os_log_debug_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Couldn't find parent matching class: %s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_debug_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Couldn't find parent matching class: %s", &v1, 0xCu);
 }
 
 void usbUtil_findParentOfClass_cold_3()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315650;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315650;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s:%d Found match for %s!", v1, 0x1Cu);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s:%d Found match for %s!", v0, 0x1Cu);
 }
 
 void logObjectForModule_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v6) = 134218240;
+  *(&v6 + 4) = gLogObjects;
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_0(&dword_2336F5000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, 0);
-  v5 = *MEMORY[0x277D85DE8];
+  *v7 = v0;
+  OUTLINED_FUNCTION_1_0(&dword_2336F5000, MEMORY[0x277D86220], v1, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v2, v3, v4, v5, v6, DWORD2(v6), *&v7[2], v8);
 }
 
 void __AppleUSBHostBillboardDeviceAdded_cold_3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 accessoryUSBBillboardDeviceVIDPID];
+  LODWORD(v7) = 136315650;
+  *(&v7 + 4) = "__AppleUSBHostBillboardDeviceAdded";
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_2336F5000, v1, v2, "%s: EXIT listener(0x%X) = %@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_2336F5000, v1, v2, "%s: EXIT listener(0x%X) = %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __AppleUSBHostBillboardDeviceTerminated_cold_3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 accessoryUSBBillboardDeviceVIDPID];
+  LODWORD(v7) = 136315650;
+  *(&v7 + 4) = "__AppleUSBHostBillboardDeviceTerminated";
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_2336F5000, v1, v2, "%s: EXIT listener(0x%X) = %@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_2336F5000, v1, v2, "%s: EXIT listener(0x%X) = %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 const void *systemInfo_copyProductType()
@@ -2256,39 +2249,25 @@ void __init_logging_signpost_modules_block_invoke_cold_1(uint8_t *buf, int a2, _
   _os_log_error_impl(&dword_2336F5000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Category missing for logging module %d!\n(Check LoggingSignpostModuleEntry_t table)", buf, 8u);
 }
 
-void logObjectForModule_cold_1_0()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void InterruptReadCompletion_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void InterruptReadCompletion_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void InterruptReadCompletion_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void InterruptReadCompletion_cold_10()
@@ -2300,56 +2279,44 @@ void InterruptReadCompletion_cold_10()
 
 void InterruptReadCompletion_cold_12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ReadCompletion_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ReadCompletion_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ReadCompletion_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ReadCompletion_cold_12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ReadCompletion_cold_14()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __init_logging_modules_block_invoke_cold_1(uint8_t *buf, int a2, _DWORD *a3)

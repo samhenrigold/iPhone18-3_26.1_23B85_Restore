@@ -245,9 +245,9 @@ LABEL_21:
         {
           v26 = [CCToolKitToolDisplayRepresentation alloc];
           v27 = CCPBReaderReadDataNoCopy();
-          v38 = 0;
-          v28 = [(CCItemMessage *)v26 initWithData:v27 error:&v38];
-          v10 = v38;
+          v36 = 0;
+          v28 = [(CCItemMessage *)v26 initWithData:v27 error:&v36];
+          v10 = v36;
           displayRepresentation = self->_displayRepresentation;
           self->_displayRepresentation = v28;
         }
@@ -279,7 +279,6 @@ LABEL_29:
 
           v30 = objc_opt_class();
           v27 = NSStringFromClass(v30);
-          v31 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
         }
 
@@ -307,23 +306,22 @@ LABEL_36:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v36 = 1;
+    v34 = 1;
     goto LABEL_40;
   }
 
 LABEL_37:
-  v32 = objc_opt_class();
-  v33 = NSStringFromClass(v32);
-  v34 = *&v6[*v9];
-  v35 = CCInvalidBufferErrorForMessage();
+  v31 = objc_opt_class();
+  v32 = NSStringFromClass(v31);
+  v33 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_38:
-  v36 = 0;
+  v34 = 0;
 LABEL_40:
 
-  return v36;
+  return v34;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueFile)initWithFile:(id)file displayRepresentation:(id)representation url:(id)url error:(id *)error

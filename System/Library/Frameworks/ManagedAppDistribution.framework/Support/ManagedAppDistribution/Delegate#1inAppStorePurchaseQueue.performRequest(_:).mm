@@ -9,7 +9,7 @@
 
 - (void)purchase:()_: handleEngagementRequest:completion:
 {
-  v9 = sub_1001F0C48(&unk_100780380);
+  v9 = sub_1001F0C48(&unk_100780380, &qword_10069E9E0);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(a5);
@@ -38,7 +38,7 @@
 
 - (void)purchase:()_: handleAuthenticateRequest:completion:
 {
-  v9 = sub_1001F0C48(&unk_100780380);
+  v9 = sub_1001F0C48(&unk_100780380, &qword_10069E9E0);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(a5);
@@ -67,7 +67,7 @@
 
 - (void)purchase:()_: handleDialogRequest:completion:
 {
-  v9 = sub_1001F0C48(&unk_100780380);
+  v9 = sub_1001F0C48(&unk_100780380, &qword_10069E9E0);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(a5);

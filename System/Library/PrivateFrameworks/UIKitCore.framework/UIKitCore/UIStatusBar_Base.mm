@@ -418,7 +418,7 @@ LABEL_12:
     v21 = 0u;
     v22 = 0u;
     v20 = 0u;
-    [(UIStatusBar_Base *)self _hiddenTransformForHideAnimationParameters:parametersCopy];
+    objc_msgSend__hiddenTransformForHideAnimationParameters_(self);
     [(UIStatusBar_Base *)self _hiddenAlphaForHideAnimationParameters:parametersCopy];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;

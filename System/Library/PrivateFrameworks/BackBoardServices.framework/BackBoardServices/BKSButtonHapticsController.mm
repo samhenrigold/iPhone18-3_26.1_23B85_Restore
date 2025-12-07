@@ -18,9 +18,11 @@
 
 uint64_t __44__BKSButtonHapticsController_sharedInstance__block_invoke()
 {
-  sharedInstance_controller_6763 = objc_alloc_init(BKSButtonHapticsController);
+  v0 = objc_alloc_init(BKSButtonHapticsController);
+  v1 = sharedInstance_controller_6763;
+  sharedInstance_controller_6763 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

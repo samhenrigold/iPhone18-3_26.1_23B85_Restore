@@ -314,7 +314,7 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v116[3] = *MEMORY[0x1E69E9840];
+  v175[3] = *MEMORY[0x1E69E9840];
   if (level <= 49)
   {
     v5 = 100;
@@ -325,7 +325,7 @@
     v5 = 8;
   }
 
-  v6 = shouldPrintSensitiveData();
+  v6 = shouldPrintSensitiveData(self, a2);
   if (v6)
   {
     v7 = v5;
@@ -349,471 +349,603 @@
   {
 
     v8 = 0;
-    goto LABEL_14;
+    goto LABEL_16;
   }
 
   if (!v8)
   {
-LABEL_14:
-    v11 = 0;
+LABEL_16:
+    v14 = 0;
     if (!v9)
     {
-      goto LABEL_16;
+      goto LABEL_20;
     }
 
-    goto LABEL_15;
+    goto LABEL_17;
   }
 
-  v115 = 0;
-  formatSensitiveData("%sID ", v6);
-  [0 length];
-  NSAppendPrintF();
-  v11 = 0;
+  v174 = 0;
+  v11 = formatSensitiveData("%sID ", v6);
+  v12 = [0 length];
+  v13 = ", ";
+  if (!v12)
+  {
+    v13 = "";
+  }
+
+  NSAppendPrintF(&v174, v11, v13, v8);
+  v14 = v174;
   if (v9)
   {
-LABEL_15:
-    v114 = v11;
-    formatSensitiveData("%sIDS ", v6);
-    [v11 length];
-    NSAppendPrintF();
-    v12 = v11;
-
-    v11 = v12;
-  }
-
-LABEL_16:
-  if (v10)
-  {
-    v113 = v11;
-    formatSensitiveData("%sPI ", v6);
-    [v11 length];
-    NSAppendPrintF();
-    v13 = v11;
-
-    v11 = v13;
-  }
-
-  v94 = v7;
-  v14 = self->super._name;
-  if (v14)
-  {
-    v112 = v11;
-    formatSensitiveData(", Nm ", v6);
-    NSAppendPrintF();
-    v15 = v11;
-
-    v11 = v15;
-  }
-
-  v16 = self->super._model;
-  if (v16)
-  {
-    v111 = v11;
-    formatSensitiveData(", Md ", v6);
-    NSAppendPrintF();
-    v17 = v11;
-
-    v11 = v17;
-  }
-
-  v110.receiver = self;
-  v110.super_class = RPCompanionLinkDevice;
-  activityLevel = [(RPEndpoint *)&v110 activityLevel];
-  if (activityLevel)
-  {
-    v109 = v11;
-    if (activityLevel <= 0xE)
+LABEL_17:
+    v173 = v14;
+    v15 = formatSensitiveData("%sIDS ", v6);
+    v16 = [v14 length];
+    v17 = ", ";
+    if (!v16)
     {
-      v19 = off_1E7C93870[activityLevel - 1];
+      v17 = "";
     }
 
-    NSAppendPrintF();
-    v20 = v109;
+    NSAppendPrintF(&v173, v15, v17, v9);
+    v18 = v173;
 
-    v11 = v20;
+    v14 = v18;
+  }
+
+LABEL_20:
+  if (v10)
+  {
+    v172 = v14;
+    v19 = formatSensitiveData("%sPI ", v6);
+    v20 = [v14 length];
+    v21 = ", ";
+    if (!v20)
+    {
+      v21 = "";
+    }
+
+    NSAppendPrintF(&v172, v19, v21, v10);
+    v22 = v172;
+
+    v14 = v22;
+  }
+
+  v130 = v7;
+  v23 = self->super._name;
+  if (v23)
+  {
+    v171 = v14;
+    v24 = formatSensitiveData(", Nm ", v6);
+    NSAppendPrintF(&v171, v24, v23);
+    v25 = v171;
+
+    v14 = v25;
+  }
+
+  v26 = self->super._model;
+  if (v26)
+  {
+    v170 = v14;
+    v27 = formatSensitiveData(", Md ", v6);
+    NSAppendPrintF(&v170, v27, v26);
+    v28 = v170;
+
+    v14 = v28;
+  }
+
+  v169.receiver = self;
+  v169.super_class = RPCompanionLinkDevice;
+  activityLevel = [(RPEndpoint *)&v169 activityLevel];
+  if (activityLevel)
+  {
+    v168 = v14;
+    if (activityLevel > 0xE)
+    {
+      v30 = "?";
+    }
+
+    else
+    {
+      v30 = off_1E7C93870[activityLevel - 1];
+    }
+
+    NSAppendPrintF(&v168, ", AcLv = %s (%d)", v30, activityLevel);
+    v31 = v168;
+
+    v14 = v31;
   }
 
   if (level <= 20)
   {
-    v21 = self->super._accountID;
-    if (v21)
-    {
-      v108 = v11;
-      formatSensitiveData(", AID ", v6);
-      NSAppendPrintF();
-      v22 = v11;
-
-      v11 = v22;
-    }
-
-    v23 = self->super._idsCorrelationIdentifier;
-    if (v23)
-    {
-      v107 = v11;
-      formatSensitiveData(", CID ", v6);
-      NSAppendPrintF();
-      v24 = v11;
-
-      v11 = v24;
-    }
-
-    v25 = self->_deviceColor;
-    if (v25)
-    {
-      v106 = v11;
-      formatSensitiveData(", Cl ", v6);
-      NSAppendPrintF();
-      v26 = v11;
-
-      v11 = v26;
-    }
-
-    v27 = self->_roomName;
-    if (v27)
-    {
-      v105 = v11;
-      formatSensitiveData(", Rm ", v6);
-      NSAppendPrintF();
-      v28 = v11;
-
-      v11 = v28;
-    }
-
-    v29 = self->_homeKitIdentifier;
-    if (v29)
-    {
-      v104 = v11;
-      formatSensitiveData(", HKI ", v6);
-      NSAppendPrintF();
-      v30 = v11;
-
-      v11 = v30;
-    }
-
-    if (self->super._hotspotInfo)
-    {
-      v103 = v11;
-      NSAppendPrintF();
-      v31 = v11;
-
-      v11 = v31;
-    }
-
-    v32 = self->_idsPersonalDeviceIdentifier;
+    v32 = self->super._accountID;
     if (v32)
     {
-      v102 = v11;
-      formatSensitiveData(", IDP ", v6);
-      NSAppendPrintF();
-      v33 = v11;
+      v167 = v14;
+      v33 = formatSensitiveData(", AID ", v6);
+      NSAppendPrintF(&v167, v33, v32);
+      v34 = v167;
 
-      v11 = v33;
+      v14 = v34;
     }
 
-    if (self->_deviceCapabilityFlags)
+    v35 = self->super._idsCorrelationIdentifier;
+    if (v35)
     {
-      v101 = v11;
-      NSAppendPrintF();
-      v34 = v11;
+      v166 = v14;
+      v36 = formatSensitiveData(", CID ", v6);
+      NSAppendPrintF(&v166, v36, v35);
+      v37 = v166;
 
-      v11 = v34;
+      v14 = v37;
+    }
+
+    v38 = self->_deviceColor;
+    if (v38)
+    {
+      v165 = v14;
+      v39 = formatSensitiveData(", Cl ", v6);
+      NSAppendPrintF(&v165, v39, v38);
+      v40 = v165;
+
+      v14 = v40;
+    }
+
+    v41 = self->_roomName;
+    if (v41)
+    {
+      v164 = v14;
+      v42 = formatSensitiveData(", Rm ", v6);
+      NSAppendPrintF(&v164, v42, v41);
+      v43 = v164;
+
+      v14 = v43;
+    }
+
+    v44 = self->_homeKitIdentifier;
+    if (v44)
+    {
+      v163 = v14;
+      v45 = formatSensitiveData(", HKI ", v6);
+      NSAppendPrintF(&v163, v45, v44);
+      v46 = v163;
+
+      v14 = v46;
+    }
+
+    hotspotInfo = self->super._hotspotInfo;
+    if (hotspotInfo)
+    {
+      v162 = v14;
+      NSAppendPrintF(&v162, ", HSI 0x%X", hotspotInfo);
+      v48 = v162;
+
+      v14 = v48;
+    }
+
+    v49 = self->_idsPersonalDeviceIdentifier;
+    if (v49)
+    {
+      v161 = v14;
+      v50 = formatSensitiveData(", IDP ", v6);
+      NSAppendPrintF(&v161, v50, v49);
+      v51 = v161;
+
+      v14 = v51;
+    }
+
+    deviceCapabilityFlags = self->_deviceCapabilityFlags;
+    if (deviceCapabilityFlags)
+    {
+      v160 = v14;
+      NSAppendPrintF(&v160, ", dCapF %#{flags}", deviceCapabilityFlags, &unk_1B6F2D60D);
+      v53 = v160;
+
+      v14 = v53;
     }
   }
 
-  v35 = self->_activeUserAltDSID;
-  if (v35)
+  v54 = self->_activeUserAltDSID;
+  if (v54)
   {
-    v100 = v11;
-    formatSensitiveData(", ADSID ", v6);
-    NSAppendPrintF();
-    v36 = v11;
+    v159 = v14;
+    v55 = formatSensitiveData(", ADSID ", v6);
+    NSAppendPrintF(&v159, v55, v54);
+    v56 = v159;
 
-    v11 = v36;
+    v14 = v56;
   }
 
-  v37 = self->super._sourceVersion;
-  if (v37)
+  v57 = self->super._sourceVersion;
+  if (v57)
   {
-    v99 = v11;
-    formatSensitiveData(", SV ", v6);
-    NSAppendPrintF();
-    v38 = v11;
+    v158 = v14;
+    v58 = formatSensitiveData(", SV ", v6);
+    NSAppendPrintF(&v158, v58, v57);
+    v59 = v158;
 
-    v11 = v38;
+    v14 = v59;
   }
 
-  v98.receiver = self;
-  v98.super_class = RPCompanionLinkDevice;
-  [(RPEndpoint *)&v98 operatingSystemVersion];
-  if (v97)
-  {
-    v96 = v11;
-    formatSensitiveData(", OSV ", v6);
-    v95.receiver = self;
-    v95.super_class = RPCompanionLinkDevice;
-    [(RPEndpoint *)&v95 operatingSystemVersion];
-    v91 = RPNSOperatingSystemVersionToString(v116);
-    NSAppendPrintF();
-    v39 = v96;
+  v60 = v130;
 
-    v11 = v39;
+  v157.receiver = self;
+  v157.super_class = RPCompanionLinkDevice;
+  [(RPEndpoint *)&v157 operatingSystemVersion];
+  if (v156[1])
+  {
+    v156[0] = v14;
+    v61 = formatSensitiveData(", OSV ", v6);
+    v155.receiver = self;
+    v155.super_class = RPCompanionLinkDevice;
+    [(RPEndpoint *)&v155 operatingSystemVersion];
+    v62 = RPNSOperatingSystemVersionToString(v175);
+    NSAppendPrintF(v156, v61, v62);
+    v63 = v156[0];
+
+    v14 = v63;
   }
 
   linkType = self->super._linkType;
   if (linkType)
   {
-    if (linkType <= 0xB)
+    v154 = v14;
+    if (linkType > 0xB)
     {
-      v41 = off_1E7C938E0[linkType - 1];
+      v65 = "?";
     }
 
-    NSAppendPrintF();
-    v42 = v11;
+    else
+    {
+      v65 = off_1E7C938E0[linkType - 1];
+    }
 
-    v11 = v42;
+    NSAppendPrintF(&v154, ", LT %s", v65);
+    v66 = v154;
+
+    v14 = v66;
   }
 
   if (self->_uiTriggered)
   {
-    NSAppendPrintF();
-    v43 = v11;
+    v153 = v14;
+    NSAppendPrintF(&v153, ", UI Triggered");
+    v67 = v153;
 
-    v11 = v43;
+    v14 = v67;
   }
 
-  if (self->super._statusFlags)
+  statusFlags = self->super._statusFlags;
+  if (statusFlags)
   {
-    NSAppendPrintF();
-    v44 = v11;
+    v152 = v14;
+    NSAppendPrintF(&v152, ", SF %#ll{flags}", statusFlags, &unk_1B6F2D62D);
+    v69 = v152;
 
-    v11 = v44;
+    v14 = v69;
   }
 
+  deviceFlags = self->_deviceFlags;
   if (self->_deviceFlags)
   {
-    NSAppendPrintF();
-    v45 = v11;
+    v151 = v14;
+    NSAppendPrintF(&v151, ", DFl %#{flags}", deviceFlags, &unk_1B6F2D7FC);
+    v71 = v151;
 
-    v11 = v45;
+    v14 = v71;
   }
 
   if (level <= 20)
   {
-    if (self->super._hotspotInfo)
+    v72 = self->super._hotspotInfo;
+    if (v72)
     {
-      NSAppendPrintF();
-      v46 = v11;
+      v150 = v14;
+      NSAppendPrintF(&v150, ", HSI 0x%X", v72);
+      v73 = v150;
 
-      v11 = v46;
+      v14 = v73;
     }
 
-    if (self->_listeningPort)
+    listeningPort = self->_listeningPort;
+    if (listeningPort)
     {
-      NSAppendPrintF();
-      v47 = v11;
+      v149 = v14;
+      NSAppendPrintF(&v149, ", LP '%d'", listeningPort);
+      v75 = v149;
 
-      v11 = v47;
+      v14 = v75;
     }
 
-    v48 = self->_launchInstanceID;
-    v49 = v48;
-    if (v48)
+    v76 = self->_launchInstanceID;
+    v77 = v76;
+    if (v76)
     {
-      uUIDString = [(NSUUID *)v48 UUIDString];
-      NSAppendPrintF();
-      v50 = v11;
+      v148 = v14;
+      uUIDString = [(NSUUID *)v76 UUIDString];
+      NSAppendPrintF(&v148, ", LID '%@'", uUIDString);
+      v79 = v148;
 
-      v11 = v50;
+      v14 = v79;
     }
 
     mediaAccessControlSetting = self->_mediaAccessControlSetting;
     if (mediaAccessControlSetting)
     {
-      if (mediaAccessControlSetting <= 3)
+      v147 = v14;
+      if (mediaAccessControlSetting > 3)
       {
-        v52 = off_1E7C93938[mediaAccessControlSetting - 1];
-      }
-
-      NSAppendPrintF();
-      v53 = v11;
-
-      v11 = v53;
-    }
-
-    v54 = self->super._mediaRemoteIdentifier;
-    if (v54)
-    {
-      NSAppendPrintF();
-      v55 = v11;
-
-      v11 = v55;
-    }
-
-    v56 = self->super._mediaRouteIdentifier;
-    if (v56)
-    {
-      NSAppendPrintF();
-      v57 = v11;
-
-      v11 = v57;
-    }
-
-    v58 = self->super._sessionPairingIdentifier;
-    if (v58)
-    {
-      NSAppendPrintF();
-      v59 = v11;
-
-      v11 = v59;
-    }
-
-    if (self->_mediaSystemIdentifier)
-    {
-      mediaSystemIdentifier = self->_mediaSystemIdentifier;
-      NSAppendPrintF();
-      v60 = v11;
-
-      if (self->_daemon)
-      {
-        if (([(NSUUID *)self->_mediaSystemIdentifierEffective isEqual:self->_mediaSystemIdentifier, v94, mediaSystemIdentifier]& 1) == 0)
-        {
-          mediaSystemIdentifierEffective = self->_mediaSystemIdentifierEffective;
-        }
-
-        NSAppendPrintF();
-        v11 = v60;
+        v81 = "?";
       }
 
       else
       {
-        v11 = v60;
+        v81 = off_1E7C93938[mediaAccessControlSetting - 1];
+      }
+
+      NSAppendPrintF(&v147, ", MAc %s", v81);
+      v82 = v147;
+
+      v14 = v82;
+    }
+
+    v83 = self->super._mediaRemoteIdentifier;
+    v84 = v83;
+    if (v83)
+    {
+      v146 = v14;
+      NSAppendPrintF(&v146, ", MRI '%.*@'", v130, v83);
+      v85 = v146;
+
+      v14 = v85;
+    }
+
+    v86 = self->super._mediaRouteIdentifier;
+    v87 = v86;
+    if (v86)
+    {
+      v145 = v14;
+      NSAppendPrintF(&v145, ", MRtI '%.*@'", v130, v86);
+      v88 = v145;
+
+      v14 = v88;
+    }
+
+    v89 = self->super._sessionPairingIdentifier;
+    v90 = v89;
+    if (v89)
+    {
+      v144 = v14;
+      NSAppendPrintF(&v144, ", spID '%.*@'", v130, v89);
+      v91 = v144;
+
+      v14 = v91;
+    }
+
+    mediaSystemIdentifier = self->_mediaSystemIdentifier;
+    if (mediaSystemIdentifier)
+    {
+      v143 = v14;
+      NSAppendPrintF(&v143, ", MSi '%.*@'", v130, mediaSystemIdentifier);
+      v93 = v143;
+
+      if (self->_daemon)
+      {
+        v94 = [(NSUUID *)self->_mediaSystemIdentifierEffective isEqual:self->_mediaSystemIdentifier];
+        v142 = v93;
+        if (v94)
+        {
+          mediaSystemIdentifierEffective = @"=";
+        }
+
+        else
+        {
+          mediaSystemIdentifierEffective = self->_mediaSystemIdentifierEffective;
+        }
+
+        NSAppendPrintF(&v142, " (%.*@)", v130, mediaSystemIdentifierEffective);
+        v14 = v142;
+      }
+
+      else
+      {
+        v14 = v93;
       }
     }
 
-    if (self->_mediaSystemName)
+    mediaSystemName = self->_mediaSystemName;
+    if (mediaSystemName)
     {
-      NSAppendPrintF();
-      v62 = v11;
+      v141 = v14;
+      NSAppendPrintF(&v141, ", MSn '%@'", mediaSystemName);
+      v97 = v141;
 
-      v11 = v62;
+      v14 = v97;
     }
 
     mediaSystemRole = self->_mediaSystemRole;
     if (mediaSystemRole)
     {
-      if (mediaSystemRole <= 3)
+      v140 = v14;
+      if (mediaSystemRole > 3)
       {
-        v64 = off_1E7C93950[mediaSystemRole - 1];
-      }
-
-      NSAppendPrintF();
-      v65 = v11;
-
-      if (self->_daemon)
-      {
-        mediaSystemRoleEffective = self->_mediaSystemRoleEffective;
-        if (mediaSystemRoleEffective <= 3)
-        {
-          v67 = off_1E7C93968[mediaSystemRoleEffective];
-        }
-
-        NSAppendPrintF();
-        v11 = v65;
+        v99 = "?";
       }
 
       else
       {
-        v11 = v65;
+        v99 = off_1E7C93950[mediaSystemRole - 1];
+      }
+
+      NSAppendPrintF(&v140, ", MSr %s", v99);
+      v100 = v140;
+
+      if (self->_daemon)
+      {
+        v139 = v100;
+        mediaSystemRoleEffective = self->_mediaSystemRoleEffective;
+        if (mediaSystemRoleEffective > 3)
+        {
+          v102 = "?";
+        }
+
+        else
+        {
+          v102 = off_1E7C93968[mediaSystemRoleEffective];
+        }
+
+        NSAppendPrintF(&v139, " (%s)", v102);
+        v14 = v139;
+      }
+
+      else
+      {
+        v14 = v100;
       }
     }
 
     mediaSystemState = self->_mediaSystemState;
-    v69 = mediaSystemState >= 2;
-    v70 = mediaSystemState - 2;
-    if (v69)
+    v104 = mediaSystemState >= 2;
+    v105 = mediaSystemState - 2;
+    if (v104)
     {
-      if (v70 <= 2)
+      v138 = v14;
+      if (v105 > 2)
       {
-        v71 = off_1E7C93988[v70];
+        v106 = "?";
       }
 
-      NSAppendPrintF();
-      v72 = v11;
+      else
+      {
+        v106 = off_1E7C93988[v105];
+      }
 
-      v11 = v72;
+      NSAppendPrintF(&v138, ", MSs %s", v106);
+      v107 = v138;
+
+      v14 = v107;
     }
 
     if ((self->_flags & 0x40) != 0)
     {
       personalDeviceState = self->_personalDeviceState;
-      if (personalDeviceState < 8)
+      v137 = v14;
+      if (personalDeviceState >= 8)
       {
-        v74 = off_1E7C939A0[personalDeviceState];
+        if (personalDeviceState <= 9)
+        {
+          v109 = "-";
+        }
+
+        else
+        {
+          v109 = "U";
+        }
       }
 
-      NSAppendPrintF();
-      v75 = v11;
+      else
+      {
+        v109 = off_1E7C939A0[personalDeviceState];
+      }
 
+      NSAppendPrintF(&v137, ", PDS %s", v109);
+      v110 = v137;
+
+      v136 = v110;
       personalRequestsState = self->_personalRequestsState;
-      if (personalRequestsState < 8)
+      if (personalRequestsState >= 8)
       {
-        v77 = off_1E7C939A0[personalRequestsState];
+        if (personalRequestsState <= 9)
+        {
+          v112 = "-";
+        }
+
+        else
+        {
+          v112 = "U";
+        }
       }
 
-      NSAppendPrintF();
-      v11 = v75;
+      else
+      {
+        v112 = off_1E7C939A0[personalRequestsState];
+      }
+
+      v60 = v130;
+      NSAppendPrintF(&v136, ", PRS %s", v112);
+      v14 = v136;
     }
 
-    v78 = self->_siriInfo;
-    v79 = v78;
-    if (v78)
+    v113 = self->_siriInfo;
+    v114 = v113;
+    if (v113)
     {
-      [(NSDictionary *)v78 count];
-      NSAppendPrintF();
-      v80 = v11;
+      v135 = v14;
+      NSAppendPrintF(&v135, ", SiriInfo %d item(s)", [(NSDictionary *)v113 count]);
+      v115 = v135;
 
-      v11 = v80;
+      v14 = v115;
     }
 
-    v81 = v11;
+    v116 = v14;
 
-    RPCompanionLinkFlagsToShortString(self->_flags, v116);
-    NSAppendPrintF();
-    v11 = v11;
+    v134 = v14;
+    v117 = RPCompanionLinkFlagsToShortString(self->_flags, v175);
+    NSAppendPrintF(&v134, ", <%s>", v117);
+    v14 = v134;
 
-    v82 = self->super._serviceTypes;
-    if (v82)
+    v118 = self->super._serviceTypes;
+    v119 = v118;
+    if (v118)
     {
-      NSAppendPrintF();
-      v83 = v11;
+      v133 = v14;
+      NSAppendPrintF(&v133, ", STA %##@", v118);
+      v120 = v133;
 
-      v11 = v83;
+      v14 = v120;
     }
 
-    v84 = self->_activeUserAltDSID;
-    if (v84)
+    v121 = self->_activeUserAltDSID;
+    v122 = v121;
+    if (v121)
     {
-      NSAppendPrintF();
-      v85 = v11;
+      v132 = v14;
+      NSAppendPrintF(&v132, ", ADSID '%.*@'", v60, v121);
+      v123 = v132;
 
-      v11 = v85;
+      v14 = v123;
     }
 
-    standaloneWatch = self->_standaloneWatch;
-    if ((standaloneWatch & 0x80000000) == 0)
+    if ((self->_standaloneWatch & 0x80000000) == 0)
     {
-      NSAppendPrintF();
-      v87 = v11;
+      standaloneWatch = self->_standaloneWatch;
+      v125 = "?";
+      v131 = v14;
+      if (!standaloneWatch)
+      {
+        v125 = "Paired";
+      }
 
-      v11 = v87;
+      if (standaloneWatch == 1)
+      {
+        v126 = "Standalone";
+      }
+
+      else
+      {
+        v126 = v125;
+      }
+
+      NSAppendPrintF(&v131, ", SaW %s", v126);
+      v127 = v131;
+
+      v14 = v127;
     }
   }
 
-  v88 = v11;
+  v128 = v14;
 
-  v89 = *MEMORY[0x1E69E9840];
-
-  return v88;
+  return v128;
 }
 
 - (NSString)fileTransferTargetID

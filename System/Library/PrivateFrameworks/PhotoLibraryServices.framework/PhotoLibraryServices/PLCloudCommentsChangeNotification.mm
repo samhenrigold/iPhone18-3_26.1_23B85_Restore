@@ -39,7 +39,7 @@
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     deletedIndexes = [(PLContainerChangeNotification *)self deletedIndexes];
-    v6 = [deletedIndexes count];
+    v6 = objc_msgSend_count(deletedIndexes);
 
     if (v6)
     {
@@ -48,7 +48,7 @@
     }
 
     insertedIndexes = [(PLContainerChangeNotification *)self insertedIndexes];
-    v9 = [insertedIndexes count];
+    v9 = objc_msgSend_count(insertedIndexes);
 
     if (v9)
     {
@@ -57,7 +57,7 @@
     }
 
     changedIndexes = [(PLContainerChangeNotification *)self changedIndexes];
-    v12 = [changedIndexes count];
+    v12 = objc_msgSend_count(changedIndexes);
 
     if (v12)
     {

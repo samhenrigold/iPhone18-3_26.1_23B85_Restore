@@ -179,8 +179,7 @@ id __92__SBFluidSwitcherRootSwitcherModifier_responseForProposedChildResponse_ch
     windowManagementContext = [(SBFluidSwitcherRootSwitcherModifier *)self gestureModifierForGestureEvent:eventCopy];
     if (windowManagementContext)
     {
-      [(SBChainableModifier *)self addChildModifier:windowManagementContext atLevel:3 key:0];
-      v7 = SBLogAppSwitcher();
+      v7 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:windowManagementContext atLevel:3 key:0]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = objc_opt_class();
@@ -270,8 +269,7 @@ LABEL_9:
       v13 = [(SBFluidSwitcherRootSwitcherModifier *)self switcherModifierLevelForTransitionEvent:eventCopy];
       if (v12)
       {
-        [(SBChainableModifier *)self addChildModifier:v12 atLevel:v13 key:0];
-        v14 = SBLogAppSwitcher();
+        v14 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v12 atLevel:v13 key:0]);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = objc_opt_class();
@@ -290,7 +288,7 @@ LABEL_9:
           if (consumedPreludeToken)
           {
             v19 = [[SBConsumedPreludeAnimationTokenSwitcherEventResponse alloc] initWithPreludeToken:consumedPreludeToken];
-            v20 = SBAppendSwitcherModifierResponse(v19, v5);
+            v20 = SBAppendSwitcherModifierResponse();
 
             v5 = v20;
           }
@@ -339,8 +337,7 @@ LABEL_9:
         v8 = [(SBFluidSwitcherRootSwitcherModifier *)self swipeToKillModifierForSwipeToKillEvent:eventCopy];
         if (v8)
         {
-          [(SBChainableModifier *)self addChildModifier:v8 atLevel:3 key:v7];
-          v9 = SBLogAppSwitcher();
+          v9 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v8 atLevel:3 key:v7]);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
             v10 = objc_opt_class();
@@ -379,8 +376,7 @@ LABEL_9:
       v10 = [(SBFluidSwitcherRootSwitcherModifier *)self highlightModifierForHighlightEvent:eventCopy];
       if (v10)
       {
-        [(SBChainableModifier *)self addChildModifier:v10 atLevel:3 key:v9];
-        v11 = SBLogAppSwitcher();
+        v11 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v10 atLevel:3 key:v9]);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v12 = objc_opt_class();
@@ -411,8 +407,7 @@ LABEL_9:
     v6 = [(SBFluidSwitcherRootSwitcherModifier *)self insertionModifierForInsertionEvent:eventCopy];
     if (v6)
     {
-      [(SBChainableModifier *)self addChildModifier:v6 atLevel:3 key:0];
-      v7 = SBLogAppSwitcher();
+      v7 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v6 atLevel:3 key:0]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = objc_opt_class();
@@ -442,8 +437,7 @@ LABEL_9:
     v6 = [(SBFluidSwitcherRootSwitcherModifier *)self removalModifierForRemovalEvent:eventCopy];
     if (v6)
     {
-      [(SBChainableModifier *)self addChildModifier:v6 atLevel:3 key:0];
-      v7 = SBLogAppSwitcher();
+      v7 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v6 atLevel:3 key:0]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = objc_opt_class();
@@ -476,8 +470,7 @@ LABEL_9:
       v6 = [(SBFluidSwitcherRootSwitcherModifier *)self userScrollingModifierForScrollEvent:eventCopy];
       if (v6)
       {
-        [(SBChainableModifier *)self addChildModifier:v6 atLevel:3 key:@"UserScrollingModifier"];
-        v7 = SBLogAppSwitcher();
+        v7 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v6 atLevel:3 key:@"UserScrollingModifier"]);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           v8 = objc_opt_class();
@@ -515,8 +508,7 @@ LABEL_9:
         v8 = [(SBFluidSwitcherRootSwitcherModifier *)self focusedAppModifierForUpdateFocusedAppLayoutEvent:eventCopy];
         if (v8)
         {
-          [(SBChainableModifier *)self addChildModifier:v8 atLevel:3 key:v7];
-          v9 = SBLogAppSwitcher();
+          v9 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v8 atLevel:3 key:v7]);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             v10 = objc_opt_class();
@@ -569,7 +561,7 @@ LABEL_9:
 
 - (void)_updateFloorModifierWithProposedFloorModifier:(id)modifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   modifierCopy = modifier;
   multitaskingModifier = [(SBFluidSwitcherRootSwitcherModifier *)self multitaskingModifier];
   floorModifier = [(SBFluidSwitcherRootSwitcherModifier *)self floorModifier];
@@ -590,20 +582,20 @@ LABEL_9:
 
     if (multitaskingModifier != v8)
     {
-      [(SBChainableModifier *)self addChildModifier:v8 atLevel:12 key:@"Fluid Switcher Floor Modifier"];
+      v9 = [(SBChainableModifier *)self addChildModifier:v8 atLevel:12 key:@"Fluid Switcher Floor Modifier"];
     }
 
-    v9 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = SBLogAppSwitcher(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       succinctDescription = [v8 succinctDescription];
-      v13 = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = succinctDescription;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "[%@] Updated floor modifier to %@", &v13, 0x16u);
+      v14 = 138412546;
+      v15 = v12;
+      v16 = 2112;
+      v17 = succinctDescription;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "[%@] Updated floor modifier to %@", &v14, 0x16u);
     }
   }
 }
@@ -629,8 +621,7 @@ LABEL_9:
 
     v7 = v6;
 
-    [(SBChainableModifier *)self addChildModifier:v7 atLevel:13 key:@"Fluid Switcher Multitasking Modifier"];
-    v8 = SBLogAppSwitcher();
+    v8 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v7 atLevel:13 key:@"Fluid Switcher Multitasking Modifier"]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = objc_opt_class();
@@ -655,8 +646,7 @@ LABEL_9:
   if (v6 && _reduceMotionModifier != v6)
   {
     [(SBChainableModifier *)self removeChildModifier:_reduceMotionModifier];
-    [(SBChainableModifier *)self addChildModifier:v7 atLevel:1 key:@"Fluid Switcher Reduce Motion Modifier"];
-    v8 = SBLogAppSwitcher();
+    v8 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v7 atLevel:1 key:@"Fluid Switcher Reduce Motion Modifier"]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       succinctDescription = [v7 succinctDescription];
@@ -679,8 +669,7 @@ LABEL_9:
     v5 = v4;
     if (v4 && v4 != lowEndHardwareModifier)
     {
-      [(SBChainableModifier *)self removeChildModifier:v4];
-      v6 = SBLogAppSwitcher();
+      v6 = SBLogAppSwitcher([(SBChainableModifier *)self removeChildModifier:v4]);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         succinctDescription = [v5 succinctDescription];
@@ -690,8 +679,7 @@ LABEL_9:
       }
     }
 
-    [(SBChainableModifier *)self addChildModifier:lowEndHardwareModifier atLevel:0 key:@"Fluid Switcher Low End Hardware Modifier"];
-    v8 = SBLogAppSwitcher();
+    v8 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:lowEndHardwareModifier atLevel:0 key:@"Fluid Switcher Low End Hardware Modifier"]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       succinctDescription2 = [lowEndHardwareModifier succinctDescription];
@@ -714,8 +702,7 @@ LABEL_9:
       [(SBChainableModifier *)self removeChildModifier:v5];
     }
 
-    [(SBChainableModifier *)self addChildModifier:v4 atLevel:3 key:@"Fluid Switcher Transiently Visible Slide Over Tongue Modifier"];
-    v6 = SBLogAppSwitcher();
+    v6 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v4 atLevel:3 key:@"Fluid Switcher Transiently Visible Slide Over Tongue Modifier"]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = objc_opt_class();

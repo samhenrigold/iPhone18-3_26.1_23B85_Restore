@@ -33,9 +33,9 @@
   v15 = *MEMORY[0x277D85DE8];
   if ((service + 1) > 0x22 || ((1 << (service + 1)) & 0x404040401) == 0)
   {
-    v7 = objc_autoreleasePoolPush();
+    v6 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v9 = HMFGetOSLogHandle();
+    v9 = HMFGetOSLogHandle(selfCopy, v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier(selfCopy);
@@ -46,12 +46,11 @@
       _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_INFO, "%{public}@Overriding unknown QoS '%tu' to NSQualityOfServiceDefault", &v11, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v6);
     serviceCopy = -1;
   }
 
   self->_qualityOfService = serviceCopy;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

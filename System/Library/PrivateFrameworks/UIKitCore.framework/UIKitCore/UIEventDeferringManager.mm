@@ -555,7 +555,7 @@ void __116___UIEventDeferringManager_setNeedsRemoteEventDeferringRuleComparisonI
   objc_destroyWeak(&location);
 }
 
-uint64_t __75___UIEventDeferringManager_bufferKeyboardFocusEnvironmentEventsWithReason___block_invoke(uint64_t a1)
+void *__75___UIEventDeferringManager_bufferKeyboardFocusEnvironmentEventsWithReason___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   atomic_fetch_add((*(a1 + 40) + 72), 0xFFFFFFFFFFFFFFFFLL);

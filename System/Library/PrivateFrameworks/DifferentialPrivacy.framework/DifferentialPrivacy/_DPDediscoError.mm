@@ -10,60 +10,57 @@
 
 - (_DPDediscoError)initWithCode:(int64_t)code description:(id)description
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13 = *MEMORY[0x277CCA450];
-  v14[0] = description;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277CCA450];
+  v13[0] = description;
   v6 = MEMORY[0x277CBEAC0];
   descriptionCopy = description;
-  v8 = [v6 dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  v12.receiver = self;
-  v12.super_class = _DPDediscoError;
-  v9 = [(_DPDediscoError *)&v12 initWithDomain:@"com.apple.DPDedisco" code:code userInfo:v8];
+  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = _DPDediscoError;
+  v9 = [(_DPDediscoError *)&v11 initWithDomain:@"com.apple.DPDedisco" code:code userInfo:v8];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (_DPDediscoError)initWithCode:(int64_t)code underlyingError:(id)error description:(id)description
 {
-  v29[2] = *MEMORY[0x277D85DE8];
-  v9 = *MEMORY[0x277CCA450];
+  v27[2] = *MEMORY[0x277D85DE8];
   if (error)
   {
-    v10 = *MEMORY[0x277CCA7E8];
-    v28[0] = *MEMORY[0x277CCA450];
-    v28[1] = v10;
-    v29[0] = description;
-    v29[1] = error;
-    v11 = MEMORY[0x277CBEAC0];
+    v9 = *MEMORY[0x277CCA7E8];
+    v26[0] = *MEMORY[0x277CCA450];
+    v26[1] = v9;
+    v27[0] = description;
+    v27[1] = error;
+    v10 = MEMORY[0x277CBEAC0];
     descriptionCopy = description;
     errorCopy = error;
-    v14 = v29;
-    v15 = v28;
-    v16 = v11;
-    v17 = 2;
+    v13 = v27;
+    v14 = v26;
+    v15 = v10;
+    v16 = 2;
   }
 
   else
   {
-    v26 = *MEMORY[0x277CCA450];
+    v24 = *MEMORY[0x277CCA450];
     descriptionCopy2 = description;
-    v18 = MEMORY[0x277CBEAC0];
+    v17 = MEMORY[0x277CBEAC0];
     descriptionCopy3 = description;
-    v20 = 0;
-    v14 = &descriptionCopy2;
-    v15 = &v26;
-    v16 = v18;
-    v17 = 1;
+    v19 = 0;
+    v13 = &descriptionCopy2;
+    v14 = &v24;
+    v15 = v17;
+    v16 = 1;
   }
 
-  v21 = [v16 dictionaryWithObjects:v14 forKeys:v15 count:v17];
-  v25.receiver = self;
-  v25.super_class = _DPDediscoError;
-  v22 = [(_DPDediscoError *)&v25 initWithDomain:@"com.apple.DPDedisco" code:code userInfo:v21];
+  v20 = [v15 dictionaryWithObjects:v13 forKeys:v14 count:v16];
+  v23.receiver = self;
+  v23.super_class = _DPDediscoError;
+  v21 = [(_DPDediscoError *)&v23 initWithDomain:@"com.apple.DPDedisco" code:code userInfo:v20];
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v22;
+  return v21;
 }
 
 + (id)errorWithCode:(int64_t)code description:(id)description

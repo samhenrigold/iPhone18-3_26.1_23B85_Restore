@@ -292,25 +292,21 @@ LABEL_42:
 
   if ([(_CPUsageEnvelope *)self collectionStartTimestamp])
   {
-    collectionStartTimestamp = self->_collectionStartTimestamp;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_CPUsageEnvelope *)self collectionEndTimestamp])
   {
-    collectionEndTimestamp = self->_collectionEndTimestamp;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_CPUsageEnvelope *)self configuredLookbackTimeInDays])
   {
-    configuredLookbackTimeInDays = self->_configuredLookbackTimeInDays;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPUsageEnvelope *)self totalSessions])
   {
-    totalSessions = self->_totalSessions;
     PBDataWriterWriteInt32Field();
   }
 
@@ -324,12 +320,11 @@ LABEL_42:
 
   uuidBytes = [(_CPUsageEnvelope *)self uuidBytes];
 
-  v21 = toCopy;
+  v17 = toCopy;
   if (uuidBytes)
   {
-    uuidBytes = self->_uuidBytes;
     PBDataWriterWriteDataField();
-    v21 = toCopy;
+    v17 = toCopy;
   }
 }
 

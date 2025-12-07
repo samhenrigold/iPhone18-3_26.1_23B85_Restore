@@ -153,9 +153,9 @@
 
 - (void)layoutSubviews
 {
-  v18.receiver = self;
-  v18.super_class = PKAccountBillPaymentPayInterestDescriptionView;
-  [(PKAccountBillPaymentPayInterestDescriptionView *)&v18 layoutSubviews];
+  v38.receiver = self;
+  v38.super_class = PKAccountBillPaymentPayInterestDescriptionView;
+  [(PKAccountBillPaymentPayInterestDescriptionView *)&v38 layoutSubviews];
   [(PKAccountBillPaymentPayInterestDescriptionView *)self _updateLabels];
   _showInterest = [(PKAccountBillPaymentPayInterestDescriptionView *)self _showInterest];
   [(PKAccountBillPaymentPayInterestDescriptionView *)self bounds];
@@ -169,27 +169,39 @@
   remainder.size.height = v10;
   [(PKAccountBillPaymentPayInterestDescriptionView *)self _shouldReverseLayoutDirection:0];
   _UISolariumFeatureFlagEnabled();
-  PKContentAlignmentMake();
+  v12 = PKContentAlignmentMake();
   [(UITextView *)self->_cancellationView sizeThatFits:v9, 3.40282347e38];
-  v13 = v12;
-  PKSizeAlignedInRect();
+  v14 = v13.n128_f64[0];
+  v15.n128_f64[0] = v5;
+  v16.n128_f64[0] = v7;
+  v17.n128_f64[0] = v9;
+  v18.n128_f64[0] = v11;
+  PKSizeAlignedInRect(v12, v19, v13, v15, v16, v17, v18, v20);
   [(UITextView *)self->_cancellationView setFrame:?];
-  v19.origin.x = v5;
-  v19.origin.y = v7;
-  v19.size.width = v9;
-  v19.size.height = v11;
-  CGRectDivide(v19, &v16, &remainder, v13, CGRectMaxYEdge);
+  v39.origin.x = v5;
+  v39.origin.y = v7;
+  v39.size.width = v9;
+  v39.size.height = v11;
+  CGRectDivide(v39, &v36, &remainder, v14, CGRectMaxYEdge);
   if (_showInterest)
   {
-    CGRectDivide(remainder, &v16, &remainder, 20.0, CGRectMaxYEdge);
+    CGRectDivide(remainder, &v36, &remainder, 20.0, CGRectMaxYEdge);
     [(UILabel *)self->_estimatedChargeLabel sizeThatFits:v9, 3.40282347e38];
-    v15 = v14;
-    PKSizeAlignedInRect();
+    v22 = v21.n128_f64[0];
+    v23.n128_u64[0] = *&remainder.origin.x;
+    v24.n128_u64[0] = *&remainder.origin.y;
+    v25.n128_u64[0] = *&remainder.size.width;
+    v26.n128_u64[0] = *&remainder.size.height;
+    PKSizeAlignedInRect(v12, v27, v21, v23, v24, v25, v26, v28);
     [(UILabel *)self->_estimatedChargeLabel setFrame:?];
-    CGRectDivide(remainder, &v16, &remainder, v15, CGRectMaxYEdge);
-    CGRectDivide(remainder, &v16, &remainder, 6.0, CGRectMaxYEdge);
+    CGRectDivide(remainder, &v36, &remainder, v22, CGRectMaxYEdge);
+    CGRectDivide(remainder, &v36, &remainder, 6.0, CGRectMaxYEdge);
     [(UILabel *)self->_interestLabel sizeThatFits:v9, 3.40282347e38];
-    PKSizeAlignedInRect();
+    v29.n128_u64[0] = *&remainder.origin.x;
+    v30.n128_u64[0] = *&remainder.origin.y;
+    v31.n128_u64[0] = *&remainder.size.width;
+    v32.n128_u64[0] = *&remainder.size.height;
+    PKSizeAlignedInRect(v12, v33, v34, v29, v30, v31, v32, v35);
     [(UILabel *)self->_interestLabel setFrame:?];
   }
 }

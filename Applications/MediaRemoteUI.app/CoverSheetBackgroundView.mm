@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10000723C();
+  sub_10000723C(selfCopy);
 }
 
 - (void)artworkView:(id)view didChangeArtworkImage:(id)image

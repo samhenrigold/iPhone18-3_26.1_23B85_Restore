@@ -9,9 +9,8 @@
   ObjectType = swift_getObjectType();
   v4 = type metadata accessor for Logger();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
@@ -22,12 +21,12 @@
 
   Logger.init(subsystem:category:)();
   setDefaultLogger(_:)();
-  (*(v5 + 8))(v8, v4);
-  v11.receiver = self;
-  v11.super_class = ObjectType;
-  v9 = [(AppDelegate *)&v11 init];
+  (*(v5 + 8))(v7, v4);
+  v10.receiver = self;
+  v10.super_class = ObjectType;
+  v8 = [(AppDelegate *)&v10 init];
 
-  return v9;
+  return v8;
 }
 
 @end

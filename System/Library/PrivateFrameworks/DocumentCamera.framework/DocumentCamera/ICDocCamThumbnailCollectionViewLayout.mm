@@ -269,7 +269,7 @@ LABEL_25:
 
 - (CGRect)frameForThumbnailAtIndexPath:(id)path
 {
-  v164 = *MEMORY[0x277D85DE8];
+  v166 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   collectionView = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
   v6 = [collectionView numberOfItemsInSection:0];
@@ -301,299 +301,224 @@ LABEL_25:
       [collectionView4 frame];
       v28 = v27;
 
-      if ((DCDebugInterfaceEnabled() & 1) != 0 || ([MEMORY[0x277D75418] currentDevice], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "userInterfaceIdiom"), v29, v30 == 1))
+      v29 = DCDebugInterfaceEnabled();
+      if ((v29 & 1) != 0 || ([MEMORY[0x277D75418] currentDevice], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "userInterfaceIdiom"), v30, v31 == 1))
       {
-        MEMORY[0x28223BE20]();
-        v31 = (&v161 - 2 * v6);
-        v32 = v6 - 1;
+        MEMORY[0x28223BE20](v29);
+        v32 = (&v163 - 2 * v6);
+        v33 = v6 - 1;
         if (v6 < 1)
         {
-          v44 = 0.0;
+          v45 = 0.0;
         }
 
         else
         {
-          v162 = rootView;
-          v163 = &v161;
-          v33 = 0;
+          v164 = rootView;
+          v165 = &v163;
           v34 = 0;
-          v35 = v31 + 1;
+          v35 = 0;
+          v36 = v32 + 1;
           do
           {
             delegate3 = [(ICDocCamThumbnailCollectionViewLayout *)self delegate];
             collectionView5 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
-            [delegate3 collectionView:collectionView5 imageSizeAtIndex:v34];
-            v39 = v38;
-            v41 = v40;
+            [delegate3 collectionView:collectionView5 imageSizeAtIndex:v35];
+            v40 = v39;
+            v42 = v41;
 
-            [(ICDocCamThumbnailCollectionViewLayout *)self frameSizeForImageSize:v39, v41];
-            *(v35 - 1) = v42;
-            *v35 = v43;
-            v33 = (v42 + v33);
-            ++v34;
-            v35 += 2;
+            [(ICDocCamThumbnailCollectionViewLayout *)self frameSizeForImageSize:v40, v42];
+            *(v36 - 1) = v43;
+            *v36 = v44;
+            v34 = (v43 + v34);
+            ++v35;
+            v36 += 2;
           }
 
-          while (v6 != v34);
-          v44 = v33;
-          rootView = v162;
+          while (v6 != v35);
+          v45 = v34;
+          rootView = v164;
         }
 
         collectionView6 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
         [collectionView6 frame];
-        v65 = v64;
+        v67 = v66;
 
-        v66 = fmin((v65 - v44) / v32, 10.0);
-        v46 = v25 + ((v44 + v66 * v32) / 2) - *v31;
+        v68 = fmin((v67 - v45) / v33, 10.0);
+        v47 = v25 + ((v45 + v68 * v33) / 2) - *v32;
         item = [pathCopy item];
-        if (item >= v32)
+        if (item >= v33)
         {
-          v68 = v32;
+          v70 = v33;
         }
 
         else
         {
-          v68 = item;
+          v70 = item;
         }
 
-        if (v68 >= 1)
+        if (v70 >= 1)
         {
-          v69 = 0;
-          v70 = v31 + 2;
+          v71 = 0;
+          v72 = v32 + 2;
           do
           {
-            v71 = *v70;
-            v70 += 2;
-            v46 = v46 - (v66 + v71);
+            v73 = *v72;
+            v72 += 2;
+            v47 = v47 - (v68 + v73);
             item2 = [pathCopy item];
-            if (item2 >= v32)
+            if (item2 >= v33)
             {
-              v73 = v32;
+              v75 = v33;
             }
 
             else
             {
-              v73 = item2;
+              v75 = item2;
             }
 
-            ++v69;
+            ++v71;
           }
 
-          while (v69 < v73);
+          while (v71 < v75);
         }
       }
 
       else
       {
-        v163 = &v161;
-        MEMORY[0x28223BE20]();
-        v89 = (&v161 - 2 * v6);
-        v90 = v6 - 1;
+        v165 = &v163;
+        MEMORY[0x28223BE20](v29);
+        v91 = (&v163 - 2 * v6);
+        v92 = v6 - 1;
         if (v6 < 1)
         {
-          v102 = 0.0;
+          v104 = 0.0;
         }
 
         else
         {
-          v162 = rootView;
-          v91 = 0;
-          v92 = 0;
-          v93 = v89 + 1;
+          v164 = rootView;
+          v93 = 0;
+          v94 = 0;
+          v95 = v91 + 1;
           do
           {
             delegate4 = [(ICDocCamThumbnailCollectionViewLayout *)self delegate];
             collectionView7 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
-            [delegate4 collectionView:collectionView7 imageSizeAtIndex:v92];
-            v97 = v96;
+            [delegate4 collectionView:collectionView7 imageSizeAtIndex:v94];
             v99 = v98;
+            v101 = v100;
 
-            [(ICDocCamThumbnailCollectionViewLayout *)self frameSizeForImageSize:v97, v99];
-            *(v93 - 1) = v100;
-            *v93 = v101;
-            v91 = (v100 + v91);
-            ++v92;
-            v93 += 2;
+            [(ICDocCamThumbnailCollectionViewLayout *)self frameSizeForImageSize:v99, v101];
+            *(v95 - 1) = v102;
+            *v95 = v103;
+            v93 = (v102 + v93);
+            ++v94;
+            v95 += 2;
           }
 
-          while (v6 != v92);
-          v102 = v91;
-          rootView = v162;
+          while (v6 != v94);
+          v104 = v93;
+          rootView = v164;
         }
 
-        v117 = (v102 + v90 * 10.0);
+        v119 = (v104 + v92 * 10.0);
         collectionView8 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
         [collectionView8 frame];
-        v120 = v119;
+        v122 = v121;
 
-        v121 = (v117 / 2);
-        v122 = v25 + v121;
-        if (v25 >= v121 && v122 <= v120)
+        v123 = (v119 / 2);
+        v124 = v25 + v123;
+        if (v25 >= v123 && v124 <= v122)
         {
-          v46 = v122 - *v89;
+          v47 = v124 - *v91;
           item3 = [pathCopy item];
-          if (item3 >= v90)
+          if (item3 >= v92)
           {
-            v134 = v90;
+            v136 = v92;
           }
 
           else
           {
-            v134 = item3;
+            v136 = item3;
           }
 
-          if (v134 >= 1)
+          if (v136 >= 1)
           {
-            v135 = 0;
-            v136 = v89 + 2;
+            v137 = 0;
+            v138 = v91 + 2;
             do
             {
-              v137 = *v136;
-              v136 += 2;
-              v46 = v46 - (v137 + 10.0);
+              v139 = *v138;
+              v138 += 2;
+              v47 = v47 - (v139 + 10.0);
               item4 = [pathCopy item];
-              if (item4 >= v90)
+              if (item4 >= v92)
               {
-                v139 = v90;
+                v141 = v92;
               }
 
               else
               {
-                v139 = item4;
+                v141 = item4;
               }
 
-              ++v135;
+              ++v137;
             }
 
-            while (v135 < v139);
+            while (v137 < v141);
           }
         }
 
         else
         {
-          v46 = v28 - *v89;
+          v47 = v28 - *v91;
           item5 = [pathCopy item];
-          if (item5 >= v90)
+          if (item5 >= v92)
           {
-            v125 = v90;
+            v127 = v92;
           }
 
           else
           {
-            v125 = item5;
+            v127 = item5;
           }
 
-          if (v125 >= 1)
+          if (v127 >= 1)
           {
-            v126 = 0;
-            v127 = fmin((v120 - (v117 - v90 * 10.0)) / v90, 10.0);
-            v128 = v89 + 2;
+            v128 = 0;
+            v129 = fmin((v122 - (v119 - v92 * 10.0)) / v92, 10.0);
+            v130 = v91 + 2;
             do
             {
-              v129 = *v128;
-              v128 += 2;
-              v130 = v46 - (v127 + v129);
-              if (v130 <= v46)
+              v131 = *v130;
+              v130 += 2;
+              v132 = v47 - (v129 + v131);
+              if (v132 <= v47)
               {
-                v46 = v130;
+                v47 = v132;
               }
 
               else
               {
-                v46 = v46;
+                v47 = v47;
               }
 
               item6 = [pathCopy item];
-              if (item6 >= v90)
+              if (item6 >= v92)
               {
-                v132 = v90;
+                v134 = v92;
               }
 
               else
               {
-                v132 = item6;
+                v134 = item6;
               }
 
-              ++v126;
+              ++v128;
             }
 
-            while (v126 < v132);
-          }
-        }
-      }
-    }
-
-    else if ((DCDebugInterfaceEnabled() & 1) != 0 || ([MEMORY[0x277D75418] currentDevice], v47 = objc_claimAutoreleasedReturnValue(), v48 = objc_msgSend(v47, "userInterfaceIdiom"), v47, v48 == 1))
-    {
-      MEMORY[0x28223BE20]();
-      v49 = (&v161 - 2 * v6);
-      v50 = v6 - 1;
-      if (v6 < 1)
-      {
-        v62 = 0.0;
-      }
-
-      else
-      {
-        v162 = rootView;
-        v163 = &v161;
-        v51 = 0;
-        v52 = 0;
-        v53 = v49 + 1;
-        do
-        {
-          delegate5 = [(ICDocCamThumbnailCollectionViewLayout *)self delegate];
-          collectionView9 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
-          [delegate5 collectionView:collectionView9 imageSizeAtIndex:v52];
-          v57 = v56;
-          v59 = v58;
-
-          [(ICDocCamThumbnailCollectionViewLayout *)self frameSizeForImageSize:v57, v59];
-          *(v53 - 1) = v60;
-          *v53 = v61;
-          v51 = (v60 + v51);
-          ++v52;
-          v53 += 2;
-        }
-
-        while (v6 != v52);
-        v62 = v51;
-        rootView = v162;
-      }
-
-      collectionView10 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
-      [collectionView10 frame];
-      v76 = v75;
-
-      v77 = fmin((v76 - v62) / v50, 10.0);
-      v46 = v25 - ((v62 + v77 * v50) / 2);
-      item7 = [pathCopy item];
-      if (item7 >= v6)
-      {
-        v79 = v6;
-      }
-
-      else
-      {
-        v79 = item7;
-      }
-
-      if (v79 >= 1)
-      {
-        for (i = 0; i < v83; ++i)
-        {
-          v81 = *v49;
-          v49 += 2;
-          v46 = v46 + v77 + v81;
-          item8 = [pathCopy item];
-          if (item8 >= v6)
-          {
-            v83 = v6;
-          }
-
-          else
-          {
-            v83 = item8;
+            while (v128 < v134);
           }
         }
       }
@@ -601,161 +526,241 @@ LABEL_25:
 
     else
     {
-      MEMORY[0x28223BE20]();
-      v103 = (&v161 - 2 * v6);
-      v104 = v6 - 1;
-      if (v6 < 1)
+      v48 = DCDebugInterfaceEnabled();
+      if ((v48 & 1) != 0 || ([MEMORY[0x277D75418] currentDevice], v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v49, "userInterfaceIdiom"), v49, v50 == 1))
       {
-        v116 = 0.0;
-      }
-
-      else
-      {
-        v162 = rootView;
-        v163 = &v161;
-        v105 = 0;
-        v106 = 0;
-        v107 = v103 + 1;
-        do
+        MEMORY[0x28223BE20](v48);
+        v51 = (&v163 - 2 * v6);
+        v52 = v6 - 1;
+        if (v6 < 1)
         {
-          delegate6 = [(ICDocCamThumbnailCollectionViewLayout *)self delegate];
-          collectionView11 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
-          [delegate6 collectionView:collectionView11 imageSizeAtIndex:v105];
-          v111 = v110;
-          v113 = v112;
-
-          [(ICDocCamThumbnailCollectionViewLayout *)self frameSizeForImageSize:v111, v113];
-          *(v107 - 1) = v114;
-          *v107 = v115;
-          v106 = (v114 + v106);
-          ++v105;
-          v107 += 2;
-        }
-
-        while (v6 != v105);
-        v116 = v106;
-        rootView = v162;
-      }
-
-      v140 = (v116 + v104 * 10.0);
-      v141 = (v140 / 2);
-      v46 = v25 - v141;
-      collectionView12 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
-      [collectionView12 frame];
-      v144 = v143;
-
-      v145 = v25 + v141;
-      if (v25 - v141 >= 0.0 && v145 <= v144)
-      {
-        item9 = [pathCopy item];
-        if (item9 >= v6)
-        {
-          v156 = v6;
+          v64 = 0.0;
         }
 
         else
         {
-          v156 = item9;
-        }
-
-        if (v156 >= 1)
-        {
-          for (j = 0; j < v160; ++j)
-          {
-            v158 = *v103;
-            v103 += 2;
-            v46 = v46 + v158 + 10.0;
-            item10 = [pathCopy item];
-            if (item10 >= v6)
-            {
-              v160 = v6;
-            }
-
-            else
-            {
-              v160 = item10;
-            }
-          }
-        }
-      }
-
-      else
-      {
-        item11 = [pathCopy item];
-        if (item11 >= v6)
-        {
-          v148 = v6;
-        }
-
-        else
-        {
-          v148 = item11;
-        }
-
-        if (v148 < 1)
-        {
-          v46 = 0.0;
-        }
-
-        else
-        {
-          v149 = 0;
-          v150 = fmin((v144 - (v140 - v104 * 10.0)) / v104, 10.0);
-          v46 = 0.0;
+          v164 = rootView;
+          v165 = &v163;
+          v53 = 0;
+          v54 = 0;
+          v55 = v51 + 1;
           do
           {
-            v151 = *v103;
-            v103 += 2;
-            v152 = v46 + v150 + v151;
-            if (v152 >= v46)
-            {
-              v46 = v152;
-            }
+            delegate5 = [(ICDocCamThumbnailCollectionViewLayout *)self delegate];
+            collectionView9 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
+            [delegate5 collectionView:collectionView9 imageSizeAtIndex:v54];
+            v59 = v58;
+            v61 = v60;
 
-            else
-            {
-              v46 = v46;
-            }
-
-            item12 = [pathCopy item];
-            if (item12 >= v6)
-            {
-              v154 = v6;
-            }
-
-            else
-            {
-              v154 = item12;
-            }
-
-            ++v149;
+            [(ICDocCamThumbnailCollectionViewLayout *)self frameSizeForImageSize:v59, v61];
+            *(v55 - 1) = v62;
+            *v55 = v63;
+            v53 = (v62 + v53);
+            ++v54;
+            v55 += 2;
           }
 
-          while (v149 < v154);
+          while (v6 != v54);
+          v64 = v53;
+          rootView = v164;
+        }
+
+        collectionView10 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
+        [collectionView10 frame];
+        v78 = v77;
+
+        v79 = fmin((v78 - v64) / v52, 10.0);
+        v47 = v25 - ((v64 + v79 * v52) / 2);
+        item7 = [pathCopy item];
+        if (item7 >= v6)
+        {
+          v81 = v6;
+        }
+
+        else
+        {
+          v81 = item7;
+        }
+
+        if (v81 >= 1)
+        {
+          for (i = 0; i < v85; ++i)
+          {
+            v83 = *v51;
+            v51 += 2;
+            v47 = v47 + v79 + v83;
+            item8 = [pathCopy item];
+            if (item8 >= v6)
+            {
+              v85 = v6;
+            }
+
+            else
+            {
+              v85 = item8;
+            }
+          }
+        }
+      }
+
+      else
+      {
+        MEMORY[0x28223BE20](v48);
+        v105 = (&v163 - 2 * v6);
+        v106 = v6 - 1;
+        if (v6 < 1)
+        {
+          v118 = 0.0;
+        }
+
+        else
+        {
+          v164 = rootView;
+          v165 = &v163;
+          v107 = 0;
+          v108 = 0;
+          v109 = v105 + 1;
+          do
+          {
+            delegate6 = [(ICDocCamThumbnailCollectionViewLayout *)self delegate];
+            collectionView11 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
+            [delegate6 collectionView:collectionView11 imageSizeAtIndex:v107];
+            v113 = v112;
+            v115 = v114;
+
+            [(ICDocCamThumbnailCollectionViewLayout *)self frameSizeForImageSize:v113, v115];
+            *(v109 - 1) = v116;
+            *v109 = v117;
+            v108 = (v116 + v108);
+            ++v107;
+            v109 += 2;
+          }
+
+          while (v6 != v107);
+          v118 = v108;
+          rootView = v164;
+        }
+
+        v142 = (v118 + v106 * 10.0);
+        v143 = (v142 / 2);
+        v47 = v25 - v143;
+        collectionView12 = [(ICDocCamThumbnailCollectionViewLayout *)self collectionView];
+        [collectionView12 frame];
+        v146 = v145;
+
+        v147 = v25 + v143;
+        if (v25 - v143 >= 0.0 && v147 <= v146)
+        {
+          item9 = [pathCopy item];
+          if (item9 >= v6)
+          {
+            v158 = v6;
+          }
+
+          else
+          {
+            v158 = item9;
+          }
+
+          if (v158 >= 1)
+          {
+            for (j = 0; j < v162; ++j)
+            {
+              v160 = *v105;
+              v105 += 2;
+              v47 = v47 + v160 + 10.0;
+              item10 = [pathCopy item];
+              if (item10 >= v6)
+              {
+                v162 = v6;
+              }
+
+              else
+              {
+                v162 = item10;
+              }
+            }
+          }
+        }
+
+        else
+        {
+          item11 = [pathCopy item];
+          if (item11 >= v6)
+          {
+            v150 = v6;
+          }
+
+          else
+          {
+            v150 = item11;
+          }
+
+          if (v150 < 1)
+          {
+            v47 = 0.0;
+          }
+
+          else
+          {
+            v151 = 0;
+            v152 = fmin((v146 - (v142 - v106 * 10.0)) / v106, 10.0);
+            v47 = 0.0;
+            do
+            {
+              v153 = *v105;
+              v105 += 2;
+              v154 = v47 + v152 + v153;
+              if (v154 >= v47)
+              {
+                v47 = v154;
+              }
+
+              else
+              {
+                v47 = v47;
+              }
+
+              item12 = [pathCopy item];
+              if (item12 >= v6)
+              {
+                v156 = v6;
+              }
+
+              else
+              {
+                v156 = item12;
+              }
+
+              ++v151;
+            }
+
+            while (v151 < v156);
+          }
         }
       }
     }
 
     [(ICDocCamThumbnailCollectionViewLayout *)self itemSize];
-    v45 = v84 - v16 + 0.0;
+    v46 = v86 - v16 + 0.0;
   }
 
   else
   {
-    v46 = *MEMORY[0x277CBF3A0];
-    v45 = *(MEMORY[0x277CBF3A0] + 8);
+    v47 = *MEMORY[0x277CBF3A0];
+    v46 = *(MEMORY[0x277CBF3A0] + 8);
     v14 = *(MEMORY[0x277CBF3A0] + 16);
     v16 = *(MEMORY[0x277CBF3A0] + 24);
   }
 
-  v85 = v46;
-  v86 = v45;
-  v87 = v14;
-  v88 = v16;
-  result.size.height = v88;
-  result.size.width = v87;
-  result.origin.y = v86;
-  result.origin.x = v85;
+  v87 = v47;
+  v88 = v46;
+  v89 = v14;
+  v90 = v16;
+  result.size.height = v90;
+  result.size.width = v89;
+  result.origin.y = v88;
+  result.origin.x = v87;
   return result;
 }
 

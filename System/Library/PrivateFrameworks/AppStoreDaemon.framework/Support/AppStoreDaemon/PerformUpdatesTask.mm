@@ -17,7 +17,7 @@
 
   os_unfair_lock_unlock(v2);
 
-  sub_10009FAD4(0, &qword_10059C4D0);
+  sub_10009FAD4(0, &qword_10059C4D0, ASDJobResult_ptr);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -40,7 +40,7 @@
 
 - (void)mainWithCompletionHandler:(id)handler
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

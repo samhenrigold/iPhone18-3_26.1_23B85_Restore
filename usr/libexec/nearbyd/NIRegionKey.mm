@@ -74,10 +74,10 @@
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   regionName = self->_regionName;
-  v6 = sub_1002D6258(self->_regionSizeCategory);
-  v7 = [NSString stringWithFormat:@"(%@: name:%@ regionCategory:%@)", v4, regionName, v6];
+  v7 = sub_1002D6258(self->_regionSizeCategory, v6);
+  v8 = [NSString stringWithFormat:@"(%@: name:%@ regionCategory:%@)", v4, regionName, v7];
 
-  return v7;
+  return v8;
 }
 
 @end

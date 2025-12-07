@@ -74,40 +74,39 @@
 - (id)ruleByChangingDirectionTo:(int)to
 {
   v4 = objc_opt_class();
-  v9 = objc_msgSend_groupingColumnUID(self, v5, v6, v7, v8);
-  v11 = v10;
-  v15 = objc_msgSend_columnUID(self, v10, v12, v13, v14);
+  v8 = objc_msgSend_groupingColumnUID(self, v5, v6, v7);
+  v10 = v9;
+  objc_msgSend_columnUID(self, v9, v11, v12);
 
-  return MEMORY[0x2821F9670](v4, sel_ruleWithGroupingColumnUID_columnUID_direction_, v9, v11, v15);
+  return MEMORY[0x2821F9670](v4, sel_ruleWithGroupingColumnUID_columnUID_direction_, v8, v10);
 }
 
 - (id)ruleByChangingSummaryColumnTo:(TSKUIDStruct)to
 {
-  lower = to._lower;
-  v5 = objc_opt_class();
-  v10 = objc_msgSend_groupingColumnUID(self, v6, v7, v8, v9);
-  v12 = v11;
-  objc_msgSend_direction(self, v11, v13, v14, v15);
+  v4 = objc_opt_class();
+  v8 = objc_msgSend_groupingColumnUID(self, v5, v6, v7);
+  v10 = v9;
+  objc_msgSend_direction(self, v9, v11, v12);
 
-  return MEMORY[0x2821F9670](v5, sel_ruleWithGroupingColumnUID_columnUID_direction_, v10, v12, lower);
+  return MEMORY[0x2821F9670](v4, sel_ruleWithGroupingColumnUID_columnUID_direction_, v8, v10);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [TSTTableGroupSortRuleUID alloc];
-  v9 = objc_msgSend_groupingColumnUID(self, v5, v6, v7, v8);
-  v11 = v10;
-  v16 = objc_msgSend_columnUID(self, v10, v12, v13, v14);
+  v8 = objc_msgSend_groupingColumnUID(self, v5, v6, v7);
+  v10 = v9;
+  v14 = objc_msgSend_columnUID(self, v9, v11, v12);
   direction = self->_direction;
 
-  return objc_msgSend_initWithGroupingColumnUID_columnUID_direction_(v4, v15, v9, v11, v16, v15, direction);
+  return objc_msgSend_initWithGroupingColumnUID_columnUID_direction_(v4, v13, v8, v10, v14, v13, direction);
 }
 
 - (unsigned)groupLevelInTable:(id)table
 {
-  v6 = objc_msgSend_groupByForRows(table, a2, table, v3, v4);
-  v11 = objc_msgSend_groupingColumnUID(self, v7, v8, v9, v10);
-  LOBYTE(self) = objc_msgSend_groupLevelForGroupingColumnUid_(v6, v12, v11, v12, v13);
+  v5 = objc_msgSend_groupByForRows(table, a2, table, v3);
+  v9 = objc_msgSend_groupingColumnUID(self, v6, v7, v8);
+  LOBYTE(self) = objc_msgSend_groupLevelForGroupingColumnUid_(v5, v10, v9, v10);
 
   return self;
 }

@@ -76,33 +76,32 @@ void __43__TSPostMigrationFlow_firstViewController___block_invoke(uint64_t a1, u
 {
   v17 = *MEMORY[0x277D85DE8];
   fromCopy = from;
-  if ([fromCopy subFlowType] == 5 || objc_msgSend(fromCopy, "subFlowType") == 10002)
+  if ([fromCopy subFlowType] == 5 || (_createTransferCloudFlowVC = objc_msgSend(fromCopy, "subFlowType"), _createTransferCloudFlowVC == 10002))
   {
     _createTransferCloudFlowVC = [(TSPostMigrationFlow *)self _createTransferCloudFlowVC];
+    v6 = _createTransferCloudFlowVC;
   }
 
   else
   {
-    _createTransferCloudFlowVC = 0;
+    v6 = 0;
   }
 
-  v6 = _TSLogDomain();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _TSLogDomain(_createTransferCloudFlowVC);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138413058;
     v10 = fromCopy;
     v11 = 2048;
     subFlowType = [fromCopy subFlowType];
     v13 = 2112;
-    v14 = _createTransferCloudFlowVC;
+    v14 = v6;
     v15 = 2080;
     v16 = "[TSPostMigrationFlow nextViewControllerFrom:]";
-    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "current view:%@, current sub flow type: %lu, next view:%@ @%s", &v9, 0x2Au);
+    _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "current view:%@, current sub flow type: %lu, next view:%@ @%s", &v9, 0x2Au);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  return _createTransferCloudFlowVC;
+  return v6;
 }
 
 - (void)startOverWithFirstViewController:(id)controller
@@ -198,44 +197,51 @@ LABEL_13:
 - (id)_subFlowVcWithReconnectionCredentials:(BOOL)credentials
 {
   credentialsCopy = credentials;
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = +[TSCoreTelephonyClientCache sharedInstance];
   usingBootstrapDataService = [v5 usingBootstrapDataService];
 
   v7 = +[TSUtilities isWifiAvailable];
-  v8 = _TSLogDomain();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = v7;
+  v9 = _TSLogDomain(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v15) = 67109634;
-    DWORD1(v15) = usingBootstrapDataService;
-    WORD4(v15) = 1024;
-    *(&v15 + 10) = v7;
-    HIWORD(v15) = 2080;
-    v16 = "[TSPostMigrationFlow _subFlowVcWithReconnectionCredentials:]";
-    _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "Using bootstrap: %d, on wifi:%d @%s", &v15, 0x18u);
+    LODWORD(v16) = 67109634;
+    DWORD1(v16) = usingBootstrapDataService;
+    WORD4(v16) = 1024;
+    *(&v16 + 10) = v8;
+    HIWORD(v16) = 2080;
+    v17 = "[TSPostMigrationFlow _subFlowVcWithReconnectionCredentials:]";
+    _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, "Using bootstrap: %d, on wifi:%d @%s", &v16, 0x18u);
   }
 
   sourceOSVersion = self->_sourceOSVersion;
-  if (!sourceOSVersion || [TSUtilities compareProductVersion:sourceOSVersion toProductVersion:@"26.0"]== -1)
+  if (!sourceOSVersion)
   {
     goto LABEL_14;
   }
 
-  if (!v7 && (usingBootstrapDataService & 1) != 0)
+  v11 = [TSUtilities compareProductVersion:sourceOSVersion toProductVersion:@"26.0"];
+  if (v11 == -1)
   {
-    v11 = _TSLogDomain();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    goto LABEL_14;
+  }
+
+  if (!(v8 & 1 | ((usingBootstrapDataService & 1) == 0)))
+  {
+    v13 = _TSLogDomain(v11);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_13:
 
       goto LABEL_14;
     }
 
-    LODWORD(v15) = 136315138;
-    *(&v15 + 4) = "[TSPostMigrationFlow _subFlowVcWithReconnectionCredentials:]";
-    v12 = "Using bootstrap @%s";
+    LODWORD(v16) = 136315138;
+    *(&v16 + 4) = "[TSPostMigrationFlow _subFlowVcWithReconnectionCredentials:]";
+    v14 = "Using bootstrap @%s";
 LABEL_12:
-    _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, v12, &v15, 0xCu);
+    _os_log_impl(&dword_262AA8000, v13, OS_LOG_TYPE_DEFAULT, v14, &v16, 0xCu);
     goto LABEL_13;
   }
 
@@ -260,93 +266,86 @@ LABEL_14:
 
   if (!credentialsCopy)
   {
-    v11 = _TSLogDomain();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _TSLogDomain(v11);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_13;
     }
 
-    LODWORD(v15) = 136315138;
-    *(&v15 + 4) = "[TSPostMigrationFlow _subFlowVcWithReconnectionCredentials:]";
-    v12 = "No reconnection credentials @%s";
+    LODWORD(v16) = 136315138;
+    *(&v16 + 4) = "[TSPostMigrationFlow _subFlowVcWithReconnectionCredentials:]";
+    v14 = "No reconnection credentials @%s";
     goto LABEL_12;
   }
 
   _createTransferCloudFlowVC = [(TSPostMigrationFlow *)self _createTargetProxFlowVC];
 LABEL_15:
-  v13 = *MEMORY[0x277D85DE8];
 
   return _createTransferCloudFlowVC;
 }
 
 - (id)_createTransferCloudFlowVC
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v3 = [TSSubFlowViewController alloc];
-  v12[0] = &unk_2875837D8;
-  v11[0] = @"FlowTypeKey";
-  v11[1] = @"ProximitySetupStateKey";
+  v11[0] = &unk_2875837D8;
+  v10[0] = @"FlowTypeKey";
+  v10[1] = @"ProximitySetupStateKey";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_proximitySetupState];
-  v12[1] = v4;
-  v11[2] = @"ProxPlansFilteredKey";
+  v11[1] = v4;
+  v10[2] = @"ProxPlansFilteredKey";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_isProxFlowShown];
-  v12[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
   navigationController = [(TSSIMSetupFlow *)self navigationController];
   v8 = [(TSSubFlowViewController *)v3 initWithOptions:v6 navigationController:navigationController delegate:self];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_createTransferFlowVC
 {
-  v13[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   v3 = [TSSubFlowViewController alloc];
-  v12[0] = @"FlowTypeKey";
-  v12[1] = @"MessageSessionKey";
+  v11[0] = @"FlowTypeKey";
+  v11[1] = @"MessageSessionKey";
   session = self->_session;
-  v13[0] = &unk_2875837F0;
-  v13[1] = session;
-  v12[2] = @"HasTransferablePlan";
+  v12[0] = &unk_2875837F0;
+  v12[1] = session;
+  v11[2] = @"HasTransferablePlan";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_transferablePlanOnSource];
-  v13[2] = v5;
-  v13[3] = MEMORY[0x277CBEC28];
-  v12[3] = @"IsStandaloneProximityTransfer";
-  v12[4] = @"TransferBackPlan";
+  v12[2] = v5;
+  v12[3] = MEMORY[0x277CBEC28];
+  v11[3] = @"IsStandaloneProximityTransfer";
+  v11[4] = @"TransferBackPlan";
   null = [MEMORY[0x277CBEB68] null];
-  v12[5] = @"IsPostMigrationFlowKey";
-  v13[4] = null;
-  v13[5] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
+  v11[5] = @"IsPostMigrationFlowKey";
+  v12[4] = null;
+  v12[5] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
   navigationController = [(TSSIMSetupFlow *)self navigationController];
   v9 = [(TSSubFlowViewController *)v3 initWithOptions:v7 navigationController:navigationController delegate:self];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_createTargetProxFlowVC
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v3 = [TSSubFlowViewController alloc];
-  v11[0] = @"FlowTypeKey";
+  v10[0] = @"FlowTypeKey";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:10002];
-  v12[0] = v4;
-  v12[1] = MEMORY[0x277CBEC28];
-  v11[1] = @"IsClientKey";
-  v11[2] = @"TransferBackPlan";
+  v11[0] = v4;
+  v11[1] = MEMORY[0x277CBEC28];
+  v10[1] = @"IsClientKey";
+  v10[2] = @"TransferBackPlan";
   null = [MEMORY[0x277CBEB68] null];
-  v11[3] = @"IsPostMigrationFlowKey";
-  v12[2] = null;
-  v12[3] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
+  v10[3] = @"IsPostMigrationFlowKey";
+  v11[2] = null;
+  v11[3] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
   navigationController = [(TSSIMSetupFlow *)self navigationController];
   v8 = [(TSSubFlowViewController *)v3 initWithOptions:v6 navigationController:navigationController delegate:self];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

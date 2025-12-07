@@ -11,17 +11,16 @@
   v2 = (self + OBJC_IVAR___HFCameraRecordingEventManagerObserver_recordingEventsByUUID);
   selfCopy = self;
   os_unfair_lock_lock(v2);
-  v4 = *&v2[2]._os_unfair_lock_opaque;
 
-  v8 = sub_20DA55144(v5);
-  sub_20DA5ECD0(&v8);
+  v7 = sub_20DA55144(v4);
+  sub_20DA5ECD0(&v7);
 
   os_unfair_lock_unlock(v2);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C844370, &qword_20DD94DA0);
-  v6 = sub_20DD64FB4();
+  v5 = sub_20DD64FB4();
 
-  return v6;
+  return v5;
 }
 
 - (void)recordingEventManager:(id)manager didUpdateRecordingEvents:(id)events

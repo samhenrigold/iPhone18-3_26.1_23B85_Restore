@@ -1715,92 +1715,92 @@ LABEL_7:
 
 - (void)_updateLayout
 {
-  v159 = *MEMORY[0x1E69E9840];
+  v160 = *MEMORY[0x1E69E9840];
   [(VUIButton *)self bounds];
   v4 = v3;
   v6 = v5;
   v8 = v7;
   [(VUIButton *)self padding];
   v10 = v9;
-  v152 = v6 - (v9 + v11);
-  v154 = v8 - (v12 + v13);
+  v153 = v6 - (v9 + v11);
+  v155 = v8 - (v12 + v13);
   if (![(VUIButton *)self _hasTitle]&& ![(VUIButton *)self _hasImage]&& ![(VUIButton *)self _hasProgressBar])
   {
     [(VUIButton *)self bounds];
-    v152 = v14;
-    v154 = v15;
+    v153 = v14;
+    v155 = v15;
   }
 
   v16 = MEMORY[0x1E695F058];
   v18 = *(MEMORY[0x1E695F058] + 16);
   v17 = *(MEMORY[0x1E695F058] + 24);
   _hasTitle = [(VUIButton *)self _hasTitle];
-  v153 = v17;
+  v154 = v17;
   rect = v17;
   v20 = v18;
   if (_hasTitle)
   {
     textContentView = [(VUIButton *)self textContentView];
-    [textContentView sizeThatFits:{v152, v154}];
+    [textContentView sizeThatFits:{v153, v155}];
     v23 = v22;
 
     VUICeilValue();
-    v20 = fmin(v152, v24);
-    rect = fmin(v154, v23);
+    v20 = fmin(v153, v24);
+    rect = fmin(v155, v23);
   }
 
-  v149 = v20;
-  v147 = v153;
-  v150 = v18;
+  v150 = v20;
+  v148 = v154;
+  v151 = v18;
   if ([(VUIButton *)self _hasSubtitle])
   {
     subtitleContentView = [(VUIButton *)self subtitleContentView];
-    [subtitleContentView sizeThatFits:{v152, v154}];
+    [subtitleContentView sizeThatFits:{v153, v155}];
     v27 = v26;
 
     VUICeilValue();
-    v150 = fmin(v152, v28);
-    v147 = fmin(v154, v27);
+    v151 = fmin(v153, v28);
+    v148 = fmin(v155, v27);
   }
 
   v29 = v4 + v10;
-  v30 = v152;
+  v30 = v153;
   v31 = v18;
-  v144 = v29;
+  v145 = v29;
   if ([(VUIButton *)self _hasProgressBar])
   {
     progressBarView = [(VUIButton *)self progressBarView];
-    [progressBarView vui_sizeThatFits:{v152, v154}];
+    [progressBarView vui_sizeThatFits:{v153, v155}];
 
     VUICeilValue();
-    v31 = fmin(v152, v33);
+    v31 = fmin(v153, v33);
   }
 
   v35 = *v16;
   v34 = v16[1];
   VUIRoundValue();
-  v145 = v34;
+  v146 = v34;
   if ([(VUIButton *)self _hasImage])
   {
-    v151 = v35;
-    v36 = v150;
-    if (v149 >= v150)
+    v152 = v35;
+    v36 = v151;
+    if (v150 >= v151)
     {
-      v36 = v149;
+      v36 = v150;
     }
 
     v37 = v36 + v31;
-    [(VUIButton *)self _imageSizeThatFits:v152, v154];
+    [(VUIButton *)self _imageSizeThatFits:v153, v155];
     v18 = v38;
-    v153 = v39;
+    v154 = v39;
     textContentView2 = [(VUIButton *)self textContentView];
     textLayout = [textContentView2 textLayout];
     [textLayout margin];
     v43 = v42;
-    v142 = v44;
+    v143 = v44;
 
     [(VUIButton *)self imageMargin];
-    v141 = v45;
+    v142 = v45;
     v47 = v46;
     _hasProgressBar = [(VUIButton *)self _hasProgressBar];
     v49 = fmax(v43, v47);
@@ -1809,17 +1809,17 @@ LABEL_7:
       v49 = v43 + v47;
     }
 
-    v140 = v18 + v49;
+    v141 = v18 + v49;
     v50 = v37 + v18 + v49;
-    if (v50 > v152)
+    if (v50 > v153)
     {
-      v51 = v152 - v18 - v49 - v31;
+      v51 = v153 - v18 - v49 - v31;
       VUICeilValue();
       v53 = v52;
       if ([(VUIButton *)self _hasTitle])
       {
         textContentView3 = [(VUIButton *)self textContentView];
-        [textContentView3 sizeThatFits:{v53, v154}];
+        [textContentView3 sizeThatFits:{v53, v155}];
         v56 = v55;
         v58 = v57;
 
@@ -1833,14 +1833,14 @@ LABEL_7:
           v59 = v51;
         }
 
-        v149 = v59;
-        rect = fmin(v154, v58);
+        v150 = v59;
+        rect = fmin(v155, v58);
       }
 
       if ([(VUIButton *)self _hasSubtitle])
       {
         subtitleContentView2 = [(VUIButton *)self subtitleContentView];
-        [subtitleContentView2 sizeThatFits:{v53, v154}];
+        [subtitleContentView2 sizeThatFits:{v53, v155}];
         v62 = v61;
         v64 = v63;
 
@@ -1854,22 +1854,22 @@ LABEL_7:
           v65 = v51;
         }
 
-        v150 = v65;
-        v147 = fmin(v154, v64);
+        v151 = v65;
+        v148 = fmin(v155, v64);
       }
 
       if ([(VUIButton *)self _hasProgressBar])
       {
-        v160.origin.x = v151;
-        v160.origin.y = v145;
-        v160.size.width = v149;
-        v160.size.height = rect;
-        Width = CGRectGetWidth(v160);
-        v161.origin.x = v151;
-        v161.origin.y = v145;
+        v161.origin.x = v152;
+        v161.origin.y = v146;
         v161.size.width = v150;
-        v161.size.height = v147;
-        v67 = CGRectGetWidth(v161);
+        v161.size.height = rect;
+        Width = CGRectGetWidth(v161);
+        v162.origin.x = v152;
+        v162.origin.y = v146;
+        v162.size.width = v151;
+        v162.size.height = v148;
+        v67 = CGRectGetWidth(v162);
         if (Width >= v67)
         {
           v67 = Width;
@@ -1877,27 +1877,27 @@ LABEL_7:
 
         v68 = v51 - v67;
         progressBarView2 = [(VUIButton *)self progressBarView];
-        [progressBarView2 vui_sizeThatFits:{v68, v154}];
+        [progressBarView2 vui_sizeThatFits:{v68, v155}];
 
-        v30 = v152;
-        v50 = v152;
+        v30 = v153;
+        v50 = v153;
       }
 
       else
       {
-        v30 = v152;
-        v50 = v152;
+        v30 = v153;
+        v50 = v153;
       }
     }
 
-    v148 = v144 + (v30 - v50) * 0.5;
+    v149 = v145 + (v30 - v50) * 0.5;
     if ([(VUIButton *)self _hasTitle])
     {
       VUIRoundValue();
-      v143 = v70;
+      v144 = v70;
       if ([(VUIButton *)self imageTrailsTextContent])
       {
-        v148 = v148 + v142 + v141 + v149;
+        v149 = v149 + v143 + v142 + v150;
       }
     }
 
@@ -1913,36 +1913,36 @@ LABEL_7:
         v77 = v76;
 
         v78 = (v75 - v77) * 0.5;
-        v79 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+        v80 = VUIDefaultLogObject(v79);
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
           selfCopy = self;
-          v157 = 2048;
-          v158 = v78;
-          _os_log_impl(&dword_1E323F000, v79, OS_LOG_TYPE_DEFAULT, "VUIButton(%p):: adjust image to be perfectly center, offset:%f", buf, 0x16u);
+          v158 = 2048;
+          v159 = v78;
+          _os_log_impl(&dword_1E323F000, v80, OS_LOG_TYPE_DEFAULT, "VUIButton(%p):: adjust image to be perfectly center, offset:%f", buf, 0x16u);
         }
       }
 
       VUIRoundValue();
-      v143 = v80;
-      v148 = v72;
+      v144 = v81;
+      v149 = v72;
     }
   }
 
   else
   {
-    v143 = v34;
-    v148 = v35;
+    v144 = v34;
+    v149 = v35;
   }
 
   if ([(VUIButton *)self _hasProgressBar])
   {
-    v162.origin.x = v148;
-    v162.origin.y = v143;
-    v162.size.width = v18;
-    v162.size.height = v153;
-    CGRectGetMaxX(v162);
+    v163.origin.x = v149;
+    v163.origin.y = v144;
+    v163.size.width = v18;
+    v163.size.height = v154;
+    CGRectGetMaxX(v163);
     [(VUIButton *)self imageMargin];
     if ([(VUIButton *)self _hasTitle])
     {
@@ -1966,14 +1966,14 @@ LABEL_7:
   {
     [(VUIButton *)self bounds];
     [(VUIButton *)self vuiIsRTL];
-    v30 = v152;
+    v30 = v153;
     VUIRectWithFlippedOriginRelativeToBoundingRectWithCondition();
-    v86 = v85;
-    v88 = v87;
-    v90 = v89;
-    v92 = v91;
+    v87 = v86;
+    v89 = v88;
+    v91 = v90;
+    v93 = v92;
     imageView = [(VUIButton *)self imageView];
-    [imageView setFrame:{v86, v88, v90, v92}];
+    [imageView setFrame:{v87, v89, v91, v93}];
   }
 
   if ([(VUIButton *)self _hasProgressBar])
@@ -1981,12 +1981,12 @@ LABEL_7:
     [(VUIButton *)self bounds];
     [(VUIButton *)self vuiIsRTL];
     VUIRectWithFlippedOriginRelativeToBoundingRectWithCondition();
-    v95 = v94;
-    v97 = v96;
-    v99 = v98;
-    v101 = v100;
+    v96 = v95;
+    v98 = v97;
+    v100 = v99;
+    v102 = v101;
     progressBarView3 = [(VUIButton *)self progressBarView];
-    [progressBarView3 setFrame:{v95, v97, v99, v101}];
+    [progressBarView3 setFrame:{v96, v98, v100, v102}];
   }
 
   if ([(VUIButton *)self _hasTitle])
@@ -1994,12 +1994,12 @@ LABEL_7:
     [(VUIButton *)self bounds];
     [(VUIButton *)self vuiIsRTL];
     VUIRectWithFlippedOriginRelativeToBoundingRectWithCondition();
-    v104 = v103;
-    v106 = v105;
-    v108 = v107;
-    v110 = v109;
+    v105 = v104;
+    v107 = v106;
+    v109 = v108;
+    v111 = v110;
     textContentView6 = [(VUIButton *)self textContentView];
-    [textContentView6 setFrame:{v104, v106, v108, v110}];
+    [textContentView6 setFrame:{v105, v107, v109, v111}];
   }
 
   if ([(VUIButton *)self _hasSubtitle])
@@ -2007,38 +2007,38 @@ LABEL_7:
     [(VUIButton *)self bounds];
     [(VUIButton *)self vuiIsRTL];
     VUIRectWithFlippedOriginRelativeToBoundingRectWithCondition();
-    v113 = v112;
-    v115 = v114;
-    v117 = v116;
-    v119 = v118;
+    v114 = v113;
+    v116 = v115;
+    v118 = v117;
+    v120 = v119;
     subtitleContentView3 = [(VUIButton *)self subtitleContentView];
-    [subtitleContentView3 setFrame:{v113, v115, v117, v119}];
+    [subtitleContentView3 setFrame:{v114, v116, v118, v120}];
   }
 
   if ([(VUIButton *)self _hasBackgroundImage])
   {
     [(VUIButton *)self imageMaxWidth];
-    v122 = v121;
+    v123 = v122;
     [(VUIButton *)self imageMaxHeight];
-    v124 = v123;
-    if (v122 == *MEMORY[0x1E695F060] && v123 == *(MEMORY[0x1E695F060] + 8))
+    v125 = v124;
+    if (v123 == *MEMORY[0x1E695F060] && v124 == *(MEMORY[0x1E695F060] + 8))
     {
       backgroundImageView = [(VUIButton *)self backgroundImageView];
-      [backgroundImageView vui_sizeThatFits:{v30, v154}];
-      v122 = v126;
-      v124 = v127;
+      [backgroundImageView vui_sizeThatFits:{v30, v155}];
+      v123 = v127;
+      v125 = v128;
     }
 
-    [(VUIButton *)self _centerWithViewSize:v122 withParentSize:v124, v30, v154];
+    [(VUIButton *)self _centerWithViewSize:v123 withParentSize:v125, v30, v155];
     [(VUIButton *)self bounds];
     [(VUIButton *)self vuiIsRTL];
     VUIRectWithFlippedOriginRelativeToBoundingRectWithCondition();
-    v129 = v128;
-    v131 = v130;
-    v133 = v132;
-    v135 = v134;
+    v130 = v129;
+    v132 = v131;
+    v134 = v133;
+    v136 = v135;
     backgroundImageView2 = [(VUIButton *)self backgroundImageView];
-    [backgroundImageView2 setFrame:{v129, v131, v133, v135}];
+    [backgroundImageView2 setFrame:{v130, v132, v134, v136}];
   }
 
   secondaryBackgroundView = [(VUIButton *)self secondaryBackgroundView];
@@ -2053,7 +2053,7 @@ LABEL_7:
   if ([(VUIButton *)self buttonType]== 6 || [(VUIButton *)self buttonShape]== 2 || [(VUIButton *)self buttonShape]== 1)
   {
     [(VUIButton *)self frame];
-    [(VUIButton *)self setCornerRadius:v139 * 0.5];
+    [(VUIButton *)self setCornerRadius:v140 * 0.5];
   }
 }
 

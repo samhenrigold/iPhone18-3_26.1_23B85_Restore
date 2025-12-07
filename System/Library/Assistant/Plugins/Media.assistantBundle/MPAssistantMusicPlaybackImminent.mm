@@ -7,70 +7,70 @@
 
 - (void)_perform:(id)_perform
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v71[2] = *MEMORY[0x277D85DE8];
   _performCopy = _perform;
-  systemMediaApplicationDestination = [MEMORY[0x277D27878] systemMediaApplicationDestination];
-  v6 = objc_alloc_init(MEMORY[0x277D27828]);
-  v38[0] = *MEMORY[0x277D27D08];
-  refId = [(MPAssistantMusicPlaybackImminent *)self refId];
-  v38[1] = *MEMORY[0x277D27DC0];
-  v39[0] = refId;
-  v39[1] = @"com.apple.MediaAssistant.siri";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
-  v9 = [v8 mutableCopy];
+  v9 = objc_msgSend_systemMediaApplicationDestination(MEMORY[0x277D27878], v5, v6, v7, v8);
+  v10 = objc_alloc_init(MEMORY[0x277D27828]);
+  v70[0] = *MEMORY[0x277D27D08];
+  v15 = objc_msgSend_refId(self, v11, v12, v13, v14);
+  v70[1] = *MEMORY[0x277D27DC0];
+  v71[0] = v15;
+  v71[1] = @"com.apple.MediaAssistant.siri";
+  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v71, v70, 2);
+  v22 = objc_msgSend_mutableCopy(v17, v18, v19, v20, v21);
 
   userIdentity = self->_userIdentity;
-  v33 = 0;
-  v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:userIdentity requiringSecureCoding:1 error:&v33];
-  v12 = v33;
-  if (v12)
+  v65 = 0;
+  v25 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x277CCAAB0], v24, userIdentity, 1, &v65);
+  v30 = v65;
+  if (v30)
   {
-    if (![(NSString *)self->_requestAceHash length])
+    if (!objc_msgSend_length(self->_requestAceHash, v26, v27, v28, v29))
     {
-      aceId = [(MPAssistantMusicPlaybackImminent *)self aceId];
-      v14 = sub_233505670(@"Music Playback Imminent", aceId);
+      v35 = objc_msgSend_aceId(self, v31, v32, v33, v34);
+      v36 = sub_233505670(@"Music Playback Imminent", v35);
       requestAceHash = self->_requestAceHash;
-      self->_requestAceHash = v14;
+      self->_requestAceHash = v36;
     }
 
-    v16 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v38 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v17 = self->_requestAceHash;
+      v39 = self->_requestAceHash;
       *buf = 138543618;
-      v35 = v17;
-      v36 = 2114;
-      v37 = v12;
-      v18 = "Music Playback Imminent (perform) <%{public}@>: user identity encoding failed %{public}@";
-      v19 = v16;
-      v20 = OS_LOG_TYPE_ERROR;
+      v67 = v39;
+      v68 = 2114;
+      v69 = v30;
+      v40 = "Music Playback Imminent (perform) <%{public}@>: user identity encoding failed %{public}@";
+      v41 = v38;
+      v42 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-      _os_log_impl(&dword_2334D9000, v19, v20, v18, buf, 0x16u);
+      _os_log_impl(&dword_2334D9000, v41, v42, v40, buf, 0x16u);
     }
   }
 
   else
   {
-    [v9 setObject:v11 forKey:*MEMORY[0x277D27E18]];
-    if (![(NSString *)self->_requestAceHash length])
+    objc_msgSend_setObject_forKey_(v22, v26, v25, *MEMORY[0x277D27E18], v29);
+    if (!objc_msgSend_length(self->_requestAceHash, v43, v44, v45, v46))
     {
-      aceId2 = [(MPAssistantMusicPlaybackImminent *)self aceId];
-      v22 = sub_233505670(@"Music Playback Imminent", aceId2);
-      v23 = self->_requestAceHash;
-      self->_requestAceHash = v22;
+      v51 = objc_msgSend_aceId(self, v47, v48, v49, v50);
+      v52 = sub_233505670(@"Music Playback Imminent", v51);
+      v53 = self->_requestAceHash;
+      self->_requestAceHash = v52;
     }
 
-    v16 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v38 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = self->_requestAceHash;
+      v54 = self->_requestAceHash;
       *buf = 138543619;
-      v35 = v24;
-      v36 = 2113;
-      v37 = v11;
-      v18 = "Music Playback Imminent (perform) <%{public}@>: user identity %{private}@";
-      v19 = v16;
-      v20 = OS_LOG_TYPE_DEFAULT;
+      v67 = v54;
+      v68 = 2113;
+      v69 = v25;
+      v40 = "Music Playback Imminent (perform) <%{public}@>: user identity %{private}@";
+      v41 = v38;
+      v42 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_10;
     }
   }
@@ -78,61 +78,57 @@ LABEL_10:
   privateListeningEnabled = self->_privateListeningEnabled;
   if (privateListeningEnabled)
   {
-    [v9 setObject:privateListeningEnabled forKeyedSubscript:*MEMORY[0x277D27DA8]];
+    objc_msgSend_setObject_forKeyedSubscript_(v22, v55, privateListeningEnabled, *MEMORY[0x277D27DA8], v56);
   }
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = sub_2334F1CF4;
-  v29[3] = &unk_2789DBB20;
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = sub_2334F1CF4;
+  v61[3] = &unk_2789DBB20;
   selfCopy = self;
-  v32 = _performCopy;
-  v30 = v6;
-  v26 = _performCopy;
-  v27 = v6;
-  [v27 sendCommand:132 toDestination:systemMediaApplicationDestination withOptions:v9 completion:v29];
-
-  v28 = *MEMORY[0x277D85DE8];
+  v64 = _performCopy;
+  v62 = v10;
+  v58 = _performCopy;
+  v59 = v10;
+  objc_msgSend_sendCommand_toDestination_withOptions_completion_(v59, v60, 132, v9, v22, v61);
 }
 
 - (void)performWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v5, v6, v7, v8))
   {
-    aceId = [(MPAssistantMusicPlaybackImminent *)self aceId];
-    v6 = sub_233505670(@"Music Playback Imminent", aceId);
+    v13 = objc_msgSend_aceId(self, v9, v10, v11, v12);
+    v14 = sub_233505670(@"Music Playback Imminent", v13);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v6;
+    self->_requestAceHash = v14;
   }
 
-  v8 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v16 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = self->_requestAceHash;
+    v17 = self->_requestAceHash;
     *buf = 138543362;
-    v21 = v9;
-    _os_log_impl(&dword_2334D9000, v8, OS_LOG_TYPE_DEFAULT, "Music Playback Imminent (invoke) <%{public}@>: invoked", buf, 0xCu);
+    v36 = v17;
+    _os_log_impl(&dword_2334D9000, v16, OS_LOG_TYPE_DEFAULT, "Music Playback Imminent (invoke) <%{public}@>: invoked", buf, 0xCu);
   }
 
-  v10 = sub_23350699C();
-  dispatch_group_enter(v10);
-  v11 = self->_requestAceHash;
-  preloadedUserSharedUserId = [(SAMPMusicPlaybackImminent *)self preloadedUserSharedUserId];
-  preloadedUserSharedUserId2 = [(SAMPMusicPlaybackImminent *)self preloadedUserSharedUserId];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = sub_2334F206C;
-  v17[3] = &unk_2789DB4B8;
-  v18 = v10;
-  v19 = completionCopy;
-  v17[4] = self;
-  v14 = v10;
-  v15 = completionCopy;
-  sub_233506A24(@"Music Playback Imminent", v11, preloadedUserSharedUserId, preloadedUserSharedUserId2, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = sub_23350699C();
+  dispatch_group_enter(v18);
+  v19 = self->_requestAceHash;
+  v24 = objc_msgSend_preloadedUserSharedUserId(self, v20, v21, v22, v23);
+  v29 = objc_msgSend_preloadedUserSharedUserId(self, v25, v26, v27, v28);
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = sub_2334F206C;
+  v32[3] = &unk_2789DB4B8;
+  v33 = v18;
+  v34 = completionCopy;
+  v32[4] = self;
+  v30 = v18;
+  v31 = completionCopy;
+  sub_233506A24(@"Music Playback Imminent", v19, v24, v29, v32);
 }
 
 @end

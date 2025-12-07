@@ -415,7 +415,7 @@ LABEL_7:
   }
 }
 
-uint64_t __92__CKImageBalloonViewAccessibility__axWarmLocationCoordinatePlacemarkIfNeededForMediaObject___block_invoke(uint64_t a1)
+void *__92__CKImageBalloonViewAccessibility__axWarmLocationCoordinatePlacemarkIfNeededForMediaObject___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) coordinate];
   v3 = *(*(a1 + 40) + 8);

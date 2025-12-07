@@ -197,7 +197,7 @@ LABEL_30:
 
 - (id)jsonDictionary
 {
-  v29[6] = *MEMORY[0x1E69E9840];
+  v28[6] = *MEMORY[0x1E69E9840];
   eventId = [(BMFeedbackLearningTupleInteraction *)self eventId];
   uUIDString = [eventId UUIDString];
 
@@ -232,58 +232,58 @@ LABEL_30:
     v14 = 0;
   }
 
-  v27 = uUIDString;
-  v28[0] = @"eventId";
+  v26 = uUIDString;
+  v27[0] = @"eventId";
   null = uUIDString;
   if (!uUIDString)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = null;
-  v26 = uUIDString2;
-  v29[0] = null;
-  v28[1] = @"sessionId";
+  v23 = null;
+  v25 = uUIDString2;
+  v28[0] = null;
+  v27[1] = @"sessionId";
   null2 = uUIDString2;
   if (!uUIDString2)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[1] = null2;
-  v28[2] = @"absoluteTimestamp";
+  v28[1] = null2;
+  v27[2] = @"absoluteTimestamp";
   null3 = v10;
   if (!v10)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[2] = null3;
-  v28[3] = @"tupleInteraction";
+  v28[2] = null3;
+  v27[3] = @"tupleInteraction";
   null4 = jsonDictionary;
   if (!jsonDictionary)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[3] = null4;
-  v28[4] = @"candidateInteractions";
+  v28[3] = null4;
+  v27[4] = @"candidateInteractions";
   null5 = _candidateInteractionsJSONArray;
   if (!_candidateInteractionsJSONArray)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[4] = null5;
-  v28[5] = @"statementId";
+  v28[4] = null5;
+  v27[5] = @"statementId";
   null6 = v14;
   if (!v14)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[5] = null6;
-  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:{6, v24}];
+  v28[5] = null6;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:{6, v23}];
   if (v14)
   {
     if (_candidateInteractionsJSONArray)
@@ -328,60 +328,56 @@ LABEL_22:
 LABEL_33:
 
 LABEL_23:
+  if (!v25)
+  {
+  }
+
   if (!v26)
   {
   }
-
-  if (!v27)
-  {
-  }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 - (id)_candidateInteractionsJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   candidateInteractions = [(BMFeedbackLearningTupleInteraction *)self candidateInteractions];
-  v5 = [candidateInteractions countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [candidateInteractions countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(candidateInteractions);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [candidateInteractions countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [candidateInteractions countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMFeedbackLearningTupleInteraction)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v147[1] = *MEMORY[0x1E69E9840];
+  v146[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"eventId"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -394,15 +390,15 @@ LABEL_23:
         v40 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v42 = *MEMORY[0x1E698F240];
-        v144 = *MEMORY[0x1E696A578];
+        v143 = *MEMORY[0x1E696A578];
         v43 = v7;
         v44 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v97 = objc_opt_class();
+        v96 = objc_opt_class();
         v45 = v44;
         v7 = v43;
-        v8 = [v45 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v97, @"eventId"];
-        v145 = v8;
-        v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v145 forKeys:&v144 count:1];
+        v8 = [v45 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v96, @"eventId"];
+        v144 = v8;
+        v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
         v47 = v42;
         v9 = v46;
         selfCopy3 = 0;
@@ -427,10 +423,10 @@ LABEL_23:
       v75 = objc_alloc(MEMORY[0x1E696ABC0]);
       errorCopy2 = error;
       v77 = *MEMORY[0x1E698F240];
-      v146 = *MEMORY[0x1E696A578];
+      v145 = *MEMORY[0x1E696A578];
       v78 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"eventId"];
-      v147[0] = v78;
-      v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v147 forKeys:&v146 count:1];
+      v146[0] = v78;
+      v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v146 forKeys:&v145 count:1];
       v80 = v77;
       v9 = v78;
       *errorCopy2 = [v75 initWithDomain:v80 code:2 userInfo:v79];
@@ -466,16 +462,16 @@ LABEL_23:
           v81 = v19;
           if (errorCopy4)
           {
-            v120 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v119 = objc_alloc(MEMORY[0x1E696ABC0]);
             v82 = v9;
             v83 = *MEMORY[0x1E698F240];
-            v142 = *MEMORY[0x1E696A578];
-            v117 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"sessionId"];
-            v143 = v117;
-            v84 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v143 forKeys:&v142 count:1];
+            v141 = *MEMORY[0x1E696A578];
+            v116 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"sessionId"];
+            v142 = v116;
+            v84 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
             v85 = v83;
             v9 = v82;
-            *errorCopy4 = [v120 initWithDomain:v85 code:2 userInfo:v84];
+            *errorCopy4 = [v119 initWithDomain:v85 code:2 userInfo:v84];
 
             selfCopy3 = 0;
             v10 = v81;
@@ -501,18 +497,18 @@ LABEL_23:
         v48 = objc_alloc(MEMORY[0x1E696ABC0]);
         v49 = v9;
         v50 = *MEMORY[0x1E698F240];
-        v140 = *MEMORY[0x1E696A578];
+        v139 = *MEMORY[0x1E696A578];
         v51 = v8;
         v52 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v98 = objc_opt_class();
+        v97 = objc_opt_class();
         v53 = v52;
         v8 = v51;
-        v10 = [v53 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v98, @"sessionId"];
-        v141 = v10;
-        v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v141 forKeys:&v140 count:1];
+        v10 = [v53 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v97, @"sessionId"];
+        v140 = v10;
+        v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
         v55 = v50;
         v9 = v49;
-        v116 = v54;
+        v115 = v54;
         selfCopy3 = 0;
         *errorCopy4 = [v48 initWithDomain:v55 code:2 userInfo:?];
 
@@ -528,7 +524,7 @@ LABEL_66:
   v10 = 0;
 LABEL_7:
   v11 = [dictionaryCopy objectForKeyedSubscript:@"absoluteTimestamp"];
-  v110 = v11;
+  v109 = v11;
   if (v11 && (v12 = v11, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -540,7 +536,7 @@ LABEL_7:
       [v33 doubleValue];
       v36 = v35;
 
-      v115 = [v34 initWithTimeIntervalSinceReferenceDate:v36];
+      v114 = [v34 initWithTimeIntervalSinceReferenceDate:v36];
     }
 
     else
@@ -549,7 +545,7 @@ LABEL_7:
       if (objc_opt_isKindOfClass())
       {
         v56 = objc_alloc_init(MEMORY[0x1E696AC80]);
-        v115 = [v56 dateFromString:v12];
+        v114 = [v56 dateFromString:v12];
       }
 
       else
@@ -559,43 +555,43 @@ LABEL_7:
         {
           if (errorCopy4)
           {
-            v106 = v9;
-            v88 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v108 = v8;
-            v89 = *MEMORY[0x1E698F240];
-            v138 = *MEMORY[0x1E696A578];
+            v105 = v9;
+            v87 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v107 = v8;
+            v88 = *MEMORY[0x1E698F240];
+            v137 = *MEMORY[0x1E696A578];
             v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 2001 (CFAbsoluteTime)), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"absoluteTimestamp"];
-            v139 = v37;
-            v90 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
+            v138 = v37;
+            v89 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
+            v90 = v87;
             v91 = v88;
-            v92 = v89;
-            v9 = v106;
-            v8 = v108;
-            v113 = v90;
-            v115 = 0;
+            v9 = v105;
+            v8 = v107;
+            v112 = v89;
+            v114 = 0;
             selfCopy3 = 0;
-            *errorCopy4 = [v91 initWithDomain:v92 code:2 userInfo:?];
+            *errorCopy4 = [v90 initWithDomain:v91 code:2 userInfo:?];
 
             goto LABEL_80;
           }
 
-          v115 = 0;
+          v114 = 0;
           selfCopy3 = 0;
           goto LABEL_81;
         }
 
-        v115 = v12;
+        v114 = v12;
       }
     }
   }
 
   else
   {
-    v115 = 0;
+    v114 = 0;
   }
 
   v13 = [dictionaryCopy objectForKeyedSubscript:@"tupleInteraction"];
-  v109 = v10;
+  v108 = v10;
   if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -604,21 +600,21 @@ LABEL_7:
       v57 = v13;
       if (errorCopy4)
       {
-        v119 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v105 = v9;
+        v118 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v104 = v9;
         v58 = *MEMORY[0x1E698F240];
-        v136 = *MEMORY[0x1E696A578];
+        v135 = *MEMORY[0x1E696A578];
         v59 = v8;
         v60 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v99 = objc_opt_class();
+        v98 = objc_opt_class();
         v61 = v60;
         v8 = v59;
-        v112 = [v61 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v99, @"tupleInteraction"];
-        v137 = v112;
-        v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
+        v111 = [v61 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v98, @"tupleInteraction"];
+        v136 = v111;
+        v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
         v63 = v58;
-        v9 = v105;
-        *errorCopy4 = [v119 initWithDomain:v63 code:2 userInfo:v62];
+        v9 = v104;
+        *errorCopy4 = [v118 initWithDomain:v63 code:2 userInfo:v62];
 
         selfCopy3 = 0;
         v37 = v57;
@@ -634,9 +630,9 @@ LABEL_7:
     }
 
     v37 = v13;
-    v126 = 0;
-    v111 = [[BMFeedbackLearningTupleInteractionTupleInteraction alloc] initWithJSONDictionary:v37 error:&v126];
-    v38 = v126;
+    v125 = 0;
+    v110 = [[BMFeedbackLearningTupleInteractionTupleInteraction alloc] initWithJSONDictionary:v37 error:&v125];
+    v38 = v125;
     if (v38)
     {
       if (errorCopy4)
@@ -649,26 +645,26 @@ LABEL_7:
       goto LABEL_79;
     }
 
-    v103 = v13;
-    v107 = v8;
+    v102 = v13;
+    v106 = v8;
   }
 
   else
   {
-    v103 = v13;
-    v107 = v8;
-    v111 = 0;
+    v102 = v13;
+    v106 = v8;
+    v110 = 0;
   }
 
   v14 = [dictionaryCopy objectForKeyedSubscript:@"candidateInteractions"];
   null = [MEMORY[0x1E695DFB0] null];
   v16 = [v14 isEqual:null];
 
-  v104 = v9;
+  v103 = v9;
   if (v16)
   {
     selfCopy2 = self;
-    v102 = dictionaryCopy;
+    v101 = dictionaryCopy;
 
     v14 = 0;
   }
@@ -684,10 +680,10 @@ LABEL_7:
         {
           v72 = objc_alloc(MEMORY[0x1E696ABC0]);
           v73 = *MEMORY[0x1E698F240];
-          v134 = *MEMORY[0x1E696A578];
-          v118 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"candidateInteractions"];
-          v135 = v118;
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v135 forKeys:&v134 count:1];
+          v133 = *MEMORY[0x1E696A578];
+          v117 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"candidateInteractions"];
+          v134 = v117;
+          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
           v74 = [v72 initWithDomain:v73 code:2 userInfo:v31];
           selfCopy3 = 0;
           *errorCopy4 = v74;
@@ -700,34 +696,34 @@ LABEL_7:
     }
 
     selfCopy2 = self;
-    v102 = dictionaryCopy;
+    v101 = dictionaryCopy;
   }
 
-  v118 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v14, "count")}];
+  v117 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v14, "count")}];
+  v121 = 0u;
   v122 = 0u;
   v123 = 0u;
   v124 = 0u;
-  v125 = 0u;
   v14 = v14;
-  v22 = [v14 countByEnumeratingWithState:&v122 objects:v133 count:16];
+  v22 = [v14 countByEnumeratingWithState:&v121 objects:v132 count:16];
   if (!v22)
   {
     goto LABEL_34;
   }
 
   v23 = v22;
-  v24 = *v123;
-  v100 = v7;
+  v24 = *v122;
+  v99 = v7;
   while (2)
   {
     for (i = 0; i != v23; ++i)
     {
-      if (*v123 != v24)
+      if (*v122 != v24)
       {
         objc_enumerationMutation(v14);
       }
 
-      v26 = *(*(&v122 + 1) + 8 * i);
+      v26 = *(*(&v121 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -735,20 +731,20 @@ LABEL_7:
         {
           v64 = objc_alloc(MEMORY[0x1E696ABC0]);
           v65 = *MEMORY[0x1E698F240];
-          v131 = *MEMORY[0x1E696A578];
+          v130 = *MEMORY[0x1E696A578];
           v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"candidateInteractions"];
-          v132 = v27;
-          v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+          v131 = v27;
+          v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
           *errorCopy4 = [v64 initWithDomain:v65 code:2 userInfo:v66];
 
 LABEL_56:
           selfCopy3 = 0;
           v31 = v14;
           self = selfCopy2;
-          dictionaryCopy = v102;
-          v7 = v100;
+          dictionaryCopy = v101;
+          v7 = v99;
 LABEL_60:
-          v10 = v109;
+          v10 = v108;
           goto LABEL_76;
         }
 
@@ -756,9 +752,9 @@ LABEL_63:
         selfCopy3 = 0;
         v31 = v14;
         self = selfCopy2;
-        dictionaryCopy = v102;
-        v7 = v100;
-        v10 = v109;
+        dictionaryCopy = v101;
+        v7 = v99;
+        v10 = v108;
         goto LABEL_77;
       }
 
@@ -769,10 +765,10 @@ LABEL_63:
         {
           v67 = objc_alloc(MEMORY[0x1E696ABC0]);
           v68 = *MEMORY[0x1E698F240];
-          v129 = *MEMORY[0x1E696A578];
+          v128 = *MEMORY[0x1E696A578];
           v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"candidateInteractions"];
-          v130 = v27;
-          v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+          v129 = v27;
+          v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
           *errorCopy4 = [v67 initWithDomain:v68 code:2 userInfo:v69];
 
           goto LABEL_56;
@@ -783,13 +779,13 @@ LABEL_63:
 
       v27 = v26;
       v28 = [BMFeedbackLearningTupleInteractionCandidateInteraction alloc];
-      v121 = 0;
-      v29 = [(BMFeedbackLearningTupleInteractionCandidateInteraction *)v28 initWithJSONDictionary:v27 error:&v121];
-      v30 = v121;
+      v120 = 0;
+      v29 = [(BMFeedbackLearningTupleInteractionCandidateInteraction *)v28 initWithJSONDictionary:v27 error:&v120];
+      v30 = v120;
       if (v30)
       {
         v70 = v30;
-        v7 = v100;
+        v7 = v99;
         if (errorCopy4)
         {
           v71 = v30;
@@ -799,15 +795,15 @@ LABEL_63:
         selfCopy3 = 0;
         v31 = v14;
         self = selfCopy2;
-        dictionaryCopy = v102;
+        dictionaryCopy = v101;
         goto LABEL_60;
       }
 
-      [v118 addObject:v29];
+      [v117 addObject:v29];
     }
 
-    v23 = [v14 countByEnumeratingWithState:&v122 objects:v133 count:16];
-    v7 = v100;
+    v23 = [v14 countByEnumeratingWithState:&v121 objects:v132 count:16];
+    v7 = v99;
     if (v23)
     {
       continue;
@@ -818,19 +814,19 @@ LABEL_63:
 
 LABEL_34:
 
-  dictionaryCopy = v102;
-  v27 = [v102 objectForKeyedSubscript:@"statementId"];
+  dictionaryCopy = v101;
+  v27 = [v101 objectForKeyedSubscript:@"statementId"];
   if (!v27)
   {
     v31 = 0;
     self = selfCopy2;
-    v10 = v109;
+    v10 = v108;
     goto LABEL_75;
   }
 
   objc_opt_class();
   self = selfCopy2;
-  v10 = v109;
+  v10 = v108;
   if (objc_opt_isKindOfClass())
   {
     v31 = 0;
@@ -842,7 +838,7 @@ LABEL_34:
   {
     v31 = v27;
 LABEL_75:
-    self = [(BMFeedbackLearningTupleInteraction *)self initWithEventId:v107 sessionId:v10 absoluteTimestamp:v115 tupleInteraction:v111 candidateInteractions:v118 statementId:v31];
+    self = [(BMFeedbackLearningTupleInteraction *)self initWithEventId:v106 sessionId:v10 absoluteTimestamp:v114 tupleInteraction:v110 candidateInteractions:v117 statementId:v31];
     selfCopy3 = self;
   }
 
@@ -851,13 +847,13 @@ LABEL_75:
     v31 = errorCopy4;
     if (errorCopy4)
     {
-      v93 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v94 = *MEMORY[0x1E698F240];
-      v127 = *MEMORY[0x1E696A578];
-      v95 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"statementId"];
-      v128 = v95;
-      v96 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
-      *errorCopy4 = [v93 initWithDomain:v94 code:2 userInfo:v96];
+      v92 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v93 = *MEMORY[0x1E698F240];
+      v126 = *MEMORY[0x1E696A578];
+      v94 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"statementId"];
+      v127 = v94;
+      v95 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
+      *errorCopy4 = [v92 initWithDomain:v93 code:2 userInfo:v95];
 
       v31 = 0;
     }
@@ -868,15 +864,15 @@ LABEL_75:
 LABEL_76:
 
 LABEL_77:
-  v9 = v104;
+  v9 = v103;
 LABEL_78:
 
-  v37 = v103;
-  v8 = v107;
+  v37 = v102;
+  v8 = v106;
 LABEL_79:
 
 LABEL_80:
-  v12 = v110;
+  v12 = v109;
 LABEL_81:
 
 LABEL_82:
@@ -885,7 +881,6 @@ LABEL_83:
 LABEL_84:
 LABEL_85:
 
-  v86 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -900,7 +895,7 @@ LABEL_85:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_raw_eventId)
   {
@@ -914,60 +909,56 @@ LABEL_85:
 
   if (self->_hasRaw_absoluteTimestamp)
   {
-    raw_absoluteTimestamp = self->_raw_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_tupleInteraction)
   {
-    v18 = 0;
+    v15 = 0;
     PBDataWriterPlaceMark();
     [(BMFeedbackLearningTupleInteractionTupleInteraction *)self->_tupleInteraction writeTo:toCopy];
     PBDataWriterRecallMark();
   }
 
-  v16 = 0u;
-  v17 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = self->_candidateInteractions;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
-  if (v7)
+  v11 = 0u;
+  v12 = 0u;
+  v5 = self->_candidateInteractions;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v15;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v12 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
-        v18 = 0;
+        v10 = *(*(&v11 + 1) + 8 * v9);
+        v15 = 0;
         PBDataWriterPlaceMark();
-        [v11 writeTo:{toCopy, v14}];
+        [v10 writeTo:{toCopy, v11}];
         PBDataWriterRecallMark();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_hasStatementId)
   {
-    statementId = self->_statementId;
     PBDataWriterWriteUint32Field();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -1236,25 +1227,25 @@ LABEL_58:
 
 - (BMFeedbackLearningTupleInteraction)initWithEventId:(id)id sessionId:(id)sessionId absoluteTimestamp:(id)timestamp tupleInteraction:(id)interaction candidateInteractions:(id)interactions statementId:(id)statementId
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   idCopy = id;
   sessionIdCopy = sessionId;
   timestampCopy = timestamp;
   interactionCopy = interaction;
   interactionsCopy = interactions;
   statementIdCopy = statementId;
-  v29.receiver = self;
-  v29.super_class = BMFeedbackLearningTupleInteraction;
-  v20 = [(BMEventBase *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = BMFeedbackLearningTupleInteraction;
+  v20 = [(BMEventBase *)&v28 init];
   if (v20)
   {
     v20->_dataVersion = [objc_opt_class() latestDataVersion];
     if (idCopy)
     {
+      v29 = 0;
       v30 = 0;
-      v31 = 0;
-      [idCopy getUUIDBytes:&v30];
-      v21 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v30 length:16];
+      [idCopy getUUIDBytes:&v29];
+      v21 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v29 length:16];
       raw_eventId = v20->_raw_eventId;
       v20->_raw_eventId = v21;
     }
@@ -1267,10 +1258,10 @@ LABEL_58:
 
     if (sessionIdCopy)
     {
+      v29 = 0;
       v30 = 0;
-      v31 = 0;
-      [sessionIdCopy getUUIDBytes:&v30];
-      v23 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v30 length:16];
+      [sessionIdCopy getUUIDBytes:&v29];
+      v23 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v29 length:16];
       raw_sessionId = v20->_raw_sessionId;
       v20->_raw_sessionId = v23;
     }
@@ -1311,71 +1302,66 @@ LABEL_58:
     v20->_statementId = unsignedIntValue;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"eventId" number:1 type:14 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sessionId" number:2 type:14 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"absoluteTimestamp" number:3 type:0 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"tupleInteraction" number:4 type:14 subMessageClass:objc_opt_class()];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"candidateInteractions" number:5 type:14 subMessageClass:objc_opt_class()];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"statementId" number:6 type:4 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"eventId" dataType:6 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:3];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sessionId" dataType:6 requestOnly:0 fieldNumber:2 protoDataType:14 convertedType:3];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"absoluteTimestamp" dataType:3 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:1];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"tupleInteraction_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_223];
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"candidateInteractions_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_225];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"statementId" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:4 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
-id __45__BMFeedbackLearningTupleInteraction_columns__block_invoke_2(uint64_t a1, void *a2)
+id __45__BMFeedbackLearningTupleInteraction_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _candidateInteractionsJSONArray];
-  v4 = BMConvertObjectToJSONString();
-
-  return v4;
-}
-
-id __45__BMFeedbackLearningTupleInteraction_columns__block_invoke(uint64_t a1, void *a2)
-{
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 tupleInteraction];
-  v4 = [v3 jsonDictionary];
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _candidateInteractionsJSONArray];
   v5 = BMConvertObjectToJSONString();
 
   return v5;
+}
+
+id __45__BMFeedbackLearningTupleInteraction_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 tupleInteraction];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
+
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

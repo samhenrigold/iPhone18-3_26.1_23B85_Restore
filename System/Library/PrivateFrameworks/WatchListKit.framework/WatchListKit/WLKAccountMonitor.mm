@@ -23,9 +23,11 @@
 
 uint64_t __35__WLKAccountMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance___sharedInstance = objc_alloc_init(WLKAccountMonitor);
+  v0 = objc_alloc_init(WLKAccountMonitor);
+  v1 = sharedInstance___sharedInstance;
+  sharedInstance___sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WLKAccountMonitor)init
@@ -97,12 +99,12 @@ uint64_t __35__WLKAccountMonitor_sharedInstance__block_invoke()
   v7 = accountCopy;
   if (changeCopy && !accountCopy)
   {
-    v8 = WLKSystemLogObject();
+    v8 = WLKSystemLogObject(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 0;
+      v19 = 0;
       v9 = "WLKAccountMonitor - User logged out";
-      v10 = &v18;
+      v10 = &v19;
 LABEL_9:
       _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
       goto LABEL_10;
@@ -113,7 +115,7 @@ LABEL_9:
 
   if (!changeCopy && accountCopy)
   {
-    v8 = WLKSystemLogObject();
+    v8 = WLKSystemLogObject(accountCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -141,15 +143,15 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v8 = WLKSystemLogObject();
+    v8 = WLKSystemLogObject(v16);
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_10;
     }
 
-    v16 = 0;
+    v17 = 0;
     v9 = "WLKAccountMonitor - Account changed";
-    v10 = &v16;
+    v10 = &v17;
     goto LABEL_9;
   }
 
@@ -178,8 +180,8 @@ LABEL_11:
 
     else
     {
-      v12 = WLKSystemLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = WLKSystemLogObject(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         ams_storefront3 = [changeCopy ams_storefront];
         ams_storefront4 = [v7 ams_storefront];
@@ -187,14 +189,13 @@ LABEL_11:
         v18 = ams_storefront3;
         v19 = 2112;
         v20 = ams_storefront4;
-        _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKAccountMonitor - Store front changed %@ - %@", &v17, 0x16u);
+        _os_log_impl(&dword_272A0F000, v13, OS_LOG_TYPE_DEFAULT, "WLKAccountMonitor - Store front changed %@ - %@", &v17, 0x16u);
       }
 
       v8 = 1;
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -70,16 +70,15 @@ void __49__HKEADFFileParser_enumerateChannelsWithHandler___block_invoke(uint64_t
 {
   if (*&a3 <= 0.0)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
     v5 = +[HKUnit hertzUnit];
-    v7 = [HKQuantity quantityWithUnit:v5 doubleValue:*&a3];
+    v6 = [HKQuantity quantityWithUnit:v5 doubleValue:*&a3];
   }
 
-  v6 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -95,36 +94,36 @@ void __49__HKEADFFileParser_enumerateChannelsWithHandler___block_invoke(uint64_t
 
 - (id)newBuilderWithStartDate:(id)date
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dateCopy = date;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__40;
-  v26 = __Block_byref_object_dispose__40;
-  v27 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__40;
-  v20 = __Block_byref_object_dispose__40;
   v21 = 0;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __44__HKEADFFileParser_newBuilderWithStartDate___block_invoke;
-  v15[3] = &unk_1E7381830;
-  v15[4] = &v22;
-  v15[5] = &v16;
-  [(HKEADFFileParser *)self enumerateChannelsWithHandler:v15];
-  v5 = v23[5];
-  if (v5 && v17[5])
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__40;
+  v25 = __Block_byref_object_dispose__40;
+  v26 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__40;
+  v19 = __Block_byref_object_dispose__40;
+  v20 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __44__HKEADFFileParser_newBuilderWithStartDate___block_invoke;
+  v14[3] = &unk_1E7381830;
+  v14[4] = &v21;
+  v14[5] = &v15;
+  [(HKEADFFileParser *)self enumerateChannelsWithHandler:v14];
+  v5 = v22[5];
+  if (v5 && v16[5])
   {
     v6 = [v5 length];
     v7 = v6 >> 2;
-    v8 = (&v15[-1] - ((4 * (v6 >> 2) + 15) & 0xFFFFFFFFFFFFFFF0));
-    [v23[5] getBytes:v8 length:v6 & 0xFFFFFFFFFFFFFFFCLL];
+    v8 = (&v14[-1] - ((4 * (v6 >> 2) + 15) & 0xFFFFFFFFFFFFFFF0));
+    [v22[5] getBytes:v8 length:v6 & 0xFFFFFFFFFFFFFFFCLL];
     v9 = [HKElectrocardiogramBuilder alloc];
-    v10 = [(HKElectrocardiogramBuilder *)v9 initWithStartDate:dateCopy frequency:v17[5]];
+    v10 = [(HKElectrocardiogramBuilder *)v9 initWithStartDate:dateCopy frequency:v16[5]];
     if (v6 >= 4)
     {
       do
@@ -144,10 +143,9 @@ void __49__HKEADFFileParser_enumerateChannelsWithHandler___block_invoke(uint64_t
     v10 = 0;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 
-  _Block_object_dispose(&v22, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v21, 8);
   return v10;
 }
 

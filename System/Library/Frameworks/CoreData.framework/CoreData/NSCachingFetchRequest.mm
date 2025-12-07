@@ -185,11 +185,11 @@
 
 - (void)setSubstitutionVariables:(id)variables
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   substitutionVariables = self->_substitutionVariables;
   if (substitutionVariables == variables)
   {
-    goto LABEL_36;
+    return;
   }
 
   if (!substitutionVariables)
@@ -203,41 +203,41 @@
   if (_isEditable)
   {
 LABEL_27:
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v20 = [(NSDictionary *)v7 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v20 = [(NSDictionary *)v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (!v20)
     {
       goto LABEL_35;
     }
 
     v21 = v20;
-    v22 = *v40;
+    v22 = *v39;
     while (1)
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v40 != v22)
+        if (*v39 != v22)
         {
           objc_enumerationMutation(v7);
         }
 
-        v24 = *(*(&v39 + 1) + 8 * i);
-        if ([objc_msgSend(variables valueForKey:{v24), "expressionType"}])
+        v24 = *(*(&v38 + 1) + 8 * i);
+        if ([objc_msgSend_valueForKey_(variables) expressionType])
         {
-          v31 = MEMORY[0x1E695DF30];
-          v32 = *MEMORY[0x1E695D940];
-          v27 = MEMORY[0x1E696AEC0];
-          v34 = v24;
+          v30 = MEMORY[0x1E695DF30];
+          v31 = *MEMORY[0x1E695D940];
+          v26 = MEMORY[0x1E696AEC0];
+          v33 = v24;
 LABEL_39:
-          v33 = [v27 stringWithFormat:@"Unsupported substitution variable type for key %@", v34];
+          v32 = objc_msgSend_stringWithFormat_(v26, v33);
           goto LABEL_40;
         }
       }
 
-      v21 = [(NSDictionary *)v7 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v21 = [(NSDictionary *)v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
       if (!v21)
       {
         goto LABEL_35;
@@ -248,44 +248,44 @@ LABEL_39:
   v8 = [(NSDictionary *)self->_substitutionVariables count];
   if (v8 != [variables count])
   {
-    v29 = MEMORY[0x1E695DF30];
-    v30 = *MEMORY[0x1E695D940];
-    v28 = @"Mismatched variables dictionaries (count)";
+    v28 = MEMORY[0x1E695DF30];
+    v29 = *MEMORY[0x1E695D940];
+    v27 = @"Mismatched variables dictionaries (count)";
 LABEL_41:
-    objc_exception_throw([v29 exceptionWithName:v30 reason:v28 userInfo:0]);
+    objc_exception_throw([v28 exceptionWithName:v29 reason:v27 userInfo:0]);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v9 = self->_substitutionVariables;
-  v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v36;
+    v12 = *v35;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * j);
-        v15 = [(NSDictionary *)self->_substitutionVariables valueForKey:v14];
-        v16 = [variables valueForKey:v14];
+        v14 = *(*(&v34 + 1) + 8 * j);
+        v15 = objc_msgSend_valueForKey_(self->_substitutionVariables);
+        v16 = objc_msgSend_valueForKey_(variables);
         if (v16)
         {
           v17 = v16;
           if ([v15 expressionType])
           {
-            v31 = MEMORY[0x1E695DF30];
-            v32 = *MEMORY[0x1E695D940];
-            v27 = MEMORY[0x1E696AEC0];
-            v34 = v14;
+            v30 = MEMORY[0x1E695DF30];
+            v31 = *MEMORY[0x1E695D940];
+            v26 = MEMORY[0x1E696AEC0];
+            v33 = v14;
             goto LABEL_39;
           }
 
@@ -293,27 +293,27 @@ LABEL_41:
           constantValue2 = [v17 constantValue];
           if ((([constantValue isNSArray] & 1) != 0 || (objc_msgSend(constantValue, "isNSSet") & 1) != 0 || objc_msgSend(constantValue, "isNSOrderedSet")) && (objc_msgSend(constantValue2, "isNSArray") & 1) == 0 && (objc_msgSend(constantValue2, "isNSSet") & 1) == 0 && (objc_msgSend(constantValue2, "isNSOrderedSet") & 1) == 0)
           {
-            v31 = MEMORY[0x1E695DF30];
-            v32 = *MEMORY[0x1E695D940];
-            v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Mismatch: that which was once a collection is no longer (%@)", v14];
+            v30 = MEMORY[0x1E695DF30];
+            v31 = *MEMORY[0x1E695D940];
+            v32 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v14);
 LABEL_40:
-            v28 = v33;
+            v27 = v32;
+            v28 = v30;
             v29 = v31;
-            v30 = v32;
             goto LABEL_41;
           }
         }
 
         else if ((![v14 isEqual:@"FETCH_REQUEST_LIMIT_SUBSTITUTION"] || !-[NSFetchRequest fetchLimit](self, "fetchLimit")) && (!objc_msgSend(v14, "isEqual:", @"FETCH_REQUEST_OFFSET_SUBSTITUTION") || !-[NSFetchRequest fetchOffset](self, "fetchOffset")))
         {
-          v29 = MEMORY[0x1E695DF30];
-          v30 = *MEMORY[0x1E695D940];
-          v28 = @"Mismatched variables dictionaries (missing value)";
+          v28 = MEMORY[0x1E695DF30];
+          v29 = *MEMORY[0x1E695D940];
+          v27 = @"Mismatched variables dictionaries (missing value)";
           goto LABEL_41;
         }
       }
 
-      v11 = [(NSDictionary *)v9 countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v11 = [(NSDictionary *)v9 countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v11);
@@ -323,8 +323,6 @@ LABEL_35:
   v25 = [variables copy];
 
   self->_substitutionVariables = v25;
-LABEL_36:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

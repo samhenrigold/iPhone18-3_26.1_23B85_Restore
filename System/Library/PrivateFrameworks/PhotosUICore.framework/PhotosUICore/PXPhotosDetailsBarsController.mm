@@ -1277,7 +1277,7 @@ LABEL_27:
   return array;
 }
 
-void __70__PXPhotosDetailsBarsController__barButtonItemsForBarItems_placement___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __70__PXPhotosDetailsBarsController__barButtonItemsForBarItems_placement___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -1296,7 +1296,7 @@ void __70__PXPhotosDetailsBarsController__barButtonItemsForBarItems_placement___
 
   [v8 setEnabled:v11];
   [*(a1 + 40) addObject:v8];
-  if ([*(a1 + 48) count] - 1 != a3 && *(a1 + 56) == 6)
+  if (([*(a1 + 48) count] - 1) != a3 && *(a1 + 56) == 6)
   {
     v12 = *(a1 + 40);
     v13 = [*(a1 + 32) _flexibleSpaceBarButtonItem];

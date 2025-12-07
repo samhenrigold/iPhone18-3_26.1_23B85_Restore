@@ -1,6 +1,7 @@
 @interface CWFWiFiNetworkSharingManager
 - (BOOL)__addCurrentNetworkToNetworkListForClientID:(id)d forceRegistration:(BOOL)registration;
 - (BOOL)__appForegroundStateHandlerForBundleID:(id)d;
+- (BOOL)__canAskToShareCurrentNetworkForClientID:(id)d onDemand:(BOOL)demand;
 - (BOOL)__canAskToShareKnownNetwork:(id)network metadata:(id)metadata authorizationStatus:(unint64_t)status onDemand:(BOOL)demand;
 - (BOOL)__canAutomaticallyShareKnownNetwork:(id)network metadata:(id)metadata authorizationStatus:(unint64_t)status;
 - (BOOL)__canAutomaticallyShareKnownNetworkWithMetadata:(id)metadata authorizationStatus:(unint64_t)status;
@@ -16,6 +17,8 @@
 - (CLLocation)location;
 - (CWFScanResult)associatedNetwork;
 - (CWFWiFiNetworkSharingManager)init;
+- (id)__askToShareNetworkForCurrentNetworkWithClientID:(id)d onDemand:(BOOL)demand;
+- (id)__askToShareNetworkForNetworkProfile:(id)profile scanResult:(id)result metadata:(id)metadata isConnected:(BOOL)connected;
 - (id)__askToShareNetworkListForClientID:(id)d localScanResults:(id)results accessoryScanResults:(id)scanResults onDemand:(BOOL)demand;
 - (id)__captivePortalCredentialsForKnownNetwork:(id)network error:(id *)error;
 - (id)__clientIDsRegisteredNetworksUpdateEvents;
@@ -196,7 +199,7 @@
       goto LABEL_20;
     }
 
-    if (sub_1E0D231C4())
+    if (sub_1E0D231C4(0))
     {
       v37 = 0;
       v38 = &v37;
@@ -250,29 +253,29 @@ LABEL_20:
 
 - (BOOL)__isNetworkListUpdateEventRegisteredForClientID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     registeredWiFiNetworkSharingEventIDs = [(CWFWiFiNetworkSharingManager *)self registeredWiFiNetworkSharingEventIDs];
-    v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
-      v7 = *v19;
+      v7 = *v18;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(registeredWiFiNetworkSharingEventIDs);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           if ([v9 type] == 43)
           {
             clientID = [v9 clientID];
@@ -304,7 +307,7 @@ LABEL_17:
           }
         }
 
-        v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v6)
         {
           continue;
@@ -322,7 +325,6 @@ LABEL_18:
     LOBYTE(v6) = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -369,12 +371,13 @@ LABEL_20:
         v22 = MEMORY[0x1E69E9C10];
       }
 
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-LABEL_19:
-
-        v7 = 1;
-        goto LABEL_20;
+        *v25 = 138543618;
+        *&v25[4] = dCopy;
+        *&v25[12] = 2114;
+        *&v25[14] = matchingKnownNetworkProfile;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 0, "[corewifi] [wifi-network-sharing] Now associated to automatically-shareable network for clientID (clientID=%{public}@, knownNetwork=%{public}@)", v25, 22, *v25, *&v25[8], v26);
       }
     }
 
@@ -397,20 +400,23 @@ LABEL_19:
         v23 = MEMORY[0x1E69E9C10];
       }
 
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_19;
+        *v25 = 138543618;
+        *&v25[4] = dCopy;
+        *&v25[12] = 2114;
+        *&v25[14] = matchingKnownNetworkProfile;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 0, "[corewifi] [wifi-network-sharing] Adding automatically-shareable network for clientID (clientID=%{public}@, knownNetwork=%{public}@)", v25, 22, *v25, *&v25[8], v26);
       }
     }
 
-    _os_log_send_and_compose_impl();
-    goto LABEL_19;
+    v7 = 1;
+    goto LABEL_20;
   }
 
   v7 = 0;
 LABEL_21:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -530,7 +536,7 @@ LABEL_21:
     v32 = networkCopy;
     v33 = 2114;
     v34 = associatedNetwork;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] [wifi-network-sharing] Updating associated network (new=%{public}@, old=%{public}@)", &v31, 22);
   }
 
   matchingKnownNetworkProfile = [(CWFScanResult *)selfCopy->_associatedNetwork matchingKnownNetworkProfile];
@@ -586,7 +592,8 @@ LABEL_14:
     v32 = matchingKnownNetworkProfile2;
     v33 = 2114;
     v34 = matchingKnownNetworkProfile;
-    _os_log_send_and_compose_impl();
+    LODWORD(v28) = 22;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 0, "[corewifi] [wifi-network-sharing] Associated known network changed (new=%{public}@, old=%{public}@)", &v31, v28);
   }
 
   askToShareRequestFromAppTimestampCache = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareRequestFromAppTimestampCache];
@@ -604,13 +611,11 @@ LABEL_14:
 
 LABEL_20:
   objc_sync_exit(selfCopy);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didUpdateKnownNetwork:(id)network previous:(id)previous
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   networkCopy = network;
   previousCopy = previous;
   v6 = CWFGetOSLog();
@@ -627,13 +632,11 @@ LABEL_20:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v100 = 138543618;
-    v101 = networkCopy;
-    v102 = 2114;
-    v103 = previousCopy;
-    LODWORD(v70) = 22;
-    v68 = &v100;
-    _os_log_send_and_compose_impl();
+    v97 = 138543618;
+    v98 = networkCopy;
+    v99 = 2114;
+    v100 = previousCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] [wifi-network-sharing] Updating known network (new=%{public}@, old=%{public}@)", &v97, 22);
   }
 
   supportsWiFiNetworkSharing = [networkCopy supportsWiFiNetworkSharing];
@@ -662,8 +665,8 @@ LABEL_20:
         }
 
 LABEL_14:
-        v16 = [(CWFWiFiNetworkSharingManager *)self associatedNetwork:v68];
-        filteredWiFiNetworkSharingNetworkProfile = [v16 matchingKnownNetworkProfile];
+        associatedNetwork = [(CWFWiFiNetworkSharingManager *)self associatedNetwork];
+        filteredWiFiNetworkSharingNetworkProfile = [associatedNetwork matchingKnownNetworkProfile];
 
         v17 = CWFGetOSLog();
         if (v17)
@@ -679,44 +682,43 @@ LABEL_14:
 
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v100 = 138543874;
-          v101 = networkCopy;
-          v102 = 2114;
-          v103 = previousCopy;
-          v104 = 2114;
-          v105 = filteredWiFiNetworkSharingNetworkProfile;
-          LODWORD(v71) = 32;
-          v69 = &v100;
-          _os_log_send_and_compose_impl();
+          v97 = 138543874;
+          v98 = networkCopy;
+          v99 = 2114;
+          v100 = previousCopy;
+          v101 = 2114;
+          v102 = filteredWiFiNetworkSharingNetworkProfile;
+          LODWORD(v67) = 32;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 0, "[corewifi] [wifi-network-sharing] Known network changed (new=%{public}@, old=%{public}@, current=%{public}@)", &v97, v67);
         }
 
-        v75 = [MEMORY[0x1E695DFA8] set];
-        v73 = [MEMORY[0x1E695DFA8] set];
+        v72 = [MEMORY[0x1E695DFA8] set];
+        v70 = [MEMORY[0x1E695DFA8] set];
         store = [(CWFWiFiNetworkSharingManager *)self store];
         clientIDs = [store clientIDs];
 
-        v94 = 0u;
-        v95 = 0u;
+        v91 = 0u;
         v92 = 0u;
-        v93 = 0u;
+        v89 = 0u;
+        v90 = 0u;
         obj = clientIDs;
-        v78 = [obj countByEnumeratingWithState:&v92 objects:v99 count:16];
-        if (v78)
+        v75 = [obj countByEnumeratingWithState:&v89 objects:v96 count:16];
+        if (v75)
         {
-          v77 = *v93;
+          v74 = *v90;
           do
           {
-            for (i = 0; i != v78; ++i)
+            for (i = 0; i != v75; ++i)
             {
-              if (*v93 != v77)
+              if (*v90 != v74)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v23 = *(*(&v92 + 1) + 8 * i);
-              v24 = [(CWFWiFiNetworkSharingManager *)self store:v69];
+              v23 = *(*(&v89 + 1) + 8 * i);
+              store2 = [(CWFWiFiNetworkSharingManager *)self store];
               wifiNetworkSharingNetworkID = [networkCopy wifiNetworkSharingNetworkID];
-              v26 = [v24 networkMetadataForClientID:v23 networkID:wifiNetworkSharingNetworkID];
+              v26 = [store2 networkMetadataForClientID:v23 networkID:wifiNetworkSharingNetworkID];
 
               if (v26)
               {
@@ -749,9 +751,9 @@ LABEL_14:
                     {
                       wifiNetworkSharingNetworkID6 = [filteredWiFiNetworkSharingNetworkProfile wifiNetworkSharingNetworkID];
                       wifiNetworkSharingNetworkID7 = [networkCopy wifiNetworkSharingNetworkID];
-                      HIDWORD(v71) = [wifiNetworkSharingNetworkID6 isEqual:wifiNetworkSharingNetworkID7];
+                      v68 = [wifiNetworkSharingNetworkID6 isEqual:wifiNetworkSharingNetworkID7];
 
-                      if ((v71 & 0x100000000) != 0)
+                      if (v68)
                       {
                         goto LABEL_36;
                       }
@@ -762,11 +764,11 @@ LABEL_36:
                       v38 = [MEMORY[0x1E695DF00] now];
                       [v26 setLastModifiedDate:v38];
 
-                      store2 = [(CWFWiFiNetworkSharingManager *)self store];
+                      store3 = [(CWFWiFiNetworkSharingManager *)self store];
                       wifiNetworkSharingNetworkID8 = [networkCopy wifiNetworkSharingNetworkID];
-                      [store2 setNetworkMetadata:v26 clientID:v23 networkID:wifiNetworkSharingNetworkID8];
+                      [store3 setNetworkMetadata:v26 clientID:v23 networkID:wifiNetworkSharingNetworkID8];
 
-                      [v75 addObject:v23];
+                      [v72 addObject:v23];
                       goto LABEL_37;
                     }
                   }
@@ -778,10 +780,10 @@ LABEL_36:
 LABEL_37:
             }
 
-            v78 = [obj countByEnumeratingWithState:&v92 objects:v99 count:16];
+            v75 = [obj countByEnumeratingWithState:&v89 objects:v96 count:16];
           }
 
-          while (v78);
+          while (v75);
         }
 
         wifiNetworkSharingNetworkID9 = [filteredWiFiNetworkSharingNetworkProfile wifiNetworkSharingNetworkID];
@@ -802,57 +804,57 @@ LABEL_37:
               if (!v48)
               {
 LABEL_60:
-                v86 = 0u;
-                v87 = 0u;
+                v83 = 0u;
                 v84 = 0u;
-                v85 = 0u;
-                filteredWiFiNetworkSharingNetworkProfile2 = v75;
-                v58 = [filteredWiFiNetworkSharingNetworkProfile2 countByEnumeratingWithState:&v84 objects:v97 count:16];
+                v81 = 0u;
+                v82 = 0u;
+                filteredWiFiNetworkSharingNetworkProfile2 = v72;
+                v58 = [filteredWiFiNetworkSharingNetworkProfile2 countByEnumeratingWithState:&v81 objects:v94 count:16];
                 if (v58)
                 {
-                  v59 = *v85;
+                  v59 = *v82;
                   do
                   {
                     for (j = 0; j != v58; ++j)
                     {
-                      if (*v85 != v59)
+                      if (*v82 != v59)
                       {
                         objc_enumerationMutation(filteredWiFiNetworkSharingNetworkProfile2);
                       }
 
-                      v61 = *(*(&v84 + 1) + 8 * j);
-                      v62 = [(CWFWiFiNetworkSharingManager *)self store:v69];
-                      [v62 incrementNetworksUpdateCounterForClientID:v61];
+                      v61 = *(*(&v81 + 1) + 8 * j);
+                      store4 = [(CWFWiFiNetworkSharingManager *)self store];
+                      [store4 incrementNetworksUpdateCounterForClientID:v61];
                     }
 
-                    v58 = [filteredWiFiNetworkSharingNetworkProfile2 countByEnumeratingWithState:&v84 objects:v97 count:16];
+                    v58 = [filteredWiFiNetworkSharingNetworkProfile2 countByEnumeratingWithState:&v81 objects:v94 count:16];
                   }
 
                   while (v58);
                 }
 
-                v82 = 0u;
-                v83 = 0u;
+                v79 = 0u;
                 v80 = 0u;
-                v81 = 0u;
-                v63 = v73;
-                v64 = [v63 countByEnumeratingWithState:&v80 objects:v96 count:16];
+                v77 = 0u;
+                v78 = 0u;
+                v63 = v70;
+                v64 = [v63 countByEnumeratingWithState:&v77 objects:v93 count:16];
                 if (v64)
                 {
-                  v65 = *v81;
+                  v65 = *v78;
                   do
                   {
                     for (k = 0; k != v64; ++k)
                     {
-                      if (*v81 != v65)
+                      if (*v78 != v65)
                       {
                         objc_enumerationMutation(v63);
                       }
 
-                      [(CWFWiFiNetworkSharingManager *)self __sendNetworkListUpdateEventForClientID:*(*(&v80 + 1) + 8 * k), v69, v71];
+                      [(CWFWiFiNetworkSharingManager *)self __sendNetworkListUpdateEventForClientID:*(*(&v77 + 1) + 8 * k)];
                     }
 
-                    v64 = [v63 countByEnumeratingWithState:&v80 objects:v96 count:16];
+                    v64 = [v63 countByEnumeratingWithState:&v77 objects:v93 count:16];
                   }
 
                   while (v64);
@@ -879,30 +881,30 @@ LABEL_45:
 
         objc_sync_exit(selfCopy);
         wifiNetworkSharingNetworkID9 = [(CWFWiFiNetworkSharingManager *)selfCopy __clientIDsRegisteredNetworksUpdateEvents];
-        v90 = 0u;
-        v91 = 0u;
+        v87 = 0u;
         v88 = 0u;
-        v89 = 0u;
-        v54 = [wifiNetworkSharingNetworkID9 countByEnumeratingWithState:&v88 objects:v98 count:16];
+        v85 = 0u;
+        v86 = 0u;
+        v54 = [wifiNetworkSharingNetworkID9 countByEnumeratingWithState:&v85 objects:v95 count:16];
         if (!v54)
         {
           goto LABEL_59;
         }
 
-        v55 = *v89;
+        v55 = *v86;
         while (1)
         {
           for (m = 0; m != v54; ++m)
           {
-            if (*v89 != v55)
+            if (*v86 != v55)
             {
               objc_enumerationMutation(wifiNetworkSharingNetworkID9);
             }
 
-            v57 = *(*(&v88 + 1) + 8 * m);
-            if ([(CWFWiFiNetworkSharingManager *)selfCopy __addCurrentNetworkToNetworkListForClientID:v57 forceRegistration:0, v69, v71])
+            v57 = *(*(&v85 + 1) + 8 * m);
+            if ([(CWFWiFiNetworkSharingManager *)selfCopy __addCurrentNetworkToNetworkListForClientID:v57 forceRegistration:0])
             {
-              [v75 addObject:v57];
+              [v72 addObject:v57];
             }
 
             else if (![(CWFWiFiNetworkSharingManager *)selfCopy __canAskToShareCurrentNetworkForClientID:v57 onDemand:0])
@@ -910,10 +912,10 @@ LABEL_45:
               continue;
             }
 
-            [v73 addObject:v57];
+            [v70 addObject:v57];
           }
 
-          v54 = [wifiNetworkSharingNetworkID9 countByEnumeratingWithState:&v88 objects:v98 count:16];
+          v54 = [wifiNetworkSharingNetworkID9 countByEnumeratingWithState:&v85 objects:v95 count:16];
           if (!v54)
           {
 LABEL_59:
@@ -930,12 +932,11 @@ LABEL_59:
 LABEL_75:
 
 LABEL_76:
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didRemoveKnownNetwork:(id)network
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   networkCopy = network;
   v5 = CWFGetOSLog();
   if (v5)
@@ -951,45 +952,43 @@ LABEL_76:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v35 = 138543362;
-    v36 = networkCopy;
-    LODWORD(v29) = 12;
-    v28 = &v35;
-    _os_log_send_and_compose_impl();
+    v33 = 138543362;
+    v34 = networkCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 0, "[corewifi] [wifi-network-sharing] Removing known network (network=%{public}@)", &v33, 12);
   }
 
   store = [(CWFWiFiNetworkSharingManager *)self store];
   clientIDs = [store clientIDs];
 
-  v32 = 0u;
-  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v10 = clientIDs;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v31;
+    v13 = *v29;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v31 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
-        v16 = [(CWFWiFiNetworkSharingManager *)self store:v28];
+        v15 = *(*(&v28 + 1) + 8 * i);
+        store2 = [(CWFWiFiNetworkSharingManager *)self store];
         wifiNetworkSharingNetworkID = [networkCopy wifiNetworkSharingNetworkID];
-        v18 = [v16 networkMetadataForClientID:v15 networkID:wifiNetworkSharingNetworkID];
+        v18 = [store2 networkMetadataForClientID:v15 networkID:wifiNetworkSharingNetworkID];
 
         if (v18)
         {
-          store2 = [(CWFWiFiNetworkSharingManager *)self store];
+          store3 = [(CWFWiFiNetworkSharingManager *)self store];
           wifiNetworkSharingNetworkID2 = [networkCopy wifiNetworkSharingNetworkID];
-          [store2 setNetworkMetadata:0 clientID:v15 networkID:wifiNetworkSharingNetworkID2];
+          [store3 setNetworkMetadata:0 clientID:v15 networkID:wifiNetworkSharingNetworkID2];
 
           v21 = [(CWFWiFiNetworkSharingManager *)self authorizationLevelForClientID:v15];
           unsignedIntegerValue = [v21 unsignedIntegerValue];
@@ -1010,33 +1009,30 @@ LABEL_76:
 
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
-              v35 = 138543362;
-              v36 = networkCopy;
-              LODWORD(v29) = 12;
-              v28 = &v35;
-              _os_log_send_and_compose_impl();
+              v33 = 138543362;
+              v34 = networkCopy;
+              LODWORD(v27) = 12;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 0, "[corewifi] [wifi-network-sharing] Removed network was automatically shareable, incrementing networks list counter and notifying client (network=%{public}@)", &v33, v27);
             }
 
-            store3 = [(CWFWiFiNetworkSharingManager *)self store];
-            [store3 incrementNetworksUpdateCounterForClientID:v15];
+            store4 = [(CWFWiFiNetworkSharingManager *)self store];
+            [store4 incrementNetworksUpdateCounterForClientID:v15];
 
             [(CWFWiFiNetworkSharingManager *)self __sendNetworkListUpdateEventForClientID:v15];
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v12);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didRegisterForAskToShareNetworkListUpdateEventsWithClientID:(id)d XPCConnection:(id)connection
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dCopy = d;
   connectionCopy = connection;
   if ([(CWFWiFiNetworkSharingManager *)self __isNetworkListUpdateEventRegisteredForClientID:dCopy])
@@ -1058,13 +1054,11 @@ LABEL_76:
 
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = 138543618;
-        v37 = dCopy;
-        v38 = 2114;
-        v39 = v8;
-        LODWORD(v33) = 22;
-        v32 = &v36;
-        _os_log_send_and_compose_impl();
+        v33 = 138543618;
+        v34 = dCopy;
+        v35 = 2114;
+        v36 = v8;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 0, "[corewifi] [wifi-network-sharing] Upon registration, sending ask-to-share networks list change (clientID=%{public}@, networks=%{public}@)", &v33, 22);
       }
 
       v12 = objc_alloc_init(CWFXPCEvent);
@@ -1072,9 +1066,9 @@ LABEL_76:
       date = [MEMORY[0x1E695DF00] date];
       [(CWFXPCEvent *)v12 setTimestamp:date];
 
-      v34 = @"WiFiNetworkSharingAskToShareNetworkList";
-      v35 = v8;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      v31 = @"WiFiNetworkSharingAskToShareNetworkList";
+      v32 = v8;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
       [(CWFXPCEvent *)v12 setInfo:v14];
 
       [(CWFXPCEvent *)v12 setWifiNetworkSharingClientID:dCopy];
@@ -1150,19 +1144,17 @@ LABEL_76:
   if (v23)
   {
 LABEL_26:
-    [(CWFWiFiNetworkSharingManager *)selfCopy setWaitingForInitialScanResults:1, v32, v33];
+    [(CWFWiFiNetworkSharingManager *)selfCopy setWaitingForInitialScanResults:1];
   }
 
 LABEL_28:
-  [(CWFWiFiNetworkSharingManager *)selfCopy __updateAskToShareScanning:v32];
+  [(CWFWiFiNetworkSharingManager *)selfCopy __updateAskToShareScanning];
   objc_sync_exit(selfCopy);
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didRegisterForNetworkListUpdateEventsWithClientID:(id)d predicateData:(id)data XPCConnection:(id)connection
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dataCopy = data;
   connectionCopy = connection;
@@ -1189,11 +1181,11 @@ LABEL_28:
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138543618;
-      v23 = dCopy;
-      v24 = 2114;
-      v25 = v12;
-      _os_log_send_and_compose_impl();
+      v21 = 138543618;
+      v22 = dCopy;
+      v23 = 2114;
+      v24 = v12;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 0, "[corewifi] [wifi-network-sharing] Upon registration, sending networks list update (clientID=%{public}@, update=%{public}@)", &v21, 22);
     }
 
     v16 = objc_alloc_init(CWFXPCEvent);
@@ -1201,54 +1193,52 @@ LABEL_28:
     date = [MEMORY[0x1E695DF00] date];
     [(CWFXPCEvent *)v16 setTimestamp:date];
 
-    v20 = @"WiFiNetworkSharingNetworksUpdate";
-    v21 = v12;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = @"WiFiNetworkSharingNetworksUpdate";
+    v20 = v12;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     [(CWFXPCEvent *)v16 setInfo:v18];
 
     [(CWFXPCEvent *)v16 setWifiNetworkSharingClientID:dCopy];
     [connectionCopy sendXPCEvent:v16 reply:0];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didUpdateRegisteredEventIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = [MEMORY[0x1E695DFA8] set];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v5 addObject:{v10, v13}];
+          [v5 addObject:{v10, v12}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -1258,8 +1248,6 @@ LABEL_28:
   objc_sync_enter(selfCopy);
   [(CWFWiFiNetworkSharingManager *)selfCopy setRegisteredWiFiNetworkSharingEventIDs:v5];
   objc_sync_exit(selfCopy);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didInvalidateXPCConnection:(id)connection
@@ -1282,7 +1270,7 @@ LABEL_28:
 
 - (void)__launchAppExtensionForClientID:(id)d
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = CWFGetOSLog();
   if (v5)
@@ -1298,11 +1286,12 @@ LABEL_28:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v8 = 138543362;
+    v9 = dCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 0, "[corewifi] [wifi-network-sharing] Launching appex (clientID=%{public}@)", &v8, 12);
   }
 
   [(CWFWiFiNetworkSharingManager *)self __deviceForClientID:dCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__relaunchAppexIfNeeded
@@ -1340,7 +1329,7 @@ LABEL_28:
 
 - (void)__scheduleNextAppexRelaunch
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   nextAppexRelaunchTimer = [(CWFWiFiNetworkSharingManager *)selfCopy nextAppexRelaunchTimer];
@@ -1392,25 +1381,24 @@ LABEL_28:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     askToShareFromAppexClientID = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppexClientID];
-    v18 = 138543874;
-    v19 = askToShareFromAppexClientID;
-    v20 = 1024;
-    v21 = 30;
-    v22 = 2048;
-    v23 = __nextAppexRelaunchIntervalFromNow / 0x3B9ACA00;
-    _os_log_send_and_compose_impl();
+    v17 = 138543874;
+    v18 = askToShareFromAppexClientID;
+    v19 = 1024;
+    v20 = 30;
+    v21 = 2048;
+    v22 = __nextAppexRelaunchIntervalFromNow / 0x3B9ACA00;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] [wifi-network-sharing] Scheduling next appex relaunch (clientID=%{public}@, interval=%ds, fromNow=%lus)", &v17, 28);
   }
 
   nextAppexRelaunchTimer5 = [(CWFWiFiNetworkSharingManager *)selfCopy nextAppexRelaunchTimer];
   dispatch_source_set_timer(nextAppexRelaunchTimer5, v10, 0xFFFFFFFFFFFFFFFFLL, 0);
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)extendAppexRuntimeForClientID:(id)d
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = CWFGetOSLog();
   if (v5)
@@ -1426,11 +1414,12 @@ LABEL_28:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v8 = 138543362;
+    v9 = dCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 0, "[corewifi] [wifi-network-sharing] Extending appex runtime (clientID=%{public}@)", &v8, 12);
   }
 
   [(CWFWiFiNetworkSharingManager *)self __launchAppExtensionForClientID:dCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__sendNetworkListUpdateEventForClientID:(id)d
@@ -1451,28 +1440,28 @@ LABEL_28:
 
 - (id)__clientIDsRegisteredNetworksUpdateEvents
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   registeredWiFiNetworkSharingEventIDs = [(CWFWiFiNetworkSharingManager *)self registeredWiFiNetworkSharingEventIDs];
-  v3 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
     array = 0;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(registeredWiFiNetworkSharingEventIDs);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 type] == 43)
         {
           if (!array)
@@ -1485,7 +1474,7 @@ LABEL_28:
         }
       }
 
-      v4 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -1496,23 +1485,21 @@ LABEL_28:
     array = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (id)__registeredNetworksUpdateEventIDsForClientID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     registeredWiFiNetworkSharingEventIDs = [(CWFWiFiNetworkSharingManager *)self registeredWiFiNetworkSharingEventIDs];
-    v5 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v5 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (!v5)
     {
       array = 0;
@@ -1521,17 +1508,17 @@ LABEL_28:
 
     v6 = v5;
     array = 0;
-    v8 = *v21;
+    v8 = *v20;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(registeredWiFiNetworkSharingEventIDs);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         if ([v10 type] == 43)
         {
           clientID = [v10 clientID];
@@ -1573,7 +1560,7 @@ LABEL_12:
         }
       }
 
-      v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (!v6)
       {
 LABEL_20:
@@ -1586,14 +1573,12 @@ LABEL_20:
   array = 0;
 LABEL_21:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (id)__networkListForClientID:(id)d predicateData:(id)data
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dataCopy = data;
   array = [MEMORY[0x1E695DF70] array];
@@ -1606,29 +1591,29 @@ LABEL_21:
   unsignedIntegerValue = [v11 unsignedIntegerValue];
 
   date = [MEMORY[0x1E695DF00] date];
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = __knownNetworks;
-  v57 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
-  if (v57)
+  v53 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+  if (v53)
   {
-    v12 = *v61;
-    v50 = array;
+    v12 = *v57;
+    v46 = array;
     selfCopy = self;
-    v54 = *v61;
-    v52 = v10;
+    v50 = *v57;
+    v48 = v10;
     do
     {
-      for (i = 0; i != v57; ++i)
+      for (i = 0; i != v53; ++i)
       {
-        if (*v61 != v12)
+        if (*v57 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v60 + 1) + 8 * i);
+        v14 = *(*(&v56 + 1) + 8 * i);
         v15 = objc_autoreleasePoolPush();
         wifiNetworkSharingNetworkID = [v14 wifiNetworkSharingNetworkID];
         v17 = [v10 objectForKeyedSubscript:wifiNetworkSharingNetworkID];
@@ -1673,9 +1658,9 @@ LABEL_21:
 
           if (([v14 isCaptive] & 1) != 0 || (objc_msgSend(v14, "wasCaptive") & 1) != 0 || (objc_msgSend(v14, "captiveWebsheetLoginDate"), v26 = objc_claimAutoreleasedReturnValue(), v26, v26))
           {
-            v59 = 0;
-            v27 = [(CWFWiFiNetworkSharingManager *)self __captivePortalCredentialsForKnownNetwork:v14 error:&v59];
-            v28 = v59;
+            v55 = 0;
+            v27 = [(CWFWiFiNetworkSharingManager *)self __captivePortalCredentialsForKnownNetwork:v14 error:&v55];
+            v28 = v55;
             if (v27)
             {
               [(CWFWiFiNetworkSharingNetwork *)v21 setCaptivePortalCredentials:v27];
@@ -1698,29 +1683,28 @@ LABEL_21:
 
               if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
               {
-                v65 = 138543618;
-                v66 = v21;
-                v67 = 2114;
-                v68 = v28;
-                LODWORD(v46) = 22;
-                v44 = &v65;
-                _os_log_send_and_compose_impl();
+                v61 = 138543618;
+                v62 = v21;
+                v63 = 2114;
+                v64 = v28;
+                LODWORD(v43) = 22;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v31, 2, "[corewifi] [wifi-network-sharing] Failed to find captive portal credentials for captive network %{public}@, returned error %{public}@", &v61, v43);
               }
 
               dCopy = v29;
-              array = v50;
+              array = v46;
             }
 
             self = selfCopy;
-            v12 = v54;
+            v12 = v50;
           }
 
-          v10 = v52;
+          v10 = v48;
           if ([v14 isPSK])
           {
-            v58 = 0;
-            v33 = [(CWFWiFiNetworkSharingManager *)self __passwordForKnownNetwork:v14 error:&v58];
-            v34 = v58;
+            v54 = 0;
+            v33 = [(CWFWiFiNetworkSharingManager *)self __passwordForKnownNetwork:v14 error:&v54];
+            v34 = v54;
             if (v33)
             {
               [(CWFWiFiNetworkSharingNetwork *)v21 setPassword:v33];
@@ -1742,37 +1726,36 @@ LABEL_21:
 
               if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
               {
-                v65 = 138543618;
-                v66 = v21;
-                v67 = 2114;
-                v68 = v34;
-                LODWORD(v47) = 22;
-                v45 = &v65;
-                _os_log_send_and_compose_impl();
+                v61 = 138543618;
+                v62 = v21;
+                v63 = 2114;
+                v64 = v34;
+                LODWORD(v43) = 22;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v36, 2, "[corewifi] [wifi-network-sharing] Failed to find password for password-protected network %{public}@, returned error %{public}@", &v61, v43);
               }
 
               self = selfCopy;
-              v10 = v52;
+              v10 = v48;
             }
 
-            v12 = v54;
+            v12 = v50;
           }
 
-          [array addObject:{v21, v45, v47}];
+          [array addObject:v21];
         }
 
         objc_autoreleasePoolPop(v15);
       }
 
-      v57 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
+      v53 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
     }
 
-    while (v57);
+    while (v53);
   }
 
   v38 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"networkName" ascending:0 selector:sel_caseInsensitiveCompare_];
-  v64 = v38;
-  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+  v60 = v38;
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:1];
   [array sortUsingDescriptors:v39];
 
   objc_autoreleasePoolPop(context);
@@ -1787,8 +1770,6 @@ LABEL_21:
   }
 
   v41 = v40;
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v41;
 }
@@ -1857,7 +1838,7 @@ LABEL_12:
 
 - (void)acknowledgeNetworkListUpdate:(id)update clientID:(id)d
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   dCopy = d;
   selfCopy = self;
@@ -1876,13 +1857,11 @@ LABEL_12:
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = 138543618;
-    v33 = dCopy;
-    v34 = 2114;
-    v35 = updateCopy;
-    LODWORD(v30) = 22;
-    v28 = &v32;
-    _os_log_send_and_compose_impl();
+    v28 = 138543618;
+    v29 = dCopy;
+    v30 = 2114;
+    v31 = updateCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 0, "[corewifi] [wifi-network-sharing] Received networks acknowledgement (clientID=%{public}@, counter=%{public}@)", &v28, 22);
   }
 
   store = [(CWFWiFiNetworkSharingManager *)selfCopy store];
@@ -1908,24 +1887,23 @@ LABEL_12:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       networkListUpdateCounter = [updateCopy networkListUpdateCounter];
-      v32 = 138543618;
-      v33 = dCopy;
-      v34 = 2048;
-      v35 = networkListUpdateCounter;
-      LODWORD(v30) = 22;
-      v28 = &v32;
-      _os_log_send_and_compose_impl();
+      v28 = 138543618;
+      v29 = dCopy;
+      v30 = 2048;
+      v31 = networkListUpdateCounter;
+      LODWORD(v27) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 0, "[corewifi] [wifi-network-sharing] Updated DB with networks update acknowledgement counter (clientID=%{public}@, counter=%lu)", &v28, v27);
     }
   }
 
-  v19 = [(CWFWiFiNetworkSharingManager *)selfCopy waitingForNetworkListUpdateAcknowledgement:v28];
-  v20 = [v19 objectForKeyedSubscript:dCopy];
+  waitingForNetworkListUpdateAcknowledgement = [(CWFWiFiNetworkSharingManager *)selfCopy waitingForNetworkListUpdateAcknowledgement];
+  v20 = [waitingForNetworkListUpdateAcknowledgement objectForKeyedSubscript:dCopy];
   networkListUpdateCounter2 = [v20 networkListUpdateCounter];
 
   if ([updateCopy networkListUpdateCounter] >= networkListUpdateCounter2)
   {
-    waitingForNetworkListUpdateAcknowledgement = [(CWFWiFiNetworkSharingManager *)selfCopy waitingForNetworkListUpdateAcknowledgement];
-    [waitingForNetworkListUpdateAcknowledgement setObject:0 forKeyedSubscript:dCopy];
+    waitingForNetworkListUpdateAcknowledgement2 = [(CWFWiFiNetworkSharingManager *)selfCopy waitingForNetworkListUpdateAcknowledgement];
+    [waitingForNetworkListUpdateAcknowledgement2 setObject:0 forKeyedSubscript:dCopy];
 
     v23 = CWFGetOSLog();
     if (v23)
@@ -1942,25 +1920,22 @@ LABEL_12:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       networkListUpdateCounter3 = [updateCopy networkListUpdateCounter];
-      v32 = 138543618;
-      v33 = dCopy;
-      v34 = 2050;
-      v35 = networkListUpdateCounter3;
-      LODWORD(v31) = 22;
-      v29 = &v32;
-      _os_log_send_and_compose_impl();
+      v28 = 138543618;
+      v29 = dCopy;
+      v30 = 2050;
+      v31 = networkListUpdateCounter3;
+      LODWORD(v27) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 0, "[corewifi] [wifi-network-sharing] Cleared networks update pending acknowledgement counter (clientID=%{public}@, counter=%{public}lu)", &v28, v27);
     }
   }
 
-  [(CWFWiFiNetworkSharingManager *)selfCopy __sendNetworkListUpdateEventForClientID:dCopy, v29, v31];
+  [(CWFWiFiNetworkSharingManager *)selfCopy __sendNetworkListUpdateEventForClientID:dCopy];
   objc_sync_exit(selfCopy);
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__setWantsAcknowledgementForNetworkListUpdate:(id)update clientID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   dCopy = d;
   selfCopy = self;
@@ -1982,11 +1957,14 @@ LABEL_12:
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v13 = 138543618;
+    v14 = dCopy;
+    v15 = 2114;
+    v16 = updateCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 0, "[corewifi] [wifi-network-sharing] Set networks update pending acknowledgement (clientID=%{public}@, update=%{public}@)", &v13, 22);
   }
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__completeAskToShareFromAppWithError:(id)error status:(int64_t)status
@@ -2017,13 +1995,14 @@ LABEL_12:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         askToShareFromAppClientID2 = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppClientID];
-        sub_1E0BF1E78(status);
+        v14 = sub_1E0BF1E78(status);
         v27 = 138543874;
         v28 = askToShareFromAppClientID2;
         v29 = 2114;
         v30 = errorCopy;
-        v32 = v31 = 2114;
-        _os_log_send_and_compose_impl();
+        v31 = 2114;
+        v32 = v14;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 0, "[corewifi] [wifi-network-sharing] Invoking completion handler to app ask-to-share request (clientID=%{public}@, error=%{public}@, status=%{public}@)", &v27, 32);
       }
 
       askToShareFromAppCompletion2 = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppCompletion];
@@ -2032,8 +2011,8 @@ LABEL_12:
       block[1] = 3221225472;
       block[2] = sub_1E0D1AC20;
       block[3] = &unk_1E86E9580;
-      v16 = askToShareFromAppCompletion2;
-      v25 = v16;
+      v17 = askToShareFromAppCompletion2;
+      v25 = v17;
       v24 = errorCopy;
       statusCopy = status;
       dispatch_async(targetQueue, block);
@@ -2045,8 +2024,8 @@ LABEL_12:
       v21[2] = sub_1E0D1AC78;
       v21[3] = &unk_1E86E6420;
       v21[4] = selfCopy;
-      v19 = askToShareFromAppClientID3;
-      v22 = v19;
+      v20 = askToShareFromAppClientID3;
+      v22 = v20;
       dispatch_async(internalQueue, v21);
 
       [(CWFWiFiNetworkSharingManager *)selfCopy setAskToShareFromAppCompletion:0];
@@ -2056,8 +2035,6 @@ LABEL_12:
   }
 
   objc_sync_exit(selfCopy);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updateRateLimitAskToShareFromAppRequestTimestampCacheForClientID:(id)d
@@ -2090,7 +2067,7 @@ LABEL_12:
 
 - (BOOL)__shouldRateLimitAskToShareFromAppRequestWithClientID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy && (-[CWFWiFiNetworkSharingManager askToShareRequestFromAppTimestampCache](self, "askToShareRequestFromAppTimestampCache"), v5 = objc_claimAutoreleasedReturnValue(), [v5 allKeys], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "containsObject:", dCopy), v6, v5, v7))
   {
@@ -2108,7 +2085,9 @@ LABEL_12:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v13 = 138543362;
+      v14 = dCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[corewifi] [wifi-network-sharing] Exceeded ask-to-share (from app) request rate limit (clientID=%{public}@)", &v13, 12);
     }
 
     v10 = 1;
@@ -2119,13 +2098,12 @@ LABEL_12:
     v10 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)askToShareFromAppForClientID:(id)d completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   askToShareFromAppClientID = [(CWFWiFiNetworkSharingManager *)self askToShareFromAppClientID];
@@ -2153,7 +2131,9 @@ LABEL_12:
 
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v32 = 138543362;
+        v33 = dCopy;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 0, "[corewifi] [wifi-network-sharing] Accessory is not authorized for WiFi Network Sharing (clientID=%{public}@)", &v32, 12);
       }
 
       v14 = CWFErrorDescription(@"WiFiNetworkSharingError", 8uLL);
@@ -2187,36 +2167,38 @@ LABEL_18:
             goto LABEL_19;
           }
 
-          v26 = CWFGetOSLog();
-          if (v26)
+          v25 = CWFGetOSLog();
+          if (v25)
           {
-            v27 = CWFGetOSLog();
+            v26 = CWFGetOSLog();
           }
 
           else
           {
-            v27 = MEMORY[0x1E69E9C10];
-            v32 = MEMORY[0x1E69E9C10];
+            v26 = MEMORY[0x1E69E9C10];
+            v31 = MEMORY[0x1E69E9C10];
           }
 
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            _os_log_send_and_compose_impl();
+            v32 = 138543362;
+            v33 = dCopy;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v26, 0, "[corewifi] [wifi-network-sharing] Accessory is not connected/available (clientID=%{public}@)", &v32, 12);
           }
 
-          v24 = CWFErrorDescription(@"WiFiNetworkSharingError", 2uLL);
-          v31 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 2, v24);
-          [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppexWithError:v31 status:0];
+          v23 = CWFErrorDescription(@"WiFiNetworkSharingError", 2uLL);
+          v30 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 2, v23);
+          [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppexWithError:v30 status:0];
 LABEL_39:
 
           goto LABEL_18;
         }
 
-        v24 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
-        v25 = 11;
+        v23 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
+        v24 = 11;
 LABEL_34:
-        v31 = CWFErrorWithDescription(@"WiFiNetworkSharingError", v25, v24);
-        [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppWithError:v31 status:0];
+        v30 = CWFErrorWithDescription(@"WiFiNetworkSharingError", v24, v23);
+        [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppWithError:v30 status:0];
         goto LABEL_39;
       }
     }
@@ -2235,48 +2217,50 @@ LABEL_34:
     else
     {
       v18 = MEMORY[0x1E69E9C10];
-      v30 = MEMORY[0x1E69E9C10];
+      v29 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v32 = 138543362;
+      v33 = dCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 0, "[corewifi] [wifi-network-sharing] App not in foreground (clientID=%{public}@)", &v32, 12);
     }
 
-    v24 = CWFErrorDescription(@"WiFiNetworkSharingError", 5uLL);
-    v25 = 5;
+    v23 = CWFErrorDescription(@"WiFiNetworkSharingError", 5uLL);
+    v24 = 5;
     goto LABEL_34;
   }
 
-  v22 = CWFGetOSLog();
-  if (v22)
+  v21 = CWFGetOSLog();
+  if (v21)
   {
-    v23 = CWFGetOSLog();
+    v22 = CWFGetOSLog();
   }
 
   else
   {
-    v23 = MEMORY[0x1E69E9C10];
-    v28 = MEMORY[0x1E69E9C10];
+    v22 = MEMORY[0x1E69E9C10];
+    v27 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v32 = 138543362;
+    v33 = dCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 0, "[corewifi] [wifi-network-sharing] Ask-to-share (from app) request already in progress (clientID=%{public}@)", &v32, 12);
   }
 
   if (completionCopy)
   {
     v14 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
-    v29 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v14);
-    completionCopy[2](completionCopy, v29, 0);
+    v28 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v14);
+    completionCopy[2](completionCopy, v28, 0);
 
     goto LABEL_18;
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelAskToShareFromAppRequestForClientID:(id)d
@@ -2299,14 +2283,15 @@ LABEL_19:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppClientID];
-    v23 = v22 = 138543362;
-    _os_log_send_and_compose_impl();
+    askToShareFromAppClientID = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppClientID];
+    v22 = 138543362;
+    v23 = askToShareFromAppClientID;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] [wifi-network-sharing] Canceling ask-to-share (from app) request (clientID=%{public}@)", &v22, 12);
   }
 
-  v9 = CWFErrorDescription(@"WiFiNetworkSharingError", 2uLL);
-  v10 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 2, v9);
-  [(CWFWiFiNetworkSharingManager *)selfCopy __completeAskToShareFromAppWithError:v10 status:0];
+  v10 = CWFErrorDescription(@"WiFiNetworkSharingError", 2uLL);
+  v11 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 2, v10);
+  [(CWFWiFiNetworkSharingManager *)selfCopy __completeAskToShareFromAppWithError:v11 status:0];
 
   if (dCopy)
   {
@@ -2314,29 +2299,27 @@ LABEL_19:
     if (askToShareFromAppexClientID)
     {
       askToShareFromAppexClientID2 = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppexClientID];
-      v13 = [dCopy isEqual:askToShareFromAppexClientID2];
+      v14 = [dCopy isEqual:askToShareFromAppexClientID2];
 
-      if (v13)
+      if (v14)
       {
         askToShareFromAppexClientID3 = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppexClientID];
         targetQueue = [(CWFWiFiNetworkSharingManager *)selfCopy targetQueue];
-        v16 = qos_class_self();
+        v17 = qos_class_self();
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = sub_1E0D1B6D0;
         block[3] = &unk_1E86E6420;
         block[4] = selfCopy;
         v21 = askToShareFromAppexClientID3;
-        v17 = askToShareFromAppexClientID3;
-        v18 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v16, 0, block);
-        dispatch_async(targetQueue, v18);
+        v18 = askToShareFromAppexClientID3;
+        v19 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v17, 0, block);
+        dispatch_async(targetQueue, v19);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__completeAskToShareFromAppexWithError:(id)error status:(int64_t)status
@@ -2367,13 +2350,14 @@ LABEL_19:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         askToShareFromAppexClientID2 = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppexClientID];
-        sub_1E0BF1E78(status);
+        v14 = sub_1E0BF1E78(status);
         v23 = 138543874;
         v24 = askToShareFromAppexClientID2;
         v25 = 2114;
         v26 = errorCopy;
-        v28 = v27 = 2114;
-        _os_log_send_and_compose_impl();
+        v27 = 2114;
+        v28 = v14;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 0, "[corewifi] [wifi-network-sharing] Invoking completion handler to appex ask-to-share request (clientID=%{public}@, error=%{public}@, status=%{public}@)", &v23, 32);
       }
 
       askToShareFromAppexCompletion2 = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppexCompletion];
@@ -2382,8 +2366,8 @@ LABEL_19:
       block[1] = 3221225472;
       block[2] = sub_1E0D1B9AC;
       block[3] = &unk_1E86E9580;
-      v16 = askToShareFromAppexCompletion2;
-      v21 = v16;
+      v17 = askToShareFromAppexCompletion2;
+      v21 = v17;
       v20 = errorCopy;
       statusCopy = status;
       dispatch_async(targetQueue, block);
@@ -2398,8 +2382,6 @@ LABEL_19:
   }
 
   objc_sync_exit(selfCopy);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)__descriptorForRateLimitAskToShareFromAppexRequestWithClientID:(id)d networkID:(id)iD
@@ -2454,7 +2436,7 @@ LABEL_19:
 
 - (BOOL)__shouldRateLimitAskToShareFromAppexRequestWithClientID:(id)d networkID:(id)iD
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   v8 = iDCopy;
@@ -2480,11 +2462,9 @@ LABEL_19:
 
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 134217984;
-          v28 = 60;
-          LODWORD(v26) = 12;
-          v25 = &v27;
-          _os_log_send_and_compose_impl();
+          v24 = 134217984;
+          v25 = 60;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] [wifi-network-sharing] Applying 'testable' ask-to-share (from appex) request rate limit (%lu)", &v24);
         }
 
         v13 = 60;
@@ -2495,8 +2475,8 @@ LABEL_19:
         v13 = 3600;
       }
 
-      v15 = [(CWFWiFiNetworkSharingManager *)self askToShareRequestFromAppexTimestampCache:v25];
-      v16 = [v15 objectForKeyedSubscript:v10];
+      askToShareRequestFromAppexTimestampCache = [(CWFWiFiNetworkSharingManager *)self askToShareRequestFromAppexTimestampCache];
+      v16 = [askToShareRequestFromAppexTimestampCache objectForKeyedSubscript:v10];
 
       if ([v16 count] == 1 && (v17 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW), objc_msgSend(v16, "firstObject"), v18 = objc_claimAutoreleasedReturnValue(), v19 = v17 - objc_msgSend(v18, "unsignedLongLongValue"), v18, v13 > v19 / 0x3B9ACA00))
       {
@@ -2514,11 +2494,11 @@ LABEL_19:
 
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 138543618;
-          v28 = dCopy;
-          v29 = 2114;
-          v30 = v8;
-          _os_log_send_and_compose_impl();
+          v24 = 138543618;
+          v25 = dCopy;
+          v26 = 2114;
+          v27 = v8;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 0, "[corewifi] [wifi-network-sharing] Exceeded ask-to-share (from appex) request rate limit (clientID=%{public}@, networkID=%{public}@)", &v24, 22);
         }
 
         v9 = 1;
@@ -2536,8 +2516,73 @@ LABEL_19:
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v9;
+}
+
+- (BOOL)__canAskToShareCurrentNetworkForClientID:(id)d onDemand:(BOOL)demand
+{
+  demandCopy = demand;
+  v23 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  if (!dCopy)
+  {
+    v16 = 0;
+    matchingKnownNetworkProfile = 0;
+LABEL_14:
+    v13 = 0;
+    goto LABEL_11;
+  }
+
+  associatedNetwork = [(CWFWiFiNetworkSharingManager *)self associatedNetwork];
+  matchingKnownNetworkProfile = [associatedNetwork matchingKnownNetworkProfile];
+
+  if (!matchingKnownNetworkProfile)
+  {
+    v16 = 0;
+    goto LABEL_14;
+  }
+
+  v9 = [(CWFWiFiNetworkSharingManager *)self authorizationLevelForClientID:dCopy];
+  unsignedIntegerValue = [v9 unsignedIntegerValue];
+
+  store = [(CWFWiFiNetworkSharingManager *)self store];
+  wifiNetworkSharingNetworkID = [matchingKnownNetworkProfile wifiNetworkSharingNetworkID];
+  v13 = [store networkMetadataForClientID:dCopy networkID:wifiNetworkSharingNetworkID];
+
+  if ([(CWFWiFiNetworkSharingManager *)self __canAskToShareKnownNetwork:matchingKnownNetworkProfile metadata:v13 authorizationStatus:unsignedIntegerValue onDemand:demandCopy])
+  {
+    v14 = CWFGetOSLog();
+    if (v14)
+    {
+      v15 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v15 = MEMORY[0x1E69E9C10];
+      v17 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = 138543618;
+      v20 = dCopy;
+      v21 = 2114;
+      v22 = matchingKnownNetworkProfile;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 0, "[corewifi] [wifi-network-sharing] Current network is ask-to-share eligible for clientID (clientID=%{public}@, knownNetwork=%{public}@)", &v19, 22);
+    }
+
+    v16 = 1;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+LABEL_11:
+
+  return v16;
 }
 
 - (BOOL)__canAskToShareKnownNetwork:(id)network metadata:(id)metadata authorizationStatus:(unint64_t)status onDemand:(BOOL)demand
@@ -2653,29 +2698,29 @@ LABEL_9:
 
 - (BOOL)__isAskToShareNetworkListChangedEventRegisteredForClientID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     registeredWiFiNetworkSharingEventIDs = [(CWFWiFiNetworkSharingManager *)self registeredWiFiNetworkSharingEventIDs];
-    v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
-      v7 = *v19;
+      v7 = *v18;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(registeredWiFiNetworkSharingEventIDs);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           if ([v9 type] == 44)
           {
             clientID = [v9 clientID];
@@ -2707,7 +2752,7 @@ LABEL_17:
           }
         }
 
-        v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [registeredWiFiNetworkSharingEventIDs countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v6)
         {
           continue;
@@ -2725,13 +2770,155 @@ LABEL_18:
     LOBYTE(v6) = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
+}
+
+- (id)__askToShareNetworkForNetworkProfile:(id)profile scanResult:(id)result metadata:(id)metadata isConnected:(BOOL)connected
+{
+  connectedCopy = connected;
+  v42 = *MEMORY[0x1E69E9840];
+  profileCopy = profile;
+  metadataCopy = metadata;
+  resultCopy = result;
+  v13 = objc_alloc_init(CWFWiFiNetworkSharingNetwork);
+  sSID = [profileCopy SSID];
+  [(CWFWiFiNetworkSharingNetwork *)v13 setSSID:sSID];
+
+  -[CWFWiFiNetworkSharingNetwork setSupportedSecurityTypes:](v13, "setSupportedSecurityTypes:", [profileCopy effectiveSupportedSecurityTypes]);
+  -[CWFWiFiNetworkSharingNetwork setIsHidden:](v13, "setIsHidden:", [profileCopy hiddenState] == 1);
+  if (([profileCopy isCaptive] & 1) != 0 || objc_msgSend(profileCopy, "wasCaptive"))
+  {
+    [(CWFWiFiNetworkSharingNetwork *)v13 setIsCaptive:1];
+  }
+
+  else
+  {
+    captiveWebsheetLoginDate = [profileCopy captiveWebsheetLoginDate];
+    [(CWFWiFiNetworkSharingNetwork *)v13 setIsCaptive:captiveWebsheetLoginDate != 0];
+  }
+
+  firstSharedDate = [metadataCopy firstSharedDate];
+  [(CWFWiFiNetworkSharingNetwork *)v13 setFirstSharedDate:firstSharedDate];
+
+  lastModifiedDate = [metadataCopy lastModifiedDate];
+
+  [(CWFWiFiNetworkSharingNetwork *)v13 setLastModifiedDate:lastModifiedDate];
+  if (([profileCopy isCaptive] & 1) != 0 || (objc_msgSend(profileCopy, "wasCaptive") & 1) != 0 || (objc_msgSend(profileCopy, "captiveWebsheetLoginDate"), v18 = objc_claimAutoreleasedReturnValue(), v18, v18))
+  {
+    v37 = 0;
+    v19 = [(CWFWiFiNetworkSharingManager *)self __captivePortalCredentialsForKnownNetwork:profileCopy error:&v37];
+    v20 = v37;
+    if (v19)
+    {
+      [(CWFWiFiNetworkSharingNetwork *)v13 setCaptivePortalCredentials:v19];
+    }
+
+    else
+    {
+      v21 = CWFGetOSLog();
+      if (v21)
+      {
+        v22 = CWFGetOSLog();
+      }
+
+      else
+      {
+        v22 = MEMORY[0x1E69E9C10];
+        v23 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      {
+        v38 = 138543618;
+        v39 = v13;
+        v40 = 2114;
+        v41 = v20;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 2, "[corewifi] [wifi-network-sharing] Failed to find captive portal credentials for captive network %{public}@, returned error %{public}@", &v38, 22);
+      }
+    }
+  }
+
+  if ([profileCopy isPSK])
+  {
+    v36 = 0;
+    v24 = [(CWFWiFiNetworkSharingManager *)self __passwordForKnownNetwork:profileCopy error:&v36];
+    v25 = v36;
+    if (v24)
+    {
+      [(CWFWiFiNetworkSharingNetwork *)v13 setPassword:v24];
+    }
+
+    else
+    {
+      v26 = CWFGetOSLog();
+      if (v26)
+      {
+        v27 = CWFGetOSLog();
+      }
+
+      else
+      {
+        v27 = MEMORY[0x1E69E9C10];
+        v28 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      {
+        v38 = 138543618;
+        v39 = v13;
+        v40 = 2114;
+        v41 = v25;
+        LODWORD(v35) = 22;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v27, 2, "[corewifi] [wifi-network-sharing] Failed to find password for password-protected network %{public}@, returned error %{public}@", &v38, v35);
+      }
+    }
+  }
+
+  v29 = objc_alloc_init(CWFWiFiNetworkSharingAskToShareScanResult);
+  sSID2 = [resultCopy SSID];
+  [(CWFWiFiNetworkSharingAskToShareScanResult *)v29 setSSID:sSID2];
+
+  [resultCopy signalStrength];
+  v32 = v31;
+
+  [(CWFWiFiNetworkSharingAskToShareScanResult *)v29 setSignalStrength:v32];
+  [(CWFWiFiNetworkSharingAskToShareScanResult *)v29 setIsConnected:connectedCopy];
+  v33 = objc_alloc_init(CWFWiFiNetworkSharingAskToShareNetwork);
+  [(CWFWiFiNetworkSharingAskToShareNetwork *)v33 setNetwork:v13];
+  [(CWFWiFiNetworkSharingAskToShareNetwork *)v33 setScanResult:v29];
+
+  return v33;
+}
+
+- (id)__askToShareNetworkForCurrentNetworkWithClientID:(id)d onDemand:(BOOL)demand
+{
+  demandCopy = demand;
+  dCopy = d;
+  if ([(CWFWiFiNetworkSharingManager *)self __canAskToShareCurrentNetworkForClientID:dCopy onDemand:demandCopy])
+  {
+    store = [(CWFWiFiNetworkSharingManager *)self store];
+    v8 = [store networkMetadataForClientID:dCopy];
+
+    associatedNetwork = [(CWFWiFiNetworkSharingManager *)self associatedNetwork];
+    matchingKnownNetworkProfile = [associatedNetwork matchingKnownNetworkProfile];
+    wifiNetworkSharingNetworkID = [matchingKnownNetworkProfile wifiNetworkSharingNetworkID];
+    v12 = [v8 objectForKeyedSubscript:wifiNetworkSharingNetworkID];
+
+    matchingKnownNetworkProfile2 = [associatedNetwork matchingKnownNetworkProfile];
+    v14 = [(CWFWiFiNetworkSharingManager *)self __askToShareNetworkForNetworkProfile:matchingKnownNetworkProfile2 scanResult:associatedNetwork metadata:v12 isConnected:1];
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  return v14;
 }
 
 - (id)__askToShareNetworkListForClientID:(id)d localScanResults:(id)results accessoryScanResults:(id)scanResults onDemand:(BOOL)demand
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   dCopy = d;
   resultsCopy = results;
   scanResultsCopy = scanResults;
@@ -2741,21 +2928,21 @@ LABEL_18:
   store = [(CWFWiFiNetworkSharingManager *)self store];
   v13 = [store networkMetadataForClientID:dCopy];
 
-  v47 = dCopy;
+  v46 = dCopy;
   v14 = [(CWFWiFiNetworkSharingManager *)self authorizationLevelForClientID:dCopy];
   unsignedIntegerValue = [v14 unsignedIntegerValue];
 
-  v66[0] = MEMORY[0x1E69E9820];
-  v66[1] = 3221225472;
-  v66[2] = sub_1E0D1CF20;
-  v66[3] = &unk_1E86E95A8;
-  v51 = v13;
-  v67 = v51;
+  v65[0] = MEMORY[0x1E69E9820];
+  v65[1] = 3221225472;
+  v65[2] = sub_1E0D1CF20;
+  v65[3] = &unk_1E86E95A8;
+  v50 = v13;
+  v66 = v50;
   selfCopy = self;
-  v69 = unsignedIntegerValue;
+  v68 = unsignedIntegerValue;
   demandCopy = demand;
-  v45 = __knownNetworks;
-  v55 = [__knownNetworks objectsPassingTest:v66];
+  v44 = __knownNetworks;
+  v54 = [__knownNetworks objectsPassingTest:v65];
   array2 = [MEMORY[0x1E695DF70] array];
   associatedNetwork = [(CWFWiFiNetworkSharingManager *)self associatedNetwork];
   if (associatedNetwork)
@@ -2768,35 +2955,35 @@ LABEL_18:
     [array2 addObjectsFromArray:?];
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   obj = array2;
-  v56 = [obj countByEnumeratingWithState:&v62 objects:v72 count:16];
-  if (v56)
+  v55 = [obj countByEnumeratingWithState:&v61 objects:v71 count:16];
+  if (v55)
   {
-    v54 = *v63;
-    v50 = associatedNetwork;
+    v53 = *v62;
+    v49 = associatedNetwork;
     do
     {
-      for (i = 0; i != v56; ++i)
+      for (i = 0; i != v55; ++i)
       {
-        if (*v63 != v54)
+        if (*v62 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v62 + 1) + 8 * i);
+        v19 = *(*(&v61 + 1) + 8 * i);
         v20 = objc_autoreleasePoolPush();
-        allObjects = [v55 allObjects];
+        allObjects = [v54 allObjects];
         v22 = sub_1E0BED85C(v19, allObjects);
 
         if (v22)
         {
-          v57 = v20;
+          v56 = v20;
           wifiNetworkSharingNetworkID = [v22 wifiNetworkSharingNetworkID];
-          v24 = [v51 objectForKeyedSubscript:wifiNetworkSharingNetworkID];
+          v24 = [v50 objectForKeyedSubscript:wifiNetworkSharingNetworkID];
 
           sSID = [associatedNetwork SSID];
           if (sSID)
@@ -2821,26 +3008,26 @@ LABEL_18:
           }
 
           v30 = [(CWFWiFiNetworkSharingManager *)self __askToShareNetworkForNetworkProfile:v22 scanResult:v19 metadata:v24 isConnected:v29];
+          v57 = 0u;
           v58 = 0u;
           v59 = 0u;
           v60 = 0u;
-          v61 = 0u;
           v31 = scanResultsCopy;
-          v32 = [v31 countByEnumeratingWithState:&v58 objects:v71 count:16];
+          v32 = [v31 countByEnumeratingWithState:&v57 objects:v70 count:16];
           if (v32)
           {
             v33 = v32;
-            v34 = *v59;
+            v34 = *v58;
             while (2)
             {
               for (j = 0; j != v33; ++j)
               {
-                if (*v59 != v34)
+                if (*v58 != v34)
                 {
                   objc_enumerationMutation(v31);
                 }
 
-                v36 = *(*(&v58 + 1) + 8 * j);
+                v36 = *(*(&v57 + 1) + 8 * j);
                 if ([(CWFWiFiNetworkSharingManager *)self __doesAskToShareNetwork:v30 matchAccessoryScanResult:v36])
                 {
                   [v36 signalStrength];
@@ -2859,7 +3046,7 @@ LABEL_18:
                 }
               }
 
-              v33 = [v31 countByEnumeratingWithState:&v58 objects:v71 count:16];
+              v33 = [v31 countByEnumeratingWithState:&v57 objects:v70 count:16];
               if (v33)
               {
                 continue;
@@ -2872,28 +3059,27 @@ LABEL_18:
 LABEL_27:
 
           [array addObject:v30];
-          associatedNetwork = v50;
-          v20 = v57;
+          associatedNetwork = v49;
+          v20 = v56;
         }
 
         objc_autoreleasePoolPop(v20);
       }
 
-      v56 = [obj countByEnumeratingWithState:&v62 objects:v72 count:16];
+      v55 = [obj countByEnumeratingWithState:&v61 objects:v71 count:16];
     }
 
-    while (v56);
+    while (v55);
   }
 
   objc_autoreleasePoolPop(context);
-  v43 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (void)__startAskToShareScanning
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   accessoryScanTimer = [(CWFWiFiNetworkSharingManager *)selfCopy accessoryScanTimer];
@@ -2939,9 +3125,9 @@ LABEL_27:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         askToShareFromAppexClientID = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppexClientID];
-        v22 = 138543362;
-        v23 = askToShareFromAppexClientID;
-        _os_log_send_and_compose_impl();
+        v21 = 138543362;
+        v22 = askToShareFromAppexClientID;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 0, "[corewifi] [wifi-network-sharing] Performing next ask-to-share scan immediately (clientID=%{public}@)", &v21, 12);
       }
 
       accessoryScanTimer5 = [(CWFWiFiNetworkSharingManager *)selfCopy accessoryScanTimer];
@@ -2966,11 +3152,11 @@ LABEL_27:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         askToShareFromAppexClientID2 = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppexClientID];
-        v22 = 138543618;
-        v23 = askToShareFromAppexClientID2;
-        v24 = 1024;
-        v25 = 10;
-        _os_log_send_and_compose_impl();
+        v21 = 138543618;
+        v22 = askToShareFromAppexClientID2;
+        v23 = 1024;
+        v24 = 10;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] [wifi-network-sharing] Scheduling next ask-to-share scan (clientID=%{public}@, fromNow=%ds)", &v21, 18);
       }
 
       accessoryScanTimer6 = [(CWFWiFiNetworkSharingManager *)selfCopy accessoryScanTimer];
@@ -2982,13 +3168,11 @@ LABEL_27:
   }
 
   objc_sync_exit(selfCopy);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__stopAskToShareScanning
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if ([(CWFWiFiNetworkSharingManager *)selfCopy isNextAskToShareScanScheduled])
@@ -3008,7 +3192,9 @@ LABEL_27:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       askToShareFromAppexClientID = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppexClientID];
-      _os_log_send_and_compose_impl();
+      v9 = 138543362;
+      v10 = askToShareFromAppexClientID;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [wifi-network-sharing] Unscheduling next ask-to-share scan (clientID=%{public}@)", &v9, 12);
     }
 
     [(CWFWiFiNetworkSharingManager *)selfCopy setIsNextAskToShareScanScheduled:0];
@@ -3023,8 +3209,6 @@ LABEL_27:
   }
 
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updateAskToShareScanning
@@ -3046,7 +3230,7 @@ LABEL_27:
 
 - (void)__startWaitingForAppex
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = CWFGetOSLog();
@@ -3064,11 +3248,9 @@ LABEL_27:
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     askToShareFromAppClientID = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppClientID];
-    v20 = 138543362;
-    v21 = askToShareFromAppClientID;
-    LODWORD(v18) = 12;
-    v17 = &v20;
-    _os_log_send_and_compose_impl();
+    v17 = 138543362;
+    v18 = askToShareFromAppClientID;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [wifi-network-sharing] Waiting for appex (clientID=%{public}@)", &v17, 12);
   }
 
   [(CWFWiFiNetworkSharingManager *)selfCopy setWaitingForAppex:1];
@@ -3096,12 +3278,11 @@ LABEL_27:
     dispatch_resume(waitForAppexTimer4);
   }
 
-  v14 = [(CWFWiFiNetworkSharingManager *)selfCopy waitForAppexTimer:v17];
+  waitForAppexTimer5 = [(CWFWiFiNetworkSharingManager *)selfCopy waitForAppexTimer];
   v15 = dispatch_time(0, 10000000000);
-  dispatch_source_set_timer(v14, v15, 0xFFFFFFFFFFFFFFFFLL, 0);
+  dispatch_source_set_timer(waitForAppexTimer5, v15, 0xFFFFFFFFFFFFFFFFLL, 0);
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__stopWaitingForAppex
@@ -3215,7 +3396,7 @@ LABEL_14:
 
 - (void)askToShareFromAppexForClientID:(id)d completion:(id)completion
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   if ([(CWFWiFiNetworkSharingManager *)self __addCurrentNetworkToNetworkListForClientID:dCopy forceRegistration:1])
@@ -3246,28 +3427,30 @@ LABEL_14:
 
   if (askToShareFromAppexClientID)
   {
-    v51 = CWFGetOSLog();
-    if (v51)
+    v50 = CWFGetOSLog();
+    if (v50)
     {
-      v52 = CWFGetOSLog();
+      v51 = CWFGetOSLog();
     }
 
     else
     {
-      v52 = MEMORY[0x1E69E9C10];
-      v55 = MEMORY[0x1E69E9C10];
+      v51 = MEMORY[0x1E69E9C10];
+      v54 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v66 = 138543362;
+      v67 = dCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v51, 0, "[corewifi] [wifi-network-sharing] Ask-to-share (from appex) request already in progress (clientID=%{public}@)", &v66, 12);
     }
 
     if (completionCopy)
     {
-      v56 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
-      v57 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v56);
-      completionCopy[2](completionCopy, v57, 0);
+      v55 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
+      v56 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v55);
+      completionCopy[2](completionCopy, v56, 0);
     }
 
     if (!v12)
@@ -3275,9 +3458,9 @@ LABEL_14:
       goto LABEL_59;
     }
 
-    v58 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
-    v59 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v58);
-    [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppWithError:v59 status:0];
+    v57 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
+    v58 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v57);
+    [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppWithError:v58 status:0];
 LABEL_58:
 
 LABEL_59:
@@ -3289,26 +3472,15 @@ LABEL_59:
   [(CWFWiFiNetworkSharingManager *)self setAskToShareFromAppexCompletion:completionCopy];
   if ([(CWFWiFiNetworkSharingManager *)self __canAskToShareCurrentNetworkForClientID:dCopy onDemand:0])
   {
-    if (v12)
+    if ((v12 & 1) != 0 || (-[CWFWiFiNetworkSharingManager associatedNetwork](self, "associatedNetwork"), v15 = objc_claimAutoreleasedReturnValue(), [v15 matchingKnownNetworkProfile], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "wifiNetworkSharingNetworkID"), v17 = objc_claimAutoreleasedReturnValue(), v18 = -[CWFWiFiNetworkSharingManager __shouldRateLimitAskToShareFromAppexRequestWithClientID:networkID:](self, "__shouldRateLimitAskToShareFromAppexRequestWithClientID:networkID:", dCopy, v17), v17, v16, v15, !v18))
     {
-      goto LABEL_13;
-    }
-
-    associatedNetwork = [(CWFWiFiNetworkSharingManager *)self associatedNetwork];
-    matchingKnownNetworkProfile = [associatedNetwork matchingKnownNetworkProfile];
-    wifiNetworkSharingNetworkID = [matchingKnownNetworkProfile wifiNetworkSharingNetworkID];
-    v18 = [(CWFWiFiNetworkSharingManager *)self __shouldRateLimitAskToShareFromAppexRequestWithClientID:dCopy networkID:wifiNetworkSharingNetworkID];
-
-    if (!v18)
-    {
-LABEL_13:
       v19 = 0;
       goto LABEL_17;
     }
 
-    v58 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
-    v59 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v58);
-    [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppexWithError:v59 status:0];
+    v57 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
+    v58 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v57);
+    [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppexWithError:v58 status:0];
     goto LABEL_58;
   }
 
@@ -3334,17 +3506,19 @@ LABEL_27:
     else
     {
       v36 = MEMORY[0x1E69E9C10];
-      v60 = MEMORY[0x1E69E9C10];
+      v59 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v66 = 138543362;
+      v67 = dCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v36, 0, "[corewifi] [wifi-network-sharing] App not in foreground (clientID=%{public}@)", &v66, 12);
     }
 
-    v61 = CWFErrorDescription(@"WiFiNetworkSharingError", 5uLL);
-    v62 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 5, v61);
-    [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppexWithError:v62 status:0];
+    v60 = CWFErrorDescription(@"WiFiNetworkSharingError", 5uLL);
+    v61 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 5, v60);
+    [(CWFWiFiNetworkSharingManager *)self __completeAskToShareFromAppexWithError:v61 status:0];
 
     if (!v12)
     {
@@ -3391,7 +3565,9 @@ LABEL_17:
 
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v66 = 138543362;
+      v67 = dCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v32, 0, "[corewifi] [wifi-network-sharing] Accessory is not authorized for WiFi Network Sharing (clientID=%{public}@)", &v66, 12);
     }
 
     v43 = CWFErrorDescription(@"WiFiNetworkSharingError", 8uLL);
@@ -3410,10 +3586,10 @@ LABEL_17:
 
   if ((v12 & 1) == 0)
   {
-    associatedNetwork2 = [(CWFWiFiNetworkSharingManager *)self associatedNetwork];
-    matchingKnownNetworkProfile2 = [associatedNetwork2 matchingKnownNetworkProfile];
-    wifiNetworkSharingNetworkID2 = [matchingKnownNetworkProfile2 wifiNetworkSharingNetworkID];
-    [(CWFWiFiNetworkSharingManager *)self __updateRateLimitAskToShareFromAppexRequestTimestampCacheForClientID:dCopy networkID:wifiNetworkSharingNetworkID2];
+    associatedNetwork = [(CWFWiFiNetworkSharingManager *)self associatedNetwork];
+    matchingKnownNetworkProfile = [associatedNetwork matchingKnownNetworkProfile];
+    wifiNetworkSharingNetworkID = [matchingKnownNetworkProfile wifiNetworkSharingNetworkID];
+    [(CWFWiFiNetworkSharingManager *)self __updateRateLimitAskToShareFromAppexRequestTimestampCacheForClientID:dCopy networkID:wifiNetworkSharingNetworkID];
   }
 
   askToShareNetworksCache = [(CWFWiFiNetworkSharingManager *)self askToShareNetworksCache];
@@ -3431,22 +3607,24 @@ LABEL_17:
       goto LABEL_30;
     }
 
-    v53 = CWFGetOSLog();
-    if (v53)
+    v52 = CWFGetOSLog();
+    if (v52)
     {
-      v54 = CWFGetOSLog();
+      v53 = CWFGetOSLog();
     }
 
     else
     {
-      v54 = MEMORY[0x1E69E9C10];
-      v63 = MEMORY[0x1E69E9C10];
+      v53 = MEMORY[0x1E69E9C10];
+      v62 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       askToShareFromAppexClientID3 = [(CWFWiFiNetworkSharingManager *)self askToShareFromAppexClientID];
-      _os_log_send_and_compose_impl();
+      v66 = 138543362;
+      v67 = askToShareFromAppexClientID3;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v53, 0, "[corewifi] [wifi-network-sharing] Accessory name is 'nil' (clientID=%{public}@)", &v66, 12);
     }
 
     v64 = CWFErrorDescription(@"WiFiNetworkSharingError", 7uLL);
@@ -3504,12 +3682,11 @@ LABEL_30:
   }
 
 LABEL_45:
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelAskToShareFromAppexRequestForClientID:(id)d
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -3528,12 +3705,14 @@ LABEL_45:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     askToShareFromAppexClientID = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppexClientID];
-    _os_log_send_and_compose_impl();
+    v16 = 138543362;
+    v17 = askToShareFromAppexClientID;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] [wifi-network-sharing] Canceling ask-to-share (from appex) request (clientID=%{public}@)", &v16, 12);
   }
 
-  v9 = CWFErrorDescription(@"WiFiNetworkSharingError", 2uLL);
-  v10 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 2, v9);
-  [(CWFWiFiNetworkSharingManager *)selfCopy __completeAskToShareFromAppexWithError:v10 status:0];
+  v10 = CWFErrorDescription(@"WiFiNetworkSharingError", 2uLL);
+  v11 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 2, v10);
+  [(CWFWiFiNetworkSharingManager *)selfCopy __completeAskToShareFromAppexWithError:v11 status:0];
 
   if (dCopy)
   {
@@ -3541,9 +3720,9 @@ LABEL_45:
     if (askToShareFromAppClientID)
     {
       askToShareFromAppClientID2 = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppClientID];
-      v13 = [dCopy isEqual:askToShareFromAppClientID2];
+      v14 = [dCopy isEqual:askToShareFromAppClientID2];
 
-      if (v13)
+      if (v14)
       {
         askToShareFromAppClientID3 = [(CWFWiFiNetworkSharingManager *)selfCopy askToShareFromAppClientID];
         [(CWFWiFiNetworkSharingManager *)selfCopy cancelAskToShareFromAppRequestForClientID:askToShareFromAppClientID3];
@@ -3552,42 +3731,40 @@ LABEL_45:
   }
 
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)__deviceForClientID:(id)d
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   deviceAccessSession = [(CWFWiFiNetworkSharingManager *)self deviceAccessSession];
   availableDevices = [deviceAccessSession availableDevices];
 
-  v7 = [availableDevices countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v7 = [availableDevices countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (!v7)
   {
     goto LABEL_19;
   }
 
   v8 = v7;
-  v9 = *v32;
-  v28 = dCopy;
+  v9 = *v31;
+  v27 = dCopy;
   do
   {
     v10 = 0;
-    v29 = v8;
+    v28 = v8;
     do
     {
-      if (*v32 != v9)
+      if (*v31 != v9)
       {
         objc_enumerationMutation(availableDevices);
       }
 
-      v11 = *(*(&v31 + 1) + 8 * v10);
+      v11 = *(*(&v30 + 1) + 8 * v10);
       accessoryID = [dCopy accessoryID];
       identifier = [v11 identifier];
       v14 = identifier;
@@ -3622,7 +3799,7 @@ LABEL_16:
       if (!identifier2)
       {
 
-        v8 = v29;
+        v8 = v28;
 LABEL_15:
 
         goto LABEL_16;
@@ -3633,14 +3810,14 @@ LABEL_15:
       v20 = v19 = availableDevices;
       [v11 identifier];
       v22 = v21 = v9;
-      v30 = [v20 isEqual:v22];
+      v29 = [v20 isEqual:v22];
 
       v9 = v21;
       availableDevices = v19;
-      dCopy = v28;
+      dCopy = v27;
 
-      v8 = v29;
-      if (v30)
+      v8 = v28;
+      if (v29)
       {
         goto LABEL_12;
       }
@@ -3650,7 +3827,7 @@ LABEL_17:
     }
 
     while (v8 != v10);
-    v8 = [availableDevices countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v8 = [availableDevices countByEnumeratingWithState:&v30 objects:v34 count:16];
   }
 
   while (v8);
@@ -3658,14 +3835,12 @@ LABEL_19:
   v25 = 0;
 LABEL_20:
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (id)__forceForegroundAppState
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_variant_has_internal_content())
   {
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -3687,7 +3862,9 @@ LABEL_20:
 
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v8 = 138543362;
+        v9 = v3;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 0, "[corewifi] [wifi-network-sharing] Forcing foreground app state (%{public}@)", &v8, 12);
       }
     }
   }
@@ -3697,14 +3874,12 @@ LABEL_20:
     v3 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (id)__forceAuthorizationLevel
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_variant_has_internal_content())
   {
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -3726,7 +3901,9 @@ LABEL_20:
 
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v8 = 138543362;
+        v9 = v3;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 0, "[corewifi] [wifi-network-sharing] Forcing authorization level (%{public}@)", &v8, 12);
       }
     }
   }
@@ -3735,8 +3912,6 @@ LABEL_20:
   {
     v3 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -3776,7 +3951,7 @@ LABEL_20:
 
 - (id)__forceAccessoryDisplayName
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_variant_has_internal_content())
   {
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -3798,7 +3973,9 @@ LABEL_20:
 
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v8 = 138543362;
+        v9 = v3;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 0, "[corewifi] [wifi-network-sharing] Forcing accessory display name (%{public}@)", &v8, 12);
       }
     }
   }
@@ -3807,8 +3984,6 @@ LABEL_20:
   {
     v3 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -3827,7 +4002,7 @@ LABEL_20:
 
 - (void)cancelAuthorizationRequestForClientID:(id)d
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -3846,15 +4021,16 @@ LABEL_20:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     authorizationClientID = [(CWFWiFiNetworkSharingManager *)selfCopy authorizationClientID];
-    _os_log_send_and_compose_impl();
+    v12 = 138543362;
+    v13 = authorizationClientID;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] [wifi-network-sharing] Canceling authorization request (clientID=%{public}@)", &v12, 12);
   }
 
-  v9 = CWFErrorDescription(@"WiFiNetworkSharingError", 2uLL);
-  v10 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 2, v9);
-  [(CWFWiFiNetworkSharingManager *)selfCopy __completeAuthorizationRequestWithError:v10 authLevel:0];
+  v10 = CWFErrorDescription(@"WiFiNetworkSharingError", 2uLL);
+  v11 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 2, v10);
+  [(CWFWiFiNetworkSharingManager *)selfCopy __completeAuthorizationRequestWithError:v11 authLevel:0];
 
   objc_sync_exit(selfCopy);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__presentAuthorizationProxCardForAccessoryName:(id)name
@@ -3873,7 +4049,7 @@ LABEL_20:
 
 - (void)requestAuthorizationForClientID:(id)d completion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   authorizationClientID = [(CWFWiFiNetworkSharingManager *)self authorizationClientID];
@@ -3904,8 +4080,8 @@ LABEL_20:
 LABEL_6:
           if ([(CWFWiFiNetworkSharingManager *)self __shouldRateLimitAuthorizationRequestWithClientID:dCopy])
           {
-            v25 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
-            v26 = 11;
+            v24 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
+            v25 = 11;
           }
 
           else
@@ -3931,30 +4107,32 @@ LABEL_15:
               goto LABEL_13;
             }
 
-            v27 = CWFGetOSLog();
-            if (v27)
+            v26 = CWFGetOSLog();
+            if (v26)
             {
-              v28 = CWFGetOSLog();
+              v27 = CWFGetOSLog();
             }
 
             else
             {
-              v28 = MEMORY[0x1E69E9C10];
-              v35 = MEMORY[0x1E69E9C10];
+              v27 = MEMORY[0x1E69E9C10];
+              v34 = MEMORY[0x1E69E9C10];
             }
 
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              _os_log_send_and_compose_impl();
+              v36 = 138543362;
+              v37 = dCopy;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v27, 0, "[corewifi] [wifi-network-sharing] Accessory name is 'nil' (clientID=%{public}@)", &v36, 12);
             }
 
-            v25 = CWFErrorDescription(@"WiFiNetworkSharingError", 7uLL);
-            v26 = 7;
+            v24 = CWFErrorDescription(@"WiFiNetworkSharingError", 7uLL);
+            v25 = 7;
           }
 
 LABEL_48:
-          v36 = CWFErrorWithDescription(@"WiFiNetworkSharingError", v26, v25);
-          [(CWFWiFiNetworkSharingManager *)self __completeAuthorizationRequestWithError:v36 authLevel:0];
+          v35 = CWFErrorWithDescription(@"WiFiNetworkSharingError", v25, v24);
+          [(CWFWiFiNetworkSharingManager *)self __completeAuthorizationRequestWithError:v35 authLevel:0];
 
           goto LABEL_15;
         }
@@ -3968,97 +4146,103 @@ LABEL_48:
         else
         {
           v16 = MEMORY[0x1E69E9C10];
-          v34 = MEMORY[0x1E69E9C10];
+          v33 = MEMORY[0x1E69E9C10];
         }
 
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          _os_log_send_and_compose_impl();
+          v36 = 138543362;
+          v37 = dCopy;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 0, "[corewifi] [wifi-network-sharing] App not in foreground (clientID=%{public}@)", &v36, 12);
         }
 
-        v25 = CWFErrorDescription(@"WiFiNetworkSharingError", 5uLL);
-        v26 = 5;
+        v24 = CWFErrorDescription(@"WiFiNetworkSharingError", 5uLL);
+        v25 = 5;
         goto LABEL_48;
       }
 
-      v23 = CWFGetOSLog();
-      if (v23)
+      v22 = CWFGetOSLog();
+      if (v22)
       {
-        v24 = CWFGetOSLog();
+        v23 = CWFGetOSLog();
       }
 
       else
       {
-        v24 = MEMORY[0x1E69E9C10];
-        v33 = MEMORY[0x1E69E9C10];
+        v23 = MEMORY[0x1E69E9C10];
+        v32 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v36 = 138543362;
+        v37 = dCopy;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v23, 0, "[corewifi] [wifi-network-sharing] Accessory is not using secure transport for device access (clientID=%{public}@)", &v36, 12);
       }
 
       v12 = CWFErrorDescription(@"WiFiNetworkSharingError", 6uLL);
-      v32 = 6;
+      v31 = 6;
     }
 
     else
     {
-      v21 = CWFGetOSLog();
-      if (v21)
+      v20 = CWFGetOSLog();
+      if (v20)
       {
-        v22 = CWFGetOSLog();
+        v21 = CWFGetOSLog();
       }
 
       else
       {
-        v22 = MEMORY[0x1E69E9C10];
-        v31 = MEMORY[0x1E69E9C10];
+        v21 = MEMORY[0x1E69E9C10];
+        v30 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v36 = 138543362;
+        v37 = dCopy;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 0, "[corewifi] [wifi-network-sharing] Accessory is not authorized for device access (clientID=%{public}@)", &v36, 12);
       }
 
       v12 = CWFErrorDescription(@"WiFiNetworkSharingError", 8uLL);
-      v32 = 8;
+      v31 = 8;
     }
 
-    name = CWFErrorWithDescription(@"WiFiNetworkSharingError", v32, v12);
+    name = CWFErrorWithDescription(@"WiFiNetworkSharingError", v31, v12);
     [(CWFWiFiNetworkSharingManager *)self __completeAuthorizationRequestWithError:name authLevel:0];
     goto LABEL_14;
   }
 
-  v19 = CWFGetOSLog();
-  if (v19)
+  v18 = CWFGetOSLog();
+  if (v18)
   {
-    v20 = CWFGetOSLog();
+    v19 = CWFGetOSLog();
   }
 
   else
   {
-    v20 = MEMORY[0x1E69E9C10];
-    v29 = MEMORY[0x1E69E9C10];
+    v19 = MEMORY[0x1E69E9C10];
+    v28 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v36 = 138543362;
+    v37 = dCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 0, "[corewifi] [wifi-network-sharing] Authorization request already in progress (clientID=%{public}@)", &v36, 12);
   }
 
   if (completionCopy)
   {
     v12 = CWFErrorDescription(@"WiFiNetworkSharingError", 0xBuLL);
-    v30 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v12);
-    completionCopy[2](completionCopy, v30, 0);
+    v29 = CWFErrorWithDescription(@"WiFiNetworkSharingError", 11, v12);
+    completionCopy[2](completionCopy, v29, 0);
 
     goto LABEL_15;
   }
 
 LABEL_16:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__completeAuthorizationRequestWithError:(id)error authLevel:(id)level
@@ -4089,13 +4273,14 @@ LABEL_16:
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        [(CWFWiFiNetworkSharingManager *)selfCopy authorizationClientID];
-        v23 = v22 = 138543874;
+        authorizationClientID2 = [(CWFWiFiNetworkSharingManager *)selfCopy authorizationClientID];
+        v22 = 138543874;
+        v23 = authorizationClientID2;
         v24 = 2114;
         v25 = errorCopy;
         v26 = 2114;
         v27 = levelCopy;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] [wifi-network-sharing] Invoking completion handler to authorization request (clientID=%{public}@, error=%{public}@, authLevel=%{public}@)", &v22, 32);
       }
 
       authorizationCompletion2 = [(CWFWiFiNetworkSharingManager *)selfCopy authorizationCompletion];
@@ -4104,8 +4289,8 @@ LABEL_16:
       block[1] = 3221225472;
       block[2] = sub_1E0D21200;
       block[3] = &unk_1E86E8010;
-      v16 = authorizationCompletion2;
-      v21 = v16;
+      v17 = authorizationCompletion2;
+      v21 = v17;
       v19 = errorCopy;
       v20 = levelCopy;
       dispatch_async(targetQueue, block);
@@ -4116,8 +4301,6 @@ LABEL_16:
   }
 
   objc_sync_exit(selfCopy);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updateRateLimitAuthorizationRequestTimestampCacheForClientID:(id)d
@@ -4150,7 +4333,7 @@ LABEL_16:
 
 - (BOOL)__shouldRateLimitAuthorizationRequestWithClientID:(id)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -4171,18 +4354,16 @@ LABEL_16:
 
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 134217984;
-        v23 = 60;
-        LODWORD(v21) = 12;
-        v20 = &v22;
-        _os_log_send_and_compose_impl();
+        v19 = 134217984;
+        v20 = 60;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] [wifi-network-sharing] Applying 'testable' authorization request rate limit (%lu)", &v19);
       }
 
       v5 = 60;
     }
 
-    v10 = [(CWFWiFiNetworkSharingManager *)self authorizationRequestTimestampCache:v20];
-    v11 = [v10 objectForKeyedSubscript:dCopy];
+    authorizationRequestTimestampCache = [(CWFWiFiNetworkSharingManager *)self authorizationRequestTimestampCache];
+    v11 = [authorizationRequestTimestampCache objectForKeyedSubscript:dCopy];
 
     if ([v11 count] == 3 && (v12 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW), objc_msgSend(v11, "firstObject"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v12 - objc_msgSend(v13, "unsignedLongLongValue"), v13, v5 > v14 / 0x3B9ACA00))
     {
@@ -4200,9 +4381,9 @@ LABEL_16:
 
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138543362;
-        v23 = dCopy;
-        _os_log_send_and_compose_impl();
+        v19 = 138543362;
+        v20 = dCopy;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 0, "[corewifi] [wifi-network-sharing] Exceeded authorization request rate limit (clientID=%{public}@)", &v19, 12);
       }
 
       v8 = 1;
@@ -4219,7 +4400,6 @@ LABEL_16:
     v8 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

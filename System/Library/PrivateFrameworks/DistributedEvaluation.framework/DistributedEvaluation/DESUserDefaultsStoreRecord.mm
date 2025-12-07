@@ -17,47 +17,47 @@
 - (void)setMaxTimeLimitInSeconds:(id)seconds;
 - (void)setPerformCount:(int64_t)count;
 - (void)setPeriodInSeconds:(id)seconds;
+- (void)setShouldRegisterXPCActivity:(BOOL)activity;
 @end
 
 @implementation DESUserDefaultsStoreRecord
 
 + (void)purgeObsoleted
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   dictionaryRepresentation = [standardUserDefaults dictionaryRepresentation];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [dictionaryRepresentation countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [dictionaryRepresentation countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(dictionaryRepresentation);
         }
 
-        [standardUserDefaults removeObjectForKey:*(*(&v10 + 1) + 8 * v8++)];
+        [standardUserDefaults removeObjectForKey:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [dictionaryRepresentation countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [dictionaryRepresentation countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)schedulerWakeupPeriodInSeconds
@@ -263,6 +263,14 @@
   v5 = [standardUserDefaults BOOLForKey:shouldRegisterXPCActivityKey];
 
   return v5;
+}
+
+- (void)setShouldRegisterXPCActivity:(BOOL)activity
+{
+  activityCopy = activity;
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  shouldRegisterXPCActivityKey = [(DESUserDefaultsStoreRecord *)self shouldRegisterXPCActivityKey];
+  [standardUserDefaults setBool:activityCopy forKey:shouldRegisterXPCActivityKey];
 }
 
 @end

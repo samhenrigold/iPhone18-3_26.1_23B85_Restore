@@ -8,9 +8,11 @@
 - (void)_handleGameControllerEvent:(id)event;
 - (void)_handleGameControllerStart:(id)start responseHandler:(id)handler;
 - (void)_handleGameControllerStop:(id)stop responseHandler:(id)handler;
+- (void)_handleSelectWithButtonState:(int)state;
 - (void)_handleTouchEvent:(id)event;
 - (void)_handleTouchStart:(id)start responseHandler:(id)handler;
 - (void)_handleTouchStop:(id)stop responseHandler:(id)handler;
+- (void)_injectKeyboardEventUsagePage:(unsigned int)page usageCode:(unsigned int)code buttonState:(int)state;
 - (void)_setupHIDGCSenderIDIfNeeded;
 - (void)_setupHIDSenderIDIfNeeded;
 - (void)_sleepSystemWithResponseHandler:(id)handler;
@@ -23,9 +25,10 @@
 - (BOOL)activateAndReturnError:(id *)error
 {
   v5 = self->_messenger;
+  v13 = v5;
   if (!v5)
   {
-    v10 = RPErrorF();
+    v30 = RPErrorF(4294960591, "No messenger provided", v7, v8, v9, v10, v11, v12, v33[0]);
     if (dword_1001D3948 > 90 || dword_1001D3948 == -1 && !_LogCategory_Initialize())
     {
       goto LABEL_13;
@@ -34,19 +37,22 @@
     goto LABEL_20;
   }
 
-  if (dword_1001D3948 <= 30 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D3948 <= 30)
   {
-    sub_10011796C();
+    if (dword_1001D3948 != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      sub_10011796C(v5, v6, v7);
+    }
   }
 
   self->_epochResetTicks = SecondsToUpTicksF();
   if (!self->_hidClient)
   {
-    v6 = IOHIDEventSystemClientCreate();
-    self->_hidClient = v6;
-    if (!v6)
+    v14 = IOHIDEventSystemClientCreate();
+    self->_hidClient = v14;
+    if (!v14)
     {
-      v10 = RPErrorF();
+      v30 = RPErrorF(4294960591, "Create HID client failed", v15, v16, v17, v18, v19, v20, v33[0]);
       if (dword_1001D3948 > 90 || dword_1001D3948 == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_13;
@@ -56,107 +62,111 @@
     }
   }
 
-  if (self->_hidGCClient || (v7 = IOHIDEventSystemClientCreate(), (self->_hidGCClient = v7) != 0))
+  if (self->_hidGCClient || (v21 = IOHIDEventSystemClientCreate(), (self->_hidGCClient = v21) != 0))
   {
-    v20 = @"statusFlags";
-    v21 = &off_1001B7E58;
-    v8 = 1;
-    v9 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000558F0;
-    v19[3] = &unk_1001AB798;
-    v19[4] = self;
-    [(RPMessageable *)v5 registerRequestID:@"_hidC" options:v9 handler:v19];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1000558FC;
-    v18[3] = &unk_1001AB798;
-    v18[4] = self;
-    [(RPMessageable *)v5 registerRequestID:@"_touchStart" options:v9 handler:v18];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100055908;
-    v17[3] = &unk_1001AB798;
-    v17[4] = self;
-    [(RPMessageable *)v5 registerRequestID:@"_touchStop" options:v9 handler:v17];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100055914;
-    v16[3] = &unk_1001AC870;
-    v16[4] = self;
-    [(RPMessageable *)v5 registerEventID:@"_hidT" options:v9 handler:v16];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100055920;
-    v15[3] = &unk_1001AB798;
-    v15[4] = self;
-    [(RPMessageable *)v5 registerRequestID:@"_gcStart" options:v9 handler:v15];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_10005592C;
-    v14[3] = &unk_1001AB798;
-    v14[4] = self;
-    [(RPMessageable *)v5 registerRequestID:@"_gcStop" options:v9 handler:v14];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100055938;
-    v13[3] = &unk_1001AC870;
-    v13[4] = self;
-    [(RPMessageable *)v5 registerEventID:@"_hidGC" options:v9 handler:v13];
+    v40 = @"statusFlags";
+    v41 = &off_1001B7E58;
+    v28 = 1;
+    v29 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_1000558F0;
+    v39[3] = &unk_1001AB798;
+    v39[4] = self;
+    [(RPMessageable *)v13 registerRequestID:@"_hidC" options:v29 handler:v39];
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_1000558FC;
+    v38[3] = &unk_1001AB798;
+    v38[4] = self;
+    [(RPMessageable *)v13 registerRequestID:@"_touchStart" options:v29 handler:v38];
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_100055908;
+    v37[3] = &unk_1001AB798;
+    v37[4] = self;
+    [(RPMessageable *)v13 registerRequestID:@"_touchStop" options:v29 handler:v37];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_100055914;
+    v36[3] = &unk_1001AC870;
+    v36[4] = self;
+    [(RPMessageable *)v13 registerEventID:@"_hidT" options:v29 handler:v36];
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_100055920;
+    v35[3] = &unk_1001AB798;
+    v35[4] = self;
+    [(RPMessageable *)v13 registerRequestID:@"_gcStart" options:v29 handler:v35];
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_10005592C;
+    v34[3] = &unk_1001AB798;
+    v34[4] = self;
+    [(RPMessageable *)v13 registerRequestID:@"_gcStop" options:v29 handler:v34];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_100055938;
+    v33[3] = &unk_1001AC870;
+    v33[4] = self;
+    [(RPMessageable *)v13 registerEventID:@"_hidGC" options:v29 handler:v33];
 
     goto LABEL_16;
   }
 
-  v10 = RPErrorF();
+  v30 = RPErrorF(4294960591, "Create HID GC client failed", v22, v23, v24, v25, v26, v27, v33[0]);
   if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
 LABEL_20:
-    sub_100117988();
+    sub_100117988(v30);
   }
 
 LABEL_13:
   if (error)
   {
-    v11 = v10;
-    *error = v10;
+    v31 = v30;
+    *error = v30;
   }
 
-  v8 = 0;
+  v28 = 0;
 LABEL_16:
 
-  return v8;
+  return v28;
 }
 
 - (void)invalidate
 {
-  if (dword_1001D3948 <= 30 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D3948 <= 30)
   {
-    sub_1001179C8();
+    if (dword_1001D3948 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001179C8(self, a2, v2);
+    }
   }
 
-  [(RPMessageable *)self->_messenger deregisterRequestID:@"_hidC"];
-  [(RPMessageable *)self->_messenger deregisterRequestID:@"_touchStart"];
-  [(RPMessageable *)self->_messenger deregisterRequestID:@"_touchStop"];
-  [(RPMessageable *)self->_messenger deregisterEventID:@"_hidT"];
-  [(RPMessageable *)self->_messenger deregisterRequestID:@"_gcStart"];
-  [(RPMessageable *)self->_messenger deregisterRequestID:@"_gcStop"];
-  [(RPMessageable *)self->_messenger deregisterEventID:@"_hidGC"];
-  messenger = self->_messenger;
-  self->_messenger = 0;
+  [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_hidC"];
+  [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_touchStart"];
+  [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_touchStop"];
+  [(RPMessageable *)selfCopy->_messenger deregisterEventID:@"_hidT"];
+  [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_gcStart"];
+  [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_gcStop"];
+  [(RPMessageable *)selfCopy->_messenger deregisterEventID:@"_hidGC"];
+  messenger = selfCopy->_messenger;
+  selfCopy->_messenger = 0;
 
-  hidClient = self->_hidClient;
+  hidClient = selfCopy->_hidClient;
   if (hidClient)
   {
     CFRelease(hidClient);
-    self->_hidClient = 0;
+    selfCopy->_hidClient = 0;
   }
 
-  hidGCClient = self->_hidGCClient;
+  hidGCClient = selfCopy->_hidGCClient;
   if (hidGCClient)
   {
     CFRelease(hidGCClient);
-    self->_hidGCClient = 0;
+    selfCopy->_hidGCClient = 0;
   }
 }
 
@@ -165,136 +175,133 @@ LABEL_16:
   commandCopy = command;
   handlerCopy = handler;
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v8 = CFDictionaryGetInt64Ranged();
+  v14 = CFDictionaryGetInt64Ranged();
   if (dword_1001D3948 <= 30 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
     if (Int64Ranged > 0x13)
     {
-      v9 = "?";
+      v15 = "?";
     }
 
     else
     {
-      v9 = (&off_1001AC8B8)[Int64Ranged & 0x1F];
+      v15 = (&off_1001AC8B8)[Int64Ranged & 0x1F];
     }
 
-    if (v8 > 2)
+    if (v14 > 2)
     {
-      v10 = "?";
+      v16 = "?";
     }
 
     else
     {
-      v10 = (&off_1001AC958)[v8 & 3];
+      v16 = (&off_1001AC958)[v14 & 3];
     }
 
-    v16 = v10;
-    v17 = commandCopy;
-    v15 = v9;
-    LogPrintF();
+    LogPrintF(&dword_1001D3948, "[RPHIDDaemon _handleCommand:responseHandler:]", 30, "Command <%s>, Button %s, %##.16@\n", v15, v16, commandCopy);
   }
 
   switch(Int64Ranged)
   {
-    case 1u:
+    case 1:
       selfCopy15 = self;
-      v12 = 1;
-      v13 = 140;
+      v18 = 1;
+      v19 = 140;
       goto LABEL_33;
-    case 2u:
+    case 2:
       selfCopy15 = self;
-      v12 = 1;
+      v18 = 1;
       goto LABEL_25;
-    case 3u:
+    case 3:
       selfCopy15 = self;
-      v12 = 1;
-      v13 = 139;
+      v18 = 1;
+      v19 = 139;
       goto LABEL_33;
-    case 4u:
+    case 4:
       selfCopy15 = self;
-      v12 = 1;
-      v13 = 138;
+      v18 = 1;
+      v19 = 138;
       goto LABEL_33;
-    case 5u:
+    case 5:
       selfCopy15 = self;
-      v12 = 1;
-      v13 = 134;
+      v18 = 1;
+      v19 = 134;
       goto LABEL_33;
-    case 6u:
-      [(RPHIDDaemon *)self _handleSelectWithButtonState:v8];
+    case 6:
+      [(RPHIDDaemon *)self _handleSelectWithButtonState:v14];
       goto LABEL_34;
-    case 7u:
+    case 7:
       selfCopy15 = self;
-      v12 = 12;
-      v13 = 96;
+      v18 = 12;
+      v19 = 96;
       goto LABEL_33;
-    case 8u:
+    case 8:
       selfCopy15 = self;
-      v12 = 12;
-      v13 = 233;
+      v18 = 12;
+      v19 = 233;
       goto LABEL_33;
-    case 9u:
+    case 9:
       selfCopy15 = self;
-      v12 = 12;
-      v13 = 234;
+      v18 = 12;
+      v19 = 234;
       goto LABEL_33;
-    case 0xAu:
+    case 10:
       selfCopy15 = self;
-      v12 = 12;
-      v13 = 4;
+      v18 = 12;
+      v19 = 4;
       goto LABEL_33;
-    case 0xBu:
+    case 11:
       [(RPHIDDaemon *)self _activateScreenSaverWithResponseHandler:handlerCopy];
       break;
-    case 0xCu:
+    case 12:
       [(RPHIDDaemon *)self _sleepSystemWithResponseHandler:handlerCopy];
       break;
-    case 0xDu:
+    case 13:
       [(RPHIDDaemon *)self _wakeSystemWithResponseHandler:handlerCopy];
       break;
-    case 0xEu:
+    case 14:
       selfCopy15 = self;
-      v12 = 12;
-      v13 = 205;
+      v18 = 12;
+      v19 = 205;
       goto LABEL_33;
-    case 0xFu:
+    case 15:
       selfCopy15 = self;
-      v12 = 7;
-      v13 = 75;
+      v18 = 7;
+      v19 = 75;
       goto LABEL_33;
-    case 0x10u:
+    case 16:
       selfCopy15 = self;
-      v12 = 7;
-      v13 = 78;
+      v18 = 7;
+      v19 = 78;
       goto LABEL_33;
-    case 0x11u:
+    case 17:
       selfCopy15 = self;
-      v12 = 12;
+      v18 = 12;
 LABEL_25:
-      v13 = 141;
+      v19 = 141;
       goto LABEL_33;
-    case 0x12u:
+    case 18:
       selfCopy15 = self;
-      v12 = 12;
-      v13 = 226;
+      v18 = 12;
+      v19 = 226;
       goto LABEL_33;
-    case 0x13u:
+    case 19:
       selfCopy15 = self;
-      v12 = 12;
-      v13 = 48;
+      v18 = 12;
+      v19 = 48;
 LABEL_33:
-      [(RPHIDDaemon *)selfCopy15 _injectKeyboardEventUsagePage:v12 usageCode:v13 buttonState:v8, v15, v16, v17];
+      [(RPHIDDaemon *)selfCopy15 _injectKeyboardEventUsagePage:v18 usageCode:v19 buttonState:v14];
 LABEL_34:
       (*(handlerCopy + 2))(handlerCopy, &__NSDictionary0__struct, 0, 0);
       break;
     default:
-      v14 = RPErrorF();
+      v20 = RPErrorF(4294960582, "Unsupported command: %d", v8, v9, v10, v11, v12, v13, Int64Ranged);
       if (dword_1001D3948 <= 60 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001179E4();
+        sub_1001179E4(v20);
       }
 
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, v14);
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v20);
 
       break;
   }
@@ -303,37 +310,101 @@ LABEL_34:
 - (void)_activateScreenSaverWithResponseHandler:(id)handler
 {
   handlerCopy = handler;
-  v3 = RPErrorF();
+  v9 = RPErrorF(4294960561, "ScreenSaver not supported", v3, v4, v5, v6, v7, v8, v10);
   if (dword_1001D3948 <= 60 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117A24();
+    sub_100117A24(v9);
   }
 
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, v3);
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v9);
+}
+
+- (void)_injectKeyboardEventUsagePage:(unsigned int)page usageCode:(unsigned int)code buttonState:(int)state
+{
+  v5 = *&state;
+  if (!self->_hidClient)
+  {
+    goto LABEL_15;
+  }
+
+  [(RPHIDDaemon *)self _setupHIDSenderIDIfNeeded];
+  mach_absolute_time();
+  KeyboardEvent = IOHIDEventCreateKeyboardEvent();
+  if (!KeyboardEvent)
+  {
+    goto LABEL_15;
+  }
+
+  v10 = KeyboardEvent;
+  if (self->_hidSenderID)
+  {
+    IOHIDEventSetSenderID();
+  }
+
+  IOHIDEventGetTimeStamp();
+  VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
+  if (VendorDefinedEvent)
+  {
+    v12 = VendorDefinedEvent;
+    IOHIDEventAppendEvent();
+    CFRelease(v12);
+  }
+
+  IOHIDEventSystemClientDispatchEvent();
+  CFRelease(v10);
+  if (!v5)
+  {
+    mach_absolute_time();
+    v13 = IOHIDEventCreateKeyboardEvent();
+    if (v13)
+    {
+      v14 = v13;
+      if (self->_hidSenderID)
+      {
+        IOHIDEventSetSenderID();
+      }
+
+      IOHIDEventGetTimeStamp();
+      v15 = IOHIDEventCreateVendorDefinedEvent();
+      if (v15)
+      {
+        v16 = v15;
+        IOHIDEventAppendEvent();
+        CFRelease(v16);
+      }
+
+      IOHIDEventSystemClientDispatchEvent();
+      CFRelease(v14);
+      return;
+    }
+
+LABEL_15:
+    sub_100117A64(v5, page, code);
+  }
 }
 
 - (void)_sleepSystemWithResponseHandler:(id)handler
 {
   handlerCopy = handler;
-  v3 = RPErrorF();
+  v9 = RPErrorF(4294960561, "SleepSystem not supported", v3, v4, v5, v6, v7, v8, v10);
   if (dword_1001D3948 <= 60 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117B20();
+    sub_100117B20(v9);
   }
 
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, v3);
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v9);
 }
 
 - (void)_wakeSystemWithResponseHandler:(id)handler
 {
   handlerCopy = handler;
-  v3 = RPErrorF();
+  v9 = RPErrorF(4294960561, "WakeSystem not supported", v3, v4, v5, v6, v7, v8, v10);
   if (dword_1001D3948 <= 60 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117B60();
+    sub_100117B60(v9);
   }
 
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, v3);
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v9);
 }
 
 - (void)_handleGameControllerStart:(id)start responseHandler:(id)handler
@@ -346,7 +417,7 @@ LABEL_34:
   {
     if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
     {
-      sub_100117BA0();
+      sub_100117BA0(v7);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v7);
@@ -376,21 +447,19 @@ LABEL_34:
 - (void)_handleGameControllerAuxEvent:(int64_t)event pressed:(int64_t)pressed
 {
   mach_absolute_time();
-  v5 = IOHIDEventCreate();
-  if (v5)
+  v4 = IOHIDEventCreate();
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
     IOHIDEventSetEventFlags();
     IOHIDEventSetIntegerValue();
     IOHIDEventSetIntegerValue();
     IOHIDEventSetIntegerValue();
     IOHIDEventSetIntegerValue();
-    hidGCSenderID = self->_hidGCSenderID;
     IOHIDEventSetSenderID();
-    hidGCClient = self->_hidGCClient;
     IOHIDEventSystemClientDispatchEvent();
 
-    CFRelease(v6);
+    CFRelease(v5);
   }
 
   else
@@ -402,75 +471,96 @@ LABEL_34:
 - (void)_handleGameControllerEvent:(id)event
 {
   eventCopy = event;
-  v12 = eventCopy;
-  if (self->_hidGCClient && eventCopy && ([(RPHIDDaemon *)self _setupHIDGCSenderIDIfNeeded], self->_hidGCSenderID) && (mach_absolute_time(), (v5 = IOHIDEventCreate()) != 0))
+  v11 = eventCopy;
+  if (!self->_hidGCClient)
   {
-    v6 = v5;
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetInt64Ranged();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetInt64Ranged();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    CFDictionaryGetDouble();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetIntegerValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetIntegerValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetDoubleValue();
-    IOHIDEventSetIntegerValue();
-    hidGCSenderID = self->_hidGCSenderID;
-    IOHIDEventSetSenderID();
-    hidGCClient = self->_hidGCClient;
-    IOHIDEventSystemClientDispatchEvent();
-    CFRelease(v6);
-    Int64Ranged = CFDictionaryGetInt64Ranged();
-    v10 = CFDictionaryGetInt64Ranged();
-    v11 = CFDictionaryGetInt64Ranged();
-    if ((Int64Ranged & 0xFFFFFF00) != 0)
-    {
-      [(RPHIDDaemon *)self _handleGameControllerAuxEvent:547 pressed:Int64Ranged & 1];
-    }
-
-    if ((v10 & 0xFFFFFF00) != 0)
-    {
-      [(RPHIDDaemon *)self _handleGameControllerAuxEvent:516 pressed:v10 & 1];
-    }
-
-    if ((v11 & 0xFFFFFF00) != 0)
-    {
-      [(RPHIDDaemon *)self _handleGameControllerAuxEvent:521 pressed:v11 & 1];
-    }
+    goto LABEL_14;
   }
 
-  else
+  if (!eventCopy)
   {
-    sub_100117C54();
+    v10 = 4294960559;
+    goto LABEL_17;
   }
+
+  [(RPHIDDaemon *)self _setupHIDGCSenderIDIfNeeded];
+  if (!self->_hidGCSenderID)
+  {
+LABEL_14:
+    v10 = 4294960551;
+LABEL_17:
+    sub_100117C54(v10);
+    goto LABEL_11;
+  }
+
+  mach_absolute_time();
+  v5 = IOHIDEventCreate();
+  if (!v5)
+  {
+    v10 = 4294960568;
+    goto LABEL_17;
+  }
+
+  v6 = v5;
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetInt64Ranged();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetInt64Ranged();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  CFDictionaryGetDouble();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetIntegerValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetIntegerValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetDoubleValue();
+  IOHIDEventSetIntegerValue();
+  IOHIDEventSetSenderID();
+  IOHIDEventSystemClientDispatchEvent();
+  CFRelease(v6);
+  Int64Ranged = CFDictionaryGetInt64Ranged();
+  v8 = CFDictionaryGetInt64Ranged();
+  v9 = CFDictionaryGetInt64Ranged();
+  if ((Int64Ranged & 0xFFFFFF00) != 0)
+  {
+    [(RPHIDDaemon *)self _handleGameControllerAuxEvent:547 pressed:Int64Ranged & 1];
+  }
+
+  if ((v8 & 0xFFFFFF00) != 0)
+  {
+    [(RPHIDDaemon *)self _handleGameControllerAuxEvent:516 pressed:v8 & 1];
+  }
+
+  if ((v9 & 0xFFFFFF00) != 0)
+  {
+    [(RPHIDDaemon *)self _handleGameControllerAuxEvent:521 pressed:v9 & 1];
+  }
+
+LABEL_11:
 }
 
 - (BOOL)_setupHIDGCDeviceWithOptions:(id)options andReturnError:(id *)error
@@ -481,17 +571,17 @@ LABEL_34:
   }
 
   v7 = objc_alloc_init(NSMutableDictionary);
-  v21 = xmmword_1001485E8;
-  v22[0] = unk_1001485F8;
-  *(v22 + 9) = unk_100148601;
-  v17 = xmmword_1001485A8;
-  v18 = unk_1001485B8;
-  v19 = xmmword_1001485C8;
-  v20 = unk_1001485D8;
-  v15 = xmmword_100148588;
-  v16 = unk_100148598;
-  v8 = [[NSData alloc] initWithBytes:&v15 length:137];
-  [v7 setObject:v8 forKeyedSubscript:{@"ReportDescriptor", v15, v16, v17, v18, v19, v20, v21, v22[0], v22[1]}];
+  v28 = xmmword_1001485E8;
+  v29[0] = unk_1001485F8;
+  *(v29 + 9) = unk_100148601;
+  v24 = xmmword_1001485A8;
+  v25 = unk_1001485B8;
+  v26 = xmmword_1001485C8;
+  v27 = unk_1001485D8;
+  v22 = xmmword_100148588;
+  v23 = unk_100148598;
+  v8 = [[NSData alloc] initWithBytes:&v22 length:137];
+  [v7 setObject:v8 forKeyedSubscript:{@"ReportDescriptor", v22, v23, v24, v25, v26, v27, v28, v29[0], v29[1]}];
 
   [v7 setObject:&off_1001B7E70 forKeyedSubscript:@"VendorID"];
   [v7 setObject:&off_1001B7E88 forKeyedSubscript:@"ProductID"];
@@ -510,16 +600,16 @@ LABEL_34:
   v4 = v11 != 0;
   if (v11)
   {
-    v12 = v11;
-    v13 = CUMainQueue();
-    IOHIDUserDeviceSetDispatchQueue(v12, v13);
+    v19 = v11;
+    v20 = CUMainQueue();
+    IOHIDUserDeviceSetDispatchQueue(v19, v20);
 
     IOHIDUserDeviceActivate(self->_hidGCDevice);
   }
 
   else
   {
-    sub_100117CD0(error);
+    sub_100117CD0(error, v12, v13, v14, v15, v16, v17, v18);
   }
 
   return v4;
@@ -533,28 +623,28 @@ LABEL_34:
     v3 = IOHIDUserDeviceCopyService();
     if (v3)
     {
-      v4 = v3;
+      v6 = v3;
       child = 0;
       ChildEntry = IORegistryEntryGetChildEntry(v3, "IOService", &child);
-      IOObjectRelease(v4);
+      IOObjectRelease(v6);
       if (ChildEntry)
       {
         if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
         {
-          sub_100117D14();
+          sub_100117D14(ChildEntry);
         }
       }
 
       else
       {
         entry = 0;
-        v6 = IORegistryEntryGetChildEntry(child, "IOService", &entry);
+        v8 = IORegistryEntryGetChildEntry(child, "IOService", &entry);
         IOObjectRelease(child);
-        if (v6)
+        if (v8)
         {
           if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
           {
-            sub_100117D54();
+            sub_100117D54(v8);
           }
         }
 
@@ -565,15 +655,18 @@ LABEL_34:
           IOObjectRelease(entry);
           if (RegistryEntryID && dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
           {
-            sub_100117D94();
+            sub_100117D94(RegistryEntryID);
           }
         }
       }
     }
 
-    else if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
+    else if (dword_1001D3948 <= 90)
     {
-      sub_100117DD4();
+      if (dword_1001D3948 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100117DD4(v3, v4, v5);
+      }
     }
   }
 }
@@ -584,7 +677,7 @@ LABEL_34:
   handlerCopy = handler;
   if (dword_1001D3948 <= 30 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117DF0();
+    sub_100117DF0(startCopy);
   }
 
   v10 = 0;
@@ -594,7 +687,7 @@ LABEL_34:
   {
     if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
     {
-      sub_100117E30();
+      sub_100117E30(v8);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v8);
@@ -615,7 +708,7 @@ LABEL_34:
   handlerCopy = handler;
   if (dword_1001D3948 <= 30 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117E70();
+    sub_100117E70(stopCopy);
   }
 
   activeTouchEventMap = self->_activeTouchEventMap;
@@ -637,157 +730,182 @@ LABEL_34:
 - (void)_handleTouchEvent:(id)event
 {
   eventCopy = event;
+  v7 = eventCopy;
   if (!self->_hidTouchDevice)
   {
-    if (dword_1001D3948 <= 30 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3948 <= 30)
     {
-      sub_100117EB0();
+      if (dword_1001D3948 != -1 || (eventCopy = _LogCategory_Initialize(), eventCopy))
+      {
+        sub_100117EB0(eventCopy, v5, v6);
+      }
     }
 
-    v39 = 0;
-    [(RPHIDDaemon *)self _setupHIDTouchDeviceAndReturnError:&v39];
-    v5 = v39;
+    v42 = 0;
+    [(RPHIDDaemon *)self _setupHIDTouchDeviceAndReturnError:&v42];
+    v8 = v42;
     if (!self->_hidTouchDevice)
     {
-      sub_100117FA4(v5);
+      sub_100117FA4(v8);
       goto LABEL_41;
     }
   }
 
-  v6 = mach_absolute_time();
+  v9 = mach_absolute_time();
   if (dword_1001D3948 <= 50 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117ECC();
+    sub_100117ECC(v7);
   }
 
-  v37 = 0;
-  v38 = 0;
-  v7 = NSDictionaryGetNSNumber();
-  v8 = v7;
-  v9 = &off_1001B7ED0;
-  if (v7)
+  v40 = 0;
+  v41 = 0;
+  v10 = NSDictionaryGetNSNumber();
+  v11 = v10;
+  v12 = &off_1001B7ED0;
+  if (v10)
   {
-    v9 = v7;
+    v12 = v10;
   }
 
-  v10 = v9;
+  v13 = v12;
 
-  LODWORD(v37) = [v10 intValue];
-  LODWORD(v38) = CFDictionaryGetInt64Ranged();
-  WORD2(v37) = CFDictionaryGetInt64Ranged();
-  HIWORD(v37) = CFDictionaryGetInt64Ranged();
+  LODWORD(v40) = [v13 intValue];
+  LODWORD(v41) = CFDictionaryGetInt64Ranged();
+  WORD2(v40) = CFDictionaryGetInt64Ranged();
+  HIWORD(v40) = CFDictionaryGetInt64Ranged();
   CFDictionaryGetInt64();
   if (!self->_activeTouchEventMap)
   {
-    v11 = objc_alloc_init(NSMutableDictionary);
+    v14 = objc_alloc_init(NSMutableDictionary);
     activeTouchEventMap = self->_activeTouchEventMap;
-    self->_activeTouchEventMap = v11;
+    self->_activeTouchEventMap = v14;
   }
 
-  v13 = [[NSValue alloc] initWithBytes:&v37 objCType:"{?=iSSiB}"];
-  [(NSMutableDictionary *)self->_activeTouchEventMap setObject:v13 forKeyedSubscript:v10];
+  v16 = [[NSValue alloc] initWithBytes:&v40 objCType:"{?=iSSiB}"];
+  [(NSMutableDictionary *)self->_activeTouchEventMap setObject:v16 forKeyedSubscript:v13];
 
-  if (v38 == 1)
+  if (v41 == 1)
   {
     self->_remoteTouchBeganTicks = NanosecondsToUpTicks();
-    self->_localTouchBeganTicks = v6;
-    self->_lastEventTicks = v6;
-    if (dword_1001D3948 <= 10)
+    self->_localTouchBeganTicks = v9;
+    self->_lastEventTicks = v9;
+    if (dword_1001D3948 <= 10 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
     {
-      if (dword_1001D3948 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_19;
-        }
-
-        remoteTouchBeganTicks = self->_remoteTouchBeganTicks;
-      }
-
       UpTicksToSecondsF();
-      v15 = v14;
-      localTouchBeganTicks = self->_localTouchBeganTicks;
+      v18 = v17;
       UpTicksToSecondsF();
-      v27 = v15;
-      v28 = v17;
-      LogPrintF();
+      LogPrintF(&dword_1001D3948, "[RPHIDDaemon _handleTouchEvent:]", 10, "remoteTouchBegan: %f, _localTouchBeganTicks: %f", v18, v19);
     }
   }
 
-LABEL_19:
-  v18 = NanosecondsToUpTicks();
-  v19 = self->_localTouchBeganTicks;
-  if (v6 - self->_lastEventTicks >= self->_epochResetTicks)
+  v20 = NanosecondsToUpTicks();
+  v21 = v20;
+  v22 = v9 - self->_lastEventTicks;
+  localTouchBeganTicks = self->_localTouchBeganTicks;
+  if (v22 >= self->_epochResetTicks)
   {
-    v20 = v6 - v19;
+    v24 = v9 - localTouchBeganTicks;
   }
 
   else
   {
-    v20 = v18 - self->_remoteTouchBeganTicks;
+    v24 = v20 - self->_remoteTouchBeganTicks;
   }
 
-  v21 = v19 + v20;
-  if (v21 >= v6)
+  v25 = localTouchBeganTicks + v24;
+  if (v25 >= v9)
   {
-    v22 = v6;
+    v26 = v9;
   }
 
   else
   {
-    v22 = v21;
+    v26 = v25;
   }
 
   if (dword_1001D3948 <= 10 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117F0C();
+    sub_100117F0C(v21, v9, v24, v22);
   }
 
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3010000000;
-  v35 = &unk_10017AC26;
-  v36[0] = 0;
-  *(v36 + 5) = 0;
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x2020000000;
-  v31 = 0;
-  v23 = self->_activeTouchEventMap;
-  v29[0] = _NSConcreteStackBlock;
-  v29[1] = 3221225472;
-  v29[2] = sub_100057324;
-  v29[3] = &unk_1001AC898;
-  v29[4] = &v32;
-  v29[5] = v30;
-  [(NSMutableDictionary *)v23 enumerateKeysAndObjectsUsingBlock:v29, v27, v28];
-  v24 = v38;
-  v25 = v33;
-  *(v33 + 44) = v38 == 5;
-  if ((v24 - 1) >= 3)
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3010000000;
+  v38 = &unk_10017AC26;
+  v39[0] = 0;
+  *(v39 + 5) = 0;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x2020000000;
+  v34 = 0;
+  v27 = self->_activeTouchEventMap;
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_100057324;
+  v32[3] = &unk_1001AC898;
+  v32[4] = &v35;
+  v32[5] = v33;
+  [(NSMutableDictionary *)v27 enumerateKeysAndObjectsUsingBlock:v32];
+  v28 = v41;
+  v29 = v36;
+  *(v36 + 44) = v41 == 5;
+  if ((v28 - 1) >= 3)
   {
-    [(NSMutableDictionary *)self->_activeTouchEventMap setObject:0 forKeyedSubscript:v10];
-    v25 = v33;
+    [(NSMutableDictionary *)self->_activeTouchEventMap setObject:0 forKeyedSubscript:v13];
+    v29 = v36;
   }
 
-  if (IOHIDUserDeviceHandleReportWithTimeStamp(self->_hidTouchDevice, v22, v25 + 32, 13))
+  v30 = IOHIDUserDeviceHandleReportWithTimeStamp(self->_hidTouchDevice, v26, v29 + 32, 13);
+  if (v30)
   {
     if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D3948, "[RPHIDDaemon _handleTouchEvent:]", 90, "### Touch event report failed: %#m\n", v30);
     }
   }
 
   else if (dword_1001D3948 <= 50 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
   {
     UpTicksToSecondsF();
-    LogPrintF();
+    LogPrintF(&dword_1001D3948, "[RPHIDDaemon _handleTouchEvent:]", 50, "Sent report with timestamp: %f", v31);
   }
 
-  _Block_object_dispose(v30, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(v33, 8);
+  _Block_object_dispose(&v35, 8);
 
 LABEL_41:
+}
+
+- (void)_handleSelectWithButtonState:(int)state
+{
+  v3 = *&state;
+  mach_absolute_time();
+  v5 = UpTicksToMilliseconds();
+  if (v3 >= 2)
+  {
+    if (v5 - self->_lastSelectButtonDown <= 0x14)
+    {
+      v6 = dispatch_time(0, 20000000);
+      v7 = CUMainQueue();
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = sub_1000574E4;
+      v8[3] = &unk_1001AB2A0;
+      v8[4] = self;
+      v9 = v3;
+      dispatch_after(v6, v7, v8);
+
+      return;
+    }
+  }
+
+  else
+  {
+    mach_absolute_time();
+    self->_lastSelectButtonDown = UpTicksToMilliseconds();
+  }
+
+  [(RPHIDDaemon *)self _injectKeyboardEventUsagePage:12 usageCode:128 buttonState:v3];
 }
 
 - (BOOL)_setupHIDTouchDeviceAndReturnError:(id *)error
@@ -802,29 +920,29 @@ LABEL_41:
   [v6 setObject:&off_1001B7F00 forKeyedSubscript:@"ProductID"];
   [v6 setObject:&__kCFBooleanFalse forKeyedSubscript:@"DisplayIntegrated"];
   [v6 setObject:@"Rapport" forKeyedSubscript:@"Transport"];
-  *v12 = xmmword_100148631;
-  *&v12[16] = unk_100148641;
-  v15 = xmmword_100148671;
-  v16 = unk_100148681;
-  v17 = xmmword_100148691;
-  v13 = xmmword_100148651;
-  v14 = unk_100148661;
-  v10 = xmmword_100148611;
-  v11 = unk_100148621;
-  LODWORD(v18) = -1073638137;
-  *&v12[15] = 1000;
-  HIWORD(v15) = 1000;
-  *&v12[28] = 1000;
-  *(&v16 + 11) = 1000;
-  v7 = [[NSData alloc] initWithBytes:&v10 length:148];
-  [v6 setObject:v7 forKeyedSubscript:{@"ReportDescriptor", v10, v11, *v12, *&v12[16], v13, v14, v15, v16, v17, v18}];
+  *v19 = xmmword_100148631;
+  *&v19[16] = unk_100148641;
+  v22 = xmmword_100148671;
+  v23 = unk_100148681;
+  v24 = xmmword_100148691;
+  v20 = xmmword_100148651;
+  v21 = unk_100148661;
+  v17 = xmmword_100148611;
+  v18 = unk_100148621;
+  LODWORD(v25) = -1073638137;
+  *&v19[15] = 1000;
+  HIWORD(v22) = 1000;
+  *&v19[28] = 1000;
+  *(&v23 + 11) = 1000;
+  v7 = [[NSData alloc] initWithBytes:&v17 length:148];
+  [v6 setObject:v7 forKeyedSubscript:{@"ReportDescriptor", v17, v18, *v19, *&v19[16], v20, v21, v22, v23, v24, v25}];
 
   v8 = IOHIDUserDeviceCreate();
   self->_hidTouchDevice = v8;
   v3 = v8 != 0;
   if (!v8)
   {
-    sub_100117CD0(error);
+    sub_100117CD0(error, v9, v10, v11, v12, v13, v14, v15);
   }
 
   return v3;
@@ -840,28 +958,28 @@ LABEL_41:
     v3 = IOHIDUserDeviceCopyService();
     if (v3)
     {
-      v4 = v3;
+      v6 = v3;
       child = 0;
       ChildEntry = IORegistryEntryGetChildEntry(v3, "IOService", &child);
-      IOObjectRelease(v4);
+      IOObjectRelease(v6);
       if (ChildEntry)
       {
         if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
         {
-          sub_100118038();
+          sub_100118038(ChildEntry);
         }
       }
 
       else
       {
         entry = 0;
-        v6 = IORegistryEntryGetChildEntry(child, "IOService", &entry);
+        v8 = IORegistryEntryGetChildEntry(child, "IOService", &entry);
         IOObjectRelease(child);
-        if (v6)
+        if (v8)
         {
           if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
           {
-            sub_100118078();
+            sub_100118078(v8);
           }
         }
 
@@ -871,15 +989,18 @@ LABEL_41:
           IOObjectRelease(entry);
           if (RegistryEntryID && dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001180B8();
+            sub_1001180B8(RegistryEntryID);
           }
         }
       }
     }
 
-    else if (dword_1001D3948 <= 90 && (dword_1001D3948 != -1 || _LogCategory_Initialize()))
+    else if (dword_1001D3948 <= 90)
     {
-      sub_1001180F8();
+      if (dword_1001D3948 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001180F8(v3, v4, v5);
+      }
     }
   }
 }

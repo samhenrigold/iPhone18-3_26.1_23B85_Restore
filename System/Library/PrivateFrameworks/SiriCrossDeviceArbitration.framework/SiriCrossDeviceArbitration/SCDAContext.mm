@@ -112,16 +112,15 @@
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v12.receiver = self;
-  v12.super_class = SCDAContext;
-  v5 = [(SCDAContext *)&v12 description];
-  v11 = *&self->_timestamp;
+  v11.receiver = self;
+  v11.super_class = SCDAContext;
+  v5 = [(SCDAContext *)&v11 description];
+  v10 = *&self->_timestamp;
   overrideState = self->_overrideState;
-  activationSource = self->_activationSource;
-  v8 = AFSiriActivationSourceGetName();
-  v9 = [v4 initWithFormat:@"%@ {timestamp = %llu, perceptualAudioHash = %@, overrideState = %@, activationSource = %@, activationExpirationTime = %llu}", v5, v11, overrideState, v8, self->_activationExpirationTime];
+  v7 = AFSiriActivationSourceGetName();
+  v8 = [v4 initWithFormat:@"%@ {timestamp = %llu, perceptualAudioHash = %@, overrideState = %@, activationSource = %@, activationExpirationTime = %llu}", v5, v10, overrideState, v7, self->_activationExpirationTime];
 
-  return v9;
+  return v8;
 }
 
 - (SCDAContext)initWithTimestamp:(unint64_t)timestamp perceptualAudioHash:(id)hash overrideState:(id)state activationSource:(int64_t)source activationExpirationTime:(unint64_t)time

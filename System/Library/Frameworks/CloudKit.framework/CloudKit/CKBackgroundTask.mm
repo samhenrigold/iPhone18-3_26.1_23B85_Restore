@@ -24,7 +24,7 @@
 
 - (void)start
 {
-  v65[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   v3 = NSStringFromSelector(sel_state);
   objc_msgSend_willChangeValueForKey_(self, v4, v3);
 
@@ -68,13 +68,13 @@
         v15 = ck_log_facility_scheduler;
         if (os_log_type_enabled(ck_log_facility_scheduler, OS_LOG_TYPE_DEBUG))
         {
-          v54 = v15;
-          v57 = objc_msgSend_ckShortDescription(self, v55, v56);
+          v53 = v15;
+          v56 = objc_msgSend_ckShortDescription(self, v54, v55);
           *buf = 138412546;
-          *&buf[4] = v57;
+          *&buf[4] = v56;
           *&buf[12] = 2048;
           *&buf[14] = v14;
-          _os_log_debug_impl(&dword_1883EA000, v54, OS_LOG_TYPE_DEBUG, "[%@] Starting expiring activity with options: 0x%08llX", buf, 0x16u);
+          _os_log_debug_impl(&dword_1883EA000, v53, OS_LOG_TYPE_DEBUG, "[%@] Starting expiring activity with options: 0x%08llX", buf, 0x16u);
         }
 
         objc_initWeak(&location, self);
@@ -83,13 +83,13 @@
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = sub_188645D4C;
-        v64 = &unk_1E70BC680;
-        objc_copyWeak(v65, &location);
+        v63 = &unk_1E70BC680;
+        objc_copyWeak(v64, &location);
         v23 = objc_msgSend_beginActivityWithOptions_reason_expirationHandler_(v18, v22, v14, v21, buf);
         activity = self->_activity;
         self->_activity = v23;
 
-        objc_destroyWeak(v65);
+        objc_destroyWeak(v64);
         objc_destroyWeak(&location);
       }
 
@@ -103,13 +103,13 @@
         v25 = ck_log_facility_scheduler;
         if (os_log_type_enabled(ck_log_facility_scheduler, OS_LOG_TYPE_DEBUG))
         {
-          v58 = v25;
-          v61 = objc_msgSend_ckShortDescription(self, v59, v60);
+          v57 = v25;
+          v60 = objc_msgSend_ckShortDescription(self, v58, v59);
           *buf = 138412546;
-          *&buf[4] = v61;
+          *&buf[4] = v60;
           *&buf[12] = 2048;
           *&buf[14] = v14;
-          _os_log_debug_impl(&dword_1883EA000, v58, OS_LOG_TYPE_DEBUG, "[%@] Starting activity with options: %llu", buf, 0x16u);
+          _os_log_debug_impl(&dword_1883EA000, v57, OS_LOG_TYPE_DEBUG, "[%@] Starting activity with options: %llu", buf, 0x16u);
         }
 
         v28 = objc_msgSend_processInfo(MEMORY[0x1E696AE30], v26, v27);
@@ -150,8 +150,6 @@
   os_unfair_lock_unlock(&self->_lock);
   v51 = NSStringFromSelector(sel_state);
   objc_msgSend_didChangeValueForKey_(self, v52, v51);
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)state
@@ -164,7 +162,7 @@
 
 - (void)complete
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromSelector(sel_state);
   objc_msgSend_willChangeValueForKey_(self, v4, v3);
 
@@ -181,9 +179,9 @@
     {
       v7 = v5;
       v10 = objc_msgSend_ckShortDescription(self, v8, v9);
-      v14 = 138412290;
-      v15 = v10;
-      _os_log_impl(&dword_1883EA000, v7, OS_LOG_TYPE_INFO, "[%@] Completed", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v10;
+      _os_log_impl(&dword_1883EA000, v7, OS_LOG_TYPE_INFO, "[%@] Completed", &v13, 0xCu);
     }
 
     sub_18843B7F0(self, v6);
@@ -193,8 +191,6 @@
   os_unfair_lock_unlock(&self->_lock);
   v11 = NSStringFromSelector(sel_state);
   objc_msgSend_didChangeValueForKey_(self, v12, v11);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (CKBackgroundTask)allocWithZone:(_NSZone *)zone
@@ -240,7 +236,7 @@
 
 - (void)setExpirationHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_lock);
   if (self->_expirationHandler != handlerCopy && (v5 = _Block_copy(handlerCopy), expirationHandler = self->_expirationHandler, self->_expirationHandler = v5, expirationHandler, handlerCopy) && self->_state == 2)
@@ -253,11 +249,11 @@
     v7 = ck_log_facility_scheduler;
     if (os_log_type_enabled(ck_log_facility_scheduler, OS_LOG_TYPE_DEBUG))
     {
-      v9 = v7;
-      v12 = objc_msgSend_ckShortDescription(self, v10, v11);
-      v13 = 138412290;
-      v14 = v12;
-      _os_log_debug_impl(&dword_1883EA000, v9, OS_LOG_TYPE_DEBUG, "[%@] Invoking expiration handler due to cached state", &v13, 0xCu);
+      v8 = v7;
+      v11 = objc_msgSend_ckShortDescription(self, v9, v10);
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_debug_impl(&dword_1883EA000, v8, OS_LOG_TYPE_DEBUG, "[%@] Invoking expiration handler due to cached state", &v12, 0xCu);
     }
 
     os_unfair_lock_unlock(&self->_lock);
@@ -268,8 +264,6 @@
   {
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_useExpiringActivity
@@ -282,7 +276,7 @@
 
 - (BOOL)expiredWithRetryAfter:(double)after error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = NSStringFromSelector(sel_state);
   objc_msgSend_willChangeValueForKey_(self, v7, v6);
 
@@ -299,11 +293,11 @@
     {
       v10 = v8;
       v13 = objc_msgSend_ckShortDescription(self, v11, v12);
-      v18 = 138412546;
-      v19 = v13;
-      v20 = 2048;
+      v17 = 138412546;
+      v18 = v13;
+      v19 = 2048;
       afterCopy = after;
-      _os_log_impl(&dword_1883EA000, v10, OS_LOG_TYPE_INFO, "[%@] Expired with retry after: %g", &v18, 0x16u);
+      _os_log_impl(&dword_1883EA000, v10, OS_LOG_TYPE_INFO, "[%@] Expired with retry after: %g", &v17, 0x16u);
     }
 
     sub_18843B7F0(self, v9);
@@ -314,7 +308,6 @@
   v14 = NSStringFromSelector(sel_state);
   objc_msgSend_didChangeValueForKey_(self, v15, v14);
 
-  v16 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

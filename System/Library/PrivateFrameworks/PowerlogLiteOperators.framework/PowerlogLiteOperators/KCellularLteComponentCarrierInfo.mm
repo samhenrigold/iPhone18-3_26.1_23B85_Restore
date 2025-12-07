@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)pccBandwidthAsString:(int)string;
+- (id)scc0BandwidthAsString:(int)string;
+- (id)scc1BandwidthAsString:(int)string;
 - (int)StringAsPccBandwidth:(id)bandwidth;
 - (int)StringAsScc0Bandwidth:(id)bandwidth;
 - (int)StringAsScc1Bandwidth:(id)bandwidth;
@@ -101,6 +104,21 @@
   *&self->_has = *&self->_has & 0xFFFD | v3;
 }
 
+- (id)pccBandwidthAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825EB60[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPccBandwidth:(id)bandwidth
 {
   bandwidthCopy = bandwidth;
@@ -175,6 +193,21 @@
   *&self->_has = *&self->_has & 0xFFEF | v3;
 }
 
+- (id)scc0BandwidthAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825EB60[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsScc0Bandwidth:(id)bandwidth
 {
   bandwidthCopy = bandwidth;
@@ -247,6 +280,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFF7F | v3;
+}
+
+- (id)scc1BandwidthAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825EB60[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsScc1Bandwidth:(id)bandwidth
@@ -387,13 +435,13 @@
 
 - (id)dictionaryRepresentation
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   has = self->_has;
   if (has)
   {
-    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_timestamp];
-    [dictionary setObject:v16 forKey:@"timestamp"];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_timestamp];
+    [dictionary setObject:v15 forKey:@"timestamp"];
 
     has = self->_has;
     if ((has & 4) == 0)
@@ -413,8 +461,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_pccEarfcn];
-  [dictionary setObject:v17 forKey:@"pcc_earfcn"];
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_pccEarfcn];
+  [dictionary setObject:v16 forKey:@"pcc_earfcn"];
 
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -429,8 +477,8 @@ LABEL_4:
   }
 
 LABEL_28:
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_scc0Earfcn];
-  [dictionary setObject:v18 forKey:@"scc0_earfcn"];
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_scc0Earfcn];
+  [dictionary setObject:v17 forKey:@"scc0_earfcn"];
 
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -445,8 +493,8 @@ LABEL_5:
   }
 
 LABEL_29:
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_scc1Earfcn];
-  [dictionary setObject:v19 forKey:@"scc1_earfcn"];
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_scc1Earfcn];
+  [dictionary setObject:v18 forKey:@"scc1_earfcn"];
 
   has = self->_has;
   if ((has & 2) == 0)
@@ -464,15 +512,15 @@ LABEL_30:
   pccBandwidth = self->_pccBandwidth;
   if (pccBandwidth >= 7)
   {
-    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_pccBandwidth];
+    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_pccBandwidth];
   }
 
   else
   {
-    v21 = off_27825EB60[pccBandwidth];
+    v20 = off_27825EB60[pccBandwidth];
   }
 
-  [dictionary setObject:v21 forKey:@"pcc_bandwidth"];
+  [dictionary setObject:v20 forKey:@"pcc_bandwidth"];
 
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -490,15 +538,15 @@ LABEL_34:
   scc0Bandwidth = self->_scc0Bandwidth;
   if (scc0Bandwidth >= 7)
   {
-    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_scc0Bandwidth];
+    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_scc0Bandwidth];
   }
 
   else
   {
-    v23 = off_27825EB60[scc0Bandwidth];
+    v22 = off_27825EB60[scc0Bandwidth];
   }
 
-  [dictionary setObject:v23 forKey:@"scc0_bandwidth"];
+  [dictionary setObject:v22 forKey:@"scc0_bandwidth"];
 
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -516,15 +564,15 @@ LABEL_38:
   scc1Bandwidth = self->_scc1Bandwidth;
   if (scc1Bandwidth >= 7)
   {
-    v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_scc1Bandwidth];
+    v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_scc1Bandwidth];
   }
 
   else
   {
-    v25 = off_27825EB60[scc1Bandwidth];
+    v24 = off_27825EB60[scc1Bandwidth];
   }
 
-  [dictionary setObject:v25 forKey:@"scc1_bandwidth"];
+  [dictionary setObject:v24 forKey:@"scc1_bandwidth"];
 
   has = self->_has;
   if ((has & 8) == 0)
@@ -539,8 +587,8 @@ LABEL_9:
   }
 
 LABEL_42:
-  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_pccRfBand];
-  [dictionary setObject:v26 forKey:@"pcc_rf_band"];
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_pccRfBand];
+  [dictionary setObject:v25 forKey:@"pcc_rf_band"];
 
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -555,8 +603,8 @@ LABEL_10:
   }
 
 LABEL_43:
-  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_scc0RfBand];
-  [dictionary setObject:v27 forKey:@"scc0_rf_band"];
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_scc0RfBand];
+  [dictionary setObject:v26 forKey:@"scc0_rf_band"];
 
   if ((*&self->_has & 0x200) != 0)
   {
@@ -569,30 +617,30 @@ LABEL_12:
   if ([(NSMutableArray *)self->_carrierInfos count])
   {
     v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_carrierInfos, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v7 = self->_carrierInfos;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
           [v6 addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v9);
@@ -607,19 +655,16 @@ LABEL_12:
     [dictionary setObject:v13 forKey:@"subs_id"];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -639,7 +684,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  pccEarfcn = self->_pccEarfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -654,7 +698,6 @@ LABEL_4:
   }
 
 LABEL_24:
-  scc0Earfcn = self->_scc0Earfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -669,7 +712,6 @@ LABEL_5:
   }
 
 LABEL_25:
-  scc1Earfcn = self->_scc1Earfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -684,7 +726,6 @@ LABEL_6:
   }
 
 LABEL_26:
-  pccBandwidth = self->_pccBandwidth;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -699,7 +740,6 @@ LABEL_7:
   }
 
 LABEL_27:
-  scc0Bandwidth = self->_scc0Bandwidth;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -714,7 +754,6 @@ LABEL_8:
   }
 
 LABEL_28:
-  scc1Bandwidth = self->_scc1Bandwidth;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -729,7 +768,6 @@ LABEL_9:
   }
 
 LABEL_29:
-  pccRfBand = self->_pccRfBand;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -744,52 +782,46 @@ LABEL_10:
   }
 
 LABEL_30:
-  scc0RfBand = self->_scc0RfBand;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_11:
-    scc1RfBand = self->_scc1RfBand;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_12:
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v7 = self->_carrierInfos;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_carrierInfos;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v25;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if ((*&self->_has & 0x400) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -958,7 +990,7 @@ LABEL_12:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1099,30 +1131,30 @@ LABEL_11:
   }
 
 LABEL_12:
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = self->_carrierInfos;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:{zone, v16}];
+        v13 = [*(*(&v15 + 1) + 8 * i) copyWithZone:{zone, v15}];
         [v6 addCarrierInfo:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -1134,7 +1166,6 @@ LABEL_12:
     *(v6 + 64) |= 0x400u;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1465,7 +1496,7 @@ LABEL_22:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 32);
@@ -1606,29 +1637,29 @@ LABEL_11:
   }
 
 LABEL_12:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(fromCopy + 2);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(KCellularLteComponentCarrierInfo *)self addCarrierInfo:*(*(&v13 + 1) + 8 * i), v13];
+        [(KCellularLteComponentCarrierInfo *)self addCarrierInfo:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -1639,8 +1670,6 @@ LABEL_12:
     self->_subsId = v5[15];
     *&self->_has |= 0x400u;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

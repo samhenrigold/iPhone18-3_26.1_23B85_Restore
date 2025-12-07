@@ -198,28 +198,24 @@ void __67__FPDFileCoordinationProvider__provideItemAtURL_completionHandler___blo
 
 - (void)_provideItemAtURL:(const char *)a1 completionHandler:(NSObject *)a2 .cold.1(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Calling deprecated method: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Calling deprecated method: %@", &v4, 0xCu);
 }
 
 - (void)_movingItemAtURL:(void *)a1 withInfo:(void *)a2 completionHandler:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = [a1 fp_shortDescription];
   v6 = [a2 destinationDirectoryURL];
   v7 = [v6 fp_shortDescription];
-  v9 = 138412546;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] needs providing %@ for moving into a different domain %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138412546;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] needs providing %@ for moving into a different domain %@", &v8, 0x16u);
 }
 
 @end

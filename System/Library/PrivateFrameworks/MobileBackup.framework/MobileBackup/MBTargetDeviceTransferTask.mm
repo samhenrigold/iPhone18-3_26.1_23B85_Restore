@@ -24,22 +24,22 @@
 
 - (BOOL)_startWithError:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   queue = [(MBDeviceTransferTask *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = MBGetDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = MBGetDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1DEB5D000, v6, OS_LOG_TYPE_DEFAULT, "%@: Starting the device transfer task", buf, 0xCu);
-    _MBLog(@"Df", "%@: Starting the device transfer task", v7, v8, v9, v10, v11, v12, self);
+    _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEFAULT, "%@: Starting the device transfer task", buf, 0xCu);
+    _MBLog(@"Df", "%@: Starting the device transfer task", self);
   }
 
-  v13 = objc_opt_new();
+  v8 = objc_opt_new();
   fileTransferSession = [(MBDeviceTransferTask *)self fileTransferSession];
-  [v13 setFileTransferSession:fileTransferSession];
+  [v8 setFileTransferSession:fileTransferSession];
 
   manager = [(MBDeviceTransferTask *)self manager];
   if (!manager)
@@ -47,11 +47,10 @@
     [MBTargetDeviceTransferTask _startWithError:];
   }
 
-  v16 = manager;
-  v17 = [manager startDeviceTransferWithTaskType:-[MBTargetDeviceTransferTask taskType](self sessionInfo:"taskType") error:{v13, error}];
+  v11 = manager;
+  v12 = [manager startDeviceTransferWithTaskType:-[MBTargetDeviceTransferTask taskType](self sessionInfo:"taskType") error:{v8, error}];
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v17;
+  return v12;
 }
 
 - (void)start
@@ -63,7 +62,7 @@
 
 - (void)_cancel
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   queue = [(MBDeviceTransferTask *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -74,29 +73,28 @@
   }
 
   v5 = manager;
-  v19 = 0;
-  v6 = [manager cancelDeviceTransferWithTaskType:-[MBTargetDeviceTransferTask taskType](self error:{"taskType"), &v19}];
-  v7 = v19;
+  v12 = 0;
+  v6 = [manager cancelDeviceTransferWithTaskType:-[MBTargetDeviceTransferTask taskType](self error:{"taskType"), &v12}];
+  v7 = v12;
+  v8 = v7;
   if ((v6 & 1) == 0)
   {
-    v8 = MBGetDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = MBGetDefaultLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       taskType = [(MBTargetDeviceTransferTask *)self taskType];
       *buf = 134218242;
-      v21 = taskType;
-      v22 = 2112;
-      v23 = v7;
-      _os_log_impl(&dword_1DEB5D000, v8, OS_LOG_TYPE_ERROR, "Failed to cancel device transfer from target. taskType: %ld error:%@", buf, 0x16u);
-      taskType2 = [(MBTargetDeviceTransferTask *)self taskType];
-      _MBLog(@"E ", "Failed to cancel device transfer from target. taskType: %ld error:%@", v11, v12, v13, v14, v15, v16, taskType2);
+      v14 = taskType;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&dword_1DEB5D000, v9, OS_LOG_TYPE_ERROR, "Failed to cancel device transfer from target. taskType: %ld error:%@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to cancel device transfer from target. taskType: %ld error:%@", [(MBTargetDeviceTransferTask *)self taskType], v8);
     }
   }
 
-  v17 = [MBError errorWithCode:202 format:@"Target device transfer canceled"];
+  v11 = [MBError errorWithCode:202 format:@"Target device transfer canceled"];
 
-  [(MBTargetDeviceTransferTask *)self _finishWithError:v17];
-  v18 = *MEMORY[0x1E69E9840];
+  [(MBTargetDeviceTransferTask *)self _finishWithError:v11];
 }
 
 - (void)cancel
@@ -120,7 +118,7 @@
 
 - (void)startPreflightWithCompletionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = 0;
   atomic_compare_exchange_strong(&self->_startedPreflight, &v5, 1u);
@@ -130,57 +128,55 @@
   }
 
   v6 = handlerCopy;
-  v7 = MBGetDefaultLog();
+  v7 = MBGetDefaultLog(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = self;
     _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEFAULT, "%@: Starting the preflight", &buf, 0xCu);
-    _MBLog(@"Df", "%@: Starting the preflight", v8, v9, v10, v11, v12, v13, self);
+    _MBLog(@"Df", "%@: Starting the preflight", self);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__1;
-  v33 = __Block_byref_object_dispose__1;
-  v34 = 0;
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x3032000000;
-  v28[3] = __Block_byref_object_copy__1;
-  v28[4] = __Block_byref_object_dispose__1;
-  v29 = 0;
-  v14 = dispatch_group_create();
-  dispatch_group_enter(v14);
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__1;
+  v26 = __Block_byref_object_dispose__1;
+  v27 = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = __Block_byref_object_copy__1;
+  v21[4] = __Block_byref_object_dispose__1;
+  v22 = 0;
+  v8 = dispatch_group_create();
+  dispatch_group_enter(v8);
   queue = [(MBDeviceTransferTask *)self queue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __66__MBTargetDeviceTransferTask_startPreflightWithCompletionHandler___block_invoke;
   block[3] = &unk_1E86848B0;
   block[4] = self;
-  v26 = v28;
-  v16 = v14;
-  v25 = v16;
+  v19 = v21;
+  v10 = v8;
+  v18 = v10;
   p_buf = &buf;
   dispatch_async(queue, block);
 
   queue2 = [(MBDeviceTransferTask *)self queue];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __66__MBTargetDeviceTransferTask_startPreflightWithCompletionHandler___block_invoke_3;
-  v20[3] = &unk_1E86848D8;
-  v22 = &buf;
-  v23 = v28;
-  v20[4] = self;
-  v21 = v6;
-  v18 = v6;
-  dispatch_group_notify(v16, queue2, v20);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __66__MBTargetDeviceTransferTask_startPreflightWithCompletionHandler___block_invoke_3;
+  v13[3] = &unk_1E86848D8;
+  v15 = &buf;
+  v16 = v21;
+  v13[4] = self;
+  v14 = v6;
+  v12 = v6;
+  dispatch_group_notify(v10, queue2, v13);
 
-  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(v21, 8);
   _Block_object_dispose(&buf, 8);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MBTargetDeviceTransferTask_startPreflightWithCompletionHandler___block_invoke(uint64_t a1)
@@ -239,25 +235,23 @@ void __66__MBTargetDeviceTransferTask_startPreflightWithCompletionHandler___bloc
 
 uint64_t __66__MBTargetDeviceTransferTask_startPreflightWithCompletionHandler___block_invoke_3(void *a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1[7] + 8) + 40);
   if (*(*(a1[6] + 8) + 40))
   {
     if (!v2)
     {
-      v3 = MBGetDefaultLog();
+      v3 = MBGetDefaultLog(a1);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v4 = a1[4];
         v5 = *(*(a1[6] + 8) + 40);
         *buf = 138412546;
-        v27 = v4;
-        v28 = 2112;
-        v29 = v5;
+        v10 = v4;
+        v11 = 2112;
+        v12 = v5;
         _os_log_impl(&dword_1DEB5D000, v3, OS_LOG_TYPE_DEFAULT, "%@: Finished the preflight: %@", buf, 0x16u);
-        v6 = a1[4];
-        v24 = *(*(a1[6] + 8) + 40);
-        _MBLog(@"Df", "%@: Finished the preflight: %@", v7, v8, v9, v10, v11, v12, v6);
+        _MBLog(@"Df", "%@: Finished the preflight: %@", a1[4], *(*(a1[6] + 8) + 40));
       }
 
       goto LABEL_8;
@@ -269,19 +263,17 @@ uint64_t __66__MBTargetDeviceTransferTask_startPreflightWithCompletionHandler___
     __66__MBTargetDeviceTransferTask_startPreflightWithCompletionHandler___block_invoke_3_cold_1();
   }
 
-  v3 = MBGetDefaultLog();
+  v3 = MBGetDefaultLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v13 = a1[4];
-    v14 = *(*(a1[7] + 8) + 40);
+    v6 = a1[4];
+    v7 = *(*(a1[7] + 8) + 40);
     *buf = 138412546;
-    v27 = v13;
-    v28 = 2112;
-    v29 = v14;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
     _os_log_impl(&dword_1DEB5D000, v3, OS_LOG_TYPE_ERROR, "%@: Failed the preflight: %@", buf, 0x16u);
-    v15 = a1[4];
-    v25 = *(*(a1[7] + 8) + 40);
-    _MBLog(@"E ", "%@: Failed the preflight: %@", v16, v17, v18, v19, v20, v21, v15);
+    _MBLog(@"E ", "%@: Failed the preflight: %@", a1[4], *(*(a1[7] + 8) + 40));
   }
 
 LABEL_8:
@@ -289,16 +281,15 @@ LABEL_8:
   result = a1[5];
   if (result)
   {
-    result = (*(result + 16))(result, *(*(a1[6] + 8) + 40), *(*(a1[7] + 8) + 40));
+    return (*(result + 16))(result, *(*(a1[6] + 8) + 40), *(*(a1[7] + 8) + 40));
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)startKeychainDataTransferWithCompletionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = 0;
   atomic_compare_exchange_strong(&self->_startedKeychainDataTransfer, &v5, 1u);
@@ -308,57 +299,55 @@ LABEL_8:
   }
 
   v6 = handlerCopy;
-  v7 = MBGetDefaultLog();
+  v7 = MBGetDefaultLog(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = self;
     _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEFAULT, "%@: Starting the keychain data transfer", &buf, 0xCu);
-    _MBLog(@"Df", "%@: Starting the keychain data transfer", v8, v9, v10, v11, v12, v13, self);
+    _MBLog(@"Df", "%@: Starting the keychain data transfer", self);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__1;
-  v33 = __Block_byref_object_dispose__1;
-  v34 = 0;
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x3032000000;
-  v28[3] = __Block_byref_object_copy__1;
-  v28[4] = __Block_byref_object_dispose__1;
-  v29 = 0;
-  v14 = dispatch_group_create();
-  dispatch_group_enter(v14);
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__1;
+  v26 = __Block_byref_object_dispose__1;
+  v27 = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = __Block_byref_object_copy__1;
+  v21[4] = __Block_byref_object_dispose__1;
+  v22 = 0;
+  v8 = dispatch_group_create();
+  dispatch_group_enter(v8);
   queue = [(MBDeviceTransferTask *)self queue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __77__MBTargetDeviceTransferTask_startKeychainDataTransferWithCompletionHandler___block_invoke;
   block[3] = &unk_1E86848B0;
   block[4] = self;
-  v26 = v28;
-  v16 = v14;
-  v25 = v16;
+  v19 = v21;
+  v10 = v8;
+  v18 = v10;
   p_buf = &buf;
   dispatch_async(queue, block);
 
   queue2 = [(MBDeviceTransferTask *)self queue];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __77__MBTargetDeviceTransferTask_startKeychainDataTransferWithCompletionHandler___block_invoke_3;
-  v20[3] = &unk_1E86848D8;
-  v22 = &buf;
-  v23 = v28;
-  v20[4] = self;
-  v21 = v6;
-  v18 = v6;
-  dispatch_group_notify(v16, queue2, v20);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __77__MBTargetDeviceTransferTask_startKeychainDataTransferWithCompletionHandler___block_invoke_3;
+  v13[3] = &unk_1E86848D8;
+  v15 = &buf;
+  v16 = v21;
+  v13[4] = self;
+  v14 = v6;
+  v12 = v6;
+  dispatch_group_notify(v10, queue2, v13);
 
-  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(v21, 8);
   _Block_object_dispose(&buf, 8);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __77__MBTargetDeviceTransferTask_startKeychainDataTransferWithCompletionHandler___block_invoke(uint64_t a1)
@@ -417,25 +406,23 @@ void __77__MBTargetDeviceTransferTask_startKeychainDataTransferWithCompletionHan
 
 uint64_t __77__MBTargetDeviceTransferTask_startKeychainDataTransferWithCompletionHandler___block_invoke_3(void *a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1[7] + 8) + 40);
   if (*(*(a1[6] + 8) + 40))
   {
     if (!v2)
     {
-      v3 = MBGetDefaultLog();
+      v3 = MBGetDefaultLog(a1);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v4 = a1[4];
         v5 = *(*(a1[6] + 8) + 40);
         *buf = 138412546;
-        v27 = v4;
-        v28 = 2112;
-        v29 = v5;
+        v10 = v4;
+        v11 = 2112;
+        v12 = v5;
         _os_log_impl(&dword_1DEB5D000, v3, OS_LOG_TYPE_DEFAULT, "%@: Finished the keychain data transfer: %@", buf, 0x16u);
-        v6 = a1[4];
-        v24 = *(*(a1[6] + 8) + 40);
-        _MBLog(@"Df", "%@: Finished the keychain data transfer: %@", v7, v8, v9, v10, v11, v12, v6);
+        _MBLog(@"Df", "%@: Finished the keychain data transfer: %@", a1[4], *(*(a1[6] + 8) + 40));
       }
 
       goto LABEL_8;
@@ -447,19 +434,17 @@ uint64_t __77__MBTargetDeviceTransferTask_startKeychainDataTransferWithCompletio
     __77__MBTargetDeviceTransferTask_startKeychainDataTransferWithCompletionHandler___block_invoke_3_cold_1();
   }
 
-  v3 = MBGetDefaultLog();
+  v3 = MBGetDefaultLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v13 = a1[4];
-    v14 = *(*(a1[7] + 8) + 40);
+    v6 = a1[4];
+    v7 = *(*(a1[7] + 8) + 40);
     *buf = 138412546;
-    v27 = v13;
-    v28 = 2112;
-    v29 = v14;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
     _os_log_impl(&dword_1DEB5D000, v3, OS_LOG_TYPE_ERROR, "%@: Failed the keychain data transfer: %@", buf, 0x16u);
-    v15 = a1[4];
-    v25 = *(*(a1[7] + 8) + 40);
-    _MBLog(@"E ", "%@: Failed the keychain data transfer: %@", v16, v17, v18, v19, v20, v21, v15);
+    _MBLog(@"E ", "%@: Failed the keychain data transfer: %@", a1[4], *(*(a1[7] + 8) + 40));
   }
 
 LABEL_8:
@@ -467,16 +452,15 @@ LABEL_8:
   result = a1[5];
   if (result)
   {
-    result = (*(result + 16))(result, *(*(a1[6] + 8) + 40), *(*(a1[7] + 8) + 40));
+    return (*(result + 16))(result, *(*(a1[6] + 8) + 40), *(*(a1[7] + 8) + 40));
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)startKeychainDataImportWithKeychainInfo:(id)info completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   handlerCopy = handler;
   if (!infoCopy)
@@ -492,23 +476,23 @@ LABEL_8:
   }
 
   v9 = handlerCopy;
-  v10 = MBGetDefaultLog();
+  v10 = MBGetDefaultLog(handlerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = self;
     _os_log_impl(&dword_1DEB5D000, v10, OS_LOG_TYPE_DEFAULT, "%@: Starting the keychain data import", &buf, 0xCu);
-    _MBLog(@"Df", "%@: Starting the keychain data import", v11, v12, v13, v14, v15, v16, self);
+    _MBLog(@"Df", "%@: Starting the keychain data import", self);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__1;
-  v34 = __Block_byref_object_dispose__1;
-  v35 = 0;
-  v17 = dispatch_group_create();
-  dispatch_group_enter(v17);
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__1;
+  v27 = __Block_byref_object_dispose__1;
+  v28 = 0;
+  v11 = dispatch_group_create();
+  dispatch_group_enter(v11);
   queue = [(MBDeviceTransferTask *)self queue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -516,25 +500,24 @@ LABEL_8:
   block[3] = &unk_1E8684928;
   block[4] = self;
   p_buf = &buf;
-  v19 = v17;
-  v28 = v19;
-  v20 = infoCopy;
-  v29 = v20;
+  v13 = v11;
+  v21 = v13;
+  v14 = infoCopy;
+  v22 = v14;
   dispatch_async(queue, block);
 
   queue2 = [(MBDeviceTransferTask *)self queue];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __88__MBTargetDeviceTransferTask_startKeychainDataImportWithKeychainInfo_completionHandler___block_invoke_3;
-  v24[3] = &unk_1E8684950;
-  v25 = v9;
-  v26 = &buf;
-  v24[4] = self;
-  v22 = v9;
-  dispatch_group_notify(v19, queue2, v24);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __88__MBTargetDeviceTransferTask_startKeychainDataImportWithKeychainInfo_completionHandler___block_invoke_3;
+  v17[3] = &unk_1E8684950;
+  v18 = v9;
+  v19 = &buf;
+  v17[4] = self;
+  v16 = v9;
+  dispatch_group_notify(v13, queue2, v17);
 
   _Block_object_dispose(&buf, 8);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __88__MBTargetDeviceTransferTask_startKeychainDataImportWithKeychainInfo_completionHandler___block_invoke(uint64_t a1)
@@ -582,11 +565,11 @@ void __88__MBTargetDeviceTransferTask_startKeychainDataImportWithKeychainInfo_co
   dispatch_group_leave(*(a1 + 32));
 }
 
-uint64_t __88__MBTargetDeviceTransferTask_startKeychainDataImportWithKeychainInfo_completionHandler___block_invoke_3(uint64_t *a1)
+uint64_t __88__MBTargetDeviceTransferTask_startKeychainDataImportWithKeychainInfo_completionHandler___block_invoke_3(void *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1[6] + 8) + 40);
-  v3 = MBGetDefaultLog();
+  v3 = MBGetDefaultLog(a1);
   v4 = v3;
   if (v2)
   {
@@ -595,38 +578,35 @@ uint64_t __88__MBTargetDeviceTransferTask_startKeychainDataImportWithKeychainInf
       v5 = a1[4];
       v6 = *(*(a1[6] + 8) + 40);
       *buf = 138412546;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v6;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
       _os_log_impl(&dword_1DEB5D000, v4, OS_LOG_TYPE_ERROR, "%@: Failed the keychain data import: %@", buf, 0x16u);
-      v7 = a1[4];
-      v23 = *(*(a1[6] + 8) + 40);
-      _MBLog(@"E ", "%@: Failed the keychain data import: %@", v8, v9, v10, v11, v12, v13, v7);
+      _MBLog(@"E ", "%@: Failed the keychain data import: %@", a1[4], *(*(a1[6] + 8) + 40));
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = a1[4];
+    v7 = a1[4];
     *buf = 138412290;
-    v25 = v14;
+    v10 = v7;
     _os_log_impl(&dword_1DEB5D000, v4, OS_LOG_TYPE_DEFAULT, "%@: Finished the keychain data import", buf, 0xCu);
-    _MBLog(@"Df", "%@: Finished the keychain data import", v15, v16, v17, v18, v19, v20, a1[4]);
+    _MBLog(@"Df", "%@: Finished the keychain data import", a1[4]);
   }
 
   result = a1[5];
   if (result)
   {
-    result = (*(result + 16))(result, *(*(a1[6] + 8) + 40));
+    return (*(result + 16))(result, *(*(a1[6] + 8) + 40));
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)startDataTransferWithPreflightInfo:(id)info completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   handlerCopy = handler;
   if (!infoCopy)
@@ -642,23 +622,23 @@ uint64_t __88__MBTargetDeviceTransferTask_startKeychainDataImportWithKeychainInf
   }
 
   v9 = handlerCopy;
-  v10 = MBGetDefaultLog();
+  v10 = MBGetDefaultLog(handlerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = self;
     _os_log_impl(&dword_1DEB5D000, v10, OS_LOG_TYPE_DEFAULT, "%@: Starting the data transfer", &buf, 0xCu);
-    _MBLog(@"Df", "%@: Starting the data transfer", v11, v12, v13, v14, v15, v16, self);
+    _MBLog(@"Df", "%@: Starting the data transfer", self);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__1;
-  v34 = __Block_byref_object_dispose__1;
-  v35 = 0;
-  v17 = dispatch_group_create();
-  dispatch_group_enter(v17);
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__1;
+  v27 = __Block_byref_object_dispose__1;
+  v28 = 0;
+  v11 = dispatch_group_create();
+  dispatch_group_enter(v11);
   queue = [(MBDeviceTransferTask *)self queue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -666,25 +646,24 @@ uint64_t __88__MBTargetDeviceTransferTask_startKeychainDataImportWithKeychainInf
   block[3] = &unk_1E8684928;
   block[4] = self;
   p_buf = &buf;
-  v19 = v17;
-  v28 = v19;
-  v20 = infoCopy;
-  v29 = v20;
+  v13 = v11;
+  v21 = v13;
+  v14 = infoCopy;
+  v22 = v14;
   dispatch_async(queue, block);
 
   queue2 = [(MBDeviceTransferTask *)self queue];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __83__MBTargetDeviceTransferTask_startDataTransferWithPreflightInfo_completionHandler___block_invoke_3;
-  v24[3] = &unk_1E8684950;
-  v25 = v9;
-  v26 = &buf;
-  v24[4] = self;
-  v22 = v9;
-  dispatch_group_notify(v19, queue2, v24);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __83__MBTargetDeviceTransferTask_startDataTransferWithPreflightInfo_completionHandler___block_invoke_3;
+  v17[3] = &unk_1E8684950;
+  v18 = v9;
+  v19 = &buf;
+  v17[4] = self;
+  v16 = v9;
+  dispatch_group_notify(v13, queue2, v17);
 
   _Block_object_dispose(&buf, 8);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MBTargetDeviceTransferTask_startDataTransferWithPreflightInfo_completionHandler___block_invoke(uint64_t a1)
@@ -732,11 +711,11 @@ void __83__MBTargetDeviceTransferTask_startDataTransferWithPreflightInfo_complet
   dispatch_group_leave(*(a1 + 32));
 }
 
-uint64_t __83__MBTargetDeviceTransferTask_startDataTransferWithPreflightInfo_completionHandler___block_invoke_3(uint64_t *a1)
+uint64_t __83__MBTargetDeviceTransferTask_startDataTransferWithPreflightInfo_completionHandler___block_invoke_3(void *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1[6] + 8) + 40);
-  v3 = MBGetDefaultLog();
+  v3 = MBGetDefaultLog(a1);
   v4 = v3;
   if (v2)
   {
@@ -745,83 +724,80 @@ uint64_t __83__MBTargetDeviceTransferTask_startDataTransferWithPreflightInfo_com
       v5 = a1[4];
       v6 = *(*(a1[6] + 8) + 40);
       *buf = 138412546;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v6;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
       _os_log_impl(&dword_1DEB5D000, v4, OS_LOG_TYPE_ERROR, "%@: Failed the data transfer: %@", buf, 0x16u);
-      v7 = a1[4];
-      v23 = *(*(a1[6] + 8) + 40);
-      _MBLog(@"E ", "%@: Failed the data transfer: %@", v8, v9, v10, v11, v12, v13, v7);
+      _MBLog(@"E ", "%@: Failed the data transfer: %@", a1[4], *(*(a1[6] + 8) + 40));
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = a1[4];
+    v7 = a1[4];
     *buf = 138412290;
-    v25 = v14;
+    v10 = v7;
     _os_log_impl(&dword_1DEB5D000, v4, OS_LOG_TYPE_DEFAULT, "%@: Finished the data transfer", buf, 0xCu);
-    _MBLog(@"Df", "%@: Finished the data transfer", v15, v16, v17, v18, v19, v20, a1[4]);
+    _MBLog(@"Df", "%@: Finished the data transfer", a1[4]);
   }
 
   result = a1[5];
   if (result)
   {
-    result = (*(result + 16))(result, *(*(a1[6] + 8) + 40));
+    return (*(result + 16))(result, *(*(a1[6] + 8) + 40));
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)manager:(id)manager didFinishDeviceTransferWithError:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  if (![(MBDeviceTransferTask *)self finished])
+  finished = [(MBDeviceTransferTask *)self finished];
+  if ((finished & 1) == 0)
   {
-    v6 = MBGetDefaultLog();
-    v7 = v6;
+    v7 = MBGetDefaultLog(finished);
+    v8 = v7;
     if (errorCopy)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v23 = 2112;
-        v24 = errorCopy;
-        _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_ERROR, "%@: Failed the target transfer task: %@", buf, 0x16u);
-        _MBLog(@"E ", "%@: Failed the target transfer task: %@", v8, v9, v10, v11, v12, v13, self);
+        v11 = 2112;
+        v12 = errorCopy;
+        _os_log_impl(&dword_1DEB5D000, v8, OS_LOG_TYPE_ERROR, "%@: Failed the target transfer task: %@", buf, 0x16u);
+        _MBLog(@"E ", "%@: Failed the target transfer task: %@", self, errorCopy);
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEFAULT, "%@: Finished the target transfer task", buf, 0xCu);
-      _MBLog(@"Df", "%@: Finished the target transfer task", v14, v15, v16, v17, v18, v19, self);
+      _os_log_impl(&dword_1DEB5D000, v8, OS_LOG_TYPE_DEFAULT, "%@: Finished the target transfer task", buf, 0xCu);
+      _MBLog(@"Df", "%@: Finished the target transfer task", self);
     }
 
     [(MBTargetDeviceTransferTask *)self _finishWithError:errorCopy];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)manager:(id)manager didUpdateDeviceTransferProgress:(id)progress
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   progressCopy = progress;
-  if (![(MBDeviceTransferTask *)self finished])
+  finished = [(MBDeviceTransferTask *)self finished];
+  if ((finished & 1) == 0)
   {
-    v6 = MBGetDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MBGetDefaultLog(finished);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = progressCopy;
-      _os_log_impl(&dword_1DEB5D000, v6, OS_LOG_TYPE_DEFAULT, "Updated progress: %@", buf, 0xCu);
-      _MBLog(@"Df", "Updated progress: %@", v7, v8, v9, v10, v11, v12, progressCopy);
+      v11 = progressCopy;
+      _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEFAULT, "Updated progress: %@", buf, 0xCu);
+      _MBLog(@"Df", "Updated progress: %@", progressCopy);
     }
 
     progressHandler = [(MBDeviceTransferTask *)self progressHandler];
@@ -832,8 +808,6 @@ uint64_t __83__MBTargetDeviceTransferTask_startDataTransferWithPreflightInfo_com
       (progressHandler2)[2](progressHandler2, progressCopy);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

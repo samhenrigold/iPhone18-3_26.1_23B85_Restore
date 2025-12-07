@@ -45,29 +45,23 @@
   container_query_create();
   container_query_set_class();
   container_query_set_include_other_owners();
-  uTF8String = [stringCopy UTF8String];
-
-  v8 = *MEMORY[0x277D85ED0];
-  if (!uTF8String)
-  {
-    v9 = *MEMORY[0x277D85ED0];
-  }
+  [stringCopy UTF8String];
 
   container_query_set_persona_unique_string();
   container_query_operation_set_flags();
-  v13 = MEMORY[0x277D85DD0];
-  v10 = array;
-  v14 = v10;
+  v10 = MEMORY[0x277D85DD0];
+  v7 = array;
+  v11 = v7;
   if ((container_query_iterate_results_sync() & 1) == 0)
   {
 
-    v10 = 0;
+    v7 = 0;
   }
 
   container_query_free();
-  v11 = [v10 copy];
+  v8 = [v7 copy];
 
-  return v11;
+  return v8;
 }
 
 uint64_t __55__STContainer_containersWithClass_personaUniqueString___block_invoke(uint64_t a1, uint64_t a2)
@@ -93,30 +87,24 @@ uint64_t __55__STContainer_containersWithClass_personaUniqueString___block_invok
 
   container_query_set_class();
   container_query_set_include_other_owners();
-  uTF8String2 = [stringCopy UTF8String];
-
-  v12 = *MEMORY[0x277D85ED0];
-  if (!uTF8String2)
-  {
-    v13 = *MEMORY[0x277D85ED0];
-  }
+  [stringCopy UTF8String];
 
   container_query_set_persona_unique_string();
   container_query_operation_set_flags();
   single_result = container_query_get_single_result();
   if (single_result)
   {
-    v15 = [[self alloc] initWithLibsystemContainer:single_result];
+    v12 = [[self alloc] initWithLibsystemContainer:single_result];
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
   container_query_free();
 
-  return v15;
+  return v12;
 }
 
 @end

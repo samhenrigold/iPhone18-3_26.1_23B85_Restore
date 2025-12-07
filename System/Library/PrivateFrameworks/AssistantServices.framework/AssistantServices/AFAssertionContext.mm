@@ -52,7 +52,7 @@
   v5 = representationCopy;
   if (representationCopy)
   {
-    v6 = [representationCopy objectForKey:@"timestamp"];
+    v6 = objc_msgSend_objectForKey_(representationCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -65,7 +65,7 @@
     }
 
     unsignedLongLongValue = [v7 unsignedLongLongValue];
-    v10 = [v5 objectForKey:@"reason"];
+    v10 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -77,7 +77,7 @@
       v11 = 0;
     }
 
-    v12 = [v5 objectForKey:@"effectiveDate"];
+    v12 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -89,7 +89,7 @@
       v13 = 0;
     }
 
-    v14 = [v5 objectForKey:@"expirationDuration"];
+    v14 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -104,7 +104,7 @@
     [v15 doubleValue];
     v17 = v16;
 
-    v18 = [v5 objectForKey:@"userInfo"];
+    v18 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

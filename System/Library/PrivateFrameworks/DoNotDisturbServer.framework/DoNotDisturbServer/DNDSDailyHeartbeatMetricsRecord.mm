@@ -1,6 +1,7 @@
 @interface DNDSDailyHeartbeatMetricsRecord
 + (id)newWithDictionaryRepresentation:(id)representation context:(id)context;
 - (BOOL)isEqual:(id)equal;
+- (id)_initWithEnabled:(BOOL)enabled manuallyEnabled:(BOOL)manuallyEnabled numberOfSessions:(id)sessions numberOfManualSessions:(id)manualSessions enabledFromControlCenterPhone:(BOOL)phone enabledFromControlCenterWatch:(BOOL)watch enabledForOneHour:(BOOL)hour enabledUntilEvening:(BOOL)self0 enabledUntilMorning:(BOOL)self1 enabledAtLocation:(BOOL)self2 enabledDuringEvent:(BOOL)self3 enabledDrivingMode:(BOOL)self4 enabledSleepMode:(BOOL)self5 dayOfWeek:(id)self6;
 - (id)_initWithRecord:(id)record;
 - (id)description;
 - (id)dictionaryRepresentationWithContext:(id)context;
@@ -38,6 +39,42 @@
   v13 = [DNDSDailyHeartbeatMetricsRecord _initWithEnabled:"_initWithEnabled:manuallyEnabled:numberOfSessions:numberOfManualSessions:enabledFromControlCenterPhone:enabledFromControlCenterWatch:enabledForOneHour:enabledUntilEvening:enabledUntilMorning:enabledAtLocation:enabledDuringEvent:enabledDrivingMode:enabledSleepMode:dayOfWeek:" manuallyEnabled:enabled numberOfSessions:manuallyEnabled numberOfManualSessions:numberOfSessions enabledFromControlCenterPhone:numberOfManualSessions enabledFromControlCenterWatch:enabledFromControlCenterPhone enabledForOneHour:enabledFromControlCenterWatch enabledUntilEvening:v15 enabledUntilMorning:dayOfWeek enabledAtLocation:? enabledDuringEvent:? enabledDrivingMode:? enabledSleepMode:? dayOfWeek:?];
 
   return v13;
+}
+
+- (id)_initWithEnabled:(BOOL)enabled manuallyEnabled:(BOOL)manuallyEnabled numberOfSessions:(id)sessions numberOfManualSessions:(id)manualSessions enabledFromControlCenterPhone:(BOOL)phone enabledFromControlCenterWatch:(BOOL)watch enabledForOneHour:(BOOL)hour enabledUntilEvening:(BOOL)self0 enabledUntilMorning:(BOOL)self1 enabledAtLocation:(BOOL)self2 enabledDuringEvent:(BOOL)self3 enabledDrivingMode:(BOOL)self4 enabledSleepMode:(BOOL)self5 dayOfWeek:(id)self6
+{
+  phoneCopy = phone;
+  watchCopy = watch;
+  manuallyEnabledCopy = manuallyEnabled;
+  enabledCopy = enabled;
+  weekCopy = week;
+  v30.receiver = self;
+  v30.super_class = DNDSDailyHeartbeatMetricsRecord;
+  BYTE6(v24) = sleepMode;
+  BYTE5(v24) = mode;
+  BYTE4(v24) = event;
+  BYTE3(v24) = location;
+  BYTE2(v24) = morning;
+  LOWORD(v24) = __PAIR16__(evening, hour);
+  v19 = [DNDSHeartbeatMetricsRecord _initWithEnabled:sel__initWithEnabled_manuallyEnabled_numberOfSessions_numberOfManualSessions_enabledFromControlCenterPhone_enabledFromControlCenterWatch_enabledForOneHour_enabledUntilEvening_enabledUntilMorning_enabledAtLocation_enabledDuringEvent_enabledDrivingMode_enabledSleepMode_ manuallyEnabled:enabledCopy numberOfSessions:manuallyEnabledCopy numberOfManualSessions:sessions enabledFromControlCenterPhone:manualSessions enabledFromControlCenterWatch:phoneCopy enabledForOneHour:watchCopy enabledUntilEvening:v24 enabledUntilMorning:? enabledAtLocation:? enabledDuringEvent:? enabledDrivingMode:? enabledSleepMode:?];
+  if (v19)
+  {
+    v20 = [weekCopy copy];
+    v21 = v20;
+    if (v20)
+    {
+      v22 = v20;
+    }
+
+    else
+    {
+      v22 = &unk_285C53568;
+    }
+
+    objc_storeStrong(v19 + 6, v22);
+  }
+
+  return v19;
 }
 
 - (unint64_t)hash

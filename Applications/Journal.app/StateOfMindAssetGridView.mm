@@ -13,7 +13,7 @@
   x = frame.origin.x;
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal24StateOfMindAssetGridView_previousSizeType) = 8;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for StateOfMindAssetGridView();
+  v8.super_class = type metadata accessor for StateOfMindAssetGridView(0);
   return [(StateOfMindAssetView *)&v8 initWithFrame:x, y, width, height];
 }
 
@@ -21,7 +21,7 @@
 {
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal24StateOfMindAssetGridView_previousSizeType) = 8;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for StateOfMindAssetGridView();
+  v7.super_class = type metadata accessor for StateOfMindAssetGridView(0);
   coderCopy = coder;
   v5 = [(StateOfMindAssetView *)&v7 initWithCoder:coderCopy];
 

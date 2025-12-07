@@ -186,21 +186,22 @@ id __32__SafariSettingsSyncEngine_init__block_invoke_3(uint64_t a1)
     v6 = *MEMORY[0x277D4A970];
     v7 = [userInfo objectForKeyedSubscript:*MEMORY[0x277D4A970]];
 
-    if ([v7 length])
+    v8 = [v7 length];
+    if (v8)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(SafariSettingsSyncEngine *)v6 _backgroundImageChanged:v8];
+        [(SafariSettingsSyncEngine *)v6 _backgroundImageChanged:v10];
       }
     }
 
     else
     {
       standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      v10 = [standardUserDefaults integerForKey:*MEMORY[0x277D4A268]];
+      v12 = [standardUserDefaults integerForKey:*MEMORY[0x277D4A268]];
 
-      if (v10)
+      if (v12)
       {
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
         safari_startPageBackgroundImageFileURLForDefaultProfile = [defaultManager safari_startPageBackgroundImageFileURLForDefaultProfile];
@@ -219,36 +220,37 @@ id __32__SafariSettingsSyncEngine_init__block_invoke_3(uint64_t a1)
 
 void __52__SafariSettingsSyncEngine__backgroundImageChanged___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v4 = [v2 safari_privacyPreservingDescription];
-      __52__SafariSettingsSyncEngine__backgroundImageChanged___block_invoke_cold_1(v4, v6, v3);
+      v6 = [v4 safari_privacyPreservingDescription];
+      __52__SafariSettingsSyncEngine__backgroundImageChanged___block_invoke_cold_1(v6, v8, v5);
     }
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXCloudSettings(0, v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_INFO, "[StartPageBackground] Default profile image has been deleted in CloudKit.", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_INFO, "[StartPageBackground] Default profile image has been deleted in CloudKit.", v8, 2u);
     }
   }
 }
 
-void __52__SafariSettingsSyncEngine__backgroundImageChanged___block_invoke_38()
+void __52__SafariSettingsSyncEngine__backgroundImageChanged___block_invoke_38(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_215819000, v0, OS_LOG_TYPE_INFO, "[StartPageBackground] saved image for default profile in CloudKit", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "[StartPageBackground] saved image for default profile in CloudKit", v3, 2u);
   }
 }
 
@@ -290,19 +292,19 @@ void __52__SafariSettingsSyncEngine__backgroundImageChanged___block_invoke_38()
   }
 }
 
-void __72__SafariSettingsSyncEngine__didUpdateStartPageBackgroundImageVisibility__block_invoke(uint64_t a1)
+void __72__SafariSettingsSyncEngine__didUpdateStartPageBackgroundImageVisibility__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *MEMORY[0x277D4A3C0];
-    v4 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277D4A3C0]];
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = v4;
-    _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "[StartPageBackground] Set %{public}@ to %{public}@ in CloudKit successfully.", &v5, 0x16u);
+    v4 = *MEMORY[0x277D4A3C0];
+    v5 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277D4A3C0]];
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2114;
+    v9 = v5;
+    _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_INFO, "[StartPageBackground] Set %{public}@ to %{public}@ in CloudKit successfully.", &v6, 0x16u);
   }
 }
 
@@ -326,13 +328,13 @@ void __72__SafariSettingsSyncEngine__didUpdateStartPageBackgroundImageVisibility
   }
 }
 
-void __57__SafariSettingsSyncEngine__didUpdateDefaultBrowserState__block_invoke()
+void __57__SafariSettingsSyncEngine__didUpdateDefaultBrowserState__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_215819000, v0, OS_LOG_TYPE_INFO, "Safari's default browser state has been updated in CloudKit", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "Safari's default browser state has been updated in CloudKit", v3, 2u);
   }
 }
 
@@ -363,17 +365,17 @@ void __57__SafariSettingsSyncEngine__didUpdateDefaultBrowserState__block_invoke(
   }
 }
 
-void __58__SafariSettingsSyncEngine__didUpdateStartPageVisibility___block_invoke(uint64_t a1)
+void __58__SafariSettingsSyncEngine__didUpdateStartPageVisibility___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(a1 + 32) userInfo];
-    v4 = [v3 objectForKeyedSubscript:@"section"];
-    v5 = 138543362;
-    v6 = v4;
-    _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "Safari's %{public}@ has been updated in CloudKit", &v5, 0xCu);
+    v4 = [*(a1 + 32) userInfo];
+    v5 = [v4 objectForKeyedSubscript:@"section"];
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_INFO, "Safari's %{public}@ has been updated in CloudKit", &v6, 0xCu);
   }
 }
 
@@ -396,13 +398,13 @@ void __58__SafariSettingsSyncEngine__didUpdateStartPageVisibility___block_invoke
   }
 }
 
-void __60__SafariSettingsSyncEngine__didUpdateStartPageSectionOrder___block_invoke()
+void __60__SafariSettingsSyncEngine__didUpdateStartPageSectionOrder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_215819000, v0, OS_LOG_TYPE_INFO, "Safari's Start Page order has been updated in CloudKit", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "Safari's Start Page order has been updated in CloudKit", v3, 2u);
   }
 }
 
@@ -467,13 +469,13 @@ void __60__SafariSettingsSyncEngine__didUpdateStartPageSectionOrder___block_invo
   [(WBSSafariSettingsSyncEngine *)self saveSettingWithDictionaryRepresentation:v9 successCompletionHandler:&__block_literal_global_54];
 }
 
-void __66__SafariSettingsSyncEngine__didUpdateCloudTabsOnStartPageConsent___block_invoke()
+void __66__SafariSettingsSyncEngine__didUpdateCloudTabsOnStartPageConsent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_215819000, v0, OS_LOG_TYPE_INFO, "Cloud tabs on start page consent has been updated in CloudKit", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "Cloud tabs on start page consent has been updated in CloudKit", v3, 2u);
   }
 }
 

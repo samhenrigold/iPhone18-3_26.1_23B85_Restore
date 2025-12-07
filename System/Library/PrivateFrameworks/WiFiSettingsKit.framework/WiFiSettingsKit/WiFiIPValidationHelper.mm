@@ -23,24 +23,23 @@
 
 + (BOOL)IsValidIPv6Address:(id)address
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   v4 = addressCopy;
-  v9[0] = 0;
-  v10 = 0;
-  v9[1] = 0;
-  if (!addressCopy || (CFStringGetCString(addressCopy, buffer, 46, 0x600u), inet_pton(30, buffer, v9) != 1) || LOBYTE(v9[0]) == 254 && (BYTE1(v9[0]) & 0xC0) == 0x80)
+  v8[0] = 0;
+  v9 = 0;
+  v8[1] = 0;
+  if (!addressCopy || (CFStringGetCString(addressCopy, buffer, 46, 0x600u), inet_pton(30, buffer, v8) != 1) || LOBYTE(v8[0]) == 254 && (BYTE1(v8[0]) & 0xC0) == 0x80)
   {
     v6 = 0;
   }
 
   else
   {
-    v5 = LOBYTE(v9[0]) != 255 || (BYTE1(v9[0]) & 0xF0) == 48;
-    v6 = (BYTE1(v9[0]) & 0xF) != 2 || v5;
+    v5 = LOBYTE(v8[0]) != 255 || (BYTE1(v8[0]) & 0xF0) == 48;
+    v6 = (BYTE1(v8[0]) & 0xF) != 2 || v5;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -10,30 +10,30 @@
 
 - (void)_clearExpiredEntriesWithCurrentDate:(id)date
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   array = [MEMORY[0x277CBEB18] array];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   table = [(HMMTRPairingWindowInfoTable *)self table];
-  v5 = [table countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v5 = [table countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       v8 = 0;
       do
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(table);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * v8);
+        v9 = *(*(&v22 + 1) + 8 * v8);
         table2 = [(HMMTRPairingWindowInfoTable *)self table];
         v11 = [table2 objectForKeyedSubscript:v9];
 
@@ -47,7 +47,7 @@
       }
 
       while (v6 != v8);
-      v6 = [table countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v6 = [table countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v6);
@@ -65,21 +65,19 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v19;
-      v29 = 2112;
-      v30 = array;
+      v27 = v19;
+      v28 = 2112;
+      v29 = array;
       _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, "%{public}@Expired setup payloads: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)retrieveAccessoryServerForPairingWindowWithSetupPayload:(id)payload currentDate:(id)date
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   dateCopy = date;
   os_unfair_lock_lock(&self->_lock);
@@ -95,24 +93,23 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v17 = 138543874;
-    v18 = v14;
-    v19 = 2112;
-    v20 = payloadCopy;
-    v21 = 2112;
-    v22 = accessoryServer;
-    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@Retrieves server with pairing window with setup payload: %@, server: %@", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = v14;
+    v18 = 2112;
+    v19 = payloadCopy;
+    v20 = 2112;
+    v21 = accessoryServer;
+    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@Retrieves server with pairing window with setup payload: %@, server: %@", &v16, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v15 = *MEMORY[0x277D85DE8];
 
   return accessoryServer;
 }
 
 - (void)registerPairingWindowWithSetupPayload:(id)payload currentDate:(id)date duration:(double)duration accessoryServer:(id)server
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   dateCopy = date;
   serverCopy = server;
@@ -122,15 +119,15 @@
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = HMFGetLogIdentifier();
-    v22 = 138544130;
-    v23 = v16;
-    v24 = 2112;
-    v25 = payloadCopy;
-    v26 = 2048;
+    v21 = 138544130;
+    v22 = v16;
+    v23 = 2112;
+    v24 = payloadCopy;
+    v25 = 2048;
     durationCopy = duration;
-    v28 = 2112;
-    v29 = serverCopy;
-    _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_INFO, "%{public}@Registering pairing window with setup payload: %@, duration: %g, server: %@", &v22, 0x2Au);
+    v27 = 2112;
+    v28 = serverCopy;
+    _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_INFO, "%{public}@Registering pairing window with setup payload: %@, duration: %g, server: %@", &v21, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v13);
@@ -143,8 +140,6 @@
 
   [(HMMTRPairingWindowInfoTable *)selfCopy _clearExpiredEntriesWithCurrentDate:dateCopy];
   os_unfair_lock_unlock(&selfCopy->_lock);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTRPairingWindowInfoTable)init
@@ -178,10 +173,11 @@
 
 uint64_t __42__HMMTRPairingWindowInfoTable_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v3 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3;
+  logCategory__hmf_once_v3 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

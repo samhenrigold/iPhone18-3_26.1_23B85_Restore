@@ -1,5 +1,4 @@
 @interface UITableMetricsAdapter
-- (_BYTE)tableBackgroundColor;
 - (__n128)_updateSharedSectionMetricsForListGeometry:(uint64_t)geometry;
 - (char)initWithTableStyle:(void *)style scrollView:;
 - (double)_listGeometry;
@@ -9,6 +8,7 @@
 - (double)paddingAboveFirstSectionWithoutHeader;
 - (double)paddingAboveSectionHeaders;
 - (double)rowSpacing;
+- (id)tableBackgroundColor;
 - (id)tableSeparatorColor;
 - (id)tableSeparatorVisualEffect;
 - (void)_updateSharedListBehaviors;
@@ -17,18 +17,18 @@
 
 @implementation UITableMetricsAdapter
 
-- (_BYTE)tableBackgroundColor
+- (id)tableBackgroundColor
 {
   if (self)
   {
     selfCopy = self;
-    if ((self[152] & 1) == 0)
+    if ((self[19] & 1) == 0)
     {
       [(UITableMetricsAdapter *)self _listGeometry];
       [(UITableMetricsAdapter *)selfCopy _updateSharedSectionMetricsForListGeometry:v4];
     }
 
-    self = *(selfCopy + 208);
+    self = selfCopy[26];
     v1 = vars8;
   }
 
@@ -40,40 +40,39 @@
   if (self)
   {
     *obj = 0u;
-    v13 = 0u;
+    v12 = 0u;
     v2 = +[_UIListMetrics sharedMetrics];
-    v3 = *(self + 240);
     WeakRetained = objc_loadWeakRetained((self + 248));
     traitCollection = [WeakRetained traitCollection];
     if (v2)
     {
-      [v2 metricsForSeparatorWithListStyle:v3 traitCollection:traitCollection];
+      objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v2);
     }
 
     else
     {
       *obj = 0u;
-      v13 = 0u;
+      v12 = 0u;
     }
 
     objc_storeStrong((self + 224), obj[1]);
-    v6 = *(&v13 + 1);
-    if (*(&v13 + 1) >= 2uLL)
+    v5 = *(&v12 + 1);
+    if (*(&v12 + 1) >= 2uLL)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"UITableViewCellSeparatorStyle _UITableViewCellSeparatorStyleFromListSeparatorStyle(_UIListSeparatorStyle)"];
-      [currentHandler handleFailureInFunction:v8 file:@"UITableViewCell_Internal.h" lineNumber:60 description:{@"UIKit internal inconsistency: unknown separator style (%ld)", *(&v13 + 1)}];
+      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"UITableViewCellSeparatorStyle _UITableViewCellSeparatorStyleFromListSeparatorStyle(_UIListSeparatorStyle)"];
+      [currentHandler handleFailureInFunction:v7 file:@"UITableViewCell_Internal.h" lineNumber:60 description:{@"UIKit internal inconsistency: unknown separator style (%ld)", *(&v12 + 1)}];
 
-      v6 = 1;
+      v5 = 1;
     }
 
-    *(self + 232) = v6;
+    *(self + 232) = v5;
     if (obj[0] != 0x8000000000000000)
     {
-      v9 = [UIBlurEffect effectWithStyle:?];
-      v10 = [UIVibrancyEffect effectForBlurEffect:v9 style:7];
-      v11 = *(self + 216);
-      *(self + 216) = v10;
+      v8 = [UIBlurEffect effectWithStyle:?];
+      v9 = [UIVibrancyEffect effectForBlurEffect:v8 style:7];
+      v10 = *(self + 216);
+      *(self + 216) = v9;
     }
 
     *(self + 152) |= 2u;
@@ -352,39 +351,17 @@
   result = *(self + 168);
   if (result == 2.22507386e-308)
   {
-    v16 = 0;
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v9 = 0u;
     v3 = +[_UIListMetrics sharedMetrics];
-    v4 = *(self + 240);
     WeakRetained = objc_loadWeakRetained((self + 248));
     traitCollection = [WeakRetained traitCollection];
-    v7 = traitCollection;
+    v6 = traitCollection;
     if (v3)
     {
-      memset(v8, 0, sizeof(v8));
-      [v3 metricsForSectionWithPosition:2 hasHeader:0 hasFooter:0 listGeometry:v8 listStyle:v4 spacingStyle:0 traitCollection:traitCollection];
+      objc_msgSend_metricsForSectionWithPosition_hasHeader_hasFooter_listGeometry_listStyle_spacingStyle_traitCollection_(v3, traitCollection);
     }
 
-    else
-    {
-      v16 = 0;
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
-      v11 = 0u;
-      v9 = 0u;
-    }
-
-    result = *&v10;
-    *(self + 168) = v10;
+    result = 0.0;
+    *(self + 168) = 0;
   }
 
   return result;
@@ -400,39 +377,17 @@
   result = *(self + 176);
   if (result == 2.22507386e-308)
   {
-    v16 = 0;
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v9 = 0u;
     v3 = +[_UIListMetrics sharedMetrics];
-    v4 = *(self + 240);
     WeakRetained = objc_loadWeakRetained((self + 248));
     traitCollection = [WeakRetained traitCollection];
-    v7 = traitCollection;
+    v6 = traitCollection;
     if (v3)
     {
-      memset(v8, 0, sizeof(v8));
-      [v3 metricsForSectionWithPosition:0 hasHeader:1 hasFooter:0 listGeometry:v8 listStyle:v4 spacingStyle:0 traitCollection:traitCollection];
+      objc_msgSend_metricsForSectionWithPosition_hasHeader_hasFooter_listGeometry_listStyle_spacingStyle_traitCollection_(v3, traitCollection);
     }
 
-    else
-    {
-      v16 = 0;
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
-      v11 = 0u;
-      v9 = 0u;
-    }
-
-    result = *&v10;
-    *(self + 176) = v10;
+    result = 0.0;
+    *(self + 176) = 0;
   }
 
   return result;
@@ -448,39 +403,17 @@
   result = *(self + 160);
   if (result == 2.22507386e-308)
   {
-    v16 = 0;
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v9 = 0u;
     v3 = +[_UIListMetrics sharedMetrics];
-    v4 = *(self + 240);
     WeakRetained = objc_loadWeakRetained((self + 248));
     traitCollection = [WeakRetained traitCollection];
-    v7 = traitCollection;
+    v6 = traitCollection;
     if (v3)
     {
-      memset(v8, 0, sizeof(v8));
-      [v3 metricsForSectionWithPosition:2 hasHeader:1 hasFooter:0 listGeometry:v8 listStyle:v4 spacingStyle:0 traitCollection:traitCollection];
+      objc_msgSend_metricsForSectionWithPosition_hasHeader_hasFooter_listGeometry_listStyle_spacingStyle_traitCollection_(v3, traitCollection);
     }
 
-    else
-    {
-      v16 = 0;
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
-      v11 = 0u;
-      v9 = 0u;
-    }
-
-    result = *&v10;
-    *(self + 160) = v10;
+    result = 0.0;
+    *(self + 160) = 0;
   }
 
   return result;
@@ -534,77 +467,47 @@
 {
   if (geometry)
   {
-    v31 = 0;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    *obj = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v4 = +[_UIListMetrics sharedMetrics];
-    v5 = *(geometry + 240);
     WeakRetained = objc_loadWeakRetained((geometry + 248));
     traitCollection = [WeakRetained traitCollection];
-    v8 = traitCollection;
+    v7 = traitCollection;
     if (v4)
     {
-      v9 = a2[7];
-      v23[6] = a2[6];
-      v23[7] = v9;
-      v23[8] = a2[8];
-      v10 = a2[3];
-      v23[2] = a2[2];
-      v23[3] = v10;
-      v11 = a2[5];
-      v23[4] = a2[4];
-      v23[5] = v11;
-      v12 = a2[1];
-      v23[0] = *a2;
-      v23[1] = v12;
-      [v4 metricsForSectionWithPosition:0 hasHeader:0 hasFooter:0 listGeometry:v23 listStyle:v5 spacingStyle:0 traitCollection:traitCollection];
+      objc_msgSend_metricsForSectionWithPosition_hasHeader_hasFooter_listGeometry_listStyle_spacingStyle_traitCollection_(v4, traitCollection);
     }
 
     else
     {
-      v31 = 0;
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      *obj = 0u;
+      v14 = 0u;
+      v15 = 0u;
     }
 
-    v13 = *(&v25 + 1);
-    v15 = *(&v26 + 1);
-    v14 = v27;
     *(geometry + 256) = 0;
-    *(geometry + 264) = v13;
+    *(geometry + 264) = *(&v14 + 1);
     *(geometry + 272) = 0;
-    *(geometry + 280) = v15;
-    *(geometry + 296) = v28;
-    v16 = v29;
+    *(geometry + 280) = *(&v15 + 1);
+    *(geometry + 296) = 0;
     *(geometry + 288) = 0;
     *(geometry + 304) = 0;
-    *(geometry + 312) = v16;
-    *(geometry + 200) = v14;
-    objc_storeStrong((geometry + 208), obj[0]);
+    *(geometry + 312) = 0;
+    *(geometry + 200) = 0;
+    objc_storeStrong((geometry + 208), 0);
     *(geometry + 8) = *a2;
-    v17 = a2[1];
-    v18 = a2[2];
-    v19 = a2[3];
+    v8 = a2[1];
+    v9 = a2[2];
+    v10 = a2[3];
     *(geometry + 72) = a2[4];
-    *(geometry + 56) = v19;
-    *(geometry + 40) = v18;
-    *(geometry + 24) = v17;
+    *(geometry + 56) = v10;
+    *(geometry + 40) = v9;
+    *(geometry + 24) = v8;
     result = a2[5];
-    v21 = a2[6];
-    v22 = a2[7];
+    v12 = a2[6];
+    v13 = a2[7];
     *(geometry + 136) = a2[8];
-    *(geometry + 120) = v22;
-    *(geometry + 104) = v21;
+    *(geometry + 120) = v13;
+    *(geometry + 104) = v12;
     *(geometry + 88) = result;
     *(geometry + 152) |= 1u;
   }

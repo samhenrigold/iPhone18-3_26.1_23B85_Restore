@@ -4,6 +4,7 @@
 - (id)transportControllerForDevice:(id)device;
 - (void)addTransportController:(id)controller;
 - (void)removeTransportController:(id)controller;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context;
 - (void)service:(id)service account:(id)account identifier:(id)identifier fromID:(id)d hasBeenDeliveredWithContext:(id)context;
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context;
 - (void)start;
@@ -110,7 +111,7 @@ uint64_t __52__SCLTransportService_transportControllerForDevice___block_invoke(u
 
 - (BOOL)sendProtobuf:(id)protobuf toDevice:(id)device options:(id)options identifier:(id *)identifier error:(id *)error
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   protobufCopy = protobuf;
   deviceCopy = device;
   optionsCopy = options;
@@ -131,30 +132,29 @@ uint64_t __52__SCLTransportService_transportControllerForDevice___block_invoke(u
   {
     deviceCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"IDSCopyIDForDevice returned nil for device %@", deviceCopy];
     v19 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = deviceCopy;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA450];
+    v23[0] = deviceCopy;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     *error = [v19 errorWithDomain:@"com.apple.schooltime" code:4 userInfo:v20];
 
     LOBYTE(error) = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   protobufCopy = protobuf;
   dCopy = d;
   contextCopy = context;
-  v13 = scl_transport_log();
+  v13 = scl_transport_log(contextCopy);
   if (os_signpost_enabled(v13))
   {
-    v21 = 67109120;
+    v20 = 67109120;
     type = [protobufCopy type];
-    _os_signpost_emit_with_name_impl(&dword_264829000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Incoming Protobuf", "Type: %d", &v21, 8u);
+    _os_signpost_emit_with_name_impl(&dword_264829000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Incoming Protobuf", "Type: %d", &v20, 8u);
   }
 
   service = [(SCLTransportService *)self service];
@@ -164,40 +164,101 @@ uint64_t __52__SCLTransportService_transportControllerForDevice___block_invoke(u
   v17 = v16;
   if (v16)
   {
-    [v16 service:self incomingProtobuf:protobufCopy fromID:dCopy context:contextCopy];
-    v18 = scl_transport_log();
+    v18 = scl_transport_log([v16 service:self incomingProtobuf:protobufCopy fromID:dCopy context:contextCopy]);
     if (os_signpost_enabled(v18))
     {
       type2 = [protobufCopy type];
-      v21 = 67109120;
+      v20 = 67109120;
       type = type2;
-      _os_signpost_emit_with_name_impl(&dword_264829000, v18, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Incoming Protobuf", "Type: %d", &v21, 8u);
+      _os_signpost_emit_with_name_impl(&dword_264829000, v18, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Incoming Protobuf", "Type: %d", &v20, 8u);
     }
   }
 
   else
   {
-    v18 = scl_transport_log();
+    v18 = scl_transport_log(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [SCLTransportService service:account:incomingUnhandledProtobuf:fromID:context:];
     }
   }
+}
 
-  v20 = *MEMORY[0x277D85DE8];
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
+{
+  successCopy = success;
+  v39 = *MEMORY[0x277D85DE8];
+  serviceCopy = service;
+  accountCopy = account;
+  identifierCopy = identifier;
+  errorCopy = error;
+  contextCopy = context;
+  v19 = scl_transport_log(contextCopy);
+  v20 = v19;
+  v27 = serviceCopy;
+  if (successCopy)
+  {
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      v34 = identifierCopy;
+      v35 = 1024;
+      v36 = 1;
+      v37 = 2112;
+      v38 = errorCopy;
+      _os_log_impl(&dword_264829000, v20, OS_LOG_TYPE_DEFAULT, "Service message with identifier %@ did send with success %{BOOL}u error: %@", buf, 0x1Cu);
+    }
+  }
+
+  else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  {
+    [SCLTransportService service:account:identifier:didSendWithSuccess:error:context:];
+  }
+
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  transportControllers = [(SCLTransportService *)self transportControllers];
+  allObjects = [transportControllers allObjects];
+
+  v23 = [allObjects countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v23)
+  {
+    v24 = v23;
+    v25 = *v29;
+    do
+    {
+      v26 = 0;
+      do
+      {
+        if (*v29 != v25)
+        {
+          objc_enumerationMutation(allObjects);
+        }
+
+        [*(*(&v28 + 1) + 8 * v26++) service:self identifier:identifierCopy didSendWithSuccess:successCopy error:errorCopy];
+      }
+
+      while (v24 != v26);
+      v24 = [allObjects countByEnumeratingWithState:&v28 objects:v32 count:16];
+    }
+
+    while (v24);
+  }
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier fromID:(id)d hasBeenDeliveredWithContext:(id)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dCopy = d;
-  v11 = scl_transport_log();
+  v11 = scl_transport_log(dCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = identifierCopy;
-    _os_log_impl(&dword_264829000, v11, OS_LOG_TYPE_DEFAULT, "Service message %@ hasBeenDelivered", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = identifierCopy;
+    _os_log_impl(&dword_264829000, v11, OS_LOG_TYPE_DEFAULT, "Service message %@ hasBeenDelivered", &v17, 0xCu);
   }
 
   service = [(SCLTransportService *)self service];
@@ -212,30 +273,12 @@ uint64_t __52__SCLTransportService_transportControllerForDevice___block_invoke(u
 
   else
   {
-    v16 = scl_transport_log();
+    v16 = scl_transport_log(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SCLTransportService service:account:incomingUnhandledProtobuf:fromID:context:];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:incomingUnhandledProtobuf:fromID:context:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_264829000, v0, v1, "No transport controller for incoming message from %@; %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:identifier:didSendWithSuccess:error:context:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_264829000, v0, v1, "Service message with identifier %@ failed to send with error %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,6 +1,6 @@
 @interface NSString(ImageCaptureCoreAdditions)
 + (id)stringFromOSType:()ImageCaptureCoreAdditions;
-- (id)asciiString;
+- (__CFString)asciiString;
 @end
 
 @implementation NSString(ImageCaptureCoreAdditions)
@@ -22,7 +22,7 @@
   return v4;
 }
 
-- (id)asciiString
+- (__CFString)asciiString
 {
   v2 = [MEMORY[0x1E696AB08] characterSetWithRange:{0, 128}];
   invertedSet = [v2 invertedSet];

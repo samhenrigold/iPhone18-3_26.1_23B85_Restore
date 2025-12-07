@@ -1,4 +1,5 @@
 @interface FPnfsMemNode
+- (FPnfsMemNode)initWithFS:(id)s name:(id)name parent:(id)parent locked:(BOOL)locked mountID:(unsigned int)d;
 - (FPnfsMemNode)parent;
 - (id)getattr;
 - (id)lookup:(id)lookup;
@@ -6,11 +7,88 @@
 - (id)readDirAtCookie:(unint64_t)cookie withVerifier:(unint64_t)verifier forBytes:(unint64_t)bytes andError:(int *)error;
 - (id)readDirAttrAtCookie:(unint64_t)cookie withVerifier:(unint64_t)verifier forBytes:(unint64_t)bytes andError:(int *)error;
 - (int)mkDir:(id)dir fhBuffer:(id *)buffer locked:(BOOL)locked;
+- (int)mkDirPlaceholder:(id)placeholder fhBuffer:(id *)buffer wellKnownMount:(unsigned int)mount;
 - (int)renameFrom:(id)from toName:(id)name;
 - (int)rmDir:(id)dir;
 @end
 
 @implementation FPnfsMemNode
+
+- (FPnfsMemNode)initWithFS:(id)s name:(id)name parent:(id)parent locked:(BOOL)locked mountID:(unsigned int)d
+{
+  v7 = *&d;
+  lockedCopy = locked;
+  sCopy = s;
+  nameCopy = name;
+  parentCopy = parent;
+  v29.receiver = self;
+  v29.super_class = FPnfsMemNode;
+  v16 = [(FPnfsMemNode *)&v29 init];
+  if (v16)
+  {
+    v17 = objc_alloc_init(NSMutableArray);
+    entries = v16->entries;
+    v16->entries = v17;
+
+    if (!v16->entries)
+    {
+      goto LABEL_11;
+    }
+
+    v19 = objc_alloc_init(NSDate);
+    atime = v16->_atime;
+    v16->_atime = v19;
+
+    v21 = v16->_atime;
+    if (!v21)
+    {
+      goto LABEL_11;
+    }
+
+    v22 = [(NSDate *)v21 copy];
+    mtime = v16->_mtime;
+    v16->_mtime = v22;
+
+    if (!v16->_mtime)
+    {
+      goto LABEL_11;
+    }
+
+    nextFileHandle = [sCopy nextFileHandle];
+    v16->_fileno = nextFileHandle;
+    if (v7)
+    {
+      [NSString stringWithFormat:@"/%8.8x", v7];
+    }
+
+    else
+    {
+      [NSString stringWithFormat:@"%10.10u", nextFileHandle];
+    }
+    v25 = ;
+    fh = v16->_fh;
+    v16->_fh = v25;
+
+    if (!v16->_fh)
+    {
+LABEL_11:
+      v27 = 0;
+      goto LABEL_12;
+    }
+
+    objc_storeStrong(&v16->_fs, s);
+    objc_storeWeak(&v16->_parent, parentCopy);
+    objc_storeStrong(&v16->_name, name);
+    v16->_verf = 1;
+    *&v16->size = xmmword_10004CF20;
+    [sCopy addNode:v16 withLock:lockedCopy];
+  }
+
+  v27 = v16;
+LABEL_12:
+
+  return v27;
+}
 
 - (id)lookupNode:(id)node
 {
@@ -106,6 +184,74 @@
   *buffer = v13;
 
   return v14;
+}
+
+- (int)mkDirPlaceholder:(id)placeholder fhBuffer:(id *)buffer wellKnownMount:(unsigned int)mount
+{
+  v5 = *&mount;
+  placeholderCopy = placeholder;
+  if (buffer)
+  {
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    entries = selfCopy->entries;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100004004;
+    v24[3] = &unk_100060AF8;
+    v11 = placeholderCopy;
+    v25 = v11;
+    v12 = [(NSMutableArray *)entries indexOfObjectPassingTest:v24];
+    if (v12 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v13 = [FPnfsMemNode alloc];
+      v14 = [(FPnfsMemNode *)selfCopy fs];
+      v15 = [(FPnfsMemNode *)v13 initWithFS:v14 name:v11 parent:selfCopy locked:0 mountID:v5];
+
+      if (v15)
+      {
+        [(NSMutableArray *)selfCopy->entries addObject:v15];
+        v16 = objc_alloc_init(NSDate);
+        mtime = selfCopy->_mtime;
+        selfCopy->_mtime = v16;
+
+        name = [(FPnfsMemNode *)v15 name];
+        selfCopy->size += ([name length] + 29) & 0xFFFFFFFFFFFFFFF8;
+
+        name2 = [(FPnfsMemNode *)v15 name];
+        selfCopy->dirattrSize += ([name2 length] + 208) & 0xFFFFFFF8;
+
+        ++selfCopy->_verf;
+        [(FPnfsMemNode *)v15 setNascent:1];
+        v20 = [(FPnfsMemNode *)v15 fh];
+        v21 = 0;
+      }
+
+      else
+      {
+        v20 = 0;
+        v21 = 28;
+      }
+    }
+
+    else
+    {
+      v15 = [(NSMutableArray *)selfCopy->entries objectAtIndexedSubscript:v12];
+      v20 = [(FPnfsMemNode *)v15 fh];
+      v21 = 17;
+    }
+
+    objc_sync_exit(selfCopy);
+    v22 = v20;
+    *buffer = v20;
+  }
+
+  else
+  {
+    v21 = 22;
+  }
+
+  return v21;
 }
 
 - (int)renameFrom:(id)from toName:(id)name

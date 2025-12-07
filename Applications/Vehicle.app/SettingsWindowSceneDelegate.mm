@@ -53,9 +53,8 @@
 {
   v0 = type metadata accessor for Date();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   static os_log_type_t.debug.getter();
   if (qword_100037840 != -1)
   {
@@ -68,16 +67,16 @@
 
   if (delegate)
   {
-    type metadata accessor for AppDelegate();
-    v7 = *(swift_dynamicCastClassUnconditional() + OBJC_IVAR____TtC7Vehicle11AppDelegate_settingsCarManager);
-    if (v7)
+    type metadata accessor for AppDelegate(0);
+    v6 = *(swift_dynamicCastClassUnconditional() + OBJC_IVAR____TtC7Vehicle11AppDelegate_settingsCarManager);
+    if (v6)
     {
-      v8 = v7;
+      v7 = v6;
       Date.init()();
       swift_unknownObjectRelease();
-      v9 = OBJC_IVAR____TtC7Vehicle18SettingsCarManager_lastBackgroundTime;
+      v8 = OBJC_IVAR____TtC7Vehicle18SettingsCarManager_lastBackgroundTime;
       swift_beginAccess();
-      (*(v1 + 40))(&v8[v9], v4, v0);
+      (*(v1 + 40))(&v7[v8], v3, v0);
       swift_endAccess();
 
       return;

@@ -47,32 +47,31 @@
 {
   v4 = type metadata accessor for DispatchPredicate();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v17[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = &v16[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   forCopy = for;
-  v10 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = v11;
+  v9 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v11 = v10;
 
   if (qword_100501D90 != -1)
   {
     swift_once();
   }
 
-  v13 = qword_10051B7F0;
-  *v8 = qword_10051B7F0;
-  (*(v5 + 104))(v8, enum case for DispatchPredicate.notOnQueue(_:), v4);
-  v13;
-  v14 = _dispatchPreconditionTest(_:)();
-  v15 = (*(v5 + 8))(v8, v4);
-  if (v14)
+  v12 = qword_10051B7F0;
+  *v7 = qword_10051B7F0;
+  (*(v5 + 104))(v7, enum case for DispatchPredicate.notOnQueue(_:), v4);
+  v12;
+  v13 = _dispatchPreconditionTest(_:)();
+  v14 = (*(v5 + 8))(v7, v4);
+  if (v13)
   {
-    __chkstk_darwin(v15);
-    *&v17[-16] = v10;
-    *&v17[-8] = v12;
+    __chkstk_darwin(v14);
+    *&v16[-16] = v9;
+    *&v16[-8] = v11;
     OS_dispatch_queue.sync<A>(execute:)();
-    sub_10006A178(v10, v12);
-    LOBYTE(v15) = v17[15];
+    sub_10006A178(v9, v11);
+    LOBYTE(v14) = v16[15];
   }
 
   else
@@ -80,41 +79,39 @@
     __break(1u);
   }
 
-  return v15;
+  return v14;
 }
 
 - (BOOL)isPeerConnectedWithClientUUID:(id)d
 {
   v3 = type metadata accessor for DispatchPredicate();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v18[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v8 = type metadata accessor for UUID();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = &v18[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = &v16[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = type metadata accessor for UUID();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v16[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   if (qword_100501D90 != -1)
   {
     swift_once();
   }
 
-  v13 = qword_10051B7F0;
-  *v7 = qword_10051B7F0;
-  (*(v4 + 104))(v7, enum case for DispatchPredicate.notOnQueue(_:), v3);
-  v13;
-  v14 = _dispatchPreconditionTest(_:)();
-  v15 = (*(v4 + 8))(v7, v3);
-  if (v14)
+  v11 = qword_10051B7F0;
+  *v6 = qword_10051B7F0;
+  (*(v4 + 104))(v6, enum case for DispatchPredicate.notOnQueue(_:), v3);
+  v11;
+  v12 = _dispatchPreconditionTest(_:)();
+  v13 = (*(v4 + 8))(v6, v3);
+  if (v12)
   {
-    __chkstk_darwin(v15);
-    *&v18[-16] = v12;
+    __chkstk_darwin(v13);
+    *&v16[-16] = v10;
     OS_dispatch_queue.sync<A>(execute:)();
-    v16 = v18[15];
-    (*(v9 + 8))(v12, v8);
-    LOBYTE(v15) = v16;
+    v14 = v16[15];
+    (*(v8 + 8))(v10, v7);
+    LOBYTE(v13) = v14;
   }
 
   else
@@ -122,43 +119,42 @@
     __break(1u);
   }
 
-  return v15;
+  return v13;
 }
 
 - (id)cancelRKERequestWithFunctionIdentifier:(unsigned __int16)identifier keyIdentifier:(id)keyIdentifier
 {
   v6 = type metadata accessor for DispatchPredicate();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = (v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = (v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   keyIdentifierCopy = keyIdentifier;
-  v12 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = v13;
+  v11 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
 
   if (qword_100501D90 != -1)
   {
     swift_once();
   }
 
-  v15 = qword_10051B7F0;
-  *v10 = qword_10051B7F0;
-  (*(v7 + 104))(v10, enum case for DispatchPredicate.notOnQueue(_:), v6);
-  v15;
-  v16 = _dispatchPreconditionTest(_:)();
-  result = (*(v7 + 8))(v10, v6);
-  if (v16)
+  v14 = qword_10051B7F0;
+  *v9 = qword_10051B7F0;
+  (*(v7 + 104))(v9, enum case for DispatchPredicate.notOnQueue(_:), v6);
+  v14;
+  v15 = _dispatchPreconditionTest(_:)();
+  result = (*(v7 + 8))(v9, v6);
+  if (v15)
   {
     __chkstk_darwin(result);
-    LOWORD(v19[-4]) = identifier;
-    v19[-3] = v12;
-    v19[-2] = v14;
+    LOWORD(v18[-4]) = identifier;
+    v18[-3] = v11;
+    v18[-2] = v13;
     sub_100068FC4(&qword_100509E98, &qword_100414A88);
     OS_dispatch_queue.sync<A>(execute:)();
-    sub_10006A178(v12, v14);
-    v18 = v19[1];
+    sub_10006A178(v11, v13);
+    v17 = v18[1];
 
-    return v18;
+    return v17;
   }
 
   else
@@ -174,52 +170,51 @@
   actionIdentifierCopy = actionIdentifier;
   v9 = type metadata accessor for DispatchPredicate();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   __chkstk_darwin(v9);
-  v13 = &v25[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = &v24[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
   keyIdentifierCopy = keyIdentifier;
   if (data)
   {
     dataCopy = data;
     data = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v17 = v16;
+    v16 = v15;
   }
 
   else
   {
-    v17 = 0xF000000000000000;
+    v16 = 0xF000000000000000;
   }
 
-  v18 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v20 = v19;
+  v17 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v19 = v18;
 
   if (qword_100501D90 != -1)
   {
     swift_once();
   }
 
-  v21 = qword_10051B7F0;
-  *v13 = qword_10051B7F0;
-  (*(v10 + 104))(v13, enum case for DispatchPredicate.notOnQueue(_:), v9);
-  v21;
-  v22 = _dispatchPreconditionTest(_:)();
-  result = (*(v10 + 8))(v13, v9);
-  if (v22)
+  v20 = qword_10051B7F0;
+  *v12 = qword_10051B7F0;
+  (*(v10 + 104))(v12, enum case for DispatchPredicate.notOnQueue(_:), v9);
+  v20;
+  v21 = _dispatchPreconditionTest(_:)();
+  result = (*(v10 + 8))(v12, v9);
+  if (v21)
   {
     __chkstk_darwin(result);
-    *&v25[-48] = identifier;
-    v25[-46] = actionIdentifierCopy;
-    *&v25[-40] = v18;
-    *&v25[-32] = v20;
-    *&v25[-24] = data;
-    *&v25[-16] = v17;
+    *&v24[-48] = identifier;
+    v24[-46] = actionIdentifierCopy;
+    *&v24[-40] = v17;
+    *&v24[-32] = v19;
+    *&v24[-24] = data;
+    *&v24[-16] = v16;
     sub_100068FC4(&qword_100509E98, &qword_100414A88);
     OS_dispatch_queue.sync<A>(execute:)();
-    sub_10006A178(v18, v20);
-    sub_10006A2D0(data, v17);
-    v24 = v27;
+    sub_10006A178(v17, v19);
+    sub_10006A2D0(data, v16);
+    v23 = v26;
 
-    return v24;
+    return v23;
   }
 
   else
@@ -234,30 +229,29 @@
 {
   v4 = type metadata accessor for DispatchPredicate();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = (&v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = (&v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (qword_100501D90 != -1)
   {
     swift_once();
   }
 
-  v9 = qword_10051B7F0;
-  *v8 = qword_10051B7F0;
-  (*(v5 + 104))(v8, enum case for DispatchPredicate.notOnQueue(_:), v4);
-  v9;
-  v10 = _dispatchPreconditionTest(_:)();
-  result = (*(v5 + 8))(v8, v4);
-  if (v10)
+  v8 = qword_10051B7F0;
+  *v7 = qword_10051B7F0;
+  (*(v5 + 104))(v7, enum case for DispatchPredicate.notOnQueue(_:), v4);
+  v8;
+  v9 = _dispatchPreconditionTest(_:)();
+  result = (*(v5 + 8))(v7, v4);
+  if (v9)
   {
     __chkstk_darwin(result);
-    *(&v13 - 16) = client;
+    *(&v12 - 16) = client;
     sub_100068FC4(&qword_100509EA0, qword_100414A90);
     OS_dispatch_queue.sync<A>(execute:)();
     sub_10009393C(0, &qword_100509EA8, SESVehicleReport_ptr);
-    v12.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v11.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-    return v12.super.isa;
+    return v11.super.isa;
   }
 
   else
@@ -272,18 +266,16 @@
 {
   v6 = type metadata accessor for DispatchPredicate();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = (v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = type metadata accessor for UUID();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11);
-  v15 = v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = (v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10 = type metadata accessor for UUID();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   messageCopy = message;
   dCopy = d;
-  v18 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v20 = v19;
+  v16 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v18 = v17;
 
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   if (qword_100501D90 != -1)
@@ -291,25 +283,25 @@
     swift_once();
   }
 
-  v21 = qword_10051B7F0;
-  *v10 = qword_10051B7F0;
-  (*(v7 + 104))(v10, enum case for DispatchPredicate.notOnQueue(_:), v6);
-  v21;
-  v22 = _dispatchPreconditionTest(_:)();
-  result = (*(v7 + 8))(v10, v6);
-  if (v22)
+  v19 = qword_10051B7F0;
+  *v9 = qword_10051B7F0;
+  (*(v7 + 104))(v9, enum case for DispatchPredicate.notOnQueue(_:), v6);
+  v19;
+  v20 = _dispatchPreconditionTest(_:)();
+  result = (*(v7 + 8))(v9, v6);
+  if (v20)
   {
     __chkstk_darwin(result);
-    v25[-4] = v15;
-    v25[-3] = v18;
-    v25[-2] = v20;
+    v23[-4] = v13;
+    v23[-3] = v16;
+    v23[-2] = v18;
     sub_100068FC4(&qword_100509E98, &qword_100414A88);
     OS_dispatch_queue.sync<A>(execute:)();
-    sub_10006A178(v18, v20);
-    v24 = v25[1];
-    (*(v12 + 8))(v15, v11);
+    sub_10006A178(v16, v18);
+    v22 = v23[1];
+    (*(v11 + 8))(v13, v10);
 
-    return v24;
+    return v22;
   }
 
   else
@@ -324,28 +316,27 @@
 {
   v2 = type metadata accessor for DispatchPredicate();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = (&v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v5 = (&v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (qword_100501D90 != -1)
   {
     swift_once();
   }
 
-  v7 = qword_10051B7F0;
-  *v6 = qword_10051B7F0;
-  (*(v3 + 104))(v6, enum case for DispatchPredicate.notOnQueue(_:), v2);
-  v7;
-  v8 = _dispatchPreconditionTest(_:)();
-  result = (*(v3 + 8))(v6, v2);
-  if (v8)
+  v6 = qword_10051B7F0;
+  *v5 = qword_10051B7F0;
+  (*(v3 + 104))(v5, enum case for DispatchPredicate.notOnQueue(_:), v2);
+  v6;
+  v7 = _dispatchPreconditionTest(_:)();
+  result = (*(v3 + 8))(v5, v2);
+  if (v7)
   {
     sub_100068FC4(&qword_100509E90, &qword_100414A80);
     OS_dispatch_queue.sync<A>(execute:)();
     type metadata accessor for AlishaExternal.RequestInProgress();
-    v10.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-    return v10.super.isa;
+    return v9.super.isa;
   }
 
   else
@@ -416,7 +407,7 @@ LABEL_8:
   sub_1002E5D90(identifier, actionIdentifier, v19, v21, type, actionType, v22, v24, v14, v25, v26, v28, sub_10021AC84, v29);
 
   sub_10006A2D0(v26, v28);
-  sub_1000B2A4C(v14);
+  sub_1000B2A4C(v14, v25);
   sub_10006A2D0(v22, v24);
   sub_10006A178(v19, v21);
 }
@@ -427,12 +418,11 @@ LABEL_8:
   location = range.location;
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v11 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1002E66E4(location, length, v10);
-  (*(v7 + 8))(v10, v6);
+  sub_1002E66E4(location, length, v9);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)triggerHeadUnitPairingWith:(id)with keyIdentifier:(id)identifier

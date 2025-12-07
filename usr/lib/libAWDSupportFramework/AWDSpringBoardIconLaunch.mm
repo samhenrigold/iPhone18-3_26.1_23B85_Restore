@@ -180,7 +180,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -200,7 +199,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  iconIsFolder = self->_iconIsFolder;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -215,7 +213,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  iconIsFromFolder = self->_iconIsFromFolder;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -227,7 +224,6 @@ LABEL_5:
     }
 
 LABEL_12:
-    iconPageInFolder = self->_iconPageInFolder;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -238,7 +234,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  iconIsFromDock = self->_iconIsFromDock;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if (has)
@@ -253,7 +248,6 @@ LABEL_6:
   }
 
 LABEL_13:
-  totalIconPagesInFolder = self->_totalIconPagesInFolder;
 
   PBDataWriterWriteUint64Field();
 }
@@ -451,7 +445,6 @@ LABEL_7:
       goto LABEL_39;
     }
 
-    v6 = *(equal + 32);
     if (self->_iconIsFolder)
     {
       if ((*(equal + 32) & 1) == 0)
@@ -478,7 +471,6 @@ LABEL_7:
       goto LABEL_39;
     }
 
-    v7 = *(equal + 34);
     if (self->_iconIsFromFolder)
     {
       if ((*(equal + 34) & 1) == 0)
@@ -515,7 +507,6 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v8 = *(equal + 33);
   if (self->_iconIsFromDock)
   {
     if ((*(equal + 33) & 1) == 0)

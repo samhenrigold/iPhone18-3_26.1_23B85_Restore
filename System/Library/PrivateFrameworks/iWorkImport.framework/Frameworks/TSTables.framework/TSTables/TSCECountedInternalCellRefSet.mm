@@ -44,7 +44,8 @@
 
     else
     {
-      v5 = sub_2212E16AC(&self->_greaterRefCounts.__table_.__bucket_list_.__ptr_, ref);
+      p_tableID = ref;
+      v5 = sub_2212E16AC(&self->_greaterRefCounts.__table_.__bucket_list_.__ptr_, ref, &unk_2217E1200, &p_tableID);
       v6 = 2;
     }
 
@@ -53,7 +54,8 @@
 
   else
   {
-    v7 = sub_2212E13E8(&self->_allCellRefs._coordsForOwnerId.__table_.__bucket_list_.__ptr_, &ref->tableID);
+    p_tableID = &ref->tableID;
+    v7 = sub_2212E13E8(&self->_allCellRefs._coordsForOwnerId.__table_.__bucket_list_.__ptr_, &ref->tableID, &unk_2217E1200, &p_tableID);
     TSCECellCoordSet::addCellCoord((v7 + 3), &ref->coordinate);
   }
 }

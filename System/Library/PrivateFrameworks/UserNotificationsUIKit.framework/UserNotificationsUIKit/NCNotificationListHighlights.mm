@@ -68,7 +68,8 @@
 - (void)setExpandedPercentage:(double)percentage
 {
   selfCopy = self;
-  sub_21E8E99E4(percentage);
+  v4.n128_f64[0] = percentage;
+  sub_21E8E99E4(v4);
 }
 
 - (BOOL)isExpanded
@@ -320,7 +321,7 @@
   v13.super_class = NCNotificationListHighlights;
   selfCopy = self;
   allNotificationGroups = [(NCNotificationStructuredSectionList *)&v13 allNotificationGroups];
-  sub_21E796644(0, &qword_280D03DF0);
+  sub_21E796644(0, &qword_280D03DF0, off_27836DEC8);
   v7 = sub_21E92A528();
 
   if ((v7 & 0xC000000000000001) != 0)
@@ -368,7 +369,7 @@ LABEL_5:
   v8.super_class = NCNotificationListHighlights;
   selfCopy = self;
   allNotificationGroups = [(NCNotificationStructuredSectionList *)&v8 allNotificationGroups];
-  sub_21E796644(0, &qword_280D03DF0);
+  sub_21E796644(0, &qword_280D03DF0, off_27836DEC8);
   v5 = sub_21E92A528();
 
   if (v5 >> 62)

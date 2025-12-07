@@ -11,7 +11,7 @@
 
 - (void)_handleTimerExpiry
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v4 = (v3 * self->_slotScaleFactor);
@@ -19,8 +19,8 @@
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218242;
-    v25 = *&v4;
-    v26 = 2112;
+    v24 = *&v4;
+    v25 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "_handleTimerExpiry  drainTo %lld %@", buf, 0x16u);
   }
@@ -104,7 +104,7 @@ LABEL_12:
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v25 = (v17 / 1000000.0);
+      v24 = (v17 / 1000000.0);
       _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "timer set again with delay of %f", buf, 0xCu);
     }
   }
@@ -122,7 +122,6 @@ LABEL_12:
   }
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -232,33 +231,31 @@ LABEL_12:
 
 uint64_t __62__LightweightTimer_initWithQueue_maxDelay_precision_callback___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Timer expiry for %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Timer expiry for %@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 32) _handleTimerExpiry];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _handleTimerExpiry];
 }
 
 - (unint64_t)setRelativeTimer:(double)timer context:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v29 = 134218242;
+    v28 = 134218242;
     timerCopy2 = timer;
-    v31 = 2112;
+    v30 = 2112;
     timerCopy3 = *&contextCopy;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "setRelativeTimer %f %@", &v29, 0x16u);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "setRelativeTimer %f %@", &v28, 0x16u);
   }
 
   if (timer < 0.0)
@@ -277,11 +274,11 @@ uint64_t __62__LightweightTimer_initWithQueue_maxDelay_precision_callback___bloc
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
       v14 = self->_numSlots / self->_slotScaleFactor;
-      v29 = 134218240;
+      v28 = 134218240;
       timerCopy2 = timer;
-      v31 = 2048;
+      v30 = 2048;
       timerCopy3 = v14;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Requested delay %f for lighweight time greater than configured, %f", &v29, 0x16u);
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Requested delay %f for lighweight time greater than configured, %f", &v28, 0x16u);
     }
 
     numSlots = self->_numSlots;
@@ -314,9 +311,9 @@ uint64_t __62__LightweightTimer_initWithQueue_maxDelay_precision_callback___bloc
     v24 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v29 = 134217984;
+      v28 = 134217984;
       timerCopy2 = v21;
-      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "setRelativeTimer, setting internal timer to delay %f", &v29, 0xCu);
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "setRelativeTimer, setting internal timer to delay %f", &v28, 0xCu);
     }
   }
 
@@ -324,22 +321,21 @@ uint64_t __62__LightweightTimer_initWithQueue_maxDelay_precision_callback___bloc
   v26 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v29 = 134218498;
+    v28 = 134218498;
     timerCopy2 = *&v25;
-    v31 = 2048;
+    v30 = 2048;
     timerCopy3 = timer;
-    v33 = 2112;
-    v34 = contextCopy;
-    _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "LW Timers  return %lld from setRelativeTimer %f %@", &v29, 0x20u);
+    v32 = 2112;
+    v33 = contextCopy;
+    _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "LW Timers  return %lld from setRelativeTimer %f %@", &v28, 0x20u);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (BOOL)cancel:(unint64_t)cancel
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (cancel)
   {
     v5 = cancel & 0xFFFFFFFFFFLL;
@@ -349,13 +345,13 @@ uint64_t __62__LightweightTimer_initWithQueue_maxDelay_precision_callback___bloc
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218752;
-      *v37 = cancel;
-      *&v37[8] = 2048;
-      *&v37[10] = v5;
-      *&v37[18] = 2048;
-      *&v37[20] = v7;
-      *&v37[28] = 2048;
-      *&v37[30] = v6;
+      *v36 = cancel;
+      *&v36[8] = 2048;
+      *&v36[10] = v5;
+      *&v36[18] = 2048;
+      *&v36[20] = v7;
+      *&v36[28] = 2048;
+      *&v36[30] = v6;
       _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "LW Timer call cancel %lld   slot %lld index %lld seqno %lld", buf, 0x2Au);
     }
 
@@ -363,26 +359,26 @@ uint64_t __62__LightweightTimer_initWithQueue_maxDelay_precision_callback___bloc
     v10 = self->_entries[v7];
     if (v10)
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v11 = v10;
-      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v32;
+        v14 = *v31;
 LABEL_7:
         v15 = 0;
         while (1)
         {
-          if (*v32 != v14)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v31 + 1) + 8 * v15);
+          v16 = *(*(&v30 + 1) + 8 * v15);
           if (v6 == [v16 seqNo] && objc_msgSend(v16, "slotNum") == v5)
           {
             break;
@@ -390,7 +386,7 @@ LABEL_7:
 
           if (v13 == ++v15)
           {
-            v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+            v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
             if (v13)
             {
               goto LABEL_7;
@@ -413,7 +409,7 @@ LABEL_7:
         {
           v25 = entries[v7];
           *buf = 138412290;
-          *v37 = v25;
+          *v36 = v25;
           _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "LW timer cancellation found matching object, leaving %@", buf, 0xCu);
         }
 
@@ -429,7 +425,7 @@ LABEL_24:
       {
         v27 = entries[v7];
         *buf = 138412290;
-        *v37 = v27;
+        *v36 = v27;
         v20 = "LW timer cancellation  could not find object in %@";
         v21 = v26;
         v22 = 12;
@@ -457,17 +453,17 @@ LABEL_28:
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109888;
-      *v37 = v18;
-      *&v37[4] = 2048;
-      *&v37[6] = cancel;
-      *&v37[14] = 2048;
-      *&v37[16] = v5;
-      *&v37[24] = 2048;
-      *&v37[26] = v7;
+      *v36 = v18;
+      *&v36[4] = 2048;
+      *&v36[6] = cancel;
+      *&v36[14] = 2048;
+      *&v36[16] = v5;
+      *&v36[24] = 2048;
+      *&v36[26] = v7;
       _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "LW timer cancel return %d from  cancel %lld   slot %lld index %lld", buf, 0x26u);
     }
 
-    goto LABEL_30;
+    return v18;
   }
 
   v17 = otherLogHandle;
@@ -478,8 +474,6 @@ LABEL_28:
   }
 
   LOBYTE(v18) = 0;
-LABEL_30:
-  v29 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

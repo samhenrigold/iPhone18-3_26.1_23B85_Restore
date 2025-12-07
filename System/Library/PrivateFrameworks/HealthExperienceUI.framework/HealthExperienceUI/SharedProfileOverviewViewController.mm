@@ -17,20 +17,20 @@
 {
   appearingCopy = appearing;
   v5 = sub_1BA4A4018();
-  MEMORY[0x1EEE9AC00](v5);
-  v6 = OBJC_IVAR____TtC18HealthExperienceUI35SharedProfileOverviewViewController_providedPresentation;
+  MEMORY[0x1EEE9AC00](v5, v6);
+  v7 = OBJC_IVAR____TtC18HealthExperienceUI35SharedProfileOverviewViewController_providedPresentation;
   swift_beginAccess();
-  v7 = *(&self->super.super.super.super.super.isa + v6);
+  v8 = *(&self->super.super.super.super.super.isa + v7);
   selfCopy = self;
   sub_1BA4A71E8();
-  v11 = v7;
+  v12 = v8;
   sub_1B9F3AEE8();
   sub_1BA4A4008();
   sub_1BA4A71F8();
-  v9 = type metadata accessor for SharedProfileOverviewViewController();
-  v10.receiver = selfCopy;
-  v10.super_class = v9;
-  [(CompoundDataSourceCollectionViewController *)&v10 viewIsAppearing:appearingCopy];
+  v10 = type metadata accessor for SharedProfileOverviewViewController();
+  v11.receiver = selfCopy;
+  v11.super_class = v10;
+  [(CompoundDataSourceCollectionViewController *)&v11 viewIsAppearing:appearingCopy];
 }
 
 - (void)viewDidLoad
@@ -60,7 +60,7 @@
     selfCopy = v6;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v8);
+  __swift_destroy_boxed_opaque_existential_1(v8);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -72,12 +72,12 @@
 
 - (void)scrollViewDidScroll:(id)scroll
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for SharedProfileOverviewViewController();
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for SharedProfileOverviewViewController();
   scrollCopy = scroll;
-  v5 = v6.receiver;
-  [(CompoundDataSourceCollectionViewController *)&v6 scrollViewDidScroll:scrollCopy];
-  sub_1BA17FF78();
+  v5 = v7.receiver;
+  v6 = [(CompoundDataSourceCollectionViewController *)&v7 scrollViewDidScroll:scrollCopy];
+  sub_1BA17FF78(v6);
 }
 
 - (void)restoreUserActivityState:(id)state
@@ -102,7 +102,7 @@
   swift_unknownObjectRelease();
   sub_1BA1E8200();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (void)ttrButtonTapped

@@ -1,3 +1,42 @@
+double Path::ForcePoint(Path *this)
+{
+  var0 = this->var0;
+  if (this->var0)
+  {
+    if ((var0 & 4) != 0)
+    {
+      var0 &= 0xFFFFFFFA;
+      this->var0 = var0;
+      var4 = this->var4;
+      if ((var4 & 0x80000000) == 0)
+      {
+        this->var2 = var4;
+        this->var4 = -1;
+      }
+    }
+
+    else
+    {
+      this->var4 = -1;
+      var0 &= 0xFFFFFFFA;
+      this->var0 = var0;
+    }
+  }
+
+  if ((var0 & 2) != 0)
+  {
+    Path::Alloue(this, 1);
+    var2 = this->var2;
+    v5 = (this->var3 + 44 * var2);
+    this->var2 = var2 + 1;
+    result = 0.0078125;
+    *v5 = 0xFFFFFFFF00000007;
+    v5[1] = 0x3F80000000000000;
+  }
+
+  return result;
+}
+
 uint64_t Path::EndBezierTo(Path *this)
 {
   var0 = this->var0;
@@ -929,13 +968,13 @@ double Path::AddForcedPoint(Path *this, double result, float a3)
   if (this->var7)
   {
 
-    Path::AddForcedPoint(this, *&result, a3, -1, 0.0);
+    *&result = Path::AddForcedPoint(this, result, a3, -1, 0.0);
   }
 
   else if (this->var6)
   {
 
-    *&result = Path::AddForcedPoint(this, *&result, a3, 1.0);
+    *&result = Path::AddForcedPoint(this, result, a3, 1.0);
   }
 
   else
@@ -976,7 +1015,7 @@ float Path::AddForcedPoint(Path *this, double a2, float a3, int a4, float a5)
     if (this->var6)
     {
 
-      *&a2 = Path::AddForcedPoint(this, *&a2, a3, 1.0, a4, a5);
+      *&a2 = Path::AddForcedPoint(this, a2, a3, 1.0, a4, a5);
     }
 
     else
@@ -1020,12 +1059,12 @@ float Path::AddForcedPoint(Path *this, double a2, float a3, int a4, float a5)
   return *&a2;
 }
 
-float Path::AddForcedPoint(Path *this, float result, float a3, float a4)
+float Path::AddForcedPoint(Path *this, double a2, float a3, float a4)
 {
   if (this->var7)
   {
 
-    return Path::AddForcedPoint(this, result, a3, a4, -1, 0.0);
+    *&a2 = Path::AddForcedPoint(this, a2, a3, a4, -1, 0.0);
   }
 
   else if (this->var6)
@@ -1051,8 +1090,8 @@ float Path::AddForcedPoint(Path *this, float result, float a3, float a4)
         *v10 = 2;
         v11 = &var11[16 * (var8 - 1)];
         *(v10 + 4) = *(v11 + 4);
-        result = *(v11 + 3);
-        *(v10 + 3) = result;
+        LODWORD(a2) = *(v11 + 3);
+        *(v10 + 3) = LODWORD(a2);
       }
     }
   }
@@ -1060,13 +1099,13 @@ float Path::AddForcedPoint(Path *this, float result, float a3, float a4)
   else
   {
 
-    Path::AddForcedPoint(this, result, a3);
+    a2 = Path::AddForcedPoint(this, a2, a3);
   }
 
-  return result;
+  return *&a2;
 }
 
-float Path::AddForcedPoint(Path *this, float result, float a3, float a4, int a5, float a6)
+float Path::AddForcedPoint(Path *this, double a2, float a3, float a4, int a5, float a6)
 {
   if (this->var7)
   {
@@ -1096,8 +1135,8 @@ float Path::AddForcedPoint(Path *this, float result, float a3, float a4, int a5,
           *(v13 + 4) = *(v14 + 4);
           *(v13 + 3) = *(v14 + 3);
           *(v13 + 4) = *(v14 + 4);
-          result = *(v14 + 5);
-          *(v13 + 5) = result;
+          LODWORD(a2) = *(v14 + 5);
+          *(v13 + 5) = LODWORD(a2);
         }
       }
     }
@@ -1105,17 +1144,17 @@ float Path::AddForcedPoint(Path *this, float result, float a3, float a4, int a5,
     else
     {
 
-      Path::AddForcedPoint(this, result, a3, a5, a6);
+      *&a2 = Path::AddForcedPoint(this, a2, a3, a5, a6);
     }
   }
 
   else
   {
 
-    Path::AddForcedPoint(this, result, a3, a4);
+    *&a2 = Path::AddForcedPoint(this, a2, a3, a4);
   }
 
-  return result;
+  return *&a2;
 }
 
 uint64_t Path::Winding(Path *this)
@@ -1183,55 +1222,55 @@ uint64_t Path::Winding(Path *this)
   }
 }
 
-void Path::PointAt(Path *a1, unsigned int a2, float32x2_t *a3, float a4)
+void Path::PointAt(Path *result, int a2, float32x2_t *a3, float a4)
 {
-  if ((a2 & 0x80000000) != 0 || a1->var2 <= a2)
+  if (a2 < 0 || result->var2 <= a2)
   {
     *a3 = 0;
     return;
   }
 
-  var3 = a1->var3;
+  var3 = result->var3;
   v9 = (var3 + 44 * a2);
   v10 = *(v9 + 28);
   v11 = v9[1];
-  v46 = *v9;
-  *v47[0].f32 = v11;
-  *&v47[1].i32[1] = v10;
-  v12 = v46 & 0xF;
-  if ((v46 & 0xF) == 0)
+  v47 = *v9;
+  *v48[0].f32 = v11;
+  *&v48[1].i32[1] = v10;
+  v12 = v47 & 0xF;
+  if ((v47 & 0xF) == 0)
   {
     v13 = a2 + 1;
-    v10.n128_u64[0] = 0;
+    v14 = 0.0;
     goto LABEL_8;
   }
 
-  if ((v46 & 0xD) == 5)
+  if ((v47 & 0xD) == 5)
   {
 LABEL_5:
     v13 = a2 - 1;
-    v10.n128_u32[0] = 1.0;
+    v14 = 1.0;
 LABEL_8:
-    Path::PointAt(a1, v13, a3, v10);
+    Path::PointAt(result, v13, a3, v14);
     return;
   }
 
-  if ((v46 & 0xFu) <= 2)
+  if ((v47 & 0xFu) <= 2)
   {
     if (v12 == 1)
     {
-      Path::PrevPoint(a1, a2 - 1, &v38, &v39);
-      v42[0] = 0.0;
-      Path::TangentOnSegAt(v47, a3, &v44, v42, a4, *&v38, v39);
+      Path::PrevPoint(result, a2 - 1, &v39, &v40);
+      v43[0] = 0.0;
+      Path::TangentOnSegAt(v48, a3, &v45, v43, a4, *&v39, v40);
     }
 
     else if (v12 == 2)
     {
-      Path::PrevPoint(a1, a2 - 1, &v38, &v39);
-      v42[0] = 0.0;
-      v43 = 0;
-      v30.i32[0] = v38;
-      Path::TangentOnCubAt(v47, 0, a3, &v44, v42, &v43, a4, v30, v39);
+      Path::PrevPoint(result, a2 - 1, &v39, &v40);
+      v43[0] = 0.0;
+      v44 = 0;
+      v31.i32[0] = v39;
+      Path::TangentOnCubAt(v48, 0, a3, &v45, v43, &v44, a4, v31, v40);
     }
   }
 
@@ -1242,161 +1281,161 @@ LABEL_8:
       case 6:
         goto LABEL_14;
       case 4:
-        Path::PrevPoint(a1, a2 - 1, &v38, &v39);
-        v42[0] = 0.0;
-        v43 = 0;
-        Path::TangentOnArcAt(v47, a3, &v44, v42, &v43, a4, *&v38, v39);
+        Path::PrevPoint(result, a2 - 1, &v39, &v40);
+        v43[0] = 0.0;
+        v44 = 0;
+        Path::TangentOnArcAt(v48, a3, &v45, v43, &v44, a4, *&v39, v40);
         return;
       case 3:
 LABEL_14:
-        v14 = 0;
         v15 = 0;
-        v16 = -1;
+        v16 = 0;
+        v17 = -1;
         do
         {
-          v18 = a2 + v14;
-          if ((a2 + v14) < 0)
+          v19 = a2 + v15;
+          if (a2 + v15 < 0)
           {
             goto LABEL_5;
           }
 
-          v15 -= 44;
-          ++v16;
-          --v14;
+          v16 -= 44;
+          ++v17;
+          --v15;
         }
 
-        while ((*(var3 + 11 * v18) & 0xF) != 3);
-        v19 = var3 + 44 * v18;
-        v22 = *(v19 + 4);
-        v20 = (v19 + 16);
-        v21 = v22;
-        if ((v22 + a2 - v16) < a2)
+        while ((*(var3 + 11 * v19) & 0xF) != 3);
+        v20 = var3 + 44 * v19;
+        v23 = *(v20 + 4);
+        v21 = (v20 + 16);
+        v22 = v23;
+        if (v23 + a2 - v17 < a2)
         {
           goto LABEL_5;
         }
 
-        if (v21 == 1 || v16 <= 0)
+        if (v22 == 1 || v17 <= 0)
         {
-          Path::PrevPoint(a1, a2 + v14, &v38, &v39);
-          v42[0] = 0.0;
-          v43 = 0;
-          LODWORD(v11) = v38;
-          v24 = v39;
-          v25 = a1->var3 + 44 * v18;
-          v26 = (v25 + 60);
-          v20 = (v25 + 16);
+          Path::PrevPoint(result, a2 + v15, &v39, &v40);
+          v43[0] = 0.0;
+          v44 = 0;
+          LODWORD(v11) = v39;
+          v25 = v40;
+          v26 = result->var3 + 44 * v19;
+          v27 = (v26 + 60);
+          v21 = (v26 + 16);
         }
 
         else
         {
-          if (v16 == 1)
+          if (v17 == 1)
           {
-            Path::PrevPoint(a1, a2 + v14, &v44, &v45);
-            v43 = 0;
-            v41 = 0;
-            v38 = 1;
-            v31 = a1->var3;
-            v32 = v31 + 44 * a2 + v15 + 44;
-            v33 = *(v32 + 15);
-            v26 = (v32 + 60);
-            v34 = (v31 + 44 * a2 + v15 + 88);
-            v39 = (v33 + v34[15]) * 0.5;
-            v40 = (v26->f32[1] + v34[16]) * 0.5;
-            *&v11 = v44;
-            v24 = v45;
-            v20 = &v38;
-            v27 = v42;
-            v28 = &v43;
-            v29 = &v41;
+            Path::PrevPoint(result, a2 + v15, &v45, &v46);
+            v44 = 0;
+            v42 = 0;
+            v39 = 1;
+            v32 = result->var3;
+            v33 = v32 + 44 * (a2 + 1) + v16;
+            v34 = *(v33 + 15);
+            v27 = (v33 + 60);
+            v35 = (v32 + 44 * (a2 + 2) + v16);
+            v40 = (v34 + v35[15]) * 0.5;
+            v41 = (v27->f32[1] + v35[16]) * 0.5;
+            *&v11 = v45;
+            v25 = v46;
+            v21 = &v39;
+            v28 = v43;
+            v29 = &v44;
+            v30 = &v42;
             goto LABEL_34;
           }
 
-          v26 = (var3 + 44 * a2 + 16);
-          if (v21 == v16)
+          v27 = (var3 + 44 * a2 + 16);
+          if (v22 == v17)
           {
-            v44 = 0.0;
-            v42[0] = 0.0;
-            *&v11 = (v26->f32[0] + *(v9 - 7)) * 0.5;
-            v24 = (*(var3 + 11 * a2 + 5) + *(v9 - 6)) * 0.5;
-            v27 = &v38;
-            v28 = &v44;
-            v29 = v42;
+            v45 = 0.0;
+            v43[0] = 0.0;
+            *&v11 = (v27->f32[0] + *(v9 - 7)) * 0.5;
+            v25 = (*(var3 + 11 * a2 + 5) + *(v9 - 6)) * 0.5;
+            v28 = &v39;
+            v29 = &v45;
+            v30 = v43;
             goto LABEL_34;
           }
 
-          v42[0] = 0.0;
-          v43 = 0;
-          v35 = v26->f32[0];
-          v36 = *(var3 + 11 * a2 + 5);
-          *&v11 = (v26->f32[0] + *(v9 - 7)) * 0.5;
-          v24 = (v36 + *(v9 - 6)) * 0.5;
-          v38 = 1;
-          v37 = (var3 + 44 * a2 + 44);
-          v39 = (v35 + v37[4]) * 0.5;
-          v40 = (v36 + v37[5]) * 0.5;
-          v20 = &v38;
+          v43[0] = 0.0;
+          v44 = 0;
+          v36 = v27->f32[0];
+          v37 = *(var3 + 11 * a2 + 5);
+          *&v11 = (v27->f32[0] + *(v9 - 7)) * 0.5;
+          v25 = (v37 + *(v9 - 6)) * 0.5;
+          v39 = 1;
+          v38 = (var3 + 44 * (a2 + 1));
+          v40 = (v36 + v38[4]) * 0.5;
+          v41 = (v37 + v38[5]) * 0.5;
+          v21 = &v39;
         }
 
-        v27 = &v44;
-        v28 = v42;
-        v29 = &v43;
+        v28 = &v45;
+        v29 = v43;
+        v30 = &v44;
 LABEL_34:
-        Path::TangentOnBezAt(v26, v20, 0, a3, v27, v28, v29, a4, *&v11, v24);
+        Path::TangentOnBezAt(v27, v21, 0, a3, v28, v29, v30, a4, *&v11, v25);
         break;
     }
   }
 }
 
-void Path::PointAndTangentAt(Path *a1, unsigned int a2, float32x2_t *a3, float *a4, float a5)
+void Path::PointAndTangentAt(Path *result, int a2, float32x2_t *a3, float *a4, float a5)
 {
-  if ((a2 & 0x80000000) != 0 || a1->var2 <= a2)
+  if (a2 < 0 || result->var2 <= a2)
   {
     *a3 = 0;
     *a4 = 0;
     return;
   }
 
-  var3 = a1->var3;
+  var3 = result->var3;
   v11 = (var3 + 44 * a2);
   v12 = *(v11 + 28);
   v13 = v11[1];
-  v46 = *v11;
-  *v47[0].f32 = v13;
-  *&v47[1].i32[1] = v12;
-  v14 = v46 & 0xF;
-  if ((v46 & 0xF) == 0)
+  v47 = *v11;
+  *v48[0].f32 = v13;
+  *&v48[1].i32[1] = v12;
+  v14 = v47 & 0xF;
+  if ((v47 & 0xF) == 0)
   {
     v15 = a2 + 1;
-    v12.n128_u64[0] = 0;
+    v16 = 0.0;
     goto LABEL_8;
   }
 
-  if ((v46 & 0xD) == 5)
+  if ((v47 & 0xD) == 5)
   {
 LABEL_5:
     v15 = a2 - 1;
-    v12.n128_u32[0] = 1.0;
+    v16 = 1.0;
 LABEL_8:
-    Path::PointAndTangentAt(a1, v15, a3, a4, v12);
+    Path::PointAndTangentAt(result, v15, a3, a4, v16);
     return;
   }
 
-  if ((v46 & 0xFu) <= 2)
+  if ((v47 & 0xFu) <= 2)
   {
     if (v14 == 1)
     {
-      Path::PrevPoint(a1, a2 - 1, &v39, &v40);
-      v43 = 0.0;
-      Path::TangentOnSegAt(v47, a3, a4, &v43, a5, v39, v40);
+      Path::PrevPoint(result, a2 - 1, &v40, &v41);
+      v44 = 0.0;
+      Path::TangentOnSegAt(v48, a3, a4, &v44, a5, v40, v41);
     }
 
     else if (v14 == 2)
     {
-      Path::PrevPoint(a1, a2 - 1, &v39, &v40);
-      v43 = 0.0;
-      v45 = 0;
-      v31.f32[0] = v39;
-      Path::TangentOnCubAt(v47, 0, a3, a4, &v43, &v45, a5, v31, v40);
+      Path::PrevPoint(result, a2 - 1, &v40, &v41);
+      v44 = 0.0;
+      v46 = 0;
+      v32.f32[0] = v40;
+      Path::TangentOnCubAt(v48, 0, a3, a4, &v44, &v46, a5, v32, v41);
     }
   }
 
@@ -1407,103 +1446,103 @@ LABEL_8:
       case 6:
         goto LABEL_14;
       case 4:
-        Path::PrevPoint(a1, a2 - 1, &v39, &v40);
-        v43 = 0.0;
-        v45 = 0;
-        Path::TangentOnArcAt(v47, a3, a4, &v43, &v45, a5, v39, v40);
+        Path::PrevPoint(result, a2 - 1, &v40, &v41);
+        v44 = 0.0;
+        v46 = 0;
+        Path::TangentOnArcAt(v48, a3, a4, &v44, &v46, a5, v40, v41);
         return;
       case 3:
 LABEL_14:
-        v16 = 0;
         v17 = 0;
-        v18 = -1;
+        v18 = 0;
+        v19 = -1;
         do
         {
-          v20 = a2 + v16;
-          if ((a2 + v16) < 0)
+          v21 = a2 + v17;
+          if (a2 + v17 < 0)
           {
             goto LABEL_5;
           }
 
-          v17 -= 44;
-          ++v18;
-          --v16;
+          v18 -= 44;
+          ++v19;
+          --v17;
         }
 
-        while ((*(var3 + 11 * v20) & 0xF) != 3);
-        v21 = var3 + 44 * v20;
-        v24 = *(v21 + 4);
-        v22 = (v21 + 16);
-        v23 = v24;
-        if ((v24 + a2 - v18) < a2)
+        while ((*(var3 + 11 * v21) & 0xF) != 3);
+        v22 = var3 + 44 * v21;
+        v25 = *(v22 + 4);
+        v23 = (v22 + 16);
+        v24 = v25;
+        if (v25 + a2 - v19 < a2)
         {
           goto LABEL_5;
         }
 
-        if (v23 == 1 || v18 <= 0)
+        if (v24 == 1 || v19 <= 0)
         {
-          Path::PrevPoint(a1, a2 + v16, &v39, &v40);
-          v43 = 0.0;
-          v45 = 0;
-          *&v13 = v39;
-          v26 = v40;
-          v27 = a1->var3 + 44 * v20;
-          v28 = (v27 + 60);
-          v22 = (v27 + 16);
+          Path::PrevPoint(result, a2 + v17, &v40, &v41);
+          v44 = 0.0;
+          v46 = 0;
+          *&v13 = v40;
+          v27 = v41;
+          v28 = result->var3 + 44 * v21;
+          v29 = (v28 + 60);
+          v23 = (v28 + 16);
         }
 
         else
         {
-          if (v18 == 1)
+          if (v19 == 1)
           {
-            Path::PrevPoint(a1, a2 + v16, &v43, &v44);
-            v45 = 0;
-            v42 = 0;
-            LODWORD(v39) = 1;
-            v32 = a1->var3;
-            v33 = v32 + 44 * a2 + v17 + 44;
-            v34 = *(v33 + 15);
-            v28 = (v33 + 60);
-            v35 = (v32 + 44 * a2 + v17 + 88);
-            v40 = (v34 + v35[15]) * 0.5;
-            v41 = (v28->f32[1] + v35[16]) * 0.5;
-            *&v13 = v43;
-            v26 = v44;
-            v22 = &v39;
-            v29 = &v45;
-            v30 = &v42;
+            Path::PrevPoint(result, a2 + v17, &v44, &v45);
+            v46 = 0;
+            v43 = 0;
+            LODWORD(v40) = 1;
+            v33 = result->var3;
+            v34 = v33 + 44 * (a2 + 1) + v18;
+            v35 = *(v34 + 15);
+            v29 = (v34 + 60);
+            v36 = (v33 + 44 * (a2 + 2) + v18);
+            v41 = (v35 + v36[15]) * 0.5;
+            v42 = (v29->f32[1] + v36[16]) * 0.5;
+            *&v13 = v44;
+            v27 = v45;
+            v23 = &v40;
+            v30 = &v46;
+            v31 = &v43;
             goto LABEL_34;
           }
 
-          v28 = (var3 + 44 * a2 + 16);
-          if (v23 == v18)
+          v29 = (var3 + 44 * a2 + 16);
+          if (v24 == v19)
           {
-            v39 = 0.0;
-            v43 = 0.0;
-            *&v13 = (v28->f32[0] + *(v11 - 7)) * 0.5;
-            v26 = (*(var3 + 11 * a2 + 5) + *(v11 - 6)) * 0.5;
-            v29 = &v39;
-            v30 = &v43;
+            v40 = 0.0;
+            v44 = 0.0;
+            *&v13 = (v29->f32[0] + *(v11 - 7)) * 0.5;
+            v27 = (*(var3 + 11 * a2 + 5) + *(v11 - 6)) * 0.5;
+            v30 = &v40;
+            v31 = &v44;
             goto LABEL_34;
           }
 
-          v43 = 0.0;
-          v45 = 0;
-          v36 = v28->f32[0];
-          v37 = *(var3 + 11 * a2 + 5);
-          *&v13 = (v28->f32[0] + *(v11 - 7)) * 0.5;
-          v26 = (v37 + *(v11 - 6)) * 0.5;
-          LODWORD(v39) = 1;
-          v38 = (var3 + 44 * a2 + 44);
-          v40 = (v36 + v38[4]) * 0.5;
-          v41 = (v37 + v38[5]) * 0.5;
-          v22 = &v39;
+          v44 = 0.0;
+          v46 = 0;
+          v37 = v29->f32[0];
+          v38 = *(var3 + 11 * a2 + 5);
+          *&v13 = (v29->f32[0] + *(v11 - 7)) * 0.5;
+          v27 = (v38 + *(v11 - 6)) * 0.5;
+          LODWORD(v40) = 1;
+          v39 = (var3 + 44 * (a2 + 1));
+          v41 = (v37 + v39[4]) * 0.5;
+          v42 = (v38 + v39[5]) * 0.5;
+          v23 = &v40;
         }
 
-        v29 = &v43;
-        v30 = &v45;
+        v30 = &v44;
+        v31 = &v46;
 LABEL_34:
-        Path::TangentOnBezAt(v28, v22, 0, a3, a4, v29, v30, a5, *&v13, v26);
+        Path::TangentOnBezAt(v29, v23, 0, a3, a4, v30, v31, a5, *&v13, v27);
         break;
     }
   }
@@ -1640,14 +1679,14 @@ LABEL_70:
 
           if (v16 == 7)
           {
+            *&v9 = v6;
             if (this->var6)
             {
-              Path::AddForcedPoint(this, v6, v7, v5, v12, 1.0);
+              Path::AddForcedPoint(this, v9, v7, v5, v12, 1.0);
             }
 
             else
             {
-              *&v9 = v6;
               Path::AddForcedPoint(this, v9, v7, v12, 1.0);
             }
 
@@ -1910,7 +1949,7 @@ LABEL_24:
     v41 = ((v24 * 3.0) * 0.25) - ((a5 + a12) * 0.125);
     v42 = ((v25 * 3.0) * 0.25) - ((a6 + a13) * 0.125);
     v39 = (a15 + a16) * 0.5;
-    Path::RecCubicTo(v20, a2, a3, a4, a5 * 0.5, a6 * 0.5, v37, v38, v36, v41, v42, v27, --a10, a15, v39, a11);
+    Path::RecCubicTo(v20, a2, a3, a4, a5 * 0.5, a6 * 0.5, v37, v38, v36, --a10, a11, v41, v42, v27, a15, v39);
     this = Path::AddPoint(v20, v37, v38, v36, a11, v39, 0);
     a12 = a12 * 0.5;
     a2 = v37;
@@ -1980,7 +2019,7 @@ LABEL_24:
     v37 = ((v23 * 3.0) * 0.25) - ((a5 + a9) * 0.125);
     v38 = ((v22 * 3.0) * 0.25) - ((a4 + a8) * 0.125);
     v36 = (a13 + a14) * 0.5;
-    Path::RecCubicTo(v20, a2, a3, a4 * 0.5, a5 * 0.5, v34, v35, v38, v37, v25, --a10, a13, v36, a11);
+    Path::RecCubicTo(v20, a2, a3, a4 * 0.5, a5 * 0.5, v34, v35, v38, v37, --a10, a11, v25, a13, v36);
     this = Path::AddPoint(v20, v34, v35, a11, v36, 0);
     a8 = a8 * 0.5;
     a2 = v34;
@@ -2391,7 +2430,7 @@ Path *Path::RecBezierTo(Path *this, float a2, float a3, float a4, float a5, floa
       v30 = ((a7 + a12) + (a4 * 2.0)) * 0.25;
       v28 = (a14 + a15) * 0.5;
       v29 = a4;
-      Path::RecBezierTo(v21, (a2 + a5) * 0.5, (a3 + a6) * 0.5, (a4 + a7) * 0.5, a5, a6, a7, v26, v27, v30, a13, v23 - 2, a14, v28, a11);
+      Path::RecBezierTo(v21, (a2 + a5) * 0.5, (a3 + a6) * 0.5, (a4 + a7) * 0.5, a5, a6, a7, v26, v27, v23 - 2, a11, v30, a13, a14, v28);
       this = Path::AddPoint(v21, v26, v27, v30, a11, v28, 0);
       a2 = (a2 + a8) * 0.5;
       a3 = (a3 + a9) * 0.5;
@@ -2432,7 +2471,7 @@ Path *Path::RecBezierTo(Path *this, float a2, float a3, float a4, float a5, floa
       v22 = ((a4 + a6) + (a2 * 2.0)) * 0.25;
       v23 = ((a5 + a7) + (a3 * 2.0)) * 0.25;
       v24 = (a10 + a12) * 0.5;
-      Path::RecBezierTo(v18, (a2 + a4) * 0.5, (a3 + a5) * 0.5, a4, a5, v22, v23, a8, v19 - 2, a10, v24, a11);
+      Path::RecBezierTo(v18, (a2 + a4) * 0.5, (a3 + a5) * 0.5, a4, a5, v22, v23, a8, v19 - 2, a10, a11, v24);
       this = Path::AddPoint(v18, v22, v23, a11, v24, 0);
       a2 = (a2 + a6) * 0.5;
       --v19;
@@ -2470,289 +2509,292 @@ void Path::ConvertForOffset(Path *this, float a2, Path *a3, float a4)
     v10 = *(var3 + 4);
     v9 = *(var3 + 5);
     v11 = Path::AddPoint(this, v10, v9, 0, 0.0, 1);
-    v57 = a3;
-    v60 = a4;
+    v58 = a3;
+    v61 = a4;
     if (this->var2 >= 2)
     {
-      v15 = v11;
-      v16 = 1;
-      v17 = 2.0;
+      v16 = v11;
+      v17 = 1;
+      v18 = 2.0;
       do
       {
-        v18 = this->var3;
-        v19 = v18 + 44 * v16;
-        v20 = *v19 & 0xF;
-        if (v20 <= 2)
+        v19 = this->var3;
+        v20 = v19 + 44 * v17;
+        v21 = *v20 & 0xF;
+        if (v21 <= 2)
         {
-          switch(v20)
+          switch(v21)
           {
             case 0u:
-              v21 = *(v19 + 4);
-              v22 = *(v19 + 5);
-              v15 = Path::AddPoint(this, v21, v22, v16, 0.0, 1);
+              v22 = *(v20 + 4);
+              v23 = *(v20 + 5);
+              v16 = Path::AddPoint(this, v22, v23, v17, 0.0, 1);
               goto LABEL_33;
             case 1u:
-              v21 = *(v19 + 4);
-              v22 = *(v19 + 5);
+              v22 = *(v20 + 4);
+              v23 = *(v20 + 5);
               goto LABEL_32;
             case 2u:
-              v21 = *(v19 + 4);
-              v22 = *(v19 + 5);
-              v58 = *(v19 + 1);
-              v59 = *(v19 + 1);
-              v28 = *(v19 + 6);
-              v29 = *(v19 + 7);
-              v30 = *(v19 + 8);
-              v31 = *(v19 + 9);
-              if (v58 < 0)
+              v22 = *(v20 + 4);
+              v23 = *(v20 + 5);
+              v59 = *(v20 + 1);
+              v60 = *(v20 + 1);
+              v29 = *(v20 + 6);
+              v30 = *(v20 + 7);
+              v31 = *(v20 + 8);
+              v32 = *(v20 + 9);
+              if (v59 < 0)
               {
-                Path::RecCubicTo(this, v10, v9, v28, v29, v21, v22, v30, v31, 8, v16, a2, 0.0, 1.0);
+                Path::RecCubicTo(this, v10, v9, v29, v30, v22, v23, v31, v32, 8, v17, a2, 0.0, 1.0);
               }
 
               else
               {
-                Path::RecCubicTo(this, 8, v16, &v57, v10, v9, v28, v29, v21, v22, v30, v31, a2, 0.0, 1.0);
+                Path::RecCubicTo(this, 8, v17, &v58, v10, v9, v29, v30, v22, v23, v31, v32, COERCE_DOUBLE(LODWORD(a2)), 1.0);
               }
 
 LABEL_32:
-              Path::AddPoint(this, v21, v22, v16, 1.0, 0);
+              Path::AddPoint(this, v22, v23, v17, 1.0, 0);
 LABEL_33:
-              v16 = (v16 + 1);
+              v17 = (v17 + 1);
               goto LABEL_34;
           }
         }
 
-        else if ((*v19 & 0xFu) > 4)
+        else if ((*v20 & 0xFu) > 4)
         {
-          if (v20 == 5)
+          if (v21 == 5)
           {
-            v39 = &this->var11[20 * v15];
-            v21 = *(v39 + 1);
-            v22 = *(v39 + 2);
+            v40 = &this->var11[20 * v16];
+            v22 = *(v40 + 1);
+            v23 = *(v40 + 2);
             goto LABEL_32;
           }
 
-          if (v20 == 7)
+          if (v21 == 7)
           {
             *&v12 = v10;
-            Path::AddForcedPoint(this, v12, v9, v16, 1.0);
-            v16 = (v16 + 1);
+            Path::AddForcedPoint(this, v12, v9, v17, 1.0);
+            v17 = (v17 + 1);
           }
         }
 
         else
         {
-          if (v20 == 3)
+          if (v21 == 3)
           {
-            v32 = *(v19 + 4);
-            v21 = *(v19 + 5);
-            v22 = *(v19 + 6);
-            if (v32 <= 0)
+            v33 = *(v20 + 4);
+            v22 = *(v20 + 5);
+            v23 = *(v20 + 6);
+            if (v33 <= 0)
             {
-              v40 = v16 + v32 - 1;
+              v41 = v17 + v33 - 1;
             }
 
             else
             {
-              v34 = *(v19 + 15);
-              v33 = *(v19 + 16);
-              v35 = -(v34 - (v10 * v17));
-              v36 = -(v33 - (v9 * v17));
-              if (v32 == 1)
+              v35 = *(v20 + 15);
+              v34 = *(v20 + 16);
+              v36 = -(v35 - (v10 * v18));
+              v37 = -(v34 - (v9 * v18));
+              if (v33 == 1)
               {
-                v37 = -v34;
-                v38 = -v33;
+                v38 = -v35;
+                v39 = -v34;
               }
 
               else
               {
-                v55 = v15;
-                v41 = 0;
-                v42 = (v18 + 44 * v16 + 140);
+                v56 = v16;
+                v42 = 0;
+                v43 = (v19 + 44 * v17 + 140);
                 do
                 {
-                  v43 = v35;
                   v44 = v36;
-                  v35 = v34;
-                  v36 = v33;
-                  v34 = *(v42 - 9);
-                  v33 = *(v42 - 8);
-                  v45 = (v43 + v35) * 0.5;
+                  v45 = v37;
+                  v36 = v35;
+                  v37 = v34;
+                  v35 = *(v43 - 9);
+                  v34 = *(v43 - 8);
                   v46 = (v44 + v36) * 0.5;
-                  if (v41)
+                  v47 = (v45 + v37) * 0.5;
+                  if (v42)
                   {
-                    Path::AddPoint(this, v45, (v44 + v36) * 0.5, v16 - 1 + v41, 1.0, 0);
+                    Path::AddPoint(this, v46, (v45 + v37) * 0.5, v17 - 1 + v42, 1.0, 0);
                   }
 
-                  v58 = *(v42 - 1);
-                  v59 = *v42;
-                  v47 = (v35 + v34) * 0.5;
-                  v48 = (v36 + v33) * 0.5;
-                  if (v58 < 0)
+                  v59 = *(v43 - 1);
+                  v60 = *v43;
+                  v48 = (v36 + v35) * 0.5;
+                  v49 = (v37 + v34) * 0.5;
+                  if (v59 < 0)
                   {
-                    Path::RecBezierTo(this, v35, v36, v45, v46, v47, v48, a2, 8, 0.0, v16 + v41, 1.0);
+                    Path::RecBezierTo(this, v36, v37, v46, v47, v48, v49, a2, 8, 0.0, v17 + v42, 1.0);
                   }
 
                   else
                   {
-                    *&v13 = v36;
-                    Path::RecBezierTo(this, 8, (v16 + v41), &v57, v35, v13, v45, v46, v47, v48, a2, 0.0, 1.0);
+                    v13.n128_f32[0] = v37;
+                    v14.n128_f32[0] = v46;
+                    Path::RecBezierTo(this, 8, (v17 + v42), &v58, v36, v13, v14, v47, v48, v49, a2, 0.0, 1.0);
                   }
 
-                  ++v41;
-                  v42 = (v42 + 44);
+                  ++v42;
+                  v43 = (v43 + 44);
                 }
 
-                while (v32 - 1 != v41);
-                v37 = -v34;
-                v38 = -v33;
-                v15 = v55;
+                while (v33 - 1 != v42);
+                v38 = -v35;
+                v39 = -v34;
+                v16 = v56;
               }
 
-              v49 = (v35 + v34) * 0.5;
-              v50 = (v36 + v33) * 0.5;
-              if (v32 != 1)
+              v50 = (v36 + v35) * 0.5;
+              v51 = (v37 + v34) * 0.5;
+              if (v33 != 1)
               {
-                Path::AddPoint(this, v49, v50, v16 + v32 - 2, 1.0, 0);
+                Path::AddPoint(this, v50, v51, v17 + v33 - 2, 1.0, 0);
               }
 
-              v51 = v37 + (v21 * 2.0);
-              v17 = 2.0;
-              v58 = *(v19 + 12);
-              v59 = *(v19 + 52);
-              v52 = (v34 + v51) * 0.5;
-              v53 = (v33 + (v38 + (v22 * 2.0))) * 0.5;
-              v54 = v16 + v32;
-              v40 = v16 + v32 - 1;
-              if (v58 < 0)
+              v52 = v38 + (v22 * 2.0);
+              v18 = 2.0;
+              v59 = *(v20 + 12);
+              v14.n128_u64[0] = *(v20 + 52);
+              v60 = v14.n128_u64[0];
+              v53 = (v35 + v52) * 0.5;
+              v54 = (v34 + (v39 + (v23 * 2.0))) * 0.5;
+              v55 = v17 + v33;
+              v41 = v17 + v33 - 1;
+              if (v59 < 0)
               {
-                Path::RecBezierTo(this, v34, v33, v49, v50, v52, v53, a2, 8, 0.0, v54 - 1, 1.0);
+                Path::RecBezierTo(this, v35, v34, v50, v51, v53, v54, a2, 8, 0.0, v55 - 1, 1.0);
               }
 
               else
               {
-                *&v13 = v33;
-                Path::RecBezierTo(this, 8, (v54 - 1), &v57, v34, v13, v49, v50, v52, v53, a2, 0.0, 1.0);
+                v13.n128_f32[0] = v34;
+                v14.n128_f32[0] = v50;
+                Path::RecBezierTo(this, 8, (v55 - 1), &v58, v35, v13, v14, v51, v53, v54, a2, 0.0, 1.0);
               }
             }
 
-            Path::AddPoint(this, v21, v22, v40, 1.0, 0);
-            v16 = (v16 + v32 + 1);
+            Path::AddPoint(this, v22, v23, v41, 1.0, 0);
+            v17 = (v17 + v33 + 1);
             goto LABEL_34;
           }
 
-          if (v20 == 4)
+          if (v21 == 4)
           {
-            v21 = *(v19 + 4);
-            v22 = *(v19 + 5);
-            v58 = *(v19 + 1);
-            v59 = *(v19 + 1);
-            v23 = *(v19 + 6);
-            v24 = *(v19 + 7);
-            v25 = *(v19 + 8);
-            v26 = v19[36];
-            v27 = v19[37];
-            if (v58 < 0)
+            v22 = *(v20 + 4);
+            v23 = *(v20 + 5);
+            v59 = *(v20 + 1);
+            v60 = *(v20 + 1);
+            v24 = *(v20 + 6);
+            v25 = *(v20 + 7);
+            v26 = *(v20 + 8);
+            v27 = v20[36];
+            v28 = v20[37];
+            if (v59 < 0)
             {
-              Path::DoArc(this, v10, v9, v21, v22, v23, v24, v25, v26, v27, v14, v16);
+              Path::DoArc(this, v10, v9, v22, v23, v24, v25, v26, v27, v28, v15, v17);
             }
 
             else
             {
-              Path::DoArc(this, v26, v27, v16, v10, v9, v21, v22, v23, v24, v25);
+              Path::DoArc(this, v27, v28, v17, v10, v9, v22, v23, v24, v25, v26);
             }
 
             goto LABEL_32;
           }
         }
 
-        v21 = 0.0;
         v22 = 0.0;
+        v23 = 0.0;
 LABEL_34:
-        v10 = v21;
-        v9 = v22;
+        v10 = v22;
+        v9 = v23;
       }
 
-      while (v16 < this->var2);
+      while (v17 < this->var2);
     }
   }
 }
 
-void Path::RecCubicTo(Path *a1, int a2, uint64_t a3, uint64_t a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, float a13, float a14, float a15)
+void Path::RecCubicTo(Path *a1, int a2, uint64_t a3, uint64_t a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, double a13, float a14)
 {
-  v26 = a9 - a5;
-  v27 = a10 - a6;
-  v28 = sqrtf((v27 * v27) + (v26 * v26));
-  if (v28 >= 0.01)
+  v21 = a9 - a5;
+  v22 = a10 - a6;
+  v23 = sqrtf((v22 * v22) + (v21 * v21));
+  if (v23 >= 0.01)
   {
-    v30 = (v26 * a8) - (v27 * a7);
-    v31 = -(v27 * a11);
-    v32 = -v30;
-    if (v30 >= 0.0)
+    v25 = (v21 * a8) - (v22 * a7);
+    v26 = -(v22 * a11);
+    v27 = -v25;
+    if (v25 >= 0.0)
     {
-      v32 = v30;
+      v27 = v25;
     }
 
-    v33 = -(v31 + (v26 * a12));
-    if ((v31 + (v26 * a12)) >= 0.0)
+    v28 = -(v26 + (v21 * a12));
+    if ((v26 + (v21 * a12)) >= 0.0)
     {
-      v33 = v31 + (v26 * a12);
+      v28 = v26 + (v21 * a12);
     }
 
-    v34 = v32 / v28;
-    v29 = (v33 / v28) < a13 && v34 < a13;
+    v29 = v27 / v23;
+    v24 = (v28 / v23) < *&a13 && v29 < *&a13;
   }
 
   else
   {
-    v29 = ((a7 * a7) + (a8 * a8)) < a13 && ((a11 * a11) + (a12 * a12)) < a13;
+    v24 = ((a7 * a7) + (a8 * a8)) < *&a13 && ((a11 * a11) + (a12 * a12)) < *&a13;
   }
 
-  v36 = a2 < 1;
-  Path::PointAndTangentAt(*a4, *(a4 + 8), &v69, &v67, (*(a4 + 16) * a14) + (*(a4 + 12) * (1.0 - a14)));
-  v37 = a14 * 0.5 + a15 * 0.5;
-  *&v37 = v37 * *(a4 + 16) + *(a4 + 12) * (1.0 - v37);
-  Path::PointAndTangentAt(*a4, *(a4 + 8), &v64, &v62, *&v37);
-  Path::PointAndTangentAt(*a4, *(a4 + 8), &v66, v65, (*(a4 + 16) * a15) + (*(a4 + 12) * (1.0 - a15)));
-  v38 = *(a4 + 20);
-  v39 = v64.f32[0] - (v38 * v63);
-  v40 = v64.f32[1] + (v38 * v62);
-  v41 = v66.f32[1] + (v38 * v65[0]);
-  v42 = v39 - (v69.f32[0] - (v38 * v68));
-  v43 = v40 - (v69.f32[1] + (v38 * v67));
-  v44 = (v66.f32[0] - (v38 * v65[1])) - v39;
-  v45 = v41 - v40;
-  v46 = (v43 * v43) + (v42 * v42);
-  if (v46 > 0.0001)
+  v31 = a2 < 1;
+  Path::PointAndTangentAt(*a4, *(a4 + 8), &v68, &v66, (*(a4 + 16) * *(&a13 + 1)) + (*(a4 + 12) * (1.0 - *(&a13 + 1))));
+  v32 = *(&a13 + 1) * 0.5 + a14 * 0.5;
+  *&v32 = v32 * *(a4 + 16) + *(a4 + 12) * (1.0 - v32);
+  Path::PointAndTangentAt(*a4, *(a4 + 8), &v63, &v61, *&v32);
+  Path::PointAndTangentAt(*a4, *(a4 + 8), &v65, v64, (*(a4 + 16) * a14) + (*(a4 + 12) * (1.0 - a14)));
+  v33 = *(a4 + 20);
+  v34 = v63.f32[0] - (v33 * v62);
+  v35 = v63.f32[1] + (v33 * v61);
+  v36 = v65.f32[1] + (v33 * v64[0]);
+  v37 = v34 - (v68.f32[0] - (v33 * v67));
+  v38 = v35 - (v68.f32[1] + (v33 * v66));
+  v39 = (v65.f32[0] - (v33 * v64[1])) - v34;
+  v40 = v36 - v35;
+  v41 = (v38 * v38) + (v37 * v37);
+  if (v41 > 0.0001)
   {
-    v47 = sqrtf(v46);
-    v42 = v42 / v47;
-    v43 = v43 / v47;
+    v42 = sqrtf(v41);
+    v37 = v37 / v42;
+    v38 = v38 / v42;
   }
 
-  v48 = (v45 * v45) + (v44 * v44);
-  if (v48 > 0.0001)
+  v43 = (v40 * v40) + (v39 * v39);
+  if (v43 > 0.0001)
   {
-    v49 = sqrtf(v48);
-    v44 = v44 / v49;
-    v45 = v45 / v49;
+    v44 = sqrtf(v43);
+    v39 = v39 / v44;
+    v40 = v40 / v44;
   }
 
-  v50 = ((v63 - v68) * (v45 - v43)) + ((v62 - v67) * (v44 - v42));
-  if ((v36 || v29) && v50 < 0.0)
+  v45 = ((v62 - v67) * (v40 - v38)) + ((v61 - v66) * (v39 - v37));
+  if ((v31 || v24) && v45 < 0.0)
   {
-    Path::AddPoint(a1, v69.f32[0], v69.f32[1], -1, 0.0, 0);
-    Path::AddPoint(a1, a9, a10, a3, a15, 0);
-    Path::AddPoint(a1, a5, a6, a3, a14, 0);
-    Path::AddPoint(a1, v66.f32[0], v66.f32[1], -1, 0.0, 0);
+    Path::AddPoint(a1, v68.f32[0], v68.f32[1], -1, 0.0, 0);
+    Path::AddPoint(a1, a9, a10, a3, a14, 0);
+    Path::AddPoint(a1, a5, a6, a3, *(&a13 + 1), 0);
+    Path::AddPoint(a1, v65.f32[0], v65.f32[1], -1, 0.0, 0);
     return;
   }
 
-  if (v50 >= 0.0)
+  if (v45 >= 0.0)
   {
-    v51 = a7;
-    v52 = a11;
-    if (v36 || v29)
+    v46 = a7;
+    v47 = a11;
+    if (v31 || v24)
     {
       return;
     }
@@ -2760,21 +2802,25 @@ void Path::RecCubicTo(Path *a1, int a2, uint64_t a3, uint64_t a4, float a5, floa
 
   else
   {
-    v51 = a7;
-    v52 = a11;
+    v46 = a7;
+    v47 = a11;
     if (a2 < 1)
     {
       return;
     }
   }
 
-  v56 = a10;
-  v53 = ((a5 + a9) * 0.5) + ((v51 - v52) * 0.125);
-  v54 = ((a6 + a10) * 0.5) + ((a8 - a12) * 0.125);
-  v55 = ((v26 * 3.0) * 0.25) - ((v51 + v52) * 0.125);
-  Path::RecCubicTo(a1, (a2 - 1), a3, a4, a5, a6, v51 * 0.5, a8 * 0.5, v53, v54);
-  Path::AddPoint(a1, v53, v54, a3, (a14 + a15) * 0.5, 0);
-  Path::RecCubicTo(a1, (a2 - 1), a3, a4, v53, v54, v55, ((v27 * 3.0) * 0.25) - ((a8 + a12) * 0.125), a9, v56);
+  v55 = a10;
+  v48 = ((a5 + a9) * 0.5) + ((v46 - v47) * 0.125);
+  v49 = ((a6 + a10) * 0.5) + ((a8 - a12) * 0.125);
+  v53 = ((v21 * 3.0) * 0.25) - ((v46 + v47) * 0.125);
+  v54 = a12;
+  v50 = ((v22 * 3.0) * 0.25) - ((a8 + a12) * 0.125);
+  v51 = (*(&a13 + 1) + a14) * 0.5;
+  v52 = v47;
+  Path::RecCubicTo(a1, a2 - 1, a3, a4, a5, a6, v46 * 0.5, a8 * 0.5, v48, v49, v53, v50, a13, v51);
+  Path::AddPoint(a1, v48, v49, a3, v51, 0);
+  Path::RecCubicTo(a1, a2 - 1, a3, a4, v48, v49, v53, v50, a9, v55, v52 * 0.5, v54 * 0.5, COERCE_DOUBLE(__PAIR64__(LODWORD(v51), LODWORD(a13))), a14);
 }
 
 void Path::DoArc(Path *a1, int a2, int a3, int a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11)
@@ -2958,56 +3004,61 @@ void Path::DoArc(Path *a1, int a2, int a3, int a4, float a5, float a6, float a7,
   }
 }
 
-void Path::RecBezierTo(Path *a1, int a2, uint64_t a3, uint64_t a4, float a5, double a6, float a7, float32_t a8, float a9, float a10, float a11, float a12, float a13)
+void Path::RecBezierTo(Path *a1, int a2, uint64_t a3, uint64_t a4, float a5, __n128 a6, __n128 a7, float32_t a8, float a9, float a10, float a11, float a12, float a13)
 {
-  v19 = *&a6;
-  v21 = ((a7 - a5) * (a10 - *&a6)) - ((a8 - *&a6) * (a9 - a5));
-  v22 = -v21;
-  if (v21 >= 0.0)
+  v14 = a7.n128_f32[0];
+  v15 = a6.n128_f32[0];
+  v17 = ((a7.n128_f32[0] - a5) * (a10 - a6.n128_f32[0])) - ((a8 - a6.n128_f32[0]) * (a9 - a5));
+  v18 = -v17;
+  if (v17 >= 0.0)
   {
-    v22 = v21;
+    v18 = v17;
   }
 
-  v23 = (a2 - 1);
+  v19 = a2 - 1;
   if (a2 >= 1)
   {
-    v39 = v22;
-    v44 = 0;
-    v43 = __PAIR64__(LODWORD(a6), LODWORD(a5));
-    v42[0] = 1;
-    *&v42[1] = a9;
-    *&v42[2] = a10;
-    *&a6 = a7;
-    Path::TangentOnBezAt(&v43, v42, 0, &v45, &v46, &v44 + 1, &v44, 0.0, *&a6, a8);
-    Path::PointAndTangentAt(*a4, *(a4 + 8), &v51, v50, (*(a4 + 16) * a12) + (*(a4 + 12) * (1.0 - a12)));
-    v29 = (v47 * v50[1]) + (v46 * v50[0]);
-    v30.f32[0] = a7;
-    Path::TangentOnBezAt(&v43, v42, 0, &v45, &v46, &v44 + 1, &v44, 1.0, v30, a8);
-    Path::PointAndTangentAt(*a4, *(a4 + 8), &v49, v48, (*(a4 + 16) * a13) + (*(a4 + 12) * (1.0 - a13)));
-    v31 = (v47 * v48[1]) + (v46 * v48[0]);
-    if (v29 >= 0.0 || v31 >= 0.0)
+    v40 = v18;
+    v45 = 0;
+    v44 = __PAIR64__(a6.n128_u32[0], LODWORD(a5));
+    v43[0] = 1;
+    *&v43[1] = a9;
+    *&v43[2] = a10;
+    a6.n128_u32[0] = a7.n128_u32[0];
+    Path::TangentOnBezAt(&v44, v43, 0, &v46, &v47, &v45 + 1, &v45, 0.0, a6.n128_u64[0], a8);
+    Path::PointAndTangentAt(*a4, *(a4 + 8), &v52, v51, (*(a4 + 16) * a12) + (*(a4 + 12) * (1.0 - a12)));
+    v25 = (v48 * v51[1]) + (v47 * v51[0]);
+    v26.f32[0] = v14;
+    Path::TangentOnBezAt(&v44, v43, 0, &v46, &v47, &v45 + 1, &v45, 1.0, v26, a8);
+    Path::PointAndTangentAt(*a4, *(a4 + 8), &v50, v49, (*(a4 + 16) * a13) + (*(a4 + 12) * (1.0 - a13)));
+    v29 = (v48 * v49[1]) + (v47 * v49[0]);
+    if (v25 >= 0.0 || v29 >= 0.0)
     {
-      if (v39 >= a11 || v29 < 0.0 || v31 < 0.0)
+      if (v40 >= a11 || v25 < 0.0 || v29 < 0.0)
       {
-        v32 = ((a8 + a10) + (v19 * 2.0)) * 0.25;
-        v33 = (a5 + a7) * 0.5;
-        v34 = (v19 + a8) * 0.5;
-        v35 = a7;
-        v36 = a8;
-        v37 = ((a7 + a9) + (a5 * 2.0)) * 0.25;
-        v38 = v32;
-        Path::RecBezierTo(a1, v23, a3, a4, v33, v34, v35, v36);
-        Path::AddPoint(a1, v37, v38, a3, (a12 + a13) * 0.5, 0);
-        Path::RecBezierTo(a1, v23, a3, a4, (a5 + a9) * 0.5, (v19 + a10) * 0.5, v37, v38);
+        v30 = ((v14 + a9) + (a5 * 2.0)) * 0.25;
+        v31 = ((a8 + a10) + (v15 * 2.0)) * 0.25;
+        v32 = (a5 + v14) * 0.5;
+        v27.n128_f32[0] = (v15 + a8) * 0.5;
+        v33 = (a12 + a13) * 0.5;
+        v28.n128_f32[0] = v14;
+        v34 = a8;
+        v35 = v30;
+        v36 = v31;
+        Path::RecBezierTo(a1, v19, a3, a4, v32, v27, v28, v34, v30, v31, a11, a12, v33);
+        Path::AddPoint(a1, v35, v36, a3, v33, 0);
+        v37.n128_f32[0] = (v15 + a10) * 0.5;
+        v38.n128_f32[0] = v35;
+        Path::RecBezierTo(a1, v19, a3, a4, (a5 + a9) * 0.5, v37, v38, v36, a9, a10, a11, v33, v39);
       }
     }
 
     else
     {
-      Path::AddPoint(a1, v51.f32[0], v51.f32[1], -1, 0.0, 0);
+      Path::AddPoint(a1, v52.f32[0], v52.f32[1], -1, 0.0, 0);
       Path::AddPoint(a1, a9, a10, a3, a13, 0);
-      Path::AddPoint(a1, a7, a8, a3, a12, 0);
-      Path::AddPoint(a1, v49.f32[0], v49.f32[1], -1, 0.0, 0);
+      Path::AddPoint(a1, v14, a8, a3, a12, 0);
+      Path::AddPoint(a1, v50.f32[0], v50.f32[1], -1, 0.0, 0);
     }
   }
 }
@@ -3170,7 +3221,7 @@ LABEL_69:
             *&v9 = v7;
             if (this->var6)
             {
-              Path::AddForcedPoint(this, v7, v6, v5);
+              Path::AddForcedPoint(this, v9, v6, v5);
             }
 
             else
@@ -3485,7 +3536,7 @@ LABEL_25:
     v34 = ((a3 + a8) * 0.5) + ((a6 - a12) * 0.125);
     v36 = ((v20 * 3.0) * 0.25) - ((a5 + a11) * 0.125);
     v37 = ((v21 * 3.0) * 0.25) - ((a6 + a12) * 0.125);
-    Path::RecCubicTo(v17, a2, a3, a4, a5 * 0.5, a6 * 0.5, v33, v34, v32, v36, v37, v24, --a10, v23);
+    Path::RecCubicTo(v17, a2, a3, a4, a5 * 0.5, a6 * 0.5, v33, v34, v32, --a10, v36, v37, v24, v23);
     this = Path::AddPoint(v17, v33, v34, v32, 0);
     a12 = a12 * 0.5;
     a2 = v33;
@@ -3562,7 +3613,7 @@ LABEL_25:
     v31 = ((a3 + a7) * 0.5) + ((a5 - a9) * 0.125);
     v32 = ((v18 * 3.0) * 0.25) - ((a4 + a8) * 0.125);
     v33 = ((v19 * 3.0) * 0.25) - ((a5 + a9) * 0.125);
-    Path::RecCubicTo(v17, a2, a3, a4 * 0.5, a5 * 0.5, v30, v31, v32, v33, v22, --a10, v21);
+    Path::RecCubicTo(v17, a2, a3, a4 * 0.5, a5 * 0.5, v30, v31, v32, v33, --a10, v22, v21);
     this = Path::AddPoint(v17, v30, v31, 0);
     a9 = a9 * 0.5;
     a8 = a8 * 0.5;
@@ -3988,7 +4039,7 @@ Path *Path::RecBezierTo(Path *this, float a2, float a3, float a4, float a5, floa
       v24 = ((a6 + a9) + (a3 * 2.0)) * 0.25;
       v25 = ((a7 + a11) + (a4 * 2.0)) * 0.25;
       v26 = a4;
-      Path::RecBezierTo(v18, (a2 + a5) * 0.5, (a3 + a6) * 0.5, (a4 + a7) * 0.5, a5, a6, a7, v23, v24, v25, a12, v20 - 2, v19);
+      Path::RecBezierTo(v18, (a2 + a5) * 0.5, (a3 + a6) * 0.5, (a4 + a7) * 0.5, a5, a6, a7, v23, v24, v20 - 2, v25, a12, v19);
       this = Path::AddPoint(v18, v23, v24, v25, 0);
       v19 = a13;
       a4 = (v26 + a11) * 0.5;
@@ -4236,7 +4287,7 @@ LABEL_85:
                 *&v9 = v6;
                 if (this->var6)
                 {
-                  Path::AddForcedPoint(this, v6, v7, v5);
+                  Path::AddForcedPoint(this, v9, v7, v5);
                 }
 
                 else
@@ -5025,7 +5076,7 @@ LABEL_121:
                 v27 = (a2[12] + 16 * v26);
                 v28 = *&v22[v15 + 40];
                 *v27 = v89;
-                *(v27 + 1) = v28;
+                v27[1] = v28;
                 if (v28 == *(v25 + 4))
                 {
                   v27[2] = *(v25 + 5);
@@ -5034,11 +5085,11 @@ LABEL_121:
 
                 else
                 {
-                  v27[2] = 0.0;
+                  v27[2] = 0;
                   v29 = 1.0;
                 }
 
-                v27[3] = v29;
+                *(v27 + 3) = v29;
               }
 
               v18 = vabds_f32(*(v23 + 7), *(v24 + 1)) < 0.00001 && vabds_f32(*&v22[v15 + 32], *(v24 + 2)) < 0.00001;
@@ -5180,7 +5231,7 @@ LABEL_131:
               v62 = &v61[16 * v60];
               v63 = *&v56[v49 + 32];
               *v62 = v89;
-              *(v62 + 1) = v63;
+              v62[1] = v63;
               v64 = 0;
               if (v63 == *(v59 + 3))
               {
@@ -5602,7 +5653,7 @@ void sub_26C817498(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26C817910(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, char a22, void *a23)
+void sub_26C817910(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
 {
   if (__p)
   {
@@ -5623,15 +5674,15 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<TSDPathPoint>>(uint64
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::__tree<CGPoint>::__emplace_unique_key_args<CGPoint,CGPoint>(uint64_t a1, double *a2)
+uint64_t std::__tree<CGPoint>::__emplace_unique_key_args<CGPoint,CGPoint>(uint64_t **a1, double *a2, _OWORD *a3)
 {
-  v2 = *std::__tree<CGPoint>::__find_equal<CGPoint>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<CGPoint>::__find_equal<CGPoint>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<CGPoint>::__find_equal<CGPoint>(uint64_t a1, void *a2, double *a3)
@@ -5935,16 +5986,16 @@ unint64_t *TSDMetalThreadgroupSizeToCoverRect@<X0>(unint64_t *result@<X0>, doubl
   return result;
 }
 
-id TSDMetalDevice()
+id TSDMetalDevice(uint64_t a1)
 {
   if (TSDMetalDevice_s_onceToken != -1)
   {
     TSDMetalDevice_cold_1();
   }
 
-  v1 = TSDMetalDevice_s_metalDevice;
+  v2 = TSDMetalDevice_s_metalDevice;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __TSDMetalDevice_block_invoke()
@@ -5954,16 +6005,16 @@ uint64_t __TSDMetalDevice_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id TSDMetalDevicePreferringLowPower()
+id TSDMetalDevicePreferringLowPower(uint64_t a1)
 {
   if (TSDMetalDevicePreferringLowPower_s_onceToken != -1)
   {
     TSDMetalDevicePreferringLowPower_cold_1();
   }
 
-  v1 = TSDMetalDevicePreferringLowPower_s_metalDevice;
+  v2 = TSDMetalDevicePreferringLowPower_s_metalDevice;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __TSDMetalDevicePreferringLowPower_block_invoke()
@@ -6091,13 +6142,13 @@ void __TSDMetalCommandQueueForRenderingDrawables_block_invoke_16(uint64_t a1)
   }
 }
 
-Path *Path::Outline(Path *this, Path *a2)
+Path *Path::Outline(Path *this, Path *a2, unsigned int a3, int a4, float a5, float a6)
 {
-  v3 = this;
+  v7 = this;
   if (this->var0)
   {
     this = Path::CancelBezier(this);
-    if ((v3->var0 & 2) == 0)
+    if ((v7->var0 & 2) == 0)
     {
 LABEL_3:
       if (!a2)
@@ -6114,14 +6165,14 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  this = Path::CloseSubpath(v3, 0);
+  this = Path::CloseSubpath(v7, 0);
   if (!a2)
   {
     return this;
   }
 
 LABEL_7:
-  if (v3->var2 >= 2)
+  if (v7->var2 >= 2)
   {
     Path::Reset(a2);
     Path::SetWeighted(a2, 0);
@@ -6132,737 +6183,742 @@ LABEL_7:
   return this;
 }
 
-uint64_t Path::StdBezierTo(uint64_t a1, float a2, float32_t a3)
+uint64_t Path::StdBezierTo(uint64_t a1, double a2, __n128 a3, __n128 a4)
 {
-  v21 = 1;
-  v6 = *(a1 + 48);
-  v22 = *(a1 + 40);
-  v20 = v6;
-  v13 = 0;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 36);
-  v6.i32[0] = v7;
-  Path::TangentOnBezAt(&v20, &v21, 0, &v19, &v17, &v13 + 1, &v15, 0.0, v6, v8);
-  v9.i32[0] = v7;
-  Path::TangentOnBezAt(&v20, &v21, 1, &v18, &v16, &v13, &v14, 1.0, v9, v8);
-  v10.i64[0] = __PAIR64__(v13, HIDWORD(v13));
-  v11.i64[0] = v17;
-  v11.i64[1] = v16;
-  *(a1 + 48) = vmulq_f32(vzip1q_s32(v10, v10), v11);
-  v11.f32[0] = a3;
+  v4 = a3.n128_u32[0];
+  v5 = *&a2;
+  v22 = 1;
+  v7 = *(a1 + 48);
+  v23 = *(a1 + 40);
+  v21 = v7;
+  v14 = 0;
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 36);
+  LODWORD(v7) = v8;
+  Path::TangentOnBezAt(&v21, &v22, 0, &v20, &v18, &v14 + 1, &v16, 0.0, v7, v9);
+  v10.i32[0] = v8;
+  Path::TangentOnBezAt(&v21, &v22, 1, &v19, &v17, &v14, &v15, 1.0, v10, v9);
+  v11.i64[0] = __PAIR64__(v14, HIDWORD(v14));
+  v12.i64[0] = v18;
+  v12.i64[1] = v17;
+  *(a1 + 48) = vmulq_f32(vzip1q_s32(v11, v11), v12);
+  v12.i32[0] = v4;
 
-  return Path::RecStdCubicTo(a1, 8, a2, *v11.i64);
+  return Path::RecStdCubicTo(a1, 8, v5, *v12.i64);
 }
 
-uint64_t Path::SubContractOutline(uint64_t result, path_descr *a2, uint64_t a3, int a4, float a5, float a6, float a7, double a8, double a9, double a10, __n128 a11, uint64_t a12, int a13, char a14, float32x2_t *a15, void *a16)
+uint64_t Path::SubContractOutline(uint64_t result, path_descr *a2, uint64_t a3, __n128 a4, float a5, double a6, double a7, double a8, double a9, __n128 a10, __n128 a11, uint64_t a12, uint64_t a13, int a14, char a15, float32x2_t *a16, void *a17)
 {
-  v166 = result;
-  v169 = a2;
+  v127 = *&a6;
+  v167 = result;
+  v170 = a2;
   if (*(result + 8) >= 2)
   {
-    v16 = a15;
-    v17 = a4;
-    v20 = a3;
-    v21 = a2;
-    v22 = result;
-    v23 = a16;
-    v24 = *(*(result + 16) + 16);
-    v123 = a13 ^ 1;
-    v25 = 0.0;
-    v26 = 1;
-    v27 = 0.0;
-    v128 = 0.0;
-    v140 = 0.0;
-    v28 = 1;
-    a11.n128_u64[0] = 0;
+    v17 = a16;
+    v18 = a12;
+    v20 = a4.n128_f32[0];
+    v21 = a3;
+    v22 = a2;
+    v23 = result;
+    v24 = a17;
+    v25 = *(*(result + 16) + 16);
+    v124 = a14 ^ 1;
+    v26 = 0.0;
+    v27 = 1;
+    v28 = 0.0;
+    v129 = 0.0;
+    v141 = 0.0;
+    v29 = 1;
+    a10.n128_u64[0] = 0;
+    v123 = a12;
     while (1)
     {
-      v29 = *(v22 + 16);
-      v30 = v29 + 44 * v26;
-      v31 = *v30 & 0xF;
-      v160 = 0;
+      v30 = *(v23 + 16);
+      v31 = v30 + 44 * v27;
+      v32 = *v31 & 0xF;
       v161 = 0;
-      if (v31 > 2)
+      v162 = 0;
+      if (v32 > 2)
       {
         break;
       }
 
-      if (!v31)
+      if (!v32)
       {
-        v42 = *(v30 + 16);
-        v41 = 0.0;
-        v44 = 0.0;
-        if (((v28 | v123) & 1) == 0)
+        v43 = *(v31 + 16);
+        v42 = 0.0;
+        v45 = 0.0;
+        if (((v29 | v124) & 1) == 0)
         {
-          v45 = vsub_f32(v24, a11.n128_u64[0]);
-          if (fabsf(v45.f32[0]) >= 0.0001 || fabsf(v45.f32[1]) >= 0.0001)
+          v46 = vsub_f32(v25, a10.n128_u64[0]);
+          if (fabsf(v46.f32[0]) >= 0.0001 || fabsf(v46.f32[1]) >= 0.0001)
           {
-            v81 = vsub_f32(a11.n128_u64[0], v24);
-            v82 = sqrtf(vmuls_lane_f32(v81.f32[1], v81, 1) + (v81.f32[0] * v81.f32[0]));
-            if (v82 <= 0.000001)
+            v82 = vsub_f32(a10.n128_u64[0], v25);
+            v83 = sqrtf(vmuls_lane_f32(v82.f32[1], v82, 1) + (v82.f32[0] * v82.f32[0]));
+            if (v83 <= 0.000001)
             {
-              v85 = v24.u32[0];
-              v164.i32[1] = v24.i32[1];
+              v86 = v25.u32[0];
+              v165.i32[1] = v25.i32[1];
+              v84 = 0.0;
+              v82.i32[0] = 0;
               v83 = 0.0;
-              v81.i32[0] = 0;
-              v82 = 0.0;
-              v86 = &v162 + 4;
-              v84 = v24;
+              v87 = &v163 + 4;
+              v85 = v25;
             }
 
             else
             {
-              v83 = v81.f32[0] / v82;
-              v81.f32[0] = v81.f32[1] / v82;
-              v84 = vadd_f32(vmul_f32(a11.n128_u64[0], 0), v24);
-              *(&v162 + 1) = v81.f32[1] / v82;
-              v85 = vmla_f32(a11.n128_u64[0], 0, v24);
-              v86 = &v164 + 4;
+              v84 = v82.f32[0] / v83;
+              v82.f32[0] = v82.f32[1] / v83;
+              v85 = vadd_f32(vmul_f32(a10.n128_u64[0], 0), v25);
+              *(&v163 + 1) = v82.f32[1] / v83;
+              v86 = vmla_f32(a10.n128_u64[0], 0, v25);
+              v87 = &v165 + 4;
             }
 
-            v134 = v83;
-            v146 = v85.f32[0];
-            v163 = __PAIR64__(v81.u32[0], LODWORD(v83));
-            v165 = v84;
-            *&v160 = v82;
-            *(&v160 + 1) = v82;
-            *&v162 = v83;
-            v164.i32[0] = v85.i32[0];
-            *v86 = v85.i32[1];
-            v95 = *(&v162 + 1);
-            v44 = -*(&v162 + 1);
-            v47 = a7;
-            Path::OutlineJoin(v21, v17, v24.f32[0], v24.f32[1], v27, v25, -v81.f32[0], v83, a6, a7);
-            v96 = v146 - (a6 * v95);
-            v46 = v164.i32[1];
-            Path::LineTo(v21, v96, v164.f32[1] + (a6 * v134));
-            a11.n128_f32[0] = v146;
-            v27 = v44;
-            v25 = v134;
+            v135 = v84;
+            v147 = v86.f32[0];
+            v164 = __PAIR64__(v82.u32[0], LODWORD(v84));
+            v166 = v85;
+            *&v161 = v83;
+            *(&v161 + 1) = v83;
+            *&v163 = v84;
+            v165.i32[0] = v86.i32[0];
+            *v87 = v86.i32[1];
+            v96 = *(&v163 + 1);
+            v45 = -*(&v163 + 1);
+            v48 = v127;
+            Path::OutlineJoin(v22, v18, v25.f32[0], v25.f32[1], v28, v26, -v82.f32[0], v84, a5, v127);
+            v97 = v147 - (a5 * v96);
+            v47 = v165.i32[1];
+            Path::LineTo(v22, v97, v165.f32[1] + (a5 * v135));
+            a10.n128_f32[0] = v147;
+            v28 = v45;
+            v26 = v135;
           }
 
           else
           {
-            v46 = a11.n128_i32[1];
-            v134 = 0.0;
-            v47 = a7;
+            v47 = a10.n128_i32[1];
+            v135 = 0.0;
+            v48 = v127;
           }
 
-          Path::OutlineJoin(v21, v17, a11.n128_f32[0], *&v46, v27, v25, v140, v128, a6, v47);
-          result = Path::Close(v21);
-          v41 = v134;
+          Path::OutlineJoin(v22, v18, a10.n128_f32[0], *&v47, v28, v26, v141, v129, a5, v48);
+          result = Path::Close(v22);
+          v42 = v135;
         }
 
-        ++v26;
-        v27 = v44;
-        v43 = v42;
+        ++v27;
+        v28 = v45;
+        v44 = v43;
         goto LABEL_95;
       }
 
-      if (v31 != 1)
+      if (v32 != 1)
       {
-        v142 = a11.n128_u64[0];
-        v129 = *(v30 + 16);
-        v40 = v24.f32[1];
-        v149 = v24;
-        result = Path::IsNulCurve((v29 + 44 * v26), a2, v24.f32[0], v24.f32[1]);
+        v143 = a10.n128_u64[0];
+        v130 = *(v31 + 16);
+        v41 = v25.f32[1];
+        v150 = v25;
+        result = Path::IsNulCurve((v30 + 44 * v27), a2, v25.f32[0], v25.f32[1]);
         if (!result)
         {
-          Path::TangentOnCubAt((v30 + 16), 0, &v165, &v163, &v160 + 1, &v161 + 1, 0.0, v149, v40);
-          Path::TangentOnCubAt((v30 + 16), 1, &v164, &v162, &v160, &v161, 1.0, v149, v40);
-          v33 = *&v163;
-          v34 = -*(&v163 + 1);
-          v69 = *(&v162 + 1);
-          v70 = *&v162;
-          v16 = a15;
-          *a15 = v164;
-          *v23 = v162;
-          v133 = v70;
-          if (v28)
+          Path::TangentOnCubAt((v31 + 16), 0, &v166, &v164, &v161 + 1, &v162 + 1, 0.0, v150, v41);
+          Path::TangentOnCubAt((v31 + 16), 1, &v165, &v163, &v161, &v162, 1.0, v150, v41);
+          v34 = *&v164;
+          v35 = -*(&v164 + 1);
+          v70 = *(&v163 + 1);
+          v71 = *&v163;
+          v17 = a16;
+          *a16 = v165;
+          *v24 = v163;
+          v134 = v71;
+          if (v29)
           {
-            *&v71 = v149;
-            v142 = v165;
-            if ((a14 & 1) == 0)
+            *&v72 = v150;
+            v143 = v166;
+            if ((a15 & 1) == 0)
             {
-              Path::MoveTo(v21, v149.f32[0] + (a6 * v34), v40 + (a6 * v33));
-              *&v71 = v149;
+              Path::MoveTo(v22, v150.f32[0] + (a5 * v35), v41 + (a5 * v34));
+              *&v72 = v150;
             }
 
-            a14 = 0;
-            v72 = &qword_26CA65000;
-            v73 = v129;
+            a15 = 0;
+            v73 = &qword_26CA65000;
+            v74 = v130;
           }
 
           else
           {
-            Path::OutlineJoin(v21, v17, v149.f32[0], v40, v27, v25, v34, v33, a6, a7);
-            v34 = v140;
-            v33 = v128;
-            v72 = &qword_26CA65000;
-            v73 = v129;
-            *&v71 = v149;
+            Path::OutlineJoin(v22, v18, v150.f32[0], v41, v28, v26, v35, v34, a5, v127);
+            v35 = v141;
+            v34 = v129;
+            v73 = &qword_26CA65000;
+            v74 = v130;
+            *&v72 = v150;
           }
 
-          v27 = -v69;
-          v167 = v26;
-          v168 = v72[307];
-          *(&v71 + 1) = v73;
-          *v170 = v71;
-          *&v170[16] = *(v30 + 24);
-          v171 = *(v30 + 32);
-          v172 = *(v30 + 36);
-          result = (*v20)(&v166, a5, a6);
+          v28 = -v70;
+          v168 = v27;
+          v169 = v73[307];
+          *(&v72 + 1) = v74;
+          *v171 = v72;
+          *&v171[16] = *(v31 + 24);
+          v172 = *(v31 + 32);
+          v173 = *(v31 + 36);
+          result = (*v21)(&v167, v20, a5);
           goto LABEL_52;
         }
 
         goto LABEL_14;
       }
 
-      v144 = a11.n128_u64[0];
-      v131 = *(v30 + 16);
-      v54 = v24;
-      v151 = v24;
-      result = Path::IsNulCurve((v29 + 44 * v26), a2, v24.f32[0], v24.f32[1]);
+      v145 = a10.n128_u64[0];
+      v132 = *(v31 + 16);
+      v55 = v25;
+      v152 = v25;
+      result = Path::IsNulCurve((v30 + 44 * v27), a2, v25.f32[0], v25.f32[1]);
       if (!result)
       {
-        v74 = v151;
-        v75 = v131;
-        v76 = vsub_f32(v131, v151);
-        v77 = vmul_f32(v76, v76);
-        *v77.i32 = sqrtf(*&v77.i32[1] + (v76.f32[0] * v76.f32[0]));
-        if (*v77.i32 <= 0.000001)
+        v75 = v152;
+        v76 = v132;
+        v77 = vsub_f32(v132, v152);
+        v78 = vmul_f32(v77, v77);
+        *v78.i32 = sqrtf(*&v78.i32[1] + (v77.f32[0] * v77.f32[0]));
+        if (*v78.i32 <= 0.000001)
         {
-          v164.i32[1] = v54.i32[1];
-          v79 = v151.u32[0];
-          v78 = 0;
-          v77.i32[0] = 0;
-          v80 = &v162 + 4;
+          v165.i32[1] = v55.i32[1];
+          v80 = v152.u32[0];
+          v79 = 0;
+          v78.i32[0] = 0;
+          v81 = &v163 + 4;
         }
 
         else
         {
-          v78 = vdiv_f32(v76, vdup_lane_s32(v77, 0));
-          v79 = vmla_f32(v131, 0, v151);
-          v80 = &v164 + 4;
-          HIDWORD(v162) = v78.i32[1];
-          v74 = vadd_f32(v151, vmul_f32(v131, 0));
+          v79 = vdiv_f32(v77, vdup_lane_s32(v78, 0));
+          v80 = vmla_f32(v132, 0, v152);
+          v81 = &v165 + 4;
+          HIDWORD(v163) = v79.i32[1];
+          v75 = vadd_f32(v152, vmul_f32(v132, 0));
         }
 
-        v163 = v78;
-        v165 = v74;
-        LODWORD(v160) = v77.i32[0];
-        HIDWORD(v160) = v77.i32[0];
-        LODWORD(v162) = v78.i32[0];
-        v164.i32[0] = v79.i32[0];
-        *v80 = v79.i32[1];
-        v92 = -v78.f32[1];
-        v93 = *(&v162 + 1);
-        *v16 = v164;
-        *v23 = v162;
-        v137 = v78.f32[0];
-        if (v28)
+        v164 = v79;
+        v166 = v75;
+        LODWORD(v161) = v78.i32[0];
+        HIDWORD(v161) = v78.i32[0];
+        LODWORD(v163) = v79.i32[0];
+        v165.i32[0] = v80.i32[0];
+        *v81 = v80.i32[1];
+        v93 = -v79.f32[1];
+        v94 = *(&v163 + 1);
+        *v17 = v165;
+        *v24 = v163;
+        v138 = v79.f32[0];
+        if (v29)
         {
-          if (a14)
+          if (a15)
           {
-            a14 = 0;
-            v140 = -v78.f32[1];
-            v128 = v78.f32[0];
-            v42 = v74;
+            a15 = 0;
+            v141 = -v79.f32[1];
+            v129 = v79.f32[0];
+            v43 = v75;
 LABEL_75:
-            v27 = -v93;
-            result = Path::LineTo(v21, v75.f32[0] + (a6 * -v93), v75.f32[1] + (a6 * v78.f32[0]));
+            v28 = -v94;
+            result = Path::LineTo(v22, v76.f32[0] + (a5 * -v94), v76.f32[1] + (a5 * v79.f32[0]));
             if ((result & 0x80000000) == 0)
             {
-              v108 = v21->var3 + 44 * result;
-              *(v108 + 4) = v26;
-              *(v108 + 8) = 0x3F80000000000000;
+              v109 = *(v22 + 2) + 44 * result;
+              *(v109 + 4) = v27;
+              *(v109 + 8) = 0x3F80000000000000;
             }
 
-            v28 = 0;
-            ++v26;
-            v43 = v131;
-            v41 = v137;
+            v29 = 0;
+            ++v27;
+            v44 = v132;
+            v42 = v138;
             goto LABEL_95;
           }
 
-          v153 = v74;
-          Path::MoveTo(v21, v54.f32[0] + (a6 * v92), v54.f32[1] + (a6 * v78.f32[0]));
-          v75 = v131;
-          v78.f32[0] = v137;
-          a14 = 0;
-          v140 = v92;
-          v128 = v137;
-          v94 = v153;
+          v154 = v75;
+          Path::MoveTo(v22, v55.f32[0] + (a5 * v93), v55.f32[1] + (a5 * v79.f32[0]));
+          v76 = v132;
+          v79.f32[0] = v138;
+          a15 = 0;
+          v141 = v93;
+          v129 = v138;
+          v95 = v154;
         }
 
         else
         {
-          Path::OutlineJoin(v21, v17, v54.f32[0], v54.f32[1], v27, v25, -v78.f32[1], v78.f32[0], a6, a7);
-          v75 = v131;
-          v78.f32[0] = v137;
-          v94 = v144;
+          Path::OutlineJoin(v22, v18, v55.f32[0], v55.f32[1], v28, v26, -v79.f32[1], v79.f32[0], a5, v127);
+          v76 = v132;
+          v79.f32[0] = v138;
+          v95 = v145;
         }
 
-        v42 = v94;
+        v43 = v95;
         goto LABEL_75;
       }
 
-      ++v26;
-      v41 = v25;
-      v42 = v144;
-      v43 = v151;
+      ++v27;
+      v42 = v26;
+      v43 = v145;
+      v44 = v152;
 LABEL_95:
-      v25 = v41;
-      a11.n128_u64[0] = v42;
-      v24 = v43;
-      if (v26 >= *(v22 + 8))
+      v26 = v42;
+      a10.n128_u64[0] = v43;
+      v25 = v44;
+      if (v27 >= *(v23 + 8))
       {
         return result;
       }
     }
 
-    if (v31 > 4)
+    if (v32 > 4)
     {
-      if (v31 == 5)
+      if (v32 == 5)
       {
-        if (v28)
+        if (v29)
         {
-          v43 = 0;
-          v41 = 0.0;
-          v53 = 0.0;
+          v44 = 0;
+          v42 = 0.0;
+          v54 = 0.0;
         }
 
         else
         {
-          v66 = vsub_f32(v24, a11.n128_u64[0]);
-          v145 = a11;
-          if (fabsf(v66.f32[0]) >= 0.0001 || fabsf(v66.f32[1]) >= 0.0001)
+          v67 = vsub_f32(v25, a10.n128_u64[0]);
+          v146 = a10;
+          if (fabsf(v67.f32[0]) >= 0.0001 || fabsf(v67.f32[1]) >= 0.0001)
           {
-            v87 = vsub_f32(a11.n128_u64[0], v24);
-            v88 = vmul_f32(v87, v87);
-            *v88.i32 = sqrtf(*&v88.i32[1] + (v87.f32[0] * v87.f32[0]));
-            if (*v88.i32 <= 0.000001)
+            v88 = vsub_f32(a10.n128_u64[0], v25);
+            v89 = vmul_f32(v88, v88);
+            *v89.i32 = sqrtf(*&v89.i32[1] + (v88.f32[0] * v88.f32[0]));
+            if (*v89.i32 <= 0.000001)
             {
-              v164.i32[1] = v24.i32[1];
-              v90 = v24.u32[0];
-              v89 = 0;
-              v88.i32[0] = 0;
-              v91 = &v162 + 4;
+              v165.i32[1] = v25.i32[1];
+              v91 = v25.u32[0];
+              v90 = 0;
+              v89.i32[0] = 0;
+              v92 = &v163 + 4;
             }
 
             else
             {
-              v89 = vdiv_f32(v87, vdup_lane_s32(v88, 0));
-              v90 = vmla_f32(a11.n128_u64[0], 0, v24);
-              HIDWORD(v162) = v89.i32[1];
-              v91 = &v164 + 4;
-              v24 = vadd_f32(vmul_f32(a11.n128_u64[0], 0), v24);
+              v90 = vdiv_f32(v88, vdup_lane_s32(v89, 0));
+              v91 = vmla_f32(a10.n128_u64[0], 0, v25);
+              HIDWORD(v163) = v90.i32[1];
+              v92 = &v165 + 4;
+              v25 = vadd_f32(vmul_f32(a10.n128_u64[0], 0), v25);
             }
 
-            v136 = v89.f32[0];
-            v152 = v90.f32[0];
-            v163 = v89;
-            v165 = v24;
-            LODWORD(v160) = v88.i32[0];
-            HIDWORD(v160) = v88.i32[0];
-            LODWORD(v162) = v89.i32[0];
-            v164.i32[0] = v90.i32[0];
-            *v91 = v90.i32[1];
-            v104 = *(&v162 + 1);
-            v53 = -*(&v162 + 1);
-            v68 = a7;
-            Path::OutlineJoin(v21, v17, v24.f32[0], v24.f32[1], v27, v25, -v89.f32[1], v89.f32[0], a6, a7);
-            v105 = v152 - (a6 * v104);
-            v67 = v164.i32[1];
-            Path::LineTo(v21, v105, v164.f32[1] + (a6 * v136));
-            a11.n128_f32[0] = v152;
-            v27 = v53;
-            v25 = v136;
-            v132 = v145.n128_u64[0];
+            v137 = v90.f32[0];
+            v153 = v91.f32[0];
+            v164 = v90;
+            v166 = v25;
+            LODWORD(v161) = v89.i32[0];
+            HIDWORD(v161) = v89.i32[0];
+            LODWORD(v163) = v90.i32[0];
+            v165.i32[0] = v91.i32[0];
+            *v92 = v91.i32[1];
+            v105 = *(&v163 + 1);
+            v54 = -*(&v163 + 1);
+            v69 = v127;
+            Path::OutlineJoin(v22, v18, v25.f32[0], v25.f32[1], v28, v26, -v90.f32[1], v90.f32[0], a5, v127);
+            v106 = v153 - (a5 * v105);
+            v68 = v165.i32[1];
+            Path::LineTo(v22, v106, v165.f32[1] + (a5 * v137));
+            a10.n128_f32[0] = v153;
+            v28 = v54;
+            v26 = v137;
+            v133 = v146.n128_u64[0];
           }
 
           else
           {
-            v67 = a11.n128_i32[1];
-            v132 = 0;
-            v136 = 0.0;
-            v53 = 0.0;
-            v68 = a7;
+            v68 = a10.n128_i32[1];
+            v133 = 0;
+            v137 = 0.0;
+            v54 = 0.0;
+            v69 = v127;
           }
 
-          Path::OutlineJoin(v21, v17, a11.n128_f32[0], *&v67, v27, v25, v140, v128, a6, v68);
-          result = Path::Close(v21);
-          a11 = v145;
-          v43 = v132;
-          v41 = v136;
+          Path::OutlineJoin(v22, v18, a10.n128_f32[0], *&v68, v28, v26, v141, v129, a5, v69);
+          result = Path::Close(v22);
+          a10 = v146;
+          v44 = v133;
+          v42 = v137;
         }
 
-        ++v26;
-        v28 = 1;
-        v27 = v53;
-        v42 = a11.n128_u64[0];
+        ++v27;
+        v29 = 1;
+        v28 = v54;
+        v43 = a10.n128_u64[0];
       }
 
       else
       {
-        if (v31 == 7)
+        if (v32 == 7)
         {
-          ++v26;
+          ++v27;
         }
 
-        v27 = 0.0;
-        v41 = 0.0;
-        v42 = a11.n128_u64[0];
-        v43 = 0;
+        v28 = 0.0;
+        v42 = 0.0;
+        v43 = a10.n128_u64[0];
+        v44 = 0;
       }
 
       goto LABEL_95;
     }
 
-    if (v31 == 3)
+    if (v32 == 3)
     {
-      v143 = a11.n128_u64[0];
-      v49 = v30 + 16;
-      v48 = *(v30 + 16);
-      v130 = *(v30 + 20);
-      v50 = v24;
-      v150 = v24;
-      result = Path::IsNulCurve((v29 + 44 * v26), a2, v24.f32[0], v24.f32[1]);
-      v52 = v26 + 1;
+      v144 = a10.n128_u64[0];
+      v50 = v31 + 16;
+      v49 = *(v31 + 16);
+      v131 = *(v31 + 20);
+      v51 = v25;
+      v151 = v25;
+      result = Path::IsNulCurve((v30 + 44 * v27), a2, v25.f32[0], v25.f32[1]);
+      v53 = v27 + 1;
       if (result)
       {
-        v26 = v52 + v48;
-        v41 = v25;
-        v42 = v143;
-        v43 = v150;
-        v16 = a15;
+        v27 = v53 + v49;
+        v42 = v26;
+        v43 = v144;
+        v44 = v151;
+        v17 = a16;
 LABEL_94:
-        v23 = a16;
-        v21 = a2;
+        v24 = a17;
+        v22 = a2;
         goto LABEL_95;
       }
 
-      if (v48 > 0)
+      if (v49 > 0)
       {
-        v55 = v26 + 1;
-        v56 = (v29 + 44 * v52);
-        v58 = v56[2];
-        v57 = v56 + 2;
-        v147 = v58;
-        v51.i32[0] = v50.i32[0];
-        Path::TangentOnBezAt(v57, v49, 0, &v165, &v163, &v160 + 1, &v161 + 1, 0.0, v51, v50.f32[1]);
-        v60 = v48 - 1;
-        if (v48 != 1)
+        v56 = v27 + 1;
+        v57 = (v30 + 44 * v53);
+        v59 = v57[2];
+        v58 = v57 + 2;
+        v148 = v59;
+        v52.i32[0] = v51.i32[0];
+        Path::TangentOnBezAt(v58, v50, 0, &v166, &v164, &v161 + 1, &v162 + 1, 0.0, v52, v51.f32[1]);
+        v61 = v49 - 1;
+        if (v49 != 1)
         {
-          if (*(&v160 + 1) <= 0.0)
+          if (*(&v161 + 1) <= 0.0)
           {
-            v107 = v140;
-            v106 = v128;
-            v16 = a15;
+            v108 = v141;
+            v107 = v129;
+            v17 = a16;
           }
 
           else
           {
-            v106 = *&v163;
-            v107 = -*(&v163 + 1);
-            v16 = a15;
-            if (v28)
+            v107 = *&v164;
+            v108 = -*(&v164 + 1);
+            v17 = a16;
+            if (v29)
             {
-              v143 = v165;
-              if ((a14 & 1) == 0)
+              v144 = v166;
+              if ((a15 & 1) == 0)
               {
-                Path::MoveTo(a2, v50.f32[0] + (a6 * v107), v50.f32[1] + (a6 * *&v163));
+                Path::MoveTo(a2, v51.f32[0] + (a5 * v108), v51.f32[1] + (a5 * *&v164));
               }
 
-              v28 = 0;
-              a14 = 0;
+              v29 = 0;
+              a15 = 0;
             }
 
             else
             {
-              Path::OutlineJoin(a2, a4, v50.f32[0], v50.f32[1], *&v163, *(&v163 + 1), -*(&v163 + 1), *&v163, a6, a7);
-              v28 = 0;
-              v107 = v140;
-              v106 = v128;
+              Path::OutlineJoin(a2, v123, v51.f32[0], v51.f32[1], *&v164, *(&v164 + 1), -*(&v164 + 1), *&v164, a5, v127);
+              v29 = 0;
+              v108 = v141;
+              v107 = v129;
             }
           }
 
-          v115 = v147;
-          v116 = vmla_f32(vneg_f32(v147), 0x4000000040000000, v150);
-          v117 = (v29 + 44 * v52 + 60);
-          v23 = a16;
+          v116 = v148;
+          v117 = vmla_f32(vneg_f32(v148), 0x4000000040000000, v151);
+          v118 = (v30 + 44 * v53 + 60);
+          v24 = a17;
           do
           {
-            v118 = *v117;
-            v117 = (v117 + 44);
-            v148 = v118;
-            v155 = v115;
-            v158 = 1;
-            v141 = vmul_f32(vadd_f32(v115, v118), 0x3F0000003F000000);
-            v159 = v141;
-            v157 = v115;
-            v138 = vmul_f32(vadd_f32(v116, v115), 0x3F0000003F000000);
-            Path::TangentOnBezAt(&v157, &v158, 1, &v164, &v162, &v160, &v161, 1.0, v138, v138.f32[1]);
-            *v16 = v164;
-            *a16 = v162;
-            v167 = v55;
-            v168 = 0x3F80000000000000;
-            *&v119 = v141;
-            *v170 = v138;
-            *(&v119 + 1) = v155;
-            *&v170[8] = v119;
-            (*(a3 + 8))(&v166, a5, a6);
-            v115 = v118;
-            v116 = v155;
-            ++v55;
-            --v60;
+            v119 = *v118;
+            v118 = (v118 + 44);
+            v149 = v119;
+            v156 = v116;
+            v159 = 1;
+            v142 = vmul_f32(vadd_f32(v116, v119), 0x3F0000003F000000);
+            v160 = v142;
+            v158 = v116;
+            v139 = vmul_f32(vadd_f32(v117, v116), 0x3F0000003F000000);
+            Path::TangentOnBezAt(&v158, &v159, 1, &v165, &v163, &v161, &v162, 1.0, v139, v139.f32[1]);
+            *v17 = v165;
+            *a17 = v163;
+            v168 = v56;
+            v169 = 0x3F80000000000000;
+            *&v120 = v142;
+            *v171 = v139;
+            *(&v120 + 1) = v156;
+            *&v171[8] = v120;
+            (*(a3 + 8))(&v167, v20, a5);
+            v116 = v119;
+            v117 = v156;
+            ++v56;
+            --v61;
           }
 
-          while (v60);
-          v158 = 1;
-          v156 = vmul_f32(vadd_f32(v148, vmla_f32(vneg_f32(v148), 0x4000000040000000, v130)), 0x3F0000003F000000);
-          v159 = v156;
-          v157 = v148;
-          Path::TangentOnBezAt(&v157, &v158, 1, &v164, &v162, &v160, &v161, 1.0, v141, v141.f32[1]);
-          v27 = -*(&v162 + 1);
-          v139 = *&v162;
-          *v16 = v164;
-          *a16 = v162;
-          v167 = v48 + v26;
-          v168 = 0x3F80000000000000;
-          *v170 = v141;
-          *&v120 = v156;
-          *(&v120 + 1) = v148;
-          *&v170[8] = v120;
-          result = (*(a3 + 8))(&v166, a5, a6);
-          v43 = v130;
-          v41 = v139;
-          v26 += v48 + 1;
-          v140 = v107;
-          v128 = v106;
-          v42 = v143;
-          v17 = a4;
-          v20 = a3;
-          v21 = a2;
+          while (v61);
+          v159 = 1;
+          v157 = vmul_f32(vadd_f32(v149, vmla_f32(vneg_f32(v149), 0x4000000040000000, v131)), 0x3F0000003F000000);
+          v160 = v157;
+          v158 = v149;
+          Path::TangentOnBezAt(&v158, &v159, 1, &v165, &v163, &v161, &v162, 1.0, v142, v142.f32[1]);
+          v28 = -*(&v163 + 1);
+          v140 = *&v163;
+          *v17 = v165;
+          *a17 = v163;
+          v168 = v49 + v27;
+          v169 = 0x3F80000000000000;
+          *v171 = v142;
+          *&v121 = v157;
+          *(&v121 + 1) = v149;
+          *&v171[8] = v121;
+          result = (*(a3 + 8))(&v167, v20, a5);
+          v44 = v131;
+          v42 = v140;
+          v27 += v49 + 1;
+          v141 = v108;
+          v129 = v107;
+          v43 = v144;
+          v18 = v123;
+          v21 = a3;
+          v22 = a2;
           goto LABEL_95;
         }
 
-        v59.i32[0] = v50.i32[0];
-        Path::TangentOnBezAt(v57, v49, 1, &v164, &v162, &v160, &v161, 1.0, v59, v50.f32[1]);
-        v61 = *&v163;
-        v62 = -*(&v163 + 1);
-        v63 = *(&v162 + 1);
-        v64 = *&v162;
-        v16 = a15;
-        *a15 = v164;
-        *a16 = v162;
-        v135 = v64;
-        if (v28)
+        v60.i32[0] = v51.i32[0];
+        Path::TangentOnBezAt(v58, v50, 1, &v165, &v163, &v161, &v162, 1.0, v60, v51.f32[1]);
+        v62 = *&v164;
+        v63 = -*(&v164 + 1);
+        v64 = *(&v163 + 1);
+        v65 = *&v163;
+        v17 = a16;
+        *a16 = v165;
+        *a17 = v163;
+        v136 = v65;
+        if (v29)
         {
-          v143 = v165;
-          v17 = a4;
-          if ((a14 & 1) == 0)
+          v144 = v166;
+          v18 = v123;
+          if ((a15 & 1) == 0)
           {
-            v65 = v63;
-            Path::MoveTo(a2, v50.f32[0] + (a6 * v62), v50.f32[1] + (a6 * v61));
-            v63 = v65;
+            v66 = v64;
+            Path::MoveTo(a2, v51.f32[0] + (a5 * v63), v51.f32[1] + (a5 * v62));
+            v64 = v66;
           }
 
-          a14 = 0;
+          a15 = 0;
         }
 
         else
         {
-          v111 = v63;
-          v17 = a4;
-          Path::OutlineJoin(a2, a4, v50.f32[0], v50.f32[1], v27, v25, v62, v61, a6, a7);
-          v63 = v111;
-          v62 = v140;
-          v61 = v128;
+          v112 = v64;
+          v18 = v123;
+          Path::OutlineJoin(a2, v123, v51.f32[0], v51.f32[1], v28, v26, v63, v62, a5, v127);
+          v64 = v112;
+          v63 = v141;
+          v62 = v129;
         }
 
-        *&v112 = v150;
-        v27 = -v63;
-        v167 = v26 + 1;
-        v168 = 0x3F80000000000000;
-        *(&v112 + 1) = v130;
-        *v170 = v112;
-        *&v170[16] = v147;
-        v20 = a3;
-        result = (*(a3 + 8))(&v166, a5, a6);
-        v128 = v61;
-        v113 = v143;
+        *&v113 = v151;
+        v28 = -v64;
+        v168 = v27 + 1;
+        v169 = 0x3F80000000000000;
+        *(&v113 + 1) = v131;
+        *v171 = v113;
+        *&v171[16] = v148;
+        v21 = a3;
+        result = (*(a3 + 8))(&v167, v20, a5);
+        v129 = v62;
+        v114 = v144;
         goto LABEL_93;
       }
 
-      v97 = v130;
-      v98 = v150;
-      v99 = vsub_f32(v130, v150);
-      v100 = vmul_f32(v99, v99);
-      *v100.i32 = sqrtf(*&v100.i32[1] + (v99.f32[0] * v99.f32[0]));
-      v16 = a15;
-      if (*v100.i32 <= 0.000001)
+      v98 = v131;
+      v99 = v151;
+      v100 = vsub_f32(v131, v151);
+      v101 = vmul_f32(v100, v100);
+      *v101.i32 = sqrtf(*&v101.i32[1] + (v100.f32[0] * v100.f32[0]));
+      v17 = a16;
+      if (*v101.i32 <= 0.000001)
       {
-        v164.i32[1] = v50.i32[1];
-        v102 = v150.u32[0];
-        v101 = 0;
-        v100.i32[0] = 0;
-        v103 = &v162 + 4;
+        v165.i32[1] = v51.i32[1];
+        v103 = v151.u32[0];
+        v102 = 0;
+        v101.i32[0] = 0;
+        v104 = &v163 + 4;
       }
 
       else
       {
-        v101 = vdiv_f32(v99, vdup_lane_s32(v100, 0));
-        v102 = vmla_f32(v130, 0, v150);
-        HIDWORD(v162) = v101.i32[1];
-        v103 = &v164 + 4;
-        v98 = vadd_f32(v150, vmul_f32(v130, 0));
+        v102 = vdiv_f32(v100, vdup_lane_s32(v101, 0));
+        v103 = vmla_f32(v131, 0, v151);
+        HIDWORD(v163) = v102.i32[1];
+        v104 = &v165 + 4;
+        v99 = vadd_f32(v151, vmul_f32(v131, 0));
       }
 
-      v163 = v101;
-      v165 = v98;
-      LODWORD(v160) = v100.i32[0];
-      HIDWORD(v160) = v100.i32[0];
-      LODWORD(v162) = v101.i32[0];
-      v164.i32[0] = v102.i32[0];
-      *v103 = v102.i32[1];
-      v62 = -v101.f32[1];
-      v109 = *(&v162 + 1);
-      *a15 = v164;
-      *a16 = v162;
-      v135 = v101.f32[0];
-      if (v28)
+      v164 = v102;
+      v166 = v99;
+      LODWORD(v161) = v101.i32[0];
+      HIDWORD(v161) = v101.i32[0];
+      LODWORD(v163) = v102.i32[0];
+      v165.i32[0] = v103.i32[0];
+      *v104 = v103.i32[1];
+      v63 = -v102.f32[1];
+      v110 = *(&v163 + 1);
+      *a16 = v165;
+      *a17 = v163;
+      v136 = v102.f32[0];
+      if (v29)
       {
-        v154 = v98;
-        if (a14)
+        v155 = v99;
+        if (a15)
         {
-          a14 = 0;
-          v128 = v101.f32[0];
+          a15 = 0;
+          v129 = v102.f32[0];
           goto LABEL_89;
         }
 
-        v110 = a2;
-        Path::MoveTo(a2, v50.f32[0] + (a6 * v62), v50.f32[1] + (a6 * v101.f32[0]));
-        v97 = v130;
-        v101.f32[0] = v135;
-        a14 = 0;
-        v128 = v135;
+        v111 = a2;
+        Path::MoveTo(a2, v51.f32[0] + (a5 * v63), v51.f32[1] + (a5 * v102.f32[0]));
+        v98 = v131;
+        v102.f32[0] = v136;
+        a15 = 0;
+        v129 = v136;
       }
 
-      else if (*v100.i32 <= 0.0)
+      else if (*v101.i32 <= 0.0)
       {
-        v62 = v140;
-        v154 = v143;
+        v63 = v141;
+        v155 = v144;
 LABEL_89:
-        v110 = a2;
+        v111 = a2;
       }
 
       else
       {
-        v110 = a2;
-        Path::OutlineJoin(a2, v17, v50.f32[0], v50.f32[1], v27, v25, -v101.f32[1], v101.f32[0], a6, a7);
-        v97 = v130;
-        v101.f32[0] = v135;
-        v62 = v140;
-        v154 = v143;
+        v111 = a2;
+        Path::OutlineJoin(a2, v18, v51.f32[0], v51.f32[1], v28, v26, -v102.f32[1], v102.f32[0], a5, v127);
+        v98 = v131;
+        v102.f32[0] = v136;
+        v63 = v141;
+        v155 = v144;
       }
 
-      v27 = -v109;
-      result = Path::LineTo(v110, v97.f32[0] + (a6 * -v109), v97.f32[1] + (a6 * v101.f32[0]));
+      v28 = -v110;
+      result = Path::LineTo(v111, v98.f32[0] + (a5 * -v110), v98.f32[1] + (a5 * v102.f32[0]));
       if ((result & 0x80000000) == 0)
       {
-        v114 = v110->var3 + 44 * result;
-        *(v114 + 4) = v26;
-        *(v114 + 8) = 0x3F80000000000000;
+        v115 = *(v111 + 2) + 44 * result;
+        *(v115 + 4) = v27;
+        *(v115 + 8) = 0x3F80000000000000;
       }
 
-      v113 = v154;
+      v114 = v155;
 LABEL_93:
-      v43 = v130;
-      v41 = v135;
-      v28 = 0;
-      v26 = v48 + v52;
-      v140 = v62;
-      v42 = v113;
+      v44 = v131;
+      v42 = v136;
+      v29 = 0;
+      v27 = v49 + v53;
+      v141 = v63;
+      v43 = v114;
       goto LABEL_94;
     }
 
-    v142 = a11.n128_u64[0];
-    v129 = *(v30 + 16);
-    v32 = v24.f32[1];
-    v149 = v24;
-    result = Path::IsNulCurve((v29 + 44 * v26), a2, v24.f32[0], v24.f32[1]);
+    v143 = a10.n128_u64[0];
+    v130 = *(v31 + 16);
+    v33 = v25.f32[1];
+    v150 = v25;
+    result = Path::IsNulCurve((v30 + 44 * v27), a2, v25.f32[0], v25.f32[1]);
     if (!result)
     {
-      Path::TangentOnArcAt(v30 + 16, &v165, &v163, &v160 + 1, &v161 + 1, 0.0, v149.f32[0], v32);
-      Path::TangentOnArcAt(v30 + 16, &v164, &v162, &v160, &v161, 1.0, v149.f32[0], v32);
-      v33 = *&v163;
-      v34 = -*(&v163 + 1);
-      v35 = *(&v162 + 1);
-      v36 = *&v162;
-      v16 = a15;
-      *a15 = v164;
-      *v23 = v162;
-      v133 = v36;
-      if (v28)
+      Path::TangentOnArcAt(v31 + 16, &v166, &v164, &v161 + 1, &v162 + 1, 0.0, v150.f32[0], v33);
+      Path::TangentOnArcAt(v31 + 16, &v165, &v163, &v161, &v162, 1.0, v150.f32[0], v33);
+      v34 = *&v164;
+      v35 = -*(&v164 + 1);
+      v36 = *(&v163 + 1);
+      v37 = *&v163;
+      v17 = a16;
+      *a16 = v165;
+      *v24 = v163;
+      v134 = v37;
+      if (v29)
       {
-        *&v37 = v149;
-        v142 = v165;
-        if ((a14 & 1) == 0)
+        *&v38 = v150;
+        v143 = v166;
+        if ((a15 & 1) == 0)
         {
-          Path::MoveTo(v21, v149.f32[0] + (a6 * v34), v32 + (a6 * v33));
-          *&v37 = v149;
+          Path::MoveTo(v22, v150.f32[0] + (a5 * v35), v33 + (a5 * v34));
+          *&v38 = v150;
         }
 
-        a14 = 0;
-        v38 = &qword_26CA65000;
-        v39 = v129;
+        a15 = 0;
+        v39 = &qword_26CA65000;
+        v40 = v130;
       }
 
       else
       {
-        Path::OutlineJoin(v21, v17, v149.f32[0], v32, v27, v25, v34, v33, a6, a7);
-        v34 = v140;
-        v33 = v128;
-        v38 = &qword_26CA65000;
-        v39 = v129;
-        *&v37 = v149;
+        Path::OutlineJoin(v22, v18, v150.f32[0], v33, v28, v26, v35, v34, a5, v127);
+        v35 = v141;
+        v34 = v129;
+        v39 = &qword_26CA65000;
+        v40 = v130;
+        *&v38 = v150;
       }
 
-      v27 = -v35;
-      v167 = v26;
-      v168 = v38[307];
-      *(&v37 + 1) = v39;
-      *v170 = v37;
-      *&v170[16] = *(v30 + 24);
-      v171 = *(v30 + 32);
-      LOBYTE(v172) = *(v30 + 37);
-      BYTE1(v172) = *(v30 + 36);
-      result = v20[2](&v166, a5, a6);
+      v28 = -v36;
+      v168 = v27;
+      v169 = v39[307];
+      *(&v38 + 1) = v40;
+      *v171 = v38;
+      *&v171[16] = *(v31 + 24);
+      v172 = *(v31 + 32);
+      LOBYTE(v173) = *(v31 + 37);
+      BYTE1(v173) = *(v31 + 36);
+      result = v21[2](&v167, v20, a5);
 LABEL_52:
-      v43 = v129;
-      v41 = v133;
-      v28 = 0;
-      ++v26;
-      v140 = v34;
-      v128 = v33;
-      v42 = v142;
+      v44 = v130;
+      v42 = v134;
+      v29 = 0;
+      ++v27;
+      v141 = v35;
+      v129 = v34;
+      v43 = v143;
       goto LABEL_95;
     }
 
 LABEL_14:
-    ++v26;
-    v41 = v25;
-    v42 = v142;
-    v43 = v149;
-    v16 = a15;
+    ++v27;
+    v42 = v26;
+    v43 = v143;
+    v44 = v150;
+    v17 = a16;
     goto LABEL_95;
   }
 
   return result;
 }
 
-Path *Path::OutsideOutline(Path *this, Path *a2, int a3, float a4, float a5)
+Path *Path::OutsideOutline(Path *this, Path *a2, uint64_t a3, float a4, float a5)
 {
   v9 = this;
   if (this->var0)
@@ -6897,34 +6953,36 @@ LABEL_7:
     Path::Reset(a2);
     Path::SetWeighted(a2, 0);
     Path::SetBackData(a2, 0);
-    v18[0] = Path::StdCubicTo;
-    v18[1] = Path::StdBezierTo;
-    v18[2] = Path::StdArcTo;
-    v10 = a4 * 0.0025 * a4;
-    return Path::SubContractOutline(v9, a2, v18, a3, v10, a4, a5, v12, v13, v14, v15, v11, 1, 0, &v16, &v17);
+    v20[0] = Path::StdCubicTo;
+    v20[1] = Path::StdBezierTo;
+    v20[2] = Path::StdArcTo;
+    v10.n128_f64[0] = a4 * 0.0025 * a4;
+    v10.n128_f32[0] = v10.n128_f64[0];
+    *&v11 = a5;
+    return Path::SubContractOutline(v9, a2, v20, v10, a4, v11, v13, v14, v15, v16, v17, a3, v12, 1, 0, &v18, &v19);
   }
 
   return this;
 }
 
-Path *Path::InsideOutline(Path *this, Path *a2)
+Path *Path::InsideOutline(Path *this, Path *a2, unsigned int a3, float a4, float a5)
 {
-  v2 = this;
+  v5 = this;
   var0 = this->var0;
   if (this->var0)
   {
     this = Path::CancelBezier(this);
-    var0 = v2->var0;
+    var0 = v5->var0;
   }
 
   if ((var0 & 2) != 0)
   {
-    this = Path::CloseSubpath(v2, 0);
+    this = Path::CloseSubpath(v5, 0);
   }
 
   if (a2)
   {
-    if (v2->var2 >= 3)
+    if (v5->var2 >= 3)
     {
       Path::Reset(a2);
       Path::SetWeighted(a2, 0);
@@ -7033,7 +7091,7 @@ float *Path::TangentOnSegAt(float *result, float *a2, float *a3, float *a4, floa
   return result;
 }
 
-BOOL Path::IsNulCurve(Path *this, path_descr *a2, float a3, float a4)
+uint64_t Path::IsNulCurve(Path *this, path_descr *a2, float a3, float a4)
 {
   v4 = this->var0 & 0xF;
   v5 = 1;
@@ -7473,112 +7531,115 @@ LABEL_3:
 uint64_t Path::RecStdCubicTo(uint64_t a1, int a2, float a3, double a4)
 {
   v5 = *&a4;
-  v60 = 0.0;
-  v57 = 0;
-  v58 = 0;
-  *v49 = *(a1 + 40);
-  *&v49[16] = *(a1 + 56);
+  v62 = 0.0;
+  v59 = 0;
+  v60 = 0;
+  *v51 = *(a1 + 40);
+  *&v51[16] = *(a1 + 56);
   v8 = *(a1 + 32);
   v9 = *(a1 + 36);
   LODWORD(a4) = v8;
-  Path::TangentOnCubAt(v49, 0, &v66, &v63, &v58, &v60, 0.0, *&a4, v9);
+  Path::TangentOnCubAt(v51, 0, &v68, &v65, &v60, &v62, 0.0, *&a4, v9);
   v10.i32[0] = v8;
-  Path::TangentOnCubAt(v49, 0, &v65, &v61, &v57 + 1, &v59, 0.5, v10, v9);
+  Path::TangentOnCubAt(v51, 0, &v67, &v63, &v59 + 1, &v61, 0.5, v10, v9);
   v11.i32[0] = v8;
-  Path::TangentOnCubAt(v49, 1, &v64, &v62, &v57, &v58 + 1, 1.0, v11, v9);
+  Path::TangentOnCubAt(v51, 1, &v66, &v64, &v59, &v60 + 1, 1.0, v11, v9);
   v13.i32[0] = 1.0;
-  if (fabsf(v60) > 0.01)
+  if (fabsf(v62) > 0.01)
   {
-    v13.f32[0] = (v5 / v60) + 1.0;
+    v13.f32[0] = (v5 / v62) + 1.0;
   }
 
   v14 = 1.0;
-  if (fabsf(*(&v58 + 1)) > 0.01)
+  if (fabsf(*(&v60 + 1)) > 0.01)
   {
-    v14 = (v5 / *(&v58 + 1)) + 1.0;
+    v14 = (v5 / *(&v60 + 1)) + 1.0;
   }
 
-  v15 = -*(&v62 + 1);
+  v15 = -*(&v64 + 1);
   v13.f32[1] = v14;
-  *v12.i8 = vmul_f32(v13, __PAIR64__(v57, v58));
+  *v12.i8 = vmul_f32(v13, __PAIR64__(v59, v60));
   if (a2 <= 0)
   {
-    v32 = *(a1 + 24);
-    v33 = v64.f32[0] + (v5 * v15);
-    v34 = v64.f32[1] + (v5 * *&v62);
-    v35 = vmuls_n_f32(*&v63, *v12.i32);
-    v36 = *(&v63 + 1) * *v12.i32;
-    v37 = vmuls_lane_f32(*&v62, *v12.i8, 1);
-    v38 = vmuls_lane_f32(*(&v62 + 1), *v12.i8, 1);
+    v34 = *(a1 + 24);
+    v35 = v66.f32[0] + (v5 * v15);
+    v36 = v66.f32[1] + (v5 * *&v64);
+    v37 = vmuls_n_f32(*&v65, *v12.i32);
+    v38 = *(&v65 + 1) * *v12.i32;
+    v39 = vmuls_lane_f32(*&v64, *v12.i8, 1);
+    v40 = vmuls_lane_f32(*(&v64 + 1), *v12.i8, 1);
   }
 
   else
   {
-    v44 = *&v58;
-    v45 = v57;
-    v47 = v65.i32[1];
-    v48 = v65.i32[0];
-    v16 = v65.f32[0] + (v5 * -v61.f32[1]);
-    v17 = v64.f32[0] + (v5 * v15);
-    v18.i64[0] = v63;
-    v18.i64[1] = v62;
-    v13.f32[0] = v66.f32[0] + (v5 * -*(&v63 + 1));
-    v42 = vmulq_f32(v18, vzip1q_s32(v12, v12));
-    v43 = v61;
-    v19 = v65.f32[1] + (v5 * v61.f32[0]);
-    v20 = v64.f32[1] + (v5 * *&v62);
-    *v49 = v17;
-    *&v49[4] = v20;
-    *&v49[8] = v42;
-    v40 = v63;
-    v41 = v62;
-    Path::TangentOnCubAt(v49, 0, &v56, v53, &v55, &v54, 0.5, v13, v66.f32[1] + (v5 * *&v63));
-    if ((((v19 - v56.f32[1]) * (v19 - v56.f32[1])) + ((v16 - v56.f32[0]) * (v16 - v56.f32[0]))) > (a3 * a3))
+    v46 = *&v60;
+    v47 = v59;
+    v49 = v67.i32[1];
+    v50 = v67.i32[0];
+    v16 = v67.f32[0] + (v5 * -v63.f32[1]);
+    v17 = v66.f32[0] + (v5 * v15);
+    v18.i64[0] = v65;
+    v18.i64[1] = v64;
+    v13.f32[0] = v68.f32[0] + (v5 * -*(&v65 + 1));
+    v44 = vmulq_f32(v18, vzip1q_s32(v12, v12));
+    v45 = v63;
+    v19 = v67.f32[1] + (v5 * v63.f32[0]);
+    v20 = v66.f32[1] + (v5 * *&v64);
+    *v51 = v17;
+    *&v51[4] = v20;
+    *&v51[8] = v44;
+    v42 = v65;
+    v43 = v64;
+    Path::TangentOnCubAt(v51, 0, &v58, v55, &v57, &v56, 0.5, v13, v68.f32[1] + (v5 * *&v65));
+    if ((((v19 - v58.f32[1]) * (v19 - v58.f32[1])) + ((v16 - v58.f32[0]) * (v16 - v58.f32[0]))) > (a3 * a3))
     {
       v21 = *(a1 + 16);
-      *v49 = *a1;
-      *&v49[16] = v21;
+      *v51 = *a1;
+      *&v51[16] = v21;
       v22 = *(a1 + 48);
-      v50 = *(a1 + 32);
-      v51 = v22;
-      v52 = *(a1 + 64);
+      v52 = *(a1 + 32);
+      v53 = v22;
+      v54 = *(a1 + 64);
       v22.f32[0] = (*(a1 + 12) + *(a1 + 16)) * 0.5;
-      *&v49[12] = *(a1 + 12);
-      *&v49[16] = v22.i32[0];
-      *&v50 = __PAIR64__(LODWORD(v9), v8);
-      *(&v50 + 1) = __PAIR64__(v47, v48);
-      v23 = (a2 - 1);
+      *&v51[12] = *(a1 + 12);
+      *&v51[16] = v22.i32[0];
+      *&v52 = __PAIR64__(LODWORD(v9), v8);
+      *(&v52 + 1) = __PAIR64__(v49, v50);
+      v23 = a2 - 1;
       __asm { FMOV            V4.2D, #0.5 }
 
-      v29 = vmulq_f64(vcvtq_f64_f32(__PAIR64__(v45, HIDWORD(v57))), _Q4);
-      *v51.f32 = vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(v40), v44 * 0.5));
-      *&v51.u32[2] = vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(v43), v29.f64[0]));
-      v46 = vcvt_hight_f32_f64(*&v51.u32[2], vmulq_laneq_f64(vcvtq_f64_f32(v41), v29, 1));
-      Path::RecStdCubicTo(v49, v23, a3, v5);
-      v30 = *(a1 + 16);
-      *&v49[12] = (*(a1 + 12) + v30) * 0.5;
-      *&v49[16] = v30;
-      *&v50 = __PAIR64__(v47, v48);
-      *(&v50 + 1) = *(a1 + 40);
-      v51 = v46;
-      return Path::RecStdCubicTo(v49, v23, a3, v5);
+      v29 = vmulq_f64(vcvtq_f64_f32(__PAIR64__(v47, HIDWORD(v59))), _Q4);
+      *v53.f32 = vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(v42), v46 * 0.5));
+      *&v53.u32[2] = vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(v45), v29.f64[0]));
+      v30 = vcvt_hight_f32_f64(*&v53.u32[2], vmulq_laneq_f64(vcvtq_f64_f32(v43), v29, 1));
+      v48 = v30;
+      v30.f32[0] = v5;
+      Path::RecStdCubicTo(v51, v23, a3, *v30.i64);
+      v31 = *(a1 + 16);
+      *&v51[12] = (*(a1 + 12) + v31) * 0.5;
+      *&v51[16] = v31;
+      *&v52 = __PAIR64__(v49, v50);
+      *(&v52 + 1) = *(a1 + 40);
+      v53 = v48;
+      *&v32 = v5;
+      return Path::RecStdCubicTo(v51, v23, a3, v32);
     }
 
-    v32 = *(a1 + 24);
-    v36 = v42.f32[1];
-    v35 = v42.f32[0];
-    v38 = v42.f32[3];
-    v37 = v42.f32[2];
-    v33 = v17;
-    v34 = v20;
+    v34 = *(a1 + 24);
+    v38 = v44.f32[1];
+    v37 = v44.f32[0];
+    v40 = v44.f32[3];
+    v39 = v44.f32[2];
+    v35 = v17;
+    v36 = v20;
   }
 
-  result = Path::CubicTo(v32, v33, v34, v35, v36, v37, v38);
+  result = Path::CubicTo(v34, v35, v36, v37, v38, v39, v40);
   if ((result & 0x80000000) == 0)
   {
-    v39 = *(*(a1 + 24) + 16) + 44 * result;
-    *(v39 + 4) = *(a1 + 8);
-    *(v39 + 8) = *(a1 + 12);
+    v41 = *(*(a1 + 24) + 16) + 44 * result;
+    *(v41 + 4) = *(a1 + 8);
+    *(v41 + 8) = *(a1 + 12);
   }
 
   return result;
@@ -7686,7 +7747,7 @@ void Path::RecStdArcTo(uint64_t a1, int a2, float a3, float a4)
       v58 = v34;
       v59 = v24;
       v60 = (v25 + v24) * 0.5;
-      v35 = (a2 - 1);
+      v35 = a2 - 1;
       Path::RecStdArcTo(v56, v35, a3, a4);
       v36 = *(a1 + 68);
       v59 = (*(a1 + 64) + v36) * 0.5;
@@ -8535,21 +8596,21 @@ LABEL_59:
 float Path::RaffineTk(float a1, float a2, float a3, float a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11)
 {
   result = a11;
-  v21 = 1.0 - a11;
-  v22 = v21 * (v21 * v21);
-  v23 = v21 * (v21 * (a11 * 3.0));
-  v24 = v21 * ((a11 * 3.0) * a11);
-  v25 = (result * result) * result;
-  v26 = a1 - a3 * v22 - a5 * v23 - a7 * v24 - (a9 * v25);
-  v27 = v21 * (result + result);
-  v28 = v27 * (a7 - a5) + (a5 - a3) * (v21 * v21) + ((a9 - a7) * (result * result));
-  v29 = ((a5 + (a9 + (a7 * -2.0))) * a11) + ((a3 + (a5 * -2.0)) + a7) * v21;
-  v30 = a2 - a4 * v22 - a6 * v23 - a8 * v24 - (a10 * v25);
-  v31 = v27 * (a8 - a6) + (a6 - a4) * (v21 * v21) + ((a10 - a8) * (result * result));
-  v32 = ((((a6 + (a10 + (a8 * -2.0))) * a11) + ((a4 + (a6 * -2.0)) + a8) * v21) * v30 + v26 * v29) * -12.0 + (v31 * v31 + v28 * v28) * 18.0;
-  if (fabs(v32) > 0.0000001)
+  v13 = 1.0 - a11;
+  v14 = v13 * (v13 * v13);
+  v15 = v13 * (v13 * (a11 * 3.0));
+  v16 = v13 * ((a11 * 3.0) * a11);
+  v17 = (result * result) * result;
+  v18 = a1 - a3 * v14 - a5 * v15 - a7 * v16 - (a9 * v17);
+  v19 = v13 * (result + result);
+  v20 = v19 * (a7 - a5) + (a5 - a3) * (v13 * v13) + ((a9 - a7) * (result * result));
+  v21 = ((a5 + (a9 + (a7 * -2.0))) * a11) + ((a3 + (a5 * -2.0)) + a7) * v13;
+  v22 = a2 - a4 * v14 - a6 * v15 - a8 * v16 - (a10 * v17);
+  v23 = v19 * (a8 - a6) + (a6 - a4) * (v13 * v13) + ((a10 - a8) * (result * result));
+  v24 = ((((a6 + (a10 + (a8 * -2.0))) * a11) + ((a4 + (a6 * -2.0)) + a8) * v13) * v22 + v18 * v21) * -12.0 + (v23 * v23 + v20 * v20) * 18.0;
+  if (fabs(v24) > 0.0000001)
   {
-    return (v31 * v30 + v26 * v28) * 6.0 / v32 + a11;
+    return (v23 * v22 + v18 * v20) * 6.0 / v24 + a11;
   }
 
   return result;
@@ -8921,29 +8982,29 @@ LABEL_46:
   this->var2 = v14;
 }
 
-void Path::Stroke(uint64_t a1, void **this, int a3, int a4, int a5, char a6, float a7, float a8)
+void Path::Stroke(uint64_t result, void **this, int a3, int a4, uint64_t a5, char a6, float a7, float a8)
 {
   if (this)
   {
     if ((a6 & 1) == 0)
     {
-      Shape::Reset(this, 3 * *(a1 + 36));
+      Shape::Reset(this, 3 * *(result + 36));
     }
 
-    if (*(a1 + 36) >= 2)
+    if (*(result + 36) >= 2)
     {
       Shape::MakeBackData(this, 0);
-      v17 = *(a1 + 48);
-      v18 = *(a1 + 36);
+      v17 = *(result + 48);
+      v18 = *(result + 36);
       if (v18 >= 1)
       {
         v19 = 0;
         do
         {
           v20 = v19 + 1;
-          if (*(a1 + 33) == 1)
+          if (*(result + 33) == 1)
           {
-            if (*(a1 + 32))
+            if (*(result + 32))
             {
               if (v20 < v18)
               {
@@ -8998,7 +9059,7 @@ void Path::Stroke(uint64_t a1, void **this, int a3, int a4, int a5, char a6, flo
             }
           }
 
-          else if (*(a1 + 32))
+          else if (*(result + 32))
           {
             if (v20 < v18)
             {
@@ -9052,22 +9113,22 @@ void Path::Stroke(uint64_t a1, void **this, int a3, int a4, int a5, char a6, flo
             v24 = v17 + 12 * v19;
           }
 
-          *(a1 + 48) = v24;
-          *(a1 + 36) = v20 - v19;
-          Path::DoStroke(a1, this, a3, a4, a5, a7, a8, 0, v15, v16);
+          *(result + 48) = v24;
+          *(result + 36) = v20 - v19;
+          Path::DoStroke(result, this, a3, a4, a5, 0, v15, v16, a7, a8);
           v19 = v20;
         }
 
         while (v20 < v18);
       }
 
-      *(a1 + 48) = v17;
-      *(a1 + 36) = v18;
+      *(result + 48) = v17;
+      *(result + 36) = v18;
     }
   }
 }
 
-uint64_t Path::DoStroke(uint64_t result, Shape *this, int a3, int a4, int a5, float a6, float a7, uint64_t a8, int a9, int a10)
+uint64_t Path::DoStroke(uint64_t result, Shape *this, int a3, int a4, uint64_t a5, uint64_t a6, int a7, int a8, float a9, float a10)
 {
   v20 = *(result + 36);
   if (v20 < 2)
@@ -9257,18 +9318,19 @@ LABEL_28:
       v52 = v52 / v56;
     }
 
-    v97 = a7;
+    v97 = a10;
+    v94 = a5;
     v95 = LODWORD(v56);
     v96 = v51;
     v57 = v52;
     if (a3)
     {
-      Path::DoJoin(this, a4, &v105, &v103, &v104, &v102, a9, a10, v27 * a6, v28, v29, v49, v50, v51, v52, a7, SLODWORD(v54), SLODWORD(v56));
+      Path::DoJoin(this, a4, &v105, &v103, &v104, &v102, a7, a8, v27 * a9, v28, v29, v49, v50, v51, v52, a10, SLODWORD(v54), SLODWORD(v56));
     }
 
     else
     {
-      Path::DoButt(this, a5, &v102, &v103, v27 * a6, v28, v29, -v51, -v52);
+      Path::DoButt(this, a5, &v102, &v103, v27 * a9, v28, v29, -v51, -v52);
     }
 
     v61 = v102;
@@ -9367,7 +9429,7 @@ LABEL_28:
       v101[1] = -1;
       v99 = -1;
       v100 = -1;
-      v81 = v45 * a6;
+      v81 = v45 * a9;
       v82 = v46;
       v83 = LODWORD(v80);
       v84 = v78;
@@ -9402,7 +9464,7 @@ LABEL_74:
       v101[1] = -1;
       v99 = -1;
       v100 = -1;
-      Path::DoJoin(this, a4, &v101[1], &v100, v101, &v99, v58, v59, v45 * a6, v47, v46, v65, v67, v85, v86, v97, v66, SLODWORD(v88));
+      Path::DoJoin(this, a4, &v101[1], &v100, v101, &v99, v58, v59, v45 * a9, v47, v46, v65, v67, v85, v86, v97, v66, SLODWORD(v88));
       Shape::AddEdge(this, v101[1], v60);
       v89 = v100;
       Shape::AddEdge(this, v61, v101[0]);
@@ -9416,7 +9478,7 @@ LABEL_74:
     else
     {
       *v101 = 0;
-      Path::DoButt(this, a5, v101, &v101[1], v45 * a6, v47, v46, v65, v67);
+      Path::DoButt(this, v94, v101, &v101[1], v45 * a9, v47, v46, v65, v67);
       Shape::AddEdge(this, v101[0], v60);
       v91 = v101[1];
       v92 = this;
@@ -9429,7 +9491,7 @@ LABEL_74:
   return result;
 }
 
-uint64_t Path::DoJoin(Shape *this, int a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, unsigned int *a6, int a7, int a8, float a9, float a10, float a11, float a12, float a13, float a14, float a15, float a16, int a17, int a18)
+uint64_t Path::DoJoin(Shape *this, int a2, int *a3, int *a4, int *a5, int *a6, int a7, int a8, float a9, float a10, float a11, float a12, float a13, float a14, float a15, float a16, int a17, int a18)
 {
   v30 = -a12;
   v31 = (a12 * a15) - (a13 * a14);
@@ -9714,7 +9776,7 @@ LABEL_45:
   return Path::RecRound(v81, v46, v47, 8, v82, v83, v84, v85, v113, v120, v80);
 }
 
-uint64_t Path::DoButt(Shape *this, int a2, unsigned int *a3, unsigned int *a4, float a5, float a6, float a7, float a8, float a9)
+uint64_t Path::DoButt(Shape *this, int a2, int *a3, int *a4, float a5, float a6, float a7, float a8, float a9)
 {
   v17 = -a8;
   if (a2 == 3)
@@ -9772,50 +9834,4 @@ LABEL_11:
   v31 = *a3;
 
   return Path::RecRound(this, v30, v31, 8, v36 + (a5 * a8), v25 + (a5 * a9), v28, v29, v36, v25, 5.0);
-}
-
-uint64_t Path::RecRound(Path *this, Shape *a2, unsigned int a3, int a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11)
-{
-  if (a4 >= 1)
-  {
-    v19 = a4 + 1;
-    v27 = a9;
-    v28 = a10;
-    while (1)
-    {
-      v20 = ((a7 - a5) * (a10 - a6)) - ((a8 - a6) * (a9 - a5));
-      v21 = -v20;
-      if (v20 >= 0.0)
-      {
-        v21 = ((a7 - a5) * (a10 - a6)) - ((a8 - a6) * (a9 - a5));
-      }
-
-      if (v21 < a11)
-      {
-        break;
-      }
-
-      v22 = ((a7 + a9) + (a5 * 2.0)) * 0.25;
-      v23 = ((a8 + a10) + (a6 * 2.0)) * 0.25;
-      v24 = Shape::AddPoint(this, v22, v23);
-      Path::RecRound(this, a2, v24, v19 - 2, (a5 + a7) * 0.5, (a6 + a8) * 0.5, a7, a8, v22, v23, a11, v25);
-      a9 = v27;
-      a10 = v28;
-      a5 = (a5 + v27) * 0.5;
-      --v19;
-      a6 = (a6 + v28) * 0.5;
-      a8 = v23;
-      a7 = v22;
-      a2 = v24;
-      if (v19 <= 1)
-      {
-        goto LABEL_9;
-      }
-    }
-  }
-
-  LODWORD(v24) = a2;
-LABEL_9:
-
-  return Shape::AddEdge(this, v24, a3);
 }

@@ -3463,8 +3463,8 @@ LABEL_12:
       sub_100796E74();
       sub_1007A25E4();
 
-      sub_1001F1160(&qword_100ADA958);
-      sub_1002CD1B4(&unk_100ADA960, &qword_100ADA958);
+      sub_1001F1160(&qword_100ADA958, &qword_100818A20);
+      sub_1002CD1B4(&unk_100ADA960, &qword_100ADA958, &qword_100818A20);
       LOBYTE(indexPathsForSelectedItems) = sub_1007A28A4();
     }
 
@@ -3489,13 +3489,13 @@ LABEL_12:
   if (collectionView)
   {
     v4 = collectionView;
-    sub_1001F1160(&unk_100AD8160);
+    sub_1001F1160(&unk_100AD8160, &unk_100813160);
     v5 = swift_allocObject();
     *(v5 + 16) = xmmword_100811390;
     *(v5 + 32) = v4;
   }
 
-  sub_1001F1160(&qword_100ADAA18);
+  sub_1001F1160(&qword_100ADAA18, &qword_100818A68);
   v6.super.isa = sub_1007A25D4().super.isa;
 
   return v6.super.isa;
@@ -3508,7 +3508,7 @@ LABEL_12:
 
   if (v3)
   {
-    sub_10000A7C4(0, &qword_100ADA970);
+    sub_10000A7C4(0, &qword_100ADA970, UIKeyCommand_ptr);
     v4.super.isa = sub_1007A25D4().super.isa;
   }
 
@@ -3538,7 +3538,7 @@ LABEL_12:
 
   v8 = BKLibraryBookshelfCollectionViewController.canPerformAction(_:withSender:)(action, v10);
 
-  sub_100007840(v10, &unk_100AD5B40);
+  sub_100007840(v10, &unk_100AD5B40, &unk_100811300);
   return v8 & 1;
 }
 
@@ -3599,7 +3599,7 @@ LABEL_12:
   actionHandler = [(BKLibraryDataSourceAdaptor *)v6 actionHandler];
 
   [(BKLibraryActionHandler *)actionHandler toggleEditMode];
-  sub_100007840(&v8, &unk_100AD5B40);
+  sub_100007840(&v8, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)largeTitleVisibilityDidChangeWithIsVisible:(BOOL)visible
@@ -3659,7 +3659,7 @@ LABEL_12:
 
 - (void)configureForDragAndDropSession
 {
-  sub_10000A7C4(0, &qword_100AD1E10);
+  sub_10000A7C4(0, &qword_100AD1E10, OS_dispatch_queue_ptr);
   swift_allocObject();
   swift_unknownObjectWeakInit();
   selfCopy = self;
@@ -3696,7 +3696,7 @@ LABEL_3:
   sub_1002E0E40(sub_1002E4B60, 0);
 LABEL_6:
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_createCollectionFromSelection:(id)selection
@@ -3717,7 +3717,7 @@ LABEL_6:
 
   sub_1002E20DC();
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_addSelectionToCollection:(id)collection
@@ -3738,12 +3738,12 @@ LABEL_6:
 
   sub_1002E2760(v6);
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)createSeriesViewControllerFromSeriesContainer:(BKLibraryAsset *)container withParentTracker:(_TtC13BookAnalytics9BATracker *)tracker completion:(id)completion
 {
-  v9 = sub_1001F1160(&qword_100AD67D0);
+  v9 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(completion);

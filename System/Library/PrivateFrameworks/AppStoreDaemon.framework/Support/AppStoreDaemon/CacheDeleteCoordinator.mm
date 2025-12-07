@@ -73,7 +73,7 @@
     objc_destroyWeak(&v27);
     objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
-    v16 = sub_100394290();
+    v16 = sub_100394290(DevicePairingMonitor);
     sub_1003948DC(v16, v2);
 
     v17 = objc_alloc_init(PartialDownloadPurgeCoordinator);
@@ -92,7 +92,7 @@
     dispatch_source_cancel(scheduledTimer);
   }
 
-  v4 = sub_100394290();
+  v4 = sub_100394290(DevicePairingMonitor);
   sub_100394B18(v4, self);
 
   v5.receiver = self;

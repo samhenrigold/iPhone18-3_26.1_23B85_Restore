@@ -80,11 +80,11 @@
 
 - (CKModifyRecordsOperationInfo)initWithCoder:(id)coder
 {
-  v88[4] = *MEMORY[0x1E69E9840];
+  v87[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v86.receiver = self;
-  v86.super_class = CKModifyRecordsOperationInfo;
-  v5 = [(CKDatabaseOperationInfo *)&v86 initWithCoder:coderCopy];
+  v85.receiver = self;
+  v85.super_class = CKModifyRecordsOperationInfo;
+  v5 = [(CKDatabaseOperationInfo *)&v85 initWithCoder:coderCopy];
   v8 = v5;
   if (v5)
   {
@@ -126,20 +126,20 @@
 
     v8->_atomic = objc_msgSend_decodeBoolForKey_(coderCopy, v43, @"atomic");
     v44 = MEMORY[0x1E695DFD8];
-    v88[0] = objc_opt_class();
-    v88[1] = objc_opt_class();
-    v88[2] = objc_opt_class();
-    v88[3] = objc_opt_class();
-    v46 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v45, v88, 4);
+    v87[0] = objc_opt_class();
+    v87[1] = objc_opt_class();
+    v87[2] = objc_opt_class();
+    v87[3] = objc_opt_class();
+    v46 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v45, v87, 4);
     v48 = objc_msgSend_setWithArray_(v44, v47, v46);
     v50 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v49, v48, @"conflictLosersToResolveByRecordID");
     conflictLosersToResolveByRecordID = v8->_conflictLosersToResolveByRecordID;
     v8->_conflictLosersToResolveByRecordID = v50;
 
     v52 = CKAcceptableValueClasses();
-    v87[0] = objc_opt_class();
-    v87[1] = objc_opt_class();
-    v54 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v53, v87, 2);
+    v86[0] = objc_opt_class();
+    v86[1] = objc_opt_class();
+    v54 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v53, v86, 2);
     v56 = objc_msgSend_setByAddingObjectsFromArray_(v52, v55, v54);
     v58 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v57, v56, @"pluginFieldsForRecordDeletesByID");
     pluginFieldsForRecordDeletesByID = v8->_pluginFieldsForRecordDeletesByID;
@@ -171,7 +171,6 @@
     objc_autoreleasePoolPop(context);
   }
 
-  v83 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

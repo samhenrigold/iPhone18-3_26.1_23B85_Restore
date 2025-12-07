@@ -14,12 +14,12 @@
 
 - (void)handleSilentVibrationValueChange
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[CSSiriVibrationManager handleSilentVibrationValueChange]";
+    v7 = "[CSSiriVibrationManager handleSilentVibrationValueChange]";
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -30,17 +30,16 @@
   block[3] = &unk_2784C6FD0;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRingVibrationValueChange
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[CSSiriVibrationManager handleRingVibrationValueChange]";
+    v7 = "[CSSiriVibrationManager handleRingVibrationValueChange]";
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -51,19 +50,18 @@
   block[3] = &unk_2784C6FD0;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchSilentVibrationValue
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF0A0];
   v4 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "[CSSiriVibrationManager _fetchSilentVibrationValue]";
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[CSSiriVibrationManager _fetchSilentVibrationValue]";
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
   }
 
   VibrationState = _fetchVibrationState(@"silent-vibrate");
@@ -77,26 +75,24 @@
       v7 = @"On";
     }
 
-    v9 = 136315394;
-    v10 = "[CSSiriVibrationManager _fetchSilentVibrationValue]";
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CSSiriVibrationManager _fetchSilentVibrationValue]";
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchRingVibrationValue
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF0A0];
   v4 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "[CSSiriVibrationManager _fetchRingVibrationValue]";
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[CSSiriVibrationManager _fetchRingVibrationValue]";
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
   }
 
   VibrationState = _fetchVibrationState(@"ring-vibrate");
@@ -110,14 +106,12 @@
       v7 = @"On";
     }
 
-    v9 = 136315394;
-    v10 = "[CSSiriVibrationManager _fetchRingVibrationValue]";
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CSSiriVibrationManager _fetchRingVibrationValue]";
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_silentVibrationValue

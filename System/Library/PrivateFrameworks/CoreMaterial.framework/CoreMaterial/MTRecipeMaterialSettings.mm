@@ -24,17 +24,17 @@
     recipeName = v14->_recipeName;
     v14->_recipeName = v15;
 
-    v17 = [descriptionCopy objectForKey:@"materialSettingsVersion"];
+    v17 = [descriptionCopy objectForKey:?];
     v14->_materialSettingsVersion = [v17 integerValue];
 
-    v18 = [descriptionCopy objectForKey:@"styles"];
+    v18 = [descriptionCopy objectForKey:?];
     styles = v14->_styles;
     v14->_styles = v18;
 
     v20 = [MTTintingFilteringMaterialSettings alloc];
-    v21 = [descriptionCopy objectForKey:@"baseMaterial"];
-    v22 = [descriptionsCopy valueForKey:@"baseMaterial"];
-    v23 = [(MTTintingFilteringMaterialSettings *)v20 initWithMaterialDescription:v21 andDescendantDescriptions:v22 bundle:bundleCopy];
+    v21 = [descriptionCopy objectForKey:?];
+    v22 = [descriptionsCopy valueForKey:?];
+    v23 = [MTTintingFilteringMaterialSettings initWithMaterialDescription:v20 andDescendantDescriptions:"initWithMaterialDescription:andDescendantDescriptions:bundle:" bundle:?];
     baseMaterialSettings = v14->_baseMaterialSettings;
     v14->_baseMaterialSettings = v23;
   }
@@ -60,7 +60,7 @@
 
 - (id)_visualStyleSetDescription
 {
-  v65[2] = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   baseMaterialSettings = [(MTRecipeMaterialSettings *)self baseMaterialSettings];
   if (!_CanGenerateVisualStylingDescriptionFromConfigurationSettings(baseMaterialSettings))
   {
@@ -70,151 +70,142 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy_;
-  v60 = __Block_byref_object_dispose_;
-  v61 = 0;
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __54__MTRecipeMaterialSettings__visualStyleSetDescription__block_invoke;
-  v55[3] = &unk_1E80BDBE0;
-  v55[4] = &v56;
-  v3 = MEMORY[0x1BFB5AC50](v55);
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy_;
+  v54 = __Block_byref_object_dispose_;
+  v55 = 0;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __54__MTRecipeMaterialSettings__visualStyleSetDescription__block_invoke;
+  v49[3] = &unk_1E80BDBE0;
+  v49[4] = &v50;
+  v3 = MEMORY[0x1BFB5AC50](v49);
   tintColorDescription = [baseMaterialSettings tintColorDescription];
 
   if (tintColorDescription)
   {
     v5 = v3[2](v3);
     tintColorDescription2 = [baseMaterialSettings tintColorDescription];
-    [v5 setObject:tintColorDescription2 forKey:@"tinting"];
+    [v5 setObject:? forKey:?];
   }
 
-  v30 = *(MEMORY[0x1E6979280] + 48);
-  v52 = *(MEMORY[0x1E6979280] + 32);
-  v53 = v30;
-  v54 = *(MEMORY[0x1E6979280] + 64);
-  v27 = *(MEMORY[0x1E6979280] + 16);
-  v50 = *MEMORY[0x1E6979280];
-  v51 = v27;
+  v29 = *(MEMORY[0x1E6979280] + 48);
+  v46 = *(MEMORY[0x1E6979280] + 32);
+  v47 = v29;
+  v48 = *(MEMORY[0x1E6979280] + 64);
+  v26 = *(MEMORY[0x1E6979280] + 16);
+  v44 = *MEMORY[0x1E6979280];
+  v45 = v26;
   v7 = MEMORY[0x1E696AD98];
   [baseMaterialSettings saturation];
   v8 = [v7 numberWithDouble:?];
-  v9 = [v8 mt_isIdentityValueForMaterialSettingsProperty:@"saturation"];
+  v9 = [v8 mt_isIdentityValueForMaterialSettingsProperty:?];
 
   if ((v9 & 1) == 0)
   {
     [baseMaterialSettings saturation];
     CAColorMatrixMakeSaturation();
-    v37 = v32;
-    v38 = v31;
-    v39 = v29;
-    v35 = v26;
-    v36 = v28;
+    v35 = v31;
+    v36 = v30;
+    v37 = v28;
+    v33 = v25;
+    v34 = v27;
     CAColorMatrixConcat();
-    v52 = v47;
-    v53 = v48;
-    v54 = v49;
-    v50 = v45;
-    v51 = v46;
+    v46 = v41;
+    v47 = v42;
+    v48 = v43;
+    v44 = v39;
+    v45 = v40;
   }
 
   v10 = MEMORY[0x1E696AD98];
   [baseMaterialSettings brightness];
   v11 = [v10 numberWithDouble:?];
-  v12 = [v11 mt_isIdentityValueForMaterialSettingsProperty:@"brightness"];
+  v12 = [v11 mt_isIdentityValueForMaterialSettingsProperty:?];
 
   if ((v12 & 1) == 0)
   {
     [baseMaterialSettings brightness];
     CAColorMatrixMakeBrightness();
-    v37 = v52;
-    v38 = v53;
-    v39 = v54;
-    v35 = v50;
-    v36 = v51;
+    v35 = v46;
+    v36 = v47;
+    v37 = v48;
+    v33 = v44;
+    v34 = v45;
     CAColorMatrixConcat();
-    v52 = v47;
-    v53 = v48;
-    v54 = v49;
-    v50 = v45;
-    v51 = v46;
+    v46 = v41;
+    v47 = v42;
+    v48 = v43;
+    v44 = v39;
+    v45 = v40;
   }
 
   v13 = MEMORY[0x1E696B098];
   if (baseMaterialSettings)
   {
-    [baseMaterialSettings colorMatrix];
+    [v32 colorMatrix];
   }
 
   else
   {
-    memset(v34, 0, sizeof(v34));
+    memset(v32, 0, sizeof(v32));
   }
 
-  v15 = [v13 valueWithBytes:v34 objCType:"{CAColorMatrix=ffffffffffffffffffff}"];
-  v16 = [v15 mt_isIdentityValueForMaterialSettingsProperty:@"colorMatrix"];
+  v15 = [v13 valueWithBytes:? objCType:?];
+  v16 = [v15 mt_isIdentityValueForMaterialSettingsProperty:?];
 
   if ((v16 & 1) == 0)
   {
     if (baseMaterialSettings)
     {
-      [baseMaterialSettings colorMatrix];
+      [v38 colorMatrix];
     }
 
     else
     {
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v40 = 0u;
+      memset(v38, 0, sizeof(v38));
     }
 
-    v37 = v52;
-    v38 = v53;
-    v39 = v54;
-    v35 = v50;
-    v36 = v51;
+    v35 = v46;
+    v36 = v47;
+    v37 = v48;
+    v33 = v44;
+    v34 = v45;
     CAColorMatrixConcat();
-    v52 = v47;
-    v53 = v48;
-    v54 = v49;
-    v50 = v45;
-    v51 = v46;
+    v46 = v41;
+    v47 = v42;
+    v48 = v43;
+    v44 = v39;
+    v45 = v40;
   }
 
-  v47 = v52;
-  v48 = v53;
-  v49 = v54;
-  v45 = v50;
-  v46 = v51;
-  if (!MTCAColorMatrixIsIdentity(&v45))
+  v41 = v46;
+  v42 = v47;
+  v43 = v48;
+  v39 = v44;
+  v40 = v45;
+  if (!MTCAColorMatrixIsIdentity(&v39))
   {
     v17 = v3[2](v3);
     v18 = *MEMORY[0x1E6979D78];
-    v64[1] = @"filterProperties";
-    v65[0] = v18;
-    v64[0] = @"filterType";
-    v62 = @"inputColorMatrix";
-    v33[2] = v52;
-    v33[3] = v53;
-    v33[4] = v54;
-    v33[0] = v50;
-    v33[1] = v51;
-    v19 = [MEMORY[0x1E696B098] valueWithBytes:v33 objCType:"{CAColorMatrix=ffffffffffffffffffff}"];
-    v63 = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-    v65[1] = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
-    [v17 setObject:v21 forKey:@"filtering"];
+    v59 = @"filterProperties";
+    v60 = v18;
+    v58 = @"filterType";
+    v56 = @"inputColorMatrix";
+    v19 = [MEMORY[0x1E696B098] valueWithBytes:? objCType:?];
+    v57 = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v61 = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    [v17 setObject:? forKey:?];
   }
 
-  if (v57[5])
+  if (v51[5])
   {
     v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v14 setObject:v57[5] forKey:@"secondary"];
+    [v14 setObject:? forKey:?];
   }
 
   else
@@ -222,19 +213,18 @@ LABEL_24:
     v14 = 0;
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v50, 8);
   if (!v14)
   {
     goto LABEL_24;
   }
 
   v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [v22 setObject:v14 forKey:@"styles"];
-  [v22 setObject:&unk_1F3E01788 forKey:@"visualStyleSetVersion"];
+  [v22 setObject:? forKey:?];
+  [v22 setObject:? forKey:?];
 LABEL_25:
   v23 = v22;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -262,8 +252,8 @@ id __54__MTRecipeMaterialSettings__visualStyleSetDescription__block_invoke(uint6
     v4 = [MTVisualStyleSet alloc];
     v5 = objc_opt_class();
     recipeName = [(MTRecipeMaterialSettings *)self recipeName];
-    v7 = [v5 styleSetNameForStyleSetFromRecipeWithName:recipeName];
-    v8 = [(MTVisualStyleSet *)v4 initWithName:v7 visualStyleSetDescription:_visualStyleSetDescription andDescendantDescriptions:0];
+    v7 = [v5 styleSetNameForStyleSetFromRecipeWithName:?];
+    v8 = [MTVisualStyleSet initWithName:v4 visualStyleSetDescription:"initWithName:visualStyleSetDescription:andDescendantDescriptions:" andDescendantDescriptions:?];
   }
 
   else
@@ -276,7 +266,7 @@ id __54__MTRecipeMaterialSettings__visualStyleSetDescription__block_invoke(uint6
 
 - (id)_platformColorsStyleSetName
 {
-  v2 = [(NSString *)self->_recipeName hasSuffix:@"Dark"];
+  v2 = [(NSString *)self->_recipeName hasSuffix:?];
   v3 = &kMTCoreMaterialStyleNamePlatformColorsDark;
   if (!v2)
   {
@@ -290,20 +280,17 @@ id __54__MTRecipeMaterialSettings__visualStyleSetDescription__block_invoke(uint6
 
 - (NSString)description
 {
-  v3 = MEMORY[0x1E696AD60];
-  v4 = objc_opt_class();
-  materialSettingsVersion = self->_materialSettingsVersion;
-  v6 = [v3 stringWithFormat:@"<%@: %p recipeName: %@; materialSettingsVersion: %ld; styles: %@", v4, self, self->_recipeName, materialSettingsVersion, self->_styles];;
+  v3 = [MEMORY[0x1E696AD60] stringWithFormat:objc_opt_class(), self, self->_recipeName, self->_materialSettingsVersion, self->_styles];
   baseMaterialSettings = [(MTRecipeMaterialSettings *)self baseMaterialSettings];
-  v8 = baseMaterialSettings;
+  v5 = baseMaterialSettings;
   if (baseMaterialSettings)
   {
-    [v6 appendFormat:@"; baseMaterialSettings: %@", baseMaterialSettings];
+    [v3 appendFormat:baseMaterialSettings];
   }
 
-  [v6 appendString:@">"];
+  [v3 appendString:?];
 
-  return v6;
+  return v3;
 }
 
 @end

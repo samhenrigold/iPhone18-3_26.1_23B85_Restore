@@ -41,7 +41,7 @@
   v10 = v9;
 
   swift_getObjCClassMetadata();
-  v11 = sub_21D7F8F98();
+  v11 = sub_21D7F8F98(v8, v10);
   sub_21D17B8A8(v8, v10);
 
   return v11;

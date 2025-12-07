@@ -71,11 +71,11 @@
 
 - (void)viewDidLoad
 {
-  v56[4] = *MEMORY[0x277D85DE8];
+  v55[4] = *MEMORY[0x277D85DE8];
   applicationIdentity = self->_applicationIdentity;
-  v55 = 0;
-  v4 = [(PDCApplicationIdentity *)applicationIdentity findApplicationRecordWithError:&v55];
-  v5 = v55;
+  v54 = 0;
+  v4 = [(PDCApplicationIdentity *)applicationIdentity findApplicationRecordWithError:&v54];
+  v5 = v54;
   v6 = PDULocalizedNameForAppRecord(v4);
   v7 = PDUWelcomeTintColorForApplicationRecord(v4);
   if (v7)
@@ -115,7 +115,7 @@
     }
   }
 
-  v52 = v7;
+  v51 = v7;
   [(PDUWelcomeViewController_iOS *)self setContinueButton:boldButton];
   linkButton = [MEMORY[0x277D37650] linkButton];
   v20 = PDULocalizedString(@"WELCOME_CLOSE");
@@ -130,10 +130,10 @@
   if (PDUShouldShowLearnMoreScreen(v4))
   {
     [MEMORY[0x277D75220] buttonWithType:1];
-    v23 = v50 = v6;
+    v23 = v49 = v6;
     v24 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76920] variant:0];
     [v23 titleLabel];
-    v25 = v49 = v20;
+    v25 = v48 = v20;
     [v25 setFont:v24];
 
     titleLabel2 = [v23 titleLabel];
@@ -163,27 +163,27 @@
 
     v37 = MEMORY[0x277CCAAD0];
     [(PDUWelcomeViewController_iOS *)self contentView];
-    v38 = v51 = v5;
+    v38 = v50 = v5;
     v39 = [v37 constraintWithItem:v38 attribute:7 relatedBy:1 toItem:v23 attribute:7 multiplier:1.0 constant:0.0];
 
     v40 = MEMORY[0x277CCAAD0];
     [(PDUWelcomeViewController_iOS *)self contentView];
-    v41 = v48 = v4;
+    v41 = v47 = v4;
     v42 = [v40 constraintWithItem:v41 attribute:8 relatedBy:0 toItem:v23 attribute:8 multiplier:1.0 constant:0.0];
 
     contentView5 = [(PDUWelcomeViewController_iOS *)self contentView];
-    v56[0] = v33;
-    v56[1] = v36;
-    v56[2] = v42;
-    v56[3] = v39;
-    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:4];
+    v55[0] = v33;
+    v55[1] = v36;
+    v55[2] = v42;
+    v55[3] = v39;
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:4];
     [contentView5 addConstraints:v44];
 
-    v4 = v48;
-    v5 = v51;
+    v4 = v47;
+    v5 = v50;
 
-    v20 = v49;
-    v6 = v50;
+    v20 = v48;
+    v6 = v49;
   }
 
   view2 = [(PDUWelcomeViewController_iOS *)self view];
@@ -192,11 +192,9 @@
   contentView6 = [(PDUWelcomeViewController_iOS *)self contentView];
   [contentView6 layoutIfNeeded];
 
-  v54.receiver = self;
-  v54.super_class = PDUWelcomeViewController_iOS;
-  [(OBBaseWelcomeController *)&v54 viewDidLoad];
-
-  v47 = *MEMORY[0x277D85DE8];
+  v53.receiver = self;
+  v53.super_class = PDUWelcomeViewController_iOS;
+  [(OBBaseWelcomeController *)&v53 viewDidLoad];
 }
 
 - (void)continuePressed
@@ -273,36 +271,24 @@
   configuration = [continueButton configuration];
 
   convertedToRGB = [tintColor convertedToRGB];
-  if (!convertedToRGB)
-  {
-    goto LABEL_4;
-  }
-
-  continueButton2 = [(PDUWelcomeViewController_iOS *)self continueButton];
-  titleLabel = [continueButton2 titleLabel];
-  textColor = [titleLabel textColor];
-  convertedToRGB2 = [textColor convertedToRGB];
-  v11 = [convertedToRGB2 isEqual:convertedToRGB];
-
-  if (v11)
+  if (convertedToRGB && (-[PDUWelcomeViewController_iOS continueButton](self, "continueButton"), v7 = objc_claimAutoreleasedReturnValue(), [v7 titleLabel], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "textColor"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "convertedToRGB"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqual:", convertedToRGB), v10, v9, v8, v7, v11))
   {
     blackColor = [MEMORY[0x277D75348] blackColor];
   }
 
   else
   {
-LABEL_4:
     blackColor = [(PDUWelcomeViewController_iOS *)self continueButtonOriginalTextColor];
   }
 
   v13 = blackColor;
   [configuration setBaseForegroundColor:blackColor];
 
-  continueButton3 = [(PDUWelcomeViewController_iOS *)self continueButton];
-  [continueButton3 setConfiguration:configuration];
+  continueButton2 = [(PDUWelcomeViewController_iOS *)self continueButton];
+  [continueButton2 setConfiguration:configuration];
 
-  continueButton4 = [(PDUWelcomeViewController_iOS *)self continueButton];
-  [continueButton4 setNeedsUpdateConfiguration];
+  continueButton3 = [(PDUWelcomeViewController_iOS *)self continueButton];
+  [continueButton3 setNeedsUpdateConfiguration];
 }
 
 - (void)traitCollectionDidChange:(id)change

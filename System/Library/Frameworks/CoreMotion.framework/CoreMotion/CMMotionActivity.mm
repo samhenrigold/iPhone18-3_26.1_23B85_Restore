@@ -4,6 +4,7 @@
 - (BOOL)walking;
 - (CMMotionActivity)initWithCoder:(id)coder;
 - (CMMotionActivity)initWithMotionActivity:(CLMotionActivity *)activity;
+- (CMMotionActivity)initWithMotionActivity:(CLMotionActivity *)activity endDate:(double)date;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)descriptionInternal;
@@ -112,6 +113,38 @@ LABEL_7:
   }
 
   return v16;
+}
+
+- (CMMotionActivity)initWithMotionActivity:(CLMotionActivity *)activity endDate:(double)date
+{
+  v12 = *&a5;
+  v14 = *&activity[1].type;
+  v27.receiver = self;
+  v27.super_class = CMMotionActivity;
+  v17 = [(CMLogItem *)&v27 initWithTimestamp:v14, a10];
+  if (v17)
+  {
+    objc_msgSend_timeIntervalSinceReferenceDate(v12, v15, v16);
+    v17->fEndTime = v18;
+    *&v17->fState.type = *&activity->type;
+    v19 = *&activity->vehicleType;
+    v21 = *&activity->mountedConfidence;
+    v20 = *&activity->isStanding;
+    *&v17->fState.isVehicleConnected = *&activity->isVehicleConnected;
+    *&v17->fState.vehicleType = v19;
+    *&v17->fState.mountedConfidence = v21;
+    *&v17->fState.isStanding = v20;
+    v23 = *&activity[1].mountedConfidence;
+    v22 = *&activity[1].isStanding;
+    v24 = *&activity[1].type;
+    *&v17->_anon_60[48] = *&activity[1].isVehicleConnected;
+    *&v17->_anon_60[16] = v23;
+    *&v17->_anon_60[32] = v22;
+    *v17->_anon_60 = v24;
+    objc_msgSend_setIsRunWalk_(v17, v25, 0);
+  }
+
+  return v17;
 }
 
 - (CMMotionActivity)initWithCoder:(id)coder

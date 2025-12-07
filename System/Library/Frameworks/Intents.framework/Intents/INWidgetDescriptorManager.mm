@@ -27,7 +27,7 @@
 
 uint64_t __76__INWidgetDescriptorManager__notifyCompletionHandlersWithWidgetDescriptors___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 32) cancel];
   v2 = *(a1 + 32);
   if (*(a1 + 40))
@@ -40,27 +40,27 @@ uint64_t __76__INWidgetDescriptorManager__notifyCompletionHandlersWithWidgetDesc
     v2[16] = 0;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         v9 = [*(a1 + 32) widgetDescriptors];
         (*(v8 + 16))(v8, v9);
 
@@ -68,15 +68,13 @@ uint64_t __76__INWidgetDescriptorManager__notifyCompletionHandlersWithWidgetDesc
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
-  result = [*(*(a1 + 32) + 24) removeAllObjects];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 24) removeAllObjects];
 }
 
 - (void)_startObservingDescriptors
@@ -137,7 +135,7 @@ uint64_t __76__INWidgetDescriptorManager__notifyCompletionHandlersWithWidgetDesc
   }
 }
 
-uint64_t __55__INWidgetDescriptorManager__startObservingDescriptors__block_invoke(uint64_t a1)
+void *__55__INWidgetDescriptorManager__startObservingDescriptors__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _notifyCompletionHandlersWithWidgetDescriptors:0];
   *(*(a1 + 32) + 16) = 0;
@@ -146,7 +144,7 @@ uint64_t __55__INWidgetDescriptorManager__startObservingDescriptors__block_invok
 
 - (void)descriptorsDidChangeForDescriptorProvider:(id)provider
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   descriptors = [providerCopy descriptors];
   v6 = [descriptors count];
@@ -155,27 +153,27 @@ uint64_t __55__INWidgetDescriptorManager__startObservingDescriptors__block_invok
   {
     selfCopy = self;
     v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v25 = providerCopy;
+    v24 = providerCopy;
     descriptors2 = [providerCopy descriptors];
-    v9 = [descriptors2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v9 = [descriptors2 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v27;
+      v11 = *v26;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v27 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(descriptors2);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * i);
+          v13 = *(*(&v25 + 1) + 8 * i);
           if (([v13 supportedSizeClasses] & 8) != 0)
           {
             v14 = 3;
@@ -207,22 +205,20 @@ uint64_t __55__INWidgetDescriptorManager__startObservingDescriptors__block_invok
           }
         }
 
-        v10 = [descriptors2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v10 = [descriptors2 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v10);
     }
 
     [(INWidgetDescriptorManager *)selfCopy _notifyCompletionHandlersWithWidgetDescriptors:v7];
-    providerCopy = v25;
+    providerCopy = v24;
   }
 
   else
   {
     [(INWidgetDescriptorManager *)self _notifyCompletionHandlersWithWidgetDescriptors:0];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -274,28 +270,28 @@ uint64_t __55__INWidgetDescriptorManager__startObservingDescriptors__block_invok
 
 void __70__INWidgetDescriptorManager_getDescriptorForIntent_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if ([*(*(&v9 + 1) + 8 * v7) supportsIntent:{*(a1 + 32), v9}])
+        if ([*(*(&v8 + 1) + 8 * v7) supportsIntent:{*(a1 + 32), v8}])
         {
           (*(*(a1 + 40) + 16))();
 
@@ -306,7 +302,7 @@ void __70__INWidgetDescriptorManager_getDescriptorForIntent_completionHandler___
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v5)
       {
         continue;
@@ -318,8 +314,6 @@ void __70__INWidgetDescriptorManager_getDescriptorForIntent_completionHandler___
 
   (*(*(a1 + 40) + 16))();
 LABEL_11:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getDescriptorsWithCompletionHandler:(id)handler

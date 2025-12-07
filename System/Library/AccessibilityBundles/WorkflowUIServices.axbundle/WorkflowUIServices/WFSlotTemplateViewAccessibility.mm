@@ -36,42 +36,40 @@
 
 - (void)_accessibilityEnumerateContentsWithBlock:(id)block
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   blockCopy = block;
-  v17 = 0;
+  v16 = 0;
   objc_opt_class();
   v5 = [(WFSlotTemplateViewAccessibility *)self safeValueForKeyPath:@"textStorage.contents"];
   v6 = __UIAccessibilityCastAsClass();
 
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        blockCopy[2](blockCopy, *(*(&v13 + 1) + 8 * i));
+        blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * i));
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_accessibilityLocalizedPlaceholderNameForSlot:(id)slot
@@ -147,7 +145,7 @@ void __53__WFSlotTemplateViewAccessibility_accessibilityLabel__block_invoke_2(ui
   {
     if ([v4 safeBoolForKey:@"isPopulated"])
     {
-      v24 = 0;
+      v23 = 0;
       objc_opt_class();
       v5 = [v4 safeValueForKey:@"contentAttributedString"];
       v6 = __UIAccessibilityCastAsClass();
@@ -159,12 +157,12 @@ void __53__WFSlotTemplateViewAccessibility_accessibilityLabel__block_invoke_2(ui
       {
         v9 = *MEMORY[0x29EDC7628];
         v10 = [v6 length];
-        v23[0] = MEMORY[0x29EDCA5F8];
-        v23[1] = 3221225472;
-        v23[2] = __53__WFSlotTemplateViewAccessibility_accessibilityLabel__block_invoke_3;
-        v23[3] = &unk_29F323670;
-        v23[4] = *(a1 + 48);
-        [v6 enumerateAttribute:v9 inRange:0 options:v10 usingBlock:{0, v23}];
+        v22[0] = MEMORY[0x29EDCA5F8];
+        v22[1] = 3221225472;
+        v22[2] = __53__WFSlotTemplateViewAccessibility_accessibilityLabel__block_invoke_3;
+        v22[3] = &unk_29F323670;
+        v22[4] = *(a1 + 48);
+        [v6 enumerateAttribute:v9 inRange:0 options:v10 usingBlock:{0, v22}];
       }
 
       else
@@ -191,13 +189,12 @@ void __53__WFSlotTemplateViewAccessibility_accessibilityLabel__block_invoke_2(ui
   if (!v19)
   {
     objc_storeStrong(v18, a2);
-    v20 = *(*(*(a1 + 48) + 8) + 40);
   }
 
   [*(a1 + 40) axSafelyAddObject:?];
-  v21 = *(*(a1 + 48) + 8);
-  v22 = *(v21 + 40);
-  *(v21 + 40) = 0;
+  v20 = *(*(a1 + 48) + 8);
+  v21 = *(v20 + 40);
+  *(v20 + 40) = 0;
 }
 
 void __53__WFSlotTemplateViewAccessibility_accessibilityLabel__block_invoke_3(uint64_t a1, void *a2)
@@ -364,25 +361,24 @@ void __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block_inv
   NSClassFromString(&cfstr_Wfslottextatta.isa);
   if (objc_opt_isKindOfClass())
   {
-    v15 = 0;
+    v14 = 0;
     objc_opt_class();
     v4 = [v3 safeValueForKeyPath:@"token.nameIncludingPropertyName"];
     v5 = __UIAccessibilityCastAsClass();
 
-    v6 = *(a1 + 32);
-    v7 = __AXStringForVariables();
-    v8 = objc_alloc(MEMORY[0x29EDC78E0]);
-    v12[0] = MEMORY[0x29EDCA5F8];
-    v12[1] = 3221225472;
-    v12[2] = __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block_invoke_4;
-    v12[3] = &unk_29F323710;
-    v12[4] = *(a1 + 40);
-    v13 = v3;
-    v14 = *(a1 + 48);
-    v9 = [v8 initWithName:v7 actionHandler:{v12, v5, @"__AXStringForVariablesSentinel"}];
-    v10 = *(*(a1 + 64) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v6 = __AXStringForVariables();
+    v7 = objc_alloc(MEMORY[0x29EDC78E0]);
+    v11[0] = MEMORY[0x29EDCA5F8];
+    v11[1] = 3221225472;
+    v11[2] = __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block_invoke_4;
+    v11[3] = &unk_29F323710;
+    v11[4] = *(a1 + 40);
+    v12 = v3;
+    v13 = *(a1 + 48);
+    v8 = [v7 initWithName:v6 actionHandler:{v11, v5, @"__AXStringForVariablesSentinel"}];
+    v9 = *(*(a1 + 64) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
     [*(a1 + 56) axSafelyAddObject:*(*(*(a1 + 64) + 8) + 40)];
   }
@@ -390,9 +386,8 @@ void __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block_inv
 
 uint64_t __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block_invoke_4(uint64_t a1)
 {
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v4 = *(a1 + 48);
   AXPerformSafeBlock();
 
   return 1;
@@ -409,8 +404,7 @@ void __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block_inv
 
 uint64_t __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block_invoke_6(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
   AXPerformSafeBlock();
 
   return 1;
@@ -418,17 +412,9 @@ uint64_t __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block
 
 uint64_t __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block_invoke_8(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
   AXPerformSafeBlock();
 
-  return 1;
-}
-
-uint64_t __61__WFSlotTemplateViewAccessibility_accessibilityCustomActions__block_invoke_10(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  AXPerformSafeBlock();
   return 1;
 }
 

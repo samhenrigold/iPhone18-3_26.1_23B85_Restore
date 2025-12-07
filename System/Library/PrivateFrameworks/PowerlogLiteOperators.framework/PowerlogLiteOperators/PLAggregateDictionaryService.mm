@@ -31,54 +31,53 @@
 
 void __67__PLAggregateDictionaryService_registerForApplicationNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v3 = [a2 objectForKeyedSubscript:@"entry"];
-  v4 = [v3 objectForKeyedSubscript:@"Identifier"];
-  v26 = v3;
-  v5 = [v3 objectForKeyedSubscript:@"Reason"];
-  v6 = v5;
-  if (v5)
+  v31 = *MEMORY[0x277D85DE8];
+  v2 = [a2 objectForKeyedSubscript:@"entry"];
+  v3 = [v2 objectForKeyedSubscript:@"Identifier"];
+  v22 = v2;
+  v4 = [v2 objectForKeyedSubscript:@"Reason"];
+  v5 = v4;
+  if (v4)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
-    if (v7)
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v6 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    if (v6)
     {
-      v8 = v7;
-      v9 = *v29;
-      v24 = v6;
-      v25 = a1;
+      v7 = v6;
+      v8 = *v25;
+      v21 = v5;
       do
       {
-        v10 = 0;
+        v9 = 0;
         do
         {
-          if (*v29 != v9)
+          if (*v25 != v8)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v5);
           }
 
-          [*(*(&v28 + 1) + 8 * v10) unsignedIntegerValue];
-          v11 = SBSProcessAssertionGetNameForReason();
-          if (v11)
+          [*(*(&v24 + 1) + 8 * v9) unsignedIntegerValue];
+          v10 = SBSProcessAssertionGetNameForReason();
+          if (v10)
           {
-            v12 = v4 == 0;
+            v11 = v3 == 0;
           }
 
           else
           {
-            v12 = 1;
+            v11 = 1;
           }
 
-          if (!v12)
+          if (!v11)
           {
-            v20 = [@"appBackgroundActiveReason." stringByAppendingString:v11];
-            v21 = [v20 stringByAppendingString:@"."];
-            v22 = [v21 stringByAppendingString:v4];
+            v18 = [@"appBackgroundActiveReason." stringByAppendingString:v10];
+            v19 = [v18 stringByAppendingString:@"."];
+            v20 = [v19 stringByAppendingString:v3];
 
-            MEMORY[0x21CEDCD40](v22, 1);
+            MEMORY[0x21CEDCD40](v20, 1);
 LABEL_19:
 
             goto LABEL_20;
@@ -86,13 +85,12 @@ LABEL_19:
 
           if ([MEMORY[0x277D3F180] debugEnabled])
           {
-            v13 = *(a1 + 32);
-            v14 = objc_opt_class();
+            v12 = objc_opt_class();
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
             block[2] = __67__PLAggregateDictionaryService_registerForApplicationNotifications__block_invoke_2;
             block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            block[4] = v14;
+            block[4] = v12;
             if (qword_2811F7008 != -1)
             {
               dispatch_once(&qword_2811F7008, block);
@@ -100,41 +98,38 @@ LABEL_19:
 
             if (byte_2811F6FC7 == 1)
             {
-              v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: reason or bundleid string for application notification is nil for entry %@", v26];
-              v15 = MEMORY[0x277D3F178];
-              v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
-              v17 = [v16 lastPathComponent];
-              v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForApplicationNotifications]_block_invoke"];
-              [v15 logMessage:v22 fromFile:v17 fromFunction:v18 fromLineNumber:577];
+              v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: reason or bundleid string for application notification is nil for entry %@", v22];
+              v13 = MEMORY[0x277D3F178];
+              v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
+              v15 = [v14 lastPathComponent];
+              v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForApplicationNotifications]_block_invoke"];
+              [v13 logMessage:v20 fromFile:v15 fromFunction:v16 fromLineNumber:577];
 
-              v19 = PLLogCommon();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+              v17 = PLLogCommon();
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v33 = v22;
-                _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                v29 = v20;
+                _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
-              v6 = v24;
-              a1 = v25;
+              v5 = v21;
               goto LABEL_19;
             }
           }
 
 LABEL_20:
 
-          ++v10;
+          ++v9;
         }
 
-        while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+        while (v7 != v9);
+        v7 = [v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
-      while (v8);
+      while (v7);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __64__PLAggregateDictionaryService_registerForLocationNotifications__block_invoke(uint64_t a1, void *a2)
@@ -250,7 +245,7 @@ void __64__PLAggregateDictionaryService_registerForLocationNotifications__block_
 
 void __72__PLAggregateDictionaryService_registerForBacklightLatencyNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKey:@"entry"];
   v4 = [v3 objectForKey:@"backlightEnabledTimestamp"];
   [v4 doubleValue];
@@ -262,32 +257,32 @@ void __72__PLAggregateDictionaryService_registerForBacklightLatencyNotifications
 
   if ([*(a1 + 32) firstScreenOnAfterWake] && v9)
   {
-    v34 = v3;
-    v33 = [*(a1 + 32) bucketWakeTime:{objc_msgSend(*(a1 + 32), "abstimeToNanosec:", v6 - v9) / 0xF4240uLL}];
+    v33 = v3;
+    v32 = [*(a1 + 32) bucketWakeTime:{objc_msgSend(*(a1 + 32), "abstimeToNanosec:", v6 - v9) / 0xF4240uLL}];
     v10 = [*(a1 + 32) wakeReasons];
     v11 = [v10 componentsSeparatedByString:@" "];
 
     [*(a1 + 32) setWakeReasonString:@"com.apple.performance.wake_latency.other"];
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v36;
+      v15 = *v35;
 LABEL_5:
       v16 = 0;
       while (1)
       {
-        if (*v36 != v15)
+        if (*v35 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v35 + 1) + 8 * v16);
+        v17 = *(*(&v34 + 1) + 8 * v16);
         v18 = [*(a1 + 32) validReasonsDictionary];
         v19 = [v18 allKeys];
         v20 = [v19 containsObject:v17];
@@ -313,7 +308,7 @@ LABEL_5:
 
         if (v14 == ++v16)
         {
-          v14 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
           if (v14)
           {
             goto LABEL_5;
@@ -326,17 +321,15 @@ LABEL_5:
 
     v28 = *(a1 + 32);
     v29 = [v28 wakeReasonString];
-    [v28 logDuration:v29 asDistribution:v33];
+    [v28 logDuration:v29 asDistribution:v32];
 
     [*(a1 + 32) setFirstScreenOnAfterWake:0];
     v30 = *(a1 + 32);
     v31 = [MEMORY[0x277CCABB0] numberWithDouble:0.0];
     [v30 setCurrentMachWakeTime:v31];
 
-    v3 = v34;
+    v3 = v33;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __63__PLAggregateDictionaryService_registerForBatteryNotifications__block_invoke(uint64_t a1, void *a2)
@@ -368,7 +361,7 @@ void __72__PLAggregateDictionaryService_registerForBacklightLatencyNotifications
 
 void __61__PLAggregateDictionaryService_registerForAudioNotifications__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 objectForKeyedSubscript:@"entry"];
   v7 = [*(a1 + 32) localCache];
@@ -434,13 +427,13 @@ void __61__PLAggregateDictionaryService_registerForAudioNotifications__block_inv
                     if (v30)
                     {
 LABEL_26:
-                      v40 = [v8 objectForKeyedSubscript:@"ActiveRoute"];
-                      [v20 setObject:v40 forKeyedSubscript:@"activeRoute"];
+                      v39 = [v8 objectForKeyedSubscript:@"ActiveRoute"];
+                      [v20 setObject:v39 forKeyedSubscript:@"activeRoute"];
 
-                      v41 = [MEMORY[0x277CCABB0] numberWithDouble:v18];
-                      [v20 setObject:v41 forKeyedSubscript:@"duration"];
+                      v40 = [MEMORY[0x277CCABB0] numberWithDouble:v18];
+                      [v20 setObject:v40 forKeyedSubscript:@"duration"];
 
-                      v34 = v20;
+                      v33 = v20;
                       AnalyticsSendEventLazy();
 
 LABEL_27:
@@ -482,13 +475,12 @@ LABEL_27:
 
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v32 = *(a1 + 32);
-    v33 = objc_opt_class();
+    v32 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __61__PLAggregateDictionaryService_registerForAudioNotifications__block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v33;
+    block[4] = v32;
     if (qword_2811F6FD8 != -1)
     {
       dispatch_once(&qword_2811F6FD8, block);
@@ -496,19 +488,19 @@ LABEL_27:
 
     if (byte_2811F6FC1 == 1)
     {
-      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: PLEntryNotification for %@ triggered but lastEntry returns nil", v5];
-      v35 = MEMORY[0x277D3F178];
-      v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
-      v37 = [v36 lastPathComponent];
-      v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForAudioNotifications]_block_invoke"];
-      [v35 logMessage:v34 fromFile:v37 fromFunction:v38 fromLineNumber:238];
+      v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: PLEntryNotification for %@ triggered but lastEntry returns nil", v5];
+      v34 = MEMORY[0x277D3F178];
+      v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
+      v36 = [v35 lastPathComponent];
+      v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForAudioNotifications]_block_invoke"];
+      [v34 logMessage:v33 fromFile:v36 fromFunction:v37 fromLineNumber:238];
 
-      v39 = PLLogCommon();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+      v38 = PLLogCommon();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v45 = v34;
-        _os_log_debug_impl(&dword_21A4C6000, v39, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v43 = v33;
+        _os_log_debug_impl(&dword_21A4C6000, v38, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       goto LABEL_27;
@@ -516,8 +508,6 @@ LABEL_27:
   }
 
 LABEL_28:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 + (void)load
@@ -529,40 +519,36 @@ LABEL_28:
 
 + (id)entryEventNoneDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"SessionsFile";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"SessionsFile";
   entryEventNoneDefinitionSessionsFile = [self entryEventNoneDefinitionSessionsFile];
-  v7[0] = entryEventNoneDefinitionSessionsFile;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryEventNoneDefinitionSessionsFile;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventNoneDefinitionSessionsFile
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1CF38;
-  v13[1] = MEMORY[0x277CBEC28];
-  v12[2] = *MEMORY[0x277D3F580];
-  v13[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"SessionsFileData";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1CF38;
+  v12[1] = MEMORY[0x277CBEC28];
+  v11[2] = *MEMORY[0x277D3F580];
+  v12[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"SessionsFileData";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v11 = commonTypeDict_StringFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_StringFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
@@ -637,131 +623,129 @@ LABEL_28:
 
 - (void)initValidReasonsDictionary
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v62[2] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   validReasonsDictionary = self->_validReasonsDictionary;
   self->_validReasonsDictionary = dictionary;
 
   v5 = self->_validReasonsDictionary;
-  v62[0] = @"aggdKey";
-  v62[1] = @"isUserEvent";
+  v61[0] = @"aggdKey";
+  v61[1] = @"isUserEvent";
   v6 = MEMORY[0x277CBEC28];
-  v63[0] = @"com.apple.performance.wake_latency.acc";
-  v63[1] = MEMORY[0x277CBEC28];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:2];
+  v62[0] = @"com.apple.performance.wake_latency.acc";
+  v62[1] = MEMORY[0x277CBEC28];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:2];
   [(NSMutableDictionary *)v5 setObject:v7 forKey:@"acc"];
 
   v8 = self->_validReasonsDictionary;
-  v60[0] = @"aggdKey";
-  v60[1] = @"isUserEvent";
-  v61[0] = @"com.apple.performance.wake_latency.baseband";
-  v61[1] = v6;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:2];
+  v59[0] = @"aggdKey";
+  v59[1] = @"isUserEvent";
+  v60[0] = @"com.apple.performance.wake_latency.baseband";
+  v60[1] = v6;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
   [(NSMutableDictionary *)v8 setObject:v9 forKey:@"baseband"];
 
   v10 = self->_validReasonsDictionary;
-  v58[0] = @"aggdKey";
-  v58[1] = @"isUserEvent";
+  v57[0] = @"aggdKey";
+  v57[1] = @"isUserEvent";
   v11 = MEMORY[0x277CBEC38];
-  v59[0] = @"com.apple.performance.wake_latency.bluetooth";
-  v59[1] = MEMORY[0x277CBEC38];
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
+  v58[0] = @"com.apple.performance.wake_latency.bluetooth";
+  v58[1] = MEMORY[0x277CBEC38];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
   [(NSMutableDictionary *)v10 setObject:v12 forKey:@"bluetooth"];
 
   v13 = self->_validReasonsDictionary;
-  v56[0] = @"aggdKey";
-  v56[1] = @"isUserEvent";
-  v57[0] = @"com.apple.performance.wake_latency.halleffect";
-  v57[1] = v11;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
+  v55[0] = @"aggdKey";
+  v55[1] = @"isUserEvent";
+  v56[0] = @"com.apple.performance.wake_latency.halleffect";
+  v56[1] = v11;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
   [(NSMutableDictionary *)v13 setObject:v14 forKey:@"halleffect"];
 
   v15 = self->_validReasonsDictionary;
-  v54[0] = @"aggdKey";
-  v54[1] = @"isUserEvent";
-  v55[0] = @"com.apple.performance.wake_latency.halleffect";
-  v55[1] = v11;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
+  v53[0] = @"aggdKey";
+  v53[1] = @"isUserEvent";
+  v54[0] = @"com.apple.performance.wake_latency.halleffect";
+  v54[1] = v11;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
   [(NSMutableDictionary *)v15 setObject:v16 forKey:@"halleffect1"];
 
   v17 = self->_validReasonsDictionary;
-  v52[0] = @"aggdKey";
-  v52[1] = @"isUserEvent";
-  v53[0] = @"com.apple.performance.wake_latency.halleffect";
-  v53[1] = v11;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
+  v51[0] = @"aggdKey";
+  v51[1] = @"isUserEvent";
+  v52[0] = @"com.apple.performance.wake_latency.halleffect";
+  v52[1] = v11;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
   [(NSMutableDictionary *)v17 setObject:v18 forKey:@"halleffect2"];
 
   v19 = self->_validReasonsDictionary;
-  v50[0] = @"aggdKey";
-  v50[1] = @"isUserEvent";
-  v51[0] = @"com.apple.performance.wake_latency.hold";
-  v51[1] = v11;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
+  v49[0] = @"aggdKey";
+  v49[1] = @"isUserEvent";
+  v50[0] = @"com.apple.performance.wake_latency.hold";
+  v50[1] = v11;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
   [(NSMutableDictionary *)v19 setObject:v20 forKey:@"hold"];
 
   v21 = self->_validReasonsDictionary;
-  v48[0] = @"aggdKey";
-  v48[1] = @"isUserEvent";
-  v49[0] = @"com.apple.performance.wake_latency.menu";
-  v49[1] = v11;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
+  v47[0] = @"aggdKey";
+  v47[1] = @"isUserEvent";
+  v48[0] = @"com.apple.performance.wake_latency.menu";
+  v48[1] = v11;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
   [(NSMutableDictionary *)v21 setObject:v22 forKey:@"menu"];
 
   v23 = self->_validReasonsDictionary;
-  v46[0] = @"aggdKey";
-  v46[1] = @"isUserEvent";
-  v47[0] = @"com.apple.performance.wake_latency.mikey";
-  v47[1] = v11;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+  v45[0] = @"aggdKey";
+  v45[1] = @"isUserEvent";
+  v46[0] = @"com.apple.performance.wake_latency.mikey";
+  v46[1] = v11;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
   [(NSMutableDictionary *)v23 setObject:v24 forKey:@"mikey"];
 
   v25 = self->_validReasonsDictionary;
-  v44[0] = @"aggdKey";
-  v44[1] = @"isUserEvent";
-  v45[0] = @"com.apple.performance.wake_latency.ringer";
-  v45[1] = v11;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
+  v43[0] = @"aggdKey";
+  v43[1] = @"isUserEvent";
+  v44[0] = @"com.apple.performance.wake_latency.ringer";
+  v44[1] = v11;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
   [(NSMutableDictionary *)v25 setObject:v26 forKey:@"ringer"];
 
   v27 = self->_validReasonsDictionary;
-  v42[0] = @"aggdKey";
-  v42[1] = @"isUserEvent";
-  v43[0] = @"com.apple.performance.wake_latency.rtc";
-  v43[1] = v6;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
+  v41[0] = @"aggdKey";
+  v41[1] = @"isUserEvent";
+  v42[0] = @"com.apple.performance.wake_latency.rtc";
+  v42[1] = v6;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
   [(NSMutableDictionary *)v27 setObject:v28 forKey:@"rtc"];
 
   v29 = self->_validReasonsDictionary;
-  v40[0] = @"aggdKey";
-  v40[1] = @"isUserEvent";
-  v41[0] = @"com.apple.performance.wake_latency.stockholm";
-  v41[1] = v11;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
+  v39[0] = @"aggdKey";
+  v39[1] = @"isUserEvent";
+  v40[0] = @"com.apple.performance.wake_latency.stockholm";
+  v40[1] = v11;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
   [(NSMutableDictionary *)v29 setObject:v30 forKey:@"stockholm"];
 
   v31 = self->_validReasonsDictionary;
-  v38[0] = @"aggdKey";
-  v38[1] = @"isUserEvent";
-  v39[0] = @"com.apple.performance.wake_latency.usb";
-  v39[1] = v6;
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v37[0] = @"aggdKey";
+  v37[1] = @"isUserEvent";
+  v38[0] = @"com.apple.performance.wake_latency.usb";
+  v38[1] = v6;
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
   [(NSMutableDictionary *)v31 setObject:v32 forKey:@"usb"];
 
   v33 = self->_validReasonsDictionary;
-  v36[0] = @"aggdKey";
-  v36[1] = @"isUserEvent";
-  v37[0] = @"com.apple.performance.wake_latency.wlan";
-  v37[1] = v6;
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+  v35[0] = @"aggdKey";
+  v35[1] = @"isUserEvent";
+  v36[0] = @"com.apple.performance.wake_latency.wlan";
+  v36[1] = v6;
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
   [(NSMutableDictionary *)v33 setObject:v34 forKey:@"wlan"];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addToDurationScalarKey:(id)key withDuration:(double)duration
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -789,18 +773,16 @@ LABEL_28:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v16 = v7;
+        v15 = v7;
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   MEMORY[0x21CEDCD40](keyCopy, duration);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __68__PLAggregateDictionaryService_addToDurationScalarKey_withDuration___block_invoke(uint64_t a1)
+void *__68__PLAggregateDictionaryService_addToDurationScalarKey_withDuration___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_70 = result;
@@ -823,7 +805,7 @@ uint64_t __68__PLAggregateDictionaryService_addToDurationScalarKey_withDuration_
   [registeredNotifications addObject:{v7, v8, v9, v10, v11, selfCopy}];
 }
 
-uint64_t __61__PLAggregateDictionaryService_registerForAudioNotifications__block_invoke_2(uint64_t a1)
+void *__61__PLAggregateDictionaryService_registerForAudioNotifications__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6FC1 = result;
@@ -899,25 +881,23 @@ void __62__PLAggregateDictionaryService_registerForCameraNotifications__block_in
 
 id __62__PLAggregateDictionaryService_registerForCameraNotifications__block_invoke_2(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"CameraType";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"CameraType";
   v2 = MEMORY[0x277CCABB0];
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"CameraType"];
   v4 = [v2 numberWithInt:{objc_msgSend(v3, "intValue")}];
-  v9[1] = @"StateDuration";
-  v10[0] = v4;
+  v8[1] = @"StateDuration";
+  v9[0] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
 
 void __62__PLAggregateDictionaryService_registerForCameraNotifications__block_invoke_3(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"entry"];
   v4 = [*(a1 + 32) localCache];
   v5 = [v4 objectForKeyedSubscript:*(a1 + 40)];
@@ -938,13 +918,12 @@ void __62__PLAggregateDictionaryService_registerForCameraNotifications__block_in
 
       if ([*(a1 + 32) isDebugEnabled] && objc_msgSend(MEMORY[0x277D3F180], "debugEnabled"))
       {
-        v12 = *(a1 + 32);
-        v13 = objc_opt_class();
+        v12 = objc_opt_class();
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __62__PLAggregateDictionaryService_registerForCameraNotifications__block_invoke_4;
         block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        block[4] = v13;
+        block[4] = v12;
         if (qword_2811F6FE0 != -1)
         {
           dispatch_once(&qword_2811F6FE0, block);
@@ -952,41 +931,39 @@ void __62__PLAggregateDictionaryService_registerForCameraNotifications__block_in
 
         if (byte_2811F6FC2 == 1)
         {
-          v14 = MEMORY[0x277CCACA8];
-          v15 = [v5 objectForKeyedSubscript:@"Level"];
-          v16 = [v14 stringWithFormat:@"LastEntry for Torch:%@ and last Level is %@", v5, v15];
+          v13 = MEMORY[0x277CCACA8];
+          v14 = [v5 objectForKeyedSubscript:@"Level"];
+          v15 = [v13 stringWithFormat:@"LastEntry for Torch:%@ and last Level is %@", v5, v14];
 
-          v17 = MEMORY[0x277D3F178];
-          v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
-          v19 = [v18 lastPathComponent];
-          v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForCameraNotifications]_block_invoke_3"];
-          [v17 logMessage:v16 fromFile:v19 fromFunction:v20 fromLineNumber:323];
+          v16 = MEMORY[0x277D3F178];
+          v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
+          v18 = [v17 lastPathComponent];
+          v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForCameraNotifications]_block_invoke_3"];
+          [v16 logMessage:v15 fromFile:v18 fromFunction:v19 fromLineNumber:323];
 
-          v21 = PLLogCommon();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v20 = PLLogCommon();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v27 = v16;
-            _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            v25 = v15;
+            _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
       }
 
-      v22 = [v5 objectForKeyedSubscript:@"Level"];
-      v23 = [v22 isEqual:&unk_282C13D10];
+      v21 = [v5 objectForKeyedSubscript:@"Level"];
+      v22 = [v21 isEqual:&unk_282C13D10];
 
-      if ((v23 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
         [*(a1 + 32) logDuration:@"com.apple.power.torch.activeDuration" asDistribution:v11];
         AnalyticsSendEventLazy();
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __62__PLAggregateDictionaryService_registerForCameraNotifications__block_invoke_4(uint64_t a1)
+void *__62__PLAggregateDictionaryService_registerForCameraNotifications__block_invoke_4(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6FC2 = result;
@@ -995,13 +972,11 @@ uint64_t __62__PLAggregateDictionaryService_registerForCameraNotifications__bloc
 
 id __62__PLAggregateDictionaryService_registerForCameraNotifications__block_invoke_210(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"StateDuration";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"StateDuration";
   v1 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1279,30 +1254,26 @@ void __65__PLAggregateDictionaryService_registerForBluetoothNotifications__block
 
 id __65__PLAggregateDictionaryService_registerForBluetoothNotifications__block_invoke_2(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[1] = @"duration";
-  v6[0] = @"connected";
-  v5[0] = @"state";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[1] = @"duration";
+  v5[0] = @"connected";
+  v4[0] = @"state";
   v1 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 id __65__PLAggregateDictionaryService_registerForBluetoothNotifications__block_invoke_3(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[1] = @"duration";
-  v6[0] = @"discoverable";
-  v5[0] = @"state";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[1] = @"duration";
+  v5[0] = @"discoverable";
+  v4[0] = @"state";
   v1 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -1350,16 +1321,14 @@ void __61__PLAggregateDictionaryService_registerForVideoNotifications__block_inv
 
 id __61__PLAggregateDictionaryService_registerForVideoNotifications__block_invoke_301(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"BundleId";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"BundleId";
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"clientDisplayID"];
-  v7[1] = @"StateDuration";
-  v8[0] = v2;
+  v6[1] = @"StateDuration";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -1380,35 +1349,34 @@ id __61__PLAggregateDictionaryService_registerForVideoNotifications__block_invok
 
 void __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v3 = [a2 objectForKeyedSubscript:@"entry"];
-  v4 = v3;
-  if (v3)
+  v47 = *MEMORY[0x277D85DE8];
+  v2 = [a2 objectForKeyedSubscript:@"entry"];
+  v3 = v2;
+  if (v2)
   {
-    v5 = [v3 objectForKeyedSubscript:@"account"];
-    if (v5)
+    v4 = [v2 objectForKeyedSubscript:@"account"];
+    if (v4)
     {
-      v6 = v5;
-      v7 = [MEMORY[0x277CCAB50] characterSetWithCharactersInString:@"/"];
-      v8 = [v6 rangeOfCharacterFromSet:v7];
+      v5 = v4;
+      v6 = [MEMORY[0x277CCAB50] characterSetWithCharactersInString:@"/"];
+      v7 = [v5 rangeOfCharacterFromSet:v6];
 
-      if (v8 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v7 == 0x7FFFFFFFFFFFFFFFLL)
       {
         if (![MEMORY[0x277D3F180] debugEnabled])
         {
           goto LABEL_36;
         }
 
-        v9 = *(a1 + 32);
-        v10 = objc_opt_class();
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_329;
-        v49[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v49[4] = v10;
+        v8 = objc_opt_class();
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_329;
+        v43[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v43[4] = v8;
         if (qword_2811F6FF0 != -1)
         {
-          dispatch_once(&qword_2811F6FF0, v49);
+          dispatch_once(&qword_2811F6FF0, v43);
         }
 
         if (byte_2811F6FC4 != 1)
@@ -1416,75 +1384,74 @@ void __60__PLAggregateDictionaryService_registerForMailNotifications__block_invo
           goto LABEL_36;
         }
 
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: mail account type has no slash: %@", v6];
-        v12 = MEMORY[0x277D3F178];
-        v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
-        v14 = [v13 lastPathComponent];
-        v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForMailNotifications]_block_invoke_2"];
-        [v12 logMessage:v11 fromFile:v14 fromFunction:v15 fromLineNumber:519];
+        v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: mail account type has no slash: %@", v5];
+        v10 = MEMORY[0x277D3F178];
+        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
+        v12 = [v11 lastPathComponent];
+        v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForMailNotifications]_block_invoke_2"];
+        [v10 logMessage:v9 fromFile:v12 fromFunction:v13 fromLineNumber:519];
 
-        v16 = PLLogCommon();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v14 = PLLogCommon();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v52 = v11;
-          _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v46 = v9;
+          _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
-        v17 = v6;
+        v15 = v5;
       }
 
       else
       {
-        v17 = [v6 substringToIndex:v8];
+        v15 = [v5 substringToIndex:v7];
 
-        v31 = [v4 objectForKeyedSubscript:@"duration"];
-        v11 = v31;
-        if (v31 && [v31 length])
+        v27 = [v3 objectForKeyedSubscript:@"duration"];
+        v9 = v27;
+        if (v27 && [v27 length])
         {
-          v32 = [v11 substringToIndex:[v11 length]- 1];
+          v28 = [v9 substringToIndex:[v9 length]- 1];
 
-          v33 = MEMORY[0x277CCABB0];
-          [v32 doubleValue];
-          v34 = [v33 numberWithDouble:?];
-          v35 = [@"com.apple.mobilemail." stringByAppendingString:v17];
-          MEMORY[0x21CEDCD40]([v35 stringByAppendingString:@".fetchCount"], 1);
-          v36 = [v35 stringByAppendingString:@".fetchDuration"];
-          [v34 doubleValue];
-          MEMORY[0x21CEDCD40](v36, (v37 * 1000.0));
+          v29 = MEMORY[0x277CCABB0];
+          [v28 doubleValue];
+          v30 = [v29 numberWithDouble:?];
+          v31 = [@"com.apple.mobilemail." stringByAppendingString:v15];
+          MEMORY[0x21CEDCD40]([v31 stringByAppendingString:@".fetchCount"], 1);
+          v32 = [v31 stringByAppendingString:@".fetchDuration"];
+          [v30 doubleValue];
+          MEMORY[0x21CEDCD40](v32, (v33 * 1000.0));
 
-          v11 = v32;
+          v9 = v28;
         }
 
         else if ([MEMORY[0x277D3F180] debugEnabled])
         {
-          v38 = *(a1 + 32);
-          v39 = objc_opt_class();
-          v50[0] = MEMORY[0x277D85DD0];
-          v50[1] = 3221225472;
-          v50[2] = __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_2;
-          v50[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v50[4] = v39;
+          v34 = objc_opt_class();
+          v44[0] = MEMORY[0x277D85DD0];
+          v44[1] = 3221225472;
+          v44[2] = __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_2;
+          v44[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v44[4] = v34;
           if (qword_2811F6FE8 != -1)
           {
-            dispatch_once(&qword_2811F6FE8, v50);
+            dispatch_once(&qword_2811F6FE8, v44);
           }
 
           if (byte_2811F6FC3 == 1)
           {
-            v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: mail fetch durationString is invalid or empty"];
-            v41 = MEMORY[0x277D3F178];
-            v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
-            v43 = [v42 lastPathComponent];
-            v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForMailNotifications]_block_invoke"];
-            [v41 logMessage:v40 fromFile:v43 fromFunction:v44 fromLineNumber:516];
+            v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: mail fetch durationString is invalid or empty"];
+            v36 = MEMORY[0x277D3F178];
+            v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
+            v38 = [v37 lastPathComponent];
+            v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForMailNotifications]_block_invoke"];
+            [v36 logMessage:v35 fromFile:v38 fromFunction:v39 fromLineNumber:516];
 
-            v45 = PLLogCommon();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+            v40 = PLLogCommon();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v52 = v40;
-              _os_log_debug_impl(&dword_21A4C6000, v45, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v46 = v35;
+              _os_log_debug_impl(&dword_21A4C6000, v40, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
         }
@@ -1498,60 +1465,58 @@ void __60__PLAggregateDictionaryService_registerForMailNotifications__block_invo
         goto LABEL_27;
       }
 
-      v24 = *(a1 + 32);
-      v25 = objc_opt_class();
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_336;
-      v48[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v48[4] = v25;
+      v21 = objc_opt_class();
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_336;
+      v42[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v42[4] = v21;
       if (qword_2811F6FF8 != -1)
       {
-        dispatch_once(&qword_2811F6FF8, v48);
+        dispatch_once(&qword_2811F6FF8, v42);
       }
 
       if (byte_2811F6FC5 != 1)
       {
 LABEL_27:
-        v6 = 0;
+        v5 = 0;
 LABEL_36:
 
         goto LABEL_37;
       }
 
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: mail notification account type is nil for entry %@", v4];
-      v26 = MEMORY[0x277D3F178];
-      v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
-      v28 = [v27 lastPathComponent];
-      v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForMailNotifications]_block_invoke_2"];
-      [v26 logMessage:v11 fromFile:v28 fromFunction:v29 fromLineNumber:522];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: mail notification account type is nil for entry %@", v3];
+      v22 = MEMORY[0x277D3F178];
+      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
+      v24 = [v23 lastPathComponent];
+      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForMailNotifications]_block_invoke_2"];
+      [v22 logMessage:v9 fromFile:v24 fromFunction:v25 fromLineNumber:522];
 
-      v30 = PLLogCommon();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v26 = PLLogCommon();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v52 = v11;
-        _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v46 = v9;
+        _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      v17 = 0;
+      v15 = 0;
     }
 
 LABEL_35:
 
-    v6 = v17;
+    v5 = v15;
     goto LABEL_36;
   }
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v18 = *(a1 + 32);
-    v19 = objc_opt_class();
+    v16 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_342;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v19;
+    block[4] = v16;
     if (qword_2811F7000 != -1)
     {
       dispatch_once(&qword_2811F7000, block);
@@ -1559,19 +1524,19 @@ LABEL_35:
 
     if (byte_2811F6FC6 == 1)
     {
-      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: mail notification: thisEntry is invalid! Serious bug in entryNotification system"];
-      v20 = MEMORY[0x277D3F178];
-      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
-      v22 = [v21 lastPathComponent];
-      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForMailNotifications]_block_invoke_2"];
-      [v20 logMessage:v17 fromFile:v22 fromFunction:v23 fromLineNumber:525];
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: mail notification: thisEntry is invalid! Serious bug in entryNotification system"];
+      v17 = MEMORY[0x277D3F178];
+      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
+      v19 = [v18 lastPathComponent];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForMailNotifications]_block_invoke_2"];
+      [v17 logMessage:v15 fromFile:v19 fromFunction:v20 fromLineNumber:525];
 
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v9 = PLLogCommon();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v52 = v17;
-        _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v46 = v15;
+        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       goto LABEL_35;
@@ -1579,32 +1544,30 @@ LABEL_35:
   }
 
 LABEL_37:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_2(uint64_t a1)
+void *__60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6FC3 = result;
   return result;
 }
 
-uint64_t __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_329(uint64_t a1)
+void *__60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_329(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6FC4 = result;
   return result;
 }
 
-uint64_t __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_336(uint64_t a1)
+void *__60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_336(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6FC5 = result;
   return result;
 }
 
-uint64_t __60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_342(uint64_t a1)
+void *__60__PLAggregateDictionaryService_registerForMailNotifications__block_invoke_342(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6FC6 = result;
@@ -1639,51 +1602,45 @@ uint64_t __60__PLAggregateDictionaryService_registerForMailNotifications__block_
 
 void __64__PLAggregateDictionaryService_registerForCalendarNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKeyedSubscript:@"entry"];
-  v4 = [v3 objectForKeyedSubscript:@"NumberOfItemsChanged"];
-  MEMORY[0x21CEDCD40](@"com.apple.power.calendar.numberItemsDownloaded", [v4 unsignedLongValue]);
+  v2 = [a2 objectForKeyedSubscript:@"entry"];
+  v3 = [v2 objectForKeyedSubscript:@"NumberOfItemsChanged"];
+  MEMORY[0x21CEDCD40](@"com.apple.power.calendar.numberItemsDownloaded", [v3 unsignedLongValue]);
   MEMORY[0x21CEDCD40](@"com.apple.power.calendar.syncCount", 1);
-  v5 = *(a1 + 32);
-  v7 = v4;
-  v6 = v4;
+  v5 = v3;
+  v4 = v3;
   AnalyticsSendEventLazy();
 }
 
 id __64__PLAggregateDictionaryService_registerForCalendarNotifications__block_invoke_2(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"numberItemsDownloaded";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"numberItemsDownloaded";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(*(a1 + 32), "unsignedLongValue")}];
-  v5[1] = @"syncCount";
-  v6[0] = v1;
-  v6[1] = &unk_282C13D28;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = @"syncCount";
+  v5[0] = v1;
+  v5[1] = &unk_282C13D28;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 void __64__PLAggregateDictionaryService_registerForCalendarNotifications__block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKeyedSubscript:@"entry"];
-  v4 = [v3 objectForKeyedSubscript:@"NumberOfItemsChanged"];
-  MEMORY[0x21CEDCD40](@"com.apple.power.calendar.numberItemsUploaded", [v4 unsignedLongValue]);
-  v5 = *(a1 + 32);
-  v7 = v4;
-  v6 = v4;
+  v2 = [a2 objectForKeyedSubscript:@"entry"];
+  v3 = [v2 objectForKeyedSubscript:@"NumberOfItemsChanged"];
+  MEMORY[0x21CEDCD40](@"com.apple.power.calendar.numberItemsUploaded", [v3 unsignedLongValue]);
+  v5 = v3;
+  v4 = v3;
   AnalyticsSendEventLazy();
 }
 
 id __64__PLAggregateDictionaryService_registerForCalendarNotifications__block_invoke_4(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"numberItemsUploaded";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"numberItemsUploaded";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(*(a1 + 32), "unsignedLongValue")}];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1702,7 +1659,7 @@ id __64__PLAggregateDictionaryService_registerForCalendarNotifications__block_in
   [registeredNotifications addObject:v6];
 }
 
-uint64_t __67__PLAggregateDictionaryService_registerForApplicationNotifications__block_invoke_2(uint64_t a1)
+void *__67__PLAggregateDictionaryService_registerForApplicationNotifications__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6FC7 = result;
@@ -1776,7 +1733,7 @@ uint64_t __67__PLAggregateDictionaryService_registerForApplicationNotifications_
 
 void __70__PLAggregateDictionaryService_registerForSCDynamicStoreNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"entry"];
   v4 = [*(a1 + 32) localCache];
   v5 = [v4 objectForKeyedSubscript:*(a1 + 40)];
@@ -1839,13 +1796,12 @@ void __70__PLAggregateDictionaryService_registerForSCDynamicStoreNotifications__
 LABEL_10:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v19 = *(a1 + 32);
-    v20 = objc_opt_class();
+    v19 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __70__PLAggregateDictionaryService_registerForSCDynamicStoreNotifications__block_invoke_483;
-    v31 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v32 = v20;
+    v27 = 3221225472;
+    v28 = __70__PLAggregateDictionaryService_registerForSCDynamicStoreNotifications__block_invoke_483;
+    v29 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v30 = v19;
     if (qword_2811F7010 != -1)
     {
       dispatch_once(&qword_2811F7010, &block);
@@ -1853,29 +1809,27 @@ LABEL_10:
 
     if (byte_2811F6FC8 == 1)
     {
-      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Entry for SCDS: %@", v3, block, v29, v30, v31, v32];
-      v22 = MEMORY[0x277D3F178];
-      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
-      v24 = [v23 lastPathComponent];
-      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForSCDynamicStoreNotifications]_block_invoke_2"];
-      [v22 logMessage:v21 fromFile:v24 fromFunction:v25 fromLineNumber:693];
+      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Entry for SCDS: %@", v3, block, v27, v28, v29, v30];
+      v21 = MEMORY[0x277D3F178];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
+      v23 = [v22 lastPathComponent];
+      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForSCDynamicStoreNotifications]_block_invoke_2"];
+      [v21 logMessage:v20 fromFile:v23 fromFunction:v24 fromLineNumber:693];
 
-      v26 = PLLogCommon();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v25 = PLLogCommon();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v34 = v21;
-        _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v32 = v20;
+        _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
 LABEL_17:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __70__PLAggregateDictionaryService_registerForSCDynamicStoreNotifications__block_invoke_483(uint64_t a1)
+void *__70__PLAggregateDictionaryService_registerForSCDynamicStoreNotifications__block_invoke_483(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6FC8 = result;
@@ -1950,22 +1904,21 @@ void __70__PLAggregateDictionaryService_registerForSCDynamicStoreNotifications__
 
 void __62__PLAggregateDictionaryService_registerForSafariNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = [a2 objectForKeyedSubscript:@"entry"];
-  v4 = [v3 objectForKeyedSubscript:@"FetcherState"];
-  v5 = [v4 isEqualToString:@"start"];
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = [a2 objectForKeyedSubscript:@"entry"];
+  v3 = [v2 objectForKeyedSubscript:@"FetcherState"];
+  v4 = [v3 isEqualToString:@"start"];
 
-  if (v5)
+  if (v4)
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v6 = *(a1 + 32);
-      v7 = objc_opt_class();
+      v5 = objc_opt_class();
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __62__PLAggregateDictionaryService_registerForSafariNotifications__block_invoke_2;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v7;
+      block[4] = v5;
       if (qword_2811F7018 != -1)
       {
         dispatch_once(&qword_2811F7018, block);
@@ -1973,30 +1926,28 @@ void __62__PLAggregateDictionaryService_registerForSafariNotifications__block_in
 
       if (byte_2811F6FC9 == 1)
       {
-        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"adding to safari fetcher state"];
-        v9 = MEMORY[0x277D3F178];
-        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
-        v11 = [v10 lastPathComponent];
-        v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForSafariNotifications]_block_invoke"];
-        [v9 logMessage:v8 fromFile:v11 fromFunction:v12 fromLineNumber:725];
+        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"adding to safari fetcher state"];
+        v7 = MEMORY[0x277D3F178];
+        v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateDictionaryService.m"];
+        v9 = [v8 lastPathComponent];
+        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateDictionaryService registerForSafariNotifications]_block_invoke"];
+        [v7 logMessage:v6 fromFile:v9 fromFunction:v10 fromLineNumber:725];
 
-        v13 = PLLogCommon();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v11 = PLLogCommon();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v17 = v8;
-          _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v14 = v6;
+          _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
     MEMORY[0x21CEDCD40](@"com.apple.safari.reading_list_items.count", 1);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __62__PLAggregateDictionaryService_registerForSafariNotifications__block_invoke_2(uint64_t a1)
+void *__62__PLAggregateDictionaryService_registerForSafariNotifications__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6FC9 = result;
@@ -2087,21 +2038,21 @@ uint64_t __62__PLAggregateDictionaryService_registerForSafariNotifications__bloc
   [entryDate timeIntervalSince1970];
   v13 = v12;
 
-  [(PLAggregateDictionaryService *)self last_state];
-  if (v33 == -1)
+  objc_msgSend_last_state(self);
+  if (v32[0] == -1)
   {
     goto LABEL_18;
   }
 
-  [(PLAggregateDictionaryService *)self last_state];
-  v14 = v28 - v10;
-  __y = v28 - v10;
-  [(PLAggregateDictionaryService *)self last_state];
-  v15 = v13 - v26;
-  v27 = v13 - v26;
-  [(PLAggregateDictionaryService *)self last_state];
-  [(PLAggregateDictionaryService *)self last_state];
-  if (!v24 && !longValue)
+  objc_msgSend_last_state(self);
+  v14 = v27 - v10;
+  __y = v27 - v10;
+  objc_msgSend_last_state(self);
+  v15 = v13 - v25;
+  v26 = v13 - v25;
+  objc_msgSend_last_state(self);
+  objc_msgSend_last_state(self);
+  if (!v24[0] && !longValue)
   {
     if (fabs(v14) <= 1.0)
     {
@@ -2124,7 +2075,7 @@ LABEL_9:
     longValue2 = [v18 longValue];
 
     self->remainderUnpluggedEnergy = modf(v14 / 100.0 * longValue2, &__y) + self->remainderUnpluggedEnergy;
-    remainderUnpluggedTime = modf(v15, &v27) + self->remainderUnpluggedTime;
+    remainderUnpluggedTime = modf(v15, &v26) + self->remainderUnpluggedTime;
     self->remainderUnpluggedTime = remainderUnpluggedTime;
     v23 = 0.0;
     if (fabs(self->remainderUnpluggedEnergy) > 1.0)
@@ -2134,7 +2085,7 @@ LABEL_9:
       remainderUnpluggedTime = self->remainderUnpluggedTime;
     }
 
-    v21 = v27;
+    v21 = v26;
     if (fabs(remainderUnpluggedTime) > 1.0)
     {
       self->remainderUnpluggedTime = modf(remainderUnpluggedTime, &v23);
@@ -2147,7 +2098,7 @@ LABEL_9:
     goto LABEL_18;
   }
 
-  if (!v25 && longValue)
+  if (!v24[6] && longValue)
   {
     MEMORY[0x21CEDCD40](@"com.apple.power.state.t_unplugged.count", 1);
     AnalyticsSendEventLazy();
@@ -2155,30 +2106,28 @@ LABEL_9:
   }
 
 LABEL_17:
-  [(PLAggregateDictionaryService *)self last_state];
+  objc_msgSend_last_state(self);
   if (v22 == 1)
   {
 LABEL_18:
-    v30[0] = v7;
-    v30[1] = 0;
-    v31 = v10;
-    v32 = v13;
-    [(PLAggregateDictionaryService *)self setLast_state:v30];
+    v29[0] = v7;
+    v29[1] = 0;
+    v30 = v10;
+    v31 = v13;
+    [(PLAggregateDictionaryService *)self setLast_state:v29];
   }
 }
 
 id __62__PLAggregateDictionaryService_updateAggregateStateWithEntry___block_invoke_2(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"Energy";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"Energy";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v7[1] = @"Duration";
-  v8[0] = v2;
+  v6[1] = @"Duration";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }

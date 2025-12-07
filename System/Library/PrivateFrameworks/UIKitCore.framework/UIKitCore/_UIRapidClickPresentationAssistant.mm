@@ -54,8 +54,8 @@
     keyboardAssertionInvalidationHandler = [(_UIRapidClickPresentationAssistant *)self keyboardAssertionInvalidationHandler];
     if (keyboardAssertionInvalidationHandler)
     {
-      presentation = [(_UIRapidClickPresentationAssistant *)self presentation];
-      v7 = (keyboardAssertionInvalidationHandler)[2](keyboardAssertionInvalidationHandler, firstResponder, presentation);
+      v6 = objc_msgSend_presentation(self);
+      v7 = (keyboardAssertionInvalidationHandler)[2](keyboardAssertionInvalidationHandler, firstResponder, v6);
 
       if ((v7 & 1) == 0)
       {
@@ -69,15 +69,15 @@
 {
   completionCopy = completion;
   previewCopy = preview;
-  presentation = [(_UIRapidClickPresentationAssistant *)self presentation];
-  viewController = [presentation viewController];
+  v8 = objc_msgSend_presentation(self);
+  viewController = [v8 viewController];
   [viewController _setOverrideUseCustomPresentation:1];
   [viewController _setOverrideTransitioningDelegate:self];
   [(_UIRapidClickPresentationAssistant *)self setSourcePreview:previewCopy];
 
   [(_UIRapidClickPresentationAssistant *)self setLifecycleCompletion:completionCopy];
   _isDelayingPresentation = [viewController _isDelayingPresentation];
-  presentationController = [presentation presentationController];
+  presentationController = [v8 presentationController];
   presentingViewController = [presentationController presentingViewController];
 
   v17 = MEMORY[0x1E69E9820];
@@ -113,15 +113,15 @@
 
 - (void)_performPresentationAnimationsFromViewController:(id)controller
 {
-  presentation = [(_UIRapidClickPresentationAssistant *)self presentation];
-  if ([presentation suppressInputViewDuringPresentation])
+  v4 = objc_msgSend_presentation(self, a2, controller);
+  if ([v4 suppressInputViewDuringPresentation])
   {
     v5 = +[UIKeyboardSceneDelegate automaticKeyboardArbiterClient];
     v6 = [v5 vendKeyboardSuppressionAssertionForReason:@"com.apple.UIKit._UIRapidClickPresentationAssistant" type:1];
     [(_UIRapidClickPresentationAssistant *)self setKeyboardSuppressionAssertion:v6];
   }
 
-  appearanceTransition = [presentation appearanceTransition];
+  appearanceTransition = [v4 appearanceTransition];
   if (objc_opt_respondsToSelector())
   {
     sourcePreview = [(_UIRapidClickPresentationAssistant *)self sourcePreview];
@@ -133,7 +133,7 @@
   v19[1] = 3221225472;
   v19[2] = __87___UIRapidClickPresentationAssistant__performPresentationAnimationsFromViewController___block_invoke;
   v19[3] = &unk_1E70F3590;
-  v9 = presentation;
+  v9 = v4;
   v20 = v9;
   [UIView performWithoutAnimation:v19];
   customViewForTouchContinuation = [v9 customViewForTouchContinuation];
@@ -164,8 +164,8 @@
 {
   actionsCopy = actions;
   completionCopy = completion;
-  presentation = [(_UIRapidClickPresentationAssistant *)self presentation];
-  presentationController = [presentation presentationController];
+  v10 = objc_msgSend_presentation(self);
+  presentationController = [v10 presentationController];
   dismissing = [presentationController dismissing];
 
   if ((dismissing & 1) == 0 && self->_didBeginPresentation)
@@ -194,13 +194,13 @@
 {
   actionsCopy = actions;
   completionCopy = completion;
-  presentation = [(_UIRapidClickPresentationAssistant *)self presentation];
-  uiController = [presentation uiController];
-  viewController = [presentation viewController];
-  presentationController = [presentation presentationController];
+  v9 = objc_msgSend_presentation(self);
+  uiController = [v9 uiController];
+  viewController = [v9 viewController];
+  presentationController = [v9 presentationController];
   containerView = [presentationController containerView];
 
-  disappearanceTransition = [presentation disappearanceTransition];
+  disappearanceTransition = [v9 disappearanceTransition];
   if (objc_opt_respondsToSelector())
   {
     sourcePreview = [(_UIRapidClickPresentationAssistant *)self sourcePreview];
@@ -235,15 +235,15 @@
   v42 = 0;
   v27 = uiController;
   platterContainerView = [uiController platterContainerView];
-  presentation2 = [(_UIRapidClickPresentationAssistant *)self presentation];
-  viewController2 = [presentation2 viewController];
+  v17 = objc_msgSend_presentation(self);
+  viewController2 = [v17 viewController];
   presentingViewController = [viewController2 presentingViewController];
 
   v39[0] = MEMORY[0x1E69E9820];
   v39[1] = 3221225472;
   v39[2] = __85___UIRapidClickPresentationAssistant__animateDismissalWithReason_actions_completion___block_invoke_23;
   v39[3] = &unk_1E70F3590;
-  v20 = presentation;
+  v20 = v9;
   v40 = v20;
   [UIView performWithoutAnimation:v39];
   if (actionsCopy)
@@ -293,14 +293,14 @@
 {
   actionsCopy = actions;
   completionCopy = completion;
-  presentation = [(_UIRapidClickPresentationAssistant *)self presentation];
-  viewController = [presentation viewController];
-  uiController = [presentation uiController];
+  v9 = objc_msgSend_presentation(self);
+  viewController = [v9 viewController];
+  uiController = [v9 uiController];
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
   v18[2] = __89___UIRapidClickPresentationAssistant__nonAnimatedDismissalWithReason_actions_completion___block_invoke;
   v18[3] = &unk_1E70F3590;
-  v12 = presentation;
+  v12 = v9;
   v19 = v12;
   [UIView performWithoutAnimation:v18];
   platterContainerView = [uiController platterContainerView];
@@ -334,8 +334,8 @@
 {
   controllerCopy = controller;
   viewControllerCopy = viewController;
-  presentation = [(_UIRapidClickPresentationAssistant *)self presentation];
-  presentationController = [presentation presentationController];
+  v9 = objc_msgSend_presentation(self);
+  presentationController = [v9 presentationController];
 
   if (!presentationController)
   {

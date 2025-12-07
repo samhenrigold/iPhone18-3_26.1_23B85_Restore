@@ -73,7 +73,7 @@
 
     else
     {
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 335, 3, @"Error fetching the me card: %@", v19, v20, v21, v22, v18);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 335, 3u, @"Error fetching the me card: %@", v19, v20, v21, v22, v18);
     }
 
     _Block_object_dispose(&v27, 8);
@@ -144,10 +144,10 @@
     v14[2](v14, onlyCopy);
     if ((v35[3] & 1) == 0)
     {
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 295, 3, @"Error completing contact: %@", v15, v16, v17, v18, v39[5]);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 295, 3u, @"Error completing contact: %@", v15, v16, v17, v18, v39[5]);
       if ([objc_opt_class() isErrorPossiblyRelatedToExtraStores:v39[5]])
       {
-        _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 297, 3, @"Will re-fetch from main store", v19, v20, v21, v22, v25);
+        _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 297, 3u, @"Will re-fetch from main store", v19, v20, v21, v22, v25);
         v14[2](v14, 1);
       }
     }
@@ -199,7 +199,7 @@ void __102__CNUIFamilyMemberDowntimeContactDataSource_completeContactFromContact
 
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 289, 3, @"Error completing contact: %@", v13, v14, v15, v16, *(*(*(a1 + 64) + 8) + 40));
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 289, 3u, @"Error completing contact: %@", v13, v14, v15, v16, *(*(*(a1 + 64) + 8) + 40));
   }
 }
 
@@ -211,7 +211,7 @@ void __102__CNUIFamilyMemberDowntimeContactDataSource_completeContactFromContact
   v11 = (v10 + 40);
   if (v12)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 282, 3, @"Error: got more than one contact instead of a unified one", v6, v7, v8, v9, v15);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 282, 3u, @"Error: got more than one contact instead of a unified one", v6, v7, v8, v9, v15);
     v13 = *(*(a1 + 32) + 8);
     v14 = *(v13 + 40);
     *(v13 + 40) = 0;
@@ -422,7 +422,7 @@ void __85__CNUIFamilyMemberDowntimeContactDataSource_postProcessForFamilyMembers
     {
       if (v10)
       {
-        _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 203, 4, @"Non fatal error during contacts fetching: %@", v11, v12, v13, v14, v10);
+        _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 203, 4u, @"Non fatal error during contacts fetching: %@", v11, v12, v13, v14, v10);
       }
 
       [(CNUIFamilyMemberDowntimeContactDataSource *)self postProcessForFamilyMembersWithContacts:v8];
@@ -430,7 +430,7 @@ void __85__CNUIFamilyMemberDowntimeContactDataSource_postProcessForFamilyMembers
 
     else
     {
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 207, 3, @"Error fetching contacts: %@", v11, v12, v13, v14, v10);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIFamilyMemberDowntimeContactDataSource.m", 207, 3u, @"Error fetching contacts: %@", v11, v12, v13, v14, v10);
     }
   }
 }

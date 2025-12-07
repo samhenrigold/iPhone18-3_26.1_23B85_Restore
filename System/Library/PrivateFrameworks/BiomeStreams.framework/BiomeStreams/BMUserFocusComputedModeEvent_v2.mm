@@ -48,7 +48,7 @@
       v5 = __biome_log_for_category();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        [BMUserFocusComputedModeEvent initWithProto:];
+        [BMUserFocusComputedModeEvent initWithProto:?];
       }
 
       selfCopy = 0;

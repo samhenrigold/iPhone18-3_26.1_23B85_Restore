@@ -1,13 +1,14 @@
-void ***MakeDYMTLAccelerationStructureBoundingBoxGeometryDescriptor(void ***result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t *MakeDYMTLAccelerationStructureBoundingBoxGeometryDescriptor(uint64_t *result, uint64_t *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   v7 = *result;
-  v8 = *(*result)++;
-  v9 = v7[1];
-  *result = v7 + 2;
-  v10 = v7[2];
-  *result = v7 + 3;
-  v11 = v7[3];
-  *result = v7 + 4;
+  v8 = **result;
+  *result += 8;
+  v9 = *(v7 + 8);
+  *result = v7 + 16;
+  v10 = *(v7 + 16);
+  *result = v7 + 24;
+  v11 = *(v7 + 24);
+  *result = v7 + 32;
   if (a5)
   {
     if (a6)
@@ -407,12 +408,13 @@ void *SaveDYMTLAccelerationStructureCurveGeometryDescriptor(void *a1, uint64_t *
   return result;
 }
 
-void ***MakeDYMTLMotionKeyframeData(void ***result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t *MakeDYMTLMotionKeyframeData(uint64_t *result, uint64_t *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   v7 = *result;
-  v8 = *(*result)++;
-  v9 = v7[1];
-  *result = v7 + 2;
+  v8 = **result;
+  *result += 8;
+  v9 = *(v7 + 8);
+  *result = v7 + 16;
   if (a5)
   {
     if (a6)
@@ -489,17 +491,17 @@ uint64_t **MakeDYMTLAccelerationStructureMotionTriangleGeometryDescriptor(uint64
     v30 = 0;
   }
 
-  *v10 = v11 + 1;
+  *v10 = (v11 + 1);
   v16 = v11[1];
-  *v10 = v11 + 2;
+  *v10 = (v11 + 2);
   v17 = v11[2];
-  *v10 = v11 + 3;
+  *v10 = (v11 + 3);
   v18 = v11[3];
-  *v10 = v11 + 4;
+  *v10 = (v11 + 4);
   v19 = *(v11 + 32);
-  *v10 = v11 + 5;
+  *v10 = (v11 + 5);
   v20 = v11[5];
-  *v10 = v11 + 6;
+  *v10 = (v11 + 6);
   if (v8 <= 0x3B)
   {
     v23 = 0;
@@ -515,11 +517,11 @@ uint64_t **MakeDYMTLAccelerationStructureMotionTriangleGeometryDescriptor(uint64
   else
   {
     v21 = *(v11 + 48);
-    *v10 = v11 + 7;
+    *v10 = (v11 + 7);
     v22 = v11[7];
-    *v10 = v11 + 8;
+    *v10 = (v11 + 8);
     v23 = v11[8];
-    *v10 = v11 + 9;
+    *v10 = (v11 + 9);
     if (v8 < 0x4E)
     {
       v24 = 0;
@@ -532,7 +534,7 @@ uint64_t **MakeDYMTLAccelerationStructureMotionTriangleGeometryDescriptor(uint64
     else
     {
       v24 = *(v11 + 72);
-      *v10 = v11 + 10;
+      *v10 = (v11 + 10);
       if (!a5)
       {
         return result;
@@ -940,14 +942,15 @@ uint64_t SaveDYMTLAccelerationStructureTriangleGeometryDescriptor(void *a1, uint
   return result;
 }
 
-void ***MakeDYMTLBlitPassSampleBufferAttachmentDescriptor(void ***result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t *MakeDYMTLBlitPassSampleBufferAttachmentDescriptor(uint64_t *result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   v7 = *result;
-  v8 = *(*result)++;
-  v9 = v7[1];
-  *result = v7 + 2;
-  v10 = v7[2];
-  *result = v7 + 3;
+  v8 = **result;
+  *result += 8;
+  v9 = *(v7 + 8);
+  *result = v7 + 16;
+  v10 = *(v7 + 16);
+  *result = v7 + 24;
   if (a5)
   {
     if (a6)
@@ -1023,14 +1026,15 @@ void *SaveDYMTLBlitPassSampleBufferAttachmentDescriptor(void *a1, void *a2, uint
   return result;
 }
 
-void ***MakeDYMTLComputePassSampleBufferAttachmentDescriptor(void ***result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t *MakeDYMTLComputePassSampleBufferAttachmentDescriptor(uint64_t *result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   v7 = *result;
-  v8 = *(*result)++;
-  v9 = v7[1];
-  *result = v7 + 2;
-  v10 = v7[2];
-  *result = v7 + 3;
+  v8 = **result;
+  *result += 8;
+  v9 = *(v7 + 8);
+  *result = v7 + 16;
+  v10 = *(v7 + 16);
+  *result = v7 + 24;
   if (a5)
   {
     if (a6)
@@ -1106,14 +1110,15 @@ void *SaveDYMTLComputePassSampleBufferAttachmentDescriptor(void *a1, void *a2, u
   return result;
 }
 
-void ***MakeDYMTLResourceStatePassSampleBufferAttachmentDescriptor(void ***result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t *MakeDYMTLResourceStatePassSampleBufferAttachmentDescriptor(uint64_t *result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   v7 = *result;
-  v8 = *(*result)++;
-  v9 = v7[1];
-  *result = v7 + 2;
-  v10 = v7[2];
-  *result = v7 + 3;
+  v8 = **result;
+  *result += 8;
+  v9 = *(v7 + 8);
+  *result = v7 + 16;
+  v10 = *(v7 + 16);
+  *result = v7 + 24;
   if (a5)
   {
     if (a6)
@@ -1189,14 +1194,15 @@ void *SaveDYMTLResourceStatePassSampleBufferAttachmentDescriptor(void *a1, void 
   return result;
 }
 
-void ***MakeDYMTLAccelerationStructurePassSampleBufferAttachmentDescriptor(void ***result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t *MakeDYMTLAccelerationStructurePassSampleBufferAttachmentDescriptor(uint64_t *result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   v7 = *result;
-  v8 = *(*result)++;
-  v9 = v7[1];
-  *result = v7 + 2;
-  v10 = v7[2];
-  *result = v7 + 3;
+  v8 = **result;
+  *result += 8;
+  v9 = *(v7 + 8);
+  *result = v7 + 16;
+  v10 = *(v7 + 16);
+  *result = v7 + 24;
   if (a5)
   {
     if (a6)
@@ -1846,13 +1852,13 @@ uint64_t EncodeDYMTLAccelerationStructureAllocationDescriptor(uint64_t a1, void 
   return 32;
 }
 
-size_t DecodeDYMTLResidencySetDescriptor(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+const char *DecodeDYMTLResidencySetDescriptor(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 {
   v8 = *(a1 + 24);
-  result = a1 + 24;
+  result = (a1 + 24);
   v7 = v8;
-  v9 = *(result - 16);
-  v10 = *(result - 8);
+  v9 = *(result - 2);
+  v10 = *(result - 1);
   if (v8)
   {
     v11 = result;
@@ -1868,7 +1874,7 @@ size_t DecodeDYMTLResidencySetDescriptor(uint64_t a1, uint64_t a2, uint64_t a3, 
     result = strlen(v11);
     v12 = (a3 + 592);
     v13 = *(a3 + 592);
-    v14 = result + 1;
+    v14 = (result + 1);
     if (result != -1)
     {
       v15 = *(a3 + 592);
@@ -2225,10 +2231,10 @@ size_t MakeDYMTL4LibraryFunctionDescriptor(uint64_t **a1, uint64_t *a2, uint64_t
 {
   v11 = *a1;
   v12 = **a1;
-  v13 = (*a1 + 1);
+  v13 = *a1 + 1;
   *a1 = v13;
   result = strlen(v13);
-  *a1 = &v13[(result & 0xFFFFFFFFFFFFFFF8) + 8];
+  *a1 = (v13 + (result & 0xFFFFFFFFFFFFFFF8) + 8);
   if (*(v11 + 8))
   {
     v15 = v13;
@@ -2374,7 +2380,7 @@ uint64_t *DecodeDYMTL4CompilerTaskOptions(uint64_t *result, uint64_t a2, uint64_
   return result;
 }
 
-uint64_t EncodeDYMTL4CompilerTaskOptions(void *a1, void *a2, unint64_t a3, uint64_t a4)
+unint64_t EncodeDYMTL4CompilerTaskOptions(void *a1, void *a2, unint64_t a3, uint64_t a4)
 {
   if (a3 > 7)
   {
@@ -3371,41 +3377,40 @@ uint64_t EncodeDYMTL4CommandQueueDescriptor(uint64_t a1, void *a2, unint64_t a3)
   return result;
 }
 
-__n128 MakeDYMTL4IndirectInstanceAccelerationStructureDescriptor(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+__n128 MakeDYMTL4IndirectInstanceAccelerationStructureDescriptor(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   v5 = *a1;
-  v6 = *a1 + 16;
-  v7 = *a1 + 24;
-  v8 = **a1;
-  *a1 += 8;
+  v6 = (*a1 + 2);
+  v7 = (*a1 + 3);
+  v8 = *(*a1)++;
   v9 = v5[1];
   *a1 = v6;
   v10 = v5[2];
   *a1 = v7;
   v11 = v5[3];
-  *a1 = (v5 + 4);
+  *a1 = v5 + 4;
   v12 = v5[4];
-  *a1 = (v5 + 5);
+  *a1 = v5 + 5;
   v13 = v5[5];
-  *a1 = (v5 + 6);
+  *a1 = v5 + 6;
   v14 = v5[6];
-  *a1 = (v5 + 7);
+  *a1 = v5 + 7;
   v15 = v5[7];
-  *a1 = (v5 + 8);
+  *a1 = v5 + 8;
   v16 = v5[8];
-  *a1 = (v5 + 9);
+  *a1 = v5 + 9;
   v17 = v5[9];
-  *a1 = (v5 + 10);
+  *a1 = v5 + 10;
   v18 = v5[10];
-  *a1 = (v5 + 11);
+  *a1 = v5 + 11;
   v19 = v5[11];
-  *a1 = (v5 + 12);
+  *a1 = v5 + 12;
   v20 = v5[12];
-  *a1 = (v5 + 13);
+  *a1 = v5 + 13;
   v21 = v5[13];
-  *a1 = (v5 + 14);
+  *a1 = v5 + 14;
   v22 = v5[14];
-  *a1 = (v5 + 15);
+  *a1 = v5 + 15;
   if (a5)
   {
     *&v23 = v8;
@@ -4201,7 +4206,7 @@ size_t MakeDYMTL4SpecializedFunctionDescriptor(const char **a1, void *a2, void *
   }
 
   v17 = a3[58];
-  a3[58] = v17 + 32;
+  a3[58] = v17 + 2;
   MakeDYMTL4FunctionDescriptor(a1, v17, a3, a4, a5, a6);
   v18 = *a1;
   result = strlen(*a1);
@@ -4354,10 +4359,10 @@ void SaveDYMTL4FunctionDescriptor(void *a1, uint64_t *a2, uint64_t a3)
   }
 }
 
-size_t DecodeDYMTL4CommandAllocatorDescriptor(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+const char *DecodeDYMTL4CommandAllocatorDescriptor(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 {
   v8 = *(a1 + 8);
-  result = a1 + 8;
+  result = (a1 + 8);
   v7 = v8;
   if (v8)
   {
@@ -4374,7 +4379,7 @@ size_t DecodeDYMTL4CommandAllocatorDescriptor(uint64_t a1, uint64_t a2, uint64_t
     result = strlen(v9);
     v10 = (a3 + 592);
     v11 = *(a3 + 592);
-    v12 = result + 1;
+    v12 = (result + 1);
     if (result != -1)
     {
       v13 = *(a3 + 592);
@@ -4422,19 +4427,18 @@ uint64_t EncodeDYMTL4CommandAllocatorDescriptor(const char **a1, void *a2, unint
   return v5;
 }
 
-__n128 MakeDYMTL4AccelerationStructureBoundingBoxGeometryDescriptor(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+__n128 MakeDYMTL4AccelerationStructureBoundingBoxGeometryDescriptor(unint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   v5 = *a1;
-  v6 = *a1 + 16;
-  v7 = *a1 + 24;
-  v8 = **a1;
-  *a1 += 8;
+  v6 = (*a1 + 2);
+  v7 = (*a1 + 3);
+  v8 = *(*a1)++;
   v9 = v5[1];
   *a1 = v6;
   v10 = v5[2];
   *a1 = v7;
   v11 = v5[3];
-  *a1 = (v5 + 4);
+  *a1 = v5 + 4;
   if (a5)
   {
     result.n128_u64[0] = v8;
@@ -4716,19 +4720,18 @@ void *SaveDYMTL4AccelerationStructureCurveGeometryDescriptor(void *result, uint6
   return result;
 }
 
-__n128 MakeDYMTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+__n128 MakeDYMTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor(unint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   v5 = *a1;
-  v6 = *a1 + 16;
-  v7 = *a1 + 24;
-  v8 = **a1;
-  *a1 += 8;
+  v6 = (*a1 + 2);
+  v7 = (*a1 + 3);
+  v8 = *(*a1)++;
   v9 = v5[1];
   *a1 = v6;
   v10 = v5[2];
   *a1 = v7;
   v11 = v5[3];
-  *a1 = (v5 + 4);
+  *a1 = v5 + 4;
   if (a5)
   {
     result.n128_u64[0] = v8;
@@ -5384,36 +5387,36 @@ uint64_t **MakeDYMTLRenderPassColorAttachmentDescriptor(uint64_t **result, uint6
   v8 = *result;
   v9 = *(*result)++;
   v10 = *(v8 + 8);
-  *result = v8 + 2;
+  *result = (v8 + 16);
   v11 = *(v8 + 16);
-  *result = v8 + 3;
+  *result = (v8 + 24);
   v12 = *(v8 + 24);
-  *result = v8 + 4;
-  v13 = v8[4];
-  *result = v8 + 5;
+  *result = (v8 + 32);
+  v13 = *(v8 + 32);
+  *result = (v8 + 40);
   v14 = *(v8 + 40);
-  *result = v8 + 6;
+  *result = (v8 + 48);
   v15 = *(v8 + 48);
-  *result = v8 + 7;
-  v16 = *(v8 + 28);
-  *result = v8 + 8;
+  *result = (v8 + 56);
+  v16 = *(v8 + 56);
+  *result = (v8 + 64);
   v17 = *(v8 + 64);
-  *result = v8 + 9;
+  *result = (v8 + 72);
   v18 = *(v8 + 72);
-  *result = v8 + 10;
-  v19 = v8 + 11;
+  *result = (v8 + 80);
+  v19 = (v8 + 88);
   if (a4 <= 0x12)
   {
     v20 = 0;
     v23 = 0;
-    *&v21 = v8[10];
+    *&v21 = *(v8 + 80);
     *result = v19;
     *(&v21 + 1) = *v19;
-    *result = v8 + 12;
-    *&v22 = v8[12];
-    *result = v8 + 13;
-    *(&v22 + 1) = v8[13];
-    *result = v8 + 14;
+    *result = (v8 + 96);
+    *&v22 = *(v8 + 96);
+    *result = (v8 + 104);
+    *(&v22 + 1) = *(v8 + 104);
+    *result = (v8 + 112);
     if (!a5)
     {
       return result;
@@ -5424,14 +5427,14 @@ uint64_t **MakeDYMTLRenderPassColorAttachmentDescriptor(uint64_t **result, uint6
   {
     v20 = *(v8 + 80);
     *result = v19;
-    *&v21 = v8[11];
-    *result = v8 + 12;
-    *(&v21 + 1) = v8[12];
-    *result = v8 + 13;
-    *&v22 = v8[13];
-    *result = v8 + 14;
-    *(&v22 + 1) = v8[14];
-    *result = v8 + 15;
+    *&v21 = *(v8 + 88);
+    *result = (v8 + 96);
+    *(&v21 + 1) = *(v8 + 96);
+    *result = (v8 + 104);
+    *&v22 = *(v8 + 104);
+    *result = (v8 + 112);
+    *(&v22 + 1) = *(v8 + 112);
+    *result = (v8 + 120);
     if (a4 < 0x27)
     {
       v23 = 0;
@@ -5444,7 +5447,7 @@ uint64_t **MakeDYMTLRenderPassColorAttachmentDescriptor(uint64_t **result, uint6
     else
     {
       v23 = *(v8 + 120);
-      *result = v8 + 16;
+      *result = (v8 + 128);
       if (!a5)
       {
         return result;
@@ -5707,30 +5710,30 @@ uint64_t **MakeDYMTLRenderPassDepthAttachmentDescriptor(uint64_t **result, uint6
   v8 = *result;
   v9 = *(*result)++;
   v10 = *(v8 + 8);
-  *result = v8 + 2;
+  *result = (v8 + 16);
   v11 = *(v8 + 16);
-  *result = v8 + 3;
+  *result = (v8 + 24);
   v12 = *(v8 + 24);
-  *result = v8 + 4;
-  v13 = v8[4];
-  *result = v8 + 5;
+  *result = (v8 + 32);
+  v13 = *(v8 + 32);
+  *result = (v8 + 40);
   v14 = *(v8 + 40);
-  *result = v8 + 6;
-  v15 = *(v8 + 24);
-  *result = v8 + 7;
-  v16 = *(v8 + 28);
-  *result = v8 + 8;
+  *result = (v8 + 48);
+  v15 = *(v8 + 48);
+  *result = (v8 + 56);
+  v16 = *(v8 + 56);
+  *result = (v8 + 64);
   v17 = *(v8 + 64);
-  *result = v8 + 9;
+  *result = (v8 + 72);
   v18 = *(v8 + 72);
-  *result = v8 + 10;
+  *result = (v8 + 80);
   if (a4 >= 0x13)
   {
     v19 = *(v8 + 80);
-    *result = v8 + 11;
-    v20 = v8[11];
-    v21 = v8 + 15;
-    *result = v8 + 15;
+    *result = (v8 + 88);
+    v20 = *(v8 + 88);
+    v21 = (v8 + 120);
+    *result = (v8 + 120);
     if (a4 < 0x27)
     {
       v22 = 0;
@@ -5738,9 +5741,9 @@ uint64_t **MakeDYMTLRenderPassDepthAttachmentDescriptor(uint64_t **result, uint6
 
     else
     {
-      v21 = v8 + 16;
+      v21 = (v8 + 128);
       v22 = *(v8 + 120);
-      *result = v8 + 16;
+      *result = (v8 + 128);
     }
 
     goto LABEL_8;
@@ -5749,9 +5752,9 @@ uint64_t **MakeDYMTLRenderPassDepthAttachmentDescriptor(uint64_t **result, uint6
   v22 = 0;
   v19 = 0;
   v23 = 0;
-  v20 = v8[10];
-  v21 = v8 + 14;
-  *result = v8 + 14;
+  v20 = *(v8 + 80);
+  v21 = (v8 + 112);
+  *result = (v8 + 112);
   if (a4 >= 5)
   {
 LABEL_8:
@@ -6005,29 +6008,29 @@ uint64_t **MakeDYMTLRenderPassStencilAttachmentDescriptor(uint64_t **result, uin
   v8 = *result;
   v9 = *(*result)++;
   v10 = *(v8 + 8);
-  *result = v8 + 2;
+  *result = (v8 + 16);
   v11 = *(v8 + 16);
-  *result = v8 + 3;
+  *result = (v8 + 24);
   v12 = *(v8 + 24);
-  *result = v8 + 4;
-  v13 = v8[4];
-  *result = v8 + 5;
+  *result = (v8 + 32);
+  v13 = *(v8 + 32);
+  *result = (v8 + 40);
   v14 = *(v8 + 40);
-  *result = v8 + 6;
+  *result = (v8 + 48);
   v15 = *(v8 + 48);
-  *result = v8 + 7;
+  *result = (v8 + 56);
   v16 = *(v8 + 56);
-  *result = v8 + 8;
+  *result = (v8 + 64);
   v17 = *(v8 + 64);
-  *result = v8 + 9;
+  *result = (v8 + 72);
   v18 = *(v8 + 72);
-  *result = v8 + 10;
+  *result = (v8 + 80);
   if (a4 <= 0x12)
   {
     v19 = 0;
     v21 = 0;
-    v20 = *(v8 + 10);
-    *result = v8 + 14;
+    v20 = *(v8 + 80);
+    *result = (v8 + 112);
     if (!a5)
     {
       return result;
@@ -6037,9 +6040,9 @@ uint64_t **MakeDYMTLRenderPassStencilAttachmentDescriptor(uint64_t **result, uin
   else
   {
     v19 = *(v8 + 80);
-    *result = v8 + 11;
-    v20 = *(v8 + 11);
-    *result = v8 + 15;
+    *result = (v8 + 88);
+    v20 = *(v8 + 88);
+    *result = (v8 + 120);
     if (a4 < 0x27)
     {
       v21 = 0;
@@ -6052,7 +6055,7 @@ uint64_t **MakeDYMTLRenderPassStencilAttachmentDescriptor(uint64_t **result, uin
     else
     {
       v21 = *(v8 + 120);
-      *result = v8 + 16;
+      *result = (v8 + 128);
       if (!a5)
       {
         return result;
@@ -7874,11 +7877,11 @@ uint64_t **MakeDYMTLAccelerationStructureMotionBoundingBoxGeometryDescriptor(uin
     v13 = 0;
   }
 
-  *v8 = v9 + 1;
+  *v8 = (v9 + 1);
   v16 = v9[1];
-  *v8 = v9 + 2;
+  *v8 = (v9 + 2);
   v17 = v9[2];
-  *v8 = v9 + 3;
+  *v8 = (v9 + 3);
   if (a5)
   {
     *a2 = v13;
@@ -7977,7 +7980,7 @@ uint64_t **MakeDYMTLAccelerationStructureMotionCurveGeometryDescriptor(uint64_t 
   }
 
   v16 = *v11;
-  v14 = v11 + 1;
+  v14 = (v11 + 1);
   v15 = v16;
   *v10 = v14;
   if (v16)
@@ -8002,31 +8005,31 @@ uint64_t **MakeDYMTLAccelerationStructureMotionCurveGeometryDescriptor(uint64_t 
   }
 
   v19 = *v14;
-  *v10 = v14 + 1;
-  v20 = v14[1];
-  *v10 = v14 + 2;
-  v21 = v14[2];
-  *v10 = v14 + 3;
-  v22 = v14[3];
-  *v10 = v14 + 4;
-  v23 = v14[4];
-  *v10 = v14 + 5;
-  v24 = v14[5];
-  *v10 = v14 + 6;
-  v25 = *(v14 + 48);
-  *v10 = v14 + 7;
-  v26 = *(v14 + 56);
   *v10 = v14 + 8;
+  v20 = *(v14 + 8);
+  *v10 = v14 + 16;
+  v21 = *(v14 + 16);
+  *v10 = v14 + 24;
+  v22 = *(v14 + 24);
+  *v10 = v14 + 32;
+  v23 = *(v14 + 32);
+  *v10 = v14 + 40;
+  v24 = *(v14 + 40);
+  *v10 = v14 + 48;
+  v25 = *(v14 + 48);
+  *v10 = v14 + 56;
+  v26 = *(v14 + 56);
+  *v10 = v14 + 64;
   v27 = *(v14 + 64);
-  *v10 = v14 + 9;
-  v28 = v14[9];
-  *v10 = v14 + 10;
+  *v10 = v14 + 72;
+  v28 = *(v14 + 72);
+  *v10 = v14 + 80;
   v29 = *(v14 + 80);
-  *v10 = v14 + 11;
+  *v10 = v14 + 88;
   v30 = *(v14 + 88);
-  *v10 = v14 + 12;
+  *v10 = v14 + 96;
   v31 = *(v14 + 96);
-  *v10 = v14 + 13;
+  *v10 = v14 + 104;
   if (a5)
   {
     if (a6)
@@ -9106,7 +9109,7 @@ void SaveDYMTL4AccelerationStructureGeometryDescriptor(void *a1, uint64_t a2)
   }
 }
 
-void *DecodeDYMTLRenderPassDescriptor(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t **DecodeDYMTLRenderPassDescriptor(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
 {
   v40[1] = a2;
   memcpy(__dst, &GTMTLRenderPassDescriptorDefaults, sizeof(__dst));

@@ -834,55 +834,53 @@ void __57__PDFHostViewController__setupExtensionInterruptionBlock__block_invoke_
   [(PDFHostViewController *)self updateAutoScaleFactor];
   WeakRetained = objc_loadWeakRetained(&self->_private->hostScrollView);
   [WeakRetained setZoomScale:self->_private->minScaleFactor];
-  [WeakRetained setContentOffset:{PDFPointMake(-self->_private->contentInset.left, -self->_private->contentInset.top)}];
+  PDFPointMake();
+  [WeakRetained setContentOffset:?];
 }
 
 - (void)updateDocumentViewSize
 {
   WeakRetained = objc_loadWeakRetained(&self->_private->hostScrollView);
   [WeakRetained zoomScale];
-  v4 = v3;
   [(PDFHostViewController *)self _documentViewSize];
+  [(PDFHostViewController *)self _pdfViewSafeAreaInsets];
+  PDFSizeMake();
+  v4 = v3;
   v6 = v5;
+  PDFRectMake();
   v8 = v7;
-  _pdfViewSafeAreaInsets = [(PDFHostViewController *)self _pdfViewSafeAreaInsets];
-  v14 = PDFSizeMake(_pdfViewSafeAreaInsets, v11 + v10 + v6 * v4, v13 + v12 + v8 * v4);
-  v16 = v15;
-  v17.n128_u64[0] = 0;
-  v18.n128_u64[0] = 0;
-  v19 = PDFRectMake(v17, v18, v14, v16);
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
   view = [(PDFHostViewController *)self view];
   [view frame];
-  v46.origin.x = v27;
-  v46.origin.y = v28;
-  v46.size.width = v29;
-  v46.size.height = v30;
-  v45.origin.x = v19;
-  v45.origin.y = v21;
-  v45.size.width = v23;
-  v45.size.height = v25;
-  v31 = PDFRectEqualToRect(v45, v46);
+  v35.origin.x = v16;
+  v35.origin.y = v17;
+  v35.size.width = v18;
+  v35.size.height = v19;
+  v34.origin.x = v8;
+  v34.origin.y = v10;
+  v34.size.width = v12;
+  v34.size.height = v14;
+  v20 = PDFRectEqualToRect(v34, v35);
 
-  if (!v31)
+  if (!v20)
   {
     view2 = [(PDFHostViewController *)self view];
-    [view2 setFrame:{v19, v21, v23, v25}];
+    [view2 setFrame:{v8, v10, v12, v14}];
   }
 
   [WeakRetained contentSize];
-  if (v14 != v34 || v16 != v33)
+  if (v4 != v23 || v6 != v22)
   {
     [WeakRetained contentOffset];
-    v37 = v36;
-    v39 = v38;
-    [WeakRetained setContentSize:{v14, v16}];
+    v26 = v25;
+    v28 = v27;
+    [WeakRetained setContentSize:{v4, v6}];
     [WeakRetained contentOffset];
-    if (v37 != v41 || v39 != v40)
+    if (v26 != v30 || v28 != v29)
     {
-      [WeakRetained setContentOffset:{v37, v39}];
+      [WeakRetained setContentOffset:{v26, v28}];
     }
   }
 }
@@ -1130,33 +1128,34 @@ void __57__PDFHostViewController__setupExtensionInterruptionBlock__block_invoke_
   [view2 frame];
   v20 = v19;
   [WeakRetained bounds];
-  v22 = CGFloatClamp(v16, v17, v20 - v21);
+  CGFloatClamp(v16, v17, v20 - v21);
 
-  v23 = v12 - v14;
-  v24 = -self->_private->contentInset.top;
+  v22 = v12 - v14;
+  v23 = -self->_private->contentInset.top;
   view3 = [(PDFHostViewController *)self view];
   [view3 frame];
-  v27 = v26;
+  v26 = v25;
   [WeakRetained bounds];
-  v29 = CGFloatClamp(v23, v24, v27 - v28);
+  CGFloatClamp(v22, v23, v26 - v27);
 
-  [WeakRetained setContentOffset:{PDFPointMake(v22, v29)}];
-  v30 = objc_loadWeakRetained(&self->_private->hostViewControllerDelegate);
-  if (v30 && (objc_opt_respondsToSelector() & 1) != 0)
+  PDFPointMake();
+  [WeakRetained setContentOffset:?];
+  v28 = objc_loadWeakRetained(&self->_private->hostViewControllerDelegate);
+  if (v28 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     [WeakRetained bounds];
+    v30 = v29;
     v32 = v31;
     v34 = v33;
     v36 = v35;
-    v38 = v37;
     view4 = [(PDFHostViewController *)self view];
-    [WeakRetained convertRect:view4 toView:{v32, v34, v36, v38}];
+    [WeakRetained convertRect:view4 toView:{v30, v32, v34, v36}];
+    v39 = v38;
     v41 = v40;
     v43 = v42;
     v45 = v44;
-    v47 = v46;
 
-    [v30 pdfHostViewController:self goToPageIndex:destination withViewFrustum:{v41, v43, v45, v47}];
+    [v28 pdfHostViewController:self goToPageIndex:destination withViewFrustum:{v39, v41, v43, v45}];
   }
 }
 
@@ -1713,15 +1712,16 @@ LABEL_19:
   [WeakRetained contentInset];
   v25 = PDFRectScale(v21, v22, v23, v24, 1.0 / v16);
   v27 = v26;
-  v30 = CGFloatClamp(self->_private->documentViewCenter.x - v18 * 0.5 - v28, -v28, v8 - v18 - v28 - v29);
-  v31 = CGFloatClamp(self->_private->documentViewCenter.y - v20 * 0.5 - v25, -v25, v10 - v20 - v25 - v27);
-  [WeakRetained setContentOffset:animatedCopy animated:{PDFPointMake(v16 * v30, v16 * v31)}];
-  v32 = self->_private;
+  CGFloatClamp(self->_private->documentViewCenter.x - v18 * 0.5 - v28, -v28, v8 - v18 - v28 - v29);
+  CGFloatClamp(self->_private->documentViewCenter.y - v20 * 0.5 - v25, -v25, v10 - v20 - v25 - v27);
+  PDFPointMake();
+  [WeakRetained setContentOffset:animatedCopy animated:?];
+  v30 = self->_private;
   [WeakRetained frame];
-  v32->scrollViewFrame.origin.x = v33;
-  v32->scrollViewFrame.origin.y = v34;
-  v32->scrollViewFrame.size.width = v35;
-  v32->scrollViewFrame.size.height = v36;
+  v30->scrollViewFrame.origin.x = v31;
+  v30->scrollViewFrame.origin.y = v32;
+  v30->scrollViewFrame.size.width = v33;
+  v30->scrollViewFrame.size.height = v34;
   self->_private->pdfViewIsRotating = 0;
   self->_private->pdfViewNeedsUpdate = update;
   [(PDFHostViewController *)self updatePDFViewLayout];
@@ -1747,15 +1747,16 @@ LABEL_19:
   v17 = v16;
   v18 = PDFRectScale(self->_private->contentInset.top, self->_private->contentInset.left, self->_private->contentInset.bottom, self->_private->contentInset.right, 1.0 / v13);
   v20 = v19;
-  v23 = CGFloatClamp(self->_private->documentViewCenter.x - v15 * 0.5 - v21, -v21, v5 - v15 - v21 - v22);
-  v24 = CGFloatClamp(self->_private->documentViewCenter.y - v17 * 0.5 - v18, -v18, v7 - v17 - v18 - v20);
-  [WeakRetained setContentOffset:{PDFPointMake(v13 * v23, v13 * v24)}];
-  v25 = self->_private;
+  CGFloatClamp(self->_private->documentViewCenter.x - v15 * 0.5 - v21, -v21, v5 - v15 - v21 - v22);
+  CGFloatClamp(self->_private->documentViewCenter.y - v17 * 0.5 - v18, -v18, v7 - v17 - v18 - v20);
+  PDFPointMake();
+  [WeakRetained setContentOffset:?];
+  v23 = self->_private;
   [WeakRetained frame];
-  v25->scrollViewFrame.origin.x = v26;
-  v25->scrollViewFrame.origin.y = v27;
-  v25->scrollViewFrame.size.width = v28;
-  v25->scrollViewFrame.size.height = v29;
+  v23->scrollViewFrame.origin.x = v24;
+  v23->scrollViewFrame.origin.y = v25;
+  v23->scrollViewFrame.size.width = v26;
+  v23->scrollViewFrame.size.height = v27;
   self->_private->pdfViewIsRotating = 0;
   [(PDFHostViewController *)self updatePDFViewLayout];
 }

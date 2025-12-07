@@ -16,7 +16,7 @@
   v8 = v7;
   if (v7)
   {
-    [v7 indexPath];
+    objc_msgSend_indexPath(v7);
     v9 = identifier;
     v10 = v27 == 0x7FFFFFFFFFFFFFFFLL;
   }

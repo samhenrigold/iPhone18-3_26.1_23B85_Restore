@@ -29,15 +29,13 @@
 
 - (id)description
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
-  v9.receiver = self;
-  v9.super_class = _BlastDoorASCodableInviteResponse;
-  v4 = [(_BlastDoorASCodableInviteResponse *)&v9 description];
+  v8.receiver = self;
+  v8.super_class = _BlastDoorASCodableInviteResponse;
+  v4 = [(_BlastDoorASCodableInviteResponse *)&v8 description];
   dictionaryRepresentation = [(_BlastDoorASCodableInviteResponse *)self dictionaryRepresentation];
   v6 = [v3 stringWithFormat:@"%@ %@", v4, dictionaryRepresentation];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -96,49 +94,47 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_handshakeToken)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    responseCode = self->_responseCode;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_inviteeCloudKitAddress)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_inviteeShareLocations)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_inviteeBuildNumber)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    inviteeVersion = self->_inviteeVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_activityDataPreview)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -244,7 +240,6 @@
     }
   }
 
-  v6 = *(equalCopy + 56);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_responseCode != *(equalCopy + 13))
@@ -256,7 +251,7 @@
   else if ((*(equalCopy + 56) & 2) != 0)
   {
 LABEL_22:
-    v12 = 0;
+    v10 = 0;
     goto LABEL_23;
   }
 
@@ -284,7 +279,6 @@ LABEL_22:
     }
   }
 
-  v10 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_inviteeVersion != *(equalCopy + 12))
@@ -301,17 +295,17 @@ LABEL_22:
   activityDataPreview = self->_activityDataPreview;
   if (activityDataPreview | *(equalCopy + 1))
   {
-    v12 = [(_BlastDoorASCodableActivityDataPreview *)activityDataPreview isEqual:?];
+    v10 = [(_BlastDoorASCodableActivityDataPreview *)activityDataPreview isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_23:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

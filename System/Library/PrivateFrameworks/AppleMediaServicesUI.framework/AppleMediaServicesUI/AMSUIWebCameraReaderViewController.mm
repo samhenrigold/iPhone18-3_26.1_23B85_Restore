@@ -40,6 +40,9 @@
 - (void)loadView;
 - (void)textFieldDidBeginEditing:(id)editing;
 - (void)textFieldDidEndEditing:(id)editing;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)willPresentPageModel:(id)model appearance:(id)appearance;
 @end
@@ -93,9 +96,73 @@
   [(AMSUIWebCameraReaderViewController *)self _layoutPage];
 }
 
-void __52__AMSUIWebCameraReaderViewController_viewDidAppear___block_invoke(uint64_t a1, char a2)
+- (void)viewWillAppear:(BOOL)appear
 {
   v18 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = AMSUIWebCameraReaderViewController;
+  [(AMSUIWebCameraReaderViewController *)&v13 viewWillAppear:appear];
+  mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!mEMORY[0x1E698C968])
+  {
+    mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+  }
+
+  oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = objc_opt_class();
+    context = [(AMSUIWebCameraReaderViewController *)self context];
+    logKey = [context logKey];
+    *buf = 138543618;
+    v15 = v6;
+    v16 = 2114;
+    v17 = logKey;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@: [%{public}@] Presenting camera reader", buf, 0x16u);
+  }
+
+  _cameraReader = [(AMSUIWebCameraReaderViewController *)self _cameraReader];
+
+  if (!_cameraReader)
+  {
+    mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+    if (!mEMORY[0x1E698C968]2)
+    {
+      mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedConfig];
+    }
+
+    oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    {
+      v12 = objc_opt_class();
+      *buf = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_INFO, "%{public}@: setting up camera session", buf, 0xCu);
+    }
+
+    [(AMSUIWebCameraReaderViewController *)self _setupCameraReader];
+  }
+
+  [(AMSUIWebCameraReaderViewController *)self _applyAppearance];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = AMSUIWebCameraReaderViewController;
+  [(AMSUIWebCameraReaderViewController *)&v6 viewDidAppear:appear];
+  v4 = *MEMORY[0x1E6987608];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __52__AMSUIWebCameraReaderViewController_viewDidAppear___block_invoke;
+  v5[3] = &unk_1E7F25888;
+  v5[4] = self;
+  [MEMORY[0x1E69870A0] requestAccessForMediaType:v4 completionHandler:v5];
+}
+
+void __52__AMSUIWebCameraReaderViewController_viewDidAppear___block_invoke(uint64_t a1, char a2)
+{
+  v16 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     block[0] = MEMORY[0x1E69E9820];
@@ -117,28 +184,25 @@ void __52__AMSUIWebCameraReaderViewController_viewDidAppear___block_invoke(uint6
     v4 = [v3 OSLogObject];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
-      v6 = objc_opt_class();
-      v7 = [*(a1 + 32) context];
-      v8 = [v7 logKey];
+      v5 = objc_opt_class();
+      v6 = [*(a1 + 32) context];
+      v7 = [v6 logKey];
       *buf = 138543618;
-      v15 = v6;
-      v16 = 2114;
-      v17 = v8;
+      v13 = v5;
+      v14 = 2114;
+      v15 = v7;
       _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] denied camera access", buf, 0x16u);
     }
 
-    v9 = [*(a1 + 32) context];
-    v10 = [v9 dataProvider];
-    v11 = [v10 postEvent:@"VideoAuthorizationDenied" options:MEMORY[0x1E695E0F8]];
+    v8 = [*(a1 + 32) context];
+    v9 = [v8 dataProvider];
+    v10 = [v9 postEvent:@"VideoAuthorizationDenied" options:MEMORY[0x1E695E0F8]];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __52__AMSUIWebCameraReaderViewController_viewDidAppear___block_invoke_35(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v2)
   {
@@ -148,21 +212,83 @@ void __52__AMSUIWebCameraReaderViewController_viewDidAppear___block_invoke_35(ui
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = [*(a1 + 32) context];
-    v7 = [v6 logKey];
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_INFO, "%{public}@: [%{public}@] starting camera session", &v10, 0x16u);
+    v4 = objc_opt_class();
+    v5 = [*(a1 + 32) context];
+    v6 = [v5 logKey];
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_INFO, "%{public}@: [%{public}@] starting camera session", &v8, 0x16u);
   }
 
-  v8 = [*(a1 + 32) _cameraReader];
-  [v8 start];
+  v7 = [*(a1 + 32) _cameraReader];
+  [v7 start];
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v22 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = AMSUIWebCameraReaderViewController;
+  [(AMSUIWebCameraReaderViewController *)&v17 viewDidDisappear:disappear];
+  mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!mEMORY[0x1E698C968])
+  {
+    mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+  }
+
+  oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = objc_opt_class();
+    *buf = 138543362;
+    v19 = v6;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@: evaluating camera session teardown", buf, 0xCu);
+  }
+
+  model = [(AMSUIWebCameraReaderViewController *)self model];
+  if ([model prefersSessionTeardown])
+  {
+  }
+
+  else
+  {
+    context = [(AMSUIWebCameraReaderViewController *)self context];
+    reducedMemoryMode = [context reducedMemoryMode];
+
+    if (!reducedMemoryMode)
+    {
+      return;
+    }
+  }
+
+  mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!mEMORY[0x1E698C968]2)
+  {
+    mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedConfig];
+  }
+
+  oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v12 = objc_opt_class();
+    context2 = [(AMSUIWebCameraReaderViewController *)self context];
+    logKey = [context2 logKey];
+    *buf = 138543618;
+    v19 = v12;
+    v20 = 2114;
+    v21 = logKey;
+    _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_INFO, "%{public}@: [%{public}@] cancelling camera session", buf, 0x16u);
+  }
+
+  _cameraReader = [(AMSUIWebCameraReaderViewController *)self _cameraReader];
+  [_cameraReader cancel];
+
+  _cameraReader2 = [(AMSUIWebCameraReaderViewController *)self _cameraReader];
+  [_cameraReader2 ams_removeFromParentViewController];
+
+  [(AMSUIWebCameraReaderViewController *)self setChildController:0];
 }
 
 - (void)_setChild:(id)child
@@ -328,22 +454,22 @@ void __52__AMSUIWebCameraReaderViewController_viewDidAppear___block_invoke_35(ui
 
 - (id)_makeTextFieldWithPlaceholderColor:(id)color
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   colorCopy = color;
   v5 = [MEMORY[0x1E69DB878] systemFontOfSize:16.0];
   v6 = *MEMORY[0x1E69DB648];
-  v20[0] = v5;
+  v19[0] = v5;
   v7 = *MEMORY[0x1E69DB650];
-  v19[0] = v6;
-  v19[1] = v7;
+  v18[0] = v6;
+  v18[1] = v7;
   v8 = colorCopy;
   if (!colorCopy)
   {
     v8 = [MEMORY[0x1E69DC888] colorWithWhite:0.7 alpha:1.0];
   }
 
-  v20[1] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v19[1] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
   if (!colorCopy)
   {
   }
@@ -369,8 +495,6 @@ void __52__AMSUIWebCameraReaderViewController_viewDidAppear___block_invoke_35(ui
   [(AMSUIWebCameraTextField *)v16 setAutocapitalizationType:3];
   [(AMSUIWebCameraTextField *)v16 setFont:v5];
   [(AMSUIWebCameraTextField *)v16 setAttributedPlaceholder:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -613,19 +737,19 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
 
 - (id)_outputForCreditCardReaderObjects:(id)objects
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = objectsCopy;
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
+    v7 = *v29;
     v8 = *MEMORY[0x1E6999000];
     v9 = *MEMORY[0x1E6998FF0];
     v10 = *MEMORY[0x1E6998FF8];
@@ -633,12 +757,12 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         type = [v12 type];
         v14 = [type isEqual:v8];
 
@@ -678,36 +802,32 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v6);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)_setupPageForCreditCard
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   if ([objc_opt_class() cameraSupported])
   {
     v3 = objc_alloc_init(MEMORY[0x1E6999018]);
     [v3 setHidePlacementText:1];
     [v3 setDelegate:self];
     v4 = *MEMORY[0x1E6998FF0];
-    v7[0] = *MEMORY[0x1E6999000];
-    v7[1] = v4;
-    v7[2] = *MEMORY[0x1E6998FF8];
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
+    v6[0] = *MEMORY[0x1E6999000];
+    v6[1] = v4;
+    v6[2] = *MEMORY[0x1E6998FF8];
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
     [v3 setOutputObjectTypes:v5];
 
     [(AMSUIWebCameraReaderViewController *)self _setChild:v3];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupPageForGiftCard
@@ -763,50 +883,48 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
 
 - (void)_setupPageForIDCard
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   if ([objc_opt_class() cameraSupported])
   {
     v3 = objc_alloc_init(MEMORY[0x1E6999018]);
     [v3 setHidePlacementText:1];
     [v3 setDelegate:self];
     v4 = *MEMORY[0x1E6999008];
-    v7[0] = *MEMORY[0x1E6999010];
-    v7[1] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+    v6[0] = *MEMORY[0x1E6999010];
+    v6[1] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
     [v3 setOutputObjectTypes:v5];
 
     [(AMSUIWebCameraReaderViewController *)self _setChild:v3];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_outputForIDCardReaderObjects:(id)objects
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = objectsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     v9 = *MEMORY[0x1E6999010];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         type = [v11 type];
         v13 = [type isEqual:v9];
 
@@ -835,13 +953,11 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -897,7 +1013,7 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
 
 - (void)_handleCameraOutput:(id)output error:(id)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   outputCopy = output;
   errorCopy = error;
   v8 = [outputCopy count];
@@ -920,21 +1036,21 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v26 = objc_opt_class();
-    v27 = 2114;
-    v28 = v11;
+    v25 = objc_opt_class();
+    v26 = 2114;
+    v27 = v11;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Sending event", buf, 0x16u);
   }
 
-  v23[0] = @"output";
+  v22[0] = @"output";
   null = outputCopy;
   if (!outputCopy)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = @"error";
-  v24[0] = null;
+  v22[1] = @"error";
+  v23[0] = null;
   v15 = AMSUIWebJSError(errorCopy);
   null2 = v15;
   if (!v15)
@@ -942,8 +1058,8 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[1] = null2;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v23[1] = null2;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
   if (!v15)
   {
   }
@@ -957,13 +1073,11 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
   context2 = [(AMSUIWebCameraReaderViewController *)self context];
   dataProvider = [context2 dataProvider];
   v21 = [dataProvider runJSRequest:v18];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)willPresentPageModel:(id)model appearance:(id)appearance
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   appearanceCopy = appearance;
   v8 = modelCopy;
@@ -998,17 +1112,15 @@ void __60__AMSUIWebCameraReaderViewController__setCameraToggleButton__block_invo
       v12 = objc_opt_class();
       context = [(AMSUIWebCameraReaderViewController *)self context];
       logKey = [context logKey];
-      v16 = 138543874;
-      v17 = v12;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2114;
-      v21 = v8;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid camera page model: %{public}@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v12;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2114;
+      v20 = v8;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid camera page model: %{public}@", &v15, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cameraReaderDidCancel:(id)cancel

@@ -2437,7 +2437,7 @@ LABEL_19:
   if (v11.var0 == 0xFFFF || (*&v11.var0 & 0xFF0000) == 0xFF0000 || !var1 || (*&range & 0xFFFF00000000) == 0)
   {
     rangeCopy = 0x100000000;
-    v57 = 1;
+    v58 = 1;
   }
 
   else
@@ -2448,12 +2448,12 @@ LABEL_19:
     }
 
     rangeCopy = range;
-    v57 = var1;
+    v58 = var1;
     d = v11;
   }
 
   dCopy2 = d;
-  v60 = dCopy;
+  v61 = dCopy;
   if (cell)
   {
     v15 = *(cell + 9);
@@ -2481,9 +2481,9 @@ LABEL_13:
 
   v18 = 0;
 LABEL_15:
-  v65 = v17;
+  v66 = v17;
   v19 = TSTTableTextStyleForCellWithEmptyStyleAtCellID([(TSTMasterLayout *)self tableModel], v17, 0);
-  v64 = 0;
+  v65 = 0;
   if (v18)
   {
     v20 = v18;
@@ -2497,12 +2497,12 @@ LABEL_15:
   if (range.var0.var0 != 0xFFFF && (*&range & 0xFF0000) != 0xFF0000)
   {
     v22 = (*&range & 0xFFFF00000000) != 0 && var1 != 0;
-    v64 = v22;
+    v65 = v22;
   }
 
-  v55 = v15;
-  v54 = *&range & 0xFF0000;
-  v62 = v19;
+  v56 = v15;
+  v55 = *&range & 0xFF0000;
+  v63 = v19;
   if (v15 == 3 || v15 == 9)
   {
     if (!cell)
@@ -2514,8 +2514,8 @@ LABEL_15:
   else if (!*(cell + 25) || *(cell + 26) != 266)
   {
     v25 = 0;
-    v63 = 0;
-    v61 = 0;
+    v64 = 0;
+    v62 = 0;
     goto LABEL_42;
   }
 
@@ -2527,17 +2527,17 @@ LABEL_15:
   }
 
 LABEL_31:
-  v24 = -[__CFString rangeOfCharacterFromSet:](TSTTableStringForCellAtCellID(-[TSTMasterLayout tableModel](self, "tableModel"), cell, v65), "rangeOfCharacterFromSet:", [MEMORY[0x277CCA900] newlineCharacterSet]) != 0x7FFFFFFFFFFFFFFFLL;
+  v24 = -[__CFString rangeOfCharacterFromSet:](TSTTableStringForCellAtCellID(-[TSTMasterLayout tableModel](self, "tableModel"), cell, v66), "rangeOfCharacterFromSet:", [MEMORY[0x277CCA900] newlineCharacterSet]) != 0x7FFFFFFFFFFFFFFFLL;
 LABEL_36:
-  v61 = v24;
+  v62 = v24;
   if (v16)
   {
-    v63 = ([v16 intValueForProperty:896] & 0x7FFFFFFF) != 0;
+    v64 = ([v16 intValueForProperty:896] & 0x7FFFFFFF) != 0;
   }
 
   else
   {
-    v63 = 0;
+    v64 = 0;
   }
 
   if (self->mContainedTextEditor)
@@ -2551,7 +2551,7 @@ LABEL_36:
   }
 
 LABEL_42:
-  v59 = var1;
+  v60 = var1;
   if (v20 && [v20 isVariation])
   {
     [v20 overrideCGFloatValueForProperty:17];
@@ -2590,80 +2590,80 @@ LABEL_42:
   [(TSTMasterLayout *)self edgeInsetsFromPadding:v35];
   v37 = v36;
   v39 = v38;
-  [(TSTMasterLayout *)self defaultPaddingForCellID:v65];
+  [(TSTMasterLayout *)self defaultPaddingForCellID:v66];
   v40 = v37 + v39;
   v43 = v41 + v42;
-  if ((v63 | v61 | v25))
+  if ((v64 | v62 | v25))
   {
     v44 = 1;
   }
 
   else
   {
-    v44 = (v55 == 9) | v33;
+    v44 = (v56 == 9) | v33;
   }
 
-  if (v32 || v34 || v20 != v62 || v40 != v43) && v64 && *&range >> 49 != 0 || (v44)
+  if (v32 || v34 || v20 != v63 || v40 != v43) && v65 && *&range >> 49 != 0 || (v44)
   {
-    v49 = [v16 intValueForProperty:903];
-    if (v64)
+    v50 = [v16 intValueForProperty:903];
+    if (v65)
     {
-      v50 = *&rangeCopy & 0xFFFF00000000 | (v57 << 48) | *&dCopy2;
+      v51 = *&rangeCopy & 0xFFFF00000000 | (v58 << 48) | *&dCopy2;
     }
 
     else
     {
-      v50 = 0xFFFFFFLL;
+      v51 = 0xFFFFFFLL;
     }
 
-    if (TSTCellFormatUsesAccountingStyle(cell))
+    if (TSTCellFormatUsesAccountingStyle(cell, v49))
     {
-      v51 = 0;
+      v52 = 0;
     }
 
     else
     {
-      v51 = 15;
+      v52 = 15;
     }
 
-    HIDWORD(v53) = v51;
-    LOBYTE(v53) = 1;
-    [(TSTMasterLayout *)self queueCellForValidation:*&rangeCopy & 0xFFFF00000000 | (v57 << 48) | *&dCopy2 cell:cell mergeRange:v50 wrap:v63 verticalAlignment:v49 padding:v35 prop:v53 layoutCacheFlags:?];
+    HIDWORD(v54) = v52;
+    LOBYTE(v54) = 1;
+    [(TSTMasterLayout *)self queueCellForValidation:*&rangeCopy & 0xFFFF00000000 | (v58 << 48) | *&dCopy2 cell:cell mergeRange:v51 wrap:v64 verticalAlignment:v50 padding:v35 prop:v54 layoutCacheFlags:?];
   }
 
   else
   {
-    if (v32 || v34 || v20 != v62 || v40 != v43)
+    if (v32 || v34 || v20 != v63 || v40 != v43)
     {
       [(TSTMasterLayout *)self fontHeightOfParagraphStyle:v20];
       v46 = v39 + v37 + v45;
       mWidthHeightCache = self->mWidthHeightCache;
-      if (v64)
+      if (v65)
       {
-        v48 = (range.var0.var0 + v59 - 1) | v54;
+        v48 = (range.var0.var0 + v60 - 1) | v55;
       }
 
       else
       {
-        v48 = v60;
+        v48 = v61;
       }
     }
 
     else
     {
-      if (v64)
+      if (v65)
       {
-        v52 = (range.var0.var0 + v59 - 1) | v54;
+        v53 = (range.var0.var0 + v60 - 1) | v55;
       }
 
       else
       {
-        v52 = v60;
+        v53 = v61;
       }
 
       v46 = self->mTableDefaultFontHeightForArea[[(TSTMasterLayout *)self tableAreaForCellID:?]];
       mWidthHeightCache = self->mWidthHeightCache;
-      v48 = v52;
+      v48 = v53;
     }
 
     [(TSTWidthHeightCache *)mWidthHeightCache setFitHeight:v48 forCellID:v46];
@@ -2674,55 +2674,55 @@ LABEL_42:
 {
   selfCopy = self;
   v7 = [(TSTMasterLayout *)self tableRowsBehavior]== 3 || [(TSTMasterLayout *)selfCopy tableRowsBehavior]== 1;
-  v29 = v7;
-  v38 = selfCopy;
-  v31 = [[TSTLayoutCellIterator alloc] initWithMasterLayout:selfCopy range:range];
-  v33 = objc_alloc_init(TSTCell);
+  v30 = v7;
+  v39 = selfCopy;
+  v32 = [[TSTLayoutCellIterator alloc] initWithMasterLayout:selfCopy range:range];
+  v34 = objc_alloc_init(TSTCell);
   v8 = objc_alloc_init(TSTCell);
   v9 = 0;
   LODWORD(selfCopy) = 0;
   v11 = (*&range & 0xFFFF00000000) == 0 || HIWORD(*&range) == 0;
-  v34 = range.var0.var0 + range.var1.var1 - 1;
-  v35 = v11;
+  v35 = range.var0.var0 + range.var1.var1 - 1;
+  v36 = v11;
   LODWORD(v12) = 255;
   LOWORD(v13) = -1;
-  v36 = 0xFFFFFF;
+  v37 = 0xFFFFFF;
   v14 = 0xFFFFFFLL;
 LABEL_11:
-  v26 = v8;
-  v24 = v9;
-  v32 = v9;
-  v23 = 0xFFFFFFLL;
+  v27 = v8;
+  v25 = v9;
+  v33 = v9;
+  v24 = 0xFFFFFFLL;
   LOWORD(v15) = v13;
   LODWORD(v16) = v12;
   do
   {
     if (v15 == 0xFFFF || v16 == 255)
     {
-      TSTLayoutCellIteratorGetNextCell(v31, &v39);
-      v15 = WORD2(v39);
-      if (WORD2(v39) == 0xFFFFLL)
+      TSTLayoutCellIteratorGetNextCell(v32, &v40);
+      v15 = WORD2(v40);
+      if (WORD2(v40) == 0xFFFFLL)
       {
         break;
       }
 
-      v16 = BYTE6(v39);
-      if (BYTE6(v39) == 255)
+      v16 = BYTE6(v40);
+      if (BYTE6(v40) == 255)
       {
         break;
       }
 
-      selfCopy = HIBYTE(v39);
-      TSTLayoutCellIteratorExpandCell(v31, &v39);
-      v32 = v40 != 0;
-      if (v40)
+      selfCopy = HIBYTE(v40);
+      TSTLayoutCellIteratorExpandCell(v32, &v40);
+      v33 = v41 != 0;
+      if (v41)
       {
-        TSTCellCopy(v40, v33);
+        TSTCellCopy(v41, v34);
       }
 
-      v14 = v41;
-      v28 = v15 | (v16 << 16) | (selfCopy << 24) | v28 & 0xFFFFFFFF00000000;
-      TSTMasterLayoutUpdateStrokesForCell(v38, v33, v15 | (v16 << 16) | (selfCopy << 24));
+      v14 = v42;
+      v29 = v15 | (v16 << 16) | (selfCopy << 24) | v29 & 0xFFFFFFFF00000000;
+      TSTMasterLayoutUpdateStrokesForCell(v39, v34, v15 | (v16 << 16) | (selfCopy << 24));
     }
 
     v18 = v15;
@@ -2733,14 +2733,14 @@ LABEL_11:
 
     else
     {
-      v19 = v35;
+      v19 = v36;
     }
 
     LODWORD(v12) = 255;
     LODWORD(v13) = 0xFFFF;
-    if ((v19 & 1) != 0 || v34 < v15)
+    if ((v19 & 1) != 0 || v35 < v15)
     {
-      LODWORD(v30) = 0;
+      LODWORD(v31) = 0;
     }
 
     else
@@ -2749,73 +2749,73 @@ LABEL_11:
       LODWORD(v13) = 0xFFFF;
       if (v16 + 1 < range.var0.var1 || v16 >= (LOBYTE(range.var1.var0) + range.var0.var1 - 1))
       {
-        LODWORD(v30) = 0;
+        LODWORD(v31) = 0;
       }
 
       else
       {
-        TSTLayoutCellIteratorGetNextCell(v31, &v39);
-        v13 = WORD2(v39);
-        v12 = BYTE6(v39);
-        v30 = HIBYTE(v39);
-        if (WORD2(v39) != 0xFFFFLL && BYTE6(v39) != 255)
+        TSTLayoutCellIteratorGetNextCell(v32, &v40);
+        v13 = WORD2(v40);
+        v12 = BYTE6(v40);
+        v31 = HIBYTE(v40);
+        if (WORD2(v40) != 0xFFFFLL && BYTE6(v40) != 255)
         {
-          TSTLayoutCellIteratorExpandCell(v31, &v39);
-          v24 = v40 != 0;
-          if (v40)
+          TSTLayoutCellIteratorExpandCell(v32, &v40);
+          v25 = v41 != 0;
+          if (v41)
           {
-            TSTCellCopy(v40, v26);
+            TSTCellCopy(v41, v27);
           }
 
-          v23 = v41;
-          v25 = v13 | (v12 << 16) | (v30 << 24) | v25 & 0xFFFFFFFF00000000;
-          TSTMasterLayoutUpdateStrokesForCell(v38, v26, v13 | (v12 << 16) | (v30 << 24));
+          v24 = v42;
+          v26 = v13 | (v12 << 16) | (v31 << 24) | v26 & 0xFFFFFFFF00000000;
+          TSTMasterLayoutUpdateStrokesForCell(v39, v27, v13 | (v12 << 16) | (v31 << 24));
         }
       }
     }
 
-    editingCellID = [(TSTEditingState *)[(TSTTableInfo *)[(TSTMasterLayout *)v38 tableInfo] editingState] editingCellID];
-    if (editingCellID != 0xFFFF && (editingCellID & 0xFF0000) != 0xFF0000 && !-[TSTMasterLayout dynamicContentDelegate](v38, "dynamicContentDelegate") && [+[TSTConfiguration sharedTableConfiguration](TSTConfiguration "sharedTableConfiguration")] && -[TSDDrawableInfo isInlineWithText](-[TSTMasterLayout tableInfo](v38, "tableInfo"), "isInlineWithText") && (-[TSTEditingState editingCellID](-[TSTTableInfo editingState](-[TSTMasterLayout tableInfo](v38, "tableInfo"), "editingState"), "editingCellID") & 0xFFFFFF) == (v15 | (v16 << 16)))
+    editingCellID = [(TSTEditingState *)[(TSTTableInfo *)[(TSTMasterLayout *)v39 tableInfo] editingState] editingCellID];
+    if (editingCellID != 0xFFFF && (editingCellID & 0xFF0000) != 0xFF0000 && !-[TSTMasterLayout dynamicContentDelegate](v39, "dynamicContentDelegate") && [+[TSTConfiguration sharedTableConfiguration](TSTConfiguration "sharedTableConfiguration")] && -[TSDDrawableInfo isInlineWithText](-[TSTMasterLayout tableInfo](v39, "tableInfo"), "isInlineWithText") && (-[TSTEditingState editingCellID](-[TSTTableInfo editingState](-[TSTMasterLayout tableInfo](v39, "tableInfo"), "editingState"), "editingCellID") & 0xFFFFFF) == (v15 | (v16 << 16)))
     {
-      TSTCellCopy([(TSTEditingState *)[(TSTTableInfo *)[(TSTMasterLayout *)v38 tableInfo] editingState] editingCell], v33);
+      TSTCellCopy([(TSTEditingState *)[(TSTTableInfo *)[(TSTMasterLayout *)v39 tableInfo] editingState] editingCell], v34);
     }
 
     v21 = (selfCopy << 24) | (v16 << 16);
     if (v14 != 0xFFFF && (v14 & 0xFF0000) != 0xFF0000 && HIWORD(v14) && (v14 & 0xFFFF00000000) != 0)
     {
-      v27 = v27 & 0xFFFFFFFF00000000 | v21 | v15;
-      [TSTMasterLayout p_validateFittingInfoForCellID:v38 inMergeRange:"p_validateFittingInfoForCellID:inMergeRange:"];
+      v28 = v28 & 0xFFFFFFFF00000000 | v21 | v15;
+      [TSTMasterLayout p_validateFittingInfoForCellID:v39 inMergeRange:"p_validateFittingInfoForCellID:inMergeRange:"];
     }
 
     selfCopy = (v21 | v15);
-    v16 = v4 & 0xFFFFFFFF00000000 | v36;
-    v36 = [(TSTMasterLayout *)v38 p_validateFittingInfoForEmptyCellsBetween:v16 andCellID:v5 & 0xFFFFFFFF00000000 | selfCopy inRange:range];
+    v16 = v4 & 0xFFFFFFFF00000000 | v37;
+    v37 = [(TSTMasterLayout *)v39 p_validateFittingInfoForEmptyCellsBetween:v16 andCellID:v5 & 0xFFFFFFFF00000000 | selfCopy inRange:range];
     v3 = v3 & 0xFFFFFFFF00000000 | selfCopy;
-    [(TSTMasterLayout *)v38 validateFittingInfoForCell:v33 cellID:v3 mergeRange:v14 setFitting:v29];
-    if (v32)
+    [(TSTMasterLayout *)v39 validateFittingInfoForCell:v34 cellID:v3 mergeRange:v14 setFitting:v30];
+    if (v33)
     {
-      v17 = TSTCellClear(v33);
+      v17 = TSTCellClear(v34, v22);
     }
 
     if (v13 != 0xFFFF && v12 != 255)
     {
       v5 = v5 & 0xFFFFFFFF00000000 | selfCopy;
       v4 = v16;
-      v8 = v33;
-      v33 = v26;
-      v9 = v24;
-      v14 = v23;
-      LODWORD(selfCopy) = v30;
+      v8 = v34;
+      v34 = v27;
+      v9 = v25;
+      v14 = v24;
+      LODWORD(selfCopy) = v31;
       goto LABEL_11;
     }
 
-    v22 = v35;
+    v23 = v36;
     if ((v15 + 1) < range.var0.var0)
     {
-      v22 = 1;
+      v23 = 1;
     }
 
-    if (v22)
+    if (v23)
     {
       break;
     }
@@ -2828,10 +2828,10 @@ LABEL_11:
     v14 = 0xFFFFFFLL;
   }
 
-  while (v18 < v34);
-  [(TSTMasterLayout *)v38 p_validateFittingInfoForEmptyCellsBetween:v36 andCellID:0xFFFFFFLL inRange:range, v17];
+  while (v18 < v35);
+  [(TSTMasterLayout *)v39 p_validateFittingInfoForEmptyCellsBetween:v37 andCellID:0xFFFFFFLL inRange:range, v17];
 
-  TSTMasterLayoutSetStrokesValidForRange(v38, *&range);
+  TSTMasterLayoutSetStrokesValidForRange(v39, *&range);
 }
 
 - (void)p_validateFittingInfoForEmptyCellsOnSingleRowBetween:(id)between andEndCellID:(id)d
@@ -3222,7 +3222,7 @@ uint64_t __82__TSTMasterLayout_validateFittingInfoForChangeDescriptors_rowsNeedi
   return [v5 resetColWidthsStartingWith:a2 andEndingWith:(a2 + a3 - 1)];
 }
 
-uint64_t __82__TSTMasterLayout_validateFittingInfoForChangeDescriptors_rowsNeedingFittingInfo___block_invoke_5(uint64_t a1, unsigned __int16 a2)
+void *__82__TSTMasterLayout_validateFittingInfoForChangeDescriptors_rowsNeedingFittingInfo___block_invoke_5(uint64_t a1, unsigned __int16 a2)
 {
   result = [*(*(a1 + 32) + 56) getFitHeightForRow:a2];
   if (v5 <= 0.0)
@@ -3258,23 +3258,23 @@ void __50__TSTMasterLayout_validateFittingWidthsForRegion___block_invoke(uint64_
   [objc_msgSend(*(a1 + 32) "widthHeightCache")];
   if (v6 <= 0.0)
   {
-    v61 = 0;
+    v62 = 0;
     v7 = [[TSTLayoutCellIterator alloc] initWithMasterLayout:*(a1 + 32) range:(a2 << 16) | (*(a1 + 48) << 48) | 0x100000000];
     [objc_msgSend(*(a1 + 32) "widthHeightCache")];
-    if (TSTLayoutCellIteratorGetNextCell(v7, &v62))
+    if (TSTLayoutCellIteratorGetNextCell(v7, &v63))
     {
       v8 = MEMORY[0x277CBF3A8];
       do
       {
-        v9 = TSTLayoutCellIteratorValueTypeOfCell(&v62);
-        if (v63)
+        v9 = TSTLayoutCellIteratorValueTypeOfCell(&v63);
+        if (v64)
         {
-          if (!v9 || v63->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType == 267)
+          if (!v9 || v64->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType == 267)
           {
             continue;
           }
 
-          v10 = *(&v63->mPrivate + 1) << 8;
+          v10 = *(&v64->mPrivate + 1) << 8;
           v12 = v10 == 768 || v10 == 2304;
         }
 
@@ -3288,174 +3288,174 @@ void __50__TSTMasterLayout_validateFittingWidthsForRegion___block_invoke(uint64_
           v12 = 0;
         }
 
-        v60 = 1;
-        v59 = 0;
-        v3 = v3 & 0xFFFFFFFF00000000 | HIDWORD(v62);
-        TSTCellTextProperties(v63, *(a1 + 40), v3, &v61, 0, &v60, &v59);
-        [*(a1 + 32) edgeInsetsFromPadding:v59];
-        v14 = v13;
-        v16 = v15;
-        v18 = v17;
-        v20 = v19;
-        v21 = *(a1 + 32);
-        if (v21[73])
+        v61 = 1;
+        v60 = 0;
+        v3 = v3 & 0xFFFFFFFF00000000 | HIDWORD(v63);
+        TSTCellTextProperties(v64, *(a1 + 40), v3, &v62, 0, &v61, &v60);
+        [*(a1 + 32) edgeInsetsFromPadding:v60];
+        v15 = v14;
+        v17 = v16;
+        v19 = v18;
+        v21 = v20;
+        v22 = *(a1 + 32);
+        if (v22[73])
         {
-          v22 = [objc_msgSend(v21 "tableInfo")];
-          if (((HIDWORD(v62) ^ v22) & 0xFFFFFF) == 0)
+          v23 = [objc_msgSend(v22 "tableInfo")];
+          if (((HIDWORD(v63) ^ v23) & 0xFFFFFF) == 0)
           {
-            v61 = 1;
+            v62 = 1;
           }
         }
 
-        v61 &= v12;
-        if (!v63)
+        v62 &= v12;
+        if (!v64)
         {
           goto LABEL_27;
         }
 
-        v23 = *(&v63->mPrivate + 1);
-        if (v23 == 6)
+        v24 = *(&v64->mPrivate + 1);
+        if (v24 == 6)
         {
-          if (v63->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType == 263)
+          if (v64->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType == 263)
           {
-            v25 = 0;
-            v26 = 1;
+            v26 = 0;
+            v27 = 1;
 LABEL_29:
-            v27 = *v8;
-            if (TSTCellFormatUsesAccountingStyle(v63) && v25 && [(TSWPStorage *)v25 length])
+            v28 = *v8;
+            if (TSTCellFormatUsesAccountingStyle(v64, v13) && v26 && [(TSWPStorage *)v26 length])
             {
-              v28 = [(TSWPStorage *)v25 stringByReplacingOccurrencesOfString:@"\t" withString:&stru_287D36338];
-              v57 = v57 & 0xFFFFFFFF00000000 | HIDWORD(v62);
-              v29 = [*(a1 + 32) newTextEngineForCell:v63 atCellID:?];
-              v30 = [TSTTextEngineDelegate alloc];
-              v31 = [(TSTTextEngineDelegate *)v30 initWithPadding:v60 verticalAlignment:v14, v16, v18, v20];
-              [v29 setDelegate:v31];
-              v32 = [v29 layoutText:v28 kind:5 minSize:15 maxSize:8.0 anchor:8.0 flags:{4294967300.0, 4294967300.0, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
-              [v29 setDelegate:0];
+              v29 = [(TSWPStorage *)v26 stringByReplacingOccurrencesOfString:@"\t" withString:&stru_287D36338];
+              v58 = v58 & 0xFFFFFFFF00000000 | HIDWORD(v63);
+              v30 = [*(a1 + 32) newTextEngineForCell:v64 atCellID:?];
+              v31 = [TSTTextEngineDelegate alloc];
+              v32 = [(TSTTextEngineDelegate *)v31 initWithPadding:v61 verticalAlignment:v15, v17, v19, v21];
+              [v30 setDelegate:v32];
+              v33 = [v30 layoutText:v29 kind:5 minSize:15 maxSize:8.0 anchor:8.0 flags:{4294967300.0, 4294967300.0, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
+              [v30 setDelegate:0];
 
-              [v32 range];
-              if (v33)
+              [v33 range];
+              if (v34)
               {
-                [v32 typographicBoundsForCell];
-                v27 = v34;
-                [v32 frameBounds];
+                [v33 typographicBoundsForCell];
+                v28 = v35;
+                [v33 frameBounds];
               }
 
               goto LABEL_59;
             }
 
-            v35 = v64;
-            if (v64 == 0xFFFF || (v64 & 0xFF0000) == 0xFF0000 || !HIWORD(v64) || (v64 & 0xFFFF00000000) == 0)
+            v36 = v65;
+            if (v65 == 0xFFFF || (v65 & 0xFF0000) == 0xFF0000 || !HIWORD(v65) || (v65 & 0xFFFF00000000) == 0)
             {
-              v35 = HIDWORD(v62) | 0x1000100000000;
+              v36 = HIDWORD(v63) | 0x1000100000000;
             }
 
-            v36 = TSTMasterLayoutContentWidthForCellRange(*(a1 + 32), v35, 0);
-            v37 = [*(a1 + 32) cellIDToWPColumnCache];
-            HIDWORD(v38) = HIDWORD(v62);
-            LODWORD(v38) = HIDWORD(v62);
-            v39 = [v37 objectForKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInt:", (v38 >> 16) & 0xFFFF00FF)}];
-            if (v39)
+            v37 = TSTMasterLayoutContentWidthForCellRange(*(a1 + 32), v36, 0);
+            v38 = [*(a1 + 32) cellIDToWPColumnCache];
+            HIDWORD(v39) = HIDWORD(v63);
+            LODWORD(v39) = HIDWORD(v63);
+            v40 = [v38 objectForKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInt:", (v39 >> 16) & 0xFFFF00FF)}];
+            if (v40)
             {
-              v40 = v39;
-              [v39 typographicBoundsForCell];
-              v27 = v41;
-              [v40 frameBounds];
-              if (v27 == v36)
+              v41 = v40;
+              [v40 typographicBoundsForCell];
+              v28 = v42;
+              [v41 frameBounds];
+              if (v28 == v37)
               {
 LABEL_59:
-                if (v26)
+                if (v27)
                 {
-                  v54 = 30.0;
+                  v55 = 30.0;
                 }
 
                 else
                 {
-                  v54 = v27;
+                  v55 = v28;
                 }
 
-                v55 = v16 + v20 + v54;
-                v56 = [*(a1 + 32) widthHeightCache];
-                v2 = v2 & 0xFFFFFFFF00000000 | HIDWORD(v62);
-                [v56 setFitWidth:v2 forCellID:v55];
+                v56 = v17 + v21 + v55;
+                v57 = [*(a1 + 32) widthHeightCache];
+                v2 = v2 & 0xFFFFFFFF00000000 | HIDWORD(v63);
+                [v57 setFitWidth:v2 forCellID:v56];
                 continue;
               }
 
-              v42 = [*(a1 + 32) cellIDToWPColumnCache];
-              HIDWORD(v43) = HIDWORD(v62);
-              LODWORD(v43) = HIDWORD(v62);
-              [v42 removeObjectForKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInt:", (v43 >> 16) & 0xFFFF00FF)}];
+              v43 = [*(a1 + 32) cellIDToWPColumnCache];
+              HIDWORD(v44) = HIDWORD(v63);
+              LODWORD(v44) = HIDWORD(v63);
+              [v43 removeObjectForKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInt:", (v44 >> 16) & 0xFFFF00FF)}];
             }
 
-            v44 = objc_alloc_init(TSTCellStateForLayout);
-            v45 = v58 & 0xFFFFFFFF00000000 | HIDWORD(v62);
-            [(TSTCellStateForLayout *)v44 setModelCellID:v45];
-            [(TSTCellStateForLayout *)v44 setCell:v63];
-            [(TSTCellStateForLayout *)v44 setCellPropsRowHeight:0];
-            [(TSTCellStateForLayout *)v44 setCellWraps:v61];
-            [(TSTCellStateForLayout *)v44 setPaddingInsets:v14, v16, v18, v20];
-            [(TSTCellStateForLayout *)v44 setVerticalAlignment:v60];
-            v46 = 8.0;
-            if (!v61)
+            v45 = objc_alloc_init(TSTCellStateForLayout);
+            v46 = v59 & 0xFFFFFFFF00000000 | HIDWORD(v63);
+            [(TSTCellStateForLayout *)v45 setModelCellID:v46];
+            [(TSTCellStateForLayout *)v45 setCell:v64];
+            [(TSTCellStateForLayout *)v45 setCellPropsRowHeight:0];
+            [(TSTCellStateForLayout *)v45 setCellWraps:v62];
+            [(TSTCellStateForLayout *)v45 setPaddingInsets:v15, v17, v19, v21];
+            [(TSTCellStateForLayout *)v45 setVerticalAlignment:v61];
+            v47 = 8.0;
+            if (!v62)
             {
-              v46 = v36;
+              v47 = v37;
             }
 
-            [(TSTCellStateForLayout *)v44 setMinSize:v46, 8.0];
-            if (v61)
+            [(TSTCellStateForLayout *)v45 setMinSize:v47, 8.0];
+            if (v62)
             {
-              v47 = v36;
+              v48 = v37;
             }
 
             else
             {
-              v47 = 4294967300.0;
+              v48 = 4294967300.0;
             }
 
-            [(TSTCellStateForLayout *)v44 setMaxSize:v47, 4294967300.0];
-            [(TSTCellStateForLayout *)v44 setForDrawing:1];
-            [(TSTCellStateForLayout *)v44 setMergedRange:v64];
-            -[TSTCellStateForLayout setInDynamicLayout:](v44, "setInDynamicLayout:", [*(a1 + 32) inDynamicLayoutMode]);
-            [(TSTCellStateForLayout *)v44 setCellContents:v25];
+            [(TSTCellStateForLayout *)v45 setMaxSize:v48, 4294967300.0];
+            [(TSTCellStateForLayout *)v45 setForDrawing:1];
+            [(TSTCellStateForLayout *)v45 setMergedRange:v65];
+            -[TSTCellStateForLayout setInDynamicLayout:](v45, "setInDynamicLayout:", [*(a1 + 32) inDynamicLayoutMode]);
+            [(TSTCellStateForLayout *)v45 setCellContents:v26];
             objc_opt_class();
-            v48 = TSUDynamicCast();
-            if (v48)
+            v49 = TSUDynamicCast();
+            if (v49)
             {
-              if ([v48 hasAttachmentsThatChangeWithPageNumberOrPageCount])
+              if ([v49 hasAttachmentsThatChangeWithPageNumberOrPageCount])
               {
-                v49 = 0;
+                v50 = 0;
               }
 
               else
               {
-                v49 = 15;
+                v50 = 15;
               }
             }
 
             else
             {
-              v49 = 15;
+              v50 = 15;
             }
 
-            v58 = v45;
-            [(TSTCellStateForLayout *)v44 setLayoutCacheFlags:v49];
-            [*(a1 + 32) measureTextForLayoutState:v44];
-            [(TSWPColumn *)[(TSTCellStateForLayout *)v44 wpColumn] range];
-            if (v50)
+            v59 = v46;
+            [(TSTCellStateForLayout *)v45 setLayoutCacheFlags:v50];
+            [*(a1 + 32) measureTextForLayoutState:v45];
+            [(TSWPColumn *)[(TSTCellStateForLayout *)v45 wpColumn] range];
+            if (v51)
             {
-              v51 = [(TSTCellStateForLayout *)v44 wpColumn];
-              [(TSWPColumn *)v51 typographicBoundsForCell];
-              v27 = v52;
-              [(TSWPColumn *)v51 frameBounds];
+              v52 = [(TSTCellStateForLayout *)v45 wpColumn];
+              [(TSWPColumn *)v52 typographicBoundsForCell];
+              v28 = v53;
+              [(TSWPColumn *)v52 frameBounds];
             }
 
             else
             {
-              v27 = *v8;
+              v28 = *v8;
             }
 
-            v53 = [(TSTCellStateForLayout *)v44 keyVal];
-            if ((v49 & 2) != 0 && v53)
+            v54 = [(TSTCellStateForLayout *)v45 keyVal];
+            if ((v50 & 2) != 0 && v54)
             {
               [objc_msgSend(*(a1 + 32) "dupContentCache")];
             }
@@ -3464,26 +3464,26 @@ LABEL_59:
           }
 
 LABEL_27:
-          v24 = NSStringFromNativeTSTCell(v63);
+          v25 = NSStringFromNativeTSTCell(v64, v13);
 LABEL_28:
-          v25 = v24;
-          v26 = 0;
+          v26 = v25;
+          v27 = 0;
           goto LABEL_29;
         }
 
-        if (v23 != 8)
+        if (v24 != 8)
         {
-          if (v23 != 9)
+          if (v24 != 9)
           {
             goto LABEL_27;
           }
 
-          v24 = [(TSTRichTextPayload *)v63->mPrivate.mRichTextPayload storage];
+          v25 = [(TSTRichTextPayload *)v64->mPrivate.mRichTextPayload storage];
           goto LABEL_28;
         }
       }
 
-      while (TSTLayoutCellIteratorGetNextCell(v7, &v62));
+      while (TSTLayoutCellIteratorGetNextCell(v7, &v63));
     }
   }
 }
@@ -4091,13 +4091,13 @@ uint64_t __37__TSTMasterLayout_processLayoutTask___block_invoke(uint64_t a1)
   return [v2 drain];
 }
 
-uint64_t __37__TSTMasterLayout_processLayoutTask___block_invoke_2(uint64_t a1)
+uint64_t __37__TSTMasterLayout_processLayoutTask___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = TSUDynamicCast();
-  v3 = *(a1 + 32);
+  v3 = TSUDynamicCast();
+  v4 = *(a1 + 32);
 
-  return [v3 measureTextForLayoutState:v2];
+  return [v4 measureTextForLayoutState:v3];
 }
 
 - (void)waitForLayoutToComplete
@@ -4235,7 +4235,7 @@ LABEL_28:
 
 - (id)accountingParagraphStylePropertyMapForCell:(id)cell atCellID:(id)d
 {
-  if (!TSTCellFormatUsesAccountingStyle(cell))
+  if (!TSTCellFormatUsesAccountingStyle(cell, a2))
   {
     return 0;
   }

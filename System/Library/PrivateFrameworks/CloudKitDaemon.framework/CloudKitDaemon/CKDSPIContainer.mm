@@ -47,6 +47,7 @@
 - (void)serverEnvironmentWithCompletionHandler:(id)handler;
 - (void)serverPreferredPushEnvironmentWithCompletionHandler:(id)handler;
 - (void)setFakeError:(id)error forNextRequestOfClassName:(id)name completionHandler:(id)handler;
+- (void)setFakeResponseOperationResult:(id)result forNextRequestOfClassName:(id)name forItemID:(id)d withLifetime:(int)lifetime completionHandler:(id)handler;
 - (void)showAssetCacheWithDatabaseScope:(int64_t)scope;
 - (void)statusGroupsForApplicationPermission:(unint64_t)permission completionHandler:(id)handler;
 - (void)tossConfigWithCompletionHandler:(id)handler;
@@ -803,7 +804,7 @@
 
 - (void)clearInvalidatedPCSCacheEntriesIfNeeded
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -812,22 +813,20 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v9 = v3;
-    v12 = objc_msgSend_containerID(self, v10, v11);
+    v8 = v3;
+    v11 = objc_msgSend_containerID(self, v9, v10);
     *buf = 138412290;
-    v15 = v12;
-    _os_log_debug_impl(&dword_22506F000, v9, OS_LOG_TYPE_DEBUG, "Clearing the persisted PCS cache for container %@", buf, 0xCu);
+    v14 = v11;
+    _os_log_debug_impl(&dword_22506F000, v8, OS_LOG_TYPE_DEBUG, "Clearing the persisted PCS cache for container %@", buf, 0xCu);
   }
 
   v6 = objc_msgSend_uncancellableOperationQueue(self, v4, v5);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_225189290;
-  v13[3] = &unk_278545A00;
-  v13[4] = self;
-  objc_msgSend_addOperationWithBlock_(v6, v7, v13);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_225189290;
+  v12[3] = &unk_278545A00;
+  v12[4] = self;
+  objc_msgSend_addOperationWithBlock_(v6, v7, v12);
 }
 
 - (void)getOutstandingOperationCountWithCompletionHandler:(id)handler
@@ -860,33 +859,33 @@
 
 - (void)dropDetachedContainersWithCompletionHandler:(id)handler
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v42 = objc_msgSend_sharedDetachedContainers(CKDContainer, v3, v4);
-  objc_sync_enter(v42);
+  v41 = objc_msgSend_sharedDetachedContainers(CKDContainer, v3, v4);
+  objc_sync_enter(v41);
   v7 = objc_msgSend_sharedDetachedContainers(CKDContainer, v5, v6);
   v10 = objc_msgSend_allObjects(v7, v8, v9);
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = v10;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v49, v53, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v48, v52, 16);
   if (v14)
   {
-    v45 = *v50;
+    v44 = *v49;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v50 != v45)
+        if (*v49 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v49 + 1) + 8 * i);
-        v17 = objc_msgSend_appContainerTuple(v16, v12, v13, v42);
+        v16 = *(*(&v48 + 1) + 8 * i);
+        v17 = objc_msgSend_appContainerTuple(v16, v12, v13, v41);
         v20 = objc_msgSend_appContainerTuple(self, v18, v19);
         if (!objc_msgSend_isEqual_(v17, v21, v20))
         {
@@ -916,13 +915,13 @@ LABEL_11:
 LABEL_12:
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v49, v53, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v48, v52, 16);
     }
 
     while (v14);
   }
 
-  objc_sync_exit(v42);
+  objc_sync_exit(v41);
   if (handlerCopy)
   {
     v40 = objc_msgSend_cancellationQueue(self, v38, v39);
@@ -930,11 +929,9 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = sub_225189BA4;
     block[3] = &unk_2785456A0;
-    v48 = handlerCopy;
+    v47 = handlerCopy;
     dispatch_async(v40, block);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAllApplicationPermissionsWithCompletionHandler:(id)handler
@@ -1125,6 +1122,57 @@ LABEL_12:
 
   v33 = objc_msgSend_initWithObject1_object2_(v30, v32, errorCopy, v31);
   objc_msgSend_addObject_(v29, v34, v33);
+}
+
+- (void)setFakeResponseOperationResult:(id)result forNextRequestOfClassName:(id)name forItemID:(id)d withLifetime:(int)lifetime completionHandler:(id)handler
+{
+  v8 = *&lifetime;
+  resultCopy = result;
+  nameCopy = name;
+  dCopy = d;
+  handlerCopy = handler;
+  if (v8 <= 0)
+  {
+    v52 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v15, v16);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v52, v53, a2, self, @"CKDContainer.m", 4779, @"Invalid fake response lifetime");
+  }
+
+  v18 = objc_msgSend_fakeResponseOperationResultByClassNameByItemID(self, v15, v16);
+
+  if (!v18)
+  {
+    v21 = objc_opt_new();
+    objc_msgSend_setFakeResponseOperationResultByClassNameByItemID_(self, v22, v21);
+  }
+
+  v23 = objc_msgSend_fakeResponseOperationLifetimeByClassName(self, v19, v20);
+
+  if (!v23)
+  {
+    v26 = objc_opt_new();
+    objc_msgSend_setFakeResponseOperationLifetimeByClassName_(self, v27, v26);
+  }
+
+  v28 = objc_msgSend_fakeResponseOperationResultByClassNameByItemID(self, v24, v25);
+  v30 = objc_msgSend_objectForKeyedSubscript_(v28, v29, nameCopy);
+
+  if (!v30)
+  {
+    v31 = objc_opt_new();
+    v34 = objc_msgSend_fakeResponseOperationResultByClassNameByItemID(self, v32, v33);
+    objc_msgSend_setObject_forKeyedSubscript_(v34, v35, v31, nameCopy);
+  }
+
+  v36 = objc_alloc(MEMORY[0x277CBC7A0]);
+  v37 = _Block_copy(handlerCopy);
+  v39 = objc_msgSend_initWithObject1_object2_(v36, v38, resultCopy, v37);
+  v42 = objc_msgSend_fakeResponseOperationResultByClassNameByItemID(self, v40, v41);
+  v44 = objc_msgSend_objectForKeyedSubscript_(v42, v43, nameCopy);
+  objc_msgSend_setObject_forKeyedSubscript_(v44, v45, v39, dCopy);
+
+  v47 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v46, v8);
+  v50 = objc_msgSend_fakeResponseOperationLifetimeByClassName(self, v48, v49);
+  objc_msgSend_setObject_forKeyedSubscript_(v50, v51, v47, nameCopy);
 }
 
 @end

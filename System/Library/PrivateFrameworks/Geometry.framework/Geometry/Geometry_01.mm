@@ -331,7 +331,7 @@ double geom::interpolating_spline<double>::evaluate_total_length(uint64_t a1)
   return geom::interpolating_spline<double>::evaluate_length_at(a1, v2);
 }
 
-void std::vector<double>::push_back[abi:nn200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:nn200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -380,7 +380,7 @@ void std::vector<double>::push_back[abi:nn200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -403,20 +403,20 @@ uint64_t std::vector<geom::interpolating_spline<double>>::push_back[abi:nn200100
   return result;
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
@@ -437,12 +437,12 @@ void _ZN4geom19interpolating_curveIDv2_fE5buildERKNSt3__16vectorINS_17interpolat
   _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(a2, a1, 0);
 }
 
-void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t a1, void *a2, char a3)
+void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t *a1, void *a2, char a3)
 {
   v6 = a2[1] - *a2;
-  v10 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  v9 = (a1 + 72);
+  v10 = a1[9];
+  v8 = a1[10];
+  v9 = a1 + 9;
   if (v8 == v10)
   {
     v11 = v6 >> 5;
@@ -459,7 +459,7 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
     v11 = (a2[1] - *a2) >> 5;
   }
 
-  *(a1 + 80) = v10;
+  a1[10] = v10;
   std::vector<geom::interpolating_spline<float>>::reserve(v9, v11 - 1);
   *(a1 + 192) = 0;
   v12 = (v6 >> 5);
@@ -500,9 +500,9 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
     _ZN4geom19interpolating_curveIDv2_fE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a1, &v103);
   }
 
-  v18 = *(a1 + 72);
-  v17 = *(a1 + 80);
-  std::vector<unsigned short>::resize((a1 + 24), 0x2E8BA2E8BA2E8BA3 * ((v17 - v18) >> 3));
+  v18 = a1[9];
+  v17 = a1[10];
+  std::vector<unsigned short>::resize(a1 + 3, 0x2E8BA2E8BA2E8BA3 * ((v17 - v18) >> 3));
   if (v17 == v18)
   {
     std::vector<unsigned short>::resize(a1, 0);
@@ -512,7 +512,7 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
   {
     v19 = 0;
     v20 = *v9;
-    v21 = *(a1 + 24);
+    v21 = a1[3];
     if ((0x2E8BA2E8BA2E8BA3 * ((v17 - v18) >> 3)) <= 1)
     {
       v22 = 1;
@@ -538,7 +538,7 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
     std::vector<unsigned short>::resize(a1, v19);
     v27 = 0;
     v28 = 0;
-    v29 = *(a1 + 72);
+    v29 = a1[9];
     do
     {
       v30 = *(v29 + 88 * v27 + 56);
@@ -569,28 +569,28 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
   }
 
   v33 = *a2;
-  *(a1 + 184) = *(*a2 + 4);
+  *(a1 + 46) = *(*a2 + 4);
   v34 = a2[1];
-  *(a1 + 188) = *(v34 - 28);
+  *(a1 + 47) = *(v34 - 28);
   if (a3)
   {
-    LOWORD(v113[0]) = 512;
+    v113[0] = 512;
     v35 = v34 - v33;
-    v113[1] = 0.001;
-    v114 = 1;
+    v114 = 981668463;
+    v115 = 1;
     v110 = 0;
     v111 = 0;
     v112 = 0;
     v103 = 0u;
     v104 = 0u;
     v105 = 0u;
-    *(a1 + 104) = *(a1 + 96);
-    *(a1 + 152) = 0;
-    v36 = *(a1 + 120);
-    v101 = (a1 + 120);
+    a1[13] = a1[12];
+    *(a1 + 76) = 0;
+    v36 = a1[15];
+    v101 = (a1 + 15);
     v102 = a1;
     *(a1 + 154) = 0;
-    *(a1 + 128) = v36;
+    a1[16] = v36;
     if (v34 == v33)
     {
       v37 = 0.0;
@@ -620,23 +620,23 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
         *(&v103 + 1) = v103;
         *&v105 = *(&v104 + 1);
         v42 = v40;
-        v26.f64[0] = (v40 + v37 * 2.0) * 0.333333333;
-        v43 = v26.f64[0];
+        *v26.i64 = (v40 + v37 * 2.0) * 0.333333333;
+        v43 = *v26.i64;
         v44 = (v37 + v40 * 2.0) * 0.333333333;
         v45 = v44;
-        if (*(v102 + 192))
+        if (v102[24])
         {
           v46 = v37;
         }
 
         else
         {
-          v47 = *(v102 + 72);
-          v48 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v47) >> 3);
-          if ((v48 & 0xFFFE) != 0 && *(v102 + 184) < v37)
+          v47 = v102[9];
+          v48 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v47) >> 3);
+          if ((v48 & 0xFFFE) != 0 && *(v102 + 46) < v37)
           {
             LOWORD(v48) = v48 - 1;
-            if (*(v102 + 188) > v37)
+            if (*(v102 + 47) > v37)
             {
               for (i = 0; ; i = v50 + 1)
               {
@@ -683,14 +683,14 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
           v44 = v42 + v54;
           v46 = v44;
           v55 = v102;
-          if ((*(v102 + 192) & 1) == 0)
+          if ((v102[24] & 1) == 0)
           {
-            v56 = *(v102 + 72);
-            v57 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v56) >> 3);
-            if ((v57 & 0xFFFE) != 0 && *(v102 + 184) < v43)
+            v56 = v102[9];
+            v57 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v56) >> 3);
+            if ((v57 & 0xFFFE) != 0 && *(v102 + 46) < v43)
             {
               LOWORD(v57) = v57 - 1;
-              if (*(v102 + 188) > v43)
+              if (*(v102 + 47) > v43)
               {
                 for (j = 0; ; j = v59 + 1)
                 {
@@ -728,14 +728,14 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
             v44 = v42 + v63;
             v43 = v44;
             v64 = v102;
-            if ((*(v102 + 192) & 1) == 0)
+            if ((v102[24] & 1) == 0)
             {
-              v65 = *(v102 + 72);
-              v66 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v65) >> 3);
-              if ((v66 & 0xFFFE) != 0 && *(v102 + 184) < v45)
+              v65 = v102[9];
+              v66 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v65) >> 3);
+              if ((v66 & 0xFFFE) != 0 && *(v102 + 46) < v45)
               {
                 LOWORD(v66) = v66 - 1;
-                if (*(v102 + 188) > v45)
+                if (*(v102 + 47) > v45)
                 {
                   for (k = 0; ; k = v68 + 1)
                   {
@@ -773,14 +773,14 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
               v44 = v42 + v72;
               v45 = v44;
               v73 = v102;
-              if ((*(v102 + 192) & 1) == 0)
+              if ((v102[24] & 1) == 0)
               {
-                v93 = *(v102 + 72);
-                v94 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v93) >> 3);
-                if ((v94 & 0xFFFE) != 0 && *(v102 + 184) < v40)
+                v93 = v102[9];
+                v94 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v93) >> 3);
+                if ((v94 & 0xFFFE) != 0 && *(v102 + 46) < v40)
                 {
                   LOWORD(v94) = v94 - 1;
-                  if (*(v102 + 188) > v40)
+                  if (*(v102 + 47) > v40)
                   {
                     for (m = 0; ; m = v96 + 1)
                     {
@@ -834,18 +834,18 @@ void _ZN4geom19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17in
 
         *&v44 = v40;
 LABEL_79:
-        *v115 = v37;
-        *&v115[1] = v40;
-        *&v115[2] = v46;
-        *&v115[3] = v43;
-        *&v115[4] = v45;
-        v115[5] = LODWORD(v44);
-        v116 = 0;
-        _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(&v102, v115, v113, &v103, v44, v42, v26);
+        *v116 = v37;
+        *&v116[1] = v40;
+        *&v116[2] = v46;
+        *&v116[3] = v43;
+        *&v116[4] = v45;
+        v116[5] = LODWORD(v44);
+        v117 = 0;
+        _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(&v102, v116, v113, &v103, v44, v42, v26);
         v74 = v108;
-        v75 = *(a1 + 104);
-        v76 = *(a1 + 96);
-        v77 = *(a1 + 152);
+        v75 = *(a1 + 26);
+        v76 = a1[12];
+        v77 = *(a1 + 76);
         if (v77)
         {
           v78 = v77 + 1;
@@ -859,8 +859,8 @@ LABEL_79:
         v79 = v77 + v108;
         if (v77 + v108)
         {
-          std::vector<float>::resize((a1 + 96), (3 * v79 + 1));
-          *(a1 + 152) = v79;
+          std::vector<float>::resize(a1 + 4, (3 * v79 + 1));
+          *(a1 + 76) = v79;
           if ((*(a1 + 154) & 1) == 0)
           {
             std::vector<float>::resize(v101, v79 + 1);
@@ -869,11 +869,11 @@ LABEL_79:
 
         else
         {
-          *(a1 + 104) = v76;
-          *(a1 + 152) = 0;
+          a1[13] = v76;
+          *(a1 + 76) = 0;
           if ((*(a1 + 154) & 1) == 0)
           {
-            *(a1 + 128) = *(a1 + 120);
+            a1[16] = a1[15];
           }
         }
 
@@ -887,7 +887,7 @@ LABEL_79:
           v85 = *(&v104 + 1);
           v86 = v103;
           begin = v101->__begin_;
-          v88 = *(a1 + 96);
+          v88 = a1[12];
           v89 = 3;
           v90 = 1;
           do
@@ -968,8 +968,8 @@ LABEL_103:
     }
 
     *(a1 + 192) = 1;
-    *(a1 + 184) = *(v33 + 4);
-    *(a1 + 188) = *(v33 + v35 - 28);
+    *(a1 + 46) = *(v33 + 4);
+    *(a1 + 47) = *(v33 + v35 - 28);
     geom::interpolating_spline<float>::~interpolating_spline(&v103);
   }
 }
@@ -1130,12 +1130,7 @@ unint64_t _ZNK4geom19interpolating_curveIDv2_fE19evaluate_tangent_atEf(uint64_t 
     }
   }
 
-  v13 = (v5 + 88 * v6);
-  result = geom::interpolating_spline<float>::find_span(v13, a2);
-  v16 = (*v13 + 8 * (3 * result));
-  v17 = ((1.0 - *(&result + 1)) + (1.0 - *(&result + 1))) * *(&result + 1);
-  v18 = vmul_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(vsub_f32(v16[2], v16[1]), v17), vsub_f32(v16[1], *v16), (1.0 - *(&result + 1)) * (1.0 - *(&result + 1))), vsub_f32(v16[3], v16[2]), *(&result + 1) * *(&result + 1)), v15 * 3.0);
-  return result;
+  return geom::interpolating_spline<float>::find_span(v5 + 88 * v6, a2);
 }
 
 float _ZNK4geom19interpolating_curveIDv2_fE18evaluate_length_atEf(uint64_t a1, float result)
@@ -1200,53 +1195,55 @@ float _ZNK4geom19interpolating_curveIDv2_fE18evaluate_length_atEf(uint64_t a1, f
 float _ZNK4geom20interpolating_splineIDv2_fE18evaluate_length_atEf(uint64_t a1, float a2)
 {
   span = geom::interpolating_spline<float>::find_span(a1, a2);
-  v5 = span;
-  v6 = *(a1 + 64);
-  if (*(a1 + 72) == v6)
+  v6 = span;
+  v7 = *(a1 + 64);
+  if (*(a1 + 72) == v7)
   {
-    v8 = span;
+    v9 = span;
     if (span)
     {
-      v9 = 0;
-      v7 = 0.0;
+      v10 = 0;
+      v8 = 0.0;
       do
       {
-        v7 = v7 + _ZNK4geom20interpolating_splineIDv2_fE20evaluate_span_lengthEj(a1, v9++);
+        v5.n128_f32[0] = _ZNK4geom20interpolating_splineIDv2_fE20evaluate_span_lengthEj(a1, v10, v5);
+        v8 = v8 + v5.n128_f32[0];
+        ++v10;
       }
 
-      while (v8 != v9);
+      while (v9 != v10);
       goto LABEL_9;
     }
   }
 
   else if (span)
   {
-    v7 = *(v6 + 4 * span - 4);
+    v8 = *(v7 + 4 * span - 4);
     goto LABEL_9;
   }
 
-  v7 = 0.0;
+  v8 = 0.0;
 LABEL_9:
   if (*(a1 + 58) == 1)
   {
-    v10 = *(a1 + 56);
-    if (v10 == v5)
+    v11 = *(a1 + 56);
+    if (v11 == v6)
     {
-      v11 = *(a1 + 52);
+      v12 = *(a1 + 52);
     }
 
     else
     {
-      v11 = *(a1 + 48) + (v5 * ((*(a1 + 52) - *(a1 + 48)) / v10));
+      v12 = *(a1 + 48) + (v6 * ((*(a1 + 52) - *(a1 + 48)) / v11));
     }
   }
 
   else
   {
-    v11 = *(*(a1 + 24) + 4 * v5);
+    v12 = *(*(a1 + 24) + 4 * v6);
   }
 
-  return v7 + _ZNK4geom20interpolating_splineIDv2_fE24evaluate_length_betweeenEff(a1, v11, a2);
+  return v8 + _ZNK4geom20interpolating_splineIDv2_fE24evaluate_length_betweeenEff(a1, v12, a2);
 }
 
 void _ZNK4geom19interpolating_curveIDv2_fE10span_knotsEtRfS3_(uint64_t a1, unsigned int a2, float *a3, float *a4, double a5, double a6, float a7)
@@ -1301,9 +1298,9 @@ void _ZNK4geom19interpolating_curveIDv2_fE10span_knotsEtRfS3_(uint64_t a1, unsig
 
     else
     {
-      v17 = *(v12 + 24) + 4 * v10;
+      v17 = (*(v12 + 24) + 4 * v10);
       *a3 = *v17;
-      v16 = *(v17 + 4);
+      v16 = v17[1];
     }
   }
 
@@ -1369,14 +1366,14 @@ uint64_t _ZNK4geom19interpolating_curveIDv2_fE31calculate_bezier_basis_for_spanE
 
 uint64_t _ZN4geom19interpolating_curveIDv2_fE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(uint64_t a1, float32x2_t **a2)
 {
-  memset(&v14, 0, sizeof(v14));
-  memset(v12, 0, sizeof(v12));
+  memset(&v15, 0, sizeof(v15));
+  memset(v13, 0, sizeof(v13));
   v3 = (*a2)->i32[0];
   if (v3 > 1)
   {
     if (v3 == 2)
     {
-      _ZN4geom19interpolating_curveIDv2_fE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+      _ZN4geom19interpolating_curveIDv2_fE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
     }
 
     else
@@ -1386,7 +1383,7 @@ uint64_t _ZN4geom19interpolating_curveIDv2_fE13append_splineERKNS_5sliceINS_17in
         goto LABEL_11;
       }
 
-      _ZN4geom19interpolating_curveIDv2_fE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+      _ZN4geom19interpolating_curveIDv2_fE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
     }
   }
 
@@ -1397,48 +1394,49 @@ uint64_t _ZN4geom19interpolating_curveIDv2_fE13append_splineERKNS_5sliceINS_17in
       goto LABEL_11;
     }
 
-    _ZN4geom19interpolating_curveIDv2_fE20build_hermite_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+    _ZN4geom19interpolating_curveIDv2_fE20build_hermite_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
   }
 
   else
   {
-    _ZN4geom19interpolating_curveIDv2_fE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+    _ZN4geom19interpolating_curveIDv2_fE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
   }
 
-  geom::interpolating_spline<float>::operator=(v12, v11);
-  geom::interpolating_spline<float>::~interpolating_spline(v11);
+  geom::interpolating_spline<float>::operator=(v13, v12);
+  geom::interpolating_spline<float>::~interpolating_spline(v12);
 LABEL_11:
   v4 = __sz;
-  std::vector<float>::resize(&v14, __sz);
+  std::vector<float>::resize(&v15, __sz);
   if (v4)
   {
-    v5 = 0;
-    v6 = 0.0;
+    v6 = 0;
+    v7 = 0.0;
     do
     {
-      v6 = v6 + _ZNK4geom20interpolating_splineIDv2_fE20evaluate_span_lengthEj(v12, v5);
-      *&v14.__begin_[v5++] = v6;
+      v5.n128_f32[0] = _ZNK4geom20interpolating_splineIDv2_fE20evaluate_span_lengthEj(v13, v6, v5);
+      v7 = v7 + v5.n128_f32[0];
+      *&v15.__begin_[v6++] = v7;
     }
 
-    while (v4 != v5);
+    while (v4 != v6);
   }
 
-  v7 = _ZNK4geom20interpolating_splineIDv2_fE21evaluate_total_lengthEv(v12);
-  v8 = *(a1 + 80) - *(a1 + 72);
-  if (v8)
+  v8 = _ZNK4geom20interpolating_splineIDv2_fE21evaluate_total_lengthEv(v13);
+  v9 = *(a1 + 80) - *(a1 + 72);
+  if (v9)
   {
-    v9 = *(*(a1 + 48) + 0x2E8BA2E8BA2E8BA3 * (v8 >> 1) - 4);
+    v10 = *(*(a1 + 48) + 0x2E8BA2E8BA2E8BA3 * (v9 >> 1) - 4);
   }
 
   else
   {
-    v9 = 0.0;
+    v10 = 0.0;
   }
 
-  v11[0] = v7 + v9;
-  std::vector<float>::push_back[abi:nn200100]((a1 + 48), v11);
-  _ZNSt3__16vectorIN4geom20interpolating_splineIDv2_fEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v12);
-  return geom::interpolating_spline<float>::~interpolating_spline(v12);
+  *v12 = v8 + v10;
+  std::vector<float>::push_back[abi:nn200100]((a1 + 48), v12);
+  _ZNSt3__16vectorIN4geom20interpolating_splineIDv2_fEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v13);
+  return geom::interpolating_spline<float>::~interpolating_spline(v13);
 }
 
 void _ZN4geom19interpolating_curveIDv2_fE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(_WORD *a1@<X1>, uint64_t a2@<X8>)
@@ -1560,7 +1558,7 @@ void _ZN4geom19interpolating_curveIDv2_fE24build_catmull_rom_splineERKNS_5sliceI
     v12 = 8;
     do
     {
-      *(v68 + v12) = v8[v10 * 4 + 1];
+      *(v68 + v12) = *(v8 + 2 * v10 + 8);
       v8 = *a1;
       v13 = vsub_f32((*a1)[v10 * 4 + 5], (*a1)[v10 * 4 + 1]);
       *&v67.__begin_[v10 + 2] = *&v67.__begin_[v10 + 1] + sqrtf(sqrtf(vaddv_f32(vmul_f32(v13, v13))));
@@ -1571,7 +1569,7 @@ void _ZN4geom19interpolating_curveIDv2_fE24build_catmull_rom_splineERKNS_5sliceI
     while ((v4 - 1) != v10);
   }
 
-  *(v68 + v6 - 2) = v8[4 * v11 + 1];
+  *(v68 + v6 - 2) = *(v8 + 32 * v11 + 8);
   *(v68 + v6 - 1) = vmla_f32(vneg_f32(*(v68 + 8 * v6 - 24)), 0x4000000040000000, *(v68 + 8 * v6 - 16));
   v14 = &(*a1)[4 * (v4 - 2)];
   v15 = vsub_f32(v14[5], v14[1]);
@@ -2032,20 +2030,20 @@ uint64_t _ZNSt3__16vectorIN4geom20interpolating_splineIDv2_fEENS_9allocatorIS4_E
   return result;
 }
 
-void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
@@ -2066,12 +2064,12 @@ void _ZN4geom19interpolating_curveIDv3_fE5buildERKNSt3__16vectorINS_17interpolat
   _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(a2, a1, 0);
 }
 
-void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t a1, void *a2, char a3)
+void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t *a1, void *a2, char a3)
 {
   v6 = a2[1] - *a2;
-  v10 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  v9 = (a1 + 72);
+  v10 = a1[9];
+  v8 = a1[10];
+  v9 = a1 + 9;
   if (v8 == v10)
   {
     v11 = v6 >> 6;
@@ -2088,7 +2086,7 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
     v11 = (a2[1] - *a2) >> 6;
   }
 
-  *(a1 + 80) = v10;
+  a1[10] = v10;
   std::vector<geom::interpolating_spline<float>>::reserve(v9, v11 - 1);
   *(a1 + 192) = 0;
   v12 = (v6 >> 6);
@@ -2129,9 +2127,9 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
     _ZN4geom19interpolating_curveIDv3_fE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a1, &v103);
   }
 
-  v18 = *(a1 + 72);
-  v17 = *(a1 + 80);
-  std::vector<unsigned short>::resize((a1 + 24), 0x2E8BA2E8BA2E8BA3 * ((v17 - v18) >> 3));
+  v18 = a1[9];
+  v17 = a1[10];
+  std::vector<unsigned short>::resize(a1 + 3, 0x2E8BA2E8BA2E8BA3 * ((v17 - v18) >> 3));
   if (v17 == v18)
   {
     std::vector<unsigned short>::resize(a1, 0);
@@ -2141,7 +2139,7 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
   {
     v19 = 0;
     v20 = *v9;
-    v21 = *(a1 + 24);
+    v21 = a1[3];
     if ((0x2E8BA2E8BA2E8BA3 * ((v17 - v18) >> 3)) <= 1)
     {
       v22 = 1;
@@ -2167,7 +2165,7 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
     std::vector<unsigned short>::resize(a1, v19);
     v27 = 0;
     v28 = 0;
-    v29 = *(a1 + 72);
+    v29 = a1[9];
     do
     {
       v30 = *(v29 + 88 * v27 + 56);
@@ -2198,28 +2196,28 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
   }
 
   v33 = *a2;
-  *(a1 + 184) = *(*a2 + 4);
+  *(a1 + 46) = *(*a2 + 4);
   v34 = a2[1];
-  *(a1 + 188) = *(v34 - 60);
+  *(a1 + 47) = *(v34 - 60);
   if (a3)
   {
-    LOWORD(v113[0]) = 512;
+    v113[0] = 512;
     v35 = v34 - v33;
-    v113[1] = 0.001;
-    v114 = 1;
+    v114 = 981668463;
+    v115 = 1;
     v110 = 0;
     v111 = 0;
     v112 = 0;
     v103 = 0u;
     v104 = 0u;
     v105 = 0u;
-    *(a1 + 104) = *(a1 + 96);
-    *(a1 + 152) = 0;
-    v36 = *(a1 + 120);
-    v101 = (a1 + 120);
+    a1[13] = a1[12];
+    *(a1 + 76) = 0;
+    v36 = a1[15];
+    v101 = (a1 + 15);
     v102 = a1;
     *(a1 + 154) = 0;
-    *(a1 + 128) = v36;
+    a1[16] = v36;
     if (v34 == v33)
     {
       v37 = 0.0;
@@ -2249,23 +2247,23 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
         *(&v103 + 1) = v103;
         *&v105 = *(&v104 + 1);
         v42 = v40;
-        v26.f64[0] = (v40 + v37 * 2.0) * 0.333333333;
-        v43 = v26.f64[0];
+        *v26.i64 = (v40 + v37 * 2.0) * 0.333333333;
+        v43 = *v26.i64;
         v44 = (v37 + v40 * 2.0) * 0.333333333;
         v45 = v44;
-        if (*(v102 + 192))
+        if (v102[24])
         {
           v46 = v37;
         }
 
         else
         {
-          v47 = *(v102 + 72);
-          v48 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v47) >> 3);
-          if ((v48 & 0xFFFE) != 0 && *(v102 + 184) < v37)
+          v47 = v102[9];
+          v48 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v47) >> 3);
+          if ((v48 & 0xFFFE) != 0 && *(v102 + 46) < v37)
           {
             LOWORD(v48) = v48 - 1;
-            if (*(v102 + 188) > v37)
+            if (*(v102 + 47) > v37)
             {
               for (i = 0; ; i = v50 + 1)
               {
@@ -2312,14 +2310,14 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
           v44 = v42 + v54;
           v46 = v44;
           v55 = v102;
-          if ((*(v102 + 192) & 1) == 0)
+          if ((v102[24] & 1) == 0)
           {
-            v56 = *(v102 + 72);
-            v57 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v56) >> 3);
-            if ((v57 & 0xFFFE) != 0 && *(v102 + 184) < v43)
+            v56 = v102[9];
+            v57 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v56) >> 3);
+            if ((v57 & 0xFFFE) != 0 && *(v102 + 46) < v43)
             {
               LOWORD(v57) = v57 - 1;
-              if (*(v102 + 188) > v43)
+              if (*(v102 + 47) > v43)
               {
                 for (j = 0; ; j = v59 + 1)
                 {
@@ -2357,14 +2355,14 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
             v44 = v42 + v63;
             v43 = v44;
             v64 = v102;
-            if ((*(v102 + 192) & 1) == 0)
+            if ((v102[24] & 1) == 0)
             {
-              v65 = *(v102 + 72);
-              v66 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v65) >> 3);
-              if ((v66 & 0xFFFE) != 0 && *(v102 + 184) < v45)
+              v65 = v102[9];
+              v66 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v65) >> 3);
+              if ((v66 & 0xFFFE) != 0 && *(v102 + 46) < v45)
               {
                 LOWORD(v66) = v66 - 1;
-                if (*(v102 + 188) > v45)
+                if (*(v102 + 47) > v45)
                 {
                   for (k = 0; ; k = v68 + 1)
                   {
@@ -2402,14 +2400,14 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
               v44 = v42 + v72;
               v45 = v44;
               v73 = v102;
-              if ((*(v102 + 192) & 1) == 0)
+              if ((v102[24] & 1) == 0)
               {
-                v93 = *(v102 + 72);
-                v94 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v93) >> 3);
-                if ((v94 & 0xFFFE) != 0 && *(v102 + 184) < v40)
+                v93 = v102[9];
+                v94 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v93) >> 3);
+                if ((v94 & 0xFFFE) != 0 && *(v102 + 46) < v40)
                 {
                   LOWORD(v94) = v94 - 1;
-                  if (*(v102 + 188) > v40)
+                  if (*(v102 + 47) > v40)
                   {
                     for (m = 0; ; m = v96 + 1)
                     {
@@ -2463,18 +2461,18 @@ void _ZN4geom19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17in
 
         *&v44 = v40;
 LABEL_79:
-        *v115 = v37;
-        *&v115[1] = v40;
-        *&v115[2] = v46;
-        *&v115[3] = v43;
-        *&v115[4] = v45;
-        v115[5] = LODWORD(v44);
-        v116 = 0;
-        _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(&v102, v115, v113, &v103, v44, v42, v26);
+        *v116 = v37;
+        *&v116[1] = v40;
+        *&v116[2] = v46;
+        *&v116[3] = v43;
+        *&v116[4] = v45;
+        v116[5] = LODWORD(v44);
+        v117 = 0;
+        _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(&v102, v116, v113, &v103, v44, v42, v26);
         v74 = v108;
-        v75 = *(a1 + 104);
-        v76 = *(a1 + 96);
-        v77 = *(a1 + 152);
+        v75 = *(a1 + 26);
+        v76 = a1[12];
+        v77 = *(a1 + 76);
         if (v77)
         {
           v78 = v77 + 1;
@@ -2488,8 +2486,8 @@ LABEL_79:
         v79 = v77 + v108;
         if (v77 + v108)
         {
-          std::vector<float>::resize((a1 + 96), (3 * v79 + 1));
-          *(a1 + 152) = v79;
+          std::vector<float>::resize(a1 + 4, (3 * v79 + 1));
+          *(a1 + 76) = v79;
           if ((*(a1 + 154) & 1) == 0)
           {
             std::vector<float>::resize(v101, v79 + 1);
@@ -2498,11 +2496,11 @@ LABEL_79:
 
         else
         {
-          *(a1 + 104) = v76;
-          *(a1 + 152) = 0;
+          a1[13] = v76;
+          *(a1 + 76) = 0;
           if ((*(a1 + 154) & 1) == 0)
           {
-            *(a1 + 128) = *(a1 + 120);
+            a1[16] = a1[15];
           }
         }
 
@@ -2516,7 +2514,7 @@ LABEL_79:
           v85 = *(&v104 + 1);
           v86 = v103;
           begin = v101->__begin_;
-          v88 = *(a1 + 96);
+          v88 = a1[12];
           v89 = 3;
           v90 = 1;
           do
@@ -2597,8 +2595,8 @@ LABEL_103:
     }
 
     *(a1 + 192) = 1;
-    *(a1 + 184) = *(v33 + 4);
-    *(a1 + 188) = *(v33 + v35 - 60);
+    *(a1 + 46) = *(v33 + 4);
+    *(a1 + 47) = *(v33 + v35 - 60);
     geom::interpolating_spline<float>::~interpolating_spline(&v103);
   }
 }
@@ -2683,96 +2681,84 @@ unint64_t _ZNK4geom19interpolating_curveIDv3_fE19evaluate_tangent_atEf(uint64_t 
   {
     span = geom::interpolating_spline<float>::find_span(a1 + 96, a2);
     v4 = (*(a1 + 96) + 4 * (3 * span));
-    v5 = (*v4 * ((1.0 - *(&span + 1)) * ((1.0 - *(&span + 1)) * (1.0 - *(&span + 1))))) + v4[1] * (((1.0 - *(&span + 1)) * (1.0 - *(&span + 1))) * 3.0 * *(&span + 1)) + v4[2] * ((1.0 - *(&span + 1)) * 3.0 * (*(&span + 1) * *(&span + 1))) + (v4[3] * ((*(&span + 1) * *(&span + 1)) * *(&span + 1)));
-    v6 = *(a1 + 72);
-    v7 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 80) - v6) >> 3);
-    if ((v7 & 0xFFFE) != 0 && *(a1 + 184) < v5)
+    a2 = (*v4 * ((1.0 - *(&span + 1)) * ((1.0 - *(&span + 1)) * (1.0 - *(&span + 1))))) + v4[1] * (((1.0 - *(&span + 1)) * (1.0 - *(&span + 1))) * 3.0 * *(&span + 1)) + v4[2] * ((1.0 - *(&span + 1)) * 3.0 * (*(&span + 1) * *(&span + 1))) + (v4[3] * ((*(&span + 1) * *(&span + 1)) * *(&span + 1)));
+    v5 = *(a1 + 72);
+    v6 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 80) - v5) >> 3);
+    if ((v6 & 0xFFFE) != 0 && *(a1 + 184) < a2)
     {
-      LOWORD(v7) = v7 - 1;
-      if (*(a1 + 188) > v5)
+      LOWORD(v6) = v6 - 1;
+      if (*(a1 + 188) > a2)
       {
-        for (i = 0; ; i = v9 + 1)
+        for (i = 0; ; i = v8 + 1)
         {
           while (1)
           {
-            v9 = (i + v7) >> 1;
-            v10 = v6 + 88 * v9;
-            if (*(v10 + 48) <= v5)
+            v8 = (i + v6) >> 1;
+            v9 = v5 + 88 * v8;
+            if (*(v9 + 48) <= a2)
             {
               break;
             }
 
-            LOWORD(v7) = v9 - 1;
+            LOWORD(v6) = v8 - 1;
           }
 
-          if (*(v10 + 52) > v5)
+          if (*(v9 + 52) > a2)
           {
             break;
           }
         }
 
-        LODWORD(v7) = (i + v7) >> 1;
+        LODWORD(v6) = (i + v6) >> 1;
       }
     }
 
     else
     {
-      LOWORD(v7) = 0;
+      LOWORD(v6) = 0;
     }
-
-    v16 = (v6 + 88 * v7);
-    result = geom::interpolating_spline<float>::find_span(v16, v5);
-    v19 = (*v16 + 16 * (3 * result));
-    v20 = ((1.0 - *(&result + 1)) + (1.0 - *(&result + 1))) * *(&result + 1);
-    v21 = vmulq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(vsubq_f32(v19[2], v19[1]), v20), vsubq_f32(v19[1], *v19), (1.0 - *(&result + 1)) * (1.0 - *(&result + 1))), vsubq_f32(v19[3], v19[2]), *(&result + 1) * *(&result + 1)), v18 * 3.0);
   }
 
   else
   {
-    v11 = *(a1 + 72);
-    v12 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 80) - v11) >> 3);
-    if ((v12 & 0xFFFE) != 0 && *(a1 + 184) < a2)
+    v5 = *(a1 + 72);
+    v6 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 80) - v5) >> 3);
+    if ((v6 & 0xFFFE) != 0 && *(a1 + 184) < a2)
     {
-      LOWORD(v12) = v12 - 1;
+      LOWORD(v6) = v6 - 1;
       if (*(a1 + 188) > a2)
       {
-        for (j = 0; ; j = v14 + 1)
+        for (j = 0; ; j = v11 + 1)
         {
           while (1)
           {
-            v14 = (j + v12) >> 1;
-            v15 = v11 + 88 * v14;
-            if (*(v15 + 48) <= a2)
+            v11 = (j + v6) >> 1;
+            v12 = v5 + 88 * v11;
+            if (*(v12 + 48) <= a2)
             {
               break;
             }
 
-            LOWORD(v12) = v14 - 1;
+            LOWORD(v6) = v11 - 1;
           }
 
-          if (*(v15 + 52) > a2)
+          if (*(v12 + 52) > a2)
           {
             break;
           }
         }
 
-        LODWORD(v12) = (j + v12) >> 1;
+        LODWORD(v6) = (j + v6) >> 1;
       }
     }
 
     else
     {
-      LOWORD(v12) = 0;
+      LOWORD(v6) = 0;
     }
-
-    v22 = (v11 + 88 * v12);
-    result = geom::interpolating_spline<float>::find_span(v22, a2);
-    v24 = (*v22 + 16 * (3 * result));
-    v25 = ((1.0 - *(&result + 1)) + (1.0 - *(&result + 1))) * *(&result + 1);
-    v26 = vmulq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(vsubq_f32(v24[2], v24[1]), v25), vsubq_f32(v24[1], *v24), (1.0 - *(&result + 1)) * (1.0 - *(&result + 1))), vsubq_f32(v24[3], v24[2]), *(&result + 1) * *(&result + 1)), v23 * 3.0).u64[0];
   }
 
-  return result;
+  return geom::interpolating_spline<float>::find_span(v5 + 88 * v6, a2);
 }
 
 float _ZNK4geom19interpolating_curveIDv3_fE18evaluate_length_atEf(uint64_t a1, float result)
@@ -2837,53 +2823,55 @@ float _ZNK4geom19interpolating_curveIDv3_fE18evaluate_length_atEf(uint64_t a1, f
 float _ZNK4geom20interpolating_splineIDv3_fE18evaluate_length_atEf(uint64_t a1, float a2)
 {
   span = geom::interpolating_spline<float>::find_span(a1, a2);
-  v5 = span;
-  v6 = *(a1 + 64);
-  if (*(a1 + 72) == v6)
+  v6 = span;
+  v7 = *(a1 + 64);
+  if (*(a1 + 72) == v7)
   {
-    v8 = span;
+    v9 = span;
     if (span)
     {
-      v9 = 0;
-      v7 = 0.0;
+      v10 = 0;
+      v8 = 0.0;
       do
       {
-        v7 = v7 + _ZNK4geom20interpolating_splineIDv3_fE20evaluate_span_lengthEj(a1, v9++);
+        v5.n128_f32[0] = _ZNK4geom20interpolating_splineIDv3_fE20evaluate_span_lengthEj(a1, v10, v5);
+        v8 = v8 + v5.n128_f32[0];
+        ++v10;
       }
 
-      while (v8 != v9);
+      while (v9 != v10);
       goto LABEL_9;
     }
   }
 
   else if (span)
   {
-    v7 = *(v6 + 4 * span - 4);
+    v8 = *(v7 + 4 * span - 4);
     goto LABEL_9;
   }
 
-  v7 = 0.0;
+  v8 = 0.0;
 LABEL_9:
   if (*(a1 + 58) == 1)
   {
-    v10 = *(a1 + 56);
-    if (v10 == v5)
+    v11 = *(a1 + 56);
+    if (v11 == v6)
     {
-      v11 = *(a1 + 52);
+      v12 = *(a1 + 52);
     }
 
     else
     {
-      v11 = *(a1 + 48) + (v5 * ((*(a1 + 52) - *(a1 + 48)) / v10));
+      v12 = *(a1 + 48) + (v6 * ((*(a1 + 52) - *(a1 + 48)) / v11));
     }
   }
 
   else
   {
-    v11 = *(*(a1 + 24) + 4 * v5);
+    v12 = *(*(a1 + 24) + 4 * v6);
   }
 
-  return v7 + _ZNK4geom20interpolating_splineIDv3_fE24evaluate_length_betweeenEff(a1, v11, a2);
+  return v8 + _ZNK4geom20interpolating_splineIDv3_fE24evaluate_length_betweeenEff(a1, v12, a2);
 }
 
 void _ZNK4geom19interpolating_curveIDv3_fE10span_knotsEtRfS3_(uint64_t a1, unsigned int a2, float *a3, float *a4, double a5, double a6, float a7)
@@ -2938,9 +2926,9 @@ void _ZNK4geom19interpolating_curveIDv3_fE10span_knotsEtRfS3_(uint64_t a1, unsig
 
     else
     {
-      v17 = *(v12 + 24) + 4 * v10;
+      v17 = (*(v12 + 24) + 4 * v10);
       *a3 = *v17;
-      v16 = *(v17 + 4);
+      v16 = v17[1];
     }
   }
 
@@ -3012,14 +3000,14 @@ uint64_t _ZNK4geom19interpolating_curveIDv3_fE31calculate_bezier_basis_for_spanE
 
 uint64_t _ZN4geom19interpolating_curveIDv3_fE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(uint64_t a1, int **a2)
 {
-  memset(&v56, 0, sizeof(v56));
-  memset(v54, 0, sizeof(v54));
+  memset(&v57, 0, sizeof(v57));
+  memset(v55, 0, sizeof(v55));
   v4 = **a2;
   if (v4 > 1)
   {
     if (v4 == 2)
     {
-      _ZN4geom19interpolating_curveIDv3_fE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, &v44);
+      _ZN4geom19interpolating_curveIDv3_fE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, &v45);
     }
 
     else
@@ -3029,7 +3017,7 @@ uint64_t _ZN4geom19interpolating_curveIDv3_fE13append_splineERKNS_5sliceINS_17in
         goto LABEL_19;
       }
 
-      _ZN4geom19interpolating_curveIDv3_fE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, &v44);
+      _ZN4geom19interpolating_curveIDv3_fE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, &v45);
     }
   }
 
@@ -3044,24 +3032,24 @@ uint64_t _ZN4geom19interpolating_curveIDv3_fE13append_splineERKNS_5sliceINS_17in
 
       v5 = *(a2 + 4);
       v6 = v5 - 1;
-      v52 = 0;
       v53 = 0;
-      v51 = 0;
-      v44 = 0uLL;
+      v54 = 0;
+      v52 = 0;
       v45 = 0uLL;
       v46 = 0uLL;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(&v44, (3 * v5 - 2));
-      v49 = v6;
-      if ((v50 & 1) == 0)
+      v47 = 0uLL;
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(&v45, (3 * v5 - 2));
+      v50 = v6;
+      if ((v51 & 1) == 0)
       {
-        std::vector<float>::resize((&v45 + 8), v6 + 1);
+        std::vector<float>::resize((&v46 + 8), v6 + 1);
       }
 
-      memset(&v57, 0, sizeof(v57));
-      std::vector<float>::resize(&v57, v6 + 1);
+      memset(&v58, 0, sizeof(v58));
+      std::vector<float>::resize(&v58, v6 + 1);
       v7 = 0;
       v8 = 0;
-      *v57.__begin_ = (*a2)[1];
+      *v58.__begin_ = (*a2)[1];
       v9 = 17;
       __asm { FMOV            V0.4S, #3.0 }
 
@@ -3069,17 +3057,17 @@ uint64_t _ZN4geom19interpolating_curveIDv3_fE13append_splineERKNS_5sliceINS_17in
       {
         v15 = *a2;
         v16 = *&(*a2)[v9];
-        v17 = &v57.__begin_[v7];
+        v17 = &v58.__begin_[v7];
         v17[1] = v16;
         v18 = v16 - *v17;
         v19 = &v15[v7 * 4];
         v20 = v19[3];
         v21 = v19[6];
-        *(v44 + 16 * v8) = v19[1];
+        *(v45 + 16 * v8) = v19[1];
         v22 = v8 + 2;
-        *(v44 + 16 * (v8 + 1)) = vaddq_f32(vdivq_f32(vmulq_n_f32(v20, v18), _Q0), v19[1]);
+        *(v45 + 16 * (v8 + 1)) = vaddq_f32(vdivq_f32(vmulq_n_f32(v20, v18), _Q0), v19[1]);
         v8 += 3;
-        *(v44 + 16 * v22) = vsubq_f32(v19[5], vdivq_f32(vmulq_n_f32(v21, v18), _Q0));
+        *(v45 + 16 * v22) = vsubq_f32(v19[5], vdivq_f32(vmulq_n_f32(v21, v18), _Q0));
         ++v7;
         v9 += 16;
       }
@@ -3091,24 +3079,24 @@ uint64_t _ZN4geom19interpolating_curveIDv3_fE13append_splineERKNS_5sliceINS_17in
     {
       v23 = *(a2 + 4);
       v24 = v23 - 1;
-      v52 = 0;
       v53 = 0;
-      v51 = 0;
-      v44 = 0uLL;
+      v54 = 0;
+      v52 = 0;
       v45 = 0uLL;
       v46 = 0uLL;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(&v44, (3 * v23 - 2));
-      v49 = v24;
-      if ((v50 & 1) == 0)
+      v47 = 0uLL;
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(&v45, (3 * v23 - 2));
+      v50 = v24;
+      if ((v51 & 1) == 0)
       {
-        std::vector<float>::resize((&v45 + 8), v24 + 1);
+        std::vector<float>::resize((&v46 + 8), v24 + 1);
       }
 
-      memset(&v57, 0, sizeof(v57));
-      std::vector<float>::resize(&v57, v24 + 1);
+      memset(&v58, 0, sizeof(v58));
+      std::vector<float>::resize(&v58, v24 + 1);
       v25 = 0;
       v8 = 0;
-      *v57.__begin_ = (*a2)[1];
+      *v58.__begin_ = (*a2)[1];
       v26 = 17;
       __asm { FMOV            V0.4S, #3.0 }
 
@@ -3116,18 +3104,18 @@ uint64_t _ZN4geom19interpolating_curveIDv3_fE13append_splineERKNS_5sliceINS_17in
       {
         v28 = *a2;
         v29 = *&(*a2)[v26];
-        v30 = &v57.__begin_[v25];
+        v30 = &v58.__begin_[v25];
         v30[1] = v29;
         v31 = v29 - *v30;
         v32 = &v28[v25 * 4];
         v33 = v32[1];
         v34 = vsubq_f32(v32[5], v33);
-        *(v44 + 16 * v8) = v33;
+        *(v45 + 16 * v8) = v33;
         v35 = vdivq_f32(vmulq_n_f32(v34, v31), _Q0);
         v36 = v8 + 2;
-        *(v44 + 16 * (v8 + 1)) = vaddq_f32(v32[1], v35);
+        *(v45 + 16 * (v8 + 1)) = vaddq_f32(v32[1], v35);
         v8 += 3;
-        *(v44 + 16 * v36) = vsubq_f32(v32[5], v35);
+        *(v45 + 16 * v36) = vsubq_f32(v32[5], v35);
         ++v25;
         v26 += 16;
       }
@@ -3135,49 +3123,50 @@ uint64_t _ZN4geom19interpolating_curveIDv3_fE13append_splineERKNS_5sliceINS_17in
       while (v24 != v25);
     }
 
-    *(v44 + 16 * v8) = *&(*a2)[16 * a2[1] - 12];
-    v50 = 0;
-    std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(&v45 + 1, v57.__begin_, v57.__end_, v57.__end_ - v57.__begin_);
-    v47 = *v57.__begin_;
-    v48 = *(v57.__end_ - 1);
-    v57.__end_ = v57.__begin_;
-    operator delete(v57.__begin_);
+    *(v45 + 16 * v8) = *&(*a2)[16 * a2[1] - 12];
+    v51 = 0;
+    std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(&v46 + 1, v58.__begin_, v58.__end_, v58.__end_ - v58.__begin_);
+    v48 = *v58.__begin_;
+    v49 = *(v58.__end_ - 1);
+    v58.__end_ = v58.__begin_;
+    operator delete(v58.__begin_);
   }
 
-  geom::interpolating_spline<float>::operator=(v54, &v44);
-  geom::interpolating_spline<float>::~interpolating_spline(&v44);
+  geom::interpolating_spline<float>::operator=(v55, &v45);
+  geom::interpolating_spline<float>::~interpolating_spline(&v45);
 LABEL_19:
   v37 = __sz;
-  std::vector<float>::resize(&v56, __sz);
+  std::vector<float>::resize(&v57, __sz);
   if (v37)
   {
-    v38 = 0;
-    v39 = 0.0;
+    v39 = 0;
+    v40 = 0.0;
     do
     {
-      v39 = v39 + _ZNK4geom20interpolating_splineIDv3_fE20evaluate_span_lengthEj(v54, v38);
-      *&v56.__begin_[v38++] = v39;
+      v38.n128_f32[0] = _ZNK4geom20interpolating_splineIDv3_fE20evaluate_span_lengthEj(v55, v39, v38);
+      v40 = v40 + v38.n128_f32[0];
+      *&v57.__begin_[v39++] = v40;
     }
 
-    while (v37 != v38);
+    while (v37 != v39);
   }
 
-  v40 = _ZNK4geom20interpolating_splineIDv3_fE21evaluate_total_lengthEv(v54);
-  v41 = *(a1 + 80) - *(a1 + 72);
-  if (v41)
+  v41 = _ZNK4geom20interpolating_splineIDv3_fE21evaluate_total_lengthEv(v55);
+  v42 = *(a1 + 80) - *(a1 + 72);
+  if (v42)
   {
-    v42 = *(*(a1 + 48) + 0x2E8BA2E8BA2E8BA3 * (v41 >> 1) - 4);
+    v43 = *(*(a1 + 48) + 0x2E8BA2E8BA2E8BA3 * (v42 >> 1) - 4);
   }
 
   else
   {
-    v42 = 0.0;
+    v43 = 0.0;
   }
 
-  *&v44 = v40 + v42;
-  std::vector<float>::push_back[abi:nn200100]((a1 + 48), &v44);
-  _ZNSt3__16vectorIN4geom20interpolating_splineIDv3_fEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v54);
-  return geom::interpolating_spline<float>::~interpolating_spline(v54);
+  *&v45 = v41 + v43;
+  std::vector<float>::push_back[abi:nn200100]((a1 + 48), &v45);
+  _ZNSt3__16vectorIN4geom20interpolating_splineIDv3_fEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v55);
+  return geom::interpolating_spline<float>::~interpolating_spline(v55);
 }
 
 void _ZN4geom19interpolating_curveIDv3_fE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(_WORD *a1@<X1>, uint64_t a2@<X8>)
@@ -3303,7 +3292,7 @@ void _ZN4geom19interpolating_curveIDv3_fE24build_catmull_rom_splineERKNS_5sliceI
     v14 = 16;
     do
     {
-      *(v72 + v14) = v9[v12 * 4 + 1];
+      *(v72 + v14) = *(v9 + 4 * v12 + 16);
       v9 = *a1;
       v15 = vsubq_f32((*a1)[v12 * 4 + 5], (*a1)[v12 * 4 + 1]);
       v16 = vmulq_f32(v15, v15);
@@ -3315,7 +3304,7 @@ void _ZN4geom19interpolating_curveIDv3_fE24build_catmull_rom_splineERKNS_5sliceI
     while ((v4 - 1) != v12);
   }
 
-  *(v72 + v6 - 2) = v9[4 * v13 + 1];
+  *(v72 + v6 - 2) = *(v9 + (v13 << 6) + 16);
   *(v72 + v6 - 1) = vmlaq_f32(vnegq_f32(*(v72 + v6 - 3)), v7, *(v72 + v6 - 2));
   v17 = &(*a1)[4 * (v4 - 2)];
   v18 = vsubq_f32(v17[5], v17[1]);
@@ -3796,12 +3785,12 @@ void _ZN4geom19interpolating_curveIDv4_fE5buildERKNSt3__16vectorINS_17interpolat
   _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(a2, a1, 0);
 }
 
-void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t a1, void *a2, char a3)
+void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t *a1, void *a2, char a3)
 {
   v6 = a2[1] - *a2;
-  v10 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  v9 = (a1 + 72);
+  v10 = a1[9];
+  v8 = a1[10];
+  v9 = a1 + 9;
   if (v8 == v10)
   {
     v11 = v6 >> 6;
@@ -3818,7 +3807,7 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
     v11 = (a2[1] - *a2) >> 6;
   }
 
-  *(a1 + 80) = v10;
+  a1[10] = v10;
   std::vector<geom::interpolating_spline<float>>::reserve(v9, v11 - 1);
   *(a1 + 192) = 0;
   v12 = (v6 >> 6);
@@ -3859,9 +3848,9 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
     _ZN4geom19interpolating_curveIDv4_fE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a1, &v103);
   }
 
-  v18 = *(a1 + 72);
-  v17 = *(a1 + 80);
-  std::vector<unsigned short>::resize((a1 + 24), 0x2E8BA2E8BA2E8BA3 * ((v17 - v18) >> 3));
+  v18 = a1[9];
+  v17 = a1[10];
+  std::vector<unsigned short>::resize(a1 + 3, 0x2E8BA2E8BA2E8BA3 * ((v17 - v18) >> 3));
   if (v17 == v18)
   {
     std::vector<unsigned short>::resize(a1, 0);
@@ -3871,7 +3860,7 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
   {
     v19 = 0;
     v20 = *v9;
-    v21 = *(a1 + 24);
+    v21 = a1[3];
     if ((0x2E8BA2E8BA2E8BA3 * ((v17 - v18) >> 3)) <= 1)
     {
       v22 = 1;
@@ -3897,7 +3886,7 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
     std::vector<unsigned short>::resize(a1, v19);
     v27 = 0;
     v28 = 0;
-    v29 = *(a1 + 72);
+    v29 = a1[9];
     do
     {
       v30 = *(v29 + 88 * v27 + 56);
@@ -3928,28 +3917,28 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
   }
 
   v33 = *a2;
-  *(a1 + 184) = *(*a2 + 4);
+  *(a1 + 46) = *(*a2 + 4);
   v34 = a2[1];
-  *(a1 + 188) = *(v34 - 60);
+  *(a1 + 47) = *(v34 - 60);
   if (a3)
   {
-    LOWORD(v113[0]) = 512;
+    v113[0] = 512;
     v35 = v34 - v33;
-    v113[1] = 0.001;
-    v114 = 1;
+    v114 = 981668463;
+    v115 = 1;
     v110 = 0;
     v111 = 0;
     v112 = 0;
     v103 = 0u;
     v104 = 0u;
     v105 = 0u;
-    *(a1 + 104) = *(a1 + 96);
-    *(a1 + 152) = 0;
-    v36 = *(a1 + 120);
-    v101 = (a1 + 120);
+    a1[13] = a1[12];
+    *(a1 + 76) = 0;
+    v36 = a1[15];
+    v101 = (a1 + 15);
     v102 = a1;
     *(a1 + 154) = 0;
-    *(a1 + 128) = v36;
+    a1[16] = v36;
     if (v34 == v33)
     {
       v37 = 0.0;
@@ -3979,23 +3968,23 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
         *(&v103 + 1) = v103;
         *&v105 = *(&v104 + 1);
         v42 = v40;
-        v26.f64[0] = (v40 + v37 * 2.0) * 0.333333333;
-        v43 = v26.f64[0];
+        *v26.i64 = (v40 + v37 * 2.0) * 0.333333333;
+        v43 = *v26.i64;
         v44 = (v37 + v40 * 2.0) * 0.333333333;
         v45 = v44;
-        if (*(v102 + 192))
+        if (v102[24])
         {
           v46 = v37;
         }
 
         else
         {
-          v47 = *(v102 + 72);
-          v48 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v47) >> 3);
-          if ((v48 & 0xFFFE) != 0 && *(v102 + 184) < v37)
+          v47 = v102[9];
+          v48 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v47) >> 3);
+          if ((v48 & 0xFFFE) != 0 && *(v102 + 46) < v37)
           {
             LOWORD(v48) = v48 - 1;
-            if (*(v102 + 188) > v37)
+            if (*(v102 + 47) > v37)
             {
               for (i = 0; ; i = v50 + 1)
               {
@@ -4042,14 +4031,14 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
           v44 = v42 + v54;
           v46 = v44;
           v55 = v102;
-          if ((*(v102 + 192) & 1) == 0)
+          if ((v102[24] & 1) == 0)
           {
-            v56 = *(v102 + 72);
-            v57 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v56) >> 3);
-            if ((v57 & 0xFFFE) != 0 && *(v102 + 184) < v43)
+            v56 = v102[9];
+            v57 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v56) >> 3);
+            if ((v57 & 0xFFFE) != 0 && *(v102 + 46) < v43)
             {
               LOWORD(v57) = v57 - 1;
-              if (*(v102 + 188) > v43)
+              if (*(v102 + 47) > v43)
               {
                 for (j = 0; ; j = v59 + 1)
                 {
@@ -4087,14 +4076,14 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
             v44 = v42 + v63;
             v43 = v44;
             v64 = v102;
-            if ((*(v102 + 192) & 1) == 0)
+            if ((v102[24] & 1) == 0)
             {
-              v65 = *(v102 + 72);
-              v66 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v65) >> 3);
-              if ((v66 & 0xFFFE) != 0 && *(v102 + 184) < v45)
+              v65 = v102[9];
+              v66 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v65) >> 3);
+              if ((v66 & 0xFFFE) != 0 && *(v102 + 46) < v45)
               {
                 LOWORD(v66) = v66 - 1;
-                if (*(v102 + 188) > v45)
+                if (*(v102 + 47) > v45)
                 {
                   for (k = 0; ; k = v68 + 1)
                   {
@@ -4132,14 +4121,14 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
               v44 = v42 + v72;
               v45 = v44;
               v73 = v102;
-              if ((*(v102 + 192) & 1) == 0)
+              if ((v102[24] & 1) == 0)
               {
-                v93 = *(v102 + 72);
-                v94 = 0x2E8BA2E8BA2E8BA3 * ((*(v102 + 80) - v93) >> 3);
-                if ((v94 & 0xFFFE) != 0 && *(v102 + 184) < v40)
+                v93 = v102[9];
+                v94 = 0x2E8BA2E8BA2E8BA3 * ((v102[10] - v93) >> 3);
+                if ((v94 & 0xFFFE) != 0 && *(v102 + 46) < v40)
                 {
                   LOWORD(v94) = v94 - 1;
-                  if (*(v102 + 188) > v40)
+                  if (*(v102 + 47) > v40)
                   {
                     for (m = 0; ; m = v96 + 1)
                     {
@@ -4193,18 +4182,18 @@ void _ZN4geom19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17in
 
         *&v44 = v40;
 LABEL_79:
-        *v115 = v37;
-        *&v115[1] = v40;
-        *&v115[2] = v46;
-        *&v115[3] = v43;
-        *&v115[4] = v45;
-        v115[5] = LODWORD(v44);
-        v116 = 0;
-        _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(&v102, v115, v113, &v103, v44, v42, v26);
+        *v116 = v37;
+        *&v116[1] = v40;
+        *&v116[2] = v46;
+        *&v116[3] = v43;
+        *&v116[4] = v45;
+        v116[5] = LODWORD(v44);
+        v117 = 0;
+        _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(&v102, v116, v113, &v103, v44, v42, v26);
         v74 = v108;
-        v75 = *(a1 + 104);
-        v76 = *(a1 + 96);
-        v77 = *(a1 + 152);
+        v75 = *(a1 + 26);
+        v76 = a1[12];
+        v77 = *(a1 + 76);
         if (v77)
         {
           v78 = v77 + 1;
@@ -4218,8 +4207,8 @@ LABEL_79:
         v79 = v77 + v108;
         if (v77 + v108)
         {
-          std::vector<float>::resize((a1 + 96), (3 * v79 + 1));
-          *(a1 + 152) = v79;
+          std::vector<float>::resize(a1 + 4, (3 * v79 + 1));
+          *(a1 + 76) = v79;
           if ((*(a1 + 154) & 1) == 0)
           {
             std::vector<float>::resize(v101, v79 + 1);
@@ -4228,11 +4217,11 @@ LABEL_79:
 
         else
         {
-          *(a1 + 104) = v76;
-          *(a1 + 152) = 0;
+          a1[13] = v76;
+          *(a1 + 76) = 0;
           if ((*(a1 + 154) & 1) == 0)
           {
-            *(a1 + 128) = *(a1 + 120);
+            a1[16] = a1[15];
           }
         }
 
@@ -4246,7 +4235,7 @@ LABEL_79:
           v85 = *(&v104 + 1);
           v86 = v103;
           begin = v101->__begin_;
-          v88 = *(a1 + 96);
+          v88 = a1[12];
           v89 = 3;
           v90 = 1;
           do
@@ -4327,8 +4316,8 @@ LABEL_103:
     }
 
     *(a1 + 192) = 1;
-    *(a1 + 184) = *(v33 + 4);
-    *(a1 + 188) = *(v33 + v35 - 60);
+    *(a1 + 46) = *(v33 + 4);
+    *(a1 + 47) = *(v33 + v35 - 60);
     geom::interpolating_spline<float>::~interpolating_spline(&v103);
   }
 }
@@ -4356,96 +4345,84 @@ unint64_t _ZNK4geom19interpolating_curveIDv4_fE19evaluate_tangent_atEf(uint64_t 
   {
     span = geom::interpolating_spline<float>::find_span(a1 + 96, a2);
     v4 = (*(a1 + 96) + 4 * (3 * span));
-    v5 = (*v4 * ((1.0 - *(&span + 1)) * ((1.0 - *(&span + 1)) * (1.0 - *(&span + 1))))) + v4[1] * (((1.0 - *(&span + 1)) * (1.0 - *(&span + 1))) * 3.0 * *(&span + 1)) + v4[2] * ((1.0 - *(&span + 1)) * 3.0 * (*(&span + 1) * *(&span + 1))) + (v4[3] * ((*(&span + 1) * *(&span + 1)) * *(&span + 1)));
-    v6 = *(a1 + 72);
-    v7 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 80) - v6) >> 3);
-    if ((v7 & 0xFFFE) != 0 && *(a1 + 184) < v5)
+    a2 = (*v4 * ((1.0 - *(&span + 1)) * ((1.0 - *(&span + 1)) * (1.0 - *(&span + 1))))) + v4[1] * (((1.0 - *(&span + 1)) * (1.0 - *(&span + 1))) * 3.0 * *(&span + 1)) + v4[2] * ((1.0 - *(&span + 1)) * 3.0 * (*(&span + 1) * *(&span + 1))) + (v4[3] * ((*(&span + 1) * *(&span + 1)) * *(&span + 1)));
+    v5 = *(a1 + 72);
+    v6 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 80) - v5) >> 3);
+    if ((v6 & 0xFFFE) != 0 && *(a1 + 184) < a2)
     {
-      LOWORD(v7) = v7 - 1;
-      if (*(a1 + 188) > v5)
+      LOWORD(v6) = v6 - 1;
+      if (*(a1 + 188) > a2)
       {
-        for (i = 0; ; i = v9 + 1)
+        for (i = 0; ; i = v8 + 1)
         {
           while (1)
           {
-            v9 = (i + v7) >> 1;
-            v10 = v6 + 88 * v9;
-            if (*(v10 + 48) <= v5)
+            v8 = (i + v6) >> 1;
+            v9 = v5 + 88 * v8;
+            if (*(v9 + 48) <= a2)
             {
               break;
             }
 
-            LOWORD(v7) = v9 - 1;
+            LOWORD(v6) = v8 - 1;
           }
 
-          if (*(v10 + 52) > v5)
+          if (*(v9 + 52) > a2)
           {
             break;
           }
         }
 
-        LODWORD(v7) = (i + v7) >> 1;
+        LODWORD(v6) = (i + v6) >> 1;
       }
     }
 
     else
     {
-      LOWORD(v7) = 0;
+      LOWORD(v6) = 0;
     }
-
-    v16 = (v6 + 88 * v7);
-    result = geom::interpolating_spline<float>::find_span(v16, v5);
-    v19 = (*v16 + 16 * (3 * result));
-    v20 = ((1.0 - *(&result + 1)) + (1.0 - *(&result + 1))) * *(&result + 1);
-    v21 = vmulq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(vsubq_f32(v19[2], v19[1]), v20), vsubq_f32(v19[1], *v19), (1.0 - *(&result + 1)) * (1.0 - *(&result + 1))), vsubq_f32(v19[3], v19[2]), *(&result + 1) * *(&result + 1)), v18 * 3.0);
   }
 
   else
   {
-    v11 = *(a1 + 72);
-    v12 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 80) - v11) >> 3);
-    if ((v12 & 0xFFFE) != 0 && *(a1 + 184) < a2)
+    v5 = *(a1 + 72);
+    v6 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 80) - v5) >> 3);
+    if ((v6 & 0xFFFE) != 0 && *(a1 + 184) < a2)
     {
-      LOWORD(v12) = v12 - 1;
+      LOWORD(v6) = v6 - 1;
       if (*(a1 + 188) > a2)
       {
-        for (j = 0; ; j = v14 + 1)
+        for (j = 0; ; j = v11 + 1)
         {
           while (1)
           {
-            v14 = (j + v12) >> 1;
-            v15 = v11 + 88 * v14;
-            if (*(v15 + 48) <= a2)
+            v11 = (j + v6) >> 1;
+            v12 = v5 + 88 * v11;
+            if (*(v12 + 48) <= a2)
             {
               break;
             }
 
-            LOWORD(v12) = v14 - 1;
+            LOWORD(v6) = v11 - 1;
           }
 
-          if (*(v15 + 52) > a2)
+          if (*(v12 + 52) > a2)
           {
             break;
           }
         }
 
-        LODWORD(v12) = (j + v12) >> 1;
+        LODWORD(v6) = (j + v6) >> 1;
       }
     }
 
     else
     {
-      LOWORD(v12) = 0;
+      LOWORD(v6) = 0;
     }
-
-    v22 = (v11 + 88 * v12);
-    result = geom::interpolating_spline<float>::find_span(v22, a2);
-    v24 = (*v22 + 16 * (3 * result));
-    v25 = ((1.0 - *(&result + 1)) + (1.0 - *(&result + 1))) * *(&result + 1);
-    v26 = vmulq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(vsubq_f32(v24[2], v24[1]), v25), vsubq_f32(v24[1], *v24), (1.0 - *(&result + 1)) * (1.0 - *(&result + 1))), vsubq_f32(v24[3], v24[2]), *(&result + 1) * *(&result + 1)), v23 * 3.0).u64[0];
   }
 
-  return result;
+  return geom::interpolating_spline<float>::find_span(v5 + 88 * v6, a2);
 }
 
 float _ZNK4geom19interpolating_curveIDv4_fE18evaluate_length_atEf(uint64_t a1, float result)
@@ -4510,53 +4487,55 @@ float _ZNK4geom19interpolating_curveIDv4_fE18evaluate_length_atEf(uint64_t a1, f
 float _ZNK4geom20interpolating_splineIDv4_fE18evaluate_length_atEf(uint64_t a1, float a2)
 {
   span = geom::interpolating_spline<float>::find_span(a1, a2);
-  v5 = span;
-  v6 = *(a1 + 64);
-  if (*(a1 + 72) == v6)
+  v6 = span;
+  v7 = *(a1 + 64);
+  if (*(a1 + 72) == v7)
   {
-    v8 = span;
+    v9 = span;
     if (span)
     {
-      v9 = 0;
-      v7 = 0.0;
+      v10 = 0;
+      v8 = 0.0;
       do
       {
-        v7 = v7 + _ZNK4geom20interpolating_splineIDv4_fE20evaluate_span_lengthEj(a1, v9++);
+        v5.n128_f32[0] = _ZNK4geom20interpolating_splineIDv4_fE20evaluate_span_lengthEj(a1, v10, v5);
+        v8 = v8 + v5.n128_f32[0];
+        ++v10;
       }
 
-      while (v8 != v9);
+      while (v9 != v10);
       goto LABEL_9;
     }
   }
 
   else if (span)
   {
-    v7 = *(v6 + 4 * span - 4);
+    v8 = *(v7 + 4 * span - 4);
     goto LABEL_9;
   }
 
-  v7 = 0.0;
+  v8 = 0.0;
 LABEL_9:
   if (*(a1 + 58) == 1)
   {
-    v10 = *(a1 + 56);
-    if (v10 == v5)
+    v11 = *(a1 + 56);
+    if (v11 == v6)
     {
-      v11 = *(a1 + 52);
+      v12 = *(a1 + 52);
     }
 
     else
     {
-      v11 = *(a1 + 48) + (v5 * ((*(a1 + 52) - *(a1 + 48)) / v10));
+      v12 = *(a1 + 48) + (v6 * ((*(a1 + 52) - *(a1 + 48)) / v11));
     }
   }
 
   else
   {
-    v11 = *(*(a1 + 24) + 4 * v5);
+    v12 = *(*(a1 + 24) + 4 * v6);
   }
 
-  return v7 + _ZNK4geom20interpolating_splineIDv4_fE24evaluate_length_betweeenEff(a1, v11, a2);
+  return v8 + _ZNK4geom20interpolating_splineIDv4_fE24evaluate_length_betweeenEff(a1, v12, a2);
 }
 
 void _ZNK4geom19interpolating_curveIDv4_fE10span_knotsEtRfS3_(uint64_t a1, unsigned int a2, float *a3, float *a4, double a5, double a6, float a7)
@@ -4611,9 +4590,9 @@ void _ZNK4geom19interpolating_curveIDv4_fE10span_knotsEtRfS3_(uint64_t a1, unsig
 
     else
     {
-      v17 = *(v12 + 24) + 4 * v10;
+      v17 = (*(v12 + 24) + 4 * v10);
       *a3 = *v17;
-      v16 = *(v17 + 4);
+      v16 = v17[1];
     }
   }
 
@@ -4685,14 +4664,14 @@ uint64_t _ZNK4geom19interpolating_curveIDv4_fE31calculate_bezier_basis_for_spanE
 
 uint64_t _ZN4geom19interpolating_curveIDv4_fE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(uint64_t a1, float32x4_t **a2)
 {
-  memset(&v14, 0, sizeof(v14));
-  memset(v12, 0, sizeof(v12));
+  memset(&v15, 0, sizeof(v15));
+  memset(v13, 0, sizeof(v13));
   v3 = (*a2)->i32[0];
   if (v3 > 1)
   {
     if (v3 == 2)
     {
-      _ZN4geom19interpolating_curveIDv4_fE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+      _ZN4geom19interpolating_curveIDv4_fE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
     }
 
     else
@@ -4702,7 +4681,7 @@ uint64_t _ZN4geom19interpolating_curveIDv4_fE13append_splineERKNS_5sliceINS_17in
         goto LABEL_11;
       }
 
-      _ZN4geom19interpolating_curveIDv4_fE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+      _ZN4geom19interpolating_curveIDv4_fE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
     }
   }
 
@@ -4713,48 +4692,49 @@ uint64_t _ZN4geom19interpolating_curveIDv4_fE13append_splineERKNS_5sliceINS_17in
       goto LABEL_11;
     }
 
-    _ZN4geom19interpolating_curveIDv4_fE20build_hermite_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+    _ZN4geom19interpolating_curveIDv4_fE20build_hermite_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
   }
 
   else
   {
-    _ZN4geom19interpolating_curveIDv4_fE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+    _ZN4geom19interpolating_curveIDv4_fE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
   }
 
-  geom::interpolating_spline<float>::operator=(v12, v11);
-  geom::interpolating_spline<float>::~interpolating_spline(v11);
+  geom::interpolating_spline<float>::operator=(v13, v12);
+  geom::interpolating_spline<float>::~interpolating_spline(v12);
 LABEL_11:
   v4 = __sz;
-  std::vector<float>::resize(&v14, __sz);
+  std::vector<float>::resize(&v15, __sz);
   if (v4)
   {
-    v5 = 0;
-    v6 = 0.0;
+    v6 = 0;
+    v7 = 0.0;
     do
     {
-      v6 = v6 + _ZNK4geom20interpolating_splineIDv4_fE20evaluate_span_lengthEj(v12, v5);
-      *&v14.__begin_[v5++] = v6;
+      v5.n128_f32[0] = _ZNK4geom20interpolating_splineIDv4_fE20evaluate_span_lengthEj(v13, v6, v5);
+      v7 = v7 + v5.n128_f32[0];
+      *&v15.__begin_[v6++] = v7;
     }
 
-    while (v4 != v5);
+    while (v4 != v6);
   }
 
-  v7 = _ZNK4geom20interpolating_splineIDv4_fE21evaluate_total_lengthEv(v12);
-  v8 = *(a1 + 80) - *(a1 + 72);
-  if (v8)
+  v8 = _ZNK4geom20interpolating_splineIDv4_fE21evaluate_total_lengthEv(v13);
+  v9 = *(a1 + 80) - *(a1 + 72);
+  if (v9)
   {
-    v9 = *(*(a1 + 48) + 0x2E8BA2E8BA2E8BA3 * (v8 >> 1) - 4);
+    v10 = *(*(a1 + 48) + 0x2E8BA2E8BA2E8BA3 * (v9 >> 1) - 4);
   }
 
   else
   {
-    v9 = 0.0;
+    v10 = 0.0;
   }
 
-  v11[0] = v7 + v9;
-  std::vector<float>::push_back[abi:nn200100]((a1 + 48), v11);
-  _ZNSt3__16vectorIN4geom20interpolating_splineIDv3_fEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v12);
-  return geom::interpolating_spline<float>::~interpolating_spline(v12);
+  *v12 = v8 + v10;
+  std::vector<float>::push_back[abi:nn200100]((a1 + 48), v12);
+  _ZNSt3__16vectorIN4geom20interpolating_splineIDv3_fEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v13);
+  return geom::interpolating_spline<float>::~interpolating_spline(v13);
 }
 
 void _ZN4geom19interpolating_curveIDv4_fE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(_WORD *a1@<X1>, uint64_t a2@<X8>)
@@ -4879,7 +4859,7 @@ void _ZN4geom19interpolating_curveIDv4_fE24build_catmull_rom_splineERKNS_5sliceI
     v14 = 16;
     do
     {
-      *(v72 + v14) = v9[v12 * 4 + 1];
+      *(v72 + v14) = *(v9 + 4 * v12 + 16);
       v9 = *a1;
       v15 = vsubq_f32((*a1)[v12 * 4 + 5], (*a1)[v12 * 4 + 1]);
       v16 = vmulq_f32(v15, v15);
@@ -4891,7 +4871,7 @@ void _ZN4geom19interpolating_curveIDv4_fE24build_catmull_rom_splineERKNS_5sliceI
     while ((v4 - 1) != v12);
   }
 
-  *(v72 + v6 - 2) = v9[4 * v13 + 1];
+  *(v72 + v6 - 2) = *(v9 + (v13 << 6) + 16);
   *(v72 + v6 - 1) = vmlaq_f32(vnegq_f32(*(v72 + v6 - 3)), v7, *(v72 + v6 - 2));
   v17 = &(*a1)[4 * (v4 - 2)];
   v18 = vsubq_f32(v17[5], v17[1]);
@@ -5357,12 +5337,12 @@ void _ZN4geom19interpolating_curveIDv2_dE5buildERKNSt3__16vectorINS_17interpolat
   _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(a2, a1, 0);
 }
 
-void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t a1, void *a2, char a3)
+void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t *a1, void *a2, char a3)
 {
   v6 = a2[1] - *a2;
-  v10 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  v9 = (a1 + 72);
+  v10 = a1[9];
+  v8 = a1[10];
+  v9 = a1 + 9;
   if (v8 == v10)
   {
     v11 = v6 >> 6;
@@ -5379,7 +5359,7 @@ void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17in
     v11 = (a2[1] - *a2) >> 6;
   }
 
-  *(a1 + 80) = v10;
+  a1[10] = v10;
   std::vector<geom::interpolating_spline<double>>::reserve(v9, v11 - 1);
   *(a1 + 208) = 0;
   v12 = (v6 >> 6);
@@ -5420,9 +5400,9 @@ void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17in
     _ZN4geom19interpolating_curveIDv2_dE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a1, &v105);
   }
 
-  v18 = *(a1 + 72);
-  v17 = *(a1 + 80);
-  std::vector<unsigned short>::resize((a1 + 24), 0xAAAAAAAAAAAAAAABLL * ((v17 - v18) >> 5));
+  v18 = a1[9];
+  v17 = a1[10];
+  std::vector<unsigned short>::resize(a1 + 3, 0xAAAAAAAAAAAAAAABLL * ((v17 - v18) >> 5));
   if (v17 == v18)
   {
     std::vector<unsigned short>::resize(a1, 0);
@@ -5432,7 +5412,7 @@ void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17in
   {
     v19 = 0;
     v20 = *v9;
-    v21 = *(a1 + 24);
+    v21 = a1[3];
     if (0xAAAAAAAAAAAAAAABLL * ((v17 - v18) >> 5) <= 1)
     {
       v22 = 1;
@@ -5458,7 +5438,7 @@ void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17in
     std::vector<unsigned short>::resize(a1, v19);
     v26 = 0;
     v27 = 0;
-    v28 = *(a1 + 72);
+    v28 = a1[9];
     do
     {
       v29 = *(v28 + 96 * v26 + 64);
@@ -5489,9 +5469,9 @@ void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17in
   }
 
   v32 = *a2;
-  *(a1 + 192) = *(*a2 + 8);
+  a1[24] = *(*a2 + 8);
   v33 = a2[1];
-  *(a1 + 200) = *(v33 - 56);
+  a1[25] = *(v33 - 56);
   if (a3)
   {
     LOWORD(v115[0]) = 512;
@@ -5504,13 +5484,13 @@ void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17in
     v105 = 0u;
     v106 = 0u;
     v107 = 0u;
-    *(a1 + 104) = *(a1 + 96);
-    *(a1 + 160) = 0;
-    v35 = *(a1 + 120);
-    v103 = (a1 + 120);
+    a1[13] = a1[12];
+    *(a1 + 80) = 0;
+    v35 = a1[15];
+    v103 = a1 + 15;
     v104 = a1;
     *(a1 + 162) = 0;
-    *(a1 + 128) = v35;
+    a1[16] = v35;
     if (v33 == v32)
     {
       v36 = 0.0;
@@ -5541,21 +5521,21 @@ void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17in
         *&v107 = *(&v106 + 1);
         v41 = (v39 + v36 * 2.0) * 0.333333333;
         v42 = (v36 + v39 * 2.0) * 0.333333333;
-        if (*(v104 + 208))
+        if (v104[26])
         {
           v43 = v36;
           goto LABEL_71;
         }
 
-        v44 = *(v104 + 72);
-        v45 = 0xAAAAAAAAAAAAAAABLL * ((*(v104 + 80) - v44) >> 5);
-        if ((v45 & 0xFFFE) == 0 || *(v104 + 192) >= v36)
+        v44 = v104[9];
+        v45 = 0xAAAAAAAAAAAAAAABLL * ((v104[10] - v44) >> 5);
+        if ((v45 & 0xFFFE) == 0 || *(v104 + 24) >= v36)
         {
           break;
         }
 
         LOWORD(v45) = v45 - 1;
-        if (*(v104 + 200) > v36)
+        if (*(v104 + 25) > v36)
         {
           for (i = 0; ; i = v47 + 1)
           {
@@ -5592,14 +5572,14 @@ void _ZN4geom19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17in
 LABEL_48:
         v43 = v49 + v50;
         v51 = v104;
-        if (*(v104 + 208))
+        if (v104[26])
         {
           goto LABEL_71;
         }
 
-        v52 = *(v104 + 72);
-        v53 = 0xAAAAAAAAAAAAAAABLL * ((*(v104 + 80) - v52) >> 5);
-        if ((v53 & 0xFFFE) == 0 || *(v104 + 192) >= v41)
+        v52 = v104[9];
+        v53 = 0xAAAAAAAAAAAAAAABLL * ((v104[10] - v52) >> 5);
+        if ((v53 & 0xFFFE) == 0 || *(v104 + 24) >= v41)
         {
           v57 = _ZNK4geom20interpolating_splineIDv2_dE18evaluate_length_atEd(v52, (v39 + v36 * 2.0) * 0.333333333);
 LABEL_58:
@@ -5608,7 +5588,7 @@ LABEL_58:
         }
 
         LOWORD(v53) = v53 - 1;
-        if (*(v104 + 200) > v41)
+        if (*(v104 + 25) > v41)
         {
           for (j = 0; ; j = v55 + 1)
           {
@@ -5645,14 +5625,14 @@ LABEL_58:
 LABEL_59:
         v41 = v57 + v58;
         v59 = v104;
-        if (*(v104 + 208))
+        if (v104[26])
         {
           goto LABEL_71;
         }
 
-        v60 = *(v104 + 72);
-        v61 = 0xAAAAAAAAAAAAAAABLL * ((*(v104 + 80) - v60) >> 5);
-        if ((v61 & 0xFFFE) == 0 || *(v104 + 192) >= v42)
+        v60 = v104[9];
+        v61 = 0xAAAAAAAAAAAAAAABLL * ((v104[10] - v60) >> 5);
+        if ((v61 & 0xFFFE) == 0 || *(v104 + 24) >= v42)
         {
           v65 = _ZNK4geom20interpolating_splineIDv2_dE18evaluate_length_atEd(v60, v42);
 LABEL_69:
@@ -5661,7 +5641,7 @@ LABEL_69:
         }
 
         LOWORD(v61) = v61 - 1;
-        if (*(v104 + 200) > v42)
+        if (*(v104 + 25) > v42)
         {
           for (k = 0; ; k = v63 + 1)
           {
@@ -5698,14 +5678,14 @@ LABEL_69:
 LABEL_70:
         v42 = v65 + v66;
         v67 = v104;
-        if ((*(v104 + 208) & 1) == 0)
+        if ((v104[26] & 1) == 0)
         {
-          v90 = *(v104 + 72);
-          v91 = 0xAAAAAAAAAAAAAAABLL * ((*(v104 + 80) - v90) >> 5);
-          if ((v91 & 0xFFFE) != 0 && *(v104 + 192) < v39)
+          v90 = v104[9];
+          v91 = 0xAAAAAAAAAAAAAAABLL * ((v104[10] - v90) >> 5);
+          if ((v91 & 0xFFFE) != 0 && *(v104 + 24) < v39)
           {
             LOWORD(v91) = v91 - 1;
-            if (*(v104 + 200) > v39)
+            if (*(v104 + 25) > v39)
             {
               for (m = 0; ; m = v93 + 1)
               {
@@ -5763,9 +5743,9 @@ LABEL_72:
         v118 = 0;
         _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv2_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUldE_dEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(&v104, v117, v115, &v105);
         v69 = v110;
-        v70 = *(a1 + 104);
-        v71 = *(a1 + 96);
-        v72 = *(a1 + 160);
+        v70 = *(a1 + 26);
+        v71 = a1[12];
+        v72 = *(a1 + 80);
         if (v72)
         {
           v73 = v72 + 1;
@@ -5779,8 +5759,8 @@ LABEL_72:
         v74 = v72 + v110;
         if (v72 + v110)
         {
-          std::vector<double>::resize((a1 + 96), (3 * v74 + 1));
-          *(a1 + 160) = v74;
+          std::vector<double>::resize(a1 + 12, (3 * v74 + 1));
+          *(a1 + 80) = v74;
           if ((*(a1 + 162) & 1) == 0)
           {
             std::vector<double>::resize(v103, v74 + 1);
@@ -5789,11 +5769,11 @@ LABEL_72:
 
         else
         {
-          *(a1 + 104) = v71;
-          *(a1 + 160) = 0;
+          a1[13] = v71;
+          *(a1 + 80) = 0;
           if ((*(a1 + 162) & 1) == 0)
           {
-            *(a1 + 128) = *(a1 + 120);
+            a1[16] = a1[15];
           }
         }
 
@@ -5807,7 +5787,7 @@ LABEL_72:
           v80 = *(&v106 + 1);
           v81 = v105;
           v82 = *v103;
-          v83 = *(a1 + 96);
+          v83 = a1[12];
           v84 = 3;
           v85 = 1;
           do
@@ -5896,22 +5876,22 @@ LABEL_47:
 
 LABEL_121:
     *(a1 + 208) = 1;
-    *(a1 + 192) = *(v32 + 8);
-    *(a1 + 200) = *(v32 + v34 - 56);
+    a1[24] = *(v32 + 8);
+    a1[25] = *(v32 + v34 - 56);
     geom::interpolating_spline<double>::~interpolating_spline(&v105);
   }
 }
 
-void _ZN4geom19interpolating_curveIDv2_dE30build_arc_length_parameterizedERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEE(void *a1@<X0>, _OWORD *a2@<X8>)
+void _ZN4geom19interpolating_curveIDv2_dE30build_arc_length_parameterizedERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEE(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  a2[7] = 0u;
-  a2[8] = 0u;
-  a2[5] = 0u;
-  a2[6] = 0u;
-  a2[3] = 0u;
-  a2[4] = 0u;
-  a2[1] = 0u;
-  a2[2] = 0u;
+  *(a2 + 112) = 0u;
+  *(a2 + 128) = 0u;
+  *(a2 + 80) = 0u;
+  *(a2 + 96) = 0u;
+  *(a2 + 48) = 0u;
+  *(a2 + 64) = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 0u;
   *a2 = 0u;
   *(a2 + 168) = 0u;
   *(a2 + 184) = 0u;
@@ -5977,109 +5957,96 @@ double _ZNK4geom19interpolating_curveIDv2_dE11evaluate_atEd(uint64_t a1, double 
   return result;
 }
 
-uint64_t _ZNK4geom19interpolating_curveIDv2_dE19evaluate_tangent_atEd(uint64_t a1, double a2)
+void *_ZNK4geom19interpolating_curveIDv2_dE19evaluate_tangent_atEd(uint64_t a1, double a2)
 {
   if (*(a1 + 208) == 1)
   {
-    v22 = 0;
-    v23 = 0.0;
-    v24 = 0.0;
-    geom::interpolating_spline<double>::find_span(a1 + 96, &v22, a2);
-    v3 = (*(a1 + 96) + 8 * (3 * v22));
-    v4 = v3[1] * (v23 * ((1.0 - v23) * (1.0 - v23) * 3.0)) + *v3 * ((1.0 - v23) * ((1.0 - v23) * (1.0 - v23))) + v3[2] * (v23 * v23 * ((1.0 - v23) * 3.0)) + v3[3] * (v23 * (v23 * v23));
-    v5 = *(a1 + 72);
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 80) - v5) >> 5);
-    if ((v6 & 0xFFFE) != 0 && *(a1 + 192) < v4)
+    v13 = 0;
+    v14 = 0.0;
+    v15 = 0;
+    geom::interpolating_spline<double>::find_span(a1 + 96, &v13, a2);
+    v3 = (*(a1 + 96) + 8 * (3 * v13));
+    a2 = v3[1] * (v14 * ((1.0 - v14) * (1.0 - v14) * 3.0)) + *v3 * ((1.0 - v14) * ((1.0 - v14) * (1.0 - v14))) + v3[2] * (v14 * v14 * ((1.0 - v14) * 3.0)) + v3[3] * (v14 * (v14 * v14));
+    v4 = *(a1 + 72);
+    v5 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 80) - v4) >> 5);
+    if ((v5 & 0xFFFE) != 0 && *(a1 + 192) < a2)
     {
-      LOWORD(v6) = v6 - 1;
-      if (*(a1 + 200) > v4)
+      LOWORD(v5) = v5 - 1;
+      if (*(a1 + 200) > a2)
       {
-        for (i = 0; ; i = v8 + 1)
+        for (i = 0; ; i = v7 + 1)
         {
           while (1)
           {
-            v8 = (i + v6) >> 1;
-            v9 = v5 + 96 * v8;
-            if (*(v9 + 48) <= v4)
+            v7 = (i + v5) >> 1;
+            v8 = v4 + 96 * v7;
+            if (*(v8 + 48) <= a2)
             {
               break;
             }
 
-            LOWORD(v6) = v8 - 1;
+            LOWORD(v5) = v7 - 1;
           }
 
-          if (*(v9 + 56) > v4)
+          if (*(v8 + 56) > a2)
           {
             break;
           }
         }
 
-        LODWORD(v6) = (i + v6) >> 1;
+        LODWORD(v5) = (i + v5) >> 1;
       }
     }
 
     else
     {
-      LOWORD(v6) = 0;
+      LOWORD(v5) = 0;
     }
-
-    v15 = (v5 + 96 * v6);
-    v22 = 0;
-    v23 = 0.0;
-    v24 = 0.0;
-    result = geom::interpolating_spline<double>::find_span(v15, &v22, v4);
-    v17 = (*v15 + 16 * (3 * v22));
-    v18 = vmulq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(vsubq_f64(v17[2], v17[1]), v23 * (1.0 - v23 + 1.0 - v23)), vsubq_f64(v17[1], *v17), (1.0 - v23) * (1.0 - v23)), vsubq_f64(v17[3], v17[2]), v23 * v23), v24 * 3.0);
   }
 
   else
   {
-    v10 = *(a1 + 72);
-    v11 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 80) - v10) >> 5);
-    if ((v11 & 0xFFFE) != 0 && *(a1 + 192) < a2)
+    v4 = *(a1 + 72);
+    v5 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 80) - v4) >> 5);
+    if ((v5 & 0xFFFE) != 0 && *(a1 + 192) < a2)
     {
-      LOWORD(v11) = v11 - 1;
+      LOWORD(v5) = v5 - 1;
       if (*(a1 + 200) > a2)
       {
-        for (j = 0; ; j = v13 + 1)
+        for (j = 0; ; j = v10 + 1)
         {
           while (1)
           {
-            v13 = (j + v11) >> 1;
-            v14 = v10 + 96 * v13;
-            if (*(v14 + 48) <= a2)
+            v10 = (j + v5) >> 1;
+            v11 = v4 + 96 * v10;
+            if (*(v11 + 48) <= a2)
             {
               break;
             }
 
-            LOWORD(v11) = v13 - 1;
+            LOWORD(v5) = v10 - 1;
           }
 
-          if (*(v14 + 56) > a2)
+          if (*(v11 + 56) > a2)
           {
             break;
           }
         }
 
-        LODWORD(v11) = (j + v11) >> 1;
+        LODWORD(v5) = (j + v5) >> 1;
       }
     }
 
     else
     {
-      LOWORD(v11) = 0;
+      LOWORD(v5) = 0;
     }
-
-    v19 = (v10 + 96 * v11);
-    v22 = 0;
-    v23 = 0.0;
-    v24 = 0.0;
-    result = geom::interpolating_spline<double>::find_span(v19, &v22, a2);
-    v20 = (*v19 + 16 * (3 * v22));
-    v21 = *&vmulq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(vsubq_f64(v20[2], v20[1]), v23 * (1.0 - v23 + 1.0 - v23)), vsubq_f64(v20[1], *v20), (1.0 - v23) * (1.0 - v23)), vsubq_f64(v20[3], v20[2]), v23 * v23), v24 * 3.0);
   }
 
-  return result;
+  v13 = 0;
+  v14 = 0.0;
+  v15 = 0;
+  return geom::interpolating_spline<double>::find_span(v4 + 96 * v5, &v13, a2);
 }
 
 double _ZNK4geom19interpolating_curveIDv2_dE18evaluate_length_atEd(uint64_t a1, double result)
@@ -6141,53 +6108,55 @@ double _ZNK4geom19interpolating_curveIDv2_dE18evaluate_length_atEd(uint64_t a1, 
 
 double _ZNK4geom20interpolating_splineIDv2_dE18evaluate_length_atEd(uint64_t a1, double a2)
 {
-  geom::interpolating_spline<double>::find_span(a1, v11, a2);
-  v4 = v11[0];
-  v5 = *(a1 + 72);
-  if (*(a1 + 80) == v5)
+  geom::interpolating_spline<double>::find_span(a1, v12, a2);
+  v5 = LOWORD(v12[0]);
+  v6 = *(a1 + 72);
+  if (*(a1 + 80) == v6)
   {
-    if (v11[0])
+    if (LOWORD(v12[0]))
     {
-      v7 = 0;
-      v6 = 0.0;
+      v8 = 0;
+      v7 = 0.0;
       do
       {
-        v6 = v6 + _ZNK4geom20interpolating_splineIDv2_dE20evaluate_span_lengthEj(a1, v7++);
+        v4.n128_f64[0] = _ZNK4geom20interpolating_splineIDv2_dE20evaluate_span_lengthEj(a1, v8, v4);
+        v7 = v7 + v4.n128_f64[0];
+        ++v8;
       }
 
-      while (v4 != v7);
+      while (v5 != v8);
       goto LABEL_9;
     }
   }
 
-  else if (v11[0])
+  else if (LOWORD(v12[0]))
   {
-    v6 = *(v5 + 8 * (v11[0] - 1));
+    v7 = *(v6 + 8 * (LOWORD(v12[0]) - 1));
     goto LABEL_9;
   }
 
-  v6 = 0.0;
+  v7 = 0.0;
 LABEL_9:
   if (*(a1 + 66) == 1)
   {
-    v8 = *(a1 + 64);
-    if (v8 == v4)
+    v9 = *(a1 + 64);
+    if (v9 == v5)
     {
-      v9 = *(a1 + 56);
+      v10 = *(a1 + 56);
     }
 
     else
     {
-      v9 = *(a1 + 48) + v4 * ((*(a1 + 56) - *(a1 + 48)) / v8);
+      v10 = *(a1 + 48) + v5 * ((*(a1 + 56) - *(a1 + 48)) / v9);
     }
   }
 
   else
   {
-    v9 = *(*(a1 + 24) + 8 * v4);
+    v10 = *(*(a1 + 24) + 8 * v5);
   }
 
-  return v6 + _ZNK4geom20interpolating_splineIDv2_dE24evaluate_length_betweeenEdd(a1, v9, a2);
+  return v7 + _ZNK4geom20interpolating_splineIDv2_dE24evaluate_length_betweeenEdd(a1, v10, a2);
 }
 
 void _ZNK4geom19interpolating_curveIDv2_dE10span_knotsEtRdS3_(uint64_t a1, unsigned int a2, double *a3, double *a4, double a5, double a6, double a7)
@@ -6242,9 +6211,9 @@ void _ZNK4geom19interpolating_curveIDv2_dE10span_knotsEtRdS3_(uint64_t a1, unsig
 
     else
     {
-      v17 = *(v12 + 24) + 8 * v10;
+      v17 = (*(v12 + 24) + 8 * v10);
       *a3 = *v17;
-      v16 = *(v17 + 8);
+      v16 = v17[1];
     }
   }
 
@@ -6314,14 +6283,14 @@ uint64_t _ZNK4geom19interpolating_curveIDv2_dE31calculate_bezier_basis_for_spanE
 
 uint64_t _ZN4geom19interpolating_curveIDv2_dE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(uint64_t a1, float64x2_t **a2)
 {
-  memset(v14, 0, sizeof(v14));
-  memset(v12, 0, 48);
+  memset(v15, 0, sizeof(v15));
+  memset(v13, 0, 48);
   v3 = LODWORD((*a2)->f64[0]);
   if (v3 > 1)
   {
     if (v3 == 2)
     {
-      _ZN4geom19interpolating_curveIDv2_dE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+      _ZN4geom19interpolating_curveIDv2_dE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
     }
 
     else
@@ -6331,7 +6300,7 @@ uint64_t _ZN4geom19interpolating_curveIDv2_dE13append_splineERKNS_5sliceINS_17in
         goto LABEL_11;
       }
 
-      _ZN4geom19interpolating_curveIDv2_dE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+      _ZN4geom19interpolating_curveIDv2_dE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
     }
   }
 
@@ -6342,48 +6311,49 @@ uint64_t _ZN4geom19interpolating_curveIDv2_dE13append_splineERKNS_5sliceINS_17in
       goto LABEL_11;
     }
 
-    _ZN4geom19interpolating_curveIDv2_dE20build_hermite_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+    _ZN4geom19interpolating_curveIDv2_dE20build_hermite_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
   }
 
   else
   {
-    _ZN4geom19interpolating_curveIDv2_dE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v11);
+    _ZN4geom19interpolating_curveIDv2_dE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v12);
   }
 
-  geom::interpolating_spline<double>::operator=(v12, v11);
-  geom::interpolating_spline<double>::~interpolating_spline(v11);
+  geom::interpolating_spline<double>::operator=(v13, v12);
+  geom::interpolating_spline<double>::~interpolating_spline(v12);
 LABEL_11:
-  v4 = v13;
-  std::vector<double>::resize(v14, v13);
+  v4 = v14;
+  std::vector<double>::resize(v15, v14);
   if (v4)
   {
-    v5 = 0;
-    v6 = 0.0;
+    v6 = 0;
+    v7 = 0.0;
     do
     {
-      v6 = v6 + _ZNK4geom20interpolating_splineIDv2_dE20evaluate_span_lengthEj(v12, v5);
-      *(v14[0] + 8 * v5++) = v6;
+      v5.n128_f64[0] = _ZNK4geom20interpolating_splineIDv2_dE20evaluate_span_lengthEj(v13, v6, v5);
+      v7 = v7 + v5.n128_f64[0];
+      *(v15[0] + 8 * v6++) = v7;
     }
 
-    while (v4 != v5);
+    while (v4 != v6);
   }
 
-  v7 = _ZNK4geom20interpolating_splineIDv2_dE21evaluate_total_lengthEv(v12);
-  v8 = *(a1 + 80) - *(a1 + 72);
-  if (v8)
+  v8 = _ZNK4geom20interpolating_splineIDv2_dE21evaluate_total_lengthEv(v13);
+  v9 = *(a1 + 80) - *(a1 + 72);
+  if (v9)
   {
-    v9 = *(*(a1 + 48) - 0x5555555555555555 * (v8 >> 2) - 8);
+    v10 = *(*(a1 + 48) - 0x5555555555555555 * (v9 >> 2) - 8);
   }
 
   else
   {
-    v9 = 0.0;
+    v10 = 0.0;
   }
 
-  v11[0] = v7 + v9;
-  std::vector<double>::push_back[abi:nn200100]((a1 + 48), v11);
-  _ZNSt3__16vectorIN4geom20interpolating_splineIDv2_dEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v12);
-  return geom::interpolating_spline<double>::~interpolating_spline(v12);
+  *v12 = v8 + v10;
+  std::vector<double>::push_back[abi:nn200100]((a1 + 48), v12);
+  _ZNSt3__16vectorIN4geom20interpolating_splineIDv2_dEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v13);
+  return geom::interpolating_spline<double>::~interpolating_spline(v13);
 }
 
 void _ZN4geom19interpolating_curveIDv2_dE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(_WORD *a1@<X1>, uint64_t a2@<X8>)
@@ -6510,7 +6480,7 @@ void _ZN4geom19interpolating_curveIDv2_dE24build_catmull_rom_splineERKNS_5sliceI
     v17 = (v4 - 1);
     do
     {
-      *(v73 + v16 + 1) = v13[v15 / 0x10 + 1];
+      *(v73 + v16 + 1) = *(v13 + v15 + 16);
       v18 = (v70 + 8 * v16++);
       v13 = *a1;
       v19 = vsubq_f64((*a1)[v15 / 0x10 + 5], (*a1)[v15 / 0x10 + 1]);
@@ -6521,7 +6491,7 @@ void _ZN4geom19interpolating_curveIDv2_dE24build_catmull_rom_splineERKNS_5sliceI
     while ((v4 - 1) << 6 != v15);
   }
 
-  *(v73 + v6 - 2) = v13[4 * v17 + 1];
+  *(v73 + v6 - 2) = *(v13 + (v17 << 6) + 16);
   *(v73 + v6 - 1) = vmlaq_f64(vnegq_f64(*(v73 + v6 - 3)), _Q0, *(v73 + v6 - 2));
   v20 = &(*a1)[4 * (v4 - 2)];
   v21 = vsubq_f64(v20[5], v20[1]);
@@ -6985,12 +6955,12 @@ void _ZN4geom19interpolating_curveIDv3_dE5buildERKNSt3__16vectorINS_17interpolat
   _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(a2, a1, 0);
 }
 
-void _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t a1, void *a2, char a3)
+void _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t *a1, void *a2, char a3)
 {
   v6 = 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 4);
-  v10 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  v9 = (a1 + 72);
+  v10 = a1[9];
+  v8 = a1[10];
+  v9 = a1 + 9;
   v11 = v6;
   if (v8 != v10)
   {
@@ -7003,7 +6973,7 @@ void _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17in
     v11 = 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 4);
   }
 
-  *(a1 + 80) = v10;
+  a1[10] = v10;
   std::vector<geom::interpolating_spline<double>>::reserve(v9, v11 - 1);
   *(a1 + 208) = 0;
   if (v6 < 2u)
@@ -7043,9 +7013,9 @@ void _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17in
     _ZN4geom19interpolating_curveIDv3_dE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a1, &v106);
   }
 
-  v17 = *(a1 + 72);
-  v16 = *(a1 + 80);
-  std::vector<unsigned short>::resize((a1 + 24), 0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 5));
+  v17 = a1[9];
+  v16 = a1[10];
+  std::vector<unsigned short>::resize(a1 + 3, 0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 5));
   if (v16 == v17)
   {
     std::vector<unsigned short>::resize(a1, 0);
@@ -7055,7 +7025,7 @@ void _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17in
   {
     v18 = 0;
     v19 = *v9;
-    v20 = *(a1 + 24);
+    v20 = a1[3];
     if (0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 5) <= 1)
     {
       v21 = 1;
@@ -7081,7 +7051,7 @@ void _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17in
     std::vector<unsigned short>::resize(a1, v18);
     v25 = 0;
     v26 = 0;
-    v27 = *(a1 + 72);
+    v27 = a1[9];
     do
     {
       v28 = *(v27 + 96 * v25 + 64);
@@ -7112,9 +7082,9 @@ void _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17in
   }
 
   v31 = *a2;
-  *(a1 + 192) = *(*a2 + 8);
+  a1[24] = *(*a2 + 8);
   v32 = a2[1];
-  *(a1 + 200) = *(v32 - 104);
+  a1[25] = *(v32 - 104);
   if (a3)
   {
     LOWORD(v116[0]) = 512;
@@ -7127,15 +7097,15 @@ void _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17in
     v106 = 0u;
     v107 = 0u;
     v108 = 0u;
-    v34 = *(a1 + 96);
-    v104 = (a1 + 96);
+    v34 = a1[12];
+    v104 = a1 + 12;
     v105 = a1;
-    *(a1 + 104) = v34;
-    *(a1 + 160) = 0;
-    v35 = *(a1 + 120);
-    v103 = (a1 + 120);
+    a1[13] = v34;
+    *(a1 + 80) = 0;
+    v35 = a1[15];
+    v103 = a1 + 15;
     *(a1 + 162) = 0;
-    *(a1 + 128) = v35;
+    a1[16] = v35;
     if (v32 == v31)
     {
       v36 = 0.0;
@@ -7166,7 +7136,7 @@ void _ZN4geom19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17in
         *&v108 = *(&v107 + 1);
         v41 = (v39 + v36 * 2.0) * 0.333333333;
         v42 = (v36 + v39 * 2.0) * 0.333333333;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           v43 = v36;
 LABEL_70:
@@ -7174,15 +7144,15 @@ LABEL_70:
           goto LABEL_71;
         }
 
-        v44 = *(v105 + 72);
-        v45 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v44) >> 5);
-        if ((v45 & 0xFFFE) == 0 || *(v105 + 192) >= v36)
+        v44 = v105[9];
+        v45 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v44) >> 5);
+        if ((v45 & 0xFFFE) == 0 || *(v105 + 24) >= v36)
         {
           break;
         }
 
         LOWORD(v45) = v45 - 1;
-        if (*(v105 + 200) > v36)
+        if (*(v105 + 25) > v36)
         {
           for (i = 0; ; i = v47 + 1)
           {
@@ -7219,14 +7189,14 @@ LABEL_70:
 LABEL_47:
         v43 = v49 + v50;
         v51 = v105;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           goto LABEL_70;
         }
 
-        v52 = *(v105 + 72);
-        v53 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v52) >> 5);
-        if ((v53 & 0xFFFE) == 0 || *(v105 + 192) >= v41)
+        v52 = v105[9];
+        v53 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v52) >> 5);
+        if ((v53 & 0xFFFE) == 0 || *(v105 + 24) >= v41)
         {
           v57 = _ZNK4geom20interpolating_splineIDv3_dE18evaluate_length_atEd(v52, (v39 + v36 * 2.0) * 0.333333333);
 LABEL_57:
@@ -7235,7 +7205,7 @@ LABEL_57:
         }
 
         LOWORD(v53) = v53 - 1;
-        if (*(v105 + 200) > v41)
+        if (*(v105 + 25) > v41)
         {
           for (j = 0; ; j = v55 + 1)
           {
@@ -7272,14 +7242,14 @@ LABEL_57:
 LABEL_58:
         v41 = v57 + v58;
         v59 = v105;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           goto LABEL_70;
         }
 
-        v60 = *(v105 + 72);
-        v61 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v60) >> 5);
-        if ((v61 & 0xFFFE) == 0 || *(v105 + 192) >= v42)
+        v60 = v105[9];
+        v61 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v60) >> 5);
+        if ((v61 & 0xFFFE) == 0 || *(v105 + 24) >= v42)
         {
           v65 = _ZNK4geom20interpolating_splineIDv3_dE18evaluate_length_atEd(v60, v42);
 LABEL_68:
@@ -7288,7 +7258,7 @@ LABEL_68:
         }
 
         LOWORD(v61) = v61 - 1;
-        if (*(v105 + 200) > v42)
+        if (*(v105 + 25) > v42)
         {
           for (k = 0; ; k = v63 + 1)
           {
@@ -7325,17 +7295,17 @@ LABEL_68:
 LABEL_69:
         v42 = v65 + v66;
         v67 = v105;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           goto LABEL_70;
         }
 
-        v90 = *(v105 + 72);
-        v91 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v90) >> 5);
-        if ((v91 & 0xFFFE) != 0 && *(v105 + 192) < v39)
+        v90 = v105[9];
+        v91 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v90) >> 5);
+        if ((v91 & 0xFFFE) != 0 && *(v105 + 24) < v39)
         {
           LOWORD(v91) = v91 - 1;
-          if (*(v105 + 200) > v39)
+          if (*(v105 + 25) > v39)
           {
             for (m = 0; ; m = v93 + 1)
             {
@@ -7388,9 +7358,9 @@ LABEL_71:
         v119 = 0;
         _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv3_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUldE_dEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(&v105, v118, v116, &v106);
         v69 = v111;
-        v70 = *(a1 + 104);
-        v71 = *(a1 + 96);
-        v72 = *(a1 + 160);
+        v70 = *(a1 + 26);
+        v71 = a1[12];
+        v72 = *(a1 + 80);
         if (v72)
         {
           v73 = v72 + 1;
@@ -7405,7 +7375,7 @@ LABEL_71:
         if (v72 + v111)
         {
           std::vector<double>::resize(v104, (3 * v74 + 1));
-          *(a1 + 160) = v74;
+          *(a1 + 80) = v74;
           if ((*(a1 + 162) & 1) == 0)
           {
             std::vector<double>::resize(v103, v74 + 1);
@@ -7414,11 +7384,11 @@ LABEL_71:
 
         else
         {
-          *(a1 + 104) = v71;
-          *(a1 + 160) = 0;
+          a1[13] = v71;
+          *(a1 + 80) = 0;
           if ((*(a1 + 162) & 1) == 0)
           {
-            *(a1 + 128) = *(a1 + 120);
+            a1[16] = a1[15];
           }
         }
 
@@ -7523,22 +7493,22 @@ LABEL_46:
 
 LABEL_121:
     *(a1 + 208) = 1;
-    *(a1 + 192) = *(v31 + 8);
-    *(a1 + 200) = *(v31 + v33 - 104);
+    a1[24] = *(v31 + 8);
+    a1[25] = *(v31 + v33 - 104);
     geom::interpolating_spline<double>::~interpolating_spline(&v106);
   }
 }
 
-void _ZN4geom19interpolating_curveIDv3_dE30build_arc_length_parameterizedERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEE(void *a1@<X0>, _OWORD *a2@<X8>)
+void _ZN4geom19interpolating_curveIDv3_dE30build_arc_length_parameterizedERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEE(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  a2[7] = 0u;
-  a2[8] = 0u;
-  a2[5] = 0u;
-  a2[6] = 0u;
-  a2[3] = 0u;
-  a2[4] = 0u;
-  a2[1] = 0u;
-  a2[2] = 0u;
+  *(a2 + 112) = 0u;
+  *(a2 + 128) = 0u;
+  *(a2 + 80) = 0u;
+  *(a2 + 96) = 0u;
+  *(a2 + 48) = 0u;
+  *(a2 + 64) = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 0u;
   *a2 = 0u;
   *(a2 + 168) = 0u;
   *(a2 + 184) = 0u;
@@ -7612,7 +7582,7 @@ double _ZNK4geom19interpolating_curveIDv3_dE11evaluate_atEd@<D0>(uint64_t a1@<X0
   return result;
 }
 
-uint64_t _ZNK4geom19interpolating_curveIDv3_dE19evaluate_tangent_atEd@<X0>(uint64_t a1@<X0>, float64x2_t *a2@<X8>, double a3@<D0>)
+void *_ZNK4geom19interpolating_curveIDv3_dE19evaluate_tangent_atEd@<X0>(uint64_t a1@<X0>, float64x2_t *a2@<X8>, double a3@<D0>)
 {
   if (*(a1 + 208) == 1)
   {
@@ -7689,7 +7659,7 @@ uint64_t _ZNK4geom19interpolating_curveIDv3_dE19evaluate_tangent_atEd@<X0>(uint6
     {
       v36.f64[0] = 1.0 / *v36.f64;
       v34 = vmulq_f64(v34, v36);
-      *&v35.f64[1] = vextq_s8(v35, v35, 8uLL).u64[0];
+      v35.i64[1] = vextq_s8(v35, v35, 8uLL).u64[0];
       v35 = vmulq_n_f64(v35, v36.f64[0]);
     }
   }
@@ -7809,53 +7779,55 @@ double _ZNK4geom19interpolating_curveIDv3_dE18evaluate_length_atEd(uint64_t a1, 
 
 double _ZNK4geom20interpolating_splineIDv3_dE18evaluate_length_atEd(uint64_t a1, double a2)
 {
-  geom::interpolating_spline<double>::find_span(a1, v11, a2);
-  v4 = v11[0];
-  v5 = *(a1 + 72);
-  if (*(a1 + 80) == v5)
+  geom::interpolating_spline<double>::find_span(a1, v12, a2);
+  v5 = LOWORD(v12[0]);
+  v6 = *(a1 + 72);
+  if (*(a1 + 80) == v6)
   {
-    if (v11[0])
+    if (LOWORD(v12[0]))
     {
-      v7 = 0;
-      v6 = 0.0;
+      v8 = 0;
+      v7 = 0.0;
       do
       {
-        v6 = v6 + _ZNK4geom20interpolating_splineIDv3_dE20evaluate_span_lengthEj(a1, v7++);
+        v4.n128_f64[0] = _ZNK4geom20interpolating_splineIDv3_dE20evaluate_span_lengthEj(a1, v8, v4);
+        v7 = v7 + v4.n128_f64[0];
+        ++v8;
       }
 
-      while (v4 != v7);
+      while (v5 != v8);
       goto LABEL_9;
     }
   }
 
-  else if (v11[0])
+  else if (LOWORD(v12[0]))
   {
-    v6 = *(v5 + 8 * (v11[0] - 1));
+    v7 = *(v6 + 8 * (LOWORD(v12[0]) - 1));
     goto LABEL_9;
   }
 
-  v6 = 0.0;
+  v7 = 0.0;
 LABEL_9:
   if (*(a1 + 66) == 1)
   {
-    v8 = *(a1 + 64);
-    if (v8 == v4)
+    v9 = *(a1 + 64);
+    if (v9 == v5)
     {
-      v9 = *(a1 + 56);
+      v10 = *(a1 + 56);
     }
 
     else
     {
-      v9 = *(a1 + 48) + v4 * ((*(a1 + 56) - *(a1 + 48)) / v8);
+      v10 = *(a1 + 48) + v5 * ((*(a1 + 56) - *(a1 + 48)) / v9);
     }
   }
 
   else
   {
-    v9 = *(*(a1 + 24) + 8 * v4);
+    v10 = *(*(a1 + 24) + 8 * v5);
   }
 
-  return v6 + _ZNK4geom20interpolating_splineIDv3_dE24evaluate_length_betweeenEdd(a1, v9, a2);
+  return v7 + _ZNK4geom20interpolating_splineIDv3_dE24evaluate_length_betweeenEdd(a1, v10, a2);
 }
 
 void _ZNK4geom19interpolating_curveIDv3_dE10span_knotsEtRdS3_(uint64_t a1, unsigned int a2, double *a3, double *a4, double a5, double a6, double a7)
@@ -7910,9 +7882,9 @@ void _ZNK4geom19interpolating_curveIDv3_dE10span_knotsEtRdS3_(uint64_t a1, unsig
 
     else
     {
-      v17 = *(v12 + 24) + 8 * v10;
+      v17 = (*(v12 + 24) + 8 * v10);
       *a3 = *v17;
-      v16 = *(v17 + 8);
+      v16 = v17[1];
     }
   }
 
@@ -7959,7 +7931,7 @@ uint64_t _ZNK4geom19interpolating_curveIDv3_dE33calculate_monomial_basis_for_spa
   v34 = vsubq_f64(vmlaq_f64(v30[6], _Q2, vsubq_f64(*v31, *v32)), *v30);
   *(a3 + 96) = v34;
   *(a3 + 112) = v33;
-  if (sqrt(vmulq_f64(v28, v28).f64[0] + vaddvq_f64(vmulq_f64(v27, v27))) <= 0.000001 && (*&v34.f64[1] = vextq_s8(v34, v34, 8uLL).u64[0], sqrt(vmulq_f64(v33, v33).f64[0] + vaddvq_f64(vmulq_f64(v34, v34))) <= 0.000001))
+  if (sqrt(vmulq_f64(v28, v28).f64[0] + vaddvq_f64(vmulq_f64(v27, v27))) <= 0.000001 && (v34.i64[1] = vextq_s8(v34, v34, 8uLL).u64[0], sqrt(vmulq_f64(v33, v33).f64[0] + vaddvq_f64(vmulq_f64(v34, v34))) <= 0.000001))
   {
     return 2;
   }
@@ -7991,7 +7963,7 @@ uint64_t _ZNK4geom19interpolating_curveIDv3_dE31calculate_bezier_basis_for_spanE
   v22 = vmlaq_f64(*(v4 + 96), _Q16, vsubq_f64(v8, v18));
   v23 = vsubq_f64(vmlaq_f64(*(v4 + 112), _Q16, vsubq_f64(v7, v17)), v6);
   v24 = vsubq_f64(v22, *v4);
-  if (sqrt(vmulq_f64(v20, v20).f64[0] + vaddvq_f64(vmulq_f64(v21, v21))) <= 0.000001 && (v25.f64[0] = v24.f64[0], *&v25.f64[1] = vextq_s8(v24, v24, 8uLL).u64[0], sqrt(vmulq_f64(v23, v23).f64[0] + vaddvq_f64(vmulq_f64(v25, v25))) <= 0.000001))
+  if (sqrt(vmulq_f64(v20, v20).f64[0] + vaddvq_f64(vmulq_f64(v21, v21))) <= 0.000001 && (*&v25.f64[0] = v24.i64[0], *&v25.f64[1] = vextq_s8(v24, v24, 8uLL).u64[0], sqrt(vmulq_f64(v23, v23).f64[0] + vaddvq_f64(vmulq_f64(v25, v25))) <= 0.000001))
   {
     *a3 = v5;
     *(a3 + 16) = v6;
@@ -8006,7 +7978,7 @@ uint64_t _ZNK4geom19interpolating_curveIDv3_dE31calculate_bezier_basis_for_spanE
 
   else
   {
-    v26.f64[0] = v15.f64[0];
+    *&v26.f64[0] = v15.i64[0];
     *&v26.f64[1] = vextq_s8(v15, v15, 8uLL).u64[0];
     v27.f64[0] = *v4;
     *&v27.f64[1] = vextq_s8(v5, v5, 8uLL).u64[0];
@@ -8019,7 +7991,7 @@ uint64_t _ZNK4geom19interpolating_curveIDv3_dE31calculate_bezier_basis_for_spanE
     *a3 = v5;
     *(a3 + 16) = v6;
     v30 = vmlaq_f64(v27, vdupq_n_s64(0x3FE5555555555555uLL), v26);
-    v26.f64[0] = v21.f64[0];
+    *&v26.f64[0] = v21.i64[0];
     *&v26.f64[1] = vextq_s8(v21, v21, 8uLL).u64[0];
     *(a3 + 64) = vmlaq_f64(v30, v28, v26);
     *(a3 + 80) = vmlaq_f64(vmlaq_f64(v6, v29, v14), v3, v20);
@@ -8031,14 +8003,14 @@ uint64_t _ZNK4geom19interpolating_curveIDv3_dE31calculate_bezier_basis_for_spanE
 
 uint64_t _ZN4geom19interpolating_curveIDv3_dE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(uint64_t a1, int **a2)
 {
-  memset(v72, 0, 24);
-  memset(v70, 0, 48);
+  memset(v73, 0, 24);
+  memset(v71, 0, 48);
   v4 = **a2;
   if (v4 > 1)
   {
     if (v4 == 2)
     {
-      _ZN4geom19interpolating_curveIDv3_dE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, &v60);
+      _ZN4geom19interpolating_curveIDv3_dE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, &v61);
     }
 
     else
@@ -8048,7 +8020,7 @@ uint64_t _ZN4geom19interpolating_curveIDv3_dE13append_splineERKNS_5sliceINS_17in
         goto LABEL_19;
       }
 
-      _ZN4geom19interpolating_curveIDv3_dE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, &v60);
+      _ZN4geom19interpolating_curveIDv3_dE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, &v61);
     }
   }
 
@@ -8063,27 +8035,27 @@ uint64_t _ZN4geom19interpolating_curveIDv3_dE13append_splineERKNS_5sliceINS_17in
 
       v5 = *(a2 + 4);
       v6 = v5 - 1;
-      v68 = 0;
       v69 = 0;
-      v67 = 0;
-      v60 = 0uLL;
+      v70 = 0;
+      v68 = 0;
       v61 = 0uLL;
       v62 = 0uLL;
-      _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE6resizeEm(&v60, (3 * v5 - 2));
-      v65 = v6;
-      if ((v66 & 1) == 0)
+      v63 = 0uLL;
+      _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE6resizeEm(&v61, (3 * v5 - 2));
+      v66 = v6;
+      if ((v67 & 1) == 0)
       {
-        std::vector<double>::resize(&v61 + 1, v6 + 1);
+        std::vector<double>::resize(&v62 + 1, v6 + 1);
       }
 
-      v73 = 0;
       v74 = 0;
       v75 = 0;
-      std::vector<double>::resize(&v73, v6 + 1);
+      v76 = 0;
+      std::vector<double>::resize(&v74, v6 + 1);
       v7 = 0;
       v8 = 0;
-      v9 = v73;
-      *v73 = *(*a2 + 1);
+      v9 = v74;
+      *v74 = *(*a2 + 1);
       v10 = 8;
       __asm { FMOV            V0.2D, #3.0 }
 
@@ -8098,18 +8070,18 @@ uint64_t _ZN4geom19interpolating_curveIDv3_dE13append_splineERKNS_5sliceINS_17in
         v22 = v16[10];
         v21 = v16[11];
         v23 = v16[2];
-        v24 = (v60 + 32 * v8);
+        v24 = (v61 + 32 * v8);
         v25 = v8 + 2;
         *v24 = v16[1];
         v24[1] = v23;
-        v26 = (v60 + 32 * (v8 + 1));
+        v26 = (v61 + 32 * (v8 + 1));
         v27 = vaddq_f64(vdivq_f64(vmulq_n_f64(v19, v18), _Q0), v16[2]);
         *v26 = vaddq_f64(vdivq_f64(vmulq_n_f64(v20, v18), _Q0), v16[1]);
         v26[1] = v27;
         v8 += 3;
         v29 = v16[8];
         v28 = v16[9];
-        v30 = (v60 + 32 * v25);
+        v30 = (v61 + 32 * v25);
         *v30 = vsubq_f64(v29, vdivq_f64(vmulq_n_f64(v22, v18), _Q0));
         v30[1] = vsubq_f64(v28, vdivq_f64(vmulq_n_f64(v21, v18), _Q0));
         v7 += 28;
@@ -8123,28 +8095,28 @@ uint64_t _ZN4geom19interpolating_curveIDv3_dE13append_splineERKNS_5sliceINS_17in
     {
       v31 = *(a2 + 4);
       v32 = v31 - 1;
-      v68 = 0;
       v69 = 0;
-      v67 = 0;
-      v60 = 0uLL;
+      v70 = 0;
+      v68 = 0;
       v61 = 0uLL;
       v62 = 0uLL;
-      _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE6resizeEm(&v60, (3 * v31 - 2));
-      v65 = v32;
-      if ((v66 & 1) == 0)
+      v63 = 0uLL;
+      _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE6resizeEm(&v61, (3 * v31 - 2));
+      v66 = v32;
+      if ((v67 & 1) == 0)
       {
-        std::vector<double>::resize(&v61 + 1, v32 + 1);
+        std::vector<double>::resize(&v62 + 1, v32 + 1);
       }
 
-      v73 = 0;
       v74 = 0;
       v75 = 0;
-      std::vector<double>::resize(&v73, v32 + 1);
+      v76 = 0;
+      std::vector<double>::resize(&v74, v32 + 1);
       v34 = 0;
       v8 = 0;
-      v9 = v73;
-      v35 = v73;
-      *v73 = *(*a2 + 1);
+      v9 = v74;
+      v35 = v74;
+      *v74 = *(*a2 + 1);
       v36 = (v35 + 8);
       __asm { FMOV            V0.2D, #3.0 }
 
@@ -8158,20 +8130,20 @@ uint64_t _ZN4geom19interpolating_curveIDv3_dE13append_splineERKNS_5sliceINS_17in
         v40 = v38[2];
         v41 = vmulq_n_f64(vsubq_f64(v38[8], v39), v33.f64[0]);
         v42 = vmulq_f64(v33, vsubq_f64(v38[9], v40));
-        v43 = (v60 + 32 * v8);
+        v43 = (v61 + 32 * v8);
         *v43 = v39;
         v43[1] = v40;
         LOWORD(v43) = v8 + 2;
         v44 = vdivq_f64(v42, _Q0);
         v45 = vdivq_f64(v41, _Q0);
         v46 = vaddq_f64(v38[2], v44);
-        v47 = (v60 + 32 * (v8 + 1));
+        v47 = (v61 + 32 * (v8 + 1));
         *v47 = vaddq_f64(v38[1], v45);
         v47[1] = v46;
         v8 += 3;
         v48 = vsubq_f64(v38[8], v45);
         v33 = vsubq_f64(v38[9], v44);
-        v49 = (v60 + 32 * v43);
+        v49 = (v61 + 32 * v43);
         *v49 = v48;
         v49[1] = v33;
         v34 += 28;
@@ -8183,51 +8155,52 @@ uint64_t _ZN4geom19interpolating_curveIDv3_dE13append_splineERKNS_5sliceINS_17in
 
     v50 = &(*a2)[28 * a2[1]];
     v51 = *(v50 - 80);
-    v52 = (v60 + 32 * v8);
+    v52 = (v61 + 32 * v8);
     *v52 = *(v50 - 96);
     v52[1] = v51;
-    v66 = 0;
-    std::vector<double>::__assign_with_size[abi:nn200100]<double *,double *>(&v61 + 1, v9, v74, (v74 - v9) >> 3);
-    v63 = *v73;
-    v64 = *(v74 - 1);
-    v74 = v73;
-    operator delete(v73);
+    v67 = 0;
+    std::vector<double>::__assign_with_size[abi:nn200100]<double *,double *>(&v62 + 1, v9, v75, (v75 - v9) >> 3);
+    v64 = *v74;
+    v65 = *(v75 - 1);
+    v75 = v74;
+    operator delete(v74);
   }
 
-  geom::interpolating_spline<double>::operator=(v70, &v60);
-  geom::interpolating_spline<double>::~interpolating_spline(&v60);
+  geom::interpolating_spline<double>::operator=(v71, &v61);
+  geom::interpolating_spline<double>::~interpolating_spline(&v61);
 LABEL_19:
-  v53 = v71;
-  std::vector<double>::resize(v72, v71);
+  v53 = v72;
+  std::vector<double>::resize(v73, v72);
   if (v53)
   {
-    v54 = 0;
-    v55 = 0.0;
+    v55 = 0;
+    v56 = 0.0;
     do
     {
-      v55 = v55 + _ZNK4geom20interpolating_splineIDv3_dE20evaluate_span_lengthEj(v70, v54);
-      *(v72[0] + 8 * v54++) = v55;
+      v54.n128_f64[0] = _ZNK4geom20interpolating_splineIDv3_dE20evaluate_span_lengthEj(v71, v55, v54);
+      v56 = v56 + v54.n128_f64[0];
+      *(v73[0] + 8 * v55++) = v56;
     }
 
-    while (v53 != v54);
+    while (v53 != v55);
   }
 
-  v56 = _ZNK4geom20interpolating_splineIDv3_dE21evaluate_total_lengthEv(v70);
-  v57 = *(a1 + 80) - *(a1 + 72);
-  if (v57)
+  v57 = _ZNK4geom20interpolating_splineIDv3_dE21evaluate_total_lengthEv(v71);
+  v58 = *(a1 + 80) - *(a1 + 72);
+  if (v58)
   {
-    v58 = *(*(a1 + 48) - 0x5555555555555555 * (v57 >> 2) - 8);
+    v59 = *(*(a1 + 48) - 0x5555555555555555 * (v58 >> 2) - 8);
   }
 
   else
   {
-    v58 = 0.0;
+    v59 = 0.0;
   }
 
-  *&v60 = v56 + v58;
-  std::vector<double>::push_back[abi:nn200100]((a1 + 48), &v60);
-  _ZNSt3__16vectorIN4geom20interpolating_splineIDv3_dEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v70);
-  return geom::interpolating_spline<double>::~interpolating_spline(v70);
+  *&v61 = v57 + v59;
+  std::vector<double>::push_back[abi:nn200100]((a1 + 48), &v61);
+  _ZNSt3__16vectorIN4geom20interpolating_splineIDv3_dEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v71);
+  return geom::interpolating_spline<double>::~interpolating_spline(v71);
 }
 
 void _ZN4geom19interpolating_curveIDv3_dE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(_WORD *a1@<X1>, uint64_t a2@<X8>)
@@ -8375,9 +8348,9 @@ void _ZN4geom19interpolating_curveIDv3_dE24build_catmull_rom_splineERKNS_5sliceI
     v21 = v7 + 32;
     do
     {
-      v22 = &v15[v18];
-      v23 = v22[2];
-      *v21 = v22[1];
+      v22 = v15 + v18 * 16;
+      v23 = *(v22 + 32);
+      *v21 = *(v22 + 16);
       v21[1] = v23;
       v21 += 2;
       v15 = *a1;
@@ -8392,7 +8365,7 @@ void _ZN4geom19interpolating_curveIDv3_dE24build_catmull_rom_splineERKNS_5sliceI
     while (7 * (v4 - 1) != v18);
   }
 
-  v27 = &v15[7 * v20];
+  v27 = (v15 + 112 * v20);
   v28 = v27[1];
   v29 = v27[2];
   v30 = &v7[32 * v6 - 64];
@@ -8543,9 +8516,9 @@ void _ZN4geom19interpolating_curveIDv3_dE24build_catmull_rom_splineERKNS_5sliceI
   }
 
   v120 = &(*a1)[7 * v20];
-  v121 = *(v120 + 32);
+  v121 = v120[2];
   v122 = (*a2 + 32 * v48);
-  *v122 = *(v120 + 16);
+  *v122 = v120[1];
   v122[1] = v121;
   v123 = a1[1];
   v129 = 0;
@@ -9053,12 +9026,12 @@ void _ZN4geom19interpolating_curveIDv4_dE5buildERKNSt3__16vectorINS_17interpolat
   _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(a2, a1, 0);
 }
 
-void _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t a1, void *a2, char a3)
+void _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEEb(uint64_t *a1, void *a2, char a3)
 {
   v6 = 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 4);
-  v10 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  v9 = (a1 + 72);
+  v10 = a1[9];
+  v8 = a1[10];
+  v9 = a1 + 9;
   v11 = v6;
   if (v8 != v10)
   {
@@ -9071,7 +9044,7 @@ void _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17in
     v11 = 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 4);
   }
 
-  *(a1 + 80) = v10;
+  a1[10] = v10;
   std::vector<geom::interpolating_spline<double>>::reserve(v9, v11 - 1);
   *(a1 + 208) = 0;
   if (v6 < 2u)
@@ -9111,9 +9084,9 @@ void _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17in
     _ZN4geom19interpolating_curveIDv4_dE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a1, &v106);
   }
 
-  v17 = *(a1 + 72);
-  v16 = *(a1 + 80);
-  std::vector<unsigned short>::resize((a1 + 24), 0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 5));
+  v17 = a1[9];
+  v16 = a1[10];
+  std::vector<unsigned short>::resize(a1 + 3, 0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 5));
   if (v16 == v17)
   {
     std::vector<unsigned short>::resize(a1, 0);
@@ -9123,7 +9096,7 @@ void _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17in
   {
     v18 = 0;
     v19 = *v9;
-    v20 = *(a1 + 24);
+    v20 = a1[3];
     if (0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 5) <= 1)
     {
       v21 = 1;
@@ -9149,7 +9122,7 @@ void _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17in
     std::vector<unsigned short>::resize(a1, v18);
     v25 = 0;
     v26 = 0;
-    v27 = *(a1 + 72);
+    v27 = a1[9];
     do
     {
       v28 = *(v27 + 96 * v25 + 64);
@@ -9180,9 +9153,9 @@ void _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17in
   }
 
   v31 = *a2;
-  *(a1 + 192) = *(*a2 + 8);
+  a1[24] = *(*a2 + 8);
   v32 = a2[1];
-  *(a1 + 200) = *(v32 - 104);
+  a1[25] = *(v32 - 104);
   if (a3)
   {
     LOWORD(v116[0]) = 512;
@@ -9195,15 +9168,15 @@ void _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17in
     v106 = 0u;
     v107 = 0u;
     v108 = 0u;
-    v34 = *(a1 + 96);
-    v104 = (a1 + 96);
+    v34 = a1[12];
+    v104 = a1 + 12;
     v105 = a1;
-    *(a1 + 104) = v34;
-    *(a1 + 160) = 0;
-    v35 = *(a1 + 120);
-    v103 = (a1 + 120);
+    a1[13] = v34;
+    *(a1 + 80) = 0;
+    v35 = a1[15];
+    v103 = a1 + 15;
     *(a1 + 162) = 0;
-    *(a1 + 128) = v35;
+    a1[16] = v35;
     if (v32 == v31)
     {
       v36 = 0.0;
@@ -9234,7 +9207,7 @@ void _ZN4geom19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17in
         *&v108 = *(&v107 + 1);
         v41 = (v39 + v36 * 2.0) * 0.333333333;
         v42 = (v36 + v39 * 2.0) * 0.333333333;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           v43 = v36;
 LABEL_70:
@@ -9242,15 +9215,15 @@ LABEL_70:
           goto LABEL_71;
         }
 
-        v44 = *(v105 + 72);
-        v45 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v44) >> 5);
-        if ((v45 & 0xFFFE) == 0 || *(v105 + 192) >= v36)
+        v44 = v105[9];
+        v45 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v44) >> 5);
+        if ((v45 & 0xFFFE) == 0 || *(v105 + 24) >= v36)
         {
           break;
         }
 
         LOWORD(v45) = v45 - 1;
-        if (*(v105 + 200) > v36)
+        if (*(v105 + 25) > v36)
         {
           for (i = 0; ; i = v47 + 1)
           {
@@ -9287,14 +9260,14 @@ LABEL_70:
 LABEL_47:
         v43 = v49 + v50;
         v51 = v105;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           goto LABEL_70;
         }
 
-        v52 = *(v105 + 72);
-        v53 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v52) >> 5);
-        if ((v53 & 0xFFFE) == 0 || *(v105 + 192) >= v41)
+        v52 = v105[9];
+        v53 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v52) >> 5);
+        if ((v53 & 0xFFFE) == 0 || *(v105 + 24) >= v41)
         {
           v57 = _ZNK4geom20interpolating_splineIDv4_dE18evaluate_length_atEd(v52, (v39 + v36 * 2.0) * 0.333333333);
 LABEL_57:
@@ -9303,7 +9276,7 @@ LABEL_57:
         }
 
         LOWORD(v53) = v53 - 1;
-        if (*(v105 + 200) > v41)
+        if (*(v105 + 25) > v41)
         {
           for (j = 0; ; j = v55 + 1)
           {
@@ -9340,14 +9313,14 @@ LABEL_57:
 LABEL_58:
         v41 = v57 + v58;
         v59 = v105;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           goto LABEL_70;
         }
 
-        v60 = *(v105 + 72);
-        v61 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v60) >> 5);
-        if ((v61 & 0xFFFE) == 0 || *(v105 + 192) >= v42)
+        v60 = v105[9];
+        v61 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v60) >> 5);
+        if ((v61 & 0xFFFE) == 0 || *(v105 + 24) >= v42)
         {
           v65 = _ZNK4geom20interpolating_splineIDv4_dE18evaluate_length_atEd(v60, v42);
 LABEL_68:
@@ -9356,7 +9329,7 @@ LABEL_68:
         }
 
         LOWORD(v61) = v61 - 1;
-        if (*(v105 + 200) > v42)
+        if (*(v105 + 25) > v42)
         {
           for (k = 0; ; k = v63 + 1)
           {
@@ -9393,17 +9366,17 @@ LABEL_68:
 LABEL_69:
         v42 = v65 + v66;
         v67 = v105;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           goto LABEL_70;
         }
 
-        v90 = *(v105 + 72);
-        v91 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v90) >> 5);
-        if ((v91 & 0xFFFE) != 0 && *(v105 + 192) < v39)
+        v90 = v105[9];
+        v91 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v90) >> 5);
+        if ((v91 & 0xFFFE) != 0 && *(v105 + 24) < v39)
         {
           LOWORD(v91) = v91 - 1;
-          if (*(v105 + 200) > v39)
+          if (*(v105 + 25) > v39)
           {
             for (m = 0; ; m = v93 + 1)
             {
@@ -9456,9 +9429,9 @@ LABEL_71:
         v119 = 0;
         _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv4_dE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUldE_dEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(&v105, v118, v116, &v106);
         v69 = v111;
-        v70 = *(a1 + 104);
-        v71 = *(a1 + 96);
-        v72 = *(a1 + 160);
+        v70 = *(a1 + 26);
+        v71 = a1[12];
+        v72 = *(a1 + 80);
         if (v72)
         {
           v73 = v72 + 1;
@@ -9473,7 +9446,7 @@ LABEL_71:
         if (v72 + v111)
         {
           std::vector<double>::resize(v104, (3 * v74 + 1));
-          *(a1 + 160) = v74;
+          *(a1 + 80) = v74;
           if ((*(a1 + 162) & 1) == 0)
           {
             std::vector<double>::resize(v103, v74 + 1);
@@ -9482,11 +9455,11 @@ LABEL_71:
 
         else
         {
-          *(a1 + 104) = v71;
-          *(a1 + 160) = 0;
+          a1[13] = v71;
+          *(a1 + 80) = 0;
           if ((*(a1 + 162) & 1) == 0)
           {
-            *(a1 + 128) = *(a1 + 120);
+            a1[16] = a1[15];
           }
         }
 
@@ -9591,22 +9564,22 @@ LABEL_46:
 
 LABEL_121:
     *(a1 + 208) = 1;
-    *(a1 + 192) = *(v31 + 8);
-    *(a1 + 200) = *(v31 + v33 - 104);
+    a1[24] = *(v31 + 8);
+    a1[25] = *(v31 + v33 - 104);
     geom::interpolating_spline<double>::~interpolating_spline(&v106);
   }
 }
 
-void _ZN4geom19interpolating_curveIDv4_dE30build_arc_length_parameterizedERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEE(void *a1@<X0>, _OWORD *a2@<X8>)
+void _ZN4geom19interpolating_curveIDv4_dE30build_arc_length_parameterizedERKNSt3__16vectorINS_17interpolating_keyIS1_EENS3_9allocatorIS6_EEEE(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  a2[7] = 0u;
-  a2[8] = 0u;
-  a2[5] = 0u;
-  a2[6] = 0u;
-  a2[3] = 0u;
-  a2[4] = 0u;
-  a2[1] = 0u;
-  a2[2] = 0u;
+  *(a2 + 112) = 0u;
+  *(a2 + 128) = 0u;
+  *(a2 + 80) = 0u;
+  *(a2 + 96) = 0u;
+  *(a2 + 48) = 0u;
+  *(a2 + 64) = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 0u;
   *a2 = 0u;
   *(a2 + 168) = 0u;
   *(a2 + 184) = 0u;
@@ -9680,7 +9653,7 @@ double _ZNK4geom19interpolating_curveIDv4_dE11evaluate_atEd@<D0>(uint64_t a1@<X0
   return result;
 }
 
-uint64_t _ZNK4geom19interpolating_curveIDv4_dE19evaluate_tangent_atEd@<X0>(uint64_t a1@<X0>, float64x2_t *a2@<X8>, double a3@<D0>)
+void *_ZNK4geom19interpolating_curveIDv4_dE19evaluate_tangent_atEd@<X0>(uint64_t a1@<X0>, float64x2_t *a2@<X8>, double a3@<D0>)
 {
   if (*(a1 + 208) == 1)
   {

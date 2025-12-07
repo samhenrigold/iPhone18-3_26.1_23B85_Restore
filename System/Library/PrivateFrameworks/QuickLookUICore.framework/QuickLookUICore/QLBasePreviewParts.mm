@@ -39,50 +39,41 @@
 
 + (void)urlCallbackForUTI:(id)i
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   iCopy = i;
   v4 = [QLPreviewConverter isOfficeDocumentType:iCopy];
   v5 = OIGenerateProgressivePreviewForURL;
-  if (v4)
+  if (v4 || (v6 = [QLPreviewConverter isIWorkDocumentType:iCopy], v5 = IWGenerateProgressivePreviewForURL, v6) || (v7 = [QLPreviewConverter isCSVDocumentType:iCopy], v5 = OIGenerateProgressivePreviewForURL, v7) || (v8 = [QLPreviewConverter isRTFDocumentType:iCopy], v5 = RTFGeneratePreviewForURL, v8) || (v9 = [QLPreviewConverter isLPDFDocumentType:iCopy], v5 = LPDFGeneratePreviewForURL, v9))
   {
-    goto LABEL_6;
-  }
-
-  v6 = [QLPreviewConverter isIWorkDocumentType:iCopy];
-  v5 = IWGenerateProgressivePreviewForURL;
-  if (v6 || (v7 = [QLPreviewConverter isCSVDocumentType:iCopy], v5 = OIGenerateProgressivePreviewForURL, v7) || (v8 = [QLPreviewConverter isRTFDocumentType:iCopy], v5 = RTFGeneratePreviewForURL, v8) || (v9 = [QLPreviewConverter isLPDFDocumentType:iCopy], v5 = LPDFGeneratePreviewForURL, v9))
-  {
-LABEL_6:
     v10 = v5;
   }
 
   else
   {
-    v13 = MEMORY[0x277D43EF8];
-    v14 = *MEMORY[0x277D43EF8];
+    v12 = MEMORY[0x277D43EF8];
+    v13 = *MEMORY[0x277D43EF8];
     if (!*MEMORY[0x277D43EF8])
     {
       QLSInitLogging();
-      v14 = *v13;
+      v13 = *v12;
     }
 
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = iCopy;
-      _os_log_impl(&dword_261653000, v14, OS_LOG_TYPE_ERROR, "Cannot find url converter callback for uti %@ #Conversion", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = iCopy;
+      _os_log_impl(&dword_261653000, v13, OS_LOG_TYPE_ERROR, "Cannot find url converter callback for uti %@ #Conversion", &v14, 0xCu);
     }
 
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (void)dataCallbackForUTI:(id)i andSize:(unint64_t)size
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   iCopy = i;
   v5 = [QLPreviewConverter isOfficeDocumentType:iCopy];
   v6 = OIGenerateProgressivePreviewForData;
@@ -93,25 +84,24 @@ LABEL_6:
 
   else
   {
-    v13 = MEMORY[0x277D43EF8];
-    v14 = *MEMORY[0x277D43EF8];
+    v12 = MEMORY[0x277D43EF8];
+    v13 = *MEMORY[0x277D43EF8];
     if (!*MEMORY[0x277D43EF8])
     {
       QLSInitLogging();
-      v14 = *v13;
+      v13 = *v12;
     }
 
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = iCopy;
-      _os_log_impl(&dword_261653000, v14, OS_LOG_TYPE_ERROR, "Cannot find data converter callback for uti %@ #Conversion", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = iCopy;
+      _os_log_impl(&dword_261653000, v13, OS_LOG_TYPE_ERROR, "Cannot find data converter callback for uti %@ #Conversion", &v14, 0xCu);
     }
 
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

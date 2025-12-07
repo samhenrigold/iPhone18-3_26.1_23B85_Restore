@@ -38,7 +38,7 @@
 
 - (id)validate
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_identifier(self, a2, v2);
 
   if (v4)
@@ -59,8 +59,8 @@
         if (v19)
         {
           v22 = objc_msgSend_contactStore(self, v20, v21);
-          v40[0] = *MEMORY[0x277CBD160];
-          v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, v40, 1);
+          v39[0] = *MEMORY[0x277CBD160];
+          v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, v39, 1);
           v26 = objc_msgSend_unifiedContactWithIdentifier_keysToFetch_error_(v22, v25, v19, v24, 0);
 
           v27 = 0;
@@ -98,14 +98,12 @@
     v27 = objc_msgSend_initWithReason_(v30, v31, @"Expected identifier to be set");
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 - (id)commitFromUpdatesCache
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_identifier(self, a2, v2);
   v7 = objc_msgSend_identifier(v4, v5, v6);
   v11 = objc_msgSend_updatesForAssistantUrl_(CNAssistantCache, v8, v7);
@@ -114,31 +112,31 @@
     goto LABEL_11;
   }
 
-  v53 = v4;
+  v52 = v4;
   v12 = objc_alloc_init(MEMORY[0x277CBDBA0]);
-  v52 = v7;
+  v51 = v7;
   v14 = objc_msgSend_contactIDFromAssistantID_(MEMORY[0x277CFBC50], v13, v7);
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v51 = v11;
+  v50 = v11;
   obj = v11;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v55, v59, 16);
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v54, v58, 16);
   if (v16)
   {
     v17 = v16;
-    v18 = *v56;
+    v18 = *v55;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v56 != v18)
+        if (*v55 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v55 + 1) + 8 * i);
+        v20 = *(*(&v54 + 1) + 8 * i);
         v21 = objc_alloc(MEMORY[0x277D472C0]);
         v23 = objc_msgSend_initWithDictionary_(v21, v22, v20);
         v24 = MEMORY[0x277CFBC48];
@@ -146,19 +144,19 @@
         objc_msgSend_applyUpdate_toContactWithIdentifier_usingStore_saveRequest_(v24, v28, v23, v14, v27, v12);
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v55, v59, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v54, v58, 16);
     }
 
     while (v17);
   }
 
-  v7 = v52;
-  objc_msgSend_removeUpdatesForAssistantUrl_(CNAssistantCache, v30, v52);
+  v7 = v51;
+  objc_msgSend_removeUpdatesForAssistantUrl_(CNAssistantCache, v30, v51);
   v33 = objc_msgSend_contactStore(self, v31, v32);
   v35 = objc_msgSend_executeSaveRequest_error_(v33, v34, v12, 0);
 
-  v4 = v53;
-  v11 = v51;
+  v4 = v52;
+  v11 = v50;
   if (v35)
   {
     v36 = objc_alloc_init(MEMORY[0x277D472A8]);
@@ -170,7 +168,7 @@
   else
   {
 LABEL_11:
-    v44 = objc_msgSend_code(0, v9, v10, v51);
+    v44 = objc_msgSend_code(0, v9, v10, v50);
     v45 = *MEMORY[0x277D47BA0];
     v46 = objc_alloc(MEMORY[0x277D47208]);
     if (v44 == v45)
@@ -185,8 +183,6 @@ LABEL_11:
 
     v36 = v48;
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v36;
 }

@@ -60,7 +60,7 @@ void __119__STConcretePasscodeAuthenticationProviderService_authenticatePasscode
     {
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
+        v14[0] = 0;
         _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Resolving pending completion with authentication result", v14, 2u);
       }
 

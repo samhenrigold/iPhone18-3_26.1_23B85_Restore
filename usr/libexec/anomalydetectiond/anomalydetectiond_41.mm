@@ -4617,7 +4617,7 @@ float CMMsl::KappaRolloverCrashResult::KappaRolloverCrashResult(uint64_t a1, uin
   return result;
 }
 
-CMMsl *CMMsl::KappaRolloverCrashResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaRolloverCrashResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

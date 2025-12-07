@@ -17,10 +17,10 @@
 - (double)sampleAtAngle:(double)angle includeBaseRadius:(BOOL)radius
 {
   selfCopy = self;
-  sub_11C08(radius, angle);
-  v8 = v7;
+  sub_11C08(angle);
+  v7 = v6;
 
-  return v8;
+  return v7;
 }
 
 - (_TtC29NTKGladiusFaceBundleCompanion32NTKGladiusStretchySecondHandData)init

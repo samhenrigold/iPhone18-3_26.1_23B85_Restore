@@ -1,6 +1,7 @@
 @interface MPSNDArrayPoolingKernel
 - (MPSNDArrayPoolingKernel)initWithCoder:(id)coder device:(id)device;
 - (MPSNDArrayPoolingKernel)initWithDevice:(id)device kernelSizes:(MPSNDArrayPoolingSizes_s *)sizes poolingMode:(int)mode;
+- (MPSNDArrayPoolingKernel)initWithDevice:(id)device kernelSizes:(MPSNDArrayPoolingSizes_s *)sizes poolingMode:(int)mode returnIndicesMode:(int)indicesMode;
 - (MPSNDArrayPoolingOffsets_s)poolingOffsets;
 - (MPSNDArrayPoolingSizes_s)poolingDilationRates;
 - (MPSNDArrayPoolingSizes_s)poolingKernelSizes;
@@ -63,6 +64,16 @@
   result->_poolingStrides.sizes[3] = 1;
   result->_poolingDilationRates.sizes[3] = 1;
   return result;
+}
+
+- (MPSNDArrayPoolingKernel)initWithDevice:(id)device kernelSizes:(MPSNDArrayPoolingSizes_s *)sizes poolingMode:(int)mode returnIndicesMode:(int)indicesMode
+{
+  v8 = *&sizes->sizes[2];
+  v10[0] = *sizes->sizes;
+  v10[1] = v8;
+  [(MPSNDArrayPoolingKernel *)self initWithDevice:device kernelSizes:v10 poolingMode:*&mode];
+  self->_poolingReturnIndicesMode = indicesMode;
+  return self;
 }
 
 - (MPSNDArrayPoolingKernel)initWithCoder:(id)coder device:(id)device
@@ -201,9 +212,9 @@
 
 - (id)workloadStatisticsForSourceArrays:(id)arrays destArrays:(id)destArrays kernel:(id)kernel kernelDAGObject:(id)object sourceState:(id)state
 {
-  v60.receiver = self;
-  v60.super_class = MPSNDArrayPoolingKernel;
-  object = [(MPSNDArrayMultiaryBase *)&v60 workloadStatisticsForSourceArrays:arrays sourceState:state, kernel, object];
+  v55.receiver = self;
+  v55.super_class = MPSNDArrayPoolingKernel;
+  object = [(MPSNDArrayMultiaryBase *)&v55 workloadStatisticsForSourceArrays:arrays sourceState:state, kernel, object];
   if ([arrays count])
   {
     v12 = [objc_msgSend(arrays objectAtIndexedSubscript:{0), "numberOfDimensions"}];
@@ -221,7 +232,6 @@
 
     numberOfDimensions = [destArrays numberOfDimensions];
     v15 = MEMORY[0x277CD7410];
-    destArraysCopy = destArrays;
     kernelCopy = kernel;
     if (numberOfDimensions)
     {
@@ -234,11 +244,11 @@
       v22 = 1;
       do
       {
-        v59[0] = v21;
-        v59[1] = v20;
-        v59[2] = v19;
-        v59[3] = v18;
-        v22 *= *(v59 + (v16++ & 0xF));
+        v54[0] = v21;
+        v54[1] = v20;
+        v54[2] = v19;
+        v54[3] = v18;
+        v22 *= *(v54 + (v16++ & 0xF));
       }
 
       while (numberOfDimensions != v16);
@@ -264,7 +274,7 @@
     v31 = v30;
     [object deviceMemoryBytesWrite];
     v33 = v29 / (v31 + v32);
-    v56 = *([arrays objectAtIndexedSubscript:0] + *v15 + 12);
+    v52 = *([arrays objectAtIndexedSubscript:0] + *v15 + 12);
     LODWORD(v24) = *([arrays objectAtIndexedSubscript:0] + *v15 + 8);
     LODWORD(v25) = *([arrays objectAtIndexedSubscript:0] + *v15 + 4);
     v34 = [arrays objectAtIndexedSubscript:0];
@@ -275,21 +285,18 @@
     v39 = p_poolingKernelSizes->sizes[0];
     v38 = v40->sizes[1];
     v41 = *(v34 + v35);
-    v42 = [arrays objectAtIndexedSubscript:0];
-    v43 = MEMORY[0x277CD73C8];
-    v44 = *(v42 + *MEMORY[0x277CD73C8]);
-    v45 = MPSGetDataTypeName();
-    v46 = *&destArraysCopy[*v43];
-    v47 = MPSGetDataTypeName();
-    MPSKernel_LogInfo(kernelCopy, 2uLL, "4d Pooling: T=%u, D=%u, H=%u, W=%u, kT=%lu, kD=%lu, kH=%lu, kW=%lu, src0 Datatype: %s dest Datatype: %s\t", v56, v24, v25, v41, v36, v37, v38, v39, v45, v47);
+    [arrays objectAtIndexedSubscript:0];
+    v42 = MPSGetDataTypeName();
+    v43 = MPSGetDataTypeName();
+    MPSKernel_LogInfo(kernelCopy, 2uLL, "4d Pooling: T=%u, D=%u, H=%u, W=%u, kT=%lu, kD=%lu, kH=%lu, kW=%lu, src0 Datatype: %s dest Datatype: %s\t", v52, v24, v25, v41, v36, v37, v38, v39, v42, v43);
     [object float16Ops];
-    v49 = v48;
+    v45 = v44;
     [object float32Ops];
-    v51 = v50;
+    v47 = v46;
     [object deviceMemoryBytesRead];
-    v53 = v52;
+    v49 = v48;
     [object deviceMemoryBytesWrite];
-    MPSKernel_LogInfo(kernelCopy, 2uLL, "Pooling: f16Ops=%f, f32Ops=%f, BytesRead=%f, BytesWritten=%f, OpsPerByte=%f\n", v49, v51, v53, v54, v33);
+    MPSKernel_LogInfo(kernelCopy, 2uLL, "Pooling: f16Ops=%f, f32Ops=%f, BytesRead=%f, BytesWritten=%f, OpsPerByte=%f\n", v45, v47, v49, v50, v33);
   }
 
   return object;

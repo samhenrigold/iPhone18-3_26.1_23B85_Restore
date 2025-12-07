@@ -89,48 +89,42 @@ CBAgregateSettingsProvider *__44__CBAgregateSettingsProvider_sharedInstance__blo
   v9 = *MEMORY[0x1E69E9840];
   if (CBU_IsPad())
   {
-    aabUpdateStrategyType = 0;
+    return 0;
   }
 
-  else if ([(CBPreferencesSettingsProvider *)self->_preferencesSettingsProvider specifiesAABCurveUpdateStrategy])
+  if (![(CBPreferencesSettingsProvider *)self->_preferencesSettingsProvider specifiesAABCurveUpdateStrategy])
   {
-    if (self->_logHandle)
-    {
-      logHandle = self->_logHandle;
-    }
+    return [(CBTrialSettingsProvider *)self->_trialSettingsProvider aabUpdateStrategyType];
+  }
 
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        inited = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        inited = init_default_corebrightness_log();
-      }
-
-      logHandle = inited;
-    }
-
-    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
-    {
-      updated = aabUpdateStrategyTypeToString([(CBPreferencesSettingsProvider *)self->_preferencesSettingsProvider aabUpdateStrategyType]);
-      __os_log_helper_16_2_1_8_66(v8, updated);
-      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "AAB curve update strategy overriden by preferences. Use %{public}@", v8, 0xCu);
-    }
-
-    aabUpdateStrategyType = [(CBPreferencesSettingsProvider *)self->_preferencesSettingsProvider aabUpdateStrategyType];
+  if (self->_logHandle)
+  {
+    logHandle = self->_logHandle;
   }
 
   else
   {
-    aabUpdateStrategyType = [(CBTrialSettingsProvider *)self->_trialSettingsProvider aabUpdateStrategyType];
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    logHandle = inited;
   }
 
-  *MEMORY[0x1E69E9840];
-  return aabUpdateStrategyType;
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    updated = aabUpdateStrategyTypeToString([(CBPreferencesSettingsProvider *)self->_preferencesSettingsProvider aabUpdateStrategyType]);
+    __os_log_helper_16_2_1_8_66(v8, updated);
+    _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "AAB curve update strategy overriden by preferences. Use %{public}@", v8, 0xCu);
+  }
+
+  return [(CBPreferencesSettingsProvider *)self->_preferencesSettingsProvider aabUpdateStrategyType];
 }
 
 @end

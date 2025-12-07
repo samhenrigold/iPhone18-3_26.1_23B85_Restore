@@ -27,7 +27,7 @@
 
 - (BOOL)_handleFrame:(id)frame
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   v5 = [frameCopy objectForKeyedSubscript:@"data"];
   objc_opt_class();
@@ -84,9 +84,9 @@
         v40 = HMFGetLogIdentifier();
         identifier = [(HMDActiveSiriSessionInfo *)selfCopy identifier];
         *buf = 138543618;
-        v54 = v40;
-        v55 = 2112;
-        v56 = identifier;
+        v53 = v40;
+        v54 = 2112;
+        v55 = identifier;
         _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_INFO, "%{public}@First pass metadata packet observed (%@)", buf, 0x16u);
       }
 
@@ -164,9 +164,9 @@
           v47 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
-            v50 = HMFGetLogIdentifier();
+            v49 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v54 = v50;
+            v53 = v49;
             _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_ERROR, "%{public}@Audio received packet but no Gain", buf, 0xCu);
           }
 
@@ -183,7 +183,7 @@
         {
           v45 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v54 = v45;
+          v53 = v45;
           _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Audio received packet but no sequence number", buf, 0xCu);
         }
 
@@ -202,9 +202,9 @@
         v35 = HMFGetLogIdentifier();
         identifier2 = [(HMDActiveSiriSessionInfo *)selfCopy4 identifier];
         *buf = 138543618;
-        v54 = v35;
-        v55 = 2112;
-        v56 = identifier2;
+        v53 = v35;
+        v54 = 2112;
+        v55 = identifier2;
         _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Received packet, but no audio was included (%@)", buf, 0x16u);
       }
 
@@ -223,9 +223,9 @@
       v30 = HMFGetLogIdentifier();
       identifier3 = [(HMDActiveSiriSessionInfo *)selfCopy5 identifier];
       *buf = 138543618;
-      v54 = v30;
-      v55 = 2112;
-      v56 = identifier3;
+      v53 = v30;
+      v54 = 2112;
+      v55 = identifier3;
       _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Received packet, but no metadata was included (%@)", buf, 0x16u);
     }
 
@@ -233,7 +233,6 @@
     v21 = 0;
   }
 
-  v48 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -284,7 +283,7 @@
 
 void __46__HMDActiveSiriSessionInfo__doReadAudioFrames__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([*(a1 + 32) _maybeHandleFrame:v5 error:v6])
@@ -305,22 +304,20 @@ void __46__HMDActiveSiriSessionInfo__doReadAudioFrames__block_invoke(uint64_t a1
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v14 = 138543362;
-        v15 = v12;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Audio receive channel is complete", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v12;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Audio receive channel is complete", &v13, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
       [*(a1 + 32) _bulkSendDidComplete];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_maybeHandleFrame:(id)frame error:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   errorCopy = error;
   if (errorCopy)
@@ -331,11 +328,11 @@ void __46__HMDActiveSiriSessionInfo__doReadAudioFrames__block_invoke(uint64_t a1
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = errorCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Audio receive channel has error; closing. (%@)", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v10;
+      v16 = 2112;
+      v17 = errorCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Audio receive channel has error; closing. (%@)", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -357,7 +354,6 @@ void __46__HMDActiveSiriSessionInfo__doReadAudioFrames__block_invoke(uint64_t a1
   v11 = 0;
 LABEL_9:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -374,7 +370,7 @@ LABEL_9:
 
 - (void)invalidate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([(HMDActiveSiriSessionInfo *)self isBulkSendActive])
   {
     v3 = objc_autoreleasePoolPush();
@@ -383,11 +379,11 @@ LABEL_9:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2112;
-      v12 = selfCopy;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Plugin removed before all audio was received; cancelling (%@)", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2112;
+      v11 = selfCopy;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Plugin removed before all audio was received; cancelling (%@)", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -396,13 +392,11 @@ LABEL_9:
 
     [(HMDActiveSiriSessionInfo *)selfCopy setBulkSendSession:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActiveBulkSendSession:(id)session
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   bulkSendSession = [(HMDActiveSiriSessionInfo *)self bulkSendSession];
 
@@ -414,9 +408,9 @@ LABEL_9:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Siri active session got two send sessions? Canceling the latter one.", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Siri active session got two send sessions? Canceling the latter one.", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -431,13 +425,11 @@ LABEL_9:
       [(HMDActiveSiriSessionInfo *)self _doReadAudioFrames];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markSiriPluginStopped
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   bulkSendSession = [(HMDActiveSiriSessionInfo *)self bulkSendSession];
   if (bulkSendSession)
   {
@@ -452,11 +444,11 @@ LABEL_9:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = HMFGetLogIdentifier();
-        v12 = 138543618;
-        v13 = v9;
-        v14 = 2112;
-        v15 = selfCopy;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Plugin stopped and all audio was received; closing as complete (%@)", &v12, 0x16u);
+        v11 = 138543618;
+        v12 = v9;
+        v13 = 2112;
+        v14 = selfCopy;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Plugin stopped and all audio was received; closing as complete (%@)", &v11, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -466,8 +458,6 @@ LABEL_9:
       [(HMDActiveSiriSessionInfo *)selfCopy setBulkSendSession:0];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markSiriPluginReady

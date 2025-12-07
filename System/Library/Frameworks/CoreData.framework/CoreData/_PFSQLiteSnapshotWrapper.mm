@@ -2,8 +2,8 @@
 - (BOOL)isEqual:(id)equal;
 - (id)description;
 - (id)mutableCopy;
-- (uint64_t)data;
 - (unint64_t)hash;
+- (void)data;
 - (void)dealloc;
 - (void)initWithData:(void *)data;
 @end
@@ -15,7 +15,7 @@
   result = self->_s->hidden;
   if (result)
   {
-    return MEMORY[0x1EEDB7080]();
+    return MEMORY[0x1EEDB7080](result, 48);
   }
 
   return result;
@@ -88,11 +88,11 @@
   return [(_PFSQLiteSnapshotWrapper *)v3 initWithData:v4];
 }
 
-- (uint64_t)data
+- (void)data
 {
   if (result)
   {
-    return [MEMORY[0x1E695DEF0] dataWithBytes:*(result + 8) length:48];
+    return [MEMORY[0x1E695DEF0] dataWithBytes:result[1] length:48];
   }
 
   return result;
@@ -116,15 +116,13 @@
   ClassName = object_getClassName(v4);
   if (self)
   {
-    v6 = [MEMORY[0x1E695DEF0] dataWithBytes:self->_s length:48];
+    return objc_msgSend_stringWithFormat_(v3, ClassName, self, [MEMORY[0x1E695DEF0] dataWithBytes:self->_s length:48]);
   }
 
   else
   {
-    v6 = 0;
+    return objc_msgSend_stringWithFormat_(v3, ClassName, 0, 0);
   }
-
-  return [v3 stringWithFormat:@"%s (%p) : %@", ClassName, self, v6];
 }
 
 @end

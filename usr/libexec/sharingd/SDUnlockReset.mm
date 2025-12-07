@@ -105,12 +105,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -129,22 +128,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sessionID = self->_sessionID;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    resetReason = self->_resetReason;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_errorString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -247,7 +244,6 @@ LABEL_5:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 28);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 28) & 4) == 0 || self->_version != *(equalCopy + 6))
@@ -259,7 +255,7 @@ LABEL_5:
   else if ((*(equalCopy + 28) & 4) != 0)
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -292,17 +288,17 @@ LABEL_19:
   errorString = self->_errorString;
   if (errorString | *(equalCopy + 1))
   {
-    v7 = [(NSString *)errorString isEqual:?];
+    v6 = [(NSString *)errorString isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

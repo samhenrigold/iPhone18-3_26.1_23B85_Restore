@@ -40,7 +40,7 @@
   v5 = effectType;
   if (effectType >= 8)
   {
-    v9 = _PTLogSystem();
+    v9 = _PTLogSystem(v3);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(PTEffectReaction *)p_effectType emoji];

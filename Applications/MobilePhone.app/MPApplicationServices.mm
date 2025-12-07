@@ -19,7 +19,7 @@
   }
 
   __chkstk_darwin(selfCopy);
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for TPFavoritesController);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for TPFavoritesController, TPFavoritesController_ptr);
   OS_dispatch_queue.sync<A>(execute:)();
 
   return v6;
@@ -36,7 +36,7 @@
   }
 
   __chkstk_darwin(selfCopy);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21MPVoicemailControllerCMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21MPVoicemailControllerCMd, &_sSo21MPVoicemailControllerCMR);
   OS_dispatch_queue.sync<A>(execute:)();
 
   return v6;
@@ -53,7 +53,7 @@
   }
 
   __chkstk_darwin(selfCopy);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone38VVMVoicemailCountSourceVoicemailStatus_AA0F22AccountManagerProtocolAA0f15BadgeCalculatorhI0So8NSObjectCXcMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone38VVMVoicemailCountSourceVoicemailStatus_AA0F22AccountManagerProtocolAA0f15BadgeCalculatorhI0So8NSObjectCXcMd, &_s11MobilePhone38VVMVoicemailCountSourceVoicemailStatus_AA0F22AccountManagerProtocolAA0f15BadgeCalculatorhI0So8NSObjectCXcMR);
   OS_dispatch_queue.sync<A>(execute:)();
 
   return v6;
@@ -70,7 +70,7 @@
   }
 
   __chkstk_darwin(selfCopy);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone16VoicemailManager_So8NSObjectCXcMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone16VoicemailManager_So8NSObjectCXcMd, &_s11MobilePhone16VoicemailManager_So8NSObjectCXcMR);
   OS_dispatch_queue.sync<A>(execute:)();
 
   return v6;
@@ -87,7 +87,7 @@
   }
 
   __chkstk_darwin(selfCopy);
-  type metadata accessor for VoicemailBadgeCalculator();
+  type metadata accessor for VoicemailBadgeCalculator(0);
   OS_dispatch_queue.sync<A>(execute:)();
 
   return v6;

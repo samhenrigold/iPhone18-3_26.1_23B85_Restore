@@ -908,7 +908,7 @@ LABEL_10:
     v15 = firstObject;
     if (firstObject)
     {
-      [firstObject tv_rowMetricsValue];
+      objc_msgSend_tv_rowMetricsValue(firstObject);
     }
 
     else
@@ -1022,7 +1022,7 @@ LABEL_20:
     v45 = lastObject;
     if (lastObject)
     {
-      [lastObject tv_rowMetricsValue];
+      objc_msgSend_tv_rowMetricsValue(lastObject);
     }
 
     else
@@ -1238,7 +1238,7 @@ LABEL_10:
             memset(v50, 0, sizeof(v50));
             if (v36)
             {
-              [v36 tv_rowMetricsValue];
+              objc_msgSend_tv_rowMetricsValue(v36);
               v37 = *(v50 + 8);
               v38 = *(&v50[1] + 8);
               v39 = *(&v50[2] + 8);
@@ -1447,7 +1447,7 @@ LABEL_9:
 
 - (double)_adjustedShowcaseFactor
 {
-  [(_TVCollectionWrappingView *)self showcaseConfig];
+  objc_msgSend_showcaseConfig(self, a2);
   if (v4)
   {
     return self->_showcaseFactor;
@@ -1464,7 +1464,7 @@ LABEL_9:
   [(_TVCollectionWrappingView *)self _adjustedPadding];
   v6 = v5;
   v8 = v7;
-  [(_TVCollectionWrappingView *)self showcaseConfig];
+  objc_msgSend_showcaseConfig(self);
   return fmin((width + 0.0 * -2.0) / (width - (v6 + v8)), 1.0);
 }
 

@@ -53,16 +53,16 @@ LABEL_2:
 
       if (v15 == 2)
       {
-        v42 = a2 - 1;
-        v43 = a2[-1].n128_u64[0];
-        if (v43 >= v12->n128_u64[0])
+        v41 = a2 - 1;
+        v42 = a2[-1].n128_u64[0];
+        if (v42 >= v12->n128_u64[0])
         {
-          if (v12->n128_u64[0] < v43)
+          if (v12->n128_u64[0] < v42)
           {
             return;
           }
 
-          v44 = a2[-1].n128_u64[1];
+          v43 = a2[-1].n128_u64[1];
           goto LABEL_140;
         }
 
@@ -85,34 +85,34 @@ LABEL_2:
 
     if (v15 == 5)
     {
-      v48 = a2 - 1;
-      v49 = a2[-1].n128_u64[0];
-      v50 = v12[3].n128_u64[0];
-      if (v49 < v50 || v50 >= v49 && a2[-1].n128_u64[1] < v12[3].n128_u64[1])
+      v47 = a2 - 1;
+      v48 = a2[-1].n128_u64[0];
+      v49 = v12[3].n128_u64[0];
+      if (v48 < v49 || v49 >= v48 && a2[-1].n128_u64[1] < v12[3].n128_u64[1])
       {
-        v51 = v12[3];
-        v12[3] = *v48;
-        *v48 = v51;
-        v52 = v12[3].n128_u64[0];
-        v53 = v12[2].n128_u64[0];
-        if (v52 < v53 || v53 >= v52 && v12[3].n128_u64[1] < v12[2].n128_u64[1])
+        v50 = v12[3];
+        v12[3] = *v47;
+        *v47 = v50;
+        v51 = v12[3].n128_u64[0];
+        v52 = v12[2].n128_u64[0];
+        if (v51 < v52 || v52 >= v51 && v12[3].n128_u64[1] < v12[2].n128_u64[1])
         {
-          v54 = v12[2];
+          v53 = v12[2];
           v12[2] = v12[3];
-          v12[3] = v54;
-          v55 = v12[2].n128_u64[0];
-          v56 = v12[1].n128_u64[0];
-          if (v55 < v56 || v56 >= v55 && v12[2].n128_u64[1] < v12[1].n128_u64[1])
+          v12[3] = v53;
+          v54 = v12[2].n128_u64[0];
+          v55 = v12[1].n128_u64[0];
+          if (v54 < v55 || v55 >= v54 && v12[2].n128_u64[1] < v12[1].n128_u64[1])
           {
-            v57 = v12[1];
+            v56 = v12[1];
             v12[1] = v12[2];
-            v12[2] = v57;
-            v58 = v12[1].n128_u64[0];
-            if (v58 < v12->n128_u64[0] || v12->n128_u64[0] >= v58 && v12[1].n128_u64[1] < v12->n128_u64[1])
+            v12[2] = v56;
+            v57 = v12[1].n128_u64[0];
+            if (v57 < v12->n128_u64[0] || v12->n128_u64[0] >= v57 && v12[1].n128_u64[1] < v12->n128_u64[1])
             {
-              v82 = *v12;
+              v81 = *v12;
               *v12 = v12[1];
-              v12[1] = v82;
+              v12[1] = v81;
             }
           }
         }
@@ -159,38 +159,38 @@ LABEL_10:
       {
         if (v9->n128_u64[0] < v18 || v18 >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v16->n128_u64[1])
         {
-          v64 = *v12;
+          v63 = *v12;
           *v12 = *v9;
         }
 
         else
         {
-          v70 = *v12;
+          v69 = *v12;
           *v12 = *v16;
-          *v16 = v70;
+          *v16 = v69;
           if (v9->n128_u64[0] >= v16->n128_u64[0] && (v16->n128_u64[0] < v9->n128_u64[0] || a2[-1].n128_u64[1] >= v16->n128_u64[1]))
           {
             goto LABEL_34;
           }
 
-          v64 = *v16;
+          v63 = *v16;
           *v16 = *v9;
         }
 
-        *v9 = v64;
+        *v9 = v63;
         goto LABEL_34;
       }
 
       if (v9->n128_u64[0] < v18 || v18 >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v16->n128_u64[1])
       {
-        v66 = *v16;
+        v65 = *v16;
         *v16 = *v9;
-        *v9 = v66;
+        *v9 = v65;
         if (v16->n128_u64[0] < v12->n128_u64[0] || v12->n128_u64[0] >= v16->n128_u64[0] && v16->n128_u64[1] < v12->n128_u64[1])
         {
-          v67 = *v12;
+          v66 = *v12;
           *v12 = *v16;
-          *v16 = v67;
+          *v16 = v66;
         }
       }
 
@@ -217,9 +217,9 @@ LABEL_34:
             goto LABEL_52;
           }
 
-          v73 = *v22;
+          v72 = *v22;
           *v22 = *v10;
-          v24 = v73;
+          v24 = v72;
         }
 
         *v10 = v24;
@@ -228,9 +228,9 @@ LABEL_34:
 
       if (v10->n128_u64[0] < v23 || v23 >= v10->n128_u64[0] && a2[-2].n128_u64[1] < v16[-1].n128_u64[1])
       {
-        v71 = *v22;
+        v70 = *v22;
         *v22 = *v10;
-        *v10 = v71;
+        *v10 = v70;
         if (v22->n128_u64[0] < v20->n128_u64[0] || v20->n128_u64[0] >= v22->n128_u64[0] && v16[-1].n128_u64[1] < v12[1].n128_u64[1])
         {
           v25 = *v20;
@@ -263,9 +263,9 @@ LABEL_52:
             goto LABEL_65;
           }
 
-          v75 = *v29;
+          v74 = *v29;
           *v29 = *v11;
-          v32 = v75;
+          v32 = v74;
         }
 
         *v11 = v32;
@@ -274,9 +274,9 @@ LABEL_52:
 
       if (v11->n128_u64[0] < v30 || v30 >= v11->n128_u64[0] && a2[-3].n128_u64[1] < v29->n128_u64[1])
       {
-        v74 = *v29;
+        v73 = *v29;
         *v29 = *v11;
-        *v11 = v74;
+        *v11 = v73;
         if (v29->n128_u64[0] < v27->n128_u64[0] || v27->n128_u64[0] >= v29->n128_u64[0] && v29->n128_u64[1] < v12[2].n128_u64[1])
         {
           v33 = *v27;
@@ -291,14 +291,14 @@ LABEL_65:
       {
         if (v29->n128_u64[0] < v35 || v35 >= v29->n128_u64[0] && v29->n128_u64[1] < v17->n128_u64[1])
         {
-          v77 = *v17;
+          v76 = *v17;
           *v17 = *v29;
-          *v29 = v77;
+          *v29 = v76;
           if (v17->n128_u64[0] < v22->n128_u64[0] || v22->n128_u64[0] >= v17->n128_u64[0] && v17->n128_u64[1] < v22->n128_u64[1])
           {
-            v78 = *v22;
+            v77 = *v22;
             *v22 = *v17;
-            *v17 = v78;
+            *v17 = v77;
           }
         }
 
@@ -307,29 +307,29 @@ LABEL_65:
 
       if (v29->n128_u64[0] < v35 || v35 >= v29->n128_u64[0] && v29->n128_u64[1] < v17->n128_u64[1])
       {
-        v76 = *v22;
+        v75 = *v22;
         *v22 = *v29;
       }
 
       else
       {
-        v79 = *v22;
+        v78 = *v22;
         *v22 = *v17;
-        *v17 = v79;
+        *v17 = v78;
         if (v29->n128_u64[0] >= v17->n128_u64[0] && (v17->n128_u64[0] < v29->n128_u64[0] || v29->n128_u64[1] >= v17->n128_u64[1]))
         {
           goto LABEL_78;
         }
 
-        v76 = *v17;
+        v75 = *v17;
         *v17 = *v29;
       }
 
-      *v29 = v76;
+      *v29 = v75;
 LABEL_78:
-      v80 = *v12;
+      v79 = *v12;
       *v12 = *v17;
-      *v17 = v80;
+      *v17 = v79;
       goto LABEL_79;
     }
 
@@ -338,19 +338,19 @@ LABEL_78:
     {
       if (v9->n128_u64[0] < v19 || v19 >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v12->n128_u64[1])
       {
-        v65 = *v17;
+        v64 = *v17;
         *v17 = *v9;
 LABEL_46:
-        *v9 = v65;
+        *v9 = v64;
         goto LABEL_79;
       }
 
-      v72 = *v17;
+      v71 = *v17;
       *v17 = *v12;
-      *v12 = v72;
+      *v12 = v71;
       if (v9->n128_u64[0] < v12->n128_u64[0] || v12->n128_u64[0] >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v12->n128_u64[1])
       {
-        v65 = *v12;
+        v64 = *v12;
         *v12 = *v9;
         goto LABEL_46;
       }
@@ -358,14 +358,14 @@ LABEL_46:
 
     else if (v9->n128_u64[0] < v19 || v19 >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v12->n128_u64[1])
     {
-      v68 = *v12;
+      v67 = *v12;
       *v12 = *v9;
-      *v9 = v68;
+      *v9 = v67;
       if (v12->n128_u64[0] < v17->n128_u64[0] || v17->n128_u64[0] >= v12->n128_u64[0] && v12->n128_u64[1] < v17->n128_u64[1])
       {
-        v69 = *v17;
+        v68 = *v17;
         *v17 = *v12;
-        *v12 = v69;
+        *v12 = v68;
       }
     }
 
@@ -381,18 +381,18 @@ LABEL_79:
     }
 
     v37 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *,std::__less<void,void> &>(v12->n128_u64, a2);
-    if ((v39 & 1) == 0)
+    if ((v38 & 1) == 0)
     {
       goto LABEL_132;
     }
 
-    v40 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *>(v12, v37, v38);
+    v39 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *>(v12, v37, a6);
     v12 = v37 + 1;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *>(v37 + 1, a2, v41))
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *>(v37 + 1, a2, v40))
     {
       a4 = -v14;
       a2 = v37;
-      if (v40)
+      if (v39)
       {
         return;
       }
@@ -401,10 +401,10 @@ LABEL_79:
     }
 
     v13 = v14 + 1;
-    if (!v40)
+    if (!v39)
     {
 LABEL_132:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *,false>(a1, v37, a3, -v14, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *,false>(a1, v37, a3, -v14, a5 & 1, a6);
       v12 = v37 + 1;
 LABEL_134:
       a5 = 0;
@@ -413,62 +413,62 @@ LABEL_134:
     }
   }
 
-  v42 = v12 + 1;
-  v45 = v12[1].n128_u64[0];
-  if (v45 < v12->n128_u64[0] || v12->n128_u64[0] >= v45 && v12[1].n128_u64[1] < v12->n128_u64[1])
+  v41 = v12 + 1;
+  v44 = v12[1].n128_u64[0];
+  if (v44 < v12->n128_u64[0] || v12->n128_u64[0] >= v44 && v12[1].n128_u64[1] < v12->n128_u64[1])
   {
-    v46 = a2[-1].n128_u64[0];
-    if (v46 < v45 || v45 >= v46 && a2[-1].n128_u64[1] < v12[1].n128_u64[1])
+    v45 = a2[-1].n128_u64[0];
+    if (v45 < v44 || v44 >= v45 && a2[-1].n128_u64[1] < v12[1].n128_u64[1])
     {
-      v81 = *v12;
+      v80 = *v12;
       *v12 = *v9;
-      v47 = v81;
+      v46 = v80;
     }
 
     else
     {
-      v84 = *v12;
-      *v12 = *v42;
-      *v42 = v84;
-      v62 = v12[1].n128_u64[0];
-      if (v9->n128_u64[0] >= v62 && (v62 < v9->n128_u64[0] || a2[-1].n128_u64[1] >= v12[1].n128_u64[1]))
+      v83 = *v12;
+      *v12 = *v41;
+      *v41 = v83;
+      v61 = v12[1].n128_u64[0];
+      if (v9->n128_u64[0] >= v61 && (v61 < v9->n128_u64[0] || a2[-1].n128_u64[1] >= v12[1].n128_u64[1]))
       {
         return;
       }
 
-      v47 = *v42;
-      *v42 = *v9;
+      v46 = *v41;
+      *v41 = *v9;
     }
 
-    *v9 = v47;
+    *v9 = v46;
     return;
   }
 
-  v59 = a2[-1].n128_u64[0];
-  if (v59 < v45 || v45 >= v59 && a2[-1].n128_u64[1] < v12[1].n128_u64[1])
+  v58 = a2[-1].n128_u64[0];
+  if (v58 < v44 || v44 >= v58 && a2[-1].n128_u64[1] < v12[1].n128_u64[1])
   {
-    v60 = *v42;
-    *v42 = *v9;
-    *v9 = v60;
-    v61 = v12[1].n128_u64[0];
-    if (v61 < v12->n128_u64[0])
+    v59 = *v41;
+    *v41 = *v9;
+    *v9 = v59;
+    v60 = v12[1].n128_u64[0];
+    if (v60 < v12->n128_u64[0])
     {
       goto LABEL_165;
     }
 
-    if (v12->n128_u64[0] < v61)
+    if (v12->n128_u64[0] < v60)
     {
       return;
     }
 
-    v44 = v12[1].n128_u64[1];
+    v43 = v12[1].n128_u64[1];
 LABEL_140:
-    if (v44 < v12->n128_u64[1])
+    if (v43 < v12->n128_u64[1])
     {
 LABEL_165:
-      v83 = *v12;
-      *v12 = *v42;
-      *v42 = v83;
+      v82 = *v12;
+      *v12 = *v41;
+      *v41 = v82;
     }
   }
 }
@@ -683,7 +683,7 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
   return i;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *,std::__less<void,void> &>(unint64_t *a1, unint64_t a2)
+unint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *,std::__less<void,void> &>(unint64_t *a1, unint64_t a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -750,15 +750,15 @@ LABEL_19:
       {
         do
         {
-          v15 = *(v12 + 16);
-          v12 += 16;
+          v15 = v12[2];
+          v12 += 2;
           v14 = v15;
         }
 
         while (v15 < v3);
       }
 
-      while (v3 >= v14 && *(v12 + 8) < v4);
+      while (v3 >= v14 && v12[1] < v4);
       do
       {
         v17 = *(v13 - 16);
@@ -772,14 +772,14 @@ LABEL_19:
     while (v12 < v13);
   }
 
-  if ((v12 - 16) != a1)
+  if (v12 - 2 != a1)
   {
-    *a1 = *(v12 - 16);
+    *a1 = *(v12 - 1);
   }
 
-  *(v12 - 16) = v3;
-  *(v12 - 8) = v4;
-  return v12 - 16;
+  *(v12 - 2) = v3;
+  *(v12 - 1) = v4;
+  return v12 - 2;
 }
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *>(__n128 *a1, __n128 *a2, __n128 a3)
@@ -921,7 +921,7 @@ LABEL_28:
   }
 
 LABEL_20:
-  v25 = &a1[2];
+  v25 = a1 + 2;
   v26 = a1->n128_u64[0];
   v27 = a1 + 1;
   v28 = a1[1].n128_u64[0];
@@ -979,15 +979,15 @@ LABEL_47:
   while (2)
   {
     v45 = v42->n128_u64[0];
-    if (v42->n128_u64[0] >= *v25)
+    if (v42->n128_u64[0] >= v25->n128_u64[0])
     {
-      if (*v25 < v45)
+      if (v25->n128_u64[0] < v45)
       {
         goto LABEL_62;
       }
 
       v46 = v42->n128_u64[1];
-      if (v46 >= *(v25 + 8))
+      if (v46 >= v25->n128_u64[1])
       {
         goto LABEL_62;
       }
@@ -1010,7 +1010,7 @@ LABEL_47:
       }
 
 LABEL_55:
-      v25 -= 16;
+      --v25;
       v48[2] = *(a1 + v47 + 16);
       v47 -= 16;
       if (v47 == -32)
@@ -1030,10 +1030,10 @@ LABEL_55:
       goto LABEL_55;
     }
 
-    v25 = &a1[2] + v47;
+    v25 = (a1 + v47 + 32);
 LABEL_61:
-    *v25 = v45;
-    *(v25 + 8) = v46;
+    v25->n128_u64[0] = v45;
+    v25->n128_u64[1] = v46;
     if (++v44 != 8)
     {
 LABEL_62:
@@ -1051,7 +1051,7 @@ LABEL_62:
   }
 }
 
-__n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *>(__n128 *a1, __n128 *a2, __n128 *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *>(__n128 *a1, __n128 *a2, __int128 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -1077,7 +1077,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
       v12 = a2;
       do
       {
-        if (v12->n128_u64[0] < a1->n128_u64[0] || a1->n128_u64[0] >= v12->n128_u64[0] && v12->n128_u64[1] < a1->n128_u64[1])
+        if (*v12 < a1->n128_u64[0] || a1->n128_u64[0] >= *v12 && *(v12 + 1) < a1->n128_u64[1])
         {
           v13 = *v12;
           *v12 = *a1;
@@ -1093,7 +1093,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
 
     if (v8 >= 2)
     {
-      v14 = a2 - 1;
+      v14 = &a2[-1];
       do
       {
         v18 = *a1;
@@ -1107,7 +1107,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
         {
           *v15 = *v14;
           *v14 = v18;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *>(a1, &v15[1], a4, &v15[1] - a1);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,MIL::Transform::ProgramTransformer::ProgramTransformerImpl::InsertionPosition *>(a1, (v15 + 1), a4, ((v15 + 1) - a1) >> 4);
         }
 
         --v14;
@@ -1293,7 +1293,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<MIL::Builde
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,false>(uint64_t result, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,false>(uint64_t result, char *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -1318,7 +1318,7 @@ LABEL_3:
       case 4uLL:
         result = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(v9, v9 + 2, v9 + 4);
         v26 = *(a2 - 2);
-        v27 = v9[4];
+        v27 = *(v9 + 4);
         if (v26 >= v27)
         {
           if (v27 < v26)
@@ -1327,7 +1327,7 @@ LABEL_3:
           }
 
           v29 = *(a2 - 1);
-          v28 = v9[5];
+          v28 = *(v9 + 5);
           if (v29 >= v28)
           {
             return result;
@@ -1336,16 +1336,16 @@ LABEL_3:
 
         else
         {
-          v28 = v9[5];
+          v28 = *(v9 + 5);
           v29 = *(a2 - 1);
         }
 
-        v9[4] = v26;
-        v9[5] = v29;
+        *(v9 + 4) = v26;
+        *(v9 + 5) = v29;
         *(a2 - 2) = v27;
         *(a2 - 1) = v28;
-        v30 = v9[4];
-        v31 = v9[2];
+        v30 = *(v9 + 4);
+        v31 = *(v9 + 2);
         if (v30 >= v31)
         {
           if (v31 < v30)
@@ -1353,8 +1353,8 @@ LABEL_3:
             return result;
           }
 
-          v33 = v9[5];
-          v32 = v9[3];
+          v33 = *(v9 + 5);
+          v32 = *(v9 + 3);
           if (v33 >= v32)
           {
             return result;
@@ -1363,14 +1363,14 @@ LABEL_3:
 
         else
         {
-          v32 = v9[3];
-          v33 = v9[5];
+          v32 = *(v9 + 3);
+          v33 = *(v9 + 5);
         }
 
-        v9[2] = v30;
-        v9[3] = v33;
-        v9[4] = v31;
-        v9[5] = v32;
+        *(v9 + 2) = v30;
+        *(v9 + 3) = v33;
+        *(v9 + 4) = v31;
+        *(v9 + 5) = v32;
         v34 = *v9;
         if (v30 >= *v9)
         {
@@ -1379,7 +1379,7 @@ LABEL_3:
             return result;
           }
 
-          v35 = v9[1];
+          v35 = *(v9 + 1);
           if (v33 >= v35)
           {
             return result;
@@ -1388,13 +1388,13 @@ LABEL_3:
 
         else
         {
-          v35 = v9[1];
+          v35 = *(v9 + 1);
         }
 
         *v9 = v30;
-        v9[1] = v33;
-        v9[2] = v34;
-        v9[3] = v35;
+        *(v9 + 1) = v33;
+        *(v9 + 2) = v34;
+        *(v9 + 3) = v35;
         return result;
       case 5uLL:
 
@@ -1429,10 +1429,10 @@ LABEL_11:
     }
 
     v13 = v12 >> 1;
-    v14 = &v9[2 * (v12 >> 1)];
+    v14 = &v9[16 * (v12 >> 1)];
     if (v12 < 0x81)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(&v9[2 * (v12 >> 1)], v9, a2 - 2);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(&v9[16 * (v12 >> 1)], v9, a2 - 2);
       if (a5)
       {
         goto LABEL_20;
@@ -1441,15 +1441,15 @@ LABEL_11:
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(v9, &v9[2 * (v12 >> 1)], a2 - 2);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(v9, &v9[16 * (v12 >> 1)], a2 - 2);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(v9 + 2, v14 - 2, a2 - 4);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(v9 + 4, &v9[2 * v13 + 2], a2 - 6);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(v14 - 2, v14, &v9[2 * v13 + 2]);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(v9 + 4, &v9[16 * v13 + 16], a2 - 6);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,0>(v14 - 2, v14, &v9[16 * v13 + 16]);
       v15 = *v9;
-      v16 = v9[1];
+      v16 = *(v9 + 1);
       v17 = v14[1];
       *v9 = *v14;
-      v9[1] = v17;
+      *(v9 + 1) = v17;
       *v14 = v15;
       v14[1] = v16;
       if (a5)
@@ -1459,7 +1459,7 @@ LABEL_11:
     }
 
     v18 = *(v9 - 2);
-    if (v18 >= *v9 && (*v9 < v18 || *(v9 - 1) >= v9[1]))
+    if (v18 >= *v9 && (*v9 < v18 || *(v9 - 1) >= *(v9 + 1)))
     {
       result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,std::__less<void,void> &>(v9, a2);
       v9 = result;
@@ -1474,7 +1474,7 @@ LABEL_20:
     }
 
     v21 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *>(v9, v19);
-    v9 = v19 + 2;
+    v9 = (v19 + 2);
     result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *>(v19 + 2, a2);
     if (result)
     {
@@ -1493,7 +1493,7 @@ LABEL_20:
     {
 LABEL_23:
       result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,false>(v8, v19, a3, -v11, a5 & 1);
-      v9 = v19 + 2;
+      v9 = (v19 + 2);
 LABEL_25:
       a5 = 0;
       a4 = -v11;
@@ -1515,11 +1515,11 @@ LABEL_25:
   v23 = *v9;
   if (v22 < *v9)
   {
-    v24 = v9[1];
+    v24 = *(v9 + 1);
     v25 = *(a2 - 1);
 LABEL_30:
     *v9 = v22;
-    v9[1] = v25;
+    *(v9 + 1) = v25;
     *(a2 - 2) = v23;
     *(a2 - 1) = v24;
     return result;
@@ -1528,7 +1528,7 @@ LABEL_30:
   if (v23 >= v22)
   {
     v25 = *(a2 - 1);
-    v24 = v9[1];
+    v24 = *(v9 + 1);
     if (v25 < v24)
     {
       goto LABEL_30;
@@ -2422,7 +2422,7 @@ LABEL_28:
   }
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -2431,7 +2431,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *>(a1, a4, v8, v11);
@@ -2445,7 +2445,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
     i = a2;
     if (a2 != a3)
     {
-      for (i = a2; i != a3; i += 2)
+      for (i = a2; i != a3; i += 16)
       {
         v13 = *i;
         v14 = *a1;
@@ -2456,8 +2456,8 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
             continue;
           }
 
-          v15 = i[1];
-          v16 = a1[1];
+          v15 = *(i + 1);
+          v16 = *(a1 + 1);
           if (v15 >= v16)
           {
             continue;
@@ -2466,43 +2466,43 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
 
         else
         {
-          v15 = i[1];
-          v16 = a1[1];
+          v15 = *(i + 1);
+          v16 = *(a1 + 1);
         }
 
         *i = v14;
-        i[1] = v16;
+        *(i + 1) = v16;
         *a1 = v13;
-        a1[1] = v15;
+        *(a1 + 1) = v15;
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *>(a1, a4, v8, a1);
       }
     }
 
     if (v8 >= 2)
     {
-      v17 = a2 - 2;
+      v17 = a2 - 16;
       do
       {
         v19 = *a1;
-        v18 = a1[1];
+        v18 = *(a1 + 1);
         v20 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *>(a1, a4, v8);
         if (v17 == v20)
         {
           *v20 = v19;
-          v20[1] = v18;
+          *(v20 + 1) = v18;
         }
 
         else
         {
-          v21 = v17[1];
+          v21 = *(v17 + 1);
           *v20 = *v17;
-          v20[1] = v21;
+          *(v20 + 1) = v21;
           *v17 = v19;
-          v17[1] = v18;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *>(a1, (v20 + 2), a4, ((v20 + 2) - a1) >> 4);
+          *(v17 + 1) = v18;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<MIL::Builder::OperationBuilder *,unsigned long> *>(a1, (v20 + 16), a4, (v20 + 16 - a1) >> 4);
         }
 
-        v17 -= 2;
+        v17 -= 16;
       }
 
       while (v8-- > 2);
@@ -2897,9 +2897,9 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::MatchAndReplace
   MIL::Transform::MatchContext::MatchContextImpl::~MatchContextImpl(this);
 }
 
-uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedundantOps(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+void **MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedundantOps(uint64_t a1, uint64_t *a2, _OWORD *a3, uint64_t *a4, _OWORD *a5)
 {
-  v10 = (a3 + 16);
+  v10 = a3 + 1;
   while (1)
   {
     v10 = *v10;
@@ -2945,7 +2945,7 @@ uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedun
     {
       MIL::Builder::BlockBuilder::GetOperation(*a2, i, v52);
       v51[0] = v52;
-      *(std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder>&&>,std::tuple<>>(&v54, v52) + 32) = 0;
+      *(std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder>&&>,std::tuple<>>(&v54, v52, &std::piecewise_construct, v51) + 32) = 0;
       if (*&v52[8])
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](*&v52[8]);
@@ -2982,13 +2982,13 @@ uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedun
       }
 
       v36 = v19;
-      MIL::Builder::OperationBuilder::GetBlocks(v20, v50);
+      MIL::Builder::OperationBuilder::GetBlocks(v50, v20);
       v22 = v50[0];
       v21 = v50[1];
       while (v22 != v21)
       {
         v23 = *v22;
-        v24 = *(v22 + 8);
+        v24 = v22[1];
         v48 = *v22;
         v49 = v24;
         if (v24)
@@ -2997,7 +2997,7 @@ uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedun
         }
 
         MIL::Builder::BlockBuilder::GetInputNames(v23, &v47);
-        std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(&__p, &v47.__begin_->__r_.__value_.__l.__data_, &v47.__end_->__r_.__value_.__l.__data_);
+        std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(&__p, v47.__begin_, v47.__end_);
         v41 = 0u;
         v42 = 0u;
         v43 = 1065353216;
@@ -3031,7 +3031,7 @@ uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedun
           std::__shared_weak_count::__release_shared[abi:ne200100](v49);
         }
 
-        v22 += 16;
+        v22 += 2;
       }
 
       __p = v50;
@@ -3065,7 +3065,7 @@ uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedun
     {
       MIL::Builder::BlockBuilder::GetOperation(*a2, m, &v41);
       v50[0] = &v41;
-      if ((std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(&v54, &v41)[4] & 1) == 0)
+      if ((std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(&v54, &v41, &std::piecewise_construct, v50)[4] & 1) == 0)
       {
         v37 = v41;
         if (*(&v41 + 1))
@@ -3138,11 +3138,11 @@ void sub_2180C7380(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::~deque[abi:ne200100]((v35 - 192));
-  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(v35 - 144);
+  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table((v35 - 144));
   _Unwind_Resume(a1);
 }
 
-unint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetBlockOutsAndWriteEffectOpIns@<X0>(MIL::Builder::BlockBuilder **a1@<X1>, void *a2@<X8>)
+unint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetBlockOutsAndWriteEffectOpIns@<X0>(MIL::Builder::BlockBuilder **a1@<X1>, uint64_t *a2@<X8>)
 {
   MIL::Builder::BlockBuilder::GetOutputNames(*a1, a2);
   for (i = 0; ; ++i)
@@ -3205,7 +3205,7 @@ void sub_2180C75FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedundantOps(std::shared_ptr<MIL::Builder::BlockBuilder> const&,std::unordered_set<std::string> const&,std::vector<std::string> const&,std::unordered_set<std::string>&)::{lambda(std::string const&)#1}::operator()(uint64_t a1, const void **a2)
+void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedundantOps(std::shared_ptr<MIL::Builder::BlockBuilder> const&,std::unordered_set<std::string> const&,std::vector<std::string> const&,std::unordered_set<std::string>&)::{lambda(std::string const&)#1}::operator()(uint64_t a1, uint64_t *a2)
 {
   if (!std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(*(a1 + 8), a2))
   {
@@ -3214,18 +3214,18 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::RemoveRedundant
     {
       v4 = *(a1 + 16);
       v7 = &v6;
-      if ((std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(v4, &v6)[4] & 1) == 0)
+      if ((std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(v4, &v6, &std::piecewise_construct, &v7)[4] & 1) == 0)
       {
         v5 = *(a1 + 16);
         v7 = &v6;
-        *(std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(v5, &v6) + 32) = 1;
+        *(std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(v5, &v6, &std::piecewise_construct, &v7) + 32) = 1;
         std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::push_back(*(a1 + 24), &v6);
       }
     }
 
     else
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(*(a1 + 32), a2);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(*(a1 + 32), a2, a2);
     }
 
     if (*(&v6 + 1))
@@ -3262,35 +3262,35 @@ uint64_t std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::pop_front(
   return std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::__maybe_remove_front_spare[abi:ne200100](a1, 1);
 }
 
-void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder>&&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder>&&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -3298,49 +3298,48 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-void *std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::push_back(void *result, __int128 *a2)
+void std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::push_back(unint64_t *result, __int128 *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -3357,10 +3356,10 @@ void *std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::push_back(voi
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v7 + v3[4];
+    std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = v7 + result[4];
   }
 
   v9 = *a2;
@@ -3368,26 +3367,25 @@ void *std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::push_back(voi
   if (*(&v9 + 1))
   {
     atomic_fetch_add_explicit((*(&v9 + 1) + 8), 1uLL, memory_order_relaxed);
-    v7 = v3[5];
+    v7 = result[5];
   }
 
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::__add_back_capacity(void *a1)
+void std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x100;
   v3 = v1 - 256;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -3395,25 +3393,25 @@ void *std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::__add_back_ca
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<MIL::Pass>>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<MIL::Pass>>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v9);
 }
 
 void sub_2180C7C70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -3455,35 +3453,35 @@ uint64_t std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::__maybe_re
   return v4 ^ 1u;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,BOOL>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -3491,44 +3489,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 uint64_t std::deque<std::shared_ptr<MIL::Builder::OperationBuilder>>::~deque[abi:ne200100](void *a1)
@@ -3618,7 +3616,7 @@ LABEL_18:
   return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::~__split_buffer(a1);
 }
 
-uint64_t std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string const*>>(uint64_t a1, const void **a2, const void **a3)
+unint64_t std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string const*>>(unint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -3628,7 +3626,7 @@ uint64_t std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::st
     v5 = a2;
     do
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v5);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v5, v5);
       v5 += 3;
     }
 
@@ -3638,20 +3636,20 @@ uint64_t std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::st
   return a1;
 }
 
-void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetInputsAndOutputs(uint64_t *a1@<X0>, const void **a2@<X1>, unint64_t a3@<X2>, unint64_t a4@<X3>, void *a5@<X8>)
+void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetInputsAndOutputs(MIL::Transform::ProgramTransformer::ProgramTransformerImpl *a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  MIL::Builder::ProgramBuilder::GetFunction(a1[4], a2, &v46);
-  v9 = v46;
-  v10 = MIL::Builder::FunctionBuilder::SelectedSpecialization(v46);
-  MIL::Builder::FunctionBuilder::GetBlock(v9, v10, &v44);
-  v27 = a5;
-  MIL::Builder::BlockBuilder::GetOperations(v44, &v42);
+  MIL::Builder::ProgramBuilder::GetFunction(*(a1 + 4), a2, &v48);
+  v9 = v48;
+  v10 = MIL::Builder::FunctionBuilder::SelectedSpecialization(v48);
+  MIL::Builder::FunctionBuilder::GetBlock(v9, v10, &v46);
+  v29 = a5;
+  MIL::Builder::BlockBuilder::GetOperations(&v44, v46);
+  memset(v42, 0, sizeof(v42));
+  v43 = 1065353216;
   memset(v40, 0, sizeof(v40));
   v41 = 1065353216;
-  memset(v38, 0, sizeof(v38));
-  v39 = 1065353216;
-  v11 = v42;
-  if (v43 != v42)
+  v11 = v44;
+  if (v45 != v44)
   {
     v12 = 0;
     do
@@ -3664,18 +3662,19 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetInputsAndOut
         atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(a1, v15, v36);
-      for (i = v37; i; i = *i)
+      MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(v38, a1, v15);
+      for (i = v39; i; i = *i)
       {
-        v28[0] = (i + 2);
-        std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v40, i + 2)[5] = v12;
+        v30[0] = i + 2;
+        std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v42, i + 2, &std::piecewise_construct, v30, v37)[5] = v12;
       }
 
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v36);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v38);
       for (j = 0; j < MIL::Builder::OperationBuilder::GetNumOutputs(v15); ++j)
       {
-        v36[0] = MIL::Builder::OperationBuilder::GetOutputName(v15, j);
-        std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v38, v36[0])[5] = v12;
+        MIL::Builder::OperationBuilder::GetOutputName(v15, j);
+        v38[0] = v18;
+        std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v40, v18, &std::piecewise_construct, v38, v30)[5] = v12;
       }
 
       if (v14)
@@ -3684,96 +3683,97 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetInputsAndOut
       }
 
       ++v12;
-      v11 = v42;
+      v11 = v44;
     }
 
-    while (v12 < (v43 - v42) >> 4);
+    while (v12 < (v45 - v44) >> 4);
   }
 
-  MIL::Builder::BlockBuilder::GetOutputNames(v44, v35);
-  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(v36, v35[0], v35[1]);
-  memset(&v34, 0, sizeof(v34));
-  memset(v33, 0, sizeof(v33));
-  v31 = 0;
+  MIL::Builder::BlockBuilder::GetOutputNames(v46, v37);
+  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string*>>(v38, v37[0], v37[1]);
+  memset(&v36, 0, sizeof(v36));
+  memset(v35, 0, sizeof(v35));
+  v33 = 0;
   __sz = 0;
-  *v30 = &v31;
+  *v32 = &v33;
   if (a3 < a4)
   {
-    v18 = a3;
+    v19 = a3;
     do
     {
-      v19 = v42 + 16 * v18;
-      v21 = *v19;
-      v20 = *(v19 + 8);
-      if (v20)
+      v20 = v44 + 16 * v19;
+      v22 = *v20;
+      v21 = *(v20 + 8);
+      if (v21)
       {
-        atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(a1, v21, v28);
-      for (k = v29; k; k = *k)
+      MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(v30, a1, v22);
+      for (k = v31; k; k = *k)
       {
-        v23 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v38, k + 2);
-        if (!v23 || v23[5] < a3)
+        v24 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v40, k + 2);
+        if (!v24 || v24[5] < a3)
         {
-          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v30, k + 2);
+          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v32, k + 2, (k + 2));
         }
       }
 
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v28);
-      for (m = 0; m < MIL::Builder::OperationBuilder::GetNumOutputs(v21); ++m)
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v30);
+      for (m = 0; m < MIL::Builder::OperationBuilder::GetNumOutputs(v22); ++m)
       {
-        OutputName = MIL::Builder::OperationBuilder::GetOutputName(v21, m);
-        v28[0] = OutputName;
-        if (std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v40, OutputName)[5] >= a4 || std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v36, OutputName))
+        MIL::Builder::OperationBuilder::GetOutputName(v22, m);
+        v27 = v26;
+        v30[0] = v26;
+        if (std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v42, v26, &std::piecewise_construct, v30, v50)[5] >= a4 || std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v38, v27))
         {
-          std::vector<std::string>::push_back[abi:ne200100](v33, OutputName);
+          std::vector<std::string>::push_back[abi:ne200100](v35, v27);
         }
       }
 
-      if (v20)
+      if (v21)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v21);
       }
 
-      ++v18;
+      ++v19;
     }
 
-    while (v18 != a4);
+    while (v19 != a4);
   }
 
-  std::vector<std::string>::resize(&v34, __sz);
-  std::__copy_impl::operator()[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::string*>(v28, *v30, &v31, v34.__begin_);
-  std::pair<std::vector<std::string>,std::vector<std::string>>::pair[abi:ne200100]<std::vector<std::string>&,std::vector<std::string>&,0>(v27, &v34, v33);
-  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(v30, v31);
-  v28[0] = v33;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v28);
-  v28[0] = &v34;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v28);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v36);
-  v36[0] = v35;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v36);
+  std::vector<std::string>::resize(&v36, __sz);
+  std::__copy_impl::operator()[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::string*>(v30, *v32, &v33, v36.__begin_);
+  std::pair<std::vector<std::string>,std::vector<std::string>>::pair[abi:ne200100]<std::vector<std::string>&,std::vector<std::string>&,0>(v29, &v36, v35);
+  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(v32, v33);
+  v30[0] = v35;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v30);
+  v30[0] = &v36;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v30);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v38);
-  v26 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v40);
-  *&v40[0] = &v42;
-  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](v26);
-  if (v45)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v45);
-  }
-
+  v38[0] = v37;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v38);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v40);
+  v28 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v42);
+  *&v42[0] = &v44;
+  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](v28);
   if (v47)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v47);
   }
+
+  if (v49)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v49);
+  }
 }
 
-void sub_2180C84EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, void **a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_2180C84EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, void **a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33)
 {
   a28 = &a25;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a28);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a33);
-  v35 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v33 - 192);
+  v35 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v33 - 192));
   *(v33 - 192) = v33 - 152;
   std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](v35);
   v36 = *(v33 - 120);
@@ -3800,31 +3800,31 @@ void **std::pair<std::vector<std::string>,std::vector<std::string>>::~pair(void 
   return a1;
 }
 
-void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(MIL::Transform::ProgramTransformer::ProgramTransformerImpl *this@<X0>, const void ***a2@<X1>, uint64_t a3@<X8>)
+void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(uint64_t *__return_ptr a1@<X8>, MIL::Transform::ProgramTransformer::ProgramTransformerImpl *this@<X0>, MIL::Builder::OperationBuilder::OperationBuilderImpl **a3@<X1>)
 {
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 1065353216;
-  MIL::Builder::OperationBuilder::GetParameterNames(a2, &v30);
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  MIL::Builder::OperationBuilder::GetParameterNames(a3, &v30);
   for (i = v31; i; i = *i)
   {
-    NumArguments = MIL::Builder::OperationBuilder::GetNumArguments(a2, i + 2);
+    NumArguments = MIL::Builder::OperationBuilder::GetNumArguments(a3, i + 2);
     if (NumArguments)
     {
       for (j = 0; j != NumArguments; ++j)
       {
-        ArgumentForParameter = MIL::Builder::OperationBuilder::GetArgumentForParameter(a2, (i + 2), j);
+        ArgumentForParameter = MIL::Builder::OperationBuilder::GetArgumentForParameter(a3, (i + 2), j);
         Name = MIL::Builder::Variable::TryGetName(ArgumentForParameter);
         if (Name)
         {
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a3, Name);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, Name, Name);
         }
       }
     }
   }
 
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v30);
-  BlocksRef = MIL::Builder::OperationBuilder::GetBlocksRef(a2);
+  BlocksRef = MIL::Builder::OperationBuilder::GetBlocksRef(a3);
   v12 = *BlocksRef;
   v26 = BlocksRef[1];
   if (*BlocksRef != v26)
@@ -3847,13 +3847,13 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedV
       end = v28.__end_;
       while (begin != end)
       {
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v30, &begin->__r_.__value_.__l.__data_);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v30, begin, begin);
         ++begin;
       }
 
       v29[0] = &v28;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v29);
-      MIL::Builder::BlockBuilder::GetOperations(v14, v29);
+      MIL::Builder::BlockBuilder::GetOperations(v29, v14);
       v18 = v29[0];
       v17 = v29[1];
       while (v18 != v17)
@@ -3867,8 +3867,8 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedV
 
         for (k = 0; k < MIL::Builder::OperationBuilder::GetNumOutputs(v20); ++k)
         {
-          OutputName = MIL::Builder::OperationBuilder::GetOutputName(v20, k);
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v30, OutputName);
+          MIL::Builder::OperationBuilder::GetOutputName(v20, k);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v30, v22, v22);
         }
 
         MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(&v28, this, v20);
@@ -3876,11 +3876,11 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedV
         {
           if (!std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(&v30, &m->__r_.__value_.__r.__words[2]))
           {
-            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a3, &m->__r_.__value_.__r.__words[2]);
+            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, &m->__r_.__value_.__r.__words[2], &m->__r_.__value_.__r.__words[2]);
           }
         }
 
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v28);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v28.__begin_);
         if (v19)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v19);
@@ -3895,9 +3895,9 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedV
       v25 = v28.__begin_;
       for (n = v28.__end_; v25 != n; ++v25)
       {
-        if (!std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(&v30, &v25->__r_.__value_.__l.__data_))
+        if (!std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(&v30, v25))
         {
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a3, &v25->__r_.__value_.__l.__data_);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v25, v25);
         }
       }
 
@@ -3916,7 +3916,7 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedV
   }
 }
 
-uint64_t anonymous namespace::ReorderSubProgramOutputs(__int128 **a1, uint64_t *a2)
+void **anonymous namespace::ReorderSubProgramOutputs(__int128 **a1, uint64_t *a2)
 {
   memset(v20, 0, sizeof(v20));
   v21 = 1065353216;
@@ -3928,7 +3928,7 @@ uint64_t anonymous namespace::ReorderSubProgramOutputs(__int128 **a1, uint64_t *
     do
     {
       v17 = (v3 + v5);
-      std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v20, (v3 + v5))[5] = v6++;
+      std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v20, (v3 + v5), &std::piecewise_construct, &v17, &v23)[5] = v6++;
       v3 = *a2;
       v5 += 24;
     }
@@ -3964,7 +3964,7 @@ uint64_t anonymous namespace::ReorderSubProgramOutputs(__int128 **a1, uint64_t *
     v10 = v18;
   }
 
-  v11 = 0xAAAAAAAAAAAAAAABLL * ((v10 - v9) >> 3);
+  v11 = 0xAAAAAAAAAAAAAAABLL * (v10 - v9);
   if (v11 >= 2)
   {
     v22 = v20;
@@ -3976,7 +3976,7 @@ uint64_t anonymous namespace::ReorderSubProgramOutputs(__int128 **a1, uint64_t *
       v15 = v17;
       do
       {
-        if (std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v20, &v14->__r_.__value_.__l.__data_))
+        if (std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v20, v14))
         {
           std::string::operator=(v14, v15++);
         }
@@ -3993,15 +3993,15 @@ uint64_t anonymous namespace::ReorderSubProgramOutputs(__int128 **a1, uint64_t *
   return std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v20);
 }
 
-void sub_2180C8B08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2180C8B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
-  *(v2 - 56) = va;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v2 - 56));
+  v8 = va_arg(va1, void);
+  *(v3 - 56) = va;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v3 - 56));
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va1);
   _Unwind_Resume(a1);
 }
@@ -4035,35 +4035,35 @@ void std::vector<std::string>::resize(std::vector<std::string> *this, std::vecto
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -4071,44 +4071,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_2180C8E30(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -4128,9 +4128,9 @@ void sub_2180C8EF8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t a1, const void **a2)
+void *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -4139,13 +4139,13 @@ uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::st
   return result;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*,false>(uint64_t a1, unint64_t a2, void **a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*,false>(uint64_t *a1, uint64_t *a2, unint64_t *a3, uint64_t a4, char a5)
 {
-  v178 = *MEMORY[0x277D85DE8];
+  v182 = *MEMORY[0x277D85DE8];
   while (2)
   {
     v7 = a1;
-    v169 = (a2 - 24);
+    v171 = a2 - 3;
     while (1)
     {
       while (1)
@@ -4154,7 +4154,7 @@ void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProg
         {
           v8 = v7;
           v9 = a2 - v7;
-          v10 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v7) >> 3);
+          v10 = 0xAAAAAAAAAAAAAAABLL * (a2 - v7);
           a1 = v8;
           if (v10 > 2)
           {
@@ -4179,21 +4179,21 @@ void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProg
             if (v10 == 2)
             {
               v77 = *a3;
-              *&v174 = a2 - 24;
-              v78 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v77, v169)[5];
+              *&v178 = a2 - 3;
+              v78 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v77, v171, &std::piecewise_construct, &v178, &v180)[5];
               v79 = *a3;
-              *&v174 = a1;
-              if (v78 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v79, a1)[5])
+              *&v178 = a1;
+              if (v78 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v79, a1, &std::piecewise_construct, &v178, &v180)[5])
               {
                 v80 = *a1;
-                v175 = *(a1 + 16);
-                v174 = v80;
-                v81 = *v169;
-                *(a1 + 16) = *(a2 - 8);
+                v179 = a1[2];
+                v178 = v80;
+                v81 = *v171;
+                a1[2] = *(a2 - 1);
                 *a1 = v81;
-                v82 = v174;
-                *(a2 - 8) = v175;
-                *v169 = v82;
+                v82 = v178;
+                *(a2 - 1) = v179;
+                *v171 = v82;
               }
 
               return;
@@ -4215,15 +4215,15 @@ void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProg
                   {
                     v86 = v83;
                     v87 = *a3;
-                    *&v174 = v83;
-                    v88 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v87, v83)[5];
+                    *&v178 = v83;
+                    v88 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v87, v83, &std::piecewise_construct, &v178, &v180)[5];
                     v89 = *a3;
-                    *&v174 = v85;
-                    if (v88 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v89, v85)[5])
+                    *&v178 = v85;
+                    if (v88 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v89, v85, &std::piecewise_construct, &v178, &v180)[5])
                     {
                       v90 = *v86;
-                      v175 = v86[2];
-                      v174 = v90;
+                      v179 = v86[2];
+                      v178 = v90;
                       v86[1] = 0;
                       v86[2] = 0;
                       *v86 = 0;
@@ -4247,14 +4247,14 @@ void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProg
                         }
 
                         v93 = *a3;
-                        *&v176 = &v174;
-                        v94 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v93, &v174)[5];
+                        *&v180 = &v178;
+                        v94 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v93, &v178, &std::piecewise_construct, &v180, &v177)[5];
                         v95 = *a3;
-                        *&v176 = a1 + v91 - 24;
+                        *&v180 = a1 + v91 - 24;
                         v91 -= 24;
                       }
 
-                      while (v94 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v95, v176)[5]);
+                      while (v94 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v95, v180, &std::piecewise_construct, &v180, &v177)[5]);
                       v96 = a1 + v91 + 24;
                       if (*(a1 + v91 + 47) < 0)
                       {
@@ -4262,8 +4262,8 @@ void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProg
                       }
 
 LABEL_83:
-                      v97 = v174;
-                      *(v96 + 16) = v175;
+                      v97 = v178;
+                      *(v96 + 16) = v179;
                       *v96 = v97;
                     }
 
@@ -4279,64 +4279,64 @@ LABEL_83:
 
             else if (v8 != a2)
             {
-              v151 = v8 + 3;
+              v153 = v8 + 3;
               if (v8 + 3 != a2)
               {
-                v152 = v8 - 3;
+                v154 = v8 - 3;
                 do
                 {
-                  v153 = v151;
-                  v154 = *a3;
-                  *&v174 = v151;
-                  v155 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v154, v151)[5];
+                  v155 = v153;
                   v156 = *a3;
-                  *&v174 = a1;
-                  if (v155 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v156, a1)[5])
+                  *&v178 = v153;
+                  v157 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v156, v153, &std::piecewise_construct, &v178, &v180)[5];
+                  v158 = *a3;
+                  *&v178 = a1;
+                  if (v157 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v158, a1, &std::piecewise_construct, &v178, &v180)[5])
                   {
-                    v157 = *v153;
-                    v175 = v153[2];
-                    v174 = v157;
-                    v153[1] = 0;
-                    v153[2] = 0;
-                    *v153 = 0;
-                    v158 = v152;
+                    v159 = *v155;
+                    v179 = *(v155 + 16);
+                    v178 = v159;
+                    *(v155 + 8) = 0;
+                    *(v155 + 16) = 0;
+                    *v155 = 0;
+                    v160 = v154;
                     do
                     {
-                      if (*(v158 + 71) < 0)
+                      if (*(v160 + 71) < 0)
                       {
-                        operator delete(v158[6]);
+                        operator delete(v160[6]);
                       }
 
-                      *(v158 + 3) = *(v158 + 3);
-                      v158[8] = v158[5];
-                      *(v158 + 47) = 0;
-                      *(v158 + 24) = 0;
-                      v159 = *a3;
-                      *&v176 = &v174;
-                      v160 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v159, &v174)[5];
+                      *(v160 + 3) = *(v160 + 3);
+                      v160[8] = v160[5];
+                      *(v160 + 47) = 0;
+                      *(v160 + 24) = 0;
                       v161 = *a3;
-                      *&v176 = v158;
-                      v162 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v161, v158);
-                      v158 -= 3;
+                      *&v180 = &v178;
+                      v162 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v161, &v178, &std::piecewise_construct, &v180, &v177)[5];
+                      v163 = *a3;
+                      *&v180 = v160;
+                      v164 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v163, v160, &std::piecewise_construct, &v180, &v177);
+                      v160 -= 3;
                     }
 
-                    while (v160 < v162[5]);
-                    if (*(v158 + 71) < 0)
+                    while (v162 < v164[5]);
+                    if (*(v160 + 71) < 0)
                     {
-                      operator delete(v158[6]);
+                      operator delete(v160[6]);
                     }
 
-                    v163 = v174;
-                    v158[8] = v175;
-                    *(v158 + 3) = v163;
+                    v165 = v178;
+                    v160[8] = v179;
+                    *(v160 + 3) = v165;
                   }
 
-                  v151 = v153 + 3;
-                  v152 += 3;
-                  a1 = v153;
+                  v153 = (v155 + 24);
+                  v154 += 3;
+                  a1 = v155;
                 }
 
-                while (v153 + 3 != a2);
+                while ((v155 + 24) != a2);
               }
             }
 
@@ -4347,27 +4347,27 @@ LABEL_83:
           {
             if (v8 != a2)
             {
-              v164 = v9;
+              v166 = v9;
               v98 = (v10 - 2) >> 1;
-              v170 = v98;
+              v172 = v98;
               v99 = v8;
               do
               {
                 v100 = v98;
-                if (v170 >= v98)
+                if (v172 >= v98)
                 {
-                  v167 = v98;
+                  v169 = v98;
                   v101 = (2 * v98) | 1;
                   v102 = v99 + 24 * v101;
                   v103 = 2 * v98 + 2;
                   if (v103 < v10)
                   {
                     v104 = *a3;
-                    *&v174 = v99 + 24 * v101;
-                    v105 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v104, v174)[5];
+                    *&v178 = v99 + 24 * v101;
+                    v105 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v104, v178, &std::piecewise_construct, &v178, &v180)[5];
                     v106 = *a3;
-                    *&v174 = v102 + 24;
-                    if (v105 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v106, (v102 + 24))[5])
+                    *&v178 = v102 + 24;
+                    if (v105 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v106, (v102 + 24), &std::piecewise_construct, &v178, &v180)[5])
                     {
                       v102 += 24;
                       v101 = v103;
@@ -4375,21 +4375,21 @@ LABEL_83:
                   }
 
                   v107 = *a3;
-                  *&v174 = v102;
-                  v108 = a1 + 24 * v167;
-                  v109 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v107, v102)[5];
+                  *&v178 = v102;
+                  v108 = &a1[3 * v169];
+                  v109 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v107, v102, &std::piecewise_construct, &v178, &v180)[5];
                   v110 = *a3;
-                  *&v174 = v108;
-                  v111 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v110, v108);
+                  *&v178 = v108;
+                  v111 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v110, v108, &std::piecewise_construct, &v178, &v180);
                   v99 = a1;
-                  v100 = v167;
+                  v100 = v169;
                   if (v109 >= v111[5])
                   {
                     v112 = *v108;
-                    v175 = *(v108 + 16);
-                    v174 = v112;
-                    *(v108 + 8) = 0;
-                    *(v108 + 16) = 0;
+                    v179 = v108[2];
+                    v178 = v112;
+                    v108[1] = 0;
+                    v108[2] = 0;
                     *v108 = 0;
                     while (1)
                     {
@@ -4400,11 +4400,11 @@ LABEL_83:
                       }
 
                       v114 = *v102;
-                      *(v108 + 16) = *(v102 + 16);
+                      v108[2] = *(v102 + 16);
                       *v108 = v114;
                       *(v102 + 23) = 0;
                       *v102 = 0;
-                      if (v170 < v101)
+                      if (v172 < v101)
                       {
                         break;
                       }
@@ -4420,11 +4420,11 @@ LABEL_83:
                       else
                       {
                         v116 = *a3;
-                        *&v176 = v99 + 24 * v115;
-                        v117 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v116, v176)[5];
+                        *&v180 = v99 + 24 * v115;
+                        v117 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v116, v180, &std::piecewise_construct, &v180, &v177)[5];
                         v118 = *a3;
-                        *&v176 = v102 + 24;
-                        if (v117 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v118, (v102 + 24))[5])
+                        *&v180 = v102 + 24;
+                        if (v117 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v118, (v102 + 24), &std::piecewise_construct, &v180, &v177)[5])
                         {
                           v101 = v115;
                         }
@@ -4436,13 +4436,13 @@ LABEL_83:
                       }
 
                       v119 = *a3;
-                      *&v176 = v102;
-                      v120 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v119, v102)[5];
+                      *&v180 = v102;
+                      v120 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v119, v102, &std::piecewise_construct, &v180, &v177)[5];
                       v121 = *a3;
-                      *&v176 = &v174;
+                      *&v180 = &v178;
                       v108 = v113;
                       v99 = a1;
-                      if (v120 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v121, &v174)[5])
+                      if (v120 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v121, &v178, &std::piecewise_construct, &v180, &v177)[5])
                       {
                         if (*(v113 + 23) < 0)
                         {
@@ -4453,10 +4453,10 @@ LABEL_83:
                       }
                     }
 
-                    v122 = v174;
-                    *(v113 + 16) = v175;
+                    v122 = v178;
+                    *(v113 + 16) = v179;
                     *v113 = v122;
-                    v100 = v167;
+                    v100 = v169;
                   }
                 }
 
@@ -4464,18 +4464,18 @@ LABEL_83:
               }
 
               while (v100);
-              v123 = 0xAAAAAAAAAAAAAAABLL * (v164 >> 3);
+              v123 = 0xAAAAAAAAAAAAAAABLL * (v166 >> 3);
               do
               {
                 v124 = 0;
                 v125 = a1;
-                v165 = a2;
-                v168 = *a1;
-                *&v176 = *(a1 + 8);
-                *(&v176 + 7) = *(a1 + 15);
-                v171 = *(a1 + 23);
-                *(a1 + 8) = 0;
-                *(a1 + 16) = 0;
+                v167 = a2;
+                v170 = *a1;
+                *&v180 = a1[1];
+                *(&v180 + 7) = *(a1 + 15);
+                v173 = *(a1 + 23);
+                a1[1] = 0;
+                a1[2] = 0;
                 *a1 = 0;
                 do
                 {
@@ -4488,13 +4488,13 @@ LABEL_83:
                   if (v128 + 2 < v123)
                   {
                     v130 = *a3;
-                    *&v174 = v127 + 24;
-                    v131 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v130, (v127 + 24));
+                    *&v178 = v127 + 24;
+                    v131 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v130, (v127 + 24), &std::piecewise_construct, &v178, &v177);
                     v132 = (v127 + 48);
                     v133 = v131[5];
                     v134 = *a3;
-                    *&v174 = v132;
-                    if (v133 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v134, v132)[5])
+                    *&v178 = v132;
+                    if (v133 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v134, v132, &std::piecewise_construct, &v178, &v177)[5])
                     {
                       v125 = v132;
                       v124 = v129;
@@ -4514,41 +4514,41 @@ LABEL_83:
                 }
 
                 while (v124 <= ((v123 - 2) >> 1));
-                a2 -= 24;
-                if (v125 == v165 - 24)
+                a2 -= 3;
+                if (v125 == v167 - 3)
                 {
-                  *v125 = v168;
-                  v149 = *(&v176 + 7);
-                  *(v125 + 8) = v176;
-                  *(v125 + 15) = v149;
-                  *(v125 + 23) = v171;
+                  *v125 = v170;
+                  v151 = *(&v180 + 7);
+                  *(v125 + 8) = v180;
+                  *(v125 + 15) = v151;
+                  *(v125 + 23) = v173;
                 }
 
                 else
                 {
-                  v136 = *(v165 - 24);
-                  *(v125 + 16) = *(v165 - 8);
+                  v136 = *(v167 - 3);
+                  *(v125 + 16) = *(v167 - 1);
                   *v125 = v136;
-                  *(v165 - 24) = v168;
-                  v137 = v176;
-                  *(v165 - 9) = *(&v176 + 7);
-                  *(v165 - 16) = v137;
-                  *(v165 - 1) = v171;
+                  *(v167 - 3) = v170;
+                  v137 = v180;
+                  *(v167 - 9) = *(&v180 + 7);
+                  *(v167 - 2) = v137;
+                  *(v167 - 1) = v173;
                   v138 = v125 - a1 + 24;
                   if (v138 >= 25)
                   {
                     v139 = (-2 - 0x5555555555555555 * (v138 >> 3)) >> 1;
-                    v140 = a1 + 24 * v139;
+                    v140 = &a1[3 * v139];
                     v141 = *a3;
-                    *&v174 = v140;
-                    v142 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v141, v140)[5];
+                    *&v178 = v140;
+                    v142 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v141, v140, &std::piecewise_construct, &v178, &v177)[5];
                     v143 = *a3;
-                    *&v174 = v125;
-                    if (v142 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v143, v125)[5])
+                    *&v178 = v125;
+                    if (v142 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v143, v125, &std::piecewise_construct, &v178, &v177)[5])
                     {
                       v144 = *v125;
-                      v175 = *(v125 + 16);
-                      v174 = v144;
+                      v179 = *(v125 + 16);
+                      v178 = v144;
                       *(v125 + 8) = 0;
                       *(v125 + 16) = 0;
                       *v125 = 0;
@@ -4571,10 +4571,14 @@ LABEL_83:
                         }
 
                         v139 = (v139 - 1) >> 1;
-                        v140 = a1 + 24 * v139;
-                        v147 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a3, v140)[5];
+                        v140 = &a1[3 * v139];
+                        v147 = *a3;
+                        v177 = v140;
+                        v148 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v147, v140, &std::piecewise_construct, &v177, &v176)[5];
+                        v149 = *a3;
+                        v177 = &v178;
                         v125 = v145;
-                        if (v147 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a3, &v174)[5])
+                        if (v148 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v149, &v178, &std::piecewise_construct, &v177, &v176)[5])
                         {
                           if (*(v145 + 23) < 0)
                           {
@@ -4585,9 +4589,9 @@ LABEL_83:
                         }
                       }
 
-                      v148 = v174;
-                      *(v145 + 16) = v175;
-                      *v145 = v148;
+                      v150 = v178;
+                      *(v145 + 16) = v179;
+                      *v145 = v150;
                     }
                   }
                 }
@@ -4608,16 +4612,16 @@ LABEL_83:
 
           else
           {
-            v13 = a1 + 24 * v11;
+            v13 = &a1[3 * v11];
             v14 = a1;
             v15 = *a1;
-            v175 = *(a1 + 16);
-            v174 = v15;
+            v179 = a1[2];
+            v178 = v15;
             v16 = *v12;
-            *(a1 + 16) = v12[2];
+            a1[2] = v12[2];
             *a1 = v16;
-            v17 = v174;
-            v12[2] = v175;
+            v17 = v178;
+            v12[2] = v179;
             *v12 = v17;
           }
 
@@ -4628,30 +4632,30 @@ LABEL_83:
           }
 
           v18 = *a3;
-          *&v174 = v14 - 24;
-          v19 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v18, (v14 - 24))[5];
+          *&v178 = v14 - 24;
+          v19 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v18, (v14 - 24), &std::piecewise_construct, &v178, &v180)[5];
           v20 = *a3;
-          *&v174 = a1;
+          *&v178 = a1;
           v14 = a1;
-          if (v19 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v20, a1)[5])
+          if (v19 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v20, a1, &std::piecewise_construct, &v178, &v180)[5])
           {
             break;
           }
 
           v49 = *a1;
-          v177 = *(a1 + 16);
-          v176 = v49;
-          *(a1 + 8) = 0;
-          *(a1 + 16) = 0;
+          v181 = a1[2];
+          v180 = v49;
+          a1[1] = 0;
+          a1[2] = 0;
           *a1 = 0;
           v50 = *a3;
-          *&v174 = &v176;
-          v51 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v50, &v176)[5];
+          *&v178 = &v180;
+          v51 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v50, &v180, &std::piecewise_construct, &v178, &v177)[5];
           v52 = *a3;
-          *&v174 = a2 - 24;
-          if (v51 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v52, v169)[5])
+          *&v178 = a2 - 3;
+          if (v51 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v52, v171, &std::piecewise_construct, &v178, &v177)[5])
           {
-            v56 = a1 + 24;
+            v56 = (a1 + 3);
             do
             {
               v7 = v56;
@@ -4661,12 +4665,12 @@ LABEL_83:
               }
 
               v57 = *a3;
-              *&v174 = &v176;
-              v58 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v57, &v176)[5];
+              *&v178 = &v180;
+              v58 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v57, &v180, &std::piecewise_construct, &v178, &v177)[5];
               v59 = *a3;
-              *&v174 = v7;
-              v60 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v59, v7);
-              v56 = v7 + 24;
+              *&v178 = v7;
+              v60 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v59, v7, &std::piecewise_construct, &v178, &v177);
+              v56 = (v7 + 3);
             }
 
             while (v58 >= v60[5]);
@@ -4678,14 +4682,14 @@ LABEL_83:
             do
             {
               v53 = *a3;
-              *&v174 = &v176;
-              v7 += 24;
-              v54 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v53, &v176)[5];
+              *&v178 = &v180;
+              v7 += 3;
+              v54 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v53, &v180, &std::piecewise_construct, &v178, &v177)[5];
               v55 = *a3;
-              *&v174 = v7;
+              *&v178 = v7;
             }
 
-            while (v54 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v55, v7)[5]);
+            while (v54 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v55, v7, &std::piecewise_construct, &v178, &v177)[5]);
           }
 
           v61 = a2;
@@ -4695,53 +4699,53 @@ LABEL_83:
             do
             {
               v62 = *a3;
-              *&v174 = &v176;
-              v61 -= 24;
-              v63 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v62, &v176)[5];
+              *&v178 = &v180;
+              v61 -= 3;
+              v63 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v62, &v180, &std::piecewise_construct, &v178, &v177)[5];
               v64 = *a3;
-              *&v174 = v61;
+              *&v178 = v61;
             }
 
-            while (v63 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v64, v61)[5]);
+            while (v63 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v64, v61, &std::piecewise_construct, &v178, &v177)[5]);
           }
 
           while (v7 < v61)
           {
             v65 = *v7;
-            v175 = *(v7 + 16);
-            v174 = v65;
+            v179 = v7[2];
+            v178 = v65;
             v66 = *v61;
-            *(v7 + 16) = *(v61 + 16);
+            v7[2] = v61[2];
             *v7 = v66;
-            v67 = v174;
-            *(v61 + 16) = v175;
+            v67 = v178;
+            v61[2] = v179;
             *v61 = v67;
             do
             {
               v68 = *a3;
-              *&v174 = &v176;
-              v7 += 24;
-              v69 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v68, &v176)[5];
+              *&v178 = &v180;
+              v7 += 3;
+              v69 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v68, &v180, &std::piecewise_construct, &v178, &v177)[5];
               v70 = *a3;
-              *&v174 = v7;
+              *&v178 = v7;
             }
 
-            while (v69 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v70, v7)[5]);
+            while (v69 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v70, v7, &std::piecewise_construct, &v178, &v177)[5]);
             do
             {
               v71 = *a3;
-              *&v174 = &v176;
-              v61 -= 24;
-              v72 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v71, &v176)[5];
+              *&v178 = &v180;
+              v61 -= 3;
+              v72 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v71, &v180, &std::piecewise_construct, &v178, &v177)[5];
               v73 = *a3;
-              *&v174 = v61;
+              *&v178 = v61;
             }
 
-            while (v72 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v73, v61)[5]);
+            while (v72 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v73, v61, &std::piecewise_construct, &v178, &v177)[5]);
           }
 
-          v74 = (v7 - 24);
-          if (v7 - 24 == a1)
+          v74 = (v7 - 3);
+          if (v7 - 3 == a1)
           {
             if (*(v7 - 1) < 0)
             {
@@ -4757,37 +4761,37 @@ LABEL_83:
             }
 
             v75 = *v74;
-            *(a1 + 16) = *(v7 - 8);
+            a1[2] = *(v7 - 1);
             *a1 = v75;
             *(v7 - 1) = 0;
             *(v7 - 24) = 0;
           }
 
           a5 = 0;
-          v76 = v176;
-          *(v7 - 8) = v177;
+          v76 = v180;
+          *(v7 - 1) = v181;
           *v74 = v76;
         }
 
         v21 = 0;
         v22 = *v14;
-        v177 = *(v14 + 16);
-        v176 = v22;
+        v181 = *(v14 + 16);
+        v180 = v22;
         *(v14 + 8) = 0;
         *(v14 + 16) = 0;
         *v14 = 0;
         do
         {
           v23 = *a3;
-          *&v174 = v14 + v21 + 24;
-          v24 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v23, v174)[5];
+          *&v178 = v14 + v21 + 24;
+          v24 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v23, v178, &std::piecewise_construct, &v178, &v177)[5];
           v25 = *a3;
-          *&v174 = &v176;
+          *&v178 = &v180;
           v21 += 24;
         }
 
-        while (v24 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v25, &v176)[5]);
-        v26 = v14 + v21;
+        while (v24 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v25, &v180, &std::piecewise_construct, &v178, &v177)[5]);
+        v26 = (v14 + v21);
         v27 = a2;
         if (v21 == 24)
         {
@@ -4801,13 +4805,13 @@ LABEL_83:
 
             v27 -= 3;
             v31 = *a3;
-            *&v174 = v27;
-            v32 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v31, v27)[5];
+            *&v178 = v27;
+            v32 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v31, v27, &std::piecewise_construct, &v178, &v177)[5];
             v33 = *a3;
-            *&v174 = &v176;
+            *&v178 = &v180;
           }
 
-          while (v32 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v33, &v176)[5]);
+          while (v32 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v33, &v180, &std::piecewise_construct, &v178, &v177)[5]);
         }
 
         else
@@ -4816,13 +4820,13 @@ LABEL_83:
           {
             v27 -= 3;
             v28 = *a3;
-            *&v174 = v27;
-            v29 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v28, v27)[5];
+            *&v178 = v27;
+            v29 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v28, v27, &std::piecewise_construct, &v178, &v177)[5];
             v30 = *a3;
-            *&v174 = &v176;
+            *&v178 = &v180;
           }
 
-          while (v29 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v30, &v176)[5]);
+          while (v29 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v30, &v180, &std::piecewise_construct, &v178, &v177)[5]);
         }
 
         v7 = v26;
@@ -4832,44 +4836,44 @@ LABEL_83:
           do
           {
             v35 = *v7;
-            v175 = *(v7 + 16);
-            v174 = v35;
+            v179 = v7[2];
+            v178 = v35;
             v36 = *v34;
-            *(v7 + 16) = v34[2];
+            v7[2] = v34[2];
             *v7 = v36;
-            v37 = v174;
-            v34[2] = v175;
+            v37 = v178;
+            v34[2] = v179;
             *v34 = v37;
             do
             {
-              v7 += 24;
+              v7 += 3;
               v38 = *a3;
-              *&v174 = v7;
-              v39 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v38, v7)[5];
+              *&v178 = v7;
+              v39 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v38, v7, &std::piecewise_construct, &v178, &v177)[5];
               v40 = *a3;
-              *&v174 = &v176;
+              *&v178 = &v180;
             }
 
-            while (v39 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v40, &v176)[5]);
+            while (v39 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v40, &v180, &std::piecewise_construct, &v178, &v177)[5]);
             do
             {
               v34 -= 3;
               v41 = *a3;
-              *&v174 = v34;
-              v42 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v41, v34)[5];
+              *&v178 = v34;
+              v42 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v41, v34, &std::piecewise_construct, &v178, &v177)[5];
               v43 = *a3;
-              *&v174 = &v176;
+              *&v178 = &v180;
             }
 
-            while (v42 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v43, &v176)[5]);
+            while (v42 >= std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v43, &v180, &std::piecewise_construct, &v178, &v177)[5]);
           }
 
           while (v7 < v34);
         }
 
-        v44 = (v7 - 24);
+        v44 = (v7 - 3);
         v45 = a1;
-        if (v7 - 24 == a1)
+        if (v7 - 3 == a1)
         {
           if (*(v7 - 1) < 0)
           {
@@ -4885,14 +4889,14 @@ LABEL_83:
           }
 
           v46 = *v44;
-          *(a1 + 16) = *(v7 - 8);
+          a1[2] = *(v7 - 1);
           *a1 = v46;
           *(v7 - 1) = 0;
           *(v7 - 24) = 0;
         }
 
-        v47 = v176;
-        *(v7 - 8) = v177;
+        v47 = v180;
+        *(v7 - 1) = v181;
         *v44 = v47;
         if (v26 >= v27)
         {
@@ -4914,7 +4918,7 @@ LABEL_40:
       }
     }
 
-    a2 = v7 - 24;
+    a2 = v7 - 3;
     if (!v48)
     {
       continue;
@@ -4934,114 +4938,144 @@ void sub_2180C9FD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*,0>(const void **a1, const void **a2, const void **a3, void **a4)
+const void **std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t *a4)
 {
-  v8 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a4, a2)[5];
-  v9 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a4, a1)[5];
+  v8 = *a4;
+  v38[0] = a2;
+  v9 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v8, a2, &std::piecewise_construct, v38, &v37)[5];
   v10 = *a4;
-  if (v8 >= v9)
+  v38[0] = a1;
+  v11 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10, a1, &std::piecewise_construct, v38, &v37)[5];
+  v12 = *a4;
+  if (v9 >= v11)
   {
-    v16 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10, a3)[5];
-    result = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a4, a2);
-    if (v16 < result[5])
+    v38[0] = a3;
+    v19 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v12, a3, &std::piecewise_construct, v38, &v37)[5];
+    v20 = *a4;
+    v38[0] = a2;
+    result = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v20, a2, &std::piecewise_construct, v38, &v37);
+    if (v19 < result[5])
     {
-      v17 = a2[2];
-      v18 = *a2;
-      v19 = a3[2];
+      v21 = a2[2];
+      v22 = *a2;
+      v23 = a3[2];
       *a2 = *a3;
-      a2[2] = v19;
-      *a3 = v18;
-      a3[2] = v17;
-      v20 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a4, a2)[5];
-      result = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a4, a1);
-      if (v20 < result[5])
+      a2[2] = v23;
+      *a3 = v22;
+      a3[2] = v21;
+      v24 = *a4;
+      v38[0] = a2;
+      v25 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v24, a2, &std::piecewise_construct, v38, &v37)[5];
+      v26 = *a4;
+      v38[0] = a1;
+      result = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v26, a1, &std::piecewise_construct, v38, &v37);
+      if (v25 < result[5])
       {
-        v21 = a1[2];
-        v22 = *a1;
-        v23 = a2[2];
+        v27 = a1[2];
+        v28 = *a1;
+        v29 = a2[2];
         *a1 = *a2;
-        a1[2] = v23;
-        *a2 = v22;
-        a2[2] = v21;
+        a1[2] = v29;
+        *a2 = v28;
+        a2[2] = v27;
       }
     }
   }
 
   else
   {
-    v11 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10, a3)[5];
-    result = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a4, a2);
-    if (v11 >= result[5])
+    v38[0] = a3;
+    v13 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v12, a3, &std::piecewise_construct, v38, &v37)[5];
+    v14 = *a4;
+    v38[0] = a2;
+    result = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v14, a2, &std::piecewise_construct, v38, &v37);
+    if (v13 >= result[5])
     {
-      v24 = a1[2];
-      v25 = *a1;
-      v26 = a2[2];
+      v30 = a1[2];
+      v31 = *a1;
+      v32 = a2[2];
       *a1 = *a2;
-      a1[2] = v26;
-      *a2 = v25;
-      a2[2] = v24;
-      v27 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a4, a3)[5];
-      result = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a4, a2);
-      if (v27 >= result[5])
+      a1[2] = v32;
+      *a2 = v31;
+      a2[2] = v30;
+      v33 = *a4;
+      v38[0] = a3;
+      v34 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v33, a3, &std::piecewise_construct, v38, &v37)[5];
+      v35 = *a4;
+      v38[0] = a2;
+      result = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v35, a2, &std::piecewise_construct, v38, &v37);
+      if (v34 >= result[5])
       {
         return result;
       }
 
-      v13 = a2[2];
-      v14 = *a2;
-      v28 = a3[2];
+      v16 = a2[2];
+      v17 = *a2;
+      v36 = a3[2];
       *a2 = *a3;
-      a2[2] = v28;
+      a2[2] = v36;
     }
 
     else
     {
-      v13 = a1[2];
-      v14 = *a1;
-      v15 = a3[2];
+      v16 = a1[2];
+      v17 = *a1;
+      v18 = a3[2];
       *a1 = *a3;
-      a1[2] = v15;
+      a1[2] = v18;
     }
 
-    *a3 = v14;
-    a3[2] = v13;
+    *a3 = v17;
+    a3[2] = v16;
   }
 
   return result;
 }
 
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*,0>(uint64_t a1, const void **a2, const void **a3, const void **a4, void **a5)
+__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, unint64_t *a5)
 {
-  v10 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a5, a4)[5];
-  if (v10 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a5, a3)[5])
+  v10 = *a5;
+  v29[0] = a4;
+  v11 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10, a4, &std::piecewise_construct, v29, &v28)[5];
+  v12 = *a5;
+  v29[0] = a3;
+  if (v11 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v12, a3, &std::piecewise_construct, v29, &v28)[5])
   {
-    v12 = a3[2];
-    v13 = *a3;
-    v14 = a4[2];
+    v14 = a3[2];
+    v15 = *a3;
+    v16 = a4[2];
     *a3 = *a4;
-    a3[2] = v14;
-    *a4 = v13;
-    a4[2] = v12;
-    v15 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a5, a3)[5];
-    if (v15 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a5, a2)[5])
+    a3[2] = v16;
+    *a4 = v15;
+    a4[2] = v14;
+    v17 = *a5;
+    v29[0] = a3;
+    v18 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v17, a3, &std::piecewise_construct, v29, &v28)[5];
+    v19 = *a5;
+    v29[0] = a2;
+    if (v18 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v19, a2, &std::piecewise_construct, v29, &v28)[5])
     {
-      v16 = a2[2];
-      v17 = *a2;
-      v18 = a3[2];
+      v20 = a2[2];
+      v21 = *a2;
+      v22 = a3[2];
       *a2 = *a3;
-      a2[2] = v18;
-      *a3 = v17;
-      a3[2] = v16;
-      v19 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a5, a2)[5];
-      if (v19 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a5, a1)[5])
+      a2[2] = v22;
+      *a3 = v21;
+      a3[2] = v20;
+      v23 = *a5;
+      v29[0] = a2;
+      v24 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v23, a2, &std::piecewise_construct, v29, &v28)[5];
+      v25 = *a5;
+      v29[0] = a1;
+      if (v24 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v25, a1, &std::piecewise_construct, v29, &v28)[5])
       {
-        v20 = *(a1 + 16);
+        v26 = a1[2];
         result = *a1;
-        v21 = a2[2];
+        v27 = a2[2];
         *a1 = *a2;
-        *(a1 + 16) = v21;
+        a1[2] = v27;
         *a2 = result;
-        a2[2] = v20;
+        a2[2] = v26;
       }
     }
   }
@@ -5049,48 +5083,64 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::Re
   return result;
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*,0>(uint64_t a1, const void **a2, const void **a3, const void **a4, const void **a5, void **a6)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, unint64_t *a6)
 {
-  v12 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a6, a5)[5];
-  if (v12 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a6, a4)[5])
+  v12 = *a6;
+  v37[0] = a5;
+  v13 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v12, a5, &std::piecewise_construct, v37, &v36)[5];
+  v14 = *a6;
+  v37[0] = a4;
+  if (v13 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v14, a4, &std::piecewise_construct, v37, &v36)[5])
   {
-    v14 = a4[2];
-    v15 = *a4;
-    v16 = a5[2];
+    v16 = a4[2];
+    v17 = *a4;
+    v18 = a5[2];
     *a4 = *a5;
-    a4[2] = v16;
-    *a5 = v15;
-    a5[2] = v14;
-    v17 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a6, a4)[5];
-    if (v17 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a6, a3)[5])
+    a4[2] = v18;
+    *a5 = v17;
+    a5[2] = v16;
+    v19 = *a6;
+    v37[0] = a4;
+    v20 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v19, a4, &std::piecewise_construct, v37, &v36)[5];
+    v21 = *a6;
+    v37[0] = a3;
+    if (v20 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v21, a3, &std::piecewise_construct, v37, &v36)[5])
     {
-      v18 = a3[2];
-      v19 = *a3;
-      v20 = a4[2];
+      v22 = a3[2];
+      v23 = *a3;
+      v24 = a4[2];
       *a3 = *a4;
-      a3[2] = v20;
-      *a4 = v19;
-      a4[2] = v18;
-      v21 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a6, a3)[5];
-      if (v21 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a6, a2)[5])
+      a3[2] = v24;
+      *a4 = v23;
+      a4[2] = v22;
+      v25 = *a6;
+      v37[0] = a3;
+      v26 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v25, a3, &std::piecewise_construct, v37, &v36)[5];
+      v27 = *a6;
+      v37[0] = a2;
+      if (v26 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v27, a2, &std::piecewise_construct, v37, &v36)[5])
       {
-        v22 = a2[2];
-        v23 = *a2;
-        v24 = a3[2];
+        v28 = a2[2];
+        v29 = *a2;
+        v30 = a3[2];
         *a2 = *a3;
-        a2[2] = v24;
-        *a3 = v23;
-        a3[2] = v22;
-        v25 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a6, a2)[5];
-        if (v25 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*a6, a1)[5])
+        a2[2] = v30;
+        *a3 = v29;
+        a3[2] = v28;
+        v31 = *a6;
+        v37[0] = a2;
+        v32 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v31, a2, &std::piecewise_construct, v37, &v36)[5];
+        v33 = *a6;
+        v37[0] = a1;
+        if (v32 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v33, a1, &std::piecewise_construct, v37, &v36)[5])
         {
-          v26 = *(a1 + 16);
+          v34 = a1[2];
           result = *a1;
-          v27 = a2[2];
+          v35 = a2[2];
           *a1 = *a2;
-          *(a1 + 16) = v27;
+          a1[2] = v35;
           *a2 = result;
-          a2[2] = v26;
+          a2[2] = v34;
         }
       }
     }
@@ -5099,30 +5149,30 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::Re
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*>(uint64_t a1, uint64_t a2, void **a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,anonymous namespace::ReorderSubProgramOutputs(std::vector<std::string> &,std::vector<std::string> const&)::$_0 &,std::string*>(uint64_t *a1, uint64_t *a2, unint64_t *a3)
 {
-  v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
+  v6 = 0xAAAAAAAAAAAAAAABLL * (a2 - a1);
   if (v6 <= 2)
   {
     if (v6 >= 2)
     {
       if (v6 == 2)
       {
-        v7 = a2 - 24;
+        v7 = a2 - 3;
         v8 = *a3;
-        *&v29 = a2 - 24;
-        v9 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v8, (a2 - 24))[5];
+        *&v29 = a2 - 3;
+        v9 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v8, a2 - 3, &std::piecewise_construct, &v29, &v32)[5];
         v10 = *a3;
         *&v29 = a1;
-        if (v9 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10, a1)[5])
+        if (v9 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10, a1, &std::piecewise_construct, &v29, &v32)[5])
         {
-          v11 = *(a1 + 16);
+          v11 = a1[2];
           v12 = *a1;
-          v13 = *(v7 + 16);
+          v13 = v7[2];
           *a1 = *v7;
-          *(a1 + 16) = v13;
+          a1[2] = v13;
           *v7 = v12;
-          *(v7 + 16) = v11;
+          v7[2] = v11;
         }
 
         return 1;
@@ -5145,9 +5195,9 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,anony
   }
 
 LABEL_11:
-  v14 = (a1 + 48);
-  v15 = a1 + 72;
-  if (a1 + 72 == a2)
+  v14 = a1 + 6;
+  v15 = a1 + 9;
+  if (a1 + 9 == a2)
   {
     return 1;
   }
@@ -5158,27 +5208,27 @@ LABEL_11:
   {
     v18 = *a3;
     *&v29 = v15;
-    v19 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v18, v15)[5];
+    v19 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v18, v15, &std::piecewise_construct, &v29, &v32)[5];
     v20 = *a3;
     *&v29 = v14;
-    if (v19 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v20, v14)[5])
+    if (v19 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v20, v14, &std::piecewise_construct, &v29, &v32)[5])
     {
       v29 = *v15;
-      v30 = *(v15 + 16);
-      *(v15 + 8) = 0;
-      *(v15 + 16) = 0;
+      v30 = v15[2];
+      v15[1] = 0;
+      v15[2] = 0;
       *v15 = 0;
       v21 = v16;
       do
       {
-        v22 = a1 + v21;
+        v22 = (a1 + v21);
         if (*(a1 + v21 + 95) < 0)
         {
-          operator delete(*(v22 + 72));
+          operator delete(v22[9]);
         }
 
-        *(v22 + 72) = *(v22 + 48);
-        *(v22 + 88) = *(v22 + 64);
+        *(v22 + 9) = *(v22 + 3);
+        v22[11] = v22[8];
         *(v22 + 71) = 0;
         *(v22 + 48) = 0;
         if (v21 == -48)
@@ -5188,16 +5238,16 @@ LABEL_11:
         }
 
         v23 = *a3;
-        v31 = &v29;
-        v24 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v23, &v29)[5];
+        v32 = &v29;
+        v24 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v23, &v29, &std::piecewise_construct, &v32, &v31)[5];
         v25 = *a3;
-        v31 = (a1 + v21 + 24);
+        v32 = (a1 + v21 + 24);
         v21 -= 24;
       }
 
-      while (v24 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v25, v31)[5]);
+      while (v24 < std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v25, v32, &std::piecewise_construct, &v32, &v31)[5]);
       v26 = *(a1 + v21 + 95);
-      v27 = a1 + v21 + 72;
+      v27 = (a1 + v21 + 72);
       if (v26 < 0)
       {
         operator delete(*v27);
@@ -5205,16 +5255,16 @@ LABEL_11:
 
 LABEL_22:
       *v27 = v29;
-      *(v27 + 16) = v30;
+      v27[2] = v30;
       if (++v17 == 8)
       {
-        return v15 + 24 == a2;
+        return v15 + 3 == a2;
       }
     }
 
     v14 = v15;
     v16 += 24;
-    v15 += 24;
+    v15 += 3;
     if (v15 == a2)
     {
       return 1;
@@ -5342,7 +5392,7 @@ void *std::__copy_impl::operator()[abi:ne200100]<std::__tree_const_iterator<std:
   return v5;
 }
 
-void *std::pair<std::vector<std::string>,std::vector<std::string>>::pair[abi:ne200100]<std::vector<std::string>&,std::vector<std::string>&,0>(void *a1, uint64_t *a2, uint64_t *a3)
+uint64_t *std::pair<std::vector<std::string>,std::vector<std::string>>::pair[abi:ne200100]<std::vector<std::string>&,std::vector<std::string>&,0>(uint64_t *a1, void *a2, void *a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -5351,40 +5401,28 @@ void *std::pair<std::vector<std::string>,std::vector<std::string>>::pair[abi:ne2
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 3), *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 3, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
   return a1;
 }
 
-void sub_2180CABEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2180CABEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned long long>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_2180CAC60(_Unwind_Exception *exception_object)
@@ -5399,16 +5437,16 @@ void sub_2180CAC60(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetInputsAndOutputs(uint64_t *a1@<X0>, const void **a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetInputsAndOutputs(MIL::Transform::ProgramTransformer::ProgramTransformerImpl *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
-  MIL::Builder::ProgramBuilder::GetFunction(a1[4], a2, &v56);
-  v7 = v56;
-  v8 = MIL::Builder::FunctionBuilder::SelectedSpecialization(v56);
-  MIL::Builder::FunctionBuilder::GetBlock(v7, v8, &v54);
-  MIL::Builder::BlockBuilder::GetOperations(v54, &v52);
-  v50 = 0;
+  MIL::Builder::ProgramBuilder::GetFunction(*(a1 + 4), a2, &v57);
+  v7 = v57;
+  v8 = MIL::Builder::FunctionBuilder::SelectedSpecialization(v57);
+  MIL::Builder::FunctionBuilder::GetBlock(v7, v8, &v55);
+  MIL::Builder::BlockBuilder::GetOperations(&v53, v55);
   v51 = 0;
-  *v49 = &v50;
+  v52 = 0;
+  *v50 = &v51;
   v9 = a3 + 1;
   if (a3 + 1 == *a3)
   {
@@ -5445,18 +5483,18 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetInputsAndOut
         while (v14);
       }
 
-      v15 = (v52 + 16 * v13[4]);
-      MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(a1, *v15, v47);
-      for (i = v48; i; i = *i)
+      v15 = (v53 + 16 * v13[4]);
+      MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(v48, a1, *v15);
+      for (i = v49; i; i = *i)
       {
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v49, i + 2);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v50, i + 2, (i + 2));
       }
 
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v48);
       for (j = 0; j < MIL::Builder::OperationBuilder::GetNumOutputs(*v15); ++j)
       {
-        OutputName = MIL::Builder::OperationBuilder::GetOutputName(*v15, j);
-        std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__erase_unique<std::string>(v49, OutputName);
+        MIL::Builder::OperationBuilder::GetOutputName(*v15, j);
+        std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__erase_unique<std::string>(v50, v18);
       }
 
       v19 = *v10;
@@ -5487,17 +5525,17 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetInputsAndOut
     }
 
     while (v20 != *a3);
-    v21 = v51;
+    v21 = v52;
   }
 
-  std::vector<std::string>::vector[abi:ne200100](v45, v21);
-  std::__copy_impl::operator()[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::string*>(v47, *v49, &v50, v45[0]);
-  v44[0] = 0;
-  v44[1] = 0;
-  v43 = v44;
+  std::vector<std::string>::vector[abi:ne200100](v46, v21);
+  std::__copy_impl::operator()[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::string*>(v48, *v50, &v51, v46[0]);
+  v45[0] = 0;
+  v45[1] = 0;
+  v44 = v45;
   v22 = *(*a3 + 32);
-  v24 = v52;
-  v23 = v53;
+  v24 = v53;
+  v23 = v54;
   while (v22 < (v23 - v24) >> 4)
   {
     v25 = *v9;
@@ -5524,127 +5562,128 @@ void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetInputsAndOut
     if (v26 == v9 || v22 < v26[4])
     {
 LABEL_29:
-      MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(a1, *(v24 + 16 * v22), v47);
-      for (k = v48; k; k = *k)
+      MIL::Transform::ProgramTransformer::ProgramTransformerImpl::GetAllConsumedVariableNames(v48, a1, *(v24 + 16 * v22));
+      for (k = v49; k; k = *k)
       {
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v43, k + 2);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v44, k + 2, (k + 2));
       }
 
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47);
-      v24 = v52;
-      v23 = v53;
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v48);
+      v24 = v53;
+      v23 = v54;
     }
 
     ++v22;
   }
 
-  MIL::Builder::BlockBuilder::GetOutputNames(v54, v42);
-  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string const*>>(v47, v42[0], v42[1]);
-  v40 = 0uLL;
-  v41 = 0;
+  MIL::Builder::BlockBuilder::GetOutputNames(v55, v43);
+  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string const*>>(v48, v43[0], v43[1]);
+  v41 = 0uLL;
+  v42 = 0;
   v31 = *a3;
   if (*a3 != v9)
   {
     do
     {
       v32 = 0;
-      v33 = (v52 + 16 * v31[4]);
+      v33 = (v53 + 16 * v31[4]);
       while (v32 < MIL::Builder::OperationBuilder::GetNumOutputs(*v33))
       {
-        v34 = MIL::Builder::OperationBuilder::GetOutputName(*v33, v32);
-        if (v44 != std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::find<std::string>(&v43, v34) || std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v47, v34))
+        MIL::Builder::OperationBuilder::GetOutputName(*v33, v32);
+        v35 = v34;
+        if (v45 != std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::find<std::string>(&v44, v34) || std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v48, v35))
         {
-          v35 = *(&v40 + 1);
-          if (*(&v40 + 1) >= v41)
+          v36 = *(&v41 + 1);
+          if (*(&v41 + 1) >= v42)
           {
-            v37 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(&v40, v34);
+            v38 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(&v41, v35);
           }
 
           else
           {
-            if (*(v34 + 23) < 0)
+            if (*(v35 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(*(&v40 + 1), *v34, *(v34 + 8));
+              std::string::__init_copy_ctor_external(*(&v41 + 1), *v35, v35[1]);
             }
 
             else
             {
-              v36 = *v34;
-              *(*(&v40 + 1) + 16) = *(v34 + 16);
-              *v35 = v36;
+              v37 = *v35;
+              *(*(&v41 + 1) + 16) = v35[2];
+              *v36 = v37;
             }
 
-            v37 = (v35 + 24);
+            v38 = (v36 + 24);
           }
 
-          *(&v40 + 1) = v37;
+          *(&v41 + 1) = v38;
         }
 
         ++v32;
       }
 
-      v38 = v31[1];
-      if (v38)
+      v39 = v31[1];
+      if (v39)
       {
         do
         {
-          v39 = v38;
-          v38 = *v38;
+          v40 = v39;
+          v39 = *v39;
         }
 
-        while (v38);
+        while (v39);
       }
 
       else
       {
         do
         {
-          v39 = v31[2];
-          v14 = *v39 == v31;
-          v31 = v39;
+          v40 = v31[2];
+          v14 = *v40 == v31;
+          v31 = v40;
         }
 
         while (!v14);
       }
 
-      v31 = v39;
+      v31 = v40;
     }
 
-    while (v39 != v9);
+    while (v40 != v9);
   }
 
-  *a4 = *v45;
-  *(a4 + 16) = v46;
-  v45[1] = 0;
-  v46 = 0;
-  v45[0] = 0;
-  *(a4 + 24) = v40;
-  *(a4 + 40) = v41;
-  v40 = 0uLL;
-  v41 = 0;
-  v58 = &v40;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v58);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47);
-  v47[0] = v42;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v47);
-  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v43, v44[0]);
-  v47[0] = v45;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v47);
-  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(v49, v50);
-  v47[0] = &v52;
-  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](v47);
-  if (v55)
+  *a4 = *v46;
+  *(a4 + 16) = v47;
+  v46[1] = 0;
+  v47 = 0;
+  v46[0] = 0;
+  *(a4 + 24) = v41;
+  *(a4 + 40) = v42;
+  v41 = 0uLL;
+  v42 = 0;
+  v59 = &v41;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v59);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v48);
+  v48[0] = v43;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v48);
+  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v44, v45[0]);
+  v48[0] = v46;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v48);
+  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(v50, v51);
+  v48[0] = &v53;
+  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](v48);
+  if (v56)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v55);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v56);
   }
 
-  if (v57)
+  if (v58)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v57);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v58);
   }
 }
 
-void sub_2180CB098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void **a16, char *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, void **a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void **a28, char *a29)
+void sub_2180CB098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void **a16, char *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void **a28, char *a29)
 {
   *(v29 - 88) = &a9;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v29 - 88));
@@ -5672,17 +5711,17 @@ void sub_2180CB098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::string>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::string>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::string>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::string>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::ForEachBlock<MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FoldConstantNodes(void)::{lambda(std::shared_ptr<MIL::Builder::BlockBuilder> const&)#1}>(MIL::Builder::ProgramBuilder *a1, uint64_t *a2)
@@ -5700,7 +5739,7 @@ uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::ForEachBloc
   return result;
 }
 
-uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::ForEachBlock<MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FoldConstantNodes(void)::{lambda(std::shared_ptr<MIL::Builder::BlockBuilder> const&)#1}>(MIL::Builder::BlockBuilder **a1, uint64_t *a2)
+uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::ForEachBlock<MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FoldConstantNodes(void)::{lambda(std::shared_ptr<MIL::Builder::BlockBuilder> const&)#1}>(MIL::Builder::BlockBuilder::BlockBuilderImpl ***a1, uint64_t *a2)
 {
   if (MIL::Builder::BlockBuilder::GetNumOperations(*a1))
   {
@@ -5708,13 +5747,13 @@ uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::ForEachBloc
     do
     {
       MIL::Builder::BlockBuilder::GetOperation(*a1, v4, &v9);
-      MIL::Builder::OperationBuilder::GetBlocks(v9, v8);
+      MIL::Builder::OperationBuilder::GetBlocks(v8, v9);
       v5 = v8[0];
       v6 = v8[1];
       while (v5 != v6)
       {
         MIL::Transform::ProgramTransformer::ProgramTransformerImpl::ForEachBlock<MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FoldConstantNodes(void)::{lambda(std::shared_ptr<MIL::Builder::BlockBuilder> const&)#1}>(v5, a2);
-        v5 += 16;
+        v5 += 2;
       }
 
       v10 = v8;
@@ -5743,7 +5782,7 @@ void sub_2180CB35C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FoldConstantNodesWithinBlock(uint64_t a1, MIL::Builder::BlockBuilder **a2)
+uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FoldConstantNodesWithinBlock(uint64_t a1, MIL::Builder::BlockBuilder::BlockBuilderImpl ***a2)
 {
   v45 = 0u;
   v46 = 0u;
@@ -5756,7 +5795,7 @@ uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FoldConstan
   {
     MIL::Builder::BlockBuilder::GetOperation(*a2, v3, &v39);
     __p = &v39;
-    std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder>&&>,std::tuple<>>(v42, &v39)[4] = v3;
+    std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder>&&>,std::tuple<>>(v42, &v39, &std::piecewise_construct, &__p)[4] = v3;
     if (*(&v39 + 1))
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*(&v39 + 1));
@@ -5784,10 +5823,10 @@ uint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FoldConstan
       if (!std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>>>::find<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>(v44, v6 + 2))
       {
         if (!std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(&v39, i + 2)
-          || (*&v35 = v6 + 2, v8 = std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(v42, v6 + 2)[4], *&v35 = i + 2, *&v35 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v39, i + 2) + 5, v8 < std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(v42, v35)[4]))
+          || (*&v35 = v6 + 2, v8 = std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(v42, v6 + 2, &std::piecewise_construct, &v35)[4], *&v35 = i + 2, *&v35 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v39, i + 2, &std::piecewise_construct, &v35, v50) + 5, v8 < std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(v42, v35, &std::piecewise_construct, &v35)[4]))
         {
           *&v35 = i + 2;
-          v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v39, i + 2);
+          v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v39, i + 2, &std::piecewise_construct, &v35, v50);
           v11 = v6[2];
           v10 = v6[3];
           if (v10)
@@ -5868,8 +5907,8 @@ LABEL_19:
 
       if (v13 != v14)
       {
-        v48 = (i + 2);
-        v21 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v39, i + 2);
+        v49 = i + 2;
+        v21 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::OperationBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v39, i + 2, &std::piecewise_construct, &v49, &v48);
         v22 = v21[6];
         v21[5] = 0;
         v21[6] = 0;
@@ -5880,8 +5919,8 @@ LABEL_19:
       }
 
 LABEL_38:
-      v49[0] = &v35;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v49);
+      v50[0] = &v35;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v50);
     }
 
     std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(&__p);
@@ -5891,15 +5930,15 @@ LABEL_38:
   v37 = 0;
   v38 = 0;
   std::vector<unsigned long long>::reserve(&__p, v44[3]);
-  for (j = 0; ; j = (v49[0] + 1))
+  for (j = 0; ; j = (v50[0] + 1))
   {
-    v49[0] = j;
+    v50[0] = j;
     if (j >= MIL::Builder::BlockBuilder::GetNumOperations(*a2))
     {
       break;
     }
 
-    MIL::Builder::BlockBuilder::GetOperation(*a2, v49[0], &v35);
+    MIL::Builder::BlockBuilder::GetOperation(*a2, v50[0], &v35);
     v24 = std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>>>::find<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>(v44, &v35);
     if (*(&v35 + 1))
     {
@@ -5908,7 +5947,7 @@ LABEL_38:
 
     if (v24)
     {
-      std::vector<unsigned long long>::push_back[abi:ne200100](&__p, v49);
+      std::vector<unsigned long long>::push_back[abi:ne200100](&__p, v50);
     }
   }
 
@@ -5937,25 +5976,25 @@ LABEL_38:
       v34 = *(v40 + 16);
     }
 
-    *&v35 = v26 + 16;
-    v28 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v45, (v26 + 16));
+    *&v35 = v26 + 2;
+    v28 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v45, v26 + 2, &std::piecewise_construct, &v35, v50);
     v29 = v28[6];
-    v33[0] = v28[5];
-    v33[1] = v29;
+    *&v33 = v28[5];
+    *(&v33 + 1) = v29;
     if (v29)
     {
       atomic_fetch_add_explicit(v29 + 1, 1uLL, memory_order_relaxed);
     }
 
-    v30 = *(v26 + 48);
-    v32[0] = *(v26 + 40);
-    v32[1] = v30;
+    v30 = v26[6];
+    *&v32 = v26[5];
+    *(&v32 + 1) = v30;
     if (v30)
     {
       atomic_fetch_add_explicit((v30 + 8), 1uLL, memory_order_relaxed);
     }
 
-    MIL::Builder::BlockBuilder::AddConst(v27, &v34, v33, v32);
+    MIL::Builder::BlockBuilder::AddConst(v27, &v34, &v33, &v32);
   }
 
   if (__p)
@@ -5970,7 +6009,7 @@ LABEL_38:
   return std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&v45);
 }
 
-void sub_2180CB7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_2180CB7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34)
 {
   if (__p)
   {
@@ -5979,12 +6018,12 @@ void sub_2180CB7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&a28);
   std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(&a34);
-  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(v34 - 200);
+  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table((v34 - 200));
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v34 - 160);
   _Unwind_Resume(a1);
 }
 
-unint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FindAllConstantOpsWithinBlock@<X0>(uint64_t a1@<X0>, MIL::Builder::BlockBuilder **a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+unint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FindAllConstantOpsWithinBlock@<X0>(uint64_t a1@<X0>, MIL::Builder::BlockBuilder **a2@<X1>, void *a3@<X2>, unint64_t a4@<X8>)
 {
   v5 = a2;
   v6 = 0;
@@ -6000,9 +6039,9 @@ unint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FindAllCon
     }
 
     MIL::Builder::BlockBuilder::GetOperation(*v5, v6, &v49);
-    MIL::Builder::OperationBuilder::GetInputArguments(v49, &v50);
-    v8 = v50.__r_.__value_.__r.__words[2];
-    if (v50.__r_.__value_.__r.__words[2])
+    MIL::Builder::OperationBuilder::GetInputArguments(v49, &v51);
+    v8 = v51.__r_.__value_.__r.__words[2];
+    if (v51.__r_.__value_.__r.__words[2])
     {
       while (1)
       {
@@ -6022,23 +6061,23 @@ unint64_t MIL::Transform::ProgramTransformer::ProgramTransformerImpl::FindAllCon
         }
       }
 
-      std::__hash_table<MIL::IRValueType const*,std::hash<MIL::IRValueType const*>,std::equal_to<MIL::IRValueType const*>,std::allocator<MIL::IRValueType const*>>::~__hash_table(&v50);
+      std::__hash_table<MIL::IRValueType const*,std::hash<MIL::IRValueType const*>,std::equal_to<MIL::IRValueType const*>,std::allocator<MIL::IRValueType const*>>::~__hash_table(&v51);
     }
 
     else
     {
 LABEL_7:
-      std::__hash_table<MIL::IRValueType const*,std::hash<MIL::IRValueType const*>,std::equal_to<MIL::IRValueType const*>,std::allocator<MIL::IRValueType const*>>::~__hash_table(&v50);
+      std::__hash_table<MIL::IRValueType const*,std::hash<MIL::IRValueType const*>,std::equal_to<MIL::IRValueType const*>,std::allocator<MIL::IRValueType const*>>::~__hash_table(&v51);
       Operator = MIL::Builder::OperationBuilder::GetOperator(v49);
       if ((*(*Operator + 224))(Operator))
       {
-        std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::shared_ptr<MIL::Builder::OperationBuilder> const&>(a4, &v49);
+        std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::shared_ptr<MIL::Builder::OperationBuilder> const&>(a4, &v49, &v49);
         memset(v47, 0, sizeof(v47));
         v48 = 1065353216;
         Parameters = MIL::Builder::OperationBuilder::GetParameters(v49);
         v13 = Parameters + 1;
         v12 = *Parameters;
-        if (*Parameters != (Parameters + 1))
+        if (*Parameters != Parameters + 1)
         {
           do
           {
@@ -6095,11 +6134,11 @@ LABEL_7:
                   __src = 0;
                   v45 = (16 * v21 + 16);
                   v46 = 0;
-                  v50.__r_.__value_.__r.__words[2] = v25;
-                  v51 = v26;
-                  v50.__r_.__value_.__r.__words[0] = v25;
-                  v50.__r_.__value_.__l.__size_ = v25;
-                  std::__split_buffer<std::shared_ptr<MIL::IRBlock>>::~__split_buffer(&v50.__r_.__value_.__l.__data_);
+                  v51.__r_.__value_.__r.__words[2] = v25;
+                  v52 = v26;
+                  v51.__r_.__value_.__r.__words[0] = v25;
+                  v51.__r_.__value_.__l.__size_ = v25;
+                  std::__split_buffer<std::shared_ptr<MIL::IRBlock>>::~__split_buffer(&v51.__r_.__value_.__l.__data_);
                   v45 = (16 * v21 + 16);
                   if (*(&v43 + 1))
                   {
@@ -6129,15 +6168,15 @@ LABEL_7:
               v14 += 2;
             }
 
-            v50.__r_.__value_.__r.__words[0] = (v12 + 4);
-            v27 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRValue const>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRValue const>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRValue const>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRValue const>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v47, v12 + 4) + 5);
+            v51.__r_.__value_.__r.__words[0] = (v12 + 4);
+            v27 = (std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRValue const>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRValue const>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRValue const>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRValue const>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v47, v12 + 4, &std::piecewise_construct, &v51, &v50) + 5);
             if (v27 != &__src)
             {
               std::vector<std::shared_ptr<MIL::IRValue const>>::__assign_with_size[abi:ne200100]<std::shared_ptr<MIL::IRValue const>*,std::shared_ptr<MIL::IRValue const>*>(v27, __src, v45, (v45 - __src) >> 4);
             }
 
-            v50.__r_.__value_.__r.__words[0] = &__src;
-            std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v50);
+            v51.__r_.__value_.__r.__words[0] = &__src;
+            std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v51);
             v28 = v12[1];
             if (v28)
             {
@@ -6171,18 +6210,18 @@ LABEL_7:
         __src = 0;
         v45 = 0;
         v46 = 0;
-        MIL::Builder::OperationBuilder::GetBlocks(v49, &v50);
-        std::vector<std::shared_ptr<MIL::IROperation>>::reserve(&__src, (v50.__r_.__value_.__l.__size_ - v50.__r_.__value_.__r.__words[0]) >> 4);
-        *&v43 = &v50;
+        MIL::Builder::OperationBuilder::GetBlocks(&v51, v49);
+        std::vector<std::shared_ptr<MIL::IROperation>>::reserve(&__src, (v51.__r_.__value_.__l.__size_ - v51.__r_.__value_.__r.__words[0]) >> 4);
+        *&v43 = &v51;
         std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v43);
-        MIL::Builder::OperationBuilder::GetBlocks(v49, &v43);
+        MIL::Builder::OperationBuilder::GetBlocks(&v43, v49);
         if (v43 != *(&v43 + 1))
         {
           MIL::Builder::BlockBuilder::CreateBlock(*v43);
         }
 
-        v50.__r_.__value_.__r.__words[0] = &v43;
-        std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v50);
+        v51.__r_.__value_.__r.__words[0] = &v43;
+        std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v51);
         v31 = MIL::Builder::OperationBuilder::GetOperator(v49);
         LocationPtr = MIL::Builder::OperationBuilder::GetLocationPtr(v49);
         v33 = LocationPtr[1];
@@ -6203,26 +6242,26 @@ LABEL_7:
         v35 = 0;
         for (i = 0; i < MIL::Builder::OperationBuilder::GetNumOutputs(v49); ++i)
         {
-          OutputName = MIL::Builder::OperationBuilder::GetOutputName(v49, i);
-          std::pair<std::string const,std::shared_ptr<MIL::Blob::LegacyStorageReader>>::pair[abi:ne200100]<std::string const&,std::shared_ptr<MIL::Blob::LegacyStorageReader>&,0>(&v50, OutputName, (v43 + v35));
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>>>(a3, &v50.__r_.__value_.__l.__data_);
+          MIL::Builder::OperationBuilder::GetOutputName(v49, i);
+          std::pair<std::string const,std::shared_ptr<MIL::Blob::LegacyStorageReader>>::pair[abi:ne200100]<std::string const&,std::shared_ptr<MIL::Blob::LegacyStorageReader>&,0>(&v51, v37, (v43 + v35));
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>>>(a3, &v51, &v51);
           if (p_src)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](p_src);
           }
 
-          if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v50.__r_.__value_.__l.__data_);
+            operator delete(v51.__r_.__value_.__l.__data_);
           }
 
           v35 += 16;
         }
 
-        v50.__r_.__value_.__r.__words[0] = &v43;
-        std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v50);
-        v50.__r_.__value_.__r.__words[0] = &__src;
-        std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v50);
+        v51.__r_.__value_.__r.__words[0] = &v43;
+        std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v51);
+        v51.__r_.__value_.__r.__words[0] = &__src;
+        std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v51);
         std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>>>::~__hash_table(v47);
         v5 = a2;
       }
@@ -6237,7 +6276,7 @@ LABEL_7:
   }
 }
 
-void sub_2180CBF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, std::__shared_weak_count *a27)
+void sub_2180CBF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, std::__shared_weak_count *a27)
 {
   *(v27 - 136) = &a18;
   std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100]((v27 - 136));
@@ -6297,7 +6336,7 @@ void **std::vector<std::shared_ptr<MIL::IRValue const>>::push_back[abi:ne200100]
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -6328,35 +6367,35 @@ void **std::vector<std::shared_ptr<MIL::IRValue const>>::push_back[abi:ne200100]
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder>&&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder>&&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -6364,75 +6403,75 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,unsigned long>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::OperationBuilder> const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -6440,49 +6479,49 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-uint64_t *std::pair<std::unique_ptr<MIL::IRProgram>,MIL::ValidationResult>::~pair(uint64_t *a1)
+void **std::pair<std::unique_ptr<MIL::IRProgram>,MIL::ValidationResult>::~pair(void **a1)
 {
-  MIL::ValidationResult::~ValidationResult((a1 + 1));
+  MIL::ValidationResult::~ValidationResult(a1 + 1);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -6493,14 +6532,14 @@ uint64_t *std::pair<std::unique_ptr<MIL::IRProgram>,MIL::ValidationResult>::~pai
   return a1;
 }
 
-void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::ProgramTransformerImpl(void *a1, void *a2)
+void MIL::Transform::ProgramTransformer::ProgramTransformerImpl::ProgramTransformerImpl(void *a1, void *a2, MIL::IRObject *a3)
 {
   *a1 = *a2;
-  v2 = a2[1];
-  a1[1] = v2;
-  if (v2)
+  v3 = a2[1];
+  a1[1] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   std::allocate_shared[abi:ne200100]<MIL::Transform::NameGenerator,std::allocator<MIL::Transform::NameGenerator>,MIL::IRProgram const&,0>();
@@ -6580,21 +6619,21 @@ uint64_t std::__shared_ptr_pointer<MIL::Builder::ProgramBuilder  *>::__get_delet
   }
 }
 
-void MIL::Util::FindBlobFilePaths(MIL::Util *this@<X0>, std::vector<std::string> *a2@<X8>)
+void MIL::Util::FindBlobFilePaths(std::vector<std::string> *__return_ptr a1@<X8>, MIL::Util *this@<X0>)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *&v5.__r_.__value_.__l.__data_ = 0uLL;
-  v4 = &v5;
-  v5.__r_.__value_.__r.__words[2] = &unk_2829E9478;
-  v6 = &v4;
-  v7 = &v5.__r_.__value_.__s.__data_[16];
-  MIL::Util::Walk(this, &v5.__r_.__value_.__r.__words[2]);
-  std::__function::__value_func<BOOL ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&v5.__r_.__value_.__r.__words[2]);
-  a2->__begin_ = 0;
-  a2->__end_ = 0;
-  a2->__end_cap_.__value_ = 0;
-  std::vector<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,0>(a2, 0, v4, &v5);
-  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v4, v5.__r_.__value_.__l.__data_);
+  v7 = *MEMORY[0x277D85DE8];
+  *&v4.__r_.__value_.__l.__data_ = 0uLL;
+  v3 = &v4;
+  v4.__r_.__value_.__r.__words[2] = &unk_2829E9478;
+  v5 = &v3;
+  v6 = &v4.__r_.__value_.__s.__data_[16];
+  MIL::Util::Walk(this, &v4.__r_.__value_.__r.__words[2]);
+  std::__function::__value_func<BOOL ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&v4.__r_.__value_.__r.__words[2]);
+  a1->__begin_ = 0;
+  a1->__end_ = 0;
+  a1->__end_cap_.__value_ = 0;
+  std::vector<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,0>(a1, 0, v3, &v4);
+  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v3, v4.__r_.__value_.__l.__data_);
 }
 
 void sub_2180CCB40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, void **a12)
@@ -6673,7 +6712,7 @@ uint64_t std::__function::__func<MIL::Util::FindBlobFilePaths(MIL::IRProgram con
         v8 = *(a1 + 8);
         MIL::Util::FindBlobFilePaths(MIL::IRProgram const&)::$_0::operator() const(MIL::IROperation const&)::{lambda(std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>> const&)#1}::operator()(v7, &v23);
         MIL::IRValue::GetScalar<std::string>(v23, &__p);
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(v8, &__p.__r_.__value_.__l.__data_);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(v8, &__p.__r_.__value_.__l.__data_, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6711,7 +6750,7 @@ uint64_t std::__function::__func<MIL::Util::FindBlobFilePaths(MIL::IRProgram con
               v18 = *(a1 + 8);
               MIL::Util::FindBlobFilePaths(MIL::IRProgram const&)::$_0::operator() const(MIL::IROperation const&)::{lambda(std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>> const&)#1}::operator()(v17, &v23);
               MIL::IRValue::GetScalar<std::string>(v23, &__p);
-              std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(v18, &__p.__r_.__value_.__l.__data_);
+              std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(v18, &__p.__r_.__value_.__l.__data_, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -7249,7 +7288,7 @@ uint64_t ***MIL::Util::ForEachVariableName(uint64_t a1, uint64_t a2)
     }
 
     result = (*(*v5 + 112))(v5);
-    v13 = result + 1;
+    v13 = (result + 1);
     v14 = *result;
     if (*result != (result + 1))
     {
@@ -7296,122 +7335,124 @@ uint64_t ***MIL::Util::anonymous namespace::ForEachVariableName(uint64_t a1, uin
   v6 = *(v4 + 8);
   while (v5 != v6)
   {
-    Name = MIL::IRNamedValueType::GetName(*v5);
-    v8 = *(a2 + 24);
-    if (!v8)
+    MIL::IRNamedValueType::GetName(*v5);
+    v8 = v7;
+    v9 = *(a2 + 24);
+    if (!v9)
     {
 LABEL_33:
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v8 + 48))(v8, Name);
+    (*(*v9 + 48))(v9, v8);
     v5 += 2;
   }
 
-  v9 = (*(*a1 + 88))(a1);
-  v10 = *v9;
-  v11 = v9[1];
-  while (v10 != v11)
+  v10 = (*(*a1 + 88))(a1);
+  v11 = *v10;
+  v12 = v10[1];
+  while (v11 != v12)
   {
-    v12 = *(a2 + 24);
-    if (!v12)
+    v13 = *(a2 + 24);
+    if (!v13)
     {
       goto LABEL_33;
     }
 
-    (*(*v12 + 48))(v12, v10);
-    v10 += 24;
+    (*(*v13 + 48))(v13, v11);
+    v11 += 24;
   }
 
   result = (*(*a1 + 56))(a1);
-  v14 = **result;
-  v15 = (*result)[1];
-  while (v14 != v15)
+  v15 = **result;
+  v16 = (*result)[1];
+  while (v15 != v16)
   {
-    v16 = *v14;
-    v17 = (*(**v14 + 160))(*v14);
-    v18 = v17 + 1;
-    v19 = *v17;
-    if (*v17 != v17 + 1)
+    v17 = *v15;
+    v18 = (*(**v15 + 160))(*v15);
+    v19 = v18 + 1;
+    v20 = *v18;
+    if (*v18 != v18 + 1)
     {
       do
       {
-        v20 = v19[7];
-        v21 = v19[8];
-        while (v20 != v21)
+        v21 = v20[7];
+        v22 = v20[8];
+        while (v21 != v22)
         {
-          v22 = (*(**v20 + 32))();
-          if (v22)
+          v23 = (*(**v21 + 32))();
+          if (v23)
           {
-            v23 = v22;
-            v24 = *(a2 + 24);
-            if (!v24)
+            v24 = v23;
+            v25 = *(a2 + 24);
+            if (!v25)
             {
               goto LABEL_33;
             }
 
-            (*(*v24 + 48))(v24, v23);
+            (*(*v25 + 48))(v25, v24);
           }
 
-          v20 += 16;
+          v21 += 16;
         }
 
-        v25 = v19[1];
-        if (v25)
+        v26 = v20[1];
+        if (v26)
         {
           do
           {
-            v26 = v25;
-            v25 = *v25;
+            v27 = v26;
+            v26 = *v26;
           }
 
-          while (v25);
+          while (v26);
         }
 
         else
         {
           do
           {
-            v26 = v19[2];
-            v27 = *v26 == v19;
-            v19 = v26;
+            v27 = v20[2];
+            v28 = *v27 == v20;
+            v20 = v27;
           }
 
-          while (!v27);
+          while (!v28);
         }
 
-        v19 = v26;
+        v20 = v27;
       }
 
-      while (v26 != v18);
+      while (v27 != v19);
     }
 
-    v28 = (*(*v16 + 176))(v16);
-    v29 = *v28;
-    v30 = *(v28 + 8);
-    while (v29 != v30)
+    v29 = (*(*v17 + 176))(v17);
+    v30 = *v29;
+    v31 = *(v29 + 8);
+    while (v30 != v31)
     {
-      v31 = MIL::IRNamedValueType::GetName(*v29);
-      v32 = *(a2 + 24);
-      if (!v32)
+      MIL::IRNamedValueType::GetName(*v30);
+      v33 = v32;
+      v34 = *(a2 + 24);
+      if (!v34)
       {
         goto LABEL_33;
       }
 
-      (*(*v32 + 48))(v32, v31);
-      v29 += 2;
+      (*(*v34 + 48))(v34, v33);
+      v30 += 2;
     }
 
-    result = (*(*v16 + 208))(v16);
-    v33 = **result;
-    v34 = (*result)[1];
-    while (v33 != v34)
+    result = (*(*v17 + 208))(v17);
+    v35 = **result;
+    v36 = (*result)[1];
+    while (v35 != v36)
     {
-      v35 = *v33;
-      v33 += 2;
+      v37 = *v35;
+      v35 += 2;
     }
 
-    v14 += 2;
+    v15 += 2;
   }
 
   return result;
@@ -8063,176 +8104,176 @@ BOOL MIL::Util::Rewrite(uint64_t a1, uint64_t a2)
 
 void MIL::Util::ComputeStructureHash(MIL::Util *this, const MIL::IRProgram *a2, const MIL::Util::HashOptions *a3)
 {
-  v31 = xmmword_21858BBF0;
-  v32 = 100;
-  v33 = 257;
-  v34 = xmmword_21858BC00;
-  v35 = 0x10000000;
+  v30 = xmmword_21858BBF0;
+  v31 = 100;
+  v32 = 257;
+  v33 = xmmword_21858BC00;
+  v34 = 0x10000000;
   CC_SHA256_Init(&c);
   Attributes = MIL::IRObject::GetAttributes(this);
   v5 = (*(*this + 72))(this);
-  std::map<std::string,std::shared_ptr<MIL::IRFunction>>::map[abi:ne200100]<std::__hash_map_const_iterator<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,void *> *>>>(&v28, *(v5 + 16), 0);
-  v6 = v28;
-  if (v28 != v29)
+  std::map<std::string,std::shared_ptr<MIL::IRFunction>>::map[abi:ne200100]<std::__hash_map_const_iterator<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,void *> *>>>(&v27, *(v5 + 16), 0);
+  v6 = v27;
+  if (v27 != v28)
   {
     do
     {
       v7 = v6[7];
       v8 = (*(*v7 + 128))(v7);
-      std::map<std::string,MIL::IRValueType const*>::map[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,MIL::IRValueType const*>,std::__tree_node<std::__value_type<std::string,MIL::IRValueType const*>,void *> *,long>>>(&v39, *v8, v8 + 1);
-      v9 = v39;
-      if (v39 != v40)
+      std::map<std::string,MIL::IRValueType const*>::map[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,MIL::IRValueType const*>,std::__tree_node<std::__value_type<std::string,MIL::IRValueType const*>,void *> *,long>>>(&v38, *v8, v8 + 1);
+      v9 = v38;
+      if (v38 != v39)
       {
         do
         {
-          if (SHIBYTE(v38) < 0)
+          if (SHIBYTE(v37) < 0)
           {
-            operator delete(v36);
+            operator delete(v35);
           }
 
-          v11 = v9[1];
-          if (v11)
+          v10 = v9[1];
+          if (v10)
           {
             do
             {
-              v12 = v11;
-              v11 = *v11;
+              v11 = v10;
+              v10 = *v10;
             }
 
-            while (v11);
+            while (v10);
           }
 
           else
           {
             do
             {
-              v12 = v9[2];
-              v13 = *v12 == v9;
-              v9 = v12;
+              v11 = v9[2];
+              v12 = *v11 == v9;
+              v9 = v11;
             }
 
-            while (!v13);
+            while (!v12);
           }
 
-          v9 = v12;
+          v9 = v11;
         }
 
-        while (v12 != v40);
+        while (v11 != v39);
       }
 
-      v14 = (*(*v7 + 32))(v7);
-      v15 = (*(*v7 + 40))(v7);
-      v16 = (*(*v7 + 112))(v7);
+      v13 = (*(*v7 + 32))(v7);
+      v14 = (*(*v7 + 40))(v7);
+      v15 = (*(*v7 + 112))(v7);
+      v36 = 0;
       v37 = 0;
-      v38 = 0;
-      v36 = &v37;
-      v17 = v16 + 1;
-      v18 = *v16;
-      if (*v16 != v16 + 1)
+      v35 = &v36;
+      v16 = v15 + 1;
+      v17 = *v15;
+      if (*v15 != (v15 + 1))
       {
         do
         {
-          v19 = v18[7];
-          v40[3] = (v18 + 4);
-          *(std::__tree<std::__value_type<std::string,MIL::IRBlock const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRBlock const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRBlock const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v36, v18 + 4) + 56) = v19;
-          v20 = v18[1];
-          if (v20)
+          v18 = v17[7];
+          v41 = v17 + 4;
+          std::__tree<std::__value_type<std::string,MIL::IRBlock const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRBlock const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRBlock const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v35, v17 + 4, &std::piecewise_construct, &v41, &v40)[7] = v18;
+          v19 = v17[1];
+          if (v19)
           {
             do
             {
-              v21 = v20;
-              v20 = *v20;
+              v20 = v19;
+              v19 = *v19;
             }
 
-            while (v20);
+            while (v19);
           }
 
           else
           {
             do
             {
-              v21 = v18[2];
-              v13 = *v21 == v18;
-              v18 = v21;
+              v20 = v17[2];
+              v12 = *v20 == v17;
+              v17 = v20;
             }
 
-            while (!v13);
+            while (!v12);
           }
 
-          v18 = v21;
+          v17 = v20;
         }
 
-        while (v21 != v17);
-        v22 = v36;
-        if (v36 != &v37)
+        while (v20 != v16);
+        v21 = v35;
+        if (v35 != &v36)
         {
           do
           {
-            v23 = *(v22 + 1);
-            if (v23)
+            v22 = v21[1];
+            if (v22)
             {
               do
               {
-                v24 = v23;
-                v23 = *v23;
+                v23 = v22;
+                v22 = *v22;
               }
 
-              while (v23);
+              while (v22);
             }
 
             else
             {
               do
               {
-                v24 = *(v22 + 2);
-                v13 = *v24 == v22;
-                v22 = v24;
+                v23 = v21[2];
+                v12 = *v23 == v21;
+                v21 = v23;
               }
 
-              while (!v13);
+              while (!v12);
             }
 
-            v22 = v24;
+            v21 = v23;
           }
 
-          while (v24 != &v37);
+          while (v23 != &v36);
         }
       }
 
-      v25 = MIL::IRObject::GetAttributes(v7);
-      std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v36, v37);
-      std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v39, v40[0]);
-      v26 = v6[1];
-      if (v26)
+      v24 = MIL::IRObject::GetAttributes(v7);
+      std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v35, v36);
+      std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v38, v39[0]);
+      v25 = v6[1];
+      if (v25)
       {
         do
         {
-          v27 = v26;
-          v26 = *v26;
+          v26 = v25;
+          v25 = *v25;
         }
 
-        while (v26);
+        while (v25);
       }
 
       else
       {
         do
         {
-          v27 = v6[2];
-          v13 = *v27 == v6;
-          v6 = v27;
+          v26 = v6[2];
+          v12 = *v26 == v6;
+          v6 = v26;
         }
 
-        while (!v13);
+        while (!v12);
       }
 
-      v6 = v27;
+      v6 = v26;
     }
 
-    while (v27 != v29);
+    while (v26 != v28);
   }
 
-  std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::destroy(&v28, v29[0]);
+  std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::destroy(&v27, v28[0]);
 }
 
 void MIL::Util::anonymous namespace::ValidateInputs(MIL::Util::_anonymous_namespace_ *this, const MIL::IRProgram *a2, const MIL::Util::HashOptions *a3)
@@ -8316,55 +8357,55 @@ LABEL_8:
 
 void MIL::Util::anonymous namespace::HashAttributes(CC_SHA256_CTX *a1, uint64_t a2)
 {
-  std::map<std::string,std::shared_ptr<MIL::IRValue const>>::map[abi:ne200100]<std::__hash_map_const_iterator<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>>(&v11, *(a2 + 16), 0);
-  v3 = v11;
-  if (v11 != v12)
+  std::map<std::string,std::shared_ptr<MIL::IRValue const>>::map[abi:ne200100]<std::__hash_map_const_iterator<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>>(&v10, *(a2 + 16), 0);
+  v3 = v10;
+  if (v10 != v11)
   {
     do
     {
-      v5 = v3[7];
-      if (v5)
+      v4 = v3[7];
+      if (v4)
       {
-        if (v10 < 0)
+        if (v9 < 0)
         {
-          operator delete(__p[0]);
+          operator delete(__p);
         }
       }
 
-      v6 = v3[1];
-      if (v6)
+      v5 = v3[1];
+      if (v5)
       {
         do
         {
-          v7 = v6;
-          v6 = *v6;
+          v6 = v5;
+          v5 = *v5;
         }
 
-        while (v6);
+        while (v5);
       }
 
       else
       {
         do
         {
-          v7 = v3[2];
-          v8 = *v7 == v3;
-          v3 = v7;
+          v6 = v3[2];
+          v7 = *v6 == v3;
+          v3 = v6;
         }
 
-        while (!v8);
+        while (!v7);
       }
 
-      v3 = v7;
+      v3 = v6;
     }
 
-    while (v7 != v12);
+    while (v6 != v11);
   }
 
-  std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::destroy(&v11, v12[0]);
+  std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::destroy(&v10, v11[0]);
 }
 
-void sub_2180CEFB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, void *a16)
+void sub_2180CEFB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16)
 {
   if (a14 < 0)
   {
@@ -8397,71 +8438,71 @@ uint64_t MIL::Util::anonymous namespace::HashCombine(CC_SHA256_CTX *a1, _DWORD *
 
 uint64_t MIL::Util::anonymous namespace::SHA256Hasher::Finalize(CC_SHA256_CTX *c)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   CC_SHA256_Final(md, c);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
-  v1 = v6;
-  *(&v6 + *(v6 - 24) + 8) = *(&v6 + *(v6 - 24) + 8) & 0xFFFFFFB5 | 8;
-  *(&v6 + *(v1 - 24) + 8) &= ~0x4000u;
-  v2 = (&v6 + *(v1 - 24));
-  if (v2[1].__fmtflags_ == -1)
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
+  v2 = v7;
+  *(&v7 + *(v7 - 24) + 8) = *(&v7 + *(v7 - 24) + 8) & 0xFFFFFFB5 | 8;
+  *(&v7 + *(v2 - 24) + 8) &= ~0x4000u;
+  v3 = (&v7 + *(v2 - 24));
+  if (v3[1].__fmtflags_ == -1)
   {
-    std::ios_base::getloc(v2);
-    v3 = std::locale::use_facet(&v11, MEMORY[0x277D82680]);
-    (v3->__vftable[2].~facet_0)(v3, 32);
-    std::locale::~locale(&v11);
+    std::ios_base::getloc(v3);
+    v4 = std::locale::use_facet(&v12, MEMORY[0x277D82680]);
+    (v4->__vftable[2].~facet_0)(v4, 32);
+    std::locale::~locale(&v12);
   }
 
-  v4 = 0;
-  v2[1].__fmtflags_ = 48;
+  v5 = 0;
+  v3[1].__fmtflags_ = 48;
   do
   {
-    *(&v8[1].__locale_ + *(v6 - 24)) = 2;
-    MEMORY[0x21CEAFB30](&v6, md[v4++]);
+    *(&v9[1].__locale_ + *(v7 - 24)) = 2;
+    MEMORY[0x21CEAFB30](&v7, md[v5++]);
   }
 
-  while (v4 != 32);
+  while (v5 != 32);
   std::stringbuf::str();
-  v6 = *MEMORY[0x277D82828];
-  *(&v6 + *(v6 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v7 = MEMORY[0x277D82878] + 16;
-  if (v9 < 0)
+  v7 = *MEMORY[0x277D82828];
+  *(&v7 + *(v7 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v8 = MEMORY[0x277D82878] + 16;
+  if (v10 < 0)
   {
-    operator delete(v8[7].__locale_);
+    operator delete(v9[7].__locale_);
   }
 
-  v7 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v8);
+  v8 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v9);
   std::ostream::~ostream();
-  return MEMORY[0x21CEAFDA0](&v10);
+  return MEMORY[0x21CEAFDA0](&v11);
 }
 
-void sub_2180CF2EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2180CF2EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Util::ComputeWeightsHash(MIL::Util::HashOptions *this@<X1>, uint64_t *a2@<X0>, uint64_t *a3@<X8>)
+void MIL::Util::ComputeWeightsHash(uint64_t *a2, MIL::Util::HashOptions *this)
 {
   MIL::Util::HashOptions::Validate(this);
-  v6 = *a2;
-  v7 = a2[1];
-  if (*a2 == v7)
+  v5 = *a2;
+  v6 = a2[1];
+  if (*a2 == v6)
   {
     goto LABEL_11;
   }
 
   do
   {
-    v8 = *(v6 + 23);
-    if (v8 < 0)
+    v7 = *(v5 + 23);
+    if (v7 < 0)
     {
-      v8 = *(v6 + 8);
+      v7 = *(v5 + 8);
     }
 
-    if (!v8)
+    if (!v7)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::logic_error::logic_error(exception, "ProgramHashUtils: Empty file path in blob file list");
@@ -8469,19 +8510,19 @@ void MIL::Util::ComputeWeightsHash(MIL::Util::HashOptions *this@<X1>, uint64_t *
       __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
     }
 
-    if (std::string::find(v6, 0, 0) != -1)
+    if (std::string::find(v5, 0, 0) != -1)
     {
-      v23 = __cxa_allocate_exception(0x10uLL);
+      v22 = __cxa_allocate_exception(0x10uLL);
       std::operator+<char>();
-      std::logic_error::logic_error(v23, &c);
-      v23->__vftable = (MEMORY[0x277D828F8] + 16);
-      __cxa_throw(v23, off_278235F80, MEMORY[0x277D82610]);
+      std::logic_error::logic_error(v22, &c);
+      v22->__vftable = (MEMORY[0x277D828F8] + 16);
+      __cxa_throw(v22, off_278235F80, MEMORY[0x277D82610]);
     }
 
-    v6 += 24;
+    v5 += 24;
   }
 
-  while (v6 != v7);
+  while (v5 != v6);
   if (*a2 == a2[1])
   {
 LABEL_11:
@@ -8491,16 +8532,16 @@ LABEL_11:
   else
   {
     CC_SHA256_Init(&c);
-    v10 = *a2;
-    v9 = a2[1];
-    v35 = 0;
-    v34 = 0uLL;
-    v37.__r_.__value_.__r.__words[0] = &v34;
-    v37.__r_.__value_.__s.__data_[8] = 0;
-    v11 = v9 - v10;
-    if (v11)
+    v9 = *a2;
+    v8 = a2[1];
+    v34 = 0;
+    v33 = 0uLL;
+    v36.__r_.__value_.__r.__words[0] = &v33;
+    v36.__r_.__value_.__s.__data_[8] = 0;
+    v10 = v8 - v9;
+    if (v10)
     {
-      if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) < 0x666666666666667)
+      if (0xAAAAAAAAAAAAAAABLL * (v10 >> 3) < 0x666666666666667)
       {
         operator new();
       }
@@ -8508,58 +8549,58 @@ LABEL_11:
       std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
     }
 
+    v30 = 0;
     v31 = 0;
     v32 = 0;
-    v33 = 0;
-    std::vector<std::thread>::reserve(&v31, 0);
+    std::vector<std::thread>::reserve(&v30, 0);
     if (a2[1] != *a2)
     {
-      v29.__r_.__value_.__r.__words[0] = &v34;
-      v29.__r_.__value_.__l.__size_ = a2;
-      v29.__r_.__value_.__r.__words[2] = this;
-      v30 = 0;
-      if (v32 < v33)
+      v28.__r_.__value_.__r.__words[0] = &v33;
+      v28.__r_.__value_.__l.__size_ = a2;
+      v28.__r_.__value_.__r.__words[2] = this;
+      v29 = 0;
+      if (v31 < v32)
       {
-        std::allocator_traits<std::allocator<std::thread>>::construct[abi:ne200100]<std::thread,MIL::Util::ComputeWeightsHash(std::vector<std::string> const&,MIL::Util::HashOptions const&)::$_0,0>();
+        std::allocator_traits<std::allocator<std::thread>>::construct[abi:ne200100]<std::thread,MIL::Util::ComputeWeightsHash(std::vector<std::string> const&,MIL::Util::HashOptions const&)::$_0,0>(v31, &v28);
       }
 
-      v12 = v32 - v31;
-      if (!((v12 + 1) >> 61))
+      v11 = (v31 - v30) >> 3;
+      if (!((v11 + 1) >> 61))
       {
-        v13 = (v33 - v31) >> 2;
-        if (v13 <= v12 + 1)
+        v12 = (v32 - v30) >> 2;
+        if (v12 <= v11 + 1)
         {
-          v13 = v12 + 1;
+          v12 = v11 + 1;
         }
 
-        if (v33 - v31 >= 0x7FFFFFFFFFFFFFF8)
+        if (v32 - v30 >= 0x7FFFFFFFFFFFFFF8)
         {
-          v14 = 0x1FFFFFFFFFFFFFFFLL;
+          v13 = 0x1FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v14 = v13;
+          v13 = v12;
         }
 
-        v39 = &v31;
-        if (v14)
+        v38 = &v30;
+        if (v13)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<MIL::Pass>>>(&v31, v14);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<MIL::Pass>>>(&v30, v13);
         }
 
-        v37.__r_.__value_.__r.__words[0] = 0;
-        v37.__r_.__value_.__l.__size_ = 8 * v12;
-        v37.__r_.__value_.__r.__words[2] = 8 * v12;
-        v38 = 0;
-        std::allocator_traits<std::allocator<std::thread>>::construct[abi:ne200100]<std::thread,MIL::Util::ComputeWeightsHash(std::vector<std::string> const&,MIL::Util::HashOptions const&)::$_0,0>();
+        v36.__r_.__value_.__r.__words[0] = 0;
+        v36.__r_.__value_.__l.__size_ = 8 * v11;
+        v36.__r_.__value_.__r.__words[2] = 8 * v11;
+        v37 = 0;
+        std::allocator_traits<std::allocator<std::thread>>::construct[abi:ne200100]<std::thread,MIL::Util::ComputeWeightsHash(std::vector<std::string> const&,MIL::Util::HashOptions const&)::$_0,0>((8 * v11), &v28);
       }
 
       std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
     }
 
-    v15 = v32;
-    for (i = v31; i != v15; ++i)
+    v14 = v31;
+    for (i = v30; i != v14; ++i)
     {
       if (i->__t_)
       {
@@ -8567,62 +8608,62 @@ LABEL_11:
       }
     }
 
-    v17 = *(&v34 + 1);
-    v18 = v34;
-    if (*(&v34 + 1) != v34)
+    v16 = *(&v33 + 1);
+    v17 = v33;
+    if (*(&v33 + 1) != v33)
     {
-      v19 = 0;
-      v20 = 0xCCCCCCCCCCCCCCCDLL * ((*(&v34 + 1) - v34) >> 3);
-      if (v20 <= 1)
+      v18 = 0;
+      v19 = 0xCCCCCCCCCCCCCCCDLL * ((*(&v33 + 1) - v33) >> 3);
+      if (v19 <= 1)
       {
-        v20 = 1;
+        v19 = 1;
       }
 
-      v21 = v34 + 24;
+      v20 = v33 + 24;
       do
       {
-        if (*v21)
+        if (*v20)
         {
-          std::exception_ptr::exception_ptr(&v28, v21);
-          v27.__ptr_ = &v28;
-          std::rethrow_exception(v27);
+          std::exception_ptr::exception_ptr(&v27, v20);
+          v26.__ptr_ = &v27;
+          std::rethrow_exception(v26);
           __break(1u);
           return;
         }
 
-        if ((*(v21 + 8) & 1) == 0)
+        if ((*(v20 + 8) & 1) == 0)
         {
-          v24 = __cxa_allocate_exception(0x10uLL);
+          v23 = __cxa_allocate_exception(0x10uLL);
           std::operator+<char>();
-          v25 = std::string::append(&v29, "'");
-          v26 = *&v25->__r_.__value_.__l.__data_;
-          v37.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
-          *&v37.__r_.__value_.__l.__data_ = v26;
-          v25->__r_.__value_.__l.__size_ = 0;
-          v25->__r_.__value_.__r.__words[2] = 0;
-          v25->__r_.__value_.__r.__words[0] = 0;
-          std::runtime_error::runtime_error(v24, &v37);
-          __cxa_throw(v24, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v24 = std::string::append(&v28, "'");
+          v25 = *&v24->__r_.__value_.__l.__data_;
+          v36.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+          *&v36.__r_.__value_.__l.__data_ = v25;
+          v24->__r_.__value_.__l.__size_ = 0;
+          v24->__r_.__value_.__r.__words[2] = 0;
+          v24->__r_.__value_.__r.__words[0] = 0;
+          std::runtime_error::runtime_error(v23, &v36);
+          __cxa_throw(v23, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        v19 -= 24;
-        v21 += 40;
-        --v20;
+        v18 -= 24;
+        v20 += 40;
+        --v19;
       }
 
-      while (v20);
+      while (v19);
       do
       {
-        v18 += 10;
+        v17 += 10;
       }
 
-      while (v18 != v17);
+      while (v17 != v16);
     }
 
-    v37.__r_.__value_.__r.__words[0] = &v31;
-    std::vector<std::thread>::__destroy_vector::operator()[abi:ne200100](&v37);
-    v37.__r_.__value_.__r.__words[0] = &v34;
-    std::vector<MIL::Util::ComputeWeightsHash(std::vector<std::string> const&,MIL::Util::HashOptions const&)::FileProcessingResult,std::allocator<MIL::Util::ComputeWeightsHash(std::vector<std::string> const&,MIL::Util::HashOptions const&)::FileProcessingResult>>::__destroy_vector::operator()[abi:ne200100](&v37);
+    v36.__r_.__value_.__r.__words[0] = &v30;
+    std::vector<std::thread>::__destroy_vector::operator()[abi:ne200100](&v36);
+    v36.__r_.__value_.__r.__words[0] = &v33;
+    std::vector<MIL::Util::ComputeWeightsHash(std::vector<std::string> const&,MIL::Util::HashOptions const&)::FileProcessingResult,std::allocator<MIL::Util::ComputeWeightsHash(std::vector<std::string> const&,MIL::Util::HashOptions const&)::FileProcessingResult>>::__destroy_vector::operator()[abi:ne200100](&v36);
   }
 }
 
@@ -8729,21 +8770,21 @@ void *std::vector<std::thread>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_2180D00A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2180D00A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::thread>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *MIL::Util::ComputeConstantValuesHash@<X0>(const MIL::IRProgram *a1@<X1>, uint64_t *a2@<X8>)
+uint64_t MIL::Util::ComputeConstantValuesHash(MIL::Util *this, const MIL::IRProgram *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  MIL::Util::HashOptions::Validate(a1);
-  if (*(a1 + 25))
+  v7 = *MEMORY[0x277D85DE8];
+  MIL::Util::HashOptions::Validate(a2);
+  if (*(a2 + 25))
   {
-    memset(v7, 0, sizeof(v7));
-    *&buf.hash[6] = v7;
+    memset(v5, 0, sizeof(v5));
+    *&buf.hash[6] = v5;
     operator new();
   }
 
@@ -8757,7 +8798,7 @@ void sub_2180D13D0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
     operator delete(STACK[0x2A0]);
   }
 
-  if (a66 < 0)
+  if (a65 < 0)
   {
     operator delete(a61);
   }
@@ -8768,49 +8809,49 @@ void sub_2180D13D0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
     __cxa_begin_catch(a1);
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    v69 = std::string::append(&v79, "' (estimated size: ");
-    v70 = *&v69->__r_.__value_.__l.__data_;
-    v80.__r_.__value_.__r.__words[2] = v69->__r_.__value_.__r.__words[2];
-    *&v80.__r_.__value_.__l.__data_ = v70;
-    v69->__r_.__value_.__l.__size_ = 0;
-    v69->__r_.__value_.__r.__words[2] = 0;
-    v69->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v78, *v77);
-    if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v68 = std::string::append(&v78, "' (estimated size: ");
+    v69 = *&v68->__r_.__value_.__l.__data_;
+    v79.__r_.__value_.__r.__words[2] = v68->__r_.__value_.__r.__words[2];
+    *&v79.__r_.__value_.__l.__data_ = v69;
+    v68->__r_.__value_.__l.__size_ = 0;
+    v68->__r_.__value_.__r.__words[2] = 0;
+    v68->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v77, *v76);
+    if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v71 = &v78;
+      v70 = &v77;
     }
 
     else
     {
-      v71 = v78.__r_.__value_.__r.__words[0];
+      v70 = v77.__r_.__value_.__r.__words[0];
     }
 
-    if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v78.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v77.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v78.__r_.__value_.__l.__size_;
+      size = v77.__r_.__value_.__l.__size_;
     }
 
-    v73 = std::string::append(&v80, v71, size);
-    v74 = *&v73->__r_.__value_.__l.__data_;
-    v81.__r_.__value_.__r.__words[2] = v73->__r_.__value_.__r.__words[2];
-    *&v81.__r_.__value_.__l.__data_ = v74;
-    v73->__r_.__value_.__l.__size_ = 0;
-    v73->__r_.__value_.__r.__words[2] = 0;
-    v73->__r_.__value_.__r.__words[0] = 0;
-    v75 = std::string::append(&v81, " bytes) - try reducing maxConstantMemoryUsage or maxConstantBatchSize");
-    v76 = *&v75->__r_.__value_.__l.__data_;
-    v82.__r_.__value_.__r.__words[2] = v75->__r_.__value_.__r.__words[2];
-    *&v82.__r_.__value_.__l.__data_ = v76;
-    v75->__r_.__value_.__l.__size_ = 0;
-    v75->__r_.__value_.__r.__words[2] = 0;
-    v75->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v82);
+    v72 = std::string::append(&v79, v70, size);
+    v73 = *&v72->__r_.__value_.__l.__data_;
+    v80.__r_.__value_.__r.__words[2] = v72->__r_.__value_.__r.__words[2];
+    *&v80.__r_.__value_.__l.__data_ = v73;
+    v72->__r_.__value_.__l.__size_ = 0;
+    v72->__r_.__value_.__r.__words[2] = 0;
+    v72->__r_.__value_.__r.__words[0] = 0;
+    v74 = std::string::append(&v80, " bytes) - try reducing maxConstantMemoryUsage or maxConstantBatchSize");
+    v75 = *&v74->__r_.__value_.__l.__data_;
+    v81.__r_.__value_.__r.__words[2] = v74->__r_.__value_.__r.__words[2];
+    *&v81.__r_.__value_.__l.__data_ = v75;
+    v74->__r_.__value_.__l.__size_ = 0;
+    v74->__r_.__value_.__r.__words[2] = 0;
+    v74->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v81);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
@@ -8944,33 +8985,33 @@ void sub_2180D18EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     operator delete(a51);
   }
 
-  if (a72 < 0)
+  if (a66 < 0)
   {
-    operator delete(a67);
+    operator delete(a65);
   }
 
   if (a63 < 0)
   {
     operator delete(a58);
-    if ((v73 & 1) == 0)
+    if ((v67 & 1) == 0)
     {
 LABEL_12:
       __cxa_end_catch();
-      if (v74)
+      if (v68)
       {
-        operator delete(v74);
+        operator delete(v68);
       }
 
       JUMPOUT(0x2180D1A9CLL);
     }
   }
 
-  else if (!v73)
+  else if (!v67)
   {
     goto LABEL_12;
   }
 
-  __cxa_free_exception(v72);
+  __cxa_free_exception(v66);
   goto LABEL_12;
 }
 
@@ -8998,10 +9039,10 @@ void sub_2180D1BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x2A0]);
   }
 
-  if (a69 < 0)
+  if (a65 < 0)
   {
     operator delete(a64);
-    if ((v70 & 1) == 0)
+    if ((v66 & 1) == 0)
     {
 LABEL_10:
       __cxa_end_catch();
@@ -9009,12 +9050,12 @@ LABEL_10:
     }
   }
 
-  else if (!v70)
+  else if (!v66)
   {
     goto LABEL_10;
   }
 
-  __cxa_free_exception(v69);
+  __cxa_free_exception(v65);
   goto LABEL_10;
 }
 
@@ -9028,7 +9069,7 @@ void sub_2180D1C6C(void *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void **std::vector<MIL::Util::anonymous namespace::ConstantInfo>::~vector[abi:ne200100](void **a1)
+void ***std::vector<MIL::Util::anonymous namespace::ConstantInfo>::~vector[abi:ne200100](void ***a1)
 {
   v2 = *a1;
   if (*a1)
@@ -9073,7 +9114,7 @@ void MIL::Util::ComputeSeparateHashes(MIL::Util *this@<X0>, const MIL::IRProgram
   *(a4 + 16) = *&c.hash[2];
   if (v9)
   {
-    MIL::Util::ComputeConstantValuesHash(v4, &c);
+    MIL::Util::ComputeConstantValuesHash(this, v4);
     *(a4 + 24) = *c.count;
     v10 = *&c.hash[2];
   }
@@ -9371,11 +9412,11 @@ LABEL_50:
   }
 
 LABEL_59:
-  MIL::Util::FindBlobFilePaths(v38, &v46);
+  MIL::Util::FindBlobFilePaths(&v46, v38);
 LABEL_60:
   std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::destroy(&v52, *(&v52 + 1));
   std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&c, *c.hash);
-  MIL::Util::ComputeWeightsHash(v4, &v46, &c);
+  MIL::Util::ComputeWeightsHash(&v46, v4);
   *(a4 + 48) = *c.count;
   *(a4 + 64) = *&c.hash[2];
   *c.count = &v46;
@@ -9408,10 +9449,10 @@ void MIL::Util::SeparateHashes::~SeparateHashes(void **this)
   }
 }
 
-void MIL::Util::ComputeProgramHash(MIL::Util *this@<X0>, const MIL::IRProgram *a2@<X1>, const MIL::Util::HashOptions *a3@<X2>, uint64_t *a4@<X8>)
+void MIL::Util::ComputeProgramHash(MIL::Util *this, const MIL::IRProgram *a2, const MIL::Util::HashOptions *a3)
 {
-  MIL::Util::ComputeSeparateHashes(this, a2, a3, v7);
-  CC_SHA256_Init(&v6);
+  MIL::Util::ComputeSeparateHashes(this, a2, a3, v6);
+  CC_SHA256_Init(&v5);
   if (*(a2 + 25) == 1)
   {
   }
@@ -9420,23 +9461,23 @@ void MIL::Util::ComputeProgramHash(MIL::Util *this@<X0>, const MIL::IRProgram *a
   {
   }
 
-  if (v12 < 0)
+  if (v11 < 0)
   {
-    operator delete(v11);
+    operator delete(v10);
   }
 
-  if (v10 < 0)
+  if (v9 < 0)
   {
-    operator delete(v9);
+    operator delete(v8);
   }
 
-  if (v8 < 0)
+  if (v7 < 0)
   {
-    operator delete(v7[0]);
+    operator delete(v6[0]);
   }
 }
 
-uint64_t MIL::Util::anonymous namespace::HashValue(MIL::Util::_anonymous_namespace_ *this, const MIL::IRValue *a2)
+uint64_t *MIL::Util::anonymous namespace::HashValue(MIL::Util::_anonymous_namespace_ *this)
 {
   CC_SHA256_Init(&c);
   v3 = (*(*this + 40))(this);
@@ -9525,18 +9566,18 @@ void sub_2180D265C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,std::shared_ptr<MIL::IRValue const>>::map[abi:ne200100]<std::__hash_map_const_iterator<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>>(void *a1, uint64_t *a2, uint64_t *a3)
+uint64_t **std::map<std::string,std::shared_ptr<MIL::IRValue const>>::map[abi:ne200100]<std::__hash_map_const_iterator<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>>(uint64_t **a1, const void **a2, const void **a3)
 {
   a1[1] = 0;
   v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>(a1, v4, v6 + 2);
+      std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>(a1, v4, v6 + 2, (v6 + 2));
       v6 = *v6;
     }
 
@@ -9546,18 +9587,18 @@ void *std::map<std::string,std::shared_ptr<MIL::IRValue const>>::map[abi:ne20010
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>(uint64_t **a1, uint64_t *a2, const void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__construct_node<std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t MIL::Util::anonymous namespace::HashValueType(MIL::Util::_anonymous_namespace_ *this, const MIL::IRValueType *a2)
+uint64_t *MIL::Util::anonymous namespace::HashValueType(MIL::Util::_anonymous_namespace_ *this)
 {
   CC_SHA256_Init(&c);
   (*(*this + 56))(&__p, this);
@@ -9600,15 +9641,15 @@ void sub_2180D28B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void MIL::Util::anonymous namespace::HashBlock(CC_SHA256_CTX *a1, MIL::IRObject *a2)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v3 = (*(*a2 + 40))(a2);
   v4 = *v3;
   v5 = *(v3 + 8);
   while (v4 != v5)
   {
-    Name = MIL::IRNamedValueType::GetName(*v4);
+    MIL::IRNamedValueType::GetName(*v4);
     Type = MIL::IRNamedValueType::GetType(*v4);
-    if (SHIBYTE(v71) < 0)
+    if (SHIBYTE(v69) < 0)
     {
       operator delete(*buf);
     }
@@ -9616,62 +9657,62 @@ void MIL::Util::anonymous namespace::HashBlock(CC_SHA256_CTX *a1, MIL::IRObject 
     v4 += 2;
   }
 
-  v9 = (*(*a2 + 88))(a2);
-  v10 = *v9;
-  v11 = *(v9 + 8);
-  while (v10 != v11)
+  v8 = (*(*a2 + 88))(a2);
+  v9 = *v8;
+  v10 = *(v8 + 8);
+  while (v9 != v10)
   {
-    v10 += 6;
+    v9 += 6;
   }
 
-  v12 = (*(*a2 + 56))(a2);
-  v13 = **v12;
-  v61 = (*v12)[1];
-  if (v13 != v61)
+  v11 = (*(*a2 + 56))(a2);
+  v12 = **v11;
+  v58 = (*v11)[1];
+  if (v12 != v58)
   {
-    v14 = MEMORY[0x277D86220];
+    v13 = MEMORY[0x277D86220];
     do
     {
-      v62 = v13;
-      v15 = *v13;
-      v16 = (*(**v13 + 56))(*v13);
-      v17 = (*(*v15 + 160))(v15);
-      v63 = v15;
-      v69[0] = 0;
-      v69[1] = 0;
-      v68 = v69;
-      v19 = v17 + 1;
-      v18 = *v17;
-      if (*v17 != v17 + 1)
+      v59 = v12;
+      v14 = *v12;
+      v15 = (*(**v12 + 56))(*v12);
+      v16 = (*(*v14 + 160))(v14);
+      v60 = v14;
+      v66[0] = 0;
+      v66[1] = 0;
+      v65 = v66;
+      v18 = v16 + 1;
+      v17 = *v16;
+      if (*v16 != v16 + 1)
       {
         do
         {
-          v20 = v18 + 4;
-          v66[0] = 0;
-          v66[1] = 0;
-          v67 = 0;
-          v21 = v18[7];
-          v22 = v18[8];
-          while (v21 != v22)
+          v19 = v17 + 4;
+          v63[0] = 0;
+          v63[1] = 0;
+          v64 = 0;
+          v20 = v17[7];
+          v21 = v17[8];
+          while (v20 != v21)
           {
-            if (*v21)
+            if (*v20)
             {
-              v23 = (*(**v21 + 16))(*v21);
-              v24 = *v21;
-              if (v23)
+              v22 = (*(**v20 + 16))(*v20);
+              v23 = *v20;
+              if (v22)
               {
-                v25 = MIL::IRArgument::GetName(v24);
-                std::vector<std::string>::push_back[abi:ne200100](v66, v25);
+                Name = MIL::IRArgument::GetName(v23);
+                std::vector<std::string>::push_back[abi:ne200100](v63, Name);
               }
 
               else
               {
-                if ((*(*v24 + 24))(v24))
+                if ((*(*v23 + 24))(v23))
                 {
-                  Value = MIL::IRArgument::GetValue(*v21);
+                  Value = MIL::IRArgument::GetValue(*v20);
                   std::operator+<char>();
-                  std::vector<std::string>::push_back[abi:ne200100](v66, &__p);
-                  if (v65 < 0)
+                  std::vector<std::string>::push_back[abi:ne200100](v63, &__p);
+                  if (v62 < 0)
                   {
                     operator delete(__p);
                   }
@@ -9679,221 +9720,221 @@ void MIL::Util::anonymous namespace::HashBlock(CC_SHA256_CTX *a1, MIL::IRObject 
 
                 else
                 {
-                  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
                   {
-                    v31 = v18 + 4;
-                    if (*(v18 + 55) < 0)
+                    v29 = v17 + 4;
+                    if (*(v17 + 55) < 0)
                     {
-                      v31 = *v20;
+                      v29 = *v19;
                     }
 
-                    v32 = (*(*v63 + 56))(v63);
-                    if (*(v32 + 23) >= 0)
+                    v30 = (*(*v60 + 56))(v60);
+                    if (*(v30 + 23) >= 0)
                     {
-                      v33 = v32;
+                      v31 = v30;
                     }
 
                     else
                     {
-                      v33 = *v32;
+                      v31 = *v30;
                     }
 
-                    v34 = (*(**v21 + 16))();
-                    v35 = (*(**v21 + 24))();
+                    v32 = (*(**v20 + 16))();
+                    v33 = (*(**v20 + 24))();
                     *buf = 136315906;
-                    v36 = "false";
-                    if (v34)
+                    v34 = "false";
+                    if (v32)
                     {
-                      v37 = "true";
+                      v35 = "true";
                     }
 
                     else
                     {
-                      v37 = "false";
+                      v35 = "false";
                     }
 
-                    *&buf[4] = v31;
-                    if (v35)
+                    *&buf[4] = v29;
+                    if (v33)
                     {
-                      v36 = "true";
+                      v34 = "true";
                     }
 
                     *&buf[12] = 2080;
-                    *&buf[14] = v33;
+                    *&buf[14] = v31;
+                    v69 = 2080;
+                    v70 = v35;
                     v71 = 2080;
-                    v72 = v37;
-                    v73 = 2080;
-                    v74 = v36;
-                    _os_log_error_impl(&dword_217F7E000, v14, OS_LOG_TYPE_ERROR, "ProgramHashUtils::HashOperation: unknown argument type for parameter '%s' in operation '%s' (IsName()=%s, IsValue()=%s)", buf, 0x2Au);
+                    v72 = v34;
+                    _os_log_error_impl(&dword_217F7E000, v13, OS_LOG_TYPE_ERROR, "ProgramHashUtils::HashOperation: unknown argument type for parameter '%s' in operation '%s' (IsName()=%s, IsValue()=%s)", buf, 0x2Au);
                   }
 
                   std::string::basic_string[abi:ne200100]<0>(buf, "<unknown_arg>");
-                  std::vector<std::string>::push_back[abi:ne200100](v66, buf);
+                  std::vector<std::string>::push_back[abi:ne200100](v63, buf);
                 }
 
-                if (SHIBYTE(v71) < 0)
+                if (SHIBYTE(v69) < 0)
                 {
                   operator delete(*buf);
                 }
               }
             }
 
-            else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
-              v26 = v18 + 4;
-              if (*(v18 + 55) < 0)
+              v25 = v17 + 4;
+              if (*(v17 + 55) < 0)
               {
-                v26 = *v20;
+                v25 = *v19;
               }
 
-              v27 = (*(*v63 + 56))(v63);
-              if (*(v27 + 23) >= 0)
+              v26 = (*(*v60 + 56))(v60);
+              if (*(v26 + 23) >= 0)
               {
-                v28 = v27;
+                v27 = v26;
               }
 
               else
               {
-                v28 = *v27;
+                v27 = *v26;
               }
 
               *buf = 136315394;
-              *&buf[4] = v26;
+              *&buf[4] = v25;
               *&buf[12] = 2080;
-              *&buf[14] = v28;
-              _os_log_error_impl(&dword_217F7E000, v14, OS_LOG_TYPE_ERROR, "ProgramHashUtils::HashOperation: null argument found for parameter '%s' in operation '%s'", buf, 0x16u);
+              *&buf[14] = v27;
+              _os_log_error_impl(&dword_217F7E000, v13, OS_LOG_TYPE_ERROR, "ProgramHashUtils::HashOperation: null argument found for parameter '%s' in operation '%s'", buf, 0x16u);
             }
 
-            v21 += 2;
+            v20 += 2;
           }
 
-          *buf = v18 + 4;
-          v38 = std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v68, v18 + 4);
-          std::vector<std::string>::__vdeallocate((v38 + 56));
-          *(v38 + 56) = *v66;
-          *(v38 + 72) = v67;
-          v66[1] = 0;
-          v67 = 0;
-          v66[0] = 0;
-          *buf = v66;
+          *buf = v17 + 4;
+          v36 = std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v65, v17 + 4, &std::piecewise_construct, buf, &v67);
+          std::vector<std::string>::__vdeallocate((v36 + 7));
+          *(v36 + 7) = *v63;
+          v36[9] = v64;
+          v63[1] = 0;
+          v64 = 0;
+          v63[0] = 0;
+          *buf = v63;
           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
-          v39 = v18[1];
-          if (v39)
+          v37 = v17[1];
+          if (v37)
           {
             do
             {
-              v40 = v39;
-              v39 = *v39;
+              v38 = v37;
+              v37 = *v37;
             }
 
-            while (v39);
+            while (v37);
           }
 
           else
           {
             do
             {
-              v40 = v18[2];
-              v41 = *v40 == v18;
-              v18 = v40;
+              v38 = v17[2];
+              v39 = *v38 == v17;
+              v17 = v38;
             }
 
-            while (!v41);
+            while (!v39);
           }
 
-          v18 = v40;
+          v17 = v38;
         }
 
-        while (v40 != v19);
-        v42 = v68;
-        if (v68 != v69)
+        while (v38 != v18);
+        v40 = v65;
+        if (v65 != v66)
         {
           do
           {
-            v43 = v42[7];
-            v44 = v42[8];
-            while (v43 != v44)
+            v41 = v40[7];
+            v42 = v40[8];
+            while (v41 != v42)
             {
-              v43 += 6;
+              v41 += 6;
             }
 
-            v45 = v42[1];
-            if (v45)
+            v43 = v40[1];
+            if (v43)
             {
               do
               {
-                v46 = v45;
-                v45 = *v45;
+                v44 = v43;
+                v43 = *v43;
               }
 
-              while (v45);
+              while (v43);
             }
 
             else
             {
               do
               {
-                v46 = v42[2];
-                v41 = *v46 == v42;
-                v42 = v46;
+                v44 = v40[2];
+                v39 = *v44 == v40;
+                v40 = v44;
               }
 
-              while (!v41);
+              while (!v39);
             }
 
-            v42 = v46;
+            v40 = v44;
           }
 
-          while (v46 != v69);
+          while (v44 != v66);
         }
       }
 
-      (*(*v63 + 200))(buf, v63);
-      v47 = (*(*v63 + 176))(v63);
-      v48 = *buf;
+      (*(*v60 + 200))(buf, v60);
+      v45 = (*(*v60 + 176))(v60);
+      v46 = *buf;
       if (*&buf[8] != *buf)
       {
-        v49 = v47;
+        v47 = v45;
+        v48 = 0;
+        v49 = 0;
         v50 = 0;
-        v51 = 0;
-        v52 = 0;
         do
         {
-          if (v52 < (v49[1] - *v49) >> 4)
+          if (v50 < (v47[1] - *v47) >> 4)
           {
-            v53 = MIL::IRNamedValueType::GetType(*(*v49 + v51));
-            if (SHIBYTE(v67) < 0)
+            v51 = MIL::IRNamedValueType::GetType(*(*v47 + v49));
+            if (SHIBYTE(v64) < 0)
             {
-              operator delete(v66[0]);
+              operator delete(v63[0]);
             }
           }
 
-          ++v52;
-          v48 = *buf;
-          v51 += 16;
-          v50 += 24;
+          ++v50;
+          v46 = *buf;
+          v49 += 16;
+          v48 += 24;
         }
 
-        while (v52 < 0xAAAAAAAAAAAAAAABLL * ((*&buf[8] - *buf) >> 3));
+        while (v50 < 0xAAAAAAAAAAAAAAABLL * ((*&buf[8] - *buf) >> 3));
       }
 
-      Attributes = MIL::IRObject::GetAttributes(v63);
-      v56 = (*(*v63 + 208))(v63);
-      v57 = **v56;
-      v58 = (*v56)[1];
-      while (v57 != v58)
+      Attributes = MIL::IRObject::GetAttributes(v60);
+      v53 = (*(*v60 + 208))(v60);
+      v54 = **v53;
+      v55 = (*v53)[1];
+      while (v54 != v55)
       {
-        v57 += 2;
+        v54 += 2;
       }
 
-      v66[0] = buf;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v66);
-      std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::destroy(&v68, v69[0]);
-      v13 = v62 + 2;
+      v63[0] = buf;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v63);
+      std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::destroy(&v65, v66[0]);
+      v12 = v59 + 2;
     }
 
-    while (v62 + 2 != v61);
+    while (v59 + 2 != v58);
   }
 
-  v59 = MIL::IRObject::GetAttributes(a2);
+  v56 = MIL::IRObject::GetAttributes(a2);
 }

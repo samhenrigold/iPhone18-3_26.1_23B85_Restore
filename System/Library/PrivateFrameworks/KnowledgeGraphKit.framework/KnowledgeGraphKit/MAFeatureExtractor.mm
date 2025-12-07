@@ -53,48 +53,48 @@ LABEL_7:
 
 - (id)floatMatrixWithEntities:(id)entities progressReporter:(id)reporter error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   reporterCopy = reporter;
   v10 = objc_alloc_init(MAMutableFloatMatrix);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = entitiesCopy;
-  v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
-    v24 = reporterCopy;
+    v23 = reporterCopy;
     errorCopy = error;
     v13 = 0;
-    v14 = *v30;
+    v14 = *v29;
     while (2)
     {
       v15 = 0;
       v16 = v13;
       do
       {
-        if (*v30 != v14)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * v15);
+        v17 = *(*(&v28 + 1) + 8 * v15);
         v18 = objc_autoreleasePoolPush();
         if ([objc_opt_class() shouldRetryFailures])
         {
-          v28 = v16;
-          v19 = &v28;
-          [(MAFeatureExtractor *)self floatVectorWithRetryForEntity:v17 error:&v28];
+          v27 = v16;
+          v19 = &v27;
+          [(MAFeatureExtractor *)self floatVectorWithRetryForEntity:v17 error:&v27];
         }
 
         else
         {
-          v27 = v16;
-          v19 = &v27;
-          [(MAFeatureExtractor *)self floatVectorWithEntity:v17 error:&v27];
+          v26 = v16;
+          v19 = &v26;
+          [(MAFeatureExtractor *)self floatVectorWithEntity:v17 error:&v26];
         }
         v20 = ;
         v13 = *v19;
@@ -115,7 +115,7 @@ LABEL_7:
       }
 
       while (v12 != v15);
-      v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v12)
       {
         continue;
@@ -125,7 +125,7 @@ LABEL_7:
     }
 
 LABEL_14:
-    reporterCopy = v24;
+    reporterCopy = v23;
     error = errorCopy;
   }
 
@@ -139,8 +139,6 @@ LABEL_14:
     v21 = v13;
     *error = v13;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -159,7 +157,7 @@ LABEL_14:
 
 - (id)floatVectorWithEntity:(id)entity error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   v6 = MEMORY[0x277CBEA60];
   entityCopy2 = entity;
@@ -168,8 +166,6 @@ LABEL_14:
 
   v10 = [(MAFeatureExtractor *)self floatMatrixWithEntities:v8 progressReporter:v9 error:error];
   v11 = [v10 row:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

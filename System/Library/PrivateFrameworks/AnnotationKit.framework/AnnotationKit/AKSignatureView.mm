@@ -200,7 +200,7 @@
       v12 = bitmapFifo2;
       if (bitmapFifo2)
       {
-        [bitmapFifo2 viewToBitmapTransform];
+        objc_msgSend_viewToBitmapTransform(bitmapFifo2);
       }
 
       else

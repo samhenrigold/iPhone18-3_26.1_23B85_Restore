@@ -6,11 +6,11 @@
 
 - (WLKContinueWatchingCollection)initWithDictionary:(id)dictionary
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v28.receiver = self;
-  v28.super_class = WLKContinueWatchingCollection;
-  v5 = [(WLKContinueWatchingCollection *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = WLKContinueWatchingCollection;
+  v5 = [(WLKContinueWatchingCollection *)&v27 init];
   if (v5)
   {
     v6 = [dictionaryCopy wlk_stringForKey:@"title"];
@@ -24,27 +24,27 @@
     v5->_collectionID = v10;
 
     array = [MEMORY[0x277CBEB18] array];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v13 = [dictionaryCopy wlk_arrayForKey:{@"items", 0}];
-    v14 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         v17 = 0;
         do
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v24 + 1) + 8 * v17);
+          v18 = *(*(&v23 + 1) + 8 * v17);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -59,7 +59,7 @@
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v15);
@@ -70,7 +70,6 @@
     v5->_items = v20;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

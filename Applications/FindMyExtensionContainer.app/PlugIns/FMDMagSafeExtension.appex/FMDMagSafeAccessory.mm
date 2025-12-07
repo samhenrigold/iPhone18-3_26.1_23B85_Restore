@@ -1,6 +1,7 @@
 @interface FMDMagSafeAccessory
 - (BOOL)isValid;
 - (FMDMagSafeAccessory)initWithCoder:(id)coder;
+- (FMDMagSafeAccessory)initWithPhysicalAccessory:(id)accessory fmEnabled:(BOOL)enabled;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -56,6 +57,70 @@
   }
 
   return !v10;
+}
+
+- (FMDMagSafeAccessory)initWithPhysicalAccessory:(id)accessory fmEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  accessoryCopy = accessory;
+  v21.receiver = self;
+  v21.super_class = FMDMagSafeAccessory;
+  v7 = [(FMDMagSafeAccessory *)&v21 init];
+  if (v7)
+  {
+    serialNumber = [accessoryCopy serialNumber];
+    v9 = [FMDExtHelper deviceIDFromAddress:serialNumber];
+    [(FMDMagSafeAccessory *)v7 setAccessoryIdentifier:v9];
+
+    v22 = @"systemSerialNumber";
+    serialNumber2 = [accessoryCopy serialNumber];
+    v23 = serialNumber2;
+    v11 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    [(FMDMagSafeAccessory *)v7 setSerialNumbers:v11];
+
+    firmwareVersion = [accessoryCopy firmwareVersion];
+    [(FMDMagSafeAccessory *)v7 setFirmwareVersion:firmwareVersion];
+
+    style = [accessoryCopy style];
+    [(FMDMagSafeAccessory *)v7 setStyle:style];
+
+    if ([accessoryCopy isMF4i])
+    {
+      accessoryType = [accessoryCopy accessoryType];
+      v15 = [NSString stringWithFormat:@"MFI4.0v1_%@", accessoryType];
+      v16 = [FMDExtHelper _computehash:v15];
+      [(FMDMagSafeAccessory *)v7 setAccessoryType:v16];
+    }
+
+    else
+    {
+      accessoryType = [accessoryCopy accessoryType];
+      [(FMDMagSafeAccessory *)v7 setAccessoryType:accessoryType];
+    }
+
+    serialNumber3 = [accessoryCopy serialNumber];
+    [(FMDMagSafeAccessory *)v7 setDeviceDiscoveryId:serialNumber3];
+
+    if (enabledCopy)
+    {
+      name = [accessoryCopy name];
+      [(FMDMagSafeAccessory *)v7 setName:name];
+    }
+
+    [(FMDMagSafeAccessory *)v7 setFindMyEnabled:enabledCopy];
+  }
+
+  if ([(FMDMagSafeAccessory *)v7 isValid])
+  {
+    v19 = v7;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  return v19;
 }
 
 - (id)description

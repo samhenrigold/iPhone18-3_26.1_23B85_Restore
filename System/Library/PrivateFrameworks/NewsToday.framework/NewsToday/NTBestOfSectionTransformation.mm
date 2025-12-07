@@ -31,11 +31,11 @@
 
   if (!v6)
   {
-    v7 = NTSharedLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = NTSharedLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_25BF21000, v7, OS_LOG_TYPE_DEFAULT, "Failed to produce Best Of group, falling back to default transformation", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_25BF21000, v8, OS_LOG_TYPE_DEFAULT, "Failed to produce Best Of group, falling back to default transformation", v11, 2u);
     }
 
     fallbackTransformation = [(NTBestOfSectionTransformation *)self fallbackTransformation];

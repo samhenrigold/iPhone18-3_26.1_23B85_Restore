@@ -168,45 +168,44 @@
 
 - (void)cancel
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = _DKSyncCompositeOperation;
-  [(_DKSyncCompositeOperation *)&v14 cancel];
+  v15 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = _DKSyncCompositeOperation;
+  [(_DKSyncCompositeOperation *)&v13 cancel];
   os_unfair_lock_lock(&self->_lock);
   v3 = [(NSHashTable *)self->_children copy];
   os_unfair_lock_unlock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) cancel];
+        [*(*(&v9 + 1) + 8 * v8++) cancel];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v6);
   }
 
   [(_DKSyncCompositeOperation *)self _shutdownOperation];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

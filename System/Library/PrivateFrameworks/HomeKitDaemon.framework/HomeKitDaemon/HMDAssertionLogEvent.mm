@@ -13,7 +13,7 @@
   v5 = [(HMMLogEvent *)&v11 init];
   if (v5)
   {
-    v6 = [reasonCopy copy];
+    v6 = objc_msgSend_copy(reasonCopy);
     reason = v5->_reason;
     v5->_reason = v6;
 

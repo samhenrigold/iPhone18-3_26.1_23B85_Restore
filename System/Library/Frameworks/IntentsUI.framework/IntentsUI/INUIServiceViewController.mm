@@ -59,29 +59,29 @@ void __106___INUIServiceViewController_configureForParameters_ofInteraction_inte
 
 void __106___INUIServiceViewController_configureForParameters_ofInteraction_interactiveBehavior_context_completion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v28 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v27 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = v3;
-  v4 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v4 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v4)
   {
     v5 = v4;
-    v29 = *v31;
+    v28 = *v30;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v31 != v29)
+        if (*v30 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * i);
+        v7 = *(*(&v29 + 1) + 8 * i);
         v8 = [v7 rangeOfString:@"."];
         if (v8 == 0x7FFFFFFFFFFFFFFFLL && v9 == 0)
         {
@@ -121,12 +121,12 @@ void __106___INUIServiceViewController_configureForParameters_ofInteraction_inte
         }
 
         v24 = [MEMORY[0x277CD3E50] parameterForClass:NSClassFromString(v15) keyPath:v16];
-        [v28 addObject:v24];
+        [v27 addObject:v24];
 
 LABEL_16:
       }
 
-      v5 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v5 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v5);
@@ -134,9 +134,7 @@ LABEL_16:
 
   v25 = *(a1 + 56);
   [*(a1 + 40) _constrainedSizeForDesiredSize:{*(a1 + 64), *(a1 + 72)}];
-  (*(v25 + 16))(v25, 1, v28, *(a1 + 48));
-
-  v26 = *MEMORY[0x277D85DE8];
+  (*(v25 + 16))(v25, 1, v27, *(a1 + 48));
 }
 
 @end

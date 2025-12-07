@@ -14,40 +14,40 @@
 
 - (void)dispatchAsteriskEventWithFeatureUsageMetricsCache:(id)cache andContext:(id)context assetAvailabilityStatus:(int64_t)status
 {
-  v35[17] = *MEMORY[0x277D85DE8];
+  v34[17] = *MEMORY[0x277D85DE8];
   if (self->_finalWordsEnteredCount >= 1)
   {
     contextCopy = context;
     cacheCopy = cache;
-    v35[0] = [(TIAsteriskCorrectionMessageEvent *)self assessAsteriskCorrection];
-    v33 = v35[0];
-    v34[0] = @"correctionType";
-    v34[1] = @"prevMessageAutoCorrectionType";
-    v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_prevMsgAutocorrectionType];
+    v34[0] = [(TIAsteriskCorrectionMessageEvent *)self assessAsteriskCorrection];
+    v32 = v34[0];
+    v33[0] = @"correctionType";
+    v33[1] = @"prevMessageAutoCorrectionType";
+    v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_prevMsgAutocorrectionType];
     bundleId = self->_bundleId;
-    v35[1] = v32;
-    v35[2] = bundleId;
-    v34[2] = @"bundleId";
-    v34[3] = kFeatureKeyboardUsage;
-    v31 = [cacheCopy featureUsageMetricFromName:? forContext:?];
-    v35[3] = v31;
-    v34[4] = kFeatureContinuousPathUsage;
+    v34[1] = v31;
+    v34[2] = bundleId;
+    v33[2] = @"bundleId";
+    v33[3] = kFeatureKeyboardUsage;
     v30 = [cacheCopy featureUsageMetricFromName:? forContext:?];
-    v35[4] = v30;
-    v34[5] = kFeatureAutocorrectionUsage;
+    v34[3] = v30;
+    v33[4] = kFeatureContinuousPathUsage;
     v29 = [cacheCopy featureUsageMetricFromName:? forContext:?];
-    v35[5] = v29;
-    v34[6] = kFeatureCandidateBarUsage;
+    v34[4] = v29;
+    v33[5] = kFeatureAutocorrectionUsage;
     v28 = [cacheCopy featureUsageMetricFromName:? forContext:?];
-    v35[6] = v28;
-    v34[7] = kFeatureMultilingualUsage;
+    v34[5] = v28;
+    v33[6] = kFeatureCandidateBarUsage;
     v27 = [cacheCopy featureUsageMetricFromName:? forContext:?];
-    v35[7] = v27;
-    v34[8] = kFeatureStringTypingSpeed;
+    v34[6] = v27;
+    v33[7] = kFeatureMultilingualUsage;
     v26 = [cacheCopy featureUsageMetricFromName:? forContext:?];
+    v34[7] = v26;
+    v33[8] = kFeatureStringTypingSpeed;
+    v25 = [cacheCopy featureUsageMetricFromName:? forContext:?];
 
-    v35[8] = v26;
-    v34[9] = kFeatureStringAssetAvailabilityStatus;
+    v34[8] = v25;
+    v33[9] = kFeatureStringAssetAvailabilityStatus;
     v11 = @"Installed";
     if (!status)
     {
@@ -55,29 +55,29 @@
     }
 
     v12 = v11;
-    v35[9] = v12;
-    v34[10] = kFeatureStringKeyboardLanguage;
+    v34[9] = v12;
+    v33[10] = kFeatureStringKeyboardLanguage;
     inputLanguage = [contextCopy inputLanguage];
-    v35[10] = inputLanguage;
-    v34[11] = kFeatureStringKeyboardRegion;
+    v34[10] = inputLanguage;
+    v33[11] = kFeatureStringKeyboardRegion;
     inputRegion = [contextCopy inputRegion];
-    v35[11] = inputRegion;
-    v34[12] = kFeatureStringKeyboardVariant;
+    v34[11] = inputRegion;
+    v33[12] = kFeatureStringKeyboardVariant;
     inputVariant = [contextCopy inputVariant];
-    v35[12] = inputVariant;
-    v34[13] = kFeatureStringKeyboardSecondaryLanguage;
+    v34[12] = inputVariant;
+    v33[13] = kFeatureStringKeyboardSecondaryLanguage;
     secondaryLanguage = [contextCopy secondaryLanguage];
-    v35[13] = secondaryLanguage;
-    v34[14] = kFeatureStringKeyboardSecondaryRegion;
+    v34[13] = secondaryLanguage;
+    v33[14] = kFeatureStringKeyboardSecondaryRegion;
     secondaryRegion = [contextCopy secondaryRegion];
-    v35[14] = secondaryRegion;
-    v34[15] = kFeatureStringKeyboardLayout;
+    v34[14] = secondaryRegion;
+    v33[15] = kFeatureStringKeyboardLayout;
     layoutName = [contextCopy layoutName];
-    v35[15] = layoutName;
-    v34[16] = kFeatureStringKeyboardType;
+    v34[15] = layoutName;
+    v33[16] = kFeatureStringKeyboardType;
     v19 = +[TIKBAnalyticsMetricsContext keyboardTypeEnumToString:](TIKBAnalyticsMetricsContext, "keyboardTypeEnumToString:", [contextCopy keyboardType]);
-    v35[16] = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:17];
+    v34[16] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:17];
 
     mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
     testingParameters = [contextCopy testingParameters];
@@ -87,37 +87,35 @@
     v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"SpeedMetric"];
     [v23 propogateMetrics:v24 data:v20];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)adjustEmojiCountsFromKeyboardInputForWordAligned:(id)aligned
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   alignedKeyboardInputs = [aligned alignedKeyboardInputs];
-  v5 = [alignedKeyboardInputs countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [alignedKeyboardInputs countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
     v9 = 0;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(alignedKeyboardInputs);
         }
 
-        string = [*(*(&v15 + 1) + 8 * i) string];
-        if ([string _containsEmoji])
+        v12 = objc_msgSend_string(*(*(&v14 + 1) + 8 * i));
+        if ([v12 _containsEmoji])
         {
           ++v9;
           if (v7 > 0)
@@ -130,11 +128,11 @@
 
         else
         {
-          v7 += [(TIAsteriskCorrectionMessageEvent *)self hasText:string];
+          v7 += [(TIAsteriskCorrectionMessageEvent *)self hasText:v12];
         }
       }
 
-      v6 = [alignedKeyboardInputs countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [alignedKeyboardInputs countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -163,7 +161,6 @@
   }
 
   self->_finalWordsEnteredCount += v13;
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasText:(id)text
@@ -234,7 +231,7 @@ LABEL_11:
 
 - (BOOL)hasTextInWordEntry:(id)entry
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   acceptedCandidate = [entryCopy acceptedCandidate];
   candidate = [acceptedCandidate candidate];
@@ -247,27 +244,27 @@ LABEL_11:
 
   else
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     allKeyboardInputs = [entryCopy allKeyboardInputs];
-    v10 = [allKeyboardInputs countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [allKeyboardInputs countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(allKeyboardInputs);
           }
 
-          string = [*(*(&v18 + 1) + 8 * i) string];
-          v15 = [(TIAsteriskCorrectionMessageEvent *)self hasText:string];
+          v14 = objc_msgSend_string(*(*(&v17 + 1) + 8 * i));
+          v15 = [(TIAsteriskCorrectionMessageEvent *)self hasText:v14];
 
           if (v15)
           {
@@ -276,7 +273,7 @@ LABEL_11:
           }
         }
 
-        v11 = [allKeyboardInputs countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [allKeyboardInputs countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v11)
         {
           continue;
@@ -290,7 +287,6 @@ LABEL_11:
 LABEL_13:
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -397,7 +393,7 @@ LABEL_15:
   }
 
 LABEL_16:
-  if ([(NSString *)self->_wordCountType isEqualToString:@"MultiWord"]&& [(NSString *)self->_asteriskCorrectionType isEqualToString:&stru_283FDFAF8])
+  if (objc_msgSend_isEqualToString_(self->_wordCountType) && objc_msgSend_isEqualToString_(self->_asteriskCorrectionType))
   {
     v13 = @"None";
     v14 = @"None";
@@ -413,28 +409,28 @@ LABEL_20:
 
 - (void)analyzeEvent
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   userActionHistory = [(TITypingSession *)self->_messageSession userActionHistory];
-  v4 = [userActionHistory countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v4 = [userActionHistory countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v31;
+    v7 = *v30;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(userActionHistory);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
         if (![v9 actionType])
         {
           v10 = v9;
@@ -445,7 +441,7 @@ LABEL_20:
         }
       }
 
-      v5 = [userActionHistory countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v5 = [userActionHistory countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v5);
@@ -456,29 +452,29 @@ LABEL_20:
     v6 = 0;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   alignedEntries = [(TITypingSessionAligned *)self->_messageAlignedSession alignedEntries];
-  v13 = [alignedEntries countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v13 = [alignedEntries countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(alignedEntries);
         }
 
-        [(TIAsteriskCorrectionMessageEvent *)self analyzeWordEntryAligned:*(*(&v26 + 1) + 8 * j)];
+        [(TIAsteriskCorrectionMessageEvent *)self analyzeWordEntryAligned:*(*(&v25 + 1) + 8 * j)];
       }
 
-      v14 = [alignedEntries countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v14 = [alignedEntries countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v14);
@@ -494,8 +490,6 @@ LABEL_20:
   featureUsageMetricsCache = [(TITypingSession *)self->_messageSession featureUsageMetricsCache];
   sessionParams3 = [(TITypingSession *)self->_messageSession sessionParams];
   -[TIAsteriskCorrectionMessageEvent dispatchAsteriskEventWithFeatureUsageMetricsCache:andContext:assetAvailabilityStatus:](self, "dispatchAsteriskEventWithFeatureUsageMetricsCache:andContext:assetAvailabilityStatus:", featureUsageMetricsCache, v22, [sessionParams3 assetAvailabilityStatus]);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (TIAsteriskCorrectionMessageEvent)initWithSession:(id)session andPrevMsgAutocorrectionType:(unint64_t)type andBundleId:(id)id

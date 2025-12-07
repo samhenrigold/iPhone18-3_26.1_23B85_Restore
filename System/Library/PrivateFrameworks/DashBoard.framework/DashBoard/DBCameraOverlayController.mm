@@ -19,10 +19,10 @@
   sceneCopy = scene;
   cameraSceneCopy = cameraScene;
   swift_unknownObjectRetain();
-  v13 = sub_24831118C(sceneCopy, cameraSceneCopy, x, y, width, height);
+  v14 = sub_24831118C(sceneCopy, cameraSceneCopy, environment, x, y, width, height);
 
   swift_unknownObjectRelease();
-  return v13;
+  return v14;
 }
 
 - (CAFCar)car

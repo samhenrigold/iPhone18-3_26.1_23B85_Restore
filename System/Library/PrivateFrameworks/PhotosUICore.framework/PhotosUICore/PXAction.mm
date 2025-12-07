@@ -129,7 +129,7 @@ void __53__PXAction_executeWithUndoManager_completionHandler___block_invoke(id *
   [(PXAction *)self performUndo:v6];
 }
 
-void __40__PXAction__performUndoWithUndoManager___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __40__PXAction__performUndoWithUndoManager___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
@@ -151,11 +151,11 @@ void __40__PXAction__performUndoWithUndoManager___block_invoke(uint64_t a1, uint
   px_dispatch_on_main_queue();
 }
 
-uint64_t __40__PXAction__performUndoWithUndoManager___block_invoke_214(uint64_t result)
+id *__40__PXAction__performUndoWithUndoManager___block_invoke_214(id *result)
 {
-  if ((*(result + 48) & 1) == 0)
+  if ((result[6] & 1) == 0)
   {
-    return [*(result + 32) _unregisterFromUndoManager:*(result + 40)];
+    return [result[4] _unregisterFromUndoManager:result[5]];
   }
 
   return result;
@@ -176,7 +176,7 @@ uint64_t __40__PXAction__performUndoWithUndoManager___block_invoke_214(uint64_t 
   [(PXAction *)self _registerUndoWithUndoManager:v5, v6, v7, v8, v9, selfCopy];
 }
 
-void __40__PXAction__performRedoWithUndoManager___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __40__PXAction__performRedoWithUndoManager___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
@@ -198,11 +198,11 @@ void __40__PXAction__performRedoWithUndoManager___block_invoke(uint64_t a1, uint
   px_dispatch_on_main_queue();
 }
 
-uint64_t __40__PXAction__performRedoWithUndoManager___block_invoke_211(uint64_t result)
+id *__40__PXAction__performRedoWithUndoManager___block_invoke_211(id *result)
 {
-  if ((*(result + 48) & 1) == 0)
+  if ((result[6] & 1) == 0)
   {
-    return [*(result + 32) _unregisterFromUndoManager:*(result + 40)];
+    return [result[4] _unregisterFromUndoManager:result[5]];
   }
 
   return result;

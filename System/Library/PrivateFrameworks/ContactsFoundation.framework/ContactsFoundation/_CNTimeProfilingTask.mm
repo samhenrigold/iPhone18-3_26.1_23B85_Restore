@@ -141,13 +141,11 @@ LABEL_11:
 
 - (void)initWithTask:(void *)a1 timeProvider:logger:.cold.2(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v3 = 138543362;
-  v4 = objc_opt_class();
-  _os_log_fault_impl(&dword_1859F0000, v1, OS_LOG_TYPE_FAULT, "parameter ‘task’ must be nonnull and of type %{public}@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = objc_opt_class();
+  _os_log_fault_impl(&dword_1859F0000, v1, OS_LOG_TYPE_FAULT, "parameter ‘task’ must be nonnull and of type %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -53,9 +53,9 @@
     if (sessionCopy)
     {
       -[WiFiUsageLQMWindowAnalysisRoaming setRoamConfigTriggerRssi:](v23, "setRoamConfigTriggerRssi:", [sessionCopy roamConfigTriggerRssi]);
-      [sessionCopy roamConfigChannels];
+      objc_msgSend_roamConfigChannels(sessionCopy);
       [(WiFiUsageLQMWindowAnalysisRoaming *)v23 setRoamConfigChannels:&v58];
-      [sessionCopy roamConfigCriteria];
+      objc_msgSend_roamConfigCriteria(sessionCopy);
     }
 
     else

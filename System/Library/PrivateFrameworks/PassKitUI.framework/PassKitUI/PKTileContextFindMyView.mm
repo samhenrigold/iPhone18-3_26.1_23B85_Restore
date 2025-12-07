@@ -12,7 +12,7 @@
     sub_1BE052434();
   }
 
-  v3 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5B798));
+  v3 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5B798, &unk_1BE10CD20));
   v4 = sub_1BE04EAC4();
 
   return v4;

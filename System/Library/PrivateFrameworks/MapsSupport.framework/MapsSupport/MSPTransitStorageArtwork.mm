@@ -337,51 +337,48 @@
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    artworkSourceType = self->_artworkSourceType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    artworkUseType = self->_artworkUseType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_shield)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_icon)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_iconFallbackShield)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    hasRoutingIncidentBadge = self->_hasRoutingIncidentBadge;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_accessibilityText)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];
@@ -488,7 +485,6 @@
     goto LABEL_23;
   }
 
-  v5 = *(equalCopy + 60);
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_artworkSourceType != *(equalCopy + 6))
@@ -539,7 +535,6 @@
     }
   }
 
-  v9 = *(equalCopy + 60);
   if ((*&self->_has & 4) == 0)
   {
     if ((*(equalCopy + 60) & 4) == 0)
@@ -548,7 +543,7 @@
     }
 
 LABEL_23:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_24;
   }
 
@@ -557,7 +552,6 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v13 = *(equalCopy + 56);
   if (self->_hasRoutingIncidentBadge)
   {
     if ((*(equalCopy + 56) & 1) == 0)
@@ -575,17 +569,17 @@ LABEL_20:
   accessibilityText = self->_accessibilityText;
   if (accessibilityText | *(equalCopy + 2))
   {
-    v11 = [(NSString *)accessibilityText isEqual:?];
+    v9 = [(NSString *)accessibilityText isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_24:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

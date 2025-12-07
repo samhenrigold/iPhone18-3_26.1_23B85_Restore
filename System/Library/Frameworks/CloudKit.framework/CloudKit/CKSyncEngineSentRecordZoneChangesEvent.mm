@@ -14,25 +14,8 @@
   v52 = 0;
   v14 = _CKCheckArgument("savedRecords", recordsCopy, 0, 0, 0, &v52);
   v15 = v52;
-  if ((v14 & 1) == 0)
+  if ((v14 & 1) == 0 || (v15, v51 = 0, v16 = _CKCheckArgument("failedRecordSaves", savesCopy, 0, 0, 0, &v51), v15 = v51, (v16 & 1) == 0) || (v15, v50 = 0, v17 = _CKCheckArgument("deletedRecordIDs", dsCopy, 0, 0, 0, &v50), v15 = v50, (v17 & 1) == 0) || (v15, v49 = 0, v18 = _CKCheckArgument("failedRecordDeletes", deletesCopy, 0, 0, 0, &v49), v15 = v49, (v18 & 1) == 0))
   {
-    goto LABEL_8;
-  }
-
-  v51 = 0;
-  v16 = _CKCheckArgument("failedRecordSaves", savesCopy, 0, 0, 0, &v51);
-  v15 = v51;
-  if ((v16 & 1) == 0)
-  {
-    goto LABEL_8;
-  }
-
-  v50 = 0;
-  v17 = _CKCheckArgument("deletedRecordIDs", dsCopy, 0, 0, 0, &v50);
-  v15 = v50;
-  if ((v17 & 1) == 0 || (v15, v49 = 0, v18 = _CKCheckArgument("failedRecordDeletes", deletesCopy, 0, 0, 0, &v49), v15 = v49, (v18 & 1) == 0))
-  {
-LABEL_8:
     v37 = v15;
     v38 = [CKException alloc];
     v41 = objc_msgSend_code(v37, v39, v40);

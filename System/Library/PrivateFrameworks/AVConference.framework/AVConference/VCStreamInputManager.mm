@@ -535,7 +535,7 @@ LABEL_5:
   [+[AVConferenceXPCServer AVConferenceXPCServerSingleton](AVConferenceXPCServer "AVConferenceXPCServerSingleton")];
 }
 
-uint64_t __69__VCStreamInputManager_registerService_weakSelf_eventLogLevel_block___block_invoke(uint64_t a1, void *a2)
+void *__69__VCStreamInputManager_registerService_weakSelf_eventLogLevel_block___block_invoke(uint64_t a1, void *a2)
 {
   if ([a2 objectForKeyedSubscript:@"CLIENTDIED"])
   {
@@ -752,20 +752,22 @@ uint64_t __45__VCStreamInputManager_didResumeStreamInput___block_invoke(uint64_t
     }
   }
 
-  return [(VCStreamInputManager *)self terminateStreamInputWithXPCArguments:arguments result:result error:error, *v22];
+  return [(VCStreamInputManager *)self terminateStreamInputWithXPCArguments:arguments result:result error:error, *v22, *&v22[8]];
 }
 
 - (void)init
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315906;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_6_5();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_29();
-      OUTLINED_FUNCTION_8_19(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create the XPC queue[%@]", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_8_19(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to create the XPC queue[%@]", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }

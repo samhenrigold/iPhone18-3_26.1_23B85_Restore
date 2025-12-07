@@ -45,23 +45,24 @@
 void __74__SBSExternalDisplayService_getConnectedDisplayInfoWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = SBLogDisplayControlling();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SBLogDisplayControlling(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __74__SBSExternalDisplayService_getConnectedDisplayInfoWithCompletionHandler___block_invoke_cold_1(v4, v5);
+      __74__SBSExternalDisplayService_getConnectedDisplayInfoWithCompletionHandler___block_invoke_cold_1(v5, v6);
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)setDisplayArrangement:(id)arrangement forDisplay:(id)display

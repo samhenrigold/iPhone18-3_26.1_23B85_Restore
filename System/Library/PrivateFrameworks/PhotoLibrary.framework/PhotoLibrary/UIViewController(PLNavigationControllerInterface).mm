@@ -1,13 +1,13 @@
 @interface UIViewController(PLNavigationControllerInterface)
-- (uint64_t)uiipc_filterForMediaTypes:()PLNavigationControllerInterface;
 - (uint64_t)uiipc_imagePickerOptions;
 - (uint64_t)uiipc_useTelephonyUI;
+- (void)uiipc_filterForMediaTypes:()PLNavigationControllerInterface;
 - (void)uiipc_imagePickerController;
 @end
 
 @implementation UIViewController(PLNavigationControllerInterface)
 
-- (uint64_t)uiipc_filterForMediaTypes:()PLNavigationControllerInterface
+- (void)uiipc_filterForMediaTypes:()PLNavigationControllerInterface
 {
   v19 = *MEMORY[0x277D85DE8];
   v14 = 0u;
@@ -25,7 +25,7 @@
     v10 = *MEMORY[0x277CE1E00];
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = i + 1)
       {
         if (*v15 != v8)
         {
@@ -60,7 +60,7 @@
 
     if (v6)
     {
-      return (v6 & v7 & 1) == 0;
+      return ((v6 & v7 & 1) == 0);
     }
 
     else

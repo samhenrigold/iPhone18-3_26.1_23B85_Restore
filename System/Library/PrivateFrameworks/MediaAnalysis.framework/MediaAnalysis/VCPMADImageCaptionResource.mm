@@ -58,7 +58,7 @@ VCPMADImageCaptionResource *__68__VCPMADImageCaptionResource_sharedResourceForMo
 
 - (int64_t)activeCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 10;
   }
@@ -71,7 +71,7 @@ VCPMADImageCaptionResource *__68__VCPMADImageCaptionResource_sharedResourceForMo
 
 - (int64_t)inactiveCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 10;
   }
@@ -106,44 +106,44 @@ VCPMADImageCaptionResource *__68__VCPMADImageCaptionResource_sharedResourceForMo
 
 void __50__VCPMADImageCaptionResource_imageCaptionAnalyzer__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 16);
   if (!v2)
   {
-    v3 = VCPSignPostLog();
+    v3 = VCPSignPostLog(a1);
     v4 = os_signpost_id_generate(v3);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v6 = VCPSignPostLog(v5);
+    v7 = v6;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
     {
-      LOWORD(v15[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VCPImageCaptionAnalyzer_init", "", v15, 2u);
+      LOWORD(v17[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VCPImageCaptionAnalyzer_init", "", v17, 2u);
     }
 
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
-      v8 = *(v7 + 24);
-      v9 = *(v7 + 32);
-      v15[0] = 67109376;
-      v15[1] = v8;
-      v16 = 1024;
-      v17 = v9;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "ImageCaptionTask set VCPImageCaptionAnalyzer model type %d, safety type %d", v15, 0xEu);
+      v8 = *(a1 + 32);
+      v9 = *(v8 + 24);
+      v10 = *(v8 + 32);
+      v17[0] = 67109376;
+      v17[1] = v9;
+      v18 = 1024;
+      v19 = v10;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "ImageCaptionTask set VCPImageCaptionAnalyzer model type %d, safety type %d", v17, 0xEu);
     }
 
-    v10 = [[VCPImageCaptionAnalyzer alloc] initWithCaptionModelType:*(*(a1 + 32) + 24) captionSafetyType:*(*(a1 + 32) + 32) useSharedModel:0];
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 16);
-    *(v11 + 16) = v10;
+    v11 = [[VCPImageCaptionAnalyzer alloc] initWithCaptionModelType:*(*(a1 + 32) + 24) captionSafetyType:*(*(a1 + 32) + 32) useSharedModel:0];
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 16);
+    *(v12 + 16) = v11;
 
-    v13 = VCPSignPostLog();
-    v14 = v13;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v15 = VCPSignPostLog(v14);
+    v16 = v15;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
-      LOWORD(v15[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v4, "VCPImageCaptionAnalyzer_init", "", v15, 2u);
+      LOWORD(v17[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v4, "VCPImageCaptionAnalyzer_init", "", v17, 2u);
     }
 
     v2 = *(*(a1 + 32) + 16);

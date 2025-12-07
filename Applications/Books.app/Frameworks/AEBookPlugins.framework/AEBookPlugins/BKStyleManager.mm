@@ -927,12 +927,12 @@ LABEL_25:
 - (void)fontStateChanged:(id)changed
 {
   object = [changed object];
-  v5 = _AEBookPluginsFontCacheLog();
+  v5 = _AEBookPluginsFontCacheLog(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v12 = 138412290;
-    v13 = object;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "StateChanged for font: %@", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = object;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "StateChanged for font: %@", &v13, 0xCu);
   }
 
   familyName = [object familyName];
@@ -944,14 +944,14 @@ LABEL_25:
     _defaultFontName = [(BKStyleManager *)self _defaultFontName];
     v10 = [(BKStyleManager *)self styleForFont:_defaultFontName presetIndex:0];
 
-    v11 = _AEBookPluginsFontCacheLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _AEBookPluginsFontCacheLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412546;
-      v13 = object;
-      v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Setting fallback style for font: %@ to %@", &v12, 0x16u);
+      v13 = 138412546;
+      v14 = object;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Setting fallback style for font: %@ to %@", &v13, 0x16u);
     }
 
     [(BKStyleManager *)self setStyle:v10];

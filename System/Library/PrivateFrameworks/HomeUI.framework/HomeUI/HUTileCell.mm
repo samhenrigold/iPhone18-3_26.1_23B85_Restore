@@ -179,7 +179,7 @@
   y = bounds.origin.y;
   x = bounds.origin.x;
   selfCopy = self;
-  sub_20D006098(x, y, width, height);
+  sub_20D006098(selfCopy, x, y, width, height);
 }
 
 - (id)tappableAreaForPoint:(CGPoint)point
@@ -430,7 +430,7 @@
 
 - (UIColor)backgroundColor
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81E080);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81E080, &unk_20D5C2AB0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v10 - v4;
   selfCopy = self;
@@ -447,14 +447,14 @@
     v8 = sub_20D566148();
   }
 
-  sub_20CEF928C(v5, &unk_27C81E080);
+  sub_20CEF928C(v5, &unk_27C81E080, &unk_20D5C2AB0);
 
   return v8;
 }
 
 - (void)setBackgroundColor:(id)color
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81E080);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81E080, &unk_20D5C2AB0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v8);
@@ -465,10 +465,10 @@
   v13 = sub_20D5661A8();
   if ((*(*(v13 - 8) + 48))(v10, 1, v13))
   {
-    sub_20CEF9178(v10, v7, &unk_27C81E080);
+    sub_20CEF9178(v10, v7, &unk_27C81E080, &unk_20D5C2AB0);
     MEMORY[0x20F31D5E0](v7);
 
-    sub_20CEF928C(v10, &unk_27C81E080);
+    sub_20CEF928C(v10, &unk_27C81E080, &unk_20D5C2AB0);
   }
 
   else

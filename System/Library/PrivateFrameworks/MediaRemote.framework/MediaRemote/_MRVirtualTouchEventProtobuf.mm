@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)phaseAsString:(int)string;
 - (int)StringAsPhase:(id)phase;
 - (int)phase;
 - (unint64_t)hash;
@@ -59,35 +60,50 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)phaseAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A3380[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPhase:(id)phase
 {
   phaseCopy = phase;
-  if ([phaseCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = 0;
   }
 
-  else if ([phaseCopy isEqualToString:@"Began"])
+  else if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = 1;
   }
 
-  else if ([phaseCopy isEqualToString:@"Moved"])
+  else if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = 2;
   }
 
-  else if ([phaseCopy isEqualToString:@"Stationary"])
+  else if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = 3;
   }
 
-  else if ([phaseCopy isEqualToString:@"Ended"])
+  else if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = 4;
   }
 
-  else if ([phaseCopy isEqualToString:@"Cancelled"])
+  else if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = 5;
   }
@@ -203,7 +219,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    x = self->_x;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -223,7 +238,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  y = self->_y;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -238,12 +252,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  phase = self->_phase;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    finger = self->_finger;
     PBDataWriterWriteInt32Field();
   }
 

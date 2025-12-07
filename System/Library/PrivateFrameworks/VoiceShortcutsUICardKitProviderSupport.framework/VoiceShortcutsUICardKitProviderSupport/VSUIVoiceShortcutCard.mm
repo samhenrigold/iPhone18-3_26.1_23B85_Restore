@@ -152,16 +152,14 @@ void __56__VSUIVoiceShortcutCard_loadCardWithContent_completion___block_invoke(u
 
 - (void)loadCardWithCompletion:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [a1 shortcutIdentifier];
   v5 = [a1 intentResponse];
-  v7 = 138543618;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_2728B4000, a2, OS_LOG_TYPE_ERROR, "Nil intent encountered while loading VSUIVoiceShortcutCard: shortcutIdentifier = %{public}@, intentResponse = %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_2728B4000, a2, OS_LOG_TYPE_ERROR, "Nil intent encountered while loading VSUIVoiceShortcutCard: shortcutIdentifier = %{public}@, intentResponse = %{public}@", &v6, 0x16u);
 }
 
 @end

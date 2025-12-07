@@ -66,33 +66,7 @@
             assetType2 = [v7 assetType];
             assetType3 = [maAsset assetType];
             v11 = [assetType2 isEqualToString:assetType3];
-
-            if (!v11)
-            {
-              goto LABEL_12;
-            }
-
-            assetId = [maAsset assetId];
-            if (!assetId)
-            {
-              goto LABEL_12;
-            }
-
-            v13 = assetId;
-            assetId2 = [v7 assetId];
-            assetId3 = [maAsset assetId];
-            v16 = [assetId2 isEqualToString:assetId3];
-
-            if (v16)
-            {
-              LOBYTE(assetType) = 1;
-            }
-
-            else
-            {
-LABEL_12:
-              LOBYTE(assetType) = 0;
-            }
+            LOBYTE(assetType) = v11 && ([maAsset assetId], (v12 = ;
           }
         }
       }
@@ -147,28 +121,28 @@ LABEL_8:
 
 - (NSDictionary)attributes
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:0];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allKeys = [(NSDictionary *)self->_attributes allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (([v9 hasPrefix:@"__"] & 1) == 0)
         {
           v10 = [(NSDictionary *)self->_attributes objectForKey:v9];
@@ -176,13 +150,11 @@ LABEL_8:
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -254,24 +226,22 @@ LABEL_8:
 
 - (void)setGarbageCollectionBehavior:(int64_t)behavior
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v6, 2u);
   }
 
   v4 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = _ASErrorForV1Deprecation(@"setGarbageCollectionBehavior");
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Could not send garbage collection behavior message: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Could not send garbage collection behavior message: %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDate)installDate
@@ -303,21 +273,21 @@ LABEL_8:
 
 - (BOOL)requiredDiskSpaceIsAvailableForDownloadOptions:(id)options requiredBytes:(int64_t *)bytes error:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v10, 2u);
   }
 
   v7 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = _ASErrorForV1Deprecation(@"requiredDiskSpaceIsAvailableForDownloadOptions");
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_197AD5000, v7, OS_LOG_TYPE_DEFAULT, "Could not get space available for downloading as downloading an ASAsset is deprecated, use MAAsset: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_197AD5000, v7, OS_LOG_TYPE_DEFAULT, "Could not get space available for downloading as downloading an ASAsset is deprecated, use MAAsset: %{public}@", &v10, 0xCu);
   }
 
   if (error)
@@ -325,7 +295,6 @@ LABEL_8:
     *error = _ASErrorForV1Deprecation(@"requiredDiskSpaceIsAvailableForDownloadOptions");
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -439,21 +408,21 @@ void __25__ASAsset_pauseDownload___block_invoke(uint64_t a1)
 
 - (BOOL)pauseDownloadAndReturnError:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v9, 2u);
   }
 
   v5 = _ASErrorForV1Deprecation(@"pauseDownloadAndReturnError");
   v6 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_ERROR, "[WARNING] Could not pause asset download: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_ERROR, "[WARNING] Could not pause asset download: %{public}@", &v9, 0xCu);
   }
 
   if (error)
@@ -462,7 +431,6 @@ void __25__ASAsset_pauseDownload___block_invoke(uint64_t a1)
     *error = v5;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -498,12 +466,12 @@ void __26__ASAsset_resumeDownload___block_invoke(uint64_t a1)
 
 - (BOOL)resumeDownloadAndReturnError:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v10, 2u);
   }
 
   v5 = _ASErrorForV1Deprecation(@"resumeDownloadAndReturnError");
@@ -517,12 +485,11 @@ void __26__ASAsset_resumeDownload___block_invoke(uint64_t a1)
   v8 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_ERROR, "[WARNING] Could not resume asset download: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_ERROR, "[WARNING] Could not resume asset download: %{public}@", &v10, 0xCu);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -571,9 +538,9 @@ void __26__ASAsset_cancelDownload___block_invoke(uint64_t a1)
   }
 }
 
-void __26__ASAsset_cancelDownload___block_invoke_2(uint64_t a1, uint64_t a2)
+void __26__ASAsset_cancelDownload___block_invoke_2(uint64_t a1, unint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = MAIsCancelDownloadResultFailure(a2);
   v5 = _MAClientLog(@"V2");
   v6 = v5;
@@ -585,10 +552,10 @@ void __26__ASAsset_cancelDownload___block_invoke_2(uint64_t a1, uint64_t a2)
     }
 
     v7 = MAStringForMACancelDownloadResult(a2);
-    v14 = 134218242;
-    v15 = a2;
-    v16 = 2114;
-    v17 = v7;
+    v13 = 134218242;
+    v14 = a2;
+    v15 = 2114;
+    v16 = v7;
     v8 = "[WARNING] Could not cancel v1 download: %lld %{public}@";
     v9 = v6;
     v10 = OS_LOG_TYPE_ERROR;
@@ -602,16 +569,16 @@ void __26__ASAsset_cancelDownload___block_invoke_2(uint64_t a1, uint64_t a2)
     }
 
     v7 = MAStringForMACancelDownloadResult(a2);
-    v14 = 134218242;
-    v15 = a2;
-    v16 = 2114;
-    v17 = v7;
+    v13 = 134218242;
+    v14 = a2;
+    v15 = 2114;
+    v16 = v7;
     v8 = "Successful cancel v1 download: %lld %{public}@";
     v9 = v6;
     v10 = OS_LOG_TYPE_DEFAULT;
   }
 
-  _os_log_impl(&dword_197AD5000, v9, v10, v8, &v14, 0x16u);
+  _os_log_impl(&dword_197AD5000, v9, v10, v8, &v13, 0x16u);
 
 LABEL_7:
   v11 = *(a1 + 32);
@@ -620,18 +587,16 @@ LABEL_7:
     v12 = _ASErrorForV1Deprecation(@"cancelDownload");
     (*(v11 + 16))(v11, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)cancelDownloadAndReturnError:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Deprecated ASAsset API is no longer supported", &v18, 2u);
   }
 
   v6 = _ASErrorForV1Deprecation(@"cancelDownloadAndReturnError");
@@ -647,25 +612,25 @@ LABEL_7:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v12 = MAStringForMACancelDownloadResult(cancelDownloadSync);
-        v19 = 134218242;
-        v20 = cancelDownloadSync;
-        v21 = 2114;
-        v22 = v12;
+        v18 = 134218242;
+        v19 = cancelDownloadSync;
+        v20 = 2114;
+        v21 = v12;
         v13 = "[WARNING] Could not cancel v1 download: %lld %{public}@";
         v14 = v11;
         v15 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-        _os_log_impl(&dword_197AD5000, v14, v15, v13, &v19, 0x16u);
+        _os_log_impl(&dword_197AD5000, v14, v15, v13, &v18, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v12 = MAStringForMACancelDownloadResult(cancelDownloadSync);
-      v19 = 134218242;
-      v20 = cancelDownloadSync;
-      v21 = 2114;
-      v22 = v12;
+      v18 = 134218242;
+      v19 = cancelDownloadSync;
+      v20 = 2114;
+      v21 = v12;
       v13 = "Successful cancel v1 download: %lld %{public}@";
       v14 = v11;
       v15 = OS_LOG_TYPE_DEFAULT;
@@ -679,7 +644,6 @@ LABEL_9:
     *error = v6;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -715,14 +679,14 @@ void __17__ASAsset_purge___block_invoke(uint64_t a1)
 
 - (BOOL)purgeAndReturnError:(id *)error
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = _ASErrorForV1Deprecation(@"purgeAndReturnError");
   v5 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
-    v10 = v4;
-    _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_ERROR, "[WARNING] Could not purge asset: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v4;
+    _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_ERROR, "[WARNING] Could not purge asset: %{public}@", &v8, 0xCu);
   }
 
   if (error)
@@ -731,13 +695,12 @@ void __17__ASAsset_purge___block_invoke(uint64_t a1)
     *error = v4;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (id)_getLocalAttribute:(id)attribute
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   maAsset = [(ASAsset *)self maAsset];
 
@@ -761,15 +724,13 @@ void __17__ASAsset_purge___block_invoke(uint64_t a1)
     v10 = _MAClientLog(@"V2");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543618;
-      v14 = attributeCopy;
-      v15 = 2114;
-      v16 = @"MAAsset did have have attribute";
-      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "Could not get attribute '%{public}@': %{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = attributeCopy;
+      v14 = 2114;
+      v15 = @"MAAsset did have have attribute";
+      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "Could not get attribute '%{public}@': %{public}@", &v12, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return maAsset;
 }
@@ -849,7 +810,7 @@ void __17__ASAsset_purge___block_invoke(uint64_t a1)
 
 - (NSDictionary)fullAttributes
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   maAsset = [(ASAsset *)self maAsset];
 
   if (maAsset)
@@ -863,15 +824,13 @@ void __17__ASAsset_purge___block_invoke(uint64_t a1)
     v6 = _MAClientLog(@"V2");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = 0;
-      _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, "Could not get asset attributes: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = 0;
+      _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, "Could not get asset attributes: %{public}@", &v8, 0xCu);
     }
 
     attributes = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return attributes;
 }

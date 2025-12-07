@@ -42,7 +42,7 @@
   req = self->_req;
   if (req)
   {
-    [(JFXEffectsPreviewGenerationRequest *)req renderTime];
+    objc_msgSend_renderTime(req);
     req = self->_req;
   }
 

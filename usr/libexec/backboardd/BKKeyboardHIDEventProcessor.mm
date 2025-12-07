@@ -37,6 +37,7 @@
 - (void)_lock_removeSenderIDFromTracking:(unint64_t)tracking;
 - (void)_lock_restoreCapsLockStateToKeyboard:(id)keyboard;
 - (void)_lock_setCapsLockActive:(BOOL)active onSenderID:(unint64_t)d;
+- (void)_lock_setCapsLockState:(BOOL)state forKeyboard:(id)keyboard updateGS:(BOOL)s;
 - (void)_lock_setKeyboardLightsSuspended:(BOOL)suspended;
 - (void)_lock_setPrimaryKeyboard:(id)keyboard;
 - (void)_lock_smartKeyboardAttachmentStateDidChange:(id)change;
@@ -50,11 +51,14 @@
 - (void)bufferDidEndDraining:(id)draining;
 - (void)bufferingDidAddNewBuffers:(id)buffers;
 - (void)dealloc;
+- (void)display:(id)display didBecomeBlank:(BOOL)blank;
 - (void)matcher:(id)matcher servicesDidMatch:(id)match;
 - (void)postEvent:(__IOHIDEvent *)event withContext:(id)context toResolution:(id)resolution fromSequence:(id)sequence;
 - (void)serviceDidDisappear:(id)disappear;
+- (void)setCapsLockActive:(BOOL)active onSenderID:(unint64_t)d;
 - (void)setCapsLockDelayOverride:(double)override;
 - (void)setCapsLockDelayOverride:(double)override forSenderID:(unint64_t)d;
+- (void)setCapsLockLightOn:(BOOL)on;
 - (void)setKeyCommandsToAuthenticate:(id)authenticate;
 - (void)setKeyboardLayout:(id)layout;
 - (void)setKeyboardLayout:(id)layout forSenderID:(unint64_t)d;
@@ -127,6 +131,16 @@
   [senderCache addSenderInfo:matchCopy];
 
   [(BKKeyboardHIDEventProcessor *)self _lock_keyboardsDetected:v7];
+  os_unfair_lock_unlock(&self->_lock);
+}
+
+- (void)display:(id)display didBecomeBlank:(BOOL)blank
+{
+  blankCopy = blank;
+  os_unfair_lock_assert_not_owner(&self->_lock);
+  os_unfair_lock_lock(&self->_lock);
+  [(BKKeyboardHIDEventProcessor *)self _lock_setKeyboardLightsSuspended:blankCopy];
+
   os_unfair_lock_unlock(&self->_lock);
 }
 
@@ -507,6 +521,55 @@ LABEL_16:
       dCopy5 = d;
       v11 = "setCapsLockActive: [senderID %llX] no such keyboard";
       goto LABEL_16;
+    }
+  }
+}
+
+- (void)_lock_setCapsLockState:(BOOL)state forKeyboard:(id)keyboard updateGS:(BOOL)s
+{
+  sCopy = s;
+  stateCopy = state;
+  keyboardCopy = keyboard;
+  v13 = keyboardCopy;
+  if (keyboardCopy)
+  {
+    if (*(keyboardCopy + 8) != stateCopy)
+    {
+      *(keyboardCopy + 8) = stateCopy;
+      [*(keyboardCopy + 3) setElementValue:stateCopy forUsagePage:8 usage:2];
+      keyboardCopy = v13;
+    }
+
+    if (sCopy)
+    {
+      sub_1000764D8(keyboardCopy);
+      keyboardCopy = v13;
+    }
+  }
+
+  v9 = sub_100076938(keyboardCopy);
+  if (v9)
+  {
+    productIdentifierWithCapsLockActiveToGeneration = self->_productIdentifierWithCapsLockActiveToGeneration;
+    if (stateCopy)
+    {
+      if (v13)
+      {
+        v11 = v13[12];
+      }
+
+      else
+      {
+        v11 = 0;
+      }
+
+      v12 = [NSNumber numberWithInteger:v11];
+      [(NSMutableDictionary *)productIdentifierWithCapsLockActiveToGeneration setObject:v12 forKey:v9];
+    }
+
+    else
+    {
+      [(NSMutableDictionary *)productIdentifierWithCapsLockActiveToGeneration removeObjectForKey:v9];
     }
   }
 }
@@ -1541,29 +1604,27 @@ LABEL_11:
       sub_100076410(keyboardCopy, self->_keyboardLayout);
       keyboardType = keyboardCopy->_keyboardType;
       v8 = [NSNumber numberWithUnsignedChar:keyboardCopy->_countryCode];
-      gsKeyboard = keyboardCopy->_gsKeyboard;
       GSKeyboardSetHardwareKeyboardAttached();
-      v10 = BKLogKeyboard();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v9 = BKLogKeyboard();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         unsignedIntValue = [v8 unsignedIntValue];
         keyboardLayout = self->_keyboardLayout;
-        v13 = keyboardCopy->_gsKeyboard;
-        v15[0] = 67109890;
-        v15[1] = unsignedIntValue;
-        v16 = 1024;
-        v17 = keyboardType;
-        v18 = 2114;
-        v19 = keyboardLayout;
-        v20 = 2048;
-        v21 = v13;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Hardware keyboard attached (countryCode:%d type:%d layout:%{public}@) GS:%p", v15, 0x22u);
+        gsKeyboard = keyboardCopy->_gsKeyboard;
+        v13[0] = 67109890;
+        v13[1] = unsignedIntValue;
+        v14 = 1024;
+        v15 = keyboardType;
+        v16 = 2114;
+        v17 = keyboardLayout;
+        v18 = 2048;
+        v19 = gsKeyboard;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Hardware keyboard attached (countryCode:%d type:%d layout:%{public}@) GS:%p", v13, 0x22u);
       }
     }
 
     else if (v6)
     {
-      v14 = v6->_gsKeyboard;
       GSKeyboardSetHardwareKeyboardAttached();
     }
   }
@@ -1927,20 +1988,7 @@ LABEL_12:
 {
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
-  if (!d)
-  {
-    goto LABEL_3;
-  }
-
-  v5 = +[BKHIDAccessibilitySender accessibilityHIDServices];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1000476E4;
-  v12[3] = &unk_1000FB060;
-  v12[4] = d;
-  v6 = [v5 bs_containsObjectPassingTest:v12];
-
-  if (!v6)
+  if (d && (+[BKHIDAccessibilitySender accessibilityHIDServices](BKHIDAccessibilitySender, "accessibilityHIDServices"), v5 = objc_claimAutoreleasedReturnValue(), v12[0] = _NSConcreteStackBlock, v12[1] = 3221225472, v12[2] = sub_1000476E4, v12[3] = &unk_1000FB060, v12[4] = d, v6 = [v5 bs_containsObjectPassingTest:v12], v5, !v6))
   {
     allKeyboardsBySenderID = self->_allKeyboardsBySenderID;
     v10 = [NSNumber numberWithUnsignedLongLong:d];
@@ -1954,7 +2002,6 @@ LABEL_12:
 
   else
   {
-LABEL_3:
     v7 = self->_primaryKeyboardInfo;
     if (v7)
     {
@@ -2058,6 +2105,16 @@ LABEL_15:
   os_unfair_lock_unlock(&self->_lock);
 
   return v8 & 1;
+}
+
+- (void)setCapsLockActive:(BOOL)active onSenderID:(unint64_t)d
+{
+  activeCopy = active;
+  os_unfair_lock_assert_not_owner(&self->_lock);
+  os_unfair_lock_lock(&self->_lock);
+  [(BKKeyboardHIDEventProcessor *)self _lock_setCapsLockActive:activeCopy onSenderID:d];
+
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (void)setCapsLockDelayOverride:(double)override forSenderID:(unint64_t)d
@@ -2289,6 +2346,30 @@ LABEL_15:
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
+}
+
+- (void)setCapsLockLightOn:(BOOL)on
+{
+  onCopy = on;
+  os_unfair_lock_assert_not_owner(&self->_lock);
+  os_unfair_lock_lock(&self->_lock);
+  primaryKeyboardInfo = self->_primaryKeyboardInfo;
+  if (primaryKeyboardInfo)
+  {
+    [(BKKeyboardHIDEventProcessor *)self _lock_setCapsLockState:onCopy forKeyboard:primaryKeyboardInfo updateGS:1];
+  }
+
+  else
+  {
+    v6 = BKLogKeyboard();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v7 = 0;
+      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "can't set caps lock state; no keyboards attached", v7, 2u);
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (int)eventSourceForSender:(id)sender

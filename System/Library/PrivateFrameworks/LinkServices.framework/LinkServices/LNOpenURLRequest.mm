@@ -50,7 +50,7 @@
 
 - (void)respondWithError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   completionHandler = self->_completionHandler;
   if (completionHandler)
@@ -70,47 +70,41 @@
     {
       v10 = objc_opt_class();
       identifier = [(LNOpenURLRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)respondWithSuccess
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self->_completionHandler)
   {
     v3 = [LNOpenURLResponse alloc];
     identifier = [(LNOpenURLRequest *)self identifier];
     responseContext = [(LNRequest *)self responseContext];
-    v12 = [(LNResponse *)v3 initWithIdentifier:identifier context:responseContext];
+    v10 = [(LNResponse *)v3 initWithIdentifier:identifier context:responseContext];
 
     (*(self->_completionHandler + 2))();
     completionHandler = self->_completionHandler;
     self->_completionHandler = 0;
-
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v8 = getLNLogCategoryExecution();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = getLNLogCategoryExecution();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = objc_opt_class();
+      v8 = objc_opt_class();
       identifier2 = [(LNOpenURLRequest *)self identifier];
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2114;
-      v16 = identifier2;
+      v12 = v8;
+      v13 = 2114;
+      v14 = identifier2;
     }
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 }
 

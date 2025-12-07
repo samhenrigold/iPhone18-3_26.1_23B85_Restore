@@ -91,28 +91,27 @@
 
 - (BOOL)_cachedRecordKnownUserKeyData:(id)data satisfiesRequiredKeys:(id)keys
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dataCopy = data;
+  v22 = 0u;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   keysCopy = keys;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(keysCopy, v7, &v24, v28, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(keysCopy, v7, &v22, v26, 16);
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v23;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(keysCopy);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
         if (CKIsIndexedArrayKey())
         {
 
@@ -121,7 +120,7 @@
         }
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(keysCopy, v13, &v24, v28, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(keysCopy, v12, &v22, v26, 16);
       if (v9)
       {
         continue;
@@ -131,10 +130,10 @@
     }
   }
 
-  v16 = objc_msgSend_null(MEMORY[0x277CBEB68], v14, v15, v24);
-  v18 = objc_msgSend_containsObject_(dataCopy, v17, v16);
+  v15 = objc_msgSend_null(MEMORY[0x277CBEB68], v13, v14, v22);
+  v17 = objc_msgSend_containsObject_(dataCopy, v16, v15);
 
-  if (v18)
+  if (v17)
   {
     isSubsetOfSet = 1;
   }
@@ -146,76 +145,75 @@
     isSubsetOfSet = 0;
     if (keysCopy && (isKindOfClass & 1) != 0)
     {
-      isSubsetOfSet = objc_msgSend_isSubsetOfSet_(keysCopy, v23, dataCopy);
+      isSubsetOfSet = objc_msgSend_isSubsetOfSet_(keysCopy, v21, dataCopy);
     }
   }
 
 LABEL_12:
 
-  v20 = *MEMORY[0x277D85DE8];
   return isSubsetOfSet;
 }
 
 - (BOOL)_cachedRecordHasValidAssets:(id)assets forRequiredKeys:(id)keys
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   keysCopy = keys;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 1;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_225073F40;
-  v40 = sub_22507352C;
   v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 1;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_225073F40;
+  v39 = sub_22507352C;
+  v40 = 0;
   v9 = objc_msgSend_valueStore(assetsCopy, v7, v8);
-  v47[0] = objc_opt_class();
-  v47[1] = objc_opt_class();
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v47, 2);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = sub_22515F3EC;
-  v32[3] = &unk_278546D18;
+  v46[0] = objc_opt_class();
+  v46[1] = objc_opt_class();
+  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v46, 2);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = sub_22515F3EC;
+  v31[3] = &unk_278546D18;
   v12 = keysCopy;
-  v33 = v12;
-  v34 = &v36;
-  v35 = &v42;
-  objc_msgSend_enumerateKeysAndValuesOfClasses_usingBlock_(v9, v13, v11, v32);
+  v32 = v12;
+  v33 = &v35;
+  v34 = &v41;
+  objc_msgSend_enumerateKeysAndValuesOfClasses_usingBlock_(v9, v13, v11, v31);
 
-  if (*(v43 + 24) == 1 && objc_msgSend_count(v37[5], v14, v15))
+  if (*(v42 + 24) == 1 && objc_msgSend_count(v36[5], v14, v15))
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v16 = v37[5];
-    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v28, v46, 16);
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v16 = v36[5];
+    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v27, v45, 16);
     if (v20)
     {
-      v21 = *v29;
+      v21 = *v28;
       while (2)
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v29 != v21)
+          if (*v28 != v21)
           {
             objc_enumerationMutation(v16);
           }
 
-          v23 = *(*(&v28 + 1) + 8 * i);
-          if (objc_msgSend_paddedFileSize(v23, v18, v19, v28))
+          v23 = *(*(&v27 + 1) + 8 * i);
+          if (objc_msgSend_paddedFileSize(v23, v18, v19, v27))
           {
-            *(v43 + 24) = 0;
+            *(v42 + 24) = 0;
             goto LABEL_13;
           }
 
           objc_msgSend_setWasCached_(v23, v24, 1);
         }
 
-        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v18, &v28, v46, 16);
+        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v18, &v27, v45, 16);
         if (v20)
         {
           continue;
@@ -228,151 +226,147 @@ LABEL_12:
 LABEL_13:
   }
 
-  v25 = *(v43 + 24);
+  v25 = *(v42 + 24);
 
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v41, 8);
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25 & 1;
 }
 
 - (id)fetchCacheEntryRecordData:(id)data
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = objc_msgSend_primaryKey(self, v5, v6);
-  v14[0] = v7;
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v14, 1);
+  v13[0] = v7;
+  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v13, 1);
   v11 = objc_msgSend_fetchProperties_inObject_matchingDBProperties_label_(self, v10, &unk_2838C8E20, dataCopy, v9, off_27D719E80);
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_recordWithID:(id)d container:(id)container requiredKeys:(id)keys scope:(int64_t)scope
 {
-  v54[4] = *MEMORY[0x277D85DE8];
+  v53[4] = *MEMORY[0x277D85DE8];
   dCopy = d;
   containerCopy = container;
   keysCopy = keys;
   if (!dCopy)
   {
-    v38 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v39, a2, self, @"CKDRecordCache.m", 204, @"Can't fetch a record if we don't have a recordID");
+    v37 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v37, v38, a2, self, @"CKDRecordCache.m", 204, @"Can't fetch a record if we don't have a recordID");
   }
 
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = sub_225073F40;
-  v51 = sub_22507352C;
-  v52 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = sub_225073F40;
+  v50 = sub_22507352C;
+  v51 = 0;
   v16 = objc_msgSend_account(containerCopy, v13, v14);
   v18 = objc_msgSend__dsidForAccount_(self, v17, v16);
 
-  v53[0] = @"RECORDID";
+  v52[0] = @"RECORDID";
   v21 = objc_msgSend_sqliteRepresentation(dCopy, v19, v20);
-  v54[0] = v21;
-  v53[1] = @"CONTAINERID";
+  v53[0] = v21;
+  v52[1] = @"CONTAINERID";
   v24 = objc_msgSend_containerID(containerCopy, v22, v23);
-  v54[1] = v24;
-  v53[2] = @"SCOPE";
+  v53[1] = v24;
+  v52[2] = @"SCOPE";
   v26 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v25, scope);
-  v53[3] = @"DSID";
-  v54[2] = v26;
-  v54[3] = v18;
-  v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v27, v54, v53, 4);
+  v52[3] = @"DSID";
+  v53[2] = v26;
+  v53[3] = v18;
+  v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v27, v53, v52, 4);
 
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = sub_22515F8D0;
-  v40[3] = &unk_278546D40;
-  v40[4] = self;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = sub_22515F8D0;
+  v39[3] = &unk_278546D40;
+  v39[4] = self;
   v29 = v28;
-  v41 = v29;
+  v40 = v29;
   v30 = keysCopy;
-  v42 = v30;
+  v41 = v30;
   v31 = containerCopy;
-  v43 = v31;
-  v45 = &v47;
+  v42 = v31;
+  v44 = &v46;
   scopeCopy = scope;
   v32 = dCopy;
-  v44 = v32;
-  v34 = objc_msgSend_performInTransaction_(self, v33, v40);
-  v35 = v48[5];
+  v43 = v32;
+  v34 = objc_msgSend_performInTransaction_(self, v33, v39);
+  v35 = v47[5];
 
-  _Block_object_dispose(&v47, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v46, 8);
 
   return v35;
 }
 
 - (id)_trimRecord:(id)record toRequiredKeys:(id)keys
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   keysCopy = keys;
   if (keysCopy)
   {
     objc_msgSend_setTrackChanges_(recordCopy, v6, 0);
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v10 = objc_msgSend_valuesByKey(recordCopy, v8, v9);
     v13 = objc_msgSend_allKeys(v10, v11, v12);
 
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v44, v49, 16);
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v43, v48, 16);
     if (v15)
     {
       v17 = v15;
-      v18 = *v45;
+      v18 = *v44;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v45 != v18)
+          if (*v44 != v18)
           {
             objc_enumerationMutation(v13);
           }
 
-          v20 = *(*(&v44 + 1) + 8 * i);
+          v20 = *(*(&v43 + 1) + 8 * i);
           if ((objc_msgSend_containsObject_(keysCopy, v16, v20) & 1) == 0)
           {
             objc_msgSend_setObject_forKeyedSubscript_(recordCopy, v16, 0, v20);
           }
         }
 
-        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v44, v49, 16);
+        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v43, v48, 16);
       }
 
       while (v17);
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v23 = objc_msgSend_encryptedValues(recordCopy, v21, v22, 0);
     v26 = objc_msgSend_allKeys(v23, v24, v25);
 
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v40, v48, 16);
+    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v39, v47, 16);
     if (v28)
     {
       v30 = v28;
-      v31 = *v41;
+      v31 = *v40;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v41 != v31)
+          if (*v40 != v31)
           {
             objc_enumerationMutation(v26);
           }
 
-          v33 = *(*(&v40 + 1) + 8 * j);
+          v33 = *(*(&v39 + 1) + 8 * j);
           if ((objc_msgSend_containsObject_(keysCopy, v29, v33) & 1) == 0)
           {
             v35 = objc_msgSend_encryptedValues(recordCopy, v29, v34);
@@ -380,7 +374,7 @@ LABEL_13:
           }
         }
 
-        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v40, v48, 16);
+        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v39, v47, 16);
       }
 
       while (v30);
@@ -388,8 +382,6 @@ LABEL_13:
 
     objc_msgSend_setTrackChanges_(recordCopy, v37, 1);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return recordCopy;
 }
@@ -430,7 +422,7 @@ LABEL_13:
 
 - (id)recordsWithIDs:(id)ds container:(id)container requiredKeys:(id)keys scope:(int64_t)scope
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   containerCopy = container;
   keysCopy = keys;
@@ -446,116 +438,113 @@ LABEL_13:
   {
     if (!objc_msgSend_count(dsCopy, v20, v21))
     {
-      v61 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v23, v24);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v61, v62, a2, self, @"CKDRecordCache.m", 300, @"Expected recordIDs");
+      v60 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v23, v24);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v60, v61, a2, self, @"CKDRecordCache.m", 300, @"Expected recordIDs");
     }
 
-    v65 = keysCopy;
-    v63 = objc_opt_new();
+    v64 = keysCopy;
+    v62 = objc_opt_new();
     v25 = objc_alloc(MEMORY[0x277CBEB18]);
     v28 = objc_msgSend_count(dsCopy, v26, v27);
     v30 = objc_msgSend_initWithCapacity_(v25, v29, v28);
+    v73 = 0u;
     v74 = 0u;
     v75 = 0u;
     v76 = 0u;
-    v77 = 0u;
-    v64 = dsCopy;
+    v63 = dsCopy;
     v31 = dsCopy;
-    v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v32, &v74, v80, 16);
+    v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v32, &v73, v79, 16);
     if (v33)
     {
       v36 = v33;
-      v37 = *v75;
+      v37 = *v74;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v75 != v37)
+          if (*v74 != v37)
           {
             objc_enumerationMutation(v31);
           }
 
-          v39 = objc_msgSend_sqliteRepresentation(*(*(&v74 + 1) + 8 * i), v34, v35);
+          v39 = objc_msgSend_sqliteRepresentation(*(*(&v73 + 1) + 8 * i), v34, v35);
           objc_msgSend_addObject_(v30, v40, v39);
         }
 
-        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v34, &v74, v80, 16);
+        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v34, &v73, v79, 16);
       }
 
       while (v36);
     }
 
-    v78[0] = @"CONTAINERID";
+    v77[0] = @"CONTAINERID";
     v43 = objc_msgSend_containerID(containerCopy, v41, v42);
-    v79[0] = v43;
-    v78[1] = @"SCOPE";
+    v78[0] = v43;
+    v77[1] = @"SCOPE";
     v45 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v44, scope);
-    v79[1] = v45;
-    v78[2] = @"DSID";
+    v78[1] = v45;
+    v77[2] = @"DSID";
     v48 = objc_msgSend_account(containerCopy, v46, v47);
     v50 = objc_msgSend__dsidForAccount_(self, v49, v48);
-    v79[2] = v50;
-    v52 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v51, v79, v78, 3);
+    v78[2] = v50;
+    v52 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v51, v78, v77, 3);
 
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = sub_225160410;
-    v66[3] = &unk_278546D68;
-    v66[4] = self;
-    v67 = v52;
-    v68 = v30;
-    keysCopy = v65;
-    v69 = v65;
-    v70 = containerCopy;
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = sub_225160410;
+    v65[3] = &unk_278546D68;
+    v65[4] = self;
+    v66 = v52;
+    v67 = v30;
+    keysCopy = v64;
+    v68 = v64;
+    v69 = containerCopy;
     scopeCopy = scope;
-    v71 = v31;
-    v53 = v63;
-    v72 = v53;
+    v70 = v31;
+    v53 = v62;
+    v71 = v53;
     v54 = v30;
     v55 = v52;
-    v57 = objc_msgSend_performInTransaction_(self, v56, v66);
-    v58 = v72;
+    v57 = objc_msgSend_performInTransaction_(self, v56, v65);
+    v58 = v71;
     v22 = v53;
 
-    dsCopy = v64;
+    dsCopy = v63;
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 - (unint64_t)numberOfRecordsWithID:(id)d container:(id)container
 {
-  v29[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   containerCopy = container;
   if ((*MEMORY[0x277CBC810] & 1) == 0)
   {
-    v26 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v26, v27, a2, self, @"CKDRecordCache.m", 380, @"Only suitable for testing: %s:%d", "/Library/Caches/com.apple.xbs/Sources/CloudKitTools/Sources/CloudKitDaemon/Caches/Records/CKDRecordCache.m", 380);
+    v25 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v25, v26, a2, self, @"CKDRecordCache.m", 380, @"Only suitable for testing: %s:%d", "/Library/Caches/com.apple.xbs/Sources/CloudKitTools/Sources/CloudKitDaemon/Caches/Records/CKDRecordCache.m", 380);
   }
 
-  v28[0] = @"RECORDID";
+  v27[0] = @"RECORDID";
   v11 = objc_msgSend_sqliteRepresentation(dCopy, v8, v9);
-  v29[0] = v11;
-  v28[1] = @"CONTAINERID";
+  v28[0] = v11;
+  v27[1] = @"CONTAINERID";
   v14 = objc_msgSend_containerID(containerCopy, v12, v13);
-  v29[1] = v14;
-  v28[2] = @"DSID";
+  v28[1] = v14;
+  v27[2] = @"DSID";
   v17 = objc_msgSend_account(containerCopy, v15, v16);
   v19 = objc_msgSend__dsidForAccount_(self, v18, v17);
-  v29[2] = v19;
-  v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v20, v29, v28, 3);
+  v28[2] = v19;
+  v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v20, v28, v27, 3);
 
   v23 = objc_msgSend_countOfEntriesMatching_label_error_predicate_(self, v22, v21, off_27D719EB0, 0, &unk_28385CAA0);
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (id)addRecord:(id)record container:(id)container knownUserKeys:(id)keys scope:(int64_t)scope
 {
-  v158[2] = *MEMORY[0x277D85DE8];
+  v157[2] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   containerCopy = container;
   keysCopy = keys;
@@ -571,16 +560,16 @@ LABEL_13:
   {
     if (!recordCopy)
     {
-      v133 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v20, v21);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v133, v134, a2, self, @"CKDRecordCache.m", 397, @"Null record");
+      v132 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v20, v21);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v132, v133, a2, self, @"CKDRecordCache.m", 397, @"Null record");
     }
 
     v23 = objc_msgSend_recordID(recordCopy, v20, v21);
 
     if (!v23)
     {
-      v135 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v24, v25);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v135, v136, a2, self, @"CKDRecordCache.m", 398, @"Null recordID");
+      v134 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v24, v25);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v134, v135, a2, self, @"CKDRecordCache.m", 398, @"Null recordID");
     }
 
     v26 = objc_msgSend_recordID(recordCopy, v24, v25);
@@ -588,8 +577,8 @@ LABEL_13:
 
     if (!v29)
     {
-      v137 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v30, v31);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v137, v138, a2, self, @"CKDRecordCache.m", 399, @"Null recordName");
+      v136 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v30, v31);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v136, v137, a2, self, @"CKDRecordCache.m", 399, @"Null recordName");
     }
 
     v32 = objc_msgSend_recordID(recordCopy, v30, v31);
@@ -597,52 +586,52 @@ LABEL_13:
 
     if (!v35)
     {
-      v139 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v36, v37);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v139, v140, a2, self, @"CKDRecordCache.m", 400, @"Null zoneID");
+      v138 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v36, v37);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v138, v139, a2, self, @"CKDRecordCache.m", 400, @"Null zoneID");
     }
 
     v38 = objc_msgSend_etag(recordCopy, v36, v37);
 
     if (!v38)
     {
-      v141 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v39, v40);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v141, v142, a2, self, @"CKDRecordCache.m", 401, @"Null etag");
+      v140 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v39, v40);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v140, v141, a2, self, @"CKDRecordCache.m", 401, @"Null etag");
     }
 
-    v150 = 0;
-    v151 = &v150;
-    v152 = 0x2020000000;
+    v149 = 0;
+    v150 = &v149;
+    v151 = 0x2020000000;
     v41 = objc_msgSend_valueStore(recordCopy, v39, v40);
-    v158[0] = objc_opt_class();
-    v158[1] = objc_opt_class();
-    v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v42, v158, 2);
+    v157[0] = objc_opt_class();
+    v157[1] = objc_opt_class();
+    v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v42, v157, 2);
     v45 = objc_msgSend_containsValueOfClasses_passingTest_(v41, v44, v43, &unk_28385CAC0);
 
-    v153 = v45;
-    v149[0] = MEMORY[0x277D85DD0];
-    v149[1] = 3221225472;
-    v149[2] = sub_2251613A4;
-    v149[3] = &unk_278546DB0;
-    v149[4] = &v150;
-    objc_msgSend_enumerateObjectsUsingBlock_(keysCopy, v46, v149);
-    if (v151[3])
+    v152 = v45;
+    v148[0] = MEMORY[0x277D85DD0];
+    v148[1] = 3221225472;
+    v148[2] = sub_2251613A4;
+    v148[3] = &unk_278546DB0;
+    v148[4] = &v149;
+    objc_msgSend_enumerateObjectsUsingBlock_(keysCopy, v46, v148);
+    if (v150[3])
     {
       v22 = 0;
     }
 
     else
     {
-      v145 = objc_msgSend_serializeProtectionData(recordCopy, v47, v48);
+      v144 = objc_msgSend_serializeProtectionData(recordCopy, v47, v48);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v143 = objc_msgSend_serializePersonalInfo(recordCopy, v49, v50);
+        v142 = objc_msgSend_serializePersonalInfo(recordCopy, v49, v50);
         objc_msgSend_setSerializePersonalInfo_(recordCopy, v51, 1);
       }
 
       else
       {
-        v143 = 0;
+        v142 = 0;
       }
 
       objc_msgSend_setSerializeProtectionData_(recordCopy, v49, 1);
@@ -661,18 +650,18 @@ LABEL_13:
       v57 = *MEMORY[0x277CBC868];
       if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
       {
-        v129 = objc_msgSend_recordID(recordCopy, v58, v59);
-        v132 = objc_msgSend_etag(recordCopy, v130, v131);
+        v128 = objc_msgSend_recordID(recordCopy, v58, v59);
+        v131 = objc_msgSend_etag(recordCopy, v129, v130);
         *buf = 138412546;
-        v155 = v129;
-        v156 = 2114;
-        v157 = v132;
+        v154 = v128;
+        v155 = 2114;
+        v156 = v131;
         _os_log_debug_impl(&dword_22506F000, v57, OS_LOG_TYPE_DEBUG, "Adding recordID %@ with etag %{public}@ to cache", buf, 0x16u);
       }
 
       v60 = [CKDProtocolTranslator alloc];
-      v144 = objc_msgSend_initWithContainer_databaseScope_requireContainerScopedUserID_(v60, v61, containerCopy, scope, 0);
-      v63 = objc_msgSend_pRecordFromRecord_forCache_(v144, v62, recordCopy, 1);
+      v143 = objc_msgSend_initWithContainer_databaseScope_requireContainerScopedUserID_(v60, v61, containerCopy, scope, 0);
+      v63 = objc_msgSend_pRecordFromRecord_forCache_(v143, v62, recordCopy, 1);
       v66 = objc_msgSend_dataRepresentation(v63, v64, v65);
 
       v67 = objc_alloc_init(CKDRecordCacheEntry);
@@ -722,35 +711,33 @@ LABEL_13:
 
       v121 = v120;
 
-      v146[0] = MEMORY[0x277D85DD0];
-      v146[1] = 3221225472;
-      v146[2] = sub_2251613E8;
-      v146[3] = &unk_278546800;
-      v146[4] = self;
+      v145[0] = MEMORY[0x277D85DD0];
+      v145[1] = 3221225472;
+      v145[2] = sub_2251613E8;
+      v145[3] = &unk_278546800;
+      v145[4] = self;
       v122 = v67;
-      v147 = v122;
+      v146 = v122;
       v123 = v121;
-      v148 = v123;
-      v22 = objc_msgSend_performTransaction_(self, v124, v146);
-      objc_msgSend_setSerializeProtectionData_(recordCopy, v125, v145);
+      v147 = v123;
+      v22 = objc_msgSend_performTransaction_(self, v124, v145);
+      objc_msgSend_setSerializeProtectionData_(recordCopy, v125, v144);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        objc_msgSend_setSerializePersonalInfo_(recordCopy, v126, v143);
+        objc_msgSend_setSerializePersonalInfo_(recordCopy, v126, v142);
       }
     }
 
-    _Block_object_dispose(&v150, 8);
+    _Block_object_dispose(&v149, 8);
   }
-
-  v127 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 - (id)etagForRecordID:(id)d container:(id)container requiredKeys:(id)keys scope:(int64_t)scope
 {
-  v64[4] = *MEMORY[0x277D85DE8];
+  v63[4] = *MEMORY[0x277D85DE8];
   dCopy = d;
   containerCopy = container;
   keysCopy = keys;
@@ -766,70 +753,68 @@ LABEL_13:
   {
     if (!dCopy)
     {
-      v47 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v20, v21);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v47, v48, a2, self, @"CKDRecordCache.m", 489, @"Expected a recordID");
+      v46 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v20, v21);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v46, v47, a2, self, @"CKDRecordCache.m", 489, @"Expected a recordID");
     }
 
     v23 = objc_msgSend_recordName(dCopy, v20, v21);
 
     if (!v23)
     {
-      v49 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v24, v25);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v49, v50, a2, self, @"CKDRecordCache.m", 490, @"Expected a recordName");
+      v48 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v24, v25);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v48, v49, a2, self, @"CKDRecordCache.m", 490, @"Expected a recordName");
     }
 
     v26 = objc_msgSend_zoneID(dCopy, v24, v25);
 
     if (!v26)
     {
-      v51 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v27, v28);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v51, v52, a2, self, @"CKDRecordCache.m", 491, @"Expected a zoneID");
+      v50 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v27, v28);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v50, v51, a2, self, @"CKDRecordCache.m", 491, @"Expected a zoneID");
     }
 
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x3032000000;
-    v60 = sub_225073F40;
-    v61 = sub_22507352C;
-    v62 = 0;
-    v63[0] = @"RECORDID";
+    v56 = 0;
+    v57 = &v56;
+    v58 = 0x3032000000;
+    v59 = sub_225073F40;
+    v60 = sub_22507352C;
+    v61 = 0;
+    v62[0] = @"RECORDID";
     v29 = objc_msgSend_sqliteRepresentation(dCopy, v27, v28);
-    v64[0] = v29;
-    v63[1] = @"CONTAINERID";
+    v63[0] = v29;
+    v62[1] = @"CONTAINERID";
     v32 = objc_msgSend_containerID(containerCopy, v30, v31);
-    v64[1] = v32;
-    v63[2] = @"SCOPE";
+    v63[1] = v32;
+    v62[2] = @"SCOPE";
     v34 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v33, scope);
-    v64[2] = v34;
-    v63[3] = @"DSID";
+    v63[2] = v34;
+    v62[3] = @"DSID";
     v37 = objc_msgSend_account(containerCopy, v35, v36);
     v39 = objc_msgSend__dsidForAccount_(self, v38, v37);
-    v64[3] = v39;
-    v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v40, v64, v63, 4);
+    v63[3] = v39;
+    v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v40, v63, v62, 4);
 
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = sub_22516187C;
-    v53[3] = &unk_278546DD8;
-    v53[4] = self;
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = sub_22516187C;
+    v52[3] = &unk_278546DD8;
+    v52[4] = self;
     v42 = v41;
-    v54 = v42;
-    v55 = keysCopy;
-    v56 = &v57;
-    v44 = objc_msgSend_performInTransaction_(self, v43, v53);
-    v22 = v58[5];
+    v53 = v42;
+    v54 = keysCopy;
+    v55 = &v56;
+    v44 = objc_msgSend_performInTransaction_(self, v43, v52);
+    v22 = v57[5];
 
-    _Block_object_dispose(&v57, 8);
+    _Block_object_dispose(&v56, 8);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 - (void)deleteRecordWithID:(id)d container:(id)container scope:(int64_t)scope
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v11 = objc_msgSend_sharedOptions(MEMORY[0x277CBC1D8], v9, v10);
   v14 = objc_msgSend_disableCaching(v11, v12, v13);
@@ -838,38 +823,36 @@ LABEL_13:
   {
     if (!dCopy)
     {
-      v30 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v15, v16);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v30, v31, a2, self, @"CKDRecordCache.m", 525, @"Expected a objectID");
+      v29 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v15, v16);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v29, v30, a2, self, @"CKDRecordCache.m", 525, @"Expected a objectID");
     }
 
     v17 = objc_msgSend_recordName(dCopy, v15, v16);
 
     if (!v17)
     {
-      v32 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v18, v19);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v32, v33, a2, self, @"CKDRecordCache.m", 526, @"Expected a recordName");
+      v31 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v18, v19);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v31, v32, a2, self, @"CKDRecordCache.m", 526, @"Expected a recordName");
     }
 
     v20 = objc_msgSend_zoneID(dCopy, v18, v19);
 
     if (!v20)
     {
-      v34 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v21, v22);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v34, v35, a2, self, @"CKDRecordCache.m", 527, @"Expected a zoneID");
+      v33 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v21, v22);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v33, v34, a2, self, @"CKDRecordCache.m", 527, @"Expected a zoneID");
     }
 
-    v36[0] = @"RECORDID";
+    v35[0] = @"RECORDID";
     v23 = objc_msgSend_sqliteRepresentation(dCopy, v21, v22);
-    v36[1] = @"SCOPE";
-    v37[0] = v23;
+    v35[1] = @"SCOPE";
+    v36[0] = v23;
     v25 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v24, scope);
-    v37[1] = v25;
-    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v26, v37, v36, 2);
+    v36[1] = v25;
+    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v26, v36, v35, 2);
 
     objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v28, v27, off_27D719EF8, 0, &unk_28385CB00);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAllRecords:(id)records
@@ -886,7 +869,7 @@ LABEL_13:
 
 - (void)clearAllRecordsInScope:(int64_t)scope container:(id)container
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v7 = objc_msgSend_sharedOptions(MEMORY[0x277CBC1D8], a2, scope, container);
   v10 = objc_msgSend_disableCaching(v7, v8, v9);
 
@@ -896,39 +879,35 @@ LABEL_13:
 
     if (!v13)
     {
-      v21 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v14, v15);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v21, v22, a2, self, @"CKDRecordCache.m", 548, @"Expected non-nil db for %@", self);
+      v20 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v14, v15);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v20, v21, a2, self, @"CKDRecordCache.m", 548, @"Expected non-nil db for %@", self);
     }
 
-    v23 = @"SCOPE";
+    v22 = @"SCOPE";
     v16 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v14, scope);
-    v24[0] = v16;
-    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v24, &v23, 1);
+    v23[0] = v16;
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v23, &v22, 1);
 
     objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v19, v18, off_27D719F10, 0, &unk_28385CB20);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAllRecordsForContainer:(id)container zoneWithID:(id)d
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v8 = objc_msgSend_sharedOptions(MEMORY[0x277CBC1D8], v6, v7);
   v11 = objc_msgSend_disableCaching(v8, v9, v10);
 
   if (dCopy && (v11 & 1) == 0)
   {
-    v19 = @"ZONEID";
+    v18 = @"ZONEID";
     v14 = objc_msgSend_sqliteRepresentation(dCopy, v12, v13);
-    v20[0] = v14;
-    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v20, &v19, 1);
+    v19[0] = v14;
+    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v19, &v18, 1);
 
     objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v17, v16, off_27D719F28, 0, &unk_28385CB40);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -101,9 +101,9 @@
   if (observerCopy)
   {
     v9 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v9;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       observers = self->_observers;
       if (!observers)
@@ -127,7 +127,7 @@
   if (observerCopy)
   {
     v6 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v6;
     if (v5)
     {
@@ -484,11 +484,11 @@ uint64_t __72__SBLoginAppContainerViewController_disableLockScreenPluginWithCont
   [(SBLoginAppSceneHoster *)sceneHoster launchLoginAppWithInitialOrientation:interfaceOrientation completion:v8];
 }
 
-void __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke(uint64_t a1, int a2, void *a3)
+void __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke(id *a1, int a2, void *a3)
 {
   v30 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = SBLogWorkspace();
+  v6 = SBLogWorkspace(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
@@ -496,18 +496,18 @@ void __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke(uint
     _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "LoginUI app activation completed: %d", buf, 8u);
   }
 
-  [*(a1 + 32) relinquish];
+  [a1[4] relinquish];
   if (a2)
   {
-    v7 = [*(a1 + 40) loginContainerView];
-    v8 = [*(*(a1 + 40) + 1048) contentView];
+    v7 = [a1[5] loginContainerView];
+    v8 = [*(a1[5] + 131) contentView];
     [v7 setContentView:v8];
 
     v25 = 0u;
     v26 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v9 = [*(*(a1 + 40) + 1128) allObjects];
+    v9 = [*(a1[5] + 141) allObjects];
     v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
@@ -523,7 +523,7 @@ void __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke(uint
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v23 + 1) + 8 * v13++) loginAppDidFinishLaunching:*(a1 + 40)];
+          [*(*(&v23 + 1) + 8 * v13++) loginAppDidFinishLaunching:a1[5]];
         }
 
         while (v11 != v13);
@@ -533,10 +533,10 @@ void __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke(uint
       while (v11);
     }
 
-    if ([*(a1 + 40) interfaceOrientation] != *(a1 + 48))
+    if ([a1[5] interfaceOrientation] != a1[6])
     {
-      v14 = *(a1 + 40);
-      v15 = *(v14 + 1048);
+      v14 = a1[5];
+      v15 = v14[131];
       v22[0] = MEMORY[0x277D85DD0];
       v22[1] = 3221225472;
       v22[2] = __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke_62;
@@ -554,7 +554,7 @@ void __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke(uint
     block[2] = __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke_2;
     block[3] = &unk_2783A92D8;
     v17 = v5;
-    v18 = *(a1 + 40);
+    v18 = a1[5];
     v20 = v17;
     v21 = v18;
     dispatch_after(v16, MEMORY[0x277D85CD0], block);
@@ -573,7 +573,7 @@ id __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke_62(uin
 
 uint64_t __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke_2(uint64_t a1)
 {
-  v2 = SBLogWorkspace();
+  v2 = SBLogWorkspace(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke_2_cold_1(a1, v2);
@@ -595,7 +595,7 @@ uint64_t __53__SBLoginAppContainerViewController__setupLoginScene__block_invoke_
 
 uint64_t __53__SBLoginAppContainerViewController_sceneInvalidated__block_invoke(uint64_t a1)
 {
-  v2 = SBLogWorkspace();
+  v2 = SBLogWorkspace(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __53__SBLoginAppContainerViewController_sceneInvalidated__block_invoke_cold_1(v2);

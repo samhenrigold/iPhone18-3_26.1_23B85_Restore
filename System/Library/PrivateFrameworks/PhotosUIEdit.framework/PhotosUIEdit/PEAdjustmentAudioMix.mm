@@ -24,9 +24,9 @@
       {
         v17 = [MEMORY[0x277D3A860] assetIsCinematicVideo:v16];
         audioMix = [(PEAdjustmentAudioMix *)self audioMix];
-        v19 = [audioMix isEqualToString:*MEMORY[0x277D3A9F0]];
+        isEqualToString = objc_msgSend_isEqualToString_(audioMix);
 
-        if (!v19 || (v17 & 1) != 0)
+        if (!isEqualToString || (v17 & 1) != 0)
         {
           v22 = [MEMORY[0x277D2D048] cinematicAudioRenderingVersionFromAsset:v16];
           v23 = *MEMORY[0x277D3A9E0];

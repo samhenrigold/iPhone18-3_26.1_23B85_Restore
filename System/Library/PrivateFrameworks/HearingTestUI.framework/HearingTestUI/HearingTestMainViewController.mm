@@ -1,5 +1,6 @@
 @interface HearingTestMainViewController
 + (id)makeStandardViewControllerWithHealthStore:(id)store entryPoint:(int64_t)point options:(id)options articleProvider:(id)provider importFlowProvider:(id)flowProvider;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -15,12 +16,12 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v11 = objc_allocWithZone(type metadata accessor for HearingTestMainViewController());
+  v12 = objc_allocWithZone(type metadata accessor for HearingTestMainViewController());
   storeCopy = store;
   optionsCopy = options;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v14 = sub_20CDCACA4(storeCopy, point, optionsCopy, provider);
+  v15 = sub_20CDCACA4(storeCopy, point, optionsCopy, provider, flowProvider);
   initWithRootViewController_ = [objc_allocWithZone(MEMORY[0x277D12978]) initWithRootViewController_];
   [initWithRootViewController_ setModalInPresentation_];
   [initWithRootViewController_ setModalPresentationStyle_];
@@ -55,6 +56,25 @@
   sub_20CDC8F04();
   sub_20CDC9188();
   sub_20CDC7834();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  sub_20CE13B84();
+  sub_20CE13B74();
+  sub_20CE13B24();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for HearingTestMainViewController();
+  selfCopy = self;
+  [(OBBaseWelcomeController *)&v7 viewDidAppear:appearCopy];
+  v6 = 0;
+  sub_20CDC51E0(&v6 + 1, &v6);
 }
 
 @end

@@ -13,10 +13,10 @@
 - (NSString)lastError;
 - (NSString)username;
 - (PCSAccountsModel)init;
-- (uint64_t)init;
 - (uint64_t)update;
 - (void)_accountStoreDidChange:(id)change;
 - (void)faultIfCurrentPersonaIsDataSeparated;
+- (void)init;
 - (void)update;
 @end
 
@@ -46,29 +46,29 @@ void __40__PCSAccountsModel_defaultAccountsModel__block_invoke()
 
 - (PCSAccountsModel)init
 {
-  v14.receiver = self;
-  v14.super_class = PCSAccountsModel;
-  v2 = [(PCSAccountsModel *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = PCSAccountsModel;
+  v2 = [(PCSAccountsModel *)&v15 init];
   if (v2)
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2050000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
     v3 = getACAccountStoreClass_softClass;
-    v23 = getACAccountStoreClass_softClass;
+    v24 = getACAccountStoreClass_softClass;
     if (!getACAccountStoreClass_softClass)
     {
-      v15 = MEMORY[0x1E69E9820];
-      v16 = 3221225472;
-      v17 = __getACAccountStoreClass_block_invoke;
-      v18 = &unk_1E7B18A90;
-      v19 = &v20;
-      __getACAccountStoreClass_block_invoke(&v15);
-      v3 = v21[3];
+      v16 = MEMORY[0x1E69E9820];
+      v17 = 3221225472;
+      v18 = __getACAccountStoreClass_block_invoke;
+      v19 = &unk_1E7B18A90;
+      v20 = &v21;
+      __getACAccountStoreClass_block_invoke(&v16);
+      v3 = v22[3];
     }
 
     v4 = v3;
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
     defaultStore = [v3 defaultStore];
     [(PCSAccountsModel *)v2 setStore:defaultStore];
 
@@ -78,31 +78,32 @@ void __40__PCSAccountsModel_defaultAccountsModel__block_invoke()
 
     [(PCSAccountsModel *)v2 setAccountsChanged:1];
     defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
     v9 = getACDAccountStoreDidChangeNotificationSymbolLoc_ptr;
-    v23 = getACDAccountStoreDidChangeNotificationSymbolLoc_ptr;
+    v24 = getACDAccountStoreDidChangeNotificationSymbolLoc_ptr;
     if (!getACDAccountStoreDidChangeNotificationSymbolLoc_ptr)
     {
-      v15 = MEMORY[0x1E69E9820];
-      v16 = 3221225472;
-      v17 = __getACDAccountStoreDidChangeNotificationSymbolLoc_block_invoke;
-      v18 = &unk_1E7B18A90;
-      v19 = &v20;
+      v16 = MEMORY[0x1E69E9820];
+      v17 = 3221225472;
+      v18 = __getACDAccountStoreDidChangeNotificationSymbolLoc_block_invoke;
+      v19 = &unk_1E7B18A90;
+      v20 = &v21;
       v10 = AccountsLibrary();
       v11 = dlsym(v10, "ACDAccountStoreDidChangeNotification");
-      *(v19[1] + 24) = v11;
-      getACDAccountStoreDidChangeNotificationSymbolLoc_ptr = *(v19[1] + 24);
-      v9 = v21[3];
+      *(v20[1] + 24) = v11;
+      getACDAccountStoreDidChangeNotificationSymbolLoc_ptr = *(v20[1] + 24);
+      v9 = v22[3];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
     if (!v9)
     {
-      v13 = [PCSAccountsModel init];
-      _Block_object_dispose(&v20, 8);
-      _Unwind_Resume(v13);
+      [PCSAccountsModel init];
+      v14 = v13;
+      _Block_object_dispose(&v21, 8);
+      _Unwind_Resume(v14);
     }
 
     [defaultCenter addObserver:v2 selector:sel__accountStoreDidChange_ name:*v9 object:0];
@@ -115,25 +116,25 @@ void __40__PCSAccountsModel_defaultAccountsModel__block_invoke()
 {
   changeCopy = change;
   userInfo = [changeCopy userInfo];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
   v6 = getACAccountTypeIdentifierKeySymbolLoc_ptr;
-  v24 = getACAccountTypeIdentifierKeySymbolLoc_ptr;
+  v25 = getACAccountTypeIdentifierKeySymbolLoc_ptr;
   if (!getACAccountTypeIdentifierKeySymbolLoc_ptr)
   {
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __getACAccountTypeIdentifierKeySymbolLoc_block_invoke;
-    v19 = &unk_1E7B18A90;
-    v20 = &v21;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __getACAccountTypeIdentifierKeySymbolLoc_block_invoke;
+    v20 = &unk_1E7B18A90;
+    v21 = &v22;
     v7 = AccountsLibrary();
-    v22[3] = dlsym(v7, "ACAccountTypeIdentifierKey");
-    getACAccountTypeIdentifierKeySymbolLoc_ptr = *(v20[1] + 24);
-    v6 = v22[3];
+    v23[3] = dlsym(v7, "ACAccountTypeIdentifierKey");
+    getACAccountTypeIdentifierKeySymbolLoc_ptr = *(v21[1] + 24);
+    v6 = v23[3];
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
   if (!v6)
   {
     [PCSAccountsModel init];
@@ -142,31 +143,32 @@ void __40__PCSAccountsModel_defaultAccountsModel__block_invoke()
 
   v8 = *v6;
   v9 = [userInfo objectForKeyedSubscript:v8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
   v10 = getACAccountTypeIdentifierAppleAccountSymbolLoc_ptr;
-  v24 = getACAccountTypeIdentifierAppleAccountSymbolLoc_ptr;
+  v25 = getACAccountTypeIdentifierAppleAccountSymbolLoc_ptr;
   if (!getACAccountTypeIdentifierAppleAccountSymbolLoc_ptr)
   {
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __getACAccountTypeIdentifierAppleAccountSymbolLoc_block_invoke;
-    v19 = &unk_1E7B18A90;
-    v20 = &v21;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __getACAccountTypeIdentifierAppleAccountSymbolLoc_block_invoke;
+    v20 = &unk_1E7B18A90;
+    v21 = &v22;
     v11 = AccountsLibrary();
-    v22[3] = dlsym(v11, "ACAccountTypeIdentifierAppleAccount");
-    getACAccountTypeIdentifierAppleAccountSymbolLoc_ptr = *(v20[1] + 24);
-    v10 = v22[3];
+    v23[3] = dlsym(v11, "ACAccountTypeIdentifierAppleAccount");
+    getACAccountTypeIdentifierAppleAccountSymbolLoc_ptr = *(v21[1] + 24);
+    v10 = v23[3];
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
   if (!v10)
   {
 LABEL_11:
-    v14 = [PCSAccountsModel init];
-    _Block_object_dispose(&v21, 8);
-    _Unwind_Resume(v14);
+    [PCSAccountsModel init];
+    v15 = v14;
+    _Block_object_dispose(&v22, 8);
+    _Unwind_Resume(v15);
   }
 
   v12 = [v9 isEqualToString:*v10];
@@ -174,12 +176,12 @@ LABEL_11:
   if (v12)
   {
     queue = [(PCSAccountsModel *)self queue];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __43__PCSAccountsModel__accountStoreDidChange___block_invoke;
-    v15[3] = &unk_1E7B18D98;
-    v15[4] = self;
-    dispatch_sync(queue, v15);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __43__PCSAccountsModel__accountStoreDidChange___block_invoke;
+    v16[3] = &unk_1E7B18D98;
+    v16[4] = self;
+    dispatch_sync(queue, v16);
   }
 }
 
@@ -204,19 +206,19 @@ LABEL_11:
 
 - (NSString)username
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__0;
-  v20 = __Block_byref_object_dispose__0;
-  v21 = 0;
-  if (PCSSupportsPersonaMultiuser())
+  v27 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__0;
+  v19 = __Block_byref_object_dispose__0;
+  v20 = 0;
+  if (PCSSupportsPersonaMultiuser(self, a2))
   {
     v3 = +[PCSAccountsModel accountForCurrentPersona];
     username = [v3 username];
-    v5 = v17[5];
-    v17[5] = username;
+    v5 = v16[5];
+    v16[5] = username;
 
     v6 = MEMORY[0x1E69E9C10];
     v7 = MEMORY[0x1E69E9C10];
@@ -226,11 +228,11 @@ LABEL_11:
       aa_personID = [v3 aa_personID];
       aa_altDSID = [v3 aa_altDSID];
       *buf = 138412802;
-      v23 = personaIdentifier;
-      v24 = 2112;
-      v25 = aa_personID;
-      v26 = 2112;
-      v27 = aa_altDSID;
+      v22 = personaIdentifier;
+      v23 = 2112;
+      v24 = aa_personID;
+      v25 = 2112;
+      v26 = aa_altDSID;
       _os_log_fault_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "username invoked with current persona: %@, dsid: %@, altDSID: %@", buf, 0x20u);
     }
   }
@@ -239,19 +241,17 @@ LABEL_11:
   {
     [(PCSAccountsModel *)self faultIfCurrentPersonaIsDataSeparated];
     queue = [(PCSAccountsModel *)self queue];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __28__PCSAccountsModel_username__block_invoke;
-    v15[3] = &unk_1E7B18DC0;
-    v15[4] = self;
-    v15[5] = &v16;
-    dispatch_sync(queue, v15);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __28__PCSAccountsModel_username__block_invoke;
+    v14[3] = &unk_1E7B18DC0;
+    v14[4] = self;
+    v14[5] = &v15;
+    dispatch_sync(queue, v14);
   }
 
-  v9 = v17[5];
-  _Block_object_dispose(&v16, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   return v9;
 }
@@ -267,19 +267,19 @@ void __28__PCSAccountsModel_username__block_invoke(uint64_t a1)
 
 - (NSString)dsid
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__0;
-  v20 = __Block_byref_object_dispose__0;
-  v21 = 0;
-  if (PCSSupportsPersonaMultiuser())
+  v27 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__0;
+  v19 = __Block_byref_object_dispose__0;
+  v20 = 0;
+  if (PCSSupportsPersonaMultiuser(self, a2))
   {
     v3 = +[PCSAccountsModel accountForCurrentPersona];
     aa_personID = [v3 aa_personID];
-    v5 = v17[5];
-    v17[5] = aa_personID;
+    v5 = v16[5];
+    v16[5] = aa_personID;
 
     v6 = MEMORY[0x1E69E9C10];
     v7 = MEMORY[0x1E69E9C10];
@@ -289,11 +289,11 @@ void __28__PCSAccountsModel_username__block_invoke(uint64_t a1)
       aa_personID2 = [v3 aa_personID];
       aa_altDSID = [v3 aa_altDSID];
       *buf = 138412802;
-      v23 = personaIdentifier;
-      v24 = 2112;
-      v25 = aa_personID2;
-      v26 = 2112;
-      v27 = aa_altDSID;
+      v22 = personaIdentifier;
+      v23 = 2112;
+      v24 = aa_personID2;
+      v25 = 2112;
+      v26 = aa_altDSID;
       _os_log_fault_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "dsid invoked with current persona: %@, dsid: %@, altDSID: %@", buf, 0x20u);
     }
   }
@@ -302,19 +302,17 @@ void __28__PCSAccountsModel_username__block_invoke(uint64_t a1)
   {
     [(PCSAccountsModel *)self faultIfCurrentPersonaIsDataSeparated];
     queue = [(PCSAccountsModel *)self queue];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __24__PCSAccountsModel_dsid__block_invoke;
-    v15[3] = &unk_1E7B18DC0;
-    v15[4] = self;
-    v15[5] = &v16;
-    dispatch_sync(queue, v15);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __24__PCSAccountsModel_dsid__block_invoke;
+    v14[3] = &unk_1E7B18DC0;
+    v14[4] = self;
+    v14[5] = &v15;
+    dispatch_sync(queue, v14);
   }
 
-  v9 = v17[5];
-  _Block_object_dispose(&v16, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   return v9;
 }
@@ -330,19 +328,19 @@ void __24__PCSAccountsModel_dsid__block_invoke(uint64_t a1)
 
 - (NSString)identifier
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__0;
-  v20 = __Block_byref_object_dispose__0;
-  v21 = 0;
-  if (PCSSupportsPersonaMultiuser())
+  v27 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__0;
+  v19 = __Block_byref_object_dispose__0;
+  v20 = 0;
+  if (PCSSupportsPersonaMultiuser(self, a2))
   {
     v3 = +[PCSAccountsModel accountForCurrentPersona];
     identifier = [v3 identifier];
-    v5 = v17[5];
-    v17[5] = identifier;
+    v5 = v16[5];
+    v16[5] = identifier;
 
     v6 = MEMORY[0x1E69E9C10];
     v7 = MEMORY[0x1E69E9C10];
@@ -352,11 +350,11 @@ void __24__PCSAccountsModel_dsid__block_invoke(uint64_t a1)
       aa_personID = [v3 aa_personID];
       aa_altDSID = [v3 aa_altDSID];
       *buf = 138412802;
-      v23 = personaIdentifier;
-      v24 = 2112;
-      v25 = aa_personID;
-      v26 = 2112;
-      v27 = aa_altDSID;
+      v22 = personaIdentifier;
+      v23 = 2112;
+      v24 = aa_personID;
+      v25 = 2112;
+      v26 = aa_altDSID;
       _os_log_fault_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "identifier invoked with current persona: %@, dsid: %@, altDSID: %@", buf, 0x20u);
     }
   }
@@ -365,19 +363,17 @@ void __24__PCSAccountsModel_dsid__block_invoke(uint64_t a1)
   {
     [(PCSAccountsModel *)self faultIfCurrentPersonaIsDataSeparated];
     queue = [(PCSAccountsModel *)self queue];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __30__PCSAccountsModel_identifier__block_invoke;
-    v15[3] = &unk_1E7B18DC0;
-    v15[4] = self;
-    v15[5] = &v16;
-    dispatch_sync(queue, v15);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __30__PCSAccountsModel_identifier__block_invoke;
+    v14[3] = &unk_1E7B18DC0;
+    v14[4] = self;
+    v14[5] = &v15;
+    dispatch_sync(queue, v14);
   }
 
-  v9 = v17[5];
-  _Block_object_dispose(&v16, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   return v9;
 }
@@ -393,14 +389,14 @@ void __30__PCSAccountsModel_identifier__block_invoke(uint64_t a1)
 
 - (NSString)lastError
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
-  if (PCSSupportsPersonaMultiuser())
+  v29 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__0;
+  v21 = __Block_byref_object_dispose__0;
+  v22 = 0;
+  if (PCSSupportsPersonaMultiuser(self, a2))
   {
     v3 = +[PCSAccountsModel accountForCurrentPersona];
     v4 = MEMORY[0x1E69E9C10];
@@ -411,19 +407,19 @@ void __30__PCSAccountsModel_identifier__block_invoke(uint64_t a1)
       aa_personID = [v3 aa_personID];
       aa_altDSID = [v3 aa_altDSID];
       *buf = 138412802;
-      v25 = personaIdentifier;
-      v26 = 2112;
-      v27 = aa_personID;
-      v28 = 2112;
-      v29 = aa_altDSID;
+      v24 = personaIdentifier;
+      v25 = 2112;
+      v26 = aa_personID;
+      v27 = 2112;
+      v28 = aa_altDSID;
       _os_log_fault_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "lastError invoked with current persona: %@, dsid: %@, altDSID: %@", buf, 0x20u);
     }
 
     v6 = MEMORY[0x1E696AEC0];
     personaIdentifier2 = [v3 personaIdentifier];
     v8 = [v6 stringWithFormat:@"lastError not set for current persona %@", personaIdentifier2];
-    v9 = v19[5];
-    v19[5] = v8;
+    v9 = v18[5];
+    v18[5] = v8;
   }
 
   else
@@ -435,21 +431,19 @@ void __30__PCSAccountsModel_identifier__block_invoke(uint64_t a1)
     block[2] = __29__PCSAccountsModel_lastError__block_invoke;
     block[3] = &unk_1E7B18DE8;
     block[4] = self;
-    block[5] = &v18;
+    block[5] = &v17;
     dispatch_sync(queue, block);
   }
 
-  v11 = v19[5];
-  _Block_object_dispose(&v18, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
   return v11;
 }
 
 - (void)update
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   queue = [(PCSAccountsModel *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -520,21 +514,19 @@ LABEL_12:
   if (((v4 != 0) != (v20 != 0) || v4 && v20 && ![(NSString *)v20 isEqualToString:v4]) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     v21 = self->_dsid;
-    v23 = 138543618;
-    v24 = v4;
-    v25 = 2114;
-    v26 = v21;
-    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Switching from DSID %{public}@ to %{public}@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v4;
+    v24 = 2114;
+    v25 = v21;
+    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Switching from DSID %{public}@ to %{public}@", &v22, 0x16u);
   }
 
 LABEL_18:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)currentPersonaSupportsPrimaryAccount:(id *)account
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
@@ -544,19 +536,18 @@ LABEL_18:
   {
     v8 = MEMORY[0x1E696ABC0];
     v9 = kPCSErrorDomain;
-    v13 = *MEMORY[0x1E696A578];
-    v14[0] = @"Operation unsupported for non-primary persona";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696A578];
+    v13[0] = @"Operation unsupported for non-primary persona";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *account = [v8 errorWithDomain:v9 code:146 userInfo:v10];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7 ^ 1;
 }
 
 + (id)accountForCurrentPersona
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = +[PCSAccountsModel defaultAccountsModel];
   store = [v2 store];
 
@@ -566,26 +557,26 @@ LABEL_18:
   if ([currentPersona isDataSeparatedPersona])
   {
     userPersonaUniqueString = [currentPersona userPersonaUniqueString];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     aa_appleAccounts = [store aa_appleAccounts];
-    v8 = [aa_appleAccounts countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v8 = [aa_appleAccounts countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(aa_appleAccounts);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * v11);
+        v12 = *(*(&v17 + 1) + 8 * v11);
         personaIdentifier = [v12 personaIdentifier];
         v14 = [userPersonaUniqueString isEqualToString:personaIdentifier];
 
@@ -596,7 +587,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [aa_appleAccounts countByEnumeratingWithState:&v18 objects:v24 count:16];
+          v9 = [aa_appleAccounts countByEnumeratingWithState:&v17 objects:v23 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -616,7 +607,7 @@ LABEL_4:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = userPersonaUniqueString;
+        v22 = userPersonaUniqueString;
         _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "using account for persona %@", buf, 0xCu);
       }
     }
@@ -640,14 +631,11 @@ LABEL_15:
     aa_primaryAppleAccount = [store aa_primaryAppleAccount];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return aa_primaryAppleAccount;
 }
 
 + (id)altDSIDForDSID:(id)d
 {
-  v11 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!AppleAccountLibraryCore_frameworkLibrary)
   {
@@ -678,14 +666,12 @@ LABEL_15:
     aa_altDSID = [v7 aa_altDSID];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return aa_altDSID;
 }
 
 + (id)settingsKeyForKey:(id)key error:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if ([PCSAccountsModel currentPersonaSupportsPrimaryAccount:0])
   {
@@ -707,14 +693,12 @@ LABEL_15:
     v6 = MEMORY[0x1E696ABC0];
     v7 = kPCSErrorDomain;
     v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unrecognized key :%@", keyCopy, *MEMORY[0x1E696A578]];
-    v13[0] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v12[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     *error = [v6 errorWithDomain:v7 code:153 userInfo:v9];
 
     error = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return error;
 }
@@ -814,36 +798,34 @@ LABEL_8:
   return v12;
 }
 
-- (uint64_t)init
+- (void)init
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [(PCSAccountsModel *)v0 faultIfCurrentPersonaIsDataSeparated];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [PCSAccountsModel faultIfCurrentPersonaIsDataSeparated];
 }
 
 - (uint64_t)update
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = objc_begin_catch(self);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "no accounts found: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "no accounts found: %@", &v6, 0xCu);
   }
 
   objc_end_catch();
-  v5 = *MEMORY[0x1E69E9840];
   return a3 & 1;
 }
 
 + (void)accountForCurrentPersona
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unable to find account for persona %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unable to find account for persona %@", &v1, 0xCu);
 }
 
 @end

@@ -1,44 +1,42 @@
 char *ICEUNToString(char *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  memset(v17, 170, 12);
+  v17 = *MEMORY[0x277D85DE8];
   memset(v16, 170, 12);
   memset(v15, 170, 12);
   memset(v14, 170, 12);
+  memset(v13, 170, 12);
   v3 = *(a2 + 4);
   v4 = *(a2 + 8);
   v5 = *(a2 + 10);
   v6 = *(a2 + 14);
   v7 = bswap32(*a2);
   v8 = *(a2 + 18);
-  __sprintf_chk(v15, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v7), BYTE2(v7), BYTE1(v7), v7);
+  __sprintf_chk(v14, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v7), BYTE2(v7), BYTE1(v7), v7);
   v9 = bswap32(v3);
-  __sprintf_chk(v14, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v9), BYTE2(v9), BYTE1(v9), v9);
+  __sprintf_chk(v13, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v9), BYTE2(v9), BYTE1(v9), v9);
   v10 = bswap32(v5);
-  __sprintf_chk(v17, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v10), BYTE2(v10), BYTE1(v10), v10);
+  __sprintf_chk(v16, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v10), BYTE2(v10), BYTE1(v10), v10);
   v11 = bswap32(v6);
-  __sprintf_chk(v16, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v11), BYTE2(v11), BYTE1(v11), v11);
-  sprintf(a1, "%s.%s.%d-%s.%s.%d", v15, v14, bswap32(v4) >> 16, v17, v16, bswap32(v8) >> 16);
-  v12 = *MEMORY[0x277D85DE8];
+  __sprintf_chk(v15, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v11), BYTE2(v11), BYTE1(v11), v11);
+  sprintf(a1, "%s.%s.%d-%s.%s.%d", v14, v13, bswap32(v4) >> 16, v16, v15, bswap32(v8) >> 16);
   return a1;
 }
 
 char *CANIDToString(char *a1, unsigned int *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2[1];
   v4 = bswap32(*a2);
-  memset(v9, 170, 12);
   memset(v8, 170, 12);
-  __sprintf_chk(v9, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v4), BYTE2(v4), BYTE1(v4), v4);
+  memset(v7, 170, 12);
+  __sprintf_chk(v8, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v4), BYTE2(v4), BYTE1(v4), v4);
   v5 = bswap32(v3);
-  __sprintf_chk(v8, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v5), BYTE2(v5), BYTE1(v5), v5);
-  sprintf(a1, "%s%s", v9, v8);
-  v6 = *MEMORY[0x277D85DE8];
+  __sprintf_chk(v7, 0, 0xCuLL, "%02X%02X%02X%02X", HIBYTE(v5), BYTE2(v5), BYTE1(v5), v5);
+  sprintf(a1, "%s%s", v8, v7);
   return a1;
 }
 
-uint64_t CandidateByteOrderNToH(uint64_t a1, int a2)
+uint64_t CandidateByteOrderNToH(uint64_t a1, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -64,7 +62,7 @@ uint64_t CandidateByteOrderNToH(uint64_t a1, int a2)
   return 0;
 }
 
-uint64_t CandidateByteOrderHToN(uint64_t a1, int a2)
+uint64_t CandidateByteOrderHToN(uint64_t a1, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -90,9 +88,9 @@ uint64_t CandidateByteOrderHToN(uint64_t a1, int a2)
   return 0;
 }
 
-uint64_t RemoveOneCandidateFromList(uint64_t a1, int a2)
+uint64_t RemoveOneCandidateFromList(uint64_t a1, unsigned int a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   result = 2148859926;
   if (a2 >= 1)
   {
@@ -122,54 +120,49 @@ uint64_t RemoveOneCandidateFromList(uint64_t a1, int a2)
     result = v6 == 0xFFFF ? 2148859926 : 0;
     if (v6 != 0xFFFF)
     {
-      v10 = a1 + 24;
-      while (*(v10 - 4) != v6)
+      for (i = a1 + 24; *(i - 4) != v6; i += 148)
       {
-        v10 += 148;
         if (!--v4)
         {
-          result = 0;
-          goto LABEL_19;
+          return 0;
         }
       }
 
-      *&v30[14] = 0xAAAAAAAAAAAAAAAALL;
+      *&v29[14] = 0xAAAAAAAAAAAAAAAALL;
       *&v11 = 0xAAAAAAAAAAAAAAAALL;
       *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v29[1] = v11;
-      *v30 = v11;
-      v29[0] = v11;
+      v28[1] = v11;
+      *v29 = v11;
+      v28[0] = v11;
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
         v12 = VRTraceErrorLogLevelToCSTR();
         v13 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v14 = *(v10 - 20);
-          v15 = *(v10 - 4);
-          v17 = 136316418;
-          v18 = v12;
-          v19 = 2080;
-          v20 = "RemoveOneCandidateFromList";
-          v21 = 1024;
-          v22 = 168;
-          v23 = 1024;
-          v24 = v14;
-          v25 = 1024;
-          v26 = v15;
-          v27 = 2080;
-          v28 = IPPORTToStringWithSize(v29, v10, 0x36uLL);
-          _os_log_impl(&dword_23D497000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RemoveOneCandidateFromList: removing %d, %d, %s", &v17, 0x32u);
+          v14 = *(i - 20);
+          v15 = *(i - 4);
+          v16 = 136316418;
+          v17 = v12;
+          v18 = 2080;
+          v19 = "RemoveOneCandidateFromList";
+          v20 = 1024;
+          v21 = 168;
+          v22 = 1024;
+          v23 = v14;
+          v24 = 1024;
+          v25 = v15;
+          v26 = 2080;
+          v27 = IPPORTToStringWithSize(v28, i, 0x36uLL);
+          _os_log_impl(&dword_23D497000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RemoveOneCandidateFromList: removing %d, %d, %s", &v16, 0x32u);
         }
       }
 
       result = 0;
-      *(v10 - 4) = -1;
+      *(i - 4) = -1;
     }
   }
 
-LABEL_19:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -180,13 +173,13 @@ uint64_t breakByte(uint64_t result, unsigned int *a2, _DWORD *a3)
   return result;
 }
 
-uint64_t CompressCandidateList(void *a1, int *a2, uint64_t a3, int a4)
+uint64_t CompressCandidateList(void *a1, int *a2, uint64_t a3, unsigned int a4)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v4 = 2148859907;
   if (a4 < 1)
   {
-    goto LABEL_45;
+    return 2148859926;
   }
 
   v7 = 0;
@@ -200,55 +193,55 @@ uint64_t CompressCandidateList(void *a1, int *a2, uint64_t a3, int a4)
   __src[3] = v12;
   __src[0] = v12;
   __src[1] = v12;
-  v48[0] = v12;
-  v48[1] = v12;
-  v48[2] = v12;
-  v48[3] = v12;
-  v48[4] = v12;
-  v48[5] = v12;
-  v48[6] = v12;
-  v48[7] = v12;
-  v48[8] = v12;
-  v48[9] = v12;
-  v48[10] = v12;
-  v48[11] = v12;
-  v48[12] = v12;
-  v48[13] = v12;
-  v48[14] = v12;
-  v48[15] = v12;
-  v47[30] = v12;
-  v47[31] = v12;
-  v47[28] = v12;
-  v47[29] = v12;
-  v47[26] = v12;
-  v47[27] = v12;
-  v47[24] = v12;
-  v47[25] = v12;
-  v47[22] = v12;
-  v47[23] = v12;
-  v47[20] = v12;
-  v47[21] = v12;
-  v47[18] = v12;
-  v47[19] = v12;
-  v47[16] = v12;
-  v47[17] = v12;
-  v47[14] = v12;
-  v47[15] = v12;
-  v47[12] = v12;
-  v47[13] = v12;
-  v47[10] = v12;
-  v47[11] = v12;
-  v47[8] = v12;
-  v47[9] = v12;
-  v47[6] = v12;
-  v47[7] = v12;
-  v47[4] = v12;
-  v47[5] = v12;
-  v47[2] = v12;
-  v47[3] = v12;
-  v13 = a4 >= 0x20 ? 32 : a4;
   v47[0] = v12;
   v47[1] = v12;
+  v47[2] = v12;
+  v47[3] = v12;
+  v47[4] = v12;
+  v47[5] = v12;
+  v47[6] = v12;
+  v47[7] = v12;
+  v47[8] = v12;
+  v47[9] = v12;
+  v47[10] = v12;
+  v47[11] = v12;
+  v47[12] = v12;
+  v47[13] = v12;
+  v47[14] = v12;
+  v47[15] = v12;
+  v46[30] = v12;
+  v46[31] = v12;
+  v46[28] = v12;
+  v46[29] = v12;
+  v46[26] = v12;
+  v46[27] = v12;
+  v46[24] = v12;
+  v46[25] = v12;
+  v46[22] = v12;
+  v46[23] = v12;
+  v46[20] = v12;
+  v46[21] = v12;
+  v46[18] = v12;
+  v46[19] = v12;
+  v46[16] = v12;
+  v46[17] = v12;
+  v46[14] = v12;
+  v46[15] = v12;
+  v46[12] = v12;
+  v46[13] = v12;
+  v46[10] = v12;
+  v46[11] = v12;
+  v46[8] = v12;
+  v46[9] = v12;
+  v46[6] = v12;
+  v46[7] = v12;
+  v46[4] = v12;
+  v46[5] = v12;
+  v46[2] = v12;
+  v46[3] = v12;
+  v13 = a4 >= 0x20 ? 32 : a4;
+  v46[0] = v12;
+  v46[1] = v12;
   do
   {
     v14 = a3 + 148 * v7;
@@ -267,7 +260,7 @@ uint64_t CompressCandidateList(void *a1, int *a2, uint64_t a3, int a4)
           else
           {
             v16 = 0;
-            v20 = v48;
+            v20 = v47;
             while (*v20 != *(v14 + 44) || v20[1] != *(v14 + 52))
             {
               ++v16;
@@ -282,7 +275,7 @@ uint64_t CompressCandidateList(void *a1, int *a2, uint64_t a3, int a4)
           if (v16 == v10)
           {
 LABEL_28:
-            *(v48 + (16 * v10)) = *(v14 + 44);
+            *(v47 + (16 * v10)) = *(v14 + 44);
             LODWORD(v16) = v10;
           }
         }
@@ -346,14 +339,14 @@ LABEL_35:
 
       if (v16 != -1)
       {
-        v22 = &v47[v8];
+        v22 = &v46[v8];
         *v22 = *(v14 + 4) & 0xF | (16 * *v14);
         ++v11;
-        *(&v47[v8] + 1) = *(v14 + 8);
-        *(&v47[v8] + 9) = *(v14 + 20);
+        *(&v46[v8] + 1) = *(v14 + 8);
+        *(&v46[v8] + 9) = *(v14 + 20);
         v22[11] = *(v14 + 22);
         v22[12] = *(v14 + 144);
-        HIWORD(v47[v8++]) = *(v14 + 60);
+        HIWORD(v46[v8++]) = *(v14 + 60);
         v22[13] = v16 & 0xF | (16 * v15);
       }
     }
@@ -362,86 +355,82 @@ LABEL_35:
   }
 
   while (v7 != v13);
-  if (v11)
+  if (!v11)
   {
-    v23 = 16 * v10;
-    v24 = (4 * v9) | 1;
-    v25 = malloc_type_malloc(16 * v10 + 16 * v11 + v24, 0x100004077774924uLL);
-    if (v25)
+    return 2148859926;
+  }
+
+  v23 = 16 * v10;
+  v24 = (4 * v9) | 1;
+  v25 = malloc_type_malloc(16 * v10 + 16 * v11 + v24, 0x100004077774924uLL);
+  if (v25)
+  {
+    v26 = v25;
+    *v25 = v10 & 0xF | (16 * v9);
+    if (v9)
     {
-      v26 = v25;
-      *v25 = v10 & 0xF | (16 * v9);
-      if (v9)
-      {
-        memcpy(v25 + 1, __src, 4 * v9);
-      }
-
-      else
-      {
-        v24 = 1;
-      }
-
-      v27 = 16 * v11;
-      if (v10)
-      {
-        memcpy(&v26[v24], v48, v23);
-        v24 += v23;
-      }
-
-      memcpy(&v26[v24], v47, v27);
-      v28 = v24 + v27;
-      *a1 = v26;
-      *a2 = v28;
-      if (VRTraceGetErrorLogLevelForModule() >= 7)
-      {
-        v29 = VRTraceErrorLogLevelToCSTR();
-        v30 = *MEMORY[0x277CE5818];
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-        {
-          v33 = 136316674;
-          v34 = v29;
-          v35 = 2080;
-          v36 = "CompressCandidateList";
-          v37 = 1024;
-          v38 = 315;
-          v39 = 1024;
-          v40 = v9;
-          v41 = 1024;
-          v42 = v10;
-          v43 = 1024;
-          v44 = v11;
-          v45 = 1024;
-          v46 = v28;
-          _os_log_impl(&dword_23D497000, v30, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d CompressCandidateList: IPs: %d, %d, count: %d, size: %d", &v33, 0x34u);
-        }
-      }
-
-      v4 = 0;
+      memcpy(v25 + 1, __src, 4 * v9);
     }
 
-    else if (VRTraceGetErrorLogLevelForModule() >= 3)
+    else
     {
-      VRTraceErrorLogLevelToCSTR();
-      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+      v24 = 1;
+    }
+
+    v27 = 16 * v11;
+    if (v10)
+    {
+      memcpy(&v26[v24], v47, v23);
+      v24 += v23;
+    }
+
+    memcpy(&v26[v24], v46, v27);
+    v28 = v24 + v27;
+    *a1 = v26;
+    *a2 = v28;
+    if (VRTraceGetErrorLogLevelForModule() >= 7)
+    {
+      v29 = VRTraceErrorLogLevelToCSTR();
+      v30 = *MEMORY[0x277CE5818];
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        CompressCandidateList_cold_1();
+        v32 = 136316674;
+        v33 = v29;
+        v34 = 2080;
+        v35 = "CompressCandidateList";
+        v36 = 1024;
+        v37 = 315;
+        v38 = 1024;
+        v39 = v9;
+        v40 = 1024;
+        v41 = v10;
+        v42 = 1024;
+        v43 = v11;
+        v44 = 1024;
+        v45 = v28;
+        _os_log_impl(&dword_23D497000, v30, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d CompressCandidateList: IPs: %d, %d, count: %d, size: %d", &v32, 0x34u);
       }
+    }
+
+    return 0;
+  }
+
+  else if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+    {
+      CompressCandidateList_cold_1();
     }
   }
 
-  else
-  {
-LABEL_45:
-    v4 = 2148859926;
-  }
-
-  v31 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-uint64_t UncompressCandidateList(unsigned __int8 *a1, int a2, char **a3, unsigned int *a4)
+uint64_t UncompressCandidateList(unsigned __int8 *a1, uint64_t a2, char **a3, unsigned int *a4)
 {
-  *&v43[5] = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  *&v42[5] = *MEMORY[0x277D85DE8];
   v5 = *a1;
   v6 = a2 - (((4 * (v5 >> 4)) | 1) + 16 * (v5 & 0xF));
   if ((v6 & 0xF) != 0)
@@ -454,47 +443,47 @@ uint64_t UncompressCandidateList(unsigned __int8 *a1, int a2, char **a3, unsigne
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316418;
-        v35 = v8;
-        v36 = 2080;
-        v37 = "UncompressCandidateList";
-        v38 = 1024;
-        v39 = 331;
-        v40 = 1024;
-        v41 = a2;
-        v42 = 1024;
-        v43[0] = v5 >> 4;
-        LOWORD(v43[1]) = 1024;
-        *(&v43[1] + 2) = v5 & 0xF;
+        v34 = v8;
+        v35 = 2080;
+        v36 = "UncompressCandidateList";
+        v37 = 1024;
+        v38 = 331;
+        v39 = 1024;
+        v40 = v4;
+        v41 = 1024;
+        v42[0] = v5 >> 4;
+        LOWORD(v42[1]) = 1024;
+        *(&v42[1] + 2) = v5 & 0xF;
         _os_log_error_impl(&dword_23D497000, v9, OS_LOG_TYPE_ERROR, " [%s] %s:%d Remote candidate data is invalid(len:%d,ipv4:%d,ipv6:%d).", buf, 0x2Eu);
       }
     }
 
-    goto LABEL_30;
+    return v7;
   }
 
-  v33 = malloc_type_calloc(v6 >> 4, 0x94uLL, 0x1000040C185D105uLL);
-  if (v33)
+  v32 = malloc_type_calloc(v6 >> 4, 0x94uLL, 0x1000040C185D105uLL);
+  if (v32)
   {
-    v30 = a4;
-    v28 = v6 >> 4;
-    v29 = a2;
-    v32 = v6 >> 4;
+    v29 = a4;
+    v27 = v6 >> 4;
+    v28 = v4;
+    v31 = v6 >> 4;
     if (v6 >> 4 >= 1)
     {
       v12 = 0;
       v13 = &a1[16 * (v5 & 0xF) + ((v5 >> 2) & 0x3C)];
-      v14 = v33;
+      v14 = v32;
       do
       {
-        v15 = *(v13 + v12 + 1);
+        v15 = v13[v12 + 1];
         *v14 = v15 >> 4;
         *(v14 + 1) = v15 & 0xF;
-        *(v14 + 2) = *(v13 + v12 + 2);
-        *(v14 + 3) = *(v13 + v12 + 6);
-        *(v14 + 10) = *(v13 + v12 + 10);
-        *(v14 + 11) = *(v13 + v12 + 12);
-        *(v14 + 36) = *(v13 + v12 + 13);
-        v16 = *(v13 + v12 + 14);
+        *(v14 + 2) = *&v13[v12 + 2];
+        *(v14 + 3) = *&v13[v12 + 6];
+        *(v14 + 10) = *&v13[v12 + 10];
+        *(v14 + 11) = v13[v12 + 12];
+        *(v14 + 36) = v13[v12 + 13];
+        v16 = v13[v12 + 14];
         *(v14 + 6) = v16 >> 4;
         v17 = v16 & 0xF;
         if ((v16 & 0x10) != 0)
@@ -514,15 +503,15 @@ uint64_t UncompressCandidateList(unsigned __int8 *a1, int a2, char **a3, unsigne
             }
 
             *buf = 136316162;
-            v35 = v22;
-            v36 = 2080;
-            v37 = "UncompressCandidateList";
-            v38 = 1024;
-            v39 = 366;
-            v40 = 1024;
-            v41 = v17;
-            v42 = 1024;
-            v43[0] = v5 & 0xF;
+            v34 = v22;
+            v35 = 2080;
+            v36 = "UncompressCandidateList";
+            v37 = 1024;
+            v38 = 366;
+            v39 = 1024;
+            v40 = v17;
+            v41 = 1024;
+            v42[0] = v5 & 0xF;
             v20 = v23;
             v21 = " [%s] %s:%d Remote IPV6 index %d is invalid. Total size: %d.";
 LABEL_21:
@@ -550,15 +539,15 @@ LABEL_21:
             }
 
             *buf = 136316162;
-            v35 = v18;
-            v36 = 2080;
-            v37 = "UncompressCandidateList";
-            v38 = 1024;
-            v39 = 373;
-            v40 = 1024;
-            v41 = v17;
-            v42 = 1024;
-            v43[0] = v5 >> 4;
+            v34 = v18;
+            v35 = 2080;
+            v36 = "UncompressCandidateList";
+            v37 = 1024;
+            v38 = 373;
+            v39 = 1024;
+            v40 = v17;
+            v41 = 1024;
+            v42[0] = v5 >> 4;
             v20 = v19;
             v21 = " [%s] %s:%d Remote IPV4 index %d is invalid. Total size: %d.";
             goto LABEL_21;
@@ -568,16 +557,16 @@ LABEL_21:
         }
 
 LABEL_18:
-        *(v14 + 30) = *(v13 + v12 + 15);
+        *(v14 + 30) = *&v13[v12 + 15];
         v14 += 148;
         v12 += 16;
       }
 
-      while (16 * v32 != v12);
+      while (16 * v31 != v12);
     }
 
-    *a3 = v33;
-    *v30 = v32;
+    *a3 = v32;
+    *v29 = v31;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
       v24 = VRTraceErrorLogLevelToCSTR();
@@ -585,25 +574,25 @@ LABEL_18:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        v35 = v24;
-        v36 = 2080;
-        v37 = "UncompressCandidateList";
-        v38 = 1024;
-        v39 = 383;
-        v40 = 1024;
-        v41 = v29;
-        v42 = 2048;
-        *v43 = 148 * v28;
+        v34 = v24;
+        v35 = 2080;
+        v36 = "UncompressCandidateList";
+        v37 = 1024;
+        v38 = 383;
+        v39 = 1024;
+        v40 = v28;
+        v41 = 2048;
+        *v42 = 148 * v27;
         _os_log_impl(&dword_23D497000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d UncompressCandidateList: from %d to %ld.", buf, 0x2Cu);
       }
     }
 
-    v7 = 0;
+    return 0;
   }
 
   else if (VRTraceGetErrorLogLevelForModule() < 3)
   {
-    v7 = 2148859907;
+    return 2148859907;
   }
 
   else
@@ -616,39 +605,37 @@ LABEL_18:
     }
   }
 
-LABEL_30:
-  v26 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t CompressedCandidateByteOrderHToN(unsigned __int8 *a1, int a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (__ROR8__(0x14C1BACF914C1BADLL * a2, 2) <= 0x1BACF914C1BACF9uLL)
   {
     v6 = 2148859945;
     if (VRTraceGetErrorLogLevelForModule() < 7)
     {
-      goto LABEL_14;
+      return v6;
     }
 
     v7 = VRTraceErrorLogLevelToCSTR();
     v8 = *MEMORY[0x277CE5818];
     if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return v6;
     }
 
-    v13 = 136315650;
-    v14 = v7;
-    v15 = 2080;
-    v16 = "CompressedCandidateByteOrderHToN";
-    v17 = 1024;
-    v18 = 395;
+    v12 = 136315650;
+    v13 = v7;
+    v14 = 2080;
+    v15 = "CompressedCandidateByteOrderHToN";
+    v16 = 1024;
+    v17 = 395;
     v9 = " [%s] %s:%d Uncompressed data by test1.";
 LABEL_13:
-    _os_log_impl(&dword_23D497000, v8, OS_LOG_TYPE_DEFAULT, v9, &v13, 0x1Cu);
-    goto LABEL_14;
+    _os_log_impl(&dword_23D497000, v8, OS_LOG_TYPE_DEFAULT, v9, &v12, 0x1Cu);
+    return v6;
   }
 
   v2 = ~(((*a1 >> 2) & 0xC) - a2) & 0xF;
@@ -658,22 +645,22 @@ LABEL_13:
     v6 = 2148859945;
     if (ErrorLogLevelForModule < 7)
     {
-      goto LABEL_14;
+      return v6;
     }
 
     v10 = VRTraceErrorLogLevelToCSTR();
     v8 = *MEMORY[0x277CE5818];
     if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return v6;
     }
 
-    v13 = 136315650;
-    v14 = v10;
-    v15 = 2080;
-    v16 = "CompressedCandidateByteOrderHToN";
-    v17 = 1024;
-    v18 = 403;
+    v12 = 136315650;
+    v13 = v10;
+    v14 = 2080;
+    v15 = "CompressedCandidateByteOrderHToN";
+    v16 = 1024;
+    v17 = 403;
     v9 = " [%s] %s:%d Uncompressed data by test2.";
     goto LABEL_13;
   }
@@ -684,50 +671,47 @@ LABEL_13:
     v5 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315650;
-      v14 = v4;
-      v15 = 2080;
-      v16 = "CompressedCandidateByteOrderHToN";
-      v17 = 1024;
-      v18 = 406;
-      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Compressed data by test2.", &v13, 0x1Cu);
+      v12 = 136315650;
+      v13 = v4;
+      v14 = 2080;
+      v15 = "CompressedCandidateByteOrderHToN";
+      v16 = 1024;
+      v17 = 406;
+      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Compressed data by test2.", &v12, 0x1Cu);
     }
   }
 
-  v6 = 0;
-LABEL_14:
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 0;
 }
 
 uint64_t CompressedCandidateByteOrderNToH(unsigned __int8 *a1, int a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (__ROR8__(0x14C1BACF914C1BADLL * a2, 2) <= 0x1BACF914C1BACF9uLL)
   {
     v6 = 2148859945;
     if (VRTraceGetErrorLogLevelForModule() < 7)
     {
-      goto LABEL_14;
+      return v6;
     }
 
     v7 = VRTraceErrorLogLevelToCSTR();
     v8 = *MEMORY[0x277CE5818];
     if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return v6;
     }
 
-    v13 = 136315650;
-    v14 = v7;
-    v15 = 2080;
-    v16 = "CompressedCandidateByteOrderNToH";
-    v17 = 1024;
-    v18 = 418;
+    v12 = 136315650;
+    v13 = v7;
+    v14 = 2080;
+    v15 = "CompressedCandidateByteOrderNToH";
+    v16 = 1024;
+    v17 = 418;
     v9 = " [%s] %s:%d Uncompressed data by test1.";
 LABEL_13:
-    _os_log_impl(&dword_23D497000, v8, OS_LOG_TYPE_DEFAULT, v9, &v13, 0x1Cu);
-    goto LABEL_14;
+    _os_log_impl(&dword_23D497000, v8, OS_LOG_TYPE_DEFAULT, v9, &v12, 0x1Cu);
+    return v6;
   }
 
   v2 = ~(((*a1 >> 2) & 0xC) - a2) & 0xF;
@@ -737,22 +721,22 @@ LABEL_13:
     v6 = 2148859945;
     if (ErrorLogLevelForModule < 7)
     {
-      goto LABEL_14;
+      return v6;
     }
 
     v10 = VRTraceErrorLogLevelToCSTR();
     v8 = *MEMORY[0x277CE5818];
     if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return v6;
     }
 
-    v13 = 136315650;
-    v14 = v10;
-    v15 = 2080;
-    v16 = "CompressedCandidateByteOrderNToH";
-    v17 = 1024;
-    v18 = 426;
+    v12 = 136315650;
+    v13 = v10;
+    v14 = 2080;
+    v15 = "CompressedCandidateByteOrderNToH";
+    v16 = 1024;
+    v17 = 426;
     v9 = " [%s] %s:%d Uncompressed data by test2.";
     goto LABEL_13;
   }
@@ -763,31 +747,28 @@ LABEL_13:
     v5 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315650;
-      v14 = v4;
-      v15 = 2080;
-      v16 = "CompressedCandidateByteOrderNToH";
-      v17 = 1024;
-      v18 = 429;
-      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Compressed data by test2.", &v13, 0x1Cu);
+      v12 = 136315650;
+      v13 = v4;
+      v14 = 2080;
+      v15 = "CompressedCandidateByteOrderNToH";
+      v16 = 1024;
+      v17 = 429;
+      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Compressed data by test2.", &v12, 0x1Cu);
     }
   }
 
-  v6 = 0;
-LABEL_14:
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 0;
 }
 
-uint64_t FixFlippedCandidate(uint64_t a1, int a2)
+uint64_t FixFlippedCandidate(uint64_t a1, unsigned int a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a2 >= 1)
   {
     *&v2 = 0xAAAAAAAAAAAAAAAALL;
     *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v20 = v2;
     v21 = v2;
-    v22 = v2;
     *__dst = v2;
     v3 = a2;
     v4 = MEMORY[0x277CE5818];
@@ -810,13 +791,13 @@ uint64_t FixFlippedCandidate(uint64_t a1, int a2)
           {
             v9 = IPToString(__dst, (v5 - 10));
             *buf = 136315906;
-            v13 = v7;
-            v14 = 2080;
-            v15 = "FixFlippedCandidate";
-            v16 = 1024;
-            v17 = 446;
-            v18 = 2080;
-            v19 = v9;
+            v12 = v7;
+            v13 = 2080;
+            v14 = "FixFlippedCandidate";
+            v15 = 1024;
+            v16 = 446;
+            v17 = 2080;
+            v18 = v9;
             _os_log_impl(&dword_23D497000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Recovered true IP %s", buf, 0x26u);
           }
         }
@@ -829,13 +810,12 @@ uint64_t FixFlippedCandidate(uint64_t a1, int a2)
     while (v3);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t AddOneCandidate(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a6, __int16 a7, __int128 *a8, unsigned __int8 a9)
+uint64_t AddOneCandidate(uint64_t a1, unsigned int a2, int a3, int a4, int a5, __int128 *a6, __int16 a7, __int128 *a8, unsigned __int8 a9)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v14 = a1 + 148 * a2;
   *v14 = a5;
   *(v14 + 4) = a3;
@@ -848,8 +828,8 @@ uint64_t AddOneCandidate(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a
   }
 
   v16 = *a6;
-  v17 = *(a6 + 16);
-  *(v14 + 56) = *(a6 + 32);
+  v17 = a6[1];
+  *(v14 + 56) = *(a6 + 4);
   *(v14 + 40) = v17;
   *(v14 + 24) = v16;
   v18 = *a8;
@@ -870,16 +850,16 @@ uint64_t AddOneCandidate(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a
     *(v14 + 20) = 10;
   }
 
-  *&v56[14] = 0xAAAAAAAAAAAAAAAALL;
+  *&v55[14] = 0xAAAAAAAAAAAAAAAALL;
   *&v22 = 0xAAAAAAAAAAAAAAAALL;
   *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v55[1] = v22;
-  *v56 = v22;
-  v55[0] = v22;
-  v53[0] = v22;
-  v53[1] = v22;
+  v54[1] = v22;
+  *v55 = v22;
   v54[0] = v22;
-  *(v54 + 14) = 0xAAAAAAAAAAAAAAAALL;
+  v52[0] = v22;
+  v52[1] = v22;
+  v53[0] = v22;
+  *(v53 + 14) = 0xAAAAAAAAAAAAAAAALL;
   FlipIP((v14 + 104), a8);
   __strlcat_chk();
   if (a2 < 1)
@@ -892,29 +872,28 @@ LABEL_18:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         v29 = (&g_aCanType)[2 * *(v14 + 4)];
-        v30 = IPPORTToStringWithSize(v55, v14 + 24, 0x36uLL);
-        v31 = IPPORTToStringWithSize(v53, v14 + 64, 0x36uLL);
+        v30 = IPPORTToStringWithSize(v54, v14 + 24, 0x36uLL);
+        v31 = IPPORTToStringWithSize(v52, v14 + 64, 0x36uLL);
         v32 = *(v14 + 20);
-        v39 = 136316674;
-        v40 = v27;
-        v41 = 2080;
-        v42 = "AddOneCandidate";
-        v43 = 1024;
-        v44 = 507;
-        v45 = 2080;
-        v46 = v29;
-        v47 = 2080;
-        v48 = v30;
-        v49 = 2080;
-        v50 = v31;
-        v51 = 1024;
-        v52 = v32;
-        _os_log_impl(&dword_23D497000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d add %s candidate [%s], IF Local [%s], priority [%u]", &v39, 0x40u);
+        v38 = 136316674;
+        v39 = v27;
+        v40 = 2080;
+        v41 = "AddOneCandidate";
+        v42 = 1024;
+        v43 = 507;
+        v44 = 2080;
+        v45 = v29;
+        v46 = 2080;
+        v47 = v30;
+        v48 = 2080;
+        v49 = v31;
+        v50 = 1024;
+        v51 = v32;
+        _os_log_impl(&dword_23D497000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d add %s candidate [%s], IF Local [%s], priority [%u]", &v38, 0x40u);
       }
     }
 
-    v33 = 0;
-    goto LABEL_22;
+    return 0;
   }
 
   v23 = *a6 & 1;
@@ -932,12 +911,12 @@ LABEL_18:
         }
       }
 
-      else if (*v25 != *(a6 + 20))
+      else if (*v25 != *(a6 + 5))
       {
         goto LABEL_17;
       }
 
-      if (*(v25 + 16) == *(a6 + 36))
+      if (*(v25 + 16) == *(a6 + 18))
       {
         break;
       }
@@ -954,27 +933,25 @@ LABEL_17:
   v33 = 2148859945;
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v36 = VRTraceErrorLogLevelToCSTR();
-    v37 = *MEMORY[0x277CE5818];
+    v35 = VRTraceErrorLogLevelToCSTR();
+    v36 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v38 = (&g_aCanType)[2 * *(v14 + 4)];
-      v39 = 136316162;
-      v40 = v36;
-      v41 = 2080;
-      v42 = "AddOneCandidate";
-      v43 = 1024;
-      v44 = 499;
-      v45 = 2080;
-      v46 = v38;
-      v47 = 2080;
-      v48 = IPPORTToStringWithSize(v55, a6, 0x36uLL);
-      _os_log_impl(&dword_23D497000, v37, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s candidate [%s] already exists", &v39, 0x30u);
+      v37 = (&g_aCanType)[2 * *(v14 + 4)];
+      v38 = 136316162;
+      v39 = v35;
+      v40 = 2080;
+      v41 = "AddOneCandidate";
+      v42 = 1024;
+      v43 = 499;
+      v44 = 2080;
+      v45 = v37;
+      v46 = 2080;
+      v47 = IPPORTToStringWithSize(v54, a6, 0x36uLL);
+      _os_log_impl(&dword_23D497000, v36, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s candidate [%s] already exists", &v38, 0x30u);
     }
   }
 
-LABEL_22:
-  v34 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -1022,7 +999,6 @@ uint64_t GetICECandidate(uint64_t a1, int a2, int a3, int a4, __int128 *a5, __in
 
 uint64_t SortCandidate(uint64_t a1, int a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
   v4 = a2 - 1;
   if (a2 > 1)
   {
@@ -1042,16 +1018,16 @@ uint64_t SortCandidate(uint64_t a1, int a2)
           if (v10 > v11 || v10 == v11 && ((v17 = *(v9 - 148), *v9 < v17) || *v9 == v17 && strncmp((v9 - 136), (v9 + 12), 8uLL) < 0))
           {
             v12 = v9 - 148;
-            v29 = *(v9 - 52);
-            v30 = *(v9 - 36);
-            v31 = *(v9 - 20);
-            v32 = *(v9 - 4);
-            v25 = *(v9 - 116);
-            v26 = *(v9 - 100);
-            v27 = *(v9 - 84);
-            v28 = *(v9 - 68);
-            v23 = *(v9 - 148);
-            v24 = *(v9 - 132);
+            v28 = *(v9 - 52);
+            v29 = *(v9 - 36);
+            v30 = *(v9 - 20);
+            v31 = *(v9 - 4);
+            v24 = *(v9 - 116);
+            v25 = *(v9 - 100);
+            v26 = *(v9 - 84);
+            v27 = *(v9 - 68);
+            v22 = *(v9 - 148);
+            v23 = *(v9 - 132);
             v13 = *(v9 + 112);
             *(v12 + 96) = *(v9 + 96);
             *(v12 + 112) = v13;
@@ -1066,16 +1042,16 @@ uint64_t SortCandidate(uint64_t a1, int a2)
             v16 = *(v9 + 16);
             *v12 = *v9;
             *(v12 + 16) = v16;
-            *(v9 + 96) = v29;
-            *(v9 + 112) = v30;
-            *(v9 + 128) = v31;
-            *(v9 + 144) = v32;
-            *(v9 + 32) = v25;
-            *(v9 + 48) = v26;
-            *(v9 + 64) = v27;
-            *(v9 + 80) = v28;
-            *v9 = v23;
-            *(v9 + 16) = v24;
+            *(v9 + 96) = v28;
+            *(v9 + 112) = v29;
+            *(v9 + 128) = v30;
+            *(v9 + 144) = v31;
+            *(v9 + 32) = v24;
+            *(v9 + 48) = v25;
+            *(v9 + 64) = v26;
+            *(v9 + 80) = v27;
+            *v9 = v22;
+            *(v9 + 16) = v23;
           }
 
           v9 += 148;
@@ -1094,36 +1070,30 @@ uint64_t SortCandidate(uint64_t a1, int a2)
 
   if (a2 < 1)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v18 = a2;
+  v19 = (a1 + 22);
+  v20 = 1;
+  do
   {
-    v18 = a2;
-    v19 = (a1 + 22);
-    v20 = 1;
-    do
+    if (*(v19 - 9))
     {
-      if (*(v19 - 9))
-      {
-        *v19 = v20++;
-      }
-
-      v19 += 74;
-      --v18;
+      *v19 = v20++;
     }
 
-    while (v18);
-    result = v20 - 1;
+    v19 += 74;
+    --v18;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  while (v18);
+  return v20 - 1;
 }
 
 uint64_t SortCandidatePair(unint64_t *__src, int a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a2 >= 2)
   {
     v3 = 0;
@@ -1161,7 +1131,6 @@ uint64_t SortCandidatePair(unint64_t *__src, int a2)
     while (v3 != v4);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1388,22 +1357,22 @@ LABEL_61:
   return v14 == v28;
 }
 
-uint64_t PairUpCandidate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, int a8)
+uint64_t PairUpCandidate(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, int a8)
 {
-  v90 = a6;
-  v91 = a8;
-  v88 = a4;
-  v89 = a5;
-  v83 = a1;
-  v84 = a3;
-  v99 = *MEMORY[0x277D85DE8];
+  v89 = a6;
+  v90 = a8;
+  v87 = a4;
+  v88 = a5;
+  v82 = a1;
+  v83 = a3;
+  v98 = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x28223BE20](a1);
-  v87 = v11;
-  v86 = &v80 - 2 * v11;
+  v86 = v11;
+  v85 = &v79 - 2 * v11;
   if (v12)
   {
-    v13 = v86;
-    v14 = 16 * v87;
+    v13 = v85;
+    v14 = 16 * v86;
     do
     {
       *v13 = 0xAAAAAAAAAAAAAAAALL;
@@ -1415,14 +1384,14 @@ uint64_t PairUpCandidate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     while (v14);
   }
 
-  v81 = v10;
+  v80 = v10;
   MEMORY[0x28223BE20](v9);
-  v82 = v15;
-  v85 = &v80 - 2 * v15;
+  v81 = v15;
+  v84 = &v79 - 2 * v15;
   if (v16)
   {
-    v17 = 16 * v82;
-    v18 = v85;
+    v17 = 16 * v81;
+    v18 = v84;
     do
     {
       *v18 = 0xAAAAAAAAAAAAAAAALL;
@@ -1434,33 +1403,33 @@ uint64_t PairUpCandidate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     while (v17);
   }
 
-  v92 = 0;
-  SetUpCandidateList(v83, a2, v86, &v92 + 1);
-  SetUpCandidateList(v84, v88, v85, &v92);
+  v91 = 0;
+  SetUpCandidateList(v82, a2, v85, &v91 + 1);
+  SetUpCandidateList(v83, v87, v84, &v91);
   if (a2 < 1)
   {
     goto LABEL_48;
   }
 
-  v80 = a2;
+  v79 = a2;
   v19 = 0;
   v20 = 0;
-  v22 = v92;
-  v21 = HIDWORD(v92);
+  v22 = v91;
+  v21 = HIDWORD(v91);
   do
   {
-    if (v88 >= 1)
+    if (v87 >= 1)
     {
-      v23 = v82;
-      v24 = v83 + 148 * v19;
-      v25 = v84;
-      v26 = v85;
-      v27 = &v86[2 * v19];
+      v23 = v81;
+      v24 = v82 + 148 * v19;
+      v25 = v83;
+      v26 = v84;
+      v27 = &v85[2 * v19];
       do
       {
         if (IsCompatibleCandiatePair(v27, v26, v21, v22, 0))
         {
-          v28 = v89 + 400 * v20;
+          v28 = v88 + 400 * v20;
           *(v28 + 368) = 0u;
           *(v28 + 384) = 0u;
           *(v28 + 336) = 0u;
@@ -1504,29 +1473,29 @@ uint64_t PairUpCandidate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
           *(v28 + 128) = v35;
           *(v28 + 96) = v33;
           v36 = *v25;
-          *(v28 + 164) = *(v25 + 16);
+          *(v28 + 164) = v25[1];
           *(v28 + 148) = v36;
-          v37 = *(v25 + 32);
-          v38 = *(v25 + 48);
-          v39 = *(v25 + 64);
-          *(v28 + 228) = *(v25 + 80);
+          v37 = v25[2];
+          v38 = v25[3];
+          v39 = v25[4];
+          *(v28 + 228) = v25[5];
           *(v28 + 212) = v39;
           *(v28 + 196) = v38;
           *(v28 + 180) = v37;
-          v40 = *(v25 + 96);
-          v41 = *(v25 + 112);
-          v42 = *(v25 + 128);
-          *(v28 + 292) = *(v25 + 144);
+          v40 = v25[6];
+          v41 = v25[7];
+          v42 = v25[8];
+          *(v28 + 292) = *(v25 + 36);
           *(v28 + 260) = v41;
           *(v28 + 276) = v42;
           *(v28 + 244) = v40;
           *(v27 + 2) = 1;
           *(v26 + 2) = 1;
           v43 = *(v24 + 22);
-          v44 = *(v25 + 22);
+          v44 = *(v25 + 11);
           if (v43 >= v44)
           {
-            v45 = *(v25 + 22);
+            v45 = *(v25 + 11);
           }
 
           else
@@ -1548,13 +1517,13 @@ uint64_t PairUpCandidate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
           }
 
           *(v28 + 304) = *(v28 + v46);
-          v47 = v91;
-          *(v28 + 296) = v90;
+          v47 = v90;
+          *(v28 + 296) = v89;
           *(v28 + 368) = v47;
           ++v20;
         }
 
-        v25 += 148;
+        v25 = (v25 + 148);
         v26 += 2;
         --v23;
       }
@@ -1565,8 +1534,8 @@ uint64_t PairUpCandidate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     ++v19;
   }
 
-  while (v19 != v87);
-  LODWORD(a2) = v80;
+  while (v19 != v86);
+  LODWORD(a2) = v79;
   if (!v20)
   {
 LABEL_48:
@@ -1577,11 +1546,11 @@ LABEL_48:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v94 = v48;
-        v95 = 2080;
-        v96 = "PairUpCandidate";
-        v97 = 1024;
-        v98 = 843;
+        v93 = v48;
+        v94 = 2080;
+        v95 = "PairUpCandidate";
+        v96 = 1024;
+        v97 = 843;
         _os_log_impl(&dword_23D497000, v49, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Try this again allowing the private-mix type of candidates", buf, 0x1Cu);
       }
     }
@@ -1595,22 +1564,22 @@ LABEL_48:
     {
       v50 = 0;
       v20 = 0;
-      v51 = v92;
-      v52 = HIDWORD(v92);
+      v51 = v91;
+      v52 = HIDWORD(v91);
       do
       {
-        if (v88 >= 1)
+        if (v87 >= 1)
         {
-          v53 = v82;
-          v54 = v83 + 148 * v50;
-          v55 = v84;
-          v56 = v85;
-          v57 = &v86[2 * v50];
+          v53 = v81;
+          v54 = v82 + 148 * v50;
+          v55 = v83;
+          v56 = v84;
+          v57 = &v85[2 * v50];
           do
           {
             if (IsCompatibleCandiatePair(v57, v56, v52, v51, 1))
             {
-              v58 = v89 + 400 * v20;
+              v58 = v88 + 400 * v20;
               *(v58 + 368) = 0u;
               *(v58 + 384) = 0u;
               *(v58 + 336) = 0u;
@@ -1654,29 +1623,29 @@ LABEL_48:
               *(v58 + 128) = v65;
               *(v58 + 96) = v63;
               v66 = *v55;
-              *(v58 + 164) = *(v55 + 16);
+              *(v58 + 164) = v55[1];
               *(v58 + 148) = v66;
-              v67 = *(v55 + 32);
-              v68 = *(v55 + 48);
-              v69 = *(v55 + 64);
-              *(v58 + 228) = *(v55 + 80);
+              v67 = v55[2];
+              v68 = v55[3];
+              v69 = v55[4];
+              *(v58 + 228) = v55[5];
               *(v58 + 212) = v69;
               *(v58 + 196) = v68;
               *(v58 + 180) = v67;
-              v70 = *(v55 + 96);
-              v71 = *(v55 + 112);
-              v72 = *(v55 + 128);
-              *(v58 + 292) = *(v55 + 144);
+              v70 = v55[6];
+              v71 = v55[7];
+              v72 = v55[8];
+              *(v58 + 292) = *(v55 + 36);
               *(v58 + 260) = v71;
               *(v58 + 276) = v72;
               *(v58 + 244) = v70;
               *(v57 + 2) = 1;
               *(v56 + 2) = 1;
               v73 = *(v54 + 22);
-              v74 = *(v55 + 22);
+              v74 = *(v55 + 11);
               if (v73 >= v74)
               {
-                v75 = *(v55 + 22);
+                v75 = *(v55 + 11);
               }
 
               else
@@ -1698,13 +1667,13 @@ LABEL_48:
               }
 
               *(v58 + 304) = *(v58 + v76);
-              v77 = v91;
-              *(v58 + 296) = v90;
+              v77 = v90;
+              *(v58 + 296) = v89;
               *(v58 + 368) = v77;
               ++v20;
             }
 
-            v55 += 148;
+            v55 = (v55 + 148);
             v56 += 2;
             --v53;
           }
@@ -1715,20 +1684,19 @@ LABEL_48:
         ++v50;
       }
 
-      while (v50 != v87);
+      while (v50 != v86);
     }
   }
 
-  if (v81)
+  if (v80)
   {
-    *v81 = v20;
+    *v80 = v20;
   }
 
-  v78 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t SetUpCandidateList(uint64_t result, int a2, uint64_t a3, _DWORD *a4)
+uint64_t SetUpCandidateList(uint64_t result, unsigned int a2, uint64_t a3, _DWORD *a4)
 {
   if (a2 >= 1)
   {
@@ -1762,7 +1730,7 @@ uint64_t SetUpCandidateList(uint64_t result, int a2, uint64_t a3, _DWORD *a4)
 
 BOOL IsCompatibleCandiatePair(_DWORD *a1, _DWORD *a2, int a3, int a4, int a5)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   v9 = *a1;
   v10 = *a2;
   v11 = a3 & 4;
@@ -1786,9 +1754,9 @@ BOOL IsCompatibleCandiatePair(_DWORD *a1, _DWORD *a2, int a3, int a4, int a5)
   v23 = v13 != 9 || v12 == 0;
   if (v23 && !v22)
   {
-    v58 = v19;
-    v59 = v16;
-    v60 = v18;
+    v57 = v19;
+    v58 = v16;
+    v59 = v18;
     if (!IsValidCandidatePair(v9, v10, a5, (a4 ^ a3) & 0x20))
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -1798,7 +1766,7 @@ BOOL IsCompatibleCandiatePair(_DWORD *a1, _DWORD *a2, int a3, int a4, int a5)
         result = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
         if (!result)
         {
-          goto LABEL_74;
+          return result;
         }
 
         v31 = *(v9 + 24);
@@ -1840,34 +1808,34 @@ BOOL IsCompatibleCandiatePair(_DWORD *a1, _DWORD *a2, int a3, int a4, int a5)
         v42 = (*(v9 + 4) == 5) ^ (*(v10 + 4) != 5);
         v44 = (v32 & 1) == 0 && (v43 = *(v10 + 44), (v43 & 0xFF000000) == 0xA9000000) && (v43 & 0xFF0000) == 16646144;
         *buf = 136316930;
-        v62 = v29;
-        v63 = 2080;
-        v64 = "IsCompatibleCandiatePair";
-        v65 = 1024;
-        v66 = 773;
-        v67 = 1024;
-        v68 = (v38 & 1) == 0;
-        v69 = 1024;
-        v70 = v33;
-        v71 = 1024;
-        v72 = v42;
-        v73 = 1024;
-        v74 = v39;
-        v75 = 1024;
-        v76 = v41 == v44;
+        v61 = v29;
+        v62 = 2080;
+        v63 = "IsCompatibleCandiatePair";
+        v64 = 1024;
+        v65 = 773;
+        v66 = 1024;
+        v67 = (v38 & 1) == 0;
+        v68 = 1024;
+        v69 = v33;
+        v70 = 1024;
+        v71 = v42;
+        v72 = 1024;
+        v73 = v39;
+        v74 = 1024;
+        v75 = v41 == v44;
         _os_log_impl(&dword_23D497000, v30, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ISSAMEIPVERSIONCANDIDATE(pLC, pRC) = %d\n , ISSAMEPROTOCANDIDATE(pLC, pRC) = %d, !ISTURNMIXEDCANDIDATEPAIR(pLC, pRC) = %d, !ISPRIVATEMIXEDCANDIDATEPAIR(pLC, pRC) = %d, !ISSELFASSIGNEDMIXEDCANDIDATEPAIR(pLC, pRC) = %d", buf, 0x3Au);
       }
 
-      goto LABEL_73;
+      return 0;
     }
 
     if (v14 == 10)
     {
-      v25 = v59;
-      v24 = v60;
+      v25 = v58;
+      v24 = v59;
       if (v13 != 10)
       {
-        goto LABEL_73;
+        return 0;
       }
     }
 
@@ -1875,97 +1843,97 @@ BOOL IsCompatibleCandiatePair(_DWORD *a1, _DWORD *a2, int a3, int a4, int a5)
     {
       if (v13 == 10)
       {
-        goto LABEL_73;
+        return 0;
       }
 
-      v25 = v59;
-      v24 = v60;
+      v25 = v58;
+      v24 = v59;
       if (v14 == 11)
       {
         if (v13 != 11)
         {
-          goto LABEL_73;
+          return 0;
         }
       }
 
       else if (v13 == 11)
       {
-        goto LABEL_73;
+        return 0;
       }
     }
 
     if (!v25 && !v24)
     {
-      goto LABEL_45;
+      return 1;
     }
 
-    v57 = a4 & a3;
+    v56 = a4 & a3;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
       log = VRTraceErrorLogLevelToCSTR();
-      v56 = *MEMORY[0x277CE5818];
+      v55 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         v26 = *(v10 + 60);
         v27 = *(v9 + 60);
         *buf = 136316162;
-        v62 = log;
-        v63 = 2080;
-        v64 = "IsCompatibleCandiatePair";
-        v65 = 1024;
-        v66 = 738;
-        v67 = 1024;
-        v68 = v26;
-        v69 = 1024;
-        v70 = v27;
-        _os_log_impl(&dword_23D497000, v56, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d pRC->mbIPPort.wPort = %d and (pLC->mbIPPort.wPort) = %d\n", buf, 0x28u);
+        v61 = log;
+        v62 = 2080;
+        v63 = "IsCompatibleCandiatePair";
+        v64 = 1024;
+        v65 = 738;
+        v66 = 1024;
+        v67 = v26;
+        v68 = 1024;
+        v69 = v27;
+        _os_log_impl(&dword_23D497000, v55, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d pRC->mbIPPort.wPort = %d and (pLC->mbIPPort.wPort) = %d\n", buf, 0x28u);
       }
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v53 = VRTraceErrorLogLevelToCSTR();
+      v52 = VRTraceErrorLogLevelToCSTR();
       loga = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316674;
-        v62 = v53;
-        v63 = 2080;
-        v64 = "IsCompatibleCandiatePair";
-        v65 = 1024;
-        v66 = 742;
-        v67 = 1024;
-        v68 = (v57 >> 2) & 1;
-        v69 = 1024;
-        v70 = (v57 >> 3) & 1;
-        v71 = 1024;
-        v72 = v58;
-        v73 = 1024;
-        v74 = v13 == v14;
+        v61 = v52;
+        v62 = 2080;
+        v63 = "IsCompatibleCandiatePair";
+        v64 = 1024;
+        v65 = 742;
+        v66 = 1024;
+        v67 = (v56 >> 2) & 1;
+        v68 = 1024;
+        v69 = (v56 >> 3) & 1;
+        v70 = 1024;
+        v71 = v57;
+        v72 = 1024;
+        v73 = v13 == v14;
         _os_log_impl(&dword_23D497000, loga, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d canMatchPreserved = %d, canMatchInOder = %d, eitherCandidateUsed = %d, typesMatch = %d\n", buf, 0x34u);
       }
     }
 
     result = v13 == v14;
-    if ((v57 & 4) == 0 || !v59)
+    if ((v56 & 4) == 0 || !v58)
     {
-      v28 = v13 == v14 && v60;
-      if ((v57 & 8) != 0 && v28 && !v58)
+      v28 = v13 == v14 && v59;
+      if ((v56 & 8) != 0 && v28 && !v57)
       {
-        goto LABEL_45;
+        return 1;
       }
 
-      if ((v57 & 4) == 0 && v59)
+      if ((v56 & 4) == 0 && v58)
       {
-        v46 = *(v9 + 4);
-        if (v46 != 8)
+        v45 = *(v9 + 4);
+        if (v45 != 8)
         {
           goto LABEL_91;
         }
 
         if ((a4 & 8) != 0)
         {
-          v47 = 9;
+          v46 = 9;
         }
 
         else
@@ -1975,18 +1943,18 @@ BOOL IsCompatibleCandiatePair(_DWORD *a1, _DWORD *a2, int a3, int a4, int a5)
             goto LABEL_91;
           }
 
-          v47 = 3;
+          v46 = 3;
         }
 
-        v50 = *(v10 + 4);
-        if (v50 != v47)
+        v49 = *(v10 + 4);
+        if (v49 != v46)
         {
 LABEL_92:
-          if (v50 == 8)
+          if (v49 == 8)
           {
             if ((a3 & 8) != 0)
             {
-              v51 = 9;
+              v50 = 9;
               goto LABEL_106;
             }
 
@@ -1996,41 +1964,39 @@ LABEL_92:
             }
           }
 
-          goto LABEL_73;
+          return 0;
         }
 
         if (a1[2])
         {
 LABEL_91:
-          v50 = *(v10 + 4);
+          v49 = *(v10 + 4);
           goto LABEL_92;
         }
 
-LABEL_45:
-        result = 1;
-        goto LABEL_74;
+        return 1;
       }
 
-      v48 = !v60;
-      if (v12 | v11 | v57 & 8)
+      v47 = !v59;
+      if (v12 | v11 | v56 & 8)
       {
-        v48 = 1;
+        v47 = 1;
       }
 
-      if (v48)
+      if (v47)
       {
-        goto LABEL_73;
+        return 0;
       }
 
-      v46 = *(v9 + 4);
-      if (v46 != 9)
+      v45 = *(v9 + 4);
+      if (v45 != 9)
       {
         goto LABEL_100;
       }
 
       if ((a4 & 2) != 0)
       {
-        v49 = 3;
+        v48 = 3;
       }
 
       else
@@ -2040,53 +2006,49 @@ LABEL_45:
           goto LABEL_100;
         }
 
-        v49 = 1;
+        v48 = 1;
       }
 
-      v52 = *(v10 + 4);
-      if (v52 != v49)
+      v51 = *(v10 + 4);
+      if (v51 != v48)
       {
         goto LABEL_101;
       }
 
       if (!a1[2])
       {
-        goto LABEL_45;
+        return 1;
       }
 
 LABEL_100:
-      v52 = *(v10 + 4);
+      v51 = *(v10 + 4);
 LABEL_101:
-      if (v52 == 9)
+      if (v51 == 9)
       {
         if ((a3 & 2) != 0)
         {
 LABEL_105:
-          v51 = 3;
+          v50 = 3;
 LABEL_106:
-          if (v46 == v51)
+          if (v45 == v50)
           {
-            result = a2[2] == 0;
-            goto LABEL_74;
+            return a2[2] == 0;
           }
 
-          goto LABEL_73;
+          return 0;
         }
 
         if (a3)
         {
-          v51 = 1;
+          v50 = 1;
           goto LABEL_106;
         }
       }
 
-LABEL_73:
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_74:
-  v45 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2105,7 +2067,7 @@ uint64_t DemoteCandidatePair(uint64_t result, int a2, int a3, int a4)
 
 uint64_t ICERemoveOneRelayBeat(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((a1 + 568));
   v4 = *(a1 + 632);
   if (v4)
@@ -2122,15 +2084,15 @@ LABEL_7:
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
           v10 = *(v4 + 264);
-          v14 = 136315906;
-          v15 = v8;
-          v16 = 2080;
-          v17 = "ICERemoveOneRelayBeat";
-          v18 = 1024;
-          v19 = 157;
-          v20 = 1024;
-          v21 = v10;
-          _os_log_impl(&dword_23D497000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Relay channel [%04X] torn down", &v14, 0x22u);
+          v13 = 136315906;
+          v14 = v8;
+          v15 = 2080;
+          v16 = "ICERemoveOneRelayBeat";
+          v17 = 1024;
+          v18 = 157;
+          v19 = 1024;
+          v20 = v10;
+          _os_log_impl(&dword_23D497000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Relay channel [%04X] torn down", &v13, 0x22u);
         }
       }
 
@@ -2164,14 +2126,12 @@ LABEL_7:
     }
   }
 
-  result = pthread_mutex_unlock((a1 + 568));
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return pthread_mutex_unlock((a1 + 568));
 }
 
 uint64_t ICERemoveOneRelayBeatForLocal(uint64_t a1, int a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((a1 + 568));
   v6 = *(a1 + 632);
   if (v6)
@@ -2226,28 +2186,27 @@ LABEL_18:
     v11 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315906;
-      v15 = v10;
-      v16 = 2080;
-      v17 = "ICERemoveOneRelayBeatForLocal";
-      v18 = 1024;
-      v19 = 190;
-      v20 = 1024;
-      v21 = a2;
-      _os_log_impl(&dword_23D497000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remove relay binding for call(%d).", &v14, 0x22u);
+      v13 = 136315906;
+      v14 = v10;
+      v15 = 2080;
+      v16 = "ICERemoveOneRelayBeatForLocal";
+      v17 = 1024;
+      v18 = 190;
+      v19 = 1024;
+      v20 = a2;
+      _os_log_impl(&dword_23D497000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remove relay binding for call(%d).", &v13, 0x22u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t ICECompressCandidates(void **a1, int *a2, int a3, uint64_t a4, int a5)
+uint64_t ICECompressCandidates(void **a1, int *a2, int a3, uint64_t a4, unsigned int a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v20 = 0;
+  v30 = *MEMORY[0x277D85DE8];
   v19 = 0;
-  v10 = CompressCandidateList(&v20, &v19, a4, a5);
+  v18 = 0;
+  v10 = CompressCandidateList(&v19, &v18, a4, a5);
   if ((v10 & 0x80000000) != 0)
   {
     v13 = v10;
@@ -2261,22 +2220,22 @@ uint64_t ICECompressCandidates(void **a1, int *a2, int a3, uint64_t a4, int a5)
     }
 
 LABEL_13:
-    if (v20)
+    if (v19)
     {
-      free(v20);
+      free(v19);
     }
   }
 
   else
   {
-    while (v19 > a3)
+    while (v18 > a3)
     {
-      if (v20)
+      if (v19)
       {
-        free(v20);
+        free(v19);
       }
 
-      v20 = 0;
+      v19 = 0;
       v11 = RemoveOneCandidateFromList(a4, a5);
       if ((v11 & 0x80000000) != 0)
       {
@@ -2290,10 +2249,10 @@ LABEL_13:
           }
         }
 
-        goto LABEL_25;
+        return v13;
       }
 
-      v12 = CompressCandidateList(&v20, &v19, a4, a5);
+      v12 = CompressCandidateList(&v19, &v18, a4, a5);
       if ((v12 & 0x80000000) != 0)
       {
         v13 = v12;
@@ -2310,7 +2269,7 @@ LABEL_13:
       }
     }
 
-    v13 = CompressedCandidateByteOrderHToN(v20, v19);
+    v13 = CompressedCandidateByteOrderHToN(v19, v18);
     if ((v13 & 0x80000000) != 0)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -2325,8 +2284,8 @@ LABEL_13:
 
     else
     {
-      *a1 = v20;
-      *a2 = v19;
+      *a1 = v19;
+      *a2 = v18;
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
         v14 = VRTraceErrorLogLevelToCSTR();
@@ -2335,29 +2294,27 @@ LABEL_13:
         {
           v16 = *a2;
           *buf = 136316162;
-          v22 = v14;
-          v23 = 2080;
-          v24 = "ICECompressCandidates";
-          v25 = 1024;
-          v26 = 420;
-          v27 = 1024;
-          v28 = a3;
-          v29 = 1024;
-          v30 = v16;
+          v21 = v14;
+          v22 = 2080;
+          v23 = "ICECompressCandidates";
+          v24 = 1024;
+          v25 = 420;
+          v26 = 1024;
+          v27 = a3;
+          v28 = 1024;
+          v29 = v16;
           _os_log_impl(&dword_23D497000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICECompressCandidates succeeded(%dB->%dB).", buf, 0x28u);
         }
       }
     }
   }
 
-LABEL_25:
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t ICEGetCandidatesForPeer(uint64_t a1, int a2, void *a3, _DWORD *a4)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v8 = malloc_type_malloc(148 * *(a1 + 192), 0x1000040C185D105uLL);
   if (v8)
   {
@@ -2415,19 +2372,19 @@ uint64_t ICEGetCandidatesForPeer(uint64_t a1, int a2, void *a3, _DWORD *a4)
       v25 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v28 = 136315906;
-        v29 = v24;
-        v30 = 2080;
-        v31 = "ICEGetCandidatesForPeer";
-        v32 = 1024;
-        v33 = 449;
-        v34 = 1024;
-        v35 = v12;
-        _os_log_impl(&dword_23D497000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Piggyback %d local candidates.", &v28, 0x22u);
+        v27 = 136315906;
+        v28 = v24;
+        v29 = 2080;
+        v30 = "ICEGetCandidatesForPeer";
+        v31 = 1024;
+        v32 = 449;
+        v33 = 1024;
+        v34 = v12;
+        _os_log_impl(&dword_23D497000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Piggyback %d local candidates.", &v27, 0x22u);
       }
     }
 
-    v23 = 0;
+    return 0;
   }
 
   else
@@ -2443,56 +2400,54 @@ uint64_t ICEGetCandidatesForPeer(uint64_t a1, int a2, void *a3, _DWORD *a4)
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 uint64_t ICEGetCandidates(uint64_t a1, unsigned __int8 a2, uint64_t a3, int a4, void *a5, int *a6, int a7, int a8, double a9, uint64_t a10, const char *a11, void *a12, int a13, int a14)
 {
-  v169 = *MEMORY[0x277D85DE8];
-  v147 = 0;
-  v144 = 0;
-  v145 = -1431655766;
-  v143 = -1;
+  v173 = *MEMORY[0x277D85DE8];
+  v151 = 0;
+  v148 = 0;
+  v149 = -1431655766;
+  v147 = -1;
   v23 = CheckInHandleDebug();
   if (!v23)
   {
-    v30 = 2148859906;
-    goto LABEL_260;
+    return 2148859906;
   }
 
   v24 = v23;
-  v140 = a7;
-  v141 = a4;
-  *&v165[16] = 0xAAAAAAAAAAAAAAAALL;
+  v144 = a7;
+  v145 = a4;
+  *&v169[16] = 0xAAAAAAAAAAAAAAAALL;
   *&v25 = 0xAAAAAAAAAAAAAAAALL;
   *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *v165 = v25;
-  v164 = v25;
-  v161 = v25;
-  v162 = v25;
-  v163 = 0xAAAAAAAAAAAAAAAALL;
-  memset(__b, 170, sizeof(__b));
-  v146 = -21846;
-  v142 = *(v24 + 16);
-  memset(v168, 0, sizeof(v168));
-  v167 = 0;
-  memset(v166, 0, sizeof(v166));
+  *v169 = v25;
+  v168 = v25;
+  v165 = v25;
+  v166 = v25;
+  v167 = 0xAAAAAAAAAAAAAAAALL;
+  ErrorLogLevelForModule = memset(__b, 170, sizeof(__b));
+  v150 = -21846;
+  v146 = *(v24 + 16);
+  memset(v172, 0, sizeof(v172));
+  v171 = 0;
+  memset(v170, 0, sizeof(v170));
   if (a12)
   {
-    v159 = 0xAAAAAAAAAAAAAAAALL;
-    *&v26 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v157 = v26;
-    v158 = v26;
-    *&v156[46] = 0xAAAAAAAAAAAAAAAALL;
-    *&v156[16] = v26;
-    *&v156[32] = v26;
-    *v156 = v26;
-    IPPortFromDict = GetIPPortFromDict(a12, @"GKSRelaySelfRelayIP", @"GKSRelaySelfRelayPort", &v157);
+    v163 = 0xAAAAAAAAAAAAAAAALL;
+    *&v28 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v161 = v28;
+    v162 = v28;
+    *&v160[46] = 0xAAAAAAAAAAAAAAAALL;
+    *&v160[16] = v28;
+    *&v160[32] = v28;
+    *v160 = v28;
+    IPPortFromDict = GetIPPortFromDict(a12, @"GKSRelaySelfRelayIP", @"GKSRelaySelfRelayPort", &v161);
     if ((IPPortFromDict & 0x80000000) != 0)
     {
-      v30 = IPPortFromDict;
+      v32 = IPPortFromDict;
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
         VRTraceErrorLogLevelToCSTR();
@@ -2505,195 +2460,197 @@ uint64_t ICEGetCandidates(uint64_t a1, unsigned __int8 a2, uint64_t a3, int a4, 
       goto LABEL_259;
     }
 
-    v138 = a5;
-    DWORD1(v158) = bswap32(DWORD1(v158));
-    if (VRTraceGetErrorLogLevelForModule() >= 7)
+    v142 = a5;
+    DWORD1(v162) = bswap32(DWORD1(v162));
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 7)
     {
-      v28 = VRTraceErrorLogLevelToCSTR();
-      v29 = *MEMORY[0x277CE5818];
-      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+      v30 = VRTraceErrorLogLevelToCSTR();
+      v31 = *MEMORY[0x277CE5818];
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
+      if (ErrorLogLevelForModule)
       {
         *buf = 136315906;
-        v149 = v28;
-        v150 = 2080;
-        v151 = "ICEGetCandidates";
-        v152 = 1024;
-        v153 = 496;
+        v153 = v30;
         v154 = 2080;
-        v155 = IPPORTToStringWithSize(v156, &v157, 0x36uLL);
-        _os_log_impl(&dword_23D497000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d relay server [%s]", buf, 0x26u);
+        v155 = "ICEGetCandidates";
+        v156 = 1024;
+        v157 = 496;
+        v158 = 2080;
+        v159 = IPPORTToStringWithSize(v160, &v161, 0x36uLL);
+        _os_log_impl(&dword_23D497000, v31, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d relay server [%s]", buf, 0x26u);
       }
     }
 
-    v139 = a6;
-    v137 = 1;
+    v143 = a6;
+    v141 = 1;
   }
 
   else
   {
-    v138 = a5;
-    v139 = a6;
-    v137 = 0;
+    v142 = a5;
+    v143 = a6;
+    v141 = 0;
   }
 
-  v31 = micro();
+  v33 = micro(ErrorLogLevelForModule, v27);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v32 = VRTraceErrorLogLevelToCSTR();
-    v33 = *MEMORY[0x277CE5818];
+    v34 = VRTraceErrorLogLevelToCSTR();
+    v35 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v34 = "using relay";
-      *v156 = 136316418;
+      v36 = "using relay";
+      *v160 = 136316418;
       if (!a12)
       {
-        v34 = &unk_23D4C9CFB;
+        v36 = &unk_23D4C9CFB;
       }
 
-      *&v156[4] = v32;
-      *&v156[12] = 2080;
-      *&v156[14] = "ICEGetCandidates";
-      *&v156[22] = 1024;
-      *&v156[24] = 503;
-      *&v156[28] = 2080;
-      *&v156[30] = v34;
-      *&v156[38] = 2048;
-      *&v156[40] = v31;
-      *&v156[48] = 1024;
-      *&v156[50] = a3;
-      _os_log_impl(&dword_23D497000, v33, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d candidate collection start %s: %f (call %d)", v156, 0x36u);
+      *&v160[4] = v34;
+      *&v160[12] = 2080;
+      *&v160[14] = "ICEGetCandidates";
+      *&v160[22] = 1024;
+      *&v160[24] = 503;
+      *&v160[28] = 2080;
+      *&v160[30] = v36;
+      *&v160[38] = 2048;
+      *&v160[40] = v33;
+      *&v160[48] = 1024;
+      *&v160[50] = a3;
+      _os_log_impl(&dword_23D497000, v35, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d candidate collection start %s: %f (call %d)", v160, 0x36u);
     }
   }
 
-  v35 = a11;
+  v37 = a11;
   if (!a8)
   {
     if (VRTraceGetErrorLogLevelForModule() > 6)
     {
-      v53 = VRTraceErrorLogLevelToCSTR();
-      v54 = *MEMORY[0x277CE5818];
+      v56 = VRTraceErrorLogLevelToCSTR();
+      v57 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        *v156 = 136315650;
-        *&v156[4] = v53;
-        *&v156[12] = 2080;
-        *&v156[14] = "ICEGetCandidates";
-        *&v156[22] = 1024;
-        *&v156[24] = 678;
-        _os_log_impl(&dword_23D497000, v54, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d external candidate collection skipped ...", v156, 0x1Cu);
+        *v160 = 136315650;
+        *&v160[4] = v56;
+        *&v160[12] = 2080;
+        *&v160[14] = "ICEGetCandidates";
+        *&v160[22] = 1024;
+        *&v160[24] = 678;
+        _os_log_impl(&dword_23D497000, v57, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d external candidate collection skipped ...", v160, 0x1Cu);
       }
     }
 
-    v36 = 0;
+    v38 = 0;
     goto LABEL_60;
   }
 
   pthread_mutex_lock((v24 + 168));
-  v36 = *(v24 + 232);
-  if (!v36)
+  v38 = *(v24 + 232);
+  if (!v38)
   {
 LABEL_20:
-    v37 = 1;
+    v39 = 1;
     goto LABEL_21;
   }
 
-  while (*(v36 + 148) != a3 || !ICERetainICEList(v36))
+  while (*(v38 + 148) != a3 || !ICERetainICEList(v38))
   {
-    v36 = *(v36 + 912);
-    if (!v36)
+    v38 = *(v38 + 912);
+    if (!v38)
     {
       goto LABEL_20;
     }
   }
 
-  pthread_mutex_lock((v36 + 16));
+  pthread_mutex_lock((v38 + 16));
   if (a12)
   {
-    v82 = *(v36 + 128) == 0;
+    v87 = *(v38 + 128) == 0;
   }
 
   else
   {
-    v82 = 1;
+    v87 = 1;
   }
 
-  v83 = v82;
+  v88 = v87;
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v84 = VRTraceErrorLogLevelToCSTR();
-    v85 = *MEMORY[0x277CE5818];
+    v89 = VRTraceErrorLogLevelToCSTR();
+    v90 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      *v156 = 136315906;
-      *&v156[4] = v84;
-      *&v156[12] = 2080;
-      *&v156[14] = "ICEGetCandidates";
-      *&v156[22] = 1024;
-      *&v156[24] = 519;
-      *&v156[28] = 1024;
-      *&v156[30] = a3;
-      _os_log_impl(&dword_23D497000, v85, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Found running ICE for call (%d)", v156, 0x22u);
+      *v160 = 136315906;
+      *&v160[4] = v89;
+      *&v160[12] = 2080;
+      *&v160[14] = "ICEGetCandidates";
+      *&v160[22] = 1024;
+      *&v160[24] = 519;
+      *&v160[28] = 1024;
+      *&v160[30] = a3;
+      _os_log_impl(&dword_23D497000, v90, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Found running ICE for call (%d)", v160, 0x22u);
     }
   }
 
-  if (!v83)
+  if (!v88)
   {
-    *v156 = 0xAAAAAAAAAAAAAAAALL;
-    RemotePrimaryCID = GetRemotePrimaryCID(a12, v156);
+    *v160 = 0xAAAAAAAAAAAAAAAALL;
+    RemotePrimaryCID = GetRemotePrimaryCID(a12, v160);
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v91 = VRTraceErrorLogLevelToCSTR();
-      v92 = *MEMORY[0x277CE5818];
+      v96 = VRTraceErrorLogLevelToCSTR();
+      v97 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v93 = *(v36 + 420);
-        *v156 = 136316418;
-        *&v156[4] = v91;
-        *&v156[12] = 2080;
-        *&v156[14] = "ICEGetCandidates";
-        *&v156[22] = 1024;
-        *&v156[24] = 609;
-        *&v156[28] = 1024;
-        *&v156[30] = v93;
-        *&v156[34] = 1024;
-        *&v156[36] = RemotePrimaryCID >= 0;
-        *&v156[40] = 2048;
-        *&v156[42] = a12;
-        _os_log_impl(&dword_23D497000, v92, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Relay collection start (PE State: %d), secondary %d, %p", v156, 0x32u);
+        v98 = *(v38 + 420);
+        *v160 = 136316418;
+        *&v160[4] = v96;
+        *&v160[12] = 2080;
+        *&v160[14] = "ICEGetCandidates";
+        *&v160[22] = 1024;
+        *&v160[24] = 609;
+        *&v160[28] = 1024;
+        *&v160[30] = v98;
+        *&v160[34] = 1024;
+        *&v160[36] = RemotePrimaryCID >= 0;
+        *&v160[40] = 2048;
+        *&v160[42] = a12;
+        _os_log_impl(&dword_23D497000, v97, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Relay collection start (PE State: %d), secondary %d, %p", v160, 0x32u);
       }
     }
 
-    *(v36 + 232) = 1;
-    *(v36 + 440) = 0;
-    *(v36 + 756) = 1;
+    *(v38 + 232) = 1;
+    *(v38 + 440) = 0;
+    *(v38 + 756) = 1;
     if (a11)
     {
-      strncpy((v36 + 316), a11, 0x41uLL);
+      strncpy((v38 + 316), a11, 0x41uLL);
     }
 
-    v94 = *(v36 + 744);
-    if (v94)
+    v99 = *(v38 + 744);
+    if (v99)
     {
-      CFRelease(v94);
+      CFRelease(v99);
     }
 
-    *(v36 + 744) = CFRetain(a12);
-    *(v36 + 752) = 0;
-    v95 = GetIPPortFromDict(a12, @"GKSRelaySelfRelayIP", @"GKSRelaySelfRelayPort", v36 + 236);
-    if ((v95 & 0x80000000) != 0)
+    *(v38 + 744) = CFRetain(a12);
+    *(v38 + 752) = 0;
+    v100 = GetIPPortFromDict(a12, @"GKSRelaySelfRelayIP", @"GKSRelaySelfRelayPort", v38 + 236);
+    if ((v100 & 0x80000000) != 0)
     {
       pthread_mutex_unlock((v24 + 168));
     }
 
     else
     {
-      *(v36 + 256) = bswap32(*(v36 + 256));
+      *(v38 + 256) = bswap32(*(v38 + 256));
       pthread_mutex_unlock((v24 + 168));
-      if (IsIPPORTValid(v36 + 236))
+      if (IsIPPORTValid(v38 + 236))
       {
-        if (*(v36 + 420) == 6)
+        if (*(v38 + 420) == 6)
         {
-          v30 = 2148859927;
+          v32 = 2148859927;
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
             VRTraceErrorLogLevelToCSTR();
@@ -2706,27 +2663,27 @@ LABEL_20:
           goto LABEL_193;
         }
 
-        *(v36 + 420) = 1;
+        *(v38 + 420) = 1;
         (*(v24 + 40))(*(v24 + 8), 0);
         while (1)
         {
-          v97 = *(v36 + 420);
-          if (v97 != 1)
+          v102 = *(v38 + 420);
+          if (v102 != 1)
           {
             break;
           }
 
-          pthread_cond_wait((v36 + 80), (v36 + 16));
+          pthread_cond_wait((v38 + 80), (v38 + 16));
         }
 
-        switch(v97)
+        switch(v102)
         {
           case 3:
-            *(v36 + 424) = 15;
+            *(v38 + 424) = 15;
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
               VRTraceErrorLogLevelToCSTR();
-              v30 = 2148859927;
+              v32 = 2148859927;
               if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
               {
                 ICEGetCandidates_cold_3();
@@ -2740,21 +2697,21 @@ LABEL_20:
             if (VRTraceGetErrorLogLevelForModule() >= 3 && (VRTraceErrorLogLevelToCSTR(), os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
             {
               ICEGetCandidates_cold_4();
-              v30 = 2148859955;
+              v32 = 2148859955;
             }
 
             else
             {
-              v30 = 2148859955;
+              v32 = 2148859955;
             }
 
             goto LABEL_193;
           case 6:
-            *(v36 + 424) = 15;
+            *(v38 + 424) = 15;
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
               VRTraceErrorLogLevelToCSTR();
-              v30 = 2148859927;
+              v32 = 2148859927;
               if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
               {
                 ICEGetCandidates_cold_2();
@@ -2765,15 +2722,15 @@ LABEL_20:
 
             break;
           default:
-            *(v36 + 420) = 0;
-            pthread_mutex_unlock((v36 + 16));
-            v41 = 0;
+            *(v38 + 420) = 0;
+            pthread_mutex_unlock((v38 + 16));
+            v43 = 0;
             goto LABEL_61;
         }
 
-        v30 = 2148859927;
+        v32 = 2148859927;
 LABEL_193:
-        pthread_mutex_unlock((v36 + 16));
+        pthread_mutex_unlock((v38 + 16));
         goto LABEL_258;
       }
     }
@@ -2787,45 +2744,45 @@ LABEL_193:
       }
     }
 
-    if (v95)
+    if (v100)
     {
-      v30 = v95;
+      v32 = v100;
     }
 
     else
     {
-      v30 = 2148859905;
+      v32 = 2148859905;
     }
 
     goto LABEL_193;
   }
 
-  v37 = 0;
+  v39 = 0;
 LABEL_21:
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v38 = VRTraceErrorLogLevelToCSTR();
-    v39 = *MEMORY[0x277CE5818];
+    v40 = VRTraceErrorLogLevelToCSTR();
+    v41 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      *v156 = 136315650;
-      *&v156[4] = v38;
-      *&v156[12] = 2080;
-      *&v156[14] = "ICEGetCandidates";
-      *&v156[22] = 1024;
-      *&v156[24] = 525;
-      _os_log_impl(&dword_23D497000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Regular collection start.", v156, 0x1Cu);
+      *v160 = 136315650;
+      *&v160[4] = v40;
+      *&v160[12] = 2080;
+      *&v160[14] = "ICEGetCandidates";
+      *&v160[22] = 1024;
+      *&v160[24] = 525;
+      _os_log_impl(&dword_23D497000, v41, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Regular collection start.", v160, 0x1Cu);
     }
   }
 
-  v30 = SendCollectionRequest(v24, &v147, a3, a11, a12);
-  if ((v37 & 1) == 0)
+  v32 = SendCollectionRequest(v24, &v151, a3, a11, a12);
+  if ((v39 & 1) == 0)
   {
-    pthread_mutex_unlock((v36 + 16));
+    pthread_mutex_unlock((v38 + 16));
   }
 
   pthread_mutex_unlock((v24 + 168));
-  if ((v30 & 0x80000000) != 0)
+  if ((v32 & 0x80000000) != 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -2839,57 +2796,57 @@ LABEL_21:
     goto LABEL_257;
   }
 
-  v40 = v147;
-  v41 = 1;
-  if (!v147)
+  v42 = v151;
+  v43 = 1;
+  if (!v151)
   {
     goto LABEL_61;
   }
 
-  LODWORD(v157) = 1;
+  LODWORD(v161) = 1;
   while (1)
   {
-    v42 = ICERecvUDPPacketWithTimeout(v24, v40, a3, __b, &v145, v168, v166, &v143, 500);
-    if ((v42 & 0x80000000) == 0)
+    v44 = ICERecvUDPPacketWithTimeout(v24, v42, a3, __b, &v149, v172, v170, &v147, 500);
+    if ((v44 & 0x80000000) == 0)
     {
-      v43 = ProcessCollectionResponse(v24, v147, a3, __b, v145, v168, v166, &v146, a12, &v157, &v144);
-      if (v43 < 0)
+      v46 = ProcessCollectionResponse(v24, v151, a3, __b, v149, v172, v170, &v150, a12, &v161, &v148);
+      if (v46 < 0)
       {
-        v45 = v35;
+        v48 = v37;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v50 = VRTraceErrorLogLevelToCSTR();
-          v51 = *MEMORY[0x277CE5818];
+          v53 = VRTraceErrorLogLevelToCSTR();
+          v54 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
-            *v156 = 136316162;
-            *&v156[4] = v50;
-            *&v156[12] = 2080;
-            *&v156[14] = "ICEGetCandidates";
-            *&v156[22] = 1024;
-            *&v156[24] = 580;
-            *&v156[28] = 1024;
-            *&v156[30] = 580;
-            *&v156[34] = 1024;
-            *&v156[36] = v43;
-            _os_log_error_impl(&dword_23D497000, v51, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ProcessCollectionResponse failed (%08X)\n", v156, 0x28u);
+            *v160 = 136316162;
+            *&v160[4] = v53;
+            *&v160[12] = 2080;
+            *&v160[14] = "ICEGetCandidates";
+            *&v160[22] = 1024;
+            *&v160[24] = 580;
+            *&v160[28] = 1024;
+            *&v160[30] = 580;
+            *&v160[34] = 1024;
+            *&v160[36] = v46;
+            _os_log_error_impl(&dword_23D497000, v54, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ProcessCollectionResponse failed (%08X)\n", v160, 0x28u);
           }
         }
       }
 
       else
       {
-        v44 = v147;
-        if (!v147)
+        v47 = v151;
+        if (!v151)
         {
           goto LABEL_60;
         }
 
-        v45 = v35;
-        while (*(v44 + 6))
+        v48 = v37;
+        while (*(v47 + 6))
         {
-          v44 = v44[198];
-          if (!v44)
+          v47 = v47[198];
+          if (!v47)
           {
             goto LABEL_164;
           }
@@ -2899,56 +2856,61 @@ LABEL_21:
       goto LABEL_52;
     }
 
-    v43 = v42;
-    v45 = v35;
-    v46 = v42;
-    if ((v42 > 0x1Eu || ((1 << v42) & 0x40801000) == 0) && VRTraceGetErrorLogLevelForModule() >= 3)
+    v46 = v44;
+    v48 = v37;
+    v49 = v44;
+    if (v44 > 0x1Eu || ((1 << v44) & 0x40801000) == 0)
     {
-      v134 = VRTraceErrorLogLevelToCSTR();
-      v52 = *MEMORY[0x277CE5818];
-      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+      v44 = VRTraceGetErrorLogLevelForModule();
+      if (v44 >= 3)
       {
-        *v156 = 136316162;
-        *&v156[4] = v134;
-        *&v156[12] = 2080;
-        *&v156[14] = "ICEGetCandidates";
-        *&v156[22] = 1024;
-        *&v156[24] = 552;
-        *&v156[28] = 1024;
-        *&v156[30] = 552;
-        *&v156[34] = 1024;
-        *&v156[36] = v43;
-        _os_log_error_impl(&dword_23D497000, v52, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICERecvUDPPacketWithTimeout failed (%08X)\n", v156, 0x28u);
+        v138 = VRTraceErrorLogLevelToCSTR();
+        v55 = *MEMORY[0x277CE5818];
+        v44 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
+        if (v44)
+        {
+          *v160 = 136316162;
+          *&v160[4] = v138;
+          *&v160[12] = 2080;
+          *&v160[14] = "ICEGetCandidates";
+          *&v160[22] = 1024;
+          *&v160[24] = 552;
+          *&v160[28] = 1024;
+          *&v160[30] = 552;
+          *&v160[34] = 1024;
+          *&v160[36] = v46;
+          _os_log_error_impl(&dword_23D497000, v55, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICERecvUDPPacketWithTimeout failed (%08X)\n", v160, 0x28u);
+        }
       }
     }
 
-    v47 = micro() - v31;
-    if (a9 != 0.0 && v47 > a9 && v147 != 0)
+    v50 = micro(v44, v45) - v33;
+    if (a9 != 0.0 && v50 > a9 && v151 != 0)
     {
       break;
     }
 
 LABEL_46:
-    if (v47 > 5.0)
+    if (v50 > 5.0)
     {
       goto LABEL_164;
     }
 
-    if (v46 != 12)
+    if (v49 != 12)
     {
-      ReXmitCollectionRequest(*(v24 + 8), *(v24 + 720), v147, v142);
+      ReXmitCollectionRequest(*(v24 + 8), *(v24 + 720), v151, v146);
     }
 
 LABEL_52:
-    v40 = v147;
-    v35 = v45;
+    v42 = v151;
+    v37 = v48;
   }
 
-  v49 = v147;
-  while (*(v49 + 6) != 1)
+  v52 = v151;
+  while (*(v52 + 6) != 1)
   {
-    v49 = v49[198];
-    if (!v49)
+    v52 = v52[198];
+    if (!v52)
     {
       goto LABEL_46;
     }
@@ -2956,42 +2918,42 @@ LABEL_52:
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v86 = VRTraceErrorLogLevelToCSTR();
-    v87 = *MEMORY[0x277CE5818];
+    v91 = VRTraceErrorLogLevelToCSTR();
+    v92 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      *v156 = 136316162;
-      *&v156[4] = v86;
-      *&v156[12] = 2080;
-      *&v156[14] = "ICEGetCandidates";
-      *&v156[22] = 1024;
-      *&v156[24] = 558;
-      *&v156[28] = 2048;
-      *&v156[30] = v47;
-      *&v156[38] = 2048;
-      *&v156[40] = a9;
-      _os_log_impl(&dword_23D497000, v87, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetCandidates: Timed out after %f seconds, nonCellularCandidateTimeout = %f", v156, 0x30u);
+      *v160 = 136316162;
+      *&v160[4] = v91;
+      *&v160[12] = 2080;
+      *&v160[14] = "ICEGetCandidates";
+      *&v160[22] = 1024;
+      *&v160[24] = 558;
+      *&v160[28] = 2048;
+      *&v160[30] = v50;
+      *&v160[38] = 2048;
+      *&v160[40] = a9;
+      _os_log_impl(&dword_23D497000, v92, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetCandidates: Timed out after %f seconds, nonCellularCandidateTimeout = %f", v160, 0x30u);
     }
   }
 
 LABEL_164:
-  v88 = v147;
-  v35 = v45;
-  if (v147)
+  v93 = v151;
+  v37 = v48;
+  if (v151)
   {
     do
     {
-      v89 = v88[198];
-      free(v88);
-      v147 = v89;
-      v88 = v89;
+      v94 = v93[198];
+      free(v93);
+      v151 = v94;
+      v93 = v94;
     }
 
-    while (v89);
+    while (v94);
   }
 
-  v147 = 0;
-  if (a12 && v43 < 0)
+  v151 = 0;
+  if (a12 && v46 < 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -3002,219 +2964,220 @@ LABEL_164:
       }
     }
 
-    v30 = 2148859955;
+    v32 = 2148859955;
     goto LABEL_257;
   }
 
 LABEL_60:
-  v41 = 1;
+  v43 = 1;
 LABEL_61:
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v55 = VRTraceErrorLogLevelToCSTR();
-    v56 = *MEMORY[0x277CE5818];
-    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    v58 = VRTraceErrorLogLevelToCSTR();
+    v59 = *MEMORY[0x277CE5818];
+    v60 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
+    if (v60)
     {
-      v57 = micro();
-      *v156 = 136315906;
-      *&v156[4] = v55;
-      *&v156[12] = 2080;
-      *&v156[14] = "ICEGetCandidates";
-      *&v156[22] = 1024;
-      *&v156[24] = 681;
-      *&v156[28] = 2048;
-      *&v156[30] = v57;
-      _os_log_impl(&dword_23D497000, v56, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d candidate collection done : %f", v156, 0x26u);
+      v62 = micro(v60, v61);
+      *v160 = 136315906;
+      *&v160[4] = v58;
+      *&v160[12] = 2080;
+      *&v160[14] = "ICEGetCandidates";
+      *&v160[22] = 1024;
+      *&v160[24] = 681;
+      *&v160[28] = 2048;
+      *&v160[30] = v62;
+      _os_log_impl(&dword_23D497000, v59, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d candidate collection done : %f", v160, 0x26u);
     }
   }
 
   pthread_mutex_lock((v24 + 96));
-  v58 = *(v24 + 160);
-  if (!v58)
+  v63 = *(v24 + 160);
+  if (!v63)
   {
     goto LABEL_255;
   }
 
-  v59 = 0;
-  v60 = a14;
+  v64 = 0;
+  v65 = a14;
   do
   {
-    if (*v58)
+    if (*v63)
     {
-      v61 = *v58 == 5;
+      v66 = *v63 == 5;
     }
 
     else
     {
-      v61 = 1;
+      v66 = 1;
     }
 
-    if (v61 || *(v58 + 4) == a3)
+    if (v66 || *(v63 + 4) == a3)
     {
-      ++v59;
+      ++v64;
     }
 
-    v58 = *(v58 + 240);
+    v63 = *(v63 + 240);
   }
 
-  while (v58);
-  if (!v59)
+  while (v63);
+  if (!v64)
   {
     goto LABEL_255;
   }
 
-  v62 = malloc_type_calloc(1uLL, 592 * v59, 0x1000040C185D105uLL);
-  if (v62)
+  v67 = malloc_type_calloc(1uLL, 592 * v64, 0x1000040C185D105uLL);
+  if (v67)
   {
-    v63 = v62;
-    __src = v35;
-    v64 = *(v24 + 160);
-    if (!v64)
+    v68 = v67;
+    __src = v37;
+    v69 = *(v24 + 160);
+    if (!v69)
     {
       pthread_mutex_unlock((v24 + 96));
       goto LABEL_217;
     }
 
-    v135 = v41;
-    v65 = 0;
+    v139 = v43;
+    v70 = 0;
     while (2)
     {
-      if (*v64)
+      if (*v69)
       {
-        v66 = *v64 == 5;
+        v71 = *v69 == 5;
       }
 
       else
       {
-        v66 = 1;
+        v71 = 1;
       }
 
-      if (!v66 && *(v64 + 4) != a3 || (v67 = *(v64 + 8), v68 = *(v64 + 24), *&v168[32] = *(v64 + 40), *v168 = v67, *&v168[16] = v68, !IsIPPORTValid(v168)))
+      if (!v71 && *(v69 + 4) != a3 || (v72 = *(v69 + 8), v73 = *(v69 + 24), *&v172[32] = *(v69 + 40), *v172 = v72, *&v172[16] = v73, !IsIPPORTValid(v172)))
       {
 LABEL_91:
-        v70 = v65;
+        v75 = v70;
         goto LABEL_92;
       }
 
       if (a12)
       {
-        v69 = *(v64 + 196);
-        v161 = *(v64 + 180);
-        v162 = v69;
-        v163 = *(v64 + 212);
-        if (IsIPPORTValid(&v161) && *(v64 + 220) == 1)
+        v74 = *(v69 + 196);
+        v165 = *(v69 + 180);
+        v166 = v74;
+        v167 = *(v69 + 212);
+        if (IsIPPORTValid(&v165) && *(v69 + 220) == 1)
         {
-          v96 = AddOneCandidate(v63, v65, 5, a3, *v64, &v161, 40, v168, a2);
-          if (v96 < 0)
+          v101 = AddOneCandidate(v68, v70, 5, a3, *v69, &v165, 40, v172, a2);
+          if (v101 < 0)
           {
-            LODWORD(v70) = v65;
+            LODWORD(v75) = v70;
           }
 
           else
           {
-            *(v64 + 220) = 0;
-            LODWORD(v70) = v65 + 1;
+            *(v69 + 220) = 0;
+            LODWORD(v75) = v70 + 1;
           }
 
-          if (v135)
+          if (v139)
           {
 LABEL_207:
             pthread_mutex_unlock((v24 + 96));
-            if (v70 >= 1)
+            if (v75 >= 1)
             {
-              v98 = v70;
-              v99 = 24;
+              v103 = v75;
+              v104 = 24;
               do
               {
-                if ((v63[v99] & 1) == 0)
+                if ((v68[v104] & 1) == 0)
                 {
-                  v100 = v70;
-                  v102 = v63;
+                  v105 = v75;
+                  v107 = v68;
                   goto LABEL_222;
                 }
 
-                v99 += 148;
-                --v98;
+                v104 += 148;
+                --v103;
               }
 
-              while (v98);
-              v100 = v70 + 1;
-              v101 = malloc_type_realloc(v63, 148 * (v70 + 1), 0x1000040C185D105uLL);
-              if (v101)
+              while (v103);
+              v105 = v75 + 1;
+              v106 = malloc_type_realloc(v68, 148 * (v75 + 1), 0x1000040C185D105uLL);
+              if (v106)
               {
-                v102 = v101;
-                MakeIPPORT(v168, "0.0.0.0", 16402);
-                if ((AddOneCandidate(v102, v70, 1, a3, **(v24 + 160), v168, 90, v168, a2) & 0x80000000) != 0)
+                v107 = v106;
+                MakeIPPORT(v172, "0.0.0.0", 16402);
+                if ((AddOneCandidate(v107, v75, 1, a3, **(v24 + 160), v172, 90, v172, a2) & 0x80000000) != 0)
                 {
                   goto LABEL_216;
                 }
 
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  LODWORD(v70) = v70 + 1;
-                  v103 = VRTraceErrorLogLevelToCSTR();
-                  v104 = *MEMORY[0x277CE5818];
+                  LODWORD(v75) = v75 + 1;
+                  v108 = VRTraceErrorLogLevelToCSTR();
+                  v109 = *MEMORY[0x277CE5818];
                   if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                   {
-                    *v156 = 136315650;
-                    *&v156[4] = v103;
-                    *&v156[12] = 2080;
-                    *&v156[14] = "ICEGetCandidates";
-                    *&v156[22] = 1024;
-                    *&v156[24] = 898;
-                    _os_log_impl(&dword_23D497000, v104, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetCandidates: added a dummy IPv4 candidate.", v156, 0x1Cu);
+                    *v160 = 136315650;
+                    *&v160[4] = v108;
+                    *&v160[12] = 2080;
+                    *&v160[14] = "ICEGetCandidates";
+                    *&v160[22] = 1024;
+                    *&v160[24] = 898;
+                    _os_log_impl(&dword_23D497000, v109, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetCandidates: added a dummy IPv4 candidate.", v160, 0x1Cu);
                   }
 
 LABEL_216:
-                  v100 = v70;
+                  v105 = v75;
                 }
 
 LABEL_222:
-                v105 = 148 * v100;
-                v106 = malloc_type_malloc(148 * v100, 0x1000040C185D105uLL);
-                if (v106)
+                v110 = 148 * v105;
+                v111 = malloc_type_malloc(148 * v105, 0x1000040C185D105uLL);
+                if (v111)
                 {
-                  v107 = v100;
-                  v108 = v106;
-                  v109 = 0;
-                  v110 = v107;
-                  if (v107 <= 1)
+                  v112 = v105;
+                  v113 = v111;
+                  v114 = 0;
+                  v115 = v112;
+                  if (v112 <= 1)
                   {
-                    v107 = 1;
+                    v112 = 1;
                   }
 
-                  v111 = 148 * v107;
+                  v116 = 148 * v112;
                   do
                   {
-                    v112 = &v106[v109 / 4];
-                    v113 = *&v102[v109 + 16];
-                    *v112 = *&v102[v109];
-                    *(v112 + 1) = v113;
-                    v114 = *&v102[v109 + 32];
-                    v115 = *&v102[v109 + 48];
-                    v116 = *&v102[v109 + 80];
-                    *(v112 + 4) = *&v102[v109 + 64];
-                    *(v112 + 5) = v116;
-                    *(v112 + 2) = v114;
-                    *(v112 + 3) = v115;
-                    v117 = *&v102[v109 + 96];
-                    v118 = *&v102[v109 + 112];
-                    v119 = *&v102[v109 + 128];
-                    *(v112 + 36) = *&v102[v109 + 144];
-                    *(v112 + 7) = v118;
-                    *(v112 + 8) = v119;
-                    *(v112 + 6) = v117;
-                    v109 += 148;
+                    v117 = &v111[v114 / 4];
+                    v118 = *&v107[v114 + 16];
+                    *v117 = *&v107[v114];
+                    *(v117 + 1) = v118;
+                    v119 = *&v107[v114 + 32];
+                    v120 = *&v107[v114 + 48];
+                    v121 = *&v107[v114 + 80];
+                    *(v117 + 4) = *&v107[v114 + 64];
+                    *(v117 + 5) = v121;
+                    *(v117 + 2) = v119;
+                    *(v117 + 3) = v120;
+                    v122 = *&v107[v114 + 96];
+                    v123 = *&v107[v114 + 112];
+                    v124 = *&v107[v114 + 128];
+                    *(v117 + 36) = *&v107[v114 + 144];
+                    *(v117 + 7) = v123;
+                    *(v117 + 8) = v124;
+                    *(v117 + 6) = v122;
+                    v114 += 148;
                   }
 
-                  while (v111 != v109);
-                  free(v102);
+                  while (v116 != v114);
+                  free(v107);
                   if (a14)
                   {
-                    v120 = ICEGetNewCandidates(v24, a3, v108, v110, 1);
-                    if ((v120 & 0x80000000) != 0)
+                    v125 = ICEGetNewCandidates(v24, a3, v113, v115, 1);
+                    if ((v125 & 0x80000000) != 0)
                     {
-                      v30 = v120;
+                      v32 = v125;
                       if (VRTraceGetErrorLogLevelForModule() >= 3)
                       {
                         VRTraceErrorLogLevelToCSTR();
@@ -3228,13 +3191,13 @@ LABEL_222:
                     }
 
 LABEL_238:
-                    if (v141)
+                    if (v145)
                     {
-                      *v156 = 0;
-                      LODWORD(v157) = 0;
-                      v30 = ICECompressCandidates(v156, &v157, *v139, v108, v110);
-                      free(v108);
-                      if ((v30 & 0x80000000) != 0)
+                      *v160 = 0;
+                      LODWORD(v161) = 0;
+                      v32 = ICECompressCandidates(v160, &v161, *v143, v113, v115);
+                      free(v113);
+                      if ((v32 & 0x80000000) != 0)
                       {
                         if (VRTraceGetErrorLogLevelForModule() >= 3)
                         {
@@ -3248,18 +3211,18 @@ LABEL_238:
 
                       else
                       {
-                        *v139 = v157;
-                        *v138 = *v156;
+                        *v143 = v161;
+                        *v142 = *v160;
                       }
 
                       goto LABEL_257;
                     }
 
-                    v30 = CandidateByteOrderHToN(v108, v110);
-                    if ((v30 & 0x80000000) == 0)
+                    v32 = CandidateByteOrderHToN(v113, v115);
+                    if ((v32 & 0x80000000) == 0)
                     {
-                      *v139 = v105;
-                      *v138 = v108;
+                      *v143 = v110;
+                      *v142 = v113;
                       goto LABEL_257;
                     }
 
@@ -3275,18 +3238,18 @@ LABEL_238:
 
                   else
                   {
-                    if (!v135)
+                    if (!v139)
                     {
                       goto LABEL_238;
                     }
 
-                    v122 = AddOneICEList(v24, a1, a3, v108, v110, v140, v137, &v161, __src, a12);
-                    if ((v122 & 0x80000000) == 0)
+                    v127 = AddOneICEList(v24, a1, a3, v113, v115, v144, v141, &v165, __src, a12);
+                    if ((v127 & 0x80000000) == 0)
                     {
                       goto LABEL_238;
                     }
 
-                    v30 = v122;
+                    v32 = v127;
                     if (VRTraceGetErrorLogLevelForModule() >= 3)
                     {
                       VRTraceErrorLogLevelToCSTR();
@@ -3298,7 +3261,7 @@ LABEL_238:
                   }
 
 LABEL_280:
-                  free(v108);
+                  free(v113);
                   goto LABEL_257;
                 }
 
@@ -3311,7 +3274,7 @@ LABEL_280:
                   }
                 }
 
-                v121 = v102;
+                v126 = v107;
               }
 
               else
@@ -3325,10 +3288,10 @@ LABEL_280:
                   }
                 }
 
-                v121 = v63;
+                v126 = v68;
               }
 
-              free(v121);
+              free(v126);
               goto LABEL_246;
             }
 
@@ -3342,9 +3305,9 @@ LABEL_217:
               }
             }
 
-            free(v63);
+            free(v68);
 LABEL_256:
-            v30 = 2148859926;
+            v32 = 2148859926;
             goto LABEL_257;
           }
 
@@ -3356,26 +3319,26 @@ LABEL_256:
               pthread_mutex_lock((i + 16));
               if (*(i + 128))
               {
-                v126 = *(v63 + 1);
-                *(i + 444) = *v63;
-                *(i + 460) = v126;
-                v127 = *(v63 + 2);
-                v128 = *(v63 + 3);
-                v129 = *(v63 + 5);
-                *(i + 508) = *(v63 + 4);
-                *(i + 524) = v129;
-                *(i + 476) = v127;
-                *(i + 492) = v128;
-                v130 = *(v63 + 6);
-                v131 = *(v63 + 7);
-                v132 = *(v63 + 8);
-                *(i + 588) = *(v63 + 36);
-                *(i + 556) = v131;
-                *(i + 572) = v132;
-                *(i + 540) = v130;
-                v133 = (*(i + 234) + 2) & 0x3FFF | 0x4000;
+                v130 = *(v68 + 1);
+                *(i + 444) = *v68;
+                *(i + 460) = v130;
+                v131 = *(v68 + 2);
+                v132 = *(v68 + 3);
+                v133 = *(v68 + 5);
+                *(i + 508) = *(v68 + 4);
+                *(i + 524) = v133;
+                *(i + 476) = v131;
+                *(i + 492) = v132;
+                v134 = *(v68 + 6);
+                v135 = *(v68 + 7);
+                v136 = *(v68 + 8);
+                *(i + 588) = *(v68 + 36);
+                *(i + 556) = v135;
+                *(i + 572) = v136;
+                *(i + 540) = v134;
+                v137 = (*(i + 234) + 2) & 0x3FFF | 0x4000;
                 *(i + 234) = (*(i + 234) + 2) & 0x3FFF | 0x4000;
-                AddOneRelayBeat(v24, a1, *(i + 148), __src, i + 508, i + 236, a12, v133);
+                AddOneRelayBeat(v24, a1, *(i + 148), __src, (i + 508), (i + 236), a12, v137);
                 pthread_mutex_unlock((i + 16));
                 pthread_mutex_unlock((v24 + 168));
                 goto LABEL_207;
@@ -3386,7 +3349,7 @@ LABEL_256:
           }
 
           pthread_mutex_unlock((v24 + 168));
-          free(v63);
+          free(v68);
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
             VRTraceErrorLogLevelToCSTR();
@@ -3404,141 +3367,141 @@ LABEL_255:
         goto LABEL_91;
       }
 
-      v71 = *(v64 + 112);
-      v164 = *(v64 + 96);
-      *v165 = v71;
-      *&v165[16] = *(v64 + 128);
-      if ((*v168 & 0x100) != 0)
+      v76 = *(v69 + 112);
+      v168 = *(v69 + 96);
+      *v169 = v76;
+      *&v169[16] = *(v69 + 128);
+      if ((*v172 & 0x100) != 0)
       {
-        v72 = AddOneCandidate(v63, v65, 10, a3, *v64, v168, 50, v168, a2);
+        v77 = AddOneCandidate(v68, v70, 10, a3, *v69, v172, 50, v172, a2);
       }
 
       else
       {
-        if ((*v168 & 0x200) == 0)
+        if ((*v172 & 0x200) == 0)
         {
-          if ((v168[0] & 2) != 0)
+          if ((v172[0] & 2) != 0)
           {
-            v73 = AddOneCandidate(v63, v65, 7, a3, *v64, v168, 50, v168, a2);
+            v78 = AddOneCandidate(v68, v70, 7, a3, *v69, v172, 50, v172, a2);
           }
 
           else
           {
-            if (!IsIPPORTValid(&v164) || (v164 & 1) != (v168[0] & 1))
+            if (!IsIPPORTValid(&v168) || (v168 & 1) != (v172[0] & 1))
             {
               goto LABEL_112;
             }
 
-            if ((v164 & 1) == 0)
+            if ((v168 & 1) == 0)
             {
-              if (*&v165[4] != *&v168[20])
+              if (*&v169[4] != *&v172[20])
               {
                 goto LABEL_112;
               }
 
 LABEL_111:
-              v70 = v65;
-              if (*&v165[20] != *&v168[36])
+              v75 = v70;
+              if (*&v169[20] != *&v172[36])
               {
                 goto LABEL_112;
               }
 
 LABEL_117:
-              if (v65 >= v70)
+              if (v70 >= v75)
               {
-                v77 = v65;
+                v82 = v70;
               }
 
               else
               {
-                v76 = (v64 + 48);
-                if (v60)
+                v81 = (v69 + 48);
+                if (v65)
                 {
-                  v77 = v70;
-                  if (*v76)
+                  v82 = v75;
+                  if (*v81)
                   {
-                    v78 = (v64 + 48);
-                    v76 = &v63[148 * v65 + 12];
+                    v83 = (v69 + 48);
+                    v81 = &v68[148 * v70 + 12];
                     goto LABEL_123;
                   }
                 }
 
                 else
                 {
-                  v78 = &v63[148 * v65 + 12];
+                  v83 = &v68[148 * v70 + 12];
 LABEL_123:
-                  *v76 = *v78;
-                  v77 = v70;
+                  *v81 = *v83;
+                  v82 = v75;
                 }
               }
 
-              if (!IsIPPORTValid(&v164))
+              if (!IsIPPORTValid(&v168))
               {
                 goto LABEL_137;
               }
 
-              v79 = *(v64 + 228);
-              if ((v79 & 0xFFFFFFFE) != 8)
+              v84 = *(v69 + 228);
+              if ((v84 & 0xFFFFFFFE) != 8)
               {
                 goto LABEL_129;
               }
 
-              if (*(v64 + 4) == a3)
+              if (*(v69 + 4) == a3)
               {
-                if (v79 == 9)
+                if (v84 == 9)
                 {
-                  ++*&v165[20];
+                  ++*&v169[20];
                 }
 
 LABEL_129:
-                if (v79 == -1)
+                if (v84 == -1)
                 {
-                  v80 = 3;
+                  v85 = 3;
                 }
 
                 else
                 {
-                  v80 = v79;
+                  v85 = v84;
                 }
 
-                v81 = *(v64 + 224);
-                if (v81 == -1)
+                v86 = *(v69 + 224);
+                if (v86 == -1)
                 {
-                  if ((*(v64 + 8) & 4) != 0)
+                  if ((*(v69 + 8) & 4) != 0)
                   {
-                    LOWORD(v81) = 50;
+                    LOWORD(v86) = 50;
                   }
 
                   else
                   {
-                    LOWORD(v81) = 70;
+                    LOWORD(v86) = 70;
                   }
                 }
 
-                v70 = v70 + (AddOneCandidate(v63, v70, v80, a3, *v64, &v164, v81, v168, a2) >= 0);
+                v75 = v75 + (AddOneCandidate(v68, v75, v85, a3, *v69, &v168, v86, v172, a2) >= 0);
 LABEL_137:
-                if (v77 < v70)
+                if (v82 < v75)
                 {
                   if (a14)
                   {
-                    if (*(v64 + 136))
+                    if (*(v69 + 136))
                     {
-                      *&v63[148 * v77 + 12] = *(v64 + 136);
+                      *&v68[148 * v82 + 12] = *(v69 + 136);
                     }
                   }
 
                   else
                   {
-                    *(v64 + 136) = *&v63[148 * v77 + 12];
+                    *(v69 + 136) = *&v68[148 * v82 + 12];
                   }
                 }
               }
 
-              v60 = a14;
+              v65 = a14;
 LABEL_92:
-              v64 = *(v64 + 240);
-              v65 = v70;
-              if (!v64)
+              v69 = *(v69 + 240);
+              v70 = v75;
+              if (!v69)
               {
                 goto LABEL_207;
               }
@@ -3546,56 +3509,54 @@ LABEL_92:
               continue;
             }
 
-            if (*&v165[4] == *&v168[20] && *&v165[12] == *&v168[28])
+            if (*&v169[4] == *&v172[20] && *&v169[12] == *&v172[28])
             {
               goto LABEL_111;
             }
 
 LABEL_112:
-            if ((*(v64 + 8) & 4) != 0)
+            if ((*(v69 + 8) & 4) != 0)
             {
-              v75 = 50;
+              v80 = 50;
             }
 
             else
             {
-              v75 = 90;
+              v80 = 90;
             }
 
-            v73 = AddOneCandidate(v63, v65, 1, a3, *v64, v168, v75, v168, a2);
+            v78 = AddOneCandidate(v68, v70, 1, a3, *v69, v172, v80, v172, a2);
           }
 
-          v70 = v65 + (v73 >= 0);
+          v75 = v70 + (v78 >= 0);
           goto LABEL_117;
         }
 
-        v72 = AddOneCandidate(v63, v65, 11, a3, *v64, v168, 50, v168, a2);
+        v77 = AddOneCandidate(v68, v70, 11, a3, *v69, v172, 50, v172, a2);
       }
 
       break;
     }
 
-    v70 = v65 + (v72 >= 0);
+    v75 = v70 + (v77 >= 0);
     goto LABEL_92;
   }
 
   pthread_mutex_unlock((v24 + 96));
 LABEL_246:
-  v30 = 2148859907;
+  v32 = 2148859907;
 LABEL_257:
-  if (v36)
+  if (v38)
   {
 LABEL_258:
     pthread_mutex_lock((v24 + 168));
-    ICEReleaseAndFreeICEList(v36, v24, 0, a1);
+    ICEReleaseAndFreeICEList(v38, v24, 0, a1);
     pthread_mutex_unlock((v24 + 168));
   }
 
 LABEL_259:
   CheckOutHandleDebug();
-LABEL_260:
-  v124 = *MEMORY[0x277D85DE8];
-  return v30;
+  return v32;
 }
 
 BOOL ICERetainICEList(uint64_t a1)
@@ -3605,10 +3566,10 @@ BOOL ICERetainICEList(uint64_t a1)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v3 = VRTraceErrorLogLevelToCSTR();
+      VRTraceErrorLogLevelToCSTR();
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        ICERetainICEList_cold_1(v3, a1);
+        ICERetainICEList_cold_1();
       }
     }
   }
@@ -3623,8 +3584,8 @@ BOOL ICERetainICEList(uint64_t a1)
 
 uint64_t ICERecvUDPPacketWithTimeout(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5, uint64_t a6, uint64_t a7, void *a8, int a9)
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v16 = micro();
+  v57 = *MEMORY[0x277D85DE8];
+  v16 = micro(a1, a2);
   pthread_mutex_lock((a1 + 496));
   v17 = (a1 + 560);
   v18 = *(a1 + 560);
@@ -3646,148 +3607,146 @@ uint64_t ICERecvUDPPacketWithTimeout(uint64_t a1, uint64_t a2, uint64_t a3, void
       v17 = (v19 + 1584);
     }
 
-    v29 = *(v18 + 1492);
-    *a5 = v29;
-    memcpy(a4, (v18 + 7), v29);
-    v30 = *(v18 + 1528);
-    v31 = *(v18 + 1512);
+    v32 = *(v18 + 1492);
+    *a5 = v32;
+    memcpy(a4, (v18 + 7), v32);
+    v33 = *(v18 + 1528);
+    v34 = *(v18 + 1512);
     *a6 = *(v18 + 1496);
-    *(a6 + 16) = v31;
-    *(a6 + 32) = v30;
-    v32 = *(v18 + 1552);
-    v33 = *(v18 + 1536);
+    *(a6 + 16) = v34;
+    *(a6 + 32) = v33;
+    v35 = *(v18 + 1552);
+    v36 = *(v18 + 1536);
     *(a7 + 32) = *(v18 + 1568);
-    *a7 = v33;
-    *(a7 + 16) = v32;
+    *a7 = v36;
+    *(a7 + 16) = v35;
     *a8 = *(v18 + 1576);
     *v17 = *(v18 + 1584);
     free(v18);
     pthread_mutex_unlock((a1 + 496));
-    v20 = 0;
-    goto LABEL_31;
+    return 0;
   }
 
 LABEL_6:
   __dst = a4;
-  v43 = a6;
+  v45 = a6;
   v20 = 2148859927;
-  pthread_mutex_unlock((a1 + 496));
-  v21 = (a9 - ((micro() - v16) * 1000.0));
-  if (v21 < 1)
+  v21 = pthread_mutex_unlock((a1 + 496));
+  v23 = (a9 - ((micro(v21, v22) - v16) * 1000.0));
+  if (v23 < 1)
   {
-    goto LABEL_31;
+    return v20;
   }
 
-  v41 = a8;
-  v22 = 0;
+  v43 = a8;
+  v24 = 0;
   do
   {
-    if (v22)
+    if (v24)
     {
-      bzero(v22, 0x638uLL);
+      bzero(v24, 0x638uLL);
     }
 
     else
     {
-      v22 = malloc_type_calloc(1uLL, 0x638uLL, 0x102004070FB87F4uLL);
-      if (!v22)
+      v24 = malloc_type_calloc(1uLL, 0x638uLL, 0x102004070FB87F4uLL);
+      if (!v24)
       {
-        if (VRTraceGetErrorLogLevelForModule() >= 3)
+        ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+        if (ErrorLogLevelForModule >= 3)
         {
-          v27 = VRTraceErrorLogLevelToCSTR();
-          v28 = *MEMORY[0x277CE5818];
-          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+          v30 = VRTraceErrorLogLevelToCSTR();
+          v31 = *MEMORY[0x277CE5818];
+          ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
+          if (ErrorLogLevelForModule)
           {
             *buf = 136316162;
-            v46 = v27;
-            v47 = 2080;
-            v48 = "ICERecvUDPPacketWithTimeout";
-            v49 = 1024;
-            v50 = 2421;
+            v48 = v30;
+            v49 = 2080;
+            v50 = "ICERecvUDPPacketWithTimeout";
             v51 = 1024;
             v52 = 2421;
             v53 = 1024;
-            v54 = 1592;
-            _os_log_error_impl(&dword_23D497000, v28, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: calloc(%d) failed", buf, 0x28u);
+            v54 = 2421;
+            v55 = 1024;
+            v56 = 1592;
+            _os_log_error_impl(&dword_23D497000, v31, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: calloc(%d) failed", buf, 0x28u);
           }
         }
 
 LABEL_17:
-        v22 = 0;
+        v24 = 0;
         goto LABEL_19;
       }
     }
 
-    v23 = (*(a1 + 24))(*(a1 + 8), a3, v22 + 7, v22 + 373, v22 + 374, v22 + 384, v22 + 394, v21, 1);
-    v20 = v23;
-    if ((v23 & 0x80000000) == 0)
+    ErrorLogLevelForModule = (*(a1 + 24))(*(a1 + 8), a3, v24 + 7, v24 + 373, v24 + 374, v24 + 384, v24 + 394, v23, 1);
+    v20 = ErrorLogLevelForModule;
+    if ((ErrorLogLevelForModule & 0x80000000) == 0)
     {
-      ProcessMessageType(v22);
-      if (ICECheckPacket(a1, v22, a2, a3))
+      ProcessMessageType(v24);
+      if (ICECheckPacket(a1, v24, a2, a3))
       {
-        v34 = v22[373];
-        *a5 = v34;
-        memcpy(__dst, v22 + 7, v34);
-        v35 = *(v22 + 191);
-        v36 = *(v22 + 378);
-        *v43 = *(v22 + 374);
-        *(v43 + 16) = v36;
-        *(v43 + 32) = v35;
-        v38 = *(v22 + 96);
-        v37 = *(v22 + 97);
-        *(a7 + 32) = *(v22 + 196);
-        *a7 = v38;
-        *(a7 + 16) = v37;
-        *v41 = *(v22 + 197);
+        v37 = v24[373];
+        *a5 = v37;
+        memcpy(__dst, v24 + 7, v37);
+        v38 = *(v24 + 191);
+        v39 = *(v24 + 378);
+        *v45 = *(v24 + 374);
+        *(v45 + 16) = v39;
+        *(v45 + 32) = v38;
+        v41 = *(v24 + 96);
+        v40 = *(v24 + 97);
+        *(a7 + 32) = *(v24 + 196);
+        *a7 = v41;
+        *(a7 + 16) = v40;
+        *v43 = *(v24 + 197);
 LABEL_30:
-        free(v22);
-        goto LABEL_31;
+        free(v24);
+        return v20;
       }
 
       pthread_mutex_lock((a1 + 496));
-      v24 = *v17;
-      v25 = (a1 + 560);
+      v27 = *v17;
+      v28 = (a1 + 560);
       if (*v17)
       {
         do
         {
-          v26 = v24;
-          v24 = *(v24 + 1584);
+          v29 = v27;
+          v27 = *(v27 + 1584);
         }
 
-        while (v24);
-        v25 = (v26 + 1584);
+        while (v27);
+        v28 = (v29 + 1584);
       }
 
-      *v25 = v22;
-      pthread_mutex_unlock((a1 + 496));
+      *v28 = v24;
+      ErrorLogLevelForModule = pthread_mutex_unlock((a1 + 496));
       goto LABEL_17;
     }
 
-    if (v23 == 30)
+    if (ErrorLogLevelForModule == 30)
     {
       goto LABEL_30;
     }
 
 LABEL_19:
-    v21 = (v21 - ((micro() - v16) * 1000.0));
+    v23 = (v23 - ((micro(ErrorLogLevelForModule, v26) - v16) * 1000.0));
   }
 
-  while (v21 >= 1);
-  if (v22)
+  while (v23 >= 1);
+  if (v24)
   {
-    free(v22);
+    free(v24);
   }
 
-  v20 = 2148859927;
-LABEL_31:
-  v39 = *MEMORY[0x277D85DE8];
-  return v20;
+  return 2148859927;
 }
 
-void AddOneRelayBeat(uint64_t a1, uint64_t a2, int a3, const char *a4, uint64_t a5, uint64_t a6, const void *a7, int a8)
+void AddOneRelayBeat(uint64_t a1, uint64_t a2, int a3, const char *a4, __int128 *a5, __int128 *a6, const void *a7, int a8)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v16 = malloc_type_calloc(1uLL, 0x150uLL, 0x10A0040062F5B3BuLL);
   if (v16)
   {
@@ -3802,18 +3761,18 @@ void AddOneRelayBeat(uint64_t a1, uint64_t a2, int a3, const char *a4, uint64_t 
 
     *(v17 + 16) = 1;
     v18 = *a5;
-    v19 = *(a5 + 16);
-    *(v17 + 156) = *(a5 + 32);
+    v19 = a5[1];
+    *(v17 + 156) = *(a5 + 4);
     *(v17 + 140) = v19;
     *(v17 + 124) = v18;
     v20 = *a6;
-    v21 = *(a6 + 16);
-    *(v17 + 236) = *(a6 + 32);
+    v21 = a6[1];
+    *(v17 + 236) = *(a6 + 4);
     *(v17 + 220) = v21;
     *(v17 + 204) = v20;
     v22 = *a6;
-    v23 = *(a6 + 16);
-    *(v17 + 196) = *(a6 + 32);
+    v23 = a6[1];
+    *(v17 + 196) = *(a6 + 4);
     *(v17 + 180) = v23;
     *(v17 + 164) = v22;
     *(v17 + 31) = 0;
@@ -3846,47 +3805,45 @@ void AddOneRelayBeat(uint64_t a1, uint64_t a2, int a3, const char *a4, uint64_t 
 
     *v26 = v17;
     pthread_mutex_unlock((a1 + 568));
-    *&v48[14] = 0xAAAAAAAAAAAAAAAALL;
+    *&v47[14] = 0xAAAAAAAAAAAAAAAALL;
     *&v27 = 0xAAAAAAAAAAAAAAAALL;
     *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v47[1] = v27;
-    *v48 = v27;
-    v47[0] = v27;
-    *&v46[14] = 0xAAAAAAAAAAAAAAAALL;
-    v45[1] = v27;
-    *v46 = v27;
-    v45[0] = v27;
+    v46[1] = v27;
+    *v47 = v27;
+    v46[0] = v27;
+    *&v45[14] = 0xAAAAAAAAAAAAAAAALL;
+    v44[1] = v27;
+    *v45 = v27;
+    v44[0] = v27;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
       v28 = VRTraceErrorLogLevelToCSTR();
       v29 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 136316674;
-        v32 = v28;
-        v33 = 2080;
-        v34 = "AddOneRelayBeat";
-        v35 = 1024;
-        v36 = 108;
-        v37 = 1024;
-        v38 = a3;
-        v39 = 1024;
-        v40 = a8;
-        v41 = 2080;
-        v42 = IPPORTToStringWithSize(v47, a5, 0x36uLL);
-        v43 = 2080;
-        v44 = IPPORTToStringWithSize(v45, a6, 0x36uLL);
-        _os_log_impl(&dword_23D497000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Add RB(%d): channel#[%04X], local[%s], server[%s].", &v31, 0x3Cu);
+        v30 = 136316674;
+        v31 = v28;
+        v32 = 2080;
+        v33 = "AddOneRelayBeat";
+        v34 = 1024;
+        v35 = 108;
+        v36 = 1024;
+        v37 = a3;
+        v38 = 1024;
+        v39 = a8;
+        v40 = 2080;
+        v41 = IPPORTToStringWithSize(v46, a5, 0x36uLL);
+        v42 = 2080;
+        v43 = IPPORTToStringWithSize(v44, a6, 0x36uLL);
+        _os_log_impl(&dword_23D497000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Add RB(%d): channel#[%04X], local[%s], server[%s].", &v30, 0x3Cu);
       }
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t ICEGetNewCandidates(uint64_t a1, int a2, _DWORD *a3, int a4, int a5)
+uint64_t ICEGetNewCandidates(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int a5)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   result = 2148859905;
   if (a3 && a4 >= 1)
   {
@@ -3896,8 +3853,7 @@ uint64_t ICEGetNewCandidates(uint64_t a1, int a2, _DWORD *a3, int a4, int a5)
     {
 LABEL_39:
       pthread_mutex_unlock((a1 + 168));
-      result = 0;
-      goto LABEL_40;
+      return 0;
     }
 
     while (*(v11 + 148) != a2)
@@ -3981,28 +3937,28 @@ LABEL_39:
 
       if (ErrorLogLevelForModule >= 7)
       {
-        v37 = VRTraceErrorLogLevelToCSTR();
+        v36 = VRTraceErrorLogLevelToCSTR();
         v28 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
           v29 = "local";
           *buf = 136316418;
-          v39 = v37;
-          v40 = 2080;
-          v41 = "ICEGetNewCandidates";
+          v38 = v36;
+          v39 = 2080;
+          v40 = "ICEGetNewCandidates";
           if (!a5)
           {
             v29 = "remote";
           }
 
-          v42 = 1024;
-          v43 = 347;
-          v44 = 2080;
-          *v45 = v29;
-          *&v45[8] = 1024;
-          *v46 = v25;
-          *&v46[4] = 1024;
-          v47[0] = v24 + a4;
+          v41 = 1024;
+          v42 = 347;
+          v43 = 2080;
+          *v44 = v29;
+          *&v44[8] = 1024;
+          *v45 = v25;
+          *&v45[4] = 1024;
+          v46[0] = v24 + a4;
           _os_log_impl(&dword_23D497000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Increase new %s candidate buffer size [%d->%d].", buf, 0x32u);
         }
       }
@@ -4040,19 +3996,19 @@ LABEL_39:
       {
         v35 = *(v11 + 148);
         *buf = 136316674;
-        v39 = v33;
-        v40 = 2080;
-        v41 = "ICEGetNewCandidates";
-        v42 = 1024;
-        v43 = 365;
-        v44 = 1024;
-        *v45 = a4;
-        *&v45[4] = 1024;
-        *&v45[6] = v35;
-        *v46 = 1024;
-        *&v46[2] = v24 + a4;
-        LOWORD(v47[0]) = 1024;
-        *(v47 + 2) = v25;
+        v38 = v33;
+        v39 = 2080;
+        v40 = "ICEGetNewCandidates";
+        v41 = 1024;
+        v42 = 365;
+        v43 = 1024;
+        *v44 = a4;
+        *&v44[4] = 1024;
+        *&v44[6] = v35;
+        *v45 = 1024;
+        *&v45[2] = v24 + a4;
+        LOWORD(v46[0]) = 1024;
+        *(v46 + 2) = v25;
         _os_log_impl(&dword_23D497000, v34, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Add %d candidate(s) for call(%d) to buffer, newCanCount %d, maxCount %d.", buf, 0x34u);
       }
     }
@@ -4062,14 +4018,12 @@ LABEL_38:
     goto LABEL_39;
   }
 
-LABEL_40:
-  v36 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t AddOneICEList(uint64_t a1, uint64_t a2, int a3, const void *a4, int a5, int a6, int a7, __int128 *a8, char *__src, const void *a10)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v18 = malloc_type_calloc(1uLL, 0x398uLL, 0x1020040CC000195uLL);
   if (!v18)
   {
@@ -4083,7 +4037,7 @@ uint64_t AddOneICEList(uint64_t a1, uint64_t a2, int a3, const void *a4, int a5,
       }
     }
 
-    goto LABEL_56;
+    return v23;
   }
 
   v19 = v18;
@@ -4103,19 +4057,19 @@ uint64_t AddOneICEList(uint64_t a1, uint64_t a2, int a3, const void *a4, int a5,
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v39 = VRTraceErrorLogLevelToCSTR();
-        v40 = *MEMORY[0x277CE5818];
+        v38 = VRTraceErrorLogLevelToCSTR();
+        v39 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v42 = v39;
-          v43 = 2080;
-          v44 = "AddOneICEList";
-          v45 = 1024;
-          v46 = 219;
-          v47 = 1024;
-          v48 = IPPortFromDict;
-          _os_log_impl(&dword_23D497000, v40, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d \n\t\t\t~~~~~~~\n\t\t\t~~~~~~~ IL: NO RELAY SERVER (%08X)?!?!?\n\t\t\t~~~~~~~", buf, 0x22u);
+          v41 = v38;
+          v42 = 2080;
+          v43 = "AddOneICEList";
+          v44 = 1024;
+          v45 = 219;
+          v46 = 1024;
+          v47 = IPPortFromDict;
+          _os_log_impl(&dword_23D497000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d \n\t\t\t~~~~~~~\n\t\t\t~~~~~~~ IL: NO RELAY SERVER (%08X)?!?!?\n\t\t\t~~~~~~~", buf, 0x22u);
         }
       }
 
@@ -4131,11 +4085,11 @@ uint64_t AddOneICEList(uint64_t a1, uint64_t a2, int a3, const void *a4, int a5,
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v42 = v21;
-        v43 = 2080;
-        v44 = "AddOneICEList";
-        v45 = 1024;
-        v46 = 222;
+        v41 = v21;
+        v42 = 2080;
+        v43 = "AddOneICEList";
+        v44 = 1024;
+        v45 = 222;
         _os_log_impl(&dword_23D497000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d \n\t\t\t~~~~~~~\n\t\t\t~~~~~~~ IL: RELAY SERVER OK!!!\n\t\t\t~~~~~~~", buf, 0x1Cu);
       }
     }
@@ -4203,7 +4157,7 @@ LABEL_18:
         }
       }
 
-      goto LABEL_56;
+      return v23;
     }
 
     memcpy(v28, a4, v27);
@@ -4242,7 +4196,7 @@ LABEL_18:
 LABEL_38:
             if (*(i + 216) == *(a8 + 18))
             {
-              AddOneRelayBeat(a1, a2, *(v19 + 37), __src, i + 8, (v19 + 236), a10, *(v19 + 117));
+              AddOneRelayBeat(a1, a2, *(v19 + 37), __src, (i + 8), (v19 + 236), a10, *(v19 + 117));
             }
 
             continue;
@@ -4255,7 +4209,7 @@ LABEL_38:
         }
       }
 
-      v23 = 0;
+      return 0;
     }
   }
 
@@ -4287,14 +4241,12 @@ LABEL_38:
     }
   }
 
-LABEL_56:
-  v37 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 uint64_t ICEReleaseAndFreeICEList(uint64_t a1, void *a2, int a3, uint64_t a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 416);
   v6 = __OFSUB__(v5, 1);
   v7 = v5 - 1;
@@ -4302,14 +4254,14 @@ uint64_t ICEReleaseAndFreeICEList(uint64_t a1, void *a2, int a3, uint64_t a4)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v9 = VRTraceErrorLogLevelToCSTR();
+      VRTraceErrorLogLevelToCSTR();
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        ICEReleaseAndFreeICEList_cold_1(v9, a1);
+        ICEReleaseAndFreeICEList_cold_1();
       }
     }
 
-    result = 2;
+    return 2;
   }
 
   else
@@ -4317,41 +4269,39 @@ uint64_t ICEReleaseAndFreeICEList(uint64_t a1, void *a2, int a3, uint64_t a4)
     *(a1 + 416) = v7;
     if (v7)
     {
-      goto LABEL_3;
+      return 22;
     }
 
-    v13 = *(a1 + 148);
-    v14 = *(a1 + 744);
-    if (v14)
+    v12 = *(a1 + 148);
+    v13 = *(a1 + 744);
+    if (v13)
     {
-      CFRelease(v14);
+      CFRelease(v13);
     }
 
     pthread_mutex_destroy((a1 + 16));
     pthread_cond_destroy((a1 + 80));
-    v16 = a2 + 29;
-    v15 = a2[29];
-    if (!v15)
+    v15 = a2 + 29;
+    v14 = a2[29];
+    if (!v14)
     {
-LABEL_3:
-      result = 22;
-      goto LABEL_22;
+      return 22;
     }
 
-    if (v15 != a1)
+    if (v14 != a1)
     {
       while (1)
       {
-        v17 = v15;
-        v15 = v15[114];
-        if (!v15)
+        v16 = v14;
+        v14 = v14[114];
+        if (!v14)
         {
-          goto LABEL_3;
+          return 22;
         }
 
-        if (v15 == a1)
+        if (v14 == a1)
         {
-          v16 = v17 + 114;
+          v15 = v16 + 114;
           break;
         }
       }
@@ -4359,39 +4309,35 @@ LABEL_3:
 
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v18 = VRTraceErrorLogLevelToCSTR();
-      v19 = *MEMORY[0x277CE5818];
+      v17 = VRTraceErrorLogLevelToCSTR();
+      v18 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 136315906;
-        v23 = v18;
-        v24 = 2080;
-        v25 = "ICEReleaseAndFreeICEList";
+        v20 = 136315906;
+        v21 = v17;
+        v22 = 2080;
+        v23 = "ICEReleaseAndFreeICEList";
+        v24 = 1024;
+        v25 = 1001;
         v26 = 1024;
-        v27 = 1001;
-        v28 = 1024;
-        v29 = v13;
-        _os_log_impl(&dword_23D497000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Clean up ICEList for call '%d'", &v22, 0x22u);
+        v27 = v12;
+        _os_log_impl(&dword_23D497000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Clean up ICEList for call '%d'", &v20, 0x22u);
       }
     }
 
     if (a3)
     {
-      v20 = a2[7];
-      if (v20)
+      v19 = a2[7];
+      if (v19)
       {
-        v20(a2[1], v13, a4);
+        v19(a2[1], v12, a4);
       }
     }
 
-    *v16 = v15[114];
-    free(v15);
-    result = 0;
+    *v15 = v14[114];
+    free(v14);
+    return 0;
   }
-
-LABEL_22:
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ICEUpdateSMSTUNIPPort(uint64_t a1, uint64_t a2, __int128 *a3, int a4, uint64_t a5, _DWORD *a6)
@@ -4569,11 +4515,11 @@ LABEL_21:
 
 uint64_t ICEUpdateNAT64FlagForInterface(uint64_t a1, uint64_t a2, int a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2 + 4;
   if (*(a2 + 4) == 108 && *(a2 + 5) == 111)
   {
-    goto LABEL_24;
+    return 0;
   }
 
   v6 = CheckInHandleDebug();
@@ -4589,7 +4535,7 @@ uint64_t ICEUpdateNAT64FlagForInterface(uint64_t a1, uint64_t a2, int a3)
       }
     }
 
-    goto LABEL_25;
+    return v11;
   }
 
   v7 = v6;
@@ -4638,17 +4584,17 @@ LABEL_19:
     v13 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136316162;
-      v17 = v12;
-      v18 = 2080;
-      v19 = "ICEUpdateNAT64FlagForInterface";
-      v20 = 1024;
-      v21 = 1118;
-      v22 = 2080;
-      v23 = v5;
-      v24 = 1024;
-      v25 = a3;
-      _os_log_impl(&dword_23D497000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEUpdateNAT64FlagForInterface: Interface '%s' flag=%d", &v16, 0x2Cu);
+      v15 = 136316162;
+      v16 = v12;
+      v17 = 2080;
+      v18 = "ICEUpdateNAT64FlagForInterface";
+      v19 = 1024;
+      v20 = 1118;
+      v21 = 2080;
+      v22 = v5;
+      v23 = 1024;
+      v24 = a3;
+      _os_log_impl(&dword_23D497000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEUpdateNAT64FlagForInterface: Interface '%s' flag=%d", &v15, 0x2Cu);
     }
   }
 
@@ -4656,16 +4602,12 @@ LABEL_19:
 LABEL_23:
   pthread_mutex_unlock((v7 + 96));
   CheckOutHandleDebug();
-LABEL_24:
-  v11 = 0;
-LABEL_25:
-  v14 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 0;
 }
 
 uint64_t ICEAddOneInterfaceWithPriorityHints(uint64_t a1, __int128 *a2, __int128 *a3, int a4, int a5, int a6, int a7)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v13 = CheckInHandleDebug();
   if (v13)
   {
@@ -4682,26 +4624,25 @@ uint64_t ICEAddOneInterfaceWithPriorityHints(uint64_t a1, __int128 *a2, __int128
         v18 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v32 = 136316418;
-          v33 = v17;
-          v34 = 2080;
-          v35 = "ICEAddOneInterfaceWithPriorityHints";
-          v36 = 1024;
-          v37 = 1149;
-          v38 = 2048;
-          v39 = v15;
-          v40 = 2080;
-          v41 = a2 + 4;
-          v42 = 1024;
-          v43 = 0;
-          _os_log_impl(&dword_23D497000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEAddOneInterface  pICEInfo=%p Ignoring loopback interface '%s', enableLoopbackInterface='%d", &v32, 0x36u);
+          v31 = 136316418;
+          v32 = v17;
+          v33 = 2080;
+          v34 = "ICEAddOneInterfaceWithPriorityHints";
+          v35 = 1024;
+          v36 = 1149;
+          v37 = 2048;
+          v38 = v15;
+          v39 = 2080;
+          v40 = a2 + 4;
+          v41 = 1024;
+          v42 = 0;
+          _os_log_impl(&dword_23D497000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEAddOneInterface  pICEInfo=%p Ignoring loopback interface '%s', enableLoopbackInterface='%d", &v31, 0x36u);
         }
       }
 
 LABEL_16:
       CheckOutHandleDebug();
-      v29 = 0;
-      goto LABEL_24;
+      return 0;
     }
 
     v19 = malloc_type_calloc(1uLL, 0xF8uLL, 0x1020040C4EBF4E2uLL);
@@ -4758,7 +4699,7 @@ LABEL_16:
     }
 
     CheckOutHandleDebug();
-    v29 = 2148859907;
+    return 2148859907;
   }
 
   else
@@ -4774,14 +4715,12 @@ LABEL_16:
     }
   }
 
-LABEL_24:
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 uint64_t ICERemoveOneInterface(uint64_t a1, uint64_t a2, int a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = CheckInHandleDebug();
   if (!v6)
   {
@@ -4795,7 +4734,7 @@ uint64_t ICERemoveOneInterface(uint64_t a1, uint64_t a2, int a3)
       }
     }
 
-    goto LABEL_30;
+    return v19;
   }
 
   v7 = v6;
@@ -4846,34 +4785,34 @@ LABEL_17:
   pthread_mutex_unlock((v7 + 96));
   if (v10)
   {
-    *&v33[14] = 0xAAAAAAAAAAAAAAAALL;
+    *&v32[14] = 0xAAAAAAAAAAAAAAAALL;
     *&v13 = 0xAAAAAAAAAAAAAAAALL;
     *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v33 = v13;
+    *v32 = v13;
     v14 = MEMORY[0x277CE5818];
-    v32[0] = v13;
-    v32[1] = v13;
+    v31[0] = v13;
+    v31[1] = v13;
     do
     {
       v15 = v10;
-      v10 = *(v10 + 30);
+      v10 = *(v10 + 240);
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
         v16 = VRTraceErrorLogLevelToCSTR();
         v17 = *v14;
         if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = IPPORTToStringWithSize(v32, (v15 + 8), 0x36uLL);
+          v18 = IPPORTToStringWithSize(v31, v15 + 8, 0x36uLL);
           *buf = 136316162;
-          v23 = v16;
-          v24 = 2080;
-          v25 = "_ICEProcessRemovedIFList";
-          v26 = 1024;
-          v27 = 1193;
-          v28 = 2080;
-          v29 = v18;
-          v30 = 2080;
-          v31 = v15 + 12;
+          v22 = v16;
+          v23 = 2080;
+          v24 = "_ICEProcessRemovedIFList";
+          v25 = 1024;
+          v26 = 1193;
+          v27 = 2080;
+          v28 = v18;
+          v29 = 2080;
+          v30 = v15 + 12;
           _os_log_impl(&dword_23D497000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICE removed interface [%s, '%s'].", buf, 0x30u);
         }
       }
@@ -4887,15 +4826,12 @@ LABEL_17:
 
 LABEL_29:
   CheckOutHandleDebug();
-  v19 = 0;
-LABEL_30:
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  return 0;
 }
 
 uint64_t ICECreateHandleWithCallback(uint64_t *a1, uint64_t a2, uint64_t a3, _OWORD *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = 2148859907;
   result = 2148859905;
   if (a1 && a2)
@@ -4913,9 +4849,9 @@ uint64_t ICECreateHandleWithCallback(uint64_t *a1, uint64_t a2, uint64_t a3, _OW
       *(v10 + 3) = v13;
       *(v10 + 4) = v14;
       *(v10 + 2) = v12;
-      v20.__sig = 0xAAAAAAAAAAAAAAAALL;
-      *v20.__opaque = 0xAAAAAAAAAAAAAAAALL;
-      if (pthread_mutexattr_init(&v20))
+      v19.__sig = 0xAAAAAAAAAAAAAAAALL;
+      *v19.__opaque = 0xAAAAAAAAAAAAAAAALL;
+      if (pthread_mutexattr_init(&v19))
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
@@ -4931,9 +4867,9 @@ uint64_t ICECreateHandleWithCallback(uint64_t *a1, uint64_t a2, uint64_t a3, _OW
 
       else
       {
-        pthread_mutexattr_settype(&v20, 2);
-        pthread_mutex_init((v11 + 168), &v20);
-        pthread_mutexattr_destroy(&v20);
+        pthread_mutexattr_settype(&v19, 2);
+        pthread_mutex_init((v11 + 168), &v19);
+        pthread_mutexattr_destroy(&v19);
         pthread_mutex_init((v11 + 96), 0);
         pthread_rwlock_init((v11 + 240), 0);
         pthread_mutex_init((v11 + 496), 0);
@@ -4945,12 +4881,12 @@ uint64_t ICECreateHandleWithCallback(uint64_t *a1, uint64_t a2, uint64_t a3, _OW
           if (VRTraceGetErrorLogLevelForModule() >= 3 && (VRTraceErrorLogLevelToCSTR(), os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
           {
             ICECreateHandleWithCallback_cold_2();
-            v5 = 2148859909;
+            return 2148859909;
           }
 
           else
           {
-            v5 = 2148859909;
+            return 2148859909;
           }
         }
 
@@ -4968,7 +4904,7 @@ uint64_t ICECreateHandleWithCallback(uint64_t *a1, uint64_t a2, uint64_t a3, _OW
         }
       }
 
-      result = v5;
+      return v5;
     }
 
     else
@@ -4982,11 +4918,10 @@ uint64_t ICECreateHandleWithCallback(uint64_t *a1, uint64_t a2, uint64_t a3, _OW
         }
       }
 
-      result = 2148859907;
+      return 2148859907;
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5002,19 +4937,19 @@ uint64_t ICECreateHandle(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
   return ICECreateHandleWithCallback(a1, v8, a6, a7);
 }
 
-uint64_t ICEStartConnectivityCheckN(uint64_t a1, int a2, unsigned __int8 *a3, unsigned int a4, _OWORD *a5, int a6, int a7, uint64_t a8, int a9, _DWORD *a10, const void *a11, int a12, uint64_t a13)
+uint64_t ICEStartConnectivityCheckN(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, _OWORD *a5, uint64_t a6, int a7, uint64_t a8, int a9, _DWORD *a10, const void *a11, int a12, uint64_t a13)
 {
-  v151 = *MEMORY[0x277D85DE8];
+  v18 = a2;
+  v149 = *MEMORY[0x277D85DE8];
   v20 = 2148859905;
   v21 = CheckInHandleDebug();
   if (!v21)
   {
-    v20 = 2148859906;
-    goto LABEL_11;
+    return 2148859906;
   }
 
   v22 = v21;
-  v133 = a7;
+  v131 = a7;
   pthread_mutex_lock((v21 + 168));
   v23 = *(v22 + 232);
   if (!v23)
@@ -5034,7 +4969,7 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  while (*(v23 + 148) != a2 || !ICERetainICEList(v23))
+  while (*(v23 + 148) != v18 || !ICERetainICEList(v23))
   {
     v23 = *(v23 + 912);
     if (!v23)
@@ -5043,10 +4978,10 @@ LABEL_6:
     }
   }
 
-  v26 = *(v23 + 744);
-  if (v26)
+  v25 = *(v23 + 744);
+  if (v25)
   {
-    CFRelease(v26);
+    CFRelease(v25);
   }
 
   *(v23 + 744) = 0;
@@ -5055,18 +4990,18 @@ LABEL_6:
     goto LABEL_36;
   }
 
-  v27 = CFRetain(a11);
-  *(v23 + 744) = v27;
+  v26 = CFRetain(a11);
+  *(v23 + 744) = v26;
   *(v23 + 752) = 1;
   if (*(v23 + 232) != 1)
   {
     goto LABEL_36;
   }
 
-  v28 = *(v23 + 148);
-  v137 = 0;
-  cf = v27;
-  if ((GetReservationTokenFromDict(v27, &v137) & 0x80000000) != 0)
+  v27 = *(v23 + 148);
+  v135 = 0;
+  cf = v26;
+  if ((GetReservationTokenFromDict(v26, &v135) & 0x80000000) != 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -5080,17 +5015,17 @@ LABEL_6:
     goto LABEL_36;
   }
 
-  v129 = a1;
+  v127 = a1;
   pthread_mutex_lock((v22 + 568));
-  v29 = *(v22 + 632);
-  if (!v29)
+  v28 = *(v22 + 632);
+  if (!v28)
   {
     goto LABEL_32;
   }
 
   while (1)
   {
-    if (*(v29 + 36) != v28 || (*(v23 + 508) & 1) != (*(v29 + 124) & 1))
+    if (*(v28 + 36) != v27 || (*(v23 + 508) & 1) != (*(v28 + 124) & 1))
     {
       goto LABEL_31;
     }
@@ -5100,72 +5035,72 @@ LABEL_6:
       break;
     }
 
-    if (*(v23 + 528) == *(v29 + 144))
+    if (*(v23 + 528) == *(v28 + 144))
     {
       goto LABEL_28;
     }
 
 LABEL_31:
-    v29 = *(v29 + 328);
-    if (!v29)
+    v28 = *(v28 + 328);
+    if (!v28)
     {
       goto LABEL_32;
     }
   }
 
-  if (*(v23 + 528) != *(v29 + 144) || *(v23 + 536) != *(v29 + 152))
+  if (*(v23 + 528) != *(v28 + 144) || *(v23 + 536) != *(v28 + 152))
   {
     goto LABEL_31;
   }
 
 LABEL_28:
-  if (*(v23 + 544) != *(v29 + 160))
+  if (*(v23 + 544) != *(v28 + 160))
   {
     goto LABEL_31;
   }
 
-  v136 = 0;
-  if ((GetReservationTokenFromDict(*(v29 + 256), &v136) & 0x80000000) != 0 || v136 != v137)
+  v134 = 0;
+  if ((GetReservationTokenFromDict(*(v28 + 256), &v134) & 0x80000000) != 0 || v134 != v135)
   {
     goto LABEL_31;
   }
 
-  *(v29 + 312) = 3;
-  v116 = *(v29 + 256);
-  if (v116)
+  *(v28 + 312) = 3;
+  v114 = *(v28 + 256);
+  if (v114)
   {
-    CFRelease(v116);
+    CFRelease(v114);
   }
 
-  *(v29 + 256) = CFRetain(cf);
+  *(v28 + 256) = CFRetain(cf);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v126 = VRTraceErrorLogLevelToCSTR();
-    v127 = *MEMORY[0x277CE5818];
+    v124 = VRTraceErrorLogLevelToCSTR();
+    v125 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v117 = *(v29 + 264);
+      v115 = *(v28 + 264);
       *buf = 136316674;
-      v140 = v126;
-      v141 = 2080;
-      v142 = "UpdateRBRefreshTypeAndDictionary";
+      v138 = v124;
+      v139 = 2080;
+      v140 = "UpdateRBRefreshTypeAndDictionary";
+      v141 = 1024;
+      v142 = 138;
       v143 = 1024;
-      v144 = 138;
-      v145 = 1024;
-      *v146 = v28;
-      *&v146[4] = 1024;
-      *&v146[6] = v117;
-      *&v146[10] = 1024;
-      *&v146[12] = 3;
-      *&v146[16] = 2048;
-      *&v146[18] = cf;
-      _os_log_impl(&dword_23D497000, v127, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Update RB(%d, %04X): refresh[%04X], dictionary[%p].", buf, 0x38u);
+      *v144 = v27;
+      *&v144[4] = 1024;
+      *&v144[6] = v115;
+      *&v144[10] = 1024;
+      *&v144[12] = 3;
+      *&v144[16] = 2048;
+      *&v144[18] = cf;
+      _os_log_impl(&dword_23D497000, v125, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Update RB(%d, %04X): refresh[%04X], dictionary[%p].", buf, 0x38u);
     }
   }
 
 LABEL_32:
   pthread_mutex_unlock((v22 + 568));
-  a1 = v129;
+  a1 = v127;
 LABEL_36:
   pthread_mutex_lock((v23 + 16));
   *(v23 + 136) = 0;
@@ -5184,40 +5119,40 @@ LABEL_36:
         goto LABEL_59;
       }
 
-      v46 = VRTraceErrorLogLevelToCSTR();
-      v47 = *MEMORY[0x277CE5818];
+      v45 = VRTraceErrorLogLevelToCSTR();
+      v46 = *MEMORY[0x277CE5818];
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_59;
       }
 
       *buf = 136316418;
-      v140 = v46;
-      v141 = 2080;
-      v142 = "ICEStartConnectivityCheckN";
+      v138 = v45;
+      v139 = 2080;
+      v140 = "ICEStartConnectivityCheckN";
+      v141 = 1024;
+      v142 = 1881;
       v143 = 1024;
-      v144 = 1881;
-      v145 = 1024;
-      *v146 = 1881;
-      *&v146[4] = 2048;
-      *&v146[6] = a5;
-      *&v146[14] = 1024;
-      *&v146[16] = a6;
-      v62 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Remote candidate data is invalid (data:%p len:%d).\n";
-      v63 = v47;
+      *v144 = 1881;
+      *&v144[4] = 2048;
+      *&v144[6] = a5;
+      *&v144[14] = 1024;
+      *&v144[16] = a6;
+      v61 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Remote candidate data is invalid (data:%p len:%d).\n";
+      v62 = v46;
       goto LABEL_143;
     }
 
     if ((CompressedCandidateByteOrderNToH(a5, a6) & 0x80000000) != 0)
     {
       *(v23 + 212) = a9;
-      *(v23 + 196) = a6 / 0x94u;
-      v51 = malloc_type_malloc(a6, 0x1000040C185D105uLL);
-      *(v23 + 176) = v51;
-      if (!v51)
+      *(v23 + 196) = a6 / 0x94;
+      v50 = malloc_type_malloc(a6, 0x1000040C185D105uLL);
+      *(v23 + 176) = v50;
+      if (!v50)
       {
-        v68 = a1;
-        v69 = 2148859907;
+        v66 = a1;
+        v67 = 2148859907;
         if (VRTraceGetErrorLogLevelForModule() < 3)
         {
           goto LABEL_152;
@@ -5233,11 +5168,11 @@ LABEL_36:
         goto LABEL_94;
       }
 
-      memcpy(v51, a5, a6);
-      v52 = CandidateByteOrderNToH(*(v23 + 176), *(v23 + 196));
-      if ((v52 & 0x80000000) != 0)
+      memcpy(v50, a5, a6);
+      v51 = CandidateByteOrderNToH(*(v23 + 176), *(v23 + 196));
+      if ((v51 & 0x80000000) != 0)
       {
-        v54 = v52;
+        v53 = v51;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
           VRTraceErrorLogLevelToCSTR();
@@ -5256,7 +5191,7 @@ LABEL_36:
           goto LABEL_51;
         }
 
-        v54 = fixed;
+        v53 = fixed;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
           VRTraceErrorLogLevelToCSTR();
@@ -5270,245 +5205,245 @@ LABEL_36:
 
     else
     {
-      v44 = UncompressCandidateList(a5, a6, (v23 + 176), (v23 + 196));
-      if ((v44 & 0x80000000) == 0)
+      v43 = UncompressCandidateList(a5, a6, (v23 + 176), (v23 + 196));
+      if ((v43 & 0x80000000) == 0)
       {
 LABEL_51:
-        if (!v133)
+        if (!v131)
         {
-          v56 = *(v23 + 192);
-          if (v56 >= 1)
+          v55 = *(v23 + 192);
+          if (v55 >= 1)
           {
-            v57 = *(v23 + 168);
-            if (v57)
+            v56 = *(v23 + 168);
+            if (v56)
             {
 LABEL_108:
-              *(v23 + 148) = *(v57 + 8);
+              *(v23 + 148) = *(v56 + 8);
               *(v23 + 152) = *(*(v23 + 176) + 8);
-              SortCandidate(v57, v56);
+              SortCandidate(v56, v55);
               SortCandidate(*(v23 + 176), *(v23 + 196));
               AppendInterfaceNameToRemoteCandidates(v23, 10);
               AppendInterfaceNameToRemoteCandidates(v23, 11);
-              *&v150[14] = 0xAAAAAAAAAAAAAAAALL;
-              *&v78 = 0xAAAAAAAAAAAAAAAALL;
-              *(&v78 + 1) = 0xAAAAAAAAAAAAAAAALL;
-              v149[1] = v78;
-              *v150 = v78;
-              v149[0] = v78;
-              memset(v148, 170, sizeof(v148));
-              LODWORD(v79) = *(v23 + 192);
-              v130 = a1;
-              if (v79 >= 1)
+              *&v148[14] = 0xAAAAAAAAAAAAAAAALL;
+              *&v76 = 0xAAAAAAAAAAAAAAAALL;
+              *(&v76 + 1) = 0xAAAAAAAAAAAAAAAALL;
+              v147[1] = v76;
+              *v148 = v76;
+              v147[0] = v76;
+              memset(v146, 170, sizeof(v146));
+              LODWORD(v77) = *(v23 + 192);
+              v128 = a1;
+              if (v77 >= 1)
               {
-                v80 = 0;
-                v81 = 0;
+                v78 = 0;
+                v79 = 0;
                 do
                 {
-                  v82 = *(v23 + 168);
+                  v80 = *(v23 + 168);
                   if (VRTraceGetErrorLogLevelForModule() >= 7)
                   {
-                    v83 = VRTraceErrorLogLevelToCSTR();
-                    v84 = *MEMORY[0x277CE5818];
+                    v81 = VRTraceErrorLogLevelToCSTR();
+                    v82 = *MEMORY[0x277CE5818];
                     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                     {
-                      v131 = *(v23 + 192);
-                      v85 = v82 + v80;
-                      v86 = CANIDToString(v148, (v82 + v80 + 12));
-                      v87 = IPPORTToStringWithSize(v149, v85 + 24, 0x36uLL);
-                      v88 = *(v85 + 24);
+                      v129 = *(v23 + 192);
+                      v83 = v80 + v78;
+                      v84 = CANIDToString(v146, (v80 + v78 + 12));
+                      v85 = IPPORTToStringWithSize(v147, v83 + 24, 0x36uLL);
+                      v86 = *(v83 + 24);
                       *buf = 136317186;
-                      v140 = v83;
-                      v141 = 2080;
-                      v142 = "ICEStartConnectivityCheckN";
+                      v138 = v81;
+                      v139 = 2080;
+                      v140 = "ICEStartConnectivityCheckN";
+                      v141 = 1024;
+                      v142 = 1974;
                       v143 = 1024;
-                      v144 = 1974;
-                      v145 = 1024;
-                      *v146 = v81 + 1;
-                      *&v146[4] = 1024;
-                      *&v146[6] = v131;
-                      *&v146[10] = 2080;
-                      *&v146[12] = v86;
-                      *&v146[20] = 2080;
-                      *&v146[22] = v87;
-                      *&v146[30] = 1024;
-                      *v147 = v88;
-                      *&v147[4] = 2080;
-                      *&v147[6] = v85 + 68;
-                      _os_log_impl(&dword_23D497000, v84, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Local candidate(%d/%d):\tID[%s]\t[%s]\tflag(%02X) if (%s).", buf, 0x4Cu);
+                      *v144 = v79 + 1;
+                      *&v144[4] = 1024;
+                      *&v144[6] = v129;
+                      *&v144[10] = 2080;
+                      *&v144[12] = v84;
+                      *&v144[20] = 2080;
+                      *&v144[22] = v85;
+                      *&v144[30] = 1024;
+                      *v145 = v86;
+                      *&v145[4] = 2080;
+                      *&v145[6] = v83 + 68;
+                      _os_log_impl(&dword_23D497000, v82, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Local candidate(%d/%d):\tID[%s]\t[%s]\tflag(%02X) if (%s).", buf, 0x4Cu);
                     }
                   }
 
-                  ++v81;
-                  v79 = *(v23 + 192);
-                  v80 += 148;
+                  ++v79;
+                  v77 = *(v23 + 192);
+                  v78 += 148;
                 }
 
-                while (v81 < v79);
-                a1 = v130;
+                while (v79 < v77);
+                a1 = v128;
               }
 
-              LODWORD(v89) = *(v23 + 196);
-              if (v89 >= 1)
+              LODWORD(v87) = *(v23 + 196);
+              if (v87 >= 1)
               {
-                v90 = 0;
-                v91 = 24;
+                v88 = 0;
+                v89 = 24;
                 do
                 {
-                  v92 = *(v23 + 176);
+                  v90 = *(v23 + 176);
                   if (VRTraceGetErrorLogLevelForModule() >= 7)
                   {
-                    v93 = VRTraceErrorLogLevelToCSTR();
-                    v94 = *MEMORY[0x277CE5818];
+                    v91 = VRTraceErrorLogLevelToCSTR();
+                    v92 = *MEMORY[0x277CE5818];
                     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                     {
-                      v132 = *(v23 + 196);
-                      v95 = (v92 + v91);
-                      v96 = CANIDToString(v148, v95 - 3);
-                      v97 = IPPORTToStringWithSize(v149, v95, 0x36uLL);
-                      v98 = *v95;
+                      v130 = *(v23 + 196);
+                      v93 = (v90 + v89);
+                      v94 = CANIDToString(v146, v93 - 3);
+                      v95 = IPPORTToStringWithSize(v147, v93, 0x36uLL);
+                      v96 = *v93;
                       *buf = 136316930;
-                      v140 = v93;
-                      v141 = 2080;
-                      v142 = "ICEStartConnectivityCheckN";
+                      v138 = v91;
+                      v139 = 2080;
+                      v140 = "ICEStartConnectivityCheckN";
+                      v141 = 1024;
+                      v142 = 1981;
                       v143 = 1024;
-                      v144 = 1981;
-                      v145 = 1024;
-                      *v146 = v90 + 1;
-                      *&v146[4] = 1024;
-                      *&v146[6] = v132;
-                      *&v146[10] = 2080;
-                      *&v146[12] = v96;
-                      *&v146[20] = 2080;
-                      *&v146[22] = v97;
-                      *&v146[30] = 1024;
-                      *v147 = v98;
-                      _os_log_impl(&dword_23D497000, v94, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remote candidate(%d/%d):\tID[%s]\t[%s]\tflag(%02X).", buf, 0x42u);
+                      *v144 = v88 + 1;
+                      *&v144[4] = 1024;
+                      *&v144[6] = v130;
+                      *&v144[10] = 2080;
+                      *&v144[12] = v94;
+                      *&v144[20] = 2080;
+                      *&v144[22] = v95;
+                      *&v144[30] = 1024;
+                      *v145 = v96;
+                      _os_log_impl(&dword_23D497000, v92, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remote candidate(%d/%d):\tID[%s]\t[%s]\tflag(%02X).", buf, 0x42u);
                     }
                   }
 
-                  ++v90;
-                  v89 = *(v23 + 196);
-                  v91 += 148;
+                  ++v88;
+                  v87 = *(v23 + 196);
+                  v89 += 148;
                 }
 
-                while (v90 < v89);
-                LODWORD(v79) = *(v23 + 192);
-                a1 = v130;
+                while (v88 < v87);
+                LODWORD(v77) = *(v23 + 192);
+                a1 = v128;
               }
 
-              v99 = v79 * v89;
-              *(v23 + 200) = v99;
-              if (400 * v99)
+              v97 = v77 * v87;
+              *(v23 + 200) = v97;
+              if (400 * v97)
               {
-                v100 = malloc_type_calloc(1uLL, 400 * v99, 0x10200402E010713uLL);
-                *(v23 + 184) = v100;
-                if (v100)
+                v98 = malloc_type_calloc(1uLL, 400 * v97, 0x10200402E010713uLL);
+                *(v23 + 184) = v98;
+                if (v98)
                 {
-                  v101 = a1;
-                  PairUpCandidate(*(v23 + 168), *(v23 + 192), *(v23 + 176), *(v23 + 196), v100, 1, v23 + 200, 0);
+                  v99 = a1;
+                  PairUpCandidate(*(v23 + 168), *(v23 + 192), *(v23 + 176), *(v23 + 196), v98, 1, v23 + 200, 0);
                   SortCandidatePair(*(v23 + 184), *(v23 + 200));
                   if (VRTraceGetErrorLogLevelForModule() >= 7)
                   {
-                    v102 = VRTraceErrorLogLevelToCSTR();
-                    v103 = *MEMORY[0x277CE5818];
+                    v100 = VRTraceErrorLogLevelToCSTR();
+                    v101 = *MEMORY[0x277CE5818];
                     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                     {
-                      v104 = *(v23 + 148);
-                      v105 = *(v23 + 152);
-                      v106 = *(v23 + 192);
-                      v107 = *(v23 + 196);
-                      v108 = *(v23 + 168);
-                      v109 = *(v23 + 176);
-                      v110 = *(v23 + 184);
+                      v102 = *(v23 + 148);
+                      v103 = *(v23 + 152);
+                      v104 = *(v23 + 192);
+                      v105 = *(v23 + 196);
+                      v106 = *(v23 + 168);
+                      v107 = *(v23 + 176);
+                      v108 = *(v23 + 184);
                       *buf = 136317442;
-                      v140 = v102;
-                      v141 = 2080;
-                      v142 = "ICEStartConnectivityCheckN";
+                      v138 = v100;
+                      v139 = 2080;
+                      v140 = "ICEStartConnectivityCheckN";
+                      v141 = 1024;
+                      v142 = 2007;
                       v143 = 1024;
-                      v144 = 2007;
-                      v145 = 1024;
-                      *v146 = v104;
-                      *&v146[4] = 1024;
-                      *&v146[6] = v105;
-                      *&v146[10] = 1024;
-                      *&v146[12] = v106;
-                      *&v146[16] = 1024;
-                      *&v146[18] = v107;
-                      *&v146[22] = 2048;
-                      *&v146[24] = v108;
-                      *v147 = 2048;
-                      *&v147[2] = v109;
-                      *&v147[10] = 2048;
-                      *&v147[12] = v110;
-                      _os_log_impl(&dword_23D497000, v103, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEStartConnectivityCheck(id[local:%d remote:%d] count[local:%d remote:%d] candidate[local:%p remote:%p] pair[%p]\n", buf, 0x52u);
+                      *v144 = v102;
+                      *&v144[4] = 1024;
+                      *&v144[6] = v103;
+                      *&v144[10] = 1024;
+                      *&v144[12] = v104;
+                      *&v144[16] = 1024;
+                      *&v144[18] = v105;
+                      *&v144[22] = 2048;
+                      *&v144[24] = v106;
+                      *v145 = 2048;
+                      *&v145[2] = v107;
+                      *&v145[10] = 2048;
+                      *&v145[12] = v108;
+                      _os_log_impl(&dword_23D497000, v101, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEStartConnectivityCheck(id[local:%d remote:%d] count[local:%d remote:%d] candidate[local:%p remote:%p] pair[%p]\n", buf, 0x52u);
                     }
                   }
 
-                  v135 = 0xAAAAAAAAAAAAAAAALL;
-                  v111 = malloc_type_malloc(0x10uLL, 0x1020040D5A9D86FuLL);
-                  v48 = v111;
-                  if (v111)
+                  v133 = 0xAAAAAAAAAAAAAAAALL;
+                  v109 = malloc_type_malloc(0x10uLL, 0x1020040D5A9D86FuLL);
+                  v47 = v109;
+                  if (v109)
                   {
-                    *v111 = a2;
-                    *(v111 + 1) = a1;
-                    *&v112 = 0xAAAAAAAAAAAAAAAALL;
-                    *(&v112 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                    *&v138.__opaque[24] = v112;
-                    *&v138.__opaque[40] = v112;
-                    *&v138.__sig = v112;
-                    *&v138.__opaque[8] = v112;
-                    v134 = 0xAAAAAAAAAAAAAAAALL;
-                    pthread_attr_init(&v138);
-                    pthread_attr_getschedparam(&v138, &v134);
-                    v134.sched_priority = 56;
-                    pthread_attr_setschedparam(&v138, &v134);
-                    v113 = pthread_create(&v135, &v138, ConnectivityCheckProc, v48);
-                    pthread_attr_destroy(&v138);
-                    if (!v113)
+                    *v109 = v18;
+                    *(v109 + 1) = a1;
+                    *&v110 = 0xAAAAAAAAAAAAAAAALL;
+                    *(&v110 + 1) = 0xAAAAAAAAAAAAAAAALL;
+                    *&v136.__opaque[24] = v110;
+                    *&v136.__opaque[40] = v110;
+                    *&v136.__sig = v110;
+                    *&v136.__opaque[8] = v110;
+                    v132 = 0xAAAAAAAAAAAAAAAALL;
+                    pthread_attr_init(&v136);
+                    pthread_attr_getschedparam(&v136, &v132);
+                    v132.sched_priority = 56;
+                    pthread_attr_setschedparam(&v136, &v132);
+                    v111 = pthread_create(&v133, &v136, ConnectivityCheckProc, v47);
+                    pthread_attr_destroy(&v136);
+                    if (!v111)
                     {
                       if (VRTraceGetErrorLogLevelForModule() >= 7)
                       {
-                        v118 = VRTraceErrorLogLevelToCSTR();
-                        v119 = *MEMORY[0x277CE5818];
+                        v116 = VRTraceErrorLogLevelToCSTR();
+                        v117 = *MEMORY[0x277CE5818];
                         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                         {
-                          v120 = "VCCExtra ";
-                          if (!v133)
+                          v118 = "VCCExtra ";
+                          if (!v131)
                           {
-                            v120 = &unk_23D4C9CFB;
+                            v118 = &unk_23D4C9CFB;
                           }
 
                           *buf = 136316162;
-                          v140 = v118;
-                          v141 = 2080;
-                          v142 = "ICEStartConnectivityCheckN";
-                          v143 = 1024;
-                          v144 = 2034;
-                          v145 = 2080;
-                          *v146 = v120;
-                          *&v146[8] = 2048;
-                          *&v146[10] = v135;
-                          _os_log_impl(&dword_23D497000, v119, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %sconnectivity check thread start...(%p)", buf, 0x30u);
+                          v138 = v116;
+                          v139 = 2080;
+                          v140 = "ICEStartConnectivityCheckN";
+                          v141 = 1024;
+                          v142 = 2034;
+                          v143 = 2080;
+                          *v144 = v118;
+                          *&v144[8] = 2048;
+                          *&v144[10] = v133;
+                          _os_log_impl(&dword_23D497000, v117, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %sconnectivity check thread start...(%p)", buf, 0x30u);
                         }
                       }
 
                       pthread_mutex_lock((v22 + 168));
-                      v121 = *(v22 + 232);
-                      if (v121)
+                      v119 = *(v22 + 232);
+                      if (v119)
                       {
-                        while (v121 != v23)
+                        while (v119 != v23)
                         {
                           v20 = 0;
-                          v121 = *(v121 + 912);
-                          if (!v121)
+                          v119 = *(v119 + 912);
+                          if (!v119)
                           {
                             goto LABEL_9;
                           }
                         }
 
                         v20 = 0;
-                        *(v121 + 8) = v135;
-                        --*(v121 + 416);
+                        *(v119 + 8) = v133;
+                        --*(v119 + 416);
                       }
 
                       else
@@ -5519,7 +5454,7 @@ LABEL_108:
                       goto LABEL_9;
                     }
 
-                    v20 = v113 | 0xC0150000;
+                    v20 = v111 | 0xC0150000;
                     if (VRTraceGetErrorLogLevelForModule() >= 3)
                     {
                       VRTraceErrorLogLevelToCSTR();
@@ -5537,50 +5472,50 @@ LABEL_108:
 
                 else
                 {
-                  v101 = a1;
+                  v99 = a1;
                   if (VRTraceGetErrorLogLevelForModule() < 3 || (VRTraceErrorLogLevelToCSTR(), !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
                   {
-                    v48 = 0;
+                    v47 = 0;
                     v20 = 2148859907;
 LABEL_167:
-                    a1 = v101;
+                    a1 = v99;
                     goto LABEL_168;
                   }
 
                   ICEStartConnectivityCheckN_cold_11();
-                  v48 = 0;
+                  v47 = 0;
                 }
 
                 v20 = 2148859907;
                 goto LABEL_167;
               }
 
-              v68 = a1;
-              v69 = 2148859926;
+              v66 = a1;
+              v67 = 2148859926;
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
-                v114 = VRTraceErrorLogLevelToCSTR();
-                v115 = *MEMORY[0x277CE5818];
+                v112 = VRTraceErrorLogLevelToCSTR();
+                v113 = *MEMORY[0x277CE5818];
                 if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315906;
-                  v140 = v114;
-                  v141 = 2080;
-                  v142 = "ICEStartConnectivityCheckN";
+                  v138 = v112;
+                  v139 = 2080;
+                  v140 = "ICEStartConnectivityCheckN";
+                  v141 = 1024;
+                  v142 = 1988;
                   v143 = 1024;
-                  v144 = 1988;
-                  v145 = 1024;
-                  *v146 = 1988;
-                  _os_log_impl(&dword_23D497000, v115, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: No local or no remote candidates", buf, 0x22u);
-                  v48 = 0;
+                  *v144 = 1988;
+                  _os_log_impl(&dword_23D497000, v113, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: No local or no remote candidates", buf, 0x22u);
+                  v47 = 0;
                   v20 = 2148859926;
                   goto LABEL_153;
                 }
               }
 
 LABEL_152:
-              v48 = 0;
-              v20 = v69;
+              v47 = 0;
+              v20 = v67;
               goto LABEL_153;
             }
           }
@@ -5590,32 +5525,32 @@ LABEL_152:
             goto LABEL_59;
           }
 
-          v58 = VRTraceErrorLogLevelToCSTR();
-          v59 = *MEMORY[0x277CE5818];
+          v57 = VRTraceErrorLogLevelToCSTR();
+          v58 = *MEMORY[0x277CE5818];
           if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
             goto LABEL_59;
           }
 
-          v60 = *(v23 + 192);
-          v61 = *(v23 + 168);
+          v59 = *(v23 + 192);
+          v60 = *(v23 + 168);
           *buf = 136316674;
-          v140 = v58;
-          v141 = 2080;
-          v142 = "ICEStartConnectivityCheckN";
+          v138 = v57;
+          v139 = 2080;
+          v140 = "ICEStartConnectivityCheckN";
+          v141 = 1024;
+          v142 = 1923;
           v143 = 1024;
-          v144 = 1923;
-          v145 = 1024;
-          *v146 = 1923;
-          *&v146[4] = 1024;
-          *&v146[6] = a2;
-          *&v146[10] = 1024;
-          *&v146[12] = v60;
-          *&v146[16] = 2048;
-          *&v146[18] = v61;
-          v62 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Local connection data is invalid (id:%d iLCCount:%d local data:%p).\n";
-          v63 = v59;
-          v64 = 56;
+          *v144 = 1923;
+          *&v144[4] = 1024;
+          *&v144[6] = v18;
+          *&v144[10] = 1024;
+          *&v144[12] = v59;
+          *&v144[16] = 2048;
+          *&v144[18] = v60;
+          v61 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Local connection data is invalid (id:%d iLCCount:%d local data:%p).\n";
+          v62 = v58;
+          v63 = 56;
           goto LABEL_144;
         }
 
@@ -5623,13 +5558,13 @@ LABEL_152:
         {
           if ((CompressedCandidateByteOrderNToH(a3, a4) & 0x80000000) == 0)
           {
-            v45 = UncompressCandidateList(a3, a4, (v23 + 168), (v23 + 192));
+            v44 = UncompressCandidateList(a3, a4, (v23 + 168), (v23 + 192));
 LABEL_106:
-            v54 = v45;
-            if ((v45 & 0x80000000) == 0)
+            v53 = v44;
+            if ((v44 & 0x80000000) == 0)
             {
-              v57 = *(v23 + 168);
-              v56 = *(v23 + 192);
+              v56 = *(v23 + 168);
+              v55 = *(v23 + 192);
               goto LABEL_108;
             }
 
@@ -5646,17 +5581,17 @@ LABEL_106:
           }
 
           *(v23 + 192) = a4 / 0x94;
-          v77 = malloc_type_calloc(1uLL, a4, 0x1000040C185D105uLL);
-          *(v23 + 168) = v77;
-          if (v77)
+          v75 = malloc_type_calloc(1uLL, a4, 0x1000040C185D105uLL);
+          *(v23 + 168) = v75;
+          if (v75)
           {
-            memcpy(v77, a3, a4);
-            v45 = CandidateByteOrderNToH(*(v23 + 168), a4);
+            memcpy(v75, a3, a4);
+            v44 = CandidateByteOrderNToH(*(v23 + 168), a4);
             goto LABEL_106;
           }
 
-          v68 = a1;
-          v69 = 2148859907;
+          v66 = a1;
+          v67 = 2148859907;
           if (VRTraceGetErrorLogLevelForModule() < 3)
           {
             goto LABEL_152;
@@ -5670,53 +5605,53 @@ LABEL_106:
 
           ICEStartConnectivityCheckN_cold_8();
 LABEL_94:
-          v48 = 0;
+          v47 = 0;
           v20 = 2148859907;
 LABEL_153:
-          a1 = v68;
+          a1 = v66;
           goto LABEL_168;
         }
 
-        if (VRTraceGetErrorLogLevelForModule() < 3 || (v66 = VRTraceErrorLogLevelToCSTR(), v67 = *MEMORY[0x277CE5818], !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
+        if (VRTraceGetErrorLogLevelForModule() < 3 || (v64 = VRTraceErrorLogLevelToCSTR(), v65 = *MEMORY[0x277CE5818], !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
         {
 LABEL_59:
-          v48 = 0;
+          v47 = 0;
 LABEL_168:
           pthread_mutex_lock((v22 + 168));
           pthread_mutex_lock((v23 + 16));
           *(v23 + 128) = 0;
           *(v23 + 196) = 0;
-          v122 = *(v23 + 168);
-          if (v122)
+          v120 = *(v23 + 168);
+          if (v120)
           {
             *(v23 + 168) = 0;
+            free(v120);
+          }
+
+          v121 = *(v23 + 176);
+          if (v121)
+          {
+            *(v23 + 176) = 0;
+            free(v121);
+          }
+
+          v122 = *(v23 + 184);
+          if (v122)
+          {
+            *(v23 + 184) = 0;
             free(v122);
           }
 
-          v123 = *(v23 + 176);
+          v123 = *(v23 + 160);
           if (v123)
           {
-            *(v23 + 176) = 0;
-            free(v123);
-          }
-
-          v124 = *(v23 + 184);
-          if (v124)
-          {
-            *(v23 + 184) = 0;
-            free(v124);
-          }
-
-          v125 = *(v23 + 160);
-          if (v125)
-          {
             *(v23 + 160) = 0;
-            FreeEQ(v125);
+            FreeEQ(v123);
           }
 
-          if (v48)
+          if (v47)
           {
-            free(v48);
+            free(v47);
           }
 
           pthread_mutex_unlock((v23 + 16));
@@ -5726,27 +5661,27 @@ LABEL_168:
         }
 
         *buf = 136316418;
-        v140 = v66;
-        v141 = 2080;
-        v142 = "ICEStartConnectivityCheckN";
+        v138 = v64;
+        v139 = 2080;
+        v140 = "ICEStartConnectivityCheckN";
+        v141 = 1024;
+        v142 = 1930;
         v143 = 1024;
-        v144 = 1930;
-        v145 = 1024;
-        *v146 = 1930;
-        *&v146[4] = 2048;
-        *&v146[6] = a3;
-        *&v146[14] = 1024;
-        *&v146[16] = a4;
-        v62 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Local candidate data is invalid (data:%p len:%d).\n";
-        v63 = v67;
+        *v144 = 1930;
+        *&v144[4] = 2048;
+        *&v144[6] = a3;
+        *&v144[14] = 1024;
+        *&v144[16] = a4;
+        v61 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Local candidate data is invalid (data:%p len:%d).\n";
+        v62 = v65;
 LABEL_143:
-        v64 = 50;
+        v63 = 50;
 LABEL_144:
-        _os_log_error_impl(&dword_23D497000, v63, OS_LOG_TYPE_ERROR, v62, buf, v64);
+        _os_log_error_impl(&dword_23D497000, v62, OS_LOG_TYPE_ERROR, v61, buf, v63);
         goto LABEL_59;
       }
 
-      v54 = v44;
+      v53 = v43;
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
         VRTraceErrorLogLevelToCSTR();
@@ -5758,8 +5693,8 @@ LABEL_144:
     }
 
 LABEL_138:
-    v48 = 0;
-    v20 = v54;
+    v47 = 0;
+    v20 = v53;
     goto LABEL_168;
   }
 
@@ -5769,24 +5704,24 @@ LABEL_138:
     goto LABEL_100;
   }
 
-  v137 = 0;
-  LODWORD(v136) = 0;
+  v135 = 0;
+  LODWORD(v134) = 0;
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v31 = VRTraceErrorLogLevelToCSTR();
-    v32 = *MEMORY[0x277CE5818];
+    v30 = VRTraceErrorLogLevelToCSTR();
+    v31 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v33 = *(v23 + 148);
+      v32 = *(v23 + 148);
       *buf = 136315906;
-      v140 = v31;
-      v141 = 2080;
-      v142 = "ICEStartPERelay";
+      v138 = v30;
+      v139 = 2080;
+      v140 = "ICEStartPERelay";
+      v141 = 1024;
+      v142 = 1298;
       v143 = 1024;
-      v144 = 1298;
-      v145 = 1024;
-      *v146 = v33;
-      _os_log_impl(&dword_23D497000, v32, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEStartPERelay call id (%d)", buf, 0x22u);
+      *v144 = v32;
+      _os_log_impl(&dword_23D497000, v31, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEStartPERelay call id (%d)", buf, 0x22u);
     }
   }
 
@@ -5794,54 +5729,54 @@ LABEL_138:
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v49 = VRTraceErrorLogLevelToCSTR();
-      v50 = *MEMORY[0x277CE5818];
+      v48 = VRTraceErrorLogLevelToCSTR();
+      v49 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316418;
-        v140 = v49;
-        v141 = 2080;
-        v142 = "ICEStartPERelay";
+        v138 = v48;
+        v139 = 2080;
+        v140 = "ICEStartPERelay";
+        v141 = 1024;
+        v142 = 1301;
         v143 = 1024;
-        v144 = 1301;
-        v145 = 1024;
-        *v146 = 1301;
-        *&v146[4] = 2048;
-        *&v146[6] = a5;
-        *&v146[14] = 1024;
-        *&v146[16] = a6;
-        _os_log_error_impl(&dword_23D497000, v50, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: invalid remote candidate data (%p, %d)", buf, 0x32u);
+        *v144 = 1301;
+        *&v144[4] = 2048;
+        *&v144[6] = a5;
+        *&v144[14] = 1024;
+        *&v144[16] = a6;
+        _os_log_error_impl(&dword_23D497000, v49, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: invalid remote candidate data (%p, %d)", buf, 0x32u);
       }
     }
 
     goto LABEL_98;
   }
 
-  v34 = CompressedCandidateByteOrderNToH(a5, a6);
-  if ((v34 & 0x80000000) != 0)
+  v33 = CompressedCandidateByteOrderNToH(a5, a6);
+  if ((v33 & 0x80000000) != 0)
   {
-    v35 = v34;
-    HIDWORD(v55) = -1857283155 * a6;
-    LODWORD(v55) = -1857283155 * a6;
-    if ((v55 >> 2) < 0x1BACF92)
+    v34 = v33;
+    HIDWORD(v54) = -1857283155 * a6;
+    LODWORD(v54) = -1857283155 * a6;
+    if ((v54 >> 2) < 0x1BACF92)
     {
-      v70 = a5[1];
+      v68 = a5[1];
       *(v23 + 592) = *a5;
-      *(v23 + 608) = v70;
-      v71 = a5[2];
-      v72 = a5[3];
-      v73 = a5[5];
+      *(v23 + 608) = v68;
+      v69 = a5[2];
+      v70 = a5[3];
+      v71 = a5[5];
       *(v23 + 656) = a5[4];
-      *(v23 + 672) = v73;
-      *(v23 + 624) = v71;
-      *(v23 + 640) = v72;
-      v74 = a5[6];
-      v75 = a5[7];
-      v76 = a5[8];
+      *(v23 + 672) = v71;
+      *(v23 + 624) = v69;
+      *(v23 + 640) = v70;
+      v72 = a5[6];
+      v73 = a5[7];
+      v74 = a5[8];
       *(v23 + 736) = *(a5 + 36);
-      *(v23 + 704) = v75;
-      *(v23 + 720) = v76;
-      *(v23 + 688) = v74;
+      *(v23 + 704) = v73;
+      *(v23 + 720) = v74;
+      *(v23 + 688) = v72;
 LABEL_96:
       *(v23 + 400) = 0;
       *(v23 + 408) = 0;
@@ -5861,8 +5796,8 @@ LABEL_96:
     goto LABEL_97;
   }
 
-  v35 = UncompressCandidateList(a5, a6, &v137, &v136);
-  if ((v35 & 0x80000000) != 0)
+  v34 = UncompressCandidateList(a5, a6, &v135, &v134);
+  if ((v34 & 0x80000000) != 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -5874,46 +5809,46 @@ LABEL_96:
     }
 
 LABEL_97:
-    v20 = v35;
+    v20 = v34;
     goto LABEL_98;
   }
 
-  if (v136 == 1)
+  if (v134 == 1)
   {
-    v36 = v137;
-    v37 = *(v137 + 1);
-    *(v23 + 592) = *v137;
-    *(v23 + 608) = v37;
-    v38 = v36[5];
-    v40 = v36[2];
-    v39 = v36[3];
-    *(v23 + 656) = v36[4];
-    *(v23 + 672) = v38;
-    *(v23 + 624) = v40;
-    *(v23 + 640) = v39;
-    v42 = v36[7];
-    v41 = v36[8];
-    v43 = v36[6];
-    *(v23 + 736) = *(v36 + 36);
-    *(v23 + 704) = v42;
-    *(v23 + 720) = v41;
-    *(v23 + 688) = v43;
+    v35 = v135;
+    v36 = *(v135 + 1);
+    *(v23 + 592) = *v135;
+    *(v23 + 608) = v36;
+    v37 = v35[5];
+    v39 = v35[2];
+    v38 = v35[3];
+    *(v23 + 656) = v35[4];
+    *(v23 + 672) = v37;
+    *(v23 + 624) = v39;
+    *(v23 + 640) = v38;
+    v41 = v35[7];
+    v40 = v35[8];
+    v42 = v35[6];
+    *(v23 + 736) = *(v35 + 36);
+    *(v23 + 704) = v41;
+    *(v23 + 720) = v40;
+    *(v23 + 688) = v42;
     goto LABEL_96;
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v65 = VRTraceErrorLogLevelToCSTR();
+    VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
-      ICEStartConnectivityCheckN_cold_3(v65, &v136);
+      ICEStartConnectivityCheckN_cold_3();
     }
   }
 
 LABEL_98:
-  if (v137)
+  if (v135)
   {
-    free(v137);
+    free(v135);
   }
 
 LABEL_100:
@@ -5922,24 +5857,22 @@ LABEL_100:
 LABEL_9:
   pthread_mutex_unlock((v22 + 168));
   CheckOutHandleDebug();
-LABEL_11:
-  v24 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
-uint64_t ICEProcessRemoteInterfaceChange(uint64_t a1, int a2, unsigned __int8 *a3, int a4, int a5, int a6)
+uint64_t ICEProcessRemoteInterfaceChange(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, int a5, int a6)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v8 = 2148859905;
-  v29 = 0;
   v28 = 0;
+  v27 = 0;
   if (a3 && a4 > 0)
   {
+    v11 = a2;
     v12 = CheckInHandleDebug();
     if (!v12)
     {
-      v8 = 2148859906;
-      goto LABEL_28;
+      return 2148859906;
     }
 
     v13 = v12;
@@ -5963,16 +5896,16 @@ LABEL_17:
         }
 
 LABEL_25:
-        if (v29)
+        if (v28)
         {
-          free(v29);
+          free(v28);
         }
 
         CheckOutHandleDebug();
-        goto LABEL_28;
+        return v8;
       }
 
-      while (*(v17 + 148) != a2)
+      while (*(v17 + 148) != v11)
       {
         v17 = *(v17 + 912);
         if (!v17)
@@ -5985,22 +5918,22 @@ LABEL_25:
       {
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v25 = VRTraceErrorLogLevelToCSTR();
-          v26 = *MEMORY[0x277CE5818];
+          v24 = VRTraceErrorLogLevelToCSTR();
+          v25 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            v27 = *(v17 + 208);
+            v26 = *(v17 + 208);
             *buf = 136316162;
-            v31 = v25;
-            v32 = 2080;
-            v33 = "ICEProcessRemoteInterfaceChange";
-            v34 = 1024;
-            v35 = 1370;
-            v36 = 1024;
-            v37 = a5;
-            v38 = 1024;
-            LODWORD(v39) = v27;
-            _os_log_impl(&dword_23D497000, v26, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remote candidate data is not new, skip. (%d<=%d)", buf, 0x28u);
+            v30 = v24;
+            v31 = 2080;
+            v32 = "ICEProcessRemoteInterfaceChange";
+            v33 = 1024;
+            v34 = 1370;
+            v35 = 1024;
+            v36 = a5;
+            v37 = 1024;
+            LODWORD(v38) = v26;
+            _os_log_impl(&dword_23D497000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remote candidate data is not new, skip. (%d<=%d)", buf, 0x28u);
           }
         }
 
@@ -6014,20 +5947,20 @@ LABEL_25:
       pthread_mutex_unlock((v17 + 16));
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v22 = VRTraceErrorLogLevelToCSTR();
-        v23 = *MEMORY[0x277CE5818];
+        v21 = VRTraceErrorLogLevelToCSTR();
+        v22 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v24 = *(v17 + 208);
+          v23 = *(v17 + 208);
           *buf = 136315906;
-          v31 = v22;
-          v32 = 2080;
-          v33 = "ICEProcessRemoteInterfaceChange";
-          v34 = 1024;
-          v35 = 1380;
-          v36 = 1024;
-          v37 = v24;
-          _os_log_impl(&dword_23D497000, v23, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Update remote candidate version (%d)", buf, 0x22u);
+          v30 = v21;
+          v31 = 2080;
+          v32 = "ICEProcessRemoteInterfaceChange";
+          v33 = 1024;
+          v34 = 1380;
+          v35 = 1024;
+          v36 = v23;
+          _os_log_impl(&dword_23D497000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Update remote candidate version (%d)", buf, 0x22u);
         }
       }
 
@@ -6042,7 +5975,7 @@ LABEL_25:
 
     else
     {
-      v8 = UncompressCandidateList(a3, a4, &v29, &v28);
+      v8 = UncompressCandidateList(a3, a4, &v28, &v27);
       if ((v8 & 0x80000000) != 0)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -6065,16 +5998,16 @@ LABEL_25:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v31 = v18;
-        v32 = 2080;
-        v33 = "ICEProcessRemoteInterfaceChange";
-        v34 = 1024;
-        v35 = 1403;
+        v30 = v18;
+        v31 = 2080;
+        v32 = "ICEProcessRemoteInterfaceChange";
+        v33 = 1024;
+        v34 = 1403;
         _os_log_impl(&dword_23D497000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Process new remote connection blob.", buf, 0x1Cu);
       }
     }
 
-    ICEGetNewCandidates(v13, a2, v29, v28, 0);
+    ICEGetNewCandidates(v13, v11, v28, v27, 0);
     goto LABEL_25;
   }
 
@@ -6085,23 +6018,21 @@ LABEL_25:
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v31 = v15;
-      v32 = 2080;
-      v33 = "ICEProcessRemoteInterfaceChange";
-      v34 = 1024;
-      v35 = 1355;
-      v36 = 1024;
-      v37 = 1355;
-      v38 = 2048;
-      v39 = a3;
-      v40 = 1024;
-      v41 = a4;
+      v30 = v15;
+      v31 = 2080;
+      v32 = "ICEProcessRemoteInterfaceChange";
+      v33 = 1024;
+      v34 = 1355;
+      v35 = 1024;
+      v36 = 1355;
+      v37 = 2048;
+      v38 = a3;
+      v39 = 1024;
+      v40 = a4;
       _os_log_error_impl(&dword_23D497000, v16, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Remote candidate data is invalid (data:%p len:%d).\n", buf, 0x32u);
     }
   }
 
-LABEL_28:
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -6199,13 +6130,14 @@ LABEL_25:
   return v5;
 }
 
-uint64_t ICEGetNextBestCandidate(uint64_t a1, int a2, int a3, int *a4, uint64_t a5)
+uint64_t ICEGetNextBestCandidate(uint64_t a1, int a2, uint64_t a3, int *a4, uint64_t a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = 2148859926;
   result = 2148859905;
   if (a4 && a5)
   {
+    v9 = a3;
     v11 = CheckInHandleDebug();
     if (v11)
     {
@@ -6224,7 +6156,7 @@ uint64_t ICEGetNextBestCandidate(uint64_t a1, int a2, int a3, int *a4, uint64_t 
         }
 
         pthread_mutex_lock((v13 + 16));
-        if (a3)
+        if (v9)
         {
           v14 = *(v13 + 168);
           v15 = *(v13 + 192);
@@ -6245,17 +6177,17 @@ uint64_t ICEGetNextBestCandidate(uint64_t a1, int a2, int a3, int *a4, uint64_t 
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
             v18 = *(a5 + 44);
-            v20 = 136316162;
-            v21 = v16;
-            v22 = 2080;
-            v23 = "ICEGetNextBestCandidate";
-            v24 = 1024;
-            v25 = 1553;
-            v26 = 1024;
-            v27 = a3;
-            v28 = 1024;
-            v29 = v18;
-            _os_log_impl(&dword_23D497000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetNextBestCandidate: %d, %x", &v20, 0x28u);
+            v19 = 136316162;
+            v20 = v16;
+            v21 = 2080;
+            v22 = "ICEGetNextBestCandidate";
+            v23 = 1024;
+            v24 = 1553;
+            v25 = 1024;
+            v26 = v9;
+            v27 = 1024;
+            v28 = v18;
+            _os_log_impl(&dword_23D497000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetNextBestCandidate: %d, %x", &v19, 0x28u);
           }
         }
 
@@ -6278,45 +6210,44 @@ LABEL_7:
       }
 
       CheckOutHandleDebug();
-      result = v5;
+      return v5;
     }
 
     else
     {
-      result = 2148859906;
+      return 2148859906;
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void GetNextBestCandidate(int *a1, uint64_t a2, int a3, uint64_t a4)
+__n128 GetNextBestCandidate(int *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
-  v78 = *MEMORY[0x277D85DE8];
-  v52 = *a1;
-  *&v77[14] = 0xAAAAAAAAAAAAAAAALL;
+  v75 = *MEMORY[0x277D85DE8];
+  v49 = *a1;
+  *&v74[14] = 0xAAAAAAAAAAAAAAAALL;
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v76[1] = v7;
-  *v77 = v7;
-  v76[0] = v7;
-  memset(v75, 170, sizeof(v75));
+  v73[1] = v7;
+  *v74 = v7;
+  v73[0] = v7;
+  memset(v72, 170, sizeof(v72));
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v8 = VRTraceErrorLogLevelToCSTR();
-    v9 = *MEMORY[0x277CE5818];
+    v9 = VRTraceErrorLogLevelToCSTR();
+    v10 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v58 = v8;
-      v59 = 2080;
-      v60 = "GetNextBestCandidate";
-      v61 = 1024;
-      v62 = 1479;
-      v63 = 1024;
-      v64 = a3;
-      _os_log_impl(&dword_23D497000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetNextBestCandidate: searching list %d", buf, 0x22u);
+      v55 = v9;
+      v56 = 2080;
+      v57 = "GetNextBestCandidate";
+      v58 = 1024;
+      v59 = 1479;
+      v60 = 1024;
+      v61 = a3;
+      _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetNextBestCandidate: searching list %d", buf, 0x22u);
     }
   }
 
@@ -6325,6 +6256,7 @@ void GetNextBestCandidate(int *a1, uint64_t a2, int a3, uint64_t a4)
     if (!a2)
     {
       *(a4 + 144) = 0;
+      result.n128_u64[0] = 0;
       *(a4 + 112) = 0u;
       *(a4 + 128) = 0u;
       *(a4 + 80) = 0u;
@@ -6334,287 +6266,280 @@ void GetNextBestCandidate(int *a1, uint64_t a2, int a3, uint64_t a4)
       *(a4 + 16) = 0u;
       *(a4 + 32) = 0u;
       *a4 = 0u;
-      goto LABEL_45;
+      return result;
     }
-
-LABEL_44:
-    v42 = *(a2 + 64);
-    v43 = *(a2 + 80);
-    v44 = *(a2 + 48);
-    *(a4 + 32) = *(a2 + 32);
-    v45 = *(a2 + 16);
-    *a4 = *a2;
-    *(a4 + 16) = v45;
-    *(a4 + 64) = v42;
-    *(a4 + 80) = v43;
-    *(a4 + 48) = v44;
-    v46 = *(a2 + 96);
-    v47 = *(a2 + 112);
-    v48 = *(a2 + 128);
-    *(a4 + 144) = *(a2 + 144);
-    *(a4 + 112) = v47;
-    *(a4 + 128) = v48;
-    *(a4 + 96) = v46;
-    *(a4 + 44) = 0;
-    goto LABEL_45;
-  }
-
-  v10 = 0;
-  v53 = 0;
-  v51 = 0;
-  v54 = a3;
-  v11 = 148 * a3;
-  v12 = 1;
-  v56 = 1;
-  v50 = 1;
-  do
-  {
-    if (VRTraceGetErrorLogLevelForModule() >= 7)
-    {
-      v13 = VRTraceErrorLogLevelToCSTR();
-      v14 = *MEMORY[0x277CE5818];
-      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-      {
-        v15 = CANIDToString(v75, (a2 + v10 + 12));
-        v16 = IPPORTToStringWithSize(v76, a2 + v10 + 24, 0x36uLL);
-        v17 = *(a2 + v10 + 24);
-        *buf = 136317186;
-        v58 = v13;
-        v59 = 2080;
-        v60 = "GetNextBestCandidate";
-        v61 = 1024;
-        v62 = 1484;
-        v63 = 1024;
-        v64 = v12;
-        v65 = 1024;
-        v66 = v54;
-        v67 = 2080;
-        v68 = v15;
-        v69 = 2080;
-        v70 = v16;
-        v71 = 1024;
-        v72 = v17;
-        v73 = 2080;
-        v74 = a2 + 68 + v10;
-        _os_log_impl(&dword_23D497000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetNextBestCandidate(%d/%d):\tID[%s]\t[%s]\tflag(%02X) if (%s).", buf, 0x4Cu);
-      }
-    }
-
-    v18 = a2 + v10;
-    if ((*(a2 + v10 + 24) & 1) == 0)
-    {
-      v19 = a2 + v10;
-      v20 = *(a2 + v10 + 44);
-      if (v20)
-      {
-        v21 = *(v19 + 4);
-        if (v21 >= 2)
-        {
-          v22 = *a1;
-          if (v56)
-          {
-            v56 = (v22 & 1) == 0 && v20 == a1[5] && *(a2 + v10 + 60) == *(a1 + 18);
-            if (VRTraceGetErrorLogLevelForModule() >= 7)
-            {
-              v23 = VRTraceErrorLogLevelToCSTR();
-              v24 = *MEMORY[0x277CE5818];
-              if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 136315650;
-                v58 = v23;
-                v59 = 2080;
-                v60 = "GetNextBestCandidate";
-                v61 = 1024;
-                v62 = 1498;
-                _os_log_impl(&dword_23D497000, v24, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetNextBestCandidate: mark the first external candidate", buf, 0x1Cu);
-              }
-            }
-
-            v53 = a2 + v10;
-          }
-
-          else if ((v22 & 1) == 0 && v20 == a1[5] && *(a2 + v10 + 60) == *(a1 + 18))
-          {
-            v56 = 0;
-          }
-
-          else
-          {
-            v56 = 0;
-            v25 = v53;
-            if (v21 < *(v53 + 4))
-            {
-              v25 = a2 + v10;
-            }
-
-            v53 = v25;
-          }
-
-          if (((*(v18 + 24) ^ v52) & 4) != 0)
-          {
-            if (!v50 && *(v19 + 4) >= *(v51 + 4))
-            {
-              v18 = v51;
-            }
-
-            if (VRTraceGetErrorLogLevelForModule() >= 7)
-            {
-              v26 = VRTraceErrorLogLevelToCSTR();
-              v27 = *MEMORY[0x277CE5818];
-              if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 136315906;
-                v58 = v26;
-                v59 = 2080;
-                v60 = "GetNextBestCandidate";
-                v61 = 1024;
-                v62 = 1510;
-                v63 = 1024;
-                v64 = 0;
-                _os_log_impl(&dword_23D497000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetNextBestCandidate: got excluded candidate %d", buf, 0x22u);
-              }
-            }
-
-            v50 = 0;
-            v51 = v18;
-          }
-        }
-      }
-    }
-
-    ++v12;
-    v10 += 148;
-  }
-
-  while (v11 != v10);
-  if (!v51)
-  {
-    if (v53)
-    {
-      v35 = *(v53 + 16);
-      *a4 = *v53;
-      *(a4 + 16) = v35;
-      v36 = *(v53 + 32);
-      v37 = *(v53 + 48);
-      v38 = *(v53 + 80);
-      *(a4 + 64) = *(v53 + 64);
-      *(a4 + 80) = v38;
-      *(a4 + 32) = v36;
-      *(a4 + 48) = v37;
-      v39 = *(v53 + 96);
-      v40 = *(v53 + 112);
-      v41 = *(v53 + 128);
-      *(a4 + 144) = *(v53 + 144);
-      *(a4 + 112) = v40;
-      *(a4 + 128) = v41;
-      *(a4 + 96) = v39;
-      goto LABEL_45;
-    }
-
-    goto LABEL_44;
-  }
-
-  v28 = *(v51 + 16);
-  *a4 = *v51;
-  *(a4 + 16) = v28;
-  v29 = *(v51 + 32);
-  v30 = *(v51 + 48);
-  v31 = *(v51 + 80);
-  *(a4 + 64) = *(v51 + 64);
-  *(a4 + 80) = v31;
-  *(a4 + 32) = v29;
-  *(a4 + 48) = v30;
-  v32 = *(v51 + 96);
-  v33 = *(v51 + 112);
-  v34 = *(v51 + 128);
-  *(a4 + 144) = *(v51 + 144);
-  *(a4 + 112) = v33;
-  *(a4 + 128) = v34;
-  *(a4 + 96) = v32;
-LABEL_45:
-  v49 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t ICEGetRemoteICEVersion(uint64_t a1, int a2, _DWORD *a3)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  v5 = CheckInHandleDebug();
-  if (v5)
-  {
-    v6 = v5;
-    pthread_mutex_lock((v5 + 168));
-    v7 = *(v6 + 232);
-    if (v7)
-    {
-      while (*(v7 + 148) != a2)
-      {
-        v7 = *(v7 + 912);
-        if (!v7)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      pthread_mutex_lock((v7 + 16));
-      if (a3)
-      {
-        *a3 = *(v7 + 888);
-      }
-
-      if (VRTraceGetErrorLogLevelForModule() >= 7)
-      {
-        v9 = VRTraceErrorLogLevelToCSTR();
-        v10 = *MEMORY[0x277CE5818];
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-        {
-          v11 = *(v7 + 888);
-          v13 = 136315906;
-          v14 = v9;
-          v15 = 2080;
-          v16 = "ICEGetRemoteICEVersion";
-          v17 = 1024;
-          v18 = 1619;
-          v19 = 1024;
-          v20 = v11;
-          _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetRemoteICEVersion: remote ICE Version (%u)", &v13, 0x22u);
-        }
-      }
-
-      pthread_mutex_unlock((v7 + 16));
-    }
-
-LABEL_13:
-    pthread_mutex_unlock((v6 + 168));
-    CheckOutHandleDebug();
-    result = 0;
   }
 
   else
   {
-    result = 2148859906;
+    v11 = 0;
+    v50 = 0;
+    v48 = 0;
+    v51 = a3;
+    v12 = 148 * a3;
+    v13 = 1;
+    v53 = 1;
+    v47 = 1;
+    do
+    {
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v14 = VRTraceErrorLogLevelToCSTR();
+        v15 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = CANIDToString(v72, (a2 + v11 + 12));
+          v17 = IPPORTToStringWithSize(v73, a2 + v11 + 24, 0x36uLL);
+          v18 = *(a2 + v11 + 24);
+          *buf = 136317186;
+          v55 = v14;
+          v56 = 2080;
+          v57 = "GetNextBestCandidate";
+          v58 = 1024;
+          v59 = 1484;
+          v60 = 1024;
+          v61 = v13;
+          v62 = 1024;
+          v63 = v51;
+          v64 = 2080;
+          v65 = v16;
+          v66 = 2080;
+          v67 = v17;
+          v68 = 1024;
+          v69 = v18;
+          v70 = 2080;
+          v71 = a2 + 68 + v11;
+          _os_log_impl(&dword_23D497000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetNextBestCandidate(%d/%d):\tID[%s]\t[%s]\tflag(%02X) if (%s).", buf, 0x4Cu);
+        }
+      }
+
+      v19 = a2 + v11;
+      if ((*(a2 + v11 + 24) & 1) == 0)
+      {
+        v20 = a2 + v11;
+        v21 = *(a2 + v11 + 44);
+        if (v21)
+        {
+          v22 = *(v20 + 4);
+          if (v22 >= 2)
+          {
+            v23 = *a1;
+            if (v53)
+            {
+              v53 = (v23 & 1) == 0 && v21 == a1[5] && *(a2 + v11 + 60) == *(a1 + 18);
+              if (VRTraceGetErrorLogLevelForModule() >= 7)
+              {
+                v24 = VRTraceErrorLogLevelToCSTR();
+                v25 = *MEMORY[0x277CE5818];
+                if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 136315650;
+                  v55 = v24;
+                  v56 = 2080;
+                  v57 = "GetNextBestCandidate";
+                  v58 = 1024;
+                  v59 = 1498;
+                  _os_log_impl(&dword_23D497000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetNextBestCandidate: mark the first external candidate", buf, 0x1Cu);
+                }
+              }
+
+              v50 = a2 + v11;
+            }
+
+            else if ((v23 & 1) == 0 && v21 == a1[5] && *(a2 + v11 + 60) == *(a1 + 18))
+            {
+              v53 = 0;
+            }
+
+            else
+            {
+              v53 = 0;
+              v26 = v50;
+              if (v22 < *(v50 + 4))
+              {
+                v26 = a2 + v11;
+              }
+
+              v50 = v26;
+            }
+
+            if (((*(v19 + 24) ^ v49) & 4) != 0)
+            {
+              if (!v47 && *(v20 + 4) >= *(v48 + 4))
+              {
+                v19 = v48;
+              }
+
+              if (VRTraceGetErrorLogLevelForModule() >= 7)
+              {
+                v27 = VRTraceErrorLogLevelToCSTR();
+                v28 = *MEMORY[0x277CE5818];
+                if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 136315906;
+                  v55 = v27;
+                  v56 = 2080;
+                  v57 = "GetNextBestCandidate";
+                  v58 = 1024;
+                  v59 = 1510;
+                  v60 = 1024;
+                  v61 = 0;
+                  _os_log_impl(&dword_23D497000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetNextBestCandidate: got excluded candidate %d", buf, 0x22u);
+                }
+              }
+
+              v47 = 0;
+              v48 = v19;
+            }
+          }
+        }
+      }
+
+      ++v13;
+      v11 += 148;
+    }
+
+    while (v12 != v11);
+    if (v48)
+    {
+      v29 = *(v48 + 16);
+      *a4 = *v48;
+      *(a4 + 16) = v29;
+      v30 = *(v48 + 32);
+      v31 = *(v48 + 48);
+      v32 = *(v48 + 80);
+      *(a4 + 64) = *(v48 + 64);
+      *(a4 + 80) = v32;
+      *(a4 + 32) = v30;
+      *(a4 + 48) = v31;
+      result = *(v48 + 96);
+      v33 = *(v48 + 112);
+      v34 = *(v48 + 128);
+      *(a4 + 144) = *(v48 + 144);
+      *(a4 + 112) = v33;
+      *(a4 + 128) = v34;
+      *(a4 + 96) = result;
+      return result;
+    }
+
+    if (v50)
+    {
+      v35 = *(v50 + 16);
+      *a4 = *v50;
+      *(a4 + 16) = v35;
+      v36 = *(v50 + 32);
+      v37 = *(v50 + 48);
+      v38 = *(v50 + 80);
+      *(a4 + 64) = *(v50 + 64);
+      *(a4 + 80) = v38;
+      *(a4 + 32) = v36;
+      *(a4 + 48) = v37;
+      result = *(v50 + 96);
+      v39 = *(v50 + 112);
+      v40 = *(v50 + 128);
+      *(a4 + 144) = *(v50 + 144);
+      *(a4 + 112) = v39;
+      *(a4 + 128) = v40;
+      *(a4 + 96) = result;
+      return result;
+    }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  v41 = *(a2 + 64);
+  v42 = *(a2 + 80);
+  v43 = *(a2 + 48);
+  *(a4 + 32) = *(a2 + 32);
+  v44 = *(a2 + 16);
+  *a4 = *a2;
+  *(a4 + 16) = v44;
+  *(a4 + 64) = v41;
+  *(a4 + 80) = v42;
+  *(a4 + 48) = v43;
+  result = *(a2 + 96);
+  v45 = *(a2 + 112);
+  v46 = *(a2 + 128);
+  *(a4 + 144) = *(a2 + 144);
+  *(a4 + 112) = v45;
+  *(a4 + 128) = v46;
+  *(a4 + 96) = result;
+  *(a4 + 44) = 0;
   return result;
 }
 
-uint64_t ICEAddRemovedLocalIPPort(uint64_t a1, uint64_t a2)
+uint64_t ICEGetRemoteICEVersion(uint64_t a1, int a2, _DWORD *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v5 = CheckInHandleDebug();
+  if (!v5)
+  {
+    return 2148859906;
+  }
+
+  v6 = v5;
+  pthread_mutex_lock((v5 + 168));
+  v7 = *(v6 + 232);
+  if (v7)
+  {
+    while (*(v7 + 148) != a2)
+    {
+      v7 = *(v7 + 912);
+      if (!v7)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    pthread_mutex_lock((v7 + 16));
+    if (a3)
+    {
+      *a3 = *(v7 + 888);
+    }
+
+    if (VRTraceGetErrorLogLevelForModule() >= 7)
+    {
+      v9 = VRTraceErrorLogLevelToCSTR();
+      v10 = *MEMORY[0x277CE5818];
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = *(v7 + 888);
+        v12 = 136315906;
+        v13 = v9;
+        v14 = 2080;
+        v15 = "ICEGetRemoteICEVersion";
+        v16 = 1024;
+        v17 = 1619;
+        v18 = 1024;
+        v19 = v11;
+        _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetRemoteICEVersion: remote ICE Version (%u)", &v12, 0x22u);
+      }
+    }
+
+    pthread_mutex_unlock((v7 + 16));
+  }
+
+LABEL_13:
+  pthread_mutex_unlock((v6 + 168));
+  CheckOutHandleDebug();
+  return 0;
+}
+
+uint64_t ICEAddRemovedLocalIPPort(uint64_t a1, __int128 *a2)
+{
+  v39 = *MEMORY[0x277D85DE8];
   v3 = 2148859906;
   v4 = CheckInHandleDebug();
   if (!v4)
   {
-    goto LABEL_25;
+    return v3;
   }
 
   v5 = v4;
-  *&v39[14] = 0xAAAAAAAAAAAAAAAALL;
+  *&v38[14] = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v38[1] = v6;
-  *v39 = v6;
-  v38[0] = v6;
+  v37[1] = v6;
+  *v38 = v6;
+  v37[0] = v6;
   pthread_mutex_lock((v4 + 168));
   v7 = *(v5 + 232);
   if (!v7)
@@ -6637,8 +6562,8 @@ uint64_t ICEAddRemovedLocalIPPort(uint64_t a1, uint64_t a2)
 LABEL_10:
     v15 = *(v7 + 816) + 40 * v9;
     v16 = *a2;
-    v17 = *(a2 + 16);
-    *(v15 + 32) = *(a2 + 32);
+    v17 = a2[1];
+    *(v15 + 32) = *(a2 + 4);
     *v15 = v16;
     *(v15 + 16) = v17;
     ++*(v7 + 808);
@@ -6648,21 +6573,21 @@ LABEL_10:
       v19 = *v8;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = IPPORTToStringWithSize(v38, a2, 0x36uLL);
+        v20 = IPPORTToStringWithSize(v37, a2, 0x36uLL);
         v21 = *(v7 + 148);
         v22 = *(v7 + 808);
         *buf = 136316418;
-        v28 = v18;
-        v29 = 2080;
-        v30 = "ICEAddRemovedLocalIPPort";
-        v31 = 1024;
-        v32 = 1666;
-        v33 = 2080;
-        *v34 = v20;
-        *&v34[8] = 1024;
-        v35 = v21;
-        v36 = 1024;
-        v37 = v22;
+        v27 = v18;
+        v28 = 2080;
+        v29 = "ICEAddRemovedLocalIPPort";
+        v30 = 1024;
+        v31 = 1666;
+        v32 = 2080;
+        *v33 = v20;
+        *&v33[8] = 1024;
+        v34 = v21;
+        v35 = 1024;
+        v36 = v22;
         _os_log_impl(&dword_23D497000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Add localIPPort [%s] to removed list for call(%08X), count(%d).", buf, 0x32u);
       }
     }
@@ -6700,15 +6625,15 @@ LABEL_10:
       {
         v14 = *(v7 + 812);
         *buf = 136316162;
-        v28 = v12;
-        v29 = 2080;
-        v30 = "ICEAddRemovedLocalIPPort";
-        v31 = 1024;
-        v32 = 1657;
-        v33 = 1024;
-        *v34 = v14;
-        *&v34[4] = 1024;
-        *&v34[6] = v14 + 1;
+        v27 = v12;
+        v28 = 2080;
+        v29 = "ICEAddRemovedLocalIPPort";
+        v30 = 1024;
+        v31 = 1657;
+        v32 = 1024;
+        *v33 = v14;
+        *&v33[4] = 1024;
+        *&v33[6] = v14 + 1;
         _os_log_impl(&dword_23D497000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Increase removed local buffer size (%d->%d).", buf, 0x28u);
       }
     }
@@ -6732,22 +6657,20 @@ LABEL_10:
 LABEL_24:
   pthread_mutex_unlock((v5 + 168));
   CheckOutHandleDebug();
-LABEL_25:
-  v25 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-uint64_t ICEAddRemovedRemoteIPPort(uint64_t a1, uint64_t a2, unsigned __int8 *a3, int a4)
+uint64_t ICEAddRemovedRemoteIPPort(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
-  v67 = *MEMORY[0x277D85DE8];
-  v54 = 0;
+  v66 = *MEMORY[0x277D85DE8];
   v53 = 0;
-  *&v66[14] = 0xAAAAAAAAAAAAAAAALL;
+  v52 = 0;
+  *&v65[14] = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v65[1] = v6;
-  *v66 = v6;
-  v65[0] = v6;
+  v64[1] = v6;
+  *v65 = v6;
+  v64[0] = v6;
   if (!a3 || a4 <= 0)
   {
     v11 = 2148859905;
@@ -6758,29 +6681,28 @@ uint64_t ICEAddRemovedRemoteIPPort(uint64_t a1, uint64_t a2, unsigned __int8 *a3
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316418;
-        v56 = v13;
-        v57 = 2080;
-        v58 = "ICEAddRemovedRemoteIPPort";
-        v59 = 1024;
-        v60 = 1694;
-        v61 = 1024;
-        *v62 = 1694;
-        *&v62[4] = 2048;
-        *&v62[6] = a3;
-        v63 = 1024;
-        v64 = a4;
+        v55 = v13;
+        v56 = 2080;
+        v57 = "ICEAddRemovedRemoteIPPort";
+        v58 = 1024;
+        v59 = 1694;
+        v60 = 1024;
+        *v61 = 1694;
+        *&v61[4] = 2048;
+        *&v61[6] = a3;
+        v62 = 1024;
+        v63 = a4;
         _os_log_error_impl(&dword_23D497000, v14, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Remote candidate data is invalid (data:%p len:%d).\n", buf, 0x32u);
       }
     }
 
-    goto LABEL_76;
+    return v11;
   }
 
   v8 = CheckInHandleDebug();
   if (!v8)
   {
-    v11 = 2148859906;
-    goto LABEL_76;
+    return 2148859906;
   }
 
   v9 = v8;
@@ -6792,7 +6714,7 @@ uint64_t ICEAddRemovedRemoteIPPort(uint64_t a1, uint64_t a2, unsigned __int8 *a3
 
   else
   {
-    v11 = UncompressCandidateList(a3, a4, &v54, &v53);
+    v11 = UncompressCandidateList(a3, a4, &v53, &v52);
     if ((v11 & 0x80000000) != 0)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -6816,13 +6738,13 @@ uint64_t ICEAddRemovedRemoteIPPort(uint64_t a1, uint64_t a2, unsigned __int8 *a3
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v56 = v15;
-      v57 = 2080;
-      v58 = "ICEAddRemovedRemoteIPPort";
-      v59 = 1024;
-      v60 = 1713;
-      v61 = 1024;
-      *v62 = a2;
+      v55 = v15;
+      v56 = 2080;
+      v57 = "ICEAddRemovedRemoteIPPort";
+      v58 = 1024;
+      v59 = 1713;
+      v60 = 1024;
+      *v61 = a2;
       _os_log_impl(&dword_23D497000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetRemovedRemoteInterface for call(%08X).", buf, 0x22u);
     }
   }
@@ -6855,19 +6777,19 @@ LABEL_21:
 
   v19 = 0;
   v20 = 0;
-  v52 = v18 + 20;
+  v51 = v18 + 20;
   do
   {
     if (IsIPPORTValid(*(v17 + 176) + 148 * v19 + 24))
     {
-      if (v53 >= 1)
+      if (v52 >= 1)
       {
         v21 = 0;
         v22 = *(v17 + 176) + 148 * v19;
         v24 = *(v22 + 24);
         v23 = v22 + 24;
         v25 = v24 & 1;
-        v26 = v54 + 44;
+        v26 = v53 + 44;
         while (1)
         {
           if ((*(v26 - 5) & 1) == v25)
@@ -6888,7 +6810,7 @@ LABEL_21:
 
           ++v21;
           v26 = (v26 + 148);
-          if (v53 == v21)
+          if (v52 == v21)
           {
             goto LABEL_40;
           }
@@ -6897,7 +6819,7 @@ LABEL_21:
 
       LODWORD(v21) = 0;
 LABEL_39:
-      if (v21 == v53)
+      if (v21 == v52)
       {
 LABEL_40:
         if (v20 >= 1)
@@ -6907,7 +6829,7 @@ LABEL_40:
           v31 = *(v29 + 24);
           v30 = v29 + 24;
           v32 = v31 & 1;
-          v33 = v52;
+          v33 = v51;
           while (1)
           {
             if (v32 == (*(v33 - 5) & 1))
@@ -6958,15 +6880,15 @@ LABEL_56:
             v41 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
             {
-              v42 = IPPORTToStringWithSize(v65, *(v17 + 176) + 148 * v19 + 24, 0x36uLL);
+              v42 = IPPORTToStringWithSize(v64, *(v17 + 176) + 148 * v19 + 24, 0x36uLL);
               *buf = 136315906;
-              v56 = v40;
-              v57 = 2080;
-              v58 = "ICEAddRemovedRemoteIPPort";
-              v59 = 1024;
-              v60 = 1751;
-              v61 = 2080;
-              *v62 = v42;
+              v55 = v40;
+              v56 = 2080;
+              v57 = "ICEAddRemovedRemoteIPPort";
+              v58 = 1024;
+              v59 = 1751;
+              v60 = 2080;
+              *v61 = v42;
               _os_log_impl(&dword_23D497000, v41, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remove remoteIPPort [%s]", buf, 0x26u);
             }
           }
@@ -7004,15 +6926,15 @@ LABEL_56:
         {
           v49 = *(v17 + 828);
           *buf = 136316162;
-          v56 = v47;
-          v57 = 2080;
-          v58 = "ICEAddRemovedRemoteIPPort";
-          v59 = 1024;
-          v60 = 1773;
-          v61 = 1024;
-          *v62 = v49;
-          *&v62[4] = 1024;
-          *&v62[6] = v49 + v45;
+          v55 = v47;
+          v56 = 2080;
+          v57 = "ICEAddRemovedRemoteIPPort";
+          v58 = 1024;
+          v59 = 1773;
+          v60 = 1024;
+          *v61 = v49;
+          *&v61[4] = 1024;
+          *&v61[6] = v49 + v45;
           _os_log_impl(&dword_23D497000, v48, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Increase removed remote buffer size (%d->%d).", buf, 0x28u);
         }
       }
@@ -7044,9 +6966,9 @@ LABEL_69:
 LABEL_70:
   pthread_mutex_unlock((v9 + 168));
 LABEL_71:
-  if (v54)
+  if (v53)
   {
-    free(v54);
+    free(v53);
   }
 
   if (v12)
@@ -7055,25 +6977,20 @@ LABEL_71:
   }
 
   CheckOutHandleDebug();
-LABEL_76:
-  v50 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t AppendInterfaceNameToRemoteCandidates(uint64_t result, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = *(result + 192);
   if (v2 >= 1)
   {
     v4 = result;
-    v5 = *(result + 168) + 28;
-    while (*(v5 - 24) != a2)
+    for (i = *(result + 168) + 28; *(i - 24) != a2; i += 148)
     {
-      v5 += 148;
       if (!--v2)
       {
-        goto LABEL_11;
+        return result;
       }
     }
 
@@ -7082,7 +6999,7 @@ uint64_t AppendInterfaceNameToRemoteCandidates(uint64_t result, int a2)
     if (v6 >= 1)
     {
       v7 = 0;
-      for (i = 0; i < v6; ++i)
+      for (j = 0; j < v6; ++j)
       {
         if (*(*(v4 + 176) + v7 + 4) == a2)
         {
@@ -7095,12 +7012,10 @@ uint64_t AppendInterfaceNameToRemoteCandidates(uint64_t result, int a2)
     }
   }
 
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t ICEGetCallInfoForConnectionData(uint64_t a1, int a2, _DWORD *a3, _BYTE *a4)
+uint64_t ICEGetCallInfoForConnectionData(uint64_t a1, uint64_t a2, _DWORD *a3, _BYTE *a4)
 {
   result = 2148859905;
   if (a1 && a2 >= 1)
@@ -7184,7 +7099,7 @@ uint64_t ICEDiscardResult(uint64_t a1, int a2)
 
 uint64_t ICECloseHandle(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = CheckInHandleDebug();
   if (v2)
   {
@@ -7368,17 +7283,17 @@ uint64_t ICECloseHandle(uint64_t a1)
       v27 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 136315650;
-        v32 = v26;
-        v33 = 2080;
-        v34 = "ICECloseHandle";
-        v35 = 1024;
-        v36 = 2296;
-        _os_log_impl(&dword_23D497000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICECloseHandle ... done.", &v31, 0x1Cu);
+        v30 = 136315650;
+        v31 = v26;
+        v32 = 2080;
+        v33 = "ICECloseHandle";
+        v34 = 1024;
+        v35 = 2296;
+        _os_log_impl(&dword_23D497000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICECloseHandle ... done.", &v30, 0x1Cu);
       }
     }
 
-    v28 = 0;
+    return 0;
   }
 
   else
@@ -7394,57 +7309,56 @@ uint64_t ICECloseHandle(uint64_t a1)
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 BOOL ICECheckPacket(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 4);
   if (v6 == 2)
   {
-    v10 = bswap32(*(a2 + 7));
-    v11 = HIWORD(v10) & 0x110;
-    v12 = (v10 >> 17) & 0x70 | HIWORD(v10) & 0xF | (v10 >> 18) & 0xF80;
-    if (v11)
+    v9 = bswap32(*(a2 + 7));
+    v10 = HIWORD(v9) & 0x110;
+    v11 = (v9 >> 17) & 0x70 | HIWORD(v9) & 0xF | (v9 >> 18) & 0xF80;
+    if (v10)
     {
-      v13 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v13 = v12 == 1;
+      v12 = v11 == 1;
     }
 
-    if (v13)
+    if (v12)
     {
-      memset(v23, 170, 0x480uLL);
-      ParseSTUNMessage((a2 + 7), *(a2 + 1492), v23);
-      STUNAttr = GetSTUNAttr(v23, 6);
+      memset(v21, 170, 0x480uLL);
+      ParseSTUNMessage((a2 + 7), *(a2 + 1492), v21);
+      STUNAttr = GetSTUNAttr(v21, 6);
       if (STUNAttr)
       {
-        v19 = *(STUNAttr + 2);
+        v18 = *(STUNAttr + 2);
         pthread_mutex_lock((a1 + 168));
-        v20 = *(a1 + 232);
-        if (v20)
+        v19 = *(a1 + 232);
+        if (v19)
         {
-          while (*(v20 + 148) != a4 || FindMatchCP(*(v20 + 184), *(v20 + 200), v19, 0) == -1)
+          while (*(v19 + 148) != a4 || FindMatchCP(*(v19 + 184), *(v19 + 200), v18, 0) == -1)
           {
-            v20 = *(v20 + 912);
-            if (!v20)
+            v19 = *(v19 + 912);
+            if (!v19)
             {
               goto LABEL_24;
             }
           }
 
-          v9 = 1;
+          v8 = 1;
         }
 
         else
         {
 LABEL_24:
-          v9 = 0;
+          v8 = 0;
         }
 
         pthread_mutex_unlock((a1 + 168));
@@ -7452,59 +7366,65 @@ LABEL_24:
 
       else
       {
-        v9 = 0;
+        v8 = 0;
       }
 
-      FreeSTUNMessage(v23);
-    }
-
-    else if (v12 == 7 || (v11 >= 0x100 ? (v14 = v12 == 5) : (v14 = 0), v14))
-    {
-      v9 = 1;
+      FreeSTUNMessage(v21);
     }
 
     else
     {
-      v15 = HIWORD(v10);
-      *v23 = *(a2 + 11);
-      if (v23[0] == 1118048801)
+      if (v11 == 7)
       {
-        v23[0] = 554869826;
+        return 1;
       }
 
-      v9 = IsSTUNIDValid(a3, v23, (v12 == 9) & (v15 >> 8), *(a2 + 1576)) != 0;
+      if (v10 >= 0x100 && v11 == 5)
+      {
+        return 1;
+      }
+
+      else
+      {
+        v14 = HIWORD(v9);
+        *v21 = *(a2 + 11);
+        if (v21[0] == 1118048801)
+        {
+          v21[0] = 554869826;
+        }
+
+        return IsSTUNIDValid(a3, v21, (v11 == 9) & (v14 >> 8), *(a2 + 1576)) != 0;
+      }
     }
   }
 
-  else if (v6 == 1 && (v23[0] = -1431655766, v7 = *(a2 + 1492), (SNATMAP_GetNonceValue() & 0x80000000) == 0) && (SNATMAPRequest = FindSNATMAPRequest(a3, v23[0], 0)) != 0)
+  else if (v6 == 1 && (v21[0] = -1431655766, (SNATMAP_GetNonceValue() & 0x80000000) == 0) && (SNATMAPRequest = FindSNATMAPRequest(a3, v21[0], 0)) != 0)
   {
-    v9 = 1;
+    v8 = 1;
     *(SNATMAPRequest + 6) = 1;
   }
 
   else
   {
-    v9 = 0;
+    return 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v8;
 }
 
 uint64_t ICEDiscardOneRelayBindingForRemote(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v11 = 2148859906;
-    goto LABEL_21;
+    return 2148859906;
   }
 
-  *&v25[16] = 0xAAAAAAAAAAAAAAAALL;
+  *&v24[16] = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v24 = v6;
-  *v25 = v6;
+  v23 = v6;
+  *v24 = v6;
   pthread_mutex_lock((a1 + 568));
   v7 = *(a1 + 632);
   if (!v7)
@@ -7515,21 +7435,21 @@ uint64_t ICEDiscardOneRelayBindingForRemote(uint64_t a1, uint64_t a2, uint64_t a
   v8 = (a1 + 632);
   while (1)
   {
-    if ((GetIPPortFromDict(*(v7 + 256), @"GKSRelayPeerRelayNatIP", @"GKSRelayPeerRelayNatPort", &v24) & 0x80000000) != 0)
+    if ((GetIPPortFromDict(*(v7 + 256), @"GKSRelayPeerRelayNatIP", @"GKSRelayPeerRelayNatPort", &v23) & 0x80000000) != 0)
     {
       goto LABEL_16;
     }
 
-    v9 = bswap32(*&v25[4]);
-    *&v25[4] = v9;
-    if (*(v7 + 36) != *(a2 + 148) || (v24 & 1) != (*a3 & 1))
+    v9 = bswap32(*&v24[4]);
+    *&v24[4] = v9;
+    if (*(v7 + 36) != *(a2 + 148) || (v23 & 1) != (*a3 & 1))
     {
       goto LABEL_16;
     }
 
-    if (v24)
+    if (v23)
     {
-      if (*&v25[4] != *(a3 + 20) || *&v25[12] != *(a3 + 28))
+      if (*&v24[4] != *(a3 + 20) || *&v24[12] != *(a3 + 28))
       {
         goto LABEL_16;
       }
@@ -7540,7 +7460,7 @@ uint64_t ICEDiscardOneRelayBindingForRemote(uint64_t a1, uint64_t a2, uint64_t a
       goto LABEL_16;
     }
 
-    if (*&v25[20] == *(a3 + 36))
+    if (*&v24[20] == *(a3 + 36))
     {
       break;
     }
@@ -7564,173 +7484,160 @@ LABEL_17:
     v13 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315906;
-      v17 = v12;
-      v18 = 2080;
-      v19 = "ICEDiscardOneRelayBindingForRemote";
-      v20 = 1024;
-      v21 = 2530;
-      v22 = 1024;
-      v23 = v11;
-      _os_log_impl(&dword_23D497000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d discard one relay binding %x", &v16, 0x22u);
+      v15 = 136315906;
+      v16 = v12;
+      v17 = 2080;
+      v18 = "ICEDiscardOneRelayBindingForRemote";
+      v19 = 1024;
+      v20 = 2530;
+      v21 = 1024;
+      v22 = v11;
+      _os_log_impl(&dword_23D497000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d discard one relay binding %x", &v15, 0x22u);
     }
   }
 
-LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t DiscardOneRelayBinding(pthread_t *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v9 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    *&v3 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&v9.__opaque[24] = v3;
-    *&v9.__opaque[40] = v3;
-    *&v9.__sig = v3;
-    *&v9.__opaque[8] = v3;
-    if (a2)
-    {
-      v4 = *(a2 + 160);
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 0x40000000;
-      v8[2] = __DiscardOneRelayBinding_block_invoke;
-      v8[3] = &__block_descriptor_tmp;
-      v8[4] = a1;
-      FreeEventsMatchingPredicate(v4, v8);
-    }
+    return 2148859926;
+  }
 
-    pthread_attr_init(&v9);
-    pthread_attr_setdetachstate(&v9, 2);
-    v5 = pthread_create(a1 + 3, &v9, RelayDiscardProc, a1);
-    pthread_attr_destroy(&v9);
-    if (v5)
-    {
-      result = v5 | 0xC0150000;
-    }
+  *&v3 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v8.__opaque[24] = v3;
+  *&v8.__opaque[40] = v3;
+  *&v8.__sig = v3;
+  *&v8.__opaque[8] = v3;
+  if (a2)
+  {
+    v4 = *(a2 + 160);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 0x40000000;
+    v7[2] = __DiscardOneRelayBinding_block_invoke;
+    v7[3] = &__block_descriptor_tmp;
+    v7[4] = a1;
+    FreeEventsMatchingPredicate(v4, v7);
+  }
 
-    else
-    {
-      result = 0;
-    }
+  pthread_attr_init(&v8);
+  pthread_attr_setdetachstate(&v8, 2);
+  v5 = pthread_create(a1 + 3, &v8, RelayDiscardProc, a1);
+  pthread_attr_destroy(&v8);
+  if (v5)
+  {
+    return v5 | 0xC0150000;
   }
 
   else
   {
-    result = 2148859926;
+    return 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t DiscardOneRelayBindingWithChannelNumber(uint64_t a1, int a2, int a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = 2148859925;
-  if (a1)
+  if (!a1)
   {
-    v36 = 0xAAAAAAAAAAAAAAAALL;
-    *&v7 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v34 = v7;
-    v35 = v7;
-    v32[0] = v7;
-    v32[1] = v7;
-    v33[0] = v7;
-    *(v33 + 14) = 0xAAAAAAAAAAAAAAAALL;
-    v30[0] = v7;
-    v30[1] = v7;
-    v31[0] = v7;
-    *(v31 + 14) = 0xAAAAAAAAAAAAAAAALL;
-    pthread_mutex_lock((a1 + 568));
-    v8 = *(a1 + 632);
-    if (v8)
+    return 2148859906;
+  }
+
+  v35 = 0xAAAAAAAAAAAAAAAALL;
+  *&v7 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v33 = v7;
+  v34 = v7;
+  v31[0] = v7;
+  v31[1] = v7;
+  v32[0] = v7;
+  *(v32 + 14) = 0xAAAAAAAAAAAAAAAALL;
+  v29[0] = v7;
+  v29[1] = v7;
+  v30[0] = v7;
+  *(v30 + 14) = 0xAAAAAAAAAAAAAAAALL;
+  pthread_mutex_lock((a1 + 568));
+  v8 = *(a1 + 632);
+  if (v8)
+  {
+    v9 = (a1 + 632);
+    while (1)
     {
-      v9 = (a1 + 632);
-      while (1)
+      if ((GetIPPortFromDict(*(v8 + 256), @"GKSRelayPeerRelayNatIP", @"GKSRelayPeerRelayNatPort", &v33) & 0x80000000) == 0)
       {
-        if ((GetIPPortFromDict(*(v8 + 256), @"GKSRelayPeerRelayNatIP", @"GKSRelayPeerRelayNatPort", &v34) & 0x80000000) == 0)
-        {
-          DWORD1(v35) = bswap32(DWORD1(v35));
-          if (*(v8 + 36) == a2 && *(v8 + 264) == a3)
-          {
-            break;
-          }
-        }
-
-        v9 = (v8 + 328);
-        v8 = *(v8 + 328);
-        if (!v8)
-        {
-          goto LABEL_8;
-        }
-      }
-
-      *v9 = *(v8 + 328);
-      pthread_mutex_lock((a1 + 168));
-      for (i = *(a1 + 232); i; i = *(i + 912))
-      {
-        if (*(i + 148) == a2)
+        DWORD1(v34) = bswap32(DWORD1(v34));
+        if (*(v8 + 36) == a2 && *(v8 + 264) == a3)
         {
           break;
         }
       }
 
-      pthread_mutex_unlock((a1 + 168));
-      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      v9 = (v8 + 328);
+      v8 = *(v8 + 328);
+      if (!v8)
       {
-        v11 = VRTraceErrorLogLevelToCSTR();
-        v12 = *MEMORY[0x277CE5818];
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-        {
-          v13 = IPPORTToStringWithSize(v32, v8 + 124, 0x36uLL);
-          v14 = IPPORTToStringWithSize(v30, &v34, 0x36uLL);
-          v15 = *(v8 + 264);
-          v18 = 136316418;
-          v19 = v11;
-          v20 = 2080;
-          v21 = "DiscardOneRelayBindingWithChannelNumber";
-          v22 = 1024;
-          v23 = 2574;
-          v24 = 2080;
-          v25 = v13;
-          v26 = 2080;
-          v27 = v14;
-          v28 = 1024;
-          v29 = v15;
-          _os_log_impl(&dword_23D497000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d relay %s - %s is torn down, channel#[%04X]", &v18, 0x36u);
-        }
+        goto LABEL_8;
       }
-
-      v3 = DiscardOneRelayBinding(v8, i);
     }
 
-    else
+    *v9 = *(v8 + 328);
+    pthread_mutex_lock((a1 + 168));
+    for (i = *(a1 + 232); i; i = *(i + 912))
     {
-LABEL_8:
-      if (VRTraceGetErrorLogLevelForModule() >= 3)
+      if (*(i + 148) == a2)
       {
-        VRTraceErrorLogLevelToCSTR();
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
-        {
-          DiscardOneRelayBindingWithChannelNumber_cold_1();
-        }
+        break;
       }
     }
 
-    pthread_mutex_unlock((a1 + 568));
+    pthread_mutex_unlock((a1 + 168));
+    if (VRTraceGetErrorLogLevelForModule() >= 7)
+    {
+      v11 = VRTraceErrorLogLevelToCSTR();
+      v12 = *MEMORY[0x277CE5818];
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = IPPORTToStringWithSize(v31, v8 + 124, 0x36uLL);
+        v14 = IPPORTToStringWithSize(v29, &v33, 0x36uLL);
+        v15 = *(v8 + 264);
+        v17 = 136316418;
+        v18 = v11;
+        v19 = 2080;
+        v20 = "DiscardOneRelayBindingWithChannelNumber";
+        v21 = 1024;
+        v22 = 2574;
+        v23 = 2080;
+        v24 = v13;
+        v25 = 2080;
+        v26 = v14;
+        v27 = 1024;
+        v28 = v15;
+        _os_log_impl(&dword_23D497000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d relay %s - %s is torn down, channel#[%04X]", &v17, 0x36u);
+      }
+    }
+
+    v3 = DiscardOneRelayBinding(v8, i);
   }
 
   else
   {
-    v3 = 2148859906;
+LABEL_8:
+    if (VRTraceGetErrorLogLevelForModule() >= 3)
+    {
+      VRTraceErrorLogLevelToCSTR();
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+      {
+        DiscardOneRelayBindingWithChannelNumber_cold_1();
+      }
+    }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  pthread_mutex_unlock((a1 + 568));
   return v3;
 }
 
@@ -7803,346 +7710,328 @@ LABEL_14:
   return v7;
 }
 
-uint64_t ICERefreshRelayBinding(uint64_t a1, int a2)
+uint64_t ICERefreshRelayBinding(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = micro();
+  v2 = a2;
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = micro(a1, a2);
   v4 = CheckInHandleDebug();
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    *&v6 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&v17.__opaque[24] = v6;
-    *&v17.__opaque[40] = v6;
-    *&v17.__sig = v6;
-    *&v17.__opaque[8] = v6;
-    pthread_mutex_lock((v4 + 568));
-    v7 = *(v5 + 632);
-    if (v7)
+    return 2148859906;
+  }
+
+  v5 = v4;
+  *&v6 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v16.__opaque[24] = v6;
+  *&v16.__opaque[40] = v6;
+  *&v16.__sig = v6;
+  *&v16.__opaque[8] = v6;
+  pthread_mutex_lock((v4 + 568));
+  v7 = *(v5 + 632);
+  if (v7)
+  {
+    v8 = 0;
+    do
     {
-      v8 = 0;
-      do
+      if (*(v7 + 36) == v2 && v3 - *(v7 + 248) > 20.0)
       {
-        if (*(v7 + 36) == a2 && v3 - *(v7 + 248) > 20.0)
+        v9 = malloc_type_malloc(0x150uLL, 0x10A0040062F5B3BuLL);
+        if (v9)
         {
-          v9 = malloc_type_malloc(0x150uLL, 0x10A0040062F5B3BuLL);
-          if (v9)
+          v10 = v9;
+          memcpy(v9, v7, 0x150uLL);
+          v11 = *(v7 + 256);
+          if (v11)
           {
-            v10 = v9;
-            memcpy(v9, v7, 0x150uLL);
-            v11 = *(v7 + 256);
-            if (v11)
+            v10[32] = CFRetain(v11);
+          }
+
+          pthread_attr_init(&v16);
+          pthread_attr_setdetachstate(&v16, 2);
+          v15 = 0xAAAAAAAAAAAAAAAALL;
+          v12 = pthread_create(&v15, &v16, RelayRefreshProc, v10);
+          pthread_attr_destroy(&v16);
+          if (v12)
+          {
+            v13 = v10[32];
+            if (v13)
             {
-              v10[32] = CFRetain(v11);
+              CFRelease(v13);
             }
 
-            pthread_attr_init(&v17);
-            pthread_attr_setdetachstate(&v17, 2);
-            v16 = 0xAAAAAAAAAAAAAAAALL;
-            v12 = pthread_create(&v16, &v17, RelayRefreshProc, v10);
-            pthread_attr_destroy(&v17);
-            if (v12)
-            {
-              v13 = v10[32];
-              if (v13)
-              {
-                CFRelease(v13);
-              }
-
-              v8 = v12 | 0xC0150000;
-              free(v10);
-            }
+            v8 = v12 | 0xC0150000;
+            free(v10);
           }
         }
-
-        v7 = *(v7 + 328);
       }
 
-      while (v7);
+      v7 = *(v7 + 328);
     }
 
-    else
-    {
-      v8 = 0;
-    }
-
-    pthread_mutex_unlock((v5 + 568));
-    CheckOutHandleDebug();
+    while (v7);
   }
 
   else
   {
-    v8 = 2148859906;
+    v8 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  pthread_mutex_unlock((v5 + 568));
+  CheckOutHandleDebug();
   return v8;
 }
 
-uint64_t ICERefreshAllRelayBinding()
+uint64_t ICERefreshAllRelayBinding(uint64_t a1)
 {
   v16 = *MEMORY[0x277D85DE8];
-  v0 = CheckInHandleDebug();
-  if (v0)
+  v1 = CheckInHandleDebug();
+  if (!v1)
   {
-    v1 = v0;
-    pthread_mutex_lock((v0 + 568));
-    v2 = *(v1 + 632);
-    if (v2)
+    return 2148859906;
+  }
+
+  v2 = v1;
+  pthread_mutex_lock((v1 + 568));
+  v3 = *(v2 + 632);
+  if (v3)
+  {
+    v4 = 0;
+    do
     {
-      v3 = 0;
-      do
+      v5 = malloc_type_malloc(0x150uLL, 0x10A0040062F5B3BuLL);
+      if (v5)
       {
-        v4 = malloc_type_malloc(0x150uLL, 0x10A0040062F5B3BuLL);
-        if (v4)
+        v6 = v5;
+        memcpy(v5, v3, 0x150uLL);
+        v7 = v3[32];
+        if (v7)
         {
-          v5 = v4;
-          memcpy(v4, v2, 0x150uLL);
-          v6 = v2[32];
-          if (v6)
-          {
-            v5[32] = CFRetain(v6);
-          }
-
-          v5[41] = 0;
-          *&v7 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *&v15.__opaque[24] = v7;
-          *&v15.__opaque[40] = v7;
-          *&v15.__sig = v7;
-          *&v15.__opaque[8] = v7;
-          pthread_attr_init(&v15);
-          pthread_attr_setdetachstate(&v15, 2);
-          v14 = 0xAAAAAAAAAAAAAAAALL;
-          v8 = pthread_create(&v14, &v15, RelayRefreshProc, v5);
-          pthread_attr_destroy(&v15);
-          if (v8)
-          {
-            v9 = v5[32];
-            if (v9)
-            {
-              CFRelease(v9);
-            }
-
-            v3 = v8 | 0xC0150000;
-            free(v5);
-          }
+          v6[32] = CFRetain(v7);
         }
 
-        else
+        v6[41] = 0;
+        *&v8 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        *&v15.__opaque[24] = v8;
+        *&v15.__opaque[40] = v8;
+        *&v15.__sig = v8;
+        *&v15.__opaque[8] = v8;
+        pthread_attr_init(&v15);
+        pthread_attr_setdetachstate(&v15, 2);
+        v14 = 0xAAAAAAAAAAAAAAAALL;
+        v9 = pthread_create(&v14, &v15, RelayRefreshProc, v6);
+        pthread_attr_destroy(&v15);
+        if (v9)
         {
-          v3 = 2148859907;
-          if (VRTraceGetErrorLogLevelForModule() >= 3)
+          v10 = v6[32];
+          if (v10)
           {
-            v10 = VRTraceErrorLogLevelToCSTR();
-            v11 = *MEMORY[0x277CE5818];
-            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
-            {
-              LODWORD(v15.__sig) = 136315906;
-              *(&v15.__sig + 4) = v10;
-              *&v15.__opaque[4] = 2080;
-              *&v15.__opaque[6] = "ICERefreshAllRelayBinding";
-              *&v15.__opaque[14] = 1024;
-              *&v15.__opaque[16] = 2698;
-              *&v15.__opaque[20] = 1024;
-              *&v15.__opaque[22] = 2698;
-              _os_log_error_impl(&dword_23D497000, v11, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: malloc failed!", &v15, 0x22u);
-            }
+            CFRelease(v10);
           }
-        }
 
-        v2 = v2[41];
+          v4 = v9 | 0xC0150000;
+          free(v6);
+        }
       }
 
-      while (v2);
+      else
+      {
+        v4 = 2148859907;
+        if (VRTraceGetErrorLogLevelForModule() >= 3)
+        {
+          v11 = VRTraceErrorLogLevelToCSTR();
+          v12 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+          {
+            LODWORD(v15.__sig) = 136315906;
+            *(&v15.__sig + 4) = v11;
+            *&v15.__opaque[4] = 2080;
+            *&v15.__opaque[6] = "ICERefreshAllRelayBinding";
+            *&v15.__opaque[14] = 1024;
+            *&v15.__opaque[16] = 2698;
+            *&v15.__opaque[20] = 1024;
+            *&v15.__opaque[22] = 2698;
+            _os_log_error_impl(&dword_23D497000, v12, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: malloc failed!", &v15, 0x22u);
+          }
+        }
+      }
+
+      v3 = v3[41];
     }
 
-    else
-    {
-      v3 = 0;
-    }
-
-    pthread_mutex_unlock((v1 + 568));
-    CheckOutHandleDebug();
+    while (v3);
   }
 
   else
   {
-    v3 = 2148859906;
+    v4 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v3;
+  pthread_mutex_unlock((v2 + 568));
+  CheckOutHandleDebug();
+  return v4;
 }
 
-uint64_t ICEStopConnectivityCheck(uint64_t a1, int a2)
+uint64_t ICEStopConnectivityCheck(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v18 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
     v3 = VRTraceErrorLogLevelToCSTR();
     v4 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315906;
-      v12 = v3;
-      v13 = 2080;
-      v14 = "ICEStopConnectivityCheck";
-      v15 = 1024;
-      v16 = 2734;
-      v17 = 1024;
-      v18 = a2;
-      _os_log_impl(&dword_23D497000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEStopConnectivityCheck() callID=%d", &v11, 0x22u);
+      v10 = 136315906;
+      v11 = v3;
+      v12 = 2080;
+      v13 = "ICEStopConnectivityCheck";
+      v14 = 1024;
+      v15 = 2734;
+      v16 = 1024;
+      v17 = v2;
+      _os_log_impl(&dword_23D497000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEStopConnectivityCheck() callID=%d", &v10, 0x22u);
     }
   }
 
   v5 = 2148859926;
   v6 = CheckInHandleDebug();
-  if (v6)
+  if (!v6)
   {
-    v7 = v6;
-    pthread_mutex_lock((v6 + 168));
-    v8 = *(v7 + 232);
-    if (v8)
-    {
-      while (*(v8 + 148) != a2)
-      {
-        v8 = *(v8 + 912);
-        if (!v8)
-        {
-          goto LABEL_8;
-        }
-      }
+    return 2148859906;
+  }
 
-      *(v8 + 136) = 1;
-      pthread_mutex_unlock((v7 + 168));
-      v5 = 0;
-    }
-
-    else
+  v7 = v6;
+  pthread_mutex_lock((v6 + 168));
+  v8 = *(v7 + 232);
+  if (v8)
+  {
+    while (*(v8 + 148) != v2)
     {
-LABEL_8:
-      pthread_mutex_unlock((v7 + 168));
-      if (VRTraceGetErrorLogLevelForModule() >= 3)
+      v8 = *(v8 + 912);
+      if (!v8)
       {
-        VRTraceErrorLogLevelToCSTR();
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
-        {
-          ICEStopConnectivityCheck_cold_1();
-        }
+        goto LABEL_8;
       }
     }
 
-    CheckOutHandleDebug();
+    *(v8 + 136) = 1;
+    pthread_mutex_unlock((v7 + 168));
+    v5 = 0;
   }
 
   else
   {
-    v5 = 2148859906;
+LABEL_8:
+    pthread_mutex_unlock((v7 + 168));
+    if (VRTraceGetErrorLogLevelForModule() >= 3)
+    {
+      VRTraceErrorLogLevelToCSTR();
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+      {
+        ICEStopConnectivityCheck_cold_1();
+      }
+    }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  CheckOutHandleDebug();
   return v5;
 }
 
-uint64_t ICESetSKEState(uint64_t a1, int a2, uint64_t a3)
+uint64_t ICESetSKEState(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v22 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
     v6 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136316162;
-      v14 = v5;
-      v15 = 2080;
-      v16 = "ICESetSKEState";
-      v17 = 1024;
-      v18 = 2767;
-      v19 = 1024;
-      v20 = a2;
-      v21 = 2048;
-      v22 = a3;
-      _os_log_impl(&dword_23D497000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICESetSKEState() callID=%d pSKEState=%p", &v13, 0x2Cu);
+      v12 = 136316162;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "ICESetSKEState";
+      v16 = 1024;
+      v17 = 2767;
+      v18 = 1024;
+      v19 = v4;
+      v20 = 2048;
+      v21 = a3;
+      _os_log_impl(&dword_23D497000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICESetSKEState() callID=%d pSKEState=%p", &v12, 0x2Cu);
     }
   }
 
   v7 = 2148859926;
   v8 = CheckInHandleDebug();
-  if (v8)
+  if (!v8)
   {
-    v9 = v8;
-    pthread_mutex_lock((v8 + 168));
-    v10 = *(v9 + 232);
-    if (v10)
-    {
-      while (*(v10 + 148) != a2)
-      {
-        v10 = *(v10 + 912);
-        if (!v10)
-        {
-          goto LABEL_8;
-        }
-      }
+    return 2148859906;
+  }
 
-      pthread_mutex_lock((v10 + 16));
-      *(v10 + 896) = a3;
-      pthread_mutex_unlock((v10 + 16));
-      pthread_mutex_unlock((v9 + 168));
-      v7 = 0;
-    }
-
-    else
+  v9 = v8;
+  pthread_mutex_lock((v8 + 168));
+  v10 = *(v9 + 232);
+  if (v10)
+  {
+    while (*(v10 + 148) != v4)
     {
-LABEL_8:
-      pthread_mutex_unlock((v9 + 168));
-      if (VRTraceGetErrorLogLevelForModule() >= 3)
+      v10 = *(v10 + 912);
+      if (!v10)
       {
-        VRTraceErrorLogLevelToCSTR();
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
-        {
-          ICESetSKEState_cold_1();
-        }
+        goto LABEL_8;
       }
     }
 
-    CheckOutHandleDebug();
+    pthread_mutex_lock((v10 + 16));
+    *(v10 + 896) = a3;
+    pthread_mutex_unlock((v10 + 16));
+    pthread_mutex_unlock((v9 + 168));
+    v7 = 0;
   }
 
   else
   {
-    v7 = 2148859906;
+LABEL_8:
+    pthread_mutex_unlock((v9 + 168));
+    if (VRTraceGetErrorLogLevelForModule() >= 3)
+    {
+      VRTraceErrorLogLevelToCSTR();
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+      {
+        ICESetSKEState_cold_1();
+      }
+    }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  CheckOutHandleDebug();
   return v7;
 }
 
-uint64_t ICEGetExtIPPorts(uint64_t a1, _BYTE *a2, int a3, uint64_t a4)
+uint64_t ICEGetExtIPPorts(uint64_t a1, _BYTE *a2, unsigned int a3, uint64_t a4)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   SNATMAPServer = 2148859906;
   if (!a2 || (*a2 & 1) != 0)
   {
-    SNATMAPServer = 2148859905;
-    goto LABEL_108;
+    return 2148859905;
   }
 
-  v95 = 0xAAAAAAAAAAAAAAAALL;
+  v96 = 0xAAAAAAAAAAAAAAAALL;
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v95 = v8;
   v94 = v8;
-  v93 = v8;
   memset(__b, 170, sizeof(__b));
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v90[0] = v9;
-  v90[1] = v9;
   v91[0] = v9;
-  *(v91 + 14) = 0xAAAAAAAAAAAAAAAALL;
-  v74 = -1431655766;
+  v91[1] = v9;
+  v92[0] = v9;
+  *(v92 + 14) = 0xAAAAAAAAAAAAAAAALL;
+  v75 = -1431655766;
   v10 = CheckInHandleDebug();
   if (!v10)
   {
@@ -8155,19 +8044,19 @@ uint64_t ICEGetExtIPPorts(uint64_t a1, _BYTE *a2, int a3, uint64_t a4)
       }
     }
 
-    goto LABEL_108;
+    return SNATMAPServer;
   }
 
   v11 = v10;
-  v70 = *(v10 + 16);
+  v71 = *(v10 + 16);
   v12 = v10 + 452;
   if (IsIPPORTValid(v10 + 452))
   {
     SNATMAPServer = 0;
     v13 = *(v12 + 16);
-    v93 = *v12;
-    v94 = v13;
-    v95 = *(v12 + 32);
+    v94 = *v12;
+    v95 = v13;
+    v96 = *(v12 + 32);
   }
 
   else
@@ -8187,18 +8076,18 @@ uint64_t ICEGetExtIPPorts(uint64_t a1, _BYTE *a2, int a3, uint64_t a4)
       goto LABEL_107;
     }
 
-    v14 = v94;
-    *v12 = v93;
+    v14 = v95;
+    *v12 = v94;
     *(v12 + 16) = v14;
-    *(v12 + 32) = v95;
+    *(v12 + 32) = v96;
   }
 
-  v69 = a2;
-  v68 = a4;
+  v70 = a2;
+  v69 = a4;
   pthread_mutex_lock((v11 + 96));
-  v71 = v11;
-  v72 = a3;
-  v65 = a3;
+  v72 = v11;
+  v73 = a3;
+  v66 = a3;
   if (a3 < 1)
   {
     v17 = 0;
@@ -8217,7 +8106,7 @@ uint64_t ICEGetExtIPPorts(uint64_t a1, _BYTE *a2, int a3, uint64_t a4)
       goto LABEL_46;
     }
 
-    v19 = &v69[40 * v15];
+    v19 = &v70[40 * v15];
     while (1)
     {
       if (!IsIPPORTValid(v19))
@@ -8252,7 +8141,7 @@ uint64_t ICEGetExtIPPorts(uint64_t a1, _BYTE *a2, int a3, uint64_t a4)
       v17 = *(v18 + 4);
       if (IsIPPORTValid(v18 + 96))
       {
-        v36 = v68 + 40 * v15;
+        v36 = v69 + 40 * v15;
         v37 = *(v18 + 96);
         v38 = *(v18 + 112);
         *(v36 + 32) = *(v18 + 128);
@@ -8261,8 +8150,8 @@ uint64_t ICEGetExtIPPorts(uint64_t a1, _BYTE *a2, int a3, uint64_t a4)
         goto LABEL_46;
       }
 
-      v74 = 1472;
-      SNATMAPRequest = MakeSNATMAPRequest(v16, v18 + 8, __b, &v74);
+      v75 = 1472;
+      SNATMAPRequest = MakeSNATMAPRequest(v16, v18 + 8, __b, &v75);
       if ((SNATMAPRequest & 0x80000000) == 0)
       {
         break;
@@ -8276,22 +8165,22 @@ uint64_t ICEGetExtIPPorts(uint64_t a1, _BYTE *a2, int a3, uint64_t a4)
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          v83 = v32;
-          v84 = 2080;
-          v85 = "ICEGetExtIPPorts";
-          v86 = 1024;
-          v87 = 2847;
-          v88 = 1024;
-          *v89 = 2847;
-          *&v89[4] = 1024;
-          *&v89[6] = SNATMAPServer;
+          v84 = v32;
+          v85 = 2080;
+          v86 = "ICEGetExtIPPorts";
+          v87 = 1024;
+          v88 = 2847;
+          v89 = 1024;
+          *v90 = 2847;
+          *&v90[4] = 1024;
+          *&v90[6] = SNATMAPServer;
           v30 = v33;
           v31 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: MakeSNATMAPRequest failed (%08X)\n";
           goto LABEL_43;
         }
 
 LABEL_44:
-        v11 = v71;
+        v11 = v72;
       }
 
 LABEL_45:
@@ -8302,7 +8191,7 @@ LABEL_45:
       }
     }
 
-    SNATMAPServer = v70(*(v11 + 8), 0, __b, v74, v18 + 8, &v93, 0, 0);
+    SNATMAPServer = v71(*(v11 + 8), 0, __b, v75, v18 + 8, &v94, 0, 0);
     ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
     if ((SNATMAPServer & 0x80000000) != 0)
     {
@@ -8313,15 +8202,15 @@ LABEL_45:
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          v83 = v34;
-          v84 = 2080;
-          v85 = "ICEGetExtIPPorts";
-          v86 = 1024;
-          v87 = 2855;
-          v88 = 1024;
-          *v89 = 2855;
-          *&v89[4] = 1024;
-          *&v89[6] = SNATMAPServer;
+          v84 = v34;
+          v85 = 2080;
+          v86 = "ICEGetExtIPPorts";
+          v87 = 1024;
+          v88 = 2855;
+          v89 = 1024;
+          *v90 = 2855;
+          *&v90[4] = 1024;
+          *&v90[6] = SNATMAPServer;
           v30 = v35;
           v31 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: UDPSENDCALLBACK failed (%08X)";
 LABEL_43:
@@ -8340,15 +8229,15 @@ LABEL_43:
       v25 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v26 = IPPORTToStringWithSize(v90, v18 + 8, 0x36uLL);
+        v26 = IPPORTToStringWithSize(v91, v18 + 8, 0x36uLL);
         *buf = 136315906;
-        v83 = v24;
-        v84 = 2080;
-        v85 = "ICEGetExtIPPorts";
-        v86 = 1024;
-        v87 = 2860;
-        v88 = 2080;
-        *v89 = v26;
+        v84 = v24;
+        v85 = 2080;
+        v86 = "ICEGetExtIPPorts";
+        v87 = 1024;
+        v88 = 2860;
+        v89 = 2080;
+        *v90 = v26;
         _os_log_impl(&dword_23D497000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d sent SNATMAP request for [%s]", buf, 0x26u);
       }
     }
@@ -8363,15 +8252,15 @@ LABEL_43:
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          v83 = v28;
-          v84 = 2080;
-          v85 = "ICEGetExtIPPorts";
-          v86 = 1024;
-          v87 = 2864;
-          v88 = 1024;
-          *v89 = 2864;
-          *&v89[4] = 1024;
-          *&v89[6] = 1592;
+          v84 = v28;
+          v85 = 2080;
+          v86 = "ICEGetExtIPPorts";
+          v87 = 1024;
+          v88 = 2864;
+          v89 = 1024;
+          *v90 = 2864;
+          *&v90[4] = 1024;
+          *&v90[6] = 1592;
           v30 = v29;
           v31 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: calloc(%d) failed";
           goto LABEL_43;
@@ -8385,16 +8274,16 @@ LABEL_43:
     *v27 = *v20 & 4;
     *(v27 + 2) = 1;
     v27[6] = 0;
-    *(v27 + 373) = v74;
+    *(v27 + 373) = v75;
     __memcpy_chk();
     v40 = *(v18 + 40);
     v41 = *(v18 + 24);
     *(v39 + 1496) = *v20;
     *(v39 + 1512) = v41;
     *(v39 + 191) = v40;
-    *(v39 + 196) = v95;
-    *(v39 + 97) = v94;
-    *(v39 + 96) = v93;
+    *(v39 + 196) = v96;
+    *(v39 + 97) = v95;
+    *(v39 + 96) = v94;
     if (v16)
     {
       v42 = v16;
@@ -8413,45 +8302,45 @@ LABEL_43:
       v16 = v39;
     }
 
-    v11 = v71;
+    v11 = v72;
 LABEL_46:
     ++v15;
   }
 
-  while (v15 != v72);
+  while (v15 != v73);
 LABEL_56:
-  pthread_mutex_unlock((v11 + 96));
-  *&v44 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v44 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v80 = v44;
-  *v81 = v44;
-  *&v81[16] = 0xAAAAAAAAAAAAAAAALL;
-  v78[0] = v44;
-  v78[1] = v44;
-  v79 = 0xAAAAAAAAAAAAAAAALL;
-  v75 = v44;
-  v76 = v44;
-  v77 = 0xAAAAAAAAAAAAAAAALL;
-  v73 = 0;
-  v45 = micro();
+  v44 = pthread_mutex_unlock((v11 + 96));
+  *&v45 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v45 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v81 = v45;
+  *v82 = v45;
+  *&v82[16] = 0xAAAAAAAAAAAAAAAALL;
+  v79[0] = v45;
+  v79[1] = v45;
+  v80 = 0xAAAAAAAAAAAAAAAALL;
+  v76 = v45;
+  v77 = v45;
+  v78 = 0xAAAAAAAAAAAAAAAALL;
+  v74 = 0;
+  v49 = micro(v44, v46);
   if (v16)
   {
-    v46 = v45;
-    v47 = *(v11 + 24);
+    v50 = v49;
+    v51 = *(v11 + 24);
     while (1)
     {
 LABEL_58:
-      v48 = v16;
-      while (*(v48 + 6))
+      v52 = v16;
+      while (*(v52 + 6))
       {
-        v48 = v48[198];
-        if (!v48)
+        v52 = v52[198];
+        if (!v52)
         {
           goto LABEL_106;
         }
       }
 
-      if (micro() - v46 >= 5.0)
+      if (micro(NonceValue, v48) - v50 >= 5.0)
       {
         SNATMAPServer = 2148859927;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -8467,106 +8356,114 @@ LABEL_58:
         goto LABEL_106;
       }
 
-      v49 = v47(*(v71 + 8), v17, __b, &v74, &v80, v78, &v73, 1000, 0);
-      SNATMAPServer = v49;
-      if ((v49 & 0x80000000) != 0)
+      NonceValue = v51(*(v72 + 8), v17, __b, &v75, &v81, v79, &v74, 1000, 0);
+      SNATMAPServer = NonceValue;
+      if ((NonceValue & 0x80000000) != 0)
       {
         break;
       }
 
-      v77 = 0;
-      v75 = 0u;
+      v78 = 0;
       v76 = 0u;
-      if (!__b[0] && v74 == 16 && (SNATMAP_GetNonceValue() & 0x80000000) == 0)
+      v77 = 0u;
+      if (!__b[0] && v75 == 16)
       {
-        v50 = FindSNATMAPRequest(v16, 2863311530, 0);
-        if (v50)
+        NonceValue = SNATMAP_GetNonceValue();
+        if ((NonceValue & 0x80000000) == 0)
         {
-          v51 = v50;
-          SNATMAPServer = ProcessSNATMAPResponse();
-          if ((SNATMAPServer & 0x80000000) != 0)
+          NonceValue = FindSNATMAPRequest(v16, 2863311530, 0);
+          if (NonceValue)
           {
-            if (VRTraceGetErrorLogLevelForModule() >= 3)
+            v53 = NonceValue;
+            SNATMAPServer = ProcessSNATMAPResponse();
+            if ((SNATMAPServer & 0x80000000) != 0)
+            {
+              NonceValue = VRTraceGetErrorLogLevelForModule();
+              if (NonceValue >= 3)
+              {
+                v68 = VRTraceErrorLogLevelToCSTR();
+                v61 = *MEMORY[0x277CE5818];
+                NonceValue = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
+                if (NonceValue)
+                {
+                  *buf = 136316162;
+                  v84 = v68;
+                  v85 = 2080;
+                  v86 = "ICEGetExtIPPorts";
+                  v87 = 1024;
+                  v88 = 2939;
+                  v89 = 1024;
+                  *v90 = 2939;
+                  *&v90[4] = 1024;
+                  *&v90[6] = SNATMAPServer;
+                  _os_log_error_impl(&dword_23D497000, v61, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ProcessSNATMAPResponse failed (%08X)", buf, 0x28u);
+                }
+              }
+
+              continue;
+            }
+
+            *(v53 + 6) = 1;
+            NonceValue = VRTraceGetErrorLogLevelForModule();
+            if (NonceValue >= 6)
             {
               v67 = VRTraceErrorLogLevelToCSTR();
-              v59 = *MEMORY[0x277CE5818];
-              if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+              v54 = *MEMORY[0x277CE5818];
+              NonceValue = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
+              if (NonceValue)
               {
-                *buf = 136316162;
-                v83 = v67;
-                v84 = 2080;
-                v85 = "ICEGetExtIPPorts";
-                v86 = 1024;
-                v87 = 2939;
-                v88 = 1024;
-                *v89 = 2939;
-                *&v89[4] = 1024;
-                *&v89[6] = SNATMAPServer;
-                _os_log_error_impl(&dword_23D497000, v59, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ProcessSNATMAPResponse failed (%08X)", buf, 0x28u);
+                v55 = IPPORTToStringWithSize(v91, &v76, 0x36uLL);
+                *buf = 136315906;
+                v84 = v67;
+                v85 = 2080;
+                v86 = "ICEGetExtIPPorts";
+                v87 = 1024;
+                v88 = 2944;
+                v89 = 2080;
+                *v90 = v55;
+                _os_log_impl(&dword_23D497000, v54, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SNATMAP mapping [%s]", buf, 0x26u);
               }
             }
 
-            continue;
-          }
-
-          *(v51 + 6) = 1;
-          if (VRTraceGetErrorLogLevelForModule() >= 6)
-          {
-            v66 = VRTraceErrorLogLevelToCSTR();
-            v52 = *MEMORY[0x277CE5818];
-            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            if (v66 >= 1)
             {
-              v53 = IPPORTToStringWithSize(v90, &v75, 0x36uLL);
-              *buf = 136315906;
-              v83 = v66;
-              v84 = 2080;
-              v85 = "ICEGetExtIPPorts";
-              v86 = 1024;
-              v87 = 2944;
-              v88 = 2080;
-              *v89 = v53;
-              _os_log_impl(&dword_23D497000, v52, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SNATMAP mapping [%s]", buf, 0x26u);
-            }
-          }
-
-          if (v65 >= 1)
-          {
-            v54 = v72;
-            v55 = v69 + 20;
-            v56 = v68;
-            while (1)
-            {
-              if ((v80 & 1) == (*(v55 - 5) & 1))
+              v56 = v73;
+              v57 = v70 + 20;
+              v58 = v69;
+              while (1)
               {
-                if (v80)
+                if ((v81 & 1) == (*(v57 - 5) & 1))
                 {
-                  if (*&v81[4] != *v55 || *&v81[12] != *(v55 + 1))
+                  if (v81)
+                  {
+                    if (*&v82[4] != *v57 || *&v82[12] != *(v57 + 1))
+                    {
+                      goto LABEL_84;
+                    }
+                  }
+
+                  else if (*&v82[4] != *v57)
                   {
                     goto LABEL_84;
                   }
-                }
 
-                else if (*&v81[4] != *v55)
-                {
-                  goto LABEL_84;
+                  if (*&v82[20] == *(v57 + 8))
+                  {
+                    v62 = v77;
+                    *v58 = v76;
+                    *(v58 + 16) = v62;
+                    *(v58 + 32) = v78;
+                    goto LABEL_58;
+                  }
                 }
-
-                if (*&v81[20] == *(v55 + 8))
-                {
-                  v60 = v76;
-                  *v56 = v75;
-                  *(v56 + 16) = v60;
-                  *(v56 + 32) = v77;
-                  goto LABEL_58;
-                }
-              }
 
 LABEL_84:
-              v56 += 40;
-              v55 += 40;
-              if (!--v54)
-              {
-                goto LABEL_58;
+                v58 += 40;
+                v57 += 40;
+                if (!--v56)
+                {
+                  goto LABEL_58;
+                }
               }
             }
           }
@@ -8574,14 +8471,14 @@ LABEL_84:
       }
     }
 
-    if (v49 == 23 || v49 == 30)
+    if (NonceValue == 23 || NonceValue == 30)
     {
-      ReXmitCollectionRequest(*(v71 + 8), *(v71 + 720), v16, v70);
+      NonceValue = ReXmitCollectionRequest(*(v72 + 8), *(v72 + 720), v16, v71);
       goto LABEL_58;
     }
 
-    v61 = VRTraceGetErrorLogLevelForModule();
-    if (v61 >= 3)
+    v63 = VRTraceGetErrorLogLevelForModule();
+    if (v63 >= 3)
     {
       VRTraceErrorLogLevelToCSTR();
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
@@ -8593,18 +8490,16 @@ LABEL_84:
     do
     {
 LABEL_106:
-      v62 = v16[198];
+      v64 = v16[198];
       free(v16);
-      v16 = v62;
+      v16 = v64;
     }
 
-    while (v62);
+    while (v64);
   }
 
 LABEL_107:
   CheckOutHandleDebug();
-LABEL_108:
-  v63 = *MEMORY[0x277D85DE8];
   return SNATMAPServer;
 }
 
@@ -8717,8 +8612,8 @@ LABEL_11:
 
 uint64_t ICEGetExtIPIndex(const __CFData *a1)
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v41 = 0;
+  v54 = *MEMORY[0x277D85DE8];
+  v39 = 0;
   if (a1)
   {
     Length = CFDataGetLength(a1);
@@ -8730,41 +8625,41 @@ uint64_t ICEGetExtIPIndex(const __CFData *a1)
       if (v5)
       {
         v6 = v5;
-        v40 = -1431655766;
-        v57.location = 0;
-        v57.length = v3 & 0x7FFFFFFF;
-        CFDataGetBytes(a1, v57, v5);
+        v38 = -1431655766;
+        v55.location = 0;
+        v55.length = v3 & 0x7FFFFFFF;
+        CFDataGetBytes(a1, v55, v5);
         v7 = CompressedCandidateByteOrderNToH(v6, v3);
         if (v7 < 0)
         {
-          v40 = v3 / 0x94;
-          if (v4 < 0x94 || (v27 = CFDataGetLength(a1), v28 = malloc_type_calloc(1uLL, v27, 0x1000040C185D105uLL), (v41 = v28) == 0))
+          v38 = v3 / 0x94;
+          if (v4 < 0x94 || (v27 = CFDataGetLength(a1), v28 = malloc_type_calloc(1uLL, v27, 0x1000040C185D105uLL), (v39 = v28) == 0))
           {
             LOWORD(v26) = -1;
 LABEL_61:
             free(v6);
-            goto LABEL_62;
+            return v26;
           }
 
           v29 = v28;
-          v58.location = 0;
-          v58.length = v3 & 0x7FFFFFFF;
-          CFDataGetBytes(a1, v58, v28);
+          v56.location = 0;
+          v56.length = v3 & 0x7FFFFFFF;
+          CFDataGetBytes(a1, v56, v28);
           if ((CandidateByteOrderNToH(v29, v3 / 0x94) & 0x80000000) != 0)
           {
             goto LABEL_59;
           }
         }
 
-        else if ((UncompressCandidateList(v6, v3, &v41, &v40) & 0x80000000) != 0)
+        else if ((UncompressCandidateList(v6, v3, &v39, &v38) & 0x80000000) != 0)
         {
           goto LABEL_59;
         }
 
-        if (v40 <= 0)
+        if (v38 <= 0)
         {
           LODWORD(v8) = 0;
-          v25 = v40 == 0;
+          v25 = v38 == 0;
           v10 = -1;
           v12 = -1;
         }
@@ -8772,7 +8667,7 @@ LABEL_61:
         else
         {
           v8 = 0;
-          v9 = v41 + 24;
+          v9 = v39 + 24;
           v10 = -1;
           v11 = -1;
           v12 = -1;
@@ -8853,10 +8748,10 @@ LABEL_61:
             v9 += 37;
           }
 
-          while (v40 != v8);
-          LODWORD(v8) = v40;
+          while (v38 != v8);
+          LODWORD(v8) = v38;
 LABEL_36:
-          v25 = v8 == v40;
+          v25 = v8 == v38;
           if ((v11 & 0x80000000) == 0)
           {
 LABEL_46:
@@ -8888,32 +8783,32 @@ LABEL_46:
                 if ((v26 & 0x8000) == 0)
                 {
 LABEL_70:
-                  *&v55[14] = 0xAAAAAAAAAAAAAAAALL;
-                  *&v36 = 0xAAAAAAAAAAAAAAAALL;
-                  *(&v36 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                  v54[1] = v36;
-                  *v55 = v36;
-                  v54[0] = v36;
+                  *&v53[14] = 0xAAAAAAAAAAAAAAAALL;
+                  *&v34 = 0xAAAAAAAAAAAAAAAALL;
+                  *(&v34 + 1) = 0xAAAAAAAAAAAAAAAALL;
+                  v52[1] = v34;
+                  *v53 = v34;
+                  v52[0] = v34;
                   if (VRTraceGetErrorLogLevelForModule() >= 7)
                   {
-                    v37 = VRTraceErrorLogLevelToCSTR();
-                    v38 = *MEMORY[0x277CE5818];
+                    v35 = VRTraceErrorLogLevelToCSTR();
+                    v36 = *MEMORY[0x277CE5818];
                     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                     {
-                      v39 = IPPORTToStringWithSize(v54, v41 + 148 * v31 + 24, 0x36uLL);
+                      v37 = IPPORTToStringWithSize(v52, v39 + 148 * v31 + 24, 0x36uLL);
                       *buf = 136316418;
-                      v43 = v37;
-                      v44 = 2080;
-                      v45 = "ICEGetExtIPIndex";
+                      v41 = v35;
+                      v42 = 2080;
+                      v43 = "ICEGetExtIPIndex";
+                      v44 = 1024;
+                      v45 = 3170;
                       v46 = 1024;
-                      v47 = 3170;
+                      v47 = v26;
                       v48 = 1024;
-                      v49 = v26;
-                      v50 = 1024;
-                      v51 = v3;
-                      v52 = 2080;
-                      v53 = v39;
-                      _os_log_impl(&dword_23D497000, v38, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetExtIPIndex: %d (blob length: %d) for %s", buf, 0x32u);
+                      v49 = v3;
+                      v50 = 2080;
+                      v51 = v37;
+                      _os_log_impl(&dword_23D497000, v36, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEGetExtIPIndex: %d (blob length: %d) for %s", buf, 0x32u);
                     }
                   }
                 }
@@ -8921,10 +8816,10 @@ LABEL_70:
 
               else
               {
-                LODWORD(v54[0]) = -1431655766;
+                LODWORD(v52[0]) = -1431655766;
                 *buf = -1431655766;
-                breakByte(*v6, v54, buf);
-                if (SLODWORD(v54[0]) < 1)
+                breakByte(*v6, v52, buf);
+                if (SLODWORD(v52[0]) < 1)
                 {
                   LODWORD(v32) = 0;
                   LOWORD(v26) = -1;
@@ -8934,11 +8829,11 @@ LABEL_70:
                 {
                   v32 = 0;
                   v26 = 1;
-                  while (*&v6[v26] != *(v41 + 37 * v31 + 11))
+                  while (*&v6[v26] != *(v39 + 37 * v31 + 11))
                   {
                     ++v32;
                     v26 += 4;
-                    if (LODWORD(v54[0]) == v32)
+                    if (LODWORD(v52[0]) == v32)
                     {
                       LOWORD(v26) = -1;
                       goto LABEL_67;
@@ -8946,15 +8841,15 @@ LABEL_70:
                   }
                 }
 
-                if (v32 == LODWORD(v54[0]))
+                if (v32 == LODWORD(v52[0]))
                 {
 LABEL_67:
                   if (VRTraceGetErrorLogLevelForModule() >= 3)
                   {
-                    v35 = VRTraceErrorLogLevelToCSTR();
+                    VRTraceErrorLogLevelToCSTR();
                     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
                     {
-                      ICEGetExtIPIndex_cold_1(v35, v54);
+                      ICEGetExtIPIndex_cold_1();
                       if ((v26 & 0x8000) == 0)
                       {
                         goto LABEL_70;
@@ -8972,7 +8867,7 @@ LABEL_67:
               }
 
 LABEL_60:
-              free(v41);
+              free(v39);
               goto LABEL_61;
             }
 
@@ -8989,23 +8884,21 @@ LABEL_59:
   }
 
   LOWORD(v26) = -1;
-LABEL_62:
-  v33 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
-uint64_t ICESetTimeout(double a1)
+uint64_t ICESetTimeout(uint64_t a1, double a2)
 {
-  v2 = CheckInHandleDebug();
-  if (!v2)
+  v3 = CheckInHandleDebug();
+  if (!v3)
   {
     return 2148859906;
   }
 
-  v3 = v2;
-  pthread_mutex_lock((v2 + 168));
-  *(v3 + 712) = a1;
-  pthread_mutex_unlock((v3 + 168));
+  v4 = v3;
+  pthread_mutex_lock((v3 + 168));
+  *(v4 + 712) = a2;
+  pthread_mutex_unlock((v4 + 168));
   CheckOutHandleDebug();
   return 0;
 }
@@ -9101,8 +8994,9 @@ uint64_t ICEConvertToNewCompression(unsigned __int8 **a1, int *a2, const void *a
   return v4;
 }
 
-uint64_t ICESetForceRelay(uint64_t a1, int a2)
+uint64_t ICESetForceRelay(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = 2148859906;
   v4 = CheckInHandleDebug();
   if (v4)
@@ -9112,7 +9006,7 @@ uint64_t ICESetForceRelay(uint64_t a1, int a2)
     v6 = *(v5 + 232);
     if (v6)
     {
-      while (*(v6 + 148) != a2)
+      while (*(v6 + 148) != v2)
       {
         v6 = *(v6 + 912);
         if (!v6)
@@ -9150,64 +9044,60 @@ LABEL_5:
 
 uint64_t ICESetForceIPv6(uint64_t a1, int a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = 2148859926;
   v4 = CheckInHandleDebug();
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    pthread_mutex_lock((v4 + 168));
-    v6 = *(v5 + 232);
-    if (v6)
+    return 2148859906;
+  }
+
+  v5 = v4;
+  pthread_mutex_lock((v4 + 168));
+  v6 = *(v5 + 232);
+  if (v6)
+  {
+    while (*(v6 + 148) != a2)
     {
-      while (*(v6 + 148) != a2)
+      v6 = *(v6 + 912);
+      if (!v6)
       {
-        v6 = *(v6 + 912);
-        if (!v6)
-        {
-          goto LABEL_11;
-        }
+        goto LABEL_11;
       }
-
-      *(v6 + 764) = 1;
-      if (VRTraceGetErrorLogLevelForModule() >= 7)
-      {
-        v7 = VRTraceErrorLogLevelToCSTR();
-        v8 = *MEMORY[0x277CE5818];
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-        {
-          v11 = 136315906;
-          v12 = v7;
-          v13 = 2080;
-          v14 = "ICESetForceIPv6";
-          v15 = 1024;
-          v16 = 3314;
-          v17 = 1024;
-          v18 = a2;
-          _os_log_impl(&dword_23D497000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Force IPv6 for call (%d).", &v11, 0x22u);
-        }
-      }
-
-      v3 = 0;
     }
 
+    *(v6 + 764) = 1;
+    if (VRTraceGetErrorLogLevelForModule() >= 7)
+    {
+      v7 = VRTraceErrorLogLevelToCSTR();
+      v8 = *MEMORY[0x277CE5818];
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = 136315906;
+        v11 = v7;
+        v12 = 2080;
+        v13 = "ICESetForceIPv6";
+        v14 = 1024;
+        v15 = 3314;
+        v16 = 1024;
+        v17 = a2;
+        _os_log_impl(&dword_23D497000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Force IPv6 for call (%d).", &v10, 0x22u);
+      }
+    }
+
+    v3 = 0;
+  }
+
 LABEL_11:
-    pthread_mutex_unlock((v5 + 168));
-    CheckOutHandleDebug();
-  }
-
-  else
-  {
-    v3 = 2148859906;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
+  pthread_mutex_unlock((v5 + 168));
+  CheckOutHandleDebug();
   return v3;
 }
 
-uint64_t ICEUpdateRole(uint64_t a1, int a2, int a3)
+uint64_t ICEUpdateRole(uint64_t a1, uint64_t a2, int a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v22 = *MEMORY[0x277D85DE8];
   v5 = CheckInHandleDebug();
   if (v5)
   {
@@ -9216,7 +9106,7 @@ uint64_t ICEUpdateRole(uint64_t a1, int a2, int a3)
     v7 = *(v6 + 232);
     if (v7)
     {
-      while (*(v7 + 148) != a2)
+      while (*(v7 + 148) != v4)
       {
         v7 = *(v7 + 912);
         if (!v7)
@@ -9239,17 +9129,17 @@ uint64_t ICEUpdateRole(uint64_t a1, int a2, int a3)
           v10 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            v13 = 136316162;
-            v14 = v9;
-            v15 = 2080;
-            v16 = "ICEUpdateRole";
-            v17 = 1024;
-            v18 = 3343;
-            v19 = 1024;
-            v20 = a2;
-            v21 = 1024;
-            v22 = a3;
-            _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Updated ICEList(%d) to role (%d)", &v13, 0x28u);
+            v12 = 136316162;
+            v13 = v9;
+            v14 = 2080;
+            v15 = "ICEUpdateRole";
+            v16 = 1024;
+            v17 = 3343;
+            v18 = 1024;
+            v19 = v4;
+            v20 = 1024;
+            v21 = a3;
+            _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Updated ICEList(%d) to role (%d)", &v12, 0x28u);
           }
         }
       }
@@ -9293,13 +9183,13 @@ LABEL_5:
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-uint64_t ICEUpdateServingNetworkInfo(uint64_t a1, int a2, int a3)
+uint64_t ICEUpdateServingNetworkInfo(uint64_t a1, uint64_t a2, int a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v22 = *MEMORY[0x277D85DE8];
   v5 = CheckInHandleDebug();
   if (v5)
   {
@@ -9308,7 +9198,7 @@ uint64_t ICEUpdateServingNetworkInfo(uint64_t a1, int a2, int a3)
     v7 = *(v6 + 232);
     if (v7)
     {
-      while (*(v7 + 148) != a2)
+      while (*(v7 + 148) != v4)
       {
         v7 = *(v7 + 912);
         if (!v7)
@@ -9324,17 +9214,17 @@ uint64_t ICEUpdateServingNetworkInfo(uint64_t a1, int a2, int a3)
         v10 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 136316162;
-          v14 = v9;
-          v15 = 2080;
-          v16 = "ICEUpdateServingNetworkInfo";
-          v17 = 1024;
-          v18 = 3376;
-          v19 = 1024;
-          v20 = a2;
-          v21 = 1024;
-          v22 = a3;
-          _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Call (%d) serving network QoS available (%d)", &v13, 0x28u);
+          v12 = 136316162;
+          v13 = v9;
+          v14 = 2080;
+          v15 = "ICEUpdateServingNetworkInfo";
+          v16 = 1024;
+          v17 = 3376;
+          v18 = 1024;
+          v19 = v4;
+          v20 = 1024;
+          v21 = a3;
+          _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Call (%d) serving network QoS available (%d)", &v12, 0x28u);
         }
       }
 
@@ -9377,13 +9267,13 @@ LABEL_5:
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-uint64_t ICEUpdateCellTech(uint64_t a1, int a2, int a3)
+uint64_t ICEUpdateCellTech(uint64_t a1, uint64_t a2, int a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v23 = *MEMORY[0x277D85DE8];
   v5 = CheckInHandleDebug();
   if (v5)
   {
@@ -9392,7 +9282,7 @@ uint64_t ICEUpdateCellTech(uint64_t a1, int a2, int a3)
     v7 = *(v6 + 232);
     if (v7)
     {
-      while (*(v7 + 148) != a2)
+      while (*(v7 + 148) != v4)
       {
         v7 = *(v7 + 912);
         if (!v7)
@@ -9408,17 +9298,17 @@ uint64_t ICEUpdateCellTech(uint64_t a1, int a2, int a3)
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
           v11 = *(v7 + 880);
-          v14 = 136316162;
-          v15 = v9;
-          v16 = 2080;
-          v17 = "ICEUpdateCellTech";
-          v18 = 1024;
-          v19 = 3408;
-          v20 = 1024;
-          v21 = v11;
-          v22 = 1024;
-          v23 = a3;
-          _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEUpdateCellTech (%d->%d)", &v14, 0x28u);
+          v13 = 136316162;
+          v14 = v9;
+          v15 = 2080;
+          v16 = "ICEUpdateCellTech";
+          v17 = 1024;
+          v18 = 3408;
+          v19 = 1024;
+          v20 = v11;
+          v21 = 1024;
+          v22 = a3;
+          _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ICEUpdateCellTech (%d->%d)", &v13, 0x28u);
         }
       }
 
@@ -9462,12 +9352,12 @@ LABEL_5:
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-uint64_t ICEGetCellTech(uint64_t a1, int a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6)
+uint64_t ICEGetCellTech(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6)
 {
+  v10 = a2;
   v11 = CheckInHandleDebug();
   if (v11)
   {
@@ -9476,7 +9366,7 @@ uint64_t ICEGetCellTech(uint64_t a1, int a2, _DWORD *a3, _DWORD *a4, _DWORD *a5,
     v13 = *(v12 + 232);
     if (v13)
     {
-      while (*(v13 + 148) != a2)
+      while (*(v13 + 148) != v10)
       {
         v13 = *(v13 + 912);
         if (!v13)
@@ -9531,9 +9421,10 @@ LABEL_5:
   return v14;
 }
 
-uint64_t ICEGetConnErrorCode(uint64_t a1, int a2, int *a3)
+uint64_t ICEGetConnErrorCode(uint64_t a1, uint64_t a2, int *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v30 = *MEMORY[0x277D85DE8];
   v5 = CheckInHandleDebug();
   if (v5)
   {
@@ -9542,7 +9433,7 @@ uint64_t ICEGetConnErrorCode(uint64_t a1, int a2, int *a3)
     v7 = *(v6 + 632);
     if (v7)
     {
-      while (*(v7 + 36) != a2)
+      while (*(v7 + 36) != v4)
       {
         v7 = *(v7 + 328);
         if (!v7)
@@ -9565,16 +9456,16 @@ uint64_t ICEGetConnErrorCode(uint64_t a1, int a2, int *a3)
       }
 
       v12 = *a3;
-      v21 = 136316162;
-      v22 = v10;
-      v23 = 2080;
-      v24 = "ICEGetConnErrorCode";
-      v25 = 1024;
-      v26 = 3475;
-      v27 = 1024;
-      v28 = a2;
-      v29 = 1024;
-      v30 = v12;
+      v20 = 136316162;
+      v21 = v10;
+      v22 = 2080;
+      v23 = "ICEGetConnErrorCode";
+      v24 = 1024;
+      v25 = 3475;
+      v26 = 1024;
+      v27 = v4;
+      v28 = 1024;
+      v29 = v12;
       v13 = " [%s] %s:%d Call (%d) failure code: %d";
       v14 = v11;
       v15 = 40;
@@ -9605,7 +9496,7 @@ LABEL_8:
         goto LABEL_23;
       }
 
-      while (*(v8 + 148) != a2)
+      while (*(v8 + 148) != v4)
       {
         v8 = *(v8 + 912);
         if (!v8)
@@ -9622,24 +9513,24 @@ LABEL_22:
 LABEL_23:
         pthread_mutex_unlock((v6 + 168));
         CheckOutHandleDebug();
-        goto LABEL_24;
+        return v9;
       }
 
       v18 = *a3;
-      v21 = 136315906;
-      v22 = v16;
-      v23 = 2080;
-      v24 = "ICEGetConnErrorCode";
-      v25 = 1024;
-      v26 = 3485;
-      v27 = 1024;
-      v28 = v18;
+      v20 = 136315906;
+      v21 = v16;
+      v22 = 2080;
+      v23 = "ICEGetConnErrorCode";
+      v24 = 1024;
+      v25 = 3485;
+      v26 = 1024;
+      v27 = v18;
       v13 = " [%s] %s:%d Relay Allocation failure code: %d";
       v14 = v17;
       v15 = 34;
     }
 
-    _os_log_impl(&dword_23D497000, v14, OS_LOG_TYPE_DEFAULT, v13, &v21, v15);
+    _os_log_impl(&dword_23D497000, v14, OS_LOG_TYPE_DEFAULT, v13, &v20, v15);
     goto LABEL_22;
   }
 
@@ -9653,20 +9544,18 @@ LABEL_23:
     }
   }
 
-LABEL_24:
-  v19 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-void ICEDisableCandidatePairFilter()
+void ICEDisableCandidatePairFilter(uint64_t a1)
 {
-  v0 = CheckInHandleDebug();
-  if (v0)
+  v1 = CheckInHandleDebug();
+  if (v1)
   {
-    v1 = v0;
-    pthread_mutex_lock((v0 + 168));
-    *(v1 + 88) = 1;
-    pthread_mutex_unlock((v1 + 168));
+    v2 = v1;
+    pthread_mutex_lock((v1 + 168));
+    *(v2 + 88) = 1;
+    pthread_mutex_unlock((v2 + 168));
 
     CheckOutHandleDebug();
   }
@@ -9679,4 +9568,118 @@ void ICEDisableCandidatePairFilter()
       ICEDisableCandidatePairFilter_cold_1();
     }
   }
+}
+
+void ICEInterfaceNeedsUpdateExternalMapping(uint64_t a1, _DWORD *a2)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  *&v18[14] = 0xAAAAAAAAAAAAAAAALL;
+  *&v2 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v17[1] = v2;
+  *v18 = v2;
+  v17[0] = v2;
+  if (a2)
+  {
+    *a2 = 0;
+    v4 = CheckInHandleDebug();
+    if (v4)
+    {
+      v5 = v4;
+      pthread_mutex_lock((v4 + 96));
+      v6 = *(v5 + 160);
+      if (v6)
+      {
+        while ((*(v6 + 8) & 1) != 0 && !*(v6 + 232) || IsIPPORTValid(v6 + 96))
+        {
+          v6 = *(v6 + 240);
+          if (!v6)
+          {
+            goto LABEL_19;
+          }
+        }
+
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        {
+          v7 = VRTraceErrorLogLevelToCSTR();
+          v8 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            v9 = 136315906;
+            v10 = v7;
+            v11 = 2080;
+            v12 = "ICEInterfaceNeedsUpdateExternalMapping";
+            v13 = 1024;
+            v14 = 3535;
+            v15 = 2080;
+            v16 = IPPORTToStringWithSize(v17, v6 + 8, 0x36uLL);
+            _os_log_impl(&dword_23D497000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: needs to update external mapping on interface [%s]", &v9, 0x26u);
+          }
+        }
+
+        *a2 = 1;
+      }
+
+LABEL_19:
+      pthread_mutex_unlock((v5 + 96));
+      CheckOutHandleDebug();
+    }
+
+    else if (VRTraceGetErrorLogLevelForModule() >= 3)
+    {
+      VRTraceErrorLogLevelToCSTR();
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+      {
+        ICEInterfaceNeedsUpdateExternalMapping_cold_1();
+      }
+    }
+  }
+
+  else if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+    {
+      ICEInterfaceNeedsUpdateExternalMapping_cold_2();
+    }
+  }
+}
+
+uint64_t ICESetEnableLoopbackInterface(uint64_t a1, int a2)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = CheckInHandleDebug();
+  if (!v3)
+  {
+    return 2148859906;
+  }
+
+  v4 = v3;
+  pthread_mutex_lock((v3 + 96));
+  *(v4 + 728) = a2;
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v5 = VRTraceErrorLogLevelToCSTR();
+    v6 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = 136316418;
+      v9 = v5;
+      v10 = 2080;
+      v11 = "ICESetEnableLoopbackInterface";
+      v12 = 1024;
+      v13 = 3556;
+      v14 = 1024;
+      v15 = 3556;
+      v16 = 2048;
+      v17 = v4;
+      v18 = 1024;
+      v19 = a2;
+      _os_log_impl(&dword_23D497000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICESetEnableLoopbackInterface pICEInfo=%p enableLoopbackInterface=%d", &v8, 0x32u);
+    }
+  }
+
+  pthread_mutex_unlock((v4 + 96));
+  CheckOutHandleDebug();
+  return 0;
 }

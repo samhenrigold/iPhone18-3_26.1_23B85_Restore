@@ -4,6 +4,8 @@
 - (HDSPEnvironment)environment;
 - (HDSPSleepActionManager)initWithEnvironment:(id)environment;
 - (NSString)sourceIdentifier;
+- (void)confirmWakeUp:(BOOL)up;
+- (void)confirmWakeUp:(BOOL)up date:(id)date;
 - (void)confirmWakeUp:(BOOL)up date:(id)date confirmUntilDate:(id)untilDate;
 - (void)dismissGoodMorning;
 - (void)dismissGoodMorningOnDate:(id)date;
@@ -17,11 +19,11 @@
 
 - (HDSPSleepActionManager)initWithEnvironment:(id)environment
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
-  v16.receiver = self;
-  v16.super_class = HDSPSleepActionManager;
-  v5 = [(HDSPSleepActionManager *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = HDSPSleepActionManager;
+  v5 = [(HDSPSleepActionManager *)&v15 init];
   if (v5)
   {
     v6 = HKSPLogForCategory();
@@ -29,9 +31,9 @@
     {
       v7 = objc_opt_class();
       *buf = 138543618;
-      v18 = v7;
-      v19 = 2048;
-      v20 = v5;
+      v17 = v7;
+      v18 = 2048;
+      v19 = v5;
       v8 = v7;
       _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@.%p] initializing...", buf, 0x16u);
     }
@@ -46,7 +48,6 @@
     v13 = v5;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -57,10 +58,72 @@
   return NSStringFromClass(v2);
 }
 
+- (void)confirmWakeUp:(BOOL)up
+{
+  upCopy = up;
+  *&v21[13] = *MEMORY[0x277D85DE8];
+  v5 = HKSPLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = v6;
+    environment = [(HDSPSleepActionManager *)self environment];
+    currentSource = [environment currentSource];
+    v18 = 138543874;
+    v19 = v6;
+    v20 = 1024;
+    *v21 = upCopy;
+    v21[2] = 2114;
+    *&v21[3] = currentSource;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] wake up early confirmed (wasExplicitConfirmation: %d, %{public}@)", &v18, 0x1Cu);
+  }
+
+  environment2 = [(HDSPSleepActionManager *)self environment];
+  sleepCoordinator = [environment2 sleepCoordinator];
+  [sleepCoordinator currentSleepScheduleState];
+
+  if (HKSPSleepScheduleStateIsForBedtime() & 1) != 0 || (HKSPSleepScheduleStateIsForWindDown())
+  {
+    environment3 = [(HDSPSleepActionManager *)self environment];
+    currentDateProvider = [environment3 currentDateProvider];
+    v14 = currentDateProvider[2]();
+
+    [(HDSPSleepActionManager *)self confirmWakeUp:upCopy date:v14];
+  }
+
+  else
+  {
+    v14 = HKSPLogForCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = objc_opt_class();
+      v16 = v15;
+      v17 = NSStringFromHKSPSleepScheduleState();
+      v18 = 138543618;
+      v19 = v15;
+      v20 = 2114;
+      *v21 = v17;
+      _os_log_impl(&dword_269B11000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring request to confirm wake up due to state %{public}@", &v18, 0x16u);
+    }
+  }
+}
+
+- (void)confirmWakeUp:(BOOL)up date:(id)date
+{
+  upCopy = up;
+  dateCopy = date;
+  environment = [(HDSPSleepActionManager *)self environment];
+  sleepScheduleModelManager = [environment sleepScheduleModelManager];
+  sleepScheduleModel = [sleepScheduleModelManager sleepScheduleModel];
+  v9 = [sleepScheduleModel computeConfirmedWakeUpUntilDateForEarlyWakeUpDate:dateCopy];
+
+  [(HDSPSleepActionManager *)self confirmWakeUp:upCopy date:dateCopy confirmUntilDate:v9];
+}
+
 - (void)confirmWakeUp:(BOOL)up date:(id)date confirmUntilDate:(id)untilDate
 {
   upCopy = up;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   untilDateCopy = untilDate;
   environment = [(HDSPSleepActionManager *)self environment];
@@ -73,15 +136,15 @@
     v14 = v13;
     source = [currentContext source];
     *buf = 138544386;
-    v35 = v13;
-    v36 = 2114;
-    v37 = dateCopy;
-    v38 = 2114;
-    v39 = untilDateCopy;
-    v40 = 1024;
-    v41 = upCopy;
-    v42 = 2114;
-    v43 = source;
+    v34 = v13;
+    v35 = 2114;
+    v36 = dateCopy;
+    v37 = 2114;
+    v38 = untilDateCopy;
+    v39 = 1024;
+    v40 = upCopy;
+    v41 = 2114;
+    v42 = source;
     _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] wake up notification confirmed at %{public}@, until %{public}@, (wasExplicitConfirmation: %d, %{public}@)", buf, 0x30u);
   }
 
@@ -93,59 +156,54 @@
   [v19 setWakeUpEarlyNotificationConfirmedDate:dateCopy];
   [v19 setWakeUpConfirmedUntilDate:untilDateCopy];
   environment3 = [(HDSPSleepActionManager *)self environment];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __62__HDSPSleepActionManager_confirmWakeUp_date_confirmUntilDate___block_invoke;
-  v28[3] = &unk_279C7CC40;
-  v29 = sleepScheduleModelManager;
-  v30 = v19;
-  v33 = upCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __62__HDSPSleepActionManager_confirmWakeUp_date_confirmUntilDate___block_invoke;
+  v27[3] = &unk_279C7CC40;
+  v28 = sleepScheduleModelManager;
+  v29 = v19;
+  v32 = upCopy;
   selfCopy = self;
-  v32 = currentContext;
+  v31 = currentContext;
   v21 = currentContext;
   v22 = v19;
   v23 = sleepScheduleModelManager;
   source2 = [v21 source];
   sourceIdentifier = [(HDSPSleepActionManager *)self sourceIdentifier];
   v26 = HDSPSourceByReplacingIdentifier(source2, sourceIdentifier);
-  [environment3 perform:v28 withSource:v26];
-
-  v27 = *MEMORY[0x277D85DE8];
+  [environment3 perform:v27 withSource:v26];
 }
 
 void __62__HDSPSleepActionManager_confirmWakeUp_date_confirmUntilDate___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v14 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __62__HDSPSleepActionManager_confirmWakeUp_date_confirmUntilDate___block_invoke_2;
-  v11[3] = &unk_279C7CC18;
-  v4 = *(a1 + 56);
-  v11[4] = *(a1 + 48);
-  v13 = *(a1 + 64);
-  v12 = v4;
-  LOBYTE(v3) = [v2 saveSleepEventRecord:v3 error:&v14 preNotifyBlock:v11];
-  v5 = v14;
-  if ((v3 & 1) == 0)
+  v16 = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  v11 = 0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __62__HDSPSleepActionManager_confirmWakeUp_date_confirmUntilDate___block_invoke_2;
+  v8[3] = &unk_279C7CC18;
+  v3 = *(a1 + 56);
+  v8[4] = *(a1 + 48);
+  v10 = *(a1 + 64);
+  v9 = v3;
+  LOBYTE(v2) = [v1 saveSleepEventRecord:v2 error:&v11 preNotifyBlock:v8];
+  v4 = v11;
+  if ((v2 & 1) == 0)
   {
-    v6 = HKSPLogForCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = HKSPLogForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 48);
-      v9 = objc_opt_class();
+      v6 = objc_opt_class();
       *buf = 138543618;
-      v16 = v9;
-      v17 = 2114;
-      v18 = v5;
-      v10 = v9;
-      _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save event record with error %{public}@", buf, 0x16u);
+      v13 = v6;
+      v14 = 2114;
+      v15 = v4;
+      v7 = v6;
+      _os_log_error_impl(&dword_269B11000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save event record with error %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 id __62__HDSPSleepActionManager_confirmWakeUp_date_confirmUntilDate___block_invoke_2(uint64_t a1)
@@ -195,7 +253,7 @@ id __62__HDSPSleepActionManager_confirmWakeUp_date_confirmUntilDate___block_invo
 
 - (void)dismissGoodMorningOnDate:(id)date
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   environment = [(HDSPSleepActionManager *)self environment];
   currentContext = [environment currentContext];
@@ -207,9 +265,9 @@ id __62__HDSPSleepActionManager_confirmWakeUp_date_confirmUntilDate___block_invo
     v9 = v8;
     source = [currentContext source];
     *buf = 138543618;
-    v33 = v8;
-    v34 = 2114;
-    v35 = source;
+    v32 = v8;
+    v33 = 2114;
+    v34 = source;
     _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Dismissing good morning (%{public}@)", buf, 0x16u);
   }
 
@@ -227,61 +285,56 @@ id __62__HDSPSleepActionManager_confirmWakeUp_date_confirmUntilDate___block_invo
     v17 = v16;
     goodMorningDismissedDate = [v14 goodMorningDismissedDate];
     *buf = 138543618;
-    v33 = v16;
-    v34 = 2114;
-    v35 = goodMorningDismissedDate;
+    v32 = v16;
+    v33 = 2114;
+    v34 = goodMorningDismissedDate;
     _os_log_impl(&dword_269B11000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Good morning was dismissed %{public}@", buf, 0x16u);
   }
 
   environment3 = [(HDSPSleepActionManager *)self environment];
-  v27 = MEMORY[0x277D85DD0];
-  v28 = sleepScheduleModelManager;
-  v29 = v14;
+  v26 = MEMORY[0x277D85DD0];
+  v27 = sleepScheduleModelManager;
+  v28 = v14;
   selfCopy = self;
-  v31 = currentContext;
+  v30 = currentContext;
   v20 = currentContext;
   v21 = v14;
   v22 = sleepScheduleModelManager;
   source2 = [v20 source];
   sourceIdentifier = [(HDSPSleepActionManager *)self sourceIdentifier];
   v25 = HDSPSourceByReplacingIdentifier(source2, sourceIdentifier);
-  [environment3 perform:&v27 withSource:v25];
-
-  v26 = *MEMORY[0x277D85DE8];
+  [environment3 perform:&v26 withSource:v25];
 }
 
 void __51__HDSPSleepActionManager_dismissGoodMorningOnDate___block_invoke(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
-  v3 = a1[5];
-  v13 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __51__HDSPSleepActionManager_dismissGoodMorningOnDate___block_invoke_2;
-  v11[3] = &unk_279C7CC90;
-  v4 = a1[7];
-  v11[4] = a1[6];
-  v12 = v4;
-  LOBYTE(v3) = [v2 saveSleepEventRecord:v3 error:&v13 preNotifyBlock:v11];
-  v5 = v13;
-  if ((v3 & 1) == 0)
+  v15 = *MEMORY[0x277D85DE8];
+  v1 = a1[4];
+  v2 = a1[5];
+  v10 = 0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __51__HDSPSleepActionManager_dismissGoodMorningOnDate___block_invoke_2;
+  v8[3] = &unk_279C7CC90;
+  v3 = a1[7];
+  v8[4] = a1[6];
+  v9 = v3;
+  LOBYTE(v2) = [v1 saveSleepEventRecord:v2 error:&v10 preNotifyBlock:v8];
+  v4 = v10;
+  if ((v2 & 1) == 0)
   {
-    v6 = HKSPLogForCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = HKSPLogForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[6];
-      v9 = objc_opt_class();
+      v6 = objc_opt_class();
       *buf = 138543618;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v5;
-      v10 = v9;
-      _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save event record with error %{public}@", buf, 0x16u);
+      v12 = v6;
+      v13 = 2114;
+      v14 = v4;
+      v7 = v6;
+      _os_log_error_impl(&dword_269B11000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save event record with error %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 id __51__HDSPSleepActionManager_dismissGoodMorningOnDate___block_invoke_2(uint64_t a1)
@@ -321,7 +374,7 @@ id __51__HDSPSleepActionManager_dismissGoodMorningOnDate___block_invoke_3(uint64
 
 - (void)dismissSleepLock
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   environment = [(HDSPSleepActionManager *)self environment];
   currentContext = [environment currentContext];
 
@@ -332,23 +385,21 @@ id __51__HDSPSleepActionManager_dismissGoodMorningOnDate___block_invoke_3(uint64
     v7 = v6;
     source = [currentContext source];
     *buf = 138543618;
-    v15 = v6;
-    v16 = 2114;
-    v17 = source;
+    v14 = v6;
+    v15 = 2114;
+    v16 = source;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Dismissed sleep lock (%{public}@)", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __42__HDSPSleepActionManager_dismissSleepLock__block_invoke;
-  v12[3] = &unk_279C7CCE0;
-  v12[4] = self;
-  v13 = currentContext;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __42__HDSPSleepActionManager_dismissSleepLock__block_invoke;
+  v11[3] = &unk_279C7CCE0;
+  v11[4] = self;
+  v12 = currentContext;
   v10 = currentContext;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v11];
 }
 
 void __42__HDSPSleepActionManager_dismissSleepLock__block_invoke(uint64_t a1, void *a2)
@@ -368,7 +419,7 @@ void __42__HDSPSleepActionManager_dismissSleepLock__block_invoke(uint64_t a1, vo
 
 - (void)sleepAlarmDismissedOnDate:(id)date source:(unint64_t)source
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   environment = [(HDSPSleepActionManager *)self environment];
   currentContext = [environment currentContext];
@@ -380,11 +431,11 @@ void __42__HDSPSleepActionManager_dismissSleepLock__block_invoke(uint64_t a1, vo
     v11 = v10;
     source = [currentContext source];
     *buf = 138543874;
-    v50 = v10;
-    v51 = 2114;
-    v52 = dateCopy;
-    v53 = 2114;
-    v54 = source;
+    v49 = v10;
+    v50 = 2114;
+    v51 = dateCopy;
+    v52 = 2114;
+    v53 = source;
     _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep alarm did dismiss: %{public}@ (%{public}@)", buf, 0x20u);
   }
 
@@ -402,9 +453,9 @@ void __42__HDSPSleepActionManager_dismissSleepLock__block_invoke(uint64_t a1, vo
       {
         v18 = objc_opt_class();
         *buf = 138543618;
-        v50 = v18;
-        v51 = 2114;
-        v52 = dateCopy;
+        v49 = v18;
+        v50 = 2114;
+        v51 = dateCopy;
         v19 = v18;
         _os_log_error_impl(&dword_269B11000, sleepScheduleModelManager, OS_LOG_TYPE_ERROR, "[%{public}@] ignoring sleepAlarm with old dismiss date: %{public}@", buf, 0x16u);
       }
@@ -432,9 +483,9 @@ void __42__HDSPSleepActionManager_dismissSleepLock__block_invoke(uint64_t a1, vo
           v39 = v38;
           v40 = NSStringFromHKSPSleepScheduleState();
           *buf = 138543618;
-          v50 = v38;
-          v51 = 2114;
-          v52 = v40;
+          v49 = v38;
+          v50 = 2114;
+          v51 = v40;
           _os_log_impl(&dword_269B11000, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring sleepAlarm dismissed outside of allowed window during %{public}@", buf, 0x16u);
         }
 
@@ -450,32 +501,32 @@ void __42__HDSPSleepActionManager_dismissSleepLock__block_invoke(uint64_t a1, vo
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       v31 = objc_opt_class();
-      v42 = v31;
+      v41 = v31;
       wakeUpAlarmDismissedDate = [v29 wakeUpAlarmDismissedDate];
       *buf = 138543618;
-      v50 = v31;
-      v51 = 2114;
-      v52 = wakeUpAlarmDismissedDate;
+      v49 = v31;
+      v50 = 2114;
+      v51 = wakeUpAlarmDismissedDate;
       _os_log_impl(&dword_269B11000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep alarm dismissed at %{public}@", buf, 0x16u);
     }
 
     environment5 = [(HDSPSleepActionManager *)self environment];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke;
-    v43[3] = &unk_279C7CD58;
-    v44 = sleepScheduleModelManager;
-    v45 = v29;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke;
+    v42[3] = &unk_279C7CD58;
+    v43 = sleepScheduleModelManager;
+    v44 = v29;
     selfCopy = self;
     sourceCopy = source;
-    v47 = currentContext;
+    v46 = currentContext;
     sleepScheduleModel = v29;
-    source2 = [v47 source];
+    source2 = [v46 source];
     sourceIdentifier = [(HDSPSleepActionManager *)self sourceIdentifier];
     v36 = HDSPSourceByReplacingIdentifier(source2, sourceIdentifier);
-    [environment5 perform:v43 withSource:v36];
+    [environment5 perform:v42 withSource:v36];
 
-    v27 = v44;
+    v27 = v43;
 LABEL_18:
 
 LABEL_19:
@@ -487,50 +538,45 @@ LABEL_19:
   {
     v20 = objc_opt_class();
     *buf = 138543362;
-    v50 = v20;
+    v49 = v20;
     v21 = v20;
     _os_log_fault_impl(&dword_269B11000, v15, OS_LOG_TYPE_FAULT, "[%{public}@] sleepAlarm has nil dismiss date", buf, 0xCu);
   }
 
 LABEL_20:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
-  v3 = a1[5];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke_2;
-  v12[3] = &unk_279C7CD30;
-  v5 = a1[7];
-  v4 = a1[8];
-  v12[4] = a1[6];
-  v14 = v4;
-  v15 = 0;
-  v13 = v5;
-  LOBYTE(v3) = [v2 saveSleepEventRecord:v3 error:&v15 preNotifyBlock:v12];
-  v6 = v15;
-  if ((v3 & 1) == 0)
+  v17 = *MEMORY[0x277D85DE8];
+  v1 = a1[4];
+  v2 = a1[5];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke_2;
+  v9[3] = &unk_279C7CD30;
+  v4 = a1[7];
+  v3 = a1[8];
+  v9[4] = a1[6];
+  v11 = v3;
+  v12 = 0;
+  v10 = v4;
+  LOBYTE(v2) = [v1 saveSleepEventRecord:v2 error:&v12 preNotifyBlock:v9];
+  v5 = v12;
+  if ((v2 & 1) == 0)
   {
-    v7 = HKSPLogForCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = HKSPLogForCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = a1[6];
-      v10 = objc_opt_class();
+      v7 = objc_opt_class();
       *buf = 138543618;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v6;
-      v11 = v10;
-      _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save event record with error %{public}@", buf, 0x16u);
+      v14 = v7;
+      v15 = 2114;
+      v16 = v5;
+      v8 = v7;
+      _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save event record with error %{public}@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke_2(void *a1)
@@ -576,7 +622,7 @@ id __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke_
 
 - (void)sleepAlarmSnoozedUntilDate:(id)date source:(unint64_t)source
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   environment = [(HDSPSleepActionManager *)self environment];
   currentContext = [environment currentContext];
@@ -588,11 +634,11 @@ id __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke_
     v11 = v10;
     source = [currentContext source];
     *buf = 138543874;
-    v36 = v10;
-    v37 = 2114;
-    v38 = dateCopy;
-    v39 = 2114;
-    v40 = source;
+    v35 = v10;
+    v36 = 2114;
+    v37 = dateCopy;
+    v38 = 2114;
+    v39 = source;
     _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep alarm did snooze: %{public}@ (%{public}@)", buf, 0x20u);
   }
 
@@ -610,20 +656,20 @@ id __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke_
     v19 = v18;
     wakeUpAlarmSnoozedUntilDate = [v16 wakeUpAlarmSnoozedUntilDate];
     *buf = 138543618;
-    v36 = v18;
-    v37 = 2114;
-    v38 = wakeUpAlarmSnoozedUntilDate;
+    v35 = v18;
+    v36 = 2114;
+    v37 = wakeUpAlarmSnoozedUntilDate;
     _os_log_impl(&dword_269B11000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep alarm snoozed until %{public}@", buf, 0x16u);
   }
 
   environment3 = [(HDSPSleepActionManager *)self environment];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __60__HDSPSleepActionManager_sleepAlarmSnoozedUntilDate_source___block_invoke;
-  v29[3] = &unk_279C7CD58;
-  v30 = sleepScheduleModelManager;
-  v31 = v16;
-  v33 = currentContext;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __60__HDSPSleepActionManager_sleepAlarmSnoozedUntilDate_source___block_invoke;
+  v28[3] = &unk_279C7CD58;
+  v29 = sleepScheduleModelManager;
+  v30 = v16;
+  v32 = currentContext;
   sourceCopy = source;
   selfCopy = self;
   v22 = currentContext;
@@ -632,45 +678,40 @@ id __59__HDSPSleepActionManager_sleepAlarmDismissedOnDate_source___block_invoke_
   source2 = [v22 source];
   sourceIdentifier = [(HDSPSleepActionManager *)self sourceIdentifier];
   v27 = HDSPSourceByReplacingIdentifier(source2, sourceIdentifier);
-  [environment3 perform:v29 withSource:v27];
-
-  v28 = *MEMORY[0x277D85DE8];
+  [environment3 perform:v28 withSource:v27];
 }
 
 void __60__HDSPSleepActionManager_sleepAlarmSnoozedUntilDate_source___block_invoke(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
-  v3 = a1[5];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __60__HDSPSleepActionManager_sleepAlarmSnoozedUntilDate_source___block_invoke_2;
-  v12[3] = &unk_279C7CD30;
-  v5 = a1[7];
-  v4 = a1[8];
-  v12[4] = a1[6];
-  v14 = v4;
-  v15 = 0;
-  v13 = v5;
-  LOBYTE(v3) = [v2 saveSleepEventRecord:v3 error:&v15 preNotifyBlock:v12];
-  v6 = v15;
-  if ((v3 & 1) == 0)
+  v17 = *MEMORY[0x277D85DE8];
+  v1 = a1[4];
+  v2 = a1[5];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __60__HDSPSleepActionManager_sleepAlarmSnoozedUntilDate_source___block_invoke_2;
+  v9[3] = &unk_279C7CD30;
+  v4 = a1[7];
+  v3 = a1[8];
+  v9[4] = a1[6];
+  v11 = v3;
+  v12 = 0;
+  v10 = v4;
+  LOBYTE(v2) = [v1 saveSleepEventRecord:v2 error:&v12 preNotifyBlock:v9];
+  v5 = v12;
+  if ((v2 & 1) == 0)
   {
-    v7 = HKSPLogForCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = HKSPLogForCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = a1[6];
-      v10 = objc_opt_class();
+      v7 = objc_opt_class();
       *buf = 138543618;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v6;
-      v11 = v10;
-      _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save event record with error %{public}@", buf, 0x16u);
+      v14 = v7;
+      v15 = 2114;
+      v16 = v5;
+      v8 = v7;
+      _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save event record with error %{public}@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id __60__HDSPSleepActionManager_sleepAlarmSnoozedUntilDate_source___block_invoke_2(void *a1)
@@ -791,7 +832,7 @@ LABEL_5:
 
 void __47__HDSPSleepActionManager_sleepAlarmWasModified__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = HKSPNilify();
   v6 = v5;
@@ -800,17 +841,16 @@ void __47__HDSPSleepActionManager_sleepAlarmWasModified__block_invoke(uint64_t a
     v7 = HKSPLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
       *buf = 138543618;
-      v53 = objc_opt_class();
-      v54 = 2114;
-      v55 = v4;
-      v9 = v53;
-      v10 = "[%{public}@] fetch alarms failed with error: %{public}@";
-      v11 = v7;
-      v12 = 22;
+      v42 = objc_opt_class();
+      v43 = 2114;
+      v44 = v4;
+      v8 = v42;
+      v9 = "[%{public}@] fetch alarms failed with error: %{public}@";
+      v10 = v7;
+      v11 = 22;
 LABEL_4:
-      _os_log_error_impl(&dword_269B11000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
+      _os_log_error_impl(&dword_269B11000, v10, OS_LOG_TYPE_ERROR, v9, buf, v11);
     }
   }
 
@@ -824,136 +864,122 @@ LABEL_4:
         goto LABEL_19;
       }
 
-      v47 = *(a1 + 32);
       *buf = 138543362;
-      v53 = objc_opt_class();
-      v9 = v53;
-      v10 = "[%{public}@] no sleep alarms found";
-      v11 = v7;
-      v12 = 12;
+      v42 = objc_opt_class();
+      v8 = v42;
+      v9 = "[%{public}@] no sleep alarms found";
+      v10 = v7;
+      v11 = 12;
       goto LABEL_4;
     }
 
-    v13 = [*(a1 + 32) environment];
-    v7 = [v13 currentContext];
+    v12 = [*(a1 + 32) environment];
+    v7 = [v12 currentContext];
 
-    v14 = HKSPLogForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = HKSPLogForCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 32);
-      v16 = objc_opt_class();
-      v17 = v16;
-      v18 = [v7 source];
+      v14 = objc_opt_class();
+      v15 = v14;
+      v16 = [v7 source];
       *buf = 138543618;
-      v53 = v16;
-      v54 = 2114;
-      v55 = v18;
-      _os_log_impl(&dword_269B11000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep alarms modified (%{public}@)", buf, 0x16u);
+      v42 = v14;
+      v43 = 2114;
+      v44 = v16;
+      _os_log_impl(&dword_269B11000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep alarms modified (%{public}@)", buf, 0x16u);
     }
 
-    v19 = *(a1 + 32);
-    v20 = [objc_opt_class() _latestDateInAlarms:v6 dateBlock:&__block_literal_global_24];
-    v21 = HKSPLogForCategory();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v17 = [objc_opt_class() _latestDateInAlarms:v6 dateBlock:&__block_literal_global_24];
+    v18 = HKSPLogForCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = *(a1 + 32);
+      v19 = objc_opt_class();
+      *buf = 138543618;
+      v42 = v19;
+      v43 = 2114;
+      v44 = v17;
+      v20 = v19;
+      _os_log_impl(&dword_269B11000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] latest sleep alarm modified date: %{public}@", buf, 0x16u);
+    }
+
+    v21 = [objc_opt_class() _latestDateInAlarms:v6 dateBlock:&__block_literal_global_313_0];
+    v22 = HKSPLogForCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
       v23 = objc_opt_class();
       *buf = 138543618;
-      v53 = v23;
-      v54 = 2114;
-      v55 = v20;
+      v42 = v23;
+      v43 = 2114;
+      v44 = v21;
       v24 = v23;
-      _os_log_impl(&dword_269B11000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] latest sleep alarm modified date: %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_269B11000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] latest sleep alarm snooze date: %{public}@", buf, 0x16u);
     }
 
-    v25 = *(a1 + 32);
-    v26 = [objc_opt_class() _latestDateInAlarms:v6 dateBlock:&__block_literal_global_313_0];
-    v27 = HKSPLogForCategory();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v25 = [*(a1 + 32) environment];
+    v26 = [v25 sleepScheduleModelManager];
+
+    v27 = [v26 sleepEventRecord];
+    v28 = [v27 mutableCopy];
+
+    if (([objc_opt_class() _isValidSnoozeDate:v21] & 1) == 0)
     {
-      v28 = *(a1 + 32);
       v29 = objc_opt_class();
-      *buf = 138543618;
-      v53 = v29;
-      v54 = 2114;
-      v55 = v26;
-      v30 = v29;
-      _os_log_impl(&dword_269B11000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] latest sleep alarm snooze date: %{public}@", buf, 0x16u);
-    }
+      v30 = [v28 wakeUpAlarmSnoozedUntilDate];
+      LODWORD(v29) = [v29 _isValidSnoozeDate:v30];
 
-    v31 = [*(a1 + 32) environment];
-    v32 = [v31 sleepScheduleModelManager];
-
-    v33 = [v32 sleepEventRecord];
-    v34 = [v33 mutableCopy];
-
-    v35 = *(a1 + 32);
-    if (([objc_opt_class() _isValidSnoozeDate:v26] & 1) == 0)
-    {
-      v36 = *(a1 + 32);
-      v37 = objc_opt_class();
-      v38 = [v34 wakeUpAlarmSnoozedUntilDate];
-      LODWORD(v37) = [v37 _isValidSnoozeDate:v38];
-
-      if (v37)
+      if (v29)
       {
-        v39 = HKSPLogForCategory();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        v31 = HKSPLogForCategory();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v40 = *(a1 + 32);
-          v41 = objc_opt_class();
+          v32 = objc_opt_class();
           *buf = 138543362;
-          v53 = v41;
-          v42 = v41;
-          _os_log_impl(&dword_269B11000, v39, OS_LOG_TYPE_DEFAULT, "[%{public}@] snooze date was reset", buf, 0xCu);
+          v42 = v32;
+          v33 = v32;
+          _os_log_impl(&dword_269B11000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] snooze date was reset", buf, 0xCu);
         }
 
-        [v34 setWakeUpAlarmSnoozedUntilDate:0];
-        v43 = [*(a1 + 32) environment];
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = __47__HDSPSleepActionManager_sleepAlarmWasModified__block_invoke_314;
-        v48[3] = &unk_279C7C050;
-        v49 = v32;
-        v44 = v34;
-        v45 = *(a1 + 32);
-        v50 = v44;
-        v51 = v45;
-        [v43 perform:v48 withSource:?];
+        [v28 setWakeUpAlarmSnoozedUntilDate:0];
+        v34 = [*(a1 + 32) environment];
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __47__HDSPSleepActionManager_sleepAlarmWasModified__block_invoke_314;
+        v37[3] = &unk_279C7C050;
+        v38 = v26;
+        v35 = v28;
+        v36 = *(a1 + 32);
+        v39 = v35;
+        v40 = v36;
+        [v34 perform:v37 withSource:?];
       }
     }
   }
 
 LABEL_19:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HDSPSleepActionManager_sleepAlarmWasModified__block_invoke_314(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
-  v11 = 0;
-  v4 = [v2 saveSleepEventRecord:v3 error:&v11];
-  v5 = v11;
+  v9 = 0;
+  v4 = [v2 saveSleepEventRecord:v3 error:&v9];
+  v5 = v9;
   if ((v4 & 1) == 0)
   {
     v6 = HKSPLogForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[6];
-      v9 = objc_opt_class();
+      v7 = objc_opt_class();
       *buf = 138543618;
-      v13 = v9;
-      v14 = 2114;
-      v15 = v5;
-      v10 = v9;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v5;
+      v8 = v7;
       _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save event record with error %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSPEnvironment)environment

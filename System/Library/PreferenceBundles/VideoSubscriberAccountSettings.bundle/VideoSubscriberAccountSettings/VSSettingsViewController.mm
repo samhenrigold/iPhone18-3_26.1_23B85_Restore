@@ -10,6 +10,7 @@
 - (void)_presentError:(id)error withAccount:(id)account;
 - (void)_removeCurrentChildViewControllerIfNecessary;
 - (void)_setupAppropriateChildViewController;
+- (void)_showLoadingViewControllerWithTitle:(id)title andSpinner:(BOOL)spinner;
 - (void)_startSigningOutOfAccount:(id)account withAccountInfoViewController:(id)controller;
 - (void)_updateChildViewController:(id)controller searchController:(id)searchController rightBarButtonItem:(id)item;
 - (void)accountInfoViewController:(id)controller didSelectEditAccountForAccount:(id)account identityProvider:(id)provider;
@@ -29,7 +30,9 @@
 - (void)remoteNotifier:(id)notifier didReceiveRemoteNotificationWithUserInfo:(id)info;
 - (void)setCurrentChildViewController:(id)controller;
 - (void)setCurrentOperation:(id)operation;
+- (void)setReadyToHandleDeepLinks:(BOOL)links;
 - (void)setSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)willMoveToParentViewController:(id)controller;
@@ -585,6 +588,24 @@
   [(VSSettingsViewController *)self _loadAppropriateChildViewController];
 }
 
+- (void)_showLoadingViewControllerWithTitle:(id)title andSpinner:(BOOL)spinner
+{
+  spinnerCopy = spinner;
+  titleCopy = title;
+  v6 = +[VSViewControllerFactory sharedFactory];
+  loadingViewController = [v6 loadingViewController];
+  forceUnwrapObject = [loadingViewController forceUnwrapObject];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [forceUnwrapObject setLoadingTitle:titleCopy];
+    [forceUnwrapObject setIsAnimating:spinnerCopy];
+  }
+
+  [(VSSettingsViewController *)self _updateChildViewController:forceUnwrapObject searchController:0 rightBarButtonItem:0];
+}
+
 - (void)_updateChildViewController:(id)controller searchController:(id)searchController rightBarButtonItem:(id)item
 {
   controllerCopy = controller;
@@ -670,6 +691,64 @@
   }
 }
 
+- (void)setReadyToHandleDeepLinks:(BOOL)links
+{
+  linksCopy = links;
+  v5 = VSDefaultLogObject();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSString vs_yesNoStringValueFromBool:linksCopy];
+    v13 = 138412290;
+    v14 = v6;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "_readyToHandleDeepLinks=%@", &v13, 0xCu);
+  }
+
+  self->_readyToHandleDeepLinks = linksCopy;
+  if (linksCopy)
+  {
+    currentOperation = [(VSSettingsViewController *)self currentOperation];
+    [(VSSettingsViewController *)self enqueueOperation:currentOperation];
+
+    specifierID = [(VSSettingsViewModel *)self->_settingsVM specifierID];
+    accountStore = [(VSPersistentStorage *)self->_storage accountStore];
+    firstAccountIfLoaded = [accountStore firstAccountIfLoaded];
+
+    if (specifierID)
+    {
+      v11 = firstAccountIfLoaded == 0;
+    }
+
+    else
+    {
+      v11 = 1;
+    }
+
+    if (!v11 && self->_accountInfoViewController)
+    {
+      if (([specifierID isEqualToString:@"signIn"] & 1) == 0)
+      {
+        if ([specifierID isEqualToString:@"signOut"])
+        {
+          [(VSSettingsViewController *)self handleDestination:@"signOut" completion:&stru_18B28];
+        }
+
+        else
+        {
+          v12 = VSDefaultLogObject();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          {
+            v13 = 138412290;
+            v14 = specifierID;
+            _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Unhandled Deeplink SpecifierID: %@", &v13, 0xCu);
+          }
+        }
+      }
+
+      [(VSSettingsViewModel *)self->_settingsVM setSpecifierID:0];
+    }
+  }
+}
+
 - (void)enqueueOperation:(id)operation
 {
   operationCopy = operation;
@@ -728,6 +807,21 @@
   [navigationItem setLargeTitleDisplayMode:2];
   dialogObserver = [(VSSettingsViewController *)self dialogObserver];
   [dialogObserver startListening];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = VSSettingsViewController;
+  [(VSSettingsViewController *)&v10 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.General/TV_PROVIDER"];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = +[NSBundle vs_frameworkBundle];
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"TV_PROVIDER_TITLE" table:0 locale:v6 bundleURL:bundleURL];
+
+  [(VSSettingsViewController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.tv-provider" title:v9 localizedNavigationComponents:&__NSArray0__struct deepLink:v4];
 }
 
 - (void)viewDidLayoutSubviews

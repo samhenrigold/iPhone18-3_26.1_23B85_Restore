@@ -20,14 +20,13 @@
 {
   v4 = sub_22911B8DC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22911B8CC();
   selfCopy = self;
-  sub_2289B6550(v8);
+  sub_2289B6550(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)stop
@@ -38,7 +37,7 @@
 
 - (void)historicalSwimmingDataDidUpdate:(id)update reference:(id)reference
 {
-  type metadata accessor for HDCMSwimData();
+  type metadata accessor for HDCMSwimData(0);
   v6 = sub_22911C45C();
   referenceCopy = reference;
   selfCopy = self;

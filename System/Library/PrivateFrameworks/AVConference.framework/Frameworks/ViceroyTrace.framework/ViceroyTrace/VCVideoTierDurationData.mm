@@ -80,14 +80,14 @@ LABEL_7:
 
 - (void)updateWithPayload:(id)payload
 {
-  v5 = micro();
+  v5 = micro(self, a2);
 
   [(VCVideoTierDurationData *)self updateWithPayload:payload time:v5];
 }
 
 - (void)updateWithPayload:(id)payload time:(double)time
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = [objc_msgSend(payload objectForKeyedSubscript:{@"Width", "intValue"}];
   v8 = [objc_msgSend(payload objectForKeyedSubscript:{@"Height", "intValue"}];
   v9 = [(VCVideoTierDurationData *)self resolutionForVideoWidth:v7 height:v8];
@@ -99,33 +99,26 @@ LABEL_7:
       v11 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
       {
-        v14 = 136316162;
-        v15 = v10;
-        v16 = 2080;
-        v17 = "[VCVideoTierDurationData updateWithPayload:time:]";
+        v12 = 136316162;
+        v13 = v10;
+        v14 = 2080;
+        v15 = "[VCVideoTierDurationData updateWithPayload:time:]";
+        v16 = 1024;
+        v17 = 73;
         v18 = 1024;
-        v19 = 73;
+        v19 = v7;
         v20 = 1024;
-        v21 = v7;
-        v22 = 1024;
-        v23 = v8;
-        _os_log_error_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_ERROR, " [%s] %s:%d Reported invalid video width=%d height=%d", &v14, 0x28u);
+        v21 = v8;
+        _os_log_error_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_ERROR, " [%s] %s:%d Reported invalid video width=%d height=%d", &v12, 0x28u);
       }
     }
-
-    goto LABEL_6;
   }
 
-  if (v9 == self->_currentReceivedVideoResolution)
+  else if (v9 != self->_currentReceivedVideoResolution)
   {
-LABEL_6:
-    v12 = *MEMORY[0x277D85DE8];
-    return;
+
+    [(VCVideoTierDurationData *)self updateCurrentReceivedVideoResolution:v9 time:time];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-
-  [(VCVideoTierDurationData *)self updateCurrentReceivedVideoResolution:v9 time:time];
 }
 
 - (void)accumulate:(id)accumulate
@@ -179,14 +172,13 @@ LABEL_6:
 
 - (void)finalize
 {
-  v3 = micro();
+  v3 = micro(self, a2);
 
   [(VCVideoTierDurationData *)self updateCurrentReceivedVideoResolution:0x7FFFFFFFLL time:v3];
 }
 
 - (void)init
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -195,27 +187,24 @@ LABEL_6:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accumulate:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!OUTLINED_FUNCTION_14_0())
     {
-      goto LABEL_9;
+      return;
     }
 
     OUTLINED_FUNCTION_3_3();
@@ -223,7 +212,7 @@ LABEL_6:
     OUTLINED_FUNCTION_1();
 LABEL_11:
     _os_log_error_impl(v2, v3, v4, v5, v6, v7);
-    goto LABEL_9;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -242,25 +231,21 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accumulate:(void *)a1 .cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!OUTLINED_FUNCTION_14_0())
     {
-      goto LABEL_9;
+      return;
     }
 
     OUTLINED_FUNCTION_3_3();
@@ -268,7 +253,7 @@ LABEL_9:
     OUTLINED_FUNCTION_1();
 LABEL_11:
     _os_log_error_impl(v2, v3, v4, v5, v6, v7);
-    goto LABEL_9;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -287,9 +272,6 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

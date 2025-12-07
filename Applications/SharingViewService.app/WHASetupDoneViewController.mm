@@ -11,60 +11,59 @@
 - (void)handleReportBugButton:(id)button
 {
   buttonCopy = button;
-  v25[0] = @"Classification";
-  v25[1] = @"ComponentID";
-  v26[0] = @"Serious Bug";
-  v26[1] = @"768684";
-  v25[2] = @"ComponentName";
-  v25[3] = @"ComponentVersion";
-  v26[2] = @"Proximity Setup";
-  v26[3] = @"all";
-  v25[4] = @"ExtensionIdentifiers";
-  v25[5] = @"Reproducibility";
-  v26[4] = @"com.apple.DiagnosticExtensions.Bluetooth";
-  v26[5] = @"I Didn't Try";
-  v25[6] = @"Title";
+  v24[0] = @"Classification";
+  v24[1] = @"ComponentID";
+  v25[0] = @"Serious Bug";
+  v25[1] = @"768684";
+  v24[2] = @"ComponentName";
+  v24[3] = @"ComponentVersion";
+  v25[2] = @"Proximity Setup";
+  v25[3] = @"all";
+  v24[4] = @"ExtensionIdentifiers";
+  v24[5] = @"Reproducibility";
+  v25[4] = @"com.apple.DiagnosticExtensions.Bluetooth";
+  v25[5] = @"I Didn't Try";
+  v24[6] = @"Title";
   if (*(&self->_status + 1))
   {
-    v19 = *(&self->_status + 1);
+    NSPrintF("WHASetup: Proximity Setup Failed: %{error}", *(&self->_status + 1));
   }
 
   else
   {
-    v19 = *(&self->_infoLabel + 1);
+    NSPrintF("WHASetup: Proximity Setup Failed: %#m", *(&self->_infoLabel + 1));
   }
-
-  v5 = NSPrintF();
-  v26[6] = v5;
-  v6 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:7, v19];
+  v5 = ;
+  v25[6] = v5;
+  v6 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:7];
 
   v7 = +[NSMutableArray array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = [v8 objectForKeyedSubscript:v13];
         v15 = [NSURLQueryItem queryItemWithName:v13 value:v14];
         [v7 addObject:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
@@ -78,7 +77,7 @@
 
   if (dword_1001BF408 <= 50 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupDoneViewController handleReportBugButton:]", 50, "Report Bug\n");
   }
 }
 
@@ -87,7 +86,7 @@
   buttonCopy = button;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupDoneViewController handleDismissButton:]", 30, "Done button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -98,7 +97,7 @@
   buttonCopy = button;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupDoneViewController handleActionButton:]", 30, "Action button\n");
   }
 
   v5 = *(&self->_infoLabel + 1) - 301000;
@@ -128,7 +127,7 @@
   disappearCopy = disappear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupDoneViewController viewDidDisappear:]", 30, "Done ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -141,7 +140,7 @@
   appearCopy = appear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupDoneViewController viewWillAppear:]", 30, "Done ViewWillAppear\n");
   }
 
   v30.receiver = self;

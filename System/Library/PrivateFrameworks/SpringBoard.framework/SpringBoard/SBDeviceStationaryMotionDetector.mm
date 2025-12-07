@@ -67,7 +67,7 @@ LABEL_5:
 
 void __106__SBDeviceStationaryMotionDetector_queryWithStationaryThresholdTime_pickUpBufferTime_callbackOnMainQueue___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEAA8] now];
   [v4 timeIntervalSince1970];
@@ -75,72 +75,75 @@ void __106__SBDeviceStationaryMotionDetector_queryWithStationaryThresholdTime_pi
   [*(a1 + 32) timeIntervalSince1970];
   v8 = v7;
 
-  v9 = SBLogStationaryMotionDetector();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SBLogStationaryMotionDetector(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v34 = v6 - v8;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "CMMotionActivityManager responded in %0.2f seconds.", buf, 0xCu);
+    v35 = v6 - v8;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "CMMotionActivityManager responded in %0.2f seconds.", buf, 0xCu);
   }
 
-  v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v27 = v3;
-  v10 = [v3 reverseObjectEnumerator];
-  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v11)
+  v30 = 0u;
+  v28 = v3;
+  v11 = [v3 reverseObjectEnumerator];
+  v12 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v29;
-    v14 = 1.79769313e308;
+    v13 = v12;
+    v14 = *v30;
     v15 = 1.79769313e308;
+    v16 = 1.79769313e308;
 LABEL_5:
-    v16 = 0;
+    v17 = 0;
     while (1)
     {
-      if (*v29 != v13)
+      if (*v30 != v14)
       {
-        objc_enumerationMutation(v10);
+        objc_enumerationMutation(v11);
       }
 
-      v17 = *(*(&v28 + 1) + 8 * v16);
-      v18 = SBLogStationaryMotionDetector();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v18 = *(*(&v29 + 1) + 8 * v17);
+      v19 = SBLogStationaryMotionDetector(v12);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v34 = *&v17;
-        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Processing Activity %{public}@", buf, 0xCu);
+        v35 = *&v18;
+        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Processing Activity %{public}@", buf, 0xCu);
       }
 
-      if (v15 != 1.79769313e308 && v14 != 1.79769313e308)
+      if (v16 != 1.79769313e308 && v15 != 1.79769313e308)
       {
         break;
       }
 
       [*(a1 + 32) timeIntervalSince1970];
-      v20 = v19;
-      v21 = [(__CFString *)v17 startDate];
-      [v21 timeIntervalSince1970];
-      v23 = v20 - v22;
+      v21 = v20;
+      v22 = [(__CFString *)v18 startDate];
+      [v22 timeIntervalSince1970];
+      v24 = v21 - v23;
 
-      if (([(__CFString *)v17 stationary]& 1) != 0 || v14 != 1.79769313e308)
+      v12 = [(__CFString *)v18 stationary];
+      if ((v12 & 1) != 0 || v15 != 1.79769313e308)
       {
-        if (([(__CFString *)v17 stationary]& (v15 == 1.79769313e308)) != 0)
+        v12 = [(__CFString *)v18 stationary];
+        if ((v12 & (v16 == 1.79769313e308)) != 0)
         {
-          v15 = v23;
+          v16 = v24;
         }
       }
 
       else
       {
-        v14 = v23;
+        v15 = v24;
       }
 
-      if (v12 == ++v16)
+      if (v13 == ++v17)
       {
-        v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v13 = v12;
         if (v12)
         {
           goto LABEL_5;
@@ -153,30 +156,30 @@ LABEL_5:
 
   else
   {
-    v14 = 1.79769313e308;
     v15 = 1.79769313e308;
+    v16 = 1.79769313e308;
   }
 
-  v24 = [SBDeviceStationaryMotionDetector stateFromTimeSinceLastStationary:v15 timeSinceLastNonStationary:v14 stationaryThreshold:*(a1 + 48) pickUpBuffer:*(a1 + 56)];
-  v25 = SBLogStationaryMotionDetector();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v25 = [SBDeviceStationaryMotionDetector stateFromTimeSinceLastStationary:v16 timeSinceLastNonStationary:v15 stationaryThreshold:*(a1 + 48) pickUpBuffer:*(a1 + 56)];
+  v26 = SBLogStationaryMotionDetector(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    if (v24 > 2)
+    if (v25 > 2)
     {
-      *&v26 = COERCE_DOUBLE(@"No Description");
+      *&v27 = COERCE_DOUBLE(@"No Description");
     }
 
     else
     {
-      v26 = off_2783B0BC0[v24];
+      v27 = off_2783B0BC0[v25];
     }
 
     *buf = 138543362;
-    v34 = *&v26;
-    _os_log_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_DEFAULT, "Resolved state %{public}@", buf, 0xCu);
+    v35 = *&v27;
+    _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Resolved state %{public}@", buf, 0xCu);
   }
 
-  (*(*(a1 + 40) + 16))(v15, v14);
+  (*(*(a1 + 40) + 16))(v16, v15);
 }
 
 + (int64_t)stateFromTimeSinceLastStationary:(double)stationary timeSinceLastNonStationary:(double)nonStationary stationaryThreshold:(double)threshold pickUpBuffer:(double)buffer

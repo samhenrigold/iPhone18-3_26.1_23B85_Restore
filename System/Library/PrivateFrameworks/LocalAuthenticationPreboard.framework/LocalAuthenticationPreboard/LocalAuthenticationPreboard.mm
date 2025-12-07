@@ -18,7 +18,7 @@ __CFString *NSStringFromLAPreboardUseCase(uint64_t a1)
   }
 }
 
-uint64_t static LocalizedStrings.confirmationAlertEnableBatchMessage(items:)(uint64_t a1)
+uint64_t static LocalizedStrings.confirmationAlertEnableBatchMessage(items:)(unint64_t a1)
 {
   _StringGuts.grow(_:)(42);
 
@@ -28,7 +28,7 @@ uint64_t static LocalizedStrings.confirmationAlertEnableBatchMessage(items:)(uin
   v3 = a1 >> 62;
   if (a1 >> 62)
   {
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
   v4 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
@@ -40,7 +40,7 @@ LABEL_3:
   v24 = v32;
   if (v3)
   {
-    if (a1 < 0)
+    if ((a1 & 0x8000000000000000) != 0)
     {
       v20 = a1;
     }
@@ -75,7 +75,7 @@ LABEL_5:
           v3 = v7 + 1;
           if (__OFADD__(v7, 1))
           {
-            goto LABEL_30;
+            goto LABEL_31;
           }
         }
 
@@ -84,19 +84,19 @@ LABEL_5:
           v2 = *(v9 + 16);
           if (v7 >= v2)
           {
-            goto LABEL_31;
+            goto LABEL_32;
           }
 
           v10 = *(a1 + 8 * v7 + 32);
           v3 = v7 + 1;
           if (__OFADD__(v7, 1))
           {
-LABEL_30:
-            __break(1u);
 LABEL_31:
             __break(1u);
 LABEL_32:
-            if (a1 < 0)
+            __break(1u);
+LABEL_33:
+            if ((a1 & 0x8000000000000000) != 0)
             {
               v23 = a1;
             }
@@ -167,7 +167,7 @@ LABEL_16:
         ++v7;
         if (v3 == v6)
         {
-          goto LABEL_29;
+          goto LABEL_30;
         }
       }
 
@@ -179,8 +179,9 @@ LABEL_15:
     }
   }
 
-LABEL_29:
-  v21 = specialized static LocalizedStrings.localizedString(tableSuffix:key:_:)(v24, *(&v24 + 1));
+  v8 = MEMORY[0x277D84F90];
+LABEL_30:
+  v21 = specialized static LocalizedStrings.localizedString(tableSuffix:key:_:)(v24, *(&v24 + 1), v8);
 
   return v21;
 }
@@ -195,7 +196,7 @@ uint64_t static LocalizedStrings.confirmationAlertInstallProfileMessage(teamName
   *(v4 + 32) = a1;
   *(v4 + 40) = a2;
 
-  v5 = specialized static LocalizedStrings.localizedString(tableSuffix:key:_:)(0xD00000000000002ALL, 0x80000002560E4910);
+  v5 = specialized static LocalizedStrings.localizedString(tableSuffix:key:_:)(0xD00000000000002ALL, 0x80000002560E4910, v4);
 
   return v5;
 }
@@ -210,7 +211,7 @@ uint64_t static LocalizedStrings.installProfileMessage(teamName:)(uint64_t a1, u
   *(v4 + 32) = a1;
   *(v4 + 40) = a2;
 
-  v5 = specialized static LocalizedStrings.localizedString(tableSuffix:key:_:)(0xD000000000000017, 0x80000002560E4A00);
+  v5 = specialized static LocalizedStrings.localizedString(tableSuffix:key:_:)(0xD000000000000017, 0x80000002560E4A00, v4);
 
   return v5;
 }
@@ -331,7 +332,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -361,7 +361,7 @@ unint64_t lazy protocol witness table accessor for type String and conformance S
   return result;
 }
 
-uint64_t specialized static LocalizedStrings.localizedString(tableSuffix:key:_:)(uint64_t a1, void *a2)
+uint64_t specialized static LocalizedStrings.localizedString(tableSuffix:key:_:)(uint64_t a1, void *a2, uint64_t a3)
 {
   MEMORY[0x259C59FE0](0, 0xE000000000000000);
 
@@ -370,101 +370,92 @@ uint64_t specialized static LocalizedStrings.localizedString(tableSuffix:key:_:)
     swift_once();
   }
 
-  v4 = static NSBundle.current;
-  v10._object = 0xE000000000000000;
-  v5._countAndFlagsBits = a1;
-  v5._object = a2;
-  v6.value._countAndFlagsBits = 0x617A696C61636F4CLL;
-  v6.value._object = 0xEB00000000656C62;
-  v7._countAndFlagsBits = 0;
-  v7._object = 0xE000000000000000;
-  v10._countAndFlagsBits = 0;
-  NSLocalizedString(_:tableName:bundle:value:comment:)(v5, v6, v4, v7, v10);
+  v5 = static NSBundle.current;
+  v11._object = 0xE000000000000000;
+  v6._countAndFlagsBits = a1;
+  v6._object = a2;
+  v7.value._countAndFlagsBits = 0x617A696C61636F4CLL;
+  v7.value._object = 0xEB00000000656C62;
+  v8._countAndFlagsBits = 0;
+  v8._object = 0xE000000000000000;
+  v11._countAndFlagsBits = 0;
+  NSLocalizedString(_:tableName:bundle:value:comment:)(v6, v7, v5, v8, v11);
 
-  v8 = String.init(format:arguments:)();
+  v9 = String.init(format:arguments:)();
 
-  return v8;
+  return v9;
 }
 
-uint64_t static LAPreboard.newInstance(globalDomain:)(uint64_t a1)
+id static LAPreboard.newInstance(globalDomain:)(uint64_t a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20]();
-  v6 = v40 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static LACLog.preboard.getter();
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v7, v8))
+  v6 = Logger.logObject.getter();
+  v7 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v6, v7))
   {
+    v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    v41[0] = v10;
-    *v9 = 136315138;
-    *(v9 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001ALL, 0x80000002560E4C50, v41);
-    _os_log_impl(&dword_2560DE000, v7, v8, "%s", v9, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v10);
-    MEMORY[0x259C5A510](v10, -1, -1);
+    v31[0] = v9;
+    *v8 = 136315138;
+    *(v8 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001ALL, 0x80000002560E4C50, v31);
+    _os_log_impl(&dword_2560DE000, v6, v7, "%s", v8, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v9);
     MEMORY[0x259C5A510](v9, -1, -1);
+    MEMORY[0x259C5A510](v8, -1, -1);
   }
 
-  (*(v3 + 8))(v6, v2);
-  outlined init with copy of Any(a1, v41);
+  (*(v3 + 8))(v5, v2);
+  outlined init with copy of Any(a1, v31);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo23LACGlobalDomainPreboard_pMd, _sSo23LACGlobalDomainPreboard_pMR);
   if (swift_dynamicCast())
   {
-    v11 = [objc_allocWithZone(MEMORY[0x277D240E0]) initWithBypassEntitlementChecks_];
-    v12 = [objc_allocWithZone(MEMORY[0x277D240D8]) initWithConfig_];
+    v10 = [objc_allocWithZone(MEMORY[0x277D240E0]) initWithBypassEntitlementChecks_];
+    v11 = [objc_allocWithZone(MEMORY[0x277D240D8]) initWithConfig_];
 
-    v13 = objc_opt_self();
-    v14 = v12;
-    v15 = [v13 sharedInstance];
-    v16 = objc_allocWithZone(type metadata accessor for LACPreboardStorage());
-    v17 = LACPreboardStorage.init(secureStorage:sysUtility:)();
-    v18 = type metadata accessor for LACPreboardACMContextProviderFactory();
-    v19 = *(v18 + 48);
-    v20 = *(v18 + 52);
+    v12 = objc_opt_self();
+    v13 = v11;
+    v14 = [v12 sharedInstance];
+    v15 = objc_allocWithZone(type metadata accessor for LACPreboardStorage());
+    v16 = LACPreboardStorage.init(secureStorage:sysUtility:)();
+    type metadata accessor for LACPreboardACMContextProviderFactory();
     swift_allocObject();
     LACPreboardACMContextProviderFactory.init()();
-    v21 = [objc_allocWithZone(type metadata accessor for LAPreboard.LifecycleManagerMock()) init];
-    v22 = [objc_allocWithZone(MEMORY[0x277D240C8]) initWithLifecycleManager_];
+    v17 = [objc_allocWithZone(type metadata accessor for LAPreboard.LifecycleManagerMock()) init];
+    v18 = [objc_allocWithZone(MEMORY[0x277D240C8]) initWithLifecycleManager_];
 
-    v41[3] = type metadata accessor for LACPreboardLauncher();
-    v41[4] = MEMORY[0x277D23E00];
-    v41[0] = v22;
-    v23 = type metadata accessor for LACPreboardPasscodeVerifier();
-    v24 = *(v23 + 48);
-    v25 = *(v23 + 52);
+    v31[3] = type metadata accessor for LACPreboardLauncher();
+    v31[4] = MEMORY[0x277D23E00];
+    v31[0] = v18;
+    v19 = type metadata accessor for LACPreboardPasscodeVerifier();
     swift_allocObject();
-    v26 = LACPreboardPasscodeVerifier.init()();
-    v40[13] = v23;
-    v40[14] = MEMORY[0x277D23DF8];
-    v40[10] = v26;
-    v27 = type metadata accessor for LACPreboardUPPManager();
-    v28 = *(v27 + 48);
-    v29 = *(v27 + 52);
+    v20 = LACPreboardPasscodeVerifier.init()();
+    v30[13] = v19;
+    v30[14] = MEMORY[0x277D23DF8];
+    v30[10] = v20;
+    v21 = type metadata accessor for LACPreboardUPPManager();
     swift_allocObject();
-    v30 = v17;
-    v31 = LACPreboardUPPManager.init(storage:)();
-    v40[8] = v27;
-    v40[9] = MEMORY[0x277D23DE8];
-    v40[5] = v31;
-    v32 = type metadata accessor for LACPreboardUseCaseProvider();
-    v33 = *(v32 + 48);
-    v34 = *(v32 + 52);
+    v22 = v16;
+    v23 = LACPreboardUPPManager.init(storage:)();
+    v30[8] = v21;
+    v30[9] = MEMORY[0x277D23DE8];
+    v30[5] = v23;
+    v24 = type metadata accessor for LACPreboardUseCaseProvider();
     swift_allocObject();
     swift_unknownObjectRetain();
-    v35 = LACPreboardUseCaseProvider.init(globalDomain:)();
-    v40[3] = v32;
-    v40[4] = MEMORY[0x277D23DF0];
-    v40[0] = v35;
-    v36 = objc_allocWithZone(type metadata accessor for LACPreboardController());
-    v37 = LACPreboardController.init(contextProviderFactory:launcher:passcodeVerifier:storage:uppManager:useCaseProvider:)();
-    v38 = [objc_allocWithZone(LAPreboard) initWithController_];
+    v25 = LACPreboardUseCaseProvider.init(globalDomain:)();
+    v30[3] = v24;
+    v30[4] = MEMORY[0x277D23DF0];
+    v30[0] = v25;
+    v26 = objc_allocWithZone(type metadata accessor for LACPreboardController());
+    v27 = LACPreboardController.init(contextProviderFactory:launcher:passcodeVerifier:storage:uppManager:useCaseProvider:)();
+    v28 = [objc_allocWithZone(LAPreboard) initWithController_];
     swift_unknownObjectRelease();
 
-    return v38;
+    return v28;
   }
 
   else
@@ -504,7 +495,7 @@ id LAPreboard.LifecycleManagerMock.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -602,16 +593,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -708,7 +697,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -722,15 +710,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -745,15 +733,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -762,12 +750,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1031,21 +1019,22 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t LAPreboardItem.iconSystemName.getter()
 {
   v1 = *(v0 + OBJC_IVAR___LAPreboardItem_iconSystemName);
-  v2 = *(v0 + OBJC_IVAR___LAPreboardItem_iconSystemName + 8);
 
   return v1;
 }
@@ -1057,23 +1046,21 @@ id @objc LAPreboardItem.iconSystemName.getter(uint64_t a1, uint64_t a2, void *a3
   if (v4)
   {
     v5 = *v3;
-    v6 = v3[1];
 
-    v7 = MEMORY[0x259C59FB0](v5, v4);
+    v6 = MEMORY[0x259C59FB0](v5, v4);
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 uint64_t LAPreboardItem.title.getter()
 {
   v1 = *(v0 + OBJC_IVAR___LAPreboardItem_title);
-  v2 = *(v0 + OBJC_IVAR___LAPreboardItem_title + 8);
 
   return v1;
 }
@@ -1092,7 +1079,7 @@ id LAPreboardItem.init(batchOption:)(uint64_t a1)
   return [v2 initWithBatchOption_];
 }
 
-void LAPreboardItem.init(batchOption:)()
+void LAPreboardItem.init(batchOption:)(uint64_t a1)
 {
   _StringGuts.grow(_:)(24);
   MEMORY[0x259C59FE0](0xD000000000000016, 0x80000002560E4D90);
@@ -1166,15 +1153,14 @@ void *protocol witness for RawRepresentable.init(rawValue:) in conformance LACPr
   return result;
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance LACPreboardBatchOption()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance LACPreboardBatchOption(uint64_t a1)
 {
-  v2 = *v0;
-  lazy protocol witness table accessor for type LACPreboardBatchOption and conformance LACPreboardBatchOption(&lazy protocol witness table cache variable for type LACPreboardBatchOption and conformance LACPreboardBatchOption);
-  lazy protocol witness table accessor for type LACPreboardBatchOption and conformance LACPreboardBatchOption(&lazy protocol witness table cache variable for type LACPreboardBatchOption and conformance LACPreboardBatchOption);
+  lazy protocol witness table accessor for type LACPreboardBatchOption and conformance LACPreboardBatchOption(&lazy protocol witness table cache variable for type LACPreboardBatchOption and conformance LACPreboardBatchOption, &protocol conformance descriptor for LACPreboardBatchOption);
+  lazy protocol witness table accessor for type LACPreboardBatchOption and conformance LACPreboardBatchOption(&lazy protocol witness table cache variable for type LACPreboardBatchOption and conformance LACPreboardBatchOption, &protocol conformance descriptor for LACPreboardBatchOption);
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t lazy protocol witness table accessor for type LACPreboardBatchOption and conformance LACPreboardBatchOption(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type LACPreboardBatchOption and conformance LACPreboardBatchOption(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -1204,40 +1190,32 @@ id LAPreboard.init(defaults:)()
   v6 = [v4 sharedInstance];
   v7 = objc_allocWithZone(type metadata accessor for LACPreboardStorage());
   v8 = LACPreboardStorage.init(secureStorage:sysUtility:)();
-  v9 = type metadata accessor for LACPreboardACMContextProviderFactory();
-  v10 = *(v9 + 48);
-  v11 = *(v9 + 52);
+  type metadata accessor for LACPreboardACMContextProviderFactory();
   swift_allocObject();
   LACPreboardACMContextProviderFactory.init()();
-  v12 = [objc_opt_self() sharedInstance];
+  v9 = [objc_opt_self() sharedInstance];
   [objc_allocWithZone(MEMORY[0x277D240C8]) initWithLifecycleManager_];
 
   type metadata accessor for LACPreboardLauncher(0, &lazy cache variable for type metadata for LACPreboardLauncher, 0x277D240C8);
-  v13 = type metadata accessor for LACPreboardPasscodeVerifier();
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
+  type metadata accessor for LACPreboardPasscodeVerifier();
   swift_allocObject();
   LACPreboardPasscodeVerifier.init()();
-  v16 = type metadata accessor for LACPreboardUPPManager();
-  v17 = *(v16 + 48);
-  v18 = *(v16 + 52);
+  type metadata accessor for LACPreboardUPPManager();
   swift_allocObject();
-  v19 = v8;
+  v10 = v8;
   LACPreboardUPPManager.init(storage:)();
-  v20 = [objc_opt_self() sharedInstance];
-  v21 = type metadata accessor for LACPreboardUseCaseProvider();
-  v22 = *(v21 + 48);
-  v23 = *(v21 + 52);
+  v11 = [objc_opt_self() sharedInstance];
+  type metadata accessor for LACPreboardUseCaseProvider();
   swift_allocObject();
-  v28 = LACPreboardUseCaseProvider.init(globalDomain:)();
-  v24 = objc_allocWithZone(type metadata accessor for LACPreboardController());
-  v25 = LACPreboardController.init(contextProviderFactory:launcher:passcodeVerifier:storage:uppManager:useCaseProvider:)();
-  v26 = [v1 initWithController_];
+  v16 = LACPreboardUseCaseProvider.init(globalDomain:)();
+  v12 = objc_allocWithZone(type metadata accessor for LACPreboardController());
+  v13 = LACPreboardController.init(contextProviderFactory:launcher:passcodeVerifier:storage:uppManager:useCaseProvider:)();
+  v14 = [v1 initWithController_];
 
-  return v26;
+  return v14;
 }
 
-unint64_t LAPreboard.iconSystemName.getter()
+uint64_t LAPreboard.iconSystemName.getter()
 {
   v1 = [v0 useCase];
   v2 = 1918985575;
@@ -1269,7 +1247,7 @@ char *LAPreboard.items.getter()
     goto LABEL_23;
   }
 
-  for (i = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x259C5A140](v17))
+  for (i = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x259C5A140](v16))
   {
     v4 = MEMORY[0x277D84F90];
     if (!i)
@@ -1331,33 +1309,32 @@ LABEL_22:
 LABEL_23:
     if (v2 < 0)
     {
-      v17 = v2;
+      v16 = v2;
     }
 
     else
     {
-      v17 = v2 & 0xFFFFFFFFFFFFFF8;
+      v16 = v2 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
 LABEL_16:
 
-  v18 = v4;
+  v17 = v4;
 
-  specialized MutableCollection<>.sort(by:)(&v18);
+  specialized MutableCollection<>.sort(by:)(&v17);
 
-  v12 = v18;
-  v13 = *(v18 + 2);
+  v12 = v17;
+  v13 = *(v17 + 2);
   if (v13)
   {
-    v18 = MEMORY[0x277D84F90];
+    v17 = MEMORY[0x277D84F90];
     specialized ContiguousArray.reserveCapacity(_:)();
     v14 = 32;
     do
     {
       [objc_allocWithZone(LAPreboardItem) initWithBatchOption_];
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v15 = *(v18 + 2);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -1367,7 +1344,7 @@ LABEL_16:
 
     while (v13);
 
-    return v18;
+    return v17;
   }
 
   else
@@ -1377,12 +1354,11 @@ LABEL_16:
   }
 }
 
-uint64_t type metadata accessor for LACPreboardLauncher(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for LACPreboardLauncher(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -1537,33 +1513,30 @@ id LAPreboard.useCase.getter()
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> LAPreboard.launch()()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   v1 = [objc_msgSend(v0 controller)];
   swift_unknownObjectRelease();
   if (v1)
   {
-    v2 = v5[0];
+    v2 = v4[0];
   }
 
   else
   {
-    v3 = v5[0];
+    v3 = v4[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Error?) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 void thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ()(uint64_t a1, uint64_t a2)
@@ -1584,7 +1557,7 @@ void thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) 
 
 void LAPreboard.setEnvironmentVariableWithPasscode(_:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = MEMORY[0x259C59FB0]();
+  v7 = MEMORY[0x259C59FB0](a1, a2);
   v9[4] = a3;
   v9[5] = a4;
   v9[0] = MEMORY[0x277D85DD0];

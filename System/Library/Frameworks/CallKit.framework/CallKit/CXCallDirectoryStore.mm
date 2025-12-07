@@ -35,6 +35,7 @@
 - (BOOL)setStateForAllExtensions:(int64_t)extensions error:(id *)error;
 - (BOOL)setStateLastModifiedDate:(id)date forExtensionWithID:(int64_t)d error:(id *)error;
 - (BOOL)vacuumWithError:(id *)error;
+- (CXCallDirectoryStore)initWithTemplateURL:(id)l readOnly:(BOOL)only temporary:(BOOL)temporary error:(id *)error;
 - (NSURL)url;
 - (id)_firstIdentificationEntriesForSQL:(id)l bindings:(id)bindings error:(id *)error;
 - (id)_firstIdentificationEntryForSQL:(id)l bindings:(id)bindings error:(id *)error;
@@ -50,6 +51,7 @@
 - (id)firstIdentificationEntriesForPhoneNumbers:(id)numbers error:(id *)error;
 - (id)firstIdentificationEntryForEnabledExtensionWithPhoneNumber:(id)number error:(id *)error;
 - (id)firstIdentificationEntryForPhoneNumber:(id)number error:(id *)error;
+- (id)initReadOnly:(BOOL)only temporary:(BOOL)temporary error:(id *)error;
 - (id)prioritizedExtensionIdentifiersWithError:(id *)error;
 - (id)prioritizedExtensionsWithError:(id *)error;
 - (int64_t)_findOrCreateIDForPhoneNumber:(int64_t)number error:(id *)error;
@@ -76,12 +78,88 @@
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [self url];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_1(&dword_1B47F3000, v2, v3, "Error removing temporary database at URL %@: %@", v4, v5, v6, v7, v9);
+  OUTLINED_FUNCTION_3_1(&dword_1B47F3000, v2, v3, "Error removing temporary database at URL %@: %@", v4, v5, v6, v7);
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (id)initReadOnly:(BOOL)only temporary:(BOOL)temporary error:(id *)error
+{
+  temporaryCopy = temporary;
+  onlyCopy = only;
+  databaseTemplateURL = [objc_opt_class() databaseTemplateURL];
+  if (databaseTemplateURL)
+  {
+    v10 = [(CXCallDirectoryStore *)self initWithTemplateURL:databaseTemplateURL readOnly:onlyCopy temporary:temporaryCopy error:error];
+  }
+
+  else
+  {
+
+    v10 = 0;
+  }
+
+  return v10;
+}
+
+- (CXCallDirectoryStore)initWithTemplateURL:(id)l readOnly:(BOOL)only temporary:(BOOL)temporary error:(id *)error
+{
+  onlyCopy = only;
+  lCopy = l;
+  v18.receiver = self;
+  v18.super_class = CXCallDirectoryStore;
+  v11 = [(CXCallDirectoryStore *)&v18 init];
+  v12 = v11;
+  if (v11)
+  {
+    v11->_temporary = temporary;
+    v13 = [objc_opt_class() databaseURLUsingTemporaryDirectory:v11->_temporary error:error];
+    if (!v13)
+    {
+      goto LABEL_9;
+    }
+
+    if (![objc_opt_class() initializeDatabaseIfNecessaryAtURL:v13 usingTemplateAtURL:lCopy error:error])
+    {
+      goto LABEL_9;
+    }
+
+    v14 = [[CXDatabase alloc] initWithURL:v13 readOnly:onlyCopy error:error];
+    database = v12->_database;
+    v12->_database = v14;
+
+    v16 = v12->_database;
+    if (!v16)
+    {
+      goto LABEL_9;
+    }
+
+    if (!onlyCopy)
+    {
+      if (![(CXDatabase *)v16 enableForeignKeysWithError:error])
+      {
+        goto LABEL_9;
+      }
+
+      v16 = v12->_database;
+    }
+
+    if ([(CXDatabase *)v16 setBusyTimeout:error error:120.0])
+    {
+LABEL_10:
+
+      goto LABEL_11;
+    }
+
+LABEL_9:
+
+    v12 = 0;
+    goto LABEL_10;
+  }
+
+LABEL_11:
+
+  return v12;
 }
 
 - (id)description
@@ -163,23 +241,24 @@ LABEL_9:
     if (v14)
     {
       v15 = [defaultManager copyItemAtURL:rLCopy toURL:lCopy error:error];
-      v16 = CXDefaultLog();
-      v17 = v16;
-      if (v15)
+      v16 = v15;
+      v17 = CXDefaultLog(v15);
+      v18 = v17;
+      if (v16)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           v20 = 138412546;
           v21 = rLCopy;
           v22 = 2112;
           v23 = lCopy;
-          _os_log_impl(&dword_1B47F3000, v17, OS_LOG_TYPE_DEFAULT, "Copied database template from URL %@ to URL %@", &v20, 0x16u);
+          _os_log_impl(&dword_1B47F3000, v18, OS_LOG_TYPE_DEFAULT, "Copied database template from URL %@ to URL %@", &v20, 0x16u);
         }
 
         goto LABEL_2;
       }
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         +[CXCallDirectoryStore initializeDatabaseIfNecessaryAtURL:usingTemplateAtURL:error:];
       }
@@ -200,7 +279,6 @@ LABEL_2:
   v12 = 1;
 LABEL_14:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -210,20 +288,20 @@ LABEL_14:
   v7 = 0;
   v2 = [(CXCallDirectoryStore *)self schemaVersionWithError:&v7];
   v3 = v7;
+  v4 = v3;
   if (v2 == -1)
   {
-    v4 = CXDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CXDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Error querying schema version, possibly because the schema is too old. Error: %@", buf, 0xCu);
+      v9 = v4;
+      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Error querying schema version, possibly because the schema is too old. Error: %@", buf, 0xCu);
     }
 
     v2 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -283,26 +361,25 @@ void __47__CXCallDirectoryStore_schemaVersionWithError___block_invoke(uint64_t a
 
 - (BOOL)containsExtensionWithIdentifier:(id)identifier error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   database = [(CXCallDirectoryStore *)self database];
-  v16[0] = identifierCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __62__CXCallDirectoryStore_containsExtensionWithIdentifier_error___block_invoke;
-  v11[3] = &unk_1E7C070C8;
-  v11[4] = &v12;
-  [database selectSQL:@"SELECT EXISTS (SELECT 1 FROM Extension WHERE bundle_id = ?)" withBindings:v8 expectedColumnCount:1 resultRowHandler:v11 error:error];
+  v15[0] = identifierCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __62__CXCallDirectoryStore_containsExtensionWithIdentifier_error___block_invoke;
+  v10[3] = &unk_1E7C070C8;
+  v10[4] = &v11;
+  [database selectSQL:@"SELECT EXISTS (SELECT 1 FROM Extension WHERE bundle_id = ?)" withBindings:v8 expectedColumnCount:1 resultRowHandler:v10 error:error];
 
-  LOBYTE(error) = *(v13 + 24);
-  _Block_object_dispose(&v12, 8);
+  LOBYTE(error) = *(v12 + 24);
+  _Block_object_dispose(&v11, 8);
 
-  v9 = *MEMORY[0x1E69E9840];
   return error & 1;
 }
 
@@ -314,28 +391,28 @@ void __62__CXCallDirectoryStore_containsExtensionWithIdentifier_error___block_in
 
 - (id)extensionWithIdentifier:(id)identifier error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__1;
-  v19 = __Block_byref_object_dispose__1;
-  v20 = 0;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __54__CXCallDirectoryStore_extensionWithIdentifier_error___block_invoke;
-  v14[3] = &unk_1E7C070C8;
-  v14[4] = &v15;
-  v7 = MEMORY[0x1B8C78C60](v14);
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__1;
+  v18 = __Block_byref_object_dispose__1;
+  v19 = 0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __54__CXCallDirectoryStore_extensionWithIdentifier_error___block_invoke;
+  v13[3] = &unk_1E7C070C8;
+  v13[4] = &v14;
+  v7 = MEMORY[0x1B8C78C60](v13);
   database = [(CXCallDirectoryStore *)self database];
-  v21[0] = identifierCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v20[0] = identifierCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
   LODWORD(error) = [database selectSQL:@"SELECT id withBindings:bundle_id expectedColumnCount:priority resultRowHandler:state error:{state_last_modified FROM Extension WHERE bundle_id = ?", v9, 5, v7, error}];
 
   if (error)
   {
-    v10 = v16[5];
+    v10 = v15[5];
   }
 
   else
@@ -345,8 +422,7 @@ void __62__CXCallDirectoryStore_containsExtensionWithIdentifier_error___block_in
 
   v11 = v10;
 
-  _Block_object_dispose(&v15, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
 
   return v11;
 }
@@ -381,65 +457,55 @@ void __54__CXCallDirectoryStore_extensionWithIdentifier_error___block_invoke(uin
 
 - (int64_t)addExtensionWithIdentifier:(id)identifier error:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   database = [(CXCallDirectoryStore *)self database];
-  v13[0] = identifierCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = identifierCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
 
   LODWORD(error) = [database executeSQL:@"INSERT INTO Extension (bundle_id withBindings:priority error:{state_last_modified) VALUES (?, (SELECT IFNULL(MAX(priority), 0) + 1 FROM Extension), ((julianday('now') - 2440587.5)*86400.0))", v8, error}];
-  if (error)
+  if (!error)
   {
-    database2 = [(CXCallDirectoryStore *)self database];
-    lastInsertedRowID = [database2 lastInsertedRowID];
-
-    notify_post("com.apple.callkit.calldirectorystore.extensionschanged");
+    return -1;
   }
 
-  else
-  {
-    lastInsertedRowID = -1;
-  }
+  database2 = [(CXCallDirectoryStore *)self database];
+  lastInsertedRowID = [database2 lastInsertedRowID];
 
-  v11 = *MEMORY[0x1E69E9840];
+  notify_post("com.apple.callkit.calldirectorystore.extensionschanged");
   return lastInsertedRowID;
 }
 
 - (int64_t)addExtensionWithIdentifier:(id)identifier priority:(int64_t)priority error:(id *)error
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   database = [(CXCallDirectoryStore *)self database];
-  v16[0] = identifierCopy;
+  v15[0] = identifierCopy;
   v10 = [MEMORY[0x1E696AD98] numberWithLongLong:priority];
-  v16[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
 
   LODWORD(error) = [database executeSQL:@"INSERT INTO Extension (bundle_id withBindings:priority error:{state_last_modified) VALUES (?, ?, ((julianday('now') - 2440587.5)*86400.0))", v11, error}];
-  if (error)
+  if (!error)
   {
-    database2 = [(CXCallDirectoryStore *)self database];
-    lastInsertedRowID = [database2 lastInsertedRowID];
-
-    notify_post("com.apple.callkit.calldirectorystore.extensionschanged");
+    return -1;
   }
 
-  else
-  {
-    lastInsertedRowID = -1;
-  }
+  database2 = [(CXCallDirectoryStore *)self database];
+  lastInsertedRowID = [database2 lastInsertedRowID];
 
-  v14 = *MEMORY[0x1E69E9840];
+  notify_post("com.apple.callkit.calldirectorystore.extensionschanged");
   return lastInsertedRowID;
 }
 
 - (BOOL)removeExtensionWithIdentifier:(id)identifier error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   database = [(CXCallDirectoryStore *)self database];
-  v14[0] = identifierCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = identifierCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
 
   v9 = [database executeSQL:@"DELETE FROM Extension WHERE (bundle_id = ?)" withBindings:v8 transient:1 error:error];
   if (v9)
@@ -453,19 +519,18 @@ void __54__CXCallDirectoryStore_extensionWithIdentifier_error___block_invoke(uin
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)setState:(int64_t)state forExtensionWithIdentifier:(id)identifier error:(id *)error
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   database = [(CXCallDirectoryStore *)self database];
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:state];
-  v17[0] = v10;
-  v17[1] = identifierCopy;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = v10;
+  v16[1] = identifierCopy;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
 
   v12 = [database executeSQL:@"UPDATE Extension SET state = ? withBindings:state_last_modified = ((julianday('now') - 2440587.5)*86400.0) WHERE (bundle_id = ?)" error:{v11, error}];
   if (v12)
@@ -479,19 +544,18 @@ void __54__CXCallDirectoryStore_extensionWithIdentifier_error___block_invoke(uin
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)setState:(int64_t)state forExtensionWithID:(int64_t)d error:(id *)error
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   database = [(CXCallDirectoryStore *)self database];
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:state];
-  v18[0] = v10;
+  v17[0] = v10;
   v11 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-  v18[1] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[1] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v13 = [database executeSQL:@"UPDATE Extension SET state = ? withBindings:state_last_modified = ((julianday('now') - 2440587.5)*86400.0) WHERE (id = ?)" error:{v12, error}];
 
   if (v13)
@@ -505,13 +569,12 @@ void __54__CXCallDirectoryStore_extensionWithIdentifier_error___block_invoke(uin
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (BOOL)setStateLastModifiedDate:(id)date forExtensionWithID:(int64_t)d error:(id *)error
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   database = [(CXCallDirectoryStore *)self database];
   v10 = MEMORY[0x1E696AD98];
@@ -519,10 +582,10 @@ void __54__CXCallDirectoryStore_extensionWithIdentifier_error___block_invoke(uin
   v12 = v11;
 
   v13 = [v10 numberWithDouble:v12];
-  v21[0] = v13;
+  v20[0] = v13;
   v14 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-  v21[1] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[1] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   v16 = [database executeSQL:@"UPDATE Extension SET state_last_modified = ? WHERE (id = ?)" withBindings:v15 error:error];
 
   if (v16)
@@ -536,17 +599,16 @@ void __54__CXCallDirectoryStore_extensionWithIdentifier_error___block_invoke(uin
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)setStateForAllExtensions:(int64_t)extensions error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   database = [(CXCallDirectoryStore *)self database];
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:extensions];
-  v15[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v10 = [database executeSQL:@"UPDATE Extension SET state = ? withBindings:state_last_modified = ((julianday('now') - 2440587.5)*86400.0)" error:{v9, error}];
 
   if (v10)
@@ -560,7 +622,6 @@ void __54__CXCallDirectoryStore_extensionWithIdentifier_error___block_invoke(uin
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -707,18 +768,7 @@ uint64_t __65__CXCallDirectoryStore_setPrioritizedExtensionIdentifiers_error___b
   v9 = [v6 copy];
   LODWORD(v8) = [v7 executeSQL:v8 withBindings:v9 error:a3];
 
-  if (!v8)
-  {
-    goto LABEL_4;
-  }
-
-  v10 = [*(a1 + 32) _sqlBindingsForPrioritizedExtensionIdentifiers:*(a1 + 40) withPriorityOffset:0];
-  v11 = [*(a1 + 32) database];
-  v12 = *(a1 + 48);
-  v13 = [v10 copy];
-  v14 = [v11 executeSQL:v12 withBindings:v13 error:a3];
-
-  if (v14)
+  if (v8 && ([*(a1 + 32) _sqlBindingsForPrioritizedExtensionIdentifiers:*(a1 + 40) withPriorityOffset:0], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "database"), v11 = objc_claimAutoreleasedReturnValue(), v12 = *(a1 + 48), v13 = objc_msgSend(v10, "copy"), v14 = objc_msgSend(v11, "executeSQL:withBindings:error:", v12, v13, a3), v13, v11, v10, v14))
   {
     notify_post("com.apple.callkit.calldirectorystore.extensionschanged");
     v15 = 1;
@@ -726,14 +776,14 @@ uint64_t __65__CXCallDirectoryStore_setPrioritizedExtensionIdentifiers_error___b
 
   else
   {
-LABEL_4:
-    v20 = 0;
-    v16 = v5[2](v5, &v20);
-    v17 = v20;
+    v21 = 0;
+    v16 = v5[2](v5, &v21);
+    v17 = v21;
+    v18 = v17;
     if ((v16 & 1) == 0)
     {
-      v18 = CXDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = CXDefaultLog(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         __65__CXCallDirectoryStore_setPrioritizedExtensionIdentifiers_error___block_invoke_cold_1();
       }
@@ -761,42 +811,41 @@ LABEL_4:
 
 - (id)_sqlBindingsForPrioritizedExtensionIdentifiers:(id)identifiers withPriorityOffset:(int64_t)offset
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = identifiersCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
         ++offset;
-        [array addObject:{*(*(&v16 + 1) + 8 * i), v16}];
+        [array addObject:{*(*(&v15 + 1) + 8 * i), v15}];
         v12 = [MEMORY[0x1E696AD98] numberWithLongLong:offset];
         [array addObject:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   v13 = [array copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -849,13 +898,14 @@ uint64_t __69__CXCallDirectoryStore_addBlockingEntriesWithData_extensionID_error
       }
     }
 
-    v14 = 0;
-    v10 = v5[2](v5, &v14);
-    v11 = v14;
+    v15 = 0;
+    v10 = v5[2](v5, &v15);
+    v11 = v15;
+    v12 = v11;
     if ((v10 & 1) == 0)
     {
-      v12 = CXDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = CXDefaultLog(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __69__CXCallDirectoryStore_addBlockingEntriesWithData_extensionID_error___block_invoke_cold_1();
       }
@@ -986,13 +1036,14 @@ uint64_t __72__CXCallDirectoryStore_removeBlockingEntriesWithData_extensionID_er
       }
     }
 
-    v14 = 0;
-    v10 = v5[2](v5, &v14);
-    v11 = v14;
+    v15 = 0;
+    v10 = v5[2](v5, &v15);
+    v11 = v15;
+    v12 = v11;
     if ((v10 & 1) == 0)
     {
-      v12 = CXDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = CXDefaultLog(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __69__CXCallDirectoryStore_addBlockingEntriesWithData_extensionID_error___block_invoke_cold_1();
       }
@@ -1078,53 +1129,48 @@ BOOL __90__CXCallDirectoryStore__removeBlockingEntriesWithData_startIndex_count_
 
 - (BOOL)removeBlockingEntriesForExtensionWithID:(int64_t)d error:(id *)error
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   database = [(CXCallDirectoryStore *)self database];
   v7 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-  v11[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   LOBYTE(error) = [database executeSQL:@"DELETE FROM PhoneNumberBlockingEntry WHERE extension_id = ?" withBindings:v8 error:error];
 
-  v9 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (BOOL)addIdentificationEntryWithPhoneNumber:(int64_t)number labelID:(int64_t)d extensionID:(int64_t)iD error:(id *)error
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   v10 = [(CXCallDirectoryStore *)self _findOrCreateIDForPhoneNumber:number error:error];
   if (v10 == -1)
   {
-    v17 = 0;
+    return 0;
   }
 
-  else
-  {
-    v11 = v10;
-    database = [(CXCallDirectoryStore *)self database];
-    v13 = [MEMORY[0x1E696AD98] numberWithLongLong:iD];
-    v14 = [MEMORY[0x1E696AD98] numberWithLongLong:{v11, v13}];
-    v20[1] = v14;
-    v15 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-    v20[2] = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
-    v17 = [database executeSQL:@"INSERT INTO PhoneNumberIdentificationEntry (extension_id withBindings:phone_number_id error:{label_id) VALUES (?, ?, ?)", v16, error}];
-  }
+  v11 = v10;
+  database = [(CXCallDirectoryStore *)self database];
+  v13 = [MEMORY[0x1E696AD98] numberWithLongLong:iD];
+  v14 = [MEMORY[0x1E696AD98] numberWithLongLong:{v11, v13}];
+  v19[1] = v14;
+  v15 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
+  v19[2] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
+  v17 = [database executeSQL:@"INSERT INTO PhoneNumberIdentificationEntry (extension_id withBindings:phone_number_id error:{label_id) VALUES (?, ?, ?)", v16, error}];
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (int64_t)_findOrCreateIDForPhoneNumber:(int64_t)number error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = -1;
+  v18[1] = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = -1;
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:number];
-  v19[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
 
   database = [(CXCallDirectoryStore *)self database];
   v9 = [database executeSQL:@"INSERT OR IGNORE INTO PhoneNumber (number) VALUES (?)" withBindings:v7 error:error];
@@ -1132,18 +1178,17 @@ BOOL __90__CXCallDirectoryStore__removeBlockingEntriesWithData_startIndex_count_
   if (v9)
   {
     database2 = [(CXCallDirectoryStore *)self database];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __60__CXCallDirectoryStore__findOrCreateIDForPhoneNumber_error___block_invoke;
-    v14[3] = &unk_1E7C070C8;
-    v14[4] = &v15;
-    [database2 selectSQL:@"SELECT id FROM PhoneNumber WHERE (number = ?)" withBindings:v7 expectedColumnCount:1 resultRowHandler:v14 error:error];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __60__CXCallDirectoryStore__findOrCreateIDForPhoneNumber_error___block_invoke;
+    v13[3] = &unk_1E7C070C8;
+    v13[4] = &v14;
+    [database2 selectSQL:@"SELECT id FROM PhoneNumber WHERE (number = ?)" withBindings:v7 expectedColumnCount:1 resultRowHandler:v13 error:error];
   }
 
-  v11 = v16[3];
+  v11 = v15[3];
 
-  _Block_object_dispose(&v15, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
   return v11;
 }
 
@@ -1155,26 +1200,25 @@ void __60__CXCallDirectoryStore__findOrCreateIDForPhoneNumber_error___block_invo
 
 - (int64_t)idForExtensionWithIdentifier:(id)identifier error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = -1;
-  v17[0] = identifierCopy;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = -1;
+  v16[0] = identifierCopy;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   database = [(CXCallDirectoryStore *)self database];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __59__CXCallDirectoryStore_idForExtensionWithIdentifier_error___block_invoke;
-  v12[3] = &unk_1E7C070C8;
-  v12[4] = &v13;
-  [database selectSQL:@"SELECT id FROM Extension WHERE (bundle_id = ?)" withBindings:v7 expectedColumnCount:1 resultRowHandler:v12 error:error];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __59__CXCallDirectoryStore_idForExtensionWithIdentifier_error___block_invoke;
+  v11[3] = &unk_1E7C070C8;
+  v11[4] = &v12;
+  [database selectSQL:@"SELECT id FROM Extension WHERE (bundle_id = ?)" withBindings:v7 expectedColumnCount:1 resultRowHandler:v11 error:error];
 
-  v9 = v14[3];
-  _Block_object_dispose(&v13, 8);
+  v9 = v13[3];
+  _Block_object_dispose(&v12, 8);
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1186,26 +1230,25 @@ void __59__CXCallDirectoryStore_idForExtensionWithIdentifier_error___block_invok
 
 - (int64_t)idForPhoneNumber:(int64_t)number error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = -1;
+  v16[1] = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = -1;
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:number];
-  v17[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
 
   database = [(CXCallDirectoryStore *)self database];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __47__CXCallDirectoryStore_idForPhoneNumber_error___block_invoke;
-  v12[3] = &unk_1E7C070C8;
-  v12[4] = &v13;
-  [database selectSQL:@"SELECT id FROM PhoneNumber WHERE (number = ?)" withBindings:v7 expectedColumnCount:1 resultRowHandler:v12 error:error];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __47__CXCallDirectoryStore_idForPhoneNumber_error___block_invoke;
+  v11[3] = &unk_1E7C070C8;
+  v11[4] = &v12;
+  [database selectSQL:@"SELECT id FROM PhoneNumber WHERE (number = ?)" withBindings:v7 expectedColumnCount:1 resultRowHandler:v11 error:error];
 
-  v9 = v14[3];
-  _Block_object_dispose(&v13, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = v13[3];
+  _Block_object_dispose(&v12, 8);
   return v9;
 }
 
@@ -1217,26 +1260,25 @@ void __47__CXCallDirectoryStore_idForPhoneNumber_error___block_invoke(uint64_t a
 
 - (int64_t)idForLabel:(id)label error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   labelCopy = label;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = -1;
-  v17[0] = labelCopy;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = -1;
+  v16[0] = labelCopy;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   database = [(CXCallDirectoryStore *)self database];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __41__CXCallDirectoryStore_idForLabel_error___block_invoke;
-  v12[3] = &unk_1E7C070C8;
-  v12[4] = &v13;
-  [database selectSQL:@"SELECT id FROM Label WHERE (localized_label = ?)" withBindings:v7 expectedColumnCount:1 resultRowHandler:v12 error:error];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __41__CXCallDirectoryStore_idForLabel_error___block_invoke;
+  v11[3] = &unk_1E7C070C8;
+  v11[4] = &v12;
+  [database selectSQL:@"SELECT id FROM Label WHERE (localized_label = ?)" withBindings:v7 expectedColumnCount:1 resultRowHandler:v11 error:error];
 
-  v9 = v14[3];
-  _Block_object_dispose(&v13, 8);
+  v9 = v13[3];
+  _Block_object_dispose(&v12, 8);
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1248,7 +1290,7 @@ void __41__CXCallDirectoryStore_idForLabel_error___block_invoke(uint64_t a1, voi
 
 - (int64_t)addLabel:(id)label error:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   labelCopy = label;
   v6 = MEMORY[0x1E695DEC8];
   labelCopy2 = label;
@@ -1268,7 +1310,6 @@ void __41__CXCallDirectoryStore_idForLabel_error___block_invoke(uint64_t a1, voi
     lastInsertedRowID = -1;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return lastInsertedRowID;
 }
 
@@ -1311,13 +1352,14 @@ uint64_t __75__CXCallDirectoryStore_addIdentificationEntriesWithData_extensionID
       }
     }
 
-    v14 = 0;
-    v10 = v5[2](v5, &v14);
-    v11 = v14;
+    v15 = 0;
+    v10 = v5[2](v5, &v15);
+    v11 = v15;
+    v12 = v11;
     if ((v10 & 1) == 0)
     {
-      v12 = CXDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = CXDefaultLog(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __69__CXCallDirectoryStore_addBlockingEntriesWithData_extensionID_error___block_invoke_cold_1();
       }
@@ -1581,13 +1623,14 @@ uint64_t __78__CXCallDirectoryStore_removeIdentificationEntriesWithData_extensio
       }
     }
 
-    v14 = 0;
-    v10 = v5[2](v5, &v14);
-    v11 = v14;
+    v15 = 0;
+    v10 = v5[2](v5, &v15);
+    v11 = v15;
+    v12 = v11;
     if ((v10 & 1) == 0)
     {
-      v12 = CXDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = CXDefaultLog(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __69__CXCallDirectoryStore_addBlockingEntriesWithData_extensionID_error___block_invoke_cold_1();
       }
@@ -1673,14 +1716,13 @@ BOOL __96__CXCallDirectoryStore__removeIdentificationEntriesWithData_startIndex_
 
 - (BOOL)removeIdentificationEntriesForExtensionWithID:(int64_t)d error:(id *)error
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   database = [(CXCallDirectoryStore *)self database];
   v7 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-  v11[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   LOBYTE(error) = [database executeSQL:@"DELETE FROM PhoneNumberIdentificationEntry WHERE extension_id = ?" withBindings:v8 error:error];
 
-  v9 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -1695,14 +1737,13 @@ BOOL __96__CXCallDirectoryStore__removeIdentificationEntriesWithData_startIndex_
 
 - (BOOL)containsBlockingEntryWithPhoneNumber:(id)number error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   v6 = MEMORY[0x1E695DEC8];
   numberCopy2 = number;
   v8 = [v6 arrayWithObjects:&numberCopy count:1];
 
-  LOBYTE(error) = [(CXCallDirectoryStore *)self containsBlockingEntryWithPhoneNumberInArray:v8 error:error, numberCopy, v12];
-  v9 = *MEMORY[0x1E69E9840];
+  LOBYTE(error) = [(CXCallDirectoryStore *)self containsBlockingEntryWithPhoneNumberInArray:v8 error:error, numberCopy, v11];
   return error;
 }
 
@@ -1718,14 +1759,13 @@ BOOL __96__CXCallDirectoryStore__removeIdentificationEntriesWithData_startIndex_
 
 - (BOOL)containsBlockingEntryForEnabledExtensionWithPhoneNumber:(id)number error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   v6 = MEMORY[0x1E695DEC8];
   numberCopy2 = number;
   v8 = [v6 arrayWithObjects:&numberCopy count:1];
 
-  LOBYTE(error) = [(CXCallDirectoryStore *)self containsBlockingEntryForEnabledExtensionWithPhoneNumberInArray:v8 error:error, numberCopy, v12];
-  v9 = *MEMORY[0x1E69E9840];
+  LOBYTE(error) = [(CXCallDirectoryStore *)self containsBlockingEntryForEnabledExtensionWithPhoneNumberInArray:v8 error:error, numberCopy, v11];
   return error;
 }
 
@@ -1769,29 +1809,27 @@ void __69__CXCallDirectoryStore__containsBlockingEntryWithSQL_bindings_error___b
 
 - (id)firstEnabledBlockingExtensionIdentifierForPhoneNumber:(id)number error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   numberCopy = number;
   v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SELECT extension.bundle_id FROM Extension INNER JOIN PhoneNumberBlockingEntry ON PhoneNumberBlockingEntry.extension_id = Extension.id INNER JOIN PhoneNumber ON PhoneNumber.id = PhoneNumberBlockingEntry.phone_number_id WHERE (Extension.state = %ld AND PhoneNumber.number = ?) ORDER BY Extension.priority LIMIT 1", 4];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__1;
-  v18 = __Block_byref_object_dispose__1;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__1;
+  v17 = __Block_byref_object_dispose__1;
+  v18 = 0;
   database = [(CXCallDirectoryStore *)self database];
-  v20[0] = numberCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __84__CXCallDirectoryStore_firstEnabledBlockingExtensionIdentifierForPhoneNumber_error___block_invoke;
-  v13[3] = &unk_1E7C070C8;
-  v13[4] = &v14;
-  [database selectSQL:v7 withBindings:v9 expectedColumnCount:1 resultRowHandler:v13 error:error];
+  v19[0] = numberCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __84__CXCallDirectoryStore_firstEnabledBlockingExtensionIdentifierForPhoneNumber_error___block_invoke;
+  v12[3] = &unk_1E7C070C8;
+  v12[4] = &v13;
+  [database selectSQL:v7 withBindings:v9 expectedColumnCount:1 resultRowHandler:v12 error:error];
 
-  v10 = v15[5];
-  _Block_object_dispose(&v14, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = v14[5];
+  _Block_object_dispose(&v13, 8);
 
   return v10;
 }
@@ -1807,15 +1845,13 @@ void __84__CXCallDirectoryStore_firstEnabledBlockingExtensionIdentifierForPhoneN
 
 - (id)firstIdentificationEntryForPhoneNumber:(id)number error:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   v6 = MEMORY[0x1E695DEC8];
   numberCopy2 = number;
   v8 = [v6 arrayWithObjects:&numberCopy count:1];
 
-  v9 = [(CXCallDirectoryStore *)self _firstIdentificationEntryForSQL:@"SELECT Extension.bundle_id bindings:Label.localized_label FROM Label INNER JOIN PhoneNumberIdentificationEntry ON (Label.id = PhoneNumberIdentificationEntry.label_id) INNER JOIN PhoneNumber ON (PhoneNumber.id = PhoneNumberIdentificationEntry.phone_number_id) INNER JOIN Extension ON (Extension.id = PhoneNumberIdentificationEntry.extension_id) WHERE (PhoneNumber.number = ?) ORDER BY Extension.priority LIMIT 1" error:v8, error, numberCopy, v13];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [(CXCallDirectoryStore *)self _firstIdentificationEntryForSQL:@"SELECT Extension.bundle_id bindings:Label.localized_label FROM Label INNER JOIN PhoneNumberIdentificationEntry ON (Label.id = PhoneNumberIdentificationEntry.label_id) INNER JOIN PhoneNumber ON (PhoneNumber.id = PhoneNumberIdentificationEntry.phone_number_id) INNER JOIN Extension ON (Extension.id = PhoneNumberIdentificationEntry.extension_id) WHERE (PhoneNumber.number = ?) ORDER BY Extension.priority LIMIT 1" error:v8, error, numberCopy, v12];
 
   return v9;
 }
@@ -1832,16 +1868,14 @@ void __84__CXCallDirectoryStore_firstEnabledBlockingExtensionIdentifierForPhoneN
 
 - (id)firstIdentificationEntryForEnabledExtensionWithPhoneNumber:(id)number error:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AEC0];
   numberCopy = number;
   v8 = [v6 stringWithFormat:@"SELECT Extension.bundle_id, Label.localized_label FROM Label INNER JOIN PhoneNumberIdentificationEntry ON (Label.id = PhoneNumberIdentificationEntry.label_id) INNER JOIN PhoneNumber ON (PhoneNumber.id = PhoneNumberIdentificationEntry.phone_number_id) INNER JOIN Extension ON (Extension.id = PhoneNumberIdentificationEntry.extension_id) WHERE (Extension.state = %ld AND PhoneNumber.number = ?) ORDER BY Extension.priority LIMIT 1", 4];
-  v13[0] = numberCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = numberCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
 
   v10 = [(CXCallDirectoryStore *)self _firstIdentificationEntryForSQL:v8 bindings:v9 error:error];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -2042,27 +2076,10 @@ LABEL_7:
 
 + (void)initializeDatabaseIfNecessaryAtURL:usingTemplateAtURL:error:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  v4 = v0;
-  _os_log_error_impl(&dword_1B47F3000, v1, OS_LOG_TYPE_ERROR, "Error copying database template from URL %@ to URL %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __65__CXCallDirectoryStore_setPrioritizedExtensionIdentifiers_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "Error performing rollback: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __69__CXCallDirectoryStore_addBlockingEntriesWithData_extensionID_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "Error rolling back from previous error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1B47F3000, v1, OS_LOG_TYPE_ERROR, "Error copying database template from URL %@ to URL %@", v2, 0x16u);
 }
 
 @end

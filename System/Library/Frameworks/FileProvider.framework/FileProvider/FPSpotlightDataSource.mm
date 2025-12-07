@@ -58,11 +58,10 @@
 
 - (void)_invalidate
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] invalidating spotlight data source: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] invalidating spotlight data source: %@", &v2, 0xCu);
 }
 
 - (FPSpotlightDataSource)initWithQueryDescriptor:(id)descriptor predicate:(id)predicate
@@ -82,7 +81,7 @@
     v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.FileProvider.SpotlightDataSource.queue (%p)", v9];
     uTF8String = [v12 UTF8String];
     v14 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v15 = FPDataSourceBaseQueue();
+    v15 = FPDataSourceBaseQueue(v14);
     v16 = dispatch_queue_create_with_target_V2(uTF8String, v14, v15);
     queue = v9->_queue;
     v9->_queue = v16;

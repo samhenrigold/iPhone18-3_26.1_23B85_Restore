@@ -89,7 +89,7 @@
 {
   nameCopy = name;
   text = [(UILabel *)self->_artistNameLabel text];
-  if (text != nameCopy && ([text isEqualToString:nameCopy] & 1) == 0)
+  if (text != nameCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     artistNameLabel = self->_artistNameLabel;
     if (nameCopy)
@@ -120,7 +120,7 @@
 {
   stringCopy = string;
   text = [(SUUIBadgeLabel *)self->_editorialBadgeLabel text];
-  if (text != stringCopy && ([text isEqualToString:stringCopy] & 1) == 0)
+  if (text != stringCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     editorialBadgeLabel = self->_editorialBadgeLabel;
     if (stringCopy)
@@ -174,7 +174,7 @@
 {
   stringCopy = string;
   text = [(UILabel *)self->_categoryLabel text];
-  if (text != stringCopy && ([text isEqualToString:stringCopy] & 1) == 0)
+  if (text != stringCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     categoryLabel = self->_categoryLabel;
     if (stringCopy)
@@ -204,11 +204,11 @@
 - (void)setColoringWithColorScheme:(id)scheme
 {
   schemeCopy = scheme;
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v4 = objc_msgSend_primaryTextColor(schemeCopy);
   textColor = self->_textColor;
-  if (textColor != primaryTextColor && ([(UIColor *)textColor isEqual:primaryTextColor]& 1) == 0)
+  if (textColor != v4 && ([(UIColor *)textColor isEqual:v4]& 1) == 0)
   {
-    objc_storeStrong(&self->_textColor, primaryTextColor);
+    objc_storeStrong(&self->_textColor, v4);
     categoryLabel = self->_categoryLabel;
     if (self->_textColor)
     {
@@ -281,7 +281,7 @@
 {
   stringCopy = string;
   text = [(UILabel *)self->_itemCountLabel text];
-  if (text != stringCopy && ([text isEqualToString:stringCopy] & 1) == 0)
+  if (text != stringCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     itemCountLabel = self->_itemCountLabel;
     if (stringCopy)
@@ -312,7 +312,7 @@
 {
   stringCopy = string;
   text = [(UILabel *)self->_itemOfferLabel text];
-  if (text != stringCopy && ([text isEqualToString:stringCopy] & 1) == 0)
+  if (text != stringCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     itemOfferLabel = self->_itemOfferLabel;
     if (stringCopy)
@@ -352,7 +352,7 @@
 {
   stringCopy = string;
   text = [(UILabel *)self->_releaseDateLabel text];
-  if (text != stringCopy && ([text isEqualToString:stringCopy] & 1) == 0)
+  if (text != stringCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     releaseDateLabel = self->_releaseDateLabel;
     if (stringCopy)
@@ -383,7 +383,7 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)

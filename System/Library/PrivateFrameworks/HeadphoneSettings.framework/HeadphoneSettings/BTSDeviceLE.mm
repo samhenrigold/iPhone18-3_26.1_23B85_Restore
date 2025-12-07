@@ -574,7 +574,8 @@ LABEL_5:
 - (void)sendChannelSoundingResults:(id)results
 {
   resultsCopy = results;
-  if ([(CBPeripheral *)self->_peripheral state]== CBPeripheralStateConnected)
+  state = [(CBPeripheral *)self->_peripheral state];
+  if (state == CBPeripheralStateConnected)
   {
     channelSoundingL2CAP = [(BTSDeviceLE *)self channelSoundingL2CAP];
 
@@ -584,69 +585,68 @@ LABEL_5:
       outputStream = [channelSoundingL2CAP2 outputStream];
       [outputStream setDelegate:self];
 
-      v8 = [DKMessage sendEntireProcedure:resultsCopy withMTU:[(CBPeripheral *)self->_peripheral maximumWriteValueLengthForType:1]- 4];
+      v10 = [DKMessage sendEntireProcedure:resultsCopy withMTU:[(CBPeripheral *)self->_peripheral maximumWriteValueLengthForType:1]- 4];
       channelSoundingTXQueue = [(BTSDeviceLE *)self channelSoundingTXQueue];
 
       if (!channelSoundingTXQueue)
       {
-        v10 = objc_opt_new();
-        [(BTSDeviceLE *)self setChannelSoundingTXQueue:v10];
+        v12 = objc_opt_new();
+        [(BTSDeviceLE *)self setChannelSoundingTXQueue:v12];
       }
 
       channelSoundingTXQueue2 = [(BTSDeviceLE *)self channelSoundingTXQueue];
-      [channelSoundingTXQueue2 addObjectsFromArray:v8];
+      [channelSoundingTXQueue2 addObjectsFromArray:v10];
 
       [(BTSDeviceLE *)self sendNextChannelSoundingMessage];
     }
 
     else
     {
-      v8 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = sharedBluetoothSettingsLogComponent(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [BTSDeviceLE sendChannelSoundingResults:?];
+        [BTSDeviceLE sendChannelSoundingResults:];
       }
     }
   }
 
   else
   {
-    v8 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sharedBluetoothSettingsLogComponent(state);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [BTSDeviceLE sendChannelSoundingResults:?];
+      [BTSDeviceLE sendChannelSoundingResults:];
     }
   }
 }
 
 - (void)sendNextChannelSoundingMessage
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   channelSoundingL2CAP = [self channelSoundingL2CAP];
   outputStream = [channelSoundingL2CAP outputStream];
   streamError = [outputStream streamError];
   localizedDescription = [streamError localizedDescription];
-  v8 = 138412290;
-  v9 = localizedDescription;
-  _os_log_error_impl(&dword_25126C000, a2, OS_LOG_TYPE_ERROR, "Error sending channel sounding data: %@", &v8, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412290;
+  v8 = localizedDescription;
+  _os_log_error_impl(&dword_25126C000, a2, OS_LOG_TYPE_ERROR, "Error sending channel sounding data: %@", &v7, 0xCu);
 }
 
 - (void)stream:(id)stream handleEvent:(unint64_t)event
 {
   v17 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
+  v7 = streamCopy;
   if (event > 3)
   {
     if (event != 4)
     {
       if (event == 8)
       {
-        v7 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = sharedBluetoothSettingsLogComponent(streamCopy);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          [BTSDeviceLE stream:streamCopy handleEvent:v7];
+          [BTSDeviceLE stream:v7 handleEvent:v8];
         }
 
         goto LABEL_25;
@@ -654,12 +654,12 @@ LABEL_5:
 
       if (event == 16)
       {
-        v9 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = sharedBluetoothSettingsLogComponent(streamCopy);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           v15 = 67109120;
           v16 = 128;
-          _os_log_impl(&dword_25126C000, v9, OS_LOG_TYPE_DEFAULT, "NSStreamEventEndEncountered for %d", &v15, 8u);
+          _os_log_impl(&dword_25126C000, v10, OS_LOG_TYPE_DEFAULT, "NSStreamEventEndEncountered for %d", &v15, 8u);
         }
 
         [(BTSDeviceLE *)self closeChannelSoundingL2CAP];
@@ -668,15 +668,15 @@ LABEL_5:
       goto LABEL_26;
     }
 
-    v10 = sharedBluetoothSettingsLogComponent();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sharedBluetoothSettingsLogComponent(streamCopy);
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_21:
 
       channelSoundingTXQueue = [(BTSDeviceLE *)self channelSoundingTXQueue];
-      v13 = [channelSoundingTXQueue count];
+      v14 = [channelSoundingTXQueue count];
 
-      if (v13)
+      if (v14)
       {
         [(BTSDeviceLE *)self sendNextChannelSoundingMessage];
       }
@@ -686,21 +686,21 @@ LABEL_21:
 
     v15 = 67109120;
     v16 = 128;
-    v11 = "NSStreamEventHasSpaceAvailable for %d";
+    v12 = "NSStreamEventHasSpaceAvailable for %d";
 LABEL_20:
-    _os_log_impl(&dword_25126C000, v10, OS_LOG_TYPE_DEFAULT, v11, &v15, 8u);
+    _os_log_impl(&dword_25126C000, v11, OS_LOG_TYPE_DEFAULT, v12, &v15, 8u);
     goto LABEL_21;
   }
 
   switch(event)
   {
     case 0uLL:
-      v7 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sharedBluetoothSettingsLogComponent(streamCopy);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v15 = 67109120;
         v16 = 128;
-        v8 = "NSStreamEventNone for L2CAP channel: %d";
+        v9 = "NSStreamEventNone for L2CAP channel: %d";
         goto LABEL_15;
       }
 
@@ -708,25 +708,25 @@ LABEL_25:
 
       break;
     case 1uLL:
-      v10 = sharedBluetoothSettingsLogComponent();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sharedBluetoothSettingsLogComponent(streamCopy);
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_21;
       }
 
       v15 = 67109120;
       v16 = 128;
-      v11 = "NSStreamEventOpenCompleted for %d";
+      v12 = "NSStreamEventOpenCompleted for %d";
       goto LABEL_20;
     case 2uLL:
-      v7 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sharedBluetoothSettingsLogComponent(streamCopy);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v15 = 67109120;
         v16 = 128;
-        v8 = "NSStreamEventHasBytesAvailable for %d";
+        v9 = "NSStreamEventHasBytesAvailable for %d";
 LABEL_15:
-        _os_log_impl(&dword_25126C000, v7, OS_LOG_TYPE_DEFAULT, v8, &v15, 8u);
+        _os_log_impl(&dword_25126C000, v8, OS_LOG_TYPE_DEFAULT, v9, &v15, 8u);
         goto LABEL_25;
       }
 
@@ -734,40 +734,34 @@ LABEL_15:
   }
 
 LABEL_26:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-- (void)sendChannelSoundingResults:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)sendChannelSoundingResults:.cold.1()
 {
-  OUTLINED_FUNCTION_1_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-- (void)sendChannelSoundingResults:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)sendChannelSoundingResults:.cold.2()
 {
-  OUTLINED_FUNCTION_1_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)stream:(void *)a1 handleEvent:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 streamError];
   v4 = [v3 localizedDescription];
-  v6[0] = 67109378;
-  v6[1] = 128;
-  v7 = 2112;
-  v8 = v4;
-  _os_log_error_impl(&dword_25126C000, a2, OS_LOG_TYPE_ERROR, "NSStreamEventErrorOccurred for %d. Error: %@", v6, 0x12u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109378;
+  v5[1] = 128;
+  v6 = 2112;
+  v7 = v4;
+  _os_log_error_impl(&dword_25126C000, a2, OS_LOG_TYPE_ERROR, "NSStreamEventErrorOccurred for %d. Error: %@", v5, 0x12u);
 }
 
 @end

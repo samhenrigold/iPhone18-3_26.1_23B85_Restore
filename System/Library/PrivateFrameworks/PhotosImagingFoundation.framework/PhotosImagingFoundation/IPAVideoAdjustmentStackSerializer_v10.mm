@@ -347,7 +347,7 @@ LABEL_15:
 
   [v32 setObject:v35 forKeyedSubscript:@"adjustments"];
   memset(&v39, 0, sizeof(v39));
-  if (v34 && ([v34 naturalDuration], (v39.flags & 0x1D) == 1) && (time1 = v39, time2 = **&MEMORY[0x277CC08F0], CMTimeCompare(&time1, &time2) > 0))
+  if (v34 && (objc_msgSend_naturalDuration(v34), (v39.flags & 0x1D) == 1) && (time1 = v39, time2 = **&MEMORY[0x277CC08F0], CMTimeCompare(&time1, &time2) > 0))
   {
     time1 = v39;
     v23 = CMTimeCopyAsDictionary(&time1, 0);

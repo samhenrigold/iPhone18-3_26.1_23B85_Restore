@@ -1,14 +1,14 @@
 uint64_t MTSimpleHIDManager::deviceDidBootload(MTSimpleHIDManager *this)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   (*(*this + 80))(this);
-  MTDeviceGetDeviceID();
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  DeviceID = MTDeviceGetDeviceID();
+  v4 = MTLoggingPlugin(DeviceID, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v9 = 0;
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "device bootloaded (deviceID 0x%llX)", buf, 0xCu);
+    v12 = 0;
+    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "device bootloaded (deviceID 0x%llX)", buf, 0xCu);
   }
 
   (*(*this + 488))(this);
@@ -16,12 +16,12 @@ uint64_t MTSimpleHIDManager::deviceDidBootload(MTSimpleHIDManager *this)
   *(this + 18) = 0;
   *(this + 152) = 0;
   MTAbsoluteTimeGetCurrent();
-  *(this + 8) = v3;
+  *(this + 8) = v5;
   (*(*this + 304))(this);
-  v4 = *(this + 14);
-  if (v4)
+  v6 = *(this + 14);
+  if (v6)
   {
-    (*(*v4 + 32))(v4);
+    (*(*v6 + 32))(v6);
   }
 
   else if (*(this + 80) == 1)
@@ -30,18 +30,19 @@ uint64_t MTSimpleHIDManager::deviceDidBootload(MTSimpleHIDManager *this)
   }
 
   (*(*this + 80))(this);
-  if ((MTDeviceDriverIsReady() & 1) == 0)
+  IsReady = MTDeviceDriverIsReady();
+  if ((IsReady & 1) == 0)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v9 = MTLoggingPlugin(IsReady, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v9 = "";
-      v10 = 2080;
-      v11 = "MTSimpleHIDManager::";
-      v12 = 2080;
-      v13 = "deviceDidBootload";
-      _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Driver is still not ready", buf, 0x20u);
+      v12 = "";
+      v13 = 2080;
+      v14 = "MTSimpleHIDManager::";
+      v15 = 2080;
+      v16 = "deviceDidBootload";
+      _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Driver is still not ready", buf, 0x20u);
     }
   }
 
@@ -52,26 +53,24 @@ uint64_t MTSimpleHIDManager::deviceDidBootload(MTSimpleHIDManager *this)
     result = MTDeviceDriverIsReady();
     if (result)
     {
-      result = (*(*this + 320))(this);
+      return (*(*this + 320))(this);
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void MTSimpleHIDManager::issueWakeEvent(MTSimpleHIDManager *this)
 {
-  v2 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   KeyboardEvent = IOHIDEventCreateKeyboardEvent();
   (*(*this + 136))(this, KeyboardEvent, 0);
   CFRelease(KeyboardEvent);
   mach_absolute_time();
-  v4 = IOHIDEventCreateKeyboardEvent();
-  (*(*this + 136))(this, v4, 0);
+  v3 = IOHIDEventCreateKeyboardEvent();
+  (*(*this + 136))(this, v3, 0);
 
-  CFRelease(v4);
+  CFRelease(v3);
 }
 
 uint64_t MTSimpleHIDManager::setPluginDefaultProperties(MTSimpleHIDManager *this)
@@ -181,44 +180,43 @@ LABEL_9:
 
 uint64_t MTSimpleHIDManager::restoreDevicePropertiesToDevice(MTSimpleHIDManager *this)
 {
-  v2 = *this + 560;
   if (*(this + 122) == 1)
   {
-    v3 = @"InputDetectionMode";
+    v2 = @"InputDetectionMode";
   }
 
   else
   {
-    v3 = @"TouchDetectionMode";
+    v2 = @"TouchDetectionMode";
   }
 
-  v4 = (*(*this + 560))(this, v3);
-  (*(*this + 392))(this, v3, v4, 1);
+  v3 = (*(*this + 560))(this, v2);
+  (*(*this + 392))(this, v2, v3, 1);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  v4 = (*(*this + 560))(this, @"GraphicsOrientation");
+  (*(*this + 392))(this, @"GraphicsOrientation", v4, 1);
   if (v4)
   {
     CFRelease(v4);
   }
 
-  v5 = (*(*this + 560))(this, @"GraphicsOrientation");
-  (*(*this + 392))(this, @"GraphicsOrientation", v5, 1);
+  v5 = (*(*this + 560))(this, @"WristState");
+  (*(*this + 392))(this, @"WristState", v5, 1);
   if (v5)
   {
     CFRelease(v5);
   }
 
-  v6 = (*(*this + 560))(this, @"WristState");
-  (*(*this + 392))(this, @"WristState", v6, 1);
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-
   result = (*(*this + 368))(this);
   if ((*(this + 160) & 0x20) != 0)
   {
-    v8 = *(*this + 352);
+    v7 = *(*this + 352);
 
-    return v8(this);
+    return v7(this);
   }
 
   return result;
@@ -473,60 +471,57 @@ void ___ZN18MTSimpleHIDManager26enableReportingOfAllInputsEv_block_invoke(uint64
 
 void MTSimpleHIDManager::_enableReportingOfAllInputs(MTSimpleHIDManager *this)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   (*(*this + 80))(this);
   Report = MTDeviceGetReport();
   if (Report)
   {
-    v3 = Report;
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = Report;
+    v5 = MTLoggingPlugin(Report, v3);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315906;
-      v13 = "[Error] ";
-      v14 = 2080;
-      v15 = "MTSimpleHIDManager::";
-      v16 = 2080;
-      v17 = "_enableReportingOfAllInputs";
-      v18 = 1024;
-      v19 = v3;
-      v5 = "[HID] [MT] %s%s%s Error 0x%08X getting detection options";
-      v6 = v4;
-      v7 = 38;
-LABEL_7:
-      _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_ERROR, v5, buf, v7);
+      return;
     }
+
+    *buf = 136315906;
+    v14 = "[Error] ";
+    v15 = 2080;
+    v16 = "MTSimpleHIDManager::";
+    v17 = 2080;
+    v18 = "_enableReportingOfAllInputs";
+    v19 = 1024;
+    v20 = v4;
+    v6 = "[HID] [MT] %s%s%s Error 0x%08X getting detection options";
+    v7 = v5;
+    v8 = 38;
+    goto LABEL_7;
   }
 
-  else
+  (*(*this + 80))(this);
+  v9 = MTDeviceSetReport();
+  if (v9)
   {
-    (*(*this + 80))(this);
-    v8 = MTDeviceSetReport();
-    if (v8)
+    v11 = v9;
+    v12 = MTLoggingPlugin(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v9 = v8;
-      v10 = MTLoggingPlugin();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136316162;
-        v13 = "[Error] ";
-        v14 = 2080;
-        v15 = "MTSimpleHIDManager::";
-        v16 = 2080;
-        v17 = "_enableReportingOfAllInputs";
-        v18 = 1024;
-        v19 = v9;
-        v20 = 1024;
-        v21 = 9;
-        v5 = "[HID] [MT] %s%s%s Error 0x%08X setting detection options to 0x%02X";
-        v6 = v10;
-        v7 = 44;
-        goto LABEL_7;
-      }
+      *buf = 136316162;
+      v14 = "[Error] ";
+      v15 = 2080;
+      v16 = "MTSimpleHIDManager::";
+      v17 = 2080;
+      v18 = "_enableReportingOfAllInputs";
+      v19 = 1024;
+      v20 = v11;
+      v21 = 1024;
+      v22 = 9;
+      v6 = "[HID] [MT] %s%s%s Error 0x%08X setting detection options to 0x%02X";
+      v7 = v12;
+      v8 = 44;
+LABEL_7:
+      _os_log_impl(&dword_29D381000, v7, OS_LOG_TYPE_ERROR, v6, buf, v8);
     }
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void MTSimpleHIDManager::setFieldDetectionStatus(dispatch_object_t *this)
@@ -556,18 +551,10 @@ void ___ZN18MTSimpleHIDManager23setFieldDetectionStatusEv_block_invoke(uint64_t 
   dispatch_release(v2);
 }
 
-uint64_t MTSimpleHIDManager::_setFieldDetectionStatus(MTSimpleHIDManager *this)
-{
-  *(this + 41);
-  (*(*this + 80))(this);
-  return MTDeviceSetReport();
-}
-
 uint64_t MTSimpleHIDManager::setDeviceIsReady(MTSimpleHIDManager *this, int a2)
 {
   *(this + 120) = a2;
   v2 = MEMORY[0x29EDB8F00];
-  v3 = *this + 568;
   if (!a2)
   {
     v2 = MEMORY[0x29EDB8EF8];
@@ -807,55 +794,51 @@ uint64_t MTSimpleHIDManager::setProperty(CFDateFormatterRef *this, const __CFStr
 
 uint64_t MTSimpleHIDManager::setProperty(CFMutableDictionaryRef *this, const __CFString *a2, const void *a3, uint64_t a4)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (MTSimpleHIDManager::propertyTypeFromString(a2, a2) != 18 || (*(this + 122) & 1) != 0 || (valuePtr = -21846, !a3) || (v9 = CFGetTypeID(a3), v9 != CFNumberGetTypeID()) || (v10 = CFNumberGetValue(a3, kCFNumberSInt16Type, &valuePtr), !v10))
   {
     if (!a3 || !a2 || a4 || (Value = CFDictionaryGetValue(this[5], a2)) == 0 || !CFEqual(Value, a3))
     {
-      v17 = MTSimpleHIDManager::propertyTypeFromString(a2, v8);
-      if ((*(*this + 50))(this, v17, a3, a4))
+      v19 = MTSimpleHIDManager::propertyTypeFromString(a2, v8);
+      if ((*(*this + 50))(this, v19, a3, a4))
       {
         CFDictionarySetValue(this[5], a2, a3);
-        v15 = 1;
-        goto LABEL_18;
+        return 1;
       }
     }
 
-LABEL_17:
-    v15 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   v11 = MTSimpleHIDManager::translateInputDetectionMode(v10, valuePtr);
-  v20 = v11;
-  v12 = MTLoggingPlugin();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v12 = v11;
+  v21 = v11;
+  v14 = MTLoggingPlugin(v11, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v23 = "";
-    v24 = 2080;
-    v25 = "MTSimpleHIDManager::";
-    v26 = 2080;
-    v27 = "setProperty";
-    v28 = 1024;
-    v29 = valuePtr;
-    v30 = 1024;
-    v31 = v11;
-    _os_log_impl(&dword_29D381000, v12, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Converting input detection mode (%d) to touch mode (%d) because prox is absent", buf, 0x2Cu);
+    v24 = "";
+    v25 = 2080;
+    v26 = "MTSimpleHIDManager::";
+    v27 = 2080;
+    v28 = "setProperty";
+    v29 = 1024;
+    v30 = valuePtr;
+    v31 = 1024;
+    v32 = v12;
+    _os_log_impl(&dword_29D381000, v14, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Converting input detection mode (%d) to touch mode (%d) because prox is absent", buf, 0x2Cu);
   }
 
-  v13 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt16Type, &v20);
-  if (!v13)
+  v15 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt16Type, &v21);
+  if (!v15)
   {
-    goto LABEL_17;
+    return 0;
   }
 
-  v14 = v13;
-  v15 = (*(*this + 49))(this, @"TouchDetectionMode", v13, a4);
-  CFRelease(v14);
-LABEL_18:
-  v18 = *MEMORY[0x29EDCA608];
-  return v15;
+  v16 = v15;
+  v17 = (*(*this + 49))(this, @"TouchDetectionMode", v15, a4);
+  CFRelease(v16);
+  return v17;
 }
 
 uint64_t MTSimpleHIDManager::translateInputDetectionMode(uint64_t a1, unsigned int a2)
@@ -899,9 +882,11 @@ uint64_t MTSimpleHIDManager::translateInputDetectionMode(uint64_t a1, unsigned i
   }
 }
 
-uint64_t MTSimpleHIDManager::setPropertyInternal(uint64_t *a1, int a2, CFTypeRef cf, int a4)
+uint64_t MTSimpleHIDManager::setPropertyInternal(CFTypeID TypeID, uint64_t a2, CFTypeRef cf, int a4)
 {
-  v84 = *MEMORY[0x29EDCA608];
+  v6 = a2;
+  v7 = TypeID;
+  v92 = *MEMORY[0x29EDCA608];
   if (cf)
   {
     v8 = CFGetTypeID(cf);
@@ -915,7 +900,8 @@ uint64_t MTSimpleHIDManager::setPropertyInternal(uint64_t *a1, int a2, CFTypeRef
     v16 = CFGetTypeID(cf);
     v17 = v16 == CFArrayGetTypeID();
     v18 = CFGetTypeID(cf);
-    v19 = v18 == CFDictionaryGetTypeID();
+    TypeID = CFDictionaryGetTypeID();
+    v19 = v18 == TypeID;
   }
 
   else
@@ -929,7 +915,7 @@ uint64_t MTSimpleHIDManager::setPropertyInternal(uint64_t *a1, int a2, CFTypeRef
   }
 
   v20 = 0;
-  switch(a2)
+  switch(v6)
   {
     case 1:
     case 2:
@@ -940,25 +926,25 @@ uint64_t MTSimpleHIDManager::setPropertyInternal(uint64_t *a1, int a2, CFTypeRef
         v20 = CFNumberGetValue(cf, kCFNumberSInt32Type, valuePtr) != 0;
       }
 
-      goto LABEL_129;
+      return v20 & 1;
     case 3:
-      v40 = CFGetTypeID(cf);
-      v20 = v40 == CFArrayGetTypeID() && CFArrayGetCount(cf) > 0;
+      v42 = CFGetTypeID(cf);
+      v20 = v42 == CFArrayGetTypeID() && CFArrayGetCount(cf) > 0;
       goto LABEL_86;
     case 4:
 LABEL_86:
       v20 |= v9;
-      goto LABEL_129;
+      return v20 & 1;
     case 5:
     case 25:
     case 70:
     case 74:
       v20 = v9;
-      goto LABEL_129;
+      return v20 & 1;
     case 6:
-      v32 = CFGetTypeID(cf);
-      v20 = v32 == CFStringGetTypeID();
-      goto LABEL_129;
+      v33 = CFGetTypeID(cf);
+      v20 = v33 == CFStringGetTypeID();
+      return v20 & 1;
     case 7:
       if (!v9)
       {
@@ -968,71 +954,71 @@ LABEL_86:
       _printHIDEvents = CFBooleanGetValue(cf) != 0;
       goto LABEL_128;
     case 9:
-      LOWORD(v80) = 0;
-      if (!v11 || !CFNumberGetValue(cf, kCFNumberSInt16Type, &v80))
+      LOWORD(v88) = 0;
+      if (!v11 || !CFNumberGetValue(cf, kCFNumberSInt16Type, &v88))
       {
         goto LABEL_92;
       }
 
-      *(a1 + 33) = LOWORD(v80);
-      v33 = a1[14];
-      if (v33)
+      *(v7 + 132) = LOWORD(v88);
+      v34 = *(v7 + 112);
+      if (v34)
       {
-        (*(*v33 + 24))(v33);
+        (*(*v34 + 24))(v34);
       }
 
       else
       {
-        v58 = 24;
-        if (*(a1 + 122))
+        v63 = 192;
+        if (*(v7 + 122))
         {
-          v58 = 16;
+          v63 = 128;
         }
 
-        if (LODWORD(a1[v58]) != 255 && (a1[10] & 1) == 0)
+        if (*(v7 + v63) != 255 && (*(v7 + 80) & 1) == 0)
         {
-          (*(*a1 + 440))(a1);
-          v59 = *a1;
-          if (*(a1 + 122) == 1)
+          (*(*v7 + 440))(v7);
+          v64 = *v7;
+          if (*(v7 + 122) == 1)
           {
-            (*(v59 + 432))(a1, *(a1 + 64), LOWORD(v80));
+            (*(v64 + 432))(v7, *(v7 + 128), LOWORD(v88));
           }
 
           else
           {
-            (*(v59 + 464))(a1, *(a1 + 96), LOWORD(v80));
+            (*(v64 + 464))(v7, *(v7 + 192), LOWORD(v88));
           }
         }
       }
 
       *valuePtr = 0xAAAAAAAAAAAAAAAALL;
-      *&v74 = -1;
-      *(&v74 + 1) = -1;
-      *&valuePtr[8] = v74;
-      *v82 = v74;
-      *&v82[16] = 0xAAAAAAAAAAAAAAAALL;
-      *&v82[24] = 0xAAAAAAAAFFFFFFFFLL;
-      v83 = -1;
-      (*(*a1 + 168))(valuePtr, a1);
-      *valuePtr = LOWORD(v80);
+      *&v81 = -1;
+      *(&v81 + 1) = -1;
+      *&valuePtr[8] = v81;
+      *v90 = v81;
+      *&v90[16] = 0xAAAAAAAAAAAAAAAALL;
+      *&v90[24] = 0xAAAAAAAAFFFFFFFFLL;
+      v91 = -1;
+      (*(*v7 + 168))(valuePtr, v7);
+      *valuePtr = LOWORD(v88);
       goto LABEL_127;
     case 10:
-      LOWORD(v80) = 0;
-      if (!v11 || !CFNumberGetValue(cf, kCFNumberSInt16Type, &v80))
+      LOWORD(v88) = 0;
+      if (!v11 || !CFNumberGetValue(cf, kCFNumberSInt16Type, &v88))
       {
         goto LABEL_92;
       }
 
       *valuePtr = 0xAAAAAAAAAAAAAAAALL;
-      *&v41 = -1;
-      *(&v41 + 1) = -1;
-      *&valuePtr[8] = v41;
-      *v82 = v41;
-      *&v82[16] = 0xAAAAAAAAAAAAAAAALL;
-      *&v82[24] = 0xAAAAAAAAFFFFFFFFLL;
-      v83 = -1;
-      (*(*a1 + 168))(valuePtr, a1);
-      *&valuePtr[4] = LOWORD(v80);
+      *&v43 = -1;
+      *(&v43 + 1) = -1;
+      *&valuePtr[8] = v43;
+      *v90 = v43;
+      *&v90[16] = 0xAAAAAAAAAAAAAAAALL;
+      *&v90[24] = 0xAAAAAAAAFFFFFFFFLL;
+      v91 = -1;
+      (*(*v7 + 168))(valuePtr, v7);
+      *&valuePtr[4] = LOWORD(v88);
       goto LABEL_127;
     case 11:
       valuePtr[0] = 0;
@@ -1041,60 +1027,41 @@ LABEL_86:
         goto LABEL_92;
       }
 
-      *(a1 + 136) = valuePtr[0];
-      v34 = 24;
-      if (*(a1 + 122))
+      *(v7 + 136) = valuePtr[0];
+      v35 = 192;
+      if (*(v7 + 122))
       {
-        v34 = 16;
+        v35 = 128;
       }
 
-      if (LODWORD(a1[v34]) != 255)
+      if (*(v7 + v35) != 255)
       {
-        (*(*a1 + 448))(a1);
+        (*(*v7 + 448))(v7);
       }
 
       goto LABEL_128;
     case 12:
-      v80 = 0.0;
-      if (!v11 || !CFNumberGetValue(cf, kCFNumberDoubleType, &v80))
+      v88 = 0.0;
+      if (!v11 || !CFNumberGetValue(cf, kCFNumberDoubleType, &v88))
       {
         goto LABEL_92;
       }
 
       *valuePtr = 0xAAAAAAAAAAAAAAAALL;
-      *&v30 = -1;
-      *(&v30 + 1) = -1;
-      *&valuePtr[8] = v30;
-      *v82 = v30;
-      *&v82[16] = 0xAAAAAAAAAAAAAAAALL;
-      *&v82[24] = 0xAAAAAAAAFFFFFFFFLL;
-      v83 = -1;
-      (*(*a1 + 168))(valuePtr, a1);
-      v31 = v80;
-      *&valuePtr[12] = v31;
+      *&v31 = -1;
+      *(&v31 + 1) = -1;
+      *&valuePtr[8] = v31;
+      *v90 = v31;
+      *&v90[16] = 0xAAAAAAAAAAAAAAAALL;
+      *&v90[24] = 0xAAAAAAAAFFFFFFFFLL;
+      v91 = -1;
+      (*(*v7 + 168))(valuePtr, v7);
+      v32 = v88;
+      *&valuePtr[12] = v32;
       goto LABEL_127;
     case 13:
-      v80 = 0.0;
-      if (!v11 || !CFNumberGetValue(cf, kCFNumberDoubleType, &v80))
-      {
-        goto LABEL_92;
-      }
-
-      *valuePtr = 0xAAAAAAAAAAAAAAAALL;
-      *&v42 = -1;
-      *(&v42 + 1) = -1;
-      *&valuePtr[8] = v42;
-      *v82 = v42;
-      *&v82[16] = 0xAAAAAAAAAAAAAAAALL;
-      *&v82[24] = 0xAAAAAAAAFFFFFFFFLL;
-      v83 = -1;
-      (*(*a1 + 168))(valuePtr, a1);
-      v43 = v80;
-      *&valuePtr[16] = v43;
-      goto LABEL_127;
-    case 14:
-      v80 = 0.0;
-      if (!v11 || !CFNumberGetValue(cf, kCFNumberDoubleType, &v80))
+      v88 = 0.0;
+      if (!v11 || !CFNumberGetValue(cf, kCFNumberDoubleType, &v88))
       {
         goto LABEL_92;
       }
@@ -1103,94 +1070,112 @@ LABEL_86:
       *&v44 = -1;
       *(&v44 + 1) = -1;
       *&valuePtr[8] = v44;
-      *v82 = v44;
-      *&v82[16] = 0xAAAAAAAAAAAAAAAALL;
-      *&v82[24] = 0xAAAAAAAAFFFFFFFFLL;
-      v83 = -1;
-      (*(*a1 + 168))(valuePtr, a1);
-      v45 = v80;
-      *&valuePtr[20] = v45;
-LABEL_127:
-      (*(*a1 + 176))(a1, valuePtr);
-      goto LABEL_128;
-    case 18:
-      LOWORD(v80) = 0;
-      if (!v11 || !CFNumberGetValue(cf, kCFNumberSInt16Type, &v80))
+      *v90 = v44;
+      *&v90[16] = 0xAAAAAAAAAAAAAAAALL;
+      *&v90[24] = 0xAAAAAAAAFFFFFFFFLL;
+      v91 = -1;
+      (*(*v7 + 168))(valuePtr, v7);
+      v45 = v88;
+      *&valuePtr[16] = v45;
+      goto LABEL_127;
+    case 14:
+      v88 = 0.0;
+      if (!v11 || !CFNumberGetValue(cf, kCFNumberDoubleType, &v88))
       {
         goto LABEL_92;
       }
 
-      v50 = *(a1 + 32);
-      v51 = LOWORD(v80);
-      *(a1 + 32) = LOWORD(v80);
-      if (v50 == 255 || v51 != 255)
+      *valuePtr = 0xAAAAAAAAAAAAAAAALL;
+      *&v46 = -1;
+      *(&v46 + 1) = -1;
+      *&valuePtr[8] = v46;
+      *v90 = v46;
+      *&v90[16] = 0xAAAAAAAAAAAAAAAALL;
+      *&v90[24] = 0xAAAAAAAAFFFFFFFFLL;
+      v91 = -1;
+      (*(*v7 + 168))(valuePtr, v7);
+      v47 = v88;
+      *&valuePtr[20] = v47;
+LABEL_127:
+      (*(*v7 + 176))(v7, valuePtr);
+      goto LABEL_128;
+    case 18:
+      LOWORD(v88) = 0;
+      if (!v11 || !CFNumberGetValue(cf, kCFNumberSInt16Type, &v88))
       {
-        if (v50 != 255 || v51 == 255)
+        goto LABEL_92;
+      }
+
+      v53 = *(v7 + 128);
+      v54 = LOWORD(v88);
+      *(v7 + 128) = LOWORD(v88);
+      if (v53 == 255 || v54 != 255)
+      {
+        if (v53 != 255 || v54 == 255)
         {
-          v60 = *(a1 + 66);
-          (*(*a1 + 432))(a1);
+          v55 = (*(*v7 + 432))(v7);
         }
 
         else
         {
-          (*(*a1 + 408))(a1, 2, 0);
+          v55 = (*(*v7 + 408))(v7, 2, 0);
         }
       }
 
       else
       {
-        (*(*a1 + 408))(a1, 0, 0);
+        v55 = (*(*v7 + 408))(v7, 0, 0);
       }
 
-      v61 = MTLoggingPlugin();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      v65 = MTLoggingPlugin(v55, v56);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
       {
-        v62 = *(a1 + 32);
+        v66 = *(v7 + 128);
         *valuePtr = 136316162;
         *&valuePtr[4] = "";
         *&valuePtr[12] = 2080;
         *&valuePtr[14] = "MTSimpleHIDManager::";
         *&valuePtr[22] = 2080;
-        *v82 = "setPropertyInternal";
-        *&v82[8] = 1024;
-        *&v82[10] = v50;
-        *&v82[14] = 1024;
-        *&v82[16] = v62;
-        _os_log_impl(&dword_29D381000, v61, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s detection mode: %d->%d\n", valuePtr, 0x2Cu);
+        *v90 = "setPropertyInternal";
+        *&v90[8] = 1024;
+        *&v90[10] = v53;
+        *&v90[14] = 1024;
+        *&v90[16] = v66;
+        _os_log_impl(&dword_29D381000, v65, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s detection mode: %d->%d\n", valuePtr, 0x2Cu);
       }
 
       goto LABEL_128;
     case 20:
-      v46 = *MEMORY[0x29EDB8F00] == cf && v9;
-      if (!v46 || *(a1 + 32) == 255)
+      v48 = *MEMORY[0x29EDB8F00] == cf && v9;
+      if (!v48 || *(v7 + 128) == 255)
       {
         goto LABEL_92;
       }
 
-      v47 = MTLoggingPlugin();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v49 = MTLoggingPlugin(TypeID, a2);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
         *valuePtr = 136315650;
         *&valuePtr[4] = "";
         *&valuePtr[12] = 2080;
         *&valuePtr[14] = "MTSimpleHIDManager::";
         *&valuePtr[22] = 2080;
-        *v82 = "setPropertyInternal";
-        _os_log_impl(&dword_29D381000, v47, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Resetting prox", valuePtr, 0x20u);
+        *v90 = "setPropertyInternal";
+        _os_log_impl(&dword_29D381000, v49, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Resetting prox", valuePtr, 0x20u);
       }
 
-      (*(*a1 + 80))(a1);
-      LODWORD(v80) = MTSwapInt32HostToDevice();
-      (*(*a1 + 80))(a1);
-      v48 = MTDeviceSetReport();
-      if (!v48)
+      (*(*v7 + 80))(v7);
+      LODWORD(v88) = MTSwapInt32HostToDevice();
+      (*(*v7 + 80))(v7);
+      v50 = MTDeviceSetReport();
+      if (!v50)
       {
         goto LABEL_92;
       }
 
-      v49 = v48;
-      v28 = MTLoggingPlugin();
-      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v52 = v50;
+      v29 = MTLoggingPlugin(v50, v51);
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_92;
       }
@@ -1200,10 +1185,10 @@ LABEL_127:
       *&valuePtr[12] = 2080;
       *&valuePtr[14] = "MTSimpleHIDManager::";
       *&valuePtr[22] = 2080;
-      *v82 = "setPropertyInternal";
-      *&v82[8] = 1024;
-      *&v82[10] = v49;
-      v29 = "[HID] [MT] %s%s%s Error 0x%08X resetting prox";
+      *v90 = "setPropertyInternal";
+      *&v90[8] = 1024;
+      *&v90[10] = v52;
+      v30 = "[HID] [MT] %s%s%s Error 0x%08X resetting prox";
       goto LABEL_90;
     case 21:
       if (!v9)
@@ -1212,17 +1197,17 @@ LABEL_127:
       }
 
       v25 = *MEMORY[0x29EDB8F00] == cf ? 8 : 9;
-      LOBYTE(v80) = v25;
-      (*(*a1 + 80))(a1);
+      LOBYTE(v88) = v25;
+      (*(*v7 + 80))(v7);
       v26 = MTDeviceSetReport();
       if (!v26)
       {
         goto LABEL_92;
       }
 
-      v27 = v26;
-      v28 = MTLoggingPlugin();
-      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v28 = v26;
+      v29 = MTLoggingPlugin(v26, v27);
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_92;
       }
@@ -1232,10 +1217,10 @@ LABEL_127:
       *&valuePtr[12] = 2080;
       *&valuePtr[14] = "MTSimpleHIDManager::";
       *&valuePtr[22] = 2080;
-      *v82 = "setPropertyInternal";
-      *&v82[8] = 1024;
-      *&v82[10] = v27;
-      v29 = "[HID] [MT] %s%s%s Error 0x%08x setting rHOST_EVENT_NOTIFICATION";
+      *v90 = "setPropertyInternal";
+      *&v90[8] = 1024;
+      *&v90[10] = v28;
+      v30 = "[HID] [MT] %s%s%s Error 0x%08x setting rHOST_EVENT_NOTIFICATION";
       goto LABEL_90;
     case 37:
       if (!v13)
@@ -1243,12 +1228,13 @@ LABEL_127:
         goto LABEL_92;
       }
 
-      BytePtr = CFDataGetBytePtr(cf);
+      CFDataGetBytePtr(cf);
       Length = CFDataGetLength(cf);
+      v38 = Length;
       if (Length <= 1)
       {
-        v37 = MTLoggingPlugin();
-        if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v39 = MTLoggingPlugin(Length, v37);
+        if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_92;
         }
@@ -1258,47 +1244,44 @@ LABEL_127:
         *&valuePtr[12] = 2080;
         *&valuePtr[14] = "MTSimpleHIDManager::";
         *&valuePtr[22] = 2080;
-        *v82 = "setPropertyInternal";
-        *&v82[8] = 2048;
-        *&v82[10] = Length;
-        *&v82[18] = 2048;
-        *&v82[20] = 2;
-        v29 = "[HID] [MT] %s%s%s Message length (%ld) is smaller than message type size (%lu)";
-        v38 = v37;
-        v39 = 52;
+        *v90 = "setPropertyInternal";
+        *&v90[8] = 2048;
+        *&v90[10] = v38;
+        *&v90[18] = 2048;
+        *&v90[20] = 2;
+        v30 = "[HID] [MT] %s%s%s Message length (%ld) is smaller than message type size (%lu)";
+        v40 = v39;
+        v41 = 52;
         goto LABEL_91;
       }
 
-      v55 = *BytePtr;
-      (*(*a1 + 80))(a1);
-      v56 = MTDeviceSendExternalMessage();
-      if (v56)
+      (*(*v7 + 80))(v7);
+      v60 = MTDeviceSendExternalMessage();
+      if (v60)
       {
-        v57 = v56;
-        v28 = MTLoggingPlugin();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v62 = v60;
+        v29 = MTLoggingPlugin(v60, v61);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *valuePtr = 136315906;
           *&valuePtr[4] = "[Error] ";
           *&valuePtr[12] = 2080;
           *&valuePtr[14] = "MTSimpleHIDManager::";
           *&valuePtr[22] = 2080;
-          *v82 = "setPropertyInternal";
-          *&v82[8] = 1024;
-          *&v82[10] = v57;
-          v29 = "[HID] [MT] %s%s%s Error 0x%08X sending external message";
+          *v90 = "setPropertyInternal";
+          *&v90[8] = 1024;
+          *&v90[10] = v62;
+          v30 = "[HID] [MT] %s%s%s Error 0x%08X sending external message";
 LABEL_90:
-          v38 = v28;
-          v39 = 38;
+          v40 = v29;
+          v41 = 38;
 LABEL_91:
-          _os_log_impl(&dword_29D381000, v38, OS_LOG_TYPE_ERROR, v29, valuePtr, v39);
+          _os_log_impl(&dword_29D381000, v40, OS_LOG_TYPE_ERROR, v30, valuePtr, v41);
         }
       }
 
 LABEL_92:
       v20 = 0;
-LABEL_129:
-      v75 = *MEMORY[0x29EDCA608];
       return v20 & 1;
     case 38:
     case 39:
@@ -1324,26 +1307,26 @@ LABEL_129:
     case 84:
     case 85:
       v20 = v11;
-      goto LABEL_129;
+      return v20 & 1;
     case 43:
-      LOWORD(v80) = 0;
-      if (!v11 || !CFNumberGetValue(cf, kCFNumberSInt16Type, &v80))
+      LOWORD(v88) = 0;
+      if (!v11 || !CFNumberGetValue(cf, kCFNumberSInt16Type, &v88))
       {
         goto LABEL_92;
       }
 
-      v21 = *(a1 + 48);
-      v22 = LOBYTE(v80);
-      *(a1 + 48) = LOBYTE(v80);
+      v21 = *(v7 + 192);
+      v22 = LOBYTE(v88);
+      *(v7 + 192) = LOBYTE(v88);
       if (v21 == v22 && !a4)
       {
         goto LABEL_128;
       }
 
-      (*(*a1 + 80))(a1);
-      if (MTDeviceSupportsTapToWake() && ((*(*a1 + 80))(a1), (MTDeviceUseContextualPower() & 1) == 0))
+      (*(*v7 + 80))(v7);
+      if (MTDeviceSupportsTapToWake() && ((*(*v7 + 80))(v7), (MTDeviceUseContextualPower() & 1) == 0))
       {
-        v23 = *(a1 + 48);
+        v23 = *(v7 + 192);
         if (v23 == 255)
         {
           v24 = 254;
@@ -1353,7 +1336,7 @@ LABEL_129:
 
       else
       {
-        v23 = *(a1 + 48);
+        v23 = *(v7 + 192);
       }
 
       if (v23 != 252)
@@ -1363,128 +1346,129 @@ LABEL_129:
 
       v24 = 255;
 LABEL_108:
-      *(a1 + 48) = v24;
+      *(v7 + 192) = v24;
 LABEL_109:
-      (*(*a1 + 80))(a1);
-      if (MTDeviceNeedsFirstPowerOffSuppressed() && (*(a1 + 48) - 253) <= 2)
+      (*(*v7 + 80))(v7);
+      if (MTDeviceNeedsFirstPowerOffSuppressed() && (*(v7 + 192) - 253) <= 2)
       {
-        (*(*a1 + 80))(a1);
+        (*(*v7 + 80))(v7);
         PowerOffSuppressed = MTDeviceNotifyFirstPowerOffSuppressed();
-        v64 = MTLoggingPlugin();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+        v68 = PowerOffSuppressed;
+        v70 = MTLoggingPlugin(PowerOffSuppressed, v69);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
           *valuePtr = 136315906;
           *&valuePtr[4] = "";
           *&valuePtr[12] = 2080;
           *&valuePtr[14] = "MTSimpleHIDManager::";
           *&valuePtr[22] = 2080;
-          *v82 = "setPropertyInternal";
-          *&v82[8] = 1024;
-          *&v82[10] = PowerOffSuppressed;
-          _os_log_impl(&dword_29D381000, v64, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Suppressed first power off on boot - driver notified: 0x%x\n", valuePtr, 0x26u);
+          *v90 = "setPropertyInternal";
+          *&v90[8] = 1024;
+          *&v90[10] = v68;
+          _os_log_impl(&dword_29D381000, v70, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Suppressed first power off on boot - driver notified: 0x%x\n", valuePtr, 0x26u);
         }
 
         v20 = 0;
-        *(a1 + 48) = v21;
+        *(v7 + 192) = v21;
       }
 
       else
       {
-        v65 = LOWORD(v80) & 0x100;
-        v66 = a1[14];
-        if (v66)
+        v71 = LOWORD(v88) & 0x100;
+        v72 = *(v7 + 112);
+        if (v72)
         {
-          (*(*v66 + 16))(v66, *(a1 + 48), v65 != 0);
+          (*(*v72 + 16))(v72, *(v7 + 192), v71 != 0);
         }
 
         else
         {
-          (*(*a1 + 80))(a1);
-          v67 = MTDevicePowerControlSupported();
-          v68 = *(a1 + 48);
-          if (v67)
+          (*(*v7 + 80))(v7);
+          v73 = MTDevicePowerControlSupported();
+          v74 = *(v7 + 192);
+          if (v73)
           {
-            if ((v68 - 253) >= 2)
+            if ((v74 - 253) >= 2)
             {
-              if (v68 == 255)
+              if (v74 == 255)
               {
-                (*(*a1 + 408))(a1, 0, 0);
+                v75 = (*(*v7 + 408))(v7, 0, 0);
               }
 
               else
               {
-                (*(*a1 + 416))(a1, 2, v65 != 0);
-                if (v21 == 255 || (a1[10] & 1) != 0)
+                v83 = (*(*v7 + 416))(v7, 2, v71 != 0);
+                if (v21 == 255 || (*(v7 + 80) & 1) != 0)
                 {
-                  v77 = MTLoggingPlugin();
-                  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+                  v85 = MTLoggingPlugin(v83, v84);
+                  v75 = os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT);
+                  if (v75)
                   {
-                    v78 = *(a1 + 48);
-                    v79 = *(a1 + 33);
+                    v86 = *(v7 + 192);
+                    v87 = *(v7 + 132);
                     *valuePtr = 136316162;
                     *&valuePtr[4] = "";
                     *&valuePtr[12] = 2080;
                     *&valuePtr[14] = "MTSimpleHIDManager::";
                     *&valuePtr[22] = 2080;
-                    *v82 = "setPropertyInternal";
-                    *&v82[8] = 1024;
-                    *&v82[10] = v78;
-                    *&v82[14] = 1024;
-                    *&v82[16] = v79;
-                    _os_log_impl(&dword_29D381000, v77, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Skip sending touch mode %d, orientation %d. Device not on", valuePtr, 0x2Cu);
+                    *v90 = "setPropertyInternal";
+                    *&v90[8] = 1024;
+                    *&v90[10] = v86;
+                    *&v90[14] = 1024;
+                    *&v90[16] = v87;
+                    _os_log_impl(&dword_29D381000, v85, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Skip sending touch mode %d, orientation %d. Device not on", valuePtr, 0x2Cu);
                   }
                 }
 
                 else
                 {
-                  (*(*a1 + 464))(a1, *(a1 + 96), *(a1 + 66));
+                  v75 = (*(*v7 + 464))(v7, *(v7 + 192), *(v7 + 132));
                 }
               }
             }
 
             else
             {
-              (*(*a1 + 464))(a1, *(a1 + 48), *(a1 + 66));
-              (*(*a1 + 416))(a1, 1, v65 != 0);
+              (*(*v7 + 464))(v7, *(v7 + 192), *(v7 + 132));
+              v75 = (*(*v7 + 416))(v7, 1, v71 != 0);
             }
           }
 
           else
           {
-            (*(*a1 + 464))(a1, *(a1 + 48), *(a1 + 66));
+            v75 = (*(*v7 + 464))(v7, *(v7 + 192), *(v7 + 132));
           }
 
-          v69 = MTLoggingPlugin();
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+          v77 = MTLoggingPlugin(v75, v76);
+          if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
           {
-            v70 = *(a1 + 48);
+            v78 = *(v7 + 192);
             *valuePtr = 136316418;
             *&valuePtr[4] = "";
             *&valuePtr[12] = 2080;
             *&valuePtr[14] = "MTSimpleHIDManager::";
             *&valuePtr[22] = 2080;
-            *v82 = "setPropertyInternal";
-            *&v82[8] = 1024;
-            *&v82[10] = v21;
-            *&v82[14] = 1024;
-            *&v82[16] = v70;
-            *&v82[20] = 1024;
-            *&v82[22] = v65 >> 8;
-            _os_log_impl(&dword_29D381000, v69, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s touch mode: %d->%d fromButton=%d\n", valuePtr, 0x32u);
+            *v90 = "setPropertyInternal";
+            *&v90[8] = 1024;
+            *&v90[10] = v21;
+            *&v90[14] = 1024;
+            *&v90[16] = v78;
+            *&v90[20] = 1024;
+            *&v90[22] = v71 >> 8;
+            _os_log_impl(&dword_29D381000, v77, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s touch mode: %d->%d fromButton=%d\n", valuePtr, 0x32u);
           }
         }
 
-        if (*(a1 + 39) == 4)
+        if (*(v7 + 156) == 4)
         {
-          valuePtr[0] = *(a1 + 48);
-          v71 = *MEMORY[0x29EDB8ED8];
+          valuePtr[0] = *(v7 + 192);
           mach_absolute_time();
           VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
           if (VendorDefinedEvent)
           {
-            v73 = VendorDefinedEvent;
-            (*(*a1 + 136))(a1, VendorDefinedEvent, 0);
-            CFRelease(v73);
+            v80 = VendorDefinedEvent;
+            (*(*v7 + 136))(v7, VendorDefinedEvent, 0);
+            CFRelease(v80);
           }
         }
 
@@ -1492,7 +1476,7 @@ LABEL_128:
         v20 = 1;
       }
 
-      goto LABEL_129;
+      return v20 & 1;
     case 44:
     case 45:
     case 59:
@@ -1501,51 +1485,51 @@ LABEL_128:
     case 68:
     case 78:
       v20 = v15;
-      goto LABEL_129;
+      return v20 & 1;
     case 48:
     case 50:
     case 76:
       v20 = v17;
-      goto LABEL_129;
+      return v20 & 1;
     case 52:
     case 53:
       v20 = v13;
-      goto LABEL_129;
+      return v20 & 1;
     case 58:
       v20 = v9;
       goto LABEL_77;
     case 71:
 LABEL_77:
       v20 |= v19;
-      goto LABEL_129;
+      return v20 & 1;
     case 72:
       if (!v9)
       {
         goto LABEL_92;
       }
 
-      v52 = CFBooleanGetValue(cf) != 0;
-      (*(*a1[4] + 72))(a1[4], v52);
+      v57 = CFBooleanGetValue(cf) != 0;
+      (*(**(v7 + 32) + 72))(*(v7 + 32), v57);
       goto LABEL_128;
     case 75:
       v20 = 0;
       *valuePtr = 0;
       if (!v11)
       {
-        goto LABEL_129;
+        return v20 & 1;
       }
 
       Value = CFNumberGetValue(cf, kCFNumberSInt32Type, valuePtr);
       v20 = 0;
       if (!Value || *valuePtr > 1u)
       {
-        goto LABEL_129;
+        return v20 & 1;
       }
 
-      v54 = a1[14];
-      if (v54)
+      v59 = *(v7 + 112);
+      if (v59)
       {
-        *(v54 + 32) = *valuePtr;
+        *(v59 + 32) = *valuePtr;
       }
 
       goto LABEL_128;
@@ -1555,11 +1539,11 @@ LABEL_77:
         goto LABEL_92;
       }
 
-      (*(*a1 + 80))(a1);
+      (*(*v7 + 80))(v7);
       MTDeviceSetBinaryFiltersProperty();
       goto LABEL_128;
     default:
-      goto LABEL_129;
+      return v20 & 1;
   }
 }
 
@@ -1587,7 +1571,7 @@ const char *MTSimpleHIDManager::powerStateToStr(unsigned int a1)
   }
 }
 
-uint64_t MTSimpleHIDManager::setPowerState(uint64_t a1, unsigned int a2, int a3)
+uint64_t MTSimpleHIDManager::setPowerState(uint64_t a1, uint64_t a2, int a3)
 {
   v24 = *MEMORY[0x29EDCA608];
   if (*(a1 + 112))
@@ -1595,17 +1579,18 @@ uint64_t MTSimpleHIDManager::setPowerState(uint64_t a1, unsigned int a2, int a3)
     MTSimpleHIDManager::setPowerState();
   }
 
-  v6 = MTLoggingPlugin();
+  v4 = a2;
+  v6 = MTLoggingPlugin(a1, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    if (a2 > 2)
+    if (v4 > 2)
     {
       v7 = "<UNKNOWN>";
     }
 
     else
     {
-      v7 = off_29F34C688[a2];
+      v7 = off_29F34C688[v4];
     }
 
     v12 = 136316418;
@@ -1615,7 +1600,7 @@ uint64_t MTSimpleHIDManager::setPowerState(uint64_t a1, unsigned int a2, int a3)
     v16 = 2080;
     v17 = "setPowerState";
     v18 = 1024;
-    v19 = a2;
+    v19 = v4;
     v20 = 2082;
     v21 = v7;
     v22 = 1024;
@@ -1627,7 +1612,7 @@ uint64_t MTSimpleHIDManager::setPowerState(uint64_t a1, unsigned int a2, int a3)
   {
     v8 = 0;
     *(a1 + 80) = 1;
-    *(a1 + 84) = a2;
+    *(a1 + 84) = v4;
   }
 
   else
@@ -1635,8 +1620,8 @@ uint64_t MTSimpleHIDManager::setPowerState(uint64_t a1, unsigned int a2, int a3)
     *(a1 + 80) = 0;
     (*(*a1 + 80))(a1);
     v8 = MTDevicePowerSetState();
-    v9 = MTLoggingPlugin();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = MTLoggingPlugin(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 136315906;
       v13 = "";
@@ -1646,23 +1631,22 @@ uint64_t MTSimpleHIDManager::setPowerState(uint64_t a1, unsigned int a2, int a3)
       v17 = "setPowerState";
       v18 = 1024;
       v19 = v8;
-      _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s MTDevicePowerSetState result: 0x%x", &v12, 0x26u);
+      _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s MTDevicePowerSetState result: 0x%x", &v12, 0x26u);
     }
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 uint64_t MTSimpleHIDManager::setPowerStateWithReset(uint64_t a1, uint64_t a2, int a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (*(a1 + 112))
   {
     MTSimpleHIDManager::setPowerStateWithReset();
   }
 
-  v6 = MTLoggingPlugin();
+  v6 = MTLoggingPlugin(a1, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     if (a2 > 2)
@@ -1676,151 +1660,147 @@ uint64_t MTSimpleHIDManager::setPowerStateWithReset(uint64_t a1, uint64_t a2, in
     }
 
     *buf = 136316418;
-    v24 = "";
-    v25 = 2080;
-    v26 = "MTSimpleHIDManager::";
-    v27 = 2080;
-    v28 = "setPowerStateWithReset";
-    v29 = 1024;
-    *v30 = a2;
-    *&v30[4] = 2082;
-    *&v30[6] = v7;
-    v31 = 1024;
-    v32 = a3;
+    v27 = "";
+    v28 = 2080;
+    v29 = "MTSimpleHIDManager::";
+    v30 = 2080;
+    v31 = "setPowerStateWithReset";
+    v32 = 1024;
+    *v33 = a2;
+    *&v33[4] = 2082;
+    *&v33[6] = v7;
+    v34 = 1024;
+    v35 = a3;
     _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [powerState:%d(%{public}s), triggeredFromButton:%d]", buf, 0x36u);
   }
 
-  if (a2 != 1 || ((*(*a1 + 80))(a1), MTDevicePowerGetState() | 0xAAAAAAAA))
+  if (a2 != 1 || ((*(*a1 + 80))(a1), State = MTDevicePowerGetState(), State | 0xAAAAAAAA))
   {
     (*(*a1 + 80))(a1);
-    v10 = *(a1 + 64);
-    if (MTDeviceShouldResetOnButton())
+    v12 = *(a1 + 64);
+    ShouldResetOnButton = MTDeviceShouldResetOnButton();
+    if (ShouldResetOnButton)
     {
-      v11 = a3 == 0;
+      v15 = a3 == 0;
     }
 
     else
     {
-      v11 = 0;
+      v15 = 0;
     }
 
-    if (v11 || (a2 != 2 ? (ResetOnLockMs = MTDeviceGetResetOnLockMs()) : (ResetOnLockMs = MTDeviceGetResetOnUnlockMs()), (v13 = ResetOnLockMs / 1000.0, MTAbsoluteTimeGetCurrent(), v15 = v14 - v10, v13 > 0.0) ? (v16 = v15 <= v13) : (v16 = 1), v16))
+    if (v15 || (a2 != 2 ? (ResetOnLockMs = MTDeviceGetResetOnLockMs()) : (ResetOnLockMs = MTDeviceGetResetOnUnlockMs()), (v17 = ResetOnLockMs / 1000.0, ShouldResetOnButton = MTAbsoluteTimeGetCurrent(), v19 = v18 - v12, v17 > 0.0) ? (v20 = v19 <= v17) : (v20 = 1), v20))
     {
-      v17 = MTLoggingPlugin();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v21 = MTLoggingPlugin(ShouldResetOnButton, v14);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v24 = "";
-        v25 = 2080;
-        v26 = "MTSimpleHIDManager::";
-        v27 = 2080;
-        v28 = "setPowerStateWithReset";
-        _os_log_impl(&dword_29D381000, v17, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Setting device power without reset", buf, 0x20u);
+        v27 = "";
+        v28 = 2080;
+        v29 = "MTSimpleHIDManager::";
+        v30 = 2080;
+        v31 = "setPowerStateWithReset";
+        _os_log_impl(&dword_29D381000, v21, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Setting device power without reset", buf, 0x20u);
       }
 
-      result = (*(*a1 + 408))(a1, a2, 0);
+      return (*(*a1 + 408))(a1, a2, 0);
     }
 
     else
     {
-      v19 = MTLoggingPlugin();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = MTLoggingPlugin(ShouldResetOnButton, v14);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         if (a2 > 2)
         {
-          v21 = "<UNKNOWN>";
+          v24 = "<UNKNOWN>";
         }
 
         else
         {
-          v21 = off_29F34C688[a2];
+          v24 = off_29F34C688[a2];
         }
 
         *buf = 136315906;
-        v24 = "";
-        v25 = 2080;
-        v26 = "MTSimpleHIDManager::";
-        v27 = 2080;
-        v28 = "setPowerStateWithReset";
-        v29 = 2082;
-        *v30 = v21;
-        _os_log_impl(&dword_29D381000, v19, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Resetting device before setting power state to %{public}s", buf, 0x2Au);
+        v27 = "";
+        v28 = 2080;
+        v29 = "MTSimpleHIDManager::";
+        v30 = 2080;
+        v31 = "setPowerStateWithReset";
+        v32 = 2082;
+        *v33 = v24;
+        _os_log_impl(&dword_29D381000, v22, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Resetting device before setting power state to %{public}s", buf, 0x2Au);
       }
 
       (*(*a1 + 480))(a1, 30);
       MTAbsoluteTimeGetCurrent();
-      *(a1 + 64) = v22;
+      *(a1 + 64) = v25;
       (*(*a1 + 408))(a1, a2, 1);
-      result = (*(*a1 + 424))(a1);
+      return (*(*a1 + 424))(a1);
     }
   }
 
   else
   {
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = MTLoggingPlugin(State, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v24 = "";
-      v25 = 2080;
-      v26 = "MTSimpleHIDManager::";
-      v27 = 2080;
-      v28 = "setPowerStateWithReset";
-      _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Turning on and waiting for the device to be ready before going to sleep.", buf, 0x20u);
+      v27 = "";
+      v28 = 2080;
+      v29 = "MTSimpleHIDManager::";
+      v30 = 2080;
+      v31 = "setPowerStateWithReset";
+      _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Turning on and waiting for the device to be ready before going to sleep.", buf, 0x20u);
     }
 
-    result = (*(*a1 + 408))(a1, 2, 0);
+    return (*(*a1 + 408))(a1, 2, 0);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t MTSimpleHIDManager::setupBootloadPowerAssertion(MTSimpleHIDManager *this, uint64_t a2)
 {
-  v17 = *MEMORY[0x29EDCA608];
-  v4 = MTLoggingPlugin();
+  v18 = *MEMORY[0x29EDCA608];
+  v4 = MTLoggingPlugin(this, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "";
-    v11 = 2080;
-    v12 = "MTSimpleHIDManager::";
-    v13 = 2080;
-    v14 = "setupBootloadPowerAssertion";
-    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s ", &v9, 0x20u);
+    v10 = 136315650;
+    v11 = "";
+    v12 = 2080;
+    v13 = "MTSimpleHIDManager::";
+    v14 = 2080;
+    v15 = "setupBootloadPowerAssertion";
+    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s ", &v10, 0x20u);
   }
 
-  (*(*this + 488))(this);
-  v5 = MTLoggingPlugin();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = (*(*this + 488))(this);
+  v7 = MTLoggingPlugin(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(this + 13) + 1;
-    *(this + 13) = v6;
-    v9 = 136315906;
-    v10 = "";
-    v11 = 2080;
-    v12 = "MTSimpleHIDManager::";
-    v13 = 2080;
-    v14 = "setupBootloadPowerAssertion";
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [generation: %llu]", &v9, 0x2Au);
+    v8 = *(this + 13) + 1;
+    *(this + 13) = v8;
+    v10 = 136315906;
+    v11 = "";
+    v12 = 2080;
+    v13 = "MTSimpleHIDManager::";
+    v14 = 2080;
+    v15 = "setupBootloadPowerAssertion";
+    v16 = 2048;
+    v17 = v8;
+    _os_log_impl(&dword_29D381000, v7, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [generation: %llu]", &v10, 0x2Au);
   }
 
   (*(*this + 496))(this);
-  result = (*(*this + 512))(this, a2, *(this + 13));
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(*this + 512))(this, a2, *(this + 13));
 }
 
-uint64_t MTSimpleHIDManager::cleanupBootloadPowerAssertion(MTSimpleHIDManager *this)
+uint64_t MTSimpleHIDManager::cleanupBootloadPowerAssertion(MTSimpleHIDManager *this, uint64_t a2)
 {
   v14 = *MEMORY[0x29EDCA608];
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = MTLoggingPlugin(this, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(this + 13);
+    v4 = *(this + 13);
     v6 = 136315906;
     v7 = "";
     v8 = 2080;
@@ -1828,100 +1808,102 @@ uint64_t MTSimpleHIDManager::cleanupBootloadPowerAssertion(MTSimpleHIDManager *t
     v10 = 2080;
     v11 = "cleanupBootloadPowerAssertion";
     v12 = 2048;
-    v13 = v3;
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [generation: %llu]", &v6, 0x2Au);
+    v13 = v4;
+    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [generation: %llu]", &v6, 0x2Au);
   }
 
   (*(*this + 520))(this);
-  result = (*(*this + 504))(this);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(*this + 504))(this);
 }
 
 void MTSimpleHIDManager::takeBootloadPowerAssertion(IOPMAssertionID *this)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v2 = IOPMAssertionCreateWithName(@"PreventUserIdleSystemSleep", 0xFFu, @"MT.bootload", this + 22);
-  v3 = MTLoggingPlugin();
-  v4 = v3;
-  if (v2)
+  v3 = v2;
+  v5 = MTLoggingPlugin(v2, v4);
+  v6 = v5;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = this[22];
-      v12 = 136316162;
-      v13 = "[Error] ";
-      v14 = 2080;
-      v15 = "MTSimpleHIDManager::";
-      v16 = 2080;
-      v17 = "takeBootloadPowerAssertion";
-      v18 = 1024;
-      v19 = v5;
-      v20 = 1024;
-      v21 = v2;
-      v6 = "[HID] [MT] %s%s%s Failed to take power assertion %u: 0x%08x";
-      v7 = v4;
-      v8 = OS_LOG_TYPE_ERROR;
-      v9 = 44;
-LABEL_6:
-      _os_log_impl(&dword_29D381000, v7, v8, v6, &v12, v9);
+      return;
     }
+
+    v7 = this[22];
+    v13 = 136316162;
+    v14 = "[Error] ";
+    v15 = 2080;
+    v16 = "MTSimpleHIDManager::";
+    v17 = 2080;
+    v18 = "takeBootloadPowerAssertion";
+    v19 = 1024;
+    v20 = v7;
+    v21 = 1024;
+    v22 = v3;
+    v8 = "[HID] [MT] %s%s%s Failed to take power assertion %u: 0x%08x";
+    v9 = v6;
+    v10 = OS_LOG_TYPE_ERROR;
+    v11 = 44;
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  else
   {
-    v10 = this[22];
-    v12 = 136315906;
-    v13 = "";
-    v14 = 2080;
-    v15 = "MTSimpleHIDManager::";
-    v16 = 2080;
-    v17 = "takeBootloadPowerAssertion";
-    v18 = 1024;
-    v19 = v10;
-    v6 = "[HID] [MT] %s%s%s Took power assertion %u";
-    v7 = v4;
-    v8 = OS_LOG_TYPE_DEFAULT;
-    v9 = 38;
-    goto LABEL_6;
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    v12 = this[22];
+    v13 = 136315906;
+    v14 = "";
+    v15 = 2080;
+    v16 = "MTSimpleHIDManager::";
+    v17 = 2080;
+    v18 = "takeBootloadPowerAssertion";
+    v19 = 1024;
+    v20 = v12;
+    v8 = "[HID] [MT] %s%s%s Took power assertion %u";
+    v9 = v6;
+    v10 = OS_LOG_TYPE_DEFAULT;
+    v11 = 38;
   }
 
-  v11 = *MEMORY[0x29EDCA608];
+  _os_log_impl(&dword_29D381000, v9, v10, v8, &v13, v11);
 }
 
 void MTSimpleHIDManager::releaseBootloadPowerAssertion(MTSimpleHIDManager *this)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v2 = *(this + 22);
   if (v2)
   {
     v3 = IOPMAssertionRelease(v2);
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = v3;
+    v6 = MTLoggingPlugin(v3, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(this + 22);
-      v7 = 136316162;
-      v8 = "";
-      v9 = 2080;
-      v10 = "MTSimpleHIDManager::";
-      v11 = 2080;
-      v12 = "releaseBootloadPowerAssertion";
-      v13 = 1024;
-      v14 = v5;
-      v15 = 1024;
-      v16 = v3;
-      _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Released power assertion %u: 0x%08x", &v7, 0x2Cu);
+      v7 = *(this + 22);
+      v8 = 136316162;
+      v9 = "";
+      v10 = 2080;
+      v11 = "MTSimpleHIDManager::";
+      v12 = 2080;
+      v13 = "releaseBootloadPowerAssertion";
+      v14 = 1024;
+      v15 = v7;
+      v16 = 1024;
+      v17 = v4;
+      _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Released power assertion %u: 0x%08x", &v8, 0x2Cu);
     }
 
     *(this + 22) = 0;
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void MTSimpleHIDManager::startBootloadPowerAssertionTimer(dispatch_queue_t *this, unsigned int a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v6 = dispatch_source_create(MEMORY[0x29EDCA5D0], 0, 0, this[21]);
   this[12] = v6;
   if (v6)
@@ -1930,41 +1912,39 @@ void MTSimpleHIDManager::startBootloadPowerAssertionTimer(dispatch_queue_t *this
     v8 = dispatch_time(0, (a2 * 1000000000.0));
     dispatch_source_set_timer(v7, v8, 0xFFFFFFFFFFFFFFFFLL, 0);
     v9 = this[12];
-    v12[0] = MEMORY[0x29EDCA5F8];
-    v12[1] = 0x40000000;
-    v12[2] = ___ZN18MTSimpleHIDManager32startBootloadPowerAssertionTimerEjy_block_invoke;
-    v12[3] = &__block_descriptor_tmp_314;
-    v12[4] = this;
-    v12[5] = a3;
-    dispatch_source_set_event_handler(v9, v12);
+    v13[0] = MEMORY[0x29EDCA5F8];
+    v13[1] = 0x40000000;
+    v13[2] = ___ZN18MTSimpleHIDManager32startBootloadPowerAssertionTimerEjy_block_invoke;
+    v13[3] = &__block_descriptor_tmp_314;
+    v13[4] = this;
+    v13[5] = a3;
+    dispatch_source_set_event_handler(v9, v13);
     dispatch_resume(this[12]);
-    v10 = MTLoggingPlugin();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = MTLoggingPlugin(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v14 = "";
-      v15 = 2080;
-      v16 = "MTSimpleHIDManager::";
-      v17 = 2080;
-      v18 = "startBootloadPowerAssertionTimer";
-      v19 = 1024;
-      v20 = a2;
-      _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Started bootload power assertion timer (%us)", buf, 0x26u);
+      v15 = "";
+      v16 = 2080;
+      v17 = "MTSimpleHIDManager::";
+      v18 = 2080;
+      v19 = "startBootloadPowerAssertionTimer";
+      v20 = 1024;
+      v21 = a2;
+      _os_log_impl(&dword_29D381000, v12, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Started bootload power assertion timer (%us)", buf, 0x26u);
     }
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
-void ___ZN18MTSimpleHIDManager32startBootloadPowerAssertionTimerEjy_block_invoke(uint64_t a1)
+void ___ZN18MTSimpleHIDManager32startBootloadPowerAssertionTimerEjy_block_invoke(uint64_t a1, uint64_t a2)
 {
   v18 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  v3 = MTLoggingPlugin();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v3 = *(a1 + 32);
+  v4 = MTLoggingPlugin(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 40);
-    v5 = v2[13];
+    v5 = *(a1 + 40);
+    v6 = v3[13];
     v8 = 136316162;
     v9 = "[Error] ";
     v10 = 2080;
@@ -1972,32 +1952,30 @@ void ___ZN18MTSimpleHIDManager32startBootloadPowerAssertionTimerEjy_block_invoke
     v12 = 2080;
     v13 = "startBootloadPowerAssertionTimer_block_invoke";
     v14 = 2048;
-    v15 = v4;
+    v15 = v5;
     v16 = 2048;
-    v17 = v5;
-    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Bootload timer expired [generation = %llu, _bootloadPowerAssertion.generation = %llu]", &v8, 0x34u);
+    v17 = v6;
+    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Bootload timer expired [generation = %llu, _bootloadPowerAssertion.generation = %llu]", &v8, 0x34u);
   }
 
-  if (*(a1 + 40) == v2[13])
+  if (*(a1 + 40) == v3[13])
   {
-    (*(*v2 + 488))(v2);
-    v6 = v2[14];
-    if (v6)
+    (*(*v3 + 488))(v3);
+    v7 = v3[14];
+    if (v7)
     {
-      (*(*v6 + 40))(v6);
+      (*(*v7 + 40))(v7);
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
-void MTSimpleHIDManager::cancelBootloadPowerAssertionTimer(dispatch_source_t *this)
+void MTSimpleHIDManager::cancelBootloadPowerAssertionTimer(dispatch_source_t *this, uint64_t a2)
 {
   v10 = *MEMORY[0x29EDCA608];
   if (this[12])
   {
-    v2 = MTLoggingPlugin();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = MTLoggingPlugin(this, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 136315650;
       v5 = "";
@@ -2005,15 +1983,13 @@ void MTSimpleHIDManager::cancelBootloadPowerAssertionTimer(dispatch_source_t *th
       v7 = "MTSimpleHIDManager::";
       v8 = 2080;
       v9 = "cancelBootloadPowerAssertionTimer";
-      _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Cancelling bootload power assertion timer", &v4, 0x20u);
+      _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Cancelling bootload power assertion timer", &v4, 0x20u);
     }
 
     dispatch_source_cancel(this[12]);
     dispatch_release(this[12]);
     this[12] = 0;
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 _DWORD *MTSimpleHIDManager::updateFieldDetectStatus(_DWORD *result, int a2)
@@ -2034,34 +2010,35 @@ uint64_t MTSimpleHIDManager::setInputDetectionModeForOrientation(MTSimpleHIDMana
   return MEMORY[0x2A1C68640](v5, a2, a3);
 }
 
-uint64_t MTSimpleHIDManager::setTouchMode(MTSimpleHIDManager *this, int a2, int a3)
+uint64_t MTSimpleHIDManager::setTouchMode(MTSimpleHIDManager *this, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v3 = a3;
+  v4 = a2;
+  v24 = *MEMORY[0x29EDCA608];
   (*(*this + 80))(this);
   v6 = MTDeviceSetTouchMode();
   v7 = v6;
   if (v6 != -536870201 && v6 != 0)
   {
     (*(*this + 80))(this);
-    MTDeviceGetDeviceID();
-    v11 = MTLoggingPlugin();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    DeviceID = MTDeviceGetDeviceID();
+    v12 = MTLoggingPlugin(DeviceID, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 67110146;
-      v14 = a2;
-      v15 = 1024;
-      v16 = a3;
-      v17 = 2082;
-      v18 = mach_error_string(v7);
-      v19 = 1024;
-      v20 = v7;
-      v21 = 2048;
-      v22 = 0;
-      _os_log_impl(&dword_29D381000, v11, OS_LOG_TYPE_ERROR, "Error trying to set mode to 0x%x and orientation to 0x%x: %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x28u);
+      v15 = v4;
+      v16 = 1024;
+      v17 = v3;
+      v18 = 2082;
+      v19 = mach_error_string(v7);
+      v20 = 1024;
+      v21 = v7;
+      v22 = 2048;
+      v23 = 0;
+      _os_log_impl(&dword_29D381000, v12, OS_LOG_TYPE_ERROR, "Error trying to set mode to 0x%x and orientation to 0x%x: %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x28u);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -2076,11 +2053,11 @@ void *MTSimpleHIDManager::setEventCallback(uint64_t a1, uint64_t a2, uint64_t a3
   return result;
 }
 
-double MTSimpleHIDManager::getSurfacePixelDimensions(MTSimpleHIDManager *this)
+double MTSimpleHIDManager::getSurfacePixelDimensions(MTSimpleHIDManager *this, uint64_t a2)
 {
   v10 = *MEMORY[0x29EDCA608];
-  v1 = MTLoggingPlugin();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v2 = MTLoggingPlugin(this, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v4 = 136315650;
     v5 = "[Error] ";
@@ -2088,10 +2065,9 @@ double MTSimpleHIDManager::getSurfacePixelDimensions(MTSimpleHIDManager *this)
     v7 = "MTSimpleHIDManager::";
     v8 = 2080;
     v9 = "getSurfacePixelDimensions";
-    _os_log_impl(&dword_29D381000, v1, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s using getSurfacePixelDimensions()", &v4, 0x20u);
+    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s using getSurfacePixelDimensions()", &v4, 0x20u);
   }
 
-  v2 = *MEMORY[0x29EDCA608];
   return 320.0;
 }
 
@@ -2127,15 +2103,14 @@ uint64_t MTSimpleHIDManager::handleInputDetectionState(_BYTE *a1, uint64_t a2, u
   if (a1[122] == 1)
   {
     v9 = a3 & 0x41 | (((a3 >> 5) & 1) << 8) | (a3 >> 2) & 0x200;
-    v10 = *MEMORY[0x29EDB8ED8];
     mach_absolute_time();
     ProximtyEvent = IOHIDEventCreateProximtyEvent();
     if (ProximtyEvent)
     {
-      v12 = ProximtyEvent;
-      (*(*a1 + 136))(a1, ProximtyEvent, 0);
-      v13 = MTLoggingPlugin();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v11 = ProximtyEvent;
+      v12 = (*(*a1 + 136))(a1, ProximtyEvent, 0);
+      v14 = MTLoggingPlugin(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v16 = 136316674;
         v17 = "";
@@ -2151,18 +2126,17 @@ uint64_t MTSimpleHIDManager::handleInputDetectionState(_BYTE *a1, uint64_t a2, u
         v27 = a4;
         v28 = 1024;
         v29 = a5;
-        _os_log_impl(&dword_29D381000, v13, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching proximity event [0x%X] - detected inputs %u, receiver value %d, farfield value %d", &v16, 0x38u);
+        _os_log_impl(&dword_29D381000, v14, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching proximity event [0x%X] - detected inputs %u, receiver value %d, farfield value %d", &v16, 0x38u);
       }
 
-      CFRelease(v12);
+      CFRelease(v11);
     }
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
-uint64_t MTSimpleHIDManager::handleNotificationEvent(_BYTE *a1, uint64_t a2, int a3)
+uint64_t MTSimpleHIDManager::handleNotificationEvent(unsigned __int8 *a1, uint64_t a2, int a3)
 {
   v4 = 0;
   v40 = *MEMORY[0x29EDCA608];
@@ -2176,9 +2150,9 @@ uint64_t MTSimpleHIDManager::handleNotificationEvent(_BYTE *a1, uint64_t a2, int
           if (a1[123] == 1)
           {
             v4 = 1;
-            v10 = MEMORY[0x29EDB8F00];
+            v11 = MEMORY[0x29EDB8F00];
             a1[124] = 1;
-            (*(*a1 + 568))(a1, @"FilteredClientsAvailable", *v10);
+            (*(*a1 + 568))(a1, @"FilteredClientsAvailable", *v11);
             if ((a1[125] & 1) == 0)
             {
               a1[125] = 1;
@@ -2186,16 +2160,16 @@ uint64_t MTSimpleHIDManager::handleNotificationEvent(_BYTE *a1, uint64_t a2, int
               MTRegisterFullFrameCallback();
             }
 
-            goto LABEL_62;
+            return v4;
           }
 
           break;
         case '""':
           if (a1[123] == 1)
           {
-            v31 = MEMORY[0x29EDB8EF8];
+            v32 = MEMORY[0x29EDB8EF8];
             a1[124] = 0;
-            (*(*a1 + 568))(a1, @"FilteredClientsAvailable", *v31);
+            (*(*a1 + 568))(a1, @"FilteredClientsAvailable", *v32);
             if (a1[125] == 1)
             {
               a1[125] = 0;
@@ -2203,15 +2177,15 @@ uint64_t MTSimpleHIDManager::handleNotificationEvent(_BYTE *a1, uint64_t a2, int
               MTUnregisterFullFrameCallback();
             }
 
-            goto LABEL_61;
+            return 1;
           }
 
           break;
         case 'g':
-          (*(*a1 + 592))(a1, 1);
+          v6 = (*(*a1 + 592))(a1, 1);
           a1[127] = 0;
-          v6 = MTLoggingPlugin();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+          v8 = MTLoggingPlugin(v6, v7);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
             *&buf[4] = "";
@@ -2219,19 +2193,18 @@ uint64_t MTSimpleHIDManager::handleNotificationEvent(_BYTE *a1, uint64_t a2, int
             v37 = "MTSimpleHIDManager::";
             v38 = 2080;
             v39 = "handleNotificationEvent";
-            v7 = "[HID] [MT] %s%s%s Touch System Ready = false";
+            v9 = "[HID] [MT] %s%s%s Touch System Ready = false";
 LABEL_36:
-            _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 0x20u);
+            _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 0x20u);
             goto LABEL_37;
           }
 
           goto LABEL_37;
         default:
-          goto LABEL_62;
+          return v4;
       }
 
-      v4 = 0;
-      goto LABEL_62;
+      return 0;
     }
 
     switch(a3)
@@ -2240,14 +2213,15 @@ LABEL_36:
         v4 = 1;
         (*(*a1 + 592))(a1, 1);
         (*(*a1 + 80))(a1);
-        if (MTDeviceSupportsTouchReadyNotification())
+        ready = MTDeviceSupportsTouchReadyNotification();
+        if (ready)
         {
-          goto LABEL_62;
+          return v4;
         }
 
         a1[127] = 1;
-        v6 = MTLoggingPlugin();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = MTLoggingPlugin(ready, v17);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
           *&buf[4] = "";
@@ -2255,18 +2229,18 @@ LABEL_36:
           v37 = "MTSimpleHIDManager::";
           v38 = 2080;
           v39 = "handleNotificationEvent";
-          v7 = "[HID] [MT] %s%s%s Sending Touch System Ready notification on UI Unlock";
+          v9 = "[HID] [MT] %s%s%s Sending Touch System Ready notification on UI Unlock";
           goto LABEL_36;
         }
 
         break;
       case 332:
-        (*(*a1 + 272))(a1);
-        goto LABEL_61;
+        (*(*a1 + 272))(a1, a2);
+        return 1;
       case 333:
         a1[127] = 1;
-        v6 = MTLoggingPlugin();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = MTLoggingPlugin(a1, a2);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
           *&buf[4] = "";
@@ -2274,56 +2248,52 @@ LABEL_36:
           v37 = "MTSimpleHIDManager::";
           v38 = 2080;
           v39 = "handleNotificationEvent";
-          v7 = "[HID] [MT] %s%s%s Sending Touch System Ready notification";
+          v9 = "[HID] [MT] %s%s%s Sending Touch System Ready notification";
           goto LABEL_36;
         }
 
         break;
       default:
-        goto LABEL_62;
+        return v4;
     }
 
 LABEL_37:
-    v16 = *MEMORY[0x29EDB8ED8];
     mach_absolute_time();
     VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
     if (VendorDefinedEvent)
     {
 LABEL_38:
-      v17 = VendorDefinedEvent;
+      v18 = VendorDefinedEvent;
       (*(*a1 + 136))(a1, VendorDefinedEvent, 0);
-      v15 = v17;
+      v15 = v18;
 LABEL_39:
       CFRelease(v15);
     }
 
-LABEL_61:
-    v4 = 1;
-    goto LABEL_62;
+    return 1;
   }
 
   if (a3 > 7)
   {
     if (a3 == 8)
     {
-      v11 = 192;
+      v12 = 192;
       if (a1[122])
       {
-        v11 = 128;
+        v12 = 128;
       }
 
-      if (*&a1[v11] != 255)
+      if (*&a1[v12] != 255)
       {
         (*(*a1 + 592))(a1, 1);
       }
 
-      v12 = *MEMORY[0x29EDB8ED8];
       mach_absolute_time();
       v4 = 1;
       v13 = IOHIDEventCreateVendorDefinedEvent();
       if (!v13)
       {
-        goto LABEL_62;
+        return v4;
       }
 
       v14 = v13;
@@ -2336,32 +2306,30 @@ LABEL_61:
     {
       if (a3 != 32)
       {
-        goto LABEL_62;
+        return v4;
       }
 
-      v8 = *MEMORY[0x29EDB8ED8];
       mach_absolute_time();
       VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
       if (!VendorDefinedEvent)
       {
-        v4 = 1;
-        goto LABEL_62;
+        return 1;
       }
 
       goto LABEL_38;
     }
 
-    v32 = (*(*a1 + 344))(a1);
-    if (a1[121] != v32)
+    v33 = (*(*a1 + 344))(a1, a2);
+    if (a1[121] != v33)
     {
-      a1[121] = v32;
-      if (v32)
+      a1[121] = v33;
+      if (v33)
       {
         goto LABEL_59;
       }
     }
 
-    goto LABEL_61;
+    return 1;
   }
 
   switch(a3)
@@ -2370,36 +2338,36 @@ LABEL_61:
 LABEL_59:
       v4 = 1;
       (*(*a1 + 592))(a1, 1);
-      break;
+      return v4;
     case 5:
-      (*(*a1 + 264))(a1);
-      v18 = *MEMORY[0x29EDB8ED8];
+      (*(*a1 + 264))(a1, a2);
+      v19 = *MEMORY[0x29EDB8ED8];
       mach_absolute_time();
-      v19 = IOHIDEventCreateVendorDefinedEvent();
-      if (v19)
+      v20 = IOHIDEventCreateVendorDefinedEvent();
+      if (v20)
       {
-        v20 = v19;
-        (*(*a1 + 136))(a1, v19, 0);
-        CFRelease(v20);
+        v21 = v20;
+        (*(*a1 + 136))(a1, v20, 0);
+        CFRelease(v21);
       }
 
       (*(*a1 + 80))(a1);
       Service = MTDeviceGetService();
       *buf = 0;
-      CFProperty = IORegistryEntryCreateCFProperty(Service, @"QueryIOReporterOnBoot", v18, 0);
+      CFProperty = IORegistryEntryCreateCFProperty(Service, @"QueryIOReporterOnBoot", v19, 0);
       if (CFProperty)
       {
-        v23 = CFProperty;
-        v24 = CFGetTypeID(CFProperty);
+        v24 = CFProperty;
+        v25 = CFGetTypeID(CFProperty);
         TypeID = CFBooleanGetTypeID();
-        v26 = *MEMORY[0x29EDB8F00];
-        CFRelease(v23);
-        if (v24 == TypeID && v23 == v26)
+        v27 = *MEMORY[0x29EDB8F00];
+        CFRelease(v24);
+        if (v25 == TypeID && v24 == v27)
         {
-          v28 = IOReportCopyChannelsForDriver();
-          if (v28)
+          v29 = IOReportCopyChannelsForDriver();
+          if (v29)
           {
-            v29 = v28;
+            v30 = v29;
             if (IOReportGetChannelCount() && (IOReportPrune() & 1) == 0 && IOReportGetChannelCount())
             {
               Subscription = IOReportCreateSubscription();
@@ -2410,7 +2378,7 @@ LABEL_59:
               Subscription = 0;
             }
 
-            CFRelease(v29);
+            CFRelease(v30);
             if (Subscription)
             {
               CFRelease(Subscription);
@@ -2419,9 +2387,9 @@ LABEL_59:
         }
       }
 
-      goto LABEL_61;
+      return 1;
     case 6:
-      v5 = MTLoggingPlugin();
+      v5 = MTLoggingPlugin(a1, a2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
@@ -2433,11 +2401,9 @@ LABEL_59:
         _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s device killed", buf, 0x20u);
       }
 
-      goto LABEL_61;
+      return 1;
   }
 
-LABEL_62:
-  v33 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -2464,14 +2430,13 @@ uint64_t MTSimpleHIDManager::handleExternalMessage(uint64_t a1, CFTypeRef cf, co
       v12 = result;
       *result = a4;
       memcpy((result + 2), a3, a5);
-      v13 = *MEMORY[0x29EDB8ED8];
       mach_absolute_time();
       VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
       if (VendorDefinedEvent)
       {
-        v15 = VendorDefinedEvent;
+        v14 = VendorDefinedEvent;
         (*(*a1 + 136))(a1, VendorDefinedEvent, 0);
-        CFRelease(v15);
+        CFRelease(v14);
       }
 
       free(v12);
@@ -2484,77 +2449,72 @@ uint64_t MTSimpleHIDManager::handleExternalMessage(uint64_t a1, CFTypeRef cf, co
 
 void ___ZN18MTSimpleHIDManager21handleExternalMessageEP10__MTDevicePhtj_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
+  v14 = *MEMORY[0x29EDCA608];
   updated = MTDeviceUpdateDynamicCalibration();
   if (updated)
   {
     v4 = updated;
-    v5 = MTLoggingPlugin();
+    v5 = MTLoggingPlugin(updated, v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315906;
-      v8 = "";
-      v9 = 2080;
-      v10 = "MTSimpleHIDManager::";
-      v11 = 2080;
-      v12 = "handleExternalMessage_block_invoke";
-      v13 = 1024;
-      v14 = v4;
-      _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s MTDeviceUpdateDynamicCalibration failed with error code 0x%X", &v7, 0x26u);
+      v6 = 136315906;
+      v7 = "";
+      v8 = 2080;
+      v9 = "MTSimpleHIDManager::";
+      v10 = 2080;
+      v11 = "handleExternalMessage_block_invoke";
+      v12 = 1024;
+      v13 = v4;
+      _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s MTDeviceUpdateDynamicCalibration failed with error code 0x%X", &v6, 0x26u);
     }
   }
 
   CFRelease(*(a1 + 32));
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t MTSimpleHIDManager::copyEvent(uint64_t a1, int a2, uint64_t a3)
 {
   result = 0;
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if (a2 == 1 && a3)
   {
     IntegerValue = IOHIDEventGetIntegerValue();
     v6 = IOHIDEventGetIntegerValue();
     if (IntegerValue != 65376)
     {
-      goto LABEL_8;
+      return 0;
     }
 
-    v7 = v6;
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = v6;
+    v9 = MTLoggingPlugin(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136316162;
-      v12 = "";
-      v13 = 2080;
-      v14 = "MTSimpleHIDManager::";
-      v15 = 2080;
-      v16 = "copyEvent";
-      v17 = 1024;
-      v18 = 65376;
-      v19 = 1024;
-      v20 = v7;
-      _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s copyEvent requested for usagePage: %u, usage: %u", &v11, 0x2Cu);
+      v10 = 136316162;
+      v11 = "";
+      v12 = 2080;
+      v13 = "MTSimpleHIDManager::";
+      v14 = 2080;
+      v15 = "copyEvent";
+      v16 = 1024;
+      v17 = 65376;
+      v18 = 1024;
+      v19 = v8;
+      _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s copyEvent requested for usagePage: %u, usage: %u", &v10, 0x2Cu);
     }
 
-    if (v7 == 9)
+    if (v8 == 9)
     {
-      LOBYTE(v11) = *(a1 + 127);
-      v9 = *MEMORY[0x29EDB8ED8];
+      LOBYTE(v10) = *(a1 + 127);
       mach_absolute_time();
-      result = IOHIDEventCreateVendorDefinedEvent();
+      return IOHIDEventCreateVendorDefinedEvent();
     }
 
     else
     {
-LABEL_8:
-      result = 0;
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2758,13 +2718,6 @@ uint64_t MTTrackpadHIDManager::unregisterDeviceDataCallbacks(MTTrackpadHIDManage
   return MTSimpleHIDManager::unregisterDeviceDataCallbacks(this);
 }
 
-void MTTrackpadHIDManager::createGestureParser(MTTrackpadHIDManager *this)
-{
-  v2 = (*(*this + 80))(this);
-  v3 = *(this + 40);
-  MTParser::createParserForMTDevice(v2, *(this + 39));
-}
-
 uint64_t MTTrackpadHIDManager::initializeGestureParser(MTTrackpadHIDManager *this)
 {
   *(this + 208) = (*(*this + 648))(this);
@@ -2781,7 +2734,7 @@ unsigned int *MTTrackpadHIDManager::destroyGestureParser(unsigned int **this)
   result = this[42];
   if (result)
   {
-    result = MTParser::release(result);
+    result = MTParser::release(result, v2);
     this[42] = 0;
   }
 
@@ -2907,40 +2860,40 @@ uint64_t MTTrackpadHIDManager::startNotificationCenterMonitoring(dispatch_object
   this[39] = v5;
   if (v5)
   {
-    MTSimpleHIDManager::retain(this);
-    v6 = this[39];
+    MTSimpleHIDManager::retain(this, v6);
+    v7 = this[39];
     handler[0] = MEMORY[0x29EDCA5F8];
     handler[1] = 0x40000000;
     handler[2] = ___ZN20MTTrackpadHIDManager33startNotificationCenterMonitoringEi_block_invoke;
     handler[3] = &__block_descriptor_tmp_1;
     handler[4] = this;
-    dispatch_source_set_event_handler(v6, handler);
-    v7 = this[39];
-    v10[0] = MEMORY[0x29EDCA5F8];
-    v10[1] = 0x40000000;
-    v10[2] = ___ZN20MTTrackpadHIDManager33startNotificationCenterMonitoringEi_block_invoke_4;
-    v10[3] = &__block_descriptor_tmp_5;
-    v10[4] = this;
-    dispatch_source_set_cancel_handler(v7, v10);
+    dispatch_source_set_event_handler(v7, handler);
+    v8 = this[39];
+    v11[0] = MEMORY[0x29EDCA5F8];
+    v11[1] = 0x40000000;
+    v11[2] = ___ZN20MTTrackpadHIDManager33startNotificationCenterMonitoringEi_block_invoke_4;
+    v11[3] = &__block_descriptor_tmp_5;
+    v11[4] = this;
+    dispatch_source_set_cancel_handler(v8, v11);
     dispatch_resume(this[39]);
   }
 
   result = ((*this)[108].isa)(this);
   if (result)
   {
-    v9 = ((*this)[108].isa)(this);
-    return MTParser::alwaysGenerateNotificationCenterGestures(v9, *(this + 242));
+    v10 = ((*this)[108].isa)(this);
+    return MTParser::alwaysGenerateNotificationCenterGestures(v10, *(this + 242));
   }
 
   return result;
 }
 
-uint64_t ___ZN20MTTrackpadHIDManager33startNotificationCenterMonitoringEi_block_invoke(uint64_t a1)
+uint64_t ___ZN20MTTrackpadHIDManager33startNotificationCenterMonitoringEi_block_invoke(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = *(a1 + 32);
+  v3 = MTLoggingPlugin(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315650;
     v6 = "";
@@ -2948,12 +2901,10 @@ uint64_t ___ZN20MTTrackpadHIDManager33startNotificationCenterMonitoringEi_block_
     v8 = "MTTrackpadHIDManager::";
     v9 = 2080;
     v10 = "startNotificationCenterMonitoring_block_invoke";
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s NotificationCenter process died.", &v5, 0x20u);
+    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s NotificationCenter process died.", &v5, 0x20u);
   }
 
-  result = (*(*v1 + 800))(v1);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(*v2 + 800))(v2);
 }
 
 uint64_t MTTrackpadHIDManager::startNotificationCenterAltMonitoring(dispatch_object_t *this, int a2)
@@ -2964,40 +2915,40 @@ uint64_t MTTrackpadHIDManager::startNotificationCenterAltMonitoring(dispatch_obj
   this[40] = v5;
   if (v5)
   {
-    MTSimpleHIDManager::retain(this);
-    v6 = this[40];
+    MTSimpleHIDManager::retain(this, v6);
+    v7 = this[40];
     handler[0] = MEMORY[0x29EDCA5F8];
     handler[1] = 0x40000000;
     handler[2] = ___ZN20MTTrackpadHIDManager36startNotificationCenterAltMonitoringEi_block_invoke;
     handler[3] = &__block_descriptor_tmp_6;
     handler[4] = this;
-    dispatch_source_set_event_handler(v6, handler);
-    v7 = this[40];
-    v10[0] = MEMORY[0x29EDCA5F8];
-    v10[1] = 0x40000000;
-    v10[2] = ___ZN20MTTrackpadHIDManager36startNotificationCenterAltMonitoringEi_block_invoke_7;
-    v10[3] = &__block_descriptor_tmp_8;
-    v10[4] = this;
-    dispatch_source_set_cancel_handler(v7, v10);
+    dispatch_source_set_event_handler(v7, handler);
+    v8 = this[40];
+    v11[0] = MEMORY[0x29EDCA5F8];
+    v11[1] = 0x40000000;
+    v11[2] = ___ZN20MTTrackpadHIDManager36startNotificationCenterAltMonitoringEi_block_invoke_7;
+    v11[3] = &__block_descriptor_tmp_8;
+    v11[4] = this;
+    dispatch_source_set_cancel_handler(v8, v11);
     dispatch_resume(this[40]);
   }
 
   result = ((*this)[108].isa)(this);
   if (result)
   {
-    v9 = ((*this)[108].isa)(this);
-    return MTParser::alwaysGenerateNotificationCenterAltGestures(v9, *(this + 242));
+    v10 = ((*this)[108].isa)(this);
+    return MTParser::alwaysGenerateNotificationCenterAltGestures(v10, *(this + 242));
   }
 
   return result;
 }
 
-uint64_t ___ZN20MTTrackpadHIDManager36startNotificationCenterAltMonitoringEi_block_invoke(uint64_t a1)
+uint64_t ___ZN20MTTrackpadHIDManager36startNotificationCenterAltMonitoringEi_block_invoke(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = *(a1 + 32);
+  v3 = MTLoggingPlugin(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315650;
     v6 = "";
@@ -3005,12 +2956,10 @@ uint64_t ___ZN20MTTrackpadHIDManager36startNotificationCenterAltMonitoringEi_blo
     v8 = "MTTrackpadHIDManager::";
     v9 = 2080;
     v10 = "startNotificationCenterAltMonitoring_block_invoke";
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s NotificationCenterAlt process died.", &v5, 0x20u);
+    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s NotificationCenterAlt process died.", &v5, 0x20u);
   }
 
-  result = (*(*v1 + 808))(v1);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(*v2 + 808))(v2);
 }
 
 uint64_t MTTrackpadHIDManager::stopNotificationCenterMonitoring(MTTrackpadHIDManager *this)
@@ -3089,7 +3038,7 @@ uint64_t MTTrackpadHIDManager::getForceSourceForBehavior(MTTrackpadHIDManager *t
   return 0;
 }
 
-unint64_t MTTrackpadHIDManager::isUserPref(MTTrackpadHIDManager *this, const __CFString *a2, BOOL *a3)
+uint64_t MTTrackpadHIDManager::isUserPref(MTTrackpadHIDManager *this, const __CFString *a2, BOOL *a3)
 {
   if (a3)
   {
@@ -3145,13 +3094,13 @@ LABEL_13:
 
 uint64_t MTTrackpadHIDManager::setProperty(CFTypeRef *this, const __CFString *a2, const void *a3)
 {
-  v17 = *MEMORY[0x29EDCA608];
-  v12 = 0;
-  if (MTTrackpadHIDManager::isUserPref(this, a2, &v12))
+  v18 = *MEMORY[0x29EDCA608];
+  v13 = 0;
+  if (MTTrackpadHIDManager::isUserPref(this, a2, &v13))
   {
     (*(*this + 85))(this, a2, a3);
     (*(*this + 84))(this);
-    if (v12)
+    if (v13)
     {
       (*(*this + 10))(this);
       Service = MTDeviceGetService();
@@ -3160,28 +3109,26 @@ uint64_t MTTrackpadHIDManager::setProperty(CFTypeRef *this, const __CFString *a2
       {
         v8 = v7;
         (*(*this + 10))(this);
-        MTDeviceGetDeviceID();
-        v9 = MTLoggingPlugin();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        DeviceID = MTDeviceGetDeviceID();
+        v11 = MTLoggingPlugin(DeviceID, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109376;
-          v14 = v8;
-          v15 = 2048;
-          v16 = 0;
-          _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_ERROR, "Could not set trackpad user preferences on the driver 0x%08X (deviceID 0x%llX)", buf, 0x12u);
+          v15 = v8;
+          v16 = 2048;
+          v17 = 0;
+          _os_log_impl(&dword_29D381000, v11, OS_LOG_TYPE_ERROR, "Could not set trackpad user preferences on the driver 0x%08X (deviceID 0x%llX)", buf, 0x12u);
         }
       }
     }
   }
 
-  result = MTSimpleHIDManager::setProperty(this, a2, a3);
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  return MTSimpleHIDManager::setProperty(this, a2, a3);
 }
 
-uint64_t MTTrackpadHIDManager::setPropertyInternal(MTSimpleHIDManager *a1, int a2, CFTypeRef cf, int a4)
+uint64_t MTTrackpadHIDManager::setPropertyInternal(MTSimpleHIDManager *a1, uint64_t a2, CFTypeRef cf, int a4)
 {
-  v81 = *MEMORY[0x29EDCA608];
+  v85 = *MEMORY[0x29EDCA608];
   if (cf)
   {
     v8 = CFGetTypeID(cf);
@@ -3200,26 +3147,26 @@ uint64_t MTTrackpadHIDManager::setPropertyInternal(MTSimpleHIDManager *a1, int a
     {
       if (cf)
       {
-        v46 = CFGetTypeID(cf);
+        v49 = CFGetTypeID(cf);
         *valuePtr = 0;
-        if (v46 == CFNumberGetTypeID())
+        if (v49 == CFNumberGetTypeID())
         {
           if ((*(*a1 + 864))(a1))
           {
             if (CFNumberGetValue(cf, kCFNumberSInt32Type, valuePtr))
             {
-              v47 = *((*(*a1 + 864))(a1) + 208);
-              if (v47)
+              v50 = *((*(*a1 + 864))(a1) + 208);
+              if (v50)
               {
-                v48 = *((*(*a1 + 848))(a1) + 60);
-                v49 = *((*(*a1 + 848))(a1) + 64);
+                v51 = *((*(*a1 + 848))(a1) + 60);
+                v52 = *((*(*a1 + 848))(a1) + 64);
                 if (*((*(*a1 + 864))(a1) + 48))
                 {
-                  v50 = v48 == 0;
-                  v51 = !*(*((*(*a1 + 864))(a1) + 48) + 186) || v50;
-                  if (((v51 | v49) & 1) == 0)
+                  v53 = v51 == 0;
+                  v54 = !*(*((*(*a1 + 864))(a1) + 48) + 186) || v53;
+                  if (((v54 | v52) & 1) == 0)
                   {
-                    MTActuatorManagement::actuateWaveformID(v47, *valuePtr, 1.0, 1.0);
+                    MTActuatorManagement::actuateWaveformID(v50, *valuePtr, 1.0, 1.0, 0);
                   }
                 }
               }
@@ -3228,7 +3175,7 @@ uint64_t MTTrackpadHIDManager::setPropertyInternal(MTSimpleHIDManager *a1, int a
         }
       }
 
-      goto LABEL_94;
+      return 0;
     }
 
     if (a2 == 30)
@@ -3236,76 +3183,70 @@ uint64_t MTTrackpadHIDManager::setPropertyInternal(MTSimpleHIDManager *a1, int a
       result = *((*(*a1 + 864))(a1) + 208);
       if (!result)
       {
-LABEL_95:
-        v55 = *MEMORY[0x29EDCA608];
         return result;
       }
 
       MTActuatorManagement::reloadActuations(result);
-      goto LABEL_94;
+      return 0;
     }
-
-    goto LABEL_19;
   }
 
-  v11 = HIDDispatchQueue;
-  if (a2 != 22)
+  else
   {
-    if (a2 == 23)
+    v12 = HIDDispatchQueue;
+    if (a2 == 22)
     {
       if (v9)
       {
-        Value = CFDictionaryGetValue(cf, @"AlwaysGenerateNotificationCenterAltGesture");
-        v13 = CFDictionaryGetValue(cf, @"ClientPID");
+        Value = CFDictionaryGetValue(cf, @"AlwaysGenerateNotificationCenterGesture");
+        v44 = CFDictionaryGetValue(cf, @"ClientPID");
         if (Value)
         {
-          v14 = v13;
-          v15 = CFGetTypeID(Value);
-          if (v15 == CFBooleanGetTypeID() && Value == *MEMORY[0x29EDB8F00])
+          v45 = v44;
+          v46 = CFGetTypeID(Value);
+          if (v46 == CFBooleanGetTypeID() && Value == *MEMORY[0x29EDB8F00])
           {
-            if (v14)
+            if (v45)
             {
-              v16 = CFGetTypeID(v14);
-              if (v16 == CFNumberGetTypeID())
+              v47 = CFGetTypeID(v45);
+              if (v47 == CFNumberGetTypeID())
               {
                 *valuePtr = -1431655766;
-                CFNumberGetValue(v14, kCFNumberSInt32Type, valuePtr);
-                if (v11)
+                CFNumberGetValue(v45, kCFNumberSInt32Type, valuePtr);
+                if (v12)
                 {
-                  MTSimpleHIDManager::retain(a1);
-                  v68[0] = MEMORY[0x29EDCA5F8];
-                  v68[1] = 0x40000000;
-                  v68[2] = ___ZN20MTTrackpadHIDManager19setPropertyInternalE18_MTHIDPropertyTypePKvb_block_invoke_3;
-                  v68[3] = &__block_descriptor_tmp_119;
-                  v68[4] = a1;
-                  v69 = *valuePtr;
-                  v17 = v68;
-LABEL_93:
-                  dispatch_async(v11, v17);
-                  goto LABEL_94;
+                  MTSimpleHIDManager::retain(a1, v48);
+                  v75[0] = MEMORY[0x29EDCA5F8];
+                  v75[1] = 0x40000000;
+                  v75[2] = ___ZN20MTTrackpadHIDManager19setPropertyInternalE18_MTHIDPropertyTypePKvb_block_invoke;
+                  v75[3] = &__block_descriptor_tmp_114;
+                  v75[4] = a1;
+                  v76 = *valuePtr;
+                  v19 = v75;
+                  goto LABEL_93;
                 }
 
-                goto LABEL_94;
+                return 0;
               }
             }
           }
 
-          v53 = CFGetTypeID(Value);
-          if (v53 == CFBooleanGetTypeID() && Value == *MEMORY[0x29EDB8EF8])
+          v58 = CFGetTypeID(Value);
+          if (v58 == CFBooleanGetTypeID() && Value == *MEMORY[0x29EDB8EF8])
           {
-            if (v11)
+            if (v12)
             {
-              MTSimpleHIDManager::retain(a1);
-              v67[0] = MEMORY[0x29EDCA5F8];
-              v67[1] = 0x40000000;
-              v67[2] = ___ZN20MTTrackpadHIDManager19setPropertyInternalE18_MTHIDPropertyTypePKvb_block_invoke_4;
-              v67[3] = &__block_descriptor_tmp_120;
-              v67[4] = a1;
-              v17 = v67;
+              MTSimpleHIDManager::retain(a1, v59);
+              block[0] = MEMORY[0x29EDCA5F8];
+              block[1] = 0x40000000;
+              block[2] = ___ZN20MTTrackpadHIDManager19setPropertyInternalE18_MTHIDPropertyTypePKvb_block_invoke_2;
+              block[3] = &__block_descriptor_tmp_115;
+              block[4] = a1;
+              v19 = block;
               goto LABEL_93;
             }
 
-            goto LABEL_94;
+            return 0;
           }
         }
       }
@@ -3313,368 +3254,381 @@ LABEL_93:
       goto LABEL_100;
     }
 
-LABEL_19:
-    if ((a2 & 0xFFFFFFFE) == 0x1C)
+    if (a2 == 23)
     {
-      (*(*a1 + 80))(a1);
-      v19 = MTDeviceSupportsForce();
-      result = 0;
-      if (!cf)
+      if (v9)
       {
-        goto LABEL_95;
-      }
-
-      if (!v19)
-      {
-        goto LABEL_95;
-      }
-
-      result = (*(*a1 + 864))(a1);
-      if (!result)
-      {
-        goto LABEL_95;
-      }
-
-      if (*((*(*a1 + 848))(a1) + 64))
-      {
-        goto LABEL_94;
-      }
-
-      v20 = CFGetTypeID(cf);
-      if (v20 != CFDictionaryGetTypeID())
-      {
-        goto LABEL_94;
-      }
-
-      v21 = *((*(*a1 + 864))(a1) + 200);
-      v66 = 0.0;
-      v22 = CFDictionaryGetValue(cf, @"Version");
-      if (!v22)
-      {
-        goto LABEL_94;
-      }
-
-      v23 = v22;
-      v24 = CFGetTypeID(v22);
-      if (v24 != CFNumberGetTypeID())
-      {
-        goto LABEL_94;
-      }
-
-      if (!CFNumberGetValue(v23, kCFNumberSInt32Type, &v66))
-      {
-        goto LABEL_94;
-      }
-
-      if (LODWORD(v66) != 1)
-      {
-        goto LABEL_94;
-      }
-
-      v25 = CFDictionaryGetValue(cf, @"Behaviors");
-      v26 = v25;
-      if (!v25)
-      {
-        goto LABEL_94;
-      }
-
-      v27 = CFGetTypeID(v25);
-      if (v27 != CFArrayGetTypeID())
-      {
-        goto LABEL_94;
-      }
-
-      Count = CFArrayGetCount(v26);
-      if (a2 == 28)
-      {
-        MTForceBehaviorConfiguration::clearNonDefaultBehaviors((v21 + 264));
-      }
-
-      if (Count < 1)
-      {
-        goto LABEL_94;
-      }
-
-      v29 = 0;
-      while (1)
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(v26, v29);
-        v31 = ValueAtIndex;
-        if (!ValueAtIndex)
+        v13 = CFDictionaryGetValue(cf, @"AlwaysGenerateNotificationCenterAltGesture");
+        v14 = CFDictionaryGetValue(cf, @"ClientPID");
+        if (v13)
         {
-          goto LABEL_49;
-        }
+          v15 = v14;
+          v16 = CFGetTypeID(v13);
+          if (v16 == CFBooleanGetTypeID() && v13 == *MEMORY[0x29EDB8F00])
+          {
+            if (v15)
+            {
+              v17 = CFGetTypeID(v15);
+              if (v17 == CFNumberGetTypeID())
+              {
+                *valuePtr = -1431655766;
+                CFNumberGetValue(v15, kCFNumberSInt32Type, valuePtr);
+                if (v12)
+                {
+                  MTSimpleHIDManager::retain(a1, v18);
+                  v72[0] = MEMORY[0x29EDCA5F8];
+                  v72[1] = 0x40000000;
+                  v72[2] = ___ZN20MTTrackpadHIDManager19setPropertyInternalE18_MTHIDPropertyTypePKvb_block_invoke_3;
+                  v72[3] = &__block_descriptor_tmp_119;
+                  v72[4] = a1;
+                  v73 = *valuePtr;
+                  v19 = v72;
+LABEL_93:
+                  dispatch_async(v12, v19);
+                  return 0;
+                }
 
-        v32 = CFGetTypeID(ValueAtIndex);
-        if (v32 != CFDictionaryGetTypeID())
-        {
-          goto LABEL_49;
-        }
+                return 0;
+              }
+            }
+          }
 
-        v33 = CFDictionaryGetValue(v31, @"BehaviorID");
-        v34 = v33;
-        v65 = -1431655766;
-        if (!v33)
-        {
-          goto LABEL_49;
-        }
+          v56 = CFGetTypeID(v13);
+          if (v56 == CFBooleanGetTypeID() && v13 == *MEMORY[0x29EDB8EF8])
+          {
+            if (v12)
+            {
+              MTSimpleHIDManager::retain(a1, v57);
+              v71[0] = MEMORY[0x29EDCA5F8];
+              v71[1] = 0x40000000;
+              v71[2] = ___ZN20MTTrackpadHIDManager19setPropertyInternalE18_MTHIDPropertyTypePKvb_block_invoke_4;
+              v71[3] = &__block_descriptor_tmp_120;
+              v71[4] = a1;
+              v19 = v71;
+              goto LABEL_93;
+            }
 
-        v35 = CFGetTypeID(v33);
-        if (v35 != CFNumberGetTypeID() || !CFNumberGetValue(v34, kCFNumberSInt32Type, &v65))
-        {
-          goto LABEL_49;
+            return 0;
+          }
         }
+      }
 
-        v36 = MTForceConfigCreate(v65, 0);
-        Behavior = MTForceConfigGetBehavior(v36);
-        v38 = (*(*a1 + 848))(a1);
-        if (Behavior > 0x11)
-        {
-          goto LABEL_57;
-        }
+      goto LABEL_100;
+    }
+  }
 
-        if (((1 << Behavior) & 0x31C22) == 0)
-        {
-          break;
-        }
+  if ((a2 & 0xFFFFFFFE) == 0x1C)
+  {
+    (*(*a1 + 80))(a1);
+    v21 = MTDeviceSupportsForce();
+    result = 0;
+    if (!cf)
+    {
+      return result;
+    }
 
-        v39 = 34;
-        if (v36)
-        {
-          goto LABEL_43;
-        }
+    if (!v21)
+    {
+      return result;
+    }
+
+    result = (*(*a1 + 864))(a1);
+    if (!result)
+    {
+      return result;
+    }
+
+    if (*((*(*a1 + 848))(a1) + 64))
+    {
+      return 0;
+    }
+
+    v22 = CFGetTypeID(cf);
+    if (v22 != CFDictionaryGetTypeID())
+    {
+      return 0;
+    }
+
+    v23 = *((*(*a1 + 864))(a1) + 200);
+    v70 = 0.0;
+    v24 = CFDictionaryGetValue(cf, @"Version");
+    if (!v24)
+    {
+      return 0;
+    }
+
+    v25 = v24;
+    v26 = CFGetTypeID(v24);
+    if (v26 != CFNumberGetTypeID())
+    {
+      return 0;
+    }
+
+    if (!CFNumberGetValue(v25, kCFNumberSInt32Type, &v70))
+    {
+      return 0;
+    }
+
+    if (LODWORD(v70) != 1)
+    {
+      return 0;
+    }
+
+    v27 = CFDictionaryGetValue(cf, @"Behaviors");
+    v28 = v27;
+    if (!v27)
+    {
+      return 0;
+    }
+
+    v29 = CFGetTypeID(v27);
+    if (v29 != CFArrayGetTypeID())
+    {
+      return 0;
+    }
+
+    Count = CFArrayGetCount(v28);
+    if (a2 == 28)
+    {
+      MTForceBehaviorConfiguration::clearNonDefaultBehaviors(v23 + 264);
+    }
+
+    if (Count < 1)
+    {
+      return 0;
+    }
+
+    v31 = 0;
+    while (1)
+    {
+      ValueAtIndex = CFArrayGetValueAtIndex(v28, v31);
+      v33 = ValueAtIndex;
+      if (!ValueAtIndex)
+      {
+        goto LABEL_49;
+      }
+
+      v34 = CFGetTypeID(ValueAtIndex);
+      if (v34 != CFDictionaryGetTypeID())
+      {
+        goto LABEL_49;
+      }
+
+      v35 = CFDictionaryGetValue(v33, @"BehaviorID");
+      v36 = v35;
+      v69 = -1431655766;
+      if (!v35)
+      {
+        goto LABEL_49;
+      }
+
+      v37 = CFGetTypeID(v35);
+      if (v37 != CFNumberGetTypeID() || !CFNumberGetValue(v36, kCFNumberSInt32Type, &v69))
+      {
+        goto LABEL_49;
+      }
+
+      v38 = MTForceConfigCreate(v69, 0);
+      Behavior = MTForceConfigGetBehavior(v38);
+      v40 = (*(*a1 + 848))(a1);
+      if (Behavior > 0x11)
+      {
+        goto LABEL_57;
+      }
+
+      if (((1 << Behavior) & 0x31C22) == 0)
+      {
+        break;
+      }
+
+      v41 = 34;
+      if (v38)
+      {
+        goto LABEL_43;
+      }
 
 LABEL_49:
-        if (Count == ++v29)
-        {
-          goto LABEL_94;
-        }
-      }
-
-      if (Behavior == 2)
+      if (Count == ++v31)
       {
-        if (*(v38 + 6))
-        {
-          v39 = 134;
-        }
+        return 0;
+      }
+    }
 
-        else
-        {
-          v39 = 0;
-        }
-
-        if (!v36)
-        {
-          goto LABEL_49;
-        }
-
-LABEL_43:
-        if (v39)
-        {
-          *&v40 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v79 = v40;
-          v80 = v40;
-          v77 = v40;
-          v78 = v40;
-          v75 = v40;
-          v76 = v40;
-          *&valuePtr[16] = v40;
-          v74 = v40;
-          *valuePtr = v40;
-          forceBehaviorFromForceConfig(v36, v39, valuePtr);
-          if (a2 == 28)
-          {
-            MTForceBehaviorConfiguration::pushBehavior((v21 + 264), valuePtr);
-          }
-
-          else
-          {
-            MTForceManagement::setOverrideBehavior(v21, valuePtr);
-          }
-
-          MTForceBehavior::~MTForceBehavior(valuePtr);
-        }
+    if (Behavior == 2)
+    {
+      if (*(v40 + 6))
+      {
+        v41 = 134;
       }
 
       else
       {
-LABEL_57:
-        if (!v36)
-        {
-          goto LABEL_49;
-        }
+        v41 = 0;
       }
 
-      CFRelease(v36);
-      goto LABEL_49;
-    }
-
-    if (a2 <= 31)
-    {
-      if (a2 == 17)
+      if (!v38)
       {
-        if (cf)
+        goto LABEL_49;
+      }
+
+LABEL_43:
+      if (v41)
+      {
+        *&v42 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v42 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v83 = v42;
+        v84 = v42;
+        v81 = v42;
+        v82 = v42;
+        v79 = v42;
+        v80 = v42;
+        *&valuePtr[16] = v42;
+        v78 = v42;
+        *valuePtr = v42;
+        forceBehaviorFromForceConfig(v38, v41, valuePtr);
+        if (a2 == 28)
         {
-          v62 = CFGetTypeID(cf);
-          v66 = 0.0;
-          if (v62 == CFNumberGetTypeID() && CFNumberGetValue(cf, kCFNumberFloatType, &v66) && (*(*a1 + 120))(a1))
-          {
-            v63 = (*(*a1 + 120))(a1);
-            MTTrackpadEventDispatcher::setScrollMomentumDispatchRate(v63, v66);
-            goto LABEL_107;
-          }
+          MTForceBehaviorConfiguration::pushBehavior((v23 + 264), valuePtr);
         }
 
         else
         {
-          v66 = 0.0;
+          MTForceManagement::setOverrideBehavior(v23, valuePtr);
         }
 
-        v64 = MTLoggingPlugin();
-        result = os_log_type_enabled(v64, OS_LOG_TYPE_ERROR);
-        if (!result)
-        {
-          goto LABEL_95;
-        }
-
-        *valuePtr = 136315650;
-        *&valuePtr[4] = "[Error] ";
-        *&valuePtr[12] = 2080;
-        *&valuePtr[14] = "MTTrackpadHIDManager::";
-        *&valuePtr[22] = 2080;
-        *&valuePtr[24] = "setPropertyInternal";
-        _os_log_impl(&dword_29D381000, v64, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Could not perform set property on Scroll Momentum Dispatch Rate", valuePtr, 0x20u);
-        goto LABEL_94;
+        MTForceBehavior::~MTForceBehavior(valuePtr);
       }
-
-      if (a2 != 31)
-      {
-        goto LABEL_100;
-      }
-
-      (*(*a1 + 80))(a1);
-      result = MTDeviceSupportsForce();
-      if (!result)
-      {
-        goto LABEL_95;
-      }
-
-      v56 = *((*(*a1 + 864))(a1) + 200);
-      *(v56 + 216) = CFBooleanGetValue(cf) != 0;
     }
 
     else
     {
-      switch(a2)
+LABEL_57:
+      if (!v38)
       {
-        case ' ':
-          (*(*a1 + 80))(a1);
-          result = MTDeviceSupportsForce();
-          if (!result)
-          {
-            goto LABEL_95;
-          }
-
-          v58 = *((*(*a1 + 864))(a1) + 200);
-          v59 = CFBooleanGetValue(cf) != 0;
-          MTForceManagement::setDisableClickWaveformAdaptation(v58, v59);
-          break;
-        case '!':
-          (*(*a1 + 80))(a1);
-          result = MTDeviceSupportsForce();
-          if (!result)
-          {
-            goto LABEL_95;
-          }
-
-          v60 = *((*(*a1 + 864))(a1) + 200);
-          v61 = CFBooleanGetValue(cf) != 0;
-          MTForceManagement::setDisableForceThresholdAdaptation(v60, v61);
-          break;
-        case '""':
-          if (cf)
-          {
-            v52 = CFGetTypeID(cf);
-            if (v52 == CFBooleanGetTypeID())
-            {
-              *(a1 + 209) = *MEMORY[0x29EDB8F00] == cf;
-              (*(*a1 + 672))(a1);
-            }
-          }
-
-          goto LABEL_94;
-        default:
-          goto LABEL_100;
+        goto LABEL_49;
       }
     }
 
-LABEL_107:
-    result = 1;
-    goto LABEL_95;
+    CFRelease(v38);
+    goto LABEL_49;
   }
 
-  if (v9)
+  if (a2 > 31)
   {
-    v41 = CFDictionaryGetValue(cf, @"AlwaysGenerateNotificationCenterGesture");
-    v42 = CFDictionaryGetValue(cf, @"ClientPID");
-    if (v41)
+    switch(a2)
     {
-      v43 = v42;
-      v44 = CFGetTypeID(v41);
-      if (v44 == CFBooleanGetTypeID() && v41 == *MEMORY[0x29EDB8F00])
-      {
-        if (v43)
+      case ' ':
+        (*(*a1 + 80))(a1);
+        result = MTDeviceSupportsForce();
+        if (!result)
         {
-          v45 = CFGetTypeID(v43);
-          if (v45 == CFNumberGetTypeID())
-          {
-            *valuePtr = -1431655766;
-            CFNumberGetValue(v43, kCFNumberSInt32Type, valuePtr);
-            if (v11)
-            {
-              MTSimpleHIDManager::retain(a1);
-              v71[0] = MEMORY[0x29EDCA5F8];
-              v71[1] = 0x40000000;
-              v71[2] = ___ZN20MTTrackpadHIDManager19setPropertyInternalE18_MTHIDPropertyTypePKvb_block_invoke;
-              v71[3] = &__block_descriptor_tmp_114;
-              v71[4] = a1;
-              v72 = *valuePtr;
-              v17 = v71;
-              goto LABEL_93;
-            }
+          return result;
+        }
 
-LABEL_94:
-            result = 0;
-            goto LABEL_95;
+        v61 = *((*(*a1 + 864))(a1) + 200);
+        v62 = CFBooleanGetValue(cf) != 0;
+        MTForceManagement::setDisableClickWaveformAdaptation(v61, v62);
+        break;
+      case '!':
+        (*(*a1 + 80))(a1);
+        result = MTDeviceSupportsForce();
+        if (!result)
+        {
+          return result;
+        }
+
+        v63 = *((*(*a1 + 864))(a1) + 200);
+        v64 = CFBooleanGetValue(cf) != 0;
+        MTForceManagement::setDisableForceThresholdAdaptation(v63, v64);
+        break;
+      case '""':
+        if (cf)
+        {
+          v55 = CFGetTypeID(cf);
+          if (v55 == CFBooleanGetTypeID())
+          {
+            *(a1 + 209) = *MEMORY[0x29EDB8F00] == cf;
+            (*(*a1 + 672))(a1);
           }
         }
-      }
 
-      v54 = CFGetTypeID(v41);
-      if (v54 == CFBooleanGetTypeID() && v41 == *MEMORY[0x29EDB8EF8])
+        return 0;
+      default:
+        goto LABEL_100;
+    }
+
+    return 1;
+  }
+
+  if (a2 != 17)
+  {
+    if (a2 != 31)
+    {
+LABEL_100:
+
+      return MTSimpleHIDManager::setPropertyInternal(a1, a2, cf, a4);
+    }
+
+    (*(*a1 + 80))(a1);
+    result = MTDeviceSupportsForce();
+    if (!result)
+    {
+      return result;
+    }
+
+    v60 = *((*(*a1 + 864))(a1) + 200);
+    *(v60 + 216) = CFBooleanGetValue(cf) != 0;
+    return 1;
+  }
+
+  if (cf)
+  {
+    v65 = CFGetTypeID(cf);
+    HIDDispatchQueue = CFNumberGetTypeID();
+    v70 = 0.0;
+    if (v65 == HIDDispatchQueue)
+    {
+      HIDDispatchQueue = CFNumberGetValue(cf, kCFNumberFloatType, &v70);
+      if (HIDDispatchQueue)
       {
-        if (v11)
+        HIDDispatchQueue = (*(*a1 + 120))(a1);
+        if (HIDDispatchQueue)
         {
-          MTSimpleHIDManager::retain(a1);
-          block[0] = MEMORY[0x29EDCA5F8];
-          block[1] = 0x40000000;
-          block[2] = ___ZN20MTTrackpadHIDManager19setPropertyInternalE18_MTHIDPropertyTypePKvb_block_invoke_2;
-          block[3] = &__block_descriptor_tmp_115;
-          block[4] = a1;
-          v17 = block;
-          goto LABEL_93;
+          v66 = (*(*a1 + 120))(a1);
+          MTTrackpadEventDispatcher::setScrollMomentumDispatchRate(v66, v70, v67);
+          return 1;
         }
-
-        goto LABEL_94;
       }
     }
   }
 
-LABEL_100:
-  v57 = *MEMORY[0x29EDCA608];
+  else
+  {
+    v70 = 0.0;
+  }
 
-  return MTSimpleHIDManager::setPropertyInternal(a1, a2, cf, a4);
+  v68 = MTLoggingPlugin(HIDDispatchQueue, v11);
+  result = os_log_type_enabled(v68, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    *valuePtr = 136315650;
+    *&valuePtr[4] = "[Error] ";
+    *&valuePtr[12] = 2080;
+    *&valuePtr[14] = "MTTrackpadHIDManager::";
+    *&valuePtr[22] = 2080;
+    *&valuePtr[24] = "setPropertyInternal";
+    _os_log_impl(&dword_29D381000, v68, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Could not perform set property on Scroll Momentum Dispatch Rate", valuePtr, 0x20u);
+    return 0;
+  }
+
+  return result;
+}
+
+void sub_29D3B3104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  MTForceBehavior::~MTForceBehavior(va);
+  _Unwind_Resume(a1);
 }
 
 unsigned int *___ZN20MTTrackpadHIDManager19setPropertyInternalE18_MTHIDPropertyTypePKvb_block_invoke(uint64_t a1)
@@ -3891,7 +3845,7 @@ uint64_t MTTrackpadHIDManager::handleNotificationEvent(void *a1, uint64_t a2, in
             }
           }
 
-          if ((*(*a1 + 120))(a1))
+          if ((*(*a1 + 120))(a1, a2))
           {
             v18 = (*(*a1 + 120))(a1);
             if (*(v18 + 57))
@@ -3936,7 +3890,7 @@ uint64_t MTTrackpadHIDManager::handleNotificationEvent(void *a1, uint64_t a2, in
     switch(a3)
     {
       case 5:
-        (*(*a1 + 264))(a1);
+        (*(*a1 + 264))(a1, a2);
         v20 = *((*(*a1 + 864))(a1) + 208);
         if (v20)
         {
@@ -3949,7 +3903,7 @@ LABEL_33:
         v11 = 1;
         goto LABEL_34;
       case 13:
-        v8 = (*(*a1 + 648))(a1);
+        v8 = (*(*a1 + 648))(a1, a2);
         if (*(a1 + 208) != v8)
         {
           *(a1 + 208) = v8;
@@ -3982,7 +3936,7 @@ LABEL_33:
         }
 
 LABEL_30:
-        *((*(*a1 + 848))(a1) + 40) = 2;
+        *((*(*a1 + 848))(a1, a2) + 40) = 2;
 LABEL_32:
         (*(*a1 + 712))(a1);
         v12 = (*(*a1 + 80))(a1);
@@ -3992,7 +3946,7 @@ LABEL_32:
       }
 
 LABEL_31:
-      *((*(*a1 + 848))(a1) + 40) = 0;
+      *((*(*a1 + 848))(a1, a2) + 40) = 0;
       goto LABEL_32;
     }
 
@@ -4078,35 +4032,33 @@ void SaveSurfaceOrientationForDevice(uint64_t a1, int a2, int a3)
     return;
   }
 
-  v5 = *MEMORY[0x29EDB8F98];
-  v6 = *MEMORY[0x29EDB8FA8];
   IOHIDPreferencesSynchronize();
   valuePtr = a2;
-  v7 = *MEMORY[0x29EDB8ED8];
-  v8 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt32Type, &valuePtr);
+  v5 = *MEMORY[0x29EDB8ED8];
+  v6 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt32Type, &valuePtr);
   SavedNameForDevice = mt_CreateSavedNameForDevice();
-  v10 = IOHIDPreferencesCopy();
-  if (v10)
+  v8 = IOHIDPreferencesCopy();
+  if (v8)
   {
-    v11 = v10;
-    MutableCopy = CFDictionaryCreateMutableCopy(v7, 0, v10);
-    CFRelease(v11);
+    v9 = v8;
+    MutableCopy = CFDictionaryCreateMutableCopy(v5, 0, v8);
+    CFRelease(v9);
 LABEL_7:
-    v13 = v8 != 0;
-    if (v8)
+    v11 = v6 != 0;
+    if (v6)
     {
-      v14 = SavedNameForDevice == 0;
+      v12 = SavedNameForDevice == 0;
     }
 
     else
     {
-      v14 = 1;
+      v12 = 1;
     }
 
-    if (!v14 && MutableCopy != 0)
+    if (!v12 && MutableCopy != 0)
     {
-      v16 = CFGetTypeID(MutableCopy);
-      if (v16 == CFDictionaryGetTypeID())
+      v14 = CFGetTypeID(MutableCopy);
+      if (v14 == CFDictionaryGetTypeID())
       {
         if (a3)
         {
@@ -4115,7 +4067,7 @@ LABEL_7:
 
         else
         {
-          CFDictionarySetValue(MutableCopy, SavedNameForDevice, v8);
+          CFDictionarySetValue(MutableCopy, SavedNameForDevice, v6);
         }
 
         IOHIDPreferencesSet();
@@ -4125,7 +4077,7 @@ LABEL_7:
       CFRelease(MutableCopy);
       CFRelease(SavedNameForDevice);
 LABEL_27:
-      CFRelease(v8);
+      CFRelease(v6);
       return;
     }
 
@@ -4139,18 +4091,18 @@ LABEL_27:
 
   if (!a3)
   {
-    MutableCopy = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    MutableCopy = CFDictionaryCreateMutable(v5, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     goto LABEL_7;
   }
 
-  v13 = v8 != 0;
+  v11 = v6 != 0;
 LABEL_17:
   if (SavedNameForDevice)
   {
     CFRelease(SavedNameForDevice);
   }
 
-  if (v13)
+  if (v11)
   {
     goto LABEL_27;
   }
@@ -4224,7 +4176,7 @@ void MTTrackpadHIDManager::handlePowerNotification(MTTrackpadHIDManager *this, v
     {
       if (a3 != -536870272)
       {
-        goto LABEL_10;
+        return;
       }
 
       v7 = *(this + 42);
@@ -4237,9 +4189,9 @@ void MTTrackpadHIDManager::handlePowerNotification(MTTrackpadHIDManager *this, v
     v8 = IOAllowPowerChange(*(this + 72), notificationID);
     if (v8)
     {
-      v9 = v8;
-      v10 = MTLoggingPlugin();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v10 = v8;
+      v11 = MTLoggingPlugin(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = 136315906;
         v13 = "[Error] ";
@@ -4248,14 +4200,11 @@ void MTTrackpadHIDManager::handlePowerNotification(MTTrackpadHIDManager *this, v
         v16 = 2080;
         v17 = "handlePowerNotification";
         v18 = 2082;
-        v19 = mach_error_string(v9);
-        _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s IOAllowPowerChange failed with return %{public}s", &v12, 0x2Au);
+        v19 = mach_error_string(v10);
+        _os_log_impl(&dword_29D381000, v11, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s IOAllowPowerChange failed with return %{public}s", &v12, 0x2Au);
       }
     }
   }
-
-LABEL_10:
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void MTTrackpadHIDManager::_tapAndAHalfTimerCallbackFunction(NSObject *this, dispatch_source_s *a2)
@@ -4336,7 +4285,7 @@ LABEL_16:
   return v12;
 }
 
-BOOL mthid_CFGetBoolValueWithDefault(const void *a1, uint64_t a2)
+uint64_t mthid_CFGetBoolValueWithDefault(const void *a1, uint64_t a2)
 {
   valuePtr = 0;
   if (a1)
@@ -4380,7 +4329,7 @@ uint64_t mthid_CFGetUInt32ValueWithDefault(const void *a1, uint64_t a2)
   return a2;
 }
 
-BOOL mthid_CFDictionaryGetBoolValueWithDefault(const __CFDictionary *a1, const __CFString *a2, uint64_t a3)
+uint64_t mthid_CFDictionaryGetBoolValueWithDefault(const __CFDictionary *a1, const __CFString *a2, uint64_t a3)
 {
   if (!a1 || !a2)
   {
@@ -4423,7 +4372,7 @@ _BYTE *MTTrackpadHIDManager::handlePendingConfigUpdate(_BYTE *this)
 
 void MTTrackpadHIDManager::updateHIDManagerConfig(MTTrackpadHIDManager *this)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if ((*(*this + 664))(this))
   {
     (*(*this + 80))(this);
@@ -4436,13 +4385,13 @@ void MTTrackpadHIDManager::updateHIDManagerConfig(MTTrackpadHIDManager *this)
         {
           *(this + 210) = 0;
           (*(*this + 80))(this);
-          MTDeviceGetDeviceID();
-          v3 = MTLoggingPlugin();
-          if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+          DeviceID = MTDeviceGetDeviceID();
+          v5 = MTLoggingPlugin(DeviceID, v4);
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134217984;
-            v7 = 0;
-            _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEBUG, "HID Manager updating config (deviceID 0x%llX)", buf, 0xCu);
+            v10 = 0;
+            _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEBUG, "HID Manager updating config (deviceID 0x%llX)", buf, 0xCu);
           }
 
           (*(*this + 696))(this);
@@ -4457,19 +4406,17 @@ void MTTrackpadHIDManager::updateHIDManagerConfig(MTTrackpadHIDManager *this)
   else
   {
     (*(*this + 80))(this);
-    MTDeviceGetDeviceID();
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v6 = MTDeviceGetDeviceID();
+    v8 = MTLoggingPlugin(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v7 = 0;
-      _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEBUG, "HID Manager has pending config update (deviceID 0x%llX)", buf, 0xCu);
+      v10 = 0;
+      _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_DEBUG, "HID Manager has pending config update (deviceID 0x%llX)", buf, 0xCu);
     }
 
     *(this + 210) = 1;
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void MTTrackpadHIDManager::determineSurfaceOrientationSettings(MTTrackpadHIDManager *this)
@@ -4477,35 +4424,30 @@ void MTTrackpadHIDManager::determineSurfaceOrientationSettings(MTTrackpadHIDMana
   if ((*(this + 160) & 8) != 0)
   {
     v2 = (*(*this + 848))(this);
-    v3 = (*(*this + 80))(this);
-    v4 = MEMORY[0x29EDB8F98];
-    v5 = MEMORY[0x29EDB8FA8];
-    if (!v3)
+    if (!(*(*this + 80))(this))
     {
       *(v2 + 44) = 0;
       goto LABEL_19;
     }
 
-    v6 = *MEMORY[0x29EDB8F98];
-    v7 = *MEMORY[0x29EDB8FA8];
     IOHIDPreferencesSynchronize();
-    v8 = IOHIDPreferencesCopy();
+    v3 = IOHIDPreferencesCopy();
     valuePtr = 0;
     AppBooleanValue = MTPreferencesGetAppBooleanValue(@"ForceAutoOrientation", @"com.apple.MultitouchSupport", 0);
-    if (v8 && (v10 = CFGetTypeID(v8), v10 == CFNumberGetTypeID()))
+    if (v3 && (v5 = CFGetTypeID(v3), v5 == CFNumberGetTypeID()))
     {
-      Value = CFNumberGetValue(v8, kCFNumberSInt32Type, &valuePtr);
+      Value = CFNumberGetValue(v3, kCFNumberSInt32Type, &valuePtr);
       if (valuePtr == 1 && Value != 0 || AppBooleanValue)
       {
-        v14 = 1;
+        v9 = 1;
         goto LABEL_15;
       }
     }
 
     else if (AppBooleanValue)
     {
-      v14 = 1;
-      if (!v8)
+      v9 = 1;
+      if (!v3)
       {
         goto LABEL_16;
       }
@@ -4513,40 +4455,38 @@ void MTTrackpadHIDManager::determineSurfaceOrientationSettings(MTTrackpadHIDMana
       goto LABEL_15;
     }
 
-    v14 = 0;
-    if (!v8)
+    v9 = 0;
+    if (!v3)
     {
 LABEL_16:
-      *(v2 + 44) = v14;
-      if (v14)
+      *(v2 + 44) = v9;
+      if (v9)
       {
 LABEL_20:
         if (!(*(*this + 80))(this))
         {
-          LODWORD(v22) = 0;
+          LODWORD(v15) = 0;
           goto LABEL_42;
         }
 
-        v16 = *v4;
-        v17 = *v5;
         IOHIDPreferencesSynchronize();
         SavedNameForDevice = mt_CreateSavedNameForDevice();
-        v19 = IOHIDPreferencesCopy();
-        v20 = v19;
+        v12 = IOHIDPreferencesCopy();
+        v13 = v12;
         if (SavedNameForDevice)
         {
-          v21 = v19 == 0;
+          v14 = v12 == 0;
         }
 
         else
         {
-          v21 = 1;
+          v14 = 1;
         }
 
-        if (v21)
+        if (v14)
         {
-          LODWORD(v22) = 0;
-          if (!v19)
+          LODWORD(v15) = 0;
+          if (!v12)
           {
             if (!SavedNameForDevice)
             {
@@ -4559,42 +4499,42 @@ LABEL_20:
           goto LABEL_40;
         }
 
-        v23 = CFGetTypeID(v19);
-        if (v23 != CFDictionaryGetTypeID())
+        v16 = CFGetTypeID(v12);
+        if (v16 != CFDictionaryGetTypeID())
         {
           goto LABEL_39;
         }
 
-        v24 = CFDictionaryGetValue(v20, SavedNameForDevice);
-        v22 = v24;
-        v27 = 0;
-        if (!v24)
+        v17 = CFDictionaryGetValue(v13, SavedNameForDevice);
+        v15 = v17;
+        v20 = 0;
+        if (!v17)
         {
           goto LABEL_40;
         }
 
-        v25 = CFGetTypeID(v24);
-        if (v25 == CFNumberGetTypeID() && CFNumberGetValue(v22, kCFNumberSInt32Type, &v27))
+        v18 = CFGetTypeID(v17);
+        if (v18 == CFNumberGetTypeID() && CFNumberGetValue(v15, kCFNumberSInt32Type, &v20))
         {
-          if ((v27 & 0xFFFFFFFD) != 0)
+          if ((v20 & 0xFFFFFFFD) != 0)
           {
-            LODWORD(v22) = 0;
+            LODWORD(v15) = 0;
           }
 
           else
           {
-            LODWORD(v22) = v27;
+            LODWORD(v15) = v20;
           }
         }
 
         else
         {
 LABEL_39:
-          LODWORD(v22) = 0;
+          LODWORD(v15) = 0;
         }
 
 LABEL_40:
-        CFRelease(v20);
+        CFRelease(v13);
         if (SavedNameForDevice)
         {
 LABEL_41:
@@ -4602,18 +4542,18 @@ LABEL_41:
         }
 
 LABEL_42:
-        *(v2 + 40) = v22;
+        *(v2 + 40) = v15;
         return;
       }
 
 LABEL_19:
-      v15 = (*(*this + 80))(this);
-      SaveSurfaceOrientationForDevice(v15, 0, 1);
+      v10 = (*(*this + 80))(this);
+      SaveSurfaceOrientationForDevice(v10, 0, 1);
       goto LABEL_20;
     }
 
 LABEL_15:
-    CFRelease(v8);
+    CFRelease(v3);
     goto LABEL_16;
   }
 }
@@ -4985,7 +4925,7 @@ void MTTrackpadHIDManager::createScrollZoomCombo(MTTrackpadHIDManager *this, __C
     }
   }
 
-  MTPListGestureConfig::addGestureToArray(Mutable, @"Point", @"Translate", @"Resting Accel Tracking", v12, @"LockOnFirst", 0, 0, v20);
+  MTPListGestureConfig::addGestureToArray(Mutable, @"Point", @"Translate", @"Resting Accel Tracking", v12, @"LockOnFirst", 0, 0, v19);
   v13 = v6[12];
   if (v6[13] == 1)
   {
@@ -5010,7 +4950,7 @@ void MTTrackpadHIDManager::createScrollZoomCombo(MTTrackpadHIDManager *this, __C
     }
 
 LABEL_26:
-    MTPListGestureConfig::addGestureToArray(Mutable, @"Scroll", v15, @"Scrolling", v14, @"LockOnFirst", @"Category", @"TwoFingerScroll", v21);
+    MTPListGestureConfig::addGestureToArray(Mutable, @"Scroll", v15, @"Scrolling", v14, @"LockOnFirst", @"Category", @"TwoFingerScroll", v20);
     goto LABEL_27;
   }
 
@@ -5033,7 +4973,7 @@ LABEL_26:
 LABEL_27:
   if ((v6[13] & 1) != 0 || v6[12] == 1)
   {
-    MTPListGestureConfig::addGestureToArray(Mutable, @"Scroll", @"Hold", 0, @"MayBegin", 0, @"Category", @"TwoFingerScroll", v21);
+    MTPListGestureConfig::addGestureToArray(Mutable, @"Scroll", @"Hold", 0, @"MayBegin", 0, @"Category", @"TwoFingerScroll", v20);
   }
 
   if (*((*(*this + 848))(this) + 30) == 1)
@@ -5048,8 +4988,8 @@ LABEL_27:
       v16 = @"Left";
     }
 
-    MTPListGestureConfig::addGestureToArray(Mutable, @"Fluid Notification", v16, @"Edge Swipe", @"OnlyIfAllMoving OnlyFromEdge", @"LockOnFirstUntilPause", @"Category", @"TwoFingerScroll", v21);
-    MTPListGestureConfig::addGestureToArray(Mutable, @"Fluid Notification", @"Horizontal", @"Edge Swipe", @"OnlyIfAllMoving", @"LockOnFirstUntilPause", @"Category", @"TwoFingerNotificationCenter", v22);
+    MTPListGestureConfig::addGestureToArray(Mutable, @"Fluid Notification", v16, @"Edge Swipe", @"OnlyIfAllMoving OnlyFromEdge", @"LockOnFirstUntilPause", @"Category", @"TwoFingerScroll", v20);
+    MTPListGestureConfig::addGestureToArray(Mutable, @"Fluid Notification", @"Horizontal", @"Edge Swipe", @"OnlyIfAllMoving", @"LockOnFirstUntilPause", @"Category", @"TwoFingerNotificationCenter", v21);
     if (*((*(*this + 848))(this) + 33))
     {
       v17 = @"Momentum";
@@ -5060,27 +5000,26 @@ LABEL_27:
       v17 = @"Repetitive";
     }
 
-    MTPListGestureConfig::addGestureToArray(Mutable, @"Scroll", @"Vertical", @"Scrolling", v17, @"LockOnFirst", @"Category", @"TwoFingerNotificationCenter", v23);
+    MTPListGestureConfig::addGestureToArray(Mutable, @"Scroll", @"Vertical", @"Scrolling", v17, @"LockOnFirst", @"Category", @"TwoFingerNotificationCenter", v22);
   }
 
   if (v6[1] == 1 && v6[6] == 1)
   {
-    MTPListGestureConfig::addGestureToArray(Mutable, @"Secondary Click", @"Tap", 0, 0, 0, 0, 0, v21);
+    MTPListGestureConfig::addGestureToArray(Mutable, @"Secondary Click", @"Tap", 0, 0, 0, 0, 0, v20);
   }
 
   (*(*this + 80))(this);
   MTDeviceSetPickButtonShouldSendSecondaryClick();
-  v18 = v6[17];
   if (v6[16] == 1)
   {
     if (v6[17])
     {
-      v19 = @"Scale+Rotate";
+      v18 = @"Scale+Rotate";
     }
 
     else
     {
-      v19 = @"Scale";
+      v18 = @"Scale";
     }
 
     goto LABEL_47;
@@ -5088,19 +5027,19 @@ LABEL_27:
 
   if (v6[17])
   {
-    v19 = @"Rotate";
+    v18 = @"Rotate";
 LABEL_47:
-    MTPListGestureConfig::addGestureToArray(Mutable, @"Orientation", v19, @"Zooming", @"Repetitive", @"LockOnFirst", 0, 0, v21);
+    MTPListGestureConfig::addGestureToArray(Mutable, @"Orientation", v18, @"Zooming", @"Repetitive", @"LockOnFirst", 0, 0, v20);
   }
 
   if (v6[18] == 1)
   {
-    MTPListGestureConfig::addGestureToArray(Mutable, @"Zoom Toggle", @"DoubleTap", 0, 0, 0, 0, 0, v21);
+    MTPListGestureConfig::addGestureToArray(Mutable, @"Zoom Toggle", @"DoubleTap", 0, 0, 0, 0, 0, v20);
   }
 
   if (v6[37] == 1)
   {
-    MTPListGestureConfig::addGestureToArray(Mutable, @"Click", @"DroppedFingerTap", 0, 0, 0, 0, 0, v21);
+    MTPListGestureConfig::addGestureToArray(Mutable, @"Click", @"DroppedFingerTap", 0, 0, 0, 0, 0, v20);
   }
 
   CFDictionaryAddValue(v11, @"Gestures", Mutable);
@@ -5465,7 +5404,7 @@ void MTTrackpadHIDManager::activateHIDManagerSettings(MTTrackpadHIDManager *this
       v35 = *(v10 + 13);
     }
 
-    MTForceBehaviorConfiguration::clearBehaviors((*(*(this + 42) + 200) + 264));
+    MTForceBehaviorConfiguration::clearBehaviors(*(*(this + 42) + 200) + 264);
     if (v10[64])
     {
       v36 = 1;
@@ -5647,9 +5586,9 @@ void MTTrackpadHIDManager::activateHIDManagerSettings(MTTrackpadHIDManager *this
   CFRelease(Mutable);
 }
 
-void sub_29D3B6F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29D3B6F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   MTForceBehavior::~MTForceBehavior(va);
   _Unwind_Resume(a1);
 }
@@ -5716,7 +5655,7 @@ uint64_t MTTrackpadHIDManager::updateEventDispatcherSettings(MTTrackpadHIDManage
   return result;
 }
 
-BOOL MTTrackpadHIDManager::hwSupports3FDrag(MTTrackpadHIDManager *this)
+uint64_t MTTrackpadHIDManager::hwSupports3FDrag(MTTrackpadHIDManager *this)
 {
   if ((*(this + 160) & 2) != 0)
   {
@@ -5738,7 +5677,7 @@ BOOL MTTrackpadHIDManager::hwSupports3FDrag(MTTrackpadHIDManager *this)
   return v5;
 }
 
-BOOL MTTrackpadHIDManager::hwSupportsSecondaryClickCorners(MTTrackpadHIDManager *this)
+uint64_t MTTrackpadHIDManager::hwSupportsSecondaryClickCorners(MTTrackpadHIDManager *this)
 {
   if ((*(this + 160) & 2) != 0)
   {
@@ -5769,7 +5708,7 @@ uint64_t MTTrackpadHIDManager::initDefaultTrackpadSettings(uint64_t result, uint
     *(a3 + 48) = 0u;
     *a3 = 0u;
     *(a3 + 16) = 0u;
-    result = (*(*result + 688))(result);
+    result = (*(*result + 688))(result, a2);
     *a3 = 1;
     *(a3 + 12) = 0x101010101010101;
     *(a3 + 24) = 16843009;
@@ -5935,52 +5874,50 @@ void ___ZN20MTTrackpadHIDManager32activateDeviceSurfaceOrientationEv_block_invok
 
 void MTTrackpadHIDManager::_activateDeviceSurfaceOrientation(uint64_t a1, int a2, int a3)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   (*(*a1 + 80))(a1);
   v6 = MTDeviceSetSurfaceOrientation();
   if (v6)
   {
-    v7 = v6;
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = v6;
+    v9 = MTLoggingPlugin(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136316162;
-      v14 = "[Error] ";
-      v15 = 2080;
-      v16 = "MTTrackpadHIDManager::";
-      v17 = 2080;
-      v18 = "_activateDeviceSurfaceOrientation";
-      v19 = 1024;
-      v20 = a2;
-      v21 = 1024;
-      v22 = v7;
-      _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s setting surface orientation to %d returned 0x%08X", &v13, 0x2Cu);
+      v14 = 136316162;
+      v15 = "[Error] ";
+      v16 = 2080;
+      v17 = "MTTrackpadHIDManager::";
+      v18 = 2080;
+      v19 = "_activateDeviceSurfaceOrientation";
+      v20 = 1024;
+      v21 = a2;
+      v22 = 1024;
+      v23 = v8;
+      _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s setting surface orientation to %d returned 0x%08X", &v14, 0x2Cu);
     }
   }
 
   (*(*a1 + 80))(a1);
-  v9 = MTDeviceSetSurfaceOrientationMode();
-  if (v9)
+  v10 = MTDeviceSetSurfaceOrientationMode();
+  if (v10)
   {
-    v10 = v9;
-    v11 = MTLoggingPlugin();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = v10;
+    v13 = MTLoggingPlugin(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136316162;
-      v14 = "[Error] ";
-      v15 = 2080;
-      v16 = "MTTrackpadHIDManager::";
-      v17 = 2080;
-      v18 = "_activateDeviceSurfaceOrientation";
-      v19 = 1024;
-      v20 = a3;
-      v21 = 1024;
-      v22 = v10;
-      _os_log_impl(&dword_29D381000, v11, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s setting surface orientation mode to %d returned 0x%08X", &v13, 0x2Cu);
+      v14 = 136316162;
+      v15 = "[Error] ";
+      v16 = 2080;
+      v17 = "MTTrackpadHIDManager::";
+      v18 = 2080;
+      v19 = "_activateDeviceSurfaceOrientation";
+      v20 = 1024;
+      v21 = a3;
+      v22 = 1024;
+      v23 = v12;
+      _os_log_impl(&dword_29D381000, v13, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s setting surface orientation mode to %d returned 0x%08X", &v14, 0x2Cu);
     }
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t MTTrackpadHIDManager::handleButtonState(uint64_t a1, uint64_t a2, int a3)
@@ -6815,11 +6752,12 @@ void MTTrackpadHIDManager::~MTTrackpadHIDManager(MTTrackpadHIDManager *this)
   JUMPOUT(0x29ED547D0);
 }
 
-void MTMouseEmbeddedEventDispatcher::dispatchPointingEvent(MTMouseEmbeddedEventDispatcher *this, int a2, int a3, int a4, unint64_t a5, char a6, int a7)
+void MTMouseEmbeddedEventDispatcher::dispatchPointingEvent(MTMouseEmbeddedEventDispatcher *this, uint64_t a2, int a3, unsigned int a4, uint64_t a5, char a6, uint64_t a7)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if (a6)
   {
+    v11 = a2;
     if (a4 & *(this + 520))
     {
       v13 = a4 & 0xFFFFFFFC | 2;
@@ -6832,45 +6770,43 @@ void MTMouseEmbeddedEventDispatcher::dispatchPointingEvent(MTMouseEmbeddedEventD
 
     if (v13 != *(this + 131))
     {
-      v14 = MTLoggingPlugin();
+      v14 = MTLoggingPlugin(this, a2);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 136315906;
-        v18 = "";
-        v19 = 2080;
-        v20 = "MTMouseEmbeddedEventDispatcher::";
-        v21 = 2080;
-        v22 = "dispatchPointingEvent";
-        v23 = 1024;
-        v24 = v13;
-        _os_log_impl(&dword_29D381000, v14, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching Pointer event from FW with button 0x%08x", &v17, 0x26u);
+        v16 = 136315906;
+        v17 = "";
+        v18 = 2080;
+        v19 = "MTMouseEmbeddedEventDispatcher::";
+        v20 = 2080;
+        v21 = "dispatchPointingEvent";
+        v22 = 1024;
+        v23 = v13;
+        _os_log_impl(&dword_29D381000, v14, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching Pointer event from FW with button 0x%08x", &v16, 0x26u);
       }
     }
 
-    MTTrackpadEventDispatcher::dispatchPointingEvent(this, a2, a3, a4, a5, 1, a7);
+    MTTrackpadEventDispatcher::dispatchPointingEvent(this, v11, a3, a4, a5, 1, a7);
   }
 
   else
   {
-    v15 = MTLoggingPlugin();
+    v15 = MTLoggingPlugin(this, a2);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315650;
-      v18 = "[Error] ";
-      v19 = 2080;
-      v20 = "MTMouseEmbeddedEventDispatcher::";
-      v21 = 2080;
-      v22 = "dispatchPointingEvent";
-      _os_log_impl(&dword_29D381000, v15, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected request to dispatch a Pointer event. Ignoring.", &v17, 0x20u);
+      v16 = 136315650;
+      v17 = "[Error] ";
+      v18 = 2080;
+      v19 = "MTMouseEmbeddedEventDispatcher::";
+      v20 = 2080;
+      v21 = "dispatchPointingEvent";
+      _os_log_impl(&dword_29D381000, v15, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected request to dispatch a Pointer event. Ignoring.", &v16, 0x20u);
     }
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t MTMouseEmbeddedEventDispatcher::shouldDispatchPointerEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   Children = IOHIDEventGetChildren();
   if (Children)
   {
@@ -6882,43 +6818,43 @@ uint64_t MTMouseEmbeddedEventDispatcher::shouldDispatchPointerEvent(uint64_t a1,
     Count = 0;
   }
 
-  if ((IOHIDEventGetIntegerValue() & 2) != 0 || (IOHIDEventGetIntegerValue() & 0x80) != 0 || a4 && (IOHIDEventGetPhase() & 0xD) != 0)
+  IntegerValue = IOHIDEventGetIntegerValue();
+  if ((IntegerValue & 2) != 0 || (IntegerValue = IOHIDEventGetIntegerValue(), (IntegerValue & 0x80) != 0) || a4 && (IntegerValue = IOHIDEventGetPhase(), (IntegerValue & 0xD) != 0))
   {
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = MTLoggingPlugin(IntegerValue, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = (IOHIDEventGetIntegerValue() >> 7) & 1;
-      v10 = IOHIDEventGetIntegerValue() == 1;
-      v16 = 136316930;
-      v17 = "";
-      v11 = IOHIDEventGetIntegerValue() == 1;
-      v18 = 2080;
-      v19 = "MTMouseEmbeddedEventDispatcher::";
-      v20 = 2080;
-      v21 = "shouldDispatchPointerEvent";
-      v22 = 2048;
-      v12 = "no";
-      v23 = Count;
+      v11 = (IOHIDEventGetIntegerValue() >> 7) & 1;
+      v12 = IOHIDEventGetIntegerValue() == 1;
+      v17 = 136316930;
+      v18 = "";
+      v13 = IOHIDEventGetIntegerValue() == 1;
+      v19 = 2080;
+      v20 = "MTMouseEmbeddedEventDispatcher::";
+      v21 = 2080;
+      v22 = "shouldDispatchPointerEvent";
+      v23 = 2048;
+      v14 = "no";
+      v24 = Count;
       if (a4)
       {
-        v12 = "yes";
+        v14 = "yes";
       }
 
-      v24 = 1024;
-      v25 = v9;
-      v26 = 1024;
-      v27 = v10;
-      v28 = 1024;
-      v29 = v11;
-      v30 = 2082;
-      v31 = v12;
-      _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching Pointer event with digitizer (%lu contacts, cancel=%d, touching=%d, inrange=%d), scroll? %{public}s", &v16, 0x46u);
+      v25 = 1024;
+      v26 = v11;
+      v27 = 1024;
+      v28 = v12;
+      v29 = 1024;
+      v30 = v13;
+      v31 = 2082;
+      v32 = v14;
+      _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching Pointer event with digitizer (%lu contacts, cancel=%d, touching=%d, inrange=%d), scroll? %{public}s", &v17, 0x46u);
     }
   }
 
-  v13 = IOHIDEventGetIntegerValue() || (IOHIDEventGetIntegerValue() & 2) != 0 || (a4 | IOHIDEventGetIntegerValue() & 1) != 0;
-  v14 = *MEMORY[0x29EDCA608];
-  return (v13 | *(a1 + 432)) & 1;
+  v15 = IOHIDEventGetIntegerValue() || (IOHIDEventGetIntegerValue() & 2) != 0 || (a4 | IOHIDEventGetIntegerValue() & 1) != 0;
+  return (v15 | *(a1 + 432)) & 1;
 }
 
 void MTMouseEmbeddedEventDispatcher::~MTMouseEmbeddedEventDispatcher(MTMouseEmbeddedEventDispatcher *this)
@@ -6999,7 +6935,7 @@ uint64_t MTTelemetryAnalyticsReporter::stop(MTTelemetryAnalyticsReporter *this)
 
 uint64_t MTTelemetryAnalyticsReporter::processTelemetryReport(uint64_t result, unsigned __int8 *a2, int a3)
 {
-  v14[2] = *MEMORY[0x29EDCA608];
+  v13[2] = *MEMORY[0x29EDCA608];
   if (result)
   {
     if (a2)
@@ -7011,48 +6947,47 @@ uint64_t MTTelemetryAnalyticsReporter::processTelemetryReport(uint64_t result, u
         if (a2[12] == 1)
         {
           [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@.%@", @"com.apple.multitouch", @"baseline.inversion"];
-          v13[0] = @"Lockscreen_Status";
+          v12[0] = @"Lockscreen_Status";
           v6 = [MEMORY[0x29EDBA070] numberWithBool:a2[11]];
-          v13[1] = @"Touch_Frequency";
-          v14[0] = v6;
-          v14[1] = [MEMORY[0x29EDBA070] numberWithUnsignedChar:a2[9]];
-          [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+          v12[1] = @"Touch_Frequency";
+          v13[0] = v6;
+          v13[1] = [MEMORY[0x29EDBA070] numberWithUnsignedChar:a2[9]];
+          [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
           result = AnalyticsSendEventLazy();
         }
 
         if (a2[13] == 1)
         {
           [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@.%@", @"com.apple.multitouch", @"baseline.adaptation"];
-          v11[0] = @"AdaptationInterval";
-          v12[0] = [MEMORY[0x29EDBA070] numberWithInt:*(a2 + 1)];
-          v11[1] = @"FreqDuringAdaptation";
-          v12[1] = [MEMORY[0x29EDBA070] numberWithUnsignedChar:a2[9]];
-          v11[2] = @"Lockscreen_Status";
-          v12[2] = [MEMORY[0x29EDBA070] numberWithBool:a2[11]];
-          v11[3] = @"TimeSinceLastAdapt";
-          v12[3] = [MEMORY[0x29EDBA070] numberWithInt:*(a2 + 5)];
-          v11[4] = @"Touching";
-          v12[4] = [MEMORY[0x29EDBA070] numberWithBool:a2[10]];
-          [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
+          v10[0] = @"AdaptationInterval";
+          v11[0] = [MEMORY[0x29EDBA070] numberWithInt:*(a2 + 1)];
+          v10[1] = @"FreqDuringAdaptation";
+          v11[1] = [MEMORY[0x29EDBA070] numberWithUnsignedChar:a2[9]];
+          v10[2] = @"Lockscreen_Status";
+          v11[2] = [MEMORY[0x29EDBA070] numberWithBool:a2[11]];
+          v10[3] = @"TimeSinceLastAdapt";
+          v11[3] = [MEMORY[0x29EDBA070] numberWithInt:*(a2 + 5)];
+          v10[4] = @"Touching";
+          v11[4] = [MEMORY[0x29EDBA070] numberWithBool:a2[10]];
+          [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
           result = AnalyticsSendEventLazy();
         }
 
         if (a2[14] == 1)
         {
           [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@.%@", @"com.apple.multitouch", @"dtn.allcolumnscovered"];
-          v9[0] = @"Lockscreen_Status";
+          v8[0] = @"Lockscreen_Status";
           v7 = [MEMORY[0x29EDBA070] numberWithBool:a2[11]];
-          v9[1] = @"Touch_Frequency";
-          v10[0] = v7;
-          v10[1] = [MEMORY[0x29EDBA070] numberWithUnsignedChar:a2[9]];
-          [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-          result = AnalyticsSendEventLazy();
+          v8[1] = @"Touch_Frequency";
+          v9[0] = v7;
+          v9[1] = [MEMORY[0x29EDBA070] numberWithUnsignedChar:a2[9]];
+          [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+          return AnalyticsSendEventLazy();
         }
       }
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7277,21 +7212,21 @@ uint64_t MTMouseHIDManager::updateEventDispatcherSettings(MTMouseHIDManager *thi
   return result;
 }
 
-void MTMouseHIDManager::getTrackpadSettings(MTMouseHIDManager *this)
+void MTMouseHIDManager::getTrackpadSettings(MTMouseHIDManager *this, uint64_t a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v13 = *MEMORY[0x29EDCA608];
+  v3 = MTLoggingPlugin(this, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315906;
-    v5 = "[Error] ";
-    v6 = 2080;
-    v7 = "MTMouseHIDManager::";
-    v8 = 2080;
-    v9 = "getTrackpadSettings";
-    v10 = 2048;
-    v11 = this;
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s (%p): Error: invalid use of getTrackpadSettings()", &v4, 0x2Au);
+    v5 = 136315906;
+    v6 = "[Error] ";
+    v7 = 2080;
+    v8 = "MTMouseHIDManager::";
+    v9 = 2080;
+    v10 = "getTrackpadSettings";
+    v11 = 2048;
+    v12 = this;
+    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s (%p): Error: invalid use of getTrackpadSettings()", &v5, 0x2Au);
   }
 
   exception = __cxa_allocate_exception(8uLL);
@@ -7304,7 +7239,7 @@ double MTMouseHIDManager::initDefaultMouseSettings(uint64_t a1, uint64_t a2, uin
   {
     *(a3 + 8) = 0;
     *a3 = 0;
-    (*(*a1 + 688))(a1);
+    (*(*a1 + 688))(a1, a2);
     *&result = 65793;
     *a3 = 65793;
     *(a3 + 4) = 16843009;
@@ -7692,58 +7627,56 @@ LABEL_8:
   CFRelease(v19);
 }
 
-uint64_t MTMouseHIDManager::updateMouseMotionFilter(MTMouseHIDManager *this, float a2, float a3, int a4)
+void MTMouseHIDManager::updateMouseMotionFilter(MTMouseHIDManager *this, float a2, float a3, int a4)
 {
-  result = MTAbsoluteTimeGetCurrent();
-  v8 = v7 - *(this + 47);
-  if (!a4 || v8 >= 0.0329999998)
+  MTAbsoluteTimeGetCurrent();
+  v7 = v6 - *(this + 47);
+  if (!a4 || v7 >= 0.0329999998)
   {
-    v9 = vabs_f32(__PAIR64__(LODWORD(a3), LODWORD(a2)));
-    v25 = *(this + 364);
-    v10 = v8 / 0.00800000038;
-    if (vaddv_f32(v25) <= 5.0)
+    v8 = vabs_f32(__PAIR64__(LODWORD(a3), LODWORD(a2)));
+    v24 = *(this + 364);
+    v9 = v7 / 0.00800000038;
+    if (vaddv_f32(v24) <= 5.0)
     {
-      v11 = 0.870000005;
+      v10 = 0.870000005;
     }
 
     else
     {
-      v11 = 0.699999988;
+      v10 = 0.699999988;
     }
 
-    v12 = pow(v11, v10);
+    v11 = pow(v10, v9);
+    *&v11 = v11;
+    v22 = *&v11;
+    v12 = pow(0.200000003, v9);
     *&v12 = v12;
-    v23 = *&v12;
-    v13 = pow(0.200000003, v10);
-    *&v13 = v13;
-    v14 = vbsl_s8(vcgt_f32(v9, v25), vdup_lane_s32(*&v13, 0), vdup_lane_s32(v23, 0));
+    v13 = vbsl_s8(vcgt_f32(v8, v24), vdup_lane_s32(*&v12, 0), vdup_lane_s32(v22, 0));
     __asm { FMOV            V1.2S, #1.0 }
 
-    *(this + 364) = vmla_f32(vmul_f32(v9, vsub_f32(_D1, v14)), v25, v14);
+    *(this + 364) = vmla_f32(vmul_f32(v8, vsub_f32(_D1, v13)), v24, v13);
     if ((*(*this + 864))(this))
     {
       if (*((*(*this + 864))(this) + 56))
       {
-        v20 = (*(*this + 864))(this);
-        MTHandMotion::storeFeedbackFromMouse(*(v20 + 56), *(this + 91), *(this + 92));
+        v19 = (*(*this + 864))(this);
+        MTHandMotion::storeFeedbackFromMouse(*(v19 + 56), *(this + 91), *(this + 92));
       }
     }
 
-    result = MTAbsoluteTimeGetCurrent();
-    *(this + 47) = v21;
+    MTAbsoluteTimeGetCurrent();
+    *(this + 47) = v20;
   }
-
-  return result;
 }
 
-uint64_t MTMouseHIDManager::tickleMouseMotionFilter(MTMouseHIDManager *this)
+void MTMouseHIDManager::tickleMouseMotionFilter(MTMouseHIDManager *this)
 {
   MTMouseHIDManager::updateMouseMotionFilter(this, 0.0, 0.0, 1);
 
-  return MTMouseHIDManager::updateButtonMotionFilter(this, 0.0, 0);
+  MTMouseHIDManager::updateButtonMotionFilter(this, 0.0, 0);
 }
 
-uint64_t MTMouseHIDManager::updateButtonMotionFilter(MTMouseHIDManager *this, float a2, int a3)
+void MTMouseHIDManager::updateButtonMotionFilter(MTMouseHIDManager *this, float a2, int a3)
 {
   MTAbsoluteTimeGetCurrent();
   if (a3)
@@ -7763,9 +7696,8 @@ uint64_t MTMouseHIDManager::updateButtonMotionFilter(MTMouseHIDManager *this, fl
     MTHandMotion::storeFeedbackFromButton(*(v8 + 56), *(this + 96));
   }
 
-  result = MTAbsoluteTimeGetCurrent();
-  *(this + 49) = v10;
-  return result;
+  MTAbsoluteTimeGetCurrent();
+  *(this + 49) = v9;
 }
 
 uint64_t MTMouseHIDManager::handleTrackingDataForMotionFilter(uint64_t a1, uint64_t a2, int a3, int a4, unsigned int a5)
@@ -7795,7 +7727,7 @@ uint64_t MTMouseHIDManager::handleFrameProcessingEntryExit(uint64_t a1, uint64_t
 {
   if (a5)
   {
-    (*(*a1 + 928))(a1);
+    (*(*a1 + 928))(a1, a2, a3, a4);
   }
 
   return 1;
@@ -7927,11 +7859,11 @@ double MTParameterFactory::initBasicForceActuationQualifiers(uint64_t a1)
   return result;
 }
 
-void MTParameterFactory::initPathFilterParams(uint64_t a1, unsigned int a2, __int16 a3, int a4, float32x2_t *a5, unsigned int a6)
+void MTParameterFactory::initPathFilterParams(uint64_t a1, uint64_t a2, __int16 a3, int a4, float32x2_t *a5, unsigned int a6)
 {
   v6 = a6;
   v8 = a3;
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   *(a1 + 96) = 0;
   *(a1 + 80) = 1;
   *(a1 + 102) = 0;
@@ -7962,14 +7894,14 @@ void MTParameterFactory::initPathFilterParams(uint64_t a1, unsigned int a2, __in
 
   *(a1 + 81) = 1;
   *(a1 + 4) = 1061997773;
-  if (a2 - 3000 <= 0x3E7)
+  if ((a2 - 3000) <= 0x3E7)
   {
     *(a1 + 56) = 0x3EA28F5C40000000;
     *(a1 + 96) = 1;
     *(a1 + 80) = 0;
     *(a1 + 102) = 1;
 LABEL_8:
-    v11 = a2 - 3000 < 0xFFFFFC18;
+    v11 = (a2 - 3000) < 0xFFFFFC18;
     v12 = a2 - 2000;
     goto LABEL_9;
   }
@@ -7989,7 +7921,7 @@ LABEL_8:
   *(a1 + 56) = v14;
   *(a1 + 60) = v15;
   v12 = a2 - 2000;
-  if (a2 - 2000 < 0x3E8)
+  if ((a2 - 2000) < 0x3E8)
   {
     v13 = 0;
     *(a1 + 60) = 1045435305;
@@ -8035,29 +7967,29 @@ LABEL_20:
   *(a1 + 99) = v13;
   *(a1 + 100) = v13;
   *(a1 + 101) = v13;
-  v30[0] = xmmword_29D3D7340;
-  v30[1] = xmmword_29D3D7350;
-  v31 = 0xC07000003FA66666;
+  v29[0] = xmmword_29D3D7340;
+  v29[1] = xmmword_29D3D7350;
+  v30 = 0xC07000003FA66666;
   if (a6 >= 5)
   {
-    v16 = MTLoggingPlugin();
+    v16 = MTLoggingPlugin(a1, a2);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315906;
-      v23 = "[Error] ";
-      v24 = 2080;
-      v25 = "MTParameterFactory::";
-      v26 = 2080;
-      v27 = "_InitRadiusCorrectionParams";
-      v28 = 1024;
-      v29 = v6;
-      _os_log_impl(&dword_29D381000, v16, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s invalid size ID (%u)", &v22, 0x26u);
+      v21 = 136315906;
+      v22 = "[Error] ";
+      v23 = 2080;
+      v24 = "MTParameterFactory::";
+      v25 = 2080;
+      v26 = "_InitRadiusCorrectionParams";
+      v27 = 1024;
+      v28 = v6;
+      _os_log_impl(&dword_29D381000, v16, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s invalid size ID (%u)", &v21, 0x26u);
     }
 
     v6 = 0;
   }
 
-  v17 = *(v30 + 8 * v6);
+  v17 = *(v29 + 8 * v6);
   *(a1 + 104) = v17;
   v17.i32[0] = 1.0;
   v18 = fabsf(MTSurfaceDimensions::convertMillimetersToPixels(a5, v17, 1.0).f32[0]);
@@ -8076,7 +8008,6 @@ LABEL_20:
 
   *(a1 + v20) = v19;
   *(a1 + 128) = (v8 & 0x40) != 0;
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 void MTParameterFactory::updatePathFilterParamsWithNewSurfaceDimensions(uint64_t a1, float32x2_t *a2, float32x2_t a3)
@@ -8165,37 +8096,37 @@ double MTParameterFactory::initTouchZoneParams(uint64_t a1, int a2, uint64_t a3,
 
 void MTTrackpadEmbeddedEventDispatcher::initialize(uint64_t a1, MTSimpleHIDManager *a2, const void *a3)
 {
-  *(a1 + 560) = MTABCLogger::createLogger();
+  *(a1 + 560) = MTABCLogger::createLogger(a3);
 
   MTTrackpadEventDispatcher::initialize(a1, a2, a3);
 }
 
-MTABCLogger *MTTrackpadEmbeddedEventDispatcher::finalize(MTTrackpadEmbeddedEventDispatcher *this)
+MTABCLogger *MTTrackpadEmbeddedEventDispatcher::finalize(MTABCLogger **this)
 {
   MTTrackpadEventDispatcher::finalize(this);
-  v2 = *(this + 71);
+  v2 = this[71];
   if (v2)
   {
-    MTABCLogger::endSession(*(this + 70), v2, 0);
-    *(this + 71) = 0;
+    MTABCLogger::endSession(this[70], v2, 0);
+    this[71] = 0;
   }
 
-  result = *(this + 70);
+  result = this[70];
   if (result)
   {
     MTABCLogger::~MTABCLogger(result);
     result = MEMORY[0x29ED547D0]();
   }
 
-  *(this + 70) = 0;
+  this[70] = 0;
   return result;
 }
 
-void MTTrackpadEmbeddedEventDispatcher::dispatchScrollEvent(MTTrackpadEmbeddedEventDispatcher *this, float a2)
+void MTTrackpadEmbeddedEventDispatcher::dispatchScrollEvent(MTTrackpadEmbeddedEventDispatcher *this, float a2, uint64_t a3)
 {
   v10 = *MEMORY[0x29EDCA608];
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = MTLoggingPlugin(this, a3);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = 136315650;
     v5 = "[Error] ";
@@ -8203,137 +8134,130 @@ void MTTrackpadEmbeddedEventDispatcher::dispatchScrollEvent(MTTrackpadEmbeddedEv
     v7 = "MTTrackpadEmbeddedEventDispatcher::";
     v8 = 2080;
     v9 = "dispatchScrollEvent";
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected request to dispatch a Scroll event. Ignoring.", &v4, 0x20u);
+    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected request to dispatch a Scroll event. Ignoring.", &v4, 0x20u);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
-void MTTrackpadEmbeddedEventDispatcher::dispatchPointingEvent(MTTrackpadEmbeddedEventDispatcher *this, int a2, int a3, int a4, unint64_t a5, char a6)
+void MTTrackpadEmbeddedEventDispatcher::dispatchPointingEvent(MTTrackpadEmbeddedEventDispatcher *this, uint64_t a2, int a3, unsigned int a4, uint64_t a5, char a6, uint64_t a7)
 {
-  v36 = *MEMORY[0x29EDCA608];
-  if (a6)
+  v35 = *MEMORY[0x29EDCA608];
+  if ((a6 & 1) == 0)
   {
-    v7 = a3 | a2;
-    if (a3 | a2 || *(this + 133) != a4)
+    v14 = MTLoggingPlugin(this, a2);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      *(this + 133) = a4;
-      v14 = *(this + 132) | a4;
-      *(this + 138) = v14;
-      if (*(this + 520) == 1 && (v14 & 1) != 0)
-      {
-        *(this + 138) = v14 & 0xFFFFFFFC | 2;
-      }
+      return;
+    }
 
-      v16 = *MEMORY[0x29EDB8ED8];
-      v17 = *(this + 131);
-      RelativePointerEvent = IOHIDEventCreateRelativePointerEvent();
-      if (RelativePointerEvent)
-      {
-        v19 = RelativePointerEvent;
-        memset(__str, 170, 11);
-        if (*(this + 138) == *(this + 131))
-        {
-          strcpy(__str, "no");
-        }
+    *buf = 136315650;
+    v26 = "[Error] ";
+    v27 = 2080;
+    v28 = "MTTrackpadEmbeddedEventDispatcher::";
+    v29 = 2080;
+    v30 = "dispatchPointingEvent";
+    v11 = "[HID] [MT] %s%s%s Unexpected request to dispatch a Pointer event. Ignoring.";
+    v12 = v14;
+    v13 = 32;
+    goto LABEL_8;
+  }
 
-        else
-        {
-          snprintf(__str, 0xBuLL, "0x%08x", *(this + 138));
-        }
+  v8 = a3 | a2;
+  if (!(a3 | a2) && *(this + 133) == a4)
+  {
+    v9 = MTLoggingPlugin(this, a2);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
 
-        v23 = MTLoggingPlugin();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-        {
-          v27 = "";
-          v24 = "yes";
-          *buf = 136316162;
-          v29 = "MTTrackpadEmbeddedEventDispatcher::";
-          v28 = 2080;
-          v30 = 2080;
-          v31 = "dispatchPointingEvent";
-          if (!v7)
-          {
-            v24 = "no";
-          }
+    v10 = *(this + 133);
+    *buf = 136315906;
+    v26 = "[Error] ";
+    v27 = 2080;
+    v28 = "MTTrackpadEmbeddedEventDispatcher::";
+    v29 = 2080;
+    v30 = "dispatchPointingEvent";
+    v31 = 1024;
+    *v32 = v10;
+    v11 = "[HID] [MT] %s%s%s No change in device button state(%u). Ignoring.";
+    v12 = v9;
+    v13 = 38;
+LABEL_8:
+    _os_log_impl(&dword_29D381000, v12, OS_LOG_TYPE_ERROR, v11, buf, v13);
+    return;
+  }
 
-          v32 = 2082;
-          *v33 = v24;
-          *&v33[8] = 2082;
-          v34 = __str;
-          _os_log_impl(&dword_29D381000, v23, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching Pointer event (displacement? %{public}s) from FW (button? %{public}s)", buf, 0x34u);
-        }
+  *(this + 133) = a4;
+  v15 = *(this + 132) | a4;
+  *(this + 138) = v15;
+  if (*(this + 520) == 1 && (v15 & 1) != 0)
+  {
+    *(this + 138) = v15 & 0xFFFFFFFC | 2;
+  }
 
-        (*(*this + 40))(this, v19, 0);
-        CFRelease(v19);
-      }
-
-      else
-      {
-        v20 = MTLoggingPlugin();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-        {
-          v21 = *(this + 138);
-          v22 = *(this + 131);
-          *buf = 136316162;
-          v27 = "[Error] ";
-          v28 = 2080;
-          v29 = "MTTrackpadEmbeddedEventDispatcher::";
-          v30 = 2080;
-          v31 = "dispatchPointingEvent";
-          v32 = 1024;
-          *v33 = v21;
-          *&v33[4] = 1024;
-          *&v33[6] = v22;
-          _os_log_impl(&dword_29D381000, v20, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Failed to create relative pointer event with combined button state(%u) and previous button state(%u)", buf, 0x2Cu);
-        }
-      }
-
-      *(this + 131) = *(this + 138);
+  RelativePointerEvent = IOHIDEventCreateRelativePointerEvent();
+  if (RelativePointerEvent)
+  {
+    v19 = RelativePointerEvent;
+    memset(__str, 170, 11);
+    if (*(this + 138) == *(this + 131))
+    {
+      strcpy(__str, "no");
     }
 
     else
     {
-      v8 = MTLoggingPlugin();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        v9 = *(this + 133);
-        *buf = 136315906;
-        v27 = "[Error] ";
-        v28 = 2080;
-        v29 = "MTTrackpadEmbeddedEventDispatcher::";
-        v30 = 2080;
-        v31 = "dispatchPointingEvent";
-        v32 = 1024;
-        *v33 = v9;
-        v10 = "[HID] [MT] %s%s%s No change in device button state(%u). Ignoring.";
-        v11 = v8;
-        v12 = 38;
-LABEL_8:
-        _os_log_impl(&dword_29D381000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
-      }
+      RelativePointerEvent = snprintf(__str, 0xBuLL, "0x%08x", *(this + 138));
     }
+
+    v23 = MTLoggingPlugin(RelativePointerEvent, v18);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      v26 = "";
+      v24 = "yes";
+      *buf = 136316162;
+      v28 = "MTTrackpadEmbeddedEventDispatcher::";
+      v27 = 2080;
+      v29 = 2080;
+      v30 = "dispatchPointingEvent";
+      if (!v8)
+      {
+        v24 = "no";
+      }
+
+      v31 = 2082;
+      *v32 = v24;
+      *&v32[8] = 2082;
+      v33 = __str;
+      _os_log_impl(&dword_29D381000, v23, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching Pointer event (displacement? %{public}s) from FW (button? %{public}s)", buf, 0x34u);
+    }
+
+    (*(*this + 40))(this, v19, 0);
+    CFRelease(v19);
   }
 
   else
   {
-    v13 = MTLoggingPlugin();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v20 = MTLoggingPlugin(0, v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315650;
-      v27 = "[Error] ";
-      v28 = 2080;
-      v29 = "MTTrackpadEmbeddedEventDispatcher::";
-      v30 = 2080;
-      v31 = "dispatchPointingEvent";
-      v10 = "[HID] [MT] %s%s%s Unexpected request to dispatch a Pointer event. Ignoring.";
-      v11 = v13;
-      v12 = 32;
-      goto LABEL_8;
+      v21 = *(this + 138);
+      v22 = *(this + 131);
+      *buf = 136316162;
+      v26 = "[Error] ";
+      v27 = 2080;
+      v28 = "MTTrackpadEmbeddedEventDispatcher::";
+      v29 = 2080;
+      v30 = "dispatchPointingEvent";
+      v31 = 1024;
+      *v32 = v21;
+      *&v32[4] = 1024;
+      *&v32[6] = v22;
+      _os_log_impl(&dword_29D381000, v20, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Failed to create relative pointer event with combined button state(%u) and previous button state(%u)", buf, 0x2Cu);
     }
   }
 
-  v25 = *MEMORY[0x29EDCA608];
+  *(this + 131) = *(this + 138);
 }
 
 uint64_t MTTrackpadEmbeddedEventDispatcher::shouldDispatchPointerEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -8355,13 +8279,14 @@ uint64_t MTTrackpadEmbeddedEventDispatcher::shouldDispatchPointerEvent(uint64_t 
     Count = 0;
   }
 
-  if ((IOHIDEventGetIntegerValue() & 2) != 0 || (v20 = IOHIDEventGetIntegerValue(), a4) || v20 < 0 || a5 && (IOHIDEventGetPhase() & 0xD) != 0 || a6 && (IOHIDEventGetPhase() & 0xD) != 0 || a7 && (IOHIDEventGetPhase() & 0xD) != 0 || a8 && (IOHIDEventGetPhase() & 0xD) != 0)
+  IntegerValue = IOHIDEventGetIntegerValue();
+  if ((IntegerValue & 2) != 0 || (IntegerValue = IOHIDEventGetIntegerValue(), a4) || (IntegerValue & 0x80) != 0 || a5 && (IntegerValue = IOHIDEventGetPhase(), (IntegerValue & 0xD) != 0) || a6 && (IntegerValue = IOHIDEventGetPhase(), (IntegerValue & 0xD) != 0) || a7 && (IntegerValue = IOHIDEventGetPhase(), (IntegerValue & 0xD) != 0) || a8 && (IntegerValue = IOHIDEventGetPhase(), (IntegerValue & 0xD) != 0))
   {
     memset(__str, 170, 11);
     if (a4)
     {
-      IntegerValue = IOHIDEventGetIntegerValue();
-      snprintf(__str, 0xBuLL, "0x%08x", IntegerValue);
+      v22 = IOHIDEventGetIntegerValue();
+      IntegerValue = snprintf(__str, 0xBuLL, "0x%08x", v22);
     }
 
     else
@@ -8369,41 +8294,28 @@ uint64_t MTTrackpadEmbeddedEventDispatcher::shouldDispatchPointerEvent(uint64_t 
       strcpy(__str, "no");
     }
 
-    v22 = MTLoggingPlugin();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = MTLoggingPlugin(IntegerValue, v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       if (v17)
       {
-        v23 = "yes";
+        v24 = "yes";
       }
 
       else
       {
-        v23 = "no";
+        v24 = "no";
       }
 
-      v33 = v23;
+      v33 = v24;
       v34 = (IOHIDEventGetIntegerValue() >> 7) & 1;
-      v24 = IOHIDEventGetIntegerValue() == 1;
+      v25 = IOHIDEventGetIntegerValue() == 1;
       *buf = 136318210;
       v37 = "";
-      v25 = IOHIDEventGetIntegerValue() == 1;
+      v26 = IOHIDEventGetIntegerValue() == 1;
       v38 = 2080;
       v39 = "MTTrackpadEmbeddedEventDispatcher::";
       if (a5)
-      {
-        v26 = "yes";
-      }
-
-      else
-      {
-        v26 = "no";
-      }
-
-      v40 = 2080;
-      v41 = "shouldDispatchPointerEvent";
-      v42 = 2082;
-      if (a6)
       {
         v27 = "yes";
       }
@@ -8413,8 +8325,10 @@ uint64_t MTTrackpadEmbeddedEventDispatcher::shouldDispatchPointerEvent(uint64_t 
         v27 = "no";
       }
 
-      v43 = v33;
-      if (a7)
+      v40 = 2080;
+      v41 = "shouldDispatchPointerEvent";
+      v42 = 2082;
+      if (a6)
       {
         v28 = "yes";
       }
@@ -8424,8 +8338,8 @@ uint64_t MTTrackpadEmbeddedEventDispatcher::shouldDispatchPointerEvent(uint64_t 
         v28 = "no";
       }
 
-      v44 = 2048;
-      if (a8)
+      v43 = v33;
+      if (a7)
       {
         v29 = "yes";
       }
@@ -8435,40 +8349,51 @@ uint64_t MTTrackpadEmbeddedEventDispatcher::shouldDispatchPointerEvent(uint64_t 
         v29 = "no";
       }
 
+      v44 = 2048;
+      if (a8)
+      {
+        v30 = "yes";
+      }
+
+      else
+      {
+        v30 = "no";
+      }
+
       v45 = Count;
       v46 = 1024;
       v47 = v34;
       v48 = 1024;
-      v49 = v24;
+      v49 = v25;
       v50 = 1024;
-      v51 = v25;
+      v51 = v26;
       v52 = 2082;
       v53 = __str;
       v54 = 2082;
-      v55 = v26;
+      v55 = v27;
       v56 = 2082;
-      v57 = v27;
+      v57 = v28;
       v58 = 2082;
-      v59 = v28;
+      v59 = v29;
       v60 = 2082;
-      v61 = v29;
-      _os_log_impl(&dword_29D381000, v22, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching Pointer event (displacement? %{public}s) with digitizer (%lu contacts, cancel=%d, touching=%d, inrange=%d), button? %{public}s, scroll? %{public}s, scale? %{public}s, rotate? %{public}s, translate? %{public}s", buf, 0x78u);
+      v61 = v30;
+      _os_log_impl(&dword_29D381000, v23, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching Pointer event (displacement? %{public}s) with digitizer (%lu contacts, cancel=%d, touching=%d, inrange=%d), button? %{public}s, scroll? %{public}s, scale? %{public}s, rotate? %{public}s, translate? %{public}s", buf, 0x78u);
     }
   }
 
   if (IOHIDEventGetIntegerValue() || (IOHIDEventGetIntegerValue() & 2) != 0 || (IOHIDEventGetIntegerValue() & 1) != 0)
   {
-    v30 = 1;
+    v31 = 1;
   }
 
   else if (a4 | a5 | a6 | a7 | a8)
   {
-    v30 = 1;
+    v31 = 1;
   }
 
   else
   {
-    v30 = v17;
+    v31 = v17;
   }
 
   if (*(a1 + 560))
@@ -8476,8 +8401,7 @@ uint64_t MTTrackpadEmbeddedEventDispatcher::shouldDispatchPointerEvent(uint64_t 
     MTTrackpadEmbeddedEventDispatcher::sanityCheck(a1, a3, a5, a6, a7, a8, v17);
   }
 
-  v31 = *MEMORY[0x29EDCA608];
-  return (v30 | *(a1 + 432)) & 1;
+  return (v31 | *(a1 + 432)) & 1;
 }
 
 void MTTrackpadEmbeddedEventDispatcher::sanityCheck(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
@@ -8598,84 +8522,83 @@ void MTTrackpadEmbeddedEventDispatcher::sanityCheck(uint64_t a1, uint64_t a2, ui
   }
 
   Children = IOHIDEventGetChildren();
-  if (Children && (v26 = Children, CFArrayGetCount(Children) >= 1))
+  if (Children && (v27 = Children, Children = CFArrayGetCount(Children), Children >= 1))
   {
-    v27 = 0;
     v28 = 0;
-    do
+    for (i = 0; i < Children; ++i)
     {
-      CFArrayGetValueAtIndex(v26, v28);
+      CFArrayGetValueAtIndex(v27, i);
       if (IOHIDEventGetIntegerValue() == 1)
       {
-        ++v27;
+        ++v28;
       }
 
-      ++v28;
+      Children = CFArrayGetCount(v27);
     }
 
-    while (v28 < CFArrayGetCount(v26));
-    if (v27 >= 2)
+    if (v28 >= 2)
     {
       if (!*(a1 + 568))
       {
         MTABCLogger::startSession(*(a1 + 560), "ipados_trackpad_orientation_gesture", 60.0);
       }
 
-      v27 = 1;
+      v28 = 1;
     }
   }
 
   else
   {
-    v27 = 0;
+    v28 = 0;
   }
 
   if (*(a1 + 577) & v24)
   {
-    v29 = MTLoggingPlugin();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = MTLoggingPlugin(Children, v26);
+    Children = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+    if (Children)
     {
-      v30 = "no";
+      v31 = "no";
       if (*(a1 + 578))
       {
-        v31 = "yes";
+        v32 = "yes";
       }
 
       else
       {
-        v31 = "no";
+        v32 = "no";
       }
 
-      v32 = *(a1 + 579);
+      v33 = *(a1 + 579);
       v51 = "[Error] ";
       v53 = "MTTrackpadEmbeddedEventDispatcher::";
-      v33 = *(a1 + 580);
-      if (v32)
+      v34 = *(a1 + 580);
+      if (v33)
       {
-        v34 = "yes";
+        v35 = "yes";
       }
 
       else
       {
-        v34 = "no";
+        v35 = "no";
       }
 
       v50 = 136316418;
       v52 = 2080;
-      if (v33)
+      if (v34)
       {
-        v30 = "yes";
+        v31 = "yes";
       }
 
       v54 = 2080;
       v55 = "sanityCheck";
       v56 = 2082;
-      v57 = v31;
+      v57 = v32;
       v58 = 2082;
-      v59 = v34;
+      v59 = v35;
       v60 = 2082;
-      v61 = v30;
-      _os_log_impl(&dword_29D381000, v29, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Attempting to scroll at the same time we scale %{public}s / rotate %{public}s / translate %{public}s", &v50, 0x3Eu);
+      v61 = v31;
+      _os_log_impl(&dword_29D381000, v30, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Attempting to scroll at the same time we scale %{public}s / rotate %{public}s / translate %{public}s", &v50, 0x3Eu);
     }
 
     *(a1 + 576) = 1;
@@ -8683,145 +8606,144 @@ void MTTrackpadEmbeddedEventDispatcher::sanityCheck(uint64_t a1, uint64_t a2, ui
 
   if ((a7 & v24) == 1)
   {
-    v35 = MTLoggingPlugin();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v36 = MTLoggingPlugin(Children, v26);
+    Children = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+    if (Children)
     {
-      v36 = "no";
+      v37 = "no";
       if (*(a1 + 578))
       {
-        v37 = "yes";
+        v38 = "yes";
       }
 
       else
       {
-        v37 = "no";
+        v38 = "no";
       }
 
-      v38 = *(a1 + 579);
+      v39 = *(a1 + 579);
       v51 = "[Error] ";
       v53 = "MTTrackpadEmbeddedEventDispatcher::";
-      v39 = *(a1 + 580);
-      if (v38)
+      v40 = *(a1 + 580);
+      if (v39)
       {
-        v40 = "yes";
+        v41 = "yes";
       }
 
       else
       {
-        v40 = "no";
+        v41 = "no";
       }
 
       v50 = 136316418;
       v52 = 2080;
-      if (v39)
+      if (v40)
       {
-        v36 = "yes";
+        v37 = "yes";
       }
 
       v54 = 2080;
       v55 = "sanityCheck";
       v56 = 2082;
-      v57 = v37;
+      v57 = v38;
       v58 = 2082;
-      v59 = v40;
+      v59 = v41;
       v60 = 2082;
-      v61 = v36;
-      _os_log_impl(&dword_29D381000, v35, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Active pointer at the same time we scale %{public}s / rotate %{public}s / translate %{public}s (stuck orientation gesture?)", &v50, 0x3Eu);
+      v61 = v37;
+      _os_log_impl(&dword_29D381000, v36, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Active pointer at the same time we scale %{public}s / rotate %{public}s / translate %{public}s (stuck orientation gesture?)", &v50, 0x3Eu);
     }
 
     *(a1 + 576) = 1;
   }
 
-  if (!v27)
+  if (!v28)
   {
-    v41 = *(a1 + 568);
-    if (v41)
+    v42 = *(a1 + 568);
+    if (v42)
     {
       if (v24)
       {
-        v42 = MTLoggingPlugin();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v43 = MTLoggingPlugin(Children, v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          v43 = "no";
+          v44 = "no";
           if (*(a1 + 578))
           {
-            v44 = "yes";
+            v45 = "yes";
           }
 
           else
           {
-            v44 = "no";
+            v45 = "no";
           }
 
-          v45 = *(a1 + 579);
+          v46 = *(a1 + 579);
           v51 = "[Error] ";
           v53 = "MTTrackpadEmbeddedEventDispatcher::";
-          v46 = *(a1 + 580);
-          if (v45)
+          v47 = *(a1 + 580);
+          if (v46)
           {
-            v47 = "yes";
+            v48 = "yes";
           }
 
           else
           {
-            v47 = "no";
+            v48 = "no";
           }
 
           v50 = 136316418;
           v52 = 2080;
-          if (v46)
+          if (v47)
           {
-            v43 = "yes";
+            v44 = "yes";
           }
 
           v54 = 2080;
           v55 = "sanityCheck";
           v56 = 2082;
-          v57 = v44;
+          v57 = v45;
           v58 = 2082;
-          v59 = v47;
+          v59 = v48;
           v60 = 2082;
-          v61 = v43;
-          _os_log_impl(&dword_29D381000, v42, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s No contacts but we are still trying to scale %{public}s / rotate %{public}s / translate %{public}s (stuck orientation gesture?)", &v50, 0x3Eu);
+          v61 = v44;
+          _os_log_impl(&dword_29D381000, v43, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s No contacts but we are still trying to scale %{public}s / rotate %{public}s / translate %{public}s (stuck orientation gesture?)", &v50, 0x3Eu);
         }
 
-        v48 = 1;
+        v49 = 1;
         *(a1 + 576) = 1;
-        v41 = *(a1 + 568);
+        v42 = *(a1 + 568);
       }
 
       else
       {
-        v48 = *(a1 + 576);
+        v49 = *(a1 + 576);
       }
 
-      MTABCLogger::endSession(*(a1 + 560), v41, v48 & 1);
+      MTABCLogger::endSession(*(a1 + 560), v42, v49 & 1);
       *(a1 + 568) = 0;
       *(a1 + 576) = 0;
     }
   }
-
-  v49 = *MEMORY[0x29EDCA608];
 }
 
 void MTTrackpadEmbeddedEventDispatcher::dispatchEvent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if (IOHIDEventGetType() == 17)
   {
     Children = IOHIDEventGetChildren();
-    if (!Children || !CFArrayGetCount(Children))
+    if (!Children || (Children = CFArrayGetCount(Children)) == 0)
     {
-      v7 = MTLoggingPlugin();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = MTLoggingPlugin(Children, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315650;
-        v10 = "";
-        v11 = 2080;
-        v12 = "MTTrackpadEmbeddedEventDispatcher::";
-        v13 = 2080;
-        v14 = "dispatchEvent";
-        _os_log_impl(&dword_29D381000, v7, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching standalone Pointer event", &v9, 0x20u);
+        v10 = 136315650;
+        v11 = "";
+        v12 = 2080;
+        v13 = "MTTrackpadEmbeddedEventDispatcher::";
+        v14 = 2080;
+        v15 = "dispatchEvent";
+        _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Dispatching standalone Pointer event", &v10, 0x20u);
       }
     }
 
@@ -8830,10 +8752,8 @@ void MTTrackpadEmbeddedEventDispatcher::dispatchEvent(uint64_t a1, uint64_t a2, 
 
   else
   {
-    MTTrackpadEmbeddedEventDispatcher::dispatchEvent();
+    MTTrackpadEmbeddedEventDispatcher::dispatchEvent(a2, v6);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void MTTrackpadEmbeddedEventDispatcher::~MTTrackpadEmbeddedEventDispatcher(MTTrackpadEmbeddedEventDispatcher *this)
@@ -8931,7 +8851,7 @@ void MTMultipleFirmwaresModeSwitcher::MTMultipleFirmwaresModeSwitcher(MTMultiple
 
 uint64_t MTMultipleFirmwaresModeSwitcher::init(MTMultipleFirmwaresModeSwitcher *this, const __CFDictionary *a2)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v47 = *MEMORY[0x29EDCA608];
   (*(**(this + 1) + 80))(*(this + 1));
   *(*(this + 5) + 8) = [(__CFDictionary *)a2 objectForKeyedSubscript:@"BootloaderProperty"];
   *(*(this + 5) + 16) = [(__CFDictionary *)a2 objectForKeyedSubscript:@"ActivePayload"];
@@ -8942,122 +8862,116 @@ uint64_t MTMultipleFirmwaresModeSwitcher::init(MTMultipleFirmwaresModeSwitcher *
   {
     if (v5[2] && v4 != 0)
     {
-      v9 = MTDevicePowerControlSupported();
-      if (v9)
+      v11 = MTDevicePowerControlSupported();
+      if (v11)
       {
-        *(&v27 + 3) = -1431655766;
-        LODWORD(v27) = -1431655766;
+        *(&v38 + 3) = -1431655766;
+        LODWORD(v38) = -1431655766;
         if (MTDeviceGetSensorRegionOfType())
         {
-          v10 = [MEMORY[0x29EDC5DC8] getDeviceInServiceTree:{MTDeviceGetService(), v27}];
-          if (v10)
+          v12 = [MEMORY[0x29EDC5DC8] getDeviceInServiceTree:{MTDeviceGetService(), v38}];
+          if (v12)
           {
-            v11 = [v10 getBootLoader];
-            v12 = *(this + 5);
-            *v12 = v11;
-            if (v11)
+            v13 = [v12 getBootLoader];
+            v14 = *(this + 5);
+            *v14 = v13;
+            if (v13)
             {
-              v13 = *(v12 + 8);
-              v14 = *(*(this + 5) + 16);
-              v15 = *(*(this + 5) + 24);
-              v16 = **(this + 5);
-              MTDeviceGetDeviceID();
-              v17 = MTLoggingPlugin();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              v15 = *(v14 + 8);
+              v16 = *(*(this + 5) + 16);
+              v17 = *(*(this + 5) + 24);
+              v18 = **(this + 5);
+              DeviceID = MTDeviceGetDeviceID();
+              v21 = MTLoggingPlugin(DeviceID, v20);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
-                v18 = *(this + 5);
-                v19 = v18[1];
-                v20 = v18[2];
-                v21 = v18[3];
+                v22 = *(this + 5);
+                v23 = v22[1];
+                v24 = v22[2];
+                v25 = v22[3];
                 *buf = 138544130;
-                v29 = v19;
-                v30 = 2114;
-                v31 = v20;
-                v32 = 2114;
-                v33 = v21;
-                v34 = 2048;
-                v35 = 0;
-                _os_log_impl(&dword_29D381000, v17, OS_LOG_TYPE_DEFAULT, "Device using a FW binary switcher %{public}@ (active: %{public}@, ttw: %{public}@) (deviceID 0x%llX)", buf, 0x2Au);
+                v40 = v23;
+                v41 = 2114;
+                v42 = v24;
+                v43 = 2114;
+                v44 = v25;
+                v45 = 2048;
+                v46 = 0;
+                _os_log_impl(&dword_29D381000, v21, OS_LOG_TYPE_DEFAULT, "Device using a FW binary switcher %{public}@ (active: %{public}@, ttw: %{public}@) (deviceID 0x%llX)", buf, 0x2Au);
               }
 
-              result = 0;
-              goto LABEL_29;
+              return 0;
             }
 
-            MTDeviceGetDeviceID();
-            v24 = MTLoggingPlugin();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+            v36 = MTDeviceGetDeviceID();
+            v34 = MTLoggingPlugin(v36, v37);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               *buf = 134217984;
-              v29 = 0;
-              v25 = "Device doesn't have an AHTBootloader (deviceID 0x%llX)";
+              v40 = 0;
+              v35 = "Device doesn't have an AHTBootloader (deviceID 0x%llX)";
               goto LABEL_27;
             }
           }
 
           else
           {
-            MTDeviceGetDeviceID();
-            v24 = MTLoggingPlugin();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+            v32 = MTDeviceGetDeviceID();
+            v34 = MTLoggingPlugin(v32, v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               *buf = 134217984;
-              v29 = 0;
-              v25 = "Device doesn't have AHTDevice (deviceID 0x%llX)";
+              v40 = 0;
+              v35 = "Device doesn't have AHTDevice (deviceID 0x%llX)";
 LABEL_27:
-              _os_log_impl(&dword_29D381000, v24, OS_LOG_TYPE_ERROR, v25, buf, 0xCu);
+              _os_log_impl(&dword_29D381000, v34, OS_LOG_TYPE_ERROR, v35, buf, 0xCu);
             }
           }
 
-          result = 3758097136;
-          goto LABEL_29;
+          return 3758097136;
         }
 
-        MTDeviceGetDeviceID();
-        v22 = MTLoggingPlugin();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v30 = MTDeviceGetDeviceID();
+        v28 = MTLoggingPlugin(v30, v31);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v29 = 0;
-          v23 = "We don't support multiple firmwares in prox integrated devices (deviceID 0x%llX)";
+          v40 = 0;
+          v29 = "We don't support multiple firmwares in prox integrated devices (deviceID 0x%llX)";
           goto LABEL_21;
         }
       }
 
       else
       {
-        MTDeviceGetDeviceID();
-        v22 = MTLoggingPlugin();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v26 = MTDeviceGetDeviceID();
+        v28 = MTLoggingPlugin(v26, v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v29 = 0;
-          v23 = "We don't support multiple firmwares in non-power-controlled devices (deviceID 0x%llX)";
+          v40 = 0;
+          v29 = "We don't support multiple firmwares in non-power-controlled devices (deviceID 0x%llX)";
 LABEL_21:
-          _os_log_impl(&dword_29D381000, v22, OS_LOG_TYPE_ERROR, v23, buf, 0xCu);
+          _os_log_impl(&dword_29D381000, v28, OS_LOG_TYPE_ERROR, v29, buf, 0xCu);
         }
       }
 
-      result = 3758097095;
-      goto LABEL_29;
+      return 3758097095;
     }
   }
 
-  MTDeviceGetDeviceID();
-  v7 = MTLoggingPlugin();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v7 = MTDeviceGetDeviceID();
+  v9 = MTLoggingPlugin(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v29 = a2;
-    v30 = 2048;
-    v31 = 0;
-    _os_log_impl(&dword_29D381000, v7, OS_LOG_TYPE_ERROR, "Missing parts of the config: %{public}@ (deviceID 0x%llX)", buf, 0x16u);
+    v40 = a2;
+    v41 = 2048;
+    v42 = 0;
+    _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_ERROR, "Missing parts of the config: %{public}@ (deviceID 0x%llX)", buf, 0x16u);
   }
 
-  result = 3758097090;
-LABEL_29:
-  v26 = *MEMORY[0x29EDCA608];
-  return result;
+  return 3758097090;
 }
 
 void MTModeSwitcher::MTModeSwitcher(MTModeSwitcher *this, MTSimpleHIDManager *a2)
@@ -9069,100 +8983,98 @@ void MTModeSwitcher::MTModeSwitcher(MTModeSwitcher *this, MTSimpleHIDManager *a2
   *(this + 28) = 255;
 }
 
-void MTModeSwitcher::transitionGraphicsOrientationTo(uint64_t a1, unsigned int a2)
+void MTModeSwitcher::transitionGraphicsOrientationTo(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v2 = a2;
+  v24 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 24) & 1) != 0 || *(a1 + 16) == 255)
   {
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    DeviceID = MTDeviceGetDeviceID();
+    v6 = MTLoggingPlugin(DeviceID, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      if (a2 > 4)
+      if (v2 > 4)
       {
-        v5 = "Unknown";
+        v7 = "Unknown";
       }
 
       else
       {
-        v5 = off_29F34CA90[a2];
+        v7 = off_29F34CA90[v2];
       }
 
-      v9 = "off";
+      v13 = "off";
       if (*(a1 + 24))
       {
-        v9 = "booting";
+        v13 = "booting";
       }
 
       *buf = 136446722;
-      v14 = v5;
-      v15 = 2082;
-      v16 = v9;
-      v17 = 2048;
-      v18 = 0;
-      _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "Setting orientation to %{public}s deferred (device %{public}s) (deviceID 0x%llX)", buf, 0x20u);
+      v19 = v7;
+      v20 = 2082;
+      v21 = v13;
+      v22 = 2048;
+      v23 = 0;
+      _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "Setting orientation to %{public}s deferred (device %{public}s) (deviceID 0x%llX)", buf, 0x20u);
     }
 
     goto LABEL_22;
   }
 
   (*(**(a1 + 8) + 80))(*(a1 + 8));
-  MTDeviceGetDeviceID();
-  v6 = MTLoggingPlugin();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = MTDeviceGetDeviceID();
+  v10 = MTLoggingPlugin(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 20);
-    if (v7 > 4)
+    v11 = *(a1 + 20);
+    if (v11 > 4)
     {
-      v8 = "Unknown";
+      v12 = "Unknown";
     }
 
     else
     {
-      v8 = off_29F34CA90[v7];
+      v12 = off_29F34CA90[v11];
     }
 
-    if (a2 > 4)
+    if (v2 > 4)
     {
-      v10 = "Unknown";
+      v14 = "Unknown";
     }
 
     else
     {
-      v10 = off_29F34CA90[a2];
+      v14 = off_29F34CA90[v2];
     }
 
     *buf = 136446722;
-    v14 = v8;
-    v15 = 2082;
-    v16 = v10;
-    v17 = 2048;
-    v18 = 0;
-    _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "Graphics orientation transitioning from %{public}s to %{public}s (deviceID 0x%llX)", buf, 0x20u);
+    v19 = v12;
+    v20 = 2082;
+    v21 = v14;
+    v22 = 2048;
+    v23 = 0;
+    _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_DEFAULT, "Graphics orientation transitioning from %{public}s to %{public}s (deviceID 0x%llX)", buf, 0x20u);
   }
 
-  if (*(a1 + 20) != a2)
+  if (*(a1 + 20) != v2)
   {
-    MTModeSwitcher::setGraphicsOrientation(a1, a2);
-    MTModeSwitcher::setTouchDetectionMode(a1, *(a1 + 16), a2);
+    MTModeSwitcher::setGraphicsOrientation(a1, v2);
+    MTModeSwitcher::setTouchDetectionMode(a1, *(a1 + 16), v2);
 LABEL_22:
-    *(a1 + 20) = a2;
-    goto LABEL_23;
+    *(a1 + 20) = v2;
+    return;
   }
 
   (*(**(a1 + 8) + 80))(*(a1 + 8));
-  MTDeviceGetDeviceID();
-  v11 = MTLoggingPlugin();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v15 = MTDeviceGetDeviceID();
+  v17 = MTLoggingPlugin(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v14 = 0;
-    _os_log_impl(&dword_29D381000, v11, OS_LOG_TYPE_ERROR, "Unexpected: new orientation == old orientation (rebooting firmware?) (deviceID 0x%llX)", buf, 0xCu);
+    v19 = 0;
+    _os_log_impl(&dword_29D381000, v17, OS_LOG_TYPE_ERROR, "Unexpected: new orientation == old orientation (rebooting firmware?) (deviceID 0x%llX)", buf, 0xCu);
   }
-
-LABEL_23:
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 const char *MTModeSwitcher::orientationToText(uint64_t a1, unsigned int a2)
@@ -9180,276 +9092,270 @@ const char *MTModeSwitcher::orientationToText(uint64_t a1, unsigned int a2)
 
 void MTModeSwitcher::setGraphicsOrientation(uint64_t a1, unsigned int a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   (*(**(a1 + 8) + 80))(*(a1 + 8));
-  MTDeviceGetDeviceID();
-  v4 = MTLoggingPlugin();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  DeviceID = MTDeviceGetDeviceID();
+  v6 = MTLoggingPlugin(DeviceID, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     if (a2 > 4)
     {
-      v5 = "Unknown";
+      v7 = "Unknown";
     }
 
     else
     {
-      v5 = off_29F34CA90[a2];
+      v7 = off_29F34CA90[a2];
     }
 
     *buf = 136446466;
-    v13 = v5;
-    v14 = 2048;
-    v15 = 0;
-    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "Setting graphics orientation %{public}s (deviceID 0x%llX)", buf, 0x16u);
+    v16 = v7;
+    v17 = 2048;
+    v18 = 0;
+    _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "Setting graphics orientation %{public}s (deviceID 0x%llX)", buf, 0x16u);
   }
 
   (*(**(a1 + 8) + 80))(*(a1 + 8));
-  v6 = MTDeviceSetReport();
-  if (v6)
+  v8 = MTDeviceSetReport();
+  if (v8)
   {
-    v7 = v6;
+    v9 = v8;
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = MTDeviceGetDeviceID();
+    v12 = MTLoggingPlugin(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       if (a2 > 4)
       {
-        v9 = "Unknown";
+        v13 = "Unknown";
       }
 
       else
       {
-        v9 = off_29F34CA90[a2];
+        v13 = off_29F34CA90[a2];
       }
 
-      v10 = mach_error_string(v7);
+      v14 = mach_error_string(v9);
       *buf = 136446722;
-      v13 = v9;
-      v14 = 2082;
-      v15 = v10;
-      v16 = 2048;
-      v17 = 0;
-      _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_ERROR, "Error trying to set graphics orientation %{public}s: %{public}s (deviceID 0x%llX)", buf, 0x20u);
+      v16 = v13;
+      v17 = 2082;
+      v18 = v14;
+      v19 = 2048;
+      v20 = 0;
+      _os_log_impl(&dword_29D381000, v12, OS_LOG_TYPE_ERROR, "Error trying to set graphics orientation %{public}s: %{public}s (deviceID 0x%llX)", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
-void MTModeSwitcher::setTouchDetectionMode(uint64_t a1, int a2, unsigned int a3)
+void MTModeSwitcher::setTouchDetectionMode(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v4 = a2;
+  v31 = *MEMORY[0x29EDCA608];
   (*(**(a1 + 8) + 80))(*(a1 + 8));
-  MTDeviceGetDeviceID();
-  v6 = MTLoggingPlugin();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v7)
+  DeviceID = MTDeviceGetDeviceID();
+  v8 = MTLoggingPlugin(DeviceID, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    v8 = MTModeSwitcher::modeToText(v7, a2);
+    v10 = MTModeSwitcher::modeToText(v9, v4);
     if (a3 > 4)
     {
-      v9 = "Unknown";
+      v11 = "Unknown";
     }
 
     else
     {
-      v9 = off_29F34CA90[a3];
+      v11 = off_29F34CA90[a3];
     }
 
     *buf = 136446978;
-    v19 = v8;
-    v20 = 1024;
-    v21 = a2;
-    v22 = 2082;
-    v23 = v9;
-    v24 = 2048;
-    v25 = 0;
-    _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "Setting touch detection mode to %{public}s (0x%x) and orientation to %{public}s (deviceID 0x%llX)", buf, 0x26u);
+    v22 = v10;
+    v23 = 1024;
+    v24 = v4;
+    v25 = 2082;
+    v26 = v11;
+    v27 = 2048;
+    v28 = 0;
+    _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_DEFAULT, "Setting touch detection mode to %{public}s (0x%x) and orientation to %{public}s (deviceID 0x%llX)", buf, 0x26u);
   }
 
   (*(**(a1 + 8) + 80))(*(a1 + 8));
-  v10 = MTDeviceSetTouchMode();
-  if (v10)
+  v12 = MTDeviceSetTouchMode();
+  if (v12)
   {
-    v11 = v10;
+    v13 = v12;
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v12 = MTLoggingPlugin();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-    if (v13)
+    v14 = MTDeviceGetDeviceID();
+    v16 = MTLoggingPlugin(v14, v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    if (v17)
     {
-      v14 = MTModeSwitcher::modeToText(v13, a2);
+      v18 = MTModeSwitcher::modeToText(v17, v4);
       if (a3 > 4)
       {
-        v15 = "Unknown";
+        v19 = "Unknown";
       }
 
       else
       {
-        v15 = off_29F34CA90[a3];
+        v19 = off_29F34CA90[a3];
       }
 
-      v16 = mach_error_string(v11);
+      v20 = mach_error_string(v13);
       *buf = 136447234;
-      v19 = v14;
-      v20 = 1024;
-      v21 = a2;
-      v22 = 2082;
-      v23 = v15;
-      v24 = 2082;
-      v25 = v16;
-      v26 = 2048;
-      v27 = 0;
-      _os_log_impl(&dword_29D381000, v12, OS_LOG_TYPE_ERROR, "Error trying to set mode to %{public}s (0x%x) and orientation to %{public}s: %{public}s (deviceID 0x%llX)", buf, 0x30u);
+      v22 = v18;
+      v23 = 1024;
+      v24 = v4;
+      v25 = 2082;
+      v26 = v19;
+      v27 = 2082;
+      v28 = v20;
+      v29 = 2048;
+      v30 = 0;
+      _os_log_impl(&dword_29D381000, v16, OS_LOG_TYPE_ERROR, "Error trying to set mode to %{public}s (0x%x) and orientation to %{public}s: %{public}s (deviceID 0x%llX)", buf, 0x30u);
     }
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 void MTModeSwitcher::deviceDidBootload(MTModeSwitcher *this)
 {
-  *&v15[13] = *MEMORY[0x29EDCA608];
+  *&v20[13] = *MEMORY[0x29EDCA608];
   (*(**(this + 1) + 80))(*(this + 1));
-  MTDeviceGetDeviceID();
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  DeviceID = MTDeviceGetDeviceID();
+  v4 = MTLoggingPlugin(DeviceID, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     if (*(this + 24))
     {
-      v3 = "expected";
+      v5 = "expected";
     }
 
     else
     {
-      v3 = "unexpected";
+      v5 = "unexpected";
     }
 
     *buf = 136446466;
-    v13 = v3;
-    v14 = 2048;
-    *v15 = 0;
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "Device booted (%{public}s): setting touch detection mode, orientation and power (deviceID 0x%llX)", buf, 0x16u);
+    v18 = v5;
+    v19 = 2048;
+    *v20 = 0;
+    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "Device booted (%{public}s): setting touch detection mode, orientation and power (deviceID 0x%llX)", buf, 0x16u);
   }
 
   if (*(this + 8) == 1)
   {
     (*(**(this + 1) + 80))(*(this + 1));
-    MTDeviceGetDeviceID();
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = MTDeviceGetDeviceID();
+    v8 = MTLoggingPlugin(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v13 = 0;
-      _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "Debug mode forced to Always ON (deviceID 0x%llX)", buf, 0xCu);
+      v18 = 0;
+      _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_DEFAULT, "Debug mode forced to Always ON (deviceID 0x%llX)", buf, 0xCu);
     }
 
     *(this + 7) = 0;
   }
 
-  v5 = *(this + 4);
+  v9 = *(this + 4);
   if ((*(this + 24) & 1) == 0)
   {
-    *(this + 7) = v5;
+    *(this + 7) = v9;
   }
 
   *(this + 24) = 0;
-  if (v5 == 254)
+  if (v9 == 254)
   {
-    v6 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v6 = 2 * (v5 != 255);
+    v10 = 2 * (v9 != 255);
   }
 
   MTModeSwitcher::setGraphicsOrientation(this, *(this + 5));
   MTModeSwitcher::setTouchDetectionMode(this, *(this + 4), *(this + 5));
-  MTModeSwitcher::setDevicePowerState(this, v6);
+  MTModeSwitcher::setDevicePowerState(this, v10);
   if (*(this + 7) != *(this + 4))
   {
     (*(**(this + 1) + 80))(*(this + 1));
-    MTDeviceGetDeviceID();
-    v7 = MTLoggingPlugin();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v11 = MTDeviceGetDeviceID();
+    v13 = MTLoggingPlugin(v11, v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v14)
     {
-      v9 = *(this + 7);
-      v10 = MTModeSwitcher::modeToText(v8, v9);
+      v15 = *(this + 7);
+      v16 = MTModeSwitcher::modeToText(v14, v15);
       *buf = 136446722;
-      v13 = v10;
-      v14 = 1024;
-      *v15 = v9;
-      v15[2] = 2048;
-      *&v15[3] = 0;
-      _os_log_impl(&dword_29D381000, v7, OS_LOG_TYPE_DEFAULT, "Pending transition after boot. Going to %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x1Cu);
+      v18 = v16;
+      v19 = 1024;
+      *v20 = v15;
+      v20[2] = 2048;
+      *&v20[3] = 0;
+      _os_log_impl(&dword_29D381000, v13, OS_LOG_TYPE_DEFAULT, "Pending transition after boot. Going to %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x1Cu);
     }
 
     (*(*this + 16))(this, *(this + 7), 0);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
-void MTModeSwitcher::setDevicePowerState(uint64_t a1, unsigned int a2)
+void MTModeSwitcher::setDevicePowerState(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v2 = a2;
+  v21 = *MEMORY[0x29EDCA608];
   (*(**(a1 + 8) + 80))(*(a1 + 8));
-  MTDeviceGetDeviceID();
-  v4 = MTLoggingPlugin();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  DeviceID = MTDeviceGetDeviceID();
+  v6 = MTLoggingPlugin(DeviceID, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    if (a2 > 2)
+    if (v2 > 2)
     {
-      v5 = "Unknown";
+      v7 = "Unknown";
     }
 
     else
     {
-      v5 = off_29F34CAB8[a2];
+      v7 = off_29F34CAB8[v2];
     }
 
     *buf = 136446466;
-    v13 = v5;
-    v14 = 2048;
-    v15 = 0;
-    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "Setting power state to %{public}s (deviceID 0x%llX)", buf, 0x16u);
+    v16 = v7;
+    v17 = 2048;
+    v18 = 0;
+    _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "Setting power state to %{public}s (deviceID 0x%llX)", buf, 0x16u);
   }
 
   (*(**(a1 + 8) + 80))(*(a1 + 8));
-  v6 = MTDevicePowerSetState();
-  if (v6)
+  v8 = MTDevicePowerSetState();
+  if (v8)
   {
-    v7 = v6;
+    v9 = v8;
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = MTDeviceGetDeviceID();
+    v12 = MTLoggingPlugin(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      if (a2 > 2)
+      if (v2 > 2)
       {
-        v9 = "Unknown";
+        v13 = "Unknown";
       }
 
       else
       {
-        v9 = off_29F34CAB8[a2];
+        v13 = off_29F34CAB8[v2];
       }
 
-      v10 = mach_error_string(v7);
+      v14 = mach_error_string(v9);
       *buf = 136446722;
-      v13 = v9;
-      v14 = 2082;
-      v15 = v10;
-      v16 = 2048;
-      v17 = 0;
-      _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_ERROR, "Error trying to set power state to %{public}s: %{public}s (deviceID 0x%llX)", buf, 0x20u);
+      v16 = v13;
+      v17 = 2082;
+      v18 = v14;
+      v19 = 2048;
+      v20 = 0;
+      _os_log_impl(&dword_29D381000, v12, OS_LOG_TYPE_ERROR, "Error trying to set power state to %{public}s: %{public}s (deviceID 0x%llX)", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 const char *MTModeSwitcher::modeToText(uint64_t a1, int a2)
@@ -9497,79 +9403,75 @@ const char *MTModeSwitcher::modeToText(uint64_t a1, int a2)
 
 uint64_t MTModeSwitcher::bootloadTimerExpired(MTModeSwitcher *this)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   *(this + 24) = 0;
   (*(**(this + 1) + 80))(*(this + 1));
-  MTDeviceGetDeviceID();
-  v2 = MTLoggingPlugin();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-  if (v3)
+  DeviceID = MTDeviceGetDeviceID();
+  v4 = MTLoggingPlugin(DeviceID, v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    v4 = *(this + 7);
+    v6 = *(this + 7);
     *buf = 136446722;
-    v8 = MTModeSwitcher::modeToText(v3, v4);
-    v9 = 1024;
-    v10 = v4;
-    v11 = 2048;
-    v12 = 0;
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "Device never bootloaded. Try to recover by going to %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x1Cu);
+    v9 = MTModeSwitcher::modeToText(v5, v6);
+    v10 = 1024;
+    v11 = v6;
+    v12 = 2048;
+    v13 = 0;
+    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "Device never bootloaded. Try to recover by going to %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x1Cu);
   }
 
-  result = (*(*this + 16))(this, *(this + 7), 0);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(*this + 16))(this, *(this + 7), 0);
 }
 
 void MTModeSwitcher::resetFirmware(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   (*(**(a1 + 8) + 480))(*(a1 + 8), 30);
   v4 = (*(**(a1 + 8) + 424))();
   if (v4)
   {
     v5 = v4;
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    DeviceID = MTDeviceGetDeviceID();
+    v8 = MTLoggingPlugin(DeviceID, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v9 = mach_error_string(v5);
-      v10 = 2048;
-      v11 = 0;
-      _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_ERROR, "Error trying to reset device: %{public}s (deviceID 0x%llX)", buf, 0x16u);
+      v10 = mach_error_string(v5);
+      v11 = 2048;
+      v12 = 0;
+      _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_ERROR, "Error trying to reset device: %{public}s (deviceID 0x%llX)", buf, 0x16u);
     }
   }
 
   *(a1 + 24) = 1;
   *(a1 + 28) = a2;
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void MTModeSwitcher::bootFirmware(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   (*(**(a1 + 8) + 80))(*(a1 + 8));
   if (MTDevicePowerGetState() | 0xAAAAAAAA)
   {
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    DeviceID = MTDeviceGetDeviceID();
+    v6 = MTLoggingPlugin(DeviceID, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v7 = 0;
-      _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_ERROR, "Trying to boot a device in an unknown/unexpected state (deviceID 0x%llX)", buf, 0xCu);
+      v8 = 0;
+      _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_ERROR, "Trying to boot a device in an unknown/unexpected state (deviceID 0x%llX)", buf, 0xCu);
     }
 
     MTModeSwitcher::resetFirmware(a1, a2);
   }
 
   (*(**(a1 + 8) + 480))(*(a1 + 8), 30);
-  MTModeSwitcher::setDevicePowerState(a1, 2u);
+  MTModeSwitcher::setDevicePowerState(a1, 2);
   *(a1 + 24) = 1;
   *(a1 + 28) = a2;
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 const char *MTModeSwitcher::powerStateToText(uint64_t a1, unsigned int a2)
@@ -9610,17 +9512,17 @@ void MTMultipleFirmwaresModeSwitcher::~MTMultipleFirmwaresModeSwitcher(MTMultipl
 
 void MTMultipleFirmwaresModeSwitcher::transitionTouchDetectionModeTo(uint64_t a1, int a2)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v49 = *MEMORY[0x29EDCA608];
   if (*(a1 + 32) == 1)
   {
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    DeviceID = MTDeviceGetDeviceID();
+    v6 = MTLoggingPlugin(DeviceID, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v27 = 0;
-      _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "Debug mode forced to Always ON (deviceID 0x%llX)", buf, 0xCu);
+      v40 = 0;
+      _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "Debug mode forced to Always ON (deviceID 0x%llX)", buf, 0xCu);
     }
 
     a2 = 0;
@@ -9629,61 +9531,61 @@ void MTMultipleFirmwaresModeSwitcher::transitionTouchDetectionModeTo(uint64_t a1
   if (*(a1 + 24) == 1)
   {
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v5 = MTLoggingPlugin();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    if (v6)
+    v7 = MTDeviceGetDeviceID();
+    v9 = MTLoggingPlugin(v7, v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      v7 = MTModeSwitcher::modeToText(v6, a2);
+      v11 = MTModeSwitcher::modeToText(v10, a2);
       *buf = 136446722;
-      v27 = v7;
-      v28 = 1024;
-      v29 = a2;
-      v30 = 2048;
-      v31 = 0;
-      _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEFAULT, "Touch detection mode to %{public}s (0x%x) deferred (device booting) (deviceID 0x%llX)", buf, 0x1Cu);
+      v40 = v11;
+      v41 = 1024;
+      v42 = a2;
+      v43 = 2048;
+      v44 = 0;
+      _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_DEFAULT, "Touch detection mode to %{public}s (0x%x) deferred (device booting) (deviceID 0x%llX)", buf, 0x1Cu);
     }
 
     *(a1 + 28) = a2;
-    goto LABEL_9;
+    return;
   }
 
   (*(**(a1 + 8) + 80))(*(a1 + 8));
-  MTDeviceGetDeviceID();
-  v9 = MTLoggingPlugin();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (v10)
+  v12 = MTDeviceGetDeviceID();
+  v14 = MTLoggingPlugin(v12, v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  if (v15)
   {
-    v11 = *(a1 + 16);
-    v12 = MTModeSwitcher::modeToText(v10, v11);
-    v13 = MTModeSwitcher::modeToText(v12, a2);
+    v16 = *(a1 + 16);
+    v17 = MTModeSwitcher::modeToText(v15, v16);
+    v18 = MTModeSwitcher::modeToText(v17, a2);
     *buf = 136447234;
-    v27 = v12;
-    v28 = 1024;
-    v29 = v11;
-    v30 = 2082;
-    v31 = v13;
-    v32 = 1024;
-    v33 = a2;
-    v34 = 2048;
-    v35 = 0;
-    _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_DEFAULT, "Touch detection mode transitioning from %{public}s (0x%x) to %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x2Cu);
+    v40 = v17;
+    v41 = 1024;
+    v42 = v16;
+    v43 = 2082;
+    v44 = v18;
+    v45 = 1024;
+    v46 = a2;
+    v47 = 2048;
+    v48 = 0;
+    _os_log_impl(&dword_29D381000, v14, OS_LOG_TYPE_DEFAULT, "Touch detection mode transitioning from %{public}s (0x%x) to %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x2Cu);
   }
 
-  v14 = *(a1 + 16);
-  if (a2 == v14)
+  v19 = *(a1 + 16);
+  if (a2 == v19)
   {
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v15 = MTLoggingPlugin();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v20 = MTDeviceGetDeviceID();
+    v22 = MTLoggingPlugin(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v27 = 0;
-      _os_log_impl(&dword_29D381000, v15, OS_LOG_TYPE_ERROR, "Unexpected: new mode == old mode (rebooting firmware?) (deviceID 0x%llX)", buf, 0xCu);
+      v40 = 0;
+      _os_log_impl(&dword_29D381000, v22, OS_LOG_TYPE_ERROR, "Unexpected: new mode == old mode (rebooting firmware?) (deviceID 0x%llX)", buf, 0xCu);
     }
 
-    goto LABEL_9;
+    return;
   }
 
   if (*(a1 + 48) != 1)
@@ -9694,7 +9596,7 @@ void MTMultipleFirmwaresModeSwitcher::transitionTouchDetectionModeTo(uint64_t a1
       {
         if (a2 == 255)
         {
-          if (v14 < 2 || v14 == 254)
+          if (v19 < 2 || v19 == 254)
           {
             MTModeSwitcher::setDevicePowerState(a1, 0);
           }
@@ -9706,27 +9608,27 @@ void MTMultipleFirmwaresModeSwitcher::transitionTouchDetectionModeTo(uint64_t a1
         goto LABEL_35;
       }
 
-      if (v14 < 2)
+      if (v19 < 2)
       {
         a2 = 254;
-        v17 = a1;
-        v18 = 1;
-        v19 = 254;
+        v26 = a1;
+        v27 = 1;
+        v28 = 254;
 LABEL_41:
-        MTMultipleFirmwaresModeSwitcher::switchFirmware(v17, v18, v19);
+        MTMultipleFirmwaresModeSwitcher::switchFirmware(v26, v27, v28);
 LABEL_50:
         *(a1 + 16) = a2;
-        goto LABEL_9;
+        return;
       }
 
-      if (v14 != 255)
+      if (v19 != 255)
       {
         a2 = 254;
         goto LABEL_50;
       }
 
-      v24 = a1;
-      v25 = 254;
+      v37 = a1;
+      v38 = 254;
     }
 
     else
@@ -9735,10 +9637,10 @@ LABEL_50:
       {
         if (a2 == 1)
         {
-          if (v14 - 254 >= 2)
+          if (v19 - 254 >= 2)
           {
             a2 = 1;
-            if (!v14)
+            if (!v19)
             {
               MTModeSwitcher::setTouchDetectionMode(a1, 1, *(a1 + 20));
             }
@@ -9747,35 +9649,35 @@ LABEL_50:
           }
 
           a2 = 1;
-          v17 = a1;
-          v18 = 0;
-          v19 = 1;
+          v26 = a1;
+          v27 = 0;
+          v28 = 1;
           goto LABEL_41;
         }
 
 LABEL_35:
         (*(**(a1 + 8) + 80))(*(a1 + 8));
-        MTDeviceGetDeviceID();
-        v21 = MTLoggingPlugin();
-        v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-        if (v22)
+        v32 = MTDeviceGetDeviceID();
+        v34 = MTLoggingPlugin(v32, v33);
+        v35 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
+        if (v35)
         {
-          v23 = MTModeSwitcher::modeToText(v22, a2);
+          v36 = MTModeSwitcher::modeToText(v35, a2);
           *buf = 136446722;
-          v27 = v23;
-          v28 = 1024;
-          v29 = a2;
-          v30 = 2048;
-          v31 = 0;
-          _os_log_impl(&dword_29D381000, v21, OS_LOG_TYPE_ERROR, "Unexpected transition to %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x1Cu);
+          v40 = v36;
+          v41 = 1024;
+          v42 = a2;
+          v43 = 2048;
+          v44 = 0;
+          _os_log_impl(&dword_29D381000, v34, OS_LOG_TYPE_ERROR, "Unexpected transition to %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x1Cu);
         }
 
         goto LABEL_50;
       }
 
-      if (v14 - 254 >= 2)
+      if (v19 - 254 >= 2)
       {
-        if (v14 == 1)
+        if (v19 == 1)
         {
           MTModeSwitcher::setTouchDetectionMode(a1, 0, *(a1 + 20));
         }
@@ -9783,46 +9685,125 @@ LABEL_35:
         goto LABEL_49;
       }
 
-      v24 = a1;
-      v25 = 0;
+      v37 = a1;
+      v38 = 0;
     }
 
-    MTMultipleFirmwaresModeSwitcher::switchFirmware(v24, 0, v25);
+    MTMultipleFirmwaresModeSwitcher::switchFirmware(v37, 0, v38);
 LABEL_49:
     a2 = 0;
     goto LABEL_50;
   }
 
-  if (a2 || v14 != 255)
+  if (a2 || v19 != 255)
   {
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v20 = MTLoggingPlugin();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v29 = MTDeviceGetDeviceID();
+    v31 = MTLoggingPlugin(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v27 = 0;
-      _os_log_impl(&dword_29D381000, v20, OS_LOG_TYPE_ERROR, "Unexpected first boot (deviceID 0x%llX)", buf, 0xCu);
+      v40 = 0;
+      _os_log_impl(&dword_29D381000, v31, OS_LOG_TYPE_ERROR, "Unexpected first boot (deviceID 0x%llX)", buf, 0xCu);
     }
   }
 
   else
   {
     (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v16 = MTLoggingPlugin();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v23 = MTDeviceGetDeviceID();
+    v25 = MTLoggingPlugin(v23, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v27 = 0;
-      _os_log_impl(&dword_29D381000, v16, OS_LOG_TYPE_DEFAULT, "First boot: setting power to On (deviceID 0x%llX)", buf, 0xCu);
+      v40 = 0;
+      _os_log_impl(&dword_29D381000, v25, OS_LOG_TYPE_DEFAULT, "First boot: setting power to On (deviceID 0x%llX)", buf, 0xCu);
     }
 
-    MTModeSwitcher::setDevicePowerState(a1, 2u);
+    MTModeSwitcher::setDevicePowerState(a1, 2);
     *(a1 + 16) = 0;
   }
 
   *(a1 + 48) = 0;
-LABEL_9:
-  v8 = *MEMORY[0x29EDCA608];
+}
+
+void MTMultipleFirmwaresModeSwitcher::switchFirmware(uint64_t a1, int a2, int a3)
+{
+  v26[2] = *MEMORY[0x29EDCA608];
+  (*(**(a1 + 8) + 480))(*(a1 + 8), 30);
+  v6 = *(a1 + 40);
+  if (!a2)
+  {
+    v7 = 16;
+    goto LABEL_5;
+  }
+
+  if (a2 == 1)
+  {
+    v7 = 24;
+LABEL_5:
+    v8 = *(v6 + v7);
+    goto LABEL_7;
+  }
+
+  v8 = 0;
+LABEL_7:
+  v20 = 0;
+  if ([*v6 updateProperty:*(v6 + 8) property:v8 options:0 error:&v20])
+  {
+    (*(**(a1 + 8) + 80))(*(a1 + 8));
+    DeviceID = MTDeviceGetDeviceID();
+    v11 = MTLoggingPlugin(DeviceID, v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v12)
+    {
+      v13 = "Unknown";
+      if (a2 == 1)
+      {
+        v13 = "WakeOnTouch";
+      }
+
+      if (a2)
+      {
+        v14 = v13;
+      }
+
+      else
+      {
+        v14 = "Active";
+      }
+
+      v15 = MTModeSwitcher::modeToText(v12, a3);
+      *buf = 136446978;
+      v22 = v14;
+      v23 = 2082;
+      v24 = v15;
+      v25 = 1024;
+      LODWORD(v26[0]) = a3;
+      WORD2(v26[0]) = 2048;
+      *(v26 + 6) = 0;
+      _os_log_impl(&dword_29D381000, v11, OS_LOG_TYPE_DEFAULT, "FW switched to %{public}s with mode %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x26u);
+    }
+
+    *(a1 + 24) = 1;
+    *(a1 + 28) = a3;
+  }
+
+  else
+  {
+    (*(**(a1 + 8) + 80))(*(a1 + 8));
+    v16 = MTDeviceGetDeviceID();
+    v18 = MTLoggingPlugin(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v19 = *(*(a1 + 40) + 8);
+      *buf = 138543874;
+      v22 = v19;
+      v23 = 2114;
+      v24 = v8;
+      v25 = 2048;
+      v26[0] = 0;
+      _os_log_impl(&dword_29D381000, v18, OS_LOG_TYPE_ERROR, "Error updating %{public}@ to %{public}@ (deviceID 0x%llX)", buf, 0x20u);
+    }
+  }
 }

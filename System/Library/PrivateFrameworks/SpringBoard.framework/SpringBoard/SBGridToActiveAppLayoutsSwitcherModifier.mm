@@ -209,7 +209,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t __58__SBGridToActiveAppLayoutsSwitcherModifier_frameForIndex___block_invoke(void *a1)
+void *__58__SBGridToActiveAppLayoutsSwitcherModifier_frameForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 184) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -220,7 +220,7 @@ uint64_t __58__SBGridToActiveAppLayoutsSwitcherModifier_frameForIndex___block_in
   return result;
 }
 
-uint64_t __58__SBGridToActiveAppLayoutsSwitcherModifier_frameForIndex___block_invoke_2(void *a1)
+void *__58__SBGridToActiveAppLayoutsSwitcherModifier_frameForIndex___block_invoke_2(void *a1)
 {
   result = [*(a1[4] + 184) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -238,7 +238,7 @@ uint64_t __58__SBGridToActiveAppLayoutsSwitcherModifier_frameForIndex___block_in
   y = bounds.origin.y;
   x = bounds.origin.x;
   layoutCopy = layout;
-  if ([(SBGridToActiveAppLayoutsSwitcherModifier *)self _isEffectivelyFullScreen]&& ![(NSArray *)self->_activeAppLayouts containsObject:layoutCopy])
+  if ([(SBGridToActiveAppLayoutsSwitcherModifier *)self _isEffectivelyFullScreen]&& (objc_msgSend_containsObject_(self->_activeAppLayouts) & 1) == 0)
   {
     v34 = 0;
     v35 = &v34;
@@ -290,7 +290,7 @@ uint64_t __58__SBGridToActiveAppLayoutsSwitcherModifier_frameForIndex___block_in
   return result;
 }
 
-uint64_t __86__SBGridToActiveAppLayoutsSwitcherModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
+void *__86__SBGridToActiveAppLayoutsSwitcherModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 184) frameForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40) withBounds:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   v3 = *(*(a1 + 48) + 8);
@@ -370,7 +370,7 @@ void __61__SBGridToActiveAppLayoutsSwitcherModifier_visibleAppLayouts__block_inv
   return v6;
 }
 
-uint64_t __58__SBGridToActiveAppLayoutsSwitcherModifier_scaleForIndex___block_invoke(void *a1)
+void *__58__SBGridToActiveAppLayoutsSwitcherModifier_scaleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 184) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -450,7 +450,7 @@ uint64_t __58__SBGridToActiveAppLayoutsSwitcherModifier_scaleForIndex___block_in
   return v7;
 }
 
-uint64_t __59__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenAlpha__block_invoke(uint64_t a1)
+void *__59__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenAlpha__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 184) homeScreenAlpha];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -476,7 +476,7 @@ uint64_t __59__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenAlpha__block_i
   return v3;
 }
 
-uint64_t __59__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenScale__block_invoke(uint64_t a1)
+void *__59__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenScale__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 184) homeScreenScale];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -502,7 +502,7 @@ uint64_t __59__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenScale__block_i
   return v3;
 }
 
-uint64_t __58__SBGridToActiveAppLayoutsSwitcherModifier_wallpaperScale__block_invoke(uint64_t a1)
+void *__58__SBGridToActiveAppLayoutsSwitcherModifier_wallpaperScale__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 184) wallpaperScale];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -528,7 +528,7 @@ uint64_t __58__SBGridToActiveAppLayoutsSwitcherModifier_wallpaperScale__block_in
   return v3;
 }
 
-uint64_t __70__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenBackdropBlurType__block_invoke(uint64_t a1)
+void *__70__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenBackdropBlurType__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 184) homeScreenBackdropBlurType];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -566,7 +566,7 @@ uint64_t __70__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenBackdropBlurTy
   return v4;
 }
 
-uint64_t __74__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenBackdropBlurProgress__block_invoke(uint64_t a1)
+void *__74__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenBackdropBlurProgress__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 184) homeScreenBackdropBlurProgress];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -641,7 +641,7 @@ uint64_t __74__SBGridToActiveAppLayoutsSwitcherModifier_homeScreenBackdropBlurPr
   return result;
 }
 
-uint64_t __64__SBGridToActiveAppLayoutsSwitcherModifier_cornerRadiiForIndex___block_invoke(void *a1)
+void *__64__SBGridToActiveAppLayoutsSwitcherModifier_cornerRadiiForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 184) cornerRadiiForIndex:a1[6]];
   v3 = *(a1[5] + 8);

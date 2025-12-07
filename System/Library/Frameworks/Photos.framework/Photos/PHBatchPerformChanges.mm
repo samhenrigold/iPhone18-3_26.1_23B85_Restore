@@ -128,7 +128,7 @@
   _Block_object_dispose(v13, 8);
 }
 
-uint64_t __72__PHBatchPerformChanges__performNextBatchAtIndex_withCompletionHandler___block_invoke(uint64_t a1)
+void *__72__PHBatchPerformChanges__performNextBatchAtIndex_withCompletionHandler___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _performBatchAtIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -242,7 +242,7 @@ uint64_t __61__PHBatchPerformChanges_performChangesWithCompletionHandler___block
   return v5;
 }
 
-uint64_t __59__PHBatchPerformChanges__performBatchAtIndexAndWait_error___block_invoke(uint64_t a1)
+void *__59__PHBatchPerformChanges__performBatchAtIndexAndWait_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _performBatchAtIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

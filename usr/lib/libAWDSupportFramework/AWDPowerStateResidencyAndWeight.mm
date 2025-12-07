@@ -57,14 +57,12 @@
   has = self->_has;
   if (has)
   {
-    residency = self->_residency;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    weight = self->_weight;
 
     PBDataWriterWriteUint32Field();
   }

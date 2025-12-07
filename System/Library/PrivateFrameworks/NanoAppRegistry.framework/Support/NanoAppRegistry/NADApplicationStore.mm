@@ -76,9 +76,9 @@
 - (NADApplicationStore)initWithURL:(id)l
 {
   lCopy = l;
-  v48.receiver = self;
-  v48.super_class = NADApplicationStore;
-  v5 = [(NADApplicationStore *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = NADApplicationStore;
+  v5 = [(NADApplicationStore *)&v47 init];
   if (v5)
   {
     v6 = objc_alloc_init(NSFileManager);
@@ -121,15 +121,15 @@
 
     if (v23)
     {
-      v44 = v12;
+      v43 = v12;
       v24 = objc_opt_class();
       v25 = objc_opt_class();
       v26 = objc_opt_class();
       v27 = objc_opt_class();
       v28 = [NSSet setWithObjects:v24, v25, v26, v27, objc_opt_class(), 0];
-      v47 = 0;
-      v29 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v28 fromData:v23 error:&v47];
-      v30 = v47;
+      v46 = 0;
+      v29 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v28 fromData:v23 error:&v46];
+      v30 = v46;
       v31 = [v29 mutableCopy];
       storeMetadata = v5->_storeMetadata;
       v5->_storeMetadata = v31;
@@ -143,7 +143,7 @@
         }
       }
 
-      v12 = v44;
+      v12 = v43;
     }
 
     if (![(NSMutableDictionary *)v5->_storeMetadata count])
@@ -155,10 +155,9 @@
 
     [(NADApplicationStore *)v5 _loadEntitiesFromDisk];
     objc_initWeak(&location, v5);
-    v42 = v5->_queue;
-    objc_copyWeak(&v45, &location);
+    objc_copyWeak(&v44, &location);
     v5->_stateHandle = os_state_add_handler();
-    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(&location);
   }
 

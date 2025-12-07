@@ -9,19 +9,15 @@ uint64_t ___LSPluginUnregister_block_invoke(uint64_t result, uint64_t a2, int a3
   {
     v5 = result;
     [(_LSDatabase *)*(result + 32) store];
-    v6 = *(v5 + 44);
     _CSArrayRemoveValueAtIndex();
     [(_LSDatabase *)*(v5 + 32) store];
-    v7 = *(v5 + 44);
     result = _CSArrayGetCount();
     if (!result)
     {
       [(_LSDatabase *)*(v5 + 32) store];
-      v8 = *(v5 + 44);
       _CSArrayDispose();
       [(_LSDatabase *)*(v5 + 32) store];
-      v9 = *([(_LSDatabase *)*(v5 + 32) schema]+ 4);
-      v10 = *(v5 + 48);
+      [(_LSDatabase *)*(v5 + 32) schema];
       result = _CSStoreWriteToUnit();
     }
 

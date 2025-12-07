@@ -39,9 +39,11 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
-  v5[1] = [(_CLVLLocalizationMaps488Details *)self->_maps488Details copyWithZone:zone];
-  return v5;
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_init(v8, v9, v10, v11);
+  v12[1] = objc_msgSend_copyWithZone_(self->_maps488Details, v13, zone, v14);
+  return v12;
 }
 
 - (_CLVLLocalizationDebugInfo)initWithCoder:(id)coder
@@ -59,9 +61,12 @@
 
 - (id)descriptionWithMemberIndent:(id)indent endIndent:(id)endIndent
 {
-  v7 = [indent stringByAppendingString:@"\t"];
-  v8 = [endIndent stringByAppendingString:@"\t"];
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"<_CLVLLocalizationDebugInfo: %p> {\n%@.maps488Details = %@\n%@}", self, indent, -[_CLVLLocalizationMaps488Details descriptionWithMemberIndent:endIndent:](-[_CLVLLocalizationDebugInfo maps488Details](self, "maps488Details"), "descriptionWithMemberIndent:endIndent:", v7, v8), endIndent];
+  v7 = objc_msgSend_stringByAppendingString_(indent, a2, @"\t", endIndent);
+  v10 = objc_msgSend_stringByAppendingString_(endIndent, v8, @"\t", v9);
+  v11 = MEMORY[0x1E696AEC0];
+  v15 = objc_msgSend_maps488Details(self, v12, v13, v14);
+  v17 = objc_msgSend_descriptionWithMemberIndent_endIndent_(v15, v16, v7, v10);
+  return objc_msgSend_stringWithFormat_(v11, v18, @"<_CLVLLocalizationDebugInfo: %p> {\n%@.maps488Details = %@\n%@}", v19, self, indent, v17, endIndent);
 }
 
 @end

@@ -168,39 +168,39 @@ BOOL AGX::SpecializableRenderPipelineState::hasAnyUnspecialized(AGX::Specializab
   return 1;
 }
 
-void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::copyStateAndFunctionsFromOriginal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::copyStateAndFunctionsFromOriginal(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v105 = *MEMORY[0x29EDCA608];
+  v106 = *MEMORY[0x29EDCA608];
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::destroy(a1);
-  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::copyState(a1, a3, 0);
-  v7 = *(a3 + 8);
-  v8 = MEMORY[0x29EDC5638];
-  if (v7)
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::copyState(a1, a3, 0, a2);
+  v8 = a3[1];
+  v9 = MEMORY[0x29EDC5638];
+  if (v8)
   {
-    *(a1 + 8) = v7;
-    v9 = *v8;
-    v10 = *(v7 + 4152) + v9 + 32;
-    v102 = 0u;
+    *(a1 + 8) = v8;
+    v10 = *v9;
+    v11 = *(v8 + 4152) + v10 + 32;
     v103 = 0u;
-    v100 = 0u;
+    v104 = 0u;
     v101 = 0u;
-    v11 = *(v7 + 2728);
-    if (v11)
+    v102 = 0u;
+    v12 = *(v8 + 2728);
+    if (v12)
     {
-      v12 = v7 + 2928;
-      v13 = -1;
+      v13 = v8 + 2928;
+      v14 = -1;
       do
       {
-        v14 = v13++;
-        v15 = __clz(__rbit32(v11));
-        *(&v100 + v13) = *(v12 + 8 * v15) + v9 + 32;
-        v11 &= ~(1 << v15);
+        v15 = v14++;
+        v16 = __clz(__rbit32(v12));
+        *(&v101 + v14) = *(v13 + 8 * v16) + v10 + 32;
+        v12 &= ~(1 << v16);
       }
 
-      while (v11);
-      *(&v100 + v14 + 2) = v10;
-      v16 = v13 + 2;
-      if (v13 == -2)
+      while (v12);
+      *(&v101 + v15 + 2) = v11;
+      v17 = v14 + 2;
+      if (v14 == -2)
       {
         goto LABEL_6;
       }
@@ -208,30 +208,30 @@ void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL30
 
     else
     {
-      *&v100 = v10;
-      v16 = 1;
+      *&v101 = v11;
+      v17 = 1;
     }
 
-    v80 = 0;
-    v81 = *(a1 + 720);
+    v81 = 0;
+    v82 = *(a1 + 720);
     do
     {
-      if (v81)
+      if (v82)
       {
-        v83 = 0;
-        v84 = *(&v100 + v80);
-        v85 = v81;
-        v86 = (a1 + 112);
+        v84 = 0;
+        v85 = *(&v101 + v81);
+        v86 = v82;
+        v87 = (a1 + 112);
         while (1)
         {
-          v87 = *v86;
-          v86 += 6;
-          if (*(v84 + 4) == v87)
+          v88 = *v87;
+          v87 += 6;
+          if (*(v85 + 4) == v88)
           {
             break;
           }
 
-          if (v81 == ++v83)
+          if (v82 == ++v84)
           {
             goto LABEL_86;
           }
@@ -240,83 +240,83 @@ void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL30
 
       else
       {
-        LODWORD(v83) = 0;
+        LODWORD(v84) = 0;
       }
 
-      if (v83 == v81)
+      if (v84 == v82)
       {
-        v84 = *(&v100 + v80);
-        v85 = v81;
+        v85 = *(&v101 + v81);
+        v86 = v82;
 LABEL_86:
-        v88 = a1 + 96 + 24 * v85;
-        v89 = *v84;
-        *(v88 + 16) = *(v84 + 2);
-        *v88 = v89;
-        v82 = (*(a1 + 720) + 1);
-        *(a1 + 720) = v82;
+        v89 = a1 + 96 + 24 * v86;
+        v90 = *v85;
+        *(v89 + 16) = *(v85 + 2);
+        *v89 = v90;
+        v83 = (*(a1 + 720) + 1);
+        *(a1 + 720) = v83;
       }
 
       else
       {
-        v82 = v81;
-        LOBYTE(v81) = v83;
+        v83 = v82;
+        LOBYTE(v82) = v84;
       }
 
-      *(a1 + 724) |= 1 << v81;
-      ++v80;
-      v81 = v82;
+      *(a1 + 724) |= 1 << v82;
+      ++v81;
+      v82 = v83;
     }
 
-    while (v80 != v16);
+    while (v81 != v17);
   }
 
 LABEL_6:
-  v17 = *a3;
+  v18 = *a3;
   if (*a3)
   {
-    *a1 = v17;
-    v104 = 0;
-    v102 = 0u;
+    *a1 = v18;
+    v105 = 0;
     v103 = 0u;
-    v100 = 0u;
+    v104 = 0u;
     v101 = 0u;
-    v18 = *(v17 + 2728);
-    if (v18)
+    v102 = 0u;
+    v19 = *(v18 + 2728);
+    if (v19)
     {
-      LODWORD(v19) = 0;
-      v20 = v17 + 2928;
-      v21 = *v8;
+      LODWORD(v20) = 0;
+      v21 = v18 + 2928;
+      v22 = *v9;
       do
       {
-        v22 = __clz(__rbit32(v18));
-        *(&v100 + v19) = *(v20 + 8 * v22) + v21 + 32;
-        v19 = (v19 + 1);
-        v18 &= ~(1 << v22);
+        v23 = __clz(__rbit32(v19));
+        *(&v101 + v20) = *(v21 + 8 * v23) + v22 + 32;
+        v20 = (v20 + 1);
+        v19 &= ~(1 << v23);
       }
 
-      while (v18);
-      if (v19)
+      while (v19);
+      if (v20)
       {
-        v23 = 0;
-        v24 = *(a1 + 720);
+        v24 = 0;
+        v25 = *(a1 + 720);
         do
         {
-          if (v24)
+          if (v25)
           {
-            v26 = 0;
-            v27 = *(&v100 + v23);
-            v28 = v24;
-            v29 = (a1 + 112);
+            v27 = 0;
+            v28 = *(&v101 + v24);
+            v29 = v25;
+            v30 = (a1 + 112);
             while (1)
             {
-              v30 = *v29;
-              v29 += 6;
-              if (*(v27 + 4) == v30)
+              v31 = *v30;
+              v30 += 6;
+              if (*(v28 + 4) == v31)
               {
                 break;
               }
 
-              if (v24 == ++v26)
+              if (v25 == ++v27)
               {
                 goto LABEL_22;
               }
@@ -325,84 +325,84 @@ LABEL_6:
 
           else
           {
-            LODWORD(v26) = 0;
+            LODWORD(v27) = 0;
           }
 
-          if (v26 == v24)
+          if (v27 == v25)
           {
-            v27 = *(&v100 + v23);
-            v28 = v24;
+            v28 = *(&v101 + v24);
+            v29 = v25;
 LABEL_22:
-            v31 = a1 + 96 + 24 * v28;
-            v32 = *v27;
-            *(v31 + 16) = *(v27 + 2);
-            *v31 = v32;
-            v25 = (*(a1 + 720) + 1);
-            *(a1 + 720) = v25;
+            v32 = a1 + 96 + 24 * v29;
+            v33 = *v28;
+            *(v32 + 16) = *(v28 + 2);
+            *v32 = v33;
+            v26 = (*(a1 + 720) + 1);
+            *(a1 + 720) = v26;
           }
 
           else
           {
-            v25 = v24;
-            LOBYTE(v24) = v26;
+            v26 = v25;
+            LOBYTE(v25) = v27;
           }
 
-          *(a1 + 728) |= 1 << v24;
-          ++v23;
-          v24 = v25;
+          *(a1 + 728) |= 1 << v25;
+          ++v24;
+          v25 = v26;
         }
 
-        while (v23 != v19);
+        while (v24 != v20);
       }
     }
   }
 
-  v33 = *(a3 + 16);
-  if (v33)
+  v34 = a3[2];
+  if (v34)
   {
-    *(a1 + 16) = v33;
-    v104 = 0;
-    v102 = 0u;
+    *(a1 + 16) = v34;
+    v105 = 0;
     v103 = 0u;
-    v100 = 0u;
+    v104 = 0u;
     v101 = 0u;
-    v34 = *(v33 + 2728);
-    if (v34)
+    v102 = 0u;
+    v35 = *(v34 + 2728);
+    if (v35)
     {
-      LODWORD(v35) = 0;
-      v36 = v33 + 2928;
-      v37 = *v8;
+      LODWORD(v36) = 0;
+      v37 = v34 + 2928;
+      v38 = *v9;
       do
       {
-        v38 = __clz(__rbit32(v34));
-        *(&v100 + v35) = *(v36 + 8 * v38) + v37 + 32;
-        v35 = (v35 + 1);
-        v34 &= ~(1 << v38);
+        v39 = __clz(__rbit32(v35));
+        *(&v101 + v36) = *(v37 + 8 * v39) + v38 + 32;
+        v36 = (v36 + 1);
+        v35 &= ~(1 << v39);
       }
 
-      while (v34);
-      if (v35)
+      while (v35);
+      if (v36)
       {
-        v39 = 0;
-        v40 = *(a1 + 720);
+        v40 = 0;
+        v41 = *(a1 + 720);
         do
         {
-          if (v40)
+          if (v41)
           {
-            v42 = 0;
-            v43 = *(&v100 + v39);
-            v44 = v40;
-            v45 = (a1 + 112);
+            v43 = 0;
+            v44 = *(&v101 + v40);
+            v45 = v41;
+            v46 = (a1 + 112);
             while (1)
             {
-              v46 = *v45;
-              v45 += 6;
-              if (*(v43 + 4) == v46)
+              v47 = *v46;
+              v46 += 6;
+              if (*(v44 + 4) == v47)
               {
                 break;
               }
 
-              if (v40 == ++v42)
+              if (v41 == ++v43)
               {
                 goto LABEL_39;
               }
@@ -411,83 +411,83 @@ LABEL_22:
 
           else
           {
-            LODWORD(v42) = 0;
+            LODWORD(v43) = 0;
           }
 
-          if (v42 == v40)
+          if (v43 == v41)
           {
-            v43 = *(&v100 + v39);
-            v44 = v40;
+            v44 = *(&v101 + v40);
+            v45 = v41;
 LABEL_39:
-            v47 = a1 + 96 + 24 * v44;
-            v48 = *v43;
-            *(v47 + 16) = *(v43 + 2);
-            *v47 = v48;
-            v41 = (*(a1 + 720) + 1);
-            *(a1 + 720) = v41;
+            v48 = a1 + 96 + 24 * v45;
+            v49 = *v44;
+            *(v48 + 16) = *(v44 + 2);
+            *v48 = v49;
+            v42 = (*(a1 + 720) + 1);
+            *(a1 + 720) = v42;
           }
 
           else
           {
-            v41 = v40;
-            LOBYTE(v40) = v42;
+            v42 = v41;
+            LOBYTE(v41) = v43;
           }
 
-          *(a1 + 728) |= 1 << v40;
-          ++v39;
-          v40 = v41;
+          *(a1 + 728) |= 1 << v41;
+          ++v40;
+          v41 = v42;
         }
 
-        while (v39 != v35);
+        while (v40 != v36);
       }
     }
   }
 
-  v49 = *(a3 + 24);
-  if (v49)
+  v50 = a3[3];
+  if (v50)
   {
-    *(a1 + 24) = v49;
-    v102 = 0u;
+    *(a1 + 24) = v50;
     v103 = 0u;
-    v100 = 0u;
+    v104 = 0u;
     v101 = 0u;
-    v50 = *(v49 + 2728);
-    if (v50)
+    v102 = 0u;
+    v51 = *(v50 + 2728);
+    if (v51)
     {
-      LODWORD(v51) = 0;
-      v52 = v49 + 2928;
-      v53 = *v8;
+      LODWORD(v52) = 0;
+      v53 = v50 + 2928;
+      v54 = *v9;
       do
       {
-        v54 = __clz(__rbit32(v50));
-        *(&v100 + v51) = *(v52 + 8 * v54) + v53 + 32;
-        v51 = (v51 + 1);
-        v50 &= ~(1 << v54);
+        v55 = __clz(__rbit32(v51));
+        *(&v101 + v52) = *(v53 + 8 * v55) + v54 + 32;
+        v52 = (v52 + 1);
+        v51 &= ~(1 << v55);
       }
 
-      while (v50);
-      if (v51)
+      while (v51);
+      if (v52)
       {
-        v55 = 0;
-        v56 = *(a1 + 720);
+        v56 = 0;
+        v57 = *(a1 + 720);
         do
         {
-          if (v56)
+          if (v57)
           {
-            v58 = 0;
-            v59 = *(&v100 + v55);
-            v60 = v56;
-            v61 = (a1 + 112);
+            v59 = 0;
+            v60 = *(&v101 + v56);
+            v61 = v57;
+            v62 = (a1 + 112);
             while (1)
             {
-              v62 = *v61;
-              v61 += 6;
-              if (*(v59 + 4) == v62)
+              v63 = *v62;
+              v62 += 6;
+              if (*(v60 + 4) == v63)
               {
                 break;
               }
 
-              if (v56 == ++v58)
+              if (v57 == ++v59)
               {
                 goto LABEL_56;
               }
@@ -496,65 +496,65 @@ LABEL_39:
 
           else
           {
-            LODWORD(v58) = 0;
+            LODWORD(v59) = 0;
           }
 
-          if (v58 == v56)
+          if (v59 == v57)
           {
-            v59 = *(&v100 + v55);
-            v60 = v56;
+            v60 = *(&v101 + v56);
+            v61 = v57;
 LABEL_56:
-            v63 = a1 + 96 + 24 * v60;
-            v64 = *v59;
-            *(v63 + 16) = *(v59 + 2);
-            *v63 = v64;
-            v57 = (*(a1 + 720) + 1);
-            *(a1 + 720) = v57;
+            v64 = a1 + 96 + 24 * v61;
+            v65 = *v60;
+            *(v64 + 16) = *(v60 + 2);
+            *v64 = v65;
+            v58 = (*(a1 + 720) + 1);
+            *(a1 + 720) = v58;
           }
 
           else
           {
-            v57 = v56;
-            LOBYTE(v56) = v58;
+            v58 = v57;
+            LOBYTE(v57) = v59;
           }
 
-          *(a1 + 732) |= 1 << v56;
-          ++v55;
-          v56 = v57;
+          *(a1 + 732) |= 1 << v57;
+          ++v56;
+          v57 = v58;
         }
 
-        while (v55 != v51);
+        while (v56 != v52);
       }
     }
   }
 
-  v65 = *(a3 + 32);
-  if (v65)
+  v66 = a3[4];
+  if (v66)
   {
-    *(a1 + 32) = v65;
-    v66 = *v8;
-    v67 = *(v65 + 3920) + v66 + 32;
-    v102 = 0u;
+    *(a1 + 32) = v66;
+    v67 = *v9;
+    v68 = *(v66 + 3920) + v67 + 32;
     v103 = 0u;
-    v100 = 0u;
+    v104 = 0u;
     v101 = 0u;
-    v68 = *(v65 + 2728);
-    if (v68)
+    v102 = 0u;
+    v69 = *(v66 + 2728);
+    if (v69)
     {
-      v69 = v65 + 2928;
-      v70 = -1;
+      v70 = v66 + 2928;
+      v71 = -1;
       do
       {
-        v71 = v70++;
-        v72 = __clz(__rbit32(v68));
-        *(&v100 + v70) = *(v69 + 8 * v72) + v66 + 32;
-        v68 &= ~(1 << v72);
+        v72 = v71++;
+        v73 = __clz(__rbit32(v69));
+        *(&v101 + v71) = *(v70 + 8 * v73) + v67 + 32;
+        v69 &= ~(1 << v73);
       }
 
-      while (v68);
-      *(&v100 + v71 + 2) = v67;
-      v73 = v70 + 2;
-      if (v70 == -2)
+      while (v69);
+      *(&v101 + v72 + 2) = v68;
+      v74 = v71 + 2;
+      if (v71 == -2)
       {
         goto LABEL_62;
       }
@@ -562,30 +562,30 @@ LABEL_56:
 
     else
     {
-      *&v100 = v67;
-      v73 = 1;
+      *&v101 = v68;
+      v74 = 1;
     }
 
-    v90 = 0;
-    v91 = *(a1 + 720);
+    v91 = 0;
+    v92 = *(a1 + 720);
     do
     {
-      if (v91)
+      if (v92)
       {
-        v93 = 0;
-        v94 = *(&v100 + v90);
-        v95 = v91;
-        v96 = (a1 + 112);
+        v94 = 0;
+        v95 = *(&v101 + v91);
+        v96 = v92;
+        v97 = (a1 + 112);
         while (1)
         {
-          v97 = *v96;
-          v96 += 6;
-          if (*(v94 + 4) == v97)
+          v98 = *v97;
+          v97 += 6;
+          if (*(v95 + 4) == v98)
           {
             break;
           }
 
-          if (v91 == ++v93)
+          if (v92 == ++v94)
           {
             goto LABEL_99;
           }
@@ -594,87 +594,87 @@ LABEL_56:
 
       else
       {
-        LODWORD(v93) = 0;
+        LODWORD(v94) = 0;
       }
 
-      if (v93 == v91)
+      if (v94 == v92)
       {
-        v94 = *(&v100 + v90);
-        v95 = v91;
+        v95 = *(&v101 + v91);
+        v96 = v92;
 LABEL_99:
-        v98 = a1 + 96 + 24 * v95;
-        v99 = *v94;
-        *(v98 + 16) = *(v94 + 2);
-        *v98 = v99;
-        v92 = (*(a1 + 720) + 1);
-        *(a1 + 720) = v92;
+        v99 = a1 + 96 + 24 * v96;
+        v100 = *v95;
+        *(v99 + 16) = *(v95 + 2);
+        *v99 = v100;
+        v93 = (*(a1 + 720) + 1);
+        *(a1 + 720) = v93;
       }
 
       else
       {
-        v92 = v91;
-        LOBYTE(v91) = v93;
+        v93 = v92;
+        LOBYTE(v92) = v94;
       }
 
-      *(a1 + 736) |= 1 << v91;
-      ++v90;
-      v91 = v92;
+      *(a1 + 736) |= 1 << v92;
+      ++v91;
+      v92 = v93;
     }
 
-    while (v90 != v73);
+    while (v91 != v74);
   }
 
 LABEL_62:
-  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2592, a3 + 2592, a4);
-  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2616, a3 + 2616, a4);
-  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2640, a3 + 2640, a4);
-  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2664, a3 + 2664, a4);
-  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2688, a3 + 2688, a4);
+  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2592, (a3 + 324), a4);
+  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2616, (a3 + 327), a4);
+  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2640, (a3 + 330), a4);
+  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2664, (a3 + 333), a4);
+  AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(a1 + 2688, (a3 + 336), a4);
   if (a1 != a3)
   {
-    *(a1 + 2744) = *(a3 + 2744);
-    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2712, *(a3 + 2728));
-    *(a1 + 2784) = *(a3 + 2784);
-    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2752, *(a3 + 2768));
-    *(a1 + 2824) = *(a3 + 2824);
-    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2792, *(a3 + 2808));
-    *(a1 + 2864) = *(a3 + 2864);
-    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2832, *(a3 + 2848));
-    *(a1 + 2904) = *(a3 + 2904);
-    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2872, *(a3 + 2888));
+    *(a1 + 2744) = *(a3 + 686);
+    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2712, a3[341]);
+    *(a1 + 2784) = *(a3 + 696);
+    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2752, a3[346]);
+    *(a1 + 2824) = *(a3 + 706);
+    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2792, a3[351]);
+    *(a1 + 2864) = *(a3 + 716);
+    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2832, a3[356]);
+    *(a1 + 2904) = *(a3 + 726);
+    std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,void *> *>>(a1 + 2872, a3[361]);
   }
 
-  v74 = *(a3 + 3112);
-  v75 = *(a3 + 3120);
-  if (v75)
+  v75 = a3[389];
+  v76 = a3[390];
+  if (v76)
   {
-    atomic_fetch_add_explicit((v75 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v76 + 8), 1uLL, memory_order_relaxed);
   }
 
-  *(a1 + 3112) = v74;
-  v76 = *(a1 + 3120);
-  *(a1 + 3120) = v75;
-  if (v76 && !atomic_fetch_add(&v76->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  *(a1 + 3112) = v75;
+  v77 = *(a1 + 3120);
+  *(a1 + 3120) = v76;
+  if (v77 && !atomic_fetch_add(&v77->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v76->__on_zero_shared)(v76);
-    std::__shared_weak_count::__release_weak(v76);
+    (v77->__on_zero_shared)(v77);
+    std::__shared_weak_count::__release_weak(v77);
   }
 
-  v77 = *(a3 + 3152);
-  v78 = *(a3 + 3160);
-  if (v78)
+  v78 = a3[394];
+  v79 = a3[395];
+  if (v79)
   {
-    atomic_fetch_add_explicit((v78 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v79 + 8), 1uLL, memory_order_relaxed);
   }
 
-  *(a1 + 3152) = v77;
-  v79 = *(a1 + 3160);
-  *(a1 + 3160) = v78;
-  if (v79 && !atomic_fetch_add(&v79->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  *(a1 + 3152) = v78;
+  v80 = *(a1 + 3160);
+  *(a1 + 3160) = v79;
+  if (v80 && !atomic_fetch_add(&v80->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v79->__on_zero_shared)(v79);
+    (v80->__on_zero_shared)(v80);
 
-    std::__shared_weak_count::__release_weak(v79);
+    std::__shared_weak_count::__release_weak(v80);
   }
 }
 
@@ -953,126 +953,106 @@ LABEL_5:
   return AGX::SpecializableRenderPipelineState::unspecializedToDefault(a1);
 }
 
-uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::linkSpecialization(uint64_t a1, void *a2)
+uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::linkSpecialization(void *a1, void *a2, void *a3, int a4)
 {
-  v2 = a1;
-  v134 = *MEMORY[0x29EDCA608];
-  v3 = *(a1 + 3688);
-  v4 = *(v3 + 16);
-  v122[0] = *v3;
-  v122[1] = v4;
-  v5 = *(v3 + 48);
-  v122[2] = *(v3 + 32);
-  v122[3] = v5;
-  v123 = *(v3 + 64);
-  v124 = *(v3 + 72);
-  v125 = *(v3 + 88);
-  v126 = *(v3 + 104);
-  v127 = *(v3 + 120);
-  v128 = *(v3 + 136);
-  v6 = *(v3 + 320);
-  v129[10] = *(v3 + 304);
-  v129[11] = v6;
-  v7 = *(v3 + 352);
-  v129[12] = *(v3 + 336);
-  v129[13] = v7;
-  v8 = *(v3 + 256);
-  v129[6] = *(v3 + 240);
-  v129[7] = v8;
-  v9 = *(v3 + 288);
-  v129[8] = *(v3 + 272);
-  v129[9] = v9;
-  v10 = *(v3 + 192);
-  v129[2] = *(v3 + 176);
-  v129[3] = v10;
-  v11 = *(v3 + 224);
-  v129[4] = *(v3 + 208);
-  v129[5] = v11;
-  v12 = *(v3 + 160);
-  v129[0] = *(v3 + 144);
-  v129[1] = v12;
-  v130 = *(v3 + 368);
-  v131 = *(v3 + 372);
-  v132 = *(v3 + 373);
-  v133 = *(v3 + 376);
-  AGX::SpecializableRenderPipelineState::unspecializedToDefault(v122);
-  v107 = 0;
+  v4 = a1;
+  v136 = *MEMORY[0x29EDCA608];
+  v5 = a1[461];
+  v6 = *(v5 + 16);
+  v124[0] = *v5;
+  v124[1] = v6;
+  v7 = *(v5 + 48);
+  v124[2] = *(v5 + 32);
+  v124[3] = v7;
+  v125 = *(v5 + 64);
+  v126 = *(v5 + 72);
+  v127 = *(v5 + 88);
+  v128 = *(v5 + 104);
+  v129 = *(v5 + 120);
+  v130 = *(v5 + 136);
+  v8 = *(v5 + 320);
+  v131[10] = *(v5 + 304);
+  v131[11] = v8;
+  v9 = *(v5 + 352);
+  v131[12] = *(v5 + 336);
+  v131[13] = v9;
+  v10 = *(v5 + 256);
+  v131[6] = *(v5 + 240);
+  v131[7] = v10;
+  v11 = *(v5 + 288);
+  v131[8] = *(v5 + 272);
+  v131[9] = v11;
+  v12 = *(v5 + 192);
+  v131[2] = *(v5 + 176);
+  v131[3] = v12;
+  v13 = *(v5 + 224);
+  v131[4] = *(v5 + 208);
+  v131[5] = v13;
+  v14 = *(v5 + 160);
+  v131[0] = *(v5 + 144);
+  v131[1] = v14;
+  v132 = *(v5 + 368);
+  v133 = *(v5 + 372);
+  v134 = *(v5 + 373);
+  v135 = *(v5 + 376);
+  AGX::SpecializableRenderPipelineState::unspecializedToDefault(v124);
+  v109 = 0;
+  v107 = 0u;
+  v108 = 0u;
   v105 = 0u;
   v106 = 0u;
-  v103 = 0u;
   v104 = 0u;
-  v102 = 0u;
-  v108 = 67305985;
-  v109 = 1541;
-  v110 = 7;
-  v111 = 0x100000000;
-  v112 = 0;
+  v110 = 67305985;
+  v111 = 1541;
+  v112 = 7;
+  v113 = 0x100000000;
   v114 = 0;
-  v113 = 0;
-  v115 = 0u;
-  v116 = 0u;
+  v116 = 0;
+  v115 = 0;
   v117 = 0u;
   v118 = 0u;
   v119 = 0u;
   v120 = 0u;
-  v121 = 0;
-  bzero(&v102, 0x28uLL);
-  AGX::FramebufferCompilerConfig<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::initialize(&v102, v122, 0, 0);
-  AGX::FramebufferCompilerConfigGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::buildDrawBufferState(&v102, 0);
-  *&v85.encoded.__elems_[0].representation.var0 = v102;
-  *&v85.encoded.__elems_[4].representation.var0 = v103;
-  *&v85.state.representation.var0 = v104;
-  v81 = v130;
-  v80 = *(v2 + 462);
-  v78 = *(*v2 + 3984);
-  v76 = *(*v2 + 3988);
-  v73 = *(*v2 + 3996);
-  v74 = *(*v2 + 3992);
-  v71 = *(*v2 + 4004);
-  v72 = *(*v2 + 4000);
-  v69 = *(*v2 + 4012);
-  v70 = *(*v2 + 4008);
-  v67 = *(*v2 + 4020);
-  v68 = *(*v2 + 4016);
-  v65 = *(*v2 + 4028);
-  v66 = *(*v2 + 4024);
-  v63 = *(*v2 + 4036);
-  v64 = *(*v2 + 4032);
-  v13 = *(*v2 + 4040);
-  v14 = *(*v2 + 4041);
-  v77 = *(*v2 + 4044);
-  v15 = *(*v2 + 4064);
-  v79 = *(*v2 + 4066);
-  if ((v79 & 1) != 0 || *(*v2 + 4065) == 1)
+  v121 = 0u;
+  v122 = 0u;
+  v123 = 0;
+  bzero(&v104, 0x28uLL);
+  AGX::FramebufferCompilerConfig<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::initialize(&v104, v124, 0, 0);
+  AGX::FramebufferCompilerConfigGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::buildDrawBufferState(&v104, 0);
+  *&v87.encoded.__elems_[0].representation.var0 = v104;
+  *&v87.encoded.__elems_[4].representation.var0 = v105;
+  *&v87.state.representation.var0 = v106;
+  v83 = v132;
+  v82 = v4[462];
+  v80 = *(*v4 + 3984);
+  v78 = *(*v4 + 3988);
+  v75 = *(*v4 + 3996);
+  v76 = *(*v4 + 3992);
+  v73 = *(*v4 + 4004);
+  v74 = *(*v4 + 4000);
+  v71 = *(*v4 + 4012);
+  v72 = *(*v4 + 4008);
+  v69 = *(*v4 + 4020);
+  v70 = *(*v4 + 4016);
+  v67 = *(*v4 + 4028);
+  v68 = *(*v4 + 4024);
+  v65 = *(*v4 + 4036);
+  v66 = *(*v4 + 4032);
+  v15 = *(*v4 + 4040);
+  v16 = *(*v4 + 4041);
+  v79 = *(*v4 + 4044);
+  v17 = *(*v4 + 4064);
+  v81 = *(*v4 + 4066);
+  if ((v81 & 1) != 0 || *(*v4 + 4065) == 1)
   {
-    v16 = 0;
-    v17 = 0;
     v18 = 0;
     v19 = 0;
-    *(v2 + 785) = 0;
-    if (v13)
-    {
-      v20 = 0x800000;
-    }
-
-    else
-    {
-      v20 = 0;
-    }
-
-    if (v14)
-    {
-      v21 = 0x1000000;
-    }
-
-    else
-    {
-      v21 = 0;
-    }
-
+    v20 = 0;
+    v21 = 0;
+    *(v4 + 3140) = 0;
     if (v15)
     {
-      v22 = 0x10000000;
+      v22 = 0x800000;
     }
 
     else
@@ -1080,11 +1060,9 @@ uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::H
       v22 = 0;
     }
 
-    v83 = v21 | v20;
-    v84 = v22;
-    if ((v133 & 0x100000000) != 0)
+    if (v16)
     {
-      v23 = 128;
+      v23 = 0x1000000;
     }
 
     else
@@ -1092,216 +1070,218 @@ uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::H
       v23 = 0;
     }
 
-    v24 = (v133 & 0x1F) << 8;
-    if ((v133 & 0x100000000) == 0)
+    if (v17)
+    {
+      v24 = 0x10000000;
+    }
+
+    else
     {
       v24 = 0;
     }
 
-    v61 = v24;
-    v62 = v23;
-    v75 = v2;
+    v85 = v23 | v22;
+    v86 = v24;
+    if ((v135 & 0x100000000) != 0)
+    {
+      v25 = 128;
+    }
+
+    else
+    {
+      v25 = 0;
+    }
+
+    v26 = (v135 & 0x1F) << 8;
+    if ((v135 & 0x100000000) == 0)
+    {
+      v26 = 0;
+    }
+
+    v63 = v26;
+    v64 = v25;
+    v77 = v4;
     do
     {
-      v25.var0 = v85.encoded.__elems_[v16 / 4].representation;
-      if ((*&v25.var0 & 0x1F) != 0x17)
+      v27.var0 = v87.encoded.__elems_[v18 / 4].representation;
+      if ((*&v27.var0 & 0x1F) != 0x17)
       {
-        v26 = v122 + v19;
-        if (*(v129 + v19))
+        v28 = v124 + v21;
+        if (*(v131 + v21))
         {
-          v28 = *(v26 + 38);
-          if (v28 <= 1)
-          {
-            LOBYTE(v28) = 1;
-          }
-
-          v29 = (v28 & 0x1F) << 6;
-          v30 = *(v26 + 40);
+          v30 = *(v28 + 38);
           if (v30 <= 1)
           {
             LOBYTE(v30) = 1;
           }
 
-          v31.i32[0] = *(v26 + 37);
-          v31.i32[1] = *(v26 + 39);
-          v31.i64[1] = *(v26 + 164);
-          v32 = vceqzq_s32(v31);
-          v33 = vshlq_u32(v31, xmmword_29D2F2580);
-          v31.i32[0] *= 2;
-          v34.i64[0] = 0x3E0000003ELL;
-          v34.i64[1] = 0x3E0000003ELL;
-          v35 = vandq_s8(v33, xmmword_29D2F2590);
-          v35.i32[0] = vandq_s8(v31, v34).u32[0] | 1;
-          v36 = vbslq_s8(v32, xmmword_29D2F25A0, v35);
-          *v36.i8 = vorr_s8(*v36.i8, *&vextq_s8(v36, v36, 8uLL));
-          v27 = v36.i32[0] | v29 | v36.i32[1] | ((v30 & 0x1F) << 16);
+          v31 = (v30 & 0x1F) << 6;
+          v32 = *(v28 + 40);
+          if (v32 <= 1)
+          {
+            LOBYTE(v32) = 1;
+          }
+
+          v33.i32[0] = *(v28 + 37);
+          v33.i32[1] = *(v28 + 39);
+          v33.i64[1] = *(v28 + 164);
+          v34 = vceqzq_s32(v33);
+          v35 = vshlq_u32(v33, xmmword_29D2F2580);
+          v33.i32[0] *= 2;
+          v36.i64[0] = 0x3E0000003ELL;
+          v36.i64[1] = 0x3E0000003ELL;
+          v37 = vandq_s8(v35, xmmword_29D2F2590);
+          v37.i32[0] = vandq_s8(v33, v36).u32[0] | 1;
+          v38 = vbslq_s8(v34, xmmword_29D2F25A0, v37);
+          *v38.i8 = vorr_s8(*v38.i8, *&vextq_s8(v38, v38, 8uLL));
+          v29 = v38.i32[0] | v31 | v38.i32[1] | ((v32 & 0x1F) << 16);
         }
 
         else
         {
-          v27 = 0;
+          v29 = 0;
         }
 
-        v37 = 1 << v18;
-        v38 = v85.state.representation.key & (1 << v18);
-        v39 = (v81 >> v16) & 0xF;
-        v40 = (v77 >> v17) & 3;
-        v95 = a2;
-        v96 = v18;
-        v97 = v79;
-        v98 = &v101[4];
-        v99 = v101;
-        v100 = v80;
-        *v101 = 0;
-        if (((1 << v18) & v78) != 0)
+        v39 = 1 << v20;
+        v40 = v87.state.representation.key & (1 << v20);
+        v41 = (v83 >> v18) & 0xF;
+        v42 = (v79 >> v19) & 3;
+        v97 = a2;
+        v98 = v20;
+        v99 = v81;
+        v100 = &v103[4];
+        v101 = v103;
+        v102 = v82;
+        *v103 = 0;
+        if (((1 << v20) & v80) != 0)
         {
-          LODWORD(v86[1]) = 98;
-          v88 = 0;
-          v89 = 0;
+          LODWORD(v88[1]) = 98;
+          v90 = 0;
+          v91 = 0;
           __p = 0;
-          v86[0] = &unk_2A23F9678;
-          v93 = v27;
-          v94 = ((((v37 & v73) != 0) << 14) | (((v37 & v74) != 0) << 13)) & 0x7FFF | (((v72 >> v17) & 3) << 15) | (v40 << 26) | ((v38 == 0) << 25) | (2 * v39) | v83 | v84 | 0x41;
-          v92 = v85.state.representation.key & 0xFF600F00 | 0x1FF000;
-          v91 = v25.key | 0xFF000;
-          v90 = 512;
-          AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadNonDestructiveStatelessPSO(AGXG18PFamilyDevice *,_AGCDrawBufferState const*,std::array<AGXBlendState,8ul> const&,std::optional<_AGCLogicOp> const&,unsigned int,unsigned int &,unsigned int &,AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes> &,BOOL)const::{lambda(AGX::StatelessPSODynamicLibraryKey const&)#1}::operator()(&v95, v86);
-          v86[0] = &unk_2A23F9480;
+          v88[0] = &unk_2A23F9678;
+          v95 = v29;
+          v96 = ((((v39 & v75) != 0) << 14) | (((v39 & v76) != 0) << 13)) & 0x7FFF | (((v74 >> v19) & 3) << 15) | (v42 << 26) | ((v40 == 0) << 25) | (2 * v41) | v85 | v86 | 0x41;
+          v94 = v87.state.representation.key & 0xFF600F00 | 0x1FF000;
+          v93 = v27.key | 0xFF000;
+          v92 = 512;
+          AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadNonDestructiveStatelessPSO(AGXG18PFamilyDevice *,_AGCDrawBufferState const*,std::array<AGXBlendState,8ul> const&,std::optional<_AGCLogicOp> const&,unsigned int,unsigned int &,unsigned int &,AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes> &,BOOL)const::{lambda(AGX::StatelessPSODynamicLibraryKey const&)#1}::operator()(&v97, v88);
+          v88[0] = &unk_2A23F9480;
           if (__p)
           {
-            v88 = __p;
+            v90 = __p;
             operator delete(__p);
           }
         }
 
-        if ((v37 & v76) != 0)
+        if ((v39 & v78) != 0)
         {
-          v41 = (v37 & v68) != 0;
-          LODWORD(v86[1]) = 98;
-          v88 = 0;
-          v89 = 0;
+          v43 = (v39 & v70) != 0;
+          LODWORD(v88[1]) = 98;
+          v90 = 0;
+          v91 = 0;
           __p = 0;
-          v86[0] = &unk_2A23F9678;
-          v42 = (v41 & ((v37 & v67) != 0)) != 0 ? 0x40000 : 0;
-          v43 = (v41 & ((v37 & v66) != 0)) != 0 ? 0x80000 : 0;
-          v93 = v27;
-          v44.var0 = v85.encoded.__elems_[v16 / 4].representation;
-          v94 = v62 | (32 * ((v37 & v63) != 0)) | (2 * v39) | v84 | v83 | ((((v37 & v70) != 0) << 14) | (((v37 & v71) != 0) << 13)) & 0x7FFF | (((v69 >> v17) & 3) << 15) & 0xFFCFFFFF | (v41 << 17) & 0xFFCFFFFF | (((v65 >> v17) & 3) << 20) | (((v37 & v64) != 0) << 22) | (v40 << 26) | v42 | v43 | ((v38 == 0) << 25) | v61 | 1;
-          v92 = v85.state.representation.key & 0xFF600F00 | 0x1FF000;
-          v91 = v44.key | 0xFF000;
-          v90 = 512;
-          AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadNonDestructiveStatelessPSO(AGXG18PFamilyDevice *,_AGCDrawBufferState const*,std::array<AGXBlendState,8ul> const&,std::optional<_AGCLogicOp> const&,unsigned int,unsigned int &,unsigned int &,AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes> &,BOOL)const::{lambda(AGX::StatelessPSODynamicLibraryKey const&)#1}::operator()(&v95, v86);
-          v86[0] = &unk_2A23F9480;
+          v88[0] = &unk_2A23F9678;
+          v44 = (v43 & ((v39 & v69) != 0)) != 0 ? 0x40000 : 0;
+          v45 = (v43 & ((v39 & v68) != 0)) != 0 ? 0x80000 : 0;
+          v95 = v29;
+          v46.var0 = v87.encoded.__elems_[v18 / 4].representation;
+          v96 = v64 | (32 * ((v39 & v65) != 0)) | (2 * v41) | v86 | v85 | ((((v39 & v72) != 0) << 14) | (((v39 & v73) != 0) << 13)) & 0x7FFF | (((v71 >> v19) & 3) << 15) & 0xFFCFFFFF | (v43 << 17) & 0xFFCFFFFF | (((v67 >> v19) & 3) << 20) | (((v39 & v66) != 0) << 22) | (v42 << 26) | v44 | v45 | ((v40 == 0) << 25) | v63 | 1;
+          v94 = v87.state.representation.key & 0xFF600F00 | 0x1FF000;
+          v93 = v46.key | 0xFF000;
+          v92 = 512;
+          AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadNonDestructiveStatelessPSO(AGXG18PFamilyDevice *,_AGCDrawBufferState const*,std::array<AGXBlendState,8ul> const&,std::optional<_AGCLogicOp> const&,unsigned int,unsigned int &,unsigned int &,AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes> &,BOOL)const::{lambda(AGX::StatelessPSODynamicLibraryKey const&)#1}::operator()(&v97, v88);
+          v88[0] = &unk_2A23F9480;
           if (__p)
           {
-            v88 = __p;
+            v90 = __p;
             operator delete(__p);
           }
         }
 
-        v2 = v75;
-        v75[785] = (*&v101[4] << v16) | v75[785] & ~(15 << v16);
-        v75[786] = (*v101 << v16) | v75[786] & ~(15 << v16);
+        v4 = v77;
+        *(v77 + 785) = (*&v103[4] << v18) | *(v77 + 785) & ~(15 << v18);
+        *(v77 + 786) = (*v103 << v18) | v77[393] & ~(15 << v18);
       }
 
-      v19 += 28;
-      ++v18;
-      v17 += 2;
-      v16 += 4;
+      v21 += 28;
+      ++v20;
+      v19 += 2;
+      v18 += 4;
     }
 
-    while (v19 != 224);
+    while (v21 != 224);
   }
 
-  v86[0] = _AGCDrawBufferState::isRtFormatUnknown;
-  v86[1] = 0;
-  __p = &v85;
-  if (_AGCDrawBufferState::anyFunction<std::__bind<BOOL (_AGCDrawBufferState::*)(unsigned char)const,_AGCDrawBufferState const*,std::placeholders::__ph<1> const&>>(v86) & 1) != 0 || (v86[0] = _AGCDrawBufferState::isRtPartitionOffsetUnknown, v86[1] = 0, __p = &v85, (_AGCDrawBufferState::anyFunction<std::__bind<BOOL (_AGCDrawBufferState::*)(unsigned char)const,_AGCDrawBufferState const*,std::placeholders::__ph<1> const&>>(v86)) || (~v85.state.representation.key & 0x1FF000) == 0)
+  v88[0] = _AGCDrawBufferState::isRtFormatUnknown;
+  v88[1] = 0;
+  __p = &v87;
+  if (_AGCDrawBufferState::anyFunction<std::__bind<BOOL (_AGCDrawBufferState::*)(unsigned char)const,_AGCDrawBufferState const*,std::placeholders::__ph<1> const&>>(v88) & 1) != 0 || (v88[0] = _AGCDrawBufferState::isRtPartitionOffsetUnknown, v88[1] = 0, __p = &v87, (_AGCDrawBufferState::anyFunction<std::__bind<BOOL (_AGCDrawBufferState::*)(unsigned char)const,_AGCDrawBufferState const*,std::placeholders::__ph<1> const&>>(v88)) || (~v87.state.representation.key & 0x1FF000) == 0)
   {
-    *(v2 + 3136) = 1;
+    *(v4 + 3136) = 1;
   }
 
   else
   {
-    v45 = *v2;
-    v46 = v2[785];
-    v47 = v2[786];
-    v48 = *(*v2 + 3912);
-    v49 = *(*v2 + 4081);
-    v50 = *(*v2 + 4084);
-    v101[4] = 0;
-    LODWORD(v95) = 0;
-    v86[0] = _AGCDrawBufferState::isRtFormatUnknown;
-    v86[1] = 0;
-    __p = &v85;
-    if (_AGCDrawBufferState::anyFunction<std::__bind<BOOL (_AGCDrawBufferState::*)(unsigned char)const,_AGCDrawBufferState const*,std::placeholders::__ph<1> const&>>(v86))
+    v47 = *v4;
+    v48 = *(v4 + 785);
+    v49 = *(v4 + 786);
+    v50 = *(*v4 + 3912);
+    v51 = *(*v4 + 4081);
+    v52 = *(*v4 + 4084);
+    v103[4] = 0;
+    LODWORD(v97) = 0;
+    v88[0] = _AGCDrawBufferState::isRtFormatUnknown;
+    v88[1] = 0;
+    __p = &v87;
+    if (_AGCDrawBufferState::anyFunction<std::__bind<BOOL (_AGCDrawBufferState::*)(unsigned char)const,_AGCDrawBufferState const*,std::placeholders::__ph<1> const&>>(v88))
     {
-      v51 = 0;
+      v53 = 0;
     }
 
     else
-    {
-      if (v48)
-      {
-        v53 = 8;
-      }
-
-      else
-      {
-        v53 = 0;
-      }
-
-      agxsGetShaderPassInfo((17 - v53), &v85, v46, v47, &v95, &v101[4]);
-      v51 = (v95 << v53) & 0x1FFFF;
-    }
-
-    if ((v50 - 1) >= 2)
     {
       if (v50)
       {
-        v54 = 0;
+        v55 = 8;
       }
 
       else
       {
-        v54 = v101[4];
+        v55 = 0;
+      }
+
+      agxsGetShaderPassInfo((17 - v55), &v87, v48, v49, &v97, &v103[4]);
+      v53 = (v97 << v55) & 0x1FFFF;
+    }
+
+    if ((v52 - 1) >= 2)
+    {
+      if (v52)
+      {
+        v56 = 0;
+      }
+
+      else
+      {
+        v56 = v103[4];
       }
     }
 
-    else if ((v101[4] | v49))
+    else if ((v103[4] | v51))
     {
-      v54 = 3;
+      v56 = 3;
     }
 
     else
     {
-      v54 = 2;
+      v56 = 2;
     }
 
-    v57 = (*&v85.state.representation.var0 & 0x300) != 0 && v54 == 3 || v54 == 2;
-    if (v45[4088])
+    v59 = (*&v87.state.representation.var0 & 0x300) != 0 && v56 == 3 || v56 == 2;
+    if (v47[4088])
     {
-      v58 = 0x400000;
-    }
-
-    else
-    {
-      v58 = 0;
-    }
-
-    if (v45[3919])
-    {
-      v59 = 0x2000000;
-    }
-
-    else
-    {
-      v59 = 0;
-    }
-
-    if ((v57 | v45[4090]))
-    {
-      v60 = 0x4000000;
+      v60 = 0x400000;
     }
 
     else
@@ -1309,13 +1289,33 @@ uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::H
       v60 = 0;
     }
 
-    v2[201] = v2[201] & 0x199FFFFF | v58 | v59 | v60 | (v54 << 29);
-    v2[204] = v2[204] & 0xFFFE0000 | v51;
+    if (v47[3919])
+    {
+      v61 = 0x2000000;
+    }
+
+    else
+    {
+      v61 = 0;
+    }
+
+    if ((v59 | v47[4090]))
+    {
+      v62 = 0x4000000;
+    }
+
+    else
+    {
+      v62 = 0;
+    }
+
+    *(v4 + 201) = *(v4 + 201) & 0x199FFFFF | v60 | v61 | v62 | (v56 << 29);
+    *(v4 + 204) = v4[102] & 0xFFFE0000 | v53;
   }
 
-  if (*(*v2 + 4066) == 1)
+  if (*(*v4 + 4066) == 1)
   {
-    AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes>::getReferencedDylibs(v86);
+    AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes>::getReferencedDylibs(v88, v4[462]);
   }
 
   return 1;
@@ -1465,7 +1465,7 @@ LABEL_19:
   return this;
 }
 
-void AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes>::getReferencedDylibs(void *a1)
+void AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes>::getReferencedDylibs(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1473,7 +1473,7 @@ void AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes>::getRefer
   operator new();
 }
 
-void AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::incrementalLoad<AGX::HAL300::FragmentProgramVariant>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6)
+void AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::incrementalLoad<AGX::HAL300::FragmentProgramVariant>(uint64_t **a1, void **a2, uint64_t a3, char **a4, uint64_t **a5, uint64_t *a6, uint64_t a7, uint64_t a8, unsigned __int8 a9, void *a10)
 {
   if ((((a4[1] - *a4) >> 1) + ((a6[1] - *a6) >> 1) + 1) <= 0x2AAAAAAAAAAAAAALL)
   {
@@ -1556,8 +1556,8 @@ uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::H
   if (*a1)
   {
     v21 = *(a1 + 358) + *(a1 + 349);
-    v22 = v20[163].u32[1];
-    v23 = v20[491].i32[1];
+    v22 = *(v20 + 1308);
+    v23 = *(v20 + 3932);
     v24 = v23 << 7;
     if ((v23 << 7) <= 0x4000)
     {
@@ -1651,7 +1651,7 @@ uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::H
       if (*a1)
       {
         v48 = 0;
-        v49 = v47[481].i32[0] & 0xE10000;
+        v49 = *(v47 + 3848) & 0xE10000;
         goto LABEL_32;
       }
 
@@ -1741,11 +1741,11 @@ LABEL_54:
       if ((v48 & 1) == 0)
       {
         v45[33].i8[4] = v104 | 4;
-        v105 = v47[409];
+        v105 = *(v47 + 3272);
         v181 = 0u;
         *v182 = 0u;
         *&v182[20] = 1;
-        *&v182[24] = *&v105 & 0xFFFFFFFFFFFFLL;
+        *&v182[24] = v105 & 0xFFFFFFFFFFFFLL;
         *&v182[12] = 0x300000008;
         AGXIotoInstruction_B_1::emit(&v181, &v45[3] + 6);
         v106 = (*a1)[476].i32[0];
@@ -1772,21 +1772,21 @@ LABEL_54:
         v45[29].i32[1] = v108;
         v45[30].i32[0] = 0;
         v45[30].i32[1] = v107;
-        v113 = *v47[429].i8;
-        v188 = *v47[427].i8;
+        v113 = *(v47 + 3432);
+        v188 = *(v47 + 3416);
         v189 = v113;
-        v190 = v47[431];
-        v114 = *v47[421].i8;
-        v184 = *v47[419].i8;
+        v190 = *(v47 + 3448);
+        v114 = *(v47 + 3368);
+        v184 = *(v47 + 3352);
         v185 = v114;
-        v115 = *v47[425].i8;
-        v186 = *v47[423].i8;
+        v115 = *(v47 + 3400);
+        v186 = *(v47 + 3384);
         v187 = v115;
-        v116 = *v47[413].i8;
-        v181 = *v47[411].i8;
+        v116 = *(v47 + 3304);
+        v181 = *(v47 + 3288);
         *v182 = v116;
-        v117 = *v47[417].i8;
-        *&v182[16] = *v47[415].i8;
+        v117 = *(v47 + 3336);
+        *&v182[16] = *(v47 + 3320);
         v183 = v117;
         result = AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::LoadShader::emit(&v181, &v45[5]);
         v104 = v45[33].i8[4];
@@ -1805,13 +1805,13 @@ LABEL_54:
         }
 
         v104 |= v118;
-        if (v47[510].i8[1] == 1)
+        if (*(v47 + 4081) == 1)
         {
           v104 |= 0x20u;
           v45[33].i8[4] = v104;
         }
 
-        if ((v47[510].i32[1] - 1) < 2)
+        if ((*(v47 + 4084) - 1) < 2)
         {
           v104 |= 0x80u;
         }
@@ -1932,17 +1932,17 @@ LABEL_95:
         if (a1[4])
         {
           v131 = a1[3];
-          if (v131[949])
+          if (v131[474].i32[1])
           {
             v132 = 0x8000;
           }
 
           else
           {
-            v132 = v131[751];
+            v132 = v131[375].u32[1];
           }
 
-          AGX::SpillInfoGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::checkSpillParamsForObject(*(a2 + 16584), *(a1 + 514) + *(a1 + 505), v131[327], *(a1 + 508), v132, *(a1 + 220) * *(a1 + 218) * *(a1 + 219), *&v103, v71, v72, v73, v74);
+          AGX::SpillInfoGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::checkSpillParamsForObject(*(a2 + 16584), *(a1 + 514) + *(a1 + 505), v131[163].u32[1], *(a1 + 508), v132, *(a1 + 220) * *(a1 + 218) * *(a1 + 219), *&v103, v71, v72, v73, v74);
           result = AGX::SpillInfoGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::checkSpillParamsForMesh(*(a2 + 16584), *(a1 + 592) + *(a1 + 583), a1[4][163].u32[1], *(a1 + 586), a1[4][375].u32[1], *(a1 + 223) * *(a1 + 221) * *(a1 + 222), v148, v149, v150, v151, v152);
           if ((*(a1 + 2505) & 1) != 0 || *(a1 + 2193))
           {
@@ -3312,36 +3312,36 @@ LABEL_235:
   **(a1 + 24) |= HIDWORD(v47);
 }
 
-__n128 AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::copyState(uint64_t a1, uint64_t a2, char a3)
+__n128 AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::copyState(uint64_t result, uint64_t a2, char a3, uint64_t a4)
 {
-  *(a1 + 740) = a3;
-  v3 = *(a2 + 40);
-  *(a1 + 56) = *(a2 + 56);
-  *(a1 + 40) = v3;
-  v4 = *(a2 + 72);
-  *(a1 + 88) = *(a2 + 88);
-  *(a1 + 72) = v4;
-  *(a1 + 748) = *(a2 + 748);
-  *(a1 + 752) = *(a2 + 752);
-  v5 = *(a2 + 760);
-  *(a1 + 760) = v5;
-  if (v5)
+  *(result + 740) = a3;
+  v4 = *(a2 + 40);
+  *(result + 56) = *(a2 + 56);
+  *(result + 40) = v4;
+  v5 = *(a2 + 72);
+  *(result + 88) = *(a2 + 88);
+  *(result + 72) = v5;
+  *(result + 748) = *(a2 + 748);
+  *(result + 752) = *(a2 + 752);
+  v6 = *(a2 + 760);
+  *(result + 760) = v6;
+  if (v6)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = 0x20000;
+    v7 = 0x20000;
   }
 
-  *(a1 + 828) = *(a1 + 828) & 0xFFFDFFFF | v6;
-  *(a1 + 789) = *(a2 + 789);
-  *(a1 + 764) = *(a2 + 764);
-  *(a1 + 784) = *(a2 + 784);
-  *(a1 + 780) = *(a2 + 780);
-  *(a1 + 788) = *(a2 + 788);
-  *(a1 + 744) = *(a2 + 744);
+  *(result + 828) = *(result + 828) & 0xFFFDFFFF | v7;
+  *(result + 789) = *(a2 + 789);
+  *(result + 764) = *(a2 + 764);
+  *(result + 784) = *(a2 + 784);
+  *(result + 780) = *(a2 + 780);
+  *(result + 788) = *(a2 + 788);
+  *(result + 744) = *(a2 + 744);
   if (*(a2 + 3688))
   {
     operator new();
@@ -3352,17 +3352,17 @@ __n128 AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL
     operator new();
   }
 
-  *(a1 + 872) = *(a2 + 872);
-  result = *(a2 + 888);
-  v8 = *(a2 + 904);
-  v9 = *(a2 + 920);
-  *(a1 + 936) = *(a2 + 936);
-  *(a1 + 904) = v8;
-  *(a1 + 920) = v9;
-  *(a1 + 888) = result;
-  v10 = *(a2 + 792);
-  *(a1 + 796) = *(a2 + 796);
-  *(a1 + 792) = v10;
+  *(result + 872) = *(a2 + 872);
+  v8 = *(a2 + 888);
+  v9 = *(a2 + 904);
+  v10 = *(a2 + 920);
+  *(result + 936) = *(a2 + 936);
+  *(result + 904) = v9;
+  *(result + 920) = v10;
+  *(result + 888) = v8;
+  v11 = *(a2 + 792);
+  *(result + 796) = *(a2 + 796);
+  *(result + 792) = v11;
   if (*(a2 + 848))
   {
     operator new();
@@ -3378,7 +3378,7 @@ __n128 AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL
     operator new();
   }
 
-  return result;
+  return v8;
 }
 
 void AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::copyFromOriginal(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3407,7 +3407,7 @@ void AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(A
 
 void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::clone(uint64_t *a1, os_unfair_lock_s *a2, atomic_ullong *a3)
 {
-  v68 = *MEMORY[0x29EDCA608];
+  v70 = *MEMORY[0x29EDCA608];
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::destroy(a1);
   lock = a2;
   v56 = a1;
@@ -3445,8 +3445,8 @@ void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL30
   v5 = a1[1];
   if (v5)
   {
-    v60 = 0uLL;
-    *&v61 = 0;
+    v62 = 0uLL;
+    *&v63 = 0;
     v6 = *&a2[650]._os_unfair_lock_opaque - *&a2[648]._os_unfair_lock_opaque;
     if (v6 >> 4 != -1)
     {
@@ -3460,12 +3460,14 @@ void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL30
 
     if (a1[326] - a1[324] >= v6)
     {
-      v65 = *(v5 + 1536);
-      *&v66 = *(v5 + 1552);
-      *v57 = *(v5 + 3032);
-      v58[0] = *(v5 + 3048);
-      v63 = *(v5 + 3032);
-      v64 = *(v5 + 3048);
+      v67 = *(v5 + 1536);
+      *&v68 = *(v5 + 1552);
+      *v59 = *(v5 + 3032);
+      v60[0] = *(v5 + 3048);
+      v57 = *(v5 + 1536);
+      v58 = *(v5 + 1552);
+      v65 = *(v5 + 3032);
+      v66 = *(v5 + 3048);
       operator new();
     }
 
@@ -3481,19 +3483,21 @@ LABEL_118:
   if (*a1)
   {
     v50 = *a1;
-    v60 = 0uLL;
-    *&v61 = 0;
+    v62 = 0uLL;
+    *&v63 = 0;
     v7 = *&a2[656]._os_unfair_lock_opaque - *&a2[654]._os_unfair_lock_opaque;
     if (v7 >> 4 == -1)
     {
       if (a1[329] - a1[327] >= v7)
       {
-        v65 = *(v50 + 1536);
-        *&v66 = *(v50 + 1552);
-        *v57 = *(v50 + 3040);
-        v58[0] = *(v50 + 3056);
-        v63 = *(v50 + 3040);
-        v64 = *(v50 + 3056);
+        v67 = *(v50 + 1536);
+        *&v68 = *(v50 + 1552);
+        *v59 = *(v50 + 3040);
+        v60[0] = *(v50 + 3056);
+        v57 = *(v50 + 1536);
+        v58 = *(v50 + 1552);
+        v65 = *(v50 + 3040);
+        v66 = *(v50 + 3056);
         operator new();
       }
 
@@ -3516,19 +3520,21 @@ LABEL_118:
   if (a1[2])
   {
     v51 = a1[2];
-    v60 = 0uLL;
-    *&v61 = 0;
+    v62 = 0uLL;
+    *&v63 = 0;
     v8 = *&a2[662]._os_unfair_lock_opaque - *&a2[660]._os_unfair_lock_opaque;
     if (v8 >> 4 == -1)
     {
       if (a1[332] - a1[330] >= v8)
       {
-        v65 = *(v51 + 1536);
-        *&v66 = *(v51 + 1552);
-        *v57 = *(v51 + 3040);
-        v58[0] = *(v51 + 3056);
-        v63 = *(v51 + 3040);
-        v64 = *(v51 + 3056);
+        v67 = *(v51 + 1536);
+        *&v68 = *(v51 + 1552);
+        *v59 = *(v51 + 3040);
+        v60[0] = *(v51 + 3056);
+        v57 = *(v51 + 1536);
+        v58 = *(v51 + 1552);
+        v65 = *(v51 + 3040);
+        v66 = *(v51 + 3056);
         operator new();
       }
 
@@ -3551,19 +3557,21 @@ LABEL_118:
   if (a1[3])
   {
     v52 = a1[3];
-    v60 = 0uLL;
-    *&v61 = 0;
+    v62 = 0uLL;
+    *&v63 = 0;
     v9 = *&a2[668]._os_unfair_lock_opaque - *&a2[666]._os_unfair_lock_opaque;
     if (v9 >> 4 == -1)
     {
       if (a1[335] - a1[333] >= v9)
       {
-        v65 = *(v52 + 1536);
-        *&v66 = *(v52 + 1552);
-        *v57 = *(v52 + 3032);
-        v58[0] = *(v52 + 3048);
-        v63 = *(v52 + 3032);
-        v64 = *(v52 + 3048);
+        v67 = *(v52 + 1536);
+        *&v68 = *(v52 + 1552);
+        *v59 = *(v52 + 3032);
+        v60[0] = *(v52 + 3048);
+        v57 = *(v52 + 1536);
+        v58 = *(v52 + 1552);
+        v65 = *(v52 + 3032);
+        v66 = *(v52 + 3048);
         operator new();
       }
 
@@ -3586,19 +3594,21 @@ LABEL_118:
   if (a1[4])
   {
     v53 = a1[4];
-    v60 = 0uLL;
-    *&v61 = 0;
+    v62 = 0uLL;
+    *&v63 = 0;
     v10 = *&a2[674]._os_unfair_lock_opaque - *&a2[672]._os_unfair_lock_opaque;
     if (v10 >> 4 == -1)
     {
       if (a1[338] - a1[336] >= v10)
       {
-        v65 = *(v53 + 1536);
-        *&v66 = *(v53 + 1552);
-        *v57 = *(v53 + 3032);
-        v58[0] = *(v53 + 3048);
-        v63 = *(v53 + 3032);
-        v64 = *(v53 + 3048);
+        v67 = *(v53 + 1536);
+        *&v68 = *(v53 + 1552);
+        *v59 = *(v53 + 3032);
+        v60[0] = *(v53 + 3048);
+        v57 = *(v53 + 1536);
+        v58 = *(v53 + 1552);
+        v65 = *(v53 + 3032);
+        v66 = *(v53 + 3048);
         operator new();
       }
 
@@ -3629,15 +3639,15 @@ LABEL_117:
     AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::finalize<MTLRenderPipelineDescriptor>(a1, a3, 0, 0);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  LODWORD(v67) = 1065353216;
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 1065353216;
-  *v57 = 0u;
-  *v58 = 0u;
-  v59 = 1065353216;
+  v67 = 0u;
+  v68 = 0u;
+  LODWORD(v69) = 1065353216;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 1065353216;
+  *v59 = 0u;
+  *v60 = 0u;
+  v61 = 1065353216;
   v11 = *&a2[2]._os_unfair_lock_opaque;
   if (v11)
   {
@@ -3661,6 +3671,7 @@ LABEL_117:
         }
 
         v18 = v15[5];
+        *&v57 = v18;
         if (v16 != 5 && v17 == 0)
         {
           goto LABEL_59;
@@ -3710,8 +3721,8 @@ LABEL_59:
       }
 
 LABEL_69:
-      *&v63 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:*(v15 + 8) name:v20 device:v13 handle:v21 dylib:0];
-      std::__hash_table<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,AGXG18PFamilyFunctionHandle *>(&v65, v18);
+      *&v65 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:*(v15 + 8) name:v20 device:v13 handle:v21 dylib:0];
+      std::__hash_table<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,AGXG18PFamilyFunctionHandle *>(&v67, v18, &v57, &v65);
       goto LABEL_59;
     }
   }
@@ -3740,6 +3751,7 @@ LABEL_76:
         }
 
         v31 = v28[5];
+        *&v57 = v31;
         if (v29 != 5 && v30 == 0)
         {
           goto LABEL_79;
@@ -3789,8 +3801,8 @@ LABEL_79:
       }
 
 LABEL_89:
-      *&v63 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:*(v28 + 8) name:v33 device:v26 handle:v34 dylib:0];
-      std::__hash_table<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,AGXG18PFamilyFunctionHandle *>(&v60, v31);
+      *&v65 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:*(v28 + 8) name:v33 device:v26 handle:v34 dylib:0];
+      std::__hash_table<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,AGXG18PFamilyFunctionHandle *>(&v62, v31, &v57, &v65);
       goto LABEL_79;
     }
   }
@@ -3820,6 +3832,7 @@ LABEL_116:
     }
 
     v44 = v41[5];
+    *&v57 = v44;
     if (v42 != 5 && v43 == 0)
     {
       goto LABEL_99;
@@ -3869,8 +3882,8 @@ LABEL_99:
   }
 
 LABEL_109:
-  *&v63 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:*(v41 + 8) name:v46 device:v39 handle:v47 dylib:0];
-  std::__hash_table<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,AGXG18PFamilyFunctionHandle *>(v57, v44);
+  *&v65 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:*(v41 + 8) name:v46 device:v39 handle:v47 dylib:0];
+  std::__hash_table<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,AGXG18PFamilyFunctionHandle *>(v59, v44, &v57, &v65);
   goto LABEL_99;
 }
 
@@ -4508,7 +4521,7 @@ LABEL_23:
 
 void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::finalize<MTLMeshRenderPipelineDescriptor>(uint64_t a1, atomic_ullong *a2, NSObject *a3, void *a4)
 {
-  v154 = *MEMORY[0x29EDCA608];
+  v167 = *MEMORY[0x29EDCA608];
   v7 = a2[106];
   *(a1 + 1024) = a2;
   v8 = *(a1 + 8);
@@ -4584,27 +4597,30 @@ void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL30
   }
 
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::computeMaximumRayPayloadSizes(a1);
-  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(a1);
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(a1, a2);
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParams(a1, v7);
   if ((*(a1 + 1257) & 1) != 0 || (*(a1 + 1569) & 1) != 0 || (*(a1 + 2193) & 1) != 0 || (*(a1 + 2505) & 1) != 0 || *(a1 + 1881))
   {
     atomic_fetch_or(a2 + 108, 0x1000uLL);
   }
 
-  v125 = v7;
+  v131 = v7;
   if (*(a1 + 1252) || *(a1 + 1564) || *(a1 + 2188) || *(a1 + 2500) || *(a1 + 1876))
   {
     atomic_fetch_or(a2 + 108, 0x200000uLL);
   }
 
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::emitLabelUpdateSignpost(a1, a3);
-  v127 = [a4 meshLinkedFunctions];
+  v133 = [a4 meshLinkedFunctions];
   v19 = [a4 objectLinkedFunctions];
-  v126 = a4;
-  v124 = [a4 fragmentLinkedFunctions];
-  v128 = *(a1 + 24);
-  if (v128)
+  v132 = a4;
+  v130 = [a4 fragmentLinkedFunctions];
+  v134 = *(a1 + 24);
+  if (v134)
   {
+    __p = 0;
+    v145 = 0;
+    v146 = 0;
     v20 = *(a1 + 3480);
     v21 = *(a1 + 3488);
     if (v21 != v20)
@@ -4614,7 +4630,7 @@ void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL30
         operator new();
       }
 
-      goto LABEL_226;
+      goto LABEL_244;
     }
 
     prime = vcvtps_u32_f32(([objc_msgSend(v19 "binaryFunctions")] + objc_msgSend(objc_msgSend(v19, "functions"), "count")) / *(a1 + 2864));
@@ -4663,34 +4679,34 @@ LABEL_42:
       }
     }
 
-    v144 = 0u;
-    v145 = 0u;
-    v146 = 0u;
-    v147 = 0u;
+    v157 = 0u;
+    v158 = 0u;
+    v159 = 0u;
+    v160 = 0u;
     v27 = [v19 functions];
-    v28 = [v27 countByEnumeratingWithState:&v144 objects:&v151 count:16];
-    v123 = v19;
+    v28 = [v27 countByEnumeratingWithState:&v157 objects:&v164 count:16];
+    v129 = v19;
     if (v28)
     {
       obj = v27;
       v29 = 0;
-      v30 = *v145;
+      v30 = *v158;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v145 != v30)
+          if (*v158 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v148[0] = *(*(&v144 + 1) + 8 * i);
-          v32 = [v148[0] name];
+          v161[0] = *(*(&v157 + 1) + 8 * i);
+          v32 = [v161[0] name];
           v33 = [v32 UTF8String];
           v34 = strlen(v33);
           if (v34 > 0x7FFFFFFFFFFFFFF7)
           {
-LABEL_225:
+LABEL_243:
             std::__throw_bad_array_new_length[abi:nn200100]();
           }
 
@@ -4700,7 +4716,7 @@ LABEL_225:
             operator new();
           }
 
-          HIBYTE(v150) = v34;
+          HIBYTE(v163) = v34;
           if (v34)
           {
             memmove(&__dst, v33, v34);
@@ -4709,14 +4725,14 @@ LABEL_225:
           *(&__dst + v35) = 0;
           v36 = std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::find<std::string>((a1 + 3032), &__dst);
           v37 = v36;
-          if (SHIBYTE(v150) < 0)
+          if (SHIBYTE(v163) < 0)
           {
             operator delete(__dst);
             if (!v37)
             {
 LABEL_69:
-              *&v140 = [v32 UTF8String];
-              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>();
+              *&v153 = [v32 UTF8String];
+              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>(&__dst, a1 + 3032, &v153, v161);
             }
           }
 
@@ -4725,8 +4741,8 @@ LABEL_69:
             goto LABEL_69;
           }
 
-          v38 = v148[0];
-          if ([v148[0] functionType] == 6)
+          v38 = v161[0];
+          if ([v161[0] functionType] == 6)
           {
             v39 = [(atomic_ullong *)a2 requiresRaytracingEmulation];
           }
@@ -4738,21 +4754,21 @@ LABEL_69:
 
           if (([v38 functionType] == 5) | v39 & 1)
           {
-            VisibleFunctionOffset = VisibleFunctionsMap::getVisibleFunctionOffset(v128 + 495, [v32 cStringUsingEncoding:4]);
+            VisibleFunctionOffset = VisibleFunctionsMap::getVisibleFunctionOffset(v134 + 495, [v32 cStringUsingEncoding:4]);
             if (VisibleFunctionOffset != -1)
             {
               v41 = [v38 functionType];
               if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2832), v38))
               {
                 __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v41 == 5) name:v32 device:a2 handle:VisibleFunctionOffset dylib:0];
-                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2832), v38);
+                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2832), v38, v161, &__dst);
               }
             }
           }
 
           else if ([v38 functionType] == 6 && !std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2832), v38))
           {
-            v42 = *(16 * v29);
+            v42 = *(__p + 2 * v29);
             if (*(v42 + 25) == 1)
             {
               v43 = *(v42 + 32) & 0xFFFFFFF | 0x80000000;
@@ -4766,12 +4782,12 @@ LABEL_69:
             }
 
             __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v44 name:v32 device:a2 handle:v43 dylib:0];
-            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2832), v38);
+            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2832), v38, v161, &__dst);
             ++v29;
           }
         }
 
-        v28 = [obj countByEnumeratingWithState:&v144 objects:&v151 count:16];
+        v28 = [obj countByEnumeratingWithState:&v157 objects:&v164 count:16];
       }
 
       while (v28);
@@ -4782,62 +4798,63 @@ LABEL_69:
       v29 = 0;
     }
 
-    v140 = 0u;
-    v141 = 0u;
-    v142 = 0u;
-    v143 = 0u;
-    v45 = [v123 privateFunctions];
-    v46 = [v45 countByEnumeratingWithState:&v140 objects:&__dst count:16];
+    v153 = 0u;
+    v154 = 0u;
+    v155 = 0u;
+    v156 = 0u;
+    v45 = [v129 privateFunctions];
+    v46 = [v45 countByEnumeratingWithState:&v153 objects:&__dst count:16];
     if (v46)
     {
-      v47 = *v141;
+      v47 = *v154;
       do
       {
         for (j = 0; j != v46; ++j)
         {
-          if (*v141 != v47)
+          if (*v154 != v47)
           {
             objc_enumerationMutation(v45);
           }
 
-          if ([*(*(&v140 + 1) + 8 * j) functionType] == 6)
+          if ([*(*(&v153 + 1) + 8 * j) functionType] == 6)
           {
             v29 += [(atomic_ullong *)a2 requiresRaytracingEmulation]^ 1;
           }
         }
 
-        v46 = [v45 countByEnumeratingWithState:&v140 objects:&__dst count:16];
+        v46 = [v45 countByEnumeratingWithState:&v153 objects:&__dst count:16];
       }
 
       while (v46);
     }
 
-    v49 = [v123 binaryFunctions];
-    v135 = 0u;
-    v136 = 0u;
-    v137 = 0u;
-    v138 = 0u;
-    v50 = [v49 countByEnumeratingWithState:&v135 objects:v148 count:16];
+    v49 = [v129 binaryFunctions];
+    v148 = 0u;
+    v149 = 0u;
+    v150 = 0u;
+    v151 = 0u;
+    v50 = [v49 countByEnumeratingWithState:&v148 objects:v161 count:16];
     if (v50)
     {
-      v51 = *v136;
+      v51 = *v149;
       obja = v49;
       do
       {
         for (k = 0; k != v50; ++k)
         {
-          if (*v136 != v51)
+          if (*v149 != v51)
           {
             objc_enumerationMutation(obja);
           }
 
-          v53 = *(*(&v135 + 1) + 8 * k);
+          v53 = *(*(&v148 + 1) + 8 * k);
+          v141 = v53;
           v54 = [v53 name];
           if ([v53 vendorPrivate] && (objc_msgSend(v53, "vendorPrivate"), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
             if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2832), v53))
             {
-              v61 = *(16 * v29);
+              v61 = *(__p + 2 * v29);
               if (*(v61 + 25) == 1)
               {
                 v62 = *(v61 + 32) & 0xFFFFFFF | 0x80000000;
@@ -4850,8 +4867,8 @@ LABEL_69:
                 v62 = v29;
               }
 
-              v139 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v63 name:v54 device:a2 handle:v62 dylib:0];
-              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+              v152 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v63 name:v54 device:a2 handle:v62 dylib:0];
+              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a1 + 2832, &v141, &v152);
             }
           }
 
@@ -4869,337 +4886,392 @@ LABEL_69:
                 v60 = [v53 functionType];
                 if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2832), v53))
                 {
-                  v139 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v60 == 5) name:v58 device:a2 handle:v59 dylib:v56];
-                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+                  v152 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v60 == 5) name:v58 device:a2 handle:v59 dylib:v56];
+                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a1 + 2832, &v141, &v152);
                 }
               }
             }
           }
         }
 
-        v50 = [obja countByEnumeratingWithState:&v135 objects:v148 count:16];
+        v50 = [obja countByEnumeratingWithState:&v148 objects:v161 count:16];
       }
 
       while (v50);
     }
+
+    if (__p)
+    {
+      v64 = v145;
+      v65 = __p;
+      if (v145 != __p)
+      {
+        do
+        {
+          v66 = *(v64 - 1);
+          if (v66 && !atomic_fetch_add(&v66->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v66->__on_zero_shared)(v66);
+            std::__shared_weak_count::__release_weak(v66);
+          }
+
+          v64 -= 16;
+        }
+
+        while (v64 != __p);
+        v65 = __p;
+      }
+
+      v145 = __p;
+      operator delete(v65);
+    }
   }
 
-  v129 = *(a1 + 32);
-  if (v129)
+  v135 = *(a1 + 32);
+  if (v135)
   {
-    v64 = *(a1 + 3504);
-    v65 = *(a1 + 3512);
-    if (v65 != v64)
+    v141 = 0;
+    v142 = 0;
+    v143 = 0;
+    v67 = *(a1 + 3504);
+    v68 = *(a1 + 3512);
+    if (v68 != v67)
     {
-      if (((v65 - v64) & 0x8000000000000000) == 0)
+      if (((v68 - v67) & 0x8000000000000000) == 0)
       {
         operator new();
       }
 
-      goto LABEL_226;
+      goto LABEL_244;
     }
 
-    v66 = vcvtps_u32_f32(([objc_msgSend(v127 "binaryFunctions")] + objc_msgSend(objc_msgSend(v127, "functions"), "count")) / *(a1 + 2904));
-    if (v66 == 1)
+    v69 = vcvtps_u32_f32(([objc_msgSend(v133 "binaryFunctions")] + objc_msgSend(objc_msgSend(v133, "functions"), "count")) / *(a1 + 2904));
+    if (v69 == 1)
     {
-      v66 = 2;
+      v69 = 2;
     }
 
-    else if ((v66 & (v66 - 1)) != 0)
+    else if ((v69 & (v69 - 1)) != 0)
     {
-      v66 = std::__next_prime(v66);
+      v69 = std::__next_prime(v69);
     }
 
-    v67 = *(a1 + 2880);
-    if (v66 > *&v67)
+    v70 = *(a1 + 2880);
+    if (v69 > *&v70)
     {
-      goto LABEL_122;
+      goto LABEL_131;
     }
 
-    if (v66 < *&v67)
+    if (v69 < *&v70)
     {
-      v68 = vcvtps_u32_f32(*(a1 + 2896) / *(a1 + 2904));
-      if (*&v67 < 3uLL || (v69 = vcnt_s8(v67), v69.i16[0] = vaddlv_u8(v69), v69.u32[0] > 1uLL))
+      v71 = vcvtps_u32_f32(*(a1 + 2896) / *(a1 + 2904));
+      if (*&v70 < 3uLL || (v72 = vcnt_s8(v70), v72.i16[0] = vaddlv_u8(v72), v72.u32[0] > 1uLL))
       {
-        v68 = std::__next_prime(v68);
+        v71 = std::__next_prime(v71);
       }
 
       else
       {
-        v70 = 1 << -__clz(v68 - 1);
-        if (v68 >= 2)
+        v73 = 1 << -__clz(v71 - 1);
+        if (v71 >= 2)
         {
-          v68 = v70;
+          v71 = v73;
         }
       }
 
-      if (v66 <= v68)
+      if (v69 <= v71)
       {
-        v66 = v68;
+        v69 = v71;
       }
 
-      if (v66 < *&v67)
+      if (v69 < *&v70)
       {
-LABEL_122:
-        std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__do_rehash<true>(a1 + 2872, v66);
+LABEL_131:
+        std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__do_rehash<true>(a1 + 2872, v69);
       }
     }
 
-    v144 = 0u;
-    v145 = 0u;
-    v146 = 0u;
-    v147 = 0u;
-    v71 = [v127 functions];
-    v72 = [v71 countByEnumeratingWithState:&v144 objects:&v151 count:16];
-    if (v72)
+    v157 = 0u;
+    v158 = 0u;
+    v159 = 0u;
+    v160 = 0u;
+    v74 = [v133 functions];
+    v75 = [v74 countByEnumeratingWithState:&v157 objects:&v164 count:16];
+    if (v75)
     {
-      objb = v71;
-      v73 = 0;
-      v74 = *v145;
+      objb = v74;
+      v76 = 0;
+      v77 = *v158;
       do
       {
-        for (m = 0; m != v72; ++m)
+        for (m = 0; m != v75; ++m)
         {
-          if (*v145 != v74)
+          if (*v158 != v77)
           {
             objc_enumerationMutation(objb);
           }
 
-          v148[0] = *(*(&v144 + 1) + 8 * m);
-          v76 = [v148[0] name];
-          v77 = [v76 UTF8String];
-          v78 = strlen(v77);
-          if (v78 > 0x7FFFFFFFFFFFFFF7)
+          v161[0] = *(*(&v157 + 1) + 8 * m);
+          v79 = [v161[0] name];
+          v80 = [v79 UTF8String];
+          v81 = strlen(v80);
+          if (v81 > 0x7FFFFFFFFFFFFFF7)
           {
-            goto LABEL_225;
+            goto LABEL_243;
           }
 
-          v79 = v78;
-          if (v78 >= 0x17)
+          v82 = v81;
+          if (v81 >= 0x17)
           {
             operator new();
           }
 
-          HIBYTE(v150) = v78;
-          if (v78)
+          HIBYTE(v163) = v81;
+          if (v81)
           {
-            memmove(&__dst, v77, v78);
+            memmove(&__dst, v80, v81);
           }
 
-          *(&__dst + v79) = 0;
-          v80 = std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::find<std::string>((a1 + 3072), &__dst);
-          if (SHIBYTE(v150) < 0)
+          *(&__dst + v82) = 0;
+          v83 = std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::find<std::string>((a1 + 3072), &__dst);
+          if (SHIBYTE(v163) < 0)
           {
-            v81 = v80;
+            v84 = v83;
             operator delete(__dst);
-            if (!v81)
+            if (!v84)
             {
-LABEL_149:
-              *&v140 = [v76 UTF8String];
-              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>();
+LABEL_158:
+              *&v153 = [v79 UTF8String];
+              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>(&__dst, a1 + 3072, &v153, v161);
             }
           }
 
-          else if (!v80)
+          else if (!v83)
           {
-            goto LABEL_149;
+            goto LABEL_158;
           }
 
-          v82 = v148[0];
-          if ([v148[0] functionType] == 6)
+          v85 = v161[0];
+          if ([v161[0] functionType] == 6)
           {
-            v83 = [(atomic_ullong *)a2 requiresRaytracingEmulation];
+            v86 = [(atomic_ullong *)a2 requiresRaytracingEmulation];
           }
 
           else
           {
-            v83 = 0;
+            v86 = 0;
           }
 
-          if (([v82 functionType] == 5) | v83 & 1)
+          if (([v85 functionType] == 5) | v86 & 1)
           {
-            v84 = VisibleFunctionsMap::getVisibleFunctionOffset(v129 + 508, [v76 cStringUsingEncoding:4]);
-            if (v84 != -1)
+            v87 = VisibleFunctionsMap::getVisibleFunctionOffset(v135 + 508, [v79 cStringUsingEncoding:4]);
+            if (v87 != -1)
             {
-              v85 = [v82 functionType];
-              if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2872), v82))
+              v88 = [v85 functionType];
+              if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2872), v85))
               {
-                __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v85 == 5) name:v76 device:a2 handle:v84 dylib:0];
-                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2872), v82);
+                __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v88 == 5) name:v79 device:a2 handle:v87 dylib:0];
+                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2872), v85, v161, &__dst);
               }
             }
           }
 
-          else if ([v82 functionType] == 6 && !std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2872), v82))
+          else if ([v85 functionType] == 6 && !std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2872), v85))
           {
-            v86 = *(16 * v73);
-            if (*(v86 + 25) == 1)
+            v89 = *(v141 + 2 * v76);
+            if (*(v89 + 25) == 1)
             {
-              v87 = *(v86 + 32) & 0xFFFFFFF | 0x80000000;
-              v88 = 1;
+              v90 = *(v89 + 32) & 0xFFFFFFF | 0x80000000;
+              v91 = 1;
             }
 
             else
             {
-              v88 = 0;
-              v87 = v73;
+              v91 = 0;
+              v90 = v76;
             }
 
-            __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v88 name:v76 device:a2 handle:v87 dylib:0];
-            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2872), v82);
-            ++v73;
+            __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v91 name:v79 device:a2 handle:v90 dylib:0];
+            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2872), v85, v161, &__dst);
+            ++v76;
           }
         }
 
-        v72 = [objb countByEnumeratingWithState:&v144 objects:&v151 count:16];
+        v75 = [objb countByEnumeratingWithState:&v157 objects:&v164 count:16];
       }
 
-      while (v72);
+      while (v75);
     }
 
     else
     {
-      v73 = 0;
+      v76 = 0;
     }
 
-    v140 = 0u;
-    v141 = 0u;
-    v142 = 0u;
-    v143 = 0u;
-    v89 = [v127 privateFunctions];
-    v90 = [v89 countByEnumeratingWithState:&v140 objects:&__dst count:16];
-    if (v90)
+    v153 = 0u;
+    v154 = 0u;
+    v155 = 0u;
+    v156 = 0u;
+    v92 = [v133 privateFunctions];
+    v93 = [v92 countByEnumeratingWithState:&v153 objects:&__dst count:16];
+    if (v93)
     {
-      v91 = *v141;
+      v94 = *v154;
       do
       {
-        for (n = 0; n != v90; ++n)
+        for (n = 0; n != v93; ++n)
         {
-          if (*v141 != v91)
+          if (*v154 != v94)
           {
-            objc_enumerationMutation(v89);
+            objc_enumerationMutation(v92);
           }
 
-          if ([*(*(&v140 + 1) + 8 * n) functionType] == 6)
+          if ([*(*(&v153 + 1) + 8 * n) functionType] == 6)
           {
-            v73 += [(atomic_ullong *)a2 requiresRaytracingEmulation]^ 1;
+            v76 += [(atomic_ullong *)a2 requiresRaytracingEmulation]^ 1;
           }
         }
 
-        v90 = [v89 countByEnumeratingWithState:&v140 objects:&__dst count:16];
+        v93 = [v92 countByEnumeratingWithState:&v153 objects:&__dst count:16];
       }
 
-      while (v90);
+      while (v93);
     }
 
-    v93 = [v127 binaryFunctions];
-    v135 = 0u;
-    v136 = 0u;
-    v137 = 0u;
-    v138 = 0u;
-    v94 = [v93 countByEnumeratingWithState:&v135 objects:v148 count:16];
-    if (v94)
+    v96 = [v133 binaryFunctions];
+    v148 = 0u;
+    v149 = 0u;
+    v150 = 0u;
+    v151 = 0u;
+    v97 = [v96 countByEnumeratingWithState:&v148 objects:v161 count:16];
+    if (v97)
     {
-      v95 = *v136;
-      objc = v93;
+      v98 = *v149;
+      objc = v96;
       do
       {
-        for (ii = 0; ii != v94; ++ii)
+        for (ii = 0; ii != v97; ++ii)
         {
-          if (*v136 != v95)
+          if (*v149 != v98)
           {
             objc_enumerationMutation(objc);
           }
 
-          v97 = *(*(&v135 + 1) + 8 * ii);
-          v139 = v97;
-          v98 = [(_MTLFunctionHandle *)v97 name];
-          if ([(AGXG18PFamilyFunctionHandle *)v97 vendorPrivate]&& ([(AGXG18PFamilyFunctionHandle *)v97 vendorPrivate], objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          v100 = *(*(&v148 + 1) + 8 * ii);
+          v152 = v100;
+          v101 = [(_MTLFunctionHandle *)v100 name];
+          if ([(AGXG18PFamilyFunctionHandle *)v100 vendorPrivate]&& ([(AGXG18PFamilyFunctionHandle *)v100 vendorPrivate], objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2872), v97))
+            if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2872), v100))
             {
-              v105 = *(16 * v73);
-              if (*(v105 + 25) == 1)
+              v108 = *(v141 + 2 * v76);
+              if (*(v108 + 25) == 1)
               {
-                v106 = *(v105 + 32) & 0xFFFFFFF | 0x80000000;
-                v107 = 1;
+                v109 = *(v108 + 32) & 0xFFFFFFF | 0x80000000;
+                v110 = 1;
               }
 
               else
               {
-                v107 = 0;
-                v106 = v73;
+                v110 = 0;
+                v109 = v76;
               }
 
-              [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v107 name:v98 device:a2 handle:v106 dylib:0];
-              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+              v147 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v110 name:v101 device:a2 handle:v109 dylib:0];
+              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a1 + 2872, &v152, &v147);
             }
           }
 
           else
           {
-            v99 = [(AGXG18PFamilyFunctionHandle *)v97 vendorPrivate];
-            v100 = v99;
-            if (v99)
+            v102 = [(AGXG18PFamilyFunctionHandle *)v100 vendorPrivate];
+            v103 = v102;
+            if (v102)
             {
-              v101 = *(v99 + 56);
-              v102 = [(_MTLFunctionHandle *)v97 name];
-              v103 = AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::addressForSymbol(v101 + 120, [(NSString *)v102 cStringUsingEncoding:4], *(*(v100 + 56) + 744));
-              if (v103 != -1)
+              v104 = *(v102 + 56);
+              v105 = [(_MTLFunctionHandle *)v100 name];
+              v106 = AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::LinkInfo::addressForSymbol(v104 + 120, [(NSString *)v105 cStringUsingEncoding:4], *(*(v103 + 56) + 744));
+              if (v106 != -1)
               {
-                v104 = [(_MTLFunctionHandle *)v97 functionType];
-                if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2872), v97))
+                v107 = [(_MTLFunctionHandle *)v100 functionType];
+                if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2872), v100))
                 {
-                  [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v104 == 5) name:v102 device:a2 handle:v103 dylib:v100];
-                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+                  v147 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v107 == 5) name:v105 device:a2 handle:v106 dylib:v103];
+                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a1 + 2872, &v152, &v147);
                 }
               }
             }
           }
         }
 
-        v94 = [objc countByEnumeratingWithState:&v135 objects:v148 count:16];
+        v97 = [objc countByEnumeratingWithState:&v148 objects:v161 count:16];
       }
 
-      while (v94);
+      while (v97);
+    }
+
+    if (v141)
+    {
+      v111 = v142;
+      v112 = v141;
+      if (v142 != v141)
+      {
+        do
+        {
+          v113 = *(v111 - 1);
+          if (v113 && !atomic_fetch_add(&v113->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v113->__on_zero_shared)(v113);
+            std::__shared_weak_count::__release_weak(v113);
+          }
+
+          v111 -= 16;
+        }
+
+        while (v111 != v141);
+        v112 = v141;
+      }
+
+      v142 = v141;
+      operator delete(v112);
     }
   }
 
-  v108 = *a1;
+  v114 = *a1;
   if (*a1)
   {
-    v151 = 0;
-    v152 = 0;
-    v153 = 0;
-    v109 = *(a1 + 3432);
-    v110 = *(a1 + 3440);
-    if (v110 != v109)
+    v164 = 0;
+    v165 = 0;
+    v166 = 0;
+    v115 = *(a1 + 3432);
+    v116 = *(a1 + 3440);
+    if (v116 != v115)
     {
-      if (((v110 - v109) & 0x8000000000000000) == 0)
+      if (((v116 - v115) & 0x8000000000000000) == 0)
       {
         operator new();
       }
 
-LABEL_226:
+LABEL_244:
       std::__throw_bad_array_new_length[abi:nn200100]();
     }
 
-    AGX::constructVisibleFunctionHandles_impl<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::FragmentProgramVariant>(a2, v124, v108, a1 + 2752, (a1 + 2952), &v151);
+    AGX::constructVisibleFunctionHandles_impl<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::FragmentProgramVariant>(a2, v130, v114, a1 + 2752, (a1 + 2952), &v164);
   }
 
-  if (v126 && [v126 explicitVisibilityGroupID] != -1)
+  if (v132 && [v132 explicitVisibilityGroupID] != -1)
   {
-    *(a1 + 792) = [v126 explicitVisibilityGroupID];
+    *(a1 + 792) = [v132 explicitVisibilityGroupID];
     *(a1 + 796) = 1;
   }
 
   if (*(a1 + 796) == 1)
   {
     *(a1 + 816) = *(a1 + 816) & 0xFFFE0000 | *(a1 + 792) & 0x1FFFF;
-    v111 = *(a1 + 804);
-    if (!(v111 >> 30))
+    v117 = *(a1 + 804);
+    if (!(v117 >> 30))
     {
-      *(a1 + 804) = v111 & 0x1FFFFFFF;
+      *(a1 + 804) = v117 & 0x1FFFFFFF;
     }
   }
 
@@ -5208,63 +5280,63 @@ LABEL_226:
     *(a1 + 790) = 1;
   }
 
-  v112 = *(a1 + 8);
-  if (v112 && (*(v112 + 2407) & 0x18) != 0)
+  v118 = *(a1 + 8);
+  if (v118 && (*(v118 + 2407) & 0x18) != 0)
   {
     *(a1 + 790) = 1;
   }
 
-  v113 = *(a1 + 16);
-  if (v113 && (*(v113 + 2407) & 0x18) != 0)
+  v119 = *(a1 + 16);
+  if (v119 && (*(v119 + 2407) & 0x18) != 0)
   {
     *(a1 + 790) = 1;
   }
 
-  v114 = *(a1 + 24);
-  if (v114 && (*(v114 + 2407) & 0x18) != 0)
+  v120 = *(a1 + 24);
+  if (v120 && (*(v120 + 2407) & 0x18) != 0)
   {
     *(a1 + 790) = 1;
   }
 
-  v115 = *(a1 + 32);
-  if (v115 && (*(v115 + 2407) & 0x18) != 0)
+  v121 = *(a1 + 32);
+  if (v121 && (*(v121 + 2407) & 0x18) != 0)
   {
     *(a1 + 790) = 1;
   }
 
-  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(a1, v125);
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(a1, v131);
   if (*(a1 + 789) == 1)
   {
-    AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::RangeAllocation(&v151, (a2[106] + 11808), [v126 resourceIndex]);
-    v116 = *(a1 + 1000);
-    *(a1 + 1000) = v151;
-    v151 = v116;
-    v117 = *(a1 + 1008);
-    v118 = v152;
-    *(a1 + 1008) = v152;
-    v152 = v117;
-    v119 = *(a1 + 1016);
-    *(a1 + 1016) = v153;
-    LOBYTE(v153) = v119;
-    if (v116 && (v119 & 1) == 0)
+    AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::RangeAllocation(&v164, (a2[106] + 11808), [v132 resourceIndex]);
+    v122 = *(a1 + 1000);
+    *(a1 + 1000) = v164;
+    v164 = v122;
+    v123 = *(a1 + 1008);
+    v124 = v165;
+    *(a1 + 1008) = v165;
+    v165 = v123;
+    v125 = *(a1 + 1016);
+    *(a1 + 1016) = v166;
+    LOBYTE(v166) = v125;
+    if (v122 && (v125 & 1) == 0)
     {
-      os_unfair_lock_lock(v117 + 188);
-      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(&v152[174], v151, v151 + HIDWORD(v151) - 1);
-      os_unfair_lock_unlock(v117 + 188);
-      v118 = *(a1 + 1008);
+      os_unfair_lock_lock(v123 + 188);
+      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(&v165[174], v164, v164 + HIDWORD(v164) - 1);
+      os_unfair_lock_unlock(v123 + 188);
+      v124 = *(a1 + 1008);
     }
 
-    v120 = *(a1 + 944);
-    os_unfair_lock_lock(v118 + 188);
-    v121 = *(a1 + 1008);
-    v122 = *(a1 + 1000);
-    os_unfair_lock_assert_owner(v121 + 188);
-    *(*(*&v121[6 * v121[170]._os_unfair_lock_opaque + 4]._os_unfair_lock_opaque + *MEMORY[0x29EDC5638] + 24) + 8 * v122) = v120;
-    os_unfair_lock_unlock(v118 + 188);
+    v126 = *(a1 + 944);
+    os_unfair_lock_lock(v124 + 188);
+    v127 = *(a1 + 1008);
+    v128 = *(a1 + 1000);
+    os_unfair_lock_assert_owner(v127 + 188);
+    *(*(*&v127[6 * v127[170]._os_unfair_lock_opaque + 4]._os_unfair_lock_opaque + *MEMORY[0x29EDC5638] + 24) + 8 * v128) = v126;
+    os_unfair_lock_unlock(v124 + 188);
   }
 }
 
-uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::finalize<MTLTileRenderPipelineDescriptor>(uint64_t a1, atomic_ullong *a2, NSObject *a3, void *a4)
+void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::finalize<MTLTileRenderPipelineDescriptor>(uint64_t a1, atomic_ullong *a2, NSObject *a3, void *a4)
 {
   v93 = *MEMORY[0x29EDCA608];
   v7 = a2[106];
@@ -5342,14 +5414,14 @@ uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::H
   }
 
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::computeMaximumRayPayloadSizes(a1);
-  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(a1);
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(a1, a2);
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParams(a1, v7);
   if ((*(a1 + 1257) & 1) != 0 || (*(a1 + 1569) & 1) != 0 || (*(a1 + 2193) & 1) != 0 || (*(a1 + 2505) & 1) != 0 || *(a1 + 1881))
   {
     atomic_fetch_or(a2 + 108, 0x1000uLL);
   }
 
-  v71 = v7;
+  v70 = v7;
   if (*(a1 + 1252) || *(a1 + 1564) || *(a1 + 2188) || *(a1 + 2500) || *(a1 + 1876))
   {
     atomic_fetch_or(a2 + 108, 0x200000uLL);
@@ -5357,8 +5429,8 @@ uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::H
 
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::emitLabelUpdateSignpost(a1, a3);
   v19 = [a4 linkedFunctions];
-  v72 = *(a1 + 16);
-  if (v72)
+  v71 = *(a1 + 16);
+  if (v71)
   {
     v20 = v19;
     v21 = *(a1 + 3456);
@@ -5425,7 +5497,7 @@ LABEL_42:
     v88 = 0u;
     v28 = [v20 functions];
     v29 = [v28 countByEnumeratingWithState:&v85 objects:v92 count:16];
-    v70 = v20;
+    v69 = v20;
     if (v29)
     {
       obj = v28;
@@ -5471,7 +5543,7 @@ LABEL_42:
             {
 LABEL_69:
               *&v81 = [v33 UTF8String];
-              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>();
+              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>(&__dst, a1 + 2992, &v81, v89);
             }
           }
 
@@ -5493,14 +5565,14 @@ LABEL_69:
 
           if (([v39 functionType] == 5) | v40 & 1)
           {
-            VisibleFunctionOffset = VisibleFunctionsMap::getVisibleFunctionOffset(v72 + 481, [v33 cStringUsingEncoding:4]);
+            VisibleFunctionOffset = VisibleFunctionsMap::getVisibleFunctionOffset(v71 + 481, [v33 cStringUsingEncoding:4]);
             if (VisibleFunctionOffset != -1)
             {
               v42 = [v39 functionType];
               if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2792), v39))
               {
                 __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v42 == 5) name:v33 device:a2 handle:VisibleFunctionOffset dylib:0];
-                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2792), v39);
+                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2792), v39, v89, &__dst);
               }
             }
           }
@@ -5521,7 +5593,7 @@ LABEL_69:
             }
 
             __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v45 name:v33 device:a2 handle:v44 dylib:0];
-            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2792), v39);
+            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2792), v39, v89, &__dst);
             ++v30;
           }
         }
@@ -5541,7 +5613,7 @@ LABEL_69:
     v82 = 0u;
     v83 = 0u;
     v84 = 0u;
-    v46 = [v70 privateFunctions];
+    v46 = [v69 privateFunctions];
     v47 = [v46 countByEnumeratingWithState:&v81 objects:&__dst count:16];
     if (v47)
     {
@@ -5567,7 +5639,7 @@ LABEL_69:
       while (v47);
     }
 
-    v50 = [v70 binaryFunctions];
+    v50 = [v69 binaryFunctions];
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
@@ -5606,8 +5678,8 @@ LABEL_69:
                 v63 = v30;
               }
 
-              [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v64 name:v55 device:a2 handle:v63 dylib:0];
-              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+              v75 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v64 name:v55 device:a2 handle:v63 dylib:0];
+              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a1 + 2792, &v80, &v75);
             }
           }
 
@@ -5625,8 +5697,8 @@ LABEL_69:
                 v61 = [v54 functionType];
                 if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2792), v54))
                 {
-                  [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v61 == 5) name:v59 device:a2 handle:v60 dylib:v57];
-                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+                  v75 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v61 == 5) name:v59 device:a2 handle:v60 dylib:v57];
+                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a1 + 2792, &v80, &v75);
                 }
               }
             }
@@ -5669,19 +5741,19 @@ LABEL_69:
     *(a1 + 790) = 1;
   }
 
-  return AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(a1, v71);
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(a1, v70);
 }
 
-void sub_29CF16B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29CF16B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::vector<std::shared_ptr<AGX::HAL300::IntersectionPipelineSet>>::~vector[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
 void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::finalize<MTLRenderPipelineDescriptor>(uint64_t a1, atomic_ullong *a2, NSObject *a3, void *a4)
 {
-  v106 = *MEMORY[0x29EDCA608];
+  v107 = *MEMORY[0x29EDCA608];
   v7 = a2[106];
   *(a1 + 1024) = a2;
   v8 = *(a1 + 8);
@@ -5757,7 +5829,7 @@ void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL30
   }
 
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::computeMaximumRayPayloadSizes(a1);
-  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(a1);
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(a1, a2);
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParams(a1, v7);
   if ((*(a1 + 1257) & 1) != 0 || (*(a1 + 1569) & 1) != 0 || (*(a1 + 2193) & 1) != 0 || (*(a1 + 2505) & 1) != 0 || *(a1 + 1881))
   {
@@ -5835,28 +5907,28 @@ LABEL_42:
       }
     }
 
-    v96 = 0u;
     v97 = 0u;
     v98 = 0u;
     v99 = 0u;
+    v100 = 0u;
     v27 = [v19 functions];
-    v28 = [v27 countByEnumeratingWithState:&v96 objects:&v103 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v97 objects:&v104 count:16];
     if (v28)
     {
       obj = v27;
       v29 = 0;
-      v30 = *v97;
+      v30 = *v98;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v97 != v30)
+          if (*v98 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v100[0] = *(*(&v96 + 1) + 8 * i);
-          v32 = [v100[0] name];
+          v101[0] = *(*(&v97 + 1) + 8 * i);
+          v32 = [v101[0] name];
           v33 = [v32 UTF8String];
           v34 = strlen(v33);
           if (v34 >= 0x7FFFFFFFFFFFFFF8)
@@ -5870,7 +5942,7 @@ LABEL_42:
             operator new();
           }
 
-          v102 = v34;
+          v103 = v34;
           if (v34)
           {
             memmove(&__dst, v33, v34);
@@ -5879,14 +5951,14 @@ LABEL_42:
           *(&__dst + v35) = 0;
           v36 = std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::find<std::string>((a1 + 2912), &__dst);
           v37 = v36;
-          if (v102 < 0)
+          if (v103 < 0)
           {
             operator delete(__dst);
             if (!v37)
             {
 LABEL_69:
-              *&v92 = [v32 UTF8String];
-              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>();
+              *&v93 = [v32 UTF8String];
+              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>(&__dst, a1 + 2912, &v93, v101);
             }
           }
 
@@ -5895,8 +5967,8 @@ LABEL_69:
             goto LABEL_69;
           }
 
-          v38 = v100[0];
-          if ([v100[0] functionType] == 6)
+          v38 = v101[0];
+          if ([v101[0] functionType] == 6)
           {
             v39 = [(atomic_ullong *)a2 requiresRaytracingEmulation];
           }
@@ -5915,7 +5987,7 @@ LABEL_69:
               if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2712), v38))
               {
                 __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v41 == 5) name:v32 device:a2 handle:VisibleFunctionOffset dylib:0];
-                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2712), v38);
+                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2712), v38, v101, &__dst);
               }
             }
           }
@@ -5936,12 +6008,12 @@ LABEL_69:
             }
 
             __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v44 name:v32 device:a2 handle:v43 dylib:0];
-            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2712), v38);
+            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((a1 + 2712), v38, v101, &__dst);
             ++v29;
           }
         }
 
-        v28 = [obj countByEnumeratingWithState:&v96 objects:&v103 count:16];
+        v28 = [obj countByEnumeratingWithState:&v97 objects:&v104 count:16];
       }
 
       while (v28);
@@ -5952,57 +6024,57 @@ LABEL_69:
       v29 = 0;
     }
 
-    v92 = 0u;
     v93 = 0u;
     v94 = 0u;
     v95 = 0u;
+    v96 = 0u;
     v45 = [v19 privateFunctions];
-    v46 = [v45 countByEnumeratingWithState:&v92 objects:&__dst count:16];
+    v46 = [v45 countByEnumeratingWithState:&v93 objects:&__dst count:16];
     if (v46)
     {
-      v47 = *v93;
+      v47 = *v94;
       do
       {
         for (j = 0; j != v46; ++j)
         {
-          if (*v93 != v47)
+          if (*v94 != v47)
           {
             objc_enumerationMutation(v45);
           }
 
-          if ([*(*(&v92 + 1) + 8 * j) functionType] == 6)
+          if ([*(*(&v93 + 1) + 8 * j) functionType] == 6)
           {
             v29 += [(atomic_ullong *)a2 requiresRaytracingEmulation]^ 1;
           }
         }
 
-        v46 = [v45 countByEnumeratingWithState:&v92 objects:&__dst count:16];
+        v46 = [v45 countByEnumeratingWithState:&v93 objects:&__dst count:16];
       }
 
       while (v46);
     }
 
     v49 = [v19 binaryFunctions];
-    v87 = 0u;
     v88 = 0u;
     v89 = 0u;
     v90 = 0u;
-    v50 = [v49 countByEnumeratingWithState:&v87 objects:v100 count:16];
+    v91 = 0u;
+    v50 = [v49 countByEnumeratingWithState:&v88 objects:v101 count:16];
     if (v50)
     {
-      v51 = *v88;
+      v51 = *v89;
       obja = v49;
       do
       {
         for (k = 0; k != v50; ++k)
         {
-          if (*v88 != v51)
+          if (*v89 != v51)
           {
             objc_enumerationMutation(obja);
           }
 
-          v53 = *(*(&v87 + 1) + 8 * k);
-          v91 = v53;
+          v53 = *(*(&v88 + 1) + 8 * k);
+          v92 = v53;
           v54 = [v53 name];
           if ([v53 vendorPrivate] && (objc_msgSend(v53, "vendorPrivate"), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
@@ -6021,8 +6093,8 @@ LABEL_69:
                 v62 = v29;
               }
 
-              [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v63 name:v54 device:a2 handle:v62 dylib:0];
-              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+              v87 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v63 name:v54 device:a2 handle:v62 dylib:0];
+              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a1 + 2712, &v92, &v87);
             }
           }
 
@@ -6040,15 +6112,15 @@ LABEL_69:
                 v60 = [v53 functionType];
                 if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((a1 + 2712), v53))
                 {
-                  [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v60 == 5) name:v58 device:a2 handle:v59 dylib:v56];
-                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+                  v87 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v60 == 5) name:v58 device:a2 handle:v59 dylib:v56];
+                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a1 + 2712, &v92, &v87);
                 }
               }
             }
           }
         }
 
-        v50 = [obja countByEnumeratingWithState:&v87 objects:v100 count:16];
+        v50 = [obja countByEnumeratingWithState:&v88 objects:v101 count:16];
       }
 
       while (v50);
@@ -6061,9 +6133,9 @@ LABEL_69:
   if (*a1)
   {
     v65 = a4;
-    v103 = 0;
     v104 = 0;
     v105 = 0;
+    v106 = 0;
     v66 = *(a1 + 3432);
     v67 = *(a1 + 3440);
     if (v67 != v66)
@@ -6077,7 +6149,7 @@ LABEL_147:
       std::__throw_bad_array_new_length[abi:nn200100]();
     }
 
-    AGX::constructVisibleFunctionHandles_impl<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::FragmentProgramVariant>(a2, v81, v64, a1 + 2752, (a1 + 2952), &v103);
+    AGX::constructVisibleFunctionHandles_impl<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::FragmentProgramVariant>(a2, v81, v64, a1 + 2752, (a1 + 2952), &v104);
     a4 = v65;
   }
 
@@ -6129,21 +6201,21 @@ LABEL_147:
   AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(a1, v82);
   if (*(a1 + 789) == 1)
   {
-    AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::RangeAllocation(&v103, (a2[106] + 11808), [a4 resourceIndex]);
+    AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::RangeAllocation(&v104, (a2[106] + 11808), [a4 resourceIndex]);
     v73 = *(a1 + 1000);
-    *(a1 + 1000) = v103;
-    v103 = v73;
+    *(a1 + 1000) = v104;
+    v104 = v73;
     v74 = *(a1 + 1008);
-    v75 = v104;
-    *(a1 + 1008) = v104;
-    v104 = v74;
+    v75 = v105;
+    *(a1 + 1008) = v105;
+    v105 = v74;
     v76 = *(a1 + 1016);
-    *(a1 + 1016) = v105;
-    LOBYTE(v105) = v76;
+    *(a1 + 1016) = v106;
+    LOBYTE(v106) = v76;
     if (v73 && (v76 & 1) == 0)
     {
       os_unfair_lock_lock(v74 + 188);
-      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(&v104[174], v103, v103 + HIDWORD(v103) - 1);
+      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(&v105[174], v104, v104 + HIDWORD(v104) - 1);
       os_unfair_lock_unlock(v74 + 188);
       v75 = *(a1 + 1008);
     }
@@ -6177,9 +6249,9 @@ double AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL
         v6 = *v3;
         if (*(*v3 + 24) != 1)
         {
-          v29 = *v6;
-          v30 = v6[1];
-          if (*v6 != v30)
+          v29 = *&v6->_os_unfair_lock_opaque;
+          v30 = *&v6[2]._os_unfair_lock_opaque;
+          if (*&v6->_os_unfair_lock_opaque != v30)
           {
             v31 = *(v4 + 27);
             v32 = v4[25];
@@ -6466,67 +6538,65 @@ LABEL_7:
   return AGX::RayPayloadSizeAlignImpl<AGX::HAL300::Classes>::merge(v54 + 822, v54 + 439);
 }
 
-uint64_t *AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(uint64_t *result)
+void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(uint64_t *a1, uint64_t a2)
 {
-  v1 = result[1];
-  if (v1)
+  v2 = a1[1];
+  if (v2)
   {
-    LODWORD(v1) = (*(v1 + 2408) >> 1) & 1;
+    LODWORD(v2) = (*(v2 + 2408) >> 1) & 1;
   }
 
-  v2 = *result;
-  if (*result)
+  v3 = *a1;
+  if (*a1)
   {
-    LODWORD(v2) = *(v2 + 2408) & 2;
+    LODWORD(v3) = *(v3 + 2408) & 2;
   }
 
-  v3 = result[3];
-  if (v3)
+  v4 = a1[3];
+  if (v4)
   {
-    LODWORD(v3) = (4 * *(v3 + 2408)) & 8;
+    LODWORD(v4) = (4 * *(v4 + 2408)) & 8;
   }
 
-  v4 = v2 | v3;
-  v5 = result[4];
-  if (v5)
+  v5 = v3 | v4;
+  v6 = a1[4];
+  if (v6)
   {
-    LODWORD(v5) = (8 * *(v5 + 2408)) & 0x10;
+    LODWORD(v6) = (8 * *(v6 + 2408)) & 0x10;
   }
 
-  v6 = v4 | v5;
-  v7 = result[2];
-  if (v7)
+  v7 = v5 | v6;
+  v8 = a1[2];
+  if (v8)
   {
-    LODWORD(v7) = (2 * *(v7 + 2408)) & 4;
+    LODWORD(v8) = (2 * *(v8 + 2408)) & 4;
   }
 
-  *(result + 914) = v6 | v7 | v1;
-  if (v1)
-  {
-    operator new();
-  }
-
-  if ((result[457] & 2) != 0)
+  *(a1 + 914) = v7 | v8 | v2;
+  if (v2)
   {
     operator new();
   }
 
-  if ((result[457] & 4) != 0)
+  if ((a1[457] & 2) != 0)
   {
     operator new();
   }
 
-  if ((result[457] & 8) != 0)
+  if ((a1[457] & 4) != 0)
   {
     operator new();
   }
 
-  if ((result[457] & 0x10) != 0)
+  if ((a1[457] & 8) != 0)
   {
     operator new();
   }
 
-  return result;
+  if ((a1[457] & 0x10) != 0)
+  {
+    operator new();
+  }
 }
 
 void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::emitLabelUpdateSignpost(uint64_t *a1, NSObject *a2)
@@ -6705,11 +6775,11 @@ LABEL_22:
   }
 }
 
-uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(uint64_t result, uint64_t a2)
+void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(uint64_t a1, __int32 **a2)
 {
   for (i = 0; i != 5; ++i)
   {
-    v3 = result + 3408 + 24 * i;
+    v3 = a1 + 3408 + 24 * i;
     if (*v3 != *(v3 + 8))
     {
       AGX::SpillInfoGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::SpillInfoGen4(&v80, a2, 0);
@@ -6729,11 +6799,11 @@ LABEL_5:
       while (1)
       {
         v7 = *v5;
-        if (*(*v5 + 24) != 1)
+        if (LOBYTE((*v5)[6]._os_unfair_lock_opaque) != 1)
         {
-          v47 = *v7;
-          v48 = v7[1];
-          if (*v7 != v48)
+          v47 = *&v7->_os_unfair_lock_opaque;
+          v48 = *&v7[2]._os_unfair_lock_opaque;
+          if (*&v7->_os_unfair_lock_opaque != v48)
           {
             v49 = vmovn_s64(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(*(v84 + 7008 + 16 * (*(v84 + 7008) == 0)))))));
             v50 = vadd_s32(vdup_lane_s32(v49, 1), v49).u32[0];
@@ -6837,7 +6907,7 @@ LABEL_5:
         else
         {
           v9 = vmovn_s64(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(*(v84 + 7008 + 16 * (*(v84 + 7008) == 0)))))));
-          v10 = **v5;
+          v10 = *&(*v5)->_os_unfair_lock_opaque;
           v11 = vadd_s32(vdup_lane_s32(v9, 1), v9).u32[0];
           v13 = v80;
           v12 = v81;
@@ -6846,8 +6916,8 @@ LABEL_5:
           v16 = v78;
           do
           {
-            v17 = 32 * (*(v16 + 22) + *(v16 + 13));
-            v18 = 32 * *(v16 + 16);
+            v17 = 32 * (v16[22] + v16[13]);
+            v18 = 32 * v16[16];
             v19 = v17 + 21375;
             if (v17 + 21375 < 0)
             {
@@ -6919,7 +6989,7 @@ LABEL_5:
             v13 = vmaxq_s32(v13, 0);
             v14 = vmaxq_s32(v14, v41);
             v15 &= ~(v15 >> 31);
-            v16 += 39;
+            v16 += 78;
             v10 += 344;
           }
 
@@ -6936,7 +7006,7 @@ LABEL_5:
           v6 = v78;
           if (v78 != v79)
           {
-            v42 = v79 - 38;
+            v42 = (v79 - 76);
             while (1)
             {
               v44 = v42[4];
@@ -7001,11 +7071,9 @@ LABEL_9:
       }
     }
   }
-
-  return result;
 }
 
-uint64_t AGX::constructVisibleFunctionHandles_impl<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::FragmentProgramVariant>(void *a1, void *a2, int8x8_t *a3, uint64_t a4, void *a5, void *a6)
+void *AGX::constructVisibleFunctionHandles_impl<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::FragmentProgramVariant>(void *a1, void *a2, int8x8_t *a3, uint64_t a4, float *a5, void *a6)
 {
   v76 = *MEMORY[0x29EDCA608];
   prime = vcvtps_u32_f32(([objc_msgSend(a2 "binaryFunctions")] + objc_msgSend(objc_msgSend(a2, "functions"), "count")) / *(a4 + 32));
@@ -7106,7 +7174,7 @@ LABEL_6:
           {
 LABEL_33:
             v65 = [(NSString *)v18 UTF8String];
-            std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>();
+            std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>(&__dst, a5, &v65, &v70);
           }
         }
 
@@ -7135,7 +7203,7 @@ LABEL_33:
             if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>(a4, v24))
             {
               __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v27 == 5) name:v18 device:a1 handle:VisibleFunctionOffset dylib:0];
-              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>(a4, v24);
+              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>(a4, v24, &v70, &__dst);
             }
           }
         }
@@ -7156,7 +7224,7 @@ LABEL_33:
           }
 
           __dst = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v30 name:v18 device:a1 handle:v29 dylib:0];
-          std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>(a4, v24);
+          std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>(a4, v24, &v70, &__dst);
           ++v14;
         }
       }
@@ -7238,7 +7306,7 @@ LABEL_33:
             }
 
             v70 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v50 name:v41 device:a1 handle:v49 dylib:0];
-            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a4, &__dst, &v70);
           }
         }
 
@@ -7257,13 +7325,13 @@ LABEL_33:
               if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>(a4, v40))
               {
                 v70 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v47 == 5) name:v45 device:a1 handle:v46 dylib:v43];
-                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>(a4, &__dst, &v70);
               }
             }
           }
         }
 
-        ++v39;
+        v39 = v39 + 1;
       }
 
       while (v37 != v39);
@@ -7277,7 +7345,7 @@ LABEL_33:
   return result;
 }
 
-uint64_t AGX::SpecializableRenderPipelineState::reconstructColorAttachments(uint64_t a1, void *a2)
+void *AGX::SpecializableRenderPipelineState::reconstructColorAttachments(uint64_t a1, void *a2)
 {
   v4 = 0;
   v5 = 0;
@@ -7413,11 +7481,11 @@ uint64_t AGX::SpecializableRenderPipelineState::reconstructColorAttachments(uint
 
 void sub_29CF1C3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  std::vector<std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState>>>::~vector[abi:nn200100](&a68);
-  v70 = *(v68 - 256);
-  if (v70)
+  std::vector<std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState>>>::~vector[abi:nn200100](&a65);
+  v67 = *(v65 - 256);
+  if (v67)
   {
-    operator delete(v70);
+    operator delete(v67);
   }
 
   if (__p)
@@ -7429,67 +7497,69 @@ void sub_29CF1C3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::incrementalLoad<AGX::HAL300::FragmentProgramVariant>(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6)
+uint64_t AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::incrementalLoad<AGX::HAL300::FragmentProgramVariant>(uint64_t **a1, void **a2, uint64_t a3, void *a4, uint64_t **a5, uint64_t *a6, uint64_t a7, uint64_t a8, unsigned __int8 a9, void *a10)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   __p = 0;
-  v28 = 0;
-  v29 = 0;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v9 = [a4 countByEnumeratingWithState:&v23 objects:v30 count:16];
-  if (!v9)
+  v35 = 0;
+  v36 = 0;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v15 = [a4 countByEnumeratingWithState:&v30 objects:v37 count:16];
+  if (!v15)
   {
 LABEL_14:
-    AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::incrementalLoad<AGX::HAL300::FragmentProgramVariant>(a1, a2, a3, &__p, a5, a6);
+    AGX::PipelineDylibResources<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,(AGX::ICBType)1>::incrementalLoad<AGX::HAL300::FragmentProgramVariant>(a1, a2, a3, &__p, a5, a6, a7, a8, a9, a10);
   }
 
-  v10 = *v24;
-  v19 = a6;
+  v16 = *v31;
+  v25 = a6;
+  v26 = a7;
 LABEL_3:
-  v11 = 0;
+  v17 = 0;
   while (1)
   {
-    if (*v24 != v10)
+    if (*v31 != v16)
     {
       objc_enumerationMutation(a4);
     }
 
-    v12 = *(*(&v23 + 1) + 8 * v11);
-    if (([a2 requiresRaytracingEmulation] & 1) == 0 && objc_msgSend(v12, "functionType") == 6)
+    v18 = *(*(&v30 + 1) + 8 * v17);
+    if (([a2 requiresRaytracingEmulation] & 1) == 0 && objc_msgSend(v18, "functionType") == 6)
     {
       goto LABEL_4;
     }
 
-    if (![v12 vendorPrivate])
+    if (![v18 vendorPrivate])
     {
       break;
     }
 
-    [v12 vendorPrivate];
+    [v18 vendorPrivate];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       break;
     }
 
-    v13 = [v12 vendorPrivate];
-    v14 = v13;
-    if (!v13)
+    v19 = [v18 vendorPrivate];
+    v20 = v19;
+    if (!v19)
     {
       break;
     }
 
-    AGX::applySPIRelocations<AGX::HAL300::ObjClasses,AGX::HAL300::DynamicLibrary>(v13[7], [v13 relocations]);
-    std::vector<std::shared_ptr<AGX::HAL300::DynamicLibrary>>::push_back[abi:nn200100](&__p, (v14 + 7));
+    AGX::applySPIRelocations<AGX::HAL300::ObjClasses,AGX::HAL300::DynamicLibrary>(v19[7], [v19 relocations]);
+    std::vector<std::shared_ptr<AGX::HAL300::DynamicLibrary>>::push_back[abi:nn200100](&__p, (v20 + 7));
 LABEL_4:
-    if (v9 == ++v11)
+    if (v15 == ++v17)
     {
-      v9 = [a4 countByEnumeratingWithState:&v23 objects:v30 count:16];
-      a6 = v19;
-      if (!v9)
+      v15 = [a4 countByEnumeratingWithState:&v30 objects:v37 count:16];
+      a6 = v25;
+      a7 = v26;
+      if (!v15)
       {
         goto LABEL_14;
       }
@@ -7498,39 +7568,39 @@ LABEL_4:
     }
   }
 
-  v15 = __p;
+  v21 = __p;
   if (__p)
   {
-    v16 = v28;
-    if (v28 != __p)
+    v22 = v35;
+    if (v35 != __p)
     {
       do
       {
-        v17 = *(v16 - 1);
-        if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v23 = *(v22 - 1);
+        if (v23 && !atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v17->__on_zero_shared)(v17);
-          std::__shared_weak_count::__release_weak(v17);
+          (v23->__on_zero_shared)(v23);
+          std::__shared_weak_count::__release_weak(v23);
         }
 
-        v16 -= 16;
+        v22 -= 16;
       }
 
-      while (v16 != v15);
-      v15 = __p;
+      while (v22 != v21);
+      v21 = __p;
     }
 
-    operator delete(v15);
+    operator delete(v21);
   }
 
   return 0;
 }
 
-uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::setPipelineStateWithAdditionalMeshObjectFragmentFunctions(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, void *a8, uint64_t a9, uint64_t *a10)
+uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::setPipelineStateWithAdditionalMeshObjectFragmentFunctions(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, void *a8, uint64_t a9, uint64_t *a10)
 {
-  v65 = *MEMORY[0x29EDCA608];
-  v55 = a3 + 240;
-  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::copyStateAndFunctionsFromOriginal(a1, a2, a3 + 240, [a4 count] + objc_msgSend(a6, "count") + objc_msgSend(a8, "count"));
+  v63 = *MEMORY[0x29EDCA608];
+  v53 = a3 + 240;
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::copyStateAndFunctionsFromOriginal(a1, a2, (a3 + 240), [a4 count] + objc_msgSend(a6, "count") + objc_msgSend(a8, "count"));
   prime = vcvtps_u32_f32(([a4 count] + *(a1 + 2896)) / *(a1 + 2904));
   if (prime == 1)
   {
@@ -7675,55 +7745,55 @@ LABEL_38:
     }
   }
 
-  v32 = AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(a2, a4, a5, (a1 + 2872), a1 + 3504, (v55 + 3504), *(v55 + 2352), a10);
+  v32 = AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(a2, a4, a5, (a1 + 2872), a1 + 3504, (v53 + 3504), *(v53 + 2352), a10);
   v33 = v32;
   if (*(a1 + 24))
   {
     v32 = 0;
     if (v33)
     {
-      v32 = AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(a2, a6, a7, (a1 + 2832), a1 + 3480, (v55 + 3480), *(v55 + 2040), a10);
+      v32 = AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(a2, a6, a7, (a1 + 2832), a1 + 3480, (v53 + 3480), *(v53 + 2040), a10);
     }
   }
 
   if (*a1 && v32)
   {
-    if ((AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(a2, a8, a9, (a1 + 2752), a1 + 3432, (v55 + 3432), *(v55 + 1416), a10) & 1) == 0)
+    if ((AGX::mergeAndInsertAdditionalBinaryLinkedFunctions<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(a2, a8, a9, (a1 + 2752), a1 + 3432, (v53 + 3432), *(v53 + 1416), a10) & 1) == 0)
     {
       goto LABEL_86;
     }
 
 LABEL_59:
+    v59 = 0;
+    v60 = 0;
     v61 = 0;
-    v62 = 0;
-    v63 = 0;
+    v55 = 0u;
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v35 = [a4 countByEnumeratingWithState:&v57 objects:v64 count:16];
+    v35 = [a4 countByEnumeratingWithState:&v55 objects:v62 count:16];
     if (v35)
     {
-      v36 = *v58;
+      v36 = *v56;
       do
       {
         for (i = 0; i != v35; ++i)
         {
-          if (*v58 != v36)
+          if (*v56 != v36)
           {
             objc_enumerationMutation(a4);
           }
 
-          v38 = *(*(&v57 + 1) + 8 * i);
+          v38 = *(*(&v55 + 1) + 8 * i);
           if (([a2 requiresRaytracingEmulation] & 1) != 0 || objc_msgSend(v38, "functionType") != 6)
           {
             if (![v38 vendorPrivate] || (objc_msgSend(v38, "vendorPrivate"), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v39 = objc_msgSend(v38, "vendorPrivate"), (v40 = v39) == 0))
             {
-              v43 = v61;
-              if (v61)
+              v43 = v59;
+              if (v59)
               {
-                v44 = v62;
-                if (v62 != v61)
+                v44 = v60;
+                if (v60 != v59)
                 {
                   do
                   {
@@ -7738,7 +7808,7 @@ LABEL_59:
                   }
 
                   while (v44 != v43);
-                  v43 = v61;
+                  v43 = v59;
                 }
 
                 operator delete(v43);
@@ -7748,16 +7818,16 @@ LABEL_59:
             }
 
             AGX::applySPIRelocations<AGX::HAL300::ObjClasses,AGX::HAL300::DynamicLibrary>(v39[7], [v39 relocations]);
-            std::vector<std::shared_ptr<AGX::HAL300::DynamicLibrary>>::push_back[abi:nn200100](&v61, (v40 + 7));
+            std::vector<std::shared_ptr<AGX::HAL300::DynamicLibrary>>::push_back[abi:nn200100](&v59, (v40 + 7));
           }
         }
 
-        v35 = [a4 countByEnumeratingWithState:&v57 objects:v64 count:16];
+        v35 = [a4 countByEnumeratingWithState:&v55 objects:v62 count:16];
       }
 
       while (v35);
-      v42 = v61;
-      v41 = v62;
+      v42 = v59;
+      v41 = v60;
     }
 
     else
@@ -7766,7 +7836,7 @@ LABEL_59:
       v41 = 0;
     }
 
-    if ((((v41 - v42) >> 1) + ((*(v55 + 3512) - *(v55 + 3504)) >> 1) + 1) <= 0x2AAAAAAAAAAAAAALL)
+    if ((((v41 - v42) >> 1) + ((*(v53 + 3512) - *(v53 + 3504)) >> 1) + 1) <= 0x2AAAAAAAAAAAAAALL)
     {
       operator new();
     }
@@ -7789,8 +7859,8 @@ LABEL_86:
   if (([a2 requiresRaytracingEmulation] & 1) == 0)
   {
     AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::computeMaximumRayPayloadSizes(a1);
-    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(a1);
-    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(a1, a2[106]);
+    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTables(a1, a2);
+    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(a1, *(a2 + 848));
   }
 
   if (*a1 && (*(*a1 + 2407) & 0x18) != 0)
@@ -7822,18 +7892,18 @@ LABEL_86:
     *(a1 + 790) = 1;
   }
 
-  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParams(a1, a2[106]);
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParams(a1, *(a2 + 848));
   *(a1 + 1024) = a2;
   return 0;
 }
 
 void sub_29CF20460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  std::vector<std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState>>>::~vector[abi:nn200100](&a67);
-  v69 = *(v67 - 248);
-  if (v69)
+  std::vector<std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState>>>::~vector[abi:nn200100](&a65);
+  v67 = *(v65 - 248);
+  if (v67)
   {
-    operator delete(v69);
+    operator delete(v67);
   }
 
   if (__p)
@@ -7845,13 +7915,14 @@ void sub_29CF20460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_29CF22E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, uint64_t a63)
+void sub_29CF22E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, uint64_t a63, ...)
 {
-  std::vector<std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState>>>::~vector[abi:nn200100](&a64);
-  v66 = *(v64 - 256);
-  if (v66)
+  va_start(va, a63);
+  std::vector<std::vector<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState,std::allocator<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState>>>::~vector[abi:nn200100](va);
+  v65 = *(v63 - 256);
+  if (v65)
   {
-    operator delete(v66);
+    operator delete(v65);
   }
 
   if (__p)
@@ -7863,7 +7934,7 @@ void sub_29CF22E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::SpecializableRenderPipelineState::specialize<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2)
+void *AGX::SpecializableRenderPipelineState::specialize<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2)
 {
   v3 = 0;
   v4 = 0;
@@ -8149,21 +8220,21 @@ LABEL_63:
   v30 = v33[23];
   if (!v30)
   {
-    LOBYTE(v30) = [a2 sampleCount];
+    LOBYTE(v30) = objc_msgSend_sampleCount(a2);
   }
 
   *(a1 + 373) = v30;
   result = v33[27];
   if (!result)
   {
-    result = [a2 sampleCount];
+    result = objc_msgSend_sampleCount(a2);
   }
 
   *(a1 + 374) = result;
   return result;
 }
 
-uint64_t AGX::SpecializableRenderPipelineState::specialize<MTLMeshRenderPipelineDescriptor>(uint64_t a1, void *a2)
+void *AGX::SpecializableRenderPipelineState::specialize<MTLMeshRenderPipelineDescriptor>(uint64_t a1, void *a2)
 {
   v3 = 0;
   v4 = 0;
@@ -8501,170 +8572,170 @@ uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::H
   return result;
 }
 
-uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(uint64_t result)
+void *AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(void *result, uint64_t a2)
 {
-  v1 = result;
-  v2 = *(result + 3408);
-  for (i = *(result + 3416); v2 != i; v2 += 2)
+  v2 = result;
+  v3 = result[426];
+  for (i = result[427]; v3 != i; v3 += 2)
   {
-    v4 = *v2;
-    if ((*v2)[10])
+    v5 = *v3;
+    if ((*v3)[10])
     {
       result = IOGPUResourceListAddResource();
-      v4 = *v2;
+      v5 = *v3;
     }
 
-    v5 = *v4;
-    v6 = v4[1];
-    if (*v4 != v6)
+    v6 = *v5;
+    v7 = v5[1];
+    if (*v5 != v7)
     {
       do
       {
-        v7 = *(*v5 + 2704);
+        v8 = *(*v6 + 2704);
         do
         {
-          v7 &= ~(1 << __clz(__rbit32(v7)));
+          v8 &= ~(1 << __clz(__rbit32(v8)));
           result = IOGPUResourceListAddResource();
         }
 
-        while (v7);
-        v5 += 344;
+        while (v8);
+        v6 += 344;
       }
 
-      while (v5 != v6);
+      while (v6 != v7);
     }
   }
 
-  v8 = v1[429];
-  for (j = v1[430]; v8 != j; v8 += 2)
+  v9 = v2[429];
+  for (j = v2[430]; v9 != j; v9 += 2)
   {
-    v10 = *v8;
-    if ((*v8)[10])
+    v11 = *v9;
+    if ((*v9)[10])
     {
       result = IOGPUResourceListAddResource();
-      v10 = *v8;
+      v11 = *v9;
     }
 
-    v11 = *v10;
-    v12 = v10[1];
-    if (*v10 != v12)
+    v12 = *v11;
+    v13 = v11[1];
+    if (*v11 != v13)
     {
       do
       {
-        v13 = *(*v11 + 2704);
+        v14 = *(*v12 + 2704);
         do
         {
-          v13 &= ~(1 << __clz(__rbit32(v13)));
+          v14 &= ~(1 << __clz(__rbit32(v14)));
           result = IOGPUResourceListAddResource();
         }
 
-        while (v13);
-        v11 += 344;
+        while (v14);
+        v12 += 344;
       }
 
-      while (v11 != v12);
+      while (v12 != v13);
     }
   }
 
-  v14 = v1[432];
-  for (k = v1[433]; v14 != k; v14 += 2)
+  v15 = v2[432];
+  for (k = v2[433]; v15 != k; v15 += 2)
   {
-    v16 = *v14;
-    if ((*v14)[10])
+    v17 = *v15;
+    if ((*v15)[10])
     {
       result = IOGPUResourceListAddResource();
-      v16 = *v14;
+      v17 = *v15;
     }
 
-    v17 = *v16;
-    v18 = v16[1];
-    if (*v16 != v18)
+    v18 = *v17;
+    v19 = v17[1];
+    if (*v17 != v19)
     {
       do
       {
-        v19 = *(*v17 + 2704);
+        v20 = *(*v18 + 2704);
         do
         {
-          v19 &= ~(1 << __clz(__rbit32(v19)));
+          v20 &= ~(1 << __clz(__rbit32(v20)));
           result = IOGPUResourceListAddResource();
         }
 
-        while (v19);
-        v17 += 344;
+        while (v20);
+        v18 += 344;
       }
 
-      while (v17 != v18);
+      while (v18 != v19);
     }
   }
 
-  v20 = v1[435];
-  for (m = v1[436]; v20 != m; v20 += 2)
+  v21 = v2[435];
+  for (m = v2[436]; v21 != m; v21 += 2)
   {
-    v22 = *v20;
-    if ((*v20)[10])
+    v23 = *v21;
+    if ((*v21)[10])
     {
       result = IOGPUResourceListAddResource();
-      v22 = *v20;
+      v23 = *v21;
     }
 
-    v23 = *v22;
-    v24 = v22[1];
-    if (*v22 != v24)
+    v24 = *v23;
+    v25 = v23[1];
+    if (*v23 != v25)
     {
       do
       {
-        v25 = *(*v23 + 2704);
+        v26 = *(*v24 + 2704);
         do
         {
-          v25 &= ~(1 << __clz(__rbit32(v25)));
+          v26 &= ~(1 << __clz(__rbit32(v26)));
           result = IOGPUResourceListAddResource();
         }
 
-        while (v25);
-        v23 += 344;
+        while (v26);
+        v24 += 344;
       }
 
-      while (v23 != v24);
+      while (v24 != v25);
     }
   }
 
-  v26 = v1[438];
-  for (n = v1[439]; v26 != n; v26 += 2)
+  v27 = v2[438];
+  for (n = v2[439]; v27 != n; v27 += 2)
   {
-    v28 = *v26;
-    if ((*v26)[10])
+    v29 = *v27;
+    if ((*v27)[10])
     {
       result = IOGPUResourceListAddResource();
-      v28 = *v26;
+      v29 = *v27;
     }
 
-    v29 = *v28;
-    v30 = v28[1];
-    if (*v28 != v30)
+    v30 = *v29;
+    v31 = v29[1];
+    if (*v29 != v31)
     {
       do
       {
-        v31 = *(*v29 + 2704);
+        v32 = *(*v30 + 2704);
         do
         {
-          v31 &= ~(1 << __clz(__rbit32(v31)));
+          v32 &= ~(1 << __clz(__rbit32(v32)));
           result = IOGPUResourceListAddResource();
         }
 
-        while (v31);
-        v29 += 344;
+        while (v32);
+        v30 += 344;
       }
 
-      while (v29 != v30);
+      while (v30 != v31);
     }
   }
 
   return result;
 }
 
-void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadFragment(uint64_t a1)
+void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadFragment(uint64_t *a1, void **a2, void *a3, void *a4, uint64_t *a5, void *a6)
 {
-  if (((*(a1 + 3440) - *(a1 + 3432)) >> 1) <= 0x2AAAAAAAAAAAAA9)
+  if (((a1[430] - a1[429]) >> 1) <= 0x2AAAAAAAAAAAAA9)
   {
     operator new();
   }
@@ -8693,7 +8764,7 @@ void sub_29CF24D50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadObject(uint64_t a1)
+void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadObject(uint64_t a1, void **a2, void *a3, void *a4, uint64_t *a5, void *a6)
 {
   if (((*(a1 + 3488) - *(a1 + 3480)) >> 1) <= 0x2AAAAAAAAAAAAA9)
   {
@@ -8724,7 +8795,7 @@ void sub_29CF25EB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadMesh(uint64_t a1)
+void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::loadMesh(uint64_t a1, void **a2, void *a3, void *a4, uint64_t *a5, void *a6)
 {
   if (((*(a1 + 3512) - *(a1 + 3504)) >> 1) <= 0x2AAAAAAAAAAAAA9)
   {
@@ -8755,7 +8826,7 @@ void sub_29CF27018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::appendProgramAddressTables(uint64_t result, void *a2)
+void *AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::appendProgramAddressTables(void *result, void *a2)
 {
   v3 = result;
   if (*result)
@@ -9066,7 +9137,7 @@ uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Class
   v7 = *(*(a1 + 23984) + 848);
   v68.i64[0] = *(a1 + 18888) + 216;
   v68.i64[1] = a1 + 19312;
-  AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList(v7 + 2152, &v68);
+  AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList(v7 + 2152, &v68, *(a1 + 48));
   *(a3 + 2096) = *(*(a1 + 18888) + 216);
   explicit = atomic_load_explicit((*(*(a1 + 23984) + 848) + 9388), memory_order_acquire);
   if (explicit)
@@ -9145,7 +9216,7 @@ LABEL_11:
   v21 = *(*(a1 + 23984) + 848);
   v68.i64[0] = v15 + 79432;
   v68.i64[1] = v15 + 79440;
-  if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v21 + 3146, &v68))
+  if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v21 + 3146, &v68, *(a1 + 48)))
   {
     IOGPUResourceListAddResource();
   }
@@ -9155,7 +9226,7 @@ LABEL_11:
   v23 = *(*(a1 + 23944) + 88);
   v68.i64[0] = v23 + 79448;
   v68.i64[1] = v23 + 79456;
-  if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v22 + 2952, &v68))
+  if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v22 + 2952, &v68, *(a1 + 48)))
   {
     IOGPUResourceListAddResource();
   }
@@ -9164,26 +9235,26 @@ LABEL_11:
   v24 = *(*(a1 + 23984) + 848);
   v68.i64[0] = *(a1 + 18888) + 344;
   v68.i64[1] = a1 + 19440;
-  AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v24 + 3534, &v68);
+  AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v24 + 3534, &v68, *(a1 + 48));
   IOGPUResourceListAddResource();
   v25 = *(a1 + 64);
   v68.i64[0] = *(a1 + 18888) + 240;
   v68.i64[1] = a1 + 19336;
-  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v25, &v68);
+  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v25, &v68, *(a1 + 48));
   IOGPUResourceListAddResource();
   v68.i64[0] = *(a1 + 18888) + 256;
   v68.i64[1] = a1 + 19352;
-  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(*(a1 + 56), &v68);
+  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(*(a1 + 56), &v68, *(a1 + 48));
   IOGPUResourceListAddResource();
   v26 = *(*(a1 + 23984) + 848);
   v68.i64[0] = *(a1 + 18888) + 232;
   v68.i64[1] = a1 + 19328;
-  AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList(v26 + 2352, &v68);
+  AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList(v26 + 2352, &v68, *(a1 + 48));
   IOGPUResourceListAddResource();
   v27 = *(*(a1 + 23984) + 848);
   v68.i64[0] = *(a1 + 18888) + 328;
   v68.i64[1] = a1 + 19424;
-  AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList(v27 + 2752, &v68);
+  AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList(v27 + 2752, &v68, *(a1 + 48));
   result = IOGPUResourceListAddResource();
   v31 = *(a1 + 23976);
   v32.i64[0] = -1;

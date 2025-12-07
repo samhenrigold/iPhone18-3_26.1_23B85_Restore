@@ -26,11 +26,11 @@
 
 - (COSEKey)initWithCBOR:(id)r
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   rCopy = r;
-  v97.receiver = self;
-  v97.super_class = COSEKey;
-  v6 = [(COSEKey *)&v97 init];
+  v96.receiver = self;
+  v96.super_class = COSEKey;
+  v6 = [(COSEKey *)&v96 init];
   if (!v6)
   {
 LABEL_110:
@@ -154,7 +154,7 @@ LABEL_46:
         if (unsignedLongLongValue == 2)
         {
 LABEL_24:
-          v89 = string;
+          v88 = string;
           v25 = [CBOR cborWithInteger:-1];
           v26 = [dictionary objectForKey:v25];
 
@@ -226,7 +226,7 @@ LABEL_52:
           }
 
           v9 = v33;
-          string = v89;
+          string = v88;
         }
       }
     }
@@ -264,40 +264,40 @@ LABEL_77:
       v6->_algorithm = v56;
 
 LABEL_78:
-      v91 = v54;
-      v92 = v50;
+      v90 = v54;
+      v91 = v50;
       v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v58 = [CBOR cborWithInteger:4];
       v59 = [dictionary objectForKey:v58];
 
       if (v59 && [v59 type] == 4)
       {
-        v90 = string;
-        v87 = v9;
-        v88 = dictionary;
-        v95 = 0u;
-        v96 = 0u;
-        v93 = 0u;
+        v89 = string;
+        v86 = v9;
+        v87 = dictionary;
         v94 = 0u;
+        v95 = 0u;
+        v92 = 0u;
+        v93 = 0u;
         array = [v59 array];
-        v61 = [array countByEnumeratingWithState:&v93 objects:v98 count:16];
+        v61 = [array countByEnumeratingWithState:&v92 objects:v97 count:16];
         if (!v61)
         {
           goto LABEL_103;
         }
 
         v62 = v61;
-        v63 = *v94;
+        v63 = *v93;
         while (1)
         {
           for (i = 0; i != v62; ++i)
           {
-            if (*v94 != v63)
+            if (*v93 != v63)
             {
               objc_enumerationMutation(array);
             }
 
-            v65 = *(*(&v93 + 1) + 8 * i);
+            v65 = *(*(&v92 + 1) + 8 * i);
             if ([v65 isWholeNumber])
             {
               numeric3 = [v59 numeric];
@@ -316,51 +316,8 @@ LABEL_99:
             numeric3 = [v65 string];
             v69 = [numeric3 isEqualToString:@"sign"];
             v68 = &unk_2835DD020;
-            if (v69)
+            if (v69 & 1) != 0 || (v70 = [numeric3 isEqualToString:@"verify"], v68 = &unk_2835DD038, (v70) || (v71 = objc_msgSend(numeric3, "isEqualToString:", @"encrypt"), v68 = &unk_2835DD050, (v71) || (v72 = objc_msgSend(numeric3, "isEqualToString:", @"decrypt"), v68 = &unk_2835DD068, (v72) || (v73 = objc_msgSend(numeric3, "isEqualToString:", @"wrapKey"), v68 = &unk_2835DD080, (v73) || (v74 = objc_msgSend(numeric3, "isEqualToString:", @"unwrapKey"), v68 = &unk_2835DD098, (v74) || (v75 = objc_msgSend(numeric3, "isEqualToString:", @"deriveKey"), v68 = &unk_2835DD0B0, (v75) || (v76 = objc_msgSend(numeric3, "isEqualToString:", @"deriveBits"), v68 = &unk_2835DD0C8, (v76) || (v77 = objc_msgSend(numeric3, "isEqualToString:", @"MACCreate"), v68 = &unk_2835DD0E0, (v77) || (v78 = objc_msgSend(numeric3, "isEqualToString:", @"MACVerify"), v68 = &unk_2835DD0F8, v78))
             {
-              goto LABEL_98;
-            }
-
-            v70 = [numeric3 isEqualToString:@"verify"];
-            v68 = &unk_2835DD038;
-            if (v70)
-            {
-              goto LABEL_98;
-            }
-
-            v71 = [numeric3 isEqualToString:@"encrypt"];
-            v68 = &unk_2835DD050;
-            if (v71)
-            {
-              goto LABEL_98;
-            }
-
-            v72 = [numeric3 isEqualToString:@"decrypt"];
-            v68 = &unk_2835DD068;
-            if (v72)
-            {
-              goto LABEL_98;
-            }
-
-            v73 = [numeric3 isEqualToString:@"wrapKey"];
-            v68 = &unk_2835DD080;
-            if (v73)
-            {
-              goto LABEL_98;
-            }
-
-            v74 = [numeric3 isEqualToString:@"unwrapKey"];
-            v68 = &unk_2835DD098;
-            if (v74)
-            {
-              goto LABEL_98;
-            }
-
-            v75 = [numeric3 isEqualToString:@"deriveKey"];
-            v68 = &unk_2835DD0B0;
-            if (v75 & 1) != 0 || (v76 = [numeric3 isEqualToString:@"deriveBits"], v68 = &unk_2835DD0C8, (v76) || (v77 = objc_msgSend(numeric3, "isEqualToString:", @"MACCreate"), v68 = &unk_2835DD0E0, (v77) || (v78 = objc_msgSend(numeric3, "isEqualToString:", @"MACVerify"), v68 = &unk_2835DD0F8, v78))
-            {
-LABEL_98:
               v67 = v57;
               goto LABEL_99;
             }
@@ -368,14 +325,14 @@ LABEL_98:
 LABEL_100:
           }
 
-          v62 = [array countByEnumeratingWithState:&v93 objects:v98 count:16];
+          v62 = [array countByEnumeratingWithState:&v92 objects:v97 count:16];
           if (!v62)
           {
 LABEL_103:
 
-            v9 = v87;
-            dictionary = v88;
-            string = v90;
+            v9 = v86;
+            dictionary = v87;
+            string = v89;
             break;
           }
         }
@@ -438,19 +395,18 @@ LABEL_47:
   v43 = 0;
 LABEL_111:
 
-  v85 = *MEMORY[0x277D85DE8];
   return v43;
 }
 
 - (uint64_t)_initCBORWithMemberParams
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEB38]);
   v3 = [CBOR cborWithInteger:1];
-  v46 = v3;
+  v45 = v3;
   v4 = [CBOR cborWithInteger:*(self + 48)];
-  v47[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+  v46[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
   v6 = [v2 initWithDictionary:v5];
 
   if (*(self + 64))
@@ -556,30 +512,30 @@ LABEL_23:
   if ([*(self + 72) count])
   {
     v26 = objc_opt_new();
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v27 = *(self + 72);
-    v28 = [v27 countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v40 objects:v44 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v42;
+      v30 = *v41;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v42 != v30)
+          if (*v41 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = +[CBOR cborWithInteger:](CBOR, "cborWithInteger:", [*(*(&v41 + 1) + 8 * i) integerValue]);
+          v32 = +[CBOR cborWithInteger:](CBOR, "cborWithInteger:", [*(*(&v40 + 1) + 8 * i) integerValue]);
           [v26 addObject:v32];
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v40 objects:v44 count:16];
       }
 
       while (v29);
@@ -604,7 +560,6 @@ LABEL_23:
   v11 = 1;
 LABEL_35:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -619,35 +574,13 @@ LABEL_35:
   v30.super_class = COSEKey;
   v18 = [(COSEKey *)&v30 init];
   v19 = v18;
-  if (!v18)
-  {
-    goto LABEL_6;
-  }
-
-  v18->_type = 2;
-  v18->_algorithm = algorithm;
-  v20 = [MEMORY[0x277CCABB0] numberWithInteger:identifier];
-  v21 = *(v19 + 16);
-  *(v19 + 16) = v20;
-
-  objc_storeStrong((v19 + 24), x);
-  v22 = bitCopy ? 3 : 2;
-  v29 = v22;
-  v23 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v29 length:1];
-  v24 = *(v19 + 32);
-  *(v19 + 32) = v23;
-
-  objc_storeStrong((v19 + 40), d);
-  objc_storeStrong((v19 + 72), operations);
-  objc_storeStrong((v19 + 64), keyIdentifier);
-  if (![(COSEKey *)v19 _initCBORWithMemberParams])
+  if (v18 && ((v18->_type = 2, v18->_algorithm = algorithm, [MEMORY[0x277CCABB0] numberWithInteger:identifier], v20 = objc_claimAutoreleasedReturnValue(), v21 = *(v19 + 16), *(v19 + 16) = v20, v21, objc_storeStrong((v19 + 24), x), !bitCopy) ? (v22 = 2) : (v22 = 3), v29 = v22, v23 = objc_msgSend(objc_alloc(MEMORY[0x277CBEA90]), "initWithBytes:length:", &v29, 1), v24 = *(v19 + 32), *(v19 + 32) = v23, v24, objc_storeStrong((v19 + 40), d), objc_storeStrong((v19 + 72), operations), objc_storeStrong((v19 + 64), keyIdentifier), !-[COSEKey _initCBORWithMemberParams](v19)))
   {
     v25 = 0;
   }
 
   else
   {
-LABEL_6:
     v25 = v19;
   }
 
@@ -665,30 +598,13 @@ LABEL_6:
   v27.super_class = COSEKey;
   v18 = [(COSEKey *)&v27 init];
   v19 = v18;
-  if (!v18)
-  {
-    goto LABEL_3;
-  }
-
-  v18->_type = 2;
-  v18->_algorithm = algorithm;
-  v20 = [MEMORY[0x277CCABB0] numberWithInteger:identifier];
-  v21 = *(v19 + 16);
-  *(v19 + 16) = v20;
-
-  objc_storeStrong((v19 + 24), x);
-  objc_storeStrong((v19 + 32), y);
-  objc_storeStrong((v19 + 40), d);
-  objc_storeStrong((v19 + 72), operations);
-  objc_storeStrong((v19 + 64), keyIdentifier);
-  if (![(COSEKey *)v19 _initCBORWithMemberParams])
+  if (v18 && (v18->_type = 2, v18->_algorithm = algorithm, [MEMORY[0x277CCABB0] numberWithInteger:identifier], v20 = objc_claimAutoreleasedReturnValue(), v21 = *(v19 + 16), *(v19 + 16) = v20, v21, objc_storeStrong((v19 + 24), x), objc_storeStrong((v19 + 32), y), objc_storeStrong((v19 + 40), d), objc_storeStrong((v19 + 72), operations), objc_storeStrong((v19 + 64), keyIdentifier), !-[COSEKey _initCBORWithMemberParams](v19)))
   {
     v22 = 0;
   }
 
   else
   {
-LABEL_3:
     v22 = v19;
   }
 
@@ -705,28 +621,13 @@ LABEL_3:
   v24.super_class = COSEKey;
   v18 = [(COSEKey *)&v24 init];
   v19 = v18;
-  if (!v18)
-  {
-    goto LABEL_3;
-  }
-
-  v18->_type = 1;
-  v20 = [MEMORY[0x277CCABB0] numberWithInteger:identifier];
-  v21 = *(v19 + 16);
-  *(v19 + 16) = v20;
-
-  objc_storeStrong((v19 + 24), x);
-  objc_storeStrong((v19 + 40), d);
-  objc_storeStrong((v19 + 72), operations);
-  objc_storeStrong((v19 + 64), keyIdentifier);
-  if (![(COSEKey *)v19 _initCBORWithMemberParams])
+  if (v18 && (v18->_type = 1, [MEMORY[0x277CCABB0] numberWithInteger:identifier], v20 = objc_claimAutoreleasedReturnValue(), v21 = *(v19 + 16), *(v19 + 16) = v20, v21, objc_storeStrong((v19 + 24), x), objc_storeStrong((v19 + 40), d), objc_storeStrong((v19 + 72), operations), objc_storeStrong((v19 + 64), keyIdentifier), !-[COSEKey _initCBORWithMemberParams](v19)))
   {
     v22 = 0;
   }
 
   else
   {
-LABEL_3:
     v22 = v19;
   }
 

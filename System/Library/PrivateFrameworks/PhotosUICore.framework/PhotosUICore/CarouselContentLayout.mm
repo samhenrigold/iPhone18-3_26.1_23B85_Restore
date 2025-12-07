@@ -49,10 +49,10 @@
   if (v2)
   {
     selfCopy = self;
-    [v2 updateIfNeeded];
-    v4.receiver = selfCopy;
-    v4.super_class = type metadata accessor for CarouselContentLayout();
-    [(PXGCompositeLayout *)&v4 update];
+    updateIfNeeded = [v2 updateIfNeeded];
+    v6.receiver = selfCopy;
+    v6.super_class = type metadata accessor for CarouselContentLayout(updateIfNeeded, v5);
+    [(PXGCompositeLayout *)&v6 update];
   }
 
   else
@@ -72,7 +72,7 @@
 
 - (Class)viewClassForSpriteAtIndex:(unsigned int)index inLayout:(id)layout
 {
-  sub_1A3C52C70(0, &qword_1EB12BFD0);
+  sub_1A3C52C70(0, &qword_1EB12BFD0, &off_1E7721660);
 
   return swift_getObjCClassFromMetadata();
 }

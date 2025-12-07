@@ -131,8 +131,7 @@ LABEL_7:
   defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter2 addObserver:v12 selector:sel__iconModelDidLayoutIconState_ name:*MEMORY[0x1E69D4160] object:v12->_iconModel];
 
-  [(SBHIconModel *)v12->_iconModel layoutIfNeeded];
-  v28 = PRSharedWidgetExtensionProvider();
+  v28 = PRSharedWidgetExtensionProvider([(SBHIconModel *)v12->_iconModel layoutIfNeeded]);
   [v28 registerObserver:v12];
 
   [(PRGadgetGridModel *)v12 _populateIntentsByDescriptorIdentifier];
@@ -177,7 +176,7 @@ LABEL_24:
 
 - (void)dealloc
 {
-  v3 = PRSharedWidgetExtensionProvider();
+  v3 = PRSharedWidgetExtensionProvider(self);
   [v3 unregisterObserver:self];
 
   WeakRetained = objc_loadWeakRetained(&self->_appProtectionSubjectMonitorSubscription);
@@ -308,110 +307,112 @@ LABEL_24:
 
 - (void)validateIconsForAvailableApps
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   iconModel = [(PRGadgetGridModel *)self iconModel];
   rootFolder = [iconModel rootFolder];
 
-  v33 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = rootFolder;
+  v35 = 0u;
+  v32 = rootFolder;
   obj = [rootFolder icons];
-  v4 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v4 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v32;
+    v7 = *v35;
     *&v5 = 138412546;
-    v27 = v5;
+    v30 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v32 != v7)
+        if (*v35 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * i);
+        v9 = *(*(&v34 + 1) + 8 * i);
         gadgetDescriptorsByUniqueIdentifier = self->_gadgetDescriptorsByUniqueIdentifier;
         uniqueIdentifier = [v9 uniqueIdentifier];
         v12 = [(NSMutableDictionary *)gadgetDescriptorsByUniqueIdentifier objectForKeyedSubscript:uniqueIdentifier];
 
         providerHasMatchingDescriptor = [v12 providerHasMatchingDescriptor];
+        v14 = providerHasMatchingDescriptor;
         if ((providerHasMatchingDescriptor & 1) == 0)
         {
-          v14 = PRLogModel();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = PRLogModel(providerHasMatchingDescriptor);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             uniqueIdentifier2 = [v12 uniqueIdentifier];
-            *buf = v27;
-            v36 = v12;
-            v37 = 2112;
-            v38 = uniqueIdentifier2;
-            _os_log_impl(&dword_1A8AA7000, v14, OS_LOG_TYPE_DEFAULT, "Removing descriptor %@ with identifier %@ from gadget grid model because descriptor not found", buf, 0x16u);
+            *buf = v30;
+            v39 = v12;
+            v40 = 2112;
+            v41 = uniqueIdentifier2;
+            _os_log_impl(&dword_1A8AA7000, v15, OS_LOG_TYPE_DEFAULT, "Removing descriptor %@ with identifier %@ from gadget grid model because descriptor not found", buf, 0x16u);
           }
         }
 
         extensionIdentity = [v12 extensionIdentity];
         containerBundleIdentifier = [extensionIdentity containerBundleIdentifier];
         extensionBundleIdentifier = [extensionIdentity extensionBundleIdentifier];
-        v19 = [PRGadgetGridModel correctedContainerBundleIdentifierForContainerBundleIdentifier:containerBundleIdentifier extensionBundleIdentifier:extensionBundleIdentifier];
+        v20 = [PRGadgetGridModel correctedContainerBundleIdentifierForContainerBundleIdentifier:containerBundleIdentifier extensionBundleIdentifier:extensionBundleIdentifier];
 
-        if (!providerHasMatchingDescriptor)
+        if (!v14)
         {
           goto LABEL_20;
         }
 
-        firstList = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v19 allowPlaceholder:0 error:0];
+        firstList = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v20 allowPlaceholder:0 error:0];
         applicationState = [firstList applicationState];
         isRestricted = [applicationState isRestricted];
 
         if (isRestricted)
         {
-          v23 = PRLogModel();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v25 = PRLogModel(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             uniqueIdentifier3 = [v12 uniqueIdentifier];
-            *buf = v27;
-            v36 = v12;
-            v37 = 2112;
-            v38 = uniqueIdentifier3;
-            v25 = v23;
-            v26 = "Removing descriptor %@ with identifier %@ from gadget grid model because application restricted";
+            *buf = v30;
+            v39 = v12;
+            v40 = 2112;
+            v41 = uniqueIdentifier3;
+            v27 = v25;
+            v28 = "Removing descriptor %@ with identifier %@ from gadget grid model because application restricted";
             goto LABEL_18;
           }
 
           goto LABEL_19;
         }
 
-        firstList = [MEMORY[0x1E698B0D0] applicationWithBundleIdentifier:v19];
-        if (([firstList isLocked] & 1) != 0 || objc_msgSend(firstList, "isHidden"))
+        firstList = [MEMORY[0x1E698B0D0] applicationWithBundleIdentifier:v20];
+        isLocked = [firstList isLocked];
+        if ((isLocked & 1) != 0 || (isLocked = [firstList isHidden], isLocked))
         {
-          v23 = PRLogModel();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v25 = PRLogModel(isLocked);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             uniqueIdentifier3 = [v12 uniqueIdentifier];
-            *buf = v27;
-            v36 = v12;
-            v37 = 2112;
-            v38 = uniqueIdentifier3;
-            v25 = v23;
-            v26 = "Removing descriptor %@ with identifier %@ from gadget grid model because application hidden or locked";
+            *buf = v30;
+            v39 = v12;
+            v40 = 2112;
+            v41 = uniqueIdentifier3;
+            v27 = v25;
+            v28 = "Removing descriptor %@ with identifier %@ from gadget grid model because application hidden or locked";
 LABEL_18:
-            _os_log_impl(&dword_1A8AA7000, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 0x16u);
+            _os_log_impl(&dword_1A8AA7000, v27, OS_LOG_TYPE_DEFAULT, v28, buf, 0x16u);
           }
 
 LABEL_19:
 
 LABEL_20:
-          firstList = [v29 firstList];
+          firstList = [v32 firstList];
           [firstList removeIcon:v9];
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v6 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v6);
@@ -768,25 +769,26 @@ LABEL_17:
   descriptorCopy = descriptor;
   if ([descriptorCopy gadgetType])
   {
-    if ([descriptorCopy gadgetType] == 1)
+    gadgetType = [descriptorCopy gadgetType];
+    if (gadgetType == 1)
     {
-      v4 = objc_opt_class();
-      v5 = descriptorCopy;
-      if (v4)
+      v5 = objc_opt_class();
+      v6 = descriptorCopy;
+      if (v5)
       {
-        v6 = (objc_opt_isKindOfClass() & 1) != 0 ? v5 : 0;
+        v7 = (objc_opt_isKindOfClass() & 1) != 0 ? v6 : 0;
       }
 
       else
       {
-        v6 = 0;
+        v7 = 0;
       }
 
-      v13 = v6;
+      v14 = v7;
 
-      if (v13)
+      if (v14)
       {
-        v12 = @"PRIconGridSizeClassCircular";
+        v13 = @"PRIconGridSizeClassCircular";
 
         goto LABEL_20;
       }
@@ -795,47 +797,47 @@ LABEL_17:
 
   else
   {
-    v7 = objc_opt_class();
-    v8 = descriptorCopy;
-    if (v7)
+    v8 = objc_opt_class();
+    v9 = descriptorCopy;
+    if (v8)
     {
       if (objc_opt_isKindOfClass())
       {
-        v9 = v8;
+        v10 = v9;
       }
 
       else
       {
-        v9 = 0;
+        v10 = 0;
       }
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    v10 = v9;
+    v11 = v10;
 
-    if (v10)
+    if (v11)
     {
-      widget = [v10 widget];
-      v12 = PRIconGridSizeClassForWidgetFamily([widget family]);
+      widget = [v11 widget];
+      v13 = PRIconGridSizeClassForWidgetFamily([widget family]);
 
       goto LABEL_20;
     }
   }
 
-  v14 = PRLogModel();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = PRLogModel(gadgetType);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [PRGadgetGridModel _sizeClassFromDescriptor:descriptorCopy];
   }
 
-  v12 = @"PRIconGridSizeClassCircular";
+  v13 = @"PRIconGridSizeClassCircular";
 LABEL_20:
 
-  return v12;
+  return v13;
 }
 
 - (id)_sizeClassFromIcon:(id)icon
@@ -894,8 +896,8 @@ LABEL_20:
 
     if (!v12)
     {
-      v13 = PRLogModel();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = PRLogModel(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [PRGadgetGridModel _sizeClassFromIcon:v10];
       }
@@ -1157,14 +1159,14 @@ void __66__PRGadgetGridModel_appProtectionSubjectsChanged_forSubscription___bloc
 {
   v1 = [a1 uniqueIdentifier];
   OUTLINED_FUNCTION_0_15();
-  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v2, v3, "Unrecognized gadget descriptor %@ with identifier %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v2, v3, "Unrecognized gadget descriptor %@ with identifier %@", v4, v5, v6, v7);
 }
 
 - (void)_sizeClassFromIcon:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 uniqueIdentifier];
   OUTLINED_FUNCTION_0_15();
-  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v2, v3, "Unrecognized SBIcon %@ with identifier %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v2, v3, "Unrecognized SBIcon %@ with identifier %@", v4, v5, v6, v7);
 }
 
 @end

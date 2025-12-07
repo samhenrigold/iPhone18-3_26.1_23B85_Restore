@@ -107,7 +107,7 @@
 
 - (HMCHIPAccessorySetupPayload)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCASP.ck.setupCode"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCASP.ck.discriminator"];
@@ -130,13 +130,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v5;
-      v25 = 2112;
-      v26 = v7;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded setupCode: %@ discriminator: %@ ", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v5;
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded setupCode: %@ discriminator: %@ ", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -166,7 +166,6 @@
     v18 = selfCopy;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -262,49 +261,7 @@
     {
       discriminator = [(HMCHIPAccessorySetupPayload *)self discriminator];
       discriminator2 = [v6 discriminator];
-      if (![discriminator isEqualToNumber:discriminator2])
-      {
-        goto LABEL_12;
-      }
-
-      setupPayloadString = [(HMCHIPAccessorySetupPayload *)self setupPayloadString];
-      setupPayloadString2 = [v6 setupPayloadString];
-      v13 = HMFEqualObjects();
-
-      if (!v13)
-      {
-        goto LABEL_12;
-      }
-
-      vendorID = [(HMCHIPAccessorySetupPayload *)self vendorID];
-      vendorID2 = [v6 vendorID];
-      v16 = HMFEqualObjects();
-
-      if (!v16)
-      {
-        goto LABEL_12;
-      }
-
-      productID = [(HMCHIPAccessorySetupPayload *)self productID];
-      productID2 = [v6 productID];
-      v19 = HMFEqualObjects();
-
-      if (!v19)
-      {
-        goto LABEL_12;
-      }
-
-      serialNumber = [(HMCHIPAccessorySetupPayload *)self serialNumber];
-      serialNumber2 = [v6 serialNumber];
-      v22 = HMFEqualObjects();
-
-      if (!v22)
-      {
-        goto LABEL_12;
-      }
-
-      requiresCustomFlow = [(HMCHIPAccessorySetupPayload *)self requiresCustomFlow];
-      if (requiresCustomFlow == [v6 requiresCustomFlow])
+      if ([discriminator isEqualToNumber:discriminator2] && (-[HMCHIPAccessorySetupPayload setupPayloadString](self, "setupPayloadString"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "setupPayloadString"), v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13) && (-[HMCHIPAccessorySetupPayload vendorID](self, "vendorID"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "vendorID"), v15 = objc_claimAutoreleasedReturnValue(), v16 = HMFEqualObjects(), v15, v14, v16) && (-[HMCHIPAccessorySetupPayload productID](self, "productID"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "productID"), v18 = objc_claimAutoreleasedReturnValue(), v19 = HMFEqualObjects(), v18, v17, v19) && (-[HMCHIPAccessorySetupPayload serialNumber](self, "serialNumber"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "serialNumber"), v21 = objc_claimAutoreleasedReturnValue(), v22 = HMFEqualObjects(), v21, v20, v22) && (v23 = -[HMCHIPAccessorySetupPayload requiresCustomFlow](self, "requiresCustomFlow"), v23 == objc_msgSend(v6, "requiresCustomFlow")))
       {
         deviceTypeID = [(HMCHIPAccessorySetupPayload *)self deviceTypeID];
         deviceTypeID2 = [v6 deviceTypeID];
@@ -313,7 +270,6 @@
 
       else
       {
-LABEL_12:
         v24 = 0;
       }
     }

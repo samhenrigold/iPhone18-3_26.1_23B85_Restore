@@ -49,18 +49,17 @@ void __79__HKAnchoredObjectQuery_initWithType_predicate_anchor_limit_completionH
 
 - (HKAnchoredObjectQuery)initWithType:(HKSampleType *)type predicate:(NSPredicate *)predicate anchor:(HKQueryAnchor *)anchor limit:(NSUInteger)limit resultsHandler:(void *)handler
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v12 = handler;
   v13 = anchor;
   v14 = predicate;
   v15 = type;
   v16 = [[HKQueryDescriptor alloc] initWithSampleType:v15 predicate:v14];
 
-  v21[0] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v20[0] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
   v18 = [(HKAnchoredObjectQuery *)self initWithQueryDescriptors:v17 anchor:v13 limit:limit resultsHandler:v12];
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -121,7 +120,7 @@ uint64_t __42__HKAnchoredObjectQuery_setUpdateHandler___block_invoke(uint64_t a1
   v4 = *(v3 + 200);
   *(v3 + 200) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)client_deliverSampleObjects:(id)objects deletedObjects:(id)deletedObjects anchor:(id)anchor clearPendingSamples:(BOOL)samples deliverResults:(BOOL)results query:(id)query
@@ -263,17 +262,13 @@ void __116__HKAnchoredObjectQuery_client_deliverSampleObjects_deletedObjects_anc
 
 uint64_t __116__HKAnchoredObjectQuery_client_deliverSampleObjects_deletedObjects_anchor_clearPendingSamples_deliverResults_query___block_invoke_2(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
-  v5 = 72;
+  v1 = 72;
   if (*(a1 + 80))
   {
-    v5 = 64;
+    v1 = 64;
   }
 
-  return (*(*(a1 + v5) + 16))();
+  return (*(*(a1 + v1) + 16))();
 }
 
 + (void)configureClientInterface:(id)interface
@@ -325,10 +320,10 @@ uint64_t __116__HKAnchoredObjectQuery_client_deliverSampleObjects_deletedObjects
 
 - (void)queue_validate
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = HKAnchoredObjectQuery;
-  [(HKQuery *)&v27 queue_validate];
+  v28 = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = HKAnchoredObjectQuery;
+  [(HKQuery *)&v26 queue_validate];
   queryDescriptors = [(HKQuery *)self queryDescriptors];
   v4 = [queryDescriptors count];
 
@@ -338,27 +333,27 @@ uint64_t __116__HKAnchoredObjectQuery_client_deliverSampleObjects_deletedObjects
   }
 
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   selfCopy = self;
   obj = [(HKQuery *)self queryDescriptors];
-  v7 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         sampleType = [v11 sampleType];
 
         if (!sampleType)
@@ -381,7 +376,7 @@ uint64_t __116__HKAnchoredObjectQuery_client_deliverSampleObjects_deletedObjects
         [v5 addObject:sampleType3];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v8);
@@ -405,8 +400,6 @@ uint64_t __116__HKAnchoredObjectQuery_client_deliverSampleObjects_deletedObjects
   {
     [MEMORY[0x1E695DF30] raise:@"HKQueryValidationFailureException" format:{@"%@.includeAutomaticTimeZones is incompatible with a non-nil updateHandler", objc_opt_class()}];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queue_deliverError:(id)error

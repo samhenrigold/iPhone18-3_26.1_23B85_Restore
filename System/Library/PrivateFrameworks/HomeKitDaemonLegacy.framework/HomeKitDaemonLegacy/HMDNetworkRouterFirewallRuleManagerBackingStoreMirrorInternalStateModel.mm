@@ -24,15 +24,13 @@
 
 void __88__HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorInternalStateModel_hmbProperties__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"archivedLastSynchronizedRecordIDs";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"archivedLastSynchronizedRecordIDs";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = hmbProperties_properties_164590;
   hmbProperties_properties_164590 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (NSUUID)parentModelID
@@ -91,17 +89,16 @@ uint64_t __82__HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorInternalStat
 
 uint64_t __86__HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorInternalStateModel_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_164611;
-  logCategory__hmf_once_v1_164611 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_164611;
+  logCategory__hmf_once_v1_164611 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)setLastSynchronizedRecordIDs:(id)ds
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   if (![dsCopy count])
   {
@@ -109,9 +106,9 @@ uint64_t __86__HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorInternalStat
     goto LABEL_5;
   }
 
-  v13 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:dsCopy requiringSecureCoding:1 error:&v13];
-  lastSynchronizedRecordIDs = v13;
+  v12 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:dsCopy requiringSecureCoding:1 error:&v12];
+  lastSynchronizedRecordIDs = v12;
   if (v5)
   {
     [(HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorInternalStateModel *)self setArchivedLastSynchronizedRecordIDs:v5];
@@ -130,23 +127,21 @@ LABEL_5:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v15 = v11;
-    v16 = 2112;
-    v17 = dsCopy;
-    v18 = 2112;
-    v19 = lastSynchronizedRecordIDs;
+    v14 = v11;
+    v15 = 2112;
+    v16 = dsCopy;
+    v17 = 2112;
+    v18 = lastSynchronizedRecordIDs;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to archive %@: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
 LABEL_9:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)lastSynchronizedRecordIDs
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   lastSynchronizedRecordIDs = self->_lastSynchronizedRecordIDs;
   if (lastSynchronizedRecordIDs)
   {
@@ -158,16 +153,16 @@ LABEL_9:
   if (archivedLastSynchronizedRecordIDs)
   {
     v5 = MEMORY[0x277CBEB98];
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[0] = objc_opt_class();
+    v32[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
     v7 = [v5 setWithArray:v6];
 
     v8 = MEMORY[0x277CCAAC8];
     archivedLastSynchronizedRecordIDs2 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorInternalStateModel *)self archivedLastSynchronizedRecordIDs];
-    v26 = 0;
-    v10 = [v8 unarchivedObjectOfClasses:v7 fromData:archivedLastSynchronizedRecordIDs2 error:&v26];
-    v11 = v26;
+    v25 = 0;
+    v10 = [v8 unarchivedObjectOfClasses:v7 fromData:archivedLastSynchronizedRecordIDs2 error:&v25];
+    v11 = v25;
 
     if (v10)
     {
@@ -200,9 +195,9 @@ LABEL_9:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v28 = v19;
-        v29 = 2112;
-        v30 = v12;
+        v27 = v19;
+        v28 = 2112;
+        v29 = v12;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unarchived an object of an unexpected type: %@", buf, 0x16u);
 LABEL_12:
       }
@@ -218,11 +213,11 @@ LABEL_12:
         v19 = HMFGetLogIdentifier();
         archivedLastSynchronizedRecordIDs3 = [(HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorInternalStateModel *)selfCopy2 archivedLastSynchronizedRecordIDs];
         *buf = 138543874;
-        v28 = v19;
-        v29 = 2112;
-        v30 = archivedLastSynchronizedRecordIDs3;
-        v31 = 2112;
-        v32 = v11;
+        v27 = v19;
+        v28 = 2112;
+        v29 = archivedLastSynchronizedRecordIDs3;
+        v30 = 2112;
+        v31 = v11;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive %@: %@", buf, 0x20u);
 
         goto LABEL_12;
@@ -244,7 +239,6 @@ LABEL_14:
   }
 
 LABEL_17:
-  v24 = *MEMORY[0x277D85DE8];
 
   return lastSynchronizedRecordIDs;
 }

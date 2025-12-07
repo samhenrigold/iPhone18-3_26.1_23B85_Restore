@@ -1,9 +1,19 @@
 @interface BLTRemoteRequest
++ (id)remoteRequestWithProtobuf:(id)protobuf type:(unsigned __int16)type;
 - (BLTRemoteRequest)initWithProtobuf:(id)protobuf type:(unsigned __int16)type;
 - (id)description;
 @end
 
 @implementation BLTRemoteRequest
+
++ (id)remoteRequestWithProtobuf:(id)protobuf type:(unsigned __int16)type
+{
+  typeCopy = type;
+  protobufCopy = protobuf;
+  v7 = [[self alloc] initWithProtobuf:protobufCopy type:typeCopy];
+
+  return v7;
+}
 
 - (BLTRemoteRequest)initWithProtobuf:(id)protobuf type:(unsigned __int16)type
 {

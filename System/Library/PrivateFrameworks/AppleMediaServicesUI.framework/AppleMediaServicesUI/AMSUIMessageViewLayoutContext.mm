@@ -359,7 +359,7 @@ LABEL_26:
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v384 = *MEMORY[0x1E69E9840];
+  v383 = *MEMORY[0x1E69E9840];
   [(AMSUIMessageViewLayoutContext *)self calculateMainContentFrameRootFrame:?];
   if ([(AMSUIMessageViewLayoutContext *)self isDirty])
   {
@@ -369,7 +369,7 @@ LABEL_26:
 
   [(AMSUIMessageViewLayoutContext *)self calculateAccessoryViewFrame];
   [(AMSUIMessageViewLayoutContext *)self calculateAccessorySecondaryViewFrame];
-  v325 = height;
+  v324 = height;
   [(AMSUIMessageViewLayoutContext *)self calculateTextViewSizeInFrame:[(AMSUIMessageViewLayoutContext *)self isDirty] dirty:x, y, width, height];
   [(AMSUIMessageViewLayoutContext *)self _calculateFooterButtonSizes];
   [(AMSUIMessageViewLayoutContext *)self setIsDirty:0];
@@ -378,28 +378,28 @@ LABEL_26:
   [(AMSUIMessageViewLayoutContext *)self textViewFrame];
   v9 = v8;
   v11 = v10;
-  v356 = v12;
+  v355 = v12;
   v14 = v13;
   [(AMSUIMessageViewLayoutContext *)self _effectiveTextViewFrame];
-  v367 = v15;
-  v370 = v16;
+  v366 = v15;
+  v369 = v16;
   [(AMSUIMessageViewLayoutContext *)self accessoryViewFrame];
-  v344 = v18;
-  v346 = v17;
-  v340 = v20;
-  v342 = v19;
+  v343 = v18;
+  v345 = v17;
+  v339 = v20;
+  v341 = v19;
   [(AMSUIMessageViewLayoutContext *)self accessorySecondaryViewFrame];
-  v334 = v22;
-  v336 = v21;
+  v333 = v22;
+  v335 = v21;
   v24 = v23;
-  v330 = v25;
+  v329 = v25;
   array = [MEMORY[0x1E695DF70] array];
   footerButtonFramesPreFlatten = [(AMSUIMessageViewLayoutContext *)self footerButtonFramesPreFlatten];
   [(AMSUIMessageViewLayoutContext *)self debugButtonSize];
   v28 = v27;
-  v338 = v29;
+  v337 = v29;
   [(AMSUIMessageViewLayoutContext *)self accessorySpacing];
-  v324 = v30;
+  v323 = v30;
   messageView = [(AMSUIMessageViewLayoutContext *)self messageView];
   buttons = [messageView buttons];
 
@@ -417,15 +417,15 @@ LABEL_26:
 
   [(AMSUIMessageViewLayoutContext *)self totalFooterButtonHeight];
   v43 = v42;
-  v352 = *MEMORY[0x1E695EFF8];
-  v362 = *(MEMORY[0x1E695EFF8] + 8);
+  v351 = *MEMORY[0x1E695EFF8];
+  v361 = *(MEMORY[0x1E695EFF8] + 8);
   [(AMSUIMessageViewLayoutContext *)self _makeImageViewSize];
   v45 = v44;
-  v360 = v46;
+  v359 = v46;
   messageView4 = [(AMSUIMessageViewLayoutContext *)self messageView];
   [messageView4 accessoryView];
 
-  v358 = v45;
+  v357 = v45;
   if (!shouldUseStackedLayout)
   {
     _isIconImageTopAligned = [(AMSUIMessageViewLayoutContext *)self _isIconImageTopAligned];
@@ -436,7 +436,7 @@ LABEL_26:
       v59 = shouldUseStackedLayout;
       v60 = _isAccessoryViewLeading;
       v61 = isImageViewHidden;
-      v328 = v14;
+      v327 = v14;
       messageView5 = [(AMSUIMessageViewLayoutContext *)self messageView];
       traitCollection2 = [messageView5 traitCollection];
       userInterfaceIdiom = [traitCollection2 userInterfaceIdiom];
@@ -444,7 +444,7 @@ LABEL_26:
       if (userInterfaceIdiom == 1)
       {
         [(AMSUIMessageViewLayoutContext *)self contentLayoutMargins];
-        v352 = 15.0 - v65;
+        v351 = 15.0 - v65;
         v52 = 0.0;
         isImageViewHidden = v61;
         _isAccessoryViewLeading = v60;
@@ -476,8 +476,8 @@ LABEL_26:
 
     if ((style & 0xFFFFFFFFFFFFFFFELL) == 2)
     {
-      v326 = v38;
-      v328 = v14;
+      v325 = v38;
+      v327 = v14;
       v50 = v28;
       effectiveImageStyle = [(AMSUIMessageViewLayoutContext *)self effectiveImageStyle];
       if (effectiveImageStyle == 2)
@@ -494,22 +494,22 @@ LABEL_26:
       [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
       v55 = v54;
       _isSymbolImage = [(AMSUIMessageViewLayoutContext *)self _isSymbolImage];
-      v57 = v360 + v52 < v55 && _isSymbolImage;
+      v57 = v359 + v52 < v55 && _isSymbolImage;
       v28 = v50;
       if (v53)
       {
-        v38 = v326;
+        v38 = v325;
 LABEL_28:
         [(AMSUIMessageViewLayoutContext *)self _scaledUIValueForValue:v52];
-        v362 = v82;
-        v14 = v328;
+        v361 = v82;
+        v14 = v327;
 LABEL_29:
         [(AMSUIMessageViewLayoutContext *)self contentLayoutMargins];
-        v362 = v362 - v83;
+        v361 = v361 - v83;
         goto LABEL_30;
       }
 
-      v38 = v326;
+      v38 = v325;
       if (v57)
       {
         goto LABEL_28;
@@ -522,7 +522,7 @@ LABEL_26:
 
       messageView7 = [(AMSUIMessageViewLayoutContext *)self messageView];
       imageView2 = [messageView7 imageView];
-      [imageView2 alignmentRectForFrame:{v352, v362, v45, v360}];
+      [imageView2 alignmentRectForFrame:{v351, v361, v45, v359}];
       v73 = v72;
       v74 = v38;
       v75 = v11;
@@ -536,14 +536,14 @@ LABEL_26:
       v9 = v76;
       v11 = v75;
       v38 = v74;
-      v362 = v81 * 0.5 - v73;
-      v14 = v328;
+      v361 = v81 * 0.5 - v73;
+      v14 = v327;
       goto LABEL_30;
     }
 
     if (!_isIconImageTopAligned)
     {
-      v328 = v14;
+      v327 = v14;
       goto LABEL_26;
     }
 
@@ -554,7 +554,7 @@ LABEL_26:
     }
 
     [(AMSUIMessageViewLayoutContext *)self _scaledUIValueForValue:v66];
-    v362 = v67;
+    v361 = v67;
     if (style != 5)
     {
       goto LABEL_29;
@@ -576,11 +576,11 @@ LABEL_30:
     v43 = *(MEMORY[0x1E695F058] + 24);
   }
 
-  v373 = v87;
+  v372 = v87;
   v88 = *v85;
-  v348 = v85[1];
+  v347 = v85[1];
   v89 = 0x1E7F22000uLL;
-  v329 = *v85;
+  v328 = *v85;
   if (![(AMSUIMessageViewLayoutContext *)self _isFooterButtonPartOfContentFrame])
   {
     messageView8 = [(AMSUIMessageViewLayoutContext *)self messageView];
@@ -592,35 +592,35 @@ LABEL_30:
     if ([(AMSUIMessageViewLayoutContext *)self _isTextOnlyBanner])
     {
       [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-      v103 = (v102 - v367) * 0.5;
+      v103 = (v102 - v366) * 0.5;
       messageView9 = [(AMSUIMessageViewLayoutContext *)self messageView];
       accessoryView = [messageView9 accessoryView];
 
       if (accessoryView)
       {
-        v327 = v38;
+        v326 = v38;
         [(AMSUIMessageViewLayoutContext *)self accessorySpacing];
-        v385.origin.x = v103;
+        v384.origin.x = v103;
         v106 = v101;
-        v385.origin.y = v101;
-        v385.size.width = v356;
-        v385.size.height = v14;
-        v387.size.width = v344;
-        v387.origin.x = v346;
-        v387.size.height = v340;
-        v387.origin.y = v342;
-        v386 = CGRectIntersection(v385, v387);
+        v384.origin.y = v101;
+        v384.size.width = v355;
+        v384.size.height = v14;
+        v386.size.width = v343;
+        v386.origin.x = v345;
+        v386.size.height = v339;
+        v386.origin.y = v341;
+        v385 = CGRectIntersection(v384, v386);
         v107 = v103;
-        if (v386.size.width > 0.0)
+        if (v385.size.width > 0.0)
         {
-          v108 = v386.size.width;
-          [(AMSUIMessageViewLayoutContext *)self accessorySpacing:v386.origin.x];
+          v108 = v385.size.width;
+          [(AMSUIMessageViewLayoutContext *)self accessorySpacing:v385.origin.x];
           v103 = v107 - (v108 + v109);
         }
 
         v101 = v106;
-        v88 = v329;
-        v38 = v327;
+        v88 = v328;
+        v38 = v326;
       }
     }
 
@@ -629,13 +629,13 @@ LABEL_30:
       if (!isImageViewHidden && shouldUseStackedLayout)
       {
         [(AMSUIMessageViewLayoutContext *)self _imageToLabelSpacing];
-        v101 = v360 + v120 - v100;
+        v101 = v359 + v120 - v100;
       }
 
       v103 = v38;
     }
 
-    v350 = v103;
+    v349 = v103;
     v141 = style == 5 || shouldUseStackedLayout;
     if ((v141 & 1) == 0)
     {
@@ -652,7 +652,7 @@ LABEL_30:
       }
     }
 
-    v354 = v101;
+    v353 = v101;
     if (buttons)
     {
       [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
@@ -661,54 +661,54 @@ LABEL_30:
         v147 = v38 + v147;
       }
 
-      v371 = v147;
+      v370 = v147;
       [(AMSUIMessageViewLayoutContext *)self contentSize];
       v149 = v148 - v43;
       [(AMSUIMessageViewLayoutContext *)self _bottomFooterSpacing];
       v95 = v149 - v150;
       if (style == 3)
       {
-        v365 = v43;
-        v368 = v149 - v150;
+        v364 = v43;
+        v367 = v149 - v150;
         messageView11 = [(AMSUIMessageViewLayoutContext *)self messageView];
         maskShapeView = [messageView11 maskShapeView];
         arrowDirection = [maskShapeView arrowDirection];
 
-        v139 = v338;
+        v139 = v337;
         if (arrowDirection == 2)
         {
           messageView12 = [(AMSUIMessageViewLayoutContext *)self messageView];
           maskShapeView2 = [messageView12 maskShapeView];
           [maskShapeView2 arrowHeight];
-          v368 = v368 - v156;
+          v367 = v367 - v156;
         }
 
         v157 = v86;
         v158 = v14;
-        v140 = v362;
+        v140 = v361;
 LABEL_84:
-        v363 = v140;
+        v362 = v140;
         v160 = v139;
-        v381 = 0u;
-        v382 = 0u;
-        v379 = 0u;
         v380 = 0u;
+        v381 = 0u;
+        v378 = 0u;
+        v379 = 0u;
         v161 = footerButtonFramesPreFlatten;
-        v162 = [v161 countByEnumeratingWithState:&v379 objects:v383 count:16];
+        v162 = [v161 countByEnumeratingWithState:&v378 objects:v382 count:16];
         if (v162)
         {
           v163 = v162;
-          v164 = *v380;
+          v164 = *v379;
           do
           {
             for (i = 0; i != v163; ++i)
             {
-              if (*v380 != v164)
+              if (*v379 != v164)
               {
                 objc_enumerationMutation(v161);
               }
 
-              [*(*(&v379 + 1) + 8 * i) CGRectValue];
+              [*(*(&v378 + 1) + 8 * i) CGRectValue];
               v167 = v166;
               v169 = v168;
               v171 = v170;
@@ -717,7 +717,7 @@ LABEL_84:
               [array addObject:v173];
             }
 
-            v163 = [v161 countByEnumeratingWithState:&v379 objects:v383 count:16];
+            v163 = [v161 countByEnumeratingWithState:&v378 objects:v382 count:16];
           }
 
           while (v163);
@@ -726,14 +726,14 @@ LABEL_84:
         v89 = 0x1E7F22000;
         v139 = v160;
 LABEL_92:
-        v159 = v358;
-        v140 = v363;
-        v91 = v329;
+        v159 = v357;
+        v140 = v362;
+        v91 = v328;
         goto LABEL_95;
       }
 
       v91 = v88;
-      v96 = v371;
+      v96 = v370;
       goto LABEL_79;
     }
 
@@ -745,34 +745,34 @@ LABEL_92:
     if (!isImageViewHidden)
     {
       [(AMSUIMessageViewLayoutContext *)self _imageToLabelSpacing];
-      v11 = v11 + v360 + v90;
+      v11 = v11 + v359 + v90;
     }
 
-    v354 = v11;
-    v350 = v9;
+    v353 = v11;
+    v349 = v9;
     if (buttons)
     {
       v91 = v88;
       [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
       v93 = v92;
       [(AMSUIMessageViewLayoutContext *)self _footerButtonSpacing];
-      v95 = v14 + v354 + v94;
+      v95 = v14 + v353 + v94;
       v96 = v93;
 LABEL_79:
-      v139 = v338;
-      v140 = v362;
+      v139 = v337;
+      v140 = v361;
       goto LABEL_80;
     }
 
 LABEL_77:
-    v95 = v348;
+    v95 = v347;
     v91 = v88;
     v96 = v88;
     goto LABEL_79;
   }
 
-  v321 = isImageViewHidden;
-  v322 = v84;
+  v320 = isImageViewHidden;
+  v321 = v84;
   v110 = *MEMORY[0x1E695F060];
   v111 = *(MEMORY[0x1E695F060] + 8);
   messageView13 = [(AMSUIMessageViewLayoutContext *)self messageView];
@@ -781,7 +781,7 @@ LABEL_77:
 
   if (hasText)
   {
-    v115 = v370 + v111;
+    v115 = v369 + v111;
   }
 
   else
@@ -791,7 +791,7 @@ LABEL_77:
 
   if (hasText)
   {
-    v116 = v367 + v110;
+    v116 = v366 + v110;
   }
 
   else
@@ -802,10 +802,10 @@ LABEL_77:
   v117 = _isAccessoryViewLeading;
   if (buttons)
   {
-    v118 = v373;
-    if (v116 < v373)
+    v118 = v372;
+    if (v116 < v372)
     {
-      v116 = v373;
+      v116 = v372;
     }
 
     [(AMSUIMessageViewLayoutContext *)self _footerButtonSpacing];
@@ -814,7 +814,7 @@ LABEL_77:
 
   else
   {
-    v118 = v373;
+    v118 = v372;
   }
 
   [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
@@ -828,7 +828,7 @@ LABEL_77:
   messageView15 = [(AMSUIMessageViewLayoutContext *)self messageView];
   textView5 = [messageView15 textView];
   hasText2 = [textView5 hasText];
-  v130 = v370 + v126;
+  v130 = v369 + v126;
   if (buttons)
   {
     v131 = hasText2;
@@ -845,24 +845,24 @@ LABEL_77:
   }
 
   [AMSUICGRectHelper flattenRect:"flattenRect:toParentFrame:" toParentFrame:?];
-  v350 = v132;
-  v354 = v133;
-  v356 = v134;
+  v349 = v132;
+  v353 = v133;
+  v355 = v134;
   v135 = v116;
   v14 = v136;
   [AMSUICGRectHelper flattenRect:0.0 toParentFrame:v130, v118, v43, v38, (v122 - v115) * 0.5, v135, v115];
-  v373 = v137;
+  v372 = v137;
   v43 = v138;
-  v84 = v322;
-  v139 = v338;
-  v140 = v362;
-  v91 = v329;
+  v84 = v321;
+  v139 = v337;
+  v140 = v361;
+  v91 = v328;
   _isAccessoryViewLeading = v117;
-  isImageViewHidden = v321;
+  isImageViewHidden = v320;
 LABEL_80:
-  v365 = v43;
-  v368 = v95;
-  v371 = v96;
+  v364 = v43;
+  v367 = v95;
+  v370 = v96;
   if (style - 2 < 2)
   {
     goto LABEL_83;
@@ -873,10 +873,10 @@ LABEL_80:
     if (!isImageViewHidden && !shouldUseStackedLayout)
     {
       [(AMSUIMessageViewLayoutContext *)self contentLayoutMargins];
-      v310 = v358 + v309;
-      v323 = v86;
-      v363 = v140;
-      v311 = _isAccessoryViewLeading;
+      v309 = v357 + v308;
+      v322 = v86;
+      v362 = v140;
+      v310 = _isAccessoryViewLeading;
       if ([(AMSUIMessageViewLayoutContext *)self _isSymbolImage])
       {
         [(AMSUIMessageViewLayoutContext *)self _scaledUIValueForValue:16.0];
@@ -887,25 +887,25 @@ LABEL_80:
         [(AMSUIMessageViewLayoutContext *)self _interitemSpacing];
       }
 
-      v313 = v310 + v312;
+      v312 = v309 + v311;
       [(AMSUIMessageViewLayoutContext *)self separatorThickness];
-      v315 = v314;
+      v314 = v313;
       messageView16 = [(AMSUIMessageViewLayoutContext *)self messageView];
       accessoryView2 = [messageView16 accessoryView];
-      v318 = accessoryView2 != 0;
+      v317 = accessoryView2 != 0;
 
-      v319 = v346 + v344 + v324 + v313;
-      if (!v318 || !v311)
+      v318 = v345 + v343 + v323 + v312;
+      if (!v317 || !v310)
       {
-        v319 = v313;
+        v318 = v312;
       }
 
-      v320 = [MEMORY[0x1E696B098] valueWithCGRect:{v319, (v325 - (v325 + -24.0)) * 0.5, v315, v325 + -24.0}];
-      [array addObject:v320];
+      v319 = [MEMORY[0x1E696B098] valueWithCGRect:{v318, (v324 - (v324 + -24.0)) * 0.5, v314, v324 + -24.0}];
+      [array addObject:v319];
 
-      v157 = v323;
+      v157 = v322;
       v158 = v14;
-      v139 = v338;
+      v139 = v337;
       goto LABEL_92;
     }
   }
@@ -915,7 +915,7 @@ LABEL_80:
 LABEL_83:
     v157 = v86;
     v158 = v14;
-    v159 = v358;
+    v159 = v357;
     if (!buttons)
     {
       goto LABEL_95;
@@ -926,48 +926,48 @@ LABEL_83:
 
   v157 = v86;
   v158 = v14;
-  v159 = v358;
+  v159 = v357;
 LABEL_95:
   v174 = *(v89 + 2504);
   [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-  [v174 flattenRect:v352 toParentFrame:{v140, v159, v360, v175, v176, v177, v178}];
-  v359 = v179;
-  v361 = v180;
-  v364 = v181;
+  [v174 flattenRect:v351 toParentFrame:{v140, v159, v359, v175, v176, v177, v178}];
+  v358 = v179;
+  v360 = v180;
+  v363 = v181;
   v183 = v182;
   v184 = *(v89 + 2504);
   [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-  [v184 flattenRect:v350 toParentFrame:{v354, v356, v158, v185, v186, v187, v188}];
-  v351 = v189;
-  v353 = v190;
-  v355 = v191;
-  v357 = v192;
+  [v184 flattenRect:v349 toParentFrame:{v353, v355, v158, v185, v186, v187, v188}];
+  v350 = v189;
+  v352 = v190;
+  v354 = v191;
+  v356 = v192;
   v193 = *(v89 + 2504);
   [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-  [v193 flattenRect:v91 toParentFrame:{v348, v84, v139, v194, v195, v196, v197}];
+  [v193 flattenRect:v91 toParentFrame:{v347, v84, v139, v194, v195, v196, v197}];
   v199 = v198;
   v201 = v200;
   v203 = v202;
   v205 = v204;
   v206 = *(v89 + 2504);
   [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-  [v206 flattenRect:v346 toParentFrame:{v342, v344, v340, v207, v208, v209, v210}];
-  v343 = v211;
-  v345 = v212;
-  v347 = v213;
-  v349 = v214;
+  [v206 flattenRect:v345 toParentFrame:{v341, v343, v339, v207, v208, v209, v210}];
+  v342 = v211;
+  v344 = v212;
+  v346 = v213;
+  v348 = v214;
   v215 = *(v89 + 2504);
   [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-  [v215 flattenRect:v336 toParentFrame:{v157, v334, v330, v216, v217, v218, v219}];
-  v335 = v220;
-  v337 = v221;
-  v339 = v222;
-  v341 = v223;
+  [v215 flattenRect:v335 toParentFrame:{v157, v333, v329, v216, v217, v218, v219}];
+  v334 = v220;
+  v336 = v221;
+  v338 = v222;
+  v340 = v223;
   if ([(AMSUIMessageViewLayoutContext *)self _shouldOffsetFooterButtonFromMainContentView])
   {
     v224 = *(v89 + 2504);
     [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-    [v224 flattenRect:v371 toParentFrame:{v368, v373, v365, v225, v226, v227, v228}];
+    [v224 flattenRect:v370 toParentFrame:{v367, v372, v364, v225, v226, v227, v228}];
     v233 = v232;
     v234 = 0x1E695D000;
   }
@@ -975,25 +975,25 @@ LABEL_95:
   else
   {
     v234 = 0x1E695D000uLL;
-    v231 = v373;
-    v230 = v368;
-    v229 = v371;
-    v233 = v365;
+    v231 = v372;
+    v230 = v367;
+    v229 = v370;
+    v233 = v364;
   }
 
   v235 = *(v234 + 3952);
-  v378[0] = MEMORY[0x1E69E9820];
-  v378[1] = 3221225472;
-  v378[2] = __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke;
-  v378[3] = &__block_descriptor_64_e26___NSValue_16__0__NSValue_8l;
-  v369 = v230;
-  v372 = v229;
-  *&v378[4] = v229;
-  *&v378[5] = v230;
-  v374 = v231;
-  *&v378[6] = v231;
-  *&v378[7] = v233;
-  v236 = [footerButtonFramesPreFlatten ams_mapWithTransform:v378];
+  v377[0] = MEMORY[0x1E69E9820];
+  v377[1] = 3221225472;
+  v377[2] = __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke;
+  v377[3] = &__block_descriptor_64_e26___NSValue_16__0__NSValue_8l;
+  v368 = v230;
+  v371 = v229;
+  *&v377[4] = v229;
+  *&v377[5] = v230;
+  v373 = v231;
+  *&v377[6] = v231;
+  *&v377[7] = v233;
+  v236 = [footerButtonFramesPreFlatten ams_mapWithTransform:v377];
   v237 = [v235 arrayWithArray:v236];
 
   if (style <= 5 && ((1 << style) & 0x2C) != 0)
@@ -1003,15 +1003,15 @@ LABEL_95:
     if (buttons)
     {
       v240 = *(v234 + 3952);
-      v377[0] = MEMORY[0x1E69E9820];
-      v377[1] = 3221225472;
-      v377[2] = __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke_2;
-      v377[3] = &__block_descriptor_64_e26___NSValue_16__0__NSValue_8l;
-      *&v377[4] = v372;
-      *&v377[5] = v369;
-      *&v377[6] = v374;
-      *&v377[7] = v233;
-      v241 = [array ams_mapWithTransform:v377];
+      v376[0] = MEMORY[0x1E69E9820];
+      v376[1] = 3221225472;
+      v376[2] = __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke_2;
+      v376[3] = &__block_descriptor_64_e26___NSValue_16__0__NSValue_8l;
+      *&v376[4] = v371;
+      *&v376[5] = v368;
+      *&v376[6] = v373;
+      *&v376[7] = v233;
+      v241 = [array ams_mapWithTransform:v376];
       v242 = [v240 arrayWithArray:v241];
 
       array = v242;
@@ -1026,53 +1026,53 @@ LABEL_95:
 
   v243 = v199 + -12.0;
   v244 = v201 + -10.0;
-  v366 = v233;
+  v365 = v233;
   if (v238 == 1)
   {
     v245 = *(v239 + 2504);
     [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-    [v245 rect:v359 withFlippedOriginXRelativeTo:{v361, v364, v183, v246, v247, v248, v249}];
-    v359 = v250;
-    v361 = v251;
-    v364 = v252;
-    v333 = v253;
+    [v245 rect:v358 withFlippedOriginXRelativeTo:{v360, v363, v183, v246, v247, v248, v249}];
+    v358 = v250;
+    v360 = v251;
+    v363 = v252;
+    v332 = v253;
     v254 = *(v239 + 2504);
     [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-    [v254 rect:v351 withFlippedOriginXRelativeTo:{v353, v355, v357, v255, v256, v257, v258}];
-    v351 = v259;
-    v353 = v260;
-    v355 = v261;
-    v357 = v262;
+    [v254 rect:v350 withFlippedOriginXRelativeTo:{v352, v354, v356, v255, v256, v257, v258}];
+    v350 = v259;
+    v352 = v260;
+    v354 = v261;
+    v356 = v262;
     v263 = *(v239 + 2504);
     [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-    [v263 rect:v343 withFlippedOriginXRelativeTo:{v345, v347, v349, v264, v265, v266, v267}];
-    v343 = v268;
-    v345 = v269;
-    v347 = v270;
-    v349 = v271;
+    [v263 rect:v342 withFlippedOriginXRelativeTo:{v344, v346, v348, v264, v265, v266, v267}];
+    v342 = v268;
+    v344 = v269;
+    v346 = v270;
+    v348 = v271;
     v272 = *(v239 + 2504);
     [(AMSUIMessageViewLayoutContext *)self mainContentFrame];
-    [v272 rect:v335 withFlippedOriginXRelativeTo:{v337, v339, v341, v273, v274, v275, v276}];
-    v335 = v277;
-    v337 = v278;
-    v339 = v279;
-    v341 = v280;
+    [v272 rect:v334 withFlippedOriginXRelativeTo:{v336, v338, v340, v273, v274, v275, v276}];
+    v334 = v277;
+    v336 = v278;
+    v338 = v279;
+    v340 = v280;
     v281 = *(v234 + 3952);
-    v376[0] = MEMORY[0x1E69E9820];
-    v376[1] = 3221225472;
-    v376[2] = __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke_3;
-    v376[3] = &unk_1E7F25200;
-    v376[4] = self;
-    v282 = [array ams_mapWithTransform:v376];
+    v375[0] = MEMORY[0x1E69E9820];
+    v375[1] = 3221225472;
+    v375[2] = __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke_3;
+    v375[3] = &unk_1E7F25200;
+    v375[4] = self;
+    v282 = [array ams_mapWithTransform:v375];
     v283 = [v281 arrayWithArray:v282];
 
     v284 = *(v234 + 3952);
-    v375[0] = MEMORY[0x1E69E9820];
-    v375[1] = 3221225472;
-    v375[2] = __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke_4;
-    v375[3] = &unk_1E7F25200;
-    v375[4] = self;
-    v285 = [v237 ams_mapWithTransform:v375];
+    v374[0] = MEMORY[0x1E69E9820];
+    v374[1] = 3221225472;
+    v374[2] = __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke_4;
+    v374[3] = &unk_1E7F25200;
+    v374[4] = self;
+    v285 = [v237 ams_mapWithTransform:v374];
     v286 = [v284 arrayWithArray:v285];
 
     v287 = *(v239 + 2504);
@@ -1088,7 +1088,7 @@ LABEL_95:
 
   else
   {
-    v333 = v183;
+    v332 = v183;
     v296 = v203;
     v298 = v205;
     v294 = v244;
@@ -1101,43 +1101,33 @@ LABEL_95:
   v305 = v304;
   v307 = v306;
 
-  [(AMSUIMessageViewLayoutContext *)self setImageViewFrame:v359, v361, v364, v333];
+  [(AMSUIMessageViewLayoutContext *)self setImageViewFrame:v358, v360, v363, v332];
   [(AMSUIMessageViewLayoutContext *)self setMaskViewFrame:v301, v303, v305, v307];
-  [(AMSUIMessageViewLayoutContext *)self setTextViewFrame:v351, v353, v355, v357];
-  [(AMSUIMessageViewLayoutContext *)self setAccessoryViewFrame:v343, v345, v347, v349];
-  [(AMSUIMessageViewLayoutContext *)self setAccessorySecondaryViewFrame:v335, v337, v339, v341];
+  [(AMSUIMessageViewLayoutContext *)self setTextViewFrame:v350, v352, v354, v356];
+  [(AMSUIMessageViewLayoutContext *)self setAccessoryViewFrame:v342, v344, v346, v348];
+  [(AMSUIMessageViewLayoutContext *)self setAccessorySecondaryViewFrame:v334, v336, v338, v340];
   [(AMSUIMessageViewLayoutContext *)self setSeparatorViewFrames:array];
-  [(AMSUIMessageViewLayoutContext *)self setFooterContainerViewFrame:v372, v369, v374, v366];
+  [(AMSUIMessageViewLayoutContext *)self setFooterContainerViewFrame:v371, v368, v373, v365];
   [(AMSUIMessageViewLayoutContext *)self setFooterButtonFrames:v237];
   [(AMSUIMessageViewLayoutContext *)self setDebugButtonFrame:v243, v294, v296, v298];
-
-  v308 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke(void *a1, void *a2)
+uint64_t __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = MEMORY[0x1E696B098];
+  v2 = MEMORY[0x1E696B098];
   [a2 CGRectValue];
-  v4 = a1[4];
-  v5 = a1[5];
-  v6 = a1[6];
-  v7 = a1[7];
   [AMSUICGRectHelper flattenRect:"flattenRect:toParentFrame:" toParentFrame:?];
 
-  return [v3 valueWithCGRect:?];
+  return [v2 valueWithCGRect:?];
 }
 
-uint64_t __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke_2(void *a1, void *a2)
+uint64_t __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = MEMORY[0x1E696B098];
+  v2 = MEMORY[0x1E696B098];
   [a2 CGRectValue];
-  v4 = a1[4];
-  v5 = a1[5];
-  v6 = a1[6];
-  v7 = a1[7];
   [AMSUICGRectHelper flattenRect:"flattenRect:toParentFrame:" toParentFrame:?];
 
-  return [v3 valueWithCGRect:?];
+  return [v2 valueWithCGRect:?];
 }
 
 uint64_t __54__AMSUIMessageViewLayoutContext__updateWithRootFrame___block_invoke_3(uint64_t a1, void *a2)
@@ -1380,7 +1370,7 @@ LABEL_19:
 - (void)calculateTextViewSizeInFrame:(CGRect)frame dirty:(BOOL)dirty
 {
   dirtyCopy = dirty;
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   v6 = [(AMSUIMessageViewLayoutContext *)self messageView:frame.origin.x];
   textView = [v6 textView];
   hasText = [textView hasText];
@@ -1415,8 +1405,8 @@ LABEL_19:
       if (textViewExclusionPath)
       {
         textViewExclusionPath2 = [(AMSUIMessageViewLayoutContext *)self textViewExclusionPath];
-        v42[0] = textViewExclusionPath2;
-        textView4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
+        v41[0] = textViewExclusionPath2;
+        textView4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
         messageView2 = [(AMSUIMessageViewLayoutContext *)self messageView];
         textView3 = [messageView2 textView];
         textContainer = [textView3 textContainer];
@@ -1459,8 +1449,6 @@ LABEL_19:
     [(AMSUIMessageViewLayoutContext *)self textViewContentHuggingSize];
     [(AMSUIMessageViewLayoutContext *)self setTextViewFrame:v37, v38, v39, v40];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)calculateTextViewExclusionFrame
@@ -1961,26 +1949,15 @@ LABEL_7:
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
   IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
 
-  if (!IsAccessibilityCategory)
+  if (!IsAccessibilityCategory || (-[AMSUIMessageViewLayoutContext messageView](self, "messageView"), v8 = objc_claimAutoreleasedReturnValue(), [v8 traitCollection], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "preferredContentSizeCategory"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "objectForKeyedSubscript:", v10), v11 = objc_claimAutoreleasedReturnValue(), v10, v9, v8, !v11) || (objc_msgSend(v11, "doubleValue"), v13 = v12, v11, v13 == 2.22507386e-308))
   {
-    goto LABEL_6;
-  }
-
-  messageView2 = [(AMSUIMessageViewLayoutContext *)self messageView];
-  traitCollection2 = [messageView2 traitCollection];
-  preferredContentSizeCategory2 = [traitCollection2 preferredContentSizeCategory];
-  v11 = [v3 objectForKeyedSubscript:preferredContentSizeCategory2];
-
-  if (!v11 || ([v11 doubleValue], v13 = v12, v11, v13 == 2.22507386e-308))
-  {
-LABEL_6:
-    messageView3 = [(AMSUIMessageViewLayoutContext *)self messageView];
-    style = [messageView3 style];
+    messageView2 = [(AMSUIMessageViewLayoutContext *)self messageView];
+    style = [messageView2 style];
 
     if (style)
     {
-      messageView4 = [(AMSUIMessageViewLayoutContext *)self messageView];
-      if ([messageView4 style] == 3)
+      messageView3 = [(AMSUIMessageViewLayoutContext *)self messageView];
+      if ([messageView3 style] == 3)
       {
 LABEL_10:
 
@@ -1996,11 +1973,11 @@ LABEL_25:
 
         if (![(AMSUIMessageViewLayoutContext *)self _isSymbolImage])
         {
-          messageView5 = [(AMSUIMessageViewLayoutContext *)self messageView];
-          if ([messageView5 style] == 3)
+          messageView4 = [(AMSUIMessageViewLayoutContext *)self messageView];
+          if ([messageView4 style] == 3)
           {
-            messageView6 = [(AMSUIMessageViewLayoutContext *)self messageView];
-            [messageView6 buttons];
+            messageView5 = [(AMSUIMessageViewLayoutContext *)self messageView];
+            [messageView5 buttons];
           }
 
           goto LABEL_16;
@@ -2009,23 +1986,23 @@ LABEL_25:
         goto LABEL_19;
       }
 
-      messageView7 = [(AMSUIMessageViewLayoutContext *)self messageView];
-      if ([messageView7 style] == 2)
+      messageView6 = [(AMSUIMessageViewLayoutContext *)self messageView];
+      if ([messageView6 style] == 2)
       {
 
         goto LABEL_10;
       }
 
-      messageView8 = [(AMSUIMessageViewLayoutContext *)self messageView];
-      style2 = [messageView8 style];
+      messageView7 = [(AMSUIMessageViewLayoutContext *)self messageView];
+      style2 = [messageView7 style];
 
       if (style2 == 6)
       {
         goto LABEL_11;
       }
 
-      messageView9 = [(AMSUIMessageViewLayoutContext *)self messageView];
-      style3 = [messageView9 style];
+      messageView8 = [(AMSUIMessageViewLayoutContext *)self messageView];
+      style3 = [messageView8 style];
 
       if (style3 == 5)
       {
@@ -2034,8 +2011,8 @@ LABEL_19:
         goto LABEL_26;
       }
 
-      messageView10 = [(AMSUIMessageViewLayoutContext *)self messageView];
-      if ([messageView10 style] == 4)
+      messageView9 = [(AMSUIMessageViewLayoutContext *)self messageView];
+      if ([messageView9 style] == 4)
       {
         _isSymbolImage = [(AMSUIMessageViewLayoutContext *)self _isSymbolImage];
 
@@ -2062,24 +2039,22 @@ LABEL_26:
 
 void __45__AMSUIMessageViewLayoutContext__imageLength__block_invoke()
 {
-  v6[5] = *MEMORY[0x1E69E9840];
+  v5[5] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69DDC38];
-  v5[0] = *MEMORY[0x1E69DDC40];
-  v5[1] = v0;
-  v6[0] = &unk_1F394AAE0;
-  v6[1] = &unk_1F394AAF0;
+  v4[0] = *MEMORY[0x1E69DDC40];
+  v4[1] = v0;
+  v5[0] = &unk_1F394AAE0;
+  v5[1] = &unk_1F394AAF0;
   v1 = *MEMORY[0x1E69DDC28];
-  v5[2] = *MEMORY[0x1E69DDC30];
-  v5[3] = v1;
-  v6[2] = &unk_1F394AB00;
-  v6[3] = &unk_1F394AB10;
-  v5[4] = *MEMORY[0x1E69DDC20];
-  v6[4] = &unk_1F394AB20;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:5];
+  v4[2] = *MEMORY[0x1E69DDC30];
+  v4[3] = v1;
+  v5[2] = &unk_1F394AB00;
+  v5[3] = &unk_1F394AB10;
+  v4[4] = *MEMORY[0x1E69DDC20];
+  v5[4] = &unk_1F394AB20;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:5];
   v3 = _imageLength_ams_once_object___COUNTER__;
   _imageLength_ams_once_object___COUNTER__ = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (double)_imageToLabelSpacing
@@ -2492,59 +2467,53 @@ LABEL_9:
 
 - (double)totalFooterButtonHeight
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   footerButtonFramesPreFlatten = [(AMSUIMessageViewLayoutContext *)self footerButtonFramesPreFlatten];
   v4 = [footerButtonFramesPreFlatten count];
 
-  if (v4)
+  if (!v4)
   {
-    [(AMSUIMessageViewLayoutContext *)self _footerButtonInterSpacing];
-    v6 = v5;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    footerButtonFramesPreFlatten2 = [(AMSUIMessageViewLayoutContext *)self footerButtonFramesPreFlatten];
-    v8 = [footerButtonFramesPreFlatten2 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *v17;
-      v11 = 0.0;
-      do
-      {
-        for (i = 0; i != v9; ++i)
-        {
-          if (*v17 != v10)
-          {
-            objc_enumerationMutation(footerButtonFramesPreFlatten2);
-          }
+    return 0.0;
+  }
 
-          [*(*(&v16 + 1) + 8 * i) CGRectValue];
-          v11 = v11 + v6 + v13;
+  [(AMSUIMessageViewLayoutContext *)self _footerButtonInterSpacing];
+  v6 = v5;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  footerButtonFramesPreFlatten2 = [(AMSUIMessageViewLayoutContext *)self footerButtonFramesPreFlatten];
+  v8 = [footerButtonFramesPreFlatten2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v16;
+    v11 = 0.0;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v16 != v10)
+        {
+          objc_enumerationMutation(footerButtonFramesPreFlatten2);
         }
 
-        v9 = [footerButtonFramesPreFlatten2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        [*(*(&v15 + 1) + 8 * i) CGRectValue];
+        v11 = v11 + v6 + v13;
       }
 
-      while (v9);
+      v9 = [footerButtonFramesPreFlatten2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    else
-    {
-      v11 = 0.0;
-    }
-
-    result = v11 - v6;
+    while (v9);
   }
 
   else
   {
-    result = 0.0;
+    v11 = 0.0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return v11 - v6;
 }
 
 - (CGRect)accessoryViewFrame

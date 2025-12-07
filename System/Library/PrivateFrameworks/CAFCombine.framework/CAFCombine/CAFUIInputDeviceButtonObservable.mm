@@ -23,24 +23,27 @@
 
 - (void)uIInputDeviceService:(id)service didUpdateUiInputDevicePurpose:(unsigned __int8)purpose
 {
+  purposeCopy = purpose;
   serviceCopy = service;
   selfCopy = self;
-  CAFUIInputDeviceButtonObservable.uIInputDeviceService(_:didUpdateUiInputDevicePurpose:)(selfCopy, purpose);
+  CAFUIInputDeviceButtonObservable.uIInputDeviceService(_:didUpdateUiInputDevicePurpose:)(selfCopy, purposeCopy);
 }
 
 - (void)uiInputDeviceButtonService:(id)service didUpdateUiInputDeviceButtonEvent:(unsigned __int8)event
 {
+  eventCopy = event;
   serviceCopy = service;
   selfCopy = self;
-  CAFUIInputDeviceButtonObservable.uiInputDeviceButtonService(_:didUpdateUiInputDeviceButtonEvent:)(selfCopy, event);
+  CAFUIInputDeviceButtonObservable.uiInputDeviceButtonService(_:didUpdateUiInputDeviceButtonEvent:)(selfCopy, eventCopy);
 }
 
 - (void)uiInputDeviceButtonService:(id)service didUpdateName:(id)name
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFUIInputDeviceButtonObservable.uiInputDeviceButtonService(_:didUpdateName:)();
+  CAFUIInputDeviceButtonObservable.uiInputDeviceButtonService(_:didUpdateName:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

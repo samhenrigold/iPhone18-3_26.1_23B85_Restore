@@ -99,11 +99,11 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v7 = toCopy;
   if (self->_eventIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v7;
   }
 
   if (self->_goalTypesToDisplays.count)
@@ -111,9 +111,8 @@
     v5 = 0;
     do
     {
-      v6 = self->_goalTypesToDisplays.list[v5];
       PBDataWriterWriteInt32Field();
-      toCopy = v10;
+      toCopy = v7;
       ++v5;
     }
 
@@ -123,17 +122,15 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    goalTypeToHighlight = self->_goalTypeToHighlight;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v7;
     has = self->_has;
   }
 
   if (has)
   {
-    expectedGoalValue = self->_expectedGoalValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v7;
   }
 }
 

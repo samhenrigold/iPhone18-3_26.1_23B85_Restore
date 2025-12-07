@@ -49,34 +49,34 @@
 
 - (void)setPresentation:(id)presentation withCompletion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   presentationCopy = presentation;
   completionCopy = completion;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   presentationEntries = [presentationCopy presentationEntries];
-  v10 = [presentationEntries countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [presentationEntries countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(presentationEntries);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         environment = [v14 environment];
         [environment setAlwaysOnEnabledForEnvironment:{-[BLSHBaseBacklightEnvironmentSessionProvider presentationEntrySupportsAlwaysOn:](self, "presentationEntrySupportsAlwaysOn:", v14)}];
       }
 
-      v11 = [presentationEntries countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [presentationEntries countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v11);
@@ -123,8 +123,6 @@
   {
     [(BLSHBacklightInactiveEnvironmentSession *)v20 setPresentation:presentationCopy];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPresentationWithFBScenes:(id)scenes flipbookContext:(id)context completion:(id)completion

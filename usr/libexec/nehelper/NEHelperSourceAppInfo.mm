@@ -189,7 +189,7 @@ LABEL_40:
 
   if (v6 && [v6 length] && uuid_is_null(dst))
   {
-    v31 = sub_100020804();
+    v31 = sub_100020804(NEHelperCacheManager);
     v36[0] = _NSConcreteStackBlock;
     v36[1] = 3221225472;
     v36[2] = sub_1000265E0;

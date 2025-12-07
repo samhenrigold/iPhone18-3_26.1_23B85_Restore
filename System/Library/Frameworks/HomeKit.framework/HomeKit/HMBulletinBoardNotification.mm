@@ -31,7 +31,7 @@
 
 - (HMBulletinBoardNotification)initWithCoder:(id)coder
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"service"];
   accessory = [v5 accessory];
@@ -55,11 +55,11 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v32 = v11;
-      v33 = 2112;
-      v34 = v5;
-      v35 = 2112;
-      v36 = v7;
+      v31 = v11;
+      v32 = 2112;
+      v33 = v5;
+      v34 = 2112;
+      v35 = v7;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded service: %@, accessory: %@", buf, 0x20u);
     }
 
@@ -71,9 +71,9 @@
   {
     v12 = [coderCopy decodeBoolForKey:@"HM.BulletinBoardNotificationEnabled"];
     v13 = MEMORY[0x1E695DFD8];
-    v30[0] = objc_opt_class();
-    v30[1] = objc_opt_class();
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+    v29[0] = objc_opt_class();
+    v29[1] = objc_opt_class();
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
     v15 = [v13 setWithArray:v14];
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"HM.BulletinBoardNotificationCondition"];
 
@@ -82,9 +82,9 @@
 
     instanceID = [v5 instanceID];
     stringValue = [instanceID stringValue];
-    v29[0] = stringValue;
-    v29[1] = @"HM.BulletinBoardNotification";
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = stringValue;
+    v28[1] = @"HM.BulletinBoardNotification";
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
 
     v22 = MEMORY[0x1E696AFB0];
     uuid = [v7 uuid];
@@ -94,13 +94,12 @@
     v26 = selfCopy;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
 - (BOOL)mergeFromNewObject:(id)object
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -129,13 +128,13 @@
       v13 = HMFGetLogIdentifier();
       condition3 = [(HMBulletinBoardNotification *)selfCopy condition];
       condition4 = [v6 condition];
-      v26 = 138543874;
-      v27 = v13;
-      v28 = 2112;
-      v29 = condition3;
-      v30 = 2112;
-      v31 = condition4;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Merging due to condition value change from %@ to %@", &v26, 0x20u);
+      v25 = 138543874;
+      v26 = v13;
+      v27 = 2112;
+      v28 = condition3;
+      v29 = 2112;
+      v30 = condition4;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Merging due to condition value change from %@ to %@", &v25, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -156,37 +155,34 @@
       v22 = HMFBooleanToString();
       [v6 isEnabled];
       v23 = HMFBooleanToString();
-      v26 = 138543874;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v22;
-      v30 = 2112;
-      v31 = v23;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Merging due to enabled value change from %@ to %@", &v26, 0x20u);
+      v25 = 138543874;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v22;
+      v29 = 2112;
+      v30 = v23;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Merging due to enabled value change from %@ to %@", &v25, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
     -[HMBulletinBoardNotification setEnabled:](selfCopy2, "setEnabled:", [v6 isEnabled]);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v9 ^ 1;
 }
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   v4 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMBulletinBoardNotification isEnabled](self, "isEnabled")}];
   v5 = [v3 initWithName:@"Enabled" value:v4];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   uniqueIdentifier = [(HMBulletinBoardNotification *)self uniqueIdentifier];
   v8 = [v6 initWithName:@"Unique ID" value:uniqueIdentifier];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -204,28 +200,28 @@
 
 - (void)_commitWithCompletionHandler:(id)handler
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMBulletinBoardNotification *)self context];
   if (!handlerCopy)
   {
-    v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMBulletinBoardNotification _commitWithCompletionHandler:]", @"completion"];
-    v41 = objc_autoreleasePoolPush();
+    v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMBulletinBoardNotification _commitWithCompletionHandler:]", @"completion"];
+    v40 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v43 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      v44 = HMFGetLogIdentifier();
+      v43 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v53 = v44;
-      v54 = 2112;
-      v55 = v40;
-      _os_log_impl(&dword_19BB39000, v43, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v52 = v43;
+      v53 = 2112;
+      v54 = v39;
+      _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v41);
-    v45 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v40 userInfo:0];
-    objc_exception_throw(v45);
+    objc_autoreleasePoolPop(v40);
+    v44 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v39 userInfo:0];
+    objc_exception_throw(v44);
   }
 
   v6 = context;
@@ -237,10 +233,10 @@
 
     if (home)
     {
-      v50 = @"HM.BulletinBoardNotificationEnabled";
+      v49 = @"HM.BulletinBoardNotificationEnabled";
       v10 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMBulletinBoardNotification isEnabled](self, "isEnabled")}];
-      v51 = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+      v50 = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
       v12 = [v11 mutableCopy];
 
       condition = [(HMBulletinBoardNotification *)self condition];
@@ -283,17 +279,17 @@
       v27 = _Block_copy(handlerCopy);
       [pendingRequests addCompletionBlock:v27 forIdentifier:identifier];
 
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invoke;
-      v46[3] = &unk_1E754E0A8;
-      v47 = pendingRequests;
-      v48 = identifier;
+      v45[0] = MEMORY[0x1E69E9820];
+      v45[1] = 3221225472;
+      v45[2] = __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invoke;
+      v45[3] = &unk_1E754E0A8;
+      v46 = pendingRequests;
+      v47 = identifier;
       v28 = v6;
-      v49 = v28;
+      v48 = v28;
       v29 = identifier;
       delegateCaller = pendingRequests;
-      [context2 setResponseHandler:v46];
+      [context2 setResponseHandler:v45];
       messageDispatcher = [v28 messageDispatcher];
       [messageDispatcher sendMessage:context2];
 
@@ -318,9 +314,9 @@ LABEL_15:
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v53 = v35;
-      v54 = 2080;
-      v55 = "[HMBulletinBoardNotification _commitWithCompletionHandler:]";
+      v52 = v35;
+      v53 = 2080;
+      v54 = "[HMBulletinBoardNotification _commitWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -330,8 +326,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -349,28 +343,28 @@ void __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invo
 
 - (void)commitWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMBulletinBoardNotification *)self context];
   if (!handlerCopy)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMBulletinBoardNotification commitWithCompletionHandler:]", @"completion"];
-    v15 = objc_autoreleasePoolPush();
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMBulletinBoardNotification commitWithCompletionHandler:]", @"completion"];
+    v14 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v14;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v22 = v17;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
-    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
-    objc_exception_throw(v19);
+    objc_autoreleasePoolPop(v14);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v13 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   v6 = context;
@@ -382,7 +376,7 @@ void __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invo
     block[2] = __59__HMBulletinBoardNotification_commitWithCompletionHandler___block_invoke;
     block[3] = &unk_1E754E458;
     block[4] = self;
-    v21 = handlerCopy;
+    v20 = handlerCopy;
     dispatch_async(queue, block);
   }
 
@@ -395,9 +389,9 @@ void __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invo
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v11;
-      v24 = 2080;
-      v25 = "[HMBulletinBoardNotification commitWithCompletionHandler:]";
+      v22 = v11;
+      v23 = 2080;
+      v24 = "[HMBulletinBoardNotification commitWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -405,13 +399,11 @@ void __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invo
     v12 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callBulletinBoardNotificationUpdatedDelegate
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -419,7 +411,7 @@ void __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invo
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v19 = v6;
+    v18 = v6;
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Calling service notification delegate", buf, 0xCu);
   }
 
@@ -434,18 +426,16 @@ void __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invo
     {
       context = [(HMBulletinBoardNotification *)selfCopy context];
       delegateCaller = [context delegateCaller];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __76__HMBulletinBoardNotification__callBulletinBoardNotificationUpdatedDelegate__block_invoke;
-      v14[3] = &unk_1E754E5E8;
-      v15 = v10;
-      v16 = accessory;
-      v17 = service;
-      [delegateCaller invokeBlock:v14];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __76__HMBulletinBoardNotification__callBulletinBoardNotificationUpdatedDelegate__block_invoke;
+      v13[3] = &unk_1E754E5E8;
+      v14 = v10;
+      v15 = accessory;
+      v16 = service;
+      [delegateCaller invokeBlock:v13];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCondition:(id)condition
@@ -504,7 +494,7 @@ void __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invo
 
 - (void)_handleBulletinBoardNotificationUpdateNotification:(id)notification
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -513,11 +503,11 @@ void __60__HMBulletinBoardNotification__commitWithCompletionHandler___block_invo
   {
     v8 = HMFGetLogIdentifier();
     messagePayload = [notificationCopy messagePayload];
-    v26 = 138543618;
-    v27 = v8;
-    v28 = 2112;
-    v29 = messagePayload;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Received bulletin board update notification with message %@", &v26, 0x16u);
+    v25 = 138543618;
+    v26 = v8;
+    v27 = 2112;
+    v28 = messagePayload;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Received bulletin board update notification with message %@", &v25, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -572,12 +562,11 @@ LABEL_11:
   [delegateCaller callCompletion:v19 error:0];
 
 LABEL_12:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unconfigure
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   context = self->_context;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -588,9 +577,9 @@ LABEL_12:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring bulletinBoard notification", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring bulletinBoard notification", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -608,20 +597,18 @@ LABEL_12:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__configureWithContext:(id)context
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -629,18 +616,16 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = contextCopy;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Configuring with context: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = contextCopy;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Configuring with context: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMBulletinBoardNotification *)selfCopy setContext:contextCopy];
   [(HMBulletinBoardNotification *)selfCopy _registerNotificationHandlers];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerNotificationHandlers
@@ -684,12 +669,11 @@ LABEL_12:
 
 uint64_t __42__HMBulletinBoardNotification_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15;
-  logCategory__hmf_once_v15 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15;
+  logCategory__hmf_once_v15 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

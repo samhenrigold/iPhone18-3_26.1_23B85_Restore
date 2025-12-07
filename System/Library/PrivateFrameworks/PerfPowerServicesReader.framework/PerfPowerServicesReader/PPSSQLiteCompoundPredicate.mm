@@ -17,7 +17,7 @@
 
 + (id)predicateMatchingAllPredicates:(id)predicates
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   predicatesCopy = predicates;
   if ([predicatesCopy count] == 1)
   {
@@ -33,28 +33,28 @@
   *(v3 + 3) = @" AND ";
 
   array = [MEMORY[0x277CBEB18] array];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = predicatesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v7)
   {
     goto LABEL_15;
   }
 
-  v8 = *v19;
+  v8 = *v18;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v19 != v8)
+      if (*v18 != v8)
       {
         objc_enumerationMutation(v6);
       }
 
-      v10 = *(*(&v18 + 1) + 8 * i);
+      v10 = *(*(&v17 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -70,7 +70,7 @@
       [array addObject:{v10, firstObject}];
     }
 
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   }
 
   while (v7);
@@ -81,14 +81,13 @@ LABEL_15:
   firstObject[4] = v12;
 
 LABEL_16:
-  v14 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
 
 + (id)predicateMatchingAnyPredicates:(id)predicates
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   predicatesCopy = predicates;
   if ([predicatesCopy count] == 1)
   {
@@ -104,28 +103,28 @@ LABEL_16:
   *(v3 + 3) = @" OR ";
 
   array = [MEMORY[0x277CBEB18] array];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = predicatesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v7)
   {
     goto LABEL_15;
   }
 
-  v8 = *v19;
+  v8 = *v18;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v19 != v8)
+      if (*v18 != v8)
       {
         objc_enumerationMutation(v6);
       }
 
-      v10 = *(*(&v18 + 1) + 8 * i);
+      v10 = *(*(&v17 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -141,7 +140,7 @@ LABEL_16:
       [array addObject:{v10, firstObject}];
     }
 
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   }
 
   while (v7);
@@ -152,14 +151,13 @@ LABEL_15:
   firstObject[4] = v12;
 
 LABEL_16:
-  v14 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
 
 + (id)negatedPredicate:(id)predicate
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   if (predicateCopy)
   {
@@ -168,8 +166,8 @@ LABEL_16:
     v5 = *(v4 + 3);
     *(v4 + 3) = @"NOT ";
 
-    v10[0] = predicateCopy;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = predicateCopy;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     v7 = *(v4 + 4);
     *(v4 + 4) = v6;
   }
@@ -179,48 +177,44 @@ LABEL_16:
     v4 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 + (id)predicateWithProperty:(id)property values:(id)values comparisonType:(int64_t)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   valuesCopy = values;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v10 = valuesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = [PPSSQLiteComparisonPredicate predicateWithProperty:propertyCopy value:*(*(&v19 + 1) + 8 * i) comparisonType:type];
+        v14 = [PPSSQLiteComparisonPredicate predicateWithProperty:propertyCopy value:*(*(&v18 + 1) + 8 * i) comparisonType:type];
         [v9 addObject:v14];
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   v15 = [self predicateMatchingAnyPredicates:v9];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -284,42 +278,40 @@ LABEL_16:
 
 - (void)bindToStatement:(sqlite3_stmt *)statement bindingIndex:(int *)index
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   predicates = [(PPSSQLiteCompoundPredicate *)self predicates];
-  v7 = [predicates countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [predicates countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(predicates);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) bindToStatement:statement bindingIndex:index];
+        [*(*(&v10 + 1) + 8 * v9++) bindToStatement:statement bindingIndex:index];
       }
 
       while (v7 != v9);
-      v7 = [predicates countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [predicates countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sqlForEntity:(id)entity
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   predicates = [(PPSSQLiteCompoundPredicate *)self predicates];
   v6 = [predicates count];
@@ -340,25 +332,25 @@ LABEL_16:
 
     else
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       predicates3 = [(PPSSQLiteCompoundPredicate *)self predicates];
-      v14 = [predicates3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [predicates3 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v14)
       {
-        v15 = *v21;
+        v15 = *v20;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v21 != v15)
+            if (*v20 != v15)
             {
               objc_enumerationMutation(predicates3);
             }
 
-            v17 = [*(*(&v20 + 1) + 8 * i) sqlForEntity:entityCopy];
+            v17 = [*(*(&v19 + 1) + 8 * i) sqlForEntity:entityCopy];
             if (v17)
             {
               if ([v8 length] >= 2)
@@ -370,7 +362,7 @@ LABEL_16:
             }
           }
 
-          v14 = [predicates3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v14 = [predicates3 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v14);
@@ -395,35 +387,33 @@ LABEL_16:
     v8 = [MEMORY[0x277CCAB68] stringWithString:v12];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)sqlJoinClausesForEntity:(id)entity
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   predicates = [(PPSSQLiteCompoundPredicate *)self predicates];
   v6 = 0;
-  v7 = [predicates countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [predicates countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(predicates);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) sqlJoinClausesForEntity:entityCopy];
+        v10 = [*(*(&v12 + 1) + 8 * i) sqlJoinClausesForEntity:entityCopy];
         if (v10)
         {
           if (!v6)
@@ -435,47 +425,45 @@ LABEL_16:
         }
       }
 
-      v7 = [predicates countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [predicates countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)description
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   predicates = [(PPSSQLiteCompoundPredicate *)self predicates];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(predicates, "count")}];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   predicates2 = [(PPSSQLiteCompoundPredicate *)self predicates];
-  v7 = [predicates2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [predicates2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(predicates2);
         }
 
-        v10 = [*(*(&v15 + 1) + 8 * i) description];
+        v10 = [*(*(&v14 + 1) + 8 * i) description];
         [v5 addObject:v10];
       }
 
-      v7 = [predicates2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [predicates2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -483,8 +471,6 @@ LABEL_16:
 
   v11 = [v5 componentsJoinedByString:{@", \n\t"}];
   v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%@:\n\t%@\n}", self->_combineOperator, v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

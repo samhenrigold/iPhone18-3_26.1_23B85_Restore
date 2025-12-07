@@ -63,45 +63,43 @@
 
 - (void)_setupConstraints
 {
-  v27[7] = *MEMORY[0x1E69E9840];
-  v18 = MEMORY[0x1E696ACD8];
+  v26[7] = *MEMORY[0x1E69E9840];
+  v17 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(MUPullQuoteView *)self->_pullQuoteView leadingAnchor];
   leadingAnchor2 = [(MUPlaceCollectionPullQuotePlatterView *)self leadingAnchor];
-  v24 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
-  v27[0] = v24;
+  v23 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
+  v26[0] = v23;
   trailingAnchor = [(MUPullQuoteView *)self->_pullQuoteView trailingAnchor];
   trailingAnchor2 = [(MUPlaceCollectionPullQuotePlatterView *)self trailingAnchor];
-  v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-16.0];
-  v27[1] = v21;
+  v20 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-16.0];
+  v26[1] = v20;
   topAnchor = [(MUPullQuoteView *)self->_pullQuoteView topAnchor];
   topAnchor2 = [(MUPlaceCollectionPullQuotePlatterView *)self topAnchor];
-  v17 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:14.0];
-  v27[2] = v17;
+  v16 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:14.0];
+  v26[2] = v16;
   bottomAnchor = [(MUPullQuoteView *)self->_pullQuoteView bottomAnchor];
   topAnchor3 = [(MUCuratedCollectionSummaryView *)self->_collectionSummaryView topAnchor];
-  v14 = [bottomAnchor constraintLessThanOrEqualToAnchor:topAnchor3 constant:-14.0];
-  v27[3] = v14;
+  v13 = [bottomAnchor constraintLessThanOrEqualToAnchor:topAnchor3 constant:-14.0];
+  v26[3] = v13;
   leadingAnchor3 = [(MUCuratedCollectionSummaryView *)self->_collectionSummaryView leadingAnchor];
   leadingAnchor4 = [(MUPlaceCollectionPullQuotePlatterView *)self leadingAnchor];
   v5 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:16.0];
-  v27[4] = v5;
+  v26[4] = v5;
   trailingAnchor3 = [(MUCuratedCollectionSummaryView *)self->_collectionSummaryView trailingAnchor];
   trailingAnchor4 = [(MUPlaceCollectionPullQuotePlatterView *)self trailingAnchor];
   v8 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-16.0];
-  v27[5] = v8;
+  v26[5] = v8;
   bottomAnchor2 = [(MUCuratedCollectionSummaryView *)self->_collectionSummaryView bottomAnchor];
   bottomAnchor3 = [(MUPlaceCollectionPullQuotePlatterView *)self bottomAnchor];
   v11 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:-14.0];
-  v27[6] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:7];
-  [v18 activateConstraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v26[6] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:7];
+  [v17 activateConstraints:v12];
 }
 
 - (void)_setupSubviews
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v3 = [MUCuratedCollectionSummaryView alloc];
   v4 = *MEMORY[0x1E695F058];
   v5 = *(MEMORY[0x1E695F058] + 8);
@@ -141,11 +139,9 @@
   [(MUPlaceCollectionPullQuotePlatterView *)self addGestureRecognizer:self->_tapGestureRecognizer];
   [(UIView *)self _mapsui_addSelectGestureRecognizerWithTarget:self action:sel__didSelectCollection];
   v18 = objc_opt_self();
-  v22[0] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v21[0] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   v20 = [(MUPlaceCollectionPullQuotePlatterView *)self registerForTraitChanges:v19 withAction:sel__contentSizeDidChange];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (MUPlaceCollectionPullQuotePlatterView)initWithFrame:(CGRect)frame

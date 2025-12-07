@@ -3131,7 +3131,7 @@ uint64_t __46__VCControlChannelMultiWay_addNewKeyMaterial___block_invoke(uint64_
 
 - (void)periodicTask:(void *)task
 {
-  v5 = micro();
+  v5 = micro(self, a2);
   lastUpdateTimestamp = self->super._lastUpdateTimestamp;
   self->super._lastUpdateTimestamp = v5;
   v7 = v5 - lastUpdateTimestamp;

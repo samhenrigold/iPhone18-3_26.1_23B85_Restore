@@ -1,10 +1,44 @@
 @interface OrgApacheLuceneAnalysisUtilCharacterUtils_Java4CharacterUtils
 - (BOOL)fillWithOrgApacheLuceneAnalysisUtilCharacterUtils_CharacterBuffer:(id)buffer withJavaIoReader:(id)reader withInt:(int)int;
+- (int)codePointAtWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
+- (int)codePointAtWithJavaLangCharSequence:(id)sequence withInt:(int)int;
 - (int)codePointCountWithJavaLangCharSequence:(id)sequence;
 - (int)offsetByCodePointsWithCharArray:(id)array withInt:(int)int withInt:(int)withInt withInt:(int)a6 withInt:(int)a7;
 @end
 
 @implementation OrgApacheLuceneAnalysisUtilCharacterUtils_Java4CharacterUtils
+
+- (int)codePointAtWithJavaLangCharSequence:(id)sequence withInt:(int)int
+{
+  if (!sequence)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [sequence charAtWithInt:*&int];
+}
+
+- (int)codePointAtWithCharArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (int >= withInt)
+  {
+    v7 = new_JavaLangIndexOutOfBoundsException_initWithNSString_(@"offset must be less than limit");
+    objc_exception_throw(v7);
+  }
+
+  if (!array)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = *(array + 2);
+  if (int < 0 || v5 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v5, *&int);
+  }
+
+  return *(array + int + 6);
+}
 
 - (BOOL)fillWithOrgApacheLuceneAnalysisUtilCharacterUtils_CharacterBuffer:(id)buffer withJavaIoReader:(id)reader withInt:(int)int
 {

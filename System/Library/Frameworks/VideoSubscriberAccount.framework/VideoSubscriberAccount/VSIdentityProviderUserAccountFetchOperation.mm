@@ -93,7 +93,7 @@
 void __64__VSIdentityProviderUserAccountFetchOperation_executionDidBegin__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke_cold_1(v3, v4);
@@ -105,89 +105,90 @@ void __64__VSIdentityProviderUserAccountFetchOperation_executionDidBegin__block_
 
 void __64__VSIdentityProviderUserAccountFetchOperation_executionDidBegin__block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = VSErrorLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VSErrorLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __64__VSIdentityProviderUserAccountFetchOperation_executionDidBegin__block_invoke_5_cold_1(v6, v7);
+      __64__VSIdentityProviderUserAccountFetchOperation_executionDidBegin__block_invoke_5_cold_1(v7, v8);
     }
 
-    [*(a1 + 32) setError:v6];
+    [*(a1 + 32) setError:v7];
     [*(a1 + 32) finishExecutionIfPossible];
   }
 
   else
   {
-    v23 = a1;
-    v8 = [*(a1 + 40) providerID];
-    v9 = [v8 forceUnwrapObject];
+    v24 = a1;
+    v9 = [*(a1 + 40) providerID];
+    v10 = [v9 forceUnwrapObject];
 
-    v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v24 = 0u;
+    v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v22 = v5;
-    v11 = v5;
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v12)
+    v28 = 0u;
+    v23 = v5;
+    v12 = v5;
+    v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v25;
+      v14 = v13;
+      v15 = *v26;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v14)
+          if (*v26 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v24 + 1) + 8 * i);
-          if ([v16 sourceType] == 2)
+          v17 = *(*(&v25 + 1) + 8 * i);
+          if ([v17 sourceType] == 2)
           {
-            v17 = [v16 sourceIdentifier];
-            v18 = [v17 isEqual:v9];
+            v18 = [v17 sourceIdentifier];
+            v19 = [v18 isEqual:v10];
           }
 
           else
-          {
-            v18 = 0;
-          }
-
-          if ([v16 sourceType])
           {
             v19 = 0;
           }
 
-          else
+          if ([v17 sourceType])
           {
-            v20 = *(v23 + 48);
-            v21 = [v16 sourceIdentifier];
-            v19 = [v20 containsObject:v21];
+            v20 = 0;
           }
 
-          if ((v18 | v19))
+          else
           {
-            [v10 addObject:v16];
+            v21 = *(v24 + 48);
+            v22 = [v17 sourceIdentifier];
+            v20 = [v21 containsObject:v22];
+          }
+
+          if ((v19 | v20))
+          {
+            [v11 addObject:v17];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
-    [*(v23 + 32) setResults:v10];
-    [*(v23 + 32) finishExecutionIfPossible];
+    [*(v24 + 32) setResults:v11];
+    [*(v24 + 32) finishExecutionIfPossible];
 
-    v6 = 0;
-    v5 = v22;
+    v7 = 0;
+    v5 = v23;
   }
 }
 

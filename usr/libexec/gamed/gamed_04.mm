@@ -1,155 +1,3 @@
-void sub_1000B7F0C(uint64_t a1, void *a2, char a3, int a4)
-{
-  v7 = a2;
-  if (a3)
-  {
-    v8 = [GKGameStatService leaderboards:v7 filteredWithIDs:*(a1 + 72)];
-
-    +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v8 count]);
-    v56[0] = _NSConcreteStackBlock;
-    v56[1] = 3221225472;
-    v56[2] = sub_1000B8B18;
-    v9 = v56[3] = &unk_100364D00;
-    v57 = v9;
-    [v8 enumerateObjectsUsingBlock:v56];
-    if ([v9 count])
-    {
-      v74 = 0;
-      v75 = &v74;
-      v76 = 0x2020000000;
-      v77 = 0;
-      v10 = *(a1 + 32);
-      v11 = [NSString stringWithFormat:@"%s:%d %s", "GKGameStatService.m", 2097, "[GKGameStatService getLeaderboardsForGameDescriptor:player:leaderboardIDs:setIdentifier:handler:]_block_invoke_5"];
-      v12 = [v10 transactionGroupWithName:v11];
-
-      v49[0] = _NSConcreteStackBlock;
-      v49[1] = 3221225472;
-      v49[2] = sub_1000B8BB8;
-      v49[3] = &unk_100364B28;
-      v49[4] = *(a1 + 40);
-      v50 = v9;
-      v51 = *(a1 + 48);
-      v52 = *(a1 + 56);
-      v53 = *(a1 + 32);
-      v13 = v12;
-      v54 = v13;
-      v55 = &v74;
-      [v13 perform:v49];
-      if ([*(a1 + 72) count])
-      {
-        v14 = *(a1 + 32);
-        v41[0] = _NSConcreteStackBlock;
-        v41[1] = 3221225472;
-        v41[2] = sub_1000B8D4C;
-        v41[3] = &unk_100364B78;
-        v42 = v13;
-        v43 = *(a1 + 80);
-        v44 = *(a1 + 32);
-        v15 = v8;
-        v16 = *(a1 + 40);
-        v17 = *(a1 + 48);
-        v45 = v15;
-        v46 = v16;
-        v47 = v17;
-        v48 = *(a1 + 72);
-        [v14 perform:v41];
-      }
-
-      else
-      {
-        v34 = *(a1 + 80);
-        v40[0] = _NSConcreteStackBlock;
-        v40[1] = 3221225472;
-        v40[2] = sub_1000B91AC;
-        v40[3] = &unk_1003624A8;
-        v40[4] = *(a1 + 40);
-        v40[5] = &v74;
-        [v13 notifyOnQueue:v34 block:v40];
-      }
-
-      _Block_object_dispose(&v74, 8);
-    }
-
-    v35 = *(a1 + 40);
-    v36 = [*(a1 + 48) bundleIdentifier];
-    v37 = [v35 updateAndFilterHiddenLeaderboards:v8 bundleID:v36 requestedLeaderboardIDs:*(a1 + 72)];
-    [*(a1 + 32) setObject:v37 forKeyedSubscript:@"leaderboards"];
-
-    (*(*(a1 + 88) + 16))();
-  }
-
-  else
-  {
-    v74 = 0;
-    v75 = &v74;
-    v76 = 0x2020000000;
-    v77 = 0;
-    v18 = *(a1 + 32);
-    v19 = [NSString stringWithFormat:@"%s:%d %s", "GKGameStatService.m", 2036, "[GKGameStatService getLeaderboardsForGameDescriptor:player:leaderboardIDs:setIdentifier:handler:]_block_invoke_5"];
-    v20 = [v18 transactionGroupWithName:v19];
-
-    v68[0] = _NSConcreteStackBlock;
-    v68[1] = 3221225472;
-    v68[2] = sub_1000B85EC;
-    v68[3] = &unk_100364B28;
-    v39 = *(a1 + 40);
-    v21 = *(&v39 + 1);
-    v22 = *(a1 + 56);
-    v23 = *(a1 + 64);
-    *&v24 = v22;
-    *(&v24 + 1) = v23;
-    v69 = v39;
-    v70 = v24;
-    v71 = *(a1 + 32);
-    v25 = v20;
-    v72 = v25;
-    v73 = &v74;
-    [v25 perform:v68];
-    if (a4 && ![*(a1 + 72) count])
-    {
-      v38 = *(a1 + 80);
-      v58[0] = _NSConcreteStackBlock;
-      v58[1] = 3221225472;
-      v58[2] = sub_1000B8AB0;
-      v58[3] = &unk_1003624A8;
-      v58[4] = *(a1 + 40);
-      v58[5] = &v74;
-      [v25 notifyOnQueue:v38 block:v58];
-    }
-
-    else
-    {
-      v26 = *(a1 + 32);
-      v59[0] = _NSConcreteStackBlock;
-      v59[1] = 3221225472;
-      v59[2] = sub_1000B8774;
-      v59[3] = &unk_100364CD8;
-      v60 = v25;
-      v61 = *(a1 + 80);
-      v27 = *(a1 + 32);
-      v28 = *(a1 + 40);
-      v29 = *(a1 + 48);
-      v62 = v27;
-      v63 = v28;
-      v64 = v29;
-      v65 = *(a1 + 56);
-      v66 = *(a1 + 64);
-      v67 = *(a1 + 72);
-      [v26 perform:v59];
-    }
-
-    v30 = *(a1 + 40);
-    v31 = [GKGameStatService leaderboards:v7 filteredWithIDs:*(a1 + 72)];
-    v32 = [*(a1 + 48) bundleIdentifier];
-    v33 = [v30 updateAndFilterHiddenLeaderboards:v31 bundleID:v32 requestedLeaderboardIDs:*(a1 + 72)];
-    [*(a1 + 32) setObject:v33 forKeyedSubscript:@"leaderboards"];
-
-    (*(*(a1 + 88) + 16))();
-    _Block_object_dispose(&v74, 8);
-    v8 = v7;
-  }
-}
-
 void sub_1000B85EC(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -482,21 +330,21 @@ void sub_1000B93C4(void *a1)
 void sub_1000B97A8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v23[0] = @"game";
+  v23 = @"game";
   v4 = [*(a1 + 32) dictionaryForRequest];
-  v24[0] = v4;
-  v23[1] = @"player-id";
+  v28 = v4;
+  v24 = @"player-id";
   v5 = [*(a1 + 40) playerID];
-  v24[1] = v5;
-  v23[2] = @"leaderboard-id";
+  v29 = v5;
+  v25 = @"leaderboard-id";
   v6 = [*(a1 + 48) identifier];
-  v24[2] = v6;
-  v24[3] = &off_100382418;
-  v23[3] = @"count";
-  v23[4] = @"player-played-in-only";
+  v30 = v6;
+  v31 = &off_100382418;
+  v26 = @"count";
+  v27 = @"player-played-in-only";
   v7 = [NSNumber numberWithBool:*(a1 + 80)];
-  v24[4] = v7;
-  v8 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:5];
+  v32 = v7;
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v9 = +[GKNetworkRequestManager commonNetworkRequestManager];
   v10 = [*(a1 + 56) clientProxy];
@@ -888,9 +736,9 @@ void sub_1000BB0D4(uint64_t a1, void *a2, void *a3)
   _Block_object_dispose(&v37, 8);
 }
 
-void sub_1000BB4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000BB4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2273,7 +2121,7 @@ NSSecureCoding *__cdecl sub_1000C096C(id a1, NSDictionary *a2)
           {
             v26 = @"leaderboardID";
             v27 = v9;
-            v10 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+            v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
             v11 = [NSMutableDictionary dictionaryWithDictionary:v10];
 
             v12 = [v8 objectForKeyedSubscript:@"group-category-name"];
@@ -2342,12 +2190,12 @@ void sub_1000C0E94(uint64_t a1, void *a2, uint64_t a3)
     v17 = v6;
     v8 = v6;
     v9 = [v7 _gkMapWithBlock:v16];
-    v18[0] = @"game";
+    v18 = @"game";
     v10 = [*(a1 + 40) dictionaryForRequest];
-    v18[1] = @"scores";
-    v19[0] = v10;
-    v19[1] = v9;
-    v11 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v19 = @"scores";
+    v20 = v10;
+    v21 = v9;
+    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
     v12 = +[GKNetworkRequestManager commonNetworkRequestManager];
     v13 = [*(a1 + 48) clientProxy];
@@ -2369,16 +2217,12 @@ id sub_1000C10E4(uint64_t a1, void *a2)
     v4 = *(a1 + 32);
   }
 
-  v9[0] = @"score-value";
   v5 = [v3 value];
 
-  v6 = [NSNumber numberWithLongLong:v5];
-  v9[1] = @"category";
-  v10[0] = v6;
-  v10[1] = v4;
-  v7 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v8 = [NSNumber numberWithLongLong:v5];
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
-  return v7;
+  return v6;
 }
 
 void sub_1000C11E8(uint64_t a1, void *a2, void *a3)
@@ -2794,9 +2638,9 @@ void sub_1000C291C(uint64_t a1, void *a2, void *a3)
   _Block_object_dispose(v27, 8);
 }
 
-void sub_1000C2B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000C2B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3162,10 +3006,11 @@ LABEL_26:
   _Block_object_dispose(v58, 8);
 }
 
-void sub_1000C44C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_1000C44C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a30, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3888,7 +3733,7 @@ void sub_1000C7700(uint64_t a1)
     v4 = @"scroll";
     v2 = [NSNumber numberWithBool:0];
     v5 = v2;
-    v3 = [NSDictionary dictionaryWithObjects:&v5 forKeys:&v4 count:1];
+    v3 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     [v1 refreshContentsForDataType:1 userInfo:v3];
   }
 }
@@ -4152,6 +3997,13 @@ void sub_1000C7FB0(uint64_t a1, void *a2, void *a3)
   v45[2]();
 }
 
+void sub_1000C8500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 id sub_1000C8520(id a1, id a2)
 {
   v6[0] = @"GKChallengeInternal";
@@ -4169,7 +4021,7 @@ void sub_1000C85E4(uint64_t a1, void *a2)
   v4 = [*(a1 + 32) _gkMapWithBlock:&stru_100365558];
   v24 = @"challenge-ids";
   v25 = v4;
-  v5 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v6 = [NSMutableDictionary dictionaryWithDictionary:v5];
 
   v7 = *(a1 + 40);
@@ -4376,7 +4228,7 @@ void sub_1000C8E30(uint64_t a1)
     v4 = @"scroll";
     v2 = [NSNumber numberWithBool:0];
     v5 = v2;
-    v3 = [NSDictionary dictionaryWithObjects:&v5 forKeys:&v4 count:1];
+    v3 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     [v1 refreshContentsForDataType:1 userInfo:v3];
   }
 }
@@ -4782,14 +4634,12 @@ _TtC14GameDaemonCore17GKCacheableEntity *__cdecl sub_1000CAAC8(id a1, NSDictiona
   v4 = [(NSDictionary *)v2 objectForKeyedSubscript:@"result"];
 
   v5 = [v3 initWithServerRepresentation:v4];
-  v11 = @"challenge-id";
-  v6 = [v5 challengeID];
-  v12 = v6;
-  v7 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v8 = [GKNetworkRequestManager makeEntityIDWithRequest:v7 bagKey:@"gk-challenge-detail"];
-  v9 = [_TtC14GameDaemonCore17GKCacheableEntity createWithBagKey:@"gk-challenge-detail" entityID:v8 entity:v5];
+  v10 = [v5 challengeID];
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v7 = [GKNetworkRequestManager makeEntityIDWithRequest:v6 bagKey:@"gk-challenge-detail"];
+  v8 = [_TtC14GameDaemonCore17GKCacheableEntity createWithBagKey:@"gk-challenge-detail" entityID:v7 entity:v5];
 
-  return v9;
+  return v8;
 }
 
 NSSecureCoding *__cdecl sub_1000CAD30(id a1, NSDictionary *a2)
@@ -5017,11 +4867,11 @@ void sub_1000CC83C(uint64_t a1)
   }
 }
 
-void sub_1000CCBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000CCBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5506,7 +5356,7 @@ void sub_1000CEE24(uint64_t a1, void *a2, void *a3)
   {
     v49 = @"bucket-id";
     v50 = v21;
-    v22 = [NSDictionary dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v22 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   }
 
   else
@@ -5519,7 +5369,7 @@ void sub_1000CEE24(uint64_t a1, void *a2, void *a3)
   {
     v47 = @"queue-name";
     v48 = v23;
-    v24 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+    v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
     v22 = v24;
   }
@@ -5710,7 +5560,7 @@ void sub_1000CFAA0(id *a1, void *a2)
     v5 = a1[5];
     v23 = @"game";
     v24 = v5;
-    v6 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v7 = +[GKNetworkRequestManager commonNetworkRequestManager];
     v8 = [a1[7] clientProxy];
     v9[0] = _NSConcreteStackBlock;
@@ -6295,11 +6145,11 @@ void sub_1000D1990(id *a1)
   }
 }
 
-void sub_1000D1F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1000D1F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  objc_destroyWeak((v17 + 72));
-  objc_destroyWeak((v18 - 144));
+  va_start(va, a24);
+  objc_destroyWeak((v24 + 72));
+  objc_destroyWeak((v25 - 144));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6882,7 +6732,7 @@ void sub_1000D44E8(uint64_t a1, void *a2)
   v55 = 0u;
   v56 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v53 objects:v64 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v53 objects:v66 count:16];
   if (v4)
   {
     v5 = v4;
@@ -6913,7 +6763,7 @@ void sub_1000D44E8(uint64_t a1, void *a2)
             v49 = 0u;
             v50 = 0u;
             v11 = v10;
-            v12 = [v11 countByEnumeratingWithState:&v49 objects:v63 count:16];
+            v12 = [v11 countByEnumeratingWithState:&v49 objects:v65 count:16];
             if (v12)
             {
               v13 = v12;
@@ -6939,7 +6789,7 @@ void sub_1000D44E8(uint64_t a1, void *a2)
                 }
 
                 while (v13 != v15);
-                v13 = [v11 countByEnumeratingWithState:&v49 objects:v63 count:16];
+                v13 = [v11 countByEnumeratingWithState:&v49 objects:v65 count:16];
               }
 
               while (v13);
@@ -6958,9 +6808,9 @@ void sub_1000D44E8(uint64_t a1, void *a2)
           else
           {
             v25 = *(a1 + 48);
-            v61 = @"raw-id";
-            v62 = v8;
-            v11 = [NSDictionary dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+            v63 = @"raw-id";
+            v64 = v8;
+            v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
             [v25 addObject:v11];
           }
 
@@ -6974,11 +6824,11 @@ void sub_1000D44E8(uint64_t a1, void *a2)
           {
             v20 = v19;
             v38 = *(a1 + 48);
-            v59[0] = @"raw-id";
-            v59[1] = @"push-token";
-            v60[0] = v8;
-            v60[1] = v19;
-            [NSDictionary dictionaryWithObjects:v60 forKeys:v59 count:2];
+            v59 = @"raw-id";
+            v60 = @"push-token";
+            v61 = v8;
+            v62 = v19;
+            objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
             v21 = v6;
             v22 = v3;
             v24 = v23 = v20;
@@ -6994,7 +6844,7 @@ void sub_1000D44E8(uint64_t a1, void *a2)
             v26 = *(a1 + 48);
             v57 = @"raw-id";
             v58 = v8;
-            v10 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1, v32];
+            v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary, v32);
             [v26 addObject:v10];
           }
         }
@@ -7007,7 +6857,7 @@ void sub_1000D44E8(uint64_t a1, void *a2)
       }
 
       while (v7 != v5);
-      v5 = [v3 countByEnumeratingWithState:&v53 objects:v64 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v53 objects:v66 count:16];
     }
 
     while (v5);
@@ -7466,7 +7316,7 @@ void sub_1000D5898(uint64_t a1)
   v31 = 0u;
   v32 = 0u;
   obj = *(v1 + 32);
-  v22 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v22 = [obj countByEnumeratingWithState:&v29 objects:v44 count:16];
   if (v22)
   {
     v20 = v1;
@@ -7491,7 +7341,7 @@ void sub_1000D5898(uint64_t a1)
           v25 = 0u;
           v26 = 0u;
           v6 = v5;
-          v7 = [v6 countByEnumeratingWithState:&v25 objects:v37 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v25 objects:v43 count:16];
           if (v7)
           {
             v8 = v7;
@@ -7506,16 +7356,16 @@ void sub_1000D5898(uint64_t a1)
                 }
 
                 v11 = *(*(&v25 + 1) + 8 * j);
-                v35[0] = @"id";
+                v39 = @"id";
                 v12 = [v4 playerID];
-                v35[1] = @"push-token";
-                v36[0] = v12;
-                v36[1] = v11;
-                v13 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:2];
+                v40 = @"push-token";
+                v41 = v12;
+                v42 = v11;
+                v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
                 [v2 addObject:v13];
               }
 
-              v8 = [v6 countByEnumeratingWithState:&v25 objects:v37 count:16];
+              v8 = [v6 countByEnumeratingWithState:&v25 objects:v43 count:16];
             }
 
             while (v8);
@@ -7528,7 +7378,7 @@ void sub_1000D5898(uint64_t a1)
         }
       }
 
-      v22 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v22 = [obj countByEnumeratingWithState:&v29 objects:v44 count:16];
     }
 
     while (v22);
@@ -7537,14 +7387,14 @@ void sub_1000D5898(uint64_t a1)
   if ([v2 count])
   {
     v14 = *(v1 + 48);
-    v33[0] = @"session-token";
-    v33[1] = @"peers";
-    v34[0] = v14;
-    v34[1] = v2;
-    v33[2] = @"reason";
+    v33 = @"session-token";
+    v34 = @"peers";
+    v36 = v14;
+    v37 = v2;
+    v35 = @"reason";
     v15 = [NSNumber numberWithInteger:0];
-    v34[2] = v15;
-    v16 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:3];
+    v38 = v15;
+    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
     v17 = +[GKNetworkRequestManager commonNetworkRequestManager];
     [v17 issueRequest:v16 bagKey:@"gk-invitation-cancel" clientProxy:*(v1 + 56) handler:&stru_100365C68];
@@ -7586,7 +7436,7 @@ void sub_1000D5E94(uint64_t a1, void *a2)
 
   else
   {
-    (*(v3 + 2))(v3);
+    v3[2](v3);
   }
 }
 
@@ -7906,34 +7756,34 @@ void sub_1000D7AE0(id *a1, unsigned __int8 a2)
     [v4 appendBytes:&v38 length:1];
   }
 
-  v41 = @"s";
-  v42 = v4;
+  v53 = @"s";
+  v54 = v4;
   v29 = v4;
-  v10 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v28 = [NSMutableDictionary dictionaryWithDictionary:v10];
 
-  v39[0] = @"session-token";
+  v39 = @"session-token";
   v11 = [a1[5] sessionToken];
-  v40[0] = v11;
-  v39[1] = @"self-nat-type";
+  v46 = v11;
+  v40 = @"self-nat-type";
   v12 = [NSNumber numberWithUnsignedChar:a2];
-  v40[1] = v12;
-  v39[2] = @"peer-id";
+  v47 = v12;
+  v41 = @"peer-id";
   v13 = [a1[5] peerID];
-  v40[2] = v13;
-  v39[3] = @"peer-push-token";
+  v48 = v13;
+  v42 = @"peer-push-token";
   v14 = [a1[5] peerPushToken];
-  v40[3] = v14;
-  v39[4] = @"peer-nat-type";
+  v49 = v14;
+  v43 = @"peer-nat-type";
   v15 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [a1[5] peerNATType]);
-  v40[4] = v15;
-  v39[5] = @"peer-nat-ip";
+  v50 = v15;
+  v44 = @"peer-nat-ip";
   v16 = [a1[5] peerNATIP];
-  v40[5] = v16;
-  v39[6] = @"peer-blob";
+  v51 = v16;
+  v45 = @"peer-blob";
   v17 = [a1[5] peerBlob];
-  v40[6] = v17;
-  v18 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:7];
+  v52 = v17;
+  v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v19 = [NSMutableDictionary dictionaryWithDictionary:v18];
 
   [a1[6] enrichServerRequestWithConnectionData:v19];
@@ -8136,9 +7986,9 @@ void sub_1000D872C(uint64_t a1)
   _Block_object_dispose(v21, 8);
 }
 
-void sub_1000D89E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1000D89E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8238,9 +8088,9 @@ void sub_1000D9048(uint64_t a1)
   (*(v1 + 16))(v1, v2, 0);
 }
 
-void sub_1000D91E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000D91E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8289,25 +8139,25 @@ void sub_1000D95B8(uint64_t a1, uint64_t a2)
 
   v45 = v7;
   [v5 appendBytes:&v45 length:1];
-  v58[0] = *(a1 + 40);
-  v57[0] = @"B";
-  v57[1] = @"A";
+  v56[17] = *(a1 + 40);
+  v56[11] = @"B";
+  v56[12] = @"A";
   v8 = [GKViceroyNATConfiguration externalAddressForSelfConnectionData:?];
-  v58[1] = v8;
-  v57[2] = @"N";
+  v56[18] = v8;
+  v56[13] = @"N";
   v9 = [NSNumber numberWithUnsignedChar:v47];
-  v58[2] = v9;
-  v57[3] = @"i";
+  v56[19] = v9;
+  v56[14] = @"i";
   v10 = [*(a1 + 48) clientProxy];
   v11 = [v10 bundleIdentifier];
-  v58[3] = v11;
-  v57[4] = @"v";
+  v56[20] = v11;
+  v56[15] = @"v";
   v12 = [*(a1 + 48) clientProxy];
   v13 = [v12 bundleVersion];
-  v57[5] = @"s";
-  v58[4] = v13;
-  v58[5] = v5;
-  v14 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:6];
+  v56[16] = @"s";
+  v56[21] = v13;
+  v56[22] = v5;
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v38 = v14;
   v15 = [v14 mutableCopy];
@@ -8322,9 +8172,9 @@ void sub_1000D95B8(uint64_t a1, uint64_t a2)
   }
 
   v20 = v15;
-  v56[0] = *(a1 + 56);
-  v55[0] = @"session-token";
-  v55[1] = @"self-push-token";
+  v56[6] = *(a1 + 56);
+  v56[1] = @"session-token";
+  v56[2] = @"self-push-token";
   v21 = +[GKDataRequestManager sharedManager];
   v22 = [v21 pushToken];
   v23 = v22;
@@ -8333,23 +8183,23 @@ void sub_1000D95B8(uint64_t a1, uint64_t a2)
     v23 = +[NSData data];
   }
 
-  v56[1] = v23;
-  v55[2] = @"reason";
+  v56[7] = v23;
+  v56[3] = @"reason";
   v24 = [NSNumber numberWithInt:2];
-  v56[2] = v24;
-  v55[3] = @"peers";
-  v52[0] = @"id";
+  v56[8] = v24;
+  v56[4] = @"peers";
+  v52 = @"id";
   v25 = [*(a1 + 64) playerID];
-  v52[1] = @"push-token";
-  v53[0] = v25;
-  v53[1] = *(a1 + 72);
-  v26 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:2];
-  v54 = v26;
-  v27 = [NSArray arrayWithObjects:&v54 count:1];
-  v55[4] = @"client-data";
-  v56[3] = v27;
-  v56[4] = v20;
-  v37 = [NSDictionary dictionaryWithObjects:v56 forKeys:v55 count:5];
+  v53 = @"push-token";
+  v54 = v25;
+  v55 = *(a1 + 72);
+  v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v56[0] = v26;
+  v27 = [NSArray arrayWithObjects:v56 count:1];
+  v56[5] = @"client-data";
+  v56[9] = v27;
+  v56[10] = v20;
+  v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   if (!v22)
   {
@@ -8500,12 +8350,12 @@ void sub_1000DAB44(id *a1)
 
   if (v4)
   {
-    v26[0] = GKTTRBulletinKeyRadarID;
+    v25 = GKTTRBulletinKeyRadarID;
     v5 = [a1[5] radarID];
-    v26[1] = GKTTRBulletinKeyRequesterPlayerAlias;
-    v27[0] = v5;
-    v27[1] = v3;
-    v6 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v26 = GKTTRBulletinKeyRequesterPlayerAlias;
+    v27 = v5;
+    v28 = v3;
+    v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
     [a1[6] setObject:v6 forKeyedSubscript:@"client-data"];
     if (!os_log_GKGeneral)
@@ -8521,32 +8371,31 @@ void sub_1000DAB44(id *a1)
       v11 = v8;
       v12 = [v9 clientProxy];
       *buf = 138412546;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v12;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v12;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Sending TTRLogs with request: %@, self.clientProxy: %@", buf, 0x16u);
     }
 
     v13 = +[GKNetworkRequestManager commonNetworkRequestManager];
     v14 = a1[6];
     v15 = [a1[7] clientProxy];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_1000DAE64;
-    v20[3] = &unk_1003615D8;
-    v21 = a1[8];
-    [v13 issueRequest:v14 bagKey:@"gk-invitation-send" clientProxy:v15 handler:v20];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_1000DAE64;
+    v19[3] = &unk_1003615D8;
+    v20 = a1[8];
+    [v13 issueRequest:v14 bagKey:@"gk-invitation-send" clientProxy:v15 handler:v19];
   }
 
   else
   {
     v16 = GKInternalErrorDomain;
-    v28 = @"reason";
+    v29 = @"reason";
     v17 = [a1[5] radarID];
-    v18 = [NSString stringWithFormat:@"Invalid GKTTRLogRequestInfo(radarID: %@, requesterAlias: %@)", v17, v3];
-    v29 = v18;
-    v19 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v6 = [NSError errorWithDomain:v16 code:900 userInfo:v19];
+    v30 = [NSString stringWithFormat:@"Invalid GKTTRLogRequestInfo(radarID: %@, requesterAlias: %@)", v17, v3];
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+    v6 = [NSError errorWithDomain:v16 code:900 userInfo:v18];
 
     (*(a1[8] + 2))();
   }
@@ -8787,4 +8636,106 @@ LABEL_16:
 
   v32 = [v35 internalRepresentation];
   [*(v34 + 40) setResult:v32];
+}
+
+void sub_1000DBF64(uint64_t a1)
+{
+  v1 = *(a1 + 40);
+  v2 = [*(a1 + 32) result];
+  (*(v1 + 16))(v1, v2);
+}
+
+void sub_1000DC24C(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (v2)
+  {
+    v3 = *(v2 + 16);
+
+    v3();
+  }
+
+  else
+  {
+    if (!os_log_GKGeneral)
+    {
+      v4 = GKOSLoggers();
+    }
+
+    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_ERROR))
+    {
+      sub_10028CBB8();
+    }
+  }
+}
+
+void sub_1000DC554(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (v2)
+  {
+    v3 = *(v2 + 16);
+
+    v3();
+  }
+
+  else
+  {
+    if (!os_log_GKGeneral)
+    {
+      v4 = GKOSLoggers();
+    }
+
+    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_ERROR))
+    {
+      sub_10028CBF4();
+    }
+  }
+}
+
+void sub_1000DC8A4(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = *(a1 + 32);
+  if (v4)
+  {
+    (*(v4 + 16))(v4, v3);
+  }
+
+  else
+  {
+    if (!os_log_GKGeneral)
+    {
+      v5 = GKOSLoggers();
+    }
+
+    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_ERROR))
+    {
+      sub_10028CC30();
+    }
+  }
+}
+
+void sub_1000DCBBC(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (v2)
+  {
+    v3 = *(v2 + 16);
+
+    v3();
+  }
+
+  else
+  {
+    if (!os_log_GKGeneral)
+    {
+      v4 = GKOSLoggers();
+    }
+
+    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_ERROR))
+    {
+      sub_10028CC6C();
+    }
+  }
 }

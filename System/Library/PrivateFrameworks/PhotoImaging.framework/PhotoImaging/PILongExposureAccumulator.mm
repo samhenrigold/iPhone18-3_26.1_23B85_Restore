@@ -178,7 +178,7 @@ LABEL_36:
 
   v17 = utiCopy;
   context = [(NURenderer *)self->_renderer context];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v19 = [context createCGImage:imageCopy fromRect:v12 format:space colorSpace:0 deferred:?];
   if (v19)
   {
@@ -718,7 +718,7 @@ void __47__PILongExposureAccumulator__accumulate_error___block_invoke(uint64_t a
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
-  [v4 extent];
+  objc_msgSend_extent(v4);
   v7 = v6;
   v9 = v8;
   v11 = v10;
@@ -759,7 +759,7 @@ void __47__PILongExposureAccumulator__accumulate_error___block_invoke_50(uint64_
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
-  [v4 extent];
+  objc_msgSend_extent(v4);
   v7 = v6;
   v9 = v8;
   v11 = v10;
@@ -797,7 +797,7 @@ void __47__PILongExposureAccumulator__accumulate_error___block_invoke_3(uint64_t
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
-  [v4 extent];
+  objc_msgSend_extent(v4);
   v7 = v6;
   v9 = v8;
   v11 = v10;
@@ -1234,7 +1234,7 @@ LABEL_9:
   return v3;
 }
 
-uint64_t __47__PILongExposureAccumulator_isReadyForMoreData__block_invoke(uint64_t a1)
+void *__47__PILongExposureAccumulator_isReadyForMoreData__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isReadyForMoreData];
   *(*(*(a1 + 40) + 8) + 24) = result;

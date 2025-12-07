@@ -1,6 +1,7 @@
 @interface LSRConnection
 + (BOOL)isEuclidAvailableForConfigPath:(id)path;
 + (id)_jitProfileWithLanguage:(id)language modelRoot:(id)root;
++ (id)modelRootWithLanguage:(id)language assetType:(unint64_t)type shouldSubscribe:(BOOL)subscribe clientID:(id)d modelOverrideURL:(id)l isSpelling:(BOOL)spelling error:(id *)error;
 + (id)processStartTimeOnce;
 + (void)_cachedRecognizerCleanUp;
 + (void)_cancelCooldownTimer;
@@ -12,6 +13,7 @@
 - ($115C4C562B26FF47E01F9F4EA65B5887)_auditToken;
 - (BOOL)_callerHasWritePriviledge:(id)priviledge;
 - (BOOL)_consumeSandboxExtensions:(id)extensions error:(id *)error;
+- (BOOL)prepareRecognizerWithLanguage:(id)language recognitionOverrides:(id)overrides modelOverrideURL:(id)l anyConfiguration:(BOOL)configuration task:(id)task clientID:(id)d error:(id *)error;
 - (LSRConnection)initWithXPCConnection:(id)connection;
 - (id)_requestContext;
 - (void)addAudioPacket:(id)packet;
@@ -2131,6 +2133,268 @@ LABEL_24:
   (completionCopy)[2](completionCopy, v16);
 }
 
+- (BOOL)prepareRecognizerWithLanguage:(id)language recognitionOverrides:(id)overrides modelOverrideURL:(id)l anyConfiguration:(BOOL)configuration task:(id)task clientID:(id)d error:(id *)error
+{
+  configurationCopy = configuration;
+  languageCopy = language;
+  overridesCopy = overrides;
+  lCopy = l;
+  taskCopy = task;
+  dCopy = d;
+  v18 = SFLogConnection;
+  if (os_log_type_enabled(SFLogConnection, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315138;
+    v75 = "[LSRConnection prepareRecognizerWithLanguage:recognitionOverrides:modelOverrideURL:anyConfiguration:task:clientID:error:]";
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s Preparing recognizer...", buf, 0xCu);
+  }
+
+  dispatch_assert_queue_V2(qword_100071428);
+  v19 = _AFPreferencesReplacementLanguageForLocalRecognizerLanguageCode();
+  v20 = v19;
+  if (v19)
+  {
+    v21 = v19;
+  }
+
+  else
+  {
+    v21 = languageCopy;
+  }
+
+  v22 = v21;
+
+  if (taskCopy)
+  {
+    v23 = SFEntitledAssetTypeForTaskName();
+  }
+
+  else
+  {
+    v23 = 3;
+  }
+
+  self->_modelAssetType = v23;
+  v69[1] = 0;
+  v24 = [LSRConnection modelRootWithLanguage:"modelRootWithLanguage:assetType:clientID:modelOverrideURL:error:" assetType:v22 clientID:? modelOverrideURL:? error:?];
+  v25 = 0;
+  v26 = v25;
+  if (!v24 || v25)
+  {
+    v30 = SFLogConnection;
+    if (os_log_type_enabled(SFLogConnection, OS_LOG_TYPE_ERROR))
+    {
+      v60 = v30;
+      localizedDescription = [v26 localizedDescription];
+      *buf = 136315650;
+      v75 = "[LSRConnection prepareRecognizerWithLanguage:recognitionOverrides:modelOverrideURL:anyConfiguration:task:clientID:error:]";
+      v76 = 2112;
+      v77 = @"modelRoot is nil";
+      v78 = 2112;
+      v79 = localizedDescription;
+      _os_log_error_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "%s %@ %@", buf, 0x20u);
+    }
+
+    if (error)
+    {
+      v31 = [NSBundle bundleForClass:objc_opt_class()];
+      v32 = [v31 localizedStringForKey:@"Failed to access assets" value:&stru_100066A98 table:@"Localizable"];
+
+      if (v26)
+      {
+        v84[0] = NSLocalizedDescriptionKey;
+        v84[1] = NSUnderlyingErrorKey;
+        v85[0] = v32;
+        v85[1] = v26;
+        v33 = v85;
+        v34 = v84;
+        v35 = 2;
+      }
+
+      else
+      {
+        v82 = NSLocalizedDescriptionKey;
+        v83 = v32;
+        v33 = &v83;
+        v34 = &v82;
+        v35 = 1;
+      }
+
+      v57 = [NSDictionary dictionaryWithObjects:v33 forKeys:v34 count:v35];
+      *error = [NSError errorWithDomain:@"kLSRErrorDomain" code:102 userInfo:v57];
+    }
+
+    goto LABEL_48;
+  }
+
+  v66 = overridesCopy;
+  objc_storeStrong(&self->_modelRoot, v24);
+  if (qword_100071430)
+  {
+    v27 = SFLogConnection;
+    if (os_log_type_enabled(SFLogConnection, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315138;
+      v75 = "[LSRConnection prepareRecognizerWithLanguage:recognitionOverrides:modelOverrideURL:anyConfiguration:task:clientID:error:]";
+      _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%s Recognizer is running, cancel the request", buf, 0xCu);
+    }
+
+    [qword_100071468 cancelRecognition];
+    v28 = qword_100071430;
+    qword_100071430 = 0;
+  }
+
+  if (qword_100071468)
+  {
+    if ([qword_100071450 isEqualToString:v22] && objc_msgSend(qword_100071460, "isEqualToString:", self->_modelRoot) && (qword_100071470 == overridesCopy || objc_msgSend(qword_100071470, "isEqualToDictionary:", overridesCopy)))
+    {
+      v29 = SFLogConnection;
+      if (os_log_type_enabled(SFLogConnection, OS_LOG_TYPE_DEBUG))
+      {
+        modelRoot = self->_modelRoot;
+        *buf = 136315906;
+        v75 = "[LSRConnection prepareRecognizerWithLanguage:recognitionOverrides:modelOverrideURL:anyConfiguration:task:clientID:error:]";
+        v76 = 2112;
+        v77 = v22;
+        v78 = 2112;
+        v79 = modelRoot;
+        v80 = 2112;
+        v81 = overridesCopy;
+        _os_log_debug_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "%s Using cached recognizer for language=%@ modelRoot=%@ overrides=%@", buf, 0x2Au);
+      }
+
+      objc_storeWeak(&self->_recognizer, qword_100071468);
+      v26 = 0;
+      goto LABEL_34;
+    }
+
+    v36 = qword_100071468;
+    if (qword_100071468)
+    {
+      v37 = +[_EARSpeechRecognitionActiveConfiguration activeConfigurationForNothing];
+      [v36 setActiveConfiguration:v37];
+
+      overridesCopy = v66;
+      v38 = qword_100071468;
+      qword_100071468 = 0;
+    }
+  }
+
+  v39 = SFLogConnection;
+  if (os_log_type_enabled(SFLogConnection, OS_LOG_TYPE_DEBUG))
+  {
+    v62 = self->_modelRoot;
+    *buf = 136315906;
+    v75 = "[LSRConnection prepareRecognizerWithLanguage:recognitionOverrides:modelOverrideURL:anyConfiguration:task:clientID:error:]";
+    v76 = 2112;
+    v77 = v22;
+    v78 = 2112;
+    v79 = v62;
+    v80 = 2112;
+    v81 = overridesCopy;
+    _os_log_debug_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "%s Initializing a new recognizer for language=%@ modelRoot=%@ overrides=%@", buf, 0x2Au);
+  }
+
+  v40 = self->_modelRoot;
+  v69[0] = 0;
+  v41 = [_EARSpeechRecognizer _speechRecognizerWithLanguage:v22 overrides:overridesCopy anyConfiguration:configurationCopy taskConfiguration:taskCopy modelRoot:v40 error:v69 modelLoadTime:&self->_modelLoadTime];
+  v26 = v69[0];
+  objc_storeWeak(&self->_recognizer, v41);
+
+  WeakRetained = objc_loadWeakRetained(&self->_recognizer);
+  if (WeakRetained)
+  {
+    v43 = objc_loadWeakRetained(&self->_recognizer);
+    v44 = qword_100071468;
+    qword_100071468 = v43;
+
+    objc_storeStrong(&qword_100071470, overrides);
+    v45 = objc_loadWeakRetained(&self->_recognizer);
+    modelInfo = [v45 modelInfo];
+    v47 = qword_100071478;
+    qword_100071478 = modelInfo;
+
+    objc_storeStrong(&qword_100071450, v21);
+    objc_storeStrong(&qword_100071460, self->_modelRoot);
+    objc_storeStrong(&qword_100071480, task);
+  }
+
+LABEL_34:
+  if (qword_100071468)
+  {
+    +[LSRConnection _scheduleCooldownTimer];
+  }
+
+  v48 = objc_loadWeakRetained(&self->_recognizer);
+
+  v49 = SFLogConnection;
+  if (!v48)
+  {
+    if (os_log_type_enabled(SFLogConnection, OS_LOG_TYPE_ERROR))
+    {
+      v63 = v49;
+      localizedDescription2 = [v26 localizedDescription];
+      *buf = 136315650;
+      v75 = "[LSRConnection prepareRecognizerWithLanguage:recognitionOverrides:modelOverrideURL:anyConfiguration:task:clientID:error:]";
+      v76 = 2112;
+      v77 = @"_EARSpeechRecognizer is nil";
+      v78 = 2112;
+      v79 = localizedDescription2;
+      _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "%s %@ %@", buf, 0x20u);
+    }
+
+    if (error)
+    {
+      if (v26)
+      {
+        v72[0] = NSLocalizedDescriptionKey;
+        v72[1] = NSUnderlyingErrorKey;
+        v73[0] = @"Failed to initialize recognizer";
+        v73[1] = v26;
+        v54 = v73;
+        v55 = v72;
+        v56 = 2;
+      }
+
+      else
+      {
+        v70 = NSLocalizedDescriptionKey;
+        v71 = @"Failed to initialize recognizer";
+        v54 = &v71;
+        v55 = &v70;
+        v56 = 1;
+      }
+
+      v58 = [NSDictionary dictionaryWithObjects:v54 forKeys:v55 count:v56];
+      *error = [NSError errorWithDomain:@"kLSRErrorDomain" code:300 userInfo:v58];
+    }
+
+LABEL_48:
+    v50 = 0;
+    goto LABEL_49;
+  }
+
+  v50 = 1;
+  if (os_log_type_enabled(SFLogConnection, OS_LOG_TYPE_INFO))
+  {
+    v51 = qword_100071478;
+    v52 = v49;
+    v53 = [v51 description];
+    *buf = 136315394;
+    v75 = "[LSRConnection prepareRecognizerWithLanguage:recognitionOverrides:modelOverrideURL:anyConfiguration:task:clientID:error:]";
+    v76 = 2112;
+    v77 = v53;
+    v50 = 1;
+    _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "%s Created _EARSpeechRecognizer successfully with modelInfo: %@", buf, 0x16u);
+
+    overridesCopy = v66;
+  }
+
+LABEL_49:
+
+  return v50;
+}
+
 - (id)_requestContext
 {
   v3 = SFLogConnection;
@@ -2239,7 +2503,7 @@ LABEL_24:
 - (BOOL)_callerHasWritePriviledge:(id)priviledge
 {
   priviledgeCopy = priviledge;
-  [(LSRConnection *)self _auditToken];
+  objc_msgSend__auditToken(self);
   v5 = sandbox_check_by_audit_token();
   v6 = SFLogConnection;
   v7 = os_log_type_enabled(SFLogConnection, OS_LOG_TYPE_DEBUG);
@@ -2709,6 +2973,98 @@ LABEL_4:
   }
 
   return v9;
+}
+
++ (id)modelRootWithLanguage:(id)language assetType:(unint64_t)type shouldSubscribe:(BOOL)subscribe clientID:(id)d modelOverrideURL:(id)l isSpelling:(BOOL)spelling error:(id *)error
+{
+  subscribeCopy = subscribe;
+  errorCopy2 = error;
+  languageCopy = language;
+  dCopy = d;
+  lCopy = l;
+  v17 = languageCopy;
+  v18 = _AFPreferencesReplacementLanguageForLocalRecognizerLanguageCode();
+  v19 = v18;
+  v20 = v17;
+  if (v18)
+  {
+    v20 = v18;
+  }
+
+  if (!lCopy || !SFIsInternalInstall())
+  {
+    v22 = [[SFEntitledAssetConfig alloc] initWithLanguage:v20 assetType:type];
+    v30 = +[SFSpeechAssetManager systemClientId];
+    v31 = [dCopy isEqualToString:v30];
+
+    if (v31)
+    {
+      v32 = 0;
+    }
+
+    else
+    {
+      v33 = +[NSCalendar currentCalendar];
+      v34 = +[NSDate date];
+      v32 = [v33 dateByAddingUnit:16 value:14 toDate:v34 options:0];
+
+      errorCopy2 = error;
+    }
+
+    v35 = +[SFEntitledAssetManager sharedInstance];
+    path = [v35 installedAssetWithConfig:v22 regionId:0 shouldSubscribe:subscribeCopy subscriberId:dCopy expiration:v32];
+
+    if (!path)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_15:
+    v36 = path;
+    goto LABEL_16;
+  }
+
+  path = [lCopy path];
+  v22 = 0;
+  if (path)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_6:
+  v38 = errorCopy2;
+  v39 = lCopy;
+  v40 = dCopy;
+  v23 = [NSBundle bundleForClass:objc_opt_class()];
+  v24 = [v23 localizedStringForKey:@"No %@ asset for language %@" value:&stru_100066A98 table:@"Localizable"];
+  [v22 assetType];
+  v25 = SFEntitledAssetTypeToString();
+  language = [v22 language];
+  v27 = [NSString localizedStringWithFormat:v24, v25, language];
+
+  v28 = SFLogConnection;
+  if (os_log_type_enabled(SFLogConnection, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    v44 = "+[LSRConnection modelRootWithLanguage:assetType:shouldSubscribe:clientID:modelOverrideURL:isSpelling:error:]";
+    v45 = 2112;
+    v46 = v27;
+    _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
+  }
+
+  if (v38)
+  {
+    v41 = NSLocalizedDescriptionKey;
+    v42 = v27;
+    v29 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    *v38 = [NSError errorWithDomain:@"kLSRErrorDomain" code:101 userInfo:v29];
+  }
+
+  lCopy = v39;
+  dCopy = v40;
+LABEL_16:
+
+  return path;
 }
 
 + (id)processStartTimeOnce

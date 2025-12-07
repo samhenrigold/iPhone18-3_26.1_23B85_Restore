@@ -7,8 +7,10 @@
 - (void)_checkPrivacy;
 - (void)_checkSupportedProviders;
 - (void)_continueCheckPrivacyWithAccessStatus:(unint64_t)status;
+- (void)_determineProviderDisplayNameWithUI:(BOOL)i;
 - (void)_finishWithError:(id)error;
 - (void)_finishWithSupportedProviders:(id)providers;
+- (void)_promptForPrivacyWithDisplayNameIfRequired:(id)required providerID:(id)d providerIsSupported:(BOOL)supported allowUI:(BOOL)i;
 - (void)cancel;
 - (void)dealloc;
 - (void)setHostAuditToken:(id *)token;
@@ -63,19 +65,19 @@
   return v2;
 }
 
-void __48__VSViewServiceRequestPreparationOperation_init__block_invoke()
+void __48__VSViewServiceRequestPreparationOperation_init__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v0 = VSErrorLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v5 = VSErrorLogObject();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __48__VSViewServiceRequestPreparationOperation_init__block_invoke_cold_1();
   }
 }
 
-void __48__VSViewServiceRequestPreparationOperation_init__block_invoke_6()
+void __48__VSViewServiceRequestPreparationOperation_init__block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v0 = VSErrorLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v5 = VSErrorLogObject();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __48__VSViewServiceRequestPreparationOperation_init__block_invoke_6_cold_1();
   }
@@ -130,7 +132,7 @@ void __48__VSViewServiceRequestPreparationOperation_init__block_invoke_6()
   }
 
   v4 = MEMORY[0x277CE22D0];
-  [(VSViewServiceRequestPreparationOperation *)self hostAuditToken];
+  objc_msgSend_hostAuditToken(self);
   v5 = [v4 securityTaskWithAuditToken:buf];
   v6 = VSCheckEntitlementForTask();
   v7 = 0;
@@ -434,7 +436,7 @@ void __62__VSViewServiceRequestPreparationOperation__checkAvailability__block_in
 
 - (void)_finishWithSupportedProviders:(id)providers
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   providersCopy = providers;
   if (![providersCopy count])
   {
@@ -450,7 +452,7 @@ void __62__VSViewServiceRequestPreparationOperation__checkAvailability__block_in
 
   if (-[VSViewServiceRequestPreparationOperation shouldInferFeaturedProviders](self, "shouldInferFeaturedProviders") && ![v10 count])
   {
-    v42 = v9;
+    v41 = v9;
     v11 = v10;
     v12 = [MEMORY[0x277CBEB98] setWithArray:v5];
     v13 = MEMORY[0x277CBEB98];
@@ -468,75 +470,75 @@ void __62__VSViewServiceRequestPreparationOperation__checkAvailability__block_in
       v10 = v11;
     }
 
-    v9 = v42;
+    v9 = v41;
   }
 
   if ([v10 count])
   {
-    v43 = v9;
-    v44 = v10;
-    v39 = v7;
+    v42 = v9;
+    v43 = v10;
+    v38 = v7;
     selfCopy = self;
-    v41 = v5;
+    v40 = v5;
     v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     v18 = providersCopy;
-    v19 = [v18 countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v54 objects:v59 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v56;
+      v21 = *v55;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v56 != v21)
+          if (*v55 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v55 + 1) + 8 * i);
+          v23 = *(*(&v54 + 1) + 8 * i);
           [v23 setRankForSorting:0];
           providerID = [v23 providerID];
-          v52[0] = MEMORY[0x277D85DD0];
-          v52[1] = 3221225472;
-          v52[2] = __74__VSViewServiceRequestPreparationOperation__finishWithSupportedProviders___block_invoke;
-          v52[3] = &unk_279E19598;
-          v53 = v17;
-          v54 = v23;
-          [providerID conditionallyUnwrapObject:v52];
+          v51[0] = MEMORY[0x277D85DD0];
+          v51[1] = 3221225472;
+          v51[2] = __74__VSViewServiceRequestPreparationOperation__finishWithSupportedProviders___block_invoke;
+          v51[3] = &unk_279E19598;
+          v52 = v17;
+          v53 = v23;
+          [providerID conditionallyUnwrapObject:v51];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v55 objects:v60 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v54 objects:v59 count:16];
       }
 
       while (v20);
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
-    v25 = v44;
-    v26 = [v25 countByEnumeratingWithState:&v48 objects:v59 count:16];
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v25 = v43;
+    v26 = [v25 countByEnumeratingWithState:&v47 objects:v58 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v49;
+      v28 = *v48;
       v29 = 1;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v49 != v28)
+          if (*v48 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v31 = [v17 objectForKey:*(*(&v48 + 1) + 8 * j)];
+          v31 = [v17 objectForKey:*(*(&v47 + 1) + 8 * j)];
           if (v31)
           {
             v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
@@ -546,17 +548,17 @@ void __62__VSViewServiceRequestPreparationOperation__checkAvailability__block_in
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v48 objects:v59 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v47 objects:v58 count:16];
       }
 
       while (v27);
     }
 
-    v5 = v41;
-    v7 = v39;
+    v5 = v40;
+    v7 = v38;
     self = selfCopy;
-    v10 = v44;
-    v9 = v43;
+    v10 = v43;
+    v9 = v42;
   }
 
   privateQueue = [(VSViewServiceRequestPreparationOperation *)self privateQueue];
@@ -564,18 +566,16 @@ void __62__VSViewServiceRequestPreparationOperation__checkAvailability__block_in
   [(VSFeaturedIdentityProviderLimitingOperation *)v34 setUnlimitedIdentityProviders:providersCopy];
   [privateQueue addOperation:v34];
   v35 = MEMORY[0x277CCA8C8];
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __74__VSViewServiceRequestPreparationOperation__finishWithSupportedProviders___block_invoke_2;
-  v45[3] = &unk_279E19848;
-  v46 = v34;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __74__VSViewServiceRequestPreparationOperation__finishWithSupportedProviders___block_invoke_2;
+  v44[3] = &unk_279E19848;
+  v45 = v34;
   selfCopy2 = self;
   v36 = v34;
-  v37 = [v35 blockOperationWithBlock:v45];
+  v37 = [v35 blockOperationWithBlock:v44];
   [v37 addDependency:v36];
   [privateQueue addOperation:v37];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __74__VSViewServiceRequestPreparationOperation__finishWithSupportedProviders___block_invoke_2(uint64_t a1)
@@ -635,39 +635,39 @@ void __74__VSViewServiceRequestPreparationOperation__finishWithSupportedProvider
 
 void __68__VSViewServiceRequestPreparationOperation__checkSupportedProviders__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(VSIdentityProviderFilter);
   [(VSIdentityProviderFilter *)v4 setAllIdentityProviders:v3];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v6 = [*(a1 + 32) applicationAccountProviders];
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       v10 = 0;
       do
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v25 + 1) + 8 * v10) identifier];
+        v11 = [*(*(&v24 + 1) + 8 * v10) identifier];
         [v5 addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v8);
@@ -681,23 +681,23 @@ void __68__VSViewServiceRequestPreparationOperation__checkSupportedProviders__bl
   if ([v14 count])
   {
     v15 = [*(a1 + 32) currentAccount];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __68__VSViewServiceRequestPreparationOperation__checkSupportedProviders__block_invoke_2;
-    v22[3] = &unk_279E19870;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __68__VSViewServiceRequestPreparationOperation__checkSupportedProviders__block_invoke_2;
+    v21[3] = &unk_279E19870;
     v16 = v14;
     v17 = *(a1 + 32);
-    v23 = v16;
-    v24 = v17;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __68__VSViewServiceRequestPreparationOperation__checkSupportedProviders__block_invoke_3;
-    v20[3] = &unk_279E19848;
-    v20[4] = v17;
-    v21 = v16;
-    [v15 conditionallyUnwrapObject:v22 otherwise:v20];
+    v22 = v16;
+    v23 = v17;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __68__VSViewServiceRequestPreparationOperation__checkSupportedProviders__block_invoke_3;
+    v19[3] = &unk_279E19848;
+    v19[4] = v17;
+    v20 = v16;
+    [v15 conditionallyUnwrapObject:v21 otherwise:v19];
 
-    v18 = v23;
+    v18 = v22;
   }
 
   else
@@ -705,8 +705,6 @@ void __68__VSViewServiceRequestPreparationOperation__checkSupportedProviders__bl
     v18 = VSPublicUnsupportedProviderError();
     [*(a1 + 32) _finishWithError:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __68__VSViewServiceRequestPreparationOperation__checkSupportedProviders__block_invoke_2(uint64_t a1, void *a2)
@@ -727,6 +725,49 @@ void __68__VSViewServiceRequestPreparationOperation__checkSupportedProviders__bl
     v6 = VSPublicUnsupportedProviderError();
     [*(a1 + 40) _finishWithError:v6];
   }
+}
+
+- (void)_determineProviderDisplayNameWithUI:(BOOL)i
+{
+  iCopy = i;
+  v5 = VSDefaultLogObject();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "Prep operation will determine display name", buf, 2u);
+  }
+
+  *buf = 0;
+  v19 = buf;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__1;
+  v22 = __Block_byref_object_dispose__1;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 1;
+  currentAccount = [(VSViewServiceRequestPreparationOperation *)self currentAccount];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __80__VSViewServiceRequestPreparationOperation__determineProviderDisplayNameWithUI___block_invoke;
+  v7[3] = &unk_279E19910;
+  v7[4] = buf;
+  v7[5] = &v12;
+  v7[6] = &v8;
+  [currentAccount conditionallyUnwrapObject:v7];
+
+  [(VSViewServiceRequestPreparationOperation *)self _promptForPrivacyWithDisplayNameIfRequired:*(v19 + 5) providerID:v13[5] providerIsSupported:*(v9 + 24) allowUI:iCopy];
+  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v12, 8);
+
+  _Block_object_dispose(buf, 8);
 }
 
 void __80__VSViewServiceRequestPreparationOperation__determineProviderDisplayNameWithUI___block_invoke(uint64_t a1, void *a2)
@@ -800,6 +841,38 @@ void __80__VSViewServiceRequestPreparationOperation__determineProviderDisplayNam
   *(v3 + 40) = v2;
 }
 
+- (void)_promptForPrivacyWithDisplayNameIfRequired:(id)required providerID:(id)d providerIsSupported:(BOOL)supported allowUI:(BOOL)i
+{
+  iCopy = i;
+  supportedCopy = supported;
+  v20 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  requiredCopy = required;
+  v12 = VSDefaultLogObject();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v19 = iCopy;
+    _os_log_impl(&dword_270DD4000, v12, OS_LOG_TYPE_DEFAULT, "Prep operation will request privacy access with UI allowed %d", buf, 8u);
+  }
+
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __126__VSViewServiceRequestPreparationOperation__promptForPrivacyWithDisplayNameIfRequired_providerID_providerIsSupported_allowUI___block_invoke;
+  v17[3] = &unk_279E19730;
+  v17[4] = self;
+  v13 = [(VSViewServiceRequestPreparationOperation *)self _privacyServiceWithErrorHandler:v17];
+  objc_msgSend_hostAuditToken(self);
+  hostProcessIdentifier = [(VSViewServiceRequestPreparationOperation *)self hostProcessIdentifier];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __126__VSViewServiceRequestPreparationOperation__promptForPrivacyWithDisplayNameIfRequired_providerID_providerIsSupported_allowUI___block_invoke_55;
+  v15[3] = &unk_279E19938;
+  v16 = iCopy;
+  v15[4] = self;
+  [v13 requestAccessForAuditToken:buf processIdentifier:hostProcessIdentifier identityProviderDisplayName:requiredCopy providerIsSupported:supportedCopy identityProviderID:dCopy allowUI:iCopy completionHandler:v15];
+}
+
 void __126__VSViewServiceRequestPreparationOperation__promptForPrivacyWithDisplayNameIfRequired_providerID_providerIsSupported_allowUI___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -815,15 +888,15 @@ void __126__VSViewServiceRequestPreparationOperation__promptForPrivacyWithDispla
 
 void __126__VSViewServiceRequestPreparationOperation__promptForPrivacyWithDisplayNameIfRequired_providerID_providerIsSupported_allowUI___block_invoke_55(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = VSDefaultLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 40);
-    v11[0] = 67109120;
-    v11[1] = v7;
-    _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "Prep operation did request privacy access with UI allowed %d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = v7;
+    _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "Prep operation did request privacy access with UI allowed %d", v10, 8u);
   }
 
   switch(a2)
@@ -841,8 +914,6 @@ LABEL_6:
 
       break;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
@@ -869,38 +940,30 @@ LABEL_6:
 
 - (void)_finishWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__VSViewServiceRequestPreparationOperation__checkPrivacy__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__VSViewServiceRequestPreparationOperation__checkPrivacy__block_invoke_28_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __126__VSViewServiceRequestPreparationOperation__promptForPrivacyWithDisplayNameIfRequired_providerID_providerIsSupported_allowUI___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,4 +1,5 @@
 @interface GPBInt32DoubleDictionary
+- (BOOL)getDouble:(double *)double forKey:(int)key;
 - (BOOL)isEqual:(id)equal;
 - (GPBInt32DoubleDictionary)initWithDictionary:(id)dictionary;
 - (GPBInt32DoubleDictionary)initWithDoubles:(const double *)doubles forKeys:(const int *)keys count:(unint64_t)count;
@@ -8,6 +9,8 @@
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndDoublesUsingBlock:(id)block;
+- (void)removeDoubleForKey:(int)key;
+- (void)setDouble:(double)double forKey:(int)key;
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -204,6 +207,19 @@
   [(GPBInt32DoubleDictionary *)self enumerateKeysAndDoublesUsingBlock:v3];
 }
 
+- (BOOL)getDouble:(double *)double forKey:(int)key
+{
+  v5 = [(NSMutableDictionary *)self->_dictionary objectForKey:[NSNumber numberWithInt:*&key]];
+  v6 = v5;
+  if (double && v5)
+  {
+    [v5 doubleValue];
+    *double = v7;
+  }
+
+  return v6 != 0;
+}
+
 - (void)addEntriesFromDictionary:(id)dictionary
 {
   if (dictionary)
@@ -216,6 +232,25 @@
       GPBAutocreatedDictionaryModified(autocreator, self);
     }
   }
+}
+
+- (void)setDouble:(double)double forKey:(int)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithDouble:" numberWithDouble:double], [NSNumber numberWithInt:*&key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
+  }
+}
+
+- (void)removeDoubleForKey:(int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithInt:*&key];
+
+  [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
 }
 
 @end

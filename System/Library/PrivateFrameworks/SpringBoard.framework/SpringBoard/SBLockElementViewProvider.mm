@@ -242,163 +242,165 @@
 
 - (void)_reconcileRequestedSecureState
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if (self->_isElementRegistered)
   {
     _requestedSecureState = [(SBLockElementViewProvider *)self _requestedSecureState];
     if (_requestedSecureState != [(SBLockElementViewProvider *)self _appliedSecureState])
     {
       _notifiedSecureState = [(SBLockElementViewProvider *)self _notifiedSecureState];
-      if (_notifiedSecureState == [(SBLockElementViewProvider *)self _appliedSecureState])
+      _appliedSecureState = [(SBLockElementViewProvider *)self _appliedSecureState];
+      if (_notifiedSecureState == _appliedSecureState)
       {
         _currentSecureState = [(SBLockElementViewProvider *)self _currentSecureState];
-        if (_currentSecureState == [(SBLockElementViewProvider *)self _appliedSecureState])
+        _appliedSecureState2 = [(SBLockElementViewProvider *)self _appliedSecureState];
+        if (_currentSecureState == _appliedSecureState2)
         {
           platformElementHost = [(SBSystemApertureProvidedContentElement *)self platformElementHost];
-          v7 = SBLockElementFlipBookStateLocked;
-          v8 = &SBPearlElementFlipBookStateResting;
-          v9 = SBPearlElementFlipBookStateResting;
-          v10 = [(SBLockElementViewProvider *)self _nextSecureStateForState:[(SBLockElementViewProvider *)self _requestedSecureState]];
-          v11 = v10;
-          v12 = -1;
-          v13 = 1;
-          if (v10 <= 4)
+          v9 = SBLockElementFlipBookStateLocked;
+          v10 = &SBPearlElementFlipBookStateResting;
+          v11 = SBPearlElementFlipBookStateResting;
+          v12 = [(SBLockElementViewProvider *)self _nextSecureStateForState:[(SBLockElementViewProvider *)self _requestedSecureState]];
+          v13 = v12;
+          v14 = -1;
+          v15 = 1;
+          if (v12 <= 4)
           {
-            if (v10 > 1)
+            if (v12 > 1)
             {
-              if (v10 != 2)
+              if (v12 != 2)
               {
-                if (v10 == 3)
+                if (v12 == 3)
                 {
-                  v42 = 0;
-                  v14 = &SBLockElementFlipBookStateUnlocked;
-                  v13 = 2;
+                  v45 = 0;
+                  v16 = &SBLockElementFlipBookStateUnlocked;
+                  v15 = 2;
                 }
 
                 else
                 {
-                  v42 = 1;
-                  v14 = &SBLockElementFlipBookStateError;
-                  v13 = 3;
+                  v45 = 1;
+                  v16 = &SBLockElementFlipBookStateError;
+                  v15 = 3;
                 }
 
                 goto LABEL_52;
               }
 
-              v42 = 0;
-              v14 = &SBLockElementFlipBookStateUnlockedSecure;
+              v45 = 0;
+              v16 = &SBLockElementFlipBookStateUnlockedSecure;
               goto LABEL_47;
             }
 
-            if (v10)
+            if (v12)
             {
-              if (v10 == 1)
+              if (v12 == 1)
               {
-                v42 = 0;
-                v14 = &SBLockElementFlipBookStateLocked;
+                v45 = 0;
+                v16 = &SBLockElementFlipBookStateLocked;
 LABEL_47:
-                v13 = v10;
+                v15 = v12;
                 goto LABEL_52;
               }
 
 LABEL_70:
-              v42 = 0;
+              v45 = 0;
               goto LABEL_53;
             }
 
-            v42 = 0;
-            v14 = &SBLockElementFlipBookStateSleep;
+            v45 = 0;
+            v16 = &SBLockElementFlipBookStateSleep;
 LABEL_52:
-            v28 = *v14;
+            v30 = *v16;
 
-            v29 = *v8;
-            v9 = v29;
-            v7 = v28;
+            v31 = *v10;
+            v11 = v31;
+            v9 = v30;
 LABEL_53:
-            v30 = SBLogSystemApertureLockElement();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v32 = SBLogSystemApertureLockElement(v12);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
-              _appliedSecureState = [(SBLockElementViewProvider *)self _appliedSecureState];
-              if (_appliedSecureState - 1 > 8)
+              _appliedSecureState3 = [(SBLockElementViewProvider *)self _appliedSecureState];
+              if (_appliedSecureState3 - 1 > 8)
               {
-                v32 = @"Sleep";
+                v34 = @"Sleep";
               }
 
               else
               {
-                v32 = off_2783ABF90[_appliedSecureState - 1];
+                v34 = off_2783ABF90[_appliedSecureState3 - 1];
               }
 
-              if (v11 - 1 > 8)
+              if (v13 - 1 > 8)
               {
-                v33 = @"Sleep";
+                v35 = @"Sleep";
               }
 
               else
               {
-                v33 = off_2783ABF90[v11 - 1];
+                v35 = off_2783ABF90[v13 - 1];
               }
 
               *buf = 138412546;
-              v52 = v32;
-              v53 = 2112;
-              v54 = v33;
-              _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_DEFAULT, "Applied requested state: %@ -> %@", buf, 0x16u);
+              v55 = v34;
+              v56 = 2112;
+              v57 = v35;
+              _os_log_impl(&dword_21ED4E000, v32, OS_LOG_TYPE_DEFAULT, "Applied requested state: %@ -> %@", buf, 0x16u);
             }
 
-            self->_notifiedSecureState = v11;
+            self->_notifiedSecureState = v13;
             if ([(SBLockElementViewProvider *)self _useSecureElementHostStates])
             {
-              objc_storeStrong(&self->_leadingViewFlipBookState, v7);
-              objc_storeStrong(&self->_trailingViewFlipBookState, v9);
-              v34 = SBLogSystemApertureLockElement();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              objc_storeStrong(&self->_leadingViewFlipBookState, v9);
+              objc_storeStrong(&self->_trailingViewFlipBookState, v11);
+              v37 = SBLogSystemApertureLockElement(v36);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
               {
                 leadingViewFlipBookState = self->_leadingViewFlipBookState;
                 trailingViewFlipBookState = self->_trailingViewFlipBookState;
                 *buf = 138412546;
-                v52 = leadingViewFlipBookState;
-                v53 = 2112;
-                v54 = trailingViewFlipBookState;
-                _os_log_impl(&dword_21ED4E000, v34, OS_LOG_TYPE_DEFAULT, "Requesting Jindo-managed state: leading: %@, trailing: %@", buf, 0x16u);
+                v55 = leadingViewFlipBookState;
+                v56 = 2112;
+                v57 = trailingViewFlipBookState;
+                _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEFAULT, "Requesting Jindo-managed state: leading: %@, trailing: %@", buf, 0x16u);
               }
             }
 
             else
             {
-              v37 = dispatch_group_create();
-              dispatch_group_enter(v37);
+              v40 = dispatch_group_create();
+              dispatch_group_enter(v40);
               leadingLock = self->_leadingLock;
-              v49[0] = MEMORY[0x277D85DD0];
-              v49[1] = 3221225472;
-              v49[2] = __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invoke;
-              v49[3] = &unk_2783A9398;
-              v39 = v37;
-              v50 = v39;
-              [(SBUIProudLockIconView *)leadingLock setState:v13 animated:1 completion:v49];
-              dispatch_group_enter(v39);
+              v52[0] = MEMORY[0x277D85DD0];
+              v52[1] = 3221225472;
+              v52[2] = __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invoke;
+              v52[3] = &unk_2783A9398;
+              v42 = v40;
+              v53 = v42;
+              [(SBUIProudLockIconView *)leadingLock setState:v15 animated:1 completion:v52];
+              dispatch_group_enter(v42);
               trailingContentView = self->_trailingContentView;
-              v47[0] = MEMORY[0x277D85DD0];
-              v47[1] = 3221225472;
-              v47[2] = __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invoke_2;
-              v47[3] = &unk_2783A9398;
-              v34 = v39;
-              v48 = v34;
-              [(SBLockElementTrailingContentView *)trailingContentView setState:v12 animated:1 completion:v47];
-              if (v42)
+              v50[0] = MEMORY[0x277D85DD0];
+              v50[1] = 3221225472;
+              v50[2] = __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invoke_2;
+              v50[3] = &unk_2783A9398;
+              v37 = v42;
+              v51 = v37;
+              [(SBLockElementTrailingContentView *)trailingContentView setState:v14 animated:1 completion:v50];
+              if (v45)
               {
-                dispatch_group_enter(v34);
-                v46[0] = MEMORY[0x277D85DD0];
-                v46[1] = 3221225472;
-                v46[2] = __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invoke_3;
-                v46[3] = &unk_2783A8C18;
-                v46[4] = self;
-                v44[0] = MEMORY[0x277D85DD0];
-                v44[1] = 3221225472;
-                v44[2] = __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invoke_4;
-                v44[3] = &unk_2783A8C18;
-                v45 = v34;
-                [platformElementHost performAction:v46 withCompletionUponAnimationSettling:v44];
+                dispatch_group_enter(v37);
+                v49[0] = MEMORY[0x277D85DD0];
+                v49[1] = 3221225472;
+                v49[2] = __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invoke_3;
+                v49[3] = &unk_2783A8C18;
+                v49[4] = self;
+                v47[0] = MEMORY[0x277D85DD0];
+                v47[1] = 3221225472;
+                v47[2] = __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invoke_4;
+                v47[3] = &unk_2783A8C18;
+                v48 = v37;
+                [platformElementHost performAction:v49 withCompletionUponAnimationSettling:v47];
               }
 
               [(SBLockElementViewProvider *)self _reconcileNotifiedSecureState];
@@ -407,7 +409,7 @@ LABEL_53:
               block[2] = __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invoke_5;
               block[3] = &unk_2783A8C18;
               block[4] = self;
-              dispatch_group_notify(v34, MEMORY[0x277D85CD0], block);
+              dispatch_group_notify(v37, MEMORY[0x277D85CD0], block);
             }
 
             WeakRetained = objc_loadWeakRetained(&self->_layoutHost);
@@ -417,54 +419,104 @@ LABEL_53:
             goto LABEL_68;
           }
 
-          if (v10 > 6)
+          if (v12 > 6)
           {
-            switch(v10)
+            switch(v12)
             {
               case 7:
-                v42 = 0;
-                v8 = &SBPearlElementFlipBookStateRestingScaled;
-                v14 = &SBLockElementFlipBookStateUnlockedScaledSecure;
+                v45 = 0;
+                v10 = &SBPearlElementFlipBookStateRestingScaled;
+                v16 = &SBLockElementFlipBookStateUnlockedScaledSecure;
                 break;
               case 8:
-                v42 = 0;
-                v8 = &SBPearlElementFlipBookStateRestingScaled;
-                v14 = &SBLockElementFlipBookStateUnlockedScaled;
+                v45 = 0;
+                v10 = &SBPearlElementFlipBookStateRestingScaled;
+                v16 = &SBLockElementFlipBookStateUnlockedScaled;
                 break;
               case 9:
-                v42 = 1;
-                v8 = &SBPearlElementFlipBookStateError;
-                v14 = &SBLockElementFlipBookStateErrorScaled;
-                v13 = 13;
+                v45 = 1;
+                v10 = &SBPearlElementFlipBookStateError;
+                v16 = &SBLockElementFlipBookStateErrorScaled;
+                v15 = 13;
 LABEL_43:
-                v12 = 1;
+                v14 = 1;
                 goto LABEL_52;
               default:
                 goto LABEL_70;
             }
 
-            v13 = 12;
+            v15 = 12;
             goto LABEL_52;
           }
 
-          if (v10 == 5)
+          if (v12 == 5)
           {
-            v42 = 0;
-            v12 = 0;
-            v8 = &SBPearlElementFlipBookStateSearching;
-            v14 = &SBLockElementFlipBookStateLockedScaled;
-            v13 = 11;
+            v45 = 0;
+            v14 = 0;
+            v10 = &SBPearlElementFlipBookStateSearching;
+            v16 = &SBLockElementFlipBookStateLockedScaled;
+            v15 = 11;
             goto LABEL_52;
           }
 
-          v42 = 0;
-          v8 = &SBPearlElementFlipBookStateFailed;
-          v14 = &SBLockElementFlipBookStateLockedScaled;
-          v13 = 11;
+          v45 = 0;
+          v10 = &SBPearlElementFlipBookStateFailed;
+          v16 = &SBLockElementFlipBookStateLockedScaled;
+          v15 = 11;
           goto LABEL_43;
         }
 
-        platformElementHost = SBLogSystemApertureLockElement();
+        platformElementHost = SBLogSystemApertureLockElement(_appliedSecureState2);
+        if (os_log_type_enabled(platformElementHost, OS_LOG_TYPE_INFO))
+        {
+          v19 = [(SBLockElementViewProvider *)self _requestedSecureState]- 1;
+          if (v19 > 8)
+          {
+            v20 = @"Sleep";
+          }
+
+          else
+          {
+            v20 = off_2783ABF90[v19];
+          }
+
+          v26 = [(SBLockElementViewProvider *)self _currentSecureState]- 1;
+          if (v26 > 8)
+          {
+            v27 = @"Sleep";
+          }
+
+          else
+          {
+            v27 = off_2783ABF90[v26];
+          }
+
+          _appliedSecureState4 = [(SBLockElementViewProvider *)self _appliedSecureState];
+          if (_appliedSecureState4 - 1 > 8)
+          {
+            v29 = @"Sleep";
+          }
+
+          else
+          {
+            v29 = off_2783ABF90[_appliedSecureState4 - 1];
+          }
+
+          *buf = 138412802;
+          v55 = v20;
+          v56 = 2112;
+          v57 = v27;
+          v58 = 2112;
+          v59 = v29;
+          v25 = "Cannot apply requested state: %@ (waiting for '%@ -> %@' to finish)";
+LABEL_37:
+          _os_log_impl(&dword_21ED4E000, platformElementHost, OS_LOG_TYPE_INFO, v25, buf, 0x20u);
+        }
+      }
+
+      else
+      {
+        platformElementHost = SBLogSystemApertureLockElement(_appliedSecureState);
         if (os_log_type_enabled(platformElementHost, OS_LOG_TYPE_INFO))
         {
           v17 = [(SBLockElementViewProvider *)self _requestedSecureState]- 1;
@@ -478,85 +530,35 @@ LABEL_43:
             v18 = off_2783ABF90[v17];
           }
 
-          v24 = [(SBLockElementViewProvider *)self _currentSecureState]- 1;
-          if (v24 > 8)
-          {
-            v25 = @"Sleep";
-          }
-
-          else
-          {
-            v25 = off_2783ABF90[v24];
-          }
-
-          _appliedSecureState2 = [(SBLockElementViewProvider *)self _appliedSecureState];
-          if (_appliedSecureState2 - 1 > 8)
-          {
-            v27 = @"Sleep";
-          }
-
-          else
-          {
-            v27 = off_2783ABF90[_appliedSecureState2 - 1];
-          }
-
-          *buf = 138412802;
-          v52 = v18;
-          v53 = 2112;
-          v54 = v25;
-          v55 = 2112;
-          v56 = v27;
-          v23 = "Cannot apply requested state: %@ (waiting for '%@ -> %@' to finish)";
-LABEL_37:
-          _os_log_impl(&dword_21ED4E000, platformElementHost, OS_LOG_TYPE_INFO, v23, buf, 0x20u);
-        }
-      }
-
-      else
-      {
-        platformElementHost = SBLogSystemApertureLockElement();
-        if (os_log_type_enabled(platformElementHost, OS_LOG_TYPE_INFO))
-        {
-          v15 = [(SBLockElementViewProvider *)self _requestedSecureState]- 1;
-          if (v15 > 8)
-          {
-            v16 = @"Sleep";
-          }
-
-          else
-          {
-            v16 = off_2783ABF90[v15];
-          }
-
-          v19 = [(SBLockElementViewProvider *)self _currentSecureState]- 1;
-          if (v19 > 8)
-          {
-            v20 = @"Sleep";
-          }
-
-          else
-          {
-            v20 = off_2783ABF90[v19];
-          }
-
-          _notifiedSecureState2 = [(SBLockElementViewProvider *)self _notifiedSecureState];
-          if (_notifiedSecureState2 - 1 > 8)
+          v21 = [(SBLockElementViewProvider *)self _currentSecureState]- 1;
+          if (v21 > 8)
           {
             v22 = @"Sleep";
           }
 
           else
           {
-            v22 = off_2783ABF90[_notifiedSecureState2 - 1];
+            v22 = off_2783ABF90[v21];
+          }
+
+          _notifiedSecureState2 = [(SBLockElementViewProvider *)self _notifiedSecureState];
+          if (_notifiedSecureState2 - 1 > 8)
+          {
+            v24 = @"Sleep";
+          }
+
+          else
+          {
+            v24 = off_2783ABF90[_notifiedSecureState2 - 1];
           }
 
           *buf = 138412802;
-          v52 = v16;
-          v53 = 2112;
-          v54 = v20;
-          v55 = 2112;
-          v56 = v22;
-          v23 = "Cannot apply requested state: %@ (waiting for '%@ -> %@' to start)";
+          v55 = v18;
+          v56 = 2112;
+          v57 = v22;
+          v58 = 2112;
+          v59 = v24;
+          v25 = "Cannot apply requested state: %@ (waiting for '%@ -> %@' to start)";
           goto LABEL_37;
         }
       }
@@ -568,7 +570,7 @@ LABEL_68:
 
 - (void)_reconcileAppliedSecureState
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   _appliedSecureState = [(SBLockElementViewProvider *)self _appliedSecureState];
   if (_appliedSecureState != [(SBLockElementViewProvider *)self _currentSecureState])
   {
@@ -581,79 +583,79 @@ LABEL_68:
 
     if (!_useSecureElementHostStates || (v6 & v8) != 0)
     {
-      v9 = SBLogSystemApertureLockElement();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogSystemApertureLockElement(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [(SBLockElementViewProvider *)self _currentSecureState]- 1;
-        if (v10 > 8)
+        v11 = [(SBLockElementViewProvider *)self _currentSecureState]- 1;
+        if (v11 > 8)
         {
-          v11 = @"Sleep";
+          v12 = @"Sleep";
         }
 
         else
         {
-          v11 = off_2783ABF90[v10];
+          v12 = off_2783ABF90[v11];
         }
 
         _appliedSecureState2 = [(SBLockElementViewProvider *)self _appliedSecureState];
         if (_appliedSecureState2 - 1 > 8)
         {
-          v13 = @"Sleep";
+          v14 = @"Sleep";
         }
 
         else
         {
-          v13 = off_2783ABF90[_appliedSecureState2 - 1];
+          v14 = off_2783ABF90[_appliedSecureState2 - 1];
         }
 
         *buf = 138412546;
-        v30 = v11;
-        v31 = 2112;
-        v32 = v13;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Applied state finished: %@ -> %@", buf, 0x16u);
+        v31 = v12;
+        v32 = 2112;
+        v33 = v14;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Applied state finished: %@ -> %@", buf, 0x16u);
       }
 
-      v14 = self->_stateCompletions;
-      v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v15 = self->_stateCompletions;
+      v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
       stateCompletions = self->_stateCompletions;
-      self->_stateCompletions = v15;
+      self->_stateCompletions = v16;
 
       self->_currentSecureState = self->_appliedSecureState;
-      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v17 = v14;
-      v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
-      if (v18)
+      v28 = 0u;
+      v18 = v15;
+      v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      if (v19)
       {
-        v19 = v18;
-        v20 = *v25;
+        v20 = v19;
+        v21 = *v26;
         do
         {
-          v21 = 0;
+          v22 = 0;
           do
           {
-            if (*v25 != v20)
+            if (*v26 != v21)
             {
-              objc_enumerationMutation(v17);
+              objc_enumerationMutation(v18);
             }
 
-            (*(*(*(&v24 + 1) + 8 * v21) + 16))(*(*(&v24 + 1) + 8 * v21));
-            ++v21;
+            (*(*(*(&v25 + 1) + 8 * v22) + 16))(*(*(&v25 + 1) + 8 * v22));
+            ++v22;
           }
 
-          while (v19 != v21);
-          v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          while (v20 != v22);
+          v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
-        while (v19);
+        while (v20);
       }
 
       _requestedSecureState = [(SBLockElementViewProvider *)self _requestedSecureState];
       if (_requestedSecureState == 4)
       {
-        v23 = 1;
+        v24 = 1;
       }
 
       else
@@ -669,10 +671,10 @@ LABEL_24:
           return;
         }
 
-        v23 = 6;
+        v24 = 6;
       }
 
-      [(SBLockElementViewProvider *)self _requestSecureState:v23];
+      [(SBLockElementViewProvider *)self _requestSecureState:v24];
       goto LABEL_24;
     }
   }
@@ -733,7 +735,7 @@ LABEL_24:
   _requestedSecureState2 = [(SBLockElementViewProvider *)self _requestedSecureState];
   if (_requestedSecureState == _appliedSecureState && _appliedSecureState2 == _currentSecureState && _deferredSecureState != _requestedSecureState2)
   {
-    v9 = SBLogSystemApertureLockElement();
+    v9 = SBLogSystemApertureLockElement(_requestedSecureState2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [(SBLockElementViewProvider *)self _requestedSecureState]- 1;
@@ -773,26 +775,27 @@ LABEL_24:
 
 - (void)_forceSleepSecureState
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  if ([(SBLockElementViewProvider *)self _useSecureElementHostStates])
+  v9[2] = *MEMORY[0x277D85DE8];
+  _useSecureElementHostStates = [(SBLockElementViewProvider *)self _useSecureElementHostStates];
+  if (_useSecureElementHostStates)
   {
-    v3 = SBLogSystemApertureLockElement();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogSystemApertureLockElement(_useSecureElementHostStates);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Force-resetting state machine to Sleep", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Force-resetting state machine to Sleep", v7, 2u);
     }
 
     self->_currentSecureState = 0;
     self->_appliedSecureState = 0;
     self->_notifiedSecureState = 0;
-    v7[0] = SBLockElementLeadingFlipBookName;
-    v7[1] = SBLockElementTrailingFlipBookName;
-    v8[0] = SBLockElementFlipBookStateSleep;
-    v8[1] = SBPearlElementFlipBookStateResting;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+    v8[0] = SBLockElementLeadingFlipBookName;
+    v8[1] = SBLockElementTrailingFlipBookName;
+    v9[0] = SBLockElementFlipBookStateSleep;
+    v9[1] = SBPearlElementFlipBookStateResting;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
     activeComponentStates = self->_activeComponentStates;
-    self->_activeComponentStates = v4;
+    self->_activeComponentStates = v5;
   }
 }
 
@@ -870,7 +873,7 @@ LABEL_24:
   return v5;
 }
 
-uint64_t __50__SBLockElementViewProvider_deviceSupportsElement__block_invoke()
+uint64_t __50__SBLockElementViewProvider_deviceSupportsElement__block_invoke(SBFluidSwitcherViewController *a1, const char *a2)
 {
   result = SBSIsSystemApertureAvailable();
   deviceSupportsElement_isJindo = result;
@@ -1107,38 +1110,39 @@ uint64_t __50__SBLockElementViewProvider_deviceSupportsElement__block_invoke()
 
 - (void)_updateRequiredPriorityAssertion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [(SBLockElementViewProvider *)self _nextSecureStateForState:[(SBLockElementViewProvider *)self _requestedSecureState]];
-  if ([(SBLockElementViewProvider *)self _useSecureElementHostStates]&& ([(SBLockElementViewProvider *)self _secureStateContainsSecureFrames:v3]|| [(SBLockElementViewProvider *)self _secureStateContainsSecureFrames:[(SBLockElementViewProvider *)self _appliedSecureState]]))
+  _useSecureElementHostStates = [(SBLockElementViewProvider *)self _useSecureElementHostStates];
+  if (_useSecureElementHostStates && ((_useSecureElementHostStates = [(SBLockElementViewProvider *)self _secureStateContainsSecureFrames:v3]) != 0 || (_useSecureElementHostStates = [(SBLockElementViewProvider *)self _secureStateContainsSecureFrames:[(SBLockElementViewProvider *)self _appliedSecureState]]) != 0))
   {
     if (self->_requiredPriorityAssertion)
     {
       return;
     }
 
-    v4 = SBLogSystemApertureLockElement();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogSystemApertureLockElement(_useSecureElementHostStates);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       _requestedSecureState = [(SBLockElementViewProvider *)self _requestedSecureState];
       if (_requestedSecureState - 1 > 8)
       {
-        v6 = @"Sleep";
+        v7 = @"Sleep";
       }
 
       else
       {
-        v6 = off_2783ABF90[_requestedSecureState - 1];
+        v7 = off_2783ABF90[_requestedSecureState - 1];
       }
 
-      v13 = 138412290;
-      v14 = v6;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Taking priority assertion, requested = %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = v7;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Taking priority assertion, requested = %@", &v14, 0xCu);
     }
 
     platformElementHost = [(SBSystemApertureProvidedContentElement *)self platformElementHost];
-    v11 = [platformElementHost requestRequiredPriorityAssertionWithReason:@"Lock Element Secure State"];
+    v12 = [platformElementHost requestRequiredPriorityAssertionWithReason:@"Lock Element Secure State"];
     requiredPriorityAssertion = self->_requiredPriorityAssertion;
-    self->_requiredPriorityAssertion = v11;
+    self->_requiredPriorityAssertion = v12;
   }
 
   else
@@ -1148,23 +1152,23 @@ uint64_t __50__SBLockElementViewProvider_deviceSupportsElement__block_invoke()
       return;
     }
 
-    v7 = SBLogSystemApertureLockElement();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogSystemApertureLockElement(_useSecureElementHostStates);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       _requestedSecureState2 = [(SBLockElementViewProvider *)self _requestedSecureState];
       if (_requestedSecureState2 - 1 > 8)
       {
-        v9 = @"Sleep";
+        v10 = @"Sleep";
       }
 
       else
       {
-        v9 = off_2783ABF90[_requestedSecureState2 - 1];
+        v10 = off_2783ABF90[_requestedSecureState2 - 1];
       }
 
-      v13 = 138412290;
-      v14 = v9;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Dropping priority assertion, requested = %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = v10;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Dropping priority assertion, requested = %@", &v14, 0xCu);
     }
 
     [(SAInvalidatable *)self->_requiredPriorityAssertion invalidateWithReason:@"Lock ELement no longer in secure state"];
@@ -1301,7 +1305,7 @@ uint64_t __50__SBLockElementViewProvider_deviceSupportsElement__block_invoke()
 
 - (void)_reconcileNotifiedSecureState
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   _notifiedSecureState = [(SBLockElementViewProvider *)self _notifiedSecureState];
   if (_notifiedSecureState != [(SBLockElementViewProvider *)self _appliedSecureState])
   {
@@ -1314,16 +1318,16 @@ uint64_t __50__SBLockElementViewProvider_deviceSupportsElement__block_invoke()
 
     if (_useSecureElementHostStates && v6 && v8 != 0)
     {
-      v10 = SBLogSystemApertureLockElement();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = SBLogSystemApertureLockElement(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         leadingViewFlipBookState = self->_leadingViewFlipBookState;
         trailingViewFlipBookState = self->_trailingViewFlipBookState;
-        v17 = 138412546;
-        v18 = leadingViewFlipBookState;
-        v19 = 2112;
-        v20 = trailingViewFlipBookState;
-        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Requested Jindo-managed state begun: leading: %@, trailing: %@", &v17, 0x16u);
+        v18 = 138412546;
+        v19 = leadingViewFlipBookState;
+        v20 = 2112;
+        v21 = trailingViewFlipBookState;
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Requested Jindo-managed state begun: leading: %@, trailing: %@", &v18, 0x16u);
       }
 
       _notifiedSecureState2 = [(SBLockElementViewProvider *)self _notifiedSecureState];
@@ -1339,8 +1343,8 @@ uint64_t __50__SBLockElementViewProvider_deviceSupportsElement__block_invoke()
     [(SBLockElementViewProvider *)self _updateTrailingPackageVisibility];
     [WeakRetained preferredEdgeOutsetsDidInvalidateForLayoutSpecifier:self];
     [WeakRetained preferredLayoutModeDidInvalidateForLayoutSpecifier:self];
-    v16 = [(SBLockElementViewProvider *)self _secureStateIsLarge:[(SBLockElementViewProvider *)self _appliedSecureState]];
-    if (v16 != [(SBLockElementViewProvider *)self _secureStateIsLarge:[(SBLockElementViewProvider *)self _currentSecureState]])
+    v17 = [(SBLockElementViewProvider *)self _secureStateIsLarge:[(SBLockElementViewProvider *)self _appliedSecureState]];
+    if (v17 != [(SBLockElementViewProvider *)self _secureStateIsLarge:[(SBLockElementViewProvider *)self _currentSecureState]])
     {
       [WeakRetained preferredPromotionDidInvalidateForLayoutSpecifier:self];
     }
@@ -1377,7 +1381,7 @@ void __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invok
 {
   v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v7 = SBLogSystemApertureLockElement();
+  v7 = SBLogSystemApertureLockElement(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     if (state - 1 > 8)
@@ -1419,7 +1423,7 @@ void __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invok
 
 - (void)_requestSecureState:(unint64_t)state completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!self->_isEmpty)
   {
@@ -1431,69 +1435,73 @@ void __59__SBLockElementViewProvider__reconcileRequestedSecureState__block_invok
       }
     }
 
-    else if ([(SBLockElementViewProvider *)self _canApplyRequestedState:state])
+    else
     {
-      v7 = SBLogSystemApertureLockElement();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v7 = [(SBLockElementViewProvider *)self _canApplyRequestedState:state];
+      if (v7)
       {
-        _requestedSecureState = [(SBLockElementViewProvider *)self _requestedSecureState];
-        if (_requestedSecureState - 1 > 8)
+        v8 = SBLogSystemApertureLockElement(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = @"Sleep";
+          _requestedSecureState = [(SBLockElementViewProvider *)self _requestedSecureState];
+          if (_requestedSecureState - 1 > 8)
+          {
+            v10 = @"Sleep";
+          }
+
+          else
+          {
+            v10 = off_2783ABF90[_requestedSecureState - 1];
+          }
+
+          if (state - 1 > 8)
+          {
+            v11 = @"Sleep";
+          }
+
+          else
+          {
+            v11 = off_2783ABF90[state - 1];
+          }
+
+          v17 = 138412546;
+          v18 = v10;
+          v19 = 2112;
+          v20 = v11;
+          _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Requesting secure state: %@ -> %@", &v17, 0x16u);
+        }
+
+        self->_requestedSecureState = state;
+        self->_deferredSecureState = state;
+        if (completionCopy)
+        {
+          stateCompletions = self->_stateCompletions;
+          v13 = MEMORY[0x223D6F7F0](completionCopy);
+          [(NSMutableArray *)stateCompletions addObject:v13];
+        }
+
+        _useSecureElementHostStates = [(SBLockElementViewProvider *)self _useSecureElementHostStates];
+        [(SBLockElementViewProvider *)self _updateVisibilityAssertion];
+        [(SBLockElementViewProvider *)self _updateRequiredPriorityAssertion];
+        if (_useSecureElementHostStates)
+        {
+          secureElementHost = [(SBLockElementViewProvider *)self secureElementHost];
+          [secureElementHost preferredRecordedStateDidInvalidateForLayoutSpecifier:self];
+
+          WeakRetained = objc_loadWeakRetained(&self->_layoutHost);
+          [WeakRetained preferredLayoutModeDidInvalidateForLayoutSpecifier:self];
         }
 
         else
         {
-          v9 = off_2783ABF90[_requestedSecureState - 1];
+          [(SBLockElementViewProvider *)self _reconcileRequestedSecureState];
         }
-
-        if (state - 1 > 8)
-        {
-          v10 = @"Sleep";
-        }
-
-        else
-        {
-          v10 = off_2783ABF90[state - 1];
-        }
-
-        v16 = 138412546;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v10;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Requesting secure state: %@ -> %@", &v16, 0x16u);
-      }
-
-      self->_requestedSecureState = state;
-      self->_deferredSecureState = state;
-      if (completionCopy)
-      {
-        stateCompletions = self->_stateCompletions;
-        v12 = MEMORY[0x223D6F7F0](completionCopy);
-        [(NSMutableArray *)stateCompletions addObject:v12];
-      }
-
-      _useSecureElementHostStates = [(SBLockElementViewProvider *)self _useSecureElementHostStates];
-      [(SBLockElementViewProvider *)self _updateVisibilityAssertion];
-      [(SBLockElementViewProvider *)self _updateRequiredPriorityAssertion];
-      if (_useSecureElementHostStates)
-      {
-        secureElementHost = [(SBLockElementViewProvider *)self secureElementHost];
-        [secureElementHost preferredRecordedStateDidInvalidateForLayoutSpecifier:self];
-
-        WeakRetained = objc_loadWeakRetained(&self->_layoutHost);
-        [WeakRetained preferredLayoutModeDidInvalidateForLayoutSpecifier:self];
       }
 
       else
       {
-        [(SBLockElementViewProvider *)self _reconcileRequestedSecureState];
+        [(SBLockElementViewProvider *)self _deferSecureState:state completion:completionCopy];
       }
-    }
-
-    else
-    {
-      [(SBLockElementViewProvider *)self _deferSecureState:state completion:completionCopy];
     }
   }
 }
@@ -1920,7 +1928,7 @@ uint64_t __103__SBLockElementViewProvider_contentProviderWillTransitionToSize_in
   return [*(a1 + 32) _updateTrailingPackageVisibility];
 }
 
-uint64_t __103__SBLockElementViewProvider_contentProviderWillTransitionToSize_inContainerView_transitionCoordinator___block_invoke_2(uint64_t a1)
+void *__103__SBLockElementViewProvider_contentProviderWillTransitionToSize_inContainerView_transitionCoordinator___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) layoutHostContainerViewDidLayoutSubviews:*(a1 + 40)];
   if (*(a1 + 48) == 1)
@@ -1971,7 +1979,7 @@ uint64_t __103__SBLockElementViewProvider_contentProviderWillTransitionToSize_in
       v2 = v14;
     }
 
-    v16 = SBLogSystemApertureLockElement();
+    v16 = SBLogSystemApertureLockElement(v11);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = _requestedSecureState != _currentSecureState;
@@ -2079,19 +2087,19 @@ uint64_t __103__SBLockElementViewProvider_contentProviderWillTransitionToSize_in
 
 - (void)setAppliedComponentStates:(id)states
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   objc_storeStrong(&self->_appliedComponentStates, states);
-  v6 = SBLogSystemApertureLockElement();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogSystemApertureLockElement(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [(NSDictionary *)self->_appliedComponentStates objectForKeyedSubscript:SBLockElementLeadingFlipBookName];
-    v8 = [(NSDictionary *)self->_appliedComponentStates objectForKeyedSubscript:SBLockElementTrailingFlipBookName];
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Jindo-managed state begun: leading: %@, trailing: %@", &v9, 0x16u);
+    v8 = [(NSDictionary *)self->_appliedComponentStates objectForKeyedSubscript:SBLockElementLeadingFlipBookName];
+    v9 = [(NSDictionary *)self->_appliedComponentStates objectForKeyedSubscript:SBLockElementTrailingFlipBookName];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Jindo-managed state begun: leading: %@, trailing: %@", &v10, 0x16u);
   }
 
   [(SBLockElementViewProvider *)self _reconcileNotifiedSecureState];
@@ -2099,7 +2107,7 @@ uint64_t __103__SBLockElementViewProvider_contentProviderWillTransitionToSize_in
 
 - (void)setActiveComponentStates:(id)states
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   _isSecurelyRenderingInJindo = [(SBLockElementViewProvider *)self _isSecurelyRenderingInJindo];
   [(SBUIProudLockIconView *)self->_leadingLock setIsSecurelyRenderingInJindo:_isSecurelyRenderingInJindo];
@@ -2109,16 +2117,16 @@ uint64_t __103__SBLockElementViewProvider_contentProviderWillTransitionToSize_in
   activeComponentStates = self->_activeComponentStates;
   self->_activeComponentStates = v6;
 
-  v8 = SBLogSystemApertureLockElement();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SBLogSystemApertureLockElement(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [(NSDictionary *)self->_activeComponentStates objectForKeyedSubscript:SBLockElementLeadingFlipBookName];
-    v10 = [(NSDictionary *)self->_activeComponentStates objectForKeyedSubscript:SBLockElementTrailingFlipBookName];
-    v11 = 138412546;
-    v12 = v9;
-    v13 = 2112;
-    v14 = v10;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Jindo-managed state reached: leading: %@, trailing: %@", &v11, 0x16u);
+    v10 = [(NSDictionary *)self->_activeComponentStates objectForKeyedSubscript:SBLockElementLeadingFlipBookName];
+    v11 = [(NSDictionary *)self->_activeComponentStates objectForKeyedSubscript:SBLockElementTrailingFlipBookName];
+    v12 = 138412546;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Jindo-managed state reached: leading: %@, trailing: %@", &v12, 0x16u);
   }
 
   [(SBLockElementViewProvider *)self _reconcileAppliedSecureState];

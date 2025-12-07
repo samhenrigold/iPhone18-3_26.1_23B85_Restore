@@ -185,39 +185,40 @@ LABEL_11:
 
 + (id)writeMessagePayloadToTemporaryDirectory:(id)directory fileName:(id)name
 {
-  v12[3] = *MEMORY[0x1E69E9840];
-  if (![objc_msgSend(MEMORY[0x1E69A60F0] "sharedInstance")])
+  v13[3] = *MEMORY[0x1E69E9840];
+  v6 = [objc_msgSend(MEMORY[0x1E69A60F0] "sharedInstance")];
+  if (!v6)
   {
     return 0;
   }
 
-  path = [IMSafeTemporaryDirectory() path];
+  path = [IMSafeTemporaryDirectory(v6) path];
   if (![path length])
   {
     return 0;
   }
 
-  v12[0] = path;
-  v12[1] = @"MessagesBlastDoorFailedPayloads";
-  v12[2] = name;
-  v7 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v12, 3)}];
-  if (![IMInternalPayloadUtilities writePayload:directory toURL:v7])
+  v13[0] = path;
+  v13[1] = @"MessagesBlastDoorFailedPayloads";
+  v13[2] = name;
+  v8 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v13, 3)}];
+  if (![IMInternalPayloadUtilities writePayload:directory toURL:v8])
   {
     if (IMOSLoggingEnabled())
     {
-      v8 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412290;
-        v11 = v7;
-        _os_log_impl(&dword_1A85E5000, v8, OS_LOG_TYPE_INFO, "Failed to write error payload to path %@", &v10, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_1A85E5000, v9, OS_LOG_TYPE_INFO, "Failed to write error payload to path %@", &v11, 0xCu);
       }
     }
 
     return 0;
   }
 
-  return v7;
+  return v8;
 }
 
 @end

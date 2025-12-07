@@ -76,7 +76,7 @@
 + (__SecKey)secKeyFromCompressedRepresentation:(id)representation
 {
   representationCopy = representation;
-  v4 = _s16CryptoKitPrivate18CKPIETFKeyBlindingC10secKeyFrom24compressedRepresentationSo03SecG3RefaSgSo6NSDataC_tFZ_0();
+  v4 = _s16CryptoKitPrivate18CKPIETFKeyBlindingC10secKeyFrom24compressedRepresentationSo03SecG3RefaSgSo6NSDataC_tFZ_0(representationCopy);
 
   return v4;
 }

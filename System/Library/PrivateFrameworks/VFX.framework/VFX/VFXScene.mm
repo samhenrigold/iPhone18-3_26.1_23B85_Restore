@@ -46,7 +46,7 @@
 - (int64_t)entityWithTag:(id)tag;
 - (int64_t)newObject;
 - (int64_t)version;
-- (uint64_t)createCollisionPlane:(float32x4_t)plane transform:(float32x4_t)transform;
+- (uint64_t)createCollisionPlane:(__n128)plane transform:(__n128)transform;
 - (void)beginTransaction;
 - (void)checkNoReferenceToOldECS:(id)s oldWorldRef:(id)ref;
 - (void)clearCaches;
@@ -272,29 +272,29 @@ LABEL_14:
 
 + (id)vfxLibraryURLFor:(id)for
 {
-  sub_1AF455364();
-  MEMORY[0x1EEE9AC00](v3 - 8, v4);
-  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_1AFDFCEF8();
-  static VFXScene.vfxLibraryURL(for:)(v7, v8, v6);
+  sub_1AF455364(0);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_1AFDFCEF8();
+  static VFXScene.vfxLibraryURL(for:)(v6, v7, v5);
 
-  v9 = sub_1AFDFC128();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v6, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v8 = sub_1AFDFC128();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v5, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    v13 = sub_1AFDFC048();
-    (*(v10 + 8))(v6, v9);
-    v12 = v13;
+    v12 = sub_1AFDFC048();
+    (*(v9 + 8))(v5, v8);
+    v11 = v12;
   }
 
-  return v12;
+  return v11;
 }
 
 - (NSArray)effects
 {
-  type metadata accessor for VFXEffect();
+  type metadata accessor for VFXEffect(0);
 
   v2 = sub_1AFDFD3F8();
 
@@ -303,7 +303,7 @@ LABEL_14:
 
 - (void)setEffects:(id)effects
 {
-  type metadata accessor for VFXEffect();
+  type metadata accessor for VFXEffect(0);
   *(self + OBJC_IVAR____TtC3VFX8VFXScene_effects) = sub_1AFDFD418();
 }
 
@@ -335,29 +335,29 @@ LABEL_14:
 {
   v7 = sub_1AFDFC128();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7, v9);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AFDFC0B8();
   optionsCopy = options;
-  v13 = [(VFXScene *)self initWithOptions:optionsCopy];
+  v12 = [(VFXScene *)self initWithOptions:optionsCopy];
   if (qword_1ED72FDA8 != -1)
   {
     swift_once();
   }
 
-  sub_1AFCD0058(v11);
-  (*(v8 + 8))(v11, v7);
+  sub_1AFCD0058(v10);
+  (*(v8 + 8))(v10, v7);
 
-  return v13;
+  return v12;
 }
 
 - (_TtC3VFX8VFXScene)initWithContentsOf:(id)of error:(id *)error
 {
   v4 = sub_1AFDFC128();
-  MEMORY[0x1EEE9AC00](v4 - 8, v5);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AFDFC0B8();
-  return VFXScene.init(contentsOf:)(v7);
+  return VFXScene.init(contentsOf:)(v6);
 }
 
 - (void)dealloc
@@ -456,8 +456,8 @@ LABEL_14:
   }
 
   v3 = sub_1AFDFDA08();
-  v4 = 1;
-  sub_1AF75A4B4(v3, 0xD000000000000057, 0x80000001AFF4D710, &v4);
+  v5 = 1;
+  sub_1AF75A4B4(v3, 0xD000000000000057, 0x80000001AFF4D710, &v5, v4);
 }
 
 - (BOOL)additiveWritesToAlpha
@@ -565,19 +565,19 @@ LABEL_14:
   v11 = *(self + OBJC_IVAR____TtC3VFX8VFXScene_entityManager);
 
   selfCopy = self;
-  sub_1AF66C6B4(v11, v11, v5, v7, 0x200000000, v8, v10, v22);
+  sub_1AF66C6B4(v11, v11, v5, v7, 0x200000000, v8, v10, &v22);
 
   v13 = v23;
   if (v23)
   {
-    v14 = sub_1AF441150(v22, v23);
+    v14 = sub_1AF441150(&v22, v23);
     v15 = *(v13 - 8);
-    v16 = MEMORY[0x1EEE9AC00](v14, v14);
-    v18 = v22 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = MEMORY[0x1EEE9AC00](v14);
+    v18 = &v21 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v15 + 16))(v18, v16);
     v19 = sub_1AFDFEE08();
     (*(v15 + 8))(v18, v13);
-    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v22);
+    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(&v22);
   }
 
   else
@@ -651,19 +651,19 @@ LABEL_14:
   v7 = *(self + OBJC_IVAR____TtC3VFX8VFXScene_entityManager);
   selfCopy = self;
 
-  sub_1AF66CF74(v7, selfCopy, v4, v6, &v18);
+  sub_1AF66CF74(v7, selfCopy, v4, v6, v18);
 
   v9 = v19;
   if (v19)
   {
-    v10 = sub_1AF441150(&v18, v19);
+    v10 = sub_1AF441150(v18, v19);
     v11 = *(v9 - 8);
-    v12 = MEMORY[0x1EEE9AC00](v10, v10);
-    v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = MEMORY[0x1EEE9AC00](v10);
+    v14 = v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v11 + 16))(v14, v12);
     v15 = sub_1AFDFEE08();
     (*(v11 + 8))(v14, v9);
-    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(&v18);
+    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v18);
   }
 
   else
@@ -719,15 +719,15 @@ LABEL_14:
 {
   v5 = sub_1AFDFC128();
   v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5, v7);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AFDFC0B8();
   selfCopy = self;
-  sub_1AFCD4E08(v9);
-  v12 = v11;
-  (*(v6 + 8))(v9, v5);
+  sub_1AFCD4E08(v8);
+  v11 = v10;
+  (*(v6 + 8))(v8, v5);
 
-  return v12;
+  return v11;
 }
 
 - (id)addEffectWithEffectID:(int)d
@@ -811,20 +811,20 @@ LABEL_14:
 {
   managerCopy = manager;
   selfCopy = self;
-  VFXScene.assetManager.setter(manager, selfCopy);
+  VFXScene.assetManager.setter(manager);
 }
 
 - (void)initializeAssetManagerWithBundleURL:(id)l
 {
   v4 = sub_1AFDFC128();
   v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4, v6);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AFDFC0B8();
   selfCopy = self;
   VFXScene.initializeAssetManagerWithBundleURL(_:)();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (int64_t)entityWithTag:(id)tag
@@ -853,10 +853,10 @@ LABEL_14:
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v11 = sub_1AFCD6280(entity, fallback, dynamic);
+  v12 = sub_1AFCD6280(entity, fallback, dynamic, renderer);
   swift_unknownObjectRelease();
 
-  return v11;
+  return v12;
 }
 
 - (void)updateMemoryOwnership
@@ -873,14 +873,14 @@ LABEL_14:
 {
   v11 = sub_1AFDFC128();
   v12 = *(v11 - 8);
-  MEMORY[0x1EEE9AC00](v11, v13);
-  v15 = &v20 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AFDFC0B8();
   optionsCopy = options;
   outCopy = out;
   selfCopy = self;
-  VFXScene.load(url:loadingFor:options:infoOut:)(v15, for, options, out);
-  (*(v12 + 8))(v15, v11);
+  VFXScene.load(url:loadingFor:options:infoOut:)(v14, for, options, out);
+  (*(v12 + 8))(v14, v11);
 
   return 1;
 }
@@ -1150,9 +1150,9 @@ LABEL_14:
   v4[1] = &off_1F2529FC0;
   v4[2] = &type metadata for Beamed;
   v4[3] = &off_1F2529FA0;
-  v5 = sub_1AF63708C(v4, 2, MEMORY[0x1E69E7CC0], 1, 0x100000000uLL, v3);
+  v5 = sub_1AF63708C(v4, 2uLL, MEMORY[0x1E69E7CC0], 1, 0x100000000uLL, v3);
   ecs_stack_allocator_pop_snapshot(*(v3 + 32));
-  if (v5 == 0xFFFFFFFFLL)
+  if (v5 == 0xFFFFFFFF)
   {
     return 0;
   }
@@ -1372,7 +1372,7 @@ LABEL_14:
   return v4 & 1;
 }
 
-- (uint64_t)createCollisionPlane:(float32x4_t)plane transform:(float32x4_t)transform
+- (uint64_t)createCollisionPlane:(__n128)plane transform:(__n128)transform
 {
   selfCopy = self;
   v7 = sub_1AFCEEF50(a2, plane, transform, a5, a6);

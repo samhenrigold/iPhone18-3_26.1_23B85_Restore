@@ -301,67 +301,7 @@
                               viewHint = [(KCSharingPrivateKeyCredential *)self viewHint];
                               viewHint2 = [(KCSharingPrivateKeyCredential *)v5 viewHint];
                               v45 = viewHint;
-                              if (![viewHint isEqualToString:?])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              keyClass = [(KCSharingPrivateKeyCredential *)self keyClass];
-                              if (keyClass != [(KCSharingPrivateKeyCredential *)v5 keyClass])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              isPermanent = [(KCSharingPrivateKeyCredential *)self isPermanent];
-                              if (isPermanent != [(KCSharingPrivateKeyCredential *)v5 isPermanent])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              isPrivate = [(KCSharingPrivateKeyCredential *)self isPrivate];
-                              if (isPrivate != [(KCSharingPrivateKeyCredential *)v5 isPrivate])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              isModifiable = [(KCSharingPrivateKeyCredential *)self isModifiable];
-                              if (isModifiable != [(KCSharingPrivateKeyCredential *)v5 isModifiable])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              isSensitive = [(KCSharingPrivateKeyCredential *)self isSensitive];
-                              if (isSensitive != [(KCSharingPrivateKeyCredential *)v5 isSensitive])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              wasAlwaysSensitive = [(KCSharingPrivateKeyCredential *)self wasAlwaysSensitive];
-                              if (wasAlwaysSensitive != [(KCSharingPrivateKeyCredential *)v5 wasAlwaysSensitive])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              isExtractable = [(KCSharingPrivateKeyCredential *)self isExtractable];
-                              if (isExtractable != [(KCSharingPrivateKeyCredential *)v5 isExtractable])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              wasNeverExtractable = [(KCSharingPrivateKeyCredential *)self wasNeverExtractable];
-                              if (wasNeverExtractable != [(KCSharingPrivateKeyCredential *)v5 wasNeverExtractable])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              canEncrypt = [(KCSharingPrivateKeyCredential *)self canEncrypt];
-                              if (canEncrypt != [(KCSharingPrivateKeyCredential *)v5 canEncrypt])
-                              {
-                                goto LABEL_51;
-                              }
-
-                              canDecrypt = [(KCSharingPrivateKeyCredential *)self canDecrypt];
-                              if (canDecrypt == [(KCSharingPrivateKeyCredential *)v5 canDecrypt]&& (v35 = [(KCSharingPrivateKeyCredential *)self canDerive], v35 == [(KCSharingPrivateKeyCredential *)v5 canDerive]) && (v36 = [(KCSharingPrivateKeyCredential *)self canSign], v36 == [(KCSharingPrivateKeyCredential *)v5 canSign]) && (v37 = [(KCSharingPrivateKeyCredential *)self canVerify], v37 == [(KCSharingPrivateKeyCredential *)v5 canVerify]) && (v38 = [(KCSharingPrivateKeyCredential *)self canSignRecover], v38 == [(KCSharingPrivateKeyCredential *)v5 canSignRecover]) && (v39 = [(KCSharingPrivateKeyCredential *)self canVerifyRecover], v39 == [(KCSharingPrivateKeyCredential *)v5 canVerifyRecover]) && (v40 = [(KCSharingPrivateKeyCredential *)self canWrap], v40 == [(KCSharingPrivateKeyCredential *)v5 canWrap]))
+                              if ([viewHint isEqualToString:?] && (v25 = -[KCSharingPrivateKeyCredential keyClass](self, "keyClass"), v25 == -[KCSharingPrivateKeyCredential keyClass](v5, "keyClass")) && (v26 = -[KCSharingPrivateKeyCredential isPermanent](self, "isPermanent"), v26 == -[KCSharingPrivateKeyCredential isPermanent](v5, "isPermanent")) && (v27 = -[KCSharingPrivateKeyCredential isPrivate](self, "isPrivate"), v27 == -[KCSharingPrivateKeyCredential isPrivate](v5, "isPrivate")) && (v28 = -[KCSharingPrivateKeyCredential isModifiable](self, "isModifiable"), v28 == -[KCSharingPrivateKeyCredential isModifiable](v5, "isModifiable")) && (v29 = -[KCSharingPrivateKeyCredential isSensitive](self, "isSensitive"), v29 == -[KCSharingPrivateKeyCredential isSensitive](v5, "isSensitive")) && (v30 = -[KCSharingPrivateKeyCredential wasAlwaysSensitive](self, "wasAlwaysSensitive"), v30 == -[KCSharingPrivateKeyCredential wasAlwaysSensitive](v5, "wasAlwaysSensitive")) && (v31 = -[KCSharingPrivateKeyCredential isExtractable](self, "isExtractable"), v31 == -[KCSharingPrivateKeyCredential isExtractable](v5, "isExtractable")) && (v32 = -[KCSharingPrivateKeyCredential wasNeverExtractable](self, "wasNeverExtractable"), v32 == -[KCSharingPrivateKeyCredential wasNeverExtractable](v5, "wasNeverExtractable")) && (v33 = -[KCSharingPrivateKeyCredential canEncrypt](self, "canEncrypt"), v33 == -[KCSharingPrivateKeyCredential canEncrypt](v5, "canEncrypt")) && (v34 = -[KCSharingPrivateKeyCredential canDecrypt](self, "canDecrypt"), v34 == -[KCSharingPrivateKeyCredential canDecrypt](v5, "canDecrypt")) && (v35 = -[KCSharingPrivateKeyCredential canDerive](self, "canDerive"), v35 == -[KCSharingPrivateKeyCredential canDerive](v5, "canDerive")) && (v36 = -[KCSharingPrivateKeyCredential canSign](self, "canSign"), v36 == -[KCSharingPrivateKeyCredential canSign](v5, "canSign")) && (v37 = -[KCSharingPrivateKeyCredential canVerify](self, "canVerify"), v37 == -[KCSharingPrivateKeyCredential canVerify](v5, "canVerify")) && (v38 = -[KCSharingPrivateKeyCredential canSignRecover](self, "canSignRecover"), v38 == -[KCSharingPrivateKeyCredential canSignRecover](v5, "canSignRecover")) && (v39 = -[KCSharingPrivateKeyCredential canVerifyRecover](self, "canVerifyRecover"), v39 == -[KCSharingPrivateKeyCredential canVerifyRecover](v5, "canVerifyRecover")) && (v40 = -[KCSharingPrivateKeyCredential canWrap](self, "canWrap"), v40 == -[KCSharingPrivateKeyCredential canWrap](v5, "canWrap")))
                               {
                                 canUnwrap = [(KCSharingPrivateKeyCredential *)self canUnwrap];
                                 v42 = canUnwrap == [(KCSharingPrivateKeyCredential *)v5 canUnwrap];
@@ -369,7 +309,6 @@
 
                               else
                               {
-LABEL_51:
                                 v42 = 0;
                               }
                             }

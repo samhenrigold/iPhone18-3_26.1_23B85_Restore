@@ -18,7 +18,7 @@
 {
   fontCopy = font;
   v6 = sub_189077318(trait);
-  sub_188A34624(0, &qword_1ED48C4A0);
+  sub_188A34624(0, &qword_1ED48C4A0, &off_1E70ECC18);
   v7 = sub_18A4A7C88();
 
   return (v7 & 1) == 0;
@@ -26,12 +26,13 @@
 
 + (BOOL)_canToggleTrait:(unsigned int)trait forFont:(id)font inText:(id)text
 {
+  v6 = *&trait;
   v7 = sub_18A4A7288();
   v9 = v8;
   fontCopy = font;
-  LOBYTE(trait) = sub_189076044(trait, v7, v9);
+  LOBYTE(v6) = sub_189076044(v6, v7, v9);
 
-  return trait & 1;
+  return v6 & 1;
 }
 
 - (UITextFormattingViewControllerFormattingDescriptor)init
@@ -453,9 +454,9 @@ void __73__UITextFormattingViewControllerFormattingDescriptor_initWithAttributes
 {
   v12 = a2;
   v3 = [v12 markerFormat];
-  v4 = [v3 isEqualToString:*off_1E70ECA98];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  if (v4)
+  if (isEqualToString)
   {
     v5 = *(a1 + 32);
     v6 = @"UITextFormattingViewControllerTextListDisc";
@@ -463,7 +464,7 @@ void __73__UITextFormattingViewControllerFormattingDescriptor_initWithAttributes
   }
 
   v7 = [v12 markerFormat];
-  if ([v7 isEqualToString:*off_1E70ECA90])
+  if (objc_msgSend_isEqualToString_(v7))
   {
 
 LABEL_6:
@@ -473,7 +474,7 @@ LABEL_6:
   }
 
   v8 = [v12 markerFormat];
-  v9 = [v8 isEqualToString:@"{decimal}."];
+  v9 = objc_msgSend_isEqualToString_(v8);
 
   if (v9)
   {
@@ -481,7 +482,7 @@ LABEL_6:
   }
 
   v10 = [v12 markerFormat];
-  v11 = [v10 isEqualToString:*off_1E70ECAA0];
+  v11 = objc_msgSend_isEqualToString_(v10);
 
   v5 = *(a1 + 32);
   if (v11)
@@ -576,7 +577,7 @@ void __73__UITextFormattingViewControllerFormattingDescriptor_initWithAttributes
       v5 = equalCopy;
       formattingStyleKey = [(UITextFormattingViewControllerFormattingDescriptor *)self formattingStyleKey];
       formattingStyleKey2 = [(UITextFormattingViewControllerFormattingDescriptor *)v5 formattingStyleKey];
-      if ([formattingStyleKey isEqualToString:formattingStyleKey2])
+      if (objc_msgSend_isEqualToString_(formattingStyleKey))
       {
         fonts = [(UITextFormattingViewControllerFormattingDescriptor *)self fonts];
         fonts2 = [(UITextFormattingViewControllerFormattingDescriptor *)v5 fonts];
@@ -611,7 +612,7 @@ void __73__UITextFormattingViewControllerFormattingDescriptor_initWithAttributes
                     v30 = _emphasisStyleKey;
                     v25 = _emphasisStyleKey;
                     v26 = _emphasisStyleKey2;
-                    if ([v25 isEqualToString:_emphasisStyleKey2] && (v28 = -[UITextFormattingViewControllerFormattingDescriptor _blockquote](self, "_blockquote"), v28 == -[UITextFormattingViewControllerFormattingDescriptor _blockquote](v5, "_blockquote")) && (v29 = -[UITextFormattingViewControllerFormattingDescriptor _canToggleBold](self, "_canToggleBold"), v29 == -[UITextFormattingViewControllerFormattingDescriptor _canToggleBold](v5, "_canToggleBold")))
+                    if (objc_msgSend_isEqualToString_(v25) && (v28 = [(UITextFormattingViewControllerFormattingDescriptor *)self _blockquote], v28 == [(UITextFormattingViewControllerFormattingDescriptor *)v5 _blockquote]) && (v29 = [(UITextFormattingViewControllerFormattingDescriptor *)self _canToggleBold], v29 == [(UITextFormattingViewControllerFormattingDescriptor *)v5 _canToggleBold]))
                     {
                       _canToggleItalic = [(UITextFormattingViewControllerFormattingDescriptor *)self _canToggleItalic];
                       v17 = _canToggleItalic ^ [(UITextFormattingViewControllerFormattingDescriptor *)v5 _canToggleItalic]^ 1;

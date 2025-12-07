@@ -217,32 +217,28 @@ uint64_t __67__KCSharingMessagingdConnection_sendNewInvitesForGroup_completion__
 
 - (void)connectionWasInvalidated
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = KCSharingLogObject(@"KCSharingMessagingdConnection", 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     connection = [(KCSharingMessagingdConnection *)self connection];
-    v6 = 138412290;
-    v7 = connection;
-    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_INFO, "connection invalidated %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = connection;
+    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_INFO, "connection invalidated %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionWasInterrupted
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = KCSharingLogObject(@"KCSharingMessagingdConnection", 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     connection = [(KCSharingMessagingdConnection *)self connection];
-    v6 = 138412290;
-    v7 = connection;
-    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_INFO, "connection interrupted %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = connection;
+    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_INFO, "connection interrupted %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (KCSharingMessagingdConnection)initWithConnection:(id)connection interface:(id)interface queue:(id)queue

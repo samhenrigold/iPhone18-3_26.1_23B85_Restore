@@ -29,20 +29,20 @@
 
 - (void)connectToService:(id)service pairingGUID:(id)d allowPairing:(BOOL)pairing completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   handlerCopy = handler;
   objc_storeStrong(&self->_service, service);
   self->_allowPairing = pairing;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __93__RMSTVRemoteCoreControlSession_connectToService_pairingGUID_allowPairing_completionHandler___block_invoke;
-  v23[3] = &unk_279B09318;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __93__RMSTVRemoteCoreControlSession_connectToService_pairingGUID_allowPairing_completionHandler___block_invoke;
+  v24[3] = &unk_279B09318;
   v12 = handlerCopy;
   pairingCopy = pairing;
-  v23[4] = self;
-  v24 = v12;
-  v13 = MEMORY[0x266721590](v23);
+  v24[4] = self;
+  v25 = v12;
+  v13 = MEMORY[0x266721590](v24);
   device = [serviceCopy device];
 
   if (device)
@@ -53,32 +53,32 @@
 
   else
   {
-    v16 = RMSLogger();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = RMSLogger(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [serviceCopy uniqueIdentifier];
       *buf = 138412290;
-      v27 = uniqueIdentifier;
-      _os_log_impl(&dword_261E98000, v16, OS_LOG_TYPE_DEFAULT, "Will discoverDeviceWithIdentifier: %@", buf, 0xCu);
+      v28 = uniqueIdentifier;
+      _os_log_impl(&dword_261E98000, v17, OS_LOG_TYPE_DEFAULT, "Will discoverDeviceWithIdentifier: %@", buf, 0xCu);
     }
 
-    v18 = +[RMSTVRemoteCoreDeviceController sharedController];
+    v19 = +[RMSTVRemoteCoreDeviceController sharedController];
     uniqueIdentifier2 = [serviceCopy uniqueIdentifier];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __93__RMSTVRemoteCoreControlSession_connectToService_pairingGUID_allowPairing_completionHandler___block_invoke_1;
-    v20[3] = &unk_279B09340;
-    v21 = serviceCopy;
-    v22 = v13;
-    [v18 discoverDeviceWithIdentifier:uniqueIdentifier2 timeout:v20 completionHandler:5.0];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __93__RMSTVRemoteCoreControlSession_connectToService_pairingGUID_allowPairing_completionHandler___block_invoke_1;
+    v21[3] = &unk_279B09340;
+    v22 = serviceCopy;
+    v23 = v13;
+    [v19 discoverDeviceWithIdentifier:uniqueIdentifier2 timeout:v21 completionHandler:5.0];
 
-    device2 = v21;
+    device2 = v22;
   }
 }
 
 void __93__RMSTVRemoteCoreControlSession_connectToService_pairingGUID_allowPairing_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = v4;
   if (v4)
@@ -107,10 +107,10 @@ LABEL_14:
 LABEL_9:
       if (([v5 isPaired] & 1) == 0)
       {
-        v12 = *(a1 + 40);
-        if (v12)
+        v13 = *(a1 + 40);
+        if (v13)
         {
-          v7 = *(v12 + 16);
+          v7 = *(v13 + 16);
           goto LABEL_14;
         }
 
@@ -126,19 +126,20 @@ LABEL_9:
     v11 = *(v10 + 24);
     *(v10 + 24) = v9;
 
-    if ([v5 connectionState] == 2)
+    v12 = [v5 connectionState];
+    if (v12 == 2)
     {
       [*(a1 + 32) deviceConnected:v5];
     }
 
     else
     {
-      v13 = RMSLogger();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = RMSLogger(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = v5;
-        _os_log_impl(&dword_261E98000, v13, OS_LOG_TYPE_DEFAULT, "device: %@ connect", &v14, 0xCu);
+        v15 = 138412290;
+        v16 = v5;
+        _os_log_impl(&dword_261E98000, v14, OS_LOG_TYPE_DEFAULT, "device: %@ connect", &v15, 0xCu);
       }
 
       [v5 connect];
@@ -161,7 +162,7 @@ void __93__RMSTVRemoteCoreControlSession_connectToService_pairingGUID_allowPairi
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = RMSLogger();
+  v4 = RMSLogger(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) uniqueIdentifier];
@@ -379,7 +380,7 @@ LABEL_15:
 {
   v10 = *MEMORY[0x277D85DE8];
   authenticationCopy = authentication;
-  v5 = RMSLogger();
+  v5 = RMSLogger(authenticationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -396,7 +397,7 @@ LABEL_15:
   v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   challengeCopy = challenge;
-  v8 = RMSLogger();
+  v8 = RMSLogger(challengeCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -423,7 +424,7 @@ void __75__RMSTVRemoteCoreControlSession_device_encounteredAuthenticationChallen
 {
   v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v6 = RMSLogger();
+  v6 = RMSLogger(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a3)
   {
@@ -458,7 +459,7 @@ void __75__RMSTVRemoteCoreControlSession_device_encounteredAuthenticationChallen
 {
   v10 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
-  v5 = RMSLogger();
+  v5 = RMSLogger(connectedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -483,7 +484,7 @@ void __75__RMSTVRemoteCoreControlSession_device_encounteredAuthenticationChallen
   v23 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
-  v10 = RMSLogger();
+  v10 = RMSLogger(errorCopy);
   v11 = v10;
   if (errorCopy)
   {

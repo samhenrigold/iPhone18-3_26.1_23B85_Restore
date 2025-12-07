@@ -8,15 +8,15 @@
 
 - (void)viewDidLoad
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   if (gLogCategory_SPVC <= 30 && (gLogCategory_SPVC != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SPVC, "[VPScannerProxCardViewController viewDidLoad]", 30, "viewDidLoad\n");
   }
 
-  v26.receiver = self;
-  v26.super_class = VPScannerProxCardViewController;
-  [(VPScannerProxCardViewController *)&v26 viewDidLoad];
+  v25.receiver = self;
+  v25.super_class = VPScannerProxCardViewController;
+  [(VPScannerProxCardViewController *)&v25 viewDidLoad];
   initAsProxCard = [[VPScannerView alloc] initAsProxCard];
   scannerView = self->_scannerView;
   self->_scannerView = initAsProxCard;
@@ -28,39 +28,38 @@
   view2 = [(VPScannerProxCardViewController *)self view];
   [view2 addSubview:self->_scannerView];
 
-  v18 = MEMORY[0x277CCAAD0];
+  v17 = MEMORY[0x277CCAAD0];
   topAnchor = [(VPScannerView *)self->_scannerView topAnchor];
   view3 = [(VPScannerProxCardViewController *)self view];
   topAnchor2 = [view3 topAnchor];
-  v22 = [topAnchor constraintLessThanOrEqualToAnchor:topAnchor2];
-  v27[0] = v22;
+  v21 = [topAnchor constraintLessThanOrEqualToAnchor:topAnchor2];
+  v26[0] = v21;
   bottomAnchor = [(VPScannerView *)self->_scannerView bottomAnchor];
   view4 = [(VPScannerProxCardViewController *)self view];
   bottomAnchor2 = [view4 bottomAnchor];
-  v17 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
-  v27[1] = v17;
+  v16 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
+  v26[1] = v16;
   leftAnchor = [(VPScannerView *)self->_scannerView leftAnchor];
   view5 = [(VPScannerProxCardViewController *)self view];
   leftAnchor2 = [view5 leftAnchor];
   v9 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v27[2] = v9;
+  v26[2] = v9;
   rightAnchor = [(VPScannerView *)self->_scannerView rightAnchor];
   view6 = [(VPScannerProxCardViewController *)self view];
   rightAnchor2 = [view6 rightAnchor];
   v13 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v27[3] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
-  [v18 activateConstraints:v14];
+  v26[3] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
+  [v17 activateConstraints:v14];
 
   [(VPScannerView *)self->_scannerView setNeedsLayout];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
   if (gLogCategory_SPVC <= 30 && (gLogCategory_SPVC != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SPVC, "[VPScannerProxCardViewController start]", 30, "Start\n");
   }
 
   v3[0] = MEMORY[0x277D85DD0];
@@ -87,7 +86,7 @@ uint64_t __40__VPScannerProxCardViewController_start__block_invoke(uint64_t a1)
 {
   if (gLogCategory_SPVC <= 30 && (gLogCategory_SPVC != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SPVC, "[VPScannerProxCardViewController stop]", 30, "Stop\n");
   }
 
   [(VPScannerView *)self->_scannerView setScannedCodeHandler:0];

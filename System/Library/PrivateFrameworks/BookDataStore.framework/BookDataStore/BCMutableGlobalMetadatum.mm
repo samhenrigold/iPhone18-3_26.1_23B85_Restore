@@ -13,7 +13,7 @@
   keyCopy = key;
   if (!keyCopy)
   {
-    v7 = BDSCloudKitLog();
+    v7 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E4709150();
@@ -62,7 +62,7 @@ LABEL_7:
 
     else
     {
-      value = BDSCloudKitLog();
+      value = BDSCloudKitLog(0);
       if (os_log_type_enabled(value, OS_LOG_TYPE_ERROR))
       {
         sub_1E4708FD4();
@@ -81,7 +81,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    value = BDSCloudKitLog();
+    value = BDSCloudKitLog(0);
     if (os_log_type_enabled(value, OS_LOG_TYPE_ERROR))
     {
       sub_1E4709184();

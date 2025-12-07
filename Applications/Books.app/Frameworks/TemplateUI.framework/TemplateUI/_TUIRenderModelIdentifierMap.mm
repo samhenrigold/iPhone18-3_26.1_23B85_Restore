@@ -47,7 +47,7 @@
     do
     {
       v7 = *(v4 + 4);
-      v16[0] = v7;
+      v16 = v7;
       left = p_end_node->__left_;
       if (!p_end_node->__left_)
       {
@@ -77,8 +77,8 @@
       else
       {
 LABEL_11:
-        v16[2] = v16;
-        sub_DA530(&self->_indexToReferenceCount, v16)[5] = 1;
+        v17 = &v16;
+        sub_DA530(&self->_indexToReferenceCount, &v16, &std::piecewise_construct, &v17)[5] = 1;
       }
 
       v13 = *(v4 + 1);

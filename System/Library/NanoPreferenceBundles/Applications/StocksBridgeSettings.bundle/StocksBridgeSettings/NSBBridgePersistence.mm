@@ -54,7 +54,7 @@
 
 - (void)_deviceDidBecomeActive:(id)active
 {
-  v4 = stocks_bridge_log();
+  v4 = stocks_bridge_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -72,9 +72,7 @@
 
 - (void)_setupDefaults
 {
-  v3 = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.stocks.bridge"];
-  defaults = self->_defaults;
-  self->_defaults = v3;
+  self->_defaults = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.stocks.bridge"];
 
   _objc_release_x1();
 }

@@ -249,7 +249,7 @@
   [(SCLListViewController *)&v13 endUpdates];
 }
 
-uint64_t __35__SCLListViewController_endUpdates__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__35__SCLListViewController_endUpdates__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)

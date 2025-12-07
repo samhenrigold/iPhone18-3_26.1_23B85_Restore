@@ -3,7 +3,7 @@
 
 @implementation SADecoratedString
 
-uint64_t __102__SADecoratedString_SiriUIFoundationAdditions__sruif_enumerateRangesOfRegionsWithProperty_usingBlock___block_invoke(uint64_t a1, uint64_t a2)
+void *__102__SADecoratedString_SiriUIFoundationAdditions__sruif_enumerateRangesOfRegionsWithProperty_usingBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) isEqualToString:a2];
   if (result)
@@ -16,7 +16,7 @@ uint64_t __102__SADecoratedString_SiriUIFoundationAdditions__sruif_enumerateRang
   return result;
 }
 
-unint64_t __118__SADecoratedString_SiriUIFoundationAdditions__sruif_attributedStringValueWithAttribute_value_forRegionsWithProperty___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__118__SADecoratedString_SiriUIFoundationAdditions__sruif_attributedStringValueWithAttribute_value_forRegionsWithProperty___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) length];
   if (result >= a2 + a3)

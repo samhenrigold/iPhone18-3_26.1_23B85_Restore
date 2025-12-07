@@ -37,58 +37,56 @@
 
 - (id)atx_nonNilParametersByName
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   atx_nonNilParameters = [self atx_nonNilParameters];
   v3 = [atx_nonNilParameters copy];
 
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [self atx_parameterValueForKey:{v10, v15}];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [self atx_parameterValueForKey:{v10, v14}];
         [v4 setObject:v11 forKeyedSubscript:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (uint64_t)atx_backingStoreDataHash
 {
-  v7 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
+  v6 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
   backingStore = [self backingStore];
   data = [backingStore data];
 
-  CC_SHA256([data bytes], objc_msgSend(data, "length"), v6);
-  v3 = LODWORD(v6[0]);
+  CC_SHA256([data bytes], objc_msgSend(data, "length"), v5);
+  v3 = LODWORD(v5[0]);
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -136,7 +134,7 @@ LABEL_10:
 
 - (id)atx_hashApproximately
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = objc_opt_new();
   v4 = objc_autoreleasePoolPush();
@@ -146,28 +144,28 @@ LABEL_10:
 
   objc_autoreleasePoolPop(v4);
   atx_nonNilParametersByName = [self atx_nonNilParametersByName];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [atx_nonNilParametersByName allKeys];
   v9 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         v15 = objc_autoreleasePoolPush();
         v16 = [v14 dataUsingEncoding:4];
         [v3 appendData:v16];
@@ -178,7 +176,7 @@ LABEL_10:
         objc_autoreleasePoolPop(v15);
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v11);
@@ -188,7 +186,6 @@ LABEL_10:
   v18 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:md length:8];
 
   objc_autoreleasePoolPop(v2);
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

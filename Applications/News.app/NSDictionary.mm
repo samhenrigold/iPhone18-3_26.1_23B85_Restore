@@ -20,12 +20,12 @@
 
   if (unsignedIntegerValue >= 6)
   {
-    v4 = NNSetupCompanionSyncLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = NNSetupCompanionSyncLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v6 = 134217984;
-      v7 = unsignedIntegerValue;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Unknown type %lu", &v6, 0xCu);
+      v7 = 134217984;
+      v8 = unsignedIntegerValue;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Unknown type %lu", &v7, 0xCu);
     }
 
     return 0;

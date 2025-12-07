@@ -13,7 +13,7 @@
 
 + (BOOL)simulateLimitedMappingForXCTests
 {
-  LODWORD(v2) = [__LSDefaultsGetSharedInstance() isInXCTestRigInsecure];
+  LODWORD(v2) = [__LSDefaultsGetSharedInstance(self a2)];
   if (v2)
   {
     v2 = getenv("LS_SIMULATE_LIMITED_MAPPING_FOR_XCTESTS");
@@ -150,7 +150,7 @@ LABEL_3:
 
 - (id)_resolveQueries:(id)queries XPCConnection:(id)connection error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   queriesCopy = queries;
   connectionCopy = connection;
   _resolver = [(_LSQueryContext *)self _resolver];
@@ -175,9 +175,9 @@ LABEL_3:
 
   if ([queriesCopy count])
   {
-    v19 = 0;
-    v12 = [_resolver _resolveQueries:queriesCopy XPCConnection:connectionCopy error:&v19];
-    v13 = v19;
+    v18 = 0;
+    v12 = [_resolver _resolveQueries:queriesCopy XPCConnection:connectionCopy error:&v18];
+    v13 = v18;
     if (!error)
     {
       goto LABEL_10;
@@ -187,9 +187,9 @@ LABEL_3:
   }
 
 LABEL_7:
-  v20 = *MEMORY[0x1E696A278];
-  v21[0] = @"invalid input parameters";
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = *MEMORY[0x1E696A278];
+  v20[0] = @"invalid input parameters";
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v13 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v15, "[_LSQueryContext(Internal) _resolveQueries:XPCConnection:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSQuery/LSQueryContext.mm", 168);
 
   v12 = 0;
@@ -207,15 +207,13 @@ LABEL_8:
 
 LABEL_10:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 + (void)setSimulateLimitedMappingForXCTests:(BOOL)tests
 {
   testsCopy = tests;
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if ([__LSDefaultsGetSharedInstance(self a2)])
   {
     if (testsCopy)
     {

@@ -10,17 +10,17 @@
 
 - (void)_queue_start
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v52.receiver = self;
-  v52.super_class = HDSampleQueryServer;
-  [(HDQueryServer *)&v52 _queue_start];
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x2020000000;
-  v51 = 0;
+  v56 = *MEMORY[0x277D85DE8];
+  v51.receiver = self;
+  v51.super_class = HDSampleQueryServer;
+  [(HDQueryServer *)&v51 _queue_start];
+  v49[0] = 0;
+  v49[1] = v49;
+  v49[2] = 0x2020000000;
+  v50 = 0;
   if (self->_suspended)
   {
-    v51 = 1;
+    v50 = 1;
     self->_suspended = 0;
     _HKInitializeLogging();
     v3 = *MEMORY[0x277CCC308];
@@ -33,14 +33,14 @@
   }
 
   [(HDQueryServer *)self setDataCount:0];
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __35__HDSampleQueryServer__queue_start__block_invoke;
-  v48[3] = &unk_27862F720;
-  v48[4] = self;
-  v48[5] = v50;
-  v49 = 0;
-  v4 = v48;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __35__HDSampleQueryServer__queue_start__block_invoke;
+  v47[3] = &unk_27862F720;
+  v47[4] = self;
+  v47[5] = v49;
+  v48 = 0;
+  v4 = v47;
   if ([(NSArray *)self->_queryDescriptors count]!= 1)
   {
     v23 = objc_alloc(MEMORY[0x277CCD8C0]);
@@ -52,10 +52,10 @@
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __58__HDSampleQueryServer_batchObjectsWithError_batchHandler___block_invoke;
-    v55 = &unk_27861C648;
-    v56 = v4;
-    v27 = [(HDBatchedQueryServer *)self batchObjectsWithMultitypeQueryCursor:v5 includeDeletedObjects:0 limit:limit error:&v49 batchHandler:buf];
-    v28 = v56;
+    v54 = &unk_27861C648;
+    v55 = v4;
+    v27 = [(HDBatchedQueryServer *)self batchObjectsWithMultitypeQueryCursor:v5 includeDeletedObjects:0 limit:limit error:&v48 batchHandler:buf];
+    v28 = v55;
     goto LABEL_33;
   }
 
@@ -101,7 +101,7 @@
     if (v29)
     {
       v31 = v29;
-      v49 = v30;
+      v48 = v30;
     }
 
     v28 = 0;
@@ -125,12 +125,12 @@
       {
         client3 = [(HDQueryServer *)self client];
         v21 = *MEMORY[0x277CCC8B0];
-        v53 = v17;
-        v46 = [client3 hasRequiredEntitlement:v21 error:&v53];
-        v47 = client3;
-        v22 = v53;
+        v52 = v17;
+        v45 = [client3 hasRequiredEntitlement:v21 error:&v52];
+        v46 = client3;
+        v22 = v52;
 
-        if (v46)
+        if (v45)
         {
           [newDataEntityEnumerator setEncodingOption:MEMORY[0x277CBEC38] forKey:@"IncludeCondenserInfo"];
         }
@@ -163,7 +163,7 @@ LABEL_30:
 
   if (v28)
   {
-    v27 = [(HDBatchedQueryServer *)self batchObjectsWithEnumerator:v28 error:&v49 handler:v5];
+    v27 = [(HDBatchedQueryServer *)self batchObjectsWithEnumerator:v28 error:&v48 handler:v5];
   }
 
   else
@@ -173,7 +173,7 @@ LABEL_30:
 
 LABEL_33:
 
-  v35 = v49;
+  v35 = v48;
   v36 = v35;
   if (v27 == 1)
   {
@@ -237,13 +237,12 @@ LABEL_42:
     }
   }
 
-  _Block_object_dispose(v50, 8);
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v49, 8);
 }
 
 void __35__HDSampleQueryServer__queue_start__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 32) filteredSamplesForClientWithSamples:a2];
   v6 = [v5 count];
   v7 = *(*(a1 + 32) + 232);
@@ -255,34 +254,34 @@ void __35__HDSampleQueryServer__queue_start__block_invoke(uint64_t a1, uint64_t 
   }
 
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v11 = v5;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       v15 = 0;
       do
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(a1 + 32) sanitizedSampleForQueryClient:{*(*(&v26 + 1) + 8 * v15), v26}];
+        v16 = [*(a1 + 32) sanitizedSampleForQueryClient:{*(*(&v25 + 1) + 8 * v15), v25}];
         [v10 addObject:v16];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v13);
@@ -296,9 +295,9 @@ void __35__HDSampleQueryServer__queue_start__block_invoke(uint64_t a1, uint64_t 
     v19 = v17;
     v20 = [v11 count];
     *buf = 138543618;
-    v31 = v18;
-    v32 = 2048;
-    v33 = v20;
+    v30 = v18;
+    v31 = 2048;
+    v32 = v20;
     _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_INFO, "%{public}@ delivering %lu samples to client", buf, 0x16u);
   }
 
@@ -320,8 +319,6 @@ void __35__HDSampleQueryServer__queue_start__block_invoke(uint64_t a1, uint64_t 
 
   *(*(*(a1 + 40) + 8) + 24) = 0;
   [*(a1 + 32) setDataCount:{objc_msgSend(*(a1 + 32), "dataCount") + objc_msgSend(v10, "count")}];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSampleQueryServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate

@@ -9,29 +9,29 @@
 
 - (id)AD_dictionaryForJSON
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       v7 = 0;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * v7);
+        v8 = *(*(&v18 + 1) + 8 * v7);
         v9 = [selfCopy objectForKey:v8];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -135,32 +135,30 @@ LABEL_21:
       }
 
       while (v5 != v7);
-      v16 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v16 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
       v5 = v16;
     }
 
     while (v16);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (id)AD_objectForKey:()ADCoreExtensions ofKindOfClass:
 {
-  v1 = [self objectForKey:?];
+  v4 = [self objectForKey:a3];
   if (objc_opt_isKindOfClass())
   {
-    v2 = v1;
+    v5 = v4;
   }
 
   else
   {
-    v2 = 0;
+    v5 = 0;
   }
 
-  return v2;
+  return v5;
 }
 
 - (BOOL)AD_hasObjectForKey:()ADCoreExtensions ofKindOfClass:

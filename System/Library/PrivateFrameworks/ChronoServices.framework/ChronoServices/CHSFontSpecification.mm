@@ -99,7 +99,7 @@ id __35__CHSFontSpecification_description__block_invoke(uint64_t a1)
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v14 = 1;
+    v6 = 1;
   }
 
   else
@@ -108,26 +108,24 @@ id __35__CHSFontSpecification_description__block_invoke(uint64_t a1)
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      if (self->_design == v5->_design && (size = self->_size, v7 = v5->_size, BSEqualObjects()) && (name = self->_name, v9 = v5->_name, BSEqualObjects()) && (weight = self->_weight, v11 = v5->_weight, BSEqualObjects()))
+      if (self->_design == v5->_design && BSEqualObjects() && BSEqualObjects() && BSEqualObjects())
       {
-        fontFeatures = self->_fontFeatures;
-        v13 = v5->_fontFeatures;
-        v14 = BSEqualArrays();
+        v6 = BSEqualArrays();
       }
 
       else
       {
-        v14 = 0;
+        v6 = 0;
       }
     }
 
     else
     {
-      v14 = 0;
+      v6 = 0;
     }
   }
 
-  return v14;
+  return v6;
 }
 
 - (unint64_t)hash

@@ -10,7 +10,7 @@
 - (_TtC4Maps33GEOAPCurrentUploadDebugController)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC4Maps33GEOAPCurrentUploadDebugController_dataModel;
-  type metadata accessor for GEOAPCurrentUploadDataModel();
+  type metadata accessor for GEOAPCurrentUploadDataModel(0);
   v5 = swift_allocObject();
   *(v5 + 3) = 0;
   sub_100230C88();
@@ -27,7 +27,7 @@
 - (_TtC4Maps33GEOAPCurrentUploadDebugController)initWithStyle:(int64_t)style
 {
   v5 = OBJC_IVAR____TtC4Maps33GEOAPCurrentUploadDebugController_dataModel;
-  type metadata accessor for GEOAPCurrentUploadDataModel();
+  type metadata accessor for GEOAPCurrentUploadDataModel(0);
   v6 = swift_allocObject();
   *(v6 + 3) = 0;
   sub_100230C88();

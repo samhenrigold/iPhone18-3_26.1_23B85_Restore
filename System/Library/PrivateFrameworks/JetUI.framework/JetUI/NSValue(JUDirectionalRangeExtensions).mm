@@ -1,7 +1,7 @@
 @interface NSValue(JUDirectionalRangeExtensions)
 + (id)valueWithJUDirectionalRange:()JUDirectionalRangeExtensions;
 + (id)valueWithRange:()JUDirectionalRangeExtensions direction:hasMixedDirectionality:;
-- (uint64_t)juDirectionalRangeValue;
+- (void)juDirectionalRangeValue;
 @end
 
 @implementation NSValue(JUDirectionalRangeExtensions)
@@ -30,7 +30,7 @@
   return v6;
 }
 
-- (uint64_t)juDirectionalRangeValue
+- (void)juDirectionalRangeValue
 {
   v8 = *MEMORY[0x1E69E9840];
   *(a2 + 24) = 0;

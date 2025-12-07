@@ -44,12 +44,11 @@
 
 uint64_t __41__CPNowPlayingMode_defaultNowPlayingMode__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_new();
-  v3 = defaultNowPlayingMode___defaultMode;
-  defaultNowPlayingMode___defaultMode = v2;
+  v1 = objc_opt_new();
+  v2 = defaultNowPlayingMode___defaultMode;
+  defaultNowPlayingMode___defaultMode = v1;
 
-  return MEMORY[0x2821F96F8](v2, v3);
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (BOOL)isEqual:(id)equal

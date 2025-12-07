@@ -111,7 +111,7 @@ void __53__PXSystemAVAudioSessionController_audioSessionQueue__block_invoke()
 
 - (void)_audioSessionQueue_applyCategory:(int64_t)category completion:(id)completion
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   audioSessionQueue = [objc_opt_class() audioSessionQueue];
   dispatch_assert_queue_V2(audioSessionQueue);
@@ -138,10 +138,10 @@ void __53__PXSystemAVAudioSessionController_audioSessionQueue__block_invoke()
       v16 = v13;
       *buf = 138412802;
       selfCopy2 = self;
-      v43 = 2112;
+      v42 = 2112;
       selfCopy4 = v16;
-      v45 = 2112;
-      v46 = audioSession;
+      v44 = 2112;
+      v45 = audioSession;
       _os_log_impl(&dword_25E661000, v10, OS_LOG_TYPE_INFO, "%@ declining to apply existing category %@ to session %@.", buf, 0x20u);
     }
 
@@ -166,10 +166,10 @@ void __53__PXSystemAVAudioSessionController_audioSessionQueue__block_invoke()
     v19 = v15;
     *buf = 138412802;
     selfCopy2 = self;
-    v43 = 2112;
+    v42 = 2112;
     selfCopy4 = v19;
-    v45 = 2112;
-    v46 = audioSession;
+    v44 = 2112;
+    v45 = audioSession;
     _os_log_impl(&dword_25E661000, v10, OS_LOG_TYPE_INFO, "%@ applying category %@ to session %@.", buf, 0x20u);
   }
 
@@ -185,9 +185,9 @@ void __53__PXSystemAVAudioSessionController_audioSessionQueue__block_invoke()
     }
   }
 
-  v38 = 0;
-  v23 = [audioSession setPhotosAudioSessionCategory:category error:&v38];
-  v18 = v38;
+  v37 = 0;
+  v23 = [audioSession setPhotosAudioSessionCategory:category error:&v37];
+  v18 = v37;
   v24 = [objc_opt_class() log];
   signpostID2 = [(PXSystemAVAudioSessionController *)self signpostID];
   if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -218,7 +218,7 @@ void __53__PXSystemAVAudioSessionController_audioSessionQueue__block_invoke()
       v34 = v28;
       *buf = 138412546;
       selfCopy2 = v34;
-      v43 = 2112;
+      v42 = 2112;
       selfCopy4 = self;
       _os_log_impl(&dword_25E661000, v27, OS_LOG_TYPE_INFO, "Successfully configured audio session category %@ for session controller %@", buf, 0x16u);
     }
@@ -234,10 +234,10 @@ LABEL_31:
 
   else
   {
-    v39 = @"PXAVAudioSessionControllerErrorCategory";
+    v38 = @"PXAVAudioSessionControllerErrorCategory";
     v29 = [MEMORY[0x277CCABB0] numberWithInteger:category];
-    v40 = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v39 = v29;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
 
     if (v18)
     {
@@ -254,21 +254,21 @@ LABEL_31:
     {
       if (category > 2)
       {
-        v36 = @"??";
+        v35 = @"??";
       }
 
       else
       {
-        v36 = off_279A29008[category];
+        v35 = off_279A29008[category];
       }
 
-      v37 = v36;
+      v36 = v35;
       *buf = 138412802;
-      selfCopy2 = v37;
-      v43 = 2112;
+      selfCopy2 = v36;
+      v42 = 2112;
       selfCopy4 = self;
-      v45 = 2112;
-      v46 = v17;
+      v44 = 2112;
+      v45 = v17;
       _os_log_error_impl(&dword_25E661000, v33, OS_LOG_TYPE_ERROR, "Failed to configure audio session category %@ for session controller %@. Error: %@", buf, 0x20u);
     }
 
@@ -279,8 +279,6 @@ LABEL_31:
   }
 
 LABEL_32:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resourceReclamationEventDidOccur:(id)occur
@@ -307,7 +305,7 @@ void __69__PXSystemAVAudioSessionController_resourceReclamationEventDidOccur___b
 
 - (void)applyCategory:(int64_t)category completion:(id)completion
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (category)
   {
@@ -317,27 +315,25 @@ void __69__PXSystemAVAudioSessionController_resourceReclamationEventDidOccur___b
     block[1] = 3221225472;
     block[2] = __61__PXSystemAVAudioSessionController_applyCategory_completion___block_invoke;
     block[3] = &unk_279A290D8;
-    objc_copyWeak(v15, &location);
-    v15[1] = category;
-    v14 = completionCopy;
+    objc_copyWeak(v14, &location);
+    v14[1] = category;
+    v13 = completionCopy;
     dispatch_async(audioSessionQueue, block);
 
-    objc_destroyWeak(v15);
+    objc_destroyWeak(v14);
     objc_destroyWeak(&location);
   }
 
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v17 = @"PXAVAudioSessionControllerErrorCategory";
+    v16 = @"PXAVAudioSessionControllerErrorCategory";
     v9 = [MEMORY[0x277CCABB0] numberWithInteger:0];
-    v18[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v11 = [v8 errorWithDomain:@"PXAVAudioSessionControllerError" code:1 userInfo:v10];
     (*(completionCopy + 2))(completionCopy, 0, v11);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __61__PXSystemAVAudioSessionController_applyCategory_completion___block_invoke(uint64_t a1)

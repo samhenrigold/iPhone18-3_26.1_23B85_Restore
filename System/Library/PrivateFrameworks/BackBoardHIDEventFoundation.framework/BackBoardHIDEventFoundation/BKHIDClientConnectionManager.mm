@@ -1,6 +1,7 @@
 @interface BKHIDClientConnectionManager
 - (BKHIDClientConnectionManager)initWithHIDEventSystem:(__IOHIDEventSystem *)system;
 - (__IOHIDEventSystemConnection)copyClientForDestination:(id)destination;
+- (__IOHIDEventSystemConnection)copyClientForTaskPort:(unsigned int)port;
 - (id)_lock_clientForDestination:(uint64_t)destination;
 - (id)bundleIDForPID:(int)d;
 - (id)clientForDestination:(id)destination;
@@ -31,25 +32,23 @@
   v11 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   os_unfair_lock_lock(&self->_lock);
-  v6 = [(BKHIDClientConnectionManager *)self _lock_clientForDestination:destinationCopy];
+  v7 = [(BKHIDClientConnectionManager *)self _lock_clientForDestination:destinationCopy];
   os_unfair_lock_unlock(&self->_lock);
-  if (v6)
+  if (v7)
   {
-    [BKHIDClientConnection sendEvent:v6];
+    [(BKHIDClientConnection *)v7 sendEvent:event];
   }
 
   else
   {
-    v7 = BKLogHID();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = BKLogHID();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138543362;
       v10 = destinationCopy;
-      _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "no client connection for destination %{public}@", &v9, 0xCu);
+      _os_log_impl(&dword_223CBE000, v8, OS_LOG_TYPE_DEFAULT, "no client connection for destination %{public}@", &v9, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lock_clientForDestination:(uint64_t)destination
@@ -79,25 +78,23 @@
 {
   v10 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
-  v6 = [(BSMutableIntegerMap *)self->_taskPortToClientConnectionMapping objectForKey:port];
+  v7 = [(BSMutableIntegerMap *)self->_taskPortToClientConnectionMapping objectForKey:port];
   os_unfair_lock_unlock(&self->_lock);
-  if (v6)
+  if (v7)
   {
-    [BKHIDClientConnection sendEvent:v6];
+    [(BKHIDClientConnection *)v7 sendEvent:event];
   }
 
   else
   {
-    v7 = BKLogHID();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = BKLogHID();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9[0] = 67109120;
       v9[1] = port;
-      _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "no client connection for port 0x%X", v9, 8u);
+      _os_log_impl(&dword_223CBE000, v8, OS_LOG_TYPE_DEFAULT, "no client connection for port 0x%X", v9, 8u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clientForDestination:(id)destination
@@ -123,6 +120,19 @@
 - (__IOHIDEventSystemConnection)copyClientForDestination:(id)destination
 {
   v3 = [(BKHIDClientConnectionManager *)self clientForDestination:destination];
+  connection = [v3 connection];
+
+  if (connection)
+  {
+    CFRetain(connection);
+  }
+
+  return connection;
+}
+
+- (__IOHIDEventSystemConnection)copyClientForTaskPort:(unsigned int)port
+{
+  v3 = [(BKHIDClientConnectionManager *)self clientForTaskPort:*&port];
   connection = [v3 connection];
 
   if (connection)
@@ -207,14 +217,12 @@ void __47__BKHIDClientConnectionManager_pidForBundleID___block_invoke(uint64_t a
 
 - (void)dealloc
 {
-  hidEventSystem = self->_hidEventSystem;
   IOHIDEventSystemUnregisterConnectionAdditionCallback();
-  v4 = self->_hidEventSystem;
   IOHIDEventSystemUnregisterConnectionRemovalCallback();
-  v5 = self->_hidEventSystem;
-  if (v5)
+  hidEventSystem = self->_hidEventSystem;
+  if (hidEventSystem)
   {
-    CFRelease(v5);
+    CFRelease(hidEventSystem);
     self->_hidEventSystem = 0;
   }
 
@@ -224,16 +232,16 @@ void __47__BKHIDClientConnectionManager_pidForBundleID___block_invoke(uint64_t a
     CFRelease(hidConnectionToBKConnection);
   }
 
-  v7.receiver = self;
-  v7.super_class = BKHIDClientConnectionManager;
-  [(BKHIDClientConnectionManager *)&v7 dealloc];
+  v5.receiver = self;
+  v5.super_class = BKHIDClientConnectionManager;
+  [(BKHIDClientConnectionManager *)&v5 dealloc];
 }
 
 - (BKHIDClientConnectionManager)initWithHIDEventSystem:(__IOHIDEventSystem *)system
 {
-  v22.receiver = self;
-  v22.super_class = BKHIDClientConnectionManager;
-  v4 = [(BKHIDClientConnectionManager *)&v22 init];
+  v20.receiver = self;
+  v20.super_class = BKHIDClientConnectionManager;
+  v4 = [(BKHIDClientConnectionManager *)&v20 init];
   v5 = v4;
   if (v4)
   {
@@ -260,25 +268,23 @@ void __47__BKHIDClientConnectionManager_pidForBundleID___block_invoke(uint64_t a
     if (v5->_hidEventSystem)
     {
       IOHIDEventSystemRegisterConnectionAdditionCallback();
-      hidEventSystem = v5->_hidEventSystem;
       IOHIDEventSystemRegisterConnectionRemovalCallback();
-      v13 = v5->_hidEventSystem;
-      v14 = IOHIDEventSystemCopyConnections();
-      if (v14)
+      v12 = IOHIDEventSystemCopyConnections();
+      if (v12)
       {
-        v15 = v14;
-        Count = CFArrayGetCount(v14);
+        v13 = v12;
+        Count = CFArrayGetCount(v12);
         if (Count >= 1)
         {
-          v17 = Count;
-          for (i = 0; i != v17; ++i)
+          v15 = Count;
+          for (i = 0; i != v15; ++i)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v15, i);
-            BKHIDClientConnectionAdditionCallback(v5, v20, ValueAtIndex);
+            ValueAtIndex = CFArrayGetValueAtIndex(v13, i);
+            BKHIDClientConnectionAdditionCallback(v5, v18, ValueAtIndex);
           }
         }
 
-        CFRelease(v15);
+        CFRelease(v13);
       }
     }
   }

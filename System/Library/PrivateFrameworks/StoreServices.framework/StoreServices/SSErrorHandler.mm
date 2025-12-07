@@ -138,15 +138,15 @@ id __30__SSErrorHandler_failureTypes__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __34__SSErrorHandler_setFailureTypes___block_invoke(uint64_t result)
+void *__34__SSErrorHandler_setFailureTypes___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 40);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 40);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 40) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 40) = result;
   }
 
   return result;
@@ -268,9 +268,9 @@ void __54__SSErrorHandler__handleMessage_fromServerConnection___block_invoke(uin
   v5 = objc_alloc_init(SSErrorHandlerSession);
   [(SSErrorHandlerSession *)v5 _setControlConnection:self->_controlConnection];
   [(SSErrorHandlerSession *)v5 _setSessionID:xpc_dictionary_get_int64(message, "1")];
-  objc_opt_class();
-  v6 = SSXPCDictionaryCopyCFObjectWithClass(message, "2");
-  [(SSErrorHandlerSession *)v5 _setErrorProperties:v6];
+  v6 = objc_opt_class();
+  v7 = SSXPCDictionaryCopyCFObjectWithClass(message, "2", v6);
+  [(SSErrorHandlerSession *)v5 _setErrorProperties:v7];
 
   delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
@@ -295,7 +295,7 @@ void __54__SSErrorHandler__handleMessage_fromServerConnection___block_invoke(uin
 - (void)_reconnectToDaemonWithCompletionBlock:(id)block
 {
   v26 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -314,48 +314,47 @@ void __54__SSErrorHandler__handleMessage_fromServerConnection___block_invoke(uin
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
       v24 = 136446210;
       v25 = "[SSErrorHandler _reconnectToDaemonWithCompletionBlock:]";
-      LODWORD(v22) = 12;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v24, v22}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
 
-  v18 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v18, "0", 96);
-  SSXPCDictionarySetCFObject(v18, "2", self->_failureTypes);
+  v19 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v19, "0", 96);
+  SSXPCDictionarySetCFObject(v19, "2", self->_failureTypes);
   createXPCEndpoint = [(SSXPCConnection *)self->_observerConnection createXPCEndpoint];
-  xpc_dictionary_set_value(v18, "1", createXPCEndpoint);
+  xpc_dictionary_set_value(v19, "1", createXPCEndpoint);
   xpc_release(createXPCEndpoint);
-  v20 = [SSWeakReference weakReferenceWithObject:self];
+  v21 = [SSWeakReference weakReferenceWithObject:self];
   controlConnection = self->_controlConnection;
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = 3221225472;
   v23[2] = __56__SSErrorHandler__reconnectToDaemonWithCompletionBlock___block_invoke;
   v23[3] = &unk_1E84AFB40;
-  v23[4] = v20;
+  v23[4] = v21;
   v23[5] = block;
-  [(SSXPCConnection *)controlConnection sendMessage:v18 withReply:v23];
-  xpc_release(v18);
+  [(SSXPCConnection *)controlConnection sendMessage:v19 withReply:v23];
+  xpc_release(v19);
 }
 
 void __56__SSErrorHandler__reconnectToDaemonWithCompletionBlock___block_invoke(uint64_t a1, void *a2)

@@ -8,10 +8,10 @@
 {
   v7 = **arguments;
   TSUDecimal::operator=();
-  v11 = objc_msgSend_numberWithDecimal_(TSCENumberValue, v8, &v14, v9, v10);
-  v12 = sub_2212570BC(context, spec, v7, v11, v11);
+  v10 = objc_msgSend_numberWithDecimal_(TSCENumberValue, v8, &v13, v9);
+  v11 = sub_2212570BC(context, spec, v7, v10, v10);
 
-  return v12;
+  return v11;
 }
 
 @end

@@ -318,7 +318,7 @@ LABEL_18:
   v3 = [UIMorphingLabel preferredFontWithSize:17.0];
   [(UIMorphingLabel *)self setFont:v3];
 
-  v4 = +[UIColor blackColor];
+  v4 = objc_msgSend_blackColor(UIColor);
   [(UIMorphingLabel *)self setTextColor:v4];
 
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -369,9 +369,9 @@ uint64_t __33__UIMorphingLabel_layoutSubviews__block_invoke_2(uint64_t a1)
 + (id)preferredFontWithSize:(double)size
 {
   preferredContentSizeCategory = [UIApp preferredContentSizeCategory];
-  if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryL"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
   {
-    if ([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXL"])
+    if (objc_msgSend_isEqualToString_(preferredContentSizeCategory))
     {
       v5 = 2.0;
 LABEL_9:
@@ -379,13 +379,13 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    if ([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXXL"])
+    if (objc_msgSend_isEqualToString_(preferredContentSizeCategory))
     {
       v5 = 4.0;
       goto LABEL_9;
     }
 
-    if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXXXL"] & 1) != 0 || _UIContentSizeCategoryIsAccessibilityContentSizeCategory(preferredContentSizeCategory, v6))
+    if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) != 0 || _UIContentSizeCategoryIsAccessibilityContentSizeCategory(preferredContentSizeCategory, v6))
     {
       v5 = 6.0;
       goto LABEL_9;
@@ -1736,7 +1736,7 @@ LABEL_11:
   v18 = layer5;
   if (layer5)
   {
-    [layer5 transform];
+    objc_msgSend_transform(layer5);
   }
 
   else
@@ -1968,7 +1968,7 @@ LABEL_11:
   if (self->_text != textCopy)
   {
     v8 = textCopy;
-    if ([(NSString *)textCopy isEqualToString:?])
+    if (objc_msgSend_isEqualToString_(textCopy))
     {
       textCopy = v8;
     }
@@ -1995,7 +1995,7 @@ LABEL_11:
 - (void)setTextColor:(id)color
 {
   colorCopy = color;
-  if ([colorCopy isEqual:self->_textColor])
+  if (objc_msgSend_isEqual_(colorCopy))
   {
     v4 = colorCopy;
   }
@@ -2014,7 +2014,7 @@ LABEL_11:
 - (void)setFont:(id)font
 {
   fontCopy = font;
-  if ([fontCopy isEqual:self->_font])
+  if (objc_msgSend_isEqual_(fontCopy))
   {
     v4 = fontCopy;
   }

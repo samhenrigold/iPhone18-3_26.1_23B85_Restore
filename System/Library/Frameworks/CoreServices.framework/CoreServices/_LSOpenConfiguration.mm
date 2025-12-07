@@ -79,7 +79,7 @@
   if (v5)
   {
     v6 = objc_opt_class();
-    v7 = _LSGetFrontBoardOptionsDictionaryClasses();
+    v7 = _LSGetFrontBoardOptionsDictionaryClasses(v6);
     v8 = [coderCopy ls_decodeDictionaryWithKeysOfClass:v6 valuesOfClasses:v7 forKey:@"frontBoardOptions"];
     frontBoardOptions = v5->_frontBoardOptions;
     v5->_frontBoardOptions = v8;

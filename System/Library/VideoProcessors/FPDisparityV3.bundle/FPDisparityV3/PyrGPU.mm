@@ -1,7 +1,9 @@
 @interface PyrGPU
++ ($72E01A59C62D6C88118DCEC5141B350A)_determineFilterFromResolution:(SEL)resolution toResolution:(CGSize)toResolution;
 - (PyrGPU)initWithMetalContext:(id)context;
 - (id)textureRGBAU8AtScale:(int)scale;
 - (id)textureU32AliasAtScale:(int)scale;
+- (int)_createTextureViewsFromResolution:(CGSize)resolution;
 - (int)_doRPDDownscale1WithCommandBuffer:(id)buffer in_tex:(id)in_tex out_tex:(id)out_tex scaling_factor:;
 - (int)_downscale2XBelowWithCommandBuffer:(id)buffer in_tex:(id)in_tex out_tex:(id)out_tex scaling_factor:;
 - (int)_downscaleAntialiasingWithCommandBuffer:(id)buffer in_tex:(id)in_tex out_tex:(id)out_tex in_ref_res:(CGSize)in_ref_res out_ref_res:(CGSize)out_ref_res;
@@ -9,6 +11,7 @@
 - (int)doImagePyramidWithCommandBuffer:(id)buffer in_tex:(id)in_tex;
 - (int)downscale2XEqualWithCommandBuffer:(id)buffer in_u32_alias_tex:(id)in_u32_alias_tex out_u32_alias_tex:(id)out_u32_alias_tex;
 - (int)populatePyramidSchemeFromReference:(id)reference inputResolution:(CGSize)resolution;
+- (int)populatePyramidSchemeFromResolution:(CGSize)resolution toResolution:(CGSize)toResolution scalingFactor:(float)factor scales:(int)scales allowSuccessiveDownscale2x:(BOOL)downscale2x;
 - (void)_setupPipelines;
 - (void)dealloc;
 - (void)releaseResources;
@@ -73,14 +76,10 @@
   if (self->_countScales >= 1)
   {
     v7 = 0;
-    v8 = self->_input_res.width;
-    v9 = self->_input_res.height;
     pyr_pxbuf = self->_pyr_pxbuf;
     p_height = &self->_pyrInfoArray[0].real_res.height;
     do
     {
-      v12 = *(p_height - 1);
-      v13 = *p_height;
       *pyr_pxbuf++ = CreatePixelBuffer();
       ++v7;
       p_height += 6;
@@ -165,17 +164,121 @@
   return 0;
 }
 
+- (int)populatePyramidSchemeFromResolution:(CGSize)resolution toResolution:(CGSize)toResolution scalingFactor:(float)factor scales:(int)scales allowSuccessiveDownscale2x:(BOOL)downscale2x
+{
+  if ((scales - 33) <= 0xFFFFFFDF)
+  {
+    sub_295798F50();
+    return -12780;
+  }
+
+  else
+  {
+    downscale2xCopy = downscale2x;
+    height = resolution.height;
+    width = resolution.width;
+    v41 = toResolution.height;
+    v39 = toResolution.width;
+    objc_msgSend__determineFilterFromResolution_toResolution_(PyrGPU, a2, *&scales, resolution.width, resolution.height, toResolution.width, toResolution.height);
+    v15.f64[0] = v39;
+    self->_pyrInfoArray[0].real_res = v45;
+    *&self->_pyrInfoArray[0].kernel_filter = v46;
+    *&self->_pyrInfoArray[1].real_res.height = v47;
+    *(&self->_pyrInfoArray[1].kernel_filter + 4) = self->_useAntialiasingForDownsamplingToFinestResolution;
+    self->_pyr_real_dims[0].width = v39;
+    self->_pyr_real_dims[0].height = v41;
+    self->_pyr_int_dims[0].width = v39;
+    self->_pyr_int_dims[0].height = v41;
+    scalesCopy = scales;
+    if (scales >= 2)
+    {
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
+      v19 = 0;
+      v15.f64[1] = v41;
+      v20 = 1696;
+      __asm { FMOV            V1.2D, #0.5 }
+
+      v40 = _Q1;
+      v26 = 1.0 / factor;
+      do
+      {
+        v44 = 0;
+        v43 = 0;
+        if (downscale2xCopy && (v18 & 1) != 0)
+        {
+          v27 = v19;
+          v28 = vmulq_f64(self->_pyrInfoArray[2 * v19].real_res, v40);
+          v29 = v19;
+          v30 = 0x100000001;
+          v31 = 0x3F0000003F000000;
+          ++v19;
+          v15 = v28;
+        }
+
+        else
+        {
+          v42 = vmulq_n_f64(v15, factor);
+          objc_msgSend__determineFilterFromResolution_toResolution_(PyrGPU, v13, v14, *&v15, *&v42);
+          v28 = v45;
+          v31 = *(&v46 + 1);
+          v30 = v46;
+          v43 = *(&v47 + 13);
+          v44 = HIBYTE(v47);
+          v27 = v17;
+          v29 = v17;
+          v15 = v42;
+        }
+
+        v32 = vcvt_s32_f32(vrndp_f32(vcvt_f32_f64(v15)));
+        v33 = vadd_s32(vand_s8(v32, 0x100000001), v32);
+        v34 = (self + v20);
+        v34->f64[0] = v33.i32[0];
+        v34->f64[1] = v33.i32[1];
+        v35 = vcvt_f32_s32(vadd_s32(vmovn_s64(vcvtq_s64_f64(self->_pyr_int_dims[v27])), -1));
+        v36 = self + v16;
+        *(v36 + 12) = v28;
+        *(v36 + 26) = v30;
+        *(v36 + 27) = v31;
+        *(v36 + 28) = vdiv_f32(vcvt_f32_s32(vadd_s32(v33, -1)), v35);
+        *(v36 + 58) = v29;
+        v36[236] = 0;
+        *(v36 + 237) = v43;
+        v36[239] = v44;
+        v34[32] = v15;
+        v26 = (1.0 / factor) * v26;
+        v18 |= fabsf(v26 + -2.0) < 0.05;
+        ++v17;
+        v20 += 16;
+        v16 += 48;
+      }
+
+      while (scalesCopy - 1 != v17);
+    }
+
+    result = 0;
+    self->_max_input_res.width = width;
+    self->_max_input_res.height = height;
+    self->_input_res.width = width;
+    self->_input_res.height = height;
+    self->_countScales = scalesCopy;
+  }
+
+  return result;
+}
+
 - (int)doImagePyramidWithCommandBuffer:(id)buffer in_tex:(id)in_tex
 {
   bufferCopy = buffer;
   in_texCopy = in_tex;
-  if (objc_msgSend_pixelFormat(in_texCopy, v8, v9) != 70 && objc_msgSend_pixelFormat(in_texCopy, v10, v11) != 80)
+  if (objc_msgSend_pixelFormat(in_texCopy, v9, v10) != 70 && objc_msgSend_pixelFormat(in_texCopy, v11, v12) != 80)
   {
     sub_295798FA8();
 LABEL_33:
-    v21 = 0;
+    v22 = 0;
 LABEL_34:
-    v37 = -12780;
+    v38 = -12780;
     goto LABEL_25;
   }
 
@@ -185,55 +288,57 @@ LABEL_34:
     goto LABEL_33;
   }
 
-  v12 = objc_msgSend_width(in_texCopy, v10, v11);
-  v15 = objc_msgSend_height(in_texCopy, v13, v14);
-  TextureViewsFromResolution = objc_msgSend__createTextureViewsFromResolution_(self, v16, v17, v12, v15);
+  v13 = objc_msgSend_width(in_texCopy, v11, v12);
+  v16 = objc_msgSend_height(in_texCopy, v14, v15);
+  TextureViewsFromResolution = objc_msgSend__createTextureViewsFromResolution_(self, v17, v18, v13, v16);
   if (TextureViewsFromResolution)
   {
-    v37 = TextureViewsFromResolution;
+    v38 = TextureViewsFromResolution;
     sub_295799058();
-    v21 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v21 = objc_msgSend_newTextureViewWithPixelFormat_(in_texCopy, v19, 53);
+    v22 = objc_msgSend_newTextureViewWithPixelFormat_(in_texCopy, v20, 53);
     if (self->_countScales >= 1)
     {
-      v22 = 0;
+      v23 = 0;
       pyr_u32_alias_tex = self->_pyr_u32_alias_tex;
-      v24 = &self->_pyrInfoArray[1].kernel_filter + 1;
+      v25 = &self->_pyrInfoArray[1].kernel_filter + 1;
+      v40 = self->_pyr_u32_alias_tex;
+      pyr_tex = self->_pyr_tex;
       do
       {
-        if (v22 || (*v24 & 1) == 0)
+        if (v23 || (*v25 & 1) == 0)
         {
-          if (v22)
+          if (v23)
           {
-            v26 = *(v24 - 1);
-            if (v26 == -1)
+            v27 = *(v25 - 1);
+            if (v27 == -1)
             {
               sub_2957990B0();
               goto LABEL_34;
             }
 
-            v27 = self->_pyr_tex[v26];
+            v28 = pyr_tex[v27];
 
-            v28 = self->_pyr_u32_alias_tex[*(v24 - 1)];
-            v21 = v28;
-            in_texCopy = v27;
+            v29 = v40[*(v25 - 1)];
+            v22 = v29;
+            in_texCopy = v28;
           }
 
-          v29 = *(pyr_u32_alias_tex - 32);
-          v31 = *pyr_u32_alias_tex;
-          v32 = *(v24 - 7);
-          if (v32)
+          v30 = *(pyr_u32_alias_tex - 32);
+          v32 = *pyr_u32_alias_tex;
+          v33 = *(v25 - 7);
+          if (v33)
           {
-            if (v32 == 2)
+            if (v33 == 2)
             {
-              v34 = objc_msgSend__downscale2XBelowWithCommandBuffer_in_tex_out_tex_scaling_factor_(self, v30, bufferCopy, in_texCopy, v29, *(v24 - 3));
-              if (v34)
+              v35 = objc_msgSend__downscale2XBelowWithCommandBuffer_in_tex_out_tex_scaling_factor_(self, v31, bufferCopy, in_texCopy, v30, *(v25 - 3));
+              if (v35)
               {
-                v37 = v34;
+                v38 = v35;
                 sub_295799108();
                 goto LABEL_27;
               }
@@ -241,17 +346,17 @@ LABEL_34:
 
             else
             {
-              if (v32 != 1)
+              if (v33 != 1)
               {
-                FigDebugAssert3();
-                v37 = -12780;
+                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v39, v4, v40, pyr_tex, v42, v43);
+                v38 = -12780;
                 goto LABEL_27;
               }
 
-              v33 = objc_msgSend_downscale2XEqualWithCommandBuffer_in_u32_alias_tex_out_u32_alias_tex_(self, v30, bufferCopy, v21, v31);
-              if (v33)
+              v34 = objc_msgSend_downscale2XEqualWithCommandBuffer_in_u32_alias_tex_out_u32_alias_tex_(self, v31, bufferCopy, v22, v32);
+              if (v34)
               {
-                v37 = v33;
+                v38 = v34;
                 sub_2957991B8();
 LABEL_27:
 
@@ -262,10 +367,10 @@ LABEL_27:
 
           else
           {
-            v35 = objc_msgSend__doRPDDownscale1WithCommandBuffer_in_tex_out_tex_scaling_factor_(self, v30, bufferCopy, in_texCopy, v29, *(v24 - 3));
-            if (v35)
+            v36 = objc_msgSend__doRPDDownscale1WithCommandBuffer_in_tex_out_tex_scaling_factor_(self, v31, bufferCopy, in_texCopy, v30, *(v25 - 3));
+            if (v36)
             {
-              v37 = v35;
+              v38 = v36;
               sub_295799160();
               goto LABEL_27;
             }
@@ -274,36 +379,36 @@ LABEL_27:
 
         else
         {
-          v25 = objc_msgSend__downscaleAntialiasingWithCommandBuffer_in_tex_out_tex_in_ref_res_out_ref_res_(self, v20, bufferCopy, in_texCopy, self->_pyr_tex[0], self->_input_res.width, self->_input_res.height, self->_pyr_int_dims[0].width, self->_pyr_int_dims[0].height);
-          if (v25)
+          v26 = objc_msgSend__downscaleAntialiasingWithCommandBuffer_in_tex_out_tex_in_ref_res_out_ref_res_(self, v21, bufferCopy, in_texCopy, self->_pyr_tex[0], self->_input_res.width, self->_input_res.height, self->_pyr_int_dims[0].width, self->_pyr_int_dims[0].height);
+          if (v26)
           {
-            v37 = v25;
+            v38 = v26;
             sub_295799210();
             goto LABEL_25;
           }
         }
 
-        ++v22;
+        ++v23;
         ++pyr_u32_alias_tex;
-        v24 += 12;
+        v25 += 12;
       }
 
-      while (v22 < self->_countScales);
+      while (v23 < self->_countScales);
     }
 
-    v37 = 0;
+    v38 = 0;
   }
 
 LABEL_25:
 
-  return v37;
+  return v38;
 }
 
 - (id)textureRGBAU8AtScale:(int)scale
 {
   if (scale < 0 || self->_countScales <= scale)
   {
-    sub_295799268();
+    sub_295799268(self, a2);
     v3 = 0;
   }
 
@@ -319,7 +424,7 @@ LABEL_25:
 {
   if (scale < 0 || self->_countScales <= scale)
   {
-    sub_2957992C8();
+    sub_2957992C8(self, a2);
     v3 = 0;
   }
 
@@ -364,6 +469,50 @@ LABEL_25:
   }
 
   while ((v13 & 1) != 0);
+}
+
+- (int)_createTextureViewsFromResolution:(CGSize)resolution
+{
+  if (self->_max_input_res.width < resolution.width || self->_max_input_res.height < resolution.height)
+  {
+    sub_295799328();
+    return -12780;
+  }
+
+  else
+  {
+    if (self->_countScales >= 1)
+    {
+      v4 = 0;
+      height = resolution.height;
+      v6 = vdiv_f32(vcvt_f32_f64(resolution), vcvt_f32_f64(self->_input_res));
+      pyrInfoArray = self->_pyrInfoArray;
+      pyr_pxbuf = self->_pyr_pxbuf;
+      do
+      {
+        real_res = pyrInfoArray->real_res;
+        pyrInfoArray += 2;
+        v10 = vcvt_s32_f32(vrndp_f32(vmul_f32(v6, vcvt_f32_f64(real_res))));
+        v11 = vadd_s32(vand_s8(v10, 0x100000001), v10);
+        v12.i64[0] = v11.i32[0];
+        v12.i64[1] = v11.i32[1];
+        v13 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_mtlContext, a2, *pyr_pxbuf, 70, 23, 0, vcvtq_f64_s64(v12));
+        v14 = pyr_pxbuf[32];
+        pyr_pxbuf[32] = v13;
+
+        v16 = objc_msgSend_newTextureViewWithPixelFormat_(pyr_pxbuf[32], v15, 53);
+        v17 = pyr_pxbuf[64];
+        pyr_pxbuf[64] = v16;
+
+        ++v4;
+        ++pyr_pxbuf;
+      }
+
+      while (v4 < self->_countScales);
+    }
+
+    return 0;
+  }
 }
 
 - (int)_doRPDDownscale1WithCommandBuffer:(id)buffer in_tex:(id)in_tex out_tex:(id)out_tex scaling_factor:
@@ -617,6 +766,51 @@ LABEL_14:
 LABEL_16:
 
   return v45;
+}
+
++ ($72E01A59C62D6C88118DCEC5141B350A)_determineFilterFromResolution:(SEL)resolution toResolution:(CGSize)toResolution
+{
+  v5.f32[0] = toResolution.width / a5.width;
+  v6 = toResolution.height / a5.height;
+  if (v5.f32[0] <= v6)
+  {
+    v7 = toResolution.height / a5.height;
+  }
+
+  else
+  {
+    v7 = toResolution.width / a5.width;
+  }
+
+  if (v7 > 1.9)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  if (v7 >= 2.1)
+  {
+    v8 = 0;
+  }
+
+  retstr->var0 = a5;
+  retstr->var1 = v8;
+  v5.f32[1] = toResolution.height / a5.height;
+  __asm { FMOV            V5.2S, #1.0 }
+
+  height = a5.height;
+  __asm { FMOV            V3.2D, #-1.0 }
+
+  v16 = toResolution.height;
+  *&retstr->var3 = vdiv_f32(_D5, v5);
+  *&retstr[1].var0.width = vcvt_f32_f64(vdivq_f64(vaddq_f64(a5, _Q3), vaddq_f64(toResolution, _Q3)));
+  LODWORD(retstr[1].var0.height) = -1;
+  BYTE4(retstr[1].var0.height) = 0;
+  return result;
 }
 
 @end

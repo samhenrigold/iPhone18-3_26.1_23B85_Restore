@@ -42,7 +42,7 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin46PregnancyOnboardingRecordDetailsViewController_onboardingStep);
   selfCopy = self;
 
-  sub_29E27EA20(v2, 2u);
+  sub_29E27EA20(v2, 2u, v3);
 }
 
 - (void)hxui_cancelButtonTapped
@@ -50,7 +50,7 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin46PregnancyOnboardingRecordDetailsViewController_onboardingStep);
   selfCopy = self;
 
-  sub_29E27EC80(v2, 1);
+  sub_29E27EC80(v2, 1, v3);
 }
 
 - (_TtC24MenstrualCyclesAppPlugin46PregnancyOnboardingRecordDetailsViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

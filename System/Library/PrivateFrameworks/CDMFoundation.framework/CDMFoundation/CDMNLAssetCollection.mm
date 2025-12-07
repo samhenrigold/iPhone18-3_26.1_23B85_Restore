@@ -10,22 +10,20 @@
 
 - (id)getAssetPaths
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   assetPaths = self->_assetPaths;
   if (!assetPaths)
   {
     v4 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[CDMNLAssetCollection getAssetPaths]";
-      _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s [WARN]: Nil Asset Paths", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[CDMNLAssetCollection getAssetPaths]";
+      _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s [WARN]: Nil Asset Paths", &v6, 0xCu);
     }
 
     assetPaths = self->_assetPaths;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return assetPaths;
 }

@@ -26,6 +26,7 @@
 - (unint64_t)numberOfAppsUsingPearl;
 - (void)backgrounded:(id)backgrounded;
 - (void)cancelModalFlow;
+- (void)configurePeriocularEnabled:(BOOL)enabled;
 - (void)dealloc;
 - (void)deleteAllIdentities;
 - (void)deleteFaceIDIdentitiesCheckWithSpecifier:(id)specifier;
@@ -52,6 +53,7 @@
 - (void)reloadFaceIDResetGroup;
 - (void)setBiometricUnlockEnabled:(id)enabled specifier:(id)specifier;
 - (void)setPeriocularFaceIDMatchEnabled:(id)enabled specifier:(id)specifier;
+- (void)toggleToState:(BOOL)state forIdentifier:(id)identifier;
 - (void)updateResetFaceIDButtonSpecifierEnablementStatus:(id)status;
 - (void)updateResetFaceIDGroupFooter:(id)footer;
 - (void)validateBiometricTemplateUUIDAndEnroll:(id)enroll;
@@ -142,15 +144,15 @@ void __44__PABSPearlPasscodeController_backgrounded___block_invoke(uint64_t a1)
 
 - (void)validateBiometricTemplateUUIDWithSpecifier:(id)specifier action:(id)action
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   actionCopy = action;
   v8 = PABSLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134217984;
+    v13 = 134217984;
     currentBiometricTemplateFetchStatus = [(PABSBiometricController *)self currentBiometricTemplateFetchStatus];
-    _os_log_impl(&dword_25E0E9000, v8, OS_LOG_TYPE_DEFAULT, "Current biometric template fetch status: %ld", &v14, 0xCu);
+    _os_log_impl(&dword_25E0E9000, v8, OS_LOG_TYPE_DEFAULT, "Current biometric template fetch status: %ld", &v13, 0xCu);
   }
 
   currentBiometricTemplateFetchStatus2 = [(PABSBiometricController *)self currentBiometricTemplateFetchStatus];
@@ -162,8 +164,8 @@ LABEL_17:
       v12 = PABSLogForCategory(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_25E0E9000, v12, OS_LOG_TYPE_DEFAULT, "Refetching biometric templates", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_25E0E9000, v12, OS_LOG_TYPE_DEFAULT, "Refetching biometric templates", &v13, 2u);
       }
 
       [(PABSPearlPasscodeController *)self refetchBiometricTemplateWithSpecifier:specifierCopy action:actionCopy];
@@ -175,8 +177,8 @@ LABEL_17:
       v10 = PABSLogForCategory(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_25E0E9000, v10, OS_LOG_TYPE_DEFAULT, "Still in process of fetching biometric templates, wait for it to finish", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_25E0E9000, v10, OS_LOG_TYPE_DEFAULT, "Still in process of fetching biometric templates, wait for it to finish", &v13, 2u);
       }
 
       [(PSListController *)self configureSpin:1 ofCellForSpecifier:specifierCopy setEnabled:0];
@@ -203,16 +205,14 @@ LABEL_17:
     v11 = PABSLogForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "Finished fetching biometric templates, check to see if need to present alert for alternate appearance", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "Finished fetching biometric templates, check to see if need to present alert for alternate appearance", &v13, 2u);
     }
 
     actionCopy[2](actionCopy);
   }
 
 LABEL_20:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateBiometricTemplateUUIDAndEnroll:(id)enroll
@@ -310,7 +310,7 @@ void __76__PABSPearlPasscodeController_refetchBiometricTemplateWithSpecifier_act
 
 - (BOOL)hasMatchingBiometricTemplate
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = PABSLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -321,49 +321,49 @@ void __76__PABSPearlPasscodeController_refetchBiometricTemplateWithSpecifier_act
   v3 = +[PABSBiometrics sharedInstance];
   v4 = [v3 identitiesForIdentityType:2];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+  v5 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
   if (v5)
   {
     v7 = v5;
-    v23 = 0;
-    v24 = *v31;
+    v22 = 0;
+    v23 = *v30;
     *&v6 = 138412546;
-    v21 = v6;
+    v20 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v24)
+        if (*v30 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         storedBiometricTemplates = [(PABSBiometricController *)self storedBiometricTemplates];
-        v11 = [storedBiometricTemplates countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v11 = [storedBiometricTemplates countByEnumeratingWithState:&v25 objects:v37 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v27;
+          v13 = *v26;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v27 != v13)
+              if (*v26 != v13)
               {
                 objc_enumerationMutation(storedBiometricTemplates);
               }
 
-              v15 = *(*(&v26 + 1) + 8 * j);
+              v15 = *(*(&v25 + 1) + 8 * j);
               uuid = [v9 uuid];
               v17 = [v15 isEqual:uuid];
 
@@ -372,19 +372,19 @@ void __76__PABSPearlPasscodeController_refetchBiometricTemplateWithSpecifier_act
                 v18 = PABSLogForCategory(0);
                 if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
                 {
-                  *buf = v21;
-                  v35 = v9;
-                  v36 = 2112;
-                  v37 = v15;
+                  *buf = v20;
+                  v34 = v9;
+                  v35 = 2112;
+                  v36 = v15;
                   _os_log_impl(&dword_25E0E9000, v18, OS_LOG_TYPE_DEFAULT, "Found matching BKIdentity: %@ matches UUID:%@ in stored biometric templates", buf, 0x16u);
                 }
 
-                v23 = 1;
+                v22 = 1;
                 goto LABEL_20;
               }
             }
 
-            v12 = [storedBiometricTemplates countByEnumeratingWithState:&v26 objects:v38 count:16];
+            v12 = [storedBiometricTemplates countByEnumeratingWithState:&v25 objects:v37 count:16];
             if (v12)
             {
               continue;
@@ -397,7 +397,7 @@ void __76__PABSPearlPasscodeController_refetchBiometricTemplateWithSpecifier_act
 LABEL_20:
       }
 
-      v7 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+      v7 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
     }
 
     while (v7);
@@ -405,11 +405,10 @@ LABEL_20:
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v23 & 1;
+  return v22 & 1;
 }
 
 - (void)presentAlertForAlternateAppearanceIfNecessary:(id)necessary
@@ -528,7 +527,7 @@ void __53__PABSPearlPasscodeController_handleDTOStatusChanged__block_invoke(uint
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (context == @"BiometricTemplateFetchingState")
   {
@@ -593,12 +592,10 @@ void __53__PABSPearlPasscodeController_handleDTOStatusChanged__block_invoke(uint
 
   else
   {
-    v22.receiver = self;
-    v22.super_class = PABSPearlPasscodeController;
-    [(PABSPearlPasscodeController *)&v22 observeValueForKeyPath:pathCopy ofObject:object change:change context:context];
+    v21.receiver = self;
+    v21.super_class = PABSPearlPasscodeController;
+    [(PABSPearlPasscodeController *)&v21 observeValueForKeyPath:pathCopy ofObject:object change:change context:context];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enroll:(id)enroll
@@ -703,14 +700,14 @@ void __38__PABSPearlPasscodeController_enroll___block_invoke_111(uint64_t a1)
 
 - (void)proceedToEnrollWithSpecifier:(id)specifier
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v5 = PABSLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [specifierCopy identifier];
     *buf = 138412290;
-    v41 = identifier;
+    v40 = identifier;
     _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@: Starting enrollment", buf, 0xCu);
   }
 
@@ -724,7 +721,7 @@ void __38__PABSPearlPasscodeController_enroll___block_invoke_111(uint64_t a1)
     {
       identifier2 = [specifierCopy identifier];
       *buf = 138412290;
-      v41 = identifier2;
+      v40 = identifier2;
       _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "%@: Camera restricted alert shown", buf, 0xCu);
     }
 
@@ -738,13 +735,13 @@ void __38__PABSPearlPasscodeController_enroll___block_invoke_111(uint64_t a1)
     v17 = [v15 actionWithTitle:v16 style:0 handler:0];
     [v14 addAction:v17];
 
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __60__PABSPearlPasscodeController_proceedToEnrollWithSpecifier___block_invoke;
-    v38[3] = &unk_279A03008;
-    v39 = specifierCopy;
-    [(PABSPearlPasscodeController *)self presentViewController:v14 animated:1 completion:v38];
-    v18 = v39;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __60__PABSPearlPasscodeController_proceedToEnrollWithSpecifier___block_invoke;
+    v37[3] = &unk_279A03008;
+    v38 = specifierCopy;
+    [(PABSPearlPasscodeController *)self presentViewController:v14 animated:1 completion:v37];
+    v18 = v38;
   }
 
   else
@@ -767,9 +764,9 @@ void __38__PABSPearlPasscodeController_enroll___block_invoke_111(uint64_t a1)
     {
       identifier3 = [specifierCopy identifier];
       *buf = 138412546;
-      v41 = identifier3;
-      v42 = 2048;
-      v43 = v21;
+      v40 = identifier3;
+      v41 = 2048;
+      v42 = v21;
       _os_log_impl(&dword_25E0E9000, v22, OS_LOG_TYPE_DEFAULT, "%@: Starting enrollment: Config set to %lu", buf, 0x16u);
     }
 
@@ -813,7 +810,7 @@ void __38__PABSPearlPasscodeController_enroll___block_invoke_111(uint64_t a1)
     {
       identifier4 = [specifierCopy identifier];
       *buf = 138412290;
-      v41 = identifier4;
+      v40 = identifier4;
       _os_log_impl(&dword_25E0E9000, v32, OS_LOG_TYPE_DEFAULT, "%@: Showing spinner, proceeding to startWithPasscode", buf, 0xCu);
     }
 
@@ -822,23 +819,19 @@ void __38__PABSPearlPasscodeController_enroll___block_invoke_111(uint64_t a1)
     v36 = [specifier3 objectForKeyedSubscript:v29];
     [faceIDEnrollmentCoordinator2 startWithPasscode:v36];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PABSPearlPasscodeController_proceedToEnrollWithSpecifier___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = PABSLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) identifier];
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_25E0E9000, v2, OS_LOG_TYPE_DEFAULT, "%@: Camera restricted alert done", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_25E0E9000, v2, OS_LOG_TYPE_DEFAULT, "%@: Camera restricted alert done", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEnrolled
@@ -864,7 +857,7 @@ void __60__PABSPearlPasscodeController_proceedToEnrollWithSpecifier___block_invo
 
 - (void)setPeriocularFaceIDMatchEnabled:(id)enabled specifier:(id)specifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v8 = [(PABSPearlPasscodeController *)self isPeriocularFaceIDMatchEnabled:specifierCopy];
@@ -872,13 +865,13 @@ void __60__PABSPearlPasscodeController_proceedToEnrollWithSpecifier___block_invo
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [specifierCopy identifier];
-    v19 = 138412802;
-    v20 = identifier;
-    v21 = 2112;
-    v22 = enabledCopy;
-    v23 = 2112;
-    v24 = v8;
-    _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ , current is %@", &v19, 0x20u);
+    v18 = 138412802;
+    v19 = identifier;
+    v20 = 2112;
+    v21 = enabledCopy;
+    v22 = 2112;
+    v23 = v8;
+    _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ , current is %@", &v18, 0x20u);
   }
 
   bOOLValue = [enabledCopy BOOLValue];
@@ -903,7 +896,7 @@ void __60__PABSPearlPasscodeController_proceedToEnrollWithSpecifier___block_invo
         goto LABEL_13;
       }
 
-      LOWORD(v19) = 0;
+      LOWORD(v18) = 0;
       v16 = "Configured Periocular: enablePeriocular: - Reloading Pane -";
     }
 
@@ -919,11 +912,11 @@ LABEL_13:
         goto LABEL_15;
       }
 
-      LOWORD(v19) = 0;
+      LOWORD(v18) = 0;
       v16 = "Configured Periocular: - Reloading Pane -";
     }
 
-    _os_log_impl(&dword_25E0E9000, v15, OS_LOG_TYPE_DEFAULT, v16, &v19, 2u);
+    _os_log_impl(&dword_25E0E9000, v15, OS_LOG_TYPE_DEFAULT, v16, &v18, 2u);
     goto LABEL_13;
   }
 
@@ -931,14 +924,12 @@ LABEL_13:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     identifier2 = [specifierCopy identifier];
-    v19 = 138412290;
-    v20 = identifier2;
-    _os_log_impl(&dword_25E0E9000, v14, OS_LOG_TYPE_DEFAULT, "%@: Set: ignoring", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = identifier2;
+    _os_log_impl(&dword_25E0E9000, v14, OS_LOG_TYPE_DEFAULT, "%@: Set: ignoring", &v18, 0xCu);
   }
 
 LABEL_15:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)isPeriocularFaceIDMatchEnabled:(id)enabled
@@ -1087,6 +1078,30 @@ void __66__PABSPearlPasscodeController_enrollGlassesForExistingAppearance___bloc
   [faceIDEnrollmentCoordinator2 startWithPasscode:v14];
 }
 
+- (void)toggleToState:(BOOL)state forIdentifier:(id)identifier
+{
+  stateCopy = state;
+  v16 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v7 = PABSLogForCategory(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    identifier = [identifierCopy identifier];
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+    v12 = 138412546;
+    v13 = identifier;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "%@: Auto toggling to state [%@]. - Reloading -", &v12, 0x16u);
+  }
+
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+  [identifierCopy setProperty:v10 forKey:*MEMORY[0x277D401A8]];
+
+  identifier2 = [identifierCopy identifier];
+  [(PABSPearlPasscodeController *)self reloadSpecifierID:identifier2 animated:1];
+}
+
 - (void)enrollPeriocularForExistingAppearance:(id)appearance
 {
   appearanceCopy = appearance;
@@ -1233,37 +1248,37 @@ LABEL_13:
 
 - (unint64_t)currentPeriocularEnrollmentState
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = +[PABSBiometrics sharedInstance];
   v3 = [v2 identitiesForIdentityType:2];
 
   v4 = +[PABSBiometrics sharedInstance];
   v5 = [v4 maximumIdentityCountForIdentityType:2];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v9 += [*(*(&v15 + 1) + 8 * i) hasPeriocularEnrollment] & 1;
+        v9 += [*(*(&v14 + 1) + 8 * i) hasPeriocularEnrollment] & 1;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -1285,8 +1300,26 @@ LABEL_13:
     v12 = 2 * (v5 == 0);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
+}
+
+- (void)configurePeriocularEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v5 = +[PABSBiometrics sharedInstance];
+  v6 = [v5 deviceForType:2];
+
+  authContext = [(PABSPearlPasscodeController *)self authContext];
+  v12 = &unk_286FD6AE0;
+  v13[0] = &unk_286FD6AF8;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v9 = [authContext evaluatePolicy:1007 options:v8 error:0];
+
+  authContext2 = [(PABSPearlPasscodeController *)self authContext];
+  externalizedContext = [authContext2 externalizedContext];
+
+  [MEMORY[0x277CF1C40] setPeriocularFaceIDMatchEnabledForUserConfigurationWithDevice:v6 credentialSet:externalizedContext enabled:enabledCopy];
 }
 
 - (BOOL)isPeriocularEnabled
@@ -1323,11 +1356,10 @@ LABEL_13:
 
 - (unint64_t)numberOfAppsUsingPearl
 {
-  v2 = *MEMORY[0x277D6C168];
-  v3 = TCCAccessCopyInformation();
-  v4 = [v3 count];
+  v2 = TCCAccessCopyInformation();
+  v3 = [v2 count];
 
-  return v4;
+  return v3;
 }
 
 - (id)numberOfAppsUsingPearlDescription:(id)description
@@ -1388,23 +1420,21 @@ LABEL_11:
 
 - (void)setBiometricUnlockEnabled:(id)enabled specifier:(id)specifier
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
-  v11.receiver = self;
-  v11.super_class = PABSPearlPasscodeController;
-  [(PABSBiometricController *)&v11 setBiometricUnlockEnabled:enabledCopy specifier:specifier];
+  v10.receiver = self;
+  v10.super_class = PABSPearlPasscodeController;
+  [(PABSBiometricController *)&v10 setBiometricUnlockEnabled:enabledCopy specifier:specifier];
   if (enabledCopy)
   {
     authContext = [(PABSPearlPasscodeController *)self authContext];
-    v12 = &unk_286FD6AE0;
-    v13[0] = &unk_286FD6AF8;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = &unk_286FD6AE0;
+    v12[0] = &unk_286FD6AF8;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [authContext evaluatePolicy:1007 options:v8 error:0];
   }
 
   -[PABSPasscodeLockController updatePhoneAutounlockSection:](self, "updatePhoneAutounlockSection:", [enabledCopy BOOLValue]);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (LAContext)authContext
@@ -1447,28 +1477,16 @@ LABEL_11:
   [mainScreen scale];
   v4 = v3;
 
-  if (v4 >= 3.0)
+  if (v4 >= 3.0 || (v6 = MEMORY[0x277D755B8], PABS_BundleForPABSFramework(v5), v7 = objc_claimAutoreleasedReturnValue(), [v6 imageNamed:@"faceID-header@2x-n84.png" inBundle:v7], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277D75348], "systemGrayColor"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "_flatImageWithColor:", v9), v10 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, !v10))
   {
-    goto LABEL_3;
+    v11 = MEMORY[0x277D755B8];
+    v12 = PABS_BundleForPABSFramework(v5);
+    v13 = [v11 imageNamed:@"faceID-header" inBundle:v12];
+    systemGrayColor = [MEMORY[0x277D75348] systemGrayColor];
+    v10 = [v13 _flatImageWithColor:systemGrayColor];
   }
 
-  v5 = MEMORY[0x277D755B8];
-  v6 = PABS_BundleForPABSFramework();
-  v7 = [v5 imageNamed:@"faceID-header@2x-n84.png" inBundle:v6];
-  systemGrayColor = [MEMORY[0x277D75348] systemGrayColor];
-  v9 = [v7 _flatImageWithColor:systemGrayColor];
-
-  if (!v9)
-  {
-LABEL_3:
-    v10 = MEMORY[0x277D755B8];
-    v11 = PABS_BundleForPABSFramework();
-    v12 = [v10 imageNamed:@"faceID-header" inBundle:v11];
-    systemGrayColor2 = [MEMORY[0x277D75348] systemGrayColor];
-    v9 = [v12 _flatImageWithColor:systemGrayColor2];
-  }
-
-  return v9;
+  return v10;
 }
 
 - (id)biometricTableViewHeader
@@ -1567,7 +1585,7 @@ LABEL_3:
 
 - (void)reloadFaceIDResetGroup
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [(PABSPearlPasscodeController *)self specifierForID:@"PEARL_REMOVE_FACE"];
   v4 = [(PABSPearlPasscodeController *)self getGroupSpecifierForSpecifier:v3];
   [(PABSPearlPasscodeController *)self updateResetFaceIDGroupFooter:v4];
@@ -1577,17 +1595,15 @@ LABEL_3:
   {
     identifier = [v3 identifier];
     identifier2 = [v4 identifier];
-    v9 = 138412546;
-    v10 = identifier;
-    v11 = 2112;
-    v12 = identifier2;
-    _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@ %@: - Reloading -", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = identifier;
+    v10 = 2112;
+    v11 = identifier2;
+    _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@ %@: - Reloading -", &v8, 0x16u);
   }
 
   [(PABSPearlPasscodeController *)self reloadSpecifier:v3 animated:1];
   [(PABSPearlPasscodeController *)self reloadSpecifier:v4 animated:1];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)setupFaceIDSpecifier
@@ -2345,34 +2361,34 @@ void __76__PABSPearlPasscodeController_proceedWithChecksToDeleteFaceIDWithSpecif
 
 - (void)deleteAllIdentities
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = PABSPearlPasscodeController;
-  [(PABSBiometricController *)&v17 deleteGlobalAuthACL];
+  v18 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = PABSPearlPasscodeController;
+  [(PABSBiometricController *)&v16 deleteGlobalAuthACL];
   v3 = +[PABSBiometrics sharedInstance];
   v4 = [v3 identitiesForIdentityType:2];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = +[PABSBiometrics sharedInstance];
         [v11 removeIdentity:v10 completion:0];
 
@@ -2380,7 +2396,7 @@ void __76__PABSPearlPasscodeController_proceedWithChecksToDeleteFaceIDWithSpecif
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v7);
@@ -2390,8 +2406,6 @@ void __76__PABSPearlPasscodeController_proceedWithChecksToDeleteFaceIDWithSpecif
   {
     [(PABSPearlPasscodeController *)self configurePeriocularEnabled:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)faceIDEnrollmentCoordinatorShouldPresentInModalSheet:(id)sheet
@@ -2444,30 +2458,30 @@ void __76__PABSPearlPasscodeController_proceedWithChecksToDeleteFaceIDWithSpecif
 
 void __87__PABSPearlPasscodeController_faceIDEnrollmentCoordinator_finishedEnrollmentWithError___block_invoke()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v0 = +[PABSBiometrics sharedInstance];
   v1 = [v0 identitiesForIdentityType:2];
 
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       v5 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * v5);
+        v6 = *(*(&v8 + 1) + 8 * v5);
         v7 = +[PABSBiometrics sharedInstance];
         [v7 removeIdentity:v6 completion:&__block_literal_global_309];
 
@@ -2475,13 +2489,11 @@ void __87__PABSPearlPasscodeController_faceIDEnrollmentCoordinator_finishedEnrol
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __87__PABSPearlPasscodeController_faceIDEnrollmentCoordinator_finishedEnrollmentWithError___block_invoke_2(uint64_t a1, char a2, void *a3)
@@ -2511,29 +2523,26 @@ void __87__PABSPearlPasscodeController_faceIDEnrollmentCoordinator_finishedEnrol
 
 - (void)numberOfAppsUsingPearlDescription:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
-  OUTLINED_FUNCTION_2(&dword_25E0E9000, v1, v2, "invalid number of apps: %@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_2(&dword_25E0E9000, v1, v2, "invalid number of apps: %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)faceIDEnrollmentCoordinator:(uint64_t)a1 finishedEnrollmentWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E0E9000, a2, OS_LOG_TYPE_ERROR, "Enroll failed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E0E9000, a2, OS_LOG_TYPE_ERROR, "Enroll failed with error: %@", &v2, 0xCu);
 }
 
 void __87__PABSPearlPasscodeController_faceIDEnrollmentCoordinator_finishedEnrollmentWithError___block_invoke_2_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
-  OUTLINED_FUNCTION_2(&dword_25E0E9000, v2, v3, "Unable to remove BKIdentity %@.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_2(&dword_25E0E9000, v2, v3, "Unable to remove BKIdentity %@.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

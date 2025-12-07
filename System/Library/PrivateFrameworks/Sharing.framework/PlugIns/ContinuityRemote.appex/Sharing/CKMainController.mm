@@ -10,12 +10,123 @@
 - (void)keyboardEnsureActive;
 - (void)refreshRTI;
 - (void)showContinuityKeyboardUI;
+- (void)showPINEntryUIWithFlags:(unsigned int)flags throttleSeconds:(int)seconds;
 - (void)showPickerUIWithURLString:(id)string bundleID:(id)d localizedAppName:(id)name unlocalizedAppName:(id)appName handler:(id)handler;
 - (void)transitionToViewControllerWhenReady:(id)ready;
 - (void)update;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CKMainController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
+  {
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1000058F4(self, a2, appear);
+    }
+  }
+
+  v30.receiver = selfCopy;
+  v30.super_class = CKMainController;
+  [(CKMainController *)&v30 viewDidAppear:appearCopy];
+  selfCopy->_uiLockActive = 1;
+  v5 = [UIStoryboard storyboardWithName:@"ContinuityKeyboard" bundle:0];
+  mainStoryboard = selfCopy->_mainStoryboard;
+  selfCopy->_mainStoryboard = v5;
+
+  instantiateInitialViewController = [(UIStoryboard *)selfCopy->_mainStoryboard instantiateInitialViewController];
+  vcNav = selfCopy->_vcNav;
+  selfCopy->_vcNav = instantiateInitialViewController;
+
+  [(CKCommonNavController *)selfCopy->_vcNav setModalPresentationStyle:2];
+  [(CKCommonNavController *)selfCopy->_vcNav setModalTransitionStyle:2];
+  viewControllers = [(CKCommonNavController *)selfCopy->_vcNav viewControllers];
+  firstObject = [viewControllers firstObject];
+  vcConnecting = selfCopy->_vcConnecting;
+  selfCopy->_vcConnecting = firstObject;
+
+  [(CKBaseViewController *)selfCopy->_vcConnecting setMainController:selfCopy];
+  [(CKMainController *)selfCopy addChildViewController:selfCopy->_vcNav];
+  view = [(CKMainController *)selfCopy view];
+  [view frame];
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+  view2 = [(CKCommonNavController *)selfCopy->_vcNav view];
+  [view2 setFrame:{v14, v16, v18, v20}];
+
+  view3 = [(CKMainController *)selfCopy view];
+  view4 = [(CKCommonNavController *)selfCopy->_vcNav view];
+  [view3 addSubview:view4];
+
+  [(CKCommonNavController *)selfCopy->_vcNav didMoveToParentViewController:selfCopy];
+  view5 = [(CKConnectingViewController *)selfCopy->_vcConnecting view];
+  [view5 systemLayoutSizeFittingSize:{UILayoutFittingCompressedSize.width, UILayoutFittingCompressedSize.height}];
+  v26 = v25;
+
+  view6 = [(CKMainController *)selfCopy view];
+  [view6 size];
+  v29 = v28;
+
+  [(CKMainController *)selfCopy setPreferredContentSize:v29, v26];
+  [(CKCommonNavController *)selfCopy->_vcNav setPreferredContentSize:v29, v26];
+  [(CKMainController *)selfCopy activateUILockTimer];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
+  {
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100005910(self, a2, disappear);
+    }
+  }
+
+  [(SFRemoteTextInputClient *)selfCopy->_rtiClient invalidate];
+  [(SFRemoteInteractionSession *)selfCopy->_riSession invalidate];
+  if (!selfCopy->_paired)
+  {
+    [(SFRemoteAutoFillSessionHelper *)selfCopy->_rafHelper serverUserNotificationDidDismiss:selfCopy->_deviceID];
+  }
+
+  [(SFRemoteAutoFillSessionHelper *)selfCopy->_rafHelper invalidate];
+  uiLockTimer = selfCopy->_uiLockTimer;
+  if (uiLockTimer)
+  {
+    v6 = uiLockTimer;
+    dispatch_source_cancel(v6);
+    v7 = selfCopy->_uiLockTimer;
+    selfCopy->_uiLockTimer = 0;
+  }
+
+  [(CKBaseViewController *)selfCopy->_vcConnecting setMainController:0];
+  vcConnecting = selfCopy->_vcConnecting;
+  selfCopy->_vcConnecting = 0;
+
+  vcDeferred = selfCopy->_vcDeferred;
+  selfCopy->_vcDeferred = 0;
+
+  [(CKBaseViewController *)selfCopy->_vcKeyboard setMainController:0];
+  vcKeyboard = selfCopy->_vcKeyboard;
+  selfCopy->_vcKeyboard = 0;
+
+  vcNav = selfCopy->_vcNav;
+  selfCopy->_vcNav = 0;
+
+  v12.receiver = selfCopy;
+  v12.super_class = CKMainController;
+  [(CKMainController *)&v12 viewWillDisappear:disappearCopy];
+}
 
 - (void)didReceiveNotification:(id)notification
 {
@@ -61,7 +172,7 @@
 
   else if (gLogCategory_ContinuityKeyboard <= 60 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
   {
-    sub_100005988();
+    sub_100005988(notificationCopy);
   }
 
   if (Int64)
@@ -80,35 +191,39 @@
 
 - (void)dismissWithDeferral
 {
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_1000059C8();
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1000059C8(self, a2, v2);
+    }
   }
 
-  dismissTimer = self->_dismissTimer;
+  dismissTimer = selfCopy->_dismissTimer;
   if (dismissTimer)
   {
-    v4 = dismissTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_dismissTimer;
-    self->_dismissTimer = 0;
+    v5 = dismissTimer;
+    dispatch_source_cancel(v5);
+    v6 = selfCopy->_dismissTimer;
+    selfCopy->_dismissTimer = 0;
   }
 
-  v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
-  v7 = self->_dismissTimer;
-  self->_dismissTimer = v6;
+  v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
+  v8 = selfCopy->_dismissTimer;
+  selfCopy->_dismissTimer = v7;
 
-  v8 = self->_dismissTimer;
-  v9 = dispatch_time(0, 1000000000);
-  dispatch_source_set_timer(v8, v9, 0xFFFFFFFFFFFFFFFFLL, 0xEE6B280uLL);
-  v10 = self->_dismissTimer;
+  v9 = selfCopy->_dismissTimer;
+  v10 = dispatch_time(0, 1000000000);
+  dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0xEE6B280uLL);
+  v11 = selfCopy->_dismissTimer;
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_10000219C;
   handler[3] = &unk_10000C2C0;
-  handler[4] = self;
-  dispatch_source_set_event_handler(v10, handler);
-  dispatch_resume(self->_dismissTimer);
+  handler[4] = selfCopy;
+  dispatch_source_set_event_handler(v11, handler);
+  dispatch_resume(selfCopy->_dismissTimer);
 }
 
 - (void)update
@@ -141,10 +256,10 @@
           return;
         }
 
-        v4 = self->_displayMode;
+        displayMode = self->_displayMode;
       }
 
-      LogPrintF();
+      LogPrintF(&gLogCategory_ContinuityKeyboard, "[CKMainController update]", 60, "### Unsupported display mode: %d", displayMode);
       return;
     }
 
@@ -154,13 +269,17 @@
 
 - (void)refreshRTI
 {
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005B9C();
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100005B9C(self, a2, v2);
+    }
   }
 
-  rtiClient = self->_rtiClient;
-  cachedRTIData = self->_cachedRTIData;
+  rtiClient = selfCopy->_rtiClient;
+  cachedRTIData = selfCopy->_cachedRTIData;
 
   [(SFRemoteTextInputClient *)rtiClient handleTextInputData:cachedRTIData];
 }
@@ -189,23 +308,27 @@
 
 - (void)showContinuityKeyboardUI
 {
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005BD4();
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100005BD4(self, a2, v2);
+    }
   }
 
-  vcKeyboard = self->_vcKeyboard;
+  vcKeyboard = selfCopy->_vcKeyboard;
   if (!vcKeyboard)
   {
-    v4 = [(UIStoryboard *)self->_mainStoryboard instantiateViewControllerWithIdentifier:@"Keyboard"];
-    v5 = self->_vcKeyboard;
-    self->_vcKeyboard = v4;
+    v5 = [(UIStoryboard *)selfCopy->_mainStoryboard instantiateViewControllerWithIdentifier:@"Keyboard"];
+    v6 = selfCopy->_vcKeyboard;
+    selfCopy->_vcKeyboard = v5;
 
-    [(CKBaseViewController *)self->_vcKeyboard setMainController:self];
-    vcKeyboard = self->_vcKeyboard;
+    [(CKBaseViewController *)selfCopy->_vcKeyboard setMainController:selfCopy];
+    vcKeyboard = selfCopy->_vcKeyboard;
   }
 
-  [(CKMainController *)self transitionToViewControllerWhenReady:vcKeyboard];
+  [(CKMainController *)selfCopy transitionToViewControllerWhenReady:vcKeyboard];
 }
 
 - (void)showPickerUIWithURLString:(id)string bundleID:(id)d localizedAppName:(id)name unlocalizedAppName:(id)appName handler:(id)handler
@@ -279,24 +402,58 @@
   [(_SFAppAutoFillPasswordViewController *)v23 authenticateToPresentInPopover:0 completion:v24];
 }
 
+- (void)showPINEntryUIWithFlags:(unsigned int)flags throttleSeconds:(int)seconds
+{
+  v4 = *&seconds;
+  v5 = *&flags;
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
+  {
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100005C48(self, a2, *&flags);
+    }
+  }
+
+  vcPINEntry = selfCopy->_vcPINEntry;
+  if (vcPINEntry)
+  {
+
+    [(CKPINEntryViewController *)vcPINEntry showWithFlags:v5 throttleSeconds:v4];
+  }
+
+  else
+  {
+    v8 = [(UIStoryboard *)selfCopy->_mainStoryboard instantiateViewControllerWithIdentifier:@"AuthEntry"];
+    v9 = selfCopy->_vcPINEntry;
+    selfCopy->_vcPINEntry = v8;
+
+    [(CKBaseViewController *)selfCopy->_vcPINEntry setMainController:selfCopy];
+    v10 = selfCopy->_vcPINEntry;
+
+    [(CKMainController *)selfCopy transitionToViewControllerWhenReady:v10];
+  }
+}
+
 - (void)transitionToViewControllerWhenReady:(id)ready
 {
   readyCopy = ready;
-  v8 = readyCopy;
+  v6 = readyCopy;
+  v9 = readyCopy;
   if (self->_uiLockActive)
   {
     if (gLogCategory_ContinuityKeyboard <= 30)
     {
-      if (gLogCategory_ContinuityKeyboard != -1 || (v5 = _LogCategory_Initialize(), readyCopy = v8, v5))
+      if (gLogCategory_ContinuityKeyboard != -1 || (readyCopy = _LogCategory_Initialize(), v6 = v9, readyCopy))
       {
-        sub_100005C64();
-        readyCopy = v8;
+        sub_100005C64(readyCopy, v6, v5);
+        v6 = v9;
       }
     }
 
-    v6 = readyCopy;
+    v7 = v6;
     vcDeferred = self->_vcDeferred;
-    self->_vcDeferred = v6;
+    self->_vcDeferred = v7;
   }
 
   else
@@ -325,38 +482,42 @@
 
   [(SFRemoteTextInputClient *)self->_rtiClient handleTextInputData:eventCopy];
   v10 = SFRTIDataPayloadForData();
+  v13 = v10;
   if (!v10)
   {
-    if (gLogCategory_ContinuityKeyboard <= 60 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_ContinuityKeyboard <= 60)
     {
-      sub_100005CB4();
+      if (gLogCategory_ContinuityKeyboard != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        sub_100005CB4(v10, v11, v12);
+      }
     }
 
     goto LABEL_24;
   }
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
-  v11 = qword_100011F00;
-  v25 = qword_100011F00;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2050000000;
+  v14 = qword_100011F00;
+  v28 = qword_100011F00;
   if (!qword_100011F00)
   {
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100004BE8;
-    v21[3] = &unk_10000C568;
-    v21[4] = &v22;
-    sub_100004BE8(v21);
-    v11 = v23[3];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100004BE8;
+    v24[3] = &unk_10000C568;
+    v24[4] = &v25;
+    sub_100004BE8(v24);
+    v14 = v26[3];
   }
 
-  v12 = v11;
-  _Block_object_dispose(&v22, 8);
-  data = [v10 data];
-  v14 = [v11 payloadWithData:data version:{objc_msgSend(v10, "version")}];
+  v15 = v14;
+  _Block_object_dispose(&v25, 8);
+  data = [v13 data];
+  v17 = [v14 payloadWithData:data version:{objc_msgSend(v13, "version")}];
 
-  if (!v14)
+  if (!v17)
   {
     if (gLogCategory_ContinuityKeyboard <= 60 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
     {
@@ -364,44 +525,44 @@
     }
 
 LABEL_24:
-    v19 = 0;
+    v22 = 0;
     prompt = 0;
-    v14 = 0;
+    v17 = 0;
     title = 0;
     goto LABEL_16;
   }
 
-  documentTraits = [v14 documentTraits];
+  documentTraits = [v17 documentTraits];
   prompt = [documentTraits prompt];
 
-  documentTraits2 = [v14 documentTraits];
+  documentTraits2 = [v17 documentTraits];
   title = [documentTraits2 title];
 
   if (!prompt)
   {
-    v19 = 0;
+    v22 = 0;
 LABEL_11:
     if (title)
     {
-      v19 = [title copy];
+      v22 = [title copy];
     }
 
     goto LABEL_13;
   }
 
-  v19 = [prompt copy];
-  if (!v19)
+  v22 = [prompt copy];
+  if (!v22)
   {
     goto LABEL_11;
   }
 
 LABEL_13:
-  if (v19)
+  if (v22)
   {
     vcKeyboard = self->_vcKeyboard;
     if (vcKeyboard)
     {
-      [(CKKeyboardViewController *)vcKeyboard updatePrompt:v19];
+      [(CKKeyboardViewController *)vcKeyboard updatePrompt:v22];
     }
   }
 
@@ -424,9 +585,13 @@ LABEL_16:
 - (void)_textSessionDidEnd:(id)end
 {
   endCopy = end;
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  v7 = endCopy;
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005CD0();
+    if (gLogCategory_ContinuityKeyboard != -1 || (endCopy = _LogCategory_Initialize(), endCopy))
+    {
+      sub_100005CD0(endCopy, v5, v6);
+    }
   }
 
   [(CKMainController *)self dismissWithDeferral];
@@ -461,7 +626,7 @@ LABEL_16:
 
   else
   {
-    sub_100005CEC();
+    sub_100005CEC(0, v4, v5);
   }
 }
 
@@ -477,31 +642,30 @@ LABEL_16:
 
     [(SFRemoteAutoFillSessionHelper *)self->_rafHelper setInterruptionHandler:&stru_10000C300];
     [(SFRemoteAutoFillSessionHelper *)self->_rafHelper setInvalidationHandler:&stru_10000C320];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100002428;
-    v16[3] = &unk_10000C2C0;
-    v16[4] = self;
-    [(SFRemoteAutoFillSessionHelper *)self->_rafHelper setDismissUserNotificationHandler:v16];
     v15[0] = _NSConcreteStackBlock;
     v15[1] = 3221225472;
-    v15[2] = sub_100002430;
-    v15[3] = &unk_10000C370;
+    v15[2] = sub_100002428;
+    v15[3] = &unk_10000C2C0;
     v15[4] = self;
-    [(SFRemoteAutoFillSessionHelper *)self->_rafHelper setPairingResponseHandler:v15];
+    [(SFRemoteAutoFillSessionHelper *)self->_rafHelper setDismissUserNotificationHandler:v15];
     v14[0] = _NSConcreteStackBlock;
     v14[1] = 3221225472;
-    v14[2] = sub_1000025CC;
-    v14[3] = &unk_10000C398;
+    v14[2] = sub_100002430;
+    v14[3] = &unk_10000C370;
     v14[4] = self;
-    [(SFRemoteAutoFillSessionHelper *)self->_rafHelper setPromptForPINHandler:v14];
-    v7 = self->_rafHelper;
+    [(SFRemoteAutoFillSessionHelper *)self->_rafHelper setPairingResponseHandler:v14];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1000025CC;
+    v13[3] = &unk_10000C398;
+    v13[4] = self;
+    [(SFRemoteAutoFillSessionHelper *)self->_rafHelper setPromptForPINHandler:v13];
     sub_100004F60();
-    v10 = sub_1000025DC;
-    v11 = &unk_10000C3C0;
+    v9 = sub_1000025DC;
+    v10 = &unk_10000C3C0;
     selfCopy = self;
-    v13 = v4;
-    [v8 activateWithCompletion:v9];
+    v12 = v4;
+    [v7 activateWithCompletion:v8];
   }
 }
 
@@ -510,87 +674,77 @@ LABEL_16:
   deviceIdentifier = [(CRSessionInfo *)self->_sessionInfo deviceIdentifier];
   v4 = [[NSUUID alloc] initWithUUIDString:deviceIdentifier];
   v5 = v4;
-  if (self->_riSession)
+  if (!self->_riSession)
   {
-    goto LABEL_11;
-  }
-
-  if (!self->_sessionInfo)
-  {
-    if (gLogCategory_ContinuityKeyboard > 10 || gLogCategory_ContinuityKeyboard == -1 && !_LogCategory_Initialize())
+    if (self->_sessionInfo)
     {
-      goto LABEL_11;
+      if (v4)
+      {
+        if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_ContinuityKeyboard, "[CKMainController keyboardEnsureActive]", 30, "Activating...");
+        }
+
+        if ([deviceIdentifier isEqualToString:@"00000000-0000-0000-0000-000000000001"])
+        {
+          self->_testFlags |= 4u;
+        }
+
+        v6 = objc_alloc_init(SFDevice);
+        [v6 setIdentifier:v5];
+        v7 = objc_alloc_init(SFRemoteInteractionSession);
+        riSession = self->_riSession;
+        self->_riSession = v7;
+
+        [(SFRemoteInteractionSession *)self->_riSession setPeerDevice:v6];
+        v18[0] = _NSConcreteStackBlock;
+        v18[1] = 3221225472;
+        v18[2] = sub_100002670;
+        v18[3] = &unk_10000C3E8;
+        v18[4] = self;
+        [(SFRemoteInteractionSession *)self->_riSession setRemoteTextEventHandler:v18];
+        v17[0] = _NSConcreteStackBlock;
+        v17[1] = 3221225472;
+        v17[2] = sub_1000026E0;
+        v17[3] = &unk_10000C410;
+        v17[4] = self;
+        [(SFRemoteInteractionSession *)self->_riSession setTextSessionDidBegin:v17];
+        v16[0] = _NSConcreteStackBlock;
+        v16[1] = 3221225472;
+        v16[2] = sub_100002750;
+        v16[3] = &unk_10000C410;
+        v16[4] = self;
+        [(SFRemoteInteractionSession *)self->_riSession setTextSessionDidEnd:v16];
+        v15[0] = _NSConcreteStackBlock;
+        v15[1] = 3221225472;
+        v15[2] = sub_10000275C;
+        v15[3] = &unk_10000C410;
+        v15[4] = self;
+        [(SFRemoteInteractionSession *)self->_riSession setTextSessionDidChange:v15];
+        [(SFRemoteInteractionSession *)self->_riSession activateWithCompletion:&stru_10000C450];
+        v9 = objc_alloc_init(SFRemoteTextInputClient);
+        rtiClient = self->_rtiClient;
+        self->_rtiClient = v9;
+
+        sub_100004F60();
+        v12 = sub_100002818;
+        v13 = &unk_10000C3E8;
+        selfCopy = self;
+        [(SFRemoteTextInputClient *)self->_rtiClient setEventHandler:v11];
+        [(SFRemoteTextInputClient *)self->_rtiClient activate];
+      }
+
+      else if (gLogCategory_ContinuityKeyboard <= 60 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_ContinuityKeyboard, "[CKMainController keyboardEnsureActive]", 60, "### Bad device ID?\n");
+      }
     }
 
-LABEL_17:
-    LogPrintF();
-    goto LABEL_11;
-  }
-
-  if (!v4)
-  {
-    if (gLogCategory_ContinuityKeyboard > 60 || gLogCategory_ContinuityKeyboard == -1 && !_LogCategory_Initialize())
+    else if (gLogCategory_ContinuityKeyboard <= 10 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_11;
+      LogPrintF(&gLogCategory_ContinuityKeyboard, "[CKMainController keyboardEnsureActive]", 10, "No session info\n");
     }
-
-    goto LABEL_17;
   }
-
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
-  {
-    LogPrintF();
-  }
-
-  if ([deviceIdentifier isEqualToString:@"00000000-0000-0000-0000-000000000001"])
-  {
-    self->_testFlags |= 4u;
-  }
-
-  v6 = objc_alloc_init(SFDevice);
-  [v6 setIdentifier:v5];
-  v7 = objc_alloc_init(SFRemoteInteractionSession);
-  riSession = self->_riSession;
-  self->_riSession = v7;
-
-  [(SFRemoteInteractionSession *)self->_riSession setPeerDevice:v6];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100002670;
-  v18[3] = &unk_10000C3E8;
-  v18[4] = self;
-  [(SFRemoteInteractionSession *)self->_riSession setRemoteTextEventHandler:v18];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1000026E0;
-  v17[3] = &unk_10000C410;
-  v17[4] = self;
-  [(SFRemoteInteractionSession *)self->_riSession setTextSessionDidBegin:v17];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100002750;
-  v16[3] = &unk_10000C410;
-  v16[4] = self;
-  [(SFRemoteInteractionSession *)self->_riSession setTextSessionDidEnd:v16];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10000275C;
-  v15[3] = &unk_10000C410;
-  v15[4] = self;
-  [(SFRemoteInteractionSession *)self->_riSession setTextSessionDidChange:v15];
-  [(SFRemoteInteractionSession *)self->_riSession activateWithCompletion:&stru_10000C450];
-  v9 = objc_alloc_init(SFRemoteTextInputClient);
-  rtiClient = self->_rtiClient;
-  self->_rtiClient = v9;
-
-  sub_100004F60();
-  v12 = sub_100002818;
-  v13 = &unk_10000C3E8;
-  selfCopy = self;
-  [(SFRemoteTextInputClient *)self->_rtiClient setEventHandler:v11];
-  [(SFRemoteTextInputClient *)self->_rtiClient activate];
-
-LABEL_11:
 }
 
 @end

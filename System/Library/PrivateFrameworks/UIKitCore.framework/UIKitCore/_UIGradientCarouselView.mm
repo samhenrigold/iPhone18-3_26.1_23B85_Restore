@@ -18,24 +18,25 @@
 
 - (void)layoutSubviews
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for _UIGradientCarouselView();
-  v2 = v7.receiver;
-  [(UIView *)&v7 layoutSubviews];
-  [v2 bounds];
-  v4 = v3;
-  [v2 bounds];
-  if (v4 > v5)
+  type metadata accessor for _UIGradientCarouselView();
+  v9.receiver = self;
+  v9.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v9 layoutSubviews];
+  [(UIView *)selfCopy bounds:v9.receiver];
+  v6 = v5;
+  [(UIView *)selfCopy bounds];
+  if (v6 > v7)
   {
-    v6 = v4;
+    v8 = v6;
   }
 
   else
   {
-    v6 = v5;
+    v8 = v7;
   }
 
-  [*&v2[OBJC_IVAR____TtC5UIKit23_UIGradientCarouselView_gradientLayer] setBounds_];
+  [*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC5UIKit23_UIGradientCarouselView_gradientLayer) setBounds_];
   sub_1891EE638();
 }
 

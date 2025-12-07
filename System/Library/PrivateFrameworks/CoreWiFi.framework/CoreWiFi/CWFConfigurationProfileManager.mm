@@ -92,29 +92,29 @@ LABEL_6:
 
 - (void)__updateCachedMDMManagedProfileUUIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = [MEMORY[0x1E695DFA8] set];
   [(MCProfileConnection *)self->_mcProfileConnection installedProfilesWithFilterFlags:32];
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v6 = v14 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v12 = 0u;
+  v6 = v13 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        uUID = [*(*(&v13 + 1) + 8 * v9) UUID];
+        uUID = [*(*(&v12 + 1) + 8 * v9) UUID];
         if (uUID)
         {
           [v5 addObject:uUID];
@@ -124,7 +124,7 @@ LABEL_6:
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -135,8 +135,6 @@ LABEL_6:
   [(NSMutableSet *)selfCopy->_mdmManagedProfileUUIDs removeAllObjects];
   [(NSMutableSet *)selfCopy->_mdmManagedProfileUUIDs unionSet:v5];
   objc_sync_exit(selfCopy);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

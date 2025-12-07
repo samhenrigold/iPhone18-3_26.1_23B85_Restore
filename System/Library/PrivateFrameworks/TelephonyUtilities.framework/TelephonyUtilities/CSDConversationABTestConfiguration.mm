@@ -155,32 +155,30 @@
   }
 
   [(CSDConversationABTestConfiguration *)self setIsTLEUPlusOneEnabled:v7];
-  if (![(CSDConversationABTestConfiguration *)self isTLEEnabled]&& ![(CSDConversationABTestConfiguration *)self isAuthTagEnabled]&& [(CSDConversationABTestConfiguration *)self isShortMKIEnabled])
+  isTLEEnabled = [(CSDConversationABTestConfiguration *)self isTLEEnabled];
+  if ((isTLEEnabled & 1) == 0)
   {
-    [(CSDConversationABTestConfiguration *)self setIsShortMKIEnabled:0];
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    isTLEEnabled = [(CSDConversationABTestConfiguration *)self isAuthTagEnabled];
+    if ((isTLEEnabled & 1) == 0)
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "set isShortMKIEnabled to NO since both isTLEEnabled and isAuthTagEnabled are false", &v18, 2u);
+      isTLEEnabled = [(CSDConversationABTestConfiguration *)self isShortMKIEnabled];
+      if (isTLEEnabled)
+      {
+        v9 = sub_100004778([(CSDConversationABTestConfiguration *)self setIsShortMKIEnabled:0]);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v19) = 0;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "set isShortMKIEnabled to NO since both isTLEEnabled and isAuthTagEnabled are false", &v19, 2u);
+        }
+      }
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(isTLEEnabled);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = @"YES";
+    v11 = @"YES";
     if ([(CSDConversationABTestConfiguration *)self isTLEEnabled])
-    {
-      v11 = @"YES";
-    }
-
-    else
-    {
-      v11 = @"NO";
-    }
-
-    if ([(CSDConversationABTestConfiguration *)self isShortMKIEnabled])
     {
       v12 = @"YES";
     }
@@ -190,7 +188,7 @@
       v12 = @"NO";
     }
 
-    if ([(CSDConversationABTestConfiguration *)self isAuthTagEnabled])
+    if ([(CSDConversationABTestConfiguration *)self isShortMKIEnabled])
     {
       v13 = @"YES";
     }
@@ -200,32 +198,42 @@
       v13 = @"NO";
     }
 
-    if (![(CSDConversationABTestConfiguration *)self isTLEUPlusOneEnabled])
+    if ([(CSDConversationABTestConfiguration *)self isAuthTagEnabled])
     {
-      v10 = @"NO";
+      v14 = @"YES";
     }
 
-    v14 = v4;
+    else
+    {
+      v14 = @"NO";
+    }
+
+    if (![(CSDConversationABTestConfiguration *)self isTLEUPlusOneEnabled])
+    {
+      v11 = @"NO";
+    }
+
+    v15 = v4;
     authTagSampleRate = [(CSDConversationABTestConfiguration *)self authTagSampleRate];
     tLESampleRate = [(CSDConversationABTestConfiguration *)self TLESampleRate];
     tLEUPlusOneSampleRate = [(CSDConversationABTestConfiguration *)self TLEUPlusOneSampleRate];
-    v18 = 138414082;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v13;
-    v24 = 2112;
-    v25 = v10;
-    v26 = 2048;
-    v27 = v14;
-    v28 = 2048;
-    v29 = authTagSampleRate;
-    v30 = 2048;
-    v31 = tLESampleRate;
-    v32 = 2048;
-    v33 = tLEUPlusOneSampleRate;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "isTLEEnabled: %@, isShortMKIEnabled: %@, isAuthTagEnabled: %@, isTLEUPlusOneEnabled: %@, hashValue: %lu, authTagSampleRate: %lu, TLESampleRate: %lu, TLEUPlusOneSampleRate: %lu", &v18, 0x52u);
+    v19 = 138414082;
+    v20 = v12;
+    v21 = 2112;
+    v22 = v13;
+    v23 = 2112;
+    v24 = v14;
+    v25 = 2112;
+    v26 = v11;
+    v27 = 2048;
+    v28 = v15;
+    v29 = 2048;
+    v30 = authTagSampleRate;
+    v31 = 2048;
+    v32 = tLESampleRate;
+    v33 = 2048;
+    v34 = tLEUPlusOneSampleRate;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "isTLEEnabled: %@, isShortMKIEnabled: %@, isAuthTagEnabled: %@, isTLEUPlusOneEnabled: %@, hashValue: %lu, authTagSampleRate: %lu, TLESampleRate: %lu, TLEUPlusOneSampleRate: %lu", &v19, 0x52u);
   }
 }
 

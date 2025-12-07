@@ -39,7 +39,7 @@
 {
   v1 = NSStringFromSelector(self);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "%{public}@ called when text detection is disabled", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "%{public}@ called when text detection is disabled", v4, v5, v6, v7);
 }
 
 - (void)countButtonPressForMRC:(id)c action:(id)action
@@ -371,7 +371,7 @@
   return v13;
 }
 
-void __55__CAMAnalyticsVisionSession__analyticsValueForQRTypes___block_invoke(id *a1, void *a2, unint64_t a3)
+void __55__CAMAnalyticsVisionSession__analyticsValueForQRTypes___block_invoke(id *a1, void *a2, char *a3)
 {
   v5 = [a1[4] _analyticsValueForQRType:{objc_msgSend(a2, "integerValue")}];
   [a1[5] appendString:?];
@@ -436,7 +436,7 @@ void __55__CAMAnalyticsVisionSession__analyticsValueForQRTypes___block_invoke(id
 {
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "%{public}@ called when MRC detection is disabled", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "%{public}@ called when MRC detection is disabled", v4, v5, v6, v7);
 }
 
 @end

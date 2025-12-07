@@ -11,7 +11,7 @@
   buttonCopy = button;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationFailedViewController handleDismissButton:]", 30, "Dismiss button");
   }
 
   [self->super._mainController dismiss:5];
@@ -22,7 +22,7 @@
   disappearCopy = disappear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationFailedViewController viewDidDisappear:]", 30, "FailedVC ViewDidDisappear");
   }
 
   v5.receiver = self;
@@ -35,7 +35,7 @@
   appearCopy = appear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationFailedViewController viewWillAppear:]", 30, "FailedVC ViewWillAppear");
   }
 
   v19.receiver = self;

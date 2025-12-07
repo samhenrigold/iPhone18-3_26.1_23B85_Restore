@@ -47,7 +47,7 @@
   fromCopy = from;
   selfCopy = self;
   sub_274856B28(fromCopy, v6, v7);
-  sub_27471F8A4(v6);
+  sub_27471F8A4(v6, v7);
 }
 
 - (void)dismissWithCompletion:(id)completion

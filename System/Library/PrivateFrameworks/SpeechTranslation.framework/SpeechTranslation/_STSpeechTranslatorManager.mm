@@ -14,37 +14,37 @@
 
 - (_STSpeechTranslatorManager)init
 {
-  v12.receiver = self;
-  v12.super_class = _STSpeechTranslatorManager;
-  v2 = [(_STSpeechTranslatorManager *)&v12 init];
-  if (v2)
+  v13.receiver = self;
+  v13.super_class = _STSpeechTranslatorManager;
+  v3 = [(_STSpeechTranslatorManager *)&v13 init];
+  if (v3)
   {
-    v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    clientLists = v2->_clientLists;
-    v2->_clientLists = v3;
+    v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    clientLists = v3->_clientLists;
+    v3->_clientLists = v4;
 
-    v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    clientPeerToClientListIDMap = v2->_clientPeerToClientListIDMap;
-    v2->_clientPeerToClientListIDMap = v5;
+    v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    clientPeerToClientListIDMap = v3->_clientPeerToClientListIDMap;
+    v3->_clientPeerToClientListIDMap = v6;
 
-    v7 = objc_alloc_init(_STSELFLoggingClient);
-    selfClient = v2->_selfClient;
-    v2->_selfClient = v7;
+    v8 = objc_alloc_init(_STSELFLoggingClient);
+    selfClient = v3->_selfClient;
+    v3->_selfClient = v8;
 
-    v2->_stateLock._os_unfair_lock_opaque = 0;
-    v9 = v2;
+    v3->_stateLock._os_unfair_lock_opaque = 0;
+    v10 = v3;
   }
 
   else
   {
-    v10 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _LTOSLogSTMultiprocess(0, v2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(_STSpeechTranslatorManager *)v10 init];
+      [(_STSpeechTranslatorManager *)v11 init];
     }
   }
 
-  return v2;
+  return v3;
 }
 
 + (id)sharedInstance
@@ -66,18 +66,18 @@
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
   if (currentConnection)
   {
-    v9 = [(_STSpeechTranslatorManager *)self _remoteObjectProxyForConnection:currentConnection isPrimary:1];
-    if (v9)
+    v11 = [(_STSpeechTranslatorManager *)self _remoteObjectProxyForConnection:currentConnection isPrimary:1];
+    if (v11)
     {
-      v10 = [(_STSpeechTranslatorManager *)self _makeClientListWithConfiguration:configurationCopy clientPeer:v9];
-      [(_STSELFLoggingClient *)self->_selfClient registerClientList:v10 configuration:configurationCopy];
-      replyCopy[2](replyCopy, v10);
+      v12 = [(_STSpeechTranslatorManager *)self _makeClientListWithConfiguration:configurationCopy clientPeer:v11];
+      [(_STSELFLoggingClient *)self->_selfClient registerClientList:v12 configuration:configurationCopy];
+      replyCopy[2](replyCopy, v12);
     }
 
     else
     {
-      v12 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = _LTOSLogSTMultiprocess(0, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [_STSpeechTranslatorManager makePeerWithConfiguration:inReply:];
       }
@@ -88,8 +88,8 @@
 
   else
   {
-    v11 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = _LTOSLogSTMultiprocess(0, v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [_STSpeechTranslatorManager makePeerWithConfiguration:inReply:];
     }
@@ -105,17 +105,17 @@
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
   if (currentConnection)
   {
-    v9 = [(_STSpeechTranslatorManager *)self _remoteObjectProxyForConnection:currentConnection isPrimary:0];
-    if (v9)
+    v11 = [(_STSpeechTranslatorManager *)self _remoteObjectProxyForConnection:currentConnection isPrimary:0];
+    if (v11)
     {
-      v10 = [(_STSpeechTranslatorManager *)self _addToClientListWithIdentifier:identifierCopy clientPeer:v9 xpcConnection:currentConnection];
-      replyCopy[2](replyCopy, v10);
+      v12 = [(_STSpeechTranslatorManager *)self _addToClientListWithIdentifier:identifierCopy clientPeer:v11 xpcConnection:currentConnection];
+      replyCopy[2](replyCopy, v12);
     }
 
     else
     {
-      v12 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = _LTOSLogSTMultiprocess(0, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [_STSpeechTranslatorManager makePeerWithIdentifier:inReply:];
       }
@@ -126,8 +126,8 @@
 
   else
   {
-    v11 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = _LTOSLogSTMultiprocess(0, v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [_STSpeechTranslatorManager makePeerWithIdentifier:inReply:];
     }
@@ -160,21 +160,21 @@
       v10 = [_STSpeechTranslatorManager _keyForProxy:v9];
       objc_initWeak(&location, self);
       objc_initWeak(&from, connectionCopy);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __72___STSpeechTranslatorManager__remoteObjectProxyForConnection_isPrimary___block_invoke;
-      v15[3] = &unk_279CF7EA0;
-      objc_copyWeak(&v17, &location);
-      objc_copyWeak(&v18, &from);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __72___STSpeechTranslatorManager__remoteObjectProxyForConnection_isPrimary___block_invoke;
+      v17[3] = &unk_279CF7EA0;
+      objc_copyWeak(&v19, &location);
+      objc_copyWeak(&v20, &from);
       v11 = v10;
-      v16 = v11;
-      [connectionCopy setInterruptionHandler:v15];
+      v18 = v11;
+      [connectionCopy setInterruptionHandler:v17];
       interruptionHandler = [connectionCopy interruptionHandler];
       [connectionCopy setInvalidationHandler:interruptionHandler];
 
       v9 = v9;
-      objc_destroyWeak(&v18);
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
     }
@@ -183,8 +183,8 @@
   else
   {
 
-    v13 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _LTOSLogSTMultiprocess(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [_STSpeechTranslatorManager _remoteObjectProxyForConnection:isPrimary:];
     }
@@ -284,46 +284,6 @@
   [v14[5] invalidate];
 
   _Block_object_dispose(&v13, 8);
-}
-
-- (void)makePeerWithConfiguration:inReply:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_26B5BC000, v0, v1, "Failed to get clientPeer with configuration: %{public}@ connection: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makePeerWithConfiguration:inReply:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_1(&dword_26B5BC000, v0, v1, "Failed to get currentConnection with configuration: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makePeerWithIdentifier:inReply:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_26B5BC000, v0, v1, "Failed to get clientPeer with identifier: %{public}@ connection: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makePeerWithIdentifier:inReply:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_1(&dword_26B5BC000, v0, v1, "Failed to get currentConnection with identifier: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_remoteObjectProxyForConnection:isPrimary:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_1(&dword_26B5BC000, v0, v1, "No async proxy from connection: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

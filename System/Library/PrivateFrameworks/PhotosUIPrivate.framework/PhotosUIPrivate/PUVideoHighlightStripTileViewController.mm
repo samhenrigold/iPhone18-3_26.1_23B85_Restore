@@ -18,7 +18,7 @@
 {
   if (player)
   {
-    [player desiredSeekTime];
+    objc_msgSend_desiredSeekTime(player, a2);
   }
 
   else
@@ -36,7 +36,7 @@
 {
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player, a2);
   }
 
   else
@@ -75,7 +75,7 @@
 
 - (void)_updateHighlightsViewCurrentTime
 {
-  [(PUVideoHighlightStripTileViewController *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   highlightsView = [(PUVideoHighlightStripTileViewController *)self highlightsView];
   v4 = v6;
   v5 = v7;
@@ -148,7 +148,7 @@
   v12 = videoPlayer2;
   if (videoPlayer2)
   {
-    [videoPlayer2 duration];
+    objc_msgSend_duration(videoPlayer2);
   }
 
   else
@@ -174,37 +174,37 @@ id __64__PUVideoHighlightStripTileViewController__updateHighlightsView__block_in
 {
   v3 = a2;
   v4 = v3;
-  v11 = 0u;
-  v12 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v9 = 0u;
   v5 = *(a1 + 32);
   if (v3)
   {
-    [v3 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v3);
     if (v5)
     {
 LABEL_3:
-      [v5 scaledTimeRangeForOriginalTimeRange:v9];
+      objc_msgSend_scaledTimeRangeForOriginalTimeRange_(v5);
       goto LABEL_6;
     }
   }
 
   else
   {
-    memset(v9, 0, sizeof(v9));
+    memset(&v8[3], 0, 48);
     if (v5)
     {
       goto LABEL_3;
     }
   }
 
-  v11 = 0u;
-  v12 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v9 = 0u;
 LABEL_6:
-  v8[0] = v10;
-  v8[1] = v11;
-  v8[2] = v12;
+  v8[0] = v9;
+  v8[1] = v10;
+  v8[2] = v11;
   v6 = [MEMORY[0x1E696B098] valueWithCMTimeRange:v8];
 
   return v6;
@@ -220,7 +220,7 @@ LABEL_6:
     objc_storeStrong(&self->_videoPlayer, player);
     if (playerCopy)
     {
-      [(PUBrowsingVideoPlayer *)playerCopy currentTime];
+      objc_msgSend_currentTime(playerCopy);
     }
 
     else

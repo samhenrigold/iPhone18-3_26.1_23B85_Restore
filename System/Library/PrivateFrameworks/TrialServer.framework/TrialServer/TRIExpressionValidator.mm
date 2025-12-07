@@ -9,7 +9,7 @@
 
 - (id)_validationErrorWithDetails:(id)details
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   detailsCopy = @"Expression validation error";
   if (detailsCopy)
@@ -21,20 +21,18 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v16 = detailsCopy;
+    v15 = detailsCopy;
     _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
   }
 
-  v13 = *MEMORY[0x277CCA450];
+  v12 = *MEMORY[0x277CCA450];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   v7 = [mainBundle localizedStringForKey:detailsCopy value:&stru_287FA0430 table:0];
-  v14 = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v13 = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = [v8 mutableCopy];
 
   v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"triald" code:1 userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -64,7 +62,7 @@ void __56__TRIExpressionValidator__validSystemCovariateFunction___block_invoke()
 
 - (BOOL)validateExpression:(id)expression outError:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   expressionCopy = expression;
   if (!expressionCopy)
   {
@@ -130,9 +128,9 @@ LABEL_34:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v45 = predicate;
-          v46 = 2112;
-          v47 = expressionCopy;
+          v44 = predicate;
+          v45 = 2112;
+          v46 = expressionCopy;
           v21 = "%@ in expression %@ is not an allowed function for SystemCovariates";
 LABEL_37:
           _os_log_impl(&dword_26F567000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0x16u);
@@ -161,9 +159,9 @@ LABEL_37:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v45 = predicate;
-          v46 = 2112;
-          v47 = expressionCopy;
+          v44 = predicate;
+          v45 = 2112;
+          v46 = expressionCopy;
           v21 = "%@ in expression %@ is not an allowed function for UserCovariates";
           goto LABEL_37;
         }
@@ -199,26 +197,26 @@ LABEL_22:
       }
     }
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     predicate = [expressionCopy arguments];
-    v29 = [predicate countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v29 = [predicate countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v40;
+      v31 = *v39;
 LABEL_26:
       v32 = 0;
       while (1)
       {
-        if (*v40 != v31)
+        if (*v39 != v31)
         {
           objc_enumerationMutation(predicate);
         }
 
-        v33 = *(*(&v39 + 1) + 8 * v32);
+        v33 = *(*(&v38 + 1) + 8 * v32);
         if (([v33 expressionType] & 0xFFFFFFFFFFFFFFEFLL) == 4 && !-[TRIExpressionValidator validateExpression:outError:](self, "validateExpression:outError:", v33, error))
         {
           goto LABEL_41;
@@ -226,7 +224,7 @@ LABEL_26:
 
         if (v30 == ++v32)
         {
-          v30 = [predicate countByEnumeratingWithState:&v39 objects:v43 count:16];
+          v30 = [predicate countByEnumeratingWithState:&v38 objects:v42 count:16];
           if (v30)
           {
             goto LABEL_26;
@@ -244,7 +242,7 @@ LABEL_26:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v45 = expressionCopy;
+    v44 = expressionCopy;
     _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_DEFAULT, "cast expression %@ is not an allowed expression", buf, 0xCu);
   }
 
@@ -262,13 +260,12 @@ LABEL_42:
 
 LABEL_43:
 
-  v36 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (BOOL)validatePredicate:(id)predicate outError:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   if (!predicateCopy)
   {
@@ -279,33 +276,33 @@ LABEL_43:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     subpredicates = [predicateCopy subpredicates];
-    v9 = [subpredicates countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [subpredicates countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
 LABEL_6:
       v12 = 0;
       while (1)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(subpredicates);
         }
 
-        if (![(TRIExpressionValidator *)self validatePredicate:*(*(&v19 + 1) + 8 * v12) outError:error])
+        if (![(TRIExpressionValidator *)self validatePredicate:*(*(&v18 + 1) + 8 * v12) outError:error])
         {
           goto LABEL_18;
         }
 
         if (v10 == ++v12)
         {
-          v10 = [subpredicates countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v10 = [subpredicates countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v10)
           {
             goto LABEL_6;
@@ -347,7 +344,6 @@ LABEL_18:
 
 LABEL_19:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

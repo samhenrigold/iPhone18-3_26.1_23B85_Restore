@@ -6,18 +6,16 @@
 
 - (id)debugDescription
 {
-  v3 = [[NSMutableString alloc] initWithFormat:@"<%@:%p {\n", objc_opt_class(), self];
-  client = self->_client;
-  v5 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@"  client = %@\n", v5];
+  v2 = [[NSMutableString alloc] initWithFormat:@"<%@:%p {\n", objc_opt_class(), self];
+  v3 = MRCreateIndentedDebugDescriptionFromObject();
+  [v2 appendFormat:@"  client = %@\n", v3];
 
-  transport = self->_transport;
-  v7 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@"  transport = %@\n", v7];
+  v4 = MRCreateIndentedDebugDescriptionFromObject();
+  [v2 appendFormat:@"  transport = %@\n", v4];
 
-  [v3 appendString:@"}>"];
+  [v2 appendString:@"}>"];
 
-  return v3;
+  return v2;
 }
 
 @end

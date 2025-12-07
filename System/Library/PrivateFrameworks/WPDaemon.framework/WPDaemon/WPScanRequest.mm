@@ -13,7 +13,7 @@
 
 - (id)description
 {
-  [(WPScanRequest *)self scanningRates];
+  objc_msgSend_scanningRates(self, a2);
   if (v29 == 0xFFFF)
   {
     v25 = @"No Scan";
@@ -22,11 +22,11 @@
   else
   {
     v3 = MEMORY[0x277CCACA8];
-    [(WPScanRequest *)self scanningRates];
+    objc_msgSend_scanningRates(self);
     v25 = [v3 stringWithFormat:@"%ld", v28];
   }
 
-  [(WPScanRequest *)self scanningRates];
+  objc_msgSend_scanningRates(self);
   if (v27 == 0xFFFF)
   {
     v24 = @"No Scan";
@@ -35,7 +35,7 @@
   else
   {
     v4 = MEMORY[0x277CCACA8];
-    [(WPScanRequest *)self scanningRates];
+    objc_msgSend_scanningRates(self);
     v24 = [v4 stringWithFormat:@"%ld", v26];
   }
 
@@ -117,7 +117,7 @@
   if (v4)
   {
     [v4 setClientType:{-[WPScanRequest clientType](self, "clientType")}];
-    [(WPScanRequest *)self scanningRates];
+    objc_msgSend_scanningRates(self);
     v12 = v14;
     v13 = v15;
     [v4 setScanningRates:&v12];
@@ -160,11 +160,11 @@
 
 - (WPScanRequest)initWithCoder:(id)coder
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v27.receiver = self;
-  v27.super_class = WPScanRequest;
-  v5 = [(WPScanRequest *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = WPScanRequest;
+  v5 = [(WPScanRequest *)&v26 init];
   if (v5)
   {
     v5->_clientType = [coderCopy decodeIntegerForKey:@"kClientType"];
@@ -190,9 +190,9 @@
     v5->_options = v12;
 
     v14 = MEMORY[0x277CBEB98];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
     v16 = [v14 setWithArray:v15];
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"kPeers"];
     peers = v5->_peers;
@@ -208,9 +208,9 @@
     v5->_range = [coderCopy decodeBoolForKey:@"kRange"];
     v5->_holdVoucher = [coderCopy decodeBoolForKey:@"kHoldVoucher"];
     v20 = MEMORY[0x277CBEB98];
-    v28[0] = objc_opt_class();
-    v28[1] = objc_opt_class();
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+    v27[0] = objc_opt_class();
+    v27[1] = objc_opt_class();
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
     v22 = [v20 setWithArray:v21];
     v23 = [coderCopy decodeObjectOfClasses:v22 forKey:@"kUseCases"];
     useCaseList = v5->_useCaseList;
@@ -221,7 +221,6 @@
     v5->_requestedAtNsec = [coderCopy decodeInt64ForKey:@"kRequestedAtNsec"];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -229,11 +228,11 @@
 {
   coderCopy = coder;
   [coderCopy encodeInteger:-[WPScanRequest clientType](self forKey:{"clientType"), @"kClientType"}];
-  [(WPScanRequest *)self scanningRates];
-  [coderCopy encodeInteger:v13 forKey:@"kScanningRatesScreenOn"];
-  [(WPScanRequest *)self scanningRates];
+  objc_msgSend_scanningRates(self);
+  [coderCopy encodeInteger:v13[0] forKey:@"kScanningRatesScreenOn"];
+  objc_msgSend_scanningRates(self);
   [coderCopy encodeInteger:v12 forKey:@"kScanningRatesScreenOff"];
-  [(WPScanRequest *)self scanningRates];
+  objc_msgSend_scanningRates(self);
   [coderCopy encodeInteger:v11 forKey:@"kScanningRatesWindow"];
   [coderCopy encodeBool:-[WPScanRequest scanWhenLocked](self forKey:{"scanWhenLocked"), @"kScanWhenLocked"}];
   [coderCopy encodeBool:-[WPScanRequest scanCache](self forKey:{"scanCache"), @"kWPScanCache"}];
@@ -295,30 +294,30 @@
 
 - (id)convertUseCaseToString:(id)string
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   string = [MEMORY[0x277CCAB68] string];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = stringCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
         v10 = MEMORY[0x277CCACA8];
-        integerValue = [*(*(&v16 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v15 + 1) + 8 * i) integerValue];
         if (integerValue < 0x20000)
         {
           if (integerValue <= 0x20000)
@@ -967,13 +966,11 @@ LABEL_216:
         [string appendFormat:@"%@ ", v13];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return string;
 }

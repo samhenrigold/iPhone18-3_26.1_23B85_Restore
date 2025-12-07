@@ -10,6 +10,7 @@
 - (NSUUID)homeDataV3ObjectID;
 - (NSUUID)metadataObjectID;
 - (id)createCloudRecordWithObjectID:(id)d recordName:(id)name;
+- (id)createCloudZoneChangeTemporaryCache:(BOOL)cache;
 - (void)dropCachedRecords;
 - (void)setServerChangeToken:(id)token;
 @end
@@ -24,20 +25,25 @@
   [(HMDCloudZone *)self updateCurrentServerChangeToken];
 }
 
+- (id)createCloudZoneChangeTemporaryCache:(BOOL)cache
+{
+  v3 = [[HMDCloudLegacyZoneChange alloc] initWithZone:self temporaryCache:cache];
+
+  return v3;
+}
+
 - (void)dropCachedRecords
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"84968B22-8974-4102-AAA6-7B9C763A14B5";
-  v5[1] = @"BC9706E1-E72E-4152-A2A6-417AD742DC41";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"84968B22-8974-4102-AAA6-7B9C763A14B5";
+  v4[1] = @"BC9706E1-E72E-4152-A2A6-417AD742DC41";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   [(HMDCloudZone *)self deleteCloudRecordNames:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createCloudRecordWithObjectID:(id)d recordName:(id)name
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   v8 = nameCopy;
@@ -85,11 +91,11 @@ LABEL_11:
 
     v24 = HMFGetLogIdentifier();
     uUIDString = [dCopy UUIDString];
-    v31 = 138543618;
-    v32 = v24;
-    v33 = 2112;
-    v34 = uUIDString;
-    _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unknown legacy record objectID %@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v24;
+    v32 = 2112;
+    v33 = uUIDString;
+    _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unknown legacy record objectID %@", &v30, 0x16u);
 
     goto LABEL_19;
   }
@@ -109,8 +115,8 @@ LABEL_20:
     }
 
     v24 = HMFGetLogIdentifier();
-    v31 = 138543362;
-    v32 = v24;
+    v30 = 138543362;
+    v31 = v24;
     v25 = "%{public}@Either objectID or recordName must be specified for a legacy record";
     v26 = v23;
     v27 = 12;
@@ -144,15 +150,15 @@ LABEL_20:
     }
 
     v24 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v24;
-    v33 = 2112;
-    v34 = v8;
+    v30 = 138543618;
+    v31 = v24;
+    v32 = 2112;
+    v33 = v8;
     v25 = "%{public}@Unknown legacy record name %@";
     v26 = v23;
     v27 = 22;
 LABEL_14:
-    _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, v25, &v31, v27);
+    _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, v25, &v30, v27);
 LABEL_19:
 
     goto LABEL_20;
@@ -165,7 +171,6 @@ LABEL_23:
   v20 = [(HMDCloudRecord *)v13 initWithObjectID:v14 recordName:v15 cloudZone:self];
 
 LABEL_24:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

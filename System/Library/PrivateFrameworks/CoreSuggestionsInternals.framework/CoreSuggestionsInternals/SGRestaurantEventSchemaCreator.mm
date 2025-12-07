@@ -100,29 +100,29 @@ LABEL_8:
 
 - (id)processDURawEvent:(id)event
 {
-  v56[11] = *MEMORY[0x277D85DE8];
+  v55[11] = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v48 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D064B8]];
+  v47 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D064B8]];
   v4 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D066A8]];
   v5 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D066B8]];
   v6 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D067B0]];
   v7 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D06678]];
-  v47 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D066A0]];
+  v46 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D066A0]];
   v8 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D06770]];
-  v46 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D066B0]];
+  v45 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D066B0]];
   v9 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D065F8]];
-  v38 = v9;
+  v37 = v9;
   if (v9)
   {
     v10 = v9;
     v11 = objc_alloc(MEMORY[0x277CCACA8]);
     capitalizedString = [v10 capitalizedString];
-    v45 = [v11 initWithFormat:@"http://schema.org/Reservation%@", capitalizedString];
+    v44 = [v11 initWithFormat:@"http://schema.org/Reservation%@", capitalizedString];
   }
 
   else
   {
-    v45 = 0;
+    v44 = 0;
   }
 
   v13 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277D06578]];
@@ -133,129 +133,121 @@ LABEL_8:
     v15 = &unk_284749AB8;
   }
 
-  v43 = v15;
-  v55[0] = @"@context";
-  v55[1] = @"@type";
-  v56[0] = @"http://schema.org";
-  v56[1] = @"http://schema.org/FoodEstablishmentReservation";
-  v55[2] = @"reservationId";
+  v42 = v15;
+  v54[0] = @"@context";
+  v54[1] = @"@type";
+  v55[0] = @"http://schema.org";
+  v55[1] = @"http://schema.org/FoodEstablishmentReservation";
+  v54[2] = @"reservationId";
   null = v5;
   if (!v5)
   {
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v36 = null;
-  v56[2] = null;
-  v55[3] = @"reservationStatus";
-  null2 = v45;
-  if (!v45)
+  v35 = null;
+  v55[2] = null;
+  v54[3] = @"reservationStatus";
+  null2 = v44;
+  if (!v44)
   {
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v35 = null2;
-  v56[3] = null2;
-  v55[4] = @"underName";
-  v53[0] = @"@type";
-  v53[1] = @"name";
-  v54[0] = @"http://schema.org/Person";
+  v34 = null2;
+  v55[3] = null2;
+  v54[4] = @"underName";
+  v52[0] = @"@type";
+  v52[1] = @"name";
+  v53[0] = @"http://schema.org/Person";
   null3 = v6;
   if (!v6)
   {
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v34 = null3;
-  v54[1] = null3;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
-  v56[4] = v37;
-  v55[5] = @"startTime";
+  v33 = null3;
+  v53[1] = null3;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
+  v55[4] = v36;
+  v54[5] = @"startTime";
   null4 = v8;
   if (!v8)
   {
     null4 = [MEMORY[0x277CBEB68] null];
   }
 
-  v41 = v5;
-  v33 = null4;
-  v56[5] = null4;
-  v55[6] = @"partySize";
+  v40 = v5;
+  v32 = null4;
+  v55[5] = null4;
+  v54[6] = @"partySize";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x277CBEB68] null];
   }
 
-  v32 = null5;
-  v56[6] = null5;
-  v55[7] = @"reservationFor";
-  v52[0] = @"http://schema.org/FoodEstablishment";
-  v51[0] = @"@type";
-  v51[1] = @"name";
+  v31 = null5;
+  v55[6] = null5;
+  v54[7] = @"reservationFor";
+  v51[0] = @"http://schema.org/FoodEstablishment";
+  v50[0] = @"@type";
+  v50[1] = @"name";
   null6 = v4;
-  v42 = v4;
+  v41 = v4;
   if (!v4)
   {
     null6 = [MEMORY[0x277CBEB68] null];
   }
 
-  v40 = v6;
-  v31 = null6;
-  v52[1] = null6;
-  v51[2] = @"address";
-  null7 = v47;
-  if (!v47)
+  v39 = v6;
+  v30 = null6;
+  v51[1] = null6;
+  v50[2] = @"address";
+  null7 = v46;
+  if (!v46)
   {
     null7 = [MEMORY[0x277CBEB68] null];
   }
 
-  v44 = v13;
-  v39 = v7;
-  v52[2] = null7;
-  v51[3] = @"telephone";
-  null8 = v46;
-  if (!v46)
+  v43 = v13;
+  v38 = v7;
+  v51[2] = null7;
+  v50[3] = @"telephone";
+  null8 = v45;
+  if (!v45)
   {
     null8 = [MEMORY[0x277CBEB68] null];
   }
 
-  v52[3] = null8;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:4];
-  v56[7] = v24;
-  v55[8] = @"broker";
-  v49[1] = @"name";
-  v50[0] = @"http://schema.org/Organization";
-  v49[0] = @"@type";
-  null9 = v48;
-  if (!v48)
+  v51[3] = null8;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:4];
+  v55[7] = v24;
+  v54[8] = @"broker";
+  v48[1] = @"name";
+  v49[0] = @"http://schema.org/Organization";
+  v48[0] = @"@type";
+  null9 = v47;
+  if (!v47)
   {
     null9 = [MEMORY[0x277CBEB68] null];
   }
 
-  v50[1] = null9;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
-  v56[8] = v26;
-  v55[9] = @"DetailedEventStatus";
-  null10 = v44;
-  if (!v44)
+  v49[1] = null9;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
+  v55[8] = v26;
+  v54[9] = @"DetailedEventStatus";
+  null10 = v43;
+  if (!v43)
   {
     null10 = [MEMORY[0x277CBEB68] null];
   }
 
-  v55[10] = @"startTimeIsUnknown";
-  v56[9] = null10;
-  v56[10] = v43;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:11];
-  if (!v44)
-  {
-  }
-
-  if (!v48)
-  {
-  }
-
-  if (!v46)
+  v54[10] = @"startTimeIsUnknown";
+  v55[9] = null10;
+  v55[10] = v42;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:11];
+  if (!v43)
   {
   }
 
@@ -263,9 +255,17 @@ LABEL_8:
   {
   }
 
-  if (v42)
+  if (!v45)
   {
-    if (v39)
+  }
+
+  if (!v46)
+  {
+  }
+
+  if (v41)
+  {
+    if (v38)
     {
       goto LABEL_36;
     }
@@ -274,7 +274,7 @@ LABEL_8:
   else
   {
 
-    if (v39)
+    if (v38)
     {
       goto LABEL_36;
     }
@@ -285,13 +285,13 @@ LABEL_36:
   {
   }
 
-  if (!v40)
+  if (!v39)
   {
   }
 
-  if (v45)
+  if (v44)
   {
-    if (v41)
+    if (v40)
     {
       goto LABEL_42;
     }
@@ -300,14 +300,13 @@ LABEL_36:
   else
   {
 
-    if (v41)
+    if (v40)
     {
       goto LABEL_42;
     }
   }
 
 LABEL_42:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

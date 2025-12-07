@@ -27,35 +27,35 @@
 {
   completionCopy = completion;
   dataCopy = data;
-  v18 = objc_msgSend_requesterObject(self, v8, v9, v10, v11, v12, v13);
-  objc_msgSend_signatureForData_completion_(v18, v14, dataCopy, completionCopy, v15, v16, v17);
+  v11 = objc_msgSend_requesterObject(self, v8, v9);
+  objc_msgSend_signatureForData_completion_(v11, v10, dataCopy, completionCopy);
 }
 
 - (id)signatureForData:(id)data
 {
   dataCopy = data;
-  v11 = objc_msgSend_requesterObject(self, v5, v6, v7, v8, v9, v10);
-  v17 = objc_msgSend_signatureForData_(v11, v12, dataCopy, v13, v14, v15, v16);
+  v7 = objc_msgSend_requesterObject(self, v5, v6);
+  v9 = objc_msgSend_signatureForData_(v7, v8, dataCopy);
 
-  return v17;
+  return v9;
 }
 
 - (void)signatureForData:(id)data waitTime:(double)time completion:(id)completion
 {
   completionCopy = completion;
   dataCopy = data;
-  v19 = objc_msgSend_requesterObject(self, v10, v11, v12, v13, v14, v15);
-  objc_msgSend_signatureForData_waitTime_completion_(v19, v16, dataCopy, completionCopy, v17, time, v18);
+  v13 = objc_msgSend_requesterObject(self, v10, v11);
+  objc_msgSend_signatureForData_waitTime_completion_(v13, v12, dataCopy, completionCopy, time);
 }
 
 - (void)dealloc
 {
-  v8 = objc_msgSend_requesterObject(self, a2, v2, v3, v4, v5, v6);
-  objc_msgSend_finished(v8, v9, v10, v11, v12, v13, v14);
+  v4 = objc_msgSend_requesterObject(self, a2, v2);
+  objc_msgSend_finished(v4, v5, v6);
 
-  v15.receiver = self;
-  v15.super_class = APMescalSigning;
-  [(APMescalSigning *)&v15 dealloc];
+  v7.receiver = self;
+  v7.super_class = APMescalSigning;
+  [(APMescalSigning *)&v7 dealloc];
 }
 
 @end

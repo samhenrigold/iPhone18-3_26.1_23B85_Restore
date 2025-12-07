@@ -61,12 +61,12 @@
 
 void __40__HKHRAFibBurdenControl_triggerAnalysis__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
-  v4 = HKHRAFibBurdenLogForCategory(3);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = HKHRAFibBurdenLogForCategory(3);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __40__HKHRAFibBurdenControl_triggerAnalysis__block_invoke_2_cold_1(a1);
+    __40__HKHRAFibBurdenControl_triggerAnalysis__block_invoke_2_cold_1();
   }
 }
 
@@ -180,7 +180,7 @@ void __84__HKHRAFibBurdenControl_addTachogramClassificationForSampleUUID_hasAFib
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __84__HKHRAFibBurdenControl_addTachogramClassificationForSampleUUID_hasAFib_completion___block_invoke_2_cold_1(a1);
+    __84__HKHRAFibBurdenControl_addTachogramClassificationForSampleUUID_hasAFib_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -212,7 +212,7 @@ void __72__HKHRAFibBurdenControl_queryAllTachogramClassificationsWithCompletion_
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __72__HKHRAFibBurdenControl_queryAllTachogramClassificationsWithCompletion___block_invoke_2_cold_1(a1);
+    __72__HKHRAFibBurdenControl_queryAllTachogramClassificationsWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -248,7 +248,7 @@ void __78__HKHRAFibBurdenControl_queryTachogramClassificationForSampleUUID_compl
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __78__HKHRAFibBurdenControl_queryTachogramClassificationForSampleUUID_completion___block_invoke_2_cold_1(a1);
+    __78__HKHRAFibBurdenControl_queryTachogramClassificationForSampleUUID_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -280,7 +280,7 @@ void __73__HKHRAFibBurdenControl_deleteAllTachogramClassificationsWithCompletion
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __73__HKHRAFibBurdenControl_deleteAllTachogramClassificationsWithCompletion___block_invoke_2_cold_1(a1);
+    __73__HKHRAFibBurdenControl_deleteAllTachogramClassificationsWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -316,7 +316,7 @@ void __79__HKHRAFibBurdenControl_deleteTachogramClassificationForSampleUUID_comp
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __79__HKHRAFibBurdenControl_deleteTachogramClassificationForSampleUUID_completion___block_invoke_2_cold_1(a1);
+    __79__HKHRAFibBurdenControl_deleteTachogramClassificationForSampleUUID_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -352,7 +352,7 @@ void __90__HKHRAFibBurdenControl_determineMajorityTimeZoneForStartDayIndex_endDa
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __90__HKHRAFibBurdenControl_determineMajorityTimeZoneForStartDayIndex_endDayIndex_completion___block_invoke_2_cold_1(a1);
+    __90__HKHRAFibBurdenControl_determineMajorityTimeZoneForStartDayIndex_endDayIndex_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -388,7 +388,7 @@ void __88__HKHRAFibBurdenControl_queryEligibleTachogramsForStartDayIndex_endDayI
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __88__HKHRAFibBurdenControl_queryEligibleTachogramsForStartDayIndex_endDayIndex_completion___block_invoke_2_cold_1(a1);
+    __88__HKHRAFibBurdenControl_queryEligibleTachogramsForStartDayIndex_endDayIndex_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -422,7 +422,7 @@ void __89__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForWe
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __89__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForWeekday_completion___block_invoke_2_cold_1(a1);
+    __89__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForWeekday_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -456,7 +456,7 @@ void __97__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForTi
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __97__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForTimeOfDayBucket_completion___block_invoke_2_cold_1(a1);
+    __97__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForTimeOfDayBucket_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -505,7 +505,7 @@ void __151__HKHRAFibBurdenControl_addTachogramsForStartDayIndex_endDayIndex_chan
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __151__HKHRAFibBurdenControl_addTachogramsForStartDayIndex_endDayIndex_chanceOfAFib_chanceOfWrite_minutesBetweenSamples_startingHour_endingHour_completion___block_invoke_2_cold_1(a1);
+    __151__HKHRAFibBurdenControl_addTachogramsForStartDayIndex_endDayIndex_chanceOfAFib_chanceOfWrite_minutesBetweenSamples_startingHour_endingHour_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -617,7 +617,7 @@ void __61__HKHRAFibBurdenControl_sendNotificationWithMode_completion___block_inv
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __61__HKHRAFibBurdenControl_sendNotificationWithMode_completion___block_invoke_2_cold_1(a1);
+    __61__HKHRAFibBurdenControl_sendNotificationWithMode_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -768,7 +768,7 @@ void __55__HKHRAFibBurdenControl_injectBurdenValues_completion___block_invoke_2(
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __55__HKHRAFibBurdenControl_injectBurdenValues_completion___block_invoke_2_cold_1(a1);
+    __55__HKHRAFibBurdenControl_injectBurdenValues_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -875,151 +875,124 @@ void __72__HKHRAFibBurdenControl_fetchSevenDayAnalysisBreadcrumbsWithCompletion_
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __72__HKHRAFibBurdenControl_fetchSevenDayAnalysisBreadcrumbsWithCompletion___block_invoke_2_cold_1(a1);
+    __72__HKHRAFibBurdenControl_fetchSevenDayAnalysisBreadcrumbsWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
 }
 
-void __40__HKHRAFibBurdenControl_triggerAnalysis__block_invoke_2_cold_1(uint64_t a1)
+void __40__HKHRAFibBurdenControl_triggerAnalysis__block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __84__HKHRAFibBurdenControl_addTachogramClassificationForSampleUUID_hasAFib_completion___block_invoke_2_cold_1(uint64_t a1)
+void __84__HKHRAFibBurdenControl_addTachogramClassificationForSampleUUID_hasAFib_completion___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __72__HKHRAFibBurdenControl_queryAllTachogramClassificationsWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __72__HKHRAFibBurdenControl_queryAllTachogramClassificationsWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __78__HKHRAFibBurdenControl_queryTachogramClassificationForSampleUUID_completion___block_invoke_2_cold_1(uint64_t a1)
+void __78__HKHRAFibBurdenControl_queryTachogramClassificationForSampleUUID_completion___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __73__HKHRAFibBurdenControl_deleteAllTachogramClassificationsWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __73__HKHRAFibBurdenControl_deleteAllTachogramClassificationsWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __79__HKHRAFibBurdenControl_deleteTachogramClassificationForSampleUUID_completion___block_invoke_2_cold_1(uint64_t a1)
+void __79__HKHRAFibBurdenControl_deleteTachogramClassificationForSampleUUID_completion___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __90__HKHRAFibBurdenControl_determineMajorityTimeZoneForStartDayIndex_endDayIndex_completion___block_invoke_2_cold_1(uint64_t a1)
+void __90__HKHRAFibBurdenControl_determineMajorityTimeZoneForStartDayIndex_endDayIndex_completion___block_invoke_2_cold_1()
 {
-  v1 = OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 56);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void __88__HKHRAFibBurdenControl_queryEligibleTachogramsForStartDayIndex_endDayIndex_completion___block_invoke_2_cold_1(uint64_t a1)
+void __88__HKHRAFibBurdenControl_queryEligibleTachogramsForStartDayIndex_endDayIndex_completion___block_invoke_2_cold_1()
 {
-  v1 = OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 56);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void __89__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForWeekday_completion___block_invoke_2_cold_1(uint64_t a1)
+void __89__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForWeekday_completion___block_invoke_2_cold_1()
 {
-  v1 = *(OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]) + 48);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __97__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForTimeOfDayBucket_completion___block_invoke_2_cold_1(uint64_t a1)
+void __97__HKHRAFibBurdenControl_queryEligibleTachogramsForPreviousSixWeeksForTimeOfDayBucket_completion___block_invoke_2_cold_1()
 {
-  v1 = *(OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]) + 48);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __151__HKHRAFibBurdenControl_addTachogramsForStartDayIndex_endDayIndex_chanceOfAFib_chanceOfWrite_minutesBetweenSamples_startingHour_endingHour_completion___block_invoke_2_cold_1(uint64_t a1)
+void __151__HKHRAFibBurdenControl_addTachogramsForStartDayIndex_endDayIndex_chanceOfAFib_chanceOfWrite_minutesBetweenSamples_startingHour_endingHour_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __61__HKHRAFibBurdenControl_sendNotificationWithMode_completion___block_invoke_2_cold_1(uint64_t a1)
+void __61__HKHRAFibBurdenControl_sendNotificationWithMode_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __55__HKHRAFibBurdenControl_injectBurdenValues_completion___block_invoke_2_cold_1(uint64_t a1)
+void __55__HKHRAFibBurdenControl_injectBurdenValues_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __72__HKHRAFibBurdenControl_fetchSevenDayAnalysisBreadcrumbsWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __72__HKHRAFibBurdenControl_fetchSevenDayAnalysisBreadcrumbsWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

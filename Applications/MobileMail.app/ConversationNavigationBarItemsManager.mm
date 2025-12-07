@@ -114,7 +114,7 @@
 {
   swift_unknownObjectRetain();
   _objc_retain(self);
-  ConversationNavigationBarItemsManager.scene.setter();
+  ConversationNavigationBarItemsManager.scene.setter(scene);
   _objc_release(self);
 }
 
@@ -131,7 +131,7 @@
 {
   swift_unknownObjectRetain();
   _objc_retain(self);
-  ConversationNavigationBarItemsManager.delegate.setter();
+  ConversationNavigationBarItemsManager.delegate.setter(delegate);
   _objc_release(self);
 }
 
@@ -148,7 +148,7 @@
 {
   swift_unknownObjectRetain();
   _objc_retain(self);
-  ConversationNavigationBarItemsManager.actionHandler.setter();
+  ConversationNavigationBarItemsManager.actionHandler.setter(handler);
   _objc_release(self);
 }
 
@@ -165,7 +165,7 @@
 {
   swift_unknownObjectRetain();
   _objc_retain(self);
-  ConversationNavigationBarItemsManager.arrowDelegate.setter();
+  ConversationNavigationBarItemsManager.arrowDelegate.setter(delegate);
   _objc_release(self);
 }
 

@@ -7,6 +7,10 @@
 - (void)appendEmptyTag:(unsigned __int8)tag;
 - (void)appendInt:(int)int;
 - (void)appendString:(id)string;
+- (void)appendTag:(unsigned __int8)tag withByteArrayDataContent:(id)content;
+- (void)appendTag:(unsigned __int8)tag withIntContent:(int)content;
+- (void)appendTag:(unsigned __int8)tag withStringContent:(id)content;
+- (void)appendTag:(unsigned __int8)tag withStringContentAsData:(id)data;
 - (void)closeProspectiveTag:(unsigned __int8)tag;
 - (void)closeTag:(unsigned __int8)tag;
 - (void)openTag:(unsigned __int8)tag;
@@ -57,20 +61,19 @@
 
 - (void)appendInt:(int)int
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0xCuLL, "%d", int);
-  v5 = 3;
-  [(NSMutableData *)self->_data appendBytes:&v5 length:1];
+  v4 = 3;
+  [(NSMutableData *)self->_data appendBytes:&v4 length:1];
   [(NSMutableData *)self->_data appendBytes:__str length:strlen(__str) + 1];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendByteArrayData:(id)data
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v10 = -61;
-  [(NSMutableData *)self->_data appendBytes:&v10 length:1];
+  v9 = -61;
+  [(NSMutableData *)self->_data appendBytes:&v9 length:1];
   v5 = [dataCopy length];
   if (HIDWORD(v5))
   {
@@ -79,7 +82,7 @@
     if (os_log_type_enabled(v6, v7))
     {
       *buf = 134217984;
-      v12 = v5;
+      v11 = v5;
       _os_log_impl(&dword_24A0AC000, v6, v7, "Bad things gunna happen.  Trying to send a wbxml data blob of length %lu inline", buf, 0xCu);
     }
   }
@@ -87,8 +90,6 @@
   v8 = [objc_alloc(MEMORY[0x277CBEA90]) initForLengthTokenOfLength:v5];
   [(NSMutableData *)self->_data appendData:v8];
   [(NSMutableData *)self->_data appendData:dataCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)renderProspectiveTags
@@ -137,22 +138,22 @@
 - (void)closeProspectiveTag:(unsigned __int8)tag
 {
   tagCopy = tag;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([(NSMutableData *)self->_stateStack length])
   {
-    v11 = 0;
-    [(NSMutableData *)self->_stateStack getBytes:&v11 range:[(NSMutableData *)self->_stateStack length]- 1, 1];
-    v5 = v11 != 195 && (v11 & 0x40) != 0;
-    if ((v11 & 0x3F) != tagCopy)
+    v10 = 0;
+    [(NSMutableData *)self->_stateStack getBytes:&v10 range:[(NSMutableData *)self->_stateStack length]- 1, 1];
+    v5 = v10 != 195 && (v10 & 0x40) != 0;
+    if ((v10 & 0x3F) != tagCopy)
     {
       v6 = DALoggingwithCategory();
       v7 = *(MEMORY[0x277D03988] + 4);
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 67109376;
-        v13 = tagCopy;
-        v14 = 1024;
-        v15 = v11 & 0x3F;
+        v12 = tagCopy;
+        v13 = 1024;
+        v14 = v10 & 0x3F;
         _os_log_impl(&dword_24A0AC000, v6, v7, "closing a WBXML tag %d when our stack's top tag is %d", buf, 0xEu);
       }
     }
@@ -172,12 +173,10 @@
     if (os_log_type_enabled(v8, v9))
     {
       *buf = 67109120;
-      v13 = tagCopy;
+      v12 = tagCopy;
       _os_log_impl(&dword_24A0AC000, v8, v9, "closing a WBXML tag %d when we don't have a tag open", buf, 8u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendEmptyTag:(unsigned __int8)tag
@@ -207,21 +206,21 @@
 - (void)closeTag:(unsigned __int8)tag
 {
   tagCopy = tag;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(NSMutableData *)self->_stateStack length])
   {
-    v10 = 0;
-    [(NSMutableData *)self->_stateStack getBytes:&v10 range:[(NSMutableData *)self->_stateStack length]- 1, 1];
-    if (v10 != tagCopy)
+    v9 = 0;
+    [(NSMutableData *)self->_stateStack getBytes:&v9 range:[(NSMutableData *)self->_stateStack length]- 1, 1];
+    if (v9 != tagCopy)
     {
       v5 = DALoggingwithCategory();
       v6 = *(MEMORY[0x277D03988] + 4);
       if (os_log_type_enabled(v5, v6))
       {
         *buf = 67109376;
-        v12 = tagCopy;
-        v13 = 1024;
-        v14 = v10;
+        v11 = tagCopy;
+        v12 = 1024;
+        v13 = v9;
         _os_log_impl(&dword_24A0AC000, v5, v6, "closing a WBXML tag %d when our stack's top tag is %d", buf, 0xEu);
       }
     }
@@ -236,14 +235,57 @@
     if (os_log_type_enabled(v7, v8))
     {
       *buf = 67109120;
-      v12 = tagCopy;
+      v11 = tagCopy;
       _os_log_impl(&dword_24A0AC000, v7, v8, "closing a WBXML tag %d when we don't have a tag open", buf, 8u);
     }
   }
 
   buf[0] = 1;
   [(NSMutableData *)self->_data appendBytes:buf length:1];
-  v9 = *MEMORY[0x277D85DE8];
+}
+
+- (void)appendTag:(unsigned __int8)tag withStringContent:(id)content
+{
+  tagCopy = tag;
+  contentCopy = content;
+  if ([contentCopy length])
+  {
+    [(WBXMLData *)self openTag:tagCopy];
+    [(WBXMLData *)self appendString:contentCopy];
+    [(WBXMLData *)self closeTag:tagCopy];
+  }
+}
+
+- (void)appendTag:(unsigned __int8)tag withStringContentAsData:(id)data
+{
+  tagCopy = tag;
+  dataCopy = data;
+  if ([dataCopy length])
+  {
+    [(WBXMLData *)self openTag:tagCopy];
+    [(WBXMLData *)self appendData:dataCopy];
+    [(WBXMLData *)self closeTag:tagCopy];
+  }
+}
+
+- (void)appendTag:(unsigned __int8)tag withIntContent:(int)content
+{
+  v4 = *&content;
+  tagCopy = tag;
+  [(WBXMLData *)self openTag:?];
+  [(WBXMLData *)self appendInt:v4];
+
+  [(WBXMLData *)self closeTag:tagCopy];
+}
+
+- (void)appendTag:(unsigned __int8)tag withByteArrayDataContent:(id)content
+{
+  tagCopy = tag;
+  contentCopy = content;
+  [(WBXMLData *)self openTag:tagCopy];
+  [(WBXMLData *)self appendByteArrayData:contentCopy];
+
+  [(WBXMLData *)self closeTag:tagCopy];
 }
 
 - (id)dataExpectCompleteData:(BOOL)data

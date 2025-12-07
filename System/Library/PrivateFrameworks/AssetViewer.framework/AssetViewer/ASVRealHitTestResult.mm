@@ -126,23 +126,23 @@ LABEL_14:
 
 - (ASVRealHitTestResult)initWithType:(__n128)type worldPosition:(__n128)position worldTransform:(__n128)transform localPosition:(__n128)localPosition imagePoint:(__n128)point assetPosition:(double)assetPosition cameraPosition:(double)cameraPosition planeIdentifier:(uint64_t)self0 planeAlignment:(uint64_t)self1
 {
-  v22 = a12;
-  v33.receiver = self;
-  v33.super_class = ASVRealHitTestResult;
-  v23 = [(ASVHitTestResult *)&v33 initWithType:alignment worldPosition:a2 imagePoint:assetPosition assetPosition:cameraPosition cameraPosition:a14];
-  v24 = v23;
-  if (v23)
+  v19 = a12;
+  v30.receiver = self;
+  v30.super_class = ASVRealHitTestResult;
+  v20 = [(ASVHitTestResult *)&v30 initWithType:alignment worldPosition:a2 imagePoint:assetPosition assetPosition:cameraPosition cameraPosition:a14];
+  v21 = v20;
+  if (v20)
   {
-    *&v23[1].super.super.isa = type;
-    *v23[1].super._imagePoint = position;
-    *v23[1].super._worldPosition = transform;
-    *v23[1].super._assetPosition = localPosition;
-    *v23->_localPosition = point;
-    objc_storeStrong(&v23->_planeIdentifier, a12);
-    v24->_alignment = a13;
+    *&v20[1].super.super.isa = type;
+    *v20[1].super._imagePoint = position;
+    *v20[1].super._worldPosition = transform;
+    *v20[1].super._assetPosition = localPosition;
+    *v20->_localPosition = point;
+    objc_storeStrong(&v20->_planeIdentifier, a12);
+    v21->_alignment = a13;
   }
 
-  return v24;
+  return v21;
 }
 
 - (float)distanceFromFeaturePoint

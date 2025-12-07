@@ -194,7 +194,7 @@ LABEL_22:
   var0 = a4.var0;
   if ((a4.var0 <= -1 || ((a4.var0 & 0x7FFFFFFFFFFFFFFFLL) - 0x10000000000000) >> 53 >= 0x3FF) && (*&a4.var0 - 1) >= 0xFFFFFFFFFFFFFLL)
   {
-    sub_100083894("Degrees of freedom argument is %1%, but must be > 0 !", &var0);
+    sub_100083894("Degrees of freedom argument is %1%, but must be > 0 !", &var0, *&v77);
   }
 
   if (*&v11 >> 52 >= 0x7FFuLL)
@@ -206,73 +206,73 @@ LABEL_22:
   *&v80.__r_.__value_.__l.__data_ = a4.var0 * 0.5;
   if (a4.var0 * 0.5 <= 0.0)
   {
-    sub_100085A1C("boost::math::gamma_p<%1%>(%1%, %1%)", "Argument a to the incomplete gamma function must be greater than zero (got a=%1%).", &v80);
+    sub_100085A1C("boost::math::gamma_p<%1%>(%1%, %1%)", "Argument a to the incomplete gamma function must be greater than zero (got a=%1%).", &v80, *&v77, *&var0);
   }
 
   v15 = v11 * 0.5;
-  v16 = v11 * 0.5 + 1.0;
-  v17 = 30.0;
-  v18 = v11 * 0.5 < 709.0 && v14 < 30.0;
-  if (!v18 || v16 < v14)
+  a4.var0 = v11 * 0.5 + 1.0;
+  v16 = 30.0;
+  v17 = v11 * 0.5 < 709.0 && v14 < 30.0;
+  if (!v17 || a4.var0 < v14)
   {
     goto LABEL_29;
   }
 
-  v20 = floor(v14);
-  if (v20 != v14)
+  v19 = floor(v14);
+  if (v19 != v14)
   {
-    v16 = vabdd_f64(v20, v14);
-    v17 = 0.5;
-    if (v15 > 0.2 && v16 == 0.5)
+    a4.var0 = vabdd_f64(v19, v14);
+    v16 = 0.5;
+    if (v15 > 0.2 && a4.var0 == 0.5)
     {
-      v24 = sub_100087DE4(1, sqrt(v15));
-      if (fabs(v24) <= 1.79769313e308)
+      v23 = sub_100087DE4(1, a2, sqrt(v15), *&a4.var0);
+      if (fabs(v23) <= 1.79769313e308)
       {
-        if (v14 > 1.0 && v24 != 0.0)
+        if (v14 > 1.0 && v23 != 0.0)
         {
-          v35 = exp(-v15);
-          v36 = sqrt(v15 * 3.14159265);
-          v37 = v15 * (v35 / v36) + v15 * (v35 / v36);
-          v38 = 2.0;
+          v34 = exp(-v15);
+          v35 = sqrt(v15 * 3.14159265);
+          v36 = v15 * (v34 / v35) + v15 * (v34 / v35);
+          v37 = 2.0;
           if (v14 > 2.0)
           {
-            v39 = 3;
-            v40 = v37;
+            v38 = 3;
+            v39 = v36;
             do
             {
-              v40 = v15 * (v40 / (v38 + -0.5));
-              v37 = v37 + v40;
-              v38 = v39++;
+              v39 = v15 * (v39 / (v37 + -0.5));
+              v36 = v36 + v39;
+              v37 = v38++;
             }
 
-            while (v14 > v38);
+            while (v14 > v37);
           }
 
-          v24 = v24 + v37;
+          v23 = v23 + v36;
         }
 
         goto LABEL_65;
       }
 
-      v53 = "boost::math::erfc<%1%>(%1%, %1%)";
+      v52 = "boost::math::erfc<%1%>(%1%, %1%)";
       goto LABEL_149;
     }
 
 LABEL_29:
     if (v14 > 1.0 && v15 < 0.0000000149011612)
     {
-      sub_100086ED8(v14 + 1.0, v16, v17, confidenceCopy, v5, v6, v7, v8);
-      if (fabs(v26) > 1.79769313e308)
+      sub_100086ED8(v14 + 1.0, a4.var0, v16, confidenceCopy, v5, v6, v7, v8);
+      if (fabs(v25) > 1.79769313e308)
       {
         sub_100086A38("boost::math::tgamma<%1%>(%1%)", "numeric overflow");
       }
 
-      v27 = (1.0 - v14 * v15 / (v14 + 1.0)) * (pow(v15, v14) / v26);
+      v26 = (1.0 - v14 * v15 / (v14 + 1.0)) * (pow(v15, v14) / v25);
 LABEL_33:
-      v28 = 1.0;
-      if (v27 <= 1.0)
+      v27 = 1.0;
+      if (v26 <= 1.0)
       {
-        v28 = v27;
+        v27 = v26;
       }
 
       goto LABEL_68;
@@ -280,36 +280,36 @@ LABEL_33:
 
     if (v15 > 1000.0 && (v14 < v15 || fabs(v14 + -50.0) / v15 < 1.0))
     {
-      v24 = sub_1000850F4(v14, v15) / v15;
-      if (v24 == 0.0)
+      v23 = sub_1000850F4(v14, v15) / v15;
+      if (v23 == 0.0)
       {
         goto LABEL_65;
       }
 
-      v29 = 0.0;
-      v30 = 1.0;
-      v31 = 1000000;
+      v28 = 0.0;
+      v29 = 1.0;
+      v30 = 1000000;
       do
       {
-        v29 = v30 + v29;
-        if (fabs(v29 * 2.22044605e-16) >= fabs(v30))
+        v28 = v29 + v28;
+        if (fabs(v28 * 2.22044605e-16) >= fabs(v29))
         {
           break;
         }
 
         v14 = v14 + -1.0;
-        v30 = v30 * (v14 / v15);
-        --v31;
+        v29 = v29 * (v14 / v15);
+        --v30;
       }
 
-      while (v31);
-      v32 = 1000000 - v31;
-      if (v32 < 0xF4240)
+      while (v30);
+      v31 = 1000000 - v30;
+      if (v31 < 0xF4240)
       {
         goto LABEL_44;
       }
 
-      *&v81.__r_.__value_.__l.__data_ = v32;
+      *&v81.__r_.__value_.__l.__data_ = v31;
       v76 = "boost::math::tgamma<%1%>(%1%,%1%)";
 LABEL_147:
       sub_100085E48(v76, &v81);
@@ -317,41 +317,41 @@ LABEL_147:
 
     if (v15 < 0.5)
     {
-      v33 = -0.4 / log(v15);
+      v32 = -0.4 / log(v15);
 LABEL_51:
-      if (v33 < v14)
+      if (v32 < v14)
       {
         goto LABEL_52;
       }
 
-      v41 = v14 + 1.0;
+      v40 = v14 + 1.0;
       if (v14 >= 2.0)
       {
-        sub_100086ED8(v41, 2.0, v17, confidenceCopy, v5, v6, v7, v8);
-        if (fabs(v46) > 1.79769313e308)
+        sub_100086ED8(v40, 2.0, v16, confidenceCopy, v5, v6, v7, v8);
+        if (fabs(v45) > 1.79769313e308)
         {
-          v53 = "boost::math::tgamma<%1%>(%1%)";
+          v52 = "boost::math::tgamma<%1%>(%1%)";
           goto LABEL_149;
         }
 
-        v43 = v46 + -1.0;
-        v44 = fabs(v46 + -1.0);
+        v42 = v45 + -1.0;
+        v43 = fabs(v45 + -1.0);
       }
 
       else
       {
-        sub_100086C20(v41, v14, v14 + -1.0);
-        v43 = sub_10008821C(v42);
-        v44 = fabs(v43);
-        if (v44 > 1.79769313e308)
+        sub_100086C20(v40, v14, v14 + -1.0);
+        v42 = sub_10008821C(v41);
+        v43 = fabs(v42);
+        if (v43 > 1.79769313e308)
         {
           goto LABEL_95;
         }
       }
 
-      if (v44 <= 1.79769313e308)
+      if (v43 <= 1.79769313e308)
       {
-        v47 = v15;
+        v46 = v15;
         if (v15 > 0.0)
         {
           goto LABEL_88;
@@ -367,88 +367,88 @@ LABEL_51:
           if (floor(v14) != v14)
           {
             *&v81.__r_.__value_.__l.__data_ = v15;
-            sub_100085A1C("boost::math::powm1<%1%>(%1%, %1%)", "For non-integral exponent, expected base > 0 but got %1%", &v81);
+            sub_100085A1C("boost::math::powm1<%1%>(%1%, %1%)", "For non-integral exponent, expected base > 0 but got %1%", &v81, *&v77, *&var0);
           }
 
           if (v14 * 0.5 != INFINITY)
           {
-            v47 = v15;
+            v46 = v15;
             if (floor(v14 * 0.5) != v14 * 0.5)
             {
               goto LABEL_97;
             }
 
-            v48 = v15;
+            v47 = v15;
             do
             {
-              v47 = -v48;
-              v18 = v48 < 0.0;
-              v48 = -v48;
+              v46 = -v47;
+              v17 = v47 < 0.0;
+              v47 = -v47;
             }
 
-            while (!v18);
+            while (!v17);
 LABEL_88:
-            v49 = fabs(v14 * (v47 + -1.0));
-            if (v14 < 0.2 || v49 < 0.5)
+            v48 = fabs(v14 * (v46 + -1.0));
+            if (v14 < 0.2 || v48 < 0.5)
             {
-              v51 = v14 * log(v47);
-              if (v51 < 0.5)
+              v50 = v14 * log(v46);
+              if (v50 < 0.5)
               {
-                v52 = sub_10008821C(v51);
-                if (fabs(v52) > 1.79769313e308)
+                v51 = sub_10008821C(v50);
+                if (fabs(v51) > 1.79769313e308)
                 {
 LABEL_95:
-                  v53 = "boost::math::expm1<%1%>(%1%)";
+                  v52 = "boost::math::expm1<%1%>(%1%)";
                   goto LABEL_149;
                 }
 
 LABEL_98:
-                v54 = (v43 + 1.0) / v14;
-                v55 = (v43 - v52) / v14;
-                v56 = v52 + 1.0;
-                v57 = (v54 - v55) / v56;
-                v58 = 999990;
-                v59 = 2;
-                v60 = -v15;
+                v53 = (v42 + 1.0) / v14;
+                v54 = (v42 - v51) / v14;
+                v55 = v51 + 1.0;
+                v56 = (v53 - v54) / v55;
+                v57 = 999990;
+                v58 = 2;
+                v59 = -v15;
                 do
                 {
                   v14 = v14 + 1.0;
-                  v57 = v60 / v14 + v57;
-                  if (fabs(v57 * 2.22044605e-16) >= fabs(v60 / v14))
+                  v56 = v59 / v14 + v56;
+                  if (fabs(v56 * 2.22044605e-16) >= fabs(v59 / v14))
                   {
                     break;
                   }
 
-                  v60 = v60 * -v15 / v59++;
-                  --v58;
+                  v59 = v59 * -v15 / v58++;
+                  --v57;
                 }
 
-                while (v58);
-                v61 = 999990 - v58;
-                if (v61 < 0xF4240)
+                while (v57);
+                v60 = 999990 - v57;
+                if (v60 < 0xF4240)
                 {
-                  v28 = v56 * v57 / v54;
-                  if (v28 > 1.0)
+                  v27 = v55 * v56 / v53;
+                  if (v27 > 1.0)
                   {
-                    v28 = 1.0;
+                    v27 = 1.0;
                   }
 
                   goto LABEL_68;
                 }
 
-                *&v81.__r_.__value_.__l.__data_ = v61;
+                *&v81.__r_.__value_.__l.__data_ = v60;
                 v76 = "boost::math::tgamma_small_upper_part<%1%>(%1%, %1%)";
                 goto LABEL_147;
               }
 
-              if (v51 > 709.0)
+              if (v50 > 709.0)
               {
                 sub_100086A38("boost::math::powm1<%1%>(%1%, %1%)", "Overflow Error");
               }
             }
 
 LABEL_97:
-            v52 = pow(v47, v14) + -1.0;
+            v51 = pow(v46, v14) + -1.0;
             goto LABEL_98;
           }
 
@@ -458,32 +458,33 @@ LABEL_97:
         sub_1000871F8("boost::math::trunc<%1%>(%1%)", &v81);
       }
 
-      v53 = "boost::math::tgamma1pm1<%!%>(%1%)";
+      v52 = "boost::math::tgamma1pm1<%!%>(%1%)";
 LABEL_149:
-      sub_100086A38(v53, "numeric overflow");
+      sub_100086A38(v52, "numeric overflow");
     }
 
     if (v15 < 1.1)
     {
-      v33 = v15 * 0.75;
+      v32 = v15 * 0.75;
       goto LABEL_51;
     }
 
     if (v14 > 20.0)
     {
-      v45 = (v15 - v14) / v14;
+      v44 = (v15 - v14) / v14;
       if (v14 > 200.0)
       {
-        if (20.0 / v14 <= v45 * v45)
+        if (20.0 / v14 <= v44 * v44)
         {
           goto LABEL_74;
         }
 
 LABEL_106:
-        v28 = sub_1000854C8(v14, v15);
-        if (v28 > 1.0)
+        v61.n128_f64[0] = v15;
+        v27 = sub_1000854C8(v14, v61, self, a2);
+        if (v27 > 1.0)
         {
-          v28 = 1.0;
+          v27 = 1.0;
         }
 
         if (v15 < v14)
@@ -494,7 +495,7 @@ LABEL_106:
         goto LABEL_67;
       }
 
-      if (fabs(v45) < 0.4)
+      if (fabs(v44) < 0.4)
       {
         goto LABEL_106;
       }
@@ -503,72 +504,72 @@ LABEL_106:
 LABEL_74:
     if (v15 + -1.0 / (v15 * 3.0) >= v14)
     {
-      v24 = sub_1000850F4(v14, v15);
-      if (v24 == 0.0)
+      v23 = sub_1000850F4(v14, v15);
+      if (v23 == 0.0)
       {
         goto LABEL_65;
       }
 
-      v29 = sub_100084FB8(v14, v15);
+      v28 = sub_100084FB8(v14, v15);
 LABEL_44:
-      v28 = v24 * v29;
-      if (v28 > 1.0)
+      v27 = v23 * v28;
+      if (v27 > 1.0)
       {
-        v28 = 1.0;
+        v27 = 1.0;
       }
 
       goto LABEL_67;
     }
 
 LABEL_52:
-    v27 = sub_1000850F4(v14, v15);
-    if (v27 != 0.0)
+    v26 = sub_1000850F4(v14, v15);
+    if (v26 != 0.0)
     {
       sub_100085068(v14, v15);
-      v27 = v27 * (v34 / v14);
+      v26 = v26 * (v33 / v14);
     }
 
     goto LABEL_33;
   }
 
-  v16 = 0.6;
+  a4.var0 = 0.6;
   if (v15 <= 0.6)
   {
     goto LABEL_29;
   }
 
-  v21 = exp(-v15);
-  v22 = 1.0;
-  if (v14 <= 1.0 || v21 == 0.0)
+  v20 = exp(-v15);
+  v21 = 1.0;
+  if (v14 <= 1.0 || v20 == 0.0)
   {
-    v24 = v21;
+    v23 = v20;
   }
 
   else
   {
-    v23 = 2;
-    v24 = v21;
+    v22 = 2;
+    v23 = v20;
     do
     {
-      v21 = v15 * (v21 / v22);
-      v24 = v24 + v21;
-      v22 = v23++;
+      v20 = v15 * (v20 / v21);
+      v23 = v23 + v20;
+      v21 = v22++;
     }
 
-    while (v14 > v22);
+    while (v14 > v21);
   }
 
 LABEL_65:
-  v28 = 1.0;
-  if (v24 <= 1.0)
+  v27 = 1.0;
+  if (v23 <= 1.0)
   {
-    v28 = v24;
+    v27 = v23;
   }
 
 LABEL_67:
-  v28 = 1.0 - v28;
+  v27 = 1.0 - v27;
 LABEL_68:
-  if (fabs(v28) > 1.79769313e308)
+  if (fabs(v27) > 1.79769313e308)
   {
     sub_10000D63C(&v81, "gamma_p<%1%>(%1%, %1%)");
     sub_10000D63C(&v80, "Error in function ");
@@ -685,7 +686,7 @@ LABEL_135:
     sub_100084890(&v79);
   }
 
-  return 1.0 - v28;
+  return 1.0 - v27;
 }
 
 @end

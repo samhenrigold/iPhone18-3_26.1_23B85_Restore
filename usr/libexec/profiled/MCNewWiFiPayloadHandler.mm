@@ -165,34 +165,25 @@ LABEL_7:
   payload = [(MCNewPayloadHandler *)self payload];
   v4 = EAPOLClientProfileGetInformation();
   v5 = v4;
-  if (!v4)
+  v12 = 0;
+  if (v4)
   {
-    goto LABEL_5;
-  }
+    v6 = kMCPayloadUUIDKey;
+    v7 = [v4 objectForKey:kMCPayloadUUIDKey];
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-  v6 = kMCPayloadUUIDKey;
-  v7 = [v4 objectForKey:kMCPayloadUUIDKey];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
+    {
+      v9 = [v5 objectForKey:v6];
+      uUID = [payload UUID];
+      v11 = [v9 isEqualToString:uUID];
 
-  if ((isKindOfClass & 1) == 0)
-  {
-    goto LABEL_5;
-  }
-
-  v9 = [v5 objectForKey:v6];
-  uUID = [payload UUID];
-  v11 = [v9 isEqualToString:uUID];
-
-  if (v11)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v12 = 0;
+      if (v11)
+      {
+        v12 = 1;
+      }
+    }
   }
 
   return v12;
@@ -476,7 +467,7 @@ LABEL_50:
     if (ProfileWithID)
     {
 LABEL_13:
-      if ([(MCNewWiFiPayloadHandler *)self _isMetadataValid:ProfileWithWLANSSID, *v47])
+      if ([(MCNewWiFiPayloadHandler *)self _isMetadataValid:ProfileWithWLANSSID, *v47, *&v47[8]])
       {
         v17 = EAPOLClientItemIDCreateWithProfile();
         if (v17)
@@ -1276,37 +1267,34 @@ LABEL_46:
 {
   dCopy = d;
   iDCopy = iD;
-  manager = self->_manager;
-  v9 = WiFiManagerClientCopyProperty();
-  v10 = v9;
-  if (v9)
+  v7 = WiFiManagerClientCopyProperty();
+  v8 = v7;
+  if (v7)
   {
-    v11 = [v9 mutableCopy];
-    [v11 setObject:dCopy forKey:iDCopy];
-    v12 = self->_manager;
+    v9 = [v7 mutableCopy];
+    [v9 setObject:dCopy forKey:iDCopy];
     WiFiManagerClientSetProperty();
-    v13 = _MCLogObjects[0];
+    v10 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
-      v17 = v11;
-      v14 = "MCNewWiFiPayloadHandler updated custom settings: %{public}@";
+      v12 = 138543362;
+      v13 = v9;
+      v11 = "MCNewWiFiPayloadHandler updated custom settings: %{public}@";
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, &v16, 0xCu);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v11, &v12, 0xCu);
     }
   }
 
   else
   {
-    v11 = [NSDictionary dictionaryWithObject:dCopy forKey:iDCopy];
-    v15 = self->_manager;
+    v9 = [NSDictionary dictionaryWithObject:dCopy forKey:iDCopy];
     WiFiManagerClientSetProperty();
-    v13 = _MCLogObjects[0];
+    v10 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
-      v17 = dCopy;
-      v14 = "MCNewWiFiPayloadHandler set custom settings: %{public}@";
+      v12 = 138543362;
+      v13 = dCopy;
+      v11 = "MCNewWiFiPayloadHandler set custom settings: %{public}@";
       goto LABEL_6;
     }
   }
@@ -1549,26 +1537,25 @@ LABEL_24:
   v8 = SCPreferencesCreateWithAuthorization(0, @"com.apple.settings.wi-fi", 0, 0);
   if (!v8)
   {
-    v22 = _MCLogObjects[0];
+    v21 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot create system configuration preferences.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot create system configuration preferences.", buf, 2u);
     }
 
     goto LABEL_137;
   }
 
   v9 = v8;
-  manager = self->_manager;
-  v11 = WiFiManagerClientCopyProperty();
+  v10 = WiFiManagerClientCopyProperty();
   if (!SCPreferencesLock(v9, 1u))
   {
-    v23 = _MCLogObjects[0];
+    v22 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot lock system configuration preferences.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot lock system configuration preferences.", buf, 2u);
     }
 
     CFRelease(v9);
@@ -1576,45 +1563,45 @@ LABEL_24:
   }
 
   SCPreferencesSynchronize(v9);
-  v12 = SCNetworkSetCopyAll(v9);
-  if (!v12)
+  v11 = SCNetworkSetCopyAll(v9);
+  if (!v11)
   {
-    v24 = _MCLogObjects[0];
+    v23 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot retrieve network sets from system configuration.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot retrieve network sets from system configuration.", buf, 2u);
     }
 
-    v25 = 0;
-    v26 = 1;
+    v24 = 0;
+    v25 = 1;
     goto LABEL_132;
   }
 
-  v141 = a2;
+  v140 = a2;
   name = [payload ssid];
-  v13 = [v11 objectForKey:?];
-  v148 = v11;
-  if (v13)
+  v12 = [v10 objectForKey:?];
+  v147 = v10;
+  if (v12)
   {
-    v14 = v13;
-    v147 = payload;
-    if (CFArrayGetCount(v12) >= 1)
+    v13 = v12;
+    v146 = payload;
+    if (CFArrayGetCount(v11) >= 1)
     {
-      v15 = 0;
+      v14 = 0;
       while (1)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v12, v15);
+        ValueAtIndex = CFArrayGetValueAtIndex(v11, v14);
         SetID = SCNetworkSetGetSetID(ValueAtIndex);
         if (SetID)
         {
-          if (([(__CFString *)SetID isEqualToString:v14]& 1) != 0)
+          if (([(__CFString *)SetID isEqualToString:v13]& 1) != 0)
           {
             break;
           }
         }
 
-        if (++v15 >= CFArrayGetCount(v12))
+        if (++v14 >= CFArrayGetCount(v11))
         {
           goto LABEL_10;
         }
@@ -1622,160 +1609,160 @@ LABEL_24:
 
       if (ValueAtIndex)
       {
-        v48 = _MCLogObjects[0];
+        v47 = _MCLogObjects[0];
         if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v154 = v14;
-          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler attempting to modify service for custom set ID: %{public}@...", buf, 0xCu);
+          v153 = v13;
+          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler attempting to modify service for custom set ID: %{public}@...", buf, 0xCu);
         }
 
-        v49 = SCNetworkSetCopyServices(ValueAtIndex);
-        if (!v49)
+        v48 = SCNetworkSetCopyServices(ValueAtIndex);
+        if (!v48)
         {
-          v61 = _MCLogObjects[0];
+          v60 = _MCLogObjects[0];
           if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot get existing services.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot get existing services.", buf, 2u);
           }
 
-          v25 = 0;
+          v24 = 0;
+          v44 = 0;
+          v37 = 0;
+          v150 = 0;
           v45 = 0;
-          v38 = 0;
-          v151 = 0;
-          v46 = 0;
-          v26 = 1;
-          v59 = 1;
-          payload = v147;
+          v25 = 1;
+          v58 = 1;
+          payload = v146;
           goto LABEL_124;
         }
 
-        v50 = v49;
+        v49 = v48;
         errorCopy2 = error;
-        if (CFArrayGetCount(v49) <= 0)
+        if (CFArrayGetCount(v48) <= 0)
         {
-          CFRelease(v50);
+          CFRelease(v49);
           set = 0;
-          v151 = 0;
+          v150 = 0;
           goto LABEL_112;
         }
 
-        v143 = v14;
-        v38 = 0;
-        v51 = 0;
+        v142 = v13;
+        v37 = 0;
+        v50 = 0;
         while (1)
         {
-          v52 = CFArrayGetValueAtIndex(v50, v51);
-          Interface = SCNetworkServiceGetInterface(v52);
+          v51 = CFArrayGetValueAtIndex(v49, v50);
+          Interface = SCNetworkServiceGetInterface(v51);
           if (Interface)
           {
-            v54 = Interface;
+            v53 = Interface;
             while (1)
             {
-              InterfaceType = SCNetworkInterfaceGetInterfaceType(v54);
+              InterfaceType = SCNetworkInterfaceGetInterfaceType(v53);
               if (CFEqual(InterfaceType, kSCNetworkInterfaceTypeIEEE80211))
               {
                 break;
               }
 
-              v54 = SCNetworkInterfaceGetInterface(v54);
-              if (!v54)
+              v53 = SCNetworkInterfaceGetInterface(v53);
+              if (!v53)
               {
                 goto LABEL_80;
               }
             }
 
-            if (!v38)
+            if (!v37)
             {
-              v56 = _MCLogObjects[0];
+              v55 = _MCLogObjects[0];
               if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler creating a new service...", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler creating a new service...", buf, 2u);
               }
 
-              v57 = SCNetworkServiceCreate(v9, v54);
-              v38 = v57;
-              if (!v57)
+              v56 = SCNetworkServiceCreate(v9, v53);
+              v37 = v56;
+              if (!v56)
               {
-                v100 = _MCLogObjects[0];
+                v99 = _MCLogObjects[0];
                 if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  v101 = "MCNewWiFiPayloadHandler cannot create new service.";
+                  v100 = "MCNewWiFiPayloadHandler cannot create new service.";
                   goto LABEL_183;
                 }
 
 LABEL_184:
-                CFRelease(v50);
+                CFRelease(v49);
 
-                v25 = 0;
+                v24 = 0;
+                v44 = 0;
+                v150 = 0;
                 v45 = 0;
-                v151 = 0;
-                v46 = 0;
-                v26 = 1;
-                v59 = 1;
-                payload = v147;
+                v25 = 1;
+                v58 = 1;
+                payload = v146;
                 error = errorCopy2;
                 goto LABEL_124;
               }
 
-              if (!SCNetworkServiceEstablishDefaultConfiguration(v57))
+              if (!SCNetworkServiceEstablishDefaultConfiguration(v56))
               {
-                v100 = _MCLogObjects[0];
+                v99 = _MCLogObjects[0];
                 if (!os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_184;
                 }
 
                 *buf = 0;
-                v101 = "MCNewWiFiPayloadHandler cannot establish new service.";
+                v100 = "MCNewWiFiPayloadHandler cannot establish new service.";
 LABEL_183:
-                _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, v101, buf, 2u);
+                _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_ERROR, v100, buf, 2u);
                 goto LABEL_184;
               }
 
-              if (!SCNetworkServiceRemove(v52))
+              if (!SCNetworkServiceRemove(v51))
               {
-                v100 = _MCLogObjects[0];
+                v99 = _MCLogObjects[0];
                 if (!os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_184;
                 }
 
                 *buf = 0;
-                v101 = "MCNewWiFiPayloadHandler cannot remove old service.";
+                v100 = "MCNewWiFiPayloadHandler cannot remove old service.";
                 goto LABEL_183;
               }
 
-              if (!SCNetworkSetAddService(ValueAtIndex, v38))
+              if (!SCNetworkSetAddService(ValueAtIndex, v37))
               {
-                v100 = _MCLogObjects[0];
+                v99 = _MCLogObjects[0];
                 if (!os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_184;
                 }
 
                 *buf = 0;
-                v101 = "MCNewWiFiPayloadHandler cannot add new service.";
+                v100 = "MCNewWiFiPayloadHandler cannot add new service.";
                 goto LABEL_183;
               }
             }
           }
 
 LABEL_80:
-          if (++v51 >= CFArrayGetCount(v50))
+          if (++v50 >= CFArrayGetCount(v49))
           {
-            CFRelease(v50);
-            if (v38)
+            CFRelease(v49);
+            if (v37)
             {
-              CFRelease(v38);
+              CFRelease(v37);
             }
 
             set = 0;
-            v151 = 0;
-            v14 = v143;
+            v150 = 0;
+            v13 = v142;
             goto LABEL_112;
           }
         }
@@ -1783,235 +1770,235 @@ LABEL_80:
     }
 
 LABEL_10:
-    v18 = _MCLogObjects[0];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = _MCLogObjects[0];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot retrieve custom network set from system configuration.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot retrieve custom network set from system configuration.", buf, 2u);
     }
 
-    payload = v147;
+    payload = v146;
   }
 
-  v19 = _MCLogObjects[0];
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v18 = _MCLogObjects[0];
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler attempting to create a new set for the network...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler attempting to create a new set for the network...", buf, 2u);
   }
 
-  if (CFArrayGetCount(v12) < 1)
+  if (CFArrayGetCount(v11) < 1)
   {
     goto LABEL_29;
   }
 
-  v20 = 0;
+  v19 = 0;
   while (1)
   {
-    v21 = CFArrayGetValueAtIndex(v12, v20);
-    if ([(__CFString *)SCNetworkSetGetName(v21) isEqualToString:@"Automatic"])
+    v20 = CFArrayGetValueAtIndex(v11, v19);
+    if ([(__CFString *)SCNetworkSetGetName(v20) isEqualToString:@"Automatic"])
     {
       break;
     }
 
-    if (++v20 >= CFArrayGetCount(v12))
+    if (++v19 >= CFArrayGetCount(v11))
     {
       goto LABEL_29;
     }
   }
 
-  set = CFRetain(v21);
+  set = CFRetain(v20);
   if (!set)
   {
 LABEL_29:
-    v27 = _MCLogObjects[0];
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v26 = _MCLogObjects[0];
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "MCNewWiFiPayloadHandler cannot get default set; using current set instead.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "MCNewWiFiPayloadHandler cannot get default set; using current set instead.", buf, 2u);
     }
 
     set = SCNetworkSetCopyCurrent(v9);
     if (!set)
     {
-      v44 = _MCLogObjects[0];
+      v43 = _MCLogObjects[0];
       if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot copy default set from system configuration.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot copy default set from system configuration.", buf, 2u);
       }
 
-      v25 = 0;
+      v24 = 0;
+      v44 = 0;
+      v37 = 0;
+      v150 = 0;
       v45 = 0;
-      v38 = 0;
-      v151 = 0;
-      v46 = 0;
       goto LABEL_93;
     }
   }
 
-  v28 = SCNetworkSetCreate(v9);
-  if (!v28)
+  v27 = SCNetworkSetCreate(v9);
+  if (!v27)
   {
-    v47 = _MCLogObjects[0];
+    v46 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot create new set.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot create new set.", buf, 2u);
     }
 
-    v25 = 0;
-    v45 = 0;
-    v38 = 0;
-    v151 = 0;
+    v24 = 0;
+    v44 = 0;
+    v37 = 0;
+    v150 = 0;
     goto LABEL_87;
   }
 
-  v29 = v28;
-  SCNetworkSetSetName(v28, name);
-  v30 = SCNetworkSetCopyServices(set);
-  v151 = v29;
-  if (!v30)
+  v28 = v27;
+  SCNetworkSetSetName(v27, name);
+  v29 = SCNetworkSetCopyServices(set);
+  v150 = v28;
+  if (!v29)
   {
-    v58 = _MCLogObjects[0];
+    v57 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot get default services.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot get default services.", buf, 2u);
     }
 
-    v25 = 0;
-    v45 = 0;
-    v38 = 0;
+    v24 = 0;
+    v44 = 0;
+    v37 = 0;
 LABEL_87:
-    v26 = 1;
-    v59 = 1;
-    v46 = set;
+    v25 = 1;
+    v58 = 1;
+    v45 = set;
     goto LABEL_124;
   }
 
-  v31 = v30;
-  v147 = payload;
+  v30 = v29;
+  v146 = payload;
   errorCopy2 = error;
-  if (CFArrayGetCount(v30) < 1)
+  if (CFArrayGetCount(v29) < 1)
   {
-    v32 = v31;
+    v31 = v30;
     goto LABEL_108;
   }
 
-  v32 = 0;
+  v31 = 0;
   service = 0;
-  v33 = 0;
+  v32 = 0;
   do
   {
-    v34 = CFArrayGetValueAtIndex(v31, v33);
-    v35 = SCNetworkServiceGetInterface(v34);
-    if (!v35)
+    v33 = CFArrayGetValueAtIndex(v30, v32);
+    v34 = SCNetworkServiceGetInterface(v33);
+    if (!v34)
     {
 LABEL_40:
-      v38 = v34;
+      v37 = v33;
       goto LABEL_50;
     }
 
-    v36 = v35;
+    v35 = v34;
     while (1)
     {
-      v37 = SCNetworkInterfaceGetInterfaceType(v36);
-      if (CFEqual(v37, kSCNetworkInterfaceTypeIEEE80211))
+      v36 = SCNetworkInterfaceGetInterfaceType(v35);
+      if (CFEqual(v36, kSCNetworkInterfaceTypeIEEE80211))
       {
         break;
       }
 
-      v36 = SCNetworkInterfaceGetInterface(v36);
-      if (!v36)
+      v35 = SCNetworkInterfaceGetInterface(v35);
+      if (!v35)
       {
         goto LABEL_40;
       }
     }
 
-    v39 = _MCLogObjects[0];
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v38 = _MCLogObjects[0];
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler found WiFi interface.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler found WiFi interface.", buf, 2u);
     }
 
-    if (v32)
+    if (v31)
     {
-      v38 = v34;
-      v29 = v151;
+      v37 = v33;
+      v28 = v150;
       goto LABEL_50;
     }
 
-    v40 = _MCLogObjects[0];
-    v29 = v151;
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v39 = _MCLogObjects[0];
+    v28 = v150;
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler creating new service...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler creating new service...", buf, 2u);
     }
 
-    v41 = SCNetworkServiceCreate(v9, v36);
-    if (!v41)
+    v40 = SCNetworkServiceCreate(v9, v35);
+    if (!v40)
+    {
+      v95 = _MCLogObjects[0];
+      if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot create new service.", buf, 2u);
+      }
+
+      v37 = 0;
+LABEL_169:
+      payload = v146;
+      error = errorCopy2;
+LABEL_92:
+      v45 = set;
+      CFRelease(v30);
+      v24 = 0;
+      v44 = 0;
+LABEL_93:
+      v25 = 1;
+      v58 = 1;
+      goto LABEL_124;
+    }
+
+    v37 = v40;
+    if (!SCNetworkServiceEstablishDefaultConfiguration(v40))
     {
       v96 = _MCLogObjects[0];
       if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot create new service.", buf, 2u);
-      }
-
-      v38 = 0;
-LABEL_169:
-      payload = v147;
-      error = errorCopy2;
-LABEL_92:
-      v46 = set;
-      CFRelease(v31);
-      v25 = 0;
-      v45 = 0;
-LABEL_93:
-      v26 = 1;
-      v59 = 1;
-      goto LABEL_124;
-    }
-
-    v38 = v41;
-    if (!SCNetworkServiceEstablishDefaultConfiguration(v41))
-    {
-      v97 = _MCLogObjects[0];
-      if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot establish new service.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot establish new service.", buf, 2u);
       }
 
       goto LABEL_169;
     }
 
-    service = v34;
-    v32 = v38;
+    service = v33;
+    v31 = v37;
 LABEL_50:
-    if (!SCNetworkSetAddService(v29, v38))
+    if (!SCNetworkSetAddService(v28, v37))
     {
-      v60 = _MCLogObjects[0];
+      v59 = _MCLogObjects[0];
       error = errorCopy2;
       if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot add new service.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot add new service.", buf, 2u);
       }
 
-      v38 = v32;
-      payload = v147;
+      v37 = v31;
+      payload = v146;
       goto LABEL_92;
     }
 
-    ++v33;
+    ++v32;
   }
 
-  while (v33 < CFArrayGetCount(v31));
-  if (v32 && service)
+  while (v32 < CFArrayGetCount(v30));
+  if (v31 && service)
   {
     ServiceOrder = SCNetworkSetGetServiceOrder(set);
     if (ServiceOrder)
@@ -2024,312 +2011,312 @@ LABEL_50:
       MutableCopy = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
     }
 
-    v62 = MutableCopy;
+    v61 = MutableCopy;
     Count = CFArrayGetCount(MutableCopy);
     ServiceID = SCNetworkServiceGetServiceID(service);
-    v157.location = 0;
-    v157.length = Count;
-    FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v62, v157, ServiceID);
+    v156.location = 0;
+    v156.length = Count;
+    FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v61, v156, ServiceID);
     if (FirstIndexOfValue == -1)
     {
-      v68 = _MCLogObjects[0];
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+      v67 = _MCLogObjects[0];
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v154 = v62;
-        v155 = 2114;
-        v156 = ServiceOrder;
-        _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler failed to set service order: %{public}@. Maintaining old order: %{public}@", buf, 0x16u);
+        v153 = v61;
+        v154 = 2114;
+        v155 = ServiceOrder;
+        _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler failed to set service order: %{public}@. Maintaining old order: %{public}@", buf, 0x16u);
       }
 
-      v29 = v151;
+      v28 = v150;
     }
 
     else
     {
-      v66 = FirstIndexOfValue;
-      v67 = SCNetworkServiceGetServiceID(v32);
-      CFArraySetValueAtIndex(v62, v66, v67);
-      v29 = v151;
-      SCNetworkSetSetServiceOrder(v151, v62);
-      v68 = _MCLogObjects[0];
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+      v65 = FirstIndexOfValue;
+      v66 = SCNetworkServiceGetServiceID(v31);
+      CFArraySetValueAtIndex(v61, v65, v66);
+      v28 = v150;
+      SCNetworkSetSetServiceOrder(v150, v61);
+      v67 = _MCLogObjects[0];
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v154 = v62;
-        _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler set service order: %{public}@", buf, 0xCu);
+        v153 = v61;
+        _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler set service order: %{public}@", buf, 0xCu);
       }
     }
 
-    CFRelease(v62);
-    CFRelease(v31);
+    CFRelease(v61);
+    CFRelease(v30);
 LABEL_108:
-    CFRelease(v32);
+    CFRelease(v31);
   }
 
   else
   {
-    CFRelease(v31);
-    if (v32)
+    CFRelease(v30);
+    if (v31)
     {
       goto LABEL_108;
     }
   }
 
-  v69 = SCNetworkSetGetSetID(v29);
+  v68 = SCNetworkSetGetSetID(v28);
   WiFiNetworkSetProperty();
-  v70 = _MCLogObjects[0];
-  if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+  v69 = _MCLogObjects[0];
+  if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v154 = v69;
-    _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler set system configuration set ID: %{public}@", buf, 0xCu);
+    v153 = v68;
+    _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler set system configuration set ID: %{public}@", buf, 0xCu);
   }
 
-  v14 = 0;
-  ValueAtIndex = v151;
+  v13 = 0;
+  ValueAtIndex = v150;
 LABEL_112:
-  v71 = objc_opt_new();
-  [v71 activate];
-  servicea = [v71 interfaceName];
-  v139 = v71;
-  [v71 invalidate];
-  v72 = SCNetworkSetCopyServices(ValueAtIndex);
-  if (!v72)
+  v70 = objc_opt_new();
+  [v70 activate];
+  servicea = [v70 interfaceName];
+  v138 = v70;
+  [v70 invalidate];
+  v71 = SCNetworkSetCopyServices(ValueAtIndex);
+  if (!v71)
   {
     goto LABEL_120;
   }
 
-  v73 = v72;
-  if (CFArrayGetCount(v72) < 1)
+  v72 = v71;
+  if (CFArrayGetCount(v71) < 1)
   {
 LABEL_119:
-    CFRelease(v73);
+    CFRelease(v72);
     goto LABEL_120;
   }
 
-  v74 = 0;
-  v144 = v14;
+  v73 = 0;
+  v143 = v13;
   while (1)
   {
-    v75 = CFArrayGetValueAtIndex(v73, v74);
-    v76 = SCNetworkServiceGetInterface(v75);
-    if ([(__CFString *)SCNetworkInterfaceGetInterfaceType(v76) isEqualToString:kSCNetworkInterfaceTypeIEEE80211])
+    v74 = CFArrayGetValueAtIndex(v72, v73);
+    v75 = SCNetworkServiceGetInterface(v74);
+    if ([(__CFString *)SCNetworkInterfaceGetInterfaceType(v75) isEqualToString:kSCNetworkInterfaceTypeIEEE80211])
     {
       break;
     }
 
 LABEL_118:
-    if (++v74 >= CFArrayGetCount(v73))
+    if (++v73 >= CFArrayGetCount(v72))
     {
       goto LABEL_119;
     }
   }
 
-  v77 = SCNetworkInterfaceGetBSDName(v76);
-  if (![v77 isEqualToString:servicea])
+  v76 = SCNetworkInterfaceGetBSDName(v75);
+  if (![v76 isEqualToString:servicea])
   {
 
-    v14 = v144;
+    v13 = v143;
     goto LABEL_118;
   }
 
-  v88 = _MCLogObjects[0];
-  if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+  v87 = _MCLogObjects[0];
+  if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v154 = servicea;
-    _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler found WiFi service matching interface name: %{public}@", buf, 0xCu);
+    v153 = servicea;
+    _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler found WiFi service matching interface name: %{public}@", buf, 0xCu);
   }
 
-  v45 = CFRetain(v75);
-  CFRelease(v73);
-  v14 = v144;
-  if (!v45)
+  v44 = CFRetain(v74);
+  CFRelease(v72);
+  v13 = v143;
+  if (!v44)
   {
 LABEL_120:
-    v78 = _MCLogObjects[0];
+    v77 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler could not find WiFi service in system configuration.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler could not find WiFi service in system configuration.", buf, 2u);
     }
 
-    v45 = 0;
-    v25 = 0;
-    v26 = 1;
-    v59 = 1;
-    payload = v147;
+    v44 = 0;
+    v24 = 0;
+    v25 = 1;
+    v58 = 1;
+    payload = v146;
     error = errorCopy2;
-    v46 = set;
+    v45 = set;
     goto LABEL_123;
   }
 
-  v89 = SCNetworkSetGetServiceOrder(ValueAtIndex);
-  if (([v89 containsObject:SCNetworkServiceGetServiceID(v45)] & 1) == 0)
+  v88 = SCNetworkSetGetServiceOrder(ValueAtIndex);
+  if (([v88 containsObject:SCNetworkServiceGetServiceID(v44)] & 1) == 0)
   {
-    sub_1000C2910(v141, self, v45);
+    sub_1000C2910(v140, self, v44);
   }
 
-  payload = v147;
-  qosMarkingConfig = [v147 qosMarkingConfig];
+  payload = v146;
+  qosMarkingConfig = [v146 qosMarkingConfig];
   if ([qosMarkingConfig count] && !SCNetworkInterfaceSetQoSMarkingPolicy())
   {
-    v99 = _MCLogObjects[0];
+    v98 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler could not set WiFi service QoS Marking Policy in system configuration.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler could not set WiFi service QoS Marking Policy in system configuration.", buf, 2u);
     }
 
-    v25 = 0;
-    v26 = 1;
-    v59 = 1;
+    v24 = 0;
+    v25 = 1;
+    v58 = 1;
     goto LABEL_228;
   }
 
-  v25 = SCNetworkServiceCopyProtocol(v45, kSCEntNetProxies);
-  if (v25)
+  v24 = SCNetworkServiceCopyProtocol(v44, kSCEntNetProxies);
+  if (v24)
   {
-    proxyType = [v147 proxyType];
+    proxyType = [v146 proxyType];
     if (proxyType == 1)
     {
-      v91 = +[NSMutableDictionary dictionary];
-      proxyPACURLString = [v147 proxyPACURLString];
+      v90 = +[NSMutableDictionary dictionary];
+      proxyPACURLString = [v146 proxyPACURLString];
 
       if (proxyPACURLString)
       {
-        [v91 setObject:&off_100127228 forKeyedSubscript:kSCPropNetProxiesProxyAutoConfigEnable];
-        proxyPACURLString2 = [v147 proxyPACURLString];
-        [v91 setObject:proxyPACURLString2 forKeyedSubscript:kSCPropNetProxiesProxyAutoConfigURLString];
+        [v90 setObject:&off_100127228 forKeyedSubscript:kSCPropNetProxiesProxyAutoConfigEnable];
+        proxyPACURLString2 = [v146 proxyPACURLString];
+        [v90 setObject:proxyPACURLString2 forKeyedSubscript:kSCPropNetProxiesProxyAutoConfigURLString];
       }
 
       else
       {
-        [v91 setObject:&off_100127228 forKeyedSubscript:kSCPropNetProxiesProxyAutoDiscoveryEnable];
+        [v90 setObject:&off_100127228 forKeyedSubscript:kSCPropNetProxiesProxyAutoDiscoveryEnable];
       }
 
-      if ([v147 proxyPACFallbackAllowed])
+      if ([v146 proxyPACFallbackAllowed])
       {
-        v110 = &off_100127228;
+        v109 = &off_100127228;
       }
 
       else
       {
-        v110 = &off_100127240;
+        v109 = &off_100127240;
       }
 
-      [v91 setObject:v110 forKeyedSubscript:kSCPropNetProxiesFallBackAllowed];
-      v109 = 2;
+      [v90 setObject:v109 forKeyedSubscript:kSCPropNetProxiesFallBackAllowed];
+      v108 = 2;
       goto LABEL_198;
     }
 
     if (proxyType == 2)
     {
-      v91 = +[NSMutableDictionary dictionary];
-      proxyServer = [v147 proxyServer];
+      v90 = +[NSMutableDictionary dictionary];
+      proxyServer = [v146 proxyServer];
 
       if (proxyServer)
       {
-        proxyServer2 = [v147 proxyServer];
-        [v91 setObject:proxyServer2 forKey:kSCPropNetProxiesHTTPProxy];
+        proxyServer2 = [v146 proxyServer];
+        [v90 setObject:proxyServer2 forKey:kSCPropNetProxiesHTTPProxy];
 
-        proxyServer3 = [v147 proxyServer];
-        [v91 setObject:proxyServer3 forKey:kSCPropNetProxiesHTTPSProxy];
+        proxyServer3 = [v146 proxyServer];
+        [v90 setObject:proxyServer3 forKey:kSCPropNetProxiesHTTPSProxy];
       }
 
-      proxyServerPort = [v147 proxyServerPort];
+      proxyServerPort = [v146 proxyServerPort];
       if (proxyServerPort)
       {
-        [v91 setObject:proxyServerPort forKey:kSCPropNetProxiesHTTPPort];
+        [v90 setObject:proxyServerPort forKey:kSCPropNetProxiesHTTPPort];
       }
 
       else
       {
-        v104 = [NSNumber numberWithInt:80];
-        [v91 setObject:v104 forKey:kSCPropNetProxiesHTTPPort];
+        v103 = [NSNumber numberWithInt:80];
+        [v90 setObject:v103 forKey:kSCPropNetProxiesHTTPPort];
       }
 
-      proxyServerPort2 = [v147 proxyServerPort];
+      proxyServerPort2 = [v146 proxyServerPort];
       if (proxyServerPort2)
       {
-        [v91 setObject:proxyServerPort2 forKey:kSCPropNetProxiesHTTPSPort];
+        [v90 setObject:proxyServerPort2 forKey:kSCPropNetProxiesHTTPSPort];
       }
 
       else
       {
-        v106 = [NSNumber numberWithInt:80];
-        [v91 setObject:v106 forKey:kSCPropNetProxiesHTTPSPort];
+        v105 = [NSNumber numberWithInt:80];
+        [v90 setObject:v105 forKey:kSCPropNetProxiesHTTPSPort];
       }
 
+      v106 = [NSNumber numberWithInt:1];
+      [v90 setObject:v106 forKey:kSCPropNetProxiesHTTPEnable];
+
       v107 = [NSNumber numberWithInt:1];
-      [v91 setObject:v107 forKey:kSCPropNetProxiesHTTPEnable];
+      [v90 setObject:v107 forKey:kSCPropNetProxiesHTTPSEnable];
 
-      v108 = [NSNumber numberWithInt:1];
-      [v91 setObject:v108 forKey:kSCPropNetProxiesHTTPSEnable];
-
-      v109 = 1;
+      v108 = 1;
 LABEL_198:
-      v111 = [NSNumber numberWithInt:v109];
-      [v91 setObject:v111 forKey:@"HTTPProxyType"];
+      v110 = [NSNumber numberWithInt:v108];
+      [v90 setObject:v110 forKey:@"HTTPProxyType"];
     }
 
     else
     {
-      v91 = [(__CFDictionary *)SCNetworkProtocolGetConfiguration(v25) mutableCopy];
+      v90 = [(__CFDictionary *)SCNetworkProtocolGetConfiguration(v24) mutableCopy];
     }
 
-    proxyUsername = [v147 proxyUsername];
+    proxyUsername = [v146 proxyUsername];
     if (proxyUsername)
     {
 
       goto LABEL_202;
     }
 
-    proxyPassword = [v147 proxyPassword];
+    proxyPassword = [v146 proxyPassword];
 
     if (proxyPassword)
     {
 LABEL_202:
-      v114 = [NSNumber numberWithInt:1];
-      [v91 setObject:v114 forKey:@"HTTPProxyAuthenticated"];
+      v113 = [NSNumber numberWithInt:1];
+      [v90 setObject:v113 forKey:@"HTTPProxyAuthenticated"];
 
-      proxyUsername2 = [v147 proxyUsername];
-      v116 = proxyUsername2;
+      proxyUsername2 = [v146 proxyUsername];
+      v115 = proxyUsername2;
       if (proxyUsername2)
       {
-        v117 = proxyUsername2;
+        v116 = proxyUsername2;
       }
 
       else
       {
-        v117 = &stru_10011E740;
+        v116 = &stru_10011E740;
       }
 
-      [v91 setObject:v117 forKey:@"HTTPProxyUsername"];
+      [v90 setObject:v116 forKey:@"HTTPProxyUsername"];
 
-      [v91 setObject:&stru_10011E740 forKey:@"HTTPProxyPassword"];
+      [v90 setObject:&stru_10011E740 forKey:@"HTTPProxyPassword"];
     }
 
-    SCNetworkProtocolSetConfiguration(v25, v91);
-    v118 = _MCLogObjects[0];
-    if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
+    SCNetworkProtocolSetConfiguration(v24, v90);
+    v117 = _MCLogObjects[0];
+    if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v154 = v91;
-      _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler set proxy protocol configuration: %{public}@", buf, 0xCu);
+      v153 = v90;
+      _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler set proxy protocol configuration: %{public}@", buf, 0xCu);
     }
 
-    v14 = v144;
+    v13 = v143;
   }
 
   else
   {
-    v98 = _MCLogObjects[0];
+    v97 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot find proxy protocol for the WiFi service.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot find proxy protocol for the WiFi service.", buf, 2u);
     }
   }
 
@@ -2337,7 +2324,7 @@ LABEL_202:
   SCPreferencesApplyChanges(v9);
   SCPreferencesSynchronize(v9);
   SCPreferencesUnlock(v9);
-  proxyUsername3 = [v147 proxyUsername];
+  proxyUsername3 = [v146 proxyUsername];
 
   if (!proxyUsername3)
   {
@@ -2348,30 +2335,30 @@ LABEL_225:
       [(MCNewWiFiPayloadHandler *)self _updateWiFiCustomSetWithSetID:Property forSSID:name];
     }
 
-    v26 = 0;
-    v59 = 0;
+    v25 = 0;
+    v58 = 0;
     goto LABEL_228;
   }
 
-  proxyUsername4 = [v147 proxyUsername];
-  proxyPassword2 = [v147 proxyPassword];
-  v122 = [NSURLCredential credentialWithUser:proxyUsername4 password:proxyPassword2 persistence:2];
+  proxyUsername4 = [v146 proxyUsername];
+  proxyPassword2 = [v146 proxyPassword];
+  v121 = [NSURLCredential credentialWithUser:proxyUsername4 password:proxyPassword2 persistence:2];
 
-  v14 = v144;
-  if (![(MCNewWiFiPayloadHandler *)self _applyProxyCredential:v122])
+  v13 = v143;
+  if (![(MCNewWiFiPayloadHandler *)self _applyProxyCredential:v121])
   {
     goto LABEL_218;
   }
 
-  proxyUsername5 = [v147 proxyUsername];
-  proxyPassword3 = [v147 proxyPassword];
-  v125 = CFURLCredentialCreate();
+  proxyUsername5 = [v146 proxyUsername];
+  proxyPassword3 = [v146 proxyPassword];
+  v124 = CFURLCredentialCreate();
 
-  if (!v125)
+  if (!v124)
   {
 LABEL_224:
 
-    payload = v147;
+    payload = v146;
     goto LABEL_225;
   }
 
@@ -2379,89 +2366,89 @@ LABEL_224:
   if (!Archive)
   {
 LABEL_223:
-    CFRelease(v125);
+    CFRelease(v124);
     goto LABEL_224;
   }
 
-  v127 = Archive;
+  v126 = Archive;
   Data = CFPropertyListCreateData(0, Archive, kCFPropertyListBinaryFormat_v1_0, 0, 0);
-  CFRelease(v127);
+  CFRelease(v126);
   if (!Data)
   {
-    v135 = _MCLogObjects[0];
-    if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+    v134 = _MCLogObjects[0];
+    if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v135, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot serialize credential. Ignoring.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v134, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot serialize credential. Ignoring.", buf, 2u);
     }
 
     goto LABEL_222;
   }
 
-  v129 = +[NSString MCMakeUUID];
+  v128 = +[NSString MCMakeUUID];
   profileHandler = [(MCNewPayloadHandler *)self profileHandler];
   profile = [profileHandler profile];
-  v152 = 0;
-  v138 = v129;
-  +[MCKeychain setData:forService:account:label:description:useSystemKeychain:outError:](MCKeychain, "setData:forService:account:label:description:useSystemKeychain:outError:", Data, @"MCWiFiCredential", v129, 0, 0, [profile isInstalledForSystem], &v152);
-  v131 = v152;
+  v151 = 0;
+  v137 = v128;
+  +[MCKeychain setData:forService:account:label:description:useSystemKeychain:outError:](MCKeychain, "setData:forService:account:label:description:useSystemKeychain:outError:", Data, @"MCWiFiCredential", v128, 0, 0, [profile isInstalledForSystem], &v151);
+  v130 = v151;
 
-  v132 = Data;
-  v133 = v131;
-  CFRelease(v132);
-  if (!v131)
+  v131 = Data;
+  v132 = v130;
+  CFRelease(v131);
+  if (!v130)
   {
-    v135 = v138;
-    [v147 setCredentialUUID:v138];
-    v14 = v144;
+    v134 = v137;
+    [v146 setCredentialUUID:v137];
+    v13 = v143;
 LABEL_222:
 
     goto LABEL_223;
   }
 
-  v134 = _MCLogObjects[0];
-  v14 = v144;
-  if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
+  v133 = _MCLogObjects[0];
+  v13 = v143;
+  if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v154 = v133;
-    _os_log_impl(&_mh_execute_header, v134, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot commit credential to keychain with error: %{public}@", buf, 0xCu);
+    v153 = v132;
+    _os_log_impl(&_mh_execute_header, v133, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot commit credential to keychain with error: %{public}@", buf, 0xCu);
   }
 
-  CFRelease(v125);
-  payload = v147;
+  CFRelease(v124);
+  payload = v146;
 LABEL_218:
 
-  v59 = 0;
-  v26 = 1;
+  v58 = 0;
+  v25 = 1;
 LABEL_228:
   error = errorCopy2;
-  v46 = set;
+  v45 = set;
 
 LABEL_123:
-  v38 = 0;
+  v37 = 0;
 LABEL_124:
 
-  if (v38)
+  if (v37)
   {
-    SCNetworkServiceRemove(v38);
-    CFRelease(v38);
+    SCNetworkServiceRemove(v37);
+    CFRelease(v37);
   }
 
-  if (v151)
+  if (v150)
   {
-    SCNetworkSetRemove(v151);
-    CFRelease(v151);
+    SCNetworkSetRemove(v150);
+    CFRelease(v150);
   }
 
-  if (v46)
+  if (v45)
   {
-    CFRelease(v46);
+    CFRelease(v45);
   }
 
-  if (!v45)
+  if (!v44)
   {
-    if (!v59)
+    if (!v58)
     {
       goto LABEL_133;
     }
@@ -2471,23 +2458,23 @@ LABEL_132:
     goto LABEL_133;
   }
 
-  CFRelease(v45);
-  if (v59)
+  CFRelease(v44);
+  if (v58)
   {
     goto LABEL_132;
   }
 
 LABEL_133:
-  if (v12)
+  if (v11)
   {
-    CFRelease(v12);
+    CFRelease(v11);
   }
 
   CFRelease(v9);
-  if (v25)
+  if (v24)
   {
-    CFRelease(v25);
-    if (v26)
+    CFRelease(v24);
+    if (v25)
     {
       goto LABEL_137;
     }
@@ -2498,47 +2485,47 @@ LABEL_143:
     {
       ssid = [payload ssid];
       *buf = 138543362;
-      v154 = ssid;
+      v153 = ssid;
       _os_log_impl(&_mh_execute_header, mCAppendGreenteaSuffix, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler successfully configured WiFi for SSID: %{public}@", buf, 0xCu);
     }
 
-    v85 = 1;
+    v84 = 1;
 LABEL_146:
 
     goto LABEL_147;
   }
 
-  if (!v26)
+  if (!v25)
   {
     goto LABEL_143;
   }
 
 LABEL_137:
-  v79 = _MCLogObjects[0];
-  if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+  v78 = _MCLogObjects[0];
+  if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
   {
     ssid2 = [payload ssid];
     *buf = 138543362;
-    v154 = ssid2;
-    _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler failed to configure WiFi for SSID: %{public}@", buf, 0xCu);
+    v153 = ssid2;
+    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler failed to configure WiFi for SSID: %{public}@", buf, 0xCu);
   }
 
   if (error)
   {
-    v81 = MCWiFiErrorDomain;
+    v80 = MCWiFiErrorDomain;
     mCAppendGreenteaSuffix = [@"ERROR_WIFI_COULD_NOT_SETUP_PROXY" MCAppendGreenteaSuffix];
     ssid3 = [payload ssid];
-    v84 = MCErrorArray();
-    *error = [NSError MCErrorWithDomain:v81 code:13005 descriptionArray:v84 errorType:MCErrorTypeFatal, ssid3, 0];
+    v83 = MCErrorArray();
+    *error = [NSError MCErrorWithDomain:v80 code:13005 descriptionArray:v83 errorType:MCErrorTypeFatal, ssid3, 0];
 
-    v85 = 0;
+    v84 = 0;
     goto LABEL_146;
   }
 
-  v85 = 0;
+  v84 = 0;
 LABEL_147:
 
-  return v85;
+  return v84;
 }
 
 - (BOOL)installWithInstaller:(id)installer options:(id)options interactionClient:(id)client outError:(id *)error
@@ -2556,7 +2543,7 @@ LABEL_147:
     }
 
     *buf = 138543362;
-    *v97 = v11;
+    *v93 = v11;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler Wi-Fi daemon is available (install): %{public}@", buf, 0xCu);
   }
 
@@ -2569,11 +2556,11 @@ LABEL_147:
     {
       v27 = self->_manager != 0;
       *buf = 67240704;
-      *v97 = v12 != 0;
-      *&v97[4] = 1026;
-      *&v97[6] = v27;
-      LOWORD(v98) = 1026;
-      *(&v98 + 2) = _isWiFiDaemonAvailable;
+      *v93 = v12 != 0;
+      *&v93[4] = 1026;
+      *&v93[6] = v27;
+      LOWORD(v94) = 1026;
+      *(&v94 + 2) = _isWiFiDaemonAvailable;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler cannot create WiFi network. Network? %{public}d, Manager? %{public}d, wifid? %{public}d", buf, 0x14u);
     }
 
@@ -2623,13 +2610,13 @@ LABEL_147:
       [payload ssid];
       v22 = v21 = self;
       *buf = 138544130;
-      *v97 = v22;
-      *&v97[8] = 2114;
-      v98 = v16;
-      v99 = 2114;
-      v100 = v15;
-      v101 = 2114;
-      v102 = v18;
+      *v93 = v22;
+      *&v93[8] = 2114;
+      v94 = v16;
+      v95 = 2114;
+      v96 = v15;
+      v97 = 2114;
+      v98 = v18;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler Carrier Profile WiFi originator properties: SSID=%{public}@, name=%{public}@, identifier=%{public}@, autojoin=%{public}@", buf, 0x2Au);
 
       self = v21;
@@ -2698,30 +2685,30 @@ LABEL_36:
     selfCopy = self;
     if (v48)
     {
-      v85 = optionsCopy;
+      v81 = optionsCopy;
       mCCAndMNCs2 = [payload MCCAndMNCs];
       v50 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [mCCAndMNCs2 count]);
 
-      v92 = 0u;
-      v93 = 0u;
-      v90 = 0u;
-      v91 = 0u;
+      v88 = 0u;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
       mCCAndMNCs3 = [payload MCCAndMNCs];
-      v52 = [mCCAndMNCs3 countByEnumeratingWithState:&v90 objects:v95 count:16];
+      v52 = [mCCAndMNCs3 countByEnumeratingWithState:&v86 objects:v91 count:16];
       if (v52)
       {
         v53 = v52;
-        v54 = *v91;
+        v54 = *v87;
         do
         {
           for (i = 0; i != v53; i = i + 1)
           {
-            if (*v91 != v54)
+            if (*v87 != v54)
             {
               objc_enumerationMutation(mCCAndMNCs3);
             }
 
-            v56 = *(*(&v90 + 1) + 8 * i);
+            v56 = *(*(&v86 + 1) + 8 * i);
             if ([v56 characterAtIndex:3] == 48)
             {
               v57 = [v56 mutableCopy];
@@ -2735,14 +2722,14 @@ LABEL_36:
             }
           }
 
-          v53 = [mCCAndMNCs3 countByEnumeratingWithState:&v90 objects:v95 count:16];
+          v53 = [mCCAndMNCs3 countByEnumeratingWithState:&v86 objects:v91 count:16];
         }
 
         while (v53);
       }
 
       WiFiNetworkSetProperty();
-      optionsCopy = v85;
+      optionsCopy = v81;
     }
 
     displayedOperatorName = [payload displayedOperatorName];
@@ -2763,7 +2750,7 @@ LABEL_36:
         v62 = v61;
         disableAssociationMACRandomization2 = [payload disableAssociationMACRandomization];
         *buf = 138543362;
-        *v97 = disableAssociationMACRandomization2;
+        *v93 = disableAssociationMACRandomization2;
         _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler setting MAC randomization disable to: %{public}@", buf, 0xCu);
       }
 
@@ -2792,10 +2779,10 @@ LABEL_36:
       v73 = *v71;
       profileHandler = [(MCNewPayloadHandler *)selfCopy2 profileHandler];
       profile = [profileHandler profile];
-      v89 = v24;
-      LOWORD(v84) = [profile isInstalledForSystem];
-      [MCKeychain setString:password2 forService:@"AirPort" account:ssid label:0 description:0 access:v73 group:0 useSystemKeychain:v84 sysBound:&v89 outError:?];
-      v76 = v89;
+      v85 = v24;
+      LOWORD(v80) = [profile isInstalledForSystem];
+      [MCKeychain setString:password2 forService:@"AirPort" account:ssid label:0 description:0 access:v73 group:0 useSystemKeychain:v80 sysBound:&v85 outError:?];
+      v76 = v85;
 
       if (v76)
       {
@@ -2811,9 +2798,9 @@ LABEL_36:
 
     if ([(MCNewWiFiPayloadHandler *)self _networkServiceRequired])
     {
-      v88 = v24;
-      [(MCNewWiFiPayloadHandler *)self _configureNetworkServiceForWiFiNetwork:v12 outError:&v88];
-      v77 = v88;
+      v84 = v24;
+      [(MCNewWiFiPayloadHandler *)self _configureNetworkServiceForWiFiNetwork:v12 outError:&v84];
+      v77 = v84;
 
       if (v77)
       {
@@ -2826,17 +2813,13 @@ LABEL_36:
 
     else
     {
-      manager = self->_manager;
       WiFiManagerClientRemoveNetworkConfiguration();
     }
 
-    v79 = self->_manager;
     WiFiManagerClientAddNetwork();
     if (([payload autoJoin] & 1) == 0)
     {
-      v80 = self->_manager;
       WiFiManagerClientDisableNetwork();
-      v81 = self->_manager;
       WiFiManagerClientEnable();
     }
 
@@ -2863,9 +2846,9 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v94 = 0;
-  v23 = [(MCNewWiFiPayloadHandler *)self _configureEncryptionTypeForWiFiNetwork:v12 payload:payload outError:&v94];
-  v24 = v94;
+  v90 = 0;
+  v23 = [(MCNewWiFiPayloadHandler *)self _configureEncryptionTypeForWiFiNetwork:v12 payload:payload outError:&v90];
+  v24 = v90;
   if (v23)
   {
     goto LABEL_36;
@@ -2880,7 +2863,7 @@ LABEL_27:
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      *v97 = v24;
+      *v93 = v24;
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "MCNewWiFiPayloadHandler failed installWithInstaller with error: %{public}@", buf, 0xCu);
     }
 
@@ -3068,7 +3051,7 @@ LABEL_27:
   if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = dCopy;
+    v18 = dCopy;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler removing WiFi network with UUID: %{public}@", buf, 0xCu);
   }
 
@@ -3078,13 +3061,12 @@ LABEL_27:
     if (v7)
     {
       v8 = v7;
-      selfCopy = self;
       Count = CFArrayGetCount(v7);
       v10 = _MCLogObjects[0];
       if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v20) = Count;
+        LODWORD(v18) = Count;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler iterating over %d WiFi networks", buf, 8u);
       }
 
@@ -3100,9 +3082,9 @@ LABEL_27:
           if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v20 = v13;
-            v21 = 2114;
-            v22 = v12;
+            v18 = v13;
+            v19 = 2114;
+            v20 = v12;
             _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "MCNewWiFiPayloadHandler considering WiFi network %{public}@ with payload UUID: %{public}@", buf, 0x16u);
           }
 
@@ -3121,14 +3103,13 @@ LABEL_27:
         if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v20 = v13;
-          v21 = 2114;
-          v22 = v12;
+          v18 = v13;
+          v19 = 2114;
+          v20 = v12;
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "MCNewWiFiPayloadHandler calling WiFiManagerClientRemoveNetwork() for WiFi network %{public}@ with payload UUID: %{public}@", buf, 0x16u);
         }
 
         WiFiNetworkIsEAP();
-        manager = selfCopy->_manager;
         WiFiManagerClientRemoveNetwork();
       }
 
@@ -3168,7 +3149,7 @@ LABEL_20:
     if (v7)
     {
       v8 = v7;
-      v20 = 32;
+      v18 = 32;
       Count = CFArrayGetCount(v7);
       if (Count >= 1)
       {
@@ -3200,9 +3181,7 @@ LABEL_20:
         setAsideUUID = self->_setAsideUUID;
         self->_setAsideUUID = v16;
 
-        v18 = self->_setAsideUUID;
         WiFiNetworkSetProperty();
-        manager = self->_manager;
         WiFiManagerClientUpdateNetwork();
         WiFiNetworkIsEAP();
       }
@@ -3239,30 +3218,29 @@ LABEL_12:
 
     if (isSetAside)
     {
-      manager = self->_manager;
-      v10 = WiFiManagerClientCopyNetworks();
-      if (v10)
+      v9 = WiFiManagerClientCopyNetworks();
+      if (v9)
       {
-        v11 = v10;
-        Count = CFArrayGetCount(v10);
+        v10 = v9;
+        Count = CFArrayGetCount(v9);
         if (Count >= 1)
         {
-          v13 = Count;
-          v14 = 0;
+          v12 = Count;
+          v13 = 0;
           while (1)
           {
-            CFArrayGetValueAtIndex(v11, v14);
-            v15 = WiFiNetworkGetProperty();
-            v16 = v15;
-            if (v15)
+            CFArrayGetValueAtIndex(v10, v13);
+            v14 = WiFiNetworkGetProperty();
+            v15 = v14;
+            if (v14)
             {
-              if ([v15 isEqualToString:self->_setAsideUUID])
+              if ([v14 isEqualToString:self->_setAsideUUID])
               {
                 break;
               }
             }
 
-            if (v13 == ++v14)
+            if (v12 == ++v13)
             {
               goto LABEL_15;
             }
@@ -3270,21 +3248,20 @@ LABEL_12:
 
           [payload UUID];
           WiFiNetworkSetProperty();
-          v17 = self->_manager;
           WiFiManagerClientUpdateNetwork();
           Property = WiFiNetworkGetProperty();
           if (Property)
           {
-            v19 = Property;
+            v17 = Property;
             ssid = [payload ssid];
-            [(MCNewWiFiPayloadHandler *)self _updateWiFiCustomSetWithSetID:v19 forSSID:ssid];
+            [(MCNewWiFiPayloadHandler *)self _updateWiFiCustomSetWithSetID:v17 forSSID:ssid];
           }
 
           WiFiNetworkIsEAP();
         }
 
 LABEL_15:
-        CFRelease(v11);
+        CFRelease(v10);
       }
 
       sub_10005F874();
@@ -3297,26 +3274,26 @@ LABEL_15:
     {
       profileHandler2 = [(MCNewPayloadHandler *)self profileHandler];
       profile2 = [profileHandler2 profile];
-      v25 = +[MCKeychain dataFromService:account:label:description:useSystemKeychain:outError:](MCKeychain, "dataFromService:account:label:description:useSystemKeychain:outError:", @"MCWiFiCredential", credentialUUID, 0, 0, [profile2 isInstalledForSystem], 0);
+      v23 = +[MCKeychain dataFromService:account:label:description:useSystemKeychain:outError:](MCKeychain, "dataFromService:account:label:description:useSystemKeychain:outError:", @"MCWiFiCredential", credentialUUID, 0, 0, [profile2 isInstalledForSystem], 0);
 
-      if (v25)
+      if (v23)
       {
-        v26 = CFPropertyListCreateWithData(0, v25, 0, 0, 0);
-        if (v26)
+        v24 = CFPropertyListCreateWithData(0, v23, 0, 0, 0);
+        if (v24)
         {
-          v27 = v26;
-          v28 = _CFURLCredentialCreateFromArchive();
-          if (v28)
+          v25 = v24;
+          v26 = _CFURLCredentialCreateFromArchive();
+          if (v26)
           {
-            v29 = v28;
-            v30 = CFURLCredentialGetUsername();
-            v31 = CFURLCredentialCopyPassword();
-            v32 = [NSURLCredential credentialWithUser:v30 password:v31 persistence:2];
-            [(MCNewWiFiPayloadHandler *)self _applyProxyCredential:v32];
-            CFRelease(v29);
+            v27 = v26;
+            v28 = CFURLCredentialGetUsername();
+            v29 = CFURLCredentialCopyPassword();
+            v30 = [NSURLCredential credentialWithUser:v28 password:v29 persistence:2];
+            [(MCNewWiFiPayloadHandler *)self _applyProxyCredential:v30];
+            CFRelease(v27);
           }
 
-          CFRelease(v27);
+          CFRelease(v25);
         }
       }
     }

@@ -108,30 +108,31 @@
   }
 
   [(CIImage *)inputImage extent];
-  if (CGRectIsInfinite(v19) || ([(CIImage *)self->super.inputBlurMap extent], CGRectIsInfinite(v20)))
+  IsInfinite = CGRectIsInfinite(v21);
+  if (IsInfinite || ([(CIImage *)self->super.inputBlurMap extent], IsInfinite = CGRectIsInfinite(v22)))
   {
-    v4 = ci_logger_api();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v6 = ci_logger_api(IsInfinite, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_19CC36000, v4, OS_LOG_TYPE_INFO, "input image(s) to CIDepthBlurEffect apply is of inifite extent; returning nil image", v17, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_19CC36000, v6, OS_LOG_TYPE_INFO, "input image(s) to CIDepthBlurEffect apply is of inifite extent; returning nil image", v19, 2u);
     }
 
     return 0;
   }
 
-  v5 = metadataFromValue(self->super.inputAuxDataMetadata);
-  if (v5)
+  v7 = metadataFromValue(self->super.inputAuxDataMetadata);
+  if (v7)
   {
-    v6 = tuningParametersFromMetaData(v5);
+    v8 = tuningParametersFromMetaData(v7);
   }
 
   else
   {
-    v6 = tuningParametersFromImage(self->super.inputBlurMap);
+    v8 = tuningParametersFromImage(self->super.inputBlurMap);
   }
 
-  inputAuxDataMetadata = v6;
+  inputAuxDataMetadata = v8;
   if (self->super.inputAuxDataMetadata)
   {
     TypeID = CFDictionaryGetTypeID();
@@ -141,11 +142,11 @@
     }
   }
 
-  v9 = [inputAuxDataMetadata objectForKeyedSubscript:@"Version"];
-  v10 = MEMORY[0x1E696AD98];
-  if (v9)
+  v11 = [inputAuxDataMetadata objectForKeyedSubscript:@"Version"];
+  v12 = MEMORY[0x1E696AD98];
+  if (v11)
   {
-    unsignedIntegerValue = [v9 unsignedIntegerValue];
+    unsignedIntegerValue = [v11 unsignedIntegerValue];
   }
 
   else
@@ -153,22 +154,22 @@
     unsignedIntegerValue = 1;
   }
 
-  v12 = [v10 numberWithUnsignedInteger:unsignedIntegerValue];
-  intValue = [v12 intValue];
+  v14 = [v12 numberWithUnsignedInteger:unsignedIntegerValue];
+  intValue = [v14 intValue];
   if (intValue < +[CIFilter minSDOFRenderingVersionSupported])
   {
     return 0;
   }
 
-  intValue2 = [v12 intValue];
+  intValue2 = [v14 intValue];
   if (intValue2 > +[CIFilter maxSDOFRenderingVersionSupported])
   {
     return 0;
   }
 
-  v16 = self->super.inputAuxDataMetadata;
+  v18 = self->super.inputAuxDataMetadata;
 
-  return [(CIDepthEffectApplyBlurMapBackground *)self unifiedRenderingOutputImage:v16];
+  return [(CIDepthEffectApplyBlurMapBackground *)self unifiedRenderingOutputImage:v18];
 }
 
 @end

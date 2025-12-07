@@ -120,7 +120,7 @@ uint64_t __51__WDMedicalRecordCategorySummary_addMedicalRecord___block_invoke(ui
   dispatch_async(resourceQueue, block);
 }
 
-uint64_t __54__WDMedicalRecordCategorySummary_showTruncatedRecords__block_invoke(uint64_t a1)
+void *__54__WDMedicalRecordCategorySummary_showTruncatedRecords__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) displayingTruncatedRecords];
   if ((result & 1) == 0)
@@ -177,14 +177,14 @@ uint64_t __54__WDMedicalRecordCategorySummary_showTruncatedRecords__block_invoke
   return v4;
 }
 
-uint64_t __60__WDMedicalRecordCategorySummary_additionalDisplayItemCount__block_invoke(uint64_t a1)
+char *__60__WDMedicalRecordCategorySummary_additionalDisplayItemCount__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _rqueue_recomputeIfNeeded];
   result = [*(*(a1 + 32) + 88) count];
   if (result)
   {
     result = [*(*(a1 + 32) + 72) count];
-    v3 = result - *(*(a1 + 32) + 96);
+    v3 = &result[-*(*(a1 + 32) + 96)];
   }
 
   else
@@ -216,7 +216,7 @@ uint64_t __60__WDMedicalRecordCategorySummary_additionalDisplayItemCount__block_
   return v4;
 }
 
-uint64_t __55__WDMedicalRecordCategorySummary_additionalRecordCount__block_invoke(uint64_t a1)
+void *__55__WDMedicalRecordCategorySummary_additionalRecordCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _rqueue_recomputeIfNeeded];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 104);
@@ -424,7 +424,7 @@ void __59__WDMedicalRecordCategorySummary__rqueue_recomputeIfNeeded__block_invok
   _Block_object_dispose(v34, 8);
 }
 
-void __59__WDMedicalRecordCategorySummary__rqueue_recomputeIfNeeded__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __59__WDMedicalRecordCategorySummary__rqueue_recomputeIfNeeded__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
   dispatch_group_enter(*(a1 + 32));
@@ -458,7 +458,7 @@ void __59__WDMedicalRecordCategorySummary__rqueue_recomputeIfNeeded__block_invok
       v10 = 0;
     }
 
-    if ([*(a1 + 56) count] - 1 == a3)
+    if (([*(a1 + 56) count] - 1) == a3)
     {
       v11 = 0;
     }
@@ -1071,7 +1071,7 @@ uint64_t __67__WDMedicalRecordCategorySummary__displayItemsForPanel_completion__
   return v2();
 }
 
-void __67__WDMedicalRecordCategorySummary__displayItemsForPanel_completion___block_invoke_5(uint64_t a1, void *a2, uint64_t a3)
+void __67__WDMedicalRecordCategorySummary__displayItemsForPanel_completion___block_invoke_5(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
   if (a3)
@@ -1084,7 +1084,7 @@ void __67__WDMedicalRecordCategorySummary__displayItemsForPanel_completion___blo
     v6 = 0;
   }
 
-  if ([*(*(*(a1 + 56) + 8) + 40) count] - 1 == a3)
+  if (([*(*(*(a1 + 56) + 8) + 40) count] - 1) == a3)
   {
     v7 = 0;
   }

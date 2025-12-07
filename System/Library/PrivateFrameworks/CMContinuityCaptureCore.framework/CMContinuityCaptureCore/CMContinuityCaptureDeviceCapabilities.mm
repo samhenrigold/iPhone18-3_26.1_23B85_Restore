@@ -5,6 +5,7 @@
 + (BOOL)avcaptureDeviceSupportsReactionEffects:(id)effects;
 + (BOOL)avcaptureDeviceSupportsStudioLighting:(id)lighting;
 + (id)_resolvedControlsForEntityType:(int64_t)type;
++ (id)_resolvedStreamFormatsForEntityType:(int64_t)type requireManualFramingSupport:(BOOL)support;
 + (id)capabilitiesForEntityType:(int64_t)type;
 - (BOOL)supportsControlWithName:(id)name;
 - (CMContinuityCaptureDeviceCapabilities)initWithDictionaryRepresentation:(id)representation;
@@ -42,206 +43,197 @@
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
-  v7 = [representationCopy objectForKeyedSubscript:@"EntityType"];
+  v7 = [representationCopy objectForKeyedSubscript:?];
 
   if (!v7)
   {
     obj = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
-      [(CMContinuityCaptureDeviceCapabilities *)obj initWithDictionaryRepresentation:v38, v39];
+      [(CMContinuityCaptureDeviceCapabilities *)obj initWithDictionaryRepresentation:v37, v38];
     }
 
     goto LABEL_46;
   }
 
-  v8 = [representationCopy objectForKeyedSubscript:@"EntityType"];
-  integerValue = [v8 integerValue];
+  v8 = [representationCopy objectForKeyedSubscript:?];
+  [v8 integerValue];
 
-  v10 = [representationCopy objectForKeyedSubscript:@"StreamFormats"];
+  v9 = [representationCopy objectForKeyedSubscript:?];
 
-  if (!v10)
+  if (!v9)
   {
     obj = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
-      [(CMContinuityCaptureDeviceCapabilities *)obj initWithDictionaryRepresentation:v40, v41];
+      [(CMContinuityCaptureDeviceCapabilities *)obj initWithDictionaryRepresentation:v39, v40];
     }
 
 LABEL_46:
     selfCopy2 = 0;
 LABEL_48:
-    v36 = array3;
+    v35 = array3;
     goto LABEL_41;
   }
 
-  v43 = integerValue;
   selfCopy = self;
-  v47 = array2;
-  [representationCopy objectForKeyedSubscript:@"StreamFormats"];
-  v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  obj = v64 = 0u;
-  v11 = [obj countByEnumeratingWithState:&v61 objects:v60 count:16];
-  if (v11)
+  v45 = array2;
+  [representationCopy objectForKeyedSubscript:?];
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  obj = v51 = 0u;
+  v10 = [NSObject countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v62;
+    v11 = v10;
+    v12 = *v49;
     do
     {
-      v14 = 0;
+      v13 = 0;
       do
       {
-        if (*v62 != v13)
+        if (*v49 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v61 + 1) + 8 * v14);
-        v16 = [[CMContinuityCaptureStreamFormat alloc] initWithDictionaryRepresentation:v15];
-        if (v16)
+        v14 = *(*(&v48 + 1) + 8 * v13);
+        v15 = [[CMContinuityCaptureStreamFormat alloc] initWithDictionaryRepresentation:?];
+        if (v15)
         {
-          [array addObject:v16];
+          [array addObject:?];
         }
 
         else
         {
-          v17 = CMContinuityCaptureLog(2);
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v16 = CMContinuityCaptureLog(2);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v59 = v15;
-            _os_log_error_impl(&dword_242545000, v17, OS_LOG_TYPE_ERROR, "Could not create stream format: %@", buf, 0xCu);
+            v47 = v14;
+            _os_log_error_impl(&dword_242545000, v16, OS_LOG_TYPE_ERROR, "Could not create stream format: %@", buf, 0xCu);
           }
         }
 
-        ++v14;
+        v13 = (v13 + 1);
       }
 
-      while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v61 objects:v60 count:16];
+      while (v11 != v13);
+      v11 = [NSObject countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
     }
 
-    while (v12);
+    while (v11);
   }
 
-  v18 = [representationCopy objectForKeyedSubscript:@"ManualFramingSupportedStreamFormats"];
-  v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v54 objects:v53 count:16];
-  if (v19)
+  v17 = [representationCopy objectForKeyedSubscript:?];
+  v18 = [v17 countByEnumeratingWithState:? objects:? count:?];
+  if (v18)
   {
-    v20 = v19;
-    v21 = *v55;
+    v19 = v18;
+    v20 = MEMORY[0];
     do
     {
-      v22 = 0;
+      v21 = 0;
       do
       {
-        if (*v55 != v21)
+        if (MEMORY[0] != v20)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v54 + 1) + 8 * v22);
-        v24 = [[CMContinuityCaptureStreamFormat alloc] initWithDictionaryRepresentation:v23];
-        if (v24)
+        v22 = *(8 * v21);
+        v23 = [[CMContinuityCaptureStreamFormat alloc] initWithDictionaryRepresentation:?];
+        if (v23)
         {
-          [v47 addObject:v24];
+          [v45 addObject:?];
         }
 
         else
         {
-          v25 = CMContinuityCaptureLog(2);
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v24 = CMContinuityCaptureLog(2);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v59 = v23;
-            _os_log_error_impl(&dword_242545000, v25, OS_LOG_TYPE_ERROR, "Could not create manual framing supported stream format: %@", buf, 0xCu);
+            v47 = v22;
+            _os_log_error_impl(&dword_242545000, v24, OS_LOG_TYPE_ERROR, "Could not create manual framing supported stream format: %@", buf, 0xCu);
           }
         }
 
-        ++v22;
+        v21 = (v21 + 1);
       }
 
-      while (v20 != v22);
-      v20 = [v18 countByEnumeratingWithState:&v54 objects:v53 count:16];
+      while (v19 != v21);
+      v19 = [v17 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v20);
+    while (v19);
   }
 
-  selfCopy2 = [representationCopy objectForKeyedSubscript:@"Controls"];
+  selfCopy2 = [representationCopy objectForKeyedSubscript:?];
 
   if (!selfCopy2)
   {
-    [CMContinuityCaptureDeviceCapabilities initWithDictionaryRepresentation:v18];
+    [CMContinuityCaptureDeviceCapabilities initWithDictionaryRepresentation:v17];
     self = selfCopy;
-    array2 = v47;
+    array2 = v45;
     goto LABEL_48;
   }
 
-  v42 = representationCopy;
-  v27 = [representationCopy objectForKeyedSubscript:@"Controls"];
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v28 = [v27 countByEnumeratingWithState:&v49 objects:v48 count:16];
-  v29 = array3;
-  if (v28)
+  v41 = representationCopy;
+  v26 = [representationCopy objectForKeyedSubscript:?];
+  v27 = [v26 countByEnumeratingWithState:? objects:? count:?];
+  v28 = array3;
+  if (v27)
   {
-    v30 = v28;
-    v31 = *v50;
+    v29 = v27;
+    v30 = MEMORY[0];
     do
     {
-      v32 = 0;
+      v31 = 0;
       do
       {
-        if (*v50 != v31)
+        if (MEMORY[0] != v30)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v26);
         }
 
-        v33 = *(*(&v49 + 1) + 8 * v32);
-        v34 = [[CMContinuityCaptureControl alloc] initWithDictionaryRepresentation:v33];
-        if (v34)
+        v32 = *(8 * v31);
+        v33 = [[CMContinuityCaptureControl alloc] initWithDictionaryRepresentation:?];
+        if (v33)
         {
-          [v29 addObject:v34];
+          [v28 addObject:?];
         }
 
         else
         {
-          v35 = CMContinuityCaptureLog(2);
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v34 = CMContinuityCaptureLog(2);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v59 = v33;
-            _os_log_error_impl(&dword_242545000, v35, OS_LOG_TYPE_ERROR, "Could not create control: %@", buf, 0xCu);
+            v47 = v32;
+            _os_log_error_impl(&dword_242545000, v34, OS_LOG_TYPE_ERROR, "Could not create control: %@", buf, 0xCu);
           }
 
-          v29 = array3;
+          v28 = array3;
         }
 
-        ++v32;
+        v31 = (v31 + 1);
       }
 
-      while (v30 != v32);
-      v30 = [v27 countByEnumeratingWithState:&v49 objects:v48 count:16];
+      while (v29 != v31);
+      v29 = [v26 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v30);
+    while (v29);
   }
 
-  array2 = v47;
-  v36 = v29;
-  self = [(CMContinuityCaptureDeviceCapabilities *)selfCopy initWithEntityType:v43 streamFormats:array manualFramingSupportedStreamFormats:v47 controls:v29];
+  array2 = v45;
+  v35 = v28;
+  self = [CMContinuityCaptureDeviceCapabilities initWithEntityType:selfCopy streamFormats:"initWithEntityType:streamFormats:manualFramingSupportedStreamFormats:controls:" manualFramingSupportedStreamFormats:? controls:?];
 
   selfCopy2 = self;
-  representationCopy = v42;
+  representationCopy = v41;
 LABEL_41:
 
   return selfCopy2;
@@ -253,63 +245,55 @@ LABEL_41:
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
-  v7 = [MEMORY[0x277CCABB0] numberWithInteger:self->_entityType];
-  [dictionary setObject:v7 forKeyedSubscript:@"EntityType"];
+  v7 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  [dictionary setObject:? forKeyedSubscript:?];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   v8 = self->_streamFormats;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v38 objects:v37 count:16];
+  v9 = [NSArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v9)
   {
     v10 = v9;
-    v11 = *v39;
+    v11 = MEMORY[0];
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v39 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        dictionaryRepresentation = [*(*(&v38 + 1) + 8 * i) dictionaryRepresentation];
-        [array addObject:dictionaryRepresentation];
+        dictionaryRepresentation = [*(8 * i) dictionaryRepresentation];
+        [array addObject:?];
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v38 objects:v37 count:16];
+      v10 = [NSArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v10);
   }
 
-  [dictionary setObject:array forKeyedSubscript:@"StreamFormats"];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  [dictionary setObject:? forKeyedSubscript:?];
   v14 = self->_manualFramingSupportedStreamFormats;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v33 objects:v32 count:16];
+  v15 = [NSArray countByEnumeratingWithState:v14 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v15)
   {
     v16 = v15;
-    v17 = *v34;
+    v17 = MEMORY[0];
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v16; j = (j + 1))
       {
-        if (*v34 != v17)
+        if (MEMORY[0] != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        dictionaryRepresentation2 = [*(*(&v33 + 1) + 8 * j) dictionaryRepresentation];
-        [array2 addObject:dictionaryRepresentation2];
+        dictionaryRepresentation2 = [*(8 * j) dictionaryRepresentation];
+        [array2 addObject:?];
       }
 
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v33 objects:v32 count:16];
+      v16 = [NSArray countByEnumeratingWithState:v14 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v16);
@@ -317,41 +301,293 @@ LABEL_41:
 
   if ([array2 count])
   {
-    [dictionary setObject:array2 forKeyedSubscript:@"ManualFramingSupportedStreamFormats"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
   v20 = self->_controls;
-  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v28 objects:v27 count:16];
+  v21 = [NSArray countByEnumeratingWithState:v20 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v21)
   {
     v22 = v21;
-    v23 = *v29;
+    v23 = MEMORY[0];
     do
     {
-      for (k = 0; k != v22; ++k)
+      for (k = 0; k != v22; k = (k + 1))
       {
-        if (*v29 != v23)
+        if (MEMORY[0] != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        dictionaryRepresentation3 = [*(*(&v28 + 1) + 8 * k) dictionaryRepresentation];
-        [array3 addObject:dictionaryRepresentation3];
+        dictionaryRepresentation3 = [*(8 * k) dictionaryRepresentation];
+        [array3 addObject:?];
       }
 
-      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v28 objects:v27 count:16];
+      v22 = [NSArray countByEnumeratingWithState:v20 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v22);
   }
 
-  [dictionary setObject:array3 forKeyedSubscript:@"Controls"];
+  [dictionary setObject:? forKeyedSubscript:?];
 
   return dictionary;
+}
+
++ (id)_resolvedStreamFormatsForEntityType:(int64_t)type requireManualFramingSupport:(BOOL)support
+{
+  supportCopy = support;
+  v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  typeCopy = type;
+  if (type == 3)
+  {
+    v9 = 0;
+LABEL_17:
+    obj = v56;
+    v61 = [obj countByEnumeratingWithState:? objects:? count:?];
+    if (!v61)
+    {
+      goto LABEL_61;
+    }
+
+    v60 = MEMORY[0];
+    v59 = v9;
+    while (1)
+    {
+      v30 = 0;
+      do
+      {
+        if (MEMORY[0] != v60)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v62 = v30;
+        v31 = *(8 * v30);
+        pixelFormat = [v31 pixelFormat];
+        width = [v31 width];
+        height = [v31 height];
+        v64 = v31;
+        maxFrameRate = [v31 maxFrameRate];
+        formats = [(CMContinuityCaptureStreamFormat *)v9 formats];
+        v33 = [formats countByEnumeratingWithState:? objects:? count:?];
+        if (v33)
+        {
+          v34 = v33;
+          v65 = formats;
+          p_super = 0;
+          v67 = MEMORY[0];
+          do
+          {
+            for (i = 0; i != v34; i = (i + 1))
+            {
+              if (MEMORY[0] != v67)
+              {
+                objc_enumerationMutation(v65);
+              }
+
+              v37 = *(8 * i);
+              if (!supportCopy || ([*(8 * i) isCenterStageSupported] & 1) != 0 || objc_msgSend(v37, "isCenterStageSupportedForContinuityCamera"))
+              {
+                MediaSubType = CMFormatDescriptionGetMediaSubType([v37 formatDescription]);
+                Dimensions = CMVideoFormatDescriptionGetDimensions([v37 formatDescription]);
+                v40 = supportCopy;
+                if (supportCopy)
+                {
+                  videoFrameRateRangeForCenterStageForContinuityCamera = [v37 videoFrameRateRangeForCenterStageForContinuityCamera];
+                }
+
+                else
+                {
+                  videoSupportedFrameRateRanges = [v37 videoSupportedFrameRateRanges];
+                  videoFrameRateRangeForCenterStageForContinuityCamera = [videoSupportedFrameRateRanges firstObject];
+                }
+
+                v43 = Dimensions;
+                v44 = Dimensions >> 32;
+                [videoFrameRateRangeForCenterStageForContinuityCamera minFrameRate];
+                [videoFrameRateRangeForCenterStageForContinuityCamera maxFrameRate];
+                v46 = v45;
+                v49 = pixelFormat != MediaSubType || v43 != width || v44 != height || maxFrameRate > v46;
+                if (!v49 && (!p_super || -[NSObject maxFrameRate](p_super, "maxFrameRate") == v46 && ([v37 isVideoHDRSupported] & 1) != 0 || -[NSObject maxFrameRate](p_super, "maxFrameRate") > v46))
+                {
+                  v50 = [CMContinuityCaptureStreamFormat alloc];
+                  name = [v64 name];
+                  if (v64)
+                  {
+                    [&buf minimumSupportedVersion];
+                  }
+
+                  else
+                  {
+                    buf = 0uLL;
+                    v77 = 0;
+                  }
+
+                  v52 = [CMContinuityCaptureStreamFormat initWithName:v50 width:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" height:typeCopy pixelFormat:&buf minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+
+                  p_super = &v52->super;
+                }
+
+                supportCopy = v40;
+              }
+            }
+
+            v34 = [v65 countByEnumeratingWithState:? objects:? count:?];
+          }
+
+          while (v34);
+
+          v9 = v59;
+          if (p_super)
+          {
+            [v57 addObject:?];
+            goto LABEL_59;
+          }
+        }
+
+        else
+        {
+        }
+
+        p_super = CMContinuityCaptureLog(2);
+        if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
+        {
+          LODWORD(buf) = 138412290;
+          *(&buf + 4) = v64;
+          _os_log_error_impl(&dword_242545000, p_super, OS_LOG_TYPE_ERROR, "Could not resolved stream format: %@", &buf, 0xCu);
+        }
+
+LABEL_59:
+
+        v30 = v62 + 1;
+      }
+
+      while ((v62 + 1) != v61);
+      v61 = [obj countByEnumeratingWithState:? objects:? count:?];
+      if (!v61)
+      {
+LABEL_61:
+
+        v53 = v57;
+        [v57 sortUsingComparator:?];
+        goto LABEL_62;
+      }
+    }
+  }
+
+  if (type == 2)
+  {
+    v7 = [MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:? mediaType:? position:?];
+    v77 = 0;
+    buf = 1uLL;
+    v8 = [CMContinuityCaptureStreamFormat initWithName:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" width:2 height:&buf pixelFormat:? minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+    [v56 addObject:?];
+LABEL_16:
+
+    v9 = v7;
+    goto LABEL_17;
+  }
+
+  if (type != 1)
+  {
+    v8 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(&v8->super, OS_LOG_TYPE_ERROR))
+    {
+      [CMContinuityCaptureDeviceCapabilities _resolvedStreamFormatsForEntityType:type requireManualFramingSupport:&v8->super];
+    }
+
+    v7 = 0;
+    goto LABEL_16;
+  }
+
+  if (_os_feature_enabled_impl())
+  {
+    v6 = *MEMORY[0x277CE5878];
+    v79 = *MEMORY[0x277CE5848];
+    v80 = v6;
+  }
+
+  else
+  {
+    v78 = *MEMORY[0x277CE5878];
+  }
+
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  CMContinuityCaptureDevicePosition(v9, v10);
+  v11 = [MEMORY[0x277CE5AD0] discoverySessionWithDeviceTypes:? mediaType:? position:?];
+  v12 = v11;
+  if (v11)
+  {
+    devices = [v11 devices];
+    if (devices)
+    {
+      v14 = devices;
+      devices2 = [v12 devices];
+      v16 = [devices2 count];
+
+      if (v16)
+      {
+        devices3 = [v12 devices];
+        v70 = [devices3 objectAtIndexedSubscript:?];
+
+        v77 = 0;
+        buf = 1uLL;
+        v72 = [CMContinuityCaptureStreamFormat initWithName:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" width:1 height:&buf pixelFormat:? minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+        [v56 addObject:?];
+        v18 = [CMContinuityCaptureStreamFormat alloc];
+        v77 = 0;
+        buf = 1uLL;
+        v68 = [CMContinuityCaptureStreamFormat initWithName:v18 width:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" height:1 pixelFormat:&buf minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+        [v56 addObject:?];
+        v19 = [CMContinuityCaptureStreamFormat alloc];
+        v77 = 0;
+        buf = 1uLL;
+        v66 = [CMContinuityCaptureStreamFormat initWithName:v19 width:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" height:1 pixelFormat:&buf minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+        [v56 addObject:?];
+        v20 = [CMContinuityCaptureStreamFormat alloc];
+        v77 = 0;
+        buf = 1uLL;
+        v21 = [CMContinuityCaptureStreamFormat initWithName:v20 width:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" height:1 pixelFormat:&buf minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+        [v56 addObject:?];
+        v22 = [CMContinuityCaptureStreamFormat alloc];
+        v77 = 0;
+        buf = 1uLL;
+        v74 = supportCopy;
+        v23 = [CMContinuityCaptureStreamFormat initWithName:v22 width:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" height:1 pixelFormat:&buf minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+        [v56 addObject:?];
+        v24 = [CMContinuityCaptureStreamFormat alloc];
+        v77 = 0;
+        buf = 1uLL;
+        v25 = [CMContinuityCaptureStreamFormat initWithName:v24 width:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" height:1 pixelFormat:&buf minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+        [v56 addObject:?];
+        v26 = [CMContinuityCaptureStreamFormat alloc];
+        v77 = 0;
+        buf = 1uLL;
+        v8 = v9;
+        v27 = [CMContinuityCaptureStreamFormat initWithName:v26 width:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" height:1 pixelFormat:&buf minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+        [v56 addObject:?];
+        v28 = [CMContinuityCaptureStreamFormat alloc];
+        v77 = 0;
+        buf = 1uLL;
+        v7 = v70;
+        v29 = [CMContinuityCaptureStreamFormat initWithName:v28 width:"initWithName:width:height:pixelFormat:minFrameRate:maxFrameRate:entity:minimumSupportedVersion:" height:1 pixelFormat:&buf minFrameRate:? maxFrameRate:? entity:? minimumSupportedVersion:?];
+        [v56 addObject:?];
+
+        supportCopy = v74;
+        goto LABEL_16;
+      }
+    }
+  }
+
+  [CMContinuityCaptureDeviceCapabilities _resolvedStreamFormatsForEntityType:v12 requireManualFramingSupport:?];
+  v53 = v57;
+LABEL_62:
+
+  v54 = [v53 copy];
+
+  return v54;
 }
 
 uint64_t __105__CMContinuityCaptureDeviceCapabilities__resolvedStreamFormatsForEntityType_requireManualFramingSupport___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -422,413 +658,305 @@ LABEL_5:
     if (_os_feature_enabled_impl())
     {
       v6 = *MEMORY[0x277CE5878];
-      v144[0] = *MEMORY[0x277CE5848];
-      v144[1] = v6;
-      v7 = MEMORY[0x277CBEA60];
-      v8 = v144;
-      v9 = 2;
+      v97 = *MEMORY[0x277CE5848];
+      v98 = v6;
     }
 
     else
     {
-      v6 = *MEMORY[0x277CE5878];
-      v143 = *MEMORY[0x277CE5878];
-      v7 = MEMORY[0x277CBEA60];
-      v8 = &v143;
-      v9 = 1;
+      v96 = *MEMORY[0x277CE5878];
     }
 
-    v10 = [v7 arrayWithObjects:v8 count:v9];
-    v11 = CMContinuityCaptureDevicePosition();
-    v12 = *MEMORY[0x277CE5EA8];
-    v140 = [MEMORY[0x277CE5AD0] discoverySessionWithDeviceTypes:v10 mediaType:*MEMORY[0x277CE5EA8] position:v11];
-    if (!v140)
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    CMContinuityCaptureDevicePosition(v7, v8);
+    v93 = [MEMORY[0x277CE5AD0] discoverySessionWithDeviceTypes:? mediaType:? position:?];
+    if (!v93 || ([v93 devices], (v9 = objc_claimAutoreleasedReturnValue()) == 0) || (v10 = v9, objc_msgSend(v93, "devices"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "count"), v11, v10, !v12))
     {
-      goto LABEL_48;
-    }
-
-    devices = [v140 devices];
-    if (!devices || (v14 = devices, [v140 devices], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "count"), v15, v14, !v16))
-    {
-LABEL_48:
       [CMContinuityCaptureDeviceCapabilities _resolvedControlsForEntityType:?];
-      firstObject = v141;
+      firstObject = v94;
 LABEL_43:
 
       goto LABEL_44;
     }
 
-    v130 = v10;
-    devices2 = [v140 devices];
-    firstObject = [devices2 firstObject];
+    v83 = v7;
+    devices = [v93 devices];
+    firstObject = [devices firstObject];
 
-    v19 = [MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:*MEMORY[0x277CE5870] mediaType:v12 position:v11];
-    v20 = [MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:v6 mediaType:v12 position:v11];
-    v21 = [self avcaptureDeviceSupportsCenterStage:v19];
-    v139 = v20;
-    v22 = [self avcaptureDeviceSupportsCenterStage:v20];
-    v133 = v19;
-    if ((v21 & 1) != 0 || v22)
+    v15 = [MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:? mediaType:? position:?];
+    v16 = [MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:? mediaType:? position:?];
+    v17 = [self avcaptureDeviceSupportsCenterStage:?];
+    v92 = v16;
+    v18 = [self avcaptureDeviceSupportsCenterStage:?];
+    v86 = v15;
+    if ((v17 & 1) != 0 || v18)
     {
-      v23 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v24 = MEMORY[0x277CBEC28];
-      v134 = [(CMContinuityCaptureControl *)v23 initWithName:@"4cc_cfen_glob_0000" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
-      [array addObject:v134];
-      v25 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v131 = [(CMContinuityCaptureControl *)v25 initWithName:@"4cc_cfac_glob_0000" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v24];
-      [array addObject:v131];
-      v26 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v128 = [(CMContinuityCaptureControl *)v26 initWithName:@"4cc_cfri_glob_0000" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0x2854ECD88];
-      [array addObject:v128];
-      v27 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
-      v28 = [(CMContinuityCaptureControl *)v27 initWithName:@"4cc_cffm_glob_0000" attributes:0 entity:1 minimumSupportedVersion:&v141 value:&unk_2854EC998];
-      [array addObject:v28];
-      v29 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
+      v87 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v84 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v81 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v19 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
       selfCopy = self;
-      v30 = [(CMContinuityCaptureControl *)v29 initWithName:@"StartPanningAtPoint" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0];
-      [array addObject:v30];
-      v31 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
-      v32 = [(CMContinuityCaptureControl *)v31 initWithName:@"PanWithTranslation" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0];
-      [array addObject:v32];
-      v33 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
-      v34 = [(CMContinuityCaptureControl *)v33 initWithName:@"PerformOneShotFraming" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0];
-      [array addObject:v34];
-      v35 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
-      v36 = [(CMContinuityCaptureControl *)v35 initWithName:@"ResetFraming" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0];
-      [array addObject:v36];
-      v37 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
-      v38 = firstObject;
-      v39 = [(CMContinuityCaptureControl *)v37 initWithName:@"CenterStageFieldOfViewRestrictedToWide" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0];
-      [array addObject:v39];
-      v40 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
-      v41 = [(CMContinuityCaptureControl *)v40 initWithName:@"ManualFramingDeviceType" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0];
-      [array addObject:v41];
-      v42 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
-      v43 = [(CMContinuityCaptureControl *)v42 initWithName:@"ManualFramingSupported" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0];
-      [array addObject:v43];
+      v20 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v21 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v22 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v23 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v24 = firstObject;
+      v25 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v26 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v94 = xmmword_2425D8240;
+      v95 = 1;
+      v27 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
 
-      v19 = v133;
-      firstObject = v38;
+      v15 = v86;
+      firstObject = v24;
 
       self = selfCopy;
     }
 
     DeviceClass = GestaltGetDeviceClass();
-    v45 = [CMContinuityCaptureControl alloc];
-    v141 = xmmword_2425D8240;
-    v142 = 1;
-    v135 = [(CMContinuityCaptureControl *)v45 initWithName:@"DeviceHasWideCamera" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC38]];
-    v46 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v137 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v138 = v46;
+    v94 = xmmword_2425D8240;
+    v95 = 1;
+    v88 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+    v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v90 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v91 = v29;
     if (DeviceClass == 3)
     {
-      if (v139 && !v19)
+      if (v92 && !v15)
       {
-        [array addObject:v135];
+        [array addObject:?];
         goto LABEL_21;
       }
     }
 
-    else if (v139)
+    else if (v92)
     {
-      [array addObject:v135];
-      v47 = MEMORY[0x277CCABB0];
-      [v139 manualFramingMinZoomFactor];
-      v48 = [v47 numberWithDouble:?];
-      [v137 setObject:v48 forKeyedSubscript:*MEMORY[0x277CF3B98]];
+      [array addObject:?];
+      v30 = MEMORY[0x277CCABB0];
+      [v92 manualFramingMinZoomFactor];
+      v31 = [v30 numberWithDouble:?];
+      [v90 setObject:? forKeyedSubscript:?];
 
-      v49 = MEMORY[0x277CCABB0];
-      [v139 manualFramingMaxZoomFactor];
-      v50 = [v49 numberWithDouble:?];
-      [v137 setObject:v50 forKeyedSubscript:*MEMORY[0x277CF3B90]];
+      v32 = MEMORY[0x277CCABB0];
+      [v92 manualFramingMaxZoomFactor];
+      v33 = [v32 numberWithDouble:?];
+      [v90 setObject:? forKeyedSubscript:?];
 
-      v51 = MEMORY[0x277CCABB0];
-      [v139 manualFramingDefaultZoomFactor];
-      v52 = [v51 numberWithDouble:?];
-      [v137 setObject:v52 forKeyedSubscript:*MEMORY[0x277CF3B88]];
+      v34 = MEMORY[0x277CCABB0];
+      [v92 manualFramingDefaultZoomFactor];
+      v35 = [v34 numberWithDouble:?];
+      [v90 setObject:? forKeyedSubscript:?];
 
-      v53 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v137];
-      v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 1];
-      [v46 setObject:v53 forKeyedSubscript:v54];
+      v36 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:?];
+      v37 = [MEMORY[0x277CCACA8] stringWithFormat:1];
+      [v29 setObject:? forKeyedSubscript:?];
     }
 
-    if (v19)
+    if (v15)
     {
-      v55 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
-      v56 = [(CMContinuityCaptureControl *)v55 initWithName:@"DeviceHasUltraWideCamera" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC38]];
-      [array addObject:v56];
-      v57 = MEMORY[0x277CCABB0];
-      [v19 manualFramingMinZoomFactor];
-      v58 = [v57 numberWithDouble:?];
-      [v137 setObject:v58 forKeyedSubscript:*MEMORY[0x277CF3B98]];
+      v94 = xmmword_2425D8240;
+      v95 = 1;
+      v38 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v39 = MEMORY[0x277CCABB0];
+      [v15 manualFramingMinZoomFactor];
+      v40 = [v39 numberWithDouble:?];
+      [v90 setObject:? forKeyedSubscript:?];
 
-      v59 = MEMORY[0x277CCABB0];
-      [v19 manualFramingMaxZoomFactor];
-      v60 = [v59 numberWithDouble:?];
-      [v137 setObject:v60 forKeyedSubscript:*MEMORY[0x277CF3B90]];
+      v41 = MEMORY[0x277CCABB0];
+      [v15 manualFramingMaxZoomFactor];
+      v42 = [v41 numberWithDouble:?];
+      [v90 setObject:? forKeyedSubscript:?];
 
-      v61 = MEMORY[0x277CCABB0];
-      [v19 manualFramingDefaultZoomFactor];
-      v62 = [v61 numberWithDouble:?];
-      [v137 setObject:v62 forKeyedSubscript:*MEMORY[0x277CF3B88]];
+      v43 = MEMORY[0x277CCABB0];
+      [v15 manualFramingDefaultZoomFactor];
+      v44 = [v43 numberWithDouble:?];
+      [v90 setObject:? forKeyedSubscript:?];
 
-      v63 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v137];
-      v64 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 2];
-      [v138 setObject:v63 forKeyedSubscript:v64];
+      v45 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:?];
+      v46 = [MEMORY[0x277CCACA8] stringWithFormat:2];
+      [v91 setObject:? forKeyedSubscript:?];
 
-      v46 = v138;
+      v29 = v91;
     }
 
 LABEL_21:
-    if ([v46 count])
+    if ([v29 count])
     {
-      v65 = [CMContinuityCaptureControl alloc];
-      v66 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v46];
-      v141 = xmmword_2425D8240;
-      v142 = 1;
-      v67 = [(CMContinuityCaptureControl *)v65 initWithName:@"ZoomFactorConstantsByManualFramingDeviceType" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v66];
+      v47 = [CMContinuityCaptureControl alloc];
+      v48 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:?];
+      v94 = xmmword_2425D8240;
+      v95 = 1;
+      v49 = [CMContinuityCaptureControl initWithName:v47 attributes:"initWithName:attributes:entity:minimumSupportedVersion:value:" entity:? minimumSupportedVersion:? value:?];
 
-      [array addObject:v67];
+      [array addObject:?];
     }
 
-    v68 = [CMContinuityCaptureControl alloc];
-    v142 = 0;
-    v141 = 1uLL;
-    v69 = [(CMContinuityCaptureControl *)v68 initWithName:@"FaceDetectionEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
-    [array addObject:v69];
-    if (([self avcaptureDeviceSupportsFlash:firstObject] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsFlash:", v19))
+    v95 = 0;
+    v94 = 1uLL;
+    v50 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+    [array addObject:?];
+    if (([self avcaptureDeviceSupportsFlash:?] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsFlash:"))
     {
-      v70 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v71 = [(CMContinuityCaptureControl *)v70 initWithName:@"Flash" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC38]];
-      [array addObject:v71];
+      v95 = 0;
+      v94 = 1uLL;
+      v51 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
     }
 
-    v72 = [CMContinuityCaptureControl alloc];
-    v142 = 0;
-    v141 = 1uLL;
-    v73 = MEMORY[0x277CBEC28];
-    v74 = [(CMContinuityCaptureControl *)v72 initWithName:@"AsyncStillCaptureEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
-    [array addObject:v74];
-    v75 = [CMContinuityCaptureControl alloc];
-    v142 = 0;
-    v141 = 1uLL;
-    v132 = [(CMContinuityCaptureControl *)v75 initWithName:@"AsyncStillCaptureConfigurations" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0];
+    v52 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
     [array addObject:?];
-    v76 = [CMContinuityCaptureControl alloc];
-    v142 = 0;
-    v141 = 1uLL;
-    v129 = [(CMContinuityCaptureControl *)v76 initWithName:@"HumanBodyDetectionEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v73];
+    v85 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
     [array addObject:?];
-    supportedMetadataObjectIdentifiers = [v139 supportedMetadataObjectIdentifiers];
-    if ([supportedMetadataObjectIdentifiers containsObject:@"mdta/com.apple.quicktime.detected-human-full-body"])
+    v95 = 0;
+    v94 = 1uLL;
+    v82 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+    [array addObject:?];
+    supportedMetadataObjectIdentifiers = [v92 supportedMetadataObjectIdentifiers];
+    if ([supportedMetadataObjectIdentifiers containsObject:?])
     {
     }
 
     else
     {
-      supportedMetadataObjectIdentifiers2 = [v19 supportedMetadataObjectIdentifiers];
-      v79 = [supportedMetadataObjectIdentifiers2 containsObject:@"mdta/com.apple.quicktime.detected-human-full-body"];
+      supportedMetadataObjectIdentifiers2 = [v15 supportedMetadataObjectIdentifiers];
+      v55 = [supportedMetadataObjectIdentifiers2 containsObject:?];
 
-      if (!v79)
+      if (!v55)
       {
         goto LABEL_30;
       }
     }
 
-    v80 = [CMContinuityCaptureControl alloc];
-    v142 = 0;
-    v141 = 1uLL;
-    v81 = [(CMContinuityCaptureControl *)v80 initWithName:@"HumanFullBodyDetectionEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
-    [array addObject:v81];
+    v95 = 0;
+    v94 = 1uLL;
+    v56 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+    [array addObject:?];
 
 LABEL_30:
-    v82 = [CMContinuityCaptureControl alloc];
-    v142 = 0;
-    v141 = 1uLL;
-    v127 = [(CMContinuityCaptureControl *)v82 initWithName:@"SuppressVideoEffects" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
+    v95 = 0;
+    v94 = 1uLL;
+    v80 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
     [array addObject:?];
-    if (([self avcaptureDeviceSupportsPortraitEffect:firstObject] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsPortraitEffect:", v19))
+    if (([self avcaptureDeviceSupportsPortraitEffect:?] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsPortraitEffect:"))
     {
-      v83 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v84 = MEMORY[0x277CBEC28];
-      v85 = [(CMContinuityCaptureControl *)v83 initWithName:@"PortraitEffectEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
-      [array addObject:v85];
-      v86 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v87 = [(CMContinuityCaptureControl *)v86 initWithName:@"PortraitEffectActive" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v84];
-      [array addObject:v87];
-      v88 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v89 = [(CMContinuityCaptureControl *)v88 initWithName:@"PortraitEffectAperture" attributes:0 entity:1 minimumSupportedVersion:&v141 value:&unk_2854ECCE8];
-      [array addObject:v89];
+      v57 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v58 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v95 = 0;
+      v94 = 1uLL;
+      v59 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
     }
 
-    v90 = [CMContinuityCaptureControl alloc];
-    v142 = 0;
-    v141 = 1uLL;
-    v126 = [(CMContinuityCaptureControl *)v90 initWithName:@"PerFrameExifDataEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
+    v95 = 0;
+    v94 = 1uLL;
+    v79 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
     [array addObject:?];
-    if (([self avcaptureDeviceSupportsStudioLighting:firstObject] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsStudioLighting:", v19))
+    if (([self avcaptureDeviceSupportsStudioLighting:?] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsStudioLighting:"))
     {
-      v91 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v92 = MEMORY[0x277CBEC28];
-      v93 = [(CMContinuityCaptureControl *)v91 initWithName:@"StudioLightingEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
-      [array addObject:v93];
-      v94 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v95 = [(CMContinuityCaptureControl *)v94 initWithName:@"StudioLightingActive" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v92];
-      [array addObject:v95];
-      v96 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v97 = [(CMContinuityCaptureControl *)v96 initWithName:@"StudioLightingIntensity" attributes:0 entity:1 minimumSupportedVersion:&v141 value:&unk_2854ECCF8];
-      [array addObject:v97];
+      v60 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v61 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v95 = 0;
+      v94 = 1uLL;
+      v62 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
     }
 
-    if (([self avcaptureDeviceSupportsReactionEffects:firstObject] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsReactionEffects:", v19))
+    if (([self avcaptureDeviceSupportsReactionEffects:?] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsReactionEffects:"))
     {
-      v98 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v124 = v74;
-      v99 = MEMORY[0x277CBEC28];
-      v100 = [(CMContinuityCaptureControl *)v98 initWithName:@"ReactionEffectsEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
-      [array addObject:v100];
-      v101 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v125 = firstObject;
-      v102 = [(CMContinuityCaptureControl *)v101 initWithName:@"ReactionEffectsActive" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v99];
-      [array addObject:v102];
-      v103 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v104 = [(CMContinuityCaptureControl *)v103 initWithName:@"GesturesEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v99];
-      [array addObject:v104];
-      v105 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8090;
-      v142 = 1;
-      v106 = v69;
+      v77 = v52;
+      v63 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v78 = firstObject;
+      v64 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v65 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v66 = v50;
       selfCopy2 = self;
-      v108 = [(CMContinuityCaptureControl *)v105 initWithName:@"SuppressedGesturesEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v99];
-      [array addObject:v108];
-      v109 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v110 = [(CMContinuityCaptureControl *)v109 initWithName:@"ReactionsInProgress" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEBF8]];
-      [array addObject:v110];
-      v111 = [CMContinuityCaptureControl alloc];
-      v141 = xmmword_2425D8090;
-      v142 = 1;
-      v112 = [(CMContinuityCaptureControl *)v111 initWithName:@"SuppressedGesture" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v99];
-      [array addObject:v112];
+      v68 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v69 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v94 = xmmword_2425D8090;
+      v95 = 1;
+      v70 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
 
-      v74 = v124;
+      v52 = v77;
       self = selfCopy2;
-      v69 = v106;
+      v50 = v66;
 
-      firstObject = v125;
-      v19 = v133;
+      firstObject = v78;
+      v15 = v86;
     }
 
-    if (([self avcaptureDeviceSupportsBackgroundReplacement:firstObject] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsBackgroundReplacement:", v19))
+    if (([self avcaptureDeviceSupportsBackgroundReplacement:?] & 1) != 0 || objc_msgSend(self, "avcaptureDeviceSupportsBackgroundReplacement:"))
     {
-      v113 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v114 = MEMORY[0x277CBEC28];
-      v115 = [(CMContinuityCaptureControl *)v113 initWithName:@"BackgroundReplacementEnabled" attributes:0 entity:1 minimumSupportedVersion:&v141 value:MEMORY[0x277CBEC28]];
-      [array addObject:v115];
-      v116 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v117 = [(CMContinuityCaptureControl *)v116 initWithName:@"BackgroundReplacementActive" attributes:0 entity:1 minimumSupportedVersion:&v141 value:v114];
-      [array addObject:v117];
-      v118 = [CMContinuityCaptureControl alloc];
-      v142 = 0;
-      v141 = 1uLL;
-      v119 = [(CMContinuityCaptureControl *)v118 initWithName:@"BackgroundReplacementPixelBuffer" attributes:0 entity:1 minimumSupportedVersion:&v141 value:0];
-      [array addObject:v119];
+      v71 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v72 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
+      v95 = 0;
+      v94 = 1uLL;
+      v73 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+      [array addObject:?];
     }
 
-    v120 = [CMContinuityCaptureControl alloc];
-    v142 = 0;
-    v141 = 1uLL;
-    v121 = [(CMContinuityCaptureControl *)v120 initWithName:@"VideoZoomFactor" attributes:0 entity:1 minimumSupportedVersion:&v141 value:&unk_2854EC9B0];
-    [array addObject:v121];
+    v95 = 0;
+    v94 = 1uLL;
+    v74 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+    [array addObject:?];
 
-    v10 = v130;
+    v7 = v83;
     goto LABEL_43;
   }
 
-  v142 = 0;
-  v141 = 1uLL;
-  v10 = [[CMContinuityCaptureControl alloc] initWithName:@"OverheadCameraMode" attributes:0 entity:2 minimumSupportedVersion:&v141 value:&unk_2854EC9C8];
-  [array addObject:v10];
+  v95 = 0;
+  v94 = 1uLL;
+  v7 = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+  [array addObject:?];
 LABEL_44:
 
 LABEL_45:
-  v122 = [array copy];
+  v75 = [array copy];
 
-  return v122;
+  return v75;
 }
 
 + (BOOL)avcaptureDeviceSupportsStudioLighting:(id)lighting
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   formats = [lighting formats];
-  v4 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+  v4 = [formats countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v13 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(formats);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(8 * i);
         if ([v8 isStudioLightSupported] & 1) != 0 || (objc_msgSend(v8, "isStudioLightingSupportedForContinuityCamera"))
         {
           v9 = 1;
@@ -836,7 +964,7 @@ LABEL_45:
         }
       }
 
-      v5 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+      v5 = [formats countByEnumeratingWithState:? objects:? count:?];
       v9 = 0;
       if (v5)
       {
@@ -859,26 +987,22 @@ LABEL_13:
 
 + (BOOL)avcaptureDeviceSupportsReactionEffects:(id)effects
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   formats = [effects formats];
-  v4 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+  v4 = [formats countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v13 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(formats);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(8 * i);
         if ([v8 reactionEffectsSupported] & 1) != 0 || (objc_msgSend(v8, "reactionEffectsSupportedForContinuityCamera"))
         {
           v9 = 1;
@@ -886,7 +1010,7 @@ LABEL_13:
         }
       }
 
-      v5 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+      v5 = [formats countByEnumeratingWithState:? objects:? count:?];
       v9 = 0;
       if (v5)
       {
@@ -909,26 +1033,22 @@ LABEL_13:
 
 + (BOOL)avcaptureDeviceSupportsBackgroundReplacement:(id)replacement
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   formats = [replacement formats];
-  v4 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+  v4 = [formats countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v13 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(formats);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(8 * i);
         if ([v8 isBackgroundReplacementSupported] & 1) != 0 || (objc_msgSend(v8, "isBackgroundReplacementSupportedForContinuityCamera"))
         {
           v9 = 1;
@@ -936,7 +1056,7 @@ LABEL_13:
         }
       }
 
-      v5 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+      v5 = [formats countByEnumeratingWithState:? objects:? count:?];
       v9 = 0;
       if (v5)
       {
@@ -959,26 +1079,22 @@ LABEL_13:
 
 + (BOOL)avcaptureDeviceSupportsCenterStage:(id)stage
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   formats = [stage formats];
-  v4 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+  v4 = [formats countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v13 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(formats);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(8 * i);
         if ([v8 isCenterStageSupported] & 1) != 0 || (objc_msgSend(v8, "isCenterStageSupportedForContinuityCamera"))
         {
           v9 = 1;
@@ -986,7 +1102,7 @@ LABEL_13:
         }
       }
 
-      v5 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+      v5 = [formats countByEnumeratingWithState:? objects:? count:?];
       v9 = 0;
       if (v5)
       {
@@ -1009,26 +1125,22 @@ LABEL_13:
 
 + (BOOL)avcaptureDeviceSupportsPortraitEffect:(id)effect
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   formats = [effect formats];
-  v4 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+  v4 = [formats countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v13 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(formats);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(8 * i);
         if ([v8 isBackgroundBlurSupported] & 1) != 0 || (objc_msgSend(v8, "isBackgroundBlurSupportedForContinuityCamera"))
         {
           v9 = 1;
@@ -1036,7 +1148,7 @@ LABEL_13:
         }
       }
 
-      v5 = [formats countByEnumeratingWithState:&v12 objects:v11 count:16];
+      v5 = [formats countByEnumeratingWithState:? objects:? count:?];
       v9 = 0;
       if (v5)
       {
@@ -1060,26 +1172,22 @@ LABEL_13:
 - (BOOL)supportsControlWithName:(id)name
 {
   nameCopy = name;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   controls = [(CMContinuityCaptureDeviceCapabilities *)self controls];
-  v6 = [controls countByEnumeratingWithState:&v13 objects:v12 count:16];
+  v6 = [controls countByEnumeratingWithState:? objects:? count:?];
   if (v6)
   {
-    v7 = *v14;
+    v7 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v14 != v7)
+        if (MEMORY[0] != v7)
         {
           objc_enumerationMutation(controls);
         }
 
-        name = [*(*(&v13 + 1) + 8 * i) name];
-        v10 = [name isEqualToString:nameCopy];
+        name = [*(8 * i) name];
+        v10 = [name isEqualToString:?];
 
         if (v10)
         {
@@ -1088,7 +1196,7 @@ LABEL_13:
         }
       }
 
-      v6 = [controls countByEnumeratingWithState:&v13 objects:v12 count:16];
+      v6 = [controls countByEnumeratingWithState:? objects:? count:?];
       if (v6)
       {
         continue;
@@ -1108,88 +1216,76 @@ LABEL_11:
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
   v6 = self->_streamFormats;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v42 objects:v41 count:16];
+  v7 = [NSArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v7)
   {
     v8 = v7;
-    v9 = *v43;
+    v9 = MEMORY[0];
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v43 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        name = [*(*(&v42 + 1) + 8 * i) name];
-        [array addObject:name];
+        name = [*(8 * i) name];
+        [array addObject:?];
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v42 objects:v41 count:16];
+      v8 = [NSArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v8);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
   v12 = self->_manualFramingSupportedStreamFormats;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v37 objects:v36 count:16];
+  v13 = [NSArray countByEnumeratingWithState:v12 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v13)
   {
     v14 = v13;
-    v15 = *v38;
+    v15 = MEMORY[0];
     do
     {
-      for (j = 0; j != v14; ++j)
+      for (j = 0; j != v14; j = (j + 1))
       {
-        if (*v38 != v15)
+        if (MEMORY[0] != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        name2 = [*(*(&v37 + 1) + 8 * j) name];
-        [array2 addObject:name2];
+        name2 = [*(8 * j) name];
+        [array2 addObject:?];
       }
 
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v37 objects:v36 count:16];
+      v14 = [NSArray countByEnumeratingWithState:v12 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v14);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
   v18 = self->_controls;
-  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v32 objects:v31 count:16];
+  v19 = [NSArray countByEnumeratingWithState:v18 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v19)
   {
     v20 = v19;
-    v21 = *v33;
+    v21 = MEMORY[0];
     do
     {
-      for (k = 0; k != v20; ++k)
+      for (k = 0; k != v20; k = (k + 1))
       {
-        if (*v33 != v21)
+        if (MEMORY[0] != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        name3 = [*(*(&v32 + 1) + 8 * k) name];
-        [array3 addObject:name3];
+        name3 = [*(8 * k) name];
+        [array3 addObject:?];
       }
 
-      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v32 objects:v31 count:16];
+      v20 = [NSArray countByEnumeratingWithState:v18 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v20);
@@ -1197,10 +1293,10 @@ LABEL_11:
 
   v24 = MEMORY[0x277CCACA8];
   entityType = self->_entityType;
-  v26 = [array componentsJoinedByString:{@", "}];
-  v27 = [array2 componentsJoinedByString:{@", "}];
-  v28 = [array3 componentsJoinedByString:{@", "}];
-  v29 = [v24 stringWithFormat:@"entity: %d, formats: [%@], ManualFraming formats: [%@], controls: [%@]", entityType, v26, v27, v28];
+  v26 = [array componentsJoinedByString:?];
+  v27 = [array2 componentsJoinedByString:?];
+  v28 = [array3 componentsJoinedByString:?];
+  v29 = [v24 stringWithFormat:entityType, v26, v27, v28];
 
   return v29;
 }
@@ -1211,28 +1307,27 @@ LABEL_11:
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = [(CMContinuityCaptureDeviceCapabilities *)self debugDescription];
-  v7 = [v3 stringWithFormat:@"<%@: %p %@>", v5, self, v6];
+  v7 = [v3 stringWithFormat:v5, self, v6];
 
   return v7;
 }
 
 + (id)capabilitiesForEntityType:(int64_t)type
 {
-  v5 = *MEMORY[0x277CE59F0];
-  if (AVGestaltGetBoolAnswer() && (type != 2 || ([MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:*MEMORY[0x277CE5888] mediaType:*MEMORY[0x277CE5EA8] position:1], v6 = objc_claimAutoreleasedReturnValue(), v6, v6)))
+  if (AVGestaltGetBoolAnswer() && (type != 2 || ([MEMORY[0x277CE5AC8] defaultDeviceWithDeviceType:? mediaType:? position:?], v5 = objc_claimAutoreleasedReturnValue(), v5, v5)))
   {
-    v7 = [self _resolvedStreamFormatsForEntityType:type requireManualFramingSupport:0];
-    v8 = [self _resolvedStreamFormatsForEntityType:type requireManualFramingSupport:1];
-    v9 = [self _resolvedControlsForEntityType:type];
-    v10 = [objc_alloc(objc_opt_class()) initWithEntityType:type streamFormats:v7 manualFramingSupportedStreamFormats:v8 controls:v9];
+    v6 = [self _resolvedStreamFormatsForEntityType:? requireManualFramingSupport:?];
+    v7 = [self _resolvedStreamFormatsForEntityType:? requireManualFramingSupport:?];
+    v8 = [self _resolvedControlsForEntityType:?];
+    v9 = [objc_alloc(objc_opt_class()) initWithEntityType:? streamFormats:? manualFramingSupportedStreamFormats:? controls:?];
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)initWithDictionaryRepresentation:(void *)a1 .cold.1(void *a1)

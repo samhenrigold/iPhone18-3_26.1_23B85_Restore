@@ -13,26 +13,24 @@
 
 - (NSArray)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryUUID = [(HMAccessoryAccessCodeValue *)self accessoryUUID];
   v5 = [v3 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessCodeValue = [(HMAccessoryAccessCodeValue *)self accessCodeValue];
   v8 = [v6 initWithName:@"accessCodeValue" value:accessCodeValue];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   uniqueIdentifier = [(HMAccessoryAccessCodeValue *)self uniqueIdentifier];
   v11 = [v9 initWithName:@"uniqueIdentifier" value:uniqueIdentifier];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   v13 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMAccessoryAccessCodeValue hasRestrictions](self, "hasRestrictions")}];
   v14 = [v12 initWithName:@"hasRestrictions" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -46,7 +44,7 @@
 
 - (HMAccessoryAccessCodeValue)initWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMAccessoryAccessCodeValueCodingKeyAccessoryUUID"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMAccessoryAccessCodeValueCodingKeyAccessCodeValue"];
@@ -71,17 +69,17 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v20 = 138544386;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v5;
-      v24 = 2112;
-      v25 = v6;
-      v26 = 2112;
-      v27 = v7;
-      v28 = 2112;
-      v29 = v9;
-      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding accessoryUUID: %@, accessCodeValue: %@, uniqueIdentifier: %@, hasRestrictions: %@,", &v20, 0x34u);
+      v19 = 138544386;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v5;
+      v23 = 2112;
+      v24 = v6;
+      v25 = 2112;
+      v26 = v7;
+      v27 = 2112;
+      v28 = v9;
+      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding accessoryUUID: %@, accessCodeValue: %@, uniqueIdentifier: %@, hasRestrictions: %@,", &v19, 0x34u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -94,7 +92,6 @@
     v17 = selfCopy;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

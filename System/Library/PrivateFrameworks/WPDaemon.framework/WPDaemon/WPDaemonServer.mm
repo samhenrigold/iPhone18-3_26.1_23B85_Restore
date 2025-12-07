@@ -17,6 +17,8 @@
 - (void)disableScanningForClient:(id)client;
 - (void)dumpDaemonState;
 - (void)dumpDaemonStateAsync;
+- (void)enableRanging:(BOOL)ranging;
+- (void)enableTestMode:(BOOL)mode;
 - (void)generateStateDump;
 - (void)initClients;
 - (void)initManagers;
@@ -45,7 +47,7 @@
 
 void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_2_322(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -81,9 +83,9 @@ void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_2_32
         v7 = "Locked";
       }
 
-      v9 = 136315138;
-      v10 = v7;
-      _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_INFO, "Lock state - %s", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = v7;
+      _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_INFO, "Lock state - %s", &v8, 0xCu);
     }
 
     if (v5 != [WeakRetained systemLocked])
@@ -92,8 +94,6 @@ void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_2_32
       [WeakRetained lockStateUpdate];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)supportsRanging
@@ -174,7 +174,7 @@ void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_286(
 
 void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_301(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -210,7 +210,7 @@ void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_301(
         }
 
         *buf = 136315138;
-        v10 = v6;
+        v9 = v6;
         _os_log_impl(&dword_272965000, v5, OS_LOG_TYPE_DEFAULT, "Screen state - %s", buf, 0xCu);
       }
 
@@ -221,8 +221,6 @@ void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_301(
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __33__WPDaemonServer_supportsRanging__block_invoke()
@@ -241,10 +239,20 @@ uint64_t __33__WPDaemonServer_isInternalBuild__block_invoke()
 
 + (void)initialize
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
+  if (objc_opt_class() == self)
+  {
+    _MergedGlobals = GestaltGetDeviceClass() == 7;
+    byte_281345231 = GestaltGetDeviceClass() == 4;
+    if (WPLogInitOnce != -1)
+    {
+      +[WPDaemonServer initialize];
+    }
+
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+    {
+      +[WPDaemonServer initialize];
+    }
+  }
 }
 
 - (BOOL)isRangingEnabled
@@ -282,7 +290,7 @@ uint64_t __33__WPDaemonServer_isInternalBuild__block_invoke()
 
 uint64_t __36__WPDaemonServer_SetupSignalHandler__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ((*(a2 + 16) & 0xFFFFFFFE) == 2)
   {
     if (WPLogInitOnce != -1)
@@ -303,9 +311,9 @@ uint64_t __36__WPDaemonServer_SetupSignalHandler__block_invoke(uint64_t a1, uint
         v5 = "OS_STATE_API_FAULT";
       }
 
-      v11 = 136315138;
-      v12 = v5;
-      _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "WIPROX received %s, triggering statedump.", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = v5;
+      _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "WIPROX received %s, triggering statedump.", &v10, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -323,12 +331,11 @@ uint64_t __36__WPDaemonServer_SetupSignalHandler__block_invoke(uint64_t a1, uint
     v8 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "WIPROX completed statedump.", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "WIPROX completed statedump.", &v10, 2u);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -423,19 +430,19 @@ uint64_t __36__WPDaemonServer_SetupSignalHandler__block_invoke(uint64_t a1, uint
   return v7;
 }
 
-void __41__WPDaemonServer_initWithCBStackAdaptor___block_invoke_185()
+void __41__WPDaemonServer_initWithCBStackAdaptor___block_invoke_185(uint64_t a1, uint64_t a2)
 {
-  WPLoggingInit();
+  WPLoggingInit(a1, a2);
   if (WPLogInitOnce != -1)
   {
     __41__WPDaemonServer_initWithCBStackAdaptor___block_invoke_185_cold_1();
   }
 
-  v0 = WiProxLog;
+  v2 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_272965000, v0, OS_LOG_TYPE_DEFAULT, "STARTED WIPROX DAEMON", buf, 2u);
+    _os_log_impl(&dword_272965000, v2, OS_LOG_TYPE_DEFAULT, "STARTED WIPROX DAEMON", buf, 2u);
   }
 
   if (WPLogInitOnce != -1)
@@ -443,17 +450,17 @@ void __41__WPDaemonServer_initWithCBStackAdaptor___block_invoke_185()
     __41__WPDaemonServer_initWithCBStackAdaptor___block_invoke_185_cold_2();
   }
 
-  v1 = WiProxLog;
+  v3 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_272965000, v1, OS_LOG_TYPE_DEFAULT, "WPDaemon iOS 26.1 (23B78) (WirelessProximity-191.10) (Release) built on 2025-10-22 21:21:46", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "WPDaemon iOS 26.1 (23B78) (WirelessProximity-191.10) (Release) built on 2025-10-22 21:21:46", v4, 2u);
   }
 }
 
 - (void)initManagers
 {
-  v30[4] = *MEMORY[0x277D85DE8];
+  v29[4] = *MEMORY[0x277D85DE8];
   v3 = [WPDState alloc];
   serverQueue = [(WPDaemonServer *)self serverQueue];
   v5 = [(WPDState *)v3 initWithQueue:serverQueue];
@@ -480,14 +487,14 @@ void __41__WPDaemonServer_initWithCBStackAdaptor___block_invoke_185()
   if (_MergedGlobals == 1)
   {
     scanManager = [(WPDaemonServer *)self scanManager];
-    v30[0] = scanManager;
+    v29[0] = scanManager;
     advertisingManager = [(WPDaemonServer *)self advertisingManager];
-    v30[1] = advertisingManager;
+    v29[1] = advertisingManager;
     pipeManager = [(WPDaemonServer *)self pipeManager];
-    v30[2] = pipeManager;
+    v29[2] = pipeManager;
     zoneManager = [(WPDaemonServer *)self zoneManager];
-    v30[3] = zoneManager;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+    v29[3] = zoneManager;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
     [(WPDaemonServer *)self setManagers:v16];
 
     if (WPLogInitOnce != -1)
@@ -498,8 +505,8 @@ void __41__WPDaemonServer_initWithCBStackAdaptor___block_invoke_185()
     v17 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      *v28 = 0;
-      _os_log_impl(&dword_272965000, v17, OS_LOG_TYPE_DEFAULT, "initManagers - ObjectDiscovery is disabled on this platform", v28, 2u);
+      *v27 = 0;
+      _os_log_impl(&dword_272965000, v17, OS_LOG_TYPE_DEFAULT, "initManagers - ObjectDiscovery is disabled on this platform", v27, 2u);
     }
   }
 
@@ -509,16 +516,16 @@ void __41__WPDaemonServer_initWithCBStackAdaptor___block_invoke_185()
     [(WPDaemonServer *)self setObjectDiscoveryManager:v18];
 
     scanManager2 = [(WPDaemonServer *)self scanManager];
-    v29[0] = scanManager2;
+    v28[0] = scanManager2;
     advertisingManager2 = [(WPDaemonServer *)self advertisingManager];
-    v29[1] = advertisingManager2;
+    v28[1] = advertisingManager2;
     pipeManager2 = [(WPDaemonServer *)self pipeManager];
-    v29[2] = pipeManager2;
+    v28[2] = pipeManager2;
     zoneManager2 = [(WPDaemonServer *)self zoneManager];
-    v29[3] = zoneManager2;
+    v28[3] = zoneManager2;
     objectDiscoveryManager = [(WPDaemonServer *)self objectDiscoveryManager];
-    v29[4] = objectDiscoveryManager;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:5];
+    v28[4] = objectDiscoveryManager;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:5];
     [(WPDaemonServer *)self setManagers:v24];
   }
 
@@ -530,8 +537,6 @@ void __41__WPDaemonServer_initWithCBStackAdaptor___block_invoke_185()
 
   wpdState2 = [(WPDaemonServer *)self wpdState];
   [wpdState2 updateWithCompletion:&__block_literal_global_209];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __30__WPDaemonServer_initManagers__block_invoke_207()
@@ -651,14 +656,14 @@ void __35__WPDaemonServer_isClientTestMode___block_invoke(uint64_t a1)
 
 - (id)getClientForUUID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__0;
-  v23 = __Block_byref_object_dispose__0;
-  v24 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
   serverQueue = [(WPDaemonServer *)self serverQueue];
   label = dispatch_queue_get_label(serverQueue);
 
@@ -667,8 +672,8 @@ void __35__WPDaemonServer_isClientTestMode___block_invoke(uint64_t a1)
   {
     clients = [(WPDaemonServer *)self clients];
     v11 = [clients objectForKeyedSubscript:dCopy];
-    v12 = v20[5];
-    v20[5] = v11;
+    v12 = v19[5];
+    v19[5] = v11;
   }
 
   else
@@ -682,7 +687,7 @@ void __35__WPDaemonServer_isClientTestMode___block_invoke(uint64_t a1)
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v26 = v7;
+      v25 = v7;
       _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_INFO, "WPDaemonServer:getClientForUUID called on %s", buf, 0xCu);
     }
 
@@ -691,16 +696,14 @@ void __35__WPDaemonServer_isClientTestMode___block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __35__WPDaemonServer_getClientForUUID___block_invoke_226;
     block[3] = &unk_279E59050;
-    v18 = &v19;
+    v17 = &v18;
     block[4] = self;
-    v17 = dCopy;
+    v16 = dCopy;
     dispatch_sync(serverQueue2, block);
   }
 
-  v13 = v20[5];
-  _Block_object_dispose(&v19, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = v19[5];
+  _Block_object_dispose(&v18, 8);
 
   return v13;
 }
@@ -825,49 +828,47 @@ void __29__WPDaemonServer_updateState__block_invoke(uint64_t a1)
 
 - (void)notifyManagersOfStateChange
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   wpdState = [(WPDaemonServer *)self wpdState];
   state = [wpdState state];
 
   wpdState2 = [(WPDaemonServer *)self wpdState];
   restricted = [wpdState2 restricted];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   managers = [(WPDaemonServer *)self managers];
-  v8 = [managers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [managers countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(managers);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) updateState:state Restricted:restricted];
+        [*(*(&v12 + 1) + 8 * v11++) updateState:state Restricted:restricted];
       }
 
       while (v9 != v11);
-      v9 = [managers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [managers countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addClient:(id)client
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   conn = [clientCopy conn];
   v6 = [conn valueForEntitlement:@"com.apple.wirelessproxd-util-test"];
@@ -886,21 +887,21 @@ void __29__WPDaemonServer_updateState__block_invoke(uint64_t a1)
       v9 = v8;
       clientUUID = [clientCopy clientUUID];
       *buf = 138543362;
-      v30 = clientUUID;
+      v29 = clientUUID;
       _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "WiProx test client has connected (UUID: %{public}@)", buf, 0xCu);
     }
 
     queue = [(WPDaemonServer *)self queue];
-    v23 = MEMORY[0x277D85DD0];
-    v24 = 3221225472;
-    v25 = __28__WPDaemonServer_addClient___block_invoke_241;
-    v26 = &unk_279E590C8;
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __28__WPDaemonServer_addClient___block_invoke_241;
+    v25 = &unk_279E590C8;
     selfCopy = self;
     v12 = clientCopy;
-    v28 = v12;
-    dispatch_sync(queue, &v23);
+    v27 = v12;
+    dispatch_sync(queue, &v22);
 
-    [v12 setIsTestModeClient:{1, v23, v24, v25, v26, selfCopy}];
+    [v12 setIsTestModeClient:{1, v22, v23, v24, v25, selfCopy}];
   }
 
   conn2 = [clientCopy conn];
@@ -945,8 +946,6 @@ void __29__WPDaemonServer_updateState__block_invoke(uint64_t a1)
   {
     [(WPDaemonServer *)v21 addClient:?];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __28__WPDaemonServer_addClient___block_invoke_241(uint64_t a1)
@@ -1133,7 +1132,7 @@ void __31__WPDaemonServer_removeClient___block_invoke_249(uint64_t a1)
 
 void __61__WPDaemonServer_registerClient_withMachName_withCompletion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     __61__WPDaemonServer_registerClient_withMachName_withCompletion___block_invoke_cold_1();
@@ -1147,13 +1146,13 @@ void __61__WPDaemonServer_registerClient_withMachName_withCompletion___block_inv
     v5 = [v3 processName];
     v6 = [*(a1 + 32) processID];
     v7 = [*(a1 + 32) clientUUID];
-    v16 = 138543874;
-    v17 = v5;
-    v18 = 1024;
-    v19 = v6;
-    v20 = 2114;
-    v21 = v7;
-    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_INFO, "Daemon registering process %{public}@ (%d) with WPDClient UUID %{public}@", &v16, 0x1Cu);
+    v15 = 138543874;
+    v16 = v5;
+    v17 = 1024;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v7;
+    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_INFO, "Daemon registering process %{public}@ (%d) with WPDClient UUID %{public}@", &v15, 0x1Cu);
   }
 
   if (*(a1 + 40))
@@ -1169,8 +1168,6 @@ void __61__WPDaemonServer_registerClient_withMachName_withCompletion___block_inv
   v13 = [*(a1 + 48) pipeManager];
   v14 = [*(a1 + 48) objectDiscoveryManager];
   (*(v9 + 16))(v9, v10, v11, v12, v13, v14);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clientForMachName:(id)name
@@ -1231,6 +1228,48 @@ void __44__WPDaemonServer_notifyClientsOfStateChange__block_invoke_2(uint64_t a1
   [v6 notifyClientStateChange:*(a1 + 32) Restricted:*(a1 + 40)];
 }
 
+- (void)enableRanging:(BOOL)ranging
+{
+  rangingCopy = ranging;
+  if (+[WPDaemonServer supportsRanging])
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDaemonServer enableRanging:];
+    }
+
+    v5 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+    {
+      [(WPDaemonServer *)v5 enableRanging:?];
+    }
+
+    persistence = [(WPDaemonServer *)self persistence];
+    [persistence setIsRangingEnabled:rangingCopy];
+
+    scanManager = [(WPDaemonServer *)self scanManager];
+
+    if (scanManager)
+    {
+      scanManager2 = [(WPDaemonServer *)self scanManager];
+      [scanManager2 enableRanging:rangingCopy];
+    }
+  }
+
+  else
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDaemonServer enableRanging:];
+    }
+
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      [WPDaemonServer enableRanging:];
+    }
+  }
+}
+
 - (void)startListening
 {
   objc_initWeak(&location, self);
@@ -1248,7 +1287,7 @@ void __44__WPDaemonServer_notifyClientsOfStateChange__block_invoke_2(uint64_t a1
 
 void __32__WPDaemonServer_startListening__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -1272,13 +1311,11 @@ void __32__WPDaemonServer_startListening__block_invoke(uint64_t a1)
     v6 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = @"com.apple.wirelessproxd";
-      _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_INFO, "Daemon started listening for mach service %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = @"com.apple.wirelessproxd";
+      _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_INFO, "Daemon started listening for mach service %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -1511,7 +1548,7 @@ void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke(uint
 
 void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_295(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -1538,7 +1575,7 @@ void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_295(
           }
 
           *buf = 136315138;
-          v12 = v8;
+          v11 = v8;
           _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "Screen state - %s - IOHIDEvent", buf, 0xCu);
         }
 
@@ -1547,13 +1584,11 @@ void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_295(
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_313(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1572,21 +1607,20 @@ void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_313(
     }
 
     *buf = 136315138;
-    v18 = v11;
+    v17 = v11;
     _os_log_impl(&dword_272965000, v10, OS_LOG_TYPE_DEFAULT, "Mirroring state - %s", buf, 0xCu);
   }
 
   v12 = [*(a1 + 32) serverQueue];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_319;
-  v14[3] = &unk_279E59188;
-  objc_copyWeak(&v15, (a1 + 40));
-  v16 = v8 != 0;
-  dispatch_async(v12, v14);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_319;
+  v13[3] = &unk_279E59188;
+  objc_copyWeak(&v14, (a1 + 40));
+  v15 = v8 != 0;
+  dispatch_async(v12, v13);
 
-  objc_destroyWeak(&v15);
-  v13 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v14);
 }
 
 void __53__WPDaemonServer_registerForSpringboardNotifications__block_invoke_319(uint64_t a1)
@@ -1688,6 +1722,63 @@ LABEL_12:
   [statsManager reportPLStats];
 }
 
+- (void)enableTestMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v19 = *MEMORY[0x277D85DE8];
+  if ([(WPDaemonServer *)self isTesting]!= mode)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDaemonServer enableTestMode:];
+    }
+
+    v5 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = "Disabling";
+      if (modeCopy)
+      {
+        v6 = "Enabling";
+      }
+
+      *buf = 136315138;
+      v18 = v6;
+      _os_log_impl(&dword_272965000, v5, OS_LOG_TYPE_DEFAULT, "%s test mode", buf, 0xCu);
+    }
+
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    managers = [(WPDaemonServer *)self managers];
+    v8 = [managers countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v13;
+      do
+      {
+        for (i = 0; i != v9; ++i)
+        {
+          if (*v13 != v10)
+          {
+            objc_enumerationMutation(managers);
+          }
+
+          [*(*(&v12 + 1) + 8 * i) setTestMode:modeCopy];
+        }
+
+        v9 = [managers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      }
+
+      while (v9);
+    }
+
+    [(WPDaemonServer *)self setIsTesting:modeCopy];
+  }
+}
+
 - (void)disableScanningForClient:(id)client
 {
   clientCopy = client;
@@ -1700,7 +1791,7 @@ LABEL_12:
 
 - (void)generateStateDump
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v2 = &WPLogInitOnce;
   if (WPLogInitOnce != -1)
   {
@@ -1712,7 +1803,7 @@ LABEL_12:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v49 = "WPDaemon iOS 26.1 (23B78) (WirelessProximity-191.10) (Release) built on 2025-10-22 21:21:46";
+    v48 = "WPDaemon iOS 26.1 (23B78) (WirelessProximity-191.10) (Release) built on 2025-10-22 21:21:46";
     _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: %s", buf, 0xCu);
   }
 
@@ -1725,7 +1816,7 @@ LABEL_12:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v49 = 1840200;
+    v48 = 1840200;
     _os_log_impl(&dword_272965000, v5, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: WP_API_VERSION: %ld", buf, 0xCu);
   }
 
@@ -1740,7 +1831,7 @@ LABEL_12:
     v7 = v6;
     wpdState = [(WPDaemonServer *)self wpdState];
     *buf = 138412290;
-    v49 = wpdState;
+    v48 = wpdState;
     _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: wpdState: %@", buf, 0xCu);
   }
 
@@ -1756,9 +1847,9 @@ LABEL_12:
     v11 = [WPDManager wpStateAsString:[(WPDaemonServer *)self cbState]];
     cbState = [(WPDaemonServer *)self cbState];
     *buf = 138412546;
-    v49 = v11;
-    v50 = 1024;
-    v51 = cbState;
+    v48 = v11;
+    v49 = 1024;
+    v50 = cbState;
     _os_log_impl(&dword_272965000, v10, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: cbState: %@ (%d)", buf, 0x12u);
   }
 
@@ -1779,7 +1870,7 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v49 = v16;
+    v48 = v16;
     _os_log_impl(&dword_272965000, v14, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: isTesting: %s", buf, 0xCu);
   }
 
@@ -1800,7 +1891,7 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v49 = v20;
+    v48 = v20;
     _os_log_impl(&dword_272965000, v18, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: isRangingEnabled: %s", buf, 0xCu);
   }
 
@@ -1821,7 +1912,7 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v49 = v24;
+    v48 = v24;
     _os_log_impl(&dword_272965000, v22, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: systemLocked: %s", buf, 0xCu);
   }
 
@@ -1837,31 +1928,31 @@ LABEL_12:
     clients = [(WPDaemonServer *)self clients];
     v28 = [clients count];
     *buf = 134217984;
-    v49 = v28;
+    v48 = v28;
     _os_log_impl(&dword_272965000, v26, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: clients (%ld):", buf, 0xCu);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   clients2 = [(WPDaemonServer *)self clients];
-  v30 = [clients2 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v30 = [clients2 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v44;
+    v32 = *v43;
     do
     {
       v33 = 0;
       do
       {
-        if (*v44 != v32)
+        if (*v43 != v32)
         {
           objc_enumerationMutation(clients2);
         }
 
-        v34 = *(*(&v43 + 1) + 8 * v33);
+        v34 = *(*(&v42 + 1) + 8 * v33);
         if (*v2 != -1)
         {
           [WPDaemonServer generateStateDump];
@@ -1876,7 +1967,7 @@ LABEL_12:
           v39 = v38 = v2;
           v40 = [v39 objectForKeyedSubscript:v34];
           *buf = 138412290;
-          v49 = v40;
+          v48 = v40;
           _os_log_impl(&dword_272965000, v36, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: %@", buf, 0xCu);
 
           v2 = v38;
@@ -1887,14 +1978,13 @@ LABEL_12:
       }
 
       while (v31 != v33);
-      v31 = [clients2 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v31 = [clients2 countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v31);
   }
 
   +[WPDClient generateStateDump];
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dumpDaemonState
@@ -1943,7 +2033,7 @@ void __33__WPDaemonServer_dumpDaemonState__block_invoke(uint64_t a1)
 
 - (void)dumpDaemonStateAsync
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDaemonServer dumpDaemonStateAsync];
@@ -1958,29 +2048,29 @@ void __33__WPDaemonServer_dumpDaemonState__block_invoke(uint64_t a1)
 
   [(WPDaemonServer *)self generateStateDump];
   v4 = objc_autoreleasePoolPush();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   managers = [(WPDaemonServer *)self managers];
-  v6 = [managers countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v6 = [managers countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(managers);
         }
 
-        [*(*(&v15 + 1) + 8 * i) generateStateDump];
+        [*(*(&v14 + 1) + 8 * i) generateStateDump];
       }
 
-      v7 = [managers countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v7 = [managers countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v7);
@@ -2009,34 +2099,20 @@ void __33__WPDaemonServer_dumpDaemonState__block_invoke(uint64_t a1)
     *buf = 0;
     _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: END", buf, 2u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithCBStackAdaptor:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithCBStackAdaptor:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithCBStackAdaptor:.cold.7()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __30__WPDaemonServer_initManagers__block_invoke_207_cold_2()
@@ -2048,30 +2124,24 @@ void __30__WPDaemonServer_initManagers__block_invoke_207_cold_2()
 
 void __29__WPDaemonServer_updateState__block_invoke_cold_4(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 cbState];
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0xEu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addClient:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 clientUUID];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_debug_impl(&dword_272965000, v3, OS_LOG_TYPE_DEBUG, "Added WPDClient %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_debug_impl(&dword_272965000, v3, OS_LOG_TYPE_DEBUG, "Added WPDClient %{public}@", &v5, 0xCu);
 }
 
 - (void)addClient:(void *)a1 .cold.5(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 clients];
   [v4 count];
@@ -2080,58 +2150,43 @@ void __29__WPDaemonServer_updateState__block_invoke_cold_4(void *a1, void *a2)
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v7, v8, v9, v10, v11, 0x16u);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeClient:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 processName];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeClient:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 processName];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_272965000, v3, OS_LOG_TYPE_ERROR, "Client for process %@ doesn't have a client UUID", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_272965000, v3, OS_LOG_TYPE_ERROR, "Client for process %@ doesn't have a client UUID", &v5, 0xCu);
 }
 
 void __44__WPDaemonServer_notifyClientsOfStateChange__block_invoke_2_cold_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v6 = a2;
-  v7 = [a3 clientUUID];
-  v14 = [a3 processName];
+  v4 = a2;
+  v5 = [a3 clientUUID];
+  v11 = [a3 processName];
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v8, v9, v10, v11, v12, 0x22u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x22u);
 }
 
 - (void)enableRanging:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 persistence];
   [v4 isRangingEnabled];
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xEu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

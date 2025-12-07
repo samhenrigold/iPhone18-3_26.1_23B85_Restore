@@ -70,7 +70,7 @@ LABEL_162:
           goto LABEL_162;
         }
 
-        WTF::tryFastCompactMalloc((v12 + 20));
+        WTF::tryFastCompactMalloc(&v131, (v12 + 20));
         v15 = v131;
         if (!v131)
         {
@@ -79,9 +79,9 @@ LABEL_162:
 
         v19 = v131 + 5;
         *v131 = 2;
-        v15[1] = v12;
-        *(v15 + 1) = v15 + 5;
-        v15[4] = 4;
+        *(v15 + 4) = v12;
+        *(v15 + 8) = v15 + 20;
+        *(v15 + 16) = 4;
         v17 = *(v5 + 8);
         v20 = *(v5 + 4);
         if ((*(v5 + 16) & 4) != 0)
@@ -95,7 +95,7 @@ LABEL_162:
 
             else
             {
-              memcpy(v15 + 5, v17, v20);
+              memcpy((v15 + 20), v17, v20);
             }
           }
 
@@ -276,7 +276,7 @@ LABEL_110:
         v21 = &v19[v20];
         if (v20 < 0x10)
         {
-          v22 = (v15 + 5);
+          v22 = v15 + 20;
           if (v19 == v21)
           {
             goto LABEL_84;
@@ -285,7 +285,7 @@ LABEL_110:
 
         else
         {
-          v22 = (v15 + 5);
+          v22 = v15 + 20;
           do
           {
             v23 = vld2q_s8(v17->i8);
@@ -384,7 +384,7 @@ LABEL_59:
         goto LABEL_162;
       }
 
-      WTF::tryFastCompactMalloc((2 * v12 + 20));
+      WTF::tryFastCompactMalloc(&v131, (2 * v12 + 20));
       v15 = v131;
       if (!v131)
       {
@@ -393,9 +393,9 @@ LABEL_59:
 
       v16 = v131 + 5;
       *v131 = 2;
-      v15[1] = v12;
-      *(v15 + 1) = v15 + 5;
-      v15[4] = 0;
+      *(v15 + 4) = v12;
+      *(v15 + 8) = v15 + 20;
+      *(v15 + 16) = 0;
       v17 = *(v5 + 8);
       v18 = *(v5 + 4);
       if ((*(v5 + 16) & 4) != 0)
@@ -403,7 +403,7 @@ LABEL_59:
         v24 = &v16[v18];
         if (v18 < 0x40)
         {
-          v25 = (v15 + 5);
+          v25 = v15 + 20;
           if (v16 == v24)
           {
             goto LABEL_65;
@@ -414,7 +414,7 @@ LABEL_59:
         {
           v25 = &v16[v18 & 0xFFFFFFC0];
           v26 = 0uLL;
-          v27 = (v15 + 5);
+          v27 = (v15 + 20);
           do
           {
             v132.val[0] = *v17;
@@ -530,7 +530,7 @@ LABEL_62:
 
         else
         {
-          memcpy(v15 + 5, v17, 2 * v18);
+          memcpy((v15 + 20), v17, 2 * v18);
         }
       }
 
@@ -607,7 +607,7 @@ LABEL_65:
           goto LABEL_105;
         }
 
-        v61 = v15 + 2 * v48 + 2 * v51 - v50 + 20;
+        v61 = v15 + 2 * (v48 + v51) - v50 + 20;
         if (v61 < 0xE || v50 < v17->u64 + (v61 >> 1) + 1 && v17 < (v61 & 0xFFFFFFFFFFFFFFFELL) + v50 + 2)
         {
           v62 = v17;

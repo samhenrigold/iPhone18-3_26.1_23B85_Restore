@@ -5,9 +5,11 @@
 + (void)removeConnection:(id)connection;
 + (void)stopAllOutgoingConnectionsNotForPeer:(id)peer;
 - (RPNWConnection)init;
+- (RPNWConnection)initWithPeer:(id)peer token:(id)token version:(id)version inbound:(BOOL)inbound internal:(BOOL)internal applicationService:(id)service connectionID:(id)d endpointID:(id)self0;
 - (id)description;
 - (void)dealloc;
 - (void)ensureReadyHasBeenSent;
+- (void)sendStatusUpdate:(int)update;
 @end
 
 @implementation RPNWConnection
@@ -78,6 +80,42 @@
   return v2;
 }
 
+- (RPNWConnection)initWithPeer:(id)peer token:(id)token version:(id)version inbound:(BOOL)inbound internal:(BOOL)internal applicationService:(id)service connectionID:(id)d endpointID:(id)self0
+{
+  internalCopy = internal;
+  inboundCopy = inbound;
+  peerCopy = peer;
+  tokenCopy = token;
+  versionCopy = version;
+  serviceCopy = service;
+  dCopy = d;
+  iDCopy = iD;
+  v28.receiver = self;
+  v28.super_class = RPNWConnection;
+  v22 = [(RPNWConnection *)&v28 init];
+  v23 = v22;
+  if (v22)
+  {
+    [(RPNWConnection *)v22 setToken:tokenCopy];
+    [(RPNWConnection *)v23 setVersion:versionCopy];
+    [(RPNWConnection *)v23 setInbound:inboundCopy];
+    [(RPNWConnection *)v23 setInternal:internalCopy];
+    [(RPNWConnection *)v23 setApplicationService:serviceCopy];
+    [(RPNWConnection *)v23 setConnectionUUID:dCopy];
+    [(RPNWConnection *)v23 setEndpointUUID:iDCopy];
+    v24 = objc_alloc_init(RPNWPeer);
+    [(RPNWConnection *)v23 setPeer:v24];
+
+    peer = [(RPNWConnection *)v23 peer];
+    [peer setDestinationDevice:peerCopy];
+
+    [RPNWConnection addConnection:v23];
+    v26 = v23;
+  }
+
+  return v23;
+}
+
 - (void)dealloc
 {
   [RPNWConnection removeConnection:self];
@@ -88,6 +126,21 @@
   v5.receiver = self;
   v5.super_class = RPNWConnection;
   [(RPNWConnection *)&v5 dealloc];
+}
+
+- (void)sendStatusUpdate:(int)update
+{
+  v3 = *&update;
+  applicationService = self->_applicationService;
+  peer = self->_peer;
+  token = self->_token;
+  connectionUUID = self->_connectionUUID;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100058A18;
+  v8[3] = &unk_1001AAFE8;
+  v8[4] = self;
+  [(RPNWPeer *)peer sendStatusUpdateForConnection:applicationService token:token connectionID:connectionUUID status:v3 responseHandler:v8];
 }
 
 - (void)ensureReadyHasBeenSent
@@ -116,8 +169,7 @@
     }
 
     connectionUUID = [connectionCopy connectionUUID];
-    v6 = connectionUUID;
-    LogPrintF();
+    LogPrintF(&dword_1001D3A88, "+[RPNWConnection addConnection:]", 30, "addConnection for key=%@\n", connectionUUID);
 LABEL_5:
 
     goto LABEL_11;
@@ -125,8 +177,8 @@ LABEL_5:
 
   if (dword_1001D3A88 <= 30 && (dword_1001D3A88 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001182F0(connectionCopy, &v8);
-    connectionUUID = v8;
+    sub_1001182F0(connectionCopy, &v7);
+    connectionUUID = v7;
     goto LABEL_5;
   }
 

@@ -18,11 +18,11 @@
 
 - (SUCoreDocumentationDataManager)initWithStashPath:(id)path
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v15.receiver = self;
-  v15.super_class = SUCoreDocumentationDataManager;
-  v5 = [(SUCoreDocumentationDataManager *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SUCoreDocumentationDataManager;
+  v5 = [(SUCoreDocumentationDataManager *)&v14 init];
   if (v5)
   {
     v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -50,11 +50,10 @@
   {
     documentationPath = [(SUCoreDocumentationDataManager *)v5 documentationPath];
     *buf = 138543362;
-    v17 = documentationPath;
+    v16 = documentationPath;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Created SUCoreDocumentationDataManager with stash path: %{public}@", buf, 0xCu);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -309,7 +308,7 @@ void __76__SUCoreDocumentationDataManager_cleanupNonInstalledDocumentationWithEr
 
 - (BOOL)queue_stashDocumentationAssetData:(id)data forBuildVersion:(id)version error:(id *)error
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   versionCopy = version;
   dispatch_assert_queue_V2(self->_stateQueue);
@@ -324,9 +323,9 @@ void __76__SUCoreDocumentationDataManager_cleanupNonInstalledDocumentationWithEr
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v55 = dataCopy;
-    v56 = 2114;
-    v57 = versionCopy;
+    v54 = dataCopy;
+    v55 = 2114;
+    v56 = versionCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Stashing documentation asset: %{public}@ for build version: %{public}@", buf, 0x16u);
   }
 
@@ -376,7 +375,7 @@ LABEL_35:
     if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v55 = versionCopy;
+      v54 = versionCopy;
       _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Documentation data already stashed for build version %@", buf, 0xCu);
     }
 
@@ -385,9 +384,9 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v53 = 0;
-  v27 = [(SUCoreDocumentationDataManager *)self queue_evictStashIfNecessary:&v53];
-  v28 = v53;
+  v52 = 0;
+  v27 = [(SUCoreDocumentationDataManager *)self queue_evictStashIfNecessary:&v52];
+  v28 = v52;
   if (!v27)
   {
     mEMORY[0x277D64460]3 = [MEMORY[0x277D64460] sharedLogger];
@@ -427,9 +426,9 @@ LABEL_16:
     goto LABEL_36;
   }
 
-  v52 = v28;
-  v31 = [defaultManager createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:&v52];
-  v32 = v52;
+  v51 = v28;
+  v31 = [defaultManager createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:&v51];
+  v32 = v51;
 
   if ((v31 & 1) == 0)
   {
@@ -456,22 +455,22 @@ LABEL_16:
   if (os_log_type_enabled(oslog4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v55 = versionCopy;
-    v56 = 2114;
-    v57 = uRLByDeletingLastPathComponent;
-    v58 = 2114;
-    v59 = v37;
+    v54 = versionCopy;
+    v55 = 2114;
+    v56 = uRLByDeletingLastPathComponent;
+    v57 = 2114;
+    v58 = v37;
     _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Copying documentation asset for %{public}@ from %{public}@ to %{public}@", buf, 0x20u);
   }
 
-  v51 = v32;
-  v21 = [defaultManager copyItemAtURL:uRLByDeletingLastPathComponent toURL:v37 error:&v51];
-  v20 = v51;
+  v50 = v32;
+  v21 = [defaultManager copyItemAtURL:uRLByDeletingLastPathComponent toURL:v37 error:&v50];
+  v20 = v50;
 
   if ((v21 & 1) == 0)
   {
     v40 = MEMORY[0x277CCA9B8];
-    v50 = v37;
+    v49 = v37;
     v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to copy from %@ to %@", 0, v15];
     v42 = [v40 buildAndLogCheckedSUCoreError:9002 underlying:v20 description:v41];
 
@@ -482,17 +481,16 @@ LABEL_16:
     }
 
     v20 = v42;
-    v37 = v50;
+    v37 = v49;
   }
 
 LABEL_36:
-  v48 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)queue_getDocumentation:(id *)documentation documentationData:(id *)data forInstalledUpdateType:(unint64_t)type withError:(id *)error
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateQueue);
   if (documentation)
   {
@@ -525,18 +523,18 @@ LABEL_36:
 
       if ((hasSemiSplatActive & 1) == 0)
       {
-        v77 = [MEMORY[0x277CCA9B8] buildAndLogCheckedSUCoreError:9009 underlying:0 description:@"Splat update not installed. No documentation data found for splat update"];
-        v67 = v77;
+        v76 = [MEMORY[0x277CCA9B8] buildAndLogCheckedSUCoreError:9009 underlying:0 description:@"Splat update not installed. No documentation data found for splat update"];
+        v66 = v76;
         if (error)
         {
-          v78 = v77;
-          v71 = 0;
-          *error = v67;
+          v77 = v76;
+          v70 = 0;
+          *error = v66;
         }
 
         else
         {
-          v71 = 0;
+          v70 = 0;
         }
 
         goto LABEL_52;
@@ -554,64 +552,63 @@ LABEL_36:
 
   v15 = splatCryptex1BuildVersion;
 
-  v93 = [(SUCoreDocumentationDataManager *)self stashedDataDirectoryForBuildVersion:v15];
-  if (v93)
+  v91 = [(SUCoreDocumentationDataManager *)self stashedDataDirectoryForBuildVersion:v15];
+  if (v91)
   {
     documentationCopy = documentation;
-    v84 = v15;
-    v98 = 0u;
-    v99 = 0u;
+    v82 = v15;
     v96 = 0u;
     v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v95 = 0;
-    v17 = [defaultManager contentsOfDirectoryAtPath:v93 error:&v95];
-    v81 = v95;
+    v93 = 0;
+    v17 = [defaultManager contentsOfDirectoryAtPath:v91 error:&v93];
+    v79 = v93;
 
     obj = v17;
-    v91 = [v17 countByEnumeratingWithState:&v96 objects:v106 count:16];
+    v89 = [v17 countByEnumeratingWithState:&v94 objects:v104 count:16];
     v18 = 0;
     v19 = 0;
-    if (!v91)
+    if (!v89)
     {
       goto LABEL_31;
     }
 
-    v90 = *v97;
-    v20 = *MEMORY[0x277D644F0];
-    v85 = *MEMORY[0x277D644F0];
-    v86 = *MEMORY[0x277D64540];
+    v88 = *v95;
+    v83 = *MEMORY[0x277D644F0];
+    v84 = *MEMORY[0x277D64540];
     while (1)
     {
-      v21 = 0;
-      v22 = v18;
-      v23 = v19;
+      v20 = 0;
+      v21 = v18;
+      v22 = v19;
       do
       {
-        v94 = v22;
-        if (*v97 != v90)
+        v92 = v21;
+        if (*v95 != v88)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v96 + 1) + 8 * v21);
-        v25 = MEMORY[0x277CBEBC0];
-        v105[0] = v93;
-        v105[1] = v24;
-        v105[2] = @"AssetData";
-        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:3];
-        v27 = [v25 fileURLWithPathComponents:v26];
+        v23 = *(*(&v94 + 1) + 8 * v20);
+        v24 = MEMORY[0x277CBEBC0];
+        v103[0] = v91;
+        v103[1] = v23;
+        v103[2] = @"AssetData";
+        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:3];
+        v26 = [v24 fileURLWithPathComponents:v25];
 
-        v28 = MEMORY[0x277CBEBC0];
-        v104[0] = v93;
-        v104[1] = v24;
-        v104[2] = @"Info.plist";
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:3];
-        v30 = [v28 fileURLWithPathComponents:v29];
+        v27 = MEMORY[0x277CBEBC0];
+        v102[0] = v91;
+        v102[1] = v23;
+        v102[2] = @"Info.plist";
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:3];
+        v29 = [v27 fileURLWithPathComponents:v28];
 
-        v31 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v30];
-        v32 = v27;
-        v33 = [v31 safeObjectForKey:@"MobileAssetProperties" ofClass:objc_opt_class()];
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v29];
+        v31 = v26;
+        v32 = [v30 safeObjectForKey:@"MobileAssetProperties" ofClass:objc_opt_class()];
 
         mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
         oslog = [mEMORY[0x277D64460] oslog];
@@ -619,39 +616,39 @@ LABEL_36:
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v101 = v27;
-          v102 = 2114;
-          v103 = v33;
+          v99 = v26;
+          v100 = 2114;
+          v101 = v32;
           _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Initializing documentation with assetBundleURL: %{public}@, assetAttributes: %{public}@", buf, 0x16u);
         }
 
-        v19 = [[SUCoreDocumentation alloc] initWithLocalBundleURL:v27 attributes:v33];
+        v19 = [[SUCoreDocumentation alloc] initWithLocalBundleURL:v26 attributes:v32];
         extendDocumentationProperties = [(SUCoreDocumentation *)v19 extendDocumentationProperties];
         if (type == 1)
         {
-          v89 = v30;
-          v37 = v27;
-          v38 = objc_alloc(MEMORY[0x277CCACA8]);
+          v87 = v29;
+          v36 = v26;
+          v37 = objc_alloc(MEMORY[0x277CCACA8]);
           humanReadableUpdateName = [(SUCoreDocumentation *)v19 humanReadableUpdateName];
           [MEMORY[0x277D64418] sharedDevice];
-          v40 = v88 = v33;
-          splatCryptex1ProductVersion = [v40 splatCryptex1ProductVersion];
+          v39 = v86 = v32;
+          splatCryptex1ProductVersion = [v39 splatCryptex1ProductVersion];
           mEMORY[0x277D64418]4 = [MEMORY[0x277D64418] sharedDevice];
           splatCryptex1ProductVersionExtra = [mEMORY[0x277D64418]4 splatCryptex1ProductVersionExtra];
-          v44 = [v38 initWithFormat:@"%@ %@ %@", humanReadableUpdateName, splatCryptex1ProductVersion, splatCryptex1ProductVersionExtra];
-          [(SUCoreDocumentation *)v19 setHumanReadableUpdateName:v44];
+          v43 = [v37 initWithFormat:@"%@ %@ %@", humanReadableUpdateName, splatCryptex1ProductVersion, splatCryptex1ProductVersionExtra];
+          [(SUCoreDocumentation *)v19 setHumanReadableUpdateName:v43];
 
-          v32 = v37;
-          v30 = v89;
-          v45 = objc_alloc(MEMORY[0x277CCACA8]);
+          v31 = v36;
+          v29 = v87;
+          v44 = objc_alloc(MEMORY[0x277CCACA8]);
           mEMORY[0x277D64418]5 = [MEMORY[0x277D64418] sharedDevice];
           splatCryptex1ProductVersion2 = [mEMORY[0x277D64418]5 splatCryptex1ProductVersion];
           mEMORY[0x277D64418]6 = [MEMORY[0x277D64418] sharedDevice];
           splatCryptex1ProductVersionExtra2 = [mEMORY[0x277D64418]6 splatCryptex1ProductVersionExtra];
-          v50 = [v45 initWithFormat:@"%@ %@", splatCryptex1ProductVersion2, splatCryptex1ProductVersionExtra2];
-          [(SUCoreDocumentation *)v19 setHumanReadableUpdateVersion:v50];
+          v49 = [v44 initWithFormat:@"%@ %@", splatCryptex1ProductVersion2, splatCryptex1ProductVersionExtra2];
+          [(SUCoreDocumentation *)v19 setHumanReadableUpdateVersion:v49];
 
-          v33 = v88;
+          v32 = v86;
         }
 
         mEMORY[0x277D64418]7 = [MEMORY[0x277D64418] sharedDevice];
@@ -660,20 +657,20 @@ LABEL_36:
           goto LABEL_26;
         }
 
-        v52 = [objc_alloc(MEMORY[0x277D64408]) initWithProjectName:v86];
-        v53 = [v52 getBoolConfigForKey:v85];
+        v51 = [objc_alloc(MEMORY[0x277D64408]) initWithProjectName:v84];
+        v52 = [v51 getBoolConfigForKey:v83];
 
-        if ((v53 & 1) == 0)
+        if ((v52 & 1) == 0)
         {
-          v54 = objc_alloc(MEMORY[0x277CCACA8]);
+          v53 = objc_alloc(MEMORY[0x277CCACA8]);
           humanReadableUpdateName2 = [(SUCoreDocumentation *)v19 humanReadableUpdateName];
-          v56 = [v54 initWithFormat:@"%@ (%@)", humanReadableUpdateName2, v84];
-          [(SUCoreDocumentation *)v19 setHumanReadableUpdateName:v56];
+          v55 = [v53 initWithFormat:@"%@ (%@)", humanReadableUpdateName2, v82];
+          [(SUCoreDocumentation *)v19 setHumanReadableUpdateName:v55];
 
-          v57 = objc_alloc(MEMORY[0x277CCACA8]);
+          v56 = objc_alloc(MEMORY[0x277CCACA8]);
           mEMORY[0x277D64418]7 = [(SUCoreDocumentation *)v19 humanReadableUpdateVersion];
-          v58 = [v57 initWithFormat:@"%@ (%@)", mEMORY[0x277D64418]7, v84];
-          [(SUCoreDocumentation *)v19 setHumanReadableUpdateVersion:v58];
+          v57 = [v56 initWithFormat:@"%@ (%@)", mEMORY[0x277D64418]7, v82];
+          [(SUCoreDocumentation *)v19 setHumanReadableUpdateVersion:v57];
 
 LABEL_26:
         }
@@ -703,14 +700,14 @@ LABEL_26:
           goto LABEL_31;
         }
 
-        ++v21;
-        v22 = v18;
-        v23 = v19;
+        ++v20;
+        v21 = v18;
+        v22 = v19;
       }
 
-      while (v91 != v21);
-      v91 = [obj countByEnumeratingWithState:&v96 objects:v106 count:16];
-      if (!v91)
+      while (v89 != v20);
+      v89 = [obj countByEnumeratingWithState:&v94 objects:v104 count:16];
+      if (!v89)
       {
 LABEL_31:
 
@@ -720,37 +717,37 @@ LABEL_31:
         if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v101 = v19;
-          v102 = 2114;
-          v103 = v18;
+          v99 = v19;
+          v100 = 2114;
+          v101 = v18;
           _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Returning documentation: %{public}@, documentation data: %{public}@", buf, 0x16u);
         }
 
-        v15 = v84;
-        v67 = v81;
+        v15 = v82;
+        v66 = v79;
         if (documentationCopy)
         {
-          v68 = v19;
+          v67 = v19;
           *documentationCopy = v19;
         }
 
         if (dataCopy)
         {
-          v69 = v18;
+          v68 = v18;
           *dataCopy = v18;
         }
 
         if (v19)
         {
-          v70 = v18 == 0;
+          v69 = v18 == 0;
         }
 
         else
         {
-          v70 = 1;
+          v69 = 1;
         }
 
-        v71 = !v70;
+        v70 = !v69;
 
         goto LABEL_51;
       }
@@ -765,32 +762,31 @@ LABEL_31:
     [SUCoreDocumentationDataManager queue_getDocumentation:v15 documentationData:oslog3 forInstalledUpdateType:? withError:?];
   }
 
-  v74 = MEMORY[0x277CCA9B8];
-  v75 = [MEMORY[0x277CCACA8] stringWithFormat:@"No available stashed documentation path for provided build version (%@)", v15];
-  v67 = [v74 buildAndLogCheckedSUCoreError:9004 underlying:0 description:v75];
+  v73 = MEMORY[0x277CCA9B8];
+  v74 = [MEMORY[0x277CCACA8] stringWithFormat:@"No available stashed documentation path for provided build version (%@)", v15];
+  v66 = [v73 buildAndLogCheckedSUCoreError:9004 underlying:0 description:v74];
 
   if (error)
   {
-    v76 = v67;
-    v71 = 0;
-    *error = v67;
+    v75 = v66;
+    v70 = 0;
+    *error = v66;
   }
 
   else
   {
-    v71 = 0;
+    v70 = 0;
   }
 
 LABEL_51:
 
 LABEL_52:
-  v79 = *MEMORY[0x277D85DE8];
-  return v71;
+  return v70;
 }
 
 - (BOOL)queue_cleanupNonInstalledDocumentationWithError:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateQueue);
   if (error)
   {
@@ -818,9 +814,9 @@ LABEL_26:
     goto LABEL_36;
   }
 
-  v49 = 0;
-  v5 = [(SUCoreDocumentationDataManager *)self installedBuildVersionsWithError:&v49];
-  v6 = v49;
+  v48 = 0;
+  v5 = [(SUCoreDocumentationDataManager *)self installedBuildVersionsWithError:&v48];
+  v6 = v48;
   v7 = v6;
   if (!v5 || v6)
   {
@@ -838,9 +834,9 @@ LABEL_26:
   }
 
   documentationPath = [(SUCoreDocumentationDataManager *)self documentationPath];
-  v48 = 0;
-  v9 = [defaultManager contentsOfDirectoryAtPath:documentationPath error:&v48];
-  v10 = v48;
+  v47 = 0;
+  v9 = [defaultManager contentsOfDirectoryAtPath:documentationPath error:&v47];
+  v10 = v47;
 
   if (!v9 || v10)
   {
@@ -861,28 +857,28 @@ LABEL_29:
     goto LABEL_36;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v9 = v9;
-  v11 = [v9 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v11 = [v9 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v11)
   {
     v12 = v11;
     errorCopy = error;
     v13 = 0;
-    v14 = *v45;
+    v14 = *v44;
 LABEL_10:
     v15 = 0;
     while (1)
     {
-      if (*v45 != v14)
+      if (*v44 != v14)
       {
         objc_enumerationMutation(v9);
       }
 
-      v16 = *(*(&v44 + 1) + 8 * v15);
+      v16 = *(*(&v43 + 1) + 8 * v15);
       if (([v5 containsObject:v16] & 1) == 0)
       {
         v17 = [(SUCoreDocumentationDataManager *)self stashedDataDirectoryForBuildVersion:v16];
@@ -905,15 +901,15 @@ LABEL_10:
         v18 = v5;
         v19 = v9;
         v20 = v13;
-        v43 = v13;
-        v21 = [defaultManager removeItemAtPath:v17 error:&v43];
-        v22 = v43;
+        v42 = v13;
+        v21 = [defaultManager removeItemAtPath:v17 error:&v42];
+        v22 = v42;
 
         if ((v21 & 1) == 0)
         {
-          v39 = MEMORY[0x277CCA9B8];
-          v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to remove directory %@: %@", v17, v22];
-          v34 = [v39 buildAndLogCheckedSUCoreError:90007 underlying:v22 description:v40];
+          v38 = MEMORY[0x277CCA9B8];
+          v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to remove directory %@: %@", v17, v22];
+          v34 = [v38 buildAndLogCheckedSUCoreError:90007 underlying:v22 description:v39];
 
           v13 = v34;
           v35 = errorCopy;
@@ -941,7 +937,7 @@ LABEL_34:
 
       if (v12 == ++v15)
       {
-        v12 = [v9 countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v12 = [v9 countByEnumeratingWithState:&v43 objects:v49 count:16];
         if (v12)
         {
           goto LABEL_10;
@@ -958,13 +954,12 @@ LABEL_31:
 LABEL_35:
 
 LABEL_36:
-  v37 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (BOOL)queue_evictStashIfNecessary:(id *)necessary
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   stateQueue = [(SUCoreDocumentationDataManager *)self stateQueue];
   dispatch_assert_queue_V2(stateQueue);
 
@@ -1010,7 +1005,7 @@ LABEL_38:
   {
     documentationPath = [(SUCoreDocumentationDataManager *)self documentationPath];
     *buf = 138543362;
-    v65 = documentationPath;
+    v64 = documentationPath;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Preparing to evict stashed documentation assets at directory %{public}@", buf, 0xCu);
   }
 
@@ -1025,9 +1020,9 @@ LABEL_38:
   }
 
   documentationPath3 = [(SUCoreDocumentationDataManager *)self documentationPath];
-  v63 = 0;
-  v13 = [defaultManager contentsOfDirectoryAtPath:documentationPath3 error:&v63];
-  v14 = v63;
+  v62 = 0;
+  v13 = [defaultManager contentsOfDirectoryAtPath:documentationPath3 error:&v62];
+  v14 = v62;
 
   if (!v13 || v14)
   {
@@ -1061,9 +1056,9 @@ LABEL_37:
     {
       v17 = [v13 count];
       *buf = 134218240;
-      v65 = v17;
-      v66 = 2048;
-      v67 = 5;
+      v64 = v17;
+      v65 = 2048;
+      v66 = 5;
       _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Stashed assets (%lld) is below the minimum threshold (%lld), not evicting any assets", buf, 0x16u);
     }
 
@@ -1072,9 +1067,9 @@ LABEL_37:
     goto LABEL_13;
   }
 
-  v62 = 0;
-  v18 = [(SUCoreDocumentationDataManager *)self installedBuildVersionsWithError:&v62];
-  v32 = v62;
+  v61 = 0;
+  v18 = [(SUCoreDocumentationDataManager *)self installedBuildVersionsWithError:&v61];
+  v32 = v61;
   v33 = v32;
   if (!v18 || v32)
   {
@@ -1111,7 +1106,7 @@ LABEL_13:
     goto LABEL_45;
   }
 
-  v57 = v13;
+  v56 = v13;
   v20 = 0;
   v35 = 0;
   v36 = 0;
@@ -1121,7 +1116,7 @@ LABEL_13:
     {
       v21 = 1;
 LABEL_52:
-      v13 = v57;
+      v13 = v56;
       goto LABEL_45;
     }
 
@@ -1134,14 +1129,14 @@ LABEL_52:
     v38 = v37;
     if (([v18 containsObject:v37] & 1) == 0)
     {
-      v60 = [(SUCoreDocumentationDataManager *)self stashedDataDirectoryForBuildVersion:v38];
-      if (!v60)
+      v59 = [(SUCoreDocumentationDataManager *)self stashedDataDirectoryForBuildVersion:v38];
+      if (!v59)
       {
-        v49 = MEMORY[0x277CCA9B8];
-        v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create deletePath"];
-        v51 = [v49 buildAndLogCheckedSUCoreError:90007 underlying:0 description:v50];
+        v48 = MEMORY[0x277CCA9B8];
+        v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create deletePath"];
+        v50 = [v48 buildAndLogCheckedSUCoreError:90007 underlying:0 description:v49];
 
-        v20 = v51;
+        v20 = v50;
         if (!necessary)
         {
           goto LABEL_51;
@@ -1150,31 +1145,31 @@ LABEL_52:
         goto LABEL_50;
       }
 
-      v59 = v38;
+      v58 = v38;
       sharedLogger = [*(v7 + 1120) sharedLogger];
       oslog3 = [sharedLogger oslog];
 
       if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v65 = v60;
+        v64 = v59;
         _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Removing documentation asset at path %{public}@", buf, 0xCu);
       }
 
-      v61 = v20;
-      v58 = [defaultManager removeItemAtPath:v60 error:&v61];
-      v41 = v61;
+      v60 = v20;
+      v57 = [defaultManager removeItemAtPath:v59 error:&v60];
+      v41 = v60;
 
-      if ((v58 & 1) == 0)
+      if ((v57 & 1) == 0)
       {
-        v53 = MEMORY[0x277CCA9B8];
-        v54 = MEMORY[0x277CCACA8];
+        v52 = MEMORY[0x277CCA9B8];
+        v53 = MEMORY[0x277CCACA8];
         documentationPath5 = [(SUCoreDocumentationDataManager *)self documentationPath];
-        v56 = [v54 stringWithFormat:@"Failed to remove directory %@: %@", documentationPath5, v41];
-        v51 = [v53 buildAndLogCheckedSUCoreError:90007 underlying:v41 description:v56];
+        v55 = [v53 stringWithFormat:@"Failed to remove directory %@: %@", documentationPath5, v41];
+        v50 = [v52 buildAndLogCheckedSUCoreError:90007 underlying:v41 description:v55];
 
-        v20 = v51;
-        v38 = v59;
+        v20 = v50;
+        v38 = v58;
         if (!necessary)
         {
 LABEL_51:
@@ -1184,9 +1179,9 @@ LABEL_51:
         }
 
 LABEL_50:
-        v52 = v51;
-        *necessary = v51;
-        v20 = v51;
+        v51 = v50;
+        *necessary = v50;
+        v20 = v50;
         goto LABEL_51;
       }
 
@@ -1194,7 +1189,7 @@ LABEL_50:
 
       v20 = v41;
       v7 = 0x277D64000;
-      v38 = v59;
+      v38 = v58;
     }
 
     ++v36;
@@ -1206,16 +1201,16 @@ LABEL_50:
     }
   }
 
-  v45 = MEMORY[0x277CCA9B8];
-  v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create deletePath"];
-  v47 = [v45 buildAndLogCheckedSUCoreError:9005 underlying:0 description:v46];
+  v44 = MEMORY[0x277CCA9B8];
+  v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create deletePath"];
+  v46 = [v44 buildAndLogCheckedSUCoreError:9005 underlying:0 description:v45];
 
-  v13 = v57;
+  v13 = v56;
   if (necessary)
   {
-    v48 = v47;
+    v47 = v46;
     v21 = 0;
-    *necessary = v47;
+    *necessary = v46;
   }
 
   else
@@ -1223,16 +1218,15 @@ LABEL_50:
     v21 = 0;
   }
 
-  v20 = v47;
+  v20 = v46;
 LABEL_45:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (id)installedBuildVersionsWithError:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (error)
   {
     *error = 0;
@@ -1289,18 +1283,16 @@ LABEL_13:
   {
     v11 = [v4 count];
     v12 = [v4 componentsJoinedByString:{@", "}];
-    v22 = 134218242;
-    v23 = v11;
-    v24 = 2114;
-    v25 = v12;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Found %lld installed build versions: %{public}@", &v22, 0x16u);
+    v21 = 134218242;
+    v22 = v11;
+    v23 = 2114;
+    v24 = v12;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDocumentationDataManager] Found %lld installed build versions: %{public}@", &v21, 0x16u);
   }
 
   v13 = v4;
   v14 = 0;
 LABEL_16:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1346,20 +1338,18 @@ LABEL_16:
 
 - (void)queue_stashDocumentationAssetData:(uint64_t)a1 forBuildVersion:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "[SUCoreDocumentationDataManager] Failed to create evict stash directories: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "[SUCoreDocumentationDataManager] Failed to create evict stash directories: %@", &v2, 0xCu);
 }
 
 - (void)queue_getDocumentation:(uint64_t)a1 documentationData:(NSObject *)a2 forInstalledUpdateType:withError:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "[SUCoreDocumentationDataManager] No available stashedDocumentationPath for build version: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "[SUCoreDocumentationDataManager] No available stashedDocumentationPath for build version: %{public}@", &v2, 0xCu);
 }
 
 @end

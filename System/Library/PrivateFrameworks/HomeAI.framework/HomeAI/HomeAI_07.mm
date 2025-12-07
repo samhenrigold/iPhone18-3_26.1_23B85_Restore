@@ -3297,25 +3297,26 @@ LABEL_3:
   return result;
 }
 
-void cv::crossCorr(cv::Mat *a1, cv::Mat *a2, int32x2_t *this, int *a4, unsigned __int16 a5, int32x2_t *a6, char a7, double a8)
+void cv::crossCorr(cv::Mat *a1, cv::Mat *a2, int32x2_t *this, int *a4, uint64_t a5, int32x2_t *a6, char a7, double a8)
 {
-  v280[5] = *MEMORY[0x277D85DE8];
-  v235 = 0;
-  v234 = 0;
-  v236 = 0;
+  v8 = a5;
+  v284[5] = *MEMORY[0x277D85DE8];
+  v239 = 0;
+  v238 = 0;
+  v240 = 0;
   v14 = *a2;
-  *v226 = *a2;
+  *v230 = *a2;
   v15 = *(a2 + 2);
   v16 = *(a2 + 24);
-  v228 = v16;
-  v229 = *(a2 + 40);
+  v232 = v16;
+  v233 = *(a2 + 40);
   v17 = *(a2 + 7);
-  v227 = v15;
-  v230 = v17;
-  v231 = &v226[2];
-  v232 = v233;
-  v233[1] = 0;
-  v233[0] = 0;
+  v231 = v15;
+  v234 = v17;
+  v235 = &v230[2];
+  v236 = v237;
+  v237[1] = 0;
+  v237[0] = 0;
   if (v16)
   {
     atomic_fetch_add(v16, 1u);
@@ -3329,32 +3330,32 @@ void cv::crossCorr(cv::Mat *a1, cv::Mat *a2, int32x2_t *this, int *a4, unsigned 
 
   if (v18 > 2)
   {
-    v226[1] = 0;
-    cv::Mat::copySize(v226, a2);
+    v230[1] = 0;
+    cv::Mat::copySize(v230, a2);
   }
 
   else
   {
     v19 = *(a2 + 9);
-    v20 = v232;
-    *v232 = *v19;
+    v20 = v236;
+    *v236 = *v19;
     v20[1] = v19[1];
   }
 
-  v21 = v226[0];
-  if (*(a1 + 1) > 2 || v226[1] > 2 || this->i32[1] >= 3)
+  v21 = v230[0];
+  if (*(a1 + 1) > 2 || v230[1] > 2 || this->i32[1] >= 3)
   {
-    std::string::basic_string[abi:ne200100]<0>(v273, "img.dims <= 2 && templ.dims <= 2 && corr.dims <= 2");
-    std::string::basic_string[abi:ne200100]<0>(v264, "crossCorr");
+    std::string::basic_string[abi:ne200100]<0>(v277, "img.dims <= 2 && templ.dims <= 2 && corr.dims <= 2");
+    std::string::basic_string[abi:ne200100]<0>(v268, "crossCorr");
     std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/templmatch.cpp");
-    v22 = cv::Exception::Exception(v277, 4294967081, v273, v264, __p, 60);
+    v22 = cv::Exception::Exception(v281, -215, v277, v268, __p, 60);
     cv::error(v22, v23);
   }
 
-  v183 = *a1;
+  v187 = *a1;
   v24 = *a1 & 7;
   v25 = v24;
-  if (v24 != (v226[0] & 7))
+  if (v24 != (v230[0] & 7))
   {
     if (v24 <= 5)
     {
@@ -3366,59 +3367,59 @@ void cv::crossCorr(cv::Mat *a1, cv::Mat *a2, int32x2_t *this, int *a4, unsigned 
       v26 = *a1 & 7;
     }
 
-    v25 = v226[0] & 7;
+    v25 = v230[0] & 7;
     if (v25 != v26)
     {
-      cv::_OutputArray::_OutputArray(v277, v226);
-      cv::Mat::convertTo(a2, v277, v26, 1.0, 0.0);
-      v25 = v226[0] & 7;
+      cv::_OutputArray::_OutputArray(v281, v230);
+      cv::Mat::convertTo(a2, v281, v26, 1.0, 0.0);
+      v25 = v230[0] & 7;
     }
 
     if (v24 != v25 && v25 != 5)
     {
-      std::string::basic_string[abi:ne200100]<0>(v273, "depth == tdepth || tdepth == CV_32F");
-      std::string::basic_string[abi:ne200100]<0>(v264, "crossCorr");
+      std::string::basic_string[abi:ne200100]<0>(v277, "depth == tdepth || tdepth == CV_32F");
+      std::string::basic_string[abi:ne200100]<0>(v268, "crossCorr");
       std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/templmatch.cpp");
-      v27 = cv::Exception::Exception(v277, 4294967081, v273, v264, __p, 68);
+      v27 = cv::Exception::Exception(v281, -215, v277, v268, __p, 68);
       cv::error(v27, v28);
     }
   }
 
-  if (a4[1] >= v226[2] + *(a1 + 2) || *a4 >= v226[3] + *(a1 + 3))
+  if (a4[1] >= v230[2] + *(a1 + 2) || *a4 >= v230[3] + *(a1 + 3))
   {
-    std::string::basic_string[abi:ne200100]<0>(v273, "corrsize.height <= img.rows + templ.rows - 1 && corrsize.width <= img.cols + templ.cols - 1");
-    std::string::basic_string[abi:ne200100]<0>(v264, "crossCorr");
+    std::string::basic_string[abi:ne200100]<0>(v277, "corrsize.height <= img.rows + templ.rows - 1 && corrsize.width <= img.cols + templ.cols - 1");
+    std::string::basic_string[abi:ne200100]<0>(v268, "crossCorr");
     std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/templmatch.cpp");
-    v29 = cv::Exception::Exception(v277, 4294967081, v273, v264, __p, 70);
+    v29 = cv::Exception::Exception(v281, -215, v277, v268, __p, 70);
     cv::error(v29, v30);
   }
 
-  if ((a5 & 0xFF8) != 0 && a8 != 0.0)
+  if ((v8 & 0xFF8) != 0 && a8 != 0.0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v273, "ccn == 1 || delta == 0");
-    std::string::basic_string[abi:ne200100]<0>(v264, "crossCorr");
+    std::string::basic_string[abi:ne200100]<0>(v277, "ccn == 1 || delta == 0");
+    std::string::basic_string[abi:ne200100]<0>(v268, "crossCorr");
     std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/templmatch.cpp");
-    v31 = cv::Exception::Exception(v277, 4294967081, v273, v264, __p, 72);
+    v31 = cv::Exception::Exception(v281, -215, v277, v268, __p, 72);
     cv::error(v31, v32);
   }
 
   v33 = *a4;
   v34 = a4[1];
-  v35 = a5 & 0xFFF;
-  v177 = a1;
+  v35 = v8 & 0xFFF;
+  v181 = a1;
   if (this->i32[1] > 2 || this[1].i32[0] != v34 || this[1].i32[1] != v33 || (this->i32[0] & 0xFFF) != v35 || !*&this[2])
   {
-    v277[0] = a4[1];
-    v277[1] = v33;
-    cv::Mat::create(this, 2, v277, v35);
+    v281[0] = a4[1];
+    v281[1] = v33;
+    cv::Mat::create(this, 2, v281, v35, a5, a6);
     v34 = this[1].i32[0];
     v33 = this[1].i32[1];
   }
 
-  v36 = a5 & 7;
+  v36 = v8 & 7;
   if (v25 <= v36)
   {
-    v37 = a5 & 7;
+    v37 = v8 & 7;
   }
 
   else
@@ -3436,12 +3437,12 @@ void cv::crossCorr(cv::Mat *a1, cv::Mat *a2, int32x2_t *this, int *a4, unsigned 
     v37 = 6;
   }
 
-  v188 = v37;
-  v38 = v226[2];
-  v39 = rint(v226[3] * 4.5);
-  if (257 - v226[3] > v39)
+  v192 = v37;
+  v38 = v230[2];
+  v39 = rint(v230[3] * 4.5);
+  if (257 - v230[3] > v39)
   {
-    LODWORD(v39) = 257 - v226[3];
+    LODWORD(v39) = 257 - v230[3];
   }
 
   if (v33 >= v39)
@@ -3449,7 +3450,7 @@ void cv::crossCorr(cv::Mat *a1, cv::Mat *a2, int32x2_t *this, int *a4, unsigned 
     v33 = v39;
   }
 
-  OptimalDFTSize = cv::getOptimalDFTSize((v226[3] + v33 - 1));
+  OptimalDFTSize = cv::getOptimalDFTSize((v230[3] + v33 - 1));
   v41 = 257 - v38;
   v42 = rint(v38 * 4.5);
   if (257 - v38 <= v42)
@@ -3472,1450 +3473,1450 @@ void cv::crossCorr(cv::Mat *a1, cv::Mat *a2, int32x2_t *this, int *a4, unsigned 
     v43 = OptimalDFTSize;
   }
 
-  v44 = cv::getOptimalDFTSize((v41 + v226[2] - 1));
-  if (v44 <= 0)
+  v46 = cv::getOptimalDFTSize((v41 + v230[2] - 1));
+  if (v46 <= 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v273, "the input arrays are too big");
-    std::string::basic_string[abi:ne200100]<0>(v264, "crossCorr");
+    std::string::basic_string[abi:ne200100]<0>(v277, "the input arrays are too big");
+    std::string::basic_string[abi:ne200100]<0>(v268, "crossCorr");
     std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/templmatch.cpp");
-    v45 = cv::Exception::Exception(v277, 4294967085, v273, v264, __p, 89);
-    cv::error(v45, v46);
+    v47 = cv::Exception::Exception(v281, -211, v277, v268, __p, 89);
+    cv::error(v47, v48);
   }
 
-  v47 = *&v226[2];
-  v187 = (v21 >> 3) & 0x1FF;
-  v48 = this[1];
-  v278 = &v277[2];
+  v49 = *&v230[2];
+  v191 = (v21 >> 3) & 0x1FF;
+  v50 = this[1];
+  v282 = &v281[2];
+  v283 = v284;
+  v284[0] = 0;
+  v284[1] = 0;
+  v281[0] = 1124007936;
+  memset(&v281[1], 0, 60);
+  LODWORD(v277[0]) = v46 * (v191 + 1);
+  DWORD1(v277[0]) = v43;
+  v51 = v43;
+  cv::Mat::create(v281, 2, v277, v192, v44, v45);
+  v278 = v277 + 8;
   v279 = v280;
-  v280[0] = 0;
   v280[1] = 0;
-  v277[0] = 1124007936;
-  memset(&v277[1], 0, 60);
-  LODWORD(v273[0]) = v44 * (v187 + 1);
-  DWORD1(v273[0]) = v43;
-  v49 = v43;
-  cv::Mat::create(v277, 2, v273, v188);
-  v274 = v273 + 8;
-  v275 = v276;
-  v276[1] = 0;
-  v276[0] = 0;
-  LODWORD(v273[0]) = 1124007936;
-  memset(v273 + 4, 0, 48);
-  v273[3] = 0u;
-  v264[0] = __PAIR64__(v43, v44);
-  cv::Mat::create(v273, 2, v264, v188);
-  v50 = 0;
-  v186 = v44;
-  v189 = (v183 >> 3) & 0x1FF;
-  v51 = vsub_s32(__PAIR64__(v43, v44), v47);
-  v52 = vadd_s32(v51, 0x100000001);
-  v53 = vcgt_s32(v48, v51);
-  v54 = 2 * v25;
-  if (v187 && v25 != v188)
+  v280[0] = 0;
+  LODWORD(v277[0]) = 1124007936;
+  memset(v277 + 4, 0, 48);
+  v277[3] = 0u;
+  v268[0] = __PAIR64__(v43, v46);
+  cv::Mat::create(v277, 2, v268, v192, v52, v53);
+  v54 = 0;
+  v190 = v46;
+  v193 = (v187 >> 3) & 0x1FF;
+  v55 = vsub_s32(__PAIR64__(v43, v46), v49);
+  v56 = vadd_s32(v55, 0x100000001);
+  v57 = vcgt_s32(v50, v55);
+  v58 = 2 * v25;
+  if (v191 && v25 != v192)
   {
-    v50 = (v226[2] * v226[3]) << ((0xFA50u >> v54) & 3);
+    v54 = (v230[2] * v230[3]) << ((0xFA50u >> v58) & 3);
   }
 
-  v55 = vbsl_s8(v53, v52, v48);
-  v171 = v55;
-  if (v189)
+  v59 = vbsl_s8(v57, v56, v50);
+  v175 = v59;
+  if (v193)
   {
-    if (v24 != v188)
+    if (v24 != v192)
     {
-      v56 = vadd_s32(v55, vadd_s32(*&v226[2], -1));
-      v57 = vmul_lane_s32(v56, v56, 1).u32[0] << ((0xFA50u >> (2 * v24)) & 3);
-      if (v50 <= v57)
+      v60 = vadd_s32(v59, vadd_s32(*&v230[2], -1));
+      v61 = vmul_lane_s32(v60, v60, 1).u32[0] << ((0xFA50u >> (2 * v24)) & 3);
+      if (v54 <= v61)
       {
-        v50 = v57;
+        v54 = v61;
       }
     }
   }
 
-  if (((v183 | a5) & 0xFF8) != 0 && v36 != v188)
+  if (((v187 | v8) & 0xFF8) != 0 && v36 != v192)
   {
-    v58 = vmul_lane_s32(v171, v171, 1).u32[0] << ((0xFA50u >> (2 * v36)) & 3);
-    if (v50 <= v58)
+    v62 = vmul_lane_s32(v175, v175, 1).u32[0] << ((0xFA50u >> (2 * v36)) & 3);
+    if (v54 <= v62)
     {
-      v50 = v58;
+      v54 = v62;
     }
   }
 
-  v170 = this;
-  v175 = 2 * v36;
-  if (v50 <= (v235 - v234))
+  v174 = this;
+  v179 = 2 * v36;
+  if (v54 <= (v239 - v238))
   {
-    if (v50 < (v235 - v234))
+    if (v54 < (v239 - v238))
     {
-      v235 = v234 + v50;
+      v239 = v238 + v54;
     }
   }
 
   else
   {
-    std::vector<unsigned char>::__append(&v234, v50 - (v235 - v234));
+    std::vector<unsigned char>::__append(&v238, v54 - (v239 - v238));
   }
 
-  v59 = 0;
-  v180 = (0xFA50u >> v54) & 3;
+  v63 = 0;
+  v184 = (0xFA50u >> v58) & 3;
   do
   {
-    *v264 = *v226;
-    v266 = v228;
-    v267 = v229;
-    v265 = v227;
-    v268 = v230;
-    v269 = &v264[1];
-    v270 = &v271;
-    v271 = 0;
-    v272 = 0;
-    if (v228)
+    *v268 = *v230;
+    v270 = v232;
+    v271 = v233;
+    v269 = v231;
+    v272 = v234;
+    v273 = &v268[1];
+    v274 = &v275;
+    v275 = 0;
+    v276 = 0;
+    if (v232)
     {
-      atomic_fetch_add(v228, 1u);
+      atomic_fetch_add(v232, 1u);
     }
 
-    if (v226[1] > 2)
+    if (v230[1] > 2)
     {
-      HIDWORD(v264[0]) = 0;
-      cv::Mat::copySize(v264, v226);
+      HIDWORD(v268[0]) = 0;
+      cv::Mat::copySize(v268, v230);
     }
 
     else
     {
-      v60 = v232;
-      v61 = v270;
-      *v270 = *v232;
-      v61[1] = v60[1];
+      v64 = v236;
+      v65 = v274;
+      *v274 = *v236;
+      v65[1] = v64[1];
     }
 
-    v210.i32[0] = 0;
-    v210.i32[1] = v59 * v186;
-    v210.i64[1] = __PAIR64__(v186, v49);
-    cv::Mat::Mat(__p, v277, &v210);
-    v255.i32[0] = 0;
-    v255.i32[1] = v59 * v186;
-    v255.u64[1] = vrev64_s32(*&v226[2]);
-    cv::Mat::Mat(&v210, v277, &v255);
-    if (v187)
+    v214.i32[0] = 0;
+    v214.i32[1] = v63 * v190;
+    v214.i64[1] = __PAIR64__(v190, v51);
+    cv::Mat::Mat(__p, v281, &v214);
+    v259.i32[0] = 0;
+    v259.i32[1] = v63 * v190;
+    v259.u64[1] = vrev64_s32(*&v230[2]);
+    cv::Mat::Mat(&v214, v281, &v259);
+    if (v191)
     {
-      if (v25 == v188)
+      if (v25 == v192)
       {
-        v255 = v210;
-        v257 = v212;
-        v258 = v213;
-        v256 = v211;
         v259 = v214;
-        v260 = &v255.i8[8];
-        v261 = &v262;
-        v262 = 0;
-        v263 = 0;
-        if (v212)
+        v261 = v216;
+        v262 = v217;
+        v260 = v215;
+        v263 = v218;
+        v264 = &v259.i8[8];
+        v265 = &v266;
+        v266 = 0;
+        v267 = 0;
+        if (v216)
         {
-          atomic_fetch_add(v212, 1u);
+          atomic_fetch_add(v216, 1u);
         }
 
-        if (v210.i32[1] > 2)
+        if (v214.i32[1] > 2)
         {
-          v255.i32[1] = 0;
-          cv::Mat::copySize(&v255, &v210);
+          v259.i32[1] = 0;
+          cv::Mat::copySize(&v259, &v214);
         }
 
         else
         {
-          v63 = v216;
-          v64 = v261;
-          *v261 = *v216;
-          v64[1] = v63[1];
+          v67 = v220;
+          v68 = v265;
+          *v265 = *v220;
+          v68[1] = v67[1];
         }
       }
 
       else
       {
-        v62 = v231[1];
-        v255.i32[2] = *v231;
-        v255.i32[3] = v62;
-        v256 = v234;
-        *&v257 = 0;
-        v260 = &v255.i8[8];
-        v261 = &v262;
-        v255.i32[1] = 2;
-        v255.i32[0] = v25 | 0x42FF4000;
-        v262 = v62 << v180;
-        v263 = (1 << ((0xFA50u >> v54) & 3));
-        v259 = 0;
-        *(&v258 + 1) = v234 + (v62 << v180) * v255.i32[2];
-        *(&v257 + 1) = v234;
-        *&v258 = *(&v258 + 1);
+        v66 = v235[1];
+        v259.i32[2] = *v235;
+        v259.i32[3] = v66;
+        v260 = v238;
+        *&v261 = 0;
+        v264 = &v259.i8[8];
+        v265 = &v266;
+        v259.i32[1] = 2;
+        v259.i32[0] = v25 | 0x42FF4000;
+        v266 = v66 << v184;
+        v267 = (1 << ((0xFA50u >> v58) & 3));
+        v263 = 0;
+        *(&v262 + 1) = v238 + (v66 << v184) * v259.i32[2];
+        *(&v261 + 1) = v238;
+        *&v262 = *(&v262 + 1);
       }
 
-      if (v257)
+      if (v261)
       {
-        atomic_fetch_add(v257, 1u);
+        atomic_fetch_add(v261, 1u);
       }
 
-      if (v266 && atomic_fetch_add(v266, 0xFFFFFFFF) == 1)
+      if (v270 && atomic_fetch_add(v270, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(v264);
+        cv::Mat::deallocate(v268);
       }
 
-      v265 = 0;
-      v267 = 0uLL;
-      *(&v266 + 1) = 0;
-      if (v264[0] <= 0)
+      v269 = 0;
+      v271 = 0uLL;
+      *(&v270 + 1) = 0;
+      if (v268[0] <= 0)
       {
-        *&v266 = 0;
-        LODWORD(v264[0]) = v255.i32[0];
+        *&v270 = 0;
+        LODWORD(v268[0]) = v259.i32[0];
       }
 
       else
       {
-        v65 = 0;
-        v66 = v269;
+        v69 = 0;
+        v70 = v273;
         do
         {
-          *(v66 + v65++) = 0;
+          *(v70 + v69++) = 0;
         }
 
-        while (v65 < SHIDWORD(v264[0]));
-        *&v266 = 0;
-        LODWORD(v264[0]) = v255.i32[0];
-        if (SHIDWORD(v264[0]) > 2)
+        while (v69 < SHIDWORD(v268[0]));
+        *&v270 = 0;
+        LODWORD(v268[0]) = v259.i32[0];
+        if (SHIDWORD(v268[0]) > 2)
         {
           goto LABEL_94;
         }
       }
 
-      if (v255.i32[1] <= 2)
+      if (v259.i32[1] <= 2)
       {
-        HIDWORD(v264[0]) = v255.i32[1];
-        v264[1] = v255.i64[1];
-        v67 = v261;
-        v68 = v270;
-        *v270 = *v261;
-        v68[1] = v67[1];
+        HIDWORD(v268[0]) = v259.i32[1];
+        v268[1] = v259.i64[1];
+        v71 = v265;
+        v72 = v274;
+        *v274 = *v265;
+        v72[1] = v71[1];
         goto LABEL_95;
       }
 
 LABEL_94:
-      cv::Mat::copySize(v264, &v255);
+      cv::Mat::copySize(v268, &v259);
 LABEL_95:
-      v267 = v258;
-      v266 = v257;
-      v265 = v256;
-      v268 = v259;
-      if (v257 && atomic_fetch_add(v257, 0xFFFFFFFF) == 1)
+      v271 = v262;
+      v270 = v261;
+      v269 = v260;
+      v272 = v263;
+      if (v261 && atomic_fetch_add(v261, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v255);
+        cv::Mat::deallocate(&v259);
       }
 
-      v256 = 0;
-      v258 = 0uLL;
-      *(&v257 + 1) = 0;
-      if (v255.i32[1] >= 1)
+      v260 = 0;
+      v262 = 0uLL;
+      *(&v261 + 1) = 0;
+      if (v259.i32[1] >= 1)
       {
-        v69 = 0;
-        v70 = v260;
+        v73 = 0;
+        v74 = v264;
         do
         {
-          *&v70[4 * v69++] = 0;
+          *&v74[4 * v73++] = 0;
         }
 
-        while (v69 < v255.i32[1]);
+        while (v73 < v259.i32[1]);
       }
 
-      *&v257 = 0;
-      if (v261)
+      *&v261 = 0;
+      if (v265)
       {
-        v71 = v261 == &v262;
+        v75 = v265 == &v266;
       }
 
       else
       {
-        v71 = 1;
+        v75 = 1;
       }
 
-      if (!v71)
+      if (!v75)
       {
-        free(v261);
+        free(v265);
       }
 
-      v255.i64[0] = v59;
-      cv::mixChannels(v226, 1, v264, 1, &v255, 1);
+      v259.i64[0] = v63;
+      cv::mixChannels(v230, 1, v268, 1, &v259, 1);
     }
 
-    if (v211 != v265)
+    if (v215 != v269)
     {
-      cv::_OutputArray::_OutputArray(&v255, &v210);
-      cv::Mat::convertTo(v264, &v255, v210.i8[0] & 7, 1.0, 0.0);
+      cv::_OutputArray::_OutputArray(&v259, &v214);
+      cv::Mat::convertTo(v268, &v259, v214.i8[0] & 7, 1.0, 0.0);
     }
 
-    if (SHIDWORD(__p[1]) > v226[3])
+    if (SHIDWORD(__p[1]) > v230[3])
     {
-      v200.i32[0] = 0;
-      v200.i32[1] = v226[2];
-      v192.i64[0] = __PAIR64__(HIDWORD(__p[1]), v226[3]);
-      cv::Mat::Mat(&v255, __p, &v200, &v192);
-      v200 = 0u;
-      v201 = 0u;
-      cv::Mat::operator=(&v255, &v200);
-      if (v257 && atomic_fetch_add(v257, 0xFFFFFFFF) == 1)
+      v204.i32[0] = 0;
+      v204.i32[1] = v230[2];
+      v196.i64[0] = __PAIR64__(HIDWORD(__p[1]), v230[3]);
+      cv::Mat::Mat(&v259);
+      v204 = 0u;
+      v205 = 0u;
+      cv::Mat::operator=(&v259, &v204);
+      if (v261 && atomic_fetch_add(v261, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v255);
+        cv::Mat::deallocate(&v259);
       }
 
-      v256 = 0;
-      v258 = 0uLL;
-      *(&v257 + 1) = 0;
-      if (v255.i32[1] >= 1)
+      v260 = 0;
+      v262 = 0uLL;
+      *(&v261 + 1) = 0;
+      if (v259.i32[1] >= 1)
       {
-        v72 = 0;
-        v73 = v260;
+        v76 = 0;
+        v77 = v264;
         do
         {
-          *&v73[4 * v72++] = 0;
+          *&v77[4 * v76++] = 0;
         }
 
-        while (v72 < v255.i32[1]);
+        while (v76 < v259.i32[1]);
       }
 
-      *&v257 = 0;
-      if (v261)
+      *&v261 = 0;
+      if (v265)
       {
-        v74 = v261 == &v262;
+        v78 = v265 == &v266;
       }
 
       else
       {
-        v74 = 1;
+        v78 = 1;
       }
 
-      if (!v74)
+      if (!v78)
       {
-        free(v261);
+        free(v265);
       }
     }
 
-    cv::_InputArray::_InputArray(&v255, __p);
-    cv::_OutputArray::_OutputArray(&v200, __p);
-    cv::dft(&v255, &v200, 0);
-    if (v212 && atomic_fetch_add(v212, 0xFFFFFFFF) == 1)
+    cv::_InputArray::_InputArray(&v259, __p);
+    cv::_OutputArray::_OutputArray(&v204, __p);
+    cv::dft(&v259, &v204, 0);
+    if (v216 && atomic_fetch_add(v216, 0xFFFFFFFF) == 1)
     {
-      cv::Mat::deallocate(&v210);
+      cv::Mat::deallocate(&v214);
     }
 
-    v211 = 0;
-    v213 = 0uLL;
-    *(&v212 + 1) = 0;
-    if (v210.i32[1] >= 1)
+    v215 = 0;
+    v217 = 0uLL;
+    *(&v216 + 1) = 0;
+    if (v214.i32[1] >= 1)
     {
-      v75 = 0;
-      v76 = v215;
+      v79 = 0;
+      v80 = v219;
       do
       {
-        *(v76 + 4 * v75++) = 0;
+        *(v80 + 4 * v79++) = 0;
       }
 
-      while (v75 < v210.i32[1]);
+      while (v79 < v214.i32[1]);
     }
 
-    *&v212 = 0;
-    if (v216)
+    *&v216 = 0;
+    if (v220)
     {
-      v77 = v216 == v217;
+      v81 = v220 == v221;
     }
 
     else
     {
-      v77 = 1;
+      v81 = 1;
     }
 
-    if (!v77)
+    if (!v81)
     {
-      free(v216);
+      free(v220);
     }
 
-    if (v220 && atomic_fetch_add(v220, 0xFFFFFFFF) == 1)
+    if (v224 && atomic_fetch_add(v224, 0xFFFFFFFF) == 1)
     {
       cv::Mat::deallocate(__p);
     }
 
-    v219 = 0;
-    v221 = 0uLL;
-    *(&v220 + 1) = 0;
+    v223 = 0;
+    v225 = 0uLL;
+    *(&v224 + 1) = 0;
     if (SHIDWORD(__p[0]) >= 1)
     {
-      v78 = 0;
-      v79 = v223;
+      v82 = 0;
+      v83 = v227;
       do
       {
-        *(v79 + 4 * v78++) = 0;
+        *(v83 + 4 * v82++) = 0;
       }
 
-      while (v78 < SHIDWORD(__p[0]));
+      while (v82 < SHIDWORD(__p[0]));
     }
 
-    *&v220 = 0;
-    if (v224)
+    *&v224 = 0;
+    if (v228)
     {
-      v80 = v224 == v225;
+      v84 = v228 == v229;
     }
 
     else
     {
-      v80 = 1;
+      v84 = 1;
     }
 
-    if (!v80)
+    if (!v84)
     {
-      free(v224);
+      free(v228);
     }
 
-    if (v266 && atomic_fetch_add(v266, 0xFFFFFFFF) == 1)
+    if (v270 && atomic_fetch_add(v270, 0xFFFFFFFF) == 1)
     {
-      cv::Mat::deallocate(v264);
+      cv::Mat::deallocate(v268);
     }
 
-    v265 = 0;
-    v267 = 0uLL;
-    *(&v266 + 1) = 0;
-    if (SHIDWORD(v264[0]) >= 1)
+    v269 = 0;
+    v271 = 0uLL;
+    *(&v270 + 1) = 0;
+    if (SHIDWORD(v268[0]) >= 1)
     {
-      v81 = 0;
-      v82 = v269;
+      v85 = 0;
+      v86 = v273;
       do
       {
-        *(v82 + v81++) = 0;
+        *(v86 + v85++) = 0;
       }
 
-      while (v81 < SHIDWORD(v264[0]));
+      while (v85 < SHIDWORD(v268[0]));
     }
 
-    *&v266 = 0;
-    if (v270)
+    *&v270 = 0;
+    if (v274)
     {
-      v83 = v270 == &v271;
+      v87 = v274 == &v275;
     }
 
     else
     {
-      v83 = 1;
+      v87 = 1;
     }
 
-    if (!v83)
+    if (!v87)
     {
-      free(v270);
+      free(v274);
     }
 
-    v71 = v59++ == v187;
+    v75 = v63++ == v191;
   }
 
-  while (!v71);
-  v85 = this[1].i32[0];
-  v84 = this[1].i32[1];
-  v86 = *(v177 + 7);
-  v209 = vrev64_s32(**(v177 + 8));
-  *v208 = 0;
-  v87 = *v177;
-  *v264 = *v177;
-  v88 = *(v177 + 24);
-  v266 = v88;
-  v267 = *(v177 + 40);
-  v265 = *(v177 + 2);
-  v268 = v86;
-  v269 = &v264[1];
-  v270 = &v271;
-  v272 = 0;
-  v271 = 0;
-  if (v88)
+  while (!v75);
+  v89 = this[1].i32[0];
+  v88 = this[1].i32[1];
+  v90 = *(v181 + 7);
+  v213 = vrev64_s32(**(v181 + 8));
+  *v212 = 0;
+  v91 = *v181;
+  *v268 = *v181;
+  v92 = *(v181 + 24);
+  v270 = v92;
+  v271 = *(v181 + 40);
+  v269 = *(v181 + 2);
+  v272 = v90;
+  v273 = &v268[1];
+  v274 = &v275;
+  v276 = 0;
+  v275 = 0;
+  if (v92)
   {
-    atomic_fetch_add(v88, 1u);
-    v89 = *(v177 + 1);
-  }
-
-  else
-  {
-    v89 = DWORD1(v87);
-  }
-
-  if (v89 > 2)
-  {
-    HIDWORD(v264[0]) = 0;
-    cv::Mat::copySize(v264, v177);
+    atomic_fetch_add(v92, 1u);
+    v93 = *(v181 + 1);
   }
 
   else
   {
-    v90 = *(v177 + 9);
-    v91 = v270;
-    *v270 = *v90;
-    v91[1] = v90[1];
+    v93 = DWORD1(v91);
+  }
+
+  if (v93 > 2)
+  {
+    HIDWORD(v268[0]) = 0;
+    cv::Mat::copySize(v268, v181);
+  }
+
+  else
+  {
+    v94 = *(v181 + 9);
+    v95 = v274;
+    *v274 = *v94;
+    v95[1] = v94[1];
   }
 
   if ((a7 & 0x10) == 0)
   {
-    cv::Mat::locateROI(v177, &v209, v208);
-    cv::Mat::adjustROI(v264, v208[1], v209.i32[1] - (v208[1] + *(v177 + 2)), v208[0], v209.i32[0] - (v208[0] + *(v177 + 3)));
+    cv::Mat::locateROI(v181, &v213, v212);
+    cv::Mat::adjustROI(v268, v212[1], v213.i32[1] - (v212[1] + *(v181 + 2)), v212[0], v213.i32[0] - (v212[0] + *(v181 + 3)));
   }
 
-  v167 = (v171.i32[0] + v85 - 1) / v171.i32[0] * ((v171.i32[1] + v84 - 1) / v171.i32[1]);
-  v168 = (v171.i32[1] + v84 - 1) / v171.i32[1];
-  if (v167 >= 1)
+  v171 = (v175.i32[0] + v89 - 1) / v175.i32[0] * ((v175.i32[1] + v88 - 1) / v175.i32[1]);
+  v172 = (v175.i32[1] + v88 - 1) / v175.i32[1];
+  if (v171 >= 1)
   {
-    v92 = 0;
-    v166 = (0xFA50uLL >> (2 * v24)) & 3;
-    v165 = (0xFA50u >> v175) & 3;
-    v176 = (1 << ((0xFA50u >> v175) & 3));
+    v96 = 0;
+    v170 = (0xFA50uLL >> (2 * v24)) & 3;
+    v169 = (0xFA50u >> v179) & 3;
+    v180 = (1 << ((0xFA50u >> v179) & 3));
     do
     {
-      v93.i32[0] = v92 / v168;
-      v93.i32[1] = v92 % v168;
-      v94 = vmul_s32(v93, v171);
-      v181 = vmin_s32(vsub_s32(this[1], v94), v171);
-      v182 = v94;
-      v184 = vadd_s32(vadd_s32(*&v226[2], -1), v181);
-      v95 = vadd_s32(vsub_s32(v94, vrev64_s32(*a6)), vrev64_s32(*v208));
-      v96 = vmax_s32(v95, 0);
-      v97 = vmin_s32(vadd_s32(v95, v184), v264[1]);
-      *v210.i8 = vzip1_s32(v96, v97);
-      *v255.i8 = vzip2_s32(v96, v97);
-      cv::Mat::Mat(__p, v264, &v210, &v255);
-      v255.i64[0] = 0;
-      v255.u64[1] = vrev64_s32(v184);
-      cv::Mat::Mat(&v210, v273, &v255);
-      v174 = vsub_s32(v97, v96);
-      *v200.i8 = vrev64_s32(vsub_s32(v96, v95));
-      v200.u64[1] = vrev64_s32(v174);
-      cv::Mat::Mat(&v255, v273, &v200);
-      v172 = v92;
-      v98.i64[0] = v182;
-      v98.u64[1] = v181;
-      v192 = vrev64q_s32(v98);
-      cv::Mat::Mat(&v200, this, &v192);
-      v99 = 0;
-      v173 = (v174.i32[1] << v166) * v174.i32[0];
-      v185 = vcgt_s32(v184, v174).i32[1] | (v174.i32[0] < v184.i32[0]);
-      v178 = (v181.i32[1] << v165) * v181.i32[0];
+      v97.i32[0] = v96 / v172;
+      v97.i32[1] = v96 % v172;
+      v98 = vmul_s32(v97, v175);
+      v185 = vmin_s32(vsub_s32(this[1], v98), v175);
+      v186 = v98;
+      v188 = vadd_s32(vadd_s32(*&v230[2], -1), v185);
+      v99 = vadd_s32(vsub_s32(v98, vrev64_s32(*a6)), vrev64_s32(*v212));
+      v100 = vmax_s32(v99, 0);
+      v101 = vmin_s32(vadd_s32(v99, v188), v268[1]);
+      *v214.i8 = vzip1_s32(v100, v101);
+      *v259.i8 = vzip2_s32(v100, v101);
+      cv::Mat::Mat(__p);
+      v259.i64[0] = 0;
+      v259.u64[1] = vrev64_s32(v188);
+      cv::Mat::Mat(&v214, v277, &v259);
+      v178 = vsub_s32(v101, v100);
+      *v204.i8 = vrev64_s32(vsub_s32(v100, v99));
+      v204.u64[1] = vrev64_s32(v178);
+      cv::Mat::Mat(&v259, v277, &v204);
+      v176 = v96;
+      v102.i64[0] = v186;
+      v102.u64[1] = v185;
+      v196 = vrev64q_s32(v102);
+      cv::Mat::Mat(&v204, this, &v196);
+      v103 = 0;
+      v177 = (v178.i32[1] << v170) * v178.i32[0];
+      v189 = vcgt_s32(v188, v178).i32[1] | (v178.i32[0] < v188.i32[0]);
+      v182 = (v185.i32[1] << v169) * v185.i32[0];
       do
       {
-        v193 = v219;
-        v192 = *__p;
-        v194 = v220;
-        v195 = v221;
-        v196 = v222;
-        v197 = &v192.i8[8];
-        v198 = v199;
-        v199[0] = 0;
-        v199[1] = 0;
-        if (v220)
+        v197 = v223;
+        v196 = *__p;
+        v198 = v224;
+        v199 = v225;
+        v200 = v226;
+        v201 = &v196.i8[8];
+        v202 = v203;
+        v203[0] = 0;
+        v203[1] = 0;
+        if (v224)
         {
-          atomic_fetch_add(v220, 1u);
+          atomic_fetch_add(v224, 1u);
         }
 
         if (SHIDWORD(__p[0]) > 2)
         {
-          v192.i32[1] = 0;
-          cv::Mat::copySize(&v192, __p);
+          v196.i32[1] = 0;
+          cv::Mat::copySize(&v196, __p);
         }
 
         else
         {
-          v100 = v224;
-          v101 = v198;
-          *v198 = *v224;
-          v101[1] = v100[1];
+          v104 = v228;
+          v105 = v202;
+          *v202 = *v228;
+          v105[1] = v104[1];
         }
 
-        *v248 = 0u;
-        v247 = 0u;
-        cv::Mat::operator=(v273, &v247);
-        if (v189)
+        *v252 = 0u;
+        v251 = 0u;
+        cv::Mat::operator=(v277, &v251);
+        if (v193)
         {
-          if (v24 == v188)
+          if (v24 == v192)
           {
-            v247 = v255;
-            *&v248[8] = v257;
-            v249 = v258;
-            *v248 = v256;
-            v250 = v259;
-            v251 = &v247.i64[1];
-            v252 = &v253;
-            v253 = 0;
-            v254 = 0;
-            if (v257)
+            v251 = v259;
+            *&v252[8] = v261;
+            v253 = v262;
+            *v252 = v260;
+            v254 = v263;
+            v255 = &v251.i64[1];
+            v256 = &v257;
+            v257 = 0;
+            v258 = 0;
+            if (v261)
             {
-              atomic_fetch_add(v257, 1u);
+              atomic_fetch_add(v261, 1u);
             }
 
-            if (v255.i32[1] > 2)
+            if (v259.i32[1] > 2)
             {
-              v247.i32[1] = 0;
-              cv::Mat::copySize(&v247, &v255);
+              v251.i32[1] = 0;
+              cv::Mat::copySize(&v251, &v259);
             }
 
             else
             {
-              v102 = v261;
-              v103 = v252;
-              *v252 = *v261;
-              v103[1] = v102[1];
+              v106 = v265;
+              v107 = v256;
+              *v256 = *v265;
+              v107[1] = v106[1];
             }
           }
 
           else
           {
-            v247.u64[1] = v174;
-            *v248 = v234;
-            v251 = &v247.i64[1];
-            v252 = &v253;
-            v247.i32[1] = 2;
-            v247.i32[0] = v24 | 0x42FF4000;
-            v253 = v174.i32[1] << v166;
-            v254 = 1 << v166;
-            v250 = 0;
-            *(&v249 + 1) = v234 + v173;
-            *&v248[16] = v234;
-            *&v249 = v234 + v173;
+            v251.u64[1] = v178;
+            *v252 = v238;
+            v255 = &v251.i64[1];
+            v256 = &v257;
+            v251.i32[1] = 2;
+            v251.i32[0] = v24 | 0x42FF4000;
+            v257 = v178.i32[1] << v170;
+            v258 = 1 << v170;
+            v254 = 0;
+            *(&v253 + 1) = v238 + v177;
+            *&v252[16] = v238;
+            *&v253 = v238 + v177;
           }
 
-          if (*&v248[8])
+          if (*&v252[8])
           {
-            atomic_fetch_add(*&v248[8], 1u);
+            atomic_fetch_add(*&v252[8], 1u);
           }
 
-          if (v194 && atomic_fetch_add(v194, 0xFFFFFFFF) == 1)
+          if (v198 && atomic_fetch_add(v198, 0xFFFFFFFF) == 1)
           {
-            cv::Mat::deallocate(&v192);
+            cv::Mat::deallocate(&v196);
           }
 
-          v193 = 0;
-          v195 = 0uLL;
-          *(&v194 + 1) = 0;
-          if (v192.i64[0] <= 0)
+          v197 = 0;
+          v199 = 0uLL;
+          *(&v198 + 1) = 0;
+          if (v196.i64[0] <= 0)
           {
-            *&v194 = 0;
-            v192.i32[0] = v247.i32[0];
+            *&v198 = 0;
+            v196.i32[0] = v251.i32[0];
           }
 
           else
           {
-            v104 = 0;
-            v105 = v197;
+            v108 = 0;
+            v109 = v201;
             do
             {
-              *&v105[4 * v104++] = 0;
+              *&v109[4 * v108++] = 0;
             }
 
-            while (v104 < v192.i32[1]);
-            *&v194 = 0;
-            v192.i32[0] = v247.i32[0];
-            if (v192.i32[1] > 2)
+            while (v108 < v196.i32[1]);
+            *&v198 = 0;
+            v196.i32[0] = v251.i32[0];
+            if (v196.i32[1] > 2)
             {
 LABEL_193:
-              cv::Mat::copySize(&v192, &v247);
+              cv::Mat::copySize(&v196, &v251);
               goto LABEL_194;
             }
           }
 
-          if (v247.i32[1] > 2)
+          if (v251.i32[1] > 2)
           {
             goto LABEL_193;
           }
 
-          v192.i32[1] = v247.i32[1];
-          v192.i64[1] = v247.i64[1];
-          v106 = v252;
-          v107 = v198;
-          *v198 = *v252;
-          v107[1] = v106[1];
+          v196.i32[1] = v251.i32[1];
+          v196.i64[1] = v251.i64[1];
+          v110 = v256;
+          v111 = v202;
+          *v202 = *v256;
+          v111[1] = v110[1];
 LABEL_194:
-          v193 = *v248;
-          v195 = v249;
-          v194 = *&v248[8];
-          v196 = v250;
-          if (*&v248[8] && atomic_fetch_add(*&v248[8], 0xFFFFFFFF) == 1)
+          v197 = *v252;
+          v199 = v253;
+          v198 = *&v252[8];
+          v200 = v254;
+          if (*&v252[8] && atomic_fetch_add(*&v252[8], 0xFFFFFFFF) == 1)
           {
-            cv::Mat::deallocate(&v247);
+            cv::Mat::deallocate(&v251);
           }
 
-          *v248 = 0;
-          v249 = 0uLL;
-          *&v248[16] = 0;
-          if (v247.i32[1] >= 1)
+          *v252 = 0;
+          v253 = 0uLL;
+          *&v252[16] = 0;
+          if (v251.i32[1] >= 1)
           {
-            v108 = 0;
-            v109 = v251;
+            v112 = 0;
+            v113 = v255;
             do
             {
-              *(v109 + v108++) = 0;
+              *(v113 + v112++) = 0;
             }
 
-            while (v108 < v247.i32[1]);
+            while (v112 < v251.i32[1]);
           }
 
-          *&v248[8] = 0;
-          if (v252)
+          *&v252[8] = 0;
+          if (v256)
           {
-            v110 = v252 == &v253;
+            v114 = v256 == &v257;
           }
 
           else
           {
-            v110 = 1;
+            v114 = 1;
           }
 
-          if (!v110)
+          if (!v114)
           {
-            free(v252);
+            free(v256);
           }
 
-          v247.i64[0] = v99;
-          cv::mixChannels(__p, 1, &v192, 1, &v247, 1);
+          v251.i64[0] = v103;
+          cv::mixChannels(__p, 1, &v196, 1, &v251, 1);
         }
 
-        if (v256 != v193)
+        if (v260 != v197)
         {
-          cv::_OutputArray::_OutputArray(&v247, &v255);
-          cv::Mat::convertTo(&v192, &v247, v255.i8[0] & 7, 1.0, 0.0);
+          cv::_OutputArray::_OutputArray(&v251, &v259);
+          cv::Mat::convertTo(&v196, &v251, v259.i8[0] & 7, 1.0, 0.0);
         }
 
-        if (v185)
+        if (v189)
         {
-          cv::_InputArray::_InputArray(&v247, &v255);
-          cv::_OutputArray::_OutputArray(&v237, &v210);
-          memset(v191, 0, sizeof(v191));
-          cv::copyMakeBorder(&v247, &v237);
+          cv::_InputArray::_InputArray(&v251, &v259);
+          cv::_OutputArray::_OutputArray(&v241, &v214);
+          memset(v195, 0, sizeof(v195));
+          cv::copyMakeBorder(&v251);
         }
 
-        cv::_InputArray::_InputArray(&v247, v273);
-        cv::_OutputArray::_OutputArray(&v237, v273);
-        cv::dft(&v247, &v237, 0);
-        v111 = v99 * v186;
-        if (!v187)
+        cv::_InputArray::_InputArray(&v251, v277);
+        cv::_OutputArray::_OutputArray(&v241, v277);
+        cv::dft(&v251, &v241, 0);
+        v115 = v103 * v190;
+        if (!v191)
         {
-          v111 = 0;
+          v115 = 0;
         }
 
-        LODWORD(v237) = 0;
-        HIDWORD(v237) = v111;
-        v238 = __PAIR64__(v186, v49);
-        cv::Mat::Mat(&v247, v277, &v237);
-        cv::_InputArray::_InputArray(&v237, v273);
-        cv::_InputArray::_InputArray(v191, &v247);
-        cv::_OutputArray::_OutputArray(v190, v273);
-        cv::mulSpectrums(&v237, v191, v190, 0, 1);
-        cv::_InputArray::_InputArray(&v237, v273);
-        cv::_OutputArray::_OutputArray(v191, v273);
-        cv::dft(&v237, v191, 3);
-        *&v191[0] = 0;
-        *(&v191[0] + 1) = __PAIR64__(v181.u32[0], v181.u32[1]);
-        cv::Mat::Mat(&v237, v273, v191);
-        if (v240)
+        v241.i32[0] = 0;
+        v241.i32[1] = v115;
+        v242 = __PAIR64__(v190, v51);
+        cv::Mat::Mat(&v251, v281, &v241);
+        cv::_InputArray::_InputArray(&v241, v277);
+        cv::_InputArray::_InputArray(v195, &v251);
+        cv::_OutputArray::_OutputArray(v194, v277);
+        cv::mulSpectrums(&v241, v195, v194, 0, 1);
+        cv::_InputArray::_InputArray(&v241, v277);
+        cv::_OutputArray::_OutputArray(v195, v277);
+        cv::dft(&v241, v195, 3);
+        *&v195[0] = 0;
+        *(&v195[0] + 1) = __PAIR64__(v185.u32[0], v185.u32[1]);
+        cv::Mat::Mat(&v241, v277, v195);
+        if (v244)
         {
-          atomic_fetch_add(v240, 1u);
+          atomic_fetch_add(v244, 1u);
         }
 
-        if (v194 && atomic_fetch_add(v194, 0xFFFFFFFF) == 1)
+        if (v198 && atomic_fetch_add(v198, 0xFFFFFFFF) == 1)
         {
-          cv::Mat::deallocate(&v192);
+          cv::Mat::deallocate(&v196);
         }
 
-        v193 = 0;
-        v195 = 0uLL;
-        *(&v194 + 1) = 0;
-        if (v192.i64[0] <= 0)
+        v197 = 0;
+        v199 = 0uLL;
+        *(&v198 + 1) = 0;
+        if (v196.i64[0] <= 0)
         {
-          *&v194 = 0;
-          v192.i32[0] = v237;
+          *&v198 = 0;
+          v196.i32[0] = v241.i32[0];
         }
 
         else
         {
-          v112 = 0;
-          v113 = v197;
+          v116 = 0;
+          v117 = v201;
           do
           {
-            *&v113[4 * v112++] = 0;
+            *&v117[4 * v116++] = 0;
           }
 
-          while (v112 < v192.i32[1]);
-          *&v194 = 0;
-          v192.i32[0] = v237;
-          if (v192.i32[1] > 2)
+          while (v116 < v196.i32[1]);
+          *&v198 = 0;
+          v196.i32[0] = v241.i32[0];
+          if (v196.i32[1] > 2)
           {
 LABEL_225:
-            cv::Mat::copySize(&v192, &v237);
+            cv::Mat::copySize(&v196, &v241);
             goto LABEL_226;
           }
         }
 
-        if (SHIDWORD(v237) > 2)
+        if (v241.i32[1] > 2)
         {
           goto LABEL_225;
         }
 
-        v192.i32[1] = HIDWORD(v237);
-        v192.i64[1] = v238;
-        v114 = v244;
-        v115 = v198;
-        *v198 = *v244;
-        v115[1] = v114[1];
+        v196.i32[1] = v241.i32[1];
+        v196.i64[1] = v242;
+        v118 = v248;
+        v119 = v202;
+        *v202 = *v248;
+        v119[1] = v118[1];
 LABEL_226:
-        v193 = v239;
-        v195 = v241;
-        v194 = v240;
-        v196 = v242;
-        if (v240 && atomic_fetch_add(v240, 0xFFFFFFFF) == 1)
+        v197 = v243;
+        v199 = v245;
+        v198 = v244;
+        v200 = v246;
+        if (v244 && atomic_fetch_add(v244, 0xFFFFFFFF) == 1)
         {
-          cv::Mat::deallocate(&v237);
+          cv::Mat::deallocate(&v241);
         }
 
-        v239 = 0;
-        v241 = 0uLL;
-        *(&v240 + 1) = 0;
-        if (SHIDWORD(v237) >= 1)
+        v243 = 0;
+        v245 = 0uLL;
+        *(&v244 + 1) = 0;
+        if (v241.i32[1] >= 1)
         {
-          v116 = 0;
-          v117 = v243;
+          v120 = 0;
+          v121 = v247;
           do
           {
-            *(v117 + v116++) = 0;
+            *(v121 + v120++) = 0;
           }
 
-          while (v116 < SHIDWORD(v237));
+          while (v120 < v241.i32[1]);
         }
 
-        *&v240 = 0;
-        if (v244)
+        *&v244 = 0;
+        if (v248)
         {
-          v118 = v244 == &v245;
+          v122 = v248 == &v249;
         }
 
         else
         {
-          v118 = 1;
+          v122 = 1;
         }
 
-        if (!v118)
+        if (!v122)
         {
-          free(v244);
+          free(v248);
         }
 
-        if ((a5 & 0xFF8) != 0)
+        if ((v8 & 0xFF8) != 0)
         {
-          if (v36 != v188)
+          if (v36 != v192)
           {
-            v238 = v181;
-            v239 = v234;
-            *&v240 = 0;
-            v243 = &v238;
-            v244 = &v245;
-            HIDWORD(v237) = 2;
-            LODWORD(v237) = v36 | 0x42FF4000;
-            v245 = v181.i32[1] << v165;
-            v246 = v176;
-            v242 = 0;
-            *(&v241 + 1) = v234 + v178;
-            *(&v240 + 1) = v234;
-            *&v241 = v234 + v178;
-            cv::_OutputArray::_OutputArray(v191, &v237);
-            cv::Mat::convertTo(&v192, v191, v36, 1.0, a8);
-            if (v240)
+            v242 = v185;
+            v243 = v238;
+            *&v244 = 0;
+            v247 = &v242;
+            v248 = &v249;
+            v241.i32[1] = 2;
+            v241.i32[0] = v36 | 0x42FF4000;
+            v249 = v185.i32[1] << v169;
+            v250 = v180;
+            v246 = 0;
+            *(&v245 + 1) = v238 + v182;
+            *(&v244 + 1) = v238;
+            *&v245 = v238 + v182;
+            cv::_OutputArray::_OutputArray(v195, &v241);
+            cv::Mat::convertTo(&v196, v195, v36, 1.0, a8);
+            if (v244)
             {
-              atomic_fetch_add(v240, 1u);
+              atomic_fetch_add(v244, 1u);
             }
 
-            if (v194 && atomic_fetch_add(v194, 0xFFFFFFFF) == 1)
+            if (v198 && atomic_fetch_add(v198, 0xFFFFFFFF) == 1)
             {
-              cv::Mat::deallocate(&v192);
+              cv::Mat::deallocate(&v196);
             }
 
-            v193 = 0;
-            v195 = 0uLL;
-            *(&v194 + 1) = 0;
-            if (v192.i64[0] <= 0)
+            v197 = 0;
+            v199 = 0uLL;
+            *(&v198 + 1) = 0;
+            if (v196.i64[0] <= 0)
             {
-              *&v194 = 0;
-              v192.i32[0] = v237;
+              *&v198 = 0;
+              v196.i32[0] = v241.i32[0];
             }
 
             else
             {
-              v119 = 0;
-              v120 = v197;
+              v123 = 0;
+              v124 = v201;
               do
               {
-                *&v120[4 * v119++] = 0;
+                *&v124[4 * v123++] = 0;
               }
 
-              while (v119 < v192.i32[1]);
-              *&v194 = 0;
-              v192.i32[0] = v237;
-              if (v192.i32[1] > 2)
+              while (v123 < v196.i32[1]);
+              *&v198 = 0;
+              v196.i32[0] = v241.i32[0];
+              if (v196.i32[1] > 2)
               {
 LABEL_265:
-                cv::Mat::copySize(&v192, &v237);
+                cv::Mat::copySize(&v196, &v241);
                 goto LABEL_266;
               }
             }
 
-            if (SHIDWORD(v237) > 2)
+            if (v241.i32[1] > 2)
             {
               goto LABEL_265;
             }
 
-            v192.i32[1] = HIDWORD(v237);
-            v192.i64[1] = v238;
-            v123 = v244;
-            v124 = v198;
-            *v198 = *v244;
-            v124[1] = v123[1];
+            v196.i32[1] = v241.i32[1];
+            v196.i64[1] = v242;
+            v127 = v248;
+            v128 = v202;
+            *v202 = *v248;
+            v128[1] = v127[1];
 LABEL_266:
-            v193 = v239;
-            v195 = v241;
-            v194 = v240;
-            v196 = v242;
-            if (v240 && atomic_fetch_add(v240, 0xFFFFFFFF) == 1)
+            v197 = v243;
+            v199 = v245;
+            v198 = v244;
+            v200 = v246;
+            if (v244 && atomic_fetch_add(v244, 0xFFFFFFFF) == 1)
             {
-              cv::Mat::deallocate(&v237);
+              cv::Mat::deallocate(&v241);
             }
 
-            v239 = 0;
-            v241 = 0uLL;
-            *(&v240 + 1) = 0;
-            if (SHIDWORD(v237) >= 1)
+            v243 = 0;
+            v245 = 0uLL;
+            *(&v244 + 1) = 0;
+            if (v241.i32[1] >= 1)
             {
-              v125 = 0;
-              v126 = v243;
+              v129 = 0;
+              v130 = v247;
               do
               {
-                *(v126 + v125++) = 0;
+                *(v130 + v129++) = 0;
               }
 
-              while (v125 < SHIDWORD(v237));
+              while (v129 < v241.i32[1]);
             }
 
-            *&v240 = 0;
-            if (v244)
+            *&v244 = 0;
+            if (v248)
             {
-              v127 = v244 == &v245;
+              v131 = v248 == &v249;
             }
 
             else
             {
-              v127 = 1;
+              v131 = 1;
             }
 
-            if (!v127)
+            if (!v131)
             {
-              free(v244);
+              free(v248);
             }
           }
 
-          LODWORD(v237) = 0;
-          HIDWORD(v237) = v99;
-          cv::mixChannels(&v192, 1, &v200, 1, &v237, 1);
+          v241.i32[0] = 0;
+          v241.i32[1] = v103;
+          cv::mixChannels(&v196, 1, &v204, 1, &v241, 1);
           goto LABEL_294;
         }
 
-        if (v99)
+        if (v103)
         {
-          if (v36 != v188)
+          if (v36 != v192)
           {
-            v238 = v181;
-            v239 = v234;
-            *&v240 = 0;
-            v243 = &v238;
-            v244 = &v245;
-            HIDWORD(v237) = 2;
-            LODWORD(v237) = v36 | 0x42FF4000;
-            v245 = v181.i32[1] << v165;
-            v246 = v176;
-            v242 = 0;
-            *(&v241 + 1) = v234 + v178;
-            *(&v240 + 1) = v234;
-            *&v241 = v234 + v178;
-            cv::_OutputArray::_OutputArray(v191, &v237);
-            cv::Mat::convertTo(&v192, v191, v36, 1.0, 0.0);
-            if (v240)
+            v242 = v185;
+            v243 = v238;
+            *&v244 = 0;
+            v247 = &v242;
+            v248 = &v249;
+            v241.i32[1] = 2;
+            v241.i32[0] = v36 | 0x42FF4000;
+            v249 = v185.i32[1] << v169;
+            v250 = v180;
+            v246 = 0;
+            *(&v245 + 1) = v238 + v182;
+            *(&v244 + 1) = v238;
+            *&v245 = v238 + v182;
+            cv::_OutputArray::_OutputArray(v195, &v241);
+            cv::Mat::convertTo(&v196, v195, v36, 1.0, 0.0);
+            if (v244)
             {
-              atomic_fetch_add(v240, 1u);
+              atomic_fetch_add(v244, 1u);
             }
 
-            if (v194 && atomic_fetch_add(v194, 0xFFFFFFFF) == 1)
+            if (v198 && atomic_fetch_add(v198, 0xFFFFFFFF) == 1)
             {
-              cv::Mat::deallocate(&v192);
+              cv::Mat::deallocate(&v196);
             }
 
-            v193 = 0;
-            v195 = 0uLL;
-            *(&v194 + 1) = 0;
-            if (v192.i64[0] <= 0)
+            v197 = 0;
+            v199 = 0uLL;
+            *(&v198 + 1) = 0;
+            if (v196.i64[0] <= 0)
             {
-              *&v194 = 0;
-              v192.i32[0] = v237;
+              *&v198 = 0;
+              v196.i32[0] = v241.i32[0];
             }
 
             else
             {
-              v121 = 0;
-              v122 = v197;
+              v125 = 0;
+              v126 = v201;
               do
               {
-                *&v122[4 * v121++] = 0;
+                *&v126[4 * v125++] = 0;
               }
 
-              while (v121 < v192.i32[1]);
-              *&v194 = 0;
-              v192.i32[0] = v237;
-              if (v192.i32[1] > 2)
+              while (v125 < v196.i32[1]);
+              *&v198 = 0;
+              v196.i32[0] = v241.i32[0];
+              if (v196.i32[1] > 2)
               {
 LABEL_281:
-                cv::Mat::copySize(&v192, &v237);
+                cv::Mat::copySize(&v196, &v241);
                 goto LABEL_282;
               }
             }
 
-            if (SHIDWORD(v237) > 2)
+            if (v241.i32[1] > 2)
             {
               goto LABEL_281;
             }
 
-            v192.i32[1] = HIDWORD(v237);
-            v192.i64[1] = v238;
-            v128 = v244;
-            v129 = v198;
-            *v198 = *v244;
-            v129[1] = v128[1];
+            v196.i32[1] = v241.i32[1];
+            v196.i64[1] = v242;
+            v132 = v248;
+            v133 = v202;
+            *v202 = *v248;
+            v133[1] = v132[1];
 LABEL_282:
-            v193 = v239;
-            v195 = v241;
-            v194 = v240;
-            v196 = v242;
-            if (v240 && atomic_fetch_add(v240, 0xFFFFFFFF) == 1)
+            v197 = v243;
+            v199 = v245;
+            v198 = v244;
+            v200 = v246;
+            if (v244 && atomic_fetch_add(v244, 0xFFFFFFFF) == 1)
             {
-              cv::Mat::deallocate(&v237);
+              cv::Mat::deallocate(&v241);
             }
 
-            v239 = 0;
-            v241 = 0uLL;
-            *(&v240 + 1) = 0;
-            if (SHIDWORD(v237) >= 1)
+            v243 = 0;
+            v245 = 0uLL;
+            *(&v244 + 1) = 0;
+            if (v241.i32[1] >= 1)
             {
-              v130 = 0;
-              v131 = v243;
+              v134 = 0;
+              v135 = v247;
               do
               {
-                *(v131 + v130++) = 0;
+                *(v135 + v134++) = 0;
               }
 
-              while (v130 < SHIDWORD(v237));
+              while (v134 < v241.i32[1]);
             }
 
-            *&v240 = 0;
-            if (v244)
+            *&v244 = 0;
+            if (v248)
             {
-              v132 = v244 == &v245;
+              v136 = v248 == &v249;
             }
 
             else
             {
-              v132 = 1;
+              v136 = 1;
             }
 
-            if (!v132)
+            if (!v136)
             {
-              free(v244);
+              free(v248);
             }
           }
 
-          cv::_InputArray::_InputArray(&v237, &v192);
-          cv::_InputArray::_InputArray(v191, &v200);
-          v133 = cv::_OutputArray::_OutputArray(v190, &v200);
-          v134 = cv::noArray(v133);
-          cv::add(&v237, v191, v190, v134, 0xFFFFFFFFLL);
+          cv::_InputArray::_InputArray(&v241, &v196);
+          cv::_InputArray::_InputArray(v195, &v204);
+          v137 = cv::_OutputArray::_OutputArray(v194, &v204);
+          v138 = cv::noArray(v137);
+          cv::add(&v241, v195, v194, v138, 0xFFFFFFFFLL);
           goto LABEL_294;
         }
 
-        cv::_OutputArray::_OutputArray(&v237, &v200);
-        cv::Mat::convertTo(&v192, &v237, v36, 1.0, a8);
+        cv::_OutputArray::_OutputArray(&v241, &v204);
+        cv::Mat::convertTo(&v196, &v241, v36, 1.0, a8);
 LABEL_294:
-        if (*&v248[8] && atomic_fetch_add(*&v248[8], 0xFFFFFFFF) == 1)
+        if (*&v252[8] && atomic_fetch_add(*&v252[8], 0xFFFFFFFF) == 1)
         {
-          cv::Mat::deallocate(&v247);
+          cv::Mat::deallocate(&v251);
         }
 
-        *v248 = 0;
-        v249 = 0uLL;
-        *&v248[16] = 0;
-        if (v247.i32[1] >= 1)
+        *v252 = 0;
+        v253 = 0uLL;
+        *&v252[16] = 0;
+        if (v251.i32[1] >= 1)
         {
-          v135 = 0;
-          v136 = v251;
+          v139 = 0;
+          v140 = v255;
           do
           {
-            *(v136 + v135++) = 0;
+            *(v140 + v139++) = 0;
           }
 
-          while (v135 < v247.i32[1]);
+          while (v139 < v251.i32[1]);
         }
 
-        *&v248[8] = 0;
-        if (v252)
+        *&v252[8] = 0;
+        if (v256)
         {
-          v137 = v252 == &v253;
+          v141 = v256 == &v257;
         }
 
         else
         {
-          v137 = 1;
+          v141 = 1;
         }
 
-        if (!v137)
+        if (!v141)
         {
-          free(v252);
+          free(v256);
         }
 
-        if (v194 && atomic_fetch_add(v194, 0xFFFFFFFF) == 1)
+        if (v198 && atomic_fetch_add(v198, 0xFFFFFFFF) == 1)
         {
-          cv::Mat::deallocate(&v192);
+          cv::Mat::deallocate(&v196);
         }
 
-        v193 = 0;
-        v195 = 0uLL;
-        *(&v194 + 1) = 0;
-        if (v192.i32[1] >= 1)
+        v197 = 0;
+        v199 = 0uLL;
+        *(&v198 + 1) = 0;
+        if (v196.i32[1] >= 1)
         {
-          v138 = 0;
-          v139 = v197;
+          v142 = 0;
+          v143 = v201;
           do
           {
-            *&v139[4 * v138++] = 0;
+            *&v143[4 * v142++] = 0;
           }
 
-          while (v138 < v192.i32[1]);
+          while (v142 < v196.i32[1]);
         }
 
-        *&v194 = 0;
-        if (v198)
+        *&v198 = 0;
+        if (v202)
         {
-          v140 = v198 == v199;
+          v144 = v202 == v203;
         }
 
         else
         {
-          v140 = 1;
+          v144 = 1;
         }
 
-        if (!v140)
+        if (!v144)
         {
-          free(v198);
+          free(v202);
         }
 
-        v71 = v99++ == v189;
+        v75 = v103++ == v193;
       }
 
-      while (!v71);
-      if (*(&v201 + 1) && atomic_fetch_add(*(&v201 + 1), 0xFFFFFFFF) == 1)
+      while (!v75);
+      if (*(&v205 + 1) && atomic_fetch_add(*(&v205 + 1), 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v200);
+        cv::Mat::deallocate(&v204);
       }
 
-      *&v201 = 0;
-      v203 = 0;
-      v204 = 0;
-      v202 = 0;
-      this = v170;
-      if (v200.i32[1] >= 1)
+      *&v205 = 0;
+      v207 = 0;
+      v208 = 0;
+      v206 = 0;
+      this = v174;
+      if (v204.i32[1] >= 1)
       {
-        v141 = 0;
-        v142 = v205;
+        v145 = 0;
+        v146 = v209;
         do
         {
-          *(v142 + 4 * v141++) = 0;
+          *(v146 + 4 * v145++) = 0;
         }
 
-        while (v141 < v200.i32[1]);
+        while (v145 < v204.i32[1]);
       }
 
-      *(&v201 + 1) = 0;
-      if (v206)
+      *(&v205 + 1) = 0;
+      if (v210)
       {
-        v143 = v206 == &v207;
+        v147 = v210 == &v211;
       }
 
       else
       {
-        v143 = 1;
+        v147 = 1;
       }
 
-      if (!v143)
+      if (!v147)
       {
-        free(v206);
+        free(v210);
       }
 
-      if (v257 && atomic_fetch_add(v257, 0xFFFFFFFF) == 1)
+      if (v261 && atomic_fetch_add(v261, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v255);
+        cv::Mat::deallocate(&v259);
       }
 
-      v256 = 0;
-      v258 = 0uLL;
-      *(&v257 + 1) = 0;
-      if (v255.i32[1] >= 1)
+      v260 = 0;
+      v262 = 0uLL;
+      *(&v261 + 1) = 0;
+      if (v259.i32[1] >= 1)
       {
-        v144 = 0;
-        v145 = v260;
+        v148 = 0;
+        v149 = v264;
         do
         {
-          *&v145[4 * v144++] = 0;
+          *&v149[4 * v148++] = 0;
         }
 
-        while (v144 < v255.i32[1]);
+        while (v148 < v259.i32[1]);
       }
 
-      *&v257 = 0;
-      if (v261)
+      *&v261 = 0;
+      if (v265)
       {
-        v146 = v261 == &v262;
+        v150 = v265 == &v266;
       }
 
       else
       {
-        v146 = 1;
+        v150 = 1;
       }
 
-      if (!v146)
+      if (!v150)
       {
-        free(v261);
+        free(v265);
       }
 
-      if (v212 && atomic_fetch_add(v212, 0xFFFFFFFF) == 1)
+      if (v216 && atomic_fetch_add(v216, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v210);
+        cv::Mat::deallocate(&v214);
       }
 
-      v211 = 0;
-      v213 = 0uLL;
-      *(&v212 + 1) = 0;
-      if (v210.i32[1] >= 1)
+      v215 = 0;
+      v217 = 0uLL;
+      *(&v216 + 1) = 0;
+      if (v214.i32[1] >= 1)
       {
-        v147 = 0;
-        v148 = v215;
+        v151 = 0;
+        v152 = v219;
         do
         {
-          *(v148 + 4 * v147++) = 0;
+          *(v152 + 4 * v151++) = 0;
         }
 
-        while (v147 < v210.i32[1]);
+        while (v151 < v214.i32[1]);
       }
 
-      *&v212 = 0;
-      if (v216)
+      *&v216 = 0;
+      if (v220)
       {
-        v149 = v216 == v217;
+        v153 = v220 == v221;
       }
 
       else
       {
-        v149 = 1;
+        v153 = 1;
       }
 
-      if (!v149)
+      if (!v153)
       {
-        free(v216);
+        free(v220);
       }
 
-      if (v220 && atomic_fetch_add(v220, 0xFFFFFFFF) == 1)
+      if (v224 && atomic_fetch_add(v224, 0xFFFFFFFF) == 1)
       {
         cv::Mat::deallocate(__p);
       }
 
-      v219 = 0;
-      v221 = 0uLL;
-      *(&v220 + 1) = 0;
+      v223 = 0;
+      v225 = 0uLL;
+      *(&v224 + 1) = 0;
       if (SHIDWORD(__p[0]) >= 1)
       {
-        v150 = 0;
-        v151 = v223;
+        v154 = 0;
+        v155 = v227;
         do
         {
-          *(v151 + 4 * v150++) = 0;
+          *(v155 + 4 * v154++) = 0;
         }
 
-        while (v150 < SHIDWORD(__p[0]));
+        while (v154 < SHIDWORD(__p[0]));
       }
 
-      *&v220 = 0;
-      if (v224)
+      *&v224 = 0;
+      if (v228)
       {
-        v152 = v224 == v225;
+        v156 = v228 == v229;
       }
 
       else
       {
-        v152 = 1;
+        v156 = 1;
       }
 
-      if (!v152)
+      if (!v156)
       {
-        free(v224);
+        free(v228);
       }
 
-      ++v92;
+      ++v96;
     }
 
-    while (v172 + 1 != v167);
+    while (v176 + 1 != v171);
   }
 
-  if (v266 && atomic_fetch_add(v266, 0xFFFFFFFF) == 1)
+  if (v270 && atomic_fetch_add(v270, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(v264);
+    cv::Mat::deallocate(v268);
   }
 
-  v265 = 0;
-  v267 = 0uLL;
-  *(&v266 + 1) = 0;
-  if (SHIDWORD(v264[0]) >= 1)
+  v269 = 0;
+  v271 = 0uLL;
+  *(&v270 + 1) = 0;
+  if (SHIDWORD(v268[0]) >= 1)
   {
-    v153 = 0;
-    v154 = v269;
+    v157 = 0;
+    v158 = v273;
     do
     {
-      *(v154 + v153++) = 0;
+      *(v158 + v157++) = 0;
     }
 
-    while (v153 < SHIDWORD(v264[0]));
+    while (v157 < SHIDWORD(v268[0]));
   }
 
-  *&v266 = 0;
-  if (v270)
+  *&v270 = 0;
+  if (v274)
   {
-    v155 = v270 == &v271;
+    v159 = v274 == &v275;
   }
 
   else
   {
-    v155 = 1;
+    v159 = 1;
   }
 
-  if (!v155)
+  if (!v159)
   {
-    free(v270);
+    free(v274);
   }
 
-  if (*(&v273[1] + 1) && atomic_fetch_add(*(&v273[1] + 1), 0xFFFFFFFF) == 1)
-  {
-    cv::Mat::deallocate(v273);
-  }
-
-  *&v273[1] = 0;
-  memset(&v273[2], 0, 24);
-  if (SDWORD1(v273[0]) >= 1)
-  {
-    v156 = 0;
-    v157 = v274;
-    do
-    {
-      *&v157[4 * v156++] = 0;
-    }
-
-    while (v156 < SDWORD1(v273[0]));
-  }
-
-  *(&v273[1] + 1) = 0;
-  if (v275)
-  {
-    v158 = v275 == v276;
-  }
-
-  else
-  {
-    v158 = 1;
-  }
-
-  if (!v158)
-  {
-    free(v275);
-  }
-
-  if (*&v277[6] && atomic_fetch_add(*&v277[6], 0xFFFFFFFF) == 1)
+  if (*(&v277[1] + 1) && atomic_fetch_add(*(&v277[1] + 1), 0xFFFFFFFF) == 1)
   {
     cv::Mat::deallocate(v277);
   }
 
-  *&v277[4] = 0;
-  memset(&v277[8], 0, 24);
-  if (v277[1] >= 1)
+  *&v277[1] = 0;
+  memset(&v277[2], 0, 24);
+  if (SDWORD1(v277[0]) >= 1)
   {
-    v159 = 0;
-    v160 = v278;
+    v160 = 0;
+    v161 = v278;
     do
     {
-      v160[v159++] = 0;
+      *&v161[4 * v160++] = 0;
     }
 
-    while (v159 < v277[1]);
+    while (v160 < SDWORD1(v277[0]));
   }
 
-  *&v277[6] = 0;
+  *(&v277[1] + 1) = 0;
   if (v279)
   {
-    v161 = v279 == v280;
+    v162 = v279 == v280;
   }
 
   else
   {
-    v161 = 1;
+    v162 = 1;
   }
 
-  if (!v161)
+  if (!v162)
   {
     free(v279);
   }
 
-  if (v228 && atomic_fetch_add(v228, 0xFFFFFFFF) == 1)
+  if (*&v281[6] && atomic_fetch_add(*&v281[6], 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(v226);
+    cv::Mat::deallocate(v281);
   }
 
-  v227 = 0;
-  v229 = 0uLL;
-  *(&v228 + 1) = 0;
-  if (v226[1] >= 1)
+  *&v281[4] = 0;
+  memset(&v281[8], 0, 24);
+  if (v281[1] >= 1)
   {
-    v162 = 0;
-    v163 = v231;
+    v163 = 0;
+    v164 = v282;
     do
     {
-      v163[v162++] = 0;
+      v164[v163++] = 0;
     }
 
-    while (v162 < v226[1]);
+    while (v163 < v281[1]);
   }
 
-  *&v228 = 0;
-  if (v232)
+  *&v281[6] = 0;
+  if (v283)
   {
-    v164 = v232 == v233;
+    v165 = v283 == v284;
   }
 
   else
   {
-    v164 = 1;
+    v165 = 1;
   }
 
-  if (!v164)
+  if (!v165)
   {
-    free(v232);
+    free(v283);
   }
 
-  if (v234)
+  if (v232 && atomic_fetch_add(v232, 0xFFFFFFFF) == 1)
   {
-    v235 = v234;
-    operator delete(v234);
+    cv::Mat::deallocate(v230);
+  }
+
+  v231 = 0;
+  v233 = 0uLL;
+  *(&v232 + 1) = 0;
+  if (v230[1] >= 1)
+  {
+    v166 = 0;
+    v167 = v235;
+    do
+    {
+      v167[v166++] = 0;
+    }
+
+    while (v166 < v230[1]);
+  }
+
+  *&v232 = 0;
+  if (v236)
+  {
+    v168 = v236 == v237;
+  }
+
+  else
+  {
+    v168 = 1;
+  }
+
+  if (!v168)
+  {
+    free(v236);
+  }
+
+  if (v238)
+  {
+    v239 = v238;
+    operator delete(v238);
   }
 }
 
-void sub_22D2394E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_22D2394E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
   cv::Exception::~Exception((v10 - 256));
   if (SLOBYTE(STACK[0x2E7]) < 0)
@@ -4981,72 +4982,72 @@ void sub_22D2394E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void cv::getRowSumFilter(cv *this, uint64_t a2)
+void cv::getRowSumFilter(cv *this, const char *a2)
 {
   if (((a2 ^ this) & 0xFF8) != 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v8, "CV_MAT_CN(sumType) == CV_MAT_CN(srcType)");
-    std::string::basic_string[abi:ne200100]<0>(v7, "getRowSumFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-    cv::Exception::Exception(v9, 4294967081, v8, v7, __p, 619);
-    cv::error(v9, v2);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "CV_MAT_CN(sumType) == CV_MAT_CN(srcType)");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "getRowSumFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 619);
+    cv::error(v12, v5);
   }
 
-  v3 = a2 & 7;
-  v4 = this & 7;
-  if ((this & 7) == 0 && v3 == 4)
+  v6 = a2 & 7;
+  v7 = this & 7;
+  if ((this & 7) == 0 && v6 == 4)
   {
     operator new();
   }
 
-  if ((this & 7) == 0 && v3 == 6)
+  if ((this & 7) == 0 && v6 == 6)
   {
     operator new();
   }
 
-  if (v4 == 2 && v3 == 4)
+  if (v7 == 2 && v6 == 4)
   {
     operator new();
   }
 
-  if (v4 == 2 && v3 == 6)
+  if (v7 == 2 && v6 == 6)
   {
     operator new();
   }
 
-  if (v4 == 3 && v3 == 4)
+  if (v7 == 3 && v6 == 4)
   {
     operator new();
   }
 
-  if (v4 == 4 && v3 == 4)
+  if (v7 == 4 && v6 == 4)
   {
     operator new();
   }
 
-  if (v4 == 3 && v3 == 6)
+  if (v7 == 3 && v6 == 6)
   {
     operator new();
   }
 
-  if (v4 == 5 && v3 == 6)
+  if (v7 == 5 && v6 == 6)
   {
     operator new();
   }
 
-  if (v4 == 6 && v3 == 6)
+  if (v7 == 6 && v6 == 6)
   {
     operator new();
   }
 
-  cv::format(v8, this, a2);
-  std::string::basic_string[abi:ne200100]<0>(v7, "getRowSumFilter");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-  cv::Exception::Exception(v9, 4294967083, v8, v7, __p, 645);
-  cv::error(v9, v5);
+  cv::format(&v11, this, a2);
+  std::string::basic_string[abi:ne200100]<0>(&v10, "getRowSumFilter");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+  cv::Exception::Exception(v12, -213, &v11, &v10, &__p, 645);
+  cv::error(v12, v8);
 }
 
-void sub_22D239FFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+void sub_22D239FFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::exception a29)
 {
   cv::Exception::~Exception(&a29);
   if (a16 < 0)
@@ -5067,82 +5068,82 @@ void sub_22D239FFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cv::getColumnSumFilter(cv *this, uint64_t a2, double a3)
+void cv::getColumnSumFilter(cv *this, const char *a3)
 {
-  if (((a2 ^ this) & 0xFF8) != 0)
+  if (((a3 ^ this) & 0xFF8) != 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v9, "CV_MAT_CN(sumType) == CV_MAT_CN(dstType)");
-    std::string::basic_string[abi:ne200100]<0>(v8, "getColumnSumFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-    cv::Exception::Exception(v10, 4294967081, v9, v8, __p, 655);
-    cv::error(v10, v3);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "CV_MAT_CN(sumType) == CV_MAT_CN(dstType)");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "getColumnSumFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 655);
+    cv::error(v13, v6);
   }
 
-  v4 = this & 7;
-  v5 = a2 & 7;
-  if (v4 == 4 && (a2 & 7) == 0)
-  {
-    operator new();
-  }
-
-  if (v4 == 6 && (a2 & 7) == 0)
+  v7 = this & 7;
+  v8 = a3 & 7;
+  if (v7 == 4 && (a3 & 7) == 0)
   {
     operator new();
   }
 
-  if (v4 == 4 && v5 == 2)
+  if (v7 == 6 && (a3 & 7) == 0)
   {
     operator new();
   }
 
-  if (v4 == 6 && v5 == 2)
+  if (v7 == 4 && v8 == 2)
   {
     operator new();
   }
 
-  if (v4 == 4 && v5 == 3)
+  if (v7 == 6 && v8 == 2)
   {
     operator new();
   }
 
-  if (v4 == 6 && v5 == 3)
+  if (v7 == 4 && v8 == 3)
   {
     operator new();
   }
 
-  if (v4 == 4 && v5 == 4)
+  if (v7 == 6 && v8 == 3)
   {
     operator new();
   }
 
-  if (v4 == 4 && v5 == 5)
+  if (v7 == 4 && v8 == 4)
   {
     operator new();
   }
 
-  if (v4 == 6 && v5 == 5)
+  if (v7 == 4 && v8 == 5)
   {
     operator new();
   }
 
-  if (v4 == 4 && v5 == 6)
+  if (v7 == 6 && v8 == 5)
   {
     operator new();
   }
 
-  if (v4 == 6 && v5 == 6)
+  if (v7 == 4 && v8 == 6)
   {
     operator new();
   }
 
-  cv::format(v9, this, a2);
-  std::string::basic_string[abi:ne200100]<0>(v8, "getColumnSumFilter");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-  cv::Exception::Exception(v10, 4294967083, v9, v8, __p, 685);
-  cv::error(v10, v6);
+  if (v7 == 6 && v8 == 6)
+  {
+    operator new();
+  }
+
+  cv::format(&v12, this, a3);
+  std::string::basic_string[abi:ne200100]<0>(&v11, "getColumnSumFilter");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+  cv::Exception::Exception(v13, -213, &v12, &v11, &__p, 685);
+  cv::error(v13, v9);
 }
 
-void sub_22D23A5DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+void sub_22D23A5DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::exception a29)
 {
   cv::Exception::~Exception(&a29);
   if (a16 < 0)
@@ -5163,31 +5164,31 @@ void sub_22D23A5DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cv::createBoxFilter(cv *this, uint64_t a2, _DWORD *a3, uint64_t a4, int a5)
+void cv::createBoxFilter(cv *this, const char *a2, int *a3, int *a4, int a5)
 {
-  if ((this & 7u) > 4 || a5 && ((this & 7) != 2 ? (v5 = 0x10000) : (v5 = 0x8000), (this & 7) != 0 ? (v6 = v5) : (v6 = 0x800000), a3[1] * *a3 > v6))
+  if ((this & 7u) > 4 || a5 && ((this & 7) != 2 ? (v6 = 0x10000) : (v6 = 0x8000), (this & 7) != 0 ? (v7 = v6) : (v7 = 0x800000), a3[1] * *a3 > v7))
   {
-    v7 = 6;
+    v8 = 6;
   }
 
   else
   {
-    v7 = 4;
+    v8 = 4;
   }
 
-  cv::getRowSumFilter(this, v7 | this & 0xFF8u);
+  cv::getRowSumFilter(this, (v8 | this & 0xFF8u));
 }
 
-void sub_22D23A8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22D23A8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va2, a7);
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va2, a13);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
   cv::Ptr<cv::BaseFilter>::~Ptr(va);
   cv::Ptr<cv::BaseColumnFilter>::~Ptr(va1);
   cv::Ptr<cv::BaseRowFilter>::~Ptr(va2);
@@ -5221,14 +5222,15 @@ void cv::boxFilter(void (***a1)(uint64_t *__return_ptr), uint64_t a2, int a3, _D
 
   *&v14 = *a4;
   v15 = *a5;
-  cv::createBoxFilter((v17 & 0xFFF), v16[0] & 0xFFF, &v14, &v15, a6);
+  cv::createBoxFilter((v17 & 0xFFF), (v16[0] & 0xFFF), &v14, &v15, a6);
 }
 
-void sub_22D23AC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_22D23AC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   cv::Ptr<cv::FilterEngine>::~Ptr(&a13);
   cv::Mat::~Mat(&a15);
-  cv::Mat::~Mat(&a27);
+  cv::Mat::~Mat(va);
   _Unwind_Resume(a1);
 }
 
@@ -5274,10 +5276,10 @@ void cv::ColumnSum<int,unsigned char>::operator()(uint64_t a1, int **a2, uint64_
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v36, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v35, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v37, 4294967081, v36, v35, __p, 254);
+        std::string::basic_string[abi:ne200100]<0>(&v36, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v35, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v37, -215, &v36, &v35, &__p, 254);
         cv::error(v37, v18);
       }
 
@@ -5372,7 +5374,7 @@ LABEL_13:
   }
 }
 
-void sub_22D23AFC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D23AFC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5435,10 +5437,10 @@ void cv::ColumnSum<int,unsigned short>::operator()(uint64_t a1, int **a2, uint64
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v36, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v35, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v37, 4294967081, v36, v35, __p, 531);
+        std::string::basic_string[abi:ne200100]<0>(&v36, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v35, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v37, -215, &v36, &v35, &__p, 531);
         cv::error(v37, v18);
       }
 
@@ -5533,7 +5535,7 @@ LABEL_13:
   }
 }
 
-void sub_22D23B37C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D23B37C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5596,10 +5598,10 @@ void cv::ColumnSum<int,short>::operator()(uint64_t a1, int **a2, uint64_t a3, in
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v35, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v34, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v36, 4294967081, v35, v34, __p, 394);
+        std::string::basic_string[abi:ne200100]<0>(&v35, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v34, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v36, -215, &v35, &v34, &__p, 394);
         cv::error(v36, v18);
       }
 
@@ -5707,7 +5709,7 @@ LABEL_13:
   }
 }
 
-void sub_22D23B744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D23B744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5735,13 +5737,13 @@ void cv::RowSum<unsigned char,int>::~RowSum(cv::BaseRowFilter *a1)
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t cv::RowSum<unsigned char,int>::operator()(uint64_t result, uint64_t a2, _DWORD *a3, int a4, unsigned int a5)
+uint64_t cv::RowSum<unsigned char,int>::operator()(uint64_t result, uint64_t a2, _DWORD *a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
     v5 = 0;
     v6 = *(result + 8) * a5;
-    v7 = ((a4 - 1) * a5);
+    v7 = (a4 - 1) * a5;
     v8 = &a3[a5];
     do
     {
@@ -5793,13 +5795,13 @@ void cv::RowSum<unsigned char,double>::~RowSum(cv::BaseRowFilter *a1)
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t cv::RowSum<unsigned char,double>::operator()(uint64_t result, uint64_t a2, double *a3, int a4, unsigned int a5, double a6, double a7)
+uint64_t cv::RowSum<unsigned char,double>::operator()(uint64_t result, uint64_t a2, double *a3, int a4, int a5, double a6, double a7)
 {
   if (a5 >= 1)
   {
     v7 = 0;
     v8 = *(result + 8) * a5;
-    v9 = ((a4 - 1) * a5);
+    v9 = (a4 - 1) * a5;
     v10 = &a3[a5];
     do
     {
@@ -5853,12 +5855,12 @@ void cv::RowSum<unsigned short,int>::~RowSum(cv::BaseRowFilter *a1)
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t cv::RowSum<unsigned short,int>::operator()(uint64_t result, unsigned __int16 *a2, int *a3, int a4, unsigned int a5)
+uint64_t cv::RowSum<unsigned short,int>::operator()(uint64_t result, unsigned __int16 *a2, int *a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
     v5 = 0;
-    v6 = ((a4 - 1) * a5);
+    v6 = (a4 - 1) * a5;
     v7 = *(result + 8) * a5;
     v8 = &a3[a5];
     do
@@ -5918,12 +5920,12 @@ void cv::RowSum<unsigned short,double>::~RowSum(cv::BaseRowFilter *a1)
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t cv::RowSum<unsigned short,double>::operator()(uint64_t result, _WORD *a2, double *a3, int a4, unsigned int a5, double a6, double a7)
+uint64_t cv::RowSum<unsigned short,double>::operator()(uint64_t result, _WORD *a2, double *a3, int a4, int a5, double a6, double a7)
 {
   if (a5 >= 1)
   {
     v7 = 0;
-    v8 = ((a4 - 1) * a5);
+    v8 = (a4 - 1) * a5;
     v9 = *(result + 8) * a5;
     v10 = &a3[a5];
     do
@@ -5981,12 +5983,12 @@ void cv::RowSum<short,int>::~RowSum(cv::BaseRowFilter *a1)
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t cv::RowSum<short,int>::operator()(uint64_t result, __int16 *a2, int *a3, int a4, unsigned int a5)
+uint64_t cv::RowSum<short,int>::operator()(uint64_t result, __int16 *a2, int *a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
     v5 = 0;
-    v6 = ((a4 - 1) * a5);
+    v6 = (a4 - 1) * a5;
     v7 = *(result + 8) * a5;
     v8 = &a3[a5];
     do
@@ -6046,12 +6048,12 @@ void cv::RowSum<int,int>::~RowSum(cv::BaseRowFilter *a1)
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t cv::RowSum<int,int>::operator()(uint64_t result, unsigned int *a2, _DWORD *a3, int a4, unsigned int a5)
+uint64_t cv::RowSum<int,int>::operator()(uint64_t result, unsigned int *a2, _DWORD *a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
     v5 = 0;
-    v6 = ((a4 - 1) * a5);
+    v6 = (a4 - 1) * a5;
     v7 = *(result + 8) * a5;
     v8 = &a3[a5];
     do
@@ -6111,12 +6113,12 @@ void cv::RowSum<short,double>::~RowSum(cv::BaseRowFilter *a1)
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t cv::RowSum<short,double>::operator()(uint64_t result, __int16 *a2, double *a3, int a4, unsigned int a5)
+uint64_t cv::RowSum<short,double>::operator()(uint64_t result, __int16 *a2, double *a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
     v5 = 0;
-    v6 = ((a4 - 1) * a5);
+    v6 = (a4 - 1) * a5;
     v7 = *(result + 8) * a5;
     v8 = &a3[a5];
     do
@@ -6171,12 +6173,12 @@ void cv::RowSum<float,double>::~RowSum(cv::BaseRowFilter *a1)
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t cv::RowSum<float,double>::operator()(uint64_t result, float *a2, double *a3, int a4, unsigned int a5)
+uint64_t cv::RowSum<float,double>::operator()(uint64_t result, float *a2, double *a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
     v5 = 0;
-    v6 = ((a4 - 1) * a5);
+    v6 = (a4 - 1) * a5;
     v7 = *(result + 8) * a5;
     v8 = &a3[a5];
     do
@@ -6230,12 +6232,12 @@ void cv::RowSum<double,double>::~RowSum(cv::BaseRowFilter *a1)
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t cv::RowSum<double,double>::operator()(uint64_t result, double *a2, double *a3, int a4, unsigned int a5)
+uint64_t cv::RowSum<double,double>::operator()(uint64_t result, double *a2, double *a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
     v5 = 0;
-    v6 = ((a4 - 1) * a5);
+    v6 = (a4 - 1) * a5;
     v7 = *(result + 8) * a5;
     v8 = &a3[a5];
     do
@@ -6324,10 +6326,10 @@ void cv::ColumnSum<double,unsigned char>::operator()(uint64_t a1, float64x2_t **
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v68, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v67, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v69, 4294967081, v68, v67, __p, 145);
+        std::string::basic_string[abi:ne200100]<0>(&v68, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v67, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v69, -215, &v68, &v67, &__p, 145);
         cv::error(v69, v18);
       }
 
@@ -6548,7 +6550,7 @@ LABEL_21:
   }
 }
 
-void sub_22D23C4E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D23C4E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6611,10 +6613,10 @@ void cv::ColumnSum<double,unsigned short>::operator()(uint64_t a1, float64x2_t *
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v67, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v66, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v68, 4294967081, v67, v66, __p, 145);
+        std::string::basic_string[abi:ne200100]<0>(&v67, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v66, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v68, -215, &v67, &v66, &__p, 145);
         cv::error(v68, v18);
       }
 
@@ -6835,7 +6837,7 @@ LABEL_21:
   }
 }
 
-void sub_22D23C9E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D23C9E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6898,10 +6900,10 @@ void cv::ColumnSum<double,short>::operator()(uint64_t a1, float64x2_t **a2, uint
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v61, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v60, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v62, 4294967081, v61, v60, __p, 145);
+        std::string::basic_string[abi:ne200100]<0>(&v61, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v60, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v62, -215, &v61, &v60, &__p, 145);
         cv::error(v62, v18);
       }
 
@@ -7146,7 +7148,7 @@ LABEL_21:
   }
 }
 
-void sub_22D23CF00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D23CF00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -7209,10 +7211,10 @@ void cv::ColumnSum<int,int>::operator()(uint64_t a1, int32x2_t **a2, uint64_t a3
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v49, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v48, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v50, 4294967081, v49, v48, __p, 145);
+        std::string::basic_string[abi:ne200100]<0>(&v49, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v48, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v50, -215, &v49, &v48, &__p, 145);
         cv::error(v50, v18);
       }
 
@@ -7387,7 +7389,7 @@ LABEL_20:
   }
 }
 
-void sub_22D23D3B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D23D3B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -7450,10 +7452,10 @@ void cv::ColumnSum<int,float>::operator()(uint64_t a1, int32x2_t **a2, uint64_t 
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v47, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v46, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v48, 4294967081, v47, v46, __p, 145);
+        std::string::basic_string[abi:ne200100]<0>(&v47, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v46, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v48, -215, &v47, &v46, &__p, 145);
         cv::error(v48, v18);
       }
 
@@ -7630,7 +7632,7 @@ LABEL_21:
   }
 }
 
-void sub_22D23D864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+void sub_22D23D864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::exception a29)
 {
   cv::Exception::~Exception(&a29);
   if (a16 < 0)
@@ -7694,10 +7696,10 @@ void cv::ColumnSum<double,float>::operator()(uint64_t a1, float64x2_t **a2, floa
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v58, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v57, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v59, 4294967081, v58, v57, __p, 145);
+        std::string::basic_string[abi:ne200100]<0>(&v58, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v57, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v59, -215, &v58, &v57, &__p, 145);
         cv::error(v59, v18);
       }
 
@@ -7878,7 +7880,7 @@ LABEL_21:
   }
 }
 
-void sub_22D23DCF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+void sub_22D23DCF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::exception a29)
 {
   cv::Exception::~Exception(&a29);
   if (a16 < 0)
@@ -7941,10 +7943,10 @@ void cv::ColumnSum<int,double>::operator()(uint64_t a1, int32x2_t **a2, float64x
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v57, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v56, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v58, 4294967081, v57, v56, __p, 145);
+        std::string::basic_string[abi:ne200100]<0>(&v57, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v56, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v58, -215, &v57, &v56, &__p, 145);
         cv::error(v58, v18);
       }
 
@@ -8130,7 +8132,7 @@ LABEL_21:
   }
 }
 
-void sub_22D23E1A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+void sub_22D23E1A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::exception a29)
 {
   cv::Exception::~Exception(&a29);
   if (a16 < 0)
@@ -8194,10 +8196,10 @@ void cv::ColumnSum<double,double>::operator()(uint64_t a1, float64x2_t **a2, uin
       v17 = *(a1 + 8);
       if (v16 != v17 - 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v46, "sumCount == ksize-1");
-        std::string::basic_string[abi:ne200100]<0>(v45, "operator()");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
-        cv::Exception::Exception(v47, 4294967081, v46, v45, __p, 145);
+        std::string::basic_string[abi:ne200100]<0>(&v46, "sumCount == ksize-1");
+        std::string::basic_string[abi:ne200100]<0>(&v45, "operator()");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/smooth.cpp");
+        cv::Exception::Exception(v47, -215, &v46, &v45, &__p, 145);
         cv::error(v47, v18);
       }
 
@@ -8368,7 +8370,7 @@ LABEL_21:
   }
 }
 
-void sub_22D23E614(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+void sub_22D23E614(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::exception a29)
 {
   cv::Exception::~Exception(&a29);
   if (a16 < 0)
@@ -8389,388 +8391,388 @@ void sub_22D23E614(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cv::copyMakeBorder(uint64_t a1, uint64_t a2)
+void cv::copyMakeBorder(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v179[515] = *MEMORY[0x277D85DE8];
-  (**v2)(&v166);
-  if ((v12 | v14 | v10 | v8) < 0)
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v177[515] = *MEMORY[0x277D85DE8];
+  (**v1)(&v165);
+  if ((v11 | v13 | v9 | v7) < 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v177, "top >= 0 && bottom >= 0 && left >= 0 && right >= 0");
-    std::string::basic_string[abi:ne200100]<0>(v156, "copyMakeBorder");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/utils.cpp");
-    cv::Exception::Exception(&v152, 4294967081, &v177, v156, __p, 208);
-    cv::error(&v152, v17);
+    std::string::basic_string[abi:ne200100]<0>(&v176, "top >= 0 && bottom >= 0 && left >= 0 && right >= 0");
+    std::string::basic_string[abi:ne200100]<0>(&v155, "copyMakeBorder");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/utils.cpp");
+    cv::Exception::Exception(&v151, -215, &v176, &v155, &__p, 208);
+    cv::error(&v151, v16);
   }
 
-  v18 = v166;
-  if ((v6 & 0x10) == 0 && (v166 & 0x8000) != 0)
+  v17 = v165;
+  if ((v5 & 0x10) == 0 && (v165 & 0x8000) != 0)
   {
-    v146 = v6;
-    v19 = v4;
-    v152 = 0;
-    v177 = 0;
-    cv::Mat::locateROI(&v166, &v152, &v177);
-    if (SHIDWORD(v177) >= v14)
+    v145 = v5;
+    v18 = v3;
+    v151 = 0;
+    *&v176 = 0;
+    cv::Mat::locateROI(&v165, &v151, &v176);
+    if (SDWORD1(v176) >= v13)
     {
-      v20 = v14;
+      v19 = v13;
     }
 
     else
     {
-      v20 = HIDWORD(v177);
+      v19 = DWORD1(v176);
     }
 
-    if (HIDWORD(v152) - (HIDWORD(v177) + v167) >= v12)
+    if (HIDWORD(v151) - (DWORD1(v176) + v166) >= v11)
     {
-      v21 = v12;
+      v20 = v11;
     }
 
     else
     {
-      v21 = HIDWORD(v152) - (HIDWORD(v177) + v167);
+      v20 = HIDWORD(v151) - (DWORD1(v176) + v166);
     }
 
-    if (v177 >= v10)
+    if (v176 >= v9)
     {
-      v22 = v10;
+      v21 = v9;
     }
 
     else
     {
-      v22 = v177;
+      v21 = v176;
     }
 
-    if (v152 - (v177 + v168) >= v8)
+    if (v151 - (v176 + v167) >= v7)
     {
-      v23 = v8;
+      v22 = v7;
     }
 
     else
     {
-      v23 = v152 - (v177 + v168);
+      v22 = v151 - (v176 + v167);
     }
 
-    cv::Mat::adjustROI(&v166, v20, v21, v22, v23);
-    v14 -= v20;
-    v10 -= v22;
-    v12 -= v21;
-    v8 -= v23;
-    v18 = v166;
-    v4 = v19;
-    v6 = v146;
+    cv::Mat::adjustROI(&v165, v19, v20, v21, v22);
+    v13 -= v19;
+    v9 -= v21;
+    v11 -= v20;
+    v7 -= v22;
+    v17 = v165;
+    v3 = v18;
+    v5 = v145;
   }
 
-  (*(*v16 + 136))(v16, (v14 + v12 + v167), (v10 + v8 + v168), v18 & 0xFFF, 0xFFFFFFFFLL, 0, 0);
-  (**v16)(v156, v16, 0xFFFFFFFFLL);
-  if (!v14 && !v10 && !v12 && !v8)
+  (*(*v15 + 136))(v15, (v13 + v11 + v166), (v9 + v7 + v167), v17 & 0xFFF, 0xFFFFFFFFLL, 0, 0);
+  (**v15)(&v155, v15, 0xFFFFFFFFLL);
+  if (!v13 && !v9 && !v11 && !v7)
   {
-    if (__src != v157 || v176 != v164)
+    if (__src != v156 || v175 != v163)
     {
-      cv::_OutputArray::_OutputArray(&v152, v156);
-      cv::Mat::copyTo(&v166, &v152);
+      cv::_OutputArray::_OutputArray(&v151, &v155);
+      cv::Mat::copyTo(&v165, &v151);
     }
 
     goto LABEL_123;
   }
 
-  v140 = v6 & 0xFFFFFFEF;
-  v131 = v14;
-  if ((v6 & 0xFFFFFFEF) != 0)
+  v139 = v5 & 0xFFFFFFEF;
+  v130 = v13;
+  if ((v5 & 0xFFFFFFEF) != 0)
   {
-    v136 = v176;
-    v24 = __src;
-    v25 = v174[1];
-    v26 = v164;
-    v130 = v157;
-    v27 = v162[1];
-    if (SHIDWORD(v166) < 1)
+    v135 = v175;
+    v23 = __src;
+    v24 = v173[1];
+    v25 = v163;
+    v129 = v156;
+    v26 = v161[1];
+    if (SHIDWORD(v165) < 1)
     {
-      v28 = 0;
+      v27 = 0;
     }
 
     else
     {
-      v28 = *(v175 + 2 * HIDWORD(v166) - 2);
+      v27 = *(v174 + 2 * HIDWORD(v165) - 2);
     }
 
-    v138 = *v174;
-    v127 = *v162;
-    v135 = ((__src | v157 | v28 | v176) | v164) & 3;
-    if ((((__src | v157 | v28 | v176) | v164) & 3) != 0)
+    v137 = *v173;
+    v126 = *v161;
+    v134 = ((__src | v156 | v27 | v175) | v163) & 3;
+    if ((((__src | v156 | v27 | v175) | v163) & 3) != 0)
     {
-      v33 = v28;
+      v32 = v27;
     }
 
     else
     {
-      v33 = (v28 / 4);
+      v32 = (v27 / 4);
     }
 
-    v34 = v33 * (v27 - v25);
-    v152 = &v154;
-    v153 = 1032;
-    if (v34 >= 0x409)
+    v33 = v32 * (v26 - v24);
+    v151 = &v153;
+    v152 = 1032;
+    if (v33 >= 0x409)
     {
-      v153 = v34;
+      v152 = v33;
       operator new[]();
     }
 
-    v128 = v27;
-    if (v10 >= 1)
+    v127 = v26;
+    if (v9 >= 1)
     {
-      v35 = 0;
-      v36 = &v155;
+      v34 = 0;
+      v35 = &v154;
       __n = vdupq_n_s64(4uLL);
-      v147 = vdupq_n_s64(v33 - 1);
+      v146 = vdupq_n_s64(v32 - 1);
       do
       {
-        v37 = cv::borderInterpolate((v35 - v10), v25, v140);
-        if (v33 >= 1)
+        v36 = cv::borderInterpolate((v34 - v9), v24, v139);
+        if (v32 >= 1)
         {
-          v38 = v37 * v33;
-          v39 = (v33 + 3) & 0xFFFFFFFC;
-          v40 = v36;
-          v41 = xmmword_22D297DE0;
-          v42 = xmmword_22D297DD0;
+          v37 = v36 * v32;
+          v38 = (v32 + 3) & 0xFFFFFFFC;
+          v39 = v35;
+          v40 = xmmword_22D297DE0;
+          v41 = xmmword_22D297DD0;
           do
           {
-            v43 = vmovn_s64(vcgeq_u64(v147, v41));
-            if (vuzp1_s16(v43, *v41.i8).u8[0])
+            v42 = vmovn_s64(vcgeq_u64(v146, v40));
+            if (vuzp1_s16(v42, *v40.i8).u8[0])
             {
-              *(v40 - 2) = v38;
+              *(v39 - 2) = v37;
             }
 
-            if (vuzp1_s16(v43, *&v41).i8[2])
+            if (vuzp1_s16(v42, *&v40).i8[2])
             {
-              *(v40 - 1) = v38 + 1;
+              *(v39 - 1) = v37 + 1;
             }
 
-            if (vuzp1_s16(*&v41, vmovn_s64(vcgeq_u64(v147, *&v42))).i32[1])
+            if (vuzp1_s16(*&v40, vmovn_s64(vcgeq_u64(v146, *&v41))).i32[1])
             {
-              *v40 = v38 + 2;
-              *(v40 + 1) = v38 + 3;
+              *v39 = v37 + 2;
+              *(v39 + 1) = v37 + 3;
             }
 
-            v42 = vaddq_s64(v42, __n);
             v41 = vaddq_s64(v41, __n);
-            v38 += 4;
-            v40 += 2;
-            v39 -= 4;
+            v40 = vaddq_s64(v40, __n);
+            v37 += 4;
+            v39 += 2;
+            v38 -= 4;
           }
 
-          while (v39);
+          while (v38);
         }
 
-        ++v35;
-        v36 = (v36 + 4 * v33);
+        ++v34;
+        v35 = (v35 + 4 * v32);
       }
 
-      while (v35 != v10);
+      while (v34 != v9);
     }
 
-    v44 = (v128 - (v25 + v10));
-    if (v44 >= 1)
+    v43 = (v127 - (v24 + v9));
+    if (v43 >= 1)
     {
-      v45 = 0;
-      v148 = vdupq_n_s64(v33 - 1);
-      v46 = &v154 + 4 * v33 * v10 + 8;
+      v44 = 0;
+      v147 = vdupq_n_s64(v32 - 1);
+      v45 = &v153 + 4 * v32 * v9 + 8;
       __na = vdupq_n_s64(4uLL);
       do
       {
-        v47 = cv::borderInterpolate((v25 + v45), v25, v140);
-        if (v33 >= 1)
+        v46 = cv::borderInterpolate((v24 + v44), v24, v139);
+        if (v32 >= 1)
         {
-          v48 = v47 * v33;
-          v49 = (v33 + 3) & 0xFFFFFFFC;
-          v50 = v46;
-          v51 = xmmword_22D297DE0;
-          v52 = xmmword_22D297DD0;
+          v47 = v46 * v32;
+          v48 = (v32 + 3) & 0xFFFFFFFC;
+          v49 = v45;
+          v50 = xmmword_22D297DE0;
+          v51 = xmmword_22D297DD0;
           do
           {
-            v53 = vmovn_s64(vcgeq_u64(v148, v51));
-            if (vuzp1_s16(v53, *v51.i8).u8[0])
+            v52 = vmovn_s64(vcgeq_u64(v147, v50));
+            if (vuzp1_s16(v52, *v50.i8).u8[0])
             {
-              *(v50 - 2) = v48;
+              *(v49 - 2) = v47;
             }
 
-            if (vuzp1_s16(v53, *&v51).i8[2])
+            if (vuzp1_s16(v52, *&v50).i8[2])
             {
-              *(v50 - 1) = v48 + 1;
+              *(v49 - 1) = v47 + 1;
             }
 
-            if (vuzp1_s16(*&v51, vmovn_s64(vcgeq_u64(v148, *&v52))).i32[1])
+            if (vuzp1_s16(*&v50, vmovn_s64(vcgeq_u64(v147, *&v51))).i32[1])
             {
-              *v50 = v48 + 2;
-              v50[1] = v48 + 3;
+              *v49 = v47 + 2;
+              v49[1] = v47 + 3;
             }
 
-            v52 = vaddq_s64(v52, __na);
             v51 = vaddq_s64(v51, __na);
-            v48 += 4;
-            v50 += 4;
-            v49 -= 4;
+            v50 = vaddq_s64(v50, __na);
+            v47 += 4;
+            v49 += 4;
+            v48 -= 4;
           }
 
-          while (v49);
+          while (v48);
         }
 
-        ++v45;
-        v46 += 4 * v33;
+        ++v44;
+        v45 += 4 * v32;
       }
 
-      while (v45 != v44);
+      while (v44 != v43);
     }
 
-    v129 = v33 * v128;
-    v54 = v26 * v131;
-    v133 = &v130[v54];
-    v132 = 2 * (v135 == 0);
-    if (v138 >= 1)
+    v128 = v32 * v127;
+    v53 = v25 * v130;
+    v132 = &v129[v53];
+    v131 = 2 * (v134 == 0);
+    if (v137 >= 1)
     {
-      v55 = 0;
-      v56 = (v33 * v10);
-      v57 = &v133[v56 << v132];
-      v58 = v33 * v25;
-      __nb = (v33 * v25) << v132;
-      v59 = (v33 * v44);
-      v60 = v54 + (v56 << v132);
-      v61 = &v130[v60 - v56];
-      v62 = &v130[v60 + v58];
-      v63 = &v130[v60 - 4 * v56];
-      v64 = &v130[4 * v58 + v60];
+      v54 = 0;
+      v55 = (v32 * v9);
+      v56 = &v132[v55 << v131];
+      v57 = v32 * v24;
+      __nb = (v32 * v24) << v131;
+      v58 = (v32 * v43);
+      v59 = v53 + (v55 << v131);
+      v60 = &v129[v59 - v55];
+      v61 = &v129[v59 + v57];
+      v62 = &v129[v59 - 4 * v55];
+      v63 = &v129[4 * v57 + v59];
       do
       {
-        if (v57 != v24)
+        if (v56 != v23)
         {
-          memcpy(v57, v24, __nb);
+          memcpy(v56, v23, __nb);
         }
 
-        if (v135)
+        if (v134)
         {
-          v65 = &v154;
-          v66 = v61;
-          v67 = v56;
-          if (v56 >= 1)
+          v64 = &v153;
+          v65 = v60;
+          v66 = v55;
+          if (v55 >= 1)
           {
             do
             {
-              v68 = *v65;
-              v65 = (v65 + 4);
-              *v66++ = v24[v68];
-              --v67;
+              v67 = *v64;
+              v64 = (v64 + 4);
+              *v65++ = v23[v67];
+              --v66;
             }
 
-            while (v67);
+            while (v66);
           }
 
-          v69 = &v154 + v56;
-          v70 = v62;
-          v71 = v59;
-          if (v59 >= 1)
+          v68 = &v153 + v55;
+          v69 = v61;
+          v70 = v58;
+          if (v58 >= 1)
           {
             do
             {
-              v72 = *v69++;
-              *v70++ = v24[v72];
-              --v71;
+              v71 = *v68++;
+              *v69++ = v23[v71];
+              --v70;
             }
 
-            while (v71);
+            while (v70);
           }
         }
 
         else
         {
-          v73 = &v154;
-          v74 = v63;
-          v75 = v56;
-          if (v56 >= 1)
+          v72 = &v153;
+          v73 = v62;
+          v74 = v55;
+          if (v55 >= 1)
           {
             do
             {
-              v76 = *v73;
-              v73 = (v73 + 4);
-              *v74 = *&v24[4 * v76];
-              v74 += 4;
-              --v75;
+              v75 = *v72;
+              v72 = (v72 + 4);
+              *v73 = *&v23[4 * v75];
+              v73 += 4;
+              --v74;
             }
 
-            while (v75);
+            while (v74);
           }
 
-          v77 = &v154 + v56;
-          v78 = v64;
-          v79 = v59;
-          if (v59 >= 1)
+          v76 = &v153 + v55;
+          v77 = v63;
+          v78 = v58;
+          if (v58 >= 1)
           {
             do
             {
-              v80 = *v77++;
-              *v78 = *&v24[4 * v80];
-              v78 += 4;
-              --v79;
+              v79 = *v76++;
+              *v77 = *&v23[4 * v79];
+              v77 += 4;
+              --v78;
             }
 
-            while (v79);
+            while (v78);
           }
         }
 
-        ++v55;
-        v57 += v26;
-        v24 += v136;
-        v61 += v26;
-        v62 += v26;
-        v63 += v26;
-        v64 += v26;
+        ++v54;
+        v56 += v25;
+        v23 += v135;
+        v60 += v25;
+        v61 += v25;
+        v62 += v25;
+        v63 += v25;
       }
 
-      while (v55 != v138);
+      while (v54 != v137);
     }
 
-    v81 = v129 << v132;
-    if (v131 >= 1)
+    v80 = v128 << v131;
+    if (v130 >= 1)
     {
-      v82 = v130;
-      v83 = -v131;
-      v84 = v131;
+      v81 = v129;
+      v82 = -v130;
+      v83 = v130;
       do
       {
-        v85 = cv::borderInterpolate(v83, v138, v140);
-        memcpy(v82, &v133[v26 * v85], v81);
-        v82 += v26;
-        v83 = (v83 + 1);
-        --v84;
+        v84 = cv::borderInterpolate(v82, v137, v139);
+        memcpy(v81, &v132[v25 * v84], v80);
+        v81 += v25;
+        v82 = (v82 + 1);
+        --v83;
       }
 
-      while (v84);
+      while (v83);
     }
 
-    v86 = (v127 - (v138 + v131));
-    if (v86 >= 1)
+    v85 = (v126 - (v137 + v130));
+    if (v85 >= 1)
     {
-      v87 = &v130[v26 * (v131 + v138)];
-      v88 = v138;
+      v86 = &v129[v25 * (v130 + v137)];
+      v87 = v137;
       do
       {
-        v89 = cv::borderInterpolate(v88, v138, v140);
-        memcpy(v87, &v133[v26 * v89], v81);
-        v87 += v26;
-        v88 = (v88 + 1);
-        --v86;
+        v88 = cv::borderInterpolate(v87, v137, v139);
+        memcpy(v86, &v132[v25 * v88], v80);
+        v86 += v25;
+        v87 = (v87 + 1);
+        --v85;
       }
 
-      while (v86);
+      while (v85);
     }
 
-    if (v152 != &v154 && v152 != 0)
+    if (v151 != &v153 && v151 != 0)
     {
 LABEL_122:
       MEMORY[0x2318CB180]();
@@ -8779,230 +8781,230 @@ LABEL_122:
 
   else
   {
-    v29 = (v166 >> 3) & 0x1FF;
-    v30 = v29 + 1;
-    v152 = &v154;
-    v153 = 520;
-    if (v29 < 4)
+    v28 = (v165 >> 3) & 0x1FF;
+    v29 = v28 + 1;
+    v151 = &v153;
+    v152 = 520;
+    if (v28 < 4)
     {
-      v32 = v29 + 1;
+      v31 = v28 + 1;
     }
 
     else
     {
-      v31 = *v4;
-      if (*v4 != v4[1] || v31 != v4[2] || v31 != v4[3])
+      v30 = *v3;
+      if (*v3 != v3[1] || v30 != v3[2] || v30 != v3[3])
       {
-        std::string::basic_string[abi:ne200100]<0>(__p, "value[0] == value[1] && value[0] == value[2] && value[0] == value[3]");
-        std::string::basic_string[abi:ne200100]<0>(v151, "copyMakeBorder");
-        std::string::basic_string[abi:ne200100]<0>(v150, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/utils.cpp");
-        cv::Exception::Exception(&v177, 4294967081, __p, v151, v150, 248);
-        cv::error(&v177, v91);
+        std::string::basic_string[abi:ne200100]<0>(&__p, "value[0] == value[1] && value[0] == value[2] && value[0] == value[3]");
+        std::string::basic_string[abi:ne200100]<0>(&v150, "copyMakeBorder");
+        std::string::basic_string[abi:ne200100]<0>(&v149, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/utils.cpp");
+        cv::Exception::Exception(&v176, -215, &__p, &v150, &v149, 248);
+        cv::error(&v176, v90);
       }
 
-      v32 = 1;
+      v31 = 1;
     }
 
-    v92.n128_f64[0] = cv::scalarToRawData(v4, &v154, (v166 & 7 | (8 * v32)) - 8, v30);
-    v93 = v162[1];
-    if (SHIDWORD(v166) < 1)
+    v91.n128_f64[0] = cv::scalarToRawData(v3, &v153, (v165 & 7 | (8 * v31)) - 8, v29);
+    v92 = v161[1];
+    if (SHIDWORD(v165) < 1)
     {
-      v94 = 0;
+      v93 = 0;
     }
 
     else
     {
-      v94 = *(v175 + 2 * HIDWORD(v166) - 2);
+      v93 = *(v174 + 2 * HIDWORD(v165) - 2);
     }
 
-    v95 = __src;
-    v96 = v176;
-    v97 = v174[1];
-    v149 = *v174;
-    v98 = v164;
-    v137 = *v162;
-    v99 = v152;
-    v177 = v179;
-    v178 = 4104;
-    v141 = v94 * v93;
-    __nc = v157;
-    if ((v94 * v93) >= 0x1009)
+    v94 = __src;
+    v95 = v175;
+    v96 = v173[1];
+    v148 = *v173;
+    v97 = v163;
+    v136 = *v161;
+    v98 = v151;
+    *&v176 = v177;
+    *(&v176 + 1) = 4104;
+    v140 = v93 * v92;
+    __nc = v156;
+    if ((v93 * v92) >= 0x1009)
     {
-      v178 = v141;
+      *(&v176 + 1) = v140;
       operator new[]();
     }
 
-    if (v93 >= 1)
+    if (v92 >= 1)
     {
-      v100 = 0;
-      v101 = v179;
+      v99 = 0;
+      v100 = v177;
       do
       {
-        if (v94 >= 1)
+        if (v93 >= 1)
         {
-          v102 = v99;
-          v103 = v101;
-          v104 = v94;
+          v101 = v98;
+          v102 = v100;
+          v103 = v93;
           do
           {
-            v105 = *v102;
-            v102 = (v102 + 1);
-            *v103++ = v105;
-            --v104;
+            v104 = *v101;
+            v101 = (v101 + 1);
+            *v102++ = v104;
+            --v103;
           }
 
-          while (v104);
+          while (v103);
         }
 
-        ++v100;
-        v101 = (v101 + v94);
+        ++v99;
+        v100 = (v100 + v93);
       }
 
-      while (v100 != v93);
+      while (v99 != v92);
     }
 
-    v134 = v149 + v14;
-    v139 = v14;
-    if (v149 >= 1)
+    v133 = v148 + v13;
+    v138 = v13;
+    if (v148 >= 1)
     {
-      v106 = v93 - (v97 + v10);
-      v107 = v94 * v10;
-      v108 = &__nc[v98 * v14];
-      v109 = v107;
-      v110 = v94 * v97;
-      v111 = v94 * v106;
-      v112 = v110;
-      v113 = v109 + v110;
-      v114 = v149;
+      v105 = v92 - (v96 + v9);
+      v106 = v93 * v9;
+      v107 = &__nc[v97 * v13];
+      v108 = v106;
+      v109 = v93 * v96;
+      v110 = v93 * v105;
+      v111 = v109;
+      v112 = v108 + v109;
+      v113 = v148;
       do
       {
-        if (v95 != &v108[v109])
+        if (v94 != &v107[v108])
         {
-          memcpy(&v108[v109], v95, v112);
+          memcpy(&v107[v108], v94, v111);
         }
 
-        memcpy(v108, v179, v109);
-        memcpy(&v108[v113], v179, v111);
-        v95 += v96;
-        v108 += v98;
+        memcpy(v107, v177, v108);
+        memcpy(&v107[v112], v177, v110);
+        v94 += v95;
+        v107 += v97;
+        --v113;
+      }
+
+      while (v113);
+    }
+
+    v114 = (v136 - v133);
+    if (v130 >= 1)
+    {
+      v115 = __nc;
+      v116 = v130;
+      do
+      {
+        memcpy(v115, v177, v140);
+        v115 += v97;
+        --v116;
+      }
+
+      while (v116);
+    }
+
+    if (v114 >= 1)
+    {
+      v117 = &__nc[v97 * (v138 + v148)];
+      do
+      {
+        memcpy(v117, v177, v140);
+        v117 += v97;
         --v114;
       }
 
       while (v114);
     }
 
-    v115 = (v137 - v134);
-    if (v131 >= 1)
+    if (v176 != v177 && v176 != 0)
     {
-      v116 = __nc;
-      v117 = v131;
-      do
-      {
-        memcpy(v116, v179, v141);
-        v116 += v98;
-        --v117;
-      }
-
-      while (v117);
+      MEMORY[0x2318CB180](v91);
     }
 
-    if (v115 >= 1)
-    {
-      v118 = &__nc[v98 * (v139 + v149)];
-      do
-      {
-        memcpy(v118, v179, v141);
-        v118 += v98;
-        --v115;
-      }
-
-      while (v115);
-    }
-
-    if (v177 != v179 && v177 != 0)
-    {
-      MEMORY[0x2318CB180](v92);
-    }
-
-    if (v152 != &v154 && v152 != 0)
+    if (v151 != &v153 && v151 != 0)
     {
       goto LABEL_122;
     }
   }
 
 LABEL_123:
-  if (v158 && atomic_fetch_add(v158, 0xFFFFFFFF) == 1)
+  if (v157 && atomic_fetch_add(v157, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(v156);
+    cv::Mat::deallocate(&v155);
+  }
+
+  v156 = 0;
+  v158 = 0;
+  v160 = 0;
+  v159 = 0;
+  if (SDWORD1(v155) >= 1)
+  {
+    v120 = 0;
+    v121 = v161;
+    do
+    {
+      v121[v120++] = 0;
+    }
+
+    while (v120 < SDWORD1(v155));
   }
 
   v157 = 0;
-  v159 = 0;
-  v161 = 0;
-  v160 = 0;
-  if (SHIDWORD(v156[0]) >= 1)
+  if (v162)
   {
-    v121 = 0;
-    v122 = v162;
-    do
-    {
-      v122[v121++] = 0;
-    }
-
-    while (v121 < SHIDWORD(v156[0]));
-  }
-
-  v158 = 0;
-  if (v163)
-  {
-    v123 = v163 == &v164;
+    v122 = v162 == &v163;
   }
 
   else
   {
-    v123 = 1;
+    v122 = 1;
   }
 
-  if (!v123)
+  if (!v122)
   {
-    free(v163);
+    free(v162);
   }
 
-  if (v170 && atomic_fetch_add(v170, 0xFFFFFFFF) == 1)
+  if (v169 && atomic_fetch_add(v169, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(&v166);
+    cv::Mat::deallocate(&v165);
   }
 
   __src = 0;
-  v171 = 0;
-  v173 = 0;
+  v170 = 0;
   v172 = 0;
-  if (SHIDWORD(v166) >= 1)
+  v171 = 0;
+  if (SHIDWORD(v165) >= 1)
   {
-    v124 = 0;
-    v125 = v174;
+    v123 = 0;
+    v124 = v173;
     do
     {
-      v125[v124++] = 0;
+      v124[v123++] = 0;
     }
 
-    while (v124 < SHIDWORD(v166));
+    while (v123 < SHIDWORD(v165));
   }
 
-  v170 = 0;
-  if (v175)
+  v169 = 0;
+  if (v174)
   {
-    v126 = v175 == &v176;
+    v125 = v174 == &v175;
   }
 
   else
   {
-    v126 = 1;
+    v125 = 1;
   }
 
-  if (!v126)
+  if (!v125)
   {
-    free(v175);
+    free(v174);
   }
 }
 
@@ -9037,7 +9039,7 @@ void sub_22D23F3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void cv::getDerivKernels(cv *this, const cv::_OutputArray *a2, const cv::_OutputArray *a3, int a4, int a5, char a6, unsigned int a7)
+void cv::getDerivKernels(cv *this, const cv::_OutputArray *a2, const cv::_OutputArray *a3, int a4, int a5, char a6, char a7, int a8)
 {
   if (a5 <= 0)
   {
@@ -9050,16 +9052,16 @@ void cv::getDerivKernels(cv *this, const cv::_OutputArray *a2, const cv::_Output
   }
 }
 
-void cv::getScharrKernels(cv *this, const cv::_OutputArray *a2, const cv::_OutputArray *a3, int a4, unsigned __int8 a5, unsigned int a6)
+void cv::getScharrKernels(cv *this, const cv::_OutputArray *a2, const cv::_OutputArray *a3, int a4, unsigned __int8 a5, int a6)
 {
   v32 = a3;
-  v66 = *MEMORY[0x277D85DE8];
-  if (a6 - 5 >= 2)
+  v65 = *MEMORY[0x277D85DE8];
+  if ((a6 - 5) >= 2)
   {
     std::string::basic_string[abi:ne200100]<0>(v45, "ktype == CV_32F || ktype == CV_64F");
     std::string::basic_string[abi:ne200100]<0>(v37, "getScharrKernels");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
-    v8 = cv::Exception::Exception(&v53, 4294967081, v45, v37, __p, 136);
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
+    v8 = cv::Exception::Exception(&v53, -215, v45, v37, &__p, 136);
     cv::error(v8, v9);
   }
 
@@ -9069,10 +9071,10 @@ void cv::getScharrKernels(cv *this, const cv::_OutputArray *a2, const cv::_Outpu
   (**a2)(v37, a2, 0xFFFFFFFFLL);
   if ((a4 | v32) < 0 || a4 + v32 != 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(__p, "dx >= 0 && dy >= 0 && dx+dy == 1");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "dx >= 0 && dy >= 0 && dx+dy == 1");
     std::string::basic_string[abi:ne200100]<0>(&v64, "getScharrKernels");
-    std::string::basic_string[abi:ne200100]<0>(v36, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
-    v10 = cv::Exception::Exception(&v53, 4294967081, __p, &v64, v36, 142);
+    std::string::basic_string[abi:ne200100]<0>(&v36, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
+    v10 = cv::Exception::Exception(&v53, -215, &__p, &v64, &v36, 142);
     cv::error(v10, v11);
   }
 
@@ -9117,8 +9119,8 @@ void cv::getScharrKernels(cv *this, const cv::_OutputArray *a2, const cv::_Outpu
       v16 = 0xA00000003;
     }
 
-    v64 = v16;
-    v65 = v17;
+    *&v64 = v16;
+    DWORD2(v64) = v17;
 LABEL_18:
     if (v13)
     {
@@ -9145,14 +9147,14 @@ LABEL_18:
     v60 = 0;
     v57 = &v64;
     v58 = v59;
-    cv::_OutputArray::_OutputArray(__p, v14);
+    cv::_OutputArray::_OutputArray(&__p, v14);
     v21 = 0.03125;
     if (((v15 != 1) & a5) == 0)
     {
       v21 = 1.0;
     }
 
-    cv::Mat::convertTo(&v53, __p, a6, v21, 0.0);
+    cv::Mat::convertTo(&v53, &__p, a6, v21, 0.0);
     if (v56 && atomic_fetch_add(v56, 0xFFFFFFFF) == 1)
     {
       cv::Mat::deallocate(&v53);
@@ -9279,7 +9281,7 @@ void sub_22D23FA70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void cv::getSobelKernels(cv *this, const cv::_OutputArray *a2, const cv::_OutputArray *a3, int a4, int a5, int a6, unsigned int a7)
+void cv::getSobelKernels(cv *this, const cv::_OutputArray *a2, const cv::_OutputArray *a3, int a4, int a5, int a6, int a7)
 {
   v59 = a3;
   if (a3 > 0 && a5 == 1)
@@ -9304,12 +9306,12 @@ void cv::getSobelKernels(cv *this, const cv::_OutputArray *a2, const cv::_Output
 
   v61 = v11;
   v62 = v10;
-  if (a7 - 5 >= 2)
+  if ((a7 - 5) >= 2)
   {
     std::string::basic_string[abi:ne200100]<0>(v75, "ktype == CV_32F || ktype == CV_64F");
     std::string::basic_string[abi:ne200100]<0>(v67, "getSobelKernels");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
-    v12 = cv::Exception::Exception(&v83, 4294967081, v75, v67, __p, 171);
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
+    v12 = cv::Exception::Exception(&v83, -215, v75, v67, &__p, 171);
     cv::error(v12, v13);
   }
 
@@ -9319,10 +9321,10 @@ void cv::getSobelKernels(cv *this, const cv::_OutputArray *a2, const cv::_Output
   (**a2)(v67, a2, 0xFFFFFFFFLL);
   if (a5 > 31 || (a5 & 1) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(__p, "The kernel size must be odd and not larger than 31");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "The kernel size must be odd and not larger than 31");
     std::string::basic_string[abi:ne200100]<0>(v66, "getSobelKernels");
-    std::string::basic_string[abi:ne200100]<0>(v65, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
-    v14 = cv::Exception::Exception(&v83, 4294967085, __p, v66, v65, 179);
+    std::string::basic_string[abi:ne200100]<0>(&v65, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
+    v14 = cv::Exception::Exception(&v83, -211, &__p, v66, &v65, 179);
     cv::error(v14, v15);
   }
 
@@ -9335,10 +9337,10 @@ void cv::getSobelKernels(cv *this, const cv::_OutputArray *a2, const cv::_Output
   std::vector<int>::vector[abi:ne200100](v66, v16 + 1);
   if ((a4 | v59) < 0 || (a4 + v59 < 0) ^ __OFADD__(a4, v59) | (a4 + v59 == 0))
   {
-    std::string::basic_string[abi:ne200100]<0>(__p, "dx >= 0 && dy >= 0 && dx+dy > 0");
-    std::string::basic_string[abi:ne200100]<0>(v65, "getSobelKernels");
-    std::string::basic_string[abi:ne200100]<0>(v64, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
-    v17 = cv::Exception::Exception(&v83, 4294967081, __p, v65, v64, 182);
+    std::string::basic_string[abi:ne200100]<0>(&__p, "dx >= 0 && dy >= 0 && dx+dy > 0");
+    std::string::basic_string[abi:ne200100]<0>(&v65, "getSobelKernels");
+    std::string::basic_string[abi:ne200100]<0>(&v64, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
+    v17 = cv::Exception::Exception(&v83, -215, &__p, &v65, &v64, 182);
     cv::error(v17, v18);
   }
 
@@ -9378,10 +9380,10 @@ void cv::getSobelKernels(cv *this, const cv::_OutputArray *a2, const cv::_Output
 
     if (v23 <= v22)
     {
-      std::string::basic_string[abi:ne200100]<0>(__p, "ksize > order");
-      std::string::basic_string[abi:ne200100]<0>(v65, "getSobelKernels");
-      std::string::basic_string[abi:ne200100]<0>(v64, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
-      v24 = cv::Exception::Exception(&v83, 4294967081, __p, v65, v64, 190);
+      std::string::basic_string[abi:ne200100]<0>(&__p, "ksize > order");
+      std::string::basic_string[abi:ne200100]<0>(&v65, "getSobelKernels");
+      std::string::basic_string[abi:ne200100]<0>(&v64, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/deriv.cpp");
+      v24 = cv::Exception::Exception(&v83, -215, &__p, &v65, &v64, 190);
       cv::error(v24, v25);
     }
 
@@ -9506,8 +9508,8 @@ LABEL_52:
       v47 = 1.0 / (1 << (v23 + ~v22));
     }
 
-    cv::_OutputArray::_OutputArray(__p, v21);
-    cv::Mat::convertTo(&v83, __p, a7, v47, 0.0);
+    cv::_OutputArray::_OutputArray(&__p, v21);
+    cv::Mat::convertTo(&v83, &__p, a7, v47, 0.0);
     if (v86 && atomic_fetch_add(v86, 0xFFFFFFFF) == 1)
     {
       cv::Mat::deallocate(&v83);
@@ -9658,157 +9660,159 @@ void sub_22D2402E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cv::Sobel(cv *this, const cv::_InputArray *a2, const cv::_OutputArray *a3, const cv::_OutputArray *a4, int a5, int a6, double a7, double a8)
+void cv::Sobel(cv *this, const cv::_InputArray *a2, const cv::_OutputArray *a3, const cv::_OutputArray *a4, int a5, int a6, unsigned int a7, double a8, double a9)
 {
-  v12 = a3;
-  (**this)(v29);
-  if (v12 < 0)
+  v15 = a3;
+  (**this)(v33);
+  if (v15 < 0)
   {
-    v12 = v29[0] & 7;
+    v15 = v33[0] & 7;
   }
 
-  v28[0] = vrev64_s32(*v29[8]);
-  (*(*a2 + 128))(a2, v28, v29[0] & 0xFF8 | v12 & 7u, 0xFFFFFFFFLL, 0, 0);
-  (**a2)(v28, a2, 0xFFFFFFFFLL);
-  v14 = v29[0] & 7;
-  v25 = &v24[2];
-  v26 = v27;
-  if (v12 > v14)
+  v32[0] = vrev64_s32(*v33[8]);
+  (*(*a2 + 128))(a2, v32, v33[0] & 0xFF8 | v15 & 7u, 0xFFFFFFFFLL, 0, 0);
+  (**a2)(v32, a2, 0xFFFFFFFFLL);
+  v17 = v33[0] & 7;
+  v29 = &v28[2];
+  v30 = v31;
+  if (v15 > v17)
   {
-    v14 = v12;
+    v17 = v15;
   }
 
-  v27[0] = 0;
-  v27[1] = 0;
-  if (v14 <= 5)
+  v31[0] = 0;
+  v31[1] = 0;
+  if (v17 <= 5)
   {
-    v15 = 5;
+    v18 = 5;
   }
 
   else
   {
-    v15 = v14;
+    v18 = v17;
   }
 
+  v28[0] = 1124007936;
+  memset(&v28[1], 0, 60);
+  v25 = &v24[2];
+  v26 = v27;
+  v27[0] = 0;
+  v27[1] = 0;
   v24[0] = 1124007936;
   memset(&v24[1], 0, 60);
-  v21 = &v20[2];
-  v22 = v23;
-  v23[0] = 0;
-  v23[1] = 0;
-  v20[0] = 1124007936;
-  memset(&v20[1], 0, 60);
-  cv::_OutputArray::_OutputArray(v30, v24);
-  cv::_OutputArray::_OutputArray(v19, v20);
-  cv::getDerivKernels(v30, v19, a4, a5, a6, 0, v15);
+  cv::_OutputArray::_OutputArray(v34, v28);
+  cv::_OutputArray::_OutputArray(v23, v24);
+  cv::getDerivKernels(v34, v23, a4, a5, a6, 0, v18, v19);
+  if (a8 != 1.0)
+  {
+    if (a4)
+    {
+      cv::_OutputArray::_OutputArray(v34, v24);
+      cv::Mat::convertTo(v24, v34, -1, a8, 0.0);
+    }
+
+    else
+    {
+      cv::_OutputArray::_OutputArray(v34, v28);
+      cv::Mat::convertTo(v28, v34, -1, a8, 0.0);
+    }
+  }
+
+  cv::_InputArray::_InputArray(v34, v33);
+  cv::_OutputArray::_OutputArray(v23, v32);
+  cv::_InputArray::_InputArray(v22, v28);
+  cv::_InputArray::_InputArray(v21, v24);
+  v20 = -1;
+  cv::sepFilter2D(v34, v23, v15, v22, v21, &v20, a7, a9);
+}
+
+void sub_22D2408B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  cv::Mat::~Mat(&a23);
+  cv::Mat::~Mat(&a35);
+  cv::Mat::~Mat(va);
+  cv::Mat::~Mat((v46 - 224));
+  _Unwind_Resume(a1);
+}
+
+void cv::Scharr(cv *this, const cv::_InputArray *a2, const cv::_OutputArray *a3, const cv::_OutputArray *a4, int a5, unsigned int a6, double a7, double a8)
+{
+  v13 = a3;
+  (**this)(v30);
+  if (v13 < 0)
+  {
+    v13 = v30[0] & 7;
+  }
+
+  v29[0] = vrev64_s32(*v30[8]);
+  (*(*a2 + 128))(a2, v29, v30[0] & 0xFF8 | v13 & 7u, 0xFFFFFFFFLL, 0, 0);
+  (**a2)(v29, a2, 0xFFFFFFFFLL);
+  v15 = v30[0] & 7;
+  v26 = &v25[2];
+  v27 = v28;
+  if (v13 > v15)
+  {
+    v15 = v13;
+  }
+
+  v28[0] = 0;
+  v28[1] = 0;
+  if (v15 <= 5)
+  {
+    v16 = 5;
+  }
+
+  else
+  {
+    v16 = v15;
+  }
+
+  v25[0] = 1124007936;
+  memset(&v25[1], 0, 60);
+  v22 = &v21[2];
+  v23 = v24;
+  v24[0] = 0;
+  v24[1] = 0;
+  v21[0] = 1124007936;
+  memset(&v21[1], 0, 60);
+  cv::_OutputArray::_OutputArray(v31, v25);
+  cv::_OutputArray::_OutputArray(v20, v21);
+  cv::getScharrKernels(v31, v20, a4, a5, 0, v16);
   if (a7 != 1.0)
   {
     if (a4)
     {
-      cv::_OutputArray::_OutputArray(v30, v20);
-      cv::Mat::convertTo(v20, v30, -1, a7, 0.0);
+      cv::_OutputArray::_OutputArray(v31, v21);
+      cv::Mat::convertTo(v21, v31, -1, a7, 0.0);
     }
 
     else
     {
-      cv::_OutputArray::_OutputArray(v30, v24);
-      cv::Mat::convertTo(v24, v30, -1, a7, 0.0);
+      cv::_OutputArray::_OutputArray(v31, v25);
+      cv::Mat::convertTo(v25, v31, -1, a7, 0.0);
     }
   }
 
-  cv::_InputArray::_InputArray(v30, v29);
-  cv::_OutputArray::_OutputArray(v19, v28);
-  cv::_InputArray::_InputArray(v18, v24);
-  cv::_InputArray::_InputArray(v17, v20);
-  v16 = -1;
-  cv::sepFilter2D(v30, v19, v12, v18, v17, &v16);
+  cv::_InputArray::_InputArray(v31, v30);
+  cv::_OutputArray::_OutputArray(v20, v29);
+  cv::_InputArray::_InputArray(v19, v25);
+  cv::_InputArray::_InputArray(v18, v21);
+  v17 = -1;
+  cv::sepFilter2D(v31, v20, v13, v19, v18, &v17, a6, a8);
 }
 
-void sub_22D2408B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_22D240D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
+  va_start(va, a46);
   cv::Mat::~Mat(&a23);
   cv::Mat::~Mat(&a35);
-  cv::Mat::~Mat(&a47);
-  cv::Mat::~Mat((v47 - 224));
+  cv::Mat::~Mat(va);
+  cv::Mat::~Mat((v46 - 208));
   _Unwind_Resume(a1);
 }
 
-void cv::Scharr(cv *this, const cv::_InputArray *a2, const cv::_OutputArray *a3, const cv::_OutputArray *a4, int a5, double a6, double a7)
-{
-  v10 = a3;
-  (**this)(v27);
-  if (v10 < 0)
-  {
-    v10 = v27[0] & 7;
-  }
-
-  v26[0] = vrev64_s32(*v27[8]);
-  (*(*a2 + 128))(a2, v26, v27[0] & 0xFF8 | v10 & 7u, 0xFFFFFFFFLL, 0, 0);
-  (**a2)(v26, a2, 0xFFFFFFFFLL);
-  v12 = v27[0] & 7;
-  v23 = &v22[2];
-  v24 = v25;
-  if (v10 > v12)
-  {
-    v12 = v10;
-  }
-
-  v25[0] = 0;
-  v25[1] = 0;
-  if (v12 <= 5)
-  {
-    v13 = 5;
-  }
-
-  else
-  {
-    v13 = v12;
-  }
-
-  v22[0] = 1124007936;
-  memset(&v22[1], 0, 60);
-  v19 = &v18[2];
-  v20 = v21;
-  v21[0] = 0;
-  v21[1] = 0;
-  v18[0] = 1124007936;
-  memset(&v18[1], 0, 60);
-  cv::_OutputArray::_OutputArray(v28, v22);
-  cv::_OutputArray::_OutputArray(v17, v18);
-  cv::getScharrKernels(v28, v17, a4, a5, 0, v13);
-  if (a6 != 1.0)
-  {
-    if (a4)
-    {
-      cv::_OutputArray::_OutputArray(v28, v18);
-      cv::Mat::convertTo(v18, v28, -1, a6, 0.0);
-    }
-
-    else
-    {
-      cv::_OutputArray::_OutputArray(v28, v22);
-      cv::Mat::convertTo(v22, v28, -1, a6, 0.0);
-    }
-  }
-
-  cv::_InputArray::_InputArray(v28, v27);
-  cv::_OutputArray::_OutputArray(v17, v26);
-  cv::_InputArray::_InputArray(v16, v22);
-  cv::_InputArray::_InputArray(v15, v18);
-  v14 = -1;
-  cv::sepFilter2D(v28, v17, v10, v16, v15, &v14);
-}
-
-void sub_22D240D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
-{
-  cv::Mat::~Mat(&a23);
-  cv::Mat::~Mat(&a35);
-  cv::Mat::~Mat(&a47);
-  cv::Mat::~Mat((v47 - 208));
-  _Unwind_Resume(a1);
-}
-
-void cv::Laplacian(cv *this, const cv::_InputArray *a2, const cv::_OutputArray *a3, int a4, char a5, double a6, double a7)
+void cv::Laplacian(void (***this)(uint64_t *__return_ptr), const cv::_InputArray *a2, const cv::_OutputArray *a3, int a4, char a5, double a6, double a7)
 {
   v11 = a3;
   v57[3] = *MEMORY[0x277D85DE8];
@@ -9884,10 +9888,10 @@ void cv::Laplacian(cv *this, const cv::_InputArray *a2, const cv::_OutputArray *
     v28 = v42[0];
     cv::_InputArray::_InputArray(&v29, v30);
     cv::_InputArray::_InputArray(&v53, v54);
-    *v50 = -1;
+    v50 = -1;
     *v51 = 0u;
     v52 = 0u;
-    cv::createSeparableLinearFilter(v28 & 0xFFF, v25 | v22 & 0xFF8, &v29, &v53, v50);
+    cv::createSeparableLinearFilter(v28 & 0xFFF, v25 | v22 & 0xFF8, &v29, &v53, &v50);
   }
 
   v55 = 0x4000000000000000;
@@ -9915,8 +9919,8 @@ void cv::Laplacian(cv *this, const cv::_InputArray *a2, const cv::_OutputArray *
   cv::_InputArray::_InputArray(&v29, v42);
   cv::_OutputArray::_OutputArray(&v53, v34);
   cv::_InputArray::_InputArray(v51, v30);
-  *v50 = -1;
-  cv::filter2D(&v29, &v53, v11, v51, v50, a5, a7);
+  v50 = -1;
+  cv::filter2D(&v29, &v53, v11, v51, &v50, a5, a7);
   if (*(&v30[1] + 1) && atomic_fetch_add(*(&v30[1] + 1), 0xFFFFFFFF) == 1)
   {
     cv::Mat::deallocate(v30);

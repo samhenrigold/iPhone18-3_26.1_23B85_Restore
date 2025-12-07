@@ -93,46 +93,46 @@ LABEL_9:
 
 - (id)hf_updateValue:()HFIncludedContextProtocol forContextType:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = HFLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     selfCopy = self;
-    v27 = 2080;
-    v28 = "[HMServiceGroup(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
-    v29 = 1024;
-    v30 = a3;
-    v31 = 2048;
-    v32 = a4;
+    v26 = 2080;
+    v27 = "[HMServiceGroup(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
+    v28 = 1024;
+    v29 = a3;
+    v30 = 2048;
+    v31 = a4;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "(%@:%s) Updating value to %{BOOL}d for context %lu", buf, 0x26u);
   }
 
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   services = [self services];
-  v10 = [services countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [services countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(services);
         }
 
-        v14 = [*(*(&v20 + 1) + 8 * i) hf_updateValue:a3 forContextType:a4];
+        v14 = [*(*(&v19 + 1) + 8 * i) hf_updateValue:a3 forContextType:a4];
         [array addObject:v14];
       }
 
-      v11 = [services countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [services countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -141,8 +141,6 @@ LABEL_9:
   v15 = MEMORY[0x277D2C900];
   mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
   v17 = [v15 combineAllFutures:array ignoringErrors:0 scheduler:mainThreadScheduler];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

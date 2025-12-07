@@ -46,13 +46,13 @@
 - (BOOL)isValidPayload:(id)payload
 {
   payloadCopy = payload;
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   selfCopy = self;
   v5 = self->_fields;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v48 objects:v60 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v54 objects:v66 count:16];
   if (!v6)
   {
     v9 = 1;
@@ -60,36 +60,36 @@
   }
 
   v7 = v6;
-  v8 = *v49;
+  v8 = *v55;
   v9 = 1;
   do
   {
     v10 = 0;
     do
     {
-      if (*v49 != v8)
+      if (*v55 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v48 + 1) + 8 * v10);
+      v11 = *(*(&v54 + 1) + 8 * v10);
       name = [v11 name];
       v13 = [payloadCopy objectForKeyedSubscript:name];
 
       if (!v13)
       {
-        v14 = LogIOAnalytics();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v18 = LogIOAnalytics(v14, v15);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           name = selfCopy->_name;
           name2 = [v11 name];
           *buf = 138412546;
-          v55 = name;
-          v56 = 2112;
-          v57 = name2;
-          v17 = v14;
-          v18 = "[%@] missing field. (%@)";
-          v19 = 22;
+          v61 = name;
+          v62 = 2112;
+          v63 = name2;
+          v21 = v18;
+          v22 = "[%@] missing field. (%@)";
+          v23 = 22;
           goto LABEL_18;
         }
 
@@ -100,28 +100,29 @@ LABEL_13:
 
       if (v9)
       {
-        if ([v11 isValidValue:v13])
+        v16 = [v11 isValidValue:v13];
+        if (v16)
         {
           v9 = 1;
           goto LABEL_15;
         }
 
-        v14 = LogIOAnalytics();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v18 = LogIOAnalytics(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v20 = selfCopy->_name;
+          v24 = selfCopy->_name;
           name2 = [v11 name];
           *buf = 138412802;
-          v55 = v20;
-          v56 = 2112;
-          v57 = name2;
-          v58 = 2112;
-          v59 = v13;
-          v17 = v14;
-          v18 = "[%@] invalid value for field. (%@, %@)";
-          v19 = 32;
+          v61 = v24;
+          v62 = 2112;
+          v63 = name2;
+          v64 = 2112;
+          v65 = v13;
+          v21 = v18;
+          v22 = "[%@] invalid value for field. (%@, %@)";
+          v23 = 32;
 LABEL_18:
-          _os_log_error_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, v18, buf, v19);
+          _os_log_error_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, v22, buf, v23);
         }
 
         goto LABEL_13;
@@ -135,66 +136,66 @@ LABEL_15:
     }
 
     while (v7 != v10);
-    v21 = [(NSArray *)v5 countByEnumeratingWithState:&v48 objects:v60 count:16];
-    v7 = v21;
+    v25 = [(NSArray *)v5 countByEnumeratingWithState:&v54 objects:v66 count:16];
+    v7 = v25;
   }
 
-  while (v21);
+  while (v25);
 LABEL_22:
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   obj = payloadCopy;
-  v22 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
-  if (v22)
+  v26 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
+  if (v26)
   {
-    v24 = v22;
-    v38 = *v45;
-    *&v23 = 138412546;
-    v36 = v23;
+    v28 = v26;
+    v44 = *v51;
+    *&v27 = 138412546;
+    v42 = v27;
     do
     {
-      for (i = 0; i != v24; i = i + 1)
+      for (i = 0; i != v28; i = i + 1)
       {
-        if (*v45 != v38)
+        if (*v51 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v44 + 1) + 8 * i);
-        v40 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        v27 = selfCopy->_fields;
-        v28 = [v27 countByEnumeratingWithState:&v40 objects:v52 count:16];
-        if (v28)
+        v30 = *(*(&v50 + 1) + 8 * i);
+        v46 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v31 = selfCopy->_fields;
+        v32 = [v31 countByEnumeratingWithState:&v46 objects:v58 count:16];
+        if (v32)
         {
-          v29 = v28;
-          v30 = *v41;
+          v33 = v32;
+          v34 = *v47;
 LABEL_29:
-          v31 = 0;
+          v35 = 0;
           while (1)
           {
-            if (*v41 != v30)
+            if (*v47 != v34)
             {
-              objc_enumerationMutation(v27);
+              objc_enumerationMutation(v31);
             }
 
-            name3 = [*(*(&v40 + 1) + 8 * v31) name];
-            v33 = [v26 isEqual:name3];
+            name3 = [*(*(&v46 + 1) + 8 * v35) name];
+            v37 = [v30 isEqual:name3];
 
-            if (v33)
+            if (v37)
             {
               break;
             }
 
-            if (v29 == ++v31)
+            if (v33 == ++v35)
             {
-              v29 = [v27 countByEnumeratingWithState:&v40 objects:v52 count:16];
-              if (v29)
+              v33 = [v31 countByEnumeratingWithState:&v46 objects:v58 count:16];
+              if (v33)
               {
                 goto LABEL_29;
               }
@@ -208,25 +209,25 @@ LABEL_29:
         {
 LABEL_35:
 
-          v27 = LogIOAnalytics();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v31 = LogIOAnalytics(v38, v39);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
-            v34 = selfCopy->_name;
-            *buf = v36;
-            v55 = v34;
-            v56 = 2112;
-            v57 = v26;
-            _os_log_error_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "[%@] extra field found! (%@)", buf, 0x16u);
+            v40 = selfCopy->_name;
+            *buf = v42;
+            v61 = v40;
+            v62 = 2112;
+            v63 = v30;
+            _os_log_error_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, "[%@] extra field found! (%@)", buf, 0x16u);
           }
 
           v9 = 0;
         }
       }
 
-      v24 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v28 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
-    while (v24);
+    while (v28);
   }
 
   return v9 & 1;
@@ -237,66 +238,63 @@ LABEL_35:
   payloadCopy = payload;
   if (!payloadCopy)
   {
-    v7 = LogIOAnalytics();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v10 = LogIOAnalytics(0, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [CAEvent sendPayload:?];
+      [CAEvent sendPayload:];
     }
 
     goto LABEL_10;
   }
 
-  v5 = [(CAEvent *)self isValidPayload:payloadCopy];
-  v6 = LogIOAnalytics();
+  v6 = [(CAEvent *)self isValidPayload:payloadCopy];
   v7 = v6;
-  if ((v5 & 1) == 0)
+  v9 = LogIOAnalytics(v6, v8);
+  v10 = v9;
+  if ((v7 & 1) == 0)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [CAEvent sendPayload:?];
+      [CAEvent sendPayload:];
     }
 
 LABEL_10:
 
-    v9 = 0;
+    v11 = 0;
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [CAEvent sendPayload:?];
+    [CAEvent sendPayload:];
   }
 
-  name = self->_name;
   AnalyticsSendEvent();
-  v9 = 1;
+  v11 = 1;
 LABEL_11:
 
-  return v9;
+  return v11;
 }
 
-- (void)sendPayload:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)sendPayload:.cold.1()
 {
-  v1 = *(a1 + 8);
   OUTLINED_FUNCTION_0_5();
-  v5 = v2;
-  _os_log_error_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "[%@] dropping invalid payload: %@", v4, 0x16u);
+  v3 = v0;
+  _os_log_error_impl(&dword_0, v1, OS_LOG_TYPE_ERROR, "[%@] dropping invalid payload: %@", v2, 0x16u);
 }
 
-- (void)sendPayload:(uint64_t)a1 .cold.2(uint64_t a1)
+- (void)sendPayload:.cold.2()
 {
-  v1 = *(a1 + 8);
   OUTLINED_FUNCTION_0_5();
-  v5 = v2;
-  _os_log_debug_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, "[%@] sending event: %@", v4, 0x16u);
+  v3 = v0;
+  _os_log_debug_impl(&dword_0, v1, OS_LOG_TYPE_DEBUG, "[%@] sending event: %@", v2, 0x16u);
 }
 
-- (void)sendPayload:(uint64_t)a1 .cold.3(uint64_t a1)
+- (void)sendPayload:.cold.3()
 {
-  v1 = *(a1 + 8);
   OUTLINED_FUNCTION_0_5();
-  v4 = 0;
-  _os_log_debug_impl(&dword_0, v2, OS_LOG_TYPE_DEBUG, "[%@] dropping invalid payload: (%@)", v3, 0x16u);
+  v2 = 0;
+  _os_log_debug_impl(&dword_0, v0, OS_LOG_TYPE_DEBUG, "[%@] dropping invalid payload: (%@)", v1, 0x16u);
 }
 
 @end

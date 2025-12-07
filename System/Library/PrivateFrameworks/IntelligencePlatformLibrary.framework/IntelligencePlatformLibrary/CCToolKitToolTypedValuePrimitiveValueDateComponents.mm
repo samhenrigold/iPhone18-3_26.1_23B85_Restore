@@ -395,9 +395,9 @@ LABEL_21:
         CCPBReaderReadDataNoCopy();
         errorCopy = error;
         v27 = v26 = dataCopy;
-        v144 = 0;
-        v28 = [(CCItemMessage *)v24 initWithData:v27 error:&v144];
-        v11 = v144;
+        v142 = 0;
+        v28 = [(CCItemMessage *)v24 initWithData:v27 error:&v142];
+        v11 = v142;
         calendar = self->_calendar;
         self->_calendar = v28;
 
@@ -1026,7 +1026,6 @@ LABEL_127:
           v132 = v10;
           errorCopy2 = error;
           v135 = v134 = dataCopy;
-          v136 = *&v7[*v132];
           v11 = CCSkipFieldErrorForMessage();
 
           dataCopy = v134;
@@ -1092,24 +1091,23 @@ LABEL_187:
     if (!*&v7[*v10])
     {
       v11 = 0;
-      v141 = 1;
+      v139 = 1;
       goto LABEL_191;
     }
 
 LABEL_188:
-    v137 = objc_opt_class();
-    v138 = NSStringFromClass(v137);
-    v139 = *&v7[*v10];
-    v140 = CCInvalidBufferErrorForMessage();
+    v136 = objc_opt_class();
+    v137 = NSStringFromClass(v136);
+    v138 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v11 = 0;
   }
 
-  v141 = 0;
+  v139 = 0;
 LABEL_191:
 
-  return v141;
+  return v139;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueDateComponents)initWithCalendar:(id)calendar timeZoneIdentifier:(id)identifier era:(id)era year:(id)year month:(id)month day:(id)day hour:(id)hour minute:(id)self0 second:(id)self1 nanosecond:(id)self2 weekday:(id)self3 weekdayOrdinal:(id)self4 quarter:(id)self5 weekOfMonth:(id)self6 weekOfYear:(id)self7 yearForWeekOfYear:(id)self8 error:(id *)self9
@@ -1130,9 +1128,9 @@ LABEL_191:
   ofMonthCopy = ofMonth;
   ofYearCopy = ofYear;
   weekOfYearCopy = weekOfYear;
-  v84 = objc_opt_new();
-  v72 = minuteCopy;
-  v73 = hourCopy;
+  v74 = objc_opt_new();
+  v62 = minuteCopy;
+  v63 = hourCopy;
   if (calendarCopy)
   {
     objc_opt_class();
@@ -1141,7 +1139,7 @@ LABEL_191:
     if (!IsInstanceOfExpectedClass)
     {
       CCSetError();
-      v46 = 0;
+      v45 = 0;
       goto LABEL_20;
     }
 
@@ -1181,27 +1179,25 @@ LABEL_4:
     yearCopy = v36;
     eraCopy = v35;
 LABEL_8:
-    v71 = calendarCopy;
-    v40 = 0x1E696A000uLL;
-    v41 = dayCopy;
+    v61 = calendarCopy;
+    v40 = dayCopy;
     if (eraCopy)
     {
       objc_opt_class();
-      v42 = CCValidateIsInstanceOfExpectedClass();
+      v41 = CCValidateIsInstanceOfExpectedClass();
       v32 = v34;
 
-      if (!v42)
+      if (!v41)
       {
         goto LABEL_57;
       }
 
       [eraCopy longLongValue];
       CCPBDataWriterWriteInt64Field();
-      v40 = 0x1E696A000uLL;
       if (!yearCopy)
       {
 LABEL_11:
-        v43 = v32;
+        v42 = v32;
         if (monthCopy)
         {
           goto LABEL_12;
@@ -1221,36 +1217,34 @@ LABEL_11:
     }
 
     objc_opt_class();
-    v48 = CCValidateIsInstanceOfExpectedClass();
-    v43 = v32;
+    v47 = CCValidateIsInstanceOfExpectedClass();
+    v42 = v32;
 
-    if (!v48)
+    if (!v47)
     {
       goto LABEL_62;
     }
 
     [yearCopy longLongValue];
     CCPBDataWriterWriteInt64Field();
-    v40 = 0x1E696A000uLL;
     if (monthCopy)
     {
 LABEL_12:
       objc_opt_class();
-      v44 = CCValidateIsInstanceOfExpectedClass();
-      v32 = v43;
+      v43 = CCValidateIsInstanceOfExpectedClass();
+      v32 = v42;
 
-      if (!v44)
+      if (!v43)
       {
         goto LABEL_57;
       }
 
       [monthCopy longLongValue];
       CCPBDataWriterWriteInt64Field();
-      v40 = 0x1E696A000uLL;
       if (!dayCopy)
       {
 LABEL_14:
-        v43 = v32;
+        v42 = v32;
         if (hourCopy)
         {
           goto LABEL_15;
@@ -1261,32 +1255,30 @@ LABEL_14:
 
 LABEL_25:
       objc_opt_class();
-      v49 = CCValidateIsInstanceOfExpectedClass();
-      v43 = v32;
+      v48 = CCValidateIsInstanceOfExpectedClass();
+      v42 = v32;
 
-      if (!v49)
+      if (!v48)
       {
         goto LABEL_62;
       }
 
       [dayCopy longLongValue];
       CCPBDataWriterWriteInt64Field();
-      v40 = 0x1E696A000uLL;
       if (hourCopy)
       {
 LABEL_15:
         objc_opt_class();
-        v45 = CCValidateIsInstanceOfExpectedClass();
-        v32 = v43;
+        v44 = CCValidateIsInstanceOfExpectedClass();
+        v32 = v42;
 
-        if (!v45)
+        if (!v44)
         {
           goto LABEL_57;
         }
 
         [hourCopy longLongValue];
         CCPBDataWriterWriteInt64Field();
-        v40 = 0x1E696A000;
         if (!minuteCopy)
         {
           goto LABEL_17;
@@ -1296,178 +1288,163 @@ LABEL_15:
       }
 
 LABEL_27:
-      v32 = v43;
+      v32 = v42;
       if (!minuteCopy)
       {
 LABEL_17:
-        v43 = v32;
+        v42 = v32;
 LABEL_30:
         if (secondCopy)
         {
-          v52 = *(v40 + 3480);
           objc_opt_class();
-          v53 = CCValidateIsInstanceOfExpectedClass();
-          v32 = v43;
+          v50 = CCValidateIsInstanceOfExpectedClass();
+          v32 = v42;
 
-          if (!v53)
+          if (!v50)
           {
             goto LABEL_57;
           }
 
           [secondCopy longLongValue];
           CCPBDataWriterWriteInt64Field();
-          v40 = 0x1E696A000;
         }
 
         else
         {
-          v32 = v43;
+          v32 = v42;
         }
 
         if (nanosecondCopy)
         {
-          v54 = *(v40 + 3480);
           objc_opt_class();
-          v55 = CCValidateIsInstanceOfExpectedClass();
-          v43 = v32;
+          v51 = CCValidateIsInstanceOfExpectedClass();
+          v42 = v32;
 
-          if (!v55)
+          if (!v51)
           {
             goto LABEL_62;
           }
 
           [nanosecondCopy longLongValue];
           CCPBDataWriterWriteInt64Field();
-          v40 = 0x1E696A000;
         }
 
         else
         {
-          v43 = v32;
+          v42 = v32;
         }
 
         if (weekdayCopy)
         {
-          v56 = *(v40 + 3480);
           objc_opt_class();
-          v57 = CCValidateIsInstanceOfExpectedClass();
-          v32 = v43;
+          v52 = CCValidateIsInstanceOfExpectedClass();
+          v32 = v42;
 
-          if (!v57)
+          if (!v52)
           {
             goto LABEL_57;
           }
 
           [weekdayCopy longLongValue];
           CCPBDataWriterWriteInt64Field();
-          v40 = 0x1E696A000;
         }
 
         else
         {
-          v32 = v43;
+          v32 = v42;
         }
 
         if (ordinalCopy)
         {
-          v58 = *(v40 + 3480);
           objc_opt_class();
-          v59 = CCValidateIsInstanceOfExpectedClass();
-          v43 = v32;
+          v53 = CCValidateIsInstanceOfExpectedClass();
+          v42 = v32;
 
-          if (!v59)
+          if (!v53)
           {
             goto LABEL_62;
           }
 
           [ordinalCopy longLongValue];
           CCPBDataWriterWriteInt64Field();
-          v40 = 0x1E696A000;
         }
 
         else
         {
-          v43 = v32;
+          v42 = v32;
         }
 
         if (quarterCopy)
         {
-          v60 = *(v40 + 3480);
           objc_opt_class();
-          v61 = CCValidateIsInstanceOfExpectedClass();
-          v32 = v43;
+          v54 = CCValidateIsInstanceOfExpectedClass();
+          v32 = v42;
 
-          if (!v61)
+          if (!v54)
           {
             goto LABEL_57;
           }
 
           [quarterCopy longLongValue];
           CCPBDataWriterWriteInt64Field();
-          v40 = 0x1E696A000;
         }
 
         else
         {
-          v32 = v43;
+          v32 = v42;
         }
 
         if (!ofMonthCopy)
         {
-          v43 = v32;
+          v42 = v32;
           goto LABEL_54;
         }
 
-        v62 = *(v40 + 3480);
         objc_opt_class();
-        v63 = CCValidateIsInstanceOfExpectedClass();
-        v43 = v32;
+        v55 = CCValidateIsInstanceOfExpectedClass();
+        v42 = v32;
 
-        if (v63)
+        if (v55)
         {
           [ofMonthCopy longLongValue];
           CCPBDataWriterWriteInt64Field();
-          v40 = 0x1E696A000;
 LABEL_54:
           if (!ofYearCopy)
           {
-            v32 = v43;
+            v32 = v42;
             goto LABEL_59;
           }
 
-          v64 = *(v40 + 3480);
           objc_opt_class();
-          v65 = CCValidateIsInstanceOfExpectedClass();
-          v32 = v43;
+          v56 = CCValidateIsInstanceOfExpectedClass();
+          v32 = v42;
 
-          if (v65)
+          if (v56)
           {
             [ofYearCopy longLongValue];
             CCPBDataWriterWriteInt64Field();
-            v40 = 0x1E696A000;
 LABEL_59:
             if (!weekOfYearCopy)
             {
-              v68 = v84;
+              v58 = v74;
               goto LABEL_67;
             }
 
-            v66 = *(v40 + 3480);
             objc_opt_class();
-            v67 = CCValidateIsInstanceOfExpectedClass();
-            v43 = v32;
+            v57 = CCValidateIsInstanceOfExpectedClass();
+            v42 = v32;
 
-            if (v67)
+            if (v57)
             {
               [weekOfYearCopy longLongValue];
-              v68 = v84;
+              v58 = v74;
               CCPBDataWriterWriteInt64Field();
-              v32 = v43;
+              v32 = v42;
 LABEL_67:
-              immutableData = [v68 immutableData];
+              immutableData = [v58 immutableData];
               selfCopy2 = [(CCItemMessage *)self initWithData:immutableData error:error];
 
-              v46 = selfCopy2;
+              v45 = selfCopy2;
               goto LABEL_64;
             }
 
@@ -1476,40 +1453,38 @@ LABEL_67:
 
 LABEL_57:
           CCSetError();
-          v46 = 0;
+          v45 = 0;
 LABEL_63:
           selfCopy2 = self;
 LABEL_64:
-          calendarCopy = v71;
+          calendarCopy = v61;
           goto LABEL_65;
         }
 
 LABEL_62:
         CCSetError();
-        v46 = 0;
-        v32 = v43;
+        v45 = 0;
+        v32 = v42;
         goto LABEL_63;
       }
 
 LABEL_28:
-      v50 = *(v40 + 3480);
       objc_opt_class();
-      v51 = CCValidateIsInstanceOfExpectedClass();
-      v43 = v32;
+      v49 = CCValidateIsInstanceOfExpectedClass();
+      v42 = v32;
 
-      if (!v51)
+      if (!v49)
       {
         goto LABEL_62;
       }
 
       [minuteCopy longLongValue];
       CCPBDataWriterWriteInt64Field();
-      v40 = 0x1E696A000uLL;
       goto LABEL_30;
     }
 
 LABEL_24:
-    v32 = v43;
+    v32 = v42;
     if (!dayCopy)
     {
       goto LABEL_14;
@@ -1519,18 +1494,18 @@ LABEL_24:
   }
 
   CCSetError();
-  v46 = 0;
+  v45 = 0;
   v32 = v34;
   calendarCopy = v38;
   monthCopy = v37;
   yearCopy = v36;
   eraCopy = v35;
 LABEL_20:
-  v41 = dayCopy;
+  v40 = dayCopy;
   selfCopy2 = self;
 LABEL_65:
 
-  return v46;
+  return v45;
 }
 
 @end

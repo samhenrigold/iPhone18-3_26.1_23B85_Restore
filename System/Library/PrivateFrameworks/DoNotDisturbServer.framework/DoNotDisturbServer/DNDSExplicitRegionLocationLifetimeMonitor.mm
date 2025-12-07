@@ -5,6 +5,7 @@
 - (DNDSLifetimeMonitorDataSource)dataSource;
 - (DNDSLifetimeMonitorDelegate)delegate;
 - (id)_queue_locationMonitorClientIdentifierForModeIdentifier:(id)identifier region:(id)region;
+- (id)sysdiagnoseDataRedacted:(BOOL)redacted;
 - (void)_loadDataFromBackingStore;
 - (void)_queue_invalidateAssertionOnExitFromRegion:(id)region;
 - (void)_queue_refreshMonitor;
@@ -60,7 +61,7 @@
 
 - (void)locationManager:(id)manager monitoringDidFailForRegion:(id)region withError:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   errorCopy = error;
@@ -97,23 +98,21 @@
       v18 = DNDSLogLocationLifetimeMonitor;
       if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 134218498;
-        v21 = managerCopy;
-        v22 = 2112;
-        v23 = v12;
-        v24 = 2114;
-        v25 = errorCopy;
-        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Explicit region monitoring failed for region; manager=%p, region=%@, error=%{public}@", &v20, 0x20u);
+        v19 = 134218498;
+        v20 = managerCopy;
+        v21 = 2112;
+        v22 = v12;
+        v23 = 2114;
+        v24 = errorCopy;
+        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Explicit region monitoring failed for region; manager=%p, region=%@, error=%{public}@", &v19, 0x20u);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didDetermineState:(int64_t)state forRegion:(id)region
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   v10 = DNDSLogLocationLifetimeMonitor;
@@ -121,13 +120,13 @@
   {
     v11 = v10;
     v12 = DNDStringFromRegionState(state);
-    v48 = 134218498;
-    v49 = managerCopy;
-    v50 = 2114;
-    v51 = v12;
-    v52 = 2112;
-    v53 = regionCopy;
-    _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Explicit region region state was determined; manager=%p, state=%{public}@, region=%@", &v48, 0x20u);
+    v47 = 134218498;
+    v48 = managerCopy;
+    v49 = 2114;
+    v50 = v12;
+    v51 = 2112;
+    v52 = regionCopy;
+    _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Explicit region region state was determined; manager=%p, state=%{public}@, region=%@", &v47, 0x20u);
   }
 
   v13 = objc_opt_class();
@@ -178,9 +177,9 @@
           {
             if (v32)
             {
-              v48 = 138412290;
-              v49 = v14;
-              _os_log_impl(&dword_24912E000, v31, OS_LOG_TYPE_DEFAULT, "Confirmed explicit region exit for a region pending exit following early invalidation of the assertion associated with prior entry, will note exit; region=%@", &v48, 0xCu);
+              v47 = 138412290;
+              v48 = v14;
+              _os_log_impl(&dword_24912E000, v31, OS_LOG_TYPE_DEFAULT, "Confirmed explicit region exit for a region pending exit following early invalidation of the assertion associated with prior entry, will note exit; region=%@", &v47, 0xCu);
             }
 
             v33 = self->_enteredRegionIdentifiers;
@@ -198,9 +197,9 @@
           {
             if (v32)
             {
-              v48 = 138412290;
-              v49 = v14;
-              _os_log_impl(&dword_24912E000, v31, OS_LOG_TYPE_DEFAULT, "Confirmed explicit region exit, will invalidate all assertions; region=%@", &v48, 0xCu);
+              v47 = 138412290;
+              v48 = v14;
+              _os_log_impl(&dword_24912E000, v31, OS_LOG_TYPE_DEFAULT, "Confirmed explicit region exit, will invalidate all assertions; region=%@", &v47, 0xCu);
             }
 
             v45 = self->_enteredRegionIdentifiers;
@@ -216,8 +215,8 @@
           v24 = DNDSLogLocationLifetimeMonitor;
           if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
           {
-            v48 = 138412290;
-            v49 = v14;
+            v47 = 138412290;
+            v48 = v14;
             v25 = "Received unexpected explicit region exit, region=%@";
             goto LABEL_28;
           }
@@ -241,11 +240,11 @@
             v24 = DNDSLogLocationLifetimeMonitor;
             if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
             {
-              v48 = 138412290;
-              v49 = v14;
+              v47 = 138412290;
+              v48 = v14;
               v25 = "Confirmed explicit region entry, not taking assertion until explicit exit following early invalidation of the assertion associated with prior entry; region=%@";
 LABEL_28:
-              _os_log_impl(&dword_24912E000, v24, OS_LOG_TYPE_DEFAULT, v25, &v48, 0xCu);
+              _os_log_impl(&dword_24912E000, v24, OS_LOG_TYPE_DEFAULT, v25, &v47, 0xCu);
             }
           }
         }
@@ -255,9 +254,9 @@ LABEL_28:
           v40 = DNDSLogLocationLifetimeMonitor;
           if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
           {
-            v48 = 138412290;
-            v49 = v14;
-            _os_log_impl(&dword_24912E000, v40, OS_LOG_TYPE_DEFAULT, "Confirmed explicit region entry; region=%@", &v48, 0xCu);
+            v47 = 138412290;
+            v48 = v14;
+            _os_log_impl(&dword_24912E000, v40, OS_LOG_TYPE_DEFAULT, "Confirmed explicit region entry; region=%@", &v47, 0xCu);
           }
 
           v41 = self->_enteredRegionIdentifiers;
@@ -280,40 +279,36 @@ LABEL_28:
         {
           v38 = v37;
           v39 = DNDStringFromRegionState(state);
-          v48 = 138543618;
-          v49 = v39;
-          v50 = 2112;
-          v51 = v14;
-          _os_log_impl(&dword_24912E000, v38, OS_LOG_TYPE_DEFAULT, "Did not handle explicit region state %{public}@; region=%@", &v48, 0x16u);
+          v47 = 138543618;
+          v48 = v39;
+          v49 = 2112;
+          v50 = v14;
+          _os_log_impl(&dword_24912E000, v38, OS_LOG_TYPE_DEFAULT, "Did not handle explicit region state %{public}@; region=%@", &v47, 0x16u);
         }
       }
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   errorCopy = error;
   v7 = DNDSLogLocationLifetimeMonitor;
   if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218242;
-    v10 = managerCopy;
-    v11 = 2114;
-    v12 = errorCopy;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Explicit region monitoring encountered a failure; manager=%p, error=%{public}@", &v9, 0x16u);
+    v8 = 134218242;
+    v9 = managerCopy;
+    v10 = 2114;
+    v11 = errorCopy;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Explicit region monitoring encountered a failure; manager=%p, error=%{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_refreshMonitor
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   aggregateMonitor = [(DNDSExplicitRegionLocationLifetimeMonitor *)self aggregateMonitor];
   queue = [aggregateMonitor queue];
   dispatch_assert_queue_V2(queue);
@@ -331,7 +326,7 @@ LABEL_28:
   currentConfiguration = self->_currentConfiguration;
   self->_currentConfiguration = v8;
 
-  v50 = v7;
+  v49 = v7;
   regions = [(DNDSLocationTriggerConfiguration *)v7 regions];
   v11 = regions;
   if (regions)
@@ -362,94 +357,94 @@ LABEL_28:
 
   v18 = [v13 mutableCopy];
   [v18 minusSet:v17];
-  v48 = v17;
+  v47 = v17;
   v19 = [v17 mutableCopy];
-  v49 = v13;
+  v48 = v13;
   [v19 minusSet:v13];
-  v51 = dataSource;
-  v52 = aggregateMonitor;
+  v50 = dataSource;
+  v51 = aggregateMonitor;
   v20 = [dataSource lifetimeMonitor:aggregateMonitor modeAssertionsWithLifetimeClass:objc_opt_class()];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   v21 = v18;
-  v22 = [v21 countByEnumeratingWithState:&v64 objects:v71 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v63 objects:v70 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v65;
+    v24 = *v64;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v65 != v24)
+        if (*v64 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [(DNDSExplicitRegionLocationLifetimeMonitor *)self _queue_stopMonitoringForRegion:*(*(&v64 + 1) + 8 * i)];
+        [(DNDSExplicitRegionLocationLifetimeMonitor *)self _queue_stopMonitoringForRegion:*(*(&v63 + 1) + 8 * i)];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v64 objects:v71 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v63 objects:v70 count:16];
     }
 
     while (v23);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v26 = v19;
-  v27 = [v26 countByEnumeratingWithState:&v60 objects:v70 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v59 objects:v69 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v61;
+    v29 = *v60;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v61 != v29)
+        if (*v60 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        [(DNDSExplicitRegionLocationLifetimeMonitor *)self _queue_startMonitoringForRegion:*(*(&v60 + 1) + 8 * j)];
+        [(DNDSExplicitRegionLocationLifetimeMonitor *)self _queue_startMonitoringForRegion:*(*(&v59 + 1) + 8 * j)];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v60 objects:v70 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v59 objects:v69 count:16];
     }
 
     while (v28);
   }
 
-  v47 = v26;
+  v46 = v26;
 
-  v53 = [MEMORY[0x277CBEB58] set];
+  v52 = [MEMORY[0x277CBEB58] set];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   v31 = v20;
-  v32 = [v31 countByEnumeratingWithState:&v56 objects:v69 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v55 objects:v68 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v57;
+    v34 = *v56;
     do
     {
       for (k = 0; k != v33; ++k)
       {
-        if (*v57 != v34)
+        if (*v56 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = *(*(&v56 + 1) + 8 * k);
+        v36 = *(*(&v55 + 1) + 8 * k);
         details = [v36 details];
         lifetime = [details lifetime];
         region = [lifetime region];
@@ -466,19 +461,19 @@ LABEL_28:
           [array2 addObject:uUID];
 
           uUID = [region identifier];
-          v41 = v53;
+          v41 = v52;
         }
 
         [v41 addObject:uUID];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v56 objects:v69 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v55 objects:v68 count:16];
     }
 
     while (v33);
   }
 
-  [(DNDSExplicitRegionLocationLifetimeMonitor *)self _queue_resolveEnteredRegionIdentifiersWithAssertionRegionIdentifiers:v53];
+  [(DNDSExplicitRegionLocationLifetimeMonitor *)self _queue_resolveEnteredRegionIdentifiersWithAssertionRegionIdentifiers:v52];
   if (([(NSArray *)self->_activeLifetimeAssertionUUIDs isEqual:array2]& 1) == 0)
   {
     v42 = [array2 copy];
@@ -486,48 +481,46 @@ LABEL_28:
     self->_activeLifetimeAssertionUUIDs = v42;
   }
 
-  delegate = [v52 delegate];
+  delegate = [v51 delegate];
   date = [MEMORY[0x277CBEAA8] date];
-  [delegate lifetimeMonitor:v52 lifetimeDidExpireForAssertionUUIDs:array expirationDate:date];
+  [delegate lifetimeMonitor:v51 lifetimeDidExpireForAssertionUUIDs:array expirationDate:date];
 
-  if ([v47 count])
+  if ([v46 count])
   {
-    [(DNDSExplicitRegionLocationLifetimeMonitor *)self _updateWithCachedStateForRegions:v47];
+    [(DNDSExplicitRegionLocationLifetimeMonitor *)self _updateWithCachedStateForRegions:v46];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWithCachedStateForRegions:(id)regions
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   regionsCopy = regions;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [regionsCopy countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v5 = [regionsCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(regionsCopy);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = DNDSLogLocationLifetimeMonitor;
         if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
         {
           v11 = v10;
           identifier = [v9 identifier];
           *buf = 138477827;
-          v21 = identifier;
+          v20 = identifier;
           _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Requesting cached state for region %{private}@.", buf, 0xCu);
         }
 
@@ -536,18 +529,16 @@ LABEL_28:
         [locationManager requestStateForRegion:v9];
       }
 
-      v6 = [regionsCopy countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v6 = [regionsCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_resolveEnteredRegionIdentifiersWithAssertionRegionIdentifiers:(id)identifiers
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   aggregateMonitor = [(DNDSExplicitRegionLocationLifetimeMonitor *)self aggregateMonitor];
   queue = [aggregateMonitor queue];
@@ -563,21 +554,19 @@ LABEL_28:
     {
       v9 = v8;
       allObjects = [v7 allObjects];
-      v12 = 138543362;
-      v13 = allObjects;
-      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Assertion(s) for region(s) invalidated without exit from region(s); regions=%{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = allObjects;
+      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Assertion(s) for region(s) invalidated without exit from region(s); regions=%{public}@", &v11, 0xCu);
     }
 
     objc_storeStrong(&self->_enteredRegionIdentifiersPendingExit, v7);
     [(DNDSExplicitRegionLocationLifetimeMonitor *)self _saveDataToBackingStoreWithError:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_startMonitoringForRegion:(id)region
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   aggregateMonitor = [(DNDSExplicitRegionLocationLifetimeMonitor *)self aggregateMonitor];
   queue = [aggregateMonitor queue];
@@ -586,20 +575,18 @@ LABEL_28:
   v7 = DNDSLogLocationLifetimeMonitor;
   if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = regionCopy;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Start monitoring for region; region=%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = regionCopy;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Start monitoring for region; region=%@", &v9, 0xCu);
   }
 
   locationManager = [aggregateMonitor locationManager];
   [locationManager startMonitoringForRegion:regionCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_stopMonitoringForRegion:(id)region
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   aggregateMonitor = [(DNDSExplicitRegionLocationLifetimeMonitor *)self aggregateMonitor];
   queue = [aggregateMonitor queue];
@@ -608,9 +595,9 @@ LABEL_28:
   v7 = DNDSLogLocationLifetimeMonitor;
   if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = regionCopy;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Stop monitoring for region; region=%@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = regionCopy;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Stop monitoring for region; region=%@", &v19, 0xCu);
   }
 
   enteredRegionIdentifiers = self->_enteredRegionIdentifiers;
@@ -622,9 +609,9 @@ LABEL_28:
     v10 = DNDSLogLocationLifetimeMonitor;
     if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = regionCopy;
-      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Monitoring stopped for an entered region, associated assertion will be invalidated and entrance reset; region=%@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = regionCopy;
+      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Monitoring stopped for an entered region, associated assertion will be invalidated and entrance reset; region=%@", &v19, 0xCu);
     }
 
     v11 = self->_enteredRegionIdentifiers;
@@ -640,9 +627,9 @@ LABEL_28:
       v15 = DNDSLogLocationLifetimeMonitor;
       if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138412290;
-        v21 = regionCopy;
-        _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Monitoring stopped for an entered region pending exit following early invalidation of the assertion associated with prior entry, entrance will be reset; region=%@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = regionCopy;
+        _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Monitoring stopped for an entered region pending exit following early invalidation of the assertion associated with prior entry, entrance will be reset; region=%@", &v19, 0xCu);
       }
 
       v16 = self->_enteredRegionIdentifiersPendingExit;
@@ -655,8 +642,6 @@ LABEL_28:
 
   locationManager = [aggregateMonitor locationManager];
   [locationManager stopMonitoringForRegion:regionCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_takeAssertionOnEntryIntoRegion:(id)region
@@ -755,21 +740,59 @@ id __88__DNDSExplicitRegionLocationLifetimeMonitor__queue_invalidateAssertionOnE
 
 - (void)_loadDataFromBackingStore
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to load current explicit region database, will request a radar; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  backingStore = self->_backingStore;
+  v15 = 0;
+  v4 = [(DNDSBackingStore *)backingStore readRecordWithError:&v15];
+  v5 = v15;
+  store = self->_store;
+  self->_store = v4;
+
+  v7 = self->_store;
+  if (!v7)
+  {
+    if (v5)
+    {
+      if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_ERROR))
+      {
+        [DNDSExplicitRegionLocationLifetimeMonitor _loadDataFromBackingStore];
+      }
+
+      _DNDSRequestRadar(@"Failed to load current explicit region database", v5, 0, @"/Library/Caches/com.apple.xbs/Sources/DoNotDisturbServer/DoNotDisturbServer/DNDSLocationLifetimeMonitor.m", 524);
+    }
+
+    v8 = objc_alloc_init(DNDSExplicitRegionStore);
+    v9 = self->_store;
+    self->_store = v8;
+
+    v7 = self->_store;
+  }
+
+  enteredRegionIdentifiersPendingExit = [(DNDSExplicitRegionStore *)v7 enteredRegionIdentifiersPendingExit];
+  v11 = [enteredRegionIdentifiersPendingExit mutableCopy];
+  enteredRegionIdentifiersPendingExit = self->_enteredRegionIdentifiersPendingExit;
+  self->_enteredRegionIdentifiersPendingExit = v11;
+
+  [(NSMutableSet *)self->_enteredRegionIdentifiers unionSet:self->_enteredRegionIdentifiersPendingExit];
+  if ([(NSMutableSet *)self->_enteredRegionIdentifiers count])
+  {
+    v13 = DNDSLogLocationLifetimeMonitor;
+    if (os_log_type_enabled(DNDSLogLocationLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
+    {
+      *v14 = 0;
+      _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Found existing entered regions for invalidated assertions pending exit.", v14, 2u);
+    }
+  }
 }
 
 - (BOOL)_saveDataToBackingStoreWithError:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [(DNDSExplicitRegionStore *)self->_store mutableCopy];
   [v5 setEnteredRegionIdentifiersPendingExit:self->_enteredRegionIdentifiersPendingExit];
   backingStore = self->_backingStore;
-  v17 = 0;
-  v7 = [(DNDSBackingStore *)backingStore writeRecord:v5 error:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [(DNDSBackingStore *)backingStore writeRecord:v5 error:&v16];
+  v8 = v16;
   if (v7)
   {
     if (v7 == 1)
@@ -781,7 +804,7 @@ id __88__DNDSExplicitRegionLocationLifetimeMonitor__queue_invalidateAssertionOnE
       }
 
       *buf = 138543362;
-      v19 = v8;
+      v18 = v8;
       v10 = "Failed to write explicit region store, but error can be ignored; error=%{public}@";
       v11 = v13;
       v12 = 12;
@@ -828,8 +851,35 @@ LABEL_10:
 
 LABEL_12:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7 == 2;
+}
+
+- (id)sysdiagnoseDataRedacted:(BOOL)redacted
+{
+  v4 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:1 partitionType:3 redactSensitiveData:redacted contactProvider:0 applicationIdentifierMapper:0];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  allObjects = [(NSMutableSet *)self->_enteredRegionIdentifiers allObjects];
+  [dictionary setObject:allObjects forKeyedSubscript:@"enteredRegionIdentifiers"];
+
+  allObjects2 = [(NSMutableSet *)self->_enteredRegionIdentifiersPendingExit allObjects];
+  [dictionary setObject:allObjects2 forKeyedSubscript:@"enteredRegionIdentifiersPendingExit"];
+
+  v8 = [(DNDSBackingStore *)self->_backingStore readRecordWithError:0];
+  v9 = [v8 dictionaryRepresentationWithContext:v4];
+  v10 = v9;
+  if (v9)
+  {
+    v11 = v9;
+  }
+
+  else
+  {
+    v11 = @"<read error>";
+  }
+
+  [dictionary setObject:v11 forKeyedSubscript:@"stored"];
+
+  return dictionary;
 }
 
 - (DNDSAggregateLocationLifetimeMonitor)aggregateMonitor
@@ -851,14 +901,6 @@ LABEL_12:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)_saveDataToBackingStoreWithError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to write explicit region store, will request radar; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

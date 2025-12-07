@@ -76,7 +76,7 @@
   [(KNAnimationContext *)self->super.mAnimationContext slideRect];
   v16 = v15;
   v18 = v17;
-  [build duration];
+  objc_msgSend_duration(build);
   direction = [build direction];
   if (([build isBuildIn] & 1) == 0)
   {
@@ -189,7 +189,7 @@
   [v10 setDestinationAlphaBlendFactor:5];
   [v10 setDestinationRGBBlendFactor:5];
   self->mDiffuseMetalShader = [[TSDMetalShader alloc] initCustomShaderWithVertexShader:@"buildDiffuseVertexShader" fragmentShader:@"buildDiffuseFragmentShader" device:device library:@"KeynoteMetalLibrary" colorAttachment:v10];
-  [(KNAnimationEffect *)self perspectiveMVPMatrixWithContext:context];
+  objc_msgSend_perspectiveMVPMatrixWithContext_(self);
   self->mBaseTransform = v17;
   -[KNBuildDiffuse p_setupParticleSystemWithImage:build:randomGenerator:metalContext:](self, "p_setupParticleSystemWithImage:build:randomGenerator:metalContext:", lastObject, animatedBuild, [context randomGenerator], metalContext);
   v11 = vcvt_hight_f32_f64(vcvt_f32_f64(*&self->mBaseTransform.m21), *&self->mBaseTransform.m23);

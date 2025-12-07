@@ -40,22 +40,22 @@
 
 - (id)textureSource
 {
-  if (!objc_msgSend_prepareWindowIfNeeded(self, a2, v2, v3))
+  if (!objc_msgSend_prepareWindowIfNeeded(self, a2, v2))
   {
     return 0;
   }
 
-  v5 = objc_alloc_init(VFXTextureUIKitSource);
-  v9 = objc_msgSend_uiView(self, v6, v7, v8);
-  objc_msgSend_setUiView_(v5, v10, v9, v11);
-  v15 = objc_msgSend_uiWindow(self, v12, v13, v14);
-  objc_msgSend_setUiWindow_(v5, v16, v15, v17);
-  objc_msgSend_setUiWindowLayer_(v5, v18, self->_uiWindowLayer, v19);
-  objc_msgSend_setIsOpaque_(v5, v20, self->_isOpaque, v21);
-  objc_msgSend_setSource_(v5, v22, self, v23);
-  objc_msgSend_setup(v5, v24, v25, v26);
-  objc_msgSend_registerUIKitSource_(_VFXUIKitSourceRegistry, v27, v5, v28);
-  return v5;
+  v4 = objc_alloc_init(VFXTextureUIKitSource);
+  v7 = objc_msgSend_uiView(self, v5, v6);
+  objc_msgSend_setUiView_(v4, v8, v7);
+  v11 = objc_msgSend_uiWindow(self, v9, v10);
+  objc_msgSend_setUiWindow_(v4, v12, v11);
+  objc_msgSend_setUiWindowLayer_(v4, v13, self->_uiWindowLayer);
+  objc_msgSend_setIsOpaque_(v4, v14, self->_isOpaque);
+  objc_msgSend_setSource_(v4, v15, self);
+  objc_msgSend_setup(v4, v16, v17);
+  objc_msgSend_registerUIKitSource_(_VFXUIKitSourceRegistry, v18, v4);
+  return v4;
 }
 
 - (void)dealloc

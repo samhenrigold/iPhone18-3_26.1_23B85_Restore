@@ -230,9 +230,9 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v9 = [v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if ((v9 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_9;
     }

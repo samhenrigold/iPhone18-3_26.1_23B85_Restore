@@ -24,7 +24,7 @@
 
 - (IRPersistenceManager)initWithModelsDirectory:(id)directory storesDirectory:(id)storesDirectory
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   storesDirectoryCopy = storesDirectory;
   if (![directoryCopy isFileURL] || !objc_msgSend(storesDirectoryCopy, "isFileURL"))
@@ -32,9 +32,9 @@
     goto LABEL_9;
   }
 
-  v27.receiver = self;
-  v27.super_class = IRPersistenceManager;
-  self = [(IRPersistenceManager *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = IRPersistenceManager;
+  self = [(IRPersistenceManager *)&v26 init];
   if (self)
   {
     v8 = MEMORY[0x277CBEBC0];
@@ -63,7 +63,7 @@
         v20 = v18;
         versionIdentifiers = [(NSManagedObjectModel *)v19 versionIdentifiers];
         *buf = 138412290;
-        v29 = versionIdentifiers;
+        v28 = versionIdentifiers;
         _os_log_impl(&dword_25543D000, v20, OS_LOG_TYPE_DEFAULT, "#persistence-manager, Loaded ManagedObjectModel Version: %@", buf, 0xCu);
       }
 
@@ -85,7 +85,6 @@ LABEL_8:
   selfCopy = self;
 LABEL_10:
 
-  v25 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -122,7 +121,7 @@ LABEL_10:
 
 - (BOOL)disconnectFromStore
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if ([(IRPersistenceManager *)self _isStoreConnected])
   {
@@ -130,9 +129,9 @@ LABEL_10:
     firstObject = [persistentStores firstObject];
 
     persistentStoreCoordinator = self->_persistentStoreCoordinator;
-    v14 = 0;
-    [(NSPersistentStoreCoordinator *)persistentStoreCoordinator removePersistentStore:firstObject error:&v14];
-    v6 = v14;
+    v13 = 0;
+    [(NSPersistentStoreCoordinator *)persistentStoreCoordinator removePersistentStore:firstObject error:&v13];
+    v6 = v13;
     if (v6)
     {
       v7 = dispatch_get_specific(*MEMORY[0x277D21308]);
@@ -141,13 +140,13 @@ LABEL_10:
       {
         v9 = [firstObject URL];
         *buf = 136315906;
-        v16 = "#persistence-manager, ";
-        v17 = 2112;
-        v18 = v7;
-        v19 = 2112;
-        v20 = v9;
-        v21 = 2112;
-        v22 = v6;
+        v15 = "#persistence-manager, ";
+        v16 = 2112;
+        v17 = v7;
+        v18 = 2112;
+        v19 = v9;
+        v20 = 2112;
+        v21 = v6;
         _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Persistence manager disconnect error] Failed to disconnect from store %@ with error %@", buf, 0x2Au);
       }
     }
@@ -163,7 +162,6 @@ LABEL_10:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -258,13 +256,12 @@ LABEL_12:
 
 - (void)_getDefaultStoresDirectory
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25543D000, log, OS_LOG_TYPE_ERROR, "#persistence-manager, [ErrorId - Store directory create error] Failed to create %@, error, %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25543D000, log, OS_LOG_TYPE_ERROR, "#persistence-manager, [ErrorId - Store directory create error] Failed to create %@, error, %@", &v3, 0x16u);
 }
 
 @end

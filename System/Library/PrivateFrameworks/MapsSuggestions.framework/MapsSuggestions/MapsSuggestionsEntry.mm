@@ -2711,7 +2711,7 @@ LABEL_19:
 
 - (NSString)fullDescription
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if ([(MapsSuggestionsEntry *)self type]== 25)
   {
     fullDescriptionForCurrentLocationEntries = [(MapsSuggestionsEntry *)self fullDescriptionForCurrentLocationEntries];
@@ -2719,77 +2719,77 @@ LABEL_19:
 
   else
   {
-    v30 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v32 = objc_alloc_init(MEMORY[0x1E696AD60]);
     v4 = NSStringFromMapsSuggestionsEntryType([(MapsSuggestionsEntry *)self type]);
-    [v30 appendFormat:@"-- %@ --\n", v4];
+    [v32 appendFormat:@"-- %@ --\n", v4];
 
-    [v30 appendFormat:@" pointer:   %p\n", self];
+    [v32 appendFormat:@" pointer:   %p\n", self];
     title = [(MapsSuggestionsEntry *)self title];
-    [v30 appendFormat:@" title:    '%@'\n", title];
+    [v32 appendFormat:@" title:    '%@'\n", title];
 
     subtitle = [(MapsSuggestionsEntry *)self subtitle];
-    [v30 appendFormat:@" subtitle: '%@'\n", subtitle];
+    [v32 appendFormat:@" subtitle: '%@'\n", subtitle];
 
     uniqueIdentifier = [(MapsSuggestionsEntry *)self uniqueIdentifier];
-    [v30 appendFormat:@" uniqueID:  %@\n", uniqueIdentifier];
+    [v32 appendFormat:@" uniqueID:  %@\n", uniqueIdentifier];
 
     originatingSourceName = [(MapsSuggestionsEntry *)self originatingSourceName];
-    [v30 appendFormat:@" origin:    %@\n", originatingSourceName];
+    [v32 appendFormat:@" origin:    %@\n", originatingSourceName];
 
     expires = [(MapsSuggestionsEntry *)self expires];
     v10 = MapsSuggestionsAMPMStringFromDate(expires);
-    [v30 appendFormat:@" expires:   %@\n", v10];
+    [v32 appendFormat:@" expires:   %@\n", v10];
 
     [(MapsSuggestionsEntry *)self weight];
     *&v11 = v11;
-    [v30 appendFormat:@" weight:    %.3f\n", *&v11];
+    [v32 appendFormat:@" weight:    %.3f\n", *&v11];
     geoMapItem = [(MapsSuggestionsEntry *)self geoMapItem];
     v13 = NSStringFromMapsSuggestionsMapItem(geoMapItem);
-    [v30 appendFormat:@" mapItem:   %@\n", v13];
+    [v32 appendFormat:@" mapItem:   %@\n", v13];
 
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    [v30 appendFormat:@" specifics: %lu entries: {\n", -[NSMutableDictionary count](selfCopy->_sourceSpecificInfo, "count")];
+    [v32 appendFormat:@" specifics: %lu entries: {\n", -[NSMutableDictionary count](selfCopy->_sourceSpecificInfo, "count")];
+    v35 = 0u;
+    v36 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v31 = 0u;
-    v32 = 0u;
     allKeys = [(NSMutableDictionary *)selfCopy->_sourceSpecificInfo allKeys];
     v16 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
     obj = v16;
-    v17 = [v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v17)
     {
-      v18 = *v32;
+      v18 = *v34;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v32 != v18)
+          if (*v34 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v31 + 1) + 8 * i);
-          v35 = 0u;
-          v36 = 0u;
+          v20 = *(*(&v33 + 1) + 8 * i);
           v37 = 0u;
           v38 = 0u;
-          v21 = [&unk_1F4471620 countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v39 = 0u;
+          v40 = 0u;
+          v21 = [&unk_1F4471620 countByEnumeratingWithState:&v37 objects:v42 count:16];
           if (v21)
           {
-            v22 = *v36;
+            v22 = *v38;
             while (2)
             {
               for (j = 0; j != v21; ++j)
               {
-                if (*v36 != v22)
+                if (*v38 != v22)
                 {
                   objc_enumerationMutation(&unk_1F4471620);
                 }
 
-                v24 = *(*(&v35 + 1) + 8 * j);
+                v24 = *(*(&v37 + 1) + 8 * j);
                 if ([v20 hasPrefix:v24])
                 {
                   v25 = [v20 substringFromIndex:{objc_msgSend(v24, "length")}];
@@ -2797,7 +2797,7 @@ LABEL_19:
                 }
               }
 
-              v21 = [&unk_1F4471620 countByEnumeratingWithState:&v35 objects:v40 count:16];
+              v21 = [&unk_1F4471620 countByEnumeratingWithState:&v37 objects:v42 count:16];
               if (v21)
               {
                 continue;
@@ -2811,30 +2811,31 @@ LABEL_19:
 LABEL_18:
           v26 = v25;
 
-          if ([v20 isEqualToString:@"MapsSuggestionsResumeRouteRouteRequestStorage"] && (MapsSuggestionsLoggingIsVerbose() & 1) == 0)
+          v27 = [v20 isEqualToString:@"MapsSuggestionsResumeRouteRouteRequestStorage"];
+          if (v27 && (MapsSuggestionsLoggingIsVerbose(v27, v28) & 1) == 0)
           {
-            v27 = [(NSMutableDictionary *)selfCopy->_sourceSpecificInfo objectForKeyedSubscript:v20];
-            [v30 appendFormat:@" . %@ => %lu waypoints:\n", v26, objc_msgSend(v27, "waypointsCount")];
+            v29 = [(NSMutableDictionary *)selfCopy->_sourceSpecificInfo objectForKeyedSubscript:v20];
+            [v32 appendFormat:@" . %@ => %lu waypoints:\n", v26, objc_msgSend(v29, "waypointsCount")];
           }
 
           else
           {
-            v27 = [(NSMutableDictionary *)selfCopy->_sourceSpecificInfo objectForKeyedSubscript:v20];
-            [v30 appendFormat:@" . %@ => %@\n", v26, v27];
+            v29 = [(NSMutableDictionary *)selfCopy->_sourceSpecificInfo objectForKeyedSubscript:v20];
+            [v32 appendFormat:@" . %@ => %@\n", v26, v29];
           }
         }
 
         v16 = obj;
-        v17 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v17 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v17);
     }
 
-    [v30 appendString:@" }"];
+    [v32 appendString:@" }"];
     objc_sync_exit(selfCopy);
 
-    fullDescriptionForCurrentLocationEntries = [objc_alloc(MEMORY[0x1E696AEC0]) initWithString:v30];
+    fullDescriptionForCurrentLocationEntries = [objc_alloc(MEMORY[0x1E696AEC0]) initWithString:v32];
   }
 
   return fullDescriptionForCurrentLocationEntries;
@@ -3217,10 +3218,11 @@ LABEL_9:
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a class", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a class", v4, v5, v6, v7, v8);
   }
 }
 
@@ -3228,10 +3230,11 @@ LABEL_9:
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a key", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a key", v4, v5, v6, v7, v8);
   }
 }
 
@@ -3254,10 +3257,11 @@ LABEL_9:
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a class", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a class", v4, v5, v6, v7, v8);
   }
 }
 
@@ -3265,10 +3269,11 @@ LABEL_9:
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a key", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a key", v4, v5, v6, v7, v8);
   }
 }
 

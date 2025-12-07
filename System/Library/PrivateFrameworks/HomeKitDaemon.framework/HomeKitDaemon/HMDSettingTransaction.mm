@@ -32,7 +32,7 @@
 
 - (void)addSettingModel:(id)model
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -60,17 +60,15 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = modelCopy;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Model not of required type %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = modelCopy;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Model not of required type %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initForInitialCreationWithTransactionLabel:(id)label

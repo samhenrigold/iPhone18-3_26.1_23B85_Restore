@@ -13,7 +13,7 @@ uint64_t __quic_frame_acknowledged_MAX_STREAM_DATA_block_invoke(uint64_t a1, uin
     {
       v5 = a1;
       v6 = _os_log_pack_size();
-      v7 = v10 - ((MEMORY[0x1EEE9AC00](v6, v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v7 = v10 - ((MEMORY[0x1EEE9AC00](v6) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v8 = _os_log_pack_fill();
       v9 = *(*(v5 + 32) + 24);

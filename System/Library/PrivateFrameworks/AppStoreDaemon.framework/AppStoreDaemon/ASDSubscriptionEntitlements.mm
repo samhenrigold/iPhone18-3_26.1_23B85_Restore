@@ -8,6 +8,7 @@
 - (void)getSubscriptionEntitlementsForActiveAccountWithResultAndExpiryHandler:(id)handler;
 - (void)getSubscriptionEntitlementsForSegment:(unint64_t)segment ignoreCaches:(BOOL)caches isBackground:(BOOL)background requestingBundleId:(id)id withCacheInfoResultHandler:(id)handler;
 - (void)getSubscriptionEntitlementsForSegment:(unint64_t)segment ignoreCaches:(BOOL)caches requestingBundleId:(id)id withCacheInfoResultHandler:(id)handler;
+- (void)getSubscriptionEntitlementsForSegment:(unint64_t)segment ignoreCaches:(BOOL)caches withResultHandler:(id)handler;
 - (void)getSubscriptionEntitlementsIgnoreCaches:(BOOL)caches forActiveAccountWithResultHandler:(id)handler;
 - (void)getSubscriptionEntitlementsIgnoreCaches:(void *)caches forActiveAccountWithResultAndExpiryHandler:;
 - (void)setSubscriptionEntitlementsWithDictionary:(id)dictionary forAccountID:(id)d;
@@ -35,9 +36,11 @@
 
 uint64_t __45__ASDSubscriptionEntitlements_sharedInstance__block_invoke(uint64_t a1)
 {
-  _MergedGlobals_28 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = _MergedGlobals_28;
+  _MergedGlobals_28 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (ASDSubscriptionEntitlements)init
@@ -265,7 +268,7 @@ void __35__ASDSubscriptionEntitlements_init__block_invoke_10(uint64_t a1)
 
 void __86__ASDSubscriptionEntitlements_setSubscriptionEntitlementsWithDictionary_forAccountID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -273,9 +276,9 @@ void __86__ASDSubscriptionEntitlements_setSubscriptionEntitlementsWithDictionary
     v7 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error setting subscription entitlements: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error setting subscription entitlements: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -284,26 +287,22 @@ void __86__ASDSubscriptionEntitlements_setSubscriptionEntitlementsWithDictionary
     v8 = [v5 remoteObjectProxyWithErrorHandler:&__block_literal_global_4];
     [v8 setSubscriptionEntitlementsWithDictionary:*(a1 + 32) forAccountID:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __86__ASDSubscriptionEntitlements_setSubscriptionEntitlementsWithDictionary_forAccountID___block_invoke_42(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting subscription entitlements remote object proxy: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting subscription entitlements remote object proxy: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSubscriptionEntitlementsWithDictionary:(id)dictionary forAccountID:(id)d segment:(unint64_t)segment
@@ -332,7 +331,7 @@ void __86__ASDSubscriptionEntitlements_setSubscriptionEntitlementsWithDictionary
 
 void __94__ASDSubscriptionEntitlements_setSubscriptionEntitlementsWithDictionary_forAccountID_segment___block_invoke(void *a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -340,9 +339,9 @@ void __94__ASDSubscriptionEntitlements_setSubscriptionEntitlementsWithDictionary
     v7 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error setting subscription entitlements: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error setting subscription entitlements: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -351,26 +350,22 @@ void __94__ASDSubscriptionEntitlements_setSubscriptionEntitlementsWithDictionary
     v8 = [v5 remoteObjectProxyWithErrorHandler:&__block_literal_global_50];
     [v8 setSubscriptionEntitlementsWithDictionary:a1[4] forAccountID:a1[5] segment:a1[6]];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __94__ASDSubscriptionEntitlements_setSubscriptionEntitlementsWithDictionary_forAccountID_segment___block_invoke_48(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting subscription entitlements remote object proxy: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting subscription entitlements remote object proxy: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSubscriptionEntitlementsForActiveAccountWithResultAndExpiryHandler:(id)handler
@@ -520,6 +515,19 @@ void __114__ASDSubscriptionEntitlements_getSubscriptionEntitlementsIgnoreCaches_
   v12 = v9;
   v13 = v8;
   dispatch_async(v10, v14);
+}
+
+- (void)getSubscriptionEntitlementsForSegment:(unint64_t)segment ignoreCaches:(BOOL)caches withResultHandler:(id)handler
+{
+  cachesCopy = caches;
+  handlerCopy = handler;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __100__ASDSubscriptionEntitlements_getSubscriptionEntitlementsForSegment_ignoreCaches_withResultHandler___block_invoke;
+  v10[3] = &unk_1E7CDC210;
+  v11 = handlerCopy;
+  v9 = handlerCopy;
+  [(ASDSubscriptionEntitlements *)self getSubscriptionEntitlementsForSegment:segment ignoreCaches:cachesCopy withCacheInfoResultHandler:v10];
 }
 
 - (void)getSubscriptionEntitlementsForSegment:(unint64_t)segment ignoreCaches:(BOOL)caches requestingBundleId:(id)id withCacheInfoResultHandler:(id)handler

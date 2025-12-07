@@ -14,13 +14,13 @@
 
 - (id)_namedEntitiesFromNamedEntityNodes:(id)nodes currentProgress:(double *)progress progressFraction:(double)fraction progressBlock:(id)block
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   blockCopy = block;
   if (!progress)
   {
-    v41 = 0;
-    progress = &v41;
+    v40 = 0;
+    progress = &v40;
   }
 
   v11 = [nodesCopy count];
@@ -46,36 +46,36 @@
     goto LABEL_12;
   }
 
-  v40 = 0;
-  v15[2](v15, &v40, v14);
-  if (v40 != 1)
+  v39 = 0;
+  v15[2](v15, &v39, v14);
+  if (v39 != 1)
   {
     v16 = Current;
 LABEL_12:
     progressCopy = progress;
     array = [MEMORY[0x277CBEB18] array];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v20 = nodesCopy;
-    v21 = [v20 countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v35 objects:v41 count:16];
     if (v21)
     {
       v22 = v21;
       v23 = fraction / v12;
-      v24 = *v37;
+      v24 = *v36;
       v25 = pg_accumulatedCount;
       while (2)
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v37 != v24)
+          if (*v36 != v24)
           {
             objc_enumerationMutation(v20);
           }
 
-          v27 = *(*(&v36 + 1) + 8 * i);
+          v27 = *(*(&v35 + 1) + 8 * i);
           v28 = [v20 countForObject:v27];
           pg_namedEntity = [v27 pg_namedEntity];
           if (pg_namedEntity)
@@ -89,16 +89,16 @@ LABEL_12:
               v32 = CFAbsoluteTimeGetCurrent();
               if (v32 - v16 >= 0.01)
               {
-                v40 = 0;
-                v15[2](v15, &v40, v14);
-                if (v40)
+                v39 = 0;
+                v15[2](v15, &v39, v14);
+                if (v39)
                 {
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                   {
                     *buf = 67109378;
-                    v44 = 517;
-                    v45 = 2080;
-                    v46 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+                    v43 = 517;
+                    v44 = 2080;
+                    v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
                     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                   }
 
@@ -112,7 +112,7 @@ LABEL_12:
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v35 objects:v41 count:16];
         if (v22)
         {
           continue;
@@ -132,9 +132,9 @@ LABEL_29:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v44 = 499;
-    v45 = 2080;
-    v46 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+    v43 = 499;
+    v44 = 2080;
+    v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
@@ -142,21 +142,20 @@ LABEL_29:
 LABEL_30:
 
 LABEL_31:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (id)_locationNamedEntitiesFromAddressNodes:(id)nodes dates:(id)dates currentProgress:(double *)progress progressFraction:(double)fraction progressBlock:(id)block
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   datesCopy = dates;
   blockCopy = block;
   if (!progress)
   {
-    v58 = 0;
-    progress = &v58;
+    v57 = 0;
+    progress = &v57;
   }
 
   v13 = [nodesCopy count];
@@ -182,64 +181,64 @@ LABEL_31:
     goto LABEL_12;
   }
 
-  v57 = 0;
-  v17[2](v17, &v57, v16);
-  if (v57 != 1)
+  v56 = 0;
+  v17[2](v17, &v56, v16);
+  if (v56 != 1)
   {
     v18 = Current;
 LABEL_12:
     progressCopy = progress;
-    v42 = blockCopy;
+    v41 = blockCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    v43 = nodesCopy;
+    v42 = nodesCopy;
     v22 = nodesCopy;
-    v47 = [v22 countByEnumeratingWithState:&v53 objects:v60 count:16];
-    if (v47)
+    v46 = [v22 countByEnumeratingWithState:&v52 objects:v59 count:16];
+    if (v46)
     {
       v23 = fraction / v14;
-      v46 = *v54;
+      v45 = *v53;
       v24 = pg_accumulatedCount;
-      v44 = v22;
-      v45 = v17;
+      v43 = v22;
+      v44 = v17;
       while (2)
       {
-        for (i = 0; i != v47; ++i)
+        for (i = 0; i != v46; ++i)
         {
-          if (*v54 != v46)
+          if (*v53 != v45)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v53 + 1) + 8 * i);
+          v26 = *(*(&v52 + 1) + 8 * i);
           v27 = [v22 countForObject:v26];
           v28 = [datesCopy objectForKeyedSubscript:v26];
           if ([v28 count])
           {
-            v51 = 0u;
-            v52 = 0u;
-            v49 = 0u;
             v50 = 0u;
+            v51 = 0u;
+            v48 = 0u;
+            v49 = 0u;
             v29 = v28;
-            v30 = [v29 countByEnumeratingWithState:&v49 objects:v59 count:16];
+            v30 = [v29 countByEnumeratingWithState:&v48 objects:v58 count:16];
             if (v30)
             {
               v31 = v30;
               v32 = v27 / v24;
-              v33 = *v50;
+              v33 = *v49;
 LABEL_20:
               v34 = 0;
               while (1)
               {
-                if (*v50 != v33)
+                if (*v49 != v33)
                 {
                   objc_enumerationMutation(v29);
                 }
 
-                v35 = *(*(&v49 + 1) + 8 * v34);
+                v35 = *(*(&v48 + 1) + 8 * v34);
                 pg_locationNamedEntity = [v26 pg_locationNamedEntity];
                 if (!pg_locationNamedEntity)
                 {
@@ -253,7 +252,7 @@ LABEL_20:
 
                 if (v31 == ++v34)
                 {
-                  v31 = [v29 countByEnumeratingWithState:&v49 objects:v59 count:16];
+                  v31 = [v29 countByEnumeratingWithState:&v48 objects:v58 count:16];
                   if (v31)
                   {
                     goto LABEL_20;
@@ -264,8 +263,8 @@ LABEL_20:
               }
             }
 
-            v22 = v44;
-            v17 = v45;
+            v22 = v43;
+            v17 = v44;
           }
 
           v16 = v23 + v16;
@@ -274,16 +273,16 @@ LABEL_20:
             v38 = CFAbsoluteTimeGetCurrent();
             if (v38 - v18 >= 0.01)
             {
-              v57 = 0;
-              v17[2](v17, &v57, v16);
-              if (v57)
+              v56 = 0;
+              v17[2](v17, &v56, v16);
+              if (v56)
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  v62 = 473;
-                  v63 = 2080;
-                  v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+                  v61 = 473;
+                  v62 = 2080;
+                  v63 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
@@ -296,8 +295,8 @@ LABEL_20:
           }
         }
 
-        v47 = [v22 countByEnumeratingWithState:&v53 objects:v60 count:16];
-        if (v47)
+        v46 = [v22 countByEnumeratingWithState:&v52 objects:v59 count:16];
+        if (v46)
         {
           continue;
         }
@@ -309,18 +308,18 @@ LABEL_20:
     *progressCopy = v16;
     v20 = array;
 LABEL_37:
-    nodesCopy = v43;
+    nodesCopy = v42;
 
-    blockCopy = v42;
+    blockCopy = v41;
     goto LABEL_38;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v62 = 447;
-    v63 = 2080;
-    v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+    v61 = 447;
+    v62 = 2080;
+    v63 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
@@ -328,20 +327,19 @@ LABEL_37:
 LABEL_38:
 
 LABEL_39:
-  v39 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (id)_topicsFromTopicNodes:(id)nodes currentProgress:(double *)progress progressFraction:(double)fraction progressBlock:(id)block
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   blockCopy = block;
   if (!progress)
   {
-    v40 = 0;
-    progress = &v40;
+    v39 = 0;
+    progress = &v39;
   }
 
   v11 = [nodesCopy count];
@@ -367,36 +365,36 @@ LABEL_39:
     goto LABEL_12;
   }
 
-  v39 = 0;
-  v15[2](v15, &v39, v14);
-  if (v39 != 1)
+  v38 = 0;
+  v15[2](v15, &v38, v14);
+  if (v38 != 1)
   {
     v16 = Current;
 LABEL_12:
     progressCopy = progress;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v20 = nodesCopy;
-    v21 = [v20 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v21)
     {
       v22 = v21;
       v23 = fraction / v12;
-      v24 = *v36;
+      v24 = *v35;
       v25 = pg_accumulatedCount;
       while (2)
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v36 != v24)
+          if (*v35 != v24)
           {
             objc_enumerationMutation(v20);
           }
 
-          v27 = *(*(&v35 + 1) + 8 * i);
+          v27 = *(*(&v34 + 1) + 8 * i);
           v28 = [v20 countForObject:v27];
           pg_topic = [v27 pg_topic];
           if (pg_topic)
@@ -410,16 +408,16 @@ LABEL_12:
               v31 = CFAbsoluteTimeGetCurrent();
               if (v31 - v16 >= 0.01)
               {
-                v39 = 0;
-                v15[2](v15, &v39, v14);
-                if (v39)
+                v38 = 0;
+                v15[2](v15, &v38, v14);
+                if (v38)
                 {
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                   {
                     *buf = 67109378;
-                    v43 = 421;
-                    v44 = 2080;
-                    v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+                    v42 = 421;
+                    v43 = 2080;
+                    v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
                     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                   }
 
@@ -433,7 +431,7 @@ LABEL_12:
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v34 objects:v40 count:16];
         if (v22)
         {
           continue;
@@ -453,9 +451,9 @@ LABEL_28:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v43 = 404;
-    v44 = 2080;
-    v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+    v42 = 404;
+    v43 = 2080;
+    v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
@@ -463,7 +461,6 @@ LABEL_28:
 LABEL_29:
 
 LABEL_30:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -495,7 +492,7 @@ LABEL_30:
 
 void __94__PGGraphPortraitDonationEnrichmentProcessor__donateKnowledge_donationDate_loggingConnection___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) topics];
   if (![v2 count])
   {
@@ -505,9 +502,9 @@ void __94__PGGraphPortraitDonationEnrichmentProcessor__donateKnowledge_donationD
 
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v25 = 0;
-  v5 = [MEMORY[0x277D3A388] donatePhotosTopics:v2 bundleId:v3 date:v4 error:&v25];
-  v6 = v25;
+  v24 = 0;
+  v5 = [MEMORY[0x277D3A388] donatePhotosTopics:v2 bundleId:v3 date:v4 error:&v24];
+  v6 = v24;
   if (v5)
   {
 LABEL_7:
@@ -519,7 +516,7 @@ LABEL_7:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v27 = v6;
+    v26 = v6;
     _os_log_error_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_ERROR, "PortraitEnrichment - Failed to donate topics with error: %@", buf, 0xCu);
   }
 
@@ -530,9 +527,9 @@ LABEL_8:
   if (v8 && v10)
   {
     v11 = *(a1 + 40);
-    v24 = v6;
-    v12 = [MEMORY[0x277D3A388] donatePhotosLocationNamedEntities:v9 bundleId:v11 error:&v24];
-    v13 = v24;
+    v23 = v6;
+    v12 = [MEMORY[0x277D3A388] donatePhotosLocationNamedEntities:v9 bundleId:v11 error:&v23];
+    v13 = v23;
 
     if (v12)
     {
@@ -545,7 +542,7 @@ LABEL_8:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v13;
+        v26 = v13;
         _os_log_error_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_ERROR, "PortraitEnrichment - Failed to donate location named entities with error: %@", buf, 0xCu);
       }
 
@@ -564,9 +561,9 @@ LABEL_8:
   {
     v17 = *(a1 + 40);
     v18 = *(a1 + 48);
-    v23 = v13;
-    v19 = [MEMORY[0x277D3A388] donatePhotosNamedEntities:v15 bundleId:v17 date:v18 error:&v23];
-    v20 = v23;
+    v22 = v13;
+    v19 = [MEMORY[0x277D3A388] donatePhotosNamedEntities:v15 bundleId:v17 date:v18 error:&v22];
+    v20 = v22;
 
     if ((v19 & 1) == 0)
     {
@@ -574,7 +571,7 @@ LABEL_8:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v20;
+        v26 = v20;
         _os_log_error_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_ERROR, "PortraitEnrichment - Failed to donate named entities with error: %@", buf, 0xCu);
       }
     }
@@ -584,37 +581,35 @@ LABEL_8:
   {
     v20 = v13;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_knowledgeToDonateFromAccumulatedNodesWithProgressBlock:(id)block
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = _Block_copy(blockCopy);
-  v30 = 0.5;
-  v6 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _locationNamedEntitiesFromAddressNodes:self->_addressNodes dates:self->_datesByAddressNode currentProgress:&v30 progressFraction:blockCopy progressBlock:0.0714285714];
+  v29 = 0.5;
+  v6 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _locationNamedEntitiesFromAddressNodes:self->_addressNodes dates:self->_datesByAddressNode currentProgress:&v29 progressFraction:blockCopy progressBlock:0.0714285714];
   v7 = 0.0;
   if (!v5 || (v8 = CFAbsoluteTimeGetCurrent(), v8 < 0.01))
   {
 LABEL_8:
-    v10 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _topicsFromTopicNodes:self->_meaningNodes currentProgress:&v30 progressFraction:blockCopy progressBlock:0.0714285714];
+    v10 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _topicsFromTopicNodes:self->_meaningNodes currentProgress:&v29 progressFraction:blockCopy progressBlock:0.0714285714];
     if (v5)
     {
       Current = CFAbsoluteTimeGetCurrent();
       if (Current - v7 >= 0.01)
       {
-        v29 = 0;
-        v5[2](v5, &v29, v30);
-        if (v29)
+        v28 = 0;
+        v5[2](v5, &v28, v29);
+        if (v28)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v32 = 310;
-            v33 = 2080;
-            v34 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+            v31 = 310;
+            v32 = 2080;
+            v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -626,22 +621,22 @@ LABEL_8:
       }
     }
 
-    v12 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _topicsFromTopicNodes:self->_roiNodes currentProgress:&v30 progressFraction:blockCopy progressBlock:0.0714285714];
+    v12 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _topicsFromTopicNodes:self->_roiNodes currentProgress:&v29 progressFraction:blockCopy progressBlock:0.0714285714];
     if (v5)
     {
       v13 = CFAbsoluteTimeGetCurrent();
       if (v13 - v7 >= 0.01)
       {
-        v29 = 0;
-        v5[2](v5, &v29, v30);
-        if (v29)
+        v28 = 0;
+        v5[2](v5, &v28, v29);
+        if (v28)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v32 = 313;
-            v33 = 2080;
-            v34 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+            v31 = 313;
+            v32 = 2080;
+            v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -653,22 +648,22 @@ LABEL_8:
       }
     }
 
-    v14 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _topicsFromTopicNodes:self->_poiNodes currentProgress:&v30 progressFraction:blockCopy progressBlock:0.0714285714];
+    v14 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _topicsFromTopicNodes:self->_poiNodes currentProgress:&v29 progressFraction:blockCopy progressBlock:0.0714285714];
     if (v5)
     {
       v15 = CFAbsoluteTimeGetCurrent();
       if (v15 - v7 >= 0.01)
       {
-        v29 = 0;
-        v5[2](v5, &v29, v30);
-        if (v29)
+        v28 = 0;
+        v5[2](v5, &v28, v29);
+        if (v28)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v32 = 316;
-            v33 = 2080;
-            v34 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+            v31 = 316;
+            v32 = 2080;
+            v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -680,23 +675,23 @@ LABEL_8:
       }
     }
 
-    v16 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _namedEntitiesFromNamedEntityNodes:self->_businessNodes currentProgress:&v30 progressFraction:blockCopy progressBlock:0.0714285714];
-    v27 = v16;
+    v16 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _namedEntitiesFromNamedEntityNodes:self->_businessNodes currentProgress:&v29 progressFraction:blockCopy progressBlock:0.0714285714];
+    v26 = v16;
     if (v5)
     {
       v17 = CFAbsoluteTimeGetCurrent();
       if (v17 - v7 >= 0.01)
       {
-        v29 = 0;
-        v5[2](v5, &v29, v30);
-        if (v29)
+        v28 = 0;
+        v5[2](v5, &v28, v29);
+        if (v28)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v32 = 319;
-            v33 = 2080;
-            v34 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+            v31 = 319;
+            v32 = 2080;
+            v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -708,22 +703,22 @@ LABEL_8:
       }
     }
 
-    v28 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _namedEntitiesFromNamedEntityNodes:self->_publicEventNodes currentProgress:&v30 progressFraction:blockCopy progressBlock:0.0714285714, v16];
+    v27 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _namedEntitiesFromNamedEntityNodes:self->_publicEventNodes currentProgress:&v29 progressFraction:blockCopy progressBlock:0.0714285714, v16];
     if (v5)
     {
       v18 = CFAbsoluteTimeGetCurrent();
       if (v18 - v7 >= 0.01)
       {
-        v29 = 0;
-        v5[2](v5, &v29, v30);
-        if (v29)
+        v28 = 0;
+        v5[2](v5, &v28, v29);
+        if (v28)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v32 = 322;
-            v33 = 2080;
-            v34 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+            v31 = 322;
+            v32 = 2080;
+            v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -746,15 +741,15 @@ LABEL_55:
     v19 = v6;
     v20 = v10;
     v21 = v12;
-    v22 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _namedEntitiesFromNamedEntityNodes:self->_performerNodes currentProgress:&v30 progressFraction:blockCopy progressBlock:0.0714285714];
-    if (v5 && CFAbsoluteTimeGetCurrent() - v7 >= 0.01 && (v29 = 0, v5[2](v5, &v29, v30), v29))
+    v22 = [(PGGraphPortraitDonationEnrichmentProcessor *)self _namedEntitiesFromNamedEntityNodes:self->_performerNodes currentProgress:&v29 progressFraction:blockCopy progressBlock:0.0714285714];
+    if (v5 && CFAbsoluteTimeGetCurrent() - v7 >= 0.01 && (v28 = 0, v5[2](v5, &v28, v29), v28))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v32 = 325;
-        v33 = 2080;
-        v34 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+        v31 = 325;
+        v32 = 2080;
+        v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -764,7 +759,7 @@ LABEL_55:
     else
     {
       v23 = [MEMORY[0x277CBEB18] arrayWithArray:v16];
-      [v23 addObjectsFromArray:v28];
+      [v23 addObjectsFromArray:v27];
       [v23 addObjectsFromArray:v22];
       v24 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v20];
       [v24 addEntriesFromDictionary:v14];
@@ -779,9 +774,9 @@ LABEL_55:
     goto LABEL_51;
   }
 
-  v29 = 0;
-  v5[2](v5, &v29, v30);
-  if (v29 != 1)
+  v28 = 0;
+  v5[2](v5, &v28, v29);
+  if (v28 != 1)
   {
     v7 = v8;
     goto LABEL_8;
@@ -790,46 +785,44 @@ LABEL_55:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v32 = 307;
-    v33 = 2080;
-    v34 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+    v31 = 307;
+    v32 = 2080;
+    v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v9 = 0;
 LABEL_56:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)_accumulateKnowledgeNodesFromMomentNodes:(id)nodes progressBlock:(id)block
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   blockCopy = block;
   v8 = [nodesCopy count];
   if (v8)
   {
     v9 = v8;
-    v36 = blockCopy;
+    v35 = blockCopy;
     v10 = _Block_copy(blockCopy);
-    v44 = self->_meaningNodes;
-    v38 = self->_poiNodes;
-    v39 = self->_roiNodes;
-    v43 = self->_businessNodes;
-    v41 = self->_publicEventNodes;
-    v40 = self->_performerNodes;
-    v45 = self->_datesByAddressNode;
+    v43 = self->_meaningNodes;
+    v37 = self->_poiNodes;
+    v38 = self->_roiNodes;
+    v42 = self->_businessNodes;
+    v40 = self->_publicEventNodes;
+    v39 = self->_performerNodes;
+    v44 = self->_datesByAddressNode;
     v11 = self->_addressNodes;
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
-    v37 = nodesCopy;
+    v36 = nodesCopy;
     obj = nodesCopy;
-    v12 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
+    v12 = [obj countByEnumeratingWithState:&v61 objects:v69 count:16];
     if (!v12)
     {
       goto LABEL_63;
@@ -839,7 +832,7 @@ LABEL_56:
     v14 = 0;
     v15 = 0.3 / v9 / 7.0;
     v16 = 0.2;
-    v17 = *v63;
+    v17 = *v62;
     v18 = 0.0;
     while (1)
     {
@@ -847,12 +840,12 @@ LABEL_56:
       v20 = v18;
       do
       {
-        if (*v63 != v17)
+        if (*v62 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v62 + 1) + 8 * v19);
+        v21 = *(*(&v61 + 1) + 8 * v19);
         v22 = objc_autoreleasePoolPush();
         localStartDate = [v21 localStartDate];
         [localStartDate timeIntervalSince1970];
@@ -862,31 +855,31 @@ LABEL_56:
         [universalStartDate timeIntervalSince1970];
         v28 = v27;
 
-        v58[0] = MEMORY[0x277D85DD0];
-        v58[1] = 3221225472;
-        v58[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke;
-        v58[3] = &unk_278880D60;
-        v61 = v25 - v28;
-        v59 = v45;
-        v60 = v11;
-        [v21 enumerateAddressEdgesAndNodesUsingBlock:v58];
+        v57[0] = MEMORY[0x277D85DD0];
+        v57[1] = 3221225472;
+        v57[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke;
+        v57[3] = &unk_278880D60;
+        v60 = v25 - v28;
+        v58 = v44;
+        v59 = v11;
+        [v21 enumerateAddressEdgesAndNodesUsingBlock:v57];
         v16 = v15 + v16;
         if (!v10 || (v18 = CFAbsoluteTimeGetCurrent(), v18 - v20 < 0.01))
         {
           v18 = v20;
 LABEL_10:
-          v55[0] = MEMORY[0x277D85DD0];
-          v55[1] = 3221225472;
-          v55[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_321;
-          v55[3] = &unk_2788877E0;
-          v56 = v44;
-          [v21 enumerateMeaningNodesUsingBlock:v55];
+          v54[0] = MEMORY[0x277D85DD0];
+          v54[1] = 3221225472;
+          v54[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_321;
+          v54[3] = &unk_2788877E0;
+          v55 = v43;
+          [v21 enumerateMeaningNodesUsingBlock:v54];
           v16 = v15 + v16;
           if (v10 && (v29 = CFAbsoluteTimeGetCurrent(), v29 - v18 >= 0.01))
           {
-            v57 = 0;
-            v10[2](v10, &v57, v16);
-            if (!(v57 | v14 & 1))
+            v56 = 0;
+            v10[2](v10, &v56, v16);
+            if (!(v56 | v14 & 1))
             {
               v14 = 0;
               goto LABEL_13;
@@ -895,9 +888,9 @@ LABEL_10:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              v67 = 266;
-              v68 = 2080;
-              v69 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+              v66 = 266;
+              v67 = 2080;
+              v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
 
@@ -909,18 +902,18 @@ LABEL_10:
           {
             v29 = v18;
 LABEL_13:
-            v53[0] = MEMORY[0x277D85DD0];
-            v53[1] = 3221225472;
-            v53[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_323;
-            v53[3] = &unk_278887620;
-            v54 = v43;
-            [v21 enumerateBusinessNodesUsingBlock:v53];
+            v52[0] = MEMORY[0x277D85DD0];
+            v52[1] = 3221225472;
+            v52[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_323;
+            v52[3] = &unk_278887620;
+            v53 = v42;
+            [v21 enumerateBusinessNodesUsingBlock:v52];
             v16 = v15 + v16;
             if (v10 && (v30 = CFAbsoluteTimeGetCurrent(), v30 - v29 >= 0.01))
             {
-              v57 = 0;
-              v10[2](v10, &v57, v16);
-              if (!(v57 | v14 & 1))
+              v56 = 0;
+              v10[2](v10, &v56, v16);
+              if (!(v56 | v14 & 1))
               {
                 v14 = 0;
                 goto LABEL_16;
@@ -929,9 +922,9 @@ LABEL_13:
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v67 = 272;
-                v68 = 2080;
-                v69 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+                v66 = 272;
+                v67 = 2080;
+                v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -943,19 +936,19 @@ LABEL_13:
             {
               v30 = v29;
 LABEL_16:
-              v50[0] = MEMORY[0x277D85DD0];
-              v50[1] = 3221225472;
-              v50[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_325;
-              v50[3] = &unk_278888E90;
-              v51 = v41;
-              v52 = v40;
-              [v21 enumeratePublicEventNodesUsingBlock:v50];
+              v49[0] = MEMORY[0x277D85DD0];
+              v49[1] = 3221225472;
+              v49[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_325;
+              v49[3] = &unk_278888E90;
+              v50 = v40;
+              v51 = v39;
+              [v21 enumeratePublicEventNodesUsingBlock:v49];
               v16 = v15 + v16;
               if (v10 && (v31 = CFAbsoluteTimeGetCurrent(), v31 - v30 >= 0.01))
               {
-                v57 = 0;
-                v10[2](v10, &v57, v16);
-                if (!(v57 | v14 & 1))
+                v56 = 0;
+                v10[2](v10, &v56, v16);
+                if (!(v56 | v14 & 1))
                 {
                   v14 = 0;
                   goto LABEL_19;
@@ -964,9 +957,9 @@ LABEL_16:
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  v67 = 282;
-                  v68 = 2080;
-                  v69 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+                  v66 = 282;
+                  v67 = 2080;
+                  v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
@@ -978,18 +971,18 @@ LABEL_16:
               {
                 v31 = v30;
 LABEL_19:
-                v48[0] = MEMORY[0x277D85DD0];
-                v48[1] = 3221225472;
-                v48[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_328;
-                v48[3] = &unk_2788875F8;
-                v49 = v39;
-                [v21 enumerateROINodesUsingBlock:v48];
+                v47[0] = MEMORY[0x277D85DD0];
+                v47[1] = 3221225472;
+                v47[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_328;
+                v47[3] = &unk_2788875F8;
+                v48 = v38;
+                [v21 enumerateROINodesUsingBlock:v47];
                 v16 = v15 + v16;
                 if (v10 && (v32 = CFAbsoluteTimeGetCurrent(), v32 - v31 >= 0.01))
                 {
-                  v57 = 0;
-                  v10[2](v10, &v57, v16);
-                  if (!(v57 | v14 & 1))
+                  v56 = 0;
+                  v10[2](v10, &v56, v16);
+                  if (!(v56 | v14 & 1))
                   {
                     v14 = 0;
                     goto LABEL_22;
@@ -998,9 +991,9 @@ LABEL_19:
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                   {
                     *buf = 67109378;
-                    v67 = 288;
-                    v68 = 2080;
-                    v69 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+                    v66 = 288;
+                    v67 = 2080;
+                    v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
                     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                   }
 
@@ -1012,25 +1005,25 @@ LABEL_19:
                 {
                   v32 = v31;
 LABEL_22:
-                  v46[0] = MEMORY[0x277D85DD0];
-                  v46[1] = 3221225472;
-                  v46[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_330;
-                  v46[3] = &unk_2788875D0;
-                  v47 = v38;
-                  [v21 enumeratePOINodesUsingBlock:v46];
+                  v45[0] = MEMORY[0x277D85DD0];
+                  v45[1] = 3221225472;
+                  v45[2] = __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke_330;
+                  v45[3] = &unk_2788875D0;
+                  v46 = v37;
+                  [v21 enumeratePOINodesUsingBlock:v45];
                   v16 = v15 + v16;
                   if (v10 && (Current = CFAbsoluteTimeGetCurrent(), Current - v32 >= 0.01))
                   {
-                    v57 = 0;
-                    v10[2](v10, &v57, v16);
-                    if (v57 | v14 & 1)
+                    v56 = 0;
+                    v10[2](v10, &v56, v16);
+                    if (v56 | v14 & 1)
                     {
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                       {
                         *buf = 67109378;
-                        v67 = 294;
-                        v68 = 2080;
-                        v69 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+                        v66 = 294;
+                        v67 = 2080;
+                        v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
                         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                       }
 
@@ -1067,9 +1060,9 @@ LABEL_22:
           goto LABEL_60;
         }
 
-        v57 = 0;
-        v10[2](v10, &v57, v16);
-        if (!(v57 | v14 & 1))
+        v56 = 0;
+        v10[2](v10, &v56, v16);
+        if (!(v56 | v14 & 1))
         {
           v14 = 0;
           goto LABEL_10;
@@ -1078,9 +1071,9 @@ LABEL_22:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v67 = 260;
-          v68 = 2080;
-          v69 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+          v66 = 260;
+          v67 = 2080;
+          v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -1099,19 +1092,17 @@ LABEL_60:
       }
 
       while (v13 != v19);
-      v13 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
+      v13 = [obj countByEnumeratingWithState:&v61 objects:v69 count:16];
       if (!v13)
       {
 LABEL_63:
 
-        blockCopy = v36;
-        nodesCopy = v37;
+        blockCopy = v35;
+        nodesCopy = v36;
         break;
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodesFromMomentNodes_progressBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1180,7 +1171,7 @@ void __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodes
 
 - (void)_donateKnowledgeWithManager:(id)manager progressBlock:(id)block
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   blockCopy = block;
   enrichmentLoggingConnection = [managerCopy enrichmentLoggingConnection];
@@ -1197,26 +1188,26 @@ void __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodes
   mach_timebase_info(&info);
   v12 = mach_absolute_time();
   *buf = 0;
-  v31 = buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__17296;
-  v34 = __Block_byref_object_dispose__17297;
-  v35 = 0;
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = __88__PGGraphPortraitDonationEnrichmentProcessor__donateKnowledgeWithManager_progressBlock___block_invoke;
-  v25 = &unk_278880D38;
+  v30 = buf;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__17296;
+  v33 = __Block_byref_object_dispose__17297;
+  v34 = 0;
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __88__PGGraphPortraitDonationEnrichmentProcessor__donateKnowledgeWithManager_progressBlock___block_invoke;
+  v24 = &unk_278880D38;
   v13 = v11;
-  v26 = v13;
+  v25 = v13;
   v14 = blockCopy;
   selfCopy = self;
-  v28 = v14;
-  v29 = buf;
-  [managerCopy performSynchronousConcurrentGraphReadUsingBlock:&v22];
-  if (*(v31 + 5))
+  v27 = v14;
+  v28 = buf;
+  [managerCopy performSynchronousConcurrentGraphReadUsingBlock:&v21];
+  if (*(v30 + 5))
   {
     date = [MEMORY[0x277CBEAA8] date];
-    [(PGGraphPortraitDonationEnrichmentProcessor *)self _donateKnowledge:*(v31 + 5) donationDate:date loggingConnection:v13];
+    [(PGGraphPortraitDonationEnrichmentProcessor *)self _donateKnowledge:*(v30 + 5) donationDate:date loggingConnection:v13];
   }
 
   v16 = mach_absolute_time();
@@ -1226,26 +1217,25 @@ void __101__PGGraphPortraitDonationEnrichmentProcessor__accumulateKnowledgeNodes
   v20 = v19;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    *v37 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v20, OS_SIGNPOST_INTERVAL_END, v9, "SiriPortraitDonation", "", v37, 2u);
+    *v36 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v20, OS_SIGNPOST_INTERVAL_END, v9, "SiriPortraitDonation", "", v36, 2u);
   }
 
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    *v37 = 136315394;
-    v38 = "SiriPortraitDonation";
-    v39 = 2048;
-    v40 = ((((v16 - v12) * numer) / denom) / 1000000.0);
-    _os_log_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v37, 0x16u);
+    *v36 = 136315394;
+    v37 = "SiriPortraitDonation";
+    v38 = 2048;
+    v39 = ((((v16 - v12) * numer) / denom) / 1000000.0);
+    _os_log_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v36, 0x16u);
   }
 
   _Block_object_dispose(buf, 8);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __88__PGGraphPortraitDonationEnrichmentProcessor__donateKnowledgeWithManager_progressBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [a2 graph];
   v4 = *(a1 + 32);
   if (v3)
@@ -1263,16 +1253,16 @@ void __88__PGGraphPortraitDonationEnrichmentProcessor__donateKnowledgeWithManage
       Current = CFAbsoluteTimeGetCurrent();
       if (Current >= 0.01)
       {
-        v19 = 0;
-        v5[2](v5, &v19, 0.0);
-        if (v19 == 1)
+        v18 = 0;
+        v5[2](v5, &v18, 0.0);
+        if (v18 == 1)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v21 = 161;
-            v22 = 2080;
-            v23 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+            v20 = 161;
+            v21 = 2080;
+            v22 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -1293,16 +1283,16 @@ void __88__PGGraphPortraitDonationEnrichmentProcessor__donateKnowledgeWithManage
       v12 = CFAbsoluteTimeGetCurrent();
       if (v12 - v6 >= 0.01)
       {
-        v19 = 0;
-        v5[2](v5, &v19, 0.2);
-        if (v19)
+        v18 = 0;
+        v5[2](v5, &v18, 0.2);
+        if (v18)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v21 = 171;
-            v22 = 2080;
-            v23 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+            v20 = 171;
+            v21 = 2080;
+            v22 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
             v13 = MEMORY[0x277D86220];
 LABEL_31:
             _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -1324,16 +1314,16 @@ LABEL_31:
         v14 = CFAbsoluteTimeGetCurrent();
         if (v14 - v6 >= 0.01)
         {
-          v19 = 0;
-          v5[2](v5, &v19, 0.5);
-          if (v19)
+          v18 = 0;
+          v5[2](v5, &v18, 0.5);
+          if (v18)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              v21 = 177;
-              v22 = 2080;
-              v23 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+              v20 = 177;
+              v21 = 2080;
+              v22 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
               v13 = MEMORY[0x277D86220];
               goto LABEL_31;
             }
@@ -1364,17 +1354,17 @@ LABEL_33:
       goto LABEL_32;
     }
 
-    v19 = 0;
-    v5[2](v5, &v19, 1.0);
-    if (!v19 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    v18 = 0;
+    v5[2](v5, &v18, 1.0);
+    if (!v18 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       goto LABEL_32;
     }
 
     *buf = 67109378;
-    v21 = 182;
-    v22 = 2080;
-    v23 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+    v20 = 182;
+    v21 = 2080;
+    v22 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
     v13 = MEMORY[0x277D86220];
     goto LABEL_31;
   }
@@ -1386,13 +1376,11 @@ LABEL_33:
   }
 
 LABEL_34:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enrichDataModelWithManager:(id)manager curationContext:(id)context graphUpdateInventory:(id)inventory progressReporter:(id)reporter
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   contextCopy = context;
   inventoryCopy = inventory;
@@ -1412,25 +1400,25 @@ LABEL_34:
   v18 = mach_absolute_time();
   v19 = reporterCopy;
   *buf = 0;
-  v35 = buf;
-  v36 = 0x2020000000;
-  v37 = 0;
+  v34 = buf;
+  v35 = 0x2020000000;
+  v36 = 0;
   v20 = [v19 isCancelledWithProgress:0.0];
-  v35[24] = v20;
+  v34[24] = v20;
   if (v20)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      *v39 = 67109378;
-      *v40 = 112;
-      *&v40[4] = 2080;
-      *&v40[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+      *v38 = 67109378;
+      *v39 = 112;
+      *&v39[4] = 2080;
+      *&v39[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
       v21 = MEMORY[0x277D86220];
       v22 = "Cancelled at line %d in file %s";
 LABEL_18:
       v24 = 18;
 LABEL_19:
-      _os_log_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_INFO, v22, v39, v24);
+      _os_log_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_INFO, v22, v38, v24);
     }
   }
 
@@ -1438,58 +1426,58 @@ LABEL_19:
   {
     if ([(PGGraphPortraitDonationEnrichmentProcessor *)self _shouldProcessGraphUpdate:inventoryCopy])
     {
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __127__PGGraphPortraitDonationEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke;
-      v31[3] = &unk_278889448;
-      v33 = buf;
-      v32 = v19;
-      [(PGGraphPortraitDonationEnrichmentProcessor *)self _donateKnowledgeWithManager:managerCopy progressBlock:v31];
-      if (v35[24] == 1)
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __127__PGGraphPortraitDonationEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke;
+      v30[3] = &unk_278889448;
+      v32 = buf;
+      v31 = v19;
+      [(PGGraphPortraitDonationEnrichmentProcessor *)self _donateKnowledgeWithManager:managerCopy progressBlock:v30];
+      if (v34[24] == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          *v39 = 67109378;
-          *v40 = 120;
-          *&v40[4] = 2080;
-          *&v40[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
-          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v39, 0x12u);
+          *v38 = 67109378;
+          *v39 = 120;
+          *&v39[4] = 2080;
+          *&v39[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v38, 0x12u);
         }
 
         goto LABEL_20;
       }
     }
 
-    if (v35[24])
+    if (v34[24])
     {
-      v35[24] = 1;
+      v34[24] = 1;
     }
 
     else
     {
       v23 = [v19 isCancelledWithProgress:1.0];
-      v35[24] = v23;
+      v34[24] = v23;
       if ((v23 & 1) == 0)
       {
-        v26 = mach_absolute_time();
+        v25 = mach_absolute_time();
         numer = info.numer;
         denom = info.denom;
-        v29 = v17;
-        v30 = v29;
-        if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
+        v28 = v17;
+        v29 = v28;
+        if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
         {
-          *v39 = 0;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v30, OS_SIGNPOST_INTERVAL_END, v15, "PGGraphPortraitDonationEnrichmentProcessor", "", v39, 2u);
+          *v38 = 0;
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v29, OS_SIGNPOST_INTERVAL_END, v15, "PGGraphPortraitDonationEnrichmentProcessor", "", v38, 2u);
         }
 
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
-          *v39 = 136315394;
-          *v40 = "PGGraphPortraitDonationEnrichmentProcessor";
-          *&v40[8] = 2048;
-          *&v40[10] = ((((v26 - v18) * numer) / denom) / 1000000.0);
+          *v38 = 136315394;
+          *v39 = "PGGraphPortraitDonationEnrichmentProcessor";
+          *&v39[8] = 2048;
+          *&v39[10] = ((((v25 - v18) * numer) / denom) / 1000000.0);
           v22 = "[Performance] %s: %f ms";
-          v21 = v30;
+          v21 = v29;
           v24 = 22;
           goto LABEL_19;
         }
@@ -1500,10 +1488,10 @@ LABEL_19:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      *v39 = 67109378;
-      *v40 = 123;
-      *&v40[4] = 2080;
-      *&v40[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
+      *v38 = 67109378;
+      *v39 = 123;
+      *&v39[4] = 2080;
+      *&v39[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphPortraitDonationEnrichmentProcessor.m";
       v21 = MEMORY[0x277D86220];
       v22 = "Cancelled at line %d in file %s";
       goto LABEL_18;
@@ -1512,8 +1500,6 @@ LABEL_19:
 
 LABEL_20:
   _Block_object_dispose(buf, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __127__PGGraphPortraitDonationEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke(uint64_t a1, _BYTE *a2)

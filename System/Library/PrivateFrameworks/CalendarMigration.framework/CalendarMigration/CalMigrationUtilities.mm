@@ -140,7 +140,7 @@ LABEL_18:
 
 + (id)subdirectoriesInDirectory:(id)directory withPrivacySafePathProvider:(id)provider error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   providerCopy = provider;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -148,48 +148,48 @@ LABEL_18:
 
   if (v9)
   {
-    v26 = directoryCopy;
-    v28 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
+    v25 = directoryCopy;
+    v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v25 = v9;
+    v24 = v9;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (!v11)
     {
       goto LABEL_15;
     }
 
     v12 = v11;
-    v13 = *v31;
+    v13 = *v30;
     while (1)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v15 = *(*(&v29 + 1) + 8 * i);
         path = [v15 path];
         stringByStandardizingPath = [path stringByStandardizingPath];
 
-        v29 = 0;
+        v28 = 0;
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v19 = [defaultManager2 fileExistsAtPath:stringByStandardizingPath isDirectory:&v29];
+        v19 = [defaultManager2 fileExistsAtPath:stringByStandardizingPath isDirectory:&v28];
 
         if (v19)
         {
-          if (v29 != 1)
+          if (v28 != 1)
           {
             goto LABEL_13;
           }
 
           v20 = [MEMORY[0x277CBEBC0] fileURLWithPath:stringByStandardizingPath];
-          [v28 addObject:v20];
+          [v27 addObject:v20];
         }
 
         else
@@ -199,7 +199,7 @@ LABEL_18:
           {
             v21 = [providerCopy privacySafePathForURLInCalendarDirectory:v15];
             *buf = 138543362;
-            v35 = v21;
+            v34 = v21;
             _os_log_fault_impl(&dword_2428EA000, v20, OS_LOG_TYPE_FAULT, "File %{public}@ doesn't exist right after we found it by listing its parent directory.", buf, 0xCu);
           }
         }
@@ -207,14 +207,14 @@ LABEL_18:
 LABEL_13:
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (!v12)
       {
 LABEL_15:
 
-        v22 = [v28 copy];
-        v9 = v25;
-        directoryCopy = v26;
+        v22 = [v27 copy];
+        v9 = v24;
+        directoryCopy = v25;
         goto LABEL_17;
       }
     }
@@ -222,8 +222,6 @@ LABEL_15:
 
   v22 = 0;
 LABEL_17:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -260,14 +258,6 @@ LABEL_17:
   [defaultManager removeItemAtPath:path error:0];
   [defaultManager removeItemAtPath:v3 error:0];
   [defaultManager removeItemAtPath:v4 error:0];
-}
-
-+ (void)homeRelativePathForURL:inCalendarDirectory:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2428EA000, v0, v1, "Invalid URL (not in the calendar directory) given to _homeRelativePathForURL:inCalendarDirectory: url = %@, calendarDirectory = %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

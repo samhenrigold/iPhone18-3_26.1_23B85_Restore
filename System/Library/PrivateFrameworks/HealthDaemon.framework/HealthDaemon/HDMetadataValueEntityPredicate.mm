@@ -16,7 +16,7 @@
 
 + (id)predicateWithMetadataKey:(id)key allowedValues:(id)values
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valuesCopy = values;
   v8 = HKMetadataAliasesForKey();
@@ -27,33 +27,33 @@
     v11 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:keyCopy allowedValues:valuesCopy];
     [v10 addObject:v11];
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v31 = v8;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v30 = v8;
     v12 = v8;
-    v13 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v36;
+      v15 = *v35;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v36 != v15)
+          if (*v35 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v35 + 1) + 8 * i);
+          v17 = *(*(&v34 + 1) + 8 * i);
           v18 = [v12 objectForKeyedSubscript:v17];
           v19 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:v17 allowedValues:v18];
           [v10 addObject:v19];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v14);
@@ -61,7 +61,7 @@
 
     v20 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v10];
 
-    v8 = v31;
+    v8 = v30;
     v9 = 0x277CBE000;
   }
 
@@ -86,22 +86,22 @@
   v23 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:keyCopy allowedValues:valuesCopy];
   [v22 addObject:v23];
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __73__HDMetadataValueEntityPredicate_predicateWithMetadataKey_allowedValues___block_invoke;
-  v32[3] = &unk_27861FD28;
-  v33 = v22;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __73__HDMetadataValueEntityPredicate_predicateWithMetadataKey_allowedValues___block_invoke;
+  v31[3] = &unk_27861FD28;
+  v32 = v22;
   selfCopy = self;
   v24 = v22;
-  [v21 enumerateKeysAndObjectsUsingBlock:v32];
+  [v21 enumerateKeysAndObjectsUsingBlock:v31];
   v25 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v24];
 
   if (v20 && v25)
   {
     v26 = MEMORY[0x277D10B20];
-    v39[0] = v20;
-    v39[1] = v25;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+    v38[0] = v20;
+    v38[1] = v25;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
     v28 = [v26 predicateMatchingAnyPredicates:v27];
 
 LABEL_19:
@@ -123,8 +123,6 @@ LABEL_24:
   }
 
 LABEL_20:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -152,48 +150,46 @@ LABEL_20:
 
 void __73__HDMetadataValueEntityPredicate_predicateWithMetadataKey_allowedValues___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
         v11 = *(a1 + 32);
-        v12 = [(HDMetadataValueEntityPredicate *)*(a1 + 40) _predicateWithMetadataKey:v5 valuesWithinRange:*(*(&v14 + 1) + 8 * v10)];
+        v12 = [(HDMetadataValueEntityPredicate *)*(a1 + 40) _predicateWithMetadataKey:v5 valuesWithinRange:*(*(&v13 + 1) + 8 * v10)];
         [v11 addObject:v12];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_predicateWithMetadataKey:(void *)key valuesWithinRange:
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = a2;
   v6 = objc_opt_self();
@@ -205,19 +201,17 @@ void __73__HDMetadataValueEntityPredicate_predicateWithMetadataKey_allowedValues
   v10 = [(HDMetadataValueEntityPredicate *)v6 _predicateWithMetadataKey:v5 value:maxValue operatorType:0];
 
   v11 = MEMORY[0x277D10B20];
-  v16[0] = v8;
-  v16[1] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v8;
+  v15[1] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v13 = [v11 predicateMatchingAllPredicates:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (id)predicateWithMetadataKey:(id)key value:(id)value operatorType:(unint64_t)type
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valueCopy = value;
   if (valueCopy)
@@ -231,75 +225,75 @@ void __73__HDMetadataValueEntityPredicate_predicateWithMetadataKey_allowedValues
   }
   v10 = ;
   v11 = HKMetadataAliasesForKey();
-  v50 = v11;
-  v51 = valueCopy;
-  v47 = v10;
-  v48 = keyCopy;
+  v49 = v11;
+  v50 = valueCopy;
+  v46 = v10;
+  v47 = keyCopy;
   if ([v11 count])
   {
     v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v13 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:keyCopy value:valueCopy operatorType:type];
     [v12 addObject:v13];
 
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v14 = v11;
-    v53 = [v14 countByEnumeratingWithState:&v59 objects:v73 count:16];
-    if (v53)
+    v52 = [v14 countByEnumeratingWithState:&v58 objects:v72 count:16];
+    if (v52)
     {
-      v15 = *v60;
-      v49 = v14;
-      v52 = *v60;
+      v15 = *v59;
+      v48 = v14;
+      v51 = *v59;
       do
       {
-        for (i = 0; i != v53; ++i)
+        for (i = 0; i != v52; ++i)
         {
-          if (*v60 != v15)
+          if (*v59 != v15)
           {
             objc_enumerationMutation(v14);
           }
 
-          v17 = *(*(&v59 + 1) + 8 * i);
-          v18 = [v14 objectForKeyedSubscript:{v17, v47}];
+          v17 = *(*(&v58 + 1) + 8 * i);
+          v18 = [v14 objectForKeyedSubscript:{v17, v46}];
           v19 = [v18 count];
-          v54 = v18;
+          v53 = v18;
           if (valueCopy || v19)
           {
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
             v56 = 0u;
+            v57 = 0u;
+            v54 = 0u;
+            v55 = 0u;
             v20 = v18;
-            v21 = [v20 countByEnumeratingWithState:&v55 objects:v72 count:16];
+            v21 = [v20 countByEnumeratingWithState:&v54 objects:v71 count:16];
             if (v21)
             {
               v22 = v21;
-              v23 = *v56;
+              v23 = *v55;
               do
               {
                 for (j = 0; j != v22; ++j)
                 {
-                  if (*v56 != v23)
+                  if (*v55 != v23)
                   {
                     objc_enumerationMutation(v20);
                   }
 
-                  v25 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:v17 value:*(*(&v55 + 1) + 8 * j) operatorType:type];
+                  v25 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:v17 value:*(*(&v54 + 1) + 8 * j) operatorType:type];
                   [v12 addObject:v25];
                 }
 
-                v22 = [v20 countByEnumeratingWithState:&v55 objects:v72 count:16];
+                v22 = [v20 countByEnumeratingWithState:&v54 objects:v71 count:16];
               }
 
               while (v22);
-              v11 = v50;
-              valueCopy = v51;
-              v14 = v49;
+              v11 = v49;
+              valueCopy = v50;
+              v14 = v48;
             }
 
-            v15 = v52;
+            v15 = v51;
           }
 
           else
@@ -309,10 +303,10 @@ void __73__HDMetadataValueEntityPredicate_predicateWithMetadataKey_allowedValues
           }
         }
 
-        v53 = [v14 countByEnumeratingWithState:&v59 objects:v73 count:16];
+        v52 = [v14 countByEnumeratingWithState:&v58 objects:v72 count:16];
       }
 
-      while (v53);
+      while (v52);
     }
 
     if (valueCopy && type == 5)
@@ -322,12 +316,12 @@ void __73__HDMetadataValueEntityPredicate_predicateWithMetadataKey_allowedValues
 
     else
     {
-      v26 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:{v12, v47}];
+      v26 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:{v12, v46}];
     }
 
     v27 = v26;
 
-    keyCopy = v48;
+    keyCopy = v47;
   }
 
   else
@@ -354,16 +348,16 @@ LABEL_51:
   v29 = v28;
   v30 = objc_opt_self();
   v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = __84__HDMetadataValueEntityPredicate__predicateWithMetadataKeyAliasRanges_operatorType___block_invoke;
-  v63[3] = &unk_27861FD50;
-  v64 = v31;
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = __84__HDMetadataValueEntityPredicate__predicateWithMetadataKeyAliasRanges_operatorType___block_invoke;
+  v62[3] = &unk_27861FD50;
+  v63 = v31;
   typeCopy = type;
-  v66 = v30;
-  v67 = sel__predicateWithMetadataKeyAliasRanges_operatorType_;
+  v65 = v30;
+  v66 = sel__predicateWithMetadataKeyAliasRanges_operatorType_;
   v32 = v31;
-  [v29 enumerateKeysAndObjectsUsingBlock:v63];
+  [v29 enumerateKeysAndObjectsUsingBlock:v62];
 
   if (type == 5)
   {
@@ -392,17 +386,17 @@ LABEL_51:
   v39 = MEMORY[0x277D10B20];
   if (v37)
   {
-    v71[0] = v34;
-    v71[1] = v35;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+    v70[0] = v34;
+    v70[1] = v35;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
     [v39 predicateMatchingAllPredicates:v40];
   }
 
   else
   {
-    v70[0] = v34;
-    v70[1] = v35;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+    v69[0] = v34;
+    v69[1] = v35;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
     [v39 predicateMatchingAnyPredicates:v40];
   }
   v33 = ;
@@ -410,46 +404,44 @@ LABEL_51:
   if (v27 && v33)
   {
     v41 = MEMORY[0x277D10B20];
-    valueCopy = v51;
+    valueCopy = v50;
     if (v38)
     {
-      v69[0] = v27;
-      v69[1] = v33;
-      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+      v68[0] = v27;
+      v68[1] = v33;
+      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
       [v41 predicateMatchingAllPredicates:v42];
     }
 
     else
     {
-      v68[0] = v27;
-      v68[1] = v33;
-      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
+      v67[0] = v27;
+      v67[1] = v33;
+      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
       [v41 predicateMatchingAnyPredicates:v42];
     }
     v44 = ;
 
     v33 = v44;
-    v11 = v50;
+    v11 = v49;
     goto LABEL_56;
   }
 
-  valueCopy = v51;
+  valueCopy = v50;
   if (v27)
   {
-    v11 = v50;
+    v11 = v49;
     goto LABEL_51;
   }
 
-  v11 = v50;
+  v11 = v49;
   if (!v33)
   {
 LABEL_55:
-    v33 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:v48 value:valueCopy operatorType:type];
+    v33 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:v47 value:valueCopy operatorType:type];
   }
 
 LABEL_56:
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -487,32 +479,32 @@ LABEL_56:
 
 void __84__HDMetadataValueEntityPredicate__predicateWithMetadataKeyAliasRanges_operatorType___block_invoke(void *a1, void *a2, void *a3)
 {
-  v46[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v38 = 0u;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v41;
-    v38 = v5;
-    v39 = *v41;
-    v35 = v6;
+    v9 = *v39;
+    v36 = v5;
+    v37 = *v39;
+    v33 = v6;
     do
     {
       v10 = 0;
       do
       {
-        if (*v41 != v9)
+        if (*v39 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v40 + 1) + 8 * v10);
+        v11 = *(*(&v38 + 1) + 8 * v10);
         v12 = a1[5];
         if (v12 <= 2)
         {
@@ -520,7 +512,7 @@ void __84__HDMetadataValueEntityPredicate__predicateWithMetadataKeyAliasRanges_o
           {
             v13 = a1[4];
             v14 = a1[6];
-            v15 = [*(*(&v40 + 1) + 8 * v10) maxValue];
+            v15 = [*(*(&v38 + 1) + 8 * v10) maxValue];
 LABEL_15:
             v17 = v15;
             v19 = [(HDMetadataValueEntityPredicate *)v14 _predicateWithMetadataKey:v5 value:v15 operatorType:a1[5]];
@@ -534,7 +526,7 @@ LABEL_15:
 LABEL_14:
             v13 = a1[4];
             v14 = a1[6];
-            v15 = [*(*(&v40 + 1) + 8 * v10) minValue];
+            v15 = [*(*(&v38 + 1) + 8 * v10) minValue];
             goto LABEL_15;
           }
 
@@ -551,9 +543,9 @@ LABEL_14:
           if (v12 == 4)
           {
             v16 = a1[4];
-            v17 = [(HDMetadataValueEntityPredicate *)a1[6] _predicateWithMetadataKey:v5 valuesWithinRange:*(*(&v40 + 1) + 8 * v10)];
+            v17 = [(HDMetadataValueEntityPredicate *)a1[6] _predicateWithMetadataKey:v5 valuesWithinRange:*(*(&v38 + 1) + 8 * v10)];
             v18 = v16;
-            v9 = v39;
+            v9 = v37;
             [v18 addObject:v17];
             goto LABEL_16;
           }
@@ -564,49 +556,46 @@ LABEL_18:
           goto LABEL_16;
         }
 
-        v36 = MEMORY[0x277D10B20];
-        v37 = a1[4];
+        v34 = MEMORY[0x277D10B20];
+        v35 = a1[4];
         v17 = [(HDMetadataValueEntityPredicate *)a1[6] _predicateWithMetadataKey:v5 exists:0];
-        v44[0] = v17;
-        v20 = a1[6];
-        v21 = v11;
-        v22 = v38;
-        v23 = objc_opt_self();
-        v24 = [v21 minValue];
-        v25 = [(HDMetadataValueEntityPredicate *)v23 _predicateWithMetadataKey:v22 value:v24 operatorType:0];
+        v42[0] = v17;
+        v20 = v11;
+        v21 = v36;
+        v22 = objc_opt_self();
+        v23 = [v20 minValue];
+        v24 = [(HDMetadataValueEntityPredicate *)v22 _predicateWithMetadataKey:v21 value:v23 operatorType:0];
 
-        v26 = [v21 maxValue];
+        v25 = [v20 maxValue];
 
-        v27 = [(HDMetadataValueEntityPredicate *)v23 _predicateWithMetadataKey:v22 value:v26 operatorType:3];
+        v26 = [(HDMetadataValueEntityPredicate *)v22 _predicateWithMetadataKey:v21 value:v25 operatorType:3];
 
-        v9 = v39;
-        v28 = MEMORY[0x277D10B20];
-        v46[0] = v25;
-        v46[1] = v27;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
-        v30 = [v28 predicateMatchingAnyPredicates:v29];
+        v9 = v37;
+        v27 = MEMORY[0x277D10B20];
+        v44[0] = v24;
+        v44[1] = v26;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+        v29 = [v27 predicateMatchingAnyPredicates:v28];
 
-        v44[1] = v30;
-        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
-        v32 = [v36 predicateMatchingAnyPredicates:v31];
-        [v37 addObject:v32];
+        v42[1] = v29;
+        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+        v31 = [v34 predicateMatchingAnyPredicates:v30];
+        [v35 addObject:v31];
 
-        v5 = v38;
-        v6 = v35;
+        v5 = v36;
+        v6 = v33;
 
 LABEL_16:
         ++v10;
       }
 
       while (v8 != v10);
-      v33 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
-      v8 = v33;
+      v32 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v8 = v32;
     }
 
-    while (v33);
+    while (v32);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_predicateWithMetadataKey:(char)key exists:
@@ -629,7 +618,7 @@ LABEL_16:
 
 + (id)predicateWithMetadataKey:(id)key exists:(BOOL)exists
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v7 = HKMetadataAliasesForKey();
   allKeys = [v7 allKeys];
@@ -643,27 +632,27 @@ LABEL_16:
 
   if ([v13 count])
   {
-    v25 = allKeys2;
-    v26 = allKeys;
+    v24 = allKeys2;
+    v25 = allKeys;
     v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v15 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:keyCopy exists:exists];
     [v14 addObject:v15];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v16 = v13;
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v28;
+      v19 = *v27;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(v16);
           }
@@ -672,7 +661,7 @@ LABEL_16:
           [v14 addObject:v21];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v18);
@@ -688,16 +677,14 @@ LABEL_16:
       [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v14];
     }
     v22 = ;
-    allKeys2 = v25;
-    allKeys = v26;
+    allKeys2 = v24;
+    allKeys = v25;
   }
 
   else
   {
     v22 = [(HDMetadataValueEntityPredicate *)self _predicateWithMetadataKey:keyCopy exists:exists];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

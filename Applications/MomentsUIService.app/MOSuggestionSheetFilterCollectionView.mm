@@ -48,7 +48,7 @@
   __chkstk_darwin(v5);
   v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  specialized MOSuggestionSheetFilterCollectionView.collectionView(_:layout:sizeForItemAt:)();
+  specialized MOSuggestionSheetFilterCollectionView.collectionView(_:layout:sizeForItemAt:)(v8);
   v10 = v9;
   v12 = v11;
   (*(v6 + 8))(v8, v5);

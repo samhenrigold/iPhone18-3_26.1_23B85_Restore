@@ -82,7 +82,7 @@ void __31___NSObserverList__receiveBox___block_invoke(uint64_t a1, uint64_t a2, 
   while (a3 != v6);
 }
 
-uint64_t __30___NSObserverList_description__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+NSString *__30___NSObserverList_description__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = [NSString alloc];
   v7 = objc_opt_class();

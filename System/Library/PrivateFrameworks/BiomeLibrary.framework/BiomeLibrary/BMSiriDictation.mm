@@ -17,16 +17,14 @@
 
 + (id)columns
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"absoluteTimestamp" dataType:3 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:1];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"recognizedText" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"correctedText" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
@@ -122,7 +120,7 @@ LABEL_16:
 
 - (id)jsonDictionary
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   absoluteTimestamp = [(BMSiriDictation *)self absoluteTimestamp];
   if (absoluteTimestamp)
   {
@@ -139,31 +137,31 @@ LABEL_16:
 
   recognizedText = [(BMSiriDictation *)self recognizedText];
   correctedText = [(BMSiriDictation *)self correctedText];
-  v15[0] = @"absoluteTimestamp";
+  v14[0] = @"absoluteTimestamp";
   null = v6;
   if (!v6)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"recognizedText";
+  v15[0] = null;
+  v14[1] = @"recognizedText";
   null2 = recognizedText;
   if (!recognizedText)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"correctedText";
+  v15[1] = null2;
+  v14[2] = @"correctedText";
   null3 = correctedText;
   if (!correctedText)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null3;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = null3;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
   if (correctedText)
   {
     if (recognizedText)
@@ -195,14 +193,13 @@ LABEL_12:
 LABEL_18:
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (BMSiriDictation)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"absoluteTimestamp"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -222,16 +219,16 @@ LABEL_9:
           goto LABEL_17;
         }
 
-        v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v23 = *MEMORY[0x1E698F240];
-        v34 = *MEMORY[0x1E696A578];
+        v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v22 = *MEMORY[0x1E698F240];
+        v33 = *MEMORY[0x1E696A578];
         v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"recognizedText"];
-        v35 = v19;
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-        v24 = [v30 initWithDomain:v23 code:2 userInfo:v18];
+        v34 = v19;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+        v23 = [v29 initWithDomain:v22 code:2 userInfo:v18];
         v17 = 0;
         selfCopy = 0;
-        *error = v24;
+        *error = v23;
         goto LABEL_16;
       }
 
@@ -251,13 +248,13 @@ LABEL_9:
       {
         if (error)
         {
-          v31 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v29 = *MEMORY[0x1E698F240];
-          v32 = *MEMORY[0x1E696A578];
-          v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"correctedText"];
-          v33 = v25;
-          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-          *error = [v31 initWithDomain:v29 code:2 userInfo:v26];
+          v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v28 = *MEMORY[0x1E698F240];
+          v31 = *MEMORY[0x1E696A578];
+          v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"correctedText"];
+          v32 = v24;
+          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+          *error = [v30 initWithDomain:v28 code:2 userInfo:v25];
         }
 
         v19 = 0;
@@ -318,19 +315,18 @@ LABEL_6:
     goto LABEL_18;
   }
 
-  v27 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v28 = *MEMORY[0x1E698F240];
-  v36 = *MEMORY[0x1E696A578];
+  v26 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v27 = *MEMORY[0x1E698F240];
+  v35 = *MEMORY[0x1E696A578];
   v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 2001 (CFAbsoluteTime)), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"absoluteTimestamp"];
-  v37[0] = v17;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+  v36[0] = v17;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
   v8 = 0;
   selfCopy = 0;
-  *error = [v27 initWithDomain:v28 code:2 userInfo:v16];
+  *error = [v26 initWithDomain:v27 code:2 userInfo:v16];
 LABEL_17:
 
 LABEL_18:
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -346,24 +342,23 @@ LABEL_18:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_hasRaw_absoluteTimestamp)
   {
-    raw_absoluteTimestamp = self->_raw_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_recognizedText)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_correctedText)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -542,15 +537,13 @@ LABEL_34:
 
 + (id)protoFields
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"absoluteTimestamp" number:1 type:0 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"recognizedText" number:2 type:13 subMessageClass:{0, v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"correctedText" number:3 type:13 subMessageClass:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }

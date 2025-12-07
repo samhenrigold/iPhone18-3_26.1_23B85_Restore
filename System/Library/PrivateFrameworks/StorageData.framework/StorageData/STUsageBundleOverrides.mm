@@ -40,47 +40,45 @@
 
 void __35__STUsageBundleOverrides_overrides__block_invoke()
 {
-  v27[4] = *MEMORY[0x277D85DE8];
-  v24 = @"ignore";
-  v25 = &unk_287C8E650;
-  v26[0] = @"MailUsage.bundle";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-  v27[0] = v0;
-  v26[1] = @"MessagesUsagePreferencesPlugin.bundle";
-  v22 = @"ignore";
-  v23 = &unk_287C8E650;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-  v27[1] = v1;
-  v26[2] = @"SoftwareUpdateUsage.bundle";
-  v20 = @"replaceWithZeroSizeApp";
-  v21 = @"com.apple.Preferences";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-  v27[2] = v2;
-  v26[3] = @"VisualVoicemailUsage.bundle";
-  v18 = @"replaceWithZeroSizeApp";
-  v19 = @"com.apple.mobilephone";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v27[3] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v26[4] = *MEMORY[0x277D85DE8];
+  v23 = @"ignore";
+  v24 = &unk_287C8E650;
+  v25[0] = @"MailUsage.bundle";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v26[0] = v0;
+  v25[1] = @"MessagesUsagePreferencesPlugin.bundle";
+  v21 = @"ignore";
+  v22 = &unk_287C8E650;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v26[1] = v1;
+  v25[2] = @"SoftwareUpdateUsage.bundle";
+  v19 = @"replaceWithZeroSizeApp";
+  v20 = @"com.apple.Preferences";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v26[2] = v2;
+  v25[3] = @"VisualVoicemailUsage.bundle";
+  v17 = @"replaceWithZeroSizeApp";
+  v18 = @"com.apple.mobilephone";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v26[3] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __35__STUsageBundleOverrides_overrides__block_invoke_80;
-  v16 = &unk_279D1D130;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __35__STUsageBundleOverrides_overrides__block_invoke_80;
+  v15 = &unk_279D1D130;
   v6 = v5;
-  v17 = v6;
-  [v4 enumerateKeysAndObjectsUsingBlock:&v13];
+  v16 = v6;
+  [v4 enumerateKeysAndObjectsUsingBlock:&v12];
   v7 = _bundleOverrides;
   _bundleOverrides = v6;
   v8 = v6;
 
   v9 = [STUsageBundleOverrides alloc];
-  v10 = [(STUsageBundleOverrides *)v9 initWithDictionary:MEMORY[0x277CBEC10], v13, v14, v15, v16];
+  v10 = [(STUsageBundleOverrides *)v9 initWithDictionary:MEMORY[0x277CBEC10], v12, v13, v14, v15];
   v11 = _defaultBundleOverrides;
   _defaultBundleOverrides = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __35__STUsageBundleOverrides_overrides__block_invoke_80(uint64_t a1, void *a2, void *a3)

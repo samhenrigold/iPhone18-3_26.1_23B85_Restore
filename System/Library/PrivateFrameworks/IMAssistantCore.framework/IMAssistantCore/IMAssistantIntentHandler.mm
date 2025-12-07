@@ -35,7 +35,7 @@
 
 - (id)handlerForIntent:(id)intent
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   identifier = [intentCopy identifier];
   v6 = [(IMAssistantIntentHandler *)self existingHandlerForIntentIdentifier:identifier];
@@ -49,13 +49,13 @@ LABEL_17:
     {
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
-      v14 = 138412802;
-      v15 = v11;
-      v16 = 2048;
-      v17 = v8;
-      v18 = 2112;
-      v19 = intentCopy;
-      _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Using %@ %p for intent %@", &v14, 0x20u);
+      v13 = 138412802;
+      v14 = v11;
+      v15 = 2048;
+      v16 = v8;
+      v17 = 2112;
+      v18 = intentCopy;
+      _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Using %@ %p for intent %@", &v13, 0x20u);
     }
 
     goto LABEL_22;
@@ -133,22 +133,20 @@ LABEL_19:
   v9 = IMLogHandleForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412290;
-    v15 = intentCopy;
-    _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Received an unknown intent: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = intentCopy;
+    _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Received an unknown intent: %@", &v13, 0xCu);
   }
 
   v8 = 0;
 LABEL_22:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)existingHandlerForIntentIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (![identifierCopy length])
   {
@@ -165,25 +163,25 @@ LABEL_22:
 
   v5 = self->_recentIntentHandlers;
   objc_sync_enter(v5);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = self->_recentIntentHandlers;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         intentIdentifier = [v10 intentIdentifier];
         v12 = [identifierCopy isEqualToString:intentIdentifier];
 
@@ -193,7 +191,7 @@ LABEL_22:
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v23 = identifierCopy;
+            v22 = identifierCopy;
             _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Found existing handler for intent identifier: %@.", buf, 0xCu);
           }
 
@@ -202,7 +200,7 @@ LABEL_22:
         }
       }
 
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -222,14 +220,12 @@ LABEL_14:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = identifierCopy;
+      v22 = identifierCopy;
       _os_log_impl(&dword_25479E000, v15, OS_LOG_TYPE_INFO, "Existing handler not found for intent identifier: %@. Creating new handler.", buf, 0xCu);
     }
 
 LABEL_20:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

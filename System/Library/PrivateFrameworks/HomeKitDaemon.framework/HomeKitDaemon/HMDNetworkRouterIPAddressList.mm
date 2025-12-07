@@ -69,50 +69,50 @@
 
 - (id)serializeWithError:(id *)error
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
+  v46 = *MEMORY[0x277D85DE8];
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v25 = 0u;
   TLV8BufferInit();
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   addresses = [(HMDNetworkRouterIPAddressList *)self addresses];
-  v6 = [addresses countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [addresses countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v22;
+    v9 = *v21;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v22 != v9)
+      if (*v21 != v9)
       {
         objc_enumerationMutation(addresses);
       }
 
-      v11 = *(*(&v21 + 1) + 8 * v10);
+      v11 = *(*(&v20 + 1) + 8 * v10);
       if (v8)
       {
         if (TLV8BufferAppend())
@@ -121,9 +121,9 @@ LABEL_3:
         }
       }
 
-      v20 = 0;
-      v12 = [v11 serializeWithError:&v20];
-      v13 = v20;
+      v19 = 0;
+      v12 = [v11 serializeWithError:&v19];
+      v13 = v19;
       if (v13)
       {
         v16 = v13;
@@ -154,7 +154,7 @@ LABEL_18:
       v8 = 1;
       if (v7 == v10)
       {
-        v7 = [addresses countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [addresses countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -178,12 +178,10 @@ LABEL_18:
 
 LABEL_12:
 
-  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v26 length:?];
+  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:?];
   v16 = 0;
 LABEL_19:
   TLV8BufferFree();
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

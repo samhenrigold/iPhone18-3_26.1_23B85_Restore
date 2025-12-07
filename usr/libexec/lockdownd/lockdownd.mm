@@ -1,4 +1,4 @@
-void sub_100001C38(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100001C38(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
@@ -7,7 +7,7 @@ void sub_100001C38(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint64_t 
       sub_100001CC4(a2);
     }
 
-    if (sub_100002838(a1, a2, v12, v13, v14, v15, v16, v17))
+    if (sub_100002838(a1, a2, v11, v12, v13, v14, v15, v16))
     {
       sub_1000022D8(a1);
     }
@@ -18,7 +18,7 @@ void sub_100001C38(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint64_t 
   else
   {
 
-    sub_10001A104(0, "send_response", @"No response to send", a4, a5, a6, a7, a8, a9);
+    sub_10001A104(0, "send_response", @"No response to send", a4, a5, a6, a7, a8);
   }
 }
 
@@ -80,19 +80,19 @@ __CFDictionary *sub_100001DA8(const void *a1)
 
   else
   {
-    sub_10001A104(0, "create_response", @"Could not create response dict", v3, v4, v5, v6, v7, v10);
+    sub_10001A104(0, "create_response", @"Could not create response dict", v3, v4, v5, v6, v7);
   }
 
   return v8;
 }
 
-void sub_100001E04(int a1, uint64_t a2, CFMutableDictionaryRef theDict, void *value)
+void sub_100001E04(int a1, const char *a2, CFMutableDictionaryRef theDict, const __CFString *value)
 {
   if (a1)
   {
     if (a2)
     {
-      LOBYTE(v6) = a2;
+      v6 = a2;
     }
 
     else
@@ -100,8 +100,14 @@ void sub_100001E04(int a1, uint64_t a2, CFMutableDictionaryRef theDict, void *va
       v6 = " ";
     }
 
-    sub_10000F378(value);
-    sub_10001A104(0, "set_response_error", @"%s %@", v7, v8, v9, v10, v11, v6);
+    v7 = sub_10000F378(value);
+    v13 = @"NULL";
+    if (v7)
+    {
+      v13 = value;
+    }
+
+    sub_10001A104(0, "set_response_error", @"%s %@", v8, v9, v10, v11, v12, v6, v13);
   }
 
   CFDictionarySetValue(theDict, @"Error", value);
@@ -213,7 +219,7 @@ uint64_t sub_10000215C(const __CFString *a1, void *a2)
 
   else
   {
-    sub_10001A104(0, "set_crashcopier_value", @"Invalid key '%@' or value '%@'.", v4, v5, v6, v7, v8, a1);
+    sub_10001A104(0, "set_crashcopier_value", @"Invalid key '%@' or value '%@'.", v4, v5, v6, v7, v8, a1, a2);
   }
 
   return 0;
@@ -341,10 +347,10 @@ uint64_t sub_100002394(uint64_t a1)
   }
 }
 
-uint64_t sub_1000023B0(uint64_t a1, const __CFData *a2, const __CFData *a3, const __CFData *a4, int a5)
+uint64_t sub_1000023B0(unsigned int *a1, const __CFData *a2, const __CFData *a3, const __CFData *a4, int a5)
 {
   v6 = sub_100099ABC(*a1, a2, a3, a4, a5);
-  *(a1 + 24) = v6;
+  *(a1 + 3) = v6;
   if (!v6)
   {
     return 0xFFFFFFFFLL;
@@ -425,7 +431,7 @@ LABEL_10:
   return processed;
 }
 
-ssize_t sub_100002524(uint64_t a1, void *data, size_t dataLength, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+ssize_t sub_100002524(unsigned int *a1, void *data, size_t dataLength, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   processed = -1;
   if (*(a1 + 20) != 1)
@@ -436,11 +442,11 @@ ssize_t sub_100002524(uint64_t a1, void *data, size_t dataLength, uint64_t a4, u
     }
 
     *__error() = 54;
-    sub_10001A104(0, "lockconn_recv", @"walk away", v13, v14, v15, v16, v17, v21);
+    sub_10001A104(0, "lockconn_recv", @"walk away", v13, v14, v15, v16, v17);
     return processed;
   }
 
-  v11 = SSLRead(*(a1 + 24), data, dataLength, &processed);
+  v11 = SSLRead(*(a1 + 3), data, dataLength, &processed);
   if (!v11)
   {
     return processed;
@@ -472,13 +478,14 @@ LABEL_14:
   return processed;
 }
 
-uint64_t sub_100002640(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100002640(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a1;
   *&v23.tv_usec = 0;
   memset(&v24, 0, sizeof(v24));
   if (a1 >= 1024)
   {
-    sub_10001A104(0, "_select_socket", @"Invalid socket (received %d, max is %d).", a4, a5, a6, a7, a8, a1);
+    sub_10001A104(0, "_select_socket", @"Invalid socket (received %d, max is %d).", a4, a5, a6, a7, a8, a1, 1024);
     return 0xFFFFFFFFLL;
   }
 
@@ -492,23 +499,23 @@ LABEL_21:
 
   if (__darwin_check_fd_set_overflow(a1, &v24, 0))
   {
-    *(v24.fds_bits + ((a1 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << a1;
+    *(v24.fds_bits + ((v8 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v8;
   }
 
   v23.tv_usec = 0;
   v23.tv_sec = 60;
-  v9 = fcntl(a1, 3, 4);
+  v9 = fcntl(v8, 3, 4);
   result = 0;
   if ((v9 & 4) == 0)
   {
     v11 = 0;
     while (1)
     {
-      v12 = select(a1 + 1, &v24, 0, 0, &v23);
+      v12 = select(v8 + 1, &v24, 0, 0, &v23);
       memset(&v24, 0, sizeof(v24));
-      if (__darwin_check_fd_set_overflow(a1, &v24, 0))
+      if (__darwin_check_fd_set_overflow(v8, &v24, 0))
       {
-        v24.fds_bits[a1 >> 5] |= 1 << a1;
+        v24.fds_bits[v8 >> 5] |= 1 << v8;
       }
 
       if (v12 != -1)
@@ -524,9 +531,10 @@ LABEL_21:
         goto LABEL_19;
       }
 
-      if (++v11 == 20)
+      v11 = (v11 + 1);
+      if (v11 == 20)
       {
-        LOBYTE(v11) = 20;
+        v11 = 20;
         goto LABEL_20;
       }
     }
@@ -554,7 +562,7 @@ uint64_t sub_100002840(uint64_t a1, const void *a2, CFPropertyListFormat a3, uin
   {
     v10 = @"no connection";
 LABEL_21:
-    sub_10001A104(0, "_send_message", v10, a4, a5, a6, a7, a8, v31);
+    sub_10001A104(0, "_send_message", v10, a4, a5, a6, a7, a8);
     return 0xFFFFFFFFLL;
   }
 
@@ -585,7 +593,7 @@ LABEL_10:
       Length = CFDataGetLength(Data);
       if (Length < 0)
       {
-        sub_10001A104(0, "_send_message", @"message length too small", v14, v15, v16, v17, v18, v31);
+        sub_10001A104(0, "_send_message", @"message length too small", v14, v15, v16, v17, v18);
         CFRelease(v12);
         return 0xFFFFFFFFLL;
       }
@@ -601,8 +609,8 @@ LABEL_10:
         {
           CFRelease(v12);
           v25 = __error();
-          strerror(*v25);
-          sub_10001A104(0, "_send_message", @"Could not send message size %ld: %s\n", v26, v27, v28, v29, v30, v19);
+          v31 = strerror(*v25);
+          sub_10001A104(0, "_send_message", @"Could not send message size %ld: %s\n", v26, v27, v28, v29, v30, v19, v31);
           return 0xFFFFFFFFLL;
         }
 
@@ -649,7 +657,7 @@ LABEL_19:
   return result;
 }
 
-const __CFDictionary *sub_100002A14(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const __CFDictionary *sub_100002A14(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a1 || sub_100002640(*a1, a2, a3, a4, a5, a6, a7, a8))
   {
@@ -689,12 +697,12 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  sub_10001A104(0, "lockconn_receive_message", @"Ignoring message that is not the right type.\n", v20, v21, v22, v23, v24, v29);
+  sub_10001A104(0, "lockconn_receive_message", @"Ignoring message that is not the right type.\n", v20, v21, v22, v23, v24);
   CFRelease(v16);
   return 0;
 }
 
-CFPropertyListRef sub_100002AFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFPropertyListRef sub_100002AFC(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   data = 0;
   error = 0;
@@ -716,7 +724,7 @@ CFPropertyListRef sub_100002AFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     goto LABEL_9;
   }
 
-  v10 = *(a1 + 24);
+  v10 = *(a1 + 3);
   if (!v10)
   {
     return 0;
@@ -730,7 +738,7 @@ CFPropertyListRef sub_100002AFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     {
       v23 = @"walk away - non-SSL 1";
 LABEL_16:
-      sub_10001A104(0, "_receive_message", v23, v11, v12, v13, v14, v15, v52);
+      sub_10001A104(0, "_receive_message", v23, v11, v12, v13, v14, v15, v53, v54, v55, v56);
       return 0;
     }
 
@@ -754,10 +762,12 @@ LABEL_9:
 LABEL_12:
   if (v24 != 4)
   {
-    __error();
-    v26 = __error();
-    strerror(*v26);
-    v52 = 4;
+    v26 = *__error();
+    v27 = __error();
+    v55 = v26;
+    v56 = strerror(*v27);
+    v53 = 4;
+    v54 = v24;
     v23 = @"Could not receive size of message, expected %d bytes, got %ld bytes: (%d, %s)";
     goto LABEL_16;
   }
@@ -765,7 +775,9 @@ LABEL_12:
   v25 = bswap32(data);
   if (v25 > 0x300000)
   {
-    v52 = data;
+    v54 = v25;
+    v55 = 3145728;
+    v53 = data;
     v23 = @"swapped %d message size %d exceeds %d limit";
     goto LABEL_16;
   }
@@ -776,63 +788,63 @@ LABEL_12:
     goto LABEL_16;
   }
 
-  v29 = malloc_type_malloc(v25, 0x100004077774924uLL);
-  if (!v29)
+  v30 = malloc_type_malloc(v25, 0x100004077774924uLL);
+  if (!v30)
   {
-    sub_10001A104(0, "_receive_message", @"can't alloc message size %d", v30, v31, v32, v33, v34, v25);
+    sub_10001A104(0, "_receive_message", @"can't alloc message size %d", v31, v32, v33, v34, v35, v25);
     return 0;
   }
 
-  v35 = v29;
-  v36 = 0;
-  v37 = v29;
+  v36 = v30;
+  v37 = 0;
+  v38 = v30;
   do
   {
-    v38 = sub_100002524(a1, v37, v25 - v36, v30, v31, v32, v33, v34);
-    processed = v38;
-    if (v38 <= 0)
+    v39 = sub_100002524(a1, v38, v25 - v37, v31, v32, v33, v34, v35);
+    processed = v39;
+    if (v39 <= 0)
     {
-      sub_10001A104(0, "_receive_message", @"Could not receive message: %ld.\n", v30, v31, v32, v33, v34, v38);
+      sub_10001A104(0, "_receive_message", @"Could not receive message: %ld.\n", v31, v32, v33, v34, v35, v39);
 LABEL_36:
-      free(v35);
+      free(v36);
       return 0;
     }
 
-    v36 += v38;
-    v37 += v38;
+    v37 += v39;
+    v38 += v39;
   }
 
-  while (v36 < v25);
-  v39 = CFDataCreateWithBytesNoCopy(0, v35, v25, kCFAllocatorMalloc);
-  if (!v39)
+  while (v37 < v25);
+  v40 = CFDataCreateWithBytesNoCopy(0, v36, v25, kCFAllocatorMalloc);
+  if (!v40)
   {
-    sub_10001A104(0, "_receive_message", @"Could not create CFData for message.\n", v40, v41, v42, v43, v44, v52);
+    sub_10001A104(0, "_receive_message", @"Could not create CFData for message.\n", v41, v42, v43, v44, v45);
     goto LABEL_36;
   }
 
-  v45 = v39;
-  v27 = CFPropertyListCreateWithData(0, v39, 0, 0, &error);
-  if (v27)
+  v46 = v40;
+  v28 = CFPropertyListCreateWithData(0, v40, 0, 0, &error);
+  if (v28)
   {
-    v51 = error == 0;
+    v52 = error == 0;
   }
 
   else
   {
-    v51 = 0;
+    v52 = 0;
   }
 
-  if (!v51)
+  if (!v52)
   {
-    sub_10001A104(0, "_receive_message", @"there was an err.", v46, v47, v48, v49, v50, v52);
+    sub_10001A104(0, "_receive_message", @"there was an err.", v47, v48, v49, v50, v51);
     if (error)
     {
       CFRelease(error);
     }
   }
 
-  CFRelease(v45);
-  return v27;
+  CFRelease(v46);
+  return v28;
 }
 
 void sub_100002DA8(const __CFDictionary *a1)
@@ -879,14 +891,14 @@ LABEL_10:
 void sub_100002EF8()
 {
   valuePtr = 0;
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x2020000000;
-  v29 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x2020000000;
+  v28 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v0 = sub_10000308C();
   if (sub_10000F300(v0))
   {
@@ -896,18 +908,18 @@ void sub_100002EF8()
     }
 
     v6 = sub_100006870();
-    v25[3] = v6;
+    v24[3] = v6;
     if (v6)
     {
       if (CFNumberGetValue(v6, kCFNumberDoubleType, &valuePtr))
       {
-        v23[0] = _NSConcreteStackBlock;
-        v23[1] = 3221225472;
-        v23[2] = sub_100003134;
-        v23[3] = &unk_1000F12C8;
-        v23[4] = v28;
-        v23[5] = &v24;
-        sub_1000137E8(v23);
+        v22[0] = _NSConcreteStackBlock;
+        v22[1] = 3221225472;
+        v22[2] = sub_100003134;
+        v22[3] = &unk_1000F12C8;
+        v22[4] = v27;
+        v22[5] = &v23;
+        sub_1000137E8(v22);
         goto LABEL_10;
       }
 
@@ -919,22 +931,22 @@ void sub_100002EF8()
       v19 = @"Failed to query time.";
     }
 
-    sub_10001A104(0, "initialize_pairing_expirations", v19, v7, v8, v9, v10, v11, v22);
+    sub_10001A104(0, "initialize_pairing_expirations", v19, v7, v8, v9, v10, v11);
   }
 
   else
   {
-    sub_10001A104(0, "initialize_pairing_expirations", @"hinky input from the dictionary", v1, v2, v3, v4, v5, v22);
+    sub_10001A104(0, "initialize_pairing_expirations", @"hinky input from the dictionary", v1, v2, v3, v4, v5);
     sub_10001A900(@"com.apple.mobile.ldpair", v12, v13, v14, v15, v16, v17, v18);
   }
 
 LABEL_10:
-  v20 = v25;
-  v21 = v25[3];
+  v20 = v24;
+  v21 = v24[3];
   if (v21)
   {
     CFRelease(v21);
-    v20 = v25;
+    v20 = v24;
   }
 
   v20[3] = 0;
@@ -943,15 +955,15 @@ LABEL_10:
     CFRelease(v0);
   }
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(v27, 8);
 }
 
-void sub_100003068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100003068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 56), 8);
+  _Block_object_dispose((v15 - 56), 8);
   _Unwind_Resume(a1);
 }
 
@@ -971,7 +983,7 @@ CFDictionaryRef sub_10000308C()
 
   else
   {
-    sub_10001A104(0, "copy_paired_hosts_and_dates", @"Invalid paired hosts records.", v1, v2, v3, v4, v5, v7);
+    sub_10001A104(0, "copy_paired_hosts_and_dates", @"Invalid paired hosts records.", v1, v2, v3, v4, v5);
     if (v0)
     {
       CFRelease(v0);
@@ -1001,13 +1013,13 @@ uint64_t sub_100003134(uint64_t a1, void *a2)
 
     else
     {
-      sub_10001A104(0, "initialize_pairing_expirations_block_invoke", @"Pair record doesn't contain host id.", v13, v14, v15, v16, v17, v24);
+      sub_10001A104(0, "initialize_pairing_expirations_block_invoke", @"Pair record doesn't contain host id.", v13, v14, v15, v16, v17);
     }
   }
 
   else
   {
-    sub_10001A104(0, "initialize_pairing_expirations_block_invoke", @"Invalid pair record.", v4, v5, v6, v7, v8, v24);
+    sub_10001A104(0, "initialize_pairing_expirations_block_invoke", @"Invalid pair record.", v4, v5, v6, v7, v8);
     v10 = 0;
   }
 
@@ -1029,7 +1041,7 @@ uint64_t sub_100003224(const void *a1, const void *a2, uint64_t a3, uint64_t a4,
 
       else
       {
-        sub_10001A104(0, "set_last_paired_date", @"Detected greater than %d hosts in domain '%@', trimming list.", v12, v13, v14, v15, v16, 0);
+        sub_10001A104(0, "set_last_paired_date", @"Detected greater than %d hosts in domain '%@', trimming list.", v12, v13, v14, v15, v16, 512, @"com.apple.mobile.ldpair");
         v17 = [(__CFDictionary *)v11 keysSortedByValueUsingComparator:&stru_1000F1308];
         v18 = [v17 count];
         v19 = v18 - 256;
@@ -1043,7 +1055,7 @@ uint64_t sub_100003224(const void *a1, const void *a2, uint64_t a3, uint64_t a4,
             if (v22)
             {
               v23 = [v17 objectAtIndexedSubscript:i];
-              sub_100003650(v23, v24, v25, v26, v27, v28, v29, v30, v60);
+              sub_100003650(v23, v24, v25, v26, v27, v28, v29, v30);
             }
 
             else
@@ -1053,9 +1065,9 @@ uint64_t sub_100003224(const void *a1, const void *a2, uint64_t a3, uint64_t a4,
                 v44 = [v17 objectAtIndexedSubscript:i];
                 v45 = objc_opt_class();
                 *buf = 138412546;
-                v62 = @"com.apple.mobile.ldpair";
-                v63 = 2112;
-                v64 = v45;
+                v61 = @"com.apple.mobile.ldpair";
+                v62 = 2112;
+                v63 = v45;
                 v46 = v45;
                 _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "Unexpected format in preferences for domain %@: %@", buf, 0x16u);
               }
@@ -1087,7 +1099,7 @@ uint64_t sub_100003224(const void *a1, const void *a2, uint64_t a3, uint64_t a4,
         goto LABEL_23;
       }
 
-      sub_10001A104(0, "set_last_paired_date", @"Failed to set pairing date.", v54, v55, v56, v57, v58, v60);
+      sub_10001A104(0, "set_last_paired_date", @"Failed to set pairing date.", v54, v55, v56, v57, v58);
     }
 
     else
@@ -1111,7 +1123,7 @@ LABEL_23:
 
   else
   {
-    sub_10001A104(0, "set_last_paired_date", @"Invalid input", a4, a5, a6, a7, a8, v60);
+    sub_10001A104(0, "set_last_paired_date", @"Invalid input", a4, a5, a6, a7, a8);
     v47 = 0;
     v11 = 0;
     v17 = 0;
@@ -1148,7 +1160,7 @@ uint64_t sub_100003508(const __CFString *a1, void *a2, uint64_t a3, uint64_t a4,
       v16 = @"No last paired date for this host.";
     }
 
-    sub_10001A104(0, "get_last_paired_date", v16, v10, v11, v12, v13, v14, v18);
+    sub_10001A104(0, "get_last_paired_date", v16, v10, v11, v12, v13, v14);
     v15 = 0;
     if (v9)
     {
@@ -1159,7 +1171,7 @@ LABEL_11:
 
   else
   {
-    sub_10001A104(0, "get_last_paired_date", @"Invalid input", a4, a5, a6, a7, a8, v18);
+    sub_10001A104(0, "get_last_paired_date", @"Invalid input", a4, a5, a6, a7, a8);
     return 0;
   }
 
@@ -1197,33 +1209,33 @@ int64_t sub_1000035C4(id a1, id a2, id a3)
   return v9;
 }
 
-void sub_100003650(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100003650(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
     sub_100014CEC(a1, 0);
     sub_100029030(a1);
-    sub_1000140A8(a1, 0, v10, v11, v12, v13, v14, v15);
-    if (sub_10001A840(a1, @"com.apple.mobile.ldpair", v16, v17, v18, v19, v20, v21))
+    sub_1000140A8(a1, 0, v9, v10, v11, v12, v13, v14);
+    if (sub_10001A840(a1, @"com.apple.mobile.ldpair", v15, v16, v17, v18, v19, v20))
     {
-      sub_10001A104(0, "remove_pairing_info_for_host", @"Failed to remove pairing pairing info for %@.", v22, v23, v24, v25, v26, a1);
+      sub_10001A104(0, "remove_pairing_info_for_host", @"Failed to remove pairing pairing info for %@.", v21, v22, v23, v24, v25, a1);
     }
   }
 
   else
   {
 
-    sub_10001A104(0, "remove_pairing_info_for_host", @"Invalid input.", a4, a5, a6, a7, a8, a9);
+    sub_10001A104(0, "remove_pairing_info_for_host", @"Invalid input.", a4, a5, a6, a7, a8);
   }
 }
 
-void sub_1000036FC(const __CFString *a1, const void *a2)
+void sub_1000036FC(const __CFString *a1, const __CFNumber *a2)
 {
   v24 = 0.0;
   valuePtr = 0.0;
   if (!sub_10000F378(a1) || !sub_10000F2C4(a2))
   {
-    sub_10001A104(0, "expire_old_hosts", @"Invalid input.", v4, v5, v6, v7, v8, SLOBYTE(v24));
+    sub_10001A104(0, "expire_old_hosts", @"Invalid input.", v4, v5, v6, v7, v8, *&v24, *&valuePtr);
     v15 = 0;
     goto LABEL_13;
   }
@@ -1234,7 +1246,7 @@ void sub_1000036FC(const __CFString *a1, const void *a2)
   {
     v16 = @"Failed to query time.";
 LABEL_12:
-    sub_10001A104(Value, "expire_old_hosts", v16, v10, v11, v12, v13, v14, SLOBYTE(v24));
+    sub_10001A104(Value, "expire_old_hosts", v16, v10, v11, v12, v13, v14, *&v24, *&valuePtr);
     goto LABEL_13;
   }
 
@@ -1263,7 +1275,7 @@ LABEL_16:
 LABEL_13:
   if (sub_10000F378(a1))
   {
-    sub_100003650(a1, v17, v18, v19, v20, v21, v22, v23, SLOBYTE(v24));
+    sub_100003650(a1, v17, v18, v19, v20, v21, v22, v23);
   }
 
   if (v15)
@@ -1274,18 +1286,18 @@ LABEL_13:
 
 uint64_t sub_10000382C(unsigned int *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v34 = 0;
+  v35 = 1;
+  *&v36.sa_len = 0;
+  *&v36.sa_data[6] = 0;
   v32 = 0;
-  v33 = 1;
-  *&v34.sa_len = 0;
-  *&v34.sa_data[6] = 0;
-  v30 = 0;
+  v33 = 0;
   v31 = 0;
-  v29 = 0;
   if (!a1)
   {
     v13 = @"Invalid input.";
 LABEL_7:
-    sub_10001A104(0, "create_inet_sock", v13, a4, a5, a6, a7, a8, v27);
+    sub_10001A104(0, "create_inet_sock", v13, a4, a5, a6, a7, a8, v28, v29);
     return 0xFFFFFFFFLL;
   }
 
@@ -1294,27 +1306,27 @@ LABEL_7:
   {
     v14 = *__error();
     v15 = __error();
-    strerror(*v15);
-    v27 = v14;
+    v28 = v14;
+    v29 = strerror(*v15);
     v13 = @"Failed to create socket: %d (%s)";
     goto LABEL_7;
   }
 
   v11 = v10;
-  if (setsockopt(v10, 0xFFFF, 4354, &v33, 4u))
+  if (setsockopt(v10, 0xFFFF, 4354, &v35, 4u))
   {
     v12 = @"Failed to set socket option (SO_OPPORTUNISTIC): %d (%s)";
 LABEL_10:
     v16 = *__error();
     v17 = __error();
-    strerror(*v17);
-    sub_10001A104(0, "create_inet_sock", v12, v18, v19, v20, v21, v22, v16);
+    v18 = strerror(*v17);
+    sub_10001A104(0, "create_inet_sock", v12, v19, v20, v21, v22, v23, v16, v18);
     close(v11);
     return 0xFFFFFFFFLL;
   }
 
-  v28 = 4;
-  if (setsockopt(v11, 0xFFFF, 4225, &v28, 4u))
+  v30 = 4;
+  if (setsockopt(v11, 0xFFFF, 4225, &v30, 4u))
   {
     v12 = @"Failed to set socket option (SO_RESTRICTIONS): %d (%s)";
     goto LABEL_10;
@@ -1322,13 +1334,13 @@ LABEL_10:
 
   if (*a1)
   {
-    if (setsockopt(v11, 0xFFFF, 4, &v33, 4u))
+    if (setsockopt(v11, 0xFFFF, 4, &v35, 4u))
     {
       v12 = @"Failed to set socket option (SO_REUSEADDR): %d (%s)";
       goto LABEL_10;
     }
 
-    if (setsockopt(v11, 0xFFFF, 512, &v33, 4u))
+    if (setsockopt(v11, 0xFFFF, 512, &v35, 4u))
     {
       v12 = @"Failed to set socket option (SO_REUSEPORT): %d (%s)";
       goto LABEL_10;
@@ -1337,37 +1349,37 @@ LABEL_10:
 
   if (a2 == 30)
   {
-    LOWORD(v30) = 7708;
-    v31 = in6addr_any;
-    WORD1(v30) = bswap32(*a1) >> 16;
-    v24 = 28;
-    v29 = 28;
-    if (setsockopt(v11, 41, 27, &v33, 4u))
+    LOWORD(v32) = 7708;
+    v33 = in6addr_any;
+    WORD1(v32) = bswap32(*a1) >> 16;
+    v25 = 28;
+    v31 = 28;
+    if (setsockopt(v11, 41, 27, &v35, 4u))
     {
       v12 = @"Failed to set socket option (IPV6_V6ONLY): %d (%s)";
       goto LABEL_10;
     }
 
-    v25 = &v30;
+    v26 = &v32;
   }
 
   else
   {
-    *&v34.sa_len = 528;
-    *&v34.sa_data[2] = 0;
-    *v34.sa_data = bswap32(*a1) >> 16;
-    v24 = 16;
-    v29 = 16;
-    v25 = &v34;
+    *&v36.sa_len = 528;
+    *&v36.sa_data[2] = 0;
+    *v36.sa_data = bswap32(*a1) >> 16;
+    v25 = 16;
+    v31 = 16;
+    v26 = &v36;
   }
 
-  if (bind(v11, v25, v24) == -1)
+  if (bind(v11, v26, v25) == -1)
   {
     v12 = @"Failed to bind socket: %d (%s)";
     goto LABEL_10;
   }
 
-  if (getsockname(v11, v25, &v29) == -1)
+  if (getsockname(v11, v26, &v31) == -1)
   {
     v12 = @"Failed to get socket name: %d (%s)";
     goto LABEL_10;
@@ -1379,19 +1391,20 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v26 = &v34;
+  v27 = &v36;
   if (a2 == 30)
   {
-    v26 = &v30;
+    v27 = &v32;
   }
 
-  *a1 = bswap32(*v26->sa_data) >> 16;
+  *a1 = bswap32(*v27->sa_data) >> 16;
   return v11;
 }
 
-uint64_t sub_100003B14(void *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100003B14(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = a4;
+  v10 = a3;
   v23 = 0;
   v24 = &v23;
   v25 = 0x2020000000;
@@ -1413,7 +1426,7 @@ uint64_t sub_100003B14(void *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5,
 
   else
   {
-    sub_10001A104(0, "dns_register", @"Invalid input.", a4, a5, a6, a7, a8, v19[0]);
+    sub_10001A104(0, "dns_register", @"Invalid input.", a4, a5, a6, a7, a8);
   }
 
   if (v24[3])
@@ -1423,7 +1436,7 @@ uint64_t sub_100003B14(void *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5,
 
   else
   {
-    sub_1000049E4(a1, a3, v9, a5, v13, v14, v15, v16, v19[0]);
+    sub_1000049E4(a1, v10, v9, a5, v13, v14, v15, v16);
     v17 = *(v24 + 24);
   }
 
@@ -1431,22 +1444,22 @@ uint64_t sub_100003B14(void *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5,
   return v17 & 1;
 }
 
-void sub_100003C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100003C54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v59 = 0u;
-  v60 = 0u;
-  *buffer = 0u;
   v58 = 0u;
+  v59 = 0u;
+  *buffer = 0u;
+  v57 = 0u;
   if ((*(a1 + 56) & 1) == 0 && (*(a1 + 57) & 1) == 0)
   {
-    sub_10001A104(0, "dns_register_block_invoke", @"Invalid input. No DNS registration requested.", a4, a5, a6, a7, a8, v56);
+    sub_10001A104(0, "dns_register_block_invoke", @"Invalid input. No DNS registration requested.", a4, a5, a6, a7, a8);
     v34 = 0;
     v24 = 0;
     goto LABEL_41;
@@ -1458,7 +1471,7 @@ void sub_100003C54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   {
     v33 = @"Invalid wireless instance name.";
 LABEL_22:
-    sub_10001A104(CString, "dns_register_block_invoke", v33, v11, v12, v13, v14, v15, v56);
+    sub_10001A104(CString, "dns_register_block_invoke", v33, v11, v12, v13, v14, v15);
     v24 = 0;
     goto LABEL_23;
   }
@@ -1499,7 +1512,7 @@ LABEL_17:
   v24 = strdup(*(a1 + 48));
   if (!v24)
   {
-    sub_10001A104(0, "dns_register_block_invoke", @"Failed to copy service string.", v19, v20, v21, v22, v23, v56);
+    sub_10001A104(0, "dns_register_block_invoke", @"Failed to copy service string.", v19, v20, v21, v22, v23);
 LABEL_23:
     v34 = 0;
     if (!v9)
@@ -1594,7 +1607,7 @@ LABEL_31:
           if (RunLoopSource)
           {
             WiFiManagerClientSetWoWState();
-            sub_10001A104(0, "dns_register_block_invoke", @"Registered WOL.", v50, v51, v52, v53, v54, v56);
+            sub_10001A104(0, "dns_register_block_invoke", @"Registered WOL.", v50, v51, v52, v53, v54);
             goto LABEL_39;
           }
 
@@ -1612,7 +1625,7 @@ LABEL_31:
         v55 = @"IORegisterForSystemPower failed.";
       }
 
-      sub_10001A104(RunLoopSource, "dns_register_block_invoke", v55, v42, v43, v44, v45, v46, v56);
+      sub_10001A104(RunLoopSource, "dns_register_block_invoke", v55, v42, v43, v44, v45, v46);
       if (!v9)
       {
         goto LABEL_41;
@@ -1633,29 +1646,29 @@ LABEL_40:
 LABEL_41:
 }
 
-void sub_100004158(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100004158(void *a1, uint64_t a2, uint64_t a3, intptr_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  memset(v115, 0, sizeof(v115));
-  v104 = 128;
-  HIDWORD(v11) = a3 + 536870288;
-  LODWORD(v11) = a3 + 536870288;
-  v10 = v11 >> 4;
-  if (v10 > 1)
+  memset(v113, 0, sizeof(v113));
+  v102 = 128;
+  HIDWORD(v10) = a3 + 536870288;
+  LODWORD(v10) = a3 + 536870288;
+  v9 = v10 >> 4;
+  if (v9 > 1)
   {
-    if (v10 == 2)
+    if (v9 == 2)
     {
       if (dword_100109DF0)
       {
 
-        sub_10001A104(0, "_sleep_wake_notification_callback", @"Power notification: kIOMessageCanSystemSleep", a4, a5, a6, a7, a8, a9);
+        sub_10001A104(0, "_sleep_wake_notification_callback", @"Power notification: kIOMessageCanSystemSleep", a4, a5, a6, a7, a8);
       }
 
       return;
     }
 
-    if (v10 != 9)
+    if (v9 != 9)
     {
-      if (v10 != 11)
+      if (v9 != 11)
       {
         goto LABEL_28;
       }
@@ -1663,129 +1676,129 @@ void sub_100004158(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, u
       return;
     }
 
-    sysctlbyname("kern.wakereason", v115, &v104, 0, 0);
+    sysctlbyname("kern.wakereason", v113, &v102, 0, 0);
     if (dword_100109DF0)
     {
-      sub_10001A104(0, "_sleep_wake_notification_callback", @"Power notification: kIOMessageSystemHasPoweredOn (Wake Reason - %s)", v13, v14, v15, v16, v17, v115);
+      sub_10001A104(0, "_sleep_wake_notification_callback", @"Power notification: kIOMessageSystemHasPoweredOn (Wake Reason - %s)", v12, v13, v14, v15, v16, v113);
     }
 
-    v23 = (sub_10000DAD8(*a1, @"com.apple.mobile.wireless_lockdown", @"EnableWifiDebugging", v13, v14, v15, v16, v17) || sub_10000DAD8(*a1, @"com.apple.mobile.wireless_lockdown", @"EnableWifiConnections", v18, v19, v20, v21, v22)) && *(a1 + 24) != 0;
-    v24 = sub_10000DAD8(*a1, @"com.apple.mobile.wireless_lockdown", @"EnableWifiPairing", v18, v19, v20, v21, v22);
-    if (v24 != 0 || !~v23)
+    v22 = (sub_10000DAD8(*a1, @"com.apple.mobile.wireless_lockdown", @"EnableWifiDebugging", v12, v13, v14, v15, v16) || sub_10000DAD8(*a1, @"com.apple.mobile.wireless_lockdown", @"EnableWifiConnections", v17, v18, v19, v20, v21)) && a1[3] != 0;
+    v23 = sub_10000DAD8(*a1, @"com.apple.mobile.wireless_lockdown", @"EnableWifiPairing", v17, v18, v19, v20, v21);
+    if (((v23 == 0) & ~v22) == 0)
     {
-      sub_100003B14(a1, *(a1 + 24), v23, v24 != 0, 0);
+      sub_100003B14(a1, a1[3], v22, v23 != 0, 0);
     }
 
     clock_serv = 0;
     cur_time = 0;
     valuePtr = 0;
-    v25 = mach_host_self();
-    if (host_get_clock_service(v25, 0, &clock_serv))
+    v24 = mach_host_self();
+    if (host_get_clock_service(v24, 0, &clock_serv))
     {
-      v31 = @"Failed to query clock service.";
+      v30 = @"Failed to query clock service.";
 LABEL_31:
-      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", v31, v26, v27, v28, v29, v30, v103);
+      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", v30, v25, v26, v27, v28, v29);
       return;
     }
 
     if (clock_get_time(clock_serv, &cur_time))
     {
-      v31 = @"Failed to get clock time.";
+      v30 = @"Failed to get clock time.";
       goto LABEL_31;
     }
 
-    v38 = 1000 * cur_time.tv_sec;
+    v37 = 1000 * cur_time.tv_sec;
     if (dword_100109DF0)
     {
-      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Current time since boot: %lld.", v26, v27, v28, v29, v30, -24 * LOBYTE(cur_time.tv_sec));
+      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Current time since boot: %lld.", v25, v26, v27, v28, v29, 1000 * cur_time.tv_sec);
     }
 
-    v39 = IOServiceMatching("AppleBCMWLANCore");
-    if (!v39)
+    v38 = IOServiceMatching("AppleBCMWLANCore");
+    if (!v38)
     {
-      v31 = @"Failed to query AppleBCMWLANCore service.";
+      v30 = @"Failed to query AppleBCMWLANCore service.";
       goto LABEL_31;
     }
 
-    MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v39);
-    v41 = MatchingService;
+    MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v38);
+    v40 = MatchingService;
     if (!MatchingService)
     {
-      v31 = @"Failed to get matching service.";
+      v30 = @"Failed to get matching service.";
       goto LABEL_31;
     }
 
     CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"IO80211InterfaceWoWWakeUpParams", kCFAllocatorDefault, 0);
-    v48 = CFProperty;
+    v47 = CFProperty;
     if (!CFProperty)
     {
-      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"IORegistryEntryCreateCFProperty failed for %s.", v43, v44, v45, v46, v47, "IO80211InterfaceWoWWakeUpParams");
-      IOObjectRelease(v41);
+      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"IORegistryEntryCreateCFProperty failed for %s.", v42, v43, v44, v45, v46, "IO80211InterfaceWoWWakeUpParams");
+      IOObjectRelease(v40);
       return;
     }
 
     if (dword_100109DF0)
     {
-      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"APPLE80211_REGKEY_WOW_WAKEUP_PARAMS: %@", v43, v44, v45, v46, v47, CFProperty);
+      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"APPLE80211_REGKEY_WOW_WAKEUP_PARAMS: %@", v42, v43, v44, v45, v46, CFProperty);
     }
 
-    Value = CFDictionaryGetValue(v48, @"IO80211InterfaceWoWWakeUpData");
-    v55 = Value;
+    Value = CFDictionaryGetValue(v47, @"IO80211InterfaceWoWWakeUpData");
+    v54 = Value;
     if (Value)
     {
       BytePtr = CFDataGetBytePtr(Value);
-      Length = CFDataGetLength(v55);
+      Length = CFDataGetLength(v54);
       if (Length > 115)
       {
-        v63 = __rev16(*(BytePtr + 6));
-        switch(v63)
+        v62 = __rev16(*(BytePtr + 6));
+        switch(v62)
         {
-          case 0x86DDu:
+          case 0x86DD:
             if (BytePtr[20] != 17)
             {
-              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Unrecognized IPv6 protocol 0x%02X", v58, v59, v60, v61, v62, BytePtr[20]);
+              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Unrecognized IPv6 protocol 0x%02X", v57, v58, v59, v60, v61, BytePtr[20]);
               goto LABEL_48;
             }
 
-            v64 = BytePtr + 68;
+            v63 = BytePtr + 68;
             break;
-          case 0x842u:
-            v64 = BytePtr + 20;
+          case 0x842:
+            v63 = BytePtr + 20;
             break;
-          case 0x800u:
+          case 0x800:
             if (BytePtr[23] != 17)
             {
-              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Unrecognized IPv4 protocol 0x%02X", v58, v59, v60, v61, v62, BytePtr[23]);
+              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Unrecognized IPv4 protocol 0x%02X", v57, v58, v59, v60, v61, BytePtr[23]);
               goto LABEL_48;
             }
 
-            v64 = &BytePtr[4 * (BytePtr[14] & 0xF) + 28];
+            v63 = &BytePtr[4 * (BytePtr[14] & 0xF) + 28];
             break;
           default:
-            sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Unrecognized etherType 0x%04X", v58, v59, v60, v61, v62, v63);
+            sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Unrecognized etherType 0x%04X", v57, v58, v59, v60, v61, v62);
             goto LABEL_48;
         }
 
-        if (v64 + 96 <= &BytePtr[Length])
+        if (v63 + 96 <= &BytePtr[Length])
         {
           if (qword_10010A620 != -1)
           {
             sub_100099348();
           }
 
-          if (!memcmp(v64, qword_10010A618, 0x60uLL))
+          if (!memcmp(v63, qword_10010A618, 0x60uLL))
           {
-            v70 = CFDictionaryGetValue(v48, @"IO80211InterfaceWoWWakeUpTimeStamp");
-            if (!sub_10000F2C4(v70))
+            v69 = CFDictionaryGetValue(v47, @"IO80211InterfaceWoWWakeUpTimeStamp");
+            if (!sub_10000F2C4(v69))
             {
-              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Failed to query %s.", v71, v72, v73, v74, v75, "IO80211InterfaceWoWWakeUpTimeStamp");
+              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Failed to query %s.", v70, v71, v72, v73, v74, "IO80211InterfaceWoWWakeUpTimeStamp");
               goto LABEL_48;
             }
 
-            v76 = CFNumberGetValue(v70, kCFNumberLongLongType, &valuePtr);
-            if (!v76)
+            v75 = CFNumberGetValue(v69, kCFNumberLongLongType, &valuePtr);
+            if (!v75)
             {
-              sub_10001A104(v76, "_did_wake_for_wifi_wake_packet", @"Failed to convert to integer.", v77, v78, v79, v80, v81, v103);
+              sub_10001A104(v75, "_did_wake_for_wifi_wake_packet", @"Failed to convert to integer.", v76, v77, v78, v79, v80);
               goto LABEL_48;
             }
 
@@ -1793,73 +1806,73 @@ LABEL_31:
             {
               if (valuePtr == qword_10010A610)
               {
-                sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Wake time did not change: %lld", v77, v78, v79, v80, v81, qword_10010A610);
+                sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Wake time did not change: %lld", v76, v77, v78, v79, v80, qword_10010A610);
                 goto LABEL_48;
               }
 
-              v82 = @"New Wake time: %lld";
+              v81 = @"New Wake time: %lld";
             }
 
             else
             {
-              v82 = @"note the time for future reference: %lld";
+              v81 = @"note the time for future reference: %lld";
             }
 
-            sub_10001A104(0, "_did_wake_for_wifi_wake_packet", v82, v77, v78, v79, v80, v81, valuePtr);
-            v88 = valuePtr;
+            sub_10001A104(0, "_did_wake_for_wifi_wake_packet", v81, v76, v77, v78, v79, v80, valuePtr);
+            v87 = valuePtr;
             qword_10010A610 = valuePtr;
             if (dword_100109DF0)
             {
-              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Wake time since boot: %lld.", v83, v84, v85, v86, v87, valuePtr);
-              v88 = valuePtr;
+              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Wake time since boot: %lld.", v82, v83, v84, v85, v86, valuePtr);
+              v87 = valuePtr;
             }
 
-            v89 = v88 - v38;
-            if (v89 >= 0)
+            v88 = v87 - v37;
+            if (v88 >= 0)
             {
-              v90 = v89;
+              v89 = v88;
             }
 
             else
             {
-              v90 = -v89;
+              v89 = -v88;
             }
 
-            sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Wake time difference: %lld.", v83, v84, v85, v86, v87, v90);
-            if (v90 <= 0x7CF)
+            sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Wake time difference: %lld.", v82, v83, v84, v85, v86, v89);
+            if (v89 <= 0x7CF)
             {
-              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"waker was: %02x:%02x:%02x:%02x:%02x:%02x", v91, v92, v93, v94, v95, BytePtr[6]);
-              CFRelease(v48);
-              IOObjectRelease(v41);
+              sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"waker was: %02x:%02x:%02x:%02x:%02x:%02x", v90, v91, v92, v93, v94, BytePtr[6], BytePtr[7], BytePtr[8], BytePtr[9], BytePtr[10], BytePtr[11]);
+              CFRelease(v47);
+              IOObjectRelease(v40);
               valuePtr = 0;
               p_valuePtr = &valuePtr;
-              v113 = 0x2020000000;
-              v114 = 0;
+              v111 = 0x2020000000;
+              v112 = 0;
               if (qword_10010A630 != -1)
               {
                 sub_100099370();
               }
 
-              v96 = IOPMAssertionCreateWithDescription(@"PreventUserIdleSystemSleep", @"com.apple.mobile.lockdownd.wake-on-wlan", @"The 411 on sync.", 0, 0, 0.0, 0, p_valuePtr + 6);
-              if (v96)
+              v95 = IOPMAssertionCreateWithDescription(@"PreventUserIdleSystemSleep", @"com.apple.mobile.lockdownd.wake-on-wlan", @"The 411 on sync.", 0, 0, 0.0, 0, p_valuePtr + 6);
+              if (v95)
               {
-                sub_10001A104(0, "_takePowerAssertionForInterval", @"IOPMAssertionCreateWithDescription failed with %d", v97, v98, v99, v100, v101, v96);
+                sub_10001A104(0, "_takePowerAssertionForInterval", @"IOPMAssertionCreateWithDescription failed with %d", v96, v97, v98, v99, v100, v95);
               }
 
               else
               {
                 if (dword_100109DF0)
                 {
-                  sub_10001A104(0, "_takePowerAssertionForInterval", @"Aquired %ld second power assertion.", v97, v98, v99, v100, v101, 30);
+                  sub_10001A104(0, "_takePowerAssertionForInterval", @"Aquired %ld second power assertion.", v96, v97, v98, v99, v100, 30);
                 }
 
-                v102 = dispatch_time(0, 30000000000);
+                v101 = dispatch_time(0, 30000000000);
                 cur_time = _NSConcreteStackBlock;
-                v107 = 3221225472;
-                v108 = sub_10000C318;
-                v109 = &unk_1000F1718;
-                v110 = &valuePtr;
-                dispatch_after(v102, qword_10010A628, &cur_time);
+                v105 = 3221225472;
+                v106 = sub_10000C318;
+                v107 = &unk_1000F1718;
+                v108 = &valuePtr;
+                dispatch_after(v101, qword_10010A628, &cur_time);
               }
 
               _Block_object_dispose(&valuePtr, 8);
@@ -1869,36 +1882,36 @@ LABEL_31:
 
           else
           {
-            sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Not a WOL packet.", v65, v66, v67, v68, v69, v103);
+            sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Not a WOL packet.", v64, v65, v66, v67, v68);
           }
         }
 
         else
         {
-          sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Payload underrun.", v58, v59, v60, v61, v62, v103);
+          sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Payload underrun.", v57, v58, v59, v60, v61);
         }
       }
 
       else
       {
-        sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Packet is too short.", v58, v59, v60, v61, v62, v103);
+        sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Packet is too short.", v57, v58, v59, v60, v61);
       }
     }
 
     else
     {
-      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Failed to query %s.", v50, v51, v52, v53, v54, "IO80211InterfaceWoWWakeUpData");
+      sub_10001A104(0, "_did_wake_for_wifi_wake_packet", @"Failed to query %s.", v49, v50, v51, v52, v53, "IO80211InterfaceWoWWakeUpData");
     }
 
 LABEL_48:
-    CFRelease(v48);
-    IOObjectRelease(v41);
+    CFRelease(v47);
+    IOObjectRelease(v40);
     return;
   }
 
-  if (v10)
+  if (v9)
   {
-    if (v10 != 1)
+    if (v9 != 1)
     {
 LABEL_28:
       sub_10001A104(0, "_sleep_wake_notification_callback", @"Unknown power notification: %d", a4, a5, a6, a7, a8, a3);
@@ -1907,34 +1920,34 @@ LABEL_28:
 
     if (dword_100109DF0)
     {
-      sub_10001A104(0, "_sleep_wake_notification_callback", @"Power notification: kIOMessageSystemWillSleep", a4, a5, a6, a7, a8, v103);
+      sub_10001A104(0, "_sleep_wake_notification_callback", @"Power notification: kIOMessageSystemWillSleep", a4, a5, a6, a7, a8);
     }
 
-    sub_1000049E4(a1, 1, 1, 0, a5, a6, a7, a8, v103);
+    sub_1000049E4(a1, 1, 1, 0, a5, a6, a7, a8);
   }
 
   else if (dword_100109DF0)
   {
-    sub_10001A104(0, "_sleep_wake_notification_callback", @"Power notification: kIOMessageCanSystemSleep", a4, a5, a6, a7, a8, v103);
+    sub_10001A104(0, "_sleep_wake_notification_callback", @"Power notification: kIOMessageCanSystemSleep", a4, a5, a6, a7, a8);
   }
 
-  v32 = IOAllowPowerChange(*(a1 + 52), a4);
-  if (v32)
+  v31 = IOAllowPowerChange(*(a1 + 13), a4);
+  if (v31)
   {
-    sub_10001A104(0, "_sleep_wake_notification_callback", @"IOAllowPowerChange failed: 0x%08x", v33, v34, v35, v36, v37, v32);
+    sub_10001A104(0, "_sleep_wake_notification_callback", @"IOAllowPowerChange failed: 0x%08x", v32, v33, v34, v35, v36, v31);
   }
 }
 
-void sub_1000049C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000049C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000049E4(void *a1, char a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_1000049E4(void *a1, char a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (a1 && *a1 && (v10 = a1[2]) != 0)
+  if (a1 && *a1 && (v9 = a1[2]) != 0)
   {
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
@@ -1944,26 +1957,28 @@ void sub_1000049E4(void *a1, char a2, char a3, uint64_t a4, uint64_t a5, uint64_
     v13 = a3;
     v11[4] = a1;
     v14 = a4;
-    dispatch_sync(v10, v11);
+    dispatch_sync(v9, v11);
   }
 
   else
   {
 
-    sub_10001A104(0, "dns_unregister", @"Invalid input.", a4, a5, a6, a7, a8, a9);
+    sub_10001A104(0, "dns_unregister", @"Invalid input.", a4, a5, a6, a7, a8);
   }
+
+  return result;
 }
 
-void sub_100004A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_100004A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*(a1 + 40))
   {
-    v10 = *(a1 + 32);
-    if (*(v10 + 32) == 1)
+    v9 = *(a1 + 32);
+    if (*(v9 + 32) == 1)
     {
-      *(v10 + 32) = 0;
+      *(v9 + 32) = 0;
       xpc_set_event();
-      sub_10001A104(0, "dns_unregister_block_invoke", @"Unregistered DNS (syncing).", v11, v12, v13, v14, v15, v27);
+      sub_10001A104(0, "dns_unregister_block_invoke", @"Unregistered DNS (syncing).", v10, v11, v12, v13, v14);
     }
   }
 
@@ -1979,7 +1994,7 @@ void sub_100004A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     {
       *(v16 + 33) = 0;
       xpc_set_event();
-      sub_10001A104(0, "dns_unregister_block_invoke", @"Unregistered DNS (pairing).", v17, v18, v19, v20, v21, v27);
+      sub_10001A104(0, "dns_unregister_block_invoke", @"Unregistered DNS (pairing).", v17, v18, v19, v20, v21);
     }
   }
 
@@ -2024,11 +2039,13 @@ LABEL_8:
 
     *(v22 + 56) = 0;
 
-    sub_10001A104(0, "dns_unregister_block_invoke", @"Unregistered WOL.", a4, a5, a6, a7, a8, a9);
+    sub_10001A104(0, "dns_unregister_block_invoke", @"Unregistered WOL.", a4, a5, a6, a7, a8);
   }
+
+  return result;
 }
 
-uint64_t sub_100004C24()
+BOOL sub_100004C24()
 {
   if (!MGGetBoolAnswer())
   {
@@ -2072,7 +2089,7 @@ uint64_t sub_100004CE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   {
     v9 = @"Invalid input(s).";
 LABEL_9:
-    sub_10001A104(0, "notify_configd", v9, a4, a5, a6, a7, a8, v11);
+    sub_10001A104(0, "notify_configd", v9, a4, a5, a6, a7, a8);
     return byte_10010A5C0;
   }
 
@@ -2103,16 +2120,17 @@ void sub_100004DBC(id a1)
   _objc_release_x1();
 }
 
-void sub_100004DFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100004DFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   out_token = -1;
   if (*(a1 + 32))
   {
     if ((byte_10010A5C0 & 1) == 0)
     {
-      if (notify_register_check("com.apple.mobile.lockdown", &out_token))
+      v8 = notify_register_check("com.apple.mobile.lockdown", &out_token);
+      if (v8)
       {
-        sub_10001A104(0, "notify_configd_block_invoke_2", @"Failed to register notification (%s): %d", v9, v10, v11, v12, v13, "com.apple.mobile.lockdown");
+        sub_10001A104(0, "notify_configd_block_invoke_2", @"Failed to register notification (%s): %d", v9, v10, v11, v12, v13, "com.apple.mobile.lockdown", v8);
       }
 
       else
@@ -2137,7 +2155,7 @@ void sub_100004DFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
           NSLog(@"we failed to create an IOUSBDeviceController");
         }
 
-        sub_10001A104(0, "notify_configd_block_invoke_2", @"Pinged configd, USB is now enabled.", v20, v21, v22, v23, v24, v25);
+        sub_10001A104(0, "notify_configd_block_invoke_2", @"Pinged configd, USB is now enabled.", v20, v21, v22, v23, v24);
         byte_10010A5C0 = 1;
       }
     }
@@ -2146,15 +2164,15 @@ void sub_100004DFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   else
   {
 
-    sub_10001A104(0, "notify_configd_block_invoke_2", @"Invalid input.", a4, a5, a6, a7, a8, a9);
+    sub_10001A104(0, "notify_configd_block_invoke_2", @"Invalid input.", a4, a5, a6, a7, a8);
   }
 }
 
-void sub_100004F38(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_100004F38(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
-    sub_100004FAC(@"DiagnosticsAllowed", a1, @"com.apple.iqagent", a4, a5, a6, a7, a8, vars0);
+    sub_100004FAC(@"DiagnosticsAllowed", a1, @"com.apple.iqagent");
 
     sub_10000F89C(@"com.apple.iqagent.IQAllowedChangeNotification");
   }
@@ -2162,26 +2180,29 @@ void sub_100004F38(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   else
   {
 
-    sub_10001A104(0, "set_iqagent", @"Invalid input.", a4, a5, a6, a7, a8, a9);
+    sub_10001A104(0, "set_iqagent", @"Invalid input.", a4, a5, a6, a7, a8);
   }
+
+  return result;
 }
 
-void sub_100004FAC(const void *a1, const void *a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_100004FAC(const void *a1, const void *a2, const void *a3)
 {
-  v11 = sub_10000F378(a1);
-  v12 = sub_10000F378(a3);
-  v18 = @"bogus request";
-  if (v11 && v12)
+  v5 = sub_10000F378(a1);
+  v6 = sub_10000F378(a3);
+  v12 = @"bogus request";
+  if (v5 && v6)
   {
-    if (!sub_10001A684(v11, a2, v12, v13, v14, v15, v16, v17))
+    if (!sub_10001A684(v5, a2, v6, v7, v8, v9, v10, v11))
     {
-      return;
+      return result;
     }
 
-    v18 = @"Could not set preference via lockbot";
+    v12 = @"Could not set preference via lockbot";
   }
 
-  sub_10001A104(0, "_set_mobile_preference", v18, v13, v14, v15, v16, v17, a9);
+  sub_10001A104(0, "_set_mobile_preference", v12, v7, v8, v9, v10, v11);
+  return result;
 }
 
 uint64_t sub_100005044()
@@ -2192,7 +2213,7 @@ uint64_t sub_100005044()
     v5 = @"Could not get master port";
     v6 = 0;
 LABEL_3:
-    sub_10001A104(v6, "disable_auto_boot", v5, v0, v1, v2, v3, v4, v22);
+    sub_10001A104(v6, "disable_auto_boot", v5, v0, v1, v2, v3, v4);
     return 0xFFFFFFFFLL;
   }
 
@@ -2210,7 +2231,7 @@ LABEL_3:
     v15 = v9;
     if (IORegistryEntrySetCFProperty(v8, @"auto-boot", v9))
     {
-      sub_10001A104(0, "disable_auto_boot", @"Could not set auto-boot setting", v16, v17, v18, v19, v20, v22);
+      sub_10001A104(0, "disable_auto_boot", @"Could not set auto-boot setting", v16, v17, v18, v19, v20);
       v7 = 0xFFFFFFFFLL;
     }
 
@@ -2224,7 +2245,7 @@ LABEL_3:
 
   else
   {
-    sub_10001A104(0, "disable_auto_boot", @"Could not create CFData", v10, v11, v12, v13, v14, v22);
+    sub_10001A104(0, "disable_auto_boot", @"Could not create CFData", v10, v11, v12, v13, v14);
     v7 = 0xFFFFFFFFLL;
   }
 
@@ -2435,7 +2456,7 @@ CFTypeRef sub_100005940(uint64_t a1)
   {
     v10 = @"Failed to create dictionary.";
 LABEL_6:
-    sub_10001A104(0, "copy_disk_usage_block_invoke_2", v10, v3, v4, v5, v6, v7, v12);
+    sub_10001A104(0, "copy_disk_usage_block_invoke_2", v10, v3, v4, v5, v6, v7);
     v9 = 0;
     goto LABEL_7;
   }
@@ -2465,7 +2486,7 @@ uint64_t sub_100005A70(uint64_t a1, void *a2, char a3)
   v16 = &v15;
   v17 = 0x2020000000;
   v18 = 0;
-  v6 = sub_100005D9C();
+  v6 = sub_100005D9C(v5);
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = sub_100005DEC;
@@ -2515,22 +2536,22 @@ uint64_t sub_100005CE8(const void *a1, const void *a2, __CFDictionary **a3, uint
   return sub_100005780(a1, a2, a3, v5);
 }
 
-void sub_100005D54()
+void sub_100005D54(uint64_t a1)
 {
-  v0 = sub_100005D9C();
-  dispatch_async(v0, &stru_1000F14C0);
+  v1 = sub_100005D9C(a1);
+  dispatch_async(v1, &stru_1000F14C0);
 }
 
-id sub_100005D9C()
+id sub_100005D9C(uint64_t a1)
 {
   if (qword_10010A608 != -1)
   {
     sub_1000993D4();
   }
 
-  v1 = qword_10010A600;
+  v2 = qword_10010A600;
 
-  return v1;
+  return v2;
 }
 
 void sub_100005DEC(uint64_t a1)
@@ -2551,7 +2572,7 @@ void sub_100005DEC(uint64_t a1)
 
 void sub_100005E84(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100005D9C();
+  v4 = sub_100005D9C(a1);
   dispatch_assert_queue_V2(v4);
 
   sub_10000D084(a1, @"com.apple.disk_usage", @"MobileApplicationUsage", a2);
@@ -2561,31 +2582,31 @@ void sub_100005E84(uint64_t a1, uint64_t a2)
 
 void sub_100005F14(id a1, _data_ark *a2)
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = sub_10000ADE8;
-  v11 = sub_10000ADF8;
-  v12 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_10000ADE8;
+  v12 = sub_10000ADF8;
+  v13 = 0;
   v3 = os_transaction_create();
-  v4 = v8[5];
-  v8[5] = v3;
+  v4 = v9[5];
+  v9[5] = v3;
 
-  v5 = sub_100005D9C();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_10000BF80;
-  v6[3] = &unk_1000F1788;
-  v6[4] = &v7;
-  v6[5] = a2;
-  dispatch_async(v5, v6);
+  v6 = sub_100005D9C(v5);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10000BF80;
+  v7[3] = &unk_1000F1788;
+  v7[4] = &v8;
+  v7[5] = a2;
+  dispatch_async(v6, v7);
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
 }
 
-void sub_100006010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2598,15 +2619,15 @@ const __CFString *sub_100006044(const __CFString *a1)
     if (MutableCopy)
     {
       v8 = MutableCopy;
-      v32.length = CFStringGetLength(MutableCopy);
+      v31.length = CFStringGetLength(MutableCopy);
+      v31.location = 0;
+      CFStringFindAndReplace(v8, @" ", @"-", v31, 0);
+      v32.length = CFStringGetLength(v8);
       v32.location = 0;
-      CFStringFindAndReplace(v8, @" ", @"-", v32, 0);
+      CFStringFindAndReplace(v8, @"_", @"-", v32, 0);
       v33.length = CFStringGetLength(v8);
       v33.location = 0;
-      CFStringFindAndReplace(v8, @"_", @"-", v33, 0);
-      v34.length = CFStringGetLength(v8);
-      v34.location = 0;
-      CFStringFindAndReplace(v8, @"--", @"-", v34, 0);
+      CFStringFindAndReplace(v8, @"--", @"-", v33, 0);
       CFStringTrim(v8, @"-");
       Length = CFStringGetLength(v8);
       if (Length < 1)
@@ -2614,9 +2635,9 @@ const __CFString *sub_100006044(const __CFString *a1)
         goto LABEL_24;
       }
 
-      v31.length = Length;
-      v31.location = 0;
-      v15 = CFStringTokenizerCreate(0, v8, v31, 0x10004uLL, 0);
+      v30.length = Length;
+      v30.location = 0;
+      v15 = CFStringTokenizerCreate(0, v8, v30, 0x10004uLL, 0);
       if (v15)
       {
         v16 = v15;
@@ -2680,7 +2701,7 @@ LABEL_26:
       }
 
 LABEL_24:
-      sub_10001A104(0, "sanitize_device_name", @"Failed to create posix name, using default.", v10, v11, v12, v13, v14, v29);
+      sub_10001A104(0, "sanitize_device_name", @"Failed to create posix name, using default.", v10, v11, v12, v13, v14);
       v20 = MGCopyAnswer();
       if (!v20)
       {
@@ -2690,7 +2711,7 @@ LABEL_24:
       goto LABEL_26;
     }
 
-    sub_10001A104(0, "sanitize_device_name", @"Failed to copy string.", v3, v4, v5, v6, v7, v29);
+    sub_10001A104(0, "sanitize_device_name", @"Failed to copy string.", v3, v4, v5, v6, v7);
   }
 
   return 0;
@@ -2718,7 +2739,7 @@ CFStringRef sub_1000062DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
 
   else
   {
-    sub_10001A104(0, "copy_device_name", @"Failed to create dynamic store.", a4, a5, a6, a7, a8, v16);
+    sub_10001A104(0, "copy_device_name", @"Failed to create dynamic store.", a4, a5, a6, a7, a8);
   }
 
   return 0;
@@ -2737,120 +2758,120 @@ uint64_t sub_100006398(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t 
         if (!SCPreferencesSetComputerName(v10, a1, 0x8000100u))
         {
           v11 = SCError();
-          SCErrorString(v11);
-          sub_10001A104(0, "set_device_name", @"SCPreferencesSetComputerName failed (%@): %s", v12, v13, v14, v15, v16, a1);
+          v12 = SCErrorString(v11);
+          sub_10001A104(0, "set_device_name", @"SCPreferencesSetComputerName failed (%@): %s", v13, v14, v15, v16, v17, a1, v12);
         }
 
-        v17 = sub_100006044(a1);
-        if (v17)
+        v18 = sub_100006044(a1);
+        if (v18)
         {
-          v23 = v17;
+          v24 = v18;
           if (!SCPreferencesSetHostName())
           {
-            v24 = SCError();
-            SCErrorString(v24);
-            sub_10001A104(0, "set_device_name", @"SCPreferencesSetHostName failed (%@): %s", v25, v26, v27, v28, v29, v23);
+            v25 = SCError();
+            v26 = SCErrorString(v25);
+            sub_10001A104(0, "set_device_name", @"SCPreferencesSetHostName failed (%@): %s", v27, v28, v29, v30, v31, v24, v26);
           }
 
-          if (!SCPreferencesSetLocalHostName(v10, v23))
+          if (!SCPreferencesSetLocalHostName(v10, v24))
           {
-            v30 = SCError();
-            SCErrorString(v30);
-            sub_10001A104(0, "set_device_name", @"SCPreferencesSetLocalHostName failed (%@): %s", v31, v32, v33, v34, v35, v23);
+            v32 = SCError();
+            v33 = SCErrorString(v32);
+            sub_10001A104(0, "set_device_name", @"SCPreferencesSetLocalHostName failed (%@): %s", v34, v35, v36, v37, v38, v24, v33);
           }
 
           if (SCPreferencesCommitChanges(v10))
           {
             if (SCPreferencesApplyChanges(v10))
             {
-              v36 = 1;
+              v39 = 1;
 LABEL_23:
               SCPreferencesUnlock(v10);
-              CFRelease(v23);
+              CFRelease(v24);
               goto LABEL_24;
             }
 
-            v46 = @"SCPreferencesApplyChanges failed: %s";
+            v49 = @"SCPreferencesApplyChanges failed: %s";
           }
 
           else
           {
-            v46 = @"SCPreferencesCommitChanges failed: %s";
+            v49 = @"SCPreferencesCommitChanges failed: %s";
           }
 
-          v47 = SCError();
-          v48 = SCErrorString(v47);
-          sub_10001A104(0, "set_device_name", v46, v49, v50, v51, v52, v53, v48);
-          v36 = 0;
+          v50 = SCError();
+          v51 = SCErrorString(v50);
+          sub_10001A104(0, "set_device_name", v49, v52, v53, v54, v55, v56, v51);
+          v39 = 0;
           goto LABEL_23;
         }
 
-        sub_10001A104(0, "set_device_name", @"Failed to sanitize device name.", v18, v19, v20, v21, v22, v55);
+        sub_10001A104(0, "set_device_name", @"Failed to sanitize device name.", v19, v20, v21, v22, v23);
         SCPreferencesUnlock(v10);
       }
 
       else
       {
-        v39 = SCError();
-        v40 = SCErrorString(v39);
-        sub_10001A104(0, "set_device_name", @"SCPreferencesLock failed: %s", v41, v42, v43, v44, v45, v40);
+        v42 = SCError();
+        v43 = SCErrorString(v42);
+        sub_10001A104(0, "set_device_name", @"SCPreferencesLock failed: %s", v44, v45, v46, v47, v48, v43);
       }
 
-      v36 = 0;
+      v39 = 0;
 LABEL_24:
       CFRelease(v10);
-      return v36;
+      return v39;
     }
 
-    v38 = SCError();
-    v55 = SCErrorString(v38);
-    v37 = @"SCPreferencesCreate failed: %s";
+    v41 = SCError();
+    v58 = SCErrorString(v41);
+    v40 = @"SCPreferencesCreate failed: %s";
   }
 
   else
   {
-    v37 = @"Invalid input.";
+    v40 = @"Invalid input.";
   }
 
-  sub_10001A104(0, "set_device_name", v37, a4, a5, a6, a7, a8, v55);
+  sub_10001A104(0, "set_device_name", v40, a4, a5, a6, a7, a8, v58);
   return 0;
 }
 
-CFDataRef sub_1000065A8()
+CFDataRef sub_1000065A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = __chkstk_darwin();
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 4096;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_100006854;
-  v15[3] = &unk_1000F1570;
-  v15[4] = &v16;
-  v15[5] = bytes;
-  v1 = sub_100006710(v0, v15);
-  if (v1)
+  v8 = __chkstk_darwin(a1, a2, a3, a4, a5, a6, a7, a8);
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 4096;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100006854;
+  v22[3] = &unk_1000F1570;
+  v22[4] = &v23;
+  v22[5] = bytes;
+  v9 = sub_100006710(v8, v22);
+  if (v9)
   {
-    sub_10001A104(0, "extract_cesm_certificate", @"Could not get certificate chain from vault: %ld", v2, v3, v4, v5, v6, v1);
+    sub_10001A104(0, "extract_cesm_certificate", @"Could not get certificate chain from vault: %ld", v10, v11, v12, v13, v14, v9);
     goto LABEL_4;
   }
 
-  v12 = CFDataCreate(0, bytes, *(v17 + 6));
-  if (!v12)
+  v20 = CFDataCreate(0, bytes, *(v24 + 6));
+  if (!v20)
   {
-    sub_10001A104(0, "extract_cesm_certificate", @"Could not create CFData from cert chain", v7, v8, v9, v10, v11, v14);
+    sub_10001A104(0, "extract_cesm_certificate", @"Could not create CFData from cert chain", v15, v16, v17, v18, v19);
 LABEL_4:
-    v12 = 0;
+    v20 = 0;
   }
 
-  _Block_object_dispose(&v16, 8);
-  return v12;
+  _Block_object_dispose(&v23, 8);
+  return v20;
 }
 
-void sub_1000066F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000066F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2866,22 +2887,22 @@ uint64_t sub_100006710(NSObject **a1, void *a2)
     v6 = sub_10000D3AC(a1, @"com.apple.fairplay", @"FairPlayContextID");
     if (!sub_10000F2C4(v6))
     {
-      v27 = @"Could not find context in ark";
+      v21 = @"Could not find context in ark";
       goto LABEL_11;
     }
 
     if (!CFNumberGetValue(v6, kCFNumberIntType, &valuePtr))
     {
-      v27 = @"Could not convert context";
+      v21 = @"Could not convert context";
 LABEL_11:
-      sub_10001A104(0, "retryFairplay", v27, v7, v8, v9, v10, v11, v28);
+      sub_10001A104(0, "retryFairplay", v21, v7, v8, v9, v10, v11);
       if (v6)
       {
         CFRelease(v6);
       }
 
 LABEL_6:
-      v25 = 4294925264;
+      v19 = 4294925264;
       goto LABEL_8;
     }
 
@@ -2892,8 +2913,8 @@ LABEL_6:
       break;
     }
 
-    sub_10001A104(0, "retryFairplay", @"Context died", v13, v14, v15, v16, v17, v28);
-    sub_10001133C(a1, v18, v19, v20, v21, v22, v23, v24, v29);
+    sub_10001A104(0, "retryFairplay", @"Context died", v13, v14, v15, v16, v17);
+    sub_10001133C(a1, v18);
     v4 = 0;
     if ((v5 & 1) == 0)
     {
@@ -2901,25 +2922,25 @@ LABEL_6:
     }
   }
 
-  v25 = v12;
+  v19 = v12;
 LABEL_8:
 
-  return v25;
+  return v19;
 }
 
 CFNumberRef sub_100006870()
 {
-  v9.tv_sec = 0;
-  *&v9.tv_usec = 0;
-  if (gettimeofday(&v9, 0))
+  v8.tv_sec = 0;
+  *&v8.tv_usec = 0;
+  if (gettimeofday(&v8, 0))
   {
     v5 = @"Could not get current time";
 LABEL_3:
-    sub_10001A104(0, "copy_time_since_bowie", v5, v0, v1, v2, v3, v4, v7);
+    sub_10001A104(0, "copy_time_since_bowie", v5, v0, v1, v2, v3, v4);
     return 0;
   }
 
-  valuePtr = v9.tv_usec / 1000000.0 + v9.tv_sec;
+  valuePtr = v8.tv_usec / 1000000.0 + v8.tv_sec;
   result = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
   if (!result)
   {
@@ -2942,7 +2963,7 @@ uint64_t sub_10000690C(int a1, CFNumberRef number, uint64_t a3, uint64_t a4, uin
 
   else
   {
-    sub_10001A104(0, "set_time_since_bowie", @"Failed to get number.", a4, a5, a6, a7, a8, v9);
+    sub_10001A104(0, "set_time_since_bowie", @"Failed to get number.", a4, a5, a6, a7, a8);
     return 0xFFFFFFFFLL;
   }
 }
@@ -2963,7 +2984,7 @@ CFStringRef sub_1000069A0()
 
     else
     {
-      sub_10001A104(0, "copy_timezone", @"Could not get time zone name", v8, v9, v10, v11, v12, v15);
+      sub_10001A104(0, "copy_timezone", @"Could not get time zone name", v8, v9, v10, v11, v12);
     }
 
     CFRelease(v6);
@@ -2971,7 +2992,7 @@ CFStringRef sub_1000069A0()
 
   else
   {
-    sub_10001A104(0, "copy_timezone", @"Could not copy system time zone", v1, v2, v3, v4, v5, v15);
+    sub_10001A104(0, "copy_timezone", @"Could not copy system time zone", v1, v2, v3, v4, v5);
     return 0;
   }
 
@@ -2990,7 +3011,7 @@ uint64_t sub_100006A20(int a1, CFStringRef theString, uint64_t a3, uint64_t a4, 
   {
     v8 = @"Timezone shenanigans.";
 LABEL_5:
-    sub_10001A104(0, "set_timezone", v8, a4, a5, a6, a7, a8, v10);
+    sub_10001A104(0, "set_timezone", v8, a4, a5, a6, a7, a8);
     return 0xFFFFFFFFLL;
   }
 
@@ -3026,7 +3047,7 @@ CFPropertyListRef sub_100006B00(const void *a1, const void *a2)
 
   else
   {
-    sub_10001A104(0, "_copy_mobile_preference", @"bogus request", v6, v7, v8, v9, v10, v12);
+    sub_10001A104(0, "_copy_mobile_preference", @"bogus request", v6, v7, v8, v9, v10);
     return 0;
   }
 }
@@ -3035,7 +3056,7 @@ uint64_t sub_100006B74(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
 {
   if (a1)
   {
-    sub_100004FAC(@"AppleICUForce24HourTime", a1, kCFPreferencesAnyApplication, a4, a5, a6, a7, a8, vars0);
+    sub_100004FAC(@"AppleICUForce24HourTime", a1, kCFPreferencesAnyApplication);
     sub_10000F89C(@"AppleTimePreferencesChangedNotification");
     sub_10000F89C(@"SignificantTimeChangeNotification");
     return 0;
@@ -3043,7 +3064,7 @@ uint64_t sub_100006B74(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
 
   else
   {
-    sub_10001A104(0, "set_military_time", @"Invalid input.", a4, a5, a6, a7, a8, vars0);
+    sub_10001A104(0, "set_military_time", @"Invalid input.", a4, a5, a6, a7, a8);
     return 0xFFFFFFFFLL;
   }
 }
@@ -3070,15 +3091,15 @@ void sub_100006C38(const __CFBoolean *a1)
   {
     if (CFEqual(a1, kCFBooleanTrue))
     {
-      v7 = a1;
+      v2 = a1;
     }
 
     else
     {
-      v7 = kCFBooleanFalse;
+      v2 = kCFBooleanFalse;
     }
 
-    sub_100004FAC(@"EnableTetheredDisplayPortMode", v7, kCFPreferencesAnyApplication, v2, v3, v4, v5, v6, v8);
+    sub_100004FAC(@"EnableTetheredDisplayPortMode", v2, kCFPreferencesAnyApplication);
 
     sub_10000F89C(@"com.apple.mobile.demo_mode_changed");
   }
@@ -3100,32 +3121,32 @@ CFNumberRef sub_100006CCC()
   return CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &valuePtr);
 }
 
-void sub_100006D34(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100006D34(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
-    v10 = sub_100006B00(@"AppleLanguages", 0);
-    if (sub_10000F33C(v10))
+    v9 = sub_100006B00(@"AppleLanguages", 0);
+    if (sub_10000F33C(v9))
     {
-      sub_10001A104(0, "set_language", @"Pre-pending the language list with %@.", v11, v12, v13, v14, v15, a2);
-      Mutable = sub_100006EF4(v10, a2);
+      sub_10001A104(0, "set_language", @"Pre-pending the language list with %@.", v10, v11, v12, v13, v14, a2);
+      Mutable = sub_100006EF4(v9, a2);
       if (!Mutable)
       {
-        v22 = @"Failed to create languages list.";
+        v21 = @"Failed to create languages list.";
         goto LABEL_18;
       }
     }
 
     else
     {
-      sub_10001A104(0, "set_language", @"Failed to copy language list, creating new one.", v11, v12, v13, v14, v15, v28);
+      sub_10001A104(0, "set_language", @"Failed to copy language list, creating new one.", v10, v11, v12, v13, v14);
       Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
       if (!Mutable)
       {
-        v22 = @"Failed to create array.";
+        v21 = @"Failed to create array.";
 LABEL_18:
-        sub_10001A104(0, "set_language", v22, v16, v17, v18, v19, v20, v29);
-        if (!v10)
+        sub_10001A104(0, "set_language", v21, v15, v16, v17, v18, v19);
+        if (!v9)
         {
 LABEL_12:
           if (Mutable)
@@ -3138,19 +3159,19 @@ LABEL_12:
         }
 
 LABEL_11:
-        CFRelease(v10);
+        CFRelease(v9);
         goto LABEL_12;
       }
 
-      sub_10001A104(0, "set_language", @"Creating a language with with %@", v16, v17, v18, v19, v20, a2);
+      sub_10001A104(0, "set_language", @"Creating a language with with %@", v15, v16, v17, v18, v19, a2);
       CFArrayAppendValue(Mutable, a2);
     }
 
-    sub_100004FAC(@"LockdownSetLanguage", kCFBooleanTrue, @"com.apple.purplebuddy", v16, v17, v18, v19, v20, v29);
-    sub_100004FAC(@"AppleLanguages", Mutable, kCFPreferencesAnyApplication, v23, v24, v25, v26, v27, v30);
+    sub_100004FAC(@"LockdownSetLanguage", kCFBooleanTrue, @"com.apple.purplebuddy");
+    sub_100004FAC(@"AppleLanguages", Mutable, kCFPreferencesAnyApplication);
     sub_10000F89C(@"com.apple.language.changed");
     sub_10000F89C(@"AppleLanguagePreferencesChangedNotification");
-    if (!v10)
+    if (!v9)
     {
       goto LABEL_12;
     }
@@ -3158,7 +3179,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  sub_10001A104(0, "set_language", @"Invalid input.", a4, a5, a6, a7, a8, a9);
+  sub_10001A104(0, "set_language", @"Invalid input.", a4, a5, a6, a7, a8);
 }
 
 const __CFArray *sub_100006EF4(const __CFArray *a1, const void *a2)
@@ -3209,20 +3230,20 @@ const __CFArray *sub_100006EF4(const __CFArray *a1, const void *a2)
 
     else
     {
-      sub_10001A104(0, "_move_to_front", @"Could not copy array", v10, v11, v12, v13, v14, v24);
+      sub_10001A104(0, "_move_to_front", @"Could not copy array", v10, v11, v12, v13, v14);
     }
   }
 
   else
   {
-    sub_10001A104(0, "_move_to_front", @"bad input", v4, v5, v6, v7, v8, v24);
+    sub_10001A104(0, "_move_to_front", @"bad input", v4, v5, v6, v7, v8);
     return 0;
   }
 
   return v15;
 }
 
-void sub_100006FEC(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_100006FEC(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   valuePtr = 0;
   if (a1)
@@ -3233,14 +3254,14 @@ void sub_100006FEC(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
       if (v9)
       {
         v15 = v9;
-        sub_100004FAC(@"contactsSortOrder", v9, @"com.apple.PeoplePicker", v10, v11, v12, v13, v14, v16);
+        sub_100004FAC(@"contactsSortOrder", v9, @"com.apple.PeoplePicker");
         sub_10000F89C(@"com.apple.AddressBook.PreferenceChanged");
         CFRelease(v15);
       }
 
       else
       {
-        sub_10001A104(0, "set_contact_sort_order", @"Failed to create number.", v10, v11, v12, v13, v14, v16);
+        sub_10001A104(0, "set_contact_sort_order", @"Failed to create number.", v10, v11, v12, v13, v14);
       }
     }
   }
@@ -3248,17 +3269,19 @@ void sub_100006FEC(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   else
   {
 
-    sub_10001A104(0, "set_contact_sort_order", @"Invalid input.", a4, a5, a6, a7, a8, a9);
+    sub_10001A104(0, "set_contact_sort_order", @"Invalid input.", a4, a5, a6, a7, a8);
   }
+
+  return result;
 }
 
-void sub_1000070BC(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_1000070BC(const void *a1)
 {
   if (sub_10000F378(a1))
   {
     if (CFEqual(a1, @"ja") || CFEqual(a1, @"zh-Hans") || CFEqual(a1, @"zh-Hant") || CFEqual(a1, @"ko"))
     {
-      sub_100004FAC(@"personNameOrdering", &__kCFBooleanTrue, @"com.apple.PeoplePicker", v15, v16, v17, v18, v19, v20);
+      sub_100004FAC(@"personNameOrdering", &__kCFBooleanTrue, @"com.apple.PeoplePicker");
 
       sub_10000F89C(@"com.apple.AddressBook.PreferenceChanged");
     }
@@ -3267,8 +3290,10 @@ void sub_1000070BC(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   else
   {
 
-    sub_10001A104(0, "set_name_order", @"Invalid input.", v10, v11, v12, v13, v14, a9);
+    sub_10001A104(0, "set_name_order", @"Invalid input.", v2, v3, v4, v5, v6);
   }
+
+  return result;
 }
 
 CFTypeRef sub_1000071A0()
@@ -3285,7 +3310,7 @@ CFTypeRef sub_1000071A0()
 
     else
     {
-      sub_10001A104(0, "copy_language", @"Failed to retrieve first language in list.", v8, v9, v10, v11, v12, v15);
+      sub_10001A104(0, "copy_language", @"Failed to retrieve first language in list.", v8, v9, v10, v11, v12);
       v13 = 0;
     }
 
@@ -3318,17 +3343,17 @@ const __CFString *sub_100007248(const __CFString *a1, uint64_t a2, uint64_t a3, 
 
   else
   {
-    sub_10001A104(0, "transform_locale", @"Invalid input", a4, a5, a6, a7, a8, v10);
+    sub_10001A104(0, "transform_locale", @"Invalid input", a4, a5, a6, a7, a8);
     return 0;
   }
 }
 
-void sub_1000072A4(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_1000072A4(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
-    sub_100004FAC(@"AppleLocale", a2, kCFPreferencesAnyApplication, a4, a5, a6, a7, a8, vars0);
-    sub_100004FAC(@"LockdownSetLocale", kCFBooleanTrue, @"com.apple.purplebuddy", v10, v11, v12, v13, v14, vars0a);
+    sub_100004FAC(@"AppleLocale", a2, kCFPreferencesAnyApplication);
+    sub_100004FAC(@"LockdownSetLocale", kCFBooleanTrue, @"com.apple.purplebuddy");
     sub_10000F89C(@"com.apple.mobile.lockdown.phone_number_changed");
     sub_10000F89C(@"AppleDatePreferencesChangedNotification");
 
@@ -3338,8 +3363,10 @@ void sub_1000072A4(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64
   else
   {
 
-    sub_10001A104(0, "set_locale", @"Invalid input.", a4, a5, a6, a7, a8, a9);
+    sub_10001A104(0, "set_locale", @"Invalid input.", a4, a5, a6, a7, a8);
   }
+
+  return result;
 }
 
 CFTypeRef sub_100007350()
@@ -3373,24 +3400,24 @@ const __CFString *sub_1000073E8(const __CFString *a1)
   return v1;
 }
 
-void sub_100007434(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100007434(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
-    v15 = sub_100006B00(@"AppleKeyboards", 0);
-    if (v15)
+    v14 = sub_100006B00(@"AppleKeyboards", 0);
+    if (v14)
     {
-      sub_10001A104(0, "set_keyboard", @"Prepending the keyboard list with %@.", v10, v11, v12, v13, v14, a2);
-      v16 = sub_100006EF4(v15, a2);
-      if (!v16)
+      sub_10001A104(0, "set_keyboard", @"Prepending the keyboard list with %@.", v9, v10, v11, v12, v13, a2);
+      v15 = sub_100006EF4(v14, a2);
+      if (!v15)
       {
-        sub_10001A104(0, "set_keyboard", @"Failed to re-arrange keyboard list.", v17, v18, v19, v20, v21, v31);
-        v30 = v15;
+        sub_10001A104(0, "set_keyboard", @"Failed to re-arrange keyboard list.", v16, v17, v18, v19, v20);
+        v24 = v14;
         goto LABEL_16;
       }
 
-      v22 = v16;
-      if (CFEqual(v16, v15))
+      v21 = v15;
+      if (CFEqual(v15, v14))
       {
         goto LABEL_13;
       }
@@ -3398,40 +3425,40 @@ void sub_100007434(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64
       goto LABEL_12;
     }
 
-    sub_10001A104(0, "set_keyboard", @"Failed to copy %@.", v10, v11, v12, v13, v14, @"AppleKeyboards");
+    sub_10001A104(0, "set_keyboard", @"Failed to copy %@.", v9, v10, v11, v12, v13, @"AppleKeyboards");
     Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
     if (Mutable)
     {
-      v22 = Mutable;
+      v21 = Mutable;
       sub_10001A104(0, "set_keyboard", @"Creating the keyboard list with %@.", a4, a5, a6, a7, a8, a2);
-      CFArrayAppendValue(v22, a2);
+      CFArrayAppendValue(v21, a2);
 LABEL_12:
-      sub_100004FAC(@"AppleKeyboards", v22, kCFPreferencesAnyApplication, v23, v24, v25, v26, v27, v31);
+      sub_100004FAC(@"AppleKeyboards", v21, kCFPreferencesAnyApplication);
       sub_10000F89C(@"AppleKeyboardsPreferencesChangedNotification");
-      if (!v15)
+      if (!v14)
       {
 LABEL_14:
-        v30 = v22;
+        v24 = v21;
 LABEL_16:
 
-        CFRelease(v30);
+        CFRelease(v24);
         return;
       }
 
 LABEL_13:
-      CFRelease(v15);
+      CFRelease(v14);
       goto LABEL_14;
     }
 
-    v28 = @"Failed to create array.";
+    v22 = @"Failed to create array.";
   }
 
   else
   {
-    v28 = @"Invalid input.";
+    v22 = @"Invalid input.";
   }
 
-  sub_10001A104(0, "set_keyboard", v28, a4, a5, a6, a7, a8, a9);
+  sub_10001A104(0, "set_keyboard", v22, a4, a5, a6, a7, a8);
 }
 
 const void *sub_1000075C8()
@@ -3449,7 +3476,7 @@ const void *sub_1000075C8()
 
     else
     {
-      sub_10001A104(0, "copy_keyboard", @"Failed to get first keyboard in the list.", v8, v9, v10, v11, v12, v15);
+      sub_10001A104(0, "copy_keyboard", @"Failed to get first keyboard in the list.", v8, v9, v10, v11, v12);
     }
 
     CFRelease(v6);
@@ -3488,7 +3515,7 @@ LABEL_26:
   v14 = sub_100006B00(@"AppleLanguages", 0);
   if (!v14)
   {
-    sub_10001A104(0, "_copy_localization_name", @"Could not load languages list or bundle was NULL", v15, v16, v17, v18, v19, v74);
+    sub_10001A104(0, "_copy_localization_name", @"Could not load languages list or bundle was NULL", v15, v16, v17, v18, v19);
 LABEL_21:
     sub_10001A104(0, "copy_sort_sections", @"Failed to get localization for %s.", v42, v43, v44, v45, v46, "/System/Library/PrivateFrameworks/MusicLibrary.framework");
     ValueAtIndex = 0;
@@ -3500,7 +3527,7 @@ LABEL_21:
   v21 = CFBundleCopyBundleLocalizations(v13);
   if (!v21)
   {
-    sub_10001A104(0, "_copy_localization_name", @"Could not load localizations from bundle", v22, v23, v24, v25, v26, v74);
+    sub_10001A104(0, "_copy_localization_name", @"Could not load localizations from bundle", v22, v23, v24, v25, v26);
     CFRelease(v20);
     goto LABEL_21;
   }
@@ -3512,7 +3539,7 @@ LABEL_21:
     v34 = v28;
     if (CFArrayGetCount(v28) <= 0)
     {
-      sub_10001A104(0, "_copy_localization_name", @"No preferred localizations found", v35, v36, v37, v38, v39, v74);
+      sub_10001A104(0, "_copy_localization_name", @"No preferred localizations found", v35, v36, v37, v38, v39);
       ValueAtIndex = 0;
     }
 
@@ -3527,7 +3554,7 @@ LABEL_21:
 
   else
   {
-    sub_10001A104(0, "_copy_localization_name", @"Could not load preferred localizations from bundle", v29, v30, v31, v32, v33, v74);
+    sub_10001A104(0, "_copy_localization_name", @"Could not load preferred localizations from bundle", v29, v30, v31, v32, v33);
     ValueAtIndex = 0;
   }
 
@@ -3542,14 +3569,14 @@ LABEL_21:
   v53 = v47;
   if (!v47)
   {
-    sub_10001A104(0, "copy_sort_sections", @"Failed to copy bundle resource URL (%s / %s).", v48, v49, v50, v51, v52, "MLSections");
+    sub_10001A104(0, "copy_sort_sections", @"Failed to copy bundle resource URL (%s / %s).", v48, v49, v50, v51, v52, "MLSections", "plist");
     goto LABEL_22;
   }
 
   v54 = CFReadStreamCreateWithFile(kCFAllocatorDefault, v47);
   if (!v54)
   {
-    sub_10001A104(0, "copy_sort_sections", @"Failed to create read stream (%s / %s).", v55, v56, v57, v58, v59, "MLSections");
+    sub_10001A104(0, "copy_sort_sections", @"Failed to create read stream (%s / %s).", v55, v56, v57, v58, v59, "MLSections", "plist");
 LABEL_22:
     CFRelease(v6);
     CFRelease(v13);
@@ -3576,14 +3603,14 @@ LABEL_22:
 
     else
     {
-      sub_10001A104(0, "copy_sort_sections", @"Invalid property list (%s / %s).", v68, v69, v70, v71, v72, "MLSections");
+      sub_10001A104(0, "copy_sort_sections", @"Invalid property list (%s / %s).", v68, v69, v70, v71, v72, "MLSections", "plist");
       CFRelease(v61);
     }
   }
 
   else
   {
-    sub_10001A104(0, "copy_sort_sections", @"Failed to load property list (%s / %s).", v62, v63, v64, v65, v66, "MLSections");
+    sub_10001A104(0, "copy_sort_sections", @"Failed to load property list (%s / %s).", v62, v63, v64, v65, v66, "MLSections", "plist");
   }
 
   CFRelease(v6);
@@ -3603,28 +3630,28 @@ LABEL_24:
 
 __CFDictionary *sub_1000079D4(NSObject **a1)
 {
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
   v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
   memset(valuePtr, 0, sizeof(valuePtr));
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 20;
-  v37[0] = _NSConcreteStackBlock;
-  v37[1] = 3221225472;
-  v37[2] = sub_100007CDC;
-  v37[3] = &unk_1000F1598;
-  v37[4] = &v46;
-  v37[5] = &v42;
-  v37[6] = &v38;
-  v37[7] = valuePtr;
-  v1 = sub_100006710(a1, v37);
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 20;
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = sub_100007CDC;
+  v36[3] = &unk_1000F1598;
+  v36[4] = &v45;
+  v36[5] = &v41;
+  v36[6] = &v37;
+  v36[7] = valuePtr;
+  v1 = sub_100006710(a1, v36);
   if (v1)
   {
     sub_10001A104(0, "load_rental_bag_request", @"Could not generate rental bag request: %ld", v2, v3, v4, v5, v6, v1);
@@ -3634,20 +3661,20 @@ __CFDictionary *sub_1000079D4(NSObject **a1)
   v12 = sub_100026340();
   if (!v12)
   {
-    sub_10001A104(0, "load_rental_bag_request", @"Failed to create dictionary.", v7, v8, v9, v10, v11, v36);
+    sub_10001A104(0, "load_rental_bag_request", @"Failed to create dictionary.", v7, v8, v9, v10, v11);
 LABEL_13:
     v12 = 0;
     goto LABEL_18;
   }
 
-  v18 = CFDataCreate(0, v47[3], *(v43 + 6));
+  v18 = CFDataCreate(0, v46[3], *(v42 + 6));
   if (v18)
   {
     CFDictionarySetValue(v12, @"Message", v18);
     v24 = sub_100026398();
     if (v24)
     {
-      if (*(v39 + 6))
+      if (*(v38 + 6))
       {
         v25 = 0;
         v26 = valuePtr;
@@ -3662,14 +3689,14 @@ LABEL_13:
 
           else
           {
-            sub_10001A104(0, "load_rental_bag_request", @"Failed to create number.", v27, v28, v29, v30, v31, v36);
+            sub_10001A104(0, "load_rental_bag_request", @"Failed to create number.", v27, v28, v29, v30, v31);
           }
 
           ++v25;
           v26 = (v26 + 4);
         }
 
-        while (v25 < *(v39 + 6));
+        while (v25 < *(v38 + 6));
       }
 
       CFDictionarySetValue(v12, @"DiversityElements", v24);
@@ -3677,7 +3704,7 @@ LABEL_13:
 
     else
     {
-      sub_10001A104(0, "load_rental_bag_request", @"Failed to create array.", v19, v20, v21, v22, v23, v36);
+      sub_10001A104(0, "load_rental_bag_request", @"Failed to create array.", v19, v20, v21, v22, v23);
     }
 
     CFRelease(v18);
@@ -3689,30 +3716,31 @@ LABEL_13:
 
   else
   {
-    sub_10001A104(0, "load_rental_bag_request", @"Failed to create data.", v13, v14, v15, v16, v17, v36);
+    sub_10001A104(0, "load_rental_bag_request", @"Failed to create data.", v13, v14, v15, v16, v17);
   }
 
 LABEL_18:
-  v33 = v47;
-  v34 = v47[3];
+  v33 = v46;
+  v34 = v46[3];
   if (v34)
   {
     free(v34);
-    v33 = v47;
+    v33 = v46;
   }
 
   v33[3] = 0;
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v45, 8);
   return v12;
 }
 
-void sub_100007CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100007CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3779,8 +3807,8 @@ CFNumberRef sub_100007D44(NSObject **a1)
       {
 LABEL_9:
         v21 = __error();
-        strerror(*v21);
-        sub_10001A104(0, "copy_rental_bag_verification", @"Could not chown %s: %s", v22, v23, v24, v25, v26, v9);
+        v22 = strerror(*v21);
+        sub_10001A104(0, "copy_rental_bag_verification", @"Could not chown %s: %s", v23, v24, v25, v26, v27, v9, v22);
       }
 
       close(v11);
@@ -3796,27 +3824,27 @@ CFNumberRef sub_100007E80()
   v5 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
   if (!v5)
   {
-    sub_10001A104(0, "copy_rental_request_version", @"Could not create number", v0, v1, v2, v3, v4, v7);
+    sub_10001A104(0, "copy_rental_request_version", @"Could not create number", v0, v1, v2, v3, v4);
   }
 
   return v5;
 }
 
-void sub_100007EE4(NSObject **a1, const void *a2)
+void sub_100007EE4(NSObject **a1, const __CFData *a2)
 {
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
   v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   if (!sub_10000F3B4(a2))
   {
     v30 = @"value is not CFData";
 LABEL_14:
-    sub_10001A104(0, "trigger_rental_checkin_request", v30, v4, v5, v6, v7, v8, v31);
+    sub_10001A104(0, "trigger_rental_checkin_request", v30, v4, v5, v6, v7, v8);
     goto LABEL_10;
   }
 
@@ -3830,15 +3858,15 @@ LABEL_14:
 
   BytePtr = CFDataGetBytePtr(a2);
   memcpy(v10, BytePtr, Length);
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_100008140;
-  v32[3] = &unk_1000F15C0;
-  v32[6] = v10;
-  v32[7] = Length;
-  v32[4] = &v37;
-  v32[5] = &v33;
-  v12 = sub_100006710(a1, v32);
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100008140;
+  v31[3] = &unk_1000F15C0;
+  v31[6] = v10;
+  v31[7] = Length;
+  v31[4] = &v36;
+  v31[5] = &v32;
+  v12 = sub_100006710(a1, v31);
   if (v12)
   {
     sub_10001A104(0, "trigger_rental_checkin_request", @"Could not get response ack: %ld", v13, v14, v15, v16, v17, v12);
@@ -3846,8 +3874,8 @@ LABEL_14:
 
   else
   {
-    v18 = v38[3];
-    if (v18 && (v19 = *(v34 + 6), v19))
+    v18 = v37[3];
+    if (v18 && (v19 = *(v33 + 6), v19))
     {
       v25 = CFDataCreate(kCFAllocatorDefault, v18, v19);
       if (v25)
@@ -3859,27 +3887,27 @@ LABEL_14:
 
       else
       {
-        sub_10001A104(0, "trigger_rental_checkin_request", @"Could not create data from ack.", v20, v21, v22, v23, v24, v31);
+        sub_10001A104(0, "trigger_rental_checkin_request", @"Could not create data from ack.", v20, v21, v22, v23, v24);
       }
     }
 
     else
     {
-      sub_10001A104(0, "trigger_rental_checkin_request", @"Invalid ack! Ack. Ack. Ack.", v13, v14, v15, v16, v17, v31);
+      sub_10001A104(0, "trigger_rental_checkin_request", @"Invalid ack! Ack. Ack. Ack.", v13, v14, v15, v16, v17);
     }
   }
 
   free(v10);
 LABEL_10:
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
 }
 
-void sub_100008114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100008114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3960,21 +3988,21 @@ id sub_1000081F4()
 
   else
   {
-    sub_10001A104(0, "copy_disk_image_mount_points", @"Failed to allocate array.", v0, v1, v2, v3, v4, v20);
+    sub_10001A104(0, "copy_disk_image_mount_points", @"Failed to allocate array.", v0, v1, v2, v3, v4);
     v7 = 0;
   }
 
   return v5;
 }
 
-void sub_1000083B0(uint64_t a1, dispatch_queue_t *a2, void *a3, _BYTE *a4)
+void sub_1000083B0(uint64_t a1, NSObject **a2, void *a3, _BYTE *a4)
 {
-  memset(&v59, 0, sizeof(v59));
-  v62 = 0;
-  v61 = 0;
+  memset(&v63, 0, sizeof(v63));
+  v66 = 0;
+  v65 = 0;
   v7 = a3;
   bzero(__str, 0x400uLL);
-  v58 = 0;
+  v62 = 0;
   sub_10001A104(0, "load_agents_for_mount", @"Loading images for mount %@.", v8, v9, v10, v11, v12, v7);
   if (a4)
   {
@@ -3984,7 +4012,7 @@ void sub_1000083B0(uint64_t a1, dispatch_queue_t *a2, void *a3, _BYTE *a4)
   if (snprintf(__str, 0x400uLL, "%s%s", [v7 UTF8String], "/Library/Lockdown/ServiceAgents") >= 0x400)
   {
     v13 = [v7 UTF8String];
-    sub_10001A104(0, "load_agents_for_mount", @"Path too long: %s%s", v14, v15, v16, v17, v18, v13);
+    sub_10001A104(0, "load_agents_for_mount", @"Path too long: %s%s", v14, v15, v16, v17, v18, v13, "/Library/Lockdown/ServiceAgents");
 LABEL_30:
     v28 = 0;
     v27 = 0;
@@ -3992,34 +4020,34 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  if (lstat(__str, &v59) == -1)
+  if (lstat(__str, &v63) == -1)
   {
     if (*__error() != 2)
     {
-      __error();
-      v45 = __error();
-      strerror(*v45);
-      sub_10001A104(0, "load_agents_for_mount", @"Failed to stat %s: %d (%s)", v46, v47, v48, v49, v50, __str);
+      v45 = *__error();
+      v46 = __error();
+      v61 = strerror(*v46);
+      sub_10001A104(0, "load_agents_for_mount", @"Failed to stat %s: %d (%s)", v47, v48, v49, v50, v51, __str, v45, v61);
     }
 
     goto LABEL_30;
   }
 
-  if ((v59.st_mode & 0xF000) != 0x4000)
+  if ((v63.st_mode & 0xF000) != 0x4000)
   {
-    sub_10001A104(0, "load_agents_for_mount", @"%s is not a directory, ignoring", v19, v20, v21, v22, v23, __str);
+    sub_10001A104(0, "load_agents_for_mount", @"%s is not a directory, ignoring", v19, v20, v21, v22, v23, __str, v60);
     goto LABEL_30;
   }
 
-  v61 = __str;
-  v62 = 0;
-  v24 = fts_open(&v61, 21, 0);
+  v65 = __str;
+  v66 = 0;
+  v24 = fts_open(&v65, 21, 0);
   if (!v24)
   {
-    v51 = *__error();
-    v52 = __error();
-    strerror(*v52);
-    sub_10001A104(0, "load_agents_for_mount", @"fts_open failed: %d (%s)", v53, v54, v55, v56, v57, v51);
+    v52 = *__error();
+    v53 = __error();
+    v54 = strerror(*v53);
+    sub_10001A104(0, "load_agents_for_mount", @"fts_open failed: %d (%s)", v55, v56, v57, v58, v59, v52, v54);
     goto LABEL_30;
   }
 
@@ -4063,12 +4091,12 @@ LABEL_30:
             [v44 setObject:&__kCFBooleanTrue forKeyedSubscript:@"DeveloperModeRequired"];
           }
 
-          sub_100019DA8(a2, a1, v28, v44, &v58);
+          sub_100019DA8(a2, a1, v28, v44, &v62);
           v27 = v44;
           if (a4)
           {
             v27 = v44;
-            if (v58)
+            if (v62)
             {
               *a4 = 1;
               v27 = v44;
@@ -4099,38 +4127,37 @@ LABEL_31:
 
 const __CFString *sub_100008778(const __CFString *a1)
 {
-  v1 = a1;
-  v29 = 0;
+  v31 = 0;
   *cStr = 0u;
-  memset(v38, 0, sizeof(v38));
+  memset(v40, 0, sizeof(v40));
   CString = CFStringGetCString(a1, buffer, 20, 0x8000100u);
   if (!CString)
   {
-    sub_10001A104(CString, "createV6Address", @"Failed to query C string for %@.", v3, v4, v5, v6, v7, v1);
+    sub_10001A104(CString, "createV6Address", @"Failed to query C string for %@.", v3, v4, v5, v6, v7, a1);
     return @"0.0.0.0";
   }
 
   v8 = ether_aton(buffer);
   if (!v8)
   {
-    sub_10001A104(0, "createV6Address", @"ether_aton failed for %@.", v9, v10, v11, v12, v13, v1);
+    sub_10001A104(0, "createV6Address", @"ether_aton failed for %@.", v9, v10, v11, v12, v13, a1);
     return @"0.0.0.0";
   }
 
-  LOWORD(v29) = -32514;
-  v30 = v8->octet[0] ^ 2;
-  v31 = v8->octet[1];
-  v32 = v8->octet[2];
-  v33 = -257;
-  v34 = v8->octet[3];
-  v35 = v8->octet[4];
-  v36 = v8->octet[5];
-  if (!inet_ntop(30, &v29, cStr, 0x2Eu))
+  LOWORD(v31) = -32514;
+  v32 = v8->octet[0] ^ 2;
+  v33 = v8->octet[1];
+  v34 = v8->octet[2];
+  v35 = -257;
+  v36 = v8->octet[3];
+  v37 = v8->octet[4];
+  v38 = v8->octet[5];
+  if (!inet_ntop(30, &v31, cStr, 0x2Eu))
   {
-    __error();
-    v22 = __error();
-    strerror(*v22);
-    sub_10001A104(0, "createV6Address", @"inet_ntop failed for %@: %d (%s)", v23, v24, v25, v26, v27, v1);
+    v22 = *__error();
+    v23 = __error();
+    v30 = strerror(*v23);
+    sub_10001A104(0, "createV6Address", @"inet_ntop failed for %@: %d (%s)", v24, v25, v26, v27, v28, a1, v22, v30);
     return @"0.0.0.0";
   }
 
@@ -4151,7 +4178,7 @@ void sub_100008918(NSObject **a1)
 {
   strcpy(regtype, "_apple-mobdev2._tcp");
   *domain = *"local";
-  LODWORD(v73) = 0;
+  LODWORD(v72) = 0;
   v2 = sub_10000D3AC(a1, @"com.apple.mobile.wireless_lockdown", @"SupportsWifi");
   sub_10000D774(a1, @"com.apple.mobile.wireless_lockdown", @"SupportsWifiSyncing", 1, v3, v4, v5, v6);
   if (!sub_10000F3F0(v2) || !CFEqual(v2, kCFBooleanTrue))
@@ -4171,7 +4198,7 @@ LABEL_11:
   {
     v26 = @"Missing Wifi MAC Address.";
 LABEL_10:
-    sub_10001A104(0, "intialize_wifi_syncing", v26, v12, v13, v14, v15, v16, v68);
+    sub_10001A104(0, "intialize_wifi_syncing", v26, v12, v13, v14, v15, v16);
     goto LABEL_11;
   }
 
@@ -4186,12 +4213,12 @@ LABEL_10:
   v19 = sub_100008778(v11);
   if (remotePairingIsEnabled())
   {
-    v20 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@@%@-%@-%ld", v11, v19, @"supportsRP", v18, *domain, *&domain[8], v73);
+    v20 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@@%@-%@-%ld", v11, v19, @"supportsRP", v18, *domain, *&domain[8], v72);
   }
 
   else
   {
-    v20 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@@%@", v11, v19, v70, v71, *domain, *&domain[8], v73);
+    v20 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@@%@", v11, v19, v69, v70, *domain, *&domain[8], v72);
   }
 
   v29 = v20;
@@ -4217,7 +4244,7 @@ LABEL_10:
 LABEL_29:
     CString = 0;
 LABEL_31:
-    sub_10001A104(CString, "intialize_wifi_syncing", v39, v21, v22, v23, v24, v25, v69);
+    sub_10001A104(CString, "intialize_wifi_syncing", v39, v21, v22, v23, v24, v25);
     v28 = 0;
     goto LABEL_32;
   }
@@ -4229,9 +4256,9 @@ LABEL_31:
     v27 = MutableCopy;
     if (MutableCopy)
     {
-      v77.length = CFStringGetLength(MutableCopy);
-      v77.location = 0;
-      CFStringFindAndReplace(v27, @"\", &stru_1000FAA88, v77, 0);
+      v76.length = CFStringGetLength(MutableCopy);
+      v76.location = 0;
+      CFStringFindAndReplace(v27, @"\"", &stru_1000FAA88, v76, 0);
       sub_10000D774(a1, @"com.apple.mobile.wireless_lockdown", @"BonjourFullServiceName", 1, v51, v52, v53, v54);
       sub_10000D774(a1, @"com.apple.mobile.wireless_lockdown", @"BonjourFullServiceName", 0, v55, v56, v57, v58);
       sub_10000CA1C(a1, @"com.apple.mobile.wireless_lockdown", @"BonjourFullServiceName", v27, v59, v60, v61, v62);
@@ -4243,13 +4270,13 @@ LABEL_31:
 
     else
     {
-      sub_10001A104(0, "intialize_wifi_syncing", @"Failed to copy DNS full service name string.", v46, v47, v48, v49, v50, v69);
+      sub_10001A104(0, "intialize_wifi_syncing", @"Failed to copy DNS full service name string.", v46, v47, v48, v49, v50, v68);
     }
 
     goto LABEL_33;
   }
 
-  sub_10001A104(0, "intialize_wifi_syncing", @"Failed to create DNS full service name string.", v40, v41, v42, v43, v44, v69);
+  sub_10001A104(0, "intialize_wifi_syncing", @"Failed to create DNS full service name string.", v40, v41, v42, v43, v44);
 LABEL_32:
   v27 = 0;
 LABEL_33:
@@ -4312,85 +4339,85 @@ CFBooleanRef sub_100008D38()
 
   else
   {
-    sub_10001A104(0, "copy_vpn_logging", @"Could not create configd prefs", v2, v3, v4, v5, v6, v11);
+    sub_10001A104(0, "copy_vpn_logging", @"Could not create configd prefs", v2, v3, v4, v5, v6);
   }
 
   return v0;
 }
 
-void sub_100008E14(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100008E14(const void *a1)
 {
   valuePtr = 0;
   if (sub_10000F3F0(a1))
   {
-    v15 = SCPreferencesCreate(0, @"racoon", @"com.apple.ipsec.plist");
-    if (v15)
+    v7 = SCPreferencesCreate(0, @"racoon", @"com.apple.ipsec.plist");
+    if (v7)
     {
-      v16 = v15;
-      Value = SCPreferencesGetValue(v15, @"Global");
-      v18 = sub_10000F300(Value);
-      if (!v18 || (MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v18)) == 0)
+      v8 = v7;
+      Value = SCPreferencesGetValue(v7, @"Global");
+      v10 = sub_10000F300(Value);
+      if (!v10 || (MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v10)) == 0)
       {
         MutableCopy = sub_100026340();
         if (!MutableCopy)
         {
-          sub_10001A104(0, "enable_vpn_logging", @"Failed to create dictionary.", v20, v21, v22, v23, v24, v42);
+          sub_10001A104(0, "enable_vpn_logging", @"Failed to create dictionary.", v12, v13, v14, v15, v16);
 LABEL_21:
-          CFRelease(v16);
+          CFRelease(v8);
           return;
         }
       }
 
-      v25 = MutableCopy;
+      v17 = MutableCopy;
       valuePtr = 2 * (CFEqual(a1, kCFBooleanTrue) != 0);
-      v26 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-      if (!v26)
+      v18 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
+      if (!v18)
       {
-        sub_10001A104(0, "enable_vpn_logging", @"Could not create debug level number", v27, v28, v29, v30, v31, v42);
+        sub_10001A104(0, "enable_vpn_logging", @"Could not create debug level number", v19, v20, v21, v22, v23);
 LABEL_20:
-        CFRelease(v25);
+        CFRelease(v17);
         goto LABEL_21;
       }
 
-      v32 = v26;
-      CFDictionarySetValue(v25, @"DebugLevel", v26);
-      CFDictionarySetValue(v25, @"DebugLogfile", @"/var/log/racoon.log");
-      SCPreferencesSetValue(v16, @"Global", v25);
-      if (SCPreferencesCommitChanges(v16))
+      v24 = v18;
+      CFDictionarySetValue(v17, @"DebugLevel", v18);
+      CFDictionarySetValue(v17, @"DebugLogfile", @"/var/log/racoon.log");
+      SCPreferencesSetValue(v8, @"Global", v17);
+      if (SCPreferencesCommitChanges(v8))
       {
-        if (SCPreferencesApplyChanges(v16))
+        if (SCPreferencesApplyChanges(v8))
         {
 LABEL_19:
-          CFRelease(v32);
+          CFRelease(v24);
           goto LABEL_20;
         }
 
-        v33 = @"SCPreferencesApplyChanges: %s";
+        v25 = @"SCPreferencesApplyChanges: %s";
       }
 
       else
       {
-        v33 = @"SCPreferencesCommitChanges: %s";
+        v25 = @"SCPreferencesCommitChanges: %s";
       }
 
-      v35 = SCError();
-      v36 = SCErrorString(v35);
-      sub_10001A104(0, "enable_vpn_logging", v33, v37, v38, v39, v40, v41, v36);
+      v27 = SCError();
+      v28 = SCErrorString(v27);
+      sub_10001A104(0, "enable_vpn_logging", v25, v29, v30, v31, v32, v33, v28);
       goto LABEL_19;
     }
 
-    v34 = @"SCPreferencesCreate failed.";
+    v26 = @"SCPreferencesCreate failed.";
   }
 
   else
   {
-    v34 = @"Invalid input";
+    v26 = @"Invalid input";
   }
 
-  sub_10001A104(0, "enable_vpn_logging", v34, v10, v11, v12, v13, v14, a9);
+  sub_10001A104(0, "enable_vpn_logging", v26, v2, v3, v4, v5, v6);
 }
 
-void sub_100009004(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double sub_100009004(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (dword_100109DF0)
   {
@@ -4399,10 +4426,12 @@ void sub_100009004(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   if (unlink("/var/log/racoon.log") == -1)
   {
-    v8 = __error();
-    strerror(*v8);
-    sub_10001A104(0, "remove_vpn_logs", @"Could not unlink %s: %s", v9, v10, v11, v12, v13, "/var/log/racoon.log");
+    v9 = __error();
+    v10 = strerror(*v9);
+    sub_10001A104(0, "remove_vpn_logs", @"Could not unlink %s: %s", v11, v12, v13, v14, v15, "/var/log/racoon.log", v10);
   }
+
+  return result;
 }
 
 CFBooleanRef sub_10000909C()
@@ -4423,73 +4452,73 @@ CFBooleanRef sub_10000909C()
 
   else
   {
-    sub_10001A104(0, "copy_8021X_logging", @"Could not create configd prefs", v2, v3, v4, v5, v6, v10);
+    sub_10001A104(0, "copy_8021X_logging", @"Could not create configd prefs", v2, v3, v4, v5, v6);
   }
 
   return v0;
 }
 
-void sub_10000912C(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10000912C(const void *a1)
 {
   if (sub_10000F3F0(a1))
   {
-    v15 = SCPreferencesCreate(0, @"eapolclient", @"com.apple.eapolclient.plist");
-    if (v15)
+    v7 = SCPreferencesCreate(0, @"eapolclient", @"com.apple.eapolclient.plist");
+    if (v7)
     {
-      v16 = v15;
+      v8 = v7;
       valuePtr = 0;
       if (CFEqual(a1, kCFBooleanTrue))
       {
         valuePtr = -1;
-        v17 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-        if (v17)
+        v9 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
+        if (v9)
         {
-          v23 = v17;
-          SCPreferencesSetValue(v16, @"LogFlags", v17);
-          CFRelease(v23);
+          v15 = v9;
+          SCPreferencesSetValue(v8, @"LogFlags", v9);
+          CFRelease(v15);
         }
 
         else
         {
-          sub_10001A104(0, "enable_8021X_logging", @"Could not create dflags number", v18, v19, v20, v21, v22, v39);
+          sub_10001A104(0, "enable_8021X_logging", @"Could not create dflags number", v10, v11, v12, v13, v14);
         }
       }
 
       else
       {
-        SCPreferencesRemoveValue(v16, @"LogFlags");
+        SCPreferencesRemoveValue(v8, @"LogFlags");
       }
 
-      if (!SCPreferencesCommitChanges(v16))
+      if (!SCPreferencesCommitChanges(v8))
       {
-        v25 = SCError();
-        v26 = SCErrorString(v25);
-        sub_10001A104(0, "enable_8021X_logging", @"SCPreferencesCommitChanges: %s", v27, v28, v29, v30, v31, v26);
+        v17 = SCError();
+        v18 = SCErrorString(v17);
+        sub_10001A104(0, "enable_8021X_logging", @"SCPreferencesCommitChanges: %s", v19, v20, v21, v22, v23, v18);
       }
 
-      if (!SCPreferencesApplyChanges(v16))
+      if (!SCPreferencesApplyChanges(v8))
       {
-        v32 = SCError();
-        v33 = SCErrorString(v32);
-        sub_10001A104(0, "enable_8021X_logging", @"SCPreferencesApplyChanges: %s", v34, v35, v36, v37, v38, v33);
+        v24 = SCError();
+        v25 = SCErrorString(v24);
+        sub_10001A104(0, "enable_8021X_logging", @"SCPreferencesApplyChanges: %s", v26, v27, v28, v29, v30, v25);
       }
 
-      CFRelease(v16);
+      CFRelease(v8);
       return;
     }
 
-    v24 = @"Could not create configd prefs";
+    v16 = @"Could not create configd prefs";
   }
 
   else
   {
-    v24 = @"tried to enable logging without a BOOLean";
+    v16 = @"tried to enable logging without a BOOLean";
   }
 
-  sub_10001A104(0, "enable_8021X_logging", v24, v10, v11, v12, v13, v14, a9);
+  sub_10001A104(0, "enable_8021X_logging", v16, v2, v3, v4, v5, v6);
 }
 
-void sub_1000092B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double sub_1000092B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (dword_100109DF0)
   {
@@ -4498,10 +4527,12 @@ void sub_1000092B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   if (unlink("/var/log/eapolclient.en0.log") == -1)
   {
-    v8 = __error();
-    strerror(*v8);
-    sub_10001A104(0, "remove_8021X_logs", @"Could not unlink %s: %s", v9, v10, v11, v12, v13, "/var/log/eapolclient.en0.log");
+    v9 = __error();
+    v10 = strerror(*v9);
+    sub_10001A104(0, "remove_8021X_logs", @"Could not unlink %s: %s", v11, v12, v13, v14, v15, "/var/log/eapolclient.en0.log", v10);
   }
+
+  return result;
 }
 
 CFTypeRef sub_10000934C()
@@ -4522,52 +4553,53 @@ CFTypeRef sub_10000934C()
 
   else
   {
-    sub_10001A104(0, "copy_CLTM_logging", @"Could not create configd prefs", v2, v3, v4, v5, v6, v10);
+    sub_10001A104(0, "copy_CLTM_logging", @"Could not create configd prefs", v2, v3, v4, v5, v6);
   }
 
   return CFRetain(v0);
 }
 
-void sub_1000093DC(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_1000093DC(const void *a1)
 {
   if (sub_10000F3F0(a1))
   {
-    v15 = SCPreferencesCreate(0, @"OSThermalStatus", @"OSThermalStatus.plist");
-    if (v15)
+    v7 = SCPreferencesCreate(0, @"OSThermalStatus", @"OSThermalStatus.plist");
+    if (v7)
     {
-      v16 = v15;
-      SCPreferencesSetValue(v15, @"logFile", @"/var/logs/cltm.log");
-      SCPreferencesSetValue(v16, @"OSThermalNotificationLoggingEnabled", a1);
-      if (!SCPreferencesCommitChanges(v16))
+      v8 = v7;
+      SCPreferencesSetValue(v7, @"logFile", @"/var/logs/cltm.log");
+      SCPreferencesSetValue(v8, @"OSThermalNotificationLoggingEnabled", a1);
+      if (!SCPreferencesCommitChanges(v8))
       {
-        v17 = SCError();
-        v18 = SCErrorString(v17);
-        sub_10001A104(0, "enable_CLTM_logging", @"SCPreferencesCommitChanges: %s", v19, v20, v21, v22, v23, v18);
+        v9 = SCError();
+        v10 = SCErrorString(v9);
+        sub_10001A104(0, "enable_CLTM_logging", @"SCPreferencesCommitChanges: %s", v11, v12, v13, v14, v15, v10);
       }
 
-      if (!SCPreferencesApplyChanges(v16))
+      if (!SCPreferencesApplyChanges(v8))
       {
-        v24 = SCError();
-        v25 = SCErrorString(v24);
-        sub_10001A104(0, "enable_CLTM_logging", @"SCPreferencesApplyChanges: %s", v26, v27, v28, v29, v30, v25);
+        v16 = SCError();
+        v17 = SCErrorString(v16);
+        sub_10001A104(0, "enable_CLTM_logging", @"SCPreferencesApplyChanges: %s", v18, v19, v20, v21, v22, v17);
       }
 
-      CFRelease(v16);
-      return;
+      CFRelease(v8);
+      return result;
     }
 
-    v31 = @"Could not create configd prefs";
+    v24 = @"Could not create configd prefs";
   }
 
   else
   {
-    v31 = @"Bad value";
+    v24 = @"Bad value";
   }
 
-  sub_10001A104(0, "enable_CLTM_logging", v31, v10, v11, v12, v13, v14, a9);
+  sub_10001A104(0, "enable_CLTM_logging", v24, v2, v3, v4, v5, v6);
+  return result;
 }
 
-void sub_10000950C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double sub_10000950C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (dword_100109DF0)
   {
@@ -4576,52 +4608,55 @@ void sub_10000950C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   if (unlink("/var/logs/cltm.log") == -1)
   {
-    v8 = __error();
-    strerror(*v8);
-    sub_10001A104(0, "remove_CLTM_logs", @"Could not unlink %s: %s", v9, v10, v11, v12, v13, "/var/logs/cltm.log");
+    v9 = __error();
+    v10 = strerror(*v9);
+    sub_10001A104(0, "remove_CLTM_logs", @"Could not unlink %s: %s", v11, v12, v13, v14, v15, "/var/logs/cltm.log", v10);
   }
+
+  return result;
 }
 
-void sub_1000095A4(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_1000095A4(const void *a1)
 {
   if (sub_10000F3F0(a1))
   {
-    v15 = SCPreferencesCreate(0, @"OSThermalStatus", @"OSThermalStatus.plist");
-    if (v15)
+    v7 = SCPreferencesCreate(0, @"OSThermalStatus", @"OSThermalStatus.plist");
+    if (v7)
     {
-      v16 = v15;
-      SCPreferencesSetValue(v15, @"tGraphLogFile", @"/var/logs/tGraph.csv");
-      SCPreferencesSetValue(v16, @"OSThermalNotificationLoggingEnabled", a1);
-      if (!SCPreferencesCommitChanges(v16))
+      v8 = v7;
+      SCPreferencesSetValue(v7, @"tGraphLogFile", @"/var/logs/tGraph.csv");
+      SCPreferencesSetValue(v8, @"OSThermalNotificationLoggingEnabled", a1);
+      if (!SCPreferencesCommitChanges(v8))
       {
-        v17 = SCError();
-        v18 = SCErrorString(v17);
-        sub_10001A104(0, "enable_CLTM_TGraph_logging", @"SCPreferencesCommitChanges: %s", v19, v20, v21, v22, v23, v18);
+        v9 = SCError();
+        v10 = SCErrorString(v9);
+        sub_10001A104(0, "enable_CLTM_TGraph_logging", @"SCPreferencesCommitChanges: %s", v11, v12, v13, v14, v15, v10);
       }
 
-      if (!SCPreferencesApplyChanges(v16))
+      if (!SCPreferencesApplyChanges(v8))
       {
-        v24 = SCError();
-        v25 = SCErrorString(v24);
-        sub_10001A104(0, "enable_CLTM_TGraph_logging", @"SCPreferencesApplyChanges: %s", v26, v27, v28, v29, v30, v25);
+        v16 = SCError();
+        v17 = SCErrorString(v16);
+        sub_10001A104(0, "enable_CLTM_TGraph_logging", @"SCPreferencesApplyChanges: %s", v18, v19, v20, v21, v22, v17);
       }
 
-      CFRelease(v16);
-      return;
+      CFRelease(v8);
+      return result;
     }
 
-    v31 = @"Could not create configd prefs";
+    v24 = @"Could not create configd prefs";
   }
 
   else
   {
-    v31 = @"Bad value";
+    v24 = @"Bad value";
   }
 
-  sub_10001A104(0, "enable_CLTM_TGraph_logging", v31, v10, v11, v12, v13, v14, a9);
+  sub_10001A104(0, "enable_CLTM_TGraph_logging", v24, v2, v3, v4, v5, v6);
+  return result;
 }
 
-void sub_1000096D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double sub_1000096D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (dword_100109DF0)
   {
@@ -4630,46 +4665,49 @@ void sub_1000096D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   if (unlink("/var/logs/tGraph.csv") == -1)
   {
-    v8 = __error();
-    strerror(*v8);
-    sub_10001A104(0, "remove_CLTM_TGraph_logs", @"Could not unlink %s: %s", v9, v10, v11, v12, v13, "/var/logs/tGraph.csv");
+    v9 = __error();
+    v10 = strerror(*v9);
+    sub_10001A104(0, "remove_CLTM_TGraph_logs", @"Could not unlink %s: %s", v11, v12, v13, v14, v15, "/var/logs/tGraph.csv", v10);
   }
+
+  return result;
 }
 
-void sub_10000976C(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+double sub_10000976C(const void *a1)
 {
   if (sub_10000F3F0(a1))
   {
-    v15 = SCPreferencesCreate(0, @"OSThermalStatus", @"OSThermalStatus.plist");
-    if (v15)
+    v7 = SCPreferencesCreate(0, @"OSThermalStatus", @"OSThermalStatus.plist");
+    if (v7)
     {
-      v16 = v15;
-      SCPreferencesSetValue(v15, @"ThermStatsEnabled", a1);
-      if (!SCPreferencesCommitChanges(v16))
+      v8 = v7;
+      SCPreferencesSetValue(v7, @"ThermStatsEnabled", a1);
+      if (!SCPreferencesCommitChanges(v8))
       {
-        v17 = SCError();
-        v18 = SCErrorString(v17);
-        sub_10001A104(0, "enable_CLTM_Thermstat_logging", @"SCPreferencesCommitChanges: %s", v19, v20, v21, v22, v23, v18);
+        v9 = SCError();
+        v10 = SCErrorString(v9);
+        sub_10001A104(0, "enable_CLTM_Thermstat_logging", @"SCPreferencesCommitChanges: %s", v11, v12, v13, v14, v15, v10);
       }
 
-      if (!SCPreferencesApplyChanges(v16))
+      if (!SCPreferencesApplyChanges(v8))
       {
-        v24 = SCError();
-        v25 = SCErrorString(v24);
-        sub_10001A104(0, "enable_CLTM_Thermstat_logging", @"SCPreferencesApplyChanges: %s", v26, v27, v28, v29, v30, v25);
+        v16 = SCError();
+        v17 = SCErrorString(v16);
+        sub_10001A104(0, "enable_CLTM_Thermstat_logging", @"SCPreferencesApplyChanges: %s", v18, v19, v20, v21, v22, v17);
       }
 
-      CFRelease(v16);
-      return;
+      CFRelease(v8);
+      return result;
     }
 
-    v31 = @"Could not create configd prefs";
+    v24 = @"Could not create configd prefs";
   }
 
   else
   {
-    v31 = @"Bad value";
+    v24 = @"Bad value";
   }
 
-  sub_10001A104(0, "enable_CLTM_Thermstat_logging", v31, v10, v11, v12, v13, v14, a9);
+  sub_10001A104(0, "enable_CLTM_Thermstat_logging", v24, v2, v3, v4, v5, v6);
+  return result;
 }

@@ -65,7 +65,7 @@ LABEL_9:
   CFRelease(Mutable);
 }
 
-_DWORD *__FigRoutingManagerContextUtilities_IsContextVideoAndIndependent_block_invoke(uint64_t a1)
+const UInt8 *__FigRoutingManagerContextUtilities_IsContextVideoAndIndependent_block_invoke(uint64_t a1)
 {
   result = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 48) + 480), *(a1 + 56));
   if (result)
@@ -109,21 +109,19 @@ void __FigRoutingManagerContextUtilities_CopySystemRoutingContext_block_invoke(u
 
   v5 = malloc_type_calloc(1uLL, 8uLL, 0x80040B8603338uLL);
   CFDictionaryGetKeysAndValues(v4[4 * v2 + 1], 0, v5);
-  ContextFromWeakRef = _routingContextUtilities_getContextFromWeakRef(*v5);
-  if (ContextFromWeakRef)
+  if (_routingContextUtilities_getContextFromWeakRef(*v5))
   {
-    v7 = *(ContextFromWeakRef + 6);
-    v8 = 0;
+    v6 = 0;
     *v3 = FigCFWeakReferenceHolderCopyReferencedObject();
   }
 
   else
   {
-    v8 = -17420;
+    v6 = -17420;
   }
 
   free(v5);
-  *(*(*(a1 + 32) + 8) + 24) = v8;
+  *(*(*(a1 + 32) + 8) + 24) = v6;
 }
 
 void __FigRoutingManagerContextUtilities_CopyPickedIndividualEndpoints_block_invoke(uint64_t a1)
@@ -157,7 +155,7 @@ void __FigRoutingManagerContextUtilities_CopyPickedIndividualEndpoints_block_inv
             MutableCopy = CFArrayCreateMutableCopy(v7, 0, theArray);
             if (theArray)
             {
-              if (FigRoutingManagerIsEndpointOfSubtype(ValueAtIndex))
+              if (FigRoutingManagerIsEndpointOfSubtype(ValueAtIndex, v8))
               {
                 v13 = FigRoutingManagerCopyLocalAirPlayEndpoint();
                 if (v13)
@@ -259,58 +257,56 @@ void __FigRoutingManagerContextUtilities_CopyPickedEndpoints_block_invoke(uint64
 
 void __FigRoutingManagerContextUtilities_CopyRoutingContextUUID_block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 480);
   Count = FigCFDictionaryGetCount();
-  v4 = malloc_type_calloc(Count, 8uLL, 0x80040B8603338uLL);
-  if (!v4)
+  v3 = malloc_type_calloc(Count, 8uLL, 0x80040B8603338uLL);
+  if (!v3)
   {
     goto LABEL_10;
   }
 
-  v5 = v4;
-  CFDictionaryGetKeysAndValues(*(*(a1 + 32) + 480), 0, v4);
+  v4 = v3;
+  CFDictionaryGetKeysAndValues(*(*(a1 + 32) + 480), 0, v3);
   if (Count < 1)
   {
 LABEL_9:
-    free(v5);
+    free(v4);
     goto LABEL_10;
   }
 
-  v6 = 0;
+  v5 = 0;
   while (1)
   {
-    v7 = v5[v6];
-    if (v7)
+    v6 = v4[v5];
+    if (v6)
     {
       break;
     }
 
 LABEL_8:
-    if (Count == ++v6)
+    if (Count == ++v5)
     {
       goto LABEL_9;
     }
   }
 
-  BytePtr = CFDataGetBytePtr(v7);
-  v9 = *(BytePtr + 6);
-  v10 = FigCFWeakReferenceHolderCopyReferencedObject();
-  v11 = v10;
-  if (*(a1 + 40) != v10)
+  BytePtr = CFDataGetBytePtr(v6);
+  v8 = FigCFWeakReferenceHolderCopyReferencedObject();
+  v9 = v8;
+  if (*(a1 + 40) != v8)
   {
-    if (v10)
+    if (v8)
     {
-      CFRelease(v10);
+      CFRelease(v8);
     }
 
     goto LABEL_8;
   }
 
-  v12 = *(BytePtr + 1);
-  if (v12)
+  v10 = *(BytePtr + 1);
+  if (v10)
   {
-    v13 = CFRetain(v12);
-    if (v11)
+    v11 = CFRetain(v10);
+    if (v9)
     {
       goto LABEL_13;
     }
@@ -318,25 +314,25 @@ LABEL_8:
 
   else
   {
-    v13 = 0;
-    if (v11)
+    v11 = 0;
+    if (v9)
     {
 LABEL_13:
-      CFRelease(v11);
+      CFRelease(v9);
     }
   }
 
-  free(v5);
-  if (!v13)
+  free(v4);
+  if (!v11)
   {
 LABEL_10:
     **(a1 + 48) = 0;
     return;
   }
 
-  **(a1 + 48) = CFRetain(v13);
+  **(a1 + 48) = CFRetain(v11);
 
-  CFRelease(v13);
+  CFRelease(v11);
 }
 
 void __FigRoutingManagerContextUtilities_CopyCachedSelectedRouteDescriptors_block_invoke(uint64_t a1)
@@ -430,22 +426,21 @@ _DWORD *__FigRoutingManagerContextUtilities_IsContextSystemMusicAndIndependent_b
 
 void __FigRoutingManagerContextUtilities_CopyEndpointsToDeactivateInfoAndUUIDsForPID_block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 480);
   Count = FigCFDictionaryGetCount();
-  v4 = malloc_type_calloc(Count, 8uLL, 0x80040B8603338uLL);
-  if (v4)
+  v3 = malloc_type_calloc(Count, 8uLL, 0x80040B8603338uLL);
+  if (v3)
   {
-    v5 = v4;
-    CFDictionaryGetKeysAndValues(*(*(a1 + 32) + 480), 0, v4);
+    v4 = v3;
+    CFDictionaryGetKeysAndValues(*(*(a1 + 32) + 480), 0, v3);
     if (Count >= 1)
     {
-      v6 = v5;
+      v5 = v4;
       do
       {
-        if (*v6)
+        if (*v5)
         {
-          BytePtr = CFDataGetBytePtr(*v6);
-          v8 = BytePtr;
+          BytePtr = CFDataGetBytePtr(*v5);
+          v7 = BytePtr;
           if (*BytePtr == 5)
           {
             if (*(a1 + 56) == 1)
@@ -456,30 +451,30 @@ void __FigRoutingManagerContextUtilities_CopyEndpointsToDeactivateInfoAndUUIDsFo
 
           else if (*BytePtr == 6)
           {
-            v9 = *(a1 + 56);
-            v10 = v9 > 4;
-            v11 = (1 << v9) & 0x16;
-            if (!v10 && v11 != 0)
+            v8 = *(a1 + 56);
+            v9 = v8 > 4;
+            v10 = (1 << v8) & 0x16;
+            if (!v9 && v10 != 0)
             {
 LABEL_14:
               if (*(BytePtr + 8) == *(a1 + 60))
               {
-                v13 = *(BytePtr + 15);
-                if (v13)
+                v12 = *(BytePtr + 15);
+                if (v12)
                 {
-                  v14 = CFRetain(v13);
-                  if (v14)
+                  v13 = CFRetain(v12);
+                  if (v13)
                   {
-                    v15 = v14;
-                    if (CFArrayGetCount(v14) >= 1)
+                    v14 = v13;
+                    if (CFArrayGetCount(v13) >= 1)
                     {
-                      v16 = *(a1 + 40);
-                      ValueAtIndex = CFArrayGetValueAtIndex(v15, 0);
-                      CFArrayAppendValue(v16, ValueAtIndex);
-                      CFArrayAppendValue(*(a1 + 48), *(v8 + 1));
+                      v15 = *(a1 + 40);
+                      ValueAtIndex = CFArrayGetValueAtIndex(v14, 0);
+                      CFArrayAppendValue(v15, ValueAtIndex);
+                      CFArrayAppendValue(*(a1 + 48), *(v7 + 1));
                     }
 
-                    CFRelease(v15);
+                    CFRelease(v14);
                   }
                 }
               }
@@ -487,14 +482,14 @@ LABEL_14:
           }
         }
 
-        ++v6;
+        ++v5;
         --Count;
       }
 
       while (Count);
     }
 
-    free(v5);
+    free(v4);
   }
 }
 
@@ -515,7 +510,7 @@ void __FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex_block_invoke(
   }
 }
 
-int *__FigRoutingManagerContextUtilities_GetContextString_block_invoke(uint64_t a1)
+const UInt8 *__FigRoutingManagerContextUtilities_GetContextString_block_invoke(uint64_t a1)
 {
   result = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 40) + 480), *(a1 + 48));
   if (result)
@@ -896,7 +891,7 @@ void __FigRoutingManagerContextUtilities_SetPickedEndpoints_block_invoke(uint64_
       if (v13)
       {
 LABEL_37:
-        if (!FigRoutingManagerIsEndpointOfType(v21))
+        if (!FigRoutingManagerIsEndpointOfType(v21, v18))
         {
           CFArrayRemoveValueAtIndex(*(*(*(*(a1 + 32) + 8) + 24) + 112), v16--);
         }
@@ -1007,7 +1002,7 @@ void *__FigRoutingManagerContextUtilities_Create_block_invoke(void *result)
 
 void __FigRoutingManagerContextUtilities_AddContext_block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E695E480];
   v3 = CFUUIDCreate(*MEMORY[0x1E695E480]);
   if (dword_1EB75DF20)
@@ -1017,83 +1012,78 @@ void __FigRoutingManagerContextUtilities_AddContext_block_invoke(uint64_t a1)
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 56);
   FigCFDictionaryGetInt32IfPresent();
   *(*(a1 + 56) + 8) = CFRetain(*(a1 + 32));
   *(*(a1 + 56) + 16) = CFUUIDCreateString(v2, v3);
-  v7 = *(a1 + 64);
   *(*(a1 + 56) + 48) = FigCFWeakReferenceHolderCreateWithReferencedObject();
-  v8 = *(a1 + 48);
   **(a1 + 56) = *(a1 + 88);
   FigCFDictionaryGetBooleanIfPresent();
-  v9 = MEMORY[0x1E695E9C0];
+  v5 = MEMORY[0x1E695E9C0];
   *(*(a1 + 56) + 88) = CFArrayCreateMutable(v2, 0, MEMORY[0x1E695E9C0]);
-  *(*(a1 + 56) + 80) = CFArrayCreateMutable(v2, 0, v9);
-  *(*(a1 + 56) + 120) = CFArrayCreateMutable(v2, 0, v9);
-  *(*(a1 + 56) + 112) = CFArrayCreateMutable(v2, 0, v9);
+  *(*(a1 + 56) + 80) = CFArrayCreateMutable(v2, 0, v5);
+  *(*(a1 + 56) + 120) = CFArrayCreateMutable(v2, 0, v5);
+  *(*(a1 + 56) + 112) = CFArrayCreateMutable(v2, 0, v5);
   *(*(a1 + 56) + 136) = 1;
-  *(*(a1 + 56) + 128) = CFArrayCreateMutable(v2, 0, v9);
+  *(*(a1 + 56) + 128) = CFArrayCreateMutable(v2, 0, v5);
   *(*(a1 + 56) + 160) = 0;
   *(*(a1 + 56) + 168) = 0;
-  v10 = *(a1 + 56);
-  v10[25] = 0;
-  v10[22] = 0;
-  v10[23] = 0;
+  v6 = *(a1 + 56);
+  v6[25] = 0;
+  v6[22] = 0;
+  v6[23] = 0;
   *(*(a1 + 56) + 192) = 0;
-  *(*(a1 + 56) + 208) = CFArrayCreateMutable(v2, 0, v9);
+  *(*(a1 + 56) + 208) = CFArrayCreateMutable(v2, 0, v5);
   *(*(a1 + 56) + 64) = 0;
   *(*(a1 + 56) + 64) = 0;
   *(*(a1 + 56) + 152) = -1082130432;
   *(*(a1 + 56) + 144) = CFDictionaryCreateMutable(v2, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v11 = *(a1 + 72);
-  v12 = FigCFWeakReferenceHolderCreateWithReferencedObject();
-  CFDictionarySetValue(*(*(a1 + 80) + 32 * *(a1 + 88) + 8), *(a1 + 32), v12);
+  v7 = FigCFWeakReferenceHolderCreateWithReferencedObject();
+  CFDictionarySetValue(*(*(a1 + 80) + 32 * *(a1 + 88) + 8), *(a1 + 32), v7);
   CFDictionarySetValue(*(*(a1 + 80) + 480), *(a1 + 32), *(a1 + 72));
-  v13 = *(a1 + 88);
-  if (v13 > 8)
+  v8 = *(a1 + 88);
+  if (v8 > 8)
   {
-    if (v13 > 11)
+    if (v8 > 11)
     {
-      switch(v13)
+      switch(v8)
       {
         case 12:
-          v20 = *(*(a1 + 56) + 8);
-          if (v20)
+          v15 = *(*(a1 + 56) + 8);
+          if (v15)
           {
-            v20 = CFRetain(v20);
+            v15 = CFRetain(v15);
           }
 
-          *(*(a1 + 80) + 552) = v20;
-          if (v12)
+          *(*(a1 + 80) + 552) = v15;
+          if (v7)
           {
             goto LABEL_56;
           }
 
           break;
         case 13:
-          v24 = *(*(a1 + 56) + 8);
-          if (v24)
+          v18 = *(*(a1 + 56) + 8);
+          if (v18)
           {
-            v24 = CFRetain(v24);
+            v18 = CFRetain(v18);
           }
 
-          *(*(a1 + 80) + 584) = v24;
-          if (v12)
+          *(*(a1 + 80) + 584) = v18;
+          if (v7)
           {
             goto LABEL_56;
           }
 
           break;
         case 14:
-          v17 = *(*(a1 + 56) + 8);
-          if (v17)
+          v12 = *(*(a1 + 56) + 8);
+          if (v12)
           {
-            v17 = CFRetain(v17);
+            v12 = CFRetain(v12);
           }
 
-          *(*(a1 + 80) + 592) = v17;
-          if (v12)
+          *(*(a1 + 80) + 592) = v12;
+          if (v7)
           {
             goto LABEL_56;
           }
@@ -1104,31 +1094,31 @@ void __FigRoutingManagerContextUtilities_AddContext_block_invoke(uint64_t a1)
       }
     }
 
-    else if (v13 == 9)
+    else if (v8 == 9)
     {
-      v19 = *(*(a1 + 56) + 8);
-      if (v19)
+      v14 = *(*(a1 + 56) + 8);
+      if (v14)
       {
-        v19 = CFRetain(v19);
+        v14 = CFRetain(v14);
       }
 
-      *(*(a1 + 80) + 560) = v19;
-      if (v12)
+      *(*(a1 + 80) + 560) = v14;
+      if (v7)
       {
         goto LABEL_56;
       }
     }
 
-    else if (v13 == 10)
+    else if (v8 == 10)
     {
-      v22 = *(*(a1 + 56) + 8);
-      if (v22)
+      v17 = *(*(a1 + 56) + 8);
+      if (v17)
       {
-        v22 = CFRetain(v22);
+        v17 = CFRetain(v17);
       }
 
-      *(*(a1 + 80) + 576) = v22;
-      if (v12)
+      *(*(a1 + 80) + 576) = v17;
+      if (v7)
       {
         goto LABEL_56;
       }
@@ -1136,14 +1126,14 @@ void __FigRoutingManagerContextUtilities_AddContext_block_invoke(uint64_t a1)
 
     else
     {
-      v15 = *(*(a1 + 56) + 8);
-      if (v15)
+      v10 = *(*(a1 + 56) + 8);
+      if (v10)
       {
-        v15 = CFRetain(v15);
+        v10 = CFRetain(v10);
       }
 
-      *(*(a1 + 80) + 568) = v15;
-      if (v12)
+      *(*(a1 + 80) + 568) = v10;
+      if (v7)
       {
         goto LABEL_56;
       }
@@ -1152,29 +1142,29 @@ void __FigRoutingManagerContextUtilities_AddContext_block_invoke(uint64_t a1)
 
   else
   {
-    if (v13 > 3)
+    if (v8 > 3)
     {
-      switch(v13)
+      switch(v8)
       {
         case 4:
-          v16 = *(*(a1 + 80) + 616);
-          if (!v16)
+          v11 = *(*(a1 + 80) + 616);
+          if (!v11)
           {
             goto LABEL_55;
           }
 
           break;
         case 5:
-          v16 = *(*(a1 + 80) + 608);
-          if (!v16)
+          v11 = *(*(a1 + 80) + 608);
+          if (!v11)
           {
             goto LABEL_55;
           }
 
           break;
         case 6:
-          v16 = *(*(a1 + 80) + 600);
-          if (!v16)
+          v11 = *(*(a1 + 80) + 600);
+          if (!v11)
           {
             goto LABEL_55;
           }
@@ -1184,59 +1174,59 @@ void __FigRoutingManagerContextUtilities_AddContext_block_invoke(uint64_t a1)
           goto LABEL_55;
       }
 
-      CFArrayAppendValue(v16, *(*(a1 + 56) + 8));
+      CFArrayAppendValue(v11, *(*(a1 + 56) + 8));
       goto LABEL_55;
     }
 
-    switch(v13)
+    switch(v8)
     {
       case 1:
-        v18 = *(*(a1 + 56) + 8);
-        if (v18)
+        v13 = *(*(a1 + 56) + 8);
+        if (v13)
         {
-          v18 = CFRetain(v18);
+          v13 = CFRetain(v13);
         }
 
-        *(*(a1 + 80) + 528) = v18;
-        if (v12)
+        *(*(a1 + 80) + 528) = v13;
+        if (v7)
         {
           goto LABEL_56;
         }
 
         break;
       case 2:
-        v21 = *(*(a1 + 56) + 8);
-        if (v21)
+        v16 = *(*(a1 + 56) + 8);
+        if (v16)
         {
-          v21 = CFRetain(v21);
+          v16 = CFRetain(v16);
         }
 
-        *(*(a1 + 80) + 536) = v21;
-        if (v12)
+        *(*(a1 + 80) + 536) = v16;
+        if (v7)
         {
           goto LABEL_56;
         }
 
         break;
       case 3:
-        v14 = *(*(a1 + 56) + 8);
-        if (v14)
+        v9 = *(*(a1 + 56) + 8);
+        if (v9)
         {
-          v14 = CFRetain(v14);
+          v9 = CFRetain(v9);
         }
 
-        *(*(a1 + 80) + 544) = v14;
-        if (!v12)
+        *(*(a1 + 80) + 544) = v9;
+        if (!v7)
         {
           break;
         }
 
 LABEL_56:
-        CFRelease(v12);
+        CFRelease(v7);
         break;
       default:
 LABEL_55:
-        if (!v12)
+        if (!v7)
         {
           break;
         }
@@ -1249,8 +1239,6 @@ LABEL_55:
   {
     CFRelease(v3);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo_block_invoke(uint64_t a1)
@@ -1282,17 +1270,17 @@ void __FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo_bl
       v9 = Value;
       if (Value)
       {
-        v14 = CFDictionaryGetValue(Value, @"clientRouteRequestID");
-        if (v14)
+        v12 = CFDictionaryGetValue(Value, @"clientRouteRequestID");
+        if (v12)
         {
-          v14 = CFRetain(v14);
+          v12 = CFRetain(v12);
         }
 
-        *(*(*(a1 + 32) + 8) + 24) = v14;
-        v15 = CFDictionaryGetValue(v9, @"initiator");
-        if (v15)
+        *(*(*(a1 + 32) + 8) + 24) = v12;
+        v13 = CFDictionaryGetValue(v9, @"initiator");
+        if (v13)
         {
-          v9 = CFRetain(v15);
+          v9 = CFRetain(v13);
         }
 
         else
@@ -1311,10 +1299,8 @@ LABEL_7:
     }
 
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v11 = *(*(*(a1 + 32) + 8) + 24);
     FigCFDictionarySetValue();
     FigCFDictionarySetValue();
-    v12 = *(a1 + 64);
     FigCFDictionarySetValue();
     _routingContextUtilities_postNotificationToContextAndItsFollowers(v3, @"routeConfigUpdated", Mutable);
     *(v3 + 136) = 1;
@@ -1399,7 +1385,7 @@ LABEL_23:
           v16 = *(a1 + 72);
           v17 = *(a1 + 80);
 LABEL_20:
-          _routingContextUtilities_postRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(v15, v16);
+          _routingContextUtilities_postRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(v15, v16, v17);
           v14 = 1;
 LABEL_21:
           if (CFArrayGetCount(v10))
@@ -1410,7 +1396,6 @@ LABEL_21:
           goto LABEL_22;
         }
 
-        v18 = *(a1 + 80);
         if (!FigCFEqual())
         {
           *(v3 + 136) = 0;
@@ -1420,7 +1405,16 @@ LABEL_21:
         {
           v15 = *(a1 + 48);
           v16 = *(a1 + 72);
-          v3[136];
+          if (v3[136])
+          {
+            v17 = @"configUpdateReasonEndedSuccess";
+          }
+
+          else
+          {
+            v17 = @"configUpdateReasonEndedFailed";
+          }
+
           goto LABEL_20;
         }
       }
@@ -1473,13 +1467,9 @@ void __FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint_block_in
   if (*(a1 + 56))
   {
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v6 = *(a1 + 56);
     FigCFDictionarySetValue();
-    v7 = *(a1 + 64);
     FigCFDictionarySetValue();
-    v8 = *(a1 + 72);
     FigCFDictionarySetValue();
-    v9 = *(a1 + 80);
     FigCFDictionarySetValue();
     CFArrayAppendValue(*(v3 + 14), Mutable);
     if (Mutable)
@@ -1488,66 +1478,59 @@ void __FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint_block_in
     }
   }
 
-  v10 = *(a1 + 72);
   FigCFDictionaryGetInt32IfPresent();
-  v11 = *(a1 + 72);
-  if (v11 && (Value = CFDictionaryGetValue(v11, @"clientRouteRequestID")) != 0)
+  v6 = *(a1 + 72);
+  if (v6 && (Value = CFDictionaryGetValue(v6, @"clientRouteRequestID")) != 0)
   {
-    v13 = CFRetain(Value);
+    v8 = CFRetain(Value);
   }
 
   else
   {
-    v13 = 0;
+    v8 = 0;
   }
 
-  v14 = *(a1 + 56);
-  if (v14)
+  v9 = *(a1 + 56);
+  if (v9 && !FigRoutingManagerIsEndpointOfType(v9, *MEMORY[0x1E69626C8]))
   {
-    v15 = *MEMORY[0x1E69626C8];
-    if (!FigRoutingManagerIsEndpointOfType(v14))
+    v10 = *(a1 + 56);
+    if (v10)
     {
-      v16 = *(a1 + 56);
-      if (v16)
-      {
-        CFRetain(v16);
-      }
-
-      if (v13)
-      {
-        CFRetain(v13);
-      }
-
-      v17 = dispatch_time(0, 60000000000);
-      v18 = *(a1 + 40);
-      v19 = *(v18 + 496);
-      block[0] = MEMORY[0x1E69E9820];
-      block[1] = 3221225472;
-      block[2] = __FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint_block_invoke_2;
-      block[3] = &__block_descriptor_56_e5_v8__0l;
-      block[4] = v18;
-      block[5] = v13;
-      block[6] = *(a1 + 56);
-      dispatch_after(v17, v19, block);
+      CFRetain(v10);
     }
+
+    if (v8)
+    {
+      CFRetain(v8);
+    }
+
+    v11 = dispatch_time(0, 60000000000);
+    v12 = *(a1 + 40);
+    v13 = *(v12 + 496);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint_block_invoke_2;
+    block[3] = &__block_descriptor_56_e5_v8__0l;
+    block[4] = v12;
+    block[5] = v8;
+    block[6] = *(a1 + 56);
+    dispatch_after(v11, v13, block);
   }
 
-  _routingContextUtilities_postRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(*(a1 + 48), *(a1 + 72));
-  if (v13)
+  _routingContextUtilities_postRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(*(a1 + 48), *(a1 + 72), @"configUpdateReasonStarted");
+  if (v8)
   {
-    CFRelease(v13);
+    CFRelease(v8);
   }
 
-  v20 = *MEMORY[0x1E69626A8];
-  if (FigRoutingManagerIsEndpointOfType(*(a1 + 56)))
+  if (FigRoutingManagerIsEndpointOfType(*(a1 + 56), *MEMORY[0x1E69626A8]))
   {
     number = 0;
-    v21 = *(a1 + 56);
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v23 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v23)
+    v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v15)
     {
-      v23(CMBaseObject, *MEMORY[0x1E6962280], *v4, &number);
+      v15(CMBaseObject, *MEMORY[0x1E6962280], *v4, &number);
       valuePtr = 0;
       if (number)
       {
@@ -1598,7 +1581,7 @@ void __FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint_block
   if (ContextForUUIDFromDict)
   {
     v3 = ContextForUUIDFromDict;
-    RouteConfigUpdatedPayload = routingContextUtilities_createRouteConfigUpdatedPayload(*(a1 + 56));
+    RouteConfigUpdatedPayload = routingContextUtilities_createRouteConfigUpdatedPayload(*(a1 + 56), @"configUpdateReasonStarted");
     _routingContextUtilities_postNotificationToContextAndItsFollowers(v3, @"routeConfigUpdated", RouteConfigUpdatedPayload);
     _routingContextUtilities_removeCurrentlyActivatingEndpointWithID(*(a1 + 48), *(a1 + 64));
     if (RouteConfigUpdatedPayload)
@@ -1622,12 +1605,11 @@ void __FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints_bloc
     v3 = ContextForUUIDFromDict;
     v4 = *MEMORY[0x1E695E480];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v6 = *(a1 + 56);
     FigCFDictionaryGetInt32IfPresent();
-    v7 = *(a1 + 64);
-    if (v7)
+    v6 = *(a1 + 64);
+    if (v6)
     {
-      MutableCopy = CFArrayCreateMutableCopy(v4, 0, v7);
+      MutableCopy = CFArrayCreateMutableCopy(v4, 0, v6);
     }
 
     else
@@ -1635,36 +1617,32 @@ void __FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints_bloc
       MutableCopy = CFArrayCreateMutable(v4, 0, MEMORY[0x1E695E9C0]);
     }
 
-    v9 = MutableCopy;
+    v8 = MutableCopy;
     FigCFDictionarySetValue();
-    v10 = *(a1 + 56);
     FigCFDictionarySetValue();
-    v11 = *(a1 + 72);
     FigCFDictionarySetValue();
-    v12 = *(a1 + 80);
     FigCFDictionarySetValue();
-    v13 = *(v3 + 14);
-    if (v13 && (Count = CFArrayGetCount(v13), Count >= 1))
+    v9 = *(v3 + 14);
+    if (v9 && (Count = CFArrayGetCount(v9), Count >= 1))
     {
-      v15 = Count;
-      v16 = 0;
+      v11 = Count;
+      v12 = 0;
       while (1)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(*(v3 + 14), v16);
+        ValueAtIndex = CFArrayGetValueAtIndex(*(v3 + 14), v12);
         if (CFDictionaryGetValue(ValueAtIndex, @"CurrentlyActivatingEndpointsInfo_Endpoint") == *(a1 + 80))
         {
           break;
         }
 
-        if (v15 == ++v16)
+        if (v11 == ++v12)
         {
           goto LABEL_11;
         }
       }
 
-      v18 = *(a1 + 72);
       FigCFDictionaryGetBooleanIfPresent();
-      CFDictionarySetValue(ValueAtIndex, @"CurrentlyActivatingEndpointsInfo_SubEndpoints", v9);
+      CFDictionarySetValue(ValueAtIndex, @"CurrentlyActivatingEndpointsInfo_SubEndpoints", v8);
     }
 
     else
@@ -1673,10 +1651,10 @@ LABEL_11:
       CFArrayAppendValue(*(v3 + 14), Mutable);
     }
 
-    _routingContextUtilities_postRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(*(a1 + 48), *(a1 + 56));
-    if (v9)
+    _routingContextUtilities_postRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(*(a1 + 48), *(a1 + 56), @"configUpdateReasonStarted");
+    if (v8)
     {
-      CFRelease(v9);
+      CFRelease(v8);
     }
 
     if (Mutable)
@@ -1704,16 +1682,12 @@ void __FigRoutingManagerContextUtilities_AddActivatedEndpoint_block_invoke(uint6
   v4 = *(ContextForUUIDFromDict + 15);
   if (!v4 || (Count = CFArrayGetCount(v4)) == 0)
   {
-    v14 = *(a1 + 56);
-    v15 = *(a1 + 64);
     FigCFDictionarySetValue();
-    v16 = *(a1 + 56);
-    v17 = *(a1 + 72);
     FigCFDictionarySetValue();
-    v18 = *(v3 + 15);
-    v19 = *(a1 + 56);
+    v10 = *(v3 + 15);
+    v11 = *(a1 + 56);
 
-    CFArrayAppendValue(v18, v19);
+    CFArrayAppendValue(v10, v11);
     return;
   }
 
@@ -1723,18 +1697,14 @@ void __FigRoutingManagerContextUtilities_AddActivatedEndpoint_block_invoke(uint6
     goto LABEL_17;
   }
 
-  v21 = 0;
+  v12 = 0;
   v7 = 0;
   while (1)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(*(v3 + 15), v7);
     Value = CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_Endpoint");
     FigCFDictionaryGetInt64IfPresent();
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
     FigCFDictionarySetValue();
-    v12 = *(a1 + 56);
-    v13 = *(a1 + 72);
     FigCFDictionarySetValue();
     if (Value == *(a1 + 80))
     {
@@ -1750,14 +1720,13 @@ LABEL_9:
 
   if (!*(a1 + 88))
   {
-    v21 = 1;
+    v12 = 1;
     goto LABEL_9;
   }
 
-  v20 = *(a1 + 96);
   FigCFDictionarySetValue();
 LABEL_16:
-  if (!v21)
+  if (!v12)
   {
 LABEL_17:
     CFArrayAppendValue(*(v3 + 15), *(a1 + 56));
@@ -1794,8 +1763,7 @@ void __FigRoutingManagerContextUtilities_RemoveActivatedEndpoint_block_invoke(ui
           }
         }
 
-        v10 = *MEMORY[0x1E69626B0];
-        if (!FigRoutingManagerIsEndpointOfType(Value) || (v11 = CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_SubEndpointsInfo")) == 0 || !CFArrayGetCount(v11))
+        if (!FigRoutingManagerIsEndpointOfType(Value, *MEMORY[0x1E69626B0]) || (v10 = CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_SubEndpointsInfo")) == 0 || !CFArrayGetCount(v10))
         {
           CFArrayRemoveValueAtIndex(*(v3 + 15), v7);
         }
@@ -1864,12 +1832,11 @@ void *__FigRoutingManagerContextUtilities_SetDefaultLeaderUUIDForContext_block_i
   return result;
 }
 
-uint64_t __FigRoutingManagerContextUtilities_CopyRoutingContextForContextUUID_block_invoke(uint64_t a1)
+const UInt8 *__FigRoutingManagerContextUtilities_CopyRoutingContextForContextUUID_block_invoke(uint64_t a1)
 {
   result = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 32) + 480), *(a1 + 40));
   if (result)
   {
-    v3 = *(result + 48);
     result = FigCFWeakReferenceHolderCopyReferencedObject();
     **(a1 + 48) = result;
   }
@@ -1889,16 +1856,14 @@ void __FigRoutingManagerContextUtilities_CopyAllAudioContexts_block_invoke(uint6
       for (i = 0; i != v4; ++i)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(*(*(a1 + 32) + 616), i);
-        ContextForUUIDFromDict = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 32) + 480), ValueAtIndex);
-        if (ContextForUUIDFromDict)
+        if (_routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 32) + 480), ValueAtIndex))
         {
-          v8 = *(ContextForUUIDFromDict + 6);
-          v9 = FigCFWeakReferenceHolderCopyReferencedObject();
-          if (v9)
+          v7 = FigCFWeakReferenceHolderCopyReferencedObject();
+          if (v7)
           {
-            v10 = v9;
-            CFArrayAppendValue(*(a1 + 40), v9);
-            CFRelease(v10);
+            v8 = v7;
+            CFArrayAppendValue(*(a1 + 40), v7);
+            CFRelease(v8);
           }
         }
       }
@@ -1963,7 +1928,6 @@ void __FigRoutingManagerContextUtilities_GetActivatedEndpointFeatures_block_invo
           ValueAtIndex = CFArrayGetValueAtIndex(*(v3 + 15), i);
           if (CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_Endpoint") == *(a1 + 56))
           {
-            v9 = *(a1 + 64);
             FigCFDictionaryGetInt64IfPresent();
           }
         }
@@ -1972,34 +1936,32 @@ void __FigRoutingManagerContextUtilities_GetActivatedEndpointFeatures_block_invo
 
     if (!**(a1 + 64))
     {
-      v10 = *(*(a1 + 40) + 480);
-      v11 = FigCFDictionaryGetCount();
-      v12 = malloc_type_calloc(v11, 8uLL, 0x80040B8603338uLL);
-      if (v12)
+      v9 = FigCFDictionaryGetCount();
+      v10 = malloc_type_calloc(v9, 8uLL, 0x80040B8603338uLL);
+      if (v10)
       {
-        v13 = v12;
-        CFDictionaryGetKeysAndValues(*(*(a1 + 40) + 480), 0, v12);
-        if (v11 >= 1)
+        v11 = v10;
+        CFDictionaryGetKeysAndValues(*(*(a1 + 40) + 480), 0, v10);
+        if (v9 >= 1)
         {
-          for (j = 0; j != v11; ++j)
+          for (j = 0; j != v9; ++j)
           {
-            v15 = v13[j];
-            if (v15)
+            v13 = v11[j];
+            if (v13)
             {
-              BytePtr = CFDataGetBytePtr(v15);
-              v17 = *(BytePtr + 15);
-              if (v17)
+              BytePtr = CFDataGetBytePtr(v13);
+              v15 = *(BytePtr + 15);
+              if (v15)
               {
-                v18 = CFArrayGetCount(v17);
-                if (v18 >= 1)
+                v16 = CFArrayGetCount(v15);
+                if (v16 >= 1)
                 {
-                  v19 = v18;
-                  for (k = 0; k != v19; ++k)
+                  v17 = v16;
+                  for (k = 0; k != v17; ++k)
                   {
-                    v21 = CFArrayGetValueAtIndex(*(BytePtr + 15), k);
-                    if (CFDictionaryGetValue(v21, @"ActivatedEndpointsInfo_Endpoint") == *(a1 + 56))
+                    v19 = CFArrayGetValueAtIndex(*(BytePtr + 15), k);
+                    if (CFDictionaryGetValue(v19, @"ActivatedEndpointsInfo_Endpoint") == *(a1 + 56))
                     {
-                      v22 = *(a1 + 64);
                       FigCFDictionaryGetInt64IfPresent();
                     }
                   }
@@ -2009,7 +1971,7 @@ void __FigRoutingManagerContextUtilities_GetActivatedEndpointFeatures_block_invo
           }
         }
 
-        free(v13);
+        free(v11);
       }
     }
   }
@@ -2038,7 +2000,6 @@ void __FigRoutingManagerContextUtilities_GetActivationSeedForEndpoint_block_invo
           ValueAtIndex = CFArrayGetValueAtIndex(*(v3 + 15), i);
           if (CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_Endpoint") == *(a1 + 56))
           {
-            v9 = *(a1 + 64);
             FigCFDictionaryGetInt64IfPresent();
           }
         }
@@ -2047,34 +2008,32 @@ void __FigRoutingManagerContextUtilities_GetActivationSeedForEndpoint_block_invo
 
     if (!**(a1 + 64))
     {
-      v10 = *(*(a1 + 40) + 480);
-      v11 = FigCFDictionaryGetCount();
-      v12 = malloc_type_calloc(v11, 8uLL, 0x80040B8603338uLL);
-      if (v12)
+      v9 = FigCFDictionaryGetCount();
+      v10 = malloc_type_calloc(v9, 8uLL, 0x80040B8603338uLL);
+      if (v10)
       {
-        v13 = v12;
-        CFDictionaryGetKeysAndValues(*(*(a1 + 40) + 480), 0, v12);
-        if (v11 >= 1)
+        v11 = v10;
+        CFDictionaryGetKeysAndValues(*(*(a1 + 40) + 480), 0, v10);
+        if (v9 >= 1)
         {
-          for (j = 0; j != v11; ++j)
+          for (j = 0; j != v9; ++j)
           {
-            v15 = v13[j];
-            if (v15)
+            v13 = v11[j];
+            if (v13)
             {
-              BytePtr = CFDataGetBytePtr(v15);
-              v17 = *(BytePtr + 15);
-              if (v17)
+              BytePtr = CFDataGetBytePtr(v13);
+              v15 = *(BytePtr + 15);
+              if (v15)
               {
-                v18 = CFArrayGetCount(v17);
-                if (v18 >= 1)
+                v16 = CFArrayGetCount(v15);
+                if (v16 >= 1)
                 {
-                  v19 = v18;
-                  for (k = 0; k != v19; ++k)
+                  v17 = v16;
+                  for (k = 0; k != v17; ++k)
                   {
-                    v21 = CFArrayGetValueAtIndex(*(BytePtr + 15), k);
-                    if (CFDictionaryGetValue(v21, @"ActivatedEndpointsInfo_Endpoint") == *(a1 + 56))
+                    v19 = CFArrayGetValueAtIndex(*(BytePtr + 15), k);
+                    if (CFDictionaryGetValue(v19, @"ActivatedEndpointsInfo_Endpoint") == *(a1 + 56))
                     {
-                      v22 = *(a1 + 64);
                       FigCFDictionaryGetInt64IfPresent();
                     }
                   }
@@ -2084,7 +2043,7 @@ void __FigRoutingManagerContextUtilities_GetActivationSeedForEndpoint_block_invo
           }
         }
 
-        free(v13);
+        free(v11);
       }
     }
   }
@@ -2303,16 +2262,15 @@ void *__FigRoutingManagerContextUtilities_CopyActivatedEndpointsInfo_block_invok
 
 void __FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpoint_block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 480);
   Count = FigCFDictionaryGetCount();
-  v4 = malloc_type_calloc(Count, 8uLL, 0x80040B8603338uLL);
-  if (v4)
+  v3 = malloc_type_calloc(Count, 8uLL, 0x80040B8603338uLL);
+  if (v3)
   {
-    v5 = v4;
-    CFDictionaryGetKeysAndValues(*(*(a1 + 32) + 480), 0, v4);
+    v4 = v3;
+    CFDictionaryGetKeysAndValues(*(*(a1 + 32) + 480), 0, v3);
     if (Count <= 0)
     {
-      free(v5);
+      free(v4);
     }
 
     else
@@ -2320,25 +2278,25 @@ void __FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpo
       cf = 0;
       for (i = 0; i != Count; ++i)
       {
-        v7 = v5[i];
-        if (v7)
+        v6 = v4[i];
+        if (v6)
         {
-          BytePtr = CFDataGetBytePtr(v7);
-          v9 = *(BytePtr + 15);
-          if (v9)
+          BytePtr = CFDataGetBytePtr(v6);
+          v8 = *(BytePtr + 15);
+          if (v8)
           {
-            v10 = CFRetain(v9);
-            if (v10)
+            v9 = CFRetain(v8);
+            if (v9)
             {
-              v11 = v10;
-              v12 = CFArrayGetCount(v10);
-              if (v12 >= 1)
+              v10 = v9;
+              v11 = CFArrayGetCount(v9);
+              if (v11 >= 1)
               {
-                v13 = v12;
-                v14 = 0;
+                v12 = v11;
+                v13 = 0;
                 while (1)
                 {
-                  ValueAtIndex = CFArrayGetValueAtIndex(v11, v14);
+                  ValueAtIndex = CFArrayGetValueAtIndex(v10, v13);
                   if (CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_Endpoint") == *(a1 + 40))
                   {
                     Value = CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_ActivationSeed");
@@ -2346,30 +2304,30 @@ void __FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpo
                     if (Value)
                     {
                       CFNumberGetValue(Value, kCFNumberSInt64Type, &valuePtr);
-                      v17 = valuePtr;
+                      v16 = valuePtr;
                     }
 
                     else
                     {
-                      v17 = 0;
+                      v16 = 0;
                     }
 
-                    if (v17 == *(a1 + 48))
+                    if (v16 == *(a1 + 48))
                     {
                       break;
                     }
                   }
 
-                  if (v13 == ++v14)
+                  if (v12 == ++v13)
                   {
                     goto LABEL_15;
                   }
                 }
 
-                v18 = *(BytePtr + 1);
-                if (v18)
+                v17 = *(BytePtr + 1);
+                if (v17)
                 {
-                  cf = CFRetain(v18);
+                  cf = CFRetain(v17);
                 }
 
                 else
@@ -2379,13 +2337,13 @@ void __FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpo
               }
 
 LABEL_15:
-              CFRelease(v11);
+              CFRelease(v10);
             }
           }
         }
       }
 
-      free(v5);
+      free(v4);
       if (cf)
       {
         **(a1 + 56) = CFRetain(cf);
@@ -2696,7 +2654,7 @@ void *__FigRoutingManagerContextUtilities_CopyHijackID_block_invoke(uint64_t a1)
 
 void __FigRoutingManagerContextUtilities_SetAggregateEndpoint_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   ContextForUUIDFromDict = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 40) + 480), *(a1 + 48));
   if (ContextForUUIDFromDict)
   {
@@ -2726,8 +2684,6 @@ void __FigRoutingManagerContextUtilities_SetAggregateEndpoint_block_invoke(uint6
   {
     *(*(*(a1 + 32) + 8) + 24) = -17420;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void *__FigRoutingManagerContextUtilities_CopyAggregateEndpointAsFigEndpointAggregate_block_invoke(uint64_t a1)
@@ -2989,18 +2945,14 @@ CFDictionaryRef *__FigRoutingManagerContextUtilities_GetMainVolumeScaleFactorFor
 
 void __FigRoutingManagerContextUtilities_SetMainVolumeScaleFactorForEndpointID_block_invoke(uint64_t a1)
 {
-  ContextForUUIDFromDict = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 32) + 480), *(a1 + 40));
-  if (ContextForUUIDFromDict)
+  if (_routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 32) + 480), *(a1 + 40)))
   {
-    v3 = ContextForUUIDFromDict;
-    v4 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloat32Type, (a1 + 56));
-    v5 = *(v3 + 18);
-    v6 = *(a1 + 48);
+    v2 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloat32Type, (a1 + 56));
     FigCFDictionarySetValue();
-    if (v4)
+    if (v2)
     {
 
-      CFRelease(v4);
+      CFRelease(v2);
     }
   }
 }
@@ -3069,13 +3021,11 @@ void __FigRoutingManagerContextUtilities_SetAudioEndpoint_block_invoke(uint64_t 
   }
 }
 
-uint64_t __FigRoutingManagerContextUtilities_IsRoutedToLocalAirplayReceiver_block_invoke(uint64_t a1)
+const UInt8 *__FigRoutingManagerContextUtilities_IsRoutedToLocalAirplayReceiver_block_invoke(uint64_t a1)
 {
   result = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 40) + 480), *(a1 + 48));
   if (result)
   {
-    v4 = *(result + 160);
-    v3 = *(result + 168);
     result = FigCFEqual();
     *(*(*(a1 + 32) + 8) + 24) = result;
   }
@@ -3113,7 +3063,7 @@ void __FigRoutingManagerContextUtilities_StopDiscoveryTimer_block_invoke(uint64_
 
 void __FigRoutingManagerContextUtilities_StopMirroringTimer_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   ContextForUUIDFromDict = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 32) + 480), *(a1 + 40));
   if (ContextForUUIDFromDict)
   {
@@ -3147,8 +3097,6 @@ void __FigRoutingManagerContextUtilities_StopMirroringTimer_block_invoke(uint64_
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __FigRoutingManagerContextUtilities_CacheSupportedOutputChannelLayouts_block_invoke(uint64_t a1)

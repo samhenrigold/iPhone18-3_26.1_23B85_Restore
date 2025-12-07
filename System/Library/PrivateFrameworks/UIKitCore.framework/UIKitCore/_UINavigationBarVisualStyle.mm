@@ -66,7 +66,7 @@
 - (id)timingFunctionForAnimationInView:(id)view withKeyPath:(id)path isInteractive:(BOOL)interactive
 {
   viewCopy = view;
-  if ([path isEqualToString:@"opacity"])
+  if (objc_msgSend_isEqualToString_(path))
   {
     [viewCopy alpha];
     HIDWORD(v11) = 1068079513;
@@ -205,7 +205,7 @@
 
   else
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor, a2, style);
   }
   v4 = ;
 

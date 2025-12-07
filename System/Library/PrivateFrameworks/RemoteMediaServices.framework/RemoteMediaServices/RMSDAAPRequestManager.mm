@@ -44,111 +44,112 @@
 
 - (id)requestWithPath:(id)path method:(id)method postData:(id)data queryArgs:(id)args completionHandler:(id)handler
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v69[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   methodCopy = method;
   dataCopy = data;
   argsCopy = args;
   handlerCopy = handler;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__0;
-  v57 = __Block_byref_object_dispose__0;
-  v58 = objc_opt_new();
-  [v54[5] setScheme:@"http"];
-  [v54[5] setHost:self->_hostName];
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x3032000000;
+  v57 = __Block_byref_object_copy__0;
+  v58 = __Block_byref_object_dispose__0;
+  v59 = objc_opt_new();
+  [v55[5] setScheme:@"http"];
+  [v55[5] setHost:self->_hostName];
   v17 = [MEMORY[0x277CCABB0] numberWithInteger:self->_port];
-  [v54[5] setPort:v17];
+  [v55[5] setPort:v17];
 
   pathCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"/%@", pathCopy];
-  [v54[5] setPath:pathCopy];
+  [v55[5] setPath:pathCopy];
 
   if (self->_sessionIdentifier)
   {
-    v19 = v54[5];
-    v67 = @"session-id";
+    v19 = v55[5];
+    v68 = @"session-id";
     v20 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-    v68[0] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+    v69[0] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
     v22 = [v19 rms_componentsByAddingQueryParameters:v21];
-    v23 = v54[5];
-    v54[5] = v22;
+    v23 = v55[5];
+    v55[5] = v22;
   }
 
   homeSharingGroupKey = self->_homeSharingGroupKey;
   if (homeSharingGroupKey)
   {
-    v25 = v54[5];
-    v65 = @"hsgid";
-    v66 = homeSharingGroupKey;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+    v25 = v55[5];
+    v66 = @"hsgid";
+    v67 = homeSharingGroupKey;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
     v27 = [v25 rms_componentsByAddingQueryParameters:v26];
-    v28 = v54[5];
-    v54[5] = v27;
+    v28 = v55[5];
+    v55[5] = v27;
   }
 
   pairingGUID = self->_pairingGUID;
   if (pairingGUID)
   {
-    v30 = v54[5];
-    v63 = @"pairing-guid";
-    v64 = pairingGUID;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+    v30 = v55[5];
+    v64 = @"pairing-guid";
+    v65 = pairingGUID;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
     v32 = [v30 rms_componentsByAddingQueryParameters:v31];
-    v33 = v54[5];
-    v54[5] = v32;
+    v33 = v55[5];
+    v55[5] = v32;
   }
 
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __85__RMSDAAPRequestManager_requestWithPath_method_postData_queryArgs_completionHandler___block_invoke;
-  v52[3] = &unk_279B08FD0;
-  v52[4] = &v53;
-  [argsCopy enumerateKeysAndObjectsUsingBlock:v52];
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __85__RMSDAAPRequestManager_requestWithPath_method_postData_queryArgs_completionHandler___block_invoke;
+  v53[3] = &unk_279B08FD0;
+  v53[4] = &v54;
+  [argsCopy enumerateKeysAndObjectsUsingBlock:v53];
   v34 = MEMORY[0x277CCAB70];
-  v35 = [v54[5] URL];
+  v35 = [v55[5] URL];
   v36 = [v34 requestWithURL:v35];
 
   [v36 setHTTPMethod:methodCopy];
   [v36 setHTTPBody:dataCopy];
-  if ([(RMSFairPlaySession *)self->_fairPlaySession isHandshakeComplete])
+  isHandshakeComplete = [(RMSFairPlaySession *)self->_fairPlaySession isHandshakeComplete];
+  if (isHandshakeComplete)
   {
     fairPlaySession = self->_fairPlaySession;
-    v38 = [v54[5] URL];
-    v39 = [(RMSFairPlaySession *)fairPlaySession headerForURL:v38];
+    v39 = [v55[5] URL];
+    v40 = [(RMSFairPlaySession *)fairPlaySession headerForURL:v39];
 
-    [v36 addValue:v39 forHTTPHeaderField:@"Client-DAAP-Validation"];
+    [v36 addValue:v40 forHTTPHeaderField:@"Client-DAAP-Validation"];
   }
 
-  v40 = RMSLogger();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v41 = RMSLogger(isHandshakeComplete);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = [v54[5] URL];
-    absoluteString = [v41 absoluteString];
+    v42 = [v55[5] URL];
+    absoluteString = [v42 absoluteString];
     *buf = 138412546;
-    v60 = methodCopy;
-    v61 = 2112;
-    v62 = absoluteString;
-    _os_log_impl(&dword_261E98000, v40, OS_LOG_TYPE_DEFAULT, "%@/ %@", buf, 0x16u);
+    v61 = methodCopy;
+    v62 = 2112;
+    v63 = absoluteString;
+    _os_log_impl(&dword_261E98000, v41, OS_LOG_TYPE_DEFAULT, "%@/ %@", buf, 0x16u);
   }
 
   urlSession = self->_urlSession;
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __85__RMSDAAPRequestManager_requestWithPath_method_postData_queryArgs_completionHandler___block_invoke_51;
-  v48[3] = &unk_279B08FF8;
-  v44 = pathCopy;
-  v49 = v44;
-  v45 = handlerCopy;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __85__RMSDAAPRequestManager_requestWithPath_method_postData_queryArgs_completionHandler___block_invoke_51;
+  v49[3] = &unk_279B08FF8;
+  v45 = pathCopy;
+  v50 = v45;
+  v46 = handlerCopy;
   selfCopy = self;
-  v51 = v45;
-  v46 = [(NSURLSession *)urlSession dataTaskWithRequest:v36 completionHandler:v48];
-  [v46 resume];
+  v52 = v46;
+  v47 = [(NSURLSession *)urlSession dataTaskWithRequest:v36 completionHandler:v49];
+  [v47 resume];
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v54, 8);
 
-  return v46;
+  return v47;
 }
 
 void __85__RMSDAAPRequestManager_requestWithPath_method_postData_queryArgs_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -169,45 +170,46 @@ void __85__RMSDAAPRequestManager_requestWithPath_method_postData_queryArgs_compl
 
 void __85__RMSDAAPRequestManager_requestWithPath_method_postData_queryArgs_completionHandler___block_invoke_51(void *a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v8;
+  v11 = v10;
   if (v9)
   {
-    v11 = [v9 code];
-    WeakRetained = RMSLogger();
-    v13 = os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT);
-    if (v11 != -1001)
+    v12 = [v9 code];
+    WeakRetained = RMSLogger(v12);
+    v14 = os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT);
+    if (v12 != -1001)
     {
-      if (v11 == -999)
+      if (v12 == -999)
       {
-        if (v13)
+        if (v14)
         {
-          v14 = a1[4];
-          v26 = 138412290;
-          v27 = v14;
-          _os_log_impl(&dword_261E98000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Request was cancelled: %@", &v26, 0xCu);
+          v15 = a1[4];
+          v27 = 138412290;
+          v28 = v15;
+          _os_log_impl(&dword_261E98000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Request was cancelled: %@", &v27, 0xCu);
         }
       }
 
       else
       {
-        if (v13)
+        if (v14)
         {
-          v22 = a1[4];
-          v26 = 138412546;
-          v27 = v9;
-          v28 = 2112;
-          v29 = v22;
-          _os_log_impl(&dword_261E98000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Unexpected error [%@]: %@", &v26, 0x16u);
+          v23 = a1[4];
+          v27 = 138412546;
+          v28 = v9;
+          v29 = 2112;
+          v30 = v23;
+          _os_log_impl(&dword_261E98000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Unexpected error [%@]: %@", &v27, 0x16u);
         }
 
-        v23 = a1[6];
-        if (v23)
+        v24 = a1[6];
+        if (v24)
         {
-          (*(v23 + 16))(v23, -1, 0);
+          (*(v24 + 16))(v24, -1, 0);
         }
 
         WeakRetained = objc_loadWeakRetained((a1[5] + 56));
@@ -219,44 +221,44 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    if (v13)
+    if (v14)
     {
-      v20 = a1[4];
-      v26 = 138412290;
-      v27 = v20;
-      _os_log_impl(&dword_261E98000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Request timed out: %@", &v26, 0xCu);
+      v21 = a1[4];
+      v27 = 138412290;
+      v28 = v21;
+      _os_log_impl(&dword_261E98000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Request timed out: %@", &v27, 0xCu);
     }
 
-    v21 = a1[6];
-    if (v21)
+    v22 = a1[6];
+    if (v22)
     {
-      v19 = *(v21 + 16);
+      v20 = *(v22 + 16);
       goto LABEL_15;
     }
   }
 
   else
   {
-    v15 = RMSLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = RMSLogger(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [v10 statusCode];
-      v17 = a1[4];
-      v26 = 134218242;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_261E98000, v15, OS_LOG_TYPE_DEFAULT, "HTTP response code [%zd] for [%@]", &v26, 0x16u);
+      v17 = [v11 statusCode];
+      v18 = a1[4];
+      v27 = 134218242;
+      v28 = v17;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&dword_261E98000, v16, OS_LOG_TYPE_DEFAULT, "HTTP response code [%zd] for [%@]", &v27, 0x16u);
     }
 
-    if ([v10 statusCode] > 299)
+    if ([v11 statusCode] > 299)
     {
-      if ([v10 statusCode] == 401 || objc_msgSend(v10, "statusCode") == 403 || objc_msgSend(v10, "statusCode") == 503)
+      if ([v11 statusCode] == 401 || objc_msgSend(v11, "statusCode") == 403 || objc_msgSend(v11, "statusCode") == 503)
       {
-        v24 = a1[6];
-        if (v24)
+        v25 = a1[6];
+        if (v25)
         {
-          (*(v24 + 16))(v24, -2, v7);
+          (*(v25 + 16))(v25, -2, v7);
         }
 
         WeakRetained = objc_loadWeakRetained((a1[5] + 56));
@@ -264,22 +266,22 @@ LABEL_27:
         goto LABEL_27;
       }
 
-      v25 = a1[6];
-      if (!v25)
+      v26 = a1[6];
+      if (!v26)
       {
         goto LABEL_28;
       }
 
-      v19 = *(v25 + 16);
+      v20 = *(v26 + 16);
       goto LABEL_15;
     }
 
-    v18 = a1[6];
-    if (v18)
+    v19 = a1[6];
+    if (v19)
     {
-      v19 = *(v18 + 16);
+      v20 = *(v19 + 16);
 LABEL_15:
-      v19();
+      v20();
     }
   }
 

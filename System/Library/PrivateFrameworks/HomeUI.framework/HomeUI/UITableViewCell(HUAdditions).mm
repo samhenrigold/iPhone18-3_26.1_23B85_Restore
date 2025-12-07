@@ -18,7 +18,7 @@
   v4 = value;
   if (value)
   {
-    (off_2811221E8)(self, sel_setSeparatorStyle_, [value unsignedIntegerValue]);
+    off_2811221E8(self, sel_setSeparatorStyle_, [value unsignedIntegerValue]);
     v4 = value;
   }
 }

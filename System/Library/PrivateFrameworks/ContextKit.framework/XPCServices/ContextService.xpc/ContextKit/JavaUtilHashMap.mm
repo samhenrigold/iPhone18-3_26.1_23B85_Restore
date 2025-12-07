@@ -4,6 +4,7 @@
 - (BOOL)containsKeyWithId:(id)id;
 - (BOOL)containsValueWithId:(id)id;
 - (id)clone;
+- (id)constructorNewRetainedEntryWithId:(id)id withId:(id)withId withInt:(int)int withJavaUtilHashMap_HashMapEntry:(id)entry;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)entrySet;
 - (id)getWithId:(id)id;
@@ -17,6 +18,7 @@
 - (uint64_t)doubleCapacity;
 - (unint64_t)enumerateEntriesWithState:(id *)state objects:(id *)objects count:(unint64_t)count;
 - (void)addNewEntryForNullKeyWithId:(id)id;
+- (void)addNewEntryWithId:(id)id withId:(id)withId withInt:(int)int withInt:(int)withInt;
 - (void)clear;
 - (void)dealloc;
 - (void)putAllWithJavaUtilMap:(id)map;
@@ -82,7 +84,7 @@ LABEL_5:
 {
   if (id)
   {
-    v6 = JavaUtilCollections_secondaryHashWithId_(id);
+    v6 = JavaUtilCollections_secondaryHashWithId_(id, a2);
     table = self->table_;
     if (!table)
     {
@@ -132,7 +134,7 @@ LABEL_5:
     return self->entryForNullKey_ != 0;
   }
 
-  v6 = JavaUtilCollections_secondaryHashWithId_(id);
+  v6 = JavaUtilCollections_secondaryHashWithId_(id, a2);
   table = self->table_;
   if (!table)
   {
@@ -274,7 +276,7 @@ LABEL_22:
 {
   if (id)
   {
-    v8 = JavaUtilCollections_secondaryHashWithId_(id);
+    v8 = JavaUtilCollections_secondaryHashWithId_(id, a2);
     table = self->table_;
     if (table)
     {
@@ -396,11 +398,25 @@ LABEL_15:
   return v3;
 }
 
+- (void)addNewEntryWithId:(id)id withId:(id)withId withInt:(int)int withInt:(int)withInt
+{
+  v8 = [[JavaUtilHashMap_HashMapEntry alloc] initWithId:id withId:withId withInt:*&int withJavaUtilHashMap_HashMapEntry:0];
+  v8->next_ = (&self->table_->elementType_)[withInt];
+  (&self->table_->elementType_)[withInt] = v8;
+}
+
 - (void)addNewEntryForNullKeyWithId:(id)id
 {
   v4 = new_JavaUtilHashMap_HashMapEntry_initWithId_withId_withInt_withJavaUtilHashMap_HashMapEntry_(0, id, 0, 0);
 
   JreStrongAssignAndConsume(&self->entryForNullKey_, v4);
+}
+
+- (id)constructorNewRetainedEntryWithId:(id)id withId:(id)withId withInt:(int)int withJavaUtilHashMap_HashMapEntry:(id)entry
+{
+  result = [[JavaUtilHashMap_HashMapEntry alloc] initWithId:id withId:withId withInt:*&int withJavaUtilHashMap_HashMapEntry:0];
+  *(result + 4) = entry;
+  return result;
 }
 
 - (void)putAllWithJavaUtilMap:(id)map
@@ -420,7 +436,7 @@ LABEL_15:
 {
   if (id)
   {
-    v5 = JavaUtilCollections_secondaryHashWithId_(id);
+    v5 = JavaUtilCollections_secondaryHashWithId_(id, a2);
     table = self->table_;
     v7 = (table->super.size_ - 1) & v5;
     next = (&table->elementType_)[v7];
@@ -514,7 +530,7 @@ LABEL_15:
   {
     v4 = [JavaUtilHashMap_Values alloc];
     objc_storeWeak(&v4->this$0_, self);
-    JavaUtilAbstractCollection_init(v4, v5);
+    JavaUtilAbstractCollection_init();
 
     return JreStrongAssignAndConsume(&self->values_, v4);
   }
@@ -563,22 +579,7 @@ LABEL_15:
 
 - (void)writeObjectWithJavaIoObjectOutputStream:(id)stream
 {
-  if (!stream)
-  {
-    goto LABEL_14;
-  }
-
-  putFields = [stream putFields];
-  if (!putFields)
-  {
-    goto LABEL_14;
-  }
-
-  LODWORD(v6) = 0.75;
-  [putFields putWithNSString:@"loadFactor" withFloat:v6];
-  [stream writeFields];
-  table = self->table_;
-  if (!table || ([stream writeIntWithInt:table->super.size_], objc_msgSend(stream, "writeIntWithInt:", self->size_), v17 = 0u, v18 = 0u, v15 = 0u, v16 = 0u, (v8 = -[JavaUtilHashMap entrySet](self, "entrySet", 0)) == 0))
+  if (!stream || (v5 = [stream putFields]) == 0 || (LODWORD(v6) = 0.75, objc_msgSend(v5, "putWithNSString:withFloat:", @"loadFactor", v6), objc_msgSend(stream, "writeFields"), (table = self->table_) == 0) || (objc_msgSend(stream, "writeIntWithInt:", table->super.size_), objc_msgSend(stream, "writeIntWithInt:", self->size_), v17 = 0u, v18 = 0u, v15 = 0u, v16 = 0u, (v8 = -[JavaUtilHashMap entrySet](self, "entrySet", 0)) == 0))
   {
 LABEL_14:
     JreThrowNullPointerException();
@@ -639,7 +640,7 @@ LABEL_14:
     v13 = 0x40000000;
     if (readInt <= 0x40000000)
     {
-      v13 = JavaUtilCollections_roundUpToPowerOfTwoWithInt_(readInt);
+      v13 = JavaUtilCollections_roundUpToPowerOfTwoWithInt_(readInt, 0x40000000);
     }
   }
 
@@ -780,9 +781,9 @@ LABEL_17:
     }
 
     JreStrongAssignAndConsume(&qword_100554EA0, [IOSObjectArray newArrayWithLength:2 type:qword_100554EB0]);
-    v3 = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"loadFactor", +[IOSClass floatClass]);
-    v2 = [IOSObjectArray newArrayWithObjects:&v3 count:1 type:JavaIoObjectStreamField_class_()];
-    JreStrongAssignAndConsume(&qword_100554EA8, v2);
+    v4 = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"loadFactor", +[IOSClass floatClass]);
+    v3 = [IOSObjectArray newArrayWithObjects:&v4 count:1 type:JavaIoObjectStreamField_class_(v4, v2)];
+    JreStrongAssignAndConsume(&qword_100554EA8, v3);
     atomic_store(1u, &JavaUtilHashMap__initialized);
   }
 }

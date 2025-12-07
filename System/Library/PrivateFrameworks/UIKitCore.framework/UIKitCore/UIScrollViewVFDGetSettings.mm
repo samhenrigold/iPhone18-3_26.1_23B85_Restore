@@ -3,7 +3,7 @@
 
 @implementation UIScrollViewVFDGetSettings
 
-uint64_t ___UIScrollViewVFDGetSettings_block_invoke()
+BOOL ___UIScrollViewVFDGetSettings_block_invoke()
 {
   v0 = _UIDeviceNativeUserInterfaceIdiomIgnoringClassic();
   if (_UIInternalPreferenceUsesDefault(&_MergedGlobals_953, @"ScrollViewVFDStaticTable", _UIInternalPreferenceUpdateId))

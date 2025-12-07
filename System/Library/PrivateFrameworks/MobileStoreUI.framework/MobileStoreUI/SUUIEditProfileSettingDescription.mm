@@ -486,7 +486,7 @@ void __59__SUUIEditProfileSettingDescription__fetchSuggestedHandles__block_invok
     }
 
     domain = [errorCopy domain];
-    if ([domain isEqualToString:@"SUUIErrorDomain"])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       code = [errorCopy code];
 
@@ -565,9 +565,9 @@ LABEL_11:
         }
 
         v10 = *(*(&v27 + 1) + 8 * v9);
-        v11 = [(__CFString *)v10 isEqualToString:@"handle"];
+        isEqualToString = objc_msgSend_isEqualToString_(v10);
         v12 = SUUIMediaSocialUpdateProfileFieldHandle;
-        if (v11 & 1) != 0 || (v13 = [(__CFString *)v10 isEqualToString:@"name"], v12 = SUUIMediaSocialUpdateProfileFieldName, (v13) || (v14 = [(__CFString *)v10 isEqualToString:@"photoUpload"], v12 = &SUUIMediaSocialUpdateProfileFieldProfileImage, v14))
+        if (isEqualToString & 1) != 0 || (v13 = objc_msgSend_isEqualToString_(v10), v12 = SUUIMediaSocialUpdateProfileFieldName, (v13) || (v14 = objc_msgSend_isEqualToString_(v10), v12 = &SUUIMediaSocialUpdateProfileFieldProfileImage, v14))
         {
           v15 = *v12;
 
@@ -582,7 +582,7 @@ LABEL_11:
           {
             v17 = null;
             null = v17;
-            if ([v17 isEqualToString:&stru_286AECDE0])
+            if (objc_msgSend_isEqualToString_(v17))
             {
               null = [MEMORY[0x277CBEB68] null];
             }
@@ -634,7 +634,7 @@ void __55__SUUIEditProfileSettingDescription__updateAccountInfo__block_invoke(ui
   if (!a2)
   {
     v8 = [v5 domain];
-    if ([v8 isEqualToString:@"SUUIErrorDomain"])
+    if (objc_msgSend_isEqualToString_(v8))
     {
       v9 = [v5 code];
 
@@ -651,7 +651,7 @@ void __55__SUUIEditProfileSettingDescription__updateAccountInfo__block_invoke(ui
     }
 
     v10 = [v5 domain];
-    if ([v10 isEqualToString:@"SUUIErrorDomain"])
+    if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = [v5 code];
 
@@ -742,7 +742,7 @@ void __57__SUUIEditProfileSettingDescription__uploadProfileImage___block_invoke(
   if (!v5 || v6)
   {
     v10 = [v6 domain];
-    if ([v10 isEqualToString:@"SUUIErrorDomain"])
+    if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = [v6 code];
 
@@ -803,7 +803,7 @@ void __57__SUUIEditProfileSettingDescription__uploadProfileImage___block_invoke_
 {
   handleCopy = handle;
   v5 = handleCopy;
-  if (!handleCopy || ([handleCopy isEqualToString:&stru_286AECDE0] & 1) != 0 || objc_msgSend(v5, "length") > 0x20)
+  if (!handleCopy || (objc_msgSend_isEqualToString_(handleCopy) & 1) != 0 || [v5 length] > 0x20)
   {
     v11 = 0;
   }
@@ -840,7 +840,7 @@ void __57__SUUIEditProfileSettingDescription__uploadProfileImage___block_invoke_
 {
   if (name)
   {
-    return [name isEqualToString:&stru_286AECDE0] ^ 1;
+    return objc_msgSend_isEqualToString_(name, a2, &stru_286AECDE0) ^ 1;
   }
 
   else

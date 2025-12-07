@@ -172,7 +172,7 @@ LABEL_22:
 
 - (id)_primaryAppleAccount
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CB8F48]);
   aa_primaryAppleAccount = [v3 aa_primaryAppleAccount];
   if (!aa_primaryAppleAccount)
@@ -181,50 +181,48 @@ LABEL_22:
     v5 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching primary Apple account", &v9, 0xCu);
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching primary Apple account", &v8, 0xCu);
     }
   }
 
   appleID = [aa_primaryAppleAccount appleID];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return appleID;
 }
 
 - (id)_imPreferredAccount
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2050000000;
+  v22 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2050000000;
   v3 = getIMServiceImplClass_softClass;
-  v19 = getIMServiceImplClass_softClass;
+  v18 = getIMServiceImplClass_softClass;
   if (!getIMServiceImplClass_softClass)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getIMServiceImplClass_block_invoke;
-    v21 = &unk_278616E90;
-    v22 = &v16;
+    v20 = &unk_278616E90;
+    v21 = &v15;
     __getIMServiceImplClass_block_invoke(buf);
-    v3 = v17[3];
+    v3 = v16[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   iMessageService = [v3 iMessageService];
-  if (iMessageService && IMCoreLibraryCore() && getIMPreferredAccountForServiceSymbolLoc())
+  if (iMessageService && IMCoreLibraryCore(0) && getIMPreferredAccountForServiceSymbolLoc())
   {
     v6 = iMessageService;
     IMPreferredAccountForServiceSymbolLoc = getIMPreferredAccountForServiceSymbolLoc();
     if (!IMPreferredAccountForServiceSymbolLoc)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"IMAccount *getIMPreferredAccountForService(IMService *__strong)"];
-      [currentHandler handleFailureInFunction:v15 file:@"HDContributorManager.m" lineNumber:35 description:{@"%s", dlerror()}];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"IMAccount *getIMPreferredAccountForService(IMService *__strong)"];
+      [currentHandler handleFailureInFunction:v14 file:@"HDContributorManager.m" lineNumber:35 description:{@"%s", dlerror()}];
 
       __break(1u);
     }
@@ -254,8 +252,6 @@ LABEL_22:
   {
     displayName = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return displayName;
 }

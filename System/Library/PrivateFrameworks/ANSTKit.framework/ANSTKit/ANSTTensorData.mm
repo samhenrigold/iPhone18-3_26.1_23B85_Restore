@@ -23,12 +23,12 @@
 
 - (ANSTTensorData)initWithDescriptor:(id)descriptor dataPointer:(void *)pointer length:(unint64_t)length deallocator:(id)deallocator error:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   deallocatorCopy = deallocator;
-  v33.receiver = self;
-  v33.super_class = ANSTTensorData;
-  v16 = [(ANSTTensorData *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = ANSTTensorData;
+  v16 = [(ANSTTensorData *)&v32 init];
   if (!v16)
   {
     goto LABEL_8;
@@ -60,9 +60,9 @@
     if (error)
     {
       v28 = MEMORY[0x277CCA9B8];
-      v34 = *MEMORY[0x277CCA068];
-      v35[0] = @"Tensor data length does not satisfy its descriptor's minimum contiguous length.";
-      v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v27, v35, &v34, 1);
+      v33 = *MEMORY[0x277CCA068];
+      v34[0] = @"Tensor data length does not satisfy its descriptor's minimum contiguous length.";
+      v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v27, v34, &v33, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v28, v30, @"ANSTErrorDomain", 12, v29);
 
       error = 0;
@@ -75,7 +75,6 @@ LABEL_8:
     error = v16;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -86,14 +85,13 @@ LABEL_8:
     deallocator = self->_deallocator;
     if (deallocator)
     {
-      length = self->_length;
       deallocator[2]();
     }
   }
 
-  v5.receiver = self;
-  v5.super_class = ANSTTensorData;
-  [(ANSTTensorData *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = ANSTTensorData;
+  [(ANSTTensorData *)&v4 dealloc];
 }
 
 @end

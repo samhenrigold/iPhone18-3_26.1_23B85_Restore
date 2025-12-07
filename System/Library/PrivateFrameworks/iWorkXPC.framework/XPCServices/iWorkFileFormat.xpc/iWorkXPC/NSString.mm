@@ -9,6 +9,7 @@
 + (id)tsu_stringByIndentingString:(id)string times:(unint64_t)times;
 + (id)tsu_stringWithFormat:(id)format arguments:(char *)arguments;
 + (id)tsu_stringWithHexFromBytes:(const char *)bytes length:(unint64_t)length;
++ (id)tsu_stringWithSqlStatement:(sqlite3_stmt *)statement columnIndex:(int)index;
 + (id)tsu_stringWithUUID;
 + (id)tsu_unRedactedStringWithFormat:(id)format arguments:(char *)arguments;
 - (BOOL)tsu_bindToSqlStatement:(sqlite3_stmt *)statement index:(int)index error:(id *)error;
@@ -43,6 +44,7 @@
 - (id)tsu_parseBaseTitleWithLocalizedCopyString:(id)string firstCopyFormatString:(id)formatString generalCopyFormatString:(id)copyFormatString outNumber:(unint64_t *)number;
 - (id)tsu_pathExceptPrivate;
 - (id)tsu_preferredIdentifierForTagClass:(id)class conformingToUTI:(id)i;
+- (id)tsu_regexForTitleParsingWithLocalizedCopyString:(id)string isFirstCopyFormatString:(BOOL)formatString;
 - (id)tsu_setOfContainedWordsIncludingPunctuationAndSymbols:(BOOL)symbols;
 - (id)tsu_sha256HexHashString;
 - (id)tsu_stringByAddingCSVEscapesForLocale:(id)locale;
@@ -1724,6 +1726,65 @@ LABEL_23:
   return v19;
 }
 
+- (id)tsu_regexForTitleParsingWithLocalizedCopyString:(id)string isFirstCopyFormatString:(BOOL)formatString
+{
+  formatStringCopy = formatString;
+  stringCopy = string;
+  if ([(NSString *)self tsu_countInstancesOfString:@"%1$@" options:0]== 1 && [(NSString *)self tsu_countInstancesOfString:@"%2$@" options:0]== 1 && (formatStringCopy || [(NSString *)self tsu_countInstancesOfString:@"%3$@" options:0]== 1))
+  {
+    v7 = [NSRegularExpression escapedPatternForString:self];
+    v8 = [NSRegularExpression escapedPatternForString:@"%1$@"];
+    v19[0] = v8;
+    v20[0] = @"(.*)";
+    v9 = [NSRegularExpression escapedPatternForString:@"%2$@"];
+    v19[1] = v9;
+    v20[1] = stringCopy;
+    v10 = [NSRegularExpression escapedPatternForString:@"%3$@"];
+    v19[2] = v10;
+    v20[2] = @"(\\d+)";
+    v11 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:3];
+
+    v12 = [v7 tsu_stringByApplyingSubstitutions:v11];
+    v13 = [NSRegularExpression regularExpressionWithPattern:v12 options:0 error:0];
+  }
+
+  else
+  {
+    v14 = +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_100159DBC();
+    }
+
+    v15 = TSUAssertCat_log_t;
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67110402;
+      v22 = v14;
+      v23 = 2082;
+      v24 = "[NSString(TSUAdditions) tsu_regexForTitleParsingWithLocalizedCopyString:isFirstCopyFormatString:]";
+      v25 = 2082;
+      v26 = "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/NSString_TSUAdditions.m";
+      v27 = 1024;
+      v28 = 864;
+      v29 = 2114;
+      selfCopy = self;
+      v31 = 1024;
+      v32 = formatStringCopy;
+      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid format string: %{public}@, isFirstCopyFormatString: %d", buf, 0x32u);
+    }
+
+    v16 = [NSString stringWithUTF8String:"[NSString(TSUAdditions) tsu_regexForTitleParsingWithLocalizedCopyString:isFirstCopyFormatString:]"];
+    v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/NSString_TSUAdditions.m"];
+    [TSUAssertionHandler handleFailureInFunction:v16 file:v17 lineNumber:864 isFatal:0 description:"Invalid format string: %{public}@, isFirstCopyFormatString: %d", self, formatStringCopy];
+
+    +[TSUAssertionHandler logBacktraceThrottled];
+    v13 = 0;
+  }
+
+  return v13;
+}
+
 + (id)tsu_stringByBase64EncodingBytes:(const char *)bytes length:(unint64_t)length breakLines:(BOOL)lines
 {
   linesCopy = lines;
@@ -1905,10 +1966,10 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([(NSString *)self isEqualToString:@"\\\\""])
+  if ([(NSString *)self isEqualToString:@"\\\"])
   {
-    v8 = [@"\\"" stringByAppendingPathExtension:extensionCopy];
-    v9 = [@"\\"" stringByAppendingString:v8];
+    v8 = [@"\" stringByAppendingPathExtension:extensionCopy];
+    v9 = [@"\" stringByAppendingString:v8];
   }
 
   else
@@ -2390,7 +2451,7 @@ LABEL_31:
           }
 
           v10 = stringCopy;
-          v11 = @"\\"";
+          v11 = @"\";
         }
       }
 
@@ -2400,7 +2461,7 @@ LABEL_31:
         {
           case 0x5C:
             v10 = stringCopy;
-            v11 = @"\\\\"";
+            v11 = @"\\\";
             break;
           case 0x2028:
             v10 = stringCopy;
@@ -2626,7 +2687,7 @@ LABEL_24:
   }
 
   v6 = v5;
-  __chkstk_darwin();
+  __chkstk_darwin(v5);
   v8 = (&v16 - ((v7 + 17) & 0xFFFFFFFFFFFFFFF0));
   [v4 getCharacters:v8 range:{0, v6}];
   v9 = 0;
@@ -3068,6 +3129,20 @@ LABEL_7:
   }
 
   return 1;
+}
+
++ (id)tsu_stringWithSqlStatement:(sqlite3_stmt *)statement columnIndex:(int)index
+{
+  v4 = *&index;
+  result = sqlite3_column_text(statement, index);
+  if (result)
+  {
+    v7 = [[NSString alloc] tsu_initWithSqlStatement:statement columnIndex:v4];
+
+    return v7;
+  }
+
+  return result;
 }
 
 - (BOOL)tsu_conformsToAnyUTI:(id)i

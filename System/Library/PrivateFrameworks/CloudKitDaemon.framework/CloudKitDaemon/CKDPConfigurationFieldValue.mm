@@ -188,7 +188,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
   if ((*&self->_has & 4) != 0)
   {
@@ -215,8 +215,8 @@
   has = self->_has;
   if ((has & 8) != 0)
   {
-    v51 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v4, self->_BOOLValue);
-    objc_msgSend_setObject_forKey_(v5, v52, v51, @"BOOLValue");
+    v50 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v4, self->_BOOLValue);
+    objc_msgSend_setObject_forKey_(v5, v51, v50, @"BOOLValue");
 
     has = self->_has;
     if ((has & 2) == 0)
@@ -236,8 +236,8 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v53 = objc_msgSend_numberWithLongLong_(MEMORY[0x277CCABB0], v4, self->_longValue);
-  objc_msgSend_setObject_forKey_(v5, v54, v53, @"longValue");
+  v52 = objc_msgSend_numberWithLongLong_(MEMORY[0x277CCABB0], v4, self->_longValue);
+  objc_msgSend_setObject_forKey_(v5, v53, v52, @"longValue");
 
   if (*&self->_has)
   {
@@ -258,30 +258,30 @@ LABEL_12:
     v15 = objc_alloc(MEMORY[0x277CBEB18]);
     v18 = objc_msgSend_count(self->_fieldValues, v16, v17);
     v20 = objc_msgSend_initWithCapacity_(v15, v19, v18);
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     v21 = self->_fieldValues;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v59, v64, 16);
+    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v58, v63, 16);
     if (v23)
     {
       v26 = v23;
-      v27 = *v60;
+      v27 = *v59;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v60 != v27)
+          if (*v59 != v27)
           {
             objc_enumerationMutation(v21);
           }
 
-          v29 = objc_msgSend_dictionaryRepresentation(*(*(&v59 + 1) + 8 * i), v24, v25);
+          v29 = objc_msgSend_dictionaryRepresentation(*(*(&v58 + 1) + 8 * i), v24, v25);
           objc_msgSend_addObject_(v20, v30, v29);
         }
 
-        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v59, v64, 16);
+        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v58, v63, 16);
       }
 
       while (v26);
@@ -295,30 +295,30 @@ LABEL_12:
     v32 = objc_alloc(MEMORY[0x277CBEB18]);
     v35 = objc_msgSend_count(self->_listValues, v33, v34);
     v37 = objc_msgSend_initWithCapacity_(v32, v36, v35);
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     v38 = self->_listValues;
-    v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v55, v63, 16);
+    v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v54, v62, 16);
     if (v40)
     {
       v43 = v40;
-      v44 = *v56;
+      v44 = *v55;
       do
       {
         for (j = 0; j != v43; ++j)
         {
-          if (*v56 != v44)
+          if (*v55 != v44)
           {
             objc_enumerationMutation(v38);
           }
 
-          v46 = objc_msgSend_dictionaryRepresentation(*(*(&v55 + 1) + 8 * j), v41, v42);
+          v46 = objc_msgSend_dictionaryRepresentation(*(*(&v54 + 1) + 8 * j), v41, v42);
           objc_msgSend_addObject_(v37, v47, v46);
         }
 
-        v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v41, &v55, v63, 16);
+        v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v41, &v54, v62, 16);
       }
 
       while (v43);
@@ -327,18 +327,15 @@ LABEL_12:
     objc_msgSend_setObject_forKey_(v5, v48, v37, @"listValues");
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)writeTo:(id)to
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -350,7 +347,6 @@ LABEL_12:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    BOOLValue = self->_BOOLValue;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -370,12 +366,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  longValue = self->_longValue;
   PBDataWriterWriteInt64Field();
   if (*&self->_has)
   {
 LABEL_8:
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
   }
 
@@ -385,65 +379,61 @@ LABEL_9:
     PBDataWriterWriteStringField();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v8 = self->_fieldValues;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v31, v36, 16);
-  if (v10)
-  {
-    v11 = v10;
-    v12 = *v32;
-    do
-    {
-      for (i = 0; i != v11; ++i)
-      {
-        if (*v32 != v12)
-        {
-          objc_enumerationMutation(v8);
-        }
-
-        v14 = *(*(&v31 + 1) + 8 * i);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v15, &v31, v36, 16);
-    }
-
-    while (v11);
-  }
-
-  v29 = 0u;
-  v30 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v16 = self->_listValues;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v27, v35, 16);
-  if (v18)
+  v24 = 0u;
+  v25 = 0u;
+  v6 = self->_fieldValues;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v24, v29, 16);
+  if (v8)
   {
-    v19 = v18;
-    v20 = *v28;
+    v9 = v8;
+    v10 = *v25;
     do
     {
-      for (j = 0; j != v19; ++j)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v20)
+        if (*v25 != v10)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v6);
         }
 
-        v22 = *(*(&v27 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v23, &v27, v35, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v12, &v24, v29, 16);
     }
 
-    while (v19);
+    while (v9);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v13 = self->_listValues;
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v20, v28, 16);
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v21;
+    do
+    {
+      for (j = 0; j != v16; ++j)
+      {
+        if (*v21 != v17)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v19, &v20, v28, 16);
+    }
+
+    while (v16);
+  }
 }
 
 - (void)copyTo:(id)to
@@ -535,7 +525,7 @@ LABEL_9:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -587,65 +577,64 @@ LABEL_7:
   v18 = *(v12 + 48);
   *(v12 + 48) = v17;
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v19 = self->_fieldValues;
-  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v43, v48, 16);
+  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v42, v47, 16);
   if (v21)
   {
     v23 = v21;
-    v24 = *v44;
+    v24 = *v43;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v44 != v24)
+        if (*v43 != v24)
         {
           objc_enumerationMutation(v19);
         }
 
-        v26 = objc_msgSend_copyWithZone_(*(*(&v43 + 1) + 8 * i), v22, zone);
+        v26 = objc_msgSend_copyWithZone_(*(*(&v42 + 1) + 8 * i), v22, zone);
         objc_msgSend_addFieldValues_(v12, v27, v26);
       }
 
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v22, &v43, v48, 16);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v22, &v42, v47, 16);
     }
 
     while (v23);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v28 = self->_listValues;
-  v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v39, v47, 16);
+  v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v38, v46, 16);
   if (v30)
   {
     v32 = v30;
-    v33 = *v40;
+    v33 = *v39;
     do
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v40 != v33)
+        if (*v39 != v33)
         {
           objc_enumerationMutation(v28);
         }
 
-        v35 = objc_msgSend_copyWithZone_(*(*(&v39 + 1) + 8 * j), v31, zone, v39);
+        v35 = objc_msgSend_copyWithZone_(*(*(&v38 + 1) + 8 * j), v31, zone, v38);
         objc_msgSend_addListValues_(v12, v36, v35);
       }
 
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v39, v47, 16);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v38, v46, 16);
     }
 
     while (v32);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -703,7 +692,6 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v12 = *(equalCopy + 60);
   if (self->_BOOLValue)
   {
     if ((*(equalCopy + 60) & 1) == 0)
@@ -745,27 +733,27 @@ LABEL_12:
   }
 
   stringValue = self->_stringValue;
-  v14 = equalCopy[6];
-  if (stringValue | v14 && !objc_msgSend_isEqual_(stringValue, v7, v14))
+  v13 = equalCopy[6];
+  if (stringValue | v13 && !objc_msgSend_isEqual_(stringValue, v7, v13))
   {
     goto LABEL_34;
   }
 
   fieldValues = self->_fieldValues;
-  v16 = equalCopy[4];
-  if (fieldValues | v16)
+  v15 = equalCopy[4];
+  if (fieldValues | v15)
   {
-    if (!objc_msgSend_isEqual_(fieldValues, v7, v16))
+    if (!objc_msgSend_isEqual_(fieldValues, v7, v15))
     {
       goto LABEL_34;
     }
   }
 
   listValues = self->_listValues;
-  v18 = equalCopy[5];
-  if (listValues | v18)
+  v17 = equalCopy[5];
+  if (listValues | v17)
   {
-    isEqual = objc_msgSend_isEqual_(listValues, v7, v18);
+    isEqual = objc_msgSend_isEqual_(listValues, v7, v17);
   }
 
   else
@@ -859,7 +847,7 @@ LABEL_14:
 
 - (void)mergeFrom:(id)from
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v6 = fromCopy;
   if ((*(fromCopy + 64) & 4) != 0)
@@ -913,63 +901,61 @@ LABEL_9:
     objc_msgSend_setStringValue_(self, v5, v9);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v10 = *(v6 + 4);
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v29, v34, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v28, v33, 16);
   if (v12)
   {
     v14 = v12;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        objc_msgSend_addFieldValues_(self, v13, *(*(&v29 + 1) + 8 * i));
+        objc_msgSend_addFieldValues_(self, v13, *(*(&v28 + 1) + 8 * i));
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v29, v34, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v28, v33, 16);
     }
 
     while (v14);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v17 = *(v6 + 5);
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v25, v33, 16);
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v24, v32, 16);
   if (v19)
   {
     v21 = v19;
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(v17);
         }
 
-        objc_msgSend_addListValues_(self, v20, *(*(&v25 + 1) + 8 * j), v25);
+        objc_msgSend_addListValues_(self, v20, *(*(&v24 + 1) + 8 * j), v24);
       }
 
-      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v25, v33, 16);
+      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v24, v32, 16);
     }
 
     while (v21);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

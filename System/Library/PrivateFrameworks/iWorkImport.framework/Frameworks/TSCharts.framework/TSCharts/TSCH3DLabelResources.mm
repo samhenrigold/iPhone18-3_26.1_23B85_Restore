@@ -29,7 +29,7 @@
 {
   samplesCopy = samples;
   atlas = self->_atlas;
-  if (!atlas || (objc_msgSend_samples(atlas, a2, *&samples, v3, v4), v8 != samplesCopy) && (*&samples = vabdd_f64(samplesCopy, v8), v3 = 0.00999999978, *&samples >= 0.00999999978))
+  if (!atlas || (objc_msgSend_samples(atlas, *&samples, v3, v4, a2), v8 != samplesCopy) && (*&samples = vabdd_f64(samplesCopy, v8), v3 = 0.00999999978, *&samples >= 0.00999999978))
   {
     *&v9 = samplesCopy;
     v10 = objc_msgSend_atlasWithSamples_(TSCH3DTextureAtlas, a2, v9, v3, v4);
@@ -62,7 +62,7 @@
   atlas = self->_atlas;
   if (atlas)
   {
-    objc_msgSend_samples(atlas, v6, v7, v8, v9);
+    objc_msgSend_samples(atlas, v7, v8, v9);
     v11 = *&v7;
   }
 
@@ -141,7 +141,7 @@
   atlas = self->_atlas;
   if (atlas)
   {
-    objc_msgSend_samples(atlas, v101, v103, v104, v105);
+    objc_msgSend_samples(atlas, v103, v104, v105);
     v107 = *&v103;
   }
 

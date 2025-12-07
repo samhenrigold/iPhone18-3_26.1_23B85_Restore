@@ -2,6 +2,7 @@
 - (BKMousePointerRegionArrangement)initWithCoalitionIdentifier:(id)identifier;
 - (CGPoint)convertFromGlobalPoint:(CGPoint)point toRegion:(id)region;
 - (CGPoint)convertToGlobalPoint:(CGPoint)point fromRegion:(id)region;
+- (CGPoint)denormalizedAbsoluteGlobalPosition:(CGPoint)position;
 - (CGPoint)normalizedGlobalPosition:(CGPoint)position;
 - (CGRect)_frameForRegion:(id)region;
 - (NSArray)regions;
@@ -227,6 +228,18 @@
   v14 = v12 / self->_globalBounds.size.height;
   result.y = v14;
   result.x = v13;
+  return result;
+}
+
+- (CGPoint)denormalizedAbsoluteGlobalPosition:(CGPoint)position
+{
+  y = position.y;
+  __asm { FMOV            V1.2D, #1.0 }
+
+  v9 = vmulq_f64(vminnmq_f64(vmaxnmq_f64(position, 0), _Q1), self->_globalBounds.size);
+  v10 = v9.f64[1];
+  result.x = v9.f64[0];
+  result.y = v10;
   return result;
 }
 

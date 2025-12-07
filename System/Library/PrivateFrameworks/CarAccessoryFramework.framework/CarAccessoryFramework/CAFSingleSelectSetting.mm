@@ -20,7 +20,9 @@
 - (NSString)userVisibleDescription;
 - (id)name;
 - (unsigned)selectedEntryIndex;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setSelectedEntryIndex:(unsigned __int8)index;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -163,6 +165,13 @@
   return uint8Value;
 }
 
+- (void)setSelectedEntryIndex:(unsigned __int8)index
+{
+  indexCopy = index;
+  selectedEntryIndexCharacteristic = [(CAFSingleSelectSetting *)self selectedEntryIndexCharacteristic];
+  [selectedEntryIndexCharacteristic setUint8Value:indexCopy];
+}
+
 - (CAFUInt8Range)selectedEntryIndexRange
 {
   selectedEntryIndexCharacteristic = [(CAFSingleSelectSetting *)self selectedEntryIndexCharacteristic];
@@ -295,6 +304,122 @@
   v3 = selectSettingEntryListNotificationInfoCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036000024"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    selectSettingEntryListCharacteristic = [(CAFSingleSelectSetting *)self selectSettingEntryListCharacteristic];
+    uniqueIdentifier2 = [selectSettingEntryListCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      selectSettingEntryList = [(CAFSingleSelectSetting *)self selectSettingEntryList];
+      [observers singleSelectSettingService:self didUpdateSelectSettingEntryList:selectSettingEntryList];
+LABEL_20:
+
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000061"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    selectedEntryIndexCharacteristic = [(CAFSingleSelectSetting *)self selectedEntryIndexCharacteristic];
+    uniqueIdentifier4 = [selectedEntryIndexCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers singleSelectSettingService:self didUpdateSelectedEntryIndex:{-[CAFSingleSelectSetting selectedEntryIndex](self, "selectedEntryIndex")}];
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000036000029"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    userVisibleDetailedDescriptionCharacteristic = [(CAFSingleSelectSetting *)self userVisibleDetailedDescriptionCharacteristic];
+    uniqueIdentifier6 = [userVisibleDetailedDescriptionCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      selectSettingEntryList = [(CAFSingleSelectSetting *)self userVisibleDetailedDescription];
+      [observers singleSelectSettingService:self didUpdateUserVisibleDetailedDescription:selectSettingEntryList];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000030000005"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    userVisibleDescriptionCharacteristic = [(CAFSingleSelectSetting *)self userVisibleDescriptionCharacteristic];
+    uniqueIdentifier8 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      selectSettingEntryList = [(CAFSingleSelectSetting *)self userVisibleDescription];
+      [observers singleSelectSettingService:self didUpdateUserVisibleDescription:selectSettingEntryList];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000033"])
+  {
+LABEL_21:
+
+    goto LABEL_22;
+  }
+
+  uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+  selectSettingEntryListNotificationInfoCharacteristic = [(CAFSingleSelectSetting *)self selectSettingEntryListNotificationInfoCharacteristic];
+  uniqueIdentifier10 = [selectSettingEntryListNotificationInfoCharacteristic uniqueIdentifier];
+  v32 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+  if (v32)
+  {
+    observers = [(CAFService *)self observers];
+    selectSettingEntryList = [(CAFSingleSelectSetting *)self selectSettingEntryListNotificationInfo];
+    [observers singleSelectSettingService:self didUpdateSelectSettingEntryListNotificationInfo:selectSettingEntryList];
+    goto LABEL_20;
+  }
+
+LABEL_22:
+  v33.receiver = self;
+  v33.super_class = CAFSingleSelectSetting;
+  [(CAFAutomakerSetting *)&v33 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForSelectSettingEntryList

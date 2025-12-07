@@ -39,7 +39,7 @@
   submitCopy = submit;
   if (objc_msgSend_hasOffset(submitCopy, v5, v6, v7, v8))
   {
-    v13 = objc_msgSend_offset(submitCopy, v9, v10, v11, v12);
+    v13 = objc_msgSend_offset(submitCopy, v10, v11, v12);
   }
 
   else
@@ -79,37 +79,37 @@
   }
 
   v62 = sub_27616536C(v24);
-  v67 = objc_msgSend_matrix(self, v63, v64, v65, v66);
-  v72 = objc_msgSend_matrix(self, v68, v69, v70, v71);
-  v77 = objc_msgSend_current(v72, v73, v74, v75, v76);
-  v78 = v77[1];
-  *v88 = *v77;
-  *&v88[16] = v78;
-  v79 = v77[3];
-  v89 = v77[2];
-  v90 = v79;
-  sub_2761902D4(v67, v88, v91);
+  v66 = objc_msgSend_matrix(self, v63, v64, v65);
+  v70 = objc_msgSend_matrix(self, v67, v68, v69);
+  v75 = objc_msgSend_current(v70, v71, v72, v73, v74);
+  v76 = v75[1];
+  *v86 = *v75;
+  *&v86[16] = v76;
+  v77 = v75[3];
+  v87 = v75[2];
+  v88 = v77;
+  sub_2761902D4(v66, v86, v89);
 
-  v86 = 0;
-  v87 = 0;
+  v84 = 0;
+  v85 = 0;
   if (v19)
   {
-    v81 = 12 * v13;
+    v79 = 12 * v13;
     do
     {
-      sub_276154744(*v62 + v81, v91, &v84, v80);
-      *&v88[8] = self->_projPt.var2.var0;
-      *v88 = *&self->_projPt.var0.var0;
-      v82 = vsub_f32(v84, *v88);
-      v83 = 1.0 / sqrtf((COERCE_FLOAT(vmul_f32(v82, v82).i32[1]) + (v82.f32[0] * v82.f32[0])) + ((v85 - *&v88[8]) * (v85 - *&v88[8])));
-      *&v88[12] = vmul_n_f32(v82, v83);
-      *&v88[20] = (v85 - *&v88[8]) * v83;
-      if (sub_2761548CC(&self->_plane._normal.var0.var0, v88, &v86))
+      sub_276154744((*v62 + v79), v89, &v82, v78);
+      *&v86[8] = self->_projPt.var2.var0;
+      *v86 = *&self->_projPt.var0.var0;
+      v80 = vsub_f32(v82, *v86);
+      v81 = 1.0 / sqrtf((COERCE_FLOAT(vmul_f32(v80, v80).i32[1]) + (v80.f32[0] * v80.f32[0])) + ((v83 - *&v86[8]) * (v83 - *&v86[8])));
+      *&v86[12] = vmul_n_f32(v80, v81);
+      *&v86[20] = (v83 - *&v86[8]) * v81;
+      if (sub_2761548CC(&self->_plane._normal.var0.var0, v86, &v84))
       {
-        sub_276154FD8(&self->_bounds, &v86);
+        sub_276154FD8(&self->_bounds, &v84);
       }
 
-      v81 += 12;
+      v79 += 12;
       --v19;
     }
 

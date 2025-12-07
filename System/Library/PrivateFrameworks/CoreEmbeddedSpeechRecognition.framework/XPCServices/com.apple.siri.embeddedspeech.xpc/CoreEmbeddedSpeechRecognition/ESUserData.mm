@@ -6,6 +6,7 @@
 + (id)_fetchExtractedEntityMappingsForEntities:(id)entities extractionVocabLabels:(id)labels originalInputString:(id)string;
 + (id)_normalize:(id)_normalize;
 + (id)_sanitizeTextForDatatypes:(id)datatypes detector:(id)detector;
++ (id)_vocabularyLabelsForFieldType:(unsigned __int16)type directDonationConfig:(id)config;
 + (unint64_t)_totalContactComponentsInSet:(id)set;
 + (void)_applyContactLimitsToFirstPartyContacts:(id)contacts thirdPartyContacts:(id)partyContacts groupNames:(id)names;
 + (void)_limitVocabularyWords:(id)words toApplicableSpeechCategories:(id)categories;
@@ -1148,6 +1149,364 @@ LABEL_27:
   }
 
   return v29;
+}
+
++ (id)_vocabularyLabelsForFieldType:(unsigned __int16)type directDonationConfig:(id)config
+{
+  typeCopy = type;
+  configCopy = config;
+  if (typeCopy > 18554)
+  {
+    if (typeCopy > 36438)
+    {
+      if (typeCopy <= 42188)
+      {
+        if (typeCopy > 38253)
+        {
+          if (typeCopy == 38254)
+          {
+            v6 = [CESRVocabularyLabel alloc];
+            v7 = @"\\NT-artist";
+            v8 = @"\\appAudiobookAuthorFullName-first";
+            goto LABEL_85;
+          }
+
+          if (typeCopy == 42188)
+          {
+            v6 = [CESRVocabularyLabel alloc];
+            v7 = @"\\NT-playlist";
+            v8 = @"\\podcast-playlist-first";
+            goto LABEL_85;
+          }
+        }
+
+        else if (typeCopy == 36439 || typeCopy == 36441)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-appname";
+          v8 = @"\\app-first";
+          goto LABEL_85;
+        }
+      }
+
+      else if (typeCopy <= 44937)
+      {
+        if (typeCopy == 42189)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-playlist";
+          v8 = @"\\podcastTitle-first";
+          goto LABEL_85;
+        }
+
+        if (typeCopy == 42190)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-artist";
+          v8 = @"\\podcast-authorFullName-first";
+          goto LABEL_85;
+        }
+      }
+
+      else
+      {
+        switch(typeCopy)
+        {
+          case 0xAF8A:
+            v6 = [CESRVocabularyLabel alloc];
+            v7 = @"\\NT-savedactivity";
+            v8 = @"\\healthActivity-first";
+            goto LABEL_85;
+          case 0xD0ED:
+            v6 = [CESRVocabularyLabel alloc];
+            v7 = @"\\NT-photoalbum";
+            v8 = @"\\photoAlbumName-first";
+            goto LABEL_85;
+          case 0xD475:
+            v6 = [CESRVocabularyLabel alloc];
+            v7 = @"\\NT-location";
+            v8 = @"\\location-first";
+            goto LABEL_85;
+        }
+      }
+
+      goto LABEL_89;
+    }
+
+    if (typeCopy > 25885)
+    {
+      if (typeCopy > 30600)
+      {
+        if (typeCopy == 30601)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-action";
+          v8 = @"\\voiceCommandName-first";
+          goto LABEL_85;
+        }
+
+        if (typeCopy == 32968)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-playlist";
+          v8 = @"\\appPlaylistTitle-first";
+          goto LABEL_85;
+        }
+      }
+
+      else
+      {
+        if (typeCopy == 25886)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-payaccount";
+          v8 = @"\\paymentsAccountName-first";
+          goto LABEL_85;
+        }
+
+        if (typeCopy == 26515)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-notetitle";
+          v8 = @"\\notebookTitle-first";
+          goto LABEL_85;
+        }
+      }
+
+      goto LABEL_89;
+    }
+
+    if (typeCopy <= 18561)
+    {
+      if (typeCopy != 18555)
+      {
+        if (typeCopy == 18556)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-artist";
+          v8 = @"\\media-albumArtistFullName-first";
+          goto LABEL_85;
+        }
+
+        goto LABEL_89;
+      }
+    }
+
+    else if ((typeCopy - 18562) >= 2)
+    {
+      if (typeCopy == 18564)
+      {
+        v6 = [CESRVocabularyLabel alloc];
+        v7 = @"\\NT-artist";
+        v8 = @"\\artist-first";
+        goto LABEL_85;
+      }
+
+LABEL_89:
+      v11 = [CCTypeIdentifierRegistry descriptionForTypeIdentifier:typeCopy];
+      v12 = [configCopy mappingForFieldTypeName:v11];
+
+      if (v12)
+      {
+        vocabularyLabel = [v12 vocabularyLabel];
+      }
+
+      else
+      {
+        vocabularyLabel = 0;
+      }
+
+      goto LABEL_86;
+    }
+
+    v6 = [CESRVocabularyLabel alloc];
+    v7 = @"\\NT-playlist";
+    v8 = @"\\playlist-first";
+    goto LABEL_85;
+  }
+
+  if (typeCopy <= 7721)
+  {
+    if (typeCopy <= 7703)
+    {
+      if (typeCopy > 7700)
+      {
+        if (typeCopy == 7701)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-house";
+          v8 = @"\\house-first";
+          goto LABEL_85;
+        }
+
+        if (typeCopy == 7702)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-device";
+          v8 = @"\\device-first";
+          goto LABEL_85;
+        }
+      }
+
+      else
+      {
+        if (typeCopy == 803)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-device";
+          v8 = @"\\carName-first";
+          goto LABEL_85;
+        }
+
+        if (typeCopy == 5598)
+        {
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-notefolder";
+          v8 = @"\\notebookFolderTitle-first";
+          goto LABEL_85;
+        }
+      }
+    }
+
+    else
+    {
+      if (typeCopy <= 7705)
+      {
+        v6 = [CESRVocabularyLabel alloc];
+        if (typeCopy == 7704)
+        {
+          v7 = @"\\NT-room";
+          v8 = @"\\room-first";
+        }
+
+        else
+        {
+          v7 = @"\\NT-scene";
+          v8 = @"\\scene-first";
+        }
+
+        goto LABEL_85;
+      }
+
+      switch(typeCopy)
+      {
+        case 0x1E1A:
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-device";
+          v8 = @"\\home-serviceName-first";
+          goto LABEL_85;
+        case 0x1E1C:
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-group";
+          v8 = @"\\group-first";
+          goto LABEL_85;
+        case 0x1E1E:
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-zone";
+          v8 = @"\\zone-first";
+          goto LABEL_85;
+      }
+    }
+
+    goto LABEL_89;
+  }
+
+  if (typeCopy > 14708)
+  {
+    if (typeCopy <= 16253)
+    {
+      if (typeCopy == 14709)
+      {
+        v6 = [CESRVocabularyLabel alloc];
+        v7 = @"\\NT-playlist";
+        v8 = @"\\appAudiobookTitle-first";
+        goto LABEL_85;
+      }
+
+      if (typeCopy == 15575)
+      {
+        v6 = [CESRVocabularyLabel alloc];
+        v7 = @"\\NT-playlist";
+        v8 = @"\\appShowTitle-first";
+        goto LABEL_85;
+      }
+    }
+
+    else
+    {
+      switch(typeCopy)
+      {
+        case 0x3F7E:
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-payaccount";
+          v8 = @"\\paymentsOrganizationName-first";
+          goto LABEL_85;
+        case 0x428D:
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-room";
+          v8 = @"\\homeServiceArea-areaName-first";
+          goto LABEL_85;
+        case 0x4291:
+          v6 = [CESRVocabularyLabel alloc];
+          v7 = @"\\NT-zone";
+          v8 = @"\\homeServiceArea-mapName-first";
+          goto LABEL_85;
+      }
+    }
+
+    goto LABEL_89;
+  }
+
+  if (typeCopy <= 12998)
+  {
+    if (typeCopy == 7722)
+    {
+      v6 = [CESRVocabularyLabel alloc];
+      v7 = @"\\NT-artist";
+      v8 = @"\\appMusicArtistName-first";
+      goto LABEL_85;
+    }
+
+    if (typeCopy == 12013)
+    {
+      v6 = [CESRVocabularyLabel alloc];
+      v7 = @"\\NT-action";
+      v8 = @"\\appShortcutPhrase-first";
+      goto LABEL_85;
+    }
+
+    goto LABEL_89;
+  }
+
+  if (typeCopy == 12999)
+  {
+    v6 = [CESRVocabularyLabel alloc];
+    v7 = @"\\NT-appvocab";
+    v8 = @"\\health-medicationName-first";
+    goto LABEL_85;
+  }
+
+  if (typeCopy == 13000)
+  {
+    v6 = [CESRVocabularyLabel alloc];
+    v7 = @"\\NT-appvocab";
+    v8 = @"\\health-medicationNickname-first";
+    goto LABEL_85;
+  }
+
+  if (typeCopy != 13887)
+  {
+    goto LABEL_89;
+  }
+
+  v6 = [CESRVocabularyLabel alloc];
+  v7 = @"\\NT-phototag";
+  v8 = @"\\photoTags-first";
+LABEL_85:
+  vocabularyLabel = [v6 initWithLmeTemplate:v7 lmeTag:v8];
+LABEL_86:
+
+  return vocabularyLabel;
 }
 
 + (id)_extractedLabelForLabel:(id)label

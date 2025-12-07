@@ -9,9 +9,9 @@
 
 - (WFActionDefinition)defaultActionDefinition
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v3 = [WFActionDefinition alloc];
-  v14 = @"FillingProvider";
+  v13 = @"FillingProvider";
   if (self)
   {
     providerName = self->_providerName;
@@ -53,11 +53,9 @@
     v6 = 0;
   }
 
-  v15[0] = v6;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v6;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v11 = [(WFActionDefinition *)v3 initWithDictionary:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

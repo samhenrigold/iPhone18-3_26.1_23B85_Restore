@@ -1,109 +1,3 @@
-void fst::RmFinalEpsilon<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(uint64_t a1)
-{
-  memset(v4, 0, sizeof(v4));
-  memset(v3, 0, sizeof(v3));
-  v2 = 0;
-  v1[0] = 0;
-  v1[1] = v4;
-  v1[2] = v3;
-  v1[3] = &v2;
-  fst::DfsVisit<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::SccVisitor<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::AnyArcFilter<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>(a1, v1);
-}
-
-void sub_8DDAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, char a21)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  std::__hash_table<std::__hash_value_type<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,fst::ArcTpl<fst::TropicalWeightTpl<float>>>,std::__unordered_map_hasher<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,std::__hash_value_type<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,fst::ArcTpl<fst::TropicalWeightTpl<float>>>,std::hash<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*>,std::equal_to<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*>,true>,std::__unordered_map_equal<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,std::__hash_value_type<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,fst::ArcTpl<fst::TropicalWeightTpl<float>>>,std::equal_to<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*>,std::hash<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*>,true>,std::allocator<std::__hash_value_type<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>::~__hash_table(&a21);
-  v23 = *(v21 - 128);
-  if (v23)
-  {
-    operator delete(v23);
-  }
-
-  v24 = *(v21 - 104);
-  if (v24)
-  {
-    operator delete(v24);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t fst::EncodeMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::~EncodeMapper(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  v3 = *(v2 + 80) - 1;
-  *(v2 + 80) = v3;
-  if (!v3)
-  {
-    fst::EncodeTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::~EncodeTable(v2);
-    operator delete();
-  }
-
-  return a1;
-}
-
-void *fst::EncodeTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::~EncodeTable(void *a1)
-{
-  v3 = a1[1];
-  v2 = a1[2];
-  if (v2 != v3)
-  {
-    v4 = 0;
-    do
-    {
-      if (*(v3 + 8 * v4))
-      {
-        operator delete();
-      }
-
-      ++v4;
-    }
-
-    while (v4 < (v2 - v3) >> 3);
-  }
-
-  v5 = a1[11];
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  v6 = a1[12];
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  std::__hash_table<std::__hash_value_type<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,fst::ArcTpl<fst::TropicalWeightTpl<float>>>,std::__unordered_map_hasher<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,std::__hash_value_type<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,fst::ArcTpl<fst::TropicalWeightTpl<float>>>,std::hash<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*>,std::equal_to<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*>,true>,std::__unordered_map_equal<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,std::__hash_value_type<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,fst::ArcTpl<fst::TropicalWeightTpl<float>>>,std::equal_to<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*>,std::hash<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*>,true>,std::allocator<std::__hash_value_type<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*,fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>::~__hash_table((a1 + 4));
-  v7 = a1[1];
-  if (v7)
-  {
-    a1[2] = v7;
-    operator delete(v7);
-  }
-
-  return a1;
-}
-
-void *fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::~ContextFst(void *a1)
-{
-  *a1 = off_2767F8;
-  v2 = a1[1];
-  v3 = v2[14] - 1;
-  v2[14] = v3;
-  if (!v3)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  return a1;
-}
-
 void fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::~ContextFst(void *a1)
 {
   *a1 = off_2767F8;
@@ -116,15 +10,6 @@ void fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::~ContextFs
   }
 
   operator delete();
-}
-
-void fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::ContextFstImpl(uint64_t a1)
-{
-  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::CacheBaseImpl(a1);
-}
-
-{
-  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::CacheBaseImpl(a1);
 }
 
 void sub_8E714(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -172,14 +57,14 @@ void sub_8E714(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   }
 
   std::vector<std::vector<std::pair<int,int>>>::__destroy_vector::operator()[abi:ne200100](&a13);
-  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(v18 + 200);
+  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table((v18 + 200));
   std::vector<std::vector<std::pair<int,int>>>::__destroy_vector::operator()[abi:ne200100](&a13);
   std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(v19);
   fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::~CacheBaseImpl(v18);
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::FindLabel(void *a1, int **a2)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::FindLabel(void *a1, const void **a2)
 {
   v4 = std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::find<std::vector<int>>(a1 + 25, a2);
   if (v4)
@@ -189,7 +74,7 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Fi
 
   v5 = -1431655765 * ((a1[31] - a1[30]) >> 3);
   std::vector<std::vector<int>>::push_back[abi:ne200100]((a1 + 30), a2);
-  *(std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>(a1 + 25, a2) + 10) = v5;
+  *(std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>(a1 + 25, a2, &std::piecewise_construct) + 10) = v5;
   return v5;
 }
 
@@ -219,7 +104,7 @@ void fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float
   operator new();
 }
 
-void *std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::find<std::vector<int>>(void *a1, int **a2)
+void *std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::find<std::vector<int>>(void *a1, const void **a2)
 {
   v3 = *a2;
   v2 = a2[1];
@@ -316,100 +201,100 @@ void *std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unor
   return v12;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>(void *a1, int **a2)
+void *std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>(void *a1, const void **a2, uint64_t a3)
 {
-  v3 = *a2;
-  v2 = a2[1];
-  if (*a2 == v2)
+  v4 = *a2;
+  v3 = a2[1];
+  if (*a2 == v3)
   {
-    v4 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v4 = 0;
-    v5 = *a2;
+    v5 = 0;
+    v6 = *a2;
     do
     {
-      v6 = *v5++;
-      v4 = v6 + 7853 * v4;
+      v7 = *v6++;
+      v5 = v7 + 7853 * v5;
     }
 
-    while (v5 != v2);
+    while (v6 != v3);
   }
 
-  v7 = a1[1];
-  if (!*&v7)
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_25;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v10 = v4;
-    if (v4 >= *&v7)
+    v11 = v5;
+    if (v5 >= *&v8)
     {
-      v10 = v4 % *&v7;
+      v11 = v5 % *&v8;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v4;
+    v11 = (*&v8 - 1) & v5;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_25:
     std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>();
   }
 
-  v13 = v2 - v3;
+  v14 = v3 - v4;
   while (1)
   {
-    v14 = v12[1];
-    if (v14 == v4)
+    v15 = v13[1];
+    if (v15 == v5)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v10 > 1)
     {
-      if (v14 >= *&v7)
+      if (v15 >= *&v8)
       {
-        v14 %= *&v7;
+        v15 %= *&v8;
       }
     }
 
     else
     {
-      v14 &= *&v7 - 1;
+      v15 &= *&v8 - 1;
     }
 
-    if (v14 != v10)
+    if (v15 != v11)
     {
       goto LABEL_25;
     }
 
 LABEL_24:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_25;
     }
   }
 
-  v15 = v12[2];
-  if (v12[3] - v15 != v13 || memcmp(v15, v3, v13))
+  v16 = v13[2];
+  if (v13[3] - v16 != v14 || memcmp(v16, v4, v14))
   {
     goto LABEL_24;
   }
 
-  return v12;
+  return v13;
 }
 
 void sub_8EE04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -449,9 +334,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -521,10 +406,10 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::~C
 
   v7 = (a1 + 240);
   std::vector<std::vector<std::pair<int,int>>>::__destroy_vector::operator()[abi:ne200100](&v7);
-  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(a1 + 200);
+  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table((a1 + 200));
   v7 = (a1 + 176);
   std::vector<std::vector<std::pair<int,int>>>::__destroy_vector::operator()[abi:ne200100](&v7);
-  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(a1 + 136);
+  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table((a1 + 136));
   return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::~CacheBaseImpl(a1);
 }
 
@@ -539,7 +424,9 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::St
 
     else if ((*(a1 + 60) & 1) == 0)
     {
-      std::vector<int>::vector[abi:ne200100](__p, *(a1 + 396) - 1);
+      v2 = *(a1 + 396) - 1;
+      v4 = 0;
+      std::vector<int>::vector[abi:ne200100](__p, v2, &v4);
       if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::FindState(a1, __p))
       {
         __assert_rtn("Start", "context-fst-inl.h", 80, "s == 0");
@@ -588,7 +475,7 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Fi
 
   v5 = -1431655765 * ((*(a1 + 184) - *(a1 + 176)) >> 3);
   std::vector<std::vector<int>>::push_back[abi:ne200100](a1 + 176, a2);
-  *(std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>((a1 + 136), a2) + 10) = v5;
+  *(std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>((a1 + 136), a2, &std::piecewise_construct) + 10) = v5;
   return v5;
 }
 
@@ -648,7 +535,7 @@ float fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Final
   return v10;
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::NumArcs(uint64_t a1, unsigned int a2)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::NumArcs(uint64_t a1, int a2)
 {
   if (fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::HasArcs(a1, a2))
   {
@@ -668,7 +555,7 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Nu
 
   else
   {
-    if ((a2 & 0x80000000) != 0 || (v7 = *(a1 + 176), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 184) - v7) >> 3) <= a2))
+    if (a2 < 0 || (v7 = *(a1 + 176), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 184) - v7) >> 3) <= a2))
     {
       kaldi::KaldiAssertFailure_("NumArcs", "../subproject/libquasar/libkaldi/src/fstext/context-fst-inl.h", &stru_B8.sectname[2], "s >= 0 && s < state_seqs_.size()", v4);
     }
@@ -702,14 +589,14 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Nu
   }
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::NumInputEpsilons(uint64_t a1, int a2)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::NumInputEpsilons(void *a1, uint64_t a2)
 {
   if ((fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::HasArcs(a1, a2) & 1) == 0)
   {
     fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Expand(a1, a2);
   }
 
-  v4 = *(a1 + 120);
+  v4 = a1[15];
   if (*(v4 + 92) == a2)
   {
     v5 = v4 + 96;
@@ -723,38 +610,38 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Nu
   return *(*v5 + 8);
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Expand(uint64_t a1, int a2)
+void fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Expand(void *a1, uint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 184) - *(a1 + 176)) >> 3) <= a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[23] - a1[22]) >> 3) <= a2)
   {
     fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Expand();
   }
 
-  if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::CreateArc(a1, a2, *(a1 + 392), &v7))
+  if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::CreateArc(a1, a2, *(a1 + 98), &v6))
   {
-    fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::PushArc(a1, a2, &v7);
+    fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::PushArc(a1, a2, &v6);
   }
 
-  for (i = *(a1 + 304); i != *(a1 + 312); ++i)
+  for (i = a1[38]; i != a1[39]; ++i)
   {
-    if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::CreateArc(a1, a2, *i, &v7))
+    if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::CreateArc(a1, a2, *i, &v6))
     {
-      fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::PushArc(a1, a2, &v7);
+      fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::PushArc(a1, a2, &v6);
     }
   }
 
-  for (j = *(a1 + 368); j != *(a1 + 376); ++j)
+  for (j = a1[46]; j != a1[47]; ++j)
   {
-    if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::CreateArc(a1, a2, *j, &v7))
+    if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::CreateArc(a1, a2, *j, &v6))
     {
-      fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::PushArc(a1, a2, &v7);
+      fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::PushArc(a1, a2, &v6);
     }
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::CreateArc(uint64_t a1, int a2, int a3, _DWORD *a4)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::CreateArc(uint64_t a1, int a2, uint64_t a3, _DWORD *a4)
 {
   v33 = a3;
   if (!a3)
@@ -762,27 +649,28 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Cr
     return 0;
   }
 
+  v5 = a3;
   v8 = *(a1 + 176);
   if (kaldi::ConstIntegerSet<int>::count(a1 + 328, a3))
   {
     __p = 0;
     v28 = 0;
     v29 = 0;
-    LODWORD(v30) = -a3;
+    LODWORD(v30) = -v5;
     std::vector<int>::push_back[abi:ne200100](&__p, &v30);
     *a4 = fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::FindLabel(a1, &__p);
-    a4[1] = a3;
+    a4[1] = v5;
     a4[2] = 0;
     a4[3] = a2;
     goto LABEL_4;
   }
 
-  v10 = (v8 + 24 * a2);
-  v11 = kaldi::ConstIntegerSet<int>::count(a1 + 264, a3);
+  v10 = v8 + 24 * a2;
+  v11 = kaldi::ConstIntegerSet<int>::count(a1 + 264, v5);
   v12 = *(a1 + 392);
   if (!v11)
   {
-    if (v12 != a3)
+    if (v12 != v5)
     {
       if (kaldi::g_kaldi_verbose_level >= -1)
       {
@@ -797,7 +685,7 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Cr
 
 LABEL_13:
     v14 = *(a1 + 400);
-    if (v14 != *(a1 + 396) - 1 && *(*v10 + 4 * v14) != a3)
+    if (v14 != *(a1 + 396) - 1 && *(*v10 + 4 * v14) != v5)
     {
       goto LABEL_16;
     }
@@ -805,12 +693,12 @@ LABEL_13:
     return 0;
   }
 
-  if (v12 == a3)
+  if (v12 == v5)
   {
     goto LABEL_13;
   }
 
-  v13 = v10[1];
+  v13 = *(v10 + 8);
   if (*v10 != v13 && *(v13 - 4) == v12)
   {
     return 0;
@@ -838,13 +726,13 @@ LABEL_16:
 
   if (v15 >= 2)
   {
-    *(__p + v16) = a3;
+    *(__p + v16) = v5;
   }
 
   v30 = 0;
   v31 = 0;
   v32 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v30, *v10, v10[1], (v10[1] - *v10) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v30, *v10, *(v10 + 8), (*(v10 + 8) - *v10) >> 2);
   State = fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::FindState(a1, &__p);
   std::vector<int>::push_back[abi:ne200100](&v30, &v33);
   v21 = *(a1 + 396);
@@ -951,14 +839,14 @@ void sub_8FAC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   }
 
   std::vector<std::vector<std::pair<int,int>>>::__destroy_vector::operator()[abi:ne200100](&a9);
-  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(v9 + 200);
+  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table((v9 + 200));
   std::vector<std::vector<std::pair<int,int>>>::__destroy_vector::operator()[abi:ne200100](&a9);
   std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(v10);
   fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::~CacheBaseImpl(v9);
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::CacheStateIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::Done(uint64_t a1)
+BOOL fst::CacheStateIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::Done(uint64_t a1)
 {
   v2 = *(a1 + 24);
   v3 = *(a1 + 16);
@@ -1021,7 +909,7 @@ uint64_t fst::CacheStateIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeight
   return v4;
 }
 
-void *fst::ArcIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::ArcIterator(void *a1, uint64_t a2, int a3)
+uint64_t *fst::ArcIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::ArcIterator(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a2 + 8);
   a1[1] = 0;
@@ -1036,7 +924,7 @@ void *fst::ArcIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>
   return a1;
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::InitArcIterator(uint64_t a1, int a2, void *a3)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::InitArcIterator(void *a1, uint64_t a2, void *a3)
 {
   if ((fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::HasArcs(a1, a2) & 1) == 0)
   {
@@ -1046,10 +934,10 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::In
   return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::LogWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::LogWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::LogWeightTpl<float>>>>::InitArcIterator(a1, a2, a3);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
   *fst::ComposeFstImplBase<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::ComposeFstImplBase(a1, a2, a3, a4) = off_2769B8;
-  v8 = *(a4 + 40);
+  v8 = *(a4 + 5);
   if (!v8)
   {
     operator new();
@@ -1060,7 +948,7 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   *(a1 + 144) = *v8;
   *(a1 + 160) = (*(*v9.n128_u64[0] + 32))(v9.n128_u64[0], v9);
   *(a1 + 168) = (*(**(a1 + 152) + 32))(*(a1 + 152));
-  v10 = *(a4 + 48);
+  v10 = *(a4 + 6);
   if (!v10)
   {
     operator new();
@@ -1224,14 +1112,14 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   return *(a1 + 8) & a2;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, int a2)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, uint64_t a2)
 {
   v4 = (*(a1[22] + 96) + 12 * a2);
   v5 = *v4;
   v6 = v4[1];
   v7 = a1[17];
-  v17 = *(v4 + 8);
-  fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::SetState(v7, v5, v6, &v17);
+  v16 = *(v4 + 8);
+  fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::SetState(v7, v5, v6, &v16);
   if (fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchInput(a1, v5, v6))
   {
     v9 = a1[20];
@@ -1256,12 +1144,13 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
     v15 = 0;
   }
 
-  return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(v11, v12, v8, v13, v9, v14, v10, v15);
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(v11, v12, v8, v13, v9, v14, v10, v15);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, int a3)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == a3)
+  v3 = a3;
+  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == v3)
   {
     operator new();
   }
@@ -1319,7 +1208,7 @@ uint64_t fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::Tropica
   }
 
   *(a1 + 8) = a5;
-  *(a1 + 16) = (*(*a4 + 32))(a4);
+  *(a1 + 16) = (*(*a4 + 32))(a4, a2, a3);
   *(a1 + 24) = -1;
   *(a1 + 32) = -1;
   return a1;
@@ -1439,7 +1328,7 @@ void fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::~Conte
   operator delete();
 }
 
-uint64_t fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Value_(uint64_t a1)
+uint64_t fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Value_(uint64_t a1, uint64_t a2)
 {
   if ((*(a1 + 44) & 1) == 0)
   {
@@ -1449,7 +1338,7 @@ uint64_t fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Va
   return a1 + 28;
 }
 
-uint64_t fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Next_(uint64_t result)
+uint64_t fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Next_(uint64_t result, uint64_t a2)
 {
   if ((*(result + 44) & 1) == 0)
   {
@@ -1495,7 +1384,7 @@ void sub_90FB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Find(uint64_t a1, int a2)
+uint64_t fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Find(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 24);
   if (v3 == -1)
@@ -1581,9 +1470,9 @@ uint64_t fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::Tropica
   return a1;
 }
 
-void fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::SetState(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
+void fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::SetState(uint64_t a1, uint64_t a2, unsigned int a3, _BYTE *a4)
 {
-  if (*(a1 + 24) != a2 || *(a1 + 28) != a3 || *a4 != *(a1 + 32))
+  if (*(a1 + 24) != __PAIR64__(a3, a2) || *a4 != *(a1 + 32))
   {
     *(a1 + 24) = a2;
     *(a1 + 28) = a3;
@@ -1609,7 +1498,7 @@ BOOL fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
     return 0;
   }
 
-  v7 = (*(**(a1 + 144) + 104))(*(a1 + 144));
+  v7 = (*(**(a1 + 144) + 104))(*(a1 + 144), a2);
   v8 = (*(**(a1 + 152) + 104))(*(a1 + 152), a3);
   if (v7 == -1 && v8 == -1)
   {
@@ -1655,73 +1544,75 @@ void sub_91618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a8;
   fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::SetState(a7, a4);
-  LODWORD(v19) = a8 - 1;
-  *(&v19 + 4) = (a8 << 31 >> 31);
-  HIDWORD(v19) = a6;
-  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(a1, a2, a7, &v19, a8);
-  v18 = 0;
-  (*(*a5 + 136))(a5, a6, v16);
+  LODWORD(v18) = v8 - 1;
+  *(&v18 + 4) = (v8 << 31 >> 31);
+  HIDWORD(v18) = a6;
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(a1, a2, a7, &v18, v8);
+  v17 = 0;
+  (*(*a5 + 136))(a5, a6, v15);
   while (1)
   {
-    if (!v16[0])
+    if (!v15[0])
     {
-      if (v18 >= v16[2])
+      if (v17 >= v15[2])
       {
         goto LABEL_13;
       }
 
 LABEL_7:
-      v14 = (v16[1] + 16 * v18);
+      v14 = (v15[1] + 16 * v17);
       goto LABEL_8;
     }
 
-    if ((*(*v16[0] + 24))(v16[0]))
+    if ((*(*v15[0] + 24))(v15[0]))
     {
       break;
     }
 
-    if (!v16[0])
+    if (!v15[0])
     {
       goto LABEL_7;
     }
 
-    v14 = (*(*v16[0] + 32))();
+    v14 = (*(*v15[0] + 32))();
 LABEL_8:
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(a1, a2, a7, v14, a8);
-    if (v16[0])
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(a1, a2, a7, v14, v8);
+    if (v15[0])
     {
-      (*(*v16[0] + 40))(v16[0]);
+      (*(*v15[0] + 40))(v15[0]);
     }
 
     else
     {
-      ++v18;
+      ++v17;
     }
   }
 
-  if (v16[0])
+  if (v15[0])
   {
-    (*(*v16[0] + 8))();
-    return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
+    (*(*v15[0] + 8))();
+    goto LABEL_15;
   }
 
 LABEL_13:
-  if (v17)
+  if (v16)
   {
-    --*v17;
+    --*v16;
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
+LABEL_15:
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
 }
 
-void sub_91828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void sub_91828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    fst::Reverse<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ArcTpl<fst::TropicalWeightTpl<float>>>(a10);
+    fst::Reverse<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ArcTpl<fst::TropicalWeightTpl<float>>>();
   }
 
   else
@@ -1732,7 +1623,7 @@ void sub_91828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t a1, int a2, uint64_t a3, __int128 *a4, int a5)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, int a5)
 {
   v10 = 4;
   if (!a5)
@@ -1871,15 +1762,15 @@ LABEL_35:
   return result;
 }
 
-void *fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::AddArc(uint64_t a1, int a2, unsigned int *a3, uint64_t a4, char *a5)
+void *fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::AddArc(uint64_t a1, uint64_t a2, float *a3, uint64_t a4, char *a5)
 {
   v7 = *(a4 + 12);
-  LODWORD(v17) = a3[3];
+  *&v17 = a3[3];
   HIDWORD(v17) = v7;
   v18 = *a5;
   v8 = *a3;
   v9 = *(a4 + 4);
-  v10 = *(a3 + 2);
+  v10 = a3[2];
   v11 = NAN;
   if (v10 != -INFINITY)
   {
@@ -1899,7 +1790,7 @@ void *fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeight
   }
 
   Id = fst::CompactHashBiTable<int,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>,std::equal_to<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>,(fst::HSType)1>::FindId(*(a1 + 176), &v17, 1);
-  *&v16 = __PAIR64__(v9, v8);
+  *&v16 = __PAIR64__(v9, LODWORD(v8));
   *(&v16 + 1) = __PAIR64__(Id, LODWORD(v11));
   return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::PushArc(a1, a2, &v16);
 }
@@ -1992,7 +1883,7 @@ void fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeig
   }
 }
 
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Find_(uint64_t a1, int a2)
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Find_(uint64_t a1, uint64_t a2)
 {
   *(a1 + 48) = a2 == 0;
   if (!a2)
@@ -2145,12 +2036,11 @@ void sub_921B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindLabel<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindLabel<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Find(a3, a2);
   if (result)
   {
-    v8 = *(a3 + 44);
     if (*(a1 + 28))
     {
       if ((*(a3 + 44) & 1) == 0)
@@ -2158,7 +2048,7 @@ uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::Tropical
         fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Value_();
       }
 
-      v9 = 28;
+      v8 = 28;
     }
 
     else
@@ -2168,10 +2058,10 @@ uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::Tropical
         fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Value_();
       }
 
-      v9 = 32;
+      v8 = 32;
     }
 
-    fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Find(a4, *(a3 + v9));
+    fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Find(a4, *(a3 + v8));
 
     return fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindNext<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(a1, a3, a4);
   }
@@ -2179,7 +2069,7 @@ uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::Tropical
   return result;
 }
 
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindNext<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindNext<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>(uint64_t matched, uint64_t a2, uint64_t a3)
 {
   v6 = (a2 + 28);
   v7 = (a3 + 28);
@@ -2206,7 +2096,7 @@ LABEL_6:
       }
 
       *(a3 + 44) = 0;
-      v9 = *(a1 + 28);
+      v9 = *(matched + 28);
       v10 = v9 == 0;
       if (v9)
       {
@@ -2230,7 +2120,7 @@ LABEL_6:
         v14 = v6;
       }
 
-      if (fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc(a1, *(a1 + 24), v12, v13, *v14, v14[1]))
+      if (fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc(matched, *(matched + 24), v12, v13, *v14, v14[1]))
       {
         return 1;
       }
@@ -2421,11 +2311,11 @@ LABEL_15:
   return result;
 }
 
-void sub_928B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void sub_928B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    fst::Reverse<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ArcTpl<fst::TropicalWeightTpl<float>>>(a10);
+    fst::Reverse<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ArcTpl<fst::TropicalWeightTpl<float>>>();
   }
 
   else
@@ -2440,7 +2330,7 @@ __n128 std::__introsort<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fs
 {
 LABEL_1:
   v10 = a2 - 1;
-  v39 = a2 - 2;
+  v38 = a2 - 2;
   v11 = a2 - 3;
   v12 = a1;
 LABEL_2:
@@ -2461,10 +2351,10 @@ LABEL_2:
       {
         if (a2[-1].n128_u32[1] < v12->n128_u32[1])
         {
-          v62 = *v12;
+          v61 = *v12;
           *v12 = a2[-1];
-          result = v62;
-          a2[-1] = v62;
+          result = v61;
+          a2[-1] = v61;
         }
 
         return result;
@@ -2480,40 +2370,40 @@ LABEL_2:
 
     if (v15 == 4)
     {
-      v37 = v12[1].n128_i32[1];
-      v38 = v12[2].n128_i32[1];
-      if (v37 >= v12->n128_u32[1])
+      v36 = v12[1].n128_i32[1];
+      v37 = v12[2].n128_i32[1];
+      if (v36 >= v12->n128_u32[1])
       {
-        if (v38 < v37)
+        if (v37 < v36)
         {
           result = v12[1];
           v12[1] = v12[2];
           v12[2] = result;
           if (v12[1].n128_u32[1] < v12->n128_u32[1])
           {
-            v64 = *v12;
+            v63 = *v12;
             *v12 = v12[1];
-            result = v64;
-            v12[1] = v64;
+            result = v63;
+            v12[1] = v63;
           }
         }
       }
 
       else
       {
-        if (v38 < v37)
+        if (v37 < v36)
         {
-          v63 = *v12;
+          v62 = *v12;
           *v12 = v12[2];
-          result = v63;
+          result = v62;
           goto LABEL_103;
         }
 
-        v66 = *v12;
+        v65 = *v12;
         *v12 = v12[1];
-        result = v66;
-        v12[1] = v66;
-        if (v38 < v12[1].n128_u32[1])
+        result = v65;
+        v12[1] = v65;
+        if (v37 < v12[1].n128_u32[1])
         {
           result = v12[1];
           v12[1] = v12[2];
@@ -2541,10 +2431,10 @@ LABEL_103:
 LABEL_107:
       if (v12[1].n128_u32[1] < v12->n128_u32[1])
       {
-        v67 = *v12;
+        v66 = *v12;
         *v12 = v12[1];
-        result = v67;
-        v12[1] = v67;
+        result = v66;
+        v12[1] = v66;
       }
 
       return result;
@@ -2595,14 +2485,14 @@ LABEL_10:
       {
         if (v17 < v18)
         {
-          v42 = *v16;
+          v41 = *v16;
           *v16 = *v10;
-          *v10 = v42;
+          *v10 = v41;
           if (v16->n128_u32[1] < v12->n128_u32[1])
           {
-            v43 = *v12;
+            v42 = *v12;
             *v12 = *v16;
-            *v16 = v43;
+            *v16 = v42;
           }
         }
       }
@@ -2611,20 +2501,20 @@ LABEL_10:
       {
         if (v17 < v18)
         {
-          v40 = *v12;
+          v39 = *v12;
           *v12 = *v10;
           goto LABEL_28;
         }
 
-        v46 = *v12;
+        v45 = *v12;
         *v12 = *v16;
-        *v16 = v46;
+        *v16 = v45;
         if (a2[-1].n128_u32[1] < v16->n128_u32[1])
         {
-          v40 = *v16;
+          v39 = *v16;
           *v16 = *v10;
 LABEL_28:
-          *v10 = v40;
+          *v10 = v39;
         }
       }
 
@@ -2635,14 +2525,14 @@ LABEL_28:
       {
         if (v22 < v21)
         {
-          v47 = *v20;
-          *v20 = *v39;
-          *v39 = v47;
+          v46 = *v20;
+          *v20 = *v38;
+          *v38 = v46;
           if (v16[-1].n128_u32[1] < v12[1].n128_u32[1])
           {
-            v48 = v12[1];
+            v47 = v12[1];
             v12[1] = *v20;
-            *v20 = v48;
+            *v20 = v47;
           }
         }
       }
@@ -2653,19 +2543,19 @@ LABEL_28:
         {
           v23 = v12[1];
           v24 = a2 - 2;
-          v12[1] = *v39;
+          v12[1] = *v38;
           goto LABEL_42;
         }
 
-        v50 = v12[1];
+        v49 = v12[1];
         v12[1] = *v20;
-        *v20 = v50;
+        *v20 = v49;
         if (a2[-2].n128_u32[1] < v16[-1].n128_u32[1])
         {
-          v51 = *v20;
+          v50 = *v20;
           v24 = a2 - 2;
-          *v20 = *v39;
-          v23 = v51;
+          *v20 = *v38;
+          v23 = v50;
 LABEL_42:
           *v24 = v23;
         }
@@ -2677,14 +2567,14 @@ LABEL_42:
       {
         if (v26 < v25)
         {
-          v52 = v16[1];
+          v51 = v16[1];
           v16[1] = *v11;
-          *v11 = v52;
+          *v11 = v51;
           if (v16[1].n128_u32[1] < v12[2].n128_u32[1])
           {
-            v53 = v12[2];
+            v52 = v12[2];
             v12[2] = v16[1];
-            v16[1] = v53;
+            v16[1] = v52;
           }
         }
       }
@@ -2698,14 +2588,14 @@ LABEL_42:
           goto LABEL_51;
         }
 
-        v54 = v12[2];
+        v53 = v12[2];
         v12[2] = v16[1];
-        v16[1] = v54;
+        v16[1] = v53;
         if (a2[-3].n128_u32[1] < v16[1].n128_u32[1])
         {
-          v55 = v16[1];
+          v54 = v16[1];
           v16[1] = *v11;
-          v27 = v55;
+          v27 = v54;
 LABEL_51:
           *v11 = v27;
         }
@@ -2717,14 +2607,14 @@ LABEL_51:
       {
         if (v29 < v28)
         {
-          v57 = *v16;
+          v56 = *v16;
           *v16 = v16[1];
-          v16[1] = v57;
+          v16[1] = v56;
           if (v16->n128_u32[1] < v16[-1].n128_u32[1])
           {
-            v58 = *v20;
+            v57 = *v20;
             *v20 = *v16;
-            *v16 = v58;
+            *v16 = v57;
           }
         }
       }
@@ -2733,26 +2623,26 @@ LABEL_51:
       {
         if (v29 < v28)
         {
-          v56 = *v20;
+          v55 = *v20;
           *v20 = v16[1];
           goto LABEL_60;
         }
 
-        v59 = *v20;
+        v58 = *v20;
         *v20 = *v16;
-        *v16 = v59;
+        *v16 = v58;
         if (v16[1].n128_u32[1] < v16->n128_u32[1])
         {
-          v56 = *v16;
+          v55 = *v16;
           *v16 = v16[1];
 LABEL_60:
-          v16[1] = v56;
+          v16[1] = v55;
         }
       }
 
-      v60 = *v12;
+      v59 = *v12;
       *v12 = *v16;
-      *v16 = v60;
+      *v16 = v59;
       if (a5)
       {
         goto LABEL_63;
@@ -2766,20 +2656,20 @@ LABEL_60:
     {
       if (v17 < v19)
       {
-        v41 = *v16;
+        v40 = *v16;
         *v16 = *v10;
         goto LABEL_37;
       }
 
-      v49 = *v16;
+      v48 = *v16;
       *v16 = *v12;
-      *v12 = v49;
+      *v12 = v48;
       if (a2[-1].n128_u32[1] < v12->n128_u32[1])
       {
-        v41 = *v12;
+        v40 = *v12;
         *v12 = *v10;
 LABEL_37:
-        *v10 = v41;
+        *v10 = v40;
       }
 
 LABEL_38:
@@ -2796,17 +2686,17 @@ LABEL_38:
       goto LABEL_38;
     }
 
-    v44 = *v12;
+    v43 = *v12;
     *v12 = *v10;
-    *v10 = v44;
+    *v10 = v43;
     if (v12->n128_u32[1] >= v16->n128_u32[1])
     {
       goto LABEL_38;
     }
 
-    v45 = *v16;
+    v44 = *v16;
     *v16 = *v12;
-    *v12 = v45;
+    *v12 = v44;
     if (a5)
     {
       goto LABEL_63;
@@ -2821,18 +2711,18 @@ LABEL_62:
 
 LABEL_63:
     v30 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &>(v12, a2);
-    if ((v32 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
       goto LABEL_66;
     }
 
-    v33 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(v12, v30, v31);
+    v32 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(v12, v30, result);
     v12 = v30 + 1;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(v30 + 1, a2, v34))
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(v30 + 1, a2, v33))
     {
       a4 = -v14;
       a2 = v30;
-      if (v33)
+      if (v32)
       {
         return result;
       }
@@ -2841,10 +2731,10 @@ LABEL_63:
     }
 
     v13 = v14 + 1;
-    if (!v33)
+    if (!v32)
     {
 LABEL_66:
-      std::__introsort<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*,false>(a1, v30, a3, -v14, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*,false>(a1, v30, a3, -v14, a5 & 1, result);
       v12 = v30 + 1;
 LABEL_68:
       a5 = 0;
@@ -2853,11 +2743,11 @@ LABEL_68:
     }
   }
 
-  v35 = v12[1].n128_i32[1];
-  v36 = a2[-1].n128_i32[1];
-  if (v35 >= v12->n128_u32[1])
+  v34 = v12[1].n128_i32[1];
+  v35 = a2[-1].n128_i32[1];
+  if (v34 >= v12->n128_u32[1])
   {
-    if (v36 >= v35)
+    if (v35 >= v34)
     {
       return result;
     }
@@ -2868,12 +2758,12 @@ LABEL_68:
     goto LABEL_107;
   }
 
-  if (v36 >= v35)
+  if (v35 >= v34)
   {
-    v65 = *v12;
+    v64 = *v12;
     *v12 = v12[1];
-    result = v65;
-    v12[1] = v65;
+    result = v64;
+    v12[1] = v64;
     if (a2[-1].n128_u32[1] >= v12[1].n128_u32[1])
     {
       return result;
@@ -2885,9 +2775,9 @@ LABEL_68:
 
   else
   {
-    v61 = *v12;
+    v60 = *v12;
     *v12 = *v10;
-    result = v61;
+    result = v60;
   }
 
   *v10 = result;
@@ -2984,12 +2874,12 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(uint64_t result, _DWORD *a2)
+_DWORD *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(_DWORD *result, _DWORD *a2)
 {
   if (result != a2)
   {
-    v2 = (result + 16);
-    if ((result + 16) != a2)
+    v2 = result + 4;
+    if (result + 4 != a2)
     {
       v3 = 0;
       v4 = result;
@@ -3014,7 +2904,7 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelC
             v9 -= 16;
             if (v6 >= v10)
             {
-              v11 = result + v9 + 16;
+              v11 = (result + v9 + 16);
               goto LABEL_10;
             }
           }
@@ -3022,8 +2912,8 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelC
           v11 = result;
 LABEL_10:
           *v11 = v7;
-          *(v11 + 4) = v6;
-          *(v11 + 8) = v8;
+          v11[1] = v6;
+          *(v11 + 1) = v8;
         }
 
         v2 = v5 + 4;
@@ -3073,12 +2963,12 @@ _DWORD *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst
   return result;
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &>(int *a1, _OWORD *a2)
+unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &>(int *a1, int *a2)
 {
   v2 = a1[1];
   if (v2 >= *(a2 - 3))
   {
-    v6 = (a1 + 4);
+    v6 = a1 + 4;
     do
     {
       v4 = v6;
@@ -3087,8 +2977,8 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
         break;
       }
 
-      v7 = *(v6 + 4);
-      v6 += 16;
+      v7 = v6[1];
+      v6 += 4;
     }
 
     while (v2 >= v7);
@@ -3116,8 +3006,9 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   {
     do
     {
-      v8 = a2 - 1;
-      v9 = *(a2-- - 3);
+      v8 = a2 - 4;
+      v9 = *(a2 - 3);
+      a2 -= 4;
     }
 
     while (v2 < v9);
@@ -3139,7 +3030,8 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     while (v2 >= v12);
     do
     {
-      v13 = *(v8-- - 3);
+      v13 = *(v8 - 3);
+      v8 -= 4;
     }
 
     while (v2 < v13);
@@ -3156,7 +3048,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v4;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &>(int *a1, _OWORD *a2)
+int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &>(int *a1, int *a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -3174,8 +3066,9 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   {
     while (v7 < a2)
     {
-      v8 = a2 - 1;
-      v10 = *(a2-- - 3);
+      v8 = a2 - 4;
+      v10 = *(a2 - 3);
+      a2 -= 4;
       if (v10 < v4)
       {
         goto LABEL_9;
@@ -3189,8 +3082,9 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   {
     do
     {
-      v8 = a2 - 1;
-      v9 = *(a2-- - 3);
+      v8 = a2 - 4;
+      v9 = *(a2 - 3);
+      a2 -= 4;
     }
 
     while (v9 >= v4);
@@ -3208,14 +3102,15 @@ LABEL_9:
       *v12 = v13;
       do
       {
-        v14 = *(v11 + 20);
-        v11 += 16;
+        v14 = v11[5];
+        v11 += 4;
       }
 
       while (v14 < v4);
       do
       {
-        v15 = *(v12-- - 3);
+        v15 = *(v12 - 3);
+        v12 -= 4;
       }
 
       while (v15 >= v4);
@@ -3224,15 +3119,15 @@ LABEL_9:
     while (v11 < v12);
   }
 
-  if ((v11 - 16) != a1)
+  if (v11 - 4 != a1)
   {
-    *a1 = *(v11 - 16);
+    *a1 = *(v11 - 1);
   }
 
-  *(v11 - 16) = v3;
-  *(v11 - 12) = v4;
-  *(v11 - 8) = v5;
-  return v11 - 16;
+  *(v11 - 4) = v3;
+  *(v11 - 3) = v4;
+  *(v11 - 1) = v5;
+  return v11 - 4;
 }
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(__n128 *a1, __n128 *a2, __n128 a3)
@@ -3455,16 +3350,16 @@ LABEL_33:
         v31 -= 16;
         if (v28 >= v32)
         {
-          v33 = &a1[3] + v31;
+          v33 = (a1 + v31 + 48);
           goto LABEL_41;
         }
       }
 
       v33 = a1;
 LABEL_41:
-      *v33 = v29;
-      *(v33 + 4) = v28;
-      *(v33 + 8) = v30;
+      v33->n128_u32[0] = v29;
+      v33->n128_u32[1] = v28;
+      v33->n128_u64[1] = v30;
       if (++v27 == 8)
       {
         return &v25[1] == a2;
@@ -3480,17 +3375,17 @@ LABEL_41:
   }
 }
 
-int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(int *a1, int *a2, int *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
-    v8 = (a2 - a1) >> 4;
+    v8 = a2 - a1;
     if (v8 >= 2)
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[4 * v9];
+      v11 = &a1[v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(a1, a4, v8, v11);
@@ -3507,7 +3402,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
       v12 = v6;
       do
       {
-        if (v12[1] < a1[1])
+        if (*(v12 + 1) < *(a1 + 1))
         {
           v13 = *v12;
           *v12 = *a1;
@@ -3515,7 +3410,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(a1, a4, v8, a1);
         }
 
-        v12 += 4;
+        ++v12;
       }
 
       while (v12 != a3);
@@ -3530,8 +3425,8 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
         v15 = a1;
         do
         {
-          v16 = &v15[4 * v14];
-          v17 = v16 + 4;
+          v16 = &v15[v14];
+          v17 = v16 + 1;
           v18 = (2 * v14) | 1;
           v14 = 2 * v14 + 2;
           if (v14 >= v8)
@@ -3541,9 +3436,9 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
 
           else
           {
-            v19 = v16[5];
-            v20 = v16[9];
-            v21 = v16 + 8;
+            v19 = *(v16 + 5);
+            v20 = *(v16 + 9);
+            v21 = v16 + 2;
             if (v19 >= v20)
             {
               v14 = v18;
@@ -3560,8 +3455,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
         }
 
         while (v14 <= ((v8 - 2) >> 1));
-        v6 -= 4;
-        if (v17 == v6)
+        if (v17 == --v6)
         {
           *v17 = v24;
         }
@@ -3570,7 +3464,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
         {
           *v17 = *v6;
           *v6 = v24;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(a1, (v17 + 4), a4, ((v17 + 4) - a1) >> 4);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*>(a1, (v17 + 1), a4, v17 + 1 - a1);
         }
       }
 
@@ -3715,14 +3609,14 @@ void fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst:
   operator delete();
 }
 
-void fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>::TableMatcherImpl(uint64_t a1, uint64_t a2, int a3, void *a4)
+void fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>::TableMatcherImpl(int32x2_t *a1, uint64_t a2, __int32 a3, int32x2_t *a4)
 {
   *a1 = off_276BF8;
-  *(a1 + 8) = 1;
-  *(a1 + 12) = a3;
+  a1[1].i32[0] = 1;
+  a1[1].i32[1] = a3;
   v8 = (*(*a2 + 88))(a2, 0);
-  *(a1 + 64) = 0;
-  *(a1 + 16) = v8;
+  a1[8] = 0;
+  a1[2] = v8;
   if (a3)
   {
     v9 = 0;
@@ -3743,15 +3637,15 @@ void fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,
     v10 = 0;
   }
 
-  *(a1 + 32) = v9;
-  *(a1 + 36) = v10;
-  *(a1 + 40) = 0xFFFFFFFF00000000;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = -1;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 88) = *a4;
-  fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SortedMatcher(a1 + 96, a2, a3, 1);
+  a1[4].i32[0] = v9;
+  a1[4].i32[1] = v10;
+  a1[5] = 0xFFFFFFFF00000000;
+  a1[6] = 0;
+  a1[7].i32[0] = -1;
+  a1[9] = 0;
+  a1[10] = 0;
+  a1[11] = *a4;
+  fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SortedMatcher(a1 + 12, a2, a3, 1);
 }
 
 void sub_93F5C(_Unwind_Exception *exception_object)
@@ -3927,7 +3821,6 @@ void *fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>
   (*(*v13 + 136))(v13, a2, &__p);
   if (__p)
   {
-    *(a1 + 12);
     (*(*__p + 80))();
     v14 = v11 - 1;
     if (__p)
@@ -3997,11 +3890,11 @@ LABEL_15:
   return result;
 }
 
-void sub_9471C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, _DWORD *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_9471C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, _DWORD *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (__p)
   {
-    (*(*__p + 8))(__p);
+    (*(*__p + 8))(__p, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a15)
@@ -4174,10 +4067,10 @@ uint64_t fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float
   return result;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
   *fst::ComposeFstImplBase<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::ComposeFstImplBase(a1, a2, a3, a4) = off_276C90;
-  v8 = *(a4 + 40);
+  v8 = *(a4 + 5);
   if (!v8)
   {
     operator new();
@@ -4188,7 +4081,7 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   *(a1 + 144) = *v8;
   *(a1 + 160) = (*(*v9.n128_u64[0] + 32))(v9.n128_u64[0], v9);
   *(a1 + 168) = (*(**(a1 + 152) + 32))(*(a1 + 152));
-  v10 = *(a4 + 48);
+  v10 = *(a4 + 6);
   if (!v10)
   {
     operator new();
@@ -4216,28 +4109,29 @@ void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
   operator delete();
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, int a2)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, uint64_t a2)
 {
   v4 = (*(a1[22] + 96) + 12 * a2);
   v5 = *v4;
   v6 = v4[1];
   v7 = a1[17];
-  v9 = *(v4 + 8);
-  fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::SetState(v7, v5, v6, &v9);
+  v8 = *(v4 + 8);
+  fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::SetState(v7, v5, v6, &v8);
   if (fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchInput(a1, v5, v6))
   {
-    return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(a1, a2, a1[21], v6, a1[20], v5, a1[19], 1);
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(a1, a2, a1[21], v6, a1[20], v5, a1[19], 1);
   }
 
   else
   {
-    return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(a1, a2, a1[20], v5, a1[21], v6, a1[18], 0);
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(a1, a2, a1[20], v5, a1[21], v6, a1[18], 0);
   }
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, int a3)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == a3)
+  v3 = a3;
+  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == v3)
   {
     operator new();
   }
@@ -4263,7 +4157,7 @@ void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
   }
 }
 
-uint64_t fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>::SequenceComposeFilter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>::SequenceComposeFilter(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, int32x2_t *a5)
 {
   if (!a4)
   {
@@ -4277,7 +4171,7 @@ uint64_t fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::
   }
 
   *(a1 + 8) = a5;
-  *(a1 + 16) = (*(*a4 + 32))(a4);
+  *(a1 + 16) = (*(*a4 + 32))(a4, a2, a3);
   *(a1 + 24) = -1;
   *(a1 + 32) = -1;
   return a1;
@@ -4323,7 +4217,7 @@ BOOL fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
     return 0;
   }
 
-  v7 = (*(**(a1 + 144) + 104))(*(a1 + 144));
+  v7 = (*(**(a1 + 144) + 104))(*(a1 + 144), a2);
   v8 = (*(**(*(a1 + 152) + 8) + 40))(*(*(a1 + 152) + 8), a3);
   if (v7 == -1 && v8 == -1)
   {
@@ -4369,73 +4263,75 @@ void sub_95604(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a8;
   fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetState(a7, a4);
-  LODWORD(v19) = a8 - 1;
-  *(&v19 + 4) = (a8 << 31 >> 31);
-  HIDWORD(v19) = a6;
-  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(a1, a2, a7, &v19, a8);
-  v18 = 0;
-  (*(*a5 + 136))(a5, a6, v16);
+  LODWORD(v18) = v8 - 1;
+  *(&v18 + 4) = (v8 << 31 >> 31);
+  HIDWORD(v18) = a6;
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(a1, a2, a7, &v18, v8);
+  v17 = 0;
+  (*(*a5 + 136))(a5, a6, v15);
   while (1)
   {
-    if (!v16[0])
+    if (!v15[0])
     {
-      if (v18 >= v16[2])
+      if (v17 >= v15[2])
       {
         goto LABEL_13;
       }
 
 LABEL_7:
-      v14 = (v16[1] + 16 * v18);
+      v14 = (v15[1] + 16 * v17);
       goto LABEL_8;
     }
 
-    if ((*(*v16[0] + 24))(v16[0]))
+    if ((*(*v15[0] + 24))(v15[0]))
     {
       break;
     }
 
-    if (!v16[0])
+    if (!v15[0])
     {
       goto LABEL_7;
     }
 
-    v14 = (*(*v16[0] + 32))();
+    v14 = (*(*v15[0] + 32))();
 LABEL_8:
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(a1, a2, a7, v14, a8);
-    if (v16[0])
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(a1, a2, a7, v14, v8);
+    if (v15[0])
     {
-      (*(*v16[0] + 40))(v16[0]);
+      (*(*v15[0] + 40))(v15[0]);
     }
 
     else
     {
-      ++v18;
+      ++v17;
     }
   }
 
-  if (v16[0])
+  if (v15[0])
   {
-    (*(*v16[0] + 8))();
-    return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
+    (*(*v15[0] + 8))();
+    goto LABEL_15;
   }
 
 LABEL_13:
-  if (v17)
+  if (v16)
   {
-    --*v17;
+    --*v16;
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
+LABEL_15:
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
 }
 
-void sub_95814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void sub_95814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    fst::Reverse<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ArcTpl<fst::TropicalWeightTpl<float>>>(a10);
+    fst::Reverse<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ArcTpl<fst::TropicalWeightTpl<float>>>();
   }
 
   else
@@ -4446,73 +4342,75 @@ void sub_95814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a8;
   fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>::SetState(*(a7 + 8), a4);
-  LODWORD(v19) = a8 - 1;
-  *(&v19 + 4) = (a8 << 31 >> 31);
-  HIDWORD(v19) = a6;
-  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(a1, a2, a7, &v19, a8);
-  v18 = 0;
-  (*(*a5 + 136))(a5, a6, v16);
+  LODWORD(v18) = v8 - 1;
+  *(&v18 + 4) = (v8 << 31 >> 31);
+  HIDWORD(v18) = a6;
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(a1, a2, a7, &v18, v8);
+  v17 = 0;
+  (*(*a5 + 136))(a5, a6, v15);
   while (1)
   {
-    if (!v16[0])
+    if (!v15[0])
     {
-      if (v18 >= v16[2])
+      if (v17 >= v15[2])
       {
         goto LABEL_13;
       }
 
 LABEL_7:
-      v14 = (v16[1] + 16 * v18);
+      v14 = (v15[1] + 16 * v17);
       goto LABEL_8;
     }
 
-    if ((*(*v16[0] + 24))(v16[0]))
+    if ((*(*v15[0] + 24))(v15[0]))
     {
       break;
     }
 
-    if (!v16[0])
+    if (!v15[0])
     {
       goto LABEL_7;
     }
 
-    v14 = (*(*v16[0] + 32))();
+    v14 = (*(*v15[0] + 32))();
 LABEL_8:
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(a1, a2, a7, v14, a8);
-    if (v16[0])
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(a1, a2, a7, v14, v8);
+    if (v15[0])
     {
-      (*(*v16[0] + 40))(v16[0]);
+      (*(*v15[0] + 40))(v15[0]);
     }
 
     else
     {
-      ++v18;
+      ++v17;
     }
   }
 
-  if (v16[0])
+  if (v15[0])
   {
-    (*(*v16[0] + 8))();
-    return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
+    (*(*v15[0] + 8))();
+    goto LABEL_15;
   }
 
 LABEL_13:
-  if (v17)
+  if (v16)
   {
-    --*v17;
+    --*v16;
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
+LABEL_15:
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::PoolAllocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetArcs(a1, a2);
 }
 
-void sub_95A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void sub_95A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    fst::Reverse<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ArcTpl<fst::TropicalWeightTpl<float>>>(a10);
+    fst::Reverse<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ArcTpl<fst::TropicalWeightTpl<float>>>();
   }
 
   else
@@ -4523,7 +4421,7 @@ void sub_95A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(uint64_t a1, int a2, uint64_t a3, __int128 *a4, int a5)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, int a5)
 {
   v10 = 4;
   if (!a5)
@@ -4670,7 +4568,7 @@ LABEL_35:
   return result;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(uint64_t a1, int a2, uint64_t a3, __int128 *a4, int a5)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, int a5)
 {
   v10 = 4;
   if (!a5)
@@ -4860,7 +4758,7 @@ uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::Tropical
   return result;
 }
 
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Find_(uint64_t a1, int a2)
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Find_(uint64_t a1, uint64_t a2)
 {
   *(a1 + 48) = a2 == 0;
   if (*(a1 + 28))
@@ -5132,10 +5030,10 @@ uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::Tropical
   return 0;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
   *fst::ComposeFstImplBase<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::ComposeFstImplBase(a1, a2, a3, a4) = off_276DA0;
-  v8 = *(a4 + 40);
+  v8 = *(a4 + 5);
   if (!v8)
   {
     operator new();
@@ -5146,7 +5044,7 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   *(a1 + 144) = *v8;
   *(a1 + 160) = (*(*v9.n128_u64[0] + 32))(v9.n128_u64[0], v9);
   *(a1 + 168) = (*(**(a1 + 152) + 32))(*(a1 + 152));
-  v10 = *(a4 + 48);
+  v10 = *(a4 + 6);
   if (!v10)
   {
     operator new();
@@ -5174,28 +5072,29 @@ void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
   operator delete();
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, int a2)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, uint64_t a2)
 {
   v4 = (*(a1[22] + 96) + 12 * a2);
   v5 = *v4;
   v6 = v4[1];
   v7 = a1[17];
-  v9 = *(v4 + 8);
-  fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::SetState(v7, v5, v6, &v9);
+  v8 = *(v4 + 8);
+  fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>::SetState(v7, v5, v6, &v8);
   if (fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchInput(a1, v5, v6))
   {
-    return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(a1, a2, a1[21], v6, a1[20], v5, a1[19], 1);
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>(a1, a2, a1[21], v6, a1[20], v5, a1[19], 1);
   }
 
   else
   {
-    return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(a1, a2, a1[20], v5, a1[21], v6, a1[18], 0);
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(a1, a2, a1[20], v5, a1[21], v6, a1[18], 0);
   }
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, int a3)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == a3)
+  v3 = a3;
+  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == v3)
   {
     operator new();
   }
@@ -5221,7 +5120,7 @@ void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
   }
 }
 
-uint64_t fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>::SequenceComposeFilter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>::SequenceComposeFilter(uint64_t a1, uint64_t a2, uint64_t a3, int32x2_t *a4, void *a5)
 {
   if (!a4)
   {
@@ -5235,7 +5134,7 @@ uint64_t fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst:
   }
 
   *(a1 + 8) = a5;
-  *(a1 + 16) = (*(*a4 + 32))(a4);
+  *(a1 + 16) = (*(*a4 + 32))(a4, a2, a3);
   *(a1 + 24) = -1;
   *(a1 + 32) = -1;
   return a1;
@@ -5281,7 +5180,7 @@ BOOL fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
     return 0;
   }
 
-  v7 = (*(**(*(a1 + 144) + 8) + 40))(*(*(a1 + 144) + 8));
+  v7 = (*(**(*(a1 + 144) + 8) + 40))(*(*(a1 + 144) + 8), a2);
   v8 = (*(**(a1 + 152) + 104))(*(a1 + 152), a3);
   if (v7 == -1 && v8 == -1)
   {
@@ -5510,7 +5409,7 @@ void fst::Map<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::RemoveSomeInputSym
   }
 }
 
-uint64_t fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::RemoveSomeInputSymbolsMapper(uint64_t a1, uint64_t *a2)
+uint64_t fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::RemoveSomeInputSymbolsMapper(uint64_t a1, uint64_t a2)
 {
   v3 = kaldi::ConstIntegerSet<int>::ConstIntegerSet(a1, a2);
   if (kaldi::ConstIntegerSet<int>::count(v3, 0))
@@ -5572,11 +5471,11 @@ uint64_t fst::ArcMap<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::RemoveSomeI
   return result;
 }
 
-void sub_97A28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_97A28(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5613,7 +5512,7 @@ void fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::Final(
   __assert_rtn("Final", "context-fst-inl.h", 156, "static_cast<int32>(seq.size()) == N_-1");
 }
 
-uint64_t kaldi::FasterDecoder::FasterDecoder(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+uint64_t kaldi::FasterDecoder::FasterDecoder(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, const char *a5)
 {
   *(a1 + 40) = 0u;
   *(a1 + 24) = 0u;
@@ -5623,7 +5522,7 @@ uint64_t kaldi::FasterDecoder::FasterDecoder(uint64_t a1, uint64_t a2, uint64_t 
   *(a1 + 8) = xmmword_21A060;
   *(a1 + 80) = a2;
   v6 = *a3;
-  v7 = *(a3 + 16);
+  v7 = *(a3 + 2);
   *(a1 + 112) = 0u;
   *(a1 + 104) = v7;
   *(a1 + 88) = v6;
@@ -5680,7 +5579,7 @@ void sub_97E78(_Unwind_Exception *a1)
 void kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::SetSize(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   a1[2] = a2;
-  if (*a1 || a1[1] != -1)
+  if (*a1 != __PAIR128__(-1, 0))
   {
     kaldi::KaldiAssertFailure_("SetSize", "../subproject/libquasar/libkaldi/src/util/hash-list-inl.h", &stru_20.segname[1], "list_head_ == NULL && bucket_list_tail_ == static_cast<size_t>(-1)", a5);
   }
@@ -5738,7 +5637,6 @@ uint64_t kaldi::FasterDecoder::ClearToks(uint64_t result, uint64_t a2, uint64_t 
       *(result + 24) = v9;
       if (!v9)
       {
-        v10 = *(result + 16);
         operator delete();
       }
 
@@ -5747,13 +5645,13 @@ uint64_t kaldi::FasterDecoder::ClearToks(uint64_t result, uint64_t a2, uint64_t 
         kaldi::KaldiAssertFailure_("TokenDelete", "../subproject/libquasar/libkaldi/src/decoder/faster-decoder.h", &stru_68.nreloc + 3, "tok->ref_count_ > 0", a5);
       }
 
-      v11 = *(v5 + 16);
+      v10 = *(v5 + 16);
       *(v5 + 16) = *(v6 + 48);
       *(v6 + 48) = v5;
-      v5 = v11;
+      v5 = v10;
     }
 
-    while (v11);
+    while (v10);
   }
 
   return result;
@@ -5863,11 +5761,11 @@ LABEL_27:
   while (v6 != v7);
 }
 
-void sub_98650(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, _DWORD *a15)
+void sub_98650(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, _DWORD *a15)
 {
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a15)
@@ -5878,7 +5776,7 @@ void sub_98650(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-double kaldi::FasterDecoder::ProcessEmitting(kaldi::FasterDecoder *this, kaldi::DecodableInterface *a2, double a3)
+double kaldi::FasterDecoder::ProcessEmitting(kaldi::FasterDecoder *this, kaldi::DecodableInterface *a2, __n128 a3)
 {
   v5 = *(this + 40);
   v6 = *(this + 1);
@@ -5898,26 +5796,26 @@ double kaldi::FasterDecoder::ProcessEmitting(kaldi::FasterDecoder *this, kaldi::
   v9 = *this;
   *this = 0;
   *(this + 1) = -1;
-  v48 = 0;
-  v47 = 0.0;
   v46 = 0;
+  v45 = 0.0;
+  v44 = 0;
   v10 = v9;
-  v14 = kaldi::GetCutoffHelper<kaldi::FasterDecoder,kaldi::FasterDecoderOptions,kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::Elem>(this, this + 88, v9, &v48, &v47, &v46, 1, a3);
+  v14 = kaldi::GetCutoffHelper<kaldi::FasterDecoder,kaldi::FasterDecoderOptions,kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::Elem>(this, this + 88, v9, &v46, &v45, &v44, 1, a3);
   if (kaldi::g_kaldi_verbose_level >= 3)
   {
-    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v41, "ProcessEmitting", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/faster-decoder.cc", 188, 3);
+    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v39, "ProcessEmitting", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/faster-decoder.cc", 188, 3);
     v15 = std::ostream::operator<<();
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, " tokens active.", 15);
-    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v41);
+    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v39);
   }
 
-  v16 = (*(this + 27) * v48);
+  v16 = (*(this + 27) * v46);
   if (*(this + 2) < v16)
   {
     kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::SetSize(this, v16, v11, v12, v13);
   }
 
-  if (!v46)
+  if (!v44)
   {
     v20 = INFINITY;
     if (!v10)
@@ -5928,62 +5826,62 @@ double kaldi::FasterDecoder::ProcessEmitting(kaldi::FasterDecoder *this, kaldi::
     goto LABEL_30;
   }
 
-  v17 = *v46;
-  v18 = *(v46 + 1);
+  v17 = *v44;
+  v18 = *(v44 + 1);
   v19 = *(this + 10);
-  v45 = 0;
-  (*(*v19 + 136))(v19, v17, &v41);
+  v43 = 0;
+  (*(*v19 + 136))(v19, v17, &v39);
   v20 = INFINITY;
   while (1)
   {
-    if (!v41.__locale_)
+    if (!v39.__locale_)
     {
-      if (v45 >= v43)
+      if (v43 >= v41)
       {
         goto LABEL_25;
       }
 
 LABEL_15:
-      v21 = v42 + 16 * v45;
+      v21 = v40 + 16 * v43;
       goto LABEL_16;
     }
 
-    if ((*(*v41.__locale_ + 24))(v41.__locale_))
+    if ((*(*v39.__locale_ + 24))(v39.__locale_))
     {
       break;
     }
 
-    if (!v41.__locale_)
+    if (!v39.__locale_)
     {
       goto LABEL_15;
     }
 
-    v21 = (*(*v41.__locale_ + 32))();
+    v21 = (*(*v39.__locale_ + 32))();
 LABEL_16:
     if (*v21)
     {
       v22 = (**a2)(a2, v5);
-      v23 = *(v18 + 32) + *(v21 + 8) - v22 + v47;
+      v23 = *(v18 + 32) + *(v21 + 8) - v22 + v45;
       if (v23 < v20)
       {
         v20 = v23;
       }
     }
 
-    if (v41.__locale_)
+    if (v39.__locale_)
     {
-      (*(*v41.__locale_ + 40))(v41.__locale_);
+      (*(*v39.__locale_ + 40))(v39.__locale_);
     }
 
     else
     {
-      ++v45;
+      ++v43;
     }
   }
 
-  if (v41.__locale_)
+  if (v39.__locale_)
   {
-    (*(*v41.__locale_ + 8))();
+    (*(*v39.__locale_ + 8))();
     if (!v10)
     {
       goto LABEL_55;
@@ -5993,9 +5891,9 @@ LABEL_16:
   }
 
 LABEL_25:
-  if (v44)
+  if (v42)
   {
-    --*v44;
+    --*v42;
   }
 
   if (!v10)
@@ -6014,20 +5912,20 @@ LABEL_30:
       goto LABEL_51;
     }
 
-    v40 = v24;
+    v38 = v24;
     if (*v24 != *(v26 + 12))
     {
       kaldi::KaldiAssertFailure_("ProcessEmitting", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/faster-decoder.cc", &stru_B8.size + 2, "state == tok->arc_.nextstate", v13);
     }
 
     v27 = *(this + 10);
-    v45 = 0;
+    v43 = 0;
     (*(*v27 + 136))(v27);
     while (2)
     {
-      if (!v41.__locale_)
+      if (!v39.__locale_)
       {
-        if (v45 >= v43)
+        if (v43 >= v41)
         {
           goto LABEL_48;
         }
@@ -6035,35 +5933,34 @@ LABEL_30:
         goto LABEL_39;
       }
 
-      if (!(*(*v41.__locale_ + 24))(v41.__locale_))
+      if (!(*(*v39.__locale_ + 24))(v39.__locale_))
       {
-        if (v41.__locale_)
+        if (v39.__locale_)
         {
-          v30 = (*(*v41.__locale_ + 32))(v41.__locale_, v28, v29);
+          v30 = (*(*v39.__locale_ + 32))(v39.__locale_, v28, v29);
           goto LABEL_40;
         }
 
 LABEL_39:
-        v30 = v42 + 16 * v45;
+        v30 = v40 + 16 * v43;
 LABEL_40:
         if (*v30)
         {
           v31 = *(v30 + 8);
-          v32 = *(v30 + 12);
           if (*(v26 + 32) + v31 + -(**a2)(a2, v5) < v20)
           {
             operator new();
           }
         }
 
-        if (v41.__locale_)
+        if (v39.__locale_)
         {
-          (*(*v41.__locale_ + 40))(v41.__locale_);
+          (*(*v39.__locale_ + 40))(v39.__locale_);
         }
 
         else
         {
-          ++v45;
+          ++v43;
         }
 
         continue;
@@ -6072,43 +5969,42 @@ LABEL_40:
       break;
     }
 
-    if (v41.__locale_)
+    if (v39.__locale_)
     {
-      (*(*v41.__locale_ + 8))(v41.__locale_, v28, v29);
+      (*(*v39.__locale_ + 8))(v39.__locale_, v28, v29);
       goto LABEL_50;
     }
 
 LABEL_48:
-    if (v44)
+    if (v42)
     {
-      --*v44;
+      --*v42;
     }
 
 LABEL_50:
-    v24 = v40;
-    v26 = *(v40 + 8);
+    v24 = v38;
+    v26 = *(v38 + 8);
 LABEL_51:
-    v33 = v24;
-    v34 = *(v24 + 16);
-    v35 = *(v26 + 24);
-    v36 = __OFSUB__(v35, 1);
-    v37 = v35 - 1;
-    *(v26 + 24) = v37;
-    if (!v37)
+    v32 = v24;
+    v33 = *(v24 + 16);
+    v34 = *(v26 + 24);
+    v35 = __OFSUB__(v34, 1);
+    v36 = v34 - 1;
+    *(v26 + 24) = v36;
+    if (!v36)
     {
-      v38 = *(v26 + 16);
       operator delete();
     }
 
-    if ((v37 < 0) ^ v36 | (v37 == 0))
+    if ((v36 < 0) ^ v35 | (v36 == 0))
     {
       kaldi::KaldiAssertFailure_("TokenDelete", "../subproject/libquasar/libkaldi/src/decoder/faster-decoder.h", &stru_68.nreloc + 3, "tok->ref_count_ > 0", v13);
     }
 
-    *(v33 + 16) = *(this + 6);
-    *(this + 6) = v33;
-    v24 = v34;
-    if (v34)
+    *(v32 + 16) = *(this + 6);
+    *(this + 6) = v32;
+    v24 = v33;
+    if (v33)
     {
       continue;
     }
@@ -6121,9 +6017,9 @@ LABEL_55:
   return v20;
 }
 
-void sub_98EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_98EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6302,7 +6198,7 @@ void sub_99444(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-float kaldi::GetCutoffHelper<kaldi::FasterDecoder,kaldi::FasterDecoderOptions,kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::Elem>(void *a1, uint64_t a2, uint64_t a3, void *a4, float *a5, void *a6, int a7, double a8)
+float kaldi::GetCutoffHelper<kaldi::FasterDecoder,kaldi::FasterDecoderOptions,kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::Elem>(void *a1, uint64_t a2, uint64_t a3, void *a4, float *a5, uint64_t *a6, int a7, __n128 a8)
 {
   v9 = a3;
   v10 = *(a2 + 8);
@@ -6381,8 +6277,8 @@ float kaldi::GetCutoffHelper<kaldi::FasterDecoder,kaldi::FasterDecoderOptions,ka
       v17 = INFINITY;
       do
       {
-        a8 = *(*(v9 + 8) + 32);
-        v18 = a8;
+        a8.n128_u64[0] = *(*(v9 + 8) + 32);
+        v18 = a8.n128_f64[0];
         v20 = a1[18];
         v19 = a1[19];
         if (v20 >= v19)
@@ -6498,7 +6394,7 @@ float kaldi::GetCutoffHelper<kaldi::FasterDecoder,kaldi::FasterDecoderOptions,ka
       v41 = v47;
       if (v40 != v38)
       {
-        std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(v37, v40, v38, *&a8);
+        std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(v37, v40, v38, a8.n128_f32[0]);
         v37 = a1[17];
         v38 = a1[18];
         v39 = v38 - v37;
@@ -6598,7 +6494,6 @@ void *kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equa
     {
       if (v4[v6])
       {
-        v8 = v4[v6];
         operator delete[]();
       }
 
@@ -6611,14 +6506,14 @@ void *kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equa
 
   if (v3 != v7 && kaldi::g_kaldi_verbose_level > -2)
   {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v14, "~HashList", "../subproject/libquasar/libkaldi/src/util/hash-list-inl.h", 123);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Possible memory leak: ", 22);
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v13, "~HashList", "../subproject/libquasar/libkaldi/src/util/hash-list-inl.h", 123);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "Possible memory leak: ", 22);
+    v8 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " != ", 4);
     v9 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " != ", 4);
-    v10 = std::ostream::operator<<();
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, ": you might have forgotten to call Delete on ", 45);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "some Elems", 10);
-    kaldi::KaldiWarnMessage::~KaldiWarnMessage(v14);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ": you might have forgotten to call Delete on ", 45);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "some Elems", 10);
+    kaldi::KaldiWarnMessage::~KaldiWarnMessage(v13);
     v4 = a1[7];
   }
 
@@ -6628,30 +6523,30 @@ void *kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equa
     operator delete(v4);
   }
 
-  v12 = a1[3];
-  if (v12)
+  v11 = a1[3];
+  if (v11)
   {
-    a1[4] = v12;
-    operator delete(v12);
+    a1[4] = v11;
+    operator delete(v11);
   }
 
   return a1;
 }
 
-void std::vector<kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::HashBucket,std::allocator<kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::HashBucket>>::resize(void *a1, unint64_t a2, _OWORD *a3)
+void std::vector<kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::HashBucket,std::allocator<kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::HashBucket>>::resize(void *result, unint64_t a2, _OWORD *a3)
 {
-  v3 = (a1[1] - *a1) >> 4;
+  v3 = (result[1] - *result) >> 4;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::HashBucket,std::allocator<kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::HashBucket>>::__append(a1, a2 - v3, a3);
+    std::vector<kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::HashBucket,std::allocator<kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::HashBucket>>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -6745,23 +6640,23 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::HashList<int,k
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::New(uint64_t a1)
+uint64_t kaldi::HashList<int,kaldi::FasterDecoder::Token *,std::hash<int>,std::equal_to<int>>::New(void *a1)
 {
-  result = *(a1 + 48);
+  result = a1[6];
   if (!result)
   {
     operator new[]();
   }
 
-  *(a1 + 48) = *(result + 16);
+  a1[6] = *(result + 16);
   return result;
 }
 
-void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(float *a1, float *a2, float *a3, float a4)
+void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(float *result, float *a2, float *a3, float a4)
 {
   while (a3 != a2)
   {
-    v4 = a3 - a1;
+    v4 = a3 - result;
     if (v4 < 2)
     {
       break;
@@ -6769,11 +6664,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 == 3)
     {
-      v37 = a1[1];
+      v37 = result[1];
       v38 = *(a3 - 1);
       if (v37 < v38)
       {
-        v39 = *(a1 + 1);
+        v39 = *(result + 1);
       }
 
       else
@@ -6787,46 +6682,46 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       }
 
       *(a3 - 1) = v37;
-      *(a1 + 1) = v39;
+      *(result + 1) = v39;
       v40 = *(a3 - 1);
-      if (v40 < *a1)
+      if (v40 < *result)
       {
         v41 = *(a3 - 1);
       }
 
       else
       {
-        v41 = *a1;
+        v41 = *result;
       }
 
-      if (v40 < *a1)
+      if (v40 < *result)
       {
-        v40 = *a1;
+        v40 = *result;
       }
 
       *(a3 - 1) = v40;
-      v42 = a1[1];
+      v42 = result[1];
       if (v41 < v42)
       {
-        v41 = a1[1];
+        v41 = result[1];
       }
 
       else
       {
-        *a1 = v42;
+        *result = v42;
       }
 
-      a1[1] = v41;
+      result[1] = v41;
       return;
     }
 
     if (v4 == 2)
     {
       v43 = *(a3 - 1);
-      v44 = *a1;
-      if (v43 < *a1)
+      v44 = *result;
+      if (v43 < *result)
       {
-        *a1 = v43;
+        *result = v43;
         *(a3 - 1) = v44;
       }
 
@@ -6835,11 +6730,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 <= 7)
     {
-      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(a1, a3, a4);
+      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(result, a3, a4);
       return;
     }
 
-    v5 = &a1[(a3 - a1) >> 3];
+    v5 = &result[(a3 - result) >> 3];
     v6 = a3 - 1;
     v7 = *(a3 - 1);
     v8 = *v5;
@@ -6866,20 +6761,20 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     *v6 = v10;
     *v5 = v9;
     v11 = *v6;
-    v12 = *a1;
-    if (*v6 < *a1)
+    v12 = *result;
+    if (*v6 < *result)
     {
       v13 = *v6;
     }
 
     else
     {
-      v13 = *a1;
+      v13 = *result;
     }
 
-    if (*v6 < *a1)
+    if (*v6 < *result)
     {
-      v14 = *a1;
+      v14 = *result;
     }
 
     else
@@ -6892,7 +6787,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     v16 = *v5;
     if (v13 >= *v5)
     {
-      *a1 = v15;
+      *result = v15;
       v16 = v13;
     }
 
@@ -6908,15 +6803,15 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       v17 = 1;
     }
 
-    a4 = *a1;
-    if (*a1 >= v16)
+    a4 = *result;
+    if (*result >= v16)
     {
       v18 = a3 - 1;
-      while (--v18 != a1)
+      while (--v18 != result)
       {
         if (*v18 < v16)
         {
-          *a1 = *v18;
+          *result = *v18;
           *v18 = a4;
           if (v17)
           {
@@ -6932,7 +6827,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
         }
       }
 
-      v28 = a1 + 1;
+      v28 = result + 1;
       if (a4 >= *v6)
       {
         while (v28 != v6)
@@ -6959,7 +6854,7 @@ LABEL_65:
 
       while (1)
       {
-        v32 = *a1;
+        v32 = *result;
         do
         {
           v33 = *v28++;
@@ -6984,7 +6879,7 @@ LABEL_65:
         *v6 = a4;
       }
 
-      a1 = v28 - 1;
+      result = v28 - 1;
       if (v34 > a2)
       {
         return;
@@ -6995,15 +6890,15 @@ LABEL_65:
     {
       v18 = a3 - 1;
 LABEL_33:
-      v19 = a1 + 1;
-      if (a1 + 1 >= v18)
+      v19 = result + 1;
+      if (result + 1 >= v18)
       {
-        v23 = a1 + 1;
+        v23 = result + 1;
       }
 
       else
       {
-        v20 = a1 + 1;
+        v20 = result + 1;
         while (1)
         {
           v21 = *v5;
@@ -7089,7 +6984,7 @@ LABEL_33:
 LABEL_49:
       if (v23 <= a2)
       {
-        a1 = v23 + 1;
+        result = v23 + 1;
       }
 
       else
@@ -7152,23 +7047,19 @@ kaldi::DecodableMatrixScaledMapped *kaldi::DecodableMatrixScaledMapped::Decodabl
   return this;
 }
 
-uint64_t kaldi::DecodableMatrixScaledMapped::ValidateLikesAndPdfs(kaldi::ContextDependency **this)
+void kaldi::DecodableMatrixScaledMapped::ValidateLikesAndPdfs(kaldi::ContextDependency **this)
 {
-  result = kaldi::ContextDependency::ContextWidth(this[2]);
-  if (result != *(this[1] + 60))
+  if (kaldi::ContextDependency::ContextWidth(this[2]) != *(this[1] + 60))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v6, "ValidateLikesAndPdfs", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/decodable-matrix.cc", 143);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "DecodableMatrixScaledMapped: mismatch, matrix has ", 50);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v4, "ValidateLikesAndPdfs", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/decodable-matrix.cc", 143);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "DecodableMatrixScaledMapped: mismatch, matrix has ", 50);
     kaldi::ContextDependency::ContextWidth(this[2]);
+    v2 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, " columns but transition-model has ", 34);
     v3 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " columns but transition-model has ", 34);
-    v4 = *(this[1] + 60);
-    v5 = std::ostream::operator<<();
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v5, " pdf-ids.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v6);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v3, " pdf-ids.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v4);
   }
-
-  return result;
 }
 
 BOOL kaldi::DecodableMatrixScaledMapped::IsLastFrame(kaldi::DecodableMatrixScaledMapped *this, int a2)
@@ -7191,7 +7082,7 @@ BOOL kaldi::DecodableMatrixScaledMapped::IsLastFrameNoBlocking(kaldi::DecodableM
   return (*(*this + 88))(this) - 1 == a2;
 }
 
-float kaldi::DecodableMatrixScaledMapped::LogLikelihood(kaldi::DecodableMatrixScaledMapped *this, unsigned int a2, int a3, uint64_t a4, const char *a5)
+float kaldi::DecodableMatrixScaledMapped::LogLikelihood(kaldi::DecodableMatrixScaledMapped *this, uint64_t a2, int a3, uint64_t a4, const char *a5)
 {
   v5 = *(this + 1);
   v6 = *(v5 + 96);
@@ -7209,15 +7100,15 @@ void kaldi::DecodableMatrixScaledMapped::~DecodableMatrixScaledMapped(kaldi::Dec
   *this = &off_276EB0;
   if (*(this + 28) == 1)
   {
-    v2 = *(this + 2);
-    if (v2)
+    v1 = *(this + 2);
+    if (v1)
     {
-      kaldi::Matrix<float>::~Matrix(v2);
+      kaldi::Matrix<float>::~Matrix(v1);
       operator delete();
     }
   }
 
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(this);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
 {
@@ -7233,7 +7124,7 @@ void kaldi::DecodableInterface::NumFramesReady(kaldi::DecodableInterface *this)
   kaldi::KaldiErrorMessage::~KaldiErrorMessage(v1);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7255,15 +7146,24 @@ void sub_9A3DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t kaldi::CuSubMatrix<float>::~CuSubMatrix(uint64_t a1)
+void kaldi::CuSubMatrix<float>::~CuSubMatrix(uint64_t a1)
 {
   *a1 = off_276F40;
   *(a1 + 8) = 0u;
   *(a1 + 24) = 0u;
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-void *std::vector<kaldi::CuMatrix<float>>::resize(void *result, unint64_t a2)
+{
+  *a1 = off_276F40;
+  *(a1 + 8) = 0u;
+  *(a1 + 24) = 0u;
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+
+  operator delete();
+}
+
+unint64_t *std::vector<kaldi::CuMatrix<float>>::resize(unint64_t *result, unint64_t a2)
 {
   v2 = result;
   v3 = result[1];
@@ -7310,16 +7210,6 @@ void kaldi::CuSubMatrix<float>::Read()
   kaldi::KaldiErrorMessage::~KaldiErrorMessage(v0);
 }
 
-void kaldi::CuSubMatrix<float>::~CuSubMatrix(uint64_t a1)
-{
-  *a1 = off_276F40;
-  *(a1 + 8) = 0u;
-  *(a1 + 24) = 0u;
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-
-  operator delete();
-}
-
 void std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
 {
   v1 = *a1;
@@ -7330,15 +7220,15 @@ void std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 48;
-      v7 = v4 - 48;
-      v8 = v4 - 48;
+      v6 = v4 - 6;
+      v7 = v4 - 6;
+      v8 = v4 - 6;
       do
       {
         v9 = *v8;
-        v8 -= 48;
+        v8 -= 6;
         (*(v9 + 16))(v7);
-        v6 -= 48;
+        v6 -= 6;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -7353,18 +7243,18 @@ void std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200
   }
 }
 
-uint64_t std::vector<kaldi::CuMatrix<float>>::__append(uint64_t result, unint64_t a2)
+unint64_t *std::vector<kaldi::CuMatrix<float>>::__append(unint64_t *result, unint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (0xAAAAAAAAAAAAAAABLL * ((v5 - v4) >> 4) >= a2)
   {
     if (a2)
     {
       v10 = v4 + 48 * a2;
       v11 = 48 * a2;
-      v12 = *(result + 8);
+      v12 = result[1];
       do
       {
         *(v4 + 24) = 0uLL;
@@ -7380,7 +7270,7 @@ uint64_t std::vector<kaldi::CuMatrix<float>>::__append(uint64_t result, unint64_
       v4 = v10;
     }
 
-    *(result + 8) = v4;
+    result[1] = v4;
   }
 
   else
@@ -7434,13 +7324,13 @@ uint64_t std::vector<kaldi::CuMatrix<float>>::__append(uint64_t result, unint64_
 
     while (v14);
     *&v23 = v13 + 48 * a2;
-    v17 = *(result + 8);
+    v17 = result[1];
     v18 = v13 + *result - v17;
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<kaldi::CuMatrix<float>>,kaldi::CuMatrix<float>*>(result, *result, v17, v18);
     v19 = *v3;
     *v3 = v18;
-    v20 = *(v3 + 16);
-    *(v3 + 8) = v23;
+    v20 = v3[2];
+    *(v3 + 1) = v23;
     *&v23 = v19;
     *(&v23 + 1) = v20;
     v21 = v19;
@@ -7451,9 +7341,9 @@ uint64_t std::vector<kaldi::CuMatrix<float>>::__append(uint64_t result, unint64_
   return result;
 }
 
-void sub_9A834(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_9A834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<kaldi::CuMatrix<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7730,11 +7620,11 @@ uint64_t kaldi::cu::Copy<float>(uint64_t a1, unsigned int *a2, _DWORD *a3, uint6
   return result;
 }
 
-unsigned int *kaldi::CuMatrixBase<float>::CopyFromMat<float>(unsigned int *result, uint64_t a2, int a3, uint64_t a4, const char *a5)
+int *kaldi::CuMatrixBase<float>::CopyFromMat<float>(int *result, uint64_t a2, int a3, uint64_t a4, const char *a5)
 {
   if (*(a2 + 20))
   {
-    return kaldi::MatrixBase<float>::CopyFromMat<float>(result + 2, a2 + 8, a3, a4, a5);
+    return kaldi::MatrixBase<float>::CopyFromMat<float>(result + 2, (a2 + 8), a3, a4, a5);
   }
 
   return result;
@@ -7791,12 +7681,12 @@ uint64_t kaldi::CuMatrix<float>::CuMatrix<float>(uint64_t a1, kaldi::ContextDepe
     v8 = kaldi::ContextDependency::CentralPosition(this);
   }
 
-  kaldi::CuMatrix<float>::Resize(a1, v7, v8, 1u, 0);
+  kaldi::CuMatrix<float>::Resize(a1, v7, v8, 1, 0);
   kaldi::MatrixBase<float>::CopyFromMat<float>((a1 + 8), this, a3, v9, v10);
   return a1;
 }
 
-void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, const char *a5)
+void kaldi::CuMatrix<float>::Resize(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   if (a4 >= 4)
   {
@@ -7808,7 +7698,7 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
     v9 = a4;
     if (a5)
     {
-      v10 = *(a1 + 24) != a3;
+      v10 = *(result + 24) != a3;
     }
 
     else
@@ -7818,7 +7708,7 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
 
     if (a4 == 3)
     {
-      if (*(a1 + 20) == a2 && ((*(a1 + 16) == a3) & ~v10) != 0)
+      if (*(result + 20) == a2 && ((*(result + 16) == a3) & ~v10) != 0)
       {
         return;
       }
@@ -7826,7 +7716,7 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
       v9 = 0;
     }
 
-    v11 = *(a1 + 24);
+    v11 = *(result + 24);
     if (v11 < 1)
     {
       v12 = 0;
@@ -7834,7 +7724,7 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
 
     else
     {
-      v12 = *(a1 + 28) / v11;
+      v12 = *(result + 28) / v11;
     }
 
     if (v11 < a3)
@@ -7852,71 +7742,70 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
 LABEL_19:
       if (v9 == 2)
       {
-        v14 = *(a1 + 16);
-        v13 = *(a1 + 20);
+        v13 = *(result + 20);
         if (v13 >= a2)
         {
-          v15 = a2;
+          v14 = a2;
         }
 
         else
         {
-          v15 = v13;
+          v14 = v13;
         }
 
-        if (v14 >= a3)
+        if (*(result + 16) >= a3)
         {
-          v16 = a3;
+          v15 = a3;
         }
 
         else
         {
-          v16 = v14;
+          v15 = *(result + 16);
         }
 
-        kaldi::Matrix<float>::Matrix(&v27, a2, a3, 0, a5);
-        kaldi::SubMatrix<float>::SubMatrix(v26, &v27, 0, v15, 0, v16);
-        kaldi::CuSubMatrix<float>::CuSubMatrix(&v24, a1, 0, v15, 0, v16);
-        kaldi::MatrixBase<float>::CopyFromMat<float>(v26, &v25, 111, v17, v18);
-        fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v26);
+        kaldi::Matrix<float>::Matrix(&v26, a2, a3, 0, a5);
+        kaldi::SubMatrix<float>::SubMatrix(v25, &v26, 0, v14);
+        kaldi::CuSubMatrix<float>::CuSubMatrix(&v23, result, 0, v14, 0, v15);
+        kaldi::MatrixBase<float>::CopyFromMat<float>(v25, v24, 111, v16, v17);
+        fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
       }
 
       else
       {
-        v20 = (a1 + 8);
-        v19 = *(a1 + 8);
-        if (v19 && (*(a1 + 40) & 1) == 0)
+        v19 = (result + 8);
+        v18 = *(result + 8);
+        if (v18 && (*(result + 40) & 1) == 0)
         {
-          free(v19);
+          free(v18);
         }
 
-        *v20 = 0;
-        *(a1 + 16) = 0;
-        *(a1 + 24) = 0;
-        kaldi::Matrix<float>::Matrix(&v27, a2, a3, v9, a5);
+        *v19 = 0;
+        *(result + 16) = 0;
+        *(result + 24) = 0;
+        kaldi::Matrix<float>::Matrix(&v26, a2, a3, v9, a5);
       }
 
+      v20 = v26;
+      v26 = *(result + 8);
+      *(result + 8) = v20;
       v21 = v27;
-      v27 = *(a1 + 8);
-      *(a1 + 8) = v21;
-      v22 = v28;
-      v28 = *(a1 + 16);
-      *(a1 + 16) = v22;
-      LOBYTE(v21) = v29;
-      v29 = *(a1 + 40);
-      *(a1 + 40) = v21;
-      kaldi::Matrix<float>::~Matrix(&v27);
+      v27 = *(result + 16);
+      *(result + 16) = v21;
+      LOBYTE(v20) = v28;
+      v28 = *(result + 40);
+      *(result + 40) = v20;
+      kaldi::Matrix<float>::~Matrix(&v26);
     }
 
     else
     {
-      *(a1 + 16) = a3;
-      *(a1 + 20) = a2;
+      *(result + 16) = a3;
+      *(result + 20) = a2;
       if (!v9)
       {
-        v23 = a1 + 8;
+        v22 = result + 8;
 
-        kaldi::MatrixBase<float>::SetZero(v23);
+        kaldi::MatrixBase<float>::SetZero(v22);
       }
     }
   }
@@ -7928,20 +7817,15 @@ LABEL_19:
       kaldi::KaldiAssertFailure_("Resize", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_20.fileoff + 7, "rows == 0 && cols == 0", a5);
     }
 
-    *(a1 + 16) = 0;
+    *(result + 16) = 0;
   }
 }
 
-void sub_9B304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_9B304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(va);
-  kaldi::Matrix<float>::~Matrix(va1);
+  va_start(va, a17);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+  kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
@@ -8004,7 +7888,7 @@ void kaldi::QuantizedMatrixBase<short>::AddMat()
   kaldi::KaldiErrorMessage::~KaldiErrorMessage(v0);
 }
 
-uint64_t kaldi::CuMatrix<float>::CuMatrix(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, const char *a6)
+uint64_t kaldi::CuMatrix<float>::CuMatrix(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -8037,10 +7921,10 @@ uint64_t kaldi::CuMatrix<float>::CuMatrix(uint64_t a1, uint64_t a2, int a3)
     v8 = 0;
   }
 
-  kaldi::CuMatrix<float>::Resize(a1, v6, v7, 1u, v8);
+  kaldi::CuMatrix<float>::Resize(a1, v6, v7, 1, v8);
   if (*(a2 + 20))
   {
-    kaldi::MatrixBase<float>::CopyFromMat<float>((a1 + 8), a2 + 8, a3, v9, v10);
+    kaldi::MatrixBase<float>::CopyFromMat<float>((a1 + 8), (a2 + 8), a3, v9, v10);
   }
 
   return a1;
@@ -8064,10 +7948,10 @@ uint64_t kaldi::CuMatrix<float>::CuMatrix(uint64_t a1, uint64_t a2, int a3)
     v7 = *(a2 + 20);
   }
 
-  kaldi::CuMatrix<float>::Resize(a1, v6, v7, 1u, 0);
+  kaldi::CuMatrix<float>::Resize(a1, v6, v7, 1, 0);
   if (*(a2 + 20))
   {
-    kaldi::MatrixBase<float>::CopyFromMat<float>((a1 + 8), a2 + 8, a3, v8, v9);
+    kaldi::MatrixBase<float>::CopyFromMat<float>((a1 + 8), (a2 + 8), a3, v8, v9);
   }
 
   return a1;
@@ -8080,10 +7964,10 @@ uint64_t kaldi::CuMatrix<float>::operator=(uint64_t a1, uint64_t a2)
     *(a1 + 32) = *(a2 + 32);
   }
 
-  kaldi::CuMatrix<float>::Resize(a1, *(a2 + 20), *(a2 + 16), 1u, 0);
+  kaldi::CuMatrix<float>::Resize(a1, *(a2 + 20), *(a2 + 16), 1, 0);
   if (*(a2 + 20))
   {
-    kaldi::MatrixBase<float>::CopyFromMat<float>((a1 + 8), a2 + 8, 111, v4, v5);
+    kaldi::MatrixBase<float>::CopyFromMat<float>((a1 + 8), (a2 + 8), 111, v4, v5);
   }
 
   return a1;
@@ -8093,7 +7977,7 @@ uint64_t kaldi::CuMatrix<float>::operator=(uint64_t a1, kaldi::ContextDependency
 {
   v4 = kaldi::ContextDependency::CentralPosition(this);
   v5 = kaldi::ContextDependency::ContextWidth(this);
-  kaldi::CuMatrix<float>::Resize(a1, v4, v5, 1u, 0);
+  kaldi::CuMatrix<float>::Resize(a1, v4, v5, 1, 0);
   kaldi::MatrixBase<float>::CopyFromMat<float>((a1 + 8), this, 111, v6, v7);
   return a1;
 }
@@ -8145,9 +8029,9 @@ uint64_t kaldi::CuMatrix<float>::Read(uint64_t a1, uint64_t *a2, uint64_t a3, ui
   return kaldi::Matrix<float>::~Matrix(&v12);
 }
 
-void sub_9B954(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_9B954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -8202,7 +8086,7 @@ unint64_t kaldi::CuMatrixBase<float>::CopyIndexedItems(uint64_t a1, uint64_t a2,
   return kaldi::MatrixBase<float>::CopyIndexedItems(v10, v11, v8, v9, v7, a5);
 }
 
-void kaldi::CuMatrixBase<float>::CopySelectedRows(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const char *a5)
+void kaldi::CuMatrixBase<float>::CopySelectedRows(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v5 = *(a2 + 20);
   if (*(a1 + 20) < v5)
@@ -8227,45 +8111,39 @@ void kaldi::CuMatrixBase<float>::CopySelectedRows(uint64_t a1, uint64_t a2, uint
   kaldi::MatrixBase<float>::CopySelectedRows(v6, v7, v8, a4, a5);
 }
 
-uint64_t kaldi::CuMatrixBase<float>::SetStride(uint64_t result, int a2)
+void kaldi::CuMatrixBase<float>::SetStride(uint64_t a1, signed int a2)
 {
-  v2 = *(result + 24);
+  v2 = *(a1 + 24);
   if (v2 != a2)
   {
     if (v2 > a2)
     {
-      v11 = result;
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(v13, "SetStride", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 531);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "New stride (", 12);
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(v9, "SetStride", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 531);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "New stride (", 12);
       v3 = std::ostream::operator<<();
       v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, ") must not be smaller than", 26);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " the current stride (", 21);
-      v5 = *(v11 + 24);
-      v6 = std::ostream::operator<<();
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v6, ").");
+      v5 = std::ostream::operator<<();
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v5, ").");
       goto LABEL_8;
     }
 
     if (a2 % v2)
     {
-      v12 = result;
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(v13, "SetStride", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 536);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "New stride (", 12);
-      v7 = std::ostream::operator<<();
-      v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ") must be a multiple of ", 24);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "current stride (", 16);
-      v9 = *(v12 + 24);
-      v10 = std::ostream::operator<<();
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v10, ").");
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(v9, "SetStride", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 536);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "New stride (", 12);
+      v6 = std::ostream::operator<<();
+      v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ") must be a multiple of ", 24);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "current stride (", 16);
+      v8 = std::ostream::operator<<();
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v8, ").");
 LABEL_8:
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v13);
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v9);
     }
 
-    *(result + 20) = (*(result + 20) - 1) / (a2 / v2) + 1;
-    *(result + 24) = a2;
+    *(a1 + 20) = (*(a1 + 20) - 1) / (a2 / v2) + 1;
+    *(a1 + 24) = a2;
   }
-
-  return result;
 }
 
 void kaldi::CuMatrixBase<float>::Sigmoid(_DWORD *a1, _DWORD *a2, uint64_t a3, uint64_t a4, const char *a5)
@@ -8399,18 +8277,17 @@ uint64_t kaldi::CuMatrixBase<float>::DiffRelu(uint64_t result, uint64_t a2, uint
   return result;
 }
 
-void kaldi::CuMatrixBase<float>::AddMatMat(uint64_t a1, uint64_t a2, CBLAS_TRANSPOSE a3, uint64_t a4, const char *a5, float a6, float a7)
+void kaldi::CuMatrixBase<float>::AddMatMat(uint64_t result, uint64_t a2, CBLAS_TRANSPOSE a3, uint64_t a4, const char *a5, float a6, float a7)
 {
-  v8 = *(a4 + 16);
   v7 = *(a4 + 20);
   if (a5 == 112)
   {
-    v9 = *(a4 + 20);
+    v8 = *(a4 + 20);
   }
 
   else
   {
-    v9 = *(a4 + 16);
+    v8 = *(a4 + 16);
   }
 
   if (a5 == 112)
@@ -8418,56 +8295,55 @@ void kaldi::CuMatrixBase<float>::AddMatMat(uint64_t a1, uint64_t a2, CBLAS_TRANS
     v7 = *(a4 + 16);
   }
 
-  v11 = *(a2 + 16);
-  v10 = *(a2 + 20);
+  v9 = *(a2 + 20);
   if (a3 == CblasTrans)
   {
-    v12 = *(a2 + 20);
+    v10 = *(a2 + 20);
   }
 
   else
   {
-    v12 = *(a2 + 16);
+    v10 = *(a2 + 16);
   }
 
-  if (v9 != *(a1 + 16))
+  if (v8 != *(result + 16))
   {
     kaldi::KaldiAssertFailure_("AddMatMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_428.align, "m == NumCols()", a5);
   }
 
   if (a3 == CblasTrans)
   {
-    v10 = *(a2 + 16);
+    v9 = *(a2 + 16);
   }
 
-  if (v10 != *(a1 + 20))
+  if (v9 != *(result + 20))
   {
     kaldi::KaldiAssertFailure_("AddMatMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_428.align + 1, "n == NumRows()", a5);
   }
 
-  if (v7 != v12)
+  if (v7 != v10)
   {
     kaldi::KaldiAssertFailure_("AddMatMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_428.align + 2, "k == k1", a5);
   }
 
-  if (v9)
+  if (v8)
   {
-    v13 = a1 + 8;
-    v14 = a2 + 8;
-    v15 = a4 + 8;
+    v11 = result + 8;
+    v12 = a2 + 8;
+    v13 = a4 + 8;
 
-    kaldi::MatrixBase<float>::AddMatMat(v13, v14, a3, v15, a5, a6, a7);
+    kaldi::MatrixBase<float>::AddMatMat(v11, v12, a3, v13, a5, a6, a7);
   }
 }
 
-_DWORD *kaldi::CuMatrixBase<float>::MaxoutForward(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+float *kaldi::CuMatrixBase<float>::MaxoutForward(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  if (*(a2 + 16) % a1[4] || a1[5] != *(a2 + 20))
+  if (*(a2 + 16) % *(a1 + 16) || *(a1 + 20) != *(a2 + 20))
   {
     kaldi::KaldiAssertFailure_("MaxoutForward", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_A60.reserved1 + 3, "input.NumCols() % this->NumCols() == 0 && this->NumRows() == input.NumRows()", a5);
   }
 
-  v6 = a1 + 2;
+  v6 = (a1 + 8);
   v7 = a2 + 8;
 
   return kaldi::MatrixBase<float>::MaxoutForward(v6, v7, a3, a4, a5);
@@ -8493,14 +8369,14 @@ uint64_t kaldi::CuMatrixBase<float>::MaxoutDerivative(uint64_t a1, uint64_t a2, 
   return kaldi::MatrixBase<float>::MaxoutDerivative(v7, v8, v9, a4, a5);
 }
 
-uint64_t kaldi::CuMatrixBase<float>::ApplySoftMaxPerRow(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+uint64_t kaldi::CuMatrixBase<float>::ApplySoftMaxPerRow(_DWORD *a1, int *a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  if (a1[5] != *(a2 + 20) || a1[4] != *(a2 + 16))
+  if (a1[5] != a2[5] || a1[4] != a2[4])
   {
     kaldi::KaldiAssertFailure_("ApplySoftMaxPerRow", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_568.addr, "SameDim(*this, src)", a5);
   }
 
-  kaldi::MatrixBase<float>::CopyFromMat<float>(a1 + 2, a2 + 8, 111, a4, a5);
+  kaldi::MatrixBase<float>::CopyFromMat<float>(a1 + 2, a2 + 2, 111, a4, a5);
   result = kaldi::ContextDependency::CentralPosition((a1 + 2));
   if (result >= 1)
   {
@@ -8532,7 +8408,7 @@ void kaldi::CuMatrixBase<float>::ApplyMaxNorm(uint64_t a1, int a2, float a3)
     v26 = 0;
     kaldi::CuVector<float>::Resize(&v25, v11, 0, v9, v10);
     v28 = *(a1 + 32);
-    kaldi::CuVectorBase<float>::AddColSumMat(&v25, &v29, 1.0, 0.0, v12, v13, v14);
+    kaldi::CuVectorBase<float>::AddColSumMat(&v25, &v29, v12, v13, v14, 1.0, 0.0);
     kaldi::CuVectorBase<float>::ApplyPow(&v25, 0.5);
     kaldi::CuVectorBase<float>::Scale(&v25, 1.0 / a3);
     kaldi::CuVectorBase<float>::ApplyFloor(&v25, 1.0);
@@ -8549,7 +8425,7 @@ void kaldi::CuMatrixBase<float>::ApplyMaxNorm(uint64_t a1, int a2, float a3)
     v26 = 0;
     kaldi::CuVector<float>::Resize(&v25, v18, 0, v9, v10);
     v28 = *(a1 + 32);
-    kaldi::CuVectorBase<float>::AddRowSumMat(&v25, &v29, 1.0, 0.0, v19, v20, v21);
+    kaldi::CuVectorBase<float>::AddRowSumMat(&v25, &v29, v19, v20, v21, 1.0, 0.0);
     kaldi::CuVectorBase<float>::ApplyPow(&v25, 0.5);
     kaldi::CuVectorBase<float>::Scale(&v25, 1.0 / a3);
     kaldi::CuVectorBase<float>::ApplyFloor(&v25, 1.0);
@@ -8568,9 +8444,9 @@ void kaldi::CuMatrixBase<float>::ApplyMaxNorm(uint64_t a1, int a2, float a3)
   }
 }
 
-void sub_9C520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_9C520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   kaldi::CuMatrix<float>::~CuMatrix(va);
   _Unwind_Resume(a1);
 }
@@ -8639,7 +8515,7 @@ void kaldi::CuMatrixBase<float>::FindRowMaxId(uint64_t a1, int *a2, uint64_t a3,
   }
 }
 
-void kaldi::CuArray<int>::Resize(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4, const char *a5)
+void kaldi::CuArray<int>::Resize(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, const char *a5)
 {
   v6 = a3 < 2 || a3 == 3;
   if ((a2 & 0x80000000) != 0 || !v6)
@@ -8648,6 +8524,7 @@ void kaldi::CuArray<int>::Resize(uint64_t a1, unsigned int a2, unsigned int a3, 
   }
 
   v7 = a3;
+  v8 = a2;
   if (a3 == 3)
   {
     v7 = *a1 >= a2;
@@ -8676,9 +8553,9 @@ void kaldi::CuArray<int>::Resize(uint64_t a1, unsigned int a2, unsigned int a3, 
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = v11;
-  if (a2)
+  if (v8)
   {
-    v12 = malloc_type_malloc(4 * a2, 0x100004052888210uLL);
+    v12 = malloc_type_malloc(4 * v8, 0x100004052888210uLL);
     *(a1 + 8) = v12;
     if (!v12)
     {
@@ -8691,11 +8568,11 @@ void kaldi::CuArray<int>::Resize(uint64_t a1, unsigned int a2, unsigned int a3, 
       kaldi::KaldiErrorMessage::~KaldiErrorMessage(v16);
     }
 
-    *a1 = a2;
-    *(a1 + 4) = a2;
+    *a1 = v8;
+    *(a1 + 4) = v8;
     if (!v7)
     {
-      v13 = 4 * a2;
+      v13 = 4 * v8;
 LABEL_21:
 
       bzero(v12, v13);
@@ -8716,68 +8593,67 @@ void kaldi::CuMatrixBase<float>::MulRowsGroupMat(uint64_t a1, uint64_t a2, uint6
   kaldi::MatrixBase<float>::MulRowsGroupMat(v6, v7, a3, a4, a5);
 }
 
-uint64_t *kaldi::CuMatrixBase<float>::AddVecToCols(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, float a6, float a7)
+void kaldi::CuMatrixBase<float>::AddVecToCols(uint64_t a1, uint64_t a2, __n128 a3, float a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   if (*(a2 + 16) != *(a1 + 20))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v14, "AddVecToCols", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 1062);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Non matching dimensions: Rows:", 30);
-    v11 = *(a1 + 20);
-    v12 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " VectorDim:", 11);
-    v13 = *(a2 + 16);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v11, "AddVecToCols", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 1062);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "Non matching dimensions: Rows:", 30);
+    v10 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " VectorDim:", 11);
     std::ostream::operator<<();
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v14);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v11);
   }
 
-  if (a7 != 1.0)
+  v9 = a3.n128_f32[0];
+  if (a4 != 1.0)
   {
-    kaldi::MatrixBase<float>::Scale(a1 + 8, a7);
+    kaldi::MatrixBase<float>::Scale(a1 + 8, a4);
   }
 
-  return kaldi::MatrixBase<float>::AddVecToCols<float>((a1 + 8), (a2 + 8), a6, a3, a4, a5);
+  kaldi::MatrixBase<float>::AddVecToCols<float>((a1 + 8), (a2 + 8), v9, a5, a6, a7);
 }
 
-uint64_t *kaldi::CuMatrixBase<float>::AddVecToRows(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, float a6, float a7)
+void kaldi::CuMatrixBase<float>::AddVecToRows(uint64_t a1, uint64_t a2, __n128 a3, float a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   if (*(a2 + 16) != *(a1 + 16))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v14, "AddVecToRows", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 1084);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Non matching dimensions: Cols:", 30);
-    v11 = *(a1 + 16);
-    v12 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " VectorDim:", 11);
-    v13 = *(a2 + 16);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v11, "AddVecToRows", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 1084);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "Non matching dimensions: Cols:", 30);
+    v10 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " VectorDim:", 11);
     std::ostream::operator<<();
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v14);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v11);
   }
 
-  if (a7 != 1.0)
+  v9 = a3.n128_f32[0];
+  if (a4 != 1.0)
   {
-    kaldi::MatrixBase<float>::Scale(a1 + 8, a7);
+    kaldi::MatrixBase<float>::Scale(a1 + 8, a4);
   }
 
-  return kaldi::MatrixBase<float>::AddVecToRows<float>((a1 + 8), (a2 + 8), a6, a3, a4, a5);
+  kaldi::MatrixBase<float>::AddVecToRows<float>((a1 + 8), (a2 + 8), v9, a5, a6, a7);
 }
 
-void kaldi::CuMatrixBase<float>::AddVecVec(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, float a6, float a7)
+void kaldi::CuMatrixBase<float>::AddVecVec(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4, float a5, uint64_t a6, const char *a7)
 {
   if (*(a2 + 16) != *(a1 + 20))
   {
-    kaldi::KaldiAssertFailure_("AddVecVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_3D8.nreloc, "vecA.Dim() == num_rows_", a5);
+    kaldi::KaldiAssertFailure_("AddVecVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_3D8.nreloc, "vecA.Dim() == num_rows_", a7);
   }
 
   if (*(a3 + 16) != *(a1 + 16))
   {
-    kaldi::KaldiAssertFailure_("AddVecVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_3D8.nreloc + 1, "vecB.Dim() == num_cols_", a5);
+    kaldi::KaldiAssertFailure_("AddVecVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_3D8.nreloc + 1, "vecB.Dim() == num_cols_", a7);
   }
 
-  if (a7 != 1.0)
+  v10 = a4.n128_f32[0];
+  if (a5 != 1.0)
   {
-    kaldi::MatrixBase<float>::Scale(a1 + 8, a7);
+    kaldi::MatrixBase<float>::Scale(a1 + 8, a5);
   }
 
-  kaldi::MatrixBase<float>::AddVecVec<float>(a1 + 8, a2 + 8, a3 + 8, a6, a4, a5);
+  kaldi::MatrixBase<float>::AddVecVec<float>(a1 + 8, a2 + 8, a3 + 8, v10, a6, a7);
 }
 
 void kaldi::CuMatrixBase<float>::AddMatMatMasked(uint64_t a1, uint64_t a2, CBLAS_TRANSPOSE a3, uint64_t a4, const char *a5, uint64_t a6, float a7)
@@ -8862,37 +8738,38 @@ float kaldi::CuMatrixBase<float>::Sum(uint64_t a1, uint64_t a2, uint64_t a3, uin
 {
   v6 = *(a1 + 16);
   v7 = *(a1 + 32);
-  v14[1] = 0;
-  v14[2] = 0;
-  v14[0] = off_277020;
-  v14[3] = v7;
-  kaldi::CuVector<float>::Resize(v14, v6, 0, a4, a5);
-  kaldi::CuVectorBase<float>::AddRowSumMat(v14, a1, 1.0, 0.0, v8, v9, v10);
-  v11 = kaldi::CuVectorBase<float>::Sum(v14);
-  v12 = *&v11;
-  kaldi::CuVector<float>::~CuVector(v14);
-  return v12;
+  v13[1] = 0;
+  v13[2] = 0;
+  v13[0] = off_277020;
+  v13[3] = v7;
+  kaldi::CuVector<float>::Resize(v13, v6, 0, a4, a5);
+  kaldi::CuVectorBase<float>::AddRowSumMat(v13, a1, v8, v9, v10, 1.0, 0.0);
+  v11 = kaldi::CuVectorBase<float>::Sum(v13);
+  kaldi::CuVector<float>::~CuVector(v13);
+  return v11;
 }
 
-void kaldi::CuMatrixBase<float>::SetRandn(uint64_t a1)
+void kaldi::CuMatrixBase<float>::SetRandn(uint64_t result)
 {
-  if (*(a1 + 20))
+  if (*(result + 20))
   {
-    kaldi::MatrixBase<float>::SetRandn(a1 + 8);
+    kaldi::MatrixBase<float>::SetRandn(result + 8);
   }
 }
 
-uint64_t kaldi::CuMatrixBase<float>::Write(uint64_t a1, void *a2, int a3, int a4)
+uint64_t kaldi::CuMatrixBase<float>::Write(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   kaldi::Matrix<float>::Matrix(v11, *(a1 + 20), *(a1 + 16), 1, 0);
-  kaldi::MatrixBase<float>::CopyFromMat<float>(v11, a1 + 8, 111, v8, v9);
-  kaldi::MatrixBase<float>::Write(v11, a2, a3, a4);
+  kaldi::MatrixBase<float>::CopyFromMat<float>(v11, (a1 + 8), 111, v8, v9);
+  kaldi::MatrixBase<float>::Write(v11, a2, v5, v4);
   return kaldi::Matrix<float>::~Matrix(v11);
 }
 
-void sub_9CF80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_9CF80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -9023,7 +8900,7 @@ LABEL_16:
   }
 }
 
-float *kaldi::CuMatrixBase<float>::ConcatenateVec(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+void kaldi::CuMatrixBase<float>::ConcatenateVec(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   if (*(a1 + 20) != *(a3 + 20))
   {
@@ -9039,7 +8916,7 @@ float *kaldi::CuMatrixBase<float>::ConcatenateVec(uint64_t a1, uint64_t a2, uint
   v6 = a2 + 8;
   v7 = a3 + 8;
 
-  return kaldi::MatrixBase<float>::ConcatenateVec(v5, v6, v7, a4, a5);
+  kaldi::MatrixBase<float>::ConcatenateVec(v5, v6, v7, a4, a5);
 }
 
 uint64_t kaldi::CuMatrixBase<float>::ConcatenateVec(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, const char *a5)
@@ -9092,30 +8969,30 @@ void kaldi::CuMatrixBase<float>::DataUnowned()
   kaldi::KaldiErrorMessage::~KaldiErrorMessage(v0);
 }
 
-float *kaldi::Quant3Levels<float>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, float a6)
+float *kaldi::Quant3Levels<float>(uint64_t a1, uint64_t a2, float a3, uint64_t a4, uint64_t a5, const char *a6)
 {
-  if (a6 <= 0.0)
+  if (a3 <= 0.0)
   {
-    kaldi::KaldiAssertFailure_("Quant3Levels", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_AB0.fileoff + 3, "value > 0.0", a5);
+    kaldi::KaldiAssertFailure_("Quant3Levels", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_AB0.fileoff + 3, "value > 0.0", a6);
   }
 
   v7 = (a1 + 8);
   v8 = a2 + 8;
 
-  return kaldi::Quant3Levels<float>(v7, v8, a6, a3, a4, a5);
+  return kaldi::Quant3Levels<float>(v7, v8, a3, a4, a5, a6);
 }
 
-_DWORD *kaldi::ZeroSmallValues<float>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, float a6)
+_DWORD *kaldi::ZeroSmallValues<float>(uint64_t a1, uint64_t a2, float a3, uint64_t a4, uint64_t a5, const char *a6)
 {
-  if (a6 <= 0.0)
+  if (a3 <= 0.0)
   {
-    kaldi::KaldiAssertFailure_("ZeroSmallValues", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_AB0.maxprot + 2, "threshold > 0.0", a5);
+    kaldi::KaldiAssertFailure_("ZeroSmallValues", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", &stru_AB0.maxprot + 2, "threshold > 0.0", a6);
   }
 
   v7 = (a1 + 8);
   v8 = a2 + 8;
 
-  return kaldi::ZeroSmallValues<float>(v7, v8, a6, a3, a4, a5);
+  return kaldi::ZeroSmallValues<float>(v7, v8, a3, a4, a5, a6);
 }
 
 void kaldi::CuSubVector<float>::Read()
@@ -9143,21 +9020,21 @@ void kaldi::CuSubVector<float>::~CuSubVector(uint64_t a1)
   operator delete();
 }
 
-uint64_t kaldi::Matrix<float>::Matrix<float>(uint64_t a1, uint64_t a2, int a3, uint64_t a4, const char *a5)
+uint64_t kaldi::Matrix<float>::Matrix<float>(uint64_t a1, int *a2, int a3, uint64_t a4, const char *a5)
 {
   *(a1 + 32) = 0;
   *a1 = 0u;
   *(a1 + 16) = 0u;
-  v8 = *(a2 + 16);
-  v9 = *(a2 + 20);
+  v8 = a2[4];
+  v9 = a2[5];
   if (a3 == 111)
   {
-    v10 = *(a2 + 20);
+    v10 = a2[5];
   }
 
   else
   {
-    v10 = *(a2 + 16);
+    v10 = a2[4];
   }
 
   if (a3 == 111)
@@ -9171,7 +9048,7 @@ uint64_t kaldi::Matrix<float>::Matrix<float>(uint64_t a1, uint64_t a2, int a3, u
   }
 
   kaldi::Matrix<float>::Init(a1, v10, v11, 0, a5);
-  kaldi::MatrixBase<float>::CopyFromMat<float>(a1, a2 + 8, a3, v12, v13);
+  kaldi::MatrixBase<float>::CopyFromMat<float>(a1, a2 + 2, a3, v12, v13);
   return a1;
 }
 
@@ -9199,7 +9076,7 @@ void kaldi::CuRandom::RandGauss<float>(int *a1, uint64_t a2, float a3, float a4)
     }
 
     v10 = *(a2 + 8);
-    v11 = __PAIR64__(LODWORD(a4), LODWORD(a3));
+    v11.__locale_ = __PAIR64__(LODWORD(a4), LODWORD(a3));
     v12 = 0;
     if (v4 >= 1)
     {
@@ -9427,19 +9304,20 @@ _DWORD *kaldi::CuVectorBase<float>::CopyToVec<float>(_DWORD *result, uint64_t a2
   return result;
 }
 
-void kaldi::CuVectorBase<float>::AddVec(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, float a6, float a7)
+void kaldi::CuVectorBase<float>::AddVec(uint64_t a1, uint64_t a2, __n128 a3, float a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   if (*(a2 + 16) != *(a1 + 16))
   {
-    kaldi::KaldiAssertFailure_("AddVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_428.reserved2, "vec.Dim() == Dim()", a5);
+    kaldi::KaldiAssertFailure_("AddVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_428.reserved2, "vec.Dim() == Dim()", a7);
   }
 
-  if (a7 != 1.0)
+  v8 = a3.n128_f32[0];
+  if (a4 != 1.0)
   {
-    kaldi::VectorBase<float>::Scale(a1 + 8, a7);
+    kaldi::VectorBase<float>::Scale(a1 + 8, a4);
   }
 
-  kaldi::VectorBase<float>::AddVec<float>(a1 + 8, a2 + 8, a6, a3, a4, a5);
+  kaldi::VectorBase<float>::AddVec<float>(a1 + 8, a2 + 8, v8, a5, a6, a7);
 }
 
 _DWORD *kaldi::CuVectorBase<float>::CopyFromVec(_DWORD *result, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
@@ -9464,23 +9342,23 @@ _DWORD *kaldi::CuVectorBase<float>::CopyFromVec(_DWORD *result, uint64_t a2, uin
   return result;
 }
 
-float kaldi::CuVectorBase<float>::ReverseCopyFromVec(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+float kaldi::CuVectorBase<float>::ReverseCopyFromVec(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v6 = *(a2 + 16);
-  if (v6 != *(a1 + 16))
+  if (v6 != *(result + 16))
   {
     kaldi::KaldiAssertFailure_("ReverseCopyFromVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_388.offset + 3, "src.Dim() == dim_", a5);
   }
 
   if (v6)
   {
-    v7 = a1 + 8;
+    v7 = result + 8;
     v8 = a2 + 8;
 
     return kaldi::VectorBase<float>::ReverseCopyFromVec(v7, v8, a3, a4, a5);
   }
 
-  return result;
+  return v9;
 }
 
 void *kaldi::CuVectorBase<float>::CopyRowsFromMat(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, const char *a5)
@@ -9496,77 +9374,77 @@ void *kaldi::CuVectorBase<float>::CopyRowsFromMat(uint64_t a1, _DWORD *a2, uint6
   return kaldi::VectorBase<float>::CopyRowsFromMat(v6, v7);
 }
 
-void kaldi::CuVectorBase<float>::SetZero(uint64_t a1)
+void kaldi::CuVectorBase<float>::SetZero(uint64_t result)
 {
-  if (*(a1 + 16))
+  if (*(result + 16))
   {
-    if (*(a1 + 8))
+    if (*(result + 8))
     {
-      kaldi::VectorBase<float>::SetZero(a1 + 8);
+      kaldi::VectorBase<float>::SetZero(result + 8);
     }
   }
 }
 
-void kaldi::CuVectorBase<float>::AddRowSumMat(uint64_t a1, _DWORD *a2, float a3, float a4, uint64_t a5, uint64_t a6, const char *a7)
+void kaldi::CuVectorBase<float>::AddRowSumMat(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, const char *a5, float a6, float a7)
 {
   if (a2[4] != *(a1 + 16))
   {
-    kaldi::KaldiAssertFailure_("AddRowSumMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_478.segname[12], "mat.NumCols() == Dim()", a7);
+    kaldi::KaldiAssertFailure_("AddRowSumMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_478.segname[12], "mat.NumCols() == Dim()", a5);
   }
 
   v11 = a2[5];
   memset(v14, 0, sizeof(v14));
-  kaldi::Vector<float>::Resize(v14, v11, 1, a6, a7);
+  kaldi::Vector<float>::Resize(v14, v11, 1, a4, a5);
   v12.i32[0] = 1.0;
   kaldi::VectorBase<float>::Set(v14, v12);
-  kaldi::VectorBase<float>::AddMatVec(a1 + 8, (a2 + 2), CblasTrans, v14, v13, a3, a4);
+  kaldi::VectorBase<float>::AddMatVec(a1 + 8, (a2 + 2), CblasTrans, v14, v13, a6, a7);
   kaldi::Vector<float>::Destroy(v14);
 }
 
-void sub_9DF10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_9DF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
 
-void kaldi::CuVectorBase<float>::AddColSumMat(uint64_t a1, unsigned int *a2, float a3, float a4, uint64_t a5, uint64_t a6, const char *a7)
+void kaldi::CuVectorBase<float>::AddColSumMat(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, const char *a5, float a6, float a7)
 {
   if (a2[5] != *(a1 + 16))
   {
-    kaldi::KaldiAssertFailure_("AddColSumMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_478.size + 4, "mat.NumRows() == Dim()", a7);
+    kaldi::KaldiAssertFailure_("AddColSumMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_478.size + 4, "mat.NumRows() == Dim()", a5);
   }
 
   v11 = a2[4];
   memset(v14, 0, sizeof(v14));
-  kaldi::Vector<float>::Resize(v14, v11, 1, a6, a7);
+  kaldi::Vector<float>::Resize(v14, v11, 1, a4, a5);
   v12.i32[0] = 1.0;
   kaldi::VectorBase<float>::Set(v14, v12);
-  kaldi::VectorBase<float>::AddMatVec(a1 + 8, (a2 + 2), CblasNoTrans, v14, v13, a3, a4);
+  kaldi::VectorBase<float>::AddMatVec(a1 + 8, (a2 + 2), CblasNoTrans, v14, v13, a6, a7);
   kaldi::Vector<float>::Destroy(v14);
 }
 
-void sub_9DFE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_9DFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
 
 void kaldi::CuVectorBase<float>::ApplyMaxNorm(uint64_t a1, float a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6)
 {
-  kaldi::CuVector<float>::CuVector(&v12, a1, a4, a5, a6);
-  kaldi::CuVectorBase<float>::MulElements(&v12, a1, v8, v9, v10);
-  v11 = sqrtf(COERCE_FLOAT(COERCE_UNSIGNED_INT64(kaldi::VectorBase<float>::Sum(&v13))));
-  if (v11 > a2)
+  kaldi::CuVector<float>::CuVector(&v13, a1, a4, a5, a6);
+  kaldi::CuVectorBase<float>::MulElements(&v13, a1, v11, v8, v9, v10);
+  v12 = sqrtf(COERCE_FLOAT(COERCE_UNSIGNED_INT64(kaldi::VectorBase<float>::Sum(&v14))));
+  if (v12 > a2)
   {
-    kaldi::VectorBase<float>::Scale(a1 + 8, a2 / v11);
+    kaldi::VectorBase<float>::Scale(a1 + 8, a2 / v12);
   }
 
-  v12 = off_277020;
-  if (v13)
+  v13 = off_277020;
+  if (v14)
   {
-    free(v13);
+    free(v14);
   }
 }
 
@@ -9580,17 +9458,17 @@ void sub_9E0C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-float kaldi::CuVectorBase<float>::MulElements(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+float kaldi::CuVectorBase<float>::MulElements(uint64_t a1, uint64_t a2, __n128 a3, uint64_t a4, uint64_t a5, const char *a6)
 {
   if (*(a1 + 16) != *(a2 + 16))
   {
-    kaldi::KaldiAssertFailure_("MulElements", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_298.reloff + 2, "dim_ == v.dim_", a5);
+    kaldi::KaldiAssertFailure_("MulElements", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_298.reloff + 2, "dim_ == v.dim_", a6);
   }
 
-  v6 = a1 + 8;
-  v7 = a2 + 8;
+  v7 = a1 + 8;
+  v8 = a2 + 8;
 
-  return kaldi::VectorBase<float>::MulElements(v6, v7, a3, a4, a5);
+  return kaldi::VectorBase<float>::MulElements(v7, v8, a4, a5, a6);
 }
 
 uint64_t kaldi::CuVectorBase<float>::SetRandn(uint64_t result)
@@ -9637,7 +9515,7 @@ void kaldi::CuVectorBase<float>::Sigmoid(uint64_t a1, uint64_t a2, uint64_t a3, 
   kaldi::VectorBase<float>::Sigmoid(v6, v7, a3, a4, a5);
 }
 
-void kaldi::CuVectorBase<float>::CopyColFromMat(uint64_t a1, _DWORD *a2, signed int a3, uint64_t a4, const char *a5)
+void kaldi::CuVectorBase<float>::CopyColFromMat(uint64_t a1, _DWORD *a2, int a3, uint64_t a4, const char *a5)
 {
   if (a2[4] <= a3)
   {
@@ -9728,19 +9606,20 @@ float kaldi::CuVectorBase<float>::DivElements(uint64_t a1, uint64_t a2, uint64_t
   return kaldi::VectorBase<float>::DivElements(v6, v7, a3, a4, a5);
 }
 
-void kaldi::CuVectorBase<float>::Write(_DWORD *a1, void *a2, int a3, uint64_t a4, const char *a5)
+void kaldi::CuVectorBase<float>::Write(_DWORD *a1, void *a2, uint64_t a3, uint64_t a4, const char *a5)
 {
+  v5 = a3;
   v8 = a1[4];
   memset(v12, 0, sizeof(v12));
   kaldi::Vector<float>::Resize(v12, v8, 1, a4, a5);
   kaldi::CuVectorBase<float>::CopyToVec<float>(a1, v12, v9, v10, v11);
-  kaldi::VectorBase<float>::Write(v12, a2, a3);
+  kaldi::VectorBase<float>::Write(v12, a2, v5);
   kaldi::Vector<float>::Destroy(v12);
 }
 
-void sub_9E580(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_9E580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
@@ -9812,12 +9691,151 @@ uint64_t kaldi::CuVector<float>::CuVector(uint64_t a1, uint64_t a2, uint64_t a3,
   return a1;
 }
 
+void *kaldi::CuVector<float>::CuVector(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   *a1 = off_277020;
-  *(a1 + 24) = a3;
+  a1[3] = a3;
   kaldi::CuVector<float>::Resize(a1, *(a2 + 8), 1u, a4, a5);
   kaldi::CuVectorBase<float>::CopyFromVec<float>(a1, a2, v7, v8, v9);
   return a1;
+}
+
+void kaldi::CuVector<float>::~CuVector(void *a1)
+{
+  *a1 = off_277020;
+  v2 = a1 + 1;
+  v1 = a1[1];
+  if (v1)
+  {
+    free(v1);
+  }
+
+  *v2 = 0;
+  v2[1] = 0;
+
+  operator delete();
+}
+
+uint64_t kaldi::CuVector<float>::operator=(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+{
+  if (!*(a1 + 24))
+  {
+    *(a1 + 24) = *(a2 + 24);
+  }
+
+  kaldi::CuVector<float>::Resize(a1, *(a2 + 16), 1u, a4, a5);
+  kaldi::CuVectorBase<float>::CopyFromVec(a1, a2, v7, v8, v9);
+  return a1;
+}
+
+double kaldi::CuVector<float>::Read(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, const char *a5)
+{
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
+  kaldi::Vector<float>::Read(&v9, a2, a3, 0, a5);
+  v6 = *(a1 + 8);
+  if (v6)
+  {
+    free(v6);
+  }
+
+  *(a1 + 8) = v9;
+  v7 = v10;
+  v9 = 0;
+  v10 = 0;
+  *(a1 + 16) = v7;
+  kaldi::Vector<float>::Destroy(&v9);
+  return result;
+}
+
+void sub_9E90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  kaldi::Vector<float>::Destroy(va);
+  _Unwind_Resume(a1);
+}
+
+void kaldi::CuVectorBase<float>::AddMatVec<signed char>()
+{
+  kaldi::KaldiErrorMessage::KaldiErrorMessage(v0, "AddMatVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", 506);
+  std::operator<<[abi:ne200100]<std::char_traits<char>>(v0, "not implemented");
+  kaldi::KaldiErrorMessage::~KaldiErrorMessage(v0);
+}
+
+void kaldi::CuVectorBase<float>::AddMatVec<short>()
+{
+  kaldi::KaldiErrorMessage::KaldiErrorMessage(v0, "AddMatVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", 506);
+  std::operator<<[abi:ne200100]<std::char_traits<char>>(v0, "not implemented");
+  kaldi::KaldiErrorMessage::~KaldiErrorMessage(v0);
+}
+
+void kaldi::CuVectorBase<float>::AddMatVec<signed char>(uint64_t a1, _DWORD *a2, int a3, uint64_t a4, const char *a5, float a6, float a7)
+{
+  if (a3 == 112)
+  {
+    if (a2[5] != *(a4 + 8))
+    {
+      goto LABEL_11;
+    }
+
+    v8 = a2[4];
+  }
+
+  else
+  {
+    if (a3 != 111 || a2[4] != *(a4 + 8))
+    {
+LABEL_11:
+      kaldi::KaldiAssertFailure_("AddMatVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_1F8.sectname[10], "(trans == kNoTrans && M.NumCols() == v.Dim() && M.NumRows() == dim_) || (trans == kTrans && M.NumRows() == v.Dim() && M.NumCols() == dim_)", a5);
+    }
+
+    v8 = a2[5];
+  }
+
+  if (v8 != *(a1 + 16))
+  {
+    goto LABEL_11;
+  }
+
+  v9 = a1 + 8;
+  v10 = (a2 + 2);
+
+  kaldi::VectorBase<float>::AddMatVec<signed char>(v9, v10, a3, a4, a5, a6, a7);
+}
+
+void kaldi::CuVectorBase<float>::AddMatVec<short>(uint64_t a1, _DWORD *a2, int a3, float32x4_t *a4, const char *a5, float a6, float a7)
+{
+  if (a3 == 112)
+  {
+    if (a2[5] != a4->i32[2])
+    {
+      goto LABEL_11;
+    }
+
+    v8 = a2[4];
+  }
+
+  else
+  {
+    if (a3 != 111 || a2[4] != a4->i32[2])
+    {
+LABEL_11:
+      kaldi::KaldiAssertFailure_("AddMatVec", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/cudamatrix/cu-vector.cc", &stru_1F8.sectname[10], "(trans == kNoTrans && M.NumCols() == v.Dim() && M.NumRows() == dim_) || (trans == kTrans && M.NumRows() == v.Dim() && M.NumCols() == dim_)", a5);
+    }
+
+    v8 = a2[5];
+  }
+
+  if (v8 != *(a1 + 16))
+  {
+    goto LABEL_11;
+  }
+
+  v9 = a1 + 8;
+  v10 = (a2 + 2);
+
+  kaldi::VectorBase<float>::AddMatVec<short>(v9, v10, a3, a4, a5, a6, a7);
 }

@@ -1045,11 +1045,11 @@ LABEL_8:
 LABEL_11:
 }
 
-uint64_t __70__STUIStatusBarCellularCondensedItem_prepareAnimation_forDisplayItem___block_invoke(uint64_t result, uint64_t a2)
+id *__70__STUIStatusBarCellularCondensedItem_prepareAnimation_forDisplayItem___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) setMarqueeRunning:1];
+    return [result[4] setMarqueeRunning:1];
   }
 
   return result;
@@ -1302,9 +1302,11 @@ uint64_t __72__STUIStatusBarCellularCondensedItem_entryForDisplayItemWithIdentif
 - (void)_create_animatedNetworkTypeView
 {
   v3 = [STUIStatusBarCellularNetworkTypeView alloc];
-  self->_animatedNetworkTypeView = [(STUIStatusBarCellularNetworkTypeView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarCellularNetworkTypeView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  animatedNetworkTypeView = self->_animatedNetworkTypeView;
+  self->_animatedNetworkTypeView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, animatedNetworkTypeView);
 }
 
 - (id)viewForIdentifier:(id)identifier

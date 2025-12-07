@@ -48,26 +48,26 @@
 - (void)longFieldWithOrgApacheLuceneIndexFieldInfo:(id)info withLong:(int64_t)long
 {
   [(OrgApacheLuceneCodecsStoredFieldsWriter_MergeVisitor *)self resetWithOrgApacheLuceneIndexFieldInfo:info];
-  v6 = JavaLangLong_valueOfWithLong_(long);
-  JreStrongAssign(&self->numericValue_, v6);
+  v7 = JavaLangLong_valueOfWithLong_(long, v6);
+  JreStrongAssign(&self->numericValue_, v7);
 
   [(OrgApacheLuceneCodecsStoredFieldsWriter_MergeVisitor *)self write];
 }
 
 - (void)floatFieldWithOrgApacheLuceneIndexFieldInfo:(id)info withFloat:(float)float
 {
-  [(OrgApacheLuceneCodecsStoredFieldsWriter_MergeVisitor *)self resetWithOrgApacheLuceneIndexFieldInfo:info];
-  v6 = JavaLangFloat_valueOfWithFloat_(float);
-  JreStrongAssign(&self->numericValue_, v6);
+  v6 = [(OrgApacheLuceneCodecsStoredFieldsWriter_MergeVisitor *)self resetWithOrgApacheLuceneIndexFieldInfo:info];
+  v8 = JavaLangFloat_valueOfWithFloat_(v6, v7, float);
+  JreStrongAssign(&self->numericValue_, v8);
 
   [(OrgApacheLuceneCodecsStoredFieldsWriter_MergeVisitor *)self write];
 }
 
 - (void)doubleFieldWithOrgApacheLuceneIndexFieldInfo:(id)info withDouble:(double)double
 {
-  [(OrgApacheLuceneCodecsStoredFieldsWriter_MergeVisitor *)self resetWithOrgApacheLuceneIndexFieldInfo:info];
-  v6 = JavaLangDouble_valueOfWithDouble_(double);
-  JreStrongAssign(&self->numericValue_, v6);
+  v6 = [(OrgApacheLuceneCodecsStoredFieldsWriter_MergeVisitor *)self resetWithOrgApacheLuceneIndexFieldInfo:info];
+  v8 = JavaLangDouble_valueOfWithDouble_(v6, v7, double);
+  JreStrongAssign(&self->numericValue_, v8);
 
   [(OrgApacheLuceneCodecsStoredFieldsWriter_MergeVisitor *)self write];
 }

@@ -11,7 +11,7 @@
 {
   if (metadata)
   {
-    sub_1000067AC(0, &qword_1002D13B0);
+    sub_1000067AC(0, &qword_1002D13B0, AVMetadataItem_ptr);
     v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -34,22 +34,22 @@
 
 - (void)writeCompositionWithCompletionBlock:(id)block
 {
-  v5 = sub_1000C773C(&unk_1002D1D90);
-  __chkstk_darwin(v5 - 8, v6);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(block);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = self;
-  v12[5] = sub_100132D18;
-  v12[6] = v10;
+  v5 = sub_1000C773C(&unk_1002D1D90, &qword_1002422E0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(block);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = self;
+  v11[5] = sub_100132D18;
+  v11[6] = v9;
   selfCopy = self;
-  sub_100194190(0, 0, v8, &unk_100246C98, v12);
+  sub_100194190(0, 0, v7, &unk_100246C98, v11);
 }
 
 - (float)progress

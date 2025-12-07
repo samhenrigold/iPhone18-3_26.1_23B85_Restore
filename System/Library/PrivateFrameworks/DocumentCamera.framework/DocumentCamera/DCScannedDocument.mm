@@ -1011,4 +1011,28 @@ LABEL_13:
   _os_log_error_impl(&dword_249253000, log, OS_LOG_TYPE_ERROR, "%s: nil image %@ %@", &v3, 0x20u);
 }
 
+- (void)imageOfPageAtIndex:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[DCScannedDocument imageOfPageAtIndex:]";
+  OUTLINED_FUNCTION_0(&dword_249253000, a1, a3, "%s: nil docInfos", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)makeSureScanDirectoryExists:(uint64_t)a3 .cold.1(uint64_t *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (a1)
+  {
+    v8 = *a1;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  LODWORD(v9) = 138412290;
+  HIDWORD(v9) = v8;
+  OUTLINED_FUNCTION_0(&dword_249253000, a2, a3, "Failed to create directory with error %@.", a5, a6, a7, a8, v9, HIDWORD(v8));
+}
+
 @end

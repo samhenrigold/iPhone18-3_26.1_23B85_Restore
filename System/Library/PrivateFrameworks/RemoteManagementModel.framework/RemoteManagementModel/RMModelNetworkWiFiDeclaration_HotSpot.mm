@@ -11,19 +11,17 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[7] = *MEMORY[0x277D85DE8];
+  v6[7] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"DisplayedOperatorName";
-  v7[1] = @"DomainName";
-  v7[2] = @"RoamingConsortiumOIs";
-  v7[3] = @"ServiceProviderRoamingEnabled";
-  v7[4] = @"HESSID";
-  v7[5] = @"NAIRealmNames";
-  v7[6] = @"MCCAndMNCs";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:7];
+  v6[0] = @"DisplayedOperatorName";
+  v6[1] = @"DomainName";
+  v6[2] = @"RoamingConsortiumOIs";
+  v6[3] = @"ServiceProviderRoamingEnabled";
+  v6[4] = @"HESSID";
+  v6[5] = @"NAIRealmNames";
+  v6[6] = @"MCCAndMNCs";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:7];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -56,32 +56,33 @@
   v4 = v3;
   v6 = v5;
   v8 = v7;
-  if ([(EKCurrentTimeMarkerView *)self showsThumb])
+  showsThumb = [(EKCurrentTimeMarkerView *)self showsThumb];
+  if (showsThumb)
   {
-    IsLeftToRight = CalInterfaceIsLeftToRight();
+    IsLeftToRight = CalInterfaceIsLeftToRight(showsThumb, v10);
     [(EKCurrentTimeMarkerView *)self markerWidth];
     if (IsLeftToRight)
     {
-      v4 = v10;
+      v4 = v12;
     }
 
     else
     {
-      v8 = v8 - v10;
+      v8 = v8 - v12;
     }
   }
 
   [(EKCurrentTimeMarkerView *)self extensionLineHeight];
-  v12 = v11;
+  v14 = v13;
   [(EKCurrentTimeMarkerView *)self bounds];
-  v13 = v6 + (CGRectGetHeight(v17) - v12) * 0.5;
-  v14 = v4;
-  v15 = v8;
-  v16 = v12;
-  result.size.height = v16;
-  result.size.width = v15;
-  result.origin.y = v13;
-  result.origin.x = v14;
+  v15 = v6 + (CGRectGetHeight(v19) - v14) * 0.5;
+  v16 = v4;
+  v17 = v8;
+  v18 = v14;
+  result.size.height = v18;
+  result.size.width = v17;
+  result.origin.y = v15;
+  result.origin.x = v16;
   return result;
 }
 
@@ -230,7 +231,7 @@
   calendarTimeZone = [MEMORY[0x1E695DFE8] calendarTimeZone];
   v9 = [v6 localizedStringWithFormat:v7 timeZone:calendarTimeZone];
 
-  if (!CalInterfaceIsLeftToRight() || ([v9 isEqualToString:text] ? (v10 = !forceCopy) : (v10 = 0), !v10))
+  if (!CalInterfaceIsLeftToRight(v10, v11) || ([v9 isEqualToString:text] ? (v12 = !forceCopy) : (v12 = 0), !v12))
   {
     currentTimeLabel2 = [(EKCurrentTimeMarkerView *)self currentTimeLabel];
     [currentTimeLabel2 setText:v9];
@@ -288,8 +289,8 @@
     return;
   }
 
-  v58 = v4;
-  v59 = v3;
+  v60 = v4;
+  v61 = v3;
   if (self->_showsThumb)
   {
     cuik_todayTimelineColor = [MEMORY[0x1E69DC888] cuik_todayTimelineColor];
@@ -312,87 +313,87 @@ LABEL_7:
   }
 
   [(EKCurrentTimeMarkerView *)self _lineFrame];
-  x = v60.origin.x;
-  y = v60.origin.y;
-  width = v60.size.width;
-  height = v60.size.height;
-  v27 = CGRectGetHeight(v60);
-  v61.origin.x = x;
-  v61.origin.y = y;
-  v61.size.width = width;
-  v61.size.height = height;
-  MinY = CGRectGetMinY(v61);
-  IsLeftToRight = CalTimeDirectionIsLeftToRight();
+  x = v62.origin.x;
+  y = v62.origin.y;
+  width = v62.size.width;
+  height = v62.size.height;
+  v27 = CGRectGetHeight(v62);
+  v63.origin.x = x;
+  v63.origin.y = y;
+  v63.size.width = width;
+  v63.size.height = height;
+  MinY = CGRectGetMinY(v63);
+  IsLeftToRight = CalTimeDirectionIsLeftToRight(v35, v36);
   cuik_todayTimelineColor2 = [MEMORY[0x1E69DC888] cuik_todayTimelineColor];
   [cuik_todayTimelineColor2 set];
 
   [(EKCurrentTimeMarkerView *)self todayStart];
-  v38 = v37;
-  [(EKCurrentTimeMarkerView *)self todayWidth];
   v40 = v39;
+  [(EKCurrentTimeMarkerView *)self todayWidth];
+  v42 = v41;
   if (IsLeftToRight)
   {
-    v41 = v38;
-    v42 = MinY;
-    v43 = v27;
-    UIRectFill(*(&v40 - 2));
+    v43 = v40;
+    v44 = MinY;
+    v45 = v27;
+    UIRectFill(*(&v42 - 2));
     cuik_nonTodayTimelineColor = [MEMORY[0x1E69DC888] cuik_nonTodayTimelineColor];
     [cuik_nonTodayTimelineColor set];
 
-    v62.origin.x = x;
-    v62.origin.y = y;
-    v62.size.width = width;
-    v62.size.height = height;
-    MinX = CGRectGetMinX(v62);
-    [(EKCurrentTimeMarkerView *)self todayStart];
-    v63.size.width = v46 - MinX;
-    v63.origin.x = MinX;
-    v63.origin.y = MinY;
-    v63.size.height = v27;
-    UIRectFill(v63);
-    [(EKCurrentTimeMarkerView *)self todayStart];
-    v48 = v47;
-    [(EKCurrentTimeMarkerView *)self todayWidth];
-    v23 = v48 + v49;
     v64.origin.x = x;
     v64.origin.y = y;
     v64.size.width = width;
     v64.size.height = height;
-    MaxX = CGRectGetMaxX(v64) - v23;
-  }
-
-  else
-  {
-    v50 = v38 - v39;
-    [(EKCurrentTimeMarkerView *)self todayWidth];
-    v65.size.width = v51;
-    v65.origin.x = v50;
+    MinX = CGRectGetMinX(v64);
+    [(EKCurrentTimeMarkerView *)self todayStart];
+    v65.size.width = v48 - MinX;
+    v65.origin.x = MinX;
     v65.origin.y = MinY;
     v65.size.height = v27;
     UIRectFill(v65);
-    cuik_nonTodayTimelineColor2 = [MEMORY[0x1E69DC888] cuik_nonTodayTimelineColor];
-    [cuik_nonTodayTimelineColor2 set];
-
+    [(EKCurrentTimeMarkerView *)self todayStart];
+    v50 = v49;
+    [(EKCurrentTimeMarkerView *)self todayWidth];
+    v23 = v50 + v51;
     v66.origin.x = x;
     v66.origin.y = y;
     v66.size.width = width;
     v66.size.height = height;
-    v53 = CGRectGetMinX(v66);
-    [(EKCurrentTimeMarkerView *)self todayStart];
-    v55 = v54;
+    MaxX = CGRectGetMaxX(v66) - v23;
+  }
+
+  else
+  {
+    v52 = v40 - v41;
     [(EKCurrentTimeMarkerView *)self todayWidth];
-    v67.size.width = v55 - v56 - v53;
-    v67.origin.x = v53;
+    v67.size.width = v53;
+    v67.origin.x = v52;
     v67.origin.y = MinY;
     v67.size.height = v27;
     UIRectFill(v67);
-    [(EKCurrentTimeMarkerView *)self todayStart];
-    v23 = v57;
+    cuik_nonTodayTimelineColor2 = [MEMORY[0x1E69DC888] cuik_nonTodayTimelineColor];
+    [cuik_nonTodayTimelineColor2 set];
+
     v68.origin.x = x;
     v68.origin.y = y;
     v68.size.width = width;
     v68.size.height = height;
-    MaxX = CGRectGetMaxX(v68);
+    v55 = CGRectGetMinX(v68);
+    [(EKCurrentTimeMarkerView *)self todayStart];
+    v57 = v56;
+    [(EKCurrentTimeMarkerView *)self todayWidth];
+    v69.size.width = v57 - v58 - v55;
+    v69.origin.x = v55;
+    v69.origin.y = MinY;
+    v69.size.height = v27;
+    UIRectFill(v69);
+    [(EKCurrentTimeMarkerView *)self todayStart];
+    v23 = v59;
+    v70.origin.x = x;
+    v70.origin.y = y;
+    v70.size.width = width;
+    v70.size.height = height;
+    MaxX = CGRectGetMaxX(v70);
   }
 
 LABEL_8:

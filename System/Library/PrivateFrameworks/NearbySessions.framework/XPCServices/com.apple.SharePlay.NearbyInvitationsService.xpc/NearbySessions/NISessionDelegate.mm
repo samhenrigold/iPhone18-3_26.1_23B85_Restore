@@ -24,7 +24,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  NISessionDelegate.session(_:didFailWithError:)(sessionCopy);
+  NISessionDelegate.session(_:didFailWithError:)(sessionCopy, errorCopy);
 }
 
 - (void)session:(id)session didInvalidateWithError:(id)error
@@ -32,7 +32,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  NISessionDelegate.session(_:didInvalidateWith:)(sessionCopy);
+  NISessionDelegate.session(_:didInvalidateWith:)(sessionCopy, errorCopy);
 }
 
 - (void)session:(id)session suspendedWithReason:(int64_t)reason

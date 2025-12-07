@@ -2,12 +2,24 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToNetworkManager:(id)manager;
 - (CMLNetworkManager)initWithCoder:(id)coder;
+- (CMLNetworkManager)initWithType:(int64_t)type endpoint:(id)endpoint issuer:(id)issuer authenticationToken:(id)token privacyProxyFailOpen:(BOOL)open;
 - (CMLNetworkManager)initWithType:(int64_t)type endpoint:(id)endpoint issuer:(id)issuer bearerToken:(id)token featureId:(id)id privacyProxyFailOpen:(BOOL)open;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation CMLNetworkManager
+
+- (CMLNetworkManager)initWithType:(int64_t)type endpoint:(id)endpoint issuer:(id)issuer authenticationToken:(id)token privacyProxyFailOpen:(BOOL)open
+{
+  openCopy = open;
+  issuerCopy = issuer;
+  endpointCopy = endpoint;
+  v14 = [token base64EncodedStringWithOptions:0];
+  v15 = [(CMLNetworkManager *)self initWithType:type endpoint:endpointCopy issuer:issuerCopy bearerToken:v14 featureId:0 privacyProxyFailOpen:openCopy];
+
+  return v15;
+}
 
 - (CMLNetworkManager)initWithType:(int64_t)type endpoint:(id)endpoint issuer:(id)issuer bearerToken:(id)token featureId:(id)id privacyProxyFailOpen:(BOOL)open
 {

@@ -100,49 +100,46 @@
 
 - (int64_t)lastPlaybackStateForProfileForRouteID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
-  if (d)
+  v24 = *MEMORY[0x277D85DE8];
+  if (!d)
   {
-    dCopy = d;
-    mediaProfileContainer = [(HFMediaValueManager *)self mediaProfileContainer];
-    hf_mediaRouteIdentifier = [mediaProfileContainer hf_mediaRouteIdentifier];
-    v7 = [hf_mediaRouteIdentifier isEqualToString:dCopy];
+    return 0;
+  }
 
-    if (v7)
+  dCopy = d;
+  mediaProfileContainer = [(HFMediaValueManager *)self mediaProfileContainer];
+  hf_mediaRouteIdentifier = [mediaProfileContainer hf_mediaRouteIdentifier];
+  v7 = [hf_mediaRouteIdentifier isEqualToString:dCopy];
+
+  if (v7)
+  {
+    if ([mediaProfileContainer isContainedWithinItemGroup])
     {
-      if ([mediaProfileContainer isContainedWithinItemGroup])
-      {
-        hf_home = [mediaProfileContainer hf_home];
-        hf_backingAccessory = [mediaProfileContainer hf_backingAccessory];
-        v10 = [hf_home hf_mediaSystemForAccessory:hf_backingAccessory];
+      hf_home = [mediaProfileContainer hf_home];
+      hf_backingAccessory = [mediaProfileContainer hf_backingAccessory];
+      v10 = [hf_home hf_mediaSystemForAccessory:hf_backingAccessory];
 
-        hf_mediaValueSource = [v10 hf_mediaValueSource];
-        hf_mediaRouteIdentifier2 = [v10 hf_mediaRouteIdentifier];
-        playbackState = [hf_mediaValueSource lastPlaybackStateForProfileForRouteID:hf_mediaRouteIdentifier2];
-      }
-
-      else
-      {
-        mediaSession = [mediaProfileContainer mediaSession];
-        playbackState = [mediaSession playbackState];
-        v15 = HFLogForCategory(0x3EuLL);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-        {
-          v16 = NSStringFromHMMediaPlaybackState(playbackState);
-          v19 = 138412802;
-          v20 = mediaProfileContainer;
-          v21 = 2112;
-          v22 = mediaSession;
-          v23 = 2112;
-          v24 = v16;
-          _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "--> Reading Last Known Media Playback Value for %@/%@ (%@)", &v19, 0x20u);
-        }
-      }
+      hf_mediaValueSource = [v10 hf_mediaValueSource];
+      hf_mediaRouteIdentifier2 = [v10 hf_mediaRouteIdentifier];
+      playbackState = [hf_mediaValueSource lastPlaybackStateForProfileForRouteID:hf_mediaRouteIdentifier2];
     }
 
     else
     {
-      playbackState = 0;
+      mediaSession = [mediaProfileContainer mediaSession];
+      playbackState = [mediaSession playbackState];
+      v15 = HFLogForCategory(0x3EuLL);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = NSStringFromHMMediaPlaybackState(playbackState);
+        v18 = 138412802;
+        v19 = mediaProfileContainer;
+        v20 = 2112;
+        v21 = mediaSession;
+        v22 = 2112;
+        v23 = v16;
+        _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "--> Reading Last Known Media Playback Value for %@/%@ (%@)", &v18, 0x20u);
+      }
     }
   }
 
@@ -151,18 +148,17 @@
     playbackState = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return playbackState;
 }
 
 - (id)writePlaybackState:(int64_t)state playbackArchive:(id)archive forRouteID:(id)d
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   archiveCopy = archive;
   dCopy = d;
   if (dCopy)
   {
-    v36 = a2;
+    v35 = a2;
     mediaProfileContainer = [(HFMediaValueManager *)self mediaProfileContainer];
     mediaSession = [mediaProfileContainer mediaSession];
     v11 = HFOperationMediaAccessoryPlay;
@@ -171,7 +167,7 @@
       v11 = HFOperationMediaAccessoryPause;
     }
 
-    v38 = *v11;
+    v37 = *v11;
     if (mediaProfileContainer)
     {
       hf_mediaRouteIdentifier = [mediaProfileContainer hf_mediaRouteIdentifier];
@@ -193,7 +189,7 @@
               _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "isUpdatingSoftware is true", location, 2u);
             }
 
-            v17 = [MEMORY[0x277CCA9B8] hf_errorWithCode:23 operation:v38 options:0];
+            v17 = [MEMORY[0x277CCA9B8] hf_errorWithCode:23 operation:v37 options:0];
           }
 
           else
@@ -211,7 +207,7 @@
           _os_log_error_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_ERROR, "mediaSession is nil", location, 2u);
         }
 
-        v20 = [MEMORY[0x277CCA9B8] hf_errorWithCode:24 operation:v38 options:0];
+        v20 = [MEMORY[0x277CCA9B8] hf_errorWithCode:24 operation:v37 options:0];
       }
 
       else
@@ -222,12 +218,12 @@
           hf_mediaRouteIdentifier2 = [mediaProfileContainer hf_mediaRouteIdentifier];
           *location = 138412546;
           *&location[4] = hf_mediaRouteIdentifier2;
-          v45 = 2112;
-          v46 = dCopy;
+          v44 = 2112;
+          v45 = dCopy;
           _os_log_error_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_ERROR, "route identifier mismatch: mediaProfileContainer.hf_mediaRouteIdentifier: %@ routeID: %@", location, 0x16u);
         }
 
-        v20 = [MEMORY[0x277CCA9B8] hf_errorWithCode:23 operation:v38 options:0];
+        v20 = [MEMORY[0x277CCA9B8] hf_errorWithCode:23 operation:v37 options:0];
       }
     }
 
@@ -240,7 +236,7 @@
         _os_log_error_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_ERROR, "mediaProfileContainer is nil", location, 2u);
       }
 
-      v20 = [MEMORY[0x277CCA9B8] hf_errorWithCode:23 operation:v38 options:0];
+      v20 = [MEMORY[0x277CCA9B8] hf_errorWithCode:23 operation:v37 options:0];
     }
 
     v17 = v20;
@@ -266,24 +262,24 @@ LABEL_22:
       hf_characteristicValueManager = [hf_home hf_characteristicValueManager];
 
       v29 = MEMORY[0x277D2C900];
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___block_invoke_55;
-      v40[3] = &unk_277DF88A0;
-      v40[4] = self;
-      v43[1] = state;
-      v43[2] = v25;
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___block_invoke_55;
+      v39[3] = &unk_277DF88A0;
+      v39[4] = self;
+      v42[1] = state;
+      v42[2] = v25;
       v30 = v23;
-      v41 = v30;
+      v40 = v30;
       v31 = hf_characteristicValueManager;
-      v42 = v31;
-      objc_copyWeak(v43, location);
-      v43[3] = v36;
-      v32 = [v29 futureWithBlock:v40];
+      v41 = v31;
+      objc_copyWeak(v42, location);
+      v42[3] = v35;
+      v32 = [v29 futureWithBlock:v39];
       [v30 setWriteFuture:v32];
 
       writeFuture = [v30 writeFuture];
-      objc_destroyWeak(v43);
+      objc_destroyWeak(v42);
 
       objc_destroyWeak(location);
     }
@@ -294,14 +290,12 @@ LABEL_22:
   writeFuture = [MEMORY[0x277D2C900] futureWithNoResult];
 LABEL_26:
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return writeFuture;
 }
 
 void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___block_invoke_55(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc(MEMORY[0x277CD1BD0]);
   v5 = [*(a1 + 32) mediaProfileContainer];
@@ -316,13 +310,13 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
     v11 = NSStringFromHMMediaPlaybackState(*(a1 + 64));
     v12 = [*(a1 + 40) transactionNumber];
     *buf = 138413058;
-    v31 = v9;
-    v32 = 2112;
-    v33 = v10;
-    v34 = 2112;
-    v35 = v11;
-    v36 = 2112;
-    v37 = v12;
+    v30 = v9;
+    v31 = 2112;
+    v32 = v10;
+    v33 = 2112;
+    v34 = v11;
+    v35 = 2112;
+    v36 = v12;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "--> Starting media value write transaction session %@: from %@ -> %@  (Transaction ID %@)", buf, 0x2Au);
   }
 
@@ -330,29 +324,27 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
   v13 = *(a1 + 48);
   v14 = [MEMORY[0x277CBEB98] setWithObject:v7];
   v15 = [v13 executeActions:v14];
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___block_invoke_58;
-  v24 = &unk_277DF8878;
-  objc_copyWeak(&v27, (a1 + 56));
-  v28 = vextq_s8(*(a1 + 64), *(a1 + 64), 8uLL);
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___block_invoke_58;
+  v23 = &unk_277DF8878;
+  objc_copyWeak(&v26, (a1 + 56));
+  v27 = vextq_s8(*(a1 + 64), *(a1 + 64), 8uLL);
   v16 = *(a1 + 40);
   v17 = *(a1 + 80);
-  v25 = v16;
-  v29 = v17;
+  v24 = v16;
+  v28 = v17;
   v18 = v3;
-  v26 = v18;
-  v19 = [v15 addCompletionBlock:&v21];
+  v25 = v18;
+  v19 = [v15 addCompletionBlock:&v20];
 
-  [*(a1 + 48) commitTransactionWithReason:{@"HFMediaValueManagerTransactionReasonActionExecution", v21, v22, v23, v24}];
-  objc_destroyWeak(&v27);
-
-  v20 = *MEMORY[0x277D85DE8];
+  [*(a1 + 48) commitTransactionWithReason:{@"HFMediaValueManagerTransactionReasonActionExecution", v20, v21, v22, v23}];
+  objc_destroyWeak(&v26);
 }
 
 void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___block_invoke_58(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -366,15 +358,15 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
       v11 = NSStringFromHMMediaPlaybackState(*(a1 + 56));
       v12 = NSStringFromHMMediaPlaybackState(*(a1 + 64));
       v13 = [*(a1 + 32) transactionNumber];
-      v21 = 138413058;
-      v22 = v10;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = v12;
-      v27 = 2112;
-      v28 = v13;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "--> Failed media write transaction for session %@: %@ -> %@  (Transaction ID %@)", &v21, 0x2Au);
+      v20 = 138413058;
+      v21 = v10;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = v12;
+      v26 = 2112;
+      v27 = v13;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "--> Failed media write transaction for session %@: %@ -> %@  (Transaction ID %@)", &v20, 0x2Au);
     }
 
     [v8 _updateCachedPlaybackStateWriteError:v5 operationType:@"HFMediaValueManager.writePlaybackState" notifyDelegates:1];
@@ -393,22 +385,21 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
     v16 = NSStringFromHMMediaPlaybackState(*(a1 + 56));
     v17 = NSStringFromHMMediaPlaybackState(*(a1 + 64));
     v18 = [*(a1 + 32) transactionNumber];
-    v21 = 138413058;
-    v22 = v15;
-    v23 = 2112;
-    v24 = v16;
-    v25 = 2112;
-    v26 = v17;
-    v27 = 2112;
-    v28 = v18;
-    _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "--> Finished media write transaction for session %@: %@ -> %@  (Transaction ID %@)", &v21, 0x2Au);
+    v20 = 138413058;
+    v21 = v15;
+    v22 = 2112;
+    v23 = v16;
+    v24 = 2112;
+    v25 = v17;
+    v26 = 2112;
+    v27 = v18;
+    _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "--> Finished media write transaction for session %@: %@ -> %@  (Transaction ID %@)", &v20, 0x2Au);
   }
 
   v19 = [v8 transactionStack];
   [v19 removeObject:*(a1 + 32)];
 
   [*(a1 + 40) finishWithResult:v6 error:v5];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedPlaybackStateWriteErrorForRouteID:(id)d
@@ -470,7 +461,7 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
 - (void)clearCachedPlaybackStateWriteErrorWithReason:(id)reason notifyDelegates:(BOOL)delegates
 {
   delegatesCopy = delegates;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if (self->_cachedPlaybackStateWriteError)
   {
@@ -478,11 +469,11 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       mediaProfileContainer = [(HFMediaValueManager *)self mediaProfileContainer];
-      v16 = 138412546;
-      v17 = mediaProfileContainer;
-      v18 = 2112;
-      v19 = reasonCopy;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Clearing cachedPlaybackStateWriteError for profile '%@'; Reason: '%@'", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = mediaProfileContainer;
+      v17 = 2112;
+      v18 = reasonCopy;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Clearing cachedPlaybackStateWriteError for profile '%@'; Reason: '%@'", &v15, 0x16u);
     }
 
     cachedPlaybackStateWriteError = self->_cachedPlaybackStateWriteError;
@@ -499,8 +490,6 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
       [(HFMediaValueManager *)self _notifyDelegatesDidUpdatePlaybackState:v12 mediaSession:mediaSession];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mediaSession:(id)session didUpdatePlaybackState:(int64_t)state
@@ -554,7 +543,7 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
 {
   didUpdateCopy = didUpdate;
   updateCopy = update;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   if (![(HFMediaValueManager *)self hasPendingWrites])
   {
@@ -571,13 +560,13 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
       mediaProfileContainer2 = [(HFMediaValueManager *)self mediaProfileContainer];
       v15 = NSStringFromHMMediaPlaybackState(state);
       v16 = NSStringFromSelector(sender);
-      v18 = 138412802;
-      v19 = mediaProfileContainer2;
-      v20 = 2112;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v16;
-      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "--> Updating last playback state for profile %@ --> %@ (Update sent from %@)", &v18, 0x20u);
+      v17 = 138412802;
+      v18 = mediaProfileContainer2;
+      v19 = 2112;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "--> Updating last playback state for profile %@ --> %@ (Update sent from %@)", &v17, 0x20u);
     }
 
     if (didUpdateCopy)
@@ -585,8 +574,6 @@ void __69__HFMediaValueManager_writePlaybackState_playbackArchive_forRouteID___b
       [(HFMediaValueManager *)self _notifyDelegatesDidUpdatePlaybackState:state mediaSession:mediaSession];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyDelegatesDidUpdatePlaybackState:(int64_t)state mediaSession:(id)session

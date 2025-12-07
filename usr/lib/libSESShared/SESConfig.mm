@@ -21,12 +21,12 @@
 
 - (SESConfig)initWithDeviceClass:(id)class productVersion:(float)version path:(id)path
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   classCopy = class;
   pathCopy = path;
-  v20.receiver = self;
-  v20.super_class = SESConfig;
-  v10 = [(SESConfig *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = SESConfig;
+  v10 = [(SESConfig *)&v19 init];
   v11 = v10;
   if (!v10)
   {
@@ -60,26 +60,25 @@ LABEL_7:
     goto LABEL_6;
   }
 
-  v19 = SESDefaultLogObject();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v18 = SESDefaultLogObject();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v22 = classCopy;
-    _os_log_impl(&dword_1E0FCB000, v19, OS_LOG_TYPE_ERROR, "Unknown device class %@", buf, 0xCu);
+    v21 = classCopy;
+    _os_log_impl(&dword_1E0FCB000, v18, OS_LOG_TYPE_ERROR, "Unknown device class %@", buf, 0xCu);
   }
 
   v16 = 0;
 LABEL_8:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (id)getConfigForManufacturer:(id)manufacturer component:(unint64_t)component error:(id *)error
 {
-  v27 = 0;
-  v7 = [(SESConfig *)self getContentsOfAssetFile:manufacturer component:component error:&v27];
-  v8 = v27;
+  v26 = 0;
+  v7 = [(SESConfig *)self getContentsOfAssetFile:manufacturer component:component error:&v26];
+  v8 = v26;
   v9 = v8;
   if (!v8)
   {
@@ -100,7 +99,6 @@ LABEL_8:
         if (error)
         {
           v15 = SESDefaultLogObject();
-          productVersion = self->_productVersion;
           SESCreateAndLogError(0, v15, SESErrorDomain, 6, @"MinOS not satisfied config %f > %f current", v16, v17, v18, COERCE__INT64(v14));
           *error = LABEL_15:;
         }
@@ -255,7 +253,7 @@ LABEL_24:
 
 - (id)readContentsOfPlist:(id)plist component:(id)component isProfile:(BOOL)profile error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v8 = &stru_1F5BEA718;
   if (profile)
   {
@@ -270,9 +268,9 @@ LABEL_24:
 
   if (v13)
   {
-    v32 = 0;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v10 error:&v32];
-    v15 = v32;
+    v31 = 0;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v10 error:&v31];
+    v15 = v31;
     if (v15)
     {
       if (error)
@@ -293,7 +291,7 @@ LABEL_24:
       {
         path3 = [v10 path];
         *buf = 138412290;
-        v34 = path3;
+        v33 = path3;
         _os_log_impl(&dword_1E0FCB000, v28, OS_LOG_TYPE_INFO, "Contents retrieved from %@", buf, 0xCu);
       }
 
@@ -310,8 +308,6 @@ LABEL_24:
 
     error = 0;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return error;
 }

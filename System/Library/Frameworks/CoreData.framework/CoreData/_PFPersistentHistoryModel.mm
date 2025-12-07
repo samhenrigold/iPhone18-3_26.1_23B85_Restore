@@ -59,83 +59,78 @@
 
 + (unint64_t)_maxCountOfTombstonesInModel:(uint64_t)model
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   objc_opt_self();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   if (a2)
   {
     a2 = a2[4];
   }
 
-  v3 = [a2 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v3)
+  v3 = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (!v3)
   {
-    v4 = v3;
-    v5 = 0;
-    v6 = *v12;
-    do
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v12 != v6)
-        {
-          objc_enumerationMutation(a2);
-        }
+    return 0;
+  }
 
-        v8 = [_PFPersistentHistoryModel _retainedTombstonesForEntity:?];
-        if ([v8 count] > v5)
-        {
-          v5 = [v8 count];
-        }
+  v4 = v3;
+  v5 = 0;
+  v6 = *v11;
+  do
+  {
+    for (i = 0; i != v4; ++i)
+    {
+      if (*v11 != v6)
+      {
+        objc_enumerationMutation(a2);
       }
 
-      v4 = [a2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v8 = [_PFPersistentHistoryModel _retainedTombstonesForEntity:?];
+      if ([v8 count] > v5)
+      {
+        v5 = [v8 count];
+      }
     }
 
-    while (v4);
+    v4 = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   }
 
-  else
-  {
-    v5 = 0;
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
+  while (v4);
   return v5;
 }
 
 + (void)_entitiesWithTooManyTombstonesInModel:(uint64_t)model
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   if (a2)
   {
     a2 = a2[4];
   }
 
-  v4 = [a2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [a2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(a2);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = [_PFPersistentHistoryModel _retainedTombstonesForEntity:v8];
         v10 = [v9 count];
         if (v10 >= 0x65)
@@ -144,19 +139,18 @@
         }
       }
 
-      v5 = [a2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [a2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return dictionary;
 }
 
 + (void)createModelsWithTombstoneCount:(uint64_t)count andOptions:(uint64_t)options
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   context = objc_autoreleasePoolPush();
   if (!_historyModelCache)
@@ -174,41 +168,41 @@
   v5 = objc_alloc_init(NSEntityDescription);
   v6 = [[NSRelationshipDescription alloc] _initWithName:@"BUNDLEIDTS"];
   [v6 setDestinationEntity:v5];
-  v47 = v6;
+  v46 = v6;
   [v6 setMaxCount:1];
   v7 = [[NSRelationshipDescription alloc] _initWithName:@"PROCESSIDTS"];
   [v7 setDestinationEntity:v5];
-  v46 = v7;
+  v45 = v7;
   [v7 setMaxCount:1];
   v8 = [[NSRelationshipDescription alloc] _initWithName:@"CONTEXTNAMETS"];
   [v8 setDestinationEntity:v5];
-  v45 = v8;
+  v44 = v8;
   [v8 setMaxCount:1];
   v9 = [[NSRelationshipDescription alloc] _initWithName:@"AUTHORTS"];
   [v9 setDestinationEntity:v5];
-  v44 = v9;
+  v43 = v9;
   [v9 setMaxCount:1];
   v10 = [[NSAttributeDescription alloc] _initWithName:@"NAME" type:700];
   [(NSEntityDescription *)v5 setName:@"TRANSACTIONSTRING"];
-  v55[0] = v10;
-  -[NSEntityDescription setProperties:](v5, "setProperties:", [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1]);
-  v30 = v10;
+  v54[0] = v10;
+  -[NSEntityDescription setProperties:](v5, "setProperties:", [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1]);
+  v29 = v10;
   name = [v10 name];
-  v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:&name count:1];
-  v31 = v5;
-  -[NSEntityDescription setUniquenessConstraints:](v5, "setUniquenessConstraints:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1]);
-  v43 = [[NSAttributeDescription alloc] _initWithName:@"BUNDLEID" type:700];
-  v42 = [[NSAttributeDescription alloc] _initWithName:@"PROCESSID" type:700];
-  v41 = [[NSAttributeDescription alloc] _initWithName:@"CONTEXTNAME" type:700];
-  v40 = [[NSAttributeDescription alloc] _initWithName:@"AUTHOR" type:700];
-  v39 = [[NSAttributeDescription alloc] _initWithName:@"QUERYGEN" type:1000];
-  v38 = [[NSAttributeDescription alloc] _initWithName:@"TIMESTAMP" type:500];
+  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&name count:1];
+  v30 = v5;
+  -[NSEntityDescription setUniquenessConstraints:](v5, "setUniquenessConstraints:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1]);
+  v42 = [[NSAttributeDescription alloc] _initWithName:@"BUNDLEID" type:700];
+  v41 = [[NSAttributeDescription alloc] _initWithName:@"PROCESSID" type:700];
+  v40 = [[NSAttributeDescription alloc] _initWithName:@"CONTEXTNAME" type:700];
+  v39 = [[NSAttributeDescription alloc] _initWithName:@"AUTHOR" type:700];
+  v38 = [[NSAttributeDescription alloc] _initWithName:@"QUERYGEN" type:1000];
+  v37 = [[NSAttributeDescription alloc] _initWithName:@"TIMESTAMP" type:500];
   v11 = v3;
   [(NSEntityDescription *)v3 setName:@"TRANSACTION"];
-  v37 = [[NSAttributeDescription alloc] _initWithName:@"ENTITY" type:300];
-  v36 = [[NSAttributeDescription alloc] _initWithName:@"ENTITYPK" type:300];
-  v35 = [[NSAttributeDescription alloc] _initWithName:@"CHANGETYPE" type:100];
-  v34 = [[NSAttributeDescription alloc] _initWithName:@"COLUMNS" type:1000];
+  v36 = [[NSAttributeDescription alloc] _initWithName:@"ENTITY" type:300];
+  v35 = [[NSAttributeDescription alloc] _initWithName:@"ENTITYPK" type:300];
+  v34 = [[NSAttributeDescription alloc] _initWithName:@"CHANGETYPE" type:100];
+  v33 = [[NSAttributeDescription alloc] _initWithName:@"COLUMNS" type:1000];
   v12 = v4;
   [(NSEntityDescription *)v4 setName:@"CHANGE"];
   v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:options];
@@ -219,8 +213,8 @@
     do
     {
       v15 = [NSAttributeDescription alloc];
-      v16 = -[NSAttributeDescription _initWithName:type:](v15, "_initWithName:type:", [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%lu", @"TOMBSTONE", v14], 1000);
-      [v13 addObject:v16];
+      1000 = [(NSAttributeDescription *)v15 _initWithName:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] type:@"TOMBSTONE", v14), 1000];
+      [v13 addObject:1000];
 
       ++v14;
     }
@@ -237,44 +231,44 @@
   [v18 setDestinationEntity:v3];
   [v18 setMaxCount:1];
   [v18 setMinCount:1];
-  v52[0] = v43;
-  v52[1] = v42;
-  v52[2] = v41;
-  v52[3] = v40;
-  v52[4] = v47;
-  v52[5] = v46;
-  v52[6] = v45;
-  v52[7] = v44;
-  v52[8] = v38;
-  v52[9] = v39;
-  v52[10] = v17;
-  -[NSEntityDescription setProperties:](v3, "setProperties:", [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:11]);
-  v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v37, v36, v35, v34, 0}];
+  v51[0] = v42;
+  v51[1] = v41;
+  v51[2] = v40;
+  v51[3] = v39;
+  v51[4] = v46;
+  v51[5] = v45;
+  v51[6] = v44;
+  v51[7] = v43;
+  v51[8] = v37;
+  v51[9] = v38;
+  v51[10] = v17;
+  -[NSEntityDescription setProperties:](v3, "setProperties:", [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:11]);
+  v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v36, v35, v34, v33, 0}];
   [v19 addObjectsFromArray:v13];
   [v19 addObject:v18];
   [(NSEntityDescription *)v4 setProperties:v19];
-  v20 = [[NSFetchIndexElementDescription alloc] initWithProperty:v38 collationType:0];
+  v20 = [[NSFetchIndexElementDescription alloc] initWithProperty:v37 collationType:0];
   v21 = [NSFetchIndexDescription alloc];
-  v51 = v20;
-  v22 = -[NSFetchIndexDescription initWithName:elements:](v21, "initWithName:elements:", @"TransactionTimestampIndex", [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1]);
-  v23 = [[NSFetchIndexElementDescription alloc] initWithProperty:v40 collationType:0];
+  v50 = v20;
+  v22 = -[NSFetchIndexDescription initWithName:elements:](v21, "initWithName:elements:", @"TransactionTimestampIndex", [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1]);
+  v23 = [[NSFetchIndexElementDescription alloc] initWithProperty:v39 collationType:0];
   v24 = [NSFetchIndexDescription alloc];
-  v50 = v23;
-  v25 = -[NSFetchIndexDescription initWithName:elements:](v24, "initWithName:elements:", @"TransactionAuthorIndex", [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1]);
-  v49[0] = v25;
-  v49[1] = v22;
-  -[NSEntityDescription setIndexes:](v11, "setIndexes:", [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2]);
+  v49 = v23;
+  v25 = -[NSFetchIndexDescription initWithName:elements:](v24, "initWithName:elements:", @"TransactionAuthorIndex", [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1]);
+  v48[0] = v25;
+  v48[1] = v22;
+  -[NSEntityDescription setIndexes:](v11, "setIndexes:", [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2]);
 
   [(NSEntityDescription *)v11 _flattenProperties];
   [(NSEntityDescription *)v11 _createCachesAndOptimizeState];
   [(NSEntityDescription *)v12 _flattenProperties];
   [(NSEntityDescription *)v12 _createCachesAndOptimizeState];
-  [(NSEntityDescription *)v31 _flattenProperties];
-  [(NSEntityDescription *)v31 _createCachesAndOptimizeState];
-  v48[0] = v11;
-  v48[1] = v12;
-  v48[2] = v31;
-  v26 = -[NSManagedObjectModel _initWithEntities:]([NSManagedObjectModel alloc], "_initWithEntities:", [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:3]);
+  [(NSEntityDescription *)v30 _flattenProperties];
+  [(NSEntityDescription *)v30 _createCachesAndOptimizeState];
+  v47[0] = v11;
+  v47[1] = v12;
+  v47[2] = v30;
+  v26 = -[NSManagedObjectModel _initWithEntities:]([NSManagedObjectModel alloc], "_initWithEntities:", [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:3]);
   [v26 _setModelsReferenceIDOffset:{+[_PFPersistentHistoryModel ancillaryEntityOffset](_PFPersistentHistoryModel, "ancillaryEntityOffset")}];
   [v26 _setIsEditable:0];
   v27 = [[NSSQLModel alloc] initWithManagedObjectModel:v26];
@@ -283,7 +277,6 @@
   [_historySQLModelCache setObject:v27 forKey:v28];
 
   objc_autoreleasePoolPop(context);
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 + (id)newPersistentHistorySQLModelForSQLModel:(uint64_t)model options:(void *)options
@@ -332,28 +325,28 @@
 
 + (uint64_t)_hasTombstonesInUserInfo:(uint64_t)info
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   objc_opt_self();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  result = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  result = [a2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (result)
   {
     v4 = result;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(a2);
         }
 
-        v7 = [objc_msgSend(*(*(&v10 + 1) + 8 * v6) "userInfo")];
+        v7 = [objc_msgSend(*(*(&v9 + 1) + 8 * v6) "userInfo")];
         if (v7)
         {
           v8 = v7;
@@ -361,8 +354,7 @@
           {
             if ([v8 length])
             {
-              result = 1;
-              goto LABEL_13;
+              return 1;
             }
           }
         }
@@ -371,7 +363,7 @@
       }
 
       while (v4 != v6);
-      result = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      result = [a2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       v4 = result;
       if (result)
       {
@@ -382,8 +374,6 @@
     }
   }
 
-LABEL_13:
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -396,7 +386,7 @@ LABEL_13:
     goto LABEL_3;
   }
 
-  while (*(a2 + 160))
+  while (a2[20])
   {
     do
     {

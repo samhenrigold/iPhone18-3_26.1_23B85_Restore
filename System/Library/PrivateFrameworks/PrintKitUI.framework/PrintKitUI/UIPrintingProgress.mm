@@ -361,7 +361,7 @@ LABEL_4:
   [(UIPrintingProgressViewController *)viewController dismissProgress];
 }
 
-uint64_t __54__UIPrintingProgress__mainQueue_hideProgressAnimated___block_invoke(uint64_t a1)
+void *__54__UIPrintingProgress__mainQueue_hideProgressAnimated___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) progressAlertWindow];
   [v2 setHidden:1];

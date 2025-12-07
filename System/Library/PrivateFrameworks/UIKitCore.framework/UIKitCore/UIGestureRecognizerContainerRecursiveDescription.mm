@@ -8,7 +8,7 @@ id ___UIGestureRecognizerContainerRecursiveDescription_block_invoke(uint64_t a1,
   v2 = *(a1 + 32);
   if (v2)
   {
-    (*(v2 + 16))();
+    (*(v2 + 16))(v2, a2);
   }
 
   else

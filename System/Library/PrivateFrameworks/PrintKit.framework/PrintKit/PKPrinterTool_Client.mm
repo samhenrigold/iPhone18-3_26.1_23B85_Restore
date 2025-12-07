@@ -76,43 +76,43 @@
 
       if (!self->_conn_needsLock)
       {
-        v9 = _PKLogCategory(PKLogCategoryDefault[0]);
-        [(PKPrinterTool_Client *)v9 ptConn_locked];
+        v10 = _PKLogCategory(PKLogCategoryDefault[0]);
+        [(PKPrinterTool_Client *)v10 ptConn_locked];
       }
     }
 
     else
     {
-      v10 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.PrintKit.PrinterTool"];
-      v11 = self->_conn_needsLock;
-      self->_conn_needsLock = v10;
+      v11 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.PrintKit.PrinterTool"];
+      v12 = self->_conn_needsLock;
+      self->_conn_needsLock = v11;
     }
 
-    v12 = getPrintdRPCProtocolInterface();
-    [(NSXPCConnection *)self->_conn_needsLock setRemoteObjectInterface:v12];
+    v13 = getPrintdRPCProtocolInterface(v9);
+    [(NSXPCConnection *)self->_conn_needsLock setRemoteObjectInterface:v13];
 
-    v13 = self->_conn_needsLock;
+    v14 = self->_conn_needsLock;
     objc_initWeak(&location, self);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __37__PKPrinterTool_Client_ptConn_locked__block_invoke;
-    v20[3] = &unk_279A85580;
-    v14 = v13;
-    v21 = v14;
-    objc_copyWeak(&v22, &location);
-    [(NSXPCConnection *)self->_conn_needsLock setInvalidationHandler:v20];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __37__PKPrinterTool_Client_ptConn_locked__block_invoke_4;
-    v17[3] = &unk_279A85580;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __37__PKPrinterTool_Client_ptConn_locked__block_invoke;
+    v21[3] = &unk_279A85580;
     v15 = v14;
-    v18 = v15;
-    objc_copyWeak(&v19, &location);
-    [(NSXPCConnection *)self->_conn_needsLock setInterruptionHandler:v17];
+    v22 = v15;
+    objc_copyWeak(&v23, &location);
+    [(NSXPCConnection *)self->_conn_needsLock setInvalidationHandler:v21];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __37__PKPrinterTool_Client_ptConn_locked__block_invoke_4;
+    v18[3] = &unk_279A85580;
+    v16 = v15;
+    v19 = v16;
+    objc_copyWeak(&v20, &location);
+    [(NSXPCConnection *)self->_conn_needsLock setInterruptionHandler:v18];
     [(NSXPCConnection *)self->_conn_needsLock activate];
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v20);
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
 
     conn_needsLock = self->_conn_needsLock;

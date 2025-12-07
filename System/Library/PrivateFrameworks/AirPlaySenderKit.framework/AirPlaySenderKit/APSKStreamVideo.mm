@@ -46,7 +46,7 @@
 
     if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
     {
-      [APSKStreamVideo initWithDelegate:delegateQueue:options:];
+      [APSKStreamVideo initWithDelegate:v12 delegateQueue:? options:?];
     }
   }
 
@@ -87,10 +87,7 @@
 
 uint64_t __40__APSKStreamVideo_enqueueFrame_forTime___block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 40));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 40));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -276,9 +273,10 @@ void __34__APSKStreamVideo_setFrameSender___block_invoke_3(uint64_t a1)
 {
   if (error)
   {
+    v3 = *&error;
     if (gLogCategory_AirPlaySenderKit <= 90 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKStreamVideo setError:]", 33554522, "### [%{ptr}] video stream failed, error: %#m", self, v3);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -292,7 +290,7 @@ void __34__APSKStreamVideo_setFrameSender___block_invoke_3(uint64_t a1)
       block[2] = __28__APSKStreamVideo_setError___block_invoke;
       block[3] = &unk_278C659B8;
       block[4] = self;
-      errorCopy = error;
+      v9 = v3;
       dispatch_async(delegateQueue, block);
     }
   }
@@ -321,22 +319,22 @@ void __28__APSKStreamVideo_setError___block_invoke(uint64_t a1)
 void __54__APSKStreamVideo_setDisplayWidth_height_refreshRate___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  if (v2[12] != v3 || v2[13] != *(a1 + 44) || v2[14] != *(a1 + 48))
+  if (*(v2 + 48) != *(a1 + 40) || *(v2 + 56) != *(a1 + 48))
   {
-    v2[12] = v3;
+    *(v2 + 48) = *(a1 + 40);
     *(*(a1 + 32) + 52) = *(a1 + 44);
-    *(*(a1 + 32) + 56) = *(a1 + 48);
+    v3 = *(a1 + 48);
+    *(*(a1 + 32) + 56) = v3;
     if (gLogCategory_AirPlaySenderKit > 50)
     {
-      goto LABEL_8;
+      goto LABEL_7;
     }
 
     if (gLogCategory_AirPlaySenderKit == -1)
     {
       if (!_LogCategory_Initialize())
       {
-LABEL_8:
+LABEL_7:
         WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
         v5 = objc_opt_respondsToSelector();
 
@@ -355,14 +353,11 @@ LABEL_8:
         return;
       }
 
-      v8 = *(a1 + 48);
+      v3 = *(a1 + 48);
     }
 
-    v11 = *(a1 + 44);
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    LogPrintF();
-    goto LABEL_8;
+    LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKStreamVideo setDisplayWidth:height:refreshRate:]_block_invoke", 33554482, "[%{ptr}] display info updated, current size: %d x %d, refresh rate: %d Hz", *(a1 + 32), *(a1 + 40), *(a1 + 44), v3);
+    goto LABEL_7;
   }
 }
 

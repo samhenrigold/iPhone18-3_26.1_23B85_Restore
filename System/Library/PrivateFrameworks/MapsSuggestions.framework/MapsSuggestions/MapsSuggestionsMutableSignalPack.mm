@@ -104,7 +104,7 @@
 {
   expiresCopy = expires;
   gatheredCopy = gathered;
-  LOBYTE(type) = MSg::SignalPack::set(&self->super._innerSignalPack.dict_.__table_.__bucket_list_.__ptr_, type, gatheredCopy, expiresCopy, value);
+  LOBYTE(type) = MSg::SignalPack::set(&self->super._innerSignalPack, type, gatheredCopy, expiresCopy, value);
 
   return type;
 }

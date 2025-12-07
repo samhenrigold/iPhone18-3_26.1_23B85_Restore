@@ -13,7 +13,7 @@
   infoCopy = info;
   topicCopy = topic;
   pathCopy = path;
-  v21 = [IDSDaemon _IMTransferServiceController]_0();
+  v21 = [IDSDaemon _IMTransferServiceController]_0(pathCopy);
   [v21 sendFilePath:pathCopy topic:topicCopy userInfo:infoCopy transferID:dCopy sourceAppID:0 encryptFile:fileCopy progressBlock:blockCopy completionBlock:completionBlockCopy];
 }
 

@@ -3,7 +3,6 @@
 - (BWMRCNode)init;
 - (CGRect)rectOfInterest;
 - (uint64_t)_setupSampleBufferProcessor;
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive;
 - (void)_newSymbologiesArrayFromIdentifiers:(uint64_t)identifiers;
 - (void)_teardownSampleBufferProcessor;
 - (void)dealloc;
@@ -167,19 +166,19 @@
     return 0;
   }
 
-  v20 = 0;
+  v23 = 0;
   v2 = *(self + 128);
   if (!v2)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20, v21, v22, v23, v24, v25, v26, v27);
     return 0;
   }
 
-  v2(*MEMORY[0x1E695E480], 0, &v20);
-  v3 = v20;
-  *(self + 136) = v20;
+  v2(*MEMORY[0x1E695E480], 0, &v23);
+  v3 = v23;
+  *(self + 136) = v23;
   v4 = *(*(CMBaseObjectGetVTable() + 16) + 8);
   if (!v4)
   {
@@ -187,7 +186,7 @@
 LABEL_21:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20, v21, v22, v23, v24, v25, v26, v27);
     return v18;
   }
 
@@ -216,11 +215,11 @@ LABEL_21:
     }
   }
 
-  v21.origin.x = OUTLINED_FUNCTION_3_24();
-  if (!CGRectIsNull(v21))
+  v28.origin.x = OUTLINED_FUNCTION_3_24();
+  if (!CGRectIsNull(v28))
   {
-    v22.origin.x = OUTLINED_FUNCTION_3_24();
-    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v22);
+    v29.origin.x = OUTLINED_FUNCTION_3_24();
+    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v29);
     v12 = OUTLINED_FUNCTION_2_32();
     v13 = *(*(CMBaseObjectGetVTable() + 8) + 56);
     if (v13)
@@ -268,76 +267,76 @@ LABEL_21:
   {
     v4 = *MEMORY[0x1E69C68B8];
     v5 = *MEMORY[0x1E6962998];
-    v88[0] = *MEMORY[0x1E6962990];
-    v88[1] = v5;
+    v87[0] = *MEMORY[0x1E6962990];
+    v87[1] = v5;
     v6 = *MEMORY[0x1E69C68C0];
-    v89[0] = v4;
-    v89[1] = v6;
+    v88[0] = v4;
+    v88[1] = v6;
     v7 = *MEMORY[0x1E69C6940];
     v8 = *MEMORY[0x1E6962970];
-    v88[2] = *MEMORY[0x1E69629C0];
-    v88[3] = v8;
+    v87[2] = *MEMORY[0x1E69629C0];
+    v87[3] = v8;
     v9 = *MEMORY[0x1E69C6880];
-    v89[2] = v7;
-    v89[3] = v9;
+    v88[2] = v7;
+    v88[3] = v9;
     v10 = *MEMORY[0x1E69C6888];
     v11 = *MEMORY[0x1E6962980];
-    v88[4] = *MEMORY[0x1E6962978];
-    v88[5] = v11;
+    v87[4] = *MEMORY[0x1E6962978];
+    v87[5] = v11;
     v12 = *MEMORY[0x1E69C68A0];
-    v89[4] = v10;
-    v89[5] = v12;
+    v88[4] = v10;
+    v88[5] = v12;
     v13 = *MEMORY[0x1E69C6878];
     v14 = *MEMORY[0x1E69629A0];
-    v88[6] = *MEMORY[0x1E6962968];
-    v88[7] = v14;
+    v87[6] = *MEMORY[0x1E6962968];
+    v87[7] = v14;
     v15 = *MEMORY[0x1E69C68E0];
-    v89[6] = v13;
-    v89[7] = v15;
+    v88[6] = v13;
+    v88[7] = v15;
     v16 = *MEMORY[0x1E69C68F0];
     v17 = *MEMORY[0x1E6962988];
-    v88[8] = *MEMORY[0x1E69629A8];
-    v88[9] = v17;
+    v87[8] = *MEMORY[0x1E69629A8];
+    v87[9] = v17;
     v18 = *MEMORY[0x1E69C68B0];
-    v89[8] = v16;
-    v89[9] = v18;
+    v88[8] = v16;
+    v88[9] = v18;
     v19 = *MEMORY[0x1E69C6938];
     v20 = *MEMORY[0x1E6962960];
-    v88[10] = *MEMORY[0x1E69629B8];
-    v88[11] = v20;
+    v87[10] = *MEMORY[0x1E69629B8];
+    v87[11] = v20;
     v21 = *MEMORY[0x1E69C6868];
-    v89[10] = v19;
-    v89[11] = v21;
+    v88[10] = v19;
+    v88[11] = v21;
     v22 = *MEMORY[0x1E69C6910];
     v23 = *off_1E798D0F0;
-    v88[12] = *MEMORY[0x1E69629B0];
-    v88[13] = v23;
+    v87[12] = *MEMORY[0x1E69629B0];
+    v87[13] = v23;
     v24 = *MEMORY[0x1E69C6870];
-    v89[12] = v22;
-    v89[13] = v24;
+    v88[12] = v22;
+    v88[13] = v24;
     v25 = *MEMORY[0x1E69C68C8];
     v26 = *off_1E798D100;
-    v88[14] = *off_1E798D0F8;
-    v88[15] = v26;
+    v87[14] = *off_1E798D0F8;
+    v87[15] = v26;
     v27 = *MEMORY[0x1E69C68D0];
-    v89[14] = v25;
-    v89[15] = v27;
+    v88[14] = v25;
+    v88[15] = v27;
     v28 = *MEMORY[0x1E69C68D8];
     v29 = *off_1E798D118;
-    v88[16] = *off_1E798D108;
-    v88[17] = v29;
+    v87[16] = *off_1E798D108;
+    v87[17] = v29;
     v30 = *MEMORY[0x1E69C6908];
-    v89[16] = v28;
-    v89[17] = v30;
-    v88[18] = *off_1E798D110;
-    v89[18] = *MEMORY[0x1E69C6900];
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:v88 count:19];
+    v88[16] = v28;
+    v88[17] = v30;
+    v87[18] = *off_1E798D110;
+    v88[18] = *MEMORY[0x1E69C6900];
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:v87 count:19];
     *(identifiers + 208) = v31;
     v32 = v31;
   }
 
   v33 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(a2, "count")}];
-  v41 = OUTLINED_FUNCTION_2_0(v33, v34, v35, v36, v37, v38, v39, v40, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, 0);
+  v41 = OUTLINED_FUNCTION_2_0(v33, v34, v35, v36, v37, v38, v39, v40, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85);
   if (v41)
   {
     v42 = v41;
@@ -359,7 +358,7 @@ LABEL_21:
         }
       }
 
-      v42 = OUTLINED_FUNCTION_2_0(v46, v47, v48, v49, v50, v51, v52, v53, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v87);
+      v42 = OUTLINED_FUNCTION_2_0(v46, v47, v48, v49, v50, v51, v52, v53, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86);
     }
 
     while (v42);
@@ -468,13 +467,6 @@ LABEL_21:
   v9 = *(count + 2);
   [v6 node:self didEmitCodesCount:a2 emittedIdentifiers:0 originalPTS:&v8];
   return v5;
-}
-
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

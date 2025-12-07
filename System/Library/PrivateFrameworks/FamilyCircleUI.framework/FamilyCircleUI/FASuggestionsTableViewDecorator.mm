@@ -61,32 +61,32 @@
 
 + (BOOL)shouldShowSuggestionsInPage:(id)page
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pageCopy = page;
   if ([pageCopy hasTableView])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     tableViewOM = [pageCopy tableViewOM];
     sections = [tableViewOM sections];
 
-    v6 = [sections countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [sections countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(sections);
           }
 
-          attributes = [*(*(&v16 + 1) + 8 * i) attributes];
+          attributes = [*(*(&v15 + 1) + 8 * i) attributes];
           v11 = [attributes objectForKeyedSubscript:@"familyAction"];
           v12 = [v11 isEqual:@"InjectFamilySuggestionsView"];
 
@@ -97,7 +97,7 @@
           }
         }
 
-        v7 = [sections countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [sections countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v7)
         {
           continue;
@@ -116,7 +116,6 @@ LABEL_13:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -497,50 +496,50 @@ LABEL_14:
 
 - (id)relationForContact:(id)contact
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
-  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
   v5 = self->_emergencyContacts;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v51 objects:v59 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v51;
+    v8 = *v52;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v51 != v8)
+        if (*v52 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v50 + 1) + 8 * i);
+        v10 = *(*(&v51 + 1) + 8 * i);
         nameContactIdentifier = [v10 nameContactIdentifier];
         identifier = [contactCopy identifier];
         v13 = [nameContactIdentifier isEqual:identifier];
 
         if (v13)
         {
-          v35 = _FALogSystem();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v37 = _FALogSystem(v14);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             relationship = [v10 relationship];
             *buf = 138412290;
-            v57 = relationship;
-            _os_log_impl(&dword_21BB35000, v35, OS_LOG_TYPE_DEFAULT, "contact relation from emergency contacts  %@", buf, 0xCu);
+            v58 = relationship;
+            _os_log_impl(&dword_21BB35000, v37, OS_LOG_TYPE_DEFAULT, "contact relation from emergency contacts  %@", buf, 0xCu);
           }
 
-          v37 = MEMORY[0x277CBDB20];
+          v39 = MEMORY[0x277CBDB20];
           relationship2 = [v10 relationship];
-          v39 = [v37 localizedStringForLabel:relationship2];
+          v41 = [v39 localizedStringForLabel:relationship2];
 
-          if (v39)
+          if (v41)
           {
-            localizedCapitalizedString = [v39 localizedCapitalizedString];
+            localizedCapitalizedString = [v41 localizedCapitalizedString];
           }
 
           else
@@ -553,7 +552,7 @@ LABEL_14:
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v51 objects:v59 count:16];
       if (v7)
       {
         continue;
@@ -564,72 +563,72 @@ LABEL_14:
   }
 
   contactStore = self->_contactStore;
-  v15 = *MEMORY[0x277CBD000];
-  v55[0] = *MEMORY[0x277CBD018];
-  v55[1] = v15;
-  v16 = *MEMORY[0x277CBCFF8];
-  v55[2] = *MEMORY[0x277CBD058];
-  v55[3] = v16;
-  v17 = *MEMORY[0x277CBD098];
-  v55[4] = *MEMORY[0x277CBCFC0];
-  v55[5] = v17;
-  v55[6] = *MEMORY[0x277CBD120];
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:7];
-  v49 = 0;
-  v19 = [(CNContactStore *)contactStore _ios_meContactWithKeysToFetch:v18 error:&v49];
-  v44 = v49;
+  v16 = *MEMORY[0x277CBD000];
+  v56[0] = *MEMORY[0x277CBD018];
+  v56[1] = v16;
+  v17 = *MEMORY[0x277CBCFF8];
+  v56[2] = *MEMORY[0x277CBD058];
+  v56[3] = v17;
+  v18 = *MEMORY[0x277CBD098];
+  v56[4] = *MEMORY[0x277CBCFC0];
+  v56[5] = v18;
+  v56[6] = *MEMORY[0x277CBD120];
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:7];
+  v50 = 0;
+  v20 = [(CNContactStore *)contactStore _ios_meContactWithKeysToFetch:v19 error:&v50];
+  v45 = v50;
 
-  v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = v19;
-  contactRelations = [v19 contactRelations];
-  v21 = [contactRelations countByEnumeratingWithState:&v45 objects:v54 count:16];
-  if (v21)
+  v47 = 0u;
+  v44 = v20;
+  contactRelations = [v20 contactRelations];
+  v22 = [contactRelations countByEnumeratingWithState:&v46 objects:v55 count:16];
+  if (v22)
   {
-    v22 = v21;
-    v23 = *v46;
+    v23 = v22;
+    v24 = *v47;
     while (2)
     {
-      for (j = 0; j != v22; ++j)
+      for (j = 0; j != v23; ++j)
       {
-        if (*v46 != v23)
+        if (*v47 != v24)
         {
           objc_enumerationMutation(contactRelations);
         }
 
-        v25 = *(*(&v45 + 1) + 8 * j);
-        value = [v25 value];
+        v26 = *(*(&v46 + 1) + 8 * j);
+        value = [v26 value];
         name = [value name];
-        v28 = [MEMORY[0x277CBDA78] stringFromContact:contactCopy style:0];
-        v29 = [name isEqualToString:v28];
+        v29 = [MEMORY[0x277CBDA78] stringFromContact:contactCopy style:0];
+        v30 = [name isEqualToString:v29];
 
-        if (v29)
+        if (v30)
         {
-          v30 = _FALogSystem();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v32 = _FALogSystem(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v57 = value;
-            _os_log_impl(&dword_21BB35000, v30, OS_LOG_TYPE_DEFAULT, "contact relation from contacts %@", buf, 0xCu);
+            v58 = value;
+            _os_log_impl(&dword_21BB35000, v32, OS_LOG_TYPE_DEFAULT, "contact relation from contacts %@", buf, 0xCu);
           }
 
-          v31 = MEMORY[0x277CBDB20];
-          label = [v25 label];
-          v33 = [v31 localizedStringForLabel:label];
+          v33 = MEMORY[0x277CBDB20];
+          label = [v26 label];
+          v35 = [v33 localizedStringForLabel:label];
 
-          if (v33)
+          if (v35)
           {
-            localizedCapitalizedString = [v33 localizedCapitalizedString];
+            localizedCapitalizedString = [v35 localizedCapitalizedString];
 
             goto LABEL_26;
           }
         }
       }
 
-      v22 = [contactRelations countByEnumeratingWithState:&v45 objects:v54 count:16];
-      if (v22)
+      v23 = [contactRelations countByEnumeratingWithState:&v46 objects:v55 count:16];
+      if (v23)
       {
         continue;
       }
@@ -642,11 +641,9 @@ LABEL_14:
   localizedCapitalizedString = [contactRelations localizedStringForKey:@"FAMILY_SUGGESTION_DEFAULT_DETAIL_LABEL" value:&stru_282D9AA68 table:@"Localizable"];
 LABEL_26:
 
-  v39 = v43;
-  v5 = v44;
+  v41 = v44;
+  v5 = v45;
 LABEL_28:
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return localizedCapitalizedString;
 }
@@ -672,21 +669,22 @@ LABEL_28:
   handleCopy = handle;
   if (for == 2)
   {
-    if (+[FAMailInviteConfigurationController isAvailable])
+    v12 = +[FAMailInviteConfigurationController isAvailable];
+    if (v12)
     {
-      v11 = [FAMailInviteConfigurationController alloc];
+      v13 = [FAMailInviteConfigurationController alloc];
       context = self->_context;
       hostViewController = [(RemoteUIController *)self->_viewController hostViewController];
-      v10 = [(FAMailInviteConfigurationController *)v11 initWithInviteContext:context presentingController:hostViewController email:handleCopy];
+      v11 = [(FAMailInviteConfigurationController *)v13 initWithInviteContext:context presentingController:hostViewController email:handleCopy];
       goto LABEL_7;
     }
 
-    v14 = _FALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _FALogSystem(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      v15 = "Device cannot send emails";
-      v16 = &v17;
+      LOWORD(v19) = 0;
+      v17 = "Device cannot send emails";
+      v18 = &v19;
       goto LABEL_12;
     }
 
@@ -697,27 +695,28 @@ LABEL_13:
 
   if (for == 1)
   {
-    if (+[FAMessagesInviteConfigurationController isAvailable])
+    v7 = +[FAMessagesInviteConfigurationController isAvailable];
+    if (v7)
     {
-      v7 = [FAMessagesInviteConfigurationController alloc];
-      v8 = self->_context;
+      v8 = [FAMessagesInviteConfigurationController alloc];
+      v9 = self->_context;
       hostViewController = [(RemoteUIController *)self->_viewController hostViewController];
-      v10 = [(FAMessagesInviteConfigurationController *)v7 initWithInviteContext:v8 presentingController:hostViewController familySuggestionHandle:handleCopy];
+      v11 = [(FAMessagesInviteConfigurationController *)v8 initWithInviteContext:v9 presentingController:hostViewController familySuggestionHandle:handleCopy];
 LABEL_7:
       inviteConfigurationController = self->_inviteConfigurationController;
-      self->_inviteConfigurationController = v10;
+      self->_inviteConfigurationController = v11;
 
       goto LABEL_14;
     }
 
-    v14 = _FALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _FALogSystem(v7);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 0;
-      v15 = "Device cannot send messages";
-      v16 = &v18;
+      v20 = 0;
+      v17 = "Device cannot send messages";
+      v18 = &v20;
 LABEL_12:
-      _os_log_impl(&dword_21BB35000, v14, OS_LOG_TYPE_DEFAULT, v15, v16, 2u);
+      _os_log_impl(&dword_21BB35000, v16, OS_LOG_TYPE_DEFAULT, v17, v18, 2u);
       goto LABEL_13;
     }
 
@@ -725,7 +724,7 @@ LABEL_12:
   }
 
 LABEL_14:
-  [(FAInviteConfigurationController *)self->_inviteConfigurationController setDelegate:self, v17];
+  [(FAInviteConfigurationController *)self->_inviteConfigurationController setDelegate:self, v19];
   [(FAInviteConfigurationController *)self->_inviteConfigurationController presentWhenReadyWithCompletion:&__block_literal_global_1];
 }
 
@@ -733,7 +732,7 @@ LABEL_14:
 {
   v30 = *MEMORY[0x277D85DE8];
   recipientsCopy = recipients;
-  v10 = _FALogSystem();
+  v10 = _FALogSystem(recipientsCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -763,6 +762,7 @@ LABEL_14:
     v27 = 0;
     v18 = [MEMORY[0x277CCAC58] dataWithPropertyList:v14 format:100 options:0 error:&v27];
     v19 = v27;
+    v20 = v19;
     if (v18)
     {
       viewController = self->_viewController;
@@ -775,38 +775,36 @@ LABEL_14:
       selfCopy = self;
       [(RemoteUIController *)viewController loadURL:reportInviteeDetailsUrl postBody:v18 completion:v24];
 
-      v22 = v25;
+      v23 = v25;
     }
 
     else
     {
-      v22 = _FALogSystem();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = _FALogSystem(v19);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        statusCopy = v19;
-        _os_log_impl(&dword_21BB35000, v22, OS_LOG_TYPE_DEFAULT, "Couldn't serialize FAInviteCompletionInfo with error: %@", buf, 0xCu);
+        statusCopy = v20;
+        _os_log_impl(&dword_21BB35000, v23, OS_LOG_TYPE_DEFAULT, "Couldn't serialize FAInviteCompletionInfo with error: %@", buf, 0xCu);
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __98__FASuggestionsTableViewDecorator_inviteController_didFinishWithStatus_recipients_userInfo_error___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v7)
     {
       v8 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "successfully sent pending invite info to server for  %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "successfully sent pending invite info to server for  %@", &v10, 0xCu);
     }
 
     [*(a1 + 40) updateSuggestionCellFor:*(a1 + 32)];
@@ -818,13 +816,11 @@ void __98__FASuggestionsTableViewDecorator_inviteController_didFinishWithStatus_
     if (v7)
     {
       v9 = [v5 localizedDescription];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Error sending invite info to server %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Error sending invite info to server %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSuggestionCellFor:(id)for
@@ -873,14 +869,14 @@ void __59__FASuggestionsTableViewDecorator_updateSuggestionCellFor___block_invok
 
 - (void)sendSuggestionFeedbackFor:(id)for
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   forCopy = for;
-  v58 = objc_alloc_init(MEMORY[0x277D3A0E0]);
-  v55 = forCopy;
+  v60 = objc_alloc_init(MEMORY[0x277D3A0E0]);
+  v57 = forCopy;
   firstObject = [forCopy firstObject];
-  v57 = [(FASuggestionsTableViewDecorator *)self indexFor:firstObject];
+  v59 = [(FASuggestionsTableViewDecorator *)self indexFor:firstObject];
 
-  v5 = -[NSArray objectAtIndexedSubscript:](self->_recommendedFamilyMembers, "objectAtIndexedSubscript:", [v57 intValue]);
+  v5 = -[NSArray objectAtIndexedSubscript:](self->_recommendedFamilyMembers, "objectAtIndexedSubscript:", [v59 intValue]);
   megadomeAdoption = [MEMORY[0x277D08258] megadomeAdoption];
   if (![megadomeAdoption isEnabled])
   {
@@ -900,112 +896,114 @@ LABEL_4:
 
   if (megadomeFeedbackEventId != -1)
   {
-    v39 = _FALogSystem();
+    v39 = _FALogSystem(v8);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_21BB35000, v39, OS_LOG_TYPE_DEFAULT, "Submitting feedback to Megadome for suggestion tap", buf, 2u);
     }
 
-    v72 = 0;
-    v73 = &v72;
-    v74 = 0x2050000000;
+    v74 = 0;
+    v75 = &v74;
+    v76 = 0x2050000000;
     v40 = getGDPersonEntityTagEventIDSetClass_softClass;
-    v75 = getGDPersonEntityTagEventIDSetClass_softClass;
+    v77 = getGDPersonEntityTagEventIDSetClass_softClass;
     if (!getGDPersonEntityTagEventIDSetClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
-      v68 = 3221225472;
-      v69 = __getGDPersonEntityTagEventIDSetClass_block_invoke;
-      v70 = &unk_2782F2988;
-      v71 = &v72;
+      v70 = 3221225472;
+      v71 = __getGDPersonEntityTagEventIDSetClass_block_invoke;
+      v72 = &unk_2782F2988;
+      v73 = &v74;
       __getGDPersonEntityTagEventIDSetClass_block_invoke(buf);
-      v40 = v73[3];
+      v40 = v75[3];
     }
 
     v41 = v40;
-    _Block_object_dispose(&v72, 8);
+    _Block_object_dispose(&v74, 8);
     v42 = [v40 alloc];
     feedbackContext2 = [(FAInviteSuggestions *)self->_suggester feedbackContext];
-    v56 = [v42 initWithEventId:{objc_msgSend(feedbackContext2, "megadomeFeedbackEventId")}];
+    v58 = [v42 initWithEventId:{objc_msgSend(feedbackContext2, "megadomeFeedbackEventId")}];
 
-    v72 = 0;
-    v73 = &v72;
-    v74 = 0x2050000000;
+    v74 = 0;
+    v75 = &v74;
+    v76 = 0x2050000000;
     v44 = getGDPersonEntityTaggingStatefulFeedbackClass_softClass;
-    v75 = getGDPersonEntityTaggingStatefulFeedbackClass_softClass;
+    v77 = getGDPersonEntityTaggingStatefulFeedbackClass_softClass;
     if (!getGDPersonEntityTaggingStatefulFeedbackClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
-      v68 = 3221225472;
-      v69 = __getGDPersonEntityTaggingStatefulFeedbackClass_block_invoke;
-      v70 = &unk_2782F2988;
-      v71 = &v72;
+      v70 = 3221225472;
+      v71 = __getGDPersonEntityTaggingStatefulFeedbackClass_block_invoke;
+      v72 = &unk_2782F2988;
+      v73 = &v74;
       __getGDPersonEntityTaggingStatefulFeedbackClass_block_invoke(buf);
-      v44 = v73[3];
+      v44 = v75[3];
     }
 
     v45 = v44;
-    _Block_object_dispose(&v72, 8);
-    v60 = [[v44 alloc] initWithStatefulFeedbackType:2 eventIds:v56];
-    v72 = 0;
-    v73 = &v72;
-    v74 = 0x2050000000;
+    _Block_object_dispose(&v74, 8);
+    v62 = [[v44 alloc] initWithStatefulFeedbackType:2 eventIds:v58];
+    v74 = 0;
+    v75 = &v74;
+    v76 = 0x2050000000;
     v46 = getGDConfigurationClass_softClass;
-    v75 = getGDConfigurationClass_softClass;
+    v77 = getGDConfigurationClass_softClass;
     if (!getGDConfigurationClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
-      v68 = 3221225472;
-      v69 = __getGDConfigurationClass_block_invoke;
-      v70 = &unk_2782F2988;
-      v71 = &v72;
+      v70 = 3221225472;
+      v71 = __getGDConfigurationClass_block_invoke;
+      v72 = &unk_2782F2988;
+      v73 = &v74;
       __getGDConfigurationClass_block_invoke(buf);
-      v46 = v73[3];
+      v46 = v75[3];
     }
 
     v47 = v46;
-    _Block_object_dispose(&v72, 8);
+    _Block_object_dispose(&v74, 8);
     suggesterWithDaemon = objc_alloc_init(v46);
-    v72 = 0;
-    v73 = &v72;
-    v74 = 0x2050000000;
+    v74 = 0;
+    v75 = &v74;
+    v76 = 0x2050000000;
     v48 = getGDEntityTaggingServiceClass_softClass;
-    v75 = getGDEntityTaggingServiceClass_softClass;
+    v77 = getGDEntityTaggingServiceClass_softClass;
     if (!getGDEntityTaggingServiceClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
-      v68 = 3221225472;
-      v69 = __getGDEntityTaggingServiceClass_block_invoke;
-      v70 = &unk_2782F2988;
-      v71 = &v72;
+      v70 = 3221225472;
+      v71 = __getGDEntityTaggingServiceClass_block_invoke;
+      v72 = &unk_2782F2988;
+      v73 = &v74;
       __getGDEntityTaggingServiceClass_block_invoke(buf);
-      v48 = v73[3];
+      v48 = v75[3];
     }
 
     v49 = v48;
-    _Block_object_dispose(&v72, 8);
-    v66 = 0;
-    v50 = [[v48 alloc] initWithConfig:suggesterWithDaemon error:&v66];
-    v51 = v66;
+    _Block_object_dispose(&v74, 8);
+    v68 = 0;
+    v50 = [[v48 alloc] initWithConfig:suggesterWithDaemon error:&v68];
+    v51 = v68;
+    v52 = v51;
     if (!v50)
     {
-      v52 = _FALogSystem();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v53 = _FALogSystem(v51);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
-        [(FASuggestionsTableViewDecorator *)v51 sendSuggestionFeedbackFor:v52];
+        [(FASuggestionsTableViewDecorator *)v52 sendSuggestionFeedbackFor:v53];
       }
     }
 
-    v65 = 0;
-    [v50 recordStatefulFeedback:v60 error:&v65];
-    v53 = v65;
-    if (v53)
+    v67 = 0;
+    [v50 recordStatefulFeedback:v62 error:&v67];
+    v54 = v67;
+    v55 = v54;
+    if (v54)
     {
-      v54 = _FALogSystem();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+      v56 = _FALogSystem(v54);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
-        [(FASuggestionsTableViewDecorator *)v53 sendSuggestionFeedbackFor:v54];
+        [(FASuggestionsTableViewDecorator *)v55 sendSuggestionFeedbackFor:v56];
       }
     }
 
@@ -1013,52 +1011,52 @@ LABEL_4:
   }
 
 LABEL_5:
-  v8 = _FALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _FALogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "Submitting feedback to PeopleSuggester for suggestion tap", buf, 2u);
+    _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "Submitting feedback to PeopleSuggester for suggestion tap", buf, 2u);
   }
 
+  v65 = 0u;
+  v66 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
   feedbackContext3 = [(FAInviteSuggestions *)self->_suggester feedbackContext];
   peopleSuggesterSuggestions = [feedbackContext3 peopleSuggesterSuggestions];
 
-  v11 = [peopleSuggesterSuggestions countByEnumeratingWithState:&v61 objects:v76 count:16];
-  if (v11)
+  v12 = [peopleSuggesterSuggestions countByEnumeratingWithState:&v63 objects:v78 count:16];
+  if (v12)
   {
-    v12 = *v62;
+    v13 = *v64;
     while (2)
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v62 != v12)
+        if (*v64 != v13)
         {
           objc_enumerationMutation(peopleSuggesterSuggestions);
         }
 
-        v14 = *(*(&v61 + 1) + 8 * i);
-        recipients = [v14 recipients];
+        v15 = *(*(&v63 + 1) + 8 * i);
+        recipients = [v15 recipients];
         firstObject2 = [recipients firstObject];
 
         handle = [v5 handle];
         handle2 = [firstObject2 handle];
-        v19 = [handle isEqual:handle2];
+        v20 = [handle isEqual:handle2];
 
-        if (v19)
+        if (v20)
         {
-          v20 = v14;
+          v21 = v15;
 
-          v58 = v20;
+          v60 = v21;
           goto LABEL_17;
         }
       }
 
-      v11 = [peopleSuggesterSuggestions countByEnumeratingWithState:&v61 objects:v76 count:16];
-      if (v11)
+      v12 = [peopleSuggesterSuggestions countByEnumeratingWithState:&v63 objects:v78 count:16];
+      if (v12)
       {
         continue;
       }
@@ -1069,47 +1067,43 @@ LABEL_5:
 
 LABEL_17:
 
-  v21 = objc_alloc(MEMORY[0x277D3A0A8]);
-  bundleID = [v58 bundleID];
-  v56 = [v21 initWithType:0 suggestion:v58 transportBundleID:bundleID];
+  v22 = objc_alloc(MEMORY[0x277D3A0A8]);
+  bundleID = [v60 bundleID];
+  v58 = [v22 initWithType:0 suggestion:v60 transportBundleID:bundleID];
 
-  v23 = MEMORY[0x277D3A0A0];
+  v24 = MEMORY[0x277D3A0A0];
   date = [MEMORY[0x277CBEAA8] date];
   feedbackContext4 = [(FAInviteSuggestions *)self->_suggester feedbackContext];
   peopleSuggesterPredictionContext = [feedbackContext4 peopleSuggesterPredictionContext];
   suggestionDate = [peopleSuggesterPredictionContext suggestionDate];
   [date timeIntervalSinceDate:suggestionDate];
-  v29 = v28;
+  v30 = v29;
   feedbackContext5 = [(FAInviteSuggestions *)self->_suggester feedbackContext];
   peopleSuggesterPredictionContext2 = [feedbackContext5 peopleSuggesterPredictionContext];
   feedbackContext6 = [(FAInviteSuggestions *)self->_suggester feedbackContext];
   peopleSuggesterSuggestions2 = [feedbackContext6 peopleSuggesterSuggestions];
-  *&v34 = [(NSArray *)self->_recommendedFamilyMembers count];
-  v60 = [v23 feedbackForAction:v56 delay:peopleSuggesterPredictionContext2 context:peopleSuggesterSuggestions2 suggestions:0 numberOfVisibleSuggestions:v29 sessionIdentifier:v34];
+  *&v35 = [(NSArray *)self->_recommendedFamilyMembers count];
+  v62 = [v24 feedbackForAction:v58 delay:peopleSuggesterPredictionContext2 context:peopleSuggesterSuggestions2 suggestions:0 numberOfVisibleSuggestions:v30 sessionIdentifier:v35];
 
   suggesterWithDaemon = [MEMORY[0x277D3A0D0] suggesterWithDaemon];
-  [suggesterWithDaemon provideFeedbackForSuggestions:v60];
+  [suggesterWithDaemon provideFeedbackForSuggestions:v62];
 LABEL_18:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendSuggestionFeedbackFor:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Error initializing megadome entity tagging service while providing feedback: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Error initializing megadome entity tagging service while providing feedback: %@", &v2, 0xCu);
 }
 
 - (void)sendSuggestionFeedbackFor:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Error providing feedback to megadome: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Error providing feedback to megadome: %@", &v2, 0xCu);
 }
 
 @end

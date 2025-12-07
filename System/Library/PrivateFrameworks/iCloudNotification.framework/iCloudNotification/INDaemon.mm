@@ -23,6 +23,8 @@
 - (void)_stopHeartbeat;
 - (void)_unregisterAccount:(id)account fromiCloudNotificationsWithReason:(unint64_t)reason completion:(id)completion;
 - (void)_unsafe_ensureFreshmintActivityValidity;
+- (void)_unsafe_icqReconsiderOffersWithReason:(id)reason reuseLocalOffers:(BOOL)offers;
+- (void)_unsafe_icqReconsiderOffersWithReason:(id)reason reuseLocalOffers:(BOOL)offers completion:(id)completion;
 - (void)_unsafe_icqUpdateOfferForButtonId:(id)id;
 - (void)_unsafe_performFreshmintRefreshWithReason:(id)reason;
 - (void)_validateEnabledTopics;
@@ -1947,30 +1949,29 @@ LABEL_14:
         sub_100038268();
       }
 
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v9 = aa_appleAccounts;
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v17;
+        v12 = *v16;
         do
         {
-          for (i = 0; i != v11; i = i + 1)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v17 != v12)
+            if (*v16 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v15 = *(*(&v16 + 1) + 8 * i);
             [INDaemon registerForPushNotificationsWithAccount:"registerForPushNotificationsWithAccount:reason:completion:" reason:? completion:?];
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
         }
 
         while (v11);
@@ -2116,6 +2117,68 @@ LABEL_15:
   }
 
   [(INDaemon *)self _unsafe_icqReconsiderOffersWithReason:reasonCopy];
+}
+
+- (void)_unsafe_icqReconsiderOffersWithReason:(id)reason reuseLocalOffers:(BOOL)offers
+{
+  offersCopy = offers;
+  reasonCopy = reason;
+  v7 = +[UMUserPersona currentPersona];
+  isEnterprisePersona = [v7 isEnterprisePersona];
+
+  if (isEnterprisePersona)
+  {
+    v9 = _INLogSystem();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000383E8();
+    }
+  }
+
+  else
+  {
+    [(INDaemon *)self _unsafe_icqReconsiderOffersWithReason:reasonCopy reuseLocalOffers:offersCopy completion:0];
+  }
+}
+
+- (void)_unsafe_icqReconsiderOffersWithReason:(id)reason reuseLocalOffers:(BOOL)offers completion:(id)completion
+{
+  offersCopy = offers;
+  reasonCopy = reason;
+  completionCopy = completion;
+  if ([(INDaemon *)self reconsideringOffers])
+  {
+    v10 = _INLogSystem();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Already reconsidering offers -- skipping", buf, 2u);
+    }
+  }
+
+  else
+  {
+    v11 = os_transaction_create();
+    [(INDaemon *)self setReconsideringOffers:1];
+    v12 = _INLogSystem();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v18 = reasonCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Reconsidering iCloud offers for reason: %@.", buf, 0xCu);
+    }
+
+    v13 = +[ICQDaemonOfferManager sharedDaemonOfferManager];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100016408;
+    v14[3] = &unk_100055B90;
+    v15 = v11;
+    v16 = completionCopy;
+    v14[4] = self;
+    v10 = v11;
+    [v13 reconsiderOffersWithReason:reasonCopy reuseLocalOffers:offersCopy completion:v14];
+  }
 }
 
 - (void)_unsafe_icqUpdateOfferForButtonId:(id)id

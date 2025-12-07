@@ -46,9 +46,11 @@
 
 uint64_t __23__EKPreferences_shared__block_invoke()
 {
-  shared_sharedPreferences = objc_alloc_init(EKPreferences);
+  v0 = objc_alloc_init(EKPreferences);
+  v1 = shared_sharedPreferences;
+  shared_sharedPreferences = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (NSArray)deselectedCalendarIdentifiers
@@ -169,7 +171,7 @@ uint64_t __23__EKPreferences_shared__block_invoke()
 - (void)setDeselectedCalendars:(id)calendars reason:(id)reason
 {
   selfCopy = self;
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   calendarsCopy = calendars;
   reasonCopy = reason;
   v7 = EKLogHandle;
@@ -177,34 +179,34 @@ uint64_t __23__EKPreferences_shared__block_invoke()
   {
     v8 = v7;
     *buf = 134218242;
-    v36 = [calendarsCopy count];
-    v37 = 2114;
-    v38 = reasonCopy;
+    v35 = [calendarsCopy count];
+    v36 = 2114;
+    v37 = reasonCopy;
     _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "Saving of %lu invisible calendars commencing: %{public}@", buf, 0x16u);
   }
 
-  v29 = reasonCopy;
+  v28 = reasonCopy;
   v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(calendarsCopy, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v10 = calendarsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v31;
+    v13 = *v30;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v15 = *(*(&v29 + 1) + 8 * i);
         calendarIdentifier = [v15 calendarIdentifier];
         v17 = EKLogHandle;
         if (calendarIdentifier)
@@ -212,7 +214,7 @@ uint64_t __23__EKPreferences_shared__block_invoke()
           if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v36 = calendarIdentifier;
+            v35 = calendarIdentifier;
             _os_log_debug_impl(&dword_1A805E000, v17, OS_LOG_TYPE_DEBUG, "Saving calendar identifier [%@] of invisible calendar", buf, 0xCu);
           }
 
@@ -222,12 +224,12 @@ uint64_t __23__EKPreferences_shared__block_invoke()
         else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v36 = v15;
+          v35 = v15;
           _os_log_error_impl(&dword_1A805E000, v17, OS_LOG_TYPE_ERROR, "No calendar identifier found.  Will not be able to save all invisible calendars.  Calendar: [%@]", buf, 0xCu);
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v12);
@@ -242,38 +244,36 @@ uint64_t __23__EKPreferences_shared__block_invoke()
   {
     [(EKPreferences *)v19 setDeselectedCalendars:v20 reason:v21, v22, v23, v24, v25, v26];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setDeselectedCalendars_iOS:(id)s
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   sCopy = s;
-  v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(sCopy, "count")}];
+  v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(sCopy, "count")}];
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(sCopy, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = sCopy;
-  v5 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v5 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v23;
+    v8 = *v22;
     *&v6 = 138412290;
-    v19 = v6;
+    v18 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         calendarIdentifier = [v10 calendarIdentifier];
         syncHash = [v10 syncHash];
         v13 = EKLogHandle;
@@ -282,19 +282,19 @@ uint64_t __23__EKPreferences_shared__block_invoke()
           if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v27 = syncHash;
-            v28 = 2112;
-            v29 = calendarIdentifier;
+            v26 = syncHash;
+            v27 = 2112;
+            v28 = calendarIdentifier;
             _os_log_debug_impl(&dword_1A805E000, v13, OS_LOG_TYPE_DEBUG, "Saving sync hash [%@] of invisible calendar with identifier [%@]", buf, 0x16u);
           }
 
-          [v21 addObject:syncHash];
+          [v20 addObject:syncHash];
         }
 
         else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
         {
-          *buf = v19;
-          v27 = v10;
+          *buf = v18;
+          v26 = v10;
           _os_log_error_impl(&dword_1A805E000, v13, OS_LOG_TYPE_ERROR, "No calendar sync hash found.  Will not be able to save all calendar sync hashes.  Calendar: [%@]", buf, 0xCu);
         }
 
@@ -305,9 +305,9 @@ uint64_t __23__EKPreferences_shared__block_invoke()
           if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v27 = selectionSyncIdentifier;
-            v28 = 2112;
-            v29 = calendarIdentifier;
+            v26 = selectionSyncIdentifier;
+            v27 = 2112;
+            v28 = calendarIdentifier;
             _os_log_debug_impl(&dword_1A805E000, v15, OS_LOG_TYPE_DEBUG, "Saving sync identifier [%@] of invisible calendar with identifier [%@]", buf, 0x16u);
           }
 
@@ -316,13 +316,13 @@ uint64_t __23__EKPreferences_shared__block_invoke()
 
         else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
         {
-          *buf = v19;
-          v27 = v10;
+          *buf = v18;
+          v26 = v10;
           _os_log_error_impl(&dword_1A805E000, v15, OS_LOG_TYPE_ERROR, "No calendar sync identifier found.  Will not be able to save all calendar sync identifiers.  Calendar: [%@]", buf, 0xCu);
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v7 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v7);
@@ -332,9 +332,7 @@ uint64_t __23__EKPreferences_shared__block_invoke()
   [v16 _setDeselectedCalendarSyncIdentifiers:v4];
 
   v17 = +[EKPreferences shared];
-  [v17 _setDeselectedCalendarSyncHashes:v21];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [v17 _setDeselectedCalendarSyncHashes:v20];
 }
 
 - (void)_setDeselectedCalendarIdentifiers:(id)identifiers
@@ -359,7 +357,7 @@ uint64_t __23__EKPreferences_shared__block_invoke()
 
 - (BOOL)_array:(id)_array hasSameElementAsArray:(id)array
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   _arrayCopy = _array;
   arrayCopy = array;
   v7 = [_arrayCopy count];
@@ -368,33 +366,33 @@ uint64_t __23__EKPreferences_shared__block_invoke()
     if ([_arrayCopy count])
     {
       v8 = [MEMORY[0x1E695DFD8] setWithArray:_arrayCopy];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
       v9 = arrayCopy;
-      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v18;
+        v12 = *v17;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v18 != v12)
+            if (*v17 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            if (![v8 containsObject:{*(*(&v17 + 1) + 8 * i), v17}])
+            if (![v8 containsObject:{*(*(&v16 + 1) + 8 * i), v16}])
             {
               v14 = 0;
               goto LABEL_14;
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v11)
           {
             continue;
@@ -419,7 +417,6 @@ LABEL_14:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -491,11 +488,10 @@ LABEL_14:
 
 - (void)setTravelEngineThrottlePeriod:(os_log_t)log .cold.1(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_error_impl(&dword_1A805E000, log, OS_LOG_TYPE_ERROR, "Will not set a travel lookahead interval of less than 0.  Given value: [%f]", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_error_impl(&dword_1A805E000, log, OS_LOG_TYPE_ERROR, "Will not set a travel lookahead interval of less than 0.  Given value: [%f]", &v2, 0xCu);
 }
 
 @end

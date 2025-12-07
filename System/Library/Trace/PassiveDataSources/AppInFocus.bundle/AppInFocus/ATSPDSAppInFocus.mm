@@ -46,7 +46,7 @@
     v17 = [publisher sinkWithCompletion:v49 receiveInput:v45];
     if (v57[3])
     {
-      v18 = sub_16D0();
+      v18 = sub_16D0(v17);
       if (os_signpost_enabled(v18))
       {
         v19 = [v16 count];

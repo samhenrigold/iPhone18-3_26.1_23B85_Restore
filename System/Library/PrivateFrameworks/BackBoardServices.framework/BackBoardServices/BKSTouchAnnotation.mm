@@ -16,12 +16,14 @@
   v5 = [(BKSTouchAnnotation *)&v11 init];
   if (v5)
   {
-    v5->_touchIdentifier = [coderCopy decodeInt32ForKey:@"touchIdentifier"];
-    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"text"];
+    v5->_touchIdentifier = [coderCopy decodeInt32ForKey:?];
+    objc_opt_class();
+    v6 = [coderCopy decodeObjectOfClass:? forKey:?];
     text = v5->_text;
     v5->_text = v6;
 
-    v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uniqueIdentifier"];
+    objc_opt_class();
+    v8 = [coderCopy decodeObjectOfClass:? forKey:?];
     uniqueIdentifier = v5->_uniqueIdentifier;
     v5->_uniqueIdentifier = v8;
   }
@@ -31,22 +33,20 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  touchIdentifier = self->_touchIdentifier;
   coderCopy = coder;
-  [coderCopy encodeInt32:touchIdentifier forKey:@"touchIdentifier"];
-  [coderCopy encodeObject:self->_text forKey:@"text"];
-  [coderCopy encodeObject:self->_uniqueIdentifier forKey:@"uniqueIdentifier"];
+  [coderCopy encodeInt32:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
   succinctDescriptionBuilder = [(BKSTouchAnnotation *)self succinctDescriptionBuilder];
-  v5 = [succinctDescriptionBuilder appendUnsignedInt:self->_touchIdentifier withName:@"touchIdentifier"];
-  v6 = [succinctDescriptionBuilder appendObject:self->_text withName:@"text"];
-  uniqueIdentifier = self->_uniqueIdentifier;
-  if (uniqueIdentifier)
+  v5 = [succinctDescriptionBuilder appendUnsignedInt:? withName:?];
+  v6 = [succinctDescriptionBuilder appendObject:? withName:?];
+  if (self->_uniqueIdentifier)
   {
-    v8 = [succinctDescriptionBuilder appendObject:uniqueIdentifier withName:@"uniqueIdentifier"];
+    v7 = [succinctDescriptionBuilder appendObject:? withName:?];
   }
 
   return succinctDescriptionBuilder;
@@ -54,7 +54,7 @@
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
 {
-  v3 = [(BKSTouchAnnotation *)self descriptionBuilderWithMultilinePrefix:prefix];
+  v3 = [(BKSTouchAnnotation *)self descriptionBuilderWithMultilinePrefix:?];
   build = [v3 build];
 
   return build;

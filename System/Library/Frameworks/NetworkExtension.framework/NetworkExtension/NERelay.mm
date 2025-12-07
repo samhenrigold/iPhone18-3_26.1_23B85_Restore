@@ -6,6 +6,7 @@
 - (NSData)identityReferenceInternal;
 - (__SecIdentity)copySecIdentityRef;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)clearKeychainItemsInDomain:(int64_t)domain removeItems:(BOOL)items;
 - (void)copyPasswordsFromKeychainInDomain:(int64_t)domain;
 - (void)encodeWithCoder:(id)coder;
@@ -20,7 +21,7 @@
 
 - (__SecIdentity)copySecIdentityRef
 {
-  v46[3] = *MEMORY[0x1E69E9840];
+  v45[3] = *MEMORY[0x1E69E9840];
   identity = [(NERelay *)self identity];
   isModernSystem = [identity isModernSystem];
 
@@ -28,33 +29,33 @@
   if (isModernSystem)
   {
     v6 = *MEMORY[0x1E695E4D0];
-    v40[0] = *MEMORY[0x1E695E4D0];
+    v39[0] = *MEMORY[0x1E695E4D0];
     v7 = *MEMORY[0x1E697B3C8];
-    v39[0] = v5;
-    v39[1] = v7;
+    v38[0] = v5;
+    v38[1] = v7;
     identity2 = [(NERelay *)self identity];
     persistentReference = [identity2 persistentReference];
     v10 = *MEMORY[0x1E697AFF8];
-    v39[2] = *MEMORY[0x1E697AFF8];
+    v38[2] = *MEMORY[0x1E697AFF8];
     v11 = *MEMORY[0x1E697B000];
-    v40[1] = persistentReference;
-    v40[2] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:3];
+    v39[1] = persistentReference;
+    v39[2] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:3];
 
     result = 0;
     v13 = SecItemCopyMatching(v12, &result);
     if (result)
     {
-      v38[0] = v6;
-      v37[0] = v5;
-      v37[1] = v7;
+      v37[0] = v6;
+      v36[0] = v5;
+      v36[1] = v7;
       identity3 = [(NERelay *)self identity];
       keyPersistentReference = [identity3 keyPersistentReference];
-      v37[2] = v10;
+      v36[2] = v10;
       v16 = *MEMORY[0x1E697B020];
-      v38[1] = keyPersistentReference;
-      v38[2] = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:3];
+      v37[1] = keyPersistentReference;
+      v37[2] = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:3];
 
       cf = 0;
       v18 = SecItemCopyMatching(v17, &cf);
@@ -95,8 +96,8 @@
         {
           *buf = 138412546;
           selfCopy4 = self;
-          v43 = 1024;
-          v44 = v31;
+          v42 = 1024;
+          v43 = v31;
           _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, "%@ SecItemCopyMatching for key failed %d", buf, 0x12u);
         }
 
@@ -118,8 +119,8 @@ LABEL_24:
     {
       *buf = 138412546;
       selfCopy4 = self;
-      v43 = 1024;
-      v44 = v29;
+      v42 = 1024;
+      v43 = v29;
       _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "%@ SecItemCopyMatching for cert failed %d", buf, 0x12u);
     }
 
@@ -130,16 +131,16 @@ LABEL_24:
   {
     v21 = *MEMORY[0x1E695E4D0];
     v22 = *MEMORY[0x1E697AFF8];
-    v45[0] = *MEMORY[0x1E697B328];
-    v45[1] = v22;
+    v44[0] = *MEMORY[0x1E697B328];
+    v44[1] = v22;
     v23 = *MEMORY[0x1E697B010];
-    v46[0] = v21;
-    v46[1] = v23;
-    v45[2] = *MEMORY[0x1E697B3C8];
+    v45[0] = v21;
+    v45[1] = v23;
+    v44[2] = *MEMORY[0x1E697B3C8];
     identity4 = [(NERelay *)self identity];
     persistentReference2 = [identity4 persistentReference];
-    v46[2] = persistentReference2;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:3];
+    v45[2] = persistentReference2;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:3];
 
     result = 0;
     v26 = SecItemCopyMatching(v12, &result);
@@ -152,8 +153,8 @@ LABEL_24:
       {
         *buf = 138412546;
         selfCopy4 = self;
-        v43 = 1024;
-        v44 = v27;
+        v42 = 1024;
+        v43 = v27;
         _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "%@ SecItemCopyMatching for identity failed %d", buf, 0x12u);
       }
     }
@@ -161,7 +162,6 @@ LABEL_24:
 
 LABEL_25:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -183,7 +183,7 @@ LABEL_25:
 - (void)clearKeychainItemsInDomain:(int64_t)domain removeItems:(BOOL)items
 {
   itemsCopy = items;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identityDataPasswordKeychainItem = [(NERelay *)self identityDataPasswordKeychainItem];
   if (identityDataPasswordKeychainItem)
   {
@@ -204,10 +204,10 @@ LABEL_25:
     [identity remove];
 
     [(NERelay *)self setIdentityData:0];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     if (self)
     {
       Property = objc_getProperty(self, v13, 96, 1);
@@ -219,24 +219,24 @@ LABEL_25:
     }
 
     v15 = Property;
-    v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v23;
+      v18 = *v22;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v23 != v18)
+          if (*v22 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          [*(*(&v22 + 1) + 8 * i) remove];
+          [*(*(&v21 + 1) + 8 * i) remove];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v17);
@@ -252,8 +252,6 @@ LABEL_25:
   {
     objc_setProperty_atomic(self, v20, 0, 96);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncWithKeychainInDomainCommon:(int64_t)common
@@ -281,38 +279,38 @@ LABEL_25:
 
 - (NSArray)certificateReferences
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy && objc_getProperty(selfCopy, v3, 96, 1))
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = objc_getProperty(selfCopy, v5, 96, 1);
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          persistentReference = [*(*(&v13 + 1) + 8 * i) persistentReference];
+          persistentReference = [*(*(&v12 + 1) + 8 * i) persistentReference];
           if (persistentReference)
           {
             [v4 addObject:persistentReference];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -326,40 +324,38 @@ LABEL_25:
 
   objc_sync_exit(selfCopy);
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)setCertificateReferences:(id)references
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   referencesCopy = references;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (referencesCopy)
   {
     newValue = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v7 = referencesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         v10 = 0;
         do
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * v10);
+          v11 = *(*(&v21 + 1) + 8 * v10);
           v13 = [NEKeychainItem alloc];
           if (selfCopy)
           {
@@ -385,7 +381,7 @@ LABEL_25:
         }
 
         while (v8 != v10);
-        v18 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v18 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
         v8 = v18;
       }
 
@@ -404,20 +400,18 @@ LABEL_25:
   }
 
   objc_sync_exit(selfCopy);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIdentityData:(NSData *)identityData
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = identityData;
   [(NERelay *)self setIdentityDataInternal:v4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   if (v4)
   {
-    CC_SHA1_Init(&v7);
-    CC_SHA1_Update(&v7, [(NSData *)v4 bytes], [(NSData *)v4 length]);
-    CC_SHA1_Final(md, &v7);
+    CC_SHA1_Init(&v6);
+    CC_SHA1_Update(&v6, [(NSData *)v4 bytes], [(NSData *)v4 length]);
+    CC_SHA1_Final(md, &v6);
     v5 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:20];
     [(NERelay *)self setIdentityDataHash:v5];
   }
@@ -426,8 +420,6 @@ LABEL_25:
   {
     [(NERelay *)self setIdentityDataHash:0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NSData)identityReferenceInternal
@@ -517,9 +509,80 @@ LABEL_25:
   objc_sync_exit(selfCopy);
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  hTTP3RelayURL = [(NERelay *)self HTTP3RelayURL];
+  [v7 appendPrettyObject:hTTP3RelayURL withName:@"HTTP3RelayURL" andIndent:v5 options:options | 9];
+
+  hTTP2RelayURL = [(NERelay *)self HTTP2RelayURL];
+  [v7 appendPrettyObject:hTTP2RelayURL withName:@"HTTP2RelayURL" andIndent:v5 options:options | 9];
+
+  dnsOverHTTPSURL = [(NERelay *)self dnsOverHTTPSURL];
+  [v7 appendPrettyObject:dnsOverHTTPSURL withName:@"dnsOverHTTPSURL" andIndent:v5 options:options | 9];
+
+  syntheticDNSAnswerIPv4Prefix = [(NERelay *)self syntheticDNSAnswerIPv4Prefix];
+  [v7 appendPrettyObject:syntheticDNSAnswerIPv4Prefix withName:@"syntheticDNSAnswerIPv4Prefix" andIndent:v5 options:options | 9];
+
+  syntheticDNSAnswerIPv6Prefix = [(NERelay *)self syntheticDNSAnswerIPv6Prefix];
+  [v7 appendPrettyObject:syntheticDNSAnswerIPv6Prefix withName:@"syntheticDNSAnswerIPv6Prefix" andIndent:v5 options:options | 9];
+
+  identity = [(NERelay *)self identity];
+  [v7 appendPrettyObject:identity withName:@"identity" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  identityDataInternal = [(NERelay *)self identityDataInternal];
+  if (identityDataInternal)
+  {
+    v15 = MEMORY[0x1E696AEC0];
+    identityDataInternal2 = [(NERelay *)self identityDataInternal];
+    v17 = [v15 stringWithFormat:@"%lu bytes", objc_msgSend(identityDataInternal2, "length")];
+    v18 = options | 8;
+    [v7 appendPrettyObject:v17 withName:@"identityData" andIndent:v5 options:options | 8];
+  }
+
+  else
+  {
+    v18 = options | 8;
+    [v7 appendPrettyObject:0 withName:@"identityData" andIndent:v5 options:options | 8];
+  }
+
+  [v7 appendPrettyBOOL:-[NERelay identityDataImported](self withName:"identityDataImported") andIndent:@"identityDataImported" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  identityDataHash = [(NERelay *)self identityDataHash];
+  [v7 appendPrettyObject:identityDataHash withName:@"identityDataHash" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  identityDataPasswordKeychainItem = [(NERelay *)self identityDataPasswordKeychainItem];
+  [v7 appendPrettyObject:identityDataPasswordKeychainItem withName:@"identityDataPassword" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  identityReference = [(NERelay *)self identityReference];
+  [v7 appendPrettyObject:identityReference withName:@"identityReference" andIndent:v5 options:v18];
+
+  identityDataPassword = [(NERelay *)self identityDataPassword];
+  [v7 appendPrettyObject:identityDataPassword withName:@"identityDataPassword" andIndent:v5 options:options | 9];
+
+  if (self)
+  {
+    Property = objc_getProperty(self, v23, 96, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  [v7 appendPrettyObject:Property withName:@"certificates" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  additionalHTTPHeaderFields = [(NERelay *)self additionalHTTPHeaderFields];
+  [v7 appendPrettyObject:additionalHTTPHeaderFields withName:@"additionalHTTPHeaderFields" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  rawPublicKeys = [(NERelay *)self rawPublicKeys];
+  [v7 appendPrettyObject:rawPublicKeys withName:@"rawPublicKeys" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  return v7;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   hTTP3RelayURL = [(NERelay *)self HTTP3RelayURL];
   if (hTTP3RelayURL)
@@ -539,26 +602,26 @@ LABEL_4:
 
   [NEConfiguration addError:errorsCopy toList:?];
 LABEL_5:
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   additionalHTTPHeaderFields = [(NERelay *)self additionalHTTPHeaderFields];
-  v8 = [additionalHTTPHeaderFields countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v8 = [additionalHTTPHeaderFields countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v29;
+    v10 = *v28;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(additionalHTTPHeaderFields);
         }
 
-        v12 = *(*(&v28 + 1) + 8 * i);
+        v12 = *(*(&v27 + 1) + 8 * i);
         if (isa_nsstring(v12))
         {
           additionalHTTPHeaderFields2 = [(NERelay *)self additionalHTTPHeaderFields];
@@ -576,7 +639,7 @@ LABEL_5:
         goto LABEL_16;
       }
 
-      v9 = [additionalHTTPHeaderFields countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v9 = [additionalHTTPHeaderFields countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v9)
       {
         continue;
@@ -601,7 +664,7 @@ LABEL_16:
     {
       hTTP3RelayURL3 = [(NERelay *)self HTTP3RelayURL];
       host2 = [hTTP3RelayURL3 host];
-      LODWORD(hTTP3RelayURL2) = [host isEqualToString:host2];
+      LODWORD(hTTP3RelayURL2) = objc_msgSend_isEqualToString_(host);
     }
 
     hTTP2RelayURL2 = [(NERelay *)self HTTP2RelayURL];
@@ -610,9 +673,9 @@ LABEL_16:
     {
       hTTP2RelayURL3 = [(NERelay *)self HTTP2RelayURL];
       host3 = [hTTP2RelayURL3 host];
-      v25 = [host isEqualToString:host3];
+      isEqualToString = objc_msgSend_isEqualToString_(host);
 
-      if ((v25 | hTTP3RelayURL2))
+      if ((isEqualToString | hTTP3RelayURL2))
       {
 LABEL_22:
 
@@ -632,7 +695,6 @@ LABEL_22:
 
 LABEL_23:
 
-  v26 = *MEMORY[0x1E69E9840];
   return hTTP2RelayURL;
 }
 

@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)methodAsString:(int)string;
 - (int)method;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -117,18 +118,17 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    method = self->_method;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -170,6 +170,21 @@ LABEL_9:
   v6 = [v3 stringWithFormat:@"%@ %@", v4, dictionaryRepresentation];
 
   return v6;
+}
+
+- (id)methodAsString:(int)string
+{
+  if (string)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = @"SGMSuggestionsFromMessage";
+  }
+
+  return v4;
 }
 
 - (int)method

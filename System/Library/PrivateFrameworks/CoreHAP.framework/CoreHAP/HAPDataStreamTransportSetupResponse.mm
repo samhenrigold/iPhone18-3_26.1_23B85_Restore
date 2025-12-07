@@ -143,37 +143,37 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
+  v51 = *MEMORY[0x277D85DE8];
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v30 = 0u;
   TLV8BufferInit();
   status = [(HAPDataStreamTransportSetupResponse *)self status];
 
   if (status)
   {
     status2 = [(HAPDataStreamTransportSetupResponse *)self status];
-    v30 = 0;
-    v7 = [status2 serializeWithError:&v30];
-    v8 = v30;
+    v29 = 0;
+    v7 = [status2 serializeWithError:&v29];
+    v8 = v29;
 
     if (v8)
     {
@@ -203,9 +203,9 @@ LABEL_13:
     }
 
     accessoryKeySalt2 = [(HAPDataStreamTransportSetupResponse *)self accessoryKeySalt];
-    v28 = 0;
-    v7 = [accessoryKeySalt2 serializeWithError:&v28];
-    v8 = v28;
+    v27 = 0;
+    v7 = [accessoryKeySalt2 serializeWithError:&v27];
+    v8 = v27;
 
     if (v8)
     {
@@ -255,7 +255,7 @@ LABEL_13:
     if (!v9)
     {
 LABEL_33:
-      v19 = [MEMORY[0x277CBEA90] dataWithBytes:v31 length:?];
+      v19 = [MEMORY[0x277CBEA90] dataWithBytes:v30 length:?];
       v8 = 0;
       goto LABEL_36;
     }
@@ -274,9 +274,9 @@ LABEL_31:
   }
 
   parameters2 = [(HAPDataStreamTransportSetupResponse *)self parameters];
-  v29 = 0;
-  v7 = [parameters2 serializeWithError:&v29];
-  v8 = v29;
+  v28 = 0;
+  v7 = [parameters2 serializeWithError:&v28];
+  v8 = v28;
 
   if (!v8)
   {
@@ -318,8 +318,6 @@ LABEL_35:
   v19 = 0;
 LABEL_36:
   TLV8BufferFree();
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

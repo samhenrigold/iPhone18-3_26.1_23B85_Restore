@@ -76,35 +76,35 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = *(a1 + 2);
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -112,54 +112,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_24D6CA670(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D6CA670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -176,9 +176,9 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -393,7 +393,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -409,7 +409,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -417,7 +417,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -441,7 +441,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -500,10 +500,10 @@ void sub_24D6CB228(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24D6CB2FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_24D6CB2FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = DYMTLFunctionPlayer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -516,14 +516,12 @@ void sub_24D6CBD60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy_(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -604,9 +602,9 @@ void GPUTools::MTL::Utils::DYMTLDeviceDescriptor::~DYMTLDeviceDescriptor(GPUTool
   }
 }
 
-void sub_24D6CD4EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D6CD4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   AutoPerfStatSamplingControl::~AutoPerfStatSamplingControl(va);
   _Unwind_Resume(a1);
@@ -651,33 +649,33 @@ void AutoPerfStatSamplingControl::~AutoPerfStatSamplingControl(id *this)
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -685,49 +683,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_24D6CE528(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D6CE528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -748,22 +746,22 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long l
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,NSData * {__strong}>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,NSData * {__strong}>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,NSData * {__strong}>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,NSData * {__strong}>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -815,45 +813,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * 
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -889,77 +879,69 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * 
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,objc_object  {objcproto9MTLDevice}* {__strong}>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,objc_object  {objcproto9MTLDevice}* {__strong}>>(void *a1, unint64_t *a2, uint64_t *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -967,80 +949,80 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_24D6CE924(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D6CE924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1048,49 +1030,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_24D6CEB80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D6CEB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1218,127 +1200,9 @@ LABEL_19:
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (v2 >= *&v3)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v7[2] != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-uint64_t std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<unsigned long long>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_24D6CEFAC(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::vector<unsigned long long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 61))
-  {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(a1, a2);
-  }
-
-  std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
-}
-
-void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 61))
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-void *std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(void *a1, void *a2)
-{
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
+  v4 = *a2;
   v5 = a1[1];
   if (!*&v5)
   {
@@ -1349,7 +1213,7 @@ void *std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unor
   v6.i16[0] = vaddlv_u8(v6);
   if (v6.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
+    v7 = *a2;
     if (v4 >= *&v5)
     {
       v7 = v4 % *&v5;
@@ -1358,7 +1222,7 @@ void *std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unor
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v7 = (*&v5 - 1) & v4;
   }
 
   v8 = *(*a1 + 8 * v7);
@@ -1402,7 +1266,7 @@ LABEL_17:
     }
   }
 
-  if (v9[2] != *a2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
@@ -1410,33 +1274,77 @@ LABEL_17:
   return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,NSData * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+uint64_t *std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  if (a4)
+  {
+    std::vector<unsigned long long>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_24D6CEFAC(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<unsigned long long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(a1, a2);
+  }
+
+  std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+void *std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
+{
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v5 = v2 % *&v3;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -1444,49 +1352,123 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v12 >= *&v7)
       {
-        v8 %= *&v3;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v8 != v5)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v11;
 }
 
-void sub_24D6CF4FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,NSData * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,NSData * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  va_start(va, a2);
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
+  {
+    goto LABEL_18;
+  }
+
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
+  {
+    v7 = *a2;
+    if (v4 >= *&v5)
+    {
+      v7 = v4 % *&v5;
+    }
+  }
+
+  else
+  {
+    v7 = (*&v5 - 1) & v4;
+  }
+
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v10 = v9[1];
+    if (v10 == v4)
+    {
+      break;
+    }
+
+    if (v6.u32[0] > 1uLL)
+    {
+      if (v10 >= *&v5)
+      {
+        v10 %= *&v5;
+      }
+    }
+
+    else
+    {
+      v10 &= *&v5 - 1;
+    }
+
+    if (v10 != v7)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v9 = *v9;
+    if (!v9)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v9[2] != v4)
+  {
+    goto LABEL_17;
+  }
+
+  return v9;
+}
+
+void sub_24D6CF4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1927,33 +1909,33 @@ LABEL_17:
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto15CAMetalDrawable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto15CAMetalDrawable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1961,80 +1943,80 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_24D6D107C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D6D107C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2042,73 +2024,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto15CAMetalDrawable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto15CAMetalDrawable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2116,49 +2098,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_24D6D150C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D6D150C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2262,7 +2244,7 @@ void std::__throw_bad_function_call[abi:ne200100]()
   *exception = MEMORY[0x277D82888] + 16;
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2274,14 +2256,14 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2295,13 +2277,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -2313,12 +2295,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2332,22 +2314,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2381,13 +2363,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2448,26 +2430,26 @@ void DYMTLEncodeIndirectCommandBuffer(void *a1, uint64_t a2, uint64_t a3, uint64
   v9 = a6;
   if (*a2 <= 0xFuLL)
   {
-    v120 = v8;
-    v132 = v8;
-    v119 = v9;
+    v119 = v8;
+    v131 = v8;
+    v118 = v9;
     v10 = v9;
-    v145 = 0u;
-    v146 = 0u;
-    v143 = 0u;
     v144 = 0u;
-    v141 = 0u;
+    v145 = 0u;
     v142 = 0u;
+    v143 = 0u;
     v140 = 0u;
-    GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(a2, &v140);
+    v141 = 0u;
+    v139 = 0u;
+    GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(a2, &v139);
     if (a3)
     {
       v11 = 0;
       while (1)
       {
-        v12 = (a4 + *(&v146 + 1) * v11);
-        v13 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::commandType(&v140, v12);
-        v14 = [v132 indirectRenderCommandAtIndex:v11];
+        v12 = (a4 + *(&v145 + 1) * v11);
+        v13 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::commandType(&v139, v12);
+        v14 = [v131 indirectRenderCommandAtIndex:v11];
         v15 = v14;
         if (v13 > 1)
         {
@@ -2478,7 +2460,7 @@ void DYMTLEncodeIndirectCommandBuffer(void *a1, uint64_t a2, uint64_t a3, uint64
         {
           if (v13 == 1)
           {
-            v36 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawArguments(&v140, v12);
+            v36 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawArguments(&v139, v12);
             [v15 drawPrimitives:*v36 vertexStart:*(v36 + 1) vertexCount:*(v36 + 2) instanceCount:*(v36 + 3) baseInstance:*(v36 + 4)];
           }
 
@@ -2497,7 +2479,7 @@ LABEL_46:
       if (v13 == 2)
       {
         v37 = v12;
-        v38 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawIndexedArguments(&v140, v12);
+        v38 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawIndexedArguments(&v139, v12);
         v39 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*(v38 + 3)];
         v41 = v40;
         v42 = GetObjectForKey(a5, v39);
@@ -2505,8 +2487,7 @@ LABEL_46:
 
         if (v35)
         {
-          v43 = *(v38 + 5);
-          [v15 drawIndexedPrimitives:*v38 indexCount:*(v38 + 1) indexType:*(v38 + 2) indexBuffer:v35 indexBufferOffset:v41 instanceCount:*(v38 + 4) baseVertex:v43 baseInstance:*(v38 + 6)];
+          [v15 drawIndexedPrimitives:*v38 indexCount:*(v38 + 1) indexType:*(v38 + 2) indexBuffer:v35 indexBufferOffset:v41 instanceCount:*(v38 + 4) baseVertex:*(v38 + 5) baseInstance:*(v38 + 6)];
           v12 = v37;
         }
 
@@ -2522,52 +2503,52 @@ LABEL_46:
       {
         if (v13 == 4)
         {
-          v44 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawPatchesArguments(&v140, v12);
-          v45 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*(v44 + 3)];
-          v47 = v46;
-          v48 = GetObjectForKey(a5, v45);
-          v125 = v47;
-          v129 = v12;
-          v49 = DYMTLGetOriginalObject(v48);
+          v43 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawPatchesArguments(&v139, v12);
+          v44 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*(v43 + 3)];
+          v46 = v45;
+          v47 = GetObjectForKey(a5, v44);
+          v124 = v46;
+          v128 = v12;
+          v48 = DYMTLGetOriginalObject(v47);
 
-          v127 = v49;
-          v50 = v49 == 0;
-          v51 = v45 != 0;
-          TessellationFactorArguments = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getTessellationFactorArguments(&v140, v129);
-          v53 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*TessellationFactorArguments];
-          v123 = v54;
-          v55 = GetObjectForKey(a5, v53);
-          v26 = DYMTLGetOriginalObject(v55);
-          v56 = v51 ^ v50;
+          v126 = v48;
+          v49 = v48 == 0;
+          v50 = v44 != 0;
+          TessellationFactorArguments = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getTessellationFactorArguments(&v139, v128);
+          v52 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*TessellationFactorArguments];
+          v122 = v53;
+          v54 = GetObjectForKey(a5, v52);
+          v26 = DYMTLGetOriginalObject(v54);
+          v55 = v50 ^ v49;
 
           if (v26)
           {
-            v57 = v56;
+            v56 = v55;
           }
 
           else
           {
-            v57 = 0;
+            v56 = 0;
           }
 
-          if (v57 == 1)
+          if (v56 == 1)
           {
-            v58 = *v44;
-            v59 = *(v44 + 1);
-            v60 = *(v44 + 2);
-            v61 = *(v44 + 4);
-            v117 = *(v44 + 5);
-            v35 = v127;
-            [v15 drawPatches:v58 patchStart:v59 patchCount:v60 patchIndexBuffer:v127 patchIndexBufferOffset:v125 instanceCount:v61 baseInstance:v117 tessellationFactorBuffer:v26 tessellationFactorBufferOffset:v123 tessellationFactorBufferInstanceStride:*(TessellationFactorArguments + 1)];
+            v57 = *v43;
+            v58 = *(v43 + 1);
+            v59 = *(v43 + 2);
+            v60 = *(v43 + 4);
+            v116 = *(v43 + 5);
+            v35 = v126;
+            [v15 drawPatches:v57 patchStart:v58 patchCount:v59 patchIndexBuffer:v126 patchIndexBufferOffset:v124 instanceCount:v60 baseInstance:v116 tessellationFactorBuffer:v26 tessellationFactorBufferOffset:v122 tessellationFactorBufferInstanceStride:*(TessellationFactorArguments + 1)];
           }
 
           else
           {
-            v35 = v127;
+            v35 = v126;
             [v15 reset];
           }
 
-          v12 = v129;
+          v12 = v128;
         }
 
         else
@@ -2577,52 +2558,52 @@ LABEL_46:
 LABEL_33:
             if ((*(a2 + 9) & 1) == 0)
             {
-              v62 = [v10 renderPipelineIdForUniqueIdentifier:{GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getPipelineStateUniqueIdentifier(&v140, v12)}];
-              v63 = GetObjectForKey(a5, v62);
-              v64 = DYMTLGetOriginalObject(v63);
+              v61 = [v10 renderPipelineIdForUniqueIdentifier:{GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getPipelineStateUniqueIdentifier(&v139, v12)}];
+              v62 = GetObjectForKey(a5, v61);
+              v63 = DYMTLGetOriginalObject(v62);
 
-              [v15 setRenderPipelineState:v64];
+              [v15 setRenderPipelineState:v63];
             }
 
             if ((*(a2 + 8) & 1) == 0)
             {
-              v65 = v12;
-              VertexBuffers = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getVertexBuffers(&v140, v12);
-              v67 = *(a2 + 16);
-              if (v67)
+              v64 = v12;
+              VertexBuffers = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getVertexBuffers(&v139, v12);
+              v66 = *(a2 + 16);
+              if (v66)
               {
-                v68 = VertexBuffers;
-                for (i = 0; i < v67; ++i)
+                v67 = VertexBuffers;
+                for (i = 0; i < v66; ++i)
                 {
-                  if (*&v68[8 * i])
+                  if (*&v67[8 * i])
                   {
-                    v70 = [v10 bufferIdAndOffsetForGPUVirtualAddress:?];
-                    v72 = v71;
-                    v73 = GetObjectForKey(a5, v70);
-                    v74 = DYMTLGetOriginalObject(v73);
+                    v69 = [v10 bufferIdAndOffsetForGPUVirtualAddress:?];
+                    v71 = v70;
+                    v72 = GetObjectForKey(a5, v69);
+                    v73 = DYMTLGetOriginalObject(v72);
 
-                    [v15 setVertexBuffer:v74 offset:v72 atIndex:i];
-                    v67 = *(a2 + 16);
+                    [v15 setVertexBuffer:v73 offset:v71 atIndex:i];
+                    v66 = *(a2 + 16);
                   }
                 }
               }
 
-              FragmentBuffers = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getFragmentBuffers(&v140, v65);
-              v76 = *(a2 + 24);
-              if (v76)
+              FragmentBuffers = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getFragmentBuffers(&v139, v64);
+              v75 = *(a2 + 24);
+              if (v75)
               {
-                v77 = FragmentBuffers;
-                for (j = 0; j < v76; ++j)
+                v76 = FragmentBuffers;
+                for (j = 0; j < v75; ++j)
                 {
-                  if (*&v77[8 * j])
+                  if (*&v76[8 * j])
                   {
-                    v79 = [v10 bufferIdAndOffsetForGPUVirtualAddress:?];
-                    v81 = v80;
-                    v82 = GetObjectForKey(a5, v79);
-                    v83 = DYMTLGetOriginalObject(v82);
+                    v78 = [v10 bufferIdAndOffsetForGPUVirtualAddress:?];
+                    v80 = v79;
+                    v81 = GetObjectForKey(a5, v78);
+                    v82 = DYMTLGetOriginalObject(v81);
 
-                    [v15 setFragmentBuffer:v83 offset:v81 atIndex:j];
-                    v76 = *(a2 + 24);
+                    [v15 setFragmentBuffer:v82 offset:v80 atIndex:j];
+                    v75 = *(a2 + 24);
                   }
                 }
               }
@@ -2631,19 +2612,19 @@ LABEL_33:
             goto LABEL_46;
           }
 
-          v124 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawIndexedPatchesArguments(&v140, v12);
-          v16 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*(v124 + 3)];
+          v123 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawIndexedPatchesArguments(&v139, v12);
+          v16 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*(v123 + 3)];
           v18 = v17;
           v19 = GetObjectForKey(a5, v16);
-          v128 = v12;
+          v127 = v12;
           v20 = DYMTLGetOriginalObject(v19);
 
-          v126 = v20;
-          v21 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*(v124 + 4)];
-          v122 = v22;
+          v125 = v20;
+          v21 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*(v123 + 4)];
+          v121 = v22;
           v23 = GetObjectForKey(a5, v21);
           v24 = DYMTLGetOriginalObject(v23);
-          v121 = v18;
+          v120 = v18;
           v25 = (v16 != 0) ^ (v20 == 0);
 
           v26 = v24;
@@ -2657,7 +2638,7 @@ LABEL_33:
             v27 = 0;
           }
 
-          v28 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getTessellationFactorArguments(&v140, v128);
+          v28 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getTessellationFactorArguments(&v139, v127);
           v29 = [v10 bufferIdAndOffsetForGPUVirtualAddress:*v28];
           v31 = v30;
           v32 = GetObjectForKey(a5, v29);
@@ -2675,18 +2656,18 @@ LABEL_33:
 
           if (v34 == 1)
           {
-            v118 = v31;
-            v35 = v126;
-            [v15 drawIndexedPatches:*v124 patchStart:*(v124 + 1) patchCount:*(v124 + 2) patchIndexBuffer:v126 patchIndexBufferOffset:v121 controlPointIndexBuffer:v26 controlPointIndexBufferOffset:v122 instanceCount:*(v124 + 5) baseInstance:*(v124 + 6) tessellationFactorBuffer:v33 tessellationFactorBufferOffset:v118 tessellationFactorBufferInstanceStride:*(v28 + 1)];
+            v117 = v31;
+            v35 = v125;
+            [v15 drawIndexedPatches:*v123 patchStart:*(v123 + 1) patchCount:*(v123 + 2) patchIndexBuffer:v125 patchIndexBufferOffset:v120 controlPointIndexBuffer:v26 controlPointIndexBufferOffset:v121 instanceCount:*(v123 + 5) baseInstance:*(v123 + 6) tessellationFactorBuffer:v33 tessellationFactorBufferOffset:v117 tessellationFactorBufferInstanceStride:*(v28 + 1)];
           }
 
           else
           {
-            v35 = v126;
+            v35 = v125;
             [v15 reset];
           }
 
-          v12 = v128;
+          v12 = v127;
         }
       }
 
@@ -2698,142 +2679,142 @@ LABEL_33:
 
   if ((*a2 & 0xFFFFFFFFFFFFFF9FLL) == 0)
   {
-    v120 = v8;
-    v84 = v8;
-    v119 = v9;
-    v133 = v9;
-    v145 = 0u;
-    v146 = 0u;
-    v143 = 0u;
+    v119 = v8;
+    v83 = v8;
+    v118 = v9;
+    v132 = v9;
     v144 = 0u;
-    v141 = 0u;
+    v145 = 0u;
     v142 = 0u;
+    v143 = 0u;
     v140 = 0u;
-    GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(a2, &v140);
+    v141 = 0u;
+    v139 = 0u;
+    GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(a2, &v139);
     if (!a3)
     {
 LABEL_72:
-      v9 = v119;
+      v9 = v118;
 
-      v8 = v120;
+      v8 = v119;
       goto LABEL_73;
     }
 
-    v85 = 0;
+    v84 = 0;
     while (1)
     {
-      v86 = (a4 + *(&v146 + 1) * v85);
-      v87 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::commandType(&v140, v86);
-      v88 = [v84 indirectComputeCommandAtIndex:v85];
-      v89 = v88;
-      if (v87 == 64)
+      v85 = (a4 + *(&v145 + 1) * v84);
+      v86 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::commandType(&v139, v85);
+      v87 = [v83 indirectComputeCommandAtIndex:v84];
+      v88 = v87;
+      if (v86 == 64)
       {
         break;
       }
 
-      if (v87 == 32)
+      if (v86 == 32)
       {
-        v90 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::concurrentDispatchThreadgroupsArguments(&v140, v86);
-        v91 = *(v90 + 2);
-        v135 = *v90;
-        *&v136 = v91;
-        v92 = *(v90 + 5);
-        v138 = *(v90 + 24);
-        v139 = v92;
-        [v89 concurrentDispatchThreadgroups:&v135 threadsPerThreadgroup:&v138];
-        v93 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::indirectDispatchArguments(&v140, v86);
-        v94 = *(v93 + 1);
-        v95 = *(v93 + 2);
-        v135 = *v93;
+        v89 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::concurrentDispatchThreadgroupsArguments(&v139, v85);
+        v90 = *(v89 + 2);
+        v134 = *v89;
+        *&v135 = v90;
+        v91 = *(v89 + 5);
+        v137 = *(v89 + 24);
+        v138 = v91;
+        [v88 concurrentDispatchThreadgroups:&v134 threadsPerThreadgroup:&v137];
+        v92 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::indirectDispatchArguments(&v139, v85);
+        v93 = *(v92 + 1);
+        v94 = *(v92 + 2);
+        v134 = *v92;
+        v135 = v93;
         v136 = v94;
-        v137 = v95;
-        [v89 setStageInRegion:&v135];
-        if (v93[64] == 1)
+        [v88 setStageInRegion:&v134];
+        if (v92[64] == 1)
         {
 LABEL_59:
-          [v89 setBarrier];
+          [v88 setBarrier];
         }
 
 LABEL_60:
         if ((*(a2 + 9) & 1) == 0)
         {
-          v102 = [v133 computePipelineIdForUniqueIdentifier:{GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getPipelineStateUniqueIdentifier(&v140, v86)}];
-          v103 = GetObjectForKey(a5, v102);
-          v104 = DYMTLGetOriginalObject(v103);
+          v101 = [v132 computePipelineIdForUniqueIdentifier:{GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getPipelineStateUniqueIdentifier(&v139, v85)}];
+          v102 = GetObjectForKey(a5, v101);
+          v103 = DYMTLGetOriginalObject(v102);
 
-          [v89 setComputePipelineState:v104];
+          [v88 setComputePipelineState:v103];
         }
 
         if ((*(a2 + 8) & 1) == 0)
         {
-          KernelBuffers = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getKernelBuffers(&v140, v86);
-          v106 = *(a2 + 48);
-          if (v106)
+          KernelBuffers = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getKernelBuffers(&v139, v85);
+          v105 = *(a2 + 48);
+          if (v105)
           {
-            v107 = KernelBuffers;
-            for (k = 0; k < v106; ++k)
+            v106 = KernelBuffers;
+            for (k = 0; k < v105; ++k)
             {
-              if (*&v107[8 * k])
+              if (*&v106[8 * k])
               {
-                v109 = [v133 bufferIdAndOffsetForGPUVirtualAddress:?];
-                v111 = v110;
-                v112 = GetObjectForKey(a5, v109);
-                v113 = DYMTLGetOriginalObject(v112);
+                v108 = [v132 bufferIdAndOffsetForGPUVirtualAddress:?];
+                v110 = v109;
+                v111 = GetObjectForKey(a5, v108);
+                v112 = DYMTLGetOriginalObject(v111);
 
-                [v89 setKernelBuffer:v113 offset:v111 atIndex:k];
-                v106 = *(a2 + 48);
+                [v88 setKernelBuffer:v112 offset:v110 atIndex:k];
+                v105 = *(a2 + 48);
               }
             }
           }
         }
 
-        ThreadgroupMemoryLength = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getThreadgroupMemoryLength(&v140, v86);
+        ThreadgroupMemoryLength = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getThreadgroupMemoryLength(&v139, v85);
         if (*(a2 + 64))
         {
-          v115 = ThreadgroupMemoryLength;
-          v116 = 0;
+          v114 = ThreadgroupMemoryLength;
+          v115 = 0;
           do
           {
-            [v89 setThreadgroupMemoryLength:*&v115[8 * v116] atIndex:v116];
-            ++v116;
+            [v88 setThreadgroupMemoryLength:*&v114[8 * v115] atIndex:v115];
+            ++v115;
           }
 
-          while (v116 < *(a2 + 64));
+          while (v115 < *(a2 + 64));
         }
 
         goto LABEL_71;
       }
 
-      if (v87)
+      if (v86)
       {
         goto LABEL_60;
       }
 
-      [v88 reset];
+      [v87 reset];
 LABEL_71:
 
-      if (++v85 == a3)
+      if (++v84 == a3)
       {
         goto LABEL_72;
       }
     }
 
-    v96 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::concurrentDispatchThreadsArguments(&v140, v86);
-    v97 = *(v96 + 2);
-    v135 = *v96;
-    *&v136 = v97;
-    v98 = *(v96 + 5);
-    v138 = *(v96 + 24);
-    v139 = v98;
-    [v89 concurrentDispatchThreads:&v135 threadsPerThreadgroup:&v138];
-    v99 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::indirectDispatchArguments(&v140, v86);
-    v100 = *(v99 + 1);
-    v101 = *(v99 + 2);
-    v135 = *v99;
+    v95 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::concurrentDispatchThreadsArguments(&v139, v85);
+    v96 = *(v95 + 2);
+    v134 = *v95;
+    *&v135 = v96;
+    v97 = *(v95 + 5);
+    v137 = *(v95 + 24);
+    v138 = v97;
+    [v88 concurrentDispatchThreads:&v134 threadsPerThreadgroup:&v137];
+    v98 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::indirectDispatchArguments(&v139, v85);
+    v99 = *(v98 + 1);
+    v100 = *(v98 + 2);
+    v134 = *v98;
+    v135 = v99;
     v136 = v100;
-    v137 = v101;
-    [v89 setStageInRegion:&v135];
-    if (v99[64] == 1)
+    [v88 setStageInRegion:&v134];
+    if (v98[64] == 1)
     {
       goto LABEL_59;
     }
@@ -2844,7 +2825,7 @@ LABEL_71:
 LABEL_73:
 }
 
-void sub_24D6D3B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_24D6D3B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -2858,47 +2839,44 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_24D6D40E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_24D6D40E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void *std::vector<GPUTools::MTL::Utils::DYMTLBufferGPUAddress>::reserve(void *result, unint64_t a2)
+void std::vector<GPUTools::MTL::Utils::DYMTLBufferGPUAddress>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<GPUTools::MTL::Utils::DYMTLBufferGPUAddress>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<GPUTools::MTL::Utils::DYMTLBufferGPUAddress>>(a1, a2);
     }
 
     std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void MakeDYMTLIndirectCommandBufferDescriptor(MTLIndirectCommandBufferDescriptor *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void MakeDYMTLIndirectCommandBufferDescriptor(uint64_t *__return_ptr a1@<X8>, MTLIndirectCommandBufferDescriptor *a2@<X0>, uint64_t a3@<X1>)
 {
-  v5 = a1;
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 0u;
-  *(a3 + 48) = 0u;
-  *(a3 + 64) = 0;
+  v5 = a2;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  a1[8] = 0;
   v6 = v5;
-  *a3 = [(MTLIndirectCommandBufferDescriptor *)v5 commandTypes];
-  *(a3 + 9) = [(MTLIndirectCommandBufferDescriptor *)v6 inheritPipelineState];
-  *(a3 + 8) = [(MTLIndirectCommandBufferDescriptor *)v6 inheritBuffers];
-  *(a3 + 16) = [(MTLIndirectCommandBufferDescriptor *)v6 maxVertexBufferBindCount];
-  *(a3 + 24) = [(MTLIndirectCommandBufferDescriptor *)v6 maxFragmentBufferBindCount];
+  *a1 = [(MTLIndirectCommandBufferDescriptor *)v5 commandTypes];
+  *(a1 + 9) = [(MTLIndirectCommandBufferDescriptor *)v6 inheritPipelineState];
+  *(a1 + 8) = [(MTLIndirectCommandBufferDescriptor *)v6 inheritBuffers];
+  a1[2] = [(MTLIndirectCommandBufferDescriptor *)v6 maxVertexBufferBindCount];
+  a1[3] = [(MTLIndirectCommandBufferDescriptor *)v6 maxFragmentBufferBindCount];
   if (objc_opt_respondsToSelector())
   {
-    *(a3 + 48) = [(MTLIndirectCommandBufferDescriptor *)v6 maxKernelBufferBindCount];
-    *(a3 + 64) = a2;
+    a1[6] = [(MTLIndirectCommandBufferDescriptor *)v6 maxKernelBufferBindCount];
+    a1[8] = a3;
   }
 }
 
@@ -2915,25 +2893,25 @@ BOOL DYMTLDrawRenderCommandEncoder(void *a1, uint64_t a2, uint64_t a3, GPUTools:
       if (v13 == 4)
       {
         TessellationFactorArguments = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getTessellationFactorArguments(a4, v12);
-        v39 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *TessellationFactorArguments);
-        v41 = v40;
-        v42 = GetObjectForKey(a5, v39);
-        if (v42)
+        v38 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *TessellationFactorArguments);
+        v40 = v39;
+        v41 = GetObjectForKey(a5, v38);
+        if (v41)
         {
-          [v11 setTessellationFactorBuffer:v42 offset:v41 instanceStride:*(TessellationFactorArguments + 1)];
+          [v11 setTessellationFactorBuffer:v41 offset:v40 instanceStride:*(TessellationFactorArguments + 1)];
         }
 
-        LODWORD(v43) = *(TessellationFactorArguments + 4);
-        [v11 setTessellationFactorScale:v43];
+        LODWORD(v42) = *(TessellationFactorArguments + 4);
+        [v11 setTessellationFactorScale:v42];
 
-        v44 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawPatchesArguments(a4, v12);
-        v45 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *(v44 + 3));
-        v47 = v46;
-        v48 = GetObjectForKey(a5, v45);
-        v19 = v48;
-        if (v42 && (v45 != 0) != (v48 == 0))
+        v43 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawPatchesArguments(a4, v12);
+        v44 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *(v43 + 3));
+        v46 = v45;
+        v47 = GetObjectForKey(a5, v44);
+        v19 = v47;
+        if (v41 && (v44 != 0) != (v47 == 0))
         {
-          [v11 drawPatches:*v44 patchStart:*(v44 + 1) patchCount:*(v44 + 2) patchIndexBuffer:v48 patchIndexBufferOffset:v47 instanceCount:*(v44 + 4) baseInstance:*(v44 + 5)];
+          [v11 drawPatches:*v43 patchStart:*(v43 + 1) patchCount:*(v43 + 2) patchIndexBuffer:v47 patchIndexBufferOffset:v46 instanceCount:*(v43 + 4) baseInstance:*(v43 + 5)];
         }
 
         goto LABEL_26;
@@ -2941,48 +2919,48 @@ BOOL DYMTLDrawRenderCommandEncoder(void *a1, uint64_t a2, uint64_t a3, GPUTools:
 
       if (v13 == 8)
       {
-        v21 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getTessellationFactorArguments(a4, v12);
-        v22 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *v21);
-        v24 = v23;
-        v25 = GetObjectForKey(a5, v22);
-        if (v25)
+        v20 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::getTessellationFactorArguments(a4, v12);
+        v21 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *v20);
+        v23 = v22;
+        v24 = GetObjectForKey(a5, v21);
+        if (v24)
         {
-          [v11 setTessellationFactorBuffer:v25 offset:v24 instanceStride:*(v21 + 1)];
+          [v11 setTessellationFactorBuffer:v24 offset:v23 instanceStride:*(v20 + 1)];
         }
 
-        LODWORD(v26) = *(v21 + 4);
-        [v11 setTessellationFactorScale:v26];
+        LODWORD(v25) = *(v20 + 4);
+        [v11 setTessellationFactorScale:v25];
 
-        v27 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawIndexedPatchesArguments(a4, v12);
-        v28 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *(v27 + 3));
-        v30 = v29;
-        v19 = GetObjectForKey(a5, v28);
-        if (v25)
+        v26 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawIndexedPatchesArguments(a4, v12);
+        v27 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *(v26 + 3));
+        v29 = v28;
+        v19 = GetObjectForKey(a5, v27);
+        if (v24)
         {
-          v31 = (v28 != 0) ^ (v19 == 0);
-        }
-
-        else
-        {
-          v31 = 0;
-        }
-
-        v32 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *(v27 + 4));
-        v34 = v33;
-        v35 = GetObjectForKey(a5, v32);
-        if (v35)
-        {
-          v36 = v31;
+          v30 = (v27 != 0) ^ (v19 == 0);
         }
 
         else
         {
-          v36 = 0;
+          v30 = 0;
         }
 
-        if (v36 == 1)
+        v31 = GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(a6, *(v26 + 4));
+        v33 = v32;
+        v34 = GetObjectForKey(a5, v31);
+        if (v34)
         {
-          [v11 drawIndexedPatches:*v27 patchStart:*(v27 + 1) patchCount:*(v27 + 2) patchIndexBuffer:v19 patchIndexBufferOffset:v30 controlPointIndexBuffer:v35 controlPointIndexBufferOffset:v34 instanceCount:*(v27 + 5) baseInstance:*(v27 + 6)];
+          v35 = v30;
+        }
+
+        else
+        {
+          v35 = 0;
+        }
+
+        if (v35 == 1)
+        {
+          [v11 drawIndexedPatches:*v26 patchStart:*(v26 + 1) patchCount:*(v26 + 2) patchIndexBuffer:v19 patchIndexBufferOffset:v29 controlPointIndexBuffer:v34 controlPointIndexBufferOffset:v33 instanceCount:*(v26 + 5) baseInstance:*(v26 + 6)];
         }
 
         goto LABEL_26;
@@ -2991,8 +2969,8 @@ BOOL DYMTLDrawRenderCommandEncoder(void *a1, uint64_t a2, uint64_t a3, GPUTools:
 
     else if (v13 == 1)
     {
-      v37 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawArguments(a4, v12);
-      [v11 drawPrimitives:*v37 vertexStart:*(v37 + 1) vertexCount:*(v37 + 2) instanceCount:*(v37 + 3) baseInstance:*(v37 + 4)];
+      v36 = GPUTools::MTL::Utils::DYMTLIndirectCommandEncoder::drawArguments(a4, v12);
+      [v11 drawPrimitives:*v36 vertexStart:*(v36 + 1) vertexCount:*(v36 + 2) instanceCount:*(v36 + 3) baseInstance:*(v36 + 4)];
     }
 
     else if (v13 == 2)
@@ -3003,8 +2981,7 @@ BOOL DYMTLDrawRenderCommandEncoder(void *a1, uint64_t a2, uint64_t a3, GPUTools:
       v19 = GetObjectForKey(a5, v16);
       if (v19)
       {
-        v20 = *(v15 + 5);
-        [v11 drawIndexedPrimitives:*v15 indexCount:*(v15 + 1) indexType:*(v15 + 2) indexBuffer:v19 indexBufferOffset:v18 instanceCount:*(v15 + 4) baseVertex:v20 baseInstance:*(v15 + 6)];
+        [v11 drawIndexedPrimitives:*v15 indexCount:*(v15 + 1) indexType:*(v15 + 2) indexBuffer:v19 indexBufferOffset:v18 instanceCount:*(v15 + 4) baseVertex:*(v15 + 5) baseInstance:*(v15 + 6)];
       }
 
 LABEL_26:
@@ -3088,7 +3065,7 @@ void sub_24D6D60C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::pair<unsigned long long,objc_object * {__strong}>>::push_back[abi:ne200100](void *a1, uint64_t *a2)
+void *std::vector<std::pair<unsigned long long,objc_object * {__strong}>>::push_back[abi:ne200100](void *a1, uint64_t *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -3103,7 +3080,7 @@ uint64_t std::vector<std::pair<unsigned long long,objc_object * {__strong}>>::pu
     a2[1] = 0;
     *v3 = v4;
     v3[1] = v5;
-    result = (v3 + 2);
+    result = v3 + 2;
   }
 
   a1[1] = result;
@@ -3182,33 +3159,33 @@ void std::vector<unsigned char>::__append(char **a1, size_t a2)
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3216,44 +3193,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<GPUTools::MTL::Utils::DYMTLBufferGPUAddress>>(uint64_t a1, unint64_t a2)
@@ -3266,12 +3243,12 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<GPUTools::MTL::Utils:
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,false>(__n128 *a1, unint64_t *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
 {
 LABEL_1:
-  v9 = a2 - 3;
-  v10 = a2 - 6;
-  v11 = a2 - 9;
+  v9 = &a2[-2].n128_i8[8];
+  v10 = &a2[-3];
+  v11 = &a2[-5].n128_i8[8];
   v12 = a1;
 LABEL_2:
   v13 = 1 - a4;
@@ -3280,7 +3257,7 @@ LABEL_2:
     a1 = v12;
     v14 = v13;
     v15 = a2 - v12;
-    v16 = 0xAAAAAAAAAAAAAAABLL * (a2 - v12);
+    v16 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v12) >> 3);
     if (v16 <= 2)
     {
       if (v16 < 2)
@@ -3290,9 +3267,9 @@ LABEL_2:
 
       if (v16 == 2)
       {
-        v77 = *(a2 - 3);
-        v73 = (a2 - 3);
-        if (v77 >= *v12)
+        v77 = a2[-2].n128_u64[1];
+        v73 = &a2[-2].n128_i8[8];
+        if (v77 >= v12->n128_u64[0])
         {
           return result;
         }
@@ -3310,29 +3287,29 @@ LABEL_2:
 
     if (v16 == 4)
     {
-      v70 = (v12 + 3);
-      v79 = v12[3];
-      v80 = (v12 + 6);
-      v81 = v12[6];
-      if (v79 >= *v12)
+      v70 = (v12 + 24);
+      v79 = v12[1].n128_u64[1];
+      v80 = v12 + 3;
+      v81 = v12[3].n128_u64[0];
+      if (v79 >= v12->n128_u64[0])
       {
         if (v81 < v79)
         {
-          v85 = v12[5];
+          v85 = v12[2].n128_u64[1];
           result = *v70;
           *v70 = *v80;
-          v12[5] = v12[8];
+          v12[2].n128_u64[1] = v12[4].n128_u64[0];
           *v80 = result;
-          v12[8] = v85;
-          if (v12[3] < *v12)
+          v12[4].n128_u64[0] = v85;
+          if (v12[1].n128_u64[1] < v12->n128_u64[0])
           {
-            v143 = v12[2];
+            v143 = v12[1].n128_u64[0];
             v115 = *v12;
             *v12 = *v70;
-            v12[2] = v12[5];
+            v12[1].n128_u64[0] = v12[2].n128_u64[1];
             result = v115;
             *v70 = v115;
-            v12[5] = v143;
+            v12[2].n128_u64[1] = v143;
           }
         }
       }
@@ -3341,32 +3318,32 @@ LABEL_2:
       {
         if (v81 < v79)
         {
-          v142 = v12[2];
+          v142 = v12[1].n128_u64[0];
           v114 = *v12;
           *v12 = *v80;
-          v12[2] = v12[8];
+          v12[1].n128_u64[0] = v12[4].n128_u64[0];
           result = v114;
           *v80 = v114;
           v82 = v142;
           goto LABEL_102;
         }
 
-        v144 = v12[2];
+        v144 = v12[1].n128_u64[0];
         v117 = *v12;
         *v12 = *v70;
-        v12[2] = v12[5];
+        v12[1].n128_u64[0] = v12[2].n128_u64[1];
         result = v117;
         *v70 = v117;
-        v12[5] = v144;
-        if (v81 < v12[3])
+        v12[2].n128_u64[1] = v144;
+        if (v81 < v12[1].n128_u64[1])
         {
-          v82 = v12[5];
+          v82 = v12[2].n128_u64[1];
           result = *v70;
           *v70 = *v80;
-          v12[5] = v12[8];
+          v12[2].n128_u64[1] = v12[4].n128_u64[0];
           *v80 = result;
 LABEL_102:
-          v12[8] = v82;
+          v12[4].n128_u64[0] = v82;
         }
       }
 
@@ -3375,31 +3352,31 @@ LABEL_102:
         return result;
       }
 
-      v91 = v12[8];
+      v91 = v12[4].n128_u64[0];
       result = *v80;
-      v92 = *(a2 - 1);
+      v92 = a2[-1].n128_u64[1];
       *v80 = *v9;
-      v12[8] = v92;
+      v12[4].n128_u64[0] = v92;
       *v9 = result;
-      *(a2 - 1) = v91;
+      a2[-1].n128_u64[1] = v91;
       if (v80->n128_u64[0] >= v70->n128_u64[0])
       {
         return result;
       }
 
-      v93 = v12[5];
+      v93 = v12[2].n128_u64[1];
       result = *v70;
       *v70 = *v80;
-      v12[5] = v12[8];
+      v12[2].n128_u64[1] = v12[4].n128_u64[0];
       *v80 = result;
-      v12[8] = v93;
+      v12[4].n128_u64[0] = v93;
 LABEL_106:
-      if (v12[3] < *v12)
+      if (v12[1].n128_u64[1] < v12->n128_u64[0])
       {
-        v145 = v12[2];
+        v145 = v12[1].n128_u64[0];
         v118 = *v12;
         *v12 = *v70;
-        v12[2] = v70[1].n128_u64[0];
+        v12[1].n128_u64[0] = v70[1].n128_u64[0];
         result = v118;
         *v70 = v118;
         v70[1].n128_u64[0] = v145;
@@ -3411,7 +3388,7 @@ LABEL_106:
     if (v16 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,0>(v12, (v12 + 3), v12 + 6, (v12 + 9), (a2 - 3), result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,0>(v12, (v12 + 24), v12[3].n128_u64, &v12[4].n128_i64[1], &a2[-2].n128_i64[1], result).n128_u64[0];
       return result;
     }
 
@@ -3426,7 +3403,7 @@ LABEL_10:
 
       else if (v12 != a2)
       {
-        v86 = v12 + 3;
+        v86 = &v12[1].n128_i8[8];
         while (v86 != a2)
         {
           v87 = v86;
@@ -3449,7 +3426,7 @@ LABEL_10:
             *(v89 + 8) = v116;
           }
 
-          v86 = &v87[1].n128_u64[1];
+          v86 = &v87[1].n128_i8[8];
           a1 = v87;
         }
       }
@@ -3469,28 +3446,28 @@ LABEL_10:
     }
 
     v17 = v16 >> 1;
-    v18 = &v12[3 * (v16 >> 1)];
+    v18 = &v12->n128_u64[3 * (v16 >> 1)];
     v19 = *v9;
     if (v15 >= 0xC01)
     {
       v20 = *v18;
-      if (*v18 >= *v12)
+      if (*v18 >= v12->n128_u64[0])
       {
         if (v19 < v20)
         {
           v121 = v18[2];
           v97 = *v18;
           v24 = *v9;
-          v18[2] = *(a2 - 1);
+          v18[2] = a2[-1].n128_u64[1];
           *v18 = v24;
           *v9 = v97;
-          *(a2 - 1) = v121;
-          if (*v18 < *v12)
+          a2[-1].n128_u64[1] = v121;
+          if (*v18 < v12->n128_u64[0])
           {
-            v122 = v12[2];
+            v122 = v12[1].n128_u64[0];
             v98 = *v12;
             v25 = *v18;
-            v12[2] = v18[2];
+            v12[1].n128_u64[0] = v18[2];
             *v12 = v25;
             v18[2] = v122;
             *v18 = v98;
@@ -3502,18 +3479,18 @@ LABEL_10:
       {
         if (v19 < v20)
         {
-          v119 = v12[2];
+          v119 = v12[1].n128_u64[0];
           v95 = *v12;
           v21 = *v9;
-          v12[2] = *(a2 - 1);
+          v12[1].n128_u64[0] = a2[-1].n128_u64[1];
           *v12 = v21;
           goto LABEL_27;
         }
 
-        v125 = v12[2];
+        v125 = v12[1].n128_u64[0];
         v101 = *v12;
         v28 = *v18;
-        v12[2] = v18[2];
+        v12[1].n128_u64[0] = v18[2];
         *v12 = v28;
         v18[2] = v125;
         *v18 = v101;
@@ -3522,39 +3499,39 @@ LABEL_10:
           v119 = v18[2];
           v95 = *v18;
           v29 = *v9;
-          v18[2] = *(a2 - 1);
+          v18[2] = a2[-1].n128_u64[1];
           *v18 = v29;
 LABEL_27:
           *v9 = v95;
-          *(a2 - 1) = v119;
+          a2[-1].n128_u64[1] = v119;
         }
       }
 
-      v30 = (v12 + 3);
-      v31 = &v12[3 * v17];
+      v30 = &v12[1].n128_i8[8];
+      v31 = v12 + 24 * v17;
       v34 = *(v31 - 3);
-      v32 = v31 - 3;
+      v32 = v31 - 24;
       v33 = v34;
       v35 = *v10;
-      if (v34 >= v12[3])
+      if (v34 >= v12[1].n128_u64[1])
       {
         if (v35 < v33)
         {
-          v126 = v32[2];
+          v126 = *(v32 + 2);
           v102 = *v32;
           v39 = *v10;
-          v32[2] = *(a2 - 4);
+          *(v32 + 2) = a2[-2].n128_u64[0];
           *v32 = v39;
           *v10 = v102;
-          *(a2 - 4) = v126;
+          a2[-2].n128_u64[0] = v126;
           if (*v32 < *v30)
           {
             v40 = *v30;
-            v127 = v12[5];
-            v41 = v32[2];
+            v127 = v12[2].n128_u64[1];
+            v41 = *(v32 + 2);
             *v30 = *v32;
-            v12[5] = v41;
-            v32[2] = v127;
+            v12[2].n128_u64[1] = v41;
+            *(v32 + 2) = v127;
             *v32 = v40;
           }
         }
@@ -3563,60 +3540,60 @@ LABEL_27:
       else if (v35 >= v33)
       {
         v44 = *v30;
-        v129 = v12[5];
-        v45 = v32[2];
+        v129 = v12[2].n128_u64[1];
+        v45 = *(v32 + 2);
         *v30 = *v32;
-        v12[5] = v45;
-        v32[2] = v129;
+        v12[2].n128_u64[1] = v45;
+        *(v32 + 2) = v129;
         *v32 = v44;
         if (*v10 < *v32)
         {
-          v130 = v32[2];
+          v130 = *(v32 + 2);
           v104 = *v32;
           v46 = *v10;
-          v32[2] = *(a2 - 4);
+          *(v32 + 2) = a2[-2].n128_u64[0];
           *v32 = v46;
           *v10 = v104;
-          *(a2 - 4) = v130;
+          a2[-2].n128_u64[0] = v130;
         }
       }
 
       else
       {
-        v36 = v12[5];
+        v36 = v12[2].n128_u64[1];
         v37 = *v30;
-        v38 = *(a2 - 4);
+        v38 = a2[-2].n128_u64[0];
         *v30 = *v10;
-        v12[5] = v38;
+        v12[2].n128_u64[1] = v38;
         *v10 = v37;
-        *(a2 - 4) = v36;
+        a2[-2].n128_u64[0] = v36;
       }
 
-      v47 = (v12 + 6);
-      v48 = &v12[3 * v17];
-      v51 = v48[3];
-      v49 = v48 + 3;
+      v47 = v12 + 3;
+      v48 = v12 + 24 * v17;
+      v51 = *(v48 + 3);
+      v49 = (v48 + 24);
       v50 = v51;
       v52 = *v11;
-      if (v51 >= v12[6])
+      if (v51 >= v12[3].n128_u64[0])
       {
         if (v52 < v50)
         {
-          v131 = v49[2];
+          v131 = v49[1].n128_u64[0];
           v105 = *v49;
           v56 = *v11;
-          v49[2] = *(a2 - 7);
+          v49[1].n128_u64[0] = a2[-4].n128_u64[1];
           *v49 = v56;
           *v11 = v105;
-          *(a2 - 7) = v131;
-          if (*v49 < *v47)
+          a2[-4].n128_u64[1] = v131;
+          if (v49->n128_u64[0] < v47->n128_u64[0])
           {
             v57 = *v47;
-            v132 = v12[8];
-            v58 = v49[2];
+            v132 = v12[4].n128_u64[0];
+            v58 = v49[1].n128_u64[0];
             *v47 = *v49;
-            v12[8] = v58;
-            v49[2] = v132;
+            v12[4].n128_u64[0] = v58;
+            v49[1].n128_u64[0] = v132;
             *v49 = v57;
           }
         }
@@ -3625,37 +3602,37 @@ LABEL_27:
       else if (v52 >= v50)
       {
         v59 = *v47;
-        v133 = v12[8];
-        v60 = v49[2];
+        v133 = v12[4].n128_u64[0];
+        v60 = v49[1].n128_u64[0];
         *v47 = *v49;
-        v12[8] = v60;
-        v49[2] = v133;
+        v12[4].n128_u64[0] = v60;
+        v49[1].n128_u64[0] = v133;
         *v49 = v59;
-        if (*v11 < *v49)
+        if (*v11 < v49->n128_u64[0])
         {
-          v134 = v49[2];
+          v134 = v49[1].n128_u64[0];
           v106 = *v49;
           v61 = *v11;
-          v49[2] = *(a2 - 7);
+          v49[1].n128_u64[0] = a2[-4].n128_u64[1];
           *v49 = v61;
           *v11 = v106;
-          *(a2 - 7) = v134;
+          a2[-4].n128_u64[1] = v134;
         }
       }
 
       else
       {
-        v53 = v12[8];
+        v53 = v12[4].n128_u64[0];
         v54 = *v47;
-        v55 = *(a2 - 7);
+        v55 = a2[-4].n128_u64[1];
         *v47 = *v11;
-        v12[8] = v55;
+        v12[4].n128_u64[0] = v55;
         *v11 = v54;
-        *(a2 - 7) = v53;
+        a2[-4].n128_u64[1] = v53;
       }
 
       v62 = *v18;
-      v63 = *v49;
+      v63 = v49->n128_u64[0];
       if (*v18 >= *v32)
       {
         if (v63 < v62)
@@ -3663,15 +3640,15 @@ LABEL_27:
           v136 = v18[2];
           v108 = *v18;
           *v18 = *v49;
-          v18[2] = v49[2];
-          v49[2] = v136;
+          v18[2] = v49[1].n128_u64[0];
+          v49[1].n128_u64[0] = v136;
           *v49 = v108;
           if (*v18 < *v32)
           {
-            v137 = v32[2];
+            v137 = *(v32 + 2);
             v109 = *v32;
             *v32 = *v18;
-            v32[2] = v18[2];
+            *(v32 + 2) = v18[2];
             v18[2] = v137;
             *v18 = v109;
           }
@@ -3682,61 +3659,61 @@ LABEL_27:
       {
         if (v63 < v62)
         {
-          v135 = v32[2];
+          v135 = *(v32 + 2);
           v107 = *v32;
           *v32 = *v49;
-          v32[2] = v49[2];
+          *(v32 + 2) = v49[1].n128_u64[0];
           goto LABEL_55;
         }
 
-        v138 = v32[2];
+        v138 = *(v32 + 2);
         v110 = *v32;
         *v32 = *v18;
-        v32[2] = v18[2];
+        *(v32 + 2) = v18[2];
         v18[2] = v138;
         *v18 = v110;
-        if (*v49 < *v18)
+        if (v49->n128_u64[0] < *v18)
         {
           v135 = v18[2];
           v107 = *v18;
           *v18 = *v49;
-          v18[2] = v49[2];
+          v18[2] = v49[1].n128_u64[0];
 LABEL_55:
-          v49[2] = v135;
+          v49[1].n128_u64[0] = v135;
           *v49 = v107;
         }
       }
 
-      v139 = v12[2];
+      v139 = v12[1].n128_u64[0];
       v111 = *v12;
       v64 = *v18;
-      v12[2] = v18[2];
+      v12[1].n128_u64[0] = v18[2];
       *v12 = v64;
       v18[2] = v139;
       *v18 = v111;
       goto LABEL_57;
     }
 
-    v22 = *v12;
-    if (*v12 >= *v18)
+    v22 = v12->n128_u64[0];
+    if (v12->n128_u64[0] >= *v18)
     {
       if (v19 < v22)
       {
-        v123 = v12[2];
+        v123 = v12[1].n128_u64[0];
         v99 = *v12;
         v26 = *v9;
-        v12[2] = *(a2 - 1);
+        v12[1].n128_u64[0] = a2[-1].n128_u64[1];
         *v12 = v26;
         *v9 = v99;
-        *(a2 - 1) = v123;
-        if (*v12 < *v18)
+        a2[-1].n128_u64[1] = v123;
+        if (v12->n128_u64[0] < *v18)
         {
           v124 = v18[2];
           v100 = *v18;
           v27 = *v12;
-          v18[2] = v12[2];
+          v18[2] = v12[1].n128_u64[0];
           *v18 = v27;
-          v12[2] = v124;
+          v12[1].n128_u64[0] = v124;
           *v12 = v100;
         }
       }
@@ -3749,40 +3726,40 @@ LABEL_55:
         v120 = v18[2];
         v96 = *v18;
         v23 = *v9;
-        v18[2] = *(a2 - 1);
+        v18[2] = a2[-1].n128_u64[1];
         *v18 = v23;
 LABEL_36:
         *v9 = v96;
-        *(a2 - 1) = v120;
+        a2[-1].n128_u64[1] = v120;
         goto LABEL_57;
       }
 
       v128 = v18[2];
       v103 = *v18;
       v42 = *v12;
-      v18[2] = v12[2];
+      v18[2] = v12[1].n128_u64[0];
       *v18 = v42;
-      v12[2] = v128;
+      v12[1].n128_u64[0] = v128;
       *v12 = v103;
-      if (*v9 < *v12)
+      if (*v9 < v12->n128_u64[0])
       {
-        v120 = v12[2];
+        v120 = v12[1].n128_u64[0];
         v96 = *v12;
         v43 = *v9;
-        v12[2] = *(a2 - 1);
+        v12[1].n128_u64[0] = a2[-1].n128_u64[1];
         *v12 = v43;
         goto LABEL_36;
       }
     }
 
 LABEL_57:
-    if ((a5 & 1) == 0 && *(v12 - 3) >= *v12)
+    if ((a5 & 1) == 0 && v12[-2].n128_u64[1] >= v12->n128_u64[0])
     {
-      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,std::__less<void,void> &>(v12, a2);
+      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,std::__less<void,void> &>(v12->n128_u64, a2->n128_u64);
       goto LABEL_64;
     }
 
-    v65 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,std::__less<void,void> &>(v12, a2);
+    v65 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,std::__less<void,void> &>(v12->n128_u64, a2);
     if ((v67 & 1) == 0)
     {
       goto LABEL_62;
@@ -3806,7 +3783,7 @@ LABEL_57:
     if (!v68)
     {
 LABEL_62:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,false>(a1, v65, a3, -v14, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,false>(a1, v65, a3, -v14, a5 & 1);
       v12 = (v65 + 3);
 LABEL_64:
       a5 = 0;
@@ -3815,58 +3792,58 @@ LABEL_64:
     }
   }
 
-  v70 = (v12 + 3);
-  v71 = v12[3];
-  v74 = *(a2 - 3);
-  v73 = (a2 - 3);
+  v70 = (v12 + 24);
+  v71 = v12[1].n128_u64[1];
+  v74 = a2[-2].n128_u64[1];
+  v73 = &a2[-2].n128_i8[8];
   v72 = v74;
-  if (v71 >= *v12)
+  if (v71 >= v12->n128_u64[0])
   {
     if (v72 >= v71)
     {
       return result;
     }
 
-    v83 = v12[5];
+    v83 = v12[2].n128_u64[1];
     result = *v70;
-    v84 = v73[1].n128_u64[0];
+    v84 = *(v73 + 2);
     *v70 = *v73;
-    v12[5] = v84;
+    v12[2].n128_u64[1] = v84;
     *v73 = result;
-    v73[1].n128_u64[0] = v83;
+    *(v73 + 2) = v83;
     goto LABEL_106;
   }
 
   if (v72 < v71)
   {
 LABEL_75:
-    v141 = v12[2];
+    v141 = v12[1].n128_u64[0];
     v113 = *v12;
     v78 = *v73;
-    v12[2] = v73[1].n128_u64[0];
+    v12[1].n128_u64[0] = *(v73 + 2);
     *v12 = v78;
     result = v113;
     *v73 = v113;
-    v73[1].n128_u64[0] = v141;
+    *(v73 + 2) = v141;
     return result;
   }
 
-  v140 = v12[2];
+  v140 = v12[1].n128_u64[0];
   v112 = *v12;
   *v12 = *v70;
-  v12[2] = v12[5];
+  v12[1].n128_u64[0] = v12[2].n128_u64[1];
   result = v112;
   *v70 = v112;
-  v12[5] = v140;
-  if (v73->n128_u64[0] < v12[3])
+  v12[2].n128_u64[1] = v140;
+  if (*v73 < v12[1].n128_u64[1])
   {
-    v75 = v12[5];
+    v75 = v12[2].n128_u64[1];
     result = *v70;
-    v76 = v73[1].n128_u64[0];
+    v76 = *(v73 + 2);
     *v70 = *v73;
-    v12[5] = v76;
+    v12[2].n128_u64[1] = v76;
     *v73 = result;
-    v73[1].n128_u64[0] = v75;
+    *(v73 + 2) = v75;
   }
 
   return result;
@@ -3880,7 +3857,7 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> 
   {
     if (v7 < v6)
     {
-      v10 = a2[1].n128_i64[0];
+      v10 = a2[1].n128_u64[0];
       result = *a2;
       v11 = a3[2];
       *a2 = *a3;
@@ -3945,7 +3922,7 @@ LABEL_10:
     *(a4 + 16) = v17;
     if (*a3 < a2->n128_u64[0])
     {
-      v19 = a2[1].n128_i64[0];
+      v19 = a2[1].n128_u64[0];
       result = *a2;
       v20 = a3[2];
       *a2 = *a3;
@@ -3985,7 +3962,7 @@ LABEL_10:
       *(a4 + 16) = v25;
       if (*a3 < a2->n128_u64[0])
       {
-        v27 = a2[1].n128_i64[0];
+        v27 = a2[1].n128_u64[0];
         result = *a2;
         v28 = a3[2];
         *a2 = *a3;
@@ -4062,120 +4039,107 @@ LABEL_10:
   return result;
 }
 
-unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,std::__less<void,void> &>(unint64_t *a1, unint64_t a2)
+unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,std::__less<void,void> &>(unint64_t *a1, unint64_t *a2)
 {
   v2 = *a1;
-  v3 = *(a1 + 1);
-  if (*a1 >= *(a2 - 24))
+  if (*a1 >= *(a2 - 3))
   {
-    v6 = a1 + 3;
+    v5 = a1 + 3;
     do
     {
-      v4 = v6;
-      if (v6 >= a2)
+      v3 = v5;
+      if (v5 >= a2)
       {
         break;
       }
 
-      v6 += 3;
+      v5 += 3;
     }
 
-    while (v2 >= *v4);
+    while (v2 >= *v3);
   }
 
   else
   {
-    v4 = a1;
+    v3 = a1;
     do
     {
-      v5 = v4[3];
-      v4 += 3;
+      v4 = v3[3];
+      v3 += 3;
     }
 
-    while (v2 >= v5);
+    while (v2 >= v4);
   }
 
-  if (v4 < a2)
+  if (v3 < a2)
   {
     do
     {
-      v7 = *(a2 - 24);
-      a2 -= 24;
+      v6 = *(a2 - 3);
+      a2 -= 3;
     }
 
-    while (v2 < v7);
+    while (v2 < v6);
   }
 
-  while (v4 < a2)
+  while (v3 < a2)
   {
-    v15 = v4[2];
-    v14 = *v4;
-    v8 = *a2;
-    v4[2] = *(a2 + 16);
-    *v4 = v8;
-    *(a2 + 16) = v15;
-    *a2 = v14;
+    v14 = v3[2];
+    v13 = *v3;
+    v7 = *a2;
+    v3[2] = a2[2];
+    *v3 = v7;
+    a2[2] = v14;
+    *a2 = v13;
     do
     {
-      v9 = v4[3];
-      v4 += 3;
+      v8 = v3[3];
+      v3 += 3;
     }
 
-    while (v2 >= v9);
+    while (v2 >= v8);
     do
     {
-      v10 = *(a2 - 24);
-      a2 -= 24;
+      v9 = *(a2 - 3);
+      a2 -= 3;
     }
 
-    while (v2 < v10);
+    while (v2 < v9);
   }
 
-  if (v4 - 3 != a1)
+  if (v3 - 3 != a1)
   {
-    v11 = *(v4 - 3);
-    a1[2] = *(v4 - 1);
-    *a1 = v11;
+    v10 = *(v3 - 3);
+    a1[2] = *(v3 - 1);
+    *a1 = v10;
   }
 
-  *(v4 - 3) = v2;
-  *(v4 - 1) = v13;
-  return v4;
+  *(v3 - 3) = v2;
+  *(v3 - 1) = v12;
+  return v3;
 }
 
-uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,std::__less<void,void> &>(uint64_t *a1, unint64_t a2)
+unint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,std::__less<void,void> &>(unint64_t *a1, unint64_t a2)
 {
   v2 = 0;
   v3 = *a1;
-  v4 = *(a1 + 1);
   do
   {
-    v5 = a1[v2 + 3];
+    v4 = a1[v2 + 3];
     v2 += 3;
   }
 
-  while (v5 < v3);
-  v6 = &a1[v2];
+  while (v4 < v3);
+  v5 = &a1[v2];
   if (v2 == 3)
   {
     do
     {
-      if (v6 >= a2)
+      if (v5 >= a2)
       {
         break;
       }
 
-      v8 = *(a2 - 24);
-      a2 -= 24;
-    }
-
-    while (v8 >= v3);
-  }
-
-  else
-  {
-    do
-    {
       v7 = *(a2 - 24);
       a2 -= 24;
     }
@@ -4183,48 +4147,59 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v7 >= v3);
   }
 
-  v9 = &a1[v2];
-  if (v6 < a2)
+  else
   {
-    v10 = a2;
     do
     {
-      v11 = *v9;
-      v12 = v9[2];
-      v13 = *(v10 + 16);
-      *v9 = *v10;
-      v9[2] = v13;
-      *(v10 + 16) = v12;
-      *v10 = v11;
-      do
-      {
-        v14 = v9[3];
-        v9 += 3;
-      }
-
-      while (v14 < v3);
-      do
-      {
-        v15 = *(v10 - 24);
-        v10 -= 24;
-      }
-
-      while (v15 >= v3);
+      v6 = *(a2 - 24);
+      a2 -= 24;
     }
 
-    while (v9 < v10);
+    while (v6 >= v3);
   }
 
-  if (v9 - 3 != a1)
+  v8 = &a1[v2];
+  if (v5 < a2)
   {
-    v16 = *(v9 - 3);
-    a1[2] = *(v9 - 1);
-    *a1 = v16;
+    v9 = a2;
+    do
+    {
+      v10 = *v8;
+      v11 = v8[2];
+      v12 = *(v9 + 16);
+      *v8 = *v9;
+      v8[2] = v12;
+      *(v9 + 16) = v11;
+      *v9 = v10;
+      do
+      {
+        v13 = v8[3];
+        v8 += 3;
+      }
+
+      while (v13 < v3);
+      do
+      {
+        v14 = *(v9 - 24);
+        v9 -= 24;
+      }
+
+      while (v14 >= v3);
+    }
+
+    while (v8 < v9);
   }
 
-  *(v9 - 3) = v3;
-  *(v9 - 1) = v18;
-  return v9 - 3;
+  if (v8 - 3 != a1)
+  {
+    v15 = *(v8 - 3);
+    a1[2] = *(v8 - 1);
+    *a1 = v15;
+  }
+
+  *(v8 - 3) = v3;
+  *(v8 - 1) = v17;
+  return v8 - 3;
 }
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *>(uint64_t a1, _OWORD *a2, __n128 a3)
@@ -4237,7 +4212,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
       v6 = (a1 + 24);
       v7 = *(a1 + 24);
       v9 = *(a2 - 3);
-      v4 = (a2 - 24);
+      v4 = a2 - 24;
       v8 = v9;
       if (v7 < *a1)
       {
@@ -4249,15 +4224,15 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
           *(a1 + 16) = *(a1 + 40);
           *v6 = v39;
           *(a1 + 40) = v38;
-          if (v4->n128_u64[0] < *(a1 + 24))
+          if (*v4 < *(a1 + 24))
           {
             v40 = *(a1 + 40);
             v41 = *v6;
-            v42 = v4[1].n128_i64[0];
+            v42 = *(v4 + 2);
             *v6 = *v4;
             *(a1 + 40) = v42;
             *v4 = v41;
-            v4[1].n128_u64[0] = v40;
+            *(v4 + 2) = v40;
           }
 
           return 1;
@@ -4266,11 +4241,11 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 LABEL_12:
         v10 = *(a1 + 16);
         v11 = *a1;
-        v12 = v4[1].n128_i64[0];
+        v12 = *(v4 + 2);
         *a1 = *v4;
         *(a1 + 16) = v12;
         *v4 = v11;
-        v4[1].n128_u64[0] = v10;
+        *(v4 + 2) = v10;
         return 1;
       }
 
@@ -4281,11 +4256,11 @@ LABEL_12:
 
       v27 = *(a1 + 40);
       v28 = *v6;
-      v29 = v4[1].n128_i64[0];
+      v29 = *(v4 + 2);
       *v6 = *v4;
       *(a1 + 40) = v29;
       *v4 = v28;
-      v4[1].n128_u64[0] = v27;
+      *(v4 + 2) = v27;
 LABEL_48:
       if (*(a1 + 24) < *a1)
       {
@@ -4405,7 +4380,7 @@ LABEL_45:
   if (v3 == 2)
   {
     v5 = *(a2 - 3);
-    v4 = (a2 - 24);
+    v4 = a2 - 24;
     if (v5 >= *a1)
     {
       return 1;
@@ -4524,18 +4499,18 @@ LABEL_39:
   }
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
     v8 = a2 - a1;
-    v9 = 0xAAAAAAAAAAAAAAABLL * (a2 - a1);
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
     if (a2 - a1 >= 25)
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = &a1[3 * v10];
+      v12 = &a1[24 * v10];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *>(a1, a4, v9, v12);
@@ -4554,17 +4529,17 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
       {
         if (*v13 < *a1)
         {
-          v14 = v13[2];
+          v14 = *(v13 + 2);
           v15 = *v13;
-          v16 = a1[2];
+          v16 = *(a1 + 2);
           *v13 = *a1;
-          v13[2] = v16;
+          *(v13 + 2) = v16;
           *a1 = v15;
-          a1[2] = v14;
+          *(a1 + 2) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *>(a1, a4, v9, a1);
         }
 
-        v13 += 3;
+        v13 += 24;
       }
 
       while (v13 != a3);
@@ -4577,12 +4552,12 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
       {
         v18 = 0;
         v29 = *a1;
-        v30 = a1[2];
+        v30 = *(a1 + 2);
         v19 = a1;
         do
         {
-          v20 = &v19[3 * v18];
-          v21 = v20 + 3;
+          v20 = &v19[24 * v18];
+          v21 = v20 + 24;
           v22 = (2 * v18) | 1;
           v18 = 2 * v18 + 2;
           if (v18 >= v17)
@@ -4592,8 +4567,8 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
 
           else
           {
-            v24 = v20[6];
-            v23 = v20 + 6;
+            v24 = *(v20 + 6);
+            v23 = v20 + 48;
             if (*(v23 - 3) >= v24)
             {
               v18 = v22;
@@ -4606,27 +4581,27 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
           }
 
           v25 = *v21;
-          v19[2] = v21[2];
+          *(v19 + 2) = *(v21 + 2);
           *v19 = v25;
           v19 = v21;
         }
 
         while (v18 <= ((v17 - 2) >> 1));
-        v6 -= 3;
+        v6 -= 24;
         if (v21 == v6)
         {
-          v21[2] = v30;
+          *(v21 + 2) = v30;
           *v21 = v29;
         }
 
         else
         {
           v26 = *v6;
-          v21[2] = v6[2];
+          *(v21 + 2) = *(v6 + 2);
           *v21 = v26;
           *v6 = v29;
-          v6[2] = v30;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *>(a1, (v21 + 3), a4, 0xAAAAAAAAAAAAAAABLL * (v21 + 3 - a1));
+          *(v6 + 2) = v30;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,GPUTools::MTL::Utils::DYMTLBufferGPUAddress *>(a1, (v21 + 24), a4, 0xAAAAAAAAAAAAAAABLL * ((v21 + 24 - a1) >> 3));
         }
       }
 
@@ -4841,9 +4816,9 @@ uint64_t std::vector<std::pair<unsigned long long,objc_object * {__strong}>>::__
   return v15;
 }
 
-void sub_24D6D8304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24D6D8304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<unsigned long long,objc_object * {__strong}>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4858,7 +4833,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned lo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<unsigned long long,objc_object * {__strong}>>,std::pair<unsigned long long,objc_object * {__strong}>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<unsigned long long,objc_object * {__strong}>>,std::pair<unsigned long long,objc_object * {__strong}>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   if (a2 != a3)
   {
@@ -4918,7 +4893,7 @@ uint64_t std::__function::__value_func<void ()(void)>::~__value_func[abi:ne20010
 
 void *std::__function::__value_func<void ()(void)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -4928,15 +4903,15 @@ void *std::__function::__value_func<void ()(void)>::swap[abi:ne200100](void *res
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -4964,7 +4939,6 @@ void *std::__function::__value_func<void ()(void)>::swap[abi:ne200100](void *res
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4978,14 +4952,14 @@ void sub_24D6D86F0(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void sub_24D6D8D60(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_24D6D8D60(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v20 = va_arg(va1, void);
-  v22 = va_arg(va1, void);
-  v23 = va_arg(va1, void);
-  v24 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v27 = va_arg(va1, void);
+  v29 = va_arg(va1, void);
+  v30 = va_arg(va1, void);
+  v31 = va_arg(va1, void);
 
   MEMORY[0x253031C80](va1);
   _Block_object_dispose(va, 8);
@@ -5084,7 +5058,7 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,PerBufferPa
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>>>::__deallocate_node(uint64_t a1, void *a2)
+void std::__hash_table<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>>>::__deallocate_node(uint64_t a1, void **a2)
 {
   if (a2)
   {
@@ -5092,7 +5066,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,PerBufferPatchi
     do
     {
       v3 = *v2;
-      std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::~__hash_table((v2 + 5));
+      std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::~__hash_table(v2 + 5);
       operator delete(v2);
       v2 = v3;
     }
@@ -5101,9 +5075,9 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,PerBufferPatchi
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5171,33 +5145,33 @@ LABEL_7:
   return v5;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5205,49 +5179,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_24D6DA798(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D6DA798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,PerBufferPatchingRequest>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5260,7 +5234,7 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long l
   {
     if (*(a1 + 16) == 1)
     {
-      std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::~__hash_table(v2 + 40);
+      std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::~__hash_table(v2 + 5);
     }
 
     operator delete(v2);
@@ -5269,33 +5243,33 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long l
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5303,44 +5277,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::vector<OffsetPair>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
@@ -5365,16 +5339,14 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
 
 id DictionaryFromBufferAndOffset(void *a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"buffer_device_object";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"buffer_device_object";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*a1];
-  v7[1] = @"buffer_offset";
-  v8[0] = v2;
+  v6[1] = @"buffer_offset";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a1[1]];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -5459,26 +5431,26 @@ void CPUAccessibleMTLBufferData::~CPUAccessibleMTLBufferData(CPUAccessibleMTLBuf
   }
 }
 
-void std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
-void std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::__deallocate_node(uint64_t a1, void **a2)
+void std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::__deallocate_node(uint64_t a1, void *a2)
 {
   if (a2)
   {
@@ -5506,33 +5478,33 @@ void std::__tree<BufferEntry>::destroy(uint64_t a1, void *a2)
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5540,44 +5512,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::vector<PatchingRequest>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void **__p)
@@ -5636,18 +5608,18 @@ uint64_t *std::vector<PatchingRequest>::__swap_out_circular_buffer(uint64_t *res
       v9 = *v7;
       *(v8 + 4) = *(v7 + 4);
       *v8 = v9;
-      v10 = *(v7 + 1);
-      *(v7 + 1) = 0;
+      v10 = *(v7 + 8);
+      *(v7 + 8) = 0;
       *(v8 + 8) = v10;
-      v7 += 4;
+      v7 += 16;
       v8 += 16;
     }
 
     while (v7 != v4);
     do
     {
-      result = std::unique_ptr<std::unordered_map<unsigned long long,PerBufferPatchingRequest>>::reset[abi:ne200100](v5 + 1, 0);
-      v5 += 2;
+      result = std::unique_ptr<std::unordered_map<unsigned long long,PerBufferPatchingRequest>>::reset[abi:ne200100]((v5 + 8), 0);
+      v5 += 16;
     }
 
     while (v5 != v4);
@@ -5695,18 +5667,18 @@ uint64_t std::__split_buffer<PatchingRequest>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *,false>(__n128 *result, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
 {
 LABEL_1:
-  v9 = a2 - 1;
-  v10 = a2 - 2;
-  v11 = a2 - 3;
-  v12 = a1;
+  v9 = &a2[-1];
+  v10 = &a2[-2];
+  v11 = &a2[-3];
+  v12 = result;
 LABEL_2:
   v13 = 1 - a4;
   while (1)
   {
-    a1 = v12;
+    result = v12;
     v14 = v13;
     v15 = a2 - v12;
     if (v15 <= 2)
@@ -5718,7 +5690,7 @@ LABEL_2:
 
       if (v15 == 2)
       {
-        v42 = a2 - 1;
+        v42 = &a2[-1];
         v43 = a2[-1].n128_u64[0];
         if (v43 >= v12->n128_u64[0])
         {
@@ -5752,7 +5724,7 @@ LABEL_2:
     if (v15 == 5)
     {
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *,0>(v12, v12[1].n128_u64, v12 + 2, v12 + 3, a6);
-      v48 = a2 - 1;
+      v48 = &a2[-1];
       v49 = a2[-1].n128_u64[0];
       v50 = v12[3].n128_u64[0];
       if (v49 < v50 || v50 >= v49 && a2[-1].n128_u64[1] < v12[3].n128_u64[1])
@@ -5824,7 +5796,7 @@ LABEL_10:
       v18 = v16->n128_u64[0];
       if (v16->n128_u64[0] < v12->n128_u64[0] || v12->n128_u64[0] >= v18 && v16->n128_u64[1] < v12->n128_u64[1])
       {
-        if (v9->n128_u64[0] < v18 || v18 >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v16->n128_u64[1])
+        if (*v9 < v18 || v18 >= *v9 && a2[-1].n128_u64[1] < v16->n128_u64[1])
         {
           v64 = *v12;
           *v12 = *v9;
@@ -5835,7 +5807,7 @@ LABEL_10:
           v70 = *v12;
           *v12 = *v16;
           *v16 = v70;
-          if (v9->n128_u64[0] >= v16->n128_u64[0] && (v16->n128_u64[0] < v9->n128_u64[0] || a2[-1].n128_u64[1] >= v16->n128_u64[1]))
+          if (*v9 >= v16->n128_u64[0] && (v16->n128_u64[0] < *v9 || a2[-1].n128_u64[1] >= v16->n128_u64[1]))
           {
             goto LABEL_34;
           }
@@ -5848,7 +5820,7 @@ LABEL_10:
         goto LABEL_34;
       }
 
-      if (v9->n128_u64[0] < v18 || v18 >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v16->n128_u64[1])
+      if (*v9 < v18 || v18 >= *v9 && a2[-1].n128_u64[1] < v16->n128_u64[1])
       {
         v66 = *v16;
         *v16 = *v9;
@@ -5868,7 +5840,7 @@ LABEL_34:
       v23 = v16[-1].n128_u64[0];
       if (v23 < v21 || v21 >= v23 && v16[-1].n128_u64[1] < v12[1].n128_u64[1])
       {
-        if (v10->n128_u64[0] < v23 || v23 >= v10->n128_u64[0] && a2[-2].n128_u64[1] < v16[-1].n128_u64[1])
+        if (*v10 < v23 || v23 >= *v10 && a2[-2].n128_u64[1] < v16[-1].n128_u64[1])
         {
           v24 = *v20;
           *v20 = *v10;
@@ -5879,7 +5851,7 @@ LABEL_34:
           v26 = *v20;
           *v20 = *v22;
           *v22 = v26;
-          if (v10->n128_u64[0] >= v22->n128_u64[0] && (v22->n128_u64[0] < v10->n128_u64[0] || a2[-2].n128_u64[1] >= v16[-1].n128_u64[1]))
+          if (*v10 >= v22->n128_u64[0] && (v22->n128_u64[0] < *v10 || a2[-2].n128_u64[1] >= v16[-1].n128_u64[1]))
           {
             goto LABEL_52;
           }
@@ -5893,7 +5865,7 @@ LABEL_34:
         goto LABEL_52;
       }
 
-      if (v10->n128_u64[0] < v23 || v23 >= v10->n128_u64[0] && a2[-2].n128_u64[1] < v16[-1].n128_u64[1])
+      if (*v10 < v23 || v23 >= *v10 && a2[-2].n128_u64[1] < v16[-1].n128_u64[1])
       {
         v71 = *v22;
         *v22 = *v10;
@@ -5914,7 +5886,7 @@ LABEL_52:
       v30 = v31;
       if (v31 < v28 || v28 >= v30 && v29->n128_u64[1] < v12[2].n128_u64[1])
       {
-        if (v11->n128_u64[0] < v30 || v30 >= v11->n128_u64[0] && a2[-3].n128_u64[1] < v29->n128_u64[1])
+        if (*v11 < v30 || v30 >= *v11 && a2[-3].n128_u64[1] < v29->n128_u64[1])
         {
           v32 = *v27;
           *v27 = *v11;
@@ -5925,7 +5897,7 @@ LABEL_52:
           v34 = *v27;
           *v27 = *v29;
           *v29 = v34;
-          if (v11->n128_u64[0] >= v29->n128_u64[0] && (v29->n128_u64[0] < v11->n128_u64[0] || a2[-3].n128_u64[1] >= v29->n128_u64[1]))
+          if (*v11 >= v29->n128_u64[0] && (v29->n128_u64[0] < *v11 || a2[-3].n128_u64[1] >= v29->n128_u64[1]))
           {
             goto LABEL_65;
           }
@@ -5939,7 +5911,7 @@ LABEL_52:
         goto LABEL_65;
       }
 
-      if (v11->n128_u64[0] < v30 || v30 >= v11->n128_u64[0] && a2[-3].n128_u64[1] < v29->n128_u64[1])
+      if (*v11 < v30 || v30 >= *v11 && a2[-3].n128_u64[1] < v29->n128_u64[1])
       {
         v74 = *v29;
         *v29 = *v11;
@@ -6003,7 +5975,7 @@ LABEL_78:
     v19 = v12->n128_u64[0];
     if (v12->n128_u64[0] < v17->n128_u64[0] || v17->n128_u64[0] >= v19 && v12->n128_u64[1] < v17->n128_u64[1])
     {
-      if (v9->n128_u64[0] < v19 || v19 >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v12->n128_u64[1])
+      if (*v9 < v19 || v19 >= *v9 && a2[-1].n128_u64[1] < v12->n128_u64[1])
       {
         v65 = *v17;
         *v17 = *v9;
@@ -6015,7 +5987,7 @@ LABEL_46:
       v72 = *v17;
       *v17 = *v12;
       *v12 = v72;
-      if (v9->n128_u64[0] < v12->n128_u64[0] || v12->n128_u64[0] >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v12->n128_u64[1])
+      if (*v9 < v12->n128_u64[0] || v12->n128_u64[0] >= *v9 && a2[-1].n128_u64[1] < v12->n128_u64[1])
       {
         v65 = *v12;
         *v12 = *v9;
@@ -6023,7 +5995,7 @@ LABEL_46:
       }
     }
 
-    else if (v9->n128_u64[0] < v19 || v19 >= v9->n128_u64[0] && a2[-1].n128_u64[1] < v12->n128_u64[1])
+    else if (*v9 < v19 || v19 >= *v9 && a2[-1].n128_u64[1] < v12->n128_u64[1])
     {
       v68 = *v12;
       *v12 = *v9;
@@ -6071,7 +6043,7 @@ LABEL_79:
     if (!v40)
     {
 LABEL_132:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *,false>(a1, v37, a3, -v14, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *,false>(result, v37, a3, -v14, a5 & 1);
       v12 = v37 + 1;
 LABEL_134:
       a5 = 0;
@@ -6080,7 +6052,7 @@ LABEL_134:
     }
   }
 
-  v42 = v12 + 1;
+  v42 = &v12[1];
   v45 = v12[1].n128_u64[0];
   if (v45 < v12->n128_u64[0] || v12->n128_u64[0] >= v45 && v12[1].n128_u64[1] < v12->n128_u64[1])
   {
@@ -6098,7 +6070,7 @@ LABEL_134:
       *v12 = *v42;
       *v42 = v84;
       v62 = v12[1].n128_u64[0];
-      if (v9->n128_u64[0] >= v62 && (v62 < v9->n128_u64[0] || a2[-1].n128_u64[1] >= v12[1].n128_u64[1]))
+      if (*v9 >= v62 && (v62 < *v9 || a2[-1].n128_u64[1] >= v12[1].n128_u64[1]))
       {
         return;
       }
@@ -6414,7 +6386,7 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
   return i;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,OffsetPair *,std::__less<void,void> &>(unint64_t *a1, unint64_t a2)
+unint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,OffsetPair *,std::__less<void,void> &>(unint64_t *a1, unint64_t a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -6481,15 +6453,15 @@ LABEL_19:
       {
         do
         {
-          v15 = *(v12 + 16);
-          v12 += 16;
+          v15 = v12[2];
+          v12 += 2;
           v14 = v15;
         }
 
         while (v15 < v3);
       }
 
-      while (v3 >= v14 && *(v12 + 8) < v4);
+      while (v3 >= v14 && v12[1] < v4);
       do
       {
         v17 = *(v13 - 16);
@@ -6503,14 +6475,14 @@ LABEL_19:
     while (v12 < v13);
   }
 
-  if ((v12 - 16) != a1)
+  if (v12 - 2 != a1)
   {
-    *a1 = *(v12 - 16);
+    *a1 = *(v12 - 1);
   }
 
-  *(v12 - 16) = v3;
-  *(v12 - 8) = v4;
-  return v12 - 16;
+  *(v12 - 2) = v3;
+  *(v12 - 1) = v4;
+  return v12 - 2;
 }
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *>(__n128 *a1, __n128 *a2, __n128 a3)
@@ -6654,7 +6626,7 @@ LABEL_28:
   }
 
 LABEL_20:
-  v25 = &a1[2];
+  v25 = a1 + 2;
   v26 = a1->n128_u64[0];
   v27 = a1 + 1;
   v28 = a1[1].n128_u64[0];
@@ -6712,15 +6684,15 @@ LABEL_47:
   while (2)
   {
     v45 = v42->n128_u64[0];
-    if (v42->n128_u64[0] >= *v25)
+    if (v42->n128_u64[0] >= v25->n128_u64[0])
     {
-      if (*v25 < v45)
+      if (v25->n128_u64[0] < v45)
       {
         goto LABEL_62;
       }
 
       v46 = v42->n128_u64[1];
-      if (v46 >= *(v25 + 8))
+      if (v46 >= v25->n128_u64[1])
       {
         goto LABEL_62;
       }
@@ -6743,7 +6715,7 @@ LABEL_47:
       }
 
 LABEL_55:
-      v25 -= 16;
+      --v25;
       v48[2] = *(a1 + v47 + 16);
       v47 -= 16;
       if (v47 == -32)
@@ -6763,10 +6735,10 @@ LABEL_55:
       goto LABEL_55;
     }
 
-    v25 = &a1[2] + v47;
+    v25 = (a1 + v47 + 32);
 LABEL_61:
-    *v25 = v45;
-    *(v25 + 8) = v46;
+    v25->n128_u64[0] = v45;
+    v25->n128_u64[1] = v46;
     if (++v44 != 8)
     {
 LABEL_62:
@@ -6784,7 +6756,7 @@ LABEL_62:
   }
 }
 
-__n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *,OffsetPair *>(__n128 *a1, __n128 *a2, __n128 *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *,OffsetPair *>(__n128 *a1, __n128 *a2, __int128 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -6810,7 +6782,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
       v12 = a2;
       do
       {
-        if (v12->n128_u64[0] < a1->n128_u64[0] || a1->n128_u64[0] >= v12->n128_u64[0] && v12->n128_u64[1] < a1->n128_u64[1])
+        if (*v12 < a1->n128_u64[0] || a1->n128_u64[0] >= *v12 && *(v12 + 1) < a1->n128_u64[1])
         {
           v13 = *v12;
           *v12 = *a1;
@@ -6826,7 +6798,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
 
     if (v8 >= 2)
     {
-      v14 = a2 - 1;
+      v14 = &a2[-1];
       do
       {
         v18 = *a1;
@@ -6840,7 +6812,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
         {
           *v15 = *v14;
           *v14 = v18;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *>(a1, &v15[1], a4, &v15[1] - a1);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,OffsetPair *>(a1, (v15 + 1), a4, ((v15 + 1) - a1) >> 4);
         }
 
         --v14;
@@ -7120,7 +7092,7 @@ LABEL_10:
     {
       v58 = v8;
       v59 = (v8 + 16 * (v10 >> 1));
-      v57 = (v7 - 4);
+      v57 = v7 - 4;
       v18 = *v8;
       v19 = *v13;
       if (*v8 >= *v11)
@@ -7166,7 +7138,7 @@ LABEL_35:
 
     v58 = (v8 + 16 * (v10 >> 1));
     v59 = v8;
-    v57 = (v7 - 4);
+    v57 = v7 - 4;
     v14 = *v11;
     v15 = *v13;
     if (*v11 < *v8)
@@ -7206,7 +7178,7 @@ LABEL_27:
     v58 = v11 - 4;
     v59 = (v8 + 16);
     v25 = *(v7 - 8);
-    v57 = (v7 - 8);
+    v57 = v7 - 8;
     if (v22 < v24)
     {
       v26 = &v59;
@@ -7245,7 +7217,7 @@ LABEL_42:
     v58 = v29;
     v59 = (v8 + 32);
     v32 = *(v7 - 12);
-    v57 = (v7 - 12);
+    v57 = v7 - 12;
     if (v30 < v31)
     {
       v33 = &v59;
@@ -7379,7 +7351,7 @@ LABEL_71:
         goto LABEL_2;
       }
 
-      v54 = v43 + 4;
+      v54 = (v43 + 4);
       v8 = (v43 + 4);
     }
   }
@@ -7388,7 +7360,7 @@ LABEL_71:
   v58 = (v8 + 16);
   v59 = v8;
   v52 = *(v7 - 4);
-  v57 = (v7 - 4);
+  v57 = v7 - 4;
   if (v51 < *v8)
   {
     v47 = &v59;
@@ -7444,7 +7416,7 @@ uint64_t std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Patching
   return std::unique_ptr<std::unordered_map<unsigned long long,PerBufferPatchingRequest>>::reset[abi:ne200100](v3 + 1, v4);
 }
 
-int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *,0>(int *result, int *a2, int *a3, int *a4)
+int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *,0>(int *result, unsigned int *a2, unsigned int *a3, int *a4)
 {
   v7 = result;
   v14 = a2;
@@ -7626,7 +7598,7 @@ int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,P
   *(a1 + 8) = 0;
   if (v3 >= *(a2 - 4))
   {
-    v9 = (a1 + 16);
+    v9 = a1 + 16;
     do
     {
       v7 = v9;
@@ -7635,7 +7607,7 @@ int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,P
         break;
       }
 
-      v9 += 4;
+      v9 += 16;
     }
 
     while (v3 >= *v7);
@@ -7800,7 +7772,7 @@ int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,
   return v13 - 4;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *>(int *a1, int *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *>(unsigned int *a1, char *a2)
 {
   v2 = a2;
   v25 = a2;
@@ -7812,10 +7784,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     {
       case 3:
         v10 = a1[4];
-        v30 = (a1 + 4);
+        v30 = a1 + 4;
         v31 = a1;
         v11 = *(a2 - 4);
-        v29 = (a2 - 4);
+        v29 = (a2 - 16);
         if (v10 < *a1)
         {
           v6 = &v31;
@@ -7847,11 +7819,11 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *,0>(a1, a1 + 4, a1 + 8, a2 - 4);
         return 1;
       case 5:
-        v30 = (a1 + 4);
+        v30 = a1 + 4;
         v31 = a1;
         v28 = (a1 + 12);
-        v29 = (a1 + 8);
-        v27 = a2 - 4;
+        v29 = a1 + 8;
+        v27 = a2 - 16;
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *,0>(a1, a1 + 4, a1 + 8, a1 + 12);
         if (*(v2 - 4) >= a1[12])
         {
@@ -7896,7 +7868,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
   if (v4 == 2)
   {
     v5 = *(a2 - 4);
-    v25 = a2 - 4;
+    v25 = (a2 - 16);
     if (v5 < *a1)
     {
       v6 = &v26;
@@ -7909,12 +7881,12 @@ LABEL_28:
   }
 
 LABEL_18:
-  v13 = a1 + 8;
+  v13 = (a1 + 8);
   v12 = a1[8];
   v14 = a1[4];
-  v30 = (a1 + 4);
+  v30 = a1 + 4;
   v31 = a1;
-  v29 = (a1 + 8);
+  v29 = a1 + 8;
   if (v14 < *a1)
   {
     v15 = &v31;
@@ -7946,7 +7918,7 @@ LABEL_32:
   }
 
 LABEL_33:
-  v17 = a1 + 12;
+  v17 = (a1 + 12);
   if (a1 + 12 == v2)
   {
     return 1;
@@ -8000,7 +7972,7 @@ LABEL_33:
   return v17 + 4 == v25;
 }
 
-int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *,PatchingRequest *>(int *a1, int *a2, int *a3, uint64_t a4)
+int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,PatchingRequest *,PatchingRequest *>(unsigned int *a1, unsigned int *a2, int *a3, uint64_t a4)
 {
   v25 = a1;
   if (a1 != a2)
@@ -8282,34 +8254,34 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::__emplace_unique_key_args<DYCommandBufferUID,std::piecewise_construct_t const&,std::tuple<DYCommandBufferUID const&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t *std::__hash_table<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::__unordered_map_hasher<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,DYCommandBufferUIDHash,std::equal_to<DYCommandBufferUID>,true>,std::__unordered_map_equal<DYCommandBufferUID,std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,std::equal_to<DYCommandBufferUID>,DYCommandBufferUIDHash,true>,std::allocator<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>>>::__emplace_unique_key_args<DYCommandBufferUID,std::piecewise_construct_t const&,std::tuple<DYCommandBufferUID const&>,std::tuple<>>(void *a1, uint64_t a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *(a2 + 8);
-  v3 = *a2 ^ (2 * v2);
-  v4 = a1[1];
-  if (!*&v4)
+  v4 = *(a2 + 8);
+  v5 = *a2 ^ (2 * v4);
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v6 = *a2 ^ (2 * v2);
-    if (v3 >= *&v4)
+    v8 = *a2 ^ (2 * v4);
+    if (v5 >= *&v6)
     {
-      v6 = v3 % *&v4;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v6 = v3 & (*&v4 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -8317,44 +8289,44 @@ LABEL_22:
 
   while (1)
   {
-    v9 = v8[1];
-    if (v9 == v3)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v5.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v9 >= *&v4)
+      if (v11 >= *&v6)
       {
-        v9 %= *&v4;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v9 &= *&v4 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v9 != v6)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v8 = *v8;
-    if (!v8)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (*a2 != v8[2] || v2 != *(v8 + 6))
+  if (*a2 != v10[2] || v4 != *(v10 + 6))
   {
     goto LABEL_21;
   }
 
-  return v8;
+  return v10;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<DYCommandBufferUID,std::set<BufferEntry>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void **a2)
@@ -8372,15 +8344,15 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(a2);
 }
 
-uint64_t std::__tree<BufferEntry>::__emplace_unique_key_args<BufferEntry,BufferEntry const&>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<BufferEntry>::__emplace_unique_key_args<BufferEntry,BufferEntry const&>(uint64_t a1, unint64_t *a2, _OWORD *a3)
 {
-  v2 = *std::__tree<BufferEntry>::__find_equal<BufferEntry>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<BufferEntry>::__find_equal<BufferEntry>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<BufferEntry>::__find_equal<BufferEntry>(uint64_t a1, void *a2, unint64_t *a3)
@@ -8440,7 +8412,7 @@ LABEL_10:
   return v5;
 }
 
-uint64_t *std::__tree<BufferEntry>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<BufferEntry>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -8761,9 +8733,9 @@ void sub_24D6E027C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_24D6E0310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24D6E0310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8815,7 +8787,7 @@ void **std::vector<std::vector<std::unordered_map<unsigned long long,std::unorde
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
     v12 = result[1] - *result;
-    v13 = v11 - v12;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -8846,9 +8818,9 @@ void **std::vector<std::vector<std::unordered_map<unsigned long long,std::unorde
   return result;
 }
 
-void sub_24D6E04CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24D6E04CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::vector<GPUTools::MTL::Utils::DYMTLIndirectArgumentBufferInfo>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8900,7 +8872,7 @@ void **std::vector<std::vector<std::vector<GPUTools::MTL::Utils::DYMTLIndirectAr
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
     v12 = result[1] - *result;
-    v13 = v11 - v12;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -8931,7 +8903,7 @@ void **std::vector<std::vector<std::vector<GPUTools::MTL::Utils::DYMTLIndirectAr
   return result;
 }
 
-void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8980,13 +8952,13 @@ void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, v
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-void sub_24D6E0DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15, void *a16, uint64_t a17, void *a18, uint64_t a19)
+void sub_24D6E0DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, uint64_t a19)
 {
   if (__p)
   {
@@ -8997,7 +8969,14 @@ void sub_24D6E0DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::set<DYMTLIABDecodingOp>::insert[abi:ne200100]<std::__tree_const_iterator<DYMTLIABDecodingOp,std::__tree_node<DYMTLIABDecodingOp,void *> *,long>>(uint64_t result, void *a2, void *a3)
+void sub_24D6E15F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::~__hash_table(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::set<DYMTLIABDecodingOp>::insert[abi:ne200100]<std::__tree_const_iterator<DYMTLIABDecodingOp,std::__tree_node<DYMTLIABDecodingOp,void *> *,long>>(uint64_t *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -9005,7 +8984,7 @@ uint64_t std::set<DYMTLIABDecodingOp>::insert[abi:ne200100]<std::__tree_const_it
     v5 = result;
     do
     {
-      result = std::__tree<DYMTLIABDecodingOp>::__emplace_hint_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(v5, v5 + 1, (v4 + 4));
+      result = std::__tree<DYMTLIABDecodingOp>::__emplace_hint_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(v5, (v5 + 8), (v4 + 4), (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -9096,14 +9075,14 @@ void sub_24D6E1D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_24D6E1F1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D6E1F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   std::__function::__value_func<MTLStructType * ()(MTLArrayType *,unsigned long)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<MTLStructType * ()(MTLStructType *,unsigned long)>::~__value_func[abi:ne200100](va1);
 
@@ -9125,14 +9104,14 @@ id std::function<MTLStructType * ()(MTLStructType *,unsigned long)>::operator()(
   return v5;
 }
 
-void sub_24D6E2278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_24D6E2278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DYMTLReplayerIAB::~DYMTLReplayerIAB(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<DYMTLReplayerIAB>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<DYMTLReplayerIAB>::push_back[abi:ne200100](uint64_t a1, id *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -9270,7 +9249,7 @@ uint64_t DYMTLDataTypeNeedsReencoding(uint64_t a1, uint64_t a2)
   return *(a2 + 8 * result) == 2;
 }
 
-void rencodeBufferData(unsigned long long,void *,objc_object  {objcproto18MTLArgumentEncoder}*,_MTLIndirectArgumentBufferLayout *,MTLStructType *,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *,MTLStructType *::map<unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,DYMTLIABDecodingOp<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>>> const&,std::__1<unsigned long long,unsigned long long,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>> const&,std::__1<unsigned long long,MTLStructType *::map<unsigned long long,MTLStructType *::less<MTLStructType *::set><unsigned long long>>,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::less<MTLStructType *::set><unsigned long long>>>> const&,std::__1<unsigned long long,objc_object  {objcproto15MTLSamplerState}* {__strong},MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,objc_object  {objcproto15MTLSamplerState}>>> &,std::__1<unsigned long long,unsigned long long,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>> const,std::__1<unsigned long long,unsigned long long,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>> const,std::__1<unsigned long long,unsigned long long,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>> const,std::__1<unsigned long long,objc_object * {__strong},MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,objc_object>>> const&,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>> *,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>*,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,MTLStructType *::set const&,std::__1<unsigned long long,std::__1<unsigned long long,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>>>>,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>>>>> *,objc_object  {objcproto9MTLBuffer}*,unsigned long long,_MTLArgumentBufferPatchingType *,DYIABPatcher *,DYCommandBufferUID)::$_3::operator()(uint64_t a1, uint64_t a2, unint64_t a3, int a4)
+void rencodeBufferData(unsigned long long,void *,objc_object  {objcproto18MTLArgumentEncoder}*,_MTLIndirectArgumentBufferLayout *,MTLStructType *,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *,MTLStructType *::map<unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,DYMTLIABDecodingOp<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>>> const&,std::__1<unsigned long long,unsigned long long,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>> const&,std::__1<unsigned long long,MTLStructType *::map<unsigned long long,MTLStructType *::less<MTLStructType *::set><unsigned long long>>,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::less<MTLStructType *::set><unsigned long long>>>> const&,std::__1<unsigned long long,objc_object  {objcproto15MTLSamplerState}* {__strong},MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,objc_object  {objcproto15MTLSamplerState}>>> &,std::__1<unsigned long long,unsigned long long,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>> const,std::__1<unsigned long long,unsigned long long,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>> const,std::__1<unsigned long long,unsigned long long,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>> const,std::__1<unsigned long long,objc_object * {__strong},MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,objc_object>>> const&,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>> *,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>*,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,std::unordered_map<unsigned long long,MTLStructType *::set<DYMTLIABDecodingOp,MTLStructType *::less<MTLStructType *::set>,MTLStructType *::allocator<MTLStructType *::set>>,MTLStructType *::hash<unsigned long long>,MTLStructType *::equal_to<unsigned long long>,MTLStructType *::less<MTLStructType *::set><MTLStructType *::pair<unsigned long long const,MTLStructType *::allocator<MTLStructType *::set>>>> *<unsigned long long,unsigned long long,MTLStructType *::vector<DYMTLOriginalProcessBuffer,MTLStructType *::less<MTLStructType *::set><MTLStructType *::vector>>,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,MTLStructType *::set const&,std::__1<unsigned long long,std::__1<unsigned long long,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>>>>,MTLStructType *::hash,MTLStructType *::equal_to,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,MTLStructType *::less<MTLStructType *::set><MTLStructType *::equal_to<unsigned long long><MTLStructType *::pair,unsigned long long>>>>>> *,objc_object  {objcproto9MTLBuffer}*,unsigned long long,_MTLArgumentBufferPatchingType *,DYIABPatcher *,DYCommandBufferUID)::$_3::operator()(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (a2 > 77)
   {
@@ -9324,7 +9303,7 @@ void rencodeBufferData(unsigned long long,void *,objc_object  {objcproto18MTLArg
         v58 = v116;
         v59 = **(a1 + 160);
         v109 = &v117;
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v59, &v117)[3] = v58;
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v59, &v117, &std::piecewise_construct, &v109)[3] = v58;
         v33 = v117;
         if (v117 == v116)
         {
@@ -9380,7 +9359,7 @@ void rencodeBufferData(unsigned long long,void *,objc_object  {objcproto18MTLArg
         v75 = v116;
         v76 = **(a1 + 176);
         v109 = &v117;
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v76, &v117)[3] = v75;
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v76, &v117, &std::piecewise_construct, &v109)[3] = v75;
         v33 = v117;
         if (v117 == v116)
         {
@@ -9439,7 +9418,7 @@ void rencodeBufferData(unsigned long long,void *,objc_object  {objcproto18MTLArg
         v31 = v116;
         v32 = **(a1 + 192);
         v109 = &v117;
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v32, &v117)[3] = v31;
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v32, &v117, &std::piecewise_construct, &v109)[3] = v31;
         v33 = v117;
         if (v117 == v116)
         {
@@ -9453,12 +9432,12 @@ void rencodeBufferData(unsigned long long,void *,objc_object  {objcproto18MTLArg
 
     v77 = **(a1 + 104);
     v109 = *(a1 + 64);
-    v78 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v77, v109);
+    v78 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v77, v109, &std::piecewise_construct, &v109);
     v109 = *(a1 + 16);
-    v79 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v78 + 3, v109);
+    v79 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v78 + 3, v109, &std::piecewise_construct, &v109);
     v115 = a3;
     v109 = &v115;
-    v48 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v79 + 3, &v115);
+    v48 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v79 + 3, &v115, &std::piecewise_construct, &v109);
     goto LABEL_71;
   }
 
@@ -9506,7 +9485,7 @@ void rencodeBufferData(unsigned long long,void *,objc_object  {objcproto18MTLArg
       v44 = DYMTLGetOriginalObject(v28);
       v117 = [v44 uniqueIdentifier];
       v109 = &v117;
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v43, &v117)[3] = v42;
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v43, &v117, &std::piecewise_construct, &v109)[3] = v42;
 
       v33 = [**a1 uniqueIdentifierForTextureAtIndex:a3 inIndirectArgumentBuffer:**(a1 + 8) atOffset:**(a1 + 16)];
       if (v33 != v116)
@@ -9514,12 +9493,12 @@ void rencodeBufferData(unsigned long long,void *,objc_object  {objcproto18MTLArg
 LABEL_43:
         v45 = **(a1 + 104);
         v109 = *(a1 + 64);
-        v46 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v45, v109);
+        v46 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v45, v109, &std::piecewise_construct, &v109);
         v109 = *(a1 + 16);
-        v47 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v46 + 3, v109);
+        v47 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v46 + 3, v109, &std::piecewise_construct, &v109);
         v117 = a3;
         v109 = &v117;
-        v48 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v47 + 3, &v117);
+        v48 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v47 + 3, &v117, &std::piecewise_construct, &v109);
 LABEL_71:
         v48[3] = v33;
       }
@@ -9576,14 +9555,14 @@ LABEL_78:
 
             v104 = *(a1 + 128);
             v109 = &v116;
-            v105 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto15MTLSamplerState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto15MTLSamplerState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto15MTLSamplerState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(v104, &v116);
+            v105 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto15MTLSamplerState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto15MTLSamplerState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto15MTLSamplerState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(v104, &v116, &std::piecewise_construct, &v109);
             objc_storeStrong(v105 + 3, v103);
             v106 = v116;
             v107 = **(a1 + 144);
             v108 = DYMTLGetOriginalObject(v28);
             v117 = [v108 uniqueIdentifier];
             v109 = &v117;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v107, &v117)[3] = v106;
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v107, &v117, &std::piecewise_construct, &v109)[3] = v106;
 
             goto LABEL_59;
           }
@@ -9765,7 +9744,7 @@ LABEL_89:
               v115 = v93;
               v94 = **(a1 + 80);
               v109 = &v115;
-              std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v94, &v115)[5] = v85;
+              std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v94, &v115, &std::piecewise_construct, &v109)[5] = v85;
               if (a4)
               {
                 __p = 0;
@@ -9785,8 +9764,8 @@ LABEL_89:
                 LOBYTE(v111) = 1;
                 v97 = **(a1 + 96);
                 v117 = &v116;
-                v98 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v97, &v116);
-                std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>((v98 + 3), &v109);
+                v98 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v97, &v116, &std::piecewise_construct, &v117);
+                std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(v98 + 3, &v109, &v109);
                 if (__p)
                 {
                   v113 = __p;
@@ -9799,12 +9778,12 @@ LABEL_89:
               {
                 v100 = **(a1 + 104);
                 v109 = *(a1 + 64);
-                v101 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v100, v109);
+                v101 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v100, v109, &std::piecewise_construct, &v109);
                 v109 = *(a1 + 16);
-                v102 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v101 + 3, v109);
+                v102 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v101 + 3, v109, &std::piecewise_construct, &v109);
                 v117 = a3;
                 v109 = &v117;
-                std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v102 + 3, &v117)[3] = v99;
+                std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v102 + 3, &v117, &std::piecewise_construct, &v109)[3] = v99;
               }
             }
           }

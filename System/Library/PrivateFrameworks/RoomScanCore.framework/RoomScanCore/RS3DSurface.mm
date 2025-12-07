@@ -383,7 +383,7 @@
     }
 
     v4->_polygonEdgeStates.__end_ = v19;
-    sub_2621CA9DC(&v4->_polygonEdgeConfidence.__begin_, self->_polygonEdgeConfidence.__begin_, self->_polygonEdgeConfidence.__end_, self->_polygonEdgeConfidence.__end_ - self->_polygonEdgeConfidence.__begin_);
+    sub_2621CA9DC(&v4->_polygonEdgeConfidence, self->_polygonEdgeConfidence.__begin_, self->_polygonEdgeConfidence.__end_, self->_polygonEdgeConfidence.__end_ - self->_polygonEdgeConfidence.__begin_);
     v20 = v4->_polygonEdgeSides.__begin_;
     v21 = self->_polygonEdgeSides.__begin_;
     v22 = self->_polygonEdgeSides.__end_;
@@ -462,37 +462,37 @@
 
 - (id)dictionaryRepresentation
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v109[0] = @"type";
-  v107 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], a2, self->type);
-  v110[0] = v107;
-  v109[1] = @"quad";
-  v97 = sub_2622C3298(&self[1], v3, v4);
-  v110[1] = v97;
-  v109[2] = @"conf";
+  v123 = *MEMORY[0x277D85DE8];
+  v108[0] = @"type";
+  v106 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], a2, self->type);
+  v109[0] = v106;
+  v108[1] = @"quad";
+  v96 = sub_2622C3298(&self[1], v3, v4);
+  v109[1] = v96;
+  v108[2] = @"conf";
   *&v5 = self->confidence;
-  v96 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v6, v7, v5);
-  v110[2] = v96;
-  v109[3] = @"color";
-  v98 = sub_2622C33C8(*self->color, v96, v8, v9);
-  v110[3] = v98;
-  v109[4] = @"groupId";
-  v99 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v10, self->groupId);
-  v110[4] = v99;
-  v109[5] = @"wall_status";
-  v100 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v11, self->wallStatus);
-  v110[5] = v100;
-  v109[6] = @"parent_wall_status";
-  v101 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v12, self->parentWallStatus);
-  v110[6] = v101;
-  v109[7] = @"individualUpdate";
-  v102 = objc_msgSend_numberWithChar_(MEMORY[0x277CCABB0], v13, self->individualUpdate);
-  v110[7] = v102;
-  v109[8] = @"identifier";
-  v111 = objc_msgSend_UUIDString(self->identifier, v14, v15);
-  v109[9] = @"parentIdentifier";
+  v95 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v6, v7, v5);
+  v109[2] = v95;
+  v108[3] = @"color";
+  v97 = sub_2622C33C8(*self->color, v95, v8, v9);
+  v109[3] = v97;
+  v108[4] = @"groupId";
+  v98 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v10, self->groupId);
+  v109[4] = v98;
+  v108[5] = @"wall_status";
+  v99 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v11, self->wallStatus);
+  v109[5] = v99;
+  v108[6] = @"parent_wall_status";
+  v100 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v12, self->parentWallStatus);
+  v109[6] = v100;
+  v108[7] = @"individualUpdate";
+  v101 = objc_msgSend_numberWithChar_(MEMORY[0x277CCABB0], v13, self->individualUpdate);
+  v109[7] = v101;
+  v108[8] = @"identifier";
+  v110 = objc_msgSend_UUIDString(self->identifier, v14, v15);
+  v108[9] = @"parentIdentifier";
   parentIdentifier = self->parentIdentifier;
-  v104 = v111;
+  v103 = v110;
   if (parentIdentifier)
   {
     v19 = objc_msgSend_UUIDString(parentIdentifier, v16, v17);
@@ -503,24 +503,24 @@
     v19 = &stru_2874F1610;
   }
 
-  v112 = v19;
-  v109[10] = @"edgeStates";
-  v105 = parentIdentifier;
-  v108 = objc_msgSend_array(MEMORY[0x277CBEB18], v16, v17, v19);
+  v111 = v19;
+  v108[10] = @"edgeStates";
+  v104 = parentIdentifier;
+  v107 = objc_msgSend_array(MEMORY[0x277CBEB18], v16, v17, v19);
   v21 = objc_msgSend_numberWithChar_(MEMORY[0x277CCABB0], v20, self->edgeStates.states[0]);
-  objc_msgSend_addObject_(v108, v22, v21);
+  objc_msgSend_addObject_(v107, v22, v21);
 
   v24 = objc_msgSend_numberWithChar_(MEMORY[0x277CCABB0], v23, self->edgeStates.states[1]);
-  objc_msgSend_addObject_(v108, v25, v24);
+  objc_msgSend_addObject_(v107, v25, v24);
 
   v27 = objc_msgSend_numberWithChar_(MEMORY[0x277CCABB0], v26, self->edgeStates.states[2]);
-  objc_msgSend_addObject_(v108, v28, v27);
+  objc_msgSend_addObject_(v107, v28, v27);
 
   v30 = objc_msgSend_numberWithChar_(MEMORY[0x277CCABB0], v29, self->edgeStates.states[3]);
-  objc_msgSend_addObject_(v108, v31, v30);
+  objc_msgSend_addObject_(v107, v31, v30);
 
-  v113 = v108;
-  v109[11] = @"edgeConfidence";
+  v112 = v107;
+  v108[11] = @"edgeConfidence";
   v34 = objc_msgSend_array(MEMORY[0x277CBEB18], v32, v33);
   *&v35 = self->edgeConfidence.confidence[0];
   v38 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v36, v37, v35);
@@ -538,16 +538,16 @@
   v53 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v51, v52, v50);
   objc_msgSend_addObject_(v34, v54, v53);
 
-  v114 = v34;
-  v109[12] = @"offset";
+  v113 = v34;
+  v108[12] = @"offset";
   *&v55 = self->offset;
-  v103 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v56, v57, v55);
-  v115 = v103;
-  v109[13] = @"depth";
+  v102 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v56, v57, v55);
+  v114 = v102;
+  v108[13] = @"depth";
   *&v58 = self->depth;
-  v106 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v59, v60, v58);
-  v116 = v106;
-  v109[14] = @"polygon";
+  v105 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v59, v60, v58);
+  v115 = v105;
+  v108[14] = @"polygon";
   v63 = objc_msgSend_array(MEMORY[0x277CBEB18], v61, v62);
   v66 = v63;
   v67 = *self->_anon_8;
@@ -560,11 +560,11 @@
     ++v67;
   }
 
-  v117 = v66;
-  v109[15] = @"polygon_edge_states";
+  v116 = v66;
+  v108[15] = @"polygon_edge_states";
   v71 = sub_2622C362C(&self->_polygonEdgeStates.__begin_, v64, v65);
-  v118 = v71;
-  v109[16] = @"polygon_edge_score";
+  v117 = v71;
+  v108[16] = @"polygon_edge_score";
   v76 = objc_msgSend_array(MEMORY[0x277CBEB18], v72, v73);
   begin = self->_polygonEdgeConfidence.__begin_;
   end = self->_polygonEdgeConfidence.__end_;
@@ -577,26 +577,24 @@
     ++begin;
   }
 
-  v119 = v76;
-  v109[17] = @"polygon_edge_sides";
+  v118 = v76;
+  v108[17] = @"polygon_edge_sides";
   v82 = sub_2622C3758(&self->_polygonEdgeSides.__begin_, v74, v75);
-  v120 = v82;
-  v109[18] = @"appear_pose_pts";
+  v119 = v82;
+  v108[18] = @"appear_pose_pts";
   v85 = sub_2622C3514(*self->appearPosePts, v82, v83, v84);
-  v121 = v85;
-  v109[19] = @"appear_major_views";
+  v120 = v85;
+  v108[19] = @"appear_major_views";
   v88 = sub_2622C3514(*self->appearMajorViews, v85, v86, v87);
-  v122 = v88;
-  v109[20] = @"story";
+  v121 = v88;
+  v108[20] = @"story";
   v90 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v89, self->storyLevel);
-  v123 = v90;
-  v92 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v91, v110, v109, 21);
+  v122 = v90;
+  v92 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v91, v109, v108, 21);
 
-  if (v105)
+  if (v104)
   {
   }
-
-  v93 = *MEMORY[0x277D85DE8];
 
   return v92;
 }
@@ -1108,9 +1106,9 @@
       v23 = vmulq_f32(v22, v22);
       v14.f32[0] = v23.f32[1] + (v23.f32[2] + v23.f32[0]);
       v24 = vextq_s8(vuzp1q_s32(v22, v22), v22, 0xCuLL);
-      *v22.f32 = vrsqrte_f32(v14.u32[0]);
-      *v22.f32 = vmul_f32(*v22.f32, vrsqrts_f32(v14.u32[0], vmul_f32(*v22.f32, *v22.f32)));
-      v25 = vmulq_n_f32(v24, vmul_f32(*v22.f32, vrsqrts_f32(v14.u32[0], vmul_f32(*v22.f32, *v22.f32))).f32[0]);
+      *v22.i8 = vrsqrte_f32(v14.u32[0]);
+      *v22.i8 = vmul_f32(*v22.i8, vrsqrts_f32(v14.u32[0], vmul_f32(*v22.i8, *v22.i8)));
+      v25 = vmulq_n_f32(v24, vmul_f32(*v22.i8, vrsqrts_f32(v14.u32[0], vmul_f32(*v22.i8, *v22.i8))).f32[0]);
       v9 = vbslq_s8(v17, v25, v21);
       v8 = vbslq_s8(v17, v21, vnegq_f32(v25));
       v7.i32[3] = 0;
@@ -1144,27 +1142,21 @@
   v2 = vsubq_f32(self[17], v1);
   v3 = vmulq_f32(v2, v2);
   v3.f32[0] = sqrtf(v3.f32[2] + vaddv_f32(*v3.f32));
-  v4 = self[8].i32[1];
-  v5 = vsubq_f32(v1, self[19]);
-  v6 = vmulq_f32(v5, v5);
-  v7 = sqrtf(v6.f32[2] + vaddv_f32(*v6.f32));
-  v8 = self[6].u8[8];
-  if (v8 == 5)
+  v4 = vsubq_f32(v1, self[19]);
+  v5 = vmulq_f32(v4, v4);
+  v6 = sqrtf(v5.f32[2] + vaddv_f32(*v5.f32));
+  v7 = self[6].u8[8];
+  if (v7 == 5)
   {
-    v9 = v7;
+    v8 = v6;
   }
 
   else
   {
-    v9 = self[8].f32[1];
+    v8 = self[8].f32[1];
   }
 
-  if (v8 == 5)
-  {
-    v10 = self[8].i32[1];
-  }
-
-  v3.f32[1] = v9;
+  v3.f32[1] = v8;
   return *v3.i64;
 }
 

@@ -147,7 +147,7 @@ LABEL_35:
 
 - (id)jsonDictionary
 {
-  v23[6] = *MEMORY[0x1E69E9840];
+  v22[6] = *MEMORY[0x1E69E9840];
   if ([(BMSiriAssistantSuggestionFeaturesEngagementLabels *)self hasWasSpoken])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEngagementLabels wasSpoken](self, "wasSpoken")}];
@@ -208,58 +208,58 @@ LABEL_35:
     v8 = 0;
   }
 
-  v22[0] = @"wasSpoken";
+  v21[0] = @"wasSpoken";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null;
-  v20 = v4;
-  v23[0] = null;
-  v22[1] = @"wasTapped";
+  v17 = null;
+  v19 = v4;
+  v22[0] = null;
+  v21[1] = @"wasTapped";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null2;
-  v22[2] = @"dwellTime";
+  v22[1] = null2;
+  v21[2] = @"dwellTime";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = v3;
-  v23[2] = null3;
-  v22[3] = @"otherSuggestionTapped";
+  v20 = v3;
+  v22[2] = null3;
+  v21[3] = @"otherSuggestionTapped";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22[4] = @"otherSuggestionSpoken";
+  v22[3] = null4;
+  v21[4] = @"otherSuggestionSpoken";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v22[5] = @"position";
+  v22[4] = null5;
+  v21[5] = @"position";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[5] = null6;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:{6, v18}];
+  v22[5] = null6;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{6, v17}];
   if (v8)
   {
     if (v7)
@@ -295,9 +295,9 @@ LABEL_34:
   {
   }
 
-  if (v20)
+  if (v19)
   {
-    if (v21)
+    if (v20)
     {
       goto LABEL_38;
     }
@@ -306,21 +306,20 @@ LABEL_34:
   else
   {
 
-    if (v21)
+    if (v20)
     {
       goto LABEL_38;
     }
   }
 
 LABEL_38:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (BMSiriAssistantSuggestionFeaturesEngagementLabels)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v73[1] = *MEMORY[0x1E69E9840];
+  v72[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"wasSpoken"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -343,17 +342,17 @@ LABEL_4:
         v22 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v23 = *MEMORY[0x1E698F240];
-        v70 = *MEMORY[0x1E696A578];
+        v69 = *MEMORY[0x1E696A578];
         v24 = v7;
         v25 = v8;
         v26 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v49 = objc_opt_class();
+        v48 = objc_opt_class();
         v27 = v26;
         v8 = v25;
         v7 = v24;
-        v28 = [v27 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v49, @"wasTapped"];
-        v71 = v28;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+        v28 = [v27 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v48, @"wasTapped"];
+        v70 = v28;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
         v29 = v23;
         error = v28;
         v21 = 0;
@@ -362,12 +361,12 @@ LABEL_4:
         goto LABEL_49;
       }
 
-      v60 = v9;
+      v59 = v9;
     }
 
     else
     {
-      v60 = 0;
+      v59 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"dwellTime"];
@@ -380,29 +379,29 @@ LABEL_4:
         if (!error)
         {
           v17 = 0;
-          v21 = v60;
+          v21 = v59;
           goto LABEL_49;
         }
 
         v30 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy2 = error;
         v31 = *MEMORY[0x1E698F240];
-        v68 = *MEMORY[0x1E696A578];
+        v67 = *MEMORY[0x1E696A578];
         v32 = v7;
         v33 = v8;
         v34 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v50 = objc_opt_class();
+        v49 = objc_opt_class();
         v35 = v34;
         v8 = v33;
         v7 = v32;
-        v59 = [v35 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v50, @"dwellTime"];
-        v69 = v59;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+        v58 = [v35 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v49, @"dwellTime"];
+        v68 = v58;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
         v36 = [v30 initWithDomain:v31 code:2 userInfo:v11];
         error = 0;
         v17 = 0;
         *errorCopy2 = v36;
-        v21 = v60;
+        v21 = v59;
 LABEL_48:
 
         self = selfCopy;
@@ -411,17 +410,17 @@ LABEL_49:
         goto LABEL_50;
       }
 
-      v58 = v10;
+      v57 = v10;
     }
 
     else
     {
-      v58 = 0;
+      v57 = 0;
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"otherSuggestionTapped"];
-    v56 = v7;
-    v57 = v9;
+    v55 = v7;
+    v56 = v9;
     if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -429,36 +428,36 @@ LABEL_49:
       {
         if (!error)
         {
-          v59 = 0;
+          v58 = 0;
           v17 = 0;
-          v21 = v60;
-          error = v58;
+          v21 = v59;
+          error = v57;
           goto LABEL_48;
         }
 
         v37 = v8;
         v38 = objc_alloc(MEMORY[0x1E696ABC0]);
         v39 = *MEMORY[0x1E698F240];
-        v66 = *MEMORY[0x1E696A578];
+        v65 = *MEMORY[0x1E696A578];
         v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"otherSuggestionTapped"];
-        v67 = v14;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+        v66 = v14;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
         v40 = v38;
         v8 = v37;
-        v7 = v56;
+        v7 = v55;
         v41 = [v40 initWithDomain:v39 code:2 userInfo:v12];
-        v59 = 0;
+        v58 = 0;
         v17 = 0;
         *error = v41;
         goto LABEL_57;
       }
 
-      v59 = v11;
+      v58 = v11;
     }
 
     else
     {
-      v59 = 0;
+      v58 = 0;
     }
 
     v12 = [dictionaryCopy objectForKeyedSubscript:@"otherSuggestionSpoken"];
@@ -480,17 +479,17 @@ LABEL_16:
       {
         v16 = 0;
 LABEL_19:
-        error = v58;
-        v17 = [(BMSiriAssistantSuggestionFeaturesEngagementLabels *)selfCopy initWithWasSpoken:v13 wasTapped:v60 dwellTime:v58 otherSuggestionTapped:v59 otherSuggestionSpoken:v14 position:v16];
+        error = v57;
+        v17 = [(BMSiriAssistantSuggestionFeaturesEngagementLabels *)selfCopy initWithWasSpoken:v13 wasTapped:v59 dwellTime:v57 otherSuggestionTapped:v58 otherSuggestionSpoken:v14 position:v16];
         selfCopy = v17;
 LABEL_46:
 
         v8 = v13;
-        v7 = v56;
+        v7 = v55;
 LABEL_47:
 
-        v21 = v60;
-        v9 = v57;
+        v21 = v59;
+        v9 = v56;
         goto LABEL_48;
       }
 
@@ -503,19 +502,19 @@ LABEL_47:
 
       if (error)
       {
-        v55 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v51 = *MEMORY[0x1E698F240];
-        v62 = *MEMORY[0x1E696A578];
+        v54 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v50 = *MEMORY[0x1E698F240];
+        v61 = *MEMORY[0x1E696A578];
         v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"position"];
-        v63 = v45;
-        v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-        *error = [v55 initWithDomain:v51 code:2 userInfo:v46];
+        v62 = v45;
+        v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+        *error = [v54 initWithDomain:v50 code:2 userInfo:v46];
       }
 
       v16 = 0;
       v17 = 0;
 LABEL_45:
-      error = v58;
+      error = v57;
       goto LABEL_46;
     }
 
@@ -525,10 +524,10 @@ LABEL_45:
       errorCopy3 = error;
       v42 = objc_alloc(MEMORY[0x1E696ABC0]);
       v43 = *MEMORY[0x1E698F240];
-      v64 = *MEMORY[0x1E696A578];
+      v63 = *MEMORY[0x1E696A578];
       v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"otherSuggestionSpoken"];
-      v65 = v16;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+      v64 = v16;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
       v44 = [v42 initWithDomain:v43 code:2 userInfo:v15];
       v14 = 0;
       v17 = 0;
@@ -539,7 +538,7 @@ LABEL_45:
     v14 = 0;
     v17 = 0;
 LABEL_57:
-    error = v58;
+    error = v57;
     goto LABEL_47;
   }
 
@@ -560,17 +559,16 @@ LABEL_57:
   v18 = objc_alloc(MEMORY[0x1E696ABC0]);
   errorCopy4 = error;
   v20 = *MEMORY[0x1E698F240];
-  v72 = *MEMORY[0x1E696A578];
+  v71 = *MEMORY[0x1E696A578];
   v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"wasSpoken"];
-  v73[0] = v21;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+  v72[0] = v21;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v72 forKeys:&v71 count:1];
   v8 = 0;
   v17 = 0;
   *errorCopy4 = [v18 initWithDomain:v20 code:2 userInfo:v9];
 LABEL_50:
 
 LABEL_51:
-  v47 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -588,37 +586,31 @@ LABEL_51:
   toCopy = to;
   if (self->_hasWasSpoken)
   {
-    wasSpoken = self->_wasSpoken;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasWasTapped)
   {
-    wasTapped = self->_wasTapped;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasDwellTime)
   {
-    dwellTime = self->_dwellTime;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasOtherSuggestionTapped)
   {
-    otherSuggestionTapped = self->_otherSuggestionTapped;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasOtherSuggestionSpoken)
   {
-    otherSuggestionSpoken = self->_otherSuggestionSpoken;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasPosition)
   {
-    position = self->_position;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -1116,44 +1108,40 @@ LABEL_101:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"wasSpoken" number:1 type:12 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"wasTapped" number:2 type:12 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"dwellTime" number:3 type:3 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"otherSuggestionTapped" number:4 type:12 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"otherSuggestionSpoken" number:5 type:12 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"position" number:6 type:2 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"wasSpoken" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"wasTapped" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:12 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"dwellTime" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:3 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"otherSuggestionTapped" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:12 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"otherSuggestionSpoken" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"position" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:2 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }

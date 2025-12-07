@@ -21,11 +21,11 @@
 
 + (id)diffFromData:(id)data toData:(id)toData
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   toDataCopy = toData;
-  v55 = objc_alloc_init(MEMORY[0x1E698E700]);
-  v53 = dataCopy;
+  v54 = objc_alloc_init(MEMORY[0x1E698E700]);
+  v52 = dataCopy;
   customOverrides = [dataCopy customOverrides];
   v7 = customOverrides;
   if (customOverrides)
@@ -38,7 +38,7 @@
     v8 = objc_alloc_init(STStatusBarData);
   }
 
-  v56 = v8;
+  v55 = v8;
 
   customOverrides2 = [toDataCopy customOverrides];
   v10 = customOverrides2;
@@ -55,28 +55,28 @@
   v12 = v11;
 
   editedKeys = [toDataCopy editedKeys];
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   v13 = +[STStatusBarData entryKeys];
-  v14 = [v13 countByEnumeratingWithState:&v61 objects:v66 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v60 objects:v65 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v62;
+    v16 = *v61;
     do
     {
       v17 = 0;
       do
       {
-        if (*v62 != v16)
+        if (*v61 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v61 + 1) + 8 * v17);
-        v19 = [(STStatusBarData *)v56 entryForKey:v18];
+        v18 = *(*(&v60 + 1) + 8 * v17);
+        v19 = [(STStatusBarData *)v55 entryForKey:v18];
         v20 = [(STStatusBarData *)v12 entryForKey:v18];
         v21 = v19;
         v22 = v20;
@@ -131,52 +131,52 @@
 
         v27 = [_MergedGlobals_13 indexOfObject:v26];
 
-        [v55 setObject:null2 forSetting:v27];
+        [v54 setObject:null2 forSetting:v27];
 LABEL_23:
 
         ++v17;
       }
 
       while (v15 != v17);
-      v28 = [v13 countByEnumeratingWithState:&v61 objects:v66 count:16];
+      v28 = [v13 countByEnumeratingWithState:&v60 objects:v65 count:16];
       v15 = v28;
     }
 
     while (v28);
   }
 
-  suppressedBackgroundActivityIdentifierListData = [v53 suppressedBackgroundActivityIdentifierListData];
+  suppressedBackgroundActivityIdentifierListData = [v52 suppressedBackgroundActivityIdentifierListData];
   suppressedBackgroundActivityIdentifierListData2 = [toDataCopy suppressedBackgroundActivityIdentifierListData];
   v31 = [STListDataDiff diffFromListData:suppressedBackgroundActivityIdentifierListData toListData:suppressedBackgroundActivityIdentifierListData2];
 
   editedIdentifiers = [toDataCopy editedIdentifiers];
   if ([editedIdentifiers count])
   {
-    v51 = v31;
+    v50 = v31;
     v33 = objc_alloc_init(STMutableListData);
-    v49 = objc_alloc_init(STMutableListData);
-    v50 = editedIdentifiers;
+    v48 = objc_alloc_init(STMutableListData);
+    v49 = editedIdentifiers;
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     v34 = editedIdentifiers;
-    v35 = [v34 countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v58;
+      v37 = *v57;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v58 != v37)
+          if (*v57 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          v39 = *(*(&v57 + 1) + 8 * i);
-          suppressedBackgroundActivityIdentifiers = [v53 suppressedBackgroundActivityIdentifiers];
+          v39 = *(*(&v56 + 1) + 8 * i);
+          suppressedBackgroundActivityIdentifiers = [v52 suppressedBackgroundActivityIdentifiers];
           v41 = [suppressedBackgroundActivityIdentifiers containsObject:v39];
 
           suppressedBackgroundActivityIdentifiers2 = [toDataCopy suppressedBackgroundActivityIdentifiers];
@@ -188,30 +188,28 @@ LABEL_23:
           }
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v57 objects:v65 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v56 objects:v64 count:16];
       }
 
       while (v36);
     }
 
-    v44 = v49;
-    if ([(STListData *)v33 count]|| [(STListData *)v49 count])
+    v44 = v48;
+    if ([(STListData *)v33 count]|| [(STListData *)v48 count])
     {
-      v45 = [STListDataDiff diffFromListData:v33 toListData:v49, v49];
-      v31 = [v51 diffByApplyingDiff:v45];
+      v45 = [STListDataDiff diffFromListData:v33 toListData:v48, v48];
+      v31 = [v50 diffByApplyingDiff:v45];
     }
 
     else
     {
-      v31 = v51;
+      v31 = v50;
     }
 
-    editedIdentifiers = v50;
+    editedIdentifiers = v49;
   }
 
-  v46 = [[STStatusBarOverridesStatusDomainDataDiff alloc] initWithChanges:v55 suppressedBackgroundActivityIdentifierListDataDiff:v31];
-
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = [[STStatusBarOverridesStatusDomainDataDiff alloc] initWithChanges:v54 suppressedBackgroundActivityIdentifierListDataDiff:v31];
 
   return v46;
 }

@@ -21,7 +21,7 @@
 
 - (void)compareOrUpdateRecentAudioAnalysisStereoPairEvent:(id)event key:(id)key accessory:(id)accessory notificationUUID:(id)d window:(unint64_t)window completion:(id)completion
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   keyCopy = key;
   accessoryCopy = accessory;
@@ -61,11 +61,11 @@
         {
           v31 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v63 = v31;
-          v64 = 2112;
-          v65 = keyCopy;
-          v66 = 2112;
-          v67 = eventCopy;
+          v62 = v31;
+          v63 = 2112;
+          v64 = keyCopy;
+          v65 = 2112;
+          v66 = eventCopy;
           _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Adding:%@ event:%@, sequential event from accessory", buf, 0x20u);
         }
 
@@ -81,61 +81,61 @@
         event3 = [v20 event];
         dateOfOccurrence2 = [event3 dateOfOccurrence];
         [dateOfOccurrence timeIntervalSinceDate:dateOfOccurrence2];
-        v48 = v47;
+        v47 = v46;
 
-        if (v48 < 0.0)
+        if (v47 < 0.0)
         {
-          v48 = -v48;
+          v47 = -v47;
         }
 
-        v49 = objc_autoreleasePoolPush();
+        v48 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v51 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+        v50 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
         {
-          v59 = v49;
-          v52 = HMFGetLogIdentifier();
-          v53 = [MEMORY[0x277CCABB0] numberWithDouble:v48];
+          v58 = v48;
+          v51 = HMFGetLogIdentifier();
+          v52 = [MEMORY[0x277CCABB0] numberWithDouble:v47];
           *buf = 138543874;
-          v63 = v52;
-          v64 = 2112;
-          v65 = v53;
-          v66 = 2112;
-          v67 = keyCopy;
-          _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_DEBUG, "%{public}@latency:%@ key:%@", buf, 0x20u);
+          v62 = v51;
+          v63 = 2112;
+          v64 = v52;
+          v65 = 2112;
+          v66 = keyCopy;
+          _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_DEBUG, "%{public}@latency:%@ key:%@", buf, 0x20u);
 
-          v49 = v59;
+          v48 = v58;
         }
 
-        objc_autoreleasePoolPop(v49);
-        if (v48 < window)
+        objc_autoreleasePoolPop(v48);
+        if (v47 < window)
         {
           (*(completionCopy + 2))(completionCopy, 0, 0, 0);
           goto LABEL_16;
         }
 
-        v54 = objc_autoreleasePoolPush();
-        v55 = selfCopy2;
-        v56 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+        v53 = objc_autoreleasePoolPush();
+        v54 = selfCopy2;
+        v55 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
         {
-          v57 = HMFGetLogIdentifier();
-          v58 = [MEMORY[0x277CCABB0] numberWithDouble:v48];
+          v56 = HMFGetLogIdentifier();
+          v57 = [MEMORY[0x277CCABB0] numberWithDouble:v47];
           *buf = 138544130;
-          v63 = v57;
-          v64 = 2112;
-          v65 = keyCopy;
-          v66 = 2112;
-          v67 = eventCopy;
-          v68 = 2112;
-          v69 = v58;
-          _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_INFO, "%{public}@Adding:%@ event:%@, latency:%@", buf, 0x2Au);
+          v62 = v56;
+          v63 = 2112;
+          v64 = keyCopy;
+          v65 = 2112;
+          v66 = eventCopy;
+          v67 = 2112;
+          v68 = v57;
+          _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_INFO, "%{public}@Adding:%@ event:%@, latency:%@", buf, 0x2Au);
         }
 
-        objc_autoreleasePoolPop(v54);
+        objc_autoreleasePoolPop(v53);
         accessory = [v20 accessory];
         notificationUUID = [v20 notificationUUID];
-        [(HMDHomeAudioAnalysisStereoPairController *)v55 updateAudioAnalysisStereoPairDetectedEvent:eventCopy key:keyCopy accessory:accessory notificationUUID:notificationUUID completion:completionCopy];
+        [(HMDHomeAudioAnalysisStereoPairController *)v54 updateAudioAnalysisStereoPairDetectedEvent:eventCopy key:keyCopy accessory:accessory notificationUUID:notificationUUID completion:completionCopy];
       }
     }
 
@@ -149,13 +149,13 @@
         v41 = HMFGetLogIdentifier();
         v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(eventCopy, "state")}];
         *buf = 138544130;
-        v63 = v41;
-        v64 = 2112;
-        v65 = keyCopy;
-        v66 = 2112;
-        v67 = eventCopy;
-        v68 = 2112;
-        v69 = v42;
+        v62 = v41;
+        v63 = 2112;
+        v64 = keyCopy;
+        v65 = 2112;
+        v66 = eventCopy;
+        v67 = 2112;
+        v68 = v42;
         _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_INFO, "%{public}@Adding:%@ event:%@, new state:%@", buf, 0x2Au);
       }
 
@@ -175,11 +175,11 @@
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v63 = v37;
-      v64 = 2112;
-      v65 = keyCopy;
-      v66 = 2112;
-      v67 = eventCopy;
+      v62 = v37;
+      v63 = 2112;
+      v64 = keyCopy;
+      v65 = 2112;
+      v66 = eventCopy;
       _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Adding:%@ event:%@, first known event", buf, 0x20u);
     }
 
@@ -190,7 +190,6 @@
 LABEL_16:
 
   os_unfair_lock_unlock(&self->_lock);
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeAudioAnalysisStereoPairController)init

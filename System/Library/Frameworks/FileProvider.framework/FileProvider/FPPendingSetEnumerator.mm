@@ -261,12 +261,4 @@ uint64_t __65__FPPendingSetEnumerator_currentSyncAnchorWithCompletionHandler___b
   return (*(*(a1 + 40) + 16))();
 }
 
-void __67__FPPendingSetEnumerator_enumerateItemsForObserver_startingAtPage___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, v0, v1, "[ERROR] Pending enumeration failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 @end

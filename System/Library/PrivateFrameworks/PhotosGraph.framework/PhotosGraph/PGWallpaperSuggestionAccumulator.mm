@@ -55,7 +55,7 @@
 - (void)addSuggestion:(id)suggestion passingGating:(BOOL)gating
 {
   gatingCopy = gating;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   suggestions = self->_suggestions;
   if (gatingCopy)
@@ -86,16 +86,16 @@
         targetNumberOfSuggestions = self->_targetNumberOfSuggestions;
         targetMinimumNumberOfGatedSuggestions = self->_targetMinimumNumberOfGatedSuggestions;
         v40 = [(NSMutableArray *)self->_gatingOverflow count];
-        v42 = 67110144;
-        *v43 = v36;
-        *&v43[4] = 1024;
-        *&v43[6] = targetNumberOfSuggestions;
+        v41 = 67110144;
+        *v42 = v36;
+        *&v42[4] = 1024;
+        *&v42[6] = targetNumberOfSuggestions;
+        *v43 = 1024;
+        *&v43[2] = numberOfGatedSuggestions;
         *v44 = 1024;
-        *&v44[2] = numberOfGatedSuggestions;
+        *&v44[2] = targetMinimumNumberOfGatedSuggestions;
         *v45 = 1024;
-        *&v45[2] = targetMinimumNumberOfGatedSuggestions;
-        *v46 = 1024;
-        *&v46[2] = v40;
+        *&v45[2] = v40;
         v21 = "[PGWallpaperSuggestionAccumulator] Dropping non-gated suggestion, %d / %d, gated %d / %d, overflow %d";
       }
 
@@ -115,23 +115,23 @@
         v32 = self->_targetNumberOfSuggestions;
         v33 = self->_targetMinimumNumberOfGatedSuggestions;
         v34 = [(NSMutableArray *)self->_gatingOverflow count];
-        v42 = 67110144;
-        *v43 = v30;
-        *&v43[4] = 1024;
-        *&v43[6] = v32;
+        v41 = 67110144;
+        *v42 = v30;
+        *&v42[4] = 1024;
+        *&v42[6] = v32;
+        *v43 = 1024;
+        *&v43[2] = v31;
         *v44 = 1024;
-        *&v44[2] = v31;
+        *&v44[2] = v33;
         *v45 = 1024;
-        *&v45[2] = v33;
-        *v46 = 1024;
-        *&v46[2] = v34;
+        *&v45[2] = v34;
         v21 = "[PGWallpaperSuggestionAccumulator] Sparing non-gated suggestion, %d / %d, gated %d / %d, overflow %d";
       }
 
       v22 = v15;
       v23 = 32;
 LABEL_19:
-      _os_log_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_INFO, v21, &v42, v23);
+      _os_log_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_INFO, v21, &v41, v23);
 
       goto LABEL_20;
     }
@@ -163,18 +163,18 @@ LABEL_19:
       v18 = self->_targetNumberOfSuggestions;
       v19 = self->_targetMinimumNumberOfGatedSuggestions;
       v20 = [(NSMutableArray *)self->_gatingOverflow count];
-      v42 = 138413570;
-      *v43 = v13;
-      *&v43[8] = 1024;
-      *v44 = v16;
+      v41 = 138413570;
+      *v42 = v13;
+      *&v42[8] = 1024;
+      *v43 = v16;
+      *&v43[4] = 1024;
+      *v44 = v18;
       *&v44[4] = 1024;
-      *v45 = v18;
+      *v45 = v17;
       *&v45[4] = 1024;
-      *v46 = v17;
-      *&v46[4] = 1024;
-      v47 = v19;
-      v48 = 1024;
-      v49 = v20;
+      v46 = v19;
+      v47 = 1024;
+      v48 = v20;
       v21 = "[PGWallpaperSuggestionAccumulator] Adding %@ suggestion, %d / %d, gated %d / %d, overflow %d";
       v22 = v15;
       v23 = 42;
@@ -188,17 +188,15 @@ LABEL_19:
     v25 = v11;
     v26 = [(NSMutableArray *)v24 count];
     v27 = self->_targetNumberOfSuggestions;
-    v42 = 67109376;
-    *v43 = v26;
-    *&v43[4] = 1024;
-    *&v43[6] = v27;
-    _os_log_impl(&dword_22F0FC000, v25, OS_LOG_TYPE_INFO, "[PGWallpaperSuggestionAccumulator] Adding suggestion, %d / %d", &v42, 0xEu);
+    v41 = 67109376;
+    *v42 = v26;
+    *&v42[4] = 1024;
+    *&v42[6] = v27;
+    _os_log_impl(&dword_22F0FC000, v25, OS_LOG_TYPE_INFO, "[PGWallpaperSuggestionAccumulator] Adding suggestion, %d / %d", &v41, 0xEu);
   }
 
 LABEL_20:
   ++self->_numberOfSuggestionsReceived;
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (PGWallpaperSuggestionAccumulator)initWithTargetNumberOfSuggestions:(unint64_t)suggestions targetMinimumNumberOfGatedSuggestions:(unint64_t)gatedSuggestions maximumNumberOfSuggestionsToTryForGating:(unint64_t)gating loggingConnection:(id)connection

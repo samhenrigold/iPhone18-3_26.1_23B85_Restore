@@ -10,7 +10,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_2FE10();
+  sub_2FE10(selfCopy, v5);
 }
 
 - (void)renderWithCommandBuffer:(id)buffer passDescriptor:(id)descriptor

@@ -93,10 +93,9 @@
 
 - (void)_updateState
 {
+  v3 = (*(self->_nextStateForState + 2))();
   state = self->_state;
-  v4 = (*(self->_nextStateForState + 2))();
-  v5 = self->_state;
-  self->_state = v4;
+  self->_state = v3;
 }
 
 @end

@@ -10,7 +10,6 @@
 - (id)applyDiff:(id)diff upOnly:(BOOL)only notifyParent:(BOOL)parent unconditional:(BOOL)unconditional;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
-- (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 - (void)setValue:(id)value;
 @end
@@ -208,13 +207,6 @@ LABEL_6:
   return [v4 initWithValue:value];
 }
 
-- (unint64_t)hash
-{
-  value = self->_value;
-  v4 = [objc_opt_class() hash];
-  return [self->_value hash]- v4 + 32 * v4 + 961;
-}
-
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
@@ -249,33 +241,30 @@ LABEL_7:
 
 - (id)description
 {
-  value = self->_value;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v5 = self->_value;
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
-    v6 = [NRTextFormattingUtilities dateFormatter:self->_value];
+    v3 = [NRTextFormattingUtilities dateFormatter:self->_value];
   }
 
   else
   {
     objc_opt_class();
-    v7 = objc_opt_isKindOfClass();
-    v8 = self->_value;
-    if (v7)
+    isKindOfClass = objc_opt_isKindOfClass();
+    value = self->_value;
+    if (isKindOfClass)
     {
-      [v8 UUIDString];
+      [value UUIDString];
     }
 
     else
     {
-      [v8 description];
+      [value description];
     }
-    v6 = ;
+    v3 = ;
   }
 
-  return v6;
+  return v3;
 }
 
 @end

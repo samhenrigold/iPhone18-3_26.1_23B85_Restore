@@ -53,6 +53,13 @@ void sub_2104(uint64_t a1)
   }
 }
 
+void sub_23A4(id a1, BOOL a2)
+{
+  v2 = a2;
+  v3 = +[AFPreferences sharedPreferences];
+  [v3 setNanoPhraseSpotterEnabled:v2];
+}
+
 void sub_27AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
 {
   objc_destroyWeak((v14 + 32));
@@ -64,6 +71,20 @@ void sub_27C8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained reloadSpecifiers];
+}
+
+void sub_29A8(id a1, BOOL a2)
+{
+  v2 = a2;
+  v3 = +[AFPreferences sharedPreferences];
+  [v3 setNanoRaiseToSpeakEnabled:v2];
+}
+
+void sub_2B1C(id a1, BOOL a2)
+{
+  v2 = a2;
+  v3 = +[AFPreferences sharedPreferences];
+  [v3 setNanoCrownActivationEnabled:v2];
 }
 
 void sub_33FC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -422,9 +443,9 @@ void sub_7F68(uint64_t a1)
   }
 }
 
-void sub_811C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_811C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -474,7 +495,6 @@ Class sub_83CC(uint64_t a1)
 
 uint64_t sub_84F8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_156A8 = result;
   return result;
@@ -492,9 +512,9 @@ void sub_85B4(id a1)
   [v3 setEvictsObjectsWhenApplicationEntersBackground:0];
 }
 
-void sub_89E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_89E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -618,11 +638,4 @@ void sub_9130(void *a1)
   [v2 handleFailureInFunction:v3 file:@"AssistantBridgeVoiceSelectionTask.m" lineNumber:17 description:{@"%s", *a1}];
 
   __break(1u);
-}
-
-void sub_934C(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  sub_8A80();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }

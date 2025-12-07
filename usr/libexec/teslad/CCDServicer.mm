@@ -11,6 +11,7 @@
 - (void)retrieveDeviceUploadRequestTypesWithCredentials:(id)credentials completionBlock:(id)block;
 - (void)retrieveDeviceUploadSoldToIdsForOrganization:(id)organization credentials:(id)credentials completionBlock:(id)block;
 - (void)submitDeviceUploadRequest:(id)request credentials:(id)credentials completionBlock:(id)block;
+- (void)syncDEPPushToken:(id)token pushTopic:(id)topic eligibleForMigration:(BOOL)migration eligibilityDescription:(id)description completionBlock:(id)block;
 - (void)unenrollWithCompletionBlock:(id)block;
 @end
 
@@ -102,6 +103,17 @@
   requestCopy = request;
   server = [(CCDServicer *)self server];
   [server submitDeviceUploadRequest:requestCopy credentials:credentialsCopy completionBlock:blockCopy];
+}
+
+- (void)syncDEPPushToken:(id)token pushTopic:(id)topic eligibleForMigration:(BOOL)migration eligibilityDescription:(id)description completionBlock:(id)block
+{
+  migrationCopy = migration;
+  blockCopy = block;
+  descriptionCopy = description;
+  topicCopy = topic;
+  tokenCopy = token;
+  server = [(CCDServicer *)self server];
+  [server syncDEPPushToken:tokenCopy pushTopic:topicCopy eligibleForMigration:migrationCopy eligibilityDescription:descriptionCopy completionBlock:blockCopy];
 }
 
 - (void)makeStartMDMMigrationRequestWithCompletionBlock:(id)block

@@ -75,11 +75,11 @@ uint64_t __124__HDHRElectrocardiogramRecordingV2UpgradeManager_performWorkForOpe
 
 - (void)pairedDeviceCapabilitiesDidUpdate:(id)update
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   protectedDataOperation = self->_protectedDataOperation;
-  v11 = 0;
-  v4 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [(HDProtectedDataOperation *)protectedDataOperation requestWorkWithPriority:2 error:&v10];
+  v5 = v10;
   _HKInitializeLogging();
   v6 = HKLogInfrastructure();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -96,26 +96,24 @@ uint64_t __124__HDHRElectrocardiogramRecordingV2UpgradeManager_performWorkForOpe
     }
 
     *buf = 138543618;
-    v13 = v7;
-    v14 = 2114;
-    v15 = v8;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v8;
     v9 = v7;
     _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested a chance to upgrade due to nano pairing changes (error: %{public}@)", buf, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doWorkWithCompletion:(uint64_t)completion
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (completion)
   {
     v4 = *(completion + 32);
-    v96 = 0;
-    v5 = [v4 featureOnboardingRecordWithError:&v96];
-    v6 = v96;
+    v90 = 0;
+    v5 = [v4 featureOnboardingRecordWithError:&v90];
+    v6 = v90;
     v7 = v6;
     if (!v5)
     {
@@ -123,15 +121,14 @@ uint64_t __124__HDHRElectrocardiogramRecordingV2UpgradeManager_performWorkForOpe
       domain = [v6 domain];
       v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v7, "code")}];
       v11 = [v8 stringWithFormat:@"%@_%@", domain, v10];
-      v12 = *MEMORY[0x277D103E8];
-      v13 = OUTLINED_FUNCTION_1_4();
-      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v13 _reportAnalyticsEventForCountryCode:v14 eventType:v15 errorCategory:v16 errorDetail:v11];
+      v12 = OUTLINED_FUNCTION_1_4();
+      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v12 _reportAnalyticsEventForCountryCode:v13 eventType:v14 errorCategory:v15 errorDetail:v11];
 
-      v17 = OUTLINED_FUNCTION_0_3();
-      v19 = 0;
-      v20 = v7;
+      v16 = OUTLINED_FUNCTION_0_3();
+      v18 = 0;
+      v19 = v7;
 LABEL_8:
-      v18(v17, v19, v20);
+      v17(v16, v18, v19);
 LABEL_30:
 
       goto LABEL_31;
@@ -140,190 +137,184 @@ LABEL_30:
     if ([v5 isOnboardingPresent])
     {
       _HKInitializeLogging();
-      v21 = *MEMORY[0x277CCC2D8];
+      v20 = *MEMORY[0x277CCC2D8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
       {
-        v22 = v21;
-        v23 = objc_opt_class();
+        v21 = v20;
+        v22 = objc_opt_class();
         *buf = 138543362;
-        v98 = v23;
-        v24 = v23;
-        _os_log_impl(&dword_229486000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] Already onboarded to ECG2", buf, 0xCu);
+        v92 = v22;
+        v23 = v22;
+        _os_log_impl(&dword_229486000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Already onboarded to ECG2", buf, 0xCu);
       }
 
-      v25 = *MEMORY[0x277D103E8];
-      v26 = OUTLINED_FUNCTION_1_4();
-      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v26 _reportAnalyticsEventForCountryCode:v27 eventType:v28 errorCategory:v29 errorDetail:v30];
-      v17 = OUTLINED_FUNCTION_0_3();
-      v19 = 1;
-      v20 = 0;
+      v24 = OUTLINED_FUNCTION_1_4();
+      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v24 _reportAnalyticsEventForCountryCode:v25 eventType:v26 errorCategory:v27 errorDetail:v28];
+      v16 = OUTLINED_FUNCTION_0_3();
+      v18 = 1;
+      v19 = 0;
       goto LABEL_8;
     }
 
-    v31 = *(completion + 24);
-    v95 = v7;
-    v32 = [v31 featureOnboardingRecordWithError:&v95];
-    v33 = v95;
+    v29 = *(completion + 24);
+    v89 = v7;
+    v30 = [v29 featureOnboardingRecordWithError:&v89];
+    v31 = v89;
 
-    if (!v32)
+    if (!v30)
     {
-      v34 = MEMORY[0x277CCACA8];
-      domain2 = [v33 domain];
-      v36 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v33, "code")}];
-      v37 = [v34 stringWithFormat:@"%@_%@", domain2, v36];
-      v38 = *MEMORY[0x277D103E8];
-      v39 = OUTLINED_FUNCTION_1_4();
-      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v39 _reportAnalyticsEventForCountryCode:v40 eventType:v41 errorCategory:v42 errorDetail:v37];
+      v32 = MEMORY[0x277CCACA8];
+      domain2 = [v31 domain];
+      v34 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v31, "code")}];
+      v35 = [v32 stringWithFormat:@"%@_%@", domain2, v34];
+      v36 = OUTLINED_FUNCTION_1_4();
+      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v36 _reportAnalyticsEventForCountryCode:v37 eventType:v38 errorCategory:v39 errorDetail:v35];
 
-      v43 = OUTLINED_FUNCTION_0_3();
-      v45 = 0;
-      v46 = v33;
+      v40 = OUTLINED_FUNCTION_0_3();
+      v42 = 0;
+      v43 = v31;
 LABEL_17:
-      v44(v43, v45, v46);
+      v41(v40, v42, v43);
 LABEL_29:
 
-      v7 = v33;
+      v7 = v31;
       goto LABEL_30;
     }
 
-    if (([v32 isOnboardingPresent] & 1) == 0)
+    if (([v30 isOnboardingPresent] & 1) == 0)
     {
       _HKInitializeLogging();
-      v59 = *MEMORY[0x277CCC2D8];
+      v55 = *MEMORY[0x277CCC2D8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
       {
-        v60 = v59;
-        v61 = objc_opt_class();
+        v56 = v55;
+        v57 = objc_opt_class();
         *buf = 138543362;
-        v98 = v61;
-        v62 = v61;
-        _os_log_impl(&dword_229486000, v60, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cannot upgrade to ECG2 as not onboarded to ECG1", buf, 0xCu);
+        v92 = v57;
+        v58 = v57;
+        _os_log_impl(&dword_229486000, v56, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cannot upgrade to ECG2 as not onboarded to ECG1", buf, 0xCu);
       }
 
-      v63 = *MEMORY[0x277D103E8];
-      v64 = OUTLINED_FUNCTION_1_4();
-      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v64 _reportAnalyticsEventForCountryCode:v65 eventType:v66 errorCategory:v67 errorDetail:v68];
-      v43 = OUTLINED_FUNCTION_0_3();
-      v45 = 1;
-      v46 = 0;
+      v59 = OUTLINED_FUNCTION_1_4();
+      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v59 _reportAnalyticsEventForCountryCode:v60 eventType:v61 errorCategory:v62 errorDetail:v63];
+      v40 = OUTLINED_FUNCTION_0_3();
+      v42 = 1;
+      v43 = 0;
       goto LABEL_17;
     }
 
-    onboardingCompletion = [v32 onboardingCompletion];
+    onboardingCompletion = [v30 onboardingCompletion];
     countryCode = [onboardingCompletion countryCode];
 
     if (countryCode)
     {
-      v69 = *(completion + 32);
-      v94 = v33;
-      v55 = [v69 onboardingEligibilityForCountryCode:countryCode error:&v94];
-      v58 = v94;
+      v64 = *(completion + 32);
+      v88 = v31;
+      v51 = [v64 onboardingEligibilityForCountryCode:countryCode error:&v88];
+      v54 = v88;
 
-      if (v55)
+      if (v51)
       {
-        isEligible = [v55 isEligible];
+        isEligible = [v51 isEligible];
         _HKInitializeLogging();
-        v78 = *MEMORY[0x277CCC2D8];
-        v79 = os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT);
+        v73 = *MEMORY[0x277CCC2D8];
+        v74 = os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT);
         if (isEligible)
         {
-          if (v79)
+          if (v74)
           {
-            v80 = v78;
-            v81 = objc_opt_class();
+            v75 = v73;
+            v76 = objc_opt_class();
             *buf = 138543618;
-            v98 = v81;
-            v99 = 2114;
-            v100 = countryCode;
-            v82 = v81;
-            _os_log_impl(&dword_229486000, v80, OS_LOG_TYPE_DEFAULT, "[%{public}@] Beginning ECG2 upgrade in country: %{public}@", buf, 0x16u);
+            v92 = v76;
+            v93 = 2114;
+            v94 = countryCode;
+            v77 = v76;
+            _os_log_impl(&dword_229486000, v75, OS_LOG_TYPE_DEFAULT, "[%{public}@] Beginning ECG2 upgrade in country: %{public}@", buf, 0x16u);
           }
 
-          v83 = *(completion + 32);
+          v78 = *(completion + 32);
           _v1featureSettingsUponBackgroundDelivery = [(HDHRElectrocardiogramRecordingV2UpgradeManager *)completion _v1featureSettingsUponBackgroundDelivery];
-          v91[0] = MEMORY[0x277D85DD0];
-          v91[1] = 3221225472;
-          v91[2] = __71__HDHRElectrocardiogramRecordingV2UpgradeManager_doWorkWithCompletion___block_invoke;
-          v91[3] = &unk_2786600F8;
-          v91[4] = completion;
-          v92 = countryCode;
-          v93 = v3;
-          [v83 setCurrentOnboardingVersionCompletedForCountryCode:v92 countryCodeProvenance:3 date:0 settings:_v1featureSettingsUponBackgroundDelivery completion:v91];
+          v85[0] = MEMORY[0x277D85DD0];
+          v85[1] = 3221225472;
+          v85[2] = __71__HDHRElectrocardiogramRecordingV2UpgradeManager_doWorkWithCompletion___block_invoke;
+          v85[3] = &unk_2786600F8;
+          v85[4] = completion;
+          v86 = countryCode;
+          v87 = v3;
+          [v78 setCurrentOnboardingVersionCompletedForCountryCode:v86 countryCodeProvenance:3 date:0 settings:_v1featureSettingsUponBackgroundDelivery completion:v85];
 
           goto LABEL_28;
         }
 
-        if (v79)
+        if (v74)
         {
-          v85 = v78;
-          v86 = objc_opt_class();
-          v90 = v86;
-          ineligibilityReasonsDescription = [v55 ineligibilityReasonsDescription];
+          v80 = v73;
+          v81 = objc_opt_class();
+          v84 = v81;
+          ineligibilityReasonsDescription = [v51 ineligibilityReasonsDescription];
           *buf = 138543874;
-          v98 = v86;
-          v99 = 2114;
-          v100 = countryCode;
-          v101 = 2114;
-          v102 = ineligibilityReasonsDescription;
-          _os_log_impl(&dword_229486000, v85, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cannot upgrade to ECG2 in ECG1 country: %{public}@: %{public}@", buf, 0x20u);
+          v92 = v81;
+          v93 = 2114;
+          v94 = countryCode;
+          v95 = 2114;
+          v96 = ineligibilityReasonsDescription;
+          _os_log_impl(&dword_229486000, v80, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cannot upgrade to ECG2 in ECG1 country: %{public}@: %{public}@", buf, 0x20u);
         }
 
-        ineligibilityReasonsDescription2 = [v55 ineligibilityReasonsDescription];
+        ineligibilityReasonsDescription2 = [v51 ineligibilityReasonsDescription];
         [(HDHRElectrocardiogramRecordingV2UpgradeManager *)completion _reportAnalyticsEventForCountryCode:countryCode eventType:*MEMORY[0x277D103E8] errorCategory:@"eligibility" errorDetail:ineligibilityReasonsDescription2];
 
-        v74 = OUTLINED_FUNCTION_0_3();
-        v76 = 0;
+        v69 = OUTLINED_FUNCTION_0_3();
+        v71 = 0;
       }
 
       else
       {
-        v70 = MEMORY[0x277CCACA8];
-        domain3 = [v58 domain];
-        v72 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v58, "code")}];
-        v73 = [v70 stringWithFormat:@"%@_%@", domain3, v72];
-        [(HDHRElectrocardiogramRecordingV2UpgradeManager *)completion _reportAnalyticsEventForCountryCode:countryCode eventType:*MEMORY[0x277D103E8] errorCategory:@"eligibility" errorDetail:v73];
+        v65 = MEMORY[0x277CCACA8];
+        domain3 = [v54 domain];
+        v67 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v54, "code")}];
+        v68 = [v65 stringWithFormat:@"%@_%@", domain3, v67];
+        [(HDHRElectrocardiogramRecordingV2UpgradeManager *)completion _reportAnalyticsEventForCountryCode:countryCode eventType:*MEMORY[0x277D103E8] errorCategory:@"eligibility" errorDetail:v68];
 
-        v74 = OUTLINED_FUNCTION_0_3();
-        v76 = v58;
+        v69 = OUTLINED_FUNCTION_0_3();
+        v71 = v54;
       }
 
-      v75(v74, 0, v76);
+      v70(v69, 0, v71);
     }
 
     else
     {
-      v49 = *MEMORY[0x277D103E8];
-      v50 = OUTLINED_FUNCTION_1_4();
-      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v50 _reportAnalyticsEventForCountryCode:v51 eventType:v52 errorCategory:v53 errorDetail:v54];
-      v55 = [MEMORY[0x277CCA9B8] hk_error:109 description:@"Cannot upgrade V1 user to V2 as no country code exists"];
-      v56 = OUTLINED_FUNCTION_0_3();
-      v57(v56, 1, v55);
-      v58 = v33;
+      v46 = OUTLINED_FUNCTION_1_4();
+      [(HDHRElectrocardiogramRecordingV2UpgradeManager *)v46 _reportAnalyticsEventForCountryCode:v47 eventType:v48 errorCategory:v49 errorDetail:v50];
+      v51 = [MEMORY[0x277CCA9B8] hk_error:109 description:@"Cannot upgrade V1 user to V2 as no country code exists"];
+      v52 = OUTLINED_FUNCTION_0_3();
+      v53(v52, 1, v51);
+      v54 = v31;
     }
 
 LABEL_28:
 
-    v33 = v58;
+    v31 = v54;
     goto LABEL_29;
   }
 
 LABEL_31:
-
-  v89 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_v1featureSettingsUponBackgroundDelivery
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v1 = objc_alloc(MEMORY[0x277CCD450]);
     v2 = *MEMORY[0x277CCBD10];
-    v7[0] = *MEMORY[0x277CCBD18];
-    v7[1] = v2;
-    v8[0] = MEMORY[0x277CBEC38];
-    v8[1] = MEMORY[0x277CBEC28];
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+    v6[0] = *MEMORY[0x277CCBD18];
+    v6[1] = v2;
+    v7[0] = MEMORY[0x277CBEC38];
+    v7[1] = MEMORY[0x277CBEC28];
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
     v4 = [v1 initWithDictionary:v3];
   }
 
@@ -332,14 +323,11 @@ LABEL_31:
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 void __71__HDHRElectrocardiogramRecordingV2UpgradeManager_doWorkWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -356,12 +344,11 @@ void __71__HDHRElectrocardiogramRecordingV2UpgradeManager_doWorkWithCompletion__
     v7 = *MEMORY[0x277CCC2D8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
-      v16 = v7;
+      v14 = v7;
       objc_opt_class();
       OUTLINED_FUNCTION_2_2();
-      v18 = v17;
-      OUTLINED_FUNCTION_3_1(&dword_229486000, v19, v20, "[%{public}@] Error saving ECGV2 Upgrade: %{public}@", v21, v22, v23, v24, v25, v26, v27);
+      v16 = v15;
+      OUTLINED_FUNCTION_3_1(&dword_229486000, v17, v18, "[%{public}@] Error saving ECGV2 Upgrade: %{public}@", v19, v20, v21, v22, v23, v24);
     }
 
     v8 = *(a1 + 32);
@@ -377,8 +364,6 @@ void __71__HDHRElectrocardiogramRecordingV2UpgradeManager_doWorkWithCompletion__
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performWorkForOperation:(id)operation profile:(id)profile databaseAccessibilityAssertion:(id)assertion completion:(id)completion
@@ -396,7 +381,7 @@ void __71__HDHRElectrocardiogramRecordingV2UpgradeManager_doWorkWithCompletion__
 
 - (void)_reportAnalyticsEventForCountryCode:(void *)code eventType:(void *)type errorCategory:(void *)category errorDetail:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v31[4] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v9 = MEMORY[0x277D105D0];
@@ -418,26 +403,24 @@ void __71__HDHRElectrocardiogramRecordingV2UpgradeManager_doWorkWithCompletion__
     v16 = [v14 initWithFeatureIdentifier:*MEMORY[0x277CCC020] eventType:codeCopy countryCode:v13 countryCodeProvenance:v15 errorCategory:typeCopy errorDetail:categoryCopy];
 
     v17 = *(self + 40);
-    v32 = 0;
-    v18 = [v17 submitEvent:v16 error:&v32];
-    v19 = v32;
+    v31[0] = 0;
+    v18 = [v17 submitEvent:v16 error:v31];
+    v19 = v31[0];
     if ((v18 & 1) == 0)
     {
       _HKInitializeLogging();
       v20 = *MEMORY[0x277CCC2D8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
       {
-        v22 = v20;
+        v21 = v20;
         objc_opt_class();
         OUTLINED_FUNCTION_2_2();
-        v34 = v19;
-        v24 = v23;
-        OUTLINED_FUNCTION_3_1(&dword_229486000, v25, v26, "[%{public}@] Failed to submit analytics event: %{public}@", v27, v28, v29, v30, v31, v32, v33);
+        *(&v31[2] + 6) = v19;
+        v23 = v22;
+        OUTLINED_FUNCTION_3_1(&dword_229486000, v24, v25, "[%{public}@] Failed to submit analytics event: %{public}@", v26, v27, v28, v29, v30, v31[0]);
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

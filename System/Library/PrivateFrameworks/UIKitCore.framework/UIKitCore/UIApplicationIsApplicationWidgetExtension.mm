@@ -17,7 +17,7 @@ void ___UIApplicationIsApplicationWidgetExtension_block_invoke()
     {
       v2 = v0;
       v1 = [v0 identifier];
-      byte_1EA992DAD = [v1 isEqualToString:@"com.apple.widget-extension"];
+      byte_1EA992DAD = objc_msgSend_isEqualToString_(v1);
 
       v0 = v2;
     }

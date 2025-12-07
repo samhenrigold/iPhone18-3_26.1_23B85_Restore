@@ -17,9 +17,13 @@
 + (void)_setMobileSMSPreferencesValue:(id)value forKey:(id)key;
 + (void)_setShareAllLocations:(id)locations;
 + (void)_syncSiriLockScreenSuggestionsPrefIfNeeded;
++ (void)_syncSiriLockScreenSuggestionsPrefWithValue:(BOOL)value;
 + (void)migrateIfNeeded;
 + (void)setAlwaysOnPromptCount:(int64_t)count;
++ (void)setCheckInRemindersPreviouslyEnabled:(BOOL)enabled;
 + (void)setCriticalAlertPreference:(int64_t)preference;
++ (void)setHasUserCompletedOnboarding:(BOOL)onboarding;
++ (void)setShareAllLocations:(BOOL)locations;
 + (void)syncSiriLockScreenSuggestionsPrefs;
 @end
 
@@ -103,7 +107,7 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
 
 + (void)migrateIfNeeded
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [self _syncSiriLockScreenSuggestionsPrefIfNeeded];
   legacyStore = [self legacyStore];
   v4 = [legacyStore objectForKey:@"SafetyMonitorFirstTimeUI"];
@@ -123,9 +127,9 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
       {
         v10 = objc_opt_class();
         v11 = NSStringFromClass(v10);
-        v22 = 138412290;
-        v23 = v11;
-        _os_log_impl(&dword_26455D000, v9, OS_LOG_TYPE_INFO, "%@, migrating legacy preferences", &v22, 0xCu);
+        v21 = 138412290;
+        v22 = v11;
+        _os_log_impl(&dword_26455D000, v9, OS_LOG_TYPE_INFO, "%@, migrating legacy preferences", &v21, 0xCu);
       }
     }
 
@@ -162,8 +166,6 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
     legacyStore6 = [self legacyStore];
     [legacyStore6 removeObjectForKey:@"SafetyMonitorShareAllLocations"];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_syncSiriLockScreenSuggestionsPrefIfNeeded
@@ -176,6 +178,18 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
   }
 }
 
++ (void)_syncSiriLockScreenSuggestionsPrefWithValue:(BOOL)value
+{
+  valueCopy = value;
+  v5 = MGCopyAnswer();
+  v6 = CFAutorelease(v5);
+  if (CFEqual(v6, @"iPhone"))
+  {
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+    [self _setMobileSMSPreferencesValue:v7 forKey:@"SafetyMonitorLockscreenSuggestionsEnabledWatch"];
+  }
+}
+
 + (void)syncSiriLockScreenSuggestionsPrefs
 {
   isLockScreenSuggestionsAllowed = [self isLockScreenSuggestionsAllowed];
@@ -185,7 +199,7 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
 
 + (id)_copyMobileSMSPreferencesValueForKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   store = [self store];
   v6 = [store objectForKey:keyCopy];
@@ -197,23 +211,22 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
     {
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
-      v12 = 138412802;
-      v13 = v9;
-      v14 = 2112;
-      v15 = keyCopy;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_26455D000, v7, OS_LOG_TYPE_INFO, "%@, getting preference %@ value: %@", &v12, 0x20u);
+      v11 = 138412802;
+      v12 = v9;
+      v13 = 2112;
+      v14 = keyCopy;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_26455D000, v7, OS_LOG_TYPE_INFO, "%@, getting preference %@ value: %@", &v11, 0x20u);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (id)_copyDuetExpertPreferencesValueForKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   duetExpertStore = [self duetExpertStore];
   v6 = [duetExpertStore objectForKey:keyCopy];
@@ -225,23 +238,22 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
     {
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
-      v12 = 138412802;
-      v13 = v9;
-      v14 = 2112;
-      v15 = keyCopy;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_26455D000, v7, OS_LOG_TYPE_INFO, "%@, getting preference %@ value: %@", &v12, 0x20u);
+      v11 = 138412802;
+      v12 = v9;
+      v13 = 2112;
+      v14 = keyCopy;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_26455D000, v7, OS_LOG_TYPE_INFO, "%@, getting preference %@ value: %@", &v11, 0x20u);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (void)_setMobileSMSPreferencesValue:(id)value forKey:(id)key
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -251,20 +263,18 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
     {
       v9 = objc_opt_class();
       v10 = NSStringFromClass(v9);
-      v13 = 138412802;
-      v14 = v10;
-      v15 = 2112;
-      v16 = keyCopy;
-      v17 = 2112;
-      v18 = valueCopy;
-      _os_log_impl(&dword_26455D000, v8, OS_LOG_TYPE_INFO, "%@, setting preference %@ to %@", &v13, 0x20u);
+      v12 = 138412802;
+      v13 = v10;
+      v14 = 2112;
+      v15 = keyCopy;
+      v16 = 2112;
+      v17 = valueCopy;
+      _os_log_impl(&dword_26455D000, v8, OS_LOG_TYPE_INFO, "%@, setting preference %@ to %@", &v12, 0x20u);
     }
   }
 
   store = [self store];
   [store setObject:valueCopy forKey:keyCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)hasUserCompletedOnboarding
@@ -284,6 +294,12 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
   return bOOLValue;
 }
 
++ (void)setHasUserCompletedOnboarding:(BOOL)onboarding
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:onboarding];
+  [self _setHasUserCompletedOnboarding:v4];
+}
+
 + (BOOL)shareAllLocations
 {
   v2 = [self _copyMobileSMSPreferencesValueForKey:@"SafetyMonitorShareAllLocations"];
@@ -299,6 +315,12 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
   }
 
   return bOOLValue;
+}
+
++ (void)setShareAllLocations:(BOOL)locations
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:locations];
+  [self _setShareAllLocations:v4];
 }
 
 + (void)_setShareAllLocations:(id)locations
@@ -386,7 +408,7 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
 
 + (BOOL)isLockScreenSuggestionsAllowed
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = CFPreferencesCopyAppValue(@"LockscreenSuggestionsDisabledBundles", @"com.apple.duetexpertd");
   v4 = [v3 containsObject:@"com.apple.MobileSMS"];
 
@@ -404,7 +426,7 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
       v11 = v10;
       v12 = @"YES";
       *buf = 138413314;
-      v21 = v9;
+      v20 = v9;
       if (v4)
       {
         v13 = @"NO";
@@ -425,19 +447,19 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
         v14 = @"YES";
       }
 
-      v22 = 2112;
-      v23 = v10;
+      v21 = 2112;
+      v22 = v10;
       if (!keyExistsAndHasValidFormat)
       {
         v12 = @"NO";
       }
 
-      v24 = 2112;
-      v25 = v13;
-      v26 = 2112;
-      v27 = v14;
-      v28 = 2112;
-      v29 = v12;
+      v23 = 2112;
+      v24 = v13;
+      v25 = 2112;
+      v26 = v14;
+      v27 = 2112;
+      v28 = v12;
       _os_log_impl(&dword_26455D000, v7, OS_LOG_TYPE_INFO, "%@, %@, MobileSMSSuggestionsEnabled, %@, globalSiriSuggestionsEnabled, %@, globalSiriSuggestionsEnabledQuerySuccess, %@", buf, 0x34u);
     }
   }
@@ -453,7 +475,6 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
   }
 
   v16 = v15;
-  v17 = *MEMORY[0x277D85DE8];
   return v16 & (v4 ^ 1);
 }
 
@@ -473,7 +494,7 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
 
 + (BOOL)showCheckInRemindersTip
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (+[SMFeatureFlags zelkovaKahanaEnabled])
   {
     if (FIIsWorkoutSafetyCheckInEnabled())
@@ -486,13 +507,13 @@ uint64_t __50__SMMobileSMSPreferencesUtilities_duetExpertStore__block_invoke()
           v5 = objc_opt_class();
           v6 = NSStringFromClass(v5);
           v7 = NSStringFromSelector(a2);
-          v27 = 138412546;
-          v28 = v6;
-          v29 = 2112;
-          v30 = v7;
+          v26 = 138412546;
+          v27 = v6;
+          v28 = 2112;
+          v29 = v7;
           v8 = "%@, %@, Check In Reminders is currently enabled, do not show tip";
 LABEL_9:
-          _os_log_impl(&dword_26455D000, &v4->super, OS_LOG_TYPE_INFO, v8, &v27, 0x16u);
+          _os_log_impl(&dword_26455D000, &v4->super, OS_LOG_TYPE_INFO, v8, &v26, 0x16u);
 
           goto LABEL_10;
         }
@@ -500,9 +521,7 @@ LABEL_9:
         goto LABEL_10;
       }
 
-LABEL_16:
-      v10 = 0;
-      goto LABEL_17;
+      return 0;
     }
 
     if ([self checkInRemindersPreviouslyEnabled])
@@ -518,54 +537,54 @@ LABEL_16:
         v11 = objc_opt_class();
         v6 = NSStringFromClass(v11);
         v7 = NSStringFromSelector(a2);
-        v27 = 138412546;
-        v28 = v6;
-        v29 = 2112;
-        v30 = v7;
+        v26 = 138412546;
+        v27 = v6;
+        v28 = 2112;
+        v29 = v7;
         v8 = "%@, %@, Check In reminders was previously enabled, do not show tip";
         goto LABEL_9;
       }
 
-      goto LABEL_16;
+      return 0;
     }
 
     v4 = objc_alloc_init(SMAppDeletionManager);
     if ([(SMAppDeletionManager *)v4 isMessagesAppInstalled])
     {
       alwaysOnPromptCount = [self alwaysOnPromptCount];
-      v15 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
+      v14 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
       if (alwaysOnPromptCount > 2)
       {
-        if (!v15)
+        if (!v14)
         {
           v10 = 1;
           goto LABEL_11;
         }
 
-        v16 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+        v15 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
         v10 = 1;
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v24 = objc_opt_class();
-          v25 = NSStringFromClass(v24);
-          v26 = NSStringFromSelector(a2);
-          v27 = 138412546;
-          v28 = v25;
-          v29 = 2112;
-          v30 = v26;
-          _os_log_impl(&dword_26455D000, v16, OS_LOG_TYPE_INFO, "%@, %@, Show tip", &v27, 0x16u);
+          v23 = objc_opt_class();
+          v24 = NSStringFromClass(v23);
+          v25 = NSStringFromSelector(a2);
+          v26 = 138412546;
+          v27 = v24;
+          v28 = 2112;
+          v29 = v25;
+          _os_log_impl(&dword_26455D000, v15, OS_LOG_TYPE_INFO, "%@, %@, Show tip", &v26, 0x16u);
         }
 
         goto LABEL_28;
       }
 
-      if (!v15)
+      if (!v14)
       {
         goto LABEL_10;
       }
 
-      v16 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v15 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
 LABEL_27:
         v10 = 0;
@@ -574,18 +593,18 @@ LABEL_28:
         goto LABEL_11;
       }
 
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = NSStringFromSelector(a2);
-      v27 = 138412802;
-      v28 = v18;
-      v29 = 2112;
-      v30 = v19;
-      v31 = 1024;
-      v32 = 3;
-      v20 = "%@, %@, Fewer than %d workout-bound sessions completed, do not show tip";
-      v21 = v16;
-      v22 = 28;
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v18 = NSStringFromSelector(a2);
+      v26 = 138412802;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v18;
+      v30 = 1024;
+      v31 = 3;
+      v19 = "%@, %@, Fewer than %d workout-bound sessions completed, do not show tip";
+      v20 = v15;
+      v21 = 28;
     }
 
     else
@@ -595,32 +614,32 @@ LABEL_28:
         goto LABEL_10;
       }
 
-      v16 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v15 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         goto LABEL_27;
       }
 
-      v23 = objc_opt_class();
-      v18 = NSStringFromClass(v23);
-      v19 = NSStringFromSelector(a2);
-      v27 = 138412546;
-      v28 = v18;
-      v29 = 2112;
-      v30 = v19;
-      v20 = "%@, %@, Messages app is not installed, do not show tip";
-      v21 = v16;
-      v22 = 22;
+      v22 = objc_opt_class();
+      v17 = NSStringFromClass(v22);
+      v18 = NSStringFromSelector(a2);
+      v26 = 138412546;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v18;
+      v19 = "%@, %@, Messages app is not installed, do not show tip";
+      v20 = v15;
+      v21 = 22;
     }
 
-    _os_log_impl(&dword_26455D000, v21, OS_LOG_TYPE_INFO, v20, &v27, v22);
+    _os_log_impl(&dword_26455D000, v20, OS_LOG_TYPE_INFO, v19, &v26, v21);
 
     goto LABEL_27;
   }
 
   if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    goto LABEL_16;
+    return 0;
   }
 
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
@@ -629,10 +648,10 @@ LABEL_28:
     v9 = objc_opt_class();
     v6 = NSStringFromClass(v9);
     v7 = NSStringFromSelector(a2);
-    v27 = 138412546;
-    v28 = v6;
-    v29 = 2112;
-    v30 = v7;
+    v26 = 138412546;
+    v27 = v6;
+    v28 = 2112;
+    v29 = v7;
     v8 = "%@, %@, zelkovaKahana is not enabled, do not show tip";
     goto LABEL_9;
   }
@@ -641,8 +660,6 @@ LABEL_10:
   v10 = 0;
 LABEL_11:
 
-LABEL_17:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -652,6 +669,12 @@ LABEL_17:
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
++ (void)setCheckInRemindersPreviouslyEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [self _setMobileSMSPreferencesValue:v4 forKey:@"SafetyMonitorAlwaysOnPreviouslyEnabled"];
 }
 
 @end

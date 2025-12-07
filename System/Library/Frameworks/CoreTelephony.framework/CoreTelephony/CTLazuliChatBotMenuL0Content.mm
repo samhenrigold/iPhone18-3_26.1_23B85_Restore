@@ -16,8 +16,7 @@
   type = [(CTLazuliChatBotMenuL0Content *)self type];
   type2 = [(CTLazuliChatBotMenuL0Content *)self type];
   [v3 appendFormat:@", type = [%ld - %s]", type, print_CTLazuliMenuL0ContentType(&type2)];
-  item = self->_item;
-  [v3 appendFormat:@", item {%@} = %@", objc_opt_class(), item];
+  [v3 appendFormat:@", item {%@} = %@", objc_opt_class(), self->_item];
   [v3 appendString:@">"];
 
   return v3;
@@ -124,75 +123,74 @@ LABEL_9:
 
 - (CTLazuliChatBotMenuL0Content)initWithReflection:(const void *)reflection
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = CTLazuliChatBotMenuL0Content;
-  v4 = [(CTLazuliChatBotMenuL0Content *)&v13 init];
+  v28 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = CTLazuliChatBotMenuL0Content;
+  v4 = [(CTLazuliChatBotMenuL0Content *)&v12 init];
   if (v4)
   {
     v4->_type = encode_CTLazuliGroupChatParticipantRoleType(reflection);
     v5 = *(reflection + 60);
     if (v5 == 1)
     {
-      v16 = 0u;
-      memset(v15, 0, sizeof(v15));
+      v15 = 0u;
+      memset(v14, 0, sizeof(v14));
       if (*(reflection + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(v15, *(reflection + 1), *(reflection + 2));
+        std::string::__init_copy_ctor_external(v14, *(reflection + 1), *(reflection + 2));
       }
 
       else
       {
-        *v15 = *(reflection + 8);
-        *&v15[16] = *(reflection + 3);
+        *v14 = *(reflection + 8);
+        *&v14[16] = *(reflection + 3);
       }
 
-      *&v15[24] = 0;
-      v16 = 0uLL;
-      std::vector<Lazuli::ChatBotMenuL1Content>::__init_with_size[abi:nn200100]<Lazuli::ChatBotMenuL1Content*,Lazuli::ChatBotMenuL1Content*>(&v15[24], *(reflection + 4), *(reflection + 5), 0xEF7BDEF7BDEF7BDFLL * ((*(reflection + 5) - *(reflection + 4)) >> 3));
-      v9 = [[CTLazuliChatBotMenuL1 alloc] initWithReflection:v15];
+      *&v14[24] = 0;
+      v15 = 0uLL;
+      std::vector<Lazuli::ChatBotMenuL1Content>::__init_with_size[abi:nn200100]<Lazuli::ChatBotMenuL1Content*,Lazuli::ChatBotMenuL1Content*>(&v14[24], *(reflection + 4), *(reflection + 5), 0xEF7BDEF7BDEF7BDFLL * ((*(reflection + 5) - *(reflection + 4)) >> 3));
+      v9 = [[CTLazuliChatBotMenuL1 alloc] initWithReflection:v14];
       item = v4->_item;
       v4->_item = v9;
 
-      v14 = &v15[24];
-      std::vector<Lazuli::ChatBotMenuL1Content>::__destroy_vector::operator()[abi:nn200100](&v14);
-      if ((v15[23] & 0x80000000) != 0)
+      v13 = &v14[24];
+      std::vector<Lazuli::ChatBotMenuL1Content>::__destroy_vector::operator()[abi:nn200100](&v13);
+      if ((v14[23] & 0x80000000) != 0)
       {
-        operator delete(*v15);
+        operator delete(*v14);
       }
     }
 
     else if (!v5)
     {
-      v28 = 0;
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
+      v27 = 0;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v19 = 0u;
+      v22 = 0u;
       v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v15 = 0u;
       v6 = *(reflection + 2);
-      memset(v15, 0, sizeof(v15));
-      *v15 = v6;
-      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<Lazuli::ChatBotSuggestedAction,Lazuli::ChatBotSuggestedReply>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:nn200100](&v15[8], reflection + 16);
-      v7 = [[CTLazuliChatBotSuggestedChip alloc] initWithReflection:v15];
+      memset(v14, 0, sizeof(v14));
+      *v14 = v6;
+      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<Lazuli::ChatBotSuggestedAction,Lazuli::ChatBotSuggestedReply>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:nn200100](&v14[8], reflection + 16);
+      v7 = [[CTLazuliChatBotSuggestedChip alloc] initWithReflection:v14];
       v8 = v4->_item;
       v4->_item = v7;
 
-      if (v28 != -1)
+      if (v27 != -1)
       {
-        (off_1EF013898[v28])(&v14, &v15[8]);
+        (off_1EF013898[v27])(&v13, &v14[8]);
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

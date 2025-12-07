@@ -189,12 +189,12 @@ LABEL_33:
 LABEL_34:
 }
 
-uint64_t __79__PKProvisioningContinuityAlertViewController_configureWithContext_completion___block_invoke(uint64_t a1, int a2)
+uint64_t (**__79__PKProvisioningContinuityAlertViewController_configureWithContext_completion___block_invoke(uint64_t a1, int a2))(void)
 {
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))();
+    result = result[2]();
   }
 
   if (a2)

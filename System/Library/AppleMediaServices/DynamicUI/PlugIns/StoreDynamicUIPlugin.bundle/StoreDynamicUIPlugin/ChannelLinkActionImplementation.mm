@@ -14,7 +14,7 @@
 
 - (void)signInController:(id)controller didCompleteWithOperationsResults:(id)results
 {
-  sub_CACC(0, &qword_19E038);
+  sub_CACC(0, &qword_19E038, AIDAServiceOperationResult_ptr);
   v6 = sub_13BB04();
   controllerCopy = controller;
   selfCopy = self;

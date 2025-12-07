@@ -3,7 +3,7 @@
 
 @implementation NSPredicateUtilities
 
-uint64_t __56___NSPredicateUtilities__operatorClassesForSecureCoding__block_invoke()
+void *__56___NSPredicateUtilities__operatorClassesForSecureCoding__block_invoke()
 {
   v11 = objc_alloc(MEMORY[0x1E695DFD8]);
   v0 = objc_opt_class();
@@ -21,7 +21,7 @@ uint64_t __56___NSPredicateUtilities__operatorClassesForSecureCoding__block_invo
   return result;
 }
 
-uint64_t __66___NSPredicateUtilities__extendedExpressionClassesForSecureCoding__block_invoke()
+void *__66___NSPredicateUtilities__extendedExpressionClassesForSecureCoding__block_invoke()
 {
   v15 = objc_alloc(MEMORY[0x1E695DFD8]);
   v14 = objc_opt_class();
@@ -43,7 +43,7 @@ uint64_t __66___NSPredicateUtilities__extendedExpressionClassesForSecureCoding__
   return result;
 }
 
-uint64_t __58___NSPredicateUtilities__expressionClassesForSecureCoding__block_invoke()
+void *__58___NSPredicateUtilities__expressionClassesForSecureCoding__block_invoke()
 {
   v14 = objc_alloc(MEMORY[0x1E695DFD8]);
   v13 = objc_opt_class();
@@ -64,7 +64,7 @@ uint64_t __58___NSPredicateUtilities__expressionClassesForSecureCoding__block_in
   return result;
 }
 
-uint64_t __61___NSPredicateUtilities__constantValueClassesForSecureCoding__block_invoke()
+void *__61___NSPredicateUtilities__constantValueClassesForSecureCoding__block_invoke()
 {
   v0 = objc_lookUpClass("CLLocation");
   v1 = objc_lookUpClass("NSXPCStoreManagedObjectArchivingToken");
@@ -106,7 +106,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t __65___NSPredicateUtilities__compoundPredicateClassesForSecureCoding__block_invoke()
+void *__65___NSPredicateUtilities__compoundPredicateClassesForSecureCoding__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -118,7 +118,7 @@ uint64_t __65___NSPredicateUtilities__compoundPredicateClassesForSecureCoding__b
   return result;
 }
 
-uint64_t __57___NSPredicateUtilities__predicateClassesForSecureCoding__block_invoke()
+void *__57___NSPredicateUtilities__predicateClassesForSecureCoding__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();

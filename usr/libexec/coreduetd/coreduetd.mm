@@ -242,9 +242,9 @@ id sub_100006238()
   return v1;
 }
 
-void sub_100006324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -270,9 +270,9 @@ id sub_10000633C()
   return v1;
 }
 
-void sub_100006428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -723,9 +723,8 @@ void sub_1000094E0(uint64_t a1, uint64_t a2, void *a3)
 void sub_100009770(uint64_t a1)
 {
   v2 = [*(a1 + 32) suggester];
-  v4 = [v2 shareSheetInteractionsFromContext:*(a1 + 40) maximumNumberOfSuggestions:{objc_msgSend(*(a1 + 48), "integerValue")}];
+  v3 = [v2 shareSheetInteractionsFromContext:*(a1 + 40) maximumNumberOfSuggestions:{objc_msgSend(*(a1 + 48), "integerValue")}];
 
-  v3 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
 }
 
@@ -765,9 +764,9 @@ id sub_10000C524()
   return v1;
 }
 
-void sub_10000C610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000C610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -791,7 +790,6 @@ void sub_10000CCE4()
 
 uint64_t sub_10000CDB4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100044588 = result;
   return result;
@@ -824,16 +822,18 @@ Class sub_10000CED8(uint64_t a1)
   return result;
 }
 
-void sub_10000CF28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000CF28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_10000CF84(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000CF84(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_10000CFA0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -947,9 +947,9 @@ void sub_10000DB30(uint64_t a1)
   [v1 checkDevices:v2];
 }
 
-void sub_10000DCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000DCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1312,7 +1312,6 @@ Class sub_100011398(uint64_t a1)
 
 uint64_t sub_100011498(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000445B0 = result;
   return result;
@@ -1422,9 +1421,9 @@ void sub_100013278(uint64_t a1)
   [v1 addObject:v2];
 }
 
-void sub_1000134BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000134BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1914,9 +1913,9 @@ void sub_100016700(uint64_t a1)
   }
 }
 
-void sub_1000169B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000169B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2660,9 +2659,9 @@ void sub_10001BB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_10001BE08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10001BE08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2695,9 +2694,9 @@ id sub_10001BE88()
   return v1;
 }
 
-void sub_10001BF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001BF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2820,7 +2819,6 @@ void sub_10001CD1C()
 
 uint64_t sub_10001CDEC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100044608 = result;
   return result;
@@ -2835,10 +2833,11 @@ Class sub_10001CE60(uint64_t a1)
   return result;
 }
 
-void sub_10001D348(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001D348(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10001D864(id a1)
@@ -2874,7 +2873,7 @@ uint64_t sub_10001E100(uint64_t a1, int a2, const char **a3, const char **a4)
   return v8;
 }
 
-uint64_t sub_10001E180(void *a1, int a2, const char **a3, const char **a4)
+uint64_t sub_10001E180(void *a1, unsigned int a2, const char **a3, const char **a4)
 {
   v8 = objc_autoreleasePoolPush();
   v9 = v8;
@@ -3240,14 +3239,14 @@ void sub_100022C48(void *a1)
 {
   [a1 count];
   sub_100001E80();
-  sub_10001D348(&_mh_execute_header, v1, v2, "Attempting to save %lu objects to knowledge store", v3, v4, v5, v6, v7);
+  sub_10001D348(&_mh_execute_header, v1, v2, "Attempting to save %lu objects to knowledge store", v3, v4, v5, v6);
 }
 
 void sub_100022CC0(void *a1)
 {
   [a1 count];
   sub_100001E80();
-  sub_10001D348(&_mh_execute_header, v1, v2, "Attempting to delete %lu objects from knowledge store", v3, v4, v5, v6, v7);
+  sub_10001D348(&_mh_execute_header, v1, v2, "Attempting to delete %lu objects from knowledge store", v3, v4, v5, v6);
 }
 
 void sub_100022E64(void *a1)

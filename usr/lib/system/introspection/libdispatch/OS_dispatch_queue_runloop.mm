@@ -14,7 +14,7 @@
 
 - (void)_xref_dispose
 {
-  _dispatch_queue_xref_dispose(self);
+  _dispatch_queue_xref_dispose(self, a2);
   _dispatch_runloop_queue_xref_dispose(self);
   v3.receiver = self;
   v3.super_class = OS_dispatch_queue_runloop;

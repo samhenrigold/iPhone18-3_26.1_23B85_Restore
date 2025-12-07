@@ -46,7 +46,7 @@ uint64_t __35__SRXPCConnection_sharedConnection__block_invoke()
 
   else
   {
-    v3 = SRLogCategoryAssets();
+    v3 = SRLogCategoryAssets(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [(SRXPCConnection *)v3 init];
@@ -98,7 +98,7 @@ LABEL_7:
 - (void)sendCommand:(unint64_t)command info:(id)info sync:(BOOL)sync completion:(id)completion
 {
   syncCopy = sync;
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   completionCopy = completion;
   spid = self->_spid;
@@ -114,36 +114,36 @@ LABEL_7:
     xpc_dictionary_set_value(empty, "i", infoCopy);
   }
 
-  v15 = SRLogCategorySafety();
-  v16 = v15;
-  if (spid <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v16 = SRLogCategorySafety(v15);
+  v17 = v16;
+  if (spid <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 134218496;
     commandCopy = command;
-    v30 = 1024;
-    v31 = syncCopy;
-    v32 = 2048;
-    v33 = qos_class_self();
-    _os_signpost_emit_with_name_impl(&dword_1AE58E000, v16, OS_SIGNPOST_INTERVAL_BEGIN, spid + 1, "SendRequest", "c:%llu, sync:%d, qos:%llu", buf, 0x1Cu);
+    v31 = 1024;
+    v32 = syncCopy;
+    v33 = 2048;
+    v34 = qos_class_self();
+    _os_signpost_emit_with_name_impl(&dword_1AE58E000, v17, OS_SIGNPOST_INTERVAL_BEGIN, spid + 1, "SendRequest", "c:%llu, sync:%d, qos:%llu", buf, 0x1Cu);
   }
 
   connection = [(CSXPCConnection *)self connection];
-  v18 = connection;
+  v19 = connection;
   if (syncCopy)
   {
-    v19 = xpc_connection_send_message_with_reply_sync(connection, empty);
+    v20 = xpc_connection_send_message_with_reply_sync(connection, empty);
 
-    v20 = SRLogCategorySafety();
-    v21 = v20;
-    if (spid <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    v22 = SRLogCategorySafety(v21);
+    v23 = v22;
+    if (spid <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
-      v22 = qos_class_self();
+      v24 = qos_class_self();
       *buf = 134217984;
-      commandCopy = v22;
-      _os_signpost_emit_with_name_impl(&dword_1AE58E000, v21, OS_SIGNPOST_INTERVAL_END, spid + 1, "SendRequest", "qos:%llu", buf, 0xCu);
+      commandCopy = v24;
+      _os_signpost_emit_with_name_impl(&dword_1AE58E000, v23, OS_SIGNPOST_INTERVAL_END, spid + 1, "SendRequest", "qos:%llu", buf, 0xCu);
     }
 
-    [(SRXPCConnection *)self handleReply:v19 completion:completionCopy];
+    [(SRXPCConnection *)self handleReply:v20 completion:completionCopy];
   }
 
   else
@@ -153,31 +153,28 @@ LABEL_7:
     handler[1] = 3221225472;
     handler[2] = __52__SRXPCConnection_sendCommand_info_sync_completion___block_invoke;
     handler[3] = &unk_1E7A2B168;
-    v27 = spid + 1;
+    v28 = spid + 1;
     handler[4] = self;
-    v26 = completionCopy;
-    xpc_connection_send_message_with_reply(v18, empty, queue, handler);
+    v27 = completionCopy;
+    xpc_connection_send_message_with_reply(v19, empty, queue, handler);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __52__SRXPCConnection_sendCommand_info_sync_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SRLogCategorySafety();
+  v4 = SRLogCategorySafety(v3);
   v5 = v4;
   v6 = *(a1 + 48);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134217984;
-    v9 = qos_class_self();
-    _os_signpost_emit_with_name_impl(&dword_1AE58E000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SendRequest", "qos:%llu", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = qos_class_self();
+    _os_signpost_emit_with_name_impl(&dword_1AE58E000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SendRequest", "qos:%llu", &v7, 0xCu);
   }
 
   [*(a1 + 32) handleReply:v3 completion:*(a1 + 40)];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

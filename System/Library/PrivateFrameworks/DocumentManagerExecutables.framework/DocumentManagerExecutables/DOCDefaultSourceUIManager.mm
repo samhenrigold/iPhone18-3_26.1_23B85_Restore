@@ -32,7 +32,7 @@
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5, v7);
   v9 = (&v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   alertCopy = alert;
   selfCopy = self;
   *v9 = static OS_dispatch_queue.main.getter();

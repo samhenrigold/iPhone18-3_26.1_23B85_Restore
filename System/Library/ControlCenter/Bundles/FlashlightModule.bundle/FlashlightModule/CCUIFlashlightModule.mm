@@ -8,18 +8,18 @@
 - (id)contentViewControllerForContext:(id)context
 {
   v4 = objc_alloc_init(CCUIFlashlightModuleViewController);
-  v5 = [MEMORY[0x29EDB9F48] ccui_bundleForModuleInstance:self];
-  ccui_displayName = [v5 ccui_displayName];
-  [(CCUIButtonModuleViewController *)v4 setTitle:ccui_displayName];
+  v6 = objc_msgSend_ccui_bundleForModuleInstance_(MEMORY[0x29EDB9F48], v5, self);
+  v9 = objc_msgSend_ccui_displayName(v6, v7, v8);
+  objc_msgSend_setTitle_(v4, v10, v9);
 
-  v7 = [MEMORY[0x29EDC7AC8] systemImageNamed:@"flashlight.off.fill"];
-  [(CCUIButtonModuleViewController *)v4 setGlyphImage:v7];
+  v12 = objc_msgSend_systemImageNamed_(MEMORY[0x29EDC7AC8], v11, @"flashlight.off.fill");
+  objc_msgSend_setGlyphImage_(v4, v13, v12);
 
-  v8 = [MEMORY[0x29EDC7AC8] systemImageNamed:@"flashlight.on.fill"];
-  [(CCUIButtonModuleViewController *)v4 setSelectedGlyphImage:v8];
+  v15 = objc_msgSend_systemImageNamed_(MEMORY[0x29EDC7AC8], v14, @"flashlight.on.fill");
+  objc_msgSend_setSelectedGlyphImage_(v4, v16, v15);
 
-  systemIndigoColor = [MEMORY[0x29EDC7A00] systemIndigoColor];
-  [(CCUISliderModuleViewController *)v4 setSelectedGlyphColor:systemIndigoColor];
+  v19 = objc_msgSend_systemIndigoColor(MEMORY[0x29EDC7A00], v17, v18);
+  objc_msgSend_setSelectedGlyphColor_(v4, v20, v19);
 
   viewController = self->_viewController;
   p_viewController = &self->_viewController;

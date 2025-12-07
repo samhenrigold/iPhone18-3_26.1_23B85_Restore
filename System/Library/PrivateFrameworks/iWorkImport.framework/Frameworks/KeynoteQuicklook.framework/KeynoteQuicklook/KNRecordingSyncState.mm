@@ -3,7 +3,6 @@
 - (BOOL)isRecordingLocallyOutOfSyncUsingLocalOutOfSyncToken:(id)token;
 - (KNRecordingSyncState)initWithArchive:(const void *)archive unarchiver:(id)unarchiver;
 - (KNRecordingSyncState)initWithOutOfSyncToken:(id)token canClearOutOfSyncToken:(BOOL)syncToken;
-- (id)description;
 - (id)recordingSyncStateByMarkingRecordingAsOutOfSync:(BOOL)sync withLocalOutOfSyncToken:(id)token;
 - (void)saveToArchive:(void *)archive archiver:(id)archiver;
 @end
@@ -13,19 +12,19 @@
 - (KNRecordingSyncState)initWithOutOfSyncToken:(id)token canClearOutOfSyncToken:(BOOL)syncToken
 {
   tokenCopy = token;
-  v13.receiver = self;
-  v13.super_class = KNRecordingSyncState;
-  v9 = [(KNRecordingSyncState *)&v13 init];
-  if (v9)
+  v11.receiver = self;
+  v11.super_class = KNRecordingSyncState;
+  v7 = [(KNRecordingSyncState *)&v11 init];
+  if (v7)
   {
-    v10 = objc_msgSend_copy(tokenCopy, v7, v8);
-    outOfSyncToken = v9->_outOfSyncToken;
-    v9->_outOfSyncToken = v10;
+    v8 = [tokenCopy copy];
+    outOfSyncToken = v7->_outOfSyncToken;
+    v7->_outOfSyncToken = v8;
 
-    v9->_canClearOutOfSyncToken = syncToken;
+    v7->_canClearOutOfSyncToken = syncToken;
   }
 
-  return v9;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -39,15 +38,8 @@
   objc_opt_class();
   v5 = TSUDynamicCast();
 
-  v9 = v5 && ((outOfSyncToken = self->_outOfSyncToken, v8 = *(v5 + 8), !(outOfSyncToken | v8)) || objc_msgSend_isEqual_(outOfSyncToken, v6, v8)) && self->_canClearOutOfSyncToken == *(v5 + 16);
-  return v9;
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  return objc_msgSend_stringWithFormat_(v3, v5, @"<%@ %p outOfSyncToken=%@ canClear=%d>", v4, self, self->_outOfSyncToken, self->_canClearOutOfSyncToken);
+  v7 = v5 && ((outOfSyncToken = self->_outOfSyncToken, !(outOfSyncToken | *(v5 + 8))) || [(NSUUID *)outOfSyncToken isEqual:?]) && self->_canClearOutOfSyncToken == *(v5 + 16);
+  return v7;
 }
 
 - (BOOL)isRecordingLocallyOutOfSyncUsingLocalOutOfSyncToken:(id)token
@@ -55,12 +47,12 @@
   tokenCopy = token;
   if (!tokenCopy)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNRecordingSyncState isRecordingLocallyOutOfSyncUsingLocalOutOfSyncToken:]");
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRecordingSyncState.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 64, 0, "invalid nil value for '%{public}s'", "localOutOfSyncToken");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNRecordingSyncState isRecordingLocallyOutOfSyncUsingLocalOutOfSyncToken:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRecordingSyncState.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:64 isFatal:0 description:{"invalid nil value for '%{public}s'", "localOutOfSyncToken"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   if (self->_canClearOutOfSyncToken)
@@ -68,21 +60,21 @@
     outOfSyncToken = self->_outOfSyncToken;
     if (outOfSyncToken)
     {
-      isEqual = objc_msgSend_isEqual_(outOfSyncToken, v4, tokenCopy);
+      v9 = [(NSUUID *)outOfSyncToken isEqual:tokenCopy];
     }
 
     else
     {
-      isEqual = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    isEqual = 1;
+    v9 = 1;
   }
 
-  return isEqual;
+  return v9;
 }
 
 - (id)recordingSyncStateByMarkingRecordingAsOutOfSync:(BOOL)sync withLocalOutOfSyncToken:(id)token
@@ -90,32 +82,32 @@
   tokenCopy = token;
   if (!tokenCopy)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[KNRecordingSyncState recordingSyncStateByMarkingRecordingAsOutOfSync:withLocalOutOfSyncToken:]");
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRecordingSyncState.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v12, v9, v11, 78, 0, "invalid nil value for '%{public}s'", "localOutOfSyncToken");
+    v7 = MEMORY[0x277D81150];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNRecordingSyncState recordingSyncStateByMarkingRecordingAsOutOfSync:withLocalOutOfSyncToken:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRecordingSyncState.m"];
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:78 isFatal:0 description:{"invalid nil value for '%{public}s'", "localOutOfSyncToken"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14);
-    tokenCopy = objc_msgSend_UUID(MEMORY[0x277CCAD78], v15, v16);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
+    tokenCopy = [MEMORY[0x277CCAD78] UUID];
   }
 
   if (!self->_canClearOutOfSyncToken)
   {
-    isEqual = 0;
+    v11 = 0;
     goto LABEL_8;
   }
 
   outOfSyncToken = self->_outOfSyncToken;
   if (!outOfSyncToken)
   {
-    isEqual = 1;
+    v11 = 1;
     if (sync)
     {
       goto LABEL_8;
     }
 
 LABEL_11:
-    if (isEqual)
+    if (v11)
     {
       goto LABEL_12;
     }
@@ -123,7 +115,7 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  isEqual = objc_msgSend_isEqual_(outOfSyncToken, v6, tokenCopy);
+  v11 = [(NSUUID *)outOfSyncToken isEqual:tokenCopy];
   if (!sync)
   {
     goto LABEL_11;
@@ -132,17 +124,16 @@ LABEL_11:
 LABEL_8:
   if (!self->_outOfSyncToken)
   {
-    v19 = tokenCopy;
+    v12 = tokenCopy;
     goto LABEL_13;
   }
 
 LABEL_12:
-  v19 = 0;
+  v12 = 0;
 LABEL_13:
-  v20 = [KNRecordingSyncState alloc];
-  canClearOutOfSyncToken = objc_msgSend_initWithOutOfSyncToken_canClearOutOfSyncToken_(v20, v21, v19, isEqual);
+  v13 = [[KNRecordingSyncState alloc] initWithOutOfSyncToken:v12 canClearOutOfSyncToken:v11];
 
-  return canClearOutOfSyncToken;
+  return v13;
 }
 
 - (KNRecordingSyncState)initWithArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -150,30 +141,28 @@ LABEL_13:
   unarchiverCopy = unarchiver;
   if (*(archive + 16))
   {
-    v10 = objc_alloc(MEMORY[0x277CCAD78]);
+    v8 = objc_alloc(MEMORY[0x277CCAD78]);
     if (*(archive + 3))
     {
-      v12 = objc_msgSend_tsp_initWithMessage_(v10, v11, *(archive + 3));
+      v9 = *(archive + 3);
     }
 
     else
     {
-      v12 = objc_msgSend_tsp_initWithMessage_(v10, v11, MEMORY[0x277D809E0]);
+      v9 = MEMORY[0x277D809E0];
     }
 
-    v8 = v12;
-    canClearOutOfSyncToken = objc_msgSend_initWithOutOfSyncToken_canClearOutOfSyncToken_(self, v13, v12, *(archive + 32));
+    v7 = [v8 tsp_initWithMessage:v9];
   }
 
   else
   {
-    v8 = 0;
-    canClearOutOfSyncToken = objc_msgSend_initWithOutOfSyncToken_canClearOutOfSyncToken_(self, v6, 0, *(archive + 32));
+    v7 = 0;
   }
 
-  v14 = canClearOutOfSyncToken;
+  v10 = [(KNRecordingSyncState *)self initWithOutOfSyncToken:v7 canClearOutOfSyncToken:*(archive + 32)];
 
-  return v14;
+  return v10;
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
@@ -183,20 +172,20 @@ LABEL_13:
   if (outOfSyncToken)
   {
     *(archive + 4) |= 1u;
-    v8 = *(archive + 3);
-    if (!v8)
+    v7 = *(archive + 3);
+    if (!v7)
     {
-      v9 = *(archive + 1);
-      if (v9)
+      v8 = *(archive + 1);
+      if (v8)
       {
-        v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
+        v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v8 = MEMORY[0x277C8F000](v9);
-      *(archive + 3) = v8;
+      v7 = MEMORY[0x277C8F000](v8);
+      *(archive + 3) = v7;
     }
 
-    objc_msgSend_tsp_saveToMessage_(outOfSyncToken, v6, v8);
+    [(NSUUID *)outOfSyncToken tsp_saveToMessage:v7];
   }
 
   canClearOutOfSyncToken = self->_canClearOutOfSyncToken;

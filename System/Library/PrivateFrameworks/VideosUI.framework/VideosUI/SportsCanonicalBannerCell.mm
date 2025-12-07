@@ -55,11 +55,11 @@
   OUTLINED_FUNCTION_0_10();
   v6 = v5;
   MEMORY[0x1EEE9AC00](v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1E41FDEE4();
   selfCopy = self;
-  OUTLINED_FUNCTION_31_4();
-  sub_1E4108CB4();
+  v11 = OUTLINED_FUNCTION_31_4();
+  sub_1E4108CB4(v11, v12, v13);
 
   (*(v6 + 8))(v9, v4);
 }

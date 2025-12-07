@@ -49,7 +49,7 @@
     }
 
     v7 = *v5;
-    v8 = [(NSDictionary *)v4 objectForKey:v7];
+    v8 = objc_msgSend_objectForKey_(v4);
     self->_isGenuineAppleAccessory = [v8 BOOLValue];
 
     v67 = 0;
@@ -79,7 +79,7 @@
     }
 
     v11 = *v9;
-    v12 = [(NSDictionary *)v4 objectForKey:v11];
+    v12 = objc_msgSend_objectForKey_(v4);
     self->_isRouteCurrentlyPicked = [v12 BOOLValue];
 
     v67 = 0;
@@ -109,7 +109,7 @@
     }
 
     v15 = *v13;
-    v16 = [(NSDictionary *)v4 objectForKey:v15];
+    v16 = objc_msgSend_objectForKey_(v4);
     self->_isDoAPCapable = [v16 BOOLValue];
 
     v67 = 0;
@@ -139,17 +139,17 @@
     }
 
     v19 = *v17;
-    v20 = [(NSDictionary *)v4 objectForKey:v19];
+    v20 = objc_msgSend_objectForKey_(v4);
     self->_isHeadsetInEar = [v20 BOOLValue];
 
     v21 = sub_100012328();
-    v22 = [(NSDictionary *)v4 objectForKey:v21];
+    v22 = objc_msgSend_objectForKey_(v4);
 
     if (v22)
     {
       self->_inEarDetectEnabledSpecified = 1;
       v23 = sub_100012328();
-      v24 = [(NSDictionary *)v4 objectForKey:v23];
+      v24 = objc_msgSend_objectForKey_(v4);
       self->_inEarDetectEnabled = [v24 BOOLValue];
     }
 
@@ -180,7 +180,7 @@
     }
 
     v27 = *v25;
-    v28 = [(NSDictionary *)v4 objectForKey:v27];
+    v28 = objc_msgSend_objectForKey_(v4);
     connectedBTProductID = self->_connectedBTProductID;
     self->_connectedBTProductID = v28;
 
@@ -230,7 +230,7 @@ LABEL_23:
     }
 
     v37 = *v35;
-    v38 = [(NSDictionary *)v4 objectForKey:v37];
+    v38 = objc_msgSend_objectForKey_(v4);
     uid = self->_uid;
     self->_uid = v38;
 
@@ -279,7 +279,7 @@ LABEL_23:
     }
 
     v46 = *v44;
-    v47 = [(NSDictionary *)v4 objectForKey:v46];
+    v47 = objc_msgSend_objectForKey_(v4);
     self->_isTipiRoute = [v47 BOOLValue];
 
     if (AFIsNano())
@@ -311,7 +311,7 @@ LABEL_23:
       }
 
       v50 = *v48;
-      v51 = [(NSDictionary *)v4 objectForKey:v50];
+      v51 = objc_msgSend_objectForKey_(v4);
       self->_isOtherDeviceConnected = [v51 count] != 0;
 
       if (self->_isTipiRoute)
@@ -359,7 +359,7 @@ LABEL_46:
       if (v55)
       {
         v57 = *v55;
-        v58 = [(NSDictionary *)v4 objectForKey:v57];
+        v58 = objc_msgSend_objectForKey_(v4);
         v59 = [v58 copy];
         name = self->_name;
         self->_name = v59;

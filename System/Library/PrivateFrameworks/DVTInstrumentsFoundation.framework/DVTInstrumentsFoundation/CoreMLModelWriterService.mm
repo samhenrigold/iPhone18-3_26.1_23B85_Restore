@@ -40,12 +40,11 @@
 
 - (void)messageReceived:(id)received
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for CoreMLModelWriterService();
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for CoreMLModelWriterService();
   receivedCopy = received;
-  v5 = v7.receiver;
-  [(DTXService *)&v7 messageReceived:receivedCopy];
-  v6 = *&v5[OBJC_IVAR____TtC24DVTInstrumentsFoundation24CoreMLModelWriterService_messageHandler];
+  v5 = v6.receiver;
+  [(DTXService *)&v6 messageReceived:receivedCopy];
   CoreMLModelWriterServiceMessageHandler.respond(to:)(receivedCopy);
 }
 

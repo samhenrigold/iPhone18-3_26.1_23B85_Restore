@@ -25,9 +25,9 @@
   colorCopy = color;
   colorsCopy = colors;
   paletteCopy = palette;
-  v66.receiver = self;
-  v66.super_class = PREditorColorPickerConfiguration;
-  v22 = [(PREditorColorPickerConfiguration *)&v66 init];
+  v67.receiver = self;
+  v67.super_class = PREditorColorPickerConfiguration;
+  v22 = [(PREditorColorPickerConfiguration *)&v67 init];
   if (v22)
   {
     if (identifierCopy)
@@ -45,138 +45,138 @@
     v22->_identifier = v24;
 
     modeCopy = mode;
-    v57 = colorCopy;
+    v58 = colorCopy;
     if (promptCopy)
     {
-      v26 = [promptCopy copy];
+      v27 = [promptCopy copy];
       prompt = v22->_prompt;
-      v22->_prompt = v26;
+      v22->_prompt = v27;
     }
 
     else
     {
-      prompt = PRBundle();
-      v28 = [prompt localizedStringForKey:@"EDIT_COLOR_PICKER_DEFAULT_PROMPT" value:&stru_1F1C13D90 table:@"PosterKit"];
-      v29 = [v28 copy];
-      v30 = v22->_prompt;
-      v22->_prompt = v29;
+      prompt = PRBundle(v26);
+      v29 = [prompt localizedStringForKey:@"EDIT_COLOR_PICKER_DEFAULT_PROMPT" value:&stru_1F1C13D90 table:@"PosterKit"];
+      v30 = [v29 copy];
+      v31 = v22->_prompt;
+      v22->_prompt = v30;
     }
 
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     objc_opt_class();
-    v32 = objc_opt_isKindOfClass();
+    v33 = objc_opt_isKindOfClass();
     if (colorCopy)
     {
-      v33 = v32;
+      v34 = v33;
       objc_opt_class();
-      v34 = objc_opt_isKindOfClass();
-      if (((isKindOfClass | v33) & 1) == 0)
+      v35 = objc_opt_isKindOfClass();
+      if (((isKindOfClass | v34) & 1) == 0)
       {
-        [PREditorColorPickerConfiguration initWithIdentifier:a2 prompt:? selectedColor:? suggestedColors:? colorPalette:? colorWellDisplayMode:? showsSlider:? context:?];
+        [PREditorColorPickerConfiguration initWithIdentifier:a2 prompt:v22 selectedColor:? suggestedColors:? colorPalette:? colorWellDisplayMode:? showsSlider:? context:?];
       }
 
-      v35 = v34;
+      v36 = v35;
       if (isKindOfClass)
       {
-        v36 = v57;
+        v37 = v58;
       }
 
       else
       {
-        v36 = [[PRPosterColor alloc] initWithColor:v57];
+        v37 = [[PRPosterColor alloc] initWithColor:v58];
       }
     }
 
     else
     {
-      v36 = 0;
-      v35 = 1;
+      v37 = 0;
+      v36 = 1;
     }
 
-    v55 = v36;
-    v37 = [(PRPosterColor *)v36 copy];
+    v56 = v37;
+    v38 = [(PRPosterColor *)v37 copy];
     selectedColor = v22->_selectedColor;
-    v22->_selectedColor = v37;
+    v22->_selectedColor = v38;
 
-    v62 = 0;
-    v63 = &v62;
-    v64 = 0x2020000000;
-    v65 = 0;
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __146__PREditorColorPickerConfiguration_initWithIdentifier_prompt_selectedColor_suggestedColors_colorPalette_colorWellDisplayMode_showsSlider_context___block_invoke;
-    v58[3] = &unk_1E78431A0;
-    v60 = &v62;
-    v61 = a2;
-    v39 = v22;
-    v59 = v39;
-    v40 = [colorsCopy bs_compactMap:v58];
-    v41 = [v40 copy];
-    suggestedColors = v39->_suggestedColors;
-    v39->_suggestedColors = v41;
+    v63 = 0;
+    v64 = &v63;
+    v65 = 0x2020000000;
+    v66 = 0;
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __146__PREditorColorPickerConfiguration_initWithIdentifier_prompt_selectedColor_suggestedColors_colorPalette_colorWellDisplayMode_showsSlider_context___block_invoke;
+    v59[3] = &unk_1E78431A0;
+    v61 = &v63;
+    v62 = a2;
+    v40 = v22;
+    v60 = v40;
+    v41 = [colorsCopy bs_compactMap:v59];
+    v42 = [v41 copy];
+    suggestedColors = v40->_suggestedColors;
+    v40->_suggestedColors = v42;
 
-    v54 = promptCopy;
+    v55 = promptCopy;
     if (paletteCopy)
     {
-      v43 = modeCopy;
-      v44 = paletteCopy;
-      v45 = identifierCopy;
-      v46 = colorsCopy;
-      v47 = v44;
-      v48 = v44;
+      v44 = modeCopy;
+      v45 = paletteCopy;
+      v46 = identifierCopy;
+      v47 = colorsCopy;
+      v48 = v45;
+      v49 = v45;
     }
 
     else
     {
-      v48 = +[PREditorColorPalette extendedPalette];
-      v43 = modeCopy;
-      v47 = 0;
-      v45 = identifierCopy;
-      v46 = colorsCopy;
+      v49 = +[PREditorColorPalette extendedPalette];
+      v44 = modeCopy;
+      v48 = 0;
+      v46 = identifierCopy;
+      v47 = colorsCopy;
     }
 
-    colorPalette = v39->_colorPalette;
-    v39->_colorPalette = v48;
+    colorPalette = v40->_colorPalette;
+    v40->_colorPalette = v49;
 
-    v39->_colorWellDisplayMode = v43;
-    v39->_showsSlider = slider;
-    v39->_context = context;
-    if (v35)
+    v40->_colorWellDisplayMode = v44;
+    v40->_showsSlider = slider;
+    v40->_context = context;
+    if (v36)
     {
       includesObjectsOfTypePRPosterColor = 1;
-      colorsCopy = v46;
-      promptCopy = v54;
-      identifierCopy = v45;
+      colorsCopy = v47;
+      promptCopy = v55;
+      identifierCopy = v46;
     }
 
     else
     {
-      colorsCopy = v46;
-      identifierCopy = v45;
-      if ((v63[3] & 1) == 0)
+      colorsCopy = v47;
+      identifierCopy = v46;
+      if ((v64[3] & 1) == 0)
       {
-        paletteCopy = v47;
-        includesObjectsOfTypePRPosterColor = [v47 includesObjectsOfTypePRPosterColor];
-        promptCopy = v54;
+        paletteCopy = v48;
+        includesObjectsOfTypePRPosterColor = [v48 includesObjectsOfTypePRPosterColor];
+        promptCopy = v55;
         goto LABEL_23;
       }
 
       includesObjectsOfTypePRPosterColor = 1;
-      promptCopy = v54;
+      promptCopy = v55;
     }
 
-    paletteCopy = v47;
+    paletteCopy = v48;
 LABEL_23:
-    v39->_includesObjectsOfTypePRPickerColor = includesObjectsOfTypePRPosterColor;
-    colorPickerSourceView = v39->_colorPickerSourceView;
-    v39->_colorPickerSourceView = 0;
+    v40->_includesObjectsOfTypePRPickerColor = includesObjectsOfTypePRPosterColor;
+    colorPickerSourceView = v40->_colorPickerSourceView;
+    v40->_colorPickerSourceView = 0;
 
-    colorPickerSourceItem = v39->_colorPickerSourceItem;
-    v39->_colorPickerSourceItem = 0;
+    colorPickerSourceItem = v40->_colorPickerSourceItem;
+    v40->_colorPickerSourceItem = 0;
 
-    _Block_object_dispose(&v62, 8);
-    colorCopy = v57;
+    _Block_object_dispose(&v63, 8);
+    colorCopy = v58;
   }
 
   return v22;
@@ -219,7 +219,7 @@ LABEL_7:
   {
     if (((isKindOfClass | v6) & 1) == 0)
     {
-      [PREditorColorPickerConfiguration setSelectedColor:a2];
+      [(PREditorColorPickerConfiguration *)a2 setSelectedColor:?];
     }
 
     if (isKindOfClass)
@@ -250,25 +250,28 @@ LABEL_7:
 - (void)setSuggestedColor:(id)color
 {
   colorCopy = color;
-  if (![(PRPosterColor *)self->_suggestedColor isEquivalentToColor:colorCopy])
+  v4 = [(PRPosterColor *)self->_suggestedColor isEquivalentToColor:colorCopy];
+  v5 = colorCopy;
+  if (!v4)
   {
-    v4 = colorCopy;
-    v5 = v4;
-    if (v4 && ([v4 isSuggested] & 1) == 0)
+    v6 = colorCopy;
+    v7 = v6;
+    if (v6 && ([v6 isSuggested] & 1) == 0)
     {
-      copyAsSuggestedColor = [v5 copyAsSuggestedColor];
+      copyAsSuggestedColor = [v7 copyAsSuggestedColor];
 
-      v5 = copyAsSuggestedColor;
+      v7 = copyAsSuggestedColor;
     }
 
-    v7 = [v5 copy];
+    v9 = [v7 copy];
     suggestedColor = self->_suggestedColor;
-    self->_suggestedColor = v7;
+    self->_suggestedColor = v9;
 
-    self->_showsSuggestedColorItem = v5 != 0;
+    self->_showsSuggestedColorItem = v7 != 0;
+    v5 = colorCopy;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v5);
 }
 
 - (void)setSuggestedColors:(id)colors
@@ -806,48 +809,48 @@ PRPosterColor *__55__PREditorColorPickerConfiguration_initWithBSXPCCoder___block
   [formatterCopy appendString:v16 withName:@"context"];
 }
 
-- (void)initWithIdentifier:(const char *)a1 prompt:selectedColor:suggestedColors:colorPalette:colorWellDisplayMode:showsSlider:context:.cold.1(const char *a1)
+- (void)initWithIdentifier:(const char *)a1 prompt:(uint64_t)a2 selectedColor:suggestedColors:colorPalette:colorWellDisplayMode:showsSlider:context:.cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected object type provided for [PREditorColorPickerConfiguration selectedColor]"];
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected object type provided for [PREditorColorPickerConfiguration selectedColor]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    v9 = @"PREditorColorPickerConfiguration.m";
-    v10 = 1024;
-    v11 = 91;
-    v12 = v6;
-    v13 = v2;
-    _os_log_error_impl(&dword_1A8AA7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
+    v10 = @"PREditorColorPickerConfiguration.m";
+    v11 = 1024;
+    v12 = 91;
+    v13 = v7;
+    v14 = v3;
+    _os_log_error_impl(&dword_1A8AA7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, 0x3Au);
   }
 
-  v7 = v2;
-  [v2 UTF8String];
+  v8 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)setSelectedColor:(const char *)a1 .cold.1(const char *a1)
+- (void)setSelectedColor:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected object type provided for [PREditorColorPickerConfiguration selectedColor]"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected object type provided for [PREditorColorPickerConfiguration selectedColor]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    v8 = @"PREditorColorPickerConfiguration.m";
-    v9 = 1024;
-    v10 = 128;
-    v11 = v6;
-    v12 = v2;
-    _os_log_error_impl(&dword_1A8AA7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, 0x3Au);
+    v9 = @"PREditorColorPickerConfiguration.m";
+    v10 = 1024;
+    v11 = 128;
+    v12 = v7;
+    v13 = v3;
+    _os_log_error_impl(&dword_1A8AA7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

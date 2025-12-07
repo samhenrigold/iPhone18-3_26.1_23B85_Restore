@@ -110,16 +110,16 @@
     [_platterTransitionView setAutoresizingMask:18];
     [_containerView addSubview:_platterTransitionView];
     [_platterTransitionView addSubview:_platterView];
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
-    v101 = 0u;
-    v98 = 0u;
     v99 = 0u;
-    v96 = 0u;
+    v100 = 0u;
     v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
     sourcePreview = [(_UIContextMenuBasicMorphPresentationAnimation *)self sourcePreview];
-    _itemLayoutFromPreview(&v96, sourcePreview, _platterTransitionView, 1);
+    _itemLayoutFromPreview(&v93, sourcePreview, _platterTransitionView, 1);
 
     sourcePreview2 = [(_UIContextMenuBasicMorphPresentationAnimation *)self sourcePreview];
     [_platterView setCollapsedPreview:sourcePreview2];
@@ -183,74 +183,60 @@
       currentLayout2 = [uiController4 currentLayout];
       [(_UIContextMenuBasicMorphPresentationAnimation *)self setExpandedLayout:currentLayout2];
 
-      v92 = v100;
-      v93 = v101;
-      v94 = v102;
-      v95 = v103;
-      v88 = v96;
       v89 = v97;
       v90 = v98;
       v91 = v99;
-      _UIContextMenuItemLayoutApply(&v88, _platterView, 0);
-      v94 = 0u;
-      v95 = 0u;
-      v92 = 0u;
-      v93 = 0u;
-      v90 = 0u;
+      v92 = v100;
+      v85 = v93;
+      v86 = v94;
+      v87 = v95;
+      v88 = v96;
+      _UIContextMenuItemLayoutApply(&v85, _platterView, 0);
       v91 = 0u;
-      v88 = 0u;
+      v92 = 0u;
       v89 = 0u;
+      v90 = 0u;
+      v87 = 0u;
+      v88 = 0u;
+      v85 = 0u;
+      v86 = 0u;
       expandedLayout = [(_UIContextMenuBasicMorphPresentationAnimation *)self expandedLayout];
       v51 = expandedLayout;
       if (expandedLayout)
       {
-        [expandedLayout menu];
+        objc_msgSend_menu(expandedLayout);
       }
 
       else
       {
-        v86 = 0u;
-        v87 = 0u;
-        v84 = 0u;
-        v85 = 0u;
-        v82 = 0u;
         v83 = 0u;
-        v80 = 0u;
+        v84 = 0u;
         v81 = 0u;
+        v82 = 0u;
+        v79 = 0u;
+        v80 = 0u;
+        v77 = 0u;
+        v78 = 0u;
       }
 
       expandedLayout2 = [(_UIContextMenuBasicMorphPresentationAnimation *)self expandedLayout];
       v53 = expandedLayout2;
       if (expandedLayout2)
       {
-        [expandedLayout2 anchor];
+        objc_msgSend_anchor(expandedLayout2);
       }
 
-      else
-      {
-        v79 = 0;
-        memset(v78, 0, sizeof(v78));
-      }
+      objc_msgSend__dismissedMenuLayoutForPresentedLayout_previewLayout_anchor_(self);
 
-      v77[4] = v100;
-      v77[5] = v101;
-      v77[6] = v102;
-      v77[7] = v103;
-      v77[0] = v96;
-      v77[1] = v97;
-      v77[2] = v98;
-      v77[3] = v99;
-      [(_UIContextMenuBasicMorphPresentationAnimation *)self _dismissedMenuLayoutForPresentedLayout:&v80 previewLayout:v77 anchor:v78];
-
-      v84 = v92;
-      v85 = v93;
-      v86 = v94;
-      v87 = v95;
-      v80 = v88;
       v81 = v89;
       v82 = v90;
       v83 = v91;
-      v46 = &v80;
+      v84 = v92;
+      v77 = v85;
+      v78 = v86;
+      v79 = v87;
+      v80 = v88;
+      v46 = &v77;
       v47 = _menuView;
     }
 
@@ -260,15 +246,15 @@
       currentLayout3 = [uiController5 currentLayout];
       [(_UIContextMenuBasicMorphPresentationAnimation *)self setExpandedLayout:currentLayout3];
 
-      v92 = v100;
-      v93 = v101;
-      v94 = v102;
-      v95 = v103;
-      v88 = v96;
       v89 = v97;
       v90 = v98;
       v91 = v99;
-      v46 = &v88;
+      v92 = v100;
+      v85 = v93;
+      v86 = v94;
+      v87 = v95;
+      v88 = v96;
+      v46 = &v85;
       v47 = _platterView;
     }
 
@@ -460,7 +446,7 @@
 
 - (void)_actuallyPerformTransition
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   isDismissTransition = [(_UIContextMenuPresentationAnimation *)self isDismissTransition];
   [(_UIContextMenuBasicMorphPresentationAnimation *)self _prepareAnimatablePropertyBasedAnimations];
   _platterTransitionView = [(_UIContextMenuBasicMorphPresentationAnimation *)self _platterTransitionView];
@@ -472,85 +458,85 @@
   animationProgress = [(_UIContextMenuBasicMorphPresentationAnimation *)self animationProgress];
   [animationProgress setValue:1.0];
 
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
-  v81 = 0u;
+  v101 = 0u;
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
   expandedLayout = [(_UIContextMenuBasicMorphPresentationAnimation *)self expandedLayout];
   v10 = expandedLayout;
   if (expandedLayout)
   {
-    [expandedLayout preview];
+    objc_msgSend_preview(expandedLayout);
   }
 
   else
   {
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
-    v81 = 0u;
+    v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
+    v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   expandedLayout2 = [(_UIContextMenuBasicMorphPresentationAnimation *)self expandedLayout];
   v12 = expandedLayout2;
   if (expandedLayout2)
   {
-    [expandedLayout2 menu];
+    objc_msgSend_menu(expandedLayout2);
   }
 
   else
   {
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
-    v73 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
   }
 
   if (isDismissTransition)
   {
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x3032000000;
-    v69 = __Block_byref_object_copy__148;
-    v70 = __Block_byref_object_dispose__148;
-    v71 = 0;
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __75___UIContextMenuBasicMorphPresentationAnimation__actuallyPerformTransition__block_invoke;
-    v65[3] = &unk_1E70FCDA0;
-    v65[5] = &v66;
-    v65[4] = self;
-    [UIView performWithoutAnimation:v65];
-    _itemLayoutFromPreview(location, v67[5], _platterTransitionView, [(_UIContextMenuPresentationAnimation *)self dismissalStyle]!= 1);
-    v84 = v61;
-    v85 = v62;
-    v86 = v63;
-    v87 = v64;
-    v80 = *location;
-    v81 = v58;
-    v82 = v59;
-    v83 = v60;
-    if ([v67[5] _previewMode] != 4)
+    v81 = 0;
+    v82 = &v81;
+    v83 = 0x3032000000;
+    v84 = __Block_byref_object_copy__148;
+    v85 = __Block_byref_object_dispose__148;
+    v86 = 0;
+    v80[0] = MEMORY[0x1E69E9820];
+    v80[1] = 3221225472;
+    v80[2] = __75___UIContextMenuBasicMorphPresentationAnimation__actuallyPerformTransition__block_invoke;
+    v80[3] = &unk_1E70FCDA0;
+    v80[5] = &v81;
+    v80[4] = self;
+    [UIView performWithoutAnimation:v80];
+    _itemLayoutFromPreview(location, v82[5], _platterTransitionView, [(_UIContextMenuPresentationAnimation *)self dismissalStyle]!= 1);
+    v99 = v76;
+    v100 = v77;
+    v101 = v78;
+    v102 = v79;
+    v95 = *location;
+    v96 = v73;
+    v97 = v74;
+    v98 = v75;
+    if ([v82[5] _previewMode] != 4)
     {
       if ([(_UIContextMenuBasicMorphPresentationAnimation *)self _isDismissingToDrag])
       {
@@ -560,23 +546,23 @@
 
         if (v15)
         {
-          *(&v87 + 1) = 0x3FE999999999999ALL;
+          *(&v102 + 1) = 0x3FE999999999999ALL;
         }
       }
     }
 
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __75___UIContextMenuBasicMorphPresentationAnimation__actuallyPerformTransition__block_invoke_2;
-    v52[3] = &unk_1E7103C20;
-    v56 = &v66;
+    v67[0] = MEMORY[0x1E69E9820];
+    v67[1] = 3221225472;
+    v67[2] = __75___UIContextMenuBasicMorphPresentationAnimation__actuallyPerformTransition__block_invoke_2;
+    v67[3] = &unk_1E7103C20;
+    v71 = &v81;
     v16 = _platterTransitionView;
-    v53 = v16;
+    v68 = v16;
     selfCopy = self;
     v17 = _platterView;
-    v55 = v17;
-    [UIView performWithoutAnimation:v52];
-    target = [v67[5] target];
+    v70 = v17;
+    [UIView performWithoutAnimation:v67];
+    target = [v82[5] target];
     container = [target container];
     v20 = container == v16;
 
@@ -601,42 +587,43 @@
     v25 = expandedLayout3;
     if (expandedLayout3)
     {
-      [expandedLayout3 anchor];
+      objc_msgSend_anchor(expandedLayout3);
     }
 
     else
     {
-      v51 = 0;
-      memset(v50, 0, sizeof(v50));
+      v66 = 0;
+      v64 = 0u;
+      v65 = 0u;
     }
 
-    v49[4] = v76;
-    v49[5] = v77;
-    v49[6] = v78;
-    v49[7] = v79;
-    v49[0] = v72;
-    v49[1] = v73;
-    v49[2] = v74;
-    v49[3] = v75;
-    v48[4] = v84;
-    v48[5] = v85;
-    v48[6] = v86;
-    v48[7] = v87;
-    v48[0] = v80;
-    v48[1] = v81;
-    v48[2] = v82;
-    v48[3] = v83;
-    [(_UIContextMenuBasicMorphPresentationAnimation *)self _dismissedMenuLayoutForPresentedLayout:v49 previewLayout:v48 anchor:v50];
-    v76 = v61;
-    v77 = v62;
-    v78 = v63;
-    v79 = v64;
-    v72 = *location;
-    v73 = v58;
-    v74 = v59;
-    v75 = v60;
+    v60 = v91;
+    v61 = v92;
+    v62 = v93;
+    v63 = v94;
+    v56 = v87;
+    v57 = v88;
+    v58 = v89;
+    v59 = v90;
+    v52 = v99;
+    v53 = v100;
+    v54 = v101;
+    v55 = v102;
+    v48 = v95;
+    v49 = v96;
+    v50 = v97;
+    v51 = v98;
+    objc_msgSend__dismissedMenuLayoutForPresentedLayout_previewLayout_anchor_(self);
+    v91 = v76;
+    v92 = v77;
+    v93 = v78;
+    v94 = v79;
+    v87 = *location;
+    v88 = v73;
+    v89 = v74;
+    v90 = v75;
 
-    _Block_object_dispose(&v66, 8);
+    _Block_object_dispose(&v81, 8);
     v23 = 0.0;
   }
 
@@ -673,20 +660,20 @@
 
   if (!isDismissTransition || [(_UIContextMenuBasicMorphPresentationAnimation *)self _isDismissingToDrag]|| [(_UIContextMenuBasicMorphPresentationAnimation *)self isSingleItemMenu])
   {
-    v61 = v84;
-    v62 = v85;
-    v63 = v86;
-    v64 = v87;
-    *location = v80;
-    v58 = v81;
-    v59 = v82;
-    v60 = v83;
+    v76 = v99;
+    v77 = v100;
+    v78 = v101;
+    v79 = v102;
+    *location = v95;
+    v73 = v96;
+    v74 = v97;
+    v75 = v98;
     _UIContextMenuItemLayoutApply(location, _platterView, 0);
   }
 
   else
   {
-    [_platterView setAlpha:*(&v87 + 1)];
+    [_platterView setAlpha:*(&v102 + 1)];
   }
 
   layer = [_platterView layer];
@@ -694,14 +681,14 @@
 
   [_platterView setExpanded:!isDismissTransition];
   [_platterView layoutIfNeeded];
-  v61 = v76;
-  v62 = v77;
-  v63 = v78;
-  v64 = v79;
-  *location = v72;
-  v58 = v73;
-  v59 = v74;
-  v60 = v75;
+  v76 = v91;
+  v77 = v92;
+  v78 = v93;
+  v79 = v94;
+  *location = v87;
+  v73 = v88;
+  v74 = v89;
+  v75 = v90;
   _UIContextMenuItemLayoutApply(location, _menuView, 0);
   [_menuView layoutIfNeeded];
   if (!isDismissTransition)
@@ -725,7 +712,7 @@
   v42 = 0u;
   v43 = 0u;
   _accessoryViews = [(_UIContextMenuBasicMorphPresentationAnimation *)self _accessoryViews];
-  v33 = [_accessoryViews countByEnumeratingWithState:&v42 objects:v88 count:16];
+  v33 = [_accessoryViews countByEnumeratingWithState:&v42 objects:v103 count:16];
   if (v33)
   {
     v34 = *v43;
@@ -741,7 +728,7 @@
         [(_UIContextMenuBasicMorphPresentationAnimation *)self _updateAccessoryAttachment:*(*(&v42 + 1) + 8 * i)];
       }
 
-      v33 = [_accessoryViews countByEnumeratingWithState:&v42 objects:v88 count:16];
+      v33 = [_accessoryViews countByEnumeratingWithState:&v42 objects:v103 count:16];
     }
 
     while (v33);
@@ -955,7 +942,7 @@ LABEL_7:
   memset(&v42, 0, sizeof(v42));
   if (layer2)
   {
-    [layer2 transform];
+    objc_msgSend_transform(layer2);
   }
 
   else
@@ -1301,7 +1288,7 @@ LABEL_22:
         v8 = *(*(&v20 + 1) + 8 * i);
         if (v8)
         {
-          [*(*(&v20 + 1) + 8 * i) anchor];
+          objc_msgSend_anchor(*(*(&v20 + 1) + 8 * i));
           v9 = v19 - 1;
           v10 = 0.5;
           v11 = 0.5;
@@ -1492,7 +1479,7 @@ LABEL_9:
   v60 = v59;
   if (attachmentCopy)
   {
-    [attachmentCopy anchor];
+    objc_msgSend_anchor(attachmentCopy);
     v61 = v81 - 1;
     v62 = 0.5;
     v63 = 0.5;

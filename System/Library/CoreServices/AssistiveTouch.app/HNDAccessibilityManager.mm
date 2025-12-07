@@ -795,10 +795,10 @@ LABEL_11:
 
   if (axElement)
   {
-    v22 = _NSConcreteStackBlock;
-    v23 = 3221225472;
-    v24 = sub_10006CA20;
-    v25 = &unk_1001D3488;
+    v18 = _NSConcreteStackBlock;
+    v19 = 3221225472;
+    v20 = sub_10006CA20;
+    v21 = &unk_1001D3488;
     selfCopy = self;
     AXUIElementRegisterForApplicationDeath();
   }
@@ -812,16 +812,13 @@ LABEL_11:
 
   pid = 0;
   AXUIElementGetPid(axElement2, &pid);
-  v19 = pid;
-  LOBYTE(v16) = 1;
-  _AXLogWithFacility();
-  observer = [(HNDAccessibilityManager *)self observer:v16];
+  _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Got pid: %d");
+  observer = [(HNDAccessibilityManager *)self observer];
   if (!observer)
   {
     if (AXObserverCreate(pid, sub_10006CA64, &observer))
     {
-      LOBYTE(v17) = 1;
-      v18 = @"Failed to create an accessibility event observer: %ld";
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Failed to create an accessibility event observer: %ld");
       goto LABEL_11;
     }
 
@@ -846,12 +843,10 @@ LABEL_11:
     return;
   }
 
-  v18 = @"Failed to get the observer run loop source";
-  LOBYTE(v17) = 1;
+  _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Failed to get the observer run loop source");
 LABEL_11:
-  _AXLogWithFacility();
   v15 = objc_autoreleasePoolPush();
-  [(HNDAccessibilityManager *)self _handleSystemServerDied:v17];
+  [(HNDAccessibilityManager *)self _handleSystemServerDied];
   objc_autoreleasePoolPop(v15);
 }
 
@@ -1439,7 +1434,7 @@ LABEL_14:
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Somehow tried to resume for a pid with no pause count.  This may have happened if we launched Switch Control after the app sent its pause notification.");
   }
 }
 

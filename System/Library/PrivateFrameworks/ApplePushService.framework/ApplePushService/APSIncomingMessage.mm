@@ -6,9 +6,13 @@
 - (int64_t)priority;
 - (unint64_t)pushType;
 - (unsigned)pushFlags;
+- (void)setFromStorage:(BOOL)storage;
 - (void)setIncomingInterface:(int64_t)interface;
+- (void)setLastMessageFromStorage:(BOOL)storage;
 - (void)setPriority:(int64_t)priority;
+- (void)setPushFlags:(unsigned int)flags;
 - (void)setPushType:(unint64_t)type;
+- (void)setTracingEnabled:(BOOL)enabled;
 @end
 
 @implementation APSIncomingMessage
@@ -78,16 +82,40 @@
   return unsignedIntValue;
 }
 
+- (void)setFromStorage:(BOOL)storage
+{
+  v4 = [NSNumber numberWithBool:storage];
+  [(APSIncomingMessage *)self setObject:v4 forKey:@"APSIncomingMessageFromStorage"];
+}
+
+- (void)setLastMessageFromStorage:(BOOL)storage
+{
+  v4 = [NSNumber numberWithBool:storage];
+  [(APSIncomingMessage *)self setObject:v4 forKey:@"APSIncomingMessageLastMessageFromStorage"];
+}
+
 - (void)setPriority:(int64_t)priority
 {
   v4 = [NSNumber numberWithInteger:priority];
   [(APSIncomingMessage *)self setObject:v4 forKey:@"APSProtocolMessagePriority"];
 }
 
+- (void)setTracingEnabled:(BOOL)enabled
+{
+  v4 = [NSNumber numberWithBool:enabled];
+  [(APSIncomingMessage *)self setObject:v4 forKey:@"APSIncomingMessageTracingEnabled"];
+}
+
 - (void)setPushType:(unint64_t)type
 {
   v4 = [NSNumber numberWithUnsignedShort:type];
   [(APSIncomingMessage *)self setObject:v4 forKey:@"APSIncomingMessagePushType"];
+}
+
+- (void)setPushFlags:(unsigned int)flags
+{
+  v4 = [NSNumber numberWithUnsignedInt:*&flags];
+  [(APSIncomingMessage *)self setObject:v4 forKey:@"APSIncomingMessagePushFlags"];
 }
 
 - (void)setIncomingInterface:(int64_t)interface

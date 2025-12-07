@@ -8,9 +8,9 @@
 
 - (AR2DSkeletonDetectionPostProcessGPU)init
 {
-  v22.receiver = self;
-  v22.super_class = AR2DSkeletonDetectionPostProcessGPU;
-  v2 = [(AR2DSkeletonDetectionPostProcessGPU *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = AR2DSkeletonDetectionPostProcessGPU;
+  v2 = [(AR2DSkeletonDetectionPostProcessGPU *)&v23 init];
   v3 = MTLCreateSystemDefaultDevice();
   device = v2->_device;
   v2->_device = v3;
@@ -19,32 +19,32 @@
   commandQueue = v2->_commandQueue;
   v2->_commandQueue = newCommandQueue;
 
-  v7 = ARKitCoreBundle();
-  v8 = [v7 URLForResource:@"default" withExtension:@"metallib"];
-  if (!v8)
+  v8 = ARKitCoreBundle(v7);
+  v9 = [v8 URLForResource:@"default" withExtension:@"metallib"];
+  if (!v9)
   {
     [AR2DSkeletonDetectionPostProcessGPU init];
   }
 
-  v9 = v8;
-  v10 = [(MTLDevice *)v2->_device newLibraryWithURL:v8 error:0];
-  v11 = [v10 newFunctionWithName:@"interpolateBicubic"];
-  v12 = [(MTLDevice *)v2->_device newComputePipelineStateWithFunction:v11 error:0];
+  v10 = v9;
+  v11 = [(MTLDevice *)v2->_device newLibraryWithURL:v9 error:0];
+  v12 = [v11 newFunctionWithName:@"interpolateBicubic"];
+  v13 = [(MTLDevice *)v2->_device newComputePipelineStateWithFunction:v12 error:0];
   pipelineStateInterpolate = v2->_pipelineStateInterpolate;
-  v2->_pipelineStateInterpolate = v12;
+  v2->_pipelineStateInterpolate = v13;
 
-  v14 = [v10 newFunctionWithName:@"maxFilter"];
-  v15 = [(MTLDevice *)v2->_device newComputePipelineStateWithFunction:v14 error:0];
+  v15 = [v11 newFunctionWithName:@"maxFilter"];
+  v16 = [(MTLDevice *)v2->_device newComputePipelineStateWithFunction:v15 error:0];
   pipelineStateMaxFilter = v2->_pipelineStateMaxFilter;
-  v2->_pipelineStateMaxFilter = v15;
+  v2->_pipelineStateMaxFilter = v16;
 
-  v17 = [(MTLDevice *)v2->_device newBufferWithLength:2 * width * height * scale * scale * nChannels + 16 options:32];
+  v18 = [(MTLDevice *)v2->_device newBufferWithLength:2 * width * height * scale * scale * nChannels + 16 options:32];
   intermediate = v2->_intermediate;
-  v2->_intermediate = v17;
+  v2->_intermediate = v18;
 
-  v19 = [(MTLDevice *)v2->_device newBufferWithLength:2 * width * height * scale * scale * nChannels + 16 options:0];
+  v20 = [(MTLDevice *)v2->_device newBufferWithLength:2 * width * height * scale * scale * nChannels + 16 options:0];
   output = v2->_output;
-  v2->_output = v19;
+  v2->_output = v20;
 
   return v2;
 }

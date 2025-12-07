@@ -22,7 +22,7 @@
 - (void)shouldShowWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = sharedWorkQueue();
+  v4 = sharedWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __53__DSRestrictionsController_shouldShowWithCompletion___block_invoke;
@@ -174,10 +174,10 @@ uint64_t __53__DSRestrictionsController_shouldShowWithCompletion___block_invoke(
 
 - (void)viewDidLoad
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = DSRestrictionsController;
-  [(OBBaseWelcomeController *)&v27 viewDidLoad];
+  v28 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = DSRestrictionsController;
+  [(OBBaseWelcomeController *)&v26 viewDidLoad];
   headerView = [(DSRestrictionsController *)self headerView];
   v4 = DSUILocStringForKey(@"RESTRICTIONS_DETAIL_1");
   [headerView setDetailText:v4];
@@ -197,30 +197,30 @@ uint64_t __53__DSRestrictionsController_shouldShowWithCompletion___block_invoke(
   [(OBTextWelcomeController *)self addSectionWithHeader:0 content:v13];
 
   restrictionList = [(DSRestrictionsController *)self restrictionList];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v15 = [restrictionList countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v15 = [restrictionList countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       v18 = 0;
       do
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(restrictionList);
         }
 
-        [(OBTextWelcomeController *)self addBulletedListItemWithTitle:*(*(&v23 + 1) + 8 * v18++) description:0];
+        [(OBTextWelcomeController *)self addBulletedListItemWithTitle:*(*(&v22 + 1) + 8 * v18++) description:0];
       }
 
       while (v16 != v18);
-      v16 = [restrictionList countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v16 = [restrictionList countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v16);
@@ -229,8 +229,6 @@ uint64_t __53__DSRestrictionsController_shouldShowWithCompletion___block_invoke(
   v19 = DSUILocStringForKey(@"CONTINUE");
   delegate = [(DSRestrictionsController *)self delegate];
   v21 = [DSUIUtilities setUpBoldButtonForController:self title:v19 target:delegate selector:sel_pushNextPane];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (DSNavigationDelegate)delegate

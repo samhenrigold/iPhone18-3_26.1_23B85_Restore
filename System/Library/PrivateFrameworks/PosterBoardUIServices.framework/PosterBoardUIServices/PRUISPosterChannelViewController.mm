@@ -209,7 +209,7 @@ id __101__PRUISPosterChannelViewController_initWithChannel_purpose_context_deleg
 - (void)dealloc
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = PRUISLogChannels();
+  v3 = PRUISLogChannels(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
@@ -266,20 +266,20 @@ id __101__PRUISPosterChannelViewController_initWithChannel_purpose_context_deleg
 
 - (void)loadView
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = PRUISPosterChannelViewController;
-  [(PRUISPosterChannelViewController *)&v6 loadView];
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = PRUISPosterChannelViewController;
+  [(PRUISPosterChannelViewController *)&v7 loadView];
   view = [(PRUISPosterChannelViewController *)self view];
   [view setBackgroundColor:self->_viewBackgroundColor];
 
-  v4 = PRUISLogChannels();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = PRUISLogChannels(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
     *buf = 138543362;
-    v8 = _logPrefix;
-    _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ loadView...", buf, 0xCu);
+    v9 = _logPrefix;
+    _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ loadView...", buf, 0xCu);
   }
 
   if (self->_viewController)
@@ -307,36 +307,36 @@ id __101__PRUISPosterChannelViewController_initWithChannel_purpose_context_deleg
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = PRUISPosterChannelViewController;
-  [(PRUISPosterChannelViewController *)&v11 viewDidAppear:appear];
-  v4 = PRUISLogChannels();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v15 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = PRUISPosterChannelViewController;
+  v4 = [(PRUISPosterChannelViewController *)&v12 viewDidAppear:appear];
+  v5 = PRUISLogChannels(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
     *buf = 138543362;
-    v13 = _logPrefix;
-    _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ viewDidAppear...", buf, 0xCu);
+    v14 = _logPrefix;
+    _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ viewDidAppear...", buf, 0xCu);
   }
 
   posterConfiguration = [(PRUISPosterChannel *)self->_channel posterConfiguration];
-  v7 = posterConfiguration;
+  v8 = posterConfiguration;
   if (self->_viewController)
   {
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = posterConfiguration == 0;
+    v9 = posterConfiguration == 0;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v9 = [(PRUISPosterChannelViewController *)self _createViewControllerForPoster:posterConfiguration];
+    v10 = [(PRUISPosterChannelViewController *)self _createViewControllerForPoster:posterConfiguration];
     viewController = self->_viewController;
-    self->_viewController = v9;
+    self->_viewController = v10;
 
     [(PRUISPosterChannelViewController *)self _addViewController:self->_viewController];
   }
@@ -344,26 +344,26 @@ id __101__PRUISPosterChannelViewController_initWithChannel_purpose_context_deleg
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = PRUISPosterChannelViewController;
-  [(PRUISPosterChannelViewController *)&v8 viewDidDisappear:disappear];
-  v4 = PRUISLogChannels();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = PRUISPosterChannelViewController;
+  v4 = [(PRUISPosterChannelViewController *)&v9 viewDidDisappear:disappear];
+  v5 = PRUISLogChannels(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
     *buf = 138543362;
-    v10 = _logPrefix;
-    _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ viewDidDisappear...", buf, 0xCu);
+    v11 = _logPrefix;
+    _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ viewDidDisappear...", buf, 0xCu);
   }
 
   if (self->_viewController)
   {
     view = [(PRUISPosterChannelViewController *)self view];
     [view bounds];
-    v7 = CGRectEqualToRect(v12, *MEMORY[0x1E695F058]);
+    v8 = CGRectEqualToRect(v13, *MEMORY[0x1E695F058]);
 
-    if (!v7)
+    if (!v8)
     {
       [(PRUISPosterChannelViewController *)self _snapshotCurrentPosterConfiguration];
     }
@@ -374,7 +374,7 @@ id __101__PRUISPosterChannelViewController_initWithChannel_purpose_context_deleg
 {
   disappearCopy = disappear;
   v10 = *MEMORY[0x1E69E9840];
-  v5 = PRUISLogChannels();
+  v5 = PRUISLogChannels(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
@@ -635,15 +635,15 @@ void __60__PRUISPosterChannelViewController_channel_didUpdatePoster___block_invo
     v7 = PFFunctionNameForAddress();
     v8 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
 
-    v9 = PRUISLogChannels();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PRUISLogChannels(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterChannelViewController addEvent:outError:];
     }
 
     if (error)
     {
-      v10 = v8;
+      v11 = v8;
       *error = v8;
     }
 
@@ -662,7 +662,7 @@ void __60__PRUISPosterChannelViewController_channel_didUpdatePoster___block_invo
 
   else
   {
-    v5 = PRUISLogChannels();
+    v5 = PRUISLogChannels(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterChannelViewController userTapEventOccurredWithLocation:?];
@@ -681,7 +681,7 @@ void __60__PRUISPosterChannelViewController_channel_didUpdatePoster___block_invo
 
   else
   {
-    v5 = PRUISLogChannels();
+    v5 = PRUISLogChannels(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterChannelViewController addTransition:?];
@@ -733,7 +733,7 @@ void __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration_
   v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v5 = PRUISLogChannels();
+  v5 = PRUISLogChannels(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [WeakRetained _logPrefix];
@@ -768,29 +768,30 @@ void __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration_
 
 void __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration__block_invoke_95(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AE18];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration__block_invoke_2_97;
-  v11[3] = &unk_1E83A8670;
-  v12 = *(a1 + 32);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration__block_invoke_2_97;
+  v12[3] = &unk_1E83A8670;
+  v13 = *(a1 + 32);
   v5 = a2;
-  v6 = [v4 predicateWithBlock:v11];
+  v6 = [v4 predicateWithBlock:v12];
   v7 = [v5 filteredArrayUsingPredicate:v6];
 
-  if ([v7 count])
+  v8 = [v7 count];
+  if (v8)
   {
-    v8 = PRUISLogChannels();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PRUISLogChannels(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 40) _logPrefix];
-      v10 = [v7 count];
+      v10 = [*(a1 + 40) _logPrefix];
+      v11 = [v7 count];
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2048;
-      v16 = v10;
-      _os_log_impl(&dword_1CAE63000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Purging %lu old waitingForLiveRenderingScene snapshots", buf, 0x16u);
+      v15 = v10;
+      v16 = 2048;
+      v17 = v11;
+      _os_log_impl(&dword_1CAE63000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Purging %lu old waitingForLiveRenderingScene snapshots", buf, 0x16u);
     }
 
     [*(a1 + 40) _purgeSnapshotBundles:v7];
@@ -801,7 +802,7 @@ void __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration_
 {
   v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRUISLogChannels();
+  v4 = PRUISLogChannels(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) _logPrefix];
@@ -823,7 +824,7 @@ void __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration_
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = PRUISLogChannels();
+  v5 = PRUISLogChannels(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration__block_invoke_103_cold_1();
@@ -843,7 +844,7 @@ void __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration_
   v10 = processHandle;
   if (processHandle)
   {
-    [processHandle auditToken];
+    objc_msgSend_auditToken(processHandle);
   }
 
   else
@@ -864,13 +865,14 @@ void __71__PRUISPosterChannelViewController__snapshotCurrentPosterConfiguration_
   v5 = +[PRUISPosterChannelSnapshotDefinition waitingForLiveRenderingSceneDefinition];
   v6 = [(UIViewController *)self pruis_snapshotRequestForDefinition:v5 interfaceOrientation:self->_activeOrientation bounds:0 screen:configurationCopy posterContents:*MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)];
 
-  v11 = 0;
-  v7 = [v6 buildPUISnapshotRequestForPriority:0 sceneAttachments:0 error:&v11];
-  v8 = v11;
+  v12 = 0;
+  v7 = [v6 buildPUISnapshotRequestForPriority:0 sceneAttachments:0 error:&v12];
+  v8 = v12;
+  v9 = v8;
   if (v8)
   {
-    v9 = PRUISLogChannels();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PRUISLogChannels(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterChannelViewController _waitingForLiveRenderingSceneSnapshotRequestForPosterConfiguration:];
     }
@@ -968,66 +970,66 @@ void __63__PRUISPosterChannelViewController__purgeSnapshotBundleFuture___block_i
 
 - (void)_purgeSnapshotBundles:(id)bundles
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   bundlesCopy = bundles;
   if ([bundlesCopy count])
   {
     v5 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(bundlesCopy, "count")}];
-    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v19 = bundlesCopy;
+    v26 = 0u;
+    v20 = bundlesCopy;
     v6 = bundlesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          bundleURL = [*(*(&v22 + 1) + 8 * i) bundleURL];
+          bundleURL = [*(*(&v23 + 1) + 8 * i) bundleURL];
           uRLByStandardizingPath = [bundleURL URLByStandardizingPath];
 
-          v13 = PRUISLogChannels();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = PRUISLogChannels(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
             *buf = 138543618;
-            v27 = _logPrefix;
-            v28 = 2114;
-            v29 = uRLByStandardizingPath;
-            _os_log_impl(&dword_1CAE63000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ Purging snapshot bundle at url: %{public}@.", buf, 0x16u);
+            v28 = _logPrefix;
+            v29 = 2114;
+            v30 = uRLByStandardizingPath;
+            _os_log_impl(&dword_1CAE63000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ Purging snapshot bundle at url: %{public}@.", buf, 0x16u);
           }
 
           [v5 addObject:uRLByStandardizingPath];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v8);
     }
 
-    v15 = MEMORY[0x1E696AE18];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __58__PRUISPosterChannelViewController__purgeSnapshotBundles___block_invoke;
-    v20[3] = &unk_1E83A8760;
-    v21 = v5;
-    v16 = v5;
-    v17 = [v15 predicateWithBlock:v20];
+    v16 = MEMORY[0x1E696AE18];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __58__PRUISPosterChannelViewController__purgeSnapshotBundles___block_invoke;
+    v21[3] = &unk_1E83A8760;
+    v22 = v5;
+    v17 = v5;
+    v18 = [v16 predicateWithBlock:v21];
     _snapshotCache = [(PRUISPosterChannelViewController *)self _snapshotCache];
-    [_snapshotCache discardSnapshotsForPostersMatchingPredicate:v17];
+    [_snapshotCache discardSnapshotsForPostersMatchingPredicate:v18];
 
-    bundlesCopy = v19;
+    bundlesCopy = v20;
   }
 }
 
@@ -1066,7 +1068,7 @@ void __74__PRUISPosterChannelViewController__latestSnapshotBundleForConfiguratio
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = PRUISLogChannels();
+  v5 = PRUISLogChannels(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __74__PRUISPosterChannelViewController__latestSnapshotBundleForConfiguration___block_invoke_cold_1();
@@ -1075,7 +1077,7 @@ void __74__PRUISPosterChannelViewController__latestSnapshotBundleForConfiguratio
 
 - (id)_fetchInitialStateSnapshotBundleForPoster:(id)poster
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   posterCopy = poster;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained && (v6 = WeakRetained, v7 = objc_loadWeakRetained(&self->_delegate), v8 = objc_opt_respondsToSelector(), v7, v6, (v8 & 1) != 0))
@@ -1105,71 +1107,71 @@ void __74__PRUISPosterChannelViewController__latestSnapshotBundleForConfiguratio
   uniqueIdentifier = [v16 uniqueIdentifier];
   [v13 setSnapshotDefinitionIdentifier:uniqueIdentifier];
 
-  v18 = PRUISLogChannels();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = PRUISLogChannels(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
     channel = self->_channel;
-    v30 = 138543618;
-    v31 = _logPrefix;
-    v32 = 2112;
-    v33 = channel;
-    _os_log_impl(&dword_1CAE63000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@[_fetchInitialStateSnapshotBundleForPoster] channel: %@", &v30, 0x16u);
+    v32 = 138543618;
+    v33 = _logPrefix;
+    v34 = 2112;
+    v35 = channel;
+    _os_log_impl(&dword_1CAE63000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@[_fetchInitialStateSnapshotBundleForPoster] channel: %@", &v32, 0x16u);
   }
 
-  v21 = PRUISLogChannels();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v23 = PRUISLogChannels(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     _logPrefix2 = [(PRUISPosterChannelViewController *)self _logPrefix];
-    v23 = @"NO";
-    v30 = 138543874;
-    v31 = _logPrefix2;
-    v32 = 2114;
+    v25 = @"NO";
+    v32 = 138543874;
+    v33 = _logPrefix2;
+    v34 = 2114;
     if (v14)
     {
-      v23 = @"YES";
+      v25 = @"YES";
     }
 
-    v33 = v23;
-    v34 = 2114;
-    v35 = v13;
-    _os_log_impl(&dword_1CAE63000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@[_fetchInitialStateSnapshotBundleForPoster] fetching initial state snapshot bundle for predicate (host-provided? %{public}@): %{public}@", &v30, 0x20u);
+    v35 = v25;
+    v36 = 2114;
+    v37 = v13;
+    _os_log_impl(&dword_1CAE63000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@[_fetchInitialStateSnapshotBundleForPoster] fetching initial state snapshot bundle for predicate (host-provided? %{public}@): %{public}@", &v32, 0x20u);
   }
 
-  v24 = [(PRUISPosterChannel *)self->_channel cachedSnapshotBundleSatisfyingPredicate:v13];
-  _snapshotCache = PRUISLogChannels();
-  v26 = os_log_type_enabled(_snapshotCache, OS_LOG_TYPE_DEFAULT);
-  if (v24)
+  v26 = [(PRUISPosterChannel *)self->_channel cachedSnapshotBundleSatisfyingPredicate:v13];
+  _snapshotCache = PRUISLogChannels(v26);
+  v28 = os_log_type_enabled(_snapshotCache, OS_LOG_TYPE_DEFAULT);
+  if (v26)
   {
-    if (!v26)
+    if (!v28)
     {
       goto LABEL_18;
     }
 
     _logPrefix3 = [(PRUISPosterChannelViewController *)self _logPrefix];
-    v30 = 138543362;
-    v31 = _logPrefix3;
-    _os_log_impl(&dword_1CAE63000, _snapshotCache, OS_LOG_TYPE_DEFAULT, "%{public}@[_fetchInitialStateSnapshotBundleForPoster] found in-memory cache for snapshot bundle", &v30, 0xCu);
+    v32 = 138543362;
+    v33 = _logPrefix3;
+    _os_log_impl(&dword_1CAE63000, _snapshotCache, OS_LOG_TYPE_DEFAULT, "%{public}@[_fetchInitialStateSnapshotBundleForPoster] found in-memory cache for snapshot bundle", &v32, 0xCu);
   }
 
   else
   {
-    if (v26)
+    if (v28)
     {
       _logPrefix4 = [(PRUISPosterChannelViewController *)self _logPrefix];
-      v30 = 138543362;
-      v31 = _logPrefix4;
-      _os_log_impl(&dword_1CAE63000, _snapshotCache, OS_LOG_TYPE_DEFAULT, "%{public}@[_fetchInitialStateSnapshotBundleForPoster] did not find in-memory cache for snapshot bundle. Checking SQLite cache.", &v30, 0xCu);
+      v32 = 138543362;
+      v33 = _logPrefix4;
+      _os_log_impl(&dword_1CAE63000, _snapshotCache, OS_LOG_TYPE_DEFAULT, "%{public}@[_fetchInitialStateSnapshotBundleForPoster] did not find in-memory cache for snapshot bundle. Checking SQLite cache.", &v32, 0xCu);
     }
 
     _snapshotCache = [(PRUISPosterChannelViewController *)self _snapshotCache];
     _logPrefix3 = [_snapshotCache underlyingCache];
-    v24 = [_logPrefix3 latestSnapshotBundleMatchingPredicate:v13 outError:0];
+    v26 = [_logPrefix3 latestSnapshotBundleMatchingPredicate:v13 outError:0];
   }
 
 LABEL_18:
 
-  return v24;
+  return v26;
 }
 
 - (id)_fetchSnapshotBundlesFutureForPosterUUID:(id)d
@@ -1215,100 +1217,101 @@ LABEL_18:
 
 - (id)_createViewControllerForPoster:(id)poster
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   posterCopy = poster;
   channel = self->_channel;
-  v19 = 0;
-  v6 = [(PRUISPosterChannel *)channel pooledExtensionInstanceWithError:&v19];
-  v7 = v19;
+  v20 = 0;
+  v6 = [(PRUISPosterChannel *)channel pooledExtensionInstanceWithError:&v20];
+  v7 = v20;
+  v8 = v7;
   if (!v7)
   {
     initialStateWaitingForLiveRenderingSnapshotBundle = self->_initialStateWaitingForLiveRenderingSnapshotBundle;
-    v11 = PRUISLogChannels();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = PRUISLogChannels(0);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (initialStateWaitingForLiveRenderingSnapshotBundle)
     {
-      if (v12)
+      if (v13)
       {
         _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
-        v14 = self->_initialStateWaitingForLiveRenderingSnapshotBundle;
+        v15 = self->_initialStateWaitingForLiveRenderingSnapshotBundle;
         *buf = 138543618;
-        v21 = _logPrefix;
-        v22 = 2114;
-        v23 = v14;
-        v15 = "%{public}@ initializing rendering view controller with snapshotBundle: %{public}@";
-        v16 = v11;
-        v17 = 22;
+        v22 = _logPrefix;
+        v23 = 2114;
+        v24 = v15;
+        v16 = "%{public}@ initializing rendering view controller with snapshotBundle: %{public}@";
+        v17 = v12;
+        v18 = 22;
 LABEL_10:
-        _os_log_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
+        _os_log_impl(&dword_1CAE63000, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
       }
     }
 
-    else if (v12)
+    else if (v13)
     {
       _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
       *buf = 138543362;
-      v21 = _logPrefix;
-      v15 = "%{public}@ initializing rendering view controller with nil snapshotBundle";
-      v16 = v11;
-      v17 = 12;
+      v22 = _logPrefix;
+      v16 = "%{public}@ initializing rendering view controller with nil snapshotBundle";
+      v17 = v12;
+      v18 = 12;
       goto LABEL_10;
     }
 
-    v8 = [PRUISPosterSnapshotBundle snapshotBundleWithPUIPosterSnapshotBundle:self->_initialStateWaitingForLiveRenderingSnapshotBundle];
-    v9 = [[PRUISPosterRenderingViewController alloc] initWithPosterContents:posterCopy context:self->_renderingContext boundingShape:-1 extensionInstance:v6 snapshotController:self->_snapshotController initialSnapshotBundle:v8 renderingMode:self->_renderingMode];
-    [(PRUISPosterRenderingViewController *)v9 setShowsContentWhenReady:1];
-    [(PRUISPosterRenderingViewController *)v9 setSalientContentRectangle:self->_salientContentRectangle.origin.x, self->_salientContentRectangle.origin.y, self->_salientContentRectangle.size.width, self->_salientContentRectangle.size.height];
-    [(PRUISPosterRenderingViewController *)v9 setContentOcclusionRectangles:self->_contentOcclusionRectangles];
-    [(PRUISPosterRenderingViewController *)v9 setViewBackgroundColor:self->_viewBackgroundColor];
-    [(PRUISPosterRenderingViewController *)v9 setSceneViewBackgroundColor:self->_sceneViewBackgroundColor];
+    v9 = [PRUISPosterSnapshotBundle snapshotBundleWithPUIPosterSnapshotBundle:self->_initialStateWaitingForLiveRenderingSnapshotBundle];
+    v10 = [[PRUISPosterRenderingViewController alloc] initWithPosterContents:posterCopy context:self->_renderingContext boundingShape:-1 extensionInstance:v6 snapshotController:self->_snapshotController initialSnapshotBundle:v9 renderingMode:self->_renderingMode];
+    [(PRUISPosterRenderingViewController *)v10 setShowsContentWhenReady:1];
+    [(PRUISPosterRenderingViewController *)v10 setSalientContentRectangle:self->_salientContentRectangle.origin.x, self->_salientContentRectangle.origin.y, self->_salientContentRectangle.size.width, self->_salientContentRectangle.size.height];
+    [(PRUISPosterRenderingViewController *)v10 setContentOcclusionRectangles:self->_contentOcclusionRectangles];
+    [(PRUISPosterRenderingViewController *)v10 setViewBackgroundColor:self->_viewBackgroundColor];
+    [(PRUISPosterRenderingViewController *)v10 setSceneViewBackgroundColor:self->_sceneViewBackgroundColor];
     goto LABEL_12;
   }
 
-  v8 = PRUISLogChannels();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = PRUISLogChannels(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [PRUISPosterChannelViewController _createViewControllerForPoster:];
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_12:
 
-  return v9;
+  return v10;
 }
 
 - (void)_addViewController:(id)controller
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   childViewControllers = [(PRUISPosterChannelViewController *)self childViewControllers];
   v6 = [childViewControllers containsObject:controllerCopy];
 
-  view = PRUISLogChannels();
-  v8 = os_log_type_enabled(view, OS_LOG_TYPE_DEFAULT);
+  view = PRUISLogChannels(v7);
+  v9 = os_log_type_enabled(view, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
-    if (v8)
+    if (v9)
     {
       _logPrefix = [(PRUISPosterChannelViewController *)self _logPrefix];
-      v11 = 138543618;
-      v12 = _logPrefix;
-      v13 = 2114;
-      v14 = controllerCopy;
-      _os_log_impl(&dword_1CAE63000, view, OS_LOG_TYPE_DEFAULT, "%{public}@ view controller is already a child of self: %{public}@", &v11, 0x16u);
+      v12 = 138543618;
+      v13 = _logPrefix;
+      v14 = 2114;
+      v15 = controllerCopy;
+      _os_log_impl(&dword_1CAE63000, view, OS_LOG_TYPE_DEFAULT, "%{public}@ view controller is already a child of self: %{public}@", &v12, 0x16u);
     }
   }
 
   else
   {
-    if (v8)
+    if (v9)
     {
       _logPrefix2 = [(PRUISPosterChannelViewController *)self _logPrefix];
-      v11 = 138543618;
-      v12 = _logPrefix2;
-      v13 = 2114;
-      v14 = controllerCopy;
-      _os_log_impl(&dword_1CAE63000, view, OS_LOG_TYPE_DEFAULT, "%{public}@ adding new view controller: %{public}@", &v11, 0x16u);
+      v12 = 138543618;
+      v13 = _logPrefix2;
+      v14 = 2114;
+      v15 = controllerCopy;
+      _os_log_impl(&dword_1CAE63000, view, OS_LOG_TYPE_DEFAULT, "%{public}@ adding new view controller: %{public}@", &v12, 0x16u);
     }
 
     [(PRUISPosterChannelViewController *)self bs_addChildViewController:controllerCopy];
@@ -1345,7 +1348,7 @@ void __66__PRUISPosterChannelViewController__teardownPosterViewController___bloc
 {
   v11 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) extensionInstance];
-  v3 = PRUISLogChannels();
+  v3 = PRUISLogChannels(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);

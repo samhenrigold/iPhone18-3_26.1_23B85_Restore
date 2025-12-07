@@ -114,16 +114,15 @@
   {
     v4 = route;
     [(CAFRoute *)route registerObserver:selfCopy];
-    v5 = *(selfCopy + OBJC_IVAR___CPVehicleStateManager_routeSharingState);
 
     swift_unknownObjectWeakAssign();
 
-    v6 = v4;
+    v5 = v4;
   }
 
   else
   {
-    v6 = selfCopy;
+    v5 = selfCopy;
   }
 }
 

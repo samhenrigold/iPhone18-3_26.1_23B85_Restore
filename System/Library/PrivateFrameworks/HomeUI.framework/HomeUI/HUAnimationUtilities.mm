@@ -14,7 +14,7 @@
   v37 = 0u;
   if (animationCopy)
   {
-    [animationCopy transform];
+    objc_msgSend_transform(animationCopy);
   }
 
   aBlock[0] = MEMORY[0x277D85DD0];

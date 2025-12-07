@@ -665,296 +665,378 @@ LABEL_17:
 
 - (void)layoutSubviews
 {
-  v165.receiver = self;
-  v165.super_class = PKPassSemanticBoardingPassFaceView;
-  [(PKPassFrontFaceView *)&v165 layoutSubviews];
+  v275.receiver = self;
+  v275.super_class = PKPassSemanticBoardingPassFaceView;
+  [(PKPassFrontFaceView *)&v275 layoutSubviews];
   style = [(PKPassFaceView *)self style];
   PKPassFrontFaceContentSize();
   v5 = v4;
+  v266 = v6;
   PKPassFaceLogoRect();
-  x = v166.origin.x;
-  y = v166.origin.y;
-  width = v166.size.width;
-  height = v166.size.height;
-  MinX = CGRectGetMinX(v166);
-  v155 = v5 + MinX * -2.0;
-  PKFloatRoundToPixel();
-  v11 = v10;
-  v164 = v5;
+  x = v276.origin.x;
+  y = v276.origin.y;
+  width = v276.size.width;
+  height = v276.size.height;
+  MinX = CGRectGetMinX(v276);
+  v11.n128_u64[0] = 0.5;
+  v264 = v5 + MinX * -2.0;
+  v12.n128_f64[0] = v264 * 0.5;
+  PKFloatRoundToPixel(v12, v11);
+  v14 = v13;
+  *&v274 = v5;
   if (self->_logoLabel)
   {
-    v167.origin.x = x;
-    v167.origin.y = y;
-    v167.size.width = width;
-    v167.size.height = height;
-    if (!CGRectIsNull(v167))
+    v277.origin.x = x;
+    v277.origin.y = y;
+    v277.size.width = width;
+    v277.size.height = height;
+    if (!CGRectIsNull(v277))
     {
-      v12 = x;
-      v160 = height;
+      v15 = x;
+      v270 = height;
       pass = [(PKPassFaceView *)self pass];
       [pass logoRect];
-      v15 = v14;
-      v17 = v16;
-      v19 = v18;
-      v21 = v20;
+      v18 = v17;
+      v20 = v19;
+      v22 = v21;
+      v24 = v23;
 
-      v168.origin.x = v15;
-      v168.origin.y = v17;
-      v168.size.width = v19;
-      v168.size.height = v21;
-      if (CGRectIsNull(v168))
+      v278.origin.x = v18;
+      v278.origin.y = v20;
+      v278.size.width = v22;
+      v278.size.height = v24;
+      if (CGRectIsNull(v278))
       {
-        v22 = v12;
-        v169.origin.x = v12;
-        v169.origin.y = y;
-        v169.size.width = width;
-        v23 = v160;
-        v169.size.height = v160;
-        v24 = CGRectGetMinX(v169);
+        x = v15;
+        v279.origin.x = v15;
+        v279.origin.y = y;
+        v279.size.width = width;
+        height = v270;
+        v279.size.height = v270;
+        v25 = CGRectGetMinX(v279);
       }
 
       else
       {
-        v170.origin.x = v15;
-        v170.origin.y = v17;
-        v170.size.width = v19;
-        v170.size.height = v21;
-        v24 = CGRectGetMaxX(v170) + 8.0;
-        v23 = v160;
-        v22 = v12;
+        v280.origin.x = v18;
+        v280.origin.y = v20;
+        v280.size.width = v22;
+        v280.size.height = v24;
+        v25 = CGRectGetMaxX(v280) + 8.0;
+        height = v270;
+        x = v15;
       }
 
-      v171.origin.x = v22;
-      v171.origin.y = y;
-      v171.size.width = v11;
-      v171.size.height = v23;
-      [(UILabel *)self->_logoLabel sizeThatFits:CGRectGetMaxX(v171) - v24, 1.79769313e308];
+      v281.origin.x = x;
+      v281.origin.y = y;
+      v281.size.width = v14;
+      v281.size.height = height;
+      [(UILabel *)self->_logoLabel sizeThatFits:CGRectGetMaxX(v281) - v25, 1.79769313e308];
       logoLabel = self->_logoLabel;
       UIRectCenteredYInRect();
       [(UILabel *)logoLabel setFrame:?];
     }
   }
 
-  v153 = v11;
-  [(UILabel *)self->_flightCodeLabel sizeThatFits:v11, 1.79769313e308];
-  v27 = v26;
+  v27 = v14;
+  v262 = v14;
+  [(UILabel *)self->_flightCodeLabel sizeThatFits:v14, 1.79769313e308];
   v29 = v28;
-  [(UILabel *)self->_dateLabel sizeThatFits:v11, 1.79769313e308];
-  v158 = v30;
-  v161 = v31;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  MinY = CGRectGetMinY(v172);
-  [(UILabel *)self->_flightCodeLabel setFrame:v164 - MinX - v27, MinY, v27, v29];
-  v173.origin.x = v164 - MinX - v27;
-  v173.origin.y = MinY;
-  v173.size.width = v27;
-  v173.size.height = v29;
-  [(UILabel *)self->_dateLabel setFrame:v164 - MinX - v158, CGRectGetMaxY(v173) + -2.0, v158, v161];
+  v30 = *&height;
+  v32 = v31;
+  [(UILabel *)self->_dateLabel sizeThatFits:v27, 1.79769313e308];
+  v268 = v33;
+  v271 = v34;
+  v35 = v32 + v34 + -2.0;
+  v36 = PKContentAlignmentMake();
+  v37.n128_u64[0] = 0;
+  v38.n128_f64[0] = v35;
+  v39.n128_f64[0] = x;
+  v40.n128_f64[0] = y;
+  v41.n128_f64[0] = width;
+  v42.n128_u64[0] = v30;
+  PKSizeAlignedInRect(v36, v37, v38, v39, v40, v41, v42, v43);
+  MinY = CGRectGetMinY(v282);
+  [(UILabel *)self->_flightCodeLabel setFrame:*&v274 - MinX - v29, MinY, v29, v32];
+  v283.origin.x = *&v274 - MinX - v29;
+  v283.origin.y = MinY;
+  v283.size.width = v29;
+  v283.size.height = v32;
+  [(UILabel *)self->_dateLabel setFrame:*&v274 - MinX - v268, CGRectGetMaxY(v283) + -2.0, v268, v271];
   [(UIImageView *)self->_transitImageView frame];
-  v33 = *MEMORY[0x1E695EFF8];
-  v34 = *(MEMORY[0x1E695EFF8] + 8);
-  v35 = 28.0;
-  if (v164 < 343.0)
+  v45 = *MEMORY[0x1E695EFF8];
+  v46 = *(MEMORY[0x1E695EFF8] + 8);
+  v47 = 28.0;
+  if (*&v274 < 343.0)
   {
-    v35 = 8.0;
+    v47 = 8.0;
   }
 
-  v151 = v35;
-  v36 = 9.0;
-  if (v164 < 343.0)
+  v260 = v47;
+  v48 = 9.0;
+  if (*&v274 < 343.0)
   {
-    v36 = 5.0;
+    v48 = 5.0;
   }
 
-  v152 = v36;
-  v159 = *(MEMORY[0x1E695EFF8] + 8);
-  v162 = *MEMORY[0x1E695EFF8];
+  v261 = v48;
+  v269 = *(MEMORY[0x1E695EFF8] + 8);
+  v272 = *MEMORY[0x1E695EFF8];
   UIRectCenteredXInRect();
-  v38 = v37;
-  v40 = v39;
-  v42 = v41;
-  v44 = v43;
-  [(UIImageView *)self->_transitImageView setFrame:?];
-  v145 = v153 + -20.0;
-  [(UILabel *)self->_departureCityLabel textRectForBounds:1 limitedToNumberOfLines:v33, v34];
-  v46.n128_u64[0] = v45.n128_u64[0];
-  v48.n128_u64[0] = v47;
-  PKSizeCeilToPixel(v46, v48, v45);
   v50 = v49;
   v52 = v51;
-  v154 = v51;
+  v54 = v53;
+  v56 = v55;
+  [(UIImageView *)self->_transitImageView setFrame:?];
+  v251 = v262 + -20.0;
+  [(UILabel *)self->_departureCityLabel textRectForBounds:1 limitedToNumberOfLines:v45, v46];
+  v58.n128_u64[0] = v57.n128_u64[0];
+  v60.n128_u64[0] = v59;
+  PKSizeCeilToPixel(v58, v60, v57);
+  v62 = v61;
+  v64 = v63;
+  v263 = *&v63;
   [(UILabel *)self->_departureAirportLabel sizeThatFits:1.79769313e308, 1.79769313e308];
-  PKSizeCeilToPixel(v53, v54, v55);
-  v57 = v56;
+  PKSizeCeilToPixel(v65, v66, v67);
+  v256 = v68;
+  v70 = v69;
   [(UILabel *)self->_departureDateLabel sizeThatFits:1.79769313e308, 1.79769313e308];
-  PKSizeCeilToPixel(v58, v59, v60);
-  v146 = v61;
-  v62 = v52 + v57 + v61 + -6.0;
-  v174.origin.x = v38;
-  v174.origin.y = v40;
-  v174.size.width = v42;
-  v174.size.height = v44;
-  v63 = CGRectGetMinY(v174);
-  v175.origin.x = v38;
-  v175.origin.y = v40;
-  v175.size.width = v42;
-  v175.size.height = v44;
-  v64 = CGRectGetHeight(v175);
-  v65.n128_u64[0] = 0.5;
-  v66.n128_f64[0] = v63 + (v64 - v62) * 0.5;
-  PKFloatCeilToPixel(v66, v65);
-  [(UILabel *)self->_departureCityLabel setFrame:MinX, v67, v50, v154];
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  [(UILabel *)self->_departureAirportLabel setFrame:v69, v57 + -2.0 + v68];
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v149 = v71;
-  v150 = v70;
-  v147 = v146 + -4.0 + v72;
-  v148 = v73;
+  PKSizeCeilToPixel(v71, v72, v73);
+  v258 = v74;
+  v253 = v75;
+  v76 = v64 + v70 + v75 + -6.0;
+  v284.origin.x = v50;
+  v284.origin.y = v52;
+  v284.size.width = v54;
+  v284.size.height = v56;
+  v77 = CGRectGetMinY(v284);
+  v285.origin.x = v50;
+  v285.origin.y = v52;
+  v285.size.width = v54;
+  v285.size.height = v56;
+  v78 = CGRectGetHeight(v285);
+  v79.n128_u64[0] = 0.5;
+  v80.n128_f64[0] = v77 + (v78 - v76) * 0.5;
+  PKFloatCeilToPixel(v80, v79);
+  v82 = *&v81;
+  v250 = *&v62;
+  [(UILabel *)self->_departureCityLabel setFrame:MinX, v81, v62, *&v263];
+  v83 = PKContentAlignmentMake();
+  v84.n128_u64[0] = v256;
+  v85.n128_f64[0] = v70;
+  v86.n128_f64[0] = MinX;
+  v87.n128_u64[0] = v82;
+  v88.n128_f64[0] = v62;
+  v89.n128_u64[0] = v263;
+  PKSizeAlignedInRect(v83, v84, v85, v86, v87, v88, v89, v90);
+  v92 = *&v91;
+  v94 = v93;
+  v96 = v95;
+  v98 = v70 + -2.0 + v97;
+  [(UILabel *)self->_departureAirportLabel setFrame:v91, v98];
+  v99 = PKContentAlignmentMake();
+  v100.n128_u64[0] = v258;
+  v101.n128_f64[0] = v253;
+  v102.n128_u64[0] = v92;
+  v103.n128_f64[0] = v98;
+  v104.n128_u64[0] = v94;
+  v105.n128_u64[0] = v96;
+  PKSizeAlignedInRect(v99, v100, v101, v102, v103, v104, v105, v106);
+  v257 = v108;
+  v259 = v107;
+  v254 = v253 + -4.0 + v109;
+  v255 = v110;
   [(UILabel *)self->_departureDateLabel setFrame:?];
-  [(UILabel *)self->_destinationCityLabel textRectForBounds:1 limitedToNumberOfLines:v162, v159, v145, 1.79769313e308];
-  v75.n128_u64[0] = v74.n128_u64[0];
-  v77.n128_u64[0] = v76;
-  PKSizeCeilToPixel(v75, v77, v74);
-  v79 = v78;
+  [(UILabel *)self->_destinationCityLabel textRectForBounds:1 limitedToNumberOfLines:v272, v269, v251, 1.79769313e308];
+  v112.n128_u64[0] = v111.n128_u64[0];
+  v114.n128_u64[0] = v113;
+  PKSizeCeilToPixel(v112, v114, v111);
+  v116 = v115;
+  v118 = v117;
   [(UILabel *)self->_destinationAirportLabel sizeThatFits:1.79769313e308, 1.79769313e308];
-  PKSizeCeilToPixel(v80, v81, v82);
-  v84 = v83;
+  PKSizeCeilToPixel(v119, v120, v121);
+  v123 = v122;
+  v125 = v124;
   [(UILabel *)self->_arrivalDateLabel sizeThatFits:1.79769313e308, 1.79769313e308];
-  PKSizeCeilToPixel(v85, v86, v87);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v88.n128_f64[0] = v164 - MinX - v79;
-  PKFloatFloorToPixel(v88, v89);
+  PKSizeCeilToPixel(v126, v127, v128);
+  v252 = v129;
+  v131 = v130;
+  v132 = PKContentAlignmentMake();
+  v133.n128_f64[0] = v116;
+  v134.n128_u64[0] = v118;
+  v135.n128_f64[0] = MinX;
+  v136.n128_u64[0] = v82;
+  v137.n128_u64[0] = v250;
+  v138.n128_u64[0] = v263;
+  PKSizeAlignedInRect(v132, v133, v134, v135, v136, v137, v138, v139);
+  v141 = v140.n128_u64[0];
+  v143 = v142;
+  v145 = v144;
+  v146.n128_f64[0] = *&v274 - MinX - v116;
+  PKFloatFloorToPixel(v146, v140);
+  v148 = v147;
   [(UILabel *)self->_destinationCityLabel setFrame:?];
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  [(UILabel *)self->_destinationAirportLabel setFrame:v91, v84 + -2.0 + v90];
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v149 = PKContentAlignmentMake();
+  v150.n128_u64[0] = v123;
+  v151.n128_f64[0] = v125;
+  v152.n128_u64[0] = v148;
+  v153.n128_u64[0] = v141;
+  v154.n128_u64[0] = v143;
+  v155.n128_u64[0] = v145;
+  PKSizeAlignedInRect(v149, v150, v151, v152, v153, v154, v155, v156);
+  v158 = *&v157;
+  v160 = v159;
+  v162 = v161;
+  v164 = v125 + -2.0 + v163;
+  [(UILabel *)self->_destinationAirportLabel setFrame:v157, v164];
+  v165 = PKContentAlignmentMake();
+  v166.n128_u64[0] = v252;
+  v167.n128_u64[0] = v131;
+  v168.n128_u64[0] = v158;
+  v169.n128_f64[0] = v164;
+  v170.n128_u64[0] = v160;
+  v171.n128_u64[0] = v162;
+  PKSizeAlignedInRect(v165, v166, v167, v168, v169, v170, v171, v172);
   [(UILabel *)self->_arrivalDateLabel setFrame:?];
-  [(UILabel *)self->_passengerNameLabel textRectForBounds:1 limitedToNumberOfLines:v162, v159];
-  v93.n128_u64[0] = v92.n128_u64[0];
-  v95.n128_u64[0] = v94;
-  PKSizeCeilToPixel(v93, v95, v92);
-  v97 = v96;
-  v99 = v98;
-  v176.size.width = v149;
-  v176.origin.x = v150;
-  v176.origin.y = v147;
-  v176.size.height = v148;
-  v100 = v151 + CGRectGetMaxY(v176);
-  [(UILabel *)self->_passengerNameLabel setFrame:MinX, v100, v97, v99];
-  [(PKPassFaceBadgesCollectionView *)self->_badgesCollectionView sizeForBoundingSize:2 limitedToNumberOfLines:v155 + 6.0, 1.79769313e308];
-  v102 = v101;
-  v104 = v103;
-  v177.origin.x = MinX;
-  v177.origin.y = v100;
-  v177.size.width = v97;
-  v177.size.height = v99;
-  v105 = CGRectGetMinX(v177) + -3.0;
-  v178.origin.x = MinX;
-  v178.origin.y = v100;
-  v178.size.width = v97;
-  v178.size.height = v99;
-  v106 = v152 + CGRectGetMaxY(v178);
-  [(PKPassFaceBadgesCollectionView *)self->_badgesCollectionView setFrame:v105, v106, v102, v104];
-  [(PKPassFaceBadgesCollectionView *)self->_badgesCollectionView sizeForBoundingSize:1 limitedToNumberOfLines:v155 + 6.0, 1.79769313e308];
-  if (v164 >= 343.0 && v104 <= v107)
+  [(UILabel *)self->_passengerNameLabel textRectForBounds:1 limitedToNumberOfLines:v272, v269];
+  v174.n128_u64[0] = v173.n128_u64[0];
+  v176.n128_u64[0] = v175;
+  PKSizeCeilToPixel(v174, v176, v173);
+  v178 = v177;
+  v180 = v179;
+  v286.size.width = v257;
+  v286.origin.x = v259;
+  v286.origin.y = v254;
+  v286.size.height = v255;
+  v181 = v260 + CGRectGetMaxY(v286);
+  [(UILabel *)self->_passengerNameLabel setFrame:MinX, v181, v178, v180];
+  [(PKPassFaceBadgesCollectionView *)self->_badgesCollectionView sizeForBoundingSize:2 limitedToNumberOfLines:v264 + 6.0, 1.79769313e308];
+  v183 = v182;
+  v185 = v184;
+  v287.origin.x = MinX;
+  v287.origin.y = v181;
+  v287.size.width = v178;
+  v287.size.height = v180;
+  v186 = CGRectGetMinX(v287) + -3.0;
+  v288.origin.x = MinX;
+  v288.origin.y = v181;
+  v288.size.width = v178;
+  v288.size.height = v180;
+  v187 = v261 + CGRectGetMaxY(v288);
+  [(PKPassFaceBadgesCollectionView *)self->_badgesCollectionView setFrame:v186, v187, v183, v185];
+  [(PKPassFaceBadgesCollectionView *)self->_badgesCollectionView sizeForBoundingSize:1 limitedToNumberOfLines:v264 + 6.0, 1.79769313e308];
+  if (*&v274 >= 343.0 && v185 <= v188)
   {
-    v109 = 15.0;
+    v190 = 15.0;
   }
 
   else
   {
-    v109 = 5.0;
+    v190 = 5.0;
   }
 
-  [(PKDynamicPassBucketView *)self->_auxiliaryBucketView fittedSizeFor:v155, 1.79769313e308, v164];
-  v111 = v110;
-  v113 = v112;
-  v179.origin.x = v105;
-  v179.origin.y = v106;
-  v179.size.width = v102;
-  v179.size.height = v104;
-  [(PKDynamicPassBucketView *)self->_auxiliaryBucketView setFrame:MinX, CGRectGetMaxY(v179) + v109, v111, v113];
+  [(PKDynamicPassBucketView *)self->_auxiliaryBucketView fittedSizeFor:v264, 1.79769313e308, *&v274];
+  v192 = v191;
+  v194 = v193;
+  v289.origin.x = v186;
+  v289.origin.y = v187;
+  v289.size.width = v183;
+  v289.size.height = v185;
+  [(PKDynamicPassBucketView *)self->_auxiliaryBucketView setFrame:MinX, CGRectGetMaxY(v289) + v190, v192, v194];
   customBarcodeView = self->_customBarcodeView;
   if (customBarcodeView)
   {
     barcode = [(PKBarcodeStickerView *)customBarcodeView barcode];
     [barcode sizeForPassStyle:style];
     [(PKBarcodeStickerView *)self->_customBarcodeView sizeThatFits:?];
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    v119 = v118;
-    v120 = v117;
-    v122 = v121;
-    v123 = 24.0;
-    if (v164 < 343.0)
+    v198 = v197;
+    v200 = v199;
+    v201 = PKContentAlignmentMake();
+    v202.n128_u64[0] = v198;
+    v203.n128_u64[0] = v200;
+    v204 = *&v272;
+    v205.n128_f64[0] = v272;
+    v206.n128_f64[0] = v269;
+    v207.n128_u64[0] = v274;
+    v208.n128_u64[0] = v266;
+    PKSizeAlignedInRect(v201, v202, v203, v205, v206, v207, v208, v209);
+    v213 = v212;
+    v214 = v211;
+    v216 = v215;
+    v217 = 24.0;
+    if (*&v274 < 343.0)
     {
-      v123 = 8.0;
+      v217 = 8.0;
     }
 
-    v124 = v116 - v123;
-    [(PKBarcodeStickerView *)self->_customBarcodeView setFrame:v119, v116 - v123, v117];
+    v218 = v210 - v217;
+    [(PKBarcodeStickerView *)self->_customBarcodeView setFrame:v213, v210 - v217, v211];
+
+    v219 = *&v269;
   }
 
   else
   {
-    v119 = *MEMORY[0x1E695F050];
-    v124 = *(MEMORY[0x1E695F050] + 8);
-    v120 = *(MEMORY[0x1E695F050] + 16);
-    v122 = *(MEMORY[0x1E695F050] + 24);
+    v213 = *MEMORY[0x1E695F050];
+    v218 = *(MEMORY[0x1E695F050] + 8);
+    v214 = *(MEMORY[0x1E695F050] + 16);
+    v216 = *(MEMORY[0x1E695F050] + 24);
+    v219 = *&v269;
+    v204 = *&v272;
   }
 
   footerImageView = self->_footerImageView;
   if (footerImageView)
   {
     [(UIImageView *)footerImageView bounds];
-    v126 = v124;
-    v127 = v122;
-    v128 = v120;
-    v129 = v119;
-    v131 = v130;
-    PKContentAlignmentMake();
-    v157 = v131;
-    v132 = v129;
-    v133 = v128;
-    v134 = v127;
-    v135 = v126;
-    PKSizeAlignedInRect();
-    v137 = v136;
-    v139 = v138;
-    v163 = v140;
-    v142 = v141;
-    v180.origin.x = v132;
-    v180.origin.y = v135;
-    v180.size.width = v133;
-    v180.size.height = v134;
-    if (CGRectIsNull(v180))
+    v222 = v221;
+    v223 = v218;
+    v224 = v216;
+    v225 = v214;
+    v226 = v213;
+    v228 = v227;
+    v229 = PKContentAlignmentMake();
+    v230.n128_u64[0] = v222;
+    v267 = *&v228;
+    v231.n128_u64[0] = v228;
+    v232 = v226;
+    v233 = v225;
+    v234 = v224;
+    v235 = v223;
+    v236.n128_u64[0] = v204;
+    v237.n128_u64[0] = v219;
+    v238.n128_u64[0] = v274;
+    v239.n128_u64[0] = v266;
+    PKSizeAlignedInRect(v229, v230, v231, v236, v237, v238, v239, v240);
+    v242 = v241;
+    v244 = v243;
+    v273 = v245;
+    v247 = v246;
+    v290.origin.x = v232;
+    v290.origin.y = v235;
+    v290.size.width = v233;
+    v290.size.height = v234;
+    if (CGRectIsNull(v290))
     {
-      v143 = 24.0;
-      if (v164 < 343.0)
+      v248 = 24.0;
+      if (*&v274 < 343.0)
       {
-        v143 = 8.0;
+        v248 = 8.0;
       }
 
-      v144 = v139 - v143;
+      v249 = v244 - v248;
     }
 
     else
     {
-      v181.origin.x = v132;
-      v181.origin.y = v135;
-      v181.size.width = v133;
-      v181.size.height = v134;
-      v144 = CGRectGetMinY(v181) + -6.0 - v157;
+      v291.origin.x = v232;
+      v291.origin.y = v235;
+      v291.size.width = v233;
+      v291.size.height = v234;
+      v249 = CGRectGetMinY(v291) + -6.0 - v267;
     }
 
-    [(UIImageView *)self->_footerImageView setFrame:v137, v144, v163, v142];
+    [(UIImageView *)self->_footerImageView setFrame:v242, v249, v273, v247];
   }
 }
 
@@ -1075,13 +1157,13 @@ uint64_t __67__PKPassSemanticBoardingPassFaceView_setShowsBarcodeView_animated__
   return [*(*(a1 + 32) + 1056) setAlpha:v1];
 }
 
-uint64_t __67__PKPassSemanticBoardingPassFaceView_setShowsBarcodeView_animated___block_invoke_2(uint64_t result)
+id *__67__PKPassSemanticBoardingPassFaceView_setShowsBarcodeView_animated___block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
     v2 = result;
-    [*(result + 32) removeContentView:*(*(result + 32) + 1056) ofType:2];
-    v3 = *(v2 + 32);
+    [result[4] removeContentView:*(result[4] + 132) ofType:2];
+    v3 = v2[4];
     v4 = v3[133];
 
     return [v3 removeContentView:v4 ofType:2];
